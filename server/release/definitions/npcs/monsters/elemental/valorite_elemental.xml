@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a valorite elemental -->
-	<npc id="valorite_elemental">
+	<npc id="valorite_elemental" inherit="monster_base">
 		<name>a valorite elemental</name>
 		<id>0x70</id>
-		<inherit id="monster_base"/>
 		<karma>-3500</karma>
 		<fame>3500</fame>
 		<!-- Stats -->

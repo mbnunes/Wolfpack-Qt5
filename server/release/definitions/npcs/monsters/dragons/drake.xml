@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a drake (gray) -->
-	<npc id="drake_gray">
+	<npc id="drake_gray" inherit="monster_base">
 		<name>a drake</name>
 		<id>0x3c</id>
-		<inherit id="monster_base"/>
 		<karma>-5500</karma>
 		<fame>5500</fame>
 		<gold><random min="180" max="220"/></gold>

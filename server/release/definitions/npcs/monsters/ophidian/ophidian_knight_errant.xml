@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- Ophidian Knight-Errant -->
-	<npc id="ophidian_knight_errant">
+	<npc id="ophidian_knight_errant" inherit="monster_base">
 		<name>an ophidian knight-errant</name>
 		<id>0x56</id>
-		<inherit id="monster_base" />
 		<karma>-10000</karma>
 		<fame>10000</fame>
 		<gold><random min="390" max="430"/></gold>

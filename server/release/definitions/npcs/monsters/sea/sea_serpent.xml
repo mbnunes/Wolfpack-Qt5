@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- sea serpent -->
-	<npc id="sea_serpent">
+	<npc id="sea_serpent" inherit="monster_base">
 		<name>a sea serpent</name>
 		<id>0x91</id>
-		<inherit id="monster_base" />
 		<karma>-6000</karma>
 		<fame>6000</fame>
 		<!-- Stats -->

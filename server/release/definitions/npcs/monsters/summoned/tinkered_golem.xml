@@ -2,8 +2,7 @@
 <definitions>
 
 	<!-- tinker's golem -->
-	<npc id="tinkered_golem">
-		<inherit id="golem" />
+	<npc id="tinkered_golem" inherit="golem">
 		<name>a golem</name>
 		<id>0x2f0</id>
 		<category>Monsters\Summoned\Golem (Tinkered)</category>

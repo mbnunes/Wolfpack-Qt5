@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- Ophidian Enforcer -->
-	<npc id="ophidian_enforcer">
+	<npc id="ophidian_enforcer" inherit="monster_base">
 		<name>an ophidian enforcer</name>
 		<id>0x56</id>
-		<inherit id="monster_base" />
 		<karma>-4500</karma>
 		<fame>4500</fame>
 		<gold><random min="100" max="140"/></gold>

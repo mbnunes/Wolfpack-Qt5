@@ -2,11 +2,10 @@
 <definitions>
 
 	<!-- Swamp Dragon -->
-	<npc id="swamp_dragon_1">
+	<npc id="swamp_dragon_1" inherit="monster_base">
 		<name>a swamp dragon</name>
 		<id>0x31a</id>
 		<category>Animals\Mounts\Swamp Dragon</category>
-		<inherit id="monster_base" />
 		<bindmenu>tame_menu</bindmenu>
 		<karma>-2000</karma>
 		<fame>2000</fame>
@@ -28,19 +27,14 @@
 	</npc>
 
 	<!-- Armored Swamp Dragons -->
-	<npc id="swamp_dragon_2">
-		<name>a swamp dragon</name>
+	<npc id="swamp_dragon_2" inherit="swampdragon_1">
 		<id>0x31f</id>
 		<category>Animals\Mounts\Armored Swamp Dragon (Weak)</category>
-		<inherit id="swampdragon_1" />
 	</npc>
 
 	<!-- Armored Swamp Dragons -->
-	<npc id="swamp_dragon_3">
-		<name>a swamp dragon</name>
-		<id>0x31f</id>
+	<npc id="swamp_dragon_3" inherit="swampdragon_2">
 		<category>Animals\Mounts\Armored Swamp Dragon (Strong)</category>
-		<inherit id="swampdragon_2" />
 		<karma>-3500</karma>
 		<fame>3500</fame>
 		<defense><random min="40" max="45" /></defense>

@@ -19,13 +19,12 @@
 	</list>
 
 	<!-- White Wolf -->
-	<npc id="white_wolf">
+	<npc id="white_wolf" inherit="animal_base">
 		<name>a white wolf</name>
 		<id>0xe1</id>
 		<category>Animals\Canine\White Wolf</category>
 		<ai>Animal_Wild</ai>
 		<skin><random list="SKINS_WHITE_WOLF" /></skin>
-		<inherit id="animal_base" />
 		<karma><random min="0" max="-624" /></karma>
 		<fame><random min="0" max="1249" /></fame>
 		<!-- Damage -->

@@ -2,13 +2,12 @@
 <definitions>
 
 	<!-- Cow (black & white) -->
-	<npc id="cow_black">
+	<npc id="cow_black" inherit="animal_base">
 		<name>a cow</name>
 		<id>0xD8</id>
 		<ai>Animal_Domestic</ai>
 		<category>Animals\Land\Cow (black and white)</category>
 		<skin>0</skin>
-		<inherit id="animal_base" />
 		<karma>0</karma>
 		<fame>300</fame>
 		<!-- Damage -->
@@ -30,9 +29,7 @@
 	</npc>
 
 	<!-- Cow (brown) -->
-	<npc id="cow_brown">
-		<inherit id="cow_black" />
-		<name>a cow</name>
+	<npc id="cow_brown" inherit="cow_black">
 		<id>0xE7</id>
 		<category>Animals\Land\Cow (brown)</category>
 	</npc>

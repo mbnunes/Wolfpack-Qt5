@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a titan-->
-	<npc id="titan">
+	<npc id="titan" inherit="monster_base">
 		<name>a titan</name>
 		<id>0x4c</id>
-		<inherit id="monster_base"/>
 		<karma>-11500</karma>
 		<fame>11500</fame>
 		<gold><random min="300" max="450"/></gold>

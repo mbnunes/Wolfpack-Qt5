@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- red solen infiltrator queen -->
-	<npc id="red_solen_infiltrator_queen">
+	<npc id="red_solen_infiltrator_queen" inherit="monster_base">
 		<name>a red solen infiltrator</name>
 		<id>0x30f</id>
 		<karma>-6500</karma>

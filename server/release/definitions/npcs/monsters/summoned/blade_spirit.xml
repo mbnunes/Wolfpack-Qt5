@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- Blade Spirit -->
-	<npc id="blade_spirit">
+	<npc id="blade_spirit" inherit="monster_base">
 		<name>a blade spirit</name>
 		<id>0x23e</id>
-		<inherit id="monster_base"/>
 		<karma>0</karma>
 		<fame>0</fame>
 		<!-- Stats -->

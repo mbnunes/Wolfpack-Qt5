@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- bogling -->
-	<npc id="bogling">
+	<npc id="bogling" inherit="monster_base">
 		<name>a bogling</name>
 		<id>0x30b</id>
-		<inherit id="monster_base"/>
 		<karma>-450</karma>
 		<fame>450</fame>
 		<gold><random min="25" max="50"/></gold>

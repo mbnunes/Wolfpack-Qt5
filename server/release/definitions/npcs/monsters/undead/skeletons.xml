@@ -1,10 +1,9 @@
 
 <definitions>
 
-	<npc id="skeleton_base">
-		<name>a skeleton</name>
-		<inherit id="undead_base" />
+	<npc id="skeleton_base" inherit="undead_base">
 		<inherit id="undead_loot_small" />
+		<name>a skeleton</name>
 		<karma>-450</karma>
 		<fame>450</fame>
 		<!-- Stats -->

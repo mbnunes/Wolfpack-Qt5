@@ -2,7 +2,6 @@
 <definitions>
 
 	<!-- Base Includes -->
-	<include file="definitions/npcs/monsters/base.xml"/>
 	<include file="definitions/npcs/monsters/undead/undead_base.xml"/>
 
 	<!-- Beasts -->

@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a water elemental -->
-	<npc id="water_elemental">
+	<npc id="water_elemental" inherit="monster_base">
 		<name>a water elemental</name>
 		<id>0x10</id>
-		<inherit id="monster_base"/>
 		<karma>-4500</karma>
 		<fame>4500</fame>
 		<!-- Stats -->

@@ -2,11 +2,10 @@
 <definitions>
 
 	<!-- ethereal warrior -->
-	<npc id="ethereal_warrior">
+	<npc id="ethereal_warrior" inherit="undead_base">
 		<name>an ethereal warrior</name>
 		<id>0x7B</id>
 		<category>Monsters\Giants\Ethereal Warrior</category>
-		<inherit id="monster_base" />
 		<karma><random min="5000" max="9999" /></karma>
 		<fame><random min="5000" max="9999" /></fame>
 		<gold><random min="550" max="650"/></gold>

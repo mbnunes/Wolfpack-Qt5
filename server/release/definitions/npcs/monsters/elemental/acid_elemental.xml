@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- an acid elemental -->
-	<npc id="acid_elemental">
+	<npc id="acid_elemental" inherit="monster_base">
 		<name>an acid elemental</name>
 		<id>0x9e</id>
-		<inherit id="monster_base"/>
 		<karma>-10000</karma>
 		<fame>10000</fame>
 		<!-- Stats -->

@@ -1,8 +1,7 @@
 
 <definitions>
 
-	<npc id="ETHEREAL_STATS">
-		<inherit id="animal_base" />
+	<npc id="ETHEREAL_STATS" inherit="animal_base">
 		<karma>0</karma>
 		<fame>0</fame>
 		<!-- Damage -->
@@ -29,8 +28,7 @@
 	</npc>
 
 	<!-- Ethereal Beetle -->
-	<npc id="ethereal_beetle">
-		<inherit id="ETHEREAL_STATS" />
+	<npc id="ethereal_beetle" inherit="ETHERAL_STATS">
 		<name>an ethereal giant beetle</name>
 		<ai>Animal_Wild</ai>
 		<id>0xc3</id>
@@ -39,72 +37,65 @@
 	</npc>
 
 	<!-- Ethereal Horse -->
-	<npc id="ethereal_horse">
+	<npc id="ethereal_horse" inherit="ETHERAL_STATS">
 		<name>an ethereal horse</name>
 		<ai>Animal_Wild</ai>
 		<id>0x73</id>
 		<category>Animals\Mounts\Ethereal\Horse</category>
-		<inherit id="ETHEREAL_STATS" />
 		<food>0</food>
 	</npc>
 
 	<!-- Ethereal Ki-rin -->
-	<npc id="ethereal_kirin">
+	<npc id="ethereal_kirin" inherit="ETHERAL_STATS">
 		<name>an ethereal ki-rin</name>
 		<ai>Animal_Wild</ai>
 		<id>0x317</id>
 		<category>Animals\Mounts\Ethereal\Ki-rin</category>
-		<inherit id="ETHEREAL_STATS" />
 		<food>0</food>
 	</npc>
 
 	<!-- Ethereal Llama -->
-	<npc id="ethereal_llama">
+	<npc id="ethereal_llama" inherit="ETHERAL_STATS">
 		<name>an ethereal llama</name>
 		<ai>Animal_Wild</ai>
 		<id>0xaa</id>
 		<category>Animals\Mounts\Ethereal\Llama</category>
-		<inherit id="ETHEREAL_STATS" />
 		<food>0</food>
 	</npc>
 
 	<!-- Ethereal Ostard -->
-	<npc id="ethereal_ostard">
+	<npc id="ethereal_ostard" inherit="ETHERAL_STATS">
 		<name>an ethereal ostard</name>
 		<ai>Animal_Wild</ai>
 		<id>0xab</id>
 		<category>Animals\Mounts\Ethereal\Ostard</category>
-		<inherit id="ETHEREAL_STATS" />
 		<food>0</food>
 	</npc>
 
 	<!-- Ethereal Ridgeback -->
-	<npc id="ethereal_ridgeback">
+	<npc id="ethereal_ridgeback" inherit="ETHERAL_STATS">
 		<name>an ethereal ridgeback</name>
 		<id>0xc1</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Mounts\Ethereal\Ridgeback</category>
-		<inherit id="ETHEREAL_STATS" />
 		<food>0</food>
 	</npc>
 
 	<!-- Ethereal Swamp Dragon -->
-	<npc id="ethereal_swamp_dragon">
+	<npc id="ethereal_swamp_dragon" inherit="ETHERAL_STATS">
 		<name>an ethereal swamp dragon</name>
 		<id>0xc2</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Mounts\Ethereal\Swamp Dragon</category>
-		<inherit id="ETHEREAL_STATS" />
 		<food>0</food>
 	</npc>
 
 	<!-- Ethereal Unicorn -->
-	<npc id="ethereal_unicorn">
+	<npc id="ethereal_unicorn" inherit="ETHERAL_STATS">
 		<name>an ethereal unicorn</name>
 		<id>0xc0</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Mounts\Ethereal\Unicorn</category>
-		<inherit id="ETHEREAL_STATS" />
 		<food>0</food>
 	</npc>
 

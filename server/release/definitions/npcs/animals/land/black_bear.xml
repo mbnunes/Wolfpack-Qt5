@@ -2,8 +2,7 @@
 <definitions>
 
 	<!-- Black Bear-->
-	<npc id="black_bear">
-		<inherit id="animal_base" />
+	<npc id="black_bear" inherit="animal_base">
 		<name>a black bear</name>
 		<ai>Animal_Wild</ai>
 		<id>0xd3</id>

@@ -2,12 +2,11 @@
 <definitions>
 
 	<!-- Unicorn -->
-	<npc id="unicorn">
+	<npc id="unicorn" inherit="animal_base">
 		<name>a unicorn</name>
 		<id>0x7a</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Mounts\Unicorn</category>
-		<inherit id="animal_base" />
 		<karma>9000</karma>
 		<fame>9000</fame>
 		<!-- Damage -->

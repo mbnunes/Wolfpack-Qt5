@@ -2,13 +2,12 @@
 <definitions>
 
 	<!-- Cat -->
-	<npc id="cat">
+	<npc id="cat" inherit="animal_base">
 		<name>a cat</name>
 		<id>0xc9</id>
 		<ai>Animal_Domestic</ai>
 		<category>Animals\Feline\Cat</category>
 		<skin><random list="SKINS_ANIMAL" /></skin>
-		<inherit id="animal_base" />
 		<karma>150</karma>
 		<fame>0</fame>
 		<!-- Damage -->

@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- elder gazer -->
-	<npc id="elder_gazer">
+	<npc id="elder_gazer" inherit="monster_base">
 		<name>an elder gazer</name>
 		<id>0x44</id>
-		<inherit id="monster_base" />
 		<karma>-12500</karma>
 		<fame>12500</fame>
 		<!-- Stats -->

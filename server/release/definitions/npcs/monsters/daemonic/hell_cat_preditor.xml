@@ -2,12 +2,10 @@
 <definitions>
 
 	<!-- hellcat (large) -->
-	<npc id="large_hellcat">
+	<npc id="large_hellcat" inherit="monster_base">
 		<name>a hell cat</name>
 		<id>0x342</id>
 		<category>Monsters\Daemonic\Hell Cat (Large)</category>
-		<skin>0</skin>
-		<inherit id="monster_base" />
 		<karma><random min="-1250" max="-2499" /></karma>
 		<fame><random min="1250" max="2499" /></fame>
 		<defense><random min="25" max="35" /></defense>

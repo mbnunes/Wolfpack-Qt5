@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a gargoyle enforcer -->
-	<npc id="gargoyle_enforcer">
+	<npc id="gargoyle_enforcer" inherit="monster_base">
 		<name>a gargoyle enforcer</name>
 		<id>0x2f2</id>
-		<inherit id="monster_base" />
 		<karma>-5000</karma>
 		<fame>5000</fame>
 		<!-- Stats -->

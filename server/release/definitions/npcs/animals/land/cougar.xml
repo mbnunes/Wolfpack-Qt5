@@ -2,12 +2,11 @@
 <definitions>
 
 	<!-- Cougar -->
-	<npc id="cougar">
+	<npc id="cougar" inherit="animal_base">
 		<name>a cougar</name>
 		<id>0x3f</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Land\Cougar</category>
-		<inherit id="animal_base" />
 		<karma>0</karma>
 		<fame>450</fame>
 		<!-- Damage -->

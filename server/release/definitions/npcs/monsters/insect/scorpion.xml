@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a giant scorpion -->
-	<npc id="giant_scorpion">
+	<npc id="giant_scorpion" inherit="monster_base">
 		<name>a giant scorpion</name>
 		<id>0x30</id>
-		<inherit id="monster_base"/>
 		<karma>-2000</karma>
 		<fame>2000</fame>
 		<gold><random min="25" max="50"/></gold>

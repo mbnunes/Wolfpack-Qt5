@@ -2,12 +2,11 @@
 <definitions>
 
 	<!-- Aligator -->
-	<npc id="alligator">
+	<npc id="alligator" inherit="animal_base">
 		<name>a alligator</name>
 		<id>0xca</id>
 		<ai>Animal_Aggressive</ai>
 		<category>Animals\Land\Alligator</category>
-		<inherit id="monster_base" />
 		<karma>-600</karma>
 		<fame>600</fame>
 		<!-- Damage -->

@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- Lava Snake -->
-	<npc id="lava_snake">
+	<npc id="lava_snake" inherit="monster_base">
 		<name>a lava snake</name>
 		<id>0x346</id>
-		<inherit id="monster_base" />
 		<karma><random min="0" max="-624" /></karma>
 		<fame><random min="0" max="1249" /></fame>
 		<!-- Stats -->

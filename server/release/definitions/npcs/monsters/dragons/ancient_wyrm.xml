@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- an ancient wyrm -->
-	<npc id="ancient_wyrm">
+	<npc id="ancient_wyrm" inherit="monster_base">
 		<name>an ancient wyrm</name>
 		<id>0x69</id>
-		<inherit id="monster_base"/>
 		<karma>-22500</karma>
 		<fame>22500</fame>
 		<gold><random min="700" max="1100"/></gold>

@@ -2,11 +2,9 @@
 <definitions>
 
 	<!-- Llama -->
-	<npc id="llama">
-		<inherit id="animal_base" />
+	<npc id="llama" inherit="animal_base">
 		<name>llama</name>
 		<id>0x33c</id>
-		<name>a ridable llama</name>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Land\Llama</category>
 		<karma>0</karma>

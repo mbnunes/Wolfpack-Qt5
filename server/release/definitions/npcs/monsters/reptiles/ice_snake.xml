@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- Ice Snake -->
-	<npc id="ice_snake">
+	<npc id="ice_snake" inherit="monster_base">
 		<name>an ice snake</name>
 		<id>0x345</id>
-		<inherit id="monster_base" />
 		<karma><random min="0" max="-624" /></karma>
 		<fame><random min="0" max="1249" /></fame>
 		<!-- Stats -->

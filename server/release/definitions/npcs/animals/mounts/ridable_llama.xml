@@ -2,12 +2,11 @@
 <definitions>
 
 	<!-- Ridable Llama -->
-	<npc id="ridable_llama">
+	<npc id="ridable_llama" inherit="animal_base">
 		<name>a ridable llama</name>
 		<id>0xdc</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Mounts\Llama</category>
-		<inherit id="animal_base" />
 		<karma>0</karma>
 		<fame>300</fame>
 		<!-- Damage -->

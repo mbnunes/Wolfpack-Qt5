@@ -2,11 +2,10 @@
 <definitions>
 
 	<!-- terathan avenger -->
-	<npc id="terathan_avenger">
+	<npc id="terathan_avenger" inherit="monster_base">
 		<name>a terathan avenger</name>
 		<id>0x5</id>
 		<skin>0x66d</skin>
-		<inherit id="monster_base" />
 		<karma>-15000</karma>
 		<fame>15000</fame>
 		<!-- Stats -->

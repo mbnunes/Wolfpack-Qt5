@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- black solen queen -->
-	<npc id="black_solen_warrior">
+	<npc id="black_solen_warrior" inherit="monster_base">
 		<name>a black solen warrior</name>
 		<id>0x326</id>
-		<inherit id="monster_base"/>
 		<karma>-3000</karma>
 		<fame>3000</fame>
 		<!-- Stats -->

@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- frost spider -->
-	<npc id="frost_spider">
+	<npc id="frost_spider" inherit="monster_base">
 		<name>a frost spider</name>
 		<id>0x14</id>
-		<inherit id="animal_base" />
 		<karma>-775</karma>
 		<fame>775</fame>
 		<!-- Stats -->

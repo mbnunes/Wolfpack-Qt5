@@ -2,7 +2,7 @@
 <definitions>
 
 	<!-- undead_base-->
-	<npc id="undead_base">
+	<npc id="undead_base" inherit="monster_base">
 		<ai>Monster_Aggressive_L1</ai>
 		<wandertype>1</wandertype>
 		<totame>1100</totame>

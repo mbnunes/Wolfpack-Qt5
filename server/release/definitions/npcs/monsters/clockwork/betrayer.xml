@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- Betrayer -->
-	<npc id="betrayer">
+	<npc id="betrayer" inherit="monster_base">
 		<name>a betrayer</name>
 		<id>0x2ff</id>
-		<inherit id="monster_base"/>
 		<karma>-15000</karma>
 		<fame>15000</fame>
 		<!-- Stats -->

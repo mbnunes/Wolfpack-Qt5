@@ -2,12 +2,11 @@
 <definitions>
 
 	<!-- Grey Wolf -->
-	<npc id="grey_wolf">
+	<npc id="grey_wolf" inherit="animal_base">
 		<name>a grey wolf</name>
 		<id>0x19</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Canine\Grey Wolf</category>
-		<inherit id="animal_base" />
 		<karma>0</karma>
 		<fame>450</fame>
 		<!-- Damage -->

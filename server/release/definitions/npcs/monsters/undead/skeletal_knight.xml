@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- skeletal knight -->
-	<npc id="skeletal_knight">
+	<npc id="skeletal_knight" inherit="undead_base">
 		<name>a skeletal knight</name>
 		<id>0x39</id>
-		<inherit id="undead_base" />
 		<gold><random min="100" max="130"/></gold>
 		<karma>-3000</karma>
 		<fame>3000</fame>

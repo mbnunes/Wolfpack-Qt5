@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- red solen infiltrator warrior -->
-	<npc id="red_solen_infiltrator_warrior">
+	<npc id="red_solen_infiltrator_warrior" inherit="monster_base">
 		<name>a red solen infiltrator</name>
 		<id>0x30e</id>
-		<inherit id="monster_base"/>
 		<karma>-3000</karma>
 		<fame>3000</fame>
 		<!-- Stats -->

@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a serpent (gaint) -->
-	<npc id="serpent_gaint">
+	<npc id="serpent_gaint" inherit="monster_base">
 		<name>a giant serpent</name>
 		<id>0x15</id>
-		<inherit id="monster_base"/>
 		<karma>-2500</karma>
 		<fame>2500</fame>
 		<gold><random min="1250" max="2499"/></gold>

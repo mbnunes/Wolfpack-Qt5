@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- bone magi -->
-	<npc id="bone_magi">
+	<npc id="bone_magi" inherit="undead_base">
 		<name>a bone magi</name>
 		<id>0x94</id>
-		<inherit id="undead_base" />
 		<karma>-3000</karma>
 		<fame>3000</fame>
 		<gold><random min="60" max="90" /></gold>

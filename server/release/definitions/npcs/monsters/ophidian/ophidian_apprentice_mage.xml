@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- Ophidian Apprentice Mage -->
-	<npc id="ophidian_apprentice_mage">
+	<npc id="ophidian_apprentice_mage" inherit="monster_base">
 		<name>an ophidian apprentice mage</name>
 		<id>0x55</id>
-		<inherit id="monster_base"/>
 		<karma>-4000</karma>
 		<fame>4000</fame>
 		<gold><random min="30" max="90"/></gold>

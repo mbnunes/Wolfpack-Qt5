@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- rotting corpse -->
-	<npc id="rotting_corpse">
+	<npc id="rotting_corpse" inherit="undead_base">
 		<name>a rotting corpse</name>
 		<id>0x9b</id>
-		<inherit id="monster_base" />
 		<karma>-6000</karma>
 		<fame>6000</fame>
 		<gold><random mix="200" max="400" /></gold>

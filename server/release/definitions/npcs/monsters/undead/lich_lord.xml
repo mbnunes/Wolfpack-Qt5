@@ -2,11 +2,10 @@
 <definitions>
 
 	<!-- lich lord -->
-	<npc id="lich_lord">
+	<npc id="lich_lord" inherit="undead_base">
+		<inherit id="undead_loot_small" />
 		<name>a lich lord</name>
 		<id>0x4e</id>
-		<inherit id="undead_base" />
-		<inherit id="undead_loot_small" />
 		<karma>-18000</karma>
 		<fame>18000</fame>
 		<!-- Stats -->

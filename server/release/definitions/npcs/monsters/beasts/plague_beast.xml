@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- plague beast -->
-	<npc id="plague_beast">
+	<npc id="plague_beast" inherit="monster_base">
 		<name>a plague beast</name>
 		<id>0x307</id>
-		<inherit id="monster_base" />
 		<karma>-13000</karma>
 		<fame>13000</fame>
 		<!-- Stats -->

@@ -2,12 +2,11 @@
 <definitions>
 
 	<!-- Bull (black & white) -->
-	<npc id="black_bull">
+	<npc id="black_bull" inherit="animal_base">
 		<name>a bull</name>
 		<id>0xe9</id>
 		<ai>Animal_Domestic</ai>
 		<category>Animals\Land\Bull (black and white)</category>
-		<inherit id="animal_base" />
 		<karma>0</karma>
 		<fame>600</fame>
 		<!-- Damage -->
@@ -29,9 +28,7 @@
 	</npc>
 
 	<!-- Bull brown -->
-	<npc id="brown_bull">
-		<inherit id="black_bull" />
-		<name>a bull</name>
+	<npc id="brown_bull" inherit="black_bull">
 		<id>0xe8</id>
 		<category>Animals\Land\Bull (brown)</category>
 	</npc>

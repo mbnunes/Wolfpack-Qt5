@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- an ettin -->
-	<npc id="ettin">
+	<npc id="ettin" inherit="monster_base">
 		<name>an ettin</name>
 		<id>0x2</id>
-		<inherit id="monster_base"/>
 		<karma>-3000</karma>
 		<fame>3000</fame>
 		<gold><random min="100" max="150"/></gold>

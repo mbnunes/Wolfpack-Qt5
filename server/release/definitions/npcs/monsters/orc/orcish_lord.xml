@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- orcish lord -->
-	<npc id="orcish_lord">
+	<npc id="orcish_lord" inherit="monster_base">
 		<name>an orcish lord</name>
 		<id>0x8a</id>
-		<inherit id="monster_base" />
 		<karma>-2500</karma>
 		<fame>2500</fame>
 		<!-- Stats -->

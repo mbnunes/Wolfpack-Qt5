@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- mummy -->
-	<npc id="mummy">
+	<npc id="mummy" inherit="undead_base">
 		<name>a mummy</name>
 		<id>0x9a</id>
-		<inherit id="monster_base" />
 		<karma>-4000</karma>
 		<fame>4000</fame>
 		<gold><random min="190" max="220" /></gold>

@@ -2,13 +2,12 @@
 <definitions>
 
 	<!-- Snake -->
-	<npc id="snake">
+	<npc id="snake" inherit="animal_base">
 		<name>a snake</name>
 		<id>0x34</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Land\Snake</category>
 		<skin><random list="SKINS_SNAKE" /></skin>
-		<inherit id="animal_base" />
 		<karma>-300</karma>
 		<fame>300</fame>
 		<poison>1</poison>

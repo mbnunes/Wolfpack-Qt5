@@ -2,9 +2,8 @@
 <definitions>
 
 	<!-- Ratman Base -->
-	<npc id="ratmen_base">
+	<npc id="ratmen_base" inherit="monster_base">
 		<name><random list="NAMES_RATMAN" /></name>
-		<inherit id="monster_base" />
 		<karma>-1500</karma>
 		<fame>1500</fame>
 		<!-- Stats -->
@@ -29,22 +28,19 @@
 	</npc>
 
 	<!-- a ratman -->
-	<npc id="ratman_1">
-		<inherit id="ratmen_base" />
+	<npc id="ratman_1" inherit="ratmen_base">
 		<id>0x2d</id>
 		<category>Monsters\Ratmen\Ratman 1</category>
 	</npc>
 
 	<!-- a ratman -->
-	<npc id="ratman_2">
-		<inherit id="ratmen_base" />
+	<npc id="ratman_2" inherit="ratmen_base">
 		<id>0x2a</id>
 		<category>Monsters\Ratmen\Ratman 2</category>
 	</npc>
 
 	<!-- a ratman -->
-	<npc id="ratman_3">
-		<inerit id="ratmen_base" />
+	<npc id="ratman_3" inherit="ratmen_base">
 		<id>0x2c</id>
 		<category>Monsters\Ratmen\Ratman 3</category>
 	</npc>

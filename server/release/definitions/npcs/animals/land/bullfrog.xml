@@ -2,13 +2,12 @@
 <definitions>
 
 	<!-- Bullfrog -->
-	<npc id="bullfrog">
+	<npc id="bullfrog" inherit="animal_base">
 		<name>a bullfrog</name>
 		<id>0x51</id>
 		<ai>Animal_Wild</ai>
 		<skin><random list="SKINS_SNAKE" /></skin>
 		<category>Animals\Land\Bullfrog</category>
-		<inherit id="animal_base" />
 		<karma>0</karma>
 		<fame>350</fame>
 		<!-- Damage -->

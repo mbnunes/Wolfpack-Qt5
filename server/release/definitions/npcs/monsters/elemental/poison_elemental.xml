@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a poison elemental -->
-	<npc id="poison_elemental">
+	<npc id="poison_elemental" inherit="monster_base">
 		<name>a poison elemental</name>
 		<id>0xa2</id>
-		<inherit id="monster_base"/>
 		<karma>-12500</karma>
 		<fame>12500</fame>
 		<!-- Stats -->

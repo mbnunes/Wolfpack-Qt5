@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- Silver Serpent -->
-	<npc id="silver_serpent">
+	<npc id="silver_serpent" inherit="monster_base">
 		<name>a silver serpent</name>
 		<id>0x5b</id>
-		<inherit id="monster_base" />
 		<karma><random min="-5000" max="-9999" /></karma>
 		<fame><random min="5000" max="9999" /></fame>
 		<!-- Stats -->

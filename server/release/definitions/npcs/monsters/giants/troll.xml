@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a troll -->
-	<npc id="troll">
+	<npc id="troll" inherit="monster_base">
 		<name>a troll</name>
 		<id>0x35</id>
-		<inherit id="monster_base"/>
 		<karma>-3500</karma>
 		<fame>3500</fame>
 		<gold><random min="50" max="100"/></gold>

@@ -1,8 +1,7 @@
 
 <definitions>
 
-	<npc id="orc_base">
-		<inherit id="monster_base"/>
+	<npc id="orc_base" inherit="monster_base">
 		<name>an orc</name>
 		<karma>-1500</karma>
 		<fame>1500</fame>
@@ -30,14 +29,12 @@
 	</npc>
 
 	<!-- a orc -->
-	<npc id="orc_1">
-		<inherit id="orc_base"/>
+	<npc id="orc_1" inherit="orc_base">
 		<id>0x11</id>
 		<category>Monsters\Orcs\Orc 1</category>
 	</npc>
 
-	<npc id="orc_2">
-		<inherit id="orc_base"/>
+	<npc id="orc_2" inherit="orc_base">
 		<id>0x29</id>
 		<category>Monsters\Orcs\Orc 2</category>
 	</npc>

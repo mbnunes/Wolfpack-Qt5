@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- Lava Serpent -->
-	<npc id="lava_serpent">
+	<npc id="lava_serpent" inherit="monster_base">
 		<name>a lava serpent</name>
 		<id>0x5a</id>
-		<inherit id="monster_base" />
 		<karma>-4500</karma>
 		<fame>4500</fame>
 		<!-- Stats -->

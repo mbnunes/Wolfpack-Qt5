@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- red solen warrior -->
-	<npc id="red_solen_warrior">
+	<npc id="red_solen_warrior" inherit="monster_base">
 		<name>a red solen warrior</name>
 		<id>0x30e</id>
-		<inherit id="monster_base"/>
 		<karma>-3000</karma>
 		<fame>3000</fame>
 		<!-- Stats -->

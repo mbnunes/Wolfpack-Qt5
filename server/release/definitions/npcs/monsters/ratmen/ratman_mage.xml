@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a ratman mage -->
-	<npc id="ratman_mage">
+	<npc id="ratman_mage" inherit="monster_base">
 		<name><random list="NAMES_RATMAN" /></name>
 		<id>0x8f</id>
-		<inherit id="monster_base" />
 		<karma>-7500</karma>
 		<fame>7500</fame>
 		<!-- Stats -->

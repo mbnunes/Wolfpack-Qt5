@@ -2,12 +2,11 @@
 <definitions>
 
 	<!-- Kirins -->
-	<npc id="kirin">
+	<npc id="kirin" inherit="animal_base">
 		<name>ki-rin</name>
 		<id>0x84</id>
 		<category>Animals\Mounts\Kirin</category>
 		<ai>Animal_Wild</ai>
-		<inherit id="animal_base" />
 		<karma>9000</karma>
 		<fame>9000</fame>
 		<!-- Damage -->

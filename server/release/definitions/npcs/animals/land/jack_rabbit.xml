@@ -2,13 +2,12 @@
 <definitions>
 
 	<!-- Jack Rabbit -->
-	<npc id="jack_rabbit">
+	<npc id="jack_rabbit" inherit="animal_base">
 		<name>a jack rabbit</name>
 		<id>0x343</id>
 		<ai>Animal_Wild</ai>
 		<skin><random list="SKINS_ANIMAL" /></skin>
 		<category>Animals\Rabbits\Jack Rabbit</category>
-		<inherit id="animal_base" />
 		<karma><random min="0" max="-624" /></karma>
 		<fame><random min="0" max="1249" /></fame>
 		<!-- Damage -->

@@ -2,11 +2,10 @@
 <definitions>
 
 	<!-- Nightmares 1 -->
-	<npc id="nightmare_1">
+	<npc id="nightmare_1" inherit="monster_base">
 		<name>a nightmare</name>
 		<id>0x74</id>
 		<category>Animals\Mounts\Nightmare 1</category>
-		<inherit id="monster_base" />
 		<bindmenu>tame_menu</bindmenu>
 		<karma>-14000</karma>
 		<fame>14000</fame>
@@ -29,22 +28,19 @@
 	</npc>
 
 	<!-- Nightmares 2 -->
-	<npc id="nightmare_2">
-		<inherit id="nightmare_1" />
+	<npc id="nightmare_2" inherit="nightmare_1">
 		<id>0xb1</id>
 		<category>Animals\Mounts\Nightmare 2</category>
 	</npc>
 
 	<!-- Nightmares 3 -->
-	<npc id="nightmare_3">
-		<inherit id="nightmare_1" />
+	<npc id="nightmare_3" inherit="nightmare_1">
 		<id>0xb2</id>
 		<category>Animals\Mounts\Nightmare 3</category>
 	</npc>
 
 	<!-- Nightmares 4 -->
-	<npc id="nightmare_4">
-		<inherit id="nightmare_1" />
+	<npc id="nightmare_4" inherit="nightmare_1">
 		<id>0xb3</id>
 		<category>Animals\Mounts\Nightmare 4</category>
 	</npc>

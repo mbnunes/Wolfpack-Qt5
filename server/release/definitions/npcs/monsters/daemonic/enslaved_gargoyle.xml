@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- enslaved gargoyle -->
-	<npc id="enslaved_gargoyle">
+	<npc id="enslaved_gargoyle" inherit="monster_base">
 		<name>an enslaved gargoyle</name>
 		<id>0x2f1</id>
-		<inherit id="monster_base" />
 		<karma>0</karma>
 		<fame>3500</fame>
 		<!-- Stats -->

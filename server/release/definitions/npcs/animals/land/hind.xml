@@ -2,12 +2,11 @@
 <definitions>
 
 	<!-- Hind -->
-	<npc id="hind">
+	<npc id="hind" inherit="animal_base">
 		<name>a hind</name>
 		<ai>Animal_Wild</ai>
 		<id>0xed</id>
 		<category>Animals\Forest\Hind</category>
-		<inherit id="animal_base" />
 		<karma>0</karma>
 		<fame>300</fame>
 		<!-- Damage -->

@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a snow elemental -->
-	<npc id="snow_elemental">
+	<npc id="snow_elemental" inherit="monster_base">
 		<name>a snow elemental</name>
 		<id>0xa3</id>
-		<inherit id="monster_base"/>
 		<karma>-5000</karma>
 		<fame>5000</fame>
 		<!-- Stats -->

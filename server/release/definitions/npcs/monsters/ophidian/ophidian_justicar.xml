@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- Ophidian Justicar -->
-	<npc id="ophidian_justicar">
+	<npc id="ophidian_justicar" inherit="monster_base">
 		<name>an ophidian justicar</name>
 		<id>0x55</id>
-		<inherit id="monster_base" />
 		<karma>-11500</karma>
 		<fame>11500</fame>
 		<gold><random min="190" max="220"/></gold>

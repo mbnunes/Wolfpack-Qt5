@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- sand vortex -->
-	<npc id="sand_vortex">
+	<npc id="sand_vortex" inherit="monster_base">
 		<name>a sand vortex</name>
 		<id>0x316</id>
-		<inherit id="monster_base" />
 		<karma>-4500</karma>
 		<fame>4500</fame>
 		<!-- Stats -->

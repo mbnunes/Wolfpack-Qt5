@@ -2,11 +2,10 @@
 <definitions>
 
 	<!-- a slime -->
-	<npc id="slime">
+	<npc id="slime" inherit="monster_base">
 		<name>a slime</name>
 		<id>0x33</id>
 		<skin><random list="SKINS_SLIME" /></skin>
-		<inherit id="monster_base"/>
 		<karma>-300</karma>
 		<fame>300</fame>
 		<!-- Stats -->

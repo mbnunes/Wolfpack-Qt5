@@ -2,12 +2,11 @@
 <definitions>
 
 	<!-- Pack Llama -->
-	<npc id="pack_llama">
+	<npc id="pack_llama" inherit="animal_base">
 		<name>a llama</name>
 		<id>0x124</id>
 		<ai>Animal_Domestic</ai>
 		<category>Animals\Pack\Pack Llama</category>
-		<inherit id="animal_base" />
 		<karma><random min="0" max="624" /></karma>
 		<fame><random min="0" max="1249" /></fame>
 		<!-- Damage -->

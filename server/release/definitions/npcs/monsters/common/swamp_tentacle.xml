@@ -2,11 +2,10 @@
 <definitions>
 
 	<!-- swamp tentacle -->
-	<npc id="swamp tentacle">
+	<npc id="swamp tentacle" inherit="monster_base">
 		<name>a swamp tentacle</name>
 		<id>0x42</id>
 		<skin>0x66d</skin>
-		<inherit id="monster_base" />
 		<karma>-3000</karma>
 		<fame>3000</fame>
 		<!-- Stats -->

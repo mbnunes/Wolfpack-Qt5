@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a rat (giant) -->
-	<npc id="rat_giant">
+	<npc id="rat_giant" inherit="monster_base">
 		<name>a giant rat</name>
 		<id>0xd7</id>
-		<inherit id="monster_base"/>
 		<karma>-300</karma>
 		<fame>300</fame>
 		<!-- Stats -->

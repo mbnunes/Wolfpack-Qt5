@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a balron -->
-	<npc id="balron">
+	<npc id="balron" inherit="monster_base">
 		<name><random list="NAMES_BALRON" /></name>
 		<id>0xa</id>
-		<inherit id="monster_base"/>
 		<karma>-24000</karma>
 		<fame>24000</fame>
 		<gold><random min="600" max="800"/></gold>

@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- centaur -->
-	<npc id="centaur">
+	<npc id="centaur" inherit="monster_base">
 		<name><random list="NAMES_CENTAUR" /></name>
 		<id>0x65</id>
-		<inherit id="animal_base" />
 		<karma>0</karma>
 		<fame>6500</fame>
 		<!-- Stats -->

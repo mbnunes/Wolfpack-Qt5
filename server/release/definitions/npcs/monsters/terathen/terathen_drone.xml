@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a terathan drone -->
-	<npc id="terathan_drone">
+	<npc id="terathan_drone" inherit="monster_base">
 		<name>a terathan drone</name>
 		<id>0x47</id>
-		<inherit id="monster_base"/>
 		<karma>-2000</karma>
 		<fame>2000</fame>
 		<gold><random min="25" max="50"/></gold>

@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a kraken -->
-	<npc id="kraken">
+	<npc id="kraken" inherit="monster_base">
 		<name>a kraken</name>
 		<id>0x8</id>
-		<inherit id="monster_base"/>
 		<karma>-11000</karma>
 		<fame>11000</fame>
 		<gold><random min="300" max="600"/></gold>

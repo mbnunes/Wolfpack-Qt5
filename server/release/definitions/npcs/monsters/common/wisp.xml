@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- wisp -->
-	<npc id="wisp">
+	<npc id="wisp" inherit="animal_base">
 		<name>a wisp</name>
 		<id>0xa5</id>
-		<inherit id="animal_base" />
 		<karma>0</karma>
 		<fame>4000</fame>
 		<!-- Stats -->

@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- Giant Ice Serpent -->
-	<npc id="giant_ice_serpent">
+	<npc id="giant_ice_serpent" inherit="monster_base">
 		<name>a giant ice serpent</name>
 		<id>0x59</id>
-		<inherit id="monster_base" />
 		<karma>-900</karma>
 		<fame>900</fame>
 		<!-- Stats -->

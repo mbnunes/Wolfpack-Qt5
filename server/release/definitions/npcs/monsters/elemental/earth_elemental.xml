@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- an earth elemental -->
-	<npc id="earth_elemental">
+	<npc id="earth_elemental" inherit="monster_base">
 		<name>an earth elemental</name>
 		<id>0xe</id>
-		<inherit id="monster_base"/>
 		<karma>-3500</karma>
 		<fame>3500</fame>
 		<!-- Stats -->

@@ -2,12 +2,11 @@
 <definitions>
 
 	<!-- Gorilla -->
-	<npc id="gorilla">
+	<npc id="gorilla" inherit="animal_base">
 		<name>a gorilla</name>
 		<id>0x1d</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Land\Gorilla</category>
-		<inherit id="animal_base" />
 		<karma>0</karma>
 		<fame>450</fame>
 		<!-- Damage -->

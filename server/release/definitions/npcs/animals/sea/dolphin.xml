@@ -2,12 +2,11 @@
 <definitions>
 
 	<!-- Dolphin -->
-	<npc id="dolphin">
+	<npc id="dolphin" inherit="animal_base">
 		<name>a dolphin</name>
 		<ai>Animal_Wild</ai>
 		<id>0x97</id>
 		<category>Animals\Sea\Dolphin</category>
-		<inherit id="animal_base" />
 		<karma>2000</karma>
 		<fame>500</fame>
 		<!-- Damage -->

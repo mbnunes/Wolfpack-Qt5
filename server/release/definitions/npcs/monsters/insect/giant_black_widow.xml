@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- giant black widow -->
-	<npc id="giant_black_widow">
+	<npc id="giant_black_widow" inherit="monster_base">
 		<name>a giant black widow</name>
 		<id>0x9d</id>
-		<inherit id="monster_base" />
 		<karma>-3500</karma>
 		<fame>3500</fame>
 		<!-- Stats -->

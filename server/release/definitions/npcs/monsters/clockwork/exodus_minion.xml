@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- Exodus Minion -->
-	<npc id="exodus_minion">
+	<npc id="exodus_minion" inherit="monster_base">
 		<name>an exodus minion</name>
 		<id>0x2f5</id>
-		<inherit id="monster_base"/>
 		<karma>-18000</karma>
 		<fame>18000</fame>
 		<!-- Stats -->

@@ -1,8 +1,9 @@
 
 <definitions>
 
-	<npc id="WAR_HORSE_STATS">
-		<inherit id="animal_base" />
+	<npc id="WAR_HORSE_STATS" inherit="animal_base">
+		<name>a war horse</name>
+		<ai>Animal_Wild</ai>
 		<karma>0</karma>
 		<fame>0</fame>
 		<!-- Damage -->
@@ -22,39 +23,27 @@
 	</npc>
 
 	<!-- Britannian Warhorse -->
-	<npc id="britannian_war_horse">
-		<name>a war horse</name>
+	<npc id="britannian_war_horse" inherit="WAR_HORSE_STATS">
 		<id>0x76</id>
-		<ai>Animal_Wild</ai>
 		<category>Animals\Mounts\War Horses\Britannian Warhorse</category>
-		<inherit id="WAR_HORSE_STATS" />
 	</npc>
 
 	<!-- Council of Mages Warhorse -->
-	<npc id="magecouncil_war_horse">
-		<name>a war horse</name>
+	<npc id="magecouncil_war_horse" inherit="WAR_HORSE_STATS">
 		<id>0x77</id>
-		<ai>Animal_Wild</ai>
 		<category>Animals\Mounts\War Horses\Council of Mages Warhorse</category>
-		<inherit id="WAR_HORSE_STATS" />
 	</npc>
 
 	<!-- Shadowlords Warhorse -->
-	<npc id="shadowlord_war_horse">
-		<name>a war horse</name>
+	<npc id="shadowlord_war_horse" inherit="WAR_HORSE_STATS">
 		<id>0x78</id>
-		<ai>Animal_Wild</ai>
 		<category>Animals\Mounts\War Horses\Shadowlord Warhorse</category>
-		<inherit id="WAR_HORSE_STATS" />
 	</npc>
 
 	<!-- Followers of Minax Warhorse -->
-	<npc id="minax_war_horse">
-		<name>a war horse</name>
+	<npc id="minax_war_horse" inherit="WAR_HORSE_STATS">
 		<id>0x76</id>
-		<ai>Animal_Wild</ai>
 		<category>Animals\Mounts\War Horses\Minax Warhorse</category>
-		<inherit id="WAR_HORSE_STATS" />
 	</npc>
 
 </definitions>

@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- an orc captain -->
-	<npc id="orc_captain">
+	<npc id="orc_captain" inherit="monster_base">
 		<name>an orc captain</name>
 		<id>0x7</id>
-		<inherit id="monster_base"/>
 		<karma>-2500</karma>
 		<fame>2500</fame>
 		<gold><random min="50" max="100"/></gold>

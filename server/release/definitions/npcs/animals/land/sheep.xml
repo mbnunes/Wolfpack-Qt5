@@ -2,12 +2,11 @@
 <definitions>
 
 	<!-- Sheep (sheered) -->
-	<npc id="sheep_sheered">
+	<npc id="sheep_sheered" inherit="animal_base">
 		<name>a sheep</name>
 		<id>0xdf</id>
 		<ai>Animal_Domestic</ai>
 		<category>Animals\Farm\Sheep (sheered)</category>
-		<inherit id="animal_base" />
 		<karma>0</karma>
 		<fame>300</fame>
 		<!-- Damage -->
@@ -29,8 +28,7 @@
 	</npc>
 
 	<!-- Sheep (unsheered) -->
-	<npc id="sheep_unsheered">
-		<inherit id="sheep_sheered" />
+	<npc id="sheep_unsheered" inherit="sheep_sheered">
 		<id>0xcf</id>
 		<category>Animals\Land\Sheep (unsheered)</category>
 		<carve>carve_sheep_unsheered</carve>

@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a blood elemental -->
-	<npc id="blood_elemental">
+	<npc id="blood_elemental" inherit="monster_base">
 		<name>a blood elemental</name>
 		<id>0x9f</id>
-		<inherit id="monster_base"/>
 		<karma>-12500</karma>
 		<fame>12500</fame>
 		<!-- Stats -->

@@ -2,13 +2,12 @@
 <definitions>
 
 	<!-- Rat -->
-	<npc id="rat">
+	<npc id="rat" inherit="animal_base">
 		<name>a rat</name>
 		<id>0xee</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Rats\Rat</category>
 		<skin><random list="SKINS_ANIMAL" /></skin>
-		<inherit id="animal_base" />
 		<karma><random min="0" max="-624" /></karma>
 		<fame><random min="0" max="1249" /></fame>
 		<!-- Damage -->

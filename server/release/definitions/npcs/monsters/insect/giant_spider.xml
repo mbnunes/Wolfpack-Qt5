@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a spider (gaint) -->
-	<npc id="spider_gaint">
+	<npc id="spider_gaint" inherit="monster_base">
 		<name>a giant spider</name>
 		<id>0x1c</id>
-		<inherit id="monster_base"/>
 		<karma>-600</karma>
 		<fame>600</fame>
 		<gold><random min="0" max="25"/></gold>

@@ -2,12 +2,11 @@
 <definitions>
 
 	<!-- Pack Horse -->
-	<npc id="pack_horse">
+	<npc id="pack_horse" inherit="animal_base">
 		<name>a horse</name>
 		<id>0x123</id>
 		<ai>Animal_Domestic</ai>
 		<category>Animals\Pack\Pack Horse</category>
-		<inherit id="animal_base" />
 		<karma><random min="0" max="624" /></karma>
 		<fame><random min="0" max="1249" /></fame>
 		<!-- Damage -->

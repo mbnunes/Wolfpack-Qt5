@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- black solen infiltrator queen -->
-	<npc id="black_solen_infiltrator_queen">
+	<npc id="black_solen_infiltrator_queen" inherit="monster_base">
 		<name>a black solen infiltrator</name>
 		<id>0x327</id>
-		<inherit id="monster_base"/>
 		<karma>-6500</karma>
 		<fame>6500</fame>
 		<!-- Stats -->

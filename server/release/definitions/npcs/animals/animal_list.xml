@@ -9,9 +9,6 @@
 
 <definitions>
 
-	<!-- Base Includes -->
-	<include file="definitions/npcs/animals/base.xml"/>
-
 	<!-- Air -->
 	<include file="definitions/npcs/animals/air/birds.xml"/>
 	<include file="definitions/npcs/animals/air/chicken.xml"/>

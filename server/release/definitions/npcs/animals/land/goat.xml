@@ -2,11 +2,10 @@
 <definitions>
 
 	<!-- Goat -->
-	<npc id="goat">
+	<npc id="goat" inherit="animal_base">
 		<name>a goat</name>
 		<id>0xd1</id>
 		<ai>Animal_Domestic</ai>
-		<inherit id="animal_base" />
 		<karma>0</karma>
 		<fame>150</fame>
 		<!-- Damage -->
@@ -28,8 +27,7 @@
 	</npc>
 
 	<!-- Mountain Goat -->
-	<npc id="mountain_goat">
-		<inherit id="animal_base" />
+	<npc id="mountain_goat" inherit="animal_base">
 		<ai>Animal_Wild</ai>
 		<name>a mountain goat</name>
 		<id>0x1d</id>

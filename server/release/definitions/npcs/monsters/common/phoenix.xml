@@ -2,11 +2,10 @@
 <definitions>
 
 	<!-- phoenix -->
-	<npc id="phoenix">
+	<npc id="phoenix" inherit="monster_base">
 		<name>a phoenix</name>
 		<id>0x340</id>
 		<skin>0x66d</skin>
-		<inherit id="monster_base" />
 		<karma>0</karma>
 		<fame>15000</fame>
 		<!-- Stats -->

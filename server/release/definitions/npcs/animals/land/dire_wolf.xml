@@ -2,13 +2,12 @@
 <definitions>
 
 	<!-- Dire Wolf -->
-	<npc id="dire_wolf">
+	<npc id="dire_wolf" inherit="animal_base">
 		<name>a dire wolf</name>
 		<id>0x17</id>
 		<ai>Animal_Aggressive</ai>
 		<skin><random list="SKINS_NEUTRAL" /></skin>
 		<category>Animals\Land\Dire Wolf</category>
-		<inherit id="monster_base" />
 		<karma><random min="0" max="-624" /></karma>
 		<fame><random min="0" max="1249" /></fame>
 		<!-- Damage -->

@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- skeletal mage -->
-	<npc id="skeletal_mage">
+	<npc id="skeletal_mage" inherit="undead_base">
 		<name>a skeletal mage</name>
 		<id>0x94</id>
-		<inherit id="monster_base" />
 		<karma>-3000</karma>
 		<fame>3000</fame>
 		<gold><random min="60" max="90" /></gold>

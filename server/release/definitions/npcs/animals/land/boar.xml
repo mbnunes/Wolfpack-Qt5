@@ -2,12 +2,11 @@
 <definitions>
 
 	<!-- Boar -->
-	<npc id="boar">
+	<npc id="boar" inherit="animal_base">
 		<name>a boar</name>
 		<id>0x122</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Land\Boar</category>
-		<inherit id="animal_base" />
 		<karma>0</karma>
 		<fame>300</fame>
 		<!-- Damage -->
@@ -29,10 +28,7 @@
 	</npc>
 
 	<!-- Boar 2 -->
-	<npc id="boar_2">
-		<inherit id="boar" />
-		<ai>Animal_Wild</ai>
-		<name>a boar</name>
+	<npc id="boar_2" inherit="boar">
 		<id>0xcb</id>
 		<category>Animals\Land\Boar_2</category>
 	</npc>

@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- mongbat (strong) -->
-	<npc id="mongbat_strong">
+	<npc id="mongbat_strong" inherit="monster_base">
 		<name>a mongbat</name>
 		<id>0x27</id>
-		<inherit id="monster_base"/>
 		<karma>-300</karma>
 		<fame>300</fame>
 		<gold><random min="0" max="50"/></gold>

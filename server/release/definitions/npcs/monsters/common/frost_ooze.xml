@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a frost ooze -->
-	<npc id="frost_ooze">
+	<npc id="frost_ooze" inherit="monster_base">
 		<name>a frost ooze</name>
 		<id>0x5e</id>
-		<inherit id="monster_base"/>
 		<karma>-450</karma>
 		<fame>450</fame>
 		<!-- Stats -->

@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- orc chopper -->
-	<npc id="orc_chopper">
+	<npc id="orc_chopper" inherit="monster_base">
 		<name>an orc chopper</name>
 		<id>0x8b</id>
-		<inherit id="monster_base" />
 		<karma>-2500</karma>
 		<fame>2500</fame>
 		<!-- Stats -->

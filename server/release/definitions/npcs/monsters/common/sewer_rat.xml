@@ -2,11 +2,10 @@
 <definitions>
 
 	<!-- a rat -->
-	<npc id="sewer_rat">
+	<npc id="sewer_rat" inherit="monster_base">
 		<name>a sewer rat</name>
 		<id>0xee</id>
 		<skin>0</skin>
-		<inherit id="monster_base"/>
 		<karma><random min="0" max="-624" /></karma>
 		<fame><random min="0" max="1249" /></fame>
 		<!-- Stats -->

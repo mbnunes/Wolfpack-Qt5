@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- an agapite elemental -->
-	<npc id="agapite_elemental">
+	<npc id="agapite_elemental" inherit="monster_base">
 		<name>an agapite elemental</name>
 		<id>0x6b</id>
-		<inherit id="monster_base"/>
 		<karma>-3500</karma>
 		<fame>3500</fame>
 		<!-- Stats -->

@@ -2,11 +2,10 @@
 <definitions>
 
 	<!-- Hellsteed -->
-	<npc id="hellsteed">
+	<npc id="hellsteed" inherit="monster_base">
 		<name>a hellsteed</name>
 		<id>0x319</id>
 		<category>Animals\Mounts\Hellsteed</category>
-		<inherit id="monster_base" />
 		<bindmenu>tame_menu</bindmenu>
 		<karma>0</karma>
 		<fame>0</fame>

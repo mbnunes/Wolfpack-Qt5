@@ -1,12 +1,11 @@
 
 <definitions>
 	<!-- eagle -->
-	<npc id="eagle">
+	<npc id="eagle" inherit="animal_base">
 		<name>an eagle</name>
 		<ai>Animal_Wild</ai>
 		<id>0x5</id>
 		<category>Animals\Birds\Eagle</category>
-		<inherit id="animal_base" />
 		<karma>0</karma>
 		<fame>300</fame>
 		<!-- Damage -->

@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- Succubus -->
-	<npc id="succubus">
+	<npc id="succubus" inherit="monster_base">
 		<name>a succubus</name>
 		<id>0x95</id>
-		<inherit id="monster_base" />
 		<karma><random min="-10000" max="-15000" /></karma>
 		<fame><random min="10000" max="15000" /></fame>
 		<!-- Stats -->

@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- Ophidian Warrior -->
-	<npc id="ophidian_warrior">
+	<npc id="ophidian_warrior" inherit="monster_base">
 		<name>an ophidian warrior</name>
 		<id>0x56</id>
-		<inherit id="monster_base"/>
 		<karma>-4500</karma>
 		<fame>4500</fame>
 		<gold><random min="100" max="140"/></gold>

@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a copper elemental -->
-	<npc id="copper_elemental">
+	<npc id="copper_elemental" inherit="monster_base">
 		<name>a copper elemental</name>
 		<id>0x6d</id>
-		<inherit id="monster_base"/>
 		<karma>-4800</karma>
 		<fame>4800</fame>
 		<!-- Stats -->

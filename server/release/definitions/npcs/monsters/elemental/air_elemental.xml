@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- an air elemental -->
-	<npc id="air_elemental">
+	<npc id="air_elemental" inherit="monster_base">
 		<id>0xd</id>
 		<name>an air elemental</name>
-		<inherit id="monster_base"/>
 		<!-- Attributes -->
 		<karma>-4500</karma>
 		<fame>4500</fame>

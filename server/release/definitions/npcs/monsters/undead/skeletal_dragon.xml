@@ -2,11 +2,10 @@
 <definitions>
 
 	<!-- skeletal Dragon -->
-	<npc id="skeletal_dragon">
+	<npc id="skeletal_dragon" inherit="undead_base">
 		<name>a skeletal dragon</name>
 		<id>0x68</id>
 		<category>Monsters\Undead\Skeletal Dragon</category>
-		<inherit id="monster_base" />
 		<karma><random min="-10000" max="-15000" /></karma>
 		<fame><random min="10000" max="15000" /></fame>
 		<gold><random min="1000" max="1200" /></gold>

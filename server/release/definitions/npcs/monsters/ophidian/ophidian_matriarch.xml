@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- Ophidian Matriarch-->
-	<npc id="ophidian_matriarch">
+	<npc id="ophidian_matriarch" inherit="monster_base">
 		<name>an ophidian matriarch</name>
 		<id>0x57</id>
-		<inherit id="monster_base"/>
 		<karma>-16000</karma>
 		<fame>16000</fame>
 		<gold><random min="200" max="250"/></gold>

@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- Exodus Overseer -->
-	<npc id="exodus_overseer">
+	<npc id="exodus_overseer" inherit="monster_base">
 		<name>an exodus overseer</name>
 		<id>0x2f4</id>
-		<inherit id="monster_base"/>
 		<karma>-10000</karma>
 		<fame>10000</fame>
 		<!-- Stats -->

@@ -2,8 +2,7 @@
 <definitions>
 
 	<!-- Lizardman Base -->
-	<npc id="lizardman_base" >
-		<inherit id="monster_base" />
+	<npc id="lizardman_base"  inherit="monster_base">
 		<name><random list="NAMES_LIZARDMAN" /></name>
 		<karma>-1500</karma>
 		<fame>1500</fame>
@@ -30,22 +29,19 @@
 	</npc>
 
 <!-- a lizard man 1-->
-	<npc id="lizardman_1">
-		<inherit id="lizardman_base" />
+	<npc id="lizardman_1" inherit="lizardman_base">
 		<id>0x21</id>
 		<category>Monsters\Lizardmen\Lizardman 1</category>
 	</npc>
 
 	<!-- Lizardman 2 -->
-	<npc id="lizardman_2">
-		<inherit id="lizardman_base" />
+	<npc id="lizardman_2" inherit="lizardman_base">
 		<id>0x23</id>
 		<category>Monsters\Lizardmen\Lizardman 2</category>
 	</npc>
 
 	<!-- Lizardman 3 -->
-	<npc id="lizardman_3">
-		<inherit id="lizardman_base" />
+	<npc id="lizardman_3" inherit="lizardman_base">
 		<id>0x24</id>
 		<category>Monsters\Lizardmen\Lizardman 3</category>
 	</npc>

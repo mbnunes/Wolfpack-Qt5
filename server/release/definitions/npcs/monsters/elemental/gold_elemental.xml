@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a golden elemental -->
-	<npc id="gold_elemental">
+	<npc id="gold_elemental" inherit="monster_base">
 		<name>a gold elemental</name>
 		<id>0xa6</id>
-		<inherit id="monster_base"/>
 		<karma>-3500</karma>
 		<fame>3500</fame>
 		<!-- Stats -->

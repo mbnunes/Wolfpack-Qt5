@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a hell cat (small) -->
-	<npc id="hellcat">
+	<npc id="hellcat" inherit="monster_base">
 		<name>a hell cat</name>
 		<id>0xc9</id>
-		<inherit id="monster_base"/>
 		<karma>-1000</karma>
 		<fame>1000</fame>
 		<!-- Stats -->

@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- frost troll -->
-	<npc id="frost_troll">
+	<npc id="frost_troll" inherit="monster_base">
 		<name>a frost troll</name>
 		<id>0x37</id>
-		<inherit id="monster_base" />
 		<karma>-4000</karma>
 		<fame>4000</fame>
 		<gold><random min="50" max="100"/></gold>

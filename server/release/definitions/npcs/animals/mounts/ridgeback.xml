@@ -2,12 +2,11 @@
 <definitions>
 
 	<!-- Ridgebacks -->
-	<npc id="ridgeback">
+	<npc id="ridgeback" inherit="animal_base">
 		<name>a ridgeback</name>
 		<id>0x187</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Mounts\Ridgeback</category>
-		<inherit id="animal_base" />
 		<karma>0</karma>
 		<fame>300</fame>
 		<!-- Damage -->
@@ -27,12 +26,11 @@
 	</npc>
 
 	<!-- Savage Ridgebacks -->
-	<npc id="savage_ridgeback">
+	<npc id="savage_ridgeback" inherit="animal_base">
 		<name>a savage ridgeback</name>
 		<id>0x188</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Mounts\Savage Ridgeback</category>
-		<inherit id="animal_base" />
 		<karma>0</karma>
 		<fame>300</fame>
 		<defense><random min="15" max="20" /></defense>

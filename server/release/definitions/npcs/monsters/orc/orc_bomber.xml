@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- orc bomber -->
-	<npc id="orc_bomber">
+	<npc id="orc_bomber" inherit="monster_base">
 		<name>an orc bomber</name>
 		<id>0xb6</id>
-		<inherit id="monster_base" />
 		<karma>-2500</karma>
 		<fame>2500</fame>
 		<!-- Stats -->

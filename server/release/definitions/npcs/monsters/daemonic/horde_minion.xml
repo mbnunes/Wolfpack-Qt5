@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- horde minion -->
-	<npc id="horde_minion">
+	<npc id="horde_minion" inherit="monster_base">
 		<name>a horde minion</name>
 		<id>0x308</id>
-		<inherit id="monster_base" />
 		<karma>-500</karma>
 		<fame>500</fame>
 		<!-- Stats -->

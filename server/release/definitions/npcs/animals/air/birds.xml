@@ -2,13 +2,12 @@
 <definitions>
 
 	<!-- birds -->
-	<npc id="bird">
+	<npc id="bird" inherit="animal_base">
 		<name><random list="NAMES_BIRD" /></name>
 		<ai>Animal_Wild</ai>
 		<id>0x6</id>
 		<category>Animals\Birds\Random Bird</category>
 		<skin><random list="SKINS_BIRD" /></skin>
-		<inherit id="animal_base" />
 		<karma>0</karma>
 		<fame>150</fame>
 		<!-- Damage -->

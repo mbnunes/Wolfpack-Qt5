@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a daemon -->
-	<npc id="daemon">
+	<npc id="daemon" inherit="monster_base">
 		<name><random list="NAMES_DAEMON" /></name>
 		<id>0x9</id>
-		<inherit id="monster_base"/>
 		<karma>-15000</karma>
 		<fame>15000</fame>
 		<gold><random min="300" max="400"/></gold>

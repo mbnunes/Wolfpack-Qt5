@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- Ogre Lord -->
-	<npc id="ogre_lord">
+	<npc id="ogre_lord" inherit="monster_base">
 		<name>an ogre lord</name>
 		<id>0x53</id>
-		<inherit id="monster_base" />
 		<karma>-15000</karma>
 		<fame>15000</fame>
 		<gold><random min="600" max="750"/></gold>

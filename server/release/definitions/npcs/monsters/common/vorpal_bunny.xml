@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- vorpal bunny -->
-	<npc id="vorpal_bunny">
+	<npc id="vorpal_bunny" inherit="animal_base">
 		<name>a vorpal bunny</name>
 		<id>0xcd</id>
-		<inherit id="monster_base" />
 		<karma><random min="0" max="-624" /></karma>
 		<fame><random min="0" max="1249" /></fame>
 		<str>15</str>

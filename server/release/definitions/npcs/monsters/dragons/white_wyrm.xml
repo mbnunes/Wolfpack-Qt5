@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- white wyrm hazy white -->
-	<npc id="white_wyrm_1">
+	<npc id="white_wyrm_1" inherit="monster_base">
 		<name>a white wyrm</name>
 		<id>0x31</id>
-		<inherit id="monster_base" />
 		<karma>-18000</karma>
 		<fame>18000</fame>
 		<gold><random min="550" max="750"/></gold>

@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- bog thing -->
-	<npc id="bog_thing">
+	<npc id="bog_thing" inherit="monster_base">
 		<name>a bog thing</name>
 		<id>0x30c</id>
-		<inherit id="monster_base"/>
 		<karma>-8000</karma>
 		<fame>8000</fame>
 		<gold><random min="50" max="100"/></gold>

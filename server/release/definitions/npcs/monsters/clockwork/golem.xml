@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- Golem -->
-	<npc id="golem">
+	<npc id="golem" inherit="monster_base">
 		<name>a golem</name>
 		<id>0x2f0</id>
-		<inherit id="monster_base" />
 		<karma>-3500</karma>
 		<fame>3500</fame>
 		<!-- Stats -->

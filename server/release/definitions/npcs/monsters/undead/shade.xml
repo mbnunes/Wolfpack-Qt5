@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a shade -->
-	<npc id="shade">
+	<npc id="shade" inherit="undead_base">
 		<name><random list="NAMES_SHADE" /></name>
 		<id>0x01a</id>
-		<inherit id="undead_base"/>
 		<karma><random min="-2500" max="-4999"/></karma>
 		<fame><random min="2500" max="4999"/></fame>
 		<gold><random min="25" max="50"/></gold>

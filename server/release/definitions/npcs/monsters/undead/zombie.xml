@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a zombie-->
-	<npc id="zombie">
+	<npc id="zombie" inherit="undead_base">
 		<name>a zombie</name>
 		<id>0x2</id>
-		<inherit id="undead_base"/>
 		<karma>-600</karma>
 		<fame>600</fame>
 		<!-- Stats -->

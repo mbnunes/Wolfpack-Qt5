@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a fire gargoyle -->
-	<npc id="fire_gargoyle">
+	<npc id="fire_gargoyle" inherit="monster_base">
 		<name><random list="NAMES_GARGOYLE" /></name>
 		<id>0x82</id>
-		<inherit id="monster_base" />
 		<karma>-3500</karma>
 		<fame>3500</fame>
 		<!-- Stats -->

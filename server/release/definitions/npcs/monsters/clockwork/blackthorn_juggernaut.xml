@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- Blackthorn Juggernaut -->
-	<npc id="blackthorn_juggernaut">
+	<npc id="blackthorn_juggernaut" inherit="monster_base">
 		<name>a blackthorn juggernaut</name>
 		<id>0x300</id>
-		<inherit id="monster_base"/>
 		<karma>-12000</karma>
 		<fame>12000</fame>
 		<!-- Stats -->

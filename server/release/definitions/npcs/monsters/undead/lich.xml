@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a lich -->
-	<npc id="lich">
+	<npc id="lich" inherit="undead_base">
 		<name>lich</name>
 		<id>0x18</id>
-		<inherit id="undead_base"/>
 		<karma>-8000</karma>
 		<fame>8000</fame>
 		<gold><random min="180" max="220"/></gold>

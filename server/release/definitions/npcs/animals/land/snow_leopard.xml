@@ -19,13 +19,12 @@
 	</list>
 
 	<!-- Snow Leopard -->
-	<npc id="snow_leopard">
+	<npc id="snow_leopard" inherit="animal_base">
 		<name>a snow leopard</name>
 		<id>0xd6</id>
 		<ai>Animal_Wild</ai>
 		<skin><random list="SKINS_SNOW_LEOPARD" /></skin>
 		<category>Animals\Feline\Snow Leopard</category>
-		<inherit id="animal_base" />
 		<karma><random min="0" max="-624" /></karma>
 		<fame><random min="0" max="1249" /></fame>
 		<!-- Damage -->

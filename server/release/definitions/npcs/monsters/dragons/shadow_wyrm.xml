@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- shadow wyrm -->
-	<npc id="shadow_wyrm">
+	<npc id="shadow_wyrm" inherit="monster_base">
 		<name>a shadow wyrm</name>
 		<id>0x6a</id>
-		<inherit id="monster_base" />
 		<karma>-22500</karma>
 		<fame>22500</fame>
 		<gold><random min="800" max="1100"/></gold>

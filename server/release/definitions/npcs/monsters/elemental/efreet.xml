@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- efreet -->
-	<npc id="efreet">
+	<npc id="efreet" inherit="monster_base">
 		<name>an efreet</name>
 		<id>0x83</id>
-		<inherit id="monster_base" />
 		<karma>-10000</karma>
 		<fame>10000</fame>
 		<!-- Stats -->

@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a reaper -->
-	<npc id="reaper">
+	<npc id="reaper" inherit="monster_base">
 		<name>a reaper</name>
 		<id>0x2f</id>
-		<inherit id="monster_base"/>
 		<karma>-3500</karma>
 		<fame>3500</fame>
 		<gold><random min="60" max="90"/></gold>

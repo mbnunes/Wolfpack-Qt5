@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- an imp -->
-	<npc id="imp">
+	<npc id="imp" inherit="monster_base">
 		<name>an imp</name>
 		<id>0x4a</id>
-		<inherit id="monster_base"/>
 		<karma>-2500</karma>
 		<fame>2500</fame>
 		<gold><random min="25" max="50"/></gold>

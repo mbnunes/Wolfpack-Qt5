@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a hell hound -->
-	<npc id="hell_hound">
+	<npc id="hell_hound" inherit="monster_base">
 		<name>a hell hound</name>
 		<id>0x61</id>
-		<inherit id="monster_base"/>
 		<karma>-3400</karma>
 		<fame>3400</fame>
 		<gold><random min="100" max="130"/></gold>

@@ -2,12 +2,11 @@
 <definitions>
 
 	<!-- Walrus -->
-	<npc id="walrus">
+	<npc id="walrus" inherit="animal_base">
 		<name>a walrus</name>
 		<id>0xdd</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Land\Walrus</category>
-		<inherit id="animal_base" />
 		<karma>0</karma>
 		<fame>150</fame>
 		<!-- Damage -->

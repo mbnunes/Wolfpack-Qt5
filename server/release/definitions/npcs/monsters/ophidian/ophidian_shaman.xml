@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- Ophidian Shaman -->
-	<npc id="ophidian_shaman">
+	<npc id="ophidian_shaman" inherit="monster_base">
 		<name>an ophidian shaman</name>
 		<id>0x55</id>
-		<inherit id="monster_base" />
 		<karma>-4000</karma>
 		<fame>4000</fame>
 		<gold><random min="60" max="90"/></gold>

@@ -1,11 +1,10 @@
 
 <definitions>
 
-	<npc id="headless">
+	<npc id="headless" inherit="undead_base">
+		<inherit id="undead_loot_small" />
 		<name>a headless one</name>
 		<id>0x1f</id>
-		<inherit id="undead_base" />
-		<inherit id="undead_loot_small" />
 		<karma>-450</karma>
 		<fame>450</fame>
 		<!-- Stats -->

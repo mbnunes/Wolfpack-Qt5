@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- a corpser -->
-	<npc id="corpser">
+	<npc id="corpser" inherit="monster_base">
 		<name>a corpser</name>
 		<id>0x8</id>
-		<inherit id="monster_base"/>
 		<karma>-1000</karma>
 		<fame>1000</fame>
 		<gold><random min="25" max="50"/></gold>

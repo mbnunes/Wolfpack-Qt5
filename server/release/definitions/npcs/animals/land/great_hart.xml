@@ -2,12 +2,11 @@
 <definitions>
 
 	<!-- Great Hart -->
-	<npc id="great_heart">
+	<npc id="great_heart" inherit="animal_base">
 		<name>a great hart</name>
 		<id>0xea</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Land\Great Hart</category>
-		<inherit id="animal_base" />
 		<karma>0</karma>
 		<fame>300</fame>
 		<!-- Damage -->

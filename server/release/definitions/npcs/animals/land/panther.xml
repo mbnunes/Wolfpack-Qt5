@@ -2,12 +2,11 @@
 <definitions>
 
 	<!-- Panther -->
-	<npc id="panther">
+	<npc id="panther" inherit="animal_base">
 		<name>a panther</name>
 		<id>0xd6</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Feline\Panther</category>
-		<inherit id="animal_base" />
 		<karma>0</karma>
 		<fame>450</fame>
 		<!-- Damage -->

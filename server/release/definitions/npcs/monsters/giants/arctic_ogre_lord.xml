@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- an arctic ogre lord -->
-	<npc id="arctic_ogre_lord">
+	<npc id="arctic_ogre_lord" inherit="monster_base">
 		<name>an arctic ogre lord</name>
 		<id>0x87</id>
-		<inherit id="monster_base"/>
 		<karma>-15000</karma>
 		<fame>15000</fame>
 		<gold><random min="450" max="600"/></gold>

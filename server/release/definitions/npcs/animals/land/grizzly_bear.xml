@@ -2,13 +2,11 @@
 <definitions>
 
 	<!-- Grizzly Bear -->
-	<npc id="bear_grizzle">
+	<npc id="grizzly_bear" inherit="animal_base">
 		<name>a grizzly bear</name>
 		<id>0xd4</id>
 		<!-- <ai>Animal_Aggressive</ai> -->
 		<category>Animals\Bears\Grizzly Bear</category>
-		<skin>0</skin>
-		<inherit id="animal_base" />
 		<karma>0</karma>
 		<fame>1000</fame>
 		<!-- Damage -->

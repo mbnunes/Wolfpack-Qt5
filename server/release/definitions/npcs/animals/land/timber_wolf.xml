@@ -2,13 +2,11 @@
 <definitions>
 
 	<!-- Timber Wolf -->
-	<npc id="timber_wolf">
+	<npc id="timber_wolf" inherit="animal_base">
 		<name>a timber wolf</name>
 		<id>0xe1</id>
 		<ai>Animal_Wild</ai>
 		<category>Animals\Canine\Timber Wolf</category>
-		<skin>0</skin>
-		<inherit id="animal_base" />
 		<karma>0</karma>
 		<fame>450</fame>
 		<!-- Damage -->

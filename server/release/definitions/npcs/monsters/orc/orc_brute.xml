@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- orc brute -->
-	<npc id="orc_brute">
+	<npc id="orc_brute" inherit="monster_base">
 		<name>an orc brute</name>
 		<id>0xbd</id>
-		<inherit id="monster_base" />
 		<karma>-15000</karma>
 		<fame>15000</fame>
 		<!-- Stats -->

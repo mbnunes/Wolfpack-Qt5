@@ -2,10 +2,9 @@
 <definitions>
 
 	<!-- an ant lion -->
-	<npc id="ant_lion">
+	<npc id="ant_lion" inherit="monster_base">
 		<name>an ant lion</name>
 		<id>0x313</id>
-		<inherit id="monster_base"/>
 		<karma>-4500</karma>
 		<fame>4500</fame>
 		<!-- Stats -->
