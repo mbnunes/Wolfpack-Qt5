@@ -10,11 +10,15 @@
 	<!-- Default Player privs -->
 	<acl id="player">
 		<group name="command"></group>
+		<group name="multi"></group>
 	</acl>
 	
 	<!-- Admin privs -->
 	<acl id="admin">
 		<group name="command">
+			<action name="any" permit="true" />
+		</group>
+		<group name="multi">
 			<action name="any" permit="true" />
 		</group>
 	</acl>
@@ -24,6 +28,9 @@
 		<group name="command">
 			<action name="any" permit="true" />
 		</group>
+		<group name="multi">
+			<action name="any" permit="true" />
+		</group>
 	</acl>
 
 	<!-- Counselor privs -->
@@ -31,5 +38,6 @@
 		<group name="command">
 			<action name="any" permit="true" />
 		</group>		
+		<group name="multi"></group>
 	</acl>
 </definitions>

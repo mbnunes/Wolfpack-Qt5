@@ -7,6 +7,43 @@
 =================================================================
 -->
 <definitions>
+	<!-- wooden sign N/S -->
+	<item id="bcf">
+		<name>wooden sign</name>
+		<id>0xbcf</id>
+	</item>
+
+	<!-- wooden sign E/W -->
+	<item id="bd0">
+		<name>wooden sign</name>
+		<id>0xbd0</id>
+	</item>
+
+	<!-- brass sign N/S -->
+	<item id="bd1">
+		<name>brass sign</name>
+		<id>0xbd1</id>
+	</item>
+	
+	<!-- brass sign E/W -->
+	<item id="bd2">
+		<name>brass sign</name>
+		<id>0xbd2</id>
+	</item>
+	
+	<!-- door -->
+	<item id="6c5">
+		<name>door</name>
+		<id>0x6c5</id>
+		<type>12</type> <!-- Door type -->
+	</item>
+	
+	<!-- deed -->
+	<item id="14f0">
+		<name>deed</name>
+		<id>0x14F0</id>
+	</item>
+	
 	<!-- key -->
 	<item id="100f">
 		<name>key</name>
