@@ -1851,6 +1851,7 @@ void cUOSocket::handleGumpResponse( cUORxGumpResponse* packet )
 		free_serials.push( it->first );
 		gumps.erase( it );
 		pGump->handleResponse( this, packet->choice() );
+		delete pGump;
 	}
 }
 
