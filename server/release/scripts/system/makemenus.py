@@ -465,7 +465,7 @@ class CraftItemAction(MakeItemAction):
 # objects with a title property.
 #
 def comparetitle(a, b):
-	return cmp(a.title, b.title)
+	return cmp(a.title.lower(), b.title.lower())
 
 #
 # MakeMenu Gump Response Handler
