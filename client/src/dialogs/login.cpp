@@ -16,6 +16,7 @@
 #include "gui/imagebutton.h"
 #include "gui/textfield.h"
 #include "gui/scrollbar.h"
+#include "gui/worldview.h"
 
 #include "network/uosocket.h"
 
@@ -132,8 +133,10 @@ void cLoginDialog::nextClicked() {
 	switch (page) {
 		// Initiate the login
 		case PAGE_LOGIN:
-			UoSocket->connect(Config->loginHost(), Config->loginPort(), 0);
-			show(PAGE_CONNECTING);
+			//UoSocket->connect(Config->loginHost(), Config->loginPort(), 0);
+			//show(PAGE_CONNECTING);
+			hide();
+			WorldView->setVisible(true);
 			break;
 
 		case PAGE_SHARDLIST:
