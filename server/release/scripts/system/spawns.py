@@ -67,7 +67,7 @@ class SpawnThread(Thread):
       process = self.unprocessed[:100]
       self.unprocessed = self.unprocessed[100:]      
       
-      console.log(LOG_MESSAGE, "Found %u spawn items." % len(process))
+      #console.log(LOG_MESSAGE, "Found %u spawn items." % len(process))
       
       # Process the designated partition
       for i in range(0, len(process)):
@@ -81,7 +81,8 @@ class SpawnThread(Thread):
           valid = 0
           
         if not valid:
-          console.log(LOG_WARNING, "Invalid spawn item: 0x%x.\n" % item.serial)
+          #console.log(LOG_WARNING, "Invalid spawn item: 0x%x.\n" % item.serial)
+          pass
         else:
           spawntype = int(item.gettag('spawntype')) # 0: Items, 1: NPCs
           spawndef = str(item.gettag('spawndef')) # Definition
@@ -150,11 +151,11 @@ class SpawnThread(Thread):
            
           if nextspawn <= currenttime:
             spawn(item, spawntype, spawndef, current, area)
-            console.log(LOG_MESSAGE, "SPAWNTIME REACHED!")
+            #console.log(LOG_MESSAGE, "SPAWNTIME REACHED!")
             item.deltag('nextspawn')
 
-          console.log(LOG_MESSAGE, "Valid Spawnpoint: %x, Cur/Max: %u/%u, Def: %s, Type: %u, Interval: %u,%u, Time: %d/%d" % \
-            (item.serial, current, maximum, spawndef, spawntype, mininterval, maxinterval, nextspawn, currenttime))            
+          #console.log(LOG_MESSAGE, "Valid Spawnpoint: %x, Cur/Max: %u/%u, Def: %s, Type: %u, Interval: %u,%u, Time: %d/%d" % \
+          #  (item.serial, current, maximum, spawndef, spawntype, mininterval, maxinterval, nextspawn, currenttime))            
 
       self.processed += process
       
