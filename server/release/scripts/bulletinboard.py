@@ -338,4 +338,4 @@ def onUse(char, board):
 	return 1
 
 def onLoad():
-	wolfpack.registerpackethook(0x77, bulletinboard)
+	wolfpack.registerpackethook(0x71, bulletinboard)
