@@ -626,6 +626,47 @@ bool cPythonScript::onUnequip( P_CHAR pChar, P_ITEM pItem, unsigned char layer )
 	return PyEvalMethod( "onUnequip", tuple );
 }
 
+bool cPythonScript::onBookUpdateInfo( P_CHAR pChar, P_ITEM pBook, const QString &author, const QString &title )
+{
+	PyHasMethod( "onBookUpdateInfo" )
+
+	// Create our args for the python function
+	PyObject *tuple = PyTuple_New( 4 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
+	PyTuple_SetItem( tuple, 1, PyGetItemObject( pBook ) );
+	PyTuple_SetItem( tuple, 2, PyString_FromString( author.latin1() ) );
+	PyTuple_SetItem( tuple, 3, PyString_FromString( title.latin1() ) );
+
+	return PyEvalMethod( "onBookUpdateInfo", tuple );
+}
+
+bool cPythonScript::onBookRequestPage( P_CHAR pChar, P_ITEM pBook, unsigned short page )
+{
+	PyHasMethod( "onBookRequestPage" )
+
+	// Create our args for the python function
+	PyObject *tuple = PyTuple_New( 3 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
+	PyTuple_SetItem( tuple, 1, PyGetItemObject( pBook ) );
+	PyTuple_SetItem( tuple, 2, PyInt_FromLong( page ) );
+
+	return PyEvalMethod( "onBookRequestPage", tuple );
+}
+
+bool cPythonScript::onBookUpdatePage( P_CHAR pChar, P_ITEM pBook, unsigned short page, const QString &content )
+{
+	PyHasMethod( "onBookUpdatePage" )
+
+	// Create our args for the python function
+	PyObject *tuple = PyTuple_New( 4 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
+	PyTuple_SetItem( tuple, 1, PyGetItemObject( pBook ) );
+	PyTuple_SetItem( tuple, 2, PyInt_FromLong( page ) );
+	PyTuple_SetItem( tuple, 3, PyString_FromString( content.latin1() ) );
+
+	return PyEvalMethod( "onBookUpdatePage", tuple );
+}
+
 QString cPythonScript::onShowPaperdollName( P_CHAR pChar, P_CHAR pOrigin )
 {
 	if( !codeModule ) 

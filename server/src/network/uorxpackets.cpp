@@ -70,7 +70,6 @@ cUOPacket *getUORxPacket( const QByteArray &data )
 	case 0x80:		return new cUORxLoginRequest( data );
 	case 0x83:		return new cUORxDeleteCharacter( data );
 	case 0x91:		return new cUORxServerAttach( data );
-	case 0x93:		return new cUORxUpdateBook( data );
 	case 0x95:		return new cUORxDye( data );
 	case 0x9B:		return new cUORxHelpRequest( data );
 	case 0x9F:		return new cUORxSell( data );
@@ -84,6 +83,7 @@ cUOPacket *getUORxPacket( const QByteArray &data )
 	case 0xC8:		return new cUORxUpdateRange( data );
 	case 0xB8:		return new cUORxProfile( data );
 	case 0xD7:		return cUORxAosMultiPurpose::packet( data );
+	case 0xD4:		return new cUORxBookInfo( data );
 	default:		return new cUOPacket( data );
 	};	
 }

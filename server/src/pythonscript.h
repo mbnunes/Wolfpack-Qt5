@@ -125,6 +125,11 @@ public:
 
 	bool onCommand( cUOSocket *socket, const QString &name, const QString &args );
 
+	// RecvPacket Handler
+	bool onBookUpdateInfo( P_CHAR pChar, P_ITEM pBook, const QString &author, const QString &title );
+	bool onBookRequestPage( P_CHAR pChar, P_ITEM pBook, unsigned short page );
+	bool onBookUpdatePage( P_CHAR pChar, P_ITEM pBook, unsigned short page, const QString &content );
+
 	unsigned int onDamage( P_CHAR pChar, unsigned char type, unsigned int amount, cUObject *source );
 
 	// WorldSave

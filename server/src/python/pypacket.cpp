@@ -124,15 +124,13 @@ static PyObject *wpPacket_setint( PyObject *self, PyObject *args )
 // Set raw data in the packet buffer
 static PyObject *wpPacket_setascii( PyObject *self, PyObject *args )
 {
-	int pos, size;
+	int pos;
 	char *buffer;
 		
-	if( !PyArg_ParseTuple( args, "ies#:wppacket.setbuffer( position, value )", &pos, "ascii", &buffer, &size ) )
+	if( !PyArg_ParseTuple( args, "ies:wppacket.setbuffer( position, value )", &pos, "ascii", &buffer ) )
 		return 0;
 
-	( (wpPacket*)self )->packet->setAsciiString( (unsigned short)pos, buffer, size );
-
-	PyMem_Free( buffer );
+	( (wpPacket*)self )->packet->setAsciiString( (unsigned short)pos, buffer, strlen( buffer ) + 1 );
 
 	Py_INCREF( Py_None );
 	return Py_None;
@@ -171,6 +169,14 @@ static PyObject *wpPacket_send( PyObject *self, PyObject *args )
 	return Py_None;
 }
 
+// Return a Packet Dump
+static PyObject *wpPacket_dump( PyObject *self, PyObject *args )
+{
+	QCString dump = cUOPacket::dump( ( (wpPacket*)self )->packet->uncompressed() );
+
+	return PyString_FromString( dump.data() );
+}
+
 // List of Methods
 PyMethodDef wpPacketMethods[] = 
 {
@@ -181,6 +187,7 @@ PyMethodDef wpPacketMethods[] =
 	{ "setascii",	wpPacket_setascii,			METH_VARARGS,	NULL },
 	{ "setunicode",	wpPacket_setunicode,		METH_VARARGS,	NULL },
 	{ "send",		wpPacket_send,				METH_VARARGS,	NULL },
+	{ "dump",		wpPacket_dump,				METH_VARARGS,	NULL },
 	{ NULL, NULL, 0, NULL }
 };
 

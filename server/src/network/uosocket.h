@@ -157,7 +157,7 @@ public:
 	void handleTarget( cUORxTarget *packet );
 	void handleRequestAttack( cUORxRequestAttack* packet );
 	void handleBookPage( cUORxBookPage* packet );
-	void handleUpdateBook( cUORxUpdateBook* packet );
+	void handleUpdateBook( cUORxBookInfo* packet );
 	void handleAction( cUORxAction* packet );
 	void handleGumpResponse( cUORxGumpResponse* packet );
 	void handleHelpRequest( cUORxHelpRequest* packet );

@@ -619,4 +619,24 @@ public:
 	ushort iAmount( ushort item ) const	{ return getShort( 13 + ( item * 6 ) ); }
 };
 
+// 0xD4
+class cUORxBookInfo : public cUOPacket
+{
+public:
+	cUORxBookInfo( const QByteArray &data ): cUOPacket( data ) {}
+	unsigned int serial() const			{ return getInt( 3 ); }
+	QString author() const
+	{ 
+		unsigned short length = getShort( 11 );
+		return this->getAsciiString( 13, length );
+	}
+	
+	QString title() const
+	{ 
+		unsigned short length1 = getShort( 11 );
+		unsigned short length2 = getShort( 13 + length1 );
+		return this->getAsciiString( 15 + length1, length2 );
+	}
+};
+
 #endif // __UO_RXPACKETS__

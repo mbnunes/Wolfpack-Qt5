@@ -51,7 +51,6 @@
 #include "../walking.h"
 #include "../guildstones.h"
 #include "../combat.h"
-#include "../books.h"
 #include "../gumps.h"
 #include "../skills.h"
 #include "../contextmenu.h"
@@ -271,10 +270,7 @@ void cUOSocket::recieve()
 		handleDeleteCharacter( dynamic_cast< cUORxDeleteCharacter* >( packet ) ); break;
 	case 0x91:
 		handleServerAttach( dynamic_cast< cUORxServerAttach* >( packet ) ); break;
-	case 0x93:
-		handleUpdateBook( dynamic_cast< cUORxUpdateBook* >( packet ) ); break;
-	case 0x9B:
-		handleHelpRequest( dynamic_cast< cUORxHelpRequest* >( packet ) ); break;
+	case 0x9B:	handleHelpRequest( dynamic_cast< cUORxHelpRequest* >( packet ) ); break;
 	case 0x9F:
 		handleSell( dynamic_cast< cUORxSell* >( packet ) ); break;
 	case 0xA0:
@@ -297,6 +293,8 @@ void cUOSocket::recieve()
 		handleUpdateRange( dynamic_cast< cUORxUpdateRange* >( packet ) ); break;
 	case 0x95:
 		handleDye( dynamic_cast< cUORxDye* >( packet ) ); break;
+	case 0xD4:
+		handleUpdateBook( dynamic_cast< cUORxBookInfo* >( packet ) ); break;
 	default:
 		packet->print( &cout );
 		break;
@@ -2123,44 +2121,28 @@ bool cUOSocket::inRange( cUOSocket* socket ) const
 
 void cUOSocket::handleBookPage( cUORxBookPage* packet )
 {
-	cBook* pBook = dynamic_cast< cBook* >(FindItemBySerial( packet->serial() ));
+	P_ITEM pBook = FindItemBySerial( packet->serial() );
+	
 	if( pBook )
 	{
 		if( packet->numOfLines() == (UINT16)-1 )
 		{
 			// simple page request
-			pBook->readPage( this, packet->page() );
+			pBook->onBookRequestPage( _player, packet->page() );
 		}
-		else if( pBook->writeable() )
+		else
 		{
-			// page write request
-			QStringList content_ = pBook->content();
-			QStringList lines = packet->lines();
-			
-			QString toInsert = QString();
-			QStringList::const_iterator it = lines.begin();
-			while( it != lines.end() )
-			{
-				toInsert += (*it)+"\n";
-				++it;
-			}
-
-			UINT16 n = packet->page();
-			while( content_.size() <= n )
-				content_.push_back( "" );
-			content_[ n - 1 ] = toInsert;
-			pBook->setContent( content_ );
+			pBook->onBookUpdatePage( _player, packet->page(), packet->lines().join( "\n" ) );
 		}
 	}	
 }
 
-void cUOSocket::handleUpdateBook( cUORxUpdateBook* packet )
+void cUOSocket::handleUpdateBook( cUORxBookInfo* packet )
 {
-	cBook* pBook = dynamic_cast< cBook* >(FindItemBySerial( packet->serial() ));
-	if( pBook && pBook->writeable() )
+	P_ITEM pBook = FindItemBySerial( packet->serial() );
+	if( pBook )
 	{
-		pBook->setAuthor( packet->author() );
-		pBook->setTitle( packet->title() );
+		pBook->onBookUpdateInfo( _player, packet->author(), packet->title() );
 	}
 }
 

@@ -43,7 +43,6 @@
 #include "combat.h"
 #include "scriptmanager.h"
 #include "pythonscript.h"
-#include "books.h"
 #include "house.h"
 #include "boats.h"
 #include "accounts.h"

@@ -41,7 +41,6 @@
 #include "iserialization.h"
 #include "debug.h"
 #include "items.h"
-#include "books.h"
 #include "tilecache.h"
 #include "srvparams.h"
 #include "wpdefmanager.h"
@@ -481,22 +480,6 @@ bool cItem::del()
 
 QString cItem::getName( bool shortName )
 {
-	// Book Titles
-	if( type_ == 11 )
-	{
-		cBook *pBook = dynamic_cast< cBook* >( this );
-		if( pBook && !pBook->title().isEmpty() )
-		{
-			QString bookname = pBook->title();
-
-			// Append author
-			if( !shortName && !pBook->author().isEmpty() )
-				bookname.append( tr( " by %1" ).arg( pBook->author() ) );
-
-			return bookname;
-		}
-	}
-
 	if( !name_.isNull() )
 		return name_;
 
@@ -874,25 +857,9 @@ P_ITEM cItem::createFromScript( const QString& Section )
 		return NULL;
 	}
 
-	// books etc.
-	QString type = DefSection->getAttribute( "type" );
-
-	if( type == "book" )
-	{
-		cBook* nBook = new cBook();
-		nBook->setSerial( World::instance()->findItemSerial() );
-
-		nBook->applyDefinition( DefSection );
-		nBook->setSection( Section );
-
-		nItem = nBook;
-	}
-	else
-	{
-		nItem = new cItem;
-		nItem->Init( true );
-		nItem->applyDefinition( DefSection );
-	}
+	nItem = new cItem;
+	nItem->Init( true );
+	nItem->applyDefinition( DefSection );
 
 	nItem->onCreate( Section );
 
@@ -986,6 +953,57 @@ bool cItem::onEquip( P_CHAR pChar, unsigned char layer )
 		while( scriptChain[i] )
 		{
 			if( scriptChain[ i ]->onEquip( pChar, this, layer ) )
+				return true;
+
+			++i;
+		}
+	}
+
+	return false;
+}
+
+bool cItem::onBookUpdateInfo( P_CHAR pChar, const QString &author, const QString &title )
+{
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onBookUpdateInfo( pChar, this, author, title ) )
+				return true;
+
+			++i;
+		}
+	}
+
+	return false;
+}
+
+bool cItem::onBookRequestPage( P_CHAR pChar, unsigned short page )
+{
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onBookRequestPage( pChar, this, page ) )
+				return true;
+
+			++i;
+		}
+	}
+
+	return false;
+}
+
+bool cItem::onBookUpdatePage( P_CHAR pChar, unsigned short page, const QString &content )
+{
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onBookUpdatePage( pChar, this, page, content ) )
 				return true;
 
 			++i;
@@ -1449,16 +1467,6 @@ void cItem::showName( cUOSocket *socket )
 	// Show serials
 	if( socket->player() && socket->player()->account() && socket->player()->account()->isShowSerials() )
 		itemname.append( tr( " [%1]" ).arg( serial(), 8, 16 ) );
-
-	// Pages
-	if( type_ == 11 )
-	{
-		cBook *pBook = dynamic_cast< cBook* >( this );
-
-		// Append pages
-		if( pBook )
-			itemname.append( tr( " [pages: %1]" ).arg( pBook->pages() ) );
-	}
 
 	// Try a localized Message
 	if( name_.isNull() )

@@ -806,7 +806,10 @@ void cCustomTags::remove( const QString& key )
 		}
 
 		if( tags_->count() == 0 )
+		{
 			delete tags_;
+			tags_ = 0;
+		}
 	}
 }
 

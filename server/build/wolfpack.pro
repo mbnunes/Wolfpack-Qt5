@@ -59,7 +59,6 @@ HEADERS         = \
 		  basics.h \
 		  basechar.h \
 		  boats.h \
-		  books.h \
 		  coord.h \
 		  combat.h \
 		  commands.h \
@@ -128,7 +127,6 @@ SOURCES         = \
 		basechar.cpp \
 		basics.cpp \
 		boats.cpp \
-		books.cpp \
 		chars.cpp \
 		combat.cpp \
 		commands.cpp \

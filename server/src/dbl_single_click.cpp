@@ -33,7 +33,6 @@
 #include "platform.h"
 
 // Wolfpack Includes
-#include "books.h"
 #include "globals.h"
 #include "guildstones.h"
 #include "srvparams.h"
@@ -312,18 +311,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 		}
 		// End Boats --^
 		return;
-
-	// Book
-	case 11:
-	{
-		cBook* pBook = dynamic_cast< cBook* >(pi);
-		if( pBook )
-		{
-			pc_currchar->setObjectDelay( 0 );
-			pBook->open( socket );
-		}
-		return;
-	}
 
 	// Food, OSI style
 	case 14:

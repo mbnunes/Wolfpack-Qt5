@@ -215,6 +215,9 @@ public:
 	bool onDropOnGround( const Coord_cl &pos );
 	bool onPickup( P_CHAR pChar );
 	bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
+	bool onBookUpdateInfo( P_CHAR pChar, const QString &author, const QString &title );
+	bool onBookRequestPage( P_CHAR pChar, unsigned short page );
+	bool onBookUpdatePage( P_CHAR pChar, unsigned short page, const QString &content );
 	
 	QPtrList< cItem > getContainment() const;
 

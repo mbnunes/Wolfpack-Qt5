@@ -36,7 +36,6 @@
 #include "speech.h"
 #include "territories.h"
 
-#include "books.h"
 #include "TmpEff.h"
 #include "guildstones.h"
 #include "combat.h"
@@ -722,7 +721,6 @@ int main( int argc, char *argv[] )
 	cPlayer::registerInFactory();
 	cNPC::registerInFactory();
 	cItem::registerInFactory();
-	cBook::registerInFactory();
 	cCorpse::registerInFactory();
 	cBoat::registerInFactory();
 	cHouse::registerInFactory();
