@@ -1346,7 +1346,8 @@ bool cItem::onShowTooltip( P_CHAR sender, cUOTxTooltipList* tooltip )
 
 	hooks = ScriptManager->getGlobalHooks( OBJECT_ITEM, EVENT_SHOWTOOLTIP );
 	for( it = hooks.begin(); it != hooks.end(); ++it )
-		(*it)->onShowToolTip( sender, this, tooltip );
+		if( (*it)->onShowToolTip( sender, this, tooltip ) ) 
+			return true;
 
 	return false;
 }
