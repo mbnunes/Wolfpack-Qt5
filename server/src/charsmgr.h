@@ -66,10 +66,10 @@ protected:
 	cCharsManager(cCharsManager& _it) {} // Unallow copy constructor
 	cCharsManager& operator=(cCharsManager& _it) { return *this; } // Unallow Assignment
 public:
-	void registerChar( cChar* ) throw(wp_exceptions::bad_ptr);
-	void unregisterChar( cChar* ) throw (wp_exceptions::bad_ptr);
+	void registerChar( cChar* ) throw(wp_exceptions::wpbad_ptr);
+	void unregisterChar( cChar* ) throw (wp_exceptions::wpbad_ptr);
 	SERIAL getUnusedSerial() const;
-	void deleteChar( cChar* ) throw(wp_exceptions::bad_ptr);
+	void deleteChar( cChar* ) throw(wp_exceptions::wpbad_ptr);
 	void purge();
 
 	static cCharsManager* getInstance()

@@ -1335,7 +1335,8 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 			    	// Check for command word versions of this packet														
 
 					if ( (buffer[s][3]) >=0xc0 )
-					{					
+					{			
+						// Get the trigger
 						                  
 						buffer[s][3] = buffer[s][3] & 0x0F ; // set to normal (cutting off the ascii indicator since we are converting back to unicode)					
 

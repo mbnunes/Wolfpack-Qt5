@@ -788,8 +788,27 @@ void PlVGetgold(int s, cChar* pVendor)//PlayerVendors
 		npctalk(s,pVendor,"I don't work for you!",0);
 }
 
+bool VendorChkName(cChar* pVendor, string comm)
+{
+	if ((comm.find("VENDOR")!= string::npos) || (comm.find("SHOPKEEPER") != string::npos))
+		return true ;
+	else
+	{
+		string name = pVendor->name ;
+		//Convert the name to upper case
+		transform(name.begin(),name.end(),name.begin(),::toupper) ;
+		// ok, now see if in the substring
+		if (comm.find(name) != string::npos)
+			return true ;
+	}
+	return false ;
+}
+
+/*
 bool VendorChkName(cChar* pVendor, char* comm)
 {
+	string temp =pVendor->name ;
+	
 	if (strstr(comm, "VENDOR") || strstr(comm, "SHOPKEEPER"))
 	{
 		return true;
@@ -797,14 +816,23 @@ bool VendorChkName(cChar* pVendor, char* comm)
 	else
 	{
 		char vntmp[90] = {0,};
-		strncpy(vntmp, pVendor->name.c_str(), 89);
-		strupr(vntmp);
-		if (strstr( comm, vntmp))
+		char punttmp[90] ;
+		punttmp[89] = 0 ;
+		int puntlen;
+		puntlen = temp.length() ;
+
+		puntlen = strlen(temp.c_str()) ;
+		//strncpy(vntmp, pVendor->name.c_str(), 89);
+		strncpy(punttmp,temp.c_str(), 89) ;
+		//strupr(vntmp);
+		strupr(punttmp) ;
+		//if (strstr( comm, vntmp))
+		if (strstr(comm,punttmp))
 			return true;
 	}
 	return false;
 }
-
+*/
 bool PlayerVendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
 {
 
@@ -814,7 +842,8 @@ bool PlayerVendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
 	if (pPlayer->dist(pVendor) > 4)
 		return 0;
 
-	if (!VendorChkName(pVendor,comm))
+	string punt(comm) ;
+	if (!VendorChkName(pVendor,punt))
 		return false;
 
 	if (strstr(comm, " BROWSE") || strstr(comm, " VIEW") || strstr(comm, " LOOK"))
@@ -867,7 +896,8 @@ bool VendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
 	if (pPlayer->dist(pVendor) > 4)
 		return false;
 
-	if (!VendorChkName(pVendor, comm))
+	string punt(comm) ;
+	if (!VendorChkName(pVendor, punt))
 		return false;
 
     if (strstr(comm, " BUY"))

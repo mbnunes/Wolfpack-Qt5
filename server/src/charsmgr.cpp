@@ -60,7 +60,7 @@ struct max_serialPred : binary_function<pair<SERIAL, cChar*>, pair<SERIAL, cChar
  *
  * @return void  : none
  */
-void cCharsManager::registerChar(cChar* pc) throw(wp_exceptions::bad_ptr)
+void cCharsManager::registerChar(cChar* pc) throw(wp_exceptions::wpbad_ptr)
 {
 	if ( pc != NULL)
 	{
@@ -69,7 +69,7 @@ void cCharsManager::registerChar(cChar* pc) throw(wp_exceptions::bad_ptr)
 	}
 	else
 	{
-		throw wp_exceptions::bad_ptr("Invalid argument pc at cCharsManager::registerChar");
+		throw wp_exceptions::wpbad_ptr("Invalid argument pc at cCharsManager::registerChar");
 	}
 }
 
@@ -81,12 +81,12 @@ void cCharsManager::registerChar(cChar* pc) throw(wp_exceptions::bad_ptr)
  *
  * @return void  : none
  */
-void cCharsManager::unregisterChar(cChar* pc) throw(wp_exceptions::bad_ptr)
+void cCharsManager::unregisterChar(cChar* pc) throw(wp_exceptions::wpbad_ptr)
 {
 	if ( pc != NULL)
 		erase(pc->serial);
 	else
-		throw wp_exceptions::bad_ptr("Invalid argument pc at cCharsManager::unregisterChar");
+		throw wp_exceptions::wpbad_ptr("Invalid argument pc at cCharsManager::unregisterChar");
 }
 
 
@@ -114,7 +114,7 @@ SERIAL cCharsManager::getUnusedSerial() const
  * @return void  : none
  */
 
-void cCharsManager::deleteChar(cChar* pc) throw(wp_exceptions::bad_ptr)
+void cCharsManager::deleteChar(cChar* pc) throw(wp_exceptions::wpbad_ptr)
 {
 	if ( pc != NULL)
 	{
@@ -122,7 +122,7 @@ void cCharsManager::deleteChar(cChar* pc) throw(wp_exceptions::bad_ptr)
 		unregisterChar(pc);
 	}
 	else
-		throw wp_exceptions::bad_ptr("Invalid argument pc at cCharsManager::deleteChar");
+		throw wp_exceptions::wpbad_ptr("Invalid argument pc at cCharsManager::deleteChar");
 }
 
 

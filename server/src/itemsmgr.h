@@ -71,9 +71,9 @@ protected:
 	cItemsManager(cItemsManager& _it) {} // Unallow copy constructor
 	cItemsManager& operator=(cItemsManager& _it) { return *this; } // Unallow Assignment
 public:
-	void registerItem( cItem* ) throw(wp_exceptions::bad_ptr);
-	void unregisterItem( cItem* ) throw (wp_exceptions::bad_ptr);
-	void deleteItem ( cItem * ) throw (wp_exceptions::bad_ptr);
+	void registerItem( cItem* ) throw(wp_exceptions::wpbad_ptr);
+	void unregisterItem( cItem* ) throw (wp_exceptions::wpbad_ptr);
+	void deleteItem ( cItem * ) throw (wp_exceptions::wpbad_ptr);
 	void purge();
 	SERIAL getUnusedSerial() const;
 

@@ -58,7 +58,7 @@ struct max_serialPred : binary_function<pair<SERIAL, cItem*>, pair<SERIAL, cItem
  *
  * @return void  : none
  */
-void cItemsManager::registerItem(cItem* pi) throw(wp_exceptions::bad_ptr)
+void cItemsManager::registerItem(cItem* pi) throw(wp_exceptions::wpbad_ptr)
 {
 	if ( pi != NULL)
 	{
@@ -67,7 +67,7 @@ void cItemsManager::registerItem(cItem* pi) throw(wp_exceptions::bad_ptr)
 	}
 	else
 	{
-		throw wp_exceptions::bad_ptr("Invalid argument PI at cItemsManager::registerItem");
+		throw wp_exceptions::wpbad_ptr("Invalid argument PI at cItemsManager::registerItem");
 	}
 }
 
@@ -78,12 +78,12 @@ void cItemsManager::registerItem(cItem* pi) throw(wp_exceptions::bad_ptr)
  *
  * @return void  : none
  */
-void cItemsManager::unregisterItem(cItem* pi) throw(wp_exceptions::bad_ptr)
+void cItemsManager::unregisterItem(cItem* pi) throw(wp_exceptions::wpbad_ptr)
 {
 	if ( pi != NULL)
 		erase(pi->serial);
 	else
-		throw wp_exceptions::bad_ptr("Invalid argument PI at cItemsManager::unregisterItem");
+		throw wp_exceptions::wpbad_ptr("Invalid argument PI at cItemsManager::unregisterItem");
 }
 
 /*!
@@ -108,7 +108,7 @@ SERIAL cItemsManager::getUnusedSerial() const
  *
  * @return void  : none
  */
-void cItemsManager::deleteItem(cItem* pi) throw(wp_exceptions::bad_ptr)
+void cItemsManager::deleteItem(cItem* pi) throw(wp_exceptions::wpbad_ptr)
 {
 	if ( pi != NULL)
 	{
@@ -116,7 +116,7 @@ void cItemsManager::deleteItem(cItem* pi) throw(wp_exceptions::bad_ptr)
 		unregisterItem(pi);
 	}
 	else
-		throw wp_exceptions::bad_ptr("Invalid argument pi at cItemsManager::deleteItem");
+		throw wp_exceptions::wpbad_ptr("Invalid argument pi at cItemsManager::deleteItem");
 }
 
 /*!

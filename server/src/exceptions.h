@@ -41,20 +41,22 @@ namespace wp_exceptions
 {
 	// Exceptions trown by ItemManager:
 //##ModelId=3C5D92F5009E
-	class bad_ptr : public std::exception
+	class wpbad_ptr : public std::exception
 	{
 	private:
 	//##ModelId=3C5D92F500D1
 		std::string m_Error;
 	public:
 	//##ModelId=3C5D92F500E4
-		bad_ptr(std::string sError) throw() : m_Error(sError) {};
+		wpbad_ptr(std::string sError) throw() : m_Error(sError) {};
 	//##ModelId=3C5D92F500F8
 		virtual const char *what() const throw()
 		{
 			return m_Error.c_str();
 		}
+		~wpbad_ptr() throw(){} ;
 	};
+	
 };
 
 #endif // __EXCEPTIONS_H__
