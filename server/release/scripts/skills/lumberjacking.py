@@ -103,7 +103,7 @@ def getvein( socket, pos, target ):
 				return gem
 				break
 	if not gems:
-		gem = createwoodgem()
+		gem = createwoodgem(target, pos)
 		return gem
 
 # Delay for chopping trees and getting the logs
@@ -212,7 +212,7 @@ def successlumberjacking( time, args ):
 		return OOPS
 	else:
 		# Skill Check against LUMBERJACKING
-		if not char.checkskill( char, resource, LUMBERJACKING, 0 ):
+		if not char.checkskill( resource, LUMBERJACKING, 0 ):
 			char.socket.clilocmessage( 500495 ) # You hack at the tree for a while but fail to produce...
 			success = 0
 			return OOPS
