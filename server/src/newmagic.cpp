@@ -262,7 +262,7 @@ void cNewMagic::disturb( P_CHAR pMage, bool fizzle, INT16 chance )
 		if( effects[i]->objectID() == "endcasting" )
 		{
 			// We found our effect
-			TempEffects::instance()->teffects.erase( effects[i] );
+			TempEffects::instance()->erase( effects[i] );
 			pMage->removeEffect( effects[i] );
 			break;
 		}

@@ -33,8 +33,6 @@
 // TmpEff.cpp: implementation of temporary effects
 //				cut from Wolfpack.cpp by Duke, 25.10.2000
 
-#define RANK_ARRAY_SIZE 65535
-
 #include "platform.h"
 
 // Wolfpack Includes
@@ -478,12 +476,12 @@ void cTmpEff::Serialize(ISerialization &archive)
 
 void cTempEffects::check()
 {
-	cTempEffect *tEffect;
-
-	while( teffects.accessMin() && teffects.accessMin()->expiretime <= uiCurrentTime )
+	cTempEffect *tEffect = NULL;
+	if( !teffects.empty() )
+		tEffect = *teffects.begin();
+	
+	while( tEffect && tEffect->expiretime <= uiCurrentTime )
 	{
-		tEffect = teffects.accessMin();
-
 		if( isCharSerial( tEffect->getDest() ) )
 		{
 			P_CHAR pChar = dynamic_cast< P_CHAR >( FindCharBySerial( tEffect->getDest() ) );
@@ -492,7 +490,12 @@ void cTempEffects::check()
 		}
 
 		tEffect->Expire();
-		teffects.deleteMin();
+		std::pop_heap( teffects.begin(), teffects.end(), cTempEffects::ComparePredicate() );
+		teffects.pop_back();
+		delete tEffect;
+
+		if( !teffects.empty() )
+			tEffect = *teffects.begin();
 	}
 
 }
@@ -507,10 +510,9 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 	cTempEffect *pTEs;
 	cTmpEff *pTE;
 
-	std::vector< cTempEffect* > teffects_ = teffects.asVector();
-	std::vector< cTempEffect* >::iterator it = teffects_.begin();
+	std::vector< cTempEffect* >::iterator it = teffects.begin();
 
-	while( it != teffects_.end() )
+	while( it != teffects.end() )
 	{
 		pTEs = (*it);
 		if( typeid(*pTEs) == typeid(cTmpEff) )
@@ -538,11 +540,13 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 				(pTE->num==19&& num==18) )  //reverse incognito effect if we have to use poly - AntiChrist (12/99)
 			{
 				pTE->Reverse();
-				teffects.erase( pTEs ); // Should we continue searching?
+				teffects.erase( it ); // Should we continue searching?
 			}
 		}
 		it++;
 	}
+
+	std::make_heap( teffects.begin(), teffects.end(), cTempEffects::ComparePredicate() );
 
 	pTE = new cTmpEff;
 	pTE->Init();
@@ -739,7 +743,7 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		return 0;
 	}
 
-	TempEffects::instance()->teffects.insert( pTE );
+	TempEffects::instance()->insert( pTE );
 	return 1;
 }
 
@@ -786,15 +790,14 @@ bool cTempEffects::add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char m
 		delete pTE; // do not leak this resource.
 		return false;
 	}
-	this->teffects.insert(pTE);
+	insert(pTE);
 	return true;
 }
 
 void cTempEffects::serialize(ISerialization &archive)
 {
-	std::vector< cTempEffect* > teffects_ = teffects.asVector();
-	std::vector< cTempEffect* >::iterator it = teffects_.begin();
-	while( it != teffects_.end() )
+	std::vector< cTempEffect* >::iterator it = teffects.begin();
+	while( it != teffects.end() )
 	{
 		if( (*it)->isSerializable() )
 			archive.writeObject( (*it) );
@@ -809,9 +812,8 @@ void cTempEffects::serialize(ISerialization &archive)
 */
 void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString &type, bool silent, bool onlyDispellable )
 {
-	std::vector< cTempEffect* > teffects_ = teffects.asVector();
-	std::vector< cTempEffect* >::iterator i = teffects_.begin();
-	for( i = teffects_.begin(); i != teffects_.end(); i++ )
+	std::vector< cTempEffect* >::iterator i = teffects.begin();
+	for( i = teffects.begin(); i != teffects.end(); i++ )
 		if( (*i) != NULL && ( !onlyDispellable || (*i)->dispellable ) && (*i)->getDest() == pc_dest->serial() && (*i)->objectID() == type )
 		{
 			if( isCharSerial( (*i)->getSour() ) )
@@ -822,15 +824,16 @@ void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString &type, 
 			}
 
 			(*i)->Dispel( pc_dest, pSource );
-			teffects.erase( (*i) );
+			teffects.erase( i );
 		}
+
+		std::make_heap( teffects.begin(), teffects.end(), cTempEffects::ComparePredicate() );
 }
 
 void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent )
 {
-	std::vector< cTempEffect* > teffects_ = teffects.asVector();
-	std::vector< cTempEffect* >::iterator i = teffects_.begin();
-	for( i = teffects_.begin(); i != teffects_.end(); i++ )
+	std::vector< cTempEffect* >::iterator i = teffects.begin();
+	for( i = teffects.begin(); i != teffects.end(); i++ )
 		if( (*i) != NULL && (*i)->dispellable && (*i)->getDest() == pc_dest->serial() )
 		{
 			if( isCharSerial( (*i)->getDest() ) )
@@ -841,8 +844,10 @@ void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent )
 			}
 
 			(*i)->Dispel( pSource, silent );
-			teffects.erase( (*i) );
+			teffects.erase( i );
 		}
+
+		std::make_heap( teffects.begin(), teffects.end(), cTempEffects::ComparePredicate() );
 }
 
 unsigned char tempeffect(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur)
@@ -919,9 +924,10 @@ cTimedSpellAction::cTimedSpellAction( SERIAL serial, UI08 nAction )
 void cTimedSpellAction::Expire()
 {
 	if( character != INVALID_SERIAL )
-		TempEffects::instance()->teffects.insert( new cTimedSpellAction( character, action ) );
+		TempEffects::instance()->insert( new cTimedSpellAction( character, action ) );
 }
 
+/*
 //  Fibonacci Heap implementation
 //
 //  18.07.2002, Joerg Stueckler (sereg)
@@ -1183,6 +1189,7 @@ std::vector< cTempEffect* >	cTmpEffFibHeap::asVector()
 	else
 		return std::vector< cTempEffect* >();
 }
+*/
 
 cRepeatAction::cRepeatAction( P_CHAR mage, UINT8 anim, UINT32 delay )
 {
@@ -1214,7 +1221,26 @@ void cTempEffects::insert( cTempEffect *pT )
 			pChar->addEffect( pT );
 	}
 
-	teffects.insert( pT );
+	this->teffects.push_back( pT );
+	std::push_heap( teffects.begin(), teffects.end(), cTempEffects::ComparePredicate() );
+}
+
+void cTempEffects::erase( cTempEffect *pT )
+{
+	if( pT == (*teffects.begin()) )
+	{
+		std::pop_heap( teffects.begin(), teffects.end(), cTempEffects::ComparePredicate() );
+		teffects.pop_back();
+	}
+	else
+	{
+		std::vector< cTempEffect* >::iterator it = std::find( teffects.begin(), teffects.end(), pT );
+		if( it != teffects.end() )
+		{
+			teffects.erase( it );
+			std::make_heap( teffects.begin(), teffects.end(), cTempEffects::ComparePredicate() );
+		}
+	}
 }
 
 void cDelayedHeal::Expire()

@@ -95,6 +95,11 @@ public:
 		marker = marker_;
 	}
 
+	bool operator<( const cTempEffect &a ) const 
+	{ 
+		return expiretime < a.expiretime; 
+	} 
+
 	virtual				~cTempEffect() {}
 	void				setExpiretime_s(int seconds);
 	void				setExpiretime_ms(float milliseconds);
@@ -156,6 +161,7 @@ public:
 	virtual void Expire();
 };
 
+/*
 class cTmpEffFibHeap
 {
 public:
@@ -178,6 +184,7 @@ public:
 	// variables
 	cTempEffect*	head;
 };
+*/
 
 class cTempEffects
 {
@@ -187,13 +194,15 @@ private:
 	{
 		bool operator()(const cTempEffect *a, const cTempEffect *b)
 		{
-			return a->expiretime < b->expiretime;
+			return a->expiretime > b->expiretime;
 		}
 	};
 
 public:
-	cTempEffects()	{ teffects = cTmpEffFibHeap(); }  // No temp effects to start with
-	cTmpEffFibHeap	teffects;
+	cTempEffects()	{ std::make_heap( teffects.begin(), teffects.end(), cTempEffects::ComparePredicate() ); }  // No temp effects to start with
+//	cTmpEffFibHeap	teffects;
+//	QPtrVector< cTempEffect > vector;
+	std::vector< cTempEffect* > teffects;
 
 	void check();
 	bool add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur);
@@ -203,10 +212,11 @@ public:
 	void dispel( P_CHAR pc_dest, P_CHAR pSource, const QString &type, bool silent = false, bool onlyDispellable = true );
 
 	void insert( cTempEffect* pT );
+	void erase( cTempEffect* pT );
 
 	int	 size()
 	{
-		return teffects.asVector().size();
+		return teffects.size();
 	}
 };
 

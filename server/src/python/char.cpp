@@ -1078,7 +1078,7 @@ PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 			{
 				effects[i]->Dispel( pSource, false );
 				self->pChar->removeEffect( effects[i] );
-				TempEffects::instance()->teffects.erase( effects[i] );
+				TempEffects::instance()->erase( effects[i] );
 			}
 			// We are dispelling everything and this is a python effect
 			else if( ( force || effects[i]->dispellable ) && dispelid.isNull() && effects[i]->objectID() == "cPythonEffect" )
@@ -1089,7 +1089,7 @@ PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 				{
 					pEffect->Dispel( pSource, dispelargs );
 					self->pChar->removeEffect( effects[i] );
-					TempEffects::instance()->teffects.erase( effects[i] );
+					TempEffects::instance()->erase( effects[i] );
 				}
 			}
 			// We are dispelling specific python effects
@@ -1100,7 +1100,7 @@ PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 				{
 					pEffect->Dispel( pSource, dispelargs );
 					self->pChar->removeEffect( effects[i] );
-					TempEffects::instance()->teffects.erase( effects[i] );
+					TempEffects::instance()->erase( effects[i] );
 				}
 			}
 			
