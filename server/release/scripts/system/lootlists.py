@@ -78,6 +78,30 @@ DEF_PLAINREGS = ['f7a', 'f7b', 'f84', 'f85', 'f86', 'f88', 'f8c', 'f8d']
 DEF_NECROREGS = ['f78', 'f79', 'f7c', 'f7d', 'f7e', 'f7f', 'f80', 'f81', 'f82', 'f83', 'f87', 'f89', 'f8a', 'f8b', 'f8e', 'f8f', 'f90', 'f91']
 DEF_ALLREGS = DEF_PLAINREGS + DEF_NECROREGS
 
+# Scrolls
+SCROLLS_C1 = ['1f2d', '1f2e', '1f2f', '1f30', '1f31', '1f32', '1f33', '1f34']
+SCROLLS_C2 = ['1f35', '1f36', '1f37', '1f38', '1f39', '1f3a', '1f3b', '1f3c']
+SCROLLS_C3 = ['1f3d', '1f3e', '1f3f', '1f40', '1f41', '1f42', '1f43', '1f44']
+SCROLLS_C4 = ['1f45', '1f46', '1f47', '1f48', '1f49', '1f4a', '1f4b', '1f4c']
+SCROLLS_C5 = ['1f4d', '1f4e', '1f4f', '1f50', '1f51', '1f52', '1f53', '1f54']
+SCROLLS_C6 = ['1f55', '1f56', '1f57', '1f58', '1f59', '1f5a', '1f5b', '1f5c']
+SCROLLS_C7 = ['1f5d', '1f5e', '1f5f', '1f60', '1f61', '1f62', '1f63', '1f64']
+SCROLLS_C8 = ['1f65', '1f66', '1f67', '1f68', '1f69', '1f6a', '1f6b', '1f6c']
+SCROLLS_C1_2 = SCROLLS_C1 + SCROLLS_C2
+SCROLLS_C1_3 = SCROLLS_C1_2 + SCROLLS_C3
+SCROLLS_C1_4 = SCROLLS_C1_3 + SCROLLS_C4
+SCROLLS_C1_5 = SCROLLS_C1_4 + SCROLLS_C5
+SCROLLS_C1_6 = SCROLLS_C1_5 + SCROLLS_C6
+SCROLLS_C1_7 = SCROLLS_C1_6 + SCROLLS_C7
+SCROLLS_C1_8 = SCROLLS_C1_7 + SCROLLS_C8
+
+# Curse Weapon, Pain Spike, Blood Oath, Evil Omen, Corpse Skin, Wraith Form, Mind Rot, Horrific Beast, Animate Dead and Summon Familiar.
+SCROLLS_NECRO_LOW = ['2263', '2268', '2261', '2264', '2262', '226f', '2267', '2265', '2260', '226b']
+# Poison Strike, Wither, Strangle, Lich Form, Vengeful Spirit, Vampiric Embrace
+SCROLLS_NECRO_MED = ['2269', '226e', '226a', '2266', '226d', '226c']
+SCROLLS_NECRO_ALL = SCROLLS_NECRO_LOW + SCROLLS_NECRO_MED
+
+
 # Misc Stuff
 DEF_ORES = ['19b7', '19b8', '19ba', '19b9'] # Smallest -> Largest
 
