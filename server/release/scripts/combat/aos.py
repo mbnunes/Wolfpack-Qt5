@@ -123,8 +123,8 @@ def scaledamage(char, damage, checkskills = 1):
 		if char.skill[LUMBERJACKING] >= 1000:
 			bonus += 10
 
-	# Only players get strength boni
-	if not char.npc:
+	# Only players get strength boni (or human npcs!)
+	if not char.npc or weapon:
 		# Strength bonus
 		bonus += char.strength * 0.3
 	
@@ -132,19 +132,19 @@ def scaledamage(char, damage, checkskills = 1):
 		if char.strength >= 100:
 			bonus += 5
 
-	# Anatomy bonus
-	bonus += char.skill[ANATOMY] * 0.05
+		# Anatomy bonus
+		bonus += char.skill[ANATOMY] * 0.05
+	
+		# Grant another 5 percent for anatomy grandmasters
+		if char.skill[ANATOMY] >= 1000:
+			bonus += 5
 
-	# Grant another 5 percent for anatomy grandmasters
-	if char.skill[ANATOMY] >= 1000:
-		bonus += 5
-
-	# Tactics bonus
-	bonus += char.skill[TACTICS] * 0.0625
-
-	# Add another 6.25 percent for grandmasters
-	if char.skill[TACTICS] >= 1000:
-		bonus += 6.25
+		# Tactics bonus
+		bonus += char.skill[TACTICS] * 0.0625
+	
+		# Add another 6.25 percent for grandmasters
+		if char.skill[TACTICS] >= 1000:
+			bonus += 6.25
 
 	damage = damage + damage * bonus / 100.0
 	return max(1, floor(damage))
