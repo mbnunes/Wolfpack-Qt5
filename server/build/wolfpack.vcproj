@@ -619,6 +619,9 @@
 				RelativePath=".\python\pycoord.cpp">
 			</File>
 			<File
+				RelativePath=".\python\pyelement.cpp">
+			</File>
+			<File
 				RelativePath=".\python\pypacket.cpp">
 			</File>
 			<File

@@ -69,8 +69,7 @@ struct stCategory
 	eDefCategory key;
 };
 
-stCategory categories[] = 
-{
+stCategory categories[] = {
 	{ "item",			WPDT_ITEM },
 	{ "script",			WPDT_SCRIPT },
 	{ "npc",			WPDT_NPC },
@@ -734,4 +733,153 @@ QString cElement::value() const
 	}
 
 	return hex2dec( Value );
+}
+
+struct wpElement {
+    PyObject_HEAD;
+	cElement *element;
+};
+
+static PyObject *wpElement_getAttr(wpElement *self, char *name);
+
+PyTypeObject wpElementType = {
+    PyObject_HEAD_INIT(NULL)
+    0,
+    "element",
+    sizeof(wpElementType),
+    0,
+	wpDealloc,
+    0,
+    (getattrfunc)wpElement_getAttr
+};
+
+static PyObject* wpElement_hasattribute(wpElement *self, PyObject *args) {
+	char *name;
+
+	if (!PyArg_ParseTuple(args, "s:element.hasattribute(name)", &name)) {
+		return 0;
+	}
+
+	return self->element->hasAttribute(name) ? PyTrue : PyFalse;
+}
+
+static PyObject* wpElement_getattribute(wpElement *self, PyObject *args) {
+	char *name;
+	char *value = 0;
+
+	if (!PyArg_ParseTuple(args, "s|es:element.getattribute(name, [default])", &name, "utf-8", &value)) {
+		return 0;
+	}
+
+	QString defvalue = QString::null;
+
+	if (value != 0) {
+		defvalue = QString::fromUtf8(value);
+		PyMem_Free(value);
+	}
+
+	QString result = self->element->getAttribute(name, defvalue);
+
+	if (result == QString::null) {
+		return PyUnicode_FromUnicode(L"", 0);
+	} else {
+		return PyUnicode_FromUnicode((Py_UNICODE*)result.ucs2(), result.length());
+	}
+}
+
+static PyObject* wpElement_findchild(wpElement *self, PyObject *args) {
+	char *name;
+
+	if (!PyArg_ParseTuple(args, "s:element.findchild(name)", &name)) {
+		return 0;
+	}
+    
+	cElement *result = const_cast<cElement*>(self->element->findChild(name));
+
+	if (result) {
+		return result->getPyObject();
+	} else {
+		Py_INCREF(Py_None);
+		return Py_None;
+	}
+}
+
+static PyObject* wpElement_getchild(wpElement *self, PyObject *args) {
+	unsigned int pos;
+
+	if (!PyArg_ParseTuple(args, "s:element.getchild(pos)", &pos)) {
+		return 0;
+	}
+    
+	cElement *result = const_cast<cElement*>(self->element->getChild(pos));
+
+	if (result) {
+		return result->getPyObject();
+	} else {
+		Py_INCREF(Py_None);
+		return Py_None;
+	}
+}
+
+static PyMethodDef methods[] = {
+	{"hasattribute", (getattrofunc)wpElement_hasattribute, METH_VARARGS, 0},
+	{"getattribute", (getattrofunc)wpElement_getattribute, METH_VARARGS, 0},
+	{"findchild", (getattrofunc)wpElement_findchild, METH_VARARGS, 0},
+	{"getchild", (getattrofunc)wpElement_getchild, METH_VARARGS, 0},
+	{0, 0, 0, 0}
+};
+
+static PyObject *wpElement_getAttr(wpElement *self, char *name) {
+	cElement *element = self->element;
+
+	if (!strcmp(name, "name")) {
+		return PyString_FromString(element->name().data());
+	} else if (!strcmp(name, "parent")) {
+		if (element->parent()) {
+			cElement *parent = const_cast<cElement*>(element->parent());
+			return parent->getPyObject();
+		} else {
+			Py_INCREF(Py_None);
+			return Py_None;
+		}
+	} else if (!strcmp(name, "value")) {
+		QString value = element->value();
+
+		if (value == QString::null) {
+			return PyUnicode_FromUnicode(L"", 0);
+		} else {
+			return PyUnicode_FromUnicode((Py_UNICODE*)value.ucs2(), value.length());
+		}
+	} else if (!strcmp(name, "text")) {
+		QString value = element->text();
+
+		if (value == QString::null) {
+			return PyUnicode_FromUnicode(L"", 0);
+		} else {
+			return PyUnicode_FromUnicode((Py_UNICODE*)value.ucs2(), value.length());
+		}
+	} else if (!strcmp(name, "childcount")) {
+		return PyInt_FromLong(self->element->childCount());
+	}
+
+	return Py_FindMethod(methods, (PyObject*)self, name);
+}
+
+// Python Scripting Interface for elements
+PyObject *cElement::getPyObject() {
+	wpElement *returnVal = PyObject_New(wpElement, &wpElementType);
+	returnVal->element = this;
+	return (PyObject*)returnVal;
+}
+
+const char *cElement::className() const {
+	return "element";
+}
+
+bool cElement::implements(const QString &name) const {
+	if (name == "element") {
+		return true;
+	} else {
+		return cPythonScriptable::implements(name);
+	}
 }

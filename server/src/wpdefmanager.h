@@ -36,6 +36,9 @@
 #include <qstring.h>
 #include <qvaluevector.h>
 
+// Includes for cPythonScriptable
+#include "pythonscript.h"
+
 // Foward declarations
 class QStringList;
 class QXmlAttributes;
@@ -70,8 +73,7 @@ enum eDefCategory
 	WPDT_COUNT
 };
 
-class cElement
-{
+class cElement : public cPythonScriptable {
 private:
 	struct stAttribute
 	{
@@ -119,6 +121,10 @@ public:
 	QString value() const;
 
 	const cElement *getTopmostParent() const;
+
+	PyObject *getPyObject();
+	const char *className() const;
+	bool implements(const QString &name) const;
 };
 
 class WPDefManager  

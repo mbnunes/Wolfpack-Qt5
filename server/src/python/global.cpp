@@ -1233,12 +1233,59 @@ static PyObject* wpQueueAction( PyObject* self, PyObject* args )
 	return PyInt_FromLong( 1 );
 }
 
+static PyObject *wpGetDefinition(PyObject *self, PyObject *args) {
+	unsigned int type;
+	char *name;
+
+	if (!PyArg_ParseTuple(args, "Ies:getdefinition(type, id)", &type, "utf-8", &name)) {
+		return 0;
+	}
+
+	const cElement *element = DefManager->getDefinition((eDefCategory)type, QString::fromUtf8(name));
+
+	PyMem_Free(name);
+
+	if (element) {
+		return const_cast<cElement*>(element)->getPyObject();	
+	} else {
+		Py_INCREF(Py_None);
+		return Py_None;
+	}
+}
+
+static PyObject *wpGetDefinitions(PyObject *self, PyObject *args) {
+	unsigned int type;
+	
+	if (!PyArg_ParseTuple(args, "I:getdefinitions(type)", &type)) {
+		return 0;
+	}
+
+	const QValueVector<cElement*> elements = DefManager->getDefinitions((eDefCategory)type);
+	QStringList sections = DefManager->getSections((eDefCategory)type);
+
+	PyObject *result = PyTuple_New(elements.size() + sections.size());
+	
+	int i = 0;
+	for (; i < elements.size(); ++i) {
+		PyTuple_SetItem(result, i, elements[i]->getPyObject());
+	}
+
+	for (int j = 0; j < sections.size(); ++j) {
+		cElement *element = const_cast<cElement*>(DefManager->getDefinition((eDefCategory)type, sections[j]));
+		PyTuple_SetItem(result, i++, element->getPyObject());
+	}
+
+	return result;
+}
+
 /*!
 	wolfpack
 	Initializes wolfpack
 */
 static PyMethodDef wpGlobal[] = 
 {
+	{ "getdefinition",		wpGetDefinition,				METH_VARARGS, "Gets a certain definition by it's id." },
+	{ "getdefinitions",		wpGetDefinitions,				METH_VARARGS, "Gets all definitions by type." },
 	{ "packet",				wpPacket,						METH_VARARGS, NULL },
 	{ "charblock",			wpCharBlock,					METH_VARARGS, NULL },
 	{ "itemblock",			wpItemBlock,					METH_VARARGS, NULL },
