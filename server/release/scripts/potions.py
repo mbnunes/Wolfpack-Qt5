@@ -94,6 +94,58 @@ def healPotion( char, potion ):
 def poisonPotion( char, potion ):
 	char.socket.sysmessage( "You better don't drink that." )
 
+# Agility Potion
+def agilityPotion( char, potion ):
+	if not canUsePotion( char ):
+		return
+
+	amount = 0
+	pType = potion.more1
+	
+	# Agility
+	if pType == 9:
+#		amount = randint( POTION_LESSERHEAL_RANGE[0], POTION_LESSERHEAL_RANGE[1] )
+		pass
+
+	# Greater Agility
+	elif pType == 10:
+		pass
+#		amount = randint( POTION_HEAL_RANGE[0], POTION_HEAL_RANGE[1] )
+
+#	char.health = min( char.health + amount, char.strength ) # We don't heal over our maximum health
+	# Resend Stamina
+	#char.updatestamina()
+	# NOTE: TEMPEFFECT!	
+
+	drinkAnim( char )
+	consumePotion( potion )
+
+# Strength Potion
+def strengthPotion( char, potion ):
+	if not canUsePotion( char ):
+		return
+
+	amount = 0
+	pType = potion.more1
+	
+	# Strength
+	if pType == 11:
+		pass
+#		amount = randint( POTION_LESSERHEAL_RANGE[0], POTION_LESSERHEAL_RANGE[1] )
+
+	# Greater Strength
+	elif pType == 12:
+		pass
+#		amount = randint( POTION_HEAL_RANGE[0], POTION_HEAL_RANGE[1] )
+
+#	char.health = min( char.health + amount, char.strength ) # We don't heal over our maximum health
+	# Resend Health
+	#char.updatestamina()
+	# NOTE: TEMPEFFECT!	
+
+	drinkAnim( char )
+	consumePotion( potion )
+
 potions = {
 	1: nightsightPotion,
 
@@ -105,6 +157,12 @@ potions = {
 	6: poisonPotion, 	# Poison
 	7: poisonPotion,	# Greater Poison
 	8: poisonPotion, 	# Deadly Poison
+
+	9: agilityPotion,	# Agility
+	10: agilityPotion,	# Greater Agility
+
+	11: strengthPotion,  # Strength
+	12: strengthPotion  # Greater Strength
 }
 
 def onUse( char, item ):
