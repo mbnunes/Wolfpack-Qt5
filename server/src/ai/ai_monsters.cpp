@@ -295,21 +295,36 @@ float Monster_Aggr_MoveToTarget::postCondition()
 
 void Monster_Aggr_MoveToTarget::execute()
 {
-	Monster_Aggressive* pAI = dynamic_cast<Monster_Aggressive*>( m_ai );
-
-	if ( !pAI || !pAI->currentVictim() )
+	// We failed several times to reach the target so we wait
+	if (nextTry > Server::instance()->time()) {
 		return;
-
-	// Even if the victim is zero, thats correct.
-	if ( pAI && !m_npc->attackTarget() )
-	{
-		m_npc->fight( pAI->currentVictim() );
 	}
 
-	if ( Config::instance()->pathfind4Combat() )
-		movePath( pAI->currentVictim()->pos() );
+	Monster_Aggressive* pAI = dynamic_cast<Monster_Aggressive*>( m_ai );
+	if ( !pAI )
+		return;
+
+	P_CHAR currentVictim = pAI->currentVictim();
+
+	if ( !currentVictim ) {
+		return;
+	}
+
+	// Even if the victim is zero, thats correct.
+	if ( !m_npc->attackTarget() ) {
+		m_npc->fight( currentVictim );
+	}
+
+	if ( Config::instance()->pathfind4Combat() && m_npc->dist(currentVictim) < 5 )
+	{
+		if (!movePath( currentVictim->pos() )) {
+			nextTry = Server::instance()->time() + RandomNum(1250, 2250);
+		}
+	}
 	else
-		moveTo( pAI->currentVictim()->pos() );
+	{
+		moveTo( currentVictim->pos() );
+	}
 }
 
 float Monster_Aggr_Fight::preCondition()

@@ -16,7 +16,6 @@ Wolfpack 12.9.11 Beta (CVS)
 	  If enabled the desolation season will be sent to players on the felucca facet.
 	- Fixed bug #0000253. (Invalid drop sound for items dropped to ground)
 	- Fixed bug #0000309. (Console in web administration caused endless loop)
-	- Completely rewrote line of sight.
 	- Fixed a crashbug related to trying to remove basescripts from objects.
 	- Fixed a crasbhug related to players being removed and the owner property of their
 	  pets not being reset.
@@ -25,6 +24,8 @@ Wolfpack 12.9.11 Beta (CVS)
 	- Improved NPC walking.
 	- Fixed bug #0000317. (Server not refusing to load even when accounts db corrupt)
 	- Fixed bug #0000187. (Land and Static targets on height -1 were broken)
+	- Resolved an issue with extreme lag and NPC ai.
+	- Added a rudimentary method for profiling parts of the code.
 	- Complete LOS Rewrite (works much better and faster now)
 	- Fixed persistency issue for dupe() and sql saves.
 

@@ -29,6 +29,7 @@
 #include "console.h"
 #include "pythonscript.h"
 #include "log.h"
+#include "profile.h"
 
 #include "world.h"
 #include "network/network.h"
@@ -139,6 +140,10 @@ bool cConsole::handleCommand( const QString& command )
 	case '#':
 		World::instance()->save();
 		Config::instance()->flush();
+		break;
+
+	case 'P':
+		dumpProfilingInfo();
 		break;
 
 	case 'W':

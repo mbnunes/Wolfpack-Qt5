@@ -190,8 +190,8 @@ public:
 	}
 
 protected:
-	void moveTo( const Coord_cl& pos );
-	void movePath( const Coord_cl& pos );
+	bool moveTo( const Coord_cl& pos );
+	bool movePath( const Coord_cl& pos );
 	int waitForPathCalculation;
 };
 
@@ -276,12 +276,16 @@ public:
 class Monster_Aggr_MoveToTarget : public Action_Wander
 {
 protected:
+	unsigned int nextTry;
+
 	Monster_Aggr_MoveToTarget() : Action_Wander()
 	{
+		nextTry = 0;
 	}
 public:
 	Monster_Aggr_MoveToTarget( P_NPC npc, AbstractAI* ai ) : Action_Wander( npc, ai )
 	{
+		nextTry = 0;
 	}
 	virtual void execute();
 	virtual float preCondition();

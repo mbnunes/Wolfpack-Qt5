@@ -29,6 +29,7 @@
 #include "platform.h"
 
 #include "timing.h"
+#include "profile.h"
 
 #include "basics.h"
 #include "timers.h"
@@ -87,13 +88,16 @@ void cTiming::poll()
 	// Check for spawn regions
 	if ( nextSpawnRegionCheck <= time )
 	{
+		startProfiling(PF_SPAWNCHECK);
 		SpawnRegions::instance()->check();
 		nextSpawnRegionCheck = time + Config::instance()->spawnRegionCheckTime() * MY_CLOCKS_PER_SEC;
+		stopProfiling(PF_SPAWNCHECK);
 	}
 
 	// Check for decay items
 	if ( nextItemCheck <= time )
 	{
+		startProfiling(PF_DECAYCHECK);
 		QValueVector<SERIAL> toRemove;
 		DecayIterator it = decayitems.begin();
 
@@ -120,12 +124,16 @@ void cTiming::poll()
 			}
 		}
 
-		nextItemCheck += 5000;
+		nextItemCheck = time + 5000;
+
+		stopProfiling(PF_DECAYCHECK);
 	}
 
 	// Check for an automated worldsave
 	if ( Config::instance()->saveInterval() )
 	{
+		startProfiling(PF_WORLDSAVE);
+
 		// Calculate the next worldsave based on the last worldsave
 		unsigned int nextSave = lastWorldsave() + Config::instance()->saveInterval() * MY_CLOCKS_PER_SEC;
 
@@ -133,6 +141,8 @@ void cTiming::poll()
 		{
 			World::instance()->save();
 		}
+
+		stopProfiling(PF_WORLDSAVE);
 	}
 
 	unsigned int events = 0;
@@ -140,6 +150,8 @@ void cTiming::poll()
 	// Check lightlevel and time
 	if ( nextUOTimeTick <= time )
 	{
+		startProfiling(PF_UOTIMECHECK);
+
 		unsigned char oldhour = UoTime::instance()->hour();
 		UoTime::instance()->setMinutes( UoTime::instance()->getMinutes() + 1 );
 		nextUOTimeTick = time + Config::instance()->secondsPerUOMinute() * MY_CLOCKS_PER_SEC;
@@ -188,10 +200,14 @@ void cTiming::poll()
 			events |= cBaseChar::EventLight;
 			currentLevel = newLevel;
 		}
+
+		stopProfiling(PF_UOTIMECHECK);
 	}
 
 	if ( nextCombatCheck <= time )
 	{
+		startProfiling(PF_COMBATCHECK);
+
 		nextCombatCheck = time + 250;
 
 		// Check for timed out fights
@@ -220,6 +236,8 @@ void cTiming::poll()
 				victim->poll( time, cBaseChar::EventCombat );
 			}
 		}
+
+		stopProfiling(PF_COMBATCHECK);
 	}
 
 	// Save the positions of connected players
@@ -233,7 +251,10 @@ void cTiming::poll()
 			continue;
 		}
 
+		startProfiling(PF_PLAYERCHECK);
 		socket->player()->poll( time, events );
+		stopProfiling(PF_PLAYERCHECK);
+
 		checkRegeneration( socket->player(), time );
 		checkPlayer( socket->player(), time );
 		positions.append( socket->player()->pos() );
@@ -257,7 +278,9 @@ void cTiming::poll()
 					{
 						checkRegeneration( npc, time );
 						checkNpc( npc, time );
+						startProfiling(PF_NPCCHECK);
 						npc->poll( time, events );
+						stopProfiling(PF_NPCCHECK);
 						break;
 					}
 				}
@@ -282,7 +305,9 @@ void cTiming::poll()
 	}
 
 	// Check the Timers
+	startProfiling(PF_TIMERSCHECK);
 	Timers::instance()->check();
+	stopProfiling(PF_TIMERSCHECK);
 
 	if ( nextHungerCheck <= time )
 		nextHungerCheck = time + Config::instance()->hungerDamageRate() * MY_CLOCKS_PER_SEC;
@@ -295,6 +320,8 @@ void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
 	{
 		return;
 	}
+
+	startProfiling(PF_REGENERATION);
 
 	if ( character->regenHitpointsTime() <= time )
 	{
@@ -348,10 +375,14 @@ void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
 			}
 		}
 	}
+
+	stopProfiling(PF_REGENERATION);
 }
 
 void cTiming::checkPlayer( P_PLAYER player, unsigned int time )
 {
+	startProfiling(PF_PLAYERCHECK);
+
 	cUOSocket* socket = player->socket();
 
 	// Criminal Flagging
@@ -400,6 +431,8 @@ void cTiming::checkPlayer( P_PLAYER player, unsigned int time )
 			}
 		}
 	}
+
+	stopProfiling(PF_PLAYERCHECK);
 }
 
 void cTiming::checkNpc( P_NPC npc, unsigned int time )
@@ -417,8 +450,11 @@ void cTiming::checkNpc( P_NPC npc, unsigned int time )
 	// Give the AI time to process events
 	if ( npc->ai() && npc->aiCheckTime() <= time )
 	{
-		npc->setAICheckTime( ( uint )( time + Config::instance()->checkAITime() * MY_CLOCKS_PER_SEC ) );
+		startProfiling(PF_AICHECK);
+		unsigned int delay = RandomNum(250, 750);
+		npc->setAICheckTime( time +  delay );
 		npc->ai()->check();
+		stopProfiling(PF_AICHECK);
 	}
 
 	// Hunger for npcs

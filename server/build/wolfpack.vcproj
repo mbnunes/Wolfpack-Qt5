@@ -456,6 +456,12 @@
 				RelativePath=".\preferences.h">
 			</File>
 			<File
+				RelativePath=".\profile.cpp">
+			</File>
+			<File
+				RelativePath=".\profile.h">
+			</File>
+			<File
 				RelativePath=".\progress.h">
 			</File>
 			<File

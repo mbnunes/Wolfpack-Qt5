@@ -40,6 +40,7 @@
 #include "../world.h"
 #include "../network/uosocket.h"
 #include "../targetrequests.h"
+#include "../profile.h"
 
 // library includes
 #include <math.h>
@@ -129,6 +130,7 @@ void AbstractAI::check()
 	AbstractAction* oldaction = m_currentAction;
 #endif
 
+	startProfiling(PF_AICHECKFINDACTION);
 	// If we have no current action or our action cant be executed, we must get a new one
 	if ( !m_currentAction || ( m_currentAction && m_currentAction->preCondition() <= 0.0f ) )
 	{
@@ -150,6 +152,7 @@ void AbstractAI::check()
 			++it;
 		}
 	}
+	stopProfiling(PF_AICHECKFINDACTION);
 
 	// Action is changing
 #if defined(AIDEBUG)
@@ -161,6 +164,7 @@ void AbstractAI::check()
 #endif
 
 	// Now we should have a current action set, else do nothing!
+	startProfiling(PF_AICHECKEXECUTEACTION);
 	if ( m_currentAction )
 	{
 		m_currentAction->execute();
@@ -179,6 +183,7 @@ void AbstractAI::check()
 			m_currentAction = NULL;
 		}
 	}
+	stopProfiling(PF_AICHECKEXECUTEACTION);
 }
 
 static AbstractAI* productCreator_SCP()
@@ -586,12 +591,16 @@ void Action_Wander::execute()
 			if ( Config::instance()->pathfind4Follow() )
 			{
 				P_CHAR pTarget = m_npc->wanderFollowTarget();
-				if ( pTarget )
-				{
-					movePath( pTarget->pos() );
+				if (pTarget) {
+					if ( m_npc->dist(pTarget) < 4 ) {
+						movePath( pTarget->pos() );
+					} else {
+						moveTo( pTarget->pos());
+					}
+
+					if ( pTarget->dist( m_npc ) > 3 )
+						m_npc->setAICheckTime( ( uint )( Server::instance()->time() + ( float ) m_npc->aiCheckInterval() * 0.0005f * MY_CLOCKS_PER_SEC ) );
 				}
-				if ( pTarget->dist( m_npc ) > 3 )
-					m_npc->setAICheckTime( ( uint )( Server::instance()->time() + ( float ) m_npc->aiCheckInterval() * 0.0005f * MY_CLOCKS_PER_SEC ) );
 			}
 			else
 			{
@@ -605,13 +614,17 @@ void Action_Wander::execute()
 		}
 	case enDestination:
 		{
-			movePath( m_npc->wanderDestination() );
+			if (m_npc->pos().distance( m_npc->wanderDestination() ) < 6 ) {
+				movePath( m_npc->wanderDestination() );
+			} else {
+				moveTo( m_npc->wanderDestination() );
+			}
 			break;
 		}
 	}
 }
 
-void Action_Wander::moveTo( const Coord_cl& pos )
+bool Action_Wander::moveTo( const Coord_cl& pos )
 {
 	// simply move towards the target
 	Q_UINT8 dir = m_npc->pos().direction( pos );
@@ -636,17 +649,17 @@ void Action_Wander::moveTo( const Coord_cl& pos )
 			newPos = Movement::instance()->calcCoordFromDir( dir, m_npc->pos() );
 			if ( !mayWalk( m_npc, newPos ) )
 			{
-				return;
+				return false;
 			}
 		}
 	}
 
-	Movement::instance()->Walking( m_npc, dir, 0xFF );
+	return Movement::instance()->Walking( m_npc, dir, 0xFF );
 }
 
-void Action_Wander::movePath( const Coord_cl& pos )
+bool Action_Wander::movePath( const Coord_cl& pos )
 {
-	if ( ( waitForPathCalculation <= 0 && !m_npc->hasPath() ) || pos != m_npc->pathDestination() )
+	if ( waitForPathCalculation <= 0 && !m_npc->hasPath() )
 	{
 		Q_UINT8 range = 1;
 		if ( m_npc->rightHandItem() )
@@ -660,13 +673,13 @@ void Action_Wander::movePath( const Coord_cl& pos )
 		}
 
 		m_npc->findPath( pos, range == 1 ? 1.5f : ( float ) range );
+
 		// dont return here!
 	}
 	else if ( !m_npc->hasPath() )
 	{
 		waitForPathCalculation--;
-		moveTo( pos );
-		return;
+		return moveTo( pos );
 	}
 
 	if ( m_npc->hasPath() )
@@ -674,15 +687,14 @@ void Action_Wander::movePath( const Coord_cl& pos )
 		waitForPathCalculation = 0;
 		Coord_cl nextmove = m_npc->nextMove();
 		Q_UINT8 dir = m_npc->pos().direction( nextmove );
-		Movement::instance()->Walking( m_npc, dir, 0xFF );
+		bool result = Movement::instance()->Walking( m_npc, dir, 0xFF );
 		m_npc->popMove();
-		return;
+		return result;
 	}
 	else
 	{
 		waitForPathCalculation = 3;
-		moveTo( pos );
-		return;
+		return moveTo( pos );
 	}
 }
 

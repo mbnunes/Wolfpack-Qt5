@@ -55,6 +55,7 @@
 #include "definitions.h"
 #include "multi.h"
 #include "persistentbroker.h"
+#include "profile.h"
 
 // System Includes
 #include <qwaitcondition.h>
@@ -309,11 +310,14 @@ bool cServer::run( int argc, char** argv )
 		QWaitCondition niceLevel;
 		unsigned char cycles = 0;
 
-		while ( isRunning() )
-		{
+		clearProfilingInfo();
+
+		while ( isRunning() ) {
 			// Every 10th cycle we sleep for a while and give other threads processing time.
 			if ( ++cycles == 10 )
 			{
+				startProfiling(PF_NICENESS);
+
 				cycles = 0;
 				_save = PyEval_SaveThread(); // Python threading - start
 				switch ( Config::instance()->niceLevel() )
@@ -344,6 +348,8 @@ bool cServer::run( int argc, char** argv )
 				}
 				qApp->processEvents( 40 );
 				PyEval_RestoreThread( _save ); // Python threading - end
+
+				stopProfiling(PF_NICENESS);
 			}
 
 			pollQueuedActions();
@@ -361,6 +367,8 @@ bool cServer::run( int argc, char** argv )
 				Console::instance()->log( LOG_PYTHON, e.error() + "\n" );
 			}
 		}
+
+		dumpProfilingInfo();
 
 	} catch (wpException &exception) {
 		Console::instance()->log(LOG_ERROR, exception.error() + "\n" );
