@@ -1532,8 +1532,8 @@ void cSkills::CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar)
 		return;
 	}
 	pi_mortar->setType( 17 );
-	pi_mortar->more1=type;
-	pi_mortar->more2=sub;
+	pi_mortar->setMore1(type);
+	pi_mortar->setMore2(sub);
 	pi_mortar->morex=pc->skill(ALCHEMY);
 	
 	if (!(getamount(pc, 0x0F0E)>=1))
@@ -1589,7 +1589,7 @@ void cSkills::PotionToBottle(P_CHAR pc, P_ITEM pi_mortar)
 
 	if ( pc == NULL ) return;
 
-	switch((10*pi_mortar->more1)+pi_mortar->more2)
+	switch((10*pi_mortar->more1())+pi_mortar->more2())
 	{
 	case 11: id1=0x0F;id2=0x08;strcpy(pn, "an agility");				break;
 	case 12: id1=0x0F;id2=0x08;strcpy(pn, "a greater agility");			break;
@@ -1623,8 +1623,8 @@ void cSkills::PotionToBottle(P_CHAR pc, P_ITEM pi_mortar)
 	pi_potion->setName( QString( "%1 potion" ).arg( pn ) );
 	pi_potion->setType( 19 );
 	pi_potion->morex = pi_mortar->morex;
-	pi_potion->morey = pi_mortar->more1;
-	pi_potion->morez = pi_mortar->more2;
+	pi_potion->morey = pi_mortar->more1();
+	pi_potion->morez = pi_mortar->more2();
 	
 	// the remainder of this function NOT (yet) revamped by Duke !
 	

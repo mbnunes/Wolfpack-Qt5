@@ -167,7 +167,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 		// if the corpse is innocent and not in our guild
 		bool sameGuild = ( GuildCompare( pChar, FindCharBySerial( outmostCont->ownserial ) ) != 0 );
 
-		if( ( outmostCont->more2 == 1 ) && !pChar->Owns( outmostCont ) && !sameGuild )
+		if( ( outmostCont->more2() == 1 ) && !pChar->Owns( outmostCont ) && !sameGuild )
 		{
 //			pChar->karma -= 5;
 			pChar->setKarma( pChar->karma() - 5 );

@@ -48,7 +48,7 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 {
 	P_ITEM Vial = FindItemBySerial(addmitem[nSocket]);
 	if (!Vial) return; // should never happen
-	
+	unsigned char tempchar;
 //	int nTargetID=-1;
 	
 	
@@ -71,7 +71,7 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 		cChar* Victim = FindCharBySerial(serial);
 		if (!Victim)
 			return;
-		Vial->more1=0;
+		Vial->setMore1(0);
 		if(!Victim->npc())
 		{
 			// checkskill hmmm what skill/s has/have to added here LB ...
@@ -95,7 +95,7 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 				if (Victim->npc())
 				{
 					if( Victim->id() == 0x000c || (Victim->id()>=0x003b && Victim->id()<=0x003d) )
-						Vial->more1=1;
+						Vial->setMore1(1);
 					// Guard be summuned if in town and good npc
 					// if good flag criminal
 					// if evil npc attack necromancer but don't flag criminal
@@ -122,13 +122,14 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 			sysmessage(nSocket,"That is not a person or a corpse!");
 		else
 		{
-			Vial->more1=Corpse->more1;
+			Vial->setMore1(Corpse->more1() );
 			Karma(Player, NULL,-1000);
-			if (Corpse->more2<4)
+			if (Corpse->more2()<4)
 			{
 				sysmessage(nSocket,"You take a sample of blood from the corpse.");
 				MakeNecroReg(nSocket,Vial,0x0E24);
-				Corpse->more2++;
+			//	Corpse->more2++;
+				Corpse->setMore2( ++(tempchar = Corpse->more2()) );
 			}
 			else
 				sysmessage(nSocket,"You examine the corpse but, decide any further blood samples would be too contaminated.");
@@ -151,13 +152,13 @@ void MakeNecroReg(int nSocket, P_ITEM pMat, short id)
 		pItem = Items->SpawnItem(nSocket, pc_currchar, 1, "bone powder", 1, 0x0F, 0x8F, 0, 1, 1);
 		if(pItem == NULL) return;//AntiChrist to preview crashes
 		pItem->morex = 666;
-		pItem->more1 = 1; // this will fill more with info to tell difference between ash and bone
+		pItem->setMore1(1); // this will fill more with info to tell difference between ash and bone
 		Items->DeleItem(pMat);
 		
 	}
 	if( id==0x0E24 ) // Make vial of blood.
 	{
-		if(pMat->more1==1)
+		if(pMat->more1()==1)
 		{
 			pItem = Items->SpawnItem(nSocket, pc_currchar,1,"#",1,0x0F,0x82,0,1,1);
 			if(pItem==NULL) return;//AntiChrist to preview crashes

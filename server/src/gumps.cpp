@@ -721,11 +721,11 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 		addText( 50, 240, tr( "Morez:" ), 0x834 );
 		addInputField( 200, 240, 200, 16, 37, QString( "%1" ).arg( pItem->morez ), 0x834 );
 		addText( 50, 260, tr( "More1:" ), 0x834 );
-		addInputField( 200, 260, 200, 16, 38, QString( "%1" ).arg( pItem->more1 ), 0x834 );
+		addInputField( 200, 260, 200, 16, 38, QString( "%1" ).arg( pItem->more1() ), 0x834 );
 		addText( 50, 280, tr( "More2:" ), 0x834 );
-		addInputField( 200, 280, 200, 16, 39, QString( "%1" ).arg( pItem->more2 ), 0x834 );
+		addInputField( 200, 280, 200, 16, 39, QString( "%1" ).arg( pItem->more2() ), 0x834 );
 		addText( 50, 300, tr( "More3:" ), 0x834 );
-		addInputField( 200, 300, 200, 16, 40, QString( "%1" ).arg( pItem->more3 ), 0x834 );
+		addInputField( 200, 300, 200, 16, 40, QString( "%1" ).arg( pItem->more3() ), 0x834 );
 
 		addText( 310, 340, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
 		// prev page
@@ -743,7 +743,7 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 		addResizeGump( 195, 200, 0xBB8, 215, 20 );
 
 		addText( 50, 120, tr( "More4:" ), 0x834 );
-		addInputField( 200, 120, 200, 16, 41, QString( "%1" ).arg( pItem->more4 ), 0x834 );
+		addInputField( 200, 120, 200, 16, 41, QString( "%1" ).arg( pItem->more4() ), 0x834 );
 		addText( 50, 140, tr( "Moreb1:" ), 0x834 );
 		addInputField( 200, 140, 200, 16, 42, QString( "%1" ).arg( pItem->moreb1() ), 0x834 );
 		addText( 50, 160, tr( "Moreb2:" ), 0x834 );
@@ -914,16 +914,16 @@ void cItemInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				item_->morez = hex2dec( it->second ).toUInt();
 				break;
 			case 38:
-				item_->more1 = hex2dec( it->second ).toUShort();
+				item_->setMore1( hex2dec( it->second ).toUShort() );
 				break;
 			case 39:
-				item_->more2 = hex2dec( it->second ).toUShort();
+				item_->setMore2( hex2dec( it->second ).toUShort() );
 				break;
 			case 40:
-				item_->more3 = hex2dec( it->second ).toUShort();
+				item_->setMore3( hex2dec( it->second ).toUShort() );
 				break;
 			case 41:
-				item_->more4 = hex2dec( it->second ).toUShort();
+				item_->setMore4( hex2dec( it->second ).toUShort() );
 				break;
 			case 42:
 				item_->setMoreb1( hex2dec( it->second ).toUShort() );

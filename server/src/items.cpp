@@ -142,10 +142,10 @@ cItem::cItem( cItem &src )
 	this->type2_ = src.type2_;
 	this->offspell_ = src.offspell_;
 	this->weight_ = src.weight_;
-	this->more1 = src.more1;
-	this->more2 = src.more2;
-	this->more3 = src.more3;
-	this->more4 = src.more4;
+	this->more1_ = src.more1_;
+	this->more2_ = src.more2_;
+	this->more3_ = src.more3_;
+	this->more4_ = src.more4_;
 	this->moreb1_ = src.moreb1_;
 	this->moreb2_ = src.moreb2_;
 	this->moreb3_ = src.moreb3_;
@@ -600,10 +600,10 @@ void cItem::save( const QString& s/* = QString::null  */ )
 	savePersistentIntValue("type",			type_);
 	savePersistentIntValue("type2",			type2_);
 	savePersistentIntValue("offspell",		offspell_);
-	savePersistentIntValue("more1",			more1);
-	savePersistentIntValue("more2",			more2);
-	savePersistentIntValue("more3",			more3);
-	savePersistentIntValue("more4",			more4);
+	savePersistentIntValue("more1",			more1_);
+	savePersistentIntValue("more2",			more2_);
+	savePersistentIntValue("more3",			more3_);
+	savePersistentIntValue("more4",			more4_);
 	savePersistentIntValue("moreb1",		moreb1_);
 	savePersistentIntValue("moreb2",		moreb2_);
 	savePersistentIntValue("moreb3",		moreb3_);
@@ -847,10 +847,10 @@ void cItem::Init( bool mkser )
 	this->type2_=0;
 	this->offspell_ = 0;
 	this->weight_ = 0;
-	this->more1=0; // For various stuff
-	this->more2=0;
-	this->more3=0;
-	this->more4=0;
+	this->more1_=0; // For various stuff
+	this->more2_=0;
+	this->more3_=0;
+	this->more4_=0;
 	this->moreb1_=0;
 	this->moreb2_=0;
 	this->moreb3_=0;
@@ -1221,6 +1221,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 					preservebody=0;
 					serial=pi->serial;
 					unsigned int ci;
+					unsigned char tempchar;
 					vector<SERIAL> vecContainer = contsp.getData(serial);
 					for( ci=0; ci < vecContainer.size(); ci++ )
 					{
@@ -1232,9 +1233,10 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 						if(preservebody) break; //lagfix - AntiChrist - not necessary to check ALL the items!!!
 					}
 
-					if( preservebody > 1 && pi->more4 )
+					if( preservebody > 1 && pi->more4() )
 					{
-						pi->more4--;
+					//	pi->more4--;
+						pi->setMore4( --(tempchar = pi->more4()) );
 						pi->startDecay();
 						return;
 					}
@@ -1731,15 +1733,15 @@ void cItem::processNode( const QDomElement& Tag )
 
 	// <more1>10</more1>
 	else if( TagName == "more1" )
-		this->more1 = Value.toInt();
+		this->more1_ = Value.toInt();
 
 	// <more>10</more> <<<<< alias for more1
 	else if( TagName == "more" )
-		this->more1 = Value.toInt();
+		this->more1_ = Value.toInt();
 
 	// <more2>10</more2>
 	else if( TagName == "more2" )
-		this->more2 = Value.toInt();
+		this->more2_ = Value.toInt();
 
 	// <morex>10</morex>
 	else if( TagName == "morex" )
@@ -2210,11 +2212,11 @@ void cItem::showName( cUOSocket *socket )
 	// Corpse highlighting...Ripper
 	if( corpse() )
 	{
-		if( more2 == 1 )
+		if( more2_ == 1 )
 			socket->showSpeech( this, tr( "[Innocent]" ), 0x005A );
-		else if( more2 == 2 )
+		else if( more2_ == 2 )
 			socket->showSpeech( this, tr( "[Criminal]" ), 0x03B2 );
-		else if( more2 == 3 )
+		else if( more2_ == 3 )
 			socket->showSpeech( this, tr( "[Murderer]" ), 0x0026 );
 	}
 
@@ -2662,10 +2664,10 @@ void cItem::load( char **result, UINT16 &offset )
 	type_ = atoi( result[offset++] );
 	type2_ = atoi( result[offset++] );
 	offspell_ = atoi( result[offset++] );
-	more1 = atoi( result[offset++] );
-	more2 = atoi( result[offset++] );
-	more3 = atoi( result[offset++] );
-	more4 = atoi( result[offset++] );
+	more1_ = atoi( result[offset++] );
+	more2_ = atoi( result[offset++] );
+	more3_ = atoi( result[offset++] );
+	more4_ = atoi( result[offset++] );
 	moreb1_ = atoi( result[offset++] );
 	moreb2_ = atoi( result[offset++] );
 	moreb3_ = atoi( result[offset++] );
@@ -2725,10 +2727,10 @@ void cItem::load( char **result, UINT16 &offset )
 	type_		= result->value( offset++ ).toInt();
 	type2_		= result->value( offset++ ).toInt();
 	offspell_	= result->value( offset++ ).toInt();
-	more1		= result->value( offset++ ).toInt();
-	more2		= result->value( offset++ ).toInt();
-	more3		= result->value( offset++ ).toInt();
-	more4		= result->value( offset++ ).toInt();
+	more1_		= result->value( offset++ ).toInt();
+	more2_		= result->value( offset++ ).toInt();
+	more3_		= result->value( offset++ ).toInt();
+	more4_		= result->value( offset++ ).toInt();
 	moreb1_		= result->value( offset++ ).toInt();
 	moreb2_		= result->value( offset++ ).toInt();
 	moreb3_		= result->value( offset++ ).toInt();

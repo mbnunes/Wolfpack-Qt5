@@ -74,6 +74,17 @@ protected:
 	UI08 moreb3_;
 	UI08 moreb4_;
 
+//******************** ADDED FROM PUBLIC *******************
+	
+
+	unsigned char more1_; // For various stuff
+	unsigned char more2_;
+	unsigned char more3_;
+	unsigned char more4_;
+
+
+//********************END ADDED FROM PUBLIC *************
+
 	virtual void	processNode( const QDomElement &Tag );
 	void	processModifierNode( const QDomElement &Tag );
 public:
@@ -123,6 +134,16 @@ public:
 	unsigned int	antispamtimer() const { return antispamtimer_;}
 	UI16			accuracy()		const { return accuracy_; }		// for weapons, could be used for certain tools too.
 
+//****************************ADDED GETTERS*************
+	
+	unsigned char	more1()			const { return more1_; }
+	unsigned char	more2()			const { return more2_; }
+	unsigned char	more3()			const { return more3_; }
+	unsigned char	more4()			const { return more4_; }
+
+//***************************END ADDED GETTERS************
+
+
 	// Setters
 	void	setId( UI16 nValue ) { id_ = nValue; };
 	void	setColor( UI16 nValue ) { color_ = nValue; };
@@ -168,13 +189,15 @@ public:
 	void	toBackpack( P_CHAR pChar );
 	void	showName( cUOSocket *socket );
 	void	applyRank( UI08 rank );
+//*****************************************ADDED SETTERS ***************
+	void	setMore1( unsigned char data ) { more1_ = data; }
+	void	setMore2( unsigned char data ) { more2_ = data; }
+	void	setMore3( unsigned char data ) { more3_ = data; }
+	void	setMore4( unsigned char data ) { more4_ = data; }
 
+
+//*******************************************END ADDED SETTERS**********
 	SERIAL contserial;
-
-	unsigned char more1; // For various stuff
-	unsigned char more2;
-	unsigned char more3;
-	unsigned char more4;
 	unsigned int morex;
 	unsigned int morey;
 	unsigned int morez;

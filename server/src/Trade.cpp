@@ -428,10 +428,10 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 	pi_pi->setMoreb2( static_cast<unsigned char>((pi_ps->serial&0x00FF0000)>>16) );
 	pi_pi->setMoreb3( static_cast<unsigned char>((pi_ps->serial&0x0000FF00)>>8) );
 	pi_pi->setMoreb4( static_cast<unsigned char>((pi_ps->serial&0x000000FF)) );
-	pi_ps->more1 = static_cast<unsigned char>((pi_pi->serial&0xFF000000)>>24);
-	pi_ps->more2 = static_cast<unsigned char>((pi_pi->serial&0x00FF0000)>>16);
-	pi_ps->more3 = static_cast<unsigned char>((pi_pi->serial&0x0000FF00)>>8);
-	pi_ps->more4 = static_cast<unsigned char>((pi_pi->serial&0x000000FF));
+	pi_ps->setMore1( static_cast<unsigned char>((pi_pi->serial&0xFF000000)>>24) );
+	pi_ps->setMore2( static_cast<unsigned char>((pi_pi->serial&0x00FF0000)>>16) );
+	pi_ps->setMore3( static_cast<unsigned char>((pi_pi->serial&0x0000FF00)>>8) );
+	pi_ps->setMore4( static_cast<unsigned char>((pi_pi->serial&0x000000FF)) );
 	pi_ps->morez  = 0;
 	pi_pi->morez  = 0;
 

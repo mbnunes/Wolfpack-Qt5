@@ -169,7 +169,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		// TODO: Add a XML option for this
 		if( !pc_currchar->Owns( pi ) && !pc_currchar->isGM() && pc_currchar->isInnocent() )
 		{
-			if( pi->more2 == 1 ) 
+			if( pi->more2() == 1 ) 
 			{
 				criminal( pc_currchar );
 			}
@@ -388,12 +388,12 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 //		target(s, 0, 1, 0, 2, "Select teleport target.");
 		return;// case 6
 	case 7: // key
-		addid1[s] = pi->more1;
-		addid2[s] = pi->more2;
-		addid3[s] = pi->more3;
-		addid4[s] = pi->more4;
+		addid1[s] = pi->more1();
+		addid2[s] = pi->more2();
+		addid3[s] = pi->more3();
+		addid4[s] = pi->more4();
 		
-		if (pi->more1 == 255)
+		if (pi->more1() == 255)
 			addid1[s] = 255;
 		
 //		target(s, 0, 1, 0, 11, "Select item to use the key on.");
@@ -419,10 +419,10 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		By Polygon:
 		Assign areas and map size before sending
 */
-		map1[7] = pi->more1;	// Assign topleft x
-		map1[8] = pi->more2;
-		map1[9] = pi->more3;	// Assign topleft y
-		map1[10] = pi->more4;
+		map1[7] = pi->more1();	// Assign topleft x
+		map1[8] = pi->more2();
+		map1[9] = pi->more3();	// Assign topleft y
+		map1[10] = pi->more4();
 		map1[11] = pi->moreb1();	// Assign lowright x
 		map1[12] = pi->moreb2();
 		map1[13] = pi->moreb3();	// Assign lowright y
@@ -725,7 +725,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 						{
 							const P_ITEM pi_i = FindItemBySerial(vecContainer[j]);
 							if ((pi_i != NULL) && (pi_p != NULL)) // lb
-								if (pi_i->type() == 7 && calcserial(pi_i->more1, pi_i->more2, pi_i->more3, pi_i->more4) == pi_multi->serial)
+								if (pi_i->type() == 7 && calcserial(pi_i->more1(), pi_i->more2(), pi_i->more3(), pi_i->more4()) == pi_multi->serial)
 								{
 									los = 1;
 									break;
@@ -790,10 +790,10 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		case 302:	// Deciphered treasure map?
 			LongToCharPtr(pi->serial, &map1[1]);
 			LongToCharPtr(pi->serial, &map2[1]);
-			map1[7] = pi->more1;	// Assign topleft x
-			map1[8] = pi->more2;
-			map1[9] = pi->more3;	// Assign topleft y
-			map1[10] = pi->more4;
+			map1[7] = pi->more1();	// Assign topleft x
+			map1[8] = pi->more2();
+			map1[9] = pi->more3();	// Assign topleft y
+			map1[10] = pi->more4();
 			map1[11] = pi->moreb1();	// Assign lowright x
 			map1[12] = pi->moreb2();
 			map1[13] = pi->moreb3();	// Assign lowright y
@@ -810,8 +810,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			LongToCharPtr(pi->serial, &map3[1]);
 			int posx, posy;			// tempoary storage for map point
 			int tlx, tly, lrx, lry;	// tempoary storage for map extends
-			tlx = (pi->more1 << 8) + pi->more2;
-			tly = (pi->more3 << 8) + pi->more4;
+			tlx = (pi->more1() << 8) + pi->more2();
+			tly = (pi->more3() << 8) + pi->more4();
 			lrx = (pi->moreb1() << 8) + pi->moreb2();
 			lry = (pi->moreb3() << 8) + pi->moreb4();
 			posx = (256 * (pi->morex - tlx)) / (lrx - tlx);	// Generate location for point

@@ -2577,11 +2577,11 @@ void cChar::kill()
 	if( isPlayer() )
 	{
 	    if( isInnocent() )
-			corpse->more2 = 1;
+			corpse->setMore2(1);
 	    else if( isCriminal() )
-			corpse->more2 = 2;
+			corpse->setMore2(2);
 	    else if( isMurderer() )
-			corpse->more2 = 3;
+			corpse->setMore2(3);
 
         corpse->ownserial = serial;
 	}
@@ -2593,7 +2593,7 @@ void cChar::kill()
 
 	corpse->moveTo( pos );
 
-	corpse->more1 = nType;
+	corpse->setMore1(nType);
 	corpse->dir = dir_;
 	corpse->startDecay();
 	
@@ -2602,7 +2602,7 @@ void cChar::kill()
 	{
 		corpse->SetOwnSerial(serial);
 		// This is.... stupid...
-		corpse->more4 = char( SrvParams->playercorpsedecaymultiplier()&0xff ); // how many times longer for the player's corpse to decay
+		corpse->setMore4( char( SrvParams->playercorpsedecaymultiplier()&0xff ) ); // how many times longer for the player's corpse to decay
 	}
 
 	// stores the time and the murderer's name

@@ -482,10 +482,10 @@ PyObject *wpItem_getAttr( wpItem *self, char *name )
 
 	else getIntProperty( "weight", pItem->weight() )
 	else getIntProperty( "totalweight", pItem->totalweight() )
-	else getIntProperty( "more1", pItem->more1 )
-	else getIntProperty( "more2", pItem->more2 )
-	else getIntProperty( "more3", pItem->more3 )
-	else getIntProperty( "more4", pItem->more4 )
+	else getIntProperty( "more1", pItem->more1() )
+	else getIntProperty( "more2", pItem->more2() )
+	else getIntProperty( "more3", pItem->more3() )
+	else getIntProperty( "more4", pItem->more4() )
 	else getIntProperty( "moreb1", pItem->moreb1() )
 	else getIntProperty( "moreb2", pItem->moreb2() )
 	else getIntProperty( "moreb3", pItem->moreb3() )
@@ -611,10 +611,18 @@ int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
 		}
 
 	// CONTAINER!!
-	else setIntProperty( "more1", pItem->more1 )
-	else setIntProperty( "more2", pItem->more2 )
-	else setIntProperty( "more3", pItem->more3 )
-	else setIntProperty( "more4", pItem->more4 )
+//	else setIntProperty( "more1", pItem->more1() )
+	else if( !strcmp( name, "more1" ) )
+		self->pItem->setMore1( PyInt_AS_LONG( value ) );
+//	else setIntProperty( "more2", pItem->more2() )
+	else if( !strcmp( name, "more2" ) )
+		self->pItem->setMore2( PyInt_AS_LONG( value ) );
+//	else setIntProperty( "more3", pItem->more3() )
+	else if( !strcmp( name, "more3" ) )
+		self->pItem->setMore3( PyInt_AS_LONG( value ) );
+//	else setIntProperty( "more4", pItem->more4() )
+	else if( !strcmp( name, "more4" ) )
+		self->pItem->setMore4( PyInt_AS_LONG( value ) );
 	else setIntProperty( "morex", pItem->morex )
 	else setIntProperty( "morey", pItem->morey )
 	else setIntProperty( "morez", pItem->morez )

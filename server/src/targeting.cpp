@@ -1272,7 +1272,7 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 	if ( pSign == NULL )
 		return;
 
-	serial = calcserial(pSign->more1, pSign->more2, pSign->more3, pSign->more4);
+	serial = calcserial(pSign->more1(), pSign->more2(), pSign->more3(), pSign->more4());
 	P_ITEM pHouse = FindItemBySerial(serial);
 	if ( pHouse == NULL )
 		return;
@@ -1308,10 +1308,10 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 		pi3->moveTo(pc->pos);
 		pi3->update();
 	}
-	pi3->more1 = static_cast<unsigned char>((pHouse->serial&0xFF000000)>>24);
-	pi3->more2 = static_cast<unsigned char>((pHouse->serial&0x00FF0000)>>16);
-	pi3->more3 = static_cast<unsigned char>((pHouse->serial&0x0000FF00)>>8);
-	pi3->more4 = static_cast<unsigned char>((pHouse->serial&0x000000FF));
+	pi3->setMore1( static_cast<unsigned char>((pHouse->serial&0xFF000000)>>24) );
+	pi3->setMore2( static_cast<unsigned char>((pHouse->serial&0x00FF0000)>>16) );
+	pi3->setMore3( static_cast<unsigned char>((pHouse->serial&0x0000FF00)>>8) );
+	pi3->setMore4( static_cast<unsigned char>((pHouse->serial&0x000000FF)) );
 	pi3->setType( 7 );
 	
 	sysmessage(s, "You have transferred your house to %s.", pc->name.latin1());
