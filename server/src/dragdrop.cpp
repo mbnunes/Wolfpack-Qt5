@@ -80,7 +80,7 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 		return;
 	}
 
-	// Rekursiv prüfen ob es in einem abgeschlossenen container liegt
+	// Check recursively if the item is in a locked container.
 	if (pItem->isInLockedItem()) {
 		socket->sysMessage(tr( "You cannot grab items in locked containers."));
 		socket->bounceItem( pItem, BR_NO_REASON );
