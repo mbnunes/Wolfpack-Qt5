@@ -40,6 +40,8 @@
 	<script>wolfpack.commands.info</script>
 	<script>wolfpack.commands.where</script>
 	<script>wolfpack.commands.wipe</script>
+	<script>wolfpack.commands.skill</script>
+	<script>wolfpack.commands.stat</script>
 
 	<!-- Magic -->
 	<script>spellbook</script>
