@@ -18,9 +18,14 @@
 // Setting and getting item properties
 #define setItemIntProperty( identifier, property ) if( !strcmp ( name, #identifier ) ) self->Item->property = PyInt_AS_LONG( value );
 #define setItemStrProperty( identifier, property ) if( !strcmp ( name, #identifier ) ) self->Item->property = PyString_AS_STRING( value );
-
 #define getItemIntProperty( identifier, property ) if( !strcmp( name, #identifier ) ) return PyInt_FromLong( self->Item->property );
 #define getItemStrProperty( identifier, property ) if( !strcmp( name, #identifier ) ) return PyString_FromString( self->Item->property );
+
+// Setting and getting char properties
+#define setCharIntProperty( identifier, property ) if( !strcmp ( name, #identifier ) ) self->Char->property = PyInt_AS_LONG( value );
+#define setCharStrProperty( identifier, property ) if( !strcmp ( name, #identifier ) ) self->Char->property = PyString_AS_STRING( value );
+#define getCharIntProperty( identifier, property ) if( !strcmp( name, #identifier ) ) return PyInt_FromLong( self->Char->property );
+#define getCharStrProperty( identifier, property ) if( !strcmp( name, #identifier ) ) return PyString_FromString( self->Char->property );
 
 // If an error occured, report it
 inline void PyReportError( void )
@@ -560,7 +565,26 @@ PyObject *Py_WPItemGetAttr( Py_WPItem *self, char *name )
 	else getItemIntProperty( "itemhand", itmhand )
 	else getItemIntProperty( "type", type )
 	else getItemIntProperty( "type2", type2 )
-	// CONTAINER!!
+	
+	// What we're contained in
+	else if( !strcmp( "container", name ) )
+	{
+		if( self->Item->contserial == 0xFFFFFFFF )
+			return Py_None;
+		else if( isCharSerial( self->Item->contserial ) )
+			return PyGetCharObject( FindCharBySerial( self->Item->contserial ) );
+		else 
+			return PyGetItemObject( FindItemBySerial( self->Item->contserial ) ); 
+	}
+
+	// What we contain
+	else if( !strcmp( "content", name ) )
+	{
+		Py_WPContent *returnVal = PyObject_New( Py_WPContent, &Py_WPContentType );
+		returnVal->Item = self->Item; // Never forget that
+		return (PyObject*)returnVal;
+	}
+
 	else getItemIntProperty( "oldx", oldpos.x )
 	else getItemIntProperty( "oldy", oldpos.y )
 	else getItemIntProperty( "oldz", oldpos.z )
@@ -894,4 +918,37 @@ PyObject* Py_WPClient_send( Py_WPClient* self, PyObject* args )
 
 	return PyTrue;
 }
- 
+
+//================ CONTENT
+int Py_WPContentLength( Py_WPContent *self )
+{
+	return contsp.getData( self->Item->serial ).size();
+}
+
+PyObject *Py_WPContentGet( Py_WPContent *self, int Num )
+{
+	vector< SERIAL > contItems = contsp.getData( self->Item->serial );
+
+	if( ( Num < 0 ) || ( Num >= contItems.size() ) )
+		return Py_None;
+
+	return PyGetItemObject( FindItemBySerial( contItems[ Num ] ) );  
+}
+
+//================ EQUIPMENT 
+
+// we have a FIXED amount !!
+int Py_WPEquipmentLength( Py_WPEquipment *self )
+{
+	return MAXLAYERS; 
+}
+
+PyObject *Py_WPEquipmentGet( Py_WPEquipment *self, int Num )
+{
+	if( ( Num < 0 ) || ( Num > MAXLAYERS ) )
+		return Py_None;
+
+	vector< SERIAL > equipItems = contsp.getData( self->Char->serial );
+
+	return PyGetItemObject( FindItemBySerial( equipItems[ Num ] ) );  	
+}

@@ -274,5 +274,82 @@ static PyMethodDef Py_WPClientMethods[] =
     { NULL, NULL, 0, NULL }
 };
 
+//================================= WPContent
+
+typedef struct {
+    PyObject_HEAD;
+	cItem *Item;
+} Py_WPContent;
+
+int Py_WPContentLength( Py_WPContent *self );
+PyObject *Py_WPContentGet( Py_WPContent *self, int Num );
+
+static PySequenceMethods Py_WPContentSequence = {
+	(inquiry)Py_WPContentLength,
+	0,
+	0,
+	(intargfunc)Py_WPContentGet,
+	0,
+	0,
+	0,
+	0,
+};
+
+static PyTypeObject Py_WPContentType = {
+    PyObject_HEAD_INIT(NULL)
+    0,
+    "WPContent",
+    sizeof(Py_WPContentType),
+    0,
+    Py_WPDealloc,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    &Py_WPContentSequence,
+    0,
+    0,
+};
+
+//================================= WPEquipment
+
+typedef struct {
+    PyObject_HEAD;
+	cChar *Char;
+} Py_WPEquipment;
+
+int Py_WPEquipmentLength( Py_WPEquipment *self );
+PyObject *Py_WPEquipmentGet( Py_WPEquipment *self, int Num );
+
+static PySequenceMethods Py_WPEquipmentSequence = {
+	(inquiry)Py_WPEquipmentLength,
+	0,
+	0,
+	(intargfunc)Py_WPEquipmentGet,
+	0,
+	0,
+	0,
+	0,
+};
+
+static PyTypeObject Py_WPEquipmentType = {
+    PyObject_HEAD_INIT(NULL)
+    0,
+    "WPEquipment",
+    sizeof(Py_WPEquipmentType),
+    0,
+    Py_WPDealloc,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    &Py_WPEquipmentSequence,
+    0,
+    0,
+};
 
 #endif // !defined(AFX_WPPYTHONSCRIPT_H__F98DC0D9_AE54_46A6_9557_729DBDD07C03__INCLUDED_)
