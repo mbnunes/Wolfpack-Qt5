@@ -13,54 +13,54 @@ SKILL = 3
 # Static information for certain types of weapons.
 #
 WEAPON_INFORMATION = {
-		# 1001: Sword Weapons (Swordsmanship)
-		1001: {
-            ONEHANDED_SWING: [0x09, 0x0A, 0x0D], 
-            TWOHANDED_SWING: [0x0C, 0x0D, 0x0E],
-            SKILL: SWORDSMANSHIP,
-          },
+	# 1001: Sword Weapons (Swordsmanship)
+	1001: {
+		ONEHANDED_SWING: [0x09, 0x0A, 0x0D],
+		TWOHANDED_SWING: [0x0C, 0x0D, 0x0E],
+		SKILL: SWORDSMANSHIP,
+	},
 
-		# 1002: Axe Weapons (Swordsmanship + Lumberjacking)		
-    1002: {
-            ONEHANDED_SWING: [0x0C, 0x0D],
-            TWOHANDED_SWING: [0xC, 0xD],
-            SKILL: SWORDSMANSHIP,
-          },   
+	# 1002: Axe Weapons (Swordsmanship + Lumberjacking)
+	1002: {
+		ONEHANDED_SWING: [0x0C, 0x0D],
+		TWOHANDED_SWING: [0xC, 0xD],
+		SKILL: SWORDSMANSHIP,
+	},
 
-		# 1003: Macefighting (Staffs)
-		1003: {
-            ONEHANDED_SWING: [0xC, 0xD, 0xE],
-            TWOHANDED_SWING: [0xC, 0xD, 0xE],
-            SKILL: MACEFIGHTING,
-          },
+	# 1003: Macefighting (Staffs)
+	1003: {
+		ONEHANDED_SWING: [0xC, 0xD, 0xE],
+		TWOHANDED_SWING: [0xC, 0xD, 0xE],
+		SKILL: MACEFIGHTING,
+	},
 
-		# 1004: Macefighting (Maces/WarHammer)
-		1004: {
-            ONEHANDED_SWING: [0x9, 0xD],
-            TWOHANDED_SWING: [0xC, 0xD, 0xE],
-            SKILL: MACEFIGHTING,
-          },
+	# 1004: Macefighting (Maces/WarHammer)
+	1004: {
+		ONEHANDED_SWING: [0x9, 0xD],
+		TWOHANDED_SWING: [0xC, 0xD, 0xE],
+		SKILL: MACEFIGHTING,
+	},
 
-		# 1005: Fencing
-    1005: {
-            ONEHANDED_SWING: [0x09, 0x0A, 0x0D],
-            TWOHANDED_SWING: [0x0D, 0x0E],
-            SKILL: FENCING,
-          },
+	# 1005: Fencing
+	1005: {
+		ONEHANDED_SWING: [0x09, 0x0A, 0x0D],
+		TWOHANDED_SWING: [0x0D, 0x0E],
+		SKILL: FENCING,
+	},
 
-		# 1006: Bows
-		1006: {
-            ONEHANDED_SWING: [0x12],
-            TWOHANDED_SWING: [0x12],
-            SKILL: ARCHERY,
-          },
+	# 1006: Bows
+	1006: {
+		ONEHANDED_SWING: [0x12],
+		TWOHANDED_SWING: [0x12],
+		SKILL: ARCHERY,
+	},
 
-		# 1007: Crossbows
-		1007: {
-            ONEHANDED_SWING: [0x13],
-            TWOHANDED_SWING: [0x12],
-            SKILL: ARCHERY,
-          },
+	# 1007: Crossbows
+	1007: {
+		ONEHANDED_SWING: [0x13],
+		TWOHANDED_SWING: [0x12],
+		SKILL: ARCHERY,
+	},
 }
 
 #
@@ -93,7 +93,7 @@ def playswinganimation(char, target, weapon):
     if basedef and basedef['flags'] & 0x02:
       action += 1
 
-    char.action(action)   
+    char.action(action)
 
   # Humans
   else:
@@ -104,7 +104,7 @@ def playswinganimation(char, target, weapon):
         action = random.choice(WEAPON_INFORMATION[weapon.type][TWOHANDED_SWING])
       else:
         action = random.choice(WEAPON_INFORMATION[weapon.type][ONEHANDED_SWING])
-      
+
     char.action(action)
 
 #
@@ -115,7 +115,7 @@ def playhurtanimation(char):
   if char.id >= 0x190:
     char.action(20)
   else:
-    # Note: We lack support for correct animations 
+    # Note: We lack support for correct animations
     # processing here. animals have different hit anims
     # for instance.
     char.action(10)
@@ -134,7 +134,7 @@ def playmisssound(attacker, defender):
 
   attacker.soundeffect(random.choice(sounds))
 
-# 
+#
 # Plays the hit sound for a given attacker and
 # defender
 #
