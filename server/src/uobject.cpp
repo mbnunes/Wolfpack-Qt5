@@ -376,7 +376,7 @@ void cUObject::removeEvent( const QString& name )
 			cPythonScript** newScriptChain = new cPythonScript*[count];
 			newScriptChain[0] = reinterpret_cast<cPythonScript*>( count - 1 );
 
-			for ( unsigned int i = 1; i < count; ++i )
+			for ( unsigned int i = 1; i <= count; ++i )
 			{
 				if ( scriptChain[i]->name() != name )
 				{
