@@ -81,6 +81,7 @@
 		<requires type="str">10</requires>
 		<speed>50</speed>
 		<weight>3.0</weight>
+		<type>1001</type>
 	</item>
 
 	<!-- longsword -->
@@ -94,6 +95,7 @@
 		<weight>4.00</weight>
 		<value>70</value>
 		<decay />
+		<type>1001</type>
 	</item>
 
 	<!-- broadsword -->
@@ -108,6 +110,7 @@
 		<requires type="str">50</requires>
 		<speed>45</speed>
 		<weight>3.0</weight>
+		<type>1001</type>
 	</item>
 
 	<!-- Sheperd Crook -->
