@@ -1,0 +1,38 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- No-Dachi -->
+	<item id="27a2">
+		<id>0x27a2</id>
+		<!--<twohanded />-->
+		<decay />
+		<nodye />
+		<sellprice>120</sellprice>
+		<buyprice>40</buyprice>
+		<durability><random min="30" max="60" /></durability>
+		<weight>4.0</weight>
+		<basescripts>equipment,blades</basescripts>
+		<type>1001</type>
+		<category>Weapons\Samurai\No-Dachi</category>
+		<!-- Properties -->
+		<tag name="resname" value="iron" />
+		<intproperty name="req_strength" value="35" />
+		<intproperty name="speed" value="37" />
+		<intproperty name="mindamage" value="14" />
+		<intproperty name="maxdamage" value="16" />
+	</item>
+
+	<item id="27ed" inherit="27a2">
+		<id>0x27ed</id>
+		<baseid>27a2</baseid>
+		<category>Weapons\Samurai\No-Dachi 2</category>
+	</item>
+
+</definitions>

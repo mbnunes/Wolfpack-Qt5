@@ -1,0 +1,41 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Unsorted Classes -->
+	<include file="definitions/items/weaponry/samurai/bokuto.xml"/>
+	<include file="definitions/items/weaponry/samurai/daisho.xml"/>
+	<include file="definitions/items/weaponry/samurai/fukiya.xml"/>
+	<include file="definitions/items/weaponry/samurai/kama.xml"/>
+	<include file="definitions/items/weaponry/samurai/lajatang.xml"/>
+	<include file="definitions/items/weaponry/samurai/no-dachi.xml"/>
+	<include file="definitions/items/weaponry/samurai/nunchaku.xml"/>
+	<include file="definitions/items/weaponry/samurai/sai.xml"/>
+	<include file="definitions/items/weaponry/samurai/shuriken.xml"/>
+	<include file="definitions/items/weaponry/samurai/tekagi.xml"/>
+	<include file="definitions/items/weaponry/samurai/tessen.xml"/>
+	<include file="definitions/items/weaponry/samurai/tetsubo.xml"/>
+	<include file="definitions/items/weaponry/samurai/wakizashi.xml"/>
+	<include file="definitions/items/weaponry/samurai/yumi.xml"/>
+
+	<!-- Archery -->
+
+	<!-- Fencing -->
+
+	<!-- Mace Fighting -->
+
+	<!-- Swordsmanship -->
+
+	<!-- Wrestling -->
+
+	<!-- Boshido -->
+
+	<!-- Ninjitsu -->
+
+</definitions>

@@ -9,64 +9,18 @@
 <definitions>
 
 	<!-- Archery -->
-	<include file="definitions/items/weaponry/archery/bow.xml"/>
-	<include file="definitions/items/weaponry/archery/composite_bow.xml"/>
-	<include file="definitions/items/weaponry/archery/crossbow.xml"/>
-	<include file="definitions/items/weaponry/archery/heavy_crossbow.xml"/>
-	<include file="definitions/items/weaponry/archery/repeating_crossbow.xml"/>
+	<include file="definitions/items/weaponry/archery/index.xml"/>
 
 	<!-- Fencing -->
-	<include file="definitions/items/weaponry/fencing/dagger.xml"/>
-	<include file="definitions/items/weaponry/fencing/double_bladed_staff.xml"/>
-	<include file="definitions/items/weaponry/fencing/kryss.xml"/>
-	<include file="definitions/items/weaponry/fencing/lance.xml"/>
-	<include file="definitions/items/weaponry/fencing/pike.xml"/>
-	<include file="definitions/items/weaponry/fencing/pitchfork.xml"/>
-	<include file="definitions/items/weaponry/fencing/short_spear.xml"/>
-	<include file="definitions/items/weaponry/fencing/spear.xml"/>
-	<include file="definitions/items/weaponry/fencing/war_fork.xml"/>
+	<include file="definitions/items/weaponry/fencing/index.xml"/>
 
 	<!-- Macefighting -->
-	<include file="definitions/items/weaponry/macefighting/black_staff.xml"/>
-	<include file="definitions/items/weaponry/macefighting/club.xml"/>
-	<include file="definitions/items/weaponry/macefighting/gnarled_staff.xml"/>
-	<include file="definitions/items/weaponry/macefighting/hammer_pick.xml"/>
-	<include file="definitions/items/weaponry/macefighting/mace.xml"/>
-	<include file="definitions/items/weaponry/macefighting/maul.xml"/>
-	<include file="definitions/items/weaponry/macefighting/quarter_staff.xml"/>
-	<include file="definitions/items/weaponry/macefighting/scepter.xml"/>
-	<include file="definitions/items/weaponry/macefighting/shepherds_crook.xml"/>
-	<include file="definitions/items/weaponry/macefighting/sledge_hammer.xml"/>
-	<include file="definitions/items/weaponry/macefighting/smithing_hammer.xml"/>
-	<include file="definitions/items/weaponry/macefighting/war_axe.xml"/>
-	<include file="definitions/items/weaponry/macefighting/war_hammer.xml"/>
-	<include file="definitions/items/weaponry/macefighting/war_mace.xml"/>
+	<include file="definitions/items/weaponry/macefighting/index.xml"/>
 
 	<!-- Swordsmanship -->
-	<include file="definitions/items/weaponry/swordsmanship/axe.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/bardiche.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/battle_axe.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/bladed_staff.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/bone_harvester.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/broadsword.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/butcher_knife.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/cleaver.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/crescent_blade.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/cutlass.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/double_axe.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/executioners_axe.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/halberd.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/hatchet.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/katana.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/large_battle_axe.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/long_sword.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/longsword.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/paladin_sword.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/pickaxe.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/scimitar.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/scythe.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/skinning_knife.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/two_handed_axe.xml"/>
-	<include file="definitions/items/weaponry/swordsmanship/viking_sword.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/index.xml"/>
+
+	<!-- Samurai Empire New Weapons -->
+	<include file="definitions/items/weaponry/samurai/index.xml"/>
 
 </definitions>

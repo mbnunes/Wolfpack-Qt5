@@ -1,0 +1,38 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Swordsmanship -->
+	<include file="definitions/items/weaponry/swordsmanship/axe.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/bardiche.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/battle_axe.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/bladed_staff.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/bone_harvester.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/broadsword.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/butcher_knife.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/cleaver.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/crescent_blade.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/cutlass.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/double_axe.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/executioners_axe.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/halberd.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/hatchet.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/katana.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/large_battle_axe.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/long_sword.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/longsword.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/paladin_sword.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/pickaxe.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/scimitar.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/scythe.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/skinning_knife.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/two_handed_axe.xml"/>
+	<include file="definitions/items/weaponry/swordsmanship/viking_sword.xml"/>
+
+</definitions>

@@ -1,0 +1,27 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Macefighting -->
+	<include file="definitions/items/weaponry/macefighting/black_staff.xml"/>
+	<include file="definitions/items/weaponry/macefighting/club.xml"/>
+	<include file="definitions/items/weaponry/macefighting/gnarled_staff.xml"/>
+	<include file="definitions/items/weaponry/macefighting/hammer_pick.xml"/>
+	<include file="definitions/items/weaponry/macefighting/mace.xml"/>
+	<include file="definitions/items/weaponry/macefighting/maul.xml"/>
+	<include file="definitions/items/weaponry/macefighting/quarter_staff.xml"/>
+	<include file="definitions/items/weaponry/macefighting/scepter.xml"/>
+	<include file="definitions/items/weaponry/macefighting/shepherds_crook.xml"/>
+	<include file="definitions/items/weaponry/macefighting/sledge_hammer.xml"/>
+	<include file="definitions/items/weaponry/macefighting/smithing_hammer.xml"/>
+	<include file="definitions/items/weaponry/macefighting/war_axe.xml"/>
+	<include file="definitions/items/weaponry/macefighting/war_hammer.xml"/>
+	<include file="definitions/items/weaponry/macefighting/war_mace.xml"/>
+
+</definitions>
