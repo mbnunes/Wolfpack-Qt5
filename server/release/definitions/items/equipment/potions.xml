@@ -12,13 +12,12 @@
 	<!-- Nightsight -->
 	<item id="potion_nightsight">
 		<id>0xf06</id>
-		<name>Black Potion</name>
-		<identified>Nightsight</identified>
-		<more1>1</more1>
+		<name>black potion</name>
+		<identified>nightsight</identified>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Nightsight</category>
-
+		<tag name="potiontype" value="nightsight" />
 		<!-- Pricing information -->
 		<buyprice>15</buyprice>
 		<sellprice>7</sellprice>
@@ -27,13 +26,12 @@
 	<!-- Lesser Heal -->
 	<item id="potion_lesserheal">
 		<id>0xf0c</id>
-		<name>Yellow Potion</name>
-		<identified>Lesser Heal</identified>
-		<more1>2</more1>
+		<name>yellow potion</name>
+		<identified>lesser heal</identified>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Heal (lesser)</category>
-
+		<tag name="potiontype" value="lesser_heal" />
 		<!-- Pricing information -->
 		<buyprice>15</buyprice>
 		<sellprice>7</sellprice>
@@ -42,113 +40,207 @@
 	<!-- Heal -->
 	<item id="potion_heal">
 		<id>0xf0c</id>
-		<name>Yellow Potion</name>
-		<identified>Heal</identified>
-		<more1>3</more1>
+		<name>yellow potion</name>
+		<identified>heal</identified>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Heal</category>
-
+		<tag name="potiontype" value="heal" />
 		<!-- Pricing information -->
 	</item>
 
 	<!-- Greater Heal -->
 	<item id="potion_greaterheal">
 		<id>0xf0c</id>
-		<name>Yellow Potion</name>
-		<identified>Greater Heal</identified>
-		<more1>3</more1>
+		<name>yellow potion</name>
+		<identified>greater heal</identified>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Heal (greater)</category>
-
+		<tag name="potiontype" value="greater_heal" />
 		<!-- Pricing information -->
 	</item>
 
 	<!-- Lesser Poison -->
 	<item id="potion_lesserpoison">
 		<id>0xf0a</id>
-		<name>Green Potion</name>
-		<identified>Lesser Poison</identified>
-		<more1>4</more1>
+		<name>green potion</name>
+		<identified>lesser poison</identified>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Poison (lesser)</category>
-
+		<tag name="potiontype" value="lesser_poison" />
 		<!-- Pricing information -->
 		<buyprice>15</buyprice>
 		<sellprice>7</sellprice>
-	</item>	
+	</item>
 
 	<!-- Poison -->
 	<item id="potion_poison">
 		<id>0xf0a</id>
-		<name>Green Potion</name>
-		<identified>Poison</identified>
-		<more1>4</more1>
+		<name>green potion</name>
+		<identified>poison</identified>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Poison</category>
-
+		<tag name="potiontype" value="poison" />
 		<!-- Pricing information -->
-	</item>	
+	</item>
 
 	<!-- Greater Poison -->
 	<item id="potion_greaterpoison">
 		<id>0xf0a</id>
-		<name>Green Potion</name>
-		<identified>Greater Poison</identified>
-		<more1>4</more1>
+		<name>green potion</name>
+		<identified>greater poison</identified>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Poison (greater)</category>
-
+		<tag name="potiontype" value="greater_poison" />
 		<!-- Pricing information -->
-	</item>	
+	</item>
 
 	<!-- Greater Poison -->
 	<item id="potion_deadlypoison">
 		<id>0xf0a</id>
-		<name>Green Potion</name>
-		<identified>Deadly Poison</identified>
-		<more1>4</more1>
+		<name>green potion</name>
+		<identified>deadly poison</identified>
 		<weight>0.5</weight>
 		<events>potions</events>
 		<category>Equipment\Potions\Poison (deadly)</category>
-
+		<tag name="potiontype" value="deadly_poison" />
 		<!-- Pricing information -->
-	</item>	
-
-	<!-- Refresh -->
-<!--
-	 Orange Potion
-	<item id="f07">
-		<id>0xf07</id>
-		<category>Professions\Alchemist\Potions\Orange Potion</category>
 	</item>
 
-	Blue Potion
-	<item id="f08">
-		<id>0xf08</id>
-		<category>Professions\Alchemist\Potions\Blue Potion</category>
-	</item>
-
-	White Potion
-	<item id="f09">
-		<id>0xf09</id>
-		<category>Professions\Alchemist\Potions\White Potion</category>
-	</item>
-
-	Red Potion
-	<item id="f0b">
+	<item id="potion_refresh">
 		<id>0xf0b</id>
-		<category>Professions\Alchemist\Potions\Red Potion</category>
+		<name>red potion</name>
+		<identified>refresh</identified>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Refresh</category>
+		<tag name="potiontype" value="refresh" />
+		<!-- Pricing information -->
 	</item>
 
-	Purple Potion
-	<item id="f0d">
-		<id>0xf0d</id>
-		<category>Professions\Alchemist\Potions\Purple Potion</category>
+	<item id="potion_totalrefresh">
+		<id>0xf0b</id>
+		<name>red potion</name>
+		<identified>total refresh</identified>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Refresh</category>
+		<tag name="potiontype" value="total_refresh" />
+		<!-- Pricing information -->
 	</item>
-	-->
+
+	<item id="potion_lessercure">
+		<id>0xf07</id>
+		<name>orange potion</name>
+		<identified>lesser cure</identified>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Cure (lesser)</category>
+		<tag name="potiontype" value="lesser_cure" />
+		<!-- Pricing information -->
+	</item>
+
+	<item id="potion_cure">
+		<id>0xf07</id>
+		<name>orange potion</name>
+		<identified>cure</identified>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Cure</category>
+		<tag name="potiontype" value="cure" />
+		<!-- Pricing information -->
+	</item>
+
+	<item id="potion_greatercure">
+		<id>0xf07</id>
+		<name>orange potion</name>
+		<identified>lesser cure</identified>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Cure (greater)</category>
+		<tag name="potiontype" value="greater_cure" />
+		<!-- Pricing information -->
+	</item>
+
+	<item id="potion_agility">
+		<id>0xf08</id>
+		<name>blue potion</name>
+		<identified>agility</identified>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Agility</category>
+		<tag name="potiontype" value="agility" />
+		<!-- Pricing information -->
+	</item>
+
+	<item id="potion_greateragility">
+		<id>0xf08</id>
+		<name>blue potion</name>
+		<identified>greater agility</identified>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Agility (greater)</category>
+		<tag name="potiontype" value="greater_agility" />
+		<!-- Pricing information -->
+	</item>
+
+	<item id="potion_strength">
+		<id>0xf09</id>
+		<name>white potion</name>
+		<identified>strength</identified>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Strength</category>
+		<tag name="potiontype" value="strength" />
+		<!-- Pricing information -->
+	</item>
+
+	<item id="potion_greaterstrength">
+		<id>0xf09</id>
+		<name>white potion</name>
+		<identified>greater strength</identified>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Strength (greater)</category>
+		<tag name="potiontype" value="greater_strength" />
+		<!-- Pricing information -->
+	</item>
+
+	<item id="potion_lesserexplosion">
+		<id>0xf0d</id>
+		<name>purple potion</name>
+		<identified>lesser explosion</identified>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Explosion (lesser)</category>
+		<tag name="potiontype" value="lesser_explosion" />
+		<!-- Pricing information -->
+	</item>
+
+	<item id="potion_explosion">
+		<id>0xf0d</id>
+		<name>purple potion</name>
+		<identified>explosion</identified>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Explosion</category>
+		<tag name="potiontype" value="explosion" />
+		<!-- Pricing information -->
+	</item>
+
+	<item id="potion_greaterexplosion">
+		<id>0xf0d</id>
+		<name>purple potion</name>
+		<identified>greater explosion</identified>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Explosion (greater)</category>
+		<tag name="potiontype" value="greater_explosion" />
+		<!-- Pricing information -->
+	</item>
+
 </definitions>

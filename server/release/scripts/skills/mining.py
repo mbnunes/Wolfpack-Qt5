@@ -42,7 +42,7 @@ oretable = \
 }
 
 def mining( char, pos, tool ):
-	char.addtimer( 1300, "skills.mining.domining", [ oresound, tool, pos ] )
+	wolfpack.addtimer( 1300, "skills.mining.domining", [ char, oresound, tool, pos ] )
 	char.settag( 'is_mining', str( servertime() + miningdelay ) )
 	char.turnto( pos )
 	char.action( ANIM_ATTACK3 )
@@ -139,10 +139,11 @@ def response( char, args, target ):
 	return OK
 
 #Sound effect
-def domining( char, args ):
-	char.soundeffect( args[0] )
-	tool = args[1]
-	pos = args[2]
+def domining( time, args ):
+	char = args[0]
+	char.soundeffect( args[1] )
+	tool = args[2]
+	pos = args[3]
 	socket = char.socket
 
 	if char.hastag( 'ore_gem' ):

@@ -106,59 +106,59 @@ skillnames = [ 'alchemy', 'anatomy', 'animallore', 'itemid', 'armslore', 'parryi
 	'stealth', 'removetraps', 'necromancy', 'focus', 'chivalry' ]
 
 skillnamesids = \
-{ 
-	'alchemy' : ALCHEMY, 
-	'anatomy' : ANATOMY, 
-	'animallore' : ANIMALLORE, 
-	'itemid' : ITEMID, 
-	'armslore' : ARMSLORE, 
+{
+	'alchemy' : ALCHEMY,
+	'anatomy' : ANATOMY,
+	'animallore' : ANIMALLORE,
+	'itemid' : ITEMID,
+	'armslore' : ARMSLORE,
 	'parrying' : PARRYING,
-	'begging' : BEGGING, 
-	'blacksmithing' : BLACKSMITHING, 
-	'bowcraft' : BOWCRAFT, 
-	'peacemaking' : PEACEMAKING, 
-	'camping' : CAMPING, 
+	'begging' : BEGGING,
+	'blacksmithing' : BLACKSMITHING,
+	'bowcraft' : BOWCRAFT,
+	'peacemaking' : PEACEMAKING,
+	'camping' : CAMPING,
 	'carpentry' : CARPENTRY,
-	'cartography' : CARTOGRAPHY, 
-	'cooking' : COOKING, 
-	'detectinghidden' : DETECTINGHIDDEN, 
-	'enticement' : ENTICEMENT, 
+	'cartography' : CARTOGRAPHY,
+	'cooking' : COOKING,
+	'detectinghidden' : DETECTINGHIDDEN,
+	'enticement' : ENTICEMENT,
 	'evaluatingintel' : EVALUATINGINTEL,
-	'healing' : HEALING, 
-	'fishing' : FISHING, 
-	'forensics' : FORENSICS, 
-	'herding' : HERDING, 
-	'hiding' : HIDING, 
+	'healing' : HEALING,
+	'fishing' : FISHING,
+	'forensics' : FORENSICS,
+	'herding' : HERDING,
+	'hiding' : HIDING,
 	'provocation' : PROVOCATION,
-	'inscription' : INSCRIPTION, 
-	'lockpicking' : LOCKPICKING, 
-	'magery' : MAGERY, 
-	'magicresistance' : MAGICRESISTANCE, 
-	'tactics' : TACTICS, 
+	'inscription' : INSCRIPTION,
+	'lockpicking' : LOCKPICKING,
+	'magery' : MAGERY,
+	'magicresistance' : MAGICRESISTANCE,
+	'tactics' : TACTICS,
 	'snooping' : SNOOPING,
-	'musicianship' : MUSICIANSHIP, 
-	'poisoning' : POISONING, 
-	'archery' : ARCHERY, 
-	'spiritspeak' : SPIRITSPEAK, 
-	'stealing' : STEALING, 
+	'musicianship' : MUSICIANSHIP,
+	'poisoning' : POISONING,
+	'archery' : ARCHERY,
+	'spiritspeak' : SPIRITSPEAK,
+	'stealing' : STEALING,
 	'tailoring' : TAILORING,
-	'taming' : TAMING, 
-	'tasteid' : TASTEID, 
-	'tinkering' : TINKERING, 
-	'tracking' : TRACKING, 
-	'veterinary' : VETERINARY, 
+	'taming' : TAMING,
+	'tasteid' : TASTEID,
+	'tinkering' : TINKERING,
+	'tracking' : TRACKING,
+	'veterinary' : VETERINARY,
 	'swordsmanship' : SWORDSMANSHIP,
-	'macefighting' : MACEFIGHTING, 
-	'fencing' : FENCING, 
-	'wrestling' : WRESTLING, 
-	'lumberjacking' : LUMBERJACKING, 
-	'mining' : MINING, 
+	'macefighting' : MACEFIGHTING,
+	'fencing' : FENCING,
+	'wrestling' : WRESTLING,
+	'lumberjacking' : LUMBERJACKING,
+	'mining' : MINING,
 	'meditation' : MEDITATION,
-	'stealth' : STEALTH, 
-	'removetraps' : REMOVETRAPS, 
-	'necromancy' : NECROMANCY, 
-	'focus' : FOCUS, 
-	'chivalry' : CHIVALRY 
+	'stealth' : STEALTH,
+	'removetraps' : REMOVETRAPS,
+	'necromancy' : NECROMANCY,
+	'focus' : FOCUS,
+	'chivalry' : CHIVALRY
 }
 
 statnames = [ 'str', 'int', 'dex' ]
@@ -342,6 +342,12 @@ ANIM_ATTACK7=0x1f
 ANIM_BOW=0x20
 ANIM_SALUTE=0x21
 ANIM_FIDGET3=0x22
+
+# Some Sounds
+SOUND_DRINK1 = 0x50
+SOUND_AGILITY_DOWN = 0x1ee
+SOUND_AGILITY_UP = 0x1ed
+SOUND_STRENGTH_UP = 0x1e7
 
 # Definitions for the Sextant
 SEXTANT_CENTER_X = 5936
