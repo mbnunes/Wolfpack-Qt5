@@ -77,7 +77,7 @@ protected:
 	void	processNode( const QDomElement &Tag );
 public:
 	void	processContainerNode( const QDomElement &Tag );
-	void	update();
+	virtual void update();
 	P_ITEM	dupe();
 	void	soundEffect( UINT16 sound );
 
@@ -151,7 +151,7 @@ public:
 	void	setTotalweight( INT32 data );
 	void	setCarve( QString data ) { carve_ = data; };
 
-	cItem() {;};
+	cItem() { totalweight_ = 0; };
 	cItem( cItem& src); // Copy constructor
 	virtual ~cItem() {}
 	virtual void Serialize( ISerialization &archive );

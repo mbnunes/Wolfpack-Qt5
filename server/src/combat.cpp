@@ -856,7 +856,10 @@ void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 			{
 				// Check if pChar can see pc_attacker
 				if( ( pChar == pc_attacker ) || !pc_attacker->isHidden() || ( pc_attacker->isHidden() && pChar->isGM() ) )
+				{
+					updatePlayer.setHighlight( pc_attacker->notority( pChar ) );
 					pChar->socket()->send( &updatePlayer );
+				}
 			}
 		}
 		
@@ -1015,15 +1018,13 @@ void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 			{
 				if((pc_attacker->npcaitype() == 4 || pc_attacker->npcaitype() == 9) && pc_defender->isNpc())
 				{
-					npcaction(pc_defender, 0x15);
-					
-					PlayDeathSound(pc_defender);
-					
-					Npcs->DeleteChar(pc_defender);//Guards, don't give body
+					pc_defender->action( 0x15 );					
+					PlayDeathSound( pc_defender );					
+					Npcs->DeleteChar( pc_defender ); //Guards, don't give body
 				}
 				else
 				{
-					deathstuff( pc_defender );
+					pc_defender->kill();
 				}
 				
 				//murder count \/				

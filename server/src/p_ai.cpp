@@ -85,52 +85,52 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 			}
 			break;
 		case 1: // good healers
-			if (!pc_i->war)
+			if( !pc_i->war )
 			{
 				cRegion::RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
-					if (pc != NULL)
+					if( pc )
 					{
-						d = chardist( pc_i, pc );
-						if (d > 3)
+						if( !pc->inRange( pc_i, 3 ) )
 							continue;
-						if (pc->isNpc() || !online(pc))
+
+						if( pc->isNpc() || !pc->socket() )
 							continue;
-						if (!pc->dead)
+						if( !pc->dead )
 							continue;
-						if (pc->isMurderer()) 
+						if( pc->isMurderer() )
 						{
-							npctalkall(pc_i, "I will nay give life to a scoundrel like thee!", 1);
+							pc_i->talk( "I will nay give life to a scoundrel like thee!" );
 							return;
 						}
 						else if (pc->isCriminal()) 
 						{
-							npctalkall(pc_i, "I will nay give life to thee for thou art a criminal!", 1);
+							pc_i->talk( "I will nay give life to thee for thou art a criminal!" );
 							return;
 						}
-						else if (pc->isInnocent())
+						else if( pc->isInnocent() )
 						{
-							npcaction(pc_i, 0x10);
-							Targ->NpcResurrectTarget(pc);
+							pc_i->action( 0x10 );
+							pc->resurrect();
 							staticeffect(pc, 0x37, 0x6A, 0x09, 0x06);
 							switch (RandomNum(0, 4)) 
 							{
 							case 0: 
-								npctalkall(pc_i, "Thou art dead, but 'tis within my power to resurrect thee.  Live!", 1);
+								pc_i->talk( "Thou art dead, but 'tis within my power to resurrect thee.  Live!" );
 								break;
 							case 1: 
-								npctalkall(pc_i, "Allow me to resurrect thee ghost.  Thy time of true death has not yet come.", 1);
+								pc_i->talk( "Allow me to resurrect thee ghost.  Thy time of true death has not yet come." );
 								break;
 							case 2: 
-								npctalkall(pc_i, "Perhaps thou shouldst be more careful.  Here, I shall resurrect thee.", 1);
+								pc_i->talk( "Perhaps thou shouldst be more careful.  Here, I shall resurrect thee." );
 								break;
 							case 3: 
-								npctalkall(pc_i, "Live again, ghost!  Thy time in this world is not yet done.", 1);
+								pc_i->talk( "Live again, ghost!  Thy time in this world is not yet done." );
 								break;
 							case 4: 
-								npctalkall(pc_i, "I shall attempt to resurrect thee.", 1);
+								pc_i->talk( "I shall attempt to resurrect thee." );
 								break;
 							}
 						}

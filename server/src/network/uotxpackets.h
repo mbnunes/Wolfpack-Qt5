@@ -845,4 +845,19 @@ public:
 	}
 };
 
+// 0x89 CorpseEquipment
+class cUOTxCorpseEquipment: public cUOPacket
+{
+public:
+	cUOTxCorpseEquipment(): cUOPacket( 0x89, 4 ) { setShort( 1, 4 ); }
+	void addItem( UINT8 layer, UINT32 serial );
+};
+
+// 0x2C CharDeath
+class cUOTxCharDeath: public cUOPacket
+{
+public:
+	cUOTxCharDeath(): cUOPacket( 0x2C, 2 ) {}
+};
+
 #endif

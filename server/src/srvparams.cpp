@@ -281,7 +281,7 @@ std::vector<ServerList_st>& cSrvParams::serverList()
 					// valid Internet IP it finds
 					// and replace a 0.0.0.0 with it
 #ifndef __unix__
-					if( ( server.sIP == 0 ) && ( lastIpCheck <= uiCurrentTime ) )
+					if( ( server.ip == 0 ) && ( lastIpCheck <= uiCurrentTime ) )
 					{
 						hostent *hostinfo;
 						char name[256];
@@ -316,7 +316,7 @@ std::vector<ServerList_st>& cSrvParams::serverList()
 										continue;
 
 									// We are now certain that it's a valid INET ip
-									server.sIP = ip;
+									server.ip = ip;
 									inetIp = ip;
 								}
 							}

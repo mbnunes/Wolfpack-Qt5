@@ -208,6 +208,8 @@ void cUOSocket::recieve()
 		handleAction( dynamic_cast< cUORxAction* >( packet ) ); break;
 	case 0xB1:
 		handleGumpResponse( dynamic_cast< cUORxGumpResponse* >( packet ) ); break;
+	case 0x2C:
+		/* Resurrection menu */ break;
 	default:
 		//cout << "Recieved packet: " << endl;
 		packet->print( &cout );
@@ -236,7 +238,7 @@ void cUOSocket::handleLoginRequest( cUORxLoginRequest *packet )
 	vector< ServerList_st > shards = SrvParams->serverList();
 	
 	for( Q_UINT8 i = 0; i < shards.size(); ++i )
-		shardList->addServer( i, shards[i].sServer, shards[i].uiFull, shards[i].uiTime, shards[i].ip );
+		shardList->addServer( i, shards[i].sServer, 0, shards[i].uiTime, shards[i].ip );
 	
 	send( shardList );
 	delete shardList;
@@ -929,8 +931,12 @@ void cUOSocket::resendPlayer()
 
 void cUOSocket::updateChar( P_CHAR pChar )
 {
+	if( !_player )
+		return;
+
 	cUOTxUpdatePlayer updatePlayer;
 	updatePlayer.fromChar( pChar );
+	updatePlayer.setHighlight( pChar->notority( _player ) );
 	send( &updatePlayer );
 }
 
@@ -1249,6 +1255,7 @@ void cUOSocket::updatePlayer()
 
 	cUOTxUpdatePlayer pUpdate;
 	pUpdate.fromChar( _player );
+	pUpdate.setHighlight( _player->notority( _player ) );
 	send( &pUpdate );
 }
 

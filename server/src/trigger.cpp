@@ -726,7 +726,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							j = str2num(script2);
 							if ((j < 0) &&(pc_ts->hp < abs(j)) &&(!(pc_ts->isInvul())))
 							{
-								deathstuff(currchar[ts]);
+								currchar[ts]->kill();
 								closescript();
 								return;
 							}
@@ -2376,7 +2376,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							
 							if ((j < 0) &&(pc_ts->hp < abs(j)) &&(!(pc_ts->isInvul())))
 							{
-								deathstuff(pc_ts);
+								pc_ts->kill();
 								closescript();
 								return;
 							}

@@ -175,7 +175,6 @@ void read1 ();
 void read2 ();
 bool inVisRange(int x1, int y1, int x2, int y2);
 int inrange1(UOXSOCKET a, UOXSOCKET b);
-void deathstuff(P_CHAR pc_player);
 bool online(P_CHAR pc);
 void loadremote_admin();
 int numbitsset( int number );

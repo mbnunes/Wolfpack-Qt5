@@ -1276,7 +1276,7 @@ void cMagic::MagicDamage(P_CHAR pc, int amount)
 		updatestats((pc), 0);
 		if (pc->hp <= 0)
 		{
-			deathstuff(pc);
+			pc->kill();
 		}
 	}
 }
@@ -1654,7 +1654,7 @@ void cMagic::NPCDispel(P_CHAR pc_s, P_CHAR pc_i)
 			tileeffect(pc_i->pos.x,pc_i->pos.y,pc_i->pos.z, 0x37, 0x2A, 0x00, 0x00);
 			if (pc_i->isNpc())
 				Npcs->DeleteChar(pc_i);
-			else deathstuff(pc_i);
+			else pc_i->kill();
 		}
 	}
 }
@@ -2433,7 +2433,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							if (pc_defender->isNpc())
 								Npcs->DeleteChar(pc_defender);
 							else
-								deathstuff(pc_defender);
+								pc_defender->kill();
 						}
 						break;
 						//////////// (42) ENERGY BOLT ///////////
@@ -2961,8 +2961,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 											if (mapchar->isNpc()) npcattacktarget(mapchar, pc_currchar);
 											return;
 										}
-										if (mapchar->isNpc()) deathstuff(mapchar); // LB !!!!
-										soundeffect2(mapchar, 0x0204);
+										if (mapchar->isNpc()) mapchar->kill(); // LB !!!!
+										mapchar->soundEffect( 0x0204 );
 										doStaticEffect(mapchar, curSpell);
 									}
 								}
@@ -3280,13 +3280,13 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 									if(rand()%2) npcaction(pc, 0x15); else npcaction(pc, 0x16);
 									if((pc->isNpc() || online(pc)) && pc->hp==0)
 									{
-										deathstuff(pc);
+										pc->kill();
 									}
 								}	
 								else
 								{
 									if (pc->hp<=0)
-										deathstuff(pc);
+										pc->kill();
 									else
 									{
 										if (pc->isNpc())

@@ -220,6 +220,29 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 	socket->sysMessage( tr( "Usage: go [location|x,y,z,[plane]]" ) );
 }
 
+class cResurectTarget: public cTargetRequest
+{
+public:
+	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		P_CHAR pChar = FindCharBySerial( target->serial() );
+
+		if( !pChar )
+		{
+			socket->sysMessage( tr( "This is not a living being." ) );
+			return;
+		}
+
+		Targ->NpcResurrectTarget( pChar );
+	}
+};
+
+void commandResurrect( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	socket->sysMessage( tr( "Select the being you want to resurrect" ) );
+	socket->attachTarget( new cResurectTarget );
+}
+
 void commandWhere( cUOSocket *socket, const QString &command, QStringList &args )
 {
 	P_CHAR pChar = socket->player();
@@ -238,6 +261,8 @@ void commandWhere( cUOSocket *socket, const QString &command, QStringList &args 
 	pChar->message( message );
 }
 
+
+
 class cKillTarget: public cTargetRequest
 {
 public:
@@ -254,7 +279,7 @@ public:
 			return;
 		}
 
-		deathstuff( pChar );
+		pChar->kill();
 	}
 };
 
@@ -446,6 +471,14 @@ public:
 			}
 			else
 				pItem->in = hex2dec( value ).toInt();
+
+		// NPC Wander
+		else if( key == "npcwander" && pChar )
+			pChar->npcWander = hex2dec( value ).toInt();
+
+		// NPC AI Type
+		else if( key == "npcaitype" && pChar )
+			pChar->setNpcAIType( hex2dec( value ).toInt() );
 
 		// Health + Stamina + Mana
 		else if( key == "hp" || key == "health" || key == "hitpoints" )
@@ -1000,6 +1033,12 @@ public:
 				result = QString( "0x%1" ).arg( pChar->skin(), 0, 16 );
 		}
 
+		else if( key == "npcwander" && pChar )
+			result = QString( "%1" ).arg( pChar->npcWander );
+
+		else if( key == "npcaitype" && pChar )
+			result = QString( "%1" ).arg( pChar->npcaitype() );
+
 		else if( key == "hp" || key == "health" || key == "hitpoints" )
 		{
 			if( pChar )
@@ -1261,6 +1300,7 @@ stCommand cCommands::commands[] =
 	{ "KILL",			commandKill },
 	{ "TELE",			commandTele },
 	{ "WHERE",			commandWhere },
+	{ "RESURRECT",		commandResurrect },
 	{ NULL, NULL }
 };
 

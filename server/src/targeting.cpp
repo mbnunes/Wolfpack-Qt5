@@ -835,8 +835,8 @@ void cTargets::GhostTarget(int s)
 			P_CHAR pc_currchar = currchar[s];
 			pc->attacker=pc_currchar->serial; //AntiChrist -- for forensics ev
 			bolteffect(pc, true);
-			soundeffect2(pc, 0x0029);
-			deathstuff(pc);
+			pc->soundEffect(0x0029);
+			pc->kill();
 		}
 		else
 			sysmessage(s,"That player is already dead.");
@@ -3046,58 +3046,8 @@ void cTargets::SetDirTarget(int s)
 //
 bool cTargets::NpcResurrectTarget(P_CHAR pc)
 {
-	if ( pc == NULL)
-		return true;
-
-	if (pc->dead)
-	{//Shouldn' be a validNPCMove inside a door, might fix house break in. -- from zippy code
-		Fame(pc,0);
-		soundeffect2(pc, 0x0214);
-		pc->setId(pc->xid);
-		pc->setSkin(pc->xskin());
-		pc->dead=false;
-		pc->hp=pc->st;// /10;
-		pc->stm=pc->effDex();// /10;
-		pc->mn=pc->in; ///10;
-		pc->attacker = INVALID_SERIAL;
-		pc->resetAttackFirst();
-		pc->war=false;
-
-		AllItemsIterator iterItems;
-		for (iterItems.Begin(); !iterItems.atEnd();iterItems++)
-		{
-			P_ITEM pj = iterItems.GetData();
-			if (pc->Wears(pj) && pj->layer()==0x1A)
-			{
-				pj->setLayer( 0x15 );
-				pc->packitem = pj->serial;	//Tauriel packitem speedup
-				//break;
-			}
-		}
-		for (iterItems.Begin(); !iterItems.atEnd();iterItems++)
-		{
-			P_ITEM pj = iterItems.GetData();
-			if (pj->serial == pc->robe)
-			{
-				Items->DeleItem(pj);
-
-				P_ITEM pi = Items->SpawnItem(pc, 1, "a robe", 0, 0x1F03, 0, 0);
-				if(!pi) return false;
-				pi->setContSerial(pc->serial);
-				pi->setLayer( 0x16 );
-				pi->dye=1;
-				break;
-			}
-		}
-		teleport(pc);
-		return true;
-	}
-
-	UOXSOCKET k = calcSocketFromChar(pc);
-	if (k <= -1) return false;
-
-	sysmessage(k,"That person isn't dead");
-	return false;
+	pc->resurrect();
+	return true;
 }
 
 void cTargets::NewXTarget(int s) // Notice a high similarity to th function above? Wonder why. - Gandalf

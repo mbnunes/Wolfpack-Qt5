@@ -184,6 +184,7 @@ cItem::cItem( cItem &src )
 	this->timeused_last=getNormalizedTime();
 	this->setSpawnRegion( src.spawnregion() );
 	this->desc = src.desc;
+	setTotalweight( src.totalweight() );
 
 	this->tags = src.tags;
 }
@@ -269,7 +270,7 @@ void cItem::setContSerial( SERIAL nValue )
 
 			if( pItem )
 			{
-				pItem->setTotalweight( pItem->totalweight() - totalweight_ );
+				pItem->setTotalweight( pItem->totalweight() + totalweight_ );
 				newOwner = GetPackOwner( pItem, 64 );
 			}
 		}
@@ -279,7 +280,7 @@ void cItem::setContSerial( SERIAL nValue )
 
 			if( pChar && ( ( layer_ < 0x1A ) || ( layer_ == 0x1E ) ) )
 			{
-				pChar->setWeight( pChar->weight() - weight_ );
+				pChar->setWeight( pChar->weight() + totalweight_ );
 				newOwner = pChar;
 			}
 		}
@@ -582,6 +583,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("st",			st);
 		archive.read("time_unused",	time_unused);
 		archive.read("weight",		weight_);
+		totalweight_ = weight_; // We assume here that setContSerial hasn't been called yet
 		archive.read("hp",			hp_);
 		archive.read("maxhp",		maxhp_);
 		archive.read("rank",		rank);
@@ -752,7 +754,7 @@ void cItem::SetSerial(long ser)
 }
 
 // -- Initialize an Item in the items array
-void cItem::Init(bool mkser)
+void cItem::Init( bool mkser )
 {
 	if (mkser)		// give it a NEW serial #
 	{
@@ -828,18 +830,18 @@ void cItem::Init(bool mkser)
 	this->restock=0; // Number up to which shopkeeper should restock this item
 	this->trigger=0; //Trigger number that item activates
 	this->trigtype=0; //Type of trigger
-	this->trigon=0; // equipped item trigger -Frazurbluu-
-	this->disabled=0; //Item is disabled, cant trigger.
+	this->trigon = 0; // equipped item trigger -Frazurbluu-
+	this->disabled = 0; //Item is disabled, cant trigger.
 	this->disabledmsg = ""; //Item disabled message. -- by Magius(CHE) §
-	this->tuses=0;    //Number of uses for trigger
-	this->poisoned=0; //AntiChrist -- for poisoning skill
- 	this->murdertime=0; //AntiChrist -- for corpse -- when the people has been killed
+	this->tuses = 0;    //Number of uses for trigger
+	this->poisoned = 0; //AntiChrist -- for poisoning skill
+ 	this->murdertime = 0; //AntiChrist -- for corpse -- when the people has been killed
     this->glow = INVALID_SERIAL;
-    this->glow_effect=0;
+    this->glow_effect = 0;
     this->glow_color = 0;
-	this->time_unused=0;
+	this->time_unused = 0;
 	this->timeused_last=getNormalizedTime();
-	this->spawnregion_="";
+	this->spawnregion_ = "";
 }
 
 /*!
@@ -1761,7 +1763,13 @@ void cItem::processNode( const QDomElement& Tag )
 
 	// <id>12f9</id>
 	else if( TagName == "id" )
+	{
 		this->setId( Value.toUShort() );
+
+		// In addition to the normal behaviour we retrieve the weight of the
+		// item here.
+		setWeight( cTileCache::instance()->getTile( id_ ).weight );
+	}
 
 	// <content><item id="a" />...<item id="z" /></contains> (sereg)
 	else if( TagName == "content" && Tag.hasChildNodes() )
@@ -1883,7 +1891,7 @@ void cItem::showName( cUOSocket *socket )
 				else
 					strcpy((char*)temp2, desc.c_str()); // LB bugfix
 				
-				sprintf((char*)temp, "%s at %igp", temp2, value); // Changed by Magius(CHE)				
+				sprintf((char*)temp, "%s at %igp", temp2, value);
 				itemmessage(s, (char*)temp, serial);
 				return;
 			}
@@ -1900,11 +1908,11 @@ void cItem::showName( cUOSocket *socket )
 		else
 			sprintf((char*)temp, "%s : %i", name_.latin1(), amount());
 		
-	// Add creator's mark (if any)			
-	if (creator.size() > 0 && madewith > 0)
+	// Add creator's mark (if any)
+	if( creator.size() > 0 && madewith > 0 )
 		sprintf((char*)temp, "%s %s by %s", temp, skill[madewith - 1].madeword, creator.c_str());
 	
-	if (type() == 15) // Fraz
+	if( type() == 15 )
 	{
 		if (name2() == name())
 		{
@@ -1913,25 +1921,27 @@ void cItem::showName( cUOSocket *socket )
 			strcat(temp, "s");
 		}
 	}
-	else if (type() == 404 || type() == 181)
+	else if( type() == 404 || type() == 181 )
 	{
 		if (name2() == name())
 		{
-			sprintf((char*)temp, "%s %i charge", temp, morex);
-			if (morex != 1)
+			sprintf( (char*)temp, "%s %i charge", temp, morex);
+			if( morex != 1 )
 				strcat(temp, "s");
 		}
-	}	
+	}
+
 	// Corpse highlighting...Ripper
-	if( corpse() == 1 )
+	if( corpse() )
 	{
 		if( more2 == 1 )
-		    itemmessage(s,"[Innocent]",serial, 0x005A);
+			socket->showSpeech( this, tr( "[Innocent]" ), 0x005A );
 		else if( more2 == 2 )
-			itemmessage(s,"[Criminal]",serial, 0x03B2);
+			socket->showSpeech( this, tr( "[Criminal]" ), 0x03B2 );
 		else if( more2 == 3 )
-			itemmessage(s,"[Murderer]",serial, 0x0026);
-	}  // end highlighting
+			socket->showSpeech( this, tr( "[Murderer]" ), 0x0026 );
+	}
+
 	// Let's handle secure/locked down stuff.
 	if (isLockedDown() && type() != 12 && type() != 13 && type() != 203)
 	{
@@ -1944,17 +1954,27 @@ void cItem::showName( cUOSocket *socket )
 	itemmessage(s, (char*)temp, serial);
 	
 	// Send the item/weight as the last line in case of containers
-	if (type() == 1 || type() == 63 || type() == 65 || type() == 87)
+	if( type() == 1 || type() == 63 || type() == 65 || type() == 87 )
 	{
-		int amt = 0;
-		int wgt = (int) Weight->LockeddownWeight(this, &amt, 0); // get stones and item #, LB	
-		if (amt>0)
+		vector< SERIAL > items = contsp.getData( serial );
+		UINT16 tWeight = totalweight_;
+		
+		if( weight_ == 255 )
+			tWeight -= 255;
+
+		QString message = tr( "[%1 items, %2 stones]" ).arg( items.size() ).arg( tWeight );
+
+		socket->showSpeech( this, message, 0x3B2 );
+
+		/*int amt = 0;
+		int wgt = (int) Weight->LockeddownWeight(this, &amt, 0); // get stones and item #
+		if( amt > 0 )
 		{
 			sprintf((char*)temp2, "[%i items, %i stones]", amt, wgt);
 			itemmessage(s, (char*)temp2, serial);
 		}
 		else
-			itemmessage(s, "[0 items, 0 stones]", serial);
+			itemmessage(s, "[0 items, 0 stones]", serial);*/
 	}
 }
 
@@ -2008,13 +2028,17 @@ void cItem::update()
 	{
 		cUOTxCharEquipment equipItem;
 		equipItem.fromItem( this );
+		P_CHAR pOwner = FindCharBySerial( contserial );
+
+		if( !pOwner )
+			return;
 
 		for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
 		{
 			P_CHAR pChar = socket->player();
 
 			// Only send to sockets in range
-			if( !pChar || ( pChar->pos.distance( pos ) > pChar->VisRange ) )
+			if( !pChar || !pChar->inRange( pOwner, pChar->VisRange ) )
 				continue;
 
 			socket->send( &equipItem );

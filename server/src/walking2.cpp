@@ -389,8 +389,13 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 
 		// We moved so let's update our location
 		pChar->moveTo( newCoord );
+		cAllTerritories::getInstance()->check( pChar );
+		
+		/*HandleTeleporters(pChar, socket, oldpos);
+		HandleWeatherChanges(pChar, socket);
+		HandleItemCollision(pChar, socket, amTurning);*/
 	}
-	
+
 	// do all of the following regardless of whether turning or moving i guess
 	// set the player direction to contain only the cardinal direction bits
 	pChar->dir = dir;
@@ -404,35 +409,21 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	{
 		P_CHAR pChar_vis = ri.GetData();
 
-		if( pChar_vis && ( pChar_vis != pChar ) )
+		if( pChar_vis && ( pChar_vis != pChar ) && ( !pChar->dead || pChar->war || pChar_vis->isGM() ) && ( !pChar->isHidden() || pChar_vis->isGM() ) )
 			sendWalkToOther( pChar_vis, pChar, oldpos );
 	}
 	
 	// keep on checking this even if we just turned, because if you are taking damage
 	// for standing here, lets keep on dishing it out. if we pass whether we actually
 	// moved or not we can optimize things some
-	/*HandleItemCollision(pChar, socket, amTurning);
-	
-	// i'm going ahead and optimizing this, if you haven't really moved, should be
-	// no need to check for teleporters and the weather shouldn't change
-	if (!amTurning)
-	{
-		HandleTeleporters(pChar, socket, oldpos);
-		HandleWeatherChanges(pChar, socket);
-	}
-	
+	/*
+		
 	// i'm afraid i don't know what this does really, do you need to do it when turning??
 	HandleGlowItems(pChar, socket);
 	
 	// would have already collided, right??
 	if (!amTurning && pChar->isPlayer())
-		Magic->GateCollision(pChar);
-	
-	// again, don't know if we need to check when turning or not
-	if( !amTurning )
-			cAllTerritories::getInstance()->check(pChar); // doesn't change physical coords, so no point in making a change
-	//if (socket==-1) printf("checkregion called for %s region#: %i region-name:%s \n",pChar->name,pChar->region,region[pChar->region].name);
-*/
+		Magic->GateCollision(pChar);*/
 }
 
 // Thyme 07/28/00
@@ -1240,134 +1231,137 @@ void cMovement::PathFind(P_CHAR pc, unsigned short gx, unsigned short gy)
 // This processes a NPC movement poll
 void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 {
-	int j = rand() % 40;
-
     int dnpctime=0;
-    if (pc_i->isNpc() && (pc_i->npcmovetime<=currenttime||(overflow)))
+    if( !pc_i->isNpc() || ( pc_i->npcmovetime > currenttime ) )
+		return;
+
+	// If we are fighting and not fleeing move toward our target if neccesary
+	if( pc_i->war && pc_i->npcWander != 5 )
     {
-		if (pc_i->war && pc_i->npcWander != 5)
+        P_CHAR pc_attacker = FindCharBySerial( pc_i->targ ); // This was wrong - we want to move towards our target not our attacker
+
+        if( pc_attacker )
         {
-            P_CHAR pc_attacker = FindCharBySerial(pc_i->attacker);
-            if (pc_attacker != NULL)
+			if( pc_attacker->pos.distance( pc_i->pos ) > 1 && ( pc_attacker->socket() || pc_attacker->isNpc() ) )
             {
-                if ( chardist( pc_i, pc_attacker ) > 1 /* || chardir(i, l)!=chars[i].dir // by Thyme: causes problems, will fix */)
-                {
-                    if ( online( pc_attacker ) || pc_attacker->isNpc() )
-                    {
-						PathFind(pc_i, pc_attacker->pos.x, pc_attacker->pos.y);
-                        j = chardirxyz(pc_i, pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
-                        if ( ( pc_i->dir & 0x07 ) == ( j & 0x07 ) ) pc_i->pathnum++;
-                        Walking(pc_i, j, 256);
-                    }
-                }
-				else
-				{ // if I'm within distance, clear my path... for attacking only.
-					pc_i->pathnum += P_PF_MRV;
+				//PathFind( pc_i, pc_attacker->pos.x, pc_attacker->pos.y );
+                //UINT8 dir = chardirxyz( pc_i, pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y );
+                //if( ( pc_i->dir & 0x07 ) == ( dir & 0x07 ) )
+				//	pc_i->pathnum++;
+                
+				// This is a temporary fix. 
+				UINT8 dir = chardir( pc_i, pc_attacker );
+                Walking( pc_i, dir, 0xFF );
+            }
+			else
+			{   
+				// if I'm within distance, clear my path... for attacking only.
+				// This happens too if our target is no longer valid
+				// pc_i->pathnum += P_PF_MRV;
+			}
+	    }
+		return;
+    }
+
+	UINT8 j = RandomNum( 0, 32 );
+
+	switch( pc_i->npcWander )
+    {
+    case 1: // Follow the follow target
+		{
+			P_CHAR pc_target = FindCharBySerial( pc_i->ftarg );
+
+	        if( !pc_target )
+				return;
+
+		    if( pc_target->socket() || pc_target->isNpc() )
+			{
+				if ( chardist( pc_i, pc_target ) > 1 )
+				{
+					PathFind( pc_i, pc_target->pos.x, pc_target->pos.y );
+	                UINT8 dir = chardirxyz(pc_i, pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
+		            pc_i->pathnum++;
+			        Walking( pc_i, dir, 0xFF );
+				}
+
+				// Has the Escortee reached the destination ??
+				if( !pc_target->dead && ( pc_i->questDestRegion() == pc_i->region ) )
+				{
+					// Pay the Escortee and free the NPC
+					MsgBoardQuestEscortArrive( pc_i, calcSocketFromChar( pc_target ) );
 				}
 	        }
-        } // end of if l!=-1
-        else
-        {
-            switch(pc_i->npcWander)
-            {
-            case 0: // No movement
-                break;
-            case 1: // Follow the follow target
-				{
-					P_CHAR pc_target = FindCharBySerial(pc_i->ftarg);
-	                if (pc_target == NULL) return;
-		            if ( online(pc_target) || pc_target->isNpc() )
-			        {
-				        if ( chardist( pc_i, pc_target) > 1 /* || chardir(i, k)!=chars[i].dir // by THyme: causes problems, will fix */)
-					    {
-						    PathFind(pc_i, pc_target->pos.x, pc_target->pos.y);
-	                        j = chardirxyz(pc_i, pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
-		                    pc_i->pathnum++;
-			                Walking(pc_i,j,256);
-				        }
-						// Dupois - Added April 4, 1999
-						// Has the Escortee reached the destination ??
-						if( ( !pc_target->dead ) && ( pc_i->questDestRegion() == pc_i->region ) )
-						{
-							// Pay the Escortee and free the NPC
-							MsgBoardQuestEscortArrive( pc_i, calcSocketFromChar( pc_target ) );
-						}
-					// End - Dupois
-	                }
-				}
-                break;
-            case 2: // Wander freely, avoiding obstacles.
-                if (j<8 || j>32) dnpctime=5;
-                if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
-                    j=pc_i->dir;
-                randomNpcWalk(pc_i,j,0);
-                break;
-            case 3: // Wander freely, within a defined box
-                if (j<8 || j>32) dnpctime=5;
-                if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
-                    j=pc_i->dir;
-
-                randomNpcWalk(pc_i,j,1);
-                break;
-            case 4: // Wander freely, within a defined circle
-                if (j<8 || j>32) dnpctime=5;
-                if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
-                    j=pc_i->dir;
-                randomNpcWalk(pc_i,j,2);
-                break;
-            case 5: //FLEE!!!!!!
-				{
-					P_CHAR pc_k = FindCharBySerial(pc_i->targ);
-					if (pc_k == NULL) return;
-					
-					if ( chardist(pc_i, pc_k) < P_PF_MFD )
-					{
-						// calculate a x,y to flee towards
-						int mydist = P_PF_MFD - chardist( pc_i, pc_k) + 1;
-						j = chardirxyz( pc_i, pc_k->pos.x, pc_k->pos.y );
-						Coord_cl fleeCoord = calcCoordFromDir( j, pc_i->pos );
-		
-						if ( fleeCoord != pc_i->pos )
-						{
-							Q_INT8 xfactor = 0;
-							Q_INT8 yfactor = 0;
-
-							if( fleeCoord.x < pc_i->pos.x )
-								xfactor = -1;
-							else
-								xfactor = 1;
-
-							if( fleeCoord.y < pc_i->pos.y )
-								xfactor = -1;
-							else
-								xfactor = 1;
-
-							fleeCoord.x += ( xfactor * mydist );
-							fleeCoord.y += ( yfactor * mydist );
-						}
-					
-						PathFind( pc_i, fleeCoord.x, fleeCoord.y );
-						j = chardirxyz(pc_i, pc_i->path[ pc_i->pathnum ].x, pc_i->path[ pc_i->pathnum ].y);
-						pc_i->pathnum++;
-						Walking( pc_i, j, 256 );
-					}
-					else
-					{ // wander freely... don't just stop because I'm out of range.
-						j=rand()%40;
-						if (j<8 || j>32) dnpctime=5;
-						if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
-							j=pc_i->dir;
-						randomNpcWalk(pc_i,j,0);
-					}
-				}
-				break;
-            default:
-                break;
-                //printf("ERROR: Fallout of switch statement without default [%i]. walking.cpp, npcMovement2()\n",chars[i].npcWander); //Morrolan
-			} // break; //Morrolan unnecessary ?
 		}
-		pc_i->setNextMoveTime();
-    }
+        break;
+    case 2: // Wander freely, avoiding obstacles.
+        if( j < 8 || j > 32) 
+			dnpctime = 5;
+        if( j > 7 && j < 33) // Let's move in the same direction lots of the time.  Looks nicer.
+            j = pc_i->dir;
+        randomNpcWalk( pc_i, j, 0 );
+        break;
+    case 3: // Wander freely, within a defined box
+        if (j<8 || j>32) dnpctime=5;
+        if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
+            j=pc_i->dir;
+
+        randomNpcWalk(pc_i,j,1);
+        break;
+    case 4: // Wander freely, within a defined circle
+        if (j<8 || j>32) dnpctime=5;
+        if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
+            j=pc_i->dir;
+        randomNpcWalk(pc_i,j,2);
+        break;
+    case 5: // Flee
+		{
+			P_CHAR pc_k = FindCharBySerial(pc_i->targ);
+			if (pc_k == NULL) return;
+			
+			if ( chardist(pc_i, pc_k) < P_PF_MFD )
+			{
+				// calculate a x,y to flee towards
+				int mydist = P_PF_MFD - chardist( pc_i, pc_k) + 1;
+				j = chardirxyz( pc_i, pc_k->pos.x, pc_k->pos.y );
+				Coord_cl fleeCoord = calcCoordFromDir( j, pc_i->pos );
+
+				if ( fleeCoord != pc_i->pos )
+				{
+					Q_INT8 xfactor = 0;
+					Q_INT8 yfactor = 0;
+
+					if( fleeCoord.x < pc_i->pos.x )
+						xfactor = -1;
+					else
+						xfactor = 1;
+
+					if( fleeCoord.y < pc_i->pos.y )
+						xfactor = -1;
+					else
+						xfactor = 1;
+
+					fleeCoord.x += ( xfactor * mydist );
+					fleeCoord.y += ( yfactor * mydist );
+				}
+			
+				PathFind( pc_i, fleeCoord.x, fleeCoord.y );
+				j = chardirxyz(pc_i, pc_i->path[ pc_i->pathnum ].x, pc_i->path[ pc_i->pathnum ].y);
+				pc_i->pathnum++;
+				Walking( pc_i, j, 256 );
+			}
+			else
+			{ // wander freely... don't just stop because I'm out of range.
+				j=rand()%40;
+				if (j<8 || j>32) dnpctime=5;
+				if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
+					j=pc_i->dir;
+				randomNpcWalk(pc_i,j,0);
+			}
+		}
+		break;
+	}
+
+	pc_i->setNextMoveTime();
 }
 
 // Function      : cMovement::CanCharWalk()

@@ -326,8 +326,23 @@ void cUObject::processNode( const QDomElement &Tag )
 // Remove it from all in-range sockets
 void cUObject::removeFromView( bool clean )
 {
+	// Get Real pos
+	Coord_cl mPos = pos;
+
+	if( isItemSerial( serial ) )
+	{
+		P_ITEM pCont = GetOutmostCont( (P_ITEM)this, 64 );
+		if( pCont )
+		{
+			mPos = pCont->pos;
+			P_CHAR pOwner = FindCharBySerial( pCont->contserial );
+			if( pOwner )
+				pos = pOwner->pos;
+		}
+	}
+
 	for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
-		if( clean || ( socket->player() && ( socket->player()->pos.distance( pos ) <= socket->player()->VisRange ) ) )
+		if( clean || ( socket->player() && ( socket->player()->pos.distance( mPos ) <= socket->player()->VisRange ) ) )
 			socket->removeObject( this );
 }
 

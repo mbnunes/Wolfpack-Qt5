@@ -406,3 +406,13 @@ void cUOTxBookPage::setPage( UINT16 page, UINT16 numLines, const QStringList &li
 		currPageOffset += 4 + currLineOffset;
 	}
 }
+
+void cUOTxCorpseEquipment::addItem( UINT8 layer, UINT32 serial )
+{
+	INT32 offset = rawPacket.count()-1;
+	rawPacket.resize( rawPacket.size() + 5 );
+
+	rawPacket[ offset ] = layer;
+	setInt( offset+1, serial );
+	rawPacket[ offset + 5 ] = 0;
+}

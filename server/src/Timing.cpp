@@ -233,7 +233,7 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 
 	// Check if the character died
 	if( pc->hp <= 0 && !pc->dead )
-		deathstuff(pc);
+		pc->kill();
 }
 
 void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
@@ -422,7 +422,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 			if( pc->hp <=0 )
 			{
 				socket->sysMessage( tr( "You have died of starvation." ) );
-				deathstuff( pc );
+				pc->kill();
 			}
 		}
 	}
@@ -494,7 +494,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 				if( pc->hp < 1 )
 				{
 					socket->sysMessage( tr( "The poison killed you.") );
-					deathstuff(pc);					
+					pc->kill();
 				}
 			} // end switch
 		} // end if poison-wear off-timer
@@ -542,14 +542,14 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)
 
 	if( !pc->dead && pc->swingtarg() == -1 )
 		Combat->DoCombat( pc, currenttime );
-	else if(!pc->dead && (pc->swingtarg()>=0 && pc->timeout<=currenttime))
+	else if( !pc->dead && ( pc->swingtarg() >= 0 && pc->timeout <= currenttime ) )
 		Combat->CombatHitCheckLoS(pc,currenttime);
 
 	Magic->CheckFieldEffects2( currenttime, pc, 0 );
 
-	restockNPC(currenttime, pc);
+	restockNPC( currenttime, pc );
 
-	if (!pc->free) //bud
+	if( !pc->free )
 	{
 		if ((pc->disabled()>0)&&((pc->disabled()<=currenttime)||(overflow)))
 		{
@@ -581,21 +581,21 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)
 		}
 	}
 
-	if (pc->npcWander!=5 &&	pc->hp < pc->st*pc->fleeat()/100)
+	// Character is not fleeing but reached the border
+	if( pc->npcWander != 5 && pc->hp < pc->st*pc->fleeat() / 100 )
 	{
 		pc->oldnpcWander = pc->npcWander;
 		pc->npcWander=5;
 		pc->setNextMoveTime();
 	}
 
-	if (pc->npcWander==5 &&	pc->hp > pc->st*pc->reattackat()/100)
+    // Character is fleeing and has regenerated
+	if( pc->npcWander == 5 && pc->hp > pc->st*pc->reattackat() / 100 )
 	{
 		pc->npcWander = pc->oldnpcWander;
 		pc->setNextMoveTime();
-
-		pc->oldnpcWander=0; // so it won't save this at the wsc file
+		pc->oldnpcWander = 0;
 	}
-	// end of flee code
 
 	// new poisoning code
 	if (pc->poisoned() && !(pc->isInvul()) )
@@ -664,9 +664,9 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)
 					pc->setPoisoned(0);
 					return;
 				}
-				if (pc->hp < 1)
+				if( pc->hp < 1 )
 				{
-					deathstuff(pc);
+					pc->kill();
 				}
 			} // end switch
 		} // end if poison-wear off-timer
