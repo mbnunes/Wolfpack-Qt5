@@ -33,7 +33,6 @@
 #include "wolfpack.h"
 #include "prototypes.h"
 #include "globals.h"
-#include "SndPkg.h"
 #include "gumps.h"
 #include "guildstones.h"
 #include "srvparams.h"

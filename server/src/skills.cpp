@@ -37,7 +37,6 @@
 #include "wpdefmanager.h"
 #include "basics.h"
 #include "itemid.h"
-#include "SndPkg.h"
 #include "guildstones.h"
 #include "tracking.h"
 #include "tilecache.h"
@@ -367,7 +366,7 @@ void cSkills::CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar)
 //
 void cSkills::BottleTarget(int s)
 {
-	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
+/*	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	P_CHAR pc_currchar = currchar[s];
 	if (!pi || pi->isLockedDown()) return;	// Ripper
 
@@ -384,7 +383,7 @@ void cSkills::BottleTarget(int s)
 		}
 	}
 	else
-		sysmessage(s,"This is not an appropriate container for a potion.");
+		sysmessage(s,"This is not an appropriate container for a potion.");*/
 }
 
 /////////////////////////
@@ -504,13 +503,8 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 		}
 		ges=ges/10;
 
-		if (ges > SrvParams->skillcap() && c==0) // skill capped and no skill is marked as fall down.
-		{
-			sprintf((char*)temp,"You have reached the skill-cap of %i and no skill can fall!", SrvParams->skillcap());
-			sysmessage(calcSocketFromChar(pc), (char*)temp);
+		if( ges > SrvParams->skillcap() && c == 0 ) // skill capped and no skill is marked as fall down.
 			return 0;
-		}
-
 	} 
 	else 
 		ges=0;
@@ -1128,144 +1122,6 @@ void TellScroll( char *menu_name, int s, long snum )
 	}//else if*/
 }
 
-////////////////////////
-// name:	TellScroll
-// history:	unknown, modified by AntiChrist, totally revamped by Duke,8 April 2000
-// Purpose:	check mana&regs and set the name of selected spell
-//
-int cSkills::EngraveAction(int s, P_ITEM pi, int cir, int spl)
-{
-	char *spn;					// spellname
-	int num=(8*(cir-1))+spl;
-	if (pi == NULL)
-		return -1;
-	Magic->DelReagents(currchar[s], num);
-		
-	switch(cir*10 + spl)
-	{
-	// first circle
-	case 11: spn="Clumsy";
-			pi->setOffspell( 1 );
-			break;
-	case 12: spn="Create Food";break;   
-	case 13: spn="Feeblemind";
-			pi->setOffspell( 2 );
-			break;
-	case 14: spn="Heal";break;
-	case 15: spn="Magic Arrow";
-			pi->setOffspell( 3 );
-			break;
-	case 16: spn="Night Sight";break;
-	case 17: // Reactive Armor
-			sysmessage(s, "Sorry this spell is not implemented!");
-			return 0;
-	case 18: spn="Weaken";
-			pi->setOffspell( 4 );
-			break;
-	// 2nd circle
-	case 21: spn="Agility";break;
-	case 22: spn="Cunning";break;
-	case 24: spn="Harm";
-			pi->setOffspell( 5 );
-			break;
-	case 23:// Cure
-	case 25:// Magic Trap
-	case 26:// Magic Untrap
-	case 27:// Protection
-			sysmessage(s, "Sorry this spell is not implemented!");
-			return 0;
-	case 28: spn="Strength";break;
-	// 3rd circle
-	case 31: spn="Bless";break;
-	case 32:// Fireball
-			spn="Daemon's Breath";
-			pi->setOffspell( 6 );
-			break;
-	case 34: spn="Poison";break;
-	case 33: //Magic lock
-	case 35: //Telekinesis
-			sysmessage(s, "Sorry this spell is not implemented!");
-			return 0;
-	case 36: spn="Teleport";break;
-	case 37: spn="Unlock";break;
-	case 38: spn="Wall of Stone";break;
-	// 4th circle
-	case 41:// Arch Cure
-	case 42:// Arch Protection
-	case 47:// Mana Drain
-			sysmessage(s, "Sorry this spell is not implemented!");
-			return 0;
-	case 43:// Curse
-			spn="Evil's Eye";
-			pi->setOffspell( 8 );
-			break;
-	case 44: spn="Fire Field";break;
-	case 45: spn="Greater Heal";break;
-	case 46: spn="Lightning";
-			pi->setOffspell( 9 );
-			break;
-	case 48: spn="Recall";break;
-	// 5th circle
-	case 51: spn="Blade Spirit";break;
-	case 52: spn="Dispel Field";break;
-	case 54: spn="Magic Reflection";break;
-	case 55: spn="Mind Blast";
-			pi->setOffspell( 11 );
-			break;
-	case 56://Paralyze
-			spn="Ghoul's Touch";
-			pi->setOffspell( 12 );
-			break;
-	case 57: spn="Poison Field";break;
-	case 53://Incognito
-	case 58://Summon Creature
-			sysmessage(s, "Sorry this spell is not implemented!");
-			return 0;
-	// 6th circle
-	case 61: spn="Dispel";break;
-	case 62: spn="Energy Bolt";
-			pi->setOffspell( 13 );
-			break;  
-	case 63: spn="Explosion";
-			pi->setOffspell( 14 );
-			break;
-	case 64: spn="Invisibility";break;
-	case 65: spn="Mark";break;
-	case 66://Mass Curse
-			sysmessage(s, "Sorry this spell is not implemented!");
-			return 0;
-	case 67: spn="Paralyse Field";break;
-	case 68: spn="Reveal";break;
-	// 7th circle
-	case 72: spn="Energy Field";break;
-	case 73: spn="Flamestrike";
-			pi->setOffspell( 15 );
-			break;
-	case 74: spn="Gate Travel";break;
-	case 71:// Chain Lightning
-	case 75:// Mana Vampire
-	case 76:// Mass Dispel
-	case 77:// Meteor Storm
-	case 78:// Polymorph
-	// 8th circle
-	case 81:// Earthquake
-			sysmessage(s, "Sorry this spell is not implemented!");
-			return 0;
-	case 82: spn="Energy Vortex";break;
-	case 83: spn="Resurrection";break;
-	case 84: spn="Summon Air Elemental";break;
-	case 85: spn="Summon Daemon";break;
-	case 86: spn="Summon earth Elemental";break;
-	case 87: spn="Summon Fire Elemental";break;
-	case 88: spn="Summon Water Elemental";break;
-	default:
-		LogError("switch reached default");
-		return 0;
-	}
-	pi->setName2( QString( "of %s with" ).arg( spn ) );
-	return 1;
-}
-
 // Calculate the skill of this character based on the characters baseskill and stats
 void cSkills::updateSkillLevel(P_CHAR pc, int s)
 {
@@ -1276,26 +1132,6 @@ void cSkills::updateSkillLevel(P_CHAR pc, int s)
 	
 		
 	pc->setSkill( s, QMAX( static_cast<unsigned int>(pc->baseSkill(s)), static_cast<unsigned int>(temp) ) );
-}
-
-void CollectAmmo(int s, int a, int b)
-{
-	
-	if (a)
-	{
-		P_ITEM pi = Items->SpawnItem(s, currchar[s],a,"#",1,0x0F,0x3F,0,1,1);
-		if(pi == NULL) return;
-		pi->setAtt(0);
-		sysmessage(s, "You collect the arrows.");
-	}
-	
-	if (b)
-	{
-		P_ITEM pi = Items->SpawnItem(s, currchar[s], b,"#",1,'\x1B','\xFB',0,1,1);
-		if(pi == NULL) return;
-		pi->setAtt(0);
-		sysmessage(s, "You collect the bolts.");
-	}
 }
 
 void cSkills::Meditation( cUOSocket *socket )
@@ -1366,24 +1202,21 @@ void cSkills::Persecute ( cUOSocket* socket )
 			else 
 				target->setMn(target->mn() - decrease);
 			socket->sysMessage(tr("Your spiritual forces disturb the enemy!"));
+
 			if ( target->socket() )
 			{
 				target->socket()->updateMana( target );
-				target->socket()->sysMessage(tr("A damned soul is disturbing your mind!"));
+				target->socket()->sysMessage( tr( "A damned soul is disturbing your mind!" ) );
 			}
+
 			pc_currchar->setSkillDelay();
 
-			sprintf((char*)temp, "%s is persecuted by a ghost!!", target->name.latin1());
-					
-			// Dupois pointed out the for loop was changing i which would drive stuff nuts later
-				
+			QString message = tr( "*You see %1 is being persecuted by a ghost*" ).arg( target->name );
+							
 			for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
 			{
-				if(socket->inRange(s) && s != socket) 
-				{
-					pc_currchar->setEmoteColor( 0x0026 );
-					npcemote(toOldSocket(s), target, (char*)temp, 1);
-				}
+				if( socket->inRange( s ) && s != socket && s != target->socket() ) 
+					socket->showSpeech( target, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
 			}
 		} 
 		else

@@ -750,8 +750,8 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		if (dosavewarning==1)
 		if (difftime(newtime,oldtime)==SrvParams->saveInterval()-10) 
 		{
-		   sysbroadcast("World will be saved in 10 seconds..");
-		   dosavewarning = 0;
+			cNetwork::instance()->broadcast( tr( "World will be saved in 10 seconds.." ) );
+			dosavewarning = 0;
 		}
 
 		if (difftime(newtime, oldtime)>=SrvParams->saveInterval() || cwmWorldState->Saving() )

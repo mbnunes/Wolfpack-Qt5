@@ -60,64 +60,6 @@
 #define DBGFILE "tmpeff.cpp"
 
 
-/////////////
-// Name:	reverseIncognito
-// Purpose:	undo the effects of the incognito spell
-// History: by AntiChrist
-//			isolated from two functions by Duke, 10.6.2001
-//
-
-static void reverseIncognito(P_CHAR pc)
-{
-
-	if(pc->incognito())//let's ensure it's under incognito effect!
-	{
-		pc->setId(pc->xid());
-		
-		pc->setSkin( pc->xskin() );	// SKIN COLOR
-		
-		pc->name = pc->orgname().latin1();	// NAME
-		
-		if(pc->hairserial() != INVALID_SERIAL)//if hairs exist, restore hair style/color
-		{
-			P_ITEM pHair = FindItemBySerial(pc->hairserial());
-			if(pHair)
-			{
-				if(pHair->incognito) //let's ensure it was marked as under incognito effect
-				{
-					//stores old hair values
-					pHair->setColor( static_cast<unsigned short>(pHair->moreb1() << 8) + pHair->moreb2() );
-					pHair->setId( static_cast<UI16>( pHair->moreb3() << 8 ) + pHair->moreb4() );
-					pHair->incognito=false;
-				}
-			}
-		}
-		
-		if(pc->beardserial()>-1)//if beard exists, restore beard style/color
-		{
-			P_ITEM pBeard = FindItemBySerial(pc->beardserial());
-			if(pBeard)
-			{
-				if(pBeard->incognito) //let's ensure it was marked as under incognito effect
-				{
-					//restores old beard values
-					pBeard->setColor( static_cast<unsigned short>(pBeard->moreb1()<<8) + pBeard->moreb2() );
-					pBeard->setId( static_cast<UI16>( pBeard->moreb3() << 8 ) + pBeard->moreb4() );
-					pBeard->incognito=false;
-				}
-			}
-		}
-		
-		//only refresh once, when poly finished
-		teleport(pc);
-		if ( pc->socket() )
-		{
-			pc->updateWornItems();
-		}
-		pc->setIncognito(false);//AntiChrist
-	}
-}
-
 int cTempEffect::getDest()
 {
 	return destSer;
@@ -295,16 +237,18 @@ void cTmpEff::Reverse()
 //		pc_s->in+=more3;
 		pc_s->setIn( ( tempsignedshort = pc_s->in() ) + more3 );
 		break;
-	case 18: //Polymorph spell by AntiChrist
+
+	case 18: // Polymorph spell
 		if(pc_s->polymorph())
-		{
-			pc_s->setId(pc_s->xid());
-			pc_s->setPolymorph(false);
-			teleport(pc_s);
+		{			
+			pc_s->setPolymorph( false );
+
+			if( pc_s->id() != pc_s->xid() )
+			{
+				pc_s->setId( pc_s->xid() );
+				pc_s->update();
+			}
 		}
-		break;
-	case 19: //Incognito spell by AntiChrist
-		reverseIncognito(pc_s);
 		break;
 
 	case 21:
@@ -477,9 +421,6 @@ void cTmpEff::Expire()
 			pc_s->resend( false );
 		}
 		break;
-	case 19: //Incognito spell wearoff
-		reverseIncognito( pc_s );
-		break;
 
 	case 21:
 		int toDrop;
@@ -567,7 +508,6 @@ void cTempEffects::check()
 
 bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur)
 {
-	
 	int color, color1, color2, socket; //used for incognito spell
 	signed short tempsignedshort;
 
@@ -625,13 +565,13 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 	switch (num)
 	{
 	case 1:
-//		pc_dest->priv2 |= 0x02;
 		pc_dest->setPriv2(pc_dest->priv2() | 0x02);
 		pTE->setExpiretime_s(pc_source->skill(MAGERY)/100);
 		pTE->more1=0;
 		pTE->more2=0;
 		pTE->dispellable=1;
 		break;
+	
 	case 2:	// night sight
 		pc_dest->setFixedLight( SrvParams->worldBrightLevel() );
 		
@@ -648,6 +588,7 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		pTE->more2=0;
 		pTE->dispellable=1;
 		break;
+	
 	case 3:
 		if (pc_dest->effDex()<more1)
 			more1=pc_dest->effDex();
@@ -660,10 +601,10 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		pTE->more2=0;
 		pTE->dispellable=1;
 		break;
+
 	case 4:
 		if (pc_dest->in()<more1)
 			more1=pc_dest->in();
-//		pc_dest->in-=more1;
 		pc_dest->setIn( (tempsignedshort = pc_dest->in() ) - more1 );
 		pc_dest->setMn( QMIN(pc_dest->mn(), pc_dest->in()) );
 		if( mSock )
@@ -673,10 +614,10 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		pTE->more2=0;
 		pTE->dispellable=1;
 		break;
+
 	case 5:
 		if (pc_dest->st()<more1)
 			more1=pc_dest->st();
-//		pc_dest->st-=more1;
 		pc_dest->setSt( ( tempsignedshort = pc_dest->st() ) - more1 );
 		pc_dest->setHp( QMIN(pc_dest->hp(), pc_dest->st()) );
 		if( mSock )
@@ -686,6 +627,7 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		pTE->more2=0;
 		pTE->dispellable=1;
 		break;
+	
 	case 6:
 		if (pc_dest->effDex()+more1>250)
 			more1=250-pc_dest->effDex();
@@ -704,10 +646,10 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		pTE->more2=0;
 		pTE->dispellable=1;
 		break;
+
 	case 7:
 		if (pc_dest->in()+more1>255)
 			more1=pc_dest->in()-255;
-//		pc_dest->in+=more1;
 		pc_dest->setIn( (tempsignedshort = pc_dest->in() ) + more1 );	
 		if( mSock )
 			mSock->updateMana();
@@ -716,10 +658,10 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		pTE->more2=0;
 		pTE->dispellable=1;
 		break;
+	
 	case 8:
 		if (pc_dest->st()+more1>255)
 			more1=pc_dest->st()-255;
-//		pc_dest->st+=more1;
 		pc_dest->setSt( ( tempsignedshort = pc_dest->st() ) + more1 ); 
 		if( mSock )
 			mSock->updateHealth();
@@ -733,294 +675,24 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		pTE->more2=0;
 		pTE->dispellable=1;
 		break;
+	
 	case 9:
 		pTE->setExpiretime_s(more2);
 		pTE->more1=more1;
 		pTE->more2=more2;
 		break;
+
 	case 10:
 		pTE->setExpiretime_s(12);
 		pTE->more1=more1;
 		pTE->more2=more2;
 		break;
-	case 11: // Bless
-		if (pc_dest->st()+more1>255)
-//			more1=pc_dest->st-255;
-			pc_dest->setSt( ( tempsignedshort = pc_dest->st() ) - 255 ); 
-		if (pc_dest->effDex()+more2>250)
-			more2=250-pc_dest->effDex();
-		if (pc_dest->in()+more3>255)
-			more3=pc_dest->in()-255;
-//		pc_dest->st+=more1;
-		pc_dest->setSt( ( tempsignedshort = pc_dest->st() ) + more1 ); 
-		pc_dest->chgDex(more2);
-//		pc_dest->in+=more3;
-		pc_dest->setIn( ( tempsignedshort = pc_dest->in() ) + more3 );
-
-		// TODO: Send to other players here.
-		if( mSock )
-			mSock->sendStatWindow();
-
-		pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
-		pTE->more1=more1;
-		pTE->more2=more2;
-		pTE->more3=more3;
-		pTE->dispellable=1;
-		break;
-	case 12: // Curse
-		if (pc_dest->st()<more1)
-			more1=pc_dest->st();			
-		if (pc_dest->effDex()<more2)
-			more2=pc_dest->effDex();
-		if (pc_dest->in()<more3)
-			more3=pc_dest->in();
-//		pc_dest->st-=more1;
-		pc_dest->setSt( ( tempsignedshort = pc_dest->st() ) - more1 ); 
-		pc_dest->chgDex(-1 * more2);
-//		pc_dest->in-=more3;
-		pc_dest->setIn( ( tempsignedshort = pc_dest->in() ) - more3 );
-
-		// TODO: Send to other players here.
-		if( mSock )
-			mSock->sendStatWindow();
-
-		pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
-		pTE->more1=more1;
-		pTE->more2=more2;
-		pTE->more3=more3;
-		pTE->dispellable=1;
-		break;
-	case 15: // Reactive armor
-		pTE->setExpiretime_s(pc_source->skill(MAGERY)/10);
-		pTE->dispellable=1;
-		break;
+		
 	case 16: //Explosion potions	Tauriel
 		pTE->setExpiretime_s(more2);
 		pTE->more1=more1; //item/potion
 		pTE->more2=more2; //seconds
 		pTE->more3=more3; //countdown#
-		break;
-	case 18: //Polymorph - AntiChrist 09/99
-		pTE->setExpiretime_s(polyduration);
-
-		int c1,b,k;
-		//Grey flag when polymorphed - AntiChrist (9/99)
-		pc_dest->setCrimflag((polyduration*MY_CLOCKS_PER_SEC)+uiCurrentTime);
-		pc_dest->unmount();
-		k=(more1<<8)+more2;
-
-		pc_dest->setXid(pc_dest->id());//let's backup previous id
-
-		if (k>=0x000 && k<=0x3e1) // lord binary, body-values >0x3e crash the client
-		{
-			pc_dest->setId(k); // allow only non crashing ones
-
-			c1 = pc_dest->skin(); // transparency for monsters allowed, not for players,
-														 // if polymorphing from monster to player we have to switch from transparent to semi-transparent
-			b=c1&0x4000;
-			if (b==16384 && (k >= 0x0190 && k <= 0x03e1))
-			{
-				if (c1!=0x8000)
-				{
-					pc_dest->setSkin(0xF000);
-					pc_dest->setXSkin(0xF000);
-				}
-			}
-		}
-		pc_dest->setPolymorph(true);
-		break;
-	case 19://incognito spell - AntiChrist (10/99)//revised by AntiChrist - 9/12/99
-		{
-			pTE->setExpiretime_s(90);
-
-			//AntiChrist 11/11/99
-			//If char is already under polymorph effect, let's reverse the
-			//polymorph effect to avoid problems
-			if(pc_dest->polymorph())
-			{
-				pc_dest->setId(pc_dest->xid());
-				pc_dest->setPolymorph(false);
-				teleport(pc_dest);
-			}
-			int j;
-
-			//first: let's search for beard and hair serial
-			//(we could use alredy saved serials...but it's better
-			//to recalculate them)
-			pc_dest->setHairSerial(INVALID_SERIAL);
-			pc_dest->setBeardSerial(INVALID_SERIAL);
-
-			P_ITEM pi;
-			cChar::ContainerContent container(pc_dest->content());
-			cChar::ContainerContent::const_iterator it (container.begin());
-			cChar::ContainerContent::const_iterator end(container.end());
-			for (; it != end; ++it )
-			{
-				pi = *it;
-				if(pi->layer()==0x10)//beard
-					pc_dest->setBeardSerial(pi->serial);
-				if(pi->layer()==0x0B)//hairs
-					pc_dest->setHairSerial(pi->serial);
-			}
-			// ------ SEX ------
-			pc_dest->setXid(pc_dest->id());
-
-			//if we already have a beard..can't turn to female
-			if(pc_dest->beardserial() != INVALID_SERIAL)
-			{//if character has a beard...only male
-				pc_dest->setId(0x0190);//male
-			}
-			else
-			{//if no beard let's randomly change
-				if((rand()%2)==0) pc_dest->setId(0x0190);//male
-				else pc_dest->setId(0x0191);//or female
-			}
-
-			// --- SKINCOLOR ---
-			pc_dest->setXSkin(pc_dest->skin());
-			color=rand()%6;
-			switch(color)
-			{
-				case 0:				pc_dest->setSkin(0x83EA);				break;
-				case 1:				pc_dest->setSkin(0x8405);				break;
-				case 2:				pc_dest->setSkin(0x83EF);				break;
-				case 3:				pc_dest->setSkin(0x83F5);				break;
-				case 4:				pc_dest->setSkin(0x841C);				break;
-				case 5:				pc_dest->setSkin(0x83FB);				break;
-				default:												break;
-			}
-
-			// ------ NAME -----
-			pc_dest->setOrgname( pc_dest->name );
-
-			if(pc_dest->id()==0x0190) 
-				pc_dest->name = DefManager->getRandomListEntry( "1" );
-			else 
-				pc_dest->name = DefManager->getRandomListEntry( "2" );//get a name from female list
-
-			//
-			//damn..this formula seems to include also some bad color...
-			//i'll test this later
-			//AntiChrist
-			//
-			//use unique color for hair&beard
-			//color=0x044E+(rand()%(0x04AD-0x044E));
-
-			//i had to track down some valid value
-			//for hair/beard colors, cause that
-			//formula contained some bad value =(
-			//but now it works perfectly :)
-			//AntiChrist-11/11/99
-			color=rand()%8;
-			switch(color)
-			{
-				case 0:	color=0x044e;	break;
-				case 1:	color=0x0455;	break;
-				case 2:	color=0x045e;	break;
-				case 3:	color=0x0466;	break;
-				case 4:	color=0x046a;	break;
-				case 5:	color=0x0476;	break;
-				case 6:	color=0x0473;	break;
-				case 7:	color=0x047c;	break;
-				default://it should not go here...but..who nows =P
-					color=0x044e;
-			}
-			color1=color>>8;
-			color2=color%256;
-
-			// ------ HAIR -----
-			if(pc_dest->hairserial() != INVALID_SERIAL)//if hairs exist
-			{//change hair style/color
-				P_ITEM pHair = FindItemBySerial(pc_dest->hairserial());
-				if(pHair)
-				{
-					//stores old hair values...
-					pHair->setMoreb1( static_cast<unsigned char>(pHair->color()>>8) );
-					pHair->setMoreb2( static_cast<unsigned char>(pHair->color()%256) );
-					pHair->setMoreb3( ((pHair->id()&0xFF00) >> 8) );
-					pHair->setMoreb4( pHair->id()&0x00FF );
-
-					//and change them with random ones
-					switch( rand() % 10 )
-					{
-						case 0: pHair->setId( 0x203B ); break;
-						case 1: pHair->setId( 0x203C ); break;
-						case 2:	pHair->setId( 0x203D ); break;
-						case 3:	pHair->setId( 0x2044 ); break;
-						case 4:	pHair->setId( 0x2045 ); break;
-						case 5:	pHair->setId( 0x2046 ); break;
-						case 6:	pHair->setId( 0x2047 ); break;
-						case 7:	pHair->setId( 0x2048 ); break;
-						case 8:	pHair->setId( 0x2049 ); break;
-						case 9:	pHair->setId( 0x204A ); break;
-						default: pHair->setId( 0x204A ); break;
-					}
-
-					//random color
-					pHair->setColor( color );
-					//let's check for invalid values
-					if ( pHair->color() < 0x044E || pHair->color() > 0x04AD )
-					{
-						pHair->setColor( 0x044E );
-					}
-
-					pHair->incognito = true;//AntiChrist
-				}//if j!=-1
-			}//if hairserial!=-1
-
-
-			// -------- BEARD --------
-			if(pc_dest->id()==0x0190)// only if a man
-			if(pc_dest->beardserial() != INVALID_SERIAL)//if beard exist
-			{//change beard style/color
-				P_ITEM pBeard = FindItemBySerial(pc_dest->beardserial());
-				if(pBeard)
-				{
-					//clConsole.send("BEARD FOUND!!\n");
-					//stores old beard values
-					pBeard->setMoreb1( static_cast<unsigned char>(pBeard->color()>>8) );
-					pBeard->setMoreb2( static_cast<unsigned char>(pBeard->color()%256) );
-					pBeard->setMoreb3( static_cast<unsigned char>(pBeard->id() >> 8) );
-					pBeard->setMoreb4( static_cast<unsigned char>(pBeard->id()%256) );
-
-					//changes them with random ones
-					switch(rand()%7)
-					{
-						case 0: pBeard->setId( 0x203E ); break;
-						case 1: pBeard->setId( 0x203F ); break;
-						case 2:	pBeard->setId( 0x2040 ); break;
-						case 3:	pBeard->setId( 0x2041 ); break;
-						case 4:	pBeard->setId( 0x204B ); break;
-						case 5:	pBeard->setId( 0x204C ); break;
-						case 6:	pBeard->setId( 0x204D ); break;
-						default:pBeard->setId( 0x204D ); break;
-					}
-
-					//random color
-					pBeard->setColor( color );
-
-					if ( pBeard->color() < 0x044E || pBeard->color() > 0x04AD )
-					{
-						pBeard->setColor( 0x044E );
-					}
-
-					pBeard->incognito=true;//AntiChrist
-				}//if j!=-1
-			}//if beardserial!=-1
-
-			//only refresh once
-			teleport(pc_dest);
-
-			pc_dest->updateWornItems();
-			pc_dest->setIncognito(true);//AntiChrist
-		}
-		break;
-
-	case 21:		// protection
-		pTE->setExpiretime_s(12);
-		pTE->dispellable=1;
-		pTE->more1=more1;
-		pc_dest->setBaseSkill(PARRYING, pc_dest->baseSkill(PARRYING) + more1);
 		break;
 
 	case 33: // gm hiding
@@ -1035,16 +707,18 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 
 	case 35:
 	    //heals some hp in 9 seconds - Solarin
-		k=calcSocketFromChar(pc_source);
 		pTE->setExpiretime_s(more3);
-		if (!more2)
-			sysmessage(k,"You start healing yourself...");
-		else
-			sysmessage(k,"You continue to heal...");
+		if( mSock )
+		{
+			if( !more2 )
+				mSock->sysMessage( tr( "You start healing yourself..." ) );
+			else
+				mSock->sysMessage( tr( "You continue to heal..." ) );
+		}
 
-		pTE->more1=more1; //hp to give back
-		pTE->more2=more2; //# of call to decide which string to display on checktempeffect
-		pTE->more3=more3; //delay#
+		pTE->more1 = more1; //hp to give back
+		pTE->more2 = more2; //# of call to decide which string to display on checktempeffect
+		pTE->more3 = more3; //delay#
 		break;
 
 	case 44: // special fencing paralyzation -Frazurbluu-

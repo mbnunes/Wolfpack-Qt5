@@ -41,7 +41,6 @@
 
 #include "verinfo.h"
 #include "speech.h"
-#include "SndPkg.h"
 #include "territories.h"
 #include "remadmin.h"
 #include "worldmain.h"
@@ -838,25 +837,16 @@ void endmessage(int x) // If shutdown is initialized
 	unsigned int igetclock = uiCurrentTime;
 	if (endtime < igetclock)
 		endtime = igetclock;
-	
-	if ((((endtime - igetclock)/MY_CLOCKS_PER_SEC)/60) < 1) 	
-		sprintf((char*)temp, "Server going down in %i secs.", (endtime - igetclock)/MY_CLOCKS_PER_SEC); // blackwind %i Secs fix..
+
+	QString message;
+
+	if( ( ( ( endtime - igetclock ) / MY_CLOCKS_PER_SEC ) / 60 ) < 1 ) 	
+		message = tr( "Server going down in %1 secs." ).arg( ( endtime - igetclock ) / MY_CLOCKS_PER_SEC );
 	else
-		sprintf((char*)temp, "Server going down in %i minutes.",
-		((endtime - igetclock)/MY_CLOCKS_PER_SEC)/60);
-	sysbroadcast((char*)temp);
-	clConsole.send(temp);
-}
-
-void npctalkall_runic(P_CHAR npc, const char *txt,char antispam)
-{
-	if (npc == NULL) return;
-
-	int i;
-
-	for (i=0;i<now;i++)
-		if (inrange1p(npc, currchar[i])&&perm[i])
-			npctalk_runic(i, npc, txt,antispam);
+		message = tr( "Server going down in %1 minutes." ).arg( ( ( endtime - igetclock ) / MY_CLOCKS_PER_SEC ) / 60 );
+	
+	cNetwork::instance()->broadcast( message );
+	clConsole.send( message );
 }
 
 //taken from 6904t2(5/10/99) - AntiChrist
@@ -1666,7 +1656,7 @@ int main( int argc, char *argv[] )
 	if( !bDeamon )
 		consoleThread.interrupt();
 
-	sysbroadcast( "The server is shutting down." );
+	cNetwork::instance()->broadcast( tr( "The server is shutting down." ) );
 
 	if ( SrvParams->EnableRA() )
 		RemoteAdmin::stop();

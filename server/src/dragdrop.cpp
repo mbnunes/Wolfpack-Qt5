@@ -32,7 +32,6 @@
 #include "debug.h"
 #include "basics.h"
 #include "wolfpack.h"
-#include "SndPkg.h"
 #include "tilecache.h"
 #include "speech.h"
 #include "itemid.h"

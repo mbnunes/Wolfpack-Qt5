@@ -33,7 +33,6 @@
 #include "chars.h"
 #include "items.h"
 #include "multis.h"
-#include "SndPkg.h"
 #include "itemid.h"
 #include "tilecache.h"
 #include "debug.h"
@@ -259,10 +258,6 @@ bool cMagic::checkStats( P_CHAR caster, cSpell *spell )
 
 void cMagic::speakMantra( P_CHAR caster, cSpell *spell )
 {
-	if( spell->runic() || caster->skill( MAGERY ) >= 1000 )
-		npctalkall_runic( caster, spell->mantra().upper().ascii(), 0 );
-	else
-		caster->talk( spell->mantra(), -1, 0 );
 }
 
 cSpell *cMagic::getSpell( UI08 spellId )
@@ -1090,19 +1085,7 @@ void cMagic::SbOpenContainer(UOXSOCKET s)
 //
 char cMagic::CheckMana(P_CHAR pc, int num)
 {
-
-	if (pc->priv2()&0x10)
-		return 1;
-
-	if (pc->mn() >= spells[num].mana)
-		return 1;
-	else
-	{
-		UOXSOCKET p = calcSocketFromChar(pc);
-		if (p != -1)
-			sysmessage(p, "You have insufficient mana to cast that spell.");
-		return 0;
-	}
+	return 0;
 }
 
 
@@ -1145,7 +1128,7 @@ P_CHAR cMagic::CheckMagicReflect(P_CHAR &attacker, P_CHAR &defender)
 //
 char cMagic::CheckResist(P_CHAR pc_attacker, P_CHAR pc_defender, int circle)
 {
-	char i=pc_defender->checkSkill( MAGICRESISTANCE, 80*circle, 800+(80*circle));
+	/*char i=pc_defender->checkSkill( MAGICRESISTANCE, 80*circle, 800+(80*circle));
 
 	if (i)
 	{
@@ -1166,7 +1149,8 @@ char cMagic::CheckResist(P_CHAR pc_attacker, P_CHAR pc_defender, int circle)
 				sysmessage(s, "You feel yourself resisting magical energy!");
 		}
 	}
-	return i;
+	return i;*/
+	return 0;
 }
 
 
@@ -1178,7 +1162,7 @@ char cMagic::CheckResist(P_CHAR pc_attacker, P_CHAR pc_defender, int circle)
 //
 void cMagic::MagicDamage(P_CHAR pc, int amount)
 {
-	if( pc == NULL )
+	/*if( pc == NULL )
 		return;
 
 	if ( pc->priv2()&0x02  &&  pc->effDex() > 0 )
@@ -1190,7 +1174,7 @@ void cMagic::MagicDamage(P_CHAR pc, int amount)
 	}
 
 	cTerritory* Region = pc->region();
-	
+	*/
 /*	if ( Region != NULL && !pc->isInvul() && Region->allowsMagicDamage() ) // LB magic-region change
 	{
 		if (pc->isNpc()) amount *= 2;			// double damage against non-players
@@ -1212,7 +1196,7 @@ void cMagic::MagicDamage(P_CHAR pc, int amount)
 //
 void cMagic::PoisonDamage(P_CHAR pc, int poison) // new functionality, lb !!!
 {
-	if( pc == NULL )
+	/*if( pc == NULL )
 		return;
 
 	UOXSOCKET s = calcSocketFromChar(pc);
@@ -1226,7 +1210,7 @@ void cMagic::PoisonDamage(P_CHAR pc, int poison) // new functionality, lb !!!
 	}
 
 	cTerritory* Region = pc->region();
-	
+	*/
 /*	if ( Region != NULL && !pc->isInvul() && Region->allowsMagicDamage() ) // LB magic-region change
 	{
 		if (poison>5) poison = 5;
@@ -1493,32 +1477,7 @@ void cMagic::NPCCure(P_CHAR pc)
 
 void cMagic::NPCDispel(P_CHAR pc_s, P_CHAR pc_i)
 {
-	int loskill=spells[41].loskill;
-	int hiskill=spells[41].hiskill;
-	if ( pc_s == NULL)
-		return;
-	if (!pc_s->checkSkill( MAGERY, loskill, hiskill))
-	{
-		UOXSOCKET ss = calcSocketFromChar(pc_s);
-		if (ss>-1)
-		{
-			SpellFail(ss);
-		}
-		return;
-	}
-	if (CheckMana(pc_s, 41))
-	{
-		if ( pc_i == NULL)
-			return;
-		if (pc_i->priv2()&0x20)
-		{
-			SubtractMana(pc_s,20);
-			tileeffect(pc_i->pos.x,pc_i->pos.y,pc_i->pos.z, 0x37, 0x2A, 0x00, 0x00);
-			if (pc_i->isNpc())
-				cCharStuff::DeleteChar(pc_i);
-			else pc_i->kill();
-		}
-	}
+
 }
 
 ///////////////////
@@ -1557,16 +1516,7 @@ void cMagic::EnergyBoltSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool useman
 //
 char cMagic::CheckParry(P_CHAR pc_player, int circle)
 {
-	char i=pc_player->checkSkill( PARRYING, 80*circle, 800+(80*circle));
-	if(i)
-	{
-		UOXSOCKET s = calcSocketFromChar(pc_player);
-		if (s!=-1)
-		{
-			sysmessage(s, "You have dodged the cannon blast, and have taken less damage.");
-		}
-	}
-	return i;
+	return 0;
 }
 
 /////////////////////////////////////////////////////////////////
@@ -4121,38 +4071,12 @@ void cMagic::Heal(UOXSOCKET s)
 // AntiChrist
 void cMagic::Recall(UOXSOCKET s)
 {
-	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);	//Targeted item
-//	CHARACTER cc=currchar[s];
-	P_CHAR pc_currchar = currchar[s];
-	if (pi)
-	{
-		if ( pi->morex()<=200 && pi->morey()<=200 )
-		{
-			sysmessage(s,"That rune has not been marked yet!");
-		}
-		else
-		{
-			pc_currchar->MoveTo(pi->morex(),pi->morey(),pi->morez()); //LB
-			teleport((pc_currchar));
-			sysmessage(s,"You have recalled from the rune.");
-		}
-	} else sysmessage(s,"Not a valid recall target");//AntiChrist
 }
 
 // only used for the /mark command
 // AntiChrist
 void cMagic::Mark(UOXSOCKET s)
 {
-	//Targeted item
-	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	P_CHAR pc_currchar = currchar[s];
-	if (pi)
-	{
-		pi->setMoreX(pc_currchar->pos.x);
-		pi->setMoreY(pc_currchar->pos.y);
-		pi->setMoreZ(pc_currchar->pos.z);
-		sysmessage(s,"Recall rune marked.");
-	} else sysmessage(s,"Not a valid mark target");//AntiChrist
 }
 /*
 void cMagic::CannonTarget(int s)
@@ -4192,53 +4116,6 @@ void cMagic::CannonTarget(int s)
 // AntiChrist
 void cMagic::Gate(UOXSOCKET s)
 {
-	int n;
-
-	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);	//Targeted item
-	if (pi)
-	{
-		if ( pi->morex()<=200 && pi->morey()<=200 )
-		{
-			sysmessage(s,"That rune has not been marked yet!");
-		}
-		else
-		{
-//			CHARACTER cc = currchar[s];
-			P_CHAR pc_currchar = currchar[s];
-			gatex[gatecount][0]=pc_currchar->pos.x;	//create gate a player location
-			gatey[gatecount][0]=pc_currchar->pos.y;
-			gatez[gatecount][0]=pc_currchar->pos.z;
-			gatex[gatecount][1]=pi->morex(); //create gate at marked location
-			gatey[gatecount][1]=pi->morey();
-			gatez[gatecount][1]=pi->morez();
-
-			for (n=0;n<2;n++)
-			{
-				strcpy((char*)temp,"a blue moongate");
-				P_ITEM pi_c = Items->SpawnItem(-1,currchar[s],1,"#",0,0x0f,0x6c,0,0,0);
-				if(pi_c != NULL)//AntiChrist - to prevent crashes
-				{
-					pi_c->setType( 51 + n );
-					pi_c->pos.x=gatex[gatecount][n];
-					pi_c->pos.y=gatey[gatecount][n];
-					pi_c->pos.z=gatez[gatecount][n];
-					pi_c->setGateTime(static_cast<unsigned int>(uiCurrentTime+(SrvParams->gateTimer()*MY_CLOCKS_PER_SEC)));
-					//clConsole.send("GATETIME:%i UICURRENTTIME:%d GETCLOCK:%d\n",SrvParms->gatetimer,uiCurrentTime,getclock());
-					pi_c->setGateNumber(gatecount);
-					pi_c->dir=1;
-					MapObjects::instance()->add(pi_c);	//add gate to list of items in the region
-					pi_c->update();//AntiChrist
-				}
-				if (n==1)
-				{
-					gatecount++;
-					if (gatecount>MAXGATES) gatecount=0;
-				}
-				addid1[s]=0;
-				addid2[s]=0;
-			}
-		}
-	} else sysmessage(s,"Not a valid gate target");//AntiChrist
 }
 
 void cMagic::Action4Spell( UOXSOCKET s, int num )

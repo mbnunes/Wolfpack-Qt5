@@ -27,7 +27,6 @@ unix:LIBS  = -L/usr/local/lib -Llib/ZThread/lib -Llib/Python -L/usr/lib/mysql -l
 unix:TMAKE_CXXFLAGS = -funsigned-char -w
 
 HEADERS         = \
-		  SndPkg.h \
 		  Timing.h \
 		  TmpEff.h \
 		  Trade.h \
@@ -84,7 +83,6 @@ HEADERS         = \
 		  structs.h \
 		  targeting.h \
                   targetrequests.h \
-		  telport.h \
                   territories.h \
                   tracking.h \
 		  typedefs.h \
@@ -111,7 +109,6 @@ SOURCES         = \
 		  LoS.cpp \
 		  corpse.cpp \
 		  SkiTarg.cpp \
-		  SndPkg.cpp \
 		  Timing.cpp \
 		  tmpeff.cpp \
 		  Trade.cpp \
@@ -171,7 +168,6 @@ SOURCES         = \
 		  targetactions.cpp \
 		  targeting.cpp \
 		  targetrequests.cpp \
-		  telport.cpp \
                   territories.cpp \
                   tracking.cpp \
 		  uobject.cpp \

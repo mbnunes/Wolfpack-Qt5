@@ -40,7 +40,6 @@
 
 #include "guildstones.h"
 #include "globals.h"
-#include "SndPkg.h"
 #include "debug.h"
 #include "wolfpack.h"
 #include "iserialization.h"

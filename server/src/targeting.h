@@ -54,10 +54,7 @@ class cSetAmountTarget ;
 #include "wolfpack.h"
 #include "basics.h"
 #include "itemid.h"
-#include "SndPkg.h"
-
 #include "debug.h"
-
 
 class cTargets
 {

@@ -214,7 +214,7 @@ void CWorldMain::savenewworld(QString module)
 	{
 		if ( announce() )
 		{
-			sysbroadcast("World data saving....");
+			cNetwork::instance()->broadcast( tr( "World data saving..." ) );
 			clConsole.send("Worldsave Started!\n" );
 			clConsole.send("items  : %i\n", ItemsManager::instance()->size());
 			clConsole.send("chars  : %i\n", CharsManager::instance()->size());
@@ -274,7 +274,7 @@ void CWorldMain::savenewworld(QString module)
 	
 	if ( announce() )
 	{
-		sysbroadcast("Worldsave Done!\n");
+		cNetwork::instance()->broadcast( tr( "Worldsave Done!\n" ) );
 		char temp[128];
 		sprintf( temp, "World saved in %.03f sec", (float)(((float)getNormalizedTime() - (float)savestarttime) / CLOCKS_PER_SEC ) );
 		clConsole.PrepareProgress( temp );

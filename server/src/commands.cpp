@@ -1240,7 +1240,7 @@ void commandAllSkills( cUOSocket *socket, const QString &command, QStringList &a
 
 void commandBroadcast( cUOSocket *socket, const QString &command, QStringList &args )
 {
-	sysbroadcast( args.join( " " ).latin1() );
+	cNetwork::instance()->broadcast( args.join( " " ).latin1() );
 }
 
 void commandInvis( cUOSocket *socket, const QString &command, QStringList &args )

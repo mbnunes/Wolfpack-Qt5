@@ -53,54 +53,6 @@
 
 #undef DBGFILE
 #define DBGFILE "targeting.cpp"
-//#include "debug.h"
-
-
-void cTargets::PlVBuy(int s)//PlayerVendors
-{
-/*	if (s == -1) 
-		return;
-	int v = addx[s];
-	P_CHAR pc = FindCharBySerial(v);
-	if (pc->free) return;
-	P_CHAR pc_currchar = currchar[s];
-
-	P_ITEM pBackpack = pc_currchar->getBackpack();
-	if (!pBackpack) {sysmessage(s,"Time to buy a backpack"); return; } //LB
-
-	int serial=LongFromCharPtr(buffer[s]+7);
-	P_ITEM pi=FindItemBySerial(serial);		// the item
-	if (pi==NULL) return;
-	if (pi->isInWorld()) return;
-	int price=pi->value;
-
-	P_ITEM np = dynamic_cast<P_ITEM>(pi->container());		// the pack
-	P_CHAR npc = np->getOutmostChar();				// the vendo
-	if(npc != pc || pc->npcaitype() != 17) return;
-
-	if( pc->owner() == pc_currchar )
-	{
-		pc->talk( tr("I work for you, you need not buy things from me!") );
-		return;
-	}
-
-	int gleft = pc_currchar->CountGold();
-	if (gleft<pi->value)
-	{
-		pc->talk( tr("You cannot afford that."), -1, 0 );
-		return;
-	}
-	pBackpack->DeleteAmount(price,0x0EED);	// take gold from player
-
-	pc->talk( tr("Thank you."), -1, 0 );
-	pc->setHoldg(pc->holdg() + pi->value); // putting the gold to the vendor's "pocket"
-
-	// sends item to the proud new owner's pack
-	pBackpack->addItem(pi);
-	pi->update();*/
-
-}
-
 
 static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 {
@@ -195,280 +147,6 @@ static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 	}//if*/
 }
 
-void cTargets::IstatsTarget(int s)
-{
-}
-
-// public !!!
-P_ITEM cTargets::AddMenuTarget(int s, int x, int addmitem) //Tauriel 11-22-98 updated for new items
-{
-	if (s>=0)
-		if (buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return NULL;
-
-	P_ITEM pi = Items->createScriptItem(QString::number(addmitem));
-	if (pi == NULL) return NULL;
-	if (x)
-		pi->update();
-	return pi;
-}
-
-// public !!!
-P_CHAR cTargets::NpcMenuTarget(int s)
-{
-/*	if (buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return NULL;
-	return cCharStuff::createScriptNpc(s, NULL, QString("%1").arg(addmitem[s]));*/
-	return 0;
-}
-
-void cTargets::VisibleTarget (int s)
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-
-	if(isItemSerial(serial))//item
-	{
-		P_ITEM pi = FindItemBySerial(serial);
-		if(pi != NULL)
-		{
-			pi->visible=addx[s];
-			pi->update();
-		}
-	}
-	else
-	{//char
-		P_CHAR pc = FindCharBySerial(serial);
-		if(pc != NULL)
-		{
-			pc->setHidden( addx[s] );
-			pc->update();
-		}
-	}
-}
-
-
-//public !!
-void cTargets::Wiping(int s) // Clicking the corners of wiping calls this function - Crwth 01/11/1999
-{
-/*	if (buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return;
-
-	if (clickx[s]==-1 && clicky[s]==-1) {
-		clickx[s]=(buffer[s][11]<<8)+buffer[s][12];
-		clicky[s]=(buffer[s][13]<<8)+buffer[s][14];
-//		if (addid1[s]) target(s,0,1,0,199,"Select second corner of inverse wiping box.");
-//		else target(s,0,1,0,199,"Select second corner of wiping box.");
-		return;
-	}
-
-	int x1=clickx[s],x2=(buffer[s][11]<<8)+buffer[s][12];
-	int y1=clicky[s],y2=(buffer[s][13]<<8)+buffer[s][14];
-
-	clickx[s]=-1;clicky[s]=-1;
-
-	int c;
-	if (x1>x2) {c=x1;x1=x2;x2=c;}
-	if (y1>y2) {c=y1;y1=y2;y2=c;}
-	if (addid1[s]==1)
-	{ // addid1[s]==1 means to inverse wipe
-		AllItemsIterator iterItems;
-		for (iterItems.Begin(); !iterItems.atEnd();iterItems++)
-		{
-			P_ITEM pi=iterItems.GetData();
-			if (!(pi->pos.x>=x1 && pi->pos.x<=x2 && pi->pos.y>=y1 && pi->pos.y<=y2) && pi->isInWorld() && !pi->wipe())
-			{
-				iterItems--;
-				Items->DeleItem(pi);
-			}
-		}
-	}
-	else
-	{
-		AllItemsIterator iterItems;
-		for (iterItems.Begin(); !iterItems.atEnd();iterItems++)
-		{
-			P_ITEM pi=iterItems.GetData();
-			if (pi->pos.x>=x1 && pi->pos.x<=x2 && pi->pos.y>=y1 && pi->pos.y<=y2 && pi->isInWorld() && !pi->wipe())
-			{
-				iterItems--;
-				Items->DeleItem(pi);
-			}
-		}
-	}*/
-}
-
-void cTargets::AttackTarget(int s)
-{
-	P_CHAR target  = FindCharBySerial(addx[s]);
-	P_CHAR target2 = FindCharBySerial(calcserial(buffer[s][7], buffer[s][8], buffer[s][9], buffer[s][10]));
-	if ( !target2 || !target ) 
-		return;
-
-    if (target->inGuardedArea()) // Ripper..No pet attacking in town.
-	{
-        sysmessage(s,"You cant have pets attack in town!");
-        return;
-	}
-	target2->attackTarget( target );
-}
-
-void cTargets::FollowTarget(int s)
-{
-	// IS NOW STORED IN socket->tempInt(); !!!
-    // LEGACY
-	P_CHAR char1 = FindCharBySerial(addx[s]);
-	P_CHAR char2 = FindCharBySerial(calcserial(buffer[s][7], buffer[s][8], buffer[s][9], buffer[s][10]));
-
-	if ( !(char1 && char2) ) // They were not found, could be bad formed packet.
-		return;
-
-	char1->setFtarg( char2->serial );
-	char1->setNpcWander(1);
-}
-
-void cTargets::TransferTarget(int s)
-{
-/*	P_CHAR pc1 = FindCharBySerial(addx[s]);
-	P_CHAR pc2 = FindCharBySerial(calcserial(buffer[s][7], buffer[s][8], buffer[s][9], buffer[s][10]));
-	if ( !( pc1 && pc2 ) ) // They were not found, could be bad formed packet.
-		return;
-
-	pc1->emote( tr("%1 will now take %2 as his master.").arg(pc1->name.latin1()).arg(pc2->name.latin1()), -1 );
-
-	if (pc1->ownserial() != -1) 
-		pc1->SetOwnSerial(-1);
-	pc1->SetOwnSerial(pc2->serial);
-	pc1->setNpcWander(1);
-
-	pc1->setFtarg(INVALID_SERIAL);
-	pc1->setNpcWander(0);*/
-}
-
-void cTargets::BuyShopTarget(int s)
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		if ((pc->serial==serial))
-		{
-			Targ->BuyShop(s, pc);
-			return;
-		}
-		sysmessage(s, "Target shopkeeper not found...");
-	}
-}
-
-int cTargets::BuyShop( UOXSOCKET s, P_CHAR pc )
-{
-	/*P_ITEM pCont1=NULL, pCont2=NULL;
-
-	if ( pc == NULL )
-		return 0;
-
-	unsigned int ci=0;
-	P_ITEM pi;
-	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
-	for ( ci = 0; ci < vecContainer.size(); ci++)
-	{
-		pi = FindItemBySerial(vecContainer[ci]);
-		if( pi->layer() == 0x1A )
-		{
-			pCont1=pi;
-		}
-		else if( pi->layer() == 0x1B )
-		{
-			pCont2=pi;
-		}
-	}
-
-	if (!pCont1 || !pCont2)
-	{
-		return 0;
-	}
-
-	impowncreate(s, pc, 0); // Send the NPC again to make sure info is current. (OSI does this we might not have to)
-	sendshopinfo(s, pc, pCont1); // Send normal shop items
-	sendshopinfo(s, pc, pCont2); // Send items sold to shop by players
-	SndShopgumpopen(s,pc->serial);
-	statwindow(s, currchar[s]); // Make sure the gold total has been sent.
-	return 1;*/
-	return 1;
-}
-
-// 
-// 
-// Aldur 
-////////////////////////////////// 
-
-// 
-// 
-// Aldur 
-//////////////////////////////////
-
-void cTargets::SetSpeechTarget(int s)
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		if (pc->isPlayer())
-		{
-			sysmessage(s,"You can only change speech for npcs.");
-			return;
-		}
-		pc->setSpeech( addx[s] );
-	}
-}
-
-static void SetSpAttackTarget(int s)
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		pc->setSpAttack(tempint[s]);
-	}
-}
-
-void cTargets::SetSpaDelayTarget(int s)
-{
-	SERIAL serial=LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		pc->setSpaDelay( tempint[s] );
-	}
-}
-
-void cTargets::SetPoisonTarget(int s)
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		pc->setPoison(tempint[s]);
-	}
-}
-
-////////////////
-// name:		CanTrainTarget
-// history:		by Antrhacks 1-3-99
-// Purpose:		Used for training by NPC's
-//
-void cTargets::CanTrainTarget(int s)
-{
-	SERIAL serial=LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		if (pc->isPlayer())
-		{
-			sysmessage(s, "Only NPC's may train.");
-			return;
-		}
-		pc->setCantrain(!pc->cantrain());	//turn on if off, off if on
-	}
-}
-
-
 ////////////////
 // name:		NpcResurrectTarget
 // history:		by UnKnown (Touched tabstops by Tauriel Dec 28, 1998)
@@ -480,111 +158,9 @@ bool cTargets::NpcResurrectTarget(P_CHAR pc)
 	return true;
 }
 
-void cTargets::NewXTarget(int s) // Notice a high similarity to th function above? Wonder why. - Gandalf
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	if (isItemSerial(serial))
-	{
-		P_ITEM pi = FindItemBySerial(serial);
-		if (pi == NULL)
-			return;
-		Coord_cl pos(pi->pos);
-		pos.x = addx[s];
-		pi->moveTo(pos);
-		pi->update();
-	}
-	else if (isCharSerial(serial))
-	{
-		P_CHAR pc = FindCharBySerial(serial);
-		if (pc == NULL)
-			return;
-		Coord_cl pos(pc->pos);
-		pos.x = addx[s];
-		pc->moveTo(pos);
-		teleport(pc);
-	}
-}
-
-void cTargets::NewYTarget(int s)
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	if (isItemSerial(serial))
-	{
-		P_ITEM pi = FindItemBySerial(serial);
-		if (pi == NULL)
-			return;
-		Coord_cl pos(pi->pos);
-		pos.y = addx[s];
-		pi->moveTo(pos);
-		pi->update();
-	}
-	else if (isCharSerial(serial))
-	{
-		P_CHAR pc = FindCharBySerial(serial);
-		if (pc == NULL)
-			return;
-		Coord_cl pos(pc->pos);
-		pos.y = addx[s];
-		pc->moveTo(pos);
-		teleport(pc);
-	}
-}
-
-void cTargets::IncXTarget(int s)
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-
-	if(isItemSerial(serial))
-	{
-		P_ITEM pi = FindItemBySerial(serial);
-		if (pi == NULL)
-			return;
-		Coord_cl pos(pi->pos);
-		pos.x += addx[s];
-		pi->moveTo(pos);
-		pi->update();
-	}
-	else if (isCharSerial(serial))
-	{
-		P_CHAR pc = FindCharBySerial(serial);
-		if (pc == NULL)
-			return;
-		Coord_cl pos(pc->pos);
-		pos.x += addx[s];
-		pc->moveTo(pos);
-		teleport(pc);
-	}
-}
-
-void cTargets::IncYTarget(int s)
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-
-	if(isItemSerial(serial))
-	{
-		P_ITEM pi = FindItemBySerial(serial);
-		if (pi == NULL)
-			return;
-		Coord_cl pos(pi->pos);
-		pos.y += addx[s];
-		pi->moveTo(pos);
-		pi->update();
-	}
-	else if (isCharSerial(serial))
-	{
-		P_CHAR pc = FindCharBySerial(serial);
-		if (pc == NULL)
-			return;
-		Coord_cl pos(pc->pos);
-		pos.y += addx[s];
-		pc->moveTo(pos);
-		teleport(pc);
-	}
-}
-
 void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house owner
 {
-	int os, i;
+/*	int os, i;
 	int o_serial = LongFromCharPtr(buffer[s]+7);
 	if(o_serial==-1) return;
 	P_CHAR pc = FindCharBySerial(o_serial);
@@ -644,7 +220,7 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 	for(k=0;k<now;k++)
 		if(k!=s && ( (perm[k] && inrange1p(currchar[k], currchar[s]) )||
 			(currchar[k]->serial==o_serial)))
-			sysmessage(k, (char*)temp);
+			sysmessage(k, (char*)temp);*/
 }
 
 void cTargets::HouseEjectTarget(int s) // crackerjack 8/11/99 - kick someone out of house
@@ -681,7 +257,7 @@ void cTargets::HouseEjectTarget(int s) // crackerjack 8/11/99 - kick someone out
 
 void cTargets::HouseBanTarget(int s) 
 {
-	Targ->HouseEjectTarget(s);	// first, eject the player
+/*	Targ->HouseEjectTarget(s);	// first, eject the player
 
 	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
 	P_CHAR pc_home = currchar[s];
@@ -693,12 +269,12 @@ void cTargets::HouseBanTarget(int s)
 		if (pc->serial == pc_home->serial) return;
 		pHouse->addBan(pc);
 		sysmessage(s, "%s has been banned from this house.", pc->name.latin1());
-	}
+	}*/
 }
 
 void cTargets::HouseFriendTarget(int s) // crackerjack 8/12/99 - add somebody to friends list
 {
-	P_CHAR Friend = FindCharBySerPtr(buffer[s]+7);
+/*	P_CHAR Friend = FindCharBySerPtr(buffer[s]+7);
 	P_CHAR pc_home = currchar[s];
 
 	cHouse* pHouse = dynamic_cast< cHouse* >( cMulti::findMulti( pc_home->pos ) );
@@ -712,12 +288,12 @@ void cTargets::HouseFriendTarget(int s) // crackerjack 8/12/99 - add somebody to
 		}
 		pHouse->addFriend(Friend);
 		sysmessage(s, "%s has been made a Friend of the house.", Friend->name.latin1());
-	}
+	}*/
 }
 
 void cTargets::HouseUnBanTarget(int s)
 {
-	P_CHAR pc_banned = FindCharBySerPtr(buffer[s]+7);
+/*	P_CHAR pc_banned = FindCharBySerPtr(buffer[s]+7);
 	P_CHAR pc_owner  = currchar[s];
 	
 	cHouse* pHouse = dynamic_cast< cHouse* >( cMulti::findMulti( pc_owner->pos ) );
@@ -732,12 +308,12 @@ void cTargets::HouseUnBanTarget(int s)
 		pHouse->removeBan(pc_banned);
 		sysmessage(s,"%s has been UnBanned!",pc_banned->name.latin1());
 	}
-	return;
+	return;*/
 }
 
 void cTargets::HouseUnFriendTarget(int s)
 {
-	P_CHAR pc_friend = FindCharBySerPtr(buffer[s]+7);
+/*	P_CHAR pc_friend = FindCharBySerPtr(buffer[s]+7);
 	P_CHAR pc_owner  = currchar[s];
 	
 	cHouse* pHouse = dynamic_cast< cHouse* >( cMulti::findMulti( pc_owner->pos ) );
@@ -752,7 +328,7 @@ void cTargets::HouseUnFriendTarget(int s)
 		pHouse->removeFriend(pc_friend);
 		sysmessage(s,"%s is no longer a Friend of this home!", pc_friend->name.latin1());
 	}
-	return;
+	return;*/
 }
 
 void cTargets::HouseLockdown( UOXSOCKET s ) // Abaddon
@@ -761,7 +337,7 @@ void cTargets::HouseLockdown( UOXSOCKET s ) // Abaddon
 // CODER:	Abaddon
 // DATE:	17th December, 1999
 {
-	int ser = LongFromCharPtr(buffer[s]+7);
+/*	int ser = LongFromCharPtr(buffer[s]+7);
 	P_ITEM pi = FindItemBySerial(ser);
 
 	if( pi != NULL )
@@ -817,13 +393,13 @@ void cTargets::HouseLockdown( UOXSOCKET s ) // Abaddon
 	{
 		sysmessage( s, "Invalid item!" );
 		return;
-	}
+	}*/
 }
 
 void cTargets::HouseSecureDown( UOXSOCKET s ) // Ripper
 // For locked down and secure chests
 {
-	int ser = LongFromCharPtr(buffer[s]+7);
+/*	int ser = LongFromCharPtr(buffer[s]+7);
 	P_ITEM pi = FindItemBySerial(ser);
 	if( pi != NULL )
 	{
@@ -869,7 +445,7 @@ void cTargets::HouseSecureDown( UOXSOCKET s ) // Ripper
 	{
 		sysmessage( s, "Invalid item!" );
 		return;
-	}
+	}*/
 }
 
 void cTargets::HouseRelease( UOXSOCKET s ) // Abaddon & Ripper
@@ -879,7 +455,7 @@ void cTargets::HouseRelease( UOXSOCKET s ) // Abaddon & Ripper
 // DATE:	17th December, 1999
 // update: 5-8-00
 {
-	int ser = LongFromCharPtr(buffer[s]+7);
+/*	int ser = LongFromCharPtr(buffer[s]+7);
 	P_CHAR pc_currchar = currchar[s];
 	P_ITEM pi = FindItemBySerial(ser);
 	if( pi != NULL )
@@ -920,129 +496,5 @@ void cTargets::HouseRelease( UOXSOCKET s ) // Abaddon & Ripper
 	{
 		sysmessage( s, "Invalid item!" );
 		return;
-	}
-}
-
-void cTargets::SetMurderCount( int s )
-{
-	int serial=LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if( pc != NULL )
-	{
-		pc->setKills( addmitem[s] );
-		setcharflag(pc);
-	}
-}
-
-void cTargets::FetchTarget(UOXSOCKET s) // Ripper
-{
-	sysmessage(s,"Fetch is not available at this time.");
-}
-
-void cTargets::GuardTarget( UOXSOCKET s )
-{
-	P_CHAR pPet = FindCharBySerial(addx[s]);
-	if (pPet == NULL)
-	{
-		sysmessage(s, "Currently can't guard anyone but yourself.."); 
-		LogError("Lost pet serial");
-		return;
-	}
-
-	P_CHAR pToGuard = FindCharBySerPtr(buffer[s]+7);
-	if( !pToGuard || pPet->owner() != pToGuard )
-	{
-		sysmessage( s, "Currently can't guard anyone but yourself!" );
-		return;
-	}
-	pPet->setNpcAIType( 32 ); // 32 is guard mode
-	pPet->setFtarg(currchar[s]->serial);
-	pPet->setNpcWander(1);
-	sysmessage(s, "Your pet is now guarding you.");
-//	currchar[s]->setGuarded(true);
-}
-
-void cTargets::ResurrectionTarget( UOXSOCKET s )
-{
-	int serial=LongFromCharPtr(buffer[s]+7);
-	if( serial == INVALID_SERIAL ) return;
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		if (pc->dead())
-		{
-			Targ->NpcResurrectTarget(pc);
-			return;
-		}
-	}
-}
-
-
-void cTargets::LoadCannon(int s)
-{
-	/*int serial=LongFromCharPtr(buffer[s]+7);
-	P_ITEM pi = FindItemBySerial(serial);
-	if (pi != NULL)
-	{
-		//if((pi->id1==0x0E && pi->id2==0x91) && pi->morez==0)
-		if (((pi->more1==addid1[s])&&(pi->more2==addid2[s])&&
-			(pi->more3==addid3[s])&&(pi->more4==addid4[s]))||
-			(addid1[s]==(unsigned char)'\xFF'))
-		{
-			if ((pi->morez==0)&&(iteminrange(s, pi, 2)))
-			{
-				if(pi->morez==0)
-				pi->setType( 15 );
-				pi->morex=8;
-				pi->morey=10;
-				pi->morez=1;
-				sysmessage(s, "You load the cannon.");
-			}
-			else
-			{
-				if (pi->more1=='\x00') sysmessage(s, "That doesn't work in cannon.");
-				else sysmessage(s, "That object doesn't fit into cannon.");
-			}
-		}
 	}*/
 }
-
-/*
-void cTargets::AddItem( UOXSOCKET s )
-{
-	if( s == -1 )
-		return;
-
-	QString ItemID = xtext[ s ];
-	
-	const QDomElement *ItemNode = DefManager->getSection( WPDT_ITEM, ItemID );
-	
-	// No Item found...
-	if( ItemNode->isNull() )
-	{
-		sysmessage( s, "There is no such item '%s'", xtext[ s ] );
-		return;
-	}
-
-	// ...Otherwise get x+y+z coordinates first
-	UI16 TargetX, TargetY;
-	SI08 TargetZ;
-
-	TargetX = ( buffer[s][11] << 8 ) + buffer[s][12];
-	TargetY = ( buffer[s][13] << 8 ) + buffer[s][14];
-	TargetZ = buffer[s][16] + TileCache::instance()->tileHeight( ( buffer[s][17] << 8) + buffer[s][18] );
-
-	P_ITEM Item = Items->createScriptItem( ItemID );
-
-	// No item created = fail
-	if( Item == NULL )
-	{
-		sysmessage( s, "Unable to create item '%s'", xtext[ s ] );
-		return;
-	}
-
-//	Item->setContSerial( -1 );
-	Item->MoveTo( TargetX, TargetY, TargetZ );
-	Item->update();
-}
-*/

@@ -182,3 +182,13 @@ UOXSOCKET calcSocketFromChar(P_CHAR pc)
 	}
 	return cNetwork::instance()->getuoSocketsIndex( pc->socket() );
 }
+
+void cNetwork::broadcast( const QString &message, UINT16 color, UINT16 font )
+{
+	cUOSocket *mSock = uoSockets.first();
+	while( mSock )
+	{
+		mSock->sysMessage( message, color, font );
+		mSock = uoSockets.next();
+	}
+}

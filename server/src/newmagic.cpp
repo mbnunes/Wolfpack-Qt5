@@ -196,7 +196,7 @@ void cEndCasting::Expire()
 	if( !pMage->socket() )
 		return;
 
-	// Show a target cursor
+	// Show a target cursor *or* cast directly
 	pMage->socket()->attachTarget( new cSpellTarget( pMage, spell, type ) );
 }
 

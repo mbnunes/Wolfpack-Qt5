@@ -36,7 +36,6 @@
 #include "wolfpack.h"
 #include "itemid.h"
 #include "territories.h"
-#include "SndPkg.h"
 #include "debug.h"
 #include "utilsys.h"
 #include "walking.h"

@@ -30,7 +30,6 @@
 //========================================================================================
 
 #include "wolfpack.h"
-#include "SndPkg.h"
 #include "debug.h"
 #include "mapobjects.h"
 #include "srvparams.h"

@@ -36,7 +36,6 @@
 
 #include "wolfpack.h"
 #include "itemid.h"
-#include "SndPkg.h"
 #include "utilsys.h"
 #include "guildstones.h"
 #include "mapobjects.h"
@@ -963,13 +962,13 @@ namespace Combat
 		//}
 
 		// Our target finally died.
-		if( pDefender->hp() < 1 ) //Highlight //Repsys
+		if( pDefender->hp() < 1 ) // Highlight // Repsys
 		{
 			if( ( pAttacker->npcaitype() == 4 || pAttacker->npcaitype() == 9 ) && pDefender->isNpc() )
 			{
 				pDefender->action( 0x15 );					
-				PlayDeathSound( pDefender );					
-				cCharStuff::DeleteChar( pDefender ); //Guards, don't give body
+				pDefender->playDeathSound();
+				cCharStuff::DeleteChar( pDefender ); // Guards, don't give body
 			}
 			else
 			{
@@ -977,7 +976,7 @@ namespace Combat
 				pAttacker->setSwingTarg( -1 );
 			}
 				
-			//murder count \/				
+			// murder count \/				
 			if( ( pAttacker->isPlayer() ) && ( pDefender->isPlayer() ) ) //Player vs Player
 			{
 				if( pDefender->isInnocent() && GuildCompare( pAttacker, pDefender ) == 0 )

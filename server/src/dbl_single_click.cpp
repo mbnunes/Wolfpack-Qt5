@@ -675,16 +675,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			}
 			return;
 
-		case 101: //??
-			pc_currchar->setId( pi->morex() ); 
-			teleport(pc_currchar);
-			pi->setType( 102 );
-			return; // case 101
-		case 102: //??
-			pc_currchar->setId(pc_currchar->xid() ); 
-			teleport(pc_currchar);
-			pi->setType( 101 );
-			return; // case 102
 		// Teleport object
 		case 104: 
 			pc_currchar->removeFromView( false );

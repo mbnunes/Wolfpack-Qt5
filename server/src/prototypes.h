@@ -55,7 +55,6 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey );
 void savelog(const char *msg, char *logfile);
 void explodeitem(int s, P_ITEM pi);
 void Karma(P_CHAR pc_toChange, P_CHAR pc_Killed, int nKarma);
-void npctalkall_runic(P_CHAR npc, const char *txt,char antispam);
 void Fame(P_CHAR pc_toChange, int nFame);
 
 int check_house_decay();

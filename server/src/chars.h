@@ -657,6 +657,7 @@ public:
 
 	UINT8 notority( P_CHAR pChar ); // Gets the notority toward another char
 	void kill();
+	void playDeathSound();
 	void resurrect();
 	void turnTo( cUObject *object );
 	P_CHAR unmount();

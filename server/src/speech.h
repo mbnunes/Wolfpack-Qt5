@@ -49,7 +49,6 @@ class cSpeech;
 
 //Wolfpack Includes
 #include "wolfpack.h"
-#include "SndPkg.h"
 #include "debug.h"
 #include "speech.h"
 #include "utilsys.h"

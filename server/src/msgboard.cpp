@@ -36,7 +36,6 @@
 //
 
 #include "wolfpack.h"
-#include "SndPkg.h"
 #include "debug.h"
 #include "srvparams.h"
 #include "network.h"

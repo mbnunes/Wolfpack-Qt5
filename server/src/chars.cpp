@@ -2322,8 +2322,7 @@ void cChar::kill()
 	if( pAttacker )
 	{
 		pAttacker->setTarg(INVALID_SERIAL);
-		murderer = pAttacker->name.latin1();
-
+		murderer = pAttacker->name;
 	}
 
 	// We do know our murderer here (or if there is none it's null)
@@ -2422,7 +2421,7 @@ void cChar::kill()
 	else
 		setId( 0x0192 );
 
-	PlayDeathSound( this );
+	playDeathSound();
 
 	setSkin( 0x0000 ); // Undyed
 	
@@ -4238,4 +4237,35 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 	}
 
 	return cUObject::getProperty( name, value );
+}
+
+void cChar::playDeathSound()
+{
+	if( !xid_ )
+		xid_ = id_;
+
+	if( xid_ == 0x0191 )
+	{
+		switch( RandomNum(0, 3) )
+		{
+		case 0:		soundEffect( 0x0150 );	break;// Female Death
+		case 1:		soundEffect( 0x0151 );	break;// Female Death
+		case 2:		soundEffect( 0x0152 );	break;// Female Death
+		case 3:		soundEffect( 0x0153 );	break;// Female Death
+		}
+	}
+	else if( xid_ == 0x0190 )
+	{
+		switch( RandomNum(0, 3) )
+		{
+		case 0:		soundEffect( 0x015A );	break;// Male Death
+		case 1:		soundEffect( 0x015B );	break;// Male Death
+		case 2:		soundEffect( 0x015C );	break;// Male Death
+		case 3:		soundEffect( 0x015D );	break;// Male Death
+		}
+	}
+	else
+	{
+		playmonstersound( this, xid_, SND_DIE );
+	}
 }

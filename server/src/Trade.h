@@ -49,7 +49,6 @@ class cTrade;
 // Wolfpack includes
 
 #include "wolfpack.h"
-#include "SndPkg.h"
 #include "itemid.h"
 #include "debug.h"
 

@@ -101,6 +101,7 @@ public:
 	UINT32 count()			{ return uoSockets.count(); }
 	QPtrListIterator<cUOSocket> getIterator() { return QPtrListIterator<cUOSocket>(uoSockets); }
 
+	void	broadcast( const QString &message, UINT16 color = 0x84d, UINT16 font = 0 );
 };
 
 // Helper Function
