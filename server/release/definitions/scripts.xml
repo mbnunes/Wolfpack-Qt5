@@ -60,6 +60,7 @@
 	<!-- Commands -->
 	<script>commands</script>
 	<script>commands.edit</script>
+	<script>commands.disconnect</script>
 	<script>commands.skillinfo</script>
 	<script>commands.tags</script>
 	<script>commands.tile</script>
