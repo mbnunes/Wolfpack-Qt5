@@ -10,6 +10,7 @@
 
 	<!-- Kabuto North-South -->
 	<item id="236d">
+		<name>kabuto</name>
 		<id>0x236d</id>
 		<decay />
 		<nodye />
