@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 #################################################################
 #   )      (\_     # Wolfpack 13.0.0 Build Script               #
 #  ((    _/{  "-;  # Created by: Wolfpack Development Team      #
@@ -140,6 +140,7 @@ for py_libpath in \
 		/usr/lib/libpython*.so \
 		/usr/lib/[Pp]ython*/libpython*.so \
 		/usr/lib/[Pp]ython*/config/libpython*.so \
+		/usr/local/lib/libpython*.so \
 		;
 do
 	if [ -e "$py_libpath" ];
