@@ -2710,7 +2710,7 @@ bool cBaseChar::lineOfSight(P_ITEM target, bool touch)
 
 bool cBaseChar::lineOfSight(Coord_cl target, bool touch)
 {
-	Coord_cl eyes = pos_ + Coord_cl( 0, 0, 15 );
+	Coord_cl eyes = pos_ + Coord_cl(0, 0, 15);
 	
 	return eyes.lineOfSight(target, 0, touch);
 }

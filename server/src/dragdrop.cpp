@@ -525,7 +525,7 @@ void DragAndDrop::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar
 	}
 
 	// Can wee see our target
-	if (!pChar->pos().lineOfSight(pOtherChar->pos(), true))
+	if (!pChar->lineOfSight(pOtherChar->pos(), true))
 	{
 		socket->bounceItem( pItem, BR_OUT_OF_SIGHT );
 		return;
@@ -589,7 +589,7 @@ void DragAndDrop::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl 
 	P_PLAYER pChar = socket->player();
 
 	// Check if the destination is in line of sight
-	if (!pChar->pos().lineOfSight(pos, true))
+	if (!pChar->lineOfSight(pos, false))
 	{
 		socket->bounceItem(pItem, BR_OUT_OF_SIGHT);
 		return;
