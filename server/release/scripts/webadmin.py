@@ -230,7 +230,7 @@ class WebserverHandler( CGIHTTPRequestHandler ):
 	    print "Could not write to logfile: web.log\n"
 
 class WebserverThread(Thread):
-    def __init__( self, port=2594 ):
+    def __init__( self, port=REMOTEADMIN_PORT ):
 	Thread.__init__( self )
 	self.port = port
 	self.stopped = Event()
