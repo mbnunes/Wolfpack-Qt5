@@ -1,6 +1,6 @@
 
 import wolfpack
-from wolfpack.utilities import tobackpack
+from wolfpack.utilities import tobackpack, ObjectWrapper
 from wolfpack.gumps import cGump
 import math
 from wolfpack import console
@@ -69,7 +69,7 @@ class MakeAction:
 	# Executes this action.
 	# Arguments are the arguments passed down from the makemenu.
 	#
-	def make(self, player, arguments):
+	def make(self, player, arguments, nodelay=0):
 		if self.index == -1:
 			return
 
@@ -117,7 +117,7 @@ class MakeItemAction(MakeAction):
 	#
 	# Create the item in the players backpack.
 	#
-	def make(self, player, arguments):
+	def make(self, player, arguments, nodelay=0):
 		item = wolfpack.additem(self.definition)
 		if not item:
 			console.log(LOG_ERROR, "Unknown item definition used in action %u of menu %s.\n" % \
@@ -128,7 +128,7 @@ class MakeItemAction(MakeAction):
 			if not tobackpack(item, player):
 				item.update()
 			player.socket.sysmessage('You put the new item into your backpack.')
-			MakeAction.make(self, player, arguments)
+			MakeAction.make(self, player, arguments, nodelay)
 
 	#
 	# Process a response from the details gump.
@@ -276,7 +276,7 @@ class CraftItemAction(MakeItemAction):
 				return 0
 
 		for material in self.materials:
-			(baseids, amount) = material
+			(baseids, amount) = material[:2]
 			count = backpack.countitems(baseids)
 			if count < amount:
 				if not silent:
@@ -314,7 +314,7 @@ class CraftItemAction(MakeItemAction):
 				return 0
 
 		for material in self.materials:
-			(baseids, amount) = material
+			(baseids, amount) = material[:2]
 			if half:
 				amount = int(math.ceil(amount * 0.5))
 			count = backpack.removeitems(baseids, amount)
@@ -400,9 +400,31 @@ class CraftItemAction(MakeItemAction):
 		return 0
 
 	#
+	# We failed to create the item.
+	# LostMaterials indicates whether materials where lost.
+	#
+	def fail(self, player, arguments, lostmaterials=0):
+		if lostmaterials:
+			player.socket.clilocmessage(1044043)
+		else:
+			player.socket.clilocmessage(1044157)
+
+	#
+	# Successful crafting of item.
+	#
+	def success(self, player, arguments, item, exceptional=0, marked=0):
+		if exceptional:
+			if marked:
+				player.socket.clilocmessage(1044156)
+			else:
+				player.socket.clilocmessage(1044155)
+		else:
+			player.socket.clilocmessage(1044154)
+
+	#
 	# Try to make the item and consume the resources.
 	#
-	def make(self, player, arguments):
+	def make(self, player, arguments, nodelay=0):
 		# See if we have enough skills to attempt
 		if not self.checkskills(player, arguments):
 			player.socket.clilocmessage(1044153)
@@ -413,18 +435,40 @@ class CraftItemAction(MakeItemAction):
 			self.parent.send(player, arguments)
 			return 0
 
+		if player.socket.hastag('makemenu_crafting'):
+			player.socket.clilocmessage(500119)
+			self.parent.send(player, arguments)
+			return 0
+
+		# Is this action delayed?
+		if self.parent.delay != 0 and not nodelay:
+			self.playcrafteffect(player, arguments)
+			player.socket.settag('makemenu_crafting', 1)
+			
+			# Create a copy of the arguments list and transform all char/item objects using
+			# the ObjectWrapper function.
+			wrapped = []
+			for arg in arguments:
+				if type(arg).__name__ in ['wpchar', 'wpitem']:
+					wrapped.append(ObjectWrapper(arg))
+				else:
+					wrapped.append(arg)
+			
+			player.addtimer(self.parent.delay, "system.makemenus.craft_timer", [self, wrapped])
+			return 0
+		elif self.parent.delay == 0:
+			self.playcrafteffect(player, arguments)
+
 		success = 0
 		success = self.checkskills(player, arguments, 1)
 
-		self.playcrafteffect(player, arguments)
-
 		# 50% chance to loose half of the material
 		if not success:
-			if 0.5 >= random.random():
+			lostmaterials = 0.5 >= random.random()			
+			if lostmaterials:
 				self.consumematerial(player, arguments, 1)
-				player.socket.clilocmessage(1044043)
-			else:
-				player.socket.clilocmessage(1044157)
+				
+			self.fail(player, arguments, lostmaterials)
 			self.parent.send(player, arguments)
 		else:
 			self.consumematerial(player, arguments, 0)
@@ -449,19 +493,32 @@ class CraftItemAction(MakeItemAction):
 				if exceptional:
 					if self.parent.allowmark and self.markable and player.hastag('markitem'):
 						item.settag('exceptional', int(player.serial))
-						player.socket.clilocmessage(1044156)
+						self.success(player, arguments, item, 1, 1)
 					else:
 						item.settag('exceptional', 0)
-						player.socket.clilocmessage(1044155)
+						self.success(player, arguments, item, 1, 0)
 				else:
-					player.socket.clilocmessage(1044154)
+					self.success(player, arguments, item, 0, 0)
 					
 			if not tobackpack(item, player):
 				item.update()					
 
 		# Register in make history
-		MakeAction.make(self, player, arguments)
+		MakeAction.make(self, player, arguments, nodelay)
 		return success
+
+def craft_timer(player, arguments):
+	player.socket.deltag('makemenu_crafting')
+	(menu, args) = arguments
+	
+	realargs = []
+	for arg in args:
+		if isinstance(arg, ObjectWrapper):
+			realargs.append(arg.get())
+		else:
+			realargs.append(arg)
+			
+	menu.make(player, realargs, 1)	
 
 #
 # Internal function for sorting a list of
@@ -526,6 +583,7 @@ class MakeMenu:
 		self.title = title
 		self.gumptype = 0
 		self.name_makelast = "Make Last"
+		self.delay = 0 # Delay in ms until item is crafted.
 
 		# Display a repair item button on the makemenu
 		self.allowrepair = 0
@@ -1015,5 +1073,3 @@ class MakeMenu:
 
 		gump.setArgs([self.id] + args)
 		gump.send(player)
-
-

@@ -10,8 +10,8 @@ class PolymorphAction(MakeAction):
 		MakeAction.__init__(self, parent, title)
 		self.bodyid = bodyid
 
-	def make(self, player, arguments):
-		MakeAction.make(self, player, arguments)
+	def make(self, player, arguments, nodelay=0):
+		MakeAction.make(self, player, arguments, nodelay)
 		castSpell(player, 56, 0, [self.bodyid])
 
 class PolymorphMenu(MakeMenu):

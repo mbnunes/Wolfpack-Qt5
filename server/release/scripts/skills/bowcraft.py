@@ -126,13 +126,13 @@ class FletchItemAction(CraftItemAction):
   #
   # Check for the used tool.
   #
-  def make(self, player, arguments):
+  def make(self, player, arguments, nodelay=0):
     assert(len(arguments) > 0, 'Arguments has to contain a tool reference.')
 
     if not checktool(player, wolfpack.finditem(arguments[0])):
       return 0
 
-    return CraftItemAction.make(self, player, arguments)
+    return CraftItemAction.make(self, player, arguments, nodelay)
 
   #
   # Play a simple soundeffect

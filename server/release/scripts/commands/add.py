@@ -91,10 +91,10 @@ class AddNpcAction(MakeAction):
 		self.materials = ''
 		self.skills = ''
 
-	def make(self, player, arguments):
+	def make(self, player, arguments, nodelay=0):
 		player.socket.sysmessage("Where do you want to spawn the npc '%s'?" % self.definition)
 		player.socket.attachtarget("commands.add.addnpc", [self.definition])
-		MakeAction.make(self, player, arguments)
+		MakeAction.make(self, player, arguments, nodelay)
 
 #
 # This action creates an item
@@ -103,10 +103,10 @@ class AddItemAction(MakeItemAction):
 	def __init__(self, parent, title, itemid, definition):
 		MakeItemAction.__init__(self, parent, title, itemid, definition)
 
-	def make(self, player, arguments):
+	def make(self, player, arguments, nodelay=0):
 		player.socket.sysmessage("Where do you want to place the item '%s'?" % self.definition)
 		player.socket.attachtarget("commands.add.additem", [self.definition])
-		MakeAction.make(self, player, arguments)
+		MakeAction.make(self, player, arguments, nodelay)
 
 #
 # Generate a menu structure out of the

@@ -185,7 +185,7 @@ class GoAction(MakeAction):
 	# makemenu action. We don't add it to the
 	# "make last" action because it makes no sense.
 	#
-	def make(self, player, arguments):
+	def make(self, player, arguments, nodelay=0):
 		player.removefromview()
 		player.moveto(self.pos)
 		player.update()

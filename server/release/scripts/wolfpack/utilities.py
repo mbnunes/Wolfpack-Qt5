@@ -646,3 +646,19 @@ def throwobject( char, object, target, sendobject=0, movable=1, speed=10, fixedd
 
 	return
 
+# Class for Wrapping Chars or Items in Argument Lists
+class ObjectWrapper:
+	def __init__(self, wrapped):
+		self.serial = wrapped.serial
+		
+	def get(self):
+		if self.serial > 0 and self.serial < 0x40000000:
+			char = wolfpack.findchar(self.serial)
+			if not char.free:
+				return char
+		elif serial > 0x40000000:
+			item = wolfpack.finditem(self.serial)
+			if not item.free:
+				return item
+
+		return None
