@@ -101,7 +101,7 @@ def sendresponse(player, arguments, target):
 			object.moveto(pos)
 			object.update()
 		else:
-			socket.sysmessage('Usage: send <x, y, z, map>|<location>')		
+			player.socket.sysmessage('Usage: send <x, y, z, map>|<location>')		
 
 #
 # Send an object to a given location
