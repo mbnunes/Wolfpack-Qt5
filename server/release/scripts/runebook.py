@@ -48,7 +48,7 @@ def onDropOnItem( book, item ):
 	# rune serials
 	runes = [ -1 ] * 16
 	for i in range( 0, 16 ):
-		runes = book.gettag( "rune %i" % i )
+		runes[ i ] = book.gettag( "rune %i" % i )
 	i = 0
 	while( runes[ i ] > -1 and i < 16 ):
 		i = i + 1
