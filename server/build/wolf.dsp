@@ -230,6 +230,10 @@ SOURCE=.\npc.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\party.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\persistentbroker.cpp
 # End Source File
 # Begin Source File
@@ -512,6 +516,10 @@ SOURCE=.\npc.h
 # Begin Source File
 
 SOURCE=.\python\objectcache.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\party.h
 # End Source File
 # Begin Source File
 
