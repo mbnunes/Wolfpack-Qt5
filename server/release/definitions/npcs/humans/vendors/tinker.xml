@@ -53,22 +53,19 @@
 				<item id="13f6"><amount>20</amount></item> <!-- Butcher Knife -->
 			</restockable>
 		</shopkeeper>
-		<lockpicking><random min="600" max="830"/></lockpicking>
-		<removetraps><random min="750" max="980"/></removetraps>
+		<alchemy><random min="600" max="830"/></alchemy>
 		<tinkering><random min="640" max="1000"/></tinkering>
 	</npc>
 
 	<!-- A tinker vendor -->
-	<npc id="tinker_male">
-		<inherit>vendor_male</inherit>
+	<npc id="tinker_male" inherit="vendor_male">
 		<title context="Vendor Male Titles">the Tinker</title>
 		<category>Vendors\Tinker (Male)</category>
 		<inherit id="tinker_inventory" />
 	</npc>
 	
 	<!-- A tinker vendor -->
-	<npc id="tinker_female">
-		<inherit>vendor_female</inherit>
+	<npc id="tinker_female" inherit="vendor_female">
 		<title context="Vendor Female Titles">the Tinker</title>
 		<category>Vendors\Tinker (Female)</category>
 		<inherit id="tinker_inventory" />

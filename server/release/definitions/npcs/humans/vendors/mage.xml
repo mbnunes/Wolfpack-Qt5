@@ -223,12 +223,10 @@
 		<magery><random min="640" max="1000" /></magery>
 		<meditation><random min="600" max="830" /></meditation>
 		<magicresist><random min="650" max="880" /></magicresist>
-		<wrestling><random min="360" max="680" /></wrestling>
 	</npc>
 
 	<!-- A mage vendor -->
-	<npc id="mage_male">
-		<inherit>vendor_male</inherit>
+	<npc id="mage_male" inherit="vendor_male">
 		<title context="Vendor Male Titles">the Mage</title>
 		<!-- The Equipment -->
 		<equipped>
@@ -240,8 +238,7 @@
 		<inherit id="mage_inventory" />
 	</npc>
 	
-	<npc id="mage_female">
-		<inherit>vendor_female</inherit>
+	<npc id="mage_female" inherit="vendor_female">
 		<title context="Vendor Female Titles">the Mage</title>
 		<equipped>
 			<item id="1f03" > <!-- Robe -->

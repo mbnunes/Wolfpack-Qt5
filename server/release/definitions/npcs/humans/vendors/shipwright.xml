@@ -7,39 +7,20 @@
 =================================================================
 -->
 <definitions>
-
 	<!-- A shipwright vendor -->
-	<npc id="shipwright_male">
-		<inherit>vendor_male</inherit>
+	<npc id="shipwright_male" inherit="vendor_male">
 		<title context="Vendor Male Titles">the Shipwright</title>
 		<equipped>
 			<item id="13e3" /> <!-- Smith's Hammer -->
 		</equipped>
-		<shopkeeper>
-			<restockable>
-			</restockable>
-			<sellable>
-			</sellable>
-		</shopkeeper>
-		<carpentry><random min="600" max="830" /></carpentry>
-		<macefighting><random min="360" max="680" /></macefighting>
 		<category>Vendors\Shipwright (Male)</category>
 	</npc>
 	
-	<npc id="shipwright_female">
-		<inherit>vendor_female</inherit>
+	<npc id="shipwright_female" inherit="vendor_female">
 		<title context="Vendor Female Titles">the Shipwright</title>
 		<equipped>
 			<item id="13e3" /> <!-- Smith's Hammer -->
 		</equipped>
-		<shopkeeper>
-			<restockable>
-			</restockable>
-			<sellable>
-			</sellable>
-		</shopkeeper>
-		<carpentry><random min="600" max="830" /></carpentry>
-		<macefighting><random min="360" max="680" /></macefighting>
 		<category>Vendors\Shipwright (Female)</category>
 	</npc>
 

@@ -9,14 +9,12 @@
 <definitions>
 
 	<!-- A spinner vendor -->
-	<npc id="spinner_male">
-		<inherit>vendor_male</inherit>
+	<npc id="spinner_male" inherit="vendor_male">
 		<title context="Vendor Male Titles">the Spinner</title>
 		<category>Vendors\Spinner (Male)</category>
 	</npc>
 	
-	<npc id="spinner_female">
-		<inherit>vendor_female</inherit>
+	<npc id="spinner_female" inherit="vendor_female">
 		<title context="Vendor Female Titles">the Spinner</title>
 		<category>Vendors\Spinner (Female)</category>
 	</npc>

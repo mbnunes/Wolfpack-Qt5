@@ -30,8 +30,6 @@
 		<musicianship><random min="640" max="1000" /></musicianship>
 		<peacemaking><random min="650" max="880" /></peacemaking>
 		<provocation><random min="600" max="830" /></provocation>
-		<archery><random min="360" max="680" /></archery>
-		<swordsmanship><random min="360" max="680" /></swordsmanship>
 	</npc>
 
 	<!-- A bard vendor -->

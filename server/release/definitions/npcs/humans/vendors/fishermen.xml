@@ -7,14 +7,7 @@
 =================================================================
 -->
 <definitions>
-
-	<!-- A fisherman vendor -->
-	<npc id="fisherman_male">
-		<inherit>vendor_male</inherit>
-		<title context="Vendor Male Titles">the Fisherman</title>
-		<equipped>
-			<item id="dbf" /> <!-- Fishing Pole -->
-		</equipped>
+	<npc id="fisher_inventory">
 		<shopkeeper>
 			<restockable>
 				<item id="97a"><amount>20</amount></item>
@@ -27,30 +20,23 @@
 				<item id="dc0" />
 			</sellable>
 		</shopkeeper>
+		<equipped>
+			<item id="dbf" /> <!-- Fishing Pole -->
+		</equipped>
 		<fishing><random min="750" max="980" /></fishing>
+	</npc>
+
+	<!-- A fisherman vendor -->
+	<npc id="fisherman_male" inherit="vendor_male">
+		<inherit id="fisher_inventory" />
+		<title context="Vendor Male Titles">the Fisherman</title>
 		<category>Vendors\Fisherman (Male)</category>
 	</npc>
 	
 	<!-- A fisherlady vendor -->
-	<npc id="fisherlady_female">
-		<inherit>vendor_female</inherit>
+	<npc id="fisherlady_female" inherit="vendor_female">
+		<inherit id="fisher_inventory" />
 		<title context="Vendor Female Titles">the Fisherlady</title>
-		<equipped>
-			<item id="dbf" /> <!-- Fishing Pole -->
-		</equipped>
-		<shopkeeper>
-			<restockable>
-				<item id="97a"><amount>20</amount></item>
-				<item id="9cc"><amount>20</amount></item>
-				<item id="dc0"><amount>20</amount></item>
-			</restockable>
-			<sellable>
-				<item id="97a" />
-				<item id="9cc" />
-				<item id="dc0" />
-			</sellable>
-		</shopkeeper>
-		<fishing><random min="750" max="980" /></fishing>
 		<category>Vendors\Fisherlady (Female)</category>
 	</npc>
 

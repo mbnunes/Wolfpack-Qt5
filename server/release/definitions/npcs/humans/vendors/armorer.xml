@@ -60,8 +60,6 @@
 				<item id="1b74"/>
 			</sellable>
 		</shopkeeper>
-		<armslore><random min="640" max="1000" /></armslore>
-		<blacksmithing><random min="600" max="830" /></blacksmithing>
 	</npc>
 
 	<!-- A armorer vendor -->
@@ -86,7 +84,6 @@
 			</item>
 			<item id="140d" /> <!-- Bascinet -->
 		</equipped>
-
 	</npc>
 
 </definitions>

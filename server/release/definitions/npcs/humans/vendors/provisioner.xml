@@ -47,20 +47,16 @@
 				<item id="plantbowl"><amount>20</amount></item> <!-- Plant Bowl -->
 			</restockable>
 		</shopkeeper>
-		<camping><random min="450" max="680" /></camping>
-		<tactics><random min="450" max="680" /></tactics>
 	</npc>
 
 	<!-- A provisioner vendor -->
-	<npc id="provisioner_male">
-		<inherit>vendor_male</inherit>
+	<npc id="provisioner_male" inherit="vendor_male">
 		<title context="Vendor Male Titles">the Provisioner</title>
 		<category>Vendors\Provisioner (Male)</category>
 		<inherit id="provisioner_inventory" />
 	</npc>
 	
-	<npc id="provisioner_female">
-		<inherit>vendor_female</inherit>
+	<npc id="provisioner_female" inherit="vendor_female">
 		<title context="Vendor Female Titles">the Provisioner</title>
 		<category>Vendors\Provisioner (Female)</category>
 		<inherit id="provisioner_inventory" />

@@ -20,6 +20,7 @@
 				<item id="commodity_deed"><amount>20</amount></item>
 			</restockable>
 		</shopkeeper>
+		<focus><random min="750" max="980" /></focus>
 	</npc>
 
 	<!-- Banker -->

@@ -50,15 +50,10 @@
 		</shopkeeper>
 		<armslore><random min="640" max="1000" /></armslore>
 		<blacksmithing><random min="650" max="880" /></blacksmithing>
-		<fencing><random min="450" max="680" /></fencing>
-		<macefighting><random min="450" max="680" /></macefighting>
-		<tactics><random min="360" max="680" /></tactics>
-		<swordsmanship><random min="450" max="680" /></swordsmanship>
 	</npc>
 
 	<!-- A weaponsmith vendor -->
-	<npc id="weaponsmith_male">
-		<inherit>vendor_male</inherit>
+	<npc id="weaponsmith_male" inherit="vendor_male">
 		<title context="Vendor Male Titles">the Weaponsmith</title>
 		<equipped>
 			<item id="153b" /> <!-- Half Apron -->
@@ -67,18 +62,11 @@
 		<inherit id="weaponsmith_inventory" />
 	</npc>
 	
-	<npc id="weaponsmith_female">
-		<inherit>vendor_female</inherit>
+	<npc id="weaponsmith_female" inherit="vendor_female">
 		<title context="Vendor Female Titles">the Weaponsmith</title>
 		<equipped>
 			<item id="153b" /> <!-- Half Apron -->
 		</equipped>
-		<shopkeeper>
-			<restockable>
-			</restockable>
-			<sellable>
-			</sellable>
-		</shopkeeper>
 		<category>Vendors\Weaponsmith (Female)</category>
 		<inherit id="weaponsmith_inventory" />
 	</npc>

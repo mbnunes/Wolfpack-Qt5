@@ -96,15 +96,13 @@
 	</npc>
 
 	<!-- A Tailor vendor -->
-	<npc id="tailor_male">
-		<inherit>vendor_male</inherit>
+	<npc id="tailor_male" inherit="vendor_male">
 		<title context="Vendor Male Titles">the Tailor</title>
 		<inherit id="tailor_inventory" />
 		<category>Vendors\Tailor (Male)</category>
 	</npc>
 
-	<npc id="tailor_female">
-		<inherit>vendor_female</inherit>
+	<npc id="tailor_female" inherit="vendor_female">
 		<title context="Vendor Female Titles">the Tailor</title>
 		<inherit id="tailor_inventory" />
 		<category>Vendors\Tailor (Female)</category>

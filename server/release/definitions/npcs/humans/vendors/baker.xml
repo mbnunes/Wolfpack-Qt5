@@ -41,7 +41,6 @@
 			</sellable>
 		</shopkeeper>
 		<cooking><random min="750" max="980" /></cooking>
-		<tasteidentification><random min="360" max="680" /></tasteidentification>
 	</npc>
 
 	<!-- A baker vendor -->

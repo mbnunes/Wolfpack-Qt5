@@ -47,9 +47,10 @@
 				<item id="f9e"/>
 			</sellable>
 		</shopkeeper>
+		<anatomy><random min="800" max="1000" /></anatomy>
+		<healing><random min="800" max="1000" /></healing>
 		<forensics><random min="800" max="1000" /></forensics>
 		<spiritspeak><random min="800" max="1000" /></spiritspeak>
-		<swordsmanship><random min="800" max="1000" /></swordsmanship>
 		<category>Vendors\Healer (Male)</category>
 	</npc>
 

@@ -38,25 +38,17 @@
 	</npc>
 
 	<!-- Stablemaster (no real vendor) -->
-	<npc id="stablemaster_male">
-		<inherit>vendor_male</inherit>
+	<npc id="stablemaster_male" inherit="vendor_male">
 		<ai>Human_Stablemaster</ai>
 		<title context="Vendor Male Titles">the Stablemaster</title>
-		<animallore><random min="640" max="1000"/></animallore>
-		<animaltaming><random min="900" max="1000"/></animaltaming>
-		<veterinary><random min="650" max="880"/></veterinary>
 		<category>Vendors\Stablemaster (Male)</category>		
 		<inherit>stablemaster_inventory</inherit>
 		<bindmenu>paperdoll_menu,stabler_menu,vendor_menu,train_menu</bindmenu>
 	</npc>
 	
-	<npc id="stablemaster_female">
-		<inherit>vendor_female</inherit>
+	<npc id="stablemaster_female" inherit="vendor_female">
 		<ai>Human_Stablemaster</ai>
 		<title context="Vendor Female Titles">the Stablemaster</title>
-		<animallore><random min="640" max="1000"/></animallore>
-		<animaltaming><random min="900" max="1000"/></animaltaming>
-		<veterinary><random min="650" max="880"/></veterinary>
 		<category>Vendors\Stablemaster (Female)</category>
 		<inherit>stablemaster_inventory</inherit>
 		<bindmenu>paperdoll_menu,stabler_menu,vendor_menu,train_menu</bindmenu>

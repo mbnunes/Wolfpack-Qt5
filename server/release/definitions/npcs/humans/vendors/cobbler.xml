@@ -7,11 +7,7 @@
 =================================================================
 -->
 <definitions>
-
-	<!-- A cobbler vendor -->
-	<npc id="cobbler_male">
-		<inherit>vendor_male</inherit>
-		<title context="Vendor Male Titles">the Cobbler</title>
+	<npc id="cobbler_inventory">
 		<shopkeeper>
 			<restockable>
 				<item id="170f"><amount>20</amount></item>
@@ -26,28 +22,16 @@
 				<item id="170d" />
 			</sellable>
 		</shopkeeper>
-		<tailoring><random min="600" max="830" /></tailoring>
+	</npc>
+
+	<!-- A cobbler vendor -->
+	<npc id="cobbler_male" inherit="vendor_male">
+		<title context="Vendor Male Titles">the Cobbler</title>
 		<category>Vendors\Cobbler (Male)</category>
 	</npc>
 	
-	<npc id="cobbler_female">
-		<inherit>vendor_female</inherit>
+	<npc id="cobbler_female" inherit="vendor_female">
 		<title context="Vendor Female Titles">the Cobbler</title>
-		<shopkeeper>
-			<restockable>
-				<item id="170f"><amount>20</amount></item>
-				<item id="170b"><amount>20</amount></item>
-				<item id="1711"><amount>20</amount></item>
-				<item id="170d"><amount>20</amount></item>
-			</restockable>
-			<sellable>
-				<item id="170f" />
-				<item id="170b" />
-				<item id="1711" />
-				<item id="170d" />
-			</sellable>
-		</shopkeeper>
-		<tailoring><random min="600" max="830" /></tailoring>
 		<category>Vendors\Cobbler (Female)</category>
 	</npc>
 

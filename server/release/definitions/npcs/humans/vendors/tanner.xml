@@ -45,18 +45,14 @@
 	</npc>
 
 	<!-- A tanner vendor -->
-	<npc id="tanner_male">
-		<inherit>vendor_male</inherit>
+	<npc id="tanner_male" inherit="vendor_male">
 		<title context="Vendor Male Titles">the Tanner</title>
-		<tailoring><random min="360" max="680"/></tailoring>
 		<category>Vendors\Tanner (Male)</category>
 		<inherit id="tanner_inventory" />
 	</npc>
 	
-	<npc id="tanner_female">
-		<inherit>vendor_female</inherit>
+	<npc id="tanner_female" inherit="vendor_female">
 		<title context="Vendor Female Titles">the Tanner</title>
-		<tailoring><random min="360" max="680"/></tailoring>
 		<category>Vendors\Tanner (Female)</category>
 		<inherit id="tanner_inventory" />
 	</npc>

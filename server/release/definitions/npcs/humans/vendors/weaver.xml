@@ -19,6 +19,7 @@
 				<item id="e1d"><amount>20</amount></item> <!-- Dark Yarn -->
 			</restockable>
 		</shopkeeper>
+		<tailoring><random min="650" max="880" /></tailoring>
 	</npc>
 
 	<!-- A weaver vendor -->
