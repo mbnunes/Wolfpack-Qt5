@@ -132,7 +132,7 @@ def follow_target(char, arguments, target):
 	pet = wolfpack.findchar(pet)
 	if all:
 		for follower in char.followers:
-			go_target(char, [follower.serial, 0], target)
+			follower.follow(target.char)
 	elif pet and (pet.owner == char or char.gm) and pet.distanceto(char) < 18:
 		#char.socket.sysmessage('Pet following:' + str(target.char.serial))
 		pet.guarding = None
@@ -183,7 +183,7 @@ def onSpeech(pet, char, text, keywords):
 	
 		# All Follow
 		elif 232 in keywords and 346 in keywords and 357 in keywords:
-			#char.socket.sysmessage('zzz all follow')
+			char.socket.sysmessage('zzz all follow')
 			follow(char, pet, 1)
 			return 1
 		
