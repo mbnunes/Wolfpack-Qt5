@@ -164,7 +164,7 @@ def onUse( char, item ):
 
 def ammoType( char ):
 	# Bows & Crossbows are on layer 1
-	# Composite Bow and Repeating Crossbow on layer 2
+	# Yumi, Composite Bow and Repeating Crossbow on layer 2
 	item = char.getweapon()
 
 	if( item == None ):
@@ -188,6 +188,10 @@ def ammoType( char ):
 	# Repeating Crossbow
 	if( item.id == 0x26c3 or item.id == 0x26cd ):
 		return 0x1bfb
+
+	# Yumi
+	if( item.id == 0x27a5 or item.id == 0x27f0 ):
+		return 0xf3f
 
 	# Unknown Weapon
 	return -1
