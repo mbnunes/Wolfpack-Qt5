@@ -173,7 +173,7 @@ void cTiming::poll() {
 			// 60 Seconds without melee contact and
 			// combatants are out of range...
 			if (info->lastaction() + 60000 <= time) {
-				if (info->victim()->isDead() || info->attacker()->isDead() &&
+				if (info->victim()->isDead() || info->attacker()->isDead() ||
 					!info->attacker()->inRange(info->victim(), Config::instance()->attack_distance())) {
 					todelete.append(info);
 				}
