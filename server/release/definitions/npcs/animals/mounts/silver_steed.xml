@@ -1,0 +1,14 @@
+
+<definitions>
+
+	<!-- Silver Steeds -->
+	<npc id="steed_silver">
+		<name>silver steed</name>
+		<ai>Animal_Wild</ai>
+		<id>0x75</id>
+		<category>Animals\Mounts\Silver Steed (Weak)</category>
+		<inherit id="nightmare_1" />
+		<ai>1</ai>
+	</npc>
+
+</definitions>

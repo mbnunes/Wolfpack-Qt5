@@ -1,0 +1,30 @@
+
+<definitions>
+
+	<!-- Cat -->
+	<npc id="cat">
+		<name>a cat</name>
+		<id>0xc9</id>
+		<ai>Animal_Domestic</ai>
+		<category>Animals\Feline\Cat</category>
+		<skin><random list="SKINS_ANIMAL" /></skin>
+		<inherit id="animal_base" />
+		<karma>150</karma>
+		<fame>0</fame>
+		<defense><random min="5" max="10" /></defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<!-- Stats -->
+		<str>9</str>
+		<dex>35</dex>
+		<int>5</int>
+		<!-- Skills -->
+		<wrestling>50</wrestling>
+		<tactics>40</tactics>
+		<magicresistance>50</magicresistance>
+		<totame>0</totame>
+		<food>0</food>
+		<carve>carve_cat</carve>
+	</npc>
+
+</definitions>

@@ -1,0 +1,13 @@
+
+<definitions>
+
+	<!-- Dark Steeds -->
+	<npc id="steed_dark">
+		<name>a dark steed</name>
+		<ai>Animal_Wild</ai>
+		<id>0x74</id>
+		<category>Animals\Mounts\Dark Steed</category>
+		<inherit id="nightmare_1" />
+	</npc>
+
+</definitions>

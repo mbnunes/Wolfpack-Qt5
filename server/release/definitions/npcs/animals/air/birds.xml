@@ -1,0 +1,30 @@
+
+<definitions>
+
+	<!-- birds -->
+	<npc id="bird">
+		<name><random list="NAMES_BIRD" /></name>
+		<ai>Animal_Wild</ai>
+		<id>0x6</id>
+		<category>Animals\Birds\Random Bird</category>
+		<skin><random list="SKINS_BIRD" /></skin>
+		<inherit id="animal_base" />
+		<karma>0</karma>
+		<fame>150</fame>
+		<defense><random min="0" max="3" /></defense>
+		<lodamage>1</lodamage>
+		<hidamage>3</hidamage>
+		<!-- Stats -->
+		<str><random min="3" max="8" /></str>
+		<dex><random min="15" max="25" /></dex>
+		<int><random min="1" max="4" /></int>
+		<!-- Skills -->
+		<wrestling><random min="50" max="50" /></wrestling>
+		<tactics><random min="50" max="50" /></tactics>
+		<magicresistance><random min="50" max="50" /></magicresistance>
+		<totame>0</totame>
+		<food>3</food>
+		<carve>carve_bird</carve>
+	</npc>
+
+</definitions>

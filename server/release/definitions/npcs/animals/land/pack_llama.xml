@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Pack Llama -->
+	<npc id="pack_llama">
+		<name>a llama</name>
+		<id>0x124</id>
+		<ai>Animal_Domestic</ai>
+		<category>Animals\Pack\Pack Llama</category>
+		<inherit id="animal_base" />
+		<karma><random min="0" max="624" /></karma>
+		<fame><random min="0" max="1249" /></fame>
+		<defense><random min="5" max="10" /></defense>
+		<lodamage>2</lodamage>
+		<hidamage>8</hidamage>
+		<!-- Stats -->
+		<str><random min="52" max="80" /></str>
+		<dex><random min="36" max="55" /></dex>
+		<int><random min="16" max="30" /></int>
+		<!-- Skills -->
+		<wrestling><random min="192" max="290" /></wrestling>
+		<tactics><random min="192" max="290" /></tactics>
+		<magicresistance><random min="151" max="200" /></magicresistance>
+		<totame>291</totame>
+		<food>3</food>
+		<carve>carve_lama_pack</carve>
+	</npc>
+
+</definitions>

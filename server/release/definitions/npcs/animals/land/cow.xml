@@ -1,0 +1,38 @@
+
+<definitions>
+
+	<!-- Cow (black & white) -->
+	<npc id="cow_black">
+		<name>a cow</name>
+		<id>0xD8</id>
+		<ai>Animal_Domestic</ai>
+		<category>Animals\Land\Cow (black and white)</category>
+		<skin>0</skin>
+		<inherit id="animal_base" />
+		<karma>0</karma>
+		<fame>300</fame>
+		<defense><random min="5" max="15" /></defense>
+		<lodamage>1</lodamage>
+		<hidamage>4</hidamage>
+		<!-- Stats -->
+		<str>30</str>
+		<dex>15</dex>
+		<int>5</int>
+		<!-- Skills -->
+		<wrestling>55</wrestling>
+		<tactics>55</tactics>
+		<magicresistance>55</magicresistance>
+		<totame>111</totame>
+		<food>6</food>
+		<carve>carve_cow_black</carve>
+	</npc>
+
+	<!-- Cow (brown) -->
+	<npc id="cow_brown">
+		<inherit id="cow_black" />
+		<name>a cow</name>
+		<id>0xE7</id>
+		<category>Animals\Land\Cow (brown)</category>
+	</npc>
+
+</definitions>

@@ -1,0 +1,53 @@
+
+<definitions>
+
+	<!-- Goat -->
+	<npc id="goat">
+		<name>a goat</name>
+		<id>0xd1</id>
+		<ai>Animal_Domestic</ai>
+		<inherit id="animal_base" />
+		<karma>0</karma>
+		<fame>150</fame>
+		<defense><random min="5" max="15" /></defense>
+		<lodamage>3</lodamage>
+		<hidamage>4</hidamage>
+		<!-- Stats -->
+		<str>19</str>
+		<dex>15</dex>
+		<int>5</int>
+		<!-- Skills -->
+		<wrestling>50</wrestling>
+		<tactics>50</tactics>
+		<magicresistance>50</magicresistance>
+		<totame>111</totame>
+		<food>0</food>
+		<carve>carve_goat</carve>
+	</npc>
+
+	<!-- Mountain Goat -->
+	<npc id="mountain_goat">
+		<inherit id="animal_base" />
+		<ai>Animal_Wild</ai>
+		<name>a mountain goat</name>
+		<id>0x1d</id>
+		<category>Animals\Land\Mountain Goat</category>
+		<karma>0</karma>
+		<fame>300</fame>
+		<defense><random min="10" max="20" /></defense>
+		<lodamage>4</lodamage>
+		<hidamage>9</hidamage>
+		<!-- Stats -->
+		<str><random min="22" max="64" /></str>
+		<dex><random min="56" max="75" /></dex>
+		<int><random min="16" max="30" /></int>
+		<!-- Skills -->
+		<wrestling><random min="293" max="440" /></wrestling>
+		<tactics><random min="293" max="440" /></tactics>
+		<magicresistance><random min="251" max="300" /></magicresistance>
+		<totame>0</totame>
+		<food>1</food>
+		<carve></carve>
+	</npc>
+
+</definitions>

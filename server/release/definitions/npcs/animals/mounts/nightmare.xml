@@ -1,0 +1,49 @@
+
+<definitions>
+
+	<!-- Nightmares 1 -->
+	<npc id="nightmare_1">
+		<name>a nightmare</name>
+		<id>0x74</id>
+		<category>Animals\Mounts\Nightmare 1</category>
+		<inherit id="monster_base" />
+		<bindmenu>tame_menu</bindmenu>
+		<karma>-14000</karma>
+		<fame>14000</fame>
+		<defense><random min="55" max="65" /></defense>
+		<lodamage>50</lodamage>
+		<hidamage>70</hidamage>
+		<str><random min="496" max="525" /></str>
+		<dex><random min="86" max="105" /></dex>
+		<int><random min="86" max="125" /></int>
+		<wrestling><random min="805" max="925" /></wrestling>
+		<tactics><random min="976" max="1000" /></tactics>
+		<magicresistance><random min="853" max="1000" /></magicresistance>
+		<magery><random min="104" max="500" /></magery>
+		<evaluatingintel><random min="104" max="500" /></evaluatingintel>
+		<totame>951</totame>
+		<food>1</food>
+	</npc>
+
+	<!-- Nightmares 2 -->
+	<npc id="nightmare_2">
+		<inherit id="nightmare_1" />
+		<id>0xb1</id>
+		<category>Animals\Mounts\Nightmare 2</category>
+	</npc>
+
+	<!-- Nightmares 3 -->
+	<npc id="nightmare_3">
+		<inherit id="nightmare_1" />
+		<id>0xb2</id>
+		<category>Animals\Mounts\Nightmare 3</category>
+	</npc>
+
+	<!-- Nightmares 4 -->
+	<npc id="nightmare_4">
+		<inherit id="nightmare_1" />
+		<id>0xb3</id>
+		<category>Animals\Mounts\Nightmare 4</category>
+	</npc>
+
+</definitions>

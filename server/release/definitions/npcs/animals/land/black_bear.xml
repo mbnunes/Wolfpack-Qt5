@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Black Bear-->
+	<npc id="black_bear">
+		<inherit id="animal_base" />
+		<name>a black bear</name>
+		<ai>Animal_Wild</ai>
+		<id>0xd3</id>
+		<karma>0</karma>
+		<fame>450</fame>
+		<defense><random min="20" max="25" /></defense>
+		<lodamage>6</lodamage>
+		<hidamage>16</hidamage>
+		<!-- Stats -->
+		<str><random min="76" max="100" /></str>
+		<dex><random min="56" max="75" /></dex>
+		<int><random min="11" max="14" /></int>
+		<!-- Skills -->
+		<wrestling><random min="401" max="600" /></wrestling>
+		<tactics><random min="401" max="600" /></tactics>
+		<magicresistance><random min="201" max="400" /></magicresistance>
+		<totame>351</totame>
+		<food>1</food>
+		<carve>carve_bear_d_brown</carve>
+		<category>Animals\Bears\Black Bear</category>
+	</npc>
+
+</definitions>

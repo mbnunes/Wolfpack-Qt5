@@ -1,0 +1,30 @@
+
+<definitions>
+
+	<!-- Rabbit -->
+	<npc id="rabbit">
+		<name>a rabbit</name>
+		<id>0xcd</id>
+		<ai>Animal_Wild</ai>
+		<category>Animals\Rabbits\Rabbit</category>
+		<skin><random list="SKINS_ANIMAL" /></skin>
+		<inherit id="animal_base" />
+		<karma>-150</karma>
+		<fame>150</fame>
+		<defense><random min="5" max="10" /></defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<!-- Stats -->
+		<str><random min="6" max="10" /></str>
+		<dex><random min="26" max="38" /></dex>
+		<int><random min="6" max="14" /></int>
+		<!-- Skills -->
+		<wrestling>50</wrestling>
+		<tactics>50</tactics>
+		<magicresistance>50</magicresistance>
+		<totame>0</totame>
+		<food>0</food>
+		<carve>carve_bunny</carve>
+	</npc>
+
+</definitions>

@@ -1,0 +1,48 @@
+
+<definitions>
+
+	<!-- Ridgebacks -->
+	<npc id="ridgeback">
+		<name>a ridgeback</name>
+		<id>0x187</id>
+		<ai>Animal_Wild</ai>
+		<category>Animals\Mounts\Ridgeback</category>
+		<inherit id="animal_base" />
+		<karma>0</karma>
+		<fame>300</fame>
+		<defense><random min="15" max="25" /></defense>
+		<lodamage>4</lodamage>
+		<hidamage>7</hidamage>
+		<str><random min="58" max="100" /></str>
+		<dex><random min="56" max="75" /></dex>
+		<int><random min="16" max="30" /></int>
+		<wrestling><random min="351" max="450" /></wrestling>
+		<tactics><random min="293" max="440" /></tactics>
+		<magicresistance><random min="253" max="400" /></magicresistance>
+		<totame>831</totame>
+		<food>5</food>
+	</npc>
+
+	<!-- Savage Ridgebacks -->
+	<npc id="savage_ridgeback">
+		<name>a savage ridgeback</name>
+		<id>0x188</id>
+		<ai>Animal_Wild</ai>
+		<category>Animals\Mounts\Savage Ridgeback</category>
+		<inherit id="animal_base" />
+		<karma>0</karma>
+		<fame>300</fame>
+		<defense><random min="15" max="20" /></defense>
+		<lodamage>4</lodamage>
+		<hidamage>7</hidamage>
+		<str><random min="58" max="100" /></str>
+		<dex><random min="56" max="75" /></dex>
+		<int><random min="16" max="30" /></int>
+		<wrestling><random min="351" max="450" /></wrestling>
+		<tactics><random min="293" max="440" /></tactics>
+		<magicresistance><random min="253" max="400" /></magicresistance>
+		<totame>831</totame>
+		<food>5</food>
+	</npc>
+
+</definitions>

@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- White Wolf -->
+	<npc id="white_wolf">
+		<name>a white wolf</name>
+		<id>0x1d</id>
+		<category>Animals\Canine\White Wolf</category>
+		<ai>Animal_Wild</ai>
+		<inherit id="animal_base" />
+		<karma><random min="0" max="-624" /></karma>
+		<fame><random min="0" max="1249" /></fame>
+		<defense><random min="15" max="20" /></defense>
+		<lodamage>4</lodamage>
+		<hidamage>10</hidamage>
+		<!-- Stats -->
+		<str><random min="56" max="80" /></str>
+		<dex><random min="56" max="75" /></dex>
+		<int><random min="31" max="55" /></int>
+		<!-- Skills -->
+		<wrestling><random min="451" max="600" /></wrestling>
+		<tactics><random min="451" max="600" /></tactics>
+		<magicresistance><random min="201" max="350" /></magicresistance>
+		<totame>651</totame>
+		<food>1</food>
+		<carve></carve>
+	</npc>
+
+</definitions>

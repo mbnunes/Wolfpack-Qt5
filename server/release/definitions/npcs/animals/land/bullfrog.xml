@@ -1,0 +1,30 @@
+
+<definitions>
+
+	<!-- Bullfrog -->
+	<npc id="bullfrog">
+		<name>a bullfrog</name>
+		<id>0x51</id>
+		<ai>Animal_Wild</ai>
+		<skin><random list="SKINS_SNAKE" /></skin>
+		<category>Animals\Land\Bullfrog</category>
+		<inherit id="animal_base" />
+		<karma>0</karma>
+		<fame>350</fame>
+		<defense><random min="5" max="10" /></defense>
+		<lodamage>1</lodamage>
+		<hidamage>2</hidamage>
+		<!-- Stats -->
+		<str><random min="46" max="70" /></str>
+		<dex><random min="6" max="25" /></dex>
+		<int><random min="11" max="20" /></int>
+		<!-- Skills -->
+		<wrestling><random min="401" max="600" /></wrestling>
+		<tactics><random min="401" max="600" /></tactics>
+		<magicresistance><random min="251" max="400" /></magicresistance>
+		<totame>231</totame>
+		<food>0</food>
+		<carve>carve_bullfrog</carve>
+	</npc>
+
+</definitions>

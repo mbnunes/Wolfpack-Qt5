@@ -1,0 +1,50 @@
+
+<definitions>
+
+	<!-- Gray Horses -->
+	<npc id="horse_1">
+		<name>a horse</name>
+		<id>0xe2</id>
+		<category>Animals\Mounts\Horse 1 (Gray)</category>
+		<ai>Animal_Wild</ai>
+		<inherit id="animal_base" />
+		<karma>300</karma>
+		<fame>300</fame>
+		<defense><random min="15" max="20" /></defense>
+		<lodamage>4</lodamage>
+		<hidamage>6</hidamage>
+		<str><random min="22" max="98" /></str>
+		<dex><random min="56" max="75" /></dex>
+		<int><random min="6" max="10" /></int>
+		<wrestling><random min="293" max="440" /></wrestling>
+		<tactics><random min="293" max="440" /></tactics>
+		<magicresistance><random min="251" max="300" /></magicresistance>
+		<totame>291</totame>
+		<food>5</food>
+	</npc>
+
+	<!-- Gray Brown Horses -->
+	<npc id="horse_2">
+		<name>a horse</name>
+		<id>0xe4</id>
+		<category>Animals\Mounts\Horse 2 (Gray/Brown)</category>
+		<inherit id="horse_1" />
+	</npc>
+
+	<!-- Light Brown Horses -->
+	<npc id="horse_3">
+		<name>a horse</name>
+		<id>0xc8</id>
+		<category>Animals\Mounts\Horse 3 (Light Brown)</category>
+		<inherit id="horse_1" />
+	</npc>
+
+	<!-- Brown Horses -->
+	<npc id="horse_4">
+		<name>horse</name>
+		<id>0xcc</id>
+		<category>Animals\Mounts\Horse 4 (Brown)</category>
+		<inherit id="horse_1" />
+	</npc>
+
+</definitions>

@@ -7,6 +7,7 @@
 =================================================================
 -->
 <definitions>
+
 	<list id="SKINS_HUMAN">
 		<item>0x3ea</item>
 		<item>0x3eb</item>
@@ -66,4 +67,222 @@
 		<item>0x421</item>
 		<item>0x422</item>
 	</list>
+
+	<list id="SKINS_BIRD">
+		<!-- 0x835 - 0x852 -->
+		<item>0x835</item>
+		<item>0x836</item>
+		<item>0x837</item>
+		<item>0x838</item>
+		<item>0x839</item>
+		<item>0x83a</item>
+		<item>0x83b</item>
+		<item>0x83c</item>
+		<item>0x83d</item>
+		<item>0x83e</item>
+		<item>0x83f</item>
+		<item>0x840</item>
+		<item>0x841</item>
+		<item>0x842</item>
+		<item>0x843</item>
+		<item>0x845</item>
+		<item>0x846</item>
+		<item>0x847</item>
+		<item>0x848</item>
+		<item>0x849</item>
+		<item>0x84a</item>
+		<item>0x84b</item>
+		<item>0x84c</item>
+		<item>0x84d</item>
+		<item>0x84e</item>
+		<item>0x84f</item>
+		<item>0x850</item>
+		<item>0x851</item>
+		<item>0x852</item>
+	</list>
+
+	<list id="SKINS_SNAKE">
+		<!-- 0x7d1 - 0x7e2  -->
+		<item>0x7d1</item>
+		<item>0x7d2</item>
+		<item>0x7d3</item>
+		<item>0x7d4</item>
+		<item>0x7d5</item>
+		<item>0x7d6</item>
+		<item>0x7d7</item>
+		<item>0x7d8</item>
+		<item>0x7d9</item>
+		<item>0x7da</item>
+		<item>0x7db</item>
+		<item>0x7dc</item>
+		<item>0x7dd</item>
+		<item>0x7de</item>
+		<item>0x7df</item>
+		<item>0x7e0</item>
+		<item>0x7e1</item>
+		<item>0x7e2</tem>
+	</list>
+
+	<list id="SKINS_SLIME">
+		<!-- 0x899 - 0x8b0 -->
+		<item>0x899</item>
+		<item>0x89a</item>
+		<item>0x89b</item>
+		<item>0x89c</item>
+		<item>0x89d</item>
+		<item>0x89e</item>
+		<item>0x89f</item>
+		<item>0x8a0</item>
+		<item>0x8a1</item>
+		<item>0x8a2</item>
+		<item>0x8a3</item>
+		<item>0x8a4</item>
+		<item>0x8a5</item>
+		<item>0x8a6</item>
+		<item>0x8a7</item>
+		<item>0x8a8</item>
+		<item>0x8a9</item>
+		<item>0x8aa</item>
+		<item>0x8ab</item>
+		<item>0x8ac</item>
+		<item>0x8ad</item>
+		<item>0x8ae</item>
+		<item>0x8af</item>
+		<item>0x8b0</item>
+	</list>
+
+	<list id="SKINS_NEUTRAL">
+		<!-- 0x709 - 0x774 -->
+		<item>0x709</item>
+		<item>0x70a</item>
+		<item>0x70b</item>
+		<item>0x70c</item>
+		<item>0x70d</item>
+		<item>0x70e</item>
+		<item>0x70f</item>
+		<item>0x710</item>
+		<item>0x711</item>
+		<item>0x712</item>
+		<item>0x713</item>
+		<item>0x714</item>
+		<item>0x715</item>
+		<item>0x716</item>
+		<item>0x717</item>
+		<item>0x718</item>
+		<item>0x719</item>
+		<item>0x71a</item>
+		<item>0x71b</item>
+		<item>0x71c</item>
+		<item>0x71d</item>
+		<item>0x71e</item>
+		<item>0x71f</item>
+		<item>0x720</item>
+		<item>0x721</item>
+		<item>0x722</item>
+		<item>0x723</item>
+		<item>0x724</item>
+		<item>0x725</item>
+		<item>0x726</item>
+		<item>0x727</item>
+		<item>0x728</item>
+		<item>0x729</item>
+		<item>0x72a</item>
+		<item>0x72b</item>
+		<item>0x72c</item>
+		<item>0x72d</item>
+		<item>0x72e</item>
+		<item>0x72f</item>
+		<item>0x730</item>
+		<item>0x731</item>
+		<item>0x732</item>
+		<item>0x733</item>
+		<item>0x734</item>
+		<item>0x735</item>
+		<item>0x736</item>
+		<item>0x737</item>
+		<item>0x738</item>
+		<item>0x739</item>
+		<item>0x73a</item>
+		<item>0x73b</item>
+		<item>0x73c</item>
+		<item>0x73d</item>
+		<item>0x73e</item>
+		<item>0x73f</item>
+		<item>0x740</item>
+		<item>0x741</item>
+		<item>0x742</item>
+		<item>0x743</item>
+		<item>0x744</item>
+		<item>0x745</item>
+		<item>0x746</item>
+		<item>0x747</item>
+		<item>0x748</item>
+		<item>0x749</item>
+		<item>0x74a</item>
+		<item>0x74b</item>
+		<item>0x74c</item>
+		<item>0x74d</item>
+		<item>0x74e</item>
+		<item>0x74f</item>
+		<item>0x750</item>
+		<item>0x751</item>
+		<item>0x752</item>
+		<item>0x753</item>
+		<item>0x754</item>
+		<item>0x755</item>
+		<item>0x756</item>
+		<item>0x757</item>
+		<item>0x758</item>
+		<item>0x759</item>
+		<item>0x75a</item>
+		<item>0x75b</item>
+		<item>0x75c</item>
+		<item>0x75d</item>
+		<item>0x75e</item>
+		<item>0x75f</item>
+		<item>0x760</item>
+		<item>0x761</item>
+		<item>0x762</item>
+		<item>0x763</item>
+		<item>0x764</item>
+		<item>0x765</item>
+		<item>0x766</item>
+		<item>0x767</item>
+		<item>0x768</item>
+		<item>0x769</item>
+		<item>0x76a</item>
+		<item>0x76b</item>
+		<item>0x76c</item>
+		<item>0x76d</item>
+		<item>0x76e</item>
+		<item>0x76f</item>
+		<item>0x770</item>
+		<item>0x771</item>
+		<item>0x772</item>
+		<item>0x773</item>
+		<item>0x774</item>
+	</list>
+
+	<list id="SKINS_ANIMAL">
+		<!-- 0x8fd - 0x90e -->
+		<item>0x8fd</item>
+		<item>0x8fe</item>
+		<item>0x8ff</item>
+		<item>0x900</item>
+		<item>0x901</item>
+		<item>0x902</item>
+		<item>9x903</item>
+		<item>9x904</item>
+		<item>9x905</item>
+		<item>9x906</item>
+		<item>9x907</item>
+		<item>9x908</item>
+		<item>9x909</item>
+		<item>9x90a</item>
+		<item>9x90b</item>
+		<item>9x90c</item>
+		<item>9x90d</item>
+		<item>9x90e</item>
+	</list>
+
 </definitions>

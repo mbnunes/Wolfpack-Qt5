@@ -1,0 +1,37 @@
+
+<definitions>
+
+	<!-- Sheep (sheered) -->
+	<npc id="sheep_sheered">
+		<name>a sheep</name>
+		<id>0xdf</id>
+		<ai>Animal_Domestic</ai>
+		<category>Animals\Farm\Sheep (sheered)</category>
+		<inherit id="animal_base" />
+		<karma>0</karma>
+		<fame>300</fame>
+		<defense><random min="5" max="10" /></defense>
+		<lodamage>1</lodamage>
+		<hidamage>2</hidamage>
+		<!-- Stats -->
+		<str>19</str>
+		<dex>25</dex>
+		<int>5</int>
+		<!-- Skills -->
+		<wrestling>50</wrestling>
+		<tactics>60</tactics>
+		<magicresistance>50</magicresistance>
+		<totame>111</totame>
+		<food>5</food>
+		<carve>carve_sheep_sheered</carve>
+	</npc>
+
+	<!-- Sheep (unsheered) -->
+	<npc id="sheep_unsheered">
+		<inherit id="sheep_sheered" />
+		<id>0xcf</id>
+		<category>Animals\Land\Sheep (unsheered)</category>
+		<carve>carve_sheep_unsheered</carve>
+	</npc>
+
+</definitions>

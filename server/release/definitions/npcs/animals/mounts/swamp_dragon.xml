@@ -1,0 +1,55 @@
+
+<definitions>
+
+	<!-- Swamp Dragon -->
+	<npc id="swamp_dragon_1">
+		<name>a swamp dragon</name>
+		<id>0x31a</id>
+		<category>Animals\Mounts\Swamp Dragon</category>
+		<inherit id="monster_base" />
+		<bindmenu>tame_menu</bindmenu>
+		<karma>-2000</karma>
+		<fame>2000</fame>
+		<defense><random min="35" max="40" /></defense>
+		<lodamage>7</lodamage>
+		<hidamage>9</hidamage>
+		<str><random min="201" max="300" /></str>
+		<dex><random min="66" max="85" /></dex>
+		<int><random min="61" max="100" /></int>
+		<wrestling><random min="451" max="550" /></wrestling>
+		<tactics><random min="451" max="550" /></tactics>
+		<magicresistance><random min="451" max="550" /></magicresistance>
+		<anatomy><random min="451" max="550" /></anatomy>
+		<totame>939</totame>
+		<food>1</food>
+	</npc>
+
+	<!-- Armored Swamp Dragons -->
+	<npc id="swamp_dragon_2">
+		<name>a swamp dragon</name>
+		<id>0x31f</id>
+		<category>Animals\Mounts\Armored Swamp Dragon (Weak)</category>
+		<inherit id="swampdragon_1" />
+	</npc>
+
+	<!-- Armored Swamp Dragons -->
+	<npc id="swamp_dragon_3">
+		<name>a swamp dragon</name>
+		<id>0x31f</id>
+		<category>Animals\Mounts\Armored Swamp Dragon (Strong)</category>
+		<inherit id="swampdragon_2" />
+		<karma>-3500</karma>
+		<fame>3500</fame>
+		<defense><random min="40" max="45" /></defense>
+		<lodamage>9</lodamage>
+		<hidamage>11</hidamage>
+		<str><random min="250" max="350" /></str>
+		<dex><random min="85" max="100" /></dex>
+		<int><random min="90" max="150" /></int>
+		<wrestling><random min="850" max="1000" /></wrestling>
+		<tactics><random min="850" max="1000" /></tactics>
+		<magicresistance><random min="850" max="1000" /></magicresistance>
+		<anatomy><random min="850" max="1000" /></anatomy>
+	</npc>
+
+</definitions>

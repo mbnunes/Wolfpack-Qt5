@@ -1,0 +1,25 @@
+
+<definitions>
+
+	<!-- Fire Steed -->
+	<npc id="steed_fire">
+		<name>a fire steed</name>
+		<id>0xbe</id>
+		<category>Animals\Mounts\Fire Steed</category>
+		<inherit id="monster_base" />
+		<karma>-20000</karma>
+		<fame>-20000</fame>
+		<defense><random min="52" max="58" /></defense>
+		<lodamage>34</lodamage>
+		<hidamage>86</hidamage>
+		<str><random min="376" max="400" /></str>
+		<dex><random min="91" max="120" /></dex>
+		<int><random min="291" max="300" /></int>
+		<wrestling>1000</wrestling>
+		<tactics>1000</tactics>
+		<magicresistance><random min="1000" max="1200" /></magicresistance>
+		<totame>1060</totame>
+		<food>1</food>
+	</npc>
+
+</definitions>

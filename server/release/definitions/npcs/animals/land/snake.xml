@@ -1,0 +1,32 @@
+
+<definitions>
+
+	<!-- Snake -->
+	<npc id="snake">
+		<name>a snake</name>
+		<id>0x34</id>
+		<ai>Animal_Wild</ai>
+		<category>Animals\Land\Snake</category>
+		<skin><random list="SKINS_SNAKE" /></skin>
+		<inherit id="animal_base" />
+		<karma>-300</karma>
+		<fame>300</fame>
+		<defense>16</defense>
+		<lodamage>1</lodamage>
+		<hidamage>5</hidamage>
+		<poison>1</poison>
+		<!-- Stats -->
+		<str><random min="22" max="34" /></str>
+		<dex><random min="16" max="25" /></dex>
+		<int><random min="6" max="10" /></int>
+		<!-- Skills -->
+		<wrestling><random min="193" max="340" /></wrestling>
+		<tactics><random min="193" max="340" /></tactics>
+		<magicresistance><random min="151" max="200" /></magicresistance>
+		<poisoning><random min="501" max="700" /></poisoning>
+		<totame>591</totame>
+		<food>0</food>
+		<carve>carve_snake</carve>
+	</npc>
+
+</definitions>

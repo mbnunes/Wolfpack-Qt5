@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Great Hart -->
+	<npc id="great_heart">
+		<name>a great hart</name>
+		<id>0xea</id>
+		<ai>Animal_Wild</ai>
+		<category>Animals\Land\Great Hart</category>
+		<inherit id="animal_base" />
+		<karma>0</karma>
+		<fame>300</fame>
+		<defense><random min="20" max="25" /></defense>
+		<lodamage>7</lodamage>
+		<hidamage>13</hidamage>
+		<!-- Stats -->
+		<str><random min="41" max="71" /></str>
+		<dex><random min="47" max="77" /></dex>
+		<int><random min="27" max="57" /></int>
+		<!-- Skills -->
+		<wrestling><random min="298" max="475" /></wrestling>
+		<tactics><random min="298" max="475" /></tactics>
+		<magicresistance><random min="268" max="445" /></magicresistance>
+		<totame>591</totame>
+		<food>0</food>
+		<carve>carve_hart_great</carve>
+	</npc>
+
+</definitions>

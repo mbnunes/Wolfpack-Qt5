@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Brown Bear -->
+	<npc id="brown_bear">
+		<inherit id="animal_base" />
+		<name>a brown bear</name>
+		<id>0xa7</id>
+		<ai>Animal_Wild</ai>
+		<category>Animals\Bears\Brown Bear</category>
+		<karma>0</karma>
+		<fame>450</fame>
+		<defense><random min="20" max="30" /></defense>
+		<lodamage>9</lodamage>
+		<hidamage>19</hidamage>
+		<!-- Stats -->
+		<str><random min="76" max="100" /></str>
+		<dex><random min="26" max="46" /></dex>
+		<int><random min="23" max="47" /></int>
+		<!-- Skills -->
+		<wrestling><random min="401" max="600" /></wrestling>
+		<tactics><random min="401" max="600" /></tactics>
+		<magicresistance><random min="251" max="350" /></magicresistance>
+		<totame>411</totame>
+		<food>1</food>
+		<carve>carve_bear_d_brown</carve>
+	</npc>
+
+</definitions>

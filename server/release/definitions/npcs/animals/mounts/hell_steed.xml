@@ -1,0 +1,25 @@
+
+<definitions>
+
+	<!-- Hellsteed -->
+	<npc id="hellsteed">
+		<name>a hellsteed</name>
+		<id>0x319</id>
+		<category>Animals\Mounts\Hellsteed</category>
+		<inherit id="monster_base" />
+		<bindmenu>tame_menu</bindmenu>
+		<karma>0</karma>
+		<fame>0</fame>
+		<defense><random min="60" max="70" /></defense>
+		<lodamage>40</lodamage>
+		<hidamage>47</hidamage>
+		<str><random min="201" max="210" /></str>
+		<dex><random min="101" max="110" /></dex>
+		<int><random min="101" max="115" /></int>
+		<wrestling><random min="901" max="1100" /></wrestling>
+		<tactics><random min="500" max="500" /></tactics>
+		<magicresistance><random min="901" max="1100" /></magicresistance>
+		<totame>291</totame>
+	</npc>
+
+</definitions>

@@ -1,0 +1,55 @@
+
+<definitions>
+
+	<!-- Chicken -->
+	<npc id="chicken">
+		<name>a chicken</name>
+		<ai>Animal_Domestic</ai>
+		<id>0xd0</id>
+		<category>Animals\Birds\Chicken</category>
+		<inherit id="animal_base" />
+		<karma>0</karma>
+		<fame><random min="0" max="150" /></fame>
+		<defense>1</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<!-- Stats -->
+		<str>5</str>
+		<dex>15</dex>
+		<int>5</int>
+		<!-- Skills -->
+		<wrestling>50</wrestling>
+		<tactics>50</tactics>
+		<magicresistance>40</magicresistance>
+		<totame>0</totame>
+		<food>3</food>
+		<carve>carve_chicken</carve>
+	</npc>
+
+	<!-- Super Chicken -->
+	<npc id="super_chicken">
+		<name>a chicken</name>
+		<ai>Animal_Domestic</ai>
+		<id>0xd0</id>
+		<category>Animals\Birds\Super Chicken</category>
+		<inherit id="animal_base" />
+		<karma>0</karma>
+		<fame><random min="0" max="150" /></fame>
+		<defense>1</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<!-- Stats -->
+		<str>25</str>
+		<dex>35</dex>
+		<int>15</int>
+		<!-- Skills -->
+		<wrestling>350</wrestling>
+		<tactics>350</tactics>
+		<magicresistance>400</magicresistance>
+		<totame>250</totame>
+		<food>3</food>
+		<carve>carve_chicken</carve>
+	</npc>
+
+
+</definitions>

@@ -1,0 +1,57 @@
+
+<definitions>
+
+	<npc id="WAR_HORSE_STATS">
+		<inherit id="animal_base" />
+		<karma>0</karma>
+		<fame>0</fame>
+		<defense><random min="40" max="50" /></defense>
+		<lodamage>12</lodamage>
+		<hidamage>20</hidamage>
+		<str>400</str>
+		<dex>125</dex>
+		<int><random min="51" max="55" /></int>
+		<wrestling><random min="393" max="463" /></wrestling>
+		<tactics><random min="259" max="422" /></tactics>
+		<magicresistance><random min="255" max="297" /></magicresistance>
+		<totame>291</totame>
+		<food>5</food>
+	</npc>
+
+	<!-- Britannian Warhorse -->
+	<npc id="britannian_war_horse">
+		<name>a war horse</name>
+		<id>0x76</id>
+		<ai>Animal_Wild</ai>
+		<category>Animals\Mounts\War Horses\Britannian Warhorse</category>
+		<inherit id="WAR_HORSE_STATS" />
+	</npc>
+
+	<!-- Council of Mages Warhorse -->
+	<npc id="magecouncil_war_horse">
+		<name>a war horse</name>
+		<id>0x77</id>
+		<ai>Animal_Wild</ai>
+		<category>Animals\Mounts\War Horses\Council of Mages Warhorse</category>
+		<inherit id="WAR_HORSE_STATS" />
+	</npc>
+
+	<!-- Shadowlords Warhorse -->
+	<npc id="shadowlord_war_horse">
+		<name>a war horse</name>
+		<id>0x78</id>
+		<ai>Animal_Wild</ai>
+		<category>Animals\Mounts\War Horses\Shadowlord Warhorse</category>
+		<inherit id="WAR_HORSE_STATS" />
+	</npc>
+
+	<!-- Followers of Minax Warhorse -->
+	<npc id="minax_war_horse">
+		<name>a war horse</name>
+		<id>0x76</id>
+		<ai>Animal_Wild</ai>
+		<category>Animals\Mounts\War Horses\Minax Warhorse</category>
+		<inherit id="WAR_HORSE_STATS" />
+	</npc>
+
+</definitions>

@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Grey Wolf -->
+	<npc id="grey_wolf">
+		<name>a grey wolf</name>
+		<id>0x19</id>
+		<ai>Animal_Wild</ai>
+		<category>Animals\Canine\Grey Wolf</category>
+		<inherit id="animal_base" />
+		<karma>0</karma>
+		<fame>450</fame>
+		<defense><random min="15" max="20" /></defense>
+		<lodamage>4</lodamage>
+		<hidamage>10</hidamage>
+		<!-- Stats -->
+		<str><random min="56" max="80" /></str>
+		<dex><random min="56" max="75" /></dex>
+		<int><random min="31" max="55" /></int>
+		<!-- Skills -->
+		<wrestling><random min="451" max="600" /></wrestling>
+		<tactics><random min="451" max="600" /></tactics>
+		<magicresistance><random min="201" max="350" /></magicresistance>
+		<totame>531</totame>
+		<food>1</food>
+		<carve></carve>
+	</npc>
+
+</definitions>

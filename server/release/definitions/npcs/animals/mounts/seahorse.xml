@@ -1,0 +1,26 @@
+
+<definitions>
+
+	<!-- Sea Horse -->
+	<npc id="seahorse">
+		<name>seahorse</name>
+		<id>0x90</id>
+		<ai>Animal_Wild</ai>
+		<category>Animals\Mounts\Seahorse</category>
+		<inherit id="animal_base" />
+		<karma><random min="0" max="625" /></karma>
+		<fame><random min="0" max="1249" /></fame>
+		<defense>18</defense>
+		<lodamage>2</lodamage>
+		<hidamage>10</hidamage>
+		<str><random min="55" max="75" /></str>
+		<dex><random min="57" max="75" /></dex>
+		<int>10</int>
+		<wrestling><random min="337" max="449" /></wrestling>
+		<tactics><random min="310" max="417" /></tactics>
+		<magicresistance><random min="234" max="296" /></magicresistance>
+		<totame>291</totame>
+		<food>2</food>
+	</npc>
+
+</definitions>

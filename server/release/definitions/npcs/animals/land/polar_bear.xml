@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Polar Bear -->
+	<npc id="polar_bear">
+		<name>a polar bear</name>
+		<id>0xd5</id>
+		<ai>Animal_Aggressive</ai>
+		<category>Animals\Bears\Polar Bear</category>
+		<inherit id="animal_base" />
+		<karma>0</karma>
+		<fame>1500</fame>
+		<defense><random min="25" max="35" /></defense>
+		<lodamage>13</lodamage>
+		<hidamage>23</hidamage>
+		<!-- Stats -->
+		<str><random min="116" max="140" /></str>
+		<dex><random min="81" max="105" /></dex>
+		<int><random min="26" max="50" /></int>
+		<!-- Skills -->
+		<wrestling><random min="451" max="700" /></wrestling>
+		<tactics><random min="601" max="900" /></tactics>
+		<magicresistance><random min="451" max="600" /></magicresistance>
+		<totame>351</totame>
+		<food>2</food>
+		<carve>carve_bear_polar</carve>
+	</npc>
+
+</definitions>

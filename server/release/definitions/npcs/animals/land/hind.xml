@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Hind -->
+	<npc id="hind">
+		<name>a hind</name>
+		<ai>Animal_Wild</ai>
+		<id>0xed</id>
+		<category>Animals\Forest\Hind</category>
+		<inherit id="animal_base" />
+		<karma>0</karma>
+		<fame>300</fame>
+		<defense><random min="5" max="15" /></defense>
+		<lodamage>4</lodamage>
+		<hidamage>5</hidamage>
+		<!-- Stats -->
+		<str><random min="21" max="51" /></str>
+		<dex><random min="47" max="77" /></dex>
+		<int><random min="17" max="47" /></int>
+		<!-- Skills -->
+		<wrestling><random min="260" max="260" /></wrestling>
+		<tactics>190</tactics>
+		<magicresistance>150</magicresistance>
+		<totame>231</totame>
+		<food>6</food>
+		<carve>carve_deer</carve>
+	</npc>
+
+</definitions>

@@ -1,0 +1,37 @@
+
+<definitions>
+
+	<!-- Bull (black & white) -->
+	<npc id="black_bull">
+		<name>a bull</name>
+		<id>0xe9</id>
+		<ai>Animal_Domestic</ai>
+		<category>Animals\Land\Bull (black and white)</category>
+		<inherit id="animal_base" />
+		<karma>0</karma>
+		<fame>600</fame>
+		<defense><random min="25" max="30" /></defense>
+		<lodamage>7</lodamage>
+		<hidamage>17</hidamage>
+		<!-- Stats -->
+		<str><random min="77" max="111" /></str>
+		<dex><random min="56" max="75" /></dex>
+		<int><random min="47" max="75" /></int>
+		<!-- Skills -->
+		<wrestling><random min="401" max="575" /></wrestling>
+		<tactics><random min="676" max="850" /></tactics>
+		<magicresistance><random min="176" max="250" /></magicresistance>
+		<totame>711</totame>
+		<food>6</food>
+		<carve>carve_bull_black</carve>
+	</npc>
+
+	<!-- Bull brown -->
+	<npc id="brown_bull">
+		<inherit id="black_bull" />
+		<name>a bull</name>
+		<id>0xe8</id>
+		<category>Animals\Land\Bull (brown)</category>
+	</npc>
+
+</definitions>

@@ -1,0 +1,30 @@
+
+<definitions>
+
+	<!-- Dog -->
+	<npc id="dog">
+		<name>a dog</name>
+		<id>0xd9</id>
+		<ai>Animal_Domestic</ai>
+		<category>Animals\Canine\Dog</category>
+		<skin><random list="SKINS_ANIMAL" /></skin>
+		<inherit id="animal_base" />
+		<karma>300</karma>
+		<fame>0</fame>
+		<defense><random min="10" max="15" /></defense>
+		<lodamage>5</lodamage>
+		<hidamage>9</hidamage>
+		<!-- Stats -->
+		<str><random min="27" max="37" /></str>
+		<dex><random min="28" max="43" /></dex>
+		<int><random min="29" max="37" /></int>
+		<!-- Skills -->
+		<wrestling><random min="192" max="310" /></wrestling>
+		<tactics><random min="192" max="310" /></tactics>
+		<magicresistance><random min="221" max="470" /></magicresistance>
+		<totame>0</totame>
+		<food>0</food>
+		<carve>carve_dog</carve>
+	</npc>
+
+</definitions>

@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Unicorn -->
+	<npc id="unicorn">
+		<name>a unicorn</name>
+		<id>0x7a</id>
+		<ai>Animal_Wild</ai>
+		<category>Animals\Mounts\Unicorn</category>
+		<inherit id="animal_base" />
+		<karma>9000</karma>
+		<fame>9000</fame>
+		<defense><random min="55" max="65" /></defense>
+		<lodamage>35</lodamage>
+		<hidamage>45</hidamage>
+		<str><random min="296" max="325" /></str>
+		<dex><random min="96" max="115" /></dex>
+		<int><random min="186" max="225" /></int>
+		<wrestling><random min="805" max="925" /></wrestling>
+		<tactics><random min="201" max="225" /></tactics>
+		<magicresistance><random min="753" max="900" /></magicresistance>
+		<magery><random min="602" max="800" /></magery>
+		<evaluatingintel><random min="801" max="900" /></evaluatingintel>
+		<meditation><random min="501" max="600" /></meditation>
+		<totame>951</totame>
+		<food>5</food>
+	</npc>
+
+</definitions>

@@ -1,0 +1,26 @@
+
+<definitions>
+
+	<!-- Giant Beetle -->
+	<npc id="giant_beetle">
+		<name>a giant beetle</name>
+		<id>0x317</id>
+		<category>Animals\Mounts\Giant Beetle</category>
+		<inherit id="monster_base" />
+		<bindmenu>tame_menu</bindmenu>
+		<karma>-4000</karma>
+		<fame>4000</fame>
+		<defense><random min="30" max="40" /></defense>
+		<lodamage>18</lodamage>
+		<hidamage>51</hidamage>
+		<str>300</str>
+		<dex>100</dex>
+		<int>500</int>
+		<wrestling>1000</wrestling>
+		<tactics>1000</tactics>
+		<magicresistance>800</magicresistance>
+		<totame>291</totame>
+		<food>1</food>
+	</npc>
+
+</definitions>

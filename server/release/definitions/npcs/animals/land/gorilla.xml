@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Gorilla -->
+	<npc id="gorilla">
+		<name>a gorilla</name>
+		<id>0x1d</id>
+		<ai>Animal_Wild</ai>
+		<category>Animals\Land\Gorilla</category>
+		<inherit id="animal_base" />
+		<karma>0</karma>
+		<fame>450</fame>
+		<defense><random min="20" max="25" /></defense>
+		<lodamage>6</lodamage>
+		<hidamage>16</hidamage>
+		<!-- Stats -->
+		<str><random min="53" max="95" /></str>
+		<dex><random min="36" max="55" /></dex>
+		<int><random min="36" max="60" /></int>
+		<!-- Skills -->
+		<wrestling><random min="433" max="580" /></wrestling>
+		<tactics><random min="433" max="580" /></tactics>
+		<magicresistance><random min="451" max="600" /></magicresistance>
+		<totame>0</totame>
+		<food>5</food>
+		<carve>carve_gorilla</carve>
+	</npc>
+
+</definitions>

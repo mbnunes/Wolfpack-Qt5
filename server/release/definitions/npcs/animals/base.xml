@@ -6,11 +6,14 @@
 |  ( (  ;._ \\ ctr | Last Modification: Enhanced                |
 =================================================================
 -->
+
 <definitions>
+
 	<!-- animal_base -->
 	<npc id="animal_base">
 		<bindmenu>tame_menu</bindmenu>
 		<wandertype>1</wandertype>
-		<direction><random min="0" max="7" /></direction>
+		<direction><random min="0" max="18" /></direction>
 	</npc>
+
 </definitions>

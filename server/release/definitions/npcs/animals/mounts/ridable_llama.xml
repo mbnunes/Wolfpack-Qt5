@@ -1,0 +1,26 @@
+
+<definitions>
+
+	<!-- Ridable Llama -->
+	<npc id="ridable_llama">
+		<name>a ridable llama</name>
+		<id>0xdc</id>
+		<ai>Animal_Wild</ai>
+		<category>Animals\Mounts\Llama</category>
+		<inherit id="animal_base" />
+		<karma>0</karma>
+		<fame>300</fame>
+		<defense><random min="10" max="15" /></defense>
+		<lodamage>3</lodamage>
+		<hidamage>6</hidamage>
+		<str><random min="21" max="49" /></str>
+		<dex><random min="56" max="75" /></dex>
+		<int><random min="16" max="30" /></int>
+		<wrestling><random min="192" max="290" /></wrestling>
+		<tactics><random min="192" max="290" /></tactics>
+		<magicresistance><random min="151" max="200" /></magicresistance>
+		<totame>291</totame>
+		<food>5</food>
+	</npc>
+
+</definitions>

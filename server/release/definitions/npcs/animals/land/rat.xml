@@ -1,0 +1,30 @@
+
+<definitions>
+
+	<!-- Rat -->
+	<npc id="rat">
+		<name>a rat</name>
+		<id>0xee</id>
+		<ai>Animal_Wild</ai>
+		<category>Animals\Rats\Rat</category>
+		<skin><random list="SKINS_ANIMAL" /></skin>
+		<inherit id="animal_base" />
+		<karma><random min="0" max="-624" /></karma>
+		<fame><random min="0" max="1249" /></fame>
+		<defense><random min="5" max="10" /></defense>
+		<lodamage>1</lodamage>
+		<hidamage>2</hidamage>
+		<!-- Stats -->
+		<str>9</str>
+		<dex>35</dex>
+		<int>5</int>
+		<!-- Skills -->
+		<wrestling>50</wrestling>
+		<tactics>50</tactics>
+		<magicresistance>50</magicresistance>
+		<totame>0</totame>
+		<food>1</food>
+		<carve>carve_rat</carve>
+	</npc>
+
+</definitions>

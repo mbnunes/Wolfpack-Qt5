@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Walrus -->
+	<npc id="walrus">
+		<name>a walrus</name>
+		<id>0xdd</id>
+		<ai>Animal_Wild</ai>
+		<category>Animals\Land\Walrus</category>
+		<inherit id="animal_base" />
+		<karma>0</karma>
+		<fame>150</fame>
+		<defense><random min="20" max="25" /></defense>
+		<lodamage>5</lodamage>
+		<hidamage>12</hidamage>
+		<!-- Stats -->
+		<str><random min="21" max="29" /></str>
+		<dex><random min="46" max="55" /></dex>
+		<int><random min="16" max="20" /></int>
+		<!-- Skills -->
+		<wrestling><random min="192" max="290" /></wrestling>
+		<tactics><random min="192" max="290" /></tactics>
+		<magicresistance><random min="151" max="200" /></magicresistance>
+		<totame>351</totame>
+		<food>2</food>
+		<carve>carve_walrus</carve>
+	</npc>
+
+</definitions>

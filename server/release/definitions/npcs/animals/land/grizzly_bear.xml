@@ -1,0 +1,30 @@
+
+<definitions>
+
+	<!-- Grizzly Bear -->
+	<npc id="bear_grizzle">
+		<name>a grizzly bear</name>
+		<id>0xd4</id>
+		<!-- <ai>Animal_Aggressive</ai> -->
+		<category>Animals\Bears\Grizzly Bear</category>
+		<skin>0</skin>
+		<inherit id="animal_base" />
+		<karma>0</karma>
+		<fame>1000</fame>
+		<defense><random min="25" max="35" /></defense>
+		<lodamage>16</lodamage>
+		<hidamage>26</hidamage>
+		<!-- Stats -->
+		<str><random min="126" max="155" /></str>
+		<dex><random min="81" max="105" /></dex>
+		<int><random min="16" max="40" /></int>
+		<!-- Skills -->
+		<wrestling><random min="451" max="700" /></wrestling>
+		<tactics><random min="701" max="1000" /></tactics>
+		<magicresistance><random min="251" max="400" /></magicresistance>
+		<totame>591</totame>
+		<food>1</food>
+		<carve>carve_bear_l_brown</carve>
+	</npc>
+
+</definitions>

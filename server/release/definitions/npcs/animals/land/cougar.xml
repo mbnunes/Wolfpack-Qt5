@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Cougar -->
+	<npc id="cougar">
+		<name>a cougar</name>
+		<id>0x3f</id>
+		<ai>Animal_Wild</ai>
+		<category>Animals\Land\Cougar</category>
+		<inherit id="animal_base" />
+		<karma>0</karma>
+		<fame>450</fame>
+		<defense><random min="20" max="25" /></defense>
+		<lodamage>6</lodamage>
+		<hidamage>16</hidamage>
+		<!-- Stats -->
+		<str><random min="56" max="80" /></str>
+		<dex><random min="66" max="85" /></dex>
+		<int><random min="26" max="50" /></int>
+		<!-- Skills -->
+		<wrestling><random min="451" max="600" /></wrestling>
+		<tactics><random min="451" max="600" /></tactics>
+		<magicresistance><random min="151" max="300" /></magicresistance>
+		<totame>411</totame>
+		<food>5</food>
+		<carve></carve>
+	</npc>
+
+</definitions>

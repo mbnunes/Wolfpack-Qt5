@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Panther -->
+	<npc id="panther">
+		<name>a panther</name>
+		<id>0xd6</id>
+		<ai>Animal_Wild</ai>
+		<category>Animals\Feline\Panther</category>
+		<inherit id="animal_base" />
+		<karma>0</karma>
+		<fame>450</fame>
+		<defense><random min="20" max="25" /></defense>
+		<lodamage>6</lodamage>
+		<hidamage>19</hidamage>
+		<!-- Stats -->
+		<str><random min="61" max="85" /></str>
+		<dex><random min="86" max="105" /></dex>
+		<int><random min="26" max="50" /></int>
+		<!-- Skills -->
+		<wrestling><random min="501" max="650" /></wrestling>
+		<tactics><random min="501" max="650" /></tactics>
+		<magicresistance><random min="151" max="300" /></magicresistance>
+		<totame>531</totame>
+		<food>1</food>
+		<carve>carve_panther</carve>
+	</npc>
+
+</definitions>

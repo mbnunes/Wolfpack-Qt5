@@ -1,0 +1,28 @@
+
+<definitions>
+	<!-- eagle -->
+	<npc id="eagle">
+		<name>an eagle</name>
+		<ai>Animal_Wild</ai>
+		<id>0x5</id>
+		<category>Animals\Birds\Eagle</category>
+		<inherit id="animal_base" />
+		<karma>0</karma>
+		<fame>300</fame>
+		<defense><random min="20" max="25" /></defense>
+		<lodamage>6</lodamage>
+		<hidamage>13</hidamage>
+		<!-- Stats -->
+		<str><random min="31" max="47" /></str>
+		<dex><random min="36" max="60" /></dex>
+		<int><random min="8" max="20" /></int>
+		<!-- Skills -->
+		<wrestling><random min="201" max="300" /></wrestling>
+		<tactics><random min="181" max="370" /></tactics>
+		<magicresistance><random min="153" max="300" /></magicresistance>
+		<totame>171</totame>
+		<food>1</food>
+		<carve>carve_eagle</carve>
+	</npc>
+
+</definitions>

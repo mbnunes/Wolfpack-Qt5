@@ -1,0 +1,30 @@
+
+<definitions>
+
+	<!-- Timber Wolf -->
+	<npc id="timber_wolf">
+		<name>a timber wolf</name>
+		<id>0xe1</id>
+		<ai>Animal_Wild</ai>
+		<category>Animals\Canine\Timber Wolf</category>
+		<skin>0</skin>
+		<inherit id="animal_base" />
+		<karma>0</karma>
+		<fame>450</fame>
+		<defense><random min="15" max="20" /></defense>
+		<lodamage>16</lodamage>
+		<hidamage>13</hidamage>
+		<!-- Stats -->
+		<str><random min="56" max="80" /></str>
+		<dex><random min="56" max="75" /></dex>
+		<int><random min="11" max="25" /></int>
+		<!-- Skills -->
+		<wrestling><random min="401" max="600" /></wrestling>
+		<tactics><random min="301" max="500" /></tactics>
+		<magicresistance><random min="276" max="450" /></magicresistance>
+		<totame>231</totame>
+		<food>1</food>
+		<carve>carve_wolf</carve>
+	</npc>
+
+</definitions>

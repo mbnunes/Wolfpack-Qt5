@@ -1,0 +1,29 @@
+
+<definitions>
+
+	<!-- Pack Horse -->
+	<npc id="pack_horse">
+		<name>a horse</name>
+		<id>0x123</id>
+		<ai>Animal_Domestic</ai>
+		<category>Animals\Pack\Pack Horse</category>
+		<inherit id="animal_base" />
+		<karma><random min="0" max="624" /></karma>
+		<fame><random min="0" max="1249" /></fame>
+		<defense><random min="20" max="25" /></defense>
+		<lodamage>7</lodamage>
+		<hidamage>16</hidamage>
+		<!-- Stats -->
+		<str><random min="44" max="120" /></str>
+		<dex><random min="36" max="55" /></dex>
+		<int><random min="6" max="10" /></int>
+		<!-- Skills -->
+		<wrestling><random min="293" max="440" /></wrestling>
+		<tactics><random min="293" max="440" /></tactics>
+		<magicresistance><random min="251" max="300" /></magicresistance>
+		<totame>291</totame>
+		<food>3</food>
+		<carve>carve_horse_pack</carve>
+	</npc>
+
+</definitions>
