@@ -15,16 +15,6 @@
 		<totame>1100</totame>
 	</npc>
 
-	<!-- undead_loot_small -->
-	<npc id="undead_loot_small">
-	</npc>
-
-	<npc id="undead_loot_medium">
-	</npc>
-
-	<npc id="undead_loot_big">
-	</npc>
-
 	<!-- headless -->
 	<list id="CARVE_HEADLESS">
 		<item>9f1,1</item> <!-- 1 meat -->

@@ -8,33 +8,28 @@
 -->
 <definitions>
 	<npc id="headless" inherit="undead_base">
-		<name>a headless one</name>
+		<name>headless one</name>
 		<id>0x1f</id>
 		<karma>-450</karma>
 		<fame>450</fame>
-
 		<!-- Stats -->
 		<str><random min="26" max="50"/></str>
 		<dex><random min="36" max="55"/></dex>
 		<int><random min="16" max="30"/></int>
-
 		<!-- Skills -->
 		<magicresistance><random min="151" max="200"/></magicresistance>
 		<tactics><random min="251" max="400"/></tactics>
 		<wrestling><random min="251" max="400"/></wrestling>
-
 		<!-- Damage -->
 		<mindamage>5</mindamage>
 		<maxdamage>10</maxdamage>
-
-		<!-- Resists -->
+		<!-- Resist Properties -->
 		<tag name="res_physical" value="15,20" type="int" />
-		
-		<!-- Misc. -->
-		<desc>The Headless are so called for they have the appearance of a hairy manwith no head. Therefore many believe them to be spectres, but oncloser examination they are revealed as corporeal creatures with theirsensory apparatus in their chest cavities. Despite their lust for goldand their appearance of deformed humanity, most suspect they are nomore than clever beasts.</desc>
-		<lootpacks>poor</lootpacks>		
+		<!-- Loot / Carve -->
+		<lootpacks>gold_poor</lootpacks>
 		<carve>carve_headless</carve>
+		<!-- Misc. -->
 		<category>Monsters\Undead\Headless One</category>
-		<lootlist>alcoholpack_low;foodpack_low;verypoor</lootlist>
+		<desc>The Headless are so called for they have the appearance of a hairy man with no head. Therefore many believe them to be spectres, but oncloser examination they are revealed as corporeal creatures with their sensory apparatus in their chest cavities. Despite their lust for gold and their appearance of deformed humanity, most suspect they are no more than clever beasts.</desc>
 	</npc>
 </definitions>

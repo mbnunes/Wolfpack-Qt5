@@ -10,7 +10,7 @@
 
 	<!-- a zombie-->
 	<npc id="zombie" inherit="undead_base">
-		<name>a zombie</name>
+		<name>zombie</name>
 		<id>3</id>
 		<karma>-600</karma>
 		<fame>600</fame>
@@ -23,14 +23,16 @@
 		<tactics><random min="351" max="500"/></tactics>
 		<wrestling><random min="351" max="500"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="3" type="int" />
-		<tag name="maxdamage" value="7" type="int" />
+		<mindamage>5</mindamage>
+		<maxdamage>10</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="20,30" type="int" />
 		<tag name="res_physical" value="15,20" type="int" />
 		<tag name="res_poison" value="5,10" type="int" />
+		<!-- Loot / Carve -->
+		<lootpacks>gold_meager</lootpacks>
 		<!-- Misc. -->
-		<desc>Zombies are naught but rotting corpses, restored to a mockery of lifethrough vile sorcery. Utterly devoid of any will save that whichcreated them, they do share with the other undead an unnaturalappetite for the gold and the flesh of the living. Shambling, slowcreatures, they are easily destroyed or evaded by an experiencedwarrior, unless encountered in overwhelming number.</desc>
+		<desc>Zombies are naught but rotting corpses, restored to a mockery of life through vile sorcery. Utterly devoid of any will save that which created them, they do share with the other undead an unnatural appetite for the gold and the flesh of the living. Shambling, slow creatures, they are easily destroyed or evaded by an experienced warrior, unless encountered in overwhelming number.</desc>
 		<category>Monsters\Undead\Zombie</category>
 	</npc>
 

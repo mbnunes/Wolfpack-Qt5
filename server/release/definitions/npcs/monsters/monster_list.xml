@@ -180,6 +180,7 @@
 	<include file="definitions/npcs/monsters/undead/bone_knight.xml"/>
 	<include file="definitions/npcs/monsters/undead/bone_magi.xml"/>
 	<include file="definitions/npcs/monsters/undead/ethereal_warrior.xml"/>
+	<include file="definitions/npcs/monsters/undead/ghoul.xml"/>
 	<include file="definitions/npcs/monsters/undead/headless_one.xml"/>
 	<include file="definitions/npcs/monsters/undead/lich.xml"/>
 	<include file="definitions/npcs/monsters/undead/lich_lord.xml"/>

@@ -9,8 +9,7 @@
 <definitions>
 
 	<npc id="skeleton_base" inherit="undead_base">
-		<inherit id="undead_loot_small" />
-		<name>a skeleton</name>
+		<name>skeleton</name>
 		<karma>-450</karma>
 		<fame>450</fame>
 		<!-- Stats -->
@@ -22,38 +21,36 @@
 		<tactics><random min="451" max="600"/></tactics>
 		<wrestling><random min="451" max="550"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="3" type="int" />
-		<tag name="maxdamage" value="7" type="int" />
+		<mindamage>5</mindamage>
+		<maxdamage>11</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="25,40" type="int" />
 		<tag name="res_energy" value="5,15" type="int" />
 		<tag name="res_fire" value="5,10" type="int" />
 		<tag name="res_physical" value="15,20" type="int" />
 		<tag name="res_poison" value="25,35" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>gold_poor;armor_bonemail_med</lootpacks>
 		<!-- Misc. -->
-		<desc>The animated bones of the dead are terrible to behold, but truth totell they are not formidable warriors, being able to overcome awell-trained fighter only in large groups. Like ghouls, they appear toingest meat in some supernatural fashion. The bones of a formerlyanimated skeleton are desired for certain dark magicks.</desc>
+		<desc>The animated bones of the dead are terrible to behold, but truth to tell they are not formidable warriors, being able to overcome awell-trained fighter only in large groups. Like ghouls, they appear to ingest meat in some supernatural fashion. The bones of a formerly animated skeleton are desired for certain dark magicks.</desc>
 	</npc>
 
 	<!-- skeleton -->
-	<npc id="skeleton">
-		<inherit id="skeleton_base" />
+	<npc id="skeleton" inherit="skeleton_base">
 		<id>0x32</id>
 		<category>Monsters\Undead\Skeleton</category>
 	</npc>
 
 	<!-- skeleton (with axe) -->
-	<npc id="skeleton_axe">
-		<inherit id="skeleton_base" />
+	<npc id="skeleton_axe" inherit="skeleton_base">
 		<id>0x38</id>
 		<category>Monsters\Undead\Skeleton (with Axe)</category>
 	</npc>
 
   <!-- skeleton (with sword) -->
-	<npc id="skeleton_sword">
-		<inherit id="skeleton_base" />
+	<npc id="skeleton_sword" inherit="skeleton_base">
 		<id>0x39</id>
 		<category>Monsters\Undead\Skeleton (with Axe)</category>
 	</npc>
-
 
 </definitions>

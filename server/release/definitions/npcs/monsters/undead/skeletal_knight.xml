@@ -10,9 +10,8 @@
 
 	<!-- skeletal knight -->
 	<npc id="skeletal_knight" inherit="undead_base">
-		<name>a skeletal knight</name>
+		<name>skeletal knight</name>
 		<id>0x39</id>
-		<gold><random min="100" max="130"/></gold>
 		<karma>-3000</karma>
 		<fame>3000</fame>
 		<!-- Stats -->
@@ -24,17 +23,20 @@
 		<tactics><random min="851" max="1000"/></tactics>
 		<wrestling><random min="851" max="950"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="8" type="int" />
-		<tag name="maxdamage" value="18" type="int" />
+		<mindamage>8</mindamage>
+		<maxdamage>18</maxdamage>
+		<!-- Damage Properties -->
 		<tag name="dmg_cold" value="60" type="int" />
-		<!-- Resists -->
+		<!-- Resist Properties -->
 		<tag name="res_cold" value="50,60" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />
 		<tag name="res_fire" value="20,30" type="int" />
 		<tag name="res_physical" value="35,45" type="int" />
 		<tag name="res_poison" value="20,30" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>gold_good;armor_platemail_med;weapons_med_swords</lootpacks>
 		<!-- Misc. -->
-		<desc>Knights who failed to hold to their tenets are doomed to roam theafterlife as Skeletal Knights. First seen in the new lands, theseknights rise in legions to battle the army of the living. Utterlydevoid of fear there is no chance a skeletal knight will ever breakoff the attack. These knights are the best sword fighters andtacticians doing battle for the ever-growing numbers of undead.</desc>
+		<desc>Knights who failed to hold to their tenets are doomed to roam the afterlife as Skeletal Knights. First seen in the new lands, these knights rise in legions to battle the army of the living. Utterly devoid of fear there is no chance a skeletal knight will ever break off the attack. These knights are the best sword fighters and tacticians doing battle for the ever-growing numbers of undead.</desc>
 		<category>Monsters\Undead\Skeletal Knight</category>
 	</npc>
 

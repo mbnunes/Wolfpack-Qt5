@@ -8,10 +8,10 @@
 -->
 <definitions>
 
-	<!-- a shade -->
-	<npc id="shade" inherit="undead_base">
-		<name>shade</name>
-		<id>0x01a</id>
+	<!-- a ghoul -->
+	<npc id="ghoul" inherit="undead_base">
+		<name>ghoul</name>
+		<id>0x1a</id>
 		<karma><random min="-2500" max="-4999"/></karma>
 		<fame><random min="2500" max="4999"/></fame>
 		<!-- Stats -->
@@ -25,8 +25,8 @@
 		<magery><random min="551" max="700"/></magery>
 		<evaluatingint><random min="551" max="700"/></evaluatingint>
 		<!-- Damage -->
-		<mindamage>11</mindamage>
-		<maxdamage>18</maxdamage>
+		<mindamage>10</mindamage>
+		<maxdamage>15</maxdamage>
 		<!-- Damage Properties -->
 		<tag name="dmg_cold" value="50" type="int" />
 		<!-- Resist Properties -->
@@ -34,12 +34,11 @@
 		<!-- Loot / Carve -->
 		<lootpacks>gold_meager</lootpacks>
 		<!-- Misc. -->
-		<category>Monsters\Undead\Shade</category>
+		<category>Monsters\Undead\Ghoul</category>
 	</npc>
 
-	<npc name="spectre" inherit="shade">
-		<name>spectre</name>
-		<category>Monsters\Undead\Spectre</category>
+	<npc name="bogle" inherit="ghoul">
+		<name>bogle</name>
+		<category>Monsters\Undead\Bogle</category>
 	</npc>
-
 </definitions>
