@@ -103,6 +103,12 @@ cTerritory* getWpRegion( PyObject* );
 
 // Argument checks
 #define checkArgObject( id ) ( PyTuple_Size( args ) > id && ( checkWpItem( PyTuple_GetItem( args, id ) ) || checkWpChar( PyTuple_GetItem( args, id ) ) ) )
+#define checkArgChar( id ) ( PyTuple_Size( args ) > id && checkWpChar( PyTuple_GetItem( args, id ) ) )
+#define checkArgItem( id ) ( PyTuple_Size( args ) > id && checkWpItem( PyTuple_GetItem( args, id ) ) )
+#define checkArgCoord( id ) ( PyTuple_Size( args ) > id && checkWpCoord( PyTuple_GetItem( args, id ) ) )
+#define getArgCoord( id ) getWpCoord( PyTuple_GetItem( args, id ) )
+#define getArgItem( id ) getWpItem( PyTuple_GetItem( args, id ) )
+#define getArgChar( id ) getWpChar( PyTuple_GetItem( args, id ) )
 #define checkArgInt( id ) ( PyTuple_Size( args ) > id && PyInt_Check( PyTuple_GetItem( args, id ) ) )
 #define getArgInt( id ) PyInt_AsLong( PyTuple_GetItem( args, id ) )
 #define checkArgStr( id ) ( PyTuple_Size( args ) > id && PyString_Check( PyTuple_GetItem( args, id ) ) )

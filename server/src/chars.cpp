@@ -2557,7 +2557,22 @@ void cChar::updateWornItems( cUOSocket* socket )
 */
 void cChar::wear( P_ITEM pi )
 {
-	this->addItem( static_cast<cChar::enLayer>(pi->layer()), pi );
+	UINT8 layer = pi->layer();
+
+	if( !pi->container() )
+	{	
+		pi->setLayer( 0 );
+		if( !layer )
+		{
+			tile_st tile = TileCache::instance()->getTile( pi->id() );
+			layer = tile.layer;
+		}
+	}
+
+	if( !layer )
+		return;
+
+	this->addItem( static_cast<cChar::enLayer>(layer), pi );
 	cUOTxCharEquipment packet;
 	packet.setWearer( this->serial );
 	packet.setSerial( pi->serial );
@@ -3216,91 +3231,6 @@ void cChar::setSkillDelay()
 	this->setSkillDelay( SetTimerSec(skilldelay_, SrvParams->skillDelay() ) );
 }
 
-/*!
-	Displays an effect emitting from this character toward another item or character
-*/
-void cChar::effect( UINT16 id, cUObject *target, bool fixedDirection, bool explodes, UINT8 speed, UINT16 hue, UINT16 renderMode )
-{
-	if( !target )
-		return;
-
-	cUOTxEffect effect;
-	effect.setType( ET_MOVING );
-	effect.setSource( serial );
-	effect.setTarget( target->serial );
-	effect.setSourcePos( pos );
-	effect.setTargetPos( target->pos );
-	effect.setId( id );
-    effect.setSpeed( speed );
-	effect.setExplodes( explodes );
-	effect.setFixedDirection( fixedDirection );
-	effect.setHue( hue );
-	effect.setRenderMode( renderMode );
-
-	cUOSocket *mSock = 0;
-	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-	{
-		if( !mSock->player() )
-			continue;
-
-		// The Socket has to be either in range of Source or Target
-		if( mSock->player()->inRange( this, mSock->player()->VisRange() ) || mSock->player()->inRange( target, mSock->player()->VisRange() ) )
-			mSock->send( &effect );
-	}
-}
-
-/*!
-	Displays an effect emitting from this character and moving towards a specific location.
-*/
-void cChar::effect( UINT16 id, const Coord_cl &target, bool fixedDirection, bool explodes, UINT8 speed, UINT16 hue, UINT16 renderMode )
-{
-	cUOTxEffect effect;
-	effect.setType( ET_MOVING );
-	effect.setSource( serial );
-	effect.setSourcePos( pos );
-	effect.setTargetPos( target );
-	effect.setId( id );
-    effect.setSpeed( speed );
-	effect.setExplodes( explodes );
-	effect.setFixedDirection( fixedDirection );
-	effect.setHue( hue );
-	effect.setRenderMode( renderMode );
-
-	cUOSocket *mSock = 0;
-	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-	{
-		if( !mSock->player() )
-			continue;
-
-		// The Socket has to be either in range of Source or Target
-		if( mSock->player()->inRange( this, mSock->player()->VisRange() ) || ( mSock->player()->pos.distance( target ) <= mSock->player()->VisRange() ) )
-			mSock->send( &effect );
-	}
-}
-
-/*!
-	Displays an effect moving with this character.
-*/
-void cChar::effect( UINT16 id, UINT8 speed, UINT8 duration, UINT16 hue, UINT16 renderMode )
-{
-	cUOTxEffect effect;
-	effect.setType( ET_STAYSOURCESER );
-	effect.setSource( serial );
-	effect.setSourcePos( pos );
-	effect.setId( id );
-    effect.setSpeed( speed );
-	effect.setDuration( duration );
-	effect.setHue( hue );
-	effect.setRenderMode( renderMode );
-
-	cUOSocket *mSock = 0;
-	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-	{
-		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->VisRange() ) )
-			mSock->send( &effect );
-	}
-}
-
 void cChar::startRepeatedAction( UINT8 action, UINT16 delay )
 {
 	stopRepeatedAction();
@@ -3493,7 +3423,10 @@ void cChar::removeFollower( P_CHAR pPet, bool noOwnerChange )
 		followers_.erase(it);
 
 	if( !noOwnerChange )
+	{
 		pPet->setOwnerOnly( NULL );
+		pPet->setTamed( false );
+	}
 }
 
 cChar::Followers cChar::followers() const

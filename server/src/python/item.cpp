@@ -63,7 +63,7 @@ int wpItem_setAttr( wpItem *self, char *name, PyObject *value );
 static PyTypeObject wpItemType = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
-    "WPItem",
+    "wpitem",
     sizeof(wpItemType),
     0,
     wpDealloc,				
@@ -425,6 +425,61 @@ PyObject* wpItem_isitem( wpItem* self, PyObject* args )
 	return PyTrue;
 }
 
+/*!
+	Shows a moving effect moving toward a given object or coordinate.
+*/
+PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
+{
+	if( !self->pItem || self->pItem->free )
+		return PyFalse;
+
+	if( ( !checkArgObject( 1 ) && !checkArgCoord( 1 ) ) || !checkArgInt( 0 ) )
+	{
+		clConsole.send( "Minimum argument count for movingeffect is 2\n" );
+		return PyFalse;
+	}
+	
+	UINT16 id = getArgInt( 0 );
+
+	cUObject *object = getArgChar( 1 );
+	if( !object )
+		object = getArgItem( 1 );
+
+	Coord_cl pos;
+	
+	if( checkArgCoord( 1 ) )
+		pos = getArgCoord( 1 );
+
+	// Optional Arguments
+	bool fixedDirection = true;
+	bool explodes = false;
+	UINT8 speed = 10;
+	UINT16 hue = 0;
+	UINT16 renderMode = 0;
+
+	if( checkArgInt( 2 ) )
+		fixedDirection = getArgInt( 2 ) != 0;
+
+	if( checkArgInt( 3 ) )
+		explodes = getArgInt( 3 ) != 0;
+
+	if( checkArgInt( 4 ) )
+		speed = getArgInt( 4 );
+
+	if( checkArgInt( 5 ) )
+		hue = getArgInt( 5 );
+
+	if( checkArgInt( 6 ) )
+		renderMode = getArgInt( 6 );
+
+	if( object )
+		self->pItem->effect( id, object, fixedDirection, explodes, speed, hue, renderMode );
+	else 
+		self->pItem->effect( id, pos, fixedDirection, explodes, speed, hue, renderMode );
+
+	return PyTrue;
+}
+
 static PyMethodDef wpItemMethods[] = 
 {
     { "update",				(getattrofunc)wpItem_update, METH_VARARGS, "Sends the item to all clients in range." },
@@ -437,6 +492,9 @@ static PyMethodDef wpItemMethods[] =
 	{ "useresource",		(getattrofunc)wpItem_useresource, METH_VARARGS, "Consumes a given resource from within the current item." },
 	{ "countresource",		(getattrofunc)wpItem_countresource, METH_VARARGS, "Returns the amount of a given resource available in this container." },
 	
+	// Effects
+	{ "movingeffect",		(getattrofunc)wpItem_movingeffect, METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },
+
 	// Tag System
 	{ "gettag",				(getattrofunc)wpItem_gettag, METH_VARARGS, "Gets a tag assigned to a specific item." },
 	{ "settag",				(getattrofunc)wpItem_settag, METH_VARARGS, "Sets a tag assigned to a specific item." },

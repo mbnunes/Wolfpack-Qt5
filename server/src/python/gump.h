@@ -41,20 +41,20 @@
 */
 typedef struct {
     PyObject_HEAD;
-	gumpChoice_st response;
+	gumpChoice_st *response;
 } wpGumpResponse;
 
 PyObject *wpGumpResponse_getAttr( wpGumpResponse *self, char *name )
 {	
 	if( !strcmp( name, "button" ) )
-		return PyInt_FromLong( self->response.button );
+		return PyInt_FromLong( self->response->button );
 	else if( !strcmp( name, "text" ) )
 	{
 		// Create a dictionary
 		PyObject *dict = PyDict_New();
 
-		std::map< unsigned short, QString >::iterator iter = self->response.textentries.begin();
-		for( ; iter != self->response.textentries.end(); ++iter )
+		std::map< unsigned short, QString >::iterator iter = self->response->textentries.begin();
+		for( ; iter != self->response->textentries.end(); ++iter )
 			PyDict_SetItem( dict, PyInt_FromLong( iter->first ), PyString_FromString( iter->second.latin1() ) );
 
 		return dict;
@@ -62,9 +62,9 @@ PyObject *wpGumpResponse_getAttr( wpGumpResponse *self, char *name )
 	else if( !strcmp( name, "switches" ) )
 	{
 		// Create a list
-		PyObject *list = PyList_New( self->response.switches.size() );
-		for( INT32 i = 0; i < self->response.switches.size(); ++i )
-			PyList_SetItem( list, i, PyInt_FromLong( self->response.switches[ i ] ) );
+		PyObject *list = PyList_New( self->response->switches.size() );
+		for( INT32 i = 0; i < self->response->switches.size(); ++i )
+			PyList_SetItem( list, i, PyInt_FromLong( self->response->switches[ i ] ) );
 		return list;
 	}
 
@@ -87,10 +87,14 @@ static PyTypeObject wpGumpResponseType = {
     0,
 };
 
-PyObject *PyGetGumpResponse( gumpChoice_st response )
+PyObject *PyGetGumpResponse( gumpChoice_st &response )
 {
 	wpGumpResponse *returnVal = PyObject_New( wpGumpResponse, &wpGumpResponseType );
-	returnVal->response = response;
+	returnVal->response = new gumpChoice_st;
+	returnVal->response->button = response.button;
+	returnVal->response->switches = response.switches;
+	returnVal->response->textentries = response.textentries;
+
 	return (PyObject*)returnVal;
 }
 

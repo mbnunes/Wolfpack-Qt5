@@ -87,6 +87,11 @@ public:
 	void recreateEvents( void ); // If the scripts are reloaded call that for each and every existing object
 	bool inRange( const cUObject *object, UINT32 range ) const;
 
+	// Multiple quick-effect methods
+	void effect( UINT16 id, UINT8 speed = 10, UINT8 duration = 5, UINT16 hue = 0, UINT16 renderMode = 0 ); // Moving with this character
+	void effect( UINT16 id, cUObject *target, bool fixedDirection = true, bool explodes = false, UINT8 speed = 10, UINT16 hue = 0, UINT16 renderMode = 0 );
+	void effect( UINT16 id, const Coord_cl &target, bool fixedDirection = true, bool explodes = false, UINT8 speed = 10, UINT16 hue = 0, UINT16 renderMode = 0 );
+
 	// Events
 	virtual bool onUse( cUObject *Target );
 	virtual bool onCollide( cUObject* Obstacle ); // This is called for the walking character first, then for the item walked on

@@ -58,7 +58,7 @@ int wpSocket_setAttr( wpSocket *self, char *name, PyObject *value );
 static PyTypeObject wpSocketType = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
-    "WPSocket",
+    "wpsocket",
     sizeof(wpSocketType),
     0,
     wpDealloc,				

@@ -67,7 +67,7 @@ int wpChar_setAttr( wpChar *self, char *name, PyObject *value );
 static PyTypeObject wpCharType = {
     PyObject_HEAD_INIT(&PyType_Type)
     0,
-    "WPChar",
+    "wpchar",
     sizeof(wpCharType),
     0,
     wpDealloc,
@@ -617,13 +617,308 @@ PyObject* wpChar_deltag( wpChar* self, PyObject* args )
 	return PyTrue;
 }
 
+/*!
+	Adds a follower
+*/
+PyObject* wpChar_addfollower( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	if( !checkArgStr( 0 ) )
+	{
+		clConsole.send( "Minimum argument count for addfollower is 1" );
+		return PyFalse;
+	}
+
+	P_CHAR pPet = getArgChar( 0 );
+	
+	if( pPet )
+		self->pChar->addFollower( pPet );
+
+	return PyTrue;
+}
+
+/*!
+	Removes a follower
+*/
+PyObject* wpChar_removefollower( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	if( !checkArgStr( 0 ) )
+	{
+		clConsole.send( "Minimum argument count for removefollower is 1" );
+		return PyFalse;
+	}
+  
+	P_CHAR pPet = getArgChar( 0 );
+	
+	if( pPet )
+		self->pChar->removeFollower( pPet );
+
+	return PyTrue;
+}
+
+/*!
+	Checks if the Char has a follower
+*/
+PyObject* wpChar_hasfollower( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	if( !checkArgStr( 0 ) )
+	{
+		clConsole.send( "Minimum argument count for hasfollower is 1" );
+		return PyFalse;
+	}
+
+	P_CHAR pPet = getArgChar( 0 );
+	
+	if( pPet )
+	{
+		cChar::Followers::iterator iter = self->pChar->followers().begin();
+
+		for( ; iter != self->pChar->followers().end(); ++iter )
+			if( (*iter) == pPet )
+				return PyTrue;
+	}
+
+	return PyTrue;
+}
+
+/*!
+	Resends the healthbar to the environment.
+*/
+PyObject* wpChar_updatehealth( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	self->pChar->updateHealth();
+	return PyTrue;
+}
+
+/*!
+	What weapon is the character currently wearing?
+*/
+PyObject* wpChar_getweapon( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	return PyGetItemObject( self->pChar->getWeapon() ); 
+}
+
+/*!
+	Turns towards a specific object.
+*/
+PyObject* wpChar_turnto( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	if( !checkArgObject( 0 ) )
+	{
+		clConsole.send( "Minimum argument count for turnto: 1\n" );
+		return PyFalse;
+	}
+
+	cUObject *object = 0;
+
+	if( checkArgChar( 0 ) )
+		object = getArgChar( 0 );
+	else if( checkArgItem( 0 ) )
+		object = getArgItem( 1 );
+
+	if( object )
+		self->pChar->turnTo( object );
+
+	return PyTrue;
+}
+
+/*!
+	Mounts this character on a specific mount.
+*/
+PyObject* wpChar_mount( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	if( !checkArgChar( 0 ) )
+	{
+		clConsole.send( "Minimum argument count for turnto: 1\n" );
+		return PyFalse;
+	}
+
+	P_CHAR pChar = getArgChar( 0 );
+
+	if( pChar )
+		self->pChar->mount( pChar );
+
+	return PyTrue;
+}
+
+/*!
+	Unmounts this character and returns the old mount.
+*/
+PyObject* wpChar_unmount( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	return PyGetCharObject( self->pChar->unmount() );
+}
+
+/*!
+	Equips a given item on this character.
+*/
+PyObject* wpChar_equip( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	if( !checkArgItem( 0 ) )
+	{
+		clConsole.send( "Minimum argument count for equip: 1\n" );
+		return PyFalse;
+	}
+
+	P_ITEM pItem = getArgItem( 0 );
+	
+	if( pItem )
+		self->pChar->wear( pItem );
+
+	return PyTrue;
+}
+
+/*!
+	Gets or Autocreates a bankbox for the character.
+*/
+PyObject* wpChar_getbankbox( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	return PyGetItemObject( self->pChar->getBankBox() );
+}
+
+/*!
+	Gets or Autocreates a backpack for the character.
+*/
+PyObject* wpChar_getbackpack( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	return PyGetItemObject( self->pChar->getBackpack() );
+}
+
+/*!
+	Shows a moving effect moving toward a given object or coordinate.
+*/
+PyObject* wpChar_movingeffect( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	if( ( !checkArgObject( 1 ) && !checkArgCoord( 1 ) ) || !checkArgInt( 0 ) )
+	{
+		clConsole.send( "Minimum argument count for movingeffect is 2\n" );
+		return PyFalse;
+	}
+	
+	UINT16 id = getArgInt( 0 );
+
+	cUObject *object = getArgChar( 1 );
+	if( !object )
+		object = getArgItem( 1 );
+
+	Coord_cl pos;
+	
+	if( checkArgCoord( 1 ) )
+		pos = getArgCoord( 1 );
+
+	// Optional Arguments
+	bool fixedDirection = true;
+	bool explodes = false;
+	UINT8 speed = 10;
+	UINT16 hue = 0;
+	UINT16 renderMode = 0;
+
+	if( checkArgInt( 2 ) )
+		fixedDirection = getArgInt( 2 ) != 0;
+
+	if( checkArgInt( 3 ) )
+		explodes = getArgInt( 3 ) != 0;
+
+	if( checkArgInt( 4 ) )
+		speed = getArgInt( 4 );
+
+	if( checkArgInt( 5 ) )
+		hue = getArgInt( 5 );
+
+	if( checkArgInt( 6 ) )
+		renderMode = getArgInt( 6 );
+
+//void effect( UINT16 id, cUObject *target, bool fixedDirection = true, bool explodes = false, UINT8 speed = 10, UINT16 hue = 0, UINT16 renderMode = 0 );
+
+	if( object )
+		self->pChar->effect( id, (cUObject*)object, fixedDirection, explodes, speed, hue, renderMode );
+	else 
+		self->pChar->effect( id, (Coord_cl)pos, fixedDirection, explodes, speed, hue, renderMode );
+
+	return PyTrue;
+}
+
+/*!
+	Shows an effect staying with this character.
+*/
+PyObject* wpChar_effect( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	if( !checkArgInt( 0 ) )
+	{
+		clConsole.send( "Minimum argument count for effect is 1\n" );
+		return PyFalse;
+	}
+	
+	UINT16 id = getArgInt( 0 );
+
+	// Optional Arguments
+	UINT8 duration = 5;
+	UINT8 speed = 10;
+	UINT16 hue = 0;
+	UINT16 renderMode = 0;
+	
+	if( checkArgInt( 1 ) )
+		speed = getArgInt( 1 );
+
+	if( checkArgInt( 2 ) )
+		speed = getArgInt( 2 );
+
+	if( checkArgInt( 3 ) )
+		hue = getArgInt( 3 );
+
+	if( checkArgInt( 4 ) )
+		renderMode = getArgInt( 4 );
+
+	self->pChar->effect( id, speed, duration, hue, renderMode );
+
+	return PyTrue;
+}
+
 static PyMethodDef wpCharMethods[] = 
 {
 	{ "moveto",			(getattrofunc)wpChar_moveto, METH_VARARGS, "Moves the character to the specified location." },
 	{ "resurrect",		(getattrofunc)wpChar_resurrect, METH_VARARGS, "Resurrects the character." },
 	{ "kill",			(getattrofunc)wpChar_kill, METH_VARARGS, "This kills the character." },
 	{ "damage",			(getattrofunc)wpChar_damage, METH_VARARGS, "This damages the current character." },
-    { "update",			(getattrofunc)wpChar_update, METH_VARARGS, "Sends the char to all clients in range." },
+    { "update",			(getattrofunc)wpChar_update, METH_VARARGS, "Resends the char to all clients in range." },
 	{ "removefromview", (getattrofunc)wpChar_removefromview, METH_VARARGS, "Removes the char from all surrounding clients." },
 	{ "message",		(getattrofunc)wpChar_message, METH_VARARGS, "Displays a message above the characters head - only visible for the player." },
 	{ "soundeffect",	(getattrofunc)wpChar_soundeffect, METH_VARARGS, "Plays a soundeffect for the character." },
@@ -633,9 +928,30 @@ static PyMethodDef wpCharMethods[] =
 	{ "checkskill",		(getattrofunc)wpChar_checkskill, METH_VARARGS, "Performs a skillcheck for the character." },
 	{ "itemonlayer",	(getattrofunc)wpChar_itemonlayer, METH_VARARGS, "Returns the item currently weared on a specific layer, or returns none." },
 	{ "combatskill",	(getattrofunc)wpChar_combatskill, METH_VARARGS, "Returns the combat skill the character would currently use." },
+	{ "getweapon",		(getattrofunc)wpChar_getweapon, METH_VARARGS, "What weapon does the character currently wear." },
 	{ "useresource",	(getattrofunc)wpChar_useresource, METH_VARARGS, "Consumes a resource posessed by the char." },
 	{ "countresource",	(getattrofunc)wpChar_countresource, METH_VARARGS, "Counts the amount of a certain resource the user has." },
-	{ "emote",			(getattrofunc)wpChar_emote, METH_VARARGS, "Let's the user emote." },
+	{ "emote",			(getattrofunc)wpChar_emote, METH_VARARGS, "Shows an emote above the character." },
+	{ "updatehealth",	(getattrofunc)wpChar_updatehealth, METH_VARARGS, "Resends the healthbar to the environment." },
+	{ "turnto",			(getattrofunc)wpChar_turnto, METH_VARARGS, "Turns towards a specific object and resends if neccesary." },
+	{ "equip",			(getattrofunc)wpChar_equip, METH_VARARGS, "Equips a given item on this character." },
+
+	// Mount/Unmount
+	{ "unmount",		(getattrofunc)wpChar_unmount, METH_VARARGS, "Unmounts this character and returns the character it was previously mounted." },
+	{ "mount",			(getattrofunc)wpChar_mount, METH_VARARGS, "Mounts this on a specific mount." },
+
+	// Effects
+	{ "movingeffect",			(getattrofunc)wpChar_movingeffect, METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },
+	{ "effect",					(getattrofunc)wpChar_effect, METH_VARARGS, "Shows an effect staying with this character." },
+
+	// Bank/Backpack
+	{ "getbankbox",		(getattrofunc)wpChar_getbankbox, METH_VARARGS,	"Gets and autocreates a bankbox for the character." },
+	{ "getbackpack",	(getattrofunc)wpChar_getbackpack, METH_VARARGS, "Gets and autocreates a backpack for the character." },
+
+	// Follower System
+	{ "addfollower",	(getattrofunc)wpChar_addfollower, METH_VARARGS, "Adds a follower to the user." },
+	{ "removefollower",	(getattrofunc)wpChar_removefollower, METH_VARARGS, "Removes a follower from the user." },
+	{ "hasfollower",	(getattrofunc)wpChar_hasfollower, METH_VARARGS, "Checks if a certain character is a follower of this." },
 
 	// Tag System
 	{ "gettag",				(getattrofunc)wpChar_gettag, METH_VARARGS, "Gets a tag assigned to a specific char." },
@@ -681,73 +997,46 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else if( !strcmp( name, "str" ) ) 
 		return PyInt_FromLong( self->pChar->st() );
 	else pGetInt( "dex", effDex() )
-//	else pGetInt( "int", in )
 	else if( !strcmp( name, "int" ) )
 		return PyInt_FromLong( self->pChar->in() );
-
 	else if ( !strcmp( name, "str2" ) )
 		return PyInt_FromLong( self->pChar->st2() );
 	else pGetInt( "dex2", decDex() )
-//	else pGetInt( "int2", in2 )
 	else if( !strcmp( name, "int2" ) )
 		return PyInt_FromLong( self->pChar->in2() );
-
-//	else pGetInt( "health", hp )
 	else if ( !strcmp( name, "health" ) )
 		return PyInt_FromLong( self->pChar->hp() );
-//	else pGetInt( "stamina", stm )
 	else if ( !strcmp( name, "stamina" ) )
 		return PyInt_FromLong( self->pChar->stm() );
-//	else pGetInt( "mana", mn )
 	else if ( !strcmp( name, "mana" ) )
 		return PyInt_FromLong( self->pChar->mn() );
-
-//	else pGetInt( "hidamage", hidamage )
 	else if ( !strcmp( name, "hidamage" ) )
 		return PyInt_FromLong(self->pChar->hidamage() );
-//	else pGetInt( "lodamage", lodamage )
 	else if ( !strcmp( name, "lodamage" ) )
 		return PyInt_FromLong( self->pChar->lodamage() );
-
-//	else pGetInt( "npc", npc )
 	else if ( !strcmp( name, "npc" ) )
 		return PyInt_FromLong( self->pChar->npc() );
-//	else pGetInt( "shop", shop )
 	else if ( !strcmp( name, "shop" ) )
 		return PyInt_FromLong( self->pChar->shop() );
-//	else pGetInt( "cell", cell )
 	else if ( !strcmp( name, "cell" ) )
 		return PyInt_FromLong( self->pChar->cell() );
-	
-	// Owner
 	else if( !strcmp( name, "owner" ) )
 		return PyGetCharObject( self->pChar->owner() );
-
-	// Followers (return a tuple of all "owned" characters
-
-//	else pGetInt( "karma", karma )
 	else if( !strcmp( name, "karma" ) )
 		return PyInt_FromLong( self->pChar->karma() );
-//	else pGetInt( "fame", fame )
 	else if( !strcmp( name, "fame" ) )
 		return PyInt_FromLong( self->pChar->fame() );
-//	else pGetInt( "kills", kills )
 	else if( !strcmp( name, "kills" ) )
 		return PyInt_FromLong( self->pChar->kills() );
-//	else pGetInt( "deaths", deaths )
 	else if( !strcmp( name, "deaths" ) )
 		return PyInt_FromLong( self->pChar->deaths() );
-//	else pGetInt( "dead", dead )
 	else if( !strcmp( name, "dead" ) )
 		return PyInt_FromLong( self->pChar->dead() );
-
 	else if( !strcmp( name, "backpack" ) )
 		return PyGetItemObject( self->pChar->getBackpack() );
 
-//	else pGetInt( "def", def )
 	else if( !strcmp( name, "def" ) )
 		return PyInt_FromLong( self->pChar->def() );
-//	else pGetInt( "war", war )
 	else if( !strcmp( name, "war" ) )
 		return PyInt_FromLong( self->pChar->war() );
 	
@@ -760,11 +1049,8 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 			return PyGetCharObject( FindCharBySerial( self->pChar->targ() ) );
 	}
 
-//	else pGetInt( "npcwander", npcWander )
 	else if( !strcmp( "npcwander", name ) )
 		return PyInt_FromLong( self->pChar->npcWander() );
-	
-//	else pGetInt( "oldnpcwander", oldnpcWander )
 	else if( !strcmp( "oldnpcwander", name ) )
 		return PyInt_FromLong( self->pChar->oldnpcWander() );
 	
@@ -772,19 +1058,14 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else if( !strcmp( "region", name ) )
 		return PyGetRegionObject( self->pChar->region() );
 
-//	else pGetInt( "skilldelay", skilldelay )
 	else if( !strcmp( "skilldelay", name ) )
 		return PyInt_FromLong( self->pChar->skilldelay() );
-//	else pGetInt( "objectdelay", objectdelay )
 	else if( !strcmp( "objectdelay", name ) )
 		return PyInt_FromLong( self->pChar->objectdelay() );
-//	else pGetInt( "taming", taming )
 	else if( !strcmp( "taming", name ) )
 		return PyInt_FromLong( self->pChar->taming() );
-//	else pGetInt( "summontimer", summontimer )
 	else if( !strcmp( "summontimer", name ) )
 		return PyInt_FromLong( self->pChar->summontimer() );
-//	else pGetInt( "visrange", VisRange )
 	else if( !strcmp( "visrange", name ) )
 		return PyInt_FromLong( self->pChar->VisRange() );
 	
@@ -834,61 +1115,7 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else pGetInt( "direction", beardstyle() )
 	else pGetInt( "serial", serial )
 
-	/*getStrProperty( "name", pChar->name.c_str() )
-	else getStrProperty( "orgname", pChar->orgname().latin1() )
-	else getStrProperty( "title", pChar->title().latin1() )
-	else getIntProperty( "serial", pChar->serial )
-	else getIntProperty( "body", pChar->id() )
-	else getIntProperty( "xbody", pChar->xid )
-	else getIntProperty( "skin", pChar->skin() )
-	else getIntProperty( "xskin", pChar->xskin() )
-	
-	else getIntProperty( "health", pChar->hp )
-	else getIntProperty( "stamina", pChar->stm )
-	else getIntProperty( "mana", pChar->mn )
-
-	else getIntProperty( "str", pChar->st )
-	else getIntProperty( "dex", pChar->effDex() )
-	else getIntProperty( "int", pChar->in )
-
-	else if( !strcmp( "pos", name ) )
-		return PyGetCoordObject( self->pChar->pos );
-
-	else getIntProperty( "direction", pChar->dir )
-	else getIntProperty( "flags2", pChar->priv2 )
-	else getIntProperty( "hidamage", pChar->hidamage )
-	else getIntProperty( "lodamage", pChar->lodamage )
-	else getIntProperty( "objectdelay", pChar->objectdelay )
-
-	else if( !strcmp( "equipment", name ) )
-	{
-		wpContent *content = PyObject_New( wpContent, &wpContentType );
-		content->contserial = self->pChar->serial;
-		return (PyObject*)content;
-	}
-	else if( !strcmp( "skill", name ) )
-	{
-		wpSkills *skills = PyObject_New( wpSkills, &wpSkillsType );
-		skills->base = false;
-		skills->pChar = self->pChar;
-		return (PyObject*)( skills );
-	}
-
-	else if( !strcmp( "socket", name ) )
-		return PyGetSocketObject( self->pChar->socket() );
-
-	else if( !strcmp( "equipment", name ) )
-	{
-		Py_WPEquipment *returnVal = PyObject_New( Py_WPEquipment, &Py_WPEquipmentType );
-		returnVal->pChar = self->pChar; // Never forget that
-		return (PyObject*)returnVal;
-		return Py_None;
-	}
-
-	// Base skill
-	else for( UINT8 i = 0; i < ALLSKILLS; ++i )
-		if( field.upper() == skillname[ i ] ) 
-			return PyInt_FromLong( self->pChar->baseSkill( i ) );*/
+	else pGetStr( "profile", profile() )
 
 	// If no property is found search for a method
 	return Py_FindMethod( wpCharMethods, (PyObject*)self, name );
@@ -902,50 +1129,34 @@ int wpChar_setAttr( wpChar *self, char *name, PyObject *value )
 	else if ( !strcmp( "title", name) )
 		self->pChar->setTitle( PyString_AS_STRING( value ) );
 	else setIntProperty( "serial", pChar->serial )
-	
 	else if( !strcmp( "body", name ) )
 		self->pChar->setId( PyInt_AS_LONG( value ) );
-	
-//	else setIntProperty( "xbody", pChar->xid() )
 	else if ( !strcmp("xbody", name ) )
 		self->pChar->setXid(PyInt_AS_LONG( value ) );		
 	else if ( !strcmp( "skin", name ) )
 		self->pChar->setSkin( PyInt_AS_LONG(value ) );
 	else if ( !strcmp( "xskin", name ) )
 		self->pChar->setXSkin( PyInt_AS_LONG(value ) );
-	
-//	else setIntProperty( "health", pChar->hp )
 	else if ( !strcmp( "health", name ) )
 		self->pChar->setHp( PyInt_AS_LONG( value ) );
-		
-//	else setIntProperty( "stamina", pChar->stm() )
 	else if ( !strcmp( "stamina", name ) )
 		self->pChar->setStm( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "mana", pChar->mn() )
 	else if ( !strcmp( "mana", name ) )
 		self->pChar->setMn( PyInt_AS_LONG( value ) );
-
 	else if ( !strcmp( "str", name ) )
 		self->pChar->setSt( PyInt_AS_LONG( value ) );
 	else if ( !strcmp( "dex", name ) )
 		self->pChar->setDex( PyInt_AS_LONG( value ) );
-	
-//	else setIntProperty( "int", pChar->in() )
 	else if ( !strcmp( "int", name ) )
 		self->pChar->setIn( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "direction", pChar->dir() )
 	else if( !strcmp("direction", name ) )
 		self->pChar->setDir( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "flags2", pChar->priv2() )
 	else if( !strcmp("flags2", name ) )
 		self->pChar->setPriv2( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "hidamage", pChar->hidamage )
 	else if( !strcmp("hidamage", name ) )
 		self->pChar->setHiDamage( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "lodamage", pChar->lodamage )
 	else if( !strcmp("lodamage", name ) )
 		self->pChar->setLoDamage( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "objectdelay", pChar->objectdelay )
 	else if( !strcmp("objectdelay", name ) )
 		self->pChar->setObjectDelay( PyInt_AS_LONG( value ) );
 	else if( !strcmp( name, "pos" ) && checkWpCoord( value ) )

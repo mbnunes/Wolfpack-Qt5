@@ -400,3 +400,88 @@ bool cUObject::inRange( const cUObject *object, UINT32 range ) const
 
 	return ( pos.distance( object->pos ) <= range );
 }
+
+/*!
+	Displays an effect emitting from this object toward another item or character
+*/
+void cUObject::effect( UINT16 id, cUObject *target, bool fixedDirection, bool explodes, UINT8 speed, UINT16 hue, UINT16 renderMode )
+{
+	if( !target )
+		return;
+
+	cUOTxEffect effect;
+	effect.setType( ET_MOVING );
+	effect.setSource( serial );
+	effect.setTarget( target->serial );
+	effect.setSourcePos( pos );
+	effect.setTargetPos( target->pos );
+	effect.setId( id );
+    effect.setSpeed( speed );
+	effect.setExplodes( explodes );
+	effect.setFixedDirection( fixedDirection );
+	effect.setHue( hue );
+	effect.setRenderMode( renderMode );
+
+	cUOSocket *mSock = 0;
+	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	{
+		if( !mSock->player() )
+			continue;
+
+		// The Socket has to be either in range of Source or Target
+		if( mSock->player()->inRange( this, mSock->player()->VisRange() ) || mSock->player()->inRange( target, mSock->player()->VisRange() ) )
+			mSock->send( &effect );
+	}
+}
+
+/*!
+	Displays an effect emitting from this object and moving towards a specific location.
+*/
+void cUObject::effect( UINT16 id, const Coord_cl &target, bool fixedDirection, bool explodes, UINT8 speed, UINT16 hue, UINT16 renderMode )
+{
+	cUOTxEffect effect;
+	effect.setType( ET_MOVING );
+	effect.setSource( serial );
+	effect.setSourcePos( pos );
+	effect.setTargetPos( target );
+	effect.setId( id );
+    effect.setSpeed( speed );
+	effect.setExplodes( explodes );
+	effect.setFixedDirection( fixedDirection );
+	effect.setHue( hue );
+	effect.setRenderMode( renderMode );
+
+	cUOSocket *mSock = 0;
+	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	{
+		if( !mSock->player() )
+			continue;
+
+		// The Socket has to be either in range of Source or Target
+		if( mSock->player()->inRange( this, mSock->player()->VisRange() ) || ( mSock->player()->pos.distance( target ) <= mSock->player()->VisRange() ) )
+			mSock->send( &effect );
+	}
+}
+
+/*!
+	Displays an effect moving with this object.
+*/
+void cUObject::effect( UINT16 id, UINT8 speed, UINT8 duration, UINT16 hue, UINT16 renderMode )
+{
+	cUOTxEffect effect;
+	effect.setType( ET_STAYSOURCESER );
+	effect.setSource( serial );
+	effect.setSourcePos( pos );
+	effect.setId( id );
+    effect.setSpeed( speed );
+	effect.setDuration( duration );
+	effect.setHue( hue );
+	effect.setRenderMode( renderMode );
+
+	cUOSocket *mSock = 0;
+	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	{
+		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->VisRange() ) )
+			mSock->send( &effect );
+	}
+}

@@ -664,12 +664,6 @@ public:
 	void wear( P_ITEM );
 	void updateWornItems();
 	void updateWornItems( cUOSocket* );
-	
-	// Multiple quick-effect methods
-	void effect( UINT16 id, cUObject *target, bool fixedDirection = true, bool explodes = false, UINT8 speed = 10, UINT16 hue = 0, UINT16 renderMode = 0 );
-	void effect( UINT16 id, const Coord_cl &target, bool fixedDirection = true, bool explodes = false, UINT8 speed = 10, UINT16 hue = 0, UINT16 renderMode = 0 );
-	void effect( UINT16 id, UINT8 speed = 10, UINT8 duration = 5, UINT16 hue = 0, UINT16 renderMode = 0 ); // Moving with this character
-
 	short effDex()				{return dx+tmpDex>0 ? dx+tmpDex : 0;}	// returns current effective Dexterity
 	short realDex()				{return dx;}	// returns the true Dexterity
 	short decDex()				{return dx2;}	// returns the 3 digits behind the decimal point
