@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #################################################################
 #   )      (\_     # Wolfpack 13.0.0 Build Script               #
 #  ((    _/{  "-;  # Created by: Wolfpack Development Team      #
@@ -35,28 +35,70 @@ ask_path()
 	done;
 }
 
-if [ "$" != "--enable-debug" ]
+print_usage()
+{
+	cat <<-EOF
+	Usage: ${0} [options]
+	where options are:
+	        --enable-mysql    Enable MySQL support.
+	        --enable-debug    Enable debugging.
+	EOF
+	exit 1;
+}
+
+while [ "$1" ];
+do
+	ITEM="$(echo "$1"|sed -e 's/^--\([^-]\+-\)\?//')";
+
+	if [ "$ITEM" == "$1" ];
+	then
+		echo "Unknown option \"$1\"!";
+		print_usage;
+	elif [ "$1" == "--help" ];
+	then
+		print_usage;
+	fi;
+
+	YES_NO="$(echo "$1"|grep -q '^--\(enable-\|[^-]*$\)' && echo 'y' || echo 'n')"
+	case "$ITEM" in
+		debug)	DEBUG="$YES_NO";;
+		mysql)	MYSQL="$YES_NO";;
+		*)
+			echo "Unknown option \"$1\"!";
+			print_usage;
+			;;
+	esac;
+
+	shift;
+done;
+
+if [ "$DEBUG" = "y" ];
 then
 	echo "Debug: Yes";
-	DEBUGOPTS="-g -D_DEBUG"
+	DEFINES="_DEBUG";
+	QMAKE_CXXFLAGS="-g";
+	QMAKE_CFLAGS="-g";
 fi;
 
-if [ "$1" != "--disable-mysql" ]
+if [ "$MYSQL" = "y" ];
 then
 	# <mysql>
 	echo -n "Searching for MySQL includes... ";
 
-	MYSQLINC=$(mysql_config --include|cut -d'-' -d'I' -f2);
+	# backward compatibility for 3.xx.xx
+	MYSQL_INC="$(mysql_config --cflags|sed -e "s/^\([^-]*-\)*I['\"]\?\([^ '\"$]*\).*$/\2/")";
+	MYSQL_LIB="$(mysql_config --libs)";
 
-	if ! [ "$MYSQLINC" ];
+	if ! [ "$MYSQL_INC" ];
 	then
 		ask_path;
-		MYSQLINC="$SUPPLIED_PATH";
-		if [ ! "$MYSQLINC" ]; then
+		MYSQL_INC="$SUPPLIED_PATH";
+		if [ ! "$MYSQL_INC" ]; then
 			echo "MySQL support disabled ";
 		fi
 	else
-		echo " ( $MYSQLINC )";
+		echo " ( $MYSQL_INC )";
+		DEFINES="$DEFINES MYSQL_DRIVER";
 	fi;
 	# </mysql>
 fi;
@@ -75,14 +117,14 @@ do
 	fi;
 done;
 
-PYTHONINC="$(echo -e "$py_pathes"|sort -nr|head -1|sed -e 's/^\(\([^\/]*\/\)*\).*$/\1/;s/\/\+$//')";
+PYTHON_INC="$(echo -e "$py_pathes"|sort -nr|head -1|sed -e 's/^\(\([^\/]*\/\)*\).*$/\1/;s/\/\+$//')";
 
-if ! [ "$PYTHONINC" ];
+if ! [ "$PYTHON_INC" ];
 then
 	ask_path;
-	PYTHONINC="$SUPPLIED_PATH";
+	PYTHON_INC="$SUPPLIED_PATH";
 else
-	echo "( $PYTHONINC )";
+	echo "( $PYTHON_INC )";
 fi;
 
 echo -n "Searching for Python library.... ";
@@ -99,25 +141,29 @@ do
 	fi;
 done;
 
-PYTHONLIB="$(echo -e "$py_libs"|sort -nr|head -1|sed -e 's/^\(\([^\/]*\/\)*\).*$/\1/;s/\/\+$//')";
+PYTHON_LIB="$(echo -e "$py_libs"|sort -nr|head -1|sed -e 's/^\(\([^\/]*\/\)*\).*$/\1/;s/\/\+$//')";
 
-if ! [ "PYTHONLIB" ];
+if ! [ "PYTHON_LIB" ];
 then
 	echo -n "Not found :((";
 else
-	echo "( $PYTHONLIB )";
+	echo "( $PYTHON_LIB )";
 fi;
 # </python>
 
-export MYSQLINC PYTHONINC PYTHONLIB DEBUGOPTS
+PASSED_VARIABLES="";
+for i in MYSQL_INC MYSQL_LIB PYTHON_INC PYTHON_LIB DEFINES QMAKE_CFLAGS QMAKE_CXXFLAGS;
+do
+	PASSED_VARIABLES="$PASSED_VARIABLES $i+='$(eval "echo \$$i")'";
+done;
 
 echo -n "Creating Makefile using qmake... "
 
 if [ -x "$QTDIR/bin/qmake" ];
 then
-	$QTDIR/bin/qmake -o Makefile wolfpack.pro > /dev/null 2>&1;
+	eval $QTDIR/bin/qmake -o Makefile $PASSED_VARIABLES wolfpack.pro > /dev/null 2>&1;
 else
-	qmake -o Makefile wolfpack.pro > /dev/null 2>&1;
+	eval qmake -o Makefile $PASSED_VARIABLES wolfpack.pro > /dev/null 2>&1;
 fi;
 
 echo "done.";

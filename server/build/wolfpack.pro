@@ -9,73 +9,26 @@ PROJECT	= wolfpack
 TARGET		= wolfpack
 TEMPLATE	+= app
 CONFIG		+= qt console thread exceptions rtti
-OPTIONS	+= mysql
+
+# disable run of qmake after Makefile modification
+QMAKE =
 
 unix {
 
 	# Common unix settings
 	# Lets try to figure some paths
-	message("HINT: ./configure script can simplify compilation")
+	message("HINT: use ./configure script!")
 
-	!isEmpty($(DEBUGOPTS))
-	{
-		DEFINES += _DEBUG
-		QMAKE_CXXFLAGS += -g
-		QMAKE_CFLAGS += -g
-	}
-
-	# MySQL includes first. Run configure script to initialize it.
-	!isEmpty($(MYSQLINC))
-	{
-	    INCLUDEPATH += $$(MYSQLINC)
-		DEFINES += MYSQL_DRIVER
-		LIBS += -lmysqlclient
-	}
-
-	contains( OPTIONS, mysql ) {
-		message("MySQL support specified, trying to locate required files")
-		exists(/usr/include/mysql/mysql.h) {
-			MYSQL_INCLUDE = /usr/include/mysql
-		} exists(/usr/local/lib/mysql/include/mysql/mysql.h) {
-			MYSQL_INCLUDE = /usr/local/lib/mysql/include/mysql
-		}
-
-		!isEmpty(MYSQL_INCLUDE)	{
-			exists(/usr/lib/mysql/mysqlclient*) {
-				MYSQL_LIB = /usr/lib/mysql
-			} exists (/usr/local/lib/mysql/lib/mysql/mysqlclient*) {
-				MYSQL_LIB = /usr/local/lib/mysql/lib/mysql
-			} exists (/usr/local/lib/mysqlclient*) {
-				MYSQL_LIB = /usr/local/lib
-			}
-
-			!isEmpty(MYSQL_LIB) {
-				message("MySQL include path.........: ($$MYSQL_INCLUDE)")
-				message("MySQL library path.........: ($$MYSQL_LIB)")
-				LIBS += -L$$MYSQL_LIB -lmysqlclient
-				INCLUDEPATH += $$MYSQL_INCLUDE
-				DEFINES += MYSQL_DRIVER
-			}
-		}
-		isEmpty(MYSQL_INCLUDE)
-		{
-			message("MySQL include files not found, support is disabled")
-		}
-	}
+	# MySQL
+	LIBS += $$MYSQL_LIB
+	INCLUDEPATH += $$MYSQL_INC
 
 	# Python includes. Run configure script to initialize it.
-	!isEmpty($(PYTHONINC))
-	{
-	    INCLUDEPATH += $$(PYTHONINC)
-	}
-	isEmpty($(PYTHONINC))
-	{
-		message("Error: Could not find Python include files")
-	}
+	INCLUDEPATH += $$PYTHON_INC
 
 	INCLUDEPATH += /usr/local/include/stlport sqlite network
-	LIBS  += -L/usr/local/lib -ldl -lpython2.3 -lutil
-	LIBS  += -L$$(PYTHONLIB)
+	LIBS  += -L/usr/local/lib -L/usr/lib -ldl -lpython2.3 -lutil
+	LIBS  += -L$$PYTHON_LIB
 	# we dont use those.
 	QMAKE_LIBS_X11 -= -lX11 -lXext -lm
 
