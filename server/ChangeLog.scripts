@@ -1,6 +1,12 @@
 Wolfpack ChangeLog
 
 Wolfpack 12.9.11 Beta (CVS)
+	* Core Changes:
+		- Made mapdif*, stadi* and friends case insensitive, so under *nix
+                  they don't have to be renamed.
+		- Fixed crash under windows when the server terminates unexpectedly
+		- Console will show which unicode format was compiled in Python UCS2 or UCS4
+		- Fixed compile error on FreeBSD.		
 	* Definition Changes:
 		- Fixed minimum taming for npcs.
 		- Added the shopkeeper inventory for many vendors.
@@ -40,6 +46,7 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Fixed loot random amount problems.
 		- Fixed NPC damage.
 	* Misc. Changes:
+		- Fixed configure.py for FreeBSD 5
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
 		- Spawn regions are incomplete.

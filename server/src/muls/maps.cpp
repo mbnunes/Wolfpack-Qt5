@@ -121,15 +121,35 @@ MapsPrivate::MapsPrivate( const QString& index, const QString& map, const QStrin
 	mapCache.setAutoDelete( true );
 }
 
-void MapsPrivate::loadDiffs( const QString& basepath, unsigned int id )
+void MapsPrivate::loadDiffs( const QString& basePath, unsigned int id )
 {
 	// Try to read the index
-	QFile mapdiflist( basepath + QString( "mapdifl%1.mul" ).arg( id ) );
-	mapdifdata.setName( basepath + QString( "mapdif%1.mul" ).arg( id ) );
-	mapdifdata.open( IO_ReadOnly );
+	QDir baseFolder( basePath );
+	QStringList files = baseFolder.entryList();
+	QString mapDiffListName = QString( "mapdifl%1.mul" ).arg( id );
+	QString mapDiffFileName = QString( "mapdif%1.mul" ).arg( id );
+	QString statDiffFileName = QString( "stadif%1.mul" ).arg( id );
+	QString statDiffListName = QString( "stadifl%1.mul" ).arg( id );
+	QString statDiffIndexName = QString( "stadifi%1.mul" ).arg( id );
+	for ( QStringList::const_iterator it = files.begin(); it != files.end(); ++it )
+	{
+		if ( ( *it ).lower() == mapDiffListName )
+			mapDiffListName = *it;
+		else if ( ( *it ).lower() == mapDiffFileName )
+			mapDiffFileName = *it;
+		else if ( ( *it ).lower() == statDiffFileName )
+			statDiffFileName = *it;
+		else if ( ( *it ).lower() == statDiffListName )
+			statDiffListName = *it;
+		else if ( ( *it ).lower() == statDiffIndexName )
+			statDiffIndexName = *it;
+	}
 
+	QFile mapdiflist( basePath + mapDiffListName );
+	mapdifdata.setName( basePath + mapDiffFileName );
+	
 	// Try to read a list of ids
-	if ( mapdifdata.isOpen() && mapdiflist.open( IO_ReadOnly ) )
+	if ( mapdifdata.open( IO_ReadOnly ) && mapdiflist.open( IO_ReadOnly ) )
 	{
 		QDataStream listinput( &mapdiflist );
 		listinput.setByteOrder( QDataStream::LittleEndian );
@@ -144,11 +164,11 @@ void MapsPrivate::loadDiffs( const QString& basepath, unsigned int id )
 		mapdiflist.close();
 	}
 
-	stadifdata.setName( basepath + QString( "stadif%1.mul" ).arg( id ) );
+	stadifdata.setName( basePath + statDiffFileName );
 	stadifdata.open( IO_ReadOnly );
 
-	QFile stadiflist( basepath + QString( "stadifl%1.mul" ).arg( id ) );
-	QFile stadifindex( basepath + QString( "stadifi%1.mul" ).arg( id ) );
+	QFile stadiflist( basePath + statDiffListName );
+	QFile stadifindex( basePath + statDiffIndexName );
 
 	if ( stadifindex.open( IO_ReadOnly ) && stadiflist.open( IO_ReadOnly ) )
 	{
