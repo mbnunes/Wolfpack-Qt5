@@ -88,6 +88,16 @@ CHIVALRY = 51
 
 ALLSKILLS = 52 # skills + 1
 
+skillnames = [ 'alchemy', 'anatomy', 'animallore', 'itemid', 'armslore', 'parrying',
+	'begging', 'blacksmithing', 'bowcraft', 'peacemaking', 'camping', 'carpentry',
+	'cartography', 'cooking', 'detectinghidden', 'enticement', 'evaluatingintel',
+	'healing', 'fishing', 'forensics', 'herding', 'hiding', 'provocation',
+	'inscription', 'lockpicking', 'magery', 'magicresistance', 'tactics', 'snooping',
+	'musicianship', 'poisoning', 'archery', 'spiritspeak', 'stealing', 'tailoring',
+	'taming', 'tasteid', 'tinkering', 'tracking', 'veterinary', 'swordsmanship',
+	'macefighting', 'fencing', 'wrestling', 'lumberjacking', 'mining', 'meditation',
+	'stealth', 'removetraps', 'necromancy', 'focus', 'chivalry' ]
+
 #Stats
 MANA = 0
 STAMINA = 1
