@@ -73,7 +73,7 @@ using namespace std;
 
 // constructor
 cItem::cItem(): container_(0), totalweight_(0), incognito(false),
-rndvaluerate_(0), timeused_last(0), sellprice_( 0 ), 
+timeused_last(0), sellprice_( 0 ), 
 buyprice_( 0 ), restock_( 1 ), antispamtimer_( 0 )
 {
 	Init( false );
@@ -84,12 +84,7 @@ cItem::cItem( const cItem &src )
 	changed( TOOLTIP );
 	flagChanged();
 	this->name_ = src.name_;
-	this->creator_ = src.creator_;
 	this->incognito = src.incognito;
-	this->madewith_ = src.madewith_;
-	this->rank_ = src.rank_;
-	this->good_ = src.good_;
-	this->rndvaluerate_ = src.rndvaluerate_;
 
 	this->setMultis( src.multis() );
 	this->free = false;
@@ -109,7 +104,6 @@ cItem::cItem( const cItem &src )
 	this->morez_ = src.morez_;
 	this->amount_ = src.amount_;
 	this->dye_ = src.dye_;
-	this->att_ = src.att_;
 	this->def_ = src.def_;
 	this->lodamage_=src.lodamage_;
 	this->hidamage_=src.hidamage_;
@@ -449,27 +443,24 @@ void cItem::save()
 		
 		addField("serial",		serial());
 		addField("id",			id());
-		addStrField("creator",		creator_);
-		addField("sk_name",		madewith_);
-		addField("color",			color());
+		addField("color",		color());
 		SERIAL contserial = INVALID_SERIAL;
 		if ( container_ )
 			contserial = container_->serial();
-		addField("cont",			contserial);
-		addField("layer",			layer_);
-		addField("type",			type_);
-		addField("type2",			type2_);
-		addField("more1",			more1_);
-		addField("more2",			more2_);
-		addField("more3",			more3_);
-		addField("more4",			more4_);
-		addField("morex",			morex_);
-		addField("morey",			morey_);
-		addField("morez",			morez_);
+		addField("cont",		contserial);
+		addField("layer",		layer_);
+		addField("type",		type_);
+		addField("type2",		type2_);
+		addField("more1",		more1_);
+		addField("more2",		more2_);
+		addField("more3",		more3_);
+		addField("more4",		more4_);
+		addField("morex",		morex_);
+		addField("morey",		morey_);
+		addField("morez",		morez_);
 		addField("amount",		amount_);
 		addField("dye",			dye_);
 		addField("decaytime",	(decaytime_ > uiCurrentTime) ? decaytime_ - uiCurrentTime : 0	);
-		addField("att",			att_);
 		addField("def",			def_);
 		addField("hidamage",		hidamage_);
 		addField("lodamage",		lodamage_);
@@ -477,7 +468,6 @@ void cItem::save()
 		addField("weight",		weight_);
 		addField("hp",			hp_);
 		addField("maxhp",			maxhp_);
-		addField("rank",			rank_);
 		addField("speed",			speed_);
 		addField("poisoned",		poisoned_);
 		addField("magic",			magic_);
@@ -489,7 +479,6 @@ void cItem::save()
 		addField("buyprice",			buyprice_);
 		addField("restock",		restock_);
 		addField("disabled",		disabled_);
-		addField("good",			good_);
 		addField("accuracy",		accuracy_);
 		
 		addCondition( "serial", serial() );
@@ -582,19 +571,12 @@ void cItem::Init( bool createSerial )
 	if( createSerial )
 		this->setSerial( World::instance()->findItemSerial() );
 
-	// We need to implement NULL checking here.
-	this->creator_ = QString::null;
-
 	this->container_ = 0;
 	this->incognito=false;//AntiChrist - incognito
-	this->madewith_=0; // Added by Magius(CHE)
-	this->rank_ = 0; // Magius(CHE)
-	this->good_=-1; // Magius(CHE)
-	this->rndvaluerate_=0; // Magius(CHE) (2)
 
-	this->setMultis( INVALID_SERIAL );//Multi serial
+	this->setMultis( INVALID_SERIAL ); //Multi serial
 	this->free = false;
-	this->setId(0x0001); // Item visuals as stored in the client
+	this->setId( 0x0001 ); // Item visuals as stored in the client
 	this->setPos( Coord_cl(100, 100, 0) );
 	this->color_ = 0x00; // Hue
 	this->layer_ = 0; // Layer if equipped on paperdoll
@@ -610,7 +592,6 @@ void cItem::Init( bool createSerial )
 	this->morez_=0;
 	this->amount_ = 1; // Amount of items in pile
 	this->dye_=0; // Reserved: Can item be dyed by dye kit
-	this->att_=0; // Item attack
 	this->def_=0; // Item defense
 	this->lodamage_=0; //Minimum Damage weapon inflicts
 	this->hidamage_=0; //Maximum damage weapon inflicts
@@ -1215,10 +1196,6 @@ void cItem::processNode( const cElement *Tag )
 	else if( TagName == "speed" )
 		this->setSpeed( Value.toLong() );
 
-	// <good>10</good>
-	else if( TagName == "good" )
-		this->good_ = Value.toInt();
-
 	// <lightsource>10</lightsource>
 	else if( TagName == "lightsource" )
 		this->dir_ = Value.toUShort();
@@ -1531,10 +1508,6 @@ void cItem::showName( cUOSocket *socket )
 	if( !name_.isNull() )
 		itemname = getName();
 
-	// Add creator's mark (if any)
-	if( !creator_.isEmpty() && madewith() )
-		itemname.append( tr( " crafted by %2" ).arg( creator_ ) );
-
 	// Amount information
 	if( amount_ > 1 )
 		itemname.append( tr( ": %1" ).arg( amount_ ) );
@@ -1833,30 +1806,6 @@ void cItem::setTotalweight( INT32 data )
 	}
 }
 
-void cItem::applyRank( UI08 rank )
-{
-	// Variables to change: LODAMAGE,HIDAMAGE,ATT,DEF,HP,MAXHP
-	double minmod = (double)(rank-1) * 10.0f / 100.0f;
-	double maxmod = (double)(rank+1) * 10.0f / 100.0f;
-	UINT16 minhp_ = (UINT16)floor( minmod * (double)hp() );
-	UINT16 maxhp_ = (UINT16)floor( maxmod * (double)hp() );
-	INT16  minlodam = (UINT16)floor( minmod * (double)lodamage() );
-	INT16  maxlodam = (UINT16)floor( maxmod * (double)lodamage() );
-	INT16  minhidam = (UINT16)floor( minmod * (double)hidamage() );
-	INT16  maxhidam = (UINT16)floor( maxmod * (double)hidamage() );
-	UINT16 mindef = (UINT16)floor( minmod * (double)def() );
-	UINT16 maxdef = (UINT16)floor( maxmod * (double)def() );
-	
-	changed( TOOLTIP );
-	flagChanged();
-	setLodamage( RandomNum( minlodam, maxlodam ) );
-	setHidamage( RandomNum( minhidam, maxhidam ) );
-	def_ = RandomNum( mindef, maxdef );
-	setMaxhp( RandomNum( minhp_, maxhp_ ) );
-	setHp( maxhp() );
-	this->rank_ = rank_;
-}
-
 void cItem::talk( const QString &message, UI16 color, UINT8 type, bool autospam, cUOSocket* socket )
 {
 	if( autospam )
@@ -2023,8 +1972,6 @@ void cItem::load( char **result, UINT16 &offset )
 		throw QString( "Item has invalid character serial: 0x%1" ).arg( serial(), 0, 16 );
 
 	id_ = atoi( result[offset++] );
-	creator_ = result[offset++];
-	madewith_ = atoi( result[offset++] );
 	color_ = atoi( result[offset++] );
 	
 	//  Warning, ugly optimization ahead, if you have a better idea, we want to hear it. 
@@ -2053,7 +2000,6 @@ void cItem::load( char **result, UINT16 &offset )
 	decaytime_ = atoi( result[offset++] );
 	if( decaytime_ > 0 ) 
 		decaytime_ += uiCurrentTime;
-	att_ = atoi( result[offset++] );
 	def_ = atoi( result[offset++] );
 	hidamage_ = atoi( result[offset++] );
 	lodamage_ = atoi( result[offset++] );
@@ -2061,7 +2007,6 @@ void cItem::load( char **result, UINT16 &offset )
 	weight_ = atoi( result[offset++] );
 	hp_ = atoi( result[offset++] );
 	maxhp_ = atoi( result[offset++] );
-	rank_ = atoi( result[offset++] );
 	speed_ = atoi( result[offset++] );
 	poisoned_ = atoi( result[offset++] );
 	magic_ = atoi( result[offset++] );
@@ -2073,7 +2018,6 @@ void cItem::load( char **result, UINT16 &offset )
 	buyprice_ = atoi( result[offset++] );
 	restock_ = atoi( result[offset++] );
 	disabled_ = atoi( result[offset++] );
-	good_ = atoi( result[offset++] );
 	accuracy_ = atoi( result[offset++] );
 
 	// Their own weight should already be set.
@@ -2085,7 +2029,7 @@ void cItem::load( char **result, UINT16 &offset )
 void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cUObject::buildSqlString( fields, tables, conditions );
-	fields.push_back( "items.id,items.creator,items.sk_name,items.color,items.cont,items.layer,items.type,items.type2,items.offspell,items.more1,items.more2,items.more3,items.more4,items.morex,items.morey,items.morez,items.amount,items.dye,items.decaytime,items.att,items.def,items.hidamage,items.lodamage,items.time_unused,items.weight,items.hp,items.maxhp,items.rank,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.priv,items.sellprice,items.buyprice,items.restock,items.disabled,items.good,items.accuracy" ); // for now! later on we should specify each field
+	fields.push_back( "items.id,items.color,items.cont,items.layer,items.type,items.type2,items.more1,items.more2,items.more3,items.more4,items.morex,items.morey,items.morez,items.amount,items.dye,items.decaytime,items.def,items.hidamage,items.lodamage,items.time_unused,items.weight,items.hp,items.maxhp,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.priv,items.sellprice,items.buyprice,items.restock,items.disabled,items.accuracy" ); // for now! later on we should specify each field
 	tables.push_back( "items" );
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
@@ -2345,7 +2289,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "morey", morey_ )
 	else SET_INT_PROPERTY( "morez", morez_ )
 	else SET_INT_PROPERTY( "dye", dye_ )
-	else SET_INT_PROPERTY( "attack", att_ )
 	else SET_INT_PROPERTY( "defense", def_ )
 	else SET_INT_PROPERTY( "decaytime", decaytime_ )
 
@@ -2375,11 +2318,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "restock", restock_ )
 	else SET_INT_PROPERTY( "disabled", disabled_ )
 	else SET_INT_PROPERTY( "poisoned", poisoned_ )
-	else SET_INT_PROPERTY( "rank", rank_ )
-	else SET_STR_PROPERTY( "creator", creator_ )
-	else SET_INT_PROPERTY( "good", good_ )
-	else SET_INT_PROPERTY( "rndvaluerate", rndvaluerate_ )
-	else SET_INT_PROPERTY( "madewith", madewith_ )
 	else SET_INT_PROPERTY( "incognito", incognito )
 	else SET_INT_PROPERTY( "timeunused", time_unused )
 	else SET_INT_PROPERTY( "timeusedlast", timeused_last )
@@ -2489,7 +2427,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "morey", (int)morey_ )
 	else GET_PROPERTY( "morez", (int)morez_ )
 	else GET_PROPERTY( "dye", dye_ )
-	else GET_PROPERTY( "attack", (int)att_ )
 	else GET_PROPERTY( "defense", (int)def_ )
 	else GET_PROPERTY( "decaytime", (int)decaytime_ )
 
@@ -2503,11 +2440,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "restock", restock_ )
 	else GET_PROPERTY( "disabled", (int)disabled_ )
 	else GET_PROPERTY( "poisoned", (int)poisoned_ )
-	else GET_PROPERTY( "rank", rank_ )
-	else GET_PROPERTY( "creator", creator_ )
-	else GET_PROPERTY( "good", good_ )
-	else GET_PROPERTY( "rndvaluerate", rndvaluerate_ )
-	else GET_PROPERTY( "madewith", madewith_ )
 	else GET_PROPERTY( "incognito", incognito ? 1 : 0 )
 	else GET_PROPERTY( "timeunused", (int)time_unused )
 	else GET_PROPERTY( "timeusedlast", (int)timeused_last )

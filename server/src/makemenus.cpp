@@ -540,6 +540,8 @@ void cMakeCustomSection::execute( cUOSocket* const socket )
 	if( rank < 1 )
 		rank = 1;
 
+	// Currently unused. This is such a mess i just dont have an overview
+
 	// finally lets create the items/npcs!
 
 	// items:
@@ -557,7 +559,6 @@ void cMakeCustomSection::execute( cUOSocket* const socket )
 		{
 			if( pItem->isPileable() )
 				pItem->setAmount( miit.current()->amount() );
-			pItem->applyRank( rank );
 			pBackpack->addItem( pItem );
 			pItem->update();
 		}
@@ -570,7 +571,6 @@ void cMakeCustomSection::execute( cUOSocket* const socket )
 				pItem = cItem::createFromScript( miit.current()->section() );
 				if( pItem )
 				{
-					pItem->applyRank( rank );
 					pBackpack->addItem( pItem );
 					pItem->update();
 				}

@@ -108,34 +108,15 @@ public:
 	uint			morey()			const { return morey_; }
 	uint			morez()			const { return morez_; }	
 	uchar			dye()			const { return dye_; }
-	uint			att()			const { return att_; }
 	uint			def()			const { return def_; }
 	uchar			magic()			const { return magic_; }
 	uint			decaytime()		const { return decaytime_; }
 	uint			disabled()		const { return disabled_; } 
 	uint			poisoned()		const { return poisoned_; }
-	int				rank()			const { return rank_; } 
-	QString			creator()		const { return creator_;}
 	uchar			visible()		const { return visible_;}
 	uchar			priv()			const { return priv_;	}
-	int				good()			const { return good_;	}
-	int				rndvaluerate()  const { return rndvaluerate_; }
-	int				madewith()		const { return madewith_;	}
 
 //***************************END ADDED GETTERS************
-
-//----------------------[ ADVANCED PROPERTIES GETTERS ]------------------
-
-	short	charge_count()			const { return charge_count_; }
-	short	charge_spell()			const { return charge_spell_; }
-
-	ushort	drb_base()				const { return drb_base_; }
-	ushort	drb_current()			const { return drb_current_; }
-	ushort	uses_base()				const { return uses_base_; }
-	ushort	uses_current()			const { return uses_current_; }
-
-
-//------------------[ END OF ADVANCED PROPERTIES GETTERS ]---------------
 
 	// Setters
 	void	setId( ushort nValue ) { id_ = nValue; flagChanged();};
@@ -161,7 +142,6 @@ public:
 	void	setTotalweight( int data );
 	void	setAntispamtimer ( uint data ) { antispamtimer_ = data; flagChanged();}
 	void	setAccuracy( ushort data ) { accuracy_ = data; flagChanged();}
-	void	setCreator( const QString& d )	{ creator_ = d;	flagChanged(); changed( TOOLTIP );}
 
 	cItem();
 	cItem( const cItem& src); // Copy constructor
@@ -170,7 +150,6 @@ public:
 	bool wearOut(); // The item wears out and true is returned if it's destroyed
 	void	toBackpack( P_CHAR pChar );
 	void	showName( cUOSocket *socket );
-	void	applyRank( uchar rank );
 //*****************************************ADDED SETTERS ***************
 	void	setMore1( uchar data ) { more1_ = data; flagChanged();}
 	void	setMore2( uchar data ) { more2_ = data; flagChanged();}
@@ -180,7 +159,6 @@ public:
 	void	setMoreY( uint data ) { morey_ = data; flagChanged();}
 	void	setMoreZ( uint data ) { morez_ = data; flagChanged();}
 	void	setDye( uchar data ) { dye_ = data; flagChanged();}
-	void	setAtt(	uint data ) { att_ = data; flagChanged();}
 	void	setDef( uint data ) { def_ = data; 	flagChanged(); changed( TOOLTIP );}
 	void	setMagic( uchar data ) { magic_ = data; flagChanged(); changed( TOOLTIP );}
 	void	setDecayTime( uint data ) { decaytime_ = data; }
@@ -189,26 +167,11 @@ public:
 
 	void	setDisabled(uint data) { disabled_ = data; flagChanged();}
 	void	setPoisoned(uint data) { poisoned_ = data; flagChanged();}
-	void	setRank(int data) { rank_ = data; flagChanged();} 
 	void	setVisible( uchar d ) { visible_ = d; flagChanged();}
 	void	setPriv( uchar d ) { priv_ = d; flagChanged(); changed( TOOLTIP );}
-	void	setGood( int d ) { good_ = d;	flagChanged();}
-	void	setRndValueRate( int d ) { rndvaluerate_ = d; flagChanged();}
-	void	setMadeWith( int d )	{ madewith_ = d; flagChanged(); changed( TOOLTIP );}
 	void	setContainer( cUObject* d ) { container_ = d; flagChanged(); }
 
 //*******************************************END ADDED SETTERS**********
-
-//----------------------[ ADVANCED PROPERTIES SETTERS ]------------------
-	void 	setChargeCount( short data ) { charge_count_ = data; }
-	void	setChargeSpell( short data ) { charge_spell_ = data; }
-
-	void	setDrb_base( ushort data ) { drb_base_ = data; }
-	void	setDrb_current( ushort data ) { drb_current_ = data; }
-	void	setUses_base( ushort data ) { uses_base_ = data; }
-	void	setUses_current( ushort data ) { uses_current_ = data; }
-
-//------------------[ END OF ADVANCED PROPERTIES SETTERS ]---------------
 
 	SERIAL spawnserial;
 
@@ -324,19 +287,11 @@ protected:
 	uint		morey_;
 	uint		morez_;
 	uchar		dye_; // Reserved: Can item be dyed by dye kit
-	uint		att_; // Item attack
 	uint		def_; // Item defense
 	uchar		magic_; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable, 4=Locked Down
 	uint		decaytime_;
 	uint		disabled_; //Item is disabled, cant trigger.
 	uint		poisoned_; //AntiChrist -- for poisoning skill
-	int			rank_; //Magius(CHE) --- for rank system, this value is the LEVEL of the item from 1 to 10. Simply multiply the rank*10 and calculate the MALUS this item has from the original.
-	// for example: RANK 5 ---> 5*10=50% of malus
-	//   this item has same values decreased by 50%..
-	// RANK 1 ---> 1*10=10% this item has 90% of malus!
-	// RANK 10 --> 10*10=100% this item has no malus! RANK 10 is automatically setted if you select RANKSYSTEM 0.
-	// Vars: LODAMAGE,HIDAMAGE,ATT,DEF,HP,MAXHP
-	QString		creator_; // Store the name of the player made this item
 	SERIAL		ownserial_;
 	uchar		visible_; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
 
@@ -351,21 +306,6 @@ protected:
 	//   6 |  40 | Corpse
 	//   7 |  80 | <unused>
 	uchar		priv_;
-
-	int			good_; // Store type of GOODs to trade system! (Plz not set as UNSIGNED)  --- Magius(CHE)
-	int			rndvaluerate_; // Store the value calculated base on RANDOMVALUE in region.scp. ---- MAgius(CHE) (2)
-	uchar		madewith_; // Store the skills used to make this item -- Magius(CHE)
-
-	// ADVANCED ITEM PROPERTIES
-	// Charges
-	ushort		charge_count_;	//Charges count
-	ushort		charge_spell_;	//Charge spell
-
-	// Durability
-	ushort		drb_base_;		//Durability base
-	ushort		drb_current_;   //Durability current
-	ushort		uses_base_;		//Uses base
-	ushort		uses_current_;	//Uses current
 };
 
 #endif

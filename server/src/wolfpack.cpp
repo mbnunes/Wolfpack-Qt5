@@ -1166,51 +1166,6 @@ void playmonstersound(P_CHAR monster, unsigned short id, int sfx)
 	}
 }
 
-void StoreItemRandomValue(P_ITEM pi,QString tmpreg)
-{ // Function Created by Magius(CHE) for trade System
-	int max=0,min=0;
-
-	if( pi == NULL )
-		return;
-	if (pi->good()<0) return;
-
-	if (tmpreg == "none" )
-	{
-		P_ITEM pio = pi->getOutmostItem();
-		if (!pio) return;
-		cTerritory* Region;
-		if (pio->isInWorld())
-		{
-			Region = AllTerritories::instance()->region( pio->pos().x, pio->pos().y, pio->pos().map );
-			if( Region != NULL )
-				tmpreg = Region->name();
-		}
-		else
-		{
-			P_CHAR pc = dynamic_cast<P_CHAR>(pio->container());
-			if (!pc) return;
-			Region = AllTerritories::instance()->region( pc->pos().x, pc->pos().y, pc->pos().map );
-			if( Region != NULL )
-				tmpreg = Region->name();
-		}
-		return;
-	}
-
-	if( pi->good() < 0 || pi->good() > 255 ) 
-		return;
-
-	cTerritory* Region = AllTerritories::instance()->region( tmpreg );
-
-	min=Region->tradesystem_[pi->good()].rndmin;
-	max=Region->tradesystem_[pi->good()].rndmax;
-
-	if (max!=0 || min!=0)
-	{
-		pi->setRndValueRate( RandomNum(min,max) );
-	}
-}
-
-
 void init_creatures(void) // assigns the basesound, soundflag, who_am_i flag of all npcs
 // LB 9.8.99/17.9/20.9
 

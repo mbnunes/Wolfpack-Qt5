@@ -345,10 +345,6 @@ void cWorld::load()
 				pMulti->addItem( pi );
 		}
 
-		// "Store Random value", whatever it does...
-		if( pi->container() && pi->container()->isItem() )
-			StoreItemRandomValue(pi, "none");
-
 /*		// effect on dex ? like plate eg.
 		if( pi->dx2() && pi->container() && pi->container()->isChar() )
 		{

@@ -702,8 +702,6 @@ P_NPC cPlayer::unmount()
 			pMount->setStrength( pi->tags().get("strength").toInt() );
 			pMount->setDexterity( pi->tags().get("dexterity").toInt() );
 			pMount->setIntelligence( pi->tags().get("intelligence").toInt() );
-			pMount->setWanderX2( pi->att() );
-			pMount->setWanderY2( pi->def() );
 			pMount->setHitpoints( pi->hp() );
 			pMount->setFame( pi->lodamage() );
 			pMount->setKarma( pi->hidamage() );
@@ -797,8 +795,7 @@ void cPlayer::mount( P_NPC pMount )
 		pMountItem->tags().set( "strength",		pMount->strength() );
 		pMountItem->tags().set( "dexterity",	pMount->dexterity() );
 		pMountItem->tags().set( "intelligence", pMount->intelligence() );
-		pMountItem->setAtt( pMount->wanderX2() );
-		pMountItem->setDef( pMount->wanderY2() );
+
 		pMountItem->setHp( pMount->hitpoints() );
 		pMountItem->setLodamage( pMount->fame() );
 		pMountItem->setHidamage( pMount->karma() );
