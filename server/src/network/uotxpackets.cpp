@@ -52,3 +52,70 @@ void cUOTxShardList::addServer( Q_UINT16 serverIndex, QString serverName, Q_UINT
 	rawPacket[ offset + 35 ] = serverTimeZone;
 	setInt( offset + 36, serverIp );
 }
+
+void cUOTxCharTownList::addCharacter( QString name )
+{
+	// Trunace the name if needed
+	if( name.length() > 29 )
+		name = name.left( 29 );
+
+	characters.push_back( name );
+}
+
+void cUOTxCharTownList::addTown( Q_UINT8 index, const QString &name, const QString &area )
+{
+	stTown town;
+	town.town = ( name.length() > 30 ) ? name.left( 30 ) : name;
+	town.area = ( area.length() > 30 ) ? area.left( 30 ) : area;
+	town.index = index;
+	towns.push_back( town );
+}
+
+void cUOTxCharTownList::compile( void )
+{
+	rawPacket.resize( 304 + ( towns.size() * 63 ) + 4 );
+	rawPacket[ 0 ] = (Q_UINT8)0xA9;
+
+	for( Q_UINT8 c = 0; c < 5; ++c )
+	{
+		if( c < characters.size() )
+			strcpy( &rawPacket.data()[ 4 + ( c * 60 ) ], characters[ c ].latin1() );
+	}
+
+	rawPacket[ 3 ] = characters.size(); // Char Count
+
+	// Town Count
+	Q_INT32 offset = 304;
+	rawPacket[ offset++ ] = towns.size();
+
+	for( Q_UINT8 t = 0; t < towns.size(); ++t )
+	{
+		rawPacket[ offset ] = towns[ t ].index;
+		strcpy( &rawPacket.data()[ offset + 1 ], towns[ t ].town.latin1() );
+		strcpy( &rawPacket.data()[ offset + 32 ], towns[ t ].area.latin1() );
+		offset += 63;
+	}
+
+	if( charLimit >= 0 )
+		setInt( offset, ( charLimit << 4 ) | flags | 0x4 );
+	else
+		setInt( offset, flags );
+
+	// New Packet Size
+	setShort( 1, rawPacket.size() );
+}
+
+void cUOTxUpdateCharList::addCharacter( QString name )
+{
+	Q_INT32 offset = rawPacket.size();
+	rawPacket.resize( rawPacket.count() + 60 );
+
+	rawPacket[ 3 ]++;
+
+	if( name.length() > 29 )
+		name = name.left( 29 );
+
+	strcpy( &rawPacket.data()[offset], name.latin1() );
+
+	setShort( 1, rawPacket.count() );
+}

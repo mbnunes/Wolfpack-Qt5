@@ -45,7 +45,8 @@ class cUOPacket;
 
 enum eSocketState
 {
-	SS_LOGGINGIN = 0,
+	SS_CONNECTING = 0,
+	SS_LOGGINGIN,
 	SS_LOGGEDIN,
 	SS_INGAME
 };
@@ -57,6 +58,7 @@ private:
 	Q_UINT32 _rxBytes, _txBytes;
 	void *player,*account;
 	eSocketState _state;
+	Q_UINT32 _uniqueId;
 
 public:
 	cUOSocket( QSocketDevice *sDevice ): 
@@ -74,6 +76,8 @@ public:
 	void setRxBytes( Q_UINT32 data ) { _rxBytes = data; }
 	void setTxBytes( Q_UINT32 data ) { _txBytes = data; }
 
+	Q_UINT32 uniqueId( void ) { return _uniqueId; }
+
 	void recieve(); // Tries to recieve one packet and process it
 	void send( cUOPacket *packet );
 
@@ -81,6 +85,14 @@ public:
 
 	// Handler
 	void handleLoginRequest( cUORxLoginRequest *packet );
+	void handleHardwareInfo( cUORxHardwareInfo *packet );
+	void handleSelectShard( cUORxSelectShard *packet );
+	void handleServerAttach( cUORxServerAttach *packet );
+	void handleDeleteCharacter( cUORxDeleteCharacter *packet );
+	void handlePlayCharacter( cUORxPlayCharacter *packet );
+
+	// Utilities
+	void sendCharList( const QString &username );
 };
 
 #endif

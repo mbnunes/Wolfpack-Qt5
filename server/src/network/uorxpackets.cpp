@@ -43,6 +43,18 @@ cUOPacket *getUOPacket( const QByteArray &data )
 	{
 	case 0x80:
 		return new cUORxLoginRequest( data );
+	case 0xA4:
+		return new cUORxHardwareInfo( data );
+	case 0xA0:
+		return new cUORxSelectShard( data );
+	case 0x91:
+		return new cUORxServerAttach( data );
+	case 0x73:
+		return new cUORxPing( data );
+	case 0x83:
+		return new cUORxDeleteCharacter( data );
+	case 0x5D:
+		return new cUORxPlayCharacter( data );
 	default:
 		return new cUOPacket( data );
 	};	
