@@ -116,10 +116,10 @@ void cSrvParams::readData()
 
 
 	// Persistency
-	databasePassword_		= getString("Database", "password", QString::null, true);
-	databaseUsername_		= getString("Database", "username", QString::null, true);
-	databaseHost_			= getString("Database", "host", "localhost", true);
-	databaseName_			= getString("Database", "name", "wolfpack", true);
+	databasePassword_		= getString("Database", "password", "", false);
+	databaseUsername_		= getString("Database", "username", "", false);
+	databaseHost_			= getString("Database", "host", "", false);
+	databaseName_			= getString("Database", "name", "", false);
 
 	// Remote Admin
 	ra_port_		        = getNumber("Remote Admin",	"Port", 2594, true);
@@ -281,7 +281,8 @@ void cSrvParams::readData()
 	precasting_				= getBool( "Magic", "Precasting", true, true );
 
 	// Worldsave
-	saveModule_				= getString( "Worldsaves", "Loader", "sql", true );
+	saveModule_				= getString( "Worldsaves", "Saver", "sql", true );
+	loadModule_				= getString( "Worldsaves", "Loader", "sql", true );
 	savePrefix_				= getString( "Worldsaves", "Prefix", "", true );
 	savePath_				= getString( "Worldsaves", "Path", "", true );
 }

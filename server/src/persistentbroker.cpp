@@ -62,24 +62,15 @@ bool PersistentBroker::connect( const QString& host, const QString& db, const QS
 	if (!connection)
 		return false;
 
-	clConsole.PrepareProgress( "Starting up database connection" );
-
 	// This does nothing but a little test-connection
 	connection->setDatabaseName( db );
 	connection->setUserName( username );
 	connection->setPassword( password );
 	connection->setHostName( host );
-	try
-	{
-		connection->open();
-	}
-	catch( QString& e )
-	{
-		clConsole.ProgressFail();
-		clConsole.error( e );
+	
+	if( !connection->open() )
 		return false;
-	}
-	clConsole.ProgressDone();
+
 	return true;
 }
 

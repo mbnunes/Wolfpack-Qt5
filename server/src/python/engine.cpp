@@ -63,8 +63,6 @@ void startPython( int argc, char* argv[], bool silent )
 		clConsole.PrepareProgress( "Starting Python interpreter" );
 
 	Py_SetProgramName( argv[ 0 ] );
-	//Py_SetPythonHome( "python" ); // Subdirectory "python" is the base path
-	// The above setting seems unused (DarkStorm)
 
 	Py_NoSiteFlag = 1; // No import because we need to set the search path first
 

@@ -1059,10 +1059,18 @@ int main( int argc, char *argv[] )
 		exit( -1 );
 	}
 
-	// Establish the connection to our database (persistent!)
-	if( !persistentBroker->connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() ) )
+	// Don't connect if everything is empty
+	if( !SrvParams->databaseHost().isEmpty() || !SrvParams->databaseName().isEmpty() || !SrvParams->databaseUsername().isEmpty() || !SrvParams->databasePassword().isEmpty() )
 	{
-		exit( -1 );
+		try
+		{
+			persistentBroker->connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() );
+		}
+		catch( QString &e )
+		{
+			clConsole.log( LOG_FATAL, QString( "An error occured while connecting to the database: %1\n" ).arg( e ) );
+			exit( -1 );
+		}
 	}
 
 	// Registers our Built-in types into factory.
@@ -1077,17 +1085,16 @@ int main( int argc, char *argv[] )
 
 	try
 	{
-		//cwmWorldState->loadnewworld( SrvParams->getString( "General", "SaveModule", "xml" ) );
-		World::instance()->load( QString::null, QString::null, "sql" );
+		World::instance()->load();
 	}
-	catch( QString error )
+	catch( QString &error )
 	{
 		clConsole.log( LOG_FATAL, error );
 		exit( -1 );
 	}
 	catch( ... )
 	{
-		clConsole.log( LOG_FATAL, tr("Error while loading world.") );
+		clConsole.log( LOG_FATAL, "An unknown error occured while loading the world." );
 		exit( -1 );
 	}
 

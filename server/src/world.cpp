@@ -240,15 +240,14 @@ void cWorld::loadSql()
 
 void cWorld::loadFlatstore( const QString &prefix )
 {
-
 }
 
 void cWorld::load( QString basepath, QString prefix, QString module )
 {
-	clConsole.send( tr("Loading World...") );
+	clConsole.send( "Loading World..." );
 
 	if( module == QString::null )
-		module = SrvParams->saveModule();
+		module = SrvParams->loadModule();
 
 	if( prefix == QString::null )
 		prefix = SrvParams->savePrefix();
@@ -262,8 +261,18 @@ void cWorld::load( QString basepath, QString prefix, QString module )
 		loadSql();
 	else if( module == "flatstore" )
 		loadFlatstore( prefix );
+	else
+	{
+		clConsole.ChangeColor( WPC_RED );
+		clConsole.send( " Failed\n" );
+		clConsole.ChangeColor( WPC_NORMAL );
 
-	clConsole.send( tr("Done!")+"\n" );
+		throw QString( "Unknown worldsave module: %1" ).arg( module );
+	}
+
+	clConsole.ChangeColor( WPC_GREEN );
+	clConsole.send( " Done\n" );
+	clConsole.ChangeColor( WPC_NORMAL );
 }
 
 void cWorld::saveSql()
@@ -287,17 +296,11 @@ void cWorld::saveSql()
 	}
 	catch( QString& error )
 	{
-		clConsole.ChangeColor( WPC_RED );
-		clConsole.send( "\nERROR" );
-		clConsole.ChangeColor( WPC_NORMAL );
-		clConsole.send( ": " + error + "\n" );
+		clConsole.log( LOG_ERROR, error );
 	}
 	catch( ... )
 	{
-		clConsole.ChangeColor( WPC_RED );
-		clConsole.send( "\nERROR" );
-		clConsole.ChangeColor( WPC_NORMAL );
-		clConsole.send( ": Unhandled Exception\n" );
+		clConsole.log( LOG_ERROR, "Unhandled Exception" );
 	}
 
 	p->purgePendingObjects();
@@ -319,7 +322,7 @@ void cWorld::saveSql()
 
 void cWorld::saveFlatstore( const QString &prefix )
 {
-/*	persistentBroker->clearDeleteQueue(); // prevents us from accidently not freeing memory
+	persistentBroker->clearDeleteQueue(); // prevents us from accidently not freeing memory
 
 	FlatStore::OutputFile output;
 	std::list< cUObject* >::const_iterator delIt;
@@ -337,7 +340,13 @@ void cWorld::saveFlatstore( const QString &prefix )
 		}
 		catch( ... )
 		{
+			clConsole.ChangeColor( WPC_RED );
+			clConsole.send( " Failed\n" );
+			clConsole.ChangeColor( WPC_NORMAL );
+
 			clConsole.log( LOG_ERROR, QString( "Couldn't save character: 0x%1" ).arg( pChar->serial(), 0, 16 ) );
+
+			clConsole.send( "Continuing...");
 		}
 	}
 
@@ -353,7 +362,13 @@ void cWorld::saveFlatstore( const QString &prefix )
 		}
 		catch( ... )
 		{
+			clConsole.ChangeColor( WPC_RED );
+			clConsole.send( " Failed\n" );
+			clConsole.ChangeColor( WPC_NORMAL );
+
 			clConsole.log( LOG_ERROR, QString( "Couldn't save item: 0x%1" ).arg( pItem->serial(), 0, 16 ) );
+
+			clConsole.send( "Continuing...");
 		}		
 	}
 
@@ -363,30 +378,37 @@ void cWorld::saveFlatstore( const QString &prefix )
 
 	p->pendingObjects.clear();
 
-	output.finishOutput();*/
+	output.finishOutput();
 }
 
 void cWorld::save( QString basepath, QString prefix, QString module )
 {
-	clConsole.send( tr("Saving World...") );
-
 	if( module == QString::null )
-		module = SrvParams->getString( "Worldsaves", "Saver", "sql", true );
+		module = SrvParams->saveModule();
 
 	if( prefix == QString::null )
-		prefix = SrvParams->getString( "Worldsaves", "Prefix", "", true );
+		prefix = SrvParams->savePrefix();
 
 	if( basepath == QString::null )
-		basepath = SrvParams->getString( "Worldsaves", "Path", "", true );
+		basepath = SrvParams->savePath();
 
 	prefix.prepend( basepath );
 
+	clConsole.send( "Saving World..." );
+
+	unsigned int startTime = getNormalizedTime();
+
+	// Try to Benchmark
 	if( module == "sql" )
 		saveSql();
 	else if( module == "flatstore" )
 		saveFlatstore( prefix );
 
-	clConsole.send( tr("Done!")+"\n" );
+	clConsole.ChangeColor( WPC_GREEN );
+	clConsole.send( " Done" );
+	clConsole.ChangeColor( WPC_NORMAL );
+
+	clConsole.send( QString( " [%1ms]\n" ).arg( getNormalizedTime() - startTime ) );
 }
 
 void cWorld::registerObject( cUObject *object )

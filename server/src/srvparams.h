@@ -161,6 +161,7 @@ protected:
 	QString accountsArchiver_;
 	bool categoryTagAddMenu_;
 	QString saveModule_;
+	QString loadModule_;
 	QString savePath_;
 	QString savePrefix_;
 
@@ -421,6 +422,7 @@ public:
 	// Worldsave
 	QString savePath() const;
 	QString saveModule() const;
+	QString loadModule() const;
 	QString savePrefix() const;
 
 private:
@@ -1141,6 +1143,11 @@ inline bool cSrvParams::addMenuByCategoryTag() const
 inline QString cSrvParams::saveModule() const
 {
 	return saveModule_;
+}
+
+inline QString cSrvParams::loadModule() const
+{
+	return loadModule_;
 }
 
 inline QString cSrvParams::savePrefix() const
