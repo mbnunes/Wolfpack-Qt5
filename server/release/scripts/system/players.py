@@ -1,6 +1,7 @@
 
 import wolfpack
 from wolfpack import tr
+import guilds.stone
 
 def onLogin( player ):
 	socket = player.socket
@@ -30,3 +31,9 @@ def onDamage(char, type, amount, source):
 		socket.clilocmessage(500961)
 
 	return amount
+
+def onGuildButton(player):
+	if not player.guild:
+		player.socket.sysmessage(tr('You aren\'t in a guild.'))
+	else:
+		guilds.stone.mainMenu(player, player.guild)

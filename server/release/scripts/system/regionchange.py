@@ -21,9 +21,7 @@ def changeMusic(char, oldregion, newregion):
 	oldMusic = oldregion.midilist
 	newMusic = newregion.midilist
 	
-	
 	if oldMusic != newMusic:
-		
 		try:
 			if len(newMusic) != 0:
 				id = int(random.choice(newMusic.split(','))) # Choose randomly
@@ -32,7 +30,7 @@ def changeMusic(char, oldregion, newregion):
 			
 			packet = wolfpack.packet(0x6d, 3)
 			packet.setshort(1, id)
-			packet.send(char.socket)			
+			packet.send(char.socket)
 		except:
 			raise
 			pass
