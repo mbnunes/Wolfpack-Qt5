@@ -705,9 +705,12 @@ def onUse(player, item):
 	item.update()
 	item.soundeffect(0x57)
 	player.updatestats()
-
+	
+	# Remove the use delay, equipping should be for free...
+	player.objectdelay = 0
+	
 	for script in scripts[scripts.index("equipment")+1:]:
 		if wolfpack.hasevent(script, EVENT_USE):
-		 return 0
+			return 0
 
 	return 1
