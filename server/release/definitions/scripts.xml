@@ -50,7 +50,6 @@
 	<script>beverage</script>
 	<script>pickpocket_dip</script>
 	<script>potionkeg</script>
-	<script>potions</script>
 	<script>scissors</script>
 	<script>shrine</script>
 	<script>shrink</script>
@@ -64,6 +63,19 @@
 	<script>wall_clock</script>
 	<script>wool</script>
 	<script>yarn</script>
+
+	<!-- Potions -->
+	<script>potions</script>
+	<script>potions.agility</script>
+	<script>potions.cure</script>
+	<script>potions.explosion</script>
+	<script>potions.heal</script>
+	<script>potions.mana</script>
+	<script>potions.nightsight</script>
+	<script>potions.poison</script>
+	<script>potions.refresh</script>
+	<script>potions.strength</script>
+	
 
 	<!-- Deeds -->
 	<script>deeds.carpentry_deed</script>
