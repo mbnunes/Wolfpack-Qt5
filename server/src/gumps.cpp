@@ -508,7 +508,7 @@ cCharInfoGump::cCharInfoGump( cChar* pChar, UINT32 page )
 			addResizeGump( 0, 40, 0xA28, 450, 350 ); //Background
 			addGump( 105, 18, 0x58B ); // Fancy top-bar
 			addGump( 182, 0, 0x589 ); // "Button" like gump
-			addTilePic( 202, 23, 0x14eb ); // Type of info menu
+			addTilePic( 202, 23, creatures[ char_->id() ].icon ); // Type of info menu
 
 			addText( 155, 90, tr( "Char Info - Page %1 / %2" ).arg( page_ ).arg( pages ), 0x530 );
 
@@ -548,7 +548,7 @@ cCharInfoGump::cCharInfoGump( cChar* pChar, UINT32 page )
 			addResizeGump( 0, 40, 0xA28, 450, 350 ); //Background
 			addGump( 105, 18, 0x58B ); // Fancy top-bar
 			addGump( 182, 0, 0x589 ); // "Button" like gump
-			addTilePic( 202, 23, 0x14eb ); // Type of info menu
+			addTilePic( 202, 23, creatures[ char_->id() ].icon ); // Type of info menu
 
 			addText( 155, 90, tr( "Char Info - Page %1 / %2" ).arg( page_ ).arg( pages ), 0x530 );
 
