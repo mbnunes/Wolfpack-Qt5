@@ -339,7 +339,7 @@ void cAccounts::save()
 			// INSERT
 			cAccount *account = it.data();
 
-			QString sql( "INSERT INTO accounts VALUES( '%1', '%2', %3, '%4', %5, %6 );" );
+			QString sql( "REPLACE INTO accounts VALUES( '%1', '%2', %3, '%4', %5, %6 );" );
 
 			sql = sql.arg( account->login_.lower() ).arg( account->password_ ).arg( account->flags_ ).arg( account->aclName_ ).arg( !account->lastLogin_.isNull() ? account->lastLogin_.toTime_t() : 0 ).arg( !account->blockUntil.isNull() ? account->blockUntil.toTime_t() : 0 );
 
