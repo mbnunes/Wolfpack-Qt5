@@ -251,9 +251,13 @@ void WPDefManager::unload( void )
 		for( it2 = impl->unique[i].begin(); it2 != impl->unique[i].end(); ++it2 )
 			delete it2.data();
 
+		impl->unique[i].clear();
+
 		QValueVector< cElement* >::iterator it;
 		for( it = impl->nonunique[i].begin(); it != impl->nonunique[i].end(); ++it )
 			delete *it;
+
+		impl->nonunique[i].clear();
 	}
 	
 	impl->imports.clear();

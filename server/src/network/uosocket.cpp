@@ -577,6 +577,8 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	// This is required to display strength requirements correctly etc.
 	sendStatWindow();
 
+	pChar->moveTo( pChar->pos() );
+
 	// Start the game / Resend
 	cUOTxStartGame startGame;
 	send( &startGame );
