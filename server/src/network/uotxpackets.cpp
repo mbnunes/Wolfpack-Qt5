@@ -280,7 +280,8 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 
 		// Only send visible layers
 		// 0x19 = horse layer
-		if( pItem->layer() > 0x19 )
+		// -> Shop containers need to be send
+		if( pItem->layer() > 0x19 && pItem->layer() != 0x1A && pItem->layer() != 0x1B && pItem->layer() != 0x1C  )
 			continue;
 
 		// Only send items once

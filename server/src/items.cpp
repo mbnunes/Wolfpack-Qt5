@@ -1542,7 +1542,10 @@ void cItem::processNode( const QDomElement& Tag )
 
 	// <amount>120</amount>
 	else if( TagName == "amount" )
+	{
 		this->setAmount( Value.toULong() );
+		this->restock = Value.toULong(); // Maximumm sell-amount from the beginning
+	}
 
 	// <color>480</color>
 	else if( TagName == "color" )
@@ -1687,10 +1690,6 @@ void cItem::processNode( const QDomElement& Tag )
 	// <racehate>2</racehate>
 	else if( TagName == "racehate" )
 		this->setRacehate( Value.toInt() );
-
-	// <restock>2</restock>
-	else if( TagName == "restock" )
-		this->restock = Value.toInt();
 
 	// <trigger>2</trigger>
 	else if( TagName == "trigger" )

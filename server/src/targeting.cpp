@@ -2785,7 +2785,7 @@ void cTargets::BuyShopTarget(int s)
 	}
 }
 
-int cTargets::BuyShop(UOXSOCKET s, P_CHAR pc)
+int cTargets::BuyShop( UOXSOCKET s, P_CHAR pc )
 {
 	/*P_ITEM pCont1=NULL, pCont2=NULL;
 

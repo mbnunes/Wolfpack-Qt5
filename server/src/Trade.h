@@ -60,7 +60,6 @@ class cTrade
 {
 public:
 	void buyaction(int s);
-	void restock(int s);
 	void sellaction(int s);
 	P_ITEM tradestart(UOXSOCKET s, P_CHAR pc_i);
 	void clearalltrades();

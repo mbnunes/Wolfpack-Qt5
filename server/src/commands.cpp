@@ -1084,6 +1084,47 @@ void commandShow( cUOSocket *socket, const QString &command, QStringList &args )
 	socket->attachTarget( new cShowTarget( args.join( " " ) ) );
 }
 
+class cBankTarget: public cTargetRequest
+{
+private:
+	UINT8 layer;
+public:
+	cBankTarget( UINT8 data ) { layer = data; }
+
+	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		P_CHAR pChar = FindCharBySerial( target->serial() );
+		if( !pChar )
+		{
+			socket->sysMessage( tr( "This does not appear to be a living being." ) );
+			return;
+		}
+
+		P_ITEM pItem = pChar->GetItemOnLayer( layer );
+
+		if( !pItem )
+		{
+			socket->sysMessage( tr( "This being does not have a container on layer 0x%1" ).arg( layer, 2, 16 ) );
+			return;
+		}
+
+		socket->sendContainer( pItem );
+	}
+};
+
+void commandBank( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	socket->sysMessage( tr( "Please chose the owner of the container you want to open" ) );
+
+	bool ok = false;
+	UINT8 layer = hex2dec( args.join( " " ) ).toUShort( &ok );
+
+	if( !ok || !layer )
+		layer = 0x1D; // Bank layer	
+
+	socket->attachTarget( new cBankTarget( layer ) );
+}
+
 void commandAction( cUOSocket *socket, const QString &command, QStringList &args )
 {
 	bool ok = false;
@@ -1301,6 +1342,7 @@ stCommand cCommands::commands[] =
 	{ "TELE",			commandTele },
 	{ "WHERE",			commandWhere },
 	{ "RESURRECT",		commandResurrect },
+	{ "BANK",			commandBank },
 	{ NULL, NULL }
 };
 

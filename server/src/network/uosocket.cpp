@@ -1801,55 +1801,43 @@ void cUOSocket::handleGumpResponse( cUORxGumpResponse* packet )
 	cGumpsManager::getInstance()->handleResponse( this, packet->serial(), packet->type(), packet->choice() );
 }
 
+void cUOSocket::sendVendorCont( P_ITEM pItem )
+{
+	cUOTxItemContent itemContent;
+	cUOTxVendorBuy vendorBuy;
+	vendorBuy.setSerial( pItem->serial );
+
+	vector< SERIAL > content = contsp.getData( pItem->serial );
+	UINT32 i;
+
+	for( i = 0; i < content.size(); ++i )
+	{
+		P_ITEM mItem = FindItemBySerial( content[i] );
+
+		if( pItem )
+		{
+			itemContent.addItem( mItem->serial, mItem->id(), mItem->color(), i, i, mItem->amount(), pItem->serial );
+			vendorBuy.addItem( mItem->value, mItem->getName() );
+		}
+	}
+
+	send( &itemContent );
+	send( &vendorBuy );
+}
+
 void cUOSocket::sendBuyWindow( P_CHAR pVendor )
 {
 	P_ITEM pBought = pVendor->GetItemOnLayer( 0x1C );
 	P_ITEM pStock = pVendor->GetItemOnLayer( 0x1A );
 
-	// Send only one container (and merge the bought stuff in)
-	cUOTxCharEquipment charEquip;
-	charEquip.setSerial( pStock->serial );
-	charEquip.setWearer( pStock->contserial );
-	charEquip.setLayer( pStock->layer() );
-	charEquip.setModel( pStock->id() );
+	if( pBought )
+		sendVendorCont( pBought );
 
-	cUOTxItemContent itemContent;
-	cUOTxVendorBuy vendorBuy;
-	vendorBuy.setSerial( pStock->serial );
-
-	vector< SERIAL > content = contsp.getData( pStock->serial );
-	UINT32 i;
-
-	for( i = 0; i < content.size(); ++i )
-	{
-		P_ITEM pItem = FindItemBySerial( content[i] );
-
-		if( pItem )
-		{
-			itemContent.addItem( pItem->serial, pItem->id(), pItem->color(), 0, 0, pItem->amount(), pStock->serial );
-			vendorBuy.addItem( pItem->value, pItem->getName() );
-		}
-	}
-
-	content = contsp.getData( pBought->serial );
-
-	for( i = 0; i < content.size(); ++i )
-	{
-		P_ITEM pItem = FindItemBySerial( content[i] );
-
-		if( pItem )
-		{
-			itemContent.addItem( pItem->serial, pItem->id(), pItem->color(), pItem->amount(), pItem->amount(), pItem->amount(), pStock->serial );
-			vendorBuy.addItem( pItem->value, pItem->getName() );
-		}
-	}
+	if( pStock )
+		sendVendorCont( pStock );
 
 	cUOTxDrawContainer drawContainer;
-	drawContainer.setSerial( pStock->serial );
+	drawContainer.setSerial( pVendor->serial );
 	drawContainer.setGump( 0x30 );
-
-	send( &charEquip );
-	send( &itemContent );
-	send( &vendorBuy );
 	send( &drawContainer );
 }

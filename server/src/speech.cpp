@@ -812,16 +812,32 @@ bool VendorSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pVendor, const QStr
 	if( pVendor->npcaitype() == 17 )
 		return false;
 
+	if( !pVendor->shop )
+		return false;
+
 	if( pPlayer->dist( pVendor ) > 4 )
 		return false;
 
 	if( !VendorChkName( pVendor, comm ) )
 		return false;
 
+	// TODO: Rip this code out and
+	// use python instead
 	if( comm.contains( " BUY" ) )
 	{
 		// 0x1A = Normal Vendor items
-		// 0x1C = Items Players sold to the vendor
+		// 0x1B = Items Players sold to the vendor
+		P_ITEM pItem = pVendor->GetItemOnLayer( 0x1A );
+
+		pVendor->turnTo( pPlayer );
+
+		if( !pItem )
+		{
+			pVendor->talk( tr( "Sorry but i have no goods to sell" ) );
+			return true;
+		}
+
+		pVendor->talk( tr( "Take a look at my wares!" ) );
 		socket->sendBuyWindow( pVendor );
 		return true;
 	}

@@ -242,48 +242,6 @@ void cTrade::buyaction(int s)
 	statwindow(s, pc_currchar);*/
 }
 
-void cTrade::restock(int s)
-{
-	int a,serial;
-	AllItemsIterator iter_items;
-	for (iter_items.Begin(); !iter_items.atEnd(); iter_items++)
-	{
-		P_ITEM pi = iter_items.GetData();
-		// Dupois - added this check to only restock items that ... well ... have a restock value >0
-		// Added Oct 25, 1998
-		if (pi->restock && isItemSerial(pi->contserial))
-		{
-			serial = pi->contserial;
-			if(serial > 0)
-			{
-				P_ITEM ci = FindItemBySerial(serial);
-				if (ci != NULL)
-				{
-					if ((ci->layer()==0x1A))
-					{
-						if (s)
-						{
-							pi->setAmount( pi->amount() + pi->restock );
-							pi->restock = 0;
-						}
-						else
-						{
-							if (pi->restock > 0)
-							{
-								a = QMIN(pi->restock, (pi->restock/2)+1);
-								pi->setAmount( pi->amount() + a );
-								pi->restock-=a;
-							}
-						}
-					}
-				}
-			}
-		}
-		// MAgius(CHE): All items in shopkeeper need a new randomvaluerate.
-		if (SrvParams->trade_system()==1) StoreItemRandomValue(pi,"none");// Magius(CHE) (2)
-	}
-}
-
 // this is a q&d fix for 'sell price higher than buy price' bug (Duke, 30.3.2001)
 static bool items_match(P_ITEM pi1, P_ITEM pi2)
 {

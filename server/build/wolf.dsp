@@ -111,6 +111,11 @@ SOURCE=.\cache.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\corpse.cpp
+# End Source File
+
+# Begin Source File
+
 SOURCE=.\chars.cpp
 # End Source File
 # Begin Source File
@@ -629,6 +634,11 @@ SOURCE=.\storage.h
 
 SOURCE=.\stream.h
 # End Source File
+# Begin Source File
+
+SOURCE=.\corpse.h
+# End Source File
+
 # Begin Source File
 
 SOURCE=.\structs.h

@@ -106,10 +106,12 @@ HEADERS         = client.h \
 		  wppythonscript.h \
 		  wpscriptmanager.h \
 		  menuactions.h \
-		  wptargetrequests.h 
+		  wptargetrequests.h \
+		  corpse.h
 		  
 SOURCES         = client.cpp \
 		  LoS.cpp \
+		  corpse.cpp \
 		  SkiTarg.cpp \
 		  SndPkg.cpp \
 		  Timing.cpp \

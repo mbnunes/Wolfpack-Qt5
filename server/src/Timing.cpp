@@ -62,45 +62,37 @@ void checktimers() // Check shutdown timers
 	lclock = tclock;
 }
 
-void restockNPC(unsigned int currenttime, P_CHAR pc_i)
+void restockNPC( UINT32 currenttime, P_CHAR pc_i )
 {
-	unsigned int a, b;
-
-	if (SrvParams->shopRestock()==1 && (shoprestocktime<=currenttime || overflow))
+	if( SrvParams->shopRestock() && ( shoprestocktime <= currenttime ) )
 	{
-		vector<SERIAL> vecContainer = contsp.getData(pc_i->serial);
-		for ( a = 0; a < vecContainer.size(); a++ )
+		P_ITEM pStock = pc_i->GetItemOnLayer( 0x1A );
+
+		if( pStock )
 		{
-			const PC_ITEM pici = FindItemBySerial(vecContainer[a]);
-			if (pici != NULL)
+			vector<SERIAL> content = contsp.getData( pStock->serial );
+			for( UINT32 i = 0; i < content.size(); ++i )
 			{
-				if(pici->layer()==0x1A && pc_i->shop) //morrolan item restock fix
+				P_ITEM pItem = FindItemBySerial( content[i] );
+				if( pItem )
 				{
-					vector<SERIAL> vecContainer2 = contsp.getData(pici->serial);
-					for (b=0;b<vecContainer2.size();b++)
+					if( pItem->restock < pItem->amount() )
 					{
-						const P_ITEM pic = FindItemBySerial(vecContainer2[b]);
-						if (pic != NULL)
-						{
-							if (pic->restock)
-							{
-								int tmp=QMIN(pic->restock, (pic->restock/2)+1);
-								pic->setAmount( pic->amount() + tmp );
-								pic->restock -= tmp;
-							}
-							// MAgius(CHE): All items in shopkeeper need a new randomvaluerate.
-							if (SrvParams->trade_system()==1)
-							{
-								cTerritory* Region = cAllTerritories::getInstance()->region( pic->pos.x, pic->pos.y );
-								if( Region != NULL )
-									StoreItemRandomValue(pic, Region->name() );// Magius(CHE) (2)
-							}
-						}
-					}// for b
+						UINT16 restock = QMAX( ( pItem->amount() - pItem->restock ) / 2, 1 );
+						pItem->restock += restock;
+					}
+
+					if( SrvParams->trade_system() )
+					{
+						cTerritory* Region = cAllTerritories::getInstance()->region( pc_i->pos.x, pc_i->pos.y );
+						
+						if( Region != NULL )
+							StoreItemRandomValue( pItem, Region->name() );
+					}
 				}
 			}
-		}//for a
-	}//if time
+		}
+	}
 }
 
 void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
@@ -547,7 +539,8 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)
 
 	Magic->CheckFieldEffects2( currenttime, pc, 0 );
 
-	restockNPC( currenttime, pc );
+	if( pc->shop )
+		restockNPC( currenttime, pc );
 
 	if( !pc->free )
 	{
@@ -965,12 +958,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	if(checktamednpcs<=currenttime) checktamednpcs=(unsigned int)((double) currenttime+(SrvParams->checkTammedTime()*MY_CLOCKS_PER_SEC)); //AntiChrist
 	if(checknpcfollow<=currenttime) checknpcfollow=(unsigned int)((double) currenttime+(SrvParams->checkFollowTime()*MY_CLOCKS_PER_SEC)); //Ripper
 	if(checkitemstime<=currenttime) checkitemstime=(unsigned int)((double)(SrvParams->checkItemTime()*MY_CLOCKS_PER_SEC+currenttime)); //lb
-	//if(shoprestocktime<=currenttime) shoprestocktime=currenttime+(shoprestockrate*60*MY_CLOCKS_PER_SEC);
-	if(SrvParams->shopRestock()==1 && shoprestocktime<=currenttime)
-	{
-		shoprestocktime=currenttime+(shoprestockrate*60*MY_CLOCKS_PER_SEC);
-		Trade->restock(0);
-	}
+
 	if (nextnpcaitime <= currenttime)
 		nextnpcaitime = (unsigned int)((double) currenttime + (SrvParams->checkAITime()*MY_CLOCKS_PER_SEC)); // lb
 	if (nextfieldeffecttime <= currenttime)
