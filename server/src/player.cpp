@@ -827,12 +827,12 @@ void cPlayer::mount( P_NPC pMount )
 
 bool cPlayer::isGM() const
 {
-	return account() && ( account()->acl() == "admin" || account()->acl() == "gm" );
+	return account() && ( account()->acl() == "admin" || account()->acl() == "gm" ) && account()->isStaff();
 } 
 
 bool cPlayer::isCounselor() const 
 {
-	return account() && account()->acl() == "counselor";
+	return account() && ( account()->acl() == "counselor" )  && account()->isStaff();
 }
  
 bool cPlayer::isGMorCounselor() const	

@@ -188,6 +188,11 @@ bool AccountRecord::isPageNotify() const
 	return flags_&0x00000010;
 }
 
+bool AccountRecord::isStaff() const
+{
+	return flags_&0x00000020;
+}
+
 void AccountRecord::setBlocked( bool data )
 {
 	if( data )
@@ -226,6 +231,14 @@ void AccountRecord::setPageNotify( bool data )
 		flags_ |= 0x00000010;
 	else
 		flags_ &= 0xFFFFFFEF;
+}
+
+void AccountRecord::setStaff( bool data )
+{
+	if( data )
+		flags_ |= 0x00000020;
+	else
+		flags_ &= 0xFFFFFFDF;
 }
 
 /*****************************************************************************

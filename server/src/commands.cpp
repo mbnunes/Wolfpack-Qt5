@@ -829,6 +829,21 @@ void commandShutDown( cUOSocket *socket, const QString &command, QStringList &ar
 		keeprun = 0;
 }
 
+void commandStaff( cUOSocket *socket, const QString &command, QStringList &args ) throw()
+{
+	Q_UNUSED(command);
+	if( socket->account()->isStaff() || ( args.count() > 0 && args[0].toInt() == 0 ) )
+	{
+		socket->account()->setStaff( false );
+		socket->sysMessage( tr( "Staff is now '0'." ) );
+	}
+	else if( !socket->account()->isStaff() || ( args.count() > 0 && args[0].toInt() == 1 ) )
+	{
+		socket->account()->setStaff( true );
+		socket->sysMessage( tr( "Staff is now '1'." ) );
+	}
+}
+
 void commandReload( cUOSocket *socket, const QString &command, QStringList &args ) throw()
 {
 	Q_UNUSED(command);
@@ -1248,6 +1263,7 @@ stCommand cCommands::commands[] =
 	{ "SHOW",			commandShow },
 	{ "SHOWSERIALS",	commandShowSerials },
 	{ "SHUTDOWN",		commandShutDown },
+	{ "STAFF",			commandStaff },
 	{ "SPAWNREGION",	commandSpawnRegion },
 	{ "TAGS",			commandTags },
 	{ "TELE",			commandTele },
