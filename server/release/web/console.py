@@ -4,9 +4,18 @@
 import web.sessions
 import web.template
 import wolfpack.console
+import _wolfpack.console
 from wolfpack.consts import *
 import sys, cgi, re, string
 
+# print "pretty" buttons
+def pretty_button( action_val, caption ):
+	rvalue =  '<form action="console.py" method="get">'
+	rvalue += '<input type="hidden" name="session" value="%s" />' % session_id
+	rvalue += '<input type="hidden" name="action" value="%s" />' % action_val
+	rvalue += '<input type="submit" value="%s" />' % caption
+	rvalue += '</form>'
+	return rvalue
 
 form = cgi.FieldStorage()
 session_id = form.getvalue( 'session', '' )
@@ -27,12 +36,12 @@ username = session[ 'username' ]
 
 if action == 1:
 	print "Content-type: text/html\n\n"
-	print "Server is reloading, you will have to re-login after reloading is done"
+	print "Server is reloading, you will have to re-login after reloading is done."
 	wolfpack.queueaction( RELOAD_SCRIPTS )
 	sys.exit()
 elif action == 2:
         print "Content-type: text/html\n\n"
-        print "Server is reloading Python scripts, you will have to re-login after reloading is done"
+        print "Server is reloading Python scripts, you will have to re-login after reloading is done."
         wolfpack.queueaction( RELOAD_PYTHON )
         sys.exit()
 elif action == 3:
@@ -41,6 +50,11 @@ elif action == 4:
         wolfpack.queueaction( RELOAD_CONFIGURATION )
 elif action == 5:
         wolfpack.queueaction( SAVE_WORLD )
+elif action == 6:
+        print "Content-type: text/html\n\n"
+        print "Server is shutting down, remote admin stopped."
+        _wolfpack.console.shutdown()
+        sys.exit()
 
 content = """
 <p>
@@ -69,11 +83,12 @@ content += """
 </p>
 <p>
 """
-content += '<input type="submit" value="Reload Scripts" onClick="window.location.href=\'console.py?session=%s&action=1\';"/>' % session_id
-content += '<input type="submit" value="Reload Python" onClick="window.location.href=\'console.py?session=%s&action=2\';"/>' % session_id
-content += '<input type="submit" value="Reload Accounts" onClick="window.location.href=\'console.py?session=%s&action=3\';"/>' % session_id
-content += '<input type="submit" value="Reload Configuration" onClick="window.location.href=\'console.py?session=%s&action=4\';"/>' % session_id
-content += '<input type="submit" value="Save world" onClick="window.location.href=\'console.py?session=%s&action=5\';"/>' % session_id
+content += pretty_button( 1, "Reload Scripts" )
+content += pretty_button( 2, "Reload Python" )
+content += pretty_button( 3, "Reload Accounts" )
+content += pretty_button( 4, "Reload Configuration" )
+content += pretty_button( 5, "Save World" )
+content += pretty_button( 6, "Shutdown" )
 
 
 web.template.output( 	'&gt; <a href="console.py?session=%(session)s" class="header">Console</a>' % { 'session': session_id }, 
