@@ -31,7 +31,7 @@ def response( char, args, target ):
 		if target.char.serial != char.serial:
 			char.turnto( target.char )
 		target.char.soundeffect( 0x215 )
-		target.char.resurrect()
+		target.char.resurrect( char )
 		char.log( LOG_MESSAGE, "Resurrects character 0x%x.\n" % target.char.serial )
 		# Restore the character as well, added bonus.
 		target.char.hitpoints = target.char.maxhitpoints

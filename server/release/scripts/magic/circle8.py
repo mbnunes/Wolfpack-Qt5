@@ -99,7 +99,7 @@ class Resurrection(Spell):
 		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
-		target.resurrect()
+		target.resurrect( char )
 		target.soundeffect(0x214)
 
 class SummonElementBase(Spell):

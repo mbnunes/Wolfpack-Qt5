@@ -13,6 +13,9 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Fixed bug #0000332. (Implemented lower reag cost)
 		- Fixed bug #0000334. (Implemented spell damage bonus)
 		- Random magic item loot.
+		- Fixed bug #0000329. (fix for the isTree function)
+		- Fixed bug #0000328. (adddecor command not able to place jungle trees)
+		- Fixed bug #0000331. (archery butte broken)
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.

@@ -148,7 +148,7 @@ def delay_check( char, args ):
 		if heal_type == 0:
 			if chance >= whrandom.randint( 0, 1000 ):
 				char.socket.clilocmessage( 500965, "", 0x3b2, 3 )
-				healto.resurrect()
+				healto.resurrect( char )
 			else:
 				char.socket.clilocmessage( 500966, "", 0x3b2, 3 )
 			# here, i don't use the checkskill result for res/cure case

@@ -22,6 +22,6 @@ def onContextEntry( char, healer, tag ):
 
 		char.socket.clilocmessage( 3002069  ) # Resurrection
 		char.soundeffect( 0x215 )
-		char.resurrect()
+		char.resurrect( healer )
 
 	return True

@@ -222,7 +222,7 @@ def bandage_timer( char, args ):
 		if target.owner:
 			target.owner.moveto( target.pos )
 			target.owner.update()
-			target.owner.resurrect()
+			target.owner.resurrect( char )
 
 			# Move all the belongings from the corpse to the character
 			backpack = target.owner.getbackpack()
@@ -252,7 +252,7 @@ def bandage_timer( char, args ):
 				char.socket.clilocmessage(500966)
 				return
 
-			target.resurrect()
+			target.resurrect( char )
 			target.update()
 
 			char.socket.clilocmessage(500965)
