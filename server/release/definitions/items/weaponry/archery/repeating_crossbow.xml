@@ -12,6 +12,7 @@
 		<buyprice>50</buyprice>
 		<tag name="req_str" value="30" type="int" />
 		<tag name="resname" value="plainwood" />
+		<tag name="range" value="12" type="int" />
 		<durability><random min="30" max="49" /></durability>
 		<weight>7.0</weight>
 		<events>equipment</events>

@@ -11,6 +11,7 @@
 		<sellprice>23</sellprice>
 		<buyprice>46</buyprice>
 		<tag name="req_str" value="35" type="int" />
+		<tag name="range" value="12" type="int" />
 		<tag name="resname" value="plainwood" />
 		<durability><random min="30" max="51" /></durability>
 		<weight>7.0</weight>
