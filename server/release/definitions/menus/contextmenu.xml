@@ -77,7 +77,8 @@
 	</contextmenu>
 
 	<contextmenu id="healer_menu">
-		<option tag="1" msgid="0489"/>
+		<events>contextmenus.healermenu</events>
+		<option tag="1" msgid="0489" checkvisible="true" />
 	</contextmenu>
 
 	<contextmenu id="tame_menu">

@@ -11,7 +11,7 @@
 	<!-- A Healer vendor -->
 	<npc id="healer_male">
 		<inherit>vendor_male</inherit>
-		<bindmenu>healer_menu</bindmenu>
+		<bindmenu>vendor_menu,train_menu,healer_menu</bindmenu>
 		<title>the Healer</title>
 		<shopkeeper>
 			<restockable>
@@ -51,13 +51,12 @@
 		<spiritspeak><random min="800" max="1000" /></spiritspeak>
 		<swordsmanship><random min="800" max="1000" /></swordsmanship>
 		<category>Vendors\Healer (Male)</category>
-		<events>npc.healer</events>
 	</npc>
-	
+
 	<npc id="healer_female">
 		<inherit>vendor_female</inherit>
 		<title>the Healer</title>
-		<bindmenu>healer_menu</bindmenu>
+		<bindmenu>vendor_menu,train_menu,healer_menu</bindmenu>
 		<shopkeeper>
 			<restockable>
 				<item id="e21">
@@ -96,7 +95,6 @@
 		<spiritspeak><random min="800" max="1000" /></spiritspeak>
 		<swordsmanship><random min="800" max="1000" /></swordsmanship>
 		<category>Vendors\Healer (Female)</category>
-		<events>npc.healer</events>
 	</npc>
 
 </definitions>

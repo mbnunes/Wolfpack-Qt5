@@ -151,6 +151,7 @@
 
 	<!-- Context menu scripts -->
 	<script>contextmenus.bankermenu</script>
+	<script>contextmenus.healermenu</script>
 	<script>contextmenus.paperdollmenu</script>
 	<script>contextmenus.petmenu</script>
 	<script>contextmenus.tamemenu</script>
