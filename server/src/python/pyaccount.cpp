@@ -28,6 +28,8 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
+#include <qstring.h>
+#include <qvaluevector.h>
 #include <limits.h>
 
 #include "engine.h"
@@ -35,8 +37,10 @@
 #include "../accounts.h"
 #include "../chars.h"
 #include "../basechar.h"
+#include "../md5.h"
+#include "../srvparams.h"
+#include "../globals.h"
 #include "../player.h"
-#include "qvaluevector.h"
 
 /*!
 	The object for Wolfpack cAccount items
@@ -87,11 +91,8 @@ static PyObject *wpAccount_delete( wpAccount *self, PyObject *args )
 /*!
 	Blocks the account from logging into the system
 */
-static PyObject *wpAccount_block( wpAccount *self, PyObject *args )
-{
+static PyObject *wpAccount_block( wpAccount *self, PyObject *args ) {
 	Q_UNUSED(args);
-	if( self->account == 0 )
-		return PyFalse;
 
 	self->account->setBlocked( true );
 	return PyTrue;
@@ -100,23 +101,14 @@ static PyObject *wpAccount_block( wpAccount *self, PyObject *args )
 /*!
 	unBlocks the account from logging into the system
 */
-static PyObject *wpAccount_unblock( wpAccount *self, PyObject *args )
-{
+static PyObject *wpAccount_unblock(wpAccount *self, PyObject *args) {
 	Q_UNUSED(args);
-	if( self->account == 0 )
-		return PyFalse;
-
-	self->account->setBlocked( false );
+	self->account->setBlocked(false);
 	return PyTrue;
 }
 
-static PyObject *wpAccount_addcharacter( wpAccount *self, PyObject *args )
-{
-	if( !self->account )
-		return PyFalse;
-
-	if( !checkArgChar( 0 ) )
-	{
+static PyObject *wpAccount_addcharacter(wpAccount *self, PyObject *args) {
+	if( !checkArgChar( 0 ) ) {
 		PyErr_BadArgument();
 		return 0;
 	}
@@ -131,11 +123,7 @@ static PyObject *wpAccount_addcharacter( wpAccount *self, PyObject *args )
 	return PyTrue;
 }
 
-static PyObject *wpAccount_removecharacter( wpAccount *self, PyObject *args )
-{
-	if( !self->account )
-		return PyFalse;
-
+static PyObject *wpAccount_removecharacter( wpAccount *self, PyObject *args ) {
 	if( !checkArgChar( 0 ) )
 	{
 		PyErr_BadArgument();
@@ -152,13 +140,8 @@ static PyObject *wpAccount_removecharacter( wpAccount *self, PyObject *args )
 	return PyTrue;
 }
 
-static PyObject *wpAccount_authorized( wpAccount *self, PyObject *args )
-{
-	if( !self->account )
-		return PyFalse;
-
-	if( !checkArgStr( 0 ) || !checkArgStr( 1 ) )
-	{
+static PyObject *wpAccount_authorized( wpAccount *self, PyObject *args ) {
+	if (!checkArgStr(0) || !checkArgStr(1)) {
 		PyErr_BadArgument();
 		return 0;
 	}
@@ -172,6 +155,26 @@ static PyObject *wpAccount_authorized( wpAccount *self, PyObject *args )
 		return PyFalse;
 }
 
+static PyObject *wpAccount_checkpassword(wpAccount *self, PyObject *args) {
+	char *password;
+
+	if (!PyArg_ParseTuple(args, "es:account.checkpassword(password)", "utf-8", &password)) {
+		return 0;
+	}
+
+	bool authorized;
+
+	if (SrvParams->hashAccountPasswords()) {
+		authorized = cMd5::fastDigest(password) == self->account->password();
+	} else {
+		authorized = password == self->account->password();
+	}
+
+	PyMem_Free(password);
+
+	return authorized ? PyTrue : PyFalse;
+}
+
 static PyMethodDef wpAccountMethods[] = 
 {
 	{ "authorized", (getattrofunc)wpAccount_authorized, METH_VARARGS, "Checks if the account is authorized to perform a given action." },
@@ -180,11 +183,16 @@ static PyMethodDef wpAccountMethods[] =
 	{ "unblock", (getattrofunc)wpAccount_unblock, METH_VARARGS, "Shortcut for unblocking the account." },
 	{ "addcharacter", (getattrofunc)wpAccount_addcharacter, METH_VARARGS, "Adds a character to this account." },
 	{ "removecharacter", (getattrofunc)wpAccount_removecharacter, METH_VARARGS, "Removes a character from this account." },
+	{ "checkpassword", (getattrofunc)wpAccount_checkpassword, METH_VARARGS, "Checks the password and regards md5 hashes." },
     { NULL, NULL, 0, NULL }
 };
 
 static PyObject *wpAccount_getAttr( wpAccount *self, char *name )
 {
+	if (!self->account) {
+		return 0;
+	}
+
 	if( !strcmp( name, "acl" ) )
 		return PyString_FromString( self->account->acl().latin1() );
 	else if( !strcmp( name, "name" ) )
