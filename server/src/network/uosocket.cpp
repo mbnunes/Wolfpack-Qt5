@@ -110,8 +110,10 @@ PyObject* cUOSocket::handlers[255] =
 
 void cUOSocket::registerPacketHandler( unsigned char packet, PyObject* handler )
 {
-	if ( handlers[packet] )
+	if ( handlers[packet] ) {
 		Py_DECREF( handlers[packet] );
+		handlers[packet] = 0;
+	}
 
 	// Only install callable packet handlers.
 	if ( handler && PyCallable_Check( handler ) )

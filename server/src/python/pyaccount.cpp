@@ -62,7 +62,7 @@ static int wpAccount_setAttr( wpAccount* self, char* name, PyObject* value );
 */
 static PyTypeObject wpAccountType =
 {
-PyObject_HEAD_INIT( &wpAccountType )
+PyObject_HEAD_INIT( 0 )
 0,
 "wpaccount",
 sizeof( wpAccountType ),

@@ -561,7 +561,7 @@ void cPythonScript::unload( void )
 	{
 		if ( events[i] )
 		{
-			Py_XDECREF( events[i] );
+			Py_DECREF( events[i] );
 			events[i] = 0;
 		}
 	}
@@ -665,6 +665,8 @@ PyObject* cPythonScript::callEvent( const QString& name, PyObject* args, bool ig
 			if ( !ignoreErrors )
 				reportPythonError( name_ );
 		}
+
+		Py_XDECREF(event);
 	}
 
 	return result;

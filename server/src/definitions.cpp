@@ -113,6 +113,14 @@ public:
 		this->impl = impl;
 		this->filename = filename;
 	};
+	
+	virtual ~cXmlHandler() {
+		while ( stack.count() > 1 )
+			stack.pop(); // The parent node should take care of deleting the children
+
+		if ( stack.count() == 1 )
+			delete stack.pop();
+	}
 
 	void setDocumentLocator( QXmlLocator* locator )
 	{

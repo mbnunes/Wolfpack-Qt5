@@ -1532,6 +1532,14 @@ void commandDoorGenerator( cUOSocket* socket, const QString& /*command*/, const 
 	}
 }
 
+// Clear ACLs
+cCommands::~cCommands() {
+	QMap<QString, cAcl*>::iterator itA( _acls.begin() );
+	for ( ; itA != _acls.end(); ++itA )
+		delete itA.data();
+	_acls.clear();
+}
+
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {

@@ -131,7 +131,11 @@ public:
 	cPythonGump( const QString& _callback, PyObject* _args ) : callback( _callback ), args( _args )
 	{
 		// Increase ref-count for argument list
-		Py_INCREF( args );
+		Py_INCREF(args);
+	}
+
+	virtual ~cPythonGump() {
+		Py_XDECREF(args);
 	}
 
 	void handleResponse( cUOSocket* socket, const gumpChoice_st& choice )
@@ -155,21 +159,28 @@ public:
 				{
 					// Create our Argument list
 					PyObject* p_args = PyTuple_New( 3 );
+
 					PyTuple_SetItem( p_args, 0, PyGetCharObject( socket->player() ) );
+
 					Py_INCREF(args);
 					PyTuple_SetItem( p_args, 1, args );
 					PyTuple_SetItem( p_args, 2, PyGetGumpResponse( choice ) );
-					PyEval_CallObject( pFunc, p_args );
+
+					PyObject *result = PyEval_CallObject( pFunc, p_args );
+					Py_XDECREF(result);
+
+					Py_DECREF(p_args);
+
 					reportPythonError( sModule );
 				}
+				Py_XDECREF(pFunc);
+				Py_DECREF(pModule);
 			}
 			else
 			{
 				Console::instance()->log( LOG_ERROR, QString( "Couldn't find code module %1 for a gump callback." ).arg( sModule ) );
 			}
 		}
-
-		Py_DECREF( args );
 	}
 };
 

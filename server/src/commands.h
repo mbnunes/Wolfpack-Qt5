@@ -75,6 +75,8 @@ public:
 		return _acls.end();
 	}
 
+	~cCommands();
+
 	// Privlevel System
 	void loadACLs( void );
 	cAcl* getACL( const QString& ) const;

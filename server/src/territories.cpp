@@ -301,6 +301,9 @@ bool cTerritory::findTeleporterSpot( Coord_cl& d ) const
 
 void cTerritories::unload()
 {
+	// Delete old regions
+	
+	
 	topregions.clear();
 	cComponent::unload();
 }
@@ -322,6 +325,7 @@ void cTerritories::load()
 			rect.y2 = Maps::instance()->mapTileHeight( i ) * 8;
 			territory->rectangles().append( rect );
 			topregions[i].append( territory );
+			topregions[i].setAutoDelete( true ); // set to auto delete
 		}
 	}
 

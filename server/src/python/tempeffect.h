@@ -51,6 +51,7 @@ public:
 	cPythonEffect()
 	{
 		objectid = "cPythonEffect";
+		args = 0;
 	}
 
 	cPythonEffect( const QString& _functionName, PyObject* _args ) : functionName( _functionName ), args( _args )
@@ -61,7 +62,8 @@ public:
 
 	virtual ~cPythonEffect()
 	{
-		;}
+		Py_XDECREF( args );
+	}
 
 	void setDispelId( const QString& data )
 	{
@@ -84,7 +86,9 @@ public:
 	void Dispel( P_CHAR pSource, bool /*silent*/ )
 	{
 		// We will ignore silent here.
-		Dispel( pSource, PyList_New( 0 ) );
+		PyObject *list = PyList_New( 0 );
+		Dispel( pSource, list );
+		Py_DECREF(list);
 	}
 
 	// Dispel args: char, [args], source, [args] (while the last one is optional)
@@ -110,6 +114,7 @@ public:
 				{
 					// Create our Argument list
 					PyObject* p_args = PyTuple_New( 4 );
+
 					if ( isItemSerial( destSer ) )
 						PyTuple_SetItem( p_args, 0, PyGetItemObject( FindItemBySerial( destSer ) ) );
 					else if ( isCharSerial( destSer ) )
@@ -122,7 +127,9 @@ public:
 
 					Py_INCREF(args); // PyTuple_SetItem steals a reference
 					PyTuple_SetItem( p_args, 1, args );
+
 					PyTuple_SetItem( p_args, 2, PyGetCharObject( pSource ) );
+
 					Py_INCREF(disp_args);
 					PyTuple_SetItem( p_args, 3, disp_args );
 
@@ -130,15 +137,13 @@ public:
 					Py_XDECREF( result );
 
 					reportPythonError( sModule );
+
 					Py_DECREF( p_args );
 				}
-
 				Py_XDECREF( pFunc );
 			}
 			Py_XDECREF( pModule );
 		}
-
-		Py_DECREF( args );
 	}
 
 	void Expire()
@@ -174,16 +179,14 @@ public:
 
 					PyObject* result = PyEval_CallObject( pFunc, p_args );
 					Py_XDECREF( result );
-					reportPythonError( sModule );
 
+					reportPythonError( sModule );
 					Py_DECREF( p_args );
 				}
 				Py_DECREF( pFunc );
 			}
 			Py_XDECREF( pModule );
 		}
-
-		Py_DECREF( args );
 	}
 
 	void save(cBufferedWriter &writer, unsigned int version) {

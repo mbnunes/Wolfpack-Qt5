@@ -179,6 +179,8 @@ private:
 
 public:
 	cTimers();
+	~cTimers();
+
 	std::vector<cTimer*> teffects;
 
 	void load();

@@ -38,6 +38,7 @@
 
 cLog::cLog()
 {
+	currentday = 0xFF;
 }
 
 cLog::~cLog()
@@ -60,7 +61,9 @@ bool cLog::checkLogFile()
 	*/
 	if ( !logfile.isOpen() || currentday != today.day() )
 	{
-		logfile.close(); // Just to be sure
+		currentday = today.day();
+
+		logfile.close(); // Just to be sure		
 
 		QString path = Config::instance()->logPath();
 
@@ -85,7 +88,7 @@ bool cLog::checkLogFile()
 		{
 			Console::instance()->send( QString( "Couldn't open logfile '%1'\n" ).arg( path + filename ) );
 			return false;
-		}
+		}		
 	}
 
 	return true;

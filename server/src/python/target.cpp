@@ -144,8 +144,6 @@ bool cPythonTarget::responsed( cUOSocket* socket, cUORxTarget* target )
 
 		Py_XDECREF( pModule );
 	}
-
-	Py_DECREF( args );
 	return true;
 }
 
@@ -180,8 +178,6 @@ void cPythonTarget::timedout( cUOSocket* socket )
 
 		Py_XDECREF( pModule );
 	}
-
-	Py_DECREF( args );
 }
 
 void cPythonTarget::canceled( cUOSocket* socket )
@@ -216,6 +212,4 @@ void cPythonTarget::canceled( cUOSocket* socket )
 
 		Py_XDECREF( pModule );
 	}
-
-	Py_DECREF( args );
 }

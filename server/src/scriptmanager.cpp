@@ -84,8 +84,10 @@ void cScriptManager::reload()
 	unload();
 
 	// Stop + Restart Python
-	stopPython();
-	startPython( qApp->argc(), qApp->argv() );
+	//stopPython();
+	//startPython( qApp->argc(), qApp->argv() );
+	PythonEngine::instance()->unload();
+	PythonEngine::instance()->load();
 
 	load();
 
@@ -105,16 +107,6 @@ void cScriptManager::unload()
 	// Clear all packet handlers.
 	cUOSocket::clearPacketHandlers();
 
-	cScriptManager::iterator it;
-
-	for ( it = scripts.begin(); it != scripts.end(); ++it )
-	{
-		it.data()->unload();
-		delete it.data();
-	}
-
-	scripts.clear();
-
 	for ( unsigned int i = 0; i < EVENT_COUNT; ++i )
 	{
 		hooks[i] = 0;
@@ -128,6 +120,17 @@ void cScriptManager::unload()
 	}
 
 	commandhooks.clear();
+
+	cScriptManager::iterator it;
+
+	for ( it = scripts.begin(); it != scripts.end(); ++it )
+	{
+		it.data()->unload();
+		delete it.data();
+	}
+
+	scripts.clear();
+
 	cComponent::unload();
 }
 

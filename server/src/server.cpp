@@ -109,6 +109,8 @@ public:
 	QMutex actionMutex;
 	unsigned int time;
 	QValueVector<cAction*> actionQueue;
+	QApplication *app;
+	
 	Private() : running( true ), state( STARTUP ), secure( true ), time( 0 )
 	{
 	}
@@ -203,6 +205,7 @@ cServer::cServer()
 #endif
 
 	d = new Private;
+	d->app = 0;
 
 	// Register Components
 	registerComponent( Config::instance(), "configuration", true, false );
@@ -230,6 +233,7 @@ cServer::cServer()
 
 cServer::~cServer()
 {
+	delete d->app;
 	delete d;
 }
 
@@ -259,7 +263,7 @@ bool cServer::run( int argc, char** argv )
 	
 	setState( STARTUP );
 
-	new QApplication ( argc, argv, false );
+	d->app = new QApplication ( argc, argv, false );
 
 	// Load wolfpack.xml
 	Config::instance()->load();
