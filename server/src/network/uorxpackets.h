@@ -271,6 +271,14 @@ public:
 	QString language( void ) const { return this->getAsciiString(5, 4); }
 };
 
+//0xBF 0x10 Server tooltip question
+class cUORxRequestToolTip: public cUORxMultiPurpose
+{
+public:
+	cUORxRequestToolTip( const QByteArray &data ): cUORxMultiPurpose( data ) {}
+	Q_UINT32 object( void ) const { return this->getInt( 5 ); }
+};
+
 // 0xBD Set Version
 class cUORxSetVersion: public cUOPacket
 {
