@@ -468,9 +468,12 @@ int main( int argc, char *argv[] )
 		++aiit;
 	}
 
+#if !defined(_DEBUG)
 	try
 	{
+#endif
 		World::instance()->load();
+#if !defined(_DEBUG)
 	}
 	catch( QString &error )
 	{
@@ -482,6 +485,7 @@ int main( int argc, char *argv[] )
 		Console::instance()->log( LOG_ERROR, "An unknown error occured while loading the world.\n" );
 		return 1;
 	}
+#endif
 
 	Console::instance()->PrepareProgress( "Initializing Multis" );
 	InitMultis();

@@ -1625,21 +1625,21 @@ void cItem::setWeight( SI16 nValue )
 
 // This subtracts the weight of the top-container
 // And then readds the new weight
-void cItem::setTotalweight( INT32 data )
+void cItem::setTotalweight( int data )
 {
 	//if( data < 0 )
 		// FixWeight!
-
-	if ( container_ )
-	{
-		if( container_->isChar() )
+	
+	// Completely ignore the container if the free flag is set
+	// this flag is abused during the load phase of the server
+	// to flag items with yet unprocessed container values
+	if (!free && container_) {
+		if(container_->isChar())
 		{
 			P_CHAR pChar = dynamic_cast<P_CHAR>( container_ );
 			if( pChar && ( ( layer_ < 0x1A ) || ( layer_ == 0x1E ) ) )
 				pChar->setWeight( pChar->weight() - totalweight_ );
-		}
-		else if( container_->isItem() )
-		{
+		} else if(container_->isItem()) {
 			P_ITEM pItem = dynamic_cast<P_ITEM>( container_ );
 			if( pItem )
 				pItem->setTotalweight( pItem->totalweight() - totalweight_ );
@@ -1650,19 +1650,19 @@ void cItem::setTotalweight( INT32 data )
 	flagChanged();
 	totalweight_ = data;
 
-	if ( container_ )
-	{
-		if( container_->isChar() )
-		{
+	// Completely ignore the container if the free flag is set
+	// this flag is abused during the load phase of the server
+	// to flag items with yet unprocessed container values
+	if (!free && container_) {
+		if (container_->isChar()) {
 			P_CHAR pChar = dynamic_cast<P_CHAR>( container_ );
 			if( pChar && ( ( layer_ < 0x1A ) || ( layer_ == 0x1E ) ) )
 				pChar->setWeight( pChar->weight() + totalweight_ );
-		}
-		else if( container_->isItem() )
-		{
+		} else if (container_->isItem()) {
 			P_ITEM pItem = dynamic_cast<P_ITEM>( container_ );
-			if( pItem )
-				pItem->setTotalweight( pItem->totalweight() + totalweight_ );
+			if(pItem) {
+				pItem->setTotalweight( pItem->totalweight() + totalweight_);
+			}
 		}
 	}
 }
@@ -1827,9 +1827,11 @@ void cItem::load( char **result, UINT16 &offset )
 	//  as it should be.
 	SERIAL containerSerial = atoi( result[offset++] );
 
-	if( containerSerial != INVALID_SERIAL ) // if it's invalid, we won't set.
+	if (containerSerial != INVALID_SERIAL) {
 		container_ = reinterpret_cast<cUObject*>(containerSerial);
-	
+		free = true; // Abuse free for lingering items
+	}
+
 	// ugly optimization ends here.
 	
 	layer_ = atoi( result[offset++] );

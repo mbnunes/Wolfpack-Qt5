@@ -521,55 +521,42 @@ void cWorld::load()
 	{
 		SERIAL contserial = reinterpret_cast<SERIAL>(pi->container());
 
-		// 1. Handle the Container Value
-		if( isItemSerial( contserial ) )
-		{
-			P_ITEM pCont = FindItemBySerial( contserial );
-
-			if( pCont )
-			{
-				pCont->addItem( pi, false, isCharSerial( reinterpret_cast<SERIAL>( pCont->container() ) )?false:true, true );
-			}
-			else
-			{
-				// Queue this item up for deletion
-				deleteItems.append( pi );
-				continue; // Skip further processing
-			}
-		}
-		else if( isCharSerial( contserial ) )
-		{
-			P_CHAR pCont = FindCharBySerial( contserial );
-
-			if( pCont )
-			{
-				// NoRemove is important. 
-				// It is faster *and* it prevents onEquip from being fired
-				pCont->addItem( (cBaseChar::enLayer)pi->layer(), pi, true, true );
-			}
-			else
-			{
-				deleteItems.append( pi );
-				continue; // Skip further processing
-			}
-		}
-		else // Add to Map Regions
-		{
+		// We used free for uncontained items
+		if (!pi->free) {
 			int max_x = Map->mapTileWidth(pi->pos().map) * 8;
 			int max_y = Map->mapTileHeight(pi->pos().map) * 8;
-			if ( pi->pos().x > max_x || pi->pos().y > max_y ) 
-			{
-				// these are invalid locations, delete them!
+			if (pi->pos().x > max_x || pi->pos().y > max_y) {
 				deleteItems.append( pi );
-			}
-			else
+				continue;
+			} else {
 				MapObjects::instance()->add(pi);
-//			continue;
+			}
+		} else {
+			// 1. Handle the Container Value
+			if (isItemSerial(contserial)) {
+				P_ITEM pCont = FindItemBySerial(contserial);
+
+				if (pCont) {
+					pCont->addItem(pi, false, true, true);
+				} else {
+					deleteItems.append(pi); // Queue this item up for deletion
+					continue; // Skip further processing
+				}
+			}
+			else if (isCharSerial(contserial)) {
+				P_CHAR pCont = FindCharBySerial( contserial );
+
+				if (pCont) {
+					pCont->addItem((cBaseChar::enLayer) pi->layer(), pi, true, true);
+				} else {
+					deleteItems.append(pi);
+					continue;
+				}
+			}
 		}
 
 		// If this item has a multiserial then add it to the multi
-		if( isItemSerial( pi->multis() ) )
-		{
+		if (isItemSerial(pi->multis())) {
 			cMulti *pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis() ) );
 
 			if( pMulti )
