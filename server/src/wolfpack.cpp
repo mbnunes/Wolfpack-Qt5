@@ -126,16 +126,17 @@ void clearscreen( void )
 {
 
 	unsigned long int y;
-
+/*
 #ifndef __unix__
 	COORD xy;
 
 	xy.X=0;
 	xy.Y=0;
-	FillConsoleOutputAttribute(hco, (FOREGROUND_RED)/*( BACKGROUND_BLUE | BACKGROUND_GREEN | BACKGROUND_RED | BACKGROUND_INTENSITY)*/, csbi.dwSize.X*csbi.dwSize.Y, xy, &y);
+	FillConsoleOutputAttribute(hco, (FOREGROUND_RED), csbi.dwSize.X*csbi.dwSize.Y, xy, &y); //( BACKGROUND_BLUE | BACKGROUND_GREEN | BACKGROUND_RED | BACKGROUND_INTENSITY)
 	FillConsoleOutputCharacter(hco, ' ', csbi.dwSize.X*csbi.dwSize.Y, xy, &y);
 	SetConsoleCursorPosition(hco, xy);
 #endif
+*/
 }
 
 void constart( void )
@@ -171,7 +172,6 @@ void constart( void )
 */
 }
 
-//#endif
 
 ///////////
 // Name:	inVisRange

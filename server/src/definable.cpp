@@ -98,6 +98,15 @@ QString cDefinable::getNodeValue( const QDomElement &Tag )
 			childNode = childNode.nextSibling();
 		}
 	}
-	return Value;
+	return hex2dec( Value );
+}
+
+// global
+QString hex2dec( QString value )
+{
+	bool ok;
+	if( (value.left( 2 ) == "0x" || value.left( 2 ) == "0X") && value.right( value.length()-2 ).toInt() != 0 )
+		return QString("%1").arg(value.right( value.length()-2 ).toInt( &ok, 16 ));
+	else return QString();
 }
 

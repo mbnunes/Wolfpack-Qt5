@@ -191,10 +191,10 @@ void cBoat::processNode( const QDomElement &Tag )
 	// <ids north="0x4021" east=".." south=".." west="..">16572</ids>
 	if( TagName == "ids" )
 	{
-		this->multiids_.push_back( Tag.attribute( "north" ).toUShort() );
-		this->multiids_.push_back( Tag.attribute( "east" ).toUShort() );
-		this->multiids_.push_back( Tag.attribute( "south" ).toUShort() );
-		this->multiids_.push_back( Tag.attribute( "west" ).toUShort() );
+		this->multiids_.push_back( hex2dec(Tag.attribute( "north" )).toUShort() );
+		this->multiids_.push_back( hex2dec(Tag.attribute( "east" )).toUShort() );
+		this->multiids_.push_back( hex2dec(Tag.attribute( "south" )).toUShort() );
+		this->multiids_.push_back( hex2dec(Tag.attribute( "west" )).toUShort() );
 	}
 
 	// <special_items>
@@ -305,10 +305,10 @@ void cBoat::processSpecialItemNode( const QDomElement &Tag, UI08 item )
 
 	if( TagName == "ids" )
 	{
-		this->itemids[0][ item ] = Tag.attribute( "north" ).toUShort();
-		this->itemids[1][ item ] = Tag.attribute( "east" ).toUShort();
-		this->itemids[2][ item ] = Tag.attribute( "south" ).toUShort();
-		this->itemids[3][ item ] = Tag.attribute( "west" ).toUShort();
+		this->itemids[0][ item ] = hex2dec(Tag.attribute( "north" )).toUShort();
+		this->itemids[1][ item ] = hex2dec(Tag.attribute( "east" )).toUShort();
+		this->itemids[2][ item ] = hex2dec(Tag.attribute( "south" )).toUShort();
+		this->itemids[3][ item ] = hex2dec(Tag.attribute( "west" )).toUShort();
 	}
 
 	else if( TagName == "offsets" )

@@ -113,4 +113,5 @@ inline int hex2num (string sz)
 {
 	return str2num(sz,BASE_HEX) ;
 }
+
 #endif 

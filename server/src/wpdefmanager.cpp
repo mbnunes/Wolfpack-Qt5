@@ -360,3 +360,4 @@ QString WPDefManager::getText( QString TextSection )
 	else
 		return DefSection->text();
 }
+

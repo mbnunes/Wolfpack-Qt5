@@ -1045,7 +1045,9 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 							while( !childNode.isNull() && houseid == 0 )
 							{
 								if( childNode.isElement() && childNode.nodeName() == "id" )
-									houseid = childNode.toElement().text().toUInt();
+									houseid = hex2dec(childNode.toElement().text()).toUInt();
+								else if( childNode.isElement() && childNode.nodeName() == "ids" )
+									houseid = hex2dec(childNode.toElement().attribute( "north" )).toUInt();
 								childNode = childNode.nextSibling();
 							}
 							if( houseid != 0 )

@@ -43,6 +43,8 @@ void endScrn() ;
 void updatehtml();
 void offlinehtml();
 
+QString hex2dec( QString value );
+
 /*
 //Boats --Fucntions in Boats.cpp
 int dist(int,int,int);
