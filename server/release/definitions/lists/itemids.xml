@@ -1,0 +1,96 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Ripper                         |
+|   )).-' {{ ;'`   | Revised by: sereg                          |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<!-- IDs of Pants -->
+	<list id="PANTS">
+		<item>152e</item> <!-- Short -->
+		<item>1539</item> <!-- Long -->
+	</list>
+
+	<!-- IDs of Shoes -->
+	<list id="SHOES">
+		<item>170b</item>
+		<item>170f</item>
+		<item>1711</item>
+	</list>
+
+	<!-- Item IDs of Hair -->
+	<list id="HAIR">
+		<item>203b</item>
+		<item>203c</item>
+		<item>203d</item>
+	</list>
+
+	<!-- IDs of Potions -->
+	<list id="POTIONS">
+		<item>f06</item>
+		<item>f07</item>
+		<item>f08</item>
+		<item>f09</item>
+		<item>f0a</item>
+		<item>f0b</item>
+		<item>f0c</item>
+	</list>
+	
+	<!-- IDs of Reagents -->
+	<list id="REAGENTS">
+		<item>f7a</item>
+		<item>f7b</item>
+		<item>f84</item>
+		<item>f85</item>
+		<item>f86</item>
+		<item>f88</item>
+		<item>f8c</item>
+		<item>f8d</item>
+	</list>
+	
+	<!-- IDs of Instruments -->
+	<list id="INSTRUMENTS">
+		<item>e9c</item>
+		<item>e9d</item>
+		<item>e9e</item>
+		<item>eb1</item>
+		<item>eb2</item>
+		<item>eb3</item>
+		<item>eb4</item>
+	</list>
+	
+	<!-- IDs of Mining Tools -->
+	<list id="MININGTOOLS">
+		<item>e85</item>
+		<item>f39</item>
+	</list>
+	
+	<!-- IDs of Blacksmithing Tools -->
+	<list id="BLACKSMITHTOOLS">
+		<item>102a</item>
+		<item>102b</item>
+		<item>fbb</item>
+		<item>fbc</item>
+		<item>13e4</item>
+		<item>13e3</item>
+		<item>fb4</item>
+		<item>fb5</item>
+	</list>
+	
+	<!-- IDs of Carpentry Tools -->
+	<list id="CARPENTRYTOOLS">
+		<item>10e4</item>
+		<item>1028</item>
+		<item>1034</item>
+		<item>102a</item>
+		<item>1030</item>
+		<item>1032</item>
+		<item>10e7</item>
+		<item>10e6</item>
+		<item>102c</item>
+		<item>102e</item>
+		<item>10e5</item>
+	</list>
+</definitions>

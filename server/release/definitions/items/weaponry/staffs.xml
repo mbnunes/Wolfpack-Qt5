@@ -1,17 +1,17 @@
 <!--
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
-|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|  ((    _/{  "-;  | Created by: sereg                          |
 |   )).-' {{ ;'`   | Revised by:                                |
 |  ( (  ;._ \\ ctr | Last Modification: Created                 |
 =================================================================
 -->
 <definitions>
-	<!-- Page Categories -->
-	<list id="PAGE_CATEGORIES">
-		<item>BUG</item>
-		<item>STUCK</item>
-		<item>GAMEPLAY</item>
-		<item>BUILD</item>
-	</list>
+	<item id="13f9">
+		<name>gnarled staff</name>
+		<id>0x13F9</id>
+		<attack min="15" max="30" />
+		<rank>10</rank>
+		<durability>10</durability>
+	</item>
 </definitions>

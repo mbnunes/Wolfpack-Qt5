@@ -1,0 +1,44 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<!-- A tanner vendor -->
+	<npc id="tanner">
+		<inherit>base_male</inherit>
+		<title>the Tanner</title>
+		<shopkeeper>
+			<restockable>
+				<item inherit="1711"><amount>10</amount></item>
+				<item inherit="170f"><amount>10</amount></item>
+			</restockable>
+		</shopkeeper>
+	</npc>	
+	
+	<!-- A blacksmith vendor -->
+	<npc id="blacksmith">
+		<inherit>base_male</inherit>
+		<title>the Blacksmith</title>
+		<shopkeeper>
+			<restockable>
+				<item inherit="13b8"><amount>10</amount></item>
+				<item inherit="f5e"><amount>10</amount></item>
+				<item inherit="f43"><amount>10</amount></item>
+			</restockable>
+		</shopkeeper>
+	</npc>
+	
+	<!-- A baker vendor --->
+	<npc id="baker">
+		<inherit>base_male</inherit>
+		<title>the Baker</title>
+		<stat type="str">78</stat>
+		<stat type="int">50</stat>
+		<stat type="dex">70</stat>
+	</npc>
+	
+</definitions>

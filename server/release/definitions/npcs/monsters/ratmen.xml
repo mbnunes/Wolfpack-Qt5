@@ -1,0 +1,232 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh                           |
+|   )).-' {{ ;'`   | Revised by: sereg                          |
+|  ( (  ;._ \\ ctr | Last Modification: Enhanced                |
+=================================================================
+-->
+<definitions>
+	<!-- a rat man medium-->
+	<npc id="rat_man_medium">
+		<name>a rat man</name>
+		<id>0x02a</id>
+		<inherit id="monster_base" />
+		<karma><random min="1250" max="2499" /></karma>
+		<fame><random min="1250" max="2499" /></fame>
+		<defense><random min="28" max="28" /></defense>
+		<lodamage></lodamage>
+		<hidamage></hidamage>
+		<gold><random min="0" max="50" /></gold>
+		<!-- Stats -->
+		<str><random min="96" max="120" /></str>
+		<dex><random min="81" max="99" /></dex>
+		<int><random min="37" max="59" /></int>
+		<!-- Skills -->
+		<wrestling><random min="562" max="768" /></wrestling>
+		<tactics><random min="502" max="734" /></tactics>
+		<magicresistance><random min="381" max="580" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<!-- Priv -->
+	</npc>
+	<!-- a rat man weak-->
+	<npc id="rat_man_weak">
+		<name>a rat man</name>
+		<id>0x02a</id>
+		<inherit id="monster_base" />
+		<karma><random min="1250" max="2499" /></karma>
+		<fame><random min="1250" max="2499" /></fame>
+		<defense><random min="23" max="23" /></defense>
+		<lodamage>0</lodamage>
+		<hidamage>0</hidamage>
+		<gold><random min="0" max="50" /></gold>
+		<!-- Stats -->
+		<str><random min="81" max="102" /></str>
+		<dex><random min="68" max="84" /></dex>
+		<int><random min="37" max="59" /></int>
+		<!-- Skills -->
+		<wrestling><random min="477" max="652" /></wrestling>
+		<tactics><random min="426" max="623" /></tactics>
+		<magicresistance><random min="323" max="493" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<poisoning><random min="0" max="0" /></poisoning>
+		<magery><random min="0" max="0" /></magery>
+		<evaluatingint><random min="0" max="0" /></evaluatingint>
+		<meditation><random min="0" max="0" /></meditation>
+		<!-- Priv -->
+	</npc>
+	<!-- a rat man hard-->
+	<npc id="rat_man_hard">
+		<name>a rat man</name>
+		<id>0x02a</id>
+		<inherit id="monster_base" />
+		<karma><random min="1250" max="2499" /></karma>
+		<fame><random min="1250" max="2499" /></fame>
+		<defense><random min="27" max="27" /></defense>
+		<lodamage>0</lodamage>
+		<hidamage>0</hidamage>
+		<gold><random min="0" max="50" /></gold>
+		<!-- Stats -->
+		<str><random min="93" max="117" /></str>
+		<dex><random min="79" max="96" /></dex>
+		<int><random min="37" max="59" /></int>
+		<!-- Skills -->
+		<wrestling><random min="549" max="750" /></wrestling>
+		<tactics><random min="490" max="717" /></tactics>
+		<magicresistance><random min="372" max="566" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<poisoning><random min="0" max="0" /></poisoning>
+		<magery><random min="0" max="0" /></magery>
+		<evaluatingint><random min="0" max="0" /></evaluatingint>
+		<meditation><random min="0" max="0" /></meditation>
+		<!-- Priv -->
+	</npc>
+	<!-- a rat man (with axe) medium-->
+	<npc id="rat_man_with_axe_medium">
+		<name>a rat man</name>
+		<id>0x02c</id>
+		<inherit id="monster_base" />
+		<karma><random min="2500" max="4999" /></karma>
+		<fame><random min="2500" max="4999" /></fame>
+		<defense><random min="56" max="56" /></defense>
+		<lodamage></lodamage>
+		<hidamage></hidamage>
+		<gold><random min="250" max="300" /></gold>
+		<!-- Stats -->
+		<str><random min="146" max="180" /></str>
+		<dex><random min="103" max="127" /></dex>
+		<int><random min="116" max="138" /></int>
+		<!-- Skills -->
+		<wrestling><random min="573" max="770" /></wrestling>
+		<tactics><random min="542" max="736" /></tactics>
+		<magicresistance><random min="675" max="894" /></magicresistance>
+		<anatomy><random min="630" max="915" /></anatomy>
+		<!-- Priv -->
+	</npc>
+	<!-- a rat man (with axe) weak-->
+	<npc id="rat_man_with_axe_weak">
+		<name>a rat man</name>
+		<id>0x02c</id>
+		<inherit id="monster_base" />
+		<karma><random min="2500" max="4999" /></karma>
+		<fame><random min="2500" max="4999" /></fame>
+		<defense><random min="47" max="47" /></defense>
+		<lodamage>0</lodamage>
+		<hidamage>0</hidamage>
+		<gold><random min="250" max="300" /></gold>
+		<!-- Stats -->
+		<str><random min="124" max="153" /></str>
+		<dex><random min="87" max="107" /></dex>
+		<int><random min="116" max="138" /></int>
+		<!-- Skills -->
+		<wrestling><random min="487" max="654" /></wrestling>
+		<tactics><random min="460" max="625" /></tactics>
+		<magicresistance><random min="573" max="759" /></magicresistance>
+		<anatomy><random min="535" max="777" /></anatomy>
+		<poisoning><random min="0" max="0" /></poisoning>
+		<magery><random min="0" max="0" /></magery>
+		<evaluatingint><random min="0" max="0" /></evaluatingint>
+		<meditation><random min="0" max="0" /></meditation>
+		<!-- Priv -->
+	</npc>
+	<!-- a rat man (with axe) hard-->
+	<npc id="rat_man_with_axe_hard">
+		<name>a rat man</name>
+		<id>0x02c</id>
+		<inherit id="monster_base" />
+		<karma><random min="2500" max="4999" /></karma>
+		<fame><random min="2500" max="4999" /></fame>
+		<defense><random min="54" max="54" /></defense>
+		<lodamage>0</lodamage>
+		<hidamage>0</hidamage>
+		<gold><random min="250" max="300" /></gold>
+		<!-- Stats -->
+		<str><random min="142" max="175" /></str>
+		<dex><random min="100" max="124" /></dex>
+		<int><random min="116" max="138" /></int>
+		<!-- Skills -->
+		<wrestling><random min="560" max="752" /></wrestling>
+		<tactics><random min="529" max="719" /></tactics>
+		<magicresistance><random min="659" max="873" /></magicresistance>
+		<anatomy><random min="615" max="894" /></anatomy>
+		<poisoning><random min="0" max="0" /></poisoning>
+		<magery><random min="0" max="0" /></magery>
+		<evaluatingint><random min="0" max="0" /></evaluatingint>
+		<meditation><random min="0" max="0" /></meditation>
+		<!-- Priv -->
+	</npc>
+	<!-- a rat man (with sword) medium-->
+	<npc id="rat_man_with_sword_medium">
+		<name>a rat man</name>
+		<id>0x02d</id>
+		<inherit id="monster_base" />
+		<karma><random min="2500" max="4999" /></karma>
+		<fame><random min="2500" max="4999" /></fame>
+		<defense><random min="56" max="56" /></defense>
+		<lodamage></lodamage>
+		<hidamage></hidamage>
+		<gold><random min="250" max="300" /></gold>
+		<!-- Stats -->
+		<str><random min="146" max="180" /></str>
+		<dex><random min="103" max="127" /></dex>
+		<int><random min="116" max="138" /></int>
+		<!-- Skills -->
+		<wrestling><random min="573" max="770" /></wrestling>
+		<tactics><random min="542" max="736" /></tactics>
+		<magicresistance><random min="675" max="894" /></magicresistance>
+		<anatomy><random min="630" max="915" /></anatomy>
+		<!-- Priv -->
+	</npc>
+	<!-- a rat man (with sword) weak-->
+	<npc id="rat_man_with_sword_weak">
+		<name>a rat man</name>
+		<id>0x02d</id>
+		<inherit id="monster_base" />
+		<karma><random min="2500" max="4999" /></karma>
+		<fame><random min="2500" max="4999" /></fame>
+		<defense><random min="47" max="47" /></defense>
+		<lodamage>0</lodamage>
+		<hidamage>0</hidamage>
+		<gold><random min="250" max="300" /></gold>
+		<!-- Stats -->
+		<str><random min="124" max="153" /></str>
+		<dex><random min="87" max="107" /></dex>
+		<int><random min="116" max="138" /></int>
+		<!-- Skills -->
+		<wrestling><random min="487" max="654" /></wrestling>
+		<tactics><random min="460" max="625" /></tactics>
+		<magicresistance><random min="573" max="759" /></magicresistance>
+		<anatomy><random min="535" max="777" /></anatomy>
+		<poisoning><random min="0" max="0" /></poisoning>
+		<magery><random min="0" max="0" /></magery>
+		<evaluatingint><random min="0" max="0" /></evaluatingint>
+		<meditation><random min="0" max="0" /></meditation>
+		<!-- Priv -->
+	</npc>
+	<!-- a rat man (with sword) hard-->
+	<npc id="rat_man_with_sword_hard">
+		<name>a rat man</name>
+		<id>0x02d</id>
+		<inherit id="monster_base" />
+		<karma><random min="2500" max="4999" /></karma>
+		<fame><random min="2500" max="4999" /></fame>
+		<defense><random min="54" max="54" /></defense>
+		<lodamage>0</lodamage>
+		<hidamage>0</hidamage>
+		<gold><random min="250" max="300" /></gold>
+		<!-- Stats -->
+		<str><random min="142" max="175" /></str>
+		<dex><random min="100" max="124" /></dex>
+		<int><random min="116" max="138" /></int>
+		<!-- Skills -->
+		<wrestling><random min="560" max="752" /></wrestling>
+		<tactics><random min="529" max="719" /></tactics>
+		<magicresistance><random min="659" max="873" /></magicresistance>
+		<anatomy><random min="615" max="894" /></anatomy>
+		<poisoning><random min="0" max="0" /></poisoning>
+		<magery><random min="0" max="0" /></magery>
+		<evaluatingint><random min="0" max="0" /></evaluatingint>
+		<meditation><random min="0" max="0" /></meditation>
+		<!-- Priv -->
+	</npc>
+</definitions>

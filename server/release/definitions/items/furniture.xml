@@ -1,17 +1,15 @@
 <!--
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
-|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|  ((    _/{  "-;  | Created by: sereg                          |
 |   )).-' {{ ;'`   | Revised by:                                |
 |  ( (  ;._ \\ ctr | Last Modification: Created                 |
 =================================================================
 -->
 <definitions>
-	<!-- Page Categories -->
-	<list id="PAGE_CATEGORIES">
-		<item>BUG</item>
-		<item>STUCK</item>
-		<item>GAMEPLAY</item>
-		<item>BUILD</item>
-	</list>
+	<!-- a throne -->
+	<item id="b33">
+		<name>Throne</name>
+		<id>0xB33</id>
+	</item>
 </definitions>

@@ -2,13 +2,13 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: DarkStorm                      |
-|   )).-' {{ ;'`   | Revised by:                                |
+|   )).-' {{ ;'`   | Revised by: sereg                          |
 |  ( (  ;._ \\ ctr | Last Modification: Created                 |
 =================================================================
 -->
 <definitions>
 	<!-- Dont create this as a normal item -->
-	<item id="book_base" type="book">
+	<item id="base_book" type="book">
 		<value>130</value>
 		<name>book</name>
 		<decay />
@@ -19,42 +19,42 @@
 
 	<!-- Book 1 -->
 	<item id="fef" type="book">
-		<inherit id="book_base" />
+		<inherit id="base_book" />
 		<category>Equipment\Books\Book 1</category>
 		<id>0x0fef</id>
 	</item>
 
 	<!-- Book 2 -->
 	<item id="ff0" type="book">
-		<inherit id="book_base" />
+		<inherit id="base_book" />
 		<category>Equipment\Books\Book 2</category>
 		<id>0x0ff0</id>
 	</item>
 
 	<!-- Book 3 -->
 	<item id="ff1" type="book">
-		<inherit id="book_base" />
+		<inherit id="base_book" />
 		<category>Equipment\Books\Book 3</category>
 		<id>0x0ff1</id>
 	</item>
 
 	<!-- Book 4 -->
 	<item id="ff2" type="book">
-		<inherit id="book_base" />
+		<inherit id="base_book" />
 		<category>Equipment\Books\Book 4</category>
 		<id>0x0ff2</id>
 	</item>
 
 	<!-- Book 5 -->
 	<item id="ff3" type="book">
-		<inherit id="book_base" />
+		<inherit id="base_book" />
 		<category>Equipment\Books\Book 5</category>
 		<id>0x0ff3</id>
 	</item>
 
 	<!-- Book 6 -->
 	<item id="ff4" type="book">
-		<inherit id="book_base" />
+		<inherit id="base_book" />
 		<category>Equipment\Books\Book 6</category>
 		<id>0x0ff4</id>
 	</item>

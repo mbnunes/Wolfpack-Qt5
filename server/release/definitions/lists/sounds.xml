@@ -1,0 +1,40 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg		                |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| History:							|
+| 25.11.02 - combat hit lists added for human male and female   |
+=================================================================
+-->
+<definitions>
+	<list id="SOUNDS_COMBAT_HIT_HUMAN_MALE">
+		<item>0x435</item>
+		<item>0x436</item>
+		<item>0x437</item>
+		<item>0x438</item>
+		<item>0x439</item>
+		<item>0x43A</item>
+		<item>0x43B</item>
+		<item>0x43C</item>
+		<item>0x43D</item>
+	</list>
+	
+	<list id="SOUNDS_COMBAT_HIT_HUMAN_FEMALE">
+		<item>0x325</item>
+		<item>0x326</item>
+		<item>0x327</item>
+		<item>0x328</item>
+		<item>0x329</item>
+		<item>0x32A</item>
+		<item>0x32B</item>
+	</list>
+	
+	<list id="SOUNDS_COMBAT_MISSED">
+		<item>0x238</item>
+		<item>0x239</item>
+		<item>0x23A</item>
+	</list>
+</definitions>

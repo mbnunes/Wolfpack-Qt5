@@ -1,0 +1,84 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh                           |
+|   )).-' {{ ;'`   | Revised by: sereg                          |
+|  ( (  ;._ \\ ctr | Last Modification: Enhanced                |
+=================================================================
+-->
+<definitions>
+	<!-- a lizard man medium-->
+	<npc id="lizard_man_medium">
+		<name>a lizard man</name>
+		<id>0x021</id>
+		<inherit id="monster_base" />
+		<karma><random min="1250" max="2499" /></karma>
+		<fame><random min="1250" max="2499" /></fame>
+		<defense><random min="28" max="28" /></defense>
+		<lodamage></lodamage>
+		<hidamage></hidamage>
+		<gold><random min="0" max="50" /></gold>
+		<!-- Stats -->
+		<str><random min="99" max="119" /></str>
+		<dex><random min="89" max="105" /></dex>
+		<int><random min="39" max="55" /></int>
+		<!-- Skills -->
+		<wrestling><random min="551" max="720" /></wrestling>
+		<tactics><random min="551" max="782" /></tactics>
+		<magicresistance><random min="352" max="589" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<!-- Priv -->
+	</npc>
+	<!-- a lizard man weak-->
+	<npc id="lizard_man_weak">
+		<name>a lizard man</name>
+		<id>0x021</id>
+		<inherit id="monster_base" />
+		<karma><random min="1250" max="2499" /></karma>
+		<fame><random min="1250" max="2499" /></fame>
+		<defense><random min="23" max="23" /></defense>
+		<lodamage>0</lodamage>
+		<hidamage>0</hidamage>
+		<gold><random min="0" max="50" /></gold>
+		<!-- Stats -->
+		<str><random min="84" max="101" /></str>
+		<dex><random min="75" max="89" /></dex>
+		<int><random min="39" max="55" /></int>
+		<!-- Skills -->
+		<wrestling><random min="468" max="612" /></wrestling>
+		<tactics><random min="468" max="664" /></tactics>
+		<magicresistance><random min="299" max="500" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<poisoning><random min="0" max="0" /></poisoning>
+		<magery><random min="0" max="0" /></magery>
+		<evaluatingint><random min="0" max="0" /></evaluatingint>
+		<meditation><random min="0" max="0" /></meditation>
+		<!-- Priv -->
+	</npc>
+	<!-- a lizard man hard-->
+	<npc id="lizard_man_hard">
+		<name>a lizard man</name>
+		<id>0x021</id>
+		<inherit id="monster_base" />
+		<karma><random min="1250" max="2499" /></karma>
+		<fame><random min="1250" max="2499" /></fame>
+		<defense><random min="27" max="27" /></defense>
+		<lodamage>0</lodamage>
+		<hidamage>0</hidamage>
+		<gold><random min="0" max="50" /></gold>
+		<!-- Stats -->
+		<str><random min="96" max="116" /></str>
+		<dex><random min="86" max="102" /></dex>
+		<int><random min="39" max="55" /></int>
+		<!-- Skills -->
+		<wrestling><random min="538" max="703" /></wrestling>
+		<tactics><random min="538" max="764" /></tactics>
+		<magicresistance><random min="344" max="575" /></magicresistance>
+		<anatomy><random min="0" max="0" /></anatomy>
+		<poisoning><random min="0" max="0" /></poisoning>
+		<magery><random min="0" max="0" /></magery>
+		<evaluatingint><random min="0" max="0" /></evaluatingint>
+		<meditation><random min="0" max="0" /></meditation>
+		<!-- Priv -->
+	</npc>
+</definitions>
