@@ -38,14 +38,6 @@
 
 #include "uopacket.h"
 
-// Packets which are sent always uncompressed
-class cUORawPacket: public cUOPacket
-{
-public:
-	cUORawPacket( Q_UINT32 size ): cUOPacket( size ) {}
-	virtual QByteArray compressed() { return rawPacket; }
-};
-
 enum eDenyLogin
 {
 	DL_NOACCOUNT = 0x00,
@@ -56,29 +48,29 @@ enum eDenyLogin
 };
 
 // Packet to deny Login
-class cUOTxDenyLogin: public cUORawPacket
+class cUOTxDenyLogin: public cUOPacket
 {
 public:
-	cUOTxDenyLogin( eDenyLogin reason ): cUORawPacket( 2 )
+	cUOTxDenyLogin( eDenyLogin reason ): cUOPacket( 2 )
 	{
 		rawPacket[0] = (Q_UINT8)0x82;
 		rawPacket[1] = reason;
 	}
 };
 
-class cUOTxAcceptLogin: public cUORawPacket
+class cUOTxAcceptLogin: public cUOPacket
 {
 public:
-	cUOTxAcceptLogin(): cUORawPacket( 3 )
+	cUOTxAcceptLogin(): cUOPacket( 3 )
 	{
 		rawPacket[0] = (Q_UINT8)0x81;
 	}
 };
 
-class cUOTxShardList: public cUORawPacket
+class cUOTxShardList: public cUOPacket
 {
 public:
-	cUOTxShardList(): cUORawPacket( 6 )
+	cUOTxShardList(): cUOPacket( 6 )
 	{
 		rawPacket[0] = (Q_UINT8)0xA8;
 		rawPacket[3] = (Q_UINT8)0xFF;

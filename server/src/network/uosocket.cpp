@@ -46,7 +46,7 @@ extern cAsyncNetIO* netio;
 void cUOSocket::send( cUOPacket *packet )
 {
 	packet->print( &cout );
-	netio->sendPacket( _socket, packet );
+	netio->sendPacket( _socket, packet, ( _state != SS_LOGGINGIN ) );
 }
 
 // Tries to recieve and process a packet

@@ -438,11 +438,14 @@ cUOPacket* cAsyncNetIO::recvPacket( QSocketDevice* socket )
 		return 0;
 }
 
-void cAsyncNetIO::sendPacket( QSocketDevice* socket, cUOPacket* packet )
+void cAsyncNetIO::sendPacket( QSocketDevice* socket, cUOPacket* packet, bool compress )
 {
 	iterator it = buffers.find( socket );
 	it.data()->wmutex.acquire();
-	it.data()->writeBlock( packet->compressed() );
+	if( compress )
+		it.data()->writeBlock( packet->compressed() );
+	else
+		it.data()->writeBlock( packet->uncompressed() );
 	it.data()->wmutex.release();
 }
 

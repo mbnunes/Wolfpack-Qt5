@@ -51,6 +51,7 @@ public:
 	virtual ~cUOPacket() {}
 
 	virtual QByteArray compressed();
+	virtual QByteArray uncompressed() { return rawPacket; }
 	char& operator [](unsigned int);
 	int   getInt( unsigned int );
 	short getShort( unsigned int);

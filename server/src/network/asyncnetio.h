@@ -59,7 +59,7 @@ public:
 	virtual void run() throw();
 
 	cUOPacket* recvPacket( QSocketDevice* );
-	void sendPacket(QSocketDevice*, cUOPacket*);
+	void sendPacket(QSocketDevice*, cUOPacket*, bool);
 
 private:
 	void buildUOPackets( cAsyncNetIOPrivate* );
