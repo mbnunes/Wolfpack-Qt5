@@ -1063,7 +1063,7 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 			.arg( item["dispid"] )
 			.arg( item["color"] )
 			.arg( section.replace( "'", "''" ) );
-			driver.exec( sql );
+			driver.exec( sql.utf8() );
 		}
 
 		// Ensure that all categories are in the list
@@ -1087,7 +1087,7 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 			.arg( categoriesIt.data() )
 			.arg( name.replace( "'", "''" ) )
 			.arg( parent );
-			driver.exec( sql );
+			driver.exec( sql.utf8() );
 		}
 
 		categories.clear();
@@ -1139,7 +1139,7 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 			.arg( coord.map )
 			.arg( id.replace( "'", "''" ) );
 
-			driver.exec( sql );
+			driver.exec( sql.utf8() );
 		}
 
 		// Ensure that all categories are in the list
@@ -1163,7 +1163,7 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 			.arg( categoriesIt.data() )
 			.arg( name.replace( "'", "''" ) )
 			.arg( parent );
-			driver.exec( sql );
+			driver.exec( sql.utf8() );
 		}
 
 		// Process NPCS
@@ -1230,7 +1230,7 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 			.arg( item["bodyid"] )
 			.arg( item["skin"] )
 			.arg( section.replace( "'", "''" ) );
-			driver.exec( sql );
+			driver.exec( sql.utf8() );
 
 			int lastInsertId = driver.lastInsertId();
 
@@ -1242,7 +1242,7 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 				.arg( eIt.data()["anim"].toInt() )
 				.arg( eIt.key() )
 				.arg( eIt.data()["color"].toInt() );
-				driver.exec( sql );
+				driver.exec( sql.utf8() );
 			}
 		}
 
@@ -1267,7 +1267,7 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 			.arg( categoriesIt.data() )
 			.arg( name.replace( "'", "''" ) )
 			.arg( parent );
-			driver.exec( sql );
+			driver.exec( sql.utf8() );
 		}
 
 		sections = Definitions::instance()->getSections( WPDT_MULTI );
@@ -1292,7 +1292,7 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 			.arg( item["name"].replace( "'", "''" ) )
 			.arg( section.replace( "'", "''" ) )
 			.arg( item["dispid"].toInt() );
-			driver.exec( sql );
+			driver.exec( sql.utf8() );
 		}
 
 		socket->sysMessage( "Finished exporting definitions to categories.db." );

@@ -357,7 +357,7 @@ bool cSQLiteDriver::exec( const QString& query )
 {
 	char* error;
 
-	if ( sqlite_exec( ( sqlite * ) connection, query.latin1(), NULL, NULL, &error ) != SQLITE_OK )
+	if ( sqlite_exec( ( sqlite * ) connection, query.local8Bit(), NULL, NULL, &error ) != SQLITE_OK )
 	{
 		if ( error )
 		{
@@ -380,7 +380,7 @@ cDBResult cSQLiteDriver::query( const QString& query )
 	sqlite_vm* result;
 
 	// Compile a VM and pass it to cSQLiteResult
-	if ( sqlite_compile( ( sqlite * ) connection, query.latin1(), NULL, &result, &error ) != SQLITE_OK )
+	if ( sqlite_compile( ( sqlite * ) connection, query.local8Bit(), NULL, &result, &error ) != SQLITE_OK )
 	{
 		if ( error )
 		{
@@ -448,7 +448,7 @@ cDBResult cMySQLDriver::query( const QString& query )
 	if ( !mysql )
 		throw QString( "Not connected to mysql server. Unable to execute query." );
 
-	if ( mysql_query( mysql, query.latin1() ) )
+	if ( mysql_query( mysql, query.local8Bit() ) )
 	{
 		return cDBResult(); // Return invalid result
 	}
@@ -462,7 +462,7 @@ bool cMySQLDriver::exec( const QString& query )
 	if ( !connection )
 		throw QString( "Not connected to mysql server. Unable to execute query." );
 
-	bool ok = !mysql_query( ( MYSQL* ) connection, query.latin1() );
+	bool ok = !mysql_query( ( MYSQL* ) connection, query.local8Bit() );
 	return ok;
 }
 
