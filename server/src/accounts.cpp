@@ -328,9 +328,10 @@ void cAccounts::save()
 			Console::instance()->send("Created default admin account: Login = admin, Password = admin\n");
 		}
 
-		persistentBroker->executeQuery( "BEGIN;" );
-
-		persistentBroker->executeQuery( "DELETE FROM accounts;" );
+		// Lock the table
+		persistentBroker->lockTable("accounts");
+		persistentBroker->executeQuery("BEGIN;");
+		persistentBroker->executeQuery("DELETE FROM accounts;");
 
 		iterator it = accounts.begin();
 		for (; it != accounts.end(); ++it)
@@ -345,7 +346,8 @@ void cAccounts::save()
 			persistentBroker->executeQuery( sql );
 		}
 
-		persistentBroker->executeQuery( "COMMIT;" );
+		persistentBroker->executeQuery("COMMIT;");
+		persistentBroker->unlockTable("accounts");
 	}
 	catch( QString &error )
 	{
@@ -384,6 +386,7 @@ void cAccounts::load()
 			Console::instance()->send("Created default admin account: Login = admin, Password = admin\n");
 		}
 
+		persistentBroker->lockTable("accounts");
 		cDBResult result = persistentBroker->query( "SELECT login,password,flags,acl,lastlogin,blockuntil FROM accounts;" );
 
 		// Clear Accounts HERE
@@ -417,6 +420,9 @@ void cAccounts::load()
 
 			accounts.insert( account->login_.lower(), account );
 		}
+
+		result.free();
+		persistentBroker->unlockTable("accounts");
 	}
 	catch( QString &error )
 	{

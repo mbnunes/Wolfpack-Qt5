@@ -321,7 +321,7 @@ void cMySQLDriver::lockTable( const QString& table )
 
 void cMySQLDriver::unlockTable( const QString& table )
 {
-	exec( QString("UNLOCK TABLES") );
+	exec( QString("UNLOCK TABLES;") );
 }
 
 QString cMySQLDriver::error()

@@ -119,7 +119,7 @@ static PyObject* wpSocket_sysmessage( wpSocket* self, PyObject* args )
 		return NULL;
 	}
 
-	UINT16 color = 0x37;
+	UINT16 color = 0x3b2;
 	UINT16 font = 3;
 
 	if( PyTuple_Size( args ) > 1 && checkArgInt( 1 ) )
