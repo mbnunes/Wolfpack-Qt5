@@ -283,10 +283,12 @@ void cMakeAction::execute( cUOSocket* socket )
 	while( miit != makeitems_.end() )
 	{
 		P_ITEM pItem = Items->createScriptItem( (*miit).section );
-		UINT16 minhp = (UINT16)floor( (double)(rank-1) * 10.0f / 100.0f * (double)pItem->hp() );
-		UINT16 maxhp = (UINT16)floor( (double)(rank+1) * 10.0f / 100.0f * (double)pItem->hp() );
+		UINT16 minhp = 0;
+		UINT16 maxhp = 0;
 		if( pItem )
 		{
+			minhp = (UINT16)floor( (double)(rank-1) * 10.0f / 100.0f * (double)pItem->hp() );
+			maxhp = (UINT16)floor( (double)(rank+1) * 10.0f / 100.0f * (double)pItem->hp() );
 			if( pItem->isPileable() )
 				pItem->setAmount( (*miit).amount );
 			pItem->setColor( (*miit).color );
