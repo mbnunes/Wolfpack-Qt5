@@ -165,7 +165,6 @@ class SmithItemAction(CraftItemAction):
     elif chance < 0:
       chance = chance * -1
 
-    #chance = chance
     # chance range 0.00 - 1.00
     chance = chance * .01
     return chance

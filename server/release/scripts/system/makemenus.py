@@ -36,7 +36,7 @@ def MakeActionResponse(player, arguments, response):
       menu.subactions[action].response(player, response, list(arguments)[1:])
 
 #
-# This class encapsulates all the functionality related to 
+# This class encapsulates all the functionality related to
 # an item you can select in one of the MakeMenu categories.
 #
 class MakeAction:
@@ -53,7 +53,7 @@ class MakeAction:
     self.hasdetails = 0
 
   #
-  # Checks if this option is visible to 
+  # Checks if this option is visible to
   # the given character.
   #
   def visible(self, char, arguments):
@@ -97,13 +97,13 @@ class MakeAction:
     pass
 
 #
-# This action creates an item and shows a 
+# This action creates an item and shows a
 # detail page for it.
 #
 class MakeItemAction(MakeAction):
   #
   # Creates a MakeItemAction instance.
-  #  
+  #
   def __init__(self, parent, title, itemid, definition, amount = 1):
     MakeAction.__init__(self, parent, title)
     self.itemid = itemid
@@ -175,7 +175,7 @@ class MakeItemAction(MakeAction):
     gump.addButton(375, 387, 4005, 4007, 1) # Make the item
     gump.addText(410, 389, "Make Now", 0x480)
 
-    # Item Name 
+    # Item Name
     gump.addText(245, 39, self.title, 0x480)
 
     # Scrollable Skill List
@@ -186,11 +186,11 @@ class MakeItemAction(MakeAction):
 
     # Description
     gump.addHtmlGump(170, 302, 345, 76, whitehtml % self.otherhtml, 0, 1)
-    
+
     gump.send(player)
 
 #
-# Action for crafting an item. 
+# Action for crafting an item.
 # This takes materials and skills into account.
 #
 class CraftItemAction(MakeItemAction):
@@ -201,7 +201,7 @@ class CraftItemAction(MakeItemAction):
     self.submaterial2 = 0 # The amount of submaterial2 required
     self.materials = [] # [baseids], [amount]
     self.markable = 0
-    # Sysmessage sent if you don't have enough material. 
+    # Sysmessage sent if you don't have enough material.
     # Integer or String allowed
     self.lackmaterial = "You don't have enough material to make that."
 
@@ -218,7 +218,7 @@ class CraftItemAction(MakeItemAction):
   def checkmaterial(self, player, arguments, silent = 0):
     backpack = player.getbackpack()
 
-    # See if we have enough of the two 
+    # See if we have enough of the two
     # user selectable materials and check if we
     # can even craft them too
     if self.submaterial1 > 0:
@@ -281,7 +281,7 @@ class CraftItemAction(MakeItemAction):
       if count < amount:
         if not silent:
           player.socket.sysmessage(self.lackmaterial)
-        return 0    
+        return 0
 
     return 1
 
@@ -366,7 +366,7 @@ class CraftItemAction(MakeItemAction):
   #
   # Generates the HTML used on the materials field of the details gump
   #
-  def getmaterialshtml(self, player, arguments):    
+  def getmaterialshtml(self, player, arguments):
     materialshtml = ''
     if self.submaterial1 > 0:
       materials = self.parent.submaterials1
@@ -401,12 +401,12 @@ class CraftItemAction(MakeItemAction):
   #
   def make(self, player, arguments):
     # See if we have enough skills to attempt
-    if not self.checkskills(player, arguments):     
+    if not self.checkskills(player, arguments):
       player.socket.clilocmessage(1044153)
       return 0
 
     # See if we have enough material first
-    if not self.checkmaterial(player, arguments):      
+    if not self.checkmaterial(player, arguments):
       self.parent.send(player, arguments)
       return 0
 
@@ -425,12 +425,17 @@ class CraftItemAction(MakeItemAction):
       self.parent.send(player, arguments)
     else:
       self.consumematerial(player, arguments, 0)
-      
+
       # Calculate if we did an exceptional job
       exceptional = self.getexceptionalchance(player, arguments) >= random.random()
 
       # Create the item
       item = wolfpack.additem(self.definition)
+
+      if self.amount > 0:
+        item.amount = self.amount
+      if not tobackpack(item, player):
+        item.update()
 
       if not item:
         console.log(LOG_ERROR, "Unknown item definition used in action %u of menu %s.\n" % \
@@ -447,18 +452,13 @@ class CraftItemAction(MakeItemAction):
             player.socket.clilocmessage(1044155)
         else:
           player.socket.clilocmessage(1044154)
-     
-        if self.amount > 0:
-          item.amount = self.amount
-        if not tobackpack(item, player):
-          item.update()
-  
-    # Register in make history  
+
+    # Register in make history
     MakeAction.make(self, player, arguments)
     return success
 
 #
-# Internal function for sorting a list of 
+# Internal function for sorting a list of
 # objects with a title property.
 #
 def comparetitle(a, b):
@@ -498,7 +498,7 @@ def MakeMenuTarget(player, arguments, target):
     elif action == 3:
       menus[menu].smelt(player, arguments, target)
     else:
-      raise RuntimeError, "Unknown subaction: %u." % action    
+      raise RuntimeError, "Unknown subaction: %u." % action
 
 #
 # This class encapsulates all functionality for a single
@@ -514,7 +514,7 @@ class MakeMenu:
     global menus
     menus[id] = self
     self.id = id
-    self.parent = parent    
+    self.parent = parent
     self.submenus = []
     self.subactions = []
     self.title = title
@@ -541,7 +541,7 @@ class MakeMenu:
     self.submaterials2 = [] # A list of possible secondary submaterial. A list to select from will be autogenerated.
                             # Format: ['name', minskill, ['baseid1', ...]]
 
-    # Set this to true if you want to have a 
+    # Set this to true if you want to have a
     # "mark item" option on the gump.
     self.allowmark = 0
 
@@ -605,7 +605,7 @@ class MakeMenu:
     pass
 
   #
-  # Display a makehistory for the user. 
+  # Display a makehistory for the user.
   # No pagebuttons, no subactions. Just the last 10
   # actions this user executed.
   #
@@ -619,7 +619,7 @@ class MakeMenu:
       historyname = 'makehistory'
 
     # We know that we only have 10 makeactions if
-    # we show the history. So we don't need a huge iteration 
+    # we show the history. So we don't need a huge iteration
     # here.
     if player.hastag(historyname):
       history = str(player.gettag(historyname)).split(';')[:10]
@@ -638,7 +638,7 @@ class MakeMenu:
             gump.addText(255, yoffset + 3, menu.subactions[action].title, 0x480)
             yoffset += 20
         j += 1 # Always increase to keep in sync
-    
+
     gump.send(player)
 
   #
@@ -658,7 +658,7 @@ class MakeMenu:
 
     yoffset = 60
     for i in range(0, len(materials)):
-      yoffset = 60 + i * 20      
+      yoffset = 60 + i * 20
       if materials[i][2] != 0 and player.skill[materials[i][1]] < materials[i][2]:
         gump.addText(255, yoffset + 3, materials[i][0], 0x3b1)
       else:
@@ -685,7 +685,7 @@ class MakeMenu:
   def enhance(self, player, arguments, target):
     pass
 
-  # 
+  #
   # Adds the neccesary buttons to a gump.
   #
   def addbuttons(self, gump, player, arguments, submenu = 0):
@@ -707,7 +707,7 @@ class MakeMenu:
     # EXIT button , return value: 0
     gump.addButton(15, 350, 0xFB1, 0xFB3, 0)
     gump.addText(50, 353, "Exit", 0x480)
-   
+
     # MAKE LAST button , return value: 2
     gump.addButton(15, 330, 4005, 4007, 2)
     gump.addText(50, 333, "Make Last", 0x480)
@@ -735,10 +735,10 @@ class MakeMenu:
       else:
         buttonid = 5 # Turns to "DONT MARK ITEM"
         message= "Mark Item"
-          
+
       gump.addButton(165, 350, 4005, 4007, buttonid)
       gump.addText(200, 353, message, 0x480)
-  
+
     # Button for the primary submaterial
     if len(self.submaterials1) > 0:
       gump.addButton(165, 310, 4005, 4007, 7) # Display change res1 type gump
@@ -750,7 +750,7 @@ class MakeMenu:
       gump.addButton(165, 330, 4005, 4007, 8) # Display change res2 type gump
       index = self.getsubmaterial2used(player, arguments)
       gump.addText(200, 333, self.submaterials2[index][0], 0x480)
- 
+
   #
   # Helper function for making the last action
   # the player executed. Returns true if the
@@ -779,7 +779,7 @@ class MakeMenu:
   #
   # Handle a response to this makemenu.
   #
-  def response(self, player, response, arguments): 
+  def response(self, player, response, arguments):
     # Show a gump with the last 10 items the player made.
     if response.button == 1:
       self.makehistory(player, arguments)
@@ -811,8 +811,8 @@ class MakeMenu:
     # Show the primary material selection dialog
     elif response.button == 7:
       self.materialselection(player, arguments, 0)
-  
-    # Show the secondary material selection dialog  
+
+    # Show the secondary material selection dialog
     elif response.button == 8:
       self.materialselection(player, arguments, 1)
 
@@ -840,7 +840,7 @@ class MakeMenu:
       submenu = response.button & ~ 0x80000000
       if submenu < len(self.submenus):
         self.submenus[submenu].send(player, arguments)
-    
+
     # Directly make subaction
     elif response.button & 0x40000000:
       subaction = response.button & ~ 0x40000000
@@ -885,7 +885,7 @@ class MakeMenu:
           action = int(action)
           global menus
           if menus.has_key(menu) and action < len(menus[menu].subactions):
-            menus[menu].subactions[action].details(player, arguments)     
+            menus[menu].subactions[action].details(player, arguments)
 
     # MaterialSelection: Primary Material
     elif response.button & 0x04000000:
@@ -919,7 +919,7 @@ class MakeMenu:
   def sort(self):
     self.submenus.sort(comparetitle)
     self.subactions.sort(comparetitle)
-  
+
     # Assign ids to every subaction
     for i in range(0, len(self.subactions)):
       self.subactions[i].index = i
@@ -938,7 +938,7 @@ class MakeMenu:
     gump.addTiledGump(10, 37, 200, 250, 0xA40)
     gump.addTiledGump(215, 37, 305, 250, 0xA40)
     gump.addCheckerTrans(10, 10, 510, 368)
-    
+
     gump.addHtmlGump(10, 12, 510, 20, centerhtml % self.title)
     gump.addHtmlGump(10, 39, 200, 20, centerhtml % "CATEGORIES")
     gump.addHtmlGump(215, 39, 305, 20, centerhtml % "SELECTIONS")
@@ -969,7 +969,7 @@ class MakeMenu:
 
     for i in range(0, pages):
       gump.startPage(i+1)
-      
+
       # Fill the page with submenus
       for j in range(0, 9):
         if actions + j < len(self.submenus):

@@ -10,52 +10,52 @@ def onUse( char, item ):
 	if item.getoutmostchar() != char:
 		char.message( 'You have to have these bandages in your belongings in order to use them.' )
 		return 1
-		
+
 	# Already Bandaging ??
 	if char.socket.hastag( 'using_bandages' ):
 		char.message( 'You are already using bandages.' )
 		return 1
-		
+
 	# Display Target
 	if item.id == 0xe21 or item.id == 0xee9:
 		char.message( 'What do you want to use these bandages on?' )
 		char.socket.attachtarget( 'bandages.bandage_response', [ item.serial ]  )
-		
+
 	elif item.id == 0xe20 or item.id == 0xe22:
 		char.message( 'Where do you want to wash these bandages?' )
 		char.socket.attachtarget( 'bandages.wash_response', [ item.serial ] )
-		
+
 	return 1
-		
+
 def wash_response( char, args, target ):
 	bandages = wolfpack.finditem( args[0] )
-	
+
 	if not bandages:
 		return
-		
+
 	# Did we target something wet ?
 	id = 0
-	
+
 	if target.item:
 		id = target.item.id
 	else:
 		id = target.model
-		
+
 	tiledata = wolfpack.tiledata( id )
 
 	if not tiledata[ 'flag1' ] & 0x80:
 		char.message( 'You cannot wash your bandages here.' )
 		return
-		
+
 	char.message( 'You wash your bandages and put the clean bandages into your backpack.' )
-		
+
 	if bandages.id == 0xe20:
 		bandages.id = 0xe21
 	elif bandages.id == 0xe22:
 		bandages.id = 0xee9
-	
+
 	bandages.update()
-		
+
 def validCorpseTarget( char, target ):
 	if not target:
 		return 0
@@ -63,46 +63,46 @@ def validCorpseTarget( char, target ):
 	if not char.gm and not char.canreach( target, 2 ):
 		char.message( 'You can''t reach that.' )
 		return 0
-				
+
 	if target.id != 0x2006:
 		char.message( 'Try using these on a corpse.' )
 		return 0
-		
+
 	# Check Owner
 	if not target.owner or not target.owner.dead:
 		char.message( 'You can''t help them anymore.' )
 		return 0
-		
+
 	return 1
-		
+
 def validCharTarget( char, target ):
 	# Do we have a valid target
 	if not target:
 		char.message( 'You have to target a living thing.' )
 		return 0
-		
+
 	if not char.canreach( target, 2 ):
 		char.message( 'You are too far away to apply bandages on %s' % target.name )
 		return 0
-	
+
 	# No resurrection feature in yet
 	if target.dead:
 		char.message( 'You can''t heal a ghost.' )
 		return 0
-	
-	# Already at full health	
+
+	# Already at full health
 	if target.health >= target.strength:
 		if target == char:
 			char.message( 'You are healthy.' )
 		else:
 			char.message( '%s does not require you to heal or cure them!' % target.name )
 		return 0
-	
+
 	return 1
-		
+
 def bandage_response( char, args, target ):
 	corpse = None
-	
+
 	if target.item:
 		if validCorpseTarget( char, target.item ):
 			corpse = target.item
@@ -111,32 +111,32 @@ def bandage_response( char, args, target ):
 
 	elif target.char and not validCharTarget( char, target.char ):
 		return
-	
+
 	elif not target.char:
 		char.message( 'You have to target either a corpse or a creature.' )
 		return
-		
+
 	if corpse and ( char.skill[ HEALING ] < 800 or char.skill[ ANATOMY ] < 800 ):
 		char.message( 'You are not skilled enough to resurrect.' )
 		return
-		
+
 	# Consume Bandages
 	bandages = wolfpack.finditem( args[0] )
-	
+
 	if not bandages:
 		return
-		
+
 	baseid = bandages.id
 	container = bandages.container
-	
+
 	if bandages.amount == 1:
-		bandages.delete()	
+		bandages.delete()
 	else:
 		bandages.amount -= 1
 		bandages.update()
-		
+
 	success = 0
-		
+
 	# SkillCheck (0% to 80%)
 	if not corpse:
 		success = char.checkskill( HEALING, 0, 800 )
@@ -148,7 +148,7 @@ def bandage_response( char, args, target ):
 			success = 1
 
 	char.action( 0x09 )
-		
+
 	if corpse:
 		char.addtimer( random.randint( 2500, 5000 ), 'bandages.bandage_timer', [ 1, success, target.item.serial, baseid ] ) # It takes 5 seconds to bandage
 	else:
@@ -157,11 +157,11 @@ def bandage_response( char, args, target ):
 		else:
 			char.message( 'You start applying bandages on %s' % target.char.name )
 			char.turnto( target.char )
-		
+
 		char.addtimer( random.randint( 1500, 2500 ), 'bandages.bandage_timer', [ 0, success, target.char.serial, baseid ] ) # It takes 5 seconds to bandage
-		
+
 	char.socket.settag( 'using_bandages', 1 )
-	
+
 def bandage_timer( char, args ):
 	char.socket.deltag( 'using_bandages' )
 
@@ -169,35 +169,35 @@ def bandage_timer( char, args ):
 	success = args[1]
 	baseid = args[3]
 
-	# Corpse Target	
+	# Corpse Target
 	if resurrect:
 		target = wolfpack.finditem( args[2] )
-		
+
 		owner = target.owner
-		
+
 		if not validCorpseTarget( char, target ):
 			return
-		
+
 		if not success:
 			char.message( 'You fail to resurrect the target.' )
 			return
-				
+
 		if target.owner:
 			target.owner.moveto( target.pos )
 			target.owner.update()
 			target.owner.resurrect()
-			
+
 			# Move all the belongings from the corpse to the character
 			backpack = target.owner.getbackpack()
-			
+
 			for item in target.content:
 				# Random Position (for now, maybe storing the original position in a tag would be good)
 				# Handle Weight but no Auto Stacking
 				backpack.additem( item, 1, 1, 0 )
-				item.update()			
-				
+				item.update()
+
 			target.delete()
-			
+
 			char.message( 'You successfully resurrect ' + owner.name )
 		else:
 			char.message( 'You can''t help them anymore' )
@@ -207,7 +207,7 @@ def bandage_timer( char, args ):
 		target = wolfpack.findchar( args[2] )
 
 		if not validCharTarget( char, target ):
-			return      
+			return
 
 		if not success:
 			if target != char:
@@ -223,28 +223,28 @@ def bandage_timer( char, args ):
 		else:
 			firstskill = VETERINARY
 			secondskill = ANIMALLORE
-			
-		# Heal a bit		
+
+		# Heal a bit
 		healmin = int( char.skill[ firstskill ] / 5 ) + int( char.skill[ secondskill ] / 5 ) + 3
-		healmax = int( char.skill[ firstskill ] / 5 ) + int( char.skill[ secondskill ] / 2 ) + 10	
-		
+		healmax = int( char.skill[ firstskill ] / 5 ) + int( char.skill[ secondskill ] / 2 ) + 10
+
 		amount = random.randint( healmin, healmax )
-		
+
 		target.health = min( target.maxhitpoints, target.health + amount )
 		target.updatehealth()
-		
+
 		if char == target:
 			char.message( 'You successfully apply bandages on yourself.' )
 		else:
-			char.message( 'You successfully apply bandages on %s' % target.name )        
+			char.message( 'You successfully apply bandages on %s' % target.name )
 
-	# Create bloody bandages	
+	# Create bloody bandages
 	# This is target independent
 	if baseid == 0xe21:
 		item = additem( 'e20' )
 		if not tobackpack( item, char ):
 			item.update()
-			
+
 	elif baseid == 0xee9:
 		item = additem( 'e22' )
 		if not tobackpack( item, char ):
