@@ -172,7 +172,7 @@
 		<value>120</value>
 		<category>Professions\Fisher\Tools\Fishing Pole (N/S)</category>
 		<tag name="remaining_uses" type="int" value="50" />
-		<basescripts>skills.fishing</basescripts>
+		<basescripts>equipment,skills.fishing</basescripts>
 		<weight>8.0</weight>
 		<twohanded />
 	</item>

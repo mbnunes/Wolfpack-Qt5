@@ -30,6 +30,36 @@ fishingItems = [
 	[ 0,  1, 0, [ '9cc', '9cd', '9ce', '9cf' ], 'a fish' ]
 ]
 
+def checktool(char, item, wearout = False):
+	if not item:
+		return False
+
+	# Has to be in our posession
+	if item.getoutmostchar() != char:
+		#You can't use that, it belongs to someone else.
+		char.socket.clilocmessage( 500364 )
+		return False
+
+	# We do not allow "invulnerable" tools.
+	if not( item.hastag('remaining_uses') ):
+		#You broke your fishing pole.
+		char.socket.clilocmessage( 503174 )
+		item.delete()
+		return False
+
+	if( wearout ):
+		uses = int(item.gettag('remaining_uses'))
+		if( uses <= 1 ):
+			#You broke your fishing pole.
+			char.socket.clilocmessage( 503174 )
+			item.delete()
+			return False
+		else:
+			item.settag('remaining_uses', uses - 1)
+			item.resendtooltip()
+
+	return True
+
 def onUse( char, item ):
 	socket = char.socket
 
@@ -55,7 +85,7 @@ def onUse( char, item ):
 		return True
 	else:
 		socket.clilocmessage( 0x7A4EE, "", 0x3b2, 3 ) # What water do you want to fish in?
-		socket.attachtarget( "skills.fishing.response" )
+		socket.attachtarget( "skills.fishing.response", [ iserial ] )
 	return True
 
 def response( char, args, target ):
@@ -149,7 +179,7 @@ def response( char, args, target ):
 
 	socket.settag( 'is_fishing', int( wolfpack.time.currenttime() + 5000 ) ) # Times out after 5000ms
 	char.addtimer( 2500, "skills.fishing.effecttimer", [ pos, deepwater ] )
-	char.addtimer( 5000, "skills.fishing.itemtimer", [ pos, deepwater ] )
+	char.addtimer( 5000, "skills.fishing.itemtimer", [ pos, deepwater, args[0] ] )
 
 	pass
 
@@ -215,14 +245,18 @@ def findResourceGem( pos ):
 
 # Do the real skill checks
 def itemtimer( char, args ):
-	if len( fishingItems ) < 1:
-		socket.sysmessage( 'This script has not been configured correctly.' )
-		return 0
+	if not( char.socket ):
+		return False
 
 	socket = char.socket
+
+	if len( fishingItems ) < 1:
+		socket.sysmessage( 'This script has not been configured correctly.' )
+		return False
+
 	socket.deltag( 'is_fishing' )
 
-	if len( args ) != 2:
+	if len( args ) != 3:
 		return
 
 	# Is there any fish left there? (8x8 grid)
@@ -277,6 +311,13 @@ def itemtimer( char, args ):
 		# Otherwise try to stack it
 		elif not wolfpack.utilities.tobackpack( item, char ):
 			item.update()
+
+		#wear out the fishing pole
+		tool = wolfpack.finditem( args[2] )	
+		checktool( char, tool, True )
+		
+		#resend weight
+		socket.resendstatus()
 
 	# Success!
 	if not spawnmonster:

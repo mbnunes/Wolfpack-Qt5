@@ -9,6 +9,7 @@ Wolfpack 12.9.13 Beta (CVS)
 		- Added xoffset, yoffset and zoffset to socket.attachmultitarget. (housing.deed)
 		- Chars will now get revealed when using training dummy or archery butte.
 		- Fixed blood created at carving not decaying for a long time.
+		- Fixed fishing pole not wearing out.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
