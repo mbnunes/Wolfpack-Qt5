@@ -108,7 +108,7 @@ text = text.replace('{GENERATED}', generated)
 text = text.replace('{VERSION}', version)
 text = text.replace('{OVERVIEW}', overview)
 
-output = open('output/commands.html', "wt")
+output = open('webroot/commands.html', "wt")
 output.write(text)
 output.close()
 	
@@ -138,7 +138,7 @@ for command in commands:
 
         text = text.replace('{NOTES}', notes)
 
-	output = open('output/command_%s.html' % command['name'].lower(), "wt")
+	output = open('webroot/command_%s.html' % command['name'].lower(), "wt")
 	output.write(text)
 	output.close()
 
@@ -170,7 +170,7 @@ text = text.replace('{OTHEREVENTS}', overview)
 text = text.replace('{GENERATED}', generated)
 text = text.replace('{VERSION}', version)
 
-output = open('output/events.html', "wt")
+output = open('webroot/events.html', "wt")
 output.write(text)
 output.close()
 	
@@ -190,7 +190,7 @@ for event in events:
 	text = text.replace('{GENERATED}', generated)
 	text = text.replace('{VERSION}', version)
 	
-	output = open('output/event_%s.html' % event['name'].lower(), "wt")
+	output = open('webroot/event_%s.html' % event['name'].lower(), "wt")
 	output.write(text)
 	output.close()
 
@@ -232,7 +232,7 @@ text = text.replace('{OVERVIEW}', overview)
 text = text.replace('{GENERATED}', generated)
 text = text.replace('{VERSION}', version)
 
-output = open('output/objects.html', "wt")
+output = open('webroot/objects.html', "wt")
 output.write(text)
 output.close()
 	
@@ -377,7 +377,7 @@ for object in objects:
 	else:
 		text = text.replace('{DESCRIPTION}', '')
 	
-	output = open('output/object_%s.html' % object['object'].lower(), "wt")
+	output = open('webroot/object_%s.html' % object['object'].lower(), "wt")
 	output.write(text)
 	output.close()
 
@@ -426,7 +426,7 @@ text = text.replace('{OVERVIEW}', overview)
 text = text.replace('{GENERATED}', generated)
 text = text.replace('{VERSION}', version)
 
-output = open('output/modules.html', "wt")
+output = open('webroot/modules.html', "wt")
 output.write(text)
 output.close()
 
@@ -504,7 +504,7 @@ for module in modules:
 						
 	text = text.replace('{MODULEFUNCTIONS}', overview)
 	
-	output = open('output/module_%s.html' % module.replace('.', '_').lower(), "wt")
+	output = open('webroot/module_%s.html' % module.replace('.', '_').lower(), "wt")
 	output.write(text)
 	output.close()
 
@@ -520,6 +520,6 @@ text = text.replace('{OBJECTS}', str(len(objects)))
 text = text.replace('{EVENTS}', str(len(events)))
 text = text.replace('{MODULES}', str(len(modules)))
 
-output = open('output/index.html', "wt")
+output = open('webroot/index.html', "wt")
 output.write(text)
 output.close()
