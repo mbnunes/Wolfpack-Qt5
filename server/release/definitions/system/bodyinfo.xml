@@ -35,247 +35,269 @@
 			The id of the item that should be equipped when this body is mounted.
 			Omit if body is unmountable.
 	-->
-	<body id="0x1" basesound="427" figurine="0x20df" type="1" />
-	<body id="0x2" basesound="367" figurine="0x20d8" type="1" />
-	<body id="0x3" basesound="471" figurine="0x20ec" type="1" />
-	<body id="0x4" basesound="372" figurine="0x20d9" flags="0x1" type="1" />
-	<body id="0x5" basesound="750" figurine="0x20f2" flags="0x3" type="3" />
-	<body id="0x6" basesound="27" figurine="0x20ee" flags="0x1" type="3" />
+	<body id="1" basesound="427" figurine="0x20df" type="1" />
+	<body id="2" basesound="367" figurine="0x20d8" type="1" />
+	<body id="3" basesound="471" figurine="0x20ec" type="1" />
+	<body id="4" basesound="372" figurine="0x20d9" flags="0x1" type="1" />
+	<body id="5" basesound="750" figurine="0x20f2" flags="0x3" type="3" />
+	<body id="6" basesound="27" figurine="0x20ee" flags="0x1" type="3" />
 	<!-- There is another base sound for tropical birds: 191 -->
-	<body id="0x7" basesound="1114" figurine="0x20e0" type="1" />
-	<body id="0x8" basesound="684" figurine="0x20d2" type="1" />
-	<body id="0x9" basesound="357" figurine="0x20d3" flags="0x1" type="1" />
-	<body id="0xa" basesound="357" figurine="0x20d3" flags="0x1" type="1" />
-	<body id="0xb" basesound="1170" figurine="0x20fd" type="1" />
-	<body id="0xc" basesound="362" figurine="0x20d6" flags="0x1" type="1" />
-	<body id="0xd" basesound="655" figurine="0x20ed" flags="0x04" type="1" />
-	<body id="0xe" basesound="268" figurine="0x20d7" type="1" />
-	<body id="0xf" basesound="838" figurine="0x20f3" flags="0x04" type="1" />
-	<body id="0x10" basesound="278" figurine="0x210b" flags="0x04" type="1" />
-	<body id="0x11" basesound="1114" figurine="0x20e0" type="1" />
-	<body id="0x12" basesound="367" figurine="0x20d8" type="1" />
-	<body id="0x13" basesound="1170" figurine="0x20fd" type="1" />
-	<body id="0x14" basesound="904" figurine="0x20fd" type="1" />
-	<body id="0x15" basesound="219" figurine="0x20fe" type="1" />
-	<body id="0x16" basesound="377" figurine="0x20ea" type="1" />
-	<body id="0x17" basesound="229" figurine="0x211c" type="3" />
-	<body id="0x18" basesound="1001" figurine="0x20f8" type="1" />
-	<body id="0x19" basesound="229" figurine="0x211c" type="3" />
-	<body id="0x1a" basesound="1154" figurine="0x2109" type="1" />
-	<body id="0x1b" basesound="229" figurine="0x211c" type="3" />
-	<body id="0x1c" basesound="904" figurine="0x20fd" type="1" />
-	<body id="0x1d" basesound="158" figurine="0x20f5" type="3" />
-	<body id="0x1e" figurine="0x20dc" type="1" hitsound="916" attacksound="916" deathsound="917" gethitsound="919" idlesound="918" />
-	<body id="0x1f" basesound="925" figurine="0x210a" type="1" />
-	<body id="0x21" basesound="417" figurine="0x20de" type="1" />
-	<body id="0x22" basesound="229" figurine="0x211c" type="3" />
-	<body id="0x23" basesound="417" figurine="0x20de" type="1" />
-	<body id="0x24" basesound="417" figurine="0x20de" type="1" />
-	<body id="0x25" basesound="229" figurine="0x211c" type="3" />
-	<body id="0x26" basesound="0x2b8" figurine="0x2585" flags="0x1" type="1" />
-	<body id="0x27" basesound="0x1a6" figurine="0x20f9" flags="0x1" type="1" /> <!-- Black Gate Daemon -->
-	<body id="0x28" basesound="422" figurine="0x2586" flags="0x1" type="1" /> <!-- Mongbat -->
-	<body id="0x29" basesound="1114" figurine="0x20e0" type="1" />
-	<body id="0x2a" basesound="437" figurine="0x20e3" type="1" />
-	<body id="0x2b" basesound="357" figurine="0x2587" flags="0x1" type="1" />
-	<body id="0x2c" basesound="437" figurine="0x20e3" type="1" />
-	<body id="0x2d" basesound="437" figurine="0x20e3" type="1" />
-	<body id="0x2e" basesound="362" figurine="0x2104" flags="0x1" type="1" idlesound="723" gethitsound="721" />
-	<body id="0x2f" basesound="442" figurine="0x20fa" type="1" />
-	<body id="0x30" basesound="397" figurine="0x20e4" type="1" />
-	<body id="0x31" basesound="362" figurine="0x2104" flags="0x1" type="1" />
-	<body id="0x32" basesound="1165" figurine="0x20e7" type="1" />
-	<body id="0x33" basesound="456" figurine="0x20e8" flags="0x2" type="1" />
-	<body id="0x34" basesound="219" figurine="0x20fc" type="3" />
-	<body id="0x35" basesound="461" figurine="0x20e9" type="1" />
-	<body id="0x36" basesound="461" figurine="0x20e9" type="1" />
-	<body id="0x37" basesound="461" figurine="0x20e9" type="1" />
-	<body id="0x38" basesound="1165" figurine="0x20e7" type="1" />
-	<body id="0x39" basesound="1165" figurine="0x20e7" type="1" />
-	<body id="0x3a" basesound="466" figurine="0x2100" type="1" />
-	<body id="0x3b" basesound="362" figurine="0x20d6" flags="0x1" type="1" />
-	<body id="0x3c" basesound="362" figurine="0x20d6" flags="0x1" type="1" />
-	<body id="0x3d" basesound="362" figurine="0x20d6" flags="0x1" type="1" />
-	<body id="0x3e" basesound="362" figurine="0x25d4" flags="0x1" type="1" />
-	<body id="0x3f" basesound="115" figurine="0x2583" type="3" />
-	<body id="0x40" basesound="115" figurine="0x25a3" type="3" />
-	<body id="0x41" basesound="115" figurine="0x25a3" type="3" />
-	<body id="0x42" basesound="352" figurine="0x25c8" type="1" />
-	<body id="0x43" basesound="372" figurine="0x258e" type="1" />
-	<body id="0x44" basesound="377" figurine="0x258f" type="1" />
-	<body id="0x45" basesound="377" figurine="0x20f4" type="1" />
-	<body id="0x46" basesound="589" figurine="0x25c9" type="1" />
-	<body id="0x47" basesound="594" figurine="0x25ca" type="1" />
-	<body id="0x48" basesound="599" figurine="0x25cb" type="1" />
-	<body id="0x49" basesound="402" figurine="0x2594" flags="0x1" type="1" />
-	<body id="0x4a" basesound="422" figurine="0x259f" flags="0x1" type="1" />
-	<body id="0x4b" basesound="604" figurine="0x212d" type="1" />
-	<body id="0x4c" basesound="609" figurine="0x25cd" type="1" />
-	<body id="0x4d" basesound="353" figurine="0x25a2" type="1" />
-	<body id="0x4e" basesound="412" figurine="0x20f8" type="1" />
-	<body id="0x4f" basesound="412" figurine="0x20f8" type="1" />
-	<body id="0x50" basesound="619" figurine="0x212f" type="1" />
-	<body id="0x51" basesound="614" figurine="0x2130" type="3" />
-	<body id="0x52" basesound="412" figurine="0x20f8" type="1" />
-	<body id="0x53" basesound="427" figurine="0x20cb" type="1" />
-	<body id="0x54" basesound="427" figurine="0x20cb" type="1" />
-	<body id="0x55" basesound="639" figurine="0x25ab" type="1" />
-	<body id="0x56" basesound="634" figurine="0x25ac" type="1" />
-	<body id="0x57" basesound="644" figurine="0x25ad" type="1" />
-	<body id="0x58" basesound="153" figurine="0x2580" type="3" />
-	<body id="0x59" basesound="219" figurine="0x25c0" type="1" />
-	<body id="0x5a" basesound="219" figurine="0x25c1" type="1" />
-	<body id="0x5b" basesound="219" figurine="0x25c2" type="1" />
-	<body id="0x5c" basesound="219" figurine="0x25c2" type="1" />
-	<body id="0x5d" basesound="219" figurine="0x25c2" type="1" />
-	<body id="0x5e" basesound="456" figurine="0x20e8" type="1" />
-	<body id="0x60" basesound="456" figurine="0x20e8" type="1" />
-	<body id="0x61" basesound="229" figurine="0x2596" type="3" />
-	<body id="0x62" basesound="229" figurine="0x2596" type="3" />
-	<body id="0x63" basesound="229" figurine="0x25cf" type="3" />
-	<body id="0x64" basesound="229" figurine="0x25cf" type="3" />
-	<body id="0x65" basesound="679" figurine="0x2581" type="1" />
-	<body id="0x66" basesound="0x300" figurine="0x2105" flags="0x1" type="1" /> <!-- Exodus Daemon -->
-	<body id="0x67" basesound="362" figurine="0x2593" flags="0x1" type="1" />
-	<body id="0x68" basesound="1160" figurine="0x20d6" flags="0x1" type="1" /> 
-	<body id="0x69" basesound="0x2d2" figurine="0x20d6" flags="0x1" type="1" /> <!-- Dark Dragon -->
-	<body id="0x6a" basesound="362" figurine="0x20d6" flags="0x1" type="1" />
-	<body id="0x6b" basesound="268" figurine="0x25d9" type="1" /> <!-- Agapite Elemental -->
-	<body id="0x6c" basesound="268" figurine="0x25d9" type="1" />
-	<body id="0x6d" basesound="268" figurine="0x25d9" type="1" />
-	<body id="0x6e" basesound="268" figurine="0x20d7" type="1" />
-	<body id="0x6f" basesound="268" figurine="0x20d7" type="1" />
-	<body id="0x70" basesound="268" figurine="0x20d7" type="1" />
-	<body id="0x71" basesound="0xa8" figurine="0x2121" type="1" />
-	<body id="0x72" basesound="0xa8" figurine="0x2120" type="3" mountid="0x3ea9" /> <!-- Dark Steed -->
-	<body id="0x73" basesound="0xa8" figurine="0x259c" type="3" mountid="0x3eaa" /> <!-- Etheral Horse -->
-	<body id="0x74" basesound="0xa8" figurine="0x259d" type="3" mountid="0x3ea7" /> <!-- Dark Steed -->
-	<body id="0x75" basesound="0xa8" figurine="0x2121" type="3" mountid="0x3ea8" /> <!-- White Steed -->
-	<body id="0x76" basesound="0xa8" figurine="0x2121" type="3" mountid="0x3eb2" /> <!-- Violet Steed -->
-	<body id="0x77" basesound="0xa8" figurine="0x2121" type="3" mountid="0x3eb1" /> <!-- Blue Steed -->
-	<body id="0x78" basesound="0xa8" figurine="0x2121" type="3" mountid="0x3eaf" /> <!-- Dark Red Steed -->
-	<body id="0x79" basesound="0xa8" figurine="0x2121" type="3" mountid="0x3eb0" /> <!-- Green Steed -->
-	<body id="0x7a" basesound="0x4bc" figurine="0x25ce" type="3" mountid="0x3eb4" /> <!-- Unicorn -->
-	<body id="0x7b" basesound="0x2f5" figurine="0x2589" flags="0x1" type="1" attacksound="760" idlesound="760" hitsound="757" gethitsound="761" deathsound="759"/>
-	<body id="0x7c" basesound="0x24d" figurine="0x258a" type="1" /> <!-- Evil Mage -->
-	<body id="0x7d" basesound="0x27f" figurine="0x258b" type="1" /> <!-- Evil Mage -->
-	<body id="0x7e" basesound="0x27f" figurine="0x258b" type="1" /> <!-- Evil Mage -->
-	<body id="0x7f" basesound="0xBA" figurine="0x2597" type="3" />
-	<body id="0x80" basesound="0x467" figurine="0x25b6" type="1" />
-	<body id="0x81" basesound="352" figurine="0x25c8" type="1" /> <!-- Tentacles of the Harrower -->
-	<body id="0x82" basesound="372" figurine="0x20d9" type="1" />
-	<body id="0x83" basesound="768" figurine="0x2590" type="1" />
-	<body id="0x84" basesound="0x3c5" figurine="0x25a0" type="3" mountid="0x3ead" /> <!-- Kirin -->
-	<body id="0x85" basesound="660" figurine="0x211f" type="3" />
-	<body id="0x86" basesound="660" figurine="0x25a1" flags="0x1" type="3" />
-	<body id="0x87" basesound="427" figurine="0x25a8" type="1" />
-	<body id="0x88" basesound="639" figurine="0x25a9" type="1" /> <!-- Ophidian Mage -->
-	<body id="0x89" basesound="0x27b" figurine="0x25aa" type="1" /> <!-- Ophidian Warrior -->
-	<body id="0x8a" basesound="1114" figurine="0x25b0" type="1" /> 
-	<body id="0x8b" basesound="1114" figurine="0x25b0" type="1" />
-	<body id="0x8c" basesound="1114" figurine="0x25b1" type="1" />
-	<body id="0x8d" basesound="0x447" figurine="0x2106" type="1" /> <!-- Human ?? -->
-	<body id="0x8e" basesound="0x1b5" figurine="0x25b7" type="1" /> <!-- blue ratman -->
-	<body id="0x8f" basesound="0x1b5" figurine="0x25b7" type="1" />
-	<body id="0x90" basesound="0x478" figurine="0x25ba" type="2" mountid="0x3eb3" /> <!-- Sea Horse -->
-	<body id="0x91" basesound="447" figurine="0x20fb" type="2" /> <!-- Sea Serpent -->
-	<body id="0x92" basesound="0x47d" figurine="0x258a" type="1" />
-	<body id="0x93" basesound="451" figurine="0x25bd" type="1" />
-	<body id="0x94" basesound="451" figurine="0x25be" type="1" /> <!-- Bone Magi -->
-	<body id="0x95" basesound="0x4b0" figurine="0x259f" type="1" />
-	<body id="0x96" basesound="0x3" figurine="0x20fb" type="2" />
-	<body id="0x97" basesound="0x8a" figurine="0x20f1" type="2" />
-	<body id="0x98" basesound="0x492" figurine="0x25ca" type="1" />
-	<body id="0x99" basesound="0x379" figurine="0x25c7" type="1" />
-	<body id="0x9a" basesound="0x1d7" figurine="0x25bb" type="1" />
-	<body id="0x9b" basesound="0x1d7" figurine="0x25a7" type="1" />
-	<body id="0x9d" basesound="0x388" figurine="0x25c3" type="1" />
-	<body id="0x9e" basesound="278" figurine="0x25d6" type="1" />
-	<body id="0x9f" basesound="278" figurine="0x25d8" type="1" />
-	<body id="0xa0" basesound="278" figurine="0x25d8" type="1" />
-	<body id="0xa1" basesound="268" figurine="0x25da" type="1" />
-	<body id="0xa2" basesound="263" figurine="0x25db" type="1" />
-	<body id="0xa3" basesound="0x10c" figurine="0x25dc" type="1" />
-	<body id="0xa4" basesound="0x107" figurine="0x25d8" type="1" />
-	<body id="0xa5" basesound="0x1d2" figurine="0x2100" type="1" />
-	<body id="0xa6" basesound="0x10c" figurine="0x25d9" type="1" />
-	<body id="0xa7" basesound="0x4c2" figurine="0x211e" type="3" />
-	<body id="0xa8" basesound="0x3bf" figurine="0x259f" type="1" />
-	<body id="0xa9" mountid="0x3e95" /> <!-- Beetle -->
-	<body id="0xaa" basesound="0x3f3" figurine="0x20f6" type="3" mountid="0x3eab" /> <!-- Etheral Llama -->
-	<body id="0xab" basesound="0xb7" figurine="0x25b4" soundmode="2" type="3" mountid="0x3eac" /> <!-- Etheral Ostard -->
-	<body id="0xac" basesound="0x16a" figurine="0x20d6" flags="0x1" type="1" />
-	<body id="0xad" basesound="0x388" figurine="0x25c3" type="1" />
-	<body id="0xae" basesound="0x4b0" figurine="0x259f" flags="0x1" type="1" />
-	<body id="0xaf" basesound="0x2fa" figurine="0x2589" type="1" />
-	<body id="0xb0" basesound="0x46c" figurine="0x25b6" flags="0x1" type="1" />
-	<body id="0xb1" mountid="0x3eb5" /> <!-- Dark Steed -->
-	<body id="0xb2" basesound="0xa8" figurine="0x259c" type="3" mountid="0x3eb6" /> <!-- Dark Steed -->
-	<body id="0xb3" basesound="0xa8" figurine="0x259c" type="3" mountid="0x3eb7" /> <!-- Dark Steed -->
-	<body id="0xb4" basesound="0x2c0" figurine="0x20d6" flags="0x1" type="3" />
-	<body id="0xb5" basesound="0x1b0" figurine="0x25af" type="1" />
-	<body id="0xb6" basesound="0x1b0" figurine="0x25b0" type="1" />
+	<body id="7" basesound="1114" figurine="0x20e0" type="1" />
+	<body id="8" basesound="684" figurine="0x20d2" type="1" />
+	<body id="9" basesound="357" figurine="0x20d3" flags="0x1" type="1" />
+	<body id="10" basesound="357" figurine="0x20d3" flags="0x1" type="1" />
+	<body id="11" basesound="1170" figurine="0x20fd" type="1" />
+	<body id="12" basesound="362" figurine="0x20d6" flags="0x1" type="1" />
+	<body id="13" basesound="655" figurine="0x20ed" flags="0x04" type="1" />
+	<body id="14" basesound="268" figurine="0x20d7" type="1" />
+	<body id="15" basesound="838" figurine="0x20f3" flags="0x04" type="1" />
+	<body id="16" basesound="278" figurine="0x210b" flags="0x04" type="1" />
+	<body id="17" basesound="1114" figurine="0x20e0" type="1" />
+	<body id="18" basesound="367" figurine="0x20d8" type="1" />
+	<body id="19" basesound="1170" figurine="0x20fd" type="1" />
+	<body id="20" basesound="904" figurine="0x20fd" type="1" />
+	<body id="21" basesound="219" figurine="0x20fe" type="1" />
+	<body id="22" basesound="377" figurine="0x20ea" type="1" />
+	<body id="23" basesound="229" figurine="0x211c" type="3" />
+	<body id="24" basesound="1001" figurine="0x20f8" type="1" />
+	<body id="25" basesound="229" figurine="0x211c" type="3" />
+	<body id="26" basesound="1154" figurine="0x2109" type="1" />
+	<body id="27" basesound="229" figurine="0x211c" type="3" />
+	<body id="28" basesound="904" figurine="0x20fd" type="1" />
+	<body id="29" basesound="158" figurine="0x20f5" type="3" />
+	<body id="30" figurine="0x20dc" type="1" hitsound="916" attacksound="916" deathsound="917" gethitsound="919" idlesound="918" />
+	<body id="31" basesound="925" figurine="0x210a" type="1" />
+	<body id="33" basesound="417" figurine="0x20de" type="1" />
+	<body id="34" basesound="229" figurine="0x211c" type="3" />
+	<body id="35" basesound="417" figurine="0x20de" type="1" />
+	<body id="36" basesound="417" figurine="0x20de" type="1" />
+	<body id="37" basesound="229" figurine="0x211c" type="3" />
+	<body id="38" basesound="0x2b8" figurine="0x2585" flags="0x1" type="1" />
+	<body id="39" basesound="0x1a6" figurine="0x20f9" flags="0x1" type="1" /> <!-- Black Gate Daemon -->
+	<body id="40" basesound="422" figurine="0x2586" flags="0x1" type="1" /> <!-- Mongbat -->
+	<body id="41" basesound="1114" figurine="0x20e0" type="1" />
+	<body id="42" basesound="437" figurine="0x20e3" type="1" />
+	<body id="43" basesound="357" figurine="0x2587" flags="0x1" type="1" />
+	<body id="44" basesound="437" figurine="0x20e3" type="1" />
+	<body id="45" basesound="437" figurine="0x20e3" type="1" />
+	<body id="46" basesound="362" figurine="0x2104" flags="0x1" type="1" idlesound="723" gethitsound="721" />
+	<body id="47" basesound="442" figurine="0x20fa" type="1" />
+	<body id="48" basesound="397" figurine="0x20e4" type="1" />
+	<body id="49" basesound="362" figurine="0x2104" flags="0x1" type="1" />
+	<body id="50" basesound="1165" figurine="0x20e7" type="1" />
+	<body id="51" basesound="456" figurine="0x20e8" flags="0x2" type="1" />
+	<body id="52" basesound="219" figurine="0x20fc" type="3" />
+	<body id="53" basesound="461" figurine="0x20e9" type="1" />
+	<body id="54" basesound="461" figurine="0x20e9" type="1" />
+	<body id="55" basesound="461" figurine="0x20e9" type="1" />
+	<body id="56" basesound="1165" figurine="0x20e7" type="1" />
+	<body id="57" basesound="1165" figurine="0x20e7" type="1" />
+	<body id="58" basesound="466" figurine="0x2100" type="1" />
+	<body id="59" basesound="362" figurine="0x20d6" flags="0x1" type="1" />
+	<body id="60" basesound="362" figurine="0x20d6" flags="0x1" type="1" />
+	<body id="61" basesound="362" figurine="0x20d6" flags="0x1" type="1" />
+	<body id="62" basesound="362" figurine="0x25d4" flags="0x1" type="1" />
+	<body id="63" basesound="115" figurine="0x2583" type="3" />
+	<body id="64" basesound="115" figurine="0x25a3" type="3" />
+	<body id="65" basesound="115" figurine="0x25a3" type="3" />
+	<body id="66" basesound="352" figurine="0x25c8" type="1" />
+	<body id="67" basesound="372" figurine="0x258e" type="1" />
+	<body id="68" basesound="377" figurine="0x258f" type="1" />
+	<body id="69" basesound="377" figurine="0x20f4" type="1" />
+	<body id="70" basesound="589" figurine="0x25c9" type="1" />
+	<body id="71" basesound="594" figurine="0x25ca" type="1" />
+	<body id="72" basesound="599" figurine="0x25cb" type="1" />
+	<body id="73" basesound="402" figurine="0x2594" flags="0x1" type="1" />
+	<body id="74" basesound="422" figurine="0x259f" flags="0x1" type="1" />
+	<body id="75" basesound="604" figurine="0x212d" type="1" />
+	<body id="76" basesound="609" figurine="0x25cd" type="1" />
+	<body id="77" basesound="353" figurine="0x25a2" type="1" />
+	<body id="78" basesound="412" figurine="0x20f8" type="1" />
+	<body id="79" basesound="412" figurine="0x20f8" type="1" />
+	<body id="80" basesound="619" figurine="0x212f" type="1" />
+	<body id="81" basesound="614" figurine="0x2130" type="3" />
+	<body id="82" basesound="412" figurine="0x20f8" type="1" />
+	<body id="83" basesound="427" figurine="0x20cb" type="1" />
+	<body id="84" basesound="427" figurine="0x20cb" type="1" />
+	<body id="85" basesound="639" figurine="0x25ab" type="1" />
+	<body id="86" basesound="634" figurine="0x25ac" type="1" />
+	<body id="87" basesound="644" figurine="0x25ad" type="1" />
+	<body id="88" basesound="153" figurine="0x2580" type="3" />
+	<body id="89" basesound="219" figurine="0x25c0" type="1" />
+	<body id="90" basesound="219" figurine="0x25c1" type="1" />
+	<body id="91" basesound="219" figurine="0x25c2" type="1" />
+	<body id="92" basesound="219" figurine="0x25c2" type="1" />
+	<body id="93" basesound="219" figurine="0x25c2" type="1" />
+	<body id="94" basesound="456" figurine="0x20e8" type="1" />
+	<body id="96" basesound="456" figurine="0x20e8" type="1" />
+	<body id="97" basesound="229" figurine="0x2596" type="3" />
+	<body id="98" basesound="229" figurine="0x2596" type="3" />
+	<body id="99" basesound="229" figurine="0x25cf" type="3" />
+	<body id="100" basesound="229" figurine="0x25cf" type="3" />
+	<body id="101" basesound="679" figurine="0x2581" type="1" />
+	<body id="102" basesound="0x300" figurine="0x2105" flags="0x1" type="1" /> <!-- Exodus Daemon -->
+	<body id="103" basesound="362" figurine="0x2593" flags="0x1" type="1" />
+	<body id="104" basesound="1160" figurine="0x20d6" flags="0x1" type="1" /> 
+	<body id="105" basesound="0x2d2" figurine="0x20d6" flags="0x1" type="1" /> <!-- Dark Dragon -->
+	<body id="106" basesound="362" figurine="0x20d6" flags="0x1" type="1" />
+	<body id="107" basesound="268" figurine="0x25d9" type="1" /> <!-- Agapite Elemental -->
+	<body id="108" basesound="268" figurine="0x25d9" type="1" />
+	<body id="109" basesound="268" figurine="0x25d9" type="1" />
+	<body id="110" basesound="268" figurine="0x20d7" type="1" />
+	<body id="111" basesound="268" figurine="0x20d7" type="1" />
+	<body id="112" basesound="268" figurine="0x20d7" type="1" />
+	<body id="113" basesound="0xa8" figurine="0x2121" type="1" />
+	<body id="114" basesound="0xa8" figurine="0x2120" type="3" mountid="16041" /> <!-- Dark Steed -->
+	<body id="115" basesound="0xa8" figurine="0x259c" type="3" mountid="16042" /> <!-- Etheral Horse -->
+	<body id="116" basesound="0xa8" figurine="0x259d" type="3" mountid="16039" /> <!-- Dark Steed -->
+	<body id="117" basesound="0xa8" figurine="0x2121" type="3" mountid="16040" /> <!-- White Steed -->
+	<body id="118" basesound="0xa8" figurine="0x2121" type="3" mountid="16050" /> <!-- Violet Steed -->
+	<body id="119" basesound="0xa8" figurine="0x2121" type="3" mountid="16049" /> <!-- Blue Steed -->
+	<body id="120" basesound="0xa8" figurine="0x2121" type="3" mountid="16047" /> <!-- Dark Red Steed -->
+	<body id="121" basesound="0xa8" figurine="0x2121" type="3" mountid="16048" /> <!-- Green Steed -->
+	<body id="122" basesound="0x4bc" figurine="0x25ce" type="3" mountid="16052" /> <!-- Unicorn -->
+	<body id="123" basesound="0x2f5" figurine="0x2589" flags="0x1" type="1" attacksound="760" idlesound="760" hitsound="757" gethitsound="761" deathsound="759"/>
+	<body id="124" basesound="0x24d" figurine="0x258a" type="1" /> <!-- Evil Mage -->
+	<body id="125" basesound="0x27f" figurine="0x258b" type="1" /> <!-- Evil Mage -->
+	<body id="126" basesound="0x27f" figurine="0x258b" type="1" /> <!-- Evil Mage -->
+	<body id="127" basesound="0xBA" figurine="0x2597" type="3" />
+	<body id="128" basesound="0x467" figurine="0x25b6" type="1" />
+	<body id="129" basesound="352" figurine="0x25c8" type="1" /> <!-- Tentacles of the Harrower -->
+	<body id="130" basesound="372" figurine="0x20d9" type="1" />
+	<body id="131" basesound="768" figurine="0x2590" type="1" />
+	<body id="132" basesound="0x3c5" figurine="0x25a0" type="3" mountid="16045" /> <!-- Kirin -->
+	<body id="133" basesound="660" figurine="0x211f" type="3" />
+	<body id="134" basesound="660" figurine="0x25a1" flags="0x1" type="3" />
+	<body id="135" basesound="427" figurine="0x25a8" type="1" />
+	<body id="136" basesound="639" figurine="0x25a9" type="1" /> <!-- Ophidian Mage -->
+	<body id="137" basesound="0x27b" figurine="0x25aa" type="1" /> <!-- Ophidian Warrior -->
+	<body id="138" basesound="1114" figurine="0x25b0" type="1" /> 
+	<body id="139" basesound="1114" figurine="0x25b0" type="1" />
+	<body id="140" basesound="1114" figurine="0x25b1" type="1" />
+	<body id="141" basesound="0x447" figurine="0x2106" type="1" /> <!-- Human ?? -->
+	<body id="142" basesound="0x1b5" figurine="0x25b7" type="1" /> <!-- blue ratman -->
+	<body id="143" basesound="0x1b5" figurine="0x25b7" type="1" />
+	<body id="144" basesound="0x478" figurine="0x25ba" type="2" mountid="16051" /> <!-- Sea Horse -->
+	<body id="145" basesound="447" figurine="0x20fb" type="2" /> <!-- Sea Serpent -->
+	<body id="146" basesound="0x47d" figurine="0x258a" type="1" />
+	<body id="147" basesound="451" figurine="0x25bd" type="1" />
+	<body id="148" basesound="451" figurine="0x25be" type="1" /> <!-- Bone Magi -->
+	<body id="149" basesound="1200" figurine="0x259f" type="1" />
+	<body id="150" basesound="447" figurine="0x20fb" type="2" />
+	<body id="151" basesound="0x8a" figurine="0x20f1" type="2" /> <!-- TODO: Unknown -->
+	<body id="152" basesound="589" figurine="0x25ca" type="1" />
+	<body id="153" basesound="1154" figurine="0x25c7" type="1" />
+	<body id="154" basesound="471" figurine="0x25bb" type="1" />
+	<body id="155" basesound="471" figurine="0x25a7" type="1" />
+	<body id="157" basesound="0x388" figurine="0x25c3" type="1" /> <!-- TODO: Unknown -->
+	<body id="158" basesound="278" figurine="0x25d6" type="1" /> <!-- TODO: Unknown -->
+	<body id="159" basesound="278" figurine="0x25d8" type="1" /> <!-- TODO: Unknown -->
+	<body id="160" basesound="278" figurine="0x25d8" type="1" />
+	<body id="161" basesound="268" figurine="0x25da" type="1" />
+	<body id="162" basesound="263" figurine="0x25db" type="1" />
+	<body id="163" basesound="263" figurine="0x25dc" type="1" />  <!-- Snow Elemental -->
+	<body id="164" figurine="0x25d8" type="1" attacksound="0x15" hitsound="0x28" /> <!-- Energy Vortex -->
+	<body id="165" basesound="466" figurine="0x2100" type="1" /> <!-- Shadow Wisp -->
+	<body id="166" basesound="268" figurine="0x25d9" type="1" /> <!-- Golden Elemental -->
+	<body id="167" basesound="163" figurine="0x211e" type="3" /> <!-- Brown Bear -->
+	<body id="168" basesound="0x3bf" figurine="0x259f" type="1" /> <!-- TODO: Unknown -->
+	<body id="169" mountid="16021" /> <!-- Beetle -->
+	<body id="170" basesound="0x3f3" figurine="0x20f6" type="3" mountid="16043" /> <!-- Etheral Llama -->
+	<body id="171" basesound="0xb7" figurine="0x25b4" soundmode="2" type="3" mountid="16044" /> <!-- Etheral Ostard -->
+	<body id="172" figurine="0x20d6" flags="0x1" type="1" /> <!-- Rikktor -->
+	<body id="173" basesound="387" figurine="0x25c3" type="1" /> <!-- Mephitis -->
+	<body id="174" basesound="1200" figurine="0x259f" flags="0x1" type="1" /> <!-- Semidar -->
+	<body id="175" figurine="0x2589" type="1" /> <!-- Loard Oaks -->
+	<body id="176" basesound="1127" figurine="0x25b6" flags="0x1" type="1" /> <!-- Silvani -->
+	<body id="177" mountid="16053" /> <!-- Dark Steed -->
+	<body id="178" basesound="0xa8" figurine="0x259c" type="3" mountid="16054" /> <!-- Dark Steed -->
+	<body id="179" basesound="0xa8" figurine="0x259c" type="3" mountid="16055" /> <!-- Dark Steed -->
+	<body id="180" basesound="0x2c0" figurine="0x20d6" flags="0x1" type="3" /> <!-- TODO: Unknown -->
+	<body id="181" basesound="1114" figurine="0x25af" type="1" /> <!-- TODO: Unknown -->
+	<body id="182" basesound="1114" figurine="0x25b0" type="1" /> <!-- Orc Bomber -->
 	
-	<!-- b7 type=4 -->
-	<!-- b8 type=4 -->
-	<!-- b9 type=4 -->
-	<!-- ba type=4 -->
-	
-	<body id="0xbb" basesound="0x365" figurine="0x25b2" type="1" mountid="0x3eba" /> <!-- Ridgeback -->
-	<body id="0xbc" basesound="0x365" figurine="0x25b2" type="3" mountid="0x3eb8" /> <!-- Savage Ridgeback -->
-	<body id="0xbd" basesound="0x45a" figurine="0x25b0" type="1" />
-	
-	<body id="0xbe" basesound="0xa8" figurine="0x2124" type="3" mountid="0x3e9e" /> <!-- Fire Steed -->
-	<body id="0xbf" basesound="0x3c5" figurine="0x25a0" type="3" mountid="0x3e9c" /> <!-- Kirin -->
-	<body id="0xc0" basesound="0x4bc" figurine="0x25ce" type="3" mountid="0x3e9b" /> <!-- Unicorn -->
-	<body id="0xc1" basesound="0x365" figurine="0x25b2" type="1" mountid="0x3e9a" /> <!-- Ridgeback -->
-	<body id="0xc2" basesound="0x16a" figurine="0x2593" flags="0x1" type="3" mountid="0x3e98" /> <!-- Swamp Dragon -->
-	<body id="0xc3" basesound="0x2bd" figurine="0x25c3" type="3" mountid="0x3e97" /> <!-- Beetle -->
-	
-	<body id="0xc8" basesound="0xa8" figurine="0x2124" type="3" mountid="0x3e9f" />
-	<body id="0xc9" basesound="0x69" figurine="0x211b" flags="0x2" type="3" />
-	<body id="0xca" basesound="0x5a" figurine="0x20da" type="3" />
-	<body id="0xcb" basesound="0xc4" figurine="0x2101" type="3" />
-	<body id="0xcc" basesound="0xa8" figurine="0x2121" type="3" mountid="0x3ea2" />
-	<body id="0xcd" basesound="0xc9" figurine="0x2125" soundmode="2" type="3" />
-	
-	<!-- ce type=1 -->
-	
-	<body id="0xcf" basesound="0xd6" figurine="0x20eb" type="3" />
-	<body id="0xd0" basesound="0x6e" figurine="0x20d1" type="3" />
-	<body id="0xd1" basesound="0x99" figurine="0x20e6" type="3" />
-	
-	<!-- d2 type=3 -->
-	
-	<body id="0xd3" basesound="0x5f" figurine="0x20cf" type="3" />
-	<body id="0xd4" basesound="0x5f" figurine="0x20db" type="3" />
-	<body id="0xd5" basesound="0x5f" figurine="0x20e1" type="3" />
-	<body id="0xd6" basesound="0xba" figurine="0x2119" flags="0x2" type="3" />
-	<body id="0xd7" basesound="0x188" figurine="0x20d0" type="1" />
-	<body id="0xd8" basesound="0x78" figurine="0x20f0" type="3" />
-	<body id="0xd9" basesound="0x85" figurine="0x20d5" type="3" />
-	<body id="0xda" basesound="0x3f5" figurine="0x25b3" type="3" mountid="0x3ea4" />
-	<body id="0xdb" basesound="0x3f5" figurine="0x25b4" type="3" mountid="0x3ea5" />
-	<body id="0xdc" basesound="0xb7" figurine="0x20f6" soundmode="2" type="3" mountid="0x3ea6" />
-	<body id="0xdd" basesound="0xe0" figurine="0x20ff" type="3" />
-	<body id="0xdf" basesound="0xd8" figurine="0x20e6" soundmode="2" type="3" />
-	<body id="0xe1" basesound="0xe5" figurine="0x20ea" flags="0x2" type="3" />
-	<body id="0xe2" basesound="0xa8" figurine="0x211f" type="3" mountid="0x3ea0" />
-	<body id="0xe4" basesound="0xa8" figurine="0x2120" type="3"  mountid="0x3ea1" />
-	<body id="0xe7" basesound="0x78" figurine="0x20f0" flags="0x2" type="3" />
-	<body id="0xe8" basesound="0x64" figurine="0x20ef" flags="0x2" type="3" />
-	<body id="0xe9" basesound="0x78" figurine="0x2103" flags="0x2" type="3" />
-	<body id="0xea" basesound="0x82" figurine="0x20d4" soundmode="2" type="3" />
-	<body id="0xed" basesound="0x82" figurine="0x20d4" soundmode="2" type="3" />
-	<body id="0xee" basesound="0xcc" figurine="0x2123" type="3"  mountid="0x3ea2" />
-	
-	<!-- <body id="0xd2" mountid="0x3ea3" /> -->
-
-	<body id="0xf3" basesound="0" figurine="0" type="3" mountid="0x3e94" /> <!-- New Asian Ridable -->
+	<body id="183" /> <!-- Savage Shaman -->
+	<body id="184" /> <!-- Savage Shaman -->
+	<body id="185" /> <!-- Savage Rider -->
+	<body id="186" /> <!-- Savage Rider -->
 		
-	<body id="0x122" basesound="0xc4" figurine="0x2101" type="3" />
-	<body id="0x123" basesound="0xa8" figurine="0x2126" type="3" />
-	<body id="0x124" basesound="0xb7" figurine="0x2127" soundmode="2" type="3" />
+	<body id="187" basesound="0x365" figurine="0x25b2" type="1" mountid="16058" /> <!-- Ridgeback -->
+	<body id="188" basesound="0x365" figurine="0x25b2" type="3" mountid="16056" /> <!-- Savage Ridgeback -->
+	<body id="189" basesound="1114" figurine="0x25b0" type="1" /> <!-- Orc Brute -->
+	
+	<body id="190" basesound="0xa8" figurine="0x2124" type="3" mountid="16030" /> <!-- Fire Steed -->
+	<body id="191" basesound="0x3c5" figurine="0x25a0" type="3" mountid="16028" /> <!-- Kirin -->
+	<body id="192" basesound="0x4bc" figurine="0x25ce" type="3" mountid="16027" /> <!-- Unicorn -->
+	<body id="193" basesound="0x365" figurine="0x25b2" type="1" mountid="16026" /> <!-- Ridgeback -->
+	<body id="194" basesound="0x16a" figurine="0x2593" flags="0x1" type="3" mountid="16024" /> <!-- Swamp Dragon -->
+	<body id="195" basesound="0x2bd" figurine="0x25c3" type="3" mountid="16023" /> <!-- Beetle -->
+	
+	<body id="200" basesound="0xa8" figurine="0x2124" type="3" mountid="16031" /> <!-- TODO: Unknown -->
+	<body id="201" basesound="0x69" figurine="0x211b" flags="0x2" type="3" /> <!-- TODO: Unknown -->
+	<body id="202" basesound="0x5a" figurine="0x20da" type="3" /> <!-- TODO: Unknown -->
+	<body id="203" basesound="0xc4" figurine="0x2101" type="3" /> <!-- TODO: Unknown -->
+	<body id="204" basesound="0xa8" figurine="0x2121" type="3" mountid="16034" /> <!-- TODO: Unknown -->
+	<body id="205" figurine="0x2125" type="3" hitsound="0xc9" gethitsound="0xca" deathsound="0xcb" /> <!-- Bunny -->
+	
+	<!-- ce type=1 --> <!-- TODO: Unknown -->
+	
+	<body id="207" basesound="0xd6" figurine="0x20eb" type="3" /> <!-- TODO: Unknown -->
+	<body id="208" basesound="0x6e" figurine="0x20d1" type="3" /> <!-- TODO: Unknown -->
+	<body id="209" basesound="0x99" figurine="0x20e6" type="3" /> <!-- TODO: Unknown -->
+	
+	<!-- d2 type=3 --> <!-- TODO: Unknown -->
+	
+	<body id="211" basesound="163" figurine="0x20cf" type="3" /> <!-- Blackbear -->
+	<body id="212" basesound="163" figurine="0x20db" type="3" /> <!-- Grizzly Bear -->
+	<body id="213" basesound="163" figurine="0x20e1" type="3" /> <!-- Polar Bear -->
+	<body id="214" basesound="0xba" figurine="0x2119" flags="0x2" type="3" /> <!-- TODO: Unknown -->
+	<body id="215" basesound="0x188" figurine="0x20d0" type="1" /> <!-- TODO: Unknown -->
+	<body id="216" basesound="0x78" figurine="0x20f0" type="3" /> <!-- TODO: Unknown -->
+	<body id="217" basesound="0x85" figurine="0x20d5" type="3" /> <!-- TODO: Unknown -->
+	<body id="218" basesound="0x3f5" figurine="0x25b3" type="3" mountid="16036" /> <!-- TODO: Unknown -->
+	<body id="219" basesound="0x3f5" figurine="0x25b4" type="3" mountid="16037" /> <!-- TODO: Unknown -->
+	<body id="220" basesound="0xb7" figurine="0x20f6" soundmode="2" type="3" mountid="16038" /> <!-- TODO: Unknown -->
+	<body id="221" basesound="0xe0" figurine="0x20ff" type="3" /> <!-- TODO: Unknown -->
+	<body id="223" basesound="0xd8" figurine="0x20e6" soundmode="2" type="3" /> <!-- TODO: Unknown -->
+	<body id="225" basesound="229" figurine="0x20ea" flags="0x2" type="3" /> <!-- Timberwolf -->
+	<body id="226" basesound="0xa8" figurine="0x211f" type="3" mountid="16032" /> <!-- TODO: Unknown -->
+	<body id="228" basesound="0xa8" figurine="0x2120" type="3"  mountid="16033" /> <!-- TODO: Unknown -->
+	<body id="231" basesound="0x78" figurine="0x20f0" flags="0x2" type="3" /> <!-- TODO: Unknown -->
+	<body id="232" basesound="0x64" figurine="0x20ef" flags="0x2" type="3" /> <!-- TODO: Unknown -->
+	<body id="233" basesound="0x78" figurine="0x2103" flags="0x2" type="3" /> <!-- TODO: Unknown -->
+	<body id="234" basesound="0x82" figurine="0x20d4" soundmode="2" type="3" /> <!-- TODO: Unknown -->
+	<body id="237" basesound="0x82" figurine="0x20d4" soundmode="2" type="3" /> <!-- TODO: Unknown -->
+	<body id="238" basesound="204" figurine="0x2123" type="3"  mountid="16034" /> <!-- Sewer Rat -->
+	
+	<!-- <body id="210" mountid="16035" /> -->
+	
+	<!-- Samurai Empire -->
+	<body id="196" figurine="0x2769" /> <!-- Gouzen Ha -->
+	<body id="199" figurine="0x2766" /> <!-- Denkou Yajuu -->
+	<body id="240" figurine="0x276b" deathsound="0x508" hitsound="0x509" idlesound="0x50a" attacksound="0x50b" gethitsound="0x50c" /> <!-- Kappa -->
+	<body id="241" figurine="0x276d" deathsound="0x4e0" hitsound="0x4e1" idlesound="0x4e2" attacksound="0x4e3" gethitsound="0x4e4" /> <!-- Oni -->
+	<body id="242" figurine="0x2765" deathsound="0x4f0" hitsound="0x4f1" idlesound="0x4f2" attacksound="0x4f3" gethitsound="0x4f4" /> <!-- Deathwatch Beetle -->
+	<body id="243" figurine="0x276a" type="3" mountid="16020" deathsound="0x4fb" hitsound="0x4fc" idlesound="0x4fd" attacksound="0x4fe" gethitsound="0x4ff" /> <!-- Hiryu -->
+	<body id="244" figurine="0x276f" deathsound="0x4e5" hitsound="0x4e6" idlesound="0x4e7" attacksound="0x4e8" gethitsound="0x4e9" /> <!-- Rune Beetle -->
+	<body id="245" figurine="0x2772" /> <!-- Yomotsu -->
+	<body id="246" figurine="0x2763" deathsound="0x4db" hitsound="0x4dc" idlesound="0x4dd" attacksound="0x4de" gethitsound="0x4df" /> <!-- Bake Kitsune -->
+	<body id="247" figurine="0x2767" /> <!-- Fan Dancer -->
+	<body id="248" figurine="0x2768" deathsound="0x4f5" hitsound="0x4f6" idlesound="0x4f7" attacksound="0x4f9" gethitsound="0x4fa" /> <!-- Gamam -->
+	<!-- Additional idle sound for the Gamam: 0x4f8 -->
+	
+	<body id="249" figurine="0x2771" deathsound="0x4ea" hitsound="0x4ec" idlesound="0x4ed" attacksound="0x4ee" gethitsound="0x4ef" /> <!-- Yamandon -->
+	<!-- Additional death sound for the Yamandon: 0x4eb -->
+	
+	<body id="250" figurine="0x2770" deathsound="0x52a" hitsound="0x52b" idlesound="0x52c" attacksound="0x52d" gethitsound="0x52e" /> <!-- Tsuki Wolf -->
+	<body id="251" figurine="0x276e" deathsound="0x515" hitsound="0x516" idlesound="0x517" attacksound="0x518" gethitsound="0x519" /> <!-- Revenant Lion -->
+	<body id="252" figurine="0x276c" /> <!-- Lady of the Snow -->
+	<body id="253" figurine="0x2773" /> <!-- Yomotsu Priest -->
+	<body id="254" figurine="0x2764" deathsound="0x4d6" hitsound="0x4d7" idlesound="0x4d8" attacksound="0x4d9" gethitsound="0x4da" /> <!-- Crane -->
+	<body id="255" figurine="0x2772" /> <!-- Yomotsu Elder -->
+		
+	<body id="290" basesound="0xc4" figurine="0x2101" type="3" /> <!-- TODO: Unknown -->
+	<body id="291" basesound="168" figurine="0x2126" type="3" /> <!-- Packhorse -->
+	<body id="292" basesound="1011" figurine="0x2127" soundmode="2" type="3" /> <!-- Packllama -->
 	
 	<!-- 12c type=1 -->
 	<!-- 12d type=1 -->
@@ -299,12 +321,13 @@
 	<!-- 13f type=1 -->
 		
 	<!-- Human + Equipment -->	
-	<body id="0x190" basesound="0x0" figurine="0x2106" type="4" />
-	<body id="0x191" basesound="0x0" figurine="0x2107" type="4" />
-	<body id="0x192" basesound="0x0" figurine="0x25f0" type="4" />
-	<body id="0x193" basesound="0x0" figurine="0x25f1" type="4" />
-	<body id="0x23d" basesound="0x107" flags="0x04" />
-	<body id="0x23e" basesound="0x200" soundmode="4" flags="0x04" type="1" />
+	<body id="400" basesound="0x0" figurine="0x2106" type="4" />
+	<body id="401" basesound="0x0" figurine="0x2107" type="4" />
+	<body id="402" basesound="0x0" figurine="0x25f0" type="4" />
+	<body id="403" basesound="0x0" figurine="0x25f1" type="4" />
+	
+	<body id="573" basesound="0x107" flags="0x04" /> <!-- Energy Vortex -->
+	<body id="574" basesound="0x200" soundmode="4" flags="0x04" type="1" /> <!-- Blade Spirits -->
 	
 	<!-- 2e8 type="4" -->
 	<!-- 2e9 type="4" -->
@@ -317,14 +340,14 @@
 	<!-- 2ee type=4 -->
 	<!-- 2ef type=4 -->
 	
-	<body id="0x2f0" basesound="0x10c" figurine="0x25b1" type="1" />
-	<body id="0x2f1" basesound="0x174" figurine="0x258d" flags="0x1" type="1" />
-	<body id="0x2f2" basesound="0x174" figurine="0x258d" flags="0x1" type="1" />
-	<body id="0x2f3" basesound="0x174" figurine="0x258d" flags="0x1" type="1" />
-	<body id="0x2f4" basesound="0x36d" figurine="0x258f" type="1" />
-	<body id="0x2f5" basesound="0x36d" figurine="0x258f" type="1" />
-	<body id="0x2f6" basesound="0x174" figurine="0x258d" flags="0x1" type="1" />
-	<body id="0x2fb" basesound="0x36d" figurine="0x258f" type="1" />
+	<body id="752" basesound="0x10c" figurine="0x25b1" type="1" /> <!-- Golem -->
+	<body id="753" basesound="0x174" figurine="0x258d" flags="0x1" type="1" /> <!-- Gargoyle Enforcer -->
+	<body id="754" basesound="0x174" figurine="0x258d" flags="0x1" type="1" /> <!-- Gargoyle Destroyer -->
+	<body id="755" basesound="0x174" figurine="0x258d" flags="0x1" type="1" /> <!-- Gargoyle Huge -->
+	<body id="756" basesound="0x36d" figurine="0x258f" type="1" /> <!-- Clockwork?? -->
+	<body id="757" basesound="0x36d" figurine="0x258f" type="1" /> <!-- Clockwork?? -->
+	<body id="758" basesound="0x174" figurine="0x258d" flags="0x1" type="1" /> <!-- Gargoyle -->
+	<body id="763" basesound="0x36d" figurine="0x258f" type="1" /> <!-- Clockwork -->
 	<!-- 2fc type=1 -->
 	<!-- 2fd type=1 -->
 	<!-- 2fe type=1 -->
@@ -337,58 +360,37 @@
 	<!-- 305 type=1 -->
 	<!-- 306 type=1 -->
 	
-	<body id="0x307" basesound="0x351" figurine="0x20e8" type="1" />
-	<body id="0x308" basesound="0x35f" figurine="0x212f" type="1" />
-	<body id="0x309" basesound="0x456" figurine="0x25d5" type="1" />
-	<body id="0x30a" basesound="0x36d" figurine="0x258f" type="1" />
-	<body id="0x30b" basesound="0x2f8" figurine="0x20d7" type="1" />
-	<body id="0x30c" basesound="0x300" figurine="0x2582" type="1" />
-	<body id="0x30d" basesound="0x346" figurine="0x25c9" type="1" />
-	<body id="0x30e" basesound="0x346" figurine="0x25ca" type="1" />
-	<body id="0x30f" basesound="0x346" figurine="0x25cb" type="1" />
-	<body id="0x310" basesound="0x165" figurine="0x2585" type="1" />
-	<body id="0x311" basesound="0x2b8" figurine="0x2586" type="1" />
-	<body id="0x312" basesound="0x388" figurine="0x25c3" type="1" />
-	<body id="0x313" basesound="0x18d" figurine="0x25b9" type="1" />
-	<body id="0x314" basesound="0x3ee" figurine="0x25cf" type="1" />
-	<body id="0x315" basesound="0x451" figurine="0x25c4" type="1" />
-	<body id="0x316" basesound="0x28f" figurine="0x25d9" type="1" />
-	<body id="0x317" basesound="0x2bd" figurine="0x25c3" type="3" mountid="0x3ebc" /> <!-- Beetle -->
-	<body id="0x318" basesound="0x165" figurine="0x2584" type="1" />
-	<body id="0x319" basesound="0xa8" figurine="0x259b" type="3" mountid="0x3ebb" /> <!-- Skeletal Steed -->
-	<body id="0x31a" basesound="0x16a" figurine="0x2593" flags="0x1" type="3" mountid="0x3ebd" /> <!-- Swamp Dragon -->
-	<body id="0x31b" basesound="0x2b9" figurine="0x2584" type="1" />
-	<body id="0x31c" basesound="0x2b9" figurine="0x2584" type="1" />
-	<body id="0x31d" basesound="0x111" figurine="0x20d6" flags="0x1" type="1" />
-	<body id="0x31e" basesound="0x16a" figurine="0x20d6" flags="0x1" type="1" />
-	<body id="0x31f" basesound="0x16a" figurine="0x20d6" flags="0x1" type="3" mountid="0x3ebe" /> <!-- Armored Swamp Dragon -->
+	<body id="775" figurine="0x20e8" type="1" deathsound="450" hitsound="448" gethitsound="449" idlesound="447" /> <!-- Plague Beast -->
+	<body id="776" basesound="925" figurine="0x212f" type="1" /> <!-- Horde Minion -->
+	<body id="777" basesound="0x456" figurine="0x25d5" type="1" /> <!-- Doppelganger -->
+	<body id="778" basesound="377" figurine="0x258f" type="1" /> <!-- Gazer Larva -->
+	<body id="779" basesound="422" figurine="0x20d7" type="1" /> <!-- Bogling -->
+	<body id="780" basesound="0x300" figurine="0x2582" type="1" /> <!-- Bogthing -->
+	<body id="781" basesound="959" figurine="0x25c9" type="1" /> <!-- Red Solen Worker -->
+	<body id="782" basesound="959" figurine="0x25ca" type="1" /> <!-- Red Solen Warrior -->
+	<body id="783" basesound="959" figurine="0x25cb" type="1" /> <!-- Red Solen Queen -->
+	<body id="784" basesound="0x165" figurine="0x2585" type="1" /> <!-- Arcane Daemon -->
+	<body id="785" basesound="0x2b8" figurine="0x2586" type="1" /> <!-- TODO: Unknown -->
+	<body id="786" basesound="0x388" figurine="0x25c3" type="1" /> <!-- TODO: Unknown -->
+	<body id="787" basesound="1006" figurine="0x25b9" type="1" /> <!-- Ant Lion -->
+	<body id="788" basesound="0x3ee" figurine="0x25cf" type="1" /> <!-- Sphinx -->
+	<body id="789" basesound="352" figurine="0x25c4" type="1" /> <!-- Quagmire -->
+	<body id="790" basesound="263" figurine="0x25d9" type="1" /> <!-- Sand Vortex -->
+	<body id="791" basesound="0x2bd" figurine="0x25c3" type="3" mountid="16060" /> <!-- Beetle -->
+	<body id="792" basesound="1001" figurine="0x2584" type="1" /> <!-- Chaos Daemon -->
+	<body id="793" basesound="0xa8" figurine="0x259b" type="3" mountid="16059" /> <!-- Skeletal Steed -->
+	<body id="794" basesound="0x16a" figurine="0x2593" flags="0x1" type="3" mountid="16061" /> <!-- Swamp Dragon -->
+	<body id="795" basesound="0x2b9" figurine="0x2584" type="1" /> <!-- TODO: Unknown -->
+	<body id="796" basesound="0x2b9" figurine="0x2584" type="1" /> <!-- TODO: Unknown -->
+	<body id="797" basesound="0x111" figurine="0x20d6" flags="0x1" type="1" /> <!-- TODO: Unknown -->
+	<body id="798" basesound="0x16a" figurine="0x20d6" flags="0x1" type="1" /> <!-- TODO: Unknown -->
+	<body id="799" basesound="0x16a" figurine="0x20d6" flags="0x1" type="3" mountid="16062" /> <!-- Armored Swamp Dragon -->
 	
 	<!-- 324 type=1 -->
 	<!-- 325 type=1 -->
 	<!-- 326 type=1 -->
 	<!-- 327 type=1 -->
 	<!-- 328 type=1 -->
-	
-	<body id="0x334" basesound="0xa8" figurine="0x2598" />
-	<body id="0x338" basesound="0xa8" figurine="0x259a" />
-	<body id="0x339" basesound="0x3f5" figurine="0x25b2" />
-	<body id="0x33a" basesound="0x3f5" figurine="0x25b3" />
-	<body id="0x33b" basesound="0x3f5" figurine="0x25b4" />
-	<body id="0x33c" basesound="0xb7" figurine="0x20f6" soundmode="2" />
-	<body id="0x33f" basesound="0xbf" figurine="0x211a" />
-	<body id="0x340" basesound="0x2ee" figurine="0x20f2" />
-	<body id="0x341" basesound="0x275" figurine="0x211a" />
-	<body id="0x342" basesound="0x2a2" figurine="0x2597" />
-	<body id="0x343" basesound="0xc9" figurine="0x2125" soundmode="2" />
-	<body id="0x345" basesound="219" figurine="0x25c0" />
-	<body id="0x346" basesound="219" figurine="0x25c1" />
-	<body id="0x347" basesound="0x365" figurine="0x25b2" />
-	<body id="0x348" basesound="0x365" figurine="0x25b2" />
-	<body id="0x349" basesound="0x365" figurine="0x25b2" />
-	<body id="0x34a" basesound="0x365" figurine="0x25b2" />
-	<body id="0x34b" basesound="0xcc" figurine="0x2123" />
-	<body id="0x34e" basesound="0xa8" figurine="0x2599" />
-	<body id="0x350" basesound="0xa8" figurine="0x259e" />
 	
 	<!-- 3db type=4 -->
 	<!-- 3dc type=4 -->
@@ -400,5 +402,6 @@
 	<!-- 3e6 type=1 -->
 	<!-- 3e7 type=1 -->
 	
-	<body id="0x3e6" basesound="0xa8" figurine="0x25a0" />
+	<body id="998" basesound="0xa8" figurine="0x25a0" />
 </bodyinfo>
+

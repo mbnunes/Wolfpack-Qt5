@@ -52,6 +52,7 @@
 	<include file="definitions/npcs/animals/mounts/fire_steed.xml" />
 	<include file="definitions/npcs/animals/mounts/giant_beetle.xml" />
 	<include file="definitions/npcs/animals/mounts/horse.xml" />
+	<include file="definitions/npcs/animals/mounts/hiryu.xml" />
 	<include file="definitions/npcs/animals/mounts/kirin.xml" />
 	<include file="definitions/npcs/animals/mounts/nightmare.xml" />
 	<include file="definitions/npcs/animals/mounts/ostards.xml" />
