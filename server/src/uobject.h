@@ -57,7 +57,7 @@ class cUObject : public cSerializable
 {
 // Data Members
 public:
-	void applyDefinition( QDomElement &sectionNode );
+	void applyDefinition( const QDomElement &sectionNode );
 
 	const std::vector< WPDefaultScript* > &getEvents( void );
 	void setEvents( std::vector< WPDefaultScript* > List );
@@ -81,8 +81,8 @@ public:
 	Coord_cl pos;
 // Methods
 protected:
-	virtual void processNode( QDomElement &Tag ) = 0;
-	QString getNodeValue( QDomElement &Tag );
+	virtual void processNode( const QDomElement &Tag ) = 0;
+	QString getNodeValue( const QDomElement &Tag );
 
 	std::vector< WPDefaultScript* > scriptChain;
 	QStringList eventList_; // Important for recreating the scriptChain on reloading

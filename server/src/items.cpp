@@ -1978,7 +1978,7 @@ bool cItem::onTalkToItem( P_CHAR Talker, const QString &Text )
 	return false;
 }
 
-void cItem::processNode( QDomElement& Tag )
+void cItem::processNode( const QDomElement& Tag )
 {
 	// we do this as we're going to modify the element
 	QString TagName = Tag.nodeName();
@@ -2008,10 +2008,10 @@ void cItem::processNode( QDomElement& Tag )
 	else if( TagName == "attack" )
 	{
 		if( Tag.attributes().contains( "min" ) )
-			this->setLodamage( Tag.attributeNode( "min" ).nodeValue().toInt() );
+			this->setLodamage( Tag.attribute( "min" ).toInt() );
 
 		if( Tag.attributes().contains( "max" ) )
-			this->setHidamage( Tag.attributeNode( "max" ).nodeValue().toInt() );
+			this->setHidamage( Tag.attribute( "max" ).toInt() );
 
 		// Better...
 		if( this->lodamage() > this->hidamage() )
@@ -2166,7 +2166,7 @@ void cItem::processNode( QDomElement& Tag )
 		if( !Tag.attributes().contains( "type" ) )
 			return;
 
-		QString Type = Tag.attributeNode( "type" ).nodeValue();
+		QString Type = Tag.attribute( "type" );
 			
 		if( Type == "str" )
 			this->st = Value.toULong();
@@ -2192,7 +2192,7 @@ void cItem::processNode( QDomElement& Tag )
 		if( !Tag.attributes().contains( "type" ) )
 			return;
 
-		QString Type = Tag.attributeNode( "type" ).nodeValue();
+		QString Type = Tag.attribute( "type" );
 			
 		if( Type == "str" )
 			this->st2 = Value.toULong();
@@ -2228,7 +2228,7 @@ void cItem::processNode( QDomElement& Tag )
 		cUObject::processNode( Tag );
 }
 
-void cItem::processContainerNode( QDomElement &Tag )
+void cItem::processContainerNode( const QDomElement &Tag )
 {
 	//item containers can be scripted like this:
 	/*

@@ -581,7 +581,7 @@ public:
 
 	// Definition loading - sereg
 protected:
-	void processNode( QDomElement& Tag );
+	void processNode( const QDomElement& Tag );
 };
 
 class cCharStuff

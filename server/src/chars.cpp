@@ -1094,7 +1094,7 @@ bool cChar::onCollideChar( P_CHAR Obstacle )
 	return false;
 }
 
-void cChar::processNode( QDomElement &Tag )
+void cChar::processNode( const QDomElement &Tag )
 {
 	QString TagName = Tag.nodeName();
 	QString Value = this->getNodeValue( Tag );
@@ -1170,7 +1170,7 @@ void cChar::processNode( QDomElement &Tag )
 	{
 		if( Tag.attributes().contains("type") )
 		{
-			QString statType = Tag.attributeNode("type").nodeValue();
+			QString statType = Tag.attribute("type");
 			if( statType == "str" )
 			{
 				this->st = Value.toShort();
@@ -1281,7 +1281,7 @@ void cChar::processNode( QDomElement &Tag )
 	{
 		if( Tag.attributes().contains("type") )
 		{
-			QString wanderType = Tag.attributeNode("type").nodeValue();
+			QString wanderType = Tag.attribute("type");
 			if( wanderType == "rectangle" || wanderType == "rect" || wanderType == "3" )
 				if( Tag.attributes().contains("x1") &&
 					Tag.attributes().contains("x2") &&
@@ -1289,10 +1289,10 @@ void cChar::processNode( QDomElement &Tag )
 					Tag.attributes().contains("y2") )
 				{
 					this->npcWander = 3;
-					this->fx1 = this->pos.x + Tag.attributeNode("x1").nodeValue().toInt();
-					this->fx2 = this->pos.x + Tag.attributeNode("x2").nodeValue().toInt();
-					this->fy1 = this->pos.y + Tag.attributeNode("y1").nodeValue().toInt();
-					this->fy2 = this->pos.y + Tag.attributeNode("y2").nodeValue().toInt();
+					this->fx1 = this->pos.x + Tag.attribute("x1").toInt();
+					this->fx2 = this->pos.x + Tag.attribute("x2").toInt();
+					this->fy1 = this->pos.y + Tag.attribute("y1").toInt();
+					this->fy2 = this->pos.y + Tag.attribute("y2").toInt();
 					this->fz1 = -1;
 				}
 			else if( wanderType == "circle" || wanderType == "2" )
@@ -1302,7 +1302,7 @@ void cChar::processNode( QDomElement &Tag )
 				this->fy1 = this->pos.y;
 				this->fz1 = this->pos.z;
 				if( Tag.attributes().contains("radius") )
-					this->fx2 = Tag.attributeNode("radius").nodeValue().toInt();
+					this->fx2 = Tag.attribute("radius").toInt();
 				else
 					this->fx2 = 2;
 			}
@@ -1428,14 +1428,14 @@ void cChar::processNode( QDomElement &Tag )
 	//<skill type="1">100</skill>
 	else if( TagName == "skill" && Tag.attributes().contains("type") )
 	{
-		if( Tag.attributeNode("type").nodeValue().toInt() > 0 &&
-			Tag.attributeNode("type").nodeValue().toInt() <= ALLSKILLS )
-			this->setBaseSkill((Tag.attributeNode("type").nodeValue().toInt() - 1), Value.toInt());
+		if( Tag.attribute("type").toInt() > 0 &&
+			Tag.attribute("type").toInt() <= ALLSKILLS )
+			this->setBaseSkill((Tag.attribute("type").toInt() - 1), Value.toInt());
 		else
 		{
 			for( UI32 j = 0; j < ALLSKILLS; j++ )
 			{
-				if( Tag.attributeNode("type").nodeValue().contains( QString(skillname[j]), false ) )
+				if( Tag.attribute("type").contains( QString(skillname[j]), false ) )
 					this->setBaseSkill(j, Value.toInt());
 			}
 		}

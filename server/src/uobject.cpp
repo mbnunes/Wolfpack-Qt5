@@ -281,7 +281,7 @@ void cUObject::recreateEvents( void )
 	}
 }
 
-void cUObject::applyDefinition( QDomElement& sectionNode )
+void cUObject::applyDefinition( const QDomElement& sectionNode )
 {
 	QDomNode TagNode = sectionNode.firstChild();
 	while( !TagNode.isNull() )
@@ -295,16 +295,24 @@ void cUObject::applyDefinition( QDomElement& sectionNode )
 	}
 }
 
-QString cUObject::getNodeValue( QDomElement &Tag )
+QString cUObject::getNodeValue( const QDomElement &Tag )
 {
+	QString Value = QString();
+	
 	if( !Tag.hasChildNodes() )
-		return Tag.nodeValue();
+		return "";
 	else
 	{
-		QString Value = QString();
 		QDomNode childNode = Tag.firstChild();
 		while( !childNode.isNull() )
 		{
+			if( !childNode.isElement() )
+			{
+				if( childNode.isText() )
+					Value += childNode.toText().data();
+				childNode = childNode.nextSibling();
+				continue;
+			}
 			QDomElement childTag = childNode.toElement();
 			if( childTag.nodeName() == "namelist" )
 			{
@@ -331,15 +339,15 @@ QString cUObject::getNodeValue( QDomElement &Tag )
 			{
 				if( childTag.hasChildNodes() )
 				{
-					QDomNode childTag = childTag.firstChild();
-					while( !childTag.isNull() )
+					QDomNode chchildNode = childTag.firstChild();
+					while( !chchildNode.isNull() )
 					{
-						if( childTag.isText() )
-							Value += childTag.toText().data();
-						else if( childTag.isElement() )
-							Value += this->getNodeValue( childTag.toElement() );
+						if( chchildNode.isText() )
+							Value += chchildNode.toText().data();
+						else if( chchildNode.isElement() )
+							Value += this->getNodeValue( chchildNode.toElement() );
 
-						childTag = childTag.nextSibling();
+						chchildNode = chchildNode.nextSibling();
 					}
 				}
 				else
@@ -361,11 +369,11 @@ QString cUObject::getNodeValue( QDomElement &Tag )
 			}
 			childNode = childNode.nextSibling();
 		}
-		return Value;
 	}
+	return Value;
 }
 
-void cUObject::processNode( QDomElement &Tag )
+void cUObject::processNode( const QDomElement &Tag )
 {
 	QString TagName = Tag.nodeName();
 	QString Value;

@@ -71,9 +71,9 @@ private:
 	UI08 moreb3_;
 	UI08 moreb4_;
 
-	void	processNode( QDomElement &Tag );
+	void	processNode( const QDomElement &Tag );
 public:
-	void	processContainerNode( QDomElement &Tag );
+	void	processContainerNode( const QDomElement &Tag );
 	// Getters
 	UI16			id()		const { return id_; };		 // The graphical id of the item
 	UI16			color()		const { return color_; };	 // The Color of the item
