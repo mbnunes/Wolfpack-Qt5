@@ -126,7 +126,7 @@ def wipeBoundingBox( socket, target1, target2, argstring ):
 		z = None
 
 	while item:
-		if (not z or z == item.pos.z) and (not baseid or item.baseid == baseid):
+		if (type(z) != int or z == item.pos.z) and (not baseid or item.baseid == baseid):
 			item.delete()
 			count += 1
 		item = iterator.next

@@ -94,7 +94,7 @@ def checkskill(char, skill, chance):
 	# Normalize
 	chance = min(1.0, max(0.02, chance))
 
-	minskill = (1.0 - chance) * 1200
+	minskill = min(char.skill[skill], (1.0 - chance) * 1200) # Should always be possible to gain
 	maxskill = 1200
 	char.checkskill(skill, minskill, maxskill)
 	result = chance >= random.random()
