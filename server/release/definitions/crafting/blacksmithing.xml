@@ -13,6 +13,16 @@
 		<menu inherit="BLACKSMITHING_armor" />
 		<menu inherit="BLACKSMITHING_shields" />
 		<menu inherit="BLACKSMITHING_weapons" />
+		
+		<action type="code">
+			<name>Repair Item</name>
+			<model>0x13E3</model>
+			<description>Repair an item with this option</description>
+			<make name="repair">
+				<skillcheck skillid="7" min="350" max="850" />
+				<skillcheck skillid="4" min="180" max="500" />
+			</make>
+		</action>
 	</menu>
 	
 	<menu id="BLACKSMITHING_armor">

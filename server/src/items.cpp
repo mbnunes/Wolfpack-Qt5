@@ -2429,6 +2429,7 @@ void cItem::applyRank( UI08 rank )
 	def = RandomNum( mindef, maxdef );
 	setMaxhp( RandomNum( minhp_, maxhp_ ) );
 	setHp( maxhp() );
+	this->rank = rank;
 }
 
 void cItem::talk( const QString &message, UI16 color, UINT8 type, bool autospam, cUOSocket* socket )

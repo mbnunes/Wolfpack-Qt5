@@ -445,6 +445,7 @@ void cMakeSection::execute( cUOSocket* socket )
 	{
 		if( name_ == "repair" )
 		{
+			socket->sysMessage( tr("Choose item to repair!") );
 			cSkRepairItem* pTargetRequest = new cSkRepairItem( this );
 			socket->attachTarget( pTargetRequest );
 		}
