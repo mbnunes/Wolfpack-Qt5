@@ -88,7 +88,7 @@ public:
 	void loadPrivLvlCmds( void );
 };
 
-#include "Client.h"
+#include "client.h"
 // use this value whereever you need to return an illegal z value
 const signed char illegal_z = -128;	// reduced from -1280 to -128, to fit in with a valid signed char
 

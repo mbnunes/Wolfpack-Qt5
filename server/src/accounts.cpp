@@ -359,3 +359,4 @@ void cAccount::removeCharacter( int number, SERIAL serial )
 			return;
 		}
 }
+

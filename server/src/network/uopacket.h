@@ -34,7 +34,7 @@
 
 #include "qcstring.h"
 #include "qstring.h"
-#include <ostream>
+#include <ostream.h>
 
 using namespace std;
 

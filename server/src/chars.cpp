@@ -83,7 +83,7 @@ void cChar::giveGold( Q_UINT32 amount, bool inBank )
 		P_ITEM pile = new cItem;
 		pile->Init();
 		pile->setId( 0xEED );
-		pile->setAmount( min( total, 65535 ) );
+		pile->setAmount( min( total, static_cast<Q_UINT32>(65535) ) );
 		pCont->AddItem( pile );
 
 		total -= pile->amount();
@@ -478,7 +478,7 @@ int cChar::CountBankGold()
 void cChar::openBank( UOXSOCKET socket )
 {
 	// Send to ourself ?
-	if( socket == INVALID_SOCKET )
+	if( socket == INVALID_UOXSOCKET )
 	{
 		if( !online( this ) )
 			return;
@@ -1495,18 +1495,18 @@ void cChar::processNode( const QDomElement &Tag )
 	else if( TagName == "equipped" )
 	{
 		QDomNode childNode = Tag.firstChild();
-		vector< QDomElement* > equipment;
+		vector< QDomElement > equipment;
 		
 		while( !childNode.isNull() )
 		{		
 			if( childNode.nodeName() == "item" )
-				equipment.push_back( &childNode.toElement() );
+				equipment.push_back( childNode.toElement() );
 			else if( childNode.nodeName() == "getlist" && childNode.attributes().contains( "id" ) )
 			{
 				QStringList list = DefManager->getList( childNode.toElement().attribute( "id" ) );
 				for( QStringList::iterator it = list.begin(); it != list.end(); it++ )
 					if( DefManager->getSection( WPDT_ITEM, *it ) )
-						equipment.push_back( DefManager->getSection( WPDT_ITEM, *it ) );
+						equipment.push_back( *DefManager->getSection( WPDT_ITEM, *it ) );
 			}
 
 			childNode = childNode.nextSibling();
@@ -1522,7 +1522,7 @@ void cChar::processNode( const QDomElement &Tag )
 				nItem->Init( true );
 				cItemsManager::getInstance()->registerItem( nItem );
 
-				nItem->applyDefinition( *equipment[ i ] );
+				nItem->applyDefinition( equipment[ i ] );
 
 				if( nItem->layer() == 0 )
 					Items->DeleItem( nItem );

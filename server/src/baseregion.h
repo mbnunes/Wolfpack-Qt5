@@ -179,7 +179,7 @@ protected:
 class cAllBaseRegions
 {
 public:
-	virtual ~cAllBaseRegions() = 0 {;}
+	virtual ~cAllBaseRegions() {}
 
 	virtual void load( void ) = 0;
 
@@ -208,3 +208,4 @@ protected:
 };
 
 #endif
+

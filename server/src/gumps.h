@@ -125,3 +125,4 @@ public:
 void entrygump(int s, SERIAL serial, unsigned char type, char index, short int maxlength, char *text1);
 
 #endif
+

@@ -110,7 +110,7 @@ HEADERS         = client.h \
 		  menuactions.h \
 		  wptargetrequests.h 
 		  
-SOURCES         = Client.cpp \
+SOURCES         = client.cpp \
 		  LoS.cpp \
 		  SkiTarg.cpp \
 		  SndPkg.cpp \
