@@ -963,8 +963,8 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster = Npcs->MemCharFree ();
 		pc_monster->Init();
 		pc_monster->def=50;
-		pc_monster->lodamage=50;
-		pc_monster->hidamage=100;
+		pc_monster->setLoDamage(50);
+		pc_monster->setHiDamage(100);
 		pc_monster->spattack=7552; // 1-7 level spells
 		pc_monster->setBaseSkill(MAGERY, 900); // 90 magery
 		pc_monster->setBaseSkill(TACTICS, 1000); // 70 tactics
@@ -986,8 +986,8 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster = Npcs->MemCharFree ();
 		pc_monster->Init();
 		pc_monster->def=50;
-		pc_monster->lodamage=50;
-		pc_monster->hidamage=100;
+		pc_monster->setLoDamage(50);
+		pc_monster->setHiDamage(100);
 		pc_monster->spattack=7552; // 1-7 level spells
 		pc_monster->setBaseSkill(MAGERY, 1000); // 100 magery
 		pc_monster->setBaseSkill(TACTICS, 1000);// 100 tactics
@@ -1007,8 +1007,8 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		pc_monster = Npcs->MemCharFree ();
 		pc_monster->Init();
 		pc_monster->def=20;
-		pc_monster->lodamage=10;
-		pc_monster->hidamage=45;
+		pc_monster->setLoDamage(10);
+		pc_monster->setHiDamage(45);
 		pc_monster->spattack=4095; // 1-7 level spells
 		pc_monster->setBaseSkill(MAGERY, 500); // 90 magery
 		pc_monster->setBaseSkill(TACTICS, 1000); // 70 tactics
@@ -1036,7 +1036,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 	pc_monster->setSkin(color);
 	pc_monster->setXSkin(color);
 	pc_monster->setPriv2(0x20);
-	pc_monster->npc = 1;
+	pc_monster->setNpc(1);
 
 	if (id!=0x023E && !(id==0x000d && color1==0 && color2==0x75)) // don't own BS or EV.
 		pc_monster->SetOwnSerial(pc_currchar->serial);

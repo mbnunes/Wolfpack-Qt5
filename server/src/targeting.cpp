@@ -2344,12 +2344,12 @@ void cTargets::ReleaseTarget(int s, int c)
 		} 
 		else 
 		{ 
-			jails[pc->cell].occupied = false; 
-			pc->moveTo(jails[pc->cell].oldpos);
-			pc->cell = 0; 
+			jails[pc->cell()].occupied = false; 
+			pc->moveTo(jails[pc->cell()].oldpos);
+			pc->setCell(0); 
 			pc->setPriv2(0); 
-			pc->jailsecs = 0; 
-			pc->jailtimer = 0; 
+			pc->setJailSecs(0); 
+			pc->setJailTimer(0); 
 			teleport(pc);
 			soundeffect(calcSocketFromChar(pc), 0x01, 0xfd); // Play sound effect for player 
 			sysmessage(calcSocketFromChar(pc), "You are released.."); 
@@ -2426,7 +2426,7 @@ void cTargets::JailTarget(int s, int c)
 		return; // lb 
 	P_CHAR pc = tmpnum; 
 	
-	if (pc->cell>0) 
+	if (pc->cell()>0) 
 	{ 
 		sysmessage(s, "That player is already in jail!"); 
 		return; 
@@ -2438,14 +2438,14 @@ void cTargets::JailTarget(int s, int c)
 		{ 
 			jails[i].oldpos = pc->pos;
 			pc->moveTo(jails[i].pos); 
-			pc->cell = i; 
+			pc->setCell(i); 
 			pc->setPriv2(2); // freeze them  Ripper 
 			
 			
 			// blackwinds jail
-			pc->jailsecs = addmitem[s]; // Additem array used for jail time here.. 
+			pc->setJailSecs( addmitem[s] ); // Additem array used for jail time here.. 
 			addmitem[s] = 0; // clear it 
-			pc->jailtimer = uiCurrentTime +(MY_CLOCKS_PER_SEC*pc->jailsecs); 
+			pc->setJailTimer( uiCurrentTime +(MY_CLOCKS_PER_SEC*pc->jailsecs()) ); 
 			teleport(tmpnum); 
 			UOXSOCKET prisoner = calcSocketFromChar(tmpnum); 
 			jails[i].occupied = 1; 

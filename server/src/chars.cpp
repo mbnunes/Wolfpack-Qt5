@@ -156,10 +156,10 @@ void cChar::Init(bool ser)
 	this->stm_=50; // Stamina
 	this->mn_=50; // Mana
 	this->mn2_=0; // Reserved for calculation
-	this->hidamage=0; //NPC Damage
-	this->lodamage=0; //NPC Damage
-	this->jailtimer=0; //blackwinds jail system 
-    this->jailsecs=0;
+	this->hidamage_=0; //NPC Damage
+	this->lodamage_=0; //NPC Damage
+	this->jailtimer_=0; //blackwinds jail system 
+    this->jailsecs_=0;
 	
 	this->setCreationDay(getPlatformDay());
 	for (i=0;i<TRUESKILLS;i++)
@@ -167,13 +167,13 @@ void cChar::Init(bool ser)
 		this->setBaseSkill(i, 0);
 		this->setSkill(i, 0);
 	}
-	this->npc=false;
-	this->shop=false; //1=npc shopkeeper
-	this->cell=0; // Reserved for jailing players 
+	this->npc_=false;
+	this->shop_=false; //1=npc shopkeeper
+	this->cell_=0; // Reserved for jailing players 
 	            // bugfix, LB 0= player not in jail !, not -1
 	
-	this->jailtimer=0; //blackwinds jail system
-	this->jailsecs=0;
+	this->jailtimer_=0; //blackwinds jail system
+	this->jailsecs_=0;
 
 	this->ownserial=INVALID_SERIAL; // If Char is an NPC, this sets its owner
 	this->setTamed(false); // True if NPC is tamed
@@ -777,7 +777,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("guildtype",		GuildType);
 		archive.read("guildtraitor",	GuildTraitor);
 		archive.read("dispz",			dispz_ );
-		archive.read("cell",			cell);
+		archive.read("cell",			cell_);
 		archive.read("dir",				dir_);
 		archive.read("race",			race_ );
 		archive.read("body",			xid_);	setId(xid_);
@@ -804,9 +804,9 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("spawnregion",		spawnregion_);
 		archive.read("stamina",			stm_);
 		archive.read("mana",			mn_);
-		archive.read("npc",				npc);
+		archive.read("npc",				npc_);
 		archive.read("holdgold",		holdg_);
-		archive.read("shop",			shop);
+		archive.read("shop",			shop_);
 		archive.read("own",				ownserial);
 		archive.read("robe",			robe);
 		archive.read("karma",			karma);
@@ -833,8 +833,8 @@ void cChar::Serialize(ISerialization &archive)
 		
 		archive.read("att",				att);
 		archive.read("def",				def);
-		archive.read("lodamage",		lodamage);
-		archive.read("hidamage",		hidamage);
+		archive.read("lodamage",		lodamage_);
+		archive.read("hidamage",		hidamage_);
 		archive.read("war",				war);
 		archive.read("npcwander",		npcWander);
 		archive.read("oldnpcwander",	oldnpcWander);
@@ -874,10 +874,10 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("questorigregion",	questOrigRegion_);
 		archive.read("questbountypostserial", questBountyPostSerial_);
 		archive.read("questbountyreward", questBountyReward_);
-		archive.read("jailtimer",		jailtimer);
-		if (jailtimer != 0)
-			jailtimer += uiCurrentTime;
-		archive.read("jailsecs",		jailsecs); 
+		archive.read("jailtimer",		jailtimer_);
+		if (jailtimer_ != 0)
+			jailtimer_ += uiCurrentTime;
+		archive.read("jailsecs",		jailsecs_); 
 		archive.read("lootlist",		loot_ );
 		SetOwnSerial(ownserial);
 		SetSpawnSerial(spawnserial_);
@@ -904,7 +904,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("guildtype",		GuildType);
 		archive.write("guildtraitor",	GuildTraitor);
 		archive.write("dispz",			dispz_);
-		archive.write("cell",			cell);
+		archive.write("cell",			cell_);
 		archive.write("dir",			dir_);
 		archive.write("race",			race_);
 		//AntiChrist - incognito and polymorph spell special stuff - 12/99
@@ -948,9 +948,9 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("spawnregion",	spawnregion_);
 		archive.write("stamina",		stm_);
 		archive.write("mana",			mn_);
-		archive.write("npc",			npc);
+		archive.write("npc",			npc_);
 		archive.write("holdgold",		holdg_);
-		archive.write("shop",			shop);
+		archive.write("shop",			shop_);
 		archive.write("own",			ownserial);
 		archive.write("robe",			robe);
 		archive.write("karma",			karma);
@@ -978,8 +978,8 @@ void cChar::Serialize(ISerialization &archive)
 		
 		archive.write("att",			att);
 		archive.write("def",			def);
-		archive.write("lodamage",		lodamage);
-		archive.write("hidamage",		hidamage);
+		archive.write("lodamage",		lodamage_);
+		archive.write("hidamage",		hidamage_);
 		archive.write("war",			war);
 		archive.write("npcwander",		npcWander);
 		archive.write("oldnpcwander",	oldnpcWander);
@@ -1018,9 +1018,9 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("questorigregion",questOrigRegion_);
 		archive.write("questbountypostserial", questBountyPostSerial_);
 		archive.write("questbountyreward", questBountyReward_);
-		unsigned int jtimer = jailtimer-uiCurrentTime;
+		unsigned int jtimer = jailtimer_-uiCurrentTime;
 		archive.write("jailtimer",		jtimer); 
-		archive.write("jailsecs",		jailsecs); 
+		archive.write("jailsecs",		jailsecs_); 
 		archive.write("lootlist",		loot_);
 	}
 	cUObject::Serialize(archive);
@@ -1322,7 +1322,7 @@ void cChar::processNode( const QDomElement &Tag )
 
 	//<hidamage>10</hidamage>
 	else if( TagName == "hidamage" )
-		this->hidamage = Value.toInt();
+		this->hidamage_ = Value.toInt();
 
 	//<id>0x11</id>
 	else if( TagName == "id" )
@@ -1343,7 +1343,7 @@ void cChar::processNode( const QDomElement &Tag )
 
 	//<lodamage>10</lodamage>
 	else if( TagName == "lodamage" )
-		this->lodamage = Value.toInt();
+		this->lodamage_ = Value.toInt();
 
 	//<notrain />
 	else if( TagName == "notrain" )
@@ -1982,7 +1982,7 @@ cGuildStone *cChar::getGuildstone()
 
 void cChar::makeShop( void )
 {
-	shop = true;
+	shop_ = true;
 
 	// We need to create the same item on several layers
 	for( UINT8 layer = 0x1A; layer <= 0x1C; ++layer )

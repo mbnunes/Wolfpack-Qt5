@@ -111,7 +111,7 @@ bool cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	cCharsManager::getInstance()->registerChar( pChar );
 
 	pChar->setPriv( 0x10 ); // No skill titles
-	pChar->npc = 1;
+	pChar->setNpc(1);
 	Coord_cl newPos = socket->player()->pos;
 	newPos.x = target->x();
 	newPos.y = target->y();

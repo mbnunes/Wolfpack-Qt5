@@ -144,7 +144,7 @@ P_CHAR cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos 
 	cCharsManager::getInstance()->registerChar( pChar );
 
 	pChar->setPriv( 0x10 );
-	pChar->npc = 1;
+	pChar->setNpc(1);
 	pChar->att = 1;
 	pChar->def = 1;
 	pChar->setSpawnSerial( INVALID_SERIAL );
@@ -185,7 +185,7 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 	cCharsManager::getInstance()->registerChar( nChar );
 
 	nChar->setPriv( 0x10 );
-	nChar->npc = 1;
+	nChar->setNpc(1);
 	nChar->att = 1;
 	nChar->def = 1;
 	nChar->setSpawnSerial( INVALID_SERIAL );

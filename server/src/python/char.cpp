@@ -587,12 +587,22 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else if ( !strcmp( name, "mana" ) )
 		return PyInt_FromLong( self->pChar->mn() );
 
-	else pGetInt( "hidamage", hidamage )
-	else pGetInt( "lodamage", lodamage )
+//	else pGetInt( "hidamage", hidamage )
+	else if ( !strcmp( name, "hidamage" ) )
+		return PyInt_FromLong(self->pChar->hidamage() );
+//	else pGetInt( "lodamage", lodamage )
+	else if ( !strcmp( name, "lodamage" ) )
+		return PyInt_FromLong( self->pChar->lodamage() );
 
-	else pGetInt( "npc", npc )
-	else pGetInt( "shop", shop )
-	else pGetInt( "cell", cell )
+//	else pGetInt( "npc", npc )
+	else if ( !strcmp( name, "npc" ) )
+		return PyInt_FromLong( self->pChar->npc() );
+//	else pGetInt( "shop", shop )
+	else if ( !strcmp( name, "shop" ) )
+		return PyInt_FromLong( self->pChar->shop() );
+//	else pGetInt( "cell", cell )
+	else if ( !strcmp( name, "cell" ) )
+		return PyInt_FromLong( self->pChar->cell() );
 	
 	// Owner
 	else if( !strcmp( name, "owner" ) )
@@ -782,8 +792,12 @@ int wpChar_setAttr( wpChar *self, char *name, PyObject *value )
 //	else setIntProperty( "flags2", pChar->priv2() )
 	else if( !strcmp("flags2", name ) )
 		self->pChar->setPriv2( PyInt_AS_LONG( value ) );
-	else setIntProperty( "hidamage", pChar->hidamage )
-	else setIntProperty( "lodamage", pChar->lodamage )
+//	else setIntProperty( "hidamage", pChar->hidamage )
+	else if( !strcmp("hidamage", name ) )
+		self->pChar->setHiDamage( PyInt_AS_LONG( value ) );
+//	else setIntProperty( "lodamage", pChar->lodamage )
+	else if( !strcmp("lodamage", name ) )
+		self->pChar->setLoDamage( PyInt_AS_LONG( value ) );
 	else setIntProperty( "objectdelay", pChar->objectdelay )
 	else if( !strcmp( name, "pos" ) && checkWpCoord( value ) )
 		self->pChar->moveTo( getWpCoord( value ) );

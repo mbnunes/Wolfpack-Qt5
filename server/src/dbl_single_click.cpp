@@ -820,9 +820,9 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			return;
 // END OF: By Polygon
 		case 401: // Blackwinds JAIL BALL 
-            if (pc_currchar->jailsecs>0) 
+            if (pc_currchar->jailsecs()>0) 
 			{ 
-	             sprintf((char*)temp, "You have %i seconds left in the jail", (pc_currchar->jailtimer - uiCurrentTime) / MY_CLOCKS_PER_SEC); 
+	             sprintf((char*)temp, "You have %i seconds left in the jail", (pc_currchar->jailtimer() - uiCurrentTime) / MY_CLOCKS_PER_SEC); 
 	             itemmessage(s, (char*) temp, pi->serial); 
 			} 
             else 

@@ -69,7 +69,7 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 		if (!Victim)
 			return;
 		Vial->more1=0;
-		if(!Victim->npc)
+		if(!Victim->npc())
 		{
 			// checkskill hmmm what skill/s has/have to added here LB ...
 			
@@ -89,7 +89,7 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 					sysmessage(nSocket,"That individual is not anywhere near you.");
 					return;
 				}
-				if (Victim->npc)
+				if (Victim->npc())
 				{
 					if( Victim->id() == 0x000c || (Victim->id()>=0x003b && Victim->id()<=0x003d) )
 						Vial->more1=1;

@@ -1054,12 +1054,12 @@ int cCombat::CalcAtt( P_CHAR pc_p ) // Calculate total attack powerer
 		//Code for new script commands
 		if(pc_p->lodamage==pc_p->hidamage) //Avoids divide by zero error
 		{
-			return(pc_p->lodamage);
+			return(pc_p->lodamage());
 		}
-		if(!(pc_p->hidamage<=2))
+		if(!(pc_p->hidamage()<=2))
 		{
-			j = pc_p->hidamage - pc_p->lodamage; 
-			if (j!=0) total=(rand()%(j))+pc_p->lodamage; else total=pc_p->lodamage;
+			j = pc_p->hidamage() - pc_p->lodamage(); 
+			if (j!=0) total=(rand()%(j))+pc_p->lodamage(); else total=pc_p->lodamage();
 		}
 		
 		if(total<1) total=1;

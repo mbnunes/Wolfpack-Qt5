@@ -813,7 +813,7 @@ bool VendorSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pVendor, const QStr
 	if( pVendor->npcaitype() == 17 )
 		return false;
 
-	if( !pVendor->shop )
+	if( !pVendor->shop() )
 		return false;
 
 	if( pPlayer->dist( pVendor ) > 4 )

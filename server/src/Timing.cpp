@@ -337,9 +337,9 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 		pc->spiritspeaktimer = 0;
 	
 	// Jail stuff
-	if( pc->cell > 0 )
+	if( pc->cell() > 0 )
 	{
-		if( ( pc->jailtimer > 0 ) && ( pc->jailtimer <= uiCurrentTime ) )
+		if( ( pc->jailtimer() > 0 ) && ( pc->jailtimer() <= uiCurrentTime ) )
 		{
 			socket->sysMessage( tr( "Your jail time is over!" ) );
 			
@@ -348,20 +348,20 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 				if( pc->cell == 0 )
 				{			
 					socket->sysMessage( tr( "You're not in jail already ? Please report to a GM. This has been logged." ) );
-					pc->jailtimer = 0;
+					pc->setJailTimer(0);
 					savelog( tr( "%1 [0x%2] caused bug in jail system." ).arg( pc->name.c_str() ).arg( pc->serial, 8, 16 ), "server.log" );
 				}
 				else
 				{
-					jails[ pc->cell ].occupied = false;
+					jails[ pc->cell() ].occupied = false;
 
 					pc->removeFromView( false );
-					pc->moveTo( jails[ pc->cell ].oldpos );
+					pc->moveTo( jails[ pc->cell() ].oldpos );
 					pc->resend( false );
 					
-					pc->cell = 0;
-					pc->jailsecs = 0;
-					pc->jailtimer = 0;
+					pc->setCell(0);
+					pc->setJailSecs(0);
+					pc->setJailTimer(0);
 					pc->setPriv2(0);					
 					
 					savelog( tr( "%1 [0x%2] is automatically released from jail." ).arg( pc->name.c_str() ).arg( pc->serial, 8, 16 ), "server.log" );
@@ -547,7 +547,7 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 
 	Magic->CheckFieldEffects2( currenttime, pc, 0 );
 
-	if( pc->shop )
+	if( pc->shop() )
 		restockNPC( currenttime, pc );
 
 	if( !pc->free )

@@ -1070,7 +1070,7 @@ public:
 			socket->sysMessage( tr("You do not have an instrument to play on!") );
 			return true; // cancel the skill
 		}
-		if ( pc->isInvul() || pc->shop || // invul or shopkeeper
+		if ( pc->isInvul() || pc->shop() || // invul or shopkeeper
 			pc->npcaitype()==0x01 || // healer
 			pc->npcaitype()==0x04 || // tele guard
 			pc->npcaitype()==0x06 || // chaos guard
@@ -1901,7 +1901,7 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 	if( !pChar )
 		return;
 
-	if( pChar->cell > 0 )
+	if( pChar->cell() > 0 )
 	{
 		socket->sysMessage( tr( "You are in jail and cant use skills here!" ) );
 		return;

@@ -1678,7 +1678,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 
 UOXSOCKET calcSocketFromChar(P_CHAR pc)
 {
-	if ( !pc || !pc->socket() || pc->npc )
+	if ( !pc || !pc->socket() || pc->npc() )
 	{
 		return -1;
 	}

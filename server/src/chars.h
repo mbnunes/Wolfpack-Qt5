@@ -79,14 +79,8 @@ public:
 	bool	isHiddenPermanently( void ) { return priv2_&0x08; }
 
 	
-	int						hidamage; //NPC Damage
-	int						lodamage; //NPC Damage
-	bool					npc;	// true = Character is an NPC
-	bool					shop;	// true = npc shopkeeper
-	unsigned char			cell; // Reserved for jailing players
-	unsigned int			jailtimer; // Blackwind - Timer used for crystall ball and jail time.
-	int						jailsecs;	//             Tweak this value by using command tweak before jailing person 
-	//			   or he will be jailed 1 day ( in realtime )
+	
+	
 	int						ownserial; // If Char is an NPC, this sets its owner
 	int						robe; // Serial number of generated death robe (If char is a ghost)
 	int						karma;
@@ -297,6 +291,16 @@ protected:
 	signed short			stm_; // Stamina
 	signed short			mn_; // Mana
 	signed short			mn2_; // Reserved for calculation
+
+	int						hidamage_; //NPC Damage
+	int						lodamage_; //NPC Damage
+	bool					npc_;	// true = Character is an NPC
+	bool					shop_;	// true = npc shopkeeper
+	unsigned char			cell_; // Reserved for jailing players
+	unsigned int			jailtimer_; // Blackwind - Timer used for crystall ball and jail time.
+	int						jailsecs_;	//             Tweak this value by using command tweak before jailing person 
+	//			   or he will be jailed 1 day ( in realtime )
+
 //END ADDED FROM PUBLIC ******************************************
 	std::map< cMakeMenu*, QPtrList< cMakeSection > >	lastselections_;
 
@@ -452,7 +456,13 @@ public:
 	signed short			stm() const { return stm_; }
 	signed short			mn() const { return mn_; }
 	signed short			mn2() const { return mn2_; }
-
+	int						hidamage() const { return hidamage_; }
+	int						lodamage() const { return lodamage_; }
+	bool					npc() const { return npc_; }
+	bool					shop() const { return shop_; }
+	unsigned char			cell() const { return cell_; }
+	unsigned int			jailtimer() const { return jailtimer_; }
+	int						jailsecs() const { return jailsecs_; }
 //END ADDED GETTERS***********************************************
 	QPtrList< cMakeSection > lastSelections( cMakeMenu* basemenu )
 	{ 
@@ -608,6 +618,14 @@ public:
 	void					setStm( signed short data ) { stm_ = data; }
 	void					setMn( signed short data ) { mn_ = data; }
 	void					setMn2( signed short data ) { mn2_ = data; }
+	
+	void					setHiDamage( int data ) { hidamage_ = data; }
+	void					setLoDamage( int data ) { lodamage_ = data; }
+	void					setNpc( bool data ) { npc_ = data; }
+	void					setShop( bool data ) { shop_ = data; }
+	void					setCell( unsigned char data ) { cell_ = data; }
+	void					setJailTimer( unsigned int data ) { jailtimer_ = data; }
+	void					setJailSecs( int data ) { jailsecs_ = data; }
 //END SETTERS********************************************************
 	void					setLastSection( cMakeMenu* basemenu, cMakeSection* data )
 	{
@@ -782,8 +800,8 @@ public:
 
 
 // Inline Member functions
-inline bool  cChar::isPlayer() const		{return (!this->npc);}
-inline bool  cChar::isNpc()	const			{return (this->npc);}
+inline bool  cChar::isPlayer() const		{return (!this->npc_);}
+inline bool  cChar::isNpc()	const			{return (this->npc_);}
 inline bool  cChar::isHuman() const			{return (this->id() == 0x190 || this->id() == 0x191);} 
 inline bool  cChar::isTrueGM() const		{return (priv&0x01);} 
 inline bool  cChar::isGM() const			{return  priv&0x01 || account_ == 0 || ( account() && ( account()->acl() == "admin" || account()->acl() == "gm" ) );} 

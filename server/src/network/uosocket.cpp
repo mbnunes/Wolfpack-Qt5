@@ -1496,7 +1496,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 	}
 
 	// No Fighting in jail
-	if( _player->cell > 0 )
+	if( _player->cell() > 0 )
 	{
 		sysMessage( tr( "There is no fighting in the jail cells!" ) );
 		send( &attack );
