@@ -270,10 +270,6 @@ SOURCE=.\sectors.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\serbinfile.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\serxmlfile.cpp
 # End Source File
 # Begin Source File
@@ -761,10 +757,6 @@ SOURCE=.\preferences.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\prototypes.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\pythonscript.h
 # End Source File
 # Begin Source File
@@ -811,10 +803,6 @@ SOURCE=.\scriptmanager.h
 # Begin Source File
 
 SOURCE=.\sectors.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\serbinfile.h
 # End Source File
 # Begin Source File
 

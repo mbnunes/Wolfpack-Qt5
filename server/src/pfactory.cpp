@@ -31,7 +31,6 @@
 
 #include "pfactory.h"
 #include "iserialization.h"
-#include "serbinfile.h"
 #include "serxmlfile.h"
 
 
