@@ -60,6 +60,7 @@
 #include "walking.h"
 #include "persistentbroker.h"
 #include "territories.h"
+#include "dbdriver.h"
 #include "worldmain.h"
 
 #include <qsqlcursor.h>

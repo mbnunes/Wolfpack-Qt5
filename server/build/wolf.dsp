@@ -473,6 +473,10 @@ SOURCE=.\customtags.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\dbdriver.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\dbl_single_click.h
 # End Source File
 # Begin Source File
