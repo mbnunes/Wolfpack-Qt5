@@ -42,7 +42,7 @@
 #include <qmutex.h>
 
 /*!
-	\brief This is an enumeration 
+	\brief This is an enumeration
 */
 enum enConsoleColors {
 	WPC_NORMAL = 0,
@@ -67,7 +67,6 @@ enum enFontType {
 	\brief This class encapsulates all access to server console features.
 */
 class cConsole {
-	friend class SingletonHolder;
 
 private:
 	QStringList linebuffer_;
@@ -125,7 +124,7 @@ public:
 
 	/*!
 		\brief Send a progress line to the console.
-			It has to be terminted by \s sendDone, 
+			It has to be terminted by \s sendDone,
 			\s sendFail or \s sendSkip.
 		\params title The title of the progress line.
 	*/
@@ -173,7 +172,7 @@ public:
 	const QStringList &linebuffer() const {
 		return linebuffer_;
 	}
-	
+
 	/*!
 		\brief Queue a command to the console. This is thread-safe.
 		\params command The command you want to queue.

@@ -101,7 +101,7 @@ protected:
 		try
 		{
 			setNonBlockingIo();
-			
+
 			signal( SIGHUP,  &signal_handler ); // Reload Scripts
 			signal( SIGUSR1, &signal_handler ); // Save World
 			signal( SIGUSR2, &signal_handler ); // Reload Accounts
@@ -115,13 +115,13 @@ protected:
 					// Do a select operation on the stdin handle and see
 					// if there is any input waiting.
 					fd_set consoleFds;
-					FD_ZERO( &consoleFds );				
+					FD_ZERO( &consoleFds );
 					FD_SET( STDIN_FILENO, &consoleFds );
 
 					timeval tvTimeout;
 					tvTimeout.tv_sec = 0;
 					tvTimeout.tv_usec = 1;
-			
+
 					if( select( 1, &consoleFds, 0, 0, &tvTimeout ) > 0 )
 					{
 						char c = fgetc( stdin );
@@ -183,7 +183,7 @@ void cConsole::setConsoleTitle( const QString& data )
 
 //=========================================================================================
 // Change the console Color
-void cConsole::ChangeColor( WPC_ColorKeys Color )
+void cConsole::changeColor( enConsoleColors Color )
 {
 	QString cb = "\e[0m";
 	switch( Color )
@@ -240,7 +240,7 @@ void cConsole::send(const QString &sMessage)
 	}
 }
 
-void cConsole::setAttributes( bool bold, bool italic, bool, unsigned char r, unsigned char g, unsigned char b, unsigned char, eFontType )
+void cConsole::setAttributes( bool bold, bool italic, bool, unsigned char r, unsigned char g, unsigned char b, unsigned char, enFontType )
 {
 }
 
