@@ -107,7 +107,7 @@ def successharvest( char, gem, table, resname, amount ):
 	return OK
 
 
-def checkskill( char, skillid, chance ):
+def checkskill( char, targetobject, skillid, chance ):
 	if char.dead:
 		return OOPS
 	skillvalue = char.skill[ skillid ]
@@ -127,7 +127,8 @@ def checkskill( char, skillid, chance ):
 	if gainchance < 0.01:
 		gainchance = 0.01
 	
-	if gainchance >= whrandom.random() or skillvalue < 100:
+	#If you lucky and antimacro is agree so let's gain this skill
+	if ( gainchance >= whrandom.random() and antimacrocheck( char, skillid, targetobject ) ) or skillvalue < 100:
 		skillgain( char, skillid )
 
 	return OK
@@ -167,7 +168,6 @@ def skillgain( char, skillid ):
 			statgain( char, INTELLIGENCE )
 
 
-	char.update()
 	return OK
 
 
@@ -180,13 +180,10 @@ def statgain( char, stat ):
 	if float( totalstats( char ) ) / wolfpack.settings.getNumber( "General", "StatCap", 225 ) >= whrandom.random():
 		if stat == STRENGTH:
 			char.strength = char.strength + 1
-			char.updatestats()
 		elif stat == DEXTERITY:
 			char.dexterity = char.dexterity + 1
-			char.updatestats()
 		elif stat == INTELLIGENCE:
 			char.intelligence = char.intelligence + 1
-			char.updatestats()
 			
 	return OK
 
@@ -198,3 +195,22 @@ def totalskills( char ):
 
 def totalstats( char ):
 	return char.strength + char.dexterity + char.intelligence
+
+def antimacrocheck( char, skillid, object ):
+	#Get or set antimacro tag: "AM" + SERIAL = COUNT
+	tagname = "AMAC" + str( char.serial ) + " " + str( skillid )
+	if object.hastag( tagname ):	
+		count = object.gettag( tagname )
+		object.settag( tagname, count + 1 )
+		if count <= ANTIMACROALLOWANCE:
+			return OK
+		elif count > ANTIMACROALLOWANCE + 1:
+			return OOPS
+		else:
+			object.addtimer( ANTIMACRODELAY, "wolfpack.utilities.cleartag", [char, tagname] )
+			return OOPS
+	else:
+		object.settag( tagname, 1 )
+		return OK
+
+

@@ -269,3 +269,9 @@ def issand( tile ):
 			range( 1623, 1626 ) + \
 			range( 1635, 1642 ) + \
 			range( 1647, 1650 )
+
+def cleartag( self, args ):
+	char = args[0]
+	tagname = args[1]
+	self.deltag( tagname )
+	return OK

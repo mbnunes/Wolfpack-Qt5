@@ -33,55 +33,11 @@ oretable = \
 }
 
 def mining( char, pos, tool ):
-   socket = char.socket
-
-   if char.hastag( 'mining_gem' ):
-      veingem = wolfpack.finditem( char.gettag( 'mining_gem' ) )
-      if not veingem:
-         veingem = getvein( socket, pos )
-         if not veingem:
-            char.deltag( 'mining_gem' )
-            return OOPS
-   else:
-      veingem = getvein( socket, pos )
-      if not veingem:
-         return OOPS
-      else:
-         char.settag( 'mining_gem', veingem.serial )
-
-   if char.distanceto( veingem ) > MINING_MAX_DISTANCE:
-      veingem = getvein( socket, pos )
-
-   if not veingem:
-      return OOPS
-
-   if not veingem.hastag( 'resname' ) or not veingem.hastag( 'resourcecount' ):
-      return OOPS
-
-   resname = veingem.gettag( 'resname' ) # Sometimes mutated in colored ore and back
-   resourcecount = veingem.gettag( 'resourcecount' )
-   reqskill = oretable[ resname ][ REQSKILL ]
-
-   success = 0
-   char.addtimer( 1400, "skills.mining.effecttimer", [oresound] )
+   char.addtimer( 1300, "skills.mining.domining", [oresound,tool,pos] )
    char.settag( 'is_mining', servertime() + miningdelay )
    char.turnto( pos )
    char.action( 11 )
 
-   # Are you skilled enough ? And here is ore ?
-   if resourcecount > 2 and char.skill[ MINING ] > reqskill:
-      # Anyway you haven't 100% chance to get something :)
-      if char.skill[ MINING ] > reqskill:
-         if whrandom.randint( oretable[ resname ][ MINSKILL ], oretable[ resname ][ MAXSKILL ] ) < char.skill[ MINING ]:
-            if whrandom.random() < 0.9:
-               success = 1
-               skills.successharvest( char, veingem, oretable, resname, 1 ) # 1 - amount of ore
-               skills.checkskill( char, MINING, 0 )
-
-   if success == 0:
-      socket.clilocmessage( 501869, "", GRAY, NORMAL ) # You loosen some rocks but fail to find any usable ore.
-      
-   char.deltag('nowmining')
    return OK
 
 
@@ -152,6 +108,55 @@ def response( char, args, target ):
    return OK
 
 #Sound effect
-def effecttimer( char, args ):
+def domining( char, args ):
    char.soundeffect( args[0] )
+   tool = args[1]
+   pos = args[2]
+   socket = char.socket
+
+   if char.hastag( 'mining_gem' ):
+      veingem = wolfpack.finditem( char.gettag( 'mining_gem' ) )
+      if not veingem:
+         veingem = getvein( socket, pos )
+         if not veingem:
+            char.deltag( 'mining_gem' )
+            return OOPS
+   else:
+      veingem = getvein( socket, pos )
+      if not veingem:
+         return OOPS
+      else:
+         char.settag( 'mining_gem', veingem.serial )
+
+   if char.distanceto( veingem ) > MINING_MAX_DISTANCE:
+      veingem = getvein( socket, pos )
+
+   if not veingem:
+      return OOPS
+
+   if not veingem.hastag( 'resname' ) or not veingem.hastag( 'resourcecount' ):
+      return OOPS
+
+   resname = veingem.gettag( 'resname' ) # Sometimes mutated in colored ore and back
+   resourcecount = veingem.gettag( 'resourcecount' )
+   reqskill = oretable[ resname ][ REQSKILL ]
+
+   success = 0
+   char.update()
+   char.updatestats()
+
+   # Are you skilled enough ? And here is ore ?
+   if resourcecount > 2 and ( char.skill[ MINING ] >= reqskill or char.skill[ MINING ] <= 100 ):
+         skills.checkskill( char, veingem, MINING, 0 )
+         if whrandom.random() > 0.7:
+            skills.successharvest( char, veingem, oretable, resname, 1 ) # 1 - amount of ore
+            success = 1
+
+
+
+   if success == 0:
+      socket.clilocmessage( 501869, "", GRAY, NORMAL ) # You loosen some rocks but fail to find any usable ore.
+      
+   char.deltag('nowmining')
+
    return OK
