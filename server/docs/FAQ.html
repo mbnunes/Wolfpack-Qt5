@@ -150,7 +150,12 @@
 				<li><a href="#02">What platforms are supported?</a></li>
 				<li><a href="#03">What are the system hardware requirements?</a></li>
 				<li><a href="#04">What needs to be installed to use Wolfpack?</a></li>
-				<li><a href="#05">How do I compile Wolfpack under Windows?</a></li>
+				<li><a href="#05">How do I compile Wolfpack under Windows?</a><br />
+					<ul>
+						<li><a href="#05a">Using MSVC.</a></li>
+						<li><a href="#05b">Using Cygwin/MinGW</a></li>
+					</ul>
+				</li>
 				<li><a href="#06">How do I compile Wolfpack under Linux?</a></li>
 				<li><a href="#07">How do I compile Wolfpack under BSD?</a></li>
 				<li><a href="#08">Can I use the world files for previous Wolfpack versions?</a></li>
@@ -220,7 +225,7 @@
 					</div>
 				</li>
 				<!-- Answer 04 -->
-				<li><a name="04" class="question">What needs to be installed to use Wolfpack?</a>
+				<li><a name="04" class="question">What needs to be installed to use Wolfpack?</a><br />
 					<div class="answer">
 						There are two things you should install and run Wolfpack 13.x.x.<br />
 						<br />
@@ -237,12 +242,36 @@
 					</div>
 				</li>
 				<!-- Answer 05 -->
-				<li><a name="05" class="question">How do I compile Wolfpack under Windows?</a>
-					<div class="answer">
-					</div>
+				<li><a name="05" class="question">How do I compile Wolfpack under Windows?</a><br />
+					<ul>
+						<li><a name="05a" class="question">Using MSVC.</a><br />
+							<div class="answer">
+								This guide covers compiling Wolfpack using MSVC.<br />
+								<br />
+								Compile Requirements:<br />
+								<ul>
+									<li><a href="http://python.org/2.3.4/">The Latest Python-2.3 Release</a>.</li>
+									<li><a href="http://msdn.microsoft.com/visualc/downloads/updates/default.aspx">Service pack 5 for MSVC6</a>.</li>
+									<li><a href="http://sourceforge.net/project/showfiles.php?group_id=38114&#038;package_id=62543">Windows QT Library</a>.</li>
+								</ul>
+								<br />
+								Optional Compile Requirements:<br />
+								<ul>
+									<li><a href="http://www.mysql.org/">MySQL Database</a>.</li>
+								</ul>
+								<br />
+								Currently Incomplete.
+							</div>
+						</li>
+						<li><a name="05b" class="question">Using Cygwin/MinGW.</a><br />
+							<div class="answer">
+								Currently Incomplete.
+							</div>
+						</li>
+					</ul>
 				</li>
 				<!-- Answer 06 -->
-				<li><a name="06" class="question">How do I compile Wolfpack under Linux?</a>
+				<li><a name="06" class="question">How do I compile Wolfpack under Linux?</a><br />
 					<div class="answer">
 						First you need the latest QT-3.3.x release for your linux distribution.<br />
 						You will also need the dev package for this version of QT.<br />
@@ -275,7 +304,7 @@
 					</div>
 				</li>
 				<!-- Answer 07 -->
-				<li><a name="07" class="question">How do I compile Wolfpack under BSD?</a>
+				<li><a name="07" class="question">How do I compile Wolfpack under BSD?</a><br />
 					<div class="answer">
 						Compiling Instructions:<br />
 						<div class="bash">
@@ -294,7 +323,7 @@
 					</div>
 				</li>
 				<!-- Answer 08 -->
-				<li><a name="08" class="question">Can I use the world files for previous Wolfpack versions?</a>
+				<li><a name="08" class="question">Can I use the world files for previous Wolfpack versions?</a><br />
 					<div class="answer">
 						The simple answer for this is <span style="font-weight:bold;">no</span>.<br />
 						<ul>
@@ -313,14 +342,14 @@
 					</div>
 				</li>
 				<!-- Answer 09 -->
-				<li><a name="09" class="question">Where can I find documentation?</a>
+				<li><a name="09" class="question">Where can I find documentation?</a><br />
 					<div class="answer">
 						You can find Wolfpack documentation at: <a href="http://www.wpdev.org/docs/">http://www.wpdev.org/docs/</a><br />
 						You can find Python documentation at: <a href="http://python.org/doc/2.3.4/">http://python.org/doc/2.3.4/</a>
 					</div>
 				</li>
 				<!-- Answer 10 -->
-				<li><a name="10" class="question">Help! I get unicode errors with my python scripts!</a>
+				<li><a name="10" class="question">Help! I get unicode errors with my python scripts!</a><br />
 					<div class="answer">
 						This problem is mostly common with Linux/BSD. Python-2.3 on many distributions comes compiled
 						using UCS4 for Unicode. Wolfpack currently requires that Python-2.3 be compiled with UCS2 for
@@ -351,7 +380,7 @@
 					</div>
 				</li>
 				<!-- Answer 11 -->
-				<li><a  name="11" class="question">I found a bug! What can I do?</a>
+				<li><a  name="11" class="question">I found a bug! What can I do?</a><br />
 					<div class="answer">
 						Before anything, we recommend that you check the bug tracker to see if it has already been reported.<br />
 						If you find a new bug there are a few things you can do:<br />
@@ -363,7 +392,7 @@
 					</div>
 				</li>
 				<!-- Answer 12 -->
-				<li><a  name="12" class="question">I wrote some scripts that were missing! What can I do with it?</a>
+				<li><a  name="12" class="question">I wrote some scripts that were missing! What can I do with it?</a><br />
 					<div class="answer">
 					First of all, we are trying to conform to an OSI like world. So please check that your creation(s) are along
 					those requirements.<br />
@@ -378,7 +407,7 @@
 					</div>
 				</li>
 				<!-- Answer 13 -->
-				<li><a  name="13" class="question">Where can I find the latest CVS Snapshots?</a>
+				<li><a  name="13" class="question">Where can I find the latest CVS Snapshots?</a><br />
 					<div class="answer">
 						You can find the latest CVS snapshots at:
 						<a href="http://wpdev.sourceforge.net/snapshots/">http://wpdev.sourceforge.net/snapshots/</a>
