@@ -4112,7 +4112,7 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "mutetime", (int)mutetime_ )
 	GET_PROPERTY( "meditating", med_ )
 	GET_PROPERTY( "weight", weight_ )
-	GET_PROPERTY( "stones", floor( weight_ / 10 ) )
+	GET_PROPERTY( "stones", floor( weight_ / 10.0 ) )
 	GET_PROPERTY( "lootlist", loot_ )
 	GET_PROPERTY( "font", fonttype_ )
 	GET_PROPERTY( "saycolor", saycolor_ )
