@@ -40,9 +40,9 @@ def response( char, args, target ):
 			if not char.distanceto( target ) < 5:
 				char.socket.clilocmessage( 0x7A27E, "", 0x3b2, 3 )
 				return 0
- 
- 		cur_time = servertime()
- 		char.settag( 'skill_delay', cur_time + ITEMID_DELAY )
+
+		cur_time = servertime()
+		char.settag( 'skill_delay', cur_time + ITEMID_DELAY )
 
 		if not char.checkskill( ITEMID, 0, 1000 ):
 			char.socket.clilocmessage( 0xFE3C8, "", 0x3b2, 3, char )

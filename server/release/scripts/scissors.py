@@ -55,7 +55,7 @@ def response( char, args, target ):
 	if not target.item:
 		char.socket.clilocmessage( 502440, "", GRAY ) # Scissors can not be used on that to produce anything
 		return
-    
+
 	if not target.item.getoutmostchar() == char:
 		char.socket.clilocmessage( 502440 ) # Scissors cannot be used on that to produce anything.
 		return 

@@ -228,7 +228,7 @@ def dyingtub_response( char, args, target ):
 	char.soundeffect( 0x023e )	
 
 # Table of IDs mapped to handler functions
-actions =  {
+actions =	{
 			# Cotton Plants
 			0x0c4f: cotton,
 			0x0c50: cotton,
@@ -261,7 +261,7 @@ actions =  {
 			# Dye Tub
 			0xfab: dyingtub,
 			
-		   }
+		}
 
 def onUse( char, item ):
 	if not actions.has_key( item.id ):

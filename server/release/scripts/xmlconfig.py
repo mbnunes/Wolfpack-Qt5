@@ -58,9 +58,9 @@ class XMLConfig:
 		self.parent = parent
 		self.groups = []
 		self.xmlname = '../wolfpack.xml'
-        	self.sc = Pmw.ScrolledCanvas(parent,
-	        borderframe = 1,
-	        usehullsize = 1,
+		self.sc = Pmw.ScrolledCanvas(parent,
+		borderframe = 1,
+		usehullsize = 1,
 		hull_width = 400,
 		hull_height = 300,
 		)
@@ -99,16 +99,16 @@ class XMLConfig:
 		self.sc.resizescrollregion()
 	
 	def writexml(self):
-	        self.dialog = Pmw.MessageDialog(self.parent,
+		self.dialog = Pmw.MessageDialog(self.parent,
 			buttons = ('OK','Cancel'),
 			message_text = 'Save changes ?',
 			defaultbutton = 'OK',
 			title = 'My dialog',
 			command = self.execute)
-	        self.dialog.withdraw()
-        	self.dialog.activate(geometry = 'centerscreenalways')
+		self.dialog.withdraw()
+		self.dialog.activate(geometry = 'centerscreenalways')
 		
-	        if self.result == 'OK':
+		if self.result == 'OK':
 			self.dialog.deactivate(self.result)
 			dom = Document()
 			all = dom.createElement("preferences")
@@ -131,7 +131,7 @@ class XMLConfig:
 					xgr.appendChild(xop)
 					
 				all.appendChild(xgr)
-       	
+
 			all.appendChild(xgr)
 			dom.appendChild(all)
 			file = open(self.xmlname,'w')

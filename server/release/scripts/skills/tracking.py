@@ -28,40 +28,40 @@ def tracking( char, skill ):
 		else:
 			char.deltag( 'skill_delay' )
 
-        char.socket.cloclocmessage( 1011350 ) # What do you wish to track?
-        char.socket.closegump( 0x87651592 ) # What to track
-        gump = cGump( x = 20, y = 30, callback="skills.tracking.trackWhatResponse", type=0x87651592 )
+	char.socket.cloclocmessage( 1011350 ) # What do you wish to track?
+	char.socket.closegump( 0x87651592 ) # What to track
+	gump = cGump( x = 20, y = 30, callback="skills.tracking.trackWhatResponse", type=0x87651592 )
 
-        gump.startPage( 0 )
-        gump.addBackground( 5054, 440, 135 )
-        gump.addResizeGump( 10, 10, 2620, 420, 75 )
-        gump.addResizeGump( 10, 85, 3000, 420, 25 )
+	gump.startPage( 0 )
+	gump.addBackground( 5054, 440, 135 )
+	gump.addResizeGump( 10, 10, 2620, 420, 75 )
+	gump.addResizeGump( 10, 85, 3000, 420, 25 )
 
-        gump.addTilePic( 20, 20, 9682 )
-        gump.addButton( 20, 110, 4005, 4007, 1 )
-        gump.addXmfHtmlGump( 20, 90, 100, 20, 1018087 ) # Animals
+	gump.addTilePic( 20, 20, 9682 )
+	gump.addButton( 20, 110, 4005, 4007, 1 )
+	gump.addXmfHtmlGump( 20, 90, 100, 20, 1018087 ) # Animals
 
-        gump.addTilePic( 120, 20, 9607 )
-        gump.addButton( 120, 110, 4005, 4007, 2 )
-        gump.addXmfHtmlGump( 120, 90, 100, 20, 1018088 ) # Monsters
+	gump.addTilePic( 120, 20, 9607 )
+	gump.addButton( 120, 110, 4005, 4007, 2 )
+	gump.addXmfHtmlGump( 120, 90, 100, 20, 1018088 ) # Monsters
 
-        gump.addTilePic( 220, 20, 8454 )
-        gump.addButton( 220, 110, 4005, 4007, 3 )
-        gump.addXmfHtmlGump( 220, 90, 100, 20, 1018089 ) # Human NPCs
-        
-        gump.addTilePic( 320, 20, 8455 )
-        gump.addButton( 320, 110, 4005, 4007, 4 )
-        gump.addXmfHtmlGump( 320, 90, 100, 20, 1018090 ) # Players
+	gump.addTilePic( 220, 20, 8454 )
+	gump.addButton( 220, 110, 4005, 4007, 3 )
+	gump.addXmfHtmlGump( 220, 90, 100, 20, 1018089 ) # Human NPCs
 
-        gump.send( char )
-	
+	gump.addTilePic( 320, 20, 8455 )
+	gump.addButton( 320, 110, 4005, 4007, 4 )
+	gump.addXmfHtmlGump( 320, 90, 100, 20, 1018090 ) # Players
+
+	gump.send( char )
+
 	cur_time = servertime()
 	char.settag( 'skill_delay', cur_time + STEALTH_DELAY )
 
 	return 1
 
 def trackWhatResponse( char, args, target ):
-    return 1
+	return 1
 
 def onLoad():
 	skills.register( TRACKING, tracking )

@@ -11,18 +11,18 @@ from random import choice, randrange
 
 # failure texts
 failureText = ( 
-        "shot is well off target.",
-        "shot is wide of the mark.",
-        "shot misses terribly.",
-        "shot nearly misses the archery butte."
+	"shot is well off target.",
+	"shot is wide of the mark.",
+	"shot misses terribly.",
+	"shot nearly misses the archery butte."
 )
 
 # success texts
 successText = (
-        "hit the outer ring.",
-        "hit the middle ring.",
-        "hit the inner ring.",
-        "hit the bullseye!."
+	"hit the outer ring.",
+	"hit the middle ring.",
+	"hit the inner ring.",
+	"hit the bullseye!."
 )
 
 def giveAmmo( char, item ):

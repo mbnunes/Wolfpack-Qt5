@@ -13,7 +13,7 @@ def getbuffer():
 	return _wolfpack.console.getbuffer()
 
 def reloadScripts():
-        return _wolfpack.console.reloadScripts()
+	return _wolfpack.console.reloadScripts()
 
 log = _wolfpack.console.log
 send = _wolfpack.console.send

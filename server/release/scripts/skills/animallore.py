@@ -15,7 +15,7 @@ ANIMALLORE_DELAY = 1000
 
 def animallore( char, skill ):
 	if skill != ANIMALLORE:
-	        return 0
+		return 0
 
 	if char.hastag( 'skill_delay' ):
 		cur_time = servertime()
@@ -32,34 +32,34 @@ def animallore( char, skill ):
 
 def response( char, args, target ):
 	if not target.char:
-	    char.socket.clilocmessage( 0x7A269, "", 0x3b2, 3, char ) # That is not an animal
-	    return
+		char.socket.clilocmessage( 0x7A269, "", 0x3b2, 3, char ) # That is not an animal
+		return
 
 	if target.char.socket:
-	    char.socket.clilocmessage ( 0x7A269, "", 0x3b2, 3, char ) # That is not an animal
-	    return
+		char.socket.clilocmessage ( 0x7A269, "", 0x3b2, 3, char ) # That is not an animal
+		return
 
 	if not char.canreach( target.char, 13 ):
-	    return # no msg sent when you fail los check on OSI, wonder why...
+		return # no msg sent when you fail los check on OSI, wonder why...
 	
 	if target.char.totame >= 1100 and not target.char.tamed:
-	    if char.skill[ ANIMALLORE ] == 1000:
-	        char.socket.clilocmessage( 0x10044B, "", 0x3b2, 3 ) # At your skill level, you can only lore tamed or tameable creatures.
-	        return
-	    
-	    elif char.skill[ ANIMALLORE ] < 1000:
-	        char.socket.clilocmessage( 0x10044A, "", 0x3b2, 3 ) # At your skill level, you can only lore tamed creatures
-	        return
+		if char.skill[ ANIMALLORE ] == 1000:
+			char.socket.clilocmessage( 0x10044B, "", 0x3b2, 3 ) # At your skill level, you can only lore tamed or tameable creatures.
+			return
+		
+		elif char.skill[ ANIMALLORE ] < 1000:
+			char.socket.clilocmessage( 0x10044A, "", 0x3b2, 3 ) # At your skill level, you can only lore tamed creatures
+			return
 
 	if target.char.totame < 1100 and not target.char.tamed:
-	    if char.skill[ ANIMALLORE ] < 1000:
-	        char.socket.clilocmessage( 0x10044A, "", 0x3b2, 3 ) # At your skill level, you can only lore tamed creatures.
-	        return
-	    
+		if char.skill[ ANIMALLORE ] < 1000:
+			char.socket.clilocmessage( 0x10044A, "", 0x3b2, 3 ) # At your skill level, you can only lore tamed creatures.
+			return
+		
 	if not char.checkskill( ANIMALLORE, 0, 1000 ):
-	    char.socket.clilocmessage( 0x7A26E, "", 0x3b2, 3 ) # You can't think of anything you know offhand.
-	    return
-	    
+		char.socket.clilocmessage( 0x7A26E, "", 0x3b2, 3 ) # You can't think of anything you know offhand.
+		return
+		
 	sendGump( char, args, target )
 
 def sendGump( char, args, target ):
@@ -141,9 +141,9 @@ def sendGump( char, args, target ):
 	loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0xFEE7A, 0, 0, 16000229 ) # Poisoning
 
 	if char.poison > 0:
-	    loreGump.addHtmlGump( 280, 240, 75, 18, "<div align=right>%.1f</div>" %( target.char.skill[ POISONGING ] / 10.0 ), 0, 0 )
+		loreGump.addHtmlGump( 280, 240, 75, 18, "<div align=right>%.1f</div>" %( target.char.skill[ POISONGING ] / 10.0 ), 0, 0 )
 	else:
-	    loreGump.addHtmlGump( 280, 240, 75, 18, "<div align=right>--</div>", 0, 0 )
+		loreGump.addHtmlGump( 280, 240, 75, 18, "<div align=right>--</div>", 0, 0 )
 
 	loreGump.addGump( 128, 260, 2086 )
 	loreGump.addXmfHtmlGump( 147, 256, 160, 18, 0x2DCAC8, 0, 0, 200 ) # Lore and Knowledge
@@ -175,17 +175,17 @@ def sendGump( char, args, target ):
 	
 	loreGump.addXmfHtmlGump( 147, 150, 160, 18, 0x1003DB, 0, 0, 200 ) # Preferred Foods
 	if target.char.food == 1 or target.char.food == 8:
-	    loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DC, 0, 0, 16000229 ) # Meat
+		loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DC, 0, 0, 16000229 ) # Meat
 	elif target.char.food == 2 or target.char.food == 9:
-	    loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003E0, 0, 0, 16000229 ) # Fish
+		loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003E0, 0, 0, 16000229 ) # Fish
 	elif target.char.food == 4 or target.char.food == 5:
-	    loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DD, 0, 0, 16000229 ) # Fruits and Vegetables
+		loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DD, 0, 0, 16000229 ) # Fruits and Vegetables
 	elif target.char.food == 6 or target.char.food == 7:
-	    loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DE, 0, 0, 16000229 ) # Grains and Hay
+		loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DE, 0, 0, 16000229 ) # Grains and Hay
 	elif target.food == 13:
-	    loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DF, 0, 0, 16000229 ) # Metal
+		loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DF, 0, 0, 16000229 ) # Metal
 	else:
-	    loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0xF6D6B, 0, 0, 16000229 ) # None
+		loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0xF6D6B, 0, 0, 16000229 ) # None
 
 	loreGump.addGump( 128, 188, 2086 )
 
@@ -197,22 +197,22 @@ def sendGump( char, args, target ):
 	loreGump.addXmfHtmlGump( 147, 222, 160, 18, 0x1003FA, 0, 0, 200 ) # Loyalty
 	
 	if not target.char.tamed:
-	    loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0xF6D6B, 0, 0, 16000229 ) # None
+		loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0xF6D6B, 0, 0, 16000229 ) # None
 	else:
-	    if target.char.hunger == 6:
-	        loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x100405, 0, 0, 16000229 ) # Wonderfully happy
-	    elif target.char.hunger == 5:
-	        loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x100403, 0, 0, 16000229 ) # Very Happy
-	    elif target.char.hunger == 4:
-	        loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x100402, 0, 0, 16000229 ) # Rather Happy
-	    elif target.char.hunger == 3:
-	        loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x100400, 0, 0, 16000229 ) # Content
-	    elif target.char.hunger == 2:
-	        loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x1003FE, 0, 0, 16000229 ) # Unhappy
-	    elif target.char.hunger == 1:
-	        loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x1003FD, 0, 0, 16000229 ) # Rather Unhappy
-	    elif target.char.hunger == 0:
-	        loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x1003FC, 0, 0, 16000229 ) # Extremely Unhappy
+		if target.char.hunger == 6:
+			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x100405, 0, 0, 16000229 ) # Wonderfully happy
+		elif target.char.hunger == 5:
+			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x100403, 0, 0, 16000229 ) # Very Happy
+		elif target.char.hunger == 4:
+			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x100402, 0, 0, 16000229 ) # Rather Happy
+		elif target.char.hunger == 3:
+			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x100400, 0, 0, 16000229 ) # Content
+		elif target.char.hunger == 2:
+			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x1003FE, 0, 0, 16000229 ) # Unhappy
+		elif target.char.hunger == 1:
+			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x1003FD, 0, 0, 16000229 ) # Rather Unhappy
+		elif target.char.hunger == 0:
+			loreGump.addXmfHtmlGump( 153, 240, 160, 18, 0x1003FC, 0, 0, 16000229 ) # Extremely Unhappy
 	
 	loreGump.setArgs( [target] )
 	loreGump.setType( 0x10101010 )

@@ -25,8 +25,8 @@ def onUse( char, item ):
 def response( char, args, target ):
 	direction = char.directionto( target.pos )
 	if not char.direction == direction:
-	    char.direction = direction
-	    char.update()
+		char.direction = direction
+		char.update()
 	item = wolfpack.finditem( args[0] )
 	
 	if ( ( char.pos.x-target.pos.x )**2 + ( char.pos.y-target.pos.y )**2 > 4):

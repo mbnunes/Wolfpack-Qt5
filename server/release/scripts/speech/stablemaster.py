@@ -331,7 +331,7 @@ def gump_callback( char, args, response ):
 		if char.countresource( 0xeed, 0 ) < count:
 			vendor.say( "You don't have enoug gold!",5 )
 			return
- 		char.useresource( count, 0xeed, 0 )
+		char.useresource( count, 0xeed, 0 )
 		char.soundeffect( 0x37, 0 )
 		vendor.say( "That is %i gold." % count,5 )
 		pos = char.pos

@@ -60,7 +60,6 @@ def onUse ( char, item ):
 	char.socket.sendcontainer( bank )
 	char.socket.clilocmessage( 0xFF9F7, "", 0x3b2, 3 )
 	return 1
-        
 
 def response ( char, args, target ):
 

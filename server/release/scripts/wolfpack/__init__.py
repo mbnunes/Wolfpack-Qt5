@@ -56,10 +56,10 @@ def map( x, y, map ):
 		return _wolfpack.map( x, y, map )
 
 def hasmap( map ):
-    if not type( map ) is IntType:
-        raise TypeError, "map needs to be integer value"
-    else:
-        return _wolfpack.hasmap( map )
+	if not type( map ) is IntType:
+		raise TypeError, "map needs to be integer value"
+	else:
+		return _wolfpack.hasmap( map )
 	
 def statics( x, y, map, exact=1 ):
 	if not type( x ) is IntType or not type( y ) is IntType or not type( map ) is IntType or not type( exact ) is IntType:

@@ -10,14 +10,14 @@ from random import randrange, choice
 
 # Define prizes here
 # Format: <message>, <item-def>
-prizes	=	( ( "Single bars, you are a winner!",     "slot_prize_1" ),
-			 ( "Double bars, you are a winner!",     "slot_prize_2" ),
-    		 ( "Triple bars, you are a winner!",     "slot_prize_3" ),
-			 ( "Any three 7`s, you are a winner!",   "slot_prize_4" ),
-			 ( "Three blue 7`s, you are a winner!",  "slot_prize_5" ),
-			 ( "Three white 7`s, you are a winner!", "slot_prize_6" ),
-			 ( "Three red 7`s, you are a winner!",   "slot_prize_7" ),
-			 ( "Jackpot, you are a winner!",         "slot_prize_8" ) )
+prizes	=	(	( "Single bars, you are a winner!",     "slot_prize_1" ),
+			( "Double bars, you are a winner!",     "slot_prize_2" ),
+			( "Triple bars, you are a winner!",     "slot_prize_3" ),
+			( "Any three 7`s, you are a winner!",   "slot_prize_4" ),
+			( "Three blue 7`s, you are a winner!",  "slot_prize_5" ),
+			( "Three white 7`s, you are a winner!", "slot_prize_6" ),
+			( "Three red 7`s, you are a winner!",   "slot_prize_7" ),
+			( "Jackpot, you are a winner!",         "slot_prize_8" ) )
 
 def onUse( char, item ):
 	if( char.dead ):
@@ -51,10 +51,10 @@ def onUse( char, item ):
 		item = wolfpack.additem( prize[1] )
 		item.container = char.getbackpack()
 		item.update()
-	    
+
 		# Play a soundeffect
 		char.soundeffect( 0x38 )
-	    
+
 	# We Lost	    
 	else:
 		char.message( "You lost! Insert coins to try again." )

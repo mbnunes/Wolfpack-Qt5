@@ -55,8 +55,8 @@ def response( char, args, target ):
 			return
 
 	# set skill delay
- 	cur_time = servertime()
- 	char.settag( 'skill_delay', cur_time + TASTEID_DELAY )
+	cur_time = servertime()
+	char.settag( 'skill_delay', cur_time + TASTEID_DELAY )
 
 	char.socket.clilocmessage( 502814, "", 0x3b2, 3 )
 

@@ -49,10 +49,10 @@ def onShowTooltip( sender, target, tooltip ):
 		
 		elif isshield( target ):
 			shield( target, tooltip )
-					 
+
 		elif isweapon( target ):
 			weapon( target, tooltip )
-									 
+
 		else:
 			if target.name == '#' or target.name == '':
 				labelname = '#' + str(0xf9060 + target.id)

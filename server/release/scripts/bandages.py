@@ -168,7 +168,7 @@ def bandage_timer( char, args ):
 	resurrect = args[0]
 	success = args[1]
 	baseid = args[3]
-    
+
 	# Corpse Target	
 	if resurrect:
 		target = wolfpack.finditem( args[2] )
@@ -176,11 +176,11 @@ def bandage_timer( char, args ):
 		owner = target.owner
 		
 		if not validCorpseTarget( char, target ):
-		    return
+			return
 		
 		if not success:
-		    char.message( 'You fail to resurrect the target.' )
-		    return
+			char.message( 'You fail to resurrect the target.' )
+			return
 				
 		if target.owner:
 			target.owner.moveto( target.pos )
@@ -200,22 +200,22 @@ def bandage_timer( char, args ):
 			
 			char.message( 'You successfully resurrect ' + owner.name )
 		else:
-		    char.message( 'You can''t help them anymore' )
-        
-    # Character Target
+			char.message( 'You can''t help them anymore' )
+
+	# Character Target
 	else:
 		target = wolfpack.findchar( args[2] )
-    	
+
 		if not validCharTarget( char, target ):
 			return      
-            
+
 		if not success:
 			if target != char:
 				char.message( 'You fail applying bandages to %s.' % target.name )
 			else:
 				char.message( 'You fail applying bandages to yourself.' )
 			return
-            
+
 		# Human target ?
 		if target.id == 0x190 or target.id == 0x191:
 			firstskill = HEALING

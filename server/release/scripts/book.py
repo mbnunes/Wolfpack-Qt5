@@ -90,34 +90,34 @@ def onBookRequestPage( char, item, page ):
 
 # Request Update
 def onBookUpdatePage(char, item, page, content):
-  if item.hastag('protected'):
-  	char.message('This book is read only.')
-  	return
-  
-  if item.hastag( 'pages' ):
-  	pages = int(item.gettag('pages'))
-  else:
-  	pages = 64
-  	
-  if page > pages or page < 1:
-  	return
-  
-  if not content or len(content.strip()) == 0:
-  	item.deltag('page%u' % page)
-  	return
-  	
-  item.settag( 'page%u' % page, content )
-  item.resendtooltip()
+	if item.hastag('protected'):
+		char.message('This book is read only.')
+		return
+	
+	if item.hastag( 'pages' ):
+		pages = int(item.gettag('pages'))
+	else:
+		pages = 64
 		
+	if page > pages or page < 1:
+		return
+	
+	if not content or len(content.strip()) == 0:
+		item.deltag('page%u' % page)
+		return
+		
+	item.settag( 'page%u' % page, content )
+	item.resendtooltip()
+
 def onBookUpdateInfo(char, item, title, author):
-  if item.hastag( 'protected' ):
-    char.message( 'This book is read only.' )
-    return
-  
-  if len(author) == 0:
-    item.deltag('author')
-  else:
-    item.settag('author', author)
-  
-  item.name = title
-  item.resendtooltip()
+	if item.hastag( 'protected' ):
+		char.message( 'This book is read only.' )
+		return
+
+	if len(author) == 0:
+		item.deltag('author')
+	else:
+		item.settag('author', author)
+
+	item.name = title
+	item.resendtooltip()
