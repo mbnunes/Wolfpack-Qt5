@@ -59,10 +59,10 @@ void cSpawnRegion::Init( void )
 	itemSections_ = QStringList();
 	maxNpcAmt_ = 0;
 	maxItemAmt_ = 0;
-	npcsPerCycle_ = 0;
-	itemsPerCycle_ = 0;
+	npcsPerCycle_ = 1;
+	itemsPerCycle_ = 1;
 	minTime_ = 0;
-	maxTime_ = 0;
+	maxTime_ = 600;
 	nextTime_ = 0;
 	x1_ = 0;
 	x2_ = 0;
