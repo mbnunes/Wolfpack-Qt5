@@ -196,9 +196,7 @@ def foundation( char, target, width, height, multiid ):
    newpos.y += 1
    signpost.moveto( newpos )
    sign.moveto( newpos )
-   sign.morex = multi.serial
-   sign.morey = signpost.serial
-   #sign.morez = woodenpost.serial
+   sign.settag( 'house', multi.serial )
    sign.events = ["signpost"]
    #woodenpost.update()
    signpost.update()

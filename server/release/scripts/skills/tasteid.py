@@ -71,11 +71,6 @@ def response( char, args, target ):
 		else:
 			#char.socket.clilocmessage( 502821, "", 0x3b2, 3, item )
 			# poison potion/keg
-			if item.more1 in range( 5, 9 ):
-				char.socket.clilocmessage( 502822, "", 0x3b2, 3, item )
-				# poison level
-				if char.poisoned < ( item.more1 - 4 ):
-					char.poisoned = item.more1 - 4
 		return
 	
 	# TODO : more specific checkskill result is needed

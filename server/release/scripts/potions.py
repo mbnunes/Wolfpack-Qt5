@@ -68,7 +68,7 @@ def healPotion( char, potion ):
 		return
 
 	amount = 0
-	pType = potion.more1
+	pType = int( potion.gettag( "type" ) )
 	
 	# Lesser Heal
 	if pType == 1:
@@ -100,7 +100,7 @@ def agilityPotion( char, potion ):
 		return
 
 	amount = 0
-	pType = potion.more1
+	pType = int( potion.gettag( "type" ) )
 	
 	# Agility
 	if pType == 9:
@@ -126,7 +126,7 @@ def strengthPotion( char, potion ):
 		return
 
 	amount = 0
-	pType = potion.more1
+	pType = int( potion.gettag( "type" ) )
 	
 	# Strength
 	if pType == 11:
@@ -171,11 +171,8 @@ def onUse( char, item ):
 		char.message( "This potion needs to be in your belongings to use it." )
 		return 1
 
-	pType = item.more1
-
-	if not potions.has_key( pType ):
-		char.socket.sysmessage( "This potion has an unknown type: %u" % pType )
-		return 1
+	if not potions.has_key( int( item.gettag( "type" ) ) ):
+		return 0
 	
 	potions[ pType ]( char, item )
 	return 1

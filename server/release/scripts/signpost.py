@@ -286,7 +286,10 @@ def gump4( char, callback, item ):
    mygump.send( char )   
 
 def customize( char, item ):
-   multi = wolfpack.findmulti( item.morex )
+   if not item.hastag( 'house' ):
+   	return
+
+   multi = wolfpack.findmulti( int( item.gettag( 'house' ) ) )
    multi.sendcustomhouse( char )
    #char.socket.sysmessage( "Multi serial : %i" % multi.serial )
    char.moveto( wolfpack.coord( multi.pos.x, multi.pos.y, multi.pos.z+7, multi.pos.map ) )

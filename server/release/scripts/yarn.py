@@ -54,11 +54,17 @@ def response( char, args, target ):
 		char.action( 0x10 )
 		char.soundeffect( 0x48 )
 	
-		if ( target.item.more1 < 5 ):
-			target.item.more1 = target.item.more1 + 1
-
+		if target.item.hastag( 'amount' ):
+			amount = int( target.item.gettag( 'amount' ) )
+			
+			if amount < 5:
+				target.item.settag( 'amount', amount + 1 )
+		
 		else:
-			target.item.more1 = 0
+			target.item.delete()
+	
+		else:
+			target.item.settag( 'amount', 0 )
 			item_new = wolfpack.additem( "f9a" )
 			if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 				item_new.update()

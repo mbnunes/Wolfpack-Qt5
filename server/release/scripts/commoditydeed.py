@@ -12,7 +12,7 @@ import re
 
 def onShowToolTip( sender, target, tooltip ):
 	
-	if target.morex == 1:
+	if target.gettag( 'filled' ) == 1:
 		filled( target, tooltip )
 	else:
 		unfilled( target, tooltip)
@@ -95,7 +95,7 @@ def response ( char, args, target ):
 	deed.settag( "commodity", commodity )
 	deed.settag( "color", color )
 	deed.settag( "amount", amount )
-	deed.morex = 1
+	deed.settag( "filled", 1 )
 	target.item.delete()
 	char.socket.clilocmessage( 0xFF9F0, "", 0x3b2, 3 )
 	deed.update()
