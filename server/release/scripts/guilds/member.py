@@ -12,7 +12,9 @@ def onLogin(player):
     for i in range(0, count):
       name = 'guildmessage' + str(i)
       text = unicode(player.gettag(name))
-      player.socket.sysmessage(text)
+      player.socket.sysmessage(text, 0x3A)
+      player.deltag(name)
+    player.deltag('guildmessages')
 
   # Make sure that this event is removed as soon as we don't are in a guild anymore
   if not player.guild:
