@@ -43,7 +43,7 @@ def giveAmmo( char, item ):
 	
 		char.message( arrowCount )
 		arrow = wolfpack.additem( "f3f" )
-		arrow.container = char.backpack
+		arrow.container = char.getbackpack()
 		arrow.amount = arrowCount
 		arrow.update()
 
@@ -55,7 +55,7 @@ def giveAmmo( char, item ):
 		
 		char.message( message )			
 		bolt = wolfpack.additem( "1bfb" )
-		bolt.container = char.backpack
+		bolt.container = char.getbackpack()
 		bolt.amount = boltCount
 		bolt.update()		
 

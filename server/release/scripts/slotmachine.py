@@ -49,7 +49,7 @@ def onUse( char, item ):
 		char.message( prize[0] )
 		
 		item = wolfpack.additem( prize[1] )
-		item.container = char.backpack
+		item.container = char.getbackpack()
 		item.update()
 	    
 		# Play a soundeffect
