@@ -10,6 +10,7 @@
 
 	<item id="e78">
 		<id>0xe78</id>
+		<type>1</type>
 		<category>Equipment\Containers\Basin</category>
 	</item>
 
@@ -33,6 +34,11 @@
 	<item id="e83">
 		<id>0xe83</id>
 		<category>Equipment\Containers\Empty Tub</category>
+		<type>1</type>
+	</item>
+
+	<item id="e84">
+		<id>0xe83</id>
 		<type>1</type>
 	</item>
 

@@ -80,6 +80,20 @@
 		<lightsource>2</lightsource>
 	</item>
 
+	<item id="a08">
+		<id>0xa08</id>
+		<nodecay />
+		<events>lightsource</events>
+		<lightsource>2</lightsource>
+	</item>
+
+	<item id="a09">
+		<id>0xa09</id>
+		<nodecay />
+		<events>lightsource</events>
+		<lightsource>2</lightsource>
+	</item>
+
 	<item id="a0a">
 		<id>0xa0a</id>
 		<nodecay />
@@ -104,6 +118,21 @@
 		<lightsource>2</lightsource>
 	</item>
 
+	<item id="a0d">
+		<id>0xa0d</id>
+		<nodecay />
+		<events>lightsource</events>
+		<lightsource>2</lightsource>
+	</item>
+
+	<item id="a0e">
+		<id>0xa0e</id>
+		<nodecay />
+		<events>lightsource</events>
+		<lightsource>2</lightsource>
+	</item>
+
+
 	<item id="a18">
 		<id>0xa18</id>
 		<nodecay />
@@ -120,6 +149,20 @@
 		<lightsource>2</lightsource>
 	</item>
 
+	<item id="a16">
+		<id>0xa16</id>
+		<nodecay />
+		<events>lightsource</events>
+		<lightsource>2</lightsource>
+	</item>
+
+	<item id="a17">
+		<id>0xa17</id>
+		<nodecay />
+		<events>lightsource</events>
+		<lightsource>2</lightsource>
+	</item>
+
 	<item id="a1d">
 		<id>0xa1d</id>
 		<nodecay />
@@ -133,6 +176,20 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Hanging Lantern 2 (On)</category>
+		<lightsource>2</lightsource>
+	</item>
+
+	<item id="a1b">
+		<id>0xa1b</id>
+		<nodecay />
+		<events>lightsource</events>
+		<lightsource>2</lightsource>
+	</item>
+
+	<item id="a1c">
+		<id>0xa1c</id>
+		<nodecay />
+		<events>lightsource</events>
 		<lightsource>2</lightsource>
 	</item>
 
@@ -180,6 +237,18 @@
 		<lightsource>2</lightsource>
 	</item>
 
+	<item id="a10">
+		<id>0xa10</id>
+		<nodecay />
+		<lightsource>2</lightsource>
+	</item>
+
+	<item id="a11">
+		<id>0xa11</id>
+		<nodecay />
+		<lightsource>2</lightsource>
+	</item>
+
 	<item id="a26">
 		<id>0xa26</id>
 		<nodecay />
@@ -193,6 +262,20 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Candle 2 (On)</category>
+		<lightsource>2</lightsource>
+	</item>
+
+	<item id="b1b">
+		<id>0xb1b</id>
+		<nodecay />
+		<events>lightsource</events>
+		<lightsource>2</lightsource>
+	</item>
+
+	<item id="b1c">
+		<id>0xb1c</id>
+		<nodecay />
+		<events>lightsource</events>
 		<lightsource>2</lightsource>
 	</item>
 
@@ -210,6 +293,22 @@
 		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Small Candelabra (On)</category>
+		<lightsource>1</lightsource>
+		<weight>3.0</weight>
+	</item>
+
+	<item id="b1e">
+		<id>0xb1e</id>
+		<nodecay />
+		<events>lightsource</events>
+		<lightsource>1</lightsource>
+		<weight>3.0</weight>
+	</item>
+
+	<item id="b1f">
+		<id>0xb1f</id>
+		<nodecay />
+		<events>lightsource</events>
 		<lightsource>1</lightsource>
 		<weight>3.0</weight>
 	</item>
@@ -290,6 +389,16 @@
 		<category>Decoration\Lightsources\Brazier 1</category>
 	</item>
 
+	<item id="e32">
+		<id>0xe32</id>
+		<nodecay />
+	</item>
+
+	<item id="e33">
+		<id>0xe33</id>
+		<nodecay />
+	</item>
+
 	<item id="19aa">
 		<id>0x19aa</id>
 		<nodecay />
@@ -366,19 +475,43 @@
 	<item id="1854">
 		<id>0x1854</id>
 		<nodecay />
-		<category>Decoration\Lightsources\Skullcandle (W/E) (On)</category>
+		<category>Decoration\Lightsources\Skullcandle 1 (W/E) (On)</category>
+	</item>
+
+	<item id="1855">
+		<id>0x1855</id>
+		<nodecay />
+		<category>Decoration\Lightsources\Skullcandle 2 (W/E) (On)</category>
+	</item>
+
+	<item id="1856">
+		<id>0x1856</id>
+		<nodecay />
+		<category>Decoration\Lightsources\Skullcandle 3 (W/E) (On)</category>
 	</item>
 
 	<item id="1857">
 		<id>0x1857</id>
 		<nodecay />
-		<category>Decoration\Lightsources\Skullcandle (N/S) (Off)</category>
+		<category>Decoration\Lightsources\Skullcandle 1 (N/S) (Off)</category>
 	</item>
 
 	<item id="1858">
 		<id>0x1858</id>
 		<nodecay />
-		<category>Decoration\Lightsources\Skullcandle (N/S) (On)</category>
+		<category>Decoration\Lightsources\Skullcandle 1 (N/S) (On)</category>
+	</item>
+
+	<item id="1859">
+		<id>0x1859</id>
+		<nodecay />
+		<category>Decoration\Lightsources\Skullcandle 2 (N/S) (On)</category>
+	</item>
+
+	<item id="185a">
+		<id>0x185a</id>
+		<nodecay />
+		<category>Decoration\Lightsources\Skullcandle 3 (N/S) (On)</category>
 	</item>
 
 	<!-- Torches -->
@@ -386,6 +519,16 @@
 		<id>0xa12</id>
 		<nodecay />
 		<category>Decoration\Lightsources\Torch (On)</category>
+	</item>
+
+	<item id="a13">
+		<id>0xa13</id>
+		<nodecay />
+	</item>
+
+	<item id="a14">
+		<id>0xa14</id>
+		<nodecay />
 	</item>
 
 	<item id="f64">

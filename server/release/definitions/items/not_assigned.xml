@@ -370,6 +370,26 @@
 		<id>0x1feb</id>
 	</item>
 
+	<item id="f6c">
+		<id>f6c</id>
+	</item>
+
+	<item id="f6d">
+		<id>f6d</id>
+	</item>
+
+	<item id="f6e">
+		<id>f6e</id>
+	</item>
+
+	<item id="f6f">
+		<id>f6f</id>
+	</item>
+
+	<item id="f70">
+		<id>f70</id>
+	</item>
+
 	<!-- Rather stupid Switchs because there is no not-animated tile -->
 	<item id="1ed3">
 		<id>0x1ed3</id>

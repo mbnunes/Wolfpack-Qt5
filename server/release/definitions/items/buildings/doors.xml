@@ -124,12 +124,24 @@
 		<category>Buildings\Doors\Barred Metal Door 1\Barred Metal Door 1 (W/NW)</category>
 	</item>
 
+	<item id="694">
+		<id>0x694</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<!-- Rattan Door -->
 	<item id="695">
 		<id>0x695</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Rattan Door\Rattan Door (S/SW)</category>
+	</item>
+
+	<item id="696">
+		<id>0x696</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<item id="697">
@@ -139,11 +151,23 @@
 		<category>Buildings\Doors\Rattan Door\Rattan Door (S/SE)</category>
 	</item>
 
+	<item id="698">
+		<id>0x698</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="699">
 		<id>0x699</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Rattan Door\Rattan Door (S/NW)</category>
+	</item>
+
+	<item id="69a">
+		<id>0x69a</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<item id="69b">
@@ -153,11 +177,23 @@
 		<category>Buildings\Doors\Rattan Door\Rattan Door (S/NE)</category>
 	</item>
 
+	<item id="69c">
+		<id>0x69c</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="69d">
 		<id>0x69d</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Rattan Door\Rattan Door (W/SE)</category>
+	</item>
+
+	<item id="69e">
+		<id>0x69e</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<item id="69f">
@@ -167,6 +203,12 @@
 		<category>Buildings\Doors\Rattan Door\Rattan Door (W/NE)</category>
 	</item>
 
+	<item id="6a0">
+		<id>0x6a0</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="6a1">
 		<id>0x6a1</id>
 		<nodecay />
@@ -174,11 +216,23 @@
 		<category>Buildings\Doors\Rattan Door\Rattan Door (W/SW)</category>
 	</item>
 
+	<item id="6a2">
+		<id>0x6a2</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="6a3">
 		<id>0x6a3</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Rattan Door\Rattan Door (W/NW)</category>
+	</item>
+
+	<item id="6a4">
+		<id>0x6a4</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<!-- Wooden Door 1 -->
@@ -189,11 +243,23 @@
 		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (S/SW)</category>
 	</item>
 
+	<item id="6a6">
+		<id>0x6a6</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="6a7">
 		<id>0x6a7</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (S/SE)</category>
+	</item>
+
+	<item id="6a8">
+		<id>0x6a8</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<item id="6a9">
@@ -203,11 +269,23 @@
 		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (S/NW)</category>
 	</item>
 
+	<item id="6aa">
+		<id>0x6aa</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="6ab">
 		<id>0x6ab</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (S/NE)</category>
+	</item>
+
+	<item id="6ac">
+		<id>0x6ac</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<item id="6ad">
@@ -217,11 +295,23 @@
 		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (W/SE)</category>
 	</item>
 
+	<item id="6ae">
+		<id>0x6ae</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="6af">
 		<id>0x6af</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (W/NE)</category>
+	</item>
+
+	<item id="6b0">
+		<id>0x6b0</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<item id="6b1">
@@ -231,11 +321,23 @@
 		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (W/SW)</category>
 	</item>
 
+	<item id="6b2">
+		<id>0x6b2</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="6b3">
 		<id>0x6b3</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (W/NW)</category>
+	</item>
+
+	<item id="6b4">
+		<id>0x6b4</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<!-- Wooden Door 2 -->
@@ -246,11 +348,23 @@
 		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (S/SW)</category>
 	</item>
 
+	<item id="6b6">
+		<id>0x6b6</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="6b7">
 		<id>0x6b7</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (S/SE)</category>
+	</item>
+
+	<item id="6b8">
+		<id>0x6b8</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<item id="6b9">
@@ -260,11 +374,23 @@
 		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (S/NW)</category>
 	</item>
 
+	<item id="6ba">
+		<id>0x6ba</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="6bb">
 		<id>0x6bb</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (S/NE)</category>
+	</item>
+
+	<item id="6bc">
+		<id>0x6bc</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<item id="6bd">
@@ -274,11 +400,23 @@
 		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (W/SE)</category>
 	</item>
 
+	<item id="6be">
+		<id>0x6be</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="6bf">
 		<id>0x6bf</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (W/NE)</category>
+	</item>
+
+	<item id="6c0">
+		<id>0x6c0</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<item id="6c1">
@@ -288,11 +426,23 @@
 		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (W/SW)</category>
 	</item>
 
+	<item id="6c2">
+		<id>0x6c2</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="6c3">
 		<id>0x6c3</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (W/NW)</category>
+	</item>
+
+	<item id="6c4">
+		<id>0x6c4</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<!-- Metal Door 2 -->
@@ -303,11 +453,23 @@
 		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (S/SW)</category>
 	</item>
 
+	<item id="6c6">
+		<id>0x6c6</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="6c7">
 		<id>0x6c7</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (S/SE)</category>
+	</item>
+
+	<item id="6c8">
+		<id>0x6c8</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<item id="6c9">
@@ -317,11 +479,23 @@
 		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (S/NW)</category>
 	</item>
 
+	<item id="6ca">
+		<id>0x6ca</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="6cb">
 		<id>0x6cb</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (S/NE)</category>
+	</item>
+
+	<item id="6cc">
+		<id>0x6cc</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<item id="6cd">
@@ -331,11 +505,23 @@
 		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (W/SE)</category>
 	</item>
 
+	<item id="6ce">
+		<id>0x6ce</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="6cf">
 		<id>0x6cf</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (W/NE)</category>
+	</item>
+
+	<item id="6d0">
+		<id>0x6d0</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<item id="6d1">
@@ -345,11 +531,23 @@
 		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (W/SW)</category>
 	</item>
 
+	<item id="6d2">
+		<id>0x6d2</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="6d3">
 		<id>0x6d3</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (W/NW)</category>
+	</item>
+
+	<item id="6d4">
+		<id>0x6d4</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<!-- Wooden Door 3 -->
@@ -360,11 +558,23 @@
 		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (S/SW)</category>
 	</item>
 
+	<item id="6d6">
+		<id>0x6d6</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="6d7">
 		<id>0x6d7</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (S/SE)</category>
+	</item>
+
+	<item id="6d8">
+		<id>0x6d8</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<item id="6d9">
@@ -374,11 +584,23 @@
 		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (S/NW)</category>
 	</item>
 
+	<item id="6da">
+		<id>0x6da</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="6db">
 		<id>0x6db</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (S/NE)</category>
+	</item>
+
+	<item id="6dc">
+		<id>0x6dc</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<item id="6dd">
@@ -388,11 +610,23 @@
 		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (W/SE)</category>
 	</item>
 
+	<item id="6de">
+		<id>0x6de</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="6df">
 		<id>0x6df</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (W/NE)</category>
+	</item>
+
+	<item id="6e0">
+		<id>0x6e0</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<item id="6e1">
@@ -402,11 +636,23 @@
 		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (W/SW)</category>
 	</item>
 
+	<item id="6e2">
+		<id>0x6e2</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="6e3">
 		<id>0x6e3</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (W/NW)</category>
+	</item>
+
+	<item id="6e4">
+		<id>0x6e4</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<!-- Wooden Door 4 -->
@@ -417,11 +663,23 @@
 		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (S/SW)</category>
 	</item>
 
+	<item id="6e6">
+		<id>0x6e6</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="6e7">
 		<id>0x6e7</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (S/SE)</category>
+	</item>
+
+	<item id="6e8">
+		<id>0x6e8</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<item id="6e9">
@@ -431,11 +689,23 @@
 		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (S/NW)</category>
 	</item>
 
+	<item id="6ea">
+		<id>0x6ea</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="6eb">
 		<id>0x6eb</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (S/NE)</category>
+	</item>
+
+	<item id="6ec">
+		<id>0x6ec</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<item id="6ed">
@@ -445,11 +715,23 @@
 		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (W/SE)</category>
 	</item>
 
+	<item id="6ee">
+		<id>0x6ee</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="6ef">
 		<id>0x6ef</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (W/NE)</category>
+	</item>
+
+	<item id="6f0">
+		<id>0x6f0</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<item id="6f1">
@@ -459,11 +741,23 @@
 		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (W/SW)</category>
 	</item>
 
+	<item id="6f2">
+		<id>0x6f2</id>
+		<nodecay />
+		<events>door</events>
+	</item>
+
 	<item id="6f3">
 		<id>0x6f3</id>
 		<nodecay />
 		<events>door</events>
 		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (W/NW)</category>
+	</item>
+
+	<item id="6f4">
+		<id>0x6f4</id>
+		<nodecay />
+		<events>door</events>
 	</item>
 
 	<!-- Portcullis -->

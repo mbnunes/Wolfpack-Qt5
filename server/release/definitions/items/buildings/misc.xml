@@ -677,10 +677,30 @@
 		<category>Decoration\Glowing Runes\Rune 1</category>
 	</item>
 
+	<item id="e5d">
+		<id>0xe5d</id>
+		<nodecay />
+	</item>
+
+	<item id="e5e">
+		<id>0xe5e</id>
+		<nodecay />
+	</item>
+
 	<item id="e5f">
 		<id>0xe5f</id>
 		nodecay />
 		<category>Decoration\Glowing Runes\Rune 2</category>
+	</item>
+
+	<item id="e60">
+		<id>0xe60</id>
+		<nodecay />
+	</item>
+
+	<item id="e61">
+		<id>0xe61</id>
+		<nodecay />
 	</item>
 
 	<item id="e62">
@@ -689,16 +709,46 @@
 		<category>Decoration\Glowing Runes\Rune 3</category>
 	</item>
 
+	<item id="e63">
+		<id>0xe63</id>
+		<nodecay />
+	</item>
+
+	<item id="e64">
+		<id>0xe64</id>
+		<nodecay />
+	</item>
+
 	<item id="e65">
 		<id>0xe65</id>
 		<nodecay />
 		<category>Decoration\Glowing Runes\Rune 4</category>
 	</item>
 
+	<item id="e66">
+		<id>0xe66</id>
+		<nodecay />
+	</item>
+
+	<item id="e67">
+		<id>0xe67</id>
+		<nodecay />
+	</item>
+
 	<item id="e68">
 		<id>0xe68</id>
 		<nodecay />
 		<category>Decoration\Glowing Runes\Rune 5</category>
+	</item>
+
+	<item id="e69">
+		<id>0xe69</id>
+		<nodecay />
+	</item>
+
+	<item id="e6a">
+		<id>0xe6a</id>
+		<nodecay />
 	</item>
 
 	<!-- Wall Cracks -->

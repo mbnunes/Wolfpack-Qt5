@@ -22,6 +22,20 @@
 		<category>Holiday\Snowman (E/W)</category>
 	</item>
 
+	<!-- Poinsettia 1 -->
+	<item id="2330">
+		<id>0x2330</id>
+		<nodecay />
+		<category>Holiday\Poinsettia, Red</category>
+	</item>
+
+	<!-- Poinsettia 2 -->
+	<item id="2331">
+		<id>0x2331</id>
+		<nodecay />
+		<category>Holiday\Poinsettia, White</category>
+	</item>
+
 	<!-- Gift Box 1 -->
 	<item id="232a">
 		<id>0x232a</id>

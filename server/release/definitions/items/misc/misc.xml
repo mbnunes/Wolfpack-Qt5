@@ -2139,4 +2139,26 @@
 		<category>Misc\Plant Growing\Plant Bowl</category>
 	</item>
 
+	<!-- Memorial -->
+	<item id="1185">
+		<id>0x1185</id>
+		<category>Misc\Memorials\Memorial to Gwenno</category>
+		<nodecay />
+	</item>
+
+	<item id="2311">
+		<id>0x2311</id>
+		<nodecay/>
+	</item>
+
+	<item id="2312">
+		<id>0x2312</id>
+		<nodecay/>
+	</item>
+
+	<item id="faa">
+		<id>0xfaa</id>
+		<category>Misc\Games\Mahjong Game</category>
+	</item>
+
 </definitions>

@@ -358,6 +358,10 @@
 		<category>Professions\Tailorer\Decoration\Spinning Wheel (N/S) (Animated)</category>
 	</item>
 
+	<item id="1017">
+		<id>0x1017</id>
+	</item>
+
 	<item id="1019">
 		<id>0x1019</id>
 		<category>Professions\Tailorer\Decoration\Spinning Wheel (W/E)</category>

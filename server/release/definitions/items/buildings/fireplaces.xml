@@ -278,6 +278,31 @@
 		<category>Decoration\Fireplaces &amp; Ovens\Stone Fireplace 2 (W/E) (1/2)</category>
 	</item>
 
+	<item id="954">
+		<id>0x954</id>
+		<nodecay />
+	</item>
+
+	<item id="955">
+		<id>0x955</id>
+		<nodecay />
+	</item>
+
+	<item id="956">
+		<id>0x956</id>
+		<nodecay />
+	</item>
+
+	<item id="957">
+		<id>0x957</id>
+		<nodecay />
+	</item>
+
+	<item id="958">
+		<id>0x958</id>
+		<nodecay />
+	</item>
+
 	<item id="959">
 		<id>0x959</id>
 		<nodecay />
@@ -346,6 +371,66 @@
 		<category>Decoration\Fireplaces &amp; Ovens\Home Hearth (E/W) (2/2)</category>
 	</item>
 
+	<item id="2352">
+		<id>0x2352</id>
+		<nodecay />
+	</item>
+
+	<item id="2353">
+		<id>0x2353</id>
+		<nodecay />
+	</item>
+
+	<item id="2354">
+		<id>0x2354</id>
+		<nodecay />
+	</item>
+
+	<item id="2355">
+		<id>0x2355</id>
+		<nodecay />
+	</item>
+
+	<item id="2356">
+		<id>0x2356</id>
+		<nodecay />
+	</item>
+
+	<item id="2357">
+		<id>0x2357</id>
+		<nodecay />
+	</item>
+
+	<item id="2358">
+		<id>0x2358</id>
+		<nodecay />
+	</item>
+
+	<item id="2359">
+		<id>0x2359</id>
+		<nodecay />
+	</item>
+
+	<item id="235a">
+		<id>0x235a</id>
+		<nodecay />
+	</item>
+
+	<item id="235b">
+		<id>0x235b</id>
+		<nodecay />
+	</item>
+
+	<item id="235c">
+		<id>0x235c</id>
+		<nodecay />
+	</item>
+
+	<item id="235d">
+		<id>0x235d</id>
+		<nodecay />
+	</item>
+
 	<item id="235e">
 		<id>0x235e</id>
 		<nodecay />
@@ -356,6 +441,66 @@
 		<id>0x235f</id>
 		<nodecay />
 		<category>Decoration\Fireplaces &amp; Ovens\Home Hearth (N/S) (2/2)</category>
+	</item>
+
+	<item id="2360">
+		<id>0x2360</id>
+		<nodecay />
+	</item>
+
+	<item id="2361">
+		<id>0x2361</id>
+		<nodecay />
+	</item>
+
+	<item id="2362">
+		<id>0x2362</id>
+		<nodecay />
+	</item>
+
+	<item id="2363">
+		<id>0x2363</id>
+		<nodecay />
+	</item>
+
+	<item id="2364">
+		<id>0x2364</id>
+		<nodecay />
+	</item>
+
+	<item id="2365">
+		<id>0x2365</id>
+		<nodecay />
+	</item>
+
+	<item id="2366">
+		<id>0x2366</id>
+		<nodecay />
+	</item>
+
+	<item id="2367">
+		<id>0x2367</id>
+		<nodecay />
+	</item>
+
+	<item id="2368">
+		<id>0x2368</id>
+		<nodecay />
+	</item>
+
+	<item id="2369">
+		<id>0x2369</id>
+		<nodecay />
+	</item>
+
+	<item id="236a">
+		<id>0x236a</id>
+		<nodecay />
+	</item>
+
+	<item id="236b">
+		<id>0x236b</id>
+		<nodecay />
 	</item>
 
 </definitions>

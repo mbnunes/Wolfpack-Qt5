@@ -199,7 +199,7 @@
 		<id>0x3996</id>
 		<category>Animations\Field of Fire (W/E)</category>
 		<nodecay />
-		<lightsource>30</direction>
+		<lightsource>30</lightsource>
 	</item>
 
 	<item id="1153">
@@ -304,6 +304,11 @@
 		<id>0x1f1f</id>
 		<nodecay />
 		<category>Animations\Rotating Head</category>
+	</item>
+
+	<item id="1813">
+		<id>1813</id>
+		<nodecay/>
 	</item>
 
 </definitions>

@@ -108,9 +108,33 @@
 		<category>Professions\Blacksmith\Forge (W/E) (1/3)</category>
 	</item>
 
+	<item id="197b" inherit="ITEM_NO_DECAY">
+		<id>0x197b</id>
+	</item>
+
+	<item id="197c" inherit="ITEM_NO_DECAY">
+		<id>0x197c</id>
+	</item>
+
+	<item id="197d" inherit="ITEM_NO_DECAY">
+		<id>0x197d</id>
+	</item>
+
 	<item id="197e" inherit="ITEM_NO_DECAY">
 		<id>0x197e</id>
 		<category>Professions\Blacksmith\Forge (W/E) (2/3)</category>
+	</item>
+
+	<item id="197f" inherit="ITEM_NO_DECAY">
+		<id>0x197f</id>
+	</item>
+
+	<item id="1980" inherit="ITEM_NO_DECAY">
+		<id>0x1980</id>
+	</item>
+
+	<item id="1981" inherit="ITEM_NO_DECAY">
+		<id>0x1981</id>
 	</item>
 
 	<item id="1982" inherit="ITEM_NO_DECAY">
@@ -118,9 +142,33 @@
 		<category>Professions\Blacksmith\Forge (W/E) (3/3)</category>
 	</item>
 
+	<item id="1983" inherit="ITEM_NO_DECAY">
+		<id>0x1983</id>
+	</item>
+
+	<item id="1984" inherit="ITEM_NO_DECAY">
+		<id>0x1984</id>
+	</item>
+
+	<item id="1985" inherit="ITEM_NO_DECAY">
+		<id>0x1985</id>
+	</item>
+
 	<item id="1986" inherit="ITEM_NO_DECAY">
 		<id>0x1986</id>
 		<category>Professions\Blacksmith\Forge (N/S) (1/3)</category>
+	</item>
+
+	<item id="1987" inherit="ITEM_NO_DECAY">
+		<id>0x1987</id>
+	</item>
+
+	<item id="1988" inherit="ITEM_NO_DECAY">
+		<id>0x1988</id>
+	</item>
+
+	<item id="1989" inherit="ITEM_NO_DECAY">
+		<id>0x1989</id>
 	</item>
 
 	<item id="198a" inherit="ITEM_NO_DECAY">
@@ -128,9 +176,33 @@
 		<category>Professions\Blacksmith\Forge (N/S) (2/3)</category>
 	</item>
 
+	<item id="198b" inherit="ITEM_NO_DECAY">
+		<id>0x198b</id>
+	</item>
+
+	<item id="198c" inherit="ITEM_NO_DECAY">
+		<id>0x198c</id>
+	</item>
+
+	<item id="198d" inherit="ITEM_NO_DECAY">
+		<id>0x198d</id>
+	</item>
+
 	<item id="198e" inherit="ITEM_NO_DECAY">
 		<id>0x198e</id>
 		<category>Professions\Blacksmith\Forge (N/S) (3/3)</category>
+	</item>
+
+	<item id="198f" inherit="ITEM_NO_DECAY">
+		<id>0x198f</id>
+	</item>
+
+	<item id="1990" inherit="ITEM_NO_DECAY">
+		<id>0x1990</id>
+	</item>
+
+	<item id="1991" inherit="ITEM_NO_DECAY">
+		<id>0x1991</id>
 	</item>
 
 	<item id="1992" inherit="ITEM_NO_DECAY">
@@ -138,9 +210,33 @@
 		<category>Professions\Blacksmith\Forge (S/N) (1/3)</category>
 	</item>
 
+	<item id="1993" inherit="ITEM_NO_DECAY">
+		<id>0x1993</id>
+	</item>
+
+	<item id="1994" inherit="ITEM_NO_DECAY">
+		<id>0x1994</id>
+	</item>
+
+	<item id="1995" inherit="ITEM_NO_DECAY">
+		<id>0x1995</id>
+	</item>
+
 	<item id="1996" inherit="ITEM_NO_DECAY">
 		<id>0x1996</id>
 		<category>Professions\Blacksmith\Forge (S/N) (2/3)</category>
+	</item>
+
+	<item id="1997" inherit="ITEM_NO_DECAY">
+		<id>0x1997</id>
+	</item>
+
+	<item id="1998" inherit="ITEM_NO_DECAY">
+		<id>0x1998</id>
+	</item>
+
+	<item id="1999" inherit="ITEM_NO_DECAY">
+		<id>0x1999</id>
 	</item>
 
 	<item id="199a" inherit="ITEM_NO_DECAY">
@@ -148,9 +244,33 @@
 		<category>Professions\Blacksmith\Forge (S/N) (3/3)</category>
 	</item>
 
+	<item id="199b" inherit="ITEM_NO_DECAY">
+		<id>0x199b</id>
+	</item>
+
+	<item id="199c" inherit="ITEM_NO_DECAY">
+		<id>0x199c</id>
+	</item>
+
+	<item id="199d" inherit="ITEM_NO_DECAY">
+		<id>0x199d</id>
+	</item>
+
 	<item id="199e" inherit="ITEM_NO_DECAY">
 		<id>0x199e</id>
 		<category>Professions\Blacksmith\Forge (E/W) (1/3)</category>
+	</item>
+
+	<item id="199f" inherit="ITEM_NO_DECAY">
+		<id>0x199f</id>
+	</item>
+
+	<item id="19a0" inherit="ITEM_NO_DECAY">
+		<id>0x19a0</id>
+	</item>
+
+	<item id="19a1" inherit="ITEM_NO_DECAY">
+		<id>0x19a1</id>
 	</item>
 
 	<item id="19a2" inherit="ITEM_NO_DECAY">
@@ -158,9 +278,33 @@
 		<category>Professions\Blacksmith\Forge (E/W) (2/3)</category>
 	</item>
 
+	<item id="19a3" inherit="ITEM_NO_DECAY">
+		<id>0x19a3</id>
+	</item>
+
+	<item id="19a4" inherit="ITEM_NO_DECAY">
+		<id>0x19a4</id>
+	</item>
+
+	<item id="19a5" inherit="ITEM_NO_DECAY">
+		<id>0x19a5</id>
+	</item>
+
 	<item id="19a6" inherit="ITEM_NO_DECAY">
 		<id>0x19a6</id>
 		<category>Professions\Blacksmith\Forge (E/W) (3/3)</category>
+	</item>
+
+	<item id="19a7" inherit="ITEM_NO_DECAY">
+		<id>0x19a7</id>
+	</item>
+
+	<item id="19a8" inherit="ITEM_NO_DECAY">
+		<id>0x19a8</id>
+	</item>
+
+	<item id="19a9" inherit="ITEM_NO_DECAY">
+		<id>0x19a9</id>
 	</item>
 
 	<!-- Sledge Hammer -->

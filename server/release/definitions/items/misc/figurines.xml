@@ -1254,4 +1254,278 @@
 		<category>Misc\Figurines\AoS\Mound of Maggots</category>
 	</item>
 
+	<!-- House Figurines -->
+	<item id="22c4">
+		<id>0x22c4</id>
+	</item>
+
+	<item id="22c6">
+		<id>0x22c6</id>
+	</item>
+
+	<item id="22c7">
+		<id>0x22c7</id>
+	</item>
+
+	<item id="22c8">
+		<id>0x22c8</id>
+	</item>
+
+	<item id="22c9">
+		<id>0x22c9</id>
+	</item>
+
+	<item id="22ca">
+		<id>0x22ca</id>
+	</item>
+
+	<item id="22cb">
+		<id>0x22cb</id>
+	</item>
+
+	<item id="22cc">
+		<id>0x22cc</id>
+	</item>
+
+	<item id="22cd">
+		<id>0x22cd</id>
+	</item>
+
+	<item id="22ce">
+		<id>0x22ce</id>
+	</item>
+
+	<item id="22cf">
+		<id>0x22cf</id>
+	</item>
+
+	<item id="22d0">
+		<id>0x22d0</id>
+	</item>
+
+	<item id="22d1">
+		<id>0x22d1</id>
+	</item>
+
+	<item id="22d2">
+		<id>0x22d2</id>
+	</item>
+
+	<item id="22d3">
+		<id>0x22d3</id>
+	</item>
+
+	<item id="22d4">
+		<id>0x22d4</id>
+	</item>
+
+	<item id="22d5">
+		<id>0x22d5</id>
+	</item>
+
+	<item id="22d6">
+		<id>0x22d6</id>
+	</item>
+
+	<item id="22d7">
+		<id>0x22d7</id>
+	</item>
+
+	<item id="22d8">
+		<id>0x22d8</id>
+	</item>
+
+	<item id="22d9">
+		<id>0x22d9</id>
+	</item>
+
+	<item id="22da">
+		<id>0x22da</id>
+	</item>
+
+	<item id="22db">
+		<id>0x22db</id>
+	</item>
+
+	<item id="22dc">
+		<id>0x22dc</id>
+	</item>
+
+	<item id="22dd">
+		<id>0x22dd</id>
+	</item>
+
+	<item id="22de">
+		<id>0x22de</id>
+	</item>
+
+	<item id="22df">
+		<id>0x22df</id>
+	</item>
+
+	<item id="22e0">
+		<id>0x22e0</id>
+	</item>
+
+	<item id="22e1">
+		<id>0x22e1</id>
+	</item>
+
+	<item id="22e2">
+		<id>0x22e2</id>
+	</item>
+
+	<item id="22e3">
+		<id>0x22e3</id>
+	</item>
+
+	<item id="22e4">
+		<id>0x22e4</id>
+	</item>
+
+	<item id="22e5">
+		<id>0x22e5</id>
+	</item>
+
+	<item id="22e6">
+		<id>0x22e6</id>
+	</item>
+
+	<item id="22e7">
+		<id>0x22e7</id>
+	</item>
+
+	<item id="22e8">
+		<id>0x22e8</id>
+	</item>
+
+	<item id="22e9">
+		<id>0x22e9</id>
+	</item>
+
+	<item id="22ea">
+		<id>0x22ea</id>
+	</item>
+
+	<item id="22eb">
+		<id>0x22eb</id>
+	</item>
+
+	<item id="22ec">
+		<id>0x22ec</id>
+	</item>
+
+	<item id="22ed">
+		<id>0x22ed</id>
+	</item>
+
+	<item id="22ee">
+		<id>0x22ee</id>
+	</item>
+
+	<item id="22ef">
+		<id>0x22ef</id>
+	</item>
+
+	<item id="22f0">
+		<id>0x22f0</id>
+	</item>
+
+	<item id="22f1">
+		<id>0x22f1</id>
+	</item>
+
+	<item id="22f2">
+		<id>0x22f2</id>
+	</item>
+
+	<item id="22f3">
+		<id>0x22f3</id>
+	</item>
+
+	<item id="22f4">
+		<id>0x22f4</id>
+	</item>
+
+	<item id="22f5">
+		<id>0x22f5</id>
+	</item>
+
+	<item id="22f6">
+		<id>0x22f6</id>
+	</item>
+
+	<item id="22f7">
+		<id>0x22f7</id>
+	</item>
+
+	<item id="22f8">
+		<id>0x22f8</id>
+	</item>
+
+	<item id="22f9">
+		<id>0x22f9</id>
+	</item>
+
+	<item id="22fa">
+		<id>0x22fa</id>
+	</item>
+
+	<item id="22fb">
+		<id>0x22fb</id>
+	</item>
+
+	<item id="22fc">
+		<id>0x22fc</id>
+	</item>
+
+	<item id="22fd">
+		<id>0x22fd</id>
+	</item>
+
+	<item id="22fe">
+		<id>0x22fe</id>
+	</item>
+
+	<item id="22ff">
+		<id>0x22ff</id>
+	</item>
+
+	<item id="2300">
+		<id>0x2300</id>
+	</item>
+
+	<item id="2301">
+		<id>0x2301</id>
+	</item>
+
+	<item id="2302">
+		<id>0x2302</id>
+	</item>
+
+	<item id="2303">
+		<id>0x2303</id>
+	</item>
+
+	<item id="2304">
+		<id>0x2304</id>
+	</item>
+
+	<item id="2313">
+		<id>0x2313</id>
+	</item>
+
+	<item id="2314">
+		<id>0x2314</id>
+	</item>
+
+	<item id="2315">
+		<id>0x2315</id>
+	</item>
+
+	<item id="2316">
+		<id>0x2316</id>
+	</item>
+
+
 </definitions>

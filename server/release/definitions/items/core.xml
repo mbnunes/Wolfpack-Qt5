@@ -21,4 +21,8 @@
 		<nodecay />
 	</item>
 
+	<!-- This item does not exist! Using the statue 151a -->
+	<item id="1519" inherit="151a">
+	</item>
+
 </definitions>
