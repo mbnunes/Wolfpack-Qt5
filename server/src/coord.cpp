@@ -411,7 +411,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 			SI32 j;
 
 			bool posHigherThanMap;
-			map1 = Map->seekMap( (*this) );
+			map1 = Maps::instance()->seekMap( (*this) );
 			if( map1.z > z )
 			{
 				posHigherThanMap = false;
@@ -659,11 +659,11 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 				}*/
 
 				// Texture mapping
-				map1 = Map->seekMap( *pit );
-				map2 = Map->seekMap( Coord_cl( (*pit).x + sgn_x, (*pit).y + sgn_y, (*pit).z, map ) );
+				map1 = Maps::instance()->seekMap( *pit );
+				map2 = Maps::instance()->seekMap( Coord_cl( (*pit).x + sgn_x, (*pit).y + sgn_y, (*pit).z, map ) );
 
 				//Console::instance()->send( QString( "maphoehe:%1\n" ).arg( map1.z ) );
-				StaticsIterator msi = Map->staticsIterator( *pit );
+				StaticsIterator msi = Maps::instance()->staticsIterator( *pit );
 				if( (map1.id != 2) && (map2.id != 2) )
 				{
 					if( ( map1.z >= zmin ) && ( map1.z <= zmax ) )
@@ -814,7 +814,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 		SI32 j;
 
 		bool posHigherThanMap;
-		map1 = Map->seekMap( (*this) );
+		map1 = Maps::instance()->seekMap( (*this) );
 		if( map1.z > z )
 		{
 			posHigherThanMap = false;
@@ -1230,11 +1230,11 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 			//Console::instance()->send( QString( "zmin:%1,zmax:%2\n" ).arg( zmin ).arg( zmax ) );
 
 			// Texture mapping
-			map1 = Map->seekMap( *pit );
-			map2 = Map->seekMap( Coord_cl( (*pit).x + sgn_x, (*pit).y + sgn_y, (*pit).z, map ) );
+			map1 = Maps::instance()->seekMap( *pit );
+			map2 = Maps::instance()->seekMap( Coord_cl( (*pit).x + sgn_x, (*pit).y + sgn_y, (*pit).z, map ) );
 
 			//Console::instance()->send( QString( "try2" ) );
-			StaticsIterator msi = Map->staticsIterator( *pit );
+			StaticsIterator msi = Maps::instance()->staticsIterator( *pit );
 			RegionIterator4Items rj( (*pit), 0 );
 			if( (map1.id != 2) && (map2.id != 2) )
 			{

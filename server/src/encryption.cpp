@@ -34,7 +34,7 @@
 #include <qdatastream.h>
 
 #include "encryption.h"
-#include "wpdefmanager.h"
+#include "definitions.h"
 #include "console.h"
 #include "globals.h"
 #include "log.h"
@@ -209,7 +209,7 @@ void cKeyManager::load()
 {
 	keys.clear();
 
-	QStringList list = DefManager->getList( "ENCRYPTION" );
+	QStringList list = Definitions::instance()->getList( "ENCRYPTION" );
 
 	QStringList::const_iterator it;
 	for( it = list.begin(); it != list.end(); ++it )

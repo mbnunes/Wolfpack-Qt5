@@ -29,7 +29,7 @@
 // Wolfpack Includes
 #include "log.h"
 #include "globals.h"
-#include "srvparams.h"
+#include "config.h"
 #include "network/uosocket.h"
 #include "console.h"
 
@@ -62,7 +62,7 @@ bool cLog::checkLogFile()
 	{
 		logfile.close(); // Just to be sure
 
-		QString path = SrvParams->logPath();
+		QString path = Config::instance()->logPath();
 
 		if( !path.endsWith( QChar( QDir::separator() ) ) )
 			path.append( QDir::separator() );
@@ -74,7 +74,7 @@ bool cLog::checkLogFile()
 		}
 
 		QString filename;
-		if( SrvParams->logRotate() )
+		if( Config::instance()->logRotate() )
 			filename.sprintf( "wolfpack-%04u-%02u-%02u.log", today.year(), today.month(), today.day() );
 		else
 			filename = QString( "wolfpack.log" );
@@ -96,7 +96,7 @@ bool cLog::checkLogFile()
  */
 void cLog::log( eLogLevel loglevel, cUOSocket *sock, const QString &string, bool timestamp )
 {
-	if (!(SrvParams->logMask() & loglevel)) {
+	if (!(Config::instance()->logMask() & loglevel)) {
 		return;
 	}
 

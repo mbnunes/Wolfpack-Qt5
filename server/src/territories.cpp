@@ -26,21 +26,22 @@
  */
 
 #include "territories.h"
-#include "wpdefmanager.h"
+#include "definitions.h"
 #include "globals.h"
 #include "network/uosocket.h"
 #include "defines.h"
-#include "srvparams.h"
+#include "config.h"
 #include "network.h"
 #include "basics.h"
 #include "console.h"
 #include "exceptions.h"
+#include "world.h"
 #include "basechar.h"
 #include "player.h"
 #include "inlines.h"
 #include "maps.h"
 
-#include "globals.h" // needed for object SrvParams
+#include "globals.h" // needed for object Config
 #include "pythonscript.h"
 
 // cTerritories
@@ -101,7 +102,7 @@ void cTerritory::processNode( const cElement *Tag )
 			}
 			else if( childNode->name() == "list" && childNode->hasAttribute( "id" ) )
 			{
-				QStringList NpcList = DefManager->getList( childNode->getAttribute( "id" ) );
+				QStringList NpcList = Definitions::instance()->getList( childNode->getAttribute( "id" ) );
 				QStringList::iterator it = NpcList.begin();
 				while( it != NpcList.end() )
 				{
@@ -288,27 +289,31 @@ bool cTerritory::findTeleporterSpot( Coord_cl& d ) const
 	return it != end;
 }
 
-// cAllTerritories
+// cTerritories
 
-void cAllTerritories::load( void )
+void cTerritories::unload() {
+	topregions.clear();
+}
+
+void cTerritories::load()
 {
 	// Make sure that there is one top level region for each map
 	// Insert it at the beginning (last overrides first).
 	for (unsigned char i = 0; i <= 3; ++i) {
-		if (Map->hasMap(i)) {
+		if (Maps::instance()->hasMap(i)) {
 			cTerritory *territory = new cTerritory();
 			cBaseRegion::rect_st rect;
 			rect.map = i;
 			rect.x1 = 0;
 			rect.y1 = 0;
-			rect.x2 = Map->mapTileWidth(i) * 8;
-			rect.y2 = Map->mapTileHeight(i) * 8;
+			rect.x2 = Maps::instance()->mapTileWidth(i) * 8;
+			rect.y2 = Maps::instance()->mapTileHeight(i) * 8;
 			territory->rectangles().append(rect);
 			topregions[i].append(territory);
 		}
 	}
 
-	const QValueVector<cElement*> &elements = DefManager->getDefinitions(WPDT_REGION);
+	const QValueVector<cElement*> &elements = Definitions::instance()->getDefinitions(WPDT_REGION);
 
 	QValueVector<cElement*>::const_iterator it(elements.begin());
 	while (it != elements.end()) {
@@ -328,9 +333,11 @@ void cAllTerritories::load( void )
 		}
 		++it;
 	}
+
+	cComponent::load();
 }
 
-void cAllTerritories::check( P_CHAR pc )
+void cTerritories::check( P_CHAR pc )
 {
 	cUOSocket *socket = NULL;
 	if( pc->objectType() == enPlayer )
@@ -391,7 +398,7 @@ void cAllTerritories::check( P_CHAR pc )
 	}
 }
 
-cTerritory* cAllTerritories::region( const QString& regName )
+cTerritory* cTerritories::region( const QString& regName )
 {
 	cTerritory *result = 0;
 	QMap<uint, QPtrList<cTerritory> >::iterator it( topregions.begin() );
@@ -408,7 +415,7 @@ cTerritory* cAllTerritories::region( const QString& regName )
 	return result;
 }
 
-cTerritory* cAllTerritories::region( UI16 posx, UI16 posy, UI08 map )
+cTerritory* cTerritories::region( UI16 posx, UI16 posy, UI08 map )
 {
 	QMap<uint, QPtrList<cTerritory> >::iterator it(topregions.find(map));
 	cTerritory *result = 0;
@@ -426,8 +433,14 @@ cTerritory* cAllTerritories::region( UI16 posx, UI16 posy, UI08 map )
 	return result;
 }
 
-void cAllTerritories::reload()
-{
-	topregions.clear();
-	this->load();
+void cTerritories::reload() {
+	unload();
+	load();
+
+	// Update the Regions
+	cCharIterator iter;
+	for (P_CHAR pChar = iter.first(); pChar; pChar = iter.next()) {
+		cTerritory *region = this->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
+		pChar->setRegion( region );
+	}
 }

@@ -194,6 +194,15 @@
 				RelativePath=".\commands.h">
 			</File>
 			<File
+				RelativePath=".\config.cpp">
+			</File>
+			<File
+				RelativePath=".\config.h">
+			</File>
+			<File
+				RelativePath=".\win\config_win.cpp">
+			</File>
+			<File
 				RelativePath=".\console.cpp">
 			</File>
 			<File
@@ -246,6 +255,12 @@
 			</File>
 			<File
 				RelativePath=".\defines.h">
+			</File>
+			<File
+				RelativePath=".\definitions.cpp">
+			</File>
+			<File
+				RelativePath=".\definitions.h">
 			</File>
 			<File
 				RelativePath=".\dragdrop.cpp">
@@ -306,12 +321,6 @@
 			</File>
 			<File
 				RelativePath=".\log.h">
-			</File>
-			<File
-				RelativePath=".\makemenus.cpp">
-			</File>
-			<File
-				RelativePath=".\makemenus.h">
 			</File>
 			<File
 				RelativePath=".\md5.cpp">
@@ -398,12 +407,6 @@
 				RelativePath=".\resource.h">
 			</File>
 			<File
-				RelativePath=".\resources.cpp">
-			</File>
-			<File
-				RelativePath=".\resources.h">
-			</File>
-			<File
 				RelativePath=".\scriptmanager.cpp">
 			</File>
 			<File
@@ -414,6 +417,12 @@
 			</File>
 			<File
 				RelativePath=".\sectors.h">
+			</File>
+			<File
+				RelativePath=".\server.cpp">
+			</File>
+			<File
+				RelativePath=".\server.h">
 			</File>
 			<File
 				RelativePath=".\singleton.h">
@@ -435,15 +444,6 @@
 			</File>
 			<File
 				RelativePath=".\speech.h">
-			</File>
-			<File
-				RelativePath=".\srvparams.cpp">
-			</File>
-			<File
-				RelativePath=".\srvparams.h">
-			</File>
-			<File
-				RelativePath=".\win\srvparams_win.cpp">
 			</File>
 			<File
 				RelativePath=".\structs.h">
@@ -516,12 +516,6 @@
 			</File>
 			<File
 				RelativePath=".\world.h">
-			</File>
-			<File
-				RelativePath=".\wpdefmanager.cpp">
-			</File>
-			<File
-				RelativePath=".\wpdefmanager.h">
 			</File>
 			<File
 				RelativePath=".\wptargetrequests.cpp">

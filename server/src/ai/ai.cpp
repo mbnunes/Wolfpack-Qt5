@@ -31,7 +31,7 @@
 #include "../npc.h"
 #include "../sectors.h"
 #include "../player.h"
-#include "../srvparams.h"
+#include "../config.h"
 #include "../globals.h"
 #include "../basics.h"
 #include "../walking.h"
@@ -211,7 +211,7 @@ void ScriptAI::processNode( const cElement *Tag )
 
 void ScriptAI::init( P_NPC npc )
 {
-	const cElement* node = DefManager->getDefinition( WPDT_AI, m_name );
+	const cElement* node = Definitions::instance()->getDefinition( WPDT_AI, m_name );
 	if( node )
 		applyDefinition( node );
 	AbstractAI::init( npc );
@@ -420,7 +420,7 @@ float Action_Wander::preCondition() {
 	if( m_npc->wanderType() == enDestination && m_npc->wanderDestination() == m_npc->pos() )
 		return 0.0f;
 
-	if( m_npc->wanderType() == enFollowTarget && !m_npc->inRange( m_npc->wanderFollowTarget(), SrvParams->pathfindFollowRadius() ) )
+	if( m_npc->wanderType() == enFollowTarget && !m_npc->inRange( m_npc->wanderFollowTarget(), Config::instance()->pathfindFollowRadius() ) )
 		return 0.0f;
 
 	return 1.0f;
@@ -448,7 +448,7 @@ float Action_Wander::postCondition() {
 		break;
 
 	case enFollowTarget:
-		if( m_npc->inRange( m_npc->wanderFollowTarget(), SrvParams->pathfindFollowRadius() ) )
+		if( m_npc->inRange( m_npc->wanderFollowTarget(), Config::instance()->pathfindFollowRadius() ) )
 			return 1.0f;
 		break;
 
@@ -512,7 +512,7 @@ void Action_Wander::execute() {
 	}
 	case enFollowTarget:
 	{
-		if( SrvParams->pathfind4Follow() )
+		if( Config::instance()->pathfind4Follow() )
 		{
 			P_CHAR pTarget = m_npc->wanderFollowTarget();
 			if( pTarget )
@@ -618,7 +618,7 @@ void Action_Flee::execute()
 		Coord_cl fleePos = pFleeFrom->pos();
 
 		// find a valid spot in a circle of flee_radius fields to move to
-		float rnddist = (float)RandomNum( 1, SrvParams->pathfindFleeRadius() );
+		float rnddist = (float)RandomNum( 1, Config::instance()->pathfindFleeRadius() );
 		if( newPos != fleePos )
 		{
 			int v1 = newPos.x - fleePos.x;
@@ -655,7 +655,7 @@ float Action_FleeAttacker::preCondition()
 	 */
 
 	P_CHAR pAttacker = m_npc->attackTarget();
-	if( !pAttacker || pAttacker->isDead() || !m_npc->inRange( pAttacker, SrvParams->pathfindFleeRadius() ) )
+	if( !pAttacker || pAttacker->isDead() || !m_npc->inRange( pAttacker, Config::instance()->pathfindFleeRadius() ) )
 		return 0.0f;
 
 	if( m_npc->hitpoints() < m_npc->criticalHealth() )
@@ -687,7 +687,7 @@ float Action_FleeAttacker::postCondition()
 	 */
 
 	P_CHAR pAttacker = m_npc->attackTarget();
-	if( !pAttacker || pAttacker->isDead() || !m_npc->inRange( pAttacker, SrvParams->pathfindFleeRadius() ) )
+	if( !pAttacker || pAttacker->isDead() || !m_npc->inRange( pAttacker, Config::instance()->pathfindFleeRadius() ) )
 		return 1.0f;
 
 	// 1.0 = Full Health, 0.0 = Dead
@@ -833,7 +833,7 @@ void AbstractAI::onSpeechInput( P_PLAYER pTalker, const QString &comm ) {
 		m_npc->setOwner(0);
 		m_npc->setTamed(false);
 		m_npc->bark(cBaseChar::Bark_Attacking);
-		if (SrvParams->tamedDisappear()) {
+		if (Config::instance()->tamedDisappear()) {
 			m_npc->soundEffect(0x01Fe);
 			m_npc->remove();
 		}

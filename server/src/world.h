@@ -34,6 +34,7 @@
 
 // Library Includes
 #include <qvaluevector.h>
+#include "server.h"
 
 class cCharIterator
 {
@@ -59,7 +60,7 @@ public:
 	P_ITEM next();
 };
 
-class cWorld
+class cWorld : public cComponent
 {
 friend class cCharIterator;
 friend class cItemIterator;
@@ -80,6 +81,7 @@ public:
 
 	// WorldLoader interface
 	void load();
+	void unload();
 	void save();
 
 	// For the "settings" table

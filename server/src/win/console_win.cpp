@@ -39,6 +39,7 @@
 #include "../network.h"
 #include "../player.h"
 #include "../wolfpack.h"
+#include "../server.h"
 
 #define _WIN32_IE 0x0500
 #define WIN32_LEAN_AND_MEAN
@@ -204,7 +205,7 @@ bool handleMenuSelect( unsigned int id )
 	switch( id )
 	{
 	case IDC_EXIT:
-		keeprun = 0;
+		Server::instance()->cancel();
 
 		if( canClose )
 			DestroyWindow( mainWindow );
@@ -220,23 +221,23 @@ bool handleMenuSelect( unsigned int id )
 		break;
 
 	case ID_RELOAD_ACCOUNTS:
-		queueAction( RELOAD_ACCOUNTS );
+		Server::instance()->queueAction( RELOAD_ACCOUNTS );
 		break;
 
 	case ID_RELOAD_PYTHON:
-		queueAction( RELOAD_PYTHON );
+		Server::instance()->queueAction( RELOAD_PYTHON );
 		break;
 
 	case ID_RELOAD_SCRIPTS:
-		queueAction( RELOAD_SCRIPTS );
+		Server::instance()->queueAction( RELOAD_SCRIPTS );
 		break;
 
 	case ID_RELOAD_CONFIGURATION:
-		queueAction( RELOAD_CONFIGURATION );
+		Server::instance()->queueAction( RELOAD_CONFIGURATION );
 		break;
 
 	case ID_SERVER_SAVEWORLD:
-		queueAction( SAVE_WORLD );
+		Server::instance()->queueAction( SAVE_WORLD );
 		break;
 
 	case ID_SERVER_LISTUSERS:
@@ -449,7 +450,7 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 		return 0;
 
 	case WM_CLOSE:
-		keeprun = 0;
+		Server::instance()->cancel();
 
 		if (canClose) {
 			DestroyWindow( mainWindow );
@@ -465,7 +466,7 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 		DeleteObject(hbBackground);
 		DeleteObject(iconRed);
 		DeleteObject(iconGreen);
-		keeprun = 0;
+		Server::instance()->cancel();
 		PostQuitMessage(0);
 		return 0;
 	}
@@ -538,7 +539,11 @@ protected:
 		}
 		argv[argc] = 0;
 
-		returnValue_ = main( argc, argv.data() );
+		if (Server::instance()->run(argc, argv.data())) {
+			returnValue_ = 0;
+        } else {
+			returnValue_ = 1;
+		}
 
 		if (returnValue_ != 0) {
 			Console::instance()->send( "\nThe server has been shut down. You can close this window now.\n" );
@@ -670,7 +675,7 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	{
 		if( msg.message == WM_CHAR && msg.hwnd == inputWindow && msg.wParam == '\r' )
 		{
-			if( serverState == RUNNING )
+			if( Server::instance()->getState() == RUNNING )
 			{
 				char command[512] = { 0, };
 				GetWindowText( inputWindow, command, 512 );
@@ -698,9 +703,9 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 			// Update the icon
 			static unsigned int lastState = 0xFFFFFFFF;
 
-			if (lastState != serverState)
+			if (lastState != Server::instance()->getState())
 			{
-				if (serverState == RUNNING)
+				if (Server::instance()->getState() == RUNNING)
 				{
 					SendMessage(mainWindow, WM_SETICON, ICON_SMALL, (WPARAM)iconGreen);
 					SendMessage(statusIcon, STM_SETIMAGE, IMAGE_ICON, (LPARAM)iconGreen);
@@ -711,7 +716,7 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 					SendMessage(statusIcon, STM_SETIMAGE, IMAGE_ICON, (LPARAM)iconRed);
 				}
 			}
-			lastState = serverState;
+			lastState = Server::instance()->getState();
 		}
 
 		TranslateMessage( &msg );
@@ -720,7 +725,7 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 
 	Shell_NotifyIconA(NIM_DELETE, (PNOTIFYICONDATAA)&icondata);
 
-	keeprun = 0; // We quit, so let's quit the server too
+	Server::instance()->cancel();
 
 	serverThread.wait();
 
@@ -959,14 +964,14 @@ void cConsole::notifyServerState(enServerState newstate) {
 #if (_WIN32_IE >= 0x0500)
 	qstrcpy(icondata.szInfoTitle, "Wolfpack Server Status");
 	// Startup has finished
-	if (serverState == STARTUP && newstate == RUNNING)
+	if (Server::instance()->getState() == STARTUP && newstate == RUNNING)
 	{
 		icondata.uFlags |= NIF_INFO;
 		icondata.uTimeout = 2500;
 		icondata.dwInfoFlags = NIIF_INFO;
 		qstrcpy(icondata.szInfo, "Wolfpack has started up and is now ready to use.");
 	}
-	else if (serverState == SCRIPTRELOAD && newstate == RUNNING)
+	else if (Server::instance()->getState() == SCRIPTRELOAD && newstate == RUNNING)
 	{
 		icondata.uFlags |= NIF_INFO;
 		icondata.uTimeout = 2500;

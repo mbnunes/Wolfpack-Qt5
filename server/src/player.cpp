@@ -36,9 +36,9 @@
 #include "network/uotxpackets.h"
 #include "basics.h"
 #include "maps.h"
-#include "srvparams.h"
+#include "config.h"
 #include "world.h"
-#include "wpdefmanager.h"
+#include "definitions.h"
 #include "corpse.h"
 #include "multi.h"
 #include "sectors.h"
@@ -164,7 +164,7 @@ bool cPlayer::del()
 	if( !isPersistent )
 		return false; // We didn't need to delete the object
 
-	persistentBroker->addToDeleteQueue( "players", QString( "serial = '%1'" ).arg( serial() ) );
+	PersistentBroker::instance()->addToDeleteQueue( "players", QString( "serial = '%1'" ).arg( serial() ) );
 	changed_ = true;
 	return cBaseChar::del();
 }
@@ -351,7 +351,7 @@ UINT8 cPlayer::notoriety( P_CHAR pChar ) // Gets the notoriety toward another ch
 		}
 	}
 
-	if (pChar->kills() > SrvParams->maxkills()) {
+	if (pChar->kills() > Config::instance()->maxkills()) {
 		result = 0x06; // 6 = Red -> Murderer
 
 	} else if(account_) {
@@ -563,7 +563,7 @@ void cPlayer::makeCriminal() {
 				socket_->clilocMessage(500167);
 			}
 
-			setCriminalTime(uiCurrentTime + SrvParams->crimtime() * MY_CLOCKS_PER_SEC);
+			setCriminalTime(uiCurrentTime + Config::instance()->crimtime() * MY_CLOCKS_PER_SEC);
 			changed_ = true;
 		}
 	}
@@ -689,7 +689,7 @@ bool cPlayer::inWorld() {
 
 void cPlayer::giveNewbieItems( Q_UINT8 skill )
 {
-	const cElement *startItems = DefManager->getDefinition( WPDT_STARTITEMS, ( skill == 0xFF ) ? QString("default") : Skills->getSkillDef( skill ).lower() );
+	const cElement *startItems = Definitions::instance()->getDefinition( WPDT_STARTITEMS, ( skill == 0xFF ) ? QString("default") : Skills::instance()->getSkillDef( skill ).lower() );
 
 	// No Items defined
 	if( !startItems )
@@ -707,7 +707,7 @@ void cPlayer::applyStartItemDefinition( const cElement *element )
 		// Apply another startitem definition
 		if( node->name() == "inherit" )
 		{
-			const cElement* inheritNode = DefManager->getDefinition( WPDT_STARTITEMS, node->getAttribute( "id" ) );
+			const cElement* inheritNode = Definitions::instance()->getDefinition( WPDT_STARTITEMS, node->getAttribute( "id" ) );
 
 			if( inheritNode )
 			{
@@ -1028,64 +1028,6 @@ void cPlayer::processNode( const cElement *Tag )
 	return;
 }
 
-QPtrList< cMakeSection > cPlayer::lastSelections( cMakeMenu* basemenu )
-{
-	QMap< cMakeMenu*, QPtrList< cMakeSection > >::iterator it = lastSelections_.find( basemenu );
-	if( it != lastSelections_.end() )
-		return it.data();
-	else
-		return QPtrList< cMakeSection >();
-}
-
-cMakeSection* cPlayer::lastSection( cMakeMenu* basemenu )
-{
-	QMap< cMakeMenu*, QPtrList< cMakeSection > >::iterator it = lastSelections_.find( basemenu );
-	QPtrList< cMakeSection > lastsections_;
-	if( it != lastSelections_.end() )
-		 lastsections_ = it.data();
-	else
-		return 0;
-
-	if( lastsections_.count() > 0 )
-		return lastsections_.at(0);
-	else
-		return 0;
-}
-
-void cPlayer::setLastSection( cMakeMenu* basemenu, cMakeSection* data )
-{
-	QMap< cMakeMenu*, QPtrList< cMakeSection > >::iterator mit = lastSelections_.find( basemenu );
-	QPtrList< cMakeSection > lastsections_;
-	//		lastsections_.setAutoDelete( true ); NEVER DELETE THE SECTIONS :) THEY ARE DELETED WITH THEIR MAKEMENU PARENTS
-	if( mit != lastSelections_.end() )
-		lastsections_ = mit.data();
-	else
-	{
-		lastsections_.append( data );
-		lastSelections_.insert( basemenu, lastsections_ );
-		return;
-	}
-
-	QPtrListIterator< cMakeSection > it( lastsections_ );
-	while( it.current() )
-	{
-		if( data == it.current() )
-			return;
-		++it;
-	}
-	lastsections_.prepend( data );
-	while( lastsections_.count() > 10 )
-		lastsections_.removeLast();
-
-	mit.data() = lastsections_;
-	return;
-}
-
-void cPlayer::clearLastSelections( void )
-{
-	lastSelections_.clear();
-}
-
 void cPlayer::setStamina( INT16 data, bool notify /* = true */ )
 {
 	bool update = false;
@@ -1169,7 +1111,7 @@ stError *cPlayer::setProperty( const QString &name, const cVariant &value )
 	else if( name.left( 6 ) == "skill." )
 	{
 		QString skill = name.right( name.length() - 6 );
-		INT16 skillId = Skills->findSkillByDef( skill );
+		INT16 skillId = Skills::instance()->findSkillByDef( skill );
 
 		if( skillId != -1 )
 		{
@@ -1182,7 +1124,7 @@ stError *cPlayer::setProperty( const QString &name, const cVariant &value )
 	// skillcap.
 	} else if( name.left( 9 ) == "skillcap." ) {
 		QString skill = name.right( name.length() - 9 );
-		INT16 skillId = Skills->findSkillByDef( skill );
+		INT16 skillId = Skills::instance()->findSkillByDef( skill );
 
 		if( skillId != -1 )
 		{
@@ -1193,7 +1135,7 @@ stError *cPlayer::setProperty( const QString &name, const cVariant &value )
 		}
 
 	} else {
-		INT16 skillId = Skills->findSkillByDef(name);
+		INT16 skillId = Skills::instance()->findSkillByDef(name);
 		if (skillId != -1) {
 			setSkillValue(skillId, value.toInt());
 			if(socket_)
@@ -1586,7 +1528,7 @@ void cPlayer::poll(unsigned int time, unsigned int events) {
 	// Process an environmental light change if we're not in a cave.
 	if (socket_) {
 		if (events & EventLight) {
-			cTerritory *region = AllTerritories::instance()->region(pos());
+			cTerritory *region = Territories::instance()->region(pos());
 			if(!region || !region->isCave()) {
 				socket_->updateLightLevel();
 			}

@@ -29,6 +29,7 @@
 #define __PERSISTENTBROKER_H__
 
 #include <qregexp.h>
+#include "singleton.h"
 
 class PersistentObject;
 class cDBDriver;
@@ -36,12 +37,12 @@ class cDBResult;
 
 class PersistentBrokerPrivate;
 
-class PersistentBroker
+class cPersistentBroker
 {
 	PersistentBrokerPrivate* d;
 public:
-	PersistentBroker();
-	~PersistentBroker();
+	cPersistentBroker();
+	~cPersistentBroker();
 	bool openDriver( const QString& driver );
 
 	bool connect( const QString& host, const QString& db, const QString& username, const QString& password );
@@ -69,6 +70,8 @@ public:
 	void rollbackTransaction();
 };
 
+typedef SingletonHolder<cPersistentBroker> PersistentBroker;
+
 #define initSave QStringList conditions, fields, values; QString table;
 #define clearFields conditions.clear(); fields.clear(); values.clear();
 #define setTable( value ) table = value;
@@ -87,11 +90,11 @@ public:
 
 #define addStrField( name, value ) \
 	if( isPersistent ) \
-		fields.push_back( name "='" + persistentBroker->quoteString( value ) + "'" ); \
+		fields.push_back( name "='" + PersistentBroker::instance()->quoteString( value ) + "'" ); \
 	else \
 	{ \
 		/* fields.push_back( name ); */ \
-		values.push_back( "'" + persistentBroker->quoteString( value ) + "'" ); \
+		values.push_back( "'" + PersistentBroker::instance()->quoteString( value ) + "'" ); \
 	}
 
 #define addCondition( name, value ) conditions.push_back( QString( "%1 = '%2'" ).arg( name ).arg( value ) );
@@ -99,11 +102,11 @@ public:
 #define saveFields \
 	if( isPersistent ) \
 	{ \
-		persistentBroker->executeQuery( "UPDATE " + table + " SET " + fields.join( "," ) + " WHERE " + conditions.join( " AND " ) ); \
+		PersistentBroker::instance()->executeQuery( "UPDATE " + table + " SET " + fields.join( "," ) + " WHERE " + conditions.join( " AND " ) ); \
 	} \
 	else \
 	{ \
-		persistentBroker->executeQuery( "REPLACE INTO " + table + " VALUES(" + values.join( "," ) + ")" ); \
+		PersistentBroker::instance()->executeQuery( "REPLACE INTO " + table + " VALUES(" + values.join( "," ) + ")" ); \
 	}
 
 #endif // __PERSISTENTBROKER_H__

@@ -30,6 +30,7 @@
 
 // Platform specifics
 #include "platform.h"
+#include "server.h"
 
 // System Includes
 #include "qstring.h"
@@ -107,7 +108,7 @@ struct land_st
 	bool isRoofOrFloorTile() const { return flag1 & 0x01; }
 };
 
-class cTileCache
+class cTileCache : public cComponent
 {
 private:
 	QString path;
@@ -123,9 +124,9 @@ public:
 	signed char tileHeight( ushort tileId );
 	static signed char tileHeight( const tile_st & );
 
-    bool load( const QString &nPath );
-	bool unload();
-	bool reload() { unload(); return load( path ); }
+    void load();
+	void unload();
+	void reload();
 };
 
 typedef SingletonHolder<cTileCache> TileCache;

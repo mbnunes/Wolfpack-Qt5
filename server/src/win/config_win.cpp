@@ -25,7 +25,7 @@
  * Wolfpack Homepage: http://wpdev.sf.net/
  */
 
-#include "../srvparams.h"
+#include "../config.h"
 #include "../globals.h"
 #include "../console.h"
 #include "../log.h"
@@ -93,7 +93,7 @@ static QString getUOPath()
 	this method will query the registry to try to figure where the UO client
 	was installed
 */
-QString cSrvParams::mulPath() const
+QString cConfig::mulPath() const
 {
 	QDir thePath( mulPath_ );
 	if( !thePath.exists() || thePath.entryList("*.mul").isEmpty() )
@@ -103,7 +103,7 @@ QString cSrvParams::mulPath() const
 		if( !uoPath.isEmpty() )
 		{
 			//mulPath_ = uoPath;
-			cSrvParams* that = const_cast<cSrvParams*>(this); // perhaps not so const ;)
+			cConfig* that = const_cast<cConfig*>(this); // perhaps not so const ;)
 			that->setMulPath( uoPath );
 		}
 		else
@@ -112,7 +112,7 @@ QString cSrvParams::mulPath() const
 	return mulPath_;
 }
 
-std::vector<ServerList_st>& cSrvParams::serverList()
+std::vector<ServerList_st>& cConfig::serverList()
 {
 	static unsigned int lastIpCheck = 0;
 	static bool dynamicIP = false;

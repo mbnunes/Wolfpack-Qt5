@@ -44,15 +44,9 @@
 
 bool VendorChkName( P_CHAR pVendor, const QString& comm );
 
-class cSpeech
-{
-public:
+namespace Speech {
 	bool response( cUOSocket *socket, P_PLAYER pPlayer, const QString& comm, QValueVector< UINT16 > &keywords );
     void talking( P_PLAYER pChar, const QString &lang, const QString &speech, QValueVector< UINT16 > &keywords, UINT16 color, UINT16 font, UINT8 type );
 };
 
-extern cSpeech	*Speech;
-
-
 #endif
-

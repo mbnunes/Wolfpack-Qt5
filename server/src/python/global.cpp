@@ -43,13 +43,13 @@
 #include "../commands.h"
 #include "../multi.h"
 #include "../scriptmanager.h"
-#include "../wpdefmanager.h"
+#include "../definitions.h"
 #include "../pythonscript.h"
 #include "../verinfo.h"
 #include "../globals.h"
 #include "../items.h"
 #include "../network.h"
-#include "../srvparams.h"
+#include "../config.h"
 #include "../basechar.h"
 #include "../player.h"
 #include "../npc.h"
@@ -241,7 +241,7 @@ static PyObject* wpConsole_shutdown( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	Q_UNUSED(args);
-	keeprun = 0;
+	Server::instance()->cancel();
 
 	return PyTrue();
 }
@@ -304,7 +304,7 @@ static PyObject* wpTime_currentlightlevel( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	Q_UNUSED(args);
-	return PyInt_FromLong( SrvParams->worldCurrentLevel() );
+	return PyInt_FromLong( Config::instance()->worldCurrentLevel() );
 }
 
 /*!
@@ -486,7 +486,7 @@ static PyObject* wpRegion( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "iii:wolfpack.region", &x, &y, &map ) )
 		return 0;
 
-	return PyGetRegionObject( AllTerritories::instance()->region( x, y, map ) );
+	return PyGetRegionObject( Territories::instance()->region( x, y, map ) );
 }
 
 /*!
@@ -512,7 +512,7 @@ static PyObject *wpStatics( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "iii|b:wolfpack.statics", &x, &y, &map, &exact ) )
 		return 0;
 
-	StaticsIterator iter = Map->staticsIterator( Coord_cl( x, y, 0, map ), exact );
+	StaticsIterator iter = Maps::instance()->staticsIterator( Coord_cl( x, y, 0, map ), exact );
 
 	PyObject *list = PyList_New( 0 );
 	UINT32 xBlock = x / 8;
@@ -683,7 +683,7 @@ static PyObject *wpMap( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "iii:wolfpack.map", &x, &y, &map ) )
 		return 0;
 
-	map_st mTile = Map->seekMap( Coord_cl( x, y, 0, map ) );
+	map_st mTile = Maps::instance()->seekMap( Coord_cl( x, y, 0, map ) );
 
 	PyObject *dict = PyDict_New();
 	PyDict_SetItemString( dict, "id", PyInt_FromLong( mTile.id ) );
@@ -698,7 +698,7 @@ static PyObject* wpHasMap( PyObject* self, PyObject* args )
 	if( !PyArg_ParseTuple( args, "i:wolfpack.hasmap", &map ) )
 		return 0;
 
-	return Map->hasMap( map ) ? PyTrue() : PyFalse();
+	return Maps::instance()->hasMap( map ) ? PyTrue() : PyFalse();
 }
 
 static PyObject *wpLanddata(PyObject *self, PyObject *args) {
@@ -800,7 +800,7 @@ static PyObject *wpList( PyObject* self, PyObject* args )
 		return 0;
 	}
 
-	QStringList list = DefManager->getList( getArgStr( 0 ) );
+	QStringList list = Definitions::instance()->getList( getArgStr( 0 ) );
 	PyObject *pylist = PyList_New( list.count() );
 
 	for( uint i = 0; i < list.count(); ++i )
@@ -952,7 +952,7 @@ static PyObject* wpIsStarting( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	Q_UNUSED(args);
-	if( serverState == STARTUP )
+	if( Server::instance()->getState() == STARTUP )
 		return PyTrue();
 	else
 		return PyFalse();
@@ -965,7 +965,7 @@ static PyObject* wpIsRunning( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	Q_UNUSED(args);
-	if( serverState == RUNNING )
+	if( Server::instance()->getState() == RUNNING )
 		return PyTrue();
 	else
 		return PyFalse();
@@ -978,7 +978,7 @@ static PyObject* wpIsReloading( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	Q_UNUSED(args);
-	if( serverState == SCRIPTRELOAD )
+	if( Server::instance()->getState() == SCRIPTRELOAD )
 		return PyTrue();
 	else
 		return PyFalse();
@@ -991,7 +991,7 @@ static PyObject* wpIsClosing( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	Q_UNUSED(args);
-	if( serverState == SHUTDOWN )
+	if( Server::instance()->getState() == SHUTDOWN )
 		return PyTrue();
 	else
 		return PyFalse();
@@ -1172,7 +1172,7 @@ static PyObject* wpQueueAction( PyObject* self, PyObject* args )
 	if( !PyArg_ParseTuple( args, "i:wolfpack.queueaction( type )", &type ) )
 		return 0;
 
-	queueAction( (eActionType)type );
+	Server::instance()->queueAction( (enActionType)type );
 
 	return PyInt_FromLong( 1 );
 }
@@ -1185,7 +1185,7 @@ static PyObject *wpGetDefinition(PyObject *self, PyObject *args) {
 		return 0;
 	}
 
-	const cElement *element = DefManager->getDefinition((eDefCategory)type, QString::fromUtf8(name));
+	const cElement *element = Definitions::instance()->getDefinition((eDefCategory)type, QString::fromUtf8(name));
 
 	PyMem_Free(name);
 
@@ -1204,8 +1204,8 @@ static PyObject *wpGetDefinitions(PyObject *self, PyObject *args) {
 		return 0;
 	}
 
-	const QValueVector<cElement*> elements = DefManager->getDefinitions((eDefCategory)type);
-	QStringList sections = DefManager->getSections((eDefCategory)type);
+	const QValueVector<cElement*> elements = Definitions::instance()->getDefinitions((eDefCategory)type);
+	QStringList sections = Definitions::instance()->getSections((eDefCategory)type);
 
 	PyObject *result = PyTuple_New(elements.size() + sections.size());
 
@@ -1215,7 +1215,7 @@ static PyObject *wpGetDefinitions(PyObject *self, PyObject *args) {
 	}
 
 	for (uint j = 0; j < sections.size(); ++j) {
-		cElement *element = const_cast<cElement*>(DefManager->getDefinition((eDefCategory)type, sections[j]));
+		cElement *element = const_cast<cElement*>(Definitions::instance()->getDefinition((eDefCategory)type, sections[j]));
 		PyTuple_SetItem(result, i++, element->getPyObject());
 	}
 
@@ -1571,7 +1571,7 @@ static PyObject *wpAccountsReload( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	Q_UNUSED(args);
-	Accounts::instance()->reload();
+	Server::instance()->queueAction(RELOAD_ACCOUNTS);
 	return PyTrue();
 }
 
@@ -1582,7 +1582,7 @@ static PyObject *wpAccountsSave( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	Q_UNUSED(args);
-	Accounts::instance()->save();
+	Server::instance()->queueAction(SAVE_ACCOUNTS);
 	return PyTrue();
 }
 
@@ -1615,7 +1615,7 @@ static PyObject *wpSettingsGetBool( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple(args, "ssb|b:getBool(group, key, default, create)", &pyGroup, &pyKey, &pyDef, &create ) )
 		return 0;
 
-	return SrvParams->getBool( pyGroup, pyKey, pyDef, create ) ? PyTrue() : PyFalse();
+	return Config::instance()->getBool( pyGroup, pyKey, pyDef, create ) ? PyTrue() : PyFalse();
 }
 
 /*!
@@ -1631,7 +1631,7 @@ static PyObject *wpSettingsSetBool( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple(args, "ssb:setBool(group, key, value)", &pyGroup, &pyKey, &pyValue ) )
 		return 0;
 
-	SrvParams->setBool( pyGroup, pyKey, pyValue );
+	Config::instance()->setBool( pyGroup, pyKey, pyValue );
 	return PyTrue();
 }
 
@@ -1650,7 +1650,7 @@ static PyObject *wpSettingsGetNumber( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple(args, "ssi|b:getNumber(group, key, default, create)", &pyGroup, &pyKey, &pyDef, &create ) )
 		return 0;
 
-	return PyInt_FromLong( SrvParams->getNumber( pyGroup, pyKey, pyDef, create ) );
+	return PyInt_FromLong( Config::instance()->getNumber( pyGroup, pyKey, pyDef, create ) );
 }
 
 /*!
@@ -1667,7 +1667,7 @@ static PyObject *wpSettingsSetNumber( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple(args, "ssi:setNumber(group, key, value)", &pyGroup, &pyKey, &pyValue ) )
 		return 0;
 
-	SrvParams->setNumber( pyGroup, pyKey, pyValue );
+	Config::instance()->setNumber( pyGroup, pyKey, pyValue );
 	return PyTrue();
 }
 
@@ -1686,7 +1686,7 @@ static PyObject *wpSettingsGetString( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple(args, "sss|b:getString(group, key, default, create)", &pyGroup, &pyKey, &pyDef, &create ) )
 		return 0;
 
-	return PyString_FromString( SrvParams->getString( pyGroup, pyKey, pyDef, create ) );
+	return PyString_FromString( Config::instance()->getString( pyGroup, pyKey, pyDef, create ) );
 }
 
 /*!
@@ -1702,7 +1702,7 @@ static PyObject *wpSettingsSetString( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple(args, "sss:setString(group, key, value)", &pyGroup, &pyKey, &pyValue ) )
 		return 0;
 
-	SrvParams->setString( pyGroup, pyKey, pyValue );
+	Config::instance()->setString( pyGroup, pyKey, pyValue );
 	return PyTrue();
 }
 
@@ -1713,7 +1713,7 @@ static PyObject* wpSettingsReload( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	Q_UNUSED(args);
-	SrvParams->reload();
+	Config::instance()->reload();
 	return PyTrue();
 }
 
@@ -1724,7 +1724,7 @@ static PyObject* wpSettingsSave( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	Q_UNUSED(args);
-	SrvParams->flush();
+	Config::instance()->flush();
 	return PyTrue();
 }
 
@@ -1792,7 +1792,7 @@ static PyObject *wpQuery(PyObject *self, PyObject *args) {
 	cDBResult result;
 
 	try {
-		result = persistentBroker->query(query);
+		result = PersistentBroker::instance()->query(query);
 	} catch (QString e) {
 		PyMem_Free(query);
 		PyErr_SetString(PyExc_RuntimeError, e.latin1());
@@ -1816,7 +1816,7 @@ static PyObject *wpExecute(PyObject *self, PyObject *args) {
 	}
 
 	try {
-		persistentBroker->executeQuery(query);
+		PersistentBroker::instance()->executeQuery(query);
 	} catch (QString e) {
 		PyMem_Free(query);
 		PyErr_SetString(PyExc_RuntimeError, e.latin1());
@@ -1842,9 +1842,9 @@ static PyObject *wpDriver(PyObject *self, PyObject *args)
 	QString driver = "unknown";
 
 	if (database == 1)
-		driver = SrvParams->accountsDriver();
+		driver = Config::instance()->accountsDriver();
 	else if (database == 2)
-		driver = SrvParams->databaseDriver();
+		driver = Config::instance()->databaseDriver();
 
 	return PyString_FromString(driver.latin1());
 }
@@ -1853,7 +1853,7 @@ static PyObject *wpClose(PyObject *self, PyObject *args)
 {
 	try
 	{
-		persistentBroker->disconnect();
+		PersistentBroker::instance()->disconnect();
 	}
 	catch (...)
 	{
@@ -1873,11 +1873,11 @@ static PyObject *wpOpen(PyObject *self, PyObject *args) {
 
 	try {
 		if (database == 1) {
-			persistentBroker->connect(SrvParams->accountsHost(), SrvParams->accountsName(),
-				SrvParams->accountsUsername(), SrvParams->accountsPassword());
+			PersistentBroker::instance()->connect(Config::instance()->accountsHost(), Config::instance()->accountsName(),
+				Config::instance()->accountsUsername(), Config::instance()->accountsPassword());
 		} else if (database == 2) {
-			persistentBroker->connect(SrvParams->databaseHost(), SrvParams->databaseName(),
-				SrvParams->databaseUsername(), SrvParams->databasePassword());
+			PersistentBroker::instance()->connect(Config::instance()->databaseHost(), Config::instance()->databaseName(),
+				Config::instance()->databaseUsername(), Config::instance()->databasePassword());
 		}
 	} catch (QString e) {
 		PyErr_SetString(PyExc_RuntimeError, e.latin1());

@@ -36,6 +36,7 @@
 #include <qmap.h>
 
 // Wolfpack includes
+#include "server.h"
 #include "typedefs.h"
 #include "singleton.h"
 
@@ -116,8 +117,7 @@ public:
 };
 
 
-class cAccounts
-{
+class cAccounts : public cComponent {
 private:
 	QMap<QString, cAccount*> accounts;
 	typedef QMap<QString, cAccount*>::iterator iterator;
@@ -135,8 +135,8 @@ public:
 
 	void save();
 	void load();
+	void unload();
 	void reload();
-	void clear();
 	void clearAcls();
 
 	typedef QMap<QString, cAccount*>::const_iterator const_iterator;

@@ -39,7 +39,7 @@
 #include "scriptmanager.h"
 #include "network/uosocket.h"
 #include "network/uotxpackets.h"
-#include "wpdefmanager.h"
+#include "definitions.h"
 #include "maps.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"
@@ -87,7 +87,7 @@ void cUObject::init()
 
 void cUObject::moveTo(const Coord_cl& newpos, bool noRemove) {
 	// See if the map is valid
-	if (!Map->hasMap(newpos.map)) {
+	if (!Maps::instance()->hasMap(newpos.map)) {
 		return;
 	}
 
@@ -210,8 +210,8 @@ bool cUObject::del()
 	if( !isPersistent )
 		return false; // We didn't need to delete the object
 
-	persistentBroker->addToDeleteQueue( "uobject", QString( "serial = '%1'" ).arg( serial_ ) );
-	persistentBroker->addToDeleteQueue( "uobjectmap", QString( "serial = '%1'" ).arg( serial_ ) );
+	PersistentBroker::instance()->addToDeleteQueue( "uobject", QString( "serial = '%1'" ).arg( serial_ ) );
+	PersistentBroker::instance()->addToDeleteQueue( "uobjectmap", QString( "serial = '%1'" ).arg( serial_ ) );
 
 	if( tags_.size() > 0 )
 		tags_.del( serial_ );
@@ -378,6 +378,8 @@ void cUObject::recreateEvents() {
 	} else {
 		QStringList events = QStringList::split(",", eventList_);
 		QString newevents;
+		
+		delete [] scriptChain;
 		scriptChain = new cPythonScript*[events.size() + 1];
 		unsigned int count = 0;
 

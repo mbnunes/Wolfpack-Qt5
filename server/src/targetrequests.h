@@ -39,6 +39,7 @@
 #include "player.h"
 #include "tilecache.h"
 #include "npc.h"
+#include "globals.h"
 #include "ai/ai.h"
 
 // Stealing
@@ -133,16 +134,6 @@ public:
 		else
 			return selectPoison( socket, target );
 	}
-};
-
-class cSkRepairItem : public cTargetRequest
-{
-
-private:
-	cDoCodeAction* makesection_;
-public:
-	cSkRepairItem( cDoCodeAction* makesection = NULL ) : cTargetRequest(), makesection_( makesection ) {}
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target );
 };
 
 class cResurectTarget: public cTargetRequest

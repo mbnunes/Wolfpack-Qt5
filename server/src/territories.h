@@ -112,16 +112,14 @@ public:
 	std::map< UI32, good_st >		tradesystem_;
 };
 
-class cAllTerritories
-{
+class cTerritories : public cComponent {
 private:
 	QMap<uint, QPtrList<cTerritory> > topregions;
-
 public:
-
 	void reload();
-	void load( void );
-	void check( P_CHAR pc );
+	void load();
+	void unload();
+	void check(P_CHAR pc);
 
 	cTerritory* region( const QString& regName );
 	cTerritory* region( UI16 posx, UI16 posy, UI08 map );
@@ -131,7 +129,7 @@ public:
 	}
 };
 
-typedef SingletonHolder<cAllTerritories> AllTerritories;
+typedef SingletonHolder<cTerritories> Territories;
 
 #endif
 

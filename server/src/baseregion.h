@@ -32,7 +32,7 @@
 #include "platform.h"
 #include "coord.h"
 #include "typedefs.h"
-#include "wpdefmanager.h"
+#include "definitions.h"
 
 // Library includes
 #include <qstring.h>
@@ -183,25 +183,13 @@ public:
 	QValueVector< rect_st > &rectangles() { return rectangles_; }
 };
 
-class cAllBaseRegions
-{
+class cAllBaseRegions {
 public:
 	virtual ~cAllBaseRegions()
 	{
 		QMap<uint, cBaseRegion*>::const_iterator it( topregions.begin() );
 		for ( ; it != topregions.end(); ++it )
 			delete it.data();
-	}
-
-	virtual void load( void ) = 0;
-
-	void reload( void )
-	{
-		QMap<uint, cBaseRegion*>::iterator it( topregions.begin() );
-		for ( ; it != topregions.end(); ++it )
-			delete it.data();
-
-		this->load();
 	}
 
 	cBaseRegion*	region( const QString& regName )

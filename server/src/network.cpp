@@ -30,7 +30,7 @@
 
 //Wolfpack Includes
 #include "network.h"
-#include "srvparams.h"
+#include "config.h"
 #include "globals.h"
 #include "console.h"
 #include "inlines.h"
@@ -44,46 +44,12 @@
 // Library Includes
 #include <qstringlist.h>
 
-void cNetwork::startup() {
-	if( SrvParams->enableLogin() )
-	{
-		loginServer_ = new cListener( SrvParams->loginPort() );
-		loginServer_->start();
-	}
-	else
-		loginServer_ = 0;
-
-	if( SrvParams->enableGame() )
-	{
-		gameServer_ = new cListener( SrvParams->gamePort() );
-		gameServer_->start();
-	}
-	else
-		gameServer_ = 0;
-
-	netIo_->start();
-}
-
-void cNetwork::shutdown() {
-	if (loginServer_) {
-		loginServer_->cancel();
-		loginServer_->wait();
-	}
-
-	if (gameServer_) {
-		gameServer_->cancel();
-		gameServer_->wait();
-
-	}
-
-	netIo_->cancel();
-	netIo_->wait();
-}
-
 cNetwork::cNetwork() {
 	loginSockets.setAutoDelete(true);
 	uoSockets.setAutoDelete(true);
 	netIo_ = new cAsyncNetIO;
+	loginServer_ = 0;
+	gameServer_ = 0;
 }
 
 cNetwork::~cNetwork() {
@@ -130,10 +96,10 @@ void cNetwork::poll( void )
 			// Check for disconnected sockets
 			if ( uoSocket->socket()->error() != QSocketDevice::NoError || !uoSocket->socket()->isValid() || !uoSocket->socket()->isWritable() || uoSocket->socket()->isInactive() || !uoSocket->socket()->isOpen() )
 			{
-				uoSocket->log( "Client disconnected.\n" );
+				uoSocket->log("Client disconnected.\n");
 				uoSocket->disconnect();
-				netIo_->unregisterSocket( uoSocket->socket() );
-				uoSockets.remove( uoSocket );
+				netIo_->unregisterSocket(uoSocket->socket());
+				uoSockets.remove(uoSocket);
 			}
 			else
 			{
@@ -173,21 +139,65 @@ void cNetwork::poll( void )
 }
 
 // Load IP Blocking rules
-void cNetwork::load( void )
-{
+void cNetwork::load() {
+	if (Config::instance()->enableLogin()) {
+		loginServer_ = new cListener(Config::instance()->loginPort());
+		loginServer_->start();
+        Console::instance()->send( QString( "LoginServer running on port %1\n" ).arg( Config::instance()->loginPort() ) );
+		if (Config::instance()->serverList().size() < 1)
+			Console::instance()->log( LOG_WARNING, "LoginServer enabled but there no Game server entries found\n Check your wolfpack.xml settings" );
+	}
+
+	if (Config::instance()->enableGame()) {
+		gameServer_ = new cListener(Config::instance()->gamePort());
+		gameServer_->start();
+		Console::instance()->send( QString( "GameServer running on port %1\n" ).arg( Config::instance()->gamePort() ) );
+	}
+
+	netIo_->start();
+	cComponent::load();
 }
 
 // Reload IP Blocking rules
-void cNetwork::reload( void )
-{
+void cNetwork::reload() {
 	unload();
 	load();
 }
 
 // Unload IP Blocking rules
-void cNetwork::unload( void )
-{
-//	hosts_deny.clear();
+void cNetwork::unload() {
+	if (loginServer_) {
+		loginServer_->cancel();
+		loginServer_->wait();
+		delete loginServer_;
+		loginServer_ = 0;
+	}
+
+	if (gameServer_) {
+		gameServer_->cancel();
+		gameServer_->wait();
+		delete gameServer_;
+		gameServer_ = 0;
+	}
+
+	// Disconnect all connected sockets
+	cUOSocket *socket;
+	for (socket = uoSockets.first(); socket; socket = uoSockets.next()) {
+		socket->disconnect();
+		netIo_->unregisterSocket(socket->socket());
+	}
+	uoSockets.clear();
+
+	for (socket = loginSockets.first(); socket; socket = loginSockets.next()) {
+		socket->disconnect();
+		netIo_->unregisterSocket(socket->socket());
+	}
+	loginSockets.clear();
+
+	netIo_->cancel();
+	netIo_->wait();
+
+	cComponent::unload();
 }
 
 void cNetwork::broadcast(const QString &message, UINT16 color, UINT16 font)

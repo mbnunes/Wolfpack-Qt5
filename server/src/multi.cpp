@@ -26,7 +26,7 @@
  */
 
 #include "multi.h"
-#include "wpdefmanager.h"
+#include "definitions.h"
 #include "globals.h"
 #include "multiscache.h"
 #include "world.h"
@@ -74,7 +74,7 @@ void cMulti::moveTo(const Coord_cl &pos, bool noRemove) {
 cMulti *cMulti::createFromScript(const QString &id) {
 	cMulti *multi = 0;
 
-	const cElement* section = DefManager->getDefinition(WPDT_MULTI, id);
+	const cElement* section = Definitions::instance()->getDefinition(WPDT_MULTI, id);
 
 	if (section) {
 		multi = new cMulti;

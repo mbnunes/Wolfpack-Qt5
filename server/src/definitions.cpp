@@ -37,18 +37,15 @@
 #include "ai/ai.h"
 #include "spawnregions.h"
 #include "territories.h"
-#include "resources.h"
-#include "makemenus.h"
-#include "contextmenu.h"
 #include "skills.h"
 #include "items.h"
 #include "world.h"
 #include "skills.h"
-#include "srvparams.h"
+#include "config.h"
 #include "basechar.h"
 #include "network.h"
 
-#include "wpdefmanager.h"
+#include "definitions.h"
 #include "globals.h"
 #include "basics.h"
 #include "inlines.h"
@@ -185,7 +182,7 @@ public:
 
 					// If the element has an id,
 					if (!tagId.isEmpty()) {
-						if (impl->unique[categories[i].key].contains(tagId) && !SrvParams->overwriteDefinitions()) {
+						if (impl->unique[categories[i].key].contains(tagId) && !Config::instance()->overwriteDefinitions()) {
 							Console::instance()->log(LOG_WARNING, QString("Duplicate %1: %2\n[File: %3, Line: %4]\n").arg(element->name()).arg(tagId).arg(filename).arg(locator->lineNumber()));
 							delete element;
 						} else {
@@ -240,7 +237,7 @@ public:
 };
 
 // Recursive Function for Importing Script Sections
-bool WPDefManager::ImportSections( const QString& FileName )
+bool cDefinitions::ImportSections( const QString& FileName )
 {
 	QFile File( FileName );
 
@@ -265,11 +262,15 @@ bool WPDefManager::ImportSections( const QString& FileName )
 	return true;
 }
 
-void WPDefManager::unload( void )
-{
+void cDefinitions::unload() {
+	QStringList oldAISections = getSections(WPDT_AI);
+	QStringList::iterator it;
+	for (it = oldAISections.begin(); it != oldAISections.end(); ++it) {
+		AIFactory::instance()->unregisterType(*it);
+    }
+
 	// Clear the nodes
 	unsigned int i;
-
 	for( i = 0; i < WPDT_COUNT; ++i )
 	{
 		QMap< QString, cElement* >::iterator it2;
@@ -286,56 +287,33 @@ void WPDefManager::unload( void )
 	}
 
 	impl->imports.clear();
-
 	BaseDefManager::instance()->unload();
-
 	listcache_.clear();
+	cComponent::unload();
 }
 
-void WPDefManager::reload( void )
+void cDefinitions::reload( void )
 {
-	QStringList oldAISections = DefManager->getSections( WPDT_AI );
+	QStringList oldAISections = Definitions::instance()->getSections(WPDT_AI);
 
 	unload();
 	load();
 
 	// Update all SubSystems associated with this Definition Manager
-	KeyManager::instance()->load();
-	AIFactory::instance()->checkScriptAI( oldAISections, DefManager->getSections( WPDT_AI ) );
-
-	SpawnRegions::instance()->reload();
-	AllTerritories::instance()->reload();
-	Resources::instance()->reload();
-	MakeMenus::instance()->reload();
-	ContextMenus::instance()->reload();
-	Skills->reload();
-
-	// Update the Regions
-	cCharIterator iter;
-	for( P_CHAR pChar = iter.first(); pChar; pChar = iter.next() )
-	{
-		cTerritory *region = AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
-		pChar->setRegion( region );
-	}
-
-	Network::instance()->reload(); // This will be integrated into the normal definition system soon
+	AIFactory::instance()->checkScriptAI( oldAISections, Definitions::instance()->getSections( WPDT_AI ) );
 }
 
 // Load the Definitions
-void WPDefManager::load( void )
+void cDefinitions::load( void )
 {
 	unsigned int i = 0;
 
-	Console::instance()->sendProgress( "Loading Definitions" );
-
-	impl->imports = QStringList::split( ";", SrvParams->getString( "General", "Definitions", "definitions/index.xml", true ) );
+	impl->imports = QStringList::split( ";", Config::instance()->getString( "General", "Definitions", "definitions/index.xml", true ) );
 
 	while (i < impl->imports.size()) {
 		ImportSections(impl->imports[i]);
 		++i;
 	}
-
-	Console::instance()->sendDone();
 
 	// create a list cache, because reading all the lists on the fly
 	// means wasting time
@@ -377,12 +355,24 @@ void WPDefManager::load( void )
 		++it;
 	}
 
+	Skills::instance()->load();
 	Commands::instance()->loadACLs();
 	BaseDefManager::instance()->load();
+	KeyManager::instance()->load();
+
+	// Script NPC AI types
+	QStringList aiSections = Definitions::instance()->getSections(WPDT_AI);
+	QStringList::const_iterator aiit = aiSections.begin();
+	while (aiit != aiSections.end()) {
+		ScriptAI::registerInFactory(*aiit);
+		++aiit;
+	}
+
+	cComponent::load();
 }
 
 // Returns a list of section-names found
-QStringList WPDefManager::getSections( eDefCategory Type ) const
+QStringList cDefinitions::getSections( eDefCategory Type ) const
 {
 	// This is a VERY VERY slow function!
 	QStringList result;
@@ -398,7 +388,7 @@ QStringList WPDefManager::getSections( eDefCategory Type ) const
 	return result;
 }
 
-QString	WPDefManager::getRandomListEntry( const QString& ListSection )
+QString	cDefinitions::getRandomListEntry( const QString& ListSection )
 {
 	QStringList *list = NULL;
 
@@ -412,7 +402,7 @@ QString	WPDefManager::getRandomListEntry( const QString& ListSection )
 		return (*list)[ RandomNum( 0, list->size()-1 ) ];
 }
 
-QStringList	WPDefManager::getList( const QString& ListSection )
+QStringList	cDefinitions::getList( const QString& ListSection )
 {
 	QStringList list;
 
@@ -423,7 +413,7 @@ QStringList	WPDefManager::getList( const QString& ListSection )
 	return list;
 }
 
-QString WPDefManager::getText( const QString& TextSection ) const
+QString cDefinitions::getText( const QString& TextSection ) const
 {
 	/*const QDomElement* DefSection = this->getSection( WPDT_TEXT, TextSection );
 	if( DefSection->isNull() )
@@ -441,19 +431,19 @@ QString WPDefManager::getText( const QString& TextSection ) const
 	return QString();
 }
 
-WPDefManager::WPDefManager()
+cDefinitions::cDefinitions()
 {
 	impl = new cDefManagerPrivate;
 }
 
-WPDefManager::~WPDefManager()
+cDefinitions::~cDefinitions()
 {
 	unload();
 	delete impl;
 }
 
 
-const cElement* WPDefManager::getDefinition( eDefCategory type, const QString& id ) const
+const cElement* cDefinitions::getDefinition( eDefCategory type, const QString& id ) const
 {
 	QMap< QString, cElement* >::const_iterator it = impl->unique[ type ].find( id );
 
@@ -463,7 +453,7 @@ const cElement* WPDefManager::getDefinition( eDefCategory type, const QString& i
 		return it.data();
 }
 
-const QValueVector< cElement* > &WPDefManager::getDefinitions( eDefCategory type ) const
+const QValueVector< cElement* > &cDefinitions::getDefinitions( eDefCategory type ) const
 {
 	return impl->nonunique[ type ];
 }
@@ -688,7 +678,7 @@ QString cElement::value() const
 			}
 			else if( childTag->hasAttribute( "list" ) )
 			{
-				Value += DefManager->getRandomListEntry( childTag->getAttribute( "list" ) );
+				Value += Definitions::instance()->getRandomListEntry( childTag->getAttribute( "list" ) );
 			}
 			else if( childTag->hasAttribute( "dice" ) )
 			{

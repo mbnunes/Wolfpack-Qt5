@@ -30,7 +30,7 @@
 #include "contextmenu.h"
 #include "pythonscript.h"
 #include "uobject.h"
-#include "wpdefmanager.h"
+#include "definitions.h"
 #include "scriptmanager.h"
 #include "player.h"
 
@@ -165,11 +165,11 @@ void cContextMenu::recreateEvents()
 */
 void cAllContextMenus::load( void )
 {
-	QStringList sections = DefManager->getSections( WPDT_CONTEXTMENU );
+	QStringList sections = Definitions::instance()->getSections( WPDT_CONTEXTMENU );
 	QStringList::const_iterator it = sections.begin();
 	for ( ; it != sections.end(); ++it )
 	{
-		const cElement* section = DefManager->getDefinition( WPDT_CONTEXTMENU, (*it) );
+		const cElement* section = Definitions::instance()->getDefinition( WPDT_CONTEXTMENU, (*it) );
 
 		if( section )
 		{
@@ -179,7 +179,7 @@ void cAllContextMenus::load( void )
 			menus_.insert( (*it), menu );
 		}
 	}
-
+	cComponent::load();
 }
 
 /*!
@@ -212,6 +212,7 @@ void cAllContextMenus::unload()
 		it.data()->disposeEntries();
 		delete it.data();
 	}
+	cComponent::unload();
 }
 
 void cAllContextMenus::reload( void )

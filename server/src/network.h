@@ -55,8 +55,7 @@ struct ip_block_st
 	unsigned long mask;
 };
 
-class cNetwork
-{
+class cNetwork : public cComponent {
 	QPtrList< cUOSocket > uoSockets;
 	QPtrList< cUOSocket > loginSockets;
 	cAsyncNetIO *netIo_;
@@ -71,9 +70,9 @@ public:
 	void startup();
 	void shutdown();
 
-	void load( void );
-	void unload( void );
-	void reload( void );
+	void load();
+	void unload();
+	void reload();
 
 	bool CheckForBlockedIP( const QHostAddress& ip_address );
 

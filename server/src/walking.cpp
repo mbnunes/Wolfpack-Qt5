@@ -31,7 +31,7 @@
 // Wolfpack Includes
 #include "walking.h"
 #include "sectors.h"
-#include "srvparams.h"
+#include "config.h"
 #include "network.h"
 #include "maps.h"
 #include "tilecache.h"
@@ -138,11 +138,11 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 
 	// Process the map at that position
 	stBlockItem mapBlock;
-	mapBlock.z = Map->mapAverageElevation( pos );
+	mapBlock.z = Maps::instance()->mapAverageElevation( pos );
 	mapBlock.height = 0;
 
 	// TODO: Calculate the REAL average Z Value of that Map Tile here! Otherwise clients will have minor walking problems.
-	map_st mapCell = Map->seekMap( pos );
+	map_st mapCell = Maps::instance()->seekMap( pos );
 	mapBlock.z = mapCell.z;
 	land_st mapTile = TileCache::instance()->getLand( mapCell.id );
 
@@ -158,7 +158,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 	}
 
     // Now for the static-items
-	StaticsIterator staIter = Map->staticsIterator( pos, true );
+	StaticsIterator staIter = Maps::instance()->staticsIterator( pos, true );
 	for( ; !staIter.atEnd(); ++staIter )
 	{
 		tile_st tTile = TileCache::instance()->getTile( staIter->itemid );
@@ -585,7 +585,7 @@ void cMovement::checkRunning( cUOSocket *socket, P_CHAR pChar, Q_UINT8 dir )
 
 	// If we're running on our feet, check for stamina loss
 	// Crap
-	if( !pChar->isDead() && !pChar->atLayer( cBaseChar::Mount ) && pChar->runningSteps() > ( SrvParams->runningStamSteps() ) * 2 )
+	if( !pChar->isDead() && !pChar->atLayer( cBaseChar::Mount ) && pChar->runningSteps() > ( Config::instance()->runningStamSteps() ) * 2 )
 	{
 		// The *2 it's because i noticed that a step(animation) correspond to 2 walking calls
 		// ^^ WTF?
@@ -612,7 +612,7 @@ void cMovement::handleTeleporters(P_CHAR pc, const Coord_cl& oldpos)
 	cTerritory* territory = pc->region();
 
 	if( !territory )
-		AllTerritories::instance()->check( pc );
+		Territories::instance()->check( pc );
 
 	if( territory && pc->pos() != oldpos )
 	{
@@ -751,10 +751,10 @@ UINT16 DynTile( const Coord_cl &pos )
 
 bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
 {
-	if( pos.x >= ( Map->mapTileWidth(pos.map) * 8 ) || pos.y >= ( Map->mapTileHeight(pos.map) * 8 ) )
+	if( pos.x >= ( Maps::instance()->mapTileWidth(pos.map) * 8 ) || pos.y >= ( Maps::instance()->mapTileHeight(pos.map) * 8 ) )
 		return false;
 
-    const signed char elev = Map->mapElevation( pos );
+    const signed char elev = Maps::instance()->mapElevation( pos );
 	Coord_cl target = pos;
 	target.z = elev;
 	if (ILLEGAL_Z == elev)
@@ -775,7 +775,7 @@ bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
 	}
 
     // if there's a static block here in our way, return false
-	StaticsIterator msi = Map->staticsIterator( pos );
+	StaticsIterator msi = Maps::instance()->staticsIterator( pos );
 	while (!msi.atEnd()) {
 		tile_st tile = TileCache::instance()->getTile( msi->itemid );
 		const INT32 elev = msi->zoff + cTileCache::tileHeight(tile);

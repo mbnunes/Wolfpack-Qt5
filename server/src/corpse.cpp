@@ -75,10 +75,10 @@ void cCorpse::load( char **result, UINT16 &offset )
 	// Get the corpse equipment
 	QString sql = "SELECT serial,layer,item FROM corpses_equipment WHERE serial = '" + QString::number( serial() ) + "'";
 
-	cDBResult res = persistentBroker->query( sql );
+	cDBResult res = PersistentBroker::instance()->query( sql );
 
 	if( !res.isValid() )
-		throw persistentBroker->lastError();
+		throw PersistentBroker::instance()->lastError();
 
 	// Fetch row-by-row
 	while( res.fetchrow() )
@@ -105,11 +105,11 @@ void cCorpse::save()
 	// Equipment can change as well
 	if( isPersistent )
 	{
-		persistentBroker->executeQuery( QString( "DELETE FROM corpses_equipment WHERE serial = '%1'" ).arg( serial() ) );
+		PersistentBroker::instance()->executeQuery( QString( "DELETE FROM corpses_equipment WHERE serial = '%1'" ).arg( serial() ) );
 	}
 
 	for( map< UINT8, SERIAL >::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
-		persistentBroker->executeQuery( QString( "REPLACE INTO corpses_equipment VALUES(%1,%2,%3)" ).arg( serial() ).arg( it->first ).arg( it->second ) );
+		PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO corpses_equipment VALUES(%1,%2,%3)" ).arg( serial() ).arg( it->first ).arg( it->second ) );
 
 	cItem::save();
 }
@@ -119,8 +119,8 @@ bool cCorpse::del()
 	if( !isPersistent )
 		return false;
 
-	persistentBroker->addToDeleteQueue( "corpses", QString( "serial = '%1'" ).arg( serial() ) );
-	persistentBroker->addToDeleteQueue( "corpses_equipment", QString( "serial = '%1'" ).arg( serial() ) );
+	PersistentBroker::instance()->addToDeleteQueue( "corpses", QString( "serial = '%1'" ).arg( serial() ) );
+	PersistentBroker::instance()->addToDeleteQueue( "corpses_equipment", QString( "serial = '%1'" ).arg( serial() ) );
 
 	return cItem::del();
 }

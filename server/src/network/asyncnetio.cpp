@@ -28,7 +28,7 @@
 #include "asyncnetio.h"
 #include "uorxpackets.h"
 #include "uopacket.h"
-#include "../srvparams.h"
+#include "../config.h"
 #include "../globals.h"
 #include "../basics.h"
 
@@ -467,7 +467,7 @@ void cAsyncNetIO::run() throw()
 							if( buf[0] == '\x91' && buf[1] == '\xFF' && buf[2] == '\xFF' && buf[3] == '\xFF' && buf[4] == '\xFF' )
 							{
 								// Is no Encryption allowed?
-								if( !SrvParams->allowUnencryptedClients() )
+								if( !Config::instance()->allowUnencryptedClients() )
 								{
 									// Send a communication problem message to this socket
 									d->writeBlock( "\x82\x04", 2 );
@@ -496,7 +496,7 @@ void cAsyncNetIO::run() throw()
 							if( buf[0] == '\x80' && buf[30] == '\x00' && buf[60] == '\x00' )
 							{
 								// Is no Encryption allowed?
-								if( !SrvParams->allowUnencryptedClients() )
+								if( !Config::instance()->allowUnencryptedClients() )
 								{
 									// Send a communication problem message to this socket
 									d->writeBlock( "\x82\x04", 2 );

@@ -29,17 +29,16 @@
 #include "targetrequests.h"
 #include "maps.h"
 #include "sectors.h"
-#include "wpdefmanager.h"
+#include "definitions.h"
 #include "territories.h"
 #include "items.h"
 //#include "tilecache.h"
-#include "srvparams.h"
+#include "config.h"
 #include "skills.h"
 #include "combat.h"
 #include "scriptmanager.h"
 #include "pythonscript.h"
 #include "accounts.h"
-#include "makemenus.h"
 #include "itemid.h"
 #include "npc.h"
 #include "basics.h"
@@ -60,7 +59,7 @@ bool cSkStealing::responsed( cUOSocket *socket, cUORxTarget *target )
 
 	if( isCharSerial( target->serial() ) )
 	{
-		Skills->RandomSteal(socket, target->serial());
+		Skills::instance()->RandomSteal(socket, target->serial());
 		return true;
 	}
 
@@ -150,86 +149,6 @@ bool cSkStealing::responsed( cUOSocket *socket, cUORxTarget *target )
 	}
 	else
 		socket->sysMessage( tr("You are too far away to steal that item.") );
-	return true;
-}
-
-bool cSkRepairItem::responsed( cUOSocket *socket, cUORxTarget *target )
-{
-	if( !socket )
-		return true;
-
-	P_CHAR pc = socket->player();
-	if( !pc )
-		return true;
-
-	P_ITEM pi = FindItemBySerial( target->serial() );
-	if( !pi || pi->isLockedDown() )
-	{
-		socket->sysMessage( tr("You can't repair that!") );
-		return false;
-	}
-	else if( pc->getBackpack() && !pc->getBackpack()->contains(pi) )
-	{
-		socket->sysMessage( tr("The item must be in your backpack to get repaired!") );
-		return true;
-	}
-	else if( pi->hp() == 0 )
-	{
-		socket->sysMessage( tr("That item can't be repaired.") );
-		return true;
-	}
-	else if( pi->hp() >= pi->maxhp() )
-	{
-		socket->sysMessage( tr("That item is of top quality.") );
-		return true;
-	}
-	else
-	{
-		bool anvilinrange = false;
-		RegionIterator4Items ri( pc->pos(), 2 );
-		for( ri.Begin(); !ri.atEnd(); ri++ )
-		{
-			P_ITEM pri = ri.GetData();
-			if( pri && IsAnvil( pri->id() ) )
-			{
-				anvilinrange = true;
-				break;
-			}
-		}
-		if( !anvilinrange )
-		{
-			socket->sysMessage( tr("You must stand in range of an anvil!" ) );
-			return true;
-		}
-	}
-
-	bool hasSuccess = true;
-	short dmg=4;	// damage to maxhp
-
-	short smithing = pc->skillValue( BLACKSMITHING );
-	if		((smithing>=900)) dmg=1;
-	else if ((smithing>=700)) dmg=2;
-	else if ((smithing>=500)) dmg=3;
-	hasSuccess = pc->checkSkill(BLACKSMITHING, 0, 1000);
-
-	if( hasSuccess )
-	{
-		pi->setMaxhp( pi->maxhp() - dmg );
-		pi->setHp( pi->maxhp() );
-		socket->sysMessage( tr("* the item has been repaired.*") );
-		if( makesection_ && makesection_->baseAction() )
-			pc->soundEffect( makesection_->baseAction()->succSound() );
-	}
-	else
-	{
-		pi->setHp( pi->hp() - 2 );
-		pi->setMaxhp( pi->maxhp() - 1 );
-		socket->sysMessage( tr("* You fail to repair the item. *") );
-		socket->sysMessage( tr("* You weaken the item.*") );
-		if( makesection_ && makesection_->baseAction() )
-			pc->soundEffect( makesection_->baseAction()->failSound() );
-	}
-
 	return true;
 }
 

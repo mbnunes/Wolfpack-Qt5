@@ -25,7 +25,7 @@
  * Wolfpack Homepage: http://wpdev.sf.net/
  */
 
-#include "srvparams.h"
+#include "config.h"
 #include "globals.h"
 #include "verinfo.h"
 #include "preferences.h"
@@ -82,19 +82,12 @@ Q_INT32 resolveName( const QString& data )
 	return ntohl(uiValue);
 }
 
-cSrvParams::cSrvParams( const QString& filename, const QString& format, const QString& version )  : Preferences(filename, format, version)
-{
-	// Load data into binary format
-	// If value not found, create key.
-	readData();
-	if (!containGroup("StartLocation") )
-		setDefaultStartLocation();
-	if (!containGroup("LoginServer"))
-		setDefaultServerList();
-	flush(); // if any key created, save it.
+cConfig::cConfig() : Preferences("wolfpack.xml", "Wolfpack", "1.0") {
 }
 
-void cSrvParams::readData() {
+void cConfig::readData() {
+	Preferences::readData();
+
 	// Account Group
 	autoAccountCreate_		= getBool("Accounts",	"Auto Create",		false, true );
 	accountsDriver_			= getString( "Accounts", "Database Driver", "sqlite", true );
@@ -206,15 +199,34 @@ void cSrvParams::readData() {
 
 }
 
-void cSrvParams::reload()
-{
-	serverList_.clear();
-	startLocation_.clear();
-	Preferences::reload();
+void cConfig::load() {
+	// Load data into binary format
+	// If value not found, create key.
 	readData();
+
+	if (!containGroup("StartLocation") )
+		setDefaultStartLocation();
+
+	if (!containGroup("LoginServer"))
+		setDefaultServerList();
+
+	flush(); // if any key created, save it.
+	cComponent::load();
 }
 
-std::vector<StartLocation_st>& cSrvParams::startLocation()
+void cConfig::unload() {
+	serverList_.clear();
+	startLocation_.clear();
+	cComponent::unload();
+}
+
+void cConfig::reload()
+{
+	unload();
+	load();
+}
+
+std::vector<StartLocation_st>& cConfig::startLocation()
 {
 	if ( startLocation_.empty() ) // Empty? Try to load
 	{
@@ -247,7 +259,7 @@ std::vector<StartLocation_st>& cSrvParams::startLocation()
 	return startLocation_;
 }
 
-void cSrvParams::setDefaultStartLocation()
+void cConfig::setDefaultStartLocation()
 {
 	setString("StartLocation", "Location 1", "Yew=567,978,0,1");
 	setString("StartLocation", "Location 2", "Minoc=2477,407,15,1");
@@ -261,67 +273,67 @@ void cSrvParams::setDefaultStartLocation()
 	flush(); // save
 }
 
-void cSrvParams::setDefaultServerList()
+void cConfig::setDefaultServerList()
 {
 	setString("LoginServer", "Shard 1", "Your Shard Name=127.0.0.1,2592");
 	flush(); // save.
 }
 
-void cSrvParams::setSecondsPerUOMinute( unsigned int data )
+void cConfig::setSecondsPerUOMinute( unsigned int data )
 {
 	secondsPerUOMinute_ = data;
 	setNumber("Game Speed", "Seconds Per UO Minute", secondsPerUOMinute_);
 	flush();
 }
 
-void cSrvParams::setWorldBrightLevel( unsigned char data )
+void cConfig::setWorldBrightLevel( unsigned char data )
 {
 	worldBrightLevel_ = data;
 	setNumber("Light", "World Bright Level", data);
 	flush();
 }
 
-void cSrvParams::setWorldFixedLevel( unsigned char data )
+void cConfig::setWorldFixedLevel( unsigned char data )
 {
 	worldFixedLevel_ = data;
 	setNumber("Light", "World Fixed Level", data);
 	flush();
 }
 
-void cSrvParams::setWorldDarkLevel( unsigned char data )
+void cConfig::setWorldDarkLevel( unsigned char data )
 {
 	worldDarkLevel_ = data;
 	setNumber("Light", "World Dark Level", data);
 	flush();
 }
 
-void cSrvParams::setDungeonLightLevel( unsigned char data )
+void cConfig::setDungeonLightLevel( unsigned char data )
 {
 	dungeonLightLevel_ = data;
 	setNumber("Light", "Dungeon Level", data);
 	flush();
 }
 
-void cSrvParams::setMulPath( const QString& data )
+void cConfig::setMulPath( const QString& data )
 {
 	mulPath_ = data;
 	setString("General", "MulPath", data);
 	flush();
 }
 
-void cSrvParams::setLogPath( const QString &data )
+void cConfig::setLogPath( const QString &data )
 {
 	logPath_ = data;
 	setString("General", "LogPath", data );
 	flush();
 }
 
-unsigned char& cSrvParams::worldCurrentLevel()
+unsigned char& cConfig::worldCurrentLevel()
 {
 	return worldCurrentLevel_;
 }
 
-void cSrvParams::guardsActive(bool enabled)
+void cConfig::guardsActive(bool enabled)
 {
 	guardsActive_ = enabled;
 	setBool("General", "Guards Enabled", enabled);
@@ -339,7 +351,7 @@ static stGroupDoc group_doc[] = {
 	{0, 0}
 };
 
-QString cSrvParams::getGroupDoc(const QString &group) {
+QString cConfig::getGroupDoc(const QString &group) {
 	// Try to find documentation for a group in our table
 	unsigned int i = 0;
 
@@ -364,7 +376,7 @@ static stEntryDoc entry_doc[] = {
 	{0, 0, 0}
 };
 
-QString cSrvParams::getEntryDoc(const QString &group, const QString &entry) {
+QString cConfig::getEntryDoc(const QString &group, const QString &entry) {
 	// Try to find documentation for an entry in our table
 	unsigned int i = 0;
 

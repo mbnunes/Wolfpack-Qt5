@@ -33,7 +33,7 @@
 #include "../basechar.h"
 #include "../player.h"
 #include "../globals.h"
-#include "../wpdefmanager.h"
+#include "../definitions.h"
 #include "../skills.h"
 
 // Library Includes
@@ -465,10 +465,10 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 	} else {
 		QString title = pChar->title();
 		if (title.isEmpty()) {
-			title = Skills->getSkillTitle(pChar);
+			title = Skills::instance()->getSkillTitle(pChar);
 		}
 
-		QStringList titles = DefManager->getList("REPUTATION_TITLES");
+		QStringList titles = Definitions::instance()->getList("REPUTATION_TITLES");
 
 		// Calculate the position inside the list
 		unsigned int position;

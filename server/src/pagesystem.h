@@ -31,7 +31,7 @@
 // Wolfpack includes
 #include "typedefs.h"
 #include "globals.h"
-#include "wpdefmanager.h"
+#include "definitions.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"
 #include "basics.h"
@@ -90,7 +90,7 @@ protected:
 public:
 	void save()
 	{
-		persistentBroker->executeQuery( "DELETE FROM pages" );
+		PersistentBroker::instance()->executeQuery( "DELETE FROM pages" );
 
 		int i = 0;
 		cPagesManager::const_iterator it = begin();
@@ -99,8 +99,8 @@ public:
 			cPage *page = *it;
 
 			QString sql( "REPLACE INTO pages SET charserial = '%1', pagetype = '%2', pagetime = '%3', pagepos = '%4', content = '%5', category = '%6', pageorder = '%7'" );
-			sql = sql.arg( page->charSerial() ).arg( page->pageType() ).arg( persistentBroker->quoteString( page->pageTime() ) ).arg( QString( "%1,%2,%3,%4" ).arg( page->pagePos().x ).arg( page->pagePos().y ).arg( page->pagePos().z ).arg( page->pagePos().map ) ).arg( persistentBroker->quoteString( page->content() ) ).arg( page->pageCategory() ).arg( i++ );
-			persistentBroker->executeQuery( sql );
+			sql = sql.arg( page->charSerial() ).arg( page->pageType() ).arg( PersistentBroker::instance()->quoteString( page->pageTime() ) ).arg( QString( "%1,%2,%3,%4" ).arg( page->pagePos().x ).arg( page->pagePos().y ).arg( page->pagePos().z ).arg( page->pagePos().map ) ).arg( PersistentBroker::instance()->quoteString( page->content() ) ).arg( page->pageCategory() ).arg( i++ );
+			PersistentBroker::instance()->executeQuery( sql );
 
 			++it;
 		}
@@ -108,7 +108,7 @@ public:
 
 	void load()
 	{
-		cDBResult result = persistentBroker->query( "SELECT charserial,pagetype,pagetime,pagepos,content,category,pageorder FROM pages ORDER BY pageorder ASC" );
+		cDBResult result = PersistentBroker::instance()->query( "SELECT charserial,pagetype,pagetime,pagepos,content,category,pageorder FROM pages ORDER BY pageorder ASC" );
 		while( result.fetchrow() )
 		{
 			char **row = result.data();
@@ -215,7 +215,7 @@ public:
 
 	QStringList categories( void )
 	{
-		QStringList categories = DefManager->getList( "PAGE_CATEGORIES" );
+		QStringList categories = Definitions::instance()->getList( "PAGE_CATEGORIES" );
 		if( categories.count() == 0 )
 			categories.push_back( "none" );
 		return categories;

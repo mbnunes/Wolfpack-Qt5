@@ -26,14 +26,13 @@
  */
 
 #include "scriptmanager.h"
-#include "wpdefmanager.h"
+#include "definitions.h"
 #include "basechar.h"
 #include "globals.h"
 #include "console.h"
 #include "world.h"
 #include "items.h"
 #include "pythonscript.h"
-#include "../contextmenu.h"
 #include "python/engine.h"
 #include "network/uosocket.h"
 #include "wolfpack.h"
@@ -68,12 +67,7 @@ cPythonScript* cScriptManager::find( const QCString &name )
 		return 0;
 }
 
-void cScriptManager::reload( void )
-{
-	changeServerState(SCRIPTRELOAD);
-
-	ContextMenus::instance()->unload();
-
+void cScriptManager::reload() {
 	// First unload, then reload
 	unload();
 
@@ -95,10 +89,6 @@ void cScriptManager::reload( void )
 
 	for( P_CHAR pChar = iter_chars.first(); pChar; pChar = iter_chars.next() )
 		pChar->recreateEvents();
-
-	ContextMenus::instance()->load();
-
-	changeServerState(RUNNING);
 }
 
 // Unload all scripts
@@ -126,14 +116,12 @@ void cScriptManager::unload() {
 	}
 
 	commandhooks.clear();
+	cComponent::unload();
 }
 
-void cScriptManager::load()
-{
-	Console::instance()->sendProgress("Loading Python Scripts");
-
+void cScriptManager::load() {
 	// Each Section is a Script identifier
-	const QValueVector<cElement*> &sections = DefManager->getDefinitions(WPDT_SCRIPT);
+	const QValueVector<cElement*> &sections = Definitions::instance()->getDefinitions(WPDT_SCRIPT);
 
 	unsigned int loaded = 0;
 	unsigned int i;
@@ -151,9 +139,7 @@ void cScriptManager::load()
 		script->load(element->text());
 		++loaded;
 	}
-
-	Console::instance()->sendDone();
-	Console::instance()->send(QString("%1 Script(s) loaded\n").arg(loaded));
+	cComponent::load();
 }
 
 void cScriptManager::onServerStart()

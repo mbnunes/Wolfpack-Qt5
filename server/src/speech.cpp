@@ -34,7 +34,7 @@
 
 #include "sectors.h"
 #include "uotime.h"
-#include "srvparams.h"
+#include "config.h"
 #include "network.h"
 #include "territories.h"
 #include "network/uosocket.h"
@@ -275,7 +275,7 @@ bool UnStableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QS
 
 	/// calc fee
 	// (fee per 10 minutes) * number of 10 minute blocks
-	float f_fee = ( ( pPet->time_unused() ) / 600.0f ) * SrvParams->stablingFee();
+	float f_fee = ( ( pPet->time_unused() ) / 600.0f ) * Config::instance()->stablingFee();
 	int fee = ( (int) f_fee ) + 5; // 5 basefee
 
 	pMaster->talk( tr( "That's %1 gold pieces" ).arg( fee ) );
@@ -451,7 +451,7 @@ bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_NPC pTrainer, const QSt
 	pPlayer->setTrainer( INVALID_SERIAL );
 
 	for( i = 0; i < ALLSKILLS; ++i )
-		if( comm.contains( Skills->getSkillName( i ), false ) )
+		if( comm.contains( Skills::instance()->getSkillName( i ), false ) )
 		{
 			skill = i;
 			break;
@@ -465,7 +465,7 @@ bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_NPC pTrainer, const QSt
 			return true;
 		}
 
-		QString skillName = Skills->getSkillName( skill );
+		QString skillName = Skills::instance()->getSkillName( skill );
 		skillName = skillName.lower();
 
 		QString message = tr( "Thou wishest to learn of %1" ).arg( skillName );
@@ -478,7 +478,7 @@ bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_NPC pTrainer, const QSt
 			UINT32 sum = pPlayer->getSkillSum();
 
 			// The user knows too much
-			if( sum >= SrvParams->skillcap() * 10 )
+			if( sum >= Config::instance()->skillcap() * 10 )
 				message.append( tr( " I can teach thee no more. Thou already knowest too much!" ) );
 
 			else
@@ -505,7 +505,7 @@ bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_NPC pTrainer, const QSt
 	{
 		if( pTrainer->skillValue( i ) >= 10 && pPlayer->skillValue( i ) < 250 )
 		{
-			QString skillName = Skills->getSkillName( i );
+			QString skillName = Skills::instance()->getSkillName( i );
 			skillList.push_back( skillName );
 		}
 	}
@@ -569,7 +569,7 @@ bool VendorChkName( P_CHAR pVendor, const QString& comm )
 //			what kind of npcs are standing around and then checking only those keywords
 //			that they might be interested in.
 //			This is especially usefull in crowded places.
-bool cSpeech::response( cUOSocket *socket, P_PLAYER pPlayer, const QString& comm, QValueVector< UINT16 > &keywords )
+bool Speech::response( cUOSocket *socket, P_PLAYER pPlayer, const QString& comm, QValueVector< UINT16 > &keywords )
 {
 	if (!pPlayer->socket() || pPlayer->isDead()) {
 		return false;
@@ -637,7 +637,7 @@ bool cSpeech::response( cUOSocket *socket, P_PLAYER pPlayer, const QString& comm
 	return false;
 }
 
-void cSpeech::talking( P_PLAYER pChar, const QString &lang, const QString &speech, QValueVector< UINT16 > &keywords, UINT16 color, UINT16 font, UINT8 type ) // PC speech
+void Speech::talking( P_PLAYER pChar, const QString &lang, const QString &speech, QValueVector< UINT16 > &keywords, UINT16 color, UINT16 font, UINT8 type ) // PC speech
 {
 	// handle things like renaming or describing an item
 	if( !pChar->socket() )

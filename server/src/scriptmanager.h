@@ -36,9 +36,9 @@
 // Wolfpack Includes
 #include "pythonscript.h"
 #include "singleton.h"
+#include "server.h"
 
-class cScriptManager
-{
+class cScriptManager : public cComponent {
 protected:
 	QMap< QCString, cPythonScript* > scripts;
 	cPythonScript *hooks[EVENT_COUNT];

@@ -27,7 +27,7 @@
 
 #include "Trade.h"
 #include "inlines.h"
-#include "srvparams.h"
+#include "config.h"
 #include "typedefs.h"
 #include "basechar.h"
 #include "player.h"

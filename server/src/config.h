@@ -25,16 +25,17 @@
  * Wolfpack Homepage: http://wpdev.sf.net/
  */
 
-#if !defined (__SRVPARAMS_H__)
-#define __SRVPARAMS_H__
+#if !defined (__CONFIG_H__)
+#define __CONFIG_H__
 
 // System headers
 #include <vector>
 
-
 // Our own headers
 #include "structs.h"
 #include "preferences.h"
+#include "server.h"
+#include "singleton.h"
 
 // Library Headers
 #include <qstring.h>
@@ -51,8 +52,7 @@ struct StartLocation_st
 // Constants
 const unsigned int FIRST_YEAR = 1970;
 
-class cSrvParams : public Preferences
-{
+class cConfig : public Preferences, public cComponent {
 protected:
 	QString getGroupDoc(const QString &group);
 	QString getEntryDoc(const QString &group, const QString &entry);
@@ -163,9 +163,11 @@ protected:
 	int		pathfindFleeRadius_;
 
 public:
-    cSrvParams( const QString& filename, const QString& format, const QString& version );
+    cConfig();
 
-	virtual void reload();
+	void load();
+	void unload();
+	void reload();
 
 	std::vector<ServerList_st>& serverList(); // read-only
 	std::vector<StartLocation_st>& startLocation();
@@ -294,415 +296,417 @@ private:
 
 // inline members
 
-inline double cSrvParams::npcMoveTime() const
+inline double cConfig::npcMoveTime() const
 {
 	return npcMoveTime_;
 }
 
-inline double cSrvParams::tamedNpcMoveTime() const
+inline double cConfig::tamedNpcMoveTime() const
 {
 	return tamedNpcMoveTime_;
 }
 
-inline unsigned int cSrvParams::skillcap() const
+inline unsigned int cConfig::skillcap() const
 {
 	return skillcap_;
 }
 
-inline unsigned int cSrvParams::statcap() const
+inline unsigned int cConfig::statcap() const
 {
 	return statcap_;
 }
 
-inline unsigned int cSrvParams::logMask() const {
+inline unsigned int cConfig::logMask() const {
 	return logMask_;
 }
 
-inline QString cSrvParams::commandPrefix() const
+inline QString cConfig::commandPrefix() const
 {
 	return commandPrefix_;
 }
 
-inline unsigned int cSrvParams::skillAdvanceModifier() const
+inline unsigned int cConfig::skillAdvanceModifier() const
 {
 	return skillAdvanceModifier_;
 }
 
-inline unsigned int cSrvParams::statsAdvanceModifier() const
+inline unsigned int cConfig::statsAdvanceModifier() const
 {
 	return statsAdvanceModifier_;
 }
 
-inline bool cSrvParams::stealingEnabled() const
+inline bool cConfig::stealingEnabled() const
 {
 	return stealing_;
 }
 
-inline bool cSrvParams::guardsActive() const
+inline bool cConfig::guardsActive() const
 {
 	return guardsActive_;
 }
 
-inline unsigned short cSrvParams::objectDelay() const
+inline unsigned short cConfig::objectDelay() const
 {
 	return objectDelay_;
 }
 
-inline bool cSrvParams::allowUnencryptedClients() const
+inline bool cConfig::allowUnencryptedClients() const
 {
 	return allowUnencryptedClients_;
 }
 
-inline bool cSrvParams::allowStatRequest() const
+inline bool cConfig::allowStatRequest() const
 {
 	return allowStatRequest_;
 }
 
-inline bool cSrvParams::autoAccountCreate() const
+inline bool cConfig::autoAccountCreate() const
 {
 	return autoAccountCreate_;
 }
 
-inline bool cSrvParams::saveSpawns() const
+inline bool cConfig::saveSpawns() const
 {
 	return saveSpawns_;
 }
 
-inline float cSrvParams::checkItemTime() const
+inline float cConfig::checkItemTime() const
 {
 	return checkItemTime_;
 }
 
-inline float cSrvParams::checkNPCTime() const
+inline float cConfig::checkNPCTime() const
 {
 	return checkNPCTime_;
 }
 
-inline float cSrvParams::checkAITime() const
+inline float cConfig::checkAITime() const
 {
 	return checkAITime_;
 }
 
-inline unsigned int cSrvParams::animalWildFleeRange() const
+inline unsigned int cConfig::animalWildFleeRange() const
 {
 	return animalWildFleeRange_;
 }
 
-inline float cSrvParams::checkFollowTime() const
+inline float cConfig::checkFollowTime() const
 {
 	return checkFollowTime_;
 }
 
-inline float cSrvParams::checkTamedTime() const
+inline float cConfig::checkTamedTime() const
 {
 	return checkTamedTime_;
 }
 
-inline int cSrvParams::niceLevel() const
+inline int cConfig::niceLevel() const
 {
 	return niceLevel_;
 }
 
-inline unsigned int cSrvParams::itemDecayTime() const
+inline unsigned int cConfig::itemDecayTime() const
 {
 	return itemDecayTime_;
 }
 
-inline unsigned int cSrvParams::corpseDecayTime() const
+inline unsigned int cConfig::corpseDecayTime() const
 {
 	return corpseDecayTime_;
 }
 
-inline bool cSrvParams::lootdecayswithcorpse() const
+inline bool cConfig::lootdecayswithcorpse() const
 {
 	return lootdecayswithcorpse_;
 }
 
-inline unsigned short cSrvParams::skillDelay() const
+inline unsigned short cConfig::skillDelay() const
 {
 	return skillDelay_;
 }
 
-inline unsigned int cSrvParams::poisonTimer() const
+inline unsigned int cConfig::poisonTimer() const
 {
 	return poisonTimer_;
 }
 
-inline signed int cSrvParams::maxStealthSteps() const
+inline signed int cConfig::maxStealthSteps() const
 {
 	return maxStealthSteps_;
 }
 
-inline unsigned int cSrvParams::runningStamSteps() const
+inline unsigned int cConfig::runningStamSteps() const
 {
 	return runningStamSteps_;
 }
 
-inline unsigned int cSrvParams::hungerRate() const
+inline unsigned int cConfig::hungerRate() const
 {
 	return hungerRate_;
 }
 
-inline unsigned int cSrvParams::hungerDamageRate() const
+inline unsigned int cConfig::hungerDamageRate() const
 {
 	return hungerDamageRate_;
 }
 
-inline unsigned char cSrvParams::hungerDamage() const
+inline unsigned char cConfig::hungerDamage() const
 {
 	return hungerDamage_;
 }
 
-inline float cSrvParams::boatSpeed() const
+inline float cConfig::boatSpeed() const
 {
 	return boatSpeed_;
 }
 
-inline unsigned int cSrvParams::tamedDisappear() const
+inline unsigned int cConfig::tamedDisappear() const
 {
 	return tamedDisappear_;
 }
 
-inline unsigned int cSrvParams::houseInTown() const
+inline unsigned int cConfig::houseInTown() const
 {
 	return houseInTown_;
 }
 
-inline unsigned int cSrvParams::shopRestock() const
+inline unsigned int cConfig::shopRestock() const
 {
 	return shopRestock_;
 }
 
-inline int cSrvParams::attackstamina() const
+inline int cConfig::attackstamina() const
 {
 	return attackstamina_;
 }
 
-inline unsigned char cSrvParams::attack_distance() const
+inline unsigned char cConfig::attack_distance() const
 {
 	return attack_distance_;
 }
 
-inline unsigned int cSrvParams::snoopdelay() const
+inline unsigned int cConfig::snoopdelay() const
 {
 	return snoopdelay_;
 }
 
-inline unsigned short int cSrvParams::quittime() const
+inline unsigned short int cConfig::quittime() const
 {
 	return quittime_;
 }
 
-inline unsigned long int cSrvParams::housedecay_secs() const
+inline unsigned long int cConfig::housedecay_secs() const
 {
 	return housedecay_secs_;
 }
 
-inline long int cSrvParams::murderdecay() const
+inline long int cConfig::murderdecay() const
 {
 	return murderdecay_;
 }
 
-inline unsigned int cSrvParams::maxkills() const
+inline unsigned int cConfig::maxkills() const
 {
 	return maxkills_;
 }
 
-inline int cSrvParams::crimtime() const
+inline int cConfig::crimtime() const
 {
 	return crimtime_;
 }
 
-inline unsigned int cSrvParams::resitemdecaytime() const
+inline unsigned int cConfig::resitemdecaytime() const
 {
 	return resourceitemdecaytime_;
 }
 
-inline bool cSrvParams::cacheMulFiles() const
+inline bool cConfig::cacheMulFiles() const
 {
 	return cacheMulFiles_;
 }
 
-inline unsigned int cSrvParams::spawnRegionCheckTime() const
+inline unsigned int cConfig::spawnRegionCheckTime() const
 {
 	return spawnRegionCheckTime_;
 }
 
-inline unsigned int cSrvParams::secondsPerUOMinute() const
+inline unsigned int cConfig::secondsPerUOMinute() const
 {
 	return secondsPerUOMinute_;
 }
 
-inline unsigned char cSrvParams::worldBrightLevel() const
+inline unsigned char cConfig::worldBrightLevel() const
 {
 	return worldBrightLevel_;
 }
 
-inline unsigned char cSrvParams::worldFixedLevel() const
+inline unsigned char cConfig::worldFixedLevel() const
 {
 	return worldFixedLevel_;
 }
 
-inline unsigned char cSrvParams::worldDarkLevel() const
+inline unsigned char cConfig::worldDarkLevel() const
 {
 	return worldDarkLevel_;
 }
 
-inline unsigned char cSrvParams::dungeonLightLevel() const
+inline unsigned char cConfig::dungeonLightLevel() const
 {
 	return dungeonLightLevel_;
 }
 
-inline int cSrvParams::saveInterval() const
+inline int cConfig::saveInterval() const
 {
 	return saveInterval_;
 }
 
-inline unsigned int cSrvParams::showNpcTitles() const
+inline unsigned int cConfig::showNpcTitles() const
 {
 	return showNpcTitles_;
 }
 
-inline QString cSrvParams::databaseDriver() const
+inline QString cConfig::databaseDriver() const
 {
 	return databaseDriver_;
 }
 
-inline QString cSrvParams::databaseHost() const
+inline QString cConfig::databaseHost() const
 {
 	return databaseHost_;
 }
 
-inline QString cSrvParams::databaseName() const
+inline QString cConfig::databaseName() const
 {
 	return databaseName_;
 }
 
-inline QString cSrvParams::databaseUsername() const
+inline QString cConfig::databaseUsername() const
 {
 	return databaseUsername_;
 }
 
-inline QString cSrvParams::databasePassword() const
+inline QString cConfig::databasePassword() const
 {
 	return databasePassword_;
 }
 
-inline QString cSrvParams::accountsDriver() const
+inline QString cConfig::accountsDriver() const
 {
 	return accountsDriver_;
 }
 
-inline QString cSrvParams::accountsHost() const
+inline QString cConfig::accountsHost() const
 {
 	return accountsHost_;
 }
 
-inline QString cSrvParams::accountsName() const
+inline QString cConfig::accountsName() const
 {
 	return accountsName_;
 }
 
-inline QString cSrvParams::accountsUsername() const
+inline QString cConfig::accountsUsername() const
 {
 	return accountsUsername_;
 }
 
-inline QString cSrvParams::accountsPassword() const
+inline QString cConfig::accountsPassword() const
 {
 	return accountsPassword_;
 }
 
-inline bool cSrvParams::showSkillTitles() const
+inline bool cConfig::showSkillTitles() const
 {
 	return showSkillTitles_;
 }
 
-inline bool cSrvParams::enableLogin() const
+inline bool cConfig::enableLogin() const
 {
 	return enableLogin_;
 }
 
-inline bool cSrvParams::enableGame() const
+inline bool cConfig::enableGame() const
 {
 	return enableGame_;
 }
 
-inline unsigned short cSrvParams::gamePort() const
+inline unsigned short cConfig::gamePort() const
 {
 	return gamePort_;
 }
 
-inline unsigned short cSrvParams::loginPort() const
+inline unsigned short cConfig::loginPort() const
 {
 	return loginPort_;
 }
 
-inline bool cSrvParams::addMenuByCategoryTag() const
+inline bool cConfig::addMenuByCategoryTag() const
 {
 	return categoryTagAddMenu_;
 }
 
-inline int cSrvParams::pathfindMaxSteps() const
+inline int cConfig::pathfindMaxSteps() const
 {
 	return pathfindMaxSteps_;
 }
 
-inline bool cSrvParams::pathfind4Follow() const
+inline bool cConfig::pathfind4Follow() const
 {
 	return pathfind4Follow_;
 }
 
-inline bool cSrvParams::pathfind4Combat() const
+inline bool cConfig::pathfind4Combat() const
 {
 	return pathfind4Combat_;
 }
 
-inline int cSrvParams::pathfindFollowRadius() const
+inline int cConfig::pathfindFollowRadius() const
 {
 	return pathfindFollowRadius_;
 }
 
-inline float cSrvParams::pathfindFollowMinCost() const
+inline float cConfig::pathfindFollowMinCost() const
 {
 	return pathfindFollowMinCost_;
 }
 
-inline int cSrvParams::pathfindFleeRadius() const
+inline int cConfig::pathfindFleeRadius() const
 {
 	return pathfindFleeRadius_;
 }
 
-inline QString cSrvParams::logPath() const
+inline QString cConfig::logPath() const
 {
 	return logPath_;
 }
 
-inline bool cSrvParams::logRotate() const
+inline bool cConfig::logRotate() const
 {
 	return logRotate_;
 }
 
-inline int cSrvParams::pathfindMaxIterations() const
+inline int cConfig::pathfindMaxIterations() const
 {
 	return pathfindMaxIterations_;
 }
 
-inline unsigned int cSrvParams::guardDispelTime() const
+inline unsigned int cConfig::guardDispelTime() const
 {
 	return guardDispelTime_;
 }
 
-inline bool cSrvParams::hashAccountPasswords() const {
+inline bool cConfig::hashAccountPasswords() const {
 	return hashAccountPasswords_;
 }
 
-inline bool cSrvParams::convertUnhashedPasswords() const {
+inline bool cConfig::convertUnhashedPasswords() const {
 	return convertUnhashedPasswords_;
 }
 
-inline bool cSrvParams::overwriteDefinitions() const {
+inline bool cConfig::overwriteDefinitions() const {
 	return overwriteDefinitions_;
 }
+
+typedef SingletonHolder<cConfig> Config;
 
 #endif //__SRVPARAMS_H___

@@ -201,7 +201,7 @@ public:
 
 		args = PyTuple_New( count );
 
-		cDBResult res = persistentBroker->query( QString( "SELECT keyname,type,value FROM effects_properties WHERE id = %1 AND keyname LIKE 'pyarg_%'" ).arg( id ) );
+		cDBResult res = PersistentBroker::instance()->query( QString( "SELECT keyname,type,value FROM effects_properties WHERE id = %1 AND keyname LIKE 'pyarg_%'" ).arg( id ) );
 
 		while( res.fetchrow() )
 		{

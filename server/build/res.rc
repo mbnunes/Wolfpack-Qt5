@@ -1,79 +1,37 @@
-// Microsoft Visual C++ generated resource script.
-//
+
+#include <winresrc.h>
 #include "resource.h"
+#define RCDATA 10
 
-#define APSTUDIO_READONLY_SYMBOLS
-/////////////////////////////////////////////////////////////////////////////
-//
-// Generated from the TEXTINCLUDE 2 resource.
-//
-#include "afxres.h"
-
-/////////////////////////////////////////////////////////////////////////////
-#undef APSTUDIO_READONLY_SYMBOLS
-
-/////////////////////////////////////////////////////////////////////////////
-// German (Germany) resources
-
-#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_DEU)
-#ifdef _WIN32
-LANGUAGE LANG_GERMAN, SUBLANG_GERMAN
-#pragma code_page(1252)
-#endif //_WIN32
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Icon
-//
-
-// Icon with lowest ID value placed first to ensure application icon
-// remains consistent on all systems.
 IDI_ICON1               ICON                    "icon2.ico"
 IDI_ICONGREEN           ICON                    "icon_green.ico"
 IDI_ICONRED             ICON                    "icon_red.ico"
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Data
-//
-
 IDD_CREDITS             RCDATA                  "AUTHORS.txt"
 
-/////////////////////////////////////////////////////////////////////////////
-//
-// Menu
-//
-
-IDR_MAINMENU MENU 
-BEGIN
+IDR_MAINMENU MENU
+{
     POPUP "&File"
-    BEGIN
+    {
         MENUITEM "E&xit",                       IDC_EXIT
-    END
+    }
     POPUP "&Reload"
-    BEGIN
+    {
         MENUITEM "&Accounts",                   ID_RELOAD_ACCOUNTS
         MENUITEM "&Configuration",              ID_RELOAD_CONFIGURATION
         MENUITEM "&Python",                     ID_RELOAD_PYTHON
         MENUITEM "&Scripts",                    ID_RELOAD_SCRIPTS
-    END
+    }
     POPUP "&Server"
-    BEGIN
+    {
         MENUITEM "&Save World",                 ID_SERVER_SAVEWORLD
         MENUITEM "&List Users",                 ID_SERVER_LISTUSERS
-    END
+    }
     POPUP "&Help"
-    BEGIN
+    {
         MENUITEM "Wolfpack &Homepage",          ID_HELP_WOLFPACKHOMEPAGE
         MENUITEM "&About",                      ID_HELP_ABOUT
-    END
-END
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Version
-//
+    }
+}
 
 1 VERSIONINFO
  FILEVERSION 12,9,6,0
@@ -87,11 +45,11 @@ END
  FILEOS 0x40004L
  FILETYPE 0x1L
  FILESUBTYPE 0x0L
-BEGIN
+{
     BLOCK "StringFileInfo"
-    BEGIN
+    {
         BLOCK "040904b0"
-        BEGIN
+        {
             VALUE "Comments", "http://www.wpdev.org/"
             VALUE "CompanyName", "Wolfpack Development Team"
             VALUE "FileDescription", "Ultima Online Server Emulator"
@@ -100,96 +58,24 @@ BEGIN
             VALUE "OriginalFilename", "wolfpack.exe"
             VALUE "ProductName", "Wolfpack Emu"
             VALUE "ProductVersion", "13.0.0"
-        END
-    END
+        }
+    }
     BLOCK "VarFileInfo"
-    BEGIN
+    {
         VALUE "Translation", 0x409, 1200
-    END
-END
-
-
-#ifdef APSTUDIO_INVOKED
-/////////////////////////////////////////////////////////////////////////////
-//
-// TEXTINCLUDE
-//
-
-1 TEXTINCLUDE 
-BEGIN
-    "resource.h\0"
-END
-
-2 TEXTINCLUDE 
-BEGIN
-    "#include ""afxres.h""\r\n"
-    "\0"
-END
-
-3 TEXTINCLUDE 
-BEGIN
-    "\r\n"
-    "\0"
-END
-
-#endif    // APSTUDIO_INVOKED
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Bitmap
-//
+    }
+}
 
 IDB_LOGO                BITMAP                  "logo.bmp"
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Dialog
-//
 
 IDD_DIALOGABOUT DIALOGEX 0, 0, 291, 175
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
     WS_SYSMENU
 CAPTION "Wolfpack Credits"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
-BEGIN
+{
     DEFPUSHBUTTON   "OK",IDOK,7,154,50,14,BS_CENTER
     CONTROL         "",IDC_RICHEDIT,"RichEdit20A",ES_MULTILINE | ES_READONLY | 
                     ES_NUMBER | WS_BORDER | WS_VSCROLL | WS_TABSTOP,7,7,277,
                     143,WS_EX_TRANSPARENT
-END
-
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// DESIGNINFO
-//
-
-#ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
-BEGIN
-    IDD_DIALOGABOUT, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 284
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 168
-    END
-END
-#endif    // APSTUDIO_INVOKED
-
-#endif    // German (Germany) resources
-/////////////////////////////////////////////////////////////////////////////
-
-
-
-#ifndef APSTUDIO_INVOKED
-/////////////////////////////////////////////////////////////////////////////
-//
-// Generated from the TEXTINCLUDE 3 resource.
-//
-
-
-/////////////////////////////////////////////////////////////////////////////
-#endif    // not APSTUDIO_INVOKED
-
+}

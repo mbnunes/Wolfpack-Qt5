@@ -47,12 +47,24 @@
 #endif
 #define slots
 
+#include "../server.h"
 typedef void (*fnCleanupHandler)();
 
 class CleanupAutoRegister{
 public:
 	CleanupAutoRegister(fnCleanupHandler);
 };
+
+class cPythonEngine : public cComponent {
+public:
+	cPythonEngine();
+	virtual ~cPythonEngine();
+
+	void load();
+	void unload();
+};
+
+typedef SingletonHolder<cPythonEngine> PythonEngine;
 
 void registerCleanupHandler(fnCleanupHandler);
 void reloadPython();

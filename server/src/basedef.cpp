@@ -27,7 +27,7 @@
 
 #include "basedef.h"
 #include "globals.h"
-#include "wpdefmanager.h"
+#include "definitions.h"
 #include "basics.h"
 
 #include <string.h>
@@ -45,7 +45,7 @@ void cBaseDefManager::load()
 	for( unsigned int i = 0; i < 0x400; ++i )
 	{
 		// Check for <basechar id="">
-		const cElement *element = DefManager->getDefinition( WPDT_CHARBASE, "0x" + QString::number( i, 16 ) );
+		const cElement *element = Definitions::instance()->getDefinition( WPDT_CHARBASE, "0x" + QString::number( i, 16 ) );
 
 		if( !element )
 		{

@@ -160,7 +160,7 @@ enum enAnimations {
 	ANIM_ANI_DIE2		= 0x0c,
 };
 
-enum enServerState { STARTUP = 0, RUNNING, SCRIPTRELOAD, SHUTDOWN };
+
 
 #endif
 

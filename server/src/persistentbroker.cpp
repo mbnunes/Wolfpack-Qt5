@@ -56,16 +56,16 @@ public:
 	std::list< stDeleteItem > deleteQueue;
 };
 
-PersistentBroker::PersistentBroker() : d( new PersistentBrokerPrivate )
+cPersistentBroker::cPersistentBroker() : d( new PersistentBrokerPrivate )
 {
 }
 
-PersistentBroker::~PersistentBroker()
+cPersistentBroker::~cPersistentBroker()
 {
 	delete d;
 }
 
-bool PersistentBroker::openDriver( const QString& driver )
+bool cPersistentBroker::openDriver( const QString& driver )
 {
 	if( d->connection != 0 )
 	{
@@ -95,7 +95,7 @@ bool PersistentBroker::openDriver( const QString& driver )
 	return true;
 }
 
-bool PersistentBroker::connect( const QString& host, const QString& db, const QString& username, const QString& password )
+bool cPersistentBroker::connect( const QString& host, const QString& db, const QString& username, const QString& password )
 {
 	if (!d->connection)
 		return false;
@@ -112,19 +112,19 @@ bool PersistentBroker::connect( const QString& host, const QString& db, const QS
 	return true;
 }
 
-void PersistentBroker::disconnect()
+void cPersistentBroker::disconnect()
 {
 	if( d->connection )
 		d->connection->close();
 }
 
-bool PersistentBroker::saveObject( PersistentObject* object )
+bool cPersistentBroker::saveObject( PersistentObject* object )
 {
 	object->save();
 	return true;
 }
 
-bool PersistentBroker::deleteObject( PersistentObject* object )
+bool cPersistentBroker::deleteObject( PersistentObject* object )
 {
 	return object->del();
 
@@ -146,7 +146,7 @@ bool PersistentBroker::deleteObject( PersistentObject* object )
 	*/
 }
 
-bool PersistentBroker::executeQuery( const QString& query )
+bool cPersistentBroker::executeQuery( const QString& query )
 {
 	if( !d->connection )
 		throw QString( "PersistentBroker not connected to database." );
@@ -160,12 +160,12 @@ bool PersistentBroker::executeQuery( const QString& query )
 	return result;
 }
 
-cDBDriver* PersistentBroker::driver() const
+cDBDriver* cPersistentBroker::driver() const
 {
 	return d->connection;
 }
 
-cDBResult PersistentBroker::query( const QString& query )
+cDBResult cPersistentBroker::query( const QString& query )
 {
 	if( !d->connection )
 		throw QString( "PersistentBroker not connected to database." );
@@ -173,12 +173,12 @@ cDBResult PersistentBroker::query( const QString& query )
 	return d->connection->query( query );
 }
 
-void PersistentBroker::clearDeleteQueue()
+void cPersistentBroker::clearDeleteQueue()
 {
 	d->deleteQueue.clear();
 }
 
-void PersistentBroker::flushDeleteQueue()
+void cPersistentBroker::flushDeleteQueue()
 {
 	std::list< stDeleteItem >::iterator iter;
 	for( iter = d->deleteQueue.begin(); iter != d->deleteQueue.end(); ++iter )
@@ -189,7 +189,7 @@ void PersistentBroker::flushDeleteQueue()
 	d->deleteQueue.clear();
 }
 
-void PersistentBroker::addToDeleteQueue( const QString &tables, const QString &conditions )
+void cPersistentBroker::addToDeleteQueue( const QString &tables, const QString &conditions )
 {
 	stDeleteItem dItem;
 	dItem.tables = tables;
@@ -197,37 +197,37 @@ void PersistentBroker::addToDeleteQueue( const QString &tables, const QString &c
 	d->deleteQueue.push_back( dItem );
 }
 
-QString PersistentBroker::lastError() const
+QString cPersistentBroker::lastError() const
 {
 	return d->connection->error();
 }
 
-void PersistentBroker::lockTable( const QString& table ) const
+void cPersistentBroker::lockTable( const QString& table ) const
 {
 	d->connection->lockTable( table );
 }
 
-void PersistentBroker::unlockTable( const QString& table ) const
+void cPersistentBroker::unlockTable( const QString& table ) const
 {
 	d->connection->unlockTable( table );
 }
 
-void PersistentBroker::startTransaction()
+void cPersistentBroker::startTransaction()
 {
 	executeQuery( "BEGIN;" );
 }
 
-void PersistentBroker::commitTransaction()
+void cPersistentBroker::commitTransaction()
 {
 	executeQuery( "COMMIT;" );
 }
 
-void PersistentBroker::rollbackTransaction()
+void cPersistentBroker::rollbackTransaction()
 {
 	executeQuery( "ROLLBACK;" );
 }
 
-bool PersistentBroker::tableExists( const QString &table )
+bool cPersistentBroker::tableExists( const QString &table )
 {
 	if (!d->connection) {
 		throw QString("Trying to query an existing table without a database connection.");
@@ -236,7 +236,7 @@ bool PersistentBroker::tableExists( const QString &table )
 	return d->connection->tableExists( table );
 }
 
-QString PersistentBroker::quoteString( QString s )
+QString cPersistentBroker::quoteString( QString s )
 {
 	if( s == QString::null )
 		return "";

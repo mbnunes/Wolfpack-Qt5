@@ -35,15 +35,6 @@
 #include "qapplication.h"
 #include "qstring.h"
 
-// Wolfpack includes
-#include "globals.h" // uiCurrentTime
-
-inline unsigned int SetTimerSec(unsigned int timer, const short seconds)
-{
-	return timer = seconds * MY_CLOCKS_PER_SEC + uiCurrentTime;
-
-}
-
 inline QString tr( const QString &text, const char* comment = 0, const char* context = "@default" )
 {
 	return qApp->translate( context, text.latin1(), comment );

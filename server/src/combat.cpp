@@ -32,14 +32,14 @@
 #include "itemid.h"
 #include "sectors.h"
 #include "combat.h"
-#include "srvparams.h"
+#include "config.h"
 #include "skills.h"
 #include "network.h"
 #include "network/uosocket.h"
 #include "network/uotxpackets.h"
 #include "territories.h"
 #include "typedefs.h"
-#include "wpdefmanager.h"
+#include "definitions.h"
 #include "basechar.h"
 #include "log.h"
 #include "player.h"
@@ -154,7 +154,7 @@ void cCombat::playGetHitSoundEffect( P_CHAR pChar )
 {
 	if( pChar->body() == 0x191 )
 	{
-		UI16 sound = hex2dec( DefManager->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_FEMALE" ) ).toUShort();
+		UI16 sound = hex2dec( Definitions::instance()->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_FEMALE" ) ).toUShort();
 		if( sound > 0 )
 			pChar->soundEffect( sound );
 		else
@@ -162,7 +162,7 @@ void cCombat::playGetHitSoundEffect( P_CHAR pChar )
 	}
 	else if( pChar->body() == 0x190 )
 	{
-		UI16 sound = hex2dec( DefManager->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_MALE" ) ).toUShort();
+		UI16 sound = hex2dec( Definitions::instance()->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_MALE" ) ).toUShort();
 		if( sound > 0 )
 			pChar->soundEffect( sound );
 		else
@@ -615,10 +615,10 @@ void cCombat::combat( P_CHAR pAttacker )
 	{
 		P_PLAYER pp = dynamic_cast<P_PLAYER>(pAttacker);
 
-		if( abs( SrvParams->attackstamina() ) > 0 && !pp->isGM() )
+		if( abs( Config::instance()->attackstamina() ) > 0 && !pp->isGM() )
 		{
 			// We don't have enough Stamina
-			if( ( SrvParams->attackstamina() < 0 ) && ( pp->stamina() < abs( SrvParams->attackstamina() ) ) )
+			if( ( Config::instance()->attackstamina() < 0 ) && ( pp->stamina() < abs( Config::instance()->attackstamina() ) ) )
 			{
 				if( pp->socket() )
 					pp->socket()->sysMessage( tr( "You are too tired to attack." ) );
@@ -631,7 +631,7 @@ void cCombat::combat( P_CHAR pAttacker )
 			}
 
 			// Reduce the Stamina
-			pp->setStamina( QMIN( pp->dexterity(), QMAX( 0, pp->stamina() + SrvParams->attackstamina() ) ) );
+			pp->setStamina( QMIN( pp->dexterity(), QMAX( 0, pp->stamina() + Config::instance()->attackstamina() ) ) );
 		}
 	}
 
@@ -669,7 +669,7 @@ void cCombat::combat( P_CHAR pAttacker )
 				{
 					pp->socket()->sysMessage( tr( "You have killed %1 innocent people." ).arg( pAttacker->kills() ) );
 
-					if( pp->kills() == SrvParams->maxkills() + 1 )
+					if( pp->kills() == Config::instance()->maxkills() + 1 )
 						pp->socket()->sysMessage( tr("You are now a murderer!") );
 				}
 			}
@@ -921,7 +921,7 @@ void cCombat::playGetHitAnimation( P_CHAR pChar )
 // play the "MISSED" sound effect
 void cCombat::playMissedSoundEffect( P_CHAR pChar )
 {
-/*	UI16 soundId = hex2dec( DefManager->getRandomListEntry( "SOUNDS_COMBAT_MISSED" ) ).toUShort();
+/*	UI16 soundId = hex2dec( Definitions::instance()->getRandomListEntry( "SOUNDS_COMBAT_MISSED" ) ).toUShort();
 	if( soundId == 0 )
 	{
 		switch( RandomNum( 1, 3 ) )
@@ -948,7 +948,7 @@ void cCombat::spawnGuard( P_CHAR pOffender, P_CHAR pCaller, const Coord_cl &pos 
 	if( pRegion == NULL )
 		return;
 
-	if( pRegion->isGuarded() && SrvParams->guardsActive() )
+	if( pRegion->isGuarded() && Config::instance()->guardsActive() )
 	{
 		QString guardsect = pRegion->getGuardSect();
 

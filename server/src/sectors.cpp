@@ -57,15 +57,18 @@ cSectorMap::cSectorMap()
 	gridWidth_ = 0;
 }
 
-cSectorMap::~cSectorMap()
-{
-	for( unsigned int i = 0; i < gridHeight_ * gridWidth_; ++i )
-	{
-		if( grid[i] )
-		{
-			free( grid[i]->data );
+cSectorMap::~cSectorMap() {
+	for (unsigned int i = 0; i < gridHeight_ * gridWidth_; ++i) {
+		if (grid[i]) {
+			if (grid[i]->data) {
+				free(grid[i]->data);
+			}
 			delete grid[i];
 		}
+	}
+
+	if (grid) {
+		free(grid);
 	}
 }
 
@@ -285,12 +288,36 @@ cSectorMaps::cSectorMaps()
 {
 }
 
-cSectorMaps::~cSectorMaps()
-{
+cSectorMaps::~cSectorMaps() {
 }
 
-void cSectorMaps::addMap( unsigned char map, unsigned int width, unsigned int height )
-{
+void cSectorMaps::load() {
+	addMap( 0, 6144, 4096 );
+	addMap( 1, 6144, 4096 );
+	addMap( 2, 2304, 1600 );
+	addMap( 3, 2560, 2048 );
+	
+	cComponent::load();
+}
+
+void cSectorMaps::unload() {
+	std::map<unsigned char, cSectorMap*>::iterator it;
+
+	for (it = itemmaps.begin(); it != itemmaps.end(); ++it) {
+		delete it->second;
+	}
+
+	for (it = charmaps.begin(); it != charmaps.end(); ++it) {
+		delete it->second;
+	}
+
+	cComponent::unload();
+}
+
+void cSectorMaps::reload() {
+}
+
+void cSectorMaps::addMap(unsigned char map, unsigned int width, unsigned int height) {
 	// Create a map in the Char and in the Item map
 	cSectorMap *itemmap = new cSectorMap;
 

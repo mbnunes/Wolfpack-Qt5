@@ -28,7 +28,9 @@
 #if !defined(__MAPS_H__)
 #define __MAPS_H__
 
+#include "server.h"
 #include "exceptions.h"
+#include "singleton.h"
 #include <qglobal.h>
 #include <qstring.h>
 #include <qmap.h>
@@ -94,8 +96,7 @@ public:
 
 };
 
-class Maps
-{
+class cMaps : public cComponent {
 	QMap<uint, MapsPrivate*> d;
 	QString basePath;
 
@@ -103,8 +104,12 @@ class Maps
 	typedef QMap<uint, MapsPrivate*>::const_iterator const_iterator;
 
 public:
-	Maps( const QString& basePath );
-	~Maps();
+	cMaps();
+	~cMaps();
+
+	void load();
+	void unload();
+	void reload();
 
 	bool registerMap( uint id, const QString& mapfile, uint mapwidth, uint mapheight, const QString& staticsfile, const QString& staticsidx );
 
@@ -176,6 +181,8 @@ inline const staticrecord& StaticsIterator::operator*() const
 {
 	return data();
 }
+
+typedef SingletonHolder<cMaps> Maps;
 
 #endif // __MAPS_H__
 

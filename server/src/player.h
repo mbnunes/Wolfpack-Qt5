@@ -35,7 +35,6 @@
 
 // wolfpack includes
 #include "basechar.h"
-#include "makemenus.h"
 #include "accounts.h"
 
 class cGuild;
@@ -136,9 +135,6 @@ public:
 	bool					mayBroadcast() const;
 	bool					showSerials() const;
 	// advanced getters for data structures
-	// makemenus
-	QPtrList< cMakeSection >	lastSelections( cMakeMenu* basemenu );
-	cMakeSection*				lastSection( cMakeMenu* basemenu );
 	// pets
 	CharContainer				pets() const;
 	cParty*						party() const;
@@ -173,11 +169,9 @@ public:
 
 	virtual void setStamina( INT16 data, bool notify = true );
 
-	// advanced setters for data structures
-	// makemenus
-	void setLastSection( cMakeMenu* basemenu, cMakeSection* data );
-	void clearLastSelections( void );
 	void remove();
+
+	// advanced setters for data structures	
 	// pets
 	void addPet( P_NPC pPet, bool noOwnerChange = false );
 	void removePet( P_NPC pPet, bool noOwnerChange = false );
@@ -251,9 +245,6 @@ protected:
 
 	// Paperdoll profile of the char
 	QString profile_;
-
-	// Last ten selections the char has made in specific MakeMenus.
-	QMap< cMakeMenu*, QPtrList< cMakeSection > > lastSelections_;
 
     // Fixed light level. is used in dungeons or for nightsight spell.
     // cOldChar:fixedlight_

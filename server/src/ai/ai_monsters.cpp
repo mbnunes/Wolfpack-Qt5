@@ -30,7 +30,7 @@
 #include "../factory.h"
 #include "../sectors.h"
 #include "../player.h"
-#include "../srvparams.h"
+#include "../config.h"
 #include "../globals.h"
 #include "../basics.h"
 #include "../itemid.h"
@@ -73,7 +73,7 @@ void Monster_Aggressive_L0::selectVictim()
 		if (m_currentVictim->isDead()) {
 			m_currentVictim = NULL;
 			m_npc->log(QString("Lost Target because it's dead. [%1]").arg(m_npc->serial()));
-		} else if (!m_npc->inRange(m_currentVictim, SrvParams->attack_distance())) {
+		} else if (!m_npc->inRange(m_currentVictim, Config::instance()->attack_distance())) {
 			m_currentVictim = NULL;
 			m_npc->log(QString("Lost Target because it's out of range. [%1]").arg(m_npc->serial()));
 		}
@@ -184,7 +184,7 @@ void Monster_Aggressive_L1::selectVictim()
 			m_currentVictim = NULL;
 		else if( m_currentVictim->isInvulnerable() )
 			m_currentVictim = NULL;
-		else if( !m_npc->inRange( m_currentVictim, SrvParams->attack_distance() ) )
+		else if( !m_npc->inRange( m_currentVictim, Config::instance()->attack_distance() ) )
 			m_currentVictim = NULL;
 		else if (!m_npc->canSee(m_currentVictim)) {
 			m_currentVictim = NULL;
@@ -322,7 +322,7 @@ void Monster_Aggr_MoveToTarget::execute()
 		m_npc->fight(pAI->currentVictim());
 	}
 
-	if( SrvParams->pathfind4Combat() )
+	if( Config::instance()->pathfind4Combat() )
 		movePath( pAI->currentVictim()->pos() );
 	else
 		moveTo( pAI->currentVictim()->pos() );

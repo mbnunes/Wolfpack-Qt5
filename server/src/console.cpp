@@ -32,7 +32,7 @@
 #include "globals.h"
 #include "world.h"
 #include "network.h"
-#include "srvparams.h"
+#include "config.h"
 #include "player.h"
 #include "accounts.h"
 #include "inlines.h"
@@ -117,9 +117,9 @@ bool cConsole::handleCommand( const QString &command, bool silentFail )
 
 	if( c == 'S' )
 	{
-		secure = !secure;
+		Server::instance()->setSecure(!Server::instance()->getSecure());
 
-		if( !secure )
+		if(!Server::instance()->getSecure())
 			Console::instance()->send("WOLFPACK: Secure mode disabled. Press ? for a commands list.\n");
 		else
 			Console::instance()->send("WOLFPACK: Secure mode re-enabled.\n");
@@ -128,7 +128,7 @@ bool cConsole::handleCommand( const QString &command, bool silentFail )
 	}
 
 	// Allow Help in Secure Mode
-	if( secure && c != '?' )
+	if( Server::instance()->getSecure() && c != '?' )
 	{
 		Console::instance()->send( "WOLFPACK: Secure mode prevents keyboard commands! Press 'S' to disable.\n" );
 		return false;
@@ -138,12 +138,12 @@ bool cConsole::handleCommand( const QString &command, bool silentFail )
 	{
 	case 'Q':
 		Console::instance()->send("WOLFPACK: Immediate Shutdown initialized!\n");
-		keeprun=0;
+		Server::instance()->cancel();
 		break;
 
 	case '#':
 		World::instance()->save();
-		SrvParams->flush();
+		Config::instance()->flush();
 		break;
 
 	case 'W':
@@ -161,10 +161,10 @@ bool cConsole::handleCommand( const QString &command, bool silentFail )
 		Console::instance()->send( tr("Total Users Online: %1\n").arg(Network::instance()->count()) );
 		break;
 	case 'A': //reload the accounts file
-		queueAction( RELOAD_ACCOUNTS );
+		Server::instance()->queueAction( RELOAD_ACCOUNTS );
 		break;
 	case 'R':
-		queueAction( RELOAD_SCRIPTS );
+		Server::instance()->queueAction( RELOAD_SCRIPTS );
 		break;
 	case '?':
 		Console::instance()->send("Console commands:\n");
@@ -174,7 +174,7 @@ bool cConsole::handleCommand( const QString &command, bool silentFail )
 		Console::instance()->send("	A - Reload accounts\n" );
 		Console::instance()->send("	R - Reload scripts\n" );
 		Console::instance()->send("	S - Toggle Secure mode " );
-		if( secure )
+		if( Server::instance()->getSecure() )
 			Console::instance()->send( "[enabled]\n" );
 		else
 			Console::instance()->send( "[disabled]\n" );

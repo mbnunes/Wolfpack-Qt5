@@ -30,16 +30,15 @@
 
 // Wolfpack Includes
 #include "globals.h"
-#include "srvparams.h"
+#include "config.h"
 #include "skills.h"
 #include "network.h"
 #include "gumps.h"
 #include "party.h"
 #include "targetrequests.h"
-#include "wpdefmanager.h"
+#include "definitions.h"
 #include "network/uosocket.h"
 #include "network/uotxpackets.h"
-#include "resources.h"
 #include "npc.h"
 #include "itemid.h"
 #include "basics.h"
@@ -73,7 +72,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 		return;
 	}
 	else
-		pc_currchar->setObjectDelay( SrvParams->objectDelay() * MY_CLOCKS_PER_SEC + uiCurrentTime );
+		pc_currchar->setObjectDelay( Config::instance()->objectDelay() * MY_CLOCKS_PER_SEC + uiCurrentTime );
 
 
 	P_ITEM pi = FindItemBySerial( serial );
@@ -144,7 +143,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 	// You can only use equipment on your own char
 	if( !pc_currchar->isGM() && pi->container() && pi->container()->isChar() && pi->container() != pc_currchar )
 	{
-		if( pi->layer() != 15 || !SrvParams->stealingEnabled() )
+		if( pi->layer() != 15 || !Config::instance()->stealingEnabled() )
 		{
 			socket->sysMessage( tr( "You cannot use items equipped by other players." ) );
 			return;
@@ -220,7 +219,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 						if( !pChar->inRange( pc_currchar, 2 ) )
 							socket->sysMessage( tr( "You must stand nearer to snoop!" ) );
 						else
-							Skills->Snooping( pc_currchar, pi );
+							Skills::instance()->Snooping( pc_currchar, pi );
 					}
 					else if( pChar == pc_currchar )
 						socket->sendContainer( pi );
@@ -238,7 +237,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 					if( !pChar->inRange( pc_currchar, 2 ) )
 						socket->sysMessage( tr( "You must stand nearer to snoop!" ) );
 					else
-						Skills->Snooping( pc_currchar, pi );
+						Skills::instance()->Snooping( pc_currchar, pi );
 				}
 				else if( pChar == pc_currchar )
 					socket->sendContainer( pi );

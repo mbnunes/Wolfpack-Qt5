@@ -32,6 +32,7 @@
 #include "multiscache.h"
 #include "defines.h"
 #include "items.h"
+#include "config.h"
 
 // Library Includes
 #include <qstring.h>
@@ -195,13 +196,13 @@ map_st MapsPrivate::seekMap(ushort x, ushort y)
 }
 
 /*****************************************************************************
-  Maps member functions
+  cMaps member functions
  *****************************************************************************/
 
 /*!
-  \class Maps maps.h
+  \class cMaps maps.h
 
-  \brief The Maps class is responsable for handling Map queries
+  \brief The cMaps class is responsable for handling Map queries
 
   \ingroup UO File Handlers
   \ingroup mainclass
@@ -209,21 +210,50 @@ map_st MapsPrivate::seekMap(ushort x, ushort y)
 */
 
 /*!
-	Constructs a Maps class, and uses \a path as it's base
-	path to search for the map files registered thru registerMap()
+	Constructs a cMaps class.
 	\sa registerMap
 */
-Maps::Maps( const QString& path ) : basePath( path )
-{
+cMaps::cMaps() {
 }
 
 /*!
-	Destroy the Maps instance and frees allocated memory
+	Destroy the cMaps instance and frees allocated memory
 */
-Maps::~Maps()
-{
-	for ( iterator it = d.begin(); it != d.end(); ++it )
+cMaps::~cMaps() {
+}
+
+/*!
+	Register known maps.
+*/
+void cMaps::load() {
+	basePath = Config::instance()->mulPath();
+
+	registerMap(0, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
+	registerMap(1, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
+	registerMap(2, "map2.mul", 288, 200, "statics2.mul", "staidx2.mul");
+	registerMap(3, "map3.mul", 320, 256, "statics3.mul", "staidx3.mul");
+
+	cComponent::load();
+}
+
+/*!
+	Unregister known maps and clear the map caches.
+*/
+void cMaps::unload() {
+	for (iterator it = d.begin(); it != d.end(); ++it) {
 		delete it.data();
+	}
+	d.clear();
+
+	cComponent::unload();
+}
+
+/*!
+	Reload the maps.
+*/
+void cMaps::reload() {
+	unload();
+	load();
 }
 
 /*!
@@ -232,7 +262,7 @@ Maps::~Maps()
 	since it's case sometimes varies and it might became an anoyance configuring the
 	server under Linux.
 */
-bool Maps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint mapheight, const QString& staticsfile, const QString& staticsidx )
+bool cMaps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint mapheight, const QString& staticsfile, const QString& staticsidx )
 {
 	try
 	{
@@ -266,7 +296,7 @@ bool Maps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint map
 /*!
 	Returns true if the \a id map is present, false otherwise
 */
-bool Maps::hasMap( uint id ) const
+bool cMaps::hasMap( uint id ) const
 {
 	return d.contains( id );
 }
@@ -276,7 +306,7 @@ bool Maps::hasMap( uint id ) const
 	coordinates.
 	\sa map_st
 */
-map_st Maps::seekMap( uint id, ushort x, ushort y ) const
+map_st cMaps::seekMap( uint id, ushort x, ushort y ) const
 {
 	const_iterator it = d.find( id );
 	if ( it == d.end() )
@@ -291,7 +321,7 @@ map_st Maps::seekMap( uint id, ushort x, ushort y ) const
 	\sa Coord_cl
 	\sa map_st
 */
-map_st Maps::seekMap( const Coord_cl& p ) const
+map_st cMaps::seekMap( const Coord_cl& p ) const
 {
 	return seekMap( p.map, p.x, p.y );
 }
@@ -299,7 +329,7 @@ map_st Maps::seekMap( const Coord_cl& p ) const
 /*!
 	Returns the elevation (z) of map tile located at \a p.
 */
-signed char Maps::mapElevation( const Coord_cl& p ) const
+signed char cMaps::mapElevation( const Coord_cl& p ) const
 {
 	map_st map = seekMap( p );
 	// make sure nothing can move into black areas
@@ -317,7 +347,7 @@ signed char Maps::mapElevation( const Coord_cl& p ) const
 /*!
 	Returns the height ( max. y value ) of \a id map
 */
-uint Maps::mapTileHeight( uint id ) const
+uint cMaps::mapTileHeight( uint id ) const
 {
 	const_iterator it = d.find( id );
 	if ( it == d.end() )
@@ -328,7 +358,7 @@ uint Maps::mapTileHeight( uint id ) const
 /*!
 	Returns the width ( max. x value ) of \a id map
 */
-uint Maps::mapTileWidth( uint id ) const
+uint cMaps::mapTileWidth( uint id ) const
 {
 	const_iterator it = d.find( id );
 	if ( it == d.end() )
@@ -344,7 +374,7 @@ uint Maps::mapTileWidth( uint id ) const
 	The optional parameters \a top and \a botton are respectively the highest
 	and lowerst values that composes the average
 */
-signed char Maps::mapAverageElevation( const Coord_cl& p, int* top /* = 0 */, int* botton /* = 0 */  ) const
+signed char cMaps::mapAverageElevation( const Coord_cl& p, int* top /* = 0 */, int* botton /* = 0 */  ) const
 {
 	// first thing is to get the map where we are standing
 	map_st map1 = seekMap( p );
@@ -397,7 +427,7 @@ signed char Maps::mapAverageElevation( const Coord_cl& p, int* top /* = 0 */, in
 	return ILLEGAL_Z;
 }
 
-bool Maps::canFit( int x, int y, int z, int map, int height ) const
+bool cMaps::canFit( int x, int y, int z, int map, int height ) const
 {
 	if ( x < 0 || y < 0 || x >= mapTileWidth(map) * 8 || y >= mapTileHeight(map) * 8 )
 		return false;
@@ -419,23 +449,23 @@ bool Maps::canFit( int x, int y, int z, int map, int height ) const
 	return true;
 }
 
-unsigned int Maps::mapPatches(unsigned int id)
+unsigned int cMaps::mapPatches(unsigned int id)
 {
 	if (d.find(id) == d.end())
-		throw wpException(QString("[Maps::mapPatches line %1] map id(%2) not registered!").arg(__LINE__).arg(id) );
+		throw wpException(QString("[cMaps::mapPatches line %1] map id(%2) not registered!").arg(__LINE__).arg(id) );
 
 	return d.find(id).data()->mappatches.size();
 }
 
-unsigned int Maps::staticPatches(unsigned int id)
+unsigned int cMaps::staticPatches(unsigned int id)
 {
 	if (d.find(id) == d.end())
-		throw wpException(QString("[Maps::staticPatches line %1] map id(%2) not registered!").arg(__LINE__).arg(id) );
+		throw wpException(QString("[cMaps::staticPatches line %1] map id(%2) not registered!").arg(__LINE__).arg(id) );
 
 	return d.find(id).data()->staticpatches.size();
 }
 
-signed char Maps::dynamicElevation(const Coord_cl& pos) const
+signed char cMaps::dynamicElevation(const Coord_cl& pos) const
 {
 	//int z = ILLEGAL_Z;
 	signed char z = ILLEGAL_Z;
@@ -469,7 +499,7 @@ signed char Maps::dynamicElevation(const Coord_cl& pos) const
 	return z;
 }
 
-signed char Maps::staticTop(const Coord_cl& pos) const
+signed char cMaps::staticTop(const Coord_cl& pos) const
 {
 	signed char top = ILLEGAL_Z;
 
@@ -487,7 +517,7 @@ signed char Maps::staticTop(const Coord_cl& pos) const
 }
 
 // Return new height of player who walked to X/Y but from OLDZ
-signed char Maps::height(const Coord_cl& pos)
+signed char cMaps::height(const Coord_cl& pos)
 {
 	// let's check in this order.. dynamic, static, then the map
 	signed char dynz = dynamicElevation(pos);
@@ -502,15 +532,15 @@ signed char Maps::height(const Coord_cl& pos)
 }
 
 
-StaticsIterator Maps::staticsIterator(uint id, ushort x, ushort y, bool exact /* = true */ ) const throw (wpException)
+StaticsIterator cMaps::staticsIterator(uint id, ushort x, ushort y, bool exact /* = true */ ) const throw (wpException)
 {
 	const_iterator it = d.find( id );
 	if ( it == d.end() )
-		throw wpException(QString("[Maps::staticsIterator line %1] map id(%2) not registered!").arg(__LINE__).arg(id) );
+		throw wpException(QString("[cMaps::staticsIterator line %1] map id(%2) not registered!").arg(__LINE__).arg(id) );
 	return StaticsIterator( x, y, it.data(), exact );
 }
 
-StaticsIterator Maps::staticsIterator( const Coord_cl& p, bool exact /* = true */ ) const throw (wpException)
+StaticsIterator cMaps::staticsIterator( const Coord_cl& p, bool exact /* = true */ ) const throw (wpException)
 {
 	return staticsIterator( p.map, p.x, p.y, exact );
 }
@@ -530,7 +560,7 @@ StaticsIterator Maps::staticsIterator( const Coord_cl& p, bool exact /* = true *
 	\ingroup UO File Handlers
 	\ingroup mainclass
 	\sa cTileCache
-	\sa Maps
+	\sa cMaps
 */
 
 /*!

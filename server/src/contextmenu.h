@@ -31,6 +31,8 @@
 #include "definable.h"
 #include "globals.h"
 #include "singleton.h"
+#include "server.h"
+#include "typedefs.h"
 
 // Qt Includes
 #include <qvaluevector.h>
@@ -98,7 +100,7 @@ private:
 	QString scripts_;
 };
 
-class cAllContextMenus
+class cAllContextMenus : public cComponent
 {
 public:
 

@@ -36,27 +36,25 @@
 #include "corpse.h"
 #include "inlines.h"
 #include "log.h"
-#include "makemenus.h"
 #include "maps.h"
 #include "multiscache.h"
 #include "network.h"
 #include "npc.h"
-#include "persistentbroker.h"
 #include "player.h"
-#include "resources.h"
 #include "scriptmanager.h"
 #include "sectors.h"
 #include "skills.h"
 #include "spawnregions.h"
-#include "srvparams.h"
+#include "config.h"
 #include "territories.h"
 #include "tilecache.h"
 #include "Timing.h"
 #include "verinfo.h"
 #include "wolfpack.h"
 #include "world.h"
-#include "wpdefmanager.h"
+#include "definitions.h"
 #include "multi.h"
+#include "server.h"
 
 #include "python/engine.h"
 #include "python/utilities.h"
@@ -140,102 +138,24 @@ static bool parseParameter( const QString &param )
 }
 
 /*!
-	Initializes global objects.
-*/
-static void startClasses()
-{
-	Map				 = 0;
-	Skills			 = 0;
-	DefManager		 = 0;
-	SrvParams		 = 0;
-	persistentBroker = 0;
-
-	SrvParams		 = new cSrvParams( "wolfpack.xml", "Wolfpack", "1.0" );
-	Map				 = new Maps ( SrvParams->mulPath() );
-	Skills			 = new cSkills;
-	DefManager		 = new WPDefManager;
-	persistentBroker = new PersistentBroker;
-}
-
-/*!
-	Deletes global objects.
-*/
-static void freeClasses( void )
-{
-	delete SrvParams;
-	delete Map;
-	delete Skills;
-	delete DefManager;
-}
-
-void SetGlobalVars()
-{
-	keeprun = 1;
-	secure = 1;
-}
-
-QMutex actionMutex;
-QValueVector<eActionType> actionQueue;
-
-void queueAction (eActionType type) {
-	if (serverState == RUNNING) {
-		QMutexLocker lock( &actionMutex );
-		actionQueue.push_back( type );
-	}
-}
-
-QMutex dataMutex;
-
-void lockDataMutex() {
-	dataMutex.lock();
-}
-
-void unlockDataMutex() {
-	dataMutex.unlock();
-}
-
-#if defined(CRASHHANDLER)
-#include "bugreport/crashhandler.h"
-
-LONG CALLBACK exceptionCatcher(_EXCEPTION_POINTERS *exception) {
-	QString message = GetFaultReason(exception);
-	message += "\n";
-	message += "Stack Trace:\n";
-
-	DWORD options = GSTSO_PARAMS|GSTSO_MODULE|GSTSO_SYMBOL|GSTSO_SRCLINE;
-	const char* buff = GetFirstStackTraceString(options, exception);
-    do {
-        message.append(buff);
-		message.append("\n");
-        buff = GetNextStackTraceString(options, exception);
-    } while (buff);
-
-	throw wpException(" " + message);
-}
-#endif
-
-/*!
 	Main server entry point.
 */
 int main( int argc, char **argv )
 {
-#if defined(CRASHHANDLER)
-	SetUnhandledExceptionFilter(exceptionCatcher);
-#endif
 /*#if defined(_DEBUG)
 	InstallCrashHandler( HANDLE_HTTPREPORT, GSTSO_PARAMS | GSTSO_MODULE | GSTSO_SYMBOL | GSTSO_SRCLINE );
 	SetCustomMessage("A crash occurred. Please send this bug report to developers\n");
 	SetVersion(wp_version.verstring.c_str());
 #endif
 */
-	Getopts::instance()->parse_options( argc, argv );
+/*	Getopts::instance()->parse_options( argc, argv );
 	unsigned int i;
 
 	keeprun = 1;
 	QApplication app( argc, argv, false ); // we need one instance
 	QTranslator translator( 0 ); // must be valid thru app life.
 
-	changeServerState(STARTUP);
+	Server::instance()->setState(STARTUP);
 
 	Console::instance()->setAttributes( true, false, true, 60, 140, 70, 12, FONT_NOSERIF );
 	Console::instance()->send(QString( "\n%1 %2 %3\n\n" ).arg(productString(), productBeta(), productVersion()));
@@ -264,6 +184,8 @@ int main( int argc, char **argv )
 	QString consoleTitle = QString("%1 %2 %3").arg(productString(), productBeta(), productVersion());
 	Console::instance()->setConsoleTitle( consoleTitle );
 
+	return 0;
+
 	// Startup normal Classes
 	try
 	{
@@ -277,7 +199,7 @@ int main( int argc, char **argv )
 	}
 
 	// Startup Translator
-	QString languageFile = SrvParams->getString( "General", "Language File", "", true );
+	QString languageFile = Config::instance()->getString( "General", "Language File", "", true );
 	if ( !languageFile.isEmpty() )
 	{
 		if ( !translator.load( languageFile, "." ) )
@@ -304,19 +226,8 @@ int main( int argc, char **argv )
 			return 1;
 
 	// Load data
-	DefManager->load();
+	Definitions::instance()->load();
 	Console::instance()->send( "\n" );
-
-/*	Console::instance()->send( "SIZEOF(cItem):" + QString::number( sizeof( cItem ) ) );
-
-	Sleep( 5000 );
-
-	for( int x = 0; x < 400000; ++x )
-	{
-		cItem *it = cItem::createFromScript( "e75" );
-	}
-
-	return 1;*/
 
 	// Scriptmanager can't be in the try{} block because it sometimes throws firstchance exceptions
 	// we don't like
@@ -330,13 +241,13 @@ int main( int argc, char **argv )
 #endif
 		// Load some MUL Data
 		Console::instance()->send( "Loading muls...\n" );
-		TileCache::instance()->load( SrvParams->mulPath() );
-		MultiCache::instance()->load( SrvParams->mulPath() );
+		TileCache::instance()->load( Config::instance()->mulPath() );
+		MultiCache::instance()->load( Config::instance()->mulPath() );
 
-		Map->registerMap(0, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
-		Map->registerMap(1, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
-		Map->registerMap(2, "map2.mul", 288, 200, "statics2.mul", "staidx2.mul");
-		Map->registerMap(3, "map3.mul", 320, 256, "statics3.mul", "staidx3.mul");
+		Maps::instance()->registerMap(0, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
+		Maps::instance()->registerMap(1, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
+		Maps::instance()->registerMap(2, "map2.mul", 288, 200, "statics2.mul", "staidx2.mul");
+		Maps::instance()->registerMap(3, "map3.mul", 320, 256, "statics3.mul", "staidx3.mul");
 
 		// For each map we register, register a GridMap as well
 		MapObjects::instance()->addMap( 0, 6144, 4096 );
@@ -345,7 +256,7 @@ int main( int argc, char **argv )
 		MapObjects::instance()->addMap( 3, 2560, 2048 );
 
 		Console::instance()->send( "Loading skills...\n" );
-		Skills->load();
+		Skills::instance()->load();
 
 		Console::instance()->send( "Loading accounts...\n" );
 		Accounts::instance()->load();
@@ -354,16 +265,13 @@ int main( int argc, char **argv )
 		Network::instance()->load();
 
 		Console::instance()->send( "Loading regions...\n" );
-		AllTerritories::instance()->load();
+		Territories::instance()->load();
 
 		Console::instance()->send( "Loading spawn regions...\n" );
 		SpawnRegions::instance()->load();
 
 		Console::instance()->send( "Loading resources...\n" );
 		Resources::instance()->load();
-
-		Console::instance()->send( "Loading makemenus...\n" );
-		MakeMenus::instance()->load();
 
 		Console::instance()->send( "Loading contextmenus...\n" );
 		ContextMenus::instance()->reload();
@@ -383,23 +291,19 @@ int main( int argc, char **argv )
 	}
 #endif
 
-	SetGlobalVars();
+	keeprun = 1;
+	secure = 1;
 
 	// initial randomization call
-	srand( uiCurrentTime );
+	srand(uiCurrentTime);
 
-	/*
-		Check for valid database driers.
-	*/
-	if( !persistentBroker->openDriver( SrvParams->databaseDriver() ) )
-	{
-		Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml").arg( SrvParams->databaseDriver() ) );
+	if (!PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver())) {
+		Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml").arg( Config::instance()->databaseDriver() ) );
 		return 1;
 	}
 
-	if( !persistentBroker->openDriver( SrvParams->accountsDriver() ) )
-	{
-		Console::instance()->log( LOG_ERROR, QString( "Unknown Account Database Driver '%1', check your wolfpack.xml").arg( SrvParams->accountsDriver() ) );
+	if (!PersistentBroker::instance()->openDriver( Config::instance()->accountsDriver())) {
+		Console::instance()->log( LOG_ERROR, QString( "Unknown Account Database Driver '%1', check your wolfpack.xml").arg( Config::instance()->accountsDriver() ) );
 		return 1;
 	}
 
@@ -422,14 +326,14 @@ int main( int argc, char **argv )
 	Normal_Base::registerInFactory();
 	Animal_Wild::registerInFactory();
 	Animal_Domestic::registerInFactory();
+
 	// Script NPC AI types
-	QStringList aiSections = DefManager->getSections( WPDT_AI );
+	QStringList aiSections = Definitions::instance()->getSections(WPDT_AI);
 	QStringList::const_iterator aiit = aiSections.begin();
-	while( aiit != aiSections.end() )
-	{
-		ScriptAI::registerInFactory( *aiit );
+	while (aiit != aiSections.end()) {
+		ScriptAI::registerInFactory(*aiit);
 		++aiit;
-	}
+	}*/
 
 	/*try {*/
 		World::instance()->load();
@@ -443,32 +347,26 @@ int main( int argc, char **argv )
 		return 1;
 	}*/
 
-	uiCurrentTime = getNormalizedTime();
+/*	uiCurrentTime = getNormalizedTime();
 
 	// network startup
 	Network::instance()->startup();
 
-	if( SrvParams->enableLogin() )
-	{
-        Console::instance()->send( QString( "LoginServer running on port %1\n" ).arg( SrvParams->loginPort() ) );
-		if ( SrvParams->serverList().size() < 1 )
+	if (Config::instance()->enableLogin()) {
+        Console::instance()->send( QString( "LoginServer running on port %1\n" ).arg( Config::instance()->loginPort() ) );
+		if (Config::instance()->serverList().size() < 1)
 			Console::instance()->log( LOG_WARNING, "LoginServer enabled but there no Game server entries found\n Check your wolfpack.xml settings" );
 	}
 
-	if( SrvParams->enableGame() )
-        Console::instance()->send( QString( "GameServer running on port %1\n" ).arg( SrvParams->gamePort() ) );
+	if (Config::instance()->enableGame())
+        Console::instance()->send( QString( "GameServer running on port %1\n" ).arg( Config::instance()->gamePort() ) );
 
 	PyThreadState *_save;
-
-	ScriptManager::instance()->onServerStart();
-
-	changeServerState(RUNNING);
-
-	Console::instance()->start(); // Startup Console
-
 	QWaitCondition niceLevel;
-
 	unsigned char cycles = 0;
+
+	ScriptManager::instance()->onServerStart();	
+	Console::instance()->start(); // Startup Console
 
 	// This is our main loop
 	while (keeprun) {
@@ -485,7 +383,7 @@ int main( int argc, char **argv )
 				// Python threading - start
 				_save = PyEval_SaveThread();
 
-				switch( SrvParams->niceLevel() )
+				switch( Config::instance()->niceLevel() )
 				{
 					case 0: break;	// very unnice - hog all cpu time
 					case 1: if ( Network::instance()->count() != 0) niceLevel.wait(10); else niceLevel.wait(100); break;
@@ -530,7 +428,7 @@ int main( int argc, char **argv )
 					Console::instance()->sendProgress( "Reloading Configuration" );
 					lockDataMutex();
 					try {
-						SrvParams->reload();
+						Config::instance()->reload();
 					} catch(wpException e) {
 						Console::instance()->log(LOG_PYTHON, e.error() + "\n");
 					}
@@ -540,7 +438,7 @@ int main( int argc, char **argv )
 
 				case RELOAD_SCRIPTS:
 					try {
-						DefManager->reload();
+						Definitions::instance()->reload();
 					} catch(wpException e) {
 						Console::instance()->log(LOG_PYTHON, e.error() + "\n");
 					}
@@ -587,29 +485,20 @@ int main( int argc, char **argv )
 		unlockDataMutex();
 	}
 
-	changeServerState(SHUTDOWN);
+	Server::instance()->setState(SHUTDOWN);
 
 	ScriptManager::instance()->onServerStop();
 
 	Network::instance()->broadcast( tr( "The server is shutting down." ) );
 	Network::instance()->shutdown();
 
-	SrvParams->flush(); // Save config options
-
-	// Simply emptying of containers, no progressbar needed
-	DefManager->unload();
+	Config::instance()->flush(); // Save config options
 
 	// Stop Python Interpreter.
 	ScriptManager::instance()->unload();
 	stopPython();
 
 	Console::instance()->stop(); // Stop the Console
-
+*/
 	return 0;
 }
-
-void changeServerState(enServerState state) {
-	Console::instance()->notifyServerState(state);
-	serverState = state;
-}
-

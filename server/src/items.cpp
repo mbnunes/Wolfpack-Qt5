@@ -34,8 +34,9 @@
 #include "network/uotxpackets.h"
 #include "items.h"
 #include "tilecache.h"
-#include "srvparams.h"
-#include "wpdefmanager.h"
+#include "spawnregions.h"
+#include "config.h"
+#include "definitions.h"
 #include "pythonscript.h"
 #include "maps.h"
 #include "network.h"
@@ -51,7 +52,7 @@
 #include "basechar.h"
 #include "player.h"
 #include "basics.h"
-#include "srvparams.h"
+#include "config.h"
 #include "globals.h"
 #include "inlines.h"
 #include "console.h"
@@ -100,7 +101,6 @@ buyprice_( 0 ), restock_( 1 ), baseid_(QString::null) {
 	this->sellprice_ = src.sellprice_;
 	this->setId(src.id());
 	this->setOwnSerialOnly(src.ownSerial());
-	this->spawnregion_=src.spawnregion_;
 	this->type_ = src.type_;
 	this->visible_=src.visible_;
 	this->weight_ = src.weight_;
@@ -410,7 +410,7 @@ bool cItem::del()
 	if( !isPersistent )
 		return false; // We didn't need to delete the object
 
-	persistentBroker->addToDeleteQueue( "items", QString( "serial = '%1'" ).arg( serial() ) );
+	PersistentBroker::instance()->addToDeleteQueue( "items", QString( "serial = '%1'" ).arg( serial() ) );
 	flagChanged();
 	return cUObject::del();
 }
@@ -556,11 +556,11 @@ void cItem::startDecay()
 	// Player corpses take longer to decay
 	if( !corpse() )
 	{
-		decaytime_ += SrvParams->itemDecayTime() * MY_CLOCKS_PER_SEC;
+		decaytime_ += Config::instance()->itemDecayTime() * MY_CLOCKS_PER_SEC;
 	}
 	else
 	{
-		decaytime_ += SrvParams->corpseDecayTime() * MY_CLOCKS_PER_SEC;
+		decaytime_ += Config::instance()->corpseDecayTime() * MY_CLOCKS_PER_SEC;
 	}
 }
 
@@ -583,7 +583,7 @@ void cItem::decay( unsigned int currenttime )
 	{
 		// If it's a corpse and the items should not decay along with
 		// it, then place them at the corpse's position
-		if( corpse() && !SrvParams->lootdecayswithcorpse() )
+		if( corpse() && !Config::instance()->lootdecayswithcorpse() )
 		{
 			cItem::ContainerContent container( content() );
 			cItem::ContainerContent::const_iterator it (container.begin() );
@@ -749,7 +749,7 @@ void cItem::processNode( const cElement *Tag )
 	QString TagName = Tag->name();
 	QString Value = Tag->value();
 
-	const cElement *section = DefManager->getDefinition( WPDT_DEFINE, TagName );
+	const cElement *section = Definitions::instance()->getDefinition( WPDT_DEFINE, TagName );
 
 	// <bindmenu>contextmenu</bindmenu>
 	// <bindmenu id="contextmenu" />
@@ -856,9 +856,9 @@ void cItem::processNode( const cElement *Tag )
 		const cElement *section;
 
 		if( Tag->hasAttribute( "id" ) )
-			section = DefManager->getDefinition( WPDT_ITEM, Tag->getAttribute( "id" ) );
+			section = Definitions::instance()->getDefinition( WPDT_ITEM, Tag->getAttribute( "id" ) );
 		else
-			section = DefManager->getDefinition( WPDT_ITEM, Value );
+			section = Definitions::instance()->getDefinition( WPDT_ITEM, Value );
 
 		if( section )
 			applyDefinition( section );
@@ -1445,6 +1445,15 @@ void cItem::load( char **result, UINT16 &offset )
 	}
 	// ugly optimization ends here.
 
+	if (!spawnregion_.isEmpty()) {
+		cSpawnRegion *region = SpawnRegions::instance()->region(spawnregion_);
+		if (region) {
+			region->add(serial_);
+		} else {
+			spawnregion_ = QString::null;
+		}
+	}
+
 	World::instance()->registerObject(this);
 }
 
@@ -1482,7 +1491,7 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 		if (ContainerPileItem(pItem)) {
 			// If the Server is running and this happens, resend the tooltip of us and
 			// all our parent containers.
-			if (serverState == RUNNING) {
+			if (Server::instance()->getState() == RUNNING) {
 				P_ITEM cont = this;
 
 				while (cont) {
@@ -1508,7 +1517,7 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 
 	// If the Server is running and this happens, resend the tooltip of us and
 	// all our parent containers.
-	if (serverState == RUNNING) {
+	if (Server::instance()->getState() == RUNNING) {
 		P_ITEM cont = this;
 		while (cont) {
 			cont->resendTooltip();
@@ -1541,7 +1550,7 @@ void cItem::removeItem( cItem* pItem, bool handleWeight )
 
 	// If the Server is running and this happens, resend the tooltip of us and
 	// all our parent containers.
-	if (serverState == RUNNING)
+	if (Server::instance()->getState() == RUNNING)
 	{
 		P_ITEM cont = this;
 
@@ -2039,7 +2048,7 @@ void cItem::sendTooltip(cUOSocket* mSock)
 */
 P_ITEM cItem::createFromList( const QString &id )
 {
-	QString entry = DefManager->getRandomListEntry( id );
+	QString entry = Definitions::instance()->getRandomListEntry( id );
 	return createFromScript( entry);
 }
 
@@ -2051,7 +2060,7 @@ P_ITEM cItem::createFromScript( const QString& id )
 	P_ITEM nItem = 0;
 
 	// Get an Item and assign a serial to it
-	const cElement* section = DefManager->getDefinition( WPDT_ITEM, id );
+	const cElement* section = Definitions::instance()->getDefinition( WPDT_ITEM, id );
 
 	if( section )
 	{
@@ -2209,7 +2218,7 @@ unsigned int cItem::removeItems(const QStringList &baseids, unsigned int amount)
 
 void cItem::moveTo(const Coord_cl &newpos, bool noremove) {
 	// See if the map is valid
-	if (!Map->hasMap(newpos.map)) {
+	if (!Maps::instance()->hasMap(newpos.map)) {
 		return;
 	}
 

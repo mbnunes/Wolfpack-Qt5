@@ -28,6 +28,7 @@
 #include "multiscache.h"
 #include "defines.h"
 #include "exceptions.h"
+#include "config.h"
 
 // Library Includes
 #include <qvaluevector.h>
@@ -128,21 +129,30 @@ QValueVector<multiItem_st> MultiDefinition::getEntries() const
 /*!
 	Constructs a cMultiCache object
 */
-cMultiCache::~cMultiCache()
-{
+cMultiCache::~cMultiCache() {
+}
+
+void cMultiCache::unload() {
 	// Clear existing definitions
-	while( multis.begin() != multis.end() )
-	{
+	while (multis.begin() != multis.end()) {
 		delete multis.begin().data();
-		multis.erase( multis.begin() );
+		multis.erase(multis.begin());
 	}
+
+	cComponent::unload();
+}
+
+void cMultiCache::reload() {
+	unload();
+	load();
 }
 
 /*!
 	Parses and loads multi definitions
 */
-void cMultiCache::load( const QString &basePath )
-{
+void cMultiCache::load() {
+	QString basePath = Config::instance()->mulPath();	
+
 	QFile indexFile( basePath + "multi.idx" );
 	if( !indexFile.open( IO_ReadOnly ) )
 		throw wpException( QString( "Error opening file %1 for reading." ).arg( basePath + "multi.idx" ) );
@@ -203,6 +213,8 @@ void cMultiCache::load( const QString &basePath )
 
 		multis.insert( currentID++, multi );
 	}
+
+	cComponent::load();
 }
 
 /*!

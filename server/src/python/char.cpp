@@ -31,11 +31,10 @@
 #include "../skills.h"
 #include "../party.h"
 #include "../combat.h"
-#include "../srvparams.h"
+#include "../config.h"
 #include "../walking.h"
 #include "../commands.h"
 #include "../scriptmanager.h"
-#include "../makemenus.h"
 #include "../npc.h"
 #include "../guilds.h"
 #include "../basechar.h"
@@ -175,9 +174,9 @@ static PyObject* wpChar_message( wpChar* self, PyObject* args )
 	if (checkArgStr(0)) {
 		QString message = getArgStr( 0 );
 
-		if( ( player->body() == 0x3DB ) && message.startsWith( SrvParams->commandPrefix() ) )
+		if( ( player->body() == 0x3DB ) && message.startsWith( Config::instance()->commandPrefix() ) )
 			Commands::instance()->process( player->socket(), message.right( message.length()-1 ) );
-		else if( message.startsWith( SrvParams->commandPrefix() ) )
+		else if( message.startsWith( Config::instance()->commandPrefix() ) )
 			Commands::instance()->process( player->socket(), message.right( message.length()-1 ) );
 		else if( PyTuple_Size( args ) == 2 && PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
 			player->message( message, PyInt_AsLong( PyTuple_GetItem( args, 1 ) ) );

@@ -33,9 +33,9 @@
 #include "TmpEff.h"
 #include "items.h"
 #include "globals.h"
-#include "srvparams.h"
+#include "config.h"
 #include "network.h"
-#include "wpdefmanager.h"
+#include "definitions.h"
 #include "network/uosocket.h"
 #include "dbdriver.h"
 #include "persistentbroker.h"
@@ -88,7 +88,7 @@ void cTempEffect::setExpiretime_ms(float milliseconds)
  */
 void cTempEffect::saveFloat( unsigned int id, QString key, double value )
 {
-	persistentBroker->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( persistentBroker->quoteString( key ) ).arg( "float" ).arg( value ) );
+	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "float" ).arg( value ) );
 }
 
 /*
@@ -96,7 +96,7 @@ void cTempEffect::saveFloat( unsigned int id, QString key, double value )
  */
 void cTempEffect::saveInt( unsigned int id, QString key, int value )
 {
-	persistentBroker->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( persistentBroker->quoteString( key ) ).arg( "int" ).arg( value ) );
+	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "int" ).arg( value ) );
 }
 
 /*
@@ -104,21 +104,21 @@ void cTempEffect::saveInt( unsigned int id, QString key, int value )
  */
 void cTempEffect::saveString( unsigned int id, QString key, const QString &value )
 {
-	persistentBroker->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( persistentBroker->quoteString( key ) ).arg( "string" ).arg( persistentBroker->quoteString( value.utf8() ) ) );
+	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "string" ).arg( PersistentBroker::instance()->quoteString( value.utf8() ) ) );
 }
 
 void cTempEffect::saveChar(unsigned int id, QString key, P_CHAR character ) {
 	unsigned int value = character->serial();
-	persistentBroker->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( persistentBroker->quoteString( key ) ).arg( "char" ).arg( value ) );
+	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "char" ).arg( value ) );
 }
 
 void cTempEffect::saveItem(unsigned int id, QString key, P_ITEM item ) {
 	unsigned int value = item->serial();
-	persistentBroker->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( persistentBroker->quoteString( key ) ).arg( "item" ).arg( value ) );
+	PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ).arg( "item" ).arg( value ) );
 }
 
 bool cTempEffect::loadChar(unsigned int id, QString key, P_CHAR &character ) {
-	cDBResult result = persistentBroker->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'char'" ).arg( id ).arg( persistentBroker->quoteString( key ) ) );
+	cDBResult result = PersistentBroker::instance()->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'char'" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ) );
 
 	character = 0;
 	if (!result.fetchrow()) {
@@ -132,7 +132,7 @@ bool cTempEffect::loadChar(unsigned int id, QString key, P_CHAR &character ) {
 }
 
 bool cTempEffect::loadItem(unsigned int id, QString key, P_ITEM &item ) {
-	cDBResult result = persistentBroker->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'item'" ).arg( id ).arg( persistentBroker->quoteString( key ) ) );
+	cDBResult result = PersistentBroker::instance()->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'item'" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ) );
 
 	item = 0;
 	if (!result.fetchrow()) {
@@ -150,7 +150,7 @@ bool cTempEffect::loadItem(unsigned int id, QString key, P_ITEM &item ) {
  */
 bool cTempEffect::loadFloat( unsigned int id, QString key, double &value )
 {
-	cDBResult result = persistentBroker->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'float'" ).arg( id ).arg( persistentBroker->quoteString( key ) ) );
+	cDBResult result = PersistentBroker::instance()->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'float'" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ) );
 
 	if( !result.fetchrow() )
 	{
@@ -170,7 +170,7 @@ bool cTempEffect::loadFloat( unsigned int id, QString key, double &value )
  */
 bool cTempEffect::loadInt( unsigned int id, QString key, int &value )
 {
-	cDBResult result = persistentBroker->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'int'" ).arg( id ).arg( persistentBroker->quoteString( key ) ) );
+	cDBResult result = PersistentBroker::instance()->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'int'" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ) );
 
 	if( !result.fetchrow() )
 	{
@@ -190,7 +190,7 @@ bool cTempEffect::loadInt( unsigned int id, QString key, int &value )
  */
 bool cTempEffect::loadString( unsigned int id, QString key, QString &value )
 {
-	cDBResult result = persistentBroker->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'string'" ).arg( id ).arg( persistentBroker->quoteString( key ) ) );
+	cDBResult result = PersistentBroker::instance()->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'string'" ).arg( id ).arg( PersistentBroker::instance()->quoteString( key ) ) );
 
 	if( !result.fetchrow() )
 	{
@@ -209,7 +209,7 @@ bool cTempEffect::loadString( unsigned int id, QString key, QString &value )
 
 void cTempEffect::save( unsigned int id )
 {
-	persistentBroker->executeQuery( QString( "INSERT INTO effects VALUES(%1,'%2',%3,%4,%5,%6);" ).arg( id ).arg( persistentBroker->quoteString( objectID() ) ).arg( expiretime - uiCurrentTime ).arg( dispellable ? 1 : 0 ).arg( sourSer ).arg( destSer ) );
+	PersistentBroker::instance()->executeQuery( QString( "INSERT INTO effects VALUES(%1,'%2',%3,%4,%5,%6);" ).arg( id ).arg( PersistentBroker::instance()->quoteString( objectID() ) ).arg( expiretime - uiCurrentTime ).arg( dispellable ? 1 : 0 ).arg( sourSer ).arg( destSer ) );
 }
 
 void cTempEffect::load( unsigned int id, const char **result )
@@ -354,9 +354,9 @@ void cTempEffects::load()
 {
 	// Query the Database
 
-	cDBResult result = persistentBroker->query( "SELECT id,objectid,expiretime,dispellable,source,destination FROM effects ORDER BY expiretime ASC;" );
+	cDBResult result = PersistentBroker::instance()->query( "SELECT id,objectid,expiretime,dispellable,source,destination FROM effects ORDER BY expiretime ASC;" );
 
-	persistentBroker->driver()->setActiveConnection( CONN_SECOND );
+	PersistentBroker::instance()->driver()->setActiveConnection( CONN_SECOND );
 
 	while( result.fetchrow() )
 	{
@@ -385,13 +385,13 @@ void cTempEffects::load()
 		insert( effect );
 	}
 	result.free();
-	persistentBroker->driver()->setActiveConnection();
+	PersistentBroker::instance()->driver()->setActiveConnection();
 }
 
 void cTempEffects::save()
 {
-	persistentBroker->executeQuery( "DELETE FROM effects;" );
-	persistentBroker->executeQuery( "DELETE FROM effects_properties;" );
+	PersistentBroker::instance()->executeQuery( "DELETE FROM effects;" );
+	PersistentBroker::instance()->executeQuery( "DELETE FROM effects_properties;" );
 
 	std::vector< cTempEffect* >::iterator it = teffects.begin();
 	unsigned int id = 0;

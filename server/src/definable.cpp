@@ -26,7 +26,7 @@
  */
 
 #include "definable.h"
-#include "wpdefmanager.h"
+#include "definitions.h"
 #include "globals.h"
 #include "basics.h"
 
@@ -48,7 +48,7 @@ void cDefinable::applyDefinition( const cElement* sectionNode )
 		else if( sectionNode->name() == "region" )
 			wpType = WPDT_REGION;
 
-		const cElement *tInherit = DefManager->getDefinition( wpType, sectionNode->getAttribute( "inherit", "" ) );
+		const cElement *tInherit = Definitions::instance()->getDefinition( wpType, sectionNode->getAttribute( "inherit", "" ) );
 
 		if( tInherit )
 			applyDefinition( tInherit );
@@ -62,9 +62,9 @@ void cDefinable::applyDefinition( const cElement* sectionNode )
 		if( sectionNode->name() == "npc" )
 			wpType = WPDT_NPC;
 
-		QString iSection = DefManager->getRandomListEntry( sectionNode->getAttribute( "inheritlist", "" ) );
+		QString iSection = Definitions::instance()->getRandomListEntry( sectionNode->getAttribute( "inheritlist", "" ) );
 
-		const cElement *tInherit = DefManager->getDefinition( wpType, iSection );
+		const cElement *tInherit = Definitions::instance()->getDefinition( wpType, iSection );
 
 		if( tInherit )
 			applyDefinition( tInherit );

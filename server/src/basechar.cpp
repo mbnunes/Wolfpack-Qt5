@@ -54,8 +54,8 @@
 #include "scriptmanager.h"
 #include "log.h"
 #include "skills.h"
-#include "wpdefmanager.h"
-#include "srvparams.h"
+#include "definitions.h"
+#include "config.h"
 
 cBaseChar::cBaseChar()
 {
@@ -113,7 +113,7 @@ cBaseChar::cBaseChar()
 	strengthCap_		= 125;
 	dexterityCap_		= 125;
 	intelligenceCap_	= 125;
-	statCap_			= SrvParams->statcap();
+	statCap_			= Config::instance()->statcap();
 	skills_.resize(ALLSKILLS);
 	regenHitpointsTime_	= 0;
 	regenStaminaTime_	= 0;
@@ -214,9 +214,9 @@ void cBaseChar::load( char **result, UINT16 &offset )
 	// Query the Skills for this character
 	QString sql = "SELECT skill,value,locktype,cap FROM skills WHERE serial = '" + QString::number( serial() ) + "'";
 
-	cDBResult res = persistentBroker->query( sql );
+	cDBResult res = PersistentBroker::instance()->query( sql );
 	if( !res.isValid() )
-		throw persistentBroker->lastError();
+		throw PersistentBroker::instance()->lastError();
 
 	// Fetch row-by-row
 	while( res.fetchrow() )
@@ -300,18 +300,18 @@ void cBaseChar::save()
 	}
 
 	QValueVector<stSkillValue>::iterator it;
-	persistentBroker->lockTable("skills");
+	PersistentBroker::instance()->lockTable("skills");
 	int i = 0;
 	QCString query(256); // 256 byte should be enough
 	for (it = skills_.begin(); it != skills_.end(); ++it, ++i) {
 		if ((*it).changed) {
 			query.sprintf("REPLACE INTO skills VALUES(%u,%u,%u,%u,%u);",
 				serial_, i, (*it).value, (*it).lock, (*it).cap);
-			persistentBroker->executeQuery(query.data());
+			PersistentBroker::instance()->executeQuery(query.data());
 			(*it).changed = false;
 		}
 	}
-	persistentBroker->unlockTable("skills");
+	PersistentBroker::instance()->unlockTable("skills");
 
 	cUObject::save();
 }
@@ -321,8 +321,8 @@ bool cBaseChar::del()
 	if( !isPersistent )
 		return false; // We didn't need to delete the object
 
-	persistentBroker->addToDeleteQueue( "characters", QString( "serial = '%1'" ).arg( serial() ) );
-	persistentBroker->addToDeleteQueue( "skills", QString( "serial = '%1'" ).arg( serial() ) );
+	PersistentBroker::instance()->addToDeleteQueue( "characters", QString( "serial = '%1'" ).arg( serial() ) );
+	PersistentBroker::instance()->addToDeleteQueue( "skills", QString( "serial = '%1'" ).arg( serial() ) );
 	changed_ = true;
 	return cUObject::del();
 }
@@ -894,7 +894,7 @@ void cBaseChar::Init( bool createSerial )
 
 bool cBaseChar::inGuardedArea()
 {
-	cTerritory* Region = AllTerritories::instance()->region( this->pos().x, this->pos().y, this->pos().map );
+	cTerritory* Region = Territories::instance()->region( this->pos().x, this->pos().y, this->pos().map );
 	if( Region )
 		return Region->isGuarded();
 	else
@@ -1156,7 +1156,7 @@ void cBaseChar::processNode( const cElement *Tag )
 			setSkillValue( ( Tag->getAttribute( "type" ).toInt() - 1 ), Value.toInt() );
 		else
 		{
-			INT16 skillId = Skills->findSkillByDef( Tag->getAttribute( "type", "" ) );
+			INT16 skillId = Skills::instance()->findSkillByDef( Tag->getAttribute( "type", "" ) );
 			setSkillValue( skillId, Value.toInt() );
 		}
 	}
@@ -1240,7 +1240,7 @@ void cBaseChar::processNode( const cElement *Tag )
 	}
 	else
 	{
-		INT16 skillId = Skills->findSkillByDef( TagName );
+		INT16 skillId = Skills::instance()->findSkillByDef( TagName );
 
 		if( skillId == -1 )
 			cUObject::processNode( Tag );
@@ -1278,7 +1278,7 @@ void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight,
 		pi->setLayer(layer);
 	}
 
-	if (serverState != STARTUP) {
+	if (Server::instance()->getState() != STARTUP) {
 		pi->setContainer(this);
 	} else {
 		pi->container_ = this; // Avoid a flagChanged()
@@ -1791,7 +1791,7 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 	else if( name.left( 6 ) == "skill." )
 	{
 		QString skill = name.right( name.length() - 6 );
-		INT16 skillId = Skills->findSkillByDef( skill );
+		INT16 skillId = Skills::instance()->findSkillByDef( skill );
 
 		if( skillId != -1 )
 		{
@@ -1801,7 +1801,7 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 	// skillcap.
 	} else if( name.left( 9 ) == "skillcap." ) {
 		QString skill = name.right( name.length() - 9 );
-		INT16 skillId = Skills->findSkillByDef( skill );
+		INT16 skillId = Skills::instance()->findSkillByDef( skill );
 
 		if( skillId != -1 )
 		{
@@ -1811,7 +1811,7 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 
 	} else {
 		// See if there's a skill by that name
-		INT16 skillId = Skills->findSkillByDef(name);
+		INT16 skillId = Skills::instance()->findSkillByDef(name);
 
 		if (skillId != -1) {
 			value = cVariant(skillValue(skillId));
@@ -1867,7 +1867,7 @@ void cBaseChar::setStamina(INT16 data, bool notify /* = true */ )
 
 void cBaseChar::callGuards()
 {
-	if (!inGuardedArea() || !SrvParams->guardsActive() )
+	if (!inGuardedArea() || !Config::instance()->guardsActive() )
 		return;
 
 	// Is there a criminal around?
@@ -1990,7 +1990,7 @@ void cBaseChar::bark( enBark type )
 	{
 		if( type == Bark_GetHit )
 		{
-			unsigned short sound = hex2dec( DefManager->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_MALE" ) ).toUShort();
+			unsigned short sound = hex2dec( Definitions::instance()->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_MALE" ) ).toUShort();
 
 			if( sound > 0 )
 				soundEffect( sound );
@@ -2002,7 +2002,7 @@ void cBaseChar::bark( enBark type )
 	}
 	else if( body() == 0x191 || body() == 0x193 )
 	{
-		unsigned short sound = hex2dec( DefManager->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_FEMALE" ) ).toUShort();
+		unsigned short sound = hex2dec( Definitions::instance()->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_FEMALE" ) ).toUShort();
 		if( sound > 0 )
 			soundEffect( sound );
 		else
@@ -2423,9 +2423,9 @@ bool cBaseChar::kill(cUObject *source) {
 					pPlayer->socket()->sysMessage(tr("You have killed %1 innocent people.").arg(pPlayer->kills()));
 
 				// The player became a murderer
-				if (pPlayer->kills() >= SrvParams->maxkills())
+				if (pPlayer->kills() >= Config::instance()->maxkills())
 				{
-					pPlayer->setMurdererTime(getNormalizedTime() + SrvParams->murderdecay() * MY_CLOCKS_PER_SEC);
+					pPlayer->setMurdererTime(getNormalizedTime() + Config::instance()->murderdecay() * MY_CLOCKS_PER_SEC);
 
 					if (pPlayer->socket())
 						pPlayer->socket()->clilocMessage(502134);
@@ -2455,7 +2455,7 @@ bool cBaseChar::kill(cUObject *source) {
 	if (!summoned && basedef && !basedef->noCorpse()) {
 		corpse = new cCorpse(true);
 
-		const cElement *elem = DefManager->getDefinition(WPDT_ITEM, "2006");
+		const cElement *elem = Definitions::instance()->getDefinition(WPDT_ITEM, "2006");
 		if (elem)
 			corpse->applyDefinition(elem);
 
@@ -2519,7 +2519,7 @@ bool cBaseChar::kill(cUObject *source) {
 			}
 		}
 
-		corpse->setDecayTime(uiCurrentTime + SrvParams->corpseDecayTime() * MY_CLOCKS_PER_SEC);
+		corpse->setDecayTime(uiCurrentTime + Config::instance()->corpseDecayTime() * MY_CLOCKS_PER_SEC);
 		corpse->update();
 	}
 
@@ -2544,7 +2544,7 @@ bool cBaseChar::kill(cUObject *source) {
 	// Create Loot for NPcs
 	if (npc && !npc->lootList().isEmpty())
 	{
-		QStringList lootlist = DefManager->getList(npc->lootList());
+		QStringList lootlist = Definitions::instance()->getList(npc->lootList());
 
 		QStringList::const_iterator it;
 		for (it = lootlist.begin(); it != lootlist.end(); ++it)
@@ -2846,7 +2846,7 @@ cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy)
 	for( cBaseChar::CharContainer::iterator iter = guards.begin(); iter != guards.end(); ++iter )
 	{
 		P_NPC pPet = dynamic_cast<P_NPC>(*iter);
-		if( pPet->combatTarget() == INVALID_SERIAL && pPet->inRange( _player, SrvParams->attack_distance() ) ) // is it on screen?
+		if( pPet->combatTarget() == INVALID_SERIAL && pPet->inRange( _player, Config::instance()->attack_distance() ) ) // is it on screen?
 		{
 			pPet->fight( pc_i );
 
@@ -2865,7 +2865,7 @@ cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy)
 		}
 	}
 
-	if( pc_i->inGuardedArea() && SrvParams->guardsActive() )
+	if( pc_i->inGuardedArea() && Config::instance()->guardsActive() )
 	{
 		if( pc_i->objectType() == enPlayer && pc_i->isInnocent() ) //REPSYS
 		{
@@ -3135,7 +3135,7 @@ double cBaseChar::getManaRate() {
 // Light and Region checks
 void cBaseChar::moveTo(const Coord_cl &pos, bool noremove) {
 	cUObject::moveTo(pos, noremove);
-	AllTerritories::instance()->check(this);
+	Territories::instance()->check(this);
 }
 
 void cBaseChar::remove() {

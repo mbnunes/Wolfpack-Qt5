@@ -36,7 +36,7 @@
 
 Q_INT32 resolveName( const QString& data ); // declared in srvparams.cpp
 
-QString cSrvParams::mulPath() const
+QString cConfig::mulPath() const
 {
 	QDir thePath( mulPath_ );
 	if( !thePath.exists() || thePath.entryList("*.mul").isEmpty() )
@@ -47,7 +47,7 @@ QString cSrvParams::mulPath() const
 	return mulPath_;
 }
 
-std::vector<ServerList_st>& cSrvParams::serverList()
+std::vector<ServerList_st>& cConfig::serverList()
 {
 	if ( serverList_.empty() ) // Empty? Try to load
 	{

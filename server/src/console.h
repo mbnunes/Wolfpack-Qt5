@@ -32,6 +32,7 @@
 #include "platform.h"
 #include "typedefs.h"
 #include "singleton.h"
+#include "server.h"
 
 // System Includes
 #include <qstringlist.h>

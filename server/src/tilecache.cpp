@@ -31,6 +31,7 @@
 #include "console.h"
 #include "globals.h"
 #include "exceptions.h"
+#include "config.h"
 
 #include <qfile.h>
 #include <qdatastream.h>
@@ -61,9 +62,20 @@ using namespace std;
 	return false;
 }*/
 
-bool cTileCache::load( const QString &nPath )
-{
-	path = nPath;
+void cTileCache::unload() {
+	staticTiles.clear();
+	landTiles.clear();
+
+	cComponent::unload();
+}
+
+void cTileCache::reload() {
+	unload();
+	load();
+}
+
+void cTileCache::load() {
+	path = Config::instance()->mulPath();
 
 	// Null out our placeholder tiles first
 	memset( &emptyLandTile, 0, sizeof( land_st ) );
@@ -72,7 +84,7 @@ bool cTileCache::load( const QString &nPath )
 	QFile input( path + "tiledata.mul" );
 
 	if( !input.open( IO_ReadOnly ) )
-		throw wpException( QString( "Error opening file %1 for reading." ).arg( nPath + "tiledata.mul" ) );
+		throw wpException( QString( "Error opening file %1 for reading." ).arg( path + "tiledata.mul" ) );
 
 	// Begin reading in the Land-Tiles
 	UINT32 i, j;
@@ -179,7 +191,8 @@ bool cTileCache::load( const QString &nPath )
 		}
 	}
 	input.close();
-	return true;
+	
+	cComponent::load();
 }
 
 // Get's a land-tile out of the cache

@@ -32,7 +32,7 @@
 #include "../speech.h"
 #include "../targetrequests.h"
 #include "../TmpEff.h"
-#include "../srvparams.h"
+#include "../config.h"
 #include "../globals.h"
 #include "../sectors.h"
 #include "../world.h"
@@ -217,7 +217,7 @@ Human_Guard_Called::Human_Guard_Called( P_NPC npc ) : AbstractAI( npc )
 
 void Human_Guard_Called::init( P_NPC npc )
 {
-	npc->setSummonTime( uiCurrentTime + MY_CLOCKS_PER_SEC * SrvParams->guardDispelTime() );
+	npc->setSummonTime( uiCurrentTime + MY_CLOCKS_PER_SEC * Config::instance()->guardDispelTime() );
 	npc->setSummoned(true);
 	AbstractAI::init( npc );
 }
@@ -231,7 +231,7 @@ void Human_Guard_Called_Fight::execute()
 		case 1:		m_npc->talk( tr( "Death to all Evil!" ), -1, 0, true );						break;
 	}
 
-	m_npc->setSummonTime( uiCurrentTime + MY_CLOCKS_PER_SEC * SrvParams->guardDispelTime() );
+	m_npc->setSummonTime( uiCurrentTime + MY_CLOCKS_PER_SEC * Config::instance()->guardDispelTime() );
 	m_npc->setSummoned(true);
 
 	// Fighting is handled within combat..
@@ -255,7 +255,7 @@ float Human_Guard_Called_Fight::postCondition()
 }
 
 void Human_Guard_Called_TeleToTarget::execute() {
-	m_npc->setSummonTime(uiCurrentTime + MY_CLOCKS_PER_SEC * SrvParams->guardDispelTime());
+	m_npc->setSummonTime(uiCurrentTime + MY_CLOCKS_PER_SEC * Config::instance()->guardDispelTime());
 	m_npc->setSummoned(true);
 
 	// Teleports the guard towards the target
@@ -338,7 +338,7 @@ void Human_Guard::selectVictim()
 		// - Target not innocent.
 		if( m_currentVictim->isDead() || m_currentVictim->isInnocent() )
 			m_currentVictim = NULL;
-		else if( !m_npc->inRange( m_currentVictim, SrvParams->attack_distance() ) )
+		else if( !m_npc->inRange( m_currentVictim, Config::instance()->attack_distance() ) )
 			m_currentVictim = NULL;
 	}
 
@@ -409,7 +409,7 @@ void Human_Guard_MoveToTarget::execute()
 	if( !pTarget )
 		return;
 
-	if( SrvParams->pathfind4Combat() )
+	if( Config::instance()->pathfind4Combat() )
 		movePath( pTarget->pos() );
 	else
 		moveTo( pTarget->pos() );

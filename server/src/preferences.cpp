@@ -62,7 +62,6 @@ Preferences::Preferences(const QString& filename, const QString& format, const Q
 	d->version_ = version;
 	d->filestate_ = false;
 	d->formatstate_ = false;
-    readData();
 }
 
 Preferences::~Preferences()
@@ -218,11 +217,10 @@ void Preferences::flush()
     }
 }
 
-void Preferences::reload()
+void Preferences::clear()
 {
 	d->dirty_ = false;
 	d->groups_.clear();
-	readData();
 }
 
 /*!

@@ -42,7 +42,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MD /GR /GX /O2 /I "lib/Python/PC" /I "sqlite" /I "lib/Python/include" /I "lib\ZThread\include" /I "$(QTDIR)\include" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "QT_DLL" /D "QT_NO_STL" /D "QT_THREAD_SUPPORT" /D "MYSQL_DRIVER" /Fr /FD /c
+# ADD CPP /nologo /MD /GR /GX /O2 /I "lib/Python/PC" /I "sqlite" /I "lib/Python/include" /I "lib\ZThread\include" /I "$(QTDIR)\include" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "QT_DLL" /D "QT_NO_STL" /D "QT_THREAD_SUPPORT" /Fr /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG"
@@ -51,7 +51,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib ole32.lib advapi32.lib ws2_32.lib comctl32.lib $(QTDIR)\lib\qt-mt331.lib shell32.lib /nologo /subsystem:windows /map /machine:I386 /out:"..\wolfpack.exe" /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib" /libpath:"flatstore\Release" /opt:ref /opt:nowin98
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib ole32.lib advapi32.lib ws2_32.lib comctl32.lib $(QTDIR)\lib\qt-mt322.lib shell32.lib /nologo /subsystem:windows /map /machine:I386 /out:"..\wolfpack.exe" /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib" /libpath:"flatstore\Release" /opt:ref /opt:nowin98
 # SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
@@ -68,8 +68,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MD /Gm /GR /GX /Zi /Od /I "sqlite" /I "lib\bugreport" /I "$(QTDIR)\include" /D "_CONSOLE" /D "_MBCS" /D "_DEBUG" /D "WIN32" /D "QT_DLL" /D "QT_NO_STL" /D "QT_THREAD_SUPPORT" /FD /GZ /c
-# SUBTRACT CPP /Fr
+# ADD CPP /nologo /MD /Gm /GR /GX /Zi /Od /I "sqlite" /I "lib\bugreport" /I "$(QTDIR)\include" /D "_CONSOLE" /D "_MBCS" /D "_DEBUG" /D "WIN32" /D "QT_DLL" /D "QT_NO_STL" /D "QT_THREAD_SUPPORT" /Fr /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -77,7 +76,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib ole32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt331.lib shell32.lib /nologo /version:12.9 /subsystem:windows /incremental:no /debug /machine:I386 /out:"..\wolfpack.exe" /pdbtype:sept /fixed:no
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib ole32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt322.lib shell32.lib /nologo /version:12.9 /subsystem:windows /incremental:no /debug /machine:I386 /out:"..\wolfpack.exe" /pdbtype:sept /fixed:no
 # SUBTRACT LINK32 /pdb:none /map
 
 !ENDIF 
@@ -131,6 +130,14 @@ SOURCE=.\commands.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\config.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\win\config_win.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\console.cpp
 # End Source File
 # Begin Source File
@@ -164,6 +171,10 @@ SOURCE=.\dbl_single_click.cpp
 # Begin Source File
 
 SOURCE=.\definable.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\definitions.cpp
 # End Source File
 # Begin Source File
 
@@ -204,10 +215,6 @@ SOURCE=.\items.cpp
 # Begin Source File
 
 SOURCE=.\log.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\makemenus.cpp
 # End Source File
 # Begin Source File
 
@@ -271,6 +278,10 @@ SOURCE=.\sectors.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\server.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\skills.cpp
 # End Source File
 # Begin Source File
@@ -280,14 +291,6 @@ SOURCE=.\spawnregions.cpp
 # Begin Source File
 
 SOURCE=.\speech.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\srvparams.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\win\srvparams_win.cpp
 # End Source File
 # Begin Source File
 
@@ -339,10 +342,6 @@ SOURCE=.\world.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\wpdefmanager.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\wptargetrequests.cpp
 # End Source File
 # End Group
@@ -390,6 +389,10 @@ SOURCE=.\commands.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\config.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\console.h
 # End Source File
 # Begin Source File
@@ -425,6 +428,10 @@ SOURCE=.\definable.h
 # Begin Source File
 
 SOURCE=.\defines.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\definitions.h
 # End Source File
 # Begin Source File
 
@@ -475,11 +482,6 @@ SOURCE=.\items.h
 # Begin Source File
 
 SOURCE=.\log.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\makemenus.h
-# PROP Ignore_Default_Tool 1
 # End Source File
 # Begin Source File
 
@@ -561,6 +563,10 @@ SOURCE=.\sectors.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\server.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\singleton.h
 # End Source File
 # Begin Source File
@@ -574,10 +580,6 @@ SOURCE=.\spawnregions.h
 # Begin Source File
 
 SOURCE=.\speech.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\srvparams.h
 # End Source File
 # Begin Source File
 
@@ -642,10 +644,6 @@ SOURCE=.\wolfpack.h
 # Begin Source File
 
 SOURCE=.\world.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\wpdefmanager.h
 # End Source File
 # Begin Source File
 

@@ -31,6 +31,7 @@
 //Platform specifics
 #include "platform.h"
 #include "inlines.h"
+#include "typedefs.h"
 
 // Wolfpack includes
 #include "itemid.h"

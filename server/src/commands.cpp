@@ -34,17 +34,15 @@
 #include "scriptmanager.h"
 #include "network/uosocket.h"
 #include "spawnregions.h"
-#include "srvparams.h"
+#include "config.h"
 #include "targetrequests.h"
 #include "territories.h"
 #include "tilecache.h"
 #include "console.h"
-#include "wpdefmanager.h"
+#include "definitions.h"
 #include "scriptmanager.h"
 #include "pagesystem.h"
-#include "makemenus.h"
 #include "sectors.h"
-#include "resources.h"
 #include "contextmenu.h"
 #include "pythonscript.h"
 #include "network.h"
@@ -130,7 +128,7 @@ void cCommands::loadACLs( void )
 		delete itA.data();
 	_acls.clear();
 
-	QStringList ScriptSections = DefManager->getSections( WPDT_PRIVLEVEL );
+	QStringList ScriptSections = Definitions::instance()->getSections( WPDT_PRIVLEVEL );
 
 	if (ScriptSections.isEmpty()) {
 		Console::instance()->log(LOG_WARNING, "No ACLs for players, counselors, gms and admins defined!\n");
@@ -141,7 +139,7 @@ void cCommands::loadACLs( void )
 	// In each loop we create one acl
 	for( QStringList::iterator it = ScriptSections.begin(); it != ScriptSections.end(); ++it )
 	{
-		const cElement *Tag = DefManager->getDefinition( WPDT_PRIVLEVEL, *it );
+		const cElement *Tag = Definitions::instance()->getDefinition( WPDT_PRIVLEVEL, *it );
 
 		if( !Tag )
 			continue;
@@ -877,7 +875,7 @@ void commandShutDown( cUOSocket *socket, const QString &command, const QStringLi
 	Q_UNUSED(command);
 	// Shutdown
 	if( args.count() == 0 )
-		keeprun = 0;
+		Server::instance()->cancel();
 }
 
 /*
@@ -931,70 +929,20 @@ void commandReload( cUOSocket *socket, const QString &command, const QStringList
 	// accounts
 	if( subCommand == "accounts" )
 	{
-		Accounts::instance()->reload();
-		socket->sysMessage("The accounts have been reloaded.");
+		Server::instance()->reload("accounts");
 	}
 	if( subCommand == "python" )
 	{
-		ScriptManager::instance()->reload();
-    socket->sysMessage("The python scripts have been reloaded.");
+		Server::instance()->reload("scripts");
 	}
+
 	if( subCommand == "scripts" )
 	{
-		SrvParams->reload(); // Reload wolfpack.xml
-
-		QStringList oldAISections = DefManager->getSections( WPDT_AI );
-		DefManager->reload(); //Reload Definitions
-		AIFactory::instance()->checkScriptAI( oldAISections, DefManager->getSections( WPDT_AI ) );
-
-		Accounts::instance()->reload();
-		SpawnRegions::instance()->reload();
-		AllTerritories::instance()->reload();
-		Resources::instance()->reload();
-		MakeMenus::instance()->reload();
-		ScriptManager::instance()->reload(); // Reload Scripts
-		Skills->reload();
-
-		// Update the Regions
-		cCharIterator iter;
-		P_CHAR pChar;
-		for( pChar = iter.first(); pChar; pChar = iter.next() )
-		{
-			cTerritory *region = AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
-			pChar->setRegion( region );
-		}
-
-		Network::instance()->reload(); // This will be integrated into the normal definition system soon
-		socket->sysMessage("The configuration, definitions and python scripts have been reloaded.");
+		Server::instance()->reload("definitions");
 	}
-	if( subCommand == "all" )
-	{
-		Console::instance()->send( "Reloading definitions, scripts and wolfpack.xml\n" );
-
-		SrvParams->reload(); // Reload wolfpack.xml
-
-		QStringList oldAISections = DefManager->getSections( WPDT_AI );
-		DefManager->reload(); //Reload Definitions
-		AIFactory::instance()->checkScriptAI( oldAISections, DefManager->getSections( WPDT_AI ) );
-
-		Accounts::instance()->reload();
-		SpawnRegions::instance()->reload();
-		AllTerritories::instance()->reload();
-		Resources::instance()->reload();
-		MakeMenus::instance()->reload();
-		ScriptManager::instance()->reload(); // Reload Scripts
-
-		// Update the Regions
-		cCharIterator iter;
-		P_CHAR pChar;
-		for( pChar = iter.first(); pChar; pChar = iter.next() )
-		{
-			cTerritory *region = AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
-			pChar->setRegion( region );
-		}
-
-		Network::instance()->reload(); // This will be integrated into the normal definition system soon
-		socket->sysMessage("The accounts, configuration, definitions and python scripts have been reloaded.");
+	
+	if (subCommand == "all") {
+		Server::instance()->reload("configuration"); // This will reload nearly everything
 	}
 }
 
@@ -1391,7 +1339,7 @@ void commandDoorGenerator( cUOSocket* socket, const QString &command, const QStr
 
 		bool coordHasEastFrame( int x, int y, int z, int map )
 		{
-			StaticsIterator tiles = Map->staticsIterator( Coord_cl( x, y, z, map ), true );
+			StaticsIterator tiles = Maps::instance()->staticsIterator( Coord_cl( x, y, z, map ), true );
 			for ( ; !tiles.atEnd(); ++tiles )
 			{
 				if ( tiles.data().zoff == z && isEastFrame( tiles.data().itemid ) )
@@ -1404,7 +1352,7 @@ void commandDoorGenerator( cUOSocket* socket, const QString &command, const QStr
 
 		bool coordHasSouthFrame( int x, int y, int z, int map )
 		{
-			StaticsIterator tiles = Map->staticsIterator( Coord_cl( x, y, z, map ), true );
+			StaticsIterator tiles = Maps::instance()->staticsIterator( Coord_cl( x, y, z, map ), true );
 			for ( ; !tiles.atEnd(); ++tiles )
 			{
 				if ( tiles.data().zoff == z && isSouthFrame( tiles.data().itemid ) )
@@ -1427,7 +1375,7 @@ void commandDoorGenerator( cUOSocket* socket, const QString &command, const QStr
 				return 0;
 		    if ( x == 1383 && y >= 1642 && y <= 1643 )
 				return 0;
-			if ( !Map->canFit( x, y, z, map, 16) )
+			if ( !Maps::instance()->canFit( x, y, z, map, 16) )
 				return 0;
 			cItem* door = cItem::createFromScript( QString::number( 0x6A5 + 2*int(facing), 16 ) );
 			door->moveTo( Coord_cl( x, y, z, map ), true );
@@ -1443,7 +1391,7 @@ void commandDoorGenerator( cUOSocket* socket, const QString &command, const QStr
 
 				for ( int ry = region[1]; ry < region[3]; ++ry )
 				{
-					StaticsIterator tiles = Map->staticsIterator( map, rx, ry, true );
+					StaticsIterator tiles = Maps::instance()->staticsIterator( map, rx, ry, true );
 					for ( ; !tiles.atEnd(); ++tiles )
 					{
 						int id = tiles.data().itemid;
@@ -1543,7 +1491,7 @@ void commandDoorGenerator( cUOSocket* socket, const QString &command, const QStr
 
 	socket->sysMessage("Generating doors, please wait ( Slow )");
     int count = 0;
-	if ( Map->hasMap( 0 ) )
+	if ( Maps::instance()->hasMap( 0 ) )
 	{
 		for ( int i = 0; i < 16; ++i )
 		{

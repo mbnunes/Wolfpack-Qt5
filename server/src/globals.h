@@ -28,45 +28,6 @@
 #if !defined(__GLOBALS_H__)
 #define __GLOBALS_H__
 
-// Wolfpack Includes
-#include "platform.h"
-#include "structs.h"
-
-// System Includes
-
-#include <vector>
-#include <map>
-#include <list>
-
-// Forward Class Declaration
-class QDateTime;
-class WPDefManager;
-
-// Global Variables
-extern enServerState serverState;
 extern unsigned int uiCurrentTime;
 
-extern volatile int keeprun;
-
-extern int secure; // Secure mode
-
-class cSrvParams;
-class cBoat;
-class cAccount;
-class Maps;
-class cSkills;
-class cSpeech;
-class PersistentBroker;
-
-extern cSrvParams				*SrvParams;
-extern Maps						*Map;
-extern cSkills					*Skills;
-extern cSpeech					*Speech;
-extern WPDefManager				*DefManager;
-extern PersistentBroker			*persistentBroker;
-
 #endif
-
-
-
-

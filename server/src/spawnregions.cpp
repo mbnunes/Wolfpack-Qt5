@@ -33,7 +33,7 @@ and
 II. make sure to hold the map up to date !
 */
 #include "spawnregions.h"
-#include "wpdefmanager.h"
+#include "definitions.h"
 #include "globals.h"
 #include "items.h"
 #include "defines.h"
@@ -102,7 +102,7 @@ void cSpawnRegion::processNode( const cElement *Tag )
 				else
 					listSect = childNode->value();
 
-				QStringList NpcList = DefManager->getList( listSect );
+				QStringList NpcList = Definitions::instance()->getList( listSect );
 				QStringList::iterator it = NpcList.begin();
 				while( it != NpcList.end() )
 				{
@@ -141,7 +141,7 @@ void cSpawnRegion::processNode( const cElement *Tag )
 				else
 					listSect = childNode->value();
 
-				QStringList itemList = DefManager->getList( listSect );
+				QStringList itemList = Definitions::instance()->getList( listSect );
 				QStringList::iterator it = itemList.begin();
 				while( it != itemList.end() )
 				{
@@ -212,7 +212,7 @@ bool cSpawnRegion::findValidSpot( Coord_cl &pos )
 		if( this->z_[rndRectNum] != 255 )
 			pos.z = this->z_[rndRectNum];
 		else
-			pos.z = Map->mapElevation( pos );
+			pos.z = Maps::instance()->mapElevation( pos );
 
 		pos.map = rectangles_[rndRectNum].map;
 
@@ -375,34 +375,6 @@ void cSpawnRegion::checkTimer( void )
 		this->reSpawn();
 }
 
-
-void cAllSpawnRegions::load( void )
-{
-	this->clear(); // clear the std::map
-
-	QStringList DefSections = DefManager->getSections( WPDT_SPAWNREGION );
-
-	QStringList::iterator it = DefSections.begin();
-	while( it != DefSections.end() )
-	{
-		const cElement* DefSection = DefManager->getDefinition( WPDT_SPAWNREGION, *it );
-
-		cSpawnRegion* toinsert_ = new cSpawnRegion( DefSection );
-		this->insert( make_pair(*it, toinsert_) );
-		if ( toinsert_->cBaseRegion::rectangles().empty() )
-		{
-			Console::instance()->log( LOG_WARNING, QString( "Top level spawnregion %1 lacks rectangle tag, ignoring region." ).arg( toinsert_->name() ) );
-			delete toinsert_;
-		}
-		else
-		{
-			topregions.insert( toinsert_->cBaseRegion::rectangles()[0].map, toinsert_ );
-		}
-
-		++it;
-	}
-}
-
 void cAllSpawnRegions::check( void )
 {
 	iterator it(this->begin());
@@ -461,18 +433,65 @@ cSpawnRegion*	cAllSpawnRegions::region( UI16 posx, UI16 posy, UI08 map )
 		return 0;
 }
 
-void cAllSpawnRegions::postWorldLoading()
-{
-	cItemIterator iItems;
-	for( P_ITEM pItem = iItems.first(); pItem; pItem = iItems.next() )
+void cAllSpawnRegions::load() {
+	this->clear(); // clear the std::map
+
+	QStringList DefSections = Definitions::instance()->getSections( WPDT_SPAWNREGION );
+
+	QStringList::iterator it = DefSections.begin();
+	while( it != DefSections.end() )
 	{
-		QString srname = pItem->spawnregion();
-		if( !srname.isNull() )
+		const cElement* DefSection = Definitions::instance()->getDefinition( WPDT_SPAWNREGION, *it );
+
+		cSpawnRegion* toinsert_ = new cSpawnRegion( DefSection );
+		this->insert( make_pair(*it, toinsert_) );
+		if ( toinsert_->cBaseRegion::rectangles().empty() )
 		{
+			Console::instance()->log( LOG_WARNING, QString( "Top level spawnregion %1 lacks rectangle tag, ignoring region." ).arg( toinsert_->name() ) );
+			delete toinsert_;
+		}
+		else
+		{
+			topregions.insert( toinsert_->cBaseRegion::rectangles()[0].map, toinsert_ );
+		}
+
+		++it;
+	}
+	cComponent::load();
+}
+
+void cAllSpawnRegions::reload() {
+	unload();
+	load();
+
+	// Reassign Spawnregion Pointers
+	cItemIterator iItems;
+	for (P_ITEM pItem = iItems.first(); pItem; pItem = iItems.next()) {
+		QString srname = pItem->spawnregion();
+		if (!srname.isNull()) {
 			cSpawnRegion* spawnregion = region( srname );
 			if( spawnregion )
 				spawnregion->add( pItem->serial() );
 		}
 	}
+
+	cCharIterator iChars;
+	for (P_CHAR pChar = iChars.first(); pChar; pChar = iChars.next()) {
+		P_NPC npc = dynamic_cast<P_NPC>(pChar);
+
+		if (npc && !npc->spawnregion().isEmpty()) {
+			cSpawnRegion* spawnregion = region(npc->spawnregion());
+			if (spawnregion) {
+				spawnregion->add(npc->serial());
+			}
+		}
+	}
 }
 
+void cAllSpawnRegions::unload() {
+	QMap<uint, cBaseRegion*>::iterator it( topregions.begin() );
+	for ( ; it != topregions.end(); ++it )
+		delete it.data();
+
+	cComponent::unload();
+}

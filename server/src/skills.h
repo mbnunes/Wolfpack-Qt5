@@ -45,12 +45,10 @@ struct stSkill {
 	QString name, defname, title;
 };
 
-class cSkills
-{
+class cSkills {
 private:
 	QStringList skillRanks;
 	QValueVector<stSkill> skills;
-
 public:
 	// Skill management methods
 	void load();
@@ -63,13 +61,6 @@ public:
 
 	// Skill Usage methods
 	void Meditation(cUOSocket* s);
-	// skills using crafting menus
-	void Blacksmithing( cUOSocket* socket );
-	void Carpentry( cUOSocket* socket );
-	void Cartography( cUOSocket* socket );
-	void Fletching( cUOSocket* socket );
-	void Tailoring( cUOSocket* socket );
-	void Tinkering( cUOSocket* socket );
 
 	static void RandomSteal( cUOSocket*, SERIAL );
 	void Track(P_CHAR pc_i);
@@ -77,6 +68,6 @@ public:
 	void Snooping(P_PLAYER, P_ITEM);
 };
 
-// Repair Item
+typedef SingletonHolder<cSkills> Skills;
 
 #endif

@@ -30,6 +30,7 @@
 
 #include <map>
 #include "singleton.h"
+#include "server.h"
 
 class Coord_cl;
 class cUObject;
@@ -109,8 +110,7 @@ public:
 };
 
 // Manager Class for cSectorMap
-class cSectorMaps
-{
+class cSectorMaps : public cComponent {
 private:
 	std::map< unsigned char, cSectorMap* > itemmaps;
 	std::map< unsigned char, cSectorMap* > charmaps;
@@ -128,6 +128,10 @@ private:
 	cSectorIterator *findObjects( MapType type, cSectorMap *map, int x, int y );
 	cSectorIterator *findObjects( MapType type, cSectorMap *map, int x1, int y1, int x2, int y2 );
 public:
+	void load();
+	void unload();
+	void reload();
+
 	cSectorMaps();
 	virtual ~cSectorMaps();
 

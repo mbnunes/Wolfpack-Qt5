@@ -27,11 +27,12 @@
 
 #include "engine.h"
 
-#include "../srvparams.h"
+#include "../config.h"
 #include "../console.h"
 #include "../globals.h"
 #include "../log.h"
 
+#include <qapplication.h>
 #include <qvaluevector.h>
 
 class cCleanupHandlers {
@@ -102,7 +103,7 @@ void startPython(int argc, char* argv[]) {
 	// Modify our search-path
 	PyObject *searchpath = PySys_GetObject( "path" );
 
-	QStringList elements = QStringList::split( ";", SrvParams->getString( "General", "Python Searchpath", "./scripts;.", true ) );
+	QStringList elements = QStringList::split( ";", Config::instance()->getString( "General", "Python Searchpath", "./scripts;.", true ) );
 
 	// Prepend our items to the searchpath
 	for (int i = elements.count() - 1; i >= 0; --i) {
@@ -256,4 +257,20 @@ void reportPythonError( QString moduleName )
 
 void wpDealloc(PyObject* self) {
     PyObject_Del(self);
+}
+
+cPythonEngine::cPythonEngine() {
+}
+
+cPythonEngine::~cPythonEngine() {
+}
+
+void cPythonEngine::load() {
+	startPython(qApp->argc(), qApp->argv());
+	cComponent::load();
+}
+
+void cPythonEngine::unload() {
+	stopPython();
+	cComponent::unload();
 }

@@ -28,6 +28,9 @@
 #if !defined(__WPDEFMANAGER_H__)
 #define __WPDEFMANAGER_H__
 
+#include "singleton.h"
+#include "server.h"
+
 // Library Includes
 #include <qmap.h>
 #include <qstring.h>
@@ -124,14 +127,13 @@ public:
 	bool implements(const QString &name) const;
 };
 
-class WPDefManager
-{
+class cDefinitions : public cComponent {
 private:
 	cDefManagerPrivate *impl;
 
 public:
-	WPDefManager();
-	virtual ~WPDefManager();
+	cDefinitions();
+	virtual ~cDefinitions();
 
 	void reload( void );
 	void load( void );
@@ -149,5 +151,7 @@ public:
 protected:
 	QMap< QString, QStringList >	listcache_;
 };
+
+typedef SingletonHolder<cDefinitions> Definitions;
 
 #endif // __WPDEFMANAGER_H__

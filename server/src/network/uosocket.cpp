@@ -46,8 +46,8 @@
 #include "../maps.h"
 #include "../speech.h"
 #include "../commands.h"
-#include "../srvparams.h"
-#include "../wpdefmanager.h"
+#include "../config.h"
+#include "../definitions.h"
 #include "../scriptmanager.h"
 #include "../walking.h"
 #include "../combat.h"
@@ -391,7 +391,7 @@ void cUOSocket::handleLoginRequest( cUORxLoginRequest *packet )
 	// Otherwise build the shard-list
 	cUOTxShardList shardList;
 
-	vector< ServerList_st > shards = SrvParams->serverList();
+	vector< ServerList_st > shards = Config::instance()->serverList();
 
 	for( Q_UINT8 i = 0; i < shards.size(); ++i )
 		shardList.addServer( i, shards[i].sServer, 0x00, shards[i].uiTime, shards[i].ip );
@@ -441,7 +441,7 @@ void cUOSocket::disconnect( void )
 	{
 		_player->removeFromView(false);
 		if (!_player->isGMorCounselor() && (!_player->region() || !_player->region()->isGuarded())) {
-			_player->setLogoutTime(uiCurrentTime + SrvParams->quittime() * 1000);
+			_player->setLogoutTime(uiCurrentTime + Config::instance()->quittime() * 1000);
 		} else {
 			SectorMaps::instance()->remove(_player);
 		}
@@ -456,7 +456,7 @@ void cUOSocket::disconnect( void )
 void cUOSocket::handleSelectShard( cUORxSelectShard *packet )
 {
 	// Relay him - save an auth-id so we recog. him when he relays locally
-	vector< ServerList_st > shards = SrvParams->serverList();
+	vector< ServerList_st > shards = Config::instance()->serverList();
 
 	if( packet->shardId() >= shards.size() )
 	{
@@ -514,7 +514,7 @@ void cUOSocket::sendCharList()
 		charList.addCharacter( characters.at(i)->name() );
 
 	// Add the Starting Locations
-	vector< StartLocation_st > startLocations = SrvParams->startLocation();
+	vector< StartLocation_st > startLocations = Config::instance()->startLocation();
 	for( i = 0; i < startLocations.size(); ++i )
 		charList.addTown( i, startLocations[i].name, startLocations[i].name );
 
@@ -626,8 +626,8 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	changeserver.setX(pChar->pos().x);
 	changeserver.setY(pChar->pos().y);
 	changeserver.setZ(pChar->pos().z);
-	changeserver.setWidth(Map->mapTileWidth(pChar->pos().map) * 8);
-	changeserver.setHeight(Map->mapTileHeight(pChar->pos().map) * 8);
+	changeserver.setWidth(Maps::instance()->mapTileWidth(pChar->pos().map) * 8);
+	changeserver.setHeight(Maps::instance()->mapTileHeight(pChar->pos().map) * 8);
 	send(&changeserver);
 
 	cUOTxDrawChar drawchar;
@@ -697,7 +697,7 @@ void cUOSocket::playChar( P_PLAYER pChar )
 /*!
 	Checks the \a username and \a password pair. If accepted, initializes this socket
 	to track that account, otherwise a proper cUOTxDenyLogin packet is sent. This method
-	will create the account if SrvParams->autoAccountCreate() evaluates to true
+	will create the account if Config::instance()->autoAccountCreate() evaluates to true
 	\sa cUOTxDenyLogin
 */
 bool cUOSocket::authenticate( const QString &username, const QString &password )
@@ -713,7 +713,7 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 		switch( error )
 		{
 		case cAccounts::LoginNotFound:
-			if ( SrvParams->autoAccountCreate() )
+			if ( Config::instance()->autoAccountCreate() )
 			{
 				authRet = Accounts::instance()->createAccount( username, password );
 				_account = authRet;
@@ -818,7 +818,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	}
 
 	// Check the start location
-	vector< StartLocation_st > startLocations = SrvParams->startLocation();
+	vector< StartLocation_st > startLocations = Config::instance()->startLocation();
 
 	if( packet->startTown() >= startLocations.size() )
 	{
@@ -1410,8 +1410,8 @@ void cUOSocket::resendPlayer(bool quick)
 	changeserver.setX(pChar->pos().x);
 	changeserver.setY(pChar->pos().y);
 	changeserver.setZ(pChar->pos().z);
-	changeserver.setWidth(Map->mapTileWidth(pChar->pos().map) * 8);
-	changeserver.setHeight(Map->mapTileHeight(pChar->pos().map) * 8);
+	changeserver.setWidth(Maps::instance()->mapTileWidth(pChar->pos().map) * 8);
+	changeserver.setHeight(Maps::instance()->mapTileHeight(pChar->pos().map) * 8);
 	send(&changeserver);
 
 	cUOTxDrawChar drawchar;
@@ -1437,8 +1437,8 @@ void cUOSocket::resendPlayer(bool quick)
 		changeserver.setX(pos_.x);
 		changeserver.setY(pos_.y);
 		changeserver.setZ(pos_.z);
-		changeserver.setWidth(Map->mapTileWidth(pos_.map) * 8);
-		changeserver.setHeight(Map->mapTileHeight(pos_.map) * 8);
+		changeserver.setWidth(Maps::instance()->mapTileWidth(pos_.map) * 8);
+		changeserver.setHeight(Maps::instance()->mapTileHeight(pos_.map) * 8);
 		socket_->send(&changeserver);
 	}
 
@@ -1557,12 +1557,12 @@ void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
 
 	// There is one special case. if the user has the body 0x3db and the first char
 	// of the speech is = then it's always a command
-	if( ( _player->body() == 0x3DB ) && speech.startsWith( SrvParams->commandPrefix() ) )
+	if( ( _player->body() == 0x3DB ) && speech.startsWith( Config::instance()->commandPrefix() ) )
 		Commands::instance()->process( this, speech.right( speech.length()-1 ) );
-	else if( speech.startsWith( SrvParams->commandPrefix() ) )
+	else if( speech.startsWith( Config::instance()->commandPrefix() ) )
 		Commands::instance()->process( this, speech.right( speech.length()-1 ) );
 	else
-		Speech->talking( _player, packet->language(), speech, keywords, color, font, type );
+		Speech::talking( _player, packet->language(), speech, keywords, color, font, type );
 }
 
 /*!
@@ -1596,13 +1596,13 @@ void cUOSocket::handleGetTip( cUORxGetTip* packet )
 		if( tip == 0 )
 			tip = 1;
 
-		QStringList tipList = DefManager->getList( "TIPS" );
+		QStringList tipList = Definitions::instance()->getList( "TIPS" );
 		if( tipList.size() == 0 )
 			return;
 		else if( tip > tipList.size() )
 			tip = tipList.size();
 
-		QString tipText = DefManager->getText( tipList[ tip-1 ] );
+		QString tipText = Definitions::instance()->getText( tipList[ tip-1 ] );
 		cUOTxTipWindow packet;
 		packet.setType( cUOTxTipWindow::Tip );
 		packet.setNumber( tip );
@@ -1664,10 +1664,10 @@ void cUOSocket::playMusic()
 	UINT32 midi = 0;
 
 	if( _player->isAtWar() )
-		midi = DefManager->getRandomListEntry( "MIDI_COMBAT" ).toInt();
+		midi = Definitions::instance()->getRandomListEntry( "MIDI_COMBAT" ).toInt();
 
 	else if( Region )
-		midi = DefManager->getRandomListEntry( Region->midilist() ).toInt();
+		midi = Definitions::instance()->getRandomListEntry( Region->midilist() ).toInt();
 
 	if( midi )
 	{
@@ -2213,7 +2213,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		sendStats.setSex( _player->gender() );
 		sendStats.setPets( _player->controlslots() );
 		sendStats.setMaxPets( 5 );
-		sendStats.setStatCap( SrvParams->statcap() );
+		sendStats.setStatCap( Config::instance()->statcap() );
 
 		// Call the callback to insert additional aos combat related info
 		cPythonScript *global = ScriptManager::instance()->getGlobalHook(EVENT_SHOWSTATUS);
@@ -2295,7 +2295,7 @@ void cUOSocket::handleAction( cUORxAction *packet )
 		{
 			QStringList skillParts = QStringList::split( " ", packet->action() );
 			if( skillParts.count() > 1 )
-				Skills->SkillUse( this, skillParts[0].toInt() );
+				Skills::instance()->SkillUse( this, skillParts[0].toInt() );
 		}
 		break;
 	}
@@ -2365,7 +2365,7 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 	{
 		if ( pItem->hasTag("last_restock_time") )
 		{
-			if ( uint(pItem->getTag("last_restock_time").toInt()) + SrvParams->shopRestock() * 60 * MY_CLOCKS_PER_SEC < uiCurrentTime )
+			if ( uint(pItem->getTag("last_restock_time").toInt()) + Config::instance()->shopRestock() * 60 * MY_CLOCKS_PER_SEC < uiCurrentTime )
 				restockNow = true;
 		}
 		else
@@ -2598,11 +2598,11 @@ void cUOSocket::updateLightLevel() {
 	if(_player) {
 		cUOTxLightLevel pLight;
 		unsigned char level;
-		cTerritory *region = AllTerritories::instance()->region(_player->pos());
+		cTerritory *region = Territories::instance()->region(_player->pos());
 		if(region && region->isCave()) {
-			level = QMAX(0, (int)SrvParams->dungeonLightLevel() - _player->fixedLightLevel());
+			level = QMAX(0, (int)Config::instance()->dungeonLightLevel() - _player->fixedLightLevel());
 		} else {
-			level = QMAX(0, (int)SrvParams->worldCurrentLevel() - _player->fixedLightLevel());
+			level = QMAX(0, (int)Config::instance()->worldCurrentLevel() - _player->fixedLightLevel());
 		}
 		pLight.setLevel(level);
 		send(&pLight);

@@ -27,7 +27,7 @@
 
 // Wolfpack Includes
 #include "accounts.h"
-#include "srvparams.h"
+#include "config.h"
 #include "network/uosocket.h"
 #include "dbdriver.h"
 #include "console.h"
@@ -59,7 +59,7 @@ cAccount::cAccount() : acl_(0), flags_(0), attempts_(0), inUse_(false)
 }
 
 void cAccount::setPassword(const QString &password) {
-	if (SrvParams->hashAccountPasswords()) {
+	if (Config::instance()->hashAccountPasswords()) {
 		password_ = cMd5::fastDigest(password);
 	} else {
 		password_ = password;
@@ -246,16 +246,16 @@ unsigned int cAccount::rank() const
   cAccounts member functions
  *****************************************************************************/
 
-cAccounts::~cAccounts()
-{
-	clear();
+cAccounts::~cAccounts() {
 }
 
-void cAccounts::clear()
+void cAccounts::unload()
 {
 	iterator it = accounts.begin();
 	for (; it != accounts.end(); ++it)
 		delete it.data();
+
+	cComponent::unload();
 }
 
 cAccount* cAccounts::authenticate(const QString& login, const QString& password, enErrorCode* error) const
@@ -283,7 +283,7 @@ cAccount* cAccounts::authenticate(const QString& login, const QString& password,
 		bool authorized = false;
 
 		// Regard hashed passwords
-		if (SrvParams->hashAccountPasswords()) {
+		if (Config::instance()->hashAccountPasswords()) {
 			authorized = it.data()->password() == cMd5::fastDigest(password);
 		} else {
 			authorized = it.data()->password() == password;
@@ -316,9 +316,9 @@ cAccount* cAccounts::authenticate(const QString& login, const QString& password,
 void cAccounts::save()
 {
 	// Open the Account Driver
-	if( !persistentBroker->openDriver( SrvParams->accountsDriver() ) )
+	if( !PersistentBroker::instance()->openDriver( Config::instance()->accountsDriver() ) )
 	{
-		Console::instance()->log( LOG_ERROR, QString( "Unknown Account Database Driver '%1', check your wolfpack.xml").arg( SrvParams->accountsDriver() ) );
+		Console::instance()->log( LOG_ERROR, QString( "Unknown Account Database Driver '%1', check your wolfpack.xml").arg( Config::instance()->accountsDriver() ) );
 		return;
 	}
 
@@ -326,22 +326,22 @@ void cAccounts::save()
 
 	try
 	{
-		persistentBroker->connect( SrvParams->accountsHost(), SrvParams->accountsName(), SrvParams->accountsUsername(), SrvParams->accountsPassword() );
+		PersistentBroker::instance()->connect( Config::instance()->accountsHost(), Config::instance()->accountsName(), Config::instance()->accountsUsername(), Config::instance()->accountsPassword() );
 		connected = true;
 
-		if( !persistentBroker->tableExists( "accounts" ) )
+		if( !PersistentBroker::instance()->tableExists( "accounts" ) )
 		{
 			Console::instance()->send("Accounts database didn't exist! Creating one\n");
-			persistentBroker->executeQuery( createSql );
+			PersistentBroker::instance()->executeQuery( createSql );
 			cAccount* account = createAccount( "admin", "admin" );
 			account->setAcl( "admin" );
 			Console::instance()->send("Created default admin account: Login = admin, Password = admin\n");
 		}
 
 		// Lock the table
-		persistentBroker->lockTable("accounts");
-		persistentBroker->executeQuery("BEGIN;");
-		persistentBroker->executeQuery("DELETE FROM accounts;");
+		PersistentBroker::instance()->lockTable("accounts");
+		PersistentBroker::instance()->executeQuery("BEGIN;");
+		PersistentBroker::instance()->executeQuery("DELETE FROM accounts;");
 
 		iterator it = accounts.begin();
 		for (; it != accounts.end(); ++it)
@@ -353,22 +353,22 @@ void cAccounts::save()
 
 			sql = sql.arg( account->login_.lower() ).arg( account->password_ ).arg( account->flags_ ).arg( account->aclName_ ).arg( !account->lastLogin_.isNull() ? account->lastLogin_.toTime_t() : 0 ).arg( !account->blockUntil.isNull() ? account->blockUntil.toTime_t() : 0 );
 
-			persistentBroker->executeQuery( sql );
+			PersistentBroker::instance()->executeQuery( sql );
 		}
 
-		persistentBroker->executeQuery("COMMIT;");
-		persistentBroker->unlockTable("accounts");
+		PersistentBroker::instance()->executeQuery("COMMIT;");
+		PersistentBroker::instance()->unlockTable("accounts");
 	}
 	catch( QString &error )
 	{
 		if( connected )
-			persistentBroker->executeQuery( "ROLLBACK;" );
+			PersistentBroker::instance()->executeQuery( "ROLLBACK;" );
 		Console::instance()->log( LOG_ERROR, QString( "Error while saving Accounts: %1." ).arg( error ) );
 	}
 	catch( ... )
 	{
 		if( connected )
-			persistentBroker->executeQuery( "ROLLBACK;" );
+			PersistentBroker::instance()->executeQuery( "ROLLBACK;" );
 		Console::instance()->log( LOG_ERROR, "Unknown error while saving Accounts." );
 	}
 }
@@ -376,32 +376,32 @@ void cAccounts::save()
 void cAccounts::load()
 {
 	// Open the Account Driver
-	if( !persistentBroker->openDriver( SrvParams->accountsDriver() ) )
+	if( !PersistentBroker::instance()->openDriver( Config::instance()->accountsDriver() ) )
 	{
-		Console::instance()->log( LOG_ERROR, QString( "Unknown Account Database Driver '%1', check your wolfpack.xml").arg( SrvParams->accountsDriver() ) );
+		Console::instance()->log( LOG_ERROR, QString( "Unknown Account Database Driver '%1', check your wolfpack.xml").arg( Config::instance()->accountsDriver() ) );
 		return;
 	}
 
 	// Load all Accounts
 	try
 	{
-		persistentBroker->connect( SrvParams->accountsHost(), SrvParams->accountsName(), SrvParams->accountsUsername(), SrvParams->accountsPassword() );
+		PersistentBroker::instance()->connect( Config::instance()->accountsHost(), Config::instance()->accountsName(), Config::instance()->accountsUsername(), Config::instance()->accountsPassword() );
 
-		if( !persistentBroker->tableExists( "accounts" ) )
+		if( !PersistentBroker::instance()->tableExists( "accounts" ) )
 		{
 			Console::instance()->send("Accounts database didn't exist! Creating one\n");
-			persistentBroker->executeQuery( createSql );
+			PersistentBroker::instance()->executeQuery( createSql );
 			cAccount* account = createAccount( "admin", "admin" );
 			account->setAcl( "admin" );
 			Console::instance()->send("Created default admin account: Login = admin, Password = admin\n");
 		}
 
-		persistentBroker->lockTable("accounts");
-		cDBResult result = persistentBroker->query( "SELECT login,password,flags,acl,lastlogin,blockuntil FROM accounts;" );
+		PersistentBroker::instance()->lockTable("accounts");
+		cDBResult result = PersistentBroker::instance()->query( "SELECT login,password,flags,acl,lastlogin,blockuntil FROM accounts;" );
 
 		// Clear Accounts HERE
 		// Here we can be pretty sure that we have a valid datasource for accounts
-		clear();
+		unload();
 
 		while( result.fetchrow() )
 		{
@@ -419,8 +419,8 @@ void cAccounts::load()
 
 			// See if the password can and should be hashed,
 			// Md5 hashes are 32 characters long.
-			if (SrvParams->hashAccountPasswords() && account->password_.length() != 32) {
-				if (SrvParams->convertUnhashedPasswords()) {
+			if (Config::instance()->hashAccountPasswords() && account->password_.length() != 32) {
+				if (Config::instance()->convertUnhashedPasswords()) {
 					account->password_ = cMd5::fastDigest(account->password_);
 					Console::instance()->log(LOG_NOTICE, QString("Hashed account password for '%1'.\n").arg(account->login_));
 				} else {
@@ -432,7 +432,7 @@ void cAccounts::load()
 		}
 
 		result.free();
-		persistentBroker->unlockTable("accounts");
+		PersistentBroker::instance()->unlockTable("accounts");
 	}
 	catch( QString &error )
 	{
@@ -442,6 +442,8 @@ void cAccounts::load()
 	{
 		Console::instance()->log( LOG_ERROR, "Unknown error while loading Accounts" );
 	}
+
+	cComponent::load();
 }
 
 /*!

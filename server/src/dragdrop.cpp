@@ -30,7 +30,7 @@
 #include "speech.h"
 #include "itemid.h"
 #include "sectors.h"
-#include "srvparams.h"
+#include "config.h"
 #include "skills.h"
 #include "maps.h"
 #include "network.h"
@@ -130,7 +130,7 @@ void DragAndDrop::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 		{
 //			pChar->karma -= 5;
 			pChar->setKarma( pChar->karma() - 5 );
-			pChar->setCriminalTime( uiCurrentTime + SrvParams->crimtime() * MY_CLOCKS_PER_SEC );
+			pChar->setCriminalTime( uiCurrentTime + Config::instance()->crimtime() * MY_CLOCKS_PER_SEC );
 			socket->sysMessage( tr("You lost some karma.") );
 		}
 	}

@@ -30,6 +30,7 @@
 
 #include "baseregion.h"
 #include "singleton.h"
+#include "server.h"
 
 #include <map>
 #include <vector>
@@ -98,12 +99,14 @@ private:
 	std::vector< UI08 >		z_;				// Height, if not specified, z will be chosen
 };
 
-class cAllSpawnRegions : public cAllBaseRegions, public std::map< QString, cSpawnRegion* >
+class cAllSpawnRegions : public cAllBaseRegions, public std::map< QString, cSpawnRegion* >, public cComponent
 {
 public:
 
-	virtual void	load( void );
-	void	check( void );
+	void load( void );
+	void unload();
+	void check( void );
+	void reload();
 
 	cSpawnRegion*	region( const QString& regName );
 	cSpawnRegion*	region( UI16 posx, UI16 posy, UI08 map );
@@ -159,8 +162,6 @@ public:
 		}
 		return numItems;
 	}
-
-	void	postWorldLoading( void );
 };
 
 typedef SingletonHolder<cAllSpawnRegions> SpawnRegions;

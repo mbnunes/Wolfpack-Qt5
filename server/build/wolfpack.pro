@@ -7,8 +7,9 @@
 
 PROJECT = wolfpack
 TARGET = wolfpack
-TEMPLATE += app
+TEMPLATE = app
 CONFIG += qt console thread exceptions rtti
+MAKEFILE_GENERATOR = MINGW
 
 unix {
 
@@ -86,7 +87,6 @@ HEADERS = \
 	itemid.h \
 	items.h \
 	log.h \
-	makemenus.h \
 	md5.h \
 	multi.h \
 	network.h \
@@ -98,12 +98,11 @@ HEADERS = \
 	player.h \
 	pythonscript.h \
 	resource.h \
-	resources.h \
 	scriptmanager.h \
 	sectors.h \
 	spawnregions.h \
 	speech.h \
-	srvparams.h \
+	config.h \
 	skills.h \
 	structs.h \
 	targetrequests.h \
@@ -116,7 +115,8 @@ HEADERS = \
 	tilecache.h \
 	walking.h \
 	world.h \
-	wpdefmanager.h \
+	server.h \
+	definitions.h \
 	wptargetrequests.h
 
 SOURCES = \
@@ -144,7 +144,6 @@ SOURCES = \
 	itemid.cpp \
 	items.cpp \
 	log.cpp \
-	makemenus.cpp \
 	maps.cpp \
 	md5.cpp \
 	multi.cpp \
@@ -158,13 +157,12 @@ SOURCES = \
 	preferences.cpp \
 	player.cpp \
 	pythonscript.cpp \
-	resources.cpp \
 	sectors.cpp \
 	scriptmanager.cpp \
 	skills.cpp \
 	speech.cpp \
 	spawnregions.cpp \
-	srvparams.cpp \
+	config.cpp \
 	targetrequests.cpp \
 	territories.cpp \
 	tilecache.cpp \
@@ -174,7 +172,8 @@ SOURCES = \
 	wolfpack.cpp \
 	walking.cpp \
 	world.cpp \
-	wpdefmanager.cpp \
+	server.cpp \
+	definitions.cpp \
 	wptargetrequests.cpp
 
 # Twofish Module
@@ -283,12 +282,12 @@ TRANSLATIONS = \
 	languages/wolfpack_ge.ts
 
 unix:SOURCES  += \
-	unix/srvparams_unix.cpp \
+	unix/config_unix.cpp \
 	unix/console_unix.cpp \
 	unix/getopts_unix.cpp
 
 win32:SOURCES += \
-	win/srvparams_win.cpp \
+	win/config_win.cpp \
 	win/console_win.cpp \
 	win/getopts_win.cpp
 

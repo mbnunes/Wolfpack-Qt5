@@ -52,9 +52,9 @@ unsigned int cGuilds::findFreeSerial() {
 
 void cGuilds::save() {
 	// Clear the tables first: guilds are not saved incremental.
-	persistentBroker->executeQuery("DELETE FROM guilds;");
-	persistentBroker->executeQuery("DELETE FROM guilds_members;");
-	persistentBroker->executeQuery("DELETE FROM guilds_canidates;");
+	PersistentBroker::instance()->executeQuery("DELETE FROM guilds;");
+	PersistentBroker::instance()->executeQuery("DELETE FROM guilds_members;");
+	PersistentBroker::instance()->executeQuery("DELETE FROM guilds_canidates;");
 
 	for (iterator it = begin(); it != end(); ++it) {
 		it.data()->save();
@@ -63,7 +63,7 @@ void cGuilds::save() {
 
 void cGuilds::load() {
 	// Get all guilds from the database
-	cDBResult result = persistentBroker->query("SELECT serial,name,abbreviation,charta,website,alignment,leader,founded,guildstone FROM guilds");
+	cDBResult result = PersistentBroker::instance()->query("SELECT serial,name,abbreviation,charta,website,alignment,leader,founded,guildstone FROM guilds");
 
 	while (result.fetchrow()) {
 		cGuild *guild = new cGuild(false);
@@ -86,7 +86,7 @@ void cGuild::load(const cDBResult &result) {
 	guildstone_ = World::instance()->findItem(result.getInt(8));
 
 	// Load members and canidates
-	cDBResult members = persistentBroker->query(QString("SELECT player,showsign,guildtitle,joined FROM guilds_members WHERE guild = %1").arg(serial_));
+	cDBResult members = PersistentBroker::instance()->query(QString("SELECT player,showsign,guildtitle,joined FROM guilds_members WHERE guild = %1").arg(serial_));
 
 	while (members.fetchrow()) {
 		P_PLAYER player = dynamic_cast<P_PLAYER>(World::instance()->findChar(members.getInt(0)));
@@ -105,7 +105,7 @@ void cGuild::load(const cDBResult &result) {
 
 	members.free();
 
-	cDBResult canidates = persistentBroker->query(QString("SELECT player FROM guilds_canidates WHERE guild = %1").arg(serial_));
+	cDBResult canidates = PersistentBroker::instance()->query(QString("SELECT player FROM guilds_canidates WHERE guild = %1").arg(serial_));
 
 	while (canidates.fetchrow()) {
 		P_PLAYER player = dynamic_cast<P_PLAYER>(World::instance()->findChar(canidates.getInt(0)));
@@ -127,10 +127,10 @@ void cGuild::load(const cDBResult &result) {
 void cGuild::save() {
 	QStringList fields;
 	fields.append(QString::number(serial_));
-	fields.append(QString("'%1'").arg(persistentBroker->quoteString(name_)));
-	fields.append(QString("'%1'").arg(persistentBroker->quoteString(abbreviation_)));
-	fields.append(QString("'%1'").arg(persistentBroker->quoteString(charta_)));
-	fields.append(QString("'%1'").arg(persistentBroker->quoteString(website_)));
+	fields.append(QString("'%1'").arg(PersistentBroker::instance()->quoteString(name_)));
+	fields.append(QString("'%1'").arg(PersistentBroker::instance()->quoteString(abbreviation_)));
+	fields.append(QString("'%1'").arg(PersistentBroker::instance()->quoteString(charta_)));
+	fields.append(QString("'%1'").arg(PersistentBroker::instance()->quoteString(website_)));
 	fields.append(QString::number(alignment_));
 	if (leader_) {
 		fields.append(QString::number(leader_->serial()));
@@ -144,21 +144,21 @@ void cGuild::save() {
 		fields.append("-1");
 	}
 
-	persistentBroker->executeQuery(QString("INSERT INTO guilds VALUES(%1);").arg(fields.join(",")));
+	PersistentBroker::instance()->executeQuery(QString("INSERT INTO guilds VALUES(%1);").arg(fields.join(",")));
 
 	// Save Members/Canidates
 	P_PLAYER player;
 
 	for (player = members_.first(); player; player = members_.next()) {
 		MemberInfo *info = getMemberInfo(player);
-		persistentBroker->executeQuery(QString("INSERT INTO guilds_members VALUES(%1,%2,%3,'%4',%5);")
+		PersistentBroker::instance()->executeQuery(QString("INSERT INTO guilds_members VALUES(%1,%2,%3,'%4',%5);")
 			.arg(serial_).arg(player->serial()).arg(info->showSign() ? 1 : 0)
-			.arg(persistentBroker->quoteString(info->guildTitle()))
+			.arg(PersistentBroker::instance()->quoteString(info->guildTitle()))
 			.arg(info->joined()));
 	}
 
 	for (player = canidates_.first(); player; player = canidates_.next()) {
-		persistentBroker->executeQuery(QString("INSERT INTO guilds_canidates VALUES(%1,%2);").arg(serial_).arg(player->serial()));
+		PersistentBroker::instance()->executeQuery(QString("INSERT INTO guilds_canidates VALUES(%1,%2);").arg(serial_).arg(player->serial()));
 	}
 }
 

@@ -28,17 +28,6 @@
 #if !defined( __WOLFPACK_H__ )
 #define __WOLFPACK_H__
 
-enum eActionType
-{
-	RELOAD_SCRIPTS = 0,
-	RELOAD_PYTHON,
-	RELOAD_ACCOUNTS,
-	RELOAD_CONFIGURATION,
-	SAVE_WORLD
-};
-
-void queueAction(eActionType action);
-
 /*!
 	\brief Locks the main application mutex.
 	This waits until the mainloop decides to
@@ -51,14 +40,5 @@ void lockDataMutex();
 	This locks until the mainloop doesn't access the data anymore.
 */
 void unlockDataMutex();
-
-/*!
-	\brief Call this function to change the server status.
-	It's wiser to call this than to change the status directly
-	because this is able to notify other parts of the system
-	about the change.
-	\params state The new server status.
-*/
-void changeServerState(enServerState state);
 
 #endif

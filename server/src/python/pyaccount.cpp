@@ -34,7 +34,7 @@
 #include "../accounts.h"
 #include "../basechar.h"
 #include "../md5.h"
-#include "../srvparams.h"
+#include "../config.h"
 #include "../globals.h"
 #include "../player.h"
 
@@ -160,7 +160,7 @@ static PyObject *wpAccount_checkpassword(wpAccount *self, PyObject *args) {
 
 	bool authorized;
 
-	if (SrvParams->hashAccountPasswords()) {
+	if (Config::instance()->hashAccountPasswords()) {
 		authorized = cMd5::fastDigest(password) == self->account->password();
 	} else {
 		authorized = password == self->account->password();

@@ -70,7 +70,7 @@ public:
 
     // flush the preferences out to file
     void flush();
-	virtual void reload();
+	virtual void clear();
 
 protected:
     // serialization

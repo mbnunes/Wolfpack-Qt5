@@ -28,7 +28,7 @@
 #include "ai.h"
 #include "../npc.h"
 #include "../player.h"
-#include "../srvparams.h"
+#include "../config.h"
 #include "../globals.h"
 #include "../sectors.h"
 #include "../basics.h"
@@ -74,7 +74,7 @@ float Animal_Wild_Flee::preCondition()
 	if( m_npc->attackTarget() )
 		return 0.0f;
 
-	RegionIterator4Chars ri( m_npc->pos(), SrvParams->animalWildFleeRange() );
+	RegionIterator4Chars ri( m_npc->pos(), Config::instance()->animalWildFleeRange() );
 	for(ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(ri.GetData());
@@ -105,7 +105,7 @@ float Animal_Wild_Flee::postCondition()
 	if( m_npc->attackTarget() )
 		return 1.0f;
 
-	RegionIterator4Chars ri( m_npc->pos(), SrvParams->animalWildFleeRange() );
+	RegionIterator4Chars ri( m_npc->pos(), Config::instance()->animalWildFleeRange() );
 	bool found = false;
 	for(ri.Begin(); !ri.atEnd(); ri++)
 	{

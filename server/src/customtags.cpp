@@ -670,7 +670,7 @@ cCustomTags& cCustomTags::operator=( const cCustomTags& d )
 */
 void cCustomTags::del( SERIAL key )
 {
-	persistentBroker->addToDeleteQueue( "tags", QString( "serial = '%1'" ).arg( key ) );
+	PersistentBroker::instance()->addToDeleteQueue( "tags", QString( "serial = '%1'" ).arg( key ) );
 }
 
 /*!
@@ -682,7 +682,7 @@ void cCustomTags::save( SERIAL key )
 	if( !changed )
 		return;
 
-	persistentBroker->executeQuery( QString( "DELETE FROM tags WHERE serial = '%1'" ).arg( key ) );
+	PersistentBroker::instance()->executeQuery( QString( "DELETE FROM tags WHERE serial = '%1'" ).arg( key ) );
 
 	if( !tags_ )
 	{
@@ -705,7 +705,7 @@ void cCustomTags::save( SERIAL key )
 		QString type = it.data().typeName();
 		QString value = it.data().toString();
 
-		persistentBroker->executeQuery( QString( "REPLACE INTO tags VALUES(%1,'%2','%3','%4')" ).arg( key ).arg( persistentBroker->quoteString( name ) ).arg( type ).arg( persistentBroker->quoteString( value ) ) );
+		PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO tags VALUES(%1,'%2','%3','%4')" ).arg( key ).arg( PersistentBroker::instance()->quoteString( name ) ).arg( type ).arg( PersistentBroker::instance()->quoteString( value ) ) );
 	}
 
 	changed = false;
@@ -719,7 +719,7 @@ void cCustomTags::load( SERIAL key )
 	if( tags_ )
 		tags_->clear();
 
-	cDBResult result = persistentBroker->query( QString( "SELECT name,type,value FROM tags WHERE serial = '%1'" ).arg( key ) );
+	cDBResult result = PersistentBroker::instance()->query( QString( "SELECT name,type,value FROM tags WHERE serial = '%1'" ).arg( key ) );
 
 	while( result.fetchrow() )
 	{

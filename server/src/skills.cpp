@@ -25,7 +25,7 @@
  * Wolfpack Homepage: http://wpdev.sf.net/
  */
 
-#include "wpdefmanager.h"
+#include "definitions.h"
 #include "basics.h"
 #include "itemid.h"
 #include "tracking.h"
@@ -33,7 +33,7 @@
 #include "combat.h"
 #include "targetrequests.h"
 #include "sectors.h"
-#include "srvparams.h"
+#include "config.h"
 #include "scriptmanager.h"
 #include "skills.h"
 #include "network.h"
@@ -42,7 +42,6 @@
 #include "log.h"
 #include "targetrequests.h"
 #include "territories.h"
-#include "makemenus.h"
 #include "npc.h"
 #include "console.h"
 
@@ -98,7 +97,7 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 	switch( id )
 	{
 	case STEALING:
-		if( !SrvParams->stealingEnabled() )
+		if( !Config::instance()->stealingEnabled() )
 		{
 			socket->sysMessage( tr( "That skill has been disabled." ) );
 			return;
@@ -118,27 +117,8 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 		message = tr("What poison do you want to apply?");
 		targetRequest = new cSkPoisoning;
 		break;
-
 	case MEDITATION:
-		Skills->Meditation( socket );
-		break;
-	case CARTOGRAPHY:
-		Skills->Cartography( socket );
-		break;
-	case CARPENTRY:
-		Skills->Carpentry( socket );
-		break;
-	case BLACKSMITHING:
-		Skills->Blacksmithing( socket );
-		break;
-	case BOWCRAFT:
-		Skills->Fletching( socket );
-		break;
-	case TAILORING:
-		Skills->Tailoring( socket );
-		break;
-	case TINKERING:
-		Skills->Tinkering( socket );
+		Skills::instance()->Meditation( socket );
 		break;
 	default:
 		socket->sysMessage( tr( "That skill has not been implemented yet." ) );
@@ -151,7 +131,7 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 	if( message )
 		pChar->message( message );
 
-	pChar->setSkillDelay( uiCurrentTime + SrvParams->skillDelay() * MY_CLOCKS_PER_SEC );
+	pChar->setSkillDelay( uiCurrentTime + Config::instance()->skillDelay() * MY_CLOCKS_PER_SEC );
 }
 
 void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
@@ -349,90 +329,21 @@ void cSkills::Snooping( P_PLAYER player, P_ITEM container )
 
 
 
-//	SetTimerSec(player->objectdelay(), SrvParams->objectDelay()+SrvParams->snoopdelay());
-	player->setObjectDelay( SetTimerSec(player->objectDelay(), SrvParams->objectDelay()+SrvParams->snoopdelay()) );
-}
-
-void cSkills::Cartography( cUOSocket* socket )
-{
-	MakeMenus::instance()->callMakeMenu( socket, "CRAFTMENU_CARTOGRAPHY" );
-}
-
-////////////////////
-// name:	Carpentry()
-// history:	unknown, Duke, 25.05.2000, rewritten for 13.x sereg, 16.08.2002
-// purpose:	sets up appropriate Makemenu when player dclick on carpentry tool
-//
-
-void cSkills::Carpentry( cUOSocket* socket )
-{
-	MakeMenus::instance()->callMakeMenu( socket, "CRAFTMENU_CARPENTRY" );
-}
-
-
-void cSkills::Fletching( cUOSocket* socket )
-{
-	MakeMenus::instance()->callMakeMenu( socket, "CRAFTMENU_FLETCHING" );
-}
-
-void cSkills::Tailoring( cUOSocket* socket )
-{
-	MakeMenus::instance()->callMakeMenu( socket, "CRAFTMENU_TAILORING" );
-}
-
-void cSkills::Blacksmithing( cUOSocket* socket )
-{
-	P_CHAR pc = socket->player();
-	bool foundAnvil = false;
-
-	RegionIterator4Items rIter( pc->pos() );
-	for( rIter.Begin(); !rIter.atEnd(); rIter++ )
-	{
-		P_ITEM pi = rIter.GetData();
-
-		if( IsAnvil( pi->id() ) && pc->inRange( pi, 3 ) )
-		{
-			foundAnvil = true;
-			break;
-		}
-	}
-
-	if( !foundAnvil )
-	{
-		StaticsIterator sIter = Map->staticsIterator( pc->pos(), false );
-		while( !sIter.atEnd() )
-		{
-			if( IsAnvil( sIter->itemid ) )
-			{
-				foundAnvil = true;
-				break;
-			}
-			sIter++;
-		}
-	}
-
-	if( !foundAnvil )
-	{
-		socket->sysMessage( tr( "You must stand in range of an anvil!" ) );
-		return;
-	}
-
-	MakeMenus::instance()->callMakeMenu( socket, "CRAFTMENU_BLACKSMITHING" );
-}
-
-void cSkills::Tinkering( cUOSocket* socket )
-{
-	MakeMenus::instance()->callMakeMenu( socket, "CRAFTMENU_TINKERING" );
+//	SetTimerSec(player->objectdelay(), Config::instance()->objectDelay()+Config::instance()->snoopdelay());
+	player->setObjectDelay(uiCurrentTime + (Config::instance()->objectDelay() + Config::instance()->snoopdelay()) * MY_CLOCKS_PER_SEC);
 }
 
 void cSkills::load()
 {
+	skills.clear();
+	skillRanks.clear();
+
 	// Try to get all skills first
 	UINT32 i;
 
 	for (i = 0; i < ALLSKILLS; ++i)
 	{
-		const cElement *skill = DefManager->getDefinition(WPDT_SKILL, QString::number(i));
+		const cElement *skill = Definitions::instance()->getDefinition(WPDT_SKILL, QString::number(i));
 
 		if (!skill)
 			continue;
@@ -454,7 +365,7 @@ void cSkills::load()
 	}
 
 	// Load Skill Ranks
-	skillRanks = DefManager->getList("SKILL_RANKS");
+	skillRanks = Definitions::instance()->getList("SKILL_RANKS");
 
 	// Fill it up to 10 Ranks
 	while (skillRanks.count() < 10)
@@ -472,7 +383,7 @@ QString cSkills::getSkillTitle(P_CHAR pChar) const
 	QString skillTitle;
 	P_PLAYER player = dynamic_cast<P_PLAYER>(pChar);
 
-	if (SrvParams->showSkillTitles() && player && !player->isGM())
+	if (Config::instance()->showSkillTitles() && player && !player->isGM())
 	{
 		unsigned short skill = 0;
 		unsigned short skillValue = 0;

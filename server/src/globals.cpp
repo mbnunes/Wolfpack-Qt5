@@ -25,31 +25,4 @@
  * Wolfpack Homepage: http://wpdev.sf.net/
  */
 
-// Global Variables
-#include "walking.h"
-#include "wpdefmanager.h"
-#include "wptargetrequests.h"
-#include "typedefs.h"
-#include "console.h"
-#include "srvparams.h"
-#include "skills.h"
-#include "maps.h"
-#include "speech.h"
-
 unsigned int uiCurrentTime;
-
-// Library Includes
-#include <qdatetime.h>
-
-enServerState serverState;
-int secure = 1;
-volatile int keeprun;
-
-cSrvParams		*SrvParams;
-Maps			*Map;
-cSkills			*Skills;
-cSpeech	        *Speech;
-WPDefManager    *DefManager;
-PersistentBroker* persistentBroker;
-
-

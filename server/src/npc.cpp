@@ -40,12 +40,12 @@
 #include "persistentbroker.h"
 #include "dbdriver.h"
 #include "sectors.h"
-#include "srvparams.h"
+#include "config.h"
 #include "log.h"
 #include "console.h"
 #include "spawnregions.h"
 #include "corpse.h"
-#include "wpdefmanager.h"
+#include "definitions.h"
 #include "combat.h"
 #include "walking.h"
 #include "skills.h"
@@ -69,7 +69,7 @@ cNPC::cNPC()
 	wanderType_			= stWanderType();
 	aiid_				= "Monster_Aggressive_L1";
 	ai_					= new Monster_Aggressive_L1( this );
-	aiCheckInterval_	= (UINT16)floor(SrvParams->checkAITime() * MY_CLOCKS_PER_SEC);
+	aiCheckInterval_	= (UINT16)floor(Config::instance()->checkAITime() * MY_CLOCKS_PER_SEC);
 	aiCheckTime_		= uiCurrentTime + aiCheckInterval_;
 	criticalHealth_		= 10; // 10% !
 	spellsLow_			= 0;
@@ -204,7 +204,7 @@ bool cNPC::del()
 	if( !isPersistent )
 		return false; // We didn't need to delete the object
 
-	persistentBroker->addToDeleteQueue( "npcs", QString( "serial = '%1'" ).arg( serial() ) );
+	PersistentBroker::instance()->addToDeleteQueue( "npcs", QString( "serial = '%1'" ).arg( serial() ) );
 	changed_ = true;
 	return cBaseChar::del();
 }
@@ -242,9 +242,9 @@ void cNPC::setNextMoveTime()
 	unsigned int interval;
 
 	if (isTamed()) {
-		interval = SrvParams->tamedNpcMoveTime() * MY_CLOCKS_PER_SEC;
+		interval = Config::instance()->tamedNpcMoveTime() * MY_CLOCKS_PER_SEC;
 	} else {
-		interval = SrvParams->npcMoveTime() * MY_CLOCKS_PER_SEC;
+		interval = Config::instance()->npcMoveTime() * MY_CLOCKS_PER_SEC;
 	}
 
 	// Wander slowly if wandering freely.
@@ -415,7 +415,7 @@ UINT8 cNPC::notoriety( P_CHAR pChar ) // Gets the notoriety toward another char
 	if( !pChar )
 		return 3;
 
-	if( pChar->kills() > SrvParams->maxkills() )
+	if( pChar->kills() > Config::instance()->maxkills() )
 		result = 0x06; // 6 = Red -> Murderer
 
 //	else if( guildStatus == 1 )
@@ -484,7 +484,7 @@ void cNPC::showName( cUOSocket *socket )
 	QString charName = name();
 
 	// apply titles
-	if( SrvParams->showNpcTitles() && !title_.isEmpty() )
+	if( Config::instance()->showNpcTitles() && !title_.isEmpty() )
 		charName.append( ", " + title_ );
 
 	// Append serial for GMs
@@ -668,7 +668,7 @@ void cNPC::processNode( const cElement *Tag )
 		else
 			inheritID = Value;
 
-		const cElement *element = DefManager->getDefinition( WPDT_NPC, inheritID );
+		const cElement *element = Definitions::instance()->getDefinition( WPDT_NPC, inheritID );
 		if( element )
 			applyDefinition( element );
 	}
@@ -844,7 +844,7 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 	else if( name.left( 6 ) == "skill." )
 	{
 		QString skill = name.right( name.length() - 6 );
-		INT16 skillId = Skills->findSkillByDef( skill );
+		INT16 skillId = Skills::instance()->findSkillByDef( skill );
 
 		if( skillId != -1 )
 		{
@@ -889,7 +889,7 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 	// skillcap.
 	} else if( name.left( 9 ) == "skillcap." ) {
 		QString skill = name.right( name.length() - 9 );
-		INT16 skillId = Skills->findSkillByDef( skill );
+		INT16 skillId = Skills::instance()->findSkillByDef( skill );
 
 		if( skillId != -1 )
 		{
@@ -897,7 +897,7 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 			return 0;
 		}
 	} else {
-		INT16 skillId = Skills->findSkillByDef(name);
+		INT16 skillId = Skills::instance()->findSkillByDef(name);
 
 		if (skillId != -1) {
 			setSkillValue(skillId, value.toInt());
@@ -1136,9 +1136,9 @@ void cNPC::findPath( const Coord_cl &goal, float sufficient_cost /* = 0.0f */ )
 			visited = std::binary_search( visited_nodes.begin(), visited_nodes.end(), currentNode, pathnode_coordComparePredicate() );
 
 			// steps > step depth
-		} while( ( visited || currentNode->step > SrvParams->pathfindMaxSteps() ) && !unvisited_nodes.empty() );
+		} while( ( visited || currentNode->step > Config::instance()->pathfindMaxSteps() ) && !unvisited_nodes.empty() );
 
-		if( iterations > SrvParams->pathfindMaxIterations() || currentNode->step > SrvParams->pathfindMaxSteps() )
+		if( iterations > Config::instance()->pathfindMaxIterations() || currentNode->step > Config::instance()->pathfindMaxSteps() )
 		{
 			// lets set the pointer invalid if we have an invalid path
 			currentNode = NULL;
@@ -1427,7 +1427,7 @@ cNPC *cNPC::createFromScript(const QString &section, const Coord_cl &pos) {
 	if( section.isNull() || section.isEmpty() )
 		return NULL;
 
-	const cElement* DefSection = DefManager->getDefinition( WPDT_NPC, section );
+	const cElement* DefSection = Definitions::instance()->getDefinition( WPDT_NPC, section );
 
 	if( !DefSection )
 	{
@@ -1443,7 +1443,7 @@ cNPC *cNPC::createFromScript(const QString &section, const Coord_cl &pos) {
 
 	pChar->moveTo( pos );
 
-	pChar->setRegion( AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map ) );
+	pChar->setRegion( Territories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map ) );
 
 	pChar->applyDefinition( DefSection );
 
