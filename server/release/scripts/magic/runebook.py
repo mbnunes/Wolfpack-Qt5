@@ -11,6 +11,7 @@ import magic.spell
 from wolfpack.gumps import cGump
 from magic.rune import isrune
 from magic.utilities import fizzle, MODE_BOOK
+import magic.utilities
 import whrandom
 import wolfpack.utilities
 
