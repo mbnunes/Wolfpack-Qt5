@@ -393,7 +393,7 @@ void cTmpEff::Expire()
 		break;
 	case 16: //Explosion potion messages	Tauriel
 		sprintf((char*)temp, "%i", more3);
-		sysmessage(calcSocketFromChar((pc_s)), (char*)temp); // crashfix, LB
+		sysmessage(calcSocketFromChar(pc_s), (char*)temp); // crashfix, LB
 		break;
 	case 17: //Explosion potion explosion	Tauriel			
 		pc_s = FindCharBySerial(getSour());
@@ -416,7 +416,7 @@ void cTmpEff::Expire()
 			k=calcSocketFromChar((pc_s));
 			if (k==-1) return;
 			LSD[k]=0;
-			sysmessage(k,"LSD has worn off");
+			sysmessage(k, tr("LSD has worn off").latin1());
 			pc_s->stm=3; // stamina near 0
 			pc_s->mn=3;
 			pc_s->hp=pc_s->hp/7;
@@ -443,7 +443,7 @@ void cTmpEff::Expire()
 		
 	case 33: // delayed hiding for gms after flamestrike effect
 		k=calcSocketFromChar((pc_s));
-		sysmessage(k,"You have hidden yourself well.");
+		sysmessage(k, tr("You have hidden yourself well."));
 		pc_s->hidden=1;
 		updatechar(pc_s);
 		break;
@@ -451,7 +451,7 @@ void cTmpEff::Expire()
 	case 34: // delayed unhide for gms
 		// Changed to be uniform with delayed hideing  (Aldur)
 		k = calcSocketFromChar((pc_s)); 
-		sysmessage(k, "You are now visible."); 
+		sysmessage(k, tr("You are now visible.")); 
 		pc_s->hidden = 0; 
 		updatechar(pc_s); 
 		break;

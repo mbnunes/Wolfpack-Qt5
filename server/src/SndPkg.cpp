@@ -304,6 +304,11 @@ void sysbroadcast(const char *txt) // System broadcast in bold text
 //	Network->ClearBuffers();
 }
 
+void sysmessage(UOXSOCKET s, const QString& txt)
+{
+	sysmessage(s, (char*)txt.latin1());
+}
+
 void sysmessage(UOXSOCKET s, char *txt, ...) // System message (In lower left corner)
 {
 	if(s==-1) return;

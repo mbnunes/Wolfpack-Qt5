@@ -46,7 +46,7 @@
 using namespace std;
 
 // Forward class Declaration
-
+class QString;
 
 // Wolfpack includes 
 #include "defines.h"
@@ -131,10 +131,6 @@ void tellmessage(int i, int s, char *txt);
 void PlayDeathSound( P_CHAR pc );
 void sysmessage(UOXSOCKET s, char *txt, ...); // System message (In lower left corner);
 void sysmessage(UOXSOCKET s, short color, char *txt, ...);
-inline void sysmessage(UOXSOCKET s, const char *txt)
-{
-	sysmessage( s, (char*)txt);
-}
-
+void sysmessage(UOXSOCKET s, const QString& txt);
 
 #endif

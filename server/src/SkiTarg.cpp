@@ -52,7 +52,7 @@ P_ITEM Check4Pack(UOXSOCKET s)
 	P_ITEM pi_pack = Packitem(pc_currchar);
 	if (pi_pack == NULL)
 	{
-		sysmessage(s,tr("Time to buy a backpack").latin1());
+		sysmessage(s,tr("Time to buy a backpack") );
 	}
 	return pi_pack;
 }
@@ -63,7 +63,7 @@ bool CheckInPack(UOXSOCKET s, PC_ITEM pi)
 	if (!pPack) return false;
 	if (pi->contserial!=pPack->serial)
 	{
-		sysmessage(s,tr("You can't use material outside your backpack").latin1());
+		sysmessage(s,tr("You can't use material outside your backpack") );
 		return false;
 	}
 	return true;
@@ -102,7 +102,7 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 			amt=itemmake[s].has=getamount(pc_currchar, npi->id());
 				if(amt<1)
 				{ 
-					sysmessage(s,tr("You don't have enough material to make anything.").latin1());
+					sysmessage(s,tr("You don't have enough material to make anything.") );
 					return;
 				}
 			itemmake[s].Mat1id=npi->id();
@@ -118,7 +118,7 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 				int amt=itemmake[s].has = getamount(pc_currchar, pi_bolts->id());
 				if(amt<1)
 				{ 
-					sysmessage(s,tr("You don't have enough material to make anything.").latin1());
+					sysmessage(s,tr("You don't have enough material to make anything.") );
 					return;
 				}
 				itemmake[s].Mat1id=pi_bolts->id();
@@ -130,7 +130,7 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 			}
 			return;
 		}
-		sysmessage(s,tr("You cannot use that material for tailoring.").latin1());
+		sysmessage(s,tr("You cannot use that material for tailoring.") );
 	}
 }
 
@@ -153,7 +153,7 @@ void cSkills::Fletching(int s)
 			return;
 		}
 	}
-	sysmessage(s,tr("You cannot use that for fletching.").latin1());
+	sysmessage(s,tr("You cannot use that for fletching.") );
 }
 
 void cSkills::BowCraft(int s)
@@ -171,7 +171,7 @@ void cSkills::BowCraft(int s)
 			if (CheckInPack(s,pi))
 			{
 				if((itemmake[s].has=getamount(pc_currchar, pi->id())) < 2)
-				sysmessage(s,tr("You don't have enough material to make anything.").latin1());
+				sysmessage(s,tr("You don't have enough material to make anything.") );
 				else 
 				{
 					itemmake[s].Mat1id=pi->id();
@@ -210,7 +210,7 @@ void cSkills::Carpentry(int s)
 		}
 	}
 	else
-		sysmessage(s,tr("You cannot use that material for carpentry.").latin1());
+		sysmessage(s,tr("You cannot use that material for carpentry.") );
 }
 
 static bool ForgeInRange(int s)
@@ -277,7 +277,7 @@ static void AnvilTarget2(int s,				// socket #
 						 char* matname)		// name of the metal
 {
 	if (!AnvilInRange(s))
-		sysmessage(s, tr("The anvil is too far away.").latin1());
+		sysmessage(s, tr("The anvil is too far away.") );
 	else
 	{
 		P_CHAR pc_currchar = currchar[s];
@@ -288,7 +288,7 @@ static void AnvilTarget2(int s,				// socket #
 		int amt = pi_pack->CountItems( pi->id(), pi->color);
 		if ((itemmake[s].has=amt) < ma)
 		{
-			sysmessage(s, tr("You don't have enough %1 ingots to make anything.").arg(matname).latin1());
+			sysmessage(s, tr("You don't have enough %1 ingots to make anything.").arg(matname) );
 		}
 		else
 			Skills->MakeMenu(s,mm,BLACKSMITHING);
@@ -336,7 +336,7 @@ void cSkills::Smith(int s)
 		}
 		itemmake[s].Mat1id = 0;
 	}
-	sysmessage(s, tr("You cannot use that material for blacksmithing").latin1());
+	sysmessage(s, tr("You cannot use that material for blacksmithing") );
 }
 
 void cSkills::TasteIDTarget(int s)
@@ -347,18 +347,18 @@ void cSkills::TasteIDTarget(int s)
 	{
 		if(!( pi->type==19 || pi->type==14))
 		{
-			sysmessage(s, tr("You cant taste that!").latin1());
+			sysmessage(s, tr("You cant taste that!") );
 			return;
 		}
 		if (!CheckSkill(pc_currchar, TASTEID, 0, 250))
 		{
-			sysmessage(s, tr("You can't quite tell what this item is...").latin1());
+			sysmessage(s, tr("You can't quite tell what this item is...") );
 		}
 		else
 		{
 			if(pi->corpse)
 			{
-				sysmessage(s, tr("You have to use your forensics evalutation skill to know more on this corpse.").latin1());
+				sysmessage(s, tr("You have to use your forensics evalutation skill to know more on this corpse.") );
 				return;
 			}
 			
@@ -372,14 +372,14 @@ void cSkills::TasteIDTarget(int s)
 					pi->getName(temp2);
 				else 
 					strcpy((char*)temp2, pi->name.c_str());
-				sysmessage(s, tr("You found that this item appears to be called: %1").arg(temp2).latin1() );
+				sysmessage(s, tr("You found that this item appears to be called: %1").arg(temp2)  );
 				
 				if (CheckSkill(pc_currchar, TASTEID, 250, 500))
 				{
 					if((pi->poisoned>0) || (pi->morex==4 && pi->morey==6 && pi->morez==1))
-						sysmessage(s,tr("This item is poisoned!").latin1());
+						sysmessage(s,tr("This item is poisoned!") );
 					else
-						sysmessage(s,tr("This item shows no poison.").latin1());
+						sysmessage(s,tr("This item shows no poison.") );
 					
 					// Show Creator by Magius(CHE)
 					if (CheckSkill(pc_currchar, TASTEID, 250, 500))
@@ -387,11 +387,11 @@ void cSkills::TasteIDTarget(int s)
 						if (pi->creator.size()>0)
 						{
 							if (pi->madewith>0) 
-								sysmessage(s, tr("It is %1 by %2").arg(skill[pi->madewith-1].madeword).arg(pi->creator.c_str()).latin1()); // Magius(CHE)
-							else if (pi->madewith<0) sysmessage(s, tr("It is %1 by %2").arg(skill[0-pi->madewith-1].madeword).arg(pi->creator.c_str()).latin1()); // Magius(CHE)
-							else sysmessage(s, tr("It is made by %1").arg(pi->creator.c_str()).latin1()); // Magius(CHE)
-						} else sysmessage(s, tr("You don't know its creator!").latin1());
-					} else sysmessage(s, tr("You can't know its creator!").latin1());
+								sysmessage(s, tr("It is %1 by %2").arg(skill[pi->madewith-1].madeword).arg(pi->creator.c_str()) ); // Magius(CHE)
+							else if (pi->madewith<0) sysmessage(s, tr("It is %1 by %2").arg(skill[0-pi->madewith-1].madeword).arg(pi->creator.c_str()) ); // Magius(CHE)
+							else sysmessage(s, tr("It is made by %1").arg(pi->creator.c_str()) ); // Magius(CHE)
+						} else sysmessage(s, tr("You don't know its creator!") );
+					} else sysmessage(s, tr("You can't know its creator!") );
 				}
 		}
 	}
@@ -503,13 +503,13 @@ void cSkills::Mine(int s)
 	}
 	if (pc->onhorse)
 	{
-		sysmessage(s, tr("You cant mine while on a horse!").latin1());
+		sysmessage(s, tr("You cant mine while on a horse!") );
 		return;
 	}
 
 	if (resource.miningstamina<0 && abs(resource.miningstamina)>pc->stm)
 	{
-		sysmessage(s, tr("You are too tired to mine.").latin1());
+		sysmessage(s, tr("You are too tired to mine.") );
 		return;
 	}
 
@@ -550,7 +550,7 @@ void cSkills::Mine(int s)
 
 	if(!((cx<=5)&&(cy<=5) && (cz<=25)))
 	{
-		sysmessage(s, tr("You are to far away to reach that").latin1());
+		sysmessage(s, tr("You are to far away to reach that") );
 		return;
 	}
 	
@@ -621,13 +621,13 @@ void cSkills::Mine(int s)
 	
 	if(oreamount[a][b]<=0)
 	{
-		sysmessage(s, tr("There is no metal here to mine.").latin1());
+		sysmessage(s, tr("There is no metal here to mine.") );
 		return;
 	}
 	
 	if (((SrvParms->minecheck==1)&&(!floor)&&(!mountain)))//Mine only mountains & floors
 	{
-		sysmessage(s, tr("You can't mine that!").latin1());
+		sysmessage(s, tr("You can't mine that!") );
 		return;
 	}
 	
@@ -639,7 +639,7 @@ void cSkills::Mine(int s)
 	
 	if(!Skills->CheckSkill(pc, MINING, 0, 1000)) 
 	{
-		sysmessage(s, tr("You sifted thru the dirt and rocks, but found nothing useable.").latin1());
+		sysmessage(s, tr("You sifted thru the dirt and rocks, but found nothing useable.") );
 		if(oreamount[a][b]>0 && rand()%2==1) oreamount[a][b]--;//Randomly deplete resources even when they fail 1/2 chance you'll loose ore.
 		return;
 	} else if(oreamount[a][b]>0) oreamount[a][b]--;
@@ -677,14 +677,14 @@ void cSkills::Mine(int s)
 				Items->SpawnItem(s, pc, 5,"Iron Ore",1,'\x19','\xba', 0, 1,1);
 			else
 				Items->SpawnItem(s, pc ,1,"Iron Ore",1,'\x19','\xb9', 0, 1,1);
-			sysmessage(s, tr("You place some iron ore in your pack.").latin1());
+			sysmessage(s, tr("You place some iron ore in your pack.") );
 			return;
 		}
 		else if(pc->skill[MINING]>=850 && !(rand()%18))
 		{
 			//Skills->CheckSkill(player,MINING,850,1000);
 			SpawnRandomItem(s,1,"necro.scp","ITEMLIST","999"); 
-			sysmessage(s, tr("You place a gem in your pack.").latin1());
+			sysmessage(s, tr("You place a gem in your pack.") );
 		}
 		else
 		{
@@ -694,7 +694,7 @@ void cSkills::Mine(int s)
 			sprintf(tmp,"%s Ore",pOre->name);
 			Items->SpawnItem(s, pc, 1, tmp, 1, 0x19, 0xB9, pOre->color,1,1);
 
-			sysmessage(s, tr("You place some %1 ore in your pack.").arg( pOre->name).latin1());
+			sysmessage(s, tr("You place some %1 ore in your pack.").arg( pOre->name) );
 		}
 		}//end of normal mining skill
 	}//if buffer[][]=......
@@ -714,7 +714,7 @@ void cSkills::TreeTarget(int s)
 	//Logging stamina
 	if (resource.logstamina<0 && abs(resource.logstamina)>pc->stm)
 	{
-		sysmessage(s, tr("You are too tired to chop.").latin1());
+		sysmessage(s, tr("You are too tired to chop.") );
 		return;
 	}
 
@@ -755,7 +755,7 @@ void cSkills::TreeTarget(int s)
 	cy=abs(pc->pos.y-py);
 	if(!((cx<=5)&&(cy<=5)))
 	{
-		sysmessage(s, tr("You are to far away to reach that").latin1());
+		sysmessage(s, tr("You are to far away to reach that") );
 		return;
 	}
 
@@ -779,12 +779,12 @@ void cSkills::TreeTarget(int s)
 	
 	if(logamount[a][b]<=0)
 	{
-		sysmessage(s, tr("There is no more wood here to chop.").latin1());
+		sysmessage(s, tr("There is no more wood here to chop.") );
 		return;
 	}
 	
 	P_ITEM pi_pack = Packitem(pc);
-	if (pi_pack == NULL) {sysmessage(s,tr("No backpack to store logs").latin1()); return; } //LB
+	if (pi_pack == NULL) {sysmessage(s,tr("No backpack to store logs") ); return; } //LB
 	
 	if (pc->onhorse) action(s,0x1C);
 	else action(s,0x0D);
@@ -792,7 +792,7 @@ void cSkills::TreeTarget(int s)
 	
 	if (!Skills->CheckSkill(pc, LUMBERJACKING, 0, 1000)) 
 	{
-		sysmessage(s, tr("You chop for a while, but fail to produce any usable wood.").latin1());
+		sysmessage(s, tr("You chop for a while, but fail to produce any usable wood.") );
 		if(logamount[a][b]>0 && rand()%2==1) logamount[a][b]--;//Randomly deplete resources even when they fail 1/2 chance you'll loose wood.
 		return;
 	}
@@ -823,8 +823,8 @@ void cSkills::TreeTarget(int s)
 			
 			P_ITEM pi_c = Items->SpawnItem(s, pc, 10, "#", 1, 0x1B, 0xE0, 0, 1, 1);
 			if(pi_c == NULL) return;//AntiChrist to prevent crashes
-			if (pi_c->amount > 10) sysmessage(s, tr("You place more logs in your pack.").latin1());
-			else sysmessage(s, tr("You place some logs in your pack.").latin1());
+			if (pi_c->amount > 10) sysmessage(s, tr("You place more logs in your pack.") );
+			else sysmessage(s, tr("You place some logs in your pack.") );
 			
 			lumber=1;
 		}
@@ -847,7 +847,7 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 	soundeffect(s,0x01,0x25);
 	if(!Skills->CheckSkill(pc, MINING, 0, 800)) 
 	{
-		sysmessage(s, tr("You sifted through the dirt and found nothing.").latin1());
+		sysmessage(s, tr("You sifted through the dirt and found nothing.") );
 		return;
 	}
 	
@@ -862,14 +862,14 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 	{
 	case 2:
 		SpawnRandomMonster(s,"necro.scp","UNDEADLIST","1000"); // Low level Undead - Random
-		sysmessage(s, tr("You have disturbed the rest of a vile undead creature.").latin1());
+		sysmessage(s, tr("You have disturbed the rest of a vile undead creature.") );
 		break;
 	case 4:
 		nItemID=SpawnRandomItem(s,1,"necro.scp","ITEMLIST","1001"); // Armor and shields - Random
 		if((nItemID>=7026)&&(nItemID<=7035))
-			sysmessage(s, tr("You unearthed an old shield and placed it in your pack").latin1());
+			sysmessage(s, tr("You unearthed an old shield and placed it in your pack") );
 		else
-			sysmessage(s, tr("You have found an old piece armor and placed it in your pack.").latin1());
+			sysmessage(s, tr("You have found an old piece armor and placed it in your pack.") );
 		break;
 	case 5:
 		//Random treasure between gems and gold
@@ -877,7 +877,7 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 		if(nRandnum)
 		{ // randomly create a gem and place in backpack
 			SpawnRandomItem(s,1,"necro.scp","ITEMLIST","999");
-			sysmessage(s, tr("You place a gem in your pack.").latin1());
+			sysmessage(s, tr("You place a gem in your pack.") );
 		}
 		else
 		{ // Create between 1 and 15 goldpieces and place directly in backpack
@@ -885,9 +885,9 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 			addgold(s,nAmount);
 			goldsfx(s,nAmount);
 			if (nAmount==1)
-				sysmessage(s, tr("You unearthed %1 gold coin.").arg(nAmount).latin1());
+				sysmessage(s, tr("You unearthed %1 gold coin.").arg(nAmount) );
 			else
-				sysmessage(s, tr("You unearthed %1 gold coins.").arg(nAmount).latin1());
+				sysmessage(s, tr("You unearthed %1 gold coins.").arg(nAmount) );
 		}
 		break;
 	case 6:
@@ -895,25 +895,25 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 			SpawnRandomMonster(s,"necro.scp","UNDEADLIST","1000"); // Low level Undead - Random
 		else
 			SpawnRandomMonster(s,"necro.scp","UNDEADLIST","1001"); // Med level Undead - Random
-		sysmessage(s, tr("You have disturbed the rest of a vile undead creature.").latin1());
+		sysmessage(s, tr("You have disturbed the rest of a vile undead creature.") );
 		break;
 	case 8:
 		SpawnRandomItem(s,1,"necro.scp","ITEMLIST","1000");
-		sysmessage(s, tr("You unearthed a old weapon and placed it in your pack.").latin1());
+		sysmessage(s, tr("You unearthed a old weapon and placed it in your pack.") );
 		break;
 	case 10:
 		if(nFame<1000)
 			SpawnRandomMonster(s,"necro.scp","UNDEADLIST","1001"); // Med level Undead - Random
 		else
 			SpawnRandomMonster(s,"necro.scp","UNDEADLIST","1002"); // High level Undead - Random
-		sysmessage(s, tr("You have disturbed the rest of a vile undead creature.").latin1());
+		sysmessage(s, tr("You have disturbed the rest of a vile undead creature.") );
 		break;
 	case 12:
 		if(nFame>1000)
 			SpawnRandomMonster(s,"necro.scp","UNDEADLIST","1002"); // High level Undead - Random
 		else
 			SpawnRandomMonster(s,"necro.scp","UNDEADLIST","1001"); // Med level Undead - Random
-		sysmessage(s, tr("You have disturbed the rest of a vile undead creature.").latin1());
+		sysmessage(s, tr("You have disturbed the rest of a vile undead creature.") );
 		break;
 	default:
 		nRandnum=rand()%2;
@@ -937,10 +937,10 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 					case 11: iID=0x1C; break;
 				}
 				Items->SpawnItem(s, pc, 1, NULL, 0, 0x1b, iID, 0x00, 1, 1);
-				sysmessage(s, tr("You have unearthed some old bones and placed them in your pack.").latin1());
+				sysmessage(s, tr("You have unearthed some old bones and placed them in your pack.") );
 				break;
 			default: // found an empty grave
-				sysmessage(s, tr("This grave seems to be empty.").latin1());
+				sysmessage(s, tr("This grave seems to be empty.") );
 		}
 	}
 }
@@ -968,19 +968,19 @@ static void SmeltOre2(	int s,					// current char's socket #
 
 	if (pc_currchar->skill[MINING] < minskill)
 	{
-		sysmessage(s, tr("You have no idea what to do with this strange ore").latin1());
+		sysmessage(s, tr("You have no idea what to do with this strange ore") );
 		return;					
 	}
 	if(!Skills->CheckSkill(pc_currchar, MINING, 0, 1000))
 	{
 		if (pi->amount==1)
 		{
-			sysmessage(s, tr("Your hand slips and the last of your materials are destroyed.").latin1());
+			sysmessage(s, tr("Your hand slips and the last of your materials are destroyed.") );
 			Items->DeleItem(pi);
 		}
 		else
 		{
-			sysmessage(s, tr("Your hand slips and some of your materials are destroyed.").latin1());
+			sysmessage(s, tr("Your hand slips and some of your materials are destroyed.") );
 			pi->amount=pi->amount/2;
 			RefreshItem(pi);					// tell the client item has been changed
 		}
@@ -998,7 +998,7 @@ static void SmeltOre2(	int s,					// current char's socket #
 			RefreshItem(Ingot);
 		}
 
-		sysmessage(s, tr("You have smelted your ore").latin1());
+		sysmessage(s, tr("You have smelted your ore") );
 		sysmessage(s, tr("You place some %1 ingots in your pack.").arg((char)tolower(*orename) + QString(orename+1)));
 		Items->DeleItem(pi);
 	}
@@ -1025,7 +1025,7 @@ void cSkills::SmeltOre(int s)
 		if(	IsForge(pi->id()) )
 		{
 			if(!iteminrange(s,pi,3))		//Check if the forge is in range
-				sysmessage(s, tr("You cant smelt here.").latin1());
+				sysmessage(s, tr("You cant smelt here.") );
 			else
 			{
 				P_ITEM pix = FindItemBySerial(pc_currchar->smeltitem);	// on error return
@@ -1068,10 +1068,10 @@ void cSkills::Wheel(int s, int mat)//Spinning wheel
 		{
 			if (!Skills->CheckSkill(currchar[s],TAILORING, 0, 1000)) 
 			{
-				sysmessage(s, tr("You failed to spin your material.").latin1());
+				sysmessage(s, tr("You failed to spin your material.") );
 				return;
 			}
-			sysmessage(s, tr("You have successfully spun your material.").latin1());
+			sysmessage(s, tr("You have successfully spun your material.") );
 
 //			int ti = pc_currchar->tailitem;
 			const P_ITEM pti = FindItemBySerial(pc_currchar->tailitem);	// on error return
@@ -1095,7 +1095,7 @@ void cSkills::Wheel(int s, int mat)//Spinning wheel
 		}
 	}
 	pc_currchar->tailitem = INVALID_SERIAL;
-	if(!tailme) sysmessage(s,tr("You cant tailor here.").latin1());
+	if(!tailme) sysmessage(s,tr("You cant tailor here.") );
 }
 
 void cSkills::Loom(int s)
@@ -1116,13 +1116,13 @@ void cSkills::Loom(int s)
 					return;
 				if(pti->amount<5)
 				{
-					sysmessage(s, tr("You do not have enough material to make anything!").latin1());
+					sysmessage(s, tr("You do not have enough material to make anything!") );
 					return;
 				}
 				if (!Skills->CheckSkill(pc_currchar,TAILORING, 300, 1000)) 
 				{
-					sysmessage(s, tr("You failed to make cloth.").latin1());
-					sysmessage(s, tr("You have broken and lost some material!").latin1());
+					sysmessage(s, tr("You failed to make cloth.") );
+					sysmessage(s, tr("You have broken and lost some material!") );
 					if (pti->amount!=0) pti->amount -= 1+(rand() % (pti->amount)); else pti->amount --; 
 					if (pti->amount <=0) Items->DeleItem(pti);
 					else
@@ -1132,7 +1132,7 @@ void cSkills::Loom(int s)
 				
 				if( pti->id()==0x0E1E || pti->id()==0x0E1D || pti->id()==0x0E1F )	// yarn
 				{
-					sysmessage(s, tr("You have made your cloth.").latin1());
+					sysmessage(s, tr("You have made your cloth.") );
 
 					pti->name = "#";
 					pti->setId(0x175D);
@@ -1141,7 +1141,7 @@ void cSkills::Loom(int s)
 				}
 				else if( pti->id()==0x0FA0 || pti->id()==0x0FA1 )	// thread
 				{
-					sysmessage(s, tr("You have made a bolt of cloth.").latin1());
+					sysmessage(s, tr("You have made a bolt of cloth.") );
 
 					pti->name = "#";
 					pti->setId(0x0F95);
@@ -1155,7 +1155,7 @@ void cSkills::Loom(int s)
 	}
 	pc_currchar->tailitem = INVALID_SERIAL;
 	if(!tailme) 
-		sysmessage(s, tr("You cant tailor here.").latin1());
+		sysmessage(s, tr("You cant tailor here.") );
 }
 
 ////////////
@@ -1180,12 +1180,12 @@ void cSkills::CookOnFire(int s, short id1, short id2, char* matname)
 					soundeffect(s,0x01,0xDD);	// cooking sound
 					if (!Skills->CheckSkill(pc_currchar,COOKING, 0, 1000)) 
 					{
-						sysmessage(s, tr("You failed to cook the %1 and drop some into the ashes.").arg(matname).latin1());
+						sysmessage(s, tr("You failed to cook the %1 and drop some into the ashes.").arg(matname) );
 						piRaw->ReduceAmount(1+(rand() %(piRaw->amount)));
 					}
 					else
 					{
-						sysmessage(s, tr("You have cooked the %1, and it smells great.").arg(matname).latin1());
+						sysmessage(s, tr("You have cooked the %1, and it smells great.").arg(matname) );
 						P_ITEM pi_c = Items->SpawnItem(s, pc_currchar,piRaw->amount,"#",1,id1,id2,0,1,1);
 						if(pi_c == NULL) return;
 						pi_c->type = 14;
@@ -1212,10 +1212,10 @@ void cSkills::MakeDough(int s)
 			{
 				if (!Skills->CheckSkill(pc_currchar,COOKING, 0, 1000)) 
 				{
-					sysmessage(s, tr("You failed to mix, and spilt your water.").latin1());
+					sysmessage(s, tr("You failed to mix, and spilt your water.") );
 					return;
 				}
-				sysmessage(s, tr("You have mixed very well to make your dough.").latin1());
+				sysmessage(s, tr("You have mixed very well to make your dough.") );
 				
 				const P_ITEM pti=FindItemBySerial(pc_currchar->tailitem);	// on error return
 				if ( pti == NULL)
@@ -1233,7 +1233,7 @@ void cSkills::MakeDough(int s)
 	}
 	pc_currchar->tailitem=INVALID_SERIAL;
 	if(!tailme) 
-		sysmessage(s, tr("You cant mix here.").latin1());
+		sysmessage(s, tr("You cant mix here.") );
 }
 
 void cSkills::MakePizza(int s)
@@ -1250,11 +1250,11 @@ void cSkills::MakePizza(int s)
 			{
 				if (!Skills->CheckSkill(pc_currchar,COOKING, 0, 1000)) 
 				{
-					sysmessage(s, tr("You failed to mix.").latin1());
+					sysmessage(s, tr("You failed to mix.") );
 					Items->DeleItem(pi);
 					return;
 				}
-				sysmessage(s, tr("You have made your uncooked pizza, ready to place in oven.").latin1());
+				sysmessage(s, tr("You have made your uncooked pizza, ready to place in oven.") );
 				
 				const P_ITEM pti = FindItemBySerial(pc_currchar->tailitem);	// on error return
 				if ( pti == NULL )
@@ -1272,7 +1272,7 @@ void cSkills::MakePizza(int s)
 	}
 	pc_currchar->tailitem = INVALID_SERIAL;
 	if(!tailme) 
-		sysmessage(s, tr("You cant mix here.").latin1());
+		sysmessage(s, tr("You cant mix here.") );
 }
 
 /*
@@ -1323,10 +1323,10 @@ void cSkills::DetectHidden(UOXSOCKET s)
 					UOXSOCKET tempsock = calcSocketFromChar(pc);
 					if (tempsock!=-1)
 						if (perm[tempsock]) 
-							sysmessage(tempsock, tr("You have been revealed!").latin1());
+							sysmessage(tempsock, tr("You have been revealed!") );
 				}
 				else 
-					sysmessage(s, tr("You fail to find anyone.").latin1());
+					sysmessage(s, tr("You fail to find anyone.") );
 			}
 		}//if mapitem
 	}
@@ -1341,7 +1341,7 @@ void cSkills::ProvocationTarget1(UOXSOCKET s)
 	P_ITEM inst = GetInstrument(s);
 	if (inst == NULL) 
 	{
-		sysmessage(s, tr("You do not have an instrument to play on!").latin1());
+		sysmessage(s, tr("You do not have an instrument to play on!") );
 		return;
 	}
 	if ( pc->isInvul() || pc->shop || // invul or shopkeeper
@@ -1351,12 +1351,12 @@ void cSkills::ProvocationTarget1(UOXSOCKET s)
 		pc->npcaitype==0x07 || // order guard
 		pc->npcaitype==0x09)   // city guard
 	{
-		sysmessage(s, tr(" You cant entice that npc!").latin1());
+		sysmessage(s, tr(" You cant entice that npc!") );
 		return;
 	}
 	if (pc->inGuardedArea())
 	{
-		sysmessage(s, tr(" You cant do that in town!").latin1());
+		sysmessage(s, tr(" You cant do that in town!") );
 		return;
 	}
 	addid1[s]=buffer[s][7];
@@ -1365,7 +1365,7 @@ void cSkills::ProvocationTarget1(UOXSOCKET s)
 	addid4[s]=buffer[s][10];
 	
 	if (pc->isPlayer())
-		sysmessage(s, tr("You cannot provoke other players.").latin1());
+		sysmessage(s, tr("You cannot provoke other players.") );
 	else
 	{
 		target(s, 0, 1, 0, 80, "You play your music, inciting anger, and your target begins to look furious. Whom do you wish it to attack?");
@@ -1381,7 +1381,7 @@ void cSkills::EnticementTarget1(UOXSOCKET s)
 	P_ITEM inst = GetInstrument(s);
 	if (inst == NULL) 
 	{
-		sysmessage(s, tr("You do not have an instrument to play on!").latin1());
+		sysmessage(s, tr("You do not have an instrument to play on!") );
 		return;
 	}
 	if ( pc->isInvul() || pc->shop || // invul or shopkeeper
@@ -1391,12 +1391,12 @@ void cSkills::EnticementTarget1(UOXSOCKET s)
 		pc->npcaitype==0x07 || // order guard
 		pc->npcaitype==0x09)   // city guard
 	{
-		sysmessage(s, tr(" You cant entice that npc!").latin1());
+		sysmessage(s, tr(" You cant entice that npc!") );
 		return;
 	}
 	if (pc->inGuardedArea())
 	{
-		sysmessage(s, tr(" You cant do that in town!").latin1());
+		sysmessage(s, tr(" You cant do that in town!") );
 		return;
 	}
 	addid1[s]=buffer[s][7];
@@ -1405,10 +1405,10 @@ void cSkills::EnticementTarget1(UOXSOCKET s)
 	addid4[s]=buffer[s][10];
 
 	if (pc->isPlayer())
-		sysmessage(s, tr("You cannot entice other players.").latin1());
+		sysmessage(s, tr("You cannot entice other players.") );
 	else
 	{
-		target(s, 0, 1, 0, 82, (char*)tr("You play your music, luring them near. Whom do you wish them to follow?").latin1());
+		target(s, 0, 1, 0, 82, (char*)tr("You play your music, luring them near. Whom do you wish them to follow?").latin1() );
 		PlayInstrumentWell(s, inst);
 	}
 }
@@ -1421,7 +1421,7 @@ void cSkills::EnticementTarget2(UOXSOCKET s)
 	P_ITEM inst = GetInstrument(s);
 	if (inst == NULL) 
 	{
-		sysmessage(s, tr("You do not have an instrument to play on!").latin1());
+		sysmessage(s, tr("You do not have an instrument to play on!") );
 		return;
 	}
 	int res1 = CheckSkill(pc_currchar, ENTICEMENT, 0, 1000);
@@ -1432,12 +1432,12 @@ void cSkills::EnticementTarget2(UOXSOCKET s)
 		if ( pc_target == NULL ) return;
 		pc_target->ftarg = pc->serial;
 		pc_target->npcWander = 1;
-		sysmessage(s, tr("You play your hypnotic music, luring them near your target.").latin1());
+		sysmessage(s, tr("You play your hypnotic music, luring them near your target.") );
 		PlayInstrumentWell(s, inst);
 	}
 	else 
 	{
-		sysmessage(s, tr("Your music fails to attract them.").latin1());
+		sysmessage(s, tr("Your music fails to attract them.") );
 		PlayInstrumentPoor(s, inst);
 	}
 }
@@ -1454,19 +1454,19 @@ void cSkills::ProvocationTarget2(UOXSOCKET s)
 
 	if (Victim2->inGuardedArea())
 	{
-		sysmessage(s, tr("You cant do that in town!").latin1());
+		sysmessage(s, tr("You cant do that in town!") );
 		return;
 	}
 	if (Victim1->isSameAs(Victim2))
 	{
-		sysmessage(s, tr("Silly bard! You can't get something to attack itself.").latin1());
+		sysmessage(s, tr("Silly bard! You can't get something to attack itself.") );
 		return;
 	}
 
 	P_ITEM inst = GetInstrument(s);
 	if (inst == NULL) 
 	{
-		sysmessage(s, tr("You do not have an instrument to play on!").latin1());
+		sysmessage(s, tr("You do not have an instrument to play on!") );
 		return;
 	}
 	if (CheckSkill((Player), MUSICIANSHIP, 0, 1000))
@@ -1476,11 +1476,11 @@ void cSkills::ProvocationTarget2(UOXSOCKET s)
 		{
 			if (Player->inGuardedArea())
 				Combat->SpawnGuard(Player, Player, Player->pos.x+1,Player->pos.y,Player->pos.z); //ripper
-			sysmessage(s, tr("Your music succeeds as you start a fight.").latin1());
+			sysmessage(s, tr("Your music succeeds as you start a fight.") );
 		}
 		else 
 		{
-			sysmessage(s, tr("Your music fails to incite enough anger.").latin1());
+			sysmessage(s, tr("Your music fails to incite enough anger.") );
 			Victim2 = Player;		// make the targeted one attack the Player
 		}
 
@@ -1490,7 +1490,7 @@ void cSkills::ProvocationTarget2(UOXSOCKET s)
 		Victim2->fight(Victim1);
 		Victim2->resetAttackFirst();
 		
-		strcpy(temp, tr("* You see %1 attacking %2 *").arg(Victim1->name.c_str()).arg(Victim2->name.c_str()).latin1());
+		strcpy(temp, tr("* You see %1 attacking %2 *").arg(Victim1->name.c_str()).arg(Victim2->name.c_str()) );
 		int i;
 		for (i=0;i<now;i++)
 		{
@@ -1503,7 +1503,7 @@ void cSkills::ProvocationTarget2(UOXSOCKET s)
 	else
 	{
 		PlayInstrumentPoor(s, inst);
-		sysmessage(s, tr("You play rather poorly and to no effect.").latin1());
+		sysmessage(s, tr("You play rather poorly and to no effect.") );
 	}
 }
 
@@ -1533,10 +1533,10 @@ void cSkills::AlchemyTarget(int s)
 		if ( pi->id()>=0x1B11 && pi->id()<=0x1B1C )
 		{
 			MakeNecroReg(s,pi,pi->id());
-			sysmessage(s, tr("You grind some bone into powder.").latin1());
+			sysmessage(s, tr("You grind some bone into powder.") );
 		}
 		else
-			sysmessage(s, tr("That is not a valid reagent.").latin1());
+			sysmessage(s, tr("That is not a valid reagent.") );
 	}
 }
 
@@ -1554,7 +1554,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 		{
 			amt=pi->amount;  //-Frazurbluu- changed to reflect current OSI 
 			soundeffect(s,0x02,0x48);
-			sysmessage(s, tr("You cut some cloth into bandages, and put it in your backpack").latin1());
+			sysmessage(s, tr("You cut some cloth into bandages, and put it in your backpack") );
 			P_ITEM pi_c = Items->SpawnItem(s,pc_currchar,amt,"#",0,0x0E,0x21,col1,1,1);
 			if(pi_c == NULL) return;
 			// need to set amount and weight and pileable, note: cannot set pilable while spawning item -Fraz-
@@ -1601,7 +1601,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			statwindow(s, pc_currchar);
 			return;
 		}
-		sysmessage(s, tr("You cannot cut anything from that item.").latin1());
+		sysmessage(s, tr("You cannot cut anything from that item.") );
 	}
 }
 
@@ -1622,13 +1622,13 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 			P_CHAR pc_attacker = FindCharBySerial(ph->attacker); // Ripper...cant heal while in a fight
 			if ( (pc_attacker != NULL) && pc_attacker->war)
 			{
-				sysmessage(s, tr("You can`t heal while in a fight!").latin1());
+				sysmessage(s, tr("You can`t heal while in a fight!") );
 				return;
 			}
 		}
 		if(ph->pos.distance(pp->pos)>5)
 		{
-			sysmessage(s, tr("You are not close enough to apply the bandages.").latin1());
+			sysmessage(s, tr("You are not close enough to apply the bandages.") );
 			return;
 		}
 		if ((ph->isInnocent()) &&(ph->serial != pp->serial))
@@ -1642,7 +1642,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 		if (pp->dead)
 		{
 			if (ph->skill[HEALING] < 800 || ph->skill[ANATOMY] < 800)
-				sysmessage(s, tr("You are not skilled enough to resurrect").latin1());
+				sysmessage(s, tr("You are not skilled enough to resurrect") );
 			else
 			{
 				int reschance = static_cast<int>((ph->baseskill[HEALING]+ph->baseskill[ANATOMY])*0.17);
@@ -1650,11 +1650,11 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 				CheckSkill((ph),HEALING,800,1000);
 				CheckSkill((ph),ANATOMY,800,1000);
 				if(reschance<=rescheck)
-					sysmessage(s, tr("You failed to resurrect the ghost").latin1());
+					sysmessage(s, tr("You failed to resurrect the ghost") );
 				else
 				{
 					Targ->NpcResurrectTarget(ph);
-					sysmessage(s, tr("Because of your skill, you were able to resurrect the ghost.").latin1());
+					sysmessage(s, tr("Because of your skill, you were able to resurrect the ghost.") );
 				}
 			}
 			return;
@@ -1665,8 +1665,8 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 		{
 			if (ph->skill[HEALING]<600 || ph->skill[ANATOMY]<600)
 			{
-				sysmessage(s, tr("You are not skilled enough to cure poison.").latin1());
-				sysmessage(s, tr("The poison in your target's system counters the bandage's effect.").latin1());
+				sysmessage(s, tr("You are not skilled enough to cure poison.") );
+				sysmessage(s, tr("The poison in your target's system counters the bandage's effect.") );
 			}
 			else
 			{
@@ -1677,10 +1677,10 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 				if(curechance<=curecheck)
 				{
 					pp->poisoned=0;
-					sysmessage(s, tr("Because of your skill, you were able to counter the poison.").latin1());
+					sysmessage(s, tr("Because of your skill, you were able to counter the poison.") );
 				}
 				else
-					sysmessage(s, tr("You fail to counter the poison").latin1());
+					sysmessage(s, tr("You fail to counter the poison") );
 				pib->ReduceAmount(1);
 			}
 			return;
@@ -1688,7 +1688,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 		
 		if(pp->hp == pp->st)
 		{
-			sysmessage(s, tr("That being is not damaged").latin1());
+			sysmessage(s, tr("That being is not damaged") );
 			return;
 		}
 		
@@ -1696,7 +1696,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 		{
 			if (!CheckSkill((ph),HEALING,0,1000))
 			{
-				sysmessage(s, tr("You apply the bandages, but they barely help!").latin1());
+				sysmessage(s, tr("You apply the bandages, but they barely help!") );
 				pp->hp++;
 			}
 			else
@@ -1716,7 +1716,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 		else //Bandages used on a non-human
 		{
 			if (!CheckSkill((ph),VETERINARY,0,1000))
-				sysmessage(s, tr("You are not skilled enough to heal that creature.").latin1());
+				sysmessage(s, tr("You are not skilled enough to heal that creature.") );
 			else
 			{
 				int healmin = (((ph->skill[HEALING]/5)+(ph->skill[VETERINARY]/5))+3); //OSI's formula for min amount healed (Skyfire)
@@ -1726,7 +1726,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 					j=(pp->st-pp->hp);
 				pp->hp=j;
 				updatestats(ph, 0);
-				sysmessage(s, tr("You apply the bandages and the creature looks a bit healthier.").latin1());
+				sysmessage(s, tr("You apply the bandages and the creature looks a bit healthier.") );
 			}
 		}
 		SetTimerSec(&ph->objectdelay,SrvParams->objectDelay() + SrvParams->bandageDelay());
@@ -1747,35 +1747,35 @@ void cSkills::ArmsLoreTarget(int s)
 	if ( (pi->def==0 || pi->pileable)
 		&& ((pi->lodamage==0 && pi->hidamage==0) && (pi->rank<1 || pi->rank>9)))
 	{
-		sysmessage(s, tr("That does not appear to be a weapon.").latin1());
+		sysmessage(s, tr("That does not appear to be a weapon.") );
 		return;
 	}
 	if(pc_currchar->isGM())
 	{
-		sysmessage(s, tr("Attack [%1] Defense [%2] Lodamage [%3] Hidamage [%4]").arg(pi->att).arg(pi->def).arg(pi->lodamage).arg(pi->hidamage).latin1());
+		sysmessage(s, tr("Attack [%1] Defense [%2] Lodamage [%3] Hidamage [%4]").arg(pi->att).arg(pi->def).arg(pi->lodamage).arg(pi->hidamage) );
 		return;
 	}
 	
 	if (!CheckSkill(pc_currchar,ARMSLORE, 0, 250))
-		sysmessage(s, tr("You are not certain...").latin1());
+		sysmessage(s, tr("You are not certain...") );
 	else
 	{
 		if( pi->maxhp==0)
-			sysmessage(s, tr("Sorry this is a old item and it doesn't have maximum hp").latin1());
+			sysmessage(s, tr("Sorry this is a old item and it doesn't have maximum hp") );
 		else
 		{
 			totalhp= (float) pi->hp/pi->maxhp;
-			strcpy((char*)temp, tr("This item ").latin1());
-			if      (totalhp>0.9) strcpy((char*)p2, tr("is brand new.").latin1()); 
-			else if (totalhp>0.8) strcpy((char*)p2, tr("is almost new.").latin1());
-			else if (totalhp>0.7) strcpy((char*)p2, tr("is barely used, with a few nicks and scrapes.").latin1());
-			else if (totalhp>0.6) strcpy((char*)p2, tr("is in fairly good condition.").latin1());
-			else if (totalhp>0.5) strcpy((char*)p2, tr("suffered some wear and tear.").latin1());
-			else if (totalhp>0.4) strcpy((char*)p2, tr("is well used.").latin1());
-			else if (totalhp>0.3) strcpy((char*)p2, tr("is rather battered.").latin1());
-			else if (totalhp>0.2) strcpy((char*)p2, tr("is somewhat badly damaged.").latin1());
-			else if (totalhp>0.1) strcpy((char*)p2, tr("is flimsy and not trustworthy.").latin1());
-			else                  strcpy((char*)p2, tr("is falling apart.").latin1());
+			strcpy((char*)temp, tr("This item ") );
+			if      (totalhp>0.9) strcpy((char*)p2, tr("is brand new.") ); 
+			else if (totalhp>0.8) strcpy((char*)p2, tr("is almost new.") );
+			else if (totalhp>0.7) strcpy((char*)p2, tr("is barely used, with a few nicks and scrapes.") );
+			else if (totalhp>0.6) strcpy((char*)p2, tr("is in fairly good condition.") );
+			else if (totalhp>0.5) strcpy((char*)p2, tr("suffered some wear and tear.") );
+			else if (totalhp>0.4) strcpy((char*)p2, tr("is well used.") );
+			else if (totalhp>0.3) strcpy((char*)p2, tr("is rather battered.") );
+			else if (totalhp>0.2) strcpy((char*)p2, tr("is somewhat badly damaged.") );
+			else if (totalhp>0.1) strcpy((char*)p2, tr("is flimsy and not trustworthy.") );
+			else                  strcpy((char*)p2, tr("is falling apart.") );
 			strcat((char*)temp,p2);
 			char temp2[33];
 			sprintf(temp2," [%.1f %%]",totalhp*100);
@@ -1786,34 +1786,34 @@ void cSkills::ArmsLoreTarget(int s)
 			if (pi->hidamage)
 			{
 				total = (pi->hidamage + pi->lodamage)/2;
-				if      ( total > 26) strcpy((char*)p2, tr(" Would be extraordinarily deadly.").latin1());
-				else if ( total > 21) strcpy((char*)p2, tr(" Would be a superior weapon.").latin1());
-				else if ( total > 16) strcpy((char*)p2, tr(" Would inflict quite a lot of damage and pain.").latin1()); 
-				else if ( total > 11) strcpy((char*)p2, tr(" Would probably hurt your opponent a fair amount.").latin1());
-				else if ( total > 6)  strcpy((char*)p2, tr(" Would do some damage.").latin1());
-				else if ( total > 3)  strcpy((char*)p2, tr(" Would do minimal damage.").latin1());
-				else                  strcpy((char*)p2, tr(" Might scratch your opponent slightly.").latin1());
+				if      ( total > 26) strcpy((char*)p2, tr(" Would be extraordinarily deadly.") );
+				else if ( total > 21) strcpy((char*)p2, tr(" Would be a superior weapon.") );
+				else if ( total > 16) strcpy((char*)p2, tr(" Would inflict quite a lot of damage and pain.") ); 
+				else if ( total > 11) strcpy((char*)p2, tr(" Would probably hurt your opponent a fair amount.") );
+				else if ( total > 6)  strcpy((char*)p2, tr(" Would do some damage.") );
+				else if ( total > 3)  strcpy((char*)p2, tr(" Would do minimal damage.") );
+				else                  strcpy((char*)p2, tr(" Might scratch your opponent slightly.") );
 				strcat((char*)temp,p2);
 				
 				if (Skills->CheckSkill(pc_currchar, ARMSLORE, 500, 1000))
 				{
-					if      (pi->spd > 35) strcpy((char*)p2, tr(" And is very fast.").latin1());
-					else if (pi->spd > 25) strcpy((char*)p2, tr(" And is fast.").latin1());
-					else if (pi->spd > 15) strcpy((char*)p2, tr(" And is slow.").latin1());
-					else                   strcpy((char*)p2, tr(" And is very slow.").latin1());
+					if      (pi->spd > 35) strcpy((char*)p2, tr(" And is very fast.") );
+					else if (pi->spd > 25) strcpy((char*)p2, tr(" And is fast.") );
+					else if (pi->spd > 15) strcpy((char*)p2, tr(" And is slow.") );
+					else                   strcpy((char*)p2, tr(" And is very slow.") );
 					strcat((char*)temp,p2);
 				}
 			}
 			else
 			{
-				if      (pi->def> 12) strcpy((char*)p2, tr(" Is superbly crafted to provide maximum protection.").latin1());
-				else if (pi->def> 10) strcpy((char*)p2, tr(" Offers excellent protection.").latin1());
-				else if (pi->def> 8 ) strcpy((char*)p2, tr(" Is a superior defense against attack.").latin1());
-				else if (pi->def> 6 ) strcpy((char*)p2, tr(" Serves as a sturdy protection.").latin1());
-				else if (pi->def> 4 ) strcpy((char*)p2, tr(" Offers some protection against blows.").latin1());
-				else if (pi->def> 2 ) strcpy((char*)p2, tr(" Provides very little protection.").latin1());
-				else if (pi->def> 0 ) strcpy((char*)p2, tr(" Provides almost no protection.").latin1());
-				else                  strcpy((char*)p2, tr(" Offers no defense against attackers.").latin1());
+				if      (pi->def> 12) strcpy((char*)p2, tr(" Is superbly crafted to provide maximum protection.") );
+				else if (pi->def> 10) strcpy((char*)p2, tr(" Offers excellent protection.") );
+				else if (pi->def> 8 ) strcpy((char*)p2, tr(" Is a superior defense against attack.") );
+				else if (pi->def> 6 ) strcpy((char*)p2, tr(" Serves as a sturdy protection.") );
+				else if (pi->def> 4 ) strcpy((char*)p2, tr(" Offers some protection against blows.") );
+				else if (pi->def> 2 ) strcpy((char*)p2, tr(" Provides very little protection.") );
+				else if (pi->def> 0 ) strcpy((char*)p2, tr(" Provides almost no protection.") );
+				else                  strcpy((char*)p2, tr(" Offers no defense against attackers.") );
 				strcat((char*)temp,p2);
 			}
 		}
@@ -1825,16 +1825,16 @@ void cSkills::ArmsLoreTarget(int s)
 			{
 				switch(pi->rank)
 				{
-					case 1: strcpy((char*)p2, tr("It seems an item with no quality!").latin1());				break;
-					case 2: strcpy((char*)p2, tr("It seems an item very below standard quality!").latin1());	break;
-					case 3: strcpy((char*)p2, tr("It seems an item below standard quality!").latin1());			break;
-					case 4: strcpy((char*)p2, tr("It seems a weak quality item!").latin1());					break;
-					case 5: strcpy((char*)p2, tr("It seems a standard quality item!").latin1());				break;
-					case 6: strcpy((char*)p2, tr("It seems a nice quality item!").latin1());					break;
-					case 7: strcpy((char*)p2, tr("It seems a good quality item!").latin1());					break;
-					case 8: strcpy((char*)p2, tr("It seems a great quality item!").latin1());					break;
-					case 9: strcpy((char*)p2, tr("It seems a beautiful quality item!").latin1());				break;
-					case 10:strcpy((char*)p2, tr("It seems a perfect quality item!").latin1());					break;
+					case 1: strcpy((char*)p2, tr("It seems an item with no quality!") );				break;
+					case 2: strcpy((char*)p2, tr("It seems an item very below standard quality!") );	break;
+					case 3: strcpy((char*)p2, tr("It seems an item below standard quality!") );			break;
+					case 4: strcpy((char*)p2, tr("It seems a weak quality item!") );					break;
+					case 5: strcpy((char*)p2, tr("It seems a standard quality item!") );				break;
+					case 6: strcpy((char*)p2, tr("It seems a nice quality item!") );					break;
+					case 7: strcpy((char*)p2, tr("It seems a good quality item!") );					break;
+					case 8: strcpy((char*)p2, tr("It seems a great quality item!") );					break;
+					case 9: strcpy((char*)p2, tr("It seems a beautiful quality item!") );				break;
+					case 10:strcpy((char*)p2, tr("It seems a perfect quality item!") );					break;
 				}
 				sysmessage(s,p2);
 			}
@@ -1850,13 +1850,13 @@ void cSkills::ItemIdTarget(int s)
 	{
 		if (!CheckSkill(pc_currchar, ITEMID, 0, 250))
 		{
-			sysmessage(s, tr("You can't quite tell what this item is...").latin1());
+			sysmessage(s, tr("You can't quite tell what this item is...") );
 		}
 		else
 		{
 			if(pi->corpse)
 			{
-				sysmessage(s, tr("You have to use your forensics evalutation skill to know more on this corpse.").latin1());
+				sysmessage(s, tr("You have to use your forensics evalutation skill to know more on this corpse.") );
 				return;
 			}
 
@@ -1869,46 +1869,46 @@ void cSkills::ItemIdTarget(int s)
 				pi->getName(temp2);
 			else 
 				strcpy((char*)temp2, pi->name.c_str());
-			sysmessage(s, tr("You found that this item appears to be called: %1").arg(temp2).latin1());
+			sysmessage(s, tr("You found that this item appears to be called: %1").arg(temp2) );
 
 			// Show Creator by Magius(CHE)
 			if (CheckSkill(pc_currchar, ITEMID, 250, 500))
 			{
 				if (pi->creator.size()>0)
 				{
-					if (pi->madewith>0) sprintf((char*)temp2, tr("It is %1 by %2").arg(skill[pi->madewith-1].madeword).arg(pi->creator.c_str()).latin1()); // Magius(CHE)
-					else if (pi->madewith<0) sprintf((char*)temp2, tr("It is %1 by %2").arg(skill[0-pi->madewith-1].madeword).arg(pi->creator.c_str()).latin1()); // Magius(CHE)
-					else sprintf((char*)temp2, tr("It is made by %1").arg(pi->creator.c_str()).latin1()); // Magius(CHE)
-				} else strcpy((char*)temp2, tr("You don't know its creator!").latin1());
-			} else strcpy((char*)temp2, tr("You can't know its creator!").latin1());
+					if (pi->madewith>0) sprintf((char*)temp2, tr("It is %1 by %2").arg(skill[pi->madewith-1].madeword).arg(pi->creator.c_str()) ); // Magius(CHE)
+					else if (pi->madewith<0) sprintf((char*)temp2, tr("It is %1 by %2").arg(skill[0-pi->madewith-1].madeword).arg(pi->creator.c_str()) ); // Magius(CHE)
+					else sprintf((char*)temp2, tr("It is made by %1").arg(pi->creator.c_str()) ); // Magius(CHE)
+				} else strcpy((char*)temp2, tr("You don't know its creator!") );
+			} else strcpy((char*)temp2, tr("You can't know its creator!") );
 			sysmessage(s, (char*)temp2);
 			// End Show creator
 
 			if (!CheckSkill(pc_currchar, ITEMID, 250, 500))
 			{
-				sysmessage(s, tr("You can't tell if it is magical or not.").latin1());
+				sysmessage(s, tr("You can't tell if it is magical or not.") );
 			}
 			else
 			{
 				if(pi->type!=15)
 				{
-					sysmessage(s, tr("This item has no hidden magical properties.").latin1());
+					sysmessage(s, tr("This item has no hidden magical properties.") );
 				}
 				else
 				{
 					if (!CheckSkill(pc_currchar, ITEMID, 500, 1000))
 					{
-						sysmessage(s, tr("This item is enchanted with a spell, but you cannot determine which").latin1());
+						sysmessage(s, tr("This item is enchanted with a spell, but you cannot determine which") );
 					}
 					else
 					{
 						if (!CheckSkill(pc_currchar, ITEMID, 750, 1100))
 						{
-							sysmessage(s, tr("It is enchanted with the spell %1, but you cannot determine how many charges remain.").arg(spellname[(8*(pi->morex-1))+pi->morey-1]).latin1());
+							sysmessage(s, tr("It is enchanted with the spell %1, but you cannot determine how many charges remain.").arg(spellname[(8*(pi->morex-1))+pi->morey-1]) );
 						}
 						else
 						{
-							sysmessage(s, tr("It is enchanted with the spell %1, and has %2 charges remaining.").arg(spellname[(8*(pi->morex-1))+pi->morey-1]).arg(pi->morez).latin1());
+							sysmessage(s, tr("It is enchanted with the spell %1, and has %2 charges remaining.").arg(spellname[(8*(pi->morex-1))+pi->morey-1]).arg(pi->morez) );
 						}
 					}
 				}
@@ -1932,7 +1932,7 @@ void cSkills::Evaluate_int_Target(UOXSOCKET s)
 
 	if (pc == pc_currchar)
 	{ 
-        sysmessage(s, tr("You cannot analyze yourself!").latin1()); 
+        sysmessage(s, tr("You cannot analyze yourself!") ); 
         return; 
 	}
 
@@ -1940,31 +1940,31 @@ void cSkills::Evaluate_int_Target(UOXSOCKET s)
 	// blackwind distance fix 
 	if( pc->pos.distance(pc_currchar->pos) >= 10 ) 
 	{ 
-		sysmessage( s, tr("You need to be closer to find out").latin1()); 
+		sysmessage( s, tr("You need to be closer to find out") ); 
 		return; 
 	} 
 
 	if (!CheckSkill(pc_currchar,EVALUATINGINTEL, 0, 1000)) 
 	{
-		sysmessage(s, tr("You are not certain..").latin1());
+		sysmessage(s, tr("You are not certain..") );
 		return;
 	}
 	if ((pc->in == 0)) 
-		sysmessage(s, tr("It looks smarter than a rock, but dumber than a piece of wood.").latin1());
+		sysmessage(s, tr("It looks smarter than a rock, but dumber than a piece of wood.") );
 	else
 	{
-		strcpy((char*)temp, tr("That person looks ").latin1());
-		if		(pc->in <= 10)	strcat(temp, tr("slightly less intelligent than a rock.").latin1());
-		else if (pc->in <= 20)	strcat(temp, tr("fairly stupid.").latin1());
-		else if (pc->in <= 30)	strcat(temp, tr("not the brightest.").latin1());
-		else if (pc->in <= 40)	strcat(temp, tr("about average.").latin1());
-		else if (pc->in <= 50)	strcat(temp, tr("moderately intelligent.").latin1());
-		else if (pc->in <= 60)	strcat(temp, tr("very intelligent.").latin1());
-		else if (pc->in <= 70)	strcat(temp, tr("Extremely intelligent.").latin1());
-		else if (pc->in <= 80)	strcat(temp, tr("extraordinarily intelligent.").latin1());
-		else if (pc->in <= 90)	strcat(temp, tr("like a formidable intellect, well beyond the ordinary.").latin1());
-		else if (pc->in <= 99)	strcat(temp, tr("like a definite genius.").latin1());
-		else if (pc->in >=100)  strcat(temp, tr("superhumanly intelligent in a manner you cannot comprehend.").latin1());
+		strcpy((char*)temp, tr("That person looks ") );
+		if		(pc->in <= 10)	strcat(temp, tr("slightly less intelligent than a rock.") );
+		else if (pc->in <= 20)	strcat(temp, tr("fairly stupid.") );
+		else if (pc->in <= 30)	strcat(temp, tr("not the brightest.") );
+		else if (pc->in <= 40)	strcat(temp, tr("about average.") );
+		else if (pc->in <= 50)	strcat(temp, tr("moderately intelligent.") );
+		else if (pc->in <= 60)	strcat(temp, tr("very intelligent.") );
+		else if (pc->in <= 70)	strcat(temp, tr("Extremely intelligent.") );
+		else if (pc->in <= 80)	strcat(temp, tr("extraordinarily intelligent.") );
+		else if (pc->in <= 90)	strcat(temp, tr("like a formidable intellect, well beyond the ordinary.") );
+		else if (pc->in <= 99)	strcat(temp, tr("like a definite genius.") );
+		else if (pc->in >=100)  strcat(temp, tr("superhumanly intelligent in a manner you cannot comprehend.") );
 		sysmessage(s, (char*)temp);
 	}
 }
@@ -1984,19 +1984,19 @@ void cSkills::AnatomyTarget(int s)
 
 	if( dist(pc->pos, pc_currchar->pos) >= 10 )
 	{
-		sysmessage( s, tr("You need to be closer to find out more about them" ).latin1());
+		sysmessage( s, tr("You need to be closer to find out more about them" ) );
 		return;
 	}
 	
 	if (!Skills->CheckSkill(pc_currchar,ANATOMY, 0, 1000)) 
 	{
-		sysmessage(s, tr("You are not certain..").latin1());
+		sysmessage(s, tr("You are not certain..") );
 		return;
 	}
 
 	short dx = pc->effDex();
 	if (pc->st == 0 && dx == 0) 
-		sysmessage(s, tr("That does not appear to be a living being.").latin1());
+		sysmessage(s, tr("That does not appear to be a living being.") );
 	else
 	{
 		char *ps1,*ps2;
@@ -2046,18 +2046,18 @@ void cSkills::TameTarget(int s)
 		{
 			if (pc->taming>1000||pc->taming==0)//Morrolan default is now no tame
 			{
-				sysmessage(s, tr("You can't tame that creature.").latin1());
+				sysmessage(s, tr("You can't tame that creature.") );
 				return;
 			}
 			// Below... can't tame if you already have!
 			if( (pc->tamed) && pc_currchar->Owns(pc) )
 			{
-				sysmessage( s, tr("You already control that creature!" ).latin1());
+				sysmessage( s, tr("You already control that creature!" ) );
 				return;
 			}
 			if( pc->tamed )
 			{
-				sysmessage( s, tr("That creature looks tame already." ).latin1());
+				sysmessage( s, tr("That creature looks tame already." ) );
 				return;
 			}
 			sprintf((char*)temp, "*%s starts to tame %s*",pc_currchar->name.c_str(),pc->name.c_str());
@@ -2076,10 +2076,10 @@ void cSkills::TameTarget(int s)
 			if ((!Skills->CheckSkill(pc_currchar,TAMING, 0, 1000))||
 				(pc_currchar->skill[TAMING]<pc->taming)) 
 			{
-				sysmessage(s, tr("You were unable to tame it.").latin1());
+				sysmessage(s, tr("You were unable to tame it.") );
 				return;
 			}
-			npctalk(s, pc_currchar, (char*)tr("It seems to accept you as it's master!").latin1(), 0);
+			npctalk(s, pc_currchar, (char*)tr("It seems to accept you as it's master!").latin1() , 0);
 			tamed=1;
 			pc->SetOwnSerial(pc_currchar->serial);
 			pc->npcWander=0;
@@ -2097,7 +2097,7 @@ void cSkills::TameTarget(int s)
 				}
 			}
 		}
-		if (tamed==0) sysmessage(s, tr("You can't tame that!").latin1());
+		if (tamed==0) sysmessage(s, tr("You can't tame that!") );
 }
 
 void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
@@ -2118,7 +2118,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	if (!pi)
 	{
-		sysmessage(s, tr("You cannot steal that.").latin1());
+		sysmessage(s, tr("You cannot steal that.") );
 		return;
 	}
 	if( pi->id()==0x1E2D || pi->id()==0x1E2C )
@@ -2130,12 +2130,12 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 		|| pi->priv&2	// newbie items,
 		|| pi->isInWorld() )	// and items not being in containers allowed !
 	{
-		sysmessage(s, tr("You cannot steal that.").latin1());
+		sysmessage(s, tr("You cannot steal that.") );
 		return;
 	}
 	if (pi->weight>cansteal) // LB, bugfix, (no weight check)
 	{
-		sysmessage(s, tr("That is too heavy.").latin1());
+		sysmessage(s, tr("That is too heavy.") );
 		return;
 	}
 	
@@ -2143,13 +2143,13 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 
 	if (pc_npc->npcaitype == 17)
 	{
-		sysmessage(s, tr("You cannot steal that.").latin1());
+		sysmessage(s, tr("You cannot steal that.") );
 		return;
 	}
 	
 	if (pc_npc == pc_currchar)
 	{
-		sysmessage(s, tr("You catch yourself red handed.").latin1());
+		sysmessage(s, tr("You catch yourself red handed.") );
 		return;
 	}
 
@@ -2162,13 +2162,13 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 			if (pi_pack == NULL) 
 				return;
 			pi->SetContSerial(pi_pack->serial);
-			sysmessage(s, tr("You successfully steal that item.").latin1());
+			sysmessage(s, tr("You successfully steal that item.") );
 			all_items(s);
-		} else sysmessage(s, tr("You failed to steal that item.").latin1());
+		} else sysmessage(s, tr("You failed to steal that item.") );
 		
 		if (((!(skill))&&(rand()%16==7)) || (pc_currchar->skill[STEALING]<rand()%1001))
 		{
-			sysmessage(s, tr("You have been cought!").latin1());
+			sysmessage(s, tr("You have been cought!") );
 			
 			if (pc_npc != NULL) //lb
 			{
@@ -2182,13 +2182,13 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 			
 				if (pi->name != "#")
 				{
-					sprintf((char*)temp, tr("You notice %1 trying to steal %2 from you!").arg(pc_currchar->name.c_str()).arg(pi->name.c_str()).latin1());
-					sprintf((char*)temp2, tr("You notice %1 trying to steal %2 from %3!").arg(pc_currchar->name.c_str()).arg(pi->name.c_str()).arg(pc_npc->name.c_str()).latin1());
+					sprintf((char*)temp, tr("You notice %1 trying to steal %2 from you!").arg(pc_currchar->name.c_str()).arg(pi->name.c_str()) );
+					sprintf((char*)temp2, tr("You notice %1 trying to steal %2 from %3!").arg(pc_currchar->name.c_str()).arg(pi->name.c_str()).arg(pc_npc->name.c_str()) );
 				} else
 				{
 					Map->SeekTile(pi->id(),&tile);
-					sprintf((char*)temp, tr("You notice %1 trying to steal %2 from you!").arg(pc_currchar->name.c_str()).arg((char*)tile.name).latin1());
-					sprintf((char*)temp2,tr("You notice %1 trying to steal %2 from %3!").arg(pc_currchar->name.c_str()).arg((char*)tile.name).arg(pc_npc->name.c_str()).latin1());
+					sprintf((char*)temp, tr("You notice %1 trying to steal %2 from you!").arg(pc_currchar->name.c_str()).arg((char*)tile.name) );
+					sprintf((char*)temp2,tr("You notice %1 trying to steal %2 from %3!").arg(pc_currchar->name.c_str()).arg((char*)tile.name).arg(pc_npc->name.c_str()) );
 				}
 				sysmessage(s,(char*)temp); //lb
 			}
@@ -2202,7 +2202,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 			}
 
 		}
-	} else sysmessage(s, tr("You are too far away to steal that item.").latin1());
+	} else sysmessage(s, tr("You are too far away to steal that item.") );
 }
 
 void cSkills::BeggingTarget(int s)
@@ -2220,7 +2220,7 @@ void cSkills::BeggingTarget(int s)
 
 	if(online(pc))
 	{
-		sysmessage(s, tr("Maybe you should just ask.").latin1());
+		sysmessage(s, tr("Maybe you should just ask.") );
 		return;
 	}
 
@@ -2228,7 +2228,7 @@ void cSkills::BeggingTarget(int s)
 	{
 		if(chardist(pc, pc_currchar)>=5)
 		{
-			sysmessage(s, tr("You are not close enough to beg.").latin1());
+			sysmessage(s, tr("You are not close enough to beg.") );
 			return;
 		}
 
@@ -2236,13 +2236,13 @@ void cSkills::BeggingTarget(int s)
 		{
 			if (pc->begging_timer>=uiCurrentTime)
 			{
-				npctalk(s,pc, (char*)tr("Annoy someone else !").latin1(), 1);
+				npctalk(s,pc, (char*)tr("Annoy someone else !").latin1() , 1);
 				return;
 			}
 
 			npctalkall(pc_currchar, begging_data.text[rand()%3],0); // npcemoteall?
 			if (!Skills->CheckSkill(pc_currchar,BEGGING, 0, 1000))
-				sysmessage(s, tr("They seem to ignore your begging plees.").latin1());
+				sysmessage(s, tr("They seem to ignore your begging plees.") );
 			else
 			{
 				SetTimerSec(&pc->begging_timer,begging_data.timer); 
@@ -2298,16 +2298,16 @@ void cSkills::BeggingTarget(int s)
 								
 				if (gold<=0)
 				{				
-					npctalk(s,pc, (char*)tr("Thou dost not look trustworthy... no gold for thee today! ").latin1(), 1);
+					npctalk(s,pc, (char*)tr("Thou dost not look trustworthy... no gold for thee today! ").latin1() , 1);
 					return;
 				}
-				npctalkall(pc, (char*)tr("I feel sorry for thee... here have a gold coin .").latin1(),0);
+				npctalkall(pc, (char*)tr("I feel sorry for thee... here have a gold coin .").latin1(), 0);
 				addgold(s,realgold);
-				sysmessage(s, tr("Some gold is placed in your pack.").latin1());
+				sysmessage(s, tr("Some gold is placed in your pack.") );
 			}
 		}
 		else
-			sysmessage(s, tr("That would be foolish.").latin1());
+			sysmessage(s, tr("That would be foolish.") );
 	}
 }
 
@@ -2320,18 +2320,18 @@ void cSkills::AnimalLoreTarget(int s)
 	// blackwind distance fix 
 	if( chardist( pc, pc_currchar ) >= 10 ) 
 	{ 
-		sysmessage( s, tr("You need to be closer to find out more about them" ).latin1()); 
+		sysmessage( s, tr("You need to be closer to find out more about them" ) ); 
 		return; 
 	} 
 
 	if (pc->isGMorCounselor())
 	{
-		sysmessage(s, tr("Little is known of these robed gods.").latin1());
+		sysmessage(s, tr("Little is known of these robed gods.") );
 		return;
 	}
 	if (pc->isHuman()) // Used on human
 	{
-		sysmessage(s, tr("The human race should use dvorak!").latin1());
+		sysmessage(s, tr("The human race should use dvorak!") );
 		return;
 	}
 	else // Lore used on a non-human
@@ -2344,7 +2344,7 @@ void cSkills::AnimalLoreTarget(int s)
 		}
 		else
 		{
-			sysmessage(s, tr("You can not think of anything relevant at this time.").latin1());
+			sysmessage(s, tr("You can not think of anything relevant at this time.") );
 			return;
 		}
 	}
@@ -2358,25 +2358,25 @@ void cSkills::ForensicsTarget(int s) //AntiChrist
 
 	if (!pi || !(pi->corpse))
 	{
-		sysmessage(s, tr("That does not appear to be a corpse.").latin1());
+		sysmessage(s, tr("That does not appear to be a corpse.") );
 		return;
 	}
 	
 	if(pc_currchar->isGM())
 	{
-		sysmessage(s, tr("The %1 is %2 seconds old and the killer was %3.").arg(pi->name.c_str()).arg((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC).arg(pi->murderer.c_str()).latin1());
+		sysmessage(s, tr("The %1 is %2 seconds old and the killer was %3.").arg(pi->name.c_str()).arg((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC).arg(pi->murderer.c_str()) );
 	}
 	else
 	{
 		if (!Skills->CheckSkill(pc_currchar, FORENSICS, 0, 500)) sysmessage(s,"You are not certain about the corpse."); else
 		{
-			if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)<=60) strcpy((char*)temp2, tr("few").latin1());
-			if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)>60) strcpy((char*)temp2, tr("many").latin1());
+			if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)<=60) strcpy((char*)temp2, tr("few") );
+			if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)>60) strcpy((char*)temp2, tr("many") );
 			if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)>180) strcpy((char*)temp2, tr("many many"));
-			sysmessage(s, tr("The %1 is %2 seconds old.").arg(pi->name.c_str()).arg(temp2).latin1());
-			if (!Skills->CheckSkill(pc_currchar, FORENSICS, 500, 1000) || pi->murderer.empty()) sysmessage(s,tr("You can't say who was the killer.").latin1()); else
+			sysmessage(s, tr("The %1 is %2 seconds old.").arg(pi->name.c_str()).arg(temp2) );
+			if (!Skills->CheckSkill(pc_currchar, FORENSICS, 500, 1000) || pi->murderer.empty()) sysmessage(s,tr("You can't say who was the killer.") ); else
 			{
-				sysmessage(s, tr("The killer was %1.").arg(pi->murderer.c_str()).latin1());
+				sysmessage(s, tr("The killer was %1.").arg(pi->murderer.c_str()) );
 			}
 		}
 	}
@@ -2416,12 +2416,12 @@ void cSkills::PoisoningTarget(int s) //AntiChrist
 			//-Frazurbluu-  adding the weapons that may be posioned here..
 			// also need to adjust poisoning damages..
 			if(pi->poisoned<pPoi->morez) pi->poisoned=pPoi->morez;
-			sysmessage(s, tr("You successfully poison that item.").latin1());
+			sysmessage(s, tr("You successfully poison that item.") );
 		} 
 		else
 		{
 			soundeffect2(pc, 0x0247); //poisoning effect
-			sysmessage(s, tr("You fail to apply the poison.").latin1());
+			sysmessage(s, tr("You fail to apply the poison.") );
 		}
 		
 		//empty bottle after poisoning
@@ -2440,7 +2440,7 @@ void cSkills::PoisoningTarget(int s) //AntiChrist
 	}
 	else
 	{
-		sysmessage(s, tr("You can't poison that item.").latin1());
+		sysmessage(s, tr("You can't poison that item.") );
 		return;
 	}
 	pc->poisonserial=0;
@@ -2458,7 +2458,7 @@ void cSkills::PickPocketTarget(int s) // PickPocket dip`s..Ripper
 		soundeffect(s, 0x02, 0x49);
 		// rustling sound..dont know if right but it works :)
 	}else{
-		sysmessage(s, tr("You learn nothing from practicing here").latin1());
+		sysmessage(s, tr("You learn nothing from practicing here") );
 		// if over 30 Stealing..dont learn.
 	}
 }
@@ -2475,7 +2475,7 @@ void cSkills::LockPick(int s)
 			return;
 		if(pi->type==1 || pi->type==12 || pi->type==63) 
 		{
-			sysmessage(s, tr("That is not locked.").latin1());
+			sysmessage(s, tr("That is not locked.") );
 			return;
 		}
 		
@@ -2506,7 +2506,7 @@ void cSkills::LockPick(int s)
 						return;
 					}
 					soundeffect3(pi, 0x01FF);
-					sysmessage(s, tr("You manage to pick the lock.").latin1());
+					sysmessage(s, tr("You manage to pick the lock.") );
 				} else
 					if(Skills->CheckSkill(pc_currchar, LOCKPICKING, 0, 1000))
 					{
@@ -2520,12 +2520,12 @@ void cSkills::LockPick(int s)
 							return;
 						}
 						soundeffect3(pi, 0x0241);
-						sysmessage(s, tr("You manage to pick the lock.").latin1());
+						sysmessage(s, tr("You manage to pick the lock.") );
 					} else
 					{
 						if((rand()%100)>50) 
 						{
-							sysmessage(s, tr("You broke your lockpick!").latin1());
+							sysmessage(s, tr("You broke your lockpick!") );
 							if(piPick->amount>1)
 							{
 								piPick->ReduceAmount(1);
@@ -2562,7 +2562,7 @@ void cSkills::Tinkering(int s)
 				itemmake[s].has = amt = pc_currchar->CountItems(pi->id(), pi->color);
 				if(amt<2)
 				{ 
-					sysmessage(s, tr("You don't have enough ingots to make anything.").latin1());
+					sysmessage(s, tr("You don't have enough ingots to make anything.") );
 					return;
 				}
 				itemmake[s].Mat1id=pi->id();
@@ -2570,7 +2570,7 @@ void cSkills::Tinkering(int s)
 				{
 					if (amt<4)
 					{
-						sysmessage(s, tr("You don't have enough log's to make anything.").latin1());
+						sysmessage(s, tr("You don't have enough log's to make anything.") );
 						return;
 					} 
 					else Skills->MakeMenu(s,70,TINKERING);
@@ -2584,7 +2584,7 @@ void cSkills::Tinkering(int s)
 			return;
 		}
 	}
-	sysmessage(s, tr("You cannot use that material for tinkering.").latin1());
+	sysmessage(s, tr("You cannot use that material for tinkering.") );
 }
 
 //////////////////////////////////
@@ -2638,7 +2638,7 @@ public:
 		const P_ITEM piTarg=FindItemBySerPtr(buffer[s]+7);
 		if (piTarg==NULL || piTarg->isLockedDown())
 		{
-			sysmessage(s, tr("You can't combine these.").latin1());
+			sysmessage(s, tr("You can't combine these."));
 			return;
 		}
 		
@@ -2648,7 +2648,7 @@ public:
 		if ( piTarg->contserial!=pPack->serial
 			|| piClick->contserial!=pPack->serial)
 		{
-			sysmessage(s,tr("You can't use material outside your backpack").latin1());
+			sysmessage(s,tr("You can't use material outside your backpack") );
 			return;
 		}
 		
@@ -2656,14 +2656,14 @@ public:
 		checkPartID( piClick->id() );
 		checkPartID( piTarg->id() );
 		if (!decide())
-			sysmessage(s, tr("You can't combine these.").latin1());
+			sysmessage(s, tr("You can't combine these.") );
 		else
 		{
 			P_CHAR pc_currchar = currchar[s];
 
 			if (pc_currchar->skill[TINKERING]<minskill)
 			{
-				sysmessage(s, tr("You aren't skilled enough to even try that!").latin1());
+				sysmessage(s, tr("You aren't skilled enough to even try that!") );
 				return;
 			}
 			if( !Skills->CheckSkill( pc_currchar, TINKERING, minskill, 1000 ) )
@@ -2675,7 +2675,7 @@ public:
 			}
 			else
 			{
-				sysmessage(s, tr("You combined the parts").latin1());
+				sysmessage(s, tr("You combined the parts") );
 				piClick->ReduceAmount(1);
 				piTarg->ReduceAmount(1);		// delete both parts 
 				createIt(s);						// spawn the item
@@ -2789,7 +2789,7 @@ void cSkills::RepairTarget(UOXSOCKET s)
 
 	if (smithing < 500)
 	{
-		sysmessage(s, tr("* Your not skilled enough to repair items.*").latin1());
+		sysmessage(s, tr("* Your not skilled enough to repair items.*") );
 		return;
 	}
 
@@ -2800,17 +2800,17 @@ void cSkills::RepairTarget(UOXSOCKET s)
 			return;
 		if (!pi->hp)
 		{
-			sysmessage(s, tr(" That item cant be repaired.").latin1());
+			sysmessage(s, tr(" That item cant be repaired.") );
 			return;
 		}
 		if(!AnvilInRange(s))
 		{
-			sysmessage(s,tr(" Must be closer to the anvil.").latin1());;
+			sysmessage(s,tr(" Must be closer to the anvil.") );;
 			return;
 		}
 		if (pi->hp>=pi->maxhp)
 		{
-			sysmessage(s,tr(" That item is at full strength.").latin1());
+			sysmessage(s,tr(" That item is at full strength.") );
 			return;
 		}
 		short dmg=4;	// damage to maxhp
@@ -2822,14 +2822,14 @@ void cSkills::RepairTarget(UOXSOCKET s)
 		{
 			pi->maxhp-=dmg;
 			pi->hp=pi->maxhp;
-			sysmessage(s, tr(" * the item has been repaired.*").latin1());
+			sysmessage(s, tr(" * the item has been repaired.*") );
 		}
 		else
 		{
 			pi->hp-=2;
 			pi->maxhp-=1;
-			sysmessage(s, tr(" * You fail to repair the item. *").latin1());;
-			sysmessage(s, tr(" * You weaken the item.*").latin1());;
+			sysmessage(s, tr(" * You fail to repair the item. *") );;
+			sysmessage(s, tr(" * You weaken the item.*") );;
 		}
 	}
 }
@@ -2855,17 +2855,17 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 
 	if (pi->isLockedDown() || pi->rank!=30 || (pi->smelt < 1 || pi->smelt > 10 ))
 	{
-		sysmessage(s, tr("You cant smelt that item!").latin1());
+		sysmessage(s, tr("You cant smelt that item!") );
 		return;
 	}
 	if(!ForgeInRange(s))
 	{
-		sysmessage(s,tr("Must be closer to the forge.").latin1());
+		sysmessage(s,tr("Must be closer to the forge.") );
 		return;
 	}
 	if(pc->skill[sk]< 300 || ( pc->skill[sk]<500 && pi->smelt!=1 ) )
 	{
-		sysmessage(s, tr("You aren't skilled enough to even try that!").latin1());
+		sysmessage(s, tr("You aren't skilled enough to even try that!") );
 		return;
 	}
 	if (Skills->CheckSkill((pc),sk, 0, 1000))
@@ -2893,7 +2893,7 @@ void cSkills::SmeltItemTarget(UOXSOCKET s)
 		{
 			Ingot->weight = 20;	// that is 0.2 stone
 			RefreshItem(Ingot);
-			sysmessage(s, tr("you smelt the item and place some ingots in your pack.").latin1());
+			sysmessage(s, tr("you smelt the item and place some ingots in your pack.") );
 			Items->DeleItem(pi);
 		}
 	}
