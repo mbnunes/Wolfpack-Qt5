@@ -9,6 +9,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Bench (0x1049) which was crafted was "unusable"
   - fixed bug #0000381 ("potion_keg" and "potionkeg")
   - Set the minimum restock amount of reagents, arrows and bolts to 50.
+  - Fixed the name of sheep.
  * Python Script Changes:
   - Added a follow command.
   - Tinkers can now choose a second material.
@@ -20,7 +21,8 @@ Wolfpack 12.9.14 Beta (SVN)
     the mana.
   - Fixed an issue with the spell Telekinesis
   - Fix for Detecting Hidden
-  - fixed bug #0000380 (potionkeg was not usable with nightsight potion)
+  - Fixed bug #0000380 (potionkeg was not usable with nightsight potion)
+  - Fixed an issue with nuke <baseid> not working if the baseid had two characters.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.

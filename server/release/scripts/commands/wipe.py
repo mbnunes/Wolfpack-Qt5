@@ -119,7 +119,7 @@ def wipeBoundingBox( socket, target1, target2, argstring ):
 	iterator = wolfpack.itemregion( x1, y1, x2, y2, target2.pos.map )
 	item = iterator.first
 	count = 0
-	if( argstring and len(argstring) == 2 ):
+	if( argstring and (type(argstring) == list or type(argstring) == tuple) ):
 		(z, baseid) = argstring
 	else:
 		baseid = argstring
