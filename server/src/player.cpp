@@ -1269,14 +1269,14 @@ void cPlayer::removePet( P_NPC pPet, bool noOwnerChange )
 	}
 }
 
-bool cPlayer::onTradeStart( P_PLAYER partner )
+bool cPlayer::onTradeStart( P_PLAYER partner, P_ITEM firstitem )
 {
 	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_TRADESTART );
 	bool result = false;
 	
 	if( scriptChain || global )
 	{
-		PyObject *args = Py_BuildValue( "(O&O&)", PyGetCharObject, this, PyGetCharObject, partner );
+		PyObject *args = Py_BuildValue( "(O&O&O&)", PyGetCharObject, this, PyGetCharObject, partner, PyGetItemObject, firstitem );
 
 		result = cPythonScript::callChainedEventHandler( EVENT_TRADESTART, scriptChain, args );
 

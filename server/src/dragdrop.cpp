@@ -526,7 +526,7 @@ void DragAndDrop::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar
 	// Open a secure trading window
 	if( pOtherChar->objectType() == enPlayer && dynamic_cast<P_PLAYER>(pOtherChar)->socket() )
 	{
-		dynamic_cast<P_PLAYER>(pChar)->onTradeStart( dynamic_cast<P_PLAYER>(pOtherChar) );
+		dynamic_cast<P_PLAYER>(pChar)->onTradeStart( dynamic_cast<P_PLAYER>(pOtherChar), pItem );
 		// Check if we're already trading, 
 		// if not create a new window
 		/*

@@ -114,7 +114,7 @@ public:
 	bool onUse( P_ITEM pItem );
 	bool onPickup( P_ITEM pItem );
 	bool onTrade( unsigned int type, unsigned int buttonstate, SERIAL itemserial );
-	bool onTradeStart( P_PLAYER partner );
+	bool onTradeStart( P_PLAYER partner, P_ITEM firstitem );
 
 	// getters
     cAccount*			account() const;

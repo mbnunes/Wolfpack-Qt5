@@ -1618,6 +1618,37 @@ static PyObject* wpChar_lightning( wpChar *self, PyObject *args )
 	return PyTrue;
 }
 
+static PyObject* wpChar_additem( wpChar *self, PyObject *args )
+{
+	if( self->pChar->free )
+		return PyFalse;
+
+	if( !checkArgInt( 0 ) && !checkArgItem( 1 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+	bool handleWeight = true;
+	bool noRemove = false;
+
+	if( PyTuple_Size( args ) > 2 && checkArgInt( 2 ) )
+		handleWeight = getArgInt( 2 ) > 0?true:false;
+
+	if( PyTuple_Size( args ) > 2 && checkArgInt( 3 ) )
+		noRemove = getArgInt( 3 ) > 0?true:false;
+
+	int layer = getArgInt( 0 );
+	P_ITEM pItem = getArgItem( 1 );
+	
+	if( !pItem )
+		return PyFalse;
+
+	self->pChar->addItem( (cBaseChar::enLayer)layer, pItem, handleWeight, noRemove );
+
+	return PyTrue;
+}
+
+
 static PyMethodDef wpCharMethods[] = 
 {
 	{ "moveto",			(getattrofunc)wpChar_moveto,			METH_VARARGS, "Moves the character to the specified location." },
@@ -1649,6 +1680,7 @@ static PyMethodDef wpCharMethods[] =
 	{ "canpickup",		(getattrofunc)wpChar_canpickup,			METH_VARARGS, NULL },
 	{ "cansee",			(getattrofunc)wpChar_cansee,			METH_VARARGS, NULL },
 	{ "lightning",		(getattrofunc)wpChar_lightning,			METH_VARARGS, NULL },
+	{ "additem",		(getattrofunc)wpChar_additem,			METH_VARARGS, "Creating item on specified layer."},
 	
 	// Mostly NPC functions
 	{ "attack",			(getattrofunc)wpChar_attack,			METH_VARARGS, "Let's the character attack someone else." },
