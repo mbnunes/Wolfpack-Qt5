@@ -163,6 +163,16 @@ void DragAndDrop::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 			P_ITEM splitItem = new cItem( *pItem ); // Create a new item to pick that up
 			splitItem->setSerial( World::instance()->findItemSerial() );
 			splitItem->setAmount( pItem->amount() - pickedAmount );
+
+			// Add tags to the splitted item
+			QStringList keys = pItem->getTags();
+			QStringList::const_iterator it = keys.begin();
+			while( it != keys.end() )
+			{
+				splitItem->setTag( *it, pItem->getTag( *it ) );
+				it++;
+			}
+
 			P_ITEM pContainer = dynamic_cast<P_ITEM>(pItem->container());
 			if ( pContainer )
 				pContainer->addItem( splitItem, false );
