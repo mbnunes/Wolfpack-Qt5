@@ -2,11 +2,12 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: DarkStorm                      |
-|   )).-' {{ ;'`   | Revised by:                                |
-|  ( (  ;._ \\ ctr | Last Modification: created	                |
+|   )).-' {{ ;'`   | Revised by: Dreoth                         |
+|  ( (  ;._ \\ ctr | Last Modification: Fixes for AoS Support   |
 =================================================================
 -->
 <definitions>
+
 	<!-- Mace Base -->
 	<item id="mace_base">
 		<type>1004</type>
@@ -42,7 +43,7 @@
 		<buyprice>16</buyprice>
 		<attack min="11" max="13" />
 		<durability><random min="30" max="40" /></durability>
-		<speed>40</speed>
+		<speed>44</speed>
 		<weight>14.0</weight>
 		<requires type="str">40</requires>
 		<category>Weapons\Maces\Mace</category>
@@ -78,7 +79,7 @@
 		<buyprice>23</buyprice>
 		<attack min="17" max="18" />
 		<durability><random min="30" max="59" /></durability>
-		<speed>26</speed>
+		<speed>28</speed>
 		<weight>10.0</weight>
 		<requires type="str">95</requires>
 		<category>Weapons\Maces\War Hammer</category>
@@ -120,6 +121,7 @@
 		<category>Weapons\Maces\Hammer Pick</category>
 	</item>
 
+	<!-- Scepter -->
 	<item id="26bc">
 		<inherit id="mace_base" />
 		<name>scepter</name>

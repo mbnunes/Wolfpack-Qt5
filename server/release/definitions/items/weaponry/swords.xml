@@ -2,16 +2,18 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: DarkStorm                      |
-|   )).-' {{ ;'`   | Revised by:                                |
-|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+|   )).-' {{ ;'`   | Revised by: Dreoth                         |
+|  ( (  ;._ \\ ctr | Last Modification: Fixes for AoS Support   |
 =================================================================
 -->
 <definitions>
+
 	<item id="swords_base">
 		<type>1001</type>
 		<events>weapons_blades</events>
 	</item>
 
+	<!-- Broad Sword -->
 	<item id="f5e">
 		<inherit id="swords_base" />
 		<name>broadsword</name>
@@ -47,6 +49,7 @@
 		<category>Weapons\Swords\Longsword 1</category>
 	</item>
 
+	<!-- Scomitar -->
 	<item id="13b6">
 		<inherit id="swords_base" />
 		<name>scimitar</name>
@@ -64,6 +67,7 @@
 		<category>Weapons\Swords\Scimitar</category>
 	</item>
 
+	<!-- Longsword -->
 	<item id="13b8">
 		<inherit id="swords_base" />
 		<name>longsword</name>
@@ -73,7 +77,7 @@
 		<nodye />
 		<sellprice>12</sellprice>
 		<buyprice>25</buyprice>
-		<attack min="14" max="15" />
+		<attack min="15" max="16" />
 		<durability><random min="30" max="53" /></durability>
 		<speed>30</speed>
 		<weight>1.0</weight>
@@ -81,6 +85,7 @@
 		<category>Weapons\Swords\Longsword 2</category>
 	</item>
 
+	<!-- Viking Sword -->
 	<item id="13b9">
 		<inherit id="swords_base" />
 		<name>viking sword</name>
@@ -98,6 +103,7 @@
 		<category>Weapons\Swords\Viking Sword (N/S)</category>
 	</item>
 
+	<!-- Katana -->
 	<item id="13ff">
 		<inherit id="swords_base" />
 		<name>katana</name>
@@ -129,7 +135,7 @@
 		<durability><random min="30" max="60" /></durability>
 		<speed>25</speed>
 		<weight>16.0</weight>
-		<requires type="str">90</requires>
+		<requires type="str">95</requires>
 		<category>Weapons\Swords\Halberd</category>
 	</item>
 
@@ -226,7 +232,7 @@
 	<!-- Pickaxe -->
 	<item id="e86">
 		<inherit id="swords_base" />
-		<name>broadsword</name>
+		<name>pickaxe</name>
 		<id>0xe86</id>
 		<onehanded />
 		<decay />
@@ -240,7 +246,7 @@
 		<requires type="str">50</requires>
 		<category>Weapons\Swords\Pickaxe</category>
 		<category>Professions\Miner\Pickaxe (N/S)</category>
-		</item>
+	</item>
 
 	<!-- Bone Harvester -->
 	<item id="26bb">
@@ -258,7 +264,7 @@
 		<weight>5.0</weight>
 		<requires type="str">25</requires>
 		<category>Weapons\Swords\Bone Harvester</category>
-		</item>
+	</item>
 
 	<!-- Crescent Blade-->
 	<item id="26c1">
@@ -270,13 +276,13 @@
 		<nodye />
 		<sellprice>20</sellprice>
 		<buyprice>41</buyprice>
-		<attack min="13" max="15" />
+		<attack min="11" max="14" />
 		<durability><random min="30" max="75" /></durability>
-		<speed>35</speed>
+		<speed>47</speed>
 		<weight>8.0</weight>
 		<requires type="str">55</requires>
 		<category>Weapons\Swords\Crescent Blade</category>
-		</item>
+	</item>
 
 	<!-- Scythe -->
 	<item id="26ba">
@@ -294,7 +300,7 @@
 		<weight>10.0</weight>
 		<requires type="str">45</requires>
 		<category>Weapons\Swords\Scythe</category>
-		</item>
+	</item>
 
 	<!-- Bladed Staff -->
 	<item id="26bd">
@@ -312,5 +318,5 @@
 		<weight>12.0</weight>
 		<requires type="str">40</requires>
 		<category>Weapons\Swords\Bladed Staff</category>
-		</item>
+	</item>
 </definitions>

@@ -2,11 +2,12 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: sereg                          |
-|   )).-' {{ ;'`   | Revised by:                                |
-|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+|   )).-' {{ ;'`   | Revised by: Dreoth                         |
+|  ( (  ;._ \\ ctr | Last Modification: Fixes for AoS Support   |
 =================================================================
 -->
 <definitions>
+
 	<item id="fencing_base">
 		<events>weapons_blades</events>
 		<type>1005</type>
@@ -24,12 +25,13 @@
 		<buyprice>21</buyprice>
 		<attack min="10" max="11" />
 		<durability><random min="30" max="39" /></durability>
-		<speed>56</speed>
+		<speed>49</speed>
 		<weight>1.0</weight>
 		<requires type="str">10</requires>
 		<category>Weapons\Fencing\Dagger</category>
 	</item>
 
+	<!-- Kryss -->
 	<item id="1401">
 		<inherit id="fencing_base" />
 		<name>kryss</name>
@@ -47,6 +49,7 @@
 		<category>Weapons\Fencing\Kryss</category>
 	</item>
 
+	<!-- Pitchfork -->
 	<item id="e87">
 		<inherit id="fencing_base" />
 		<name>pitchfork</name>
@@ -64,6 +67,7 @@
 		<category>Weapons\Fencing\Pitchfork</category>
 	</item>
 
+	<!-- Double Bladed Staff -->
 	<item id="26bf">
 		<inherit id="fencing_base" />
 		<name>double bladed staff</name>
@@ -81,6 +85,7 @@
 		<category>Weapons\Fencing\Double Bladed Staff</category>
 	</item>
 
+	<!-- Lance -->
 	<item id="26c0">
 		<inherit id="fencing_base" />
 		<name>lance</name>
@@ -98,6 +103,7 @@
 		<category>Weapons\Fencing\Lance</category>
 	</item>
 
+	<!-- Pike -->
 	<item id="26be">
 		<inherit id="fencing_base" />
 		<name>pike</name>
@@ -115,6 +121,7 @@
 		<category>Weapons\Fencing\Pike</category>
 	</item>
 
+	<!-- Short Spear -->
 	<item id="1403">
 		<inherit id="fencing_base" />
 		<name>short spear</name>
@@ -132,6 +139,7 @@
 		<category>Weapons\Fencing\Short Spear</category>
 	</item>
 
+	<!-- Spear -->
 	<item id="f62">
 		<inherit id="fencing_base" />
 		<name>spear</name>
@@ -147,6 +155,24 @@
 		<weight>7.0</weight>
 		<requires type="str">50</requires>
 		<category>Weapons\Fencing\Spear</category>
+	</item>
+
+	<!-- War Fork -->
+	<item id="f51">
+		<inherit id="fencing_base" />
+		<name>war fork</name>
+		<id>0x1404</id>
+		<onehanded />
+		<decay />
+		<nodye />
+		<sellprice>13</sellprice>
+		<buyprice>27</buyprice>
+		<attack min="12" max="13" />
+		<durability><random min="30" max="39" /></durability>
+		<speed>43</speed>
+		<weight>1.0</weight>
+		<requires type="str">35</requires>
+		<category>Weapons\Fencing\War Fork</category>
 	</item>
 
 </definitions>

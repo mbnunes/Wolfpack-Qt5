@@ -2,11 +2,12 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: sereg                          |
-|   )).-' {{ ;'`   | Revised by:                                |
-|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+|   )).-' {{ ;'`   | Revised by: Dreoth                         |
+|  ( (  ;._ \\ ctr | Last Modification: ixes for AoS Support    |
 =================================================================
 -->
 <definitions>
+
 	<!-- Staff Base -->
 	<item id="staff_base">
 		<type>1003</type>
@@ -64,10 +65,10 @@
 		<category>Weapons\Staves\Grarled Staff</category>
 	</item>
 
-	<!-- Crook -->
+	<!-- Shepherd's Crook -->
 	<item id="13f4">
 		<inherit id="staff_base" />
-		<name>crook</name>
+		<name>shepherd's crook</name>
 		<id>0x13f4</id>
 		<decay />
 		<nodye />

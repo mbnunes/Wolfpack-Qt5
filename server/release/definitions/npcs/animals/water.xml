@@ -3,16 +3,16 @@
 	<!-- Dolphin -->
 	<npc id="dolphin">
 		<name>dolphin</name>
-                <ai>Animal_Wild</ai>
+		<ai>Animal_Wild</ai>
 		<id>0x0097</id>
 		<category>Animals\Water\dolphin</category>
 		<skin>0</skin>
 		<inherit id="animal_base" />
 		<karma>2000</karma>
 		<fame>500</fame>
-		<defense><random min="5" max="10" /></defense>
+		<defense><random min="15" max="20" /></defense>
 		<lodamage>3</lodamage>
-		<hidamage>6</hidamage>
+		<hidamage>8</hidamage>
 		<!-- Stats -->
 		<str><random min="21" max="49" /></str>
 		<dex><random min="66" max="85" /></dex>

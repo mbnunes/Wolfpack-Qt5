@@ -2,13 +2,13 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: sereg	                        |
-|   )).-' {{ ;'`   | Revised by: Viper                          |
-|  ( (  ;._ \\ ctr | Last Modification: Modified to AoS         |
+|   )).-' {{ ;'`   | Revised by: Viper, Dreoth                  |
+|  ( (  ;._ \\ ctr | Last Modification: Fixes for AoS Support   |
 =================================================================
 -->
 <definitions>
-	<!-- Two Handed Axe -->
 
+	<!-- Two Handed Axe -->
 	<item id="1443">
 		<id>0x1443</id>
 		<name>two handed axe</name>
@@ -23,7 +23,7 @@
 		<weight>8.0</weight>
 		<requires type="str">40</requires>
 		<category>Weapons\Axes\Two Handed Axe</category>
-		<type>1002</type>		
+		<type>1002</type>
 	</item>
 
 	<!-- Large Battle Axe -->
@@ -44,6 +44,7 @@
 		<type>1002</type>
 	</item>
 
+	<!-- War Axe -->
 	<item id="13b0">
 		<id>0x13b0</id>
 		<name>war axe</name>
@@ -97,7 +98,6 @@
 		<type>1002</type>
 	</item>
 
-	
 	<!-- Battle Axe -->
 	<item id="f47">
 		<id>0x0f47</id>
@@ -147,7 +147,7 @@
 		<durability><random min="50" max="95" /></durability>
 		<speed>33</speed>
 		<weight>3.0</weight>
-		<requires type="str">35</requires>
+		<requires type="str">45</requires>
 		<type>1002</type>
 		<category>Weapons\Axes\Double Axe</category>
 	</item>

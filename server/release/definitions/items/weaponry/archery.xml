@@ -2,11 +2,12 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: sereg	                        |
-|   )).-' {{ ;'`   | Revised by: 	                        |
-|  ( (  ;._ \\ ctr | Last Modification: created	                |
+|   )).-' {{ ;'`   | Revised by: Dreoth                         |
+|  ( (  ;._ \\ ctr | Last Modification: Fixes for AoS Support   |
 =================================================================
 -->
 <definitions>
+
 	<!-- Bow right -->
 	<item id="13b2">
 		<id>0x13b2</id>
@@ -63,6 +64,7 @@
 		<category>Weapons\Bows\Heavy Crossbow</category>
 	</item>
 
+	<!-- Composite Bow -->
 	<item id="26c2">
 		<name>composite bow</name>
 		<bindmenu id="item_menu"/>
@@ -81,6 +83,7 @@
 		<category>Weapons\Bows\Composite Bow</category>
 	</item>
 
+	<!-- Repeating Crossbow -->
 	<item id="26c3">
 		<name>repeating crossbow</name>
 		<bindmenu id="item_menu"/>
@@ -94,7 +97,7 @@
 		<durability><random min="30" max="49" /></durability>
 		<speed>41</speed>
 		<weight>7.0</weight>
-		<requires type="str">80</requires>
+		<requires type="str">30</requires>
 		<type>1007</type>
 		<category>Weapons\Bows\Repeating Crossbow</category>
 	</item>
