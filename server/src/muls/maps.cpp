@@ -695,10 +695,7 @@ StaticsIterator::StaticsIterator( ushort x, ushort y, MapsPrivate* d, bool exact
 void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exact )
 {
 	uint indexPos = ( baseX * mapRecord->height + baseY ) * 12;
-	assert( indexPos < 0x8000000 ); // dam, breaks our assumption
-	Q_UINT32 cachePos = ((baseY & 0xFFFF) << 16) | (baseX & 0xFFFF);
-
-	QValueVector<staticrecord>* p = mapRecord->staticsCache.find(cachePos);
+	QValueVector<staticrecord>* p = mapRecord->staticsCache.find(indexPos);
 
 	// The block is not cached yet.
 	if (!p) {
@@ -742,19 +739,20 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 			staticStream >> r.yoff;
 			staticStream >> r.zoff;
 			staticStream >> r.color;
-			if (exact) {
-				if ( r.xoff == remainX && r.yoff == remainY )
-					staticArray.push_back( r );
-			} else {
-				staticArray.push_back( r );
-			}
+			staticArray.push_back( r );
 		}
 
 		// update cache;
 		QValueVector<staticrecord>* temp = new QValueVector<staticrecord>( staticArray );
-		if ( !mapRecord->staticsCache.insert( cachePos, temp ) )
+		if ( !mapRecord->staticsCache.insert( indexPos, temp ) ) {
 			delete temp;
-	} else {
+			p = 0;
+		} else {
+			p = temp;
+		}
+	}
+	
+	if (p) {
 		if (exact) {
 			// Copy only the ones we need
 			const uint remainX = x % 8;

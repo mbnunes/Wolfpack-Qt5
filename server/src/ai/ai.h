@@ -53,7 +53,7 @@ class AbstractAI;
 
 // Export this for other AI functions
 bool invalidTarget( P_NPC npc, P_CHAR victim, int dist = -1 );
-bool validTarget( P_NPC npc, P_CHAR victim, int dist = -1 );
+bool validTarget( P_NPC npc, P_CHAR victim, int dist = -1, bool lineOfSight = false );
 
 class AbstractAction
 {

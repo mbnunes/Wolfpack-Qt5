@@ -80,11 +80,15 @@ bool invalidTarget( P_NPC npc, P_CHAR victim, int dist )
 }
 
 // Is this a valid target?
-bool validTarget( P_NPC npc, P_CHAR victim, int dist )
+bool validTarget( P_NPC npc, P_CHAR victim, int dist, bool lineOfSight )
 {
 	if ( invalidTarget( npc, victim, dist ) )
 	{
 		return false;
+	}
+
+	if ( lineOfSight && !npc->lineOfSight(victim)) {
+		return true;
 	}
 
 	bool result = true;
@@ -121,7 +125,7 @@ P_CHAR findBestTarget( P_NPC npc )
 		{
 			// See if it's a target we want
 			unsigned int dist = npc->dist( victim );
-			if ( dist < distance && validTarget( npc, victim, dist ) )
+			if ( dist < distance && validTarget( npc, victim, dist, false ) )
 			{
 				target = victim;
 				distance = dist;
@@ -144,7 +148,7 @@ P_CHAR findBestTarget( P_NPC npc )
 			{
 				// See if it's a target we want
 				unsigned int dist = npc->dist( victim );
-				if ( dist < distance && validTarget( npc, victim, dist ) )
+				if ( dist < distance && validTarget( npc, victim, dist, true ) )
 				{
 					target = victim;
 					distance = dist;
@@ -154,7 +158,7 @@ P_CHAR findBestTarget( P_NPC npc )
 			{
 				// See if it's a target we want
 				unsigned int dist = npc->dist( npcVictim );
-				if ( dist < distance && validTarget( npc, npcVictim, dist ) )
+				if ( dist < distance && validTarget( npc, npcVictim, dist, true ) )
 				{
 					target = npcVictim;
 					distance = dist;
