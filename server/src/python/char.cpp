@@ -28,10 +28,7 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-#include "utilities.h"
-#include "skills.h"
-#include "content.h"
-#include "tempeffect.h"
+#include "engine.h"
 
 #include "../territories.h"
 #include "../skills.h"
@@ -46,7 +43,12 @@
 #include "../basechar.h"
 #include "../player.h"
 #include "../singleton.h"
+
+#include "utilities.h"
+#include "content.h"
+#include "tempeffect.h"
 #include "objectcache.h"
+#include "skills.h"
 
 /*!
 	Struct for WP Python Chars
@@ -656,7 +658,7 @@ static PyObject* wpChar_gettag( wpChar* self, PyObject* args )
 	cVariant value = self->pChar->getTag( key );
 
 	if( value.type() == cVariant::String )
-		return PyUnicode_FromWideChar((Py_UNICODE*)value.toString().ucs2(), value.toString().length());
+		return PyUnicode_FromUnicode((Py_UNICODE*)value.toString().ucs2(), value.toString().length());
 	else if( value.type() == cVariant::Int )
 		return PyInt_FromLong( value.asInt() );
 	else if( value.type() == cVariant::Double )
@@ -1936,7 +1938,7 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 				if( result.toString().isNull() )
 					obj = PyUnicode_FromWideChar(L"", 0);
 				else
-					obj = PyUnicode_FromWideChar((Py_UNICODE*)result.toString().ucs2(), result.toString().length() );
+					obj = PyUnicode_FromUnicode((Py_UNICODE*)result.toString().ucs2(), result.toString().length() );
 				break;
 			case cVariant::Double:
 				obj = PyFloat_FromDouble( result.toDouble() );
