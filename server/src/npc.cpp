@@ -352,11 +352,17 @@ void cNPC::talk( const QString &message, UI16 color, UINT8 type, bool autospam, 
 	}
 }
 
-void cNPC::talk( const UINT32 MsgID, const QString& params /*= 0*/, UI16 color /*= 0xFFFF*/, cUOSocket* socket /*= 0*/ )
+void cNPC::talk( const UINT32 MsgID, const QString& params /*= 0*/, const QString& affix /*= 0*/, bool prepend /*= false*/, UI16 color /*= 0xFFFF*/, cUOSocket* socket /*= 0*/ )
 {
+	if ( color == 0xFFFF )
+		color = saycolor_;
+	
 	if ( socket )
 	{
-		socket->clilocMessage( MsgID, params, color, 3, this );
+		if ( affix.isEmpty() )
+			socket->clilocMessage( MsgID, params, color, 3, this );
+		else
+			socket->clilocMessageAffix( MsgID, params, affix, color, 3, this, false, prepend );
 	}
 	else
 	{
@@ -365,7 +371,10 @@ void cNPC::talk( const UINT32 MsgID, const QString& params /*= 0*/, UI16 color /
 		{
 			if( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
 			{
-				mSock->clilocMessage( MsgID, params, color, 3, this );
+				if ( affix.isEmpty() )
+					mSock->clilocMessage( MsgID, params, color, 3, this );
+				else
+					mSock->clilocMessageAffix( MsgID, params, affix, color, 3, this, false, prepend );
 			}
 		}
 	}

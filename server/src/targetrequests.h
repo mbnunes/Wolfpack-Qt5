@@ -51,7 +51,7 @@ class cAddItemTarget: public cTargetRequest
 	QString item_;
 	bool nodecay;
 public:
-	cAddItemTarget( const QString &item, bool _nodecay = false ) : nodecay( _nodecay ), item_(item) {}
+	cAddItemTarget( const QString &item, bool _nodecay = false ) : item_(item), nodecay( _nodecay ) {}
 	bool responsed( cUOSocket *socket, cUORxTarget *target );
 };
 
@@ -69,7 +69,11 @@ class cBuildMultiTarget: public cTargetRequest
 	SERIAL	deedserial_;
 	SERIAL	senderserial_;
 public:
-	cBuildMultiTarget( const QString &multisection, SERIAL senderserial, SERIAL deedserial ) { multisection_ = multisection; senderserial_ = senderserial; deedserial_ = deedserial; };
+	cBuildMultiTarget( const QString &multisection, SERIAL senderserial, SERIAL deedserial ) : 
+	  multisection_(multisection), deedserial_(deedserial), senderserial_(senderserial) 
+	{
+
+	}
 	bool responsed( cUOSocket *socket, cUORxTarget *target );
 };
 

@@ -562,24 +562,21 @@ static PyObject* wpChar_say( wpChar* self, PyObject* args )
 		if ( !npc )
 			return PyFalse;
 
-		if( !checkArgInt( 0 ) )
-		{
-			PyErr_BadArgument();
-			return 0;
-		}
+		uint id;
+		char *clilocargs = 0;
+		char *affix = 0;
+		char prepend;
+		uint color = self->pChar->saycolor();
 
-		ushort color = -1;
-		uint cliloc = getArgInt( 0 );
-	
-		if( checkArgInt( 1 ) )
-			color = getArgInt( 1 );
-	
-		npc->talk( cliloc, 0, 1 );
+		if( !PyArg_ParseTuple( args, "i|ssbi:char.say( clilocid, [args], [affix], [prepend], [color] )", &id, &clilocargs, &affix, &prepend, &color ) )
+			return 0;		
+
+		npc->talk( id, clilocargs, affix, prepend, color );
 		return PyTrue;
 	}
 	else
 	{
-		INT16 color = -1;
+		ushort color = self->pChar->saycolor();
 		
 		if( checkArgInt( 1 ) )
 			color = getArgInt( 1 );

@@ -58,13 +58,13 @@ public:
 	
 	
 	cContextMenuEntry( ushort cliloc, ushort scriptTag, ushort color = 0, bool checkvisible = false, bool checkenabled = false ) : 
-	cliloc_( cliloc ), scriptTag_(scriptTag), flags_ ( 0 ), color_(0), checkvisible_(checkvisible_), checkenabled_(checkenabled)
+	cliloc_( cliloc ), flags_ ( 0 ), color_(0), scriptTag_(scriptTag), checkvisible_(checkvisible_), checkenabled_(checkenabled)
 	{
 		flags_ |= ( color_ & 0xFFFF ) ? 32 : 0;
 	}
 	
 	bool isEnabled() const	{ return !(flags_ & 0x0001); }
-	bool setEnabled( bool enable )
+	void setEnabled( bool enable )
 	{
 		flags_ = enable ? flags_ & ~0x0001 : flags_ | 0x0001;
 	}
