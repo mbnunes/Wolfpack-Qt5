@@ -17,16 +17,13 @@
 		<title>The First Wolfpack 13.0.0 Book</title>
 		<author>sereg</author>
 		<content>
-			<page no="1">
-well, i do not expect the line
-breaks to work :))
+<page no="1">well, i do not expect the 
+linebreaks to work :))
 
-but...
-			</page>
-			<page no="2">
-...this one should be on the second page!
-			</page>
-			
+but...</page>
+<page no="2">...this one should be on
+the second page!</page>
 		</content>
+		<type>11</type>
 	</item>
 </definition>
