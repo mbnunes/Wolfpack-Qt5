@@ -446,6 +446,13 @@ static char *eventNames[] =
 	*/
 	"onDetach",
 
+	/*
+		\event onTimeChange
+		\param player The player.
+		\condition This event is called for every connected client once an ingame hour has elapsed.
+	*/
+	"onTimeChange",
+
 	0
 };
 

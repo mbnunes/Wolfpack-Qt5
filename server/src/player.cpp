@@ -1541,11 +1541,18 @@ void cPlayer::poll(unsigned int time, unsigned int events) {
 
 	// Process an environmental light change if we're not in a cave.
 	if (socket_) {
-		cTerritory *region = AllTerritories::instance()->region(pos());
-		if(!region || !region->isCave()) {
-			socket_->updateLightLevel();
+		if (events & EventLight) {
+			cTerritory *region = AllTerritories::instance()->region(pos());
+			if(!region || !region->isCave()) {
+				socket_->updateLightLevel();
+			}
+		}
+
+		if (events & EventTime) {
+			if (cPythonScript::canChainHandleEvent(EVENT_TIMECHANGE, scriptChain)) {
+				PyObject *args = Py_BuildValue("(N)", getPyObject());
+				cPythonScript::callChainedEventHandler(EVENT_TIMECHANGE, scriptChain, args);
+			}
 		}
 	}
 }
-
-

@@ -106,6 +106,7 @@ void cTiming::poll() {
 
 	// Check lightlevel and time
 	if (nextUOTimeTick <= time) {
+		unsigned char oldhour = uoTime.time().hour();
 		uoTime = uoTime.addSecs(60);
 		nextUOTimeTick = time + SrvParams->secondsPerUOMinute() * MY_CLOCKS_PER_SEC;
 
@@ -116,6 +117,10 @@ void cTiming::poll() {
 		unsigned char brightlevel = SrvParams->worldBrightLevel();
 		unsigned char difference = QMAX(0, (int)darklevel - (int)brightlevel); // Never get below zero
 		unsigned char hour = uoTime.time().hour();
+
+		if (hour != oldhour) {
+			events |= cBaseChar::EventTime;
+		}
 
 		// 11 to 18 = Day
 		if (hour >= 11 && hour < 18) {

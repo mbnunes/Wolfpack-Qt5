@@ -118,6 +118,7 @@ public:
 	enum TimingEvents {
 		EventCombat = 0x01,
 		EventLight = 0x02,
+		EventTime = 0x04,
 	};
 
 	/*!
