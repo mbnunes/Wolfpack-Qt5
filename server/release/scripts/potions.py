@@ -399,20 +399,18 @@ def healPotion( char, potion, healtype ):
 			char.updatehealth()
 		return False
 
-	if not char.hastag( "heal_pot_timer" ):
-		char.settag( "heal_pot_timer", (wolfpack.time.currenttime() + HEAL_POT_DELAY) )
-
 	# Compare
-	elapsed = int( char.gettag( "heal_pot_timer" ) )
-	if elapsed > wolfpack.time.currenttime():
-		# Broken Timer
-		if wolfpack.time.currenttime() - elapsed > HEAL_POT_DELAY:
-			char.deltag('heal_pot_timer')
-		else:		
-			socket.clilocmessage( 500235 ) # You must wait 10 seconds before using another healing potion.
-			return False
+	if socket.hastag('heal_pot_timer'):
+		elapsed = int( socket.gettag( "heal_pot_timer" ) )
+		if elapsed > wolfpack.time.currenttime():
+			# Broken Timer
+			if wolfpack.time.currenttime() - elapsed > HEAL_POT_DELAY:
+				socket.deltag('heal_pot_timer')
+			else:		
+				socket.clilocmessage( 500235 ) # You must wait 10 seconds before using another healing potion.
+				return False
 
-	char.settag( "heal_pot_timer", wolfpack.time.currenttime() + HEAL_POT_DELAY)
+	socket.settag( "heal_pot_timer", wolfpack.time.currenttime() + HEAL_POT_DELAY)
 	amount = 0
 
 	# Lesser Heal

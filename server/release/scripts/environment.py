@@ -209,7 +209,7 @@ def dyingtub( char, item ):
 def dyingtub_response( char, args, target ):
 	dyetub = wolfpack.finditem( args[0] )
 
-	if not dyetub or not char.canreach( dyetub, 2 ):
+	if not dyetub or (not char.canreach( dyetub, 2 ) and dyetub.getoutmostchar() != char):
 		char.message( localemsg( 6 ) )
 		return
 
