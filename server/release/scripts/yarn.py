@@ -61,15 +61,8 @@ def response( char, args, target ):
 				target.item.settag( 'amount', amount + 1 )
 		
 		else:
-			target.item.delete()
-	
-		else:
 			target.item.settag( 'amount', 0 )
 			item_new = wolfpack.additem( "f9a" )
 			if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 				item_new.update()
 			char.socket.clilocmessage( 0x7A290 ) # You create some cloth and put it in your backpack.
-
-	else:
-		char.socket.clilocmessage( 0x7A28F ) # Try using that on a loom.
-		return
