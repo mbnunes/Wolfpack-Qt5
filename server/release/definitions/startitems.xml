@@ -14,4 +14,13 @@
 		<!--  candle --><item id="a0f"></item>
 		<!--  book --><item id="ff1"></item>
 	</startitems>	
+	
+	<!--  Itemid -->
+	<startitems id="itemid">
+	        <inherit id="default" />
+	        <!--Gnarled Staff --><equipment id="13f9"></equipment>
+	        <!--Random Potions--><item><inherit><random list="POTIONS" /></inherit></item>
+	        <!--Random Potions--><item><inherit><random list="POTIONS" /></inherit></item>
+	        <!--Random Potions--><item><inherit><random list="POTIONS" /></inherit></item>
+	</startitems>	
 </definitions>

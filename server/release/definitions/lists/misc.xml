@@ -86,4 +86,15 @@
 		<item>0x47c</item>
 		<item>0x47d</item>
 	</list>
+	
+	<!-- IDs of Potions -->
+	<list id="POTIONS">
+		<item>f06</item>
+		<item>f07</item>
+		<item>f08</item>
+		<item>f09</item>
+		<item>f0a</item>
+		<item>f0b</item>
+		<item>f0c</item>
+	</list>	
 </definitions>

@@ -2830,44 +2830,80 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 		{
 			if( node.nodeName() == "item" )
 			{
-				P_ITEM pItem = Items->createScriptItem( node.attribute( "id" ) );
+				P_ITEM pItem = Items->MemItemFree();
+				pItem->Init( true );
+				cItemsManager::getInstance()->registerItem( pItem );
 
 				if( pItem )
 				{
+					QDomElement *DefSection = DefManager->getSection( WPDT_ITEM, node.attribute( "id" ) );
+					if( DefSection && !DefSection->isNull() )
+						pItem->applyDefinition( *DefSection );
+
 					pItem->applyDefinition( node );
-					// Put it into the backpack
-					P_ITEM backpack = getBackpack();
-					if( backpack )
-						backpack->AddItem( pItem );
-					else
+
+					if( pItem->id() <= 1 )
 						Items->DeleItem( pItem );
+					else
+					{
+						// Put it into the backpack
+						P_ITEM backpack = getBackpack();
+						if( backpack )
+							backpack->AddItem( pItem );
+						else
+							Items->DeleItem( pItem );
+					}
 				}
 			}
 			else if( node.nodeName() == "bankitem" )
 			{
-				P_ITEM pItem = Items->createScriptItem( node.attribute( "id" ) );
+				P_ITEM pItem = Items->MemItemFree();
+				pItem->Init( true );
+				cItemsManager::getInstance()->registerItem( pItem );
 
 				if( pItem )
 				{
+					QDomElement *DefSection = DefManager->getSection( WPDT_ITEM, node.attribute( "id" ) );
+					if( DefSection && !DefSection->isNull() )
+						pItem->applyDefinition( *DefSection );
+
 					pItem->applyDefinition( node );
-					// Put it into the bankbox
-					P_ITEM bankbox = getBankBox();
-					if( bankbox )
-						bankbox->AddItem( pItem );
-					else
+
+					if( pItem->id() <= 1 )
 						Items->DeleItem( pItem );
+					else
+					{
+						// Put it into the bankbox
+						P_ITEM bankbox = getBankBox();
+						if( bankbox )
+							bankbox->AddItem( pItem );
+						else
+							Items->DeleItem( pItem );
+					}
 				}
 			}
 			else if( node.nodeName() == "equipment" )
 			{
-				P_ITEM pItem = Items->createScriptItem( node.attribute( "id" ) );
+				P_ITEM pItem = Items->MemItemFree();
+				pItem->Init( true );
+				cItemsManager::getInstance()->registerItem( pItem );
 
 				if( pItem )
 				{
+					QDomElement *DefSection = DefManager->getSection( WPDT_ITEM, node.attribute( "id" ) );
+					if( DefSection && !DefSection->isNull() )
+						pItem->applyDefinition( *DefSection );
+
 					pItem->applyDefinition( node );
-					// Put it onto the char
-					pItem->setContSerial( serial );
-					giveItemBonus( pItem );
+
+					if( pItem->id() <= 1 )
+						Items->DeleItem( pItem );
+					else
+					{
+						// Put it onto the char
+						pItem->setContSerial( serial );
+						giveItemBonus( pItem );
+					}
 				}
 			}
 			else if( node.nodeName() == "gold" )
