@@ -1147,7 +1147,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 							 ( pc->pos.z <= ( mapitem->pos.z + 5 ) ) )
 // Thyme END
 						{
-							if (!Magic->CheckResist(-1, DEREF_P_CHAR(pc), 4))
+							if (!Magic->CheckResist(NULL, pc, 4))
 							{                                               
 								Magic->MagicDamage(pc, mapitem->morex/300);
 							}
@@ -1159,7 +1159,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 					{//Poison field
 						if ((mapitem->pos.x == newx) && (mapitem->pos.y == newy) && (mapitem->pos.z==pc->pos.z))
 						{
-							if (!Magic->CheckResist(-1, DEREF_P_CHAR(pc), 5))
+							if (!Magic->CheckResist(NULL, pc, 5))
 							{                                               
 								Magic->PoisonDamage(DEREF_P_CHAR(pc),1);
 							}
@@ -1171,7 +1171,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 					{//Para Field
 						if ((mapitem->pos.x == newx) && (mapitem->pos.y == newy) && (mapitem->pos.z==pc->pos.z))
 						{
-							if (!Magic->CheckResist(-1, DEREF_P_CHAR(pc), 6))
+							if (!Magic->CheckResist(NULL, pc, 6))
 							{
 								tempeffect(pc, pc, 1, 0, 0, 0);
 							}

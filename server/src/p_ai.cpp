@@ -172,7 +172,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 							if (pc->priv2&0x20)
 							{
 								npctalkall(pc_i, "An Ort", 0);
-								Magic->NPCDispel(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
+								Magic->NPCDispel(pc_i, pc);
 							}
 						}
 						npcattacktarget(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc));
@@ -536,24 +536,24 @@ void cCharStuff::cDragonAI::HarmMagic(int i, int currenttime, P_CHAR pc)
 		switch (RandomNum(0, 5))
 		{
 			case 0:	
-				Magic->NPCEBoltTarget(i, DEREF_P_CHAR(pc));
+				Magic->EnergyBoltSpell(pc_i, pc);
 				break;
 			case 1:	
-				Magic->NPCFlameStrikeTarget(i, DEREF_P_CHAR(pc));
+				Magic->FlameStrikeSpell(pc_i, pc);
 				break;
 			case 2:	
-				Magic->ParalyzeSpell(i, DEREF_P_CHAR(pc));
+				Magic->ParalyzeSpell(pc_i, pc);
 				break;
 			case 3:	
-				Magic->NPCLightningTarget(i, DEREF_P_CHAR(pc));
+				Magic->LightningSpell(pc_i, pc);
 				break;
 			case 4:	
-				Magic->ParalyzeSpell(i, DEREF_P_CHAR(pc));
+				Magic->ParalyzeSpell(pc_i, pc);
 				break;
 			case 5: 
 				if (pc->priv2&0x20)
 				{
-					Magic->NPCDispel(i, DEREF_P_CHAR(pc));
+					Magic->NPCDispel(pc_i, pc);
 				} 
 				break;
 		}

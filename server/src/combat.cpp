@@ -63,7 +63,7 @@ int cCombat::GetBowType(int c)
 	return 0;
 }
 
-void cCombat::ItemCastSpell(UOXSOCKET s, CHARACTER c, P_ITEM pi)//S=Socket c=Char # Target i=Item //Itemid
+void cCombat::ItemCastSpell(UOXSOCKET s, P_CHAR pc, P_ITEM pi)//S=Socket c=Char # Target i=Item //Itemid
 {
 	if(!pi) return;
 	P_CHAR pc_currchar = currchar[s];
@@ -78,19 +78,19 @@ void cCombat::ItemCastSpell(UOXSOCKET s, CHARACTER c, P_ITEM pi)//S=Socket c=Cha
 	
 	switch(spellnum)
 	{
-	case 1: Magic->ClumsySpell(DEREF_P_CHAR(pc_currchar),c); break; //LB
-	case 3: Magic->FeebleMindSpell(DEREF_P_CHAR(pc_currchar),c); break; //LB
-	case 5:	Magic->MagicArrow(DEREF_P_CHAR(pc_currchar),c);		break; // lB
-	case 8: Magic->WeakenSpell(DEREF_P_CHAR(pc_currchar),c); break; //LB
-	case 18: Magic->FireballSpell(DEREF_P_CHAR(pc_currchar),c); break; //LB
-	case 22: Magic->HarmSpell(DEREF_P_CHAR(pc_currchar),c); break; //LB
-	case 27: Magic->CurseSpell(DEREF_P_CHAR(pc_currchar),c); break; //LB
-	case 30: Magic->NPCLightningTarget(DEREF_P_CHAR(pc_currchar),c); break; //lb
-	case 37: Magic->MindBlastSpell(DEREF_P_CHAR(pc_currchar),c); break;
-	case 38: Magic->ParalyzeSpell(DEREF_P_CHAR(pc_currchar),c);	break; //lb
-	case 42: Magic->NPCEBoltTarget(DEREF_P_CHAR(pc_currchar),c); break;
-	case 43: Magic->ExplosionSpell(DEREF_P_CHAR(pc_currchar),c); break;
-	case 51: Magic->NPCFlameStrikeTarget(DEREF_P_CHAR(pc_currchar),c); break;
+	case 1:  Magic->ClumsySpell(pc_currchar,pc); break; //LB
+	case 3:  Magic->FeebleMindSpell(pc_currchar,pc); break; //LB
+	case 5:	 Magic->MagicArrow(pc_currchar,pc);		break; // lB
+	case 8:  Magic->WeakenSpell(pc_currchar,pc); break; //LB
+	case 18: Magic->FireballSpell(pc_currchar,pc); break; //LB
+	case 22: Magic->HarmSpell(pc_currchar,pc); break; //LB
+	case 27: Magic->CurseSpell(pc_currchar,pc); break; //LB
+	case 30: Magic->LightningSpell(pc_currchar,pc); break; //lb
+	case 37: Magic->MindBlastSpell(pc_currchar,pc); break;
+	case 38: Magic->ParalyzeSpell(pc_currchar,pc);	break; //lb
+	case 42: Magic->EnergyBoltSpell(pc_currchar,pc); break;
+	case 43: Magic->ExplosionSpell(pc_currchar,pc); break;
+	case 51: Magic->FlameStrikeSpell(pc_currchar,pc); break;
 	default:
 		staticeffect(pc_currchar, 0x37, 0x35, 0, 30);
 		soundeffect2(DEREF_P_CHAR(pc_currchar), 0x00, 0x5C);
@@ -412,7 +412,7 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 			// End Armour Absorbtion by Magius(CHE) (See alse reactive armour spell damage)
 
 			if (pc_attacker->isPlayer())//Zippy
-				ItemCastSpell(s1,DEREF_P_CHAR(pc_deffender),pWeapon);
+				ItemCastSpell(s1, pc_deffender,pWeapon);
 
 			//AntiChrist - 26/10/99
 			//when hitten and damage >1, defender fails if casting a spell!
@@ -540,91 +540,91 @@ static void NpcSpellAttack(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int 
 					if (pc_attacker->mn>=4)
 					{
 						npcaction(DEREF_P_CHAR(pc_attacker), 6);
-						Magic->MagicArrow(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender));
+						Magic->MagicArrow(pc_attacker, pc_defender);
 					}
 					break; 
 				case 2:
 					if (pc_attacker->mn>=6)
 					{
 						npcaction(DEREF_P_CHAR(pc_attacker), 6);
-						Magic->HarmSpell(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender));
+						Magic->HarmSpell(pc_attacker, pc_defender);
 					}
 					break; //lb
 				case 3:
 					if (pc_attacker->mn>=4)
 					{
 						npcaction(DEREF_P_CHAR(pc_attacker), 6);
-						Magic->ClumsySpell(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender));										
+						Magic->ClumsySpell(pc_attacker, pc_defender);										
 					}
 					break; //LB
 				case 4:
 					if (pc_attacker->mn>=4)
 					{
 						npcaction(DEREF_P_CHAR(pc_attacker), 6);
-						Magic->FeebleMindSpell(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender));
+						Magic->FeebleMindSpell(pc_attacker, pc_defender);
 					}
 					break; //LB
 				case 5:
 					if (pc_attacker->mn>=4)
 					{
 						npcaction(DEREF_P_CHAR(pc_attacker), 6);
-						Magic->WeakenSpell(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender));
+						Magic->WeakenSpell(pc_attacker, pc_defender);
 					}
 					break; //LB
 				case 6:
 					if (pc_attacker->mn>=9)
 					{
 						npcaction(DEREF_P_CHAR(pc_attacker), 6);
-						Magic->FireballSpell(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender));
+						Magic->FireballSpell(pc_attacker, pc_defender);
 					}
 					break; //LB
 				case 7:
 					if (pc_attacker->mn>=11)
 					{
 						npcaction(DEREF_P_CHAR(pc_attacker), 6);
-						Magic->CurseSpell(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender));
+						Magic->CurseSpell(pc_attacker, pc_defender);
 					}
 					break; //LB
 				case 8:
 					if (pc_attacker->mn>=11)
 					{
 						npcaction(DEREF_P_CHAR(pc_attacker), 6);
-						Magic->NPCLightningTarget(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender));
+						Magic->LightningSpell(pc_attacker, pc_defender);
 					}
 					break; //lb
 				case 9:
 					if (pc_attacker->mn>=14)
 					{
 						npcaction(DEREF_P_CHAR(pc_attacker), 6);
-						Magic->ParalyzeSpell(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender));
+						Magic->ParalyzeSpell(pc_attacker, pc_defender);
 					}
 					break; //lb
 				case 10:
 					if (pc_attacker->mn>=14)
 					{
 						npcaction(DEREF_P_CHAR(pc_attacker), 6);
-						Magic->MindBlastSpell(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender));
+						Magic->MindBlastSpell(pc_attacker, pc_defender);
 					}
 					break;
 				case 11:
 					if (pc_attacker->mn>=20)
 					{
 						npcaction(DEREF_P_CHAR(pc_attacker), 6);
-						Magic->NPCEBoltTarget(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender));
+						Magic->EnergyBoltSpell(pc_attacker, pc_defender);
 					}
 					break;
 				case 12:
 					if (pc_attacker->mn>=20)
 					{
 						npcaction(DEREF_P_CHAR(pc_attacker), 6);
-						Magic->ExplosionSpell(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender));
+						Magic->ExplosionSpell(pc_attacker, pc_defender);
 					}
 					break;
 				case 13:
 					if (pc_attacker->mn>=40)
 					{
 						npcaction(DEREF_P_CHAR(pc_attacker), 6);
-						Magic->NPCFlameStrikeTarget(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender));
+						Magic->FlameStrikeSpell(pc_attacker, pc_defender);
 					}
 					break;
 				case 14:
@@ -1268,18 +1268,18 @@ void cCombat::ItemSpell(cChar* Attacker, cChar* Defender)
 				int defender = DEREF_P_CHAR(Defender);
 				switch(pi->offspell)
 				{
-				case 1:	Magic->ClumsySpell(attaker,defender, false);		break;
-				case 2:	Magic->FeebleMindSpell(attaker, defender, false);	break;
-				case 3:	Magic->MagicArrow(attaker,defender, false);			break;
-				case 4:	Magic->WeakenSpell(attaker,defender, false);		break;
-				case 5:	Magic->HarmSpell(attaker,defender, false);			break;
-				case 6:	Magic->FireballSpell(attaker,defender, false);		break;
-				case 8:	Magic->CurseSpell(attaker,defender, false);			break;
-				case 9:	Magic->LightningSpellItem(attaker,defender);		break;
-				case 11:Magic->MindBlastSpell(attaker,defender, false);		break;
-				case 12:Magic->ParalyzeSpell(attaker,defender, false);		break;
-				case 14:Magic->ExplosionSpell(attaker,defender, false);		break;
-				case 15:Magic->FlameStrikeSpellItem(attaker,defender);		break;
+				case 1:	Magic->ClumsySpell(Attacker,Defender, false);		break;
+				case 2:	Magic->FeebleMindSpell(Attacker, Defender, false);	break;
+				case 3:	Magic->MagicArrow(Attacker,Defender, false);			break;
+				case 4:	Magic->WeakenSpell(Attacker,Defender, false);		break;
+				case 5:	Magic->HarmSpell(Attacker,Defender, false);			break;
+				case 6:	Magic->FireballSpell(Attacker,Defender, false);		break;
+				case 8:	Magic->CurseSpell(Attacker,Defender, false);			break;
+				case 9:	Magic->LightningSpell(Attacker,Defender, false);		break;
+				case 11:Magic->MindBlastSpell(Attacker,Defender, false);		break;
+				case 12:Magic->ParalyzeSpell(Attacker,Defender, false);		break;
+				case 14:Magic->ExplosionSpell(Attacker,Defender, false);		break;
+				case 15:Magic->FlameStrikeSpell(Attacker, Defender, false);		break;
 				default:
 					LogErrorVar("invalid offspell value %i",pi->offspell);
 				}

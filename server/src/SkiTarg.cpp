@@ -2413,14 +2413,15 @@ void cSkills::PoisoningTarget(int s) //AntiChrist
 		}
 		if(success)
 		{
-			soundeffect2(DEREF_P_CHAR(pc), 0x02, 0x47); //poisoning effect
+			soundeffect2(pc, 0x0247); //poisoning effect
 			//-Frazurbluu-  adding the weapons that may be posioned here..
 			// also need to adjust poisoning damages..
 			if(pi->poisoned<pPoi->morez) pi->poisoned=pPoi->morez;
 			sysmessage(s,"You successfully poison that item.");
-		} else
+		} 
+		else
 		{
-			soundeffect2(DEREF_P_CHAR(pc), 0x02, 0x47); //poisoning effect
+			soundeffect2(pc, 0x0247); //poisoning effect
 			sysmessage(s,"You fail to apply the poison.");
 		}
 		

@@ -58,7 +58,7 @@ public:
 class cCombat
 {
 private:
-	void ItemCastSpell(UOXSOCKET s, CHARACTER c, P_ITEM pi);
+	void ItemCastSpell(UOXSOCKET s, P_CHAR pc, P_ITEM pi);
 	int TimerOk(int c);
 	void ItemSpell(cChar* Attacker, cChar* Defender);
 	void doSoundEffect(CHARACTER p, int fightskill, P_ITEM pWeapon);//AntiChrist
@@ -241,7 +241,7 @@ public:
 class cMagic
 {
 public:
-	char CheckResist(CHARACTER attacker, CHARACTER defender, int circle);
+	char CheckResist(P_CHAR attacker, P_CHAR defender, int circle);
 	void PoisonDamage(CHARACTER p, int poison);
 	void CheckFieldEffects2(unsigned int currenttime, CHARACTER c,char timecheck);
 	int InitSpells( void );
@@ -278,26 +278,24 @@ public:
 	void NewCastSpell( UOXSOCKET s );
 	void SbOpenContainer(int s);
 	void PFireballTarget(int i, int k, int j);
-	void NPCLightningTarget(int nAttacker, int nDefender);
-	void NPCEBoltTarget(int s, int t);
+	void LightningSpell(P_CHAR pc_Attacker, P_CHAR pc_Defender, bool usemana = true);
+	void EnergyBoltSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana = true);
 	void NPCHeal(int s);
 	void NPCCure(int s);
-	void NPCDispel(int s, int i);
+	void NPCDispel(P_CHAR pc_s, P_CHAR pc_i);
 	void NPCCannonTarget(int s, int t);
 	char CheckParry(int player, int circle);
-	void NPCFlameStrikeTarget(int s, int t);
-	void MagicArrow(int attacker, int defender, bool usemana = true);
-	void ClumsySpell(int attacker, int defender, bool usemana = true);
-	void FeebleMindSpell(int attacker, int defender, bool usemana = true);
-	void WeakenSpell(int attacker, int defender, bool usemana = true);
-	void HarmSpell(int attacker, int defender, bool usemana = true);
-	void FireballSpell(CHARACTER attacker, CHARACTER defender, bool usemana = true);
-	void CurseSpell(int attacker, int defender, bool usemana = true);
-	void LightningSpellItem(int attacker, int defender);
-	void MindBlastSpell(int attacker, int defender, bool usemana = true);
-	void ParalyzeSpell(int attacker, int defender, bool usenama = true);
-	void ExplosionSpell(int attacker, int defender, bool usemana = true);
-	void FlameStrikeSpellItem(int attacker, int defender);
+	void MagicArrow(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana = true);
+	void ClumsySpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana = true);
+	void FeebleMindSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana = true);
+	void WeakenSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana = true);
+	void HarmSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana = true);
+	void FireballSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana = true);
+	void CurseSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana = true);
+	void MindBlastSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana = true);
+	void ParalyzeSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usenama = true);
+	void ExplosionSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana = true);
+	void FlameStrikeSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana = true);
 	bool CheckBook(int circle, int spell, P_ITEM pi);
 	char CheckReagents(int s, reag_st reagents);
 
