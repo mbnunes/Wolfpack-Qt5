@@ -1855,8 +1855,8 @@ void cAllMakeMenus::load()
 				QDomElement defSection = *DefManager->getSection( WPDT_ITEM, (*it) );
 				if( !defSection.isNull() )
 				{
-					QString category	= (char*)0;
-					QString description = (char*)0;
+					QStringList category;
+					QString description;
 					UINT16 model = 0;
 
 					QDomNode childNode = defSection.firstChild();
@@ -1867,7 +1867,7 @@ void cAllMakeMenus::load()
 							QDomElement childTag = childNode.toElement();
 							if( childTag.nodeName() == "category" )
 							{
-								category = childTag.text();
+								category.push_back( childTag.text() );
 							}
 							else if( childTag.nodeName() == "description" )
 							{
@@ -1879,7 +1879,7 @@ void cAllMakeMenus::load()
 							}
 							else if( childTag.nodeName() == "inherit" )
 							{
-								QString section = (char*)0;
+								QString section;
 								if( childTag.hasAttribute( "id" ) )
 									section = childTag.attribute( "id" );
 								else
@@ -1896,54 +1896,58 @@ void cAllMakeMenus::load()
 
 					description += "\nDef.-section: "+(*it);
 					
-					if( !category.isNull() && !category.isEmpty() )
+					if( !category.isEmpty() )
 					{
-						cMakeMenu* currentBaseMenu = pItemMenu;
-
-						QStringList categorization = QStringList::split( "\\", category );
-						QStringList::const_iterator cit = categorization.begin();
-						while( cit != categorization.end() )
+						QStringList::const_iterator catIt = category.begin();
+						for ( ; catIt != category.end(); ++catIt )
 						{
-							QString current = (*cit);
-							++cit;
-							if( cit != categorization.end() )
+							cMakeMenu* currentBaseMenu = pItemMenu;
+							
+							QStringList categorization = QStringList::split( "\\", *catIt );
+							QStringList::const_iterator cit = categorization.begin();
+							while( cit != categorization.end() )
 							{
-								bool menuExists = false;
-								cMakeMenu::SubMenuContainer submenus = currentBaseMenu->subMenus();
-								cMakeMenu::SubMenuContainer::const_iterator sit = submenus.begin();
-								while( sit != submenus.end() )
+								QString current = (*cit);
+								++cit;
+								if( cit != categorization.end() )
 								{
-									if( (*sit)->name() == current )
+									bool menuExists = false;
+									cMakeMenu::SubMenuContainer submenus = currentBaseMenu->subMenus();
+									cMakeMenu::SubMenuContainer::const_iterator sit = submenus.begin();
+									while( sit != submenus.end() )
 									{
-										menuExists = true;
-										currentBaseMenu = (*sit);
-										break;
+										if( (*sit)->name() == current )
+										{
+											menuExists = true;
+											currentBaseMenu = (*sit);
+											break;
+										}
+										++sit;
 									}
-									++sit;
-								}
-
-								if( !menuExists )
-								{
-									// generate submenu, set current basemenu and continue
-									cMakeMenu* pNewMenu = new cMakeMenu( current, currentBaseMenu );
-									currentBaseMenu->addSubMenu( pNewMenu );
-									currentBaseMenu = pNewMenu;
-								}
-							}
-							else // last item means name
-							{
-								// generate cMakeAction object for the item definition...
-								cMakeAction* pItem = new cMakeAction( current, model, description, cMakeAction::CUSTOM_SECTIONS, currentBaseMenu );
-								if( pItem )
-								{
-									currentBaseMenu->addAction( pItem );
-									cMakeCustomSection* pMakeSection = new cMakeCustomSection( "", pItem );
-									if( pMakeSection )
+	
+									if( !menuExists )
 									{
-										pItem->appendSection( pMakeSection );
-										cMakeItem* pMakeItem = new cMakeItem( "", (*it), 1 );
-										if( pMakeItem )
-											pMakeSection->appendMakeItem( pMakeItem );
+										// generate submenu, set current basemenu and continue
+										cMakeMenu* pNewMenu = new cMakeMenu( current, currentBaseMenu );
+										currentBaseMenu->addSubMenu( pNewMenu );
+										currentBaseMenu = pNewMenu;
+									}
+								}
+								else // last item means name
+								{
+									// generate cMakeAction object for the item definition...
+									cMakeAction* pItem = new cMakeAction( current, model, description, cMakeAction::CUSTOM_SECTIONS, currentBaseMenu );
+									if( pItem )
+									{
+										currentBaseMenu->addAction( pItem );
+										cMakeCustomSection* pMakeSection = new cMakeCustomSection( "", pItem );
+										if( pMakeSection )
+										{
+											pItem->appendSection( pMakeSection );
+											cMakeItem* pMakeItem = new cMakeItem( "", (*it), 1 );
+											if( pMakeItem )
+												pMakeSection->appendMakeItem( pMakeItem );
+										}
 									}
 								}
 							}
@@ -1968,8 +1972,8 @@ void cAllMakeMenus::load()
 				QDomElement defSection = *DefManager->getSection( WPDT_NPC, (*it) );
 				if( !defSection.isNull() )
 				{
-					QString category	= (char*)0;
-					QString description = (char*)0;
+					QStringList category;
+					QString description;
 					UINT16 model = 0;
 
 					QDomNode childNode = defSection.firstChild();
@@ -1980,7 +1984,7 @@ void cAllMakeMenus::load()
 							QDomElement childTag = childNode.toElement();
 							if( childTag.nodeName() == "category" )
 							{
-								category = childTag.text();
+								category.push_back( childTag.text() );
 							}
 							else if( childTag.nodeName() == "description" )
 							{
@@ -2009,52 +2013,56 @@ void cAllMakeMenus::load()
 					
 					description += "\nDef.-section: "+(*it);
 
-					if( !category.isNull() && !category.isEmpty() )
+					if( !category.isEmpty() )
 					{
-						cMakeMenu* currentBaseMenu = pNpcMenu;
-
-						QStringList categorization = QStringList::split( "\\", category );
-						QStringList::const_iterator cit = categorization.begin();
-						while( cit != categorization.end() )
+						QStringList::const_iterator catIt = category.begin();
+						for ( ; catIt != category.end(); ++catIt )
 						{
-							QString current = (*cit);
-							++cit;
-							if( cit != categorization.end() )
+							cMakeMenu* currentBaseMenu = pNpcMenu;
+		
+							QStringList categorization = QStringList::split( "\\", *catIt );
+							QStringList::const_iterator cit = categorization.begin();
+							while( cit != categorization.end() )
 							{
-								bool menuExists = false;
-								cMakeMenu::SubMenuContainer submenus = currentBaseMenu->subMenus();
-								cMakeMenu::SubMenuContainer::const_iterator sit = submenus.begin();
-								while( sit != submenus.end() )
+								QString current = (*cit);
+								++cit;
+								if( cit != categorization.end() )
 								{
-									if( (*sit)->name() == current )
+									bool menuExists = false;
+									cMakeMenu::SubMenuContainer submenus = currentBaseMenu->subMenus();
+									cMakeMenu::SubMenuContainer::const_iterator sit = submenus.begin();
+									while( sit != submenus.end() )
 									{
-										menuExists = true;
-										currentBaseMenu = (*sit);
-										break;
+										if( (*sit)->name() == current )
+										{
+											menuExists = true;
+											currentBaseMenu = (*sit);
+											break;
+										}
+											++sit;
 									}
-									++sit;
-								}
-
-								if( !menuExists )
-								{
-									// generate submenu, set current basemenu and continue
-									cMakeMenu* pNewMenu = new cMakeMenu( current, currentBaseMenu );
-									currentBaseMenu->addSubMenu( pNewMenu );
-									currentBaseMenu = pNewMenu;
-								}
-							}
-							else // last item means name
-							{
-								// generate cMakeAction object for the npc definition...
-								cMakeAction* pNpc = new cMakeAction( current, creatures[model].icon, description, cMakeAction::NPC_SECTION, currentBaseMenu );
-								if( pNpc )
-								{
-									currentBaseMenu->addAction( pNpc );
-									cMakeNpcSection* pMakeSection = new cMakeNpcSection( "", pNpc );
-									if( pMakeSection )
+	
+									if( !menuExists )
 									{
-										pNpc->appendSection( pMakeSection );
-										pMakeSection->setNpcProperties( current, (*it) );
+										// generate submenu, set current basemenu and continue
+										cMakeMenu* pNewMenu = new cMakeMenu( current, currentBaseMenu );
+										currentBaseMenu->addSubMenu( pNewMenu );
+										currentBaseMenu = pNewMenu;
+									}
+								}	
+								else // last item means name
+								{
+									// generate cMakeAction object for the npc definition...
+									cMakeAction* pNpc = new cMakeAction( current, creatures[model].icon, description, cMakeAction::NPC_SECTION, currentBaseMenu );
+									if( pNpc )
+									{
+										currentBaseMenu->addAction( pNpc );
+										cMakeNpcSection* pMakeSection = new cMakeNpcSection( "", pNpc );
+										if( pMakeSection )
+										{
+											pNpc->appendSection( pMakeSection );
+											pMakeSection->setNpcProperties( current, (*it) );
+										}
 									}
 								}
 							}
