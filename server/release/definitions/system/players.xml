@@ -4,10 +4,10 @@
 -->
 <definitions>
 	<npc id="player_male">
-		<events>system.regionchange</events>
+		<events>system.regionchange,system.hunger</events>
 	</npc>
 
 	<npc id="player_female">
-		<events>system.regionchange</events>
+		<events>system.regionchange,system.hunger</events>
 	</npc>
 </definitions>
