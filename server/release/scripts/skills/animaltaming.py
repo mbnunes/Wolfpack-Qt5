@@ -143,7 +143,7 @@ def callback( char, args ):
 	if not totame:
 		return
 
-	if not char:
+	if not char.socket:
 		return
 
 	# tamer dead : 502796

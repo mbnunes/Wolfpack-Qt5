@@ -78,7 +78,7 @@ def response( char, args, target ):
 
 	# if target him/her self : standard (regional) mode
 	# anyone including npcs can re-target and start fight
-	peace_range = musicianship.bard_range( char )
+	peace_range = skills.musicianship.bard_range( char )
 	if char == target.char:
 		result = char.checkskill( MUSICIANSHIP, 0, 1000 )
 		musicianship.play_instrument( char, instrument, result )

@@ -83,7 +83,7 @@ def response2( char, args, target ):
 	minimum = int( ( ( tobardtarget1 + tobardtarget2 ) / 2.0 ) - 25.0 )
 	maximum = int( ( ( tobardtarget1 + tobardtarget2 ) / 2.0 ) + 25.0 )
 
-	if target.char.socket or target.char.priv & 0x04:
+	if target.char.socket or target.char.gm:
 		socket.clilocmessage( 0xF463A, "", 0x3b2, 3 ) # You cannot perform negative acts on your target.
 		return False
 

@@ -175,7 +175,7 @@ def statmodifier_raw(target, stat, curse, percent, duration):
 		target.updatehealth()
 
 		target.addtimer(duration, statmodifier_expire, [0, amount1], \
-			1, 1, "magic_statmodifier_0", "magic.utilities.statmodifier_dispel")
+			1, 1, "magic_statmodifier_0", statmodifier_dispel)
 
 	if stat == 1 or stat == 3:
 		target.dispel(None, 0, "magic_statmodifier_1", ["silent"])
@@ -187,7 +187,7 @@ def statmodifier_raw(target, stat, curse, percent, duration):
 		target.stamina = min(target.stamina, target.maxstamina)
 
 		target.addtimer(duration, statmodifier_expire, [1, amount2], \
-			1, 1, "magic_statmodifier_1", "magic.utilities.statmodifier_dispel")
+			1, 1, "magic_statmodifier_1", statmodifier_dispel)
 
 	if stat == 2 or stat == 3:
 		target.dispel(None, 0, "magic_statmodifier_2", ["silent"])
@@ -199,7 +199,7 @@ def statmodifier_raw(target, stat, curse, percent, duration):
 		target.mana = min(target.mana, target.maxmana)
 
 		target.addtimer(duration, statmodifier_expire, [2, amount3], \
-			1, 1, "magic_statmodifier_2", "magic.utilities.statmodifier_dispel")
+			1, 1, "magic_statmodifier_2", statmodifier_dispel)
 
 	target.updatestats()
 
