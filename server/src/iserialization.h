@@ -59,6 +59,7 @@ protected:
 	_enState _state;
 public:
 	ISerialization() : _state(enClosed) {}
+	virtual ~ISerialization(){}
 
 	virtual void prepareReading(std::string ident) { _state = enReading; }
 	virtual void prepareWritting(std::string ident) { _state = enWritting; }

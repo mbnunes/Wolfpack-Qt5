@@ -2367,7 +2367,7 @@ void cSkills::ForensicsTarget(int s) //AntiChrist
 	
 	if(pc_currchar->isGM())
 	{
-		sprintf((char*)temp,"The %s is %i seconds old and the killer was %s.", pi->name.c_str(), (curtim-pi->murdertime)/MY_CLOCKS_PER_SEC, pi->murderer);
+		sprintf((char*)temp,"The %s is %i seconds old and the killer was %s.", pi->name.c_str(), (curtim-pi->murdertime)/MY_CLOCKS_PER_SEC, pi->murderer.c_str());
 		sysmessage(s, (char*)temp);
 	}
 	else
@@ -2381,7 +2381,7 @@ void cSkills::ForensicsTarget(int s) //AntiChrist
 			sysmessage(s,(char*)temp);
 			if (!Skills->CheckSkill(pc_currchar, FORENSICS, 500, 1000) || pi->murderer.empty()) sysmessage(s,"You can't say who was the killer."); else
 			{
-				sprintf((char*)temp,"The killer was %s.",pi->murderer);
+				sprintf((char*)temp,"The killer was %s.",pi->murderer.c_str());
 				sysmessage(s,(char*)temp);
 			}
 		}

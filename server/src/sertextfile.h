@@ -54,8 +54,8 @@ protected:
 	std::fstream file;
 	unsigned int _version;
 public:
-
 	serTextFile() : _version(0) {}
+	virtual ~serTextFile() {}
 
 	virtual void prepareReading(std::string ident);
 	virtual void prepareWritting(std::string ident);

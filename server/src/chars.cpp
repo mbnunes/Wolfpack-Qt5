@@ -901,7 +901,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("allmove",		priv2);
 		archive.write("font",			fonttype);
 		archive.write("say",			saycolor);
-		archive.write("emote", unsigned short((emotecolor1<<8)+emotecolor2));
+		archive.write("emote", static_cast<unsigned short>((emotecolor1<<8)+emotecolor2));
 		archive.write("strength",		st);
 		archive.write("strength2",		st2);
 		archive.write("dexterity",		dx);

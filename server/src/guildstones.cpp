@@ -210,7 +210,7 @@ void cGuilds::Menu(int s, int page)
 
 		if (guildmaster<0) return;
 
-		lentext = sprintf(mygump[0], "%s (%s %s)", guilds[guildnumber].name, guildmaster->guildtitle, guildmaster->name.c_str());
+		lentext = sprintf(mygump[0], "%s (%s %s)", guilds[guildnumber].name, guildmaster->guildtitle.c_str(), guildmaster->name.c_str());
 		strcpy(mygump[1],"Recruit someone into the guild.");
 		strcpy(mygump[2],"View the current roster.");
 		strcpy(mygump[3],"View the guild's charter.");
@@ -224,7 +224,7 @@ void cGuilds::Menu(int s, int page)
 			gumpnum=10;
 			gmprefix[7]=8000>>8;
 			gmprefix[8]=8000%256;
-			sprintf(mygump[8],"Access %s functions.", guildmaster->guildtitle);
+			sprintf(mygump[8],"Access %s functions.", guildmaster->guildtitle.c_str());
 			sprintf(mygump[9],"View list of guild that %s has declared war on.",guilds[guildnumber].name);
 			sprintf(mygump[10],"View list of guilds that have declared war on %s.",guilds[guildnumber].name);
 		} else {													// Normal Members access!
@@ -234,7 +234,7 @@ void cGuilds::Menu(int s, int page)
 		break;
 	case 2:														// guildmaster menu
 		gumpnum=14;
-		lentext = sprintf(mygump[0], "%s, %s functions", guilds[guildnumber].name, guildmaster->guildtitle);
+		lentext = sprintf(mygump[0], "%s, %s functions", guilds[guildnumber].name, guildmaster->guildtitle.c_str());
 		strcpy(mygump[1], "Set the guild name.");
 		strcpy(mygump[2], "Set the guild's abbreviation.");
 		sprintf(mygump[3], "Change the type of the guild. (Currently a%s guild.)",guildt);

@@ -1519,7 +1519,7 @@ void singleclick(UOXSOCKET s)
 			if (pc_j->npcaitype == 17)
 			{
 				if (pi->creator.size() > 0 && pi->madewith>0)
-					sprintf((char*)temp2, "%s %s by %s", pi->desc, skill[pi->madewith - 1].madeword, pi->creator.c_str()); 
+					sprintf((char*)temp2, "%s %s by %s", pi->desc.c_str(), skill[pi->madewith - 1].madeword, pi->creator.c_str()); 
 				else
 					strcpy((char*)temp2, pi->desc.c_str()); // LB bugfix
 				
