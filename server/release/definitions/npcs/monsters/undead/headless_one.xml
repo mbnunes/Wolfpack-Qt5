@@ -9,7 +9,7 @@
 <definitions>
 
 	<npc id="headless" inherit="undead_base">
-		<inherit id="undead_loot_small" />
+		<lootlist>poor</lootlist>
 		<name>a headless one</name>
 		<id>0x1f</id>
 		<karma>-450</karma>

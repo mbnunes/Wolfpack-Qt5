@@ -27,7 +27,21 @@ from types import *
 	\return Integer
 	\description Rolls some dice and returns a result.
 """
-def rolldice(dice, sides, bonus=0):
+def rolldice(dice, sides=6, bonus=0):
+	# Try parsing the dice
+	if type(dice) == str:
+		text = dice
+		(dice, sides) = text.split('d')
+		dice = int(dice)
+		if '+' in sides:
+			(sides, bonus) = sides.split('+')
+			bonus = int(bonus)
+			sides = int(sides)
+		elif '-' in sides:
+			(sides, bonus) = sides.split('-')
+			bonus = - int(bonus)
+			sides = int(sides)
+
 	result = 0
 	for i in range(0, dice):
 		result += random.randint(1, sides)

@@ -70,31 +70,31 @@ def sextant( char, item ):
 	return 1
 
 def drum( char, item ):
-	if char.checkskill( MUSICIANSHIP, 0, 1000 ):
-		char.soundeffect( 0x38 )
+	if char.checkskill(MUSICIANSHIP, 0, 1000):
+		char.soundeffect(0x38)
 	else:
-		char.soundeffect( 0x39 )
+		char.soundeffect(0x39)
 	return 1
 
 def tambourine( char, item ):
-	if char.checkskill( MUSICIANSHIP, 0, 1000 ):
-		char.soundeffect( 0x52 )
+	if char.checkskill(MUSICIANSHIP, 0, 1000):
+		char.soundeffect(0x52)
 	else:
-		char.soundeffect( 0x53 )
+		char.soundeffect(0x53)
 	return 1
 
-def harp( char, item ):
-	if char.checkskill( MUSICIANSHIP, 0, 1000 ):
-		char.soundeffect( 0x45 )
+def harp(char, item):
+	if char.checkskill(MUSICIANSHIP, 0, 1000):
+		char.soundeffect(0x45)
 	else:
-		char.soundeffect( 0x46 )
+		char.soundeffect(0x46)
 	return 1
 		
-def lute( char, item ):
-	if char.checkskill( MUSICIANSHIP, 0, 1000 ):
-		char.soundeffect( 0x4c )
+def lute(char, item):
+	if char.checkskill(MUSICIANSHIP, 0, 1000):
+		char.soundeffect(0x4c)
 	else:
-		char.soundeffect( 0x4d )
+		char.soundeffect(0x4d)
 	return 1
 
 hairdye_groups = 	[
