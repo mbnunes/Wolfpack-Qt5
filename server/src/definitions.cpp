@@ -197,11 +197,6 @@ public:
 			return true;
 		}
 
-		if( qName == "acl" )
-		{
-			int i = 0;
-		}
-
 		// Include another file
 		if( qName == "include" )
 		{
