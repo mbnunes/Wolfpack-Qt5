@@ -265,6 +265,7 @@ void cMaps::load()
 	registerMap( 1, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul" );
 	registerMap( 2, "map2.mul", 288, 200, "statics2.mul", "staidx2.mul" );
 	registerMap( 3, "map3.mul", 320, 256, "statics3.mul", "staidx3.mul" );
+	registerMap( 4, "map4.mul", 181, 181, "statics4.mul", "staidx4.mul" );
 
 	cComponent::load();
 }

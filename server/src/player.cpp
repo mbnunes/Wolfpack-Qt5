@@ -1745,6 +1745,23 @@ void cPlayer::remove()
 		guild_->removeMember( this );
 	}
 
+	// Remove the owner tag from all of our followers
+	CharContainer::iterator it;
+	for (it = pets_.begin(); it != pets_.end(); ++it) {
+		P_NPC npc = dynamic_cast<P_NPC>((*it));
+
+		if (npc && npc->owner() == this) {
+			npc->setOwner(NULL, true);
+			npc->setTamed(false);
+
+			// Remove his stabled NPCs.
+			if (npc->stablemasterSerial() != INVALID_SERIAL) {
+				npc->remove();
+			}
+		}
+	}
+	pets_.clear();
+
 	cBaseChar::remove();
 }
 

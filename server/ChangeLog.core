@@ -18,6 +18,9 @@ Wolfpack 12.9.11 Beta (CVS)
 	- Fixed bug #0000309. (Console in web administration caused endless loop)
 	- Completely rewrote line of sight.
 	- Fixed a crashbug related to trying to remove basescripts from objects.
+	- Fixed a crasbhug related to players being removed and the owner property of their
+	  pets not being reset.
+	- Added support for the Samurai Empire map.
 
 Wolfpack 12.9.10 Beta (10. September 2004)
 	- Made the maximum number of controlled pets a dynamic property for players.

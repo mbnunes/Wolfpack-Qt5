@@ -304,6 +304,7 @@ void cSectorMaps::load()
 	addMap( 1, 6144, 4096 );
 	addMap( 2, 2304, 1600 );
 	addMap( 3, 2560, 2048 );
+	addMap( 4, 1448, 1448 );
 
 	cComponent::load();
 }
