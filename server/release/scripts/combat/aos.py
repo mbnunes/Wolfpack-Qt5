@@ -6,8 +6,7 @@ from wolfpack.utilities import consumeresources, tobackpack, energydamage
 import combat.utilities
 import random
 from math import floor, ceil
-
-DEBUG = 0 # Turn off to turn off debug messages
+from system.debugging import DEBUG_COMBAT_INFO
 
 #
 # Check if a certain chance can be met using the skill
@@ -181,9 +180,11 @@ def damagetypes(char):
 		poison = 0
 		energy = 0
 		if weapon:
-			char.log(LOG_WARNING, "Character is using broken weapon (0x%x) with wrong damage types.\n" % weapon.serial)
+			if DEBUG_COMBAT_INFO == 1:
+				char.log(LOG_WARNING, "Character is using broken weapon (0x%x) with wrong damage types.\n" % weapon.serial)
 		else:
-			char.log(LOG_WARNING, "NPC (0x%x) has wrong damage types.\n" % char.serial)
+			if DEBUG_COMBAT_INFO == 1:
+				char.log(LOG_WARNING, "NPC (0x%x) has wrong damage types.\n" % char.serial)
 
 	physical = 100 - (fire + cold + poison + energy)
 

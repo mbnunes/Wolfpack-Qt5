@@ -4,6 +4,7 @@ from wolfpack import console
 from wolfpack.consts import *
 from random import random, randint, choice
 from wolfpack import settings
+from system.debugging import DEBUG_STATS, DEBUG_SKILLS
 
 #
 # Skill Properties
@@ -58,13 +59,16 @@ def gainstat(char, stat):
         if char.npc:
           char.maxhitpoints -= 1
         char.updatehealth()
-        char.log(LOG_TRACE, 'Character [%x] lost one point of strength [%u].\n' % (char.serial, char.strength))
+        if DEBUG_STATS == 1:
+          char.log(LOG_TRACE, 'Character [%x] lost one point of strength [%u].\n' % (char.serial, char.strength))
       elif lower == 1:
         char.dexterity -= 1
-        char.log(LOG_TRACE, 'Character [%x] lost one point of dexterity [%u].\n' % (char.serial, char.dexterity))
+        if DEBUG_STATS == 1:
+          char.log(LOG_TRACE, 'Character [%x] lost one point of dexterity [%u].\n' % (char.serial, char.dexterity))
       elif lower == 2:
         char.intelligence -= 1
-        char.log(LOG_TRACE, 'Character [%x] lost one point of intelligence [%u].\n' % (char.serial, char.intelligence))
+        if DEBUG_STATS == 1:
+          char.log(LOG_TRACE, 'Character [%x] lost one point of intelligence [%u].\n' % (char.serial, char.intelligence))
       totalstats -= 1
       resendstats = 1
 
@@ -77,13 +81,16 @@ def gainstat(char, stat):
       # Players are accounted for automatically
       if char.npc:
         char.maxhitpoints += 1
-      char.log(LOG_TRACE, 'Character [%x] gained one point of strength [%u].\n' % (char.serial, char.strength))
+      if DEBUG_STATS == 1:
+        char.log(LOG_TRACE, 'Character [%x] gained one point of strength [%u].\n' % (char.serial, char.strength))
     elif stat == 1:
       char.dexterity += 1
-      char.log(LOG_TRACE, 'Character [%x] gained one point of dexterity [%u].\n' % (char.serial, char.dexterity))
+      if DEBUG_STATS == 1:
+        char.log(LOG_TRACE, 'Character [%x] gained one point of dexterity [%u].\n' % (char.serial, char.dexterity))
     elif stat == 2:
       char.intelligence += 1
-      char.log(LOG_TRACE, 'Character [%x] gained one point of intelligence [%u].\n' % (char.serial, char.intelligence))
+      if DEBUG_STATS == 1:
+        char.log(LOG_TRACE, 'Character [%x] gained one point of intelligence [%u].\n' % (char.serial, char.intelligence))
     resendstats = 1
 
   if resendstats and char.socket:
@@ -116,7 +123,8 @@ def gainskill(char, skill, totalskill, totalcap):
           char.skill[i] -= int(points * 10)
           totalskill -= points
 
-          char.log(LOG_TRACE, 'Character [%x] lost %0.01f%% of %s [%02.01f%%].\n' % (char.serial, points, SKILLS[i][SKILL_NAME], char.skill[i] / 10.0))
+          if DEBUG_SKILLS == 1:
+            char.log(LOG_TRACE, 'Character [%x] lost %0.01f%% of %s [%02.01f%%].\n' % (char.serial, points, SKILLS[i][SKILL_NAME], char.skill[i] / 10.0))
 
           if char.socket:
             char.socket.updateskill(i)
@@ -128,7 +136,8 @@ def gainskill(char, skill, totalskill, totalcap):
     if totalskill + points <= totalcap:
       char.skill[skill] += int(points * 10)
       totalskill += points
-      char.log(LOG_TRACE, 'Character [%x] gained %0.01f%% of %s [%02.01f%%].\n' % (char.serial, points, info[SKILL_NAME], char.skill[skill] / 10.0))
+      if DEBUG_SKILLS == 1:
+        char.log(LOG_TRACE, 'Character [%x] gained %0.01f%% of %s [%02.01f%%].\n' % (char.serial, points, info[SKILL_NAME], char.skill[skill] / 10.0))
 
       if char.socket:
         char.socket.updateskill(skill)

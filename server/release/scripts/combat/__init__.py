@@ -3,8 +3,7 @@ import wolfpack
 from wolfpack.consts import *
 import combat.aos
 from wolfpack import properties
-
-DEBUG = 0
+from system.debugging import DEBUG_COMBAT_INFO
 
 #
 # This function is used to initialize the basic combat
@@ -34,7 +33,7 @@ def onSwing(attacker, defender, time):
 	if not defender.attacktarget:
 		defender.fight(attacker)
 
-	if DEBUG:
+	if DEBUG_COMBAT_INFO == 1:
 		attacker.log(LOG_PYTHON, "Swing from 0x%x at 0x%x\n" % (defender.serial, attacker.serial))
 
 	if AGEOFSHADOWS:

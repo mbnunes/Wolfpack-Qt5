@@ -21,6 +21,8 @@ import web.sessions
 import wolfpack
 import wolfpack.console
 
+WEBADMIN_LOGGING = 1
+
 # Just override handle_error for nicer error handling
 class Webserver( HTTPServer ):
 	def __init__( self, addr, htdocs ):
@@ -107,7 +109,7 @@ class WebserverHandler( CGIHTTPRequestHandler ):
 				continue
 			path = os.path.join(path, word)
 
-		if bad_uri:
+		if bad_uri and WEBADMIN_LOGGING == 1:
 			self.log_error("Detected bad request URI '%s', translated to '%s'" % (uri, path,))
 
 		return path
@@ -139,7 +141,7 @@ class WebserverHandler( CGIHTTPRequestHandler ):
 		ispy = self.is_python(scriptname)
 		if not ispy:
 			self.send_error(403, "CGI script is not a Python script (%s)" % `scriptname`)
-			return		
+			return
 
 		# Reference: http://hoohoo.ncsa.uiuc.edu/cgi/env.html
 		# XXX Much of the following could be prepared ahead of time!
@@ -204,8 +206,8 @@ class WebserverHandler( CGIHTTPRequestHandler ):
 				if '=' not in decoded_query:
 					sys.argv.append(decoded_query)
 				sys.stdout = self.wfile
-				sys.stdin = self.rfile			
-				execfile(scriptfile, {"__name__": "__main__"})			
+				sys.stdin = self.rfile
+				execfile(scriptfile, {"__name__": "__main__"})
 				sys.stdout.flush()
 			finally:
 				os.environ = save_env
@@ -213,11 +215,13 @@ class WebserverHandler( CGIHTTPRequestHandler ):
 				sys.stdin = save_stdin
 				sys.stdout = save_stdout
 				sys.stderr = save_stderr
-				raise		
+				raise
 		except SystemExit, sts:
-			self.log_error("CGI script exit status %s", str(sts))
+			if WEBADMIN_LOGGING == 1:
+				self.log_error("CGI script exit status %s", str(sts))
 		else:
-			self.log_message("CGI script exited OK")
+			if WEBADMIN_LOGGING == 1:
+				self.log_message("CGI script exited OK")
 
 	def log_message( self, format, *args ):
 		try:

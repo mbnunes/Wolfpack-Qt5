@@ -5,6 +5,7 @@ import wolfpack
 from threading import Thread, Event, Lock
 import time
 import random
+from system.debugging import DEBUG_SPAWNS
 
 #
 # Triggers the spawn of an object
@@ -67,7 +68,8 @@ class SpawnThread(Thread):
       process = self.unprocessed[:100]
       self.unprocessed = self.unprocessed[100:]
 
-      #console.log(LOG_MESSAGE, "Found %u spawn items." % len(process))
+      if DEBUG_SPAWNS == 1:
+        console.log(LOG_MESSAGE, "Found %u spawn items." % len(process))
 
       # Process the designated partition
       for i in range(0, len(process)):
@@ -81,7 +83,8 @@ class SpawnThread(Thread):
           valid = 0
 
         if not valid:
-          #console.log(LOG_WARNING, "Invalid spawn item: 0x%x.\n" % item.serial)
+          if DEBUG_SPAWNS == 1:
+            console.log(LOG_WARNING, "Invalid spawn item: 0x%x.\n" % item.serial)
           pass
         else:
           spawntype = int(item.gettag('spawntype')) # 0: Items, 1: NPCs
@@ -154,8 +157,9 @@ class SpawnThread(Thread):
             #console.log(LOG_MESSAGE, "SPAWNTIME REACHED!")
             item.deltag('nextspawn')
 
-          #console.log(LOG_MESSAGE, "Valid Spawnpoint: %x, Cur/Max: %u/%u, Def: %s, Type: %u, Interval: %u,%u, Time: %d/%d" % \
-          #  (item.serial, current, maximum, spawndef, spawntype, mininterval, maxinterval, nextspawn, currenttime))
+          if DEBUG_SPAWNS == 1:
+            console.log(LOG_MESSAGE, "Valid Spawnpoint: %x, Cur/Max: %u/%u, Def: %s, Type: %u, Interval: %u,%u, Time: %d/%d" % \
+              (item.serial, current, maximum, spawndef, spawntype, mininterval, maxinterval, nextspawn, currenttime))
 
       self.processed += process
 
