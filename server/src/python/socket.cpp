@@ -100,13 +100,25 @@ static PyObject* wpSocket_sysmessage( wpSocket* self, PyObject* args )
 	if( !self->pSock )
 		return PyFalse;
 
-	if( !checkArgStr( 0 ) )
+	QString message;
+	PyObject* param;
+	if( PyTuple_Size( args ) > 0 )
+		param = PyTuple_GetItem( args, 0 );
+
+	if( checkArgStr( 0 ) )
+	{
+		message = PyString_AsString( param );
+	}
+	else if( checkArgUnicode( 0 ) )
+	{
+		message.setUnicodeCodes( PyUnicode_AsUnicode(param), PyUnicode_GetSize( param ) ) ;	
+	}
+	else
 	{
 		PyErr_BadArgument();
 		return NULL;
 	}
 
-	QString message = PyString_AsString( PyTuple_GetItem( args, 0 ) );
 	UINT16 color = 0x37;
 	UINT16 font = 3;
 
