@@ -79,7 +79,8 @@ Wolfpack 12.9.13 Beta (CVS)
   - Added colored weapons. Note: Only the metalic weapons.
   - Sorted out the samurai weapons by type and fixed properties.
   - Ranged weapons set to 10 instead of 12.
-	- Price fixes for arrows/bolts.
+  - Price fixes for arrows/bolts.
+  - Fixed potion kegs.
  * Python Script Changes:
   - Fixed bug #0000369. (Equip possible although item.movable = 3)
   - Fixed bug #0000361. (Pets don't follow trough gate)
@@ -111,6 +112,7 @@ Wolfpack 12.9.13 Beta (CVS)
   - Poisoning now accepts stacked potions.
   - Reorganized the potion scripts.
   - Added possibility to cut bone parts into usable bones using scissors.
+  - Fixed potion kegs.
  * Misc. Changes:
   - FAQ Updates.
  * Known Issues, Bugs, and Missing Features:
