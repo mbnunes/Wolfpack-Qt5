@@ -542,7 +542,7 @@ It's triggered for the item, then for the npc and then for the global hook.
 \param char The character being resurrected.
 \param source The source of the resurrection. This may be None.
 \condition Triggered when a character is resurrected.
-\notes Return False to cancel the resurrection.
+\notes Return True to cancel the resurrection.
 */
 "onResurrect",
 
