@@ -4247,11 +4247,7 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 	pi->SetContSerial(-1);
 	if (pi->morey!=3)
 	{
-		int lsd=pi->morey; // save morey before overwritten
-		unsigned char k1 = pi->ser1;
-		unsigned char k2 = pi->ser2;
-		unsigned char k3 = pi->ser3;
-		unsigned char k4 = pi->ser4;
+		int lsd = pi->morey; // save morey before overwritten
 		int kser = pi->serial;
 
 		pi->Init(0);

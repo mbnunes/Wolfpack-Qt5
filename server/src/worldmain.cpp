@@ -861,7 +861,8 @@ void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
 			//Get number for initial character memory needed ->
 			int inum=0;
 			readw3();
-			if (!(strcmp((char*)script1, "INITMEM"))) inum=str2num(script2);
+			if (!(strcmp((char*)script1, "INITMEM"))) 
+				maxm = inum = str2num(script2);
 
 			clConsole.send("Loading items ");	// AntiChrist - sorry magius, but it's better to see in this way i think
 			a=0; // Magius(CHE) (2)
