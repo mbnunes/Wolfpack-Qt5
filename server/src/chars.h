@@ -285,6 +285,8 @@ protected:
 	signed short			dx2;		// holds the 3 digits behind the decimal point. Reserved for calculation
 	signed short			tmpDex;	// holds all temporary effects on Dex, eg. plate, spells, potions
 
+	QString					loot_; // holds the lootlist section
+
 	// Public Methods
 public:
 	cChar();
@@ -409,6 +411,7 @@ public:
 	unsigned short			baseSkill( int v ) const { return baseSkill_[v]; }
 	unsigned short			skill( int v ) const {return skill_[v];} // List of skills (with stat modifiers)
 	cUOSocket*				socket() const { return socket_; }
+	QString					lootList() const { return loot_; }
 
 	
 	// Setters
@@ -518,6 +521,7 @@ public:
 	void					setBaseSkill( int s, unsigned short v) { baseSkill_[s] = v; }
 	void					setSkill( int s, unsigned short v) { skill_[s] = v;}
 	void					setSocket( cUOSocket* data ) { socket_ = data; }
+	void					setLootList( QString data ) { loot_ = data; }
 
 	
 	short effDex()				{return dx+tmpDex>0 ? dx+tmpDex : 0;}	// returns current effective Dexterity

@@ -879,6 +879,7 @@ void cChar::Serialize(ISerialization &archive)
 			jailtimer += uiCurrentTime;
 		archive.read("jailsecs",		jailsecs); 
 		archive.read("gmrestrict",		gmrestrict_);
+		archive.read("lootlist",		loot_ );
 		SetOwnSerial(ownserial);
 		SetSpawnSerial(spawnserial_);
 		setAccount( account_ );
@@ -1023,6 +1024,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("jailtimer",		jailtimer/MY_CLOCKS_PER_SEC); 
 		archive.write("jailsecs",		jailsecs); 
 		archive.write("gmrestrict",		gmrestrict_);
+		archive.write("lootlist",		loot_);
 	}
 	cUObject::Serialize(archive);
 }
@@ -1318,25 +1320,10 @@ void cChar::processNode( const QDomElement &Tag )
 	else if( TagName == "karma" )
 		this->karma = Value.toInt();
 
-	//<loot>anything</loot>
+	//<loot>lootlist</loot>
 	else if( TagName == "loot" )
 	{
-		if( this->packitem != INVALID_SERIAL )
-		{
-			QString itemSect = DefManager->getRandomListEntry( Value );
-			if( !(itemSect.isNull() || itemSect.isEmpty()) )
-			{
-				P_ITEM retitem = Items->createScriptItem( itemSect );
-				if( retitem != NULL )
-				{
-					retitem->setContSerial(this->packitem);
-					retitem->pos.x=50+(rand()%80);
-					retitem->pos.y=50+(rand()%80);
-					retitem->pos.z=9;
-				}
-			}
-
-		}
+		this->setLootList( Value );
 	}
 
 	//<lodamage>10</lodamage>

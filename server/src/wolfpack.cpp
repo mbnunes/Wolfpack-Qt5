@@ -985,8 +985,24 @@ void deathstuff(P_CHAR pc_player)
 	//AntiChrist -- stores the time and the murderer's name
 	pi_c->setMurderer( murderername );
 	pi_c->murdertime = uiCurrentTime;
-	// Put objects on corpse
 
+	// create loot
+	if( pc_player->isNpc() )
+	{
+		QStringList lootItemSections = DefManager->getList( pc_player->lootList() );
+		QStringList::const_iterator it = lootItemSections.begin();
+
+		while( it != lootItemSections.end() )
+		{
+			P_ITEM pi_loot = Items->createScriptItem( (*it) );
+			if( pi_loot )
+				pi_loot->setContSerial( pc_player->serial );
+
+			it++;
+		}
+	}
+	
+	// Put objects on corpse
 	vecContainer.clear();
 	vecContainer = contsp.getData(pc_player->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
@@ -1094,6 +1110,7 @@ void deathstuff(P_CHAR pc_player)
 		q = calcSocketFromChar(pc_player);
 		if (q>-1) deathmenu(q);
 	}
+
 //	if ((ele==13)||(ele==15)||(ele==16)||(ele==574))//-Frazurbluu, we're gonna remove this strange little function :)
 // it becomes OSI exact with it removed! -Fraz- I DO NEED TO CHECK ENERGY VORTEXS!!!!!!!!!!!!!!!!!!!!!!
 //	{		// *** This looks very strange to me! Turning the shroud into a backpack ??? Duke 9.8.2k ***
