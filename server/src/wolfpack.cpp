@@ -233,7 +233,7 @@ void signal_handler(int signal)
 		DefManager->reload();
 		cAllSpawnRegions::getInstance()->reload();
 		cAllTerritories::getInstance()->reload();
-		cCommands::instance()->loadPrivLvlCmds();
+		cCommands::instance()->loadACLs();
 		ScriptManager->reload();
 		break ;
 		

@@ -1843,9 +1843,9 @@ void cItem::showName( cUOSocket *socket )
 	if (socket->player()->getPriv()&8)
 	{
 		if (amount() > 1)
-			sprintf((char*)temp, "%s [%x]: %i", name_, serial, amount());
+			sprintf((char*)temp, "%s [%x]: %i", name_.latin1(), serial, amount());
 		else
-			sprintf((char*)temp, "%s [%x]", name_, serial);
+			sprintf((char*)temp, "%s [%x]", name_.latin1(), serial);
 		itemmessage(s, (char*)temp, serial);
 		return;
 	}

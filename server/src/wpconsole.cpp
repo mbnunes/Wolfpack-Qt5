@@ -263,3 +263,5 @@ void WPConsole_cl::setConsoleTitle( const QString& data )
 	SetConsoleTitle( data.latin1() );
 #endif
 }
+
+

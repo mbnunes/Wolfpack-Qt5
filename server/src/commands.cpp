@@ -487,8 +487,8 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 			AccountRecord *account = Accounts->getRecord( args[1].left( 30 ) );
 			QValueVector<cChar*> characters = account->caracterList();
 			Accounts->remove( account );
-
-			for( UINT32 i = 0; i < characters.size(); ++i )
+			UINT32 i = 0;
+			for(; i < characters.size(); ++i )
 				if( characters[i] )
 					Npcs->DeleteChar( characters[i] );
 			
@@ -599,7 +599,7 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 			}
 			else if( key == "lastlogin" )
 			{
-				socket->sysMessage( tr( "The last login of account '%1' was on %2" ).arg( account->login() ).arg( account->lastLogin().toString( Qt::DateFormat::ISODate ) ) );
+				socket->sysMessage( tr( "The last login of account '%1' was on %2" ).arg( account->login() ).arg( account->lastLogin().toString( Qt::ISODate ) ) );
 			}
 			else if( key == "acl" )
 			{
@@ -674,3 +674,4 @@ stCommand cCommands::commands[] =
 	{ "SET", commandSet },
 	{ NULL, NULL }
 };
+
