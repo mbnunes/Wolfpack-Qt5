@@ -39,7 +39,6 @@
 #include "items.h"
 
 // Forward Declarations
-class ISerialization;
 class QDomElement;
 class QStringList;
 

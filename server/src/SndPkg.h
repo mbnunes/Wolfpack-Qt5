@@ -54,13 +54,11 @@ void SndUpdscroll(UOXSOCKET s, short txtlen, char* txt);
 void SndRemoveitem(int serial);
 void SndShopgumpopen(UOXSOCKET s, int serial);
 
-void soundeffect(int s, unsigned char a, unsigned char b); // Play sound effect for player
+//void soundeffect(int s, unsigned char a, unsigned char b); // Play sound effect for player
 void soundeffect2(P_CHAR pc, short sound);
 void soundeffect2(P_CHAR pc, unsigned char a, unsigned char b);
 void soundeffect4(P_ITEM pi, UOXSOCKET s, unsigned char a, unsigned char b);
 void soundeffect5(UOXSOCKET s, unsigned char a, unsigned char b);
-void action(int s, int x); // Character does a certain action
-void npcaction(P_CHAR pc_npc, int x); // NPC character does a certain action
 void sysbroadcast(const char *txt); // System broadcast in bold text
 void wearIt(const UOXSOCKET s, const P_ITEM pi);
 void backpack2(int s, SERIAL serial); // Send corpse stuff

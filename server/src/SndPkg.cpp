@@ -77,32 +77,6 @@ void soundeffect(int s, unsigned char a, unsigned char b) // Play sound effect f
 		}*/
 }
 
-void action(int s, int x) // Character does a certain action
-{
-	/*int i;
-	P_CHAR pc_currchar = currchar[s];
-
-	LongToCharPtr(pc_currchar->serial, &doact[1]);
-	doact[5]=x>>8;
-	doact[6]=x%256;
-	Xsend(s, doact, 14);
-	for (i=0;i<now;i++) if ((inrange1(s, i))&&(perm[i])) { Xsend(i, doact, 14); }*/
-}
-
-void npcaction( P_CHAR pc_npc, int x ) // NPC character does a certain action
-{
-	/*int i;
-	if ( !pc_npc )
-		return;
-
-	LongToCharPtr(pc_npc->serial, &doact[1]);
-	doact[5]=x>>8;
-	doact[6]=x%256;
-	for (i=0;i<now;i++) 
-		if ((inrange1p(currchar[i], pc_npc))&&(perm[i])) 
-			Xsend(i, doact, 14);*/
-}
-
 
 /*
 // s: player socket, I: send bolt if it rains or not ?

@@ -37,8 +37,8 @@
 #include "dbdriver.h"
 
 #include <math.h>
-#include "qstring.h"
-#include "qshared.h"
+#include <qstring.h>
+#include <qshared.h>
 
 cVariant::Private::Private()
 {
@@ -646,16 +646,16 @@ bool cVariant::operator!=( const cVariant &v ) const
     return !( v == *this );
 }
 
+
+
+/*****************************************************************************
+  cCustomTags member functions
+ *****************************************************************************/
+
 cCustomTags& cCustomTags::operator=( const cCustomTags& tags)
 {
-	cCustomTags& other = (cCustomTags&)tags;
-	QStringList keys = other.getKeys();
-	std::vector< cVariant > values = other.getValues();
-	for( int i=0; i<other.size(); i++)
-	{
-		this->set( keys[ i ], values[ i ] );
-	}
-	this->setChanged( other.getChanged() );
+	changed = true;
+	tags_ = tags.tags_;
 	return *this;
 }
 
@@ -669,24 +669,23 @@ void cCustomTags::save( SERIAL key )
 	if( !changed )
 		return;
 
-	cDBDriver driver;
-	driver.execute( QString( "DELETE FROM tags WHERE serial = '%1'" ).arg( key ) );
+	persistentBroker->executeQuery( QString( "DELETE FROM tags WHERE serial = '%1'" ).arg( key ) );
 
-	std::map< QString, cVariant >::iterator it;
-	for( it = tags_.begin(); it != tags_.end(); ++it )
+	QMap< QString, cVariant >::const_iterator it( tags_.begin() );
+	for( ; it != tags_.end(); ++it )
 	{
 		// Erase invalid tags.
-		if( !it->second.isValid() )
+		if( !it.data().isValid() )
 		{
 			continue;
 		}
 
 		// Save the Variant type and value
-		QString type = it->second.typeName();
-		QString value = it->second.toString();
-		QString name = it->first;
+		QString type = it.data().typeName();
+		QString value = it.data().toString();
+		QString name = it.key();
 
-		driver.execute( QString( "INSERT INTO tags SET serial = '%1', type = '%2', value = '%3', name = '%4'" ).arg( key ).arg( type ).arg( __escapeReservedCharacters( value ) ).arg( __escapeReservedCharacters( name ) ) );
+		persistentBroker->executeQuery( QString( "INSERT INTO tags SET serial = '%1', type = '%2', value = '%3', name = '%4'" ).arg( key ).arg( type ).arg( __escapeReservedCharacters( value ) ).arg( __escapeReservedCharacters( name ) ) );
 	}
 
 	changed = false;
@@ -706,14 +705,69 @@ void cCustomTags::load( SERIAL key )
 		QString value = result.getString( 3 );
 
 		if( type == "String" )
-			tags_.insert( std::make_pair( name, cVariant( value ) ) );
+			tags_.insert( name, cVariant( value ) );
 		else if( type == "Int" )
-			tags_.insert( std::make_pair( name, cVariant( value.toInt() ) ) );
+			tags_.insert( name, cVariant( value.toInt() ) );
 		else if( type == "Double" )
-			tags_.insert( std::make_pair( name, cVariant( value.toDouble() ) ) );
+			tags_.insert( name, cVariant( value.toDouble() ) );
 	}
 
 	result.free();
 
 	changed = false;
 }
+
+cVariant cCustomTags::get( const QString& key ) 
+{ 
+	QMap< QString, cVariant >::iterator it = tags_.find( key );
+	if( it != tags_.end() )
+		return it.data();
+	else
+		return cVariant();
+}
+
+void cCustomTags::set( const QString& key, const cVariant& value ) 
+{
+	QMap< QString, cVariant >::iterator iter = tags_.find( key );
+	
+	if( iter != tags_.end() )
+	{
+		if( !value.isValid() )
+		{
+			tags_.erase( iter );
+			changed = true;
+		}
+		else if( iter.data() != value )
+		{
+			iter.data() = value;
+			changed = true;
+		}
+	}
+	else
+	{
+		tags_.insert( key, value ); 
+		changed = true;
+	}
+}
+
+void cCustomTags::remove( const QString& key )
+{
+	QMap< QString, cVariant >::iterator iter( tags_.find( key ) );
+	
+	if( iter != tags_.end() )
+	{
+		tags_.erase( iter );
+		changed = true;
+	}
+}
+
+QStringList cCustomTags::getKeys( void )
+{
+	return tags_.keys();
+}
+
+QValueList< cVariant > cCustomTags::getValues( void )
+{
+	return tags_.values();
+}
+

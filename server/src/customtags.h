@@ -38,11 +38,9 @@
 #include "persistentobject.h"
 
 // Library include
-#include <map>
-#include <vector>
-#include "qstring.h"
-#include "qstringlist.h"
-#include "qmap.h"
+#include <qstring.h>
+#include <qstringlist.h>
+#include <qmap.h>
 
 // Forward Declarations
 class cItem;
@@ -76,7 +74,7 @@ public:
 	cVariant( cItem* );
 	cVariant( Coord_cl );
     cVariant( double );
-	 cVariant( long int );
+	cVariant( long int );
 
     cVariant& operator= ( const cVariant& );
     bool operator==( const cVariant& ) const;
@@ -152,78 +150,15 @@ public:
 	void save( SERIAL key );
 	void load( SERIAL key );
 
-	// implements cSerializable
-	virtual QString		objectID() const  { return "cCustomTags";}
-
-	cVariant	get( QString key ) 
-	{ 
-		std::map< QString, cVariant >::iterator it = tags_.find( key );
-		if( it != tags_.end() )
-			return it->second;
-		else
-			return cVariant();
-	}
-
-	void		set( QString key, cVariant value ) 
-	{
-		std::map< QString, cVariant >::iterator iter = tags_.find( key );
-
-		if( iter != tags_.end() )
-		{
-			if( !value.isValid() )
-			{
-				tags_.erase( iter );
-				changed = true;
-			}
-			else if( iter->second != value )
-			{
-				iter->second = value;
-				changed = true;
-			}
-		}
-		else
-		{
-			tags_.insert(std::make_pair(key, value)); 
-			changed = true;
-		}
-	}
-
-	void		remove( QString key )
-	{
-		std::map< QString, cVariant >::iterator iter = tags_.find( key );
-		
-		if( iter != tags_.end() )
-		{
-			tags_.erase( iter );
-			changed = true;
-		}
-	}
+	cVariant	get( const QString& key );
+	void		set( const QString& key, const cVariant& value );
+	void		remove( const QString& key );
 
 	UI32		size( void ) { return this->tags_.size(); }
 
-	QStringList getKeys( void )
-	{
-		QStringList keys_;
-		std::map< QString, cVariant >::iterator it = this->tags_.begin();
-		while( it != this->tags_.end() )
-		{
-			keys_.push_back( it->first );
-			it++;
-		}
-		return keys_;
-	}
+	QStringList getKeys( void );
 
-	std::vector< cVariant > getValues( void )
-	{
-		std::vector< cVariant > values_;
-		std::map< QString, cVariant >::iterator it = this->tags_.begin();
-		while( it != this->tags_.end() )
-		{
-			values_.push_back( it->second );
-			it++;
-		}
-		return values_;
-	}
+	QValueList< cVariant > getValues( void );
 
 	bool getChanged( void )
 	{
@@ -239,7 +174,7 @@ public:
 
 
 private:
-	std::map< QString, cVariant > tags_;
+	QMap< QString, cVariant > tags_;
 	bool changed;
 };
 

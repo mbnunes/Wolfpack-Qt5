@@ -225,9 +225,9 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						}
 						else
 						{
-							npcaction(pc_i, 0x10);
+							pc_i->action(0x10);
 							Targ->NpcResurrectTarget(pc);
-							staticeffect(pc, 0x37, 0x09, 0x09, 0x19); // Flamestrike effect
+							pc->effect(0x3709, 0x09, 0x19);
 							switch (RandomNum(0, 4)) 
 							{
 							case 0: pc_i->talk( tr("Fellow minion of Mondain, Live!!"), -1, 0);												break;

@@ -860,7 +860,7 @@ char cMagic::GateCollision(P_CHAR pc_player)
 					// Set the characters destination
 					pc_player->MoveTo(gatex[mapitem->gatenumber()][n], gatey[mapitem->gatenumber()][n]+ 1, gatez[mapitem->gatenumber()][n]);
 					teleport(pc_player);
-					soundeffect( calcSocketFromChar( pc_player ), 0x01, 0xFE );
+					pc_player->soundEffect( 0x01FE );
 					staticeffect( pc_player, 0x37, 0x2A, 0x09, 0x06 );
 				}
 			}

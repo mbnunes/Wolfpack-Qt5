@@ -54,31 +54,6 @@
 #undef  DBGFILE
 #define DBGFILE "gumps.cpp"
 
-void entrygump(int s, SERIAL serial, unsigned char type, char index, short int maxlength, char *text1)
-{
-	short int length;
-	char textentry1[12]="\xAB\x01\x02\x01\x02\x03\x04\x00\x01\x12\x34";
-	char textentry2[9]="\x01\x01\x00\x00\x12\x34\x12\x34";
-	
-	sprintf((char*)temp, "(%i chars max)", maxlength);
-	length=11+strlen((char*)text1)+1+8+strlen((char*)temp)+1;
-	textentry1[1]=length>>8;
-	textentry1[2]=length%256;
-	LongToCharPtr(serial, (unsigned char*)textentry1+3);
-	textentry1[7]=type;
-	textentry1[8]=index;
-	textentry1[9]=(strlen(text1)+1)>>8;
-	textentry1[10]=(strlen(text1)+1)%256;
-	Xsend(s, textentry1, 11);
-	Xsend(s, text1, strlen(text1)+1);
-	textentry2[4]=maxlength>>8;
-	textentry2[5]=maxlength%256;
-	textentry2[6]=(strlen((char*)temp)+1)>>8;
-	textentry2[7]=(strlen((char*)temp)+1)%256;
-	Xsend(s, textentry2, 8);
-	Xsend(s, temp, strlen((char*)temp)+1);
-}
-
 cGump::cGump() : noMove_( false ), noClose_( false ), 
 noDispose_( false ), x_( 50 ), y_( 50 ), serial_( INVALID_SERIAL ), 
 type_( 1 ) 
