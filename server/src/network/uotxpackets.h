@@ -981,15 +981,6 @@ public:
 	void setContent(const QString& layout, const QStringList& text);
 };
 
-// 0x95 Dye Tub
-class cUOTxDyeTub: public cUOPacket
-{
-public:
-	cUOTxDyeTub(): cUOPacket(0x95, 9) {}
-	void setSerial(unsigned int data)	{ setInt(1, data); }
-	void setModel(unsigned short data)	{ setShort(7, data); }
-};
-
 // 0x70 OldEffect
 class cUOTxOldEffect: public cUOPacket
 {

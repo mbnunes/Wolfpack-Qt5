@@ -71,7 +71,6 @@ cUOPacket *getUORxPacket( const QByteArray &data )
 	case 0x80:		return new cUORxLoginRequest( data );
 	case 0x83:		return new cUORxDeleteCharacter( data );
 	case 0x91:		return new cUORxServerAttach( data );
-	case 0x95:		return new cUORxDye( data );
 	case 0x9B:		return new cUORxHelpRequest( data );
 	case 0x9F:		return new cUORxSell( data );
 	case 0xA0:		return new cUORxSelectShard( data );

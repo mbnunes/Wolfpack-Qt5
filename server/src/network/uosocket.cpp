@@ -363,8 +363,6 @@ void cUOSocket::recieve()
 		handleUpdateRange( dynamic_cast< cUORxUpdateRange* >( packet ) ); break;
 	case 0xD7:
 		handleAosMultiPurpose( dynamic_cast< cUORxAosMultiPurpose* >( packet ) ); break;
-	case 0x95:
-		handleDye( dynamic_cast< cUORxDye* >( packet ) ); break;
 	case 0xD4:
 		handleUpdateBook( dynamic_cast< cUORxBookInfo* >( packet ) ); break;
 	default:
@@ -2561,28 +2559,6 @@ void cUOSocket::updateLightLevel( UINT8 level )
 
 		send( &pLight );
 	}
-}
-
-void cUOSocket::handleDye( cUORxDye* packet )
-{
-	if( !_player )
-		return;
-
-	P_ITEM pItem = FindItemBySerial( packet->serial() );
-	
-	if( !pItem || pItem->type() != 405 )
-		return;
-
-	// Check if there is someone cheating
-	if( packet->color() < 2 && packet->color() > 0x3E9 )
-	{
-		sysMessage( tr( "You can't dye in this kind of color." ) );
-		return;
-	}
-
-	// Ok, now show the client a target to select the dye-tub we want
-	// to dye.
-	attachTarget( new cDyeTubDyeTarget( packet->color() ) );
 }
 
 void cUOSocket::handleProfile( cUORxProfile *packet )

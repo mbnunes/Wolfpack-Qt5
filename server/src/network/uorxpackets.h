@@ -549,16 +549,6 @@ public:
 	ushort iAmount( ushort item ) const	{ return getShort( 13 + ( item * 7 ) ); }
 };
 
-// 0x95 Dye
-class cUORxDye: public cUOPacket
-{
-public:
-	cUORxDye( const QByteArray &data ): cUOPacket( data ) {}
-	uint serial() const	{ return getInt( 1 ); }
-	ushort model() const	{ return getShort( 5 ); }
-	ushort color() const	{ return getShort( 7 ); }
-};
-
 // 0x9B Help Request - nice one :D
 class cUORxHelpRequest : public cUOPacket
 {

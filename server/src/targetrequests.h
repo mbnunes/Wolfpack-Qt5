@@ -629,18 +629,6 @@ public:
 	}
 };
 
-/*!
-	Class for handling a dye request (for dying dye-tubs).
-*/
-class cDyeTubDyeTarget: public cTargetRequest
-{
-	
-	UINT16 _color;
-public:
-	cDyeTubDyeTarget( UINT16 color ) : _color(color) {}
-	bool responsed( cUOSocket *socket, cUORxTarget *target );
-};
-
 class cStableTarget: public cTargetRequest
 {
 	

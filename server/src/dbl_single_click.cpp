@@ -292,16 +292,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 			}
 		}
 		return;
-	
-	// Dyes
-	case 405:
-		{
-			cUOTxDyeTub dyetub;
-			dyetub.setSerial( pi->serial() );
-			dyetub.setModel( 0xFAB );
-			socket->send( &dyetub );
-		}
-		return;
 
 	// 1001: Sword Weapons (Swordsmanship)
 	case 1001: 

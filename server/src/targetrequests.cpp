@@ -478,34 +478,6 @@ bool cMultiChangeLockTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	return false;
 }
 
-bool cDyeTubDyeTarget::responsed( cUOSocket *socket, cUORxTarget *target )
-{
-	if( !socket->player() )
-		return true;
-	
-	P_ITEM pItem = FindItemBySerial( target->serial() );
-	
-	if( !pItem )
-		return true;
-	
-	if( pItem->getOutmostChar() != socket->player() && !( pItem->isInWorld() && pItem->inRange( socket->player(), 4 ) ) )
-	{
-		socket->sysMessage( tr( "You can't reach this object to dye it." ) );
-		return true;
-	}
-	
-	if( pItem->type() != 406 )
-	{
-		socket->sysMessage( tr( "You can only dye dye tubs with this." ) );
-		return true;
-	}
-	
-	pItem->setColor( _color );
-	pItem->update();
-	
-	return true;
-}
-
 bool cShowTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 {
 	// Check for a valid target

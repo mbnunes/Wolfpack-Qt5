@@ -225,7 +225,7 @@ def dyingtub_response( char, args, target ):
 	char.socket.log( LOG_TRACE, "Dying item (%x,%x) using tub (%x,%x)\n" % ( target.item.serial, target.item.color, dyetub.serial, dyetub.color ) )
 	target.item.color = dyetub.color
 	target.item.update()
-	char.soundeffect( 0x023e )	
+	char.soundeffect(0x023e)
 
 # Table of IDs mapped to handler functions
 actions =	{
