@@ -147,6 +147,7 @@ def carve_corpse( char, corpse ):
 	
 	if not basedef:
 		char.socket.clilocmessage( 0x7A305, "", 0x3b2, 3, corpse ) # You see nothing useful to carve..
+		return
 
 	feathers = basedef.getintproperty('carve_feathers', 0)
 	wool = basedef.getintproperty('carve_wool', 0)
@@ -161,12 +162,24 @@ def carve_corpse( char, corpse ):
 		char.socket.clilocmessage( 0x7A305, "", 0x3b2, 3, corpse ) # You see nothing useful to carve..
 		return
 
-	# Create Random Blood
-	bloodid = random.choice( blood )
-	blooditem = wolfpack.additem( bloodid )
-	blooditem.moveto( corpse.pos )
-	blooditem.decay = 1
-	blooditem.update()
+	# See if the corpse has blood
+	bloodcolor = basedef.getintproperty('bloodcolor', 0)
+	
+	if bloodcolor != -1:
+		try:
+			if basedef.hasstrproperty('bloodcolor'):
+				(minv, maxv) = basedef.getstrproperty('bloodcolor', '0,0').split(',')
+				bloodcolor = random.randint(int(minv), int(maxv))
+		except:
+			pass
+
+		# Create Random Blood
+		bloodid = random.choice( blood )
+		blooditem = wolfpack.additem( bloodid )
+		blooditem.color = bloodcolor
+		blooditem.moveto( corpse.pos )
+		blooditem.decay = 1
+		blooditem.update()
 
 	# Mark the corpse as carved
 	corpse.settag('carved', 1)
