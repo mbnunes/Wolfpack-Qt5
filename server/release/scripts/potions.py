@@ -142,7 +142,7 @@ def targetexplosionpotion(char, args, target):
 	if not potion:
 		return OOPS
 	if target.char:
-		pos = target.char
+		pos = target.char.pos
 	elif target.item:
 		item = target.item.getoutmostitem()
 		if item.container:
