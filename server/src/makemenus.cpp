@@ -542,6 +542,7 @@ void cMakeSection::execute( cUOSocket* const socket )
 				pItem->setAmount( miit.current()->amount() );
 			pItem->applyRank( rank );
 			pBackpack->addItem( pItem );
+			pItem->update();
 		}
 
 		// if the item is not pileable create amount-1 items more
@@ -554,6 +555,7 @@ void cMakeSection::execute( cUOSocket* const socket )
 				{
 					pItem->applyRank( rank );
 					pBackpack->addItem( pItem );
+					pItem->update();
 				}
 			}
 		}
