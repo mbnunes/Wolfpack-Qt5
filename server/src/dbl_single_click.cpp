@@ -524,18 +524,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 			}
 			return;
 		
-		// By Polygon: Clicked on a tattered treasure map, call decipher-function
-		case 301: 
-			Skills->Decipher(pi, s); 
-			return;
-/*
-	By Polygon:
-	Clicked on a deciphered treasure map
-	Show a map-gump with the treasure location in it
-*/
-		case 302:	// Deciphered treasure map?
-			return;
-// END OF: By Polygon
 	    case 402: // Blackwinds Reputation ball 
 			{ 
 				pc_currchar->soundEffect( 0x01ec ); // Play sound effect for player 

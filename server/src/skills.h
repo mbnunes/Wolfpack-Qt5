@@ -65,16 +65,6 @@ private:
 	void Tracking(int s, int selection);
 	int GetSubIngotAmt(int p, char id1, char id2, char color1, char color2);
 	int DeleSubIngot(int p, int id1, int id2, int color1, int color2, int amount);
-	void AnvilTarget(int s, int m);
-	void AnvilTargetGold(int s, int m);
-	void AnvilTargetSilver(int s, int m);
-	void AnvilTargetAdam(int s, int m);
-	void AnvilTargetMyth(int s, int m);
-	void AnvilTargetBronze(int s, int m);
-	void AnvilTargetVerite(int s, int m);
-	void AnvilTargetMerk(int s, int m);
-	void AnvilTargetCop(int s, int m);
-	void AnvilTargetAgap(int s, int m);
 	void Hide( cUOSocket* );
 	void Stealth( cUOSocket* );
 	void PeaceMaking( cUOSocket* );
@@ -101,8 +91,6 @@ public:
 	void PlayInstrumentWell(cUOSocket*, P_ITEM pi);
 	void PlayInstrumentPoor(cUOSocket*, P_ITEM pi);
 	P_ITEM GetInstrument( cUOSocket* );
-	void TellScroll(char *menu_name, int player, long item_param);
-	void CollectAmmo(int s, int a, int b);
 	void Meditation(cUOSocket* s);
 	// skills using crafting menus
 	void Blacksmithing( cUOSocket* socket );
@@ -116,24 +104,13 @@ public:
 	void RepairTarget(UOXSOCKET s); // Ripper
 	void SmeltItemTarget(UOXSOCKET s); // Ripper
 	int TrackingDirection(UOXSOCKET s, P_CHAR pc_i);
-	void TinkerAxel(int s);
-	void TinkerAwg(int s);
-	void TinkerClock(int s);
 	void Track(P_CHAR pc_i);
-	void CookOnFire(int s, short id1, short id2, char* matname);
-	void BottleTarget(int s);
 	void PotionToBottle(P_PLAYER pc, P_ITEM pi_mortar);
-	void CreateBandageTarget(int s);
-	void HealingSkillTarget(UOXSOCKET s);
 	void SpiritSpeak(int s);
-	void ArmsLoreTarget(int s);
 	void SkillUse( cUOSocket*, UINT16 );
 	void CreateTrackingMenu(int s, int m);
 	void TrackingMenu(int s, int gmindex);
-	int Inscribe(int s, long snum);
-	int EngraveAction(int s, P_ITEM pi, int cir, int spl);	
 	void Persecute(cUOSocket*);//AntiChrist persecute stuff
-	void Decipher(P_ITEM tmap, int s); // By Polygon - attempt to decipher a tattered treasure map
 	int GetAntiMagicalArmorDefence(P_CHAR pc); // blackwind meditation armor stuff
 	void Snooping(P_PLAYER, P_ITEM);
 };

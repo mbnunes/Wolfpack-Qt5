@@ -84,6 +84,7 @@ protected:
 protected:
 	// Things for building the SQL string
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
+	void changed( uint );
 	
 	enum eChanged // Each bit controls different state
 	{
@@ -132,7 +133,6 @@ public:
 	cUObject( cUObject& ); // Copy constructor
 	virtual ~cUObject() {};
 
-	void changed( UI32 );
 	void moveTo( const Coord_cl&, bool noRemove = false );
 	unsigned int	dist(cUObject* d) const;
 	QString			bindmenu()		const { return bindmenu_; }
