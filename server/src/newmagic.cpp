@@ -707,7 +707,14 @@ static bool cont_has_spell( P_ITEM pCont, UINT8 spell )
 bool cNewMagic::hasSpell( P_CHAR pMage, UINT8 spell )
 {
 	// Check for SpellBooks
-	return cont_has_spell( pMage->getBackpack(), spell );
+	if( pMage->GetItemOnLayer(0x01) )
+	{
+		return cont_has_spell( pMage->GetItemOnLayer(0x01), spell );
+	}
+	else
+	{
+		return cont_has_spell( pMage->getBackpack(), spell );
+	}
 }
 
 cNewMagic *NewMagic;
