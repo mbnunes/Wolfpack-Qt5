@@ -294,26 +294,4 @@ def onUse( char, item ):
 		char.message( "You cannot reach the handle from here." )
 		return 1
 		
-	# The Door has no lock
-	if not item.hastag( 'lock' ) or char.gm:
-		return opendoor( char, item )
-	
-	lock = int( item.gettag( 'lock' ) )
-
-	if item.hastag( 'locked' ):
-		locked = int( item.gettag( 'locked' ) )
-	else:
-		locked = 0
-		
-	if locked == 0:
-		return opendoor( char, item )
-
-	# Search for a key in the users backpack
-	backpack = char.getbackpack()
-		
-	if searchkey( backpack, lock ):
-		char.message( 'You quickly unlock, use, and then relock the door.' )
-		return opendoor( char, item )
-
-	char.message( 'This door is locked.' )
-	return 1	
+	return opendoor( char, item )

@@ -176,3 +176,5 @@ def tickcount():
 
 def packet( id, size ):
 	return _wolfpack.packet( id, size )
+	
+queuereload = _wolfpack.queuereload
