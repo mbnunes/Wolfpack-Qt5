@@ -43,21 +43,6 @@ def modifiers(object, tooltip):
 	if reflectphysical:
 		tooltip.add(1060442, str(reflectphysical))
 		
-	castrecovery = properties.fromitem(object, CASTRECOVERYBONUS)
-	
-	if castrecovery:
-		tooltip.add(1060412, str(castrecovery))
-		
-	castspeed = properties.fromitem(object, CASTSPEEDBONUS)
-	
-	if castspeed:
-		tooltip.add(1060413, str(castspeed))
-	
-	spelldamagebonus = properties.fromitem(object, SPELLDAMAGEBONUS)
-	
-	if spelldamagebonus:
-		tooltip.add(1060483, str(spelldamagebonus))	
-
 	luck = properties.fromitem(object, LUCK)
 	if luck != 0:
 		tooltip.add(1060436, str(luck))
@@ -105,7 +90,7 @@ def modifiers(object, tooltip):
 	if mageweapon != 0:
 		tooltip.add(1060438, str(mageweapon))		
 
-	if properties.fromitem(object, MAGEARMOR):
+	if properties.fromitem(object, MAGEARMOR) and not object.allowmeditation:
 		tooltip.add(1060437, "")
 		
 	selfrepair = properties.fromitem(object, SELFREPAIR)
@@ -281,6 +266,25 @@ def onShowTooltip(viewer, object, tooltip):
 		spellchanneling = properties.fromitem(object, SPELLCHANNELING)
 		if spellchanneling:
 			tooltip.add(1060482, "")
+	else:
+		spellchanneling = False
+	
+	# Those are only relevant if its not a shield/weapon or for spellchanneling items
+	if (not weapon and not shield) or spellchanneling:
+		castrecovery = properties.fromitem(object, CASTRECOVERYBONUS)
+		
+		if castrecovery:
+			tooltip.add(1060412, str(castrecovery))
+			
+		castspeed = properties.fromitem(object, CASTSPEEDBONUS)
+		
+		if castspeed:
+			tooltip.add(1060413, str(castspeed))
+		
+		spelldamagebonus = properties.fromitem(object, SPELLDAMAGEBONUS)
+		
+		if spelldamagebonus:
+			tooltip.add(1060483, str(spelldamagebonus))	
 
 	physical = properties.fromitem(object, RESISTANCE_PHYSICAL)
 	fire = properties.fromitem(object, RESISTANCE_FIRE)
