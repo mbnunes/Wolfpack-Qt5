@@ -286,9 +286,7 @@ void cUObject::applyDefinition( const QDomElement& sectionNode )
 	QDomNode TagNode = sectionNode.firstChild();
 	while( !TagNode.isNull() )
 	{
-		if( !TagNode.isElement() )
-			continue;
-		else
+		if( TagNode.isElement() )
 			this->processNode( TagNode.toElement() );
 
 		TagNode = TagNode.nextSibling();

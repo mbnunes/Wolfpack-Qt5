@@ -506,6 +506,7 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 	nChar->region = calcRegionFromXY(nChar->pos.x, nChar->pos.y);
 
 	nChar->applyDefinition( *DefSection );
+	nChar->MoveTo(posx,posy,posz);
 
 	return nChar;
 }
