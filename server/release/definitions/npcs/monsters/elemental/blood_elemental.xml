@@ -44,5 +44,38 @@
 		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich</lootpacks>
 		<category>Monsters\Elementals\Blood Elemental</category>
 	</npc>
+	
+	<npc id="lesser_blood_elemental" inherit="blood_elemental">
+		<name>lesser blood elemental</name>
+		<inherit id="KARMA_L3" />
+		<inherit id="FAME_L3" />
+		<str><random min="276" max="315"/></str>
+		<dex><random min="66" max="85"/></dex>
+		<int><random min="126" max="150"/></int>
+		<maxhitpoints><random min="160" max="170"/></maxhitpoints>
+		<category>Monsters\Elementals\Blood Elemental (Lesser)</category>
+		<!-- Skills -->
+		<magicresistance><random min="501" max="650"/></magicresistance>
+		<tactics><random min="701" max="800"/></tactics>
+		<wrestling><random min="701" max="800"/></wrestling>
+		
+		<!-- Damage -->
+		<mindamage>37</mindamage>
+		<maxdamage>41</maxdamage>
+		<tag name="dmg_energy" value="50" type="int" />
+		<tag name="dmg_poison" value="50" type="int" />
 
+		<!-- Resists -->
+		<tag name="res_cold" value="30,40" type="int" />
+		<tag name="res_energy" value="20,30" type="int" />
+		<tag name="res_fire" value="10,20" type="int" />
+		<tag name="res_physical" value="45,55" type="int" />
+		<tag name="res_poison" value="40,50" type="int" />
+
+		<!-- Misc -->
+		<desc>Formed from the blood of the dead, blood elementals are strong magic-users, and an aggressive and formidable foe. You have blood, and they want it.</desc>
+
+		<!-- Missing: Reagents, Level 5 Map -->
+		<lootpacks>lootpack_filthy_rich</lootpacks>
+	</npc>
 </definitions>
