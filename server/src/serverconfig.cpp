@@ -128,7 +128,7 @@ void cConfig::readData()
 	skillLevel_ = getNumber( "Game Speed", "SkillLevel", 3, true );
 	maxStealthSteps_ = getNumber( "Game Speed", "Max Stealth Steps", 10, true );
 	runningStamSteps_ = getNumber( "Game Speed", "Running Stamina Steps", 15, true );
-	hungerRate_ = getNumber( "Game Speed", "Hunger Rate", 6000, true );
+	hungerRate_ = getNumber( "Game Speed", "Hunger Rate", 120, true );
 	hungerDamageRate_ = getNumber( "Game Speed", "Hunger Damage Rate", 10, true );
 	boatSpeed_ = getDouble( "Game Speed", "Boat Speed", 0.750000, true );
 	snoopdelay_ = getNumber( "Game Speed", "Snoop Delay", 7, true );

@@ -409,29 +409,6 @@ void cTiming::checkPlayer( P_PLAYER player, unsigned int time )
 		}
 	}
 
-	// All food related things are disabled for gms
-	if ( player->isGMorCounselor() )
-	{
-		// Decrease food level
-		if ( Config::instance()->hungerRate() > 1 && ( player->hungerTime() <= time ) )
-		{
-			if ( player->hunger() )
-				player->setHunger( player->hunger() - 1 );
-
-			player->setHungerTime( time + Config::instance()->hungerRate() * MY_CLOCKS_PER_SEC );
-		}
-
-		// Damage if we are starving
-		if ( Config::instance()->hungerDamage() && nextHungerCheck <= time )
-		{
-			if ( player->hitpoints() > 0 && player->hunger() < 2 && !player->isDead() )
-			{
-				socket->sysMessage( tr( "You are starving." ) );
-				player->damage( DAMAGE_HUNGER, Config::instance()->hungerDamage() );
-			}
-		}
-	}
-
 	stopProfiling(PF_PLAYERCHECK);
 }
 

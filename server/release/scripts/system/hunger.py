@@ -2,17 +2,26 @@
 import wolfpack
 import random
 import wolfpack.time
+from wolfpack import tr
+
+hungerrate = int(wolfpack.settings.getstring("Game Speed", "Hunger Rate", "120")) # Every 120 minutes
+hungerdamage = int(wolfpack.settings.getstring("General", "Hunger Damage", "0")) # Damage?
 
 def onTimeChange( player ):
-	hungerrate = int(wolfpack.settings.getstring("Game Speed", "Hunger Rate", "2"))
-	hungerdamage = int(wolfpack.settings.getstring("General", "Hunger Damage", "0"))
+	global hungerrate
+	global hungerdamage
 
-	if wolfpack.time.hour() in range( hungerrate, 23, hungerrate ):
-		if player.socket:
+	# Use the minutes
+	lasthunger = 0
+	if player.hastag('lasthunger'):
+		lasthunger = int(player.gettag('lasthunger'))
+		
+	if lasthunger + 2 < wolfpack.time.minutes():
+		if player.socket and not player.gm:
 			if player.hunger >= 1 and player.hunger <= 6:
 				player.hunger -= 1
-				player.socket.sysmessage( "Your stomach growls..." )
+				player.socket.sysmessage( tr("Your stomach growls...") )
 			elif player.hunger == 0:
 				player.damage( 3, random.randint( 0, hungerdamage ) )
-				player.socket.sysmessage( "Your stomach hurts from the lack of food..." )
+				player.socket.sysmessage( tr("Your stomach hurts from the lack of food...") )
 	return False

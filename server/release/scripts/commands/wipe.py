@@ -34,26 +34,30 @@ import wolfpack.gumps
 from wolfpack.gumps import WarningGump
 #from wolfpack.utilities import *
 
-def getBoundingBox( socket, callback ) :
-	socket.attachtarget( "commands.wipe.getBoundingBoxResponse", [0, callback] )
+def getBoundingBox( socket, callback, args ) :
+	socket.attachtarget( "commands.wipe.getBoundingBoxResponse", [0, callback, None, args] )
 	return
 
 def getBoundingBoxResponse( char, args, target ):
 	if args[0] == 0:
-		char.socket.attachtarget("commands.wipe.getBoundingBoxResponse", [1, args[1], target] )
+		char.socket.attachtarget("commands.wipe.getBoundingBoxResponse", [1, args[1], target, args[3]] )
 	else:
-		args[1]( char.socket, args[2], target )
+		args[1]( char.socket, args[2], target, args[3] )
 	return
 
 def nuke( socket, command, argstring ):
 	if len( argstring ) > 0:
 		if argstring.lower() == "all":
-			gump = WarningGump( 1060635, 30720, "Wipping <i>all</i> items in the world.<br>Do you wish to proceed?", 0xFFC000, 420, 400, wipeAllWorld, [] )
+			gump = WarningGump( 1060635, 30720, "Wiping <i>all</i> items in the world.<br>Do you wish to proceed?", 0xFFC000, 420, 400, wipeAllWorld, [] )
 			gump.send( socket )
+			return
+		else:
+			baseid = argstring
 	else:
-		socket.sysmessage("Select the area to remove")
-		getBoundingBox( socket, wipeBoundingBox )
-
+		baseid = None
+	
+	socket.sysmessage("Select the area to remove")
+	getBoundingBox( socket, wipeBoundingBox, baseid )
 	return 1
 
 def wipeAllWorld( player, accept, state ):
@@ -77,7 +81,7 @@ def wipeAllWorld( player, accept, state ):
 	player.socket.sysmessage( "%i items have been removed from world" % len(serials) )
 	return
 
-def wipeBoundingBox( socket, target1, target2 ):
+def wipeBoundingBox( socket, target1, target2, baseid ):
 	if target1.pos.map != target2.pos.map:
 		return False
 	x1 = min( target1.pos.x, target2.pos.x )
@@ -89,8 +93,9 @@ def wipeBoundingBox( socket, target1, target2 ):
 	item = iterator.first
 	count = 0
 	while item:
-		item.delete()
-		count += 1
+		if not baseid or item.baseid == baseid:
+			item.delete()
+			count += 1
 		item = iterator.next
 	socket.sysmessage( "%i items removed" % count )
 
