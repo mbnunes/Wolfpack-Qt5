@@ -173,7 +173,7 @@ public:
 		Get the id of a random damage spell
 	*/
 	int getRandomHarmfulSpell() {
-		static const mageryPerCircle = (1000.0 / 7.0);
+		static const float mageryPerCircle = (1000.0 / 7.0);
 		unsigned char maxCircle = QMIN(8, QMAX(1, (unsigned char)((m_npc->skillValue(MAGERY) + 200) / mageryPerCircle)));
 		int selected = RandomNum(1, maxCircle * 2) - 1; // Select a random spell
 
