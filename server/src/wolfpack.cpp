@@ -1649,7 +1649,8 @@ int main( int argc, char *argv[] )
 
 	PyThreadState *_save;
 
-	while (keeprun)
+	// This is our main loop
+	while( keeprun )
 	{
 		// Uncomment by Dupois July 18, 2000! see note above about InitKbThread()
 		#if !defined(__unix__)
@@ -1659,31 +1660,31 @@ int main( int argc, char *argv[] )
 		// Python threading - start
 		_save = PyEval_SaveThread();
 
-		switch(SrvParams->niceLevel())
+		switch( SrvParams->niceLevel() )
 		{
 			case 0: break;	// very unnice - hog all cpu time
-			case 1: if (now!=0) ZThread::Thread::sleep(10); else ZThread::Thread::sleep(100); break;
+			case 1: if ( cNetwork::instance()->count() != 0) ZThread::Thread::sleep(10); else ZThread::Thread::sleep(100); break;
 			case 2: ZThread::Thread::sleep(10); break;
 			case 3: ZThread::Thread::sleep(40); break;// very nice
-			case 4: if (now!=0) ZThread::Thread::sleep(10); else ZThread::Thread::sleep(4000); break; // anti busy waiting
-			case 5: if (now!=0) ZThread::Thread::sleep(40); else ZThread::Thread::sleep(5000); break;
-
+			case 4: if ( cNetwork::instance()->count() != 0 ) ZThread::Thread::sleep(10); else ZThread::Thread::sleep(4000); break; // anti busy waiting
+			case 5: if ( cNetwork::instance()->count() != 0 ) ZThread::Thread::sleep(40); else ZThread::Thread::sleep(5000); break;
 			default: ZThread::Thread::sleep(10); break;
 		}
 
 		// Python threading - end
 		PyEval_RestoreThread(_save);
 
-		if(loopTimeCount >= 1000)
+		if( loopTimeCount >= 1000 )
 		{
 			loopTimeCount = 0;
 			loopTime = 0;
 		}
+
 		++loopTimeCount;
 
 		loopSecs = getNormalizedTime();  // Starting time
 
-		if(networkTimeCount >= 1000)
+		if( networkTimeCount >= 1000 )
 		{
 			networkTimeCount = 0;
 			networkTime = 0;
@@ -1691,27 +1692,21 @@ int main( int argc, char *argv[] )
 
 		tempSecs = getNormalizedTime();
 
-		if (CheckClientIdle<=uiCurrentTime)
+		// Process any Network Events
+		cNetwork::instance()->poll();
+
+		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 		{
-			CheckClientIdle=((SrvParams->inactivityTimeout()/2)*MY_CLOCKS_PER_SEC)+uiCurrentTime;
-
-			for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+			P_CHAR player = mSock->player();
+			if ( player && !player->isGM() && player->clientidletime() < uiCurrentTime )
 			{
-				P_CHAR player = mSock->player();
-				if ( player && !player->isGM() && player->clientidletime() < uiCurrentTime )
-				{
-					clConsole.send("Player %s disconnected due to inactivity !\n", player->name.latin1());
-					cUOTxMessageWarning packet;
-					packet.setReason( cUOTxMessageWarning::Idle );
-					mSock->send( &packet );
-					mSock->disconnect();
-				}
-
+				clConsole.send("Player %s disconnected due to inactivity !\n", player->name.latin1());
+				cUOTxMessageWarning packet;
+				packet.setReason( cUOTxMessageWarning::Idle );
+				mSock->send( &packet );
+				mSock->disconnect();
 			}
 		}
-
-		//cNetwork::instance()->CheckMessage();
-		cNetwork::instance()->poll(); // Poll the network
 
         if (SrvParams->EnableRA())
            RemoteAdmin::instance()->processNextEvent();
@@ -1720,7 +1715,7 @@ int main( int argc, char *argv[] )
 		networkTime += tempTime;
 		++networkTimeCount;
 
-		if(timerTimeCount >= 1000)
+		if( timerTimeCount >= 1000 )
 		{
 			timerTimeCount = 0;
 			timerTime = 0;
@@ -1730,12 +1725,12 @@ int main( int argc, char *argv[] )
 
 		checktimers();
 
-		uiCurrentTime = getNormalizedTime();//getNormalizedTime() only once
+		uiCurrentTime = getNormalizedTime();
 		tempTime = getNormalizedTime() - tempSecs;
 		timerTime += tempTime;
 		++timerTimeCount;
 
-		if(autoTimeCount >= 1000)
+		if( autoTimeCount >= 1000 )
 		{
 			autoTimeCount = 0;
 			autoTime = 0;
@@ -1749,10 +1744,10 @@ int main( int argc, char *argv[] )
 		autoTime += tempTime;
 		++autoTimeCount;
 
-		//cNetwork::instance()->ClearBuffers();
-
 		tempTime = getNormalizedTime() - loopSecs;
+
 		loopTime += tempTime;
+		
 		qApp->processEvents( 40 );
 	}
 
@@ -1832,28 +1827,6 @@ void setabovelight(unsigned char lightchar)
 			if (perm[i]) dolight(i, SrvParams->worldCurrentLevel());
 		}
 	}
-}
-
-void doworldlight(void)
-{
-	char c='\xFF';
-	int i=-1;
-	if ( uoTime.time().hour() <= 3 && uoTime.time().hour() >= 10 ) i = SrvParams->worldDarkLevel();
-	else i = SrvParams->worldBrightLevel();
-	if (i == -1)
-	{
-		i=(((60*(uoTime.time().hour() - 4)) + uoTime.time().minute()) * (SrvParams->worldDarkLevel()-SrvParams->worldBrightLevel())) / 360;
-		if (uoTime.time().hour() < 12)
-		{
-			i += SrvParams->worldBrightLevel();
-		} else {
-			i= SrvParams->worldDarkLevel() - i;
-		}
-	}
-	if (wtype) i += 2;
-	c=i;
-	if (c!= SrvParams->worldCurrentLevel())
-		SrvParams->worldCurrentLevel() = c;
 }
 
 int chardir(P_CHAR a, P_CHAR b)	// direction from character a to char b

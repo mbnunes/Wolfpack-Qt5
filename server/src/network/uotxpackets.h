@@ -1112,6 +1112,23 @@ public:
 	void set3dAdditional2Id( UINT16 data ) { setShort( 47, data ); }
 };
 
+// 0x4E Glow (May work for Items as well)
+class cUOTxGlow: public cUOPacket
+{
+public:
+	cUOTxGlow(): cUOPacket( 0x4E, 6 ) {}
+	void setSerial( SERIAL data ) { setInt( 1, data ); }
+	void setLevel( UINT8 data ) { (*this)[5] = data; }
+};
+
+// 0x4F LightLevel
+class cUOTxLightLevel: public cUOPacket
+{
+public:
+	cUOTxLightLevel(): cUOPacket( 0x4F, 2 ) {}
+	void setLevel( UINT8 data ) { (*this)[1] = data; }
+};
+
 // 0x53 Idle Warning
 class cUOTxMessageWarning : public cUOPacket
 {

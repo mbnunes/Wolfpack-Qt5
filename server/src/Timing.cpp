@@ -823,21 +823,59 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		uotickcount = currenttime + SrvParams->secondsPerUOMinute()*MY_CLOCKS_PER_SEC;
 	}
 
+	// Recalculate and Resend Lightlevel
 	if( lighttime <= currenttime )
 	{
-		doworldlight(); //Changes lighting, if it is currently time to.
-		int i;
-		for (i = 0; i < now; i++) 
-			if (online(currchar[i])) 
-				dolight(i, SrvParams->worldCurrentLevel()); // bandwidth fix, LB
-		lighttime=currenttime+30*MY_CLOCKS_PER_SEC;
+		// Resend the lightlevel to all clients
+		UINT16 level = 0xFF;
+
+		if( uoTime.time().hour() <= 3 && uoTime.time().hour() >= 10 )
+			level = SrvParams->worldDarkLevel();
+		else
+			level = SrvParams->worldBrightLevel();
+
+		if( level == -1)
+		{
+			level = ( ( ( 60 * ( uoTime.time().hour() - 4 ) ) + uoTime.time().minute()) * (SrvParams->worldDarkLevel()-SrvParams->worldBrightLevel())) / 360;
+
+			if(uoTime.time().hour() < 12)
+				level += SrvParams->worldBrightLevel();
+			else
+				level = SrvParams->worldDarkLevel() - level;
+		}
+
+		// Only update and resend when the lightlevel
+		// Really changed
+		if( level != SrvParams->worldCurrentLevel() )
+		{
+			SrvParams->worldCurrentLevel() = level;
+
+			cUOSocket *mSock = cNetwork::instance()->first();
+
+			while( mSock )
+			{
+				mSock->updateLightLevel( level );
+				mSock = cNetwork::instance()->next();
+			}
+		}
+
+		// Update lightlevel every 30 seconds
+		lighttime = currenttime + 30 * MY_CLOCKS_PER_SEC;
 	}
-	static unsigned int itemlooptime = 0;
-    if( itemlooptime <= currenttime )
-	{
-       itemlooptime = currenttime+5*MY_CLOCKS_PER_SEC;
-	   AllItemsIterator iterItems;
-       for( iterItems.Begin(); !iterItems.atEnd(); ++iterItems ) // Ripper...so spawners get set to nodecay.
+
+	// Check Spawners
+	static UINT32 respawntime = 0;
+
+    //if( respawntime <= currenttime )
+	//{
+     //  respawntime = currenttime + 5 * MY_CLOCKS_PER_SEC;
+
+	   // This is a rather "crappy" loop
+	   // We iterate trough all items just because we want
+	   // To "fix" spawners. We better leave that alone
+	   // And ensure that the spawners are no-decay in the scripts
+	   /*AllItemsIterator iterItems;
+       for( iterItems.Begin(); !iterItems.atEnd(); ++iterItems )
 	   {
 			P_ITEM pi = iterItems.GetData();
 			if(pi != NULL)
@@ -850,8 +888,8 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		            pi->update();
 				 }
 			}
-		}
-	}
+		}*/
+	//}
 
 	for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
 	{
@@ -897,7 +935,9 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 			}		
 		}
 
-		// Now for the items
+		// Check the mapregions around this character. 
+		// This *could* be expensive when many characters are in the same
+		// region.
 		if( checkitemstime <= currenttime  )
 		{
 			RegionIterator4Items itemIter( socket->player()->pos );
@@ -913,17 +953,24 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 
 				switch( pItem->type() )
 				{
+				// This is rather stupid, why is it not a normal decaytimer!
 				case 51:
 				case 52:
 					if( pItem->gatetime < currenttime )
 						Items->DeleItem( pItem );
 					break;
 
+				// If it is a sound-item there is a 1%*item->morez chance that
+				// It "emits" a sound to this character.
+				// This is a rather stupid method...
+				// Only one character is hearing the sound at once
 				case 88:
 					if( pItem->pos.distance( socket->player()->pos ) < pItem->morey )
 						if( RandomNum( 1, 100 ) <= pItem->morez )
 							socket->soundEffect( pItem->morex, pItem );
 					break;
+
+				// Move Boats
 				case 117:
 					if( pItem->tags.get( "tiller" ).isValid() && 
 						( pItem->gatetime <= currenttime ) )
@@ -956,8 +1003,11 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	if( checknpcfollow <= currenttime ) checknpcfollow=(unsigned int)((double) currenttime+(SrvParams->checkFollowTime()*MY_CLOCKS_PER_SEC)); //Ripper
 	if( checkitemstime <= currenttime ) checkitemstime=(unsigned int)((double)(SrvParams->checkItemTime()*MY_CLOCKS_PER_SEC+currenttime)); //lb
 
-	if (nextfieldeffecttime <= currenttime)
-		nextfieldeffecttime = (unsigned int)((double) currenttime + (0.5*MY_CLOCKS_PER_SEC));
-	if (nextdecaytime <= currenttime)
-		nextdecaytime = currenttime + (15*MY_CLOCKS_PER_SEC);
+	// Update the delay for the next field-effect (every 500ms)
+	if( nextfieldeffecttime <= currenttime )
+		nextfieldeffecttime = (unsigned int)floor( (double)currenttime + ( 0.5 * MY_CLOCKS_PER_SEC ) );
+
+	// Update the next-decay time (decay-check is made every 15 seconds)
+	if( nextdecaytime <= currenttime )
+		nextdecaytime = currenttime + ( 15 * MY_CLOCKS_PER_SEC );
 }

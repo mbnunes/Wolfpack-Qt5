@@ -2071,3 +2071,28 @@ void cUOSocket::cancelTarget()
 		targetRequest = 0;
 	}
 }
+
+void cUOSocket::updateLightLevel( UINT8 level )
+{
+	if( _player )
+	{
+		cUOTxLightLevel pLight;
+
+		if( SrvParams->worldFixedLevel() != 255 )
+			pLight.setLevel( SrvParams->worldFixedLevel() );
+
+		else if( _player->fixedlight() != 255 )
+			pLight.setLevel( _player->fixedlight() );
+
+		else if( indungeon( _player ) )
+			pLight.setLevel( SrvParams->dungeonLightLevel() );
+
+		else if( level != 0xFF )
+			pLight.setLevel( level );
+
+		else
+			pLight.setLevel( SrvParams->worldCurrentLevel();
+
+		send( &pLight );
+	}
+}

@@ -103,7 +103,6 @@ int RandomNum(int nLowNum, int nHighNum);
 void enlist(UOXSOCKET s, UI32 listnum); // For enlisting in army
 
 // Day and Night related prototypes
-void doworldlight(void);
 char indungeon(P_CHAR pc);
 void setabovelight(unsigned char);
 

@@ -374,8 +374,11 @@ void cTmpEff::Expire()
 		}
 		break;
 	case 2:
-		pc_s->setFixedLight('\xFF');
-		dolight(calcSocketFromChar(pc_s), SrvParams->worldBrightLevel());
+		pc_s->setFixedLight( 0xFF );
+
+		if( socket )
+			socket->updateLightLevel( 0xFF );
+
 		break;
 	case 3:
 		pc_s->chgDex( more1 );
@@ -792,7 +795,10 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		break;
 	case 2:	// night sight
 		pc_dest->setFixedLight( SrvParams->worldBrightLevel() );
-		dolight(calcSocketFromChar((pc_dest)), SrvParams->worldBrightLevel());
+		
+		if( mSock )
+			mSock->updateLightLevel( SrvParams->worldBrightLevel() );
+
 		Magic->afterParticles(6, pc_dest); // shows particles for UO:3D clients, like On OSI servers
 
 		if(dur > 0)		// if a duration is given (potions), use that (Duke, 30.12.2000)

@@ -1413,33 +1413,6 @@ void movingeffect2(P_CHAR pc_source, P_ITEM dest, unsigned char eff1, unsigned c
 	}
 }
 
-void dolight(int s, char level)
-{
-	char light[3]="\x4F\x00";
-
-	if ((s==-1)||(!perm[s])) return;
-	P_CHAR pc_currchar = currchar[s];
-
-	light[1]=level;
-	if (SrvParams->worldFixedLevel() != 255)
-	{
-		light[1] = SrvParams->worldFixedLevel();
-	} 
-	else if (pc_currchar->fixedlight()!=255)
-	{
-		light[1]=pc_currchar->fixedlight();
-	} 
-	else if (indungeon(currchar[s]))
-	{
-		light[1]= SrvParams->dungeonLightLevel();
-	}
-	else
-	{
-		light[1]=level;
-	}
-	Xsend(s, light, 2);
-}
-
 void updateskill(int s, int skillnum) // updated for client 1.26.2b by LB
 {
 	char update[11];
