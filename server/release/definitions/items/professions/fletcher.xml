@@ -11,12 +11,12 @@
 <definitions>
 	<item id="dfa">
 		<id>0x0dfa</id>
-		<category>Professions\Fletcher\Feathers 1</category>
+		<category>Professions\Fletcher\Decorative Feathers 1</category>
 	</item>
 
 	<item id="dfb">
 		<id>0x0dfb</id>
-		<category>Professions\Fletcher\Feathers 2</category>
+		<category>Professions\Fletcher\Decorative Feathers 2</category>
 	</item>
 
 	<item id="f40">
@@ -31,12 +31,12 @@
 
 	<item id="1020">
 		<id>0x1020</id>
-		<category>Professions\Fletcher\Feathers 3</category>
+		<category>Professions\Fletcher\Decorative Feathers 3</category>
 	</item>
 
 	<item id="1021">
 		<id>0x1021</id>
-		<category>Professions\Fletcher\Feathers 4</category>
+		<category>Professions\Fletcher\Decorative Feathers 4</category>
 	</item>
 
 	<item id="1022">
@@ -59,4 +59,65 @@
 		<category>Professions\Fletcher\Arrow Shafts 2</category>
 	</item>
 
+
+	<!-- arrows -->
+	<item id="f3f">
+		<id>0x0f3f</id>
+		<decay />
+		<value>3</value>
+		<durability>10</durability>
+		<rank>5</rank>
+		<category>Professions\Fletcher\Arrow</category>
+	</item>
+
+	<!-- crossbow bolts -->
+	<item id="1bfb">
+		<id>0x1bfb</id>
+		<decay />
+		<value>5</value>
+		<durability>15</durability>
+		<rank>5</rank>
+		<category>Professions\Fletcher\Crossbow Bolt</category>		
+	</item>
+
+	<item id="1bfc">
+		<id>0x1bfc</id>
+		<category>Professions\Fletcher\Crossbow Bolts 1</category>
+	</item>
+
+	<item id="1bfd">
+		<id>0x1bfd</id>
+		<category>Professions\Fletcher\Crossbow Bolts 2</category>
+	</item>
+
+
+	<item id="1bd1">
+		<id>0x1bd1</id>
+		<category>Professions\Fletcher\Feather</category>		
+	</item>
+
+	<item id="1bd2">
+		<id>0x1bd2</id>
+		<category>Professions\Fletcher\Feathers 1</category>
+	</item>
+
+	<item id="1bd3">
+		<id>0x1bd3</id>
+		<category>Professions\Fletcher\Feathers 2</category>
+	</item>
+
+	<item id="1bd4">
+		<id>0x1bd4</id>
+		<category>Professions\Fletcher\Shaft</category>
+	</item>
+
+	<item id="1bd5">
+		<id>0x1bd5</id>
+		<category>Professions\Fletcher\Shafts 1</category>
+	</item>
+
+	<item id="1bd6">
+		<id>0x1bd6</id>
+		<category>Professions\Fletcher\Shafts 2</category>
+	</item>
 </definitions>

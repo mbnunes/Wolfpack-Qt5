@@ -116,107 +116,107 @@
 
 	<item id="1e6e">
 		<id>0x1e6e</id>
-		<category>Professions\Carpenter\Unfinished Woodwork 1</category>
+		<category>Professions\Carpenter\Unfinished Woodwork\Unfinished Woodwork 1</category>
 	</item>
 
 	<item id="1e6f">
 		<id>0x1e6f</id>
-		<category>Professions\Carpenter\Unfinished Woodwork 2</category>
+		<category>Professions\Carpenter\Unfinished Woodwork\Unfinished Woodwork 2</category>
 	</item>
 
 	<item id="1e70">
 		<id>0x1e70</id>
-		<category>Professions\Carpenter\Unfinished Woodwork 3</category>
+		<category>Professions\Carpenter\Unfinished Woodwork\Unfinished Woodwork 3</category>
 	</item>
 
 	<item id="1e71">
 		<id>0x1e71</id>
-		<category>Professions\Carpenter\Unfinished Woodwork 4</category>
+		<category>Professions\Carpenter\Unfinished Woodwork\Unfinished Woodwork 4</category>
 	</item>
 
 	<item id="1e72">
 		<id>0x1e72</id>
-		<category>Professions\Carpenter\Unfinished Woodwork 5</category>
+		<category>Professions\Carpenter\Unfinished Woodwork\Unfinished Woodwork 5</category>
 	</item>
 
 	<item id="1e73">
 		<id>0x1e73</id>
-		<category>Professions\Carpenter\Unfinished Woodwork 6</category>
+		<category>Professions\Carpenter\Unfinished Woodwork\Unfinished Woodwork 6</category>
 	</item>
 
 	<item id="1e74">
 		<id>0x1e74</id>
-		<category>Professions\Carpenter\Unfinished Woodwork 7</category>
+		<category>Professions\Carpenter\Unfinished Woodwork\Unfinished Woodwork 7</category>
 	</item>
 
 	<item id="1e75">
 		<id>0x1e75</id>
-		<category>Professions\Carpenter\Unfinished Woodwork 8</category>
+		<category>Professions\Carpenter\Unfinished Woodwork\Unfinished Woodwork 8</category>
 	</item>
 
 	<item id="1e76">
 		<id>0x1e76</id>
-		<category>Professions\Carpenter\Unfinished Woodwork 9</category>
+		<category>Professions\Carpenter\Unfinished Woodwork\Unfinished Woodwork 9</category>
 	</item>
 
 	<item id="1e77">
 		<id>0x1e77</id>
-		<category>Professions\Carpenter\Unfinished Woodwork 10</category>
+		<category>Professions\Carpenter\Unfinished Woodwork\Unfinished Woodwork 10</category>
 	</item>
 
 	<item id="1e78">
 		<id>0x1e78</id>
-		<category>Professions\Carpenter\Unfinished Woodwork 11</category>
+		<category>Professions\Carpenter\Unfinished Woodwork\Unfinished Woodwork 11</category>
 	</item>
 
 	<item id="1e79">
 		<id>0x1e79</id>
-		<category>Professions\Carpenter\Unfinished Woodwork 12</category>
+		<category>Professions\Carpenter\Unfinished Woodwork\Unfinished Woodwork 12</category>
 	</item>
 
 	<item id="1e7a">
 		<id>0x1e7a</id>
-		<category>Professions\Carpenter\Unfinished Woodwork 13</category>
+		<category>Professions\Carpenter\Unfinished Woodwork\Unfinished Woodwork 13</category>
 	</item>
 
 	<item id="1e7b">
 		<id>0x1e7b</id>
-		<category>Professions\Carpenter\Unfinished Woodwork 14</category>
+		<category>Professions\Carpenter\Unfinished Woodwork\Unfinished Woodwork 14</category>
 	</item>
 
 	<item id="1e7c">
 		<id>0x1e7c</id>
-		<category>Professions\Carpenter\Unfinished Woodwork 15</category>
+		<category>Professions\Carpenter\Unfinished Woodwork\Unfinished Woodwork 15</category>
 	</item>
 
 	<item id="1e7d">
 		<id>0x1e7d</id>
-		<category>Professions\Carpenter\Unfinished Woodwork 16</category>
+		<category>Professions\Carpenter\Unfinished Woodwork\Unfinished Woodwork 16</category>
 	</item>
 
 	<item id="1e7e">
 		<id>0x1e7e</id>
-		<category>Professions\Carpenter\Unfinished Woodwork 17</category>
+		<category>Professions\Carpenter\Unfinished Woodwork\Unfinished Woodwork 17</category>
 	</item>
 
 	<item id="1e7f">
 		<id>0x1e7f</id>
-		<category>Professions\Carpenter\Unfinished Woodwork 18</category>
+		<category>Professions\Carpenter\Unfinished Woodwork\Unfinished Woodwork 18</category>
 	</item>
 
 	<item id="1e80">
 		<id>0x1e80</id>
-		<category>Professions\Carpenter\Unfinished Woodwork 19</category>
+		<category>Professions\Carpenter\Unfinished Woodwork\Unfinished Woodwork 19</category>
 	</item>
 
 	<item id="1e81">
 		<id>0x1e81</id>
-		<category>Professions\Carpenter\Unfinished Woodwork 20</category>
+		<category>Professions\Carpenter\Unfinished Woodwork\Unfinished Woodwork 20</category>
 	</item>
 
 	<item id="1e82">
 		<id>0x1e82</id>
-		<category>Professions\Carpenter\Unfinished Woodwork 21</category>
+		<category>Professions\Carpenter\Unfinished Woodwork\Unfinished Woodwork 21</category>
 	</item>
 
 	<item id="1eb1">
@@ -242,5 +242,166 @@
 	<item id="1eb5">
 		<id>0x1eb5</id>
 		<category>Professions\Carpenter\Unfinished Barrel</category>
+	</item>
+
+	<!-- Tools -->
+	<item id="1026">
+		<id>0x1026</id>
+		<category>Professions\Carpenter\Chisels (N/S)</category>
+	</item>
+
+	<item id="1027">
+		<id>0x1027</id>
+		<category>Professions\Carpenter\Chisels (W/E)</category>
+	</item>
+
+	<item id="1028">
+		<id>0x1028</id>
+		<category>Professions\Carpenter\Dovetail Saw (N/S)</category>
+	</item>
+
+	<item id="1029">
+		<id>0x1029</id>
+		<category>Professions\Carpenter\Dovetail Saw (W/E)</category>
+	</item>
+
+	<item id="102a">
+		<id>0x102a</id>
+		<category>Professions\Carpenter\Hammer 1</category>
+	</item>
+
+	<item id="102b">
+		<id>0x102b</id>
+		<category>Professions\Carpenter\Hammer 2</category>
+	</item>
+
+	<item id="102c">
+		<id>0x102c</id>
+		<category>Professions\Carpenter\Moulding Planes (N/S)</category>
+	</item>
+
+	<item id="102d">
+		<id>0x102d</id>
+		<category>Professions\Carpenter\Moulding Planes (W/E)</category>
+	</item>
+
+	<item id="102e">
+		<id>0x102e</id>
+		<category>Professions\Carpenter\Nails (W/E)</category>
+	</item>
+
+	<item id="102f">
+		<id>0x102f</id>
+		<category>Professions\Carpenter\Nails (N/S)</category>
+	</item>
+
+	<item id="1030">
+		<id>0x1030</id>
+		<category>Professions\Carpenter\Jointing Plane (N/S)</category>
+	</item>
+
+	<item id="1031">
+		<id>0x1031</id>
+		<category>Professions\Carpenter\Jointing Plane (W/E)</category>
+	</item>
+
+	<item id="1032">
+		<id>0x1032</id>
+		<category>Professions\Carpenter\Smoothing Plane (N/S)</category>
+	</item>
+
+	<item id="1033">
+		<id>0x1033</id>
+		<category>Professions\Carpenter\Smoothing Plane (W/E)</category>
+	</item>
+
+	<item id="1034">
+		<id>0x1034</id>
+		<category>Professions\Carpenter\Saw (N/S)</category>
+	</item>
+
+	<item id="1035">
+		<id>0x1035</id>
+		<category>Professions\Carpenter\Saw (W/E)</category>
+	</item>
+
+	<item id="10e4">
+		<id>0x10e4</id>
+		<category>Professions\Carpenter\Draw Knife</category>
+	</item>
+
+	<item id="10e5">
+		<id>0x10e5</id>
+		<category>Professions\Carpenter\Froe</category>
+	</item>
+
+	<item id="10e6">
+		<id>0x10e6</id>
+		<category>Professions\Carpenter\Inshave</category>
+	</item>
+
+	<item id="10e7">
+		<id>0x10e7</id>
+		<category>Professions\Carpenter\Scorp</category>
+	</item>
+
+	<item id="1bd7">
+		<id>0x1bd7</id>
+		<category>Professions\Carpenter\Board (N/S)</category>
+	</item>
+
+	<item id="1bd8">
+		<id>0x1bd8</id>
+		<category>Professions\Carpenter\Boards 1 (N/S)</category>
+	</item>
+
+	<item id="1bd9">
+		<id>0x1bd9</id>
+		<category>Professions\Carpenter\Boards 2 (N/S)</category>
+	</item>
+
+	<item id="1bda">
+		<id>0x1bda</id>
+		<category>Professions\Carpenter\Board (W/E)</category>
+	</item>
+
+	<item id="1bdb">
+		<id>0x1bdb</id>
+		<category>Professions\Carpenter\Boards 1 (W/E)</category>
+	</item>
+
+	<item id="1bdc">
+		<id>0x1bdc</id>
+		<category>Professions\Carpenter\Boards 2 (W/E)</category>
+	</item>
+
+	<item id="1bdd">
+		<id>0x1bdd</id>
+		<category>Professions\Carpenter\Log (W/E)</category>
+	</item>
+
+	<item id="1bde">
+		<id>0x1bde</id>
+		<category>Professions\Carpenter\Logs 1 (W/E)</category>
+	</item>
+
+	<item id="1bdf">
+		<id>0x1bdf</id>
+		<category>Professions\Carpenter\Logs 2 (W/E)</category>
+	</item>
+
+	<item id="1be0">
+		<id>0x1be0</id>
+		<category>Professions\Carpenter\Log (N/S)</category>
+	</item>
+
+	<item id="1be1">
+		<id>0x1be1</id>
+		<category>Professions\Carpenter\Logs 1 (N/S)</category>
+	</item>
+
+	<item id="1be2">
+		<id>0x1be2</id>
+		<category>Professions\Carpenter\Logs 2 (N/S)</category>
 	</item>
 </definitions>

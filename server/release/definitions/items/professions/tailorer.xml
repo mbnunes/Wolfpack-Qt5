@@ -11,7 +11,7 @@
 <definitions>
 	<item id="def">
 		<id>0x0def</id>
-		<category>Professions\Tailorer\Raw Cotton</category>
+		<category>Professions\Tailorer\Raw Cotton 1</category>
 	</item>
 
 	<item id="df6">
@@ -223,5 +223,224 @@
 	<item id="1768">
 		<id>0x1768</id>
 		<category>Professions\Tailorer\Cut Cloth (W/E)</category>
+	</item>
+
+	<!-- Raw Cotton -->
+	<item id="df9">
+		<id>0x0df9</id>
+		<category>Professions\Tailorer\Raw Cotton 2</category>
+	</item>
+
+	<!-- Pile of Wool -->
+	<item id="df8">
+		<id>0x0df8</id>
+		<category>Professions\Tailorer\Pile of Wool 1</category>
+	</item>
+
+	<!-- Ball of Yarn -->
+	<item id="e1d">
+		<id>0x0e1d</id>
+		<category>Professions\Tailorer\Ball of Yarn 1</category>
+	</item>
+
+	<item id="e1e">
+		<id>0x0e1e</id>
+		<category>Professions\Tailorer\Ball of Yarn 2</category>
+	</item>
+
+	<item id="e1f">
+		<id>0x0e1f</id>
+		<category>Professions\Tailorer\Ball of Yarn 3</category>
+	</item>
+
+	<!-- Bolt of Cloth -->
+	<item id="f95">
+		<id>0x0f95</id>
+		<category>Professions\Tailorer\Bolt of Cloth 1</category>
+	</item>
+
+	<item id="f96">
+		<id>0x0f96</id>
+		<category>Professions\Tailorer\Bolt of Cloth 2</category>
+	</item>
+
+	<item id="f97">
+		<id>0x0f97</id>
+		<category>Professions\Tailorer\Bolt of Cloth 3</category>
+	</item>
+
+	<item id="f98">
+		<id>0x0f98</id>
+		<category>Professions\Tailorer\Bolt of Cloth 4</category>
+	</item>
+
+	<item id="f99">
+		<id>0x0f99</id>
+		<category>Professions\Tailorer\Bolt of Cloth 5</category>
+	</item>
+
+	<item id="f9a">
+		<id>0x0f9a</id>
+		<category>Professions\Tailorer\Bolt of Cloth 6</category>
+	</item>
+
+	<item id="f9b">
+		<id>0x0f9b</id>
+		<category>Professions\Tailorer\Bolt of Cloth 7</category>
+	</item>
+
+	<item id="f9c">
+		<id>0x0f9c</id>
+		<category>Professions\Tailorer\Bolt of Cloth 8</category>
+	</item>
+
+	<item id="f9d">
+		<id>0x0f9d</id>
+		<category>Professions\Tailorer\Sewing Kit</category>
+	</item>
+
+	<item id="f9e">
+		<id>0x0f9e</id>
+		<category>Professions\Tailorer\Scissors (N/S)</category>
+	</item>
+
+	<item id="f9f">
+		<id>0x0f9f</id>
+		<category>Professions\Tailorer\Scissors (W/E)</category>
+	</item>
+
+	<item id="fa0">
+		<id>0x0fa0</id>
+		<category>Professions\Tailorer\Spool of Thread (N/S)</category>
+	</item>
+
+	<item id="fa1">
+		<id>0x0fa1</id>
+		<category>Professions\Tailorer\Spool of Thread (W/E)</category>
+	</item>
+
+	<item id="fa9">
+		<id>0x0fa9</id>
+		<category>Professions\Tailorer\Dyes</category>
+	</item>
+
+	<item id="fab">
+		<id>0x0fab</id>
+		<category>Professions\Tailorer\Dying Tub</category>
+	</item>
+
+	<item id="1015">
+		<id>0x1015</id>
+		<category>Professions\Tailorer\Spinning Wheel (N/S)</category>
+	</item>
+
+	<item id="1016">
+		<id>0x1016</id>
+		<category>Professions\Tailorer\Spinning Wheel (N/S) (Animated)</category>
+	</item>
+
+	<item id="1019">
+		<id>0x1019</id>
+		<category>Professions\Tailorer\Spinning Wheel (W/E)</category>
+	</item>
+
+	<item id="101a">
+		<id>0x101a</id>
+		<category>Professions\Tailorer\Spinning Wheel (W/E) (Animated)</category>
+	</item>
+
+	<item id="101c">
+		<id>0x101c</id>
+		<category>Professions\Tailorer\Spinning Wheel (S/N)</category>
+	</item>
+
+	<item id="101d">
+		<id>0x101d</id>
+		<category>Professions\Tailorer\Spinning Wheel (S/N) (Animated)</category>
+	</item>
+
+	<item id="10a4">
+		<id>0x10a4</id>
+		<category>Professions\Tailorer\Spinning Wheel (E/W)</category>
+	</item>
+
+	<item id="10a5">
+		<id>0x10a5</id>
+		<category>Professions\Tailorer\Spinning Wheel (E/W) (Animated)</category>
+	</item>
+
+	<item id="101f">
+		<id>0x101f</id>
+		<category>Professions\Tailorer\Pile of Wool 2</category>
+	</item>
+
+	<item id="105f">
+		<id>0x105f</id>
+		<category>Professions\Tailorer\Upright Loom 1 (W/E) (1/2)</category>
+	</item>
+
+	<item id="1060">
+		<id>0x1060</id>
+		<category>Professions\Tailorer\Upright Loom 1 (W/E) (2/2)</category>
+	</item>
+
+	<item id="1061">
+		<id>0x1061</id>
+		<category>Professions\Tailorer\Upright Loom 1 (N/S) (1/2)</category>
+	</item>
+
+	<item id="1062">
+		<id>0x1062</id>
+		<category>Professions\Tailorer\Upright Loom 1 (N/S) (2/2)</category>
+	</item>
+
+	<item id="1063">
+		<id>0x1063</id>
+		<category>Professions\Tailorer\Upright Loom 2 (W/E) (1/2)</category>
+	</item>
+
+	<item id="1064">
+		<id>0x1064</id>
+		<category>Professions\Tailorer\Upright Loom 2 (W/E) (2/2)</category>
+	</item>
+
+	<item id="1065">
+		<id>0x1065</id>
+		<category>Professions\Tailorer\Upright Loom 2 (N/S) (1/2)</category>
+	</item>
+
+	<item id="1066">
+		<id>0x1066</id>
+		<category>Professions\Tailorer\Upright Loom 2 (N/S) (2/2)</category>
+	</item>
+
+	<item id="1067">
+		<id>0x1067</id>
+		<category>Professions\Tailorer\Cut Up Leather (N/S)</category>
+	</item>
+
+	<item id="1068">
+		<id>0x1068</id>
+		<category>Professions\Tailorer\Cut Up Leather (W/E)</category>
+	</item>
+
+	<item id="1078">
+		<id>0x1078</id>
+		<category>Professions\Tailorer\Pile of Hides 1 (W/E)</category>
+	</item>
+
+	<item id="1079">
+		<id>0x1079</id>
+		<category>Professions\Tailorer\Pile of Hides 1 (N/S)</category>
+	</item>
+
+	<item id="1081">
+		<id>0x1081</id>
+		<category>Professions\Tailorer\Pile of Hides 2 (W/E)</category>
+	</item>
+
+	<item id="1082">
+		<id>0x1082</id>
+		<category>Professions\Tailorer\Pile of Hides 2 (N/S)</category>
 	</item>
 </definitions>

@@ -7,37 +7,6 @@
 =================================================================
 -->
 <definitions>
-	<!-- Sledge Hammer -->
-	<item id="fb4">
-		<id>0x0FB4</id>
-		<category>Skill Items\Blacksmithing\Sledge Hammer (W/E)</category>
-	</item>
-	
-	<!-- Sledge Hammer -->
-	<item id="fb5">
-		<inherit id="fb4" />
-		<id>0x0FB5</id>
-		<category>Skill Items\Blacksmithing\Sledge Hammer (N/S)</category>
-	</item>
-
-	<!-- Smith's Hammer -->
-	<item id="13e3">
-		<id>0x13e3</id>
-		<category>Skill Items\Blacksmithing\Smith's Hammer (W/E)</category>
-	</item>
-
-	<item id="13e4">
-		<inherit id="13e3" />
-		<id>0x13e4</id>
-		<category>Skill Items\Blacksmithing\Smith's Hammer (N/S)</category>
-	</item>
-		
-<!-- 
-=================================================================
-| CRAFTABLE ARMOR DEFINITIONS 					|
-=================================================================
--->
-	
 	<!-- the following define sections are for application on all types of armor -->
 	<define id="iron_armor">
 		<name>iron %1</name>

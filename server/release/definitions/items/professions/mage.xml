@@ -18,4 +18,813 @@
 		<id>0x1f1c</id>
 		<category>Professions\Mage\Purple Magical Crystal</category>
 	</item>
+
+	<!-- Spellbook -->
+	<item id="efa" type="spellbook">
+		<id>0xefa</id>
+		<type>9</type> <!-- Keep this for now -->
+		<twohanded />
+		<decay/>
+		<value>30</value>
+		<category>Professions\Mage\Spellbook (N/S)</category>
+	</item>
+
+	<!-- Recall Runes -->
+	<item id="1f14">
+		<category>Professions\Mage\Runes\Recall Rune (1)</category>
+		<id>0x1f14</id>
+		<weight>1</weight>
+		<newbie />
+		<decay />
+		<events>recall_rune</events>
+	</item>
+
+	<item id="1f15">
+		<inherit id="1f14" />
+		<id>0x1f15</id>
+		<category>Professions\Mage\Runes\Recall Rune (2)</category>
+	</item>
+
+	<item id="1f16">
+		<inherit id="1f14" />
+		<id>0x1f16</id>
+		<category>Professions\Mage\Runes\Recall Rune (3)</category>
+	</item>
+
+	<item id="1f17">
+		<inherit id="1f14" />
+		<id>0x1f17</id>
+		<category>Professions\Mage\Runes\Recall Rune (4)</category>
+	</item>
+	
+	<!-- Scrolls -->
+	
+	<!-- Clumsy Scroll -->
+	<item id="1f2e">
+		<id>0x1f2e</id>
+		<decay/>
+		<type>1105</type>
+		<value>15</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Clumsy</category>
+	</item>
+	
+	<!-- Create Food Scroll -->
+	<item id="1f2f">
+		<id>0x1f2f</id>
+		<decay/>
+		<type>1105</type>
+		<value>15</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Create Food</category>
+	</item>
+	
+	<!-- Feeblemind Scroll -->
+	<item id="1f30">
+		<id>0x1f30</id>
+		<decay/>
+		<type>1105</type>
+		<value>15</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Feeblemind</category>
+	</item>
+	
+	<!-- Heal Scroll -->
+	<item id="1f31">
+		<id>0x1f31</id>
+		<decay/>
+		<type>1105</type>
+		<value>15</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Heal</category>		
+	</item>
+	
+	<!-- Magic Arrow Scroll -->
+	<item id="1f32">
+		<id>0x1f32</id>
+		<decay/>
+		<type>1105</type>
+		<value>15</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Magic Arrow</category>
+	</item>
+	
+	<!-- Night Site Scroll -->
+	<item id="1f33">
+		<id>0x1f33</id>
+		<decay/>
+		<type>1105</type>
+		<value>15</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Night Sight</category>
+	</item>
+	
+	<!-- Reactive Armor Scroll -->
+	<item id="1f2d">
+		<id>0x1f2d</id>
+		<decay/>
+		<type>1105</type>
+		<value>15</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Reactive Armor</category>
+	</item>
+	
+	<!-- Weaken Scroll -->
+	<item id="1f34">
+		<id>0x1f34</id>
+		<decay/>
+		<type>1105</type>
+		<value>15</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Weaken</category>
+	</item>
+	
+	<!-- Agility Scroll -->
+	<item id="1f35">
+		<id>0x1f35</id>
+		<decay/>
+		<type>1105</type>
+		<value>30</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Agility</category>
+	</item>
+	
+	<!-- Cunning Scroll -->
+	<item id="1f36">
+		<id>0x1f36</id>
+		<decay/>
+		<type>1105</type>
+		<value>30</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Cunning</category>
+	</item>
+	
+	<!-- Cure Scroll -->
+	<item id="1f37">
+		<id>0x1f37</id>
+		<decay/>
+		<type>1105</type>
+		<value>30</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Cure</category>
+	</item>
+	
+	<!-- Harm Scroll -->
+	<item id="1f38">
+		<id>0x1f38</id>
+		<decay/>
+		<type>1105</type>
+		<value>30</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Harm</category>		
+	</item>
+	
+	<!-- Magic Trap Scroll -->
+	<item id="1f39">
+		<id>0x1f39</id>
+		<decay/>
+		<type>1105</type>
+		<value>30</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Magic Trap</category>
+	</item>
+	
+	<!-- Magic Untrap Scroll -->
+	<item id="1f3a">
+		<id>0x1f3a</id>
+		<decay/>
+		<type>1105</type>
+		<value>30</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Magic Untrap</category>
+	</item>
+	
+	<!-- Protection Scroll -->
+	<item id="1f3b">
+		<id>0x1f3b</id>
+		<decay/>
+		<type>1105</type>
+		<value>30</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Protection</category>
+	</item>
+	
+	<!-- Strength Scroll -->
+	<item id="1f3c">
+		<id>0x1f3c</id>
+		<decay/>
+		<type>1105</type>
+		<value>30</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Strength</category>
+	</item>
+	
+	<!-- Bless Scroll -->
+	<item id="1f3d">
+		<id>0x1f3d</id>
+		<decay/>
+		<type>1105</type>
+		<value>45</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Bless</category>
+	</item>
+	
+	<!-- Fireball Scroll -->
+	<item id="1f3e">
+		<id>0x1f3e</id>
+		<decay/>
+		<type>1105</type>
+		<value>45</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Fireball</category>
+	</item>
+	
+	<!-- Magic Lock Scroll -->
+	<item id="1f3f">
+		<id>0x1f3f</id>
+		<decay/>
+		<type>1105</type>
+		<value>45</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Magic Lock</category>
+	</item>
+	
+	<!-- Poison Scroll -->
+	<item id="1f40">
+		<id>0x1f40</id>
+		<decay/>
+		<type>1105</type>
+		<value>45</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Poison</category>
+	</item>
+	
+	<!-- Telekinesis Scroll -->
+	<item id="1f41">
+		<id>0x1f41</id>
+		<decay/>
+		<type>1105</type>
+		<value>45</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Telekinesis</category>
+	</item>
+	
+	<!-- Teleport Scroll -->
+	<item id="1f42">
+		<id>0x1f42</id>
+		<decay/>
+		<type>1105</type>
+		<value>45</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Teleport</category>
+	</item>
+	
+	<!-- Unlock Scroll -->
+	<item id="1f43">
+		<id>0x1f43</id>
+		<decay/>
+		<type>1105</type>
+		<value>45</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Unlock</category>
+	</item>
+	
+	<!-- Wall of Stone Scroll -->
+	<item id="1f44">
+		<id>0x1f44</id>
+		<decay/>
+		<type>1105</type>
+		<value>45</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Wall of Stone</category>
+	</item>
+	
+	<!-- Archcure Scroll -->
+	<item id="1f45">
+		<id>0x1f45</id>
+		<decay/>
+		<type>1105</type>
+		<value>60</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Arch Cure</category>
+	</item>
+	
+	<!-- Arch Protection Scroll -->
+	<item id="1f46">
+		<id>0x1f46</id>
+		<decay/>
+		<type>1105</type>
+		<value>60</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Arch Protection</category>
+	</item>
+	
+	<!-- Curse Scroll -->
+	<item id="1f47">
+		<id>0x1f47</id>
+		<decay/>
+		<type>1105</type>
+		<value>60</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Curse</category>
+	</item>
+	
+	<!-- Fire Field Scroll -->
+	<item id="1f48">
+		<id>0x1f48</id>
+		<decay/>
+		<type>1105</type>
+		<value>60</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Fire Field</category>
+	</item>
+	
+	<!-- Greater Heal Scroll -->
+	<item id="1f49">
+		<id>0x1f49</id>
+		<decay/>
+		<type>1105</type>
+		<value>60</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Greater Heal</category>
+	</item>
+	
+	<!-- Lightning Scroll -->
+	<item id="1f4a">
+		<id>0x1f4a</id>
+		<decay/>
+		<type>1105</type>
+		<value>60</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Lightning</category>
+	</item>
+	
+	<!-- Mana Drain Scroll -->
+	<item id="1f4b">
+		<id>0x1f4b</id>
+		<decay/>
+		<type>1105</type>
+		<value>60</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Mana Drain</category>
+	</item>
+	
+	<!-- Recall Scroll -->
+	<item id="1f4c">
+		<id>0x1f4c</id>
+		<decay/>
+		<type>1105</type>
+		<value>60</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Recall</category>
+	</item>
+	
+	<!-- Blade Spirits Scroll -->
+	<item id="1f4d">
+		<id>0x1f4d</id>
+		<decay/>
+		<type>1105</type>
+		<value>75</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Blade Spirits</category>
+	</item>
+	
+	<!-- Dispel Field Scroll -->
+	<item id="1f4e">
+		<id>0x1f4e</id>
+		<decay/>
+		<type>1105</type>
+		<value>75</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Dispel Field</category>
+	</item>
+	
+	<!-- Incognito Scroll -->
+	<item id="1f4f">
+		<id>0x1f4f</id>
+		<decay/>
+		<type>1105</type>
+		<value>75</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Incognito</category>
+	</item>
+	
+	<!-- Magic Reflection Scroll -->
+	<item id="1f50">
+		<id>0x1f50</id>
+		<decay/>
+		<type>1105</type>
+		<value>75</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Magic Reflection</category>
+	</item>
+	
+	<!-- Mind Blast Scroll -->
+	<item id="1f51">
+		<id>0x1f51</id>
+		<decay/>
+		<type>1105</type>
+		<value>75</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Mind Blast</category>
+	</item>
+	
+	<!-- Paralyze Scroll -->
+	<item id="1f52">
+		<id>0x1f52</id>
+		<decay/>
+		<type>1105</type>
+		<value>75</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Paralyze</category>
+	</item>
+	
+	<!-- Poison Field Scroll -->
+	<item id="1f53">
+		<id>0x1f53</id>
+		<decay/>
+		<type>1105</type>
+		<value>75</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Poison Field</category>
+	</item>
+	
+	<!-- Summon Creature Scroll -->
+	<item id="1f54">
+		<id>0x1f54</id>
+		<decay/>
+		<type>1105</type>
+		<value>75</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Summon Creature</category>
+	</item>
+	
+	<!-- Dispel Scroll -->
+	<item id="1f55">
+		<id>0x1f55</id>
+		<decay/>
+		<type>1105</type>
+		<value>90</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Dispel Scroll</category>
+	</item>
+	
+	<!-- Energy Bolt Scroll -->
+	<item id="1f56">
+		<id>0x1f56</id>
+		<decay/>
+		<type>1105</type>
+		<value>90</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Energy Bolt</category>
+	</item>
+	
+	<!-- Explosion Scroll -->
+	<item id="1f57">
+		<id>0x1f57</id>
+		<decay/>
+		<type>1105</type>
+		<value>90</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Explosion</category>
+	</item>
+	
+	<!-- Invisibility Scroll -->
+	<item id="1f58">
+		<id>0x1f58</id>
+		<decay/>
+		<type>1105</type>
+		<value>90</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Invisibility</category>
+	</item>
+	
+	<!-- Mark Scroll -->
+	<item id="1f59">
+		<id>0x1f59</id>
+		<decay/>
+		<type>1105</type>
+		<value>90</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Mark</category>
+	</item>
+	
+	<!-- Mass Curse Scroll -->
+	<item id="1f5a">
+		<id>0x1f5a</id>
+		<decay/>
+		<type>1105</type>
+		<value>90</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Mass Curse</category>
+	</item>
+	
+	<!-- Paralyze Field Scroll -->
+	<item id="1f5b">
+		<id>0x1f5b</id>
+		<decay/>
+		<type>1105</type>
+		<value>90</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Paralyze Field</category>
+	</item>
+	
+	<!-- Reveal Scroll -->
+	<item id="1f5c">
+		<id>0x1f5c</id>
+		<decay/>
+		<type>1105</type>
+		<value>90</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Reveal</category>
+	</item>
+	
+	<!-- Chain Lightning Scroll -->
+	<item id="1f5d">
+		<id>0x1f5d</id>
+		<decay/>
+		<type>1105</type>
+		<value>105</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Chain Lightning</category>
+	</item>
+	
+	<!-- Energy Field Scroll -->
+	<item id="1f5e">
+		<id>0x1f5e</id>
+		<decay/>
+		<type>1105</type>
+		<value>105</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Energy Field</category>
+	</item>
+	
+	<!-- Flamestrike Scroll -->
+	<item id="1f5f">
+		<id>0x1f5f</id>
+		<decay/>
+		<type>1105</type>
+		<value>105</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Flamestrike</category>
+	</item>
+	
+	<!-- Gate Travel Scroll -->
+	<item id="1f60">
+		<id>0x1f60</id>
+		<decay/>
+		<type>1105</type>
+		<value>105</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Gate Travel</category>
+	</item>
+	
+	<!-- Mana Vampire Scroll -->
+	<item id="1f61">
+		<id>0x1f61</id>
+		<decay/>
+		<type>1105</type>
+		<value>105</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Mana Vampire</category>
+	</item>
+	
+	<!-- Mass Dispel Scroll -->
+	<item id="1f62">
+		<id>0x1f62</id>
+		<decay/>
+		<type>1105</type>
+		<value>105</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Mass Dispel</category>
+	</item>
+	
+	<!-- Meteor Swarm Scroll -->
+	<item id="1f63">
+		<id>0x1f63</id>
+		<decay/>
+		<type>1105</type>
+		<value>105</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Meteor Swarm</category>
+	</item>
+	
+	<!-- Polymorph Scroll -->
+	<item id="1f64">
+		<id>0x1f64</id>
+		<decay/>
+		<type>1105</type>
+		<value>105</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Polymorph</category>
+	</item>
+	
+	<!-- Earthquake Scroll -->
+	<item id="1f65">
+		<id>0x1f65</id>
+		<decay/>
+		<type>1105</type>
+		<value>120</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Earthquake</category>
+	</item>
+	
+	<!-- Energy Vortex Scroll -->
+	<item id="1f66">
+		<id>0x1f66</id>
+		<decay/>
+		<type>1105</type>
+		<value>120</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Energy Vortex</category>
+	</item>
+	
+	<!-- Resurrection Scroll -->
+	<item id="1f67">
+		<id>0x1f67</id>
+		<decay/>
+		<type>1105</type>
+		<value>120</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Resurrection</category>
+	</item>
+	
+	<!-- Summon Air Elemental Scroll -->
+	<item id="1f68">
+		<id>0x1f68</id>
+		<decay/>
+		<type>1105</type>
+		<value>120</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Summon Air Elemental</category>
+	</item>
+	
+	<!-- Summon Daemon Scroll -->
+	<item id="1f69">
+		<id>0x1f69</id>
+		<decay/>
+		<type>1105</type>
+		<value>120</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Summon Daemon</category>
+	</item>
+	
+	<!-- Summon Earth Elemental Scroll -->
+	<item id="1f6a">
+		<id>0x1f6a</id>
+		<decay/>
+		<type>1105</type>
+		<value>120</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Summon Earth Elemental</category>
+	</item>
+	
+	<!-- Summon Fire Elemental Scroll -->
+	<item id="1f6b">
+		<id>0x1f6b</id>
+		<decay/>
+		<type>1105</type>
+		<value>120</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Summon Fire Elemental</category>
+	</item>
+	
+	<!-- Summon Water Elemental Scroll -->
+	<item id="1f6c">
+		<id>0x1f6c</id>
+		<decay/>
+		<type>1105</type>
+		<value>120</value>
+		<weight>0.02</weight>
+		<category>Professions\Mage\Scrolls\Summon Water Elemental</category>
+	</item>
+	
+	<!-- Wands -->
+	<item id="df2">
+		<id>0x0df2</id>
+		<category>Professions\Mage\Wands\Wand 1</category>
+	</item>
+
+	<item id="df3">
+		<id>0x0df3</id>
+		<category>Professions\Mage\Wands\Wand 2</category>
+	</item>
+
+	<item id="df4">
+		<id>0x0df4</id>
+		<category>Professions\Mage\Wands\Wand 3</category>
+	</item>
+
+	<item id="df5">
+		<id>0x0df5</id>
+		<category>Professions\Mage\Wands\Wand 4</category>
+	</item>
+
+	<!-- Another Spellbook + Empty Scrolls -->
+	<item id="e34">
+		<id>0x0e34</id>
+		<decay />
+		<category>Professions\Mage\Empty Scroll (W/E)</category>
+	</item>
+
+	<item id="e35">
+		<id>0x0e35</id>
+		<category>Professions\Mage\Scroll 1 (W/E)</category>
+	</item>
+
+	<item id="e36">
+		<id>0x0e36</id>
+		<category>Professions\Mage\Scroll 2 (W/E)</category>
+	</item>
+
+	<item id="e37">
+		<id>0x0e37</id>
+		<category>Professions\Mage\Scroll 3 (W/E)</category>
+	</item>
+
+	<item id="e38">
+		<id>0x0e38</id>
+		<category>Professions\Mage\Scroll 4 (W/E)</category>
+	</item>
+
+	<item id="e39">
+		<id>0x0e39</id>
+		<category>Professions\Mage\Scroll 5 (W/E)</category>
+	</item>
+
+	<item id="e3a">
+		<id>0x0e3a</id>
+		<category>Professions\Mage\Scroll 6 (W/E)</category>
+	</item>
+
+	<item id="e3b" type="spellbook">
+		<inherit id="efa" />
+		<id>0x0e3b</id>
+		<category>Professions\Mage\Spellbook (W/E)</category>
+	</item>
+
+	<item id="ef3">
+		<id>0x0ef3</id>
+		<category>Professions\Mage\Empty Scroll (N/S)</category>
+	</item>
+
+	<item id="ef4">
+		<id>0x0ef4</id>
+		<category>Professions\Mage\Scroll 1 (N/S)</category>
+	</item>
+
+	<item id="ef5">
+		<id>0x0ef5</id>
+		<category>Professions\Mage\Scroll 2 (N/S)</category>
+	</item>
+
+	<item id="ef6">
+		<id>0x0ef6</id>
+		<category>Professions\Mage\Scroll 3 (N/S)</category>
+	</item>
+
+	<item id="ef7">
+		<id>0x0ef7</id>
+		<category>Professions\Mage\Scroll 4 (N/S)</category>
+	</item>
+
+	<item id="ef8">
+		<id>0x0ef8</id>
+		<category>Professions\Mage\Scroll 5 (N/S)</category>
+	</item>
+
+	<item id="ef9">
+		<id>0x0ef9</id>
+		<category>Professions\Mage\Scroll 6 (N/S)</category>
+	</item>
+
+	<item id="1f6d">
+		<id>0x1f6d</id>
+		<category>Professions\Mage\Scroll 7 (N/S)</category>
+	</item>
+
+	<item id="1f6e">
+		<id>0x1f6e</id>
+		<category>Professions\Mage\Scroll 7 (W/E)</category>
+	</item>
+
+	<item id="1f6f">
+		<id>0x1f6f</id>
+		<category>Professions\Mage\Scroll 8 (N/S)</category>
+	</item>
+
+	<item id="1f70">
+		<id>0x1f70</id>
+		<category>Professions\Mage\Scroll 8 (W/E)</category>
+	</item>
+
+	<item id="1f71">
+		<id>0x1f71</id>
+		<category>Professions\Mage\Scroll 9 (N/S)</category>
+	</item>
+
+	<item id="1f72">
+		<id>0x1f72</id>
+		<category>Professions\Mage\Scroll 9 (W/E)</category>
+	</item>
 </definitions>

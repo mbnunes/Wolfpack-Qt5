@@ -179,4 +179,36 @@
 		<category>Professions\Miner\Silver Ingots 2 (N/S)</category>
 	</item>
 
+	<!-- pickaxe -->
+	<item id="e85">
+		<id>0x0e85</id>
+		<durability>50</durability>
+		<value>25</value>
+		<decay/>
+		<type>1104</type>
+		<category>Professions\Miner\Pickaxe (W/E)</category>
+	</item>
+
+	<item id="e86">
+		<inherit id="e85" />
+		<id>0x0e86</id>
+		<category>Professions\Miner\Pickaxe (N/S)</category>
+	</item>
+
+    <!-- Shovel -->
+	<item id="f39">
+		<id>0x0f39</id>
+		<type>1104</type>
+		<durability>30</durability>
+		<value>15</value>
+		<decay/>
+		<category>Professions\Miner\Shovel (W/E)</category>
+	</item>
+
+	<item id="f3a">
+		<inherit id="f39" />
+		<id>0x0f3a</id>
+		<category>Professions\Miner\Shovel (N/S)</category>
+	</item>
+
 </definitions>

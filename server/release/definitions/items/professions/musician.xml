@@ -68,4 +68,60 @@
 		<id>0x0ec0</id>
 		<category>Professions\Musician\Music Sheet 4</category>
 	</item>
+
+	<!-- Drum -->
+	<item id="e9c">
+		<id>0xe9c</id>
+		<decay/>
+		<value>25</value>
+		<category>Professions\Musician\Drum</category>
+	</item>
+	
+	<!-- Tamberine -->
+	<item id="e9d">
+		<id>0xe9d</id>
+		<decay/>
+		<value>25</value>
+		<category>Professions\Musician\Tamberine</category>
+	</item>
+	
+	<!-- Tamberine with Ribbon -->
+	<item id="e9e">
+		<id>0xe9e</id>
+		<decay/>
+		<value>25</value>
+		<category>Professions\Musician\Tamberine with Ribbon</category>
+	</item>
+	
+	<!-- Standing Harp -->
+	<item id="eb1">
+		<id>0xeb1</id>
+		<decay/>
+		<value>25</value>
+		<category>Professions\Musician\Standing Harp</category>
+	</item>
+	
+	<!-- Harp -->
+	<item id="eb2">
+		<id>0xeb2</id>
+		<decay/>
+		<value>25</value>
+		<category>Professions\Musician\Harp</category>
+	</item>
+	
+	<!-- Lute -->
+	<item id="eb3">
+		<id>0xeb3</id>
+		<decay/>
+		<value>25</value>
+		<category>Professions\Musician\Lute (N/S)</category>
+	</item>
+	
+	<!-- Lute -->
+	<item id="eb4">
+		<id>0xeb4</id>
+		<decay/>
+		<value>25</value>
+		<category>Professions\Musician\Lute (W/E)</category>
+	</item>
 </definitions>

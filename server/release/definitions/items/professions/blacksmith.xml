@@ -159,4 +159,28 @@
 		<category>Professions\Blacksmith\Forge (E/W) (3/3)</category>
 	</item>
 
+	<!-- Sledge Hammer -->
+	<item id="fb4">
+		<id>0x0FB4</id>
+		<category>Professions\Blacksmith\Sledge Hammer (W/E)</category>
+	</item>
+	
+	<!-- Sledge Hammer -->
+	<item id="fb5">
+		<inherit id="fb4" />
+		<id>0x0FB5</id>
+		<category>Professions\Blacksmith\Sledge Hammer (N/S)</category>
+	</item>
+
+	<!-- Smith's Hammer -->
+	<item id="13e3">
+		<id>0x13e3</id>
+		<category>Professions\Blacksmith\Smith's Hammer (W/E)</category>
+	</item>
+
+	<item id="13e4">
+		<inherit id="13e3" />
+		<id>0x13e4</id>
+		<category>Professions\Blacksmith\Smith's Hammer (N/S)</category>
+	</item>
 </definitions>

@@ -156,4 +156,17 @@
 		<id>0x1441</id>
 		<category>Weapons\Swords\Cutlass (N/S)</category>
 	</item>
+
+	<!-- Bardiche -->
+	<item id="f4d">
+		<id>0x0f4d</id>
+		<type>1001</type>
+		<category>Weapons\Swords\Bardiche (N/S)</category>
+	</item>
+
+	<item id="f4e">
+		<inherit id="f4d" />
+		<id>0x0f4e</id>
+		<category>Weapons\Swords\Bardiche (W/E)</category>
+	</item>
 </definitions>

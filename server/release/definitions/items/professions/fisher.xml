@@ -163,4 +163,18 @@
 		<id>0x1ea6</id>
 		<category>Professions\Fisher\Hanging Net 4</category>
 	</item>
+
+	<!-- Fishing Pole -->
+	<item id="dbf">
+		<id>0x0dbf</id>
+		<decay />
+		<value>120</value>
+		<category>Professions\Fisher\Fishing Pole (N/S)</category>
+	</item>
+
+	<item id="dc0">
+		<inherit id="dbf" />
+		<id>0x0dc0</id>
+		<category>Professions\Fisher\Fishing Pole (W/E)</category>
+	</item>
 </definitions>
