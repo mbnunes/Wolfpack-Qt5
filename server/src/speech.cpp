@@ -1292,4 +1292,40 @@ void cSpeech::talking(int s, string& speech) // PC speech
 	}
 }
 
+void cSpeech::wchar2char (const char* str)
+{
+	memset(&temp[0], 0, 1024);
+	bool end = false;
+	for (int i = 0; !end && i<1022 ; i++)
+	{
+		if (str[i] == 0 && str[i+1] == 0) end = true; // bugfix LB ... was str[i-1] not so good for i=0
+		temp[i] = str[i*2];
+	}
+}
+
+
+
+void cSpeech::char2wchar (const char* str)
+{
+	memset(&temp[0], 0, 1024);
+	unsigned int size = strlen(str);
+	
+	// client wants to have a 0 as very fist byte.
+	// after that 0 the unicode text
+	// after it two(!) 0's as termintor
+
+	unsigned int j=1;
+	// temp[0]=0; //redundant, plz leave as comment
+
+	for (unsigned int i = 0; i < size; i++) // bugfix LB ... temp[i+1] = str[i] .... wrong
+	{
+		temp[j]   = str[i];
+		// temp[j+1] = 0; // redundant line, plz leave as comment
+		j+=2;
+	}
+
+	// basicly redundant as well, plz leave as comment
+	// temp[j]=0;
+	// temp[j+1]=0;
+}
 
