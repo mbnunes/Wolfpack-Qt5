@@ -48,10 +48,10 @@ def yellow( text ):
 	return colorcodes["yellow"] + text + colorcodes["reset"]
 
 def buildLibLine( path, file ):
-	
+
 	if path == "" or file == "":
 		return ""
-	
+
 	if sys.platform == "win32":
 		return path + os.path.sep + file
 	else:
@@ -59,6 +59,8 @@ def buildLibLine( path, file ):
 			file = file[3:]
 		if file[-3:] == ".so":
 			file = file[0:-3]
+		if file[-2:] == ".a":
+			file = file[0:-2]
 		result = "-L%s -l%s" % ( path, file )
 		return result
 
@@ -310,7 +312,7 @@ def main():
 		PY_LIBDIR = distutils.sysconfig.get_config_vars("LINKFORSHARED")[0]
 		PY_LIBDIR += " -flat_namespace"
 	else:
-		PY_LIBDIR = buildLibLine( py_libpath, py_libfile ) 
+		PY_LIBDIR = buildLibLine( py_libpath, py_libfile )
 	config.write("PY_LIBDIR = %s\n" % PY_LIBDIR)
 	config.write("PY_INCDIR = %s\n" % py_incpath )
 
@@ -326,7 +328,7 @@ def main():
 	else:
 		CONFIG += "release warn_off "
 
-								
+
 	# if --aidebug
 	if options.enable_aidebug:
 		DEFINES += "_AIDEBUG "
