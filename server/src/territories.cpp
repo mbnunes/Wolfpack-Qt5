@@ -306,9 +306,6 @@ bool cTerritory::findTeleporterSpot( Coord& d ) const
 
 void cTerritories::unload()
 {
-	// Delete old regions
-
-
 	topregions.clear();
 	cComponent::unload();
 }

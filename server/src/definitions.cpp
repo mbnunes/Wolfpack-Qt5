@@ -32,6 +32,7 @@
 #include <qregexp.h>
 #include <qstringlist.h>
 #include <qvaluevector.h>
+#include <qvaluelist.h>
 
 // Reloading
 #include "ai/ai.h"
@@ -226,6 +227,8 @@ public:
 			cElement* parent = elements.current(); // Pop the potential parent
 			parent->addChild( element ); // Add the child to it's parent
 			element->setParent( parent );
+		} else {
+			Definitions::instance()->addElement(element);
 		}
 
 		elements.push( element ); // Push our element (there may be children)
@@ -339,16 +342,7 @@ void cDefinitions::unload()
 	unsigned int i;
 	for ( i = 0; i < WPDT_COUNT; ++i )
 	{
-		QMap<QString, cElement*>::iterator it2;
-		for ( it2 = impl->unique[i].begin(); it2 != impl->unique[i].end(); ++it2 )
-			delete it2.data();
-
 		impl->unique[i].clear();
-
-		QValueVector<cElement*>::iterator it;
-		for ( it = impl->nonunique[i].begin(); it != impl->nonunique[i].end(); ++it )
-			delete * it;
-
 		impl->nonunique[i].clear();
 	}
 
@@ -356,6 +350,14 @@ void cDefinitions::unload()
 	CharBaseDefs::instance()->reset();
 	ItemBaseDefs::instance()->reset();
 	listcache_.clear();
+
+	// Free the memory allocated by our nodes.
+	QValueList<cElement*>::iterator eit;
+	for (eit = elements.begin(); eit != elements.end(); ++eit) {
+		delete *eit;
+	}
+	elements.clear();
+
 	cComponent::unload();
 }
 
@@ -364,6 +366,7 @@ void cDefinitions::reload( void )
 	QStringList oldAISections = Definitions::instance()->getSections( WPDT_AI );
 
 	unload();
+
 	load();
 
 	// Update all SubSystems associated with this Definition Manager
@@ -562,6 +565,8 @@ cElement::cElement()
 	children = 0;
 	attributes = 0;
 	parent_ = 0;
+
+	//instances.append(this);
 };
 
 cElement::~cElement()
@@ -571,6 +576,8 @@ cElement::~cElement()
 
 	if ( parent_ )
 		parent_->removeChild( this );
+
+	//instances.remove(this);
 }
 
 void cElement::copyAttributes( const QXmlAttributes& attributes )

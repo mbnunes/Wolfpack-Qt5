@@ -771,11 +771,27 @@ void cMovement::handleTeleporters( P_CHAR pc, const Coord& oldpos )
 			Coord destination = pc->pos();
 			if ( territory->findTeleporterSpot( destination ) )
 			{
+				P_PLAYER player = dynamic_cast<P_PLAYER>( pc );
+
+				// Move pets along
+				if (player) {
+					cPlayer::CharContainer pets = player->pets();
+					cPlayer::CharContainer::iterator it;
+					for (it = pets.begin(); it != pets.end(); ++it) {
+						P_NPC npc = dynamic_cast<P_NPC>(*it);
+						if (npc->inRange(player, 5) && npc->wanderType() != enHalt) {
+							npc->removeFromView(false);
+							npc->moveTo(destination);
+							npc->resend(false);
+						}
+					}
+				}
+
 				bool quick = pc->pos().map != destination.map;
 				pc->removeFromView( false );
 				pc->moveTo( destination );
 				pc->resend( false );
-				P_PLAYER player = dynamic_cast<P_PLAYER>( pc );
+
 				if ( player && player->socket() )
 				{
 					player->socket()->resendPlayer( quick );

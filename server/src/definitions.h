@@ -35,6 +35,7 @@
 #include <qmap.h>
 #include <qstring.h>
 #include <qvaluevector.h>
+#include <qvaluelist.h>
 
 // Includes for cPythonScriptable
 #include "pythonscript.h"
@@ -130,10 +131,17 @@ public:
 
 class cDefinitions : public cComponent
 {
-private:
+protected:
 	cDefManagerPrivate* impl;
+	QValueList<cElement*> elements; // Instances of cElement without a parent.
+	QMap<QString, QStringList> listcache_;
 
 public:
+	// Add an element to our responsibility
+	inline void addElement(cElement *element) {
+		elements.append(element);
+	}
+
 	typedef QMap<QString, cElement*>::iterator Iterator;
 
 	cDefinitions();
@@ -153,9 +161,6 @@ public:
 	QString getRandomListEntry( const QString& ListSection );
 	QStringList getList( const QString& ListSection );
 	QString getText( const QString& TextSection ) const;
-
-protected:
-	QMap<QString, QStringList> listcache_;
 };
 
 typedef Singleton<cDefinitions> Definitions;
