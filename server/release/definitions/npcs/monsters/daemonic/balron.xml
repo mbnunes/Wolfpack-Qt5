@@ -5,28 +5,38 @@
 	<npc id="balron">
 		<name><random list="NAMES_BALRON" /></name>
 		<id>0xa</id>
-		<category>Monsters\Daemonic\Balron</category>
 		<inherit id="monster_base"/>
-		<karma><random min="-10000" max="-20000"/></karma>
-		<fame><random min="10000" max="20000"/></fame>
-		<defense><random min="65" max="80"/></defense>
-		<lodamage>107</lodamage>
-		<hidamage>155</hidamage>
+		<karma>-24000</karma>
+		<fame>24000</fame>
 		<gold><random min="600" max="800"/></gold>
 		<!-- Stats -->
 		<str><random min="986" max="1185"/></str>
-		<dex><random min="117" max="255"/></dex>
-		<int><random min="151" max="150"/></int>
+		<dex><random min="177" max="255"/></dex>
+		<int><random min="901" max="1000"/></int>
 		<!-- Skills -->
-		<wrestling><random min="901" max="1000"/></wrestling>
-		<tactics><random min="901" max="1000"/></tactics>
-		<magicresistance><random min="1005" max="1500"/></magicresistance>
 		<anatomy><random min="251" max="500"/></anatomy>
+		<evaluatingintel><random min="901" max="1000"/></evaluatingintel>
 		<magery><random min="955" max="1000"/></magery>
-		<evaluatingint><random min="901" max="1000"/></evaluatingint>
 		<meditation><random min="251" max="500"/></meditation>
+		<magicresistance><random min="1005" max="1500"/></magicresistance>
+		<tactics><random min="901" max="1000"/></tactics>
+		<wrestling><random min="901" max="1000"/></wrestling>
+		<!-- Damage -->
+		<lodamage>22</lodamage>
+		<hidamage>29</hidamage>
+		<energydamage>25</energydamage>
+		<firedamage>25</firedamage>
+		<physicaldamage>50</physicaldamage>
+		<!-- Resists -->
+		<defense><random min="65" max="80"/></defense>
+		<coldresist><random min="50" max="60"/></coldresist>
+		<energyresist><random min="40" max="50"/></energyresist>
+		<fireresist><random min="60" max="80"/></fireresist>
+		<physicalresist><random min="65" max="80"/></physicalresist>
+		<poisonresist>100</poisonresist>
+		<!-- Misc. -->
 		<carve>carve_demon_with_sword</carve>
-		<!-- Priv -->
+		<category>Monsters\Daemonic\Balron</category>
 	</npc>
 
 </definitions>
