@@ -7,6 +7,7 @@
 # Speech Script for Bankers                                     #
 #===============================================================#
 
+from wolfpack import tr
 from wolfpack.consts import *
 import wolfpack
 import re
@@ -75,9 +76,9 @@ def onSpeech( listener, speaker, text, keywords ):
       bank = speaker.getbankbox()
       amount = bank.countresource(0xeed, 0x0)
       if not amount:
-        listener.say("Alas you don't have any money in your bank.")
+        listener.say(tr("Alas you don't have any money in your bank."))
       else:
-        listener.say("You have %i gold in your bank." % amount)
+        listener.say(tr("You have %i gold in your bank.") % amount)
       return 1
 
     # bank
@@ -92,7 +93,7 @@ def onSpeech( listener, speaker, text, keywords ):
 
       bank = speaker.getbankbox()
       listener.turnto(speaker)
-      listener.say("Here is your bank box, %s." % speaker.name)
+      listener.say(tr("Here is your bank box, %s.") % speaker.name)
       speaker.socket.sendcontainer(bank)
       return 1
 
