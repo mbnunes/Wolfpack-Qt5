@@ -685,11 +685,24 @@ void cSpawnRegion::reSpawn( void )
 void cSpawnRegion::reSpawnToMax( void )
 {
 	if (active_) {
-		while ( npcs() < maxNpcAmt_ )
-			spawnSingleNPC();
+		unsigned int failed = 0;
 
-		while ( items() < maxItemAmt_ )
+		while ( npcs() < maxNpcAmt_  && failed < 50) {
+			unsigned int oldamount = npcs();
+			spawnSingleNPC();
+			if (npcs() == oldamount) {
+				failed++;
+			}
+		}
+
+		failed = 0;
+		while ( items() < maxItemAmt_ ) {
+			unsigned int oldamount = items();
 			spawnSingleItem();
+			if (npcs() == oldamount) {
+				failed++;
+			}
+		}
 
 		this->nextTime_ = Server::instance()->time() + RandomNum( this->minTime_, this->maxTime_ ) * MY_CLOCKS_PER_SEC;
 	}
@@ -734,7 +747,7 @@ void cAllSpawnRegions::check( void )
 {
 	int respawned = 0;
 	iterator it( this->begin() );
-	while ( it != this->end() && respawned < 50 )
+	while ( it != this->end() && respawned < 10 )
 	{
 		if ( it->second->active() && it->second->nextTime() <= Server::instance()->time() ) {
 			it->second->reSpawn();

@@ -571,7 +571,7 @@ void cAsyncNetIO::run() throw()
 		mapsMutex.unlock();
 		//if( buffers.empty() )
 		// Disconnecting doesnt work for now
-		waitCondition.wait( 40 ); // let's rest for a while
+		waitCondition.wait( 10 ); // let's rest for a while
 	}
 }
 

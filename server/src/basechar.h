@@ -580,6 +580,16 @@ public:
 		return result;
 	}
 
+	inline unsigned int wanderSpeed() 
+	{
+		return basedef_ ? basedef_->wanderSpeed() : 400;
+	}
+
+	inline unsigned int actionSpeed() 
+	{
+		return basedef_ ? basedef_->actionSpeed() : 200;
+	}
+
 	inline unsigned short figurine()
 	{
 		unsigned short result = basedef_ ? basedef_->figurine() : 0;

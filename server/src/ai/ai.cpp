@@ -424,6 +424,20 @@ void ScriptAction::execute()
 	}
 }
 
+bool Action_Wander::isPassive() {
+	if (m_npc->attackTarget()) {
+		return false;
+	}
+
+	enWanderTypes type = m_npc->wanderType();
+
+	if (type == enFreely || type == enWanderSpawnregion || type == enCircle || type == enRectangle) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 float Action_Wander::preCondition()
 {
 	/*
@@ -1024,4 +1038,8 @@ void AbstractAI::onSpeechInput( P_PLAYER pTalker, const QString& comm )
 			m_npc->remove();
 		}
 	}
+}
+
+bool ScriptAction::isPassive() {
+	return false;
 }

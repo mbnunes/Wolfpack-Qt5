@@ -136,7 +136,9 @@ protected:
 	QCString carve_;
 	QCString lootPacks_;
 	unsigned char controlSlots_;
-	unsigned char criticalHealth_;	
+	unsigned char criticalHealth_;
+	unsigned int actionSpeed_; // ms between moves
+	unsigned int wanderSpeed_; // ms between moves
 
 	// Misc Properties
 	void load();
@@ -151,6 +153,18 @@ public:
 	{
 		load();
 		return controlSlots_;
+	}
+
+	inline unsigned int wanderSpeed()
+	{
+		load();
+		return wanderSpeed_;
+	}
+
+	inline unsigned int actionSpeed()
+	{
+		load();
+		return actionSpeed_;
 	}
 
 	inline unsigned char criticalHealth()

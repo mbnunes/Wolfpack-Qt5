@@ -129,7 +129,7 @@ public:
 	// other public methods
 	virtual stError* setProperty( const QString& name, const cVariant& value );
 	PyObject* getProperty( const QString& name );
-	void setNextMoveTime( void );
+	void setNextMoveTime( bool changeDirection = true );
 	virtual void callGuards(); // overriding
 	void makeShop();
 

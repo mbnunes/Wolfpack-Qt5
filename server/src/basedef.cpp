@@ -125,6 +125,8 @@ void cCharBaseDef::reset()
 	minTaming_ = 0;
 	controlSlots_ = 1;
 	criticalHealth_ = 0;
+	wanderSpeed_ = 400;
+	actionSpeed_ = 200;
 }
 
 void cCharBaseDef::processNode( const cElement* node )
@@ -180,6 +182,21 @@ void cCharBaseDef::processNode( const cElement* node )
 		const cElement* element = Definitions::instance()->getDefinition( WPDT_NPC, inheritID );
 		if ( element )
 			applyDefinition( element );
+	}
+	else if ( node->name() == "speed" && node->hasAttribute("wander") && node->hasAttribute("action"))
+	{
+		bool ok1, ok2;
+
+		// Convert to unsigned ints
+		unsigned int wanderSpeed = node->getAttribute("wander").toUInt(&ok1);
+		unsigned int actionSpeed = node->getAttribute("action").toUInt(&ok2);
+
+		if (!ok1 || !ok2) {			
+			Console::instance()->log(LOG_WARNING, tr("Base definition '%1' has invalid speed tag.\n").arg(id_));
+		} else {
+			actionSpeed_ = actionSpeed;
+			wanderSpeed_ = wanderSpeed;
+		}
 	}
 	else
 	{

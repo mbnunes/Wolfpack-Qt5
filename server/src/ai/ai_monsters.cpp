@@ -136,8 +136,7 @@ void Monster_Aggressive::check()
 		m_currentVictim = 0;
 		m_currentVictimSer = INVALID_SERIAL;
 		m_npc->fight(0);
-	}
-
+	}	
 	
 	if (nextVictimCheck < Server::instance()->time()) {
 		// Don't switch if we can hit it...
@@ -295,9 +294,11 @@ float Monster_Aggr_MoveToTarget::postCondition()
 void Monster_Aggr_MoveToTarget::execute()
 {
 	// We failed several times to reach the target so we wait
-	if (nextTry > Server::instance()->time()) {
+	if (nextTry > Server::instance()->time() || m_npc->nextMoveTime() > Server::instance()->time()) {
 		return;
 	}
+
+	m_npc->setNextMoveTime();
 
 	Monster_Aggressive* pAI = dynamic_cast<Monster_Aggressive*>( m_ai );
 	if ( !pAI )

@@ -68,7 +68,7 @@ cNPC::cNPC()
 	aiid_ = "Monster_Aggressive_L1";
 	ai_ = new Monster_Aggressive_L1( this );
 	aiCheckInterval_ = ( Q_UINT16 ) floor( Config::instance()->checkAITime() * MY_CLOCKS_PER_SEC );
-	aiCheckTime_ = Server::instance()->time() + aiCheckInterval_;
+	aiCheckTime_ = Server::instance()->time() + aiCheckInterval_ + RandomNum(0, 1000);
 }
 
 cNPC::cNPC( const cNPC& right ) : cBaseChar(right)
@@ -251,37 +251,71 @@ void cNPC::setOwner( P_PLAYER data, bool nochecks )
 	}
 }
 
-void cNPC::setNextMoveTime()
+void cNPC::setNextMoveTime(bool changedDirection)
 {
 	unsigned int interval;
+	bool passive = true;
+	bool controlled = summoned() || (owner() != 0);
 
-	if ( isTamed() )
-	{
-		interval = ( unsigned int ) Config::instance()->tamedNpcMoveTime() * MY_CLOCKS_PER_SEC;
-	}
-	else
-	{
-		interval = ( unsigned int ) Config::instance()->npcMoveTime() * MY_CLOCKS_PER_SEC;
+	if (ai_ && ai_->currentAction()) {		
+		passive = ai_->currentAction()->isPassive();
 	}
 
 	// Wander slowly if wandering freely.
-	if ( wanderType() == enFreely || wanderType() == enCircle || wanderType() == enRectangle || wanderType() == enWanderSpawnregion )
-	{
-		interval *= 3;
-		interval += RandomNum(1000, 5000);
+	if ( passive ) {
+		interval = wanderSpeed();
+	} else {
+		interval = actionSpeed();
 	}
 
-	// If we are moving to a targert, run!
-	if (ai_ && ai_->currentAction()) {
-		Human_Guard_MoveToTarget *moveToTargetG = dynamic_cast<Human_Guard_MoveToTarget*>(ai_->currentAction());
-		Monster_Aggr_MoveToTarget *moveToTargetM = dynamic_cast<Monster_Aggr_MoveToTarget*>(ai_->currentAction());
+	// Transform certain standard intervals.
+	switch (interval) {
+		case 200:
+			interval = 300;
+			break;
+		case 250:
+			interval = 450;
+			break;
+		case 300:
+			interval = 600;
+			break;
+		case 400:
+			interval = 900;
+			break;
+		case 500:
+			interval = 1050;
+			break;
+		case 800:
+			interval = 1500;
+			break;
+		default:
+			break;
+	};
 
-		if (moveToTargetG || moveToTargetM) {
-			interval = 250;
+	// Wandering creatures are even slower than usual
+	if (passive) {
+		interval += 200;
+	}
+
+	// This creature is not player or monster controlled. Thus slower.
+	if (isTamed()) {
+		// Creatures following their owner are a lot faster than usual
+		if (wanderFollowTarget() == owner() && ai_ && dynamic_cast<Action_Wander*>(ai_->currentAction()) != 0) {
+            interval >>= 1; // Half the time
 		}
+        
+		interval -= 75; // A little faster
+	} else if (!summoned()) {
+		interval += 100; // The creature is not summoned nor tamed, make it a little slower
 	}
 
-	setNextMoveTime( Server::instance()->time() + interval );
+	// Creatures become slower if hurt
+	if (hitpoints() < maxHitpoints()) {
+		float ratio = 1.0f - QMAX(0.0f, QMIN(1.0f, (float)hitpoints() / (float)maxHitpoints())); // Range from 0.0 to 1.0
+		interval += (unsigned int)(ratio * 800);
+	}
+
+	setNextMoveTime(Server::instance()->time() + interval);
 }
 
 // Update flags etc.

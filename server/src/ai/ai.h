@@ -65,6 +65,9 @@ public:
 	{
 	}
 
+	// is this action passive (wandering, etc.)?
+	virtual bool isPassive() = 0;
+
 	// executes the action
 	virtual void execute() = 0;
 
@@ -182,6 +185,7 @@ protected:
 	{
 	}
 public:
+	virtual bool isPassive();
 	Action_Wander( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai ), waitForPathCalculation( 0 )
 	{
 	}
@@ -252,7 +256,9 @@ public:
 	virtual void execute();
 	virtual float preCondition();
 	virtual float postCondition();
-
+	virtual bool isPassive() {
+		return false;
+	}
 	virtual const char* name()
 	{
 		return "Action_Defend";
@@ -291,6 +297,11 @@ public:
 	{
 		nextTry = 0;
 	}
+
+	virtual bool isPassive() {
+		return false;
+	}
+
 	virtual void execute();
 	virtual float preCondition();
 	virtual float postCondition();
@@ -308,6 +319,10 @@ protected:
 	{
 	}
 public:
+	virtual bool isPassive() {
+		return false;
+	}
+
 	Monster_Aggr_Fight( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai )
 	{
 	}
@@ -587,6 +602,7 @@ public:
 	ScriptAction( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai ), exec( ( char* ) 0 ), precond( ( char* ) 0 ), postcond( ( char* ) 0 )
 	{
 	}
+	virtual bool isPassive();
 	virtual void execute();
 	virtual float preCondition();
 	virtual float postCondition();
@@ -628,7 +644,7 @@ public:
 	ScriptAI( P_NPC npc ) : AbstractAI( npc ), onspeech( ( char* ) 0 )
 	{
 	}
-
+	
 	static void registerInFactory( const QString& name );
 	virtual QString name()
 	{
@@ -665,6 +681,9 @@ public:
 	virtual void execute();
 	virtual float preCondition();
 	virtual float postCondition();
+	virtual bool isPassive() {
+		return false;
+	}
 
 	virtual const char* name()
 	{
@@ -681,6 +700,9 @@ protected:
 public:
 	Human_Guard_Called_TeleToTarget( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai )
 	{
+	}
+	virtual bool isPassive() {
+		return false;
 	}
 	virtual void execute();
 	virtual float preCondition();
@@ -701,6 +723,9 @@ protected:
 public:
 	Human_Guard_Called_Disappear( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai )
 	{
+	}
+	virtual bool isPassive() {
+		return false;
 	}
 	virtual void execute();
 	virtual float preCondition();
@@ -784,6 +809,9 @@ protected:
 public:
 	Human_Guard_Fight( P_NPC npc, AbstractAI* ai ) : AbstractAction( npc, ai )
 	{
+	}
+	virtual bool isPassive() {
+		return false;
 	}
 	virtual void execute();
 	virtual float preCondition();
