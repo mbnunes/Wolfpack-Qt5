@@ -4,7 +4,6 @@
 	<!-- Bow right -->
 	<item id="13b1">
 		<id>0x13b1</id>
-		<name>bow</name>
 		<twohanded />
 		<decay />
 		<nodye />
