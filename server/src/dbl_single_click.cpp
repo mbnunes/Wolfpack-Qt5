@@ -692,34 +692,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 						}
 					}
 					return;// deeds
-				case 0x0E9C:
-					if( pc_currchar->checkSkill( MUSICIANSHIP, 0, 1000 ) )
-						pc_currchar->soundEffect( 0x0038 );
-					else 
-						pc_currchar->soundEffect( 0x0039 );
-					return;
-				case 0x0E9D:
-				case 0x0E9E:
-					if( pc_currchar->checkSkill( MUSICIANSHIP, 0, 1000 ) )
-						pc_currchar->soundEffect( 0x0052 );
-					else 
-						pc_currchar->soundEffect( 0x0053 );
-					return;
-				case 0x0EB1:
-				case 0x0EB2:
-					if( pc_currchar->checkSkill( MUSICIANSHIP, 0, 1000 ) )
-						pc_currchar->soundEffect( 0x0045 );
-					else 
-						pc_currchar->soundEffect( 0x0046 );
-					return;
-				case 0x0EB3:
-				case 0x0EB4:
-					if( pc_currchar->checkSkill( MUSICIANSHIP, 0, 1000 ) )
-						pc_currchar->soundEffect( 0x004C );
-					else 
-						pc_currchar->soundEffect( 0x004D );
-					return;
-
+				
 				case 0x0E24: // empty vial
 					{
 					P_ITEM pBackpack = pc_currchar->getBackpack();

@@ -75,6 +75,7 @@
 		<decay/>
 		<value>25</value>
 		<category>Professions\Musician\Drum</category>
+		<events>environment</events>
 	</item>
 	
 	<!-- Tamberine -->
@@ -83,6 +84,7 @@
 		<decay/>
 		<value>25</value>
 		<category>Professions\Musician\Tamberine</category>
+		<events>environment</events>
 	</item>
 	
 	<!-- Tamberine with Ribbon -->
@@ -91,6 +93,7 @@
 		<decay/>
 		<value>25</value>
 		<category>Professions\Musician\Tamberine with Ribbon</category>
+		<events>environment</events>
 	</item>
 	
 	<!-- Standing Harp -->
@@ -99,6 +102,7 @@
 		<decay/>
 		<value>25</value>
 		<category>Professions\Musician\Standing Harp</category>
+		<events>environment</events>
 	</item>
 	
 	<!-- Harp -->
@@ -107,6 +111,7 @@
 		<decay/>
 		<value>25</value>
 		<category>Professions\Musician\Harp</category>
+		<events>environment</events>
 	</item>
 	
 	<!-- Lute -->
@@ -115,6 +120,7 @@
 		<decay/>
 		<value>25</value>
 		<category>Professions\Musician\Lute (N/S)</category>
+		<events>environment</events>
 	</item>
 	
 	<!-- Lute -->
@@ -123,5 +129,6 @@
 		<decay/>
 		<value>25</value>
 		<category>Professions\Musician\Lute (W/E)</category>
+		<events>environment</events>
 	</item>
 </definitions>
