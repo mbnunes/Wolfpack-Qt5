@@ -21,6 +21,7 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Fixed a carpentry resource bug.
 		- Added mountids for all known mountables.
 		- Fixed a lot of the monster sounds.
+		- Fixed bug #0000242 (Missing Vendor: Mapmaker)
 	* Python Script Changes:
 		- Fixed BONUS* properties.
 		- Fixed other property issues.
