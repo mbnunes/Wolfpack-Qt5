@@ -1,0 +1,35 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Kabuto North-South -->
+	<item id="236d">
+		<id>0x236d</id>
+		<decay />
+		<nodye />
+		<durability><random min="40" max="50" /></durability>
+		<tag name="resname" value="iron" />
+		<restock>10</restock>
+		<smelt>12</smelt>
+		<weight>5.0</weight>
+		<buyprice>127</buyprice>
+		<sellprice>63</sellprice>
+		<type>1009</type>
+		<events>equipment</events>
+		<category>Armor\Base\Helmets\Kabuto (N/S)</category>
+	</item>
+
+	<!-- Kabuto East-West-->
+	<item id="236c" inherit="236d">
+		<id>0x236c</id>
+		<baseid>236d</baseid>
+		<category>Armor\Base\Helmets\Kabuto (E/W)</category>
+	</item>
+
+</definitions>
