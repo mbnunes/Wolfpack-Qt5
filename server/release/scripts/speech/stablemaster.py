@@ -111,10 +111,14 @@ idshrink = {
 	}
 
 def onSpeech( listener, speaker, text, keywords ):
-	# Check if our name is in the beginning of the string
-	#if not text.lower().startswith( listener.name.lower() ):
-	#return 0
+	if not char.socket:
+		return 0
 
+	# Check if our name is in the beginning of the string
+	if not text.lower().startswith( "vendor" ) or not text.lower().startswith( listener.name.lower() ):
+		return 0
+
+	speaker.char.socket.sysmessage("May I help thee?")
 	gump = cGump( 0, 0, 0, 50, 50 )
 	gump.addBackground( 0x24a4, 425, 400 )
 
