@@ -273,7 +273,15 @@ public:
 			Py_DECREF( args );
 		}
 
-		nextSpellTime = Server::instance()->time() + 5000; // Cast all 5 seconds
+		// Calculate the next spell delay
+		if (spell == 41) {
+			nextSpellTime = Server::instance()->time() + m_npc->actionSpeed(); // Dispel gets special handling
+		} else {
+			float scale = m_npc->skillValue(MAGERY) * 0.003;
+			unsigned int minDelay = 6000 - (scale * 750);
+			unsigned int maxDelay = 6000 - (scale * 1250);
+			nextSpellTime = Server::instance()->time() + RandomNum(minDelay, maxDelay);
+		}
 	}
 
 	virtual const char* name() {
@@ -312,24 +320,19 @@ public:
 		if (!currentVictim || m_npc->isFrozen())
 			return;
 
-		unsigned int distance = m_npc->dist(currentVictim);
-
-		if (distance >= 10 && distance <= 12) {
-			return; // Right distance
-		} else if (distance > 10) {
+		// If we're not casting a spell and waiting for a new one, move toward the target
+		if (!m_npc->hasScript("magic")) {
 			movePath(currentVictim->pos(), true);
-		} else if (distance < 10) {
-			// Calculate the opposing direction and get away (at least try it)
-			unsigned char direction = (m_npc->pos().direction(currentVictim->pos()) + 4) % 8;
+		} else {
+			unsigned int distance = m_npc->dist(currentVictim);
 
-			if (direction != m_npc->direction()) {
-				if (!Movement::instance()->Walking(m_npc, direction|0x80, 0xFF)) {
-					return;
-				}
-			}
-
-			if (!Movement::instance()->Walking(m_npc, direction|0x80, 0xFF)) {
-				direction = (direction + 1) % 8;
+			if (distance >= 10 && distance <= 12) {
+				return; // Right distance
+			} else if (distance > 10) {
+				movePath(currentVictim->pos(), true);
+			} else if (distance < 10) {
+				// Calculate the opposing direction and get away (at least try it)
+				unsigned char direction = (m_npc->pos().direction(currentVictim->pos()) + 4) % 8;
 
 				if (direction != m_npc->direction()) {
 					if (!Movement::instance()->Walking(m_npc, direction|0x80, 0xFF)) {
@@ -338,7 +341,7 @@ public:
 				}
 
 				if (!Movement::instance()->Walking(m_npc, direction|0x80, 0xFF)) {
-					direction = (direction == 1) ? 7 : (direction - 2);
+					direction = (direction + 1) % 8;
 
 					if (direction != m_npc->direction()) {
 						if (!Movement::instance()->Walking(m_npc, direction|0x80, 0xFF)) {
@@ -347,7 +350,17 @@ public:
 					}
 
 					if (!Movement::instance()->Walking(m_npc, direction|0x80, 0xFF)) {
-						return; // We tried everything but failed
+						direction = (direction == 1) ? 7 : (direction - 2);
+
+						if (direction != m_npc->direction()) {
+							if (!Movement::instance()->Walking(m_npc, direction|0x80, 0xFF)) {
+								return;
+							}
+						}
+
+						if (!Movement::instance()->Walking(m_npc, direction|0x80, 0xFF)) {
+							return; // We tried everything but failed
+						}
 					}
 				}
 			}
