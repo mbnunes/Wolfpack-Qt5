@@ -5,6 +5,7 @@
 	other scripts or eventlists).
 -->
 <definitions>
+<definitions>
 	<script>trading</script>
 	<script>npc.healer</script>
 	<script>training_dummy</script>
@@ -32,8 +33,8 @@
 	<script>book</script>
 	<script>equipment</script>
 	<script>bandages</script>
-  <script>key</script>
-  <script>keyring</script>
+	<script>key</script>
+	<script>keyring</script>
 	<script>ore</script>
 
 	<!-- Commands -->
@@ -129,5 +130,6 @@
 	<script>skills.peacemaking</script>
 	<script>skills.provocation</script>
 	<script>skills.mining</script>
+	<script>skills.lumberjacking</script>
 
 </definitions>

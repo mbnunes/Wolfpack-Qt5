@@ -8,33 +8,33 @@
 -->
 <definitions>
 	<list id="IDS_TREE">
-		<item>0x0CD0</item>
-		<item>0x0CD3</item>
-		<item>0x0CD6</item>
-		<item>0x0CD8</item>
-		<item>0x0CDA</item>
-		<item>0x0CDD</item>
-		<item>0x0CE0</item>
-		<item>0x0CE3</item>
-		<item>0x0CE6</item>
-		<item>0x0CCA</item>
-		<item>0x0CCB</item>
-		<item>0x0CCC</item>
-		<item>0x0CCD</item>
+		<item>0xCD0</item>
+		<item>0xCD3</item>
+		<item>0xCD6</item>
+		<item>0xCD8</item>
+		<item>0xCDA</item>
+		<item>0xCDD</item>
+		<item>0xCE0</item>
+		<item>0xCE3</item>
+		<item>0xCE6</item>
+		<item>0xCCA</item>
+		<item>0xCCB</item>
+		<item>0xCCC</item>
+		<item>0xCCD</item>
 		<item>0x12B8</item>
 		<item>0x12B9</item>
 		<item>0x12BA</item>
 		<item>0x12BB</item>
-		<item>0x0D42</item>
-		<item>0x0D43</item>
-		<item>0x0D58</item>
-		<item>0x0D59</item>
-		<item>0x0D70</item>
-		<item>0x0D85</item>
-		<item>0x0D94</item>
-		<item>0x0D95</item>
-		<item>0x0D98</item>
-		<item>0x0DA4</item>
-		<item>0x0DA8</item>
+		<item>0xD42</item>
+		<item>0xD43</item>
+		<item>0xD58</item>
+		<item>0xD59</item>
+		<item>0xD70</item>
+		<item>0xD85</item>
+		<item>0xD94</item>
+		<item>0xD95</item>
+		<item>0xD98</item>
+		<item>0xDA4</item>
+		<item>0xDA8</item>
 	</list>
 </definitions>

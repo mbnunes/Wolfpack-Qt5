@@ -309,6 +309,6 @@ def successsmelt( char, table, resname, amount, ingotdef ):
 		resourceitem.update()
 
 	socket.sysmessage( message, GRAY )
-	char.soundeffect(  0x2a )
+	char.soundeffect( SOUND_HAMMER_1 )
 	
 	return OK

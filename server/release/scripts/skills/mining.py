@@ -1,8 +1,8 @@
 #################################################################
-#   )      (\_     # WOLFPACK 13.0.0 Scripts                    #
-#  ((    _/{  "-;  # Created by: codex                          #
-#   )).-' {{ ;'`   # Revised by:                                #
-#  ( (  ;._ \\ ctr # Last Modification: Sep, 30 '03	        #
+#   )      (\_     # WOLFPACK 13.0.0 Scripts                    
+#  ((    _/{  "-;  # Created by: codex                          
+#   )).-' {{ ;'`   # Revised by: Dreoth                          
+#  ( (  ;._ \\ ctr # Last Modification: Jan 26 2004
 #################################################################
 
 from wolfpack.consts import *
@@ -15,16 +15,16 @@ from random import randrange
 
 #mining calling from pickaxe.py and shovel.py
 
-oresound = 0x126
 #in seconds
 miningdelay = 1000
 orerespawndelay = randrange( 5, 10 ) * 60000 # 5 - 10 minutes
-# Name, reqSkill, minSkill, maxSkill, successClilocId, itemId, color, mutateVeinChance%, VeinChanceToFallback%
 
 # 0x19b7, 0x19b8, 0x19ba give 1 ingot.
 # 0x19b9 gives 2 ingots.
 oreids = [ 0x19b7, 0x19b8, 0x19ba, 0x19b9 ]
 oredefs = [ '19b7', '19b8', '19ba', '19b9' ]
+
+# resname, reqSkill, minSkill, maxSkill, successClilocId, color, 'ore name'
 oretable = \
 {
 	'iron':			[ 0, 0, 1000, 1007072, 0x0, 'iron ore' ],
@@ -42,7 +42,7 @@ oretable = \
 }
 
 def mining( char, pos, tool ):
-	wolfpack.addtimer( 1300, "skills.mining.domining", [ char, oresound, tool, pos ] )
+	wolfpack.addtimer( 1300, "skills.mining.domining", [ char, SOUND_MINING, tool, pos ] )
 	char.settag( 'is_mining', str( servertime() + miningdelay ) )
 	char.turnto( pos )
 	char.action( ANIM_ATTACK3 )

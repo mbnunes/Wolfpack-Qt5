@@ -8,117 +8,114 @@
 -->
 <definitions>
 	<resource id="RESOURCE_ORE">
-		<name>ore</name>
+		<name>%s ore</name>
 		<amount min="30" max="40" />
 		<veinchance>5</veinchance>
 		<artid>0x053B-0x054F,0x0551-0x0553,0x056A</artid>
 		<skillid>45</skillid>
 		<refreshtime>120</refreshtime>
-		<stamina min="1" max="2" />
-		<charaction>0x0B</charaction>
-		<sound>0x0125</sound>
+		<charaction>0xb</charaction>
+		<sound>0x125</sound>
 		<failmsg>You couldnt find anything!</failmsg>
-		<succmsg>You have found</succmsg>
+		<succmsg>You have found </succmsg>
 		<emptymsg>It seems as if no resources were left!</emptymsg>
 		<item>
 			<name>iron</name>
 			<amount min="1" max="5" />
-			<definition>19ba</definition>
-			<id>0x19BA</id>
-			<color>0</color>
+			<definition>iron_ore_3</definition>
 			<vein min="50" max="80" quota="630" />
-			<skill min="0" max="400" />
+			<skill min="0" max="1000" />
 			<quota>630</quota>
 		</item>
 		<item>
-			<name>shadow</name>
+			<name>dull copper</name>
+			<amount min="1" max="5" />
+			<definition>dullcopper_ore_3</definition>
+			<vein min="45" max="55" quota="630" />
+			<skill min="650" max="1050" />
+			<quota>630</quota>
+		</item>
+		<item>
+			<name>shadow iron</name>
 			<amount min="1" max="4" />
-			<definition>19ba</definition>
-			<id>0x19BA</id>
-			<color>0x0386</color>
-			<vein min="50" max="70" quota="126" />
-			<skill min="650" max="900" />
+			<definition>shadowiron_ore_3</definition>
+			<vein min="40" max="50" quota="126" />
+			<skill min="700" max="1100" />
 			<quota>126</quota>
 		</item>
 		<item>
-			<name>merkite</name>
-			<definition>19ba</definition>
-			<amount min="1" max="4" />
-			<id>0x19BA</id>
-			<color>0x02C3</color>
-			<vein min="37" max="65" quota="112" />
-			<skill min="700" max="910" />
-			<quota>112</quota>
-		</item>
-		<item>
 			<name>copper</name>
-			<definition>19ba</definition>
+			<definition>copper_ore_3</definition>
 			<amount min="1" max="4" />
-			<id>0x19BA</id>
-			<color>0x046E</color>
-			<vein min="35" max="62" quota="98" />
-			<skill min="750" max="940" />
+			<vein min="35" max="45" quota="98" />
+			<skill min="750" max="1150" />
 			<quota>98</quota>
 		</item>
 		<item>
-			<name>silver</name>
-			<definition>19ba</definition>
-			<amount min="1" max="3" />
-			<id>0x19BA</id>
-			<color>0x0961</color>
-			<vein min="30" max="57" quota="84" />
-			<skill min="790" max="955" />
-			<quota>84</quota>
-		</item>
-		<item>
 			<name>bronze</name>
-			<definition>19ba</definition>
+			<definition>bronze_ore_3</definition>
 			<amount min="1" max="3" />
-			<id>0x19BA</id>
-			<color>0x02E7</color>
-			<vein min="30" max="55" quota="70" />
-			<skill min="800" max="960" />
+			<vein min="30" max="40" quota="70" />
+			<skill min="800" max="1200" />
 			<quota>70</quota>
 		</item>
 		<item>
-			<name>golden</name>
-			<definition>19ba</definition>
+			<name>gold</name>
+			<definition>gold_ore_3</definition>
 			<amount min="1" max="2" />
-			<id>0x19BA</id>
-			<color>0x0466</color>
-			<vein min="30" max="52" quota="56" />
-			<skill min="850" max="965" />
+			<vein min="25" max="35" quota="56" />
+			<skill min="850" max="1250" />
+			<quota>56</quota>
+		</item>
+		<item>
+			<name>silver</name>
+			<definition>silver_ore_3</definition>
+			<amount min="1" max="2" />
+			<vein min="25" max="35" quota="56" />
+			<skill min="850" max="1250" />
 			<quota>56</quota>
 		</item>
 		<item>
 			<name>agapite</name>
-			<definition>19ba</definition>
+			<definition>agapite_ore_3</definition>
 			<amount min="1" max="2" />
-			<id>0x19BA</id>
-			<color>0x0150</color>
-			<vein min="30" max="50" quota="42" />
-			<skill min="900" max="975" />
+			<vein min="20" max="30" quota="42" />
+			<skill min="900" max="1300" />
 			<quota>42</quota>
 		</item>	
 		<item>
 			<name>verite</name>
-			<definition>19ba</definition>
+			<definition>verite_ore_3</definition>
 			<amount min="1" max="2" />
-			<id>0x19BA</id>
+			<id>0x19ba</id>
 			<color>0x022F</color>
-			<vein min="30" max="47" quota="28" />
-			<skill min="950" max="985" />
+			<vein min="15" max="25" quota="28" />
+			<skill min="950" max="1350" />
 			<quota>28</quota>
-		</item>	
+		</item>
+		<item>
+			<name>valorite</name>
+			<definition>valorite_ore_3</definition>
+			<amount min="1" max="2" />
+			<vein min="10" max="20" quota="28" />
+			<skill min="990" max="1390" />
+			<quota>28</quota>
+		</item>
+		<item>
+			<name>merkite</name>
+			<definition>merkite_ore_3</definition>
+			<amount min="1" max="2" />
+			<vein min="10" max="20" quota="28" />
+			<skill min="990" max="1390" />
+			<quota>28</quota>
+		</item>
 		<item>
 			<name>mythril</name>
-			<definition>19ba</definition>
-			<amount>1</amount>
-			<id>0x19BA</id>
-			<color>0x0191</color>
-			<vein min="30" max="45" quota="14" />
-			<skill min="990" max="999" />
-			<quota>14</quota>
-		</item>	
+			<definition>mythril_ore_3</definition>
+			<amount min="1" max="2" />
+			<vein min="10" max="20" quota="28" />
+			<skill min="990" max="1390" />
+			<quota>28</quota>
+		</item>
 	</resource>
 </definitions>

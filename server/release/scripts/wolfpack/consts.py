@@ -106,59 +106,59 @@ skillnames = [ 'alchemy', 'anatomy', 'animallore', 'itemid', 'armslore', 'parryi
 	'stealth', 'removetraps', 'necromancy', 'focus', 'chivalry' ]
 
 skillnamesids = \
-{ 
-	'alchemy' : ALCHEMY, 
-	'anatomy' : ANATOMY, 
-	'animallore' : ANIMALLORE, 
-	'itemid' : ITEMID, 
-	'armslore' : ARMSLORE, 
+{
+	'alchemy' : ALCHEMY,
+	'anatomy' : ANATOMY,
+	'animallore' : ANIMALLORE,
+	'itemid' : ITEMID,
+	'armslore' : ARMSLORE,
 	'parrying' : PARRYING,
-	'begging' : BEGGING, 
-	'blacksmithing' : BLACKSMITHING, 
-	'bowcraft' : BOWCRAFT, 
-	'peacemaking' : PEACEMAKING, 
-	'camping' : CAMPING, 
+	'begging' : BEGGING,
+	'blacksmithing' : BLACKSMITHING,
+	'bowcraft' : BOWCRAFT,
+	'peacemaking' : PEACEMAKING,
+	'camping' : CAMPING,
 	'carpentry' : CARPENTRY,
-	'cartography' : CARTOGRAPHY, 
-	'cooking' : COOKING, 
-	'detectinghidden' : DETECTINGHIDDEN, 
-	'enticement' : ENTICEMENT, 
+	'cartography' : CARTOGRAPHY,
+	'cooking' : COOKING,
+	'detectinghidden' : DETECTINGHIDDEN,
+	'enticement' : ENTICEMENT,
 	'evaluatingintel' : EVALUATINGINTEL,
-	'healing' : HEALING, 
-	'fishing' : FISHING, 
-	'forensics' : FORENSICS, 
-	'herding' : HERDING, 
-	'hiding' : HIDING, 
+	'healing' : HEALING,
+	'fishing' : FISHING,
+	'forensics' : FORENSICS,
+	'herding' : HERDING,
+	'hiding' : HIDING,
 	'provocation' : PROVOCATION,
-	'inscription' : INSCRIPTION, 
-	'lockpicking' : LOCKPICKING, 
-	'magery' : MAGERY, 
-	'magicresistance' : MAGICRESISTANCE, 
-	'tactics' : TACTICS, 
+	'inscription' : INSCRIPTION,
+	'lockpicking' : LOCKPICKING,
+	'magery' : MAGERY,
+	'magicresistance' : MAGICRESISTANCE,
+	'tactics' : TACTICS,
 	'snooping' : SNOOPING,
-	'musicianship' : MUSICIANSHIP, 
-	'poisoning' : POISONING, 
-	'archery' : ARCHERY, 
-	'spiritspeak' : SPIRITSPEAK, 
-	'stealing' : STEALING, 
+	'musicianship' : MUSICIANSHIP,
+	'poisoning' : POISONING,
+	'archery' : ARCHERY,
+	'spiritspeak' : SPIRITSPEAK,
+	'stealing' : STEALING,
 	'tailoring' : TAILORING,
-	'taming' : TAMING, 
-	'tasteid' : TASTEID, 
-	'tinkering' : TINKERING, 
-	'tracking' : TRACKING, 
-	'veterinary' : VETERINARY, 
+	'taming' : TAMING,
+	'tasteid' : TASTEID,
+	'tinkering' : TINKERING,
+	'tracking' : TRACKING,
+	'veterinary' : VETERINARY,
 	'swordsmanship' : SWORDSMANSHIP,
-	'macefighting' : MACEFIGHTING, 
-	'fencing' : FENCING, 
-	'wrestling' : WRESTLING, 
-	'lumberjacking' : LUMBERJACKING, 
-	'mining' : MINING, 
+	'macefighting' : MACEFIGHTING,
+	'fencing' : FENCING,
+	'wrestling' : WRESTLING,
+	'lumberjacking' : LUMBERJACKING,
+	'mining' : MINING,
 	'meditation' : MEDITATION,
-	'stealth' : STEALTH, 
-	'removetraps' : REMOVETRAPS, 
-	'necromancy' : NECROMANCY, 
-	'focus' : FOCUS, 
-	'chivalry' : CHIVALRY 
+	'stealth' : STEALTH,
+	'removetraps' : REMOVETRAPS,
+	'necromancy' : NECROMANCY,
+	'focus' : FOCUS,
+	'chivalry' : CHIVALRY
 }
 
 statnames = [ 'str', 'int', 'dex' ]
@@ -314,22 +314,22 @@ DAMAGE_GODLY = 2
 DAMAGE_HUNGER = 3
 
 # Some nice animation definitions
-ANIM_WALKUNARMED = 0x00
-ANIM_WALKARMED = 0x01
-ANIM_RUNUNARMED = 0x02
-ANIM_RUNARMED = 0x03
-ANIM_STAND = 0x04
-ANIM_FIDGET1 = 0x05
-ANIM_FIDGET2 = 0x06
-ANIM_ATTACKREADY1 = 0x07
-ANIM_ATTACKREADY2 = 0x08
-ANIM_ATTACK1=0x09
-ANIM_ATTACK2=0x0a
-ANIM_ATTACK3=0x0b
-ANIM_ATTACK4=0x0c
-ANIM_ATTACK5=0x0d
-ANIM_ATTACK6=0x0e
-ANIM_ATTACKWALK=0x0f
+ANIM_WALKUNARMED = 0x0
+ANIM_WALKARMED = 0x1
+ANIM_RUNUNARMED = 0x2
+ANIM_RUNARMED = 0x3
+ANIM_STAND = 0x4
+ANIM_FIDGET1 = 0x5
+ANIM_FIDGET2 = 0x6
+ANIM_ATTACKREADY1 = 0x7
+ANIM_ATTACKREADY2 = 0x8
+ANIM_ATTACK1=0x9
+ANIM_ATTACK2=0xa
+ANIM_ATTACK3=0xb
+ANIM_ATTACK4=0xc
+ANIM_ATTACK5=0xd
+ANIM_ATTACK6=0xe
+ANIM_ATTACKWALK=0xf
 ANIM_CASTDIRECTED=0x10
 ANIM_CASTAREA=0x11
 ANIM_ATTACKBOW=0x12
@@ -464,6 +464,8 @@ SOUND_DRINK1 = 0x30
 SOUND_DRINK2 = 0x31
 SOUND_DRINK3 = 0x50
 
+SOUND_MINING = 0x126
+
 SOUND_AGILITY_DOWN = 0x1ee
 SOUND_AGILITY_UP = 0x1ed
 SOUND_STRENGTH_UP = 0x1e7
@@ -486,7 +488,7 @@ SOUND_MAGICAL_03 = 0x456 # Like an energy field...
 
 SOUND_WARP_01 = 0x474 # A more modern recall sound?
 
-SOUND_FIREBALL_01 = 0x44b # 
+SOUND_FIREBALL_01 = 0x44b #
 
 SOUND_BREAKING_1 = 0x38d
 SOUND_BREAKING_2 = 0x38e
@@ -586,7 +588,7 @@ SOUND_FEMALE_28 = 0x326 # "Ughhhh" 3
 SOUND_FEMALE_29 = 0x327 # "Ughhhhhh" 4
 SOUND_FEMALE_30 = 0x328 # "Urraghh!"
 SOUND_FEMALE_31 = 0x329 # "Uhh!"
-SOUND_FEMALE_32 = 0x32a # Ugh! 
+SOUND_FEMALE_32 = 0x32a # Ugh!
 SOUND_FEMALE_33 = 0x32b # ooooooooo!
 SOUND_FEMALE_34 = 0x32c # Ooops!
 SOUND_FEMALE_35 = 0x32d # Gag sound
