@@ -37,6 +37,9 @@
 
 	<!-- Insect / Arachnid -->
 	<include file="definitions/npcs/monsters/insect/index.xml" />
+	
+	<!-- Juka -->
+	<include file="definitions/npcs/monsters/juka/index.xml" />
 
 	<!-- Lizardmen -->
 	<include file="definitions/npcs/monsters/lizardmen/index.xml" />

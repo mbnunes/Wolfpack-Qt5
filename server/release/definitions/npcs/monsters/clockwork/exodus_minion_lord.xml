@@ -1,0 +1,42 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by: Dreoth
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Exodus Minion Lord-->
+	<npc id="exodus_minion_lord" inherit="monster_base">
+		<name>exodus minion lord</name>
+		<id>763</id>
+		<karma><random list="KARMA_L5" /></karma>
+		<fame><random list="FAME_L5" /></fame>
+		<!-- Stats -->
+		<str><random min="851" max="950"/></str>
+		<dex><random min="101" max="110"/></dex>
+		<int><random min="81" max="110"/></int>
+		<maxhitpoints><random min="811" max="1070" /></maxhitpoints>
+		<!-- Skills -->
+		<magicresistance><random min="951" max="1100"/></magicresistance>
+		<tactics><random min="951" max="1000"/></tactics>
+		<wrestling><random min="951" max="1000"/></wrestling>
+		<anatomy>0</anatomy>
+		<!-- Damage -->
+		<mindamage>89</mindamage>
+		<maxdamage>98</maxdamage>
+		<!-- Resists -->
+		<tag name="res_cold" value="25,35" type="int" />
+		<tag name="res_energy" value="25,35" type="int" />
+		<tag name="res_fire" value="45,55" type="int" />
+		<tag name="res_physical" value="65,70" type="int" />
+		<tag name="res_poison" value="20,30" type="int" />
+		<!-- Misc. -->
+		<!-- Missing: Arcane Gem, Clockwork Assembly, 2 Power Crystal -->
+		<lootpacks>lootpack_rich;lootpack_average</lootpacks>
+		<category>Monsters\Clockwork\Exodus Minion Lord</category>
+	</npc>
+
+</definitions>

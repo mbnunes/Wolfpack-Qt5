@@ -1,0 +1,51 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by:
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Juka Warrior -->
+	<npc id="juka_warrior" inherit="monster_base">
+		<name>juka warrior</name>
+		<id>764</id>
+		<karma>-10000</karma>
+		<fame>10000</fame>
+		<!-- Stats -->
+		<str><random min="251" max="350"/></str>
+		<dex><random min="61" max="80"/></dex>
+		<int><random min="101" max="150"/></int>
+		<maxhitpoints><random min="151" max="210"/></maxhitpoints>
+		<maxstamina><random min="61" max="80"/></maxstamina>
+		<maxmana><random min="101" max="150"/></maxmana>
+		<!-- Skills -->
+		<wrestling><random min="801" max="900"/></wrestling>
+		<tactics><random min="801" max="900"/></tactics>
+		<magicresistance><random min="1201" max="1300"/></magicresistance>
+		<anatomy><random min="801" max="900"/></anatomy>
+		<!-- Damage -->
+		<mindamage>20</mindamage>
+		<maxdamage>26</maxdamage>
+		<!-- Damage Properties -->
+		<!--
+		<tag name="dmg_fire" value="0" type="int" />
+		<tag name="dmg_cold" value="0" type="int" />
+		<tag name="dmg_poison" value="0" type="int" />
+		<tag name="dmg_energy" value="0" type="int" />
+		-->
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="40,50" type="int" />
+		<tag name="res_fire" value="30,40" type="int" />
+		<tag name="res_cold" value="25,35" type="int" />
+		<tag name="res_poison" value="10,20" type="int" />
+		<tag name="res_energy" value="10,20" type="int" />
+		<!-- Loot Packs -->
+		<lootpacks>gems;gold_good</lootpacks>
+		<!-- Misc. -->
+		<category>Monsters\Juka\Juka Warrior</category>
+	</npc>
+
+</definitions>

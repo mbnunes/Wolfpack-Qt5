@@ -1,0 +1,52 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by:
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Juka Lord -->
+	<npc id="juka_lord" inherit="monster_base">
+		<name>juka lord</name>
+		<id>766</id>
+		<karma>-15000</karma>
+		<fame>15000</fame>
+		<!-- Stats -->
+		<str><random min="401" max="500"/></str>
+		<dex><random min="81" max="100"/></dex>
+		<int><random min="151" max="200"/></int>
+		<maxhitpoints><random min="241" max="300"/></maxhitpoints>
+		<maxstamina><random min="81" max="100"/></maxstamina>
+		<maxmana><random min="151" max="200"/></maxmana>
+		<!-- Skills -->
+		<wrestling><random min="901" max="1000"/></wrestling>
+		<tactics><random min="951" max="1000"/></tactics>
+		<magicresistance><random min="1201" max="1300"/></magicresistance>
+		<anatomy><random min="901" max="1000"/></anatomy>
+		<!-- Damage -->
+		<mindamage>52</mindamage>
+		<maxdamage>63</maxdamage>
+		<!-- Damage Properties -->
+		<!--
+		<tag name="dmg_fire" value="0" type="int" />
+		<tag name="dmg_cold" value="0" type="int" />
+		<tag name="dmg_poison" value="0" type="int" />
+		<tag name="dmg_energy" value="0" type="int" />
+		-->
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="40,50" type="int" />
+		<tag name="res_fire" value="45,50" type="int" />
+		<tag name="res_cold" value="40,50" type="int" />
+		<tag name="res_poison" value="20,25" type="int" />
+		<tag name="res_energy" value="40,50" type="int" />
+		<!-- Loot Packs -->
+		<!-- Missing: 10-30 Bandages, 50-70 Arrows, Magic Items, Juka Slayer Bow, 1 Arcane Gem -->
+		<lootpacks>gems;gold_rich;gold_meager</lootpacks>
+		<!-- Misc. -->
+		<category>Monsters\Juka\Juka Lord</category>
+	</npc>
+
+</definitions>

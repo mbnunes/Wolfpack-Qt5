@@ -51,4 +51,10 @@
 		<category>Monsters\Daemonic\Horde Minion (Large)</category>
 	</npc>
 
+	<!-- Colored Horde Minion -->
+	<npc id="horde_minion_4" inherit="horde_minion">
+		<id>999</id>
+		<category>Monsters\Daemonic\Horde Minion (Colored)</category>
+	</npc>
+
 </definitions>

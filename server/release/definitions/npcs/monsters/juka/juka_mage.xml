@@ -1,0 +1,55 @@
+<!--
+/*=========================================================
+ *   )      (\_     | WOLFPACK 13.0.0 Scripts
+ *  ((    _/{  "-;  | Created by:
+ *   )).-' {{ ;'`   | Revised by:
+ *  ( (  ;._ \\     | Last modification:
+ *=======================================================*/
+-->
+<definitions>
+
+	<!-- Juka Mage -->
+	<npc id="juka_mage" inherit="monster_base">
+		<name>juka mage</name>
+		<id>765</id>
+		<karma>-15000</karma>
+		<fame>15000</fame>
+		<!-- Stats -->
+		<str><random min="201" max="300"/></str>
+		<dex><random min="71" max="90"/></dex>
+		<int><random min="451" max="500"/></int>
+		<maxhitpoints><random min="121" max="180"/></maxhitpoints>
+		<maxstamina><random min="71" max="90"/></maxstamina>
+		<maxmana><random min="451" max="500"/></maxmana>
+		<!-- Skills -->
+		<wrestling><random min="801" max="900"/></wrestling>
+		<tactics><random min="801" max="900"/></tactics>
+		<magicresistance><random min="1401" max="1500"/></magicresistance>
+		<anatomy><random min="801" max="900"/></anatomy>
+		<magery><random min="802" max="1000"/></magery>
+		<evaluatingintel><random min="802" max="1000"/></evaluatingintel>
+		<meditation><random min="0" max="0"/></meditation>
+		<!-- Damage -->
+		<mindamage>11</mindamage>
+		<maxdamage>27</maxdamage>
+		<!-- Damage Properties -->
+		<!--
+		<tag name="dmg_fire" value="0" type="int" />
+		<tag name="dmg_cold" value="0" type="int" />
+		<tag name="dmg_poison" value="0" type="int" />
+		<tag name="dmg_energy" value="0" type="int" />
+		-->
+		<!-- Resist Properties -->
+		<tag name="res_physical" value="20,30" type="int" />
+		<tag name="res_fire" value="35,45" type="int" />
+		<tag name="res_cold" value="30,40" type="int" />
+		<tag name="res_poison" value="10,20" type="int" />
+		<tag name="res_energy" value="35,45" type="int" />
+		<!-- Loot Packs -->
+		<!-- Missing: 2 Medium Level Scrolls, Bag with 2-6 of each reagent, 1 Arcane Gem -->
+		<lootpacks>gold_filthy_rich;gems</lootpacks>
+		<!-- Misc. -->
+		<category>Monsters\Juka\Juka Mage</category>
+	</npc>
+
+</definitions>

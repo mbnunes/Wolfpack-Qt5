@@ -13,6 +13,7 @@
 	<include file="definitions/npcs/monsters/clockwork/blackthorn_juggernaut.xml" />
 	<include file="definitions/npcs/monsters/clockwork/centaur.xml" />
 	<include file="definitions/npcs/monsters/clockwork/exodus_minion.xml" />
+	<include file="definitions/npcs/monsters/clockwork/exodus_minion_lord.xml" />
 	<include file="definitions/npcs/monsters/clockwork/exodus_overseer.xml" />
 	<include file="definitions/npcs/monsters/clockwork/golem.xml" />
 
