@@ -40,6 +40,7 @@
 #include <qstring.h>
 #include <qptrlist.h>
 #include <mysql.h>
+#include <errmsg.h>
 #include <stdlib.h>
 
 QPtrList< MYSQL > connections; // A connection pool
@@ -82,8 +83,22 @@ st_mysql *cDBDriver::getConnection()
 		throw QString("mysql_init(): insufficient memory to allocate a new object");
 	mysql->reconnect = 1;
 	
-	if( !mysql_real_connect( mysql, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, NULL, CLIENT_COMPRESS ) )
-		throw QString( "Connection to DB failed: %1" ).arg( mysql_error( mysql ) );
+	if( !mysql_real_connect( mysql, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, "wolfpack_db_pipe", CLIENT_COMPRESS ) )
+	{
+		switch ( mysql_errno(mysql) )
+		{
+		case CR_NAMEDPIPEOPEN_ERROR:
+		case CR_NAMEDPIPEWAIT_ERROR:
+		case CR_NAMEDPIPESETSTATE_ERROR:
+			if ( mysql_real_connect(mysql, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, 0, CLIENT_COMPRESS ) )
+			{
+				qWarning("Named Pipe connection to database failed, falling back to slower TCP/IP connection to database");
+				break; 
+			} // let it fall
+		default:
+			throw QString( "Connection to DB failed: %1" ).arg( mysql_error( mysql ) );
+		}
+	}
 
 	return mysql;
 }

@@ -64,6 +64,7 @@
 #include "msgboard.h"
 #include "makemenus.h"
 #include "wpscriptmanager.h"
+#include "itemid.h"
 
 // Qt Includes
 #include <qstringlist.h>

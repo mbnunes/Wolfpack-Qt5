@@ -45,6 +45,10 @@
 #include "../wpdefmanager.h"
 #include "../wpdefaultscript.h"
 #include "../verinfo.h"
+#include "../globals.h"
+#include "../items.h"
+#include "../chars.h"
+#include "../network.h"
 
 #include "utilities.h"
 #include "tempeffect.h"

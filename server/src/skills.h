@@ -39,6 +39,8 @@
 
 // Library Includes
 #include <qmap.h>
+#include <qstringlist.h>
+#include <qvaluevector.h>
 
 // Forward Declaration
 class cUOSocket;

@@ -39,16 +39,14 @@
 #include "chars.h"
 #include "network.h"
 #include "exceptions.h"
+#include "globals.h"
 
 
 // ===== AccountRecord Methods ===== //
 
 AccountRecord::AccountRecord()
+: acl_(0), inUse_(false), flags_(0)
 {
-	aclName_ = QString();
-	acl_ = 0; // Null it out
-	inUse_ = false;
-	flags_ = 0;
 }
 
 void AccountRecord::Serialize( ISerialization& archive )
@@ -258,7 +256,7 @@ void cAccounts::reload()
 	QStringList sockaccnames;
 
 	AllCharsIterator iterChars;
-	for (iterChars.Begin(); !iterChars.atEnd(); iterChars++)
+	for (iterChars.Begin(); !iterChars.atEnd(); ++iterChars)
 	{
 		P_CHAR pc = iterChars.GetData();
 		if( pc->account() )
@@ -273,7 +271,7 @@ void cAccounts::reload()
 		if( mSock->account() )
 			sockaccnames.push_back( mSock->account()->login() );
 		else
-			sockaccnames.push_back( QString((char*)0) );
+			sockaccnames.push_back( QString() );
 	}
 
 	clear();
@@ -288,7 +286,7 @@ void cAccounts::reload()
 		++it;
 	}
 
-	QStringList::const_iterator sit = sockaccnames.begin();
+	QStringList::iterator sit = sockaccnames.begin();
 	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 	{
 		if( !(*sit).isNull() )

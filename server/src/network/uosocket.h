@@ -45,6 +45,8 @@ class AccountRecord;
 class cTargetRequest;
 class cGump;
 class cUObject;
+class cCustomTags;
+
 
 // Too many Forward Declarations
 #include "uorxpackets.h"
@@ -52,7 +54,6 @@ class cUObject;
 #include "../wptargetrequests.h"
 #include "../customtags.h"
 
-class cCustomTags;
 
 struct stTargetItem
 {

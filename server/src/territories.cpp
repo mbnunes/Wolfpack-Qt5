@@ -37,6 +37,9 @@
 #include "utilsys.h"
 #include "srvparams.h"
 #include "network.h"
+#include "chars.h"
+#include "basics.h"
+#include "wpconsole.h"
 #include "exceptions.h"
 
 #include "globals.h" // needed for object SrvParams

@@ -35,6 +35,7 @@ typedef cChar* P_CHAR;
 #include "../skills.h"
 #include "../globals.h"
 #include "../chars.h"
+#include "../network/uosocket.h"
 #include "utilities.h"
 
 typedef struct {

@@ -36,6 +36,7 @@
 #include "network/uotxpackets.h"
 #include "newmagic.h"
 #include "persistentbroker.h"
+#include "globals.h"
 
 // Library Includes
 #include <qdom.h>

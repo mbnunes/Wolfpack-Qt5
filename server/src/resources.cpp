@@ -41,6 +41,8 @@
 #include "itemsmgr.h"
 #include "skills.h"
 #include "srvparams.h"
+#include "basics.h"
+#include "wpconsole.h"
 
 //System Includes
 #include <math.h>

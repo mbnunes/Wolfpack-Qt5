@@ -34,11 +34,13 @@
 
 #include "platform.h"
 #include "typedefs.h"
-#include "network/uosocket.h"
-#include "targeting.h"
 
 // Library includes
 #include <qobject.h>
+
+// Forward Definitions
+class cUOSocket;
+class cUORxTarget;
 
 // Abstract base-class for target requests
 class cTargetRequest : public QObject

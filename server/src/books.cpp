@@ -37,6 +37,7 @@
 #include "wpdefmanager.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"
+#include "globals.h"
 
 #include <qregexp.h>
 #include <qsqlcursor.h>

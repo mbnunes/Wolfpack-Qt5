@@ -35,6 +35,9 @@
 #include "dbdriver.h"
 #include "network/uosocket.h"
 #include "persistentbroker.h"
+#include "globals.h"
+#include "prototypes.h"
+#include "chars.h"
 
 #include <functional>
 #include <algorithm>
