@@ -35,6 +35,7 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Rewrote the barber/hairstylist.
 		- Fixed the trainmenu.
 		- Added a say <text> command
+		- Fixed add and craft menus for the 3d client.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
