@@ -49,6 +49,7 @@
 #include "log.h"
 #include "player.h"
 #include "inlines.h"
+#include "basics.h"
 
 #undef DBGFILE
 #define DBGFILE "boats.cpp" 

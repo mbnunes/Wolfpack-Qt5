@@ -55,9 +55,6 @@ class WPConsole_cl;
 //Wolfpack Includes
 
 #include "structs.h"
-#include "storage.h"
-
-enum enServerState { STARTUP = 0, RUNNING, SCRIPTRELOAD, SHUTDOWN };
 
 // Global Variables
 
@@ -111,7 +108,6 @@ extern unsigned long initialservermill ;
 // - the below structure is for looking up items based on serial #
 // - item's serial, owner's serial, char's serial, and container's serial
 
-extern Container_cl stablesp;
 extern std::list<SERIAL> guilds;
 
 /******************************************************/

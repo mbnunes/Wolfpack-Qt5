@@ -52,6 +52,7 @@
 #include "resources.h"
 #include "contextmenu.h"
 #include "pythonscript.h"
+#include "network.h"
 
 // System Includes
 #include <functional>

@@ -33,7 +33,6 @@
 // Include files
 
 #include "coord.h"
-#include "debug.h"
 #include "player.h"
 #include "network.h"
 #include "sectors.h"

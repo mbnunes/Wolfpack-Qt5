@@ -39,9 +39,7 @@
 #include "TmpEff.h"
 #include "items.h"
 #include "globals.h"
-#include "debug.h"
 #include "srvparams.h"
-#include "wolfpack.h"
 #include "iserialization.h"
 #include "network.h"
 #include "wpdefmanager.h"
@@ -52,6 +50,7 @@
 #include "player.h"
 #include "npc.h"
 #include "ai.h"
+#include "world.h"
 
 #include <algorithm>
 #include <typeinfo>

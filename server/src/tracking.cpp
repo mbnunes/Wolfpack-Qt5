@@ -35,13 +35,14 @@
 #include "items.h"
 #include "skills.h"
 #include "globals.h"
-#include "wolfpack.h"
 #include "TmpEff.h"
 #include "sectors.h"
 #include "gumps.h"
 #include "basechar.h"
 #include "player.h"
 #include "basedef.h"
+#include "world.h"
+#include "inlines.h"
 
 class cRefreshTracking: public cTempEffect
 {

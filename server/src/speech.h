@@ -39,19 +39,17 @@
 // Platform specifics
 #include "platform.h"
 
-
 // System includes
 #include <vector>
 #include <iostream>
 
-// Class Declaration
-class cSpeech;
+// QT
+#include <qvaluevector.h>
 
 //Wolfpack Includes
-#include "wolfpack.h"
-#include "debug.h"
 #include "speech.h"
 #include "utilsys.h"
+#include "typedefs.h"
 
 bool VendorChkName( P_CHAR pVendor, const QString& comm );
 

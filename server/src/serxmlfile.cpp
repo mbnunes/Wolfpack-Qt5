@@ -35,7 +35,7 @@
 //using namespace std;
 
 // Save Path
-#include "wolfpack.h"
+#include "globals.h"
 #include "srvparams.h"
 
 // Libraries

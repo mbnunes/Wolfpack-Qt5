@@ -35,7 +35,6 @@
 class QString;
 class cUOSocket;
 
-QString hex2dec( const QString& value );
 void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey );
 
 void goldsfx( cUOSocket *socket, UINT16 amount, bool hearall );

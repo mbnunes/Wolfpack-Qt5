@@ -42,6 +42,7 @@
 #include "globals.h"
 #include "prototypes.h"
 #include "log.h"
+#include "basics.h"
 
 /*!
 	Initializes this "LoginCrypt" object. 

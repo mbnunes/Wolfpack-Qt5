@@ -68,7 +68,6 @@ HEADERS         = \
 		  commands.h \
 		  dbl_single_click.h \
 		  dbdriver.h \
-		  debug.h \
 		  definable.h \
 		  defines.h \
 		  dragdrop.h \
@@ -141,7 +140,6 @@ SOURCES         = \
 		customtags.cpp \
 		dbl_single_click.cpp \
 		dbdriver.cpp \
-		debug.cpp \
 		definable.cpp \
 		dragdrop.cpp \
 		globals.cpp \

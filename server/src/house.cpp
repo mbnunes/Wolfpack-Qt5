@@ -36,7 +36,6 @@
 #include "sectors.h"
 #include "srvparams.h"
 #include "maps.h"
-#include "debug.h"
 #include "tilecache.h"
 #include "utilsys.h"
 #include "network.h"
@@ -48,15 +47,16 @@
 #include "chars.h"
 #include "customtags.h"
 #include "territories.h"
+#include "world.h"
+#include "srvparams.h"
+#include "inlines.h"
+#include "globals.h"
 
 // System Include Files
 #include <algorithm>
 
 // Namespaces for this module
 using namespace std;
-
-#undef  DBGFILE
-#define DBGFILE "house.cpp"
 
 void cHouse::processHouseItemNode( const cElement *Tag )
 {

@@ -49,6 +49,7 @@
 #include "chars.h"
 #include "npc.h"
 #include "itemid.h"
+#include "basics.h"
 
 #undef  DBGFILE
 #define DBGFILE "dbl_single_click.cpp"

@@ -32,7 +32,6 @@
 #if !defined(__HOUSE_H__)
 #define __HOUSE_H__
 
-#include "wolfpack.h"
 #include "items.h"
 #include "multis.h"
 

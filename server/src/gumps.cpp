@@ -29,7 +29,6 @@
 //==================================================================================
 
 
-#include "wolfpack.h"
 #include "accounts.h"
 #include "prototypes.h"
 #include "globals.h"
@@ -44,13 +43,10 @@
 #include "territories.h"
 #include "basechar.h"
 #include "player.h"
-#include "debug.h"
+#include "world.h"
 
 // System Includes
 #include <math.h>
-
-#undef  DBGFILE
-#define DBGFILE "gumps.cpp"
 
 cGump::cGump() : noMove_( false ), noClose_( false ), 
 noDispose_( false ), x_( 50 ), y_( 50 ), serial_( INVALID_SERIAL ), 
@@ -125,7 +121,7 @@ void cGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 {
 	Q_UNUSED(socket);
 	Q_UNUSED(choice);
-#pragma note("This is a good candidate for pure virtual")
+#pragma message("This is a good candidate for pure virtual")
 }
 
 cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region )

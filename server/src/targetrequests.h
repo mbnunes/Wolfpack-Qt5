@@ -32,7 +32,9 @@
 #if !defined(__TARGETREQUEST_H__)
 #define __TARGETREQUEST_H__
 
-#include "wolfpack.h"
+#include "inlines.h"
+#include "network/uosocket.h"
+#include "network/uorxpackets.h"
 #include "wptargetrequests.h"
 #include "items.h"
 #include "corpse.h"

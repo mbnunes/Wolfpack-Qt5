@@ -45,6 +45,8 @@ class cBaseChar;
 class cNPC;
 class cPlayer;
 class cUObject;
+class cUOSocket;
+class Coord_cl;
 
 // Typedefs
 
@@ -140,6 +142,8 @@ enum enWanderTypes
 	enDestination,
 	enNumberOfWanderTypes
 };
+
+enum enServerState { STARTUP = 0, RUNNING, SCRIPTRELOAD, SHUTDOWN };
 
 #endif
 

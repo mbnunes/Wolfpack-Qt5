@@ -39,7 +39,6 @@
 #include "itemid.h"
 #include "platform.h"
 
-#include "debug.h"
 #undef  DBGFILE
 #define DBGFILE "itemid.cpp"
 

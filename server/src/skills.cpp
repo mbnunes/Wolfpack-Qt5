@@ -32,7 +32,6 @@
 *  WOLFPACK Skills
 */
 
-#include "wolfpack.h"
 #include "wpdefmanager.h"
 #include "basics.h"
 #include "itemid.h"
@@ -52,13 +51,10 @@
 #include "territories.h"
 #include "makemenus.h"
 #include "npc.h"
+#include "wpconsole.h"
 
 // System Includes
 #include <math.h>
-
-#undef DBGFILE
-#define DBGFILE "skills.cpp"
-#include "debug.h"
 
 void cSkills::Hide( cUOSocket *socket ) 
 { 

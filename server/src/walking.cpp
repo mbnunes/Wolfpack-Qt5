@@ -34,8 +34,6 @@
 
 // Wolfpack Includes
 #include "walking.h"
-#include "wolfpack.h"
-#include "debug.h"
 #include "sectors.h"
 #include "srvparams.h"
 #include "network.h"
@@ -49,6 +47,9 @@
 #include "basechar.h"
 #include "npc.h"
 #include "player.h"
+#include "globals.h"
+#include "inlines.h"
+#include "world.h"
 
 // Library Includes
 #include <qvaluevector.h>
@@ -1311,7 +1312,7 @@ void cMovement::NpcMovement( unsigned int currenttime, P_NPC pc_i )
 		break;*/
 	// Try to find your way to a specified position
 /*	case enGoToPosition:
-#pragma note("Implement pathfinding for this!")
+#pragma message("Implement pathfinding for this!")
 		if( pc_i->pos().map != pc_i->wanderDestination().map )
 		{
 			pc_i->setWanderType( enHalt );

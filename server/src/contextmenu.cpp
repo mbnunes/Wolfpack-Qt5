@@ -37,10 +37,6 @@
 #include "scriptmanager.h"
 #include "player.h"
 
-#include "debug.h"
-#undef  DBGFILE
-#define DBGFILE "contextmenu.cpp"
-
 cConMenu::cConMenu( const cElement *Tag )
 {
 	applyDefinition( Tag );

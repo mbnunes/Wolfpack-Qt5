@@ -32,9 +32,8 @@
 #if !defined(__WALKING2_H__)
 #define __WALKING2_H__
 
-#include "wolfpack.h"
-
-class cUOSocket;
+#include "typedefs.h"
+#include "singleton.h"
 
 struct unitile_st
 {

@@ -38,7 +38,6 @@
 #include "iserialization.h"
 #include "globals.h"
 #include "network.h"
-#include "wolfpack.h"
 #include "defines.h"
 #include "pythonscript.h"
 #include "scriptmanager.h"
@@ -50,12 +49,12 @@
 #include "basechar.h"
 #include "sectors.h"
 #include "player.h"
+#include "basics.h"
+#include "items.h"
+#include "basics.h"
+#include "world.h"
 
 // Library Includes
-
-// Debug includes and defines
-#undef  DBGFILE
-#define DBGFILE "uobject.cpp"
 
 cUObject::cUObject() :
 	serial_( INVALID_SERIAL ), 

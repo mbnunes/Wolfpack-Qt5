@@ -34,14 +34,13 @@
 
 //Platform specifics
 #include "platform.h"
+#include "inlines.h"
 
 //system includes 
 #include <iostream>
 
 // Wolfpack includes
-#include "wolfpack.h"
 #include "itemid.h"
-#include "debug.h"
 
 class cUORxBuy;
 class cUORxSell;

@@ -29,7 +29,6 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-#include "wolfpack.h"
 #include "world.h"
 #include "verinfo.h"
 #include "speech.h"
@@ -70,6 +69,7 @@
 #include "ai.h"
 #include "sectors.h"
 #include "basedef.h"
+#include "wpconsole.h"
 
 // Library Includes
 #include <qapplication.h>
@@ -149,7 +149,7 @@ void signal_handler(int signal)
 
 void reloadScripts()
 {
-	clConsole.send( "Reloading definitions, scripts and wolfpack.xml\n" );
+	clConsole.send( "Reloading scripts...\n" );
 
 	SrvParams->reload(); // Reload wolfpack.xml
 	
@@ -204,7 +204,6 @@ protected:
 
 		try
 		{
-			
 			while( keeprun )
 			{
 				if ( kbhit() )
@@ -235,111 +234,76 @@ void interpretCommand( const QString &command )
 	cUOSocket *mSock;
 	int i;
 	char c = command.latin1()[0];
+	c = toupper(c);
 
-	if (c != 0)
+	if( c == 'S' )
 	{
-		c = toupper(c);
-		if (c == 'S')
+		secure = !secure;
+
+		if( !secure )
+			clConsole.send("WOLFPACK: Secure mode disabled. Press ? for a commands list.\n");
+		else
+			clConsole.send("WOLFPACK: Secure mode re-enabled.\n");
+
+		return;
+	}
+
+	// Allow Help in Secure Mode
+	if( secure && c != '?' )
+	{
+		clConsole.send( "WOLFPACK: Secure mode prevents keyboard commands! Press 'S' to disable.\n" );
+		return;
+	}
+
+	switch( c )
+	{
+	case 'Q':
+		clConsole.send("WOLFPACK: Immediate Shutdown initialized!\n");
+		keeprun=0;
+		break;
+
+	case '#':
+		World::instance()->save();				
+		SrvParams->flush();
+		break;
+
+	case 'W':
+		clConsole.send( "Current Users in the World:\n" );
+
+		mSock = cNetwork::instance()->first();
+		i = 0;
+		
+		for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 		{
-			if (secure)
-			{
-				clConsole.send("WOLFPACK: Secure mode disabled. Press ? for a commands list.\n");
-				secure=0;
-				return;
-			}
-			else
-			{
-				clConsole.send("WOLFPACK: Secure mode re-enabled.\n");
-				secure=1;
-				return;
-			}
-		} else {
-			if (secure && c != '?')  //Allows help in secure mode.
-			{
-				clConsole.send("WOLFPACK: Secure mode prevents keyboard commands! Press 'S' to disable.\n");
-				return;
-			}
-
-			switch(c)
-			{
-			case '\x1B':
-				keeprun=0;
-				break;
-			case 'Q':
-			case 'q':
-				clConsole.send("WOLFPACK: Immediate Shutdown initialized!\n");
-				keeprun=0;
-				break;
-
-			case '#':
-				World::instance()->save();
-				
-				SrvParams->flush();
-				break;
-			case 'D':	// Disconnect account 0 (useful when client crashes)
-			case 'd':	
-					break;
-			case 'P':
-			case 'p':				// Display profiling information
-//				clConsole.send("Performace Dump:\n");
-//				clConsole.send("Network code: %fmsec [%i samples]\n" _ (float)((float)networkTime/(float)networkTimeCount) _ networkTimeCount);
-//				clConsole.send("Timer code: %fmsec [%i samples]\n" _ (float)((float)timerTime/(float)timerTimeCount) _ timerTimeCount);
-//				clConsole.send("Auto code: %fmsec [%i samples]\n" _ (float)((float)autoTime/(float)autoTimeCount) _ autoTimeCount);
-//				clConsole.send("Loop Time: %fmsec [%i samples]\n" _ (float)((float)loopTime/(float)loopTimeCount) _ loopTimeCount);
-//				clConsole.send("Characters: %i/%i (Dynamic)		Items: %i/%i (Dynamic)\n" _ charcount _ cmem _ itemcount _ imem);
-//				clConsole.send("Simulation Cycles: %f per sec\n" _ (1000.0*(1.0/(float)((float)loopTime/(float)loopTimeCount))));
-				break;
-			case 'W':
-			case 'w':				// Display logged in chars
-				clConsole.send( "Current Users in the World:\n" );
-
-				mSock = cNetwork::instance()->first();
-				i = 0;
-				
-				for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-				{
-					if( mSock->player() )
-					{
-						clConsole.send( QString("%1) %2 [%3]\n").arg(++i).arg(mSock->player()->name()).arg(QString::number( mSock->player()->serial(), 16) ) );
-					}
-				}
-
-				clConsole.send( tr("Total Users Online: %1\n").arg(cNetwork::instance()->count()) );
-				break;
-			case 'A': //reload the accounts file
-			case 'a':
-				Accounts::instance()->reload();
-				break;
-			case 'r':
-			case 'R':
-				reloadScripts();
-
-				break;
-			case '?':
-				clConsole.send("Console commands:\n");
-				clConsole.send("	<Esc> or Q: Shutdown the server.\n");
-				clConsole.send("	T - System Message: The server is shutting down in 10 minutes.\n");
-				clConsole.send("	# - Save world\n");
-				clConsole.send("	D - Disconnect Account 0\n");
-				clConsole.send("	1 - Sysmessage: Attention Players Server being brought down!\n");
-				clConsole.send("	2 - Broadcast Message 2\n");
-				clConsole.send("	P - Preformance Dump\n");
-				clConsole.send("	W - Display logged in characters\n");
-				clConsole.send("	A - Reload accounts\n");
-				clConsole.send("	R - Reload scripts\n");
-				clConsole.send("	S - Toggle Secure mode ");
-				if (secure)
-					clConsole.send("[enabled]\n");
-				else
-					clConsole.send("[disabled]\n");
-				clConsole.send("	? - Commands list (this)\n");
-				clConsole.send("End of commands list.\n");
-				break;
-			default:
-				clConsole.send(tr("WOLFPACK: Key %1 [%2] does not preform a function.\n").arg( c > 32 ? c : '¿' ).arg(QString::number(c)));
-				break;
-			}
+			if( mSock->player() )
+				clConsole.send( QString("%1) %2 [%3]\n").arg(++i).arg(mSock->player()->name()).arg(QString::number( mSock->player()->serial(), 16) ) );
 		}
+
+		clConsole.send( tr("Total Users Online: %1\n").arg(cNetwork::instance()->count()) );
+		break;
+	case 'A': //reload the accounts file
+		Accounts::instance()->reload();
+		break;
+	case 'R':
+		reloadScripts();
+		break;
+	case '?':
+		clConsole.send("Console commands:\n");
+		clConsole.send("	Q: Shutdown the server.\n");
+		clConsole.send("	# - Save world\n" );
+		clConsole.send("	W - Display logged in characters\n" );
+		clConsole.send("	A - Reload accounts\n" );
+		clConsole.send("	R - Reload scripts\n" );
+		clConsole.send("	S - Toggle Secure mode " );
+		if( secure )
+			clConsole.send( "[enabled]\n" );
+		else
+			clConsole.send( "[disabled]\n" );
+		clConsole.send( "	? - Commands list (this)\n" );
+		clConsole.send( "End of commands list.\n" );
+		break;
+	default:
+		break;
 	}
 }
 

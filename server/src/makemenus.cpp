@@ -29,7 +29,6 @@
 //==================================================================================
 
 #include "makemenus.h"
-#include "wolfpack.h"
 #include "network/uosocket.h"
 #include "skills.h"
 #include "targetrequests.h"
@@ -39,8 +38,9 @@
 #include "srvparams.h"
 #include "python/utilities.h"
 #include "basedef.h"
-
-#include "debug.h"
+#include "basics.h"
+#include "network.h"
+#include "wpconsole.h"
 
 // System Includes
 #include <math.h>

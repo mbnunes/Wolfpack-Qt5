@@ -38,6 +38,7 @@
 #include "wpdefmanager.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"
+#include "basics.h"
 
 // Library includes
 #include "qstring.h"

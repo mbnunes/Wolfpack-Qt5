@@ -34,7 +34,6 @@
 
 // Wolfpack Includes
 
-#include "wolfpack.h"
 #include "itemid.h"
 #include "utilsys.h"
 #include "sectors.h"
@@ -53,14 +52,13 @@
 #include "npc.h"
 #include "chars.h"
 #include "basedef.h"
-
-#include "debug.h"
+#include "items.h"
+#include "inlines.h"
+#include "world.h"
+#include "basics.h"
 
 // System Includes
 #include <math.h>
-
-#undef  DBGFILE
-#define DBGFILE "combat.cpp"
 
 #define SWINGAT (unsigned int)1.75 * MY_CLOCKS_PER_SEC // changed from signed to unsigned, LB
 
@@ -882,7 +880,7 @@ namespace Combat
 		if( pAttacker->objectType() == enNPC && !pAttacker->inRange( pDefender, SrvParams->attack_distance() ) )
 		{
 			// Guards beam to their target if they are out of range
-#pragma note("reimplement with new npc ai!")
+#pragma message("reimplement with new npc ai!")
 /*			if( pAttacker->npcaitype() == 4 && pDefender->inGuardedArea() )
 			{
 					pAttacker->removeFromView( false );
@@ -1012,7 +1010,7 @@ namespace Combat
 		// Our target finally died.
 		if( pDefender->isDead() ) // Highlight // Repsys
 		{
-#pragma note("reimplement with new npc ai sys")
+#pragma message("reimplement with new npc ai sys")
 /*			if( ( pAttacker->npcaitype() == 4 || pAttacker->npcaitype() == 9 ) && pDefender->isNpc() )
 			{
 				pDefender->action( 0x15 );					

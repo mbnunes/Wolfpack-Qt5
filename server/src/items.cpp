@@ -33,13 +33,11 @@
 #include "platform.h"
 
 // Wolfpack Includes
-#include "wolfpack.h"
 #include "accounts.h"
 #include "network/uosocket.h"
 #include "network/uotxpackets.h"
 #include "utilsys.h"
 #include "iserialization.h"
-#include "debug.h"
 #include "items.h"
 #include "tilecache.h"
 #include "srvparams.h"
@@ -57,6 +55,11 @@
 #include "itemid.h"
 #include "basechar.h"
 #include "player.h"
+#include "basics.h"
+#include "srvparams.h"
+#include "globals.h"
+#include "inlines.h"
+#include "wpconsole.h"
 
 // System Includes
 #include <math.h>
@@ -333,12 +336,7 @@ bool cItem::ContainerPileItem(cItem* pItem)	// try to find an item in the contai
 
 void cItem::SetRandPosInCont(cItem* pCont)
 {
-	int k=pCont->GetContGumpType();	
-	if (k==-1)
-	{
-		LogWarningVar("trying to put something INTO a non container, id=0x%X",pCont->id());
-		k=1;
-	}
+	int k = pCont->GetContGumpType();
 	Coord_cl position = pos();
 	position.x = RandomNum(18, 118);
 	position.z=9;

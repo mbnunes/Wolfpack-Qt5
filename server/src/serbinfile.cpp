@@ -32,7 +32,7 @@
 #include "platform.h"
 
 // Wolfpack Includes
-#include "wolfpack.h"
+#include "globals.h"
 #include "srvparams.h"
 #include "serbinfile.h"
 

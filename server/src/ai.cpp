@@ -39,6 +39,8 @@
 #include "basics.h"
 #include "walking.h"
 #include "itemid.h"
+#include "items.h"
+#include "wpconsole.h"
 #include "world.h"
 
 // library includes

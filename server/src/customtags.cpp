@@ -30,13 +30,13 @@
 //==================================================================================
 
 #include "customtags.h"
-#include "wolfpack.h"
 #include "items.h"
 #include "basechar.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"
 #include "basics.h"
 #include "globals.h"
+#include "world.h"
 
 #include <math.h>
 #include <qstring.h>

@@ -33,8 +33,8 @@
 #define __WPSCRIPTMANAGER_H__
 
 // System Includes
-#include <map>
 #include <qmap.h>
+#include <qvaluevector.h>
 
 // Forward definitions
 class cPythonScript;
@@ -81,7 +81,7 @@ class QString;
 class cScriptManager  
 {
 private:
-	std::map< QString, cPythonScript* > Scripts;
+	QMap< QString, cPythonScript* > Scripts;
 
 	// map< OBJECT, map< EVENT, vector< cPythonScript
 	QMap< UINT32, QMap< UINT32, QValueVector< cPythonScript* > > > globalhooks;
@@ -90,7 +90,7 @@ private:
 	QMap< QString, cPythonScript* > commandhooks;
 
 public:
-	typedef std::map< QString, cPythonScript* >::iterator iterator;
+	typedef QMap< QString, cPythonScript* >::iterator iterator;
 
 	virtual ~cScriptManager();
 

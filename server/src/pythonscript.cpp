@@ -40,6 +40,7 @@
 #include "globals.h"
 #include "maps.h"
 #include "network.h"
+#include "wpconsole.h"
 
 // Library Includes
 #include <qfile.h>

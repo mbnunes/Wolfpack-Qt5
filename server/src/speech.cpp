@@ -51,6 +51,9 @@
 #include "npc.h"
 #include "chars.h"
 #include "ai.h"
+#include "world.h"
+#include "inlines.h"
+#include "wpconsole.h"
 
 // Library Includes
 #include <qdatetime.h>

@@ -28,10 +28,14 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-#include "wolfpack.h"
+#include "qapplication.h"
 #include "scriptmanager.h"
 #include "wpdefmanager.h"
 #include "basechar.h"
+#include "globals.h"
+#include "wpconsole.h"
+#include "world.h"
+#include "items.h"
 #include "pythonscript.h"
 #include "python/engine.h"
 
@@ -43,20 +47,20 @@ using namespace std;
 
 cScriptManager::~cScriptManager()
 {
-	map< QString, cPythonScript* >::iterator ScriptIterator;
+	QMap< QString, cPythonScript* >::iterator ScriptIterator;
 
 	for( ScriptIterator = Scripts.begin(); ScriptIterator != Scripts.end(); ++ScriptIterator )
 	{
-		delete( ScriptIterator->second );
+		delete( ScriptIterator.data() );
 	}
 }
 
 
 cPythonScript* cScriptManager::find( const QString& Name ) const
 {
-	map< QString, cPythonScript* >::const_iterator it = Scripts.find( Name );
+	QMap< QString, cPythonScript* >::const_iterator it = Scripts.find( Name );
 	if ( it != Scripts.end() )
-		return (*it).second;
+		return it.data();
 	else
 		return 0;
 }
@@ -67,7 +71,7 @@ void cScriptManager::add( const QString& Name, cPythonScript *Script )
 
 	Script->setName( Name );
 
-	Scripts.insert( make_pair(Name, Script) );
+	Scripts.insert( Name, Script );
 }
 
 void cScriptManager::remove( const QString& Name )
@@ -75,7 +79,7 @@ void cScriptManager::remove( const QString& Name )
 	iterator it = Scripts.find( Name );
 	if( it != Scripts.end() )
 	{
-		delete (*it).second;
+		delete it.data();
 		Scripts.erase( it );
 	}
 }
@@ -118,8 +122,8 @@ void cScriptManager::unload( void )
 
 	for( myIter = Scripts.begin(); myIter != Scripts.end(); ++myIter )
 	{
-		myIter->second->unload();
-		delete myIter->second;
+		myIter.data()->unload();
+		delete myIter.data();
 	}
 
 	Scripts.clear();
@@ -189,11 +193,11 @@ const QValueVector< cPythonScript* > cScriptManager::getGlobalHooks( UINT32 obje
 
 void cScriptManager::onServerStart()
 {
-	map< QString, cPythonScript* >::iterator ScriptIterator;
+	QMap< QString, cPythonScript* >::iterator ScriptIterator;
 
 	for( ScriptIterator = Scripts.begin(); ScriptIterator != Scripts.end(); ++ScriptIterator )
 	{
-		ScriptIterator->second->onServerstart();
+		ScriptIterator.data()->onServerstart();
 	}	
 }
 

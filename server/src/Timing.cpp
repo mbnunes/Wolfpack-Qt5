@@ -52,6 +52,9 @@
 #include "player.h"
 #include "chars.h"
 #include "ai.h"
+#include "inlines.h"
+#include "world.h"
+#include "utilsys.h"
 
 // Library Includes
 #include <qdatetime.h>
@@ -250,8 +253,6 @@ static int check_house_decay()
 			if (pi->time_unused>SrvParams->housedecay_secs()) // not used longer than max_unused time ? delete the house
 			{          
 				decayed_houses++;
-				sprintf((char*)temp,"%s decayed! not refreshed for > %i seconds!\n",pi->name().ascii(), SrvParams->housedecay_secs());
-				LogMessage((char*)temp);
 				(dynamic_cast< cHouse* >(pi))->remove();
 			}
 			else // house ok -> update unused-time-attribute
@@ -350,7 +351,7 @@ void checkPC( P_PLAYER pc, unsigned int currenttime )
 		pc->setSpiritSpeakTimer(0);
 */
 	
-#pragma note("TODO: jail reimplementation with python")
+#pragma message("TODO: jail reimplementation with python")
 /*
 	// Jail stuff
 	if( pc->cell() > 0 )

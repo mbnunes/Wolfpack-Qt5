@@ -52,6 +52,8 @@
 #include "walking.h"
 #include "skills.h"
 #include "ai.h"
+#include "inlines.h"
+#include "basics.h"
 
 cNPC::cNPC()
 {
@@ -199,12 +201,7 @@ bool cNPC::del()
 
 static void npcRegisterAfterLoading( P_NPC pc )
 {
-	if( pc->stablemasterSerial() == INVALID_SERIAL )
-	{ 
-		MapObjects::instance()->add(pc); 
-	} 
-	else
-		stablesp.insert(pc->stablemasterSerial(), pc->serial());
+	MapObjects::instance()->add(pc); 
 }
 
 void cNPC::setOwner(P_PLAYER data, bool nochecks)
@@ -352,7 +349,17 @@ void cNPC::talk( const QString &message, UI16 color, UINT8 type, bool autospam, 
 
 UINT8 cNPC::notority( P_CHAR pChar ) // Gets the notority toward another char
 {
-	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red
+	/*
+		Hard to tell because the ai-types are now string based
+		0 = invalid/across server line
+		1 = innocent (blue)
+		2 = guilded/ally (green)
+		3 = attackable but not criminal (gray)
+		4 = criminal (gray)
+		5 = enemy (orange)
+		6 = murderer (red)
+		7 = unknown use (translucent (like 0x4000 hue))
+	*/
 	UINT8 result;
 
 	// Check for Guild status + Highlight
@@ -378,7 +385,7 @@ UINT8 cNPC::notority( P_CHAR pChar ) // Gets the notority toward another char
 		
 		if( isHuman() )
 		{
-			if( karma_ >= 0 )
+			if( karma_ > 0 )
 				result = 0x01;
 			else
 				result = 0x06;
@@ -386,7 +393,12 @@ UINT8 cNPC::notority( P_CHAR pChar ) // Gets the notority toward another char
 		
 		// Everything else
 		else
-			result = 0x03;
+		{
+			if( karma_ >= 0 )
+				return 0x03;
+			else 
+				return 0x01;
+		}
 	}
 	
 	return result;
@@ -479,7 +491,7 @@ void cNPC::kill()
 	// Now for the corpse
 	P_ITEM pi_backpack = getBackpack();
 	
-#pragma note("Implement here tradewindow closing and disposal of it's cItem*")
+#pragma message("Implement here tradewindow closing and disposal of it's cItem*")
 	// Close here the trade window... we still not sure how this will work, so I took out
 	//the old code
 	ele = 0;

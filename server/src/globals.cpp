@@ -31,13 +31,17 @@
 
 // Global Variables
 
-#include "wolfpack.h"
 #include "verinfo.h"
 #include "walking.h"
 #include "scriptmanager.h"
 #include "wpdefmanager.h"
 #include "wptargetrequests.h"
 #include "typedefs.h"
+#include "wpconsole.h"
+#include "srvparams.h"
+#include "skills.h"
+#include "maps.h"
+#include "speech.h"
 
 unsigned int uiCurrentTime;
 wp_version_info wp_version;
@@ -124,8 +128,6 @@ PersistentBroker* persistentBroker;
 
 // - the below structure is for looking up items based on serial #
 // - item's serial, owner's serial, char's serial, and container's serial
-
-Container_cl stablesp;
 
 list<SERIAL> guilds;
 

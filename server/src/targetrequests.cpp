@@ -49,7 +49,8 @@
 #include "itemid.h"
 #include "npc.h"
 #include "chars.h"
-
+#include "basics.h"
+#include "network.h"
 
 // System Includes
 #include <math.h>

@@ -47,6 +47,9 @@ II. make sure to hold the map up to date !
 #include "utilsys.h"
 #include "chars.h"
 #include "npc.h"
+#include "world.h"
+#include "basics.h"
+#include "wpconsole.h"
 //#include "wolfpack.h" // needed for objects Npcs and Items
 
 using namespace std;

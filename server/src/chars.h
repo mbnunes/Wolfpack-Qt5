@@ -35,9 +35,6 @@
 // Platform Include
 #include "platform.h"
 
-// just temporary
-#include "debug.h"
-
 #include "typedefs.h"
 #include "structs.h"
 #include "defines.h"

@@ -78,6 +78,8 @@ bool parseCoordinates( const QString &input, Coord_cl &coord );
 
 int RandomNum(int nLowNum, int nHighNum);
 
+QString hex2dec( const QString& value );
+
 float RandomFloatNum(float nLowNum, float nHighNum);
 
 #endif 

@@ -490,7 +490,7 @@ void cPlayer::kill()
 	
 	unmount();
 
-#pragma note("Implement here tradewindow closing and disposal of it's cItem*")
+#pragma message("Implement here tradewindow closing and disposal of it's cItem*")
 	// Close here the trade window... we still not sure how this will work, so I took out
 	//the old code
 	ele = 0;
@@ -652,7 +652,7 @@ void cPlayer::kill()
 	
 	corpse->update();
 
-#pragma note( "Deathshroud has to be defined as 204e in the scripts" )
+#pragma message( "Deathshroud has to be defined as 204e in the scripts" )
 	P_ITEM pItem = cItem::createFromScript( "204e" );
 	if( pItem )
 	{
@@ -1003,7 +1003,7 @@ bool cPlayer::canPickUp( cItem* pi )
 {
 	if( !pi )
 	{
-		LogCritical( "cChar::canPickUp() - bad parm" );
+		clConsole.log( LOG_ERROR, "cChar::canPickUp() - bad parm" );
 		return false;
 	}
 

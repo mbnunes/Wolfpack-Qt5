@@ -32,23 +32,6 @@
 #if !defined(__TIMING_H__)
 #define __TIMING_H__
 
-//Platform specifics
-#include "platform.h"
-
-//system includes
-
-#include <iostream>
-
-//Forward Class Decl
-
-
-//Wolfpack Includes
-
-#include "wolfpack.h"
-#include "basics.h"
-#include "utilsys.h"
-#include "debug.h"
-
 void checkauto();	// Check automatic/timer controlled stuff (Like fighting and regeneration)
 void checktimers();	// Check shutdown timers
 

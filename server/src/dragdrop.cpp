@@ -29,9 +29,7 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-#include "debug.h"
 #include "basics.h"
-#include "wolfpack.h"
 #include "tilecache.h"
 #include "speech.h"
 #include "itemid.h"
@@ -47,7 +45,8 @@
 #include "dragdrop.h"
 #include "player.h"
 #include "npc.h"
-
+#include "world.h"
+#include "inlines.h"
 
 #undef  DBGFILE
 #define DBGFILE "dragdrop.cpp"

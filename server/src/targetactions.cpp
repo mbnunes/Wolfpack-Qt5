@@ -41,7 +41,6 @@
 #include "world.h"
 #include "basechar.h"
 #include "player.h"
-#include "debug.h"
 
 bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 {
