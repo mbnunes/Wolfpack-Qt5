@@ -116,6 +116,9 @@ public:
 	void getOption( const QString& name, QString& value, const QString fallback );
 	void setOption( const QString& name, const QString& value );
 
+	// Get the database version
+	unsigned int getDatabaseVersion() const;
+
 	// Book-keeping functions
 	void registerObject( cUObject* object );
 	void registerObject( SERIAL serial, cUObject* object );

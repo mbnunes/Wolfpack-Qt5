@@ -87,6 +87,10 @@ typedef std::map<SERIAL, P_CHAR> CharMap;
 #define DATABASE_VERSION 9
 #define WP_DATABASE_VERSION "9"
 
+unsigned int cWorld::getDatabaseVersion() const {
+	return DATABASE_VERSION;
+}
+
 // This is used for autocreating the tables
 struct
 {

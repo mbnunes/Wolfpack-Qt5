@@ -26,6 +26,8 @@
  */
 
 #include "accounts.h"
+#include "multi.h"
+#include "world.h"
 #include "skills.h"
 #include "commands.h"
 #include "gumps.h"
@@ -1557,6 +1559,183 @@ void commandDoorGenerator( cUOSocket* socket, const QString& /*command*/, const 
 	}
 }
 
+/*
+	\command exportplayer
+	\description Exports a playere and all his posessions to a flat file.
+	\usage - exportplayer <serial>
+	\notes This command exports a player with the given serial to a flat file named
+	player-<serial>.bin.
+*/
+void commandExportPlayer( cUOSocket* socket, const QString& /*command*/, const QStringList& args ) throw()
+{
+	if (args.isEmpty()) {
+		socket->sysMessage(tr("Usage: exportplayer <serial>"));
+		return;
+	}
+
+	SERIAL serial = hex2dec(args[0]).toInt();
+	P_PLAYER player = dynamic_cast<P_PLAYER>(World::instance()->findChar(serial));
+
+	if (!player) {
+		socket->sysMessage(tr("No player with the given serial could be found."));
+		return;
+	}
+
+	QString filename = QString("player-%1.bin").arg(serial, 0, 16);
+
+	socket->sysMessage(tr("Saving player 0x%1 to player-%2.bin").arg(serial, 0, 16).arg(serial, 0, 16));
+	socket->log(tr("Saving player 0x%1 to player-%2.bin\n").arg(serial, 0, 16).arg(serial, 0, 16));
+
+	try {
+		cBufferedWriter writer("PLAYEREXPORT", World::instance()->getDatabaseVersion());
+		writer.open(filename);
+		((cBaseChar*)player)->save(writer);
+		writer.writeByte(0xFF);
+		writer.close();
+	} catch(...) {
+		socket->log(tr("Failed to export the player data.\n"));
+	}
+}
+
+/*
+	\command importplayer
+	\description Imports a playere and all his posessions from a flat file.
+	\usage - importplayer <filename>
+	\notes This command imports a player from the given file.
+*/
+void commandImportPlayer( cUOSocket* socket, const QString& /*command*/, const QStringList& args ) throw()
+{
+	if (args.isEmpty()) {
+		socket->sysMessage(tr("Usage: importplayer <filename>"));
+		return;
+	}
+
+	QString filename = args[0];
+
+	if (!QFile::exists(filename)) {
+		socket->sysMessage(tr("No flat file with the given name could be found."));
+		return;
+	}
+	socket->sysMessage(tr("Loading player from %1.").arg(filename));
+	socket->log(tr("Loading player from %1.\n").arg(filename));
+
+	try {
+		cBufferedReader reader("PLAYEREXPORT", World::instance()->getDatabaseVersion());
+		reader.open(filename);
+		socket->sysMessage(tr("Loading %1 objects from %2.").arg(reader.objectCount()).arg(filename));
+		
+		unsigned char type;
+		const QMap<unsigned char, QCString> &typemap = reader.typemap();
+		QPtrList<PersistentObject> objects;
+
+		do {
+			type = reader.readByte();
+			if (typemap.contains(type)) {
+				PersistentObject *object = PersistentFactory::instance()->createObject(typemap[type]);
+				if ( object )
+				{
+					try
+					{
+						object->load( reader );
+
+						if ( reader.hasError() )
+						{
+							Console::instance()->log( LOG_ERROR, reader.error() );
+							reader.setError( QString::null );
+
+							cUObject *obj = dynamic_cast<cUObject*>( object );
+							if ( obj )
+							{
+								obj->setSpawnregion( 0 );
+								MapObjects::instance()->remove( obj );
+								World::instance()->unregisterObject( obj );
+
+								if ( obj->multi() )
+								{
+									obj->multi()->removeObject( obj );
+									obj->setMulti( 0 );
+								}
+							}
+
+							P_ITEM item = dynamic_cast<P_ITEM>( object );
+							if ( item )
+							{
+								item->removeFromCont();
+								item->setOwner( 0 );
+							}
+
+							P_NPC npc = dynamic_cast<P_NPC>( object );
+							if ( npc )
+							{
+								npc->setOwner( 0 );
+								npc->setAI( 0 );
+							}
+							delete object;
+						}
+						else
+						{
+							objects.append( object );
+						}
+					}
+					catch ( wpException& e )
+					{
+						Console::instance()->log( LOG_WARNING, e.error() + "\n" );
+					}
+				}
+				else
+				{
+					// Skip an unknown object type.
+				}
+			}
+			else if ( type == 0xFA )
+			{
+				QString spawnregion = reader.readUtf8();
+				SERIAL serial = reader.readInt();
+
+				cSpawnRegion *region = SpawnRegions::instance()->region( spawnregion );
+				cUObject *object = World::instance()->findObject( serial );
+				if ( object && region )
+				{
+					object->setSpawnregion( region );
+				}
+			}
+			else if ( type == 0xFC )
+			{
+				Timers::instance()->load( reader );
+			}
+			else if ( type == 0xFE )
+			{
+				cUObject *object = World::instance()->findObject( reader.readInt() );
+				QString name = reader.readUtf8();
+				cVariant variant;
+				variant.serialize( reader, reader.version() );
+
+				if ( object )
+				{
+					object->setTag( name, variant );
+				}
+			}
+			else if ( type != 0xFF )
+			{
+				Console::instance()->log( LOG_ERROR, tr( "Invalid worldfile, unknown and unskippable type %1.\n" ).arg( type ) );
+				return;
+			}
+		} while (type != 0xFF);
+
+		reader.close();
+
+		// post process all loaded objects
+		QPtrList<PersistentObject>::const_iterator cit( objects.begin() );
+		while ( cit != objects.end() )
+		{
+			( *cit )->postload( reader.version() );
+			++cit;
+		}
+	} catch(...) {
+		socket->log(tr("Failed to import the player data.\n"));
+	}
+}
+
 // Clear ACLs
 cCommands::~cCommands()
 {
@@ -1571,6 +1750,8 @@ stCommand cCommands::commands[] =
 {
 { "ALLMOVE", commandAllMove },
 { "EXPORTDEFINITIONS", commandExportDefinitions },
+{ "EXPORTPLAYER", commandExportPlayer },
+{ "IMPORTPLAYER", commandImportPlayer },
 { "ALLSHOW", commandAllShow },
 { "BROADCAST", commandBroadcast },
 { "DOORGEN", commandDoorGenerator },
