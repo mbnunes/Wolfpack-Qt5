@@ -925,7 +925,7 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 	archive->prepareReading( "items" ); // Load Items
 	clConsole.send( "Loading Items %i...\n", archive->size() );
 	progress.restart(archive->size());
-	for ( i = 0; i < archive->size(); ++progress, ++i)
+	for ( i = 0; i < archive->size(); ++progress, ++i )
 	{
 		archive->readObjectID(objectID);
 		P_ITEM pi = NULL;
@@ -955,7 +955,7 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 		pi->SetOwnSerial(pi->ownserial);
 
 		//add item weight if item doesn't have it yet
-		if( pi->weight() <= 0 ) // LB, changed from 29 to 0
+		if( pi->weight() <= 0 )
 		{
 			pi->setWeight( 0 );
 			pi->setWeight( pi->getWeight() );

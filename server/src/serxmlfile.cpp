@@ -261,9 +261,11 @@ void serXmlFile::doneWritting()
 void serXmlFile::readObjectID(QString &data)
 {
 	// Read the object-id if we're done reading the current item (this *will* lead to bugs with non-new item-files)
-	if( ( node.nodeName() != "objectID" ) && ( !node.hasChildNodes() ) )
+	if( ( node.nodeName() != "objectID" ) || !node.hasChildNodes() )
 	{
 		node = node.nextSibling().toElement();
+		if( node.isNull() )
+			return;
 		readObjectID( data ); // "Re-read"
 	}
 	else if ( node.nodeName() == "objectID" )

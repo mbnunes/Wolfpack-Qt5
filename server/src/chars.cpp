@@ -899,7 +899,10 @@ void cChar::Serialize(ISerialization &archive)
 		}
 
 		archive.write("title",			title_);
-		archive.write("account",		account_);
+		if( account_ )
+			archive.write( "account", account_->login() );
+		else
+			archive.write( "account", QString( "" ) );
 		archive.write("creationday",	creationday_);
 		archive.write("gmmoveeff",		gmMoveEff);
 		archive.write("guildtype",		GuildType);
