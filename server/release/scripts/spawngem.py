@@ -32,7 +32,6 @@ def onShowTooltip(sender, target, tooltip):
 		appendix = 'Radius: %s\nInterval: %s to %s minutes' % (area, mininterval, maxinterval)
 		
 		tooltip.add(1060847, "%s\t\n" % appendix)
-			
 
 #
 # Gump configuration response
