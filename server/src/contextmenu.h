@@ -52,13 +52,11 @@ public:
 	Q_UINT16	getTag( void ) { return tag_; }
 	Q_UINT16	getIntlocID(void) { return intlocid_; }
 	Q_UINT16	getMsgID(void) { return msgid_; }
-	QString		getScriptName(void) { return scriptname_; }
 	
 private:
 	Q_UINT16	tag_;
 	Q_UINT16	intlocid_;
 	Q_UINT16	msgid_;
-	QString		scriptname_;
 };
 
 typedef QValueVector< cConSingleOption > vSingleOption;

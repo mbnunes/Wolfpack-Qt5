@@ -40,7 +40,6 @@ void cConSingleOption::setOption( const QDomElement &Tag )
 	this->tag_ = Tag.attribute( "tag" ).toUShort();
 	this->intlocid_ = Tag.attribute( "intlocid" ).toUShort();
 	this->msgid_ = Tag.attribute( "msgid" ).toUShort();
-	this->scriptname_ = Tag.attribute( "script" );
 }
 
 void cConMenuOptions::addOption( const QDomElement &Tag )
