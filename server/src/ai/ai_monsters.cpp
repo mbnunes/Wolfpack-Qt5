@@ -77,7 +77,16 @@ bool validTarget(P_NPC npc, P_CHAR victim, int dist) {
 		return false;
 	}
 
-	return true;
+	bool result = true;
+
+	// Check if the NPC has a script for target validation
+	if (npc->canHandleEvent(EVENT_CHECKVICTIM)) {
+		PyObject *args = Py_BuildValue("(NNi)", npc->getPyObject(), victim->getPyObject(), dist);
+		result = npc->callEventHandler(EVENT_CHECKVICTIM, args);
+		Py_DECREF(args);
+	}
+
+	return result;
 }
 
 // Find the best target for this NPC
@@ -98,7 +107,7 @@ P_CHAR findBestTarget(P_NPC npc) {
 		// it's fighting us.
 		if (victim != target && (!npc->isTamed() || victim->attackTarget() == npc)) {
 			// See if it's a target we want
-			unsigned int dist = npc->dist(victim);		
+			unsigned int dist = npc->dist(victim);
 			if (dist < distance && validTarget(npc, victim, dist)) {
 				target = victim;
 				distance = dist;
@@ -110,11 +119,19 @@ P_CHAR findBestTarget(P_NPC npc) {
 	if (!npc->isTamed()) {
 		RegionIterator4Chars ri(npc->pos(), VISRANGE);
 		for ( ri.Begin(); !ri.atEnd(); ri++ ) {
-			// We limit ourself to players here
-			P_PLAYER victim= dynamic_cast<P_PLAYER>( ri.GetData() );
+			// We limit ourself to players and pets owned by players.
+			P_PLAYER victim = dynamic_cast<P_PLAYER>( ri.GetData() );
+			P_NPC npcVictim = dynamic_cast<P_NPC>( ri.GetData() );
 
 			// We don't already attack the target, right?
 			if (victim && victim != target) {
+				// See if it's a target we want
+				unsigned int dist = npc->dist(victim);
+				if (dist < distance && validTarget(npc, victim, dist)) {
+					target = victim;
+					distance = dist;
+				}
+			} else if (npcVictim && npcVictim->owner() && npcVictim != target) {
 				// See if it's a target we want
 				unsigned int dist = npc->dist(victim);
 				if (dist < distance && validTarget(npc, victim, dist)) {
@@ -146,7 +163,6 @@ void Monster_Aggressive::check()
 		// Don't switch if we can hit it...
 		if (!m_currentVictim || m_currentVictim->dist(m_npc) > 1) {
 			P_CHAR target = findBestTarget(m_npc);
-
 			if (target) {
 				m_currentVictim = target;
 				m_currentVictimSer = target->serial();

@@ -161,6 +161,7 @@
 
 	<!-- NPC -->
 	<script>npc.healer</script>
+	<script>npc.poison</script>
 
 	<!-- Context menu scripts -->
 	<script>contextmenus.bankermenu</script>

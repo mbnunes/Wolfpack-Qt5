@@ -2,6 +2,10 @@ Wolfpack ChangeLog
 
 Wolfpack 12.9.13 Beta (CVS)
 	- Fixed meditation skillcheck in mana regeneration code.
+	- Changed gm talk color.
+	- Implemented the onCheckVictim event.
+	- Implemented the onDoDamage event.
+	- Stablemasters now remove the stabled pets from the follower list.
 
 Wolfpack 12.9.12 Beta (18. October 2004)
 	- Fixed a unix console error

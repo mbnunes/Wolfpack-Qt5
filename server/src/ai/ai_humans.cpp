@@ -401,25 +401,40 @@ void Human_Guard::selectVictim()
 				// If its a NPC... special handling
 				P_NPC pNpc = dynamic_cast<P_NPC>(pChar);
 
-				// NPCs owned by innocent players aren't attacked
-				if (pNpc) {
-					if (pNpc->isTamed() && pNpc->owner()) {
-						if (pNpc->owner()->isInnocent()) {
-							continue;
-						}
-					} else {
-						// Check for the AI, guards only attack other npcs if they
-						// are monsters.
-						Monster_Aggressive *npcai = dynamic_cast<Monster_Aggressive*>(pNpc->ai());
-						if (!npcai) {
-							continue;
-						}
+				// If the character has a checkvictim processing function, use that instead
+				if (m_npc->canHandleEvent(EVENT_CHECKVICTIM)) {
+					if (pNpc && pNpc->owner()) {
+						pChar = pNpc->owner();
+					}
+
+					PyObject *args = Py_BuildValue("(NNi)", m_npc->getPyObject(), pChar->getPyObject(), pChar->dist(m_npc));
+					bool result = m_npc->callEventHandler(EVENT_CHECKVICTIM, args);
+					Py_DECREF(args);
+
+					if (!result) {
+						continue;
 					}
 				} else {
-					// Innocent players aren't attacked
-					P_PLAYER pPlayer = dynamic_cast<P_PLAYER>( pChar );
-					if ( pPlayer && (pPlayer->isInnocent() || pPlayer->isGMorCounselor()) )
-						continue;
+					// NPCs owned by innocent players aren't attacked
+					if (pNpc) {
+						if (pNpc->isTamed() && pNpc->owner()) {
+							if ((pNpc->owner()->isInnocent() || pNpc->owner()->isGMorCounselor())) {
+								continue;
+							}
+						} else {
+							// Check for the AI, guards only attack other npcs if they
+							// are monsters.
+							Monster_Aggressive *npcai = dynamic_cast<Monster_Aggressive*>(pNpc->ai());
+							if (!npcai) {
+								continue;
+							}
+						}
+					} else {
+						// Innocent players aren't attacked
+						P_PLAYER pPlayer = dynamic_cast<P_PLAYER>( pChar );
+						if ( pPlayer && (pPlayer->isInnocent() || pPlayer->isGMorCounselor()) )
+							continue;
+					}
 				}
 
 				m_currentVictim = pChar;
@@ -453,7 +468,7 @@ float Human_Guard_Fight::preCondition()
 	Human_Guard* pAI = dynamic_cast<Human_Guard*>( m_ai );
 	P_CHAR pTarget = ( pAI ? pAI->currentVictim() : NULL );
 
-	if ( !pTarget || pTarget->isDead() || pTarget->isInnocent() )
+	if ( !pTarget || pTarget->isDead() || pTarget->isHidden() || pTarget->isInvisible() )
 		return 0.0f;
 
 	if ( pTarget && m_npc->dist( pTarget ) < 2 )
@@ -494,7 +509,7 @@ float Human_Guard_MoveToTarget::preCondition()
 	Human_Guard* pAI = dynamic_cast<Human_Guard*>( m_ai );
 	P_CHAR pTarget = ( pAI ? pAI->currentVictim() : NULL );
 
-	if ( !pTarget || pTarget->isDead() || pTarget->isInnocent() )
+	if ( !pTarget || pTarget->isDead() || pTarget->isHidden() || pTarget->isInvisible() )
 		return 0.0f;
 
 	if ( pTarget && m_npc->dist( pTarget ) >= 2 )
@@ -513,7 +528,7 @@ float Human_Guard_Wander::preCondition()
 	Human_Guard* pAI = dynamic_cast<Human_Guard*>( m_ai );
 	P_CHAR pTarget = ( pAI ? pAI->currentVictim() : NULL );
 
-	if ( !pTarget || pTarget->isDead() || pTarget->isInnocent() )
+	if ( !pTarget || pTarget->isDead() || pTarget->isHidden() || pTarget->isInvisible() )
 		return 1.0f;
 
 	return 0.0f;

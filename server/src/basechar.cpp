@@ -2259,6 +2259,10 @@ void cBaseChar::callGuards()
 
 unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject* source )
 {
+	if (isInvulnerable()) {
+		return 0;
+	}
+
 	if ( isFrozen() )
 	{
 		setFrozen( false );
@@ -2292,10 +2296,24 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 		Py_DECREF( args );
 	}
 
+	if (source && source->isChar() && source->canHandleEvent(EVENT_DODAMAGE)) {
+		P_CHAR sourceChar = static_cast<P_CHAR>(source);
+
+		PyObject* args = Py_BuildValue( "NiiN", sourceChar->getPyObject(), type, amount, getPyObject() );
+		PyObject* result = callEvent(EVENT_DAMAGE, args);
+
+		if (result) {
+			if (PyInt_Check(result))
+				amount = PyInt_AsLong(result);
+			Py_DECREF(result);
+		}
+
+		Py_DECREF(args);
+	}
+
 	// The damage has been resisted or scripts have taken care of the damage otherwise
 	// Invulnerable Targets don't take any damage at all
-	if ( amount == 0 || isInvulnerable() )
-	{
+	if (amount == 0) {
 		return 0;
 	}
 
@@ -2320,8 +2338,8 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 		player->socket()->send( &damage );
 	}
 
-    // There is a 33% chance that blood is created on hit by phsical means
-	if ( type == DAMAGE_PHYSICAL && !RandomNum( 0, 2 ) )
+    // There is a 25% chance that blood is created on hit by phsical means
+	if ( type == DAMAGE_PHYSICAL && !RandomNum( 0, 4 ) )
 	{
 		int bloodColor = 0;
 

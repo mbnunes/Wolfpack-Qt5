@@ -557,6 +557,27 @@ It's triggered for the item, then for the npc and then for the global hook.
 */
 "onCheckSecurity",
 
+/*
+\event onCheckVictim
+\param npc The npc that is thinking about a new target.
+\param victim The victim that is being thought about.
+\param dist The distance in tiles to the victm.
+\return True if the target is a valid victim, False otherwise.
+\condition This is triggered when the NPC is looking for a better target.
+It is triggered for every character that could be attacked by the NPC.
+*/
+"onCheckVictim",
+
+/*
+\param char The character dealing the damage.
+\param type The damage type.
+\param amount The amount of damage.
+\param victim The victim taking the damage.
+\condition Triggered when a character deals damage to another character.
+\return Return the new amount of damage dealt to the victim.
+*/
+"onDoDamage",
+
 0
 };
 
