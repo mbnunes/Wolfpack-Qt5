@@ -1798,13 +1798,13 @@ void cChar::soundEffect( UI16 soundId, bool hearAll )
 
 void cChar::talk( const QString &message, UI16 color, UINT8 type, bool autospam, cUOSocket* socket )
 {
-	/*if( autospam )
+	if( autospam )
 	{
 		if( antispamtimer() < uiCurrentTime )
 			setAntispamtimer( uiCurrentTime + MY_CLOCKS_PER_SEC*10 );
 		else 
 			return;
-	}*/
+	}
 
 	if( color == 0xFFFF )
 		color = saycolor_;
