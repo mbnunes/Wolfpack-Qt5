@@ -150,6 +150,7 @@ public:
 	void handleContextMenuRequest( cUORxContextMenuRequest *packet );
  	void handleContextMenuSelection( cUORxContextMenuSelection *packet ); 
  	void handleToolTip( cUORxRequestToolTip *packet ); 
+	void handleCustomHouseRequest( cUORxCustomHouseRequest *packet );
 	void handleWalkRequest( cUORxWalkRequest* packet );
 	void handleSetLanguage( cUORxSetLanguage* packet );
 	void handleSpeechRequest( cUORxSpeechRequest* packet );

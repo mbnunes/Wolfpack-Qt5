@@ -238,7 +238,8 @@ public:
 		contextMenuSelection = 0x15,
 		setLanguage = 0x0B,
 		castSpell = 0x1c,
-		toolTip = 0x10
+		toolTip = 0x10,
+		customHouseRequest = 0x1e
 	};
 
 	cUORxMultiPurpose( const QByteArray &data ): cUOPacket( data ) {}
@@ -289,6 +290,15 @@ public:
 	cUORxRequestToolTip( const QByteArray &data ): cUORxMultiPurpose( data ) {}
 	UINT32 serial( void ) const { return getInt( 5 ); }
 };
+
+// 0xBF 0x1E Client request for custom house design details
+class cUORxCustomHouseRequest: public cUORxMultiPurpose
+{
+public:
+	cUORxCustomHouseRequest( const QByteArray &data ): cUORxMultiPurpose( data ) {}
+	UINT32 serial( void ) const { return getInt( 5 ); }
+};
+
 
 // 0xBD Set Version
 class cUORxSetVersion: public cUOPacket
@@ -495,6 +505,31 @@ public:
 	UINT32 serial() const		{ return getInt( 4 ); }
 	UINT16 command() const		{ return getShort( 8 ); }
 	QString text() const		{ return getUnicodeString( 12, getShort( 10 ) * 2 ); }
+};
+
+// 0xD7 Aos fighting book, Custom houses build commands
+class  cUORxAosMultiPurpose : public cUOPacket
+{
+	enum eSubCommands
+	{
+		CHBackup =		0x02, //Custom house backup
+		CHRestore =		0x03, //Custom house restore
+		CHCommit =		0x04, //Custom house commitment
+		CHDelete =		0x05, //Custom house delete
+		CHAddElement =	0x06, //Build wall or other element when customizing house
+		CHClose	=		0x0C, //Close CH designer
+		CHStairs =		0x0D, //Build stairs
+		CHSync =		0x0E, //Sync
+		CHClear =		0x10, //Clear
+		CHLevel =		0x12, //Select house level
+		AbilitySelect =	0x19, //Ability select
+		CHRevert =		0x1A, //Revert
+	};
+
+	cUORxAosMultiPurpose( const QByteArray &data ): cUOPacket( data ) {}
+	UINT32 serial() const { return getInt( 3 ); }
+	UINT16 subCommand() const { return getShort( 7 ); }
+	static cUOPacket *packet( const QByteArray& data );
 };
 
 #endif

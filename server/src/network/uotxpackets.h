@@ -1267,45 +1267,61 @@ public:
 	void setId( UINT32 data ) { setInt( 9, data ) ; }
 };
 
-/*
-	 packet = 0xD6;
- short length;
- short unk_1 = 1; // always 1 in my logs
- int serial; // serial of item/mobile
- byte unk_2 = 0; // always 0 in my logs
- byte unk_3 = 0; // "
- int number; // an identification number of this list
+// 0xBF sub 0x1d : Ask client - this version of custom house is cached ?
+class cUOTxAskCustomHouse : public cUOPacket
+{
+public: 
+	cUOTxAskCustomHouse(): cUOPacket( 0xBF, 0x0D )
+	{
+		setShort( 1, 0x0D );
+		setShort( 3, 0x1D );
+	}
+	void setSerial( UINT32 data ) { setInt( 5, data ); }
+	void setId( UINT32 data ) { setInt( 9, data ); }
+};
 
- loop
- {
-    int localizationnumber; // a localized string index, a value of 0 breaks the loop
+class cUOTxCustomHouse : public cUOPacket
+{
+	cUOTxCustomHouse(): cUOPacket( 0xD8, 0x11 )
+	{
+		setShort( 1, 0x11 );
+	}
+	void setCompression( UINT8 data ) { (*this)[3] = data; }
+	void setSerial( UINT32 data ) { setInt( 5, data ); }
+	void setId( UINT32 data ) { setInt( 9, data ); }
+	void addTile( UINT16 id, UINT8 x, UINT8 y, UINT8 z );
+};
 
-   short textlength;
-   byte[textlength] text; // little-endian unicode, not null terminated
-}
+// 0xBF 0x11 - Begin house customization
+class cUOTxStartCustomHouse : public cUOPacket
+{
+public:
+	cUOTxStartCustomHouse(): cUOPacket( 0xBF, 0x11 )
+	{
+		setShort( 1, 0x11 );
+		setShort( 3, 0x20 );
+		(*this)[9] = 4; // start, 5 - finish
+		setShort( 10, 0 );
+		setInt( 12, 0xFF );
+		(*this)[16] = 0xFF;
+	}
+	void setSerial( UINT32 data ) { setInt( 5, data ); }
+};
 
-	// Send a Tooltip
-	cUOTxTooltipList list;
-	list.setSerial( clicked->serial() );
-	list.setId( clicked->serial() );
-	list.addLine( 0x1005BD, " \t " + clicked->name() + " \t " );
-
-	cUOTxAttachTooltip attach;
-	attach.setSerial( clicked->serial() );
-	attach.setId( clicked->serial() );
-
-	send( &attach );
-	send( &list );
-
-*/
-
-// Serial
-/*
-00 36 37 94
-
-0000: d6 00 29 00 01 00 36 37 94 00 00 54 2b 4f 4b 00 : ..)...67...T+OK.
-0010: 10 05 bd 00 10 20 00 09 00 53 00 74 00 6f 00 72 : ..... ...S.t.o.r
-0020: 00 09 00 20 00 00 00 00 00 -- -- -- -- -- -- -- : ... .....
-*/
+// 0xBF 0x11 - Finish house customization
+class cUOTxFinishCustomHouse : public cUOPacket
+{
+public:
+	cUOTxFinishCustomHouse(): cUOPacket( 0xBF, 0x11 )
+	{
+		setShort( 1, 0x11 );
+		setShort( 3, 0x20 );
+		(*this)[9] = 5; // start, 4 - finish
+		setShort( 10, 0 );
+		setInt( 12, 0xFF );
+		(*this)[16] = 0xFF;
+	}
+	void setSerial( UINT32 data ) { setInt( 5, data ); }
+};
 
 #endif // __UO_TXPACKETS__

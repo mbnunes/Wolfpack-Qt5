@@ -962,6 +962,8 @@ void cUOSocket::handleMultiPurpose( cUORxMultiPurpose *packet )
 		handleCastSpell( dynamic_cast< cUORxCastSpell* >( packet ) ); break;
 	case cUORxMultiPurpose::toolTip:
 		handleToolTip( dynamic_cast< cUORxRequestToolTip* >( packet ) ); break;
+	case cUORxMultiPurpose::customHouseRequest:
+		handleCustomHouseRequest( dynamic_cast< cUORxCustomHouseRequest* >( packet ) ); break;
 	default:
 		{		
 		packet->print( &cout ); // Dump the packet 
@@ -1003,6 +1005,10 @@ void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection *packet )
 		menu->onContextEntry( this->player(), pChar, Tag );
 	}
 } 
+void cUOSocket::handleCustomHouseRequest( cUORxCustomHouseRequest *packet )
+{
+}
+
 void cUOSocket::handleToolTip( cUORxRequestToolTip *packet )
 {
 

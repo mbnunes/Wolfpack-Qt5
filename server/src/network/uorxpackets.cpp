@@ -82,6 +82,7 @@ cUOPacket *getUOPacket( const QByteArray &data )
 	case 0xBD:		return new cUORxSetVersion( data );
 	case 0xC8:		return new cUORxUpdateRange( data );
 	case 0xB8:		return new cUORxProfile( data );
+	case 0xD7:		return cUORxAosMultiPurpose::packet( data );
 	default:		return new cUOPacket( data );
 	};	
 }
@@ -102,6 +103,8 @@ cUOPacket *cUORxMultiPurpose::packet( const QByteArray& data )
 		return new cUORxCastSpell( data ); break;
 	case toolTip:
 		return new cUORxRequestToolTip( data ); break;
+	case customHouseRequest:
+		return new cUORxCustomHouseRequest( data ); break;
 	default:
 		{
 			//qWarning("Unknown cUORxMultiPurpose subcommand");
@@ -110,7 +113,20 @@ cUOPacket *cUORxMultiPurpose::packet( const QByteArray& data )
 		}
 	}; 
 } 
-
+cUOPacket *cUORxAosMultiPurpose::packet( const QByteArray& data )
+{
+	cUOPacket temp( data );
+	
+	switch( temp.getShort( 7 ) )
+	{
+	default:
+		{
+			//qWarning("Unknown cUORxMultiPurpose subcommand");
+			//qWarning( cUOPacket::dump( data ) );
+			return new cUOPacket( data );
+		}
+	}
+}
 QString cUORxSpeechRequest::message()
 {
 	// 0x0c -> tokenized ascii speech
