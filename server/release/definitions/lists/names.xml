@@ -6953,4 +6953,37 @@
 		<item>a ghoul</item>
 		<item>a wraith</item>
 	</list>
+
+	<list id="NAMES_CENTAUR">
+		<item>Sophanon</item>
+		<item>Caryax</item>
+		<item>Daemeox</item>
+		<item>Phlegon</item>
+		<item>Aerophus</item>
+		<item>Euforus</item>
+		<item>Pallax</item>
+		<item>Nikaon</item>
+		<item>Licouax</item>
+		<item>Lindsaon</item>
+		<item>Bastax</item>
+		<item>Magdanon</item>
+		<item>Thayax</item>
+		<item>Aethon</item>
+		<item>Ceridus</item>
+		<item>Galenon</item>
+		<item>Rhysus</item>
+		<item>Auramax</item>
+		<item>Aldrax</item>
+		<item>Anaxus</item>
+		<item>Luceus</item>
+		<item>Quarax</item>
+		<item>Ariax</item>
+		<item>Balarax</item>
+		<item>Vincenus</item>
+		<item>Loxias</item>
+		<item>Birhamus</item>
+		<item>Lekax</item>
+		<item>Nyctinus</item>
+		<item>Myrsinus</item>
+	</list>
 </definitions>

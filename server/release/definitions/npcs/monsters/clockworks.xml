@@ -10,25 +10,26 @@
 	<!-- betrayer -->
 	<npc id="betrayer">
 		<name>a betrayer</name>
-		<id>0x87</id>
+		<id>0x2ff</id>
 		<category>Monsters\Clockworks\Betrayer </category>
 		<inherit id="monster_base"/>
-		<karma><random min="-10000" max="-15000"/></karma>
-		<fame><random min="10000" max="15000"/></fame>
+		<karma>-15000</karma>
+		<fame>15000</fame>
 		<defense><random min="62" max="68"/></defense>
-		<lodamage>10</lodamage>
-		<hidamage>25</hidamage>
+		<lodamage>16</lodamage>
+		<hidamage>22</hidamage>
 		<!-- Stats -->
-		<str><random min="411" max="493"/></str>
-		<dex><random min="83" max="100"/></dex>
-		<int><random min="163" max="191"/></int>
+		<str><random min="401" max="500"/></str>
+		<dex><random min="66" max="85"/></dex>
+		<int><random min="96" max="110"/></int>
 		<!-- Skills -->
-		<wrestling><random min="913" max="993"/></wrestling>
-		<tactics><random min="909" max="985"/></tactics>
-		<magicresistance><random min="1201" max="1292"/></magicresistance>
-		<anatomy><random min="0" max="0"/></anatomy>
-		<magery><random min="630" max="916" /></magery>
-		<evaluatingintel><random min="943" max="996" /></evaluatingintel>
+		<wrestling><random min="901" max="1000"/></wrestling>
+		<tactics><random min="901" max="1000"/></tactics>
+		<magicresist><random min="1200" max="1300"/></magicresist>
+		<anatomy><random min="901" max="1000"/></anatomy>
+		<magery><random min="501" max="1000" /></magery>
+		<evaluatingintelligence><random min="901" max="1000" /></evaluatingintelligence>
+		<meditation><random min="901" max="1000" /></meditation>
 		</npc>
 
 	<!-- juggernaut -->
@@ -37,19 +38,19 @@
 		<id>0x300</id>
 		<category>Monsters\Clockworks\Blackthorn Juggernaut </category>
 		<inherit id="monster_base"/>
-		<karma><random min="-2500" max="-9999"/></karma>
-		<fame><random min="2500" max="9999"/></fame>
+		<karma>1-2000</karma>
+		<fame>12000</fame>
 		<defense><random min="62" max="80"/></defense>
-		<lodamage>10</lodamage>
-		<hidamage>25</hidamage>
+		<lodamage>12</lodamage>
+		<hidamage>19</hidamage>
 		<!-- Stats -->
-		<str><random min="312" max="400"/></str>
+		<str><random min="301" max="400"/></str>
 		<dex><random min="51" max="70"/></dex>
-		<int><random min="56" max="97"/></int>
+		<int><random min="51" max="100"/></int>
 		<!-- Skills -->
-		<wrestling><random min="928" max="988"/></wrestling>
-		<tactics><random min="910" max="998"/></tactics>
-		<magicresistance><random min="1409" max="1485"/></magicresistance>
+		<wrestling><random min="901" max="1000"/></wrestling>
+		<tactics><random min="901" max="1000"/></tactics>
+		<magicresist><random min="1401" max="1500"/></magicresist>
 		<anatomy><random min="0" max="0"/></anatomy>
 		</npc>
 
@@ -59,19 +60,19 @@
 		<id>0x2f4</id>
 		<category>Monsters\Clockworks\Exodus Overseer </category>
 		<inherit id="monster_base"/>
-		<karma><random min="-10000" max="-15000"/></karma>
-		<fame><random min="10000" max="15000"/></fame>
+		<karma>-10000"</karma>
+		<fame>10000</fame>
 		<defense><random min="50" max="50"/></defense>
-		<lodamage>5</lodamage>
-		<hidamage>17</hidamage>
+		<lodamage>13</lodamage>
+		<hidamage>19</hidamage>
 		<!-- Stats -->
-		<str><random min="551" max="649"/></str>
-		<dex><random min="78" max="95"/></dex>
-		<int><random min="68" max="86"/></int>
+		<str><random min="551" max="650"/></str>
+		<dex><random min="76" max="95"/></dex>
+		<int><random min="61" max="90"/></int>
 		<!-- Skills -->
-		<wrestling><random min="844" max="954"/></wrestling>
-		<tactics><random min="836" max="961"/></tactics>
-		<magicresistance><random min="848" max="982"/></magicresistance>
+		<wrestling><random min="802" max="980"/></wrestling>
+		<tactics><random min="802" max="980"/></tactics>
+		<magicresist><random min="802" max="980"/></magicresist>
 		<anatomy><random min="0" max="0"/></anatomy>
 		</npc>
 
@@ -81,19 +82,19 @@
 		<id>0x2f5</id>
 		<category>Monsters\Clockworks\Exodus Minion </category>
 		<inherit id="monster_base"/>
-		<karma><random min="-10000" max="-15000"/></karma>
-		<fame><random min="10000" max="15000"/></fame>
+		<karma>18000</karma>
+		<fame>18000</fame>
 		<defense><random min="62" max="68"/></defense>
-		<lodamage>10</lodamage>
-		<hidamage>25</hidamage>
+		<lodamage>16</lodamage>
+		<hidamage>22</hidamage>
 		<!-- Stats -->
-		<str><random min="854" max="935"/></str>
-		<dex><random min="72" max="78"/></dex>
-		<int><random min="73" max="85"/></int>
+		<str><random min="851" max="950"/></str>
+		<dex><random min="71" max="80"/></dex>
+		<int><random min="61" max="90"/></int>
 		<!-- Skills -->
-		<wrestling><random min="929" max="987"/></wrestling>
-		<tactics><random min="910" max="987" /></tactics>
-		<magicresistance><random min="903" max="976"/></magicresistance>
+		<wrestling><random min="901" max="1000"/></wrestling>
+		<tactics><random min="901" max="1000" /></tactics>
+		<magicresist><random min="901" max="1000"/></magicresist>
 		<anatomy><random min="0" max="0"/></anatomy>
 		</npc>
 
@@ -104,19 +105,69 @@
                 <category>Monsters\Clockworks\Golem</category>
                 <skin>0</skin>
                 <inherit id="monster_base" />
-                <karma><random min="0" max="0" /></karma>
-                <fame><random min="0" max="0" /></fame>
+                <karma>-3500</karma>
+                <fame>3500</fame>
                 <defense><random min="30" max="54" /></defense>
-                <lodamage>9</lodamage>
-                <hidamage>25</hidamage>
+                <lodamage>13</lodamage>
+                <hidamage>24</hidamage>
                 <!-- Stats -->
-                <str><random min="256" max="343" /></str>
-                <dex><random min="78" max="96" /></dex>
-                <int><random min="106" max="135" /></int>
+                <str><random min="251" max="350" /></str>
+                <dex><random min="76" max="100" /></dex>
+                <int><random min="151" max="210" /></int>
                 <!-- Skills -->
-                <wrestling><random min="676" max="973" /></wrestling>
-                <tactics><random min="621" max="950" /></tactics>
-                <magicresistance><random min="1529" max="1882" /></magicresistance>
+                <wrestling><random min="601" max="1000" /></wrestling>
+                <tactics><random min="601" max="1000" /></tactics>
+                <magicresist><random min="1500" max="1900" /></magicresist>
 		<anatomy><random min="0" max="0" /></anatomy>
+        </npc>
+
+        <!-- tinker's golem -->
+        <npc id="tinkered_golem">
+                <name>a golem</name>
+                <id>0x2f0</id>
+                <category>Monsters\Clockworks\Golem ( Tinkered )</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>10</karma>
+                <fame>10</fame>
+                <defense><random min="30" max="54" /></defense>
+                <lodamage>13</lodamage>
+                <hidamage>24</hidamage>
+                <!-- Stats -->
+                <str><random min="251" max="350" /></str>
+                <dex><random min="76" max="100" /></dex>
+                <int><random min="151" max="210" /></int>
+                <!-- Skills -->
+                <wrestling><random min="601" max="1000" /></wrestling>
+                <tactics><random min="601" max="1000" /></tactics>
+                <magicresist><random min="1500" max="1900" /></magicresist>
+		<anatomy><random min="0" max="0" /></anatomy>
+        </npc>
+
+      <!-- centaur -->
+        <npc id="centaur">
+                <name><random list="NAMES_CENTAUR" /></name>
+                <id>0x65</id>
+                <category>Animals\Land\Centaur</category>
+                <skin>0</skin>
+                <inherit id="animal_base" />
+                <karma>0</karma>
+                <fame>6500</fame>
+                <defense>50</defense>
+                <lodamage>13</lodamage>
+                <hidamage>24</hidamage>
+                <!-- Stats -->
+                <str><random min="202" max="300" /></str>
+                <dex><random min="104" max="260" /></dex>
+                <int><random min="91" max="100" /></int>
+                <!-- Skills -->
+                <wrestling><random min="951" max="1000" /></wrestling>
+		<archery><random min="951" max="1000" /></archery>
+                <tactics><random min="901" max="1000" /></tactics>
+                <magicresist><random min="503" max="800" /></magicresist>
+		<anatomy><random min="951" max="1150" /></anatomy>
+                <totame>1100</totame>
+                <food>5</food>
+                <carve></carve>
         </npc>
 </definitions>
