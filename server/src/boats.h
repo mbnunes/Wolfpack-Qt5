@@ -81,7 +81,7 @@ class cBoat
 
 	public:
 		P_ITEM GetBoat(P_CHAR);
-		char Speech(int, char *);
+		char Speech(int, string& );
 		void OpenPlank(P_ITEM);
 		void PlankStuff(UOXSOCKET, P_ITEM);
 		bool Build(int, P_ITEM pBoat, char);

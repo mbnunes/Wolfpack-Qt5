@@ -97,10 +97,16 @@ inline void hextostr(int i, char *ourstring)       { sprintf (ourstring, "%x",i)
 // Xan : conversion from sz to numbers
 int str2num (char *sz, int base = BASE_AUTO);
 
+int str2num (string sz,int base= BASE_AUTO) ;
+
 // Xan : new style hexstring to number
 inline int hex2num (char *sz)
 {
 	return str2num(sz, BASE_HEX);
 }
 
+inline int hex2num (string sz)
+{
+	return str2num(sz,BASE_HEX) ;
+}
 #endif 

@@ -32,7 +32,8 @@
 // Platform Includes
 #include "platform.h"
 
-
+#include <string>
+using namespace std ;
 //Wolfpack Includes
 #include "network.h"
 #include "walking2.h"
@@ -1173,7 +1174,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 
 	P_CHAR pc_target = NULL;
 	P_ITEM pi_target = NULL;
-	
+	string punt ;
 	string cpps;
 	vector<string>::const_iterator viter;
 		
@@ -1321,8 +1322,10 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 
 				case 0x03:// Speech			
 					pc_currchar->unicode = false;
-					strcpy((char*)nonuni, (char*)&buffer[s][8]);
-					Speech->talking(s, (char*)nonuni);
+					punt = (char*)&buffer[s][8] ;
+					//strcpy((char*)nonuni, (char*)&buffer[s][8]);
+					//Speech->talking(s, (char*)nonuni);
+					Speech->talking(s,punt) ;
 					break;
 
 
@@ -1401,7 +1404,8 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 	
 					Speech->wchar2char((char*)&buffer[s][13]);
 					strncpy((char*)nonuni, temp, ((buffer[s][1]<<8)+buffer[s][2])/2);
-					Speech->talking(s, (char*)nonuni);
+					punt = (char*) nonuni ;
+					Speech->talking(s, punt);
 					break;    
 
 				case 0x06:// Doubleclick			

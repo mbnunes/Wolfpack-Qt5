@@ -215,7 +215,7 @@ void killkeys(SERIAL serial); // crackerjack 8/11/99
 int add_hlist(int c, int h, int t);
 int del_hlist(int c, int h);
 //
-void house_speech(int s, char *talk);
+void house_speech(int s, string& talk);
 void mtarget(int s, int a1, int a2, int a3, int a4, char b1, char b2, char *txt);
 
 unsigned short addrandomcolor(P_CHAR pc_s, char *colorlist);

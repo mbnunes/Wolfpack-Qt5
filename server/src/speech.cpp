@@ -41,8 +41,8 @@
 
 #undef  DBGFILE
 #define DBGFILE "speech.cpp"
-
-bool InputSpeech(char* comm, cChar* pPlayer, UOXSOCKET s)
+bool InputSpeech(string& comm, cChar* pPlayer, UOXSOCKET s)
+//bool InputSpeech(char* comm, cChar* pPlayer, UOXSOCKET s)
 {
 	int i;
 
@@ -67,32 +67,34 @@ bool InputSpeech(char* comm, cChar* pPlayer, UOXSOCKET s)
 			return true;
 		case cChar::enDescription:// Describing an item
 			pTarget->desc = comm;
-			sysmessage(s, "This item is now described as %s, ", comm);
+			sysmessage(s, "This item is now described as %s, ", comm.c_str());
 			pPlayer->inputmode = cChar::enNone;
 			pPlayer->inputitem = INVALID_SERIAL;
 			return true;
 		case cChar::enRenameRune:
-			pTarget->name = string("Rune to ") + string(comm);
-			sysmessage(s, "Rune renamed to: Rune to %s", comm);
+			pTarget->name = string("Rune to ") + comm;
+			sysmessage(s, "Rune renamed to: Rune to %s", comm.c_str());
 			pPlayer->inputmode = cChar::enNone;
 			pPlayer->inputitem = INVALID_SERIAL;
 			return true;
 		case cChar::enNameDeed: // eagle rename deed
 			{
-				char temp[50] = {0,};
-				strncpy(temp, comm, 49);
-				pPlayer->name = temp;
-				sysmessage(s, "Your new name is: %s", comm);
+				//char temp[50] = {0,};
+				//strncpy(temp, comm, 49);
+				//pPlayer->name = temp;
+				pPlayer->name = comm ;
+				sysmessage(s, "Your new name is: %s", comm.c_str());
 				pPlayer->inputmode = cChar::enNone;
 				pPlayer->inputitem = INVALID_SERIAL;
 			}
 			return true;
 		case cChar::enHouseSign: // house sign rename
 			{
-				char temp[50] = {0,};
-				strncpy(temp, comm, 49);
-				pTarget->name = temp;
-				sysmessage(s, "Renamed to: %s", comm);
+				//char temp[50] = {0,};
+				//strncpy(temp, comm, 49);
+				//pTarget->name = temp;
+				pTarget->name = comm ;
+				sysmessage(s, "Renamed to: %s", comm.c_str());
 				pPlayer->inputmode = cChar::enNone;
 				pPlayer->inputitem=INVALID_SERIAL;
 			}
@@ -100,7 +102,7 @@ bool InputSpeech(char* comm, cChar* pPlayer, UOXSOCKET s)
 		case cChar::enPageGM:
 			{
 				gmpages[pPlayer->playercallnum].reason = comm;
-				sprintf(temp, "GM Page from %s [%x]: %s",pPlayer->name.c_str(), pPlayer->serial, comm);
+				sprintf(temp, "GM Page from %s [%x]: %s",pPlayer->name.c_str(), pPlayer->serial, comm.c_str());
 				int x = 0;
 				for (i = 0; i < now; i++)
 				{
@@ -120,7 +122,7 @@ bool InputSpeech(char* comm, cChar* pPlayer, UOXSOCKET s)
 		case cChar::enPageCouns:
 			{
 				counspages[pPlayer->playercallnum].reason = comm;
-				sprintf(temp, "Counselor Page from %s [%x]: %s", pPlayer->name.c_str(), pPlayer->serial, comm);
+				sprintf(temp, "Counselor Page from %s [%x]: %s", pPlayer->name.c_str(), pPlayer->serial, comm.c_str());
 				int x = 0;
 				for (i = 0; i < now; i++)
 				{
@@ -144,13 +146,17 @@ bool InputSpeech(char* comm, cChar* pPlayer, UOXSOCKET s)
 	return false;
 }
 
-// returns true if the speech has been handled
-bool StableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
+
+
+
+
+bool StableSpeech(cChar* pMaster, string& comm, cChar* pPlayer, UOXSOCKET s)
 {
 	if (pMaster->npc_type!=1)	// is it a stablemaster ?
 		return 0;
 
-    if (!strstr( comm, "STABLE"))	// lets check if the keyword stable is in the commandstring, if not return !
+    //if (!strstr( comm, "STABLE"))	// lets check if the keyword stable is in the commandstring, if not return !
+	if (comm.find("STABLE") == string::npos)
 		return 0;
       
 	/////////////////////////////////////////////////////////////////////
@@ -168,10 +174,13 @@ bool StableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
 		{
 			if (pPlayer->Owns(p_pet) && p_pet->stablemaster_serial==0) //owner of the pet ? and not already stabled ?
 			{
-				char pntmp[150];
-				strcpy(pntmp, p_pet->name.c_str());
-				strupr(pntmp);
-				if (strstr( comm, pntmp)) //if petname is in
+				//char pntmp[150];
+				//strcpy(pntmp, p_pet->name.c_str());
+				//strupr(pntmp);
+				string pntmp = p_pet->name ;
+				transform(pntmp.begin(), pntmp.end(), pntmp.begin(), ::toupper);
+				//if (strstr( comm, pntmp)) //if petname is in
+				if (comm.find(pntmp)!= string::npos)
 				{
 					found=true;
 					break;
@@ -231,12 +240,14 @@ bool StableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
 	return 1;
 }
 
-bool UnStableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
+bool UnStableSpeech(cChar* pMaster, string& comm, cChar* pPlayer, UOXSOCKET s)
 {
 	if (pMaster->npc_type!=1)	// is it a stablemaster ?
 		return 0;
 
-    if (!(strstr( comm, "CLAIM") || strstr( comm, "RETRIEVE")))	// lets check if the keyword CLAIM is in the commandstring, if not return !
+//    if (!(strstr( comm, "CLAIM") || strstr( comm, "RETRIEVE")))	// lets check if the keyword CLAIM is in the commandstring, if not return !
+	if ((comm.find("CLAIM") == string::npos) && (comm.find("RETRIEVE") == string::npos))
+	
 		return 0;
 
 	/////////////////////////////////////////////////////////////////////
@@ -255,10 +266,13 @@ bool UnStableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
 		{
 			 if (pPlayer->Owns(p_pet) && p_pet->stablemaster_serial!=0) // already stabled and owned by claimer ?
 			 {
-				char search3[150];
-				strcpy(search3,p_pet->name.c_str());
-		        strupr(search3);
-		        if (strstr( comm, search3)) //if petname is in
+			 	string search3 =p_pet->name ;
+				 transform(search3.begin(), search3.end(), search3.begin(), ::toupper);
+				//char search3[150];
+				//strcpy(search3,p_pet->name.c_str());
+		        //strupr(search3);
+		        	//if (strstr( comm, search3)) //if petname is in
+				if (comm.find(search3) != string::npos)
 				{
 					found=true;
 					break;
@@ -318,14 +332,15 @@ bool UnStableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
 	return 1;
 }
 
-bool ShieldSpeech(cChar* pGuard, char* comm, cChar* pPlayer, UOXSOCKET s)
+bool ShieldSpeech(cChar* pGuard, string& comm, cChar* pPlayer, UOXSOCKET s)
 {
 	if (pPlayer->dist(pGuard) > 3)	// lets be close to talk :)
 		return false;
 				
 	if(pGuard->npcaitype == 6)	// chaos guard
 	{
-		if (strstr( comm, "CHAOS SHIELD")) //Ripper...if in chaos guild get a new shield.
+		//if (strstr( comm, "CHAOS SHIELD")) //Ripper...if in chaos guild get a new shield.
+		if (comm.find("CHAOS SHIELD") != string::npos)
 		{	// if they say chaos shield
 			if(pPlayer->guildstone == INVALID_SERIAL)	// if not in a guild.
 			{
@@ -362,8 +377,9 @@ bool ShieldSpeech(cChar* pGuard, char* comm, cChar* pPlayer, UOXSOCKET s)
 	}
 	else if(pGuard->npcaitype == 7)	// order guard
 	{
-		if (strstr( comm, "ORDER SHIELD")) //Ripper...if in order guild get a new shield.
+		//if (strstr( comm, "ORDER SHIELD")) //Ripper...if in order guild get a new shield.
 			// if they say order shield
+		if (comm.find("ORDER SHIELD") != string::npos)
 		{
 			if(pPlayer->guildstone == INVALID_SERIAL)	// if not in a guild.
 			{
@@ -401,19 +417,21 @@ bool ShieldSpeech(cChar* pGuard, char* comm, cChar* pPlayer, UOXSOCKET s)
 	return false;
 }
 
-bool QuestionSpeech(cChar* pc, char* comm, cChar* pPlayer, UOXSOCKET s)
+bool QuestionSpeech(cChar* pc, string& comm, cChar* pPlayer, UOXSOCKET s)
 {
 	if (pc->npcaitype==2 || !pc->isHuman() || pPlayer->dist(pc) > 3)
 		return 0;
 	
-    if (strstr( comm, "NAME")) //Ripper...say name and a npc will tell you there name :).
+    //if (strstr( comm, "NAME")) //Ripper...say name and a npc will tell you there name :).
+	if (comm.find("NAME")!=string::npos)
 	{
 		sprintf(temp, "hello my name is %s.", pc->name.c_str());
 		npctalkall(pc,temp,0);
 		return 1;
 	}
 	
-    if (strstr( comm, "TIME")) //Ripper...say time and the npc gives the time.
+    //if (strstr( comm, "TIME")) //Ripper...say time and the npc gives the time.
+	if (comm.find("TIME") != string::npos)
 	{
 		sprintf(temp, "it is now %2.2d : %2.2d in the %s.", hour, minute,
 				(ampm || (!ampm && hour==12)) ? "evening" :"morning");
@@ -421,7 +439,9 @@ bool QuestionSpeech(cChar* pc, char* comm, cChar* pPlayer, UOXSOCKET s)
 		return 1;
 	}
 	
-    if (strstr( comm, "LOCATION") || strstr( comm, "WHERE AM I")) //Ripper...gives location of char.
+    
+    //if (strstr( comm, "LOCATION") || strstr( comm, "WHERE AM I")) //Ripper...gives location of char.
+	if (comm.find("LOCATION") != string::npos)
 	{
 		if (strlen(region[pPlayer->region].name)>0)
 			sprintf(temp, "You are in %s",region[pPlayer->region].name); 
@@ -435,7 +455,7 @@ bool QuestionSpeech(cChar* pc, char* comm, cChar* pPlayer, UOXSOCKET s)
 	return 0;
 }
 
-bool TriggerSpeech(cChar* pc, char* comm, cChar* pPlayer, UOXSOCKET s)
+bool TriggerSpeech(cChar* pc, string& comm, cChar* pPlayer, UOXSOCKET s)
 {
 	if (abs(pPlayer->pos.x-pc->pos.x)<=4 &&
 		abs(pPlayer->pos.y-pc->pos.y)<=4 &&
@@ -445,10 +465,13 @@ bool TriggerSpeech(cChar* pc, char* comm, cChar* pPlayer, UOXSOCKET s)
 		{
 			if (!pc->trigword.empty())
 			{
-				char twtmp[150];
-				strcpy(twtmp, pc->trigword.c_str());
-				strupr(twtmp);
-				if (strstr( comm, twtmp))
+				//char twtmp[150];
+				//strcpy(twtmp, pc->trigword.c_str());
+				//strupr(twtmp);
+				string twtmp ;
+				transform(pc->trigword.begin(), pc->trigword.end(), twtmp.begin(), ::toupper);
+				//if (strstr( comm, twtmp))
+				if (comm.find(twtmp) != string::npos)
 				{
 					if (pc->disabled>0 && pc->disabled>uiCurrentTime)//AntiChrist
 					{
@@ -466,20 +489,22 @@ bool TriggerSpeech(cChar* pc, char* comm, cChar* pPlayer, UOXSOCKET s)
 	return 0;
 }
 
-bool EscortSpeech(cChar* pEscortee, char* comm, cChar* pPlayer, UOXSOCKET s)
+bool EscortSpeech(cChar* pEscortee, string& comm, cChar* pPlayer, UOXSOCKET s)
 {
 	// Dupois - Added Dec 20, 1999
 	// Escort text matches
 	if (pPlayer->dist(pEscortee) > 1 || pEscortee->questType!=ESCORTQUEST )
 		return 0;	// not close enough / not an escortee
 	
-	char *response1=strstr( comm, "I WILL TAKE THEE");
-	char *response2=strstr( comm, "DESTINATION");
-	if ( response1 || response2 )	// If either of the above responses match
-	{
+	//char *response1=strstr( comm, "I WILL TAKE THEE");
+	//char *response2=strstr( comm, "DESTINATION");
+	//if ( response1 || response2 )	// If either of the above responses match
+	//{
 		// I WILL TAKE THEE
 		// If this is a request for hire
-		if ( response1 )
+	//	if ( response1 )
+		bool bpunt = false ;
+		if (comm.find("I WILL TAKE THEE") != string::npos)
 		{
 			if ( pEscortee->ftarg == INVALID_SERIAL )
 			{
@@ -496,13 +521,15 @@ bool EscortSpeech(cChar* pEscortee, char* comm, cChar* pPlayer, UOXSOCKET s)
 			}
 			else
 			{
-				response2 = response1;	// If the current NPC already has an ftarg then respond to query for quest
+				//response2 = response1;	// If the current NPC already has an ftarg then respond to query for quest
+				bpunt = true ;
 			}
 		}
 		
 		// DESTINATION
 		// If this is a request to find out where a NPC wants to go and the PC is within range of the NPC and the NPC is waiting for an ESCORT
-		if (response2)
+		//if (response2)
+		if ((comm.find("DESTINATION") != string::npos) || bpunt)
 		{
 			if ( pEscortee->ftarg == currchar[s]->serial )
 			{
@@ -523,17 +550,18 @@ bool EscortSpeech(cChar* pEscortee, char* comm, cChar* pPlayer, UOXSOCKET s)
 			npctalkall(pEscortee,temp, 0);
 			return 1;	// Return success ( we handled the message )
 		}
-	}
+	//}
 	return 0;	// speech was not handled
 }
 
-bool BankerSpeech(cChar* pBanker, char* comm, cChar* pPlayer, UOXSOCKET s)
+bool BankerSpeech(cChar* pBanker, string& comm, cChar* pPlayer, UOXSOCKET s)
 {
 	if( pBanker->npcaitype != 8 )	// not a banker
 		return 0;
 	if (pPlayer->dist(pBanker) > 12)
 		return 0;
-	if (strstr(comm,"BANK") || strstr(comm,"BALANCE") || strstr(comm,"WITHDRAW") || strstr(comm,"CHECK"))
+	//if (strstr(comm,"BANK") || strstr(comm,"BALANCE") || strstr(comm,"WITHDRAW") || strstr(comm,"CHECK"))
+	if ((comm.find("BANK") != string::npos) || (comm.find("BALANCE")!=string::npos) | (comm.find("WITHDRAW")!=string::npos) || (comm.find("CHECK")!= string::npos))
 	{
 	    BankerAI->DoAI(s, pBanker, comm);
 	    return 1;
@@ -541,18 +569,21 @@ bool BankerSpeech(cChar* pBanker, char* comm, cChar* pPlayer, UOXSOCKET s)
     return 0;	// speech was NOT handled
 }
 
-bool TrainerSpeech(cChar* pTrainer, char* comm, cChar* pPlayer, UOXSOCKET s)
+bool TrainerSpeech(cChar* pTrainer, string& comm, cChar* pPlayer, UOXSOCKET s) 
 {
 	if (pPlayer->dist(pTrainer) > 3 || !pTrainer->isHuman())
 		return 0;
-	if (!(strstr(comm,"TRAIN") || strstr(comm,"TEACH") || strstr(comm,"LEARN"))) //if the player wants to train
+	//if (!(strstr(comm,"TRAIN") || strstr(comm,"TEACH") || strstr(comm,"LEARN"))) //if the player wants to train
+	if ((comm.find("TRAIN") == string::npos) && (comm.find("TEACH") == string::npos) && (comm.find("LEARN") == string::npos))
 		return 0;
 
 	int i,skill=-1;
 	pPlayer->trainer=-1; //this is to prevent errors when a player says "train <skill>" then don't pay the npc
 	for(i=0;i<ALLSKILLS;i++)
 	{
-		if(strstr(comm, skillname[i]))
+		
+		//if(strstr(comm, skillname[i]))
+		if (comm.find(skillname[i]) != string::npos)
 		{
 			skill=i;  //Leviathan fix
 			break;
@@ -627,7 +658,10 @@ bool TrainerSpeech(cChar* pTrainer, char* comm, cChar* pPlayer, UOXSOCKET s)
 	return 0;	// speech was NOT handled
 }
 
-bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
+
+
+
+bool PetCommand(cChar* pPet, string& comm, cChar* pPlayer, UOXSOCKET s)
 {
 	if (!(pPlayer->Owns(pPet) || pPlayer->isGM())) //owner of the char || a GM
 		return 0;
@@ -636,22 +670,28 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 	if (pPlayer->dist(pPet) > 7)	// too far away to hear us
 		return 0;
 	
-	char petname[60];
-	strcpy(petname,pPet->name.c_str());
-	strupr(petname);
+	//char petname[60];
+	//strcpy(petname,pPet->name.c_str());
+	//strupr(petname);
+	string petname ;
+	transform(pPet->name.begin(), pPet->name.end(), petname.begin(), ::toupper);
 	bool bAllCommand = false;
-	if ( !strstr( comm, petname) )	//if petname is not in
-		if ( strstr ( comm, "ALL") )
+	//if ( !strstr( comm, petname) )	//if petname is not in
+	if (comm.find(petname) == string::npos)
+		//if ( strstr ( comm, "ALL") )
+		if (comm.find("ALL") != string::npos)
 			bAllCommand = true;
 		else
 			return false;
 	
 	bool bReturn = false;
 	
-	if (strstr( comm, " FOLLOW"))
+	//if (strstr( comm, " FOLLOW"))
+	if (comm.find(" FOLLOW") != string::npos)
 	{
 		pPlayer->guarded = false;
-		if (strstr( comm, " ME"))	//if me is in
+		//if (strstr( comm, " ME"))	//if me is in
+		if (comm.find(" ME") != string::npos)
 		{
 			pPet->ftarg = currchar[s]->serial;
 			pPet->npcWander=1;
@@ -664,7 +704,8 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 		}
 		bReturn = true;
 	}
-	else if (strstr( comm, " KILL") || strstr( comm, " ATTACK"))
+	//else if (strstr( comm, " KILL") || strstr( comm, " ATTACK"))
+	else if ((comm.find(" KILL") != string::npos) || (comm.find(" ATTACK") != string::npos))
 	{
 		if (pPet->inGuardedArea()) // Ripper..No pet attacking in town.
 		{
@@ -676,14 +717,16 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 		target(s, 0, 1, 0, 118, "Select the target to attack.");//AntiChrist
 		bReturn = true;
 	}
-	else if (strstr( comm, " FETCH") || strstr( comm, " GET"))
+	//else if (strstr( comm, " FETCH") || strstr( comm, " GET"))
+	else if ((comm.find(" FETCH") != string::npos) || (comm.find(" GET") != string::npos))
 	{
 		pPlayer->guarded = false;
 		addx[s]=pPet->serial;
 		target(s, 0, 1, 0, 124, "Click on the object to fetch.");
 		bReturn = true;
 	}
-	else if (strstr( comm, " COME"))
+	//else if (strstr( comm, " COME"))
+	else if (comm.find(" COME") !=string::npos)
 	{
 		pPlayer->guarded = false;
 		pPet->ftarg = currchar[s]->serial;
@@ -691,17 +734,20 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 		sysmessage(s, "Your pet begins following you.");
 		bReturn = true;
 	}
-	else if (strstr(comm," GUARD")) //if guard
+	//else if (strstr(comm," GUARD")) //if guard
+	else if (comm.find(" GUARD") != string::npos)
 	{
 		addx[s] = pPet->serial;	// the pet's serial
 		addy[s] = 0;
-		if (strstr( comm, " ME"))
+		//if (strstr( comm, " ME"))
+		if (comm.find(" ME") != string::npos)
 			addy[s]=1;	// indicates we already know whom to guard (for future use)
 		// for now they still must click on themselves (Duke)
 		target(s, 0, 1, 0, 120, "Click on the char to guard.");
 		bReturn = true;
 	}
-	else if (strstr( comm, " STOP")||strstr( comm, " STAY"))
+	//else if (strstr( comm, " STOP")||strstr( comm, " STAY"))
+	else if ((comm.find(" STOP") != string::npos) || (comm.find(" STAY") != string::npos))
 	{
 		pPlayer->guarded = false;
 		pPet->ftarg = INVALID_SERIAL;
@@ -711,14 +757,16 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 		pPet->npcWander=0;
 		bReturn = true;
 	}
-	else if (strstr( comm, " TRANSFER"))
+	//else if (strstr( comm, " TRANSFER"))
+	else if (comm.find(" TRANSFER") != string::npos)
 	{
 		pPlayer->guarded = false;
 		addx[s]=pPet->serial;
 		target(s, 0, 1, 0, 119, "Select character to transfer your pet to.");
 		bReturn = true;
 	}
-	else if (strstr( comm, " RELEASE"))
+	//else if (strstr( comm, " RELEASE"))
+	else if (comm.find(" RELEASE") != string::npos)
 	{
 		pPlayer->guarded = false;
 		if (pPet->summontimer)
@@ -788,7 +836,7 @@ void PlVGetgold(int s, cChar* pVendor)//PlayerVendors
 		npctalk(s,pVendor,"I don't work for you!",0);
 }
 
-bool VendorChkName(cChar* pVendor, string comm)
+bool VendorChkName(cChar* pVendor, string& comm)
 {
 	if ((comm.find("VENDOR")!= string::npos) || (comm.find("SHOPKEEPER") != string::npos))
 		return true ;
@@ -804,36 +852,10 @@ bool VendorChkName(cChar* pVendor, string comm)
 	return false ;
 }
 
-/*
-bool VendorChkName(cChar* pVendor, char* comm)
-{
-	string temp =pVendor->name ;
-	
-	if (strstr(comm, "VENDOR") || strstr(comm, "SHOPKEEPER"))
-	{
-		return true;
-	}
-	else
-	{
-		char vntmp[90] = {0,};
-		char punttmp[90] ;
-		punttmp[89] = 0 ;
-		int puntlen;
-		puntlen = temp.length() ;
 
-		puntlen = strlen(temp.c_str()) ;
-		//strncpy(vntmp, pVendor->name.c_str(), 89);
-		strncpy(punttmp,temp.c_str(), 89) ;
-		//strupr(vntmp);
-		strupr(punttmp) ;
-		//if (strstr( comm, vntmp))
-		if (strstr(comm,punttmp))
-			return true;
-	}
-	return false;
-}
-*/
-bool PlayerVendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
+
+
+bool PlayerVendorSpeech(cChar* pVendor, string& comm, cChar* pPlayer, UOXSOCKET s)
 {
 
 	if (!(pVendor->npcaitype == 17))
@@ -842,11 +864,11 @@ bool PlayerVendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
 	if (pPlayer->dist(pVendor) > 4)
 		return 0;
 
-	string punt(comm) ;
-	if (!VendorChkName(pVendor,punt))
+	if (!VendorChkName(pVendor,comm))
 		return false;
 
-	if (strstr(comm, " BROWSE") || strstr(comm, " VIEW") || strstr(comm, " LOOK"))
+	//if (strstr(comm, " BROWSE") || strstr(comm, " VIEW") || strstr(comm, " LOOK"))
+	if ((comm.find(" BROWSE") != string::npos) || (comm.find(" VIEW") != string::npos) || (comm.find(" LOOK") != string::npos))
 	{
 		npctalk(s,pVendor,"Take a look at my goods.",1);
 		P_ITEM pi_backpack = Packitem(pVendor);
@@ -856,7 +878,8 @@ bool PlayerVendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
 		    return true;
 		}
 	}
-	if (strstr(comm, " BUY") || strstr(comm, " PURCHASE"))
+	//if (strstr(comm, " BUY") || strstr(comm, " PURCHASE"))
+	if ((comm.find(" BUY") != string::npos) || (comm.find(" PURCHASE") != string::npos))
 	{
 		addx[s]=pVendor->serial;
 		npctalk(s,pVendor,"What would you like to buy?",0);
@@ -867,12 +890,14 @@ bool PlayerVendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
 	if (!pPlayer->Owns(pVendor))
 			return 0;
 
-	if (strstr( comm, " COLLECT") || strstr( comm, " GOLD") || strstr( comm, " GET"))
+	//if (strstr( comm, " COLLECT") || strstr( comm, " GOLD") || strstr( comm, " GET"))
+	if ((comm.find(" COLLECT") != string::npos) || (comm.find(" GOLD") != string::npos) || (comm.find(" GET") != string::npos))
 	{
 		PlVGetgold(s, pVendor);
 		return true;
 	}
-	if (strstr( comm, "PACKUP"))
+	//if (strstr( comm, "PACKUP"))
+	if (comm.find("PACKUP") != string::npos)
 	{
 		P_ITEM pDeed = Items->SpawnItem(pPlayer, 1, "employment deed", 0, 0x14F0, 0, 1);
 		if (pDeed)
@@ -888,7 +913,7 @@ bool PlayerVendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
 	return false;
 }
 
-bool VendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
+bool VendorSpeech(cChar* pVendor, string& comm, cChar* pPlayer, UOXSOCKET s)
 {
 	if (pVendor->npcaitype == 17)
 		return false;
@@ -896,22 +921,24 @@ bool VendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
 	if (pPlayer->dist(pVendor) > 4)
 		return false;
 
-	string punt(comm) ;
-	if (!VendorChkName(pVendor, punt))
+	if (!VendorChkName(pVendor, comm))
 		return false;
 
-    if (strstr(comm, " BUY"))
+    //if (strstr(comm, " BUY"))
+	if (comm.find(" BUY") != string::npos)
 	{
 	    Targ->BuyShop(s, pVendor);
 		return true;
 	}
-	if (strstr( comm, " SELL"))
+	//if (strstr( comm, " SELL"))
+	if (comm.find(" SELL") != string::npos)
 	{
 		sellstuff(s, pVendor);						
 		return true;
 	}
 	return false;
 }
+
 
 /////////////////
 // name:	response
@@ -923,11 +950,12 @@ bool VendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
 //			This is especially usefull in crowded places.
 
 //##ModelId=3C5D92D0005E
-int cSpeech::response(UOXSOCKET s, P_CHAR pPlayer, char* SpeechUpr)
+int cSpeech::response(UOXSOCKET s, P_CHAR pPlayer, string& SpeechUpr)
 {
-	char *comm=SpeechUpr;
+	string comm=SpeechUpr;
 
-    if (strstr( comm, "#EMPTY") && online(currchar[s]) && !pPlayer->dead && pPlayer->isGM())
+    //if (strstr( comm, "#EMPTY") && online(currchar[s]) && !pPlayer->dead && pPlayer->isGM())
+	if ((comm.find("#EMPTY") != string::npos) && online(currchar[s]) && !pPlayer->dead && pPlayer->isGM())
 	{ // restricted to GMs for now. It's too powerful (Duke, 5.6.2001)
 		target(s, 0, 1, 0, 71, "Select container to empty:");
 		return 1;
@@ -984,7 +1012,9 @@ int cSpeech::response(UOXSOCKET s, P_CHAR pPlayer, char* SpeechUpr)
 	return 0;
 }
 
-void cSpeech::talking(int s, string speech) // PC speech
+
+
+void cSpeech::talking(int s, string& speech) // PC speech
 {
 /*
 	Unicode speech format
@@ -1070,10 +1100,13 @@ void cSpeech::talking(int s, string speech) // PC speech
 	for ( a=0; a < tl-48; a++) clConsole.send("%02i ",unicodetext[a]);
 	clConsole.send("\n");*/
 
+
+
+
 	//// Very important: do not use buffer[s][] anymore in this function !!!!
 	//// unicode text that gets send is in unicodetext, nonunicode text for normal string processing in non uni code
-
-	if (InputSpeech(nonuni, pc_currchar, s))	// handle things like renaming or describing an item
+	string punt(nonuni) ;
+	if (InputSpeech(punt, pc_currchar, s))	// handle things like renaming or describing an item
 		return;
 
 	if (pc_currchar->squelched)					// not allowed to talk
@@ -1127,11 +1160,13 @@ void cSpeech::talking(int s, string speech) // PC speech
 		savelog((char*)temp, (char*)temp2);
 	}
 	
-	char SpeechUpr[512];
-	strcpy(SpeechUpr, nonuni);
-	strupr(SpeechUpr);
-
-	if (!strcmp(SpeechUpr, "I RESIGN FROM MY GUILD"))
+	//char SpeechUpr[512];
+	//strcpy(SpeechUpr, nonuni);
+	//strupr(SpeechUpr);
+	string SpeechUpr(nonuni) ;
+	transform(SpeechUpr.begin(), SpeechUpr.end(), SpeechUpr.begin(), ::toupper);
+	//if (!strcmp(SpeechUpr, "I RESIGN FROM MY GUILD"))
+	if (SpeechUpr == string("I RESIGN FROM MY GUILD"))
 	{
 		GuildResign(s);
 	}
@@ -1139,7 +1174,8 @@ void cSpeech::talking(int s, string speech) // PC speech
 	if (response(s,pc_currchar,SpeechUpr))
 		return;  // Vendor responded already
 	
-	if (strstr(SpeechUpr, "GUARDS"))
+	//if (strstr(SpeechUpr, "GUARDS"))
+	if (SpeechUpr.find("GUARDS") != string::npos)
 		callguards(currchar[s]);
 	
 	if (Boats->Speech(s, SpeechUpr))
@@ -1218,7 +1254,7 @@ void cSpeech::talking(int s, string speech) // PC speech
 					char scpUpr[500];
 					strcpy(scpUpr,script2);
 					strupr(scpUpr);
-					if (strstr(SpeechUpr,scpUpr))
+					if (SpeechUpr.find(scpUpr)!= string::npos)
 						match=1;
 				}
 				if (!(strcmp("SAY", (char*)script1)))
@@ -1257,42 +1293,3 @@ void cSpeech::talking(int s, string speech) // PC speech
 }
 
 
-/* wchar2char and char2wchar converts between ANSI char and Wide Chars
-used by UO Client. Be aware, those functions returns their results in
-temp[1024] global variable */
-//##ModelId=3C5D92D00091
-void cSpeech::wchar2char (const char* str)
-{
-	memset(&temp[0], 0, 1024);
-	bool end = false;
-	for (int i = 0; !end && i<1022 ; i++)
-	{
-		if (str[i] == 0 && str[i+1] == 0) end = true; // bugfix LB ... was str[i-1] not so good for i=0
-		temp[i] = str[i*2];
-	}
-}
-
-//##ModelId=3C5D92D000A4
-void cSpeech::char2wchar (const char* str)
-{
-	memset(&temp[0], 0, 1024);
-	unsigned int size = strlen(str);
-	
-	// client wants to have a 0 as very fist byte.
-	// after that 0 the unicode text
-	// after it two(!) 0's as termintor
-
-	unsigned int j=1;
-	// temp[0]=0; //redundant, plz leave as comment
-
-	for (unsigned int i = 0; i < size; i++) // bugfix LB ... temp[i+1] = str[i] .... wrong
-	{
-		temp[j]   = str[i];
-		// temp[j+1] = 0; // redundant line, plz leave as comment
-		j+=2;
-	}
-
-	// basicly redundant as well, plz leave as comment
-	// temp[j]=0;
-	// temp[j+1]=0;
-}

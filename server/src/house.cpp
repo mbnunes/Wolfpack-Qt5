@@ -612,7 +612,7 @@ void cHouse::removeFriend(P_CHAR pc)
 }
 
 // Handles house commands from friends of the house. - Crackerjack 8/12/99
-void house_speech(int s, char *msg)	// msg must already be capitalized
+void house_speech(int s, string& msg)	// msg must already be capitalized
 {
 	P_CHAR pc_currchar = currchar[s];
 	
@@ -630,7 +630,7 @@ void house_speech(int s, char *msg)	// msg must already be capitalized
 	else
 		return;	
 
-	if(strstr(msg, "I BAN THEE")) 
+	if(msg.find("I BAN THEE")!=string::npos) 
 	{ // house ban
 		addid1[s] = pMulti->serial>>24;
 		addid2[s] = pMulti->serial>>16;
@@ -638,7 +638,7 @@ void house_speech(int s, char *msg)	// msg must already be capitalized
 		addid4[s] = pMulti->serial%256;
 		target(s, 0, 1, 0, 229, "Select person to ban from house.");
 	}
-	else if(strstr(msg, "REMOVE THYSELF")) 
+	else if(msg.find("REMOVE THYSELF")!=string::npos) 
 	{ // kick out of house
 		addid1[s] = pMulti->serial>>24;
 		addid2[s] = pMulti->serial>>16;
@@ -646,15 +646,15 @@ void house_speech(int s, char *msg)	// msg must already be capitalized
 		addid4[s] = pMulti->serial%256;
 		target(s, 0, 1, 0, 228, "Select person to eject from house.");
 	}
-	else if (strstr(msg,"I WISH TO LOCK THIS DOWN")) 
+	else if (msg.find("I WISH TO LOCK THIS DOWN")!=string::npos) 
 	{ // lock down code AB/LB
          target(s, 0, 1, 0, 232, "Select item to lock down");
 	}
-	else if (strstr(msg,"I WISH TO RELEASE THIS")) 
+	else if (msg.find("I WISH TO RELEASE THIS")!=string::npos) 
 	{ // lock down code AB/LB
           target(s, 0, 1, 0, 233, "Select item to release");
 	}
-	else if (strstr(msg,"I WISH TO SECURE THIS")) 
+	else if (msg.find("I WISH TO SECURE THIS")!=string::npos) 
 	{ // lock down code AB/LB
 		target(s, 0, 1, 0, 234, "Select item to secure"); 
 	}

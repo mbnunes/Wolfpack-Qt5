@@ -378,9 +378,9 @@ public:
 	class cBankerAI
 	{
 	public:
-		bool DoAI(int c, P_CHAR pBanker,char *comm);
-		bool Withdraw(int c, P_CHAR pBanker, char *comm);
-		bool BankCheck(int c, P_CHAR pBanker, char *comm);
+		bool DoAI(int c, P_CHAR pBanker,string& comm);
+		bool Withdraw(int c, P_CHAR pBanker, string& comm);
+		bool BankCheck(int c, P_CHAR pBanker, string& comm);
 		bool Balance(int c, P_CHAR pBanker);
 		void OpenBank(UOXSOCKET c);
 	};

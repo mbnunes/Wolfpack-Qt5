@@ -45,6 +45,11 @@ int RandomNum(int nLowNum, int nHighNum)
 		return nLowNum;
 }
 
+int str2num( string s, int base)
+{
+	return str2num(s.c_str(),base) ;
+}
+
 int str2num(char *s, int base) // Convert string to integer
 {
 	char* dummy; // ignore the stop pointer

@@ -922,7 +922,7 @@ void cBoat::Turn(P_ITEM pBoat, int turn)//Turn the boat item, and send all the p
 	}
 }
 
-char cBoat::Speech(UOXSOCKET s, char *msg)//See if they said a command. msg must already be capitalized
+char cBoat::Speech(UOXSOCKET s, string& msg)//See if they said a command. msg must already be capitalized
 {
 	P_CHAR pc_currchar = currchar[s];
 	P_ITEM boat = GetBoat(pc_currchar);
@@ -943,13 +943,13 @@ char cBoat::Speech(UOXSOCKET s, char *msg)//See if they said a command. msg must
 	if ( tiller == NULL ) 
 		return 0;
 
-	if(strstr(msg,"FORWARD") || strstr(msg,"UNFURL SAIL"))
+	if((msg.find("FORWARD")!= string::npos) || (msg.find("UNFURL SAIL")!=string::npos))
 	{
 		boat->type2=1;//Moving
 		Move(s,dir, boat);
 		itemtalk(s, tiller, "Aye, sir.");
 		return 1;
-	} else if(strstr(msg,"BACKWARD"))
+	} else if(msg.find("BACKWARD")!= string::npos)
 	{
 		boat->type2=2;//Moving backward
 		if(dir >= 4) dir-=4; 
@@ -957,9 +957,9 @@ char cBoat::Speech(UOXSOCKET s, char *msg)//See if they said a command. msg must
 		Move(s,dir, boat);		
 		itemtalk(s, tiller, "Aye, sir.");
 		return 1;
-	}  else if(strstr(msg,"ONE") || strstr(msg,"DRIFT"))
+	}  else if((msg.find("ONE")!= string::npos) || (msg.find("DRIFT")!=string::npos))
 	{
-		if(strstr(msg,"LEFT"))
+		if(msg.find("LEFT")!=string::npos)
 		{
 			dir-=2;
 			if(dir<0) dir+=8;			
@@ -967,7 +967,7 @@ char cBoat::Speech(UOXSOCKET s, char *msg)//See if they said a command. msg must
 			itemtalk(s, tiller, "Aye, sir.");
 			return 1;
 
-		} else if(strstr(msg,"RIGHT"))
+		} else if(msg.find("RIGHT")!=string::npos)
 		{
 			dir+=2;
 			if(dir>=8) dir-=8; 			
@@ -977,11 +977,15 @@ char cBoat::Speech(UOXSOCKET s, char *msg)//See if they said a command. msg must
 			return 1;
 		}
 	} 
-	else if(strstr(msg,"STOP") || strstr(msg,"FURL SAIL")) { boat->type2=0; itemtalk(s, tiller, "Aye, sir."); }//Moving is type2 1 and 2, so stop is 0 :-)
-	else if((strstr(msg,"TURN") && (strstr(msg,"AROUND") || strstr(msg,"LEFT") || strstr(msg,"RIGHT")))
-		|| strstr(msg,"PORT") || strstr(msg,"STARBOARD") || strstr(msg,"COME ABOUT"))
+	else if((msg.find("STOP")!=string::npos) || (msg.find("FURL SAIL")!=string::npos))
+	{ 
+		boat->type2=0; itemtalk(s, tiller, "Aye, sir."); 
+	}//Moving is type2 1 and 2, so stop is 0 :-)
+	
+	else if(((msg.find("TURN")!=string::npos) && ((msg.find("AROUND")!=string::npos) || (msg.find("LEFT")!=string::npos) || (msg.find("RIGHT")!=string::npos)))
+		|| (msg.find("PORT")!=string::npos) || (msg.find("STARBOARD")!=string::npos) || (msg.find("COME ABOUT")!=string::npos))
 	{
-		if(strstr(msg,"RIGHT") || strstr(msg,"STARBOARD")) 
+		if((msg.find("RIGHT")!=string::npos) || (msg.find("STARBOARD")!=string::npos)) 
 		{
 			dir-=2; if(dir<0) dir+=8;
 			int tx=0,ty=0;
@@ -1030,7 +1034,7 @@ char cBoat::Speech(UOXSOCKET s, char *msg)//See if they said a command. msg must
 				return 1;
 			}
 		}
-		else if(strstr(msg, "LEFT") || strstr(msg,"PORT")) 
+		else if((msg.find("LEFT")!=string::npos) || (msg.find("PORT")!=string::npos)) 
 		{
 			dir+=2; if(dir>7) dir-=8;
 			int tx=0,ty=0;
@@ -1080,7 +1084,7 @@ char cBoat::Speech(UOXSOCKET s, char *msg)//See if they said a command. msg must
 				return 1;
 			}
 		}
-		else if(strstr(msg,"COME ABOUT") || strstr(msg,"AROUND"))
+		else if((msg.find("COME ABOUT")!=string::npos) || (msg.find("AROUND")!=string::npos))
 		{
 			Turn(boat, 1);
 			Turn(boat, 1);
@@ -1088,7 +1092,7 @@ char cBoat::Speech(UOXSOCKET s, char *msg)//See if they said a command. msg must
 			return 1;
 		}
 	}
-	else if(strstr(msg,"SET NAME"))
+	else if(msg.find("SET NAME")!=string::npos)
 	{
 		tiller->name = "a ship named ";
 		tiller->name += msg2+8;
