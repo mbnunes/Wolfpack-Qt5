@@ -370,7 +370,7 @@ class Polymorph (Spell):
 		char.polymorph = 1
 		char.update()
 
-		duration = int(char.skill[MAGERY] * 200)
+		duration = int(300 + char.skill[MAGERY] * 100)
 		char.addtimer(duration, "magic.circle7.polymorph_expire", [], 1)
 
 def onLoad():
