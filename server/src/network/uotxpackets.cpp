@@ -606,3 +606,21 @@ void cUOTxCustomHouse::addTile( UINT16 id, short x, short y, short z )
 	(*this)[sz - 2] = y;
 	(*this)[sz - 1] = z;
 }
+
+void cUOTxSellList::addItem( UINT32 serial, UINT16 id, UINT16 hue, 
+							UINT16 amount, UINT16 value, const QString &name )
+{
+	UINT32 offset = size();
+	UINT32 sz = size() + name.length() + 1 + 14; // null terminated ascii string
+	resize( sz );
+	setShort( 1, sz );
+
+	setShort( 7, getShort( 7 ) + 1 ); // increase number of items
+	setInt( offset, serial );
+	setShort( offset + 4, id );
+	setShort( offset + 6, hue );
+	setShort( offset + 8, amount );
+	setShort( offset + 10, value );
+	setShort( offset + 12, name.length() + 1 );
+	setAsciiString( offset + 14, name.latin1(), name.length() + 1 );
+}

@@ -58,8 +58,8 @@ void Human_Vendor::registerInFactory()
 	Human_Vendor_Wander::registerInFactory();
 	Human_Vendor_Combat::registerInFactory();
 	Human_Vendor_Flee::registerInFactory();
-	Human_Vendor_BuyQuery::registerInFactory();
-	Human_Vendor_SellQuery::registerInFactory();
+//	Human_Vendor_BuyQuery::registerInFactory();
+//	Human_Vendor_SellQuery::registerInFactory();
 }
 
 Human_Vendor::Human_Vendor()
@@ -138,14 +138,38 @@ void Human_Vendor_Wander::speechInput( P_PLAYER pTalker, const QString &message 
 			npc->talk( tr( "Take a look at my wares!" ) );
 			pTalker->socket()->sendBuyWindow( npc );
 
-			nextState = new Human_Vendor_BuyQuery( m_interface, npc );
+//			nextState = new Human_Vendor_BuyQuery( m_interface, npc );
 		}
 		else if( message.contains( "SELL" ) )
 		{
-#pragma note( "TODO: show sell information gump here" )
-			nextState = new Human_Vendor_SellQuery( m_interface, npc );
+			P_ITEM pContC = npc->GetItemOnLayer( cBaseChar::SellContainer );
+
+			npc->turnTo( pTalker );
+
+			if( !pContC )
+			{
+				npc->talk( tr( "Sorry, I cannot use any of your wares!" ) );
+				return;
+			}
+
+			npc->talk( tr( "This could be of interest!" ) );
+			pTalker->socket()->sendSellWindow( npc, pTalker );
+
+//			nextState = new Human_Vendor_SellQuery( m_interface, npc );
 		}
 	}
+}
+
+void Human_Vendor_Wander::handleSelection( P_PLAYER pPlayer, cUORxBuy* packet )
+{
+	Trade->buyaction( pPlayer->socket(), packet );
+//	nextState = new Human_Vendor_Wander( m_interface, npc );
+}
+
+void Human_Vendor_Wander::handleSelection( P_PLAYER pPlayer, cUORxSell* packet )
+{
+#pragma note( "Implement handling of incoming cUORxSell packet!" )
+//	nextState = new Human_Vendor_Wander( m_interface, npc );
 }
 
 void Human_Vendor_Wander::execute()
@@ -255,6 +279,7 @@ void Human_Vendor_Flee::execute()
 		movePath();
 }
 
+/*
 static AbstractState* productCreator_HV_BuyQuery()
 {
 	return new Human_Vendor_BuyQuery();
@@ -310,4 +335,4 @@ void Human_Vendor_SellQuery::selectionTimeOut()
 	npc->talk( tr( "I do not have time the whole day for a single trade! Come later, when you know what you want!" ) );
 	nextState = new Human_Vendor_Wander( m_interface, npc );
 }
-
+*/

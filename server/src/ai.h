@@ -48,6 +48,7 @@ This class builds a sample state machine for NPC AI
 class AbstractState;
 class Coord_cl;
 class cUORxBuy;
+class cUORxSell;
 
 class cNPC_AI
 {
@@ -294,6 +295,8 @@ public:
 	// events handled
 	virtual void attacked();
 	virtual void speechInput( P_PLAYER pTalker, const QString &message );
+	virtual void handleSelection( P_PLAYER pPlayer, cUORxBuy* packet );
+	virtual void handleSelection( P_PLAYER pPlayer, cUORxSell* packet );
 };
 
 class Human_Vendor_Combat : public AbstractState
@@ -330,6 +333,7 @@ public:
 	virtual void hitpointsRestored();
 };
 
+/*
 class Human_Vendor_BuyQuery : public AbstractState
 {
 public:
@@ -363,5 +367,6 @@ public:
 	virtual void selectionCancelled();
 	virtual void selectionTimeOut();
 };
+*/
 
 #endif /* AI_H_HEADER_INCLUDED */

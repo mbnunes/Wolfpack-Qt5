@@ -1327,4 +1327,13 @@ public:
 	void setSerial( UINT32 data ) { setInt( 5, data ); }
 };
 
+// 0x9E
+class cUOTxSellList : public cUOPacket
+{
+public:
+	cUOTxSellList() : cUOPacket( 0x9E, 9 ) { setShort( 1, 9 ); }
+	void setSerial( UINT32 data ) { setInt( 3, data ); }
+	void addItem( UINT32 serial, UINT16 id, UINT16 hue, UINT16 amount, UINT16 value, const QString &name );
+};
+
 #endif // __UO_TXPACKETS__

@@ -2291,6 +2291,43 @@ void cUOSocket::sendBuyWindow( P_CHAR pVendor )
 	send( &drawContainer );
 }
 
+void cUOSocket::sendSellWindow( P_CHAR pVendor, P_CHAR pSeller )
+{
+	P_ITEM pPurchase = pVendor->atLayer( cBaseChar::SellContainer );
+	P_ITEM pBackpack = pSeller->getBackpack();
+	
+	if( pPurchase && pBackpack )
+	{
+		cUOTxSellList itemContent;
+		itemContent.setSerial( pVendor->serial() );
+
+		cItem::ContainerContent container = pPurchase->content();
+		cItem::ContainerContent::const_iterator it( container.begin() );
+		cItem::ContainerContent::const_iterator end( container.end() );
+
+		cItem::ContainerContent packcont = pBackpack->content();
+		cItem::ContainerContent::const_iterator pit;
+
+		for( Q_INT32 i = 0; it != end; ++it, ++i )
+		{
+			P_ITEM mItem = *it;
+
+			if( mItem )
+			{
+				pit = packcont.begin();
+				while( pit != packcont.end() )
+				{
+					if( *pit && (*pit)->id() == mItem->id() && (*pit)->color() == mItem->color() )
+						itemContent.addItem( (*pit)->serial(), (*pit)->id(), (*pit)->color(), (*pit)->amount(), mItem->sellprice(), (*pit)->getName() );
+					++pit;
+				}
+			}
+		}
+
+		send( &itemContent );
+	}
+}
+
 void cUOSocket::handleHelpRequest( cUORxHelpRequest* packet )
 {
 	Q_UNUSED(packet);

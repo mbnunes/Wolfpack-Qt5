@@ -73,6 +73,7 @@ cUOPacket *getUOPacket( const QByteArray &data )
 	case 0x93:		return new cUORxUpdateBook( data );
 	case 0x95:		return new cUORxDye( data );
 	case 0x9B:		return new cUORxHelpRequest( data );
+	case 0x9F:		return new cUORxSell( data );
 	case 0xA0:		return new cUORxSelectShard( data );
 	case 0xA4:		return new cUORxHardwareInfo( data );
 	case 0xA7:		return new cUORxGetTip( data );
