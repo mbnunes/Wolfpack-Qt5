@@ -176,8 +176,8 @@ static PyObject* wpCoord_lineofsight( wpCoord* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "O&i|b:coord.lineofsight(coord, targetheight, [touch=0])", &PyConvertCoord, &pos, &targetheight, &touch ) )
 		return 0;
 	if ( self->coord.lineOfSight( pos, targetheight, touch ) )
-		return Py_True;
-	return Py_False;
+		Py_RETURN_TRUE;
+	Py_RETURN_FALSE;
 }
 
 extern bool lineOfSightNew(Coord_cl origin, Coord_cl target);
@@ -209,9 +209,11 @@ static PyObject* wpCoord_lineofsightnew( wpCoord* self, PyObject* args )
 	}
 	
 	if ( lineOfSightNew( self->coord, pos ) )
-		return Py_True;
-
-	return Py_False;
+	{
+		Py_RETURN_TRUE;
+	} else {
+		Py_RETURN_FALSE;
+	}	
 }
 
 static PyMethodDef wpCoordMethods[] =
