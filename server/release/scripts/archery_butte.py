@@ -7,7 +7,7 @@
 
 import wolfpack
 from wolfpack import ARCHERY
-from random import randrange, choice
+from random import choice, randrange
 
 # failure texts
 failureText = ( 
