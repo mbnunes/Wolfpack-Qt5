@@ -10,6 +10,7 @@ Wolfpack 12.9.10 Beta (CVS)
 		- The system.trading event is now removed on login from the characters who
 		  have it.
 		- Added speech.monster.
+		- Fixed a chance calculation bug with bowcraft.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.

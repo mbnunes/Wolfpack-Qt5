@@ -85,7 +85,7 @@ class FletchItemAction(CraftItemAction):
     if chance > 100:
       chance = 100
     elif chance < 0:
-      chance = chance * -1
+      chance = 0
 
     # chance range 0.00 - 1.00
     chance = chance * .01
