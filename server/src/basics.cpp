@@ -185,60 +185,12 @@ unsigned int getNormalizedTime()
 	return getPlatformTime() - startTime;
 }
 
-// Swap the value in place
-inline void swapBytes( unsigned int& data )
-{
-	data = ( ( data & 0xFF ) << 24 ) | ( ( data & 0xFF00 ) << 8 ) | ( ( data & 0xFF0000 ) >> 8 ) | ( ( data & 0xFF000000 ) >> 24 );
-}
-
-inline void swapBytes( double& value )
-{
-	unsigned char * ptr = ( unsigned char * ) &value;
-	std::swap( ptr[0], ptr[7] );
-	std::swap( ptr[1], ptr[6] );
-	std::swap( ptr[2], ptr[5] );
-	std::swap( ptr[3], ptr[4] );
-}
-
-inline void swapBytes( int& data )
-{
-	data = ( ( data & 0xFF ) << 24 ) | ( ( data & 0xFF00 ) << 8 ) | ( ( data & 0xFF0000 ) >> 8 ) | ( ( data & 0xFF000000 ) >> 24 );
-}
-
-inline void swapBytes( unsigned short& data )
-{
-	data = ( ( data & 0xFF00 ) >> 8 ) | ( ( data & 0xFF ) << 8 );
-}
-
-inline void swapBytes( short& data )
-{
-	data = ( ( data & 0xFF00 ) >> 8 ) | ( ( data & 0xFF ) << 8 );
-}
-
-class cBufferedWriterPrivate
-{
-public:
-	QFile file;
-	unsigned int version;
-	QCString magic;
-	bool needswap;
-	QByteArray buffer;
-	unsigned int bufferpos;
-	QMap<QCString, unsigned int> dictionary;
-	QMap<unsigned char, unsigned int> skipmap;
-	QMap<unsigned char, QString> typemap;
-	unsigned int lastStringId;
-	unsigned int objectCount;
-};
-
-#define BUFFERSIZE 4096
-
 cBufferedWriter::cBufferedWriter( const QCString& magic, unsigned int version )
 {
 	d = new cBufferedWriterPrivate;	
 	d->version = version;
 	d->magic = magic;
-	d->buffer.resize( BUFFERSIZE );
+	d->buffer.resize( 4096 );
 	d->bufferpos = 0;
 	d->lastStringId = 0;
 	d->objectCount = 0;
@@ -355,110 +307,10 @@ void cBufferedWriter::close()
 	}
 }
 
-void cBufferedWriter::writeInt( unsigned int data, bool unbuffered )
-{
-	// Inplace Swapping (data is a copy anyway)
-	if ( d->needswap )
-	{
-		swapBytes( data );
-	}
-
-	writeRaw( &data, sizeof( data ), unbuffered );
-}
-
-void cBufferedWriter::writeShort( unsigned short data, bool unbuffered )
-{
-	// Inplace Swapping (data is a copy anyway)
-	if ( d->needswap )
-	{
-		swapBytes( data );
-	}
-
-	writeRaw( &data, sizeof( data ), unbuffered );
-}
-
-void cBufferedWriter::writeByte( unsigned char data, bool unbuffered )
-{
-	if ( unbuffered )
-	{
-		flush();
-		d->file.writeBlock( ( const char * ) &data, sizeof( data ) );
-	}
-	else
-	{
-		if ( d->bufferpos + sizeof( data ) >= BUFFERSIZE )
-		{
-			flush(); // Flush buffer to file
-		}
-
-		*( unsigned char * ) ( d->buffer.data() + d->bufferpos ) = data;
-		d->bufferpos += sizeof( data );
-	}
-}
-
 void cBufferedWriter::flush()
 {
 	d->file.writeBlock( d->buffer.data(), d->bufferpos );
 	d->bufferpos = 0;
-}
-
-void cBufferedWriter::writeUtf8( const QString& data, bool unbuffered )
-{
-	QCString utf8 = data.utf8();
-	writeAscii( utf8, unbuffered );
-}
-
-void cBufferedWriter::writeAscii( const QCString& data, bool unbuffered )
-{
-	QMap<QCString, unsigned int>::iterator it = d->dictionary.find( data );
-
-	if ( it != d->dictionary.end() )
-	{
-		writeInt( it.data(), unbuffered );
-	}
-	else
-	{
-		d->dictionary.insert( data, ++d->lastStringId );
-		writeInt( d->lastStringId, unbuffered );
-	}
-}
-
-void cBufferedWriter::writeRaw( const void* data, unsigned int size, bool unbuffered )
-{
-	if ( unbuffered )
-	{
-		flush();
-		d->file.writeBlock( ( const char * ) data, size );
-	}
-	else
-	{
-		// Flush out entire blocks if neccesary until we dont
-		// overflow the buffer anymore, then just append
-		unsigned int pos = 0;
-
-		while ( d->bufferpos + size >= BUFFERSIZE )
-		{
-			unsigned int bspace = BUFFERSIZE - d->bufferpos;
-
-			// Try putting in some bytes of the remaining data
-			if ( bspace != 0 )
-			{
-				memcpy( d->buffer.data() + d->bufferpos, ( unsigned char * ) data + pos, bspace );
-				d->bufferpos = BUFFERSIZE;
-				pos += bspace;
-				size -= bspace;
-			}
-
-			flush();
-		}
-
-		// There are still some remaining bytes of our data
-		if ( size != 0 )
-		{
-			memcpy( d->buffer.data() + d->bufferpos, ( unsigned char * ) data + pos, size );
-			d->bufferpos += size;
-		}
-	}
 }
 
 unsigned int cBufferedWriter::position()
@@ -469,16 +321,6 @@ unsigned int cBufferedWriter::position()
 unsigned int cBufferedWriter::version()
 {
 	return d->version;
-}
-
-void cBufferedWriter::writeDouble( double value, bool unbuffered )
-{
-	if ( d->needswap )
-	{
-		swapBytes( value );
-	}
-
-	writeRaw( &value, sizeof( value ), unbuffered );
 }
 
 void cBufferedWriter::setSkipSize( unsigned char type, unsigned int skipsize )
@@ -505,7 +347,7 @@ public:
 cBufferedReader::cBufferedReader( const QCString& magic, unsigned int version )
 {
 	d = new cBufferedReaderPrivate;	
-	d->buffer.resize( BUFFERSIZE );
+	d->buffer.resize( 4096 );
 	d->bufferpos = 0;
 	d->buffersize = 0; // Current amount of data in buffer
 	d->magic = magic;
@@ -668,6 +510,10 @@ unsigned short cBufferedReader::readShort()
 	return result;
 }
 
+bool cBufferedReader::readBool() {
+	return readByte() != 0;
+}
+
 unsigned char cBufferedReader::readByte()
 {
 	unsigned char result;
@@ -746,10 +592,10 @@ void cBufferedReader::readRaw( void* data, unsigned int size )
 		// Refill buffer if required
 		if ( available == 0 )
 		{
-			unsigned int read = d->file.readBlock( d->buffer.data(), BUFFERSIZE );
+			unsigned int read = d->file.readBlock( d->buffer.data(), 4096 );
 
 			// We will never be able to statisfy the request
-			if ( read != BUFFERSIZE && read < size )
+			if ( read != 4096 && read < size )
 			{
 				throw wpException( QString( "Unexpected end of file while reading." ) );
 			}

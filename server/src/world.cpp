@@ -426,7 +426,6 @@ void cWorld::load()
 
 			unsigned char type;
 			const QMap<unsigned char, QCString> &typemap = reader.typemap();
-			const QMap<unsigned char, QCString> &server_typemap = BinaryTypemap::instance()->getTypemap();
 			unsigned int loaded = 0;
 			unsigned int count = reader.objectCount();
 			unsigned int lastpercent = 0;
@@ -439,25 +438,16 @@ void cWorld::load()
 
 				if ( typemap.contains( type ) )
 				{
-					if ( !server_typemap.contains( type ) )
-					{
-						// Get the size for this block from the worldfile
-						// and skip the entire block
-						Console::instance()->log( LOG_WARNING, QString( "Skipping unknown object type %1." ).arg( typemap[type] ) );
-					}
-					else
-					{
-						PersistentObject *object = PersistentFactory::instance()->createObject( typemap[type] );
+					PersistentObject *object = PersistentFactory::instance()->createObject( typemap[type] );
 
-						if (object) {
-							try
-							{
-								object->load( reader );
-							}
-							catch ( wpException e )
-							{
-							}
+					if (object) {
+						try {
+							object->load( reader );
+						} catch (wpException e) {
+							Console::instance()->log( LOG_WARNING, e.error() + "\n" );
 						}
+					} else {
+						// Skip an unknown object type.
 					}
 
 					loaded += 100;
@@ -474,6 +464,18 @@ void cWorld::load()
 						Console::instance()->send( QString::number( percent ) + "%" );
 					}
 					// Special Type for Tags
+				}
+				else if ( type == 0xFD )
+				{
+					cGuild *guild = 0;
+
+					try {
+						guild = new cGuild();
+						guild->load(reader, reader.version());
+						Guilds::instance()->registerGuild(guild);
+					} catch (wpException e) {
+						delete guild;
+					}
 				}
 				else if ( type == 0xFE )
 				{
@@ -531,7 +533,8 @@ void cWorld::load()
 		{
 			QString type = types[j];
 
-			cDBResult res = PersistentBroker::instance()->query( QString( "SELECT COUNT(*) FROM uobjectmap WHERE type = '%1'" ).arg( type ) );
+			QString countQuery = PersistentFactory::instance()->findSqlCountQuery(type);
+			cDBResult res = PersistentBroker::instance()->query( countQuery );
 
 			// Find out how many objects of this type are available
 			if ( !res.isValid() )
@@ -558,8 +561,7 @@ void cWorld::load()
 
 			// Fetch row-by-row
 			PersistentBroker::instance()->driver()->setActiveConnection( CONN_SECOND );
-			while ( res.fetchrow() )
-			{
+			while ( res.fetchrow() ) {
 				unsigned short offset = 0;
 				char** row = res.data();
 
@@ -739,7 +741,6 @@ void cWorld::load()
 
 		result.free();
 
-		// Load Guilds
 		Guilds::instance()->load();
 
 		// load server time from db
@@ -791,50 +792,44 @@ void cWorld::save()
 	{
 		unsigned int startTime = getNormalizedTime();
 
-		if ( Config::instance()->databaseDriver() == "binary" )
-		{
+		if (Config::instance()->databaseDriver() == "binary") {
 			// Save in binary format
-			cItemIterator itemIterator;
-			P_ITEM item;
 			cBufferedWriter writer( "WOLFPACK", DATABASE_VERSION );
 			writer.open( "world.bin" );
-			const QMap<unsigned char, QCString> &typemap = BinaryTypemap::instance()->getTypemap();
 
-			for ( item = itemIterator.first(); item; item = itemIterator.next() )
-			{
-				if ( !item->container() && !item->multi() )
-				{
+			cCharIterator charIterator;
+			P_CHAR character;
+			for (character = charIterator.first(); character; character = charIterator.next()) {
+				if (!character->multi()) {
+					character->save(writer);
+				}
+			}
+
+			cItemIterator itemIterator;
+			P_ITEM item;
+			for (item = itemIterator.first(); item; item = itemIterator.next()) {
+				if (!item->container() && !item->multi()) {
 					item->save( writer );
 				}
 			}
 
-			cCharIterator charIterator;
-			P_CHAR character;
-			for ( character = charIterator.first(); character; character = charIterator.next() )
-			{
-				if ( !character->multi() )
-				{
-					character->save( writer );
-				}
+			// Write Guilds
+			cGuilds::iterator git;
+			for (git = Guilds::instance()->begin(); git != Guilds::instance()->end(); ++git) {
+				(*git)->save(writer, writer.version());
 			}
 
 			writer.writeByte( 0xFF ); // Terminator Type
 			writer.close();
-		}
-		else
-		{
-			if ( !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
-			{
+		} else {
+			if (!PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver())) {
 				Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
 				return;
 			}
 
-			try
-			{
+			try {
 				PersistentBroker::instance()->connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword() );
-			}
-			catch ( QString& e )
-			{
+			} catch (QString& e) {
 				Console::instance()->log( LOG_ERROR, QString( "Couldn't open the database: %1\n" ).arg( e ) );
 				return;
 			}

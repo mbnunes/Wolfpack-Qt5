@@ -25,14 +25,13 @@
  * Wolfpack Homepage: http://wpdev.sf.net/
  */
 
+#include "basics.h"
 #include "guilds.h"
 
 #include "persistentbroker.h"
 #include "dbdriver.h"
 #include "world.h"
 #include "items.h"
-
-unsigned char cGuild::classid;
 
 cGuilds::~cGuilds()
 {
@@ -57,20 +56,18 @@ unsigned int cGuilds::findFreeSerial()
 	return serial;
 }
 
-void cGuilds::save()
-{
+void cGuilds::save() {
 	// Clear the tables first: guilds are not saved incremental.
-		PersistentBroker::instance()->executeQuery( "DELETE FROM guilds;" );
-		PersistentBroker::instance()->executeQuery( "DELETE FROM guilds_members;" );
-		PersistentBroker::instance()->executeQuery( "DELETE FROM guilds_canidates;" );
+	PersistentBroker::instance()->executeQuery( "DELETE FROM guilds;" );
+	PersistentBroker::instance()->executeQuery( "DELETE FROM guilds_members;" );
+	PersistentBroker::instance()->executeQuery( "DELETE FROM guilds_canidates;" );
 
 	for (iterator it = begin(); it != end(); ++it) {
 		it.data()->save();
 	}
 }
 
-void cGuilds::load()
-{
+void cGuilds::load() {
 	// Get all guilds from the database
 	cDBResult result = PersistentBroker::instance()->query( "SELECT serial,name,abbreviation,charta,website,alignment,leader,founded,guildstone FROM guilds" );
 
@@ -889,28 +886,76 @@ PyObject* cGuild::getPyObject()
 	return ( PyObject * ) returnVal;
 }
 
-void cGuild::registerInFactory() {
-	classid = BinaryTypemap::instance()->registerType("cGuild");
-}
-
-void cGuild::load( cBufferedReader& reader ) {
-}
-
-void cGuild::save( cBufferedWriter& reader ) {
-}
-
 void cGuild::load( cBufferedReader& reader, unsigned int version ) {
+	serial_ = reader.readInt();
+	name_ = reader.readUtf8();
+	abbreviation_ = reader.readUtf8();
+	charta_ = reader.readUtf8();
+	website_ = reader.readUtf8();
+	alignment_ = (eAlignment)reader.readByte();
+	leader_ = dynamic_cast<P_PLAYER>(World::instance()->findChar(reader.readInt()));
+	founded_.setTime_t(reader.readInt());
+	guildstone_ = World::instance()->findItem(reader.readInt());
+
+	// Save Members/Canidates
+	P_PLAYER player;
+
+	int count, i;
+	count = reader.readInt();
+	for (i = 0; i < count; ++i) {
+		P_PLAYER player = dynamic_cast<P_PLAYER>( World::instance()->findChar( reader.readInt() ) );
+
+		MemberInfo* info = new MemberInfo;
+		info->setShowSign( reader.readBool() );
+		info->setGuildTitle( reader.readUtf8() );
+		info->setJoined( reader.readInt() );
+
+		if (player) {
+			player->setGuild(this);
+			members_.append(player);
+			memberinfo_.insert( player, info );
+		} else {
+			delete info;
+		}
+	}
+
+	count = reader.readInt();
+	for (i = 0; i < count; ++i) {
+		P_PLAYER player = dynamic_cast<P_PLAYER>( World::instance()->findChar( reader.readInt() ) );
+
+		if (player) {
+			addCanidate(player);
+		}
+	}
 }
 
-void cGuild::save( cBufferedWriter& reader, unsigned int version ) {
-}
+void cGuild::save( cBufferedWriter& writer, unsigned int version ) {
+	writer.writeByte(0xFD);
 
-void cGuild::postload( unsigned int version ) {
-}
+	writer.writeInt(serial_);
+	writer.writeUtf8(name_);
+	writer.writeUtf8(abbreviation_);
+	writer.writeUtf8(charta_);
+	writer.writeUtf8(website_);
+	writer.writeByte(alignment_);
+	writer.writeInt(leader_ ? leader_->serial() : INVALID_SERIAL);
+	writer.writeInt(founded_.toTime_t());
+	writer.writeInt(guildstone_ ? guildstone_->serial() : INVALID_SERIAL);
 
-void cGuild::buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions ) {
-	fields.append("serial,name,abbreviation,charta,website,alignment,leader,founded,guildstone");
-	tables.append("guilds");
-}
+	// Save Members/Canidates
+	P_PLAYER player;
 
-static FactoryRegistration< cGuild > registration("cGuild");
+	writer.writeInt(members_.count());
+	for ( player = members_.first(); player; player = members_.next() ) {
+		MemberInfo* info = getMemberInfo(player);
+		writer.writeInt(player->serial());
+		writer.writeBool(info->showSign());
+		writer.writeUtf8(info->guildTitle());
+		writer.writeInt(info->joined());
+	}
+
+	writer.writeInt(canidates_.count());
+	for (player = canidates_.first(); player; player = canidates_.next()) {
+		writer.writeInt(player->serial());
+	}
+}

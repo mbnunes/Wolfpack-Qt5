@@ -144,9 +144,22 @@ public:
 	/*
 		Register a SQL query to retrieve objects of a given type.
 	*/
-	void registerSqlQuery( const QString& type, const QString& query ) {
+	void registerSqlQuery( const QString& type, const QString& query, const QString &sqlcount ) {
 		sql_queries.insert(type, query);
+		sql_count_queries.insert(type, sqlcount);
 		sql_keys.push_back( type );
+	}
+
+	/*
+		Retrieve a SQL query to retrieve the number of objects for a given type.
+	*/
+	QString findSqlCountQuery(const QString& type) const {
+		QMap<QString, QString>::const_iterator iter = sql_count_queries.find( type );
+
+		if (iter == sql_count_queries.end())
+			return QString::null;
+		else
+			return iter.data();
 	}
 
 	/*
@@ -170,6 +183,7 @@ public:
 
 private:
 	QMap<QString, QString> sql_queries;
+	QMap<QString, QString> sql_count_queries;
 	QStringList sql_keys;
 };
 
@@ -200,8 +214,14 @@ public:
 			sqlString.append(conditions.join(" AND "));
 		}
 
+		QString sqlCountString = QString("SELECT COUNT(*) FROM %1").arg(tables.join(","));
+		if (conditions.count() > 0) {
+			sqlCountString.append(" WHERE ");
+			sqlCountString.append(conditions.join(" AND "));
+		}
+
 		// Register the SQL query for this type in the factory
-		PersistentFactory::instance()->registerSqlQuery(className, sqlString);
+		PersistentFactory::instance()->registerSqlQuery(className, sqlString, sqlCountString);
 
 		// Register the type for the 8-bit binary mapping
 		C::setClassid(BinaryTypemap::instance()->registerType(className));		
