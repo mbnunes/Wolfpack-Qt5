@@ -370,6 +370,7 @@
 	<!-- Shrink -->
 	<item id="potion_shrink" inherit="potion_base">
 		<id>0xf0b</id>
+		<color>0x763</color>
 		<name>a Shrink Potion</name>
 		<category>Equipment\Potions\Shrink</category>
 		<tag name="potiontype" value="25" type="int" />
@@ -380,7 +381,7 @@
 		<name>A keg of Shrink potions</name>
 		<tag name="potiontype" value="25" type="int" />
 		<tag name="kegfill" value="100" type="int" />
-		<color>0x21</color>
+		<color>0x763</color>
 	</item>
 
 </definitions>
