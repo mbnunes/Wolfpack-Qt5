@@ -211,6 +211,7 @@ float Monster_Aggr_MoveToTarget::postCondition()
 	 * Moving to the target has the following postconditions:
 	 * - The target is not set anymore.
 	 * - The NPC is within fight range.
+	 * - The NPC is not injured above the critical line.
 	 */
 
 	Monster_Aggressive* pAI = dynamic_cast< Monster_Aggressive* >( m_ai );
@@ -224,7 +225,9 @@ float Monster_Aggr_MoveToTarget::postCondition()
 	if( m_npc->inRange( pAI->currentVictim(), range ) )
 		return 1.0f;
 
-	return 0.0f;
+	float healthmod = (float)(m_npc->maxHitpoints() - m_npc->hitpoints()) /
+						(float)(m_npc->maxHitpoints() - m_npc->criticalHealth());
+	return healthmod;
 }
 
 void Monster_Aggr_MoveToTarget::execute()
@@ -273,6 +276,7 @@ float Monster_Aggr_Fight::postCondition()
 	 * - The target is not set anymore.
 	 * - The NPC is not within fight range.
 	 * - The target is dead.
+	 * - The NPC is injured above the criticial line.
 	 */
 
 	Monster_Aggressive* pAI = dynamic_cast< Monster_Aggressive* >( m_ai );
@@ -286,7 +290,9 @@ float Monster_Aggr_Fight::postCondition()
 	if( !m_npc->inRange( pAI->currentVictim(), range ) )
 		return 1.0f;
 
-	return 0.0f;
+	float healthmod = (float)(m_npc->maxHitpoints() - m_npc->hitpoints()) /
+						(float)(m_npc->maxHitpoints() - m_npc->criticalHealth());
+	return healthmod;
 }
 
 void Monster_Aggr_Fight::execute()

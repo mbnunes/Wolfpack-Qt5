@@ -59,12 +59,12 @@ unsigned int cSectorMap::gridWidth() const
 	return gridWidth_;
 }
 
-unsigned int cSectorMap::calcBlockId( unsigned int x, unsigned int y ) throw()
+unsigned int cSectorMap::calcBlockId( unsigned int x, unsigned int y )
 {
 	return ( ( x / SECTOR_SIZE ) * gridHeight_ ) + ( y / SECTOR_SIZE );
 }
 
-bool cSectorMap::init( unsigned int width, unsigned int height ) throw()
+bool cSectorMap::init( unsigned int width, unsigned int height )
 {
 	if( width == 0 || height == 0 )
 	{
@@ -178,7 +178,7 @@ bool cSectorMap::removeItem( cUObject *object )
 	return true;
 }
 	
-unsigned int cSectorMap::countItems( unsigned int block ) throw()
+unsigned int cSectorMap::countItems( unsigned int block )
 {
 	// Not in our reach
 	if( block >= gridWidth_ * gridHeight_ )
@@ -191,7 +191,7 @@ unsigned int cSectorMap::countItems( unsigned int block ) throw()
 		return grid[block]->count;	
 }
 
-unsigned int cSectorMap::getItems( unsigned int block, cUObject **items ) throw()
+unsigned int cSectorMap::getItems( unsigned int block, cUObject **items )
 {
 	// Not in our reach
 	if( block >= gridWidth_ * gridHeight_ )
