@@ -127,7 +127,7 @@ class MagicLock(Spell):
 			return
 
 		# We cannot use this on locked down chests
-		if target.secure:
+		if target.secured:
 			char.message(501761)
 			return
 
