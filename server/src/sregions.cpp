@@ -94,7 +94,7 @@ bool doregionspawn(int r)//Regionspawns
 			if (FindSpotForItem(r, pos))
 			//if (FindSpotForItem(r, Coord_cl(x, y, z)))
 			{
-				P_CHAR npc = Npcs->AddNPCxyz( -1, spawnregion[r].npclists[counter], 0,pos.x,pos.y,pos.z );
+				P_CHAR npc = Npcs->createScriptNpc( -1, NULL, QString("%1").arg(spawnregion[r].npclists[counter]), pos.x,pos.y,pos.z );
 				if (npc != NULL)
 				{
 					spawnregion[r].current++;
@@ -136,7 +136,7 @@ bool doregionspawn(int r)//Regionspawns
 			Coord_cl pos;
 			if (FindSpotForItem(r, pos))
 			{
-				P_CHAR npc = Npcs->AddNPCxyz( -1, spawnregion[r].npcs[counter], 0, pos.x, pos.y, pos.z );
+				P_CHAR npc = Npcs->createScriptNpc( -1, NULL, QString("%1").arg(spawnregion[r].npcs[counter]), pos.x, pos.y, pos.z );
 				if (npc != NULL)
 				{
 					spawnregion[r].current++;
@@ -638,7 +638,7 @@ void cRespawn::Continue()
 
 			if (k < pi->amount())	// lord binary, adds spawn amount checking
 			{
-				Npcs->AddNPC(-1, pi, pi->morex);
+				Npcs->createScriptNpc(-1, pi, QString("%1").arg(pi->morex));
 				pi->gatetime=0;
 				currentSpawnItem++;
 			}

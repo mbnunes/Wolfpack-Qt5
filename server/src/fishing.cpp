@@ -100,7 +100,7 @@ int SpawnFishingMonster(UOXSOCKET s, char* cScript, char* cList, char* cNpcID)
   		i=rand()%(i);
 		if(item[i]!=-1)
 		{
-			Npcs->AddNPC(s, NULL, item[i], 0);
+			Npcs->createScriptNpc(s, NULL, QString("%1").arg(item[i]));
 			return item[i];
 		}
 	}

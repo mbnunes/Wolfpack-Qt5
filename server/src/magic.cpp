@@ -362,7 +362,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 	{
 	case 0x0000:	// summon monster
  		soundeffect( s, 0x02, 0x15 );
- 		pc_monster = Npcs->AddNPC( s, NULL, Npcs->getRandomNPC("10000"));
+		pc_monster = Npcs->createScriptNpc( s, NULL, QString("%1").arg(Npcs->getRandomNPC("10000")));
  		if( pc_monster == NULL )
  		{
  			sysmessage( s, "Contact your shard op to setup the summon list!" );
@@ -380,7 +380,9 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		if (color1==0x00 && color2==0x75)
 		{
 			soundeffect(s, 0x02, 0x12); // EV
-			pc_monster = Npcs->AddNPCxyz(s,295,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+			pc_monster = Npcs->createScriptNpc(s,NULL,"295",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+			if( pc_monster == NULL )
+				return;
             pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
 			pc_monster->setNpcAIType(50);
 			pc_monster->setTamed(false);			
@@ -388,38 +390,50 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		else
 		{
 			soundeffect(s, 0x02, 0x17); // AE
-			pc_monster = Npcs->AddNPCxyz(s,291,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+			pc_monster = Npcs->createScriptNpc(s,NULL,"291",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+			if( pc_monster == NULL )
+				return;
 			pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
 			pc_monster->setTamed(true);
 		}
 		break;
 	case 0x000A: // Daemon
 		soundeffect(s, 0x02, 0x16);
-		pc_monster = Npcs->AddNPCxyz(s,290,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+		pc_monster = Npcs->createScriptNpc(s,NULL,"290",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+		if( pc_monster == NULL )
+			return;
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
 		pc_monster->setTamed(true);
 		break;
 	case 0x000E: //Earth
 		soundeffect(s, 0x02, 0x17);
-		pc_monster = Npcs->AddNPCxyz(s,292,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+		pc_monster = Npcs->createScriptNpc(s,NULL,"292",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+		if( pc_monster == NULL )
+			return;
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
 		pc_monster->setTamed(true);
 		break;
 	case 0x000F: //Fire
 		soundeffect(s, 0x02, 0x17);
-		pc_monster = Npcs->AddNPCxyz(s,293,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+		pc_monster = Npcs->createScriptNpc(s,NULL,"293",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+		if( pc_monster == NULL )
+			return;
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
 		pc_monster->setTamed(true);
 		break;
 	case 0x0010: //Water
 		soundeffect(s, 0x02, 0x17);
-		pc_monster = Npcs->AddNPCxyz(s,294,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+		pc_monster = Npcs->createScriptNpc(s,NULL,"294",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+		if( pc_monster == NULL )
+			return;
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
 		pc_monster->setTamed(true);
 		break;
 	case 0x023E: //Blade Spirits
 		soundeffect(s, 0x02, 0x12); // I don't know if this is the right effect...	
-		pc_monster = Npcs->AddNPCxyz(s,296,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+		pc_monster = Npcs->createScriptNpc(s,NULL,"296",pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
+		if( pc_monster == NULL )
+			return;
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
 		pc_monster->setNpcAIType(50);
 		pc_monster->setTamed(false);

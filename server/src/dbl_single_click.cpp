@@ -815,11 +815,11 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				
 					if (los)
 					{
-						P_CHAR pc_vendor = Npcs->AddNPCxyz(-1, 2117, 0, pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);
+						P_CHAR pc_vendor = Npcs->createScriptNpc(-1, NULL, "2117", pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);
 						
 						if (pc_vendor == NULL) 
 						{
-							clConsole.send("npc-script couldnt find vendor !\n");
+							clConsole.send("npc-script couldnt find vendor in npc-section 2117!\n");
 							return;
 						}
 						

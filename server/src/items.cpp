@@ -1794,8 +1794,8 @@ void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 					}
 					if ((pi->gatetime<=currenttime || (overflow)) && pi->morex!=0)
 					{
-						Npcs->AddNPC(-1, pi, pi->morex);//If you are trying to spawn NPCs you must call an
-						pi->gatetime=0;					//NPC spawn not an item spawn. Fixed 9-3-99 Just Michael
+						Npcs->createScriptNpc(-1, pi, QString("%1").arg(pi->morex));
+						pi->gatetime=0;					
 					}
 				}
 			}

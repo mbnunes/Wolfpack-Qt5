@@ -581,12 +581,10 @@ public:
 	P_CHAR MemCharFree();
 	P_ITEM AddRandomLoot(P_ITEM pBackpack, char * lootlist);
 	int getRandomNPC(char *npclist);
-	P_CHAR AddNPCxyz(int s, int npcNum, int type, int x1, int y1, signed char z1);
 	void Split(P_CHAR pc_k);
 	void CheckAI(unsigned int currenttime, P_CHAR pc_i);
-	P_CHAR AddNPC(int s, P_ITEM pi_i, int npcNum, int x1 = 0, int y1 = 0, signed char z1 = 0);
 	void applyNpcSection( P_CHAR Char, const QString &Section );
-	P_CHAR createScriptNpc( QString Section );
+	P_CHAR createScriptNpc( int s, P_ITEM pi_i, QString Section, int posx = 0, int posy = 0, signed char posz = 0 );
 	// Sky's AI Stuff
 	class cDragonAI
 	{
