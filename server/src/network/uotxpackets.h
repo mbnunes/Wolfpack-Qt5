@@ -871,4 +871,13 @@ public:
 	void addItem( SERIAL serial, UINT16 id, UINT16 color, UINT16 x, UINT16 y, UINT16 amount, UINT32 container );
 };
 
+// 0x74 VendorBuy
+class cUOTxVendorBuy: public cUOPacket
+{
+public:
+	cUOTxVendorBuy(): cUOPacket( 0x74, 8 ) { setShort( 1, 8 ); }
+	void setSerial( UINT32 data ) { setInt( 3, data ); }
+	void addItem( UINT32 price, const QString &description );
+};
+
 #endif

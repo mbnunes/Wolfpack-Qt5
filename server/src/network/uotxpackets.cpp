@@ -442,3 +442,18 @@ void cUOTxItemContent::addItem( SERIAL serial, UINT16 id, UINT16 color, UINT16 x
 	setInt( offset+13, container );
 	setShort( offset+17, color );
 }
+
+void cUOTxVendorBuy::addItem( UINT32 price, const QString &description )
+{
+	INT32 offset = rawPacket.size();
+	rawPacket.resize( rawPacket.size() + 5 + description.length() + 1 ); // Null terminate it for gods-sake
+	setShort( 1, rawPacket.size() );
+	
+	// Add the item itself
+	setInt( offset, price );
+	rawPacket[ offset+4 ] = description.length() + 1;
+	memcpy( rawPacket.data() + offset + 5, description.latin1(), description.length() + 1 );
+	
+	rawPacket[7]++; // Increase item count
+}
+

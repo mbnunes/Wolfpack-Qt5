@@ -820,8 +820,9 @@ bool VendorSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pVendor, const QStr
 
 	if( comm.contains( " BUY" ) )
 	{
-		// LEGACY
-	    //Targ->BuyShop(s, pVendor);
+		// 0x1A = Normal Vendor items
+		// 0x1C = Items Players sold to the vendor
+		socket->sendBuyWindow( pVendor );
 		return true;
 	}
 

@@ -1800,3 +1800,56 @@ void cUOSocket::handleGumpResponse( cUORxGumpResponse* packet )
 {
 	cGumpsManager::getInstance()->handleResponse( this, packet->serial(), packet->type(), packet->choice() );
 }
+
+void cUOSocket::sendBuyWindow( P_CHAR pVendor )
+{
+	P_ITEM pBought = pVendor->GetItemOnLayer( 0x1C );
+	P_ITEM pStock = pVendor->GetItemOnLayer( 0x1A );
+
+	// Send only one container (and merge the bought stuff in)
+	cUOTxCharEquipment charEquip;
+	charEquip.setSerial( pStock->serial );
+	charEquip.setWearer( pStock->contserial );
+	charEquip.setLayer( pStock->layer() );
+	charEquip.setModel( pStock->id() );
+
+	cUOTxItemContent itemContent;
+	cUOTxVendorBuy vendorBuy;
+	vendorBuy.setSerial( pStock->serial );
+
+	vector< SERIAL > content = contsp.getData( pStock->serial );
+	UINT32 i;
+
+	for( i = 0; i < content.size(); ++i )
+	{
+		P_ITEM pItem = FindItemBySerial( content[i] );
+
+		if( pItem )
+		{
+			itemContent.addItem( pItem->serial, pItem->id(), pItem->color(), 0, 0, pItem->amount(), pStock->serial );
+			vendorBuy.addItem( pItem->value, pItem->getName() );
+		}
+	}
+
+	content = contsp.getData( pBought->serial );
+
+	for( i = 0; i < content.size(); ++i )
+	{
+		P_ITEM pItem = FindItemBySerial( content[i] );
+
+		if( pItem )
+		{
+			itemContent.addItem( pItem->serial, pItem->id(), pItem->color(), pItem->amount(), pItem->amount(), pItem->amount(), pStock->serial );
+			vendorBuy.addItem( pItem->value, pItem->getName() );
+		}
+	}
+
+	cUOTxDrawContainer drawContainer;
+	drawContainer.setSerial( pStock->serial );
+	drawContainer.setGump( 0x30 );
+
+	send( &charEquip );
+	send( &itemContent );
+	send( &vendorBuy );
+	send( &drawContainer );
+}

@@ -156,6 +156,7 @@ public:
 	void sendStatWindow( P_CHAR pChar = NULL );
 	bool inRange( cUOSocket* ) const;
 	void sendSkill( UINT16 skill );
+	void sendBuyWindow( P_CHAR pVendor );
 
 	void allowMove( Q_UINT8 sequence );
 	void denyMove( Q_UINT8 sequence );
