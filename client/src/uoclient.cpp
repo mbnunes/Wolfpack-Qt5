@@ -334,8 +334,6 @@ void myMessageOutput( QtMsgType type, const char *msg )
     }
 }
 
-bool (STDCALL *wglSwapIntervalEXT)(int interval);
-
 void cUoClient::run(const QStringList &arguments) {
 	qInstallMsgHandler(myMessageOutput); // Install handler
 	int argc = 0;
@@ -351,9 +349,6 @@ void cUoClient::run(const QStringList &arguments) {
 		unload();
 		return;
 	}
-
-	// This is windows specific
-	//wglSwapIntervalEXT = (bool (STDCALL *)(int))wglGetProcAddress("wglSwapIntervalEXT");
 
 	//LoginDialog->show(PAGE_LOGIN); // Set up the login screen
 	//World->changeFacet(ILSHENAR);
@@ -390,7 +385,6 @@ void cUoClient::run(const QStringList &arguments) {
 		Gui->draw(); // Draw the GUI controls
 		Cursor->draw(); // Draw the cursor overlay
 
-		//wglSwapIntervalEXT(4);
 		Engine->poll(); // Swap
 		//SDL_Delay(5);
 	}

@@ -39,22 +39,40 @@ void cWorld::clearEntities() {
 	// Clear entities.
 	Iterator it;
 	for (it = entities.begin(); it != entities.end(); ++it) {
-		(*it)->decref();
+		Cell &cell = it.data();
+		ConstCellIterator cit = cell.begin();
+		while (cit != cell.end()) {
+			(*cit)->decref();
+			++cit;
+		}		
 	}
 
 	entities.clear();
 }
 
 void cWorld::cleanupEntities() {
-	Iterator it;
-	for (it = entities.begin(); it != entities.end(); ++it) {
-		if ((*it)->isInWorld()) {
-			int distance = Utilities::distance((*it)->x(), (*it)->y(), x_, y_);
+	QValueVector<unsigned int> toremove; // Cells that are now empty
+
+	for (Iterator it = entities.begin(); it != entities.end(); ++it) {
+		Cell &cell = it.data();
+		CellIterator cit = cell.begin();		
+		while (cit != cell.end()) {
+			int distance = Utilities::distance((*cit)->x(), (*cit)->y(), x_, y_);			
 			if (distance > 18) {
-				(*it)->decref();
-				it = entities.remove(it);
+				(*cit)->decref();
+				cit = cell.remove(cit);
 			}
+			++cit;
 		}
+		
+		if (cell.isEmpty()) {
+			toremove.append(it.key());
+		}
+	}
+
+	// Remove empty cells
+	for (QValueVector<unsigned int>::const_iterator it = toremove.begin(); it != toremove.end(); ++it) {
+		entities.remove(*it);
 	}
 }
 
@@ -152,45 +170,78 @@ void cWorld::moveCenter(unsigned short x, unsigned short y, signed char z, bool 
 // Checks if the given entity should be sorted before the
 // second entity
 inline bool insertBefore(cEntity *entity, cEntity *next) {
-	// y-axis is the strongest sorter
+	// the x,y axis checks are no longer neccesary since it's an in-cell check now
+	/*// y-axis is the strongest sorter
 	if (entity->y() != next->y()) {
 		return entity->y() < next->y();
 	} else if (entity->x() != next->x()) {
         return entity->x() < next->x();
 	
+	} else {*/
+	// Do in-cell sorting
+	int priority = entity->priority() - next->priority();
+
+	if (priority > 0) {
+		return false; // Our priority is higher than the next tile
+	} else if (priority < 0) {
+		return true; // Our priority is smaller, so sort before us.
 	} else {
-		// Do in-cell sorting
-		int priority = entity->priority() - next->priority();
-	
-		if (priority > 0) {
-			return false; // Our priority is higher than the next tile
-		} else if (priority < 0) {
-			return true; // Our priority is smaller, so sort before us.
-		} else {
-			return false; // If the priority is the same, tiles that come later, draw later
-		}
+		return false; // If the priority is the same, tiles that come later, draw later
 	}
+	//}
 }
 
 void cWorld::addEntity(cEntity *entity) {
+	// Always remove the entity from it's current cell before re-insertion
+	if (entity->cellid() != -1) {
+		Iterator it = entities.find(entity->cellid());
+		if (it != entities.end()) {
+			Cell &cell = it.data();
+			cell.remove(entity);
+			if (cell.isEmpty()) {
+				entities.remove(it); // Clear the cell from the qmap if it's empty now
+			}
+		}
+		entity->setCellid(-1); // Reset to not-in-world
+	}
+
+	if (entity->facet() != facet_) {
+		return; // Don't add this entity, it's not on the same facet
+	}
+
+	// Calculate the cell id for the entity
+	unsigned int cellid = getCellId(entity->x(), entity->y());
+	entity->setCellid(cellid); // Save the current cellid with the entity
+
 	// Update the tile priority of the new entity first
 	entity->updatePriority();
-	Iterator it(entities.begin());
-
+	
+	Cell &cell = entities[cellid];
+	CellIterator it(cell.begin());
 	// Search for an appropiate place in the list
-	for (; it != entities.end(); ++it) {
+	for (; it != cell.end(); ++it) {
 		// See if the entity should be inserted before our current element
 		if (insertBefore(entity, *it)) {
-			entities.insert(it, entity); // Insert it before this entity
+			cell.insert(it, entity); // Insert it before this entity
 			return;
 		}
 	}
 
-	entities.append(entity); // Simply append now
+	cell.append(entity); // Simply append now
 }
 
 void cWorld::removeEntity(cEntity *entity) {
-	entities.remove(entity);
+	// Only remove the entity if it's in the grid.
+	if (entity->cellid() != -1) {
+		unsigned int cellid = (unsigned int)entity->cellid();
+		Iterator it = entities.find(cellid);
+		if (it != entities.end()) {
+			it.data().remove(entity);
+			if (it.data().isEmpty()) {
+				entities.remove(it);
+			}
+		}
+	}
 }
 
 void cWorld::smoothMove(int x, int y) {
@@ -279,7 +330,30 @@ void cWorld::draw(int x, int y, int width, int height) {
 	int bottomClip = y + height;
 
 	// Draw all existing entites.
-	QValueList<cEntity*>::const_iterator it;
+	for (int cx = QMAX(0, x_ - 18); cx < x_ + 18; ++cx) {
+		for (int cy = QMAX(0, y_ - 18); cy < y_ + 18; ++cy) {
+			unsigned int cellid = getCellId(cx, cy);
+			Iterator it = entities.find(cellid);
+			if (it != entities.end()) {
+				Cell &cell = it.data();				
+				for (ConstCellIterator cit = cell.begin(); cit != cell.end(); ++cit) {
+					cEntity *entity = *cit;
+					if (entity->isInWorld() && entity->z() < roofCap_) {
+						// Calculate the difference on the x/y axis and get the offset from a 0,0 coordinate
+						diffx = entity->x() - x_;
+						diffy = entity->y() - y_;
+						diffz = entity->z() - z_;
+
+						cellx = centerx + (diffx - diffy) * 22;
+						celly = centery + (diffx + diffy) * 22 - diffz * 4;
+
+						entity->draw(cellx, celly, leftClip, topClip, rightClip, bottomClip);
+					}
+				}
+			}
+		}
+	}
+/*	QValueList<cEntity*>::const_iterator it;
 	for (it = entities.begin(); it != entities.end(); ++it) {
 		cEntity *entity = *it;
 		if (entity->isInWorld() && entity->z() < roofCap_) {
@@ -293,7 +367,7 @@ void cWorld::draw(int x, int y, int width, int height) {
 
 			entity->draw(cellx, celly, leftClip, topClip, rightClip, bottomClip);
 		}
-	}
+	}*/
 
 	// Get the entity below the mouse
 	int mx, my;
@@ -314,7 +388,7 @@ cEntity *cWorld::getEntity(int x, int y) {
 	cEntity *found = 0; // The entity that was clicked on
 
 	// Get the entity at the given position
-	if (!entities.isEmpty()) {
+	/*if (!entities.isEmpty()) {
 		Iterator it = entities.end();
 		do {
 			--it;
@@ -330,7 +404,7 @@ cEntity *cWorld::getEntity(int x, int y) {
 					break;
 			}
 		} while (it != entities.begin());
-	}
+	}*/
 
 	return found;
 }

@@ -13,6 +13,7 @@ cEntity::cEntity(unsigned short x, unsigned short y, signed char z, enFacet face
 	height_ = 0;
 	type_ = UNKNOWN;
 	priority_ = 0;
+	cellid_ = -1;
 }
 
 cEntity::~cEntity() {

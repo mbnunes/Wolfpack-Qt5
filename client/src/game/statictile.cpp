@@ -6,6 +6,7 @@
 #include "muls/textures.h"
 #include "muls/maps.h"
 #include "gui/worldview.h"
+#include "log.h"
 
 cStaticTile::cStaticTile(unsigned short x, unsigned short y, signed char z, enFacet facet) : cEntity(x, y, z, facet) {
 	id_ = 0;
@@ -75,8 +76,14 @@ void cStaticTile::draw(int cellx, int celly, int leftClip, int topClip, int righ
 		}
 	} else if (animated && !animation && id_) {
 		animation = Art->readAnimation(id_, hue_, tiledata_->isPartialHue());
-		frame = 0;
-		nextFrame = SDL_GetTicks() + animation->frameDelay(); // + animation->startDelay();
+
+		if (animation) {
+			frame = 0;
+			nextFrame = SDL_GetTicks() + animation->frameDelay(); // + animation->startDelay();
+		} else {
+			Log->print(LOG_DEBUG, tr("Unable to load animation for art tile id 0x%1. Pos (%2,%3,%4,%5).\n").arg(id_).arg(x_).arg(y_).arg(z_).arg(facet_));
+			animated = false;
+		}
 	}
 
 	if (animated && animation) {
@@ -197,8 +204,5 @@ void cStaticTile::onClick() {
 }
 
 void cStaticTile::updatePriority() {
-	priority_ = z_ + (tiledata_->isBackground() ? 0 : 1) + tiledata_->height();//((tiledata_->height() != 0) ? 1 : 0);
-	if (animated) {
-		priority_ += 10;
-	}
+	priority_ = z_ + (tiledata_->isBackground() ? 0 : 1) + ((tiledata_->height() != 0) ? 1 : 0);
 }

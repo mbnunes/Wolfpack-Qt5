@@ -29,8 +29,16 @@ protected:
 	cEntity *mouseOver_;
 	QIntCache<stGroundInfo> groundCache;
 
-	typedef QValueList<cEntity*> Container;
+	// Calculate a cell id for the cell map
+	unsigned int getCellId(unsigned short x, unsigned short y) const;
+
+	// Typedef for the entity map.
+	typedef QValueList<cEntity*> Cell;
+	typedef Cell::iterator CellIterator;
+	typedef Cell::const_iterator ConstCellIterator;
+	typedef QMap<unsigned int, Cell> Container;
 	typedef Container::iterator Iterator;
+	typedef Container::const_iterator ConstIterator;
 	Container entities;
 
 	// Load a specific cell from the given coordinates
@@ -96,6 +104,10 @@ public:
 	void registerDynamic(cDynamicEntity *entity);
 	void unregisterDynamic(cDynamicEntity *entity);
 };
+
+inline unsigned int cWorld::getCellId(unsigned short x, unsigned short y) const {
+	return (x << 16) + y;
+}
 
 inline cDynamicEntity *cWorld::findDynamic(unsigned int serial) const {
 	QMap<unsigned int, cDynamicEntity*>::const_iterator it;

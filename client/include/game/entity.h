@@ -24,6 +24,13 @@ protected:
 	int width_, height_; // last draw height/width
 	enEntityType type_; // type of this entity
 	int priority_; // sort priority
+	
+	/*
+		This is the id of the cell this tile is currently sorted in. 
+		Please note that this should only be set by cWorld upon insertion 
+		and be reset to -1 on removal from the world qmap.
+	*/
+	int cellid_;
 
 public:
 	cEntity(unsigned short x, unsigned short y, signed char z, enFacet facet);
@@ -64,7 +71,19 @@ public:
 
 	// This method should be supplied by the subclass to update the tile priority
 	virtual void updatePriority();
+
+	// Getters/Setters for cellid
+	int cellid() const;
+	void setCellid(int cellid);
 };
+
+inline int cEntity::cellid() const {
+	return cellid_;
+}
+
+inline void cEntity::setCellid(int data) {
+	cellid_ = data;
+}
 
 inline int cEntity::priority() const {
 	return priority_;
