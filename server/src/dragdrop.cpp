@@ -53,30 +53,6 @@
 #undef  DBGFILE
 #define DBGFILE "dragdrop.cpp"
 
-// Lord Binaries "Three Dimension" Drop-bug-fix
-/* if (clientDimension[s]==3)
-{
-  // UO:3D clients send SOMETIMES two dragg packets for a single dragg action.
-  // sometimes we HAVE to swallow it, sometimes it has to be interpreted
-  // if UO:3D specific item loss problems are reported, this is probably the code to blame :)
-  // LB
-  P_ITEM pi = FindItemBySerial(pp->Iserial);
-
-  if( (pp->TxLoc==-1) && (pp->TyLoc==-1) && (pp->Tserial==0)  && (EVILDRAGG[s]==1) )
-  {
-	  EVILDRAGG[s]=0;
-	  return;
-  }
-  else if( (pp->TxLoc==-1) && (pp->TyLoc==-1) && (pp->Tserial==0)  && (EVILDRAGG[s]==0) )
-  {
-	  bounceItem( ps, pi );
-	  return;
-  }
-  else if( ( (pp->TxLoc!=-1) && (pp->TyLoc!=-1) && ( pp->Tserial!=-1)) || ( (isItemSerial(pp->Iserial)) && (isItemSerial(pp->Tserial)) ) ) 
-	  EVILDRAGG[s] = 1;
-  else 
-	  EVILDRAGG[s] = 0;
-} */
 
 // New Class implementation
 void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
@@ -999,37 +975,4 @@ void cDragItems::dropOnBanker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBanker )
 
 void cDragItems::dropOnTrainer( cUOSocket* socket, P_ITEM pItem, P_CHAR pTrainer )
 {
-/*	P_CHAR pChar = socket->player();
-
-	if( pItem->id() != 0xEED )
-	{
-		pTrainer->talk( tr("You need to give me gold if you want me to train you!") );
-		bounceItem( socket, pItem );
-		return;
-	}
-
-	pTrainer->talk( tr("I thank thee for thy payment. That should give thee a good start on thy way. Farewell!") );
-
-	Q_UINT8 skill = pTrainer->trainingplayerin();
-	Q_INT32 skillSum = pChar->getSkillSum();
-	Q_INT32 skillDelta = pTrainer->getTeachingDelta( pChar, skill, skillSum );
-
-	//goldsfx( client->socket(), pItem->amount() );
-
-	if( pItem->amount() > skillDelta )
-	{
-		pItem->ReduceAmount( skillDelta );
-		bounceItem( socket, pItem );
-	}
-	else
-	{
-		skillDelta = pItem->amount();
-		pItem->remove();
-	}
-	
-	pChar->setSkillValue( skill, pChar->skillValue( skill ) + skillDelta );
-	socket->sendSkill( skill );
-
-	// we will not reset the trainer id here because he may want to give him more money
-	*/
 }

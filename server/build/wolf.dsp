@@ -1,31 +1,31 @@
 # Microsoft Developer Studio Project File - Name="wolf" - Package Owner=<4>
 # Microsoft Developer Studio Generated Build File, Format Version 6.00
-# ** NICHT BEARBEITEN **
+# ** DO NOT EDIT **
 
 # TARGTYPE "Win32 (x86) Console Application" 0x0103
 
 CFG=wolf - Win32 Debug
-!MESSAGE Dies ist kein gültiges Makefile. Zum Erstellen dieses Projekts mit NMAKE
-!MESSAGE verwenden Sie den Befehl "Makefile exportieren" und führen Sie den Befehl
+!MESSAGE This is not a valid makefile. To build this project using NMAKE,
+!MESSAGE use the Export Makefile command and run
 !MESSAGE 
 !MESSAGE NMAKE /f "wolf.mak".
 !MESSAGE 
-!MESSAGE Sie können beim Ausführen von NMAKE eine Konfiguration angeben
-!MESSAGE durch Definieren des Makros CFG in der Befehlszeile. Zum Beispiel:
+!MESSAGE You can specify a configuration when running NMAKE
+!MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
 !MESSAGE NMAKE /f "wolf.mak" CFG="wolf - Win32 Debug"
 !MESSAGE 
-!MESSAGE Für die Konfiguration stehen zur Auswahl:
+!MESSAGE Possible choices for configuration are:
 !MESSAGE 
-!MESSAGE "wolf - Win32 Release" (basierend auf  "Win32 (x86) Console Application")
-!MESSAGE "wolf - Win32 Debug" (basierend auf  "Win32 (x86) Console Application")
+!MESSAGE "wolf - Win32 Release" (based on "Win32 (x86) Console Application")
+!MESSAGE "wolf - Win32 Debug" (based on "Win32 (x86) Console Application")
 !MESSAGE 
 
 # Begin Project
 # PROP AllowPerConfigDependencies 0
 # PROP Scc_ProjName "wolf"
 # PROP Scc_LocalPath "."
-CPP=cl.exe
+CPP=xicl6.exe
 RSC=rc.exe
 
 !IF  "$(CFG)" == "wolf - Win32 Release"
@@ -49,7 +49,7 @@ RSC=rc.exe
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
-LINK32=link.exe
+LINK32=xilink6.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
 # ADD LINK32 kernel32.lib user32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt312.lib libmysql.lib /nologo /subsystem:console /map /machine:I386 /nodefaultlib:"libcmt MSVCRTD" /out:"D:\wolfpack\wolfpack.exe" /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib" /libpath:"flatstore\Release" /opt:ref /opt:nowin98
 # SUBTRACT LINK32 /pdb:none
@@ -74,9 +74,9 @@ LINK32=link.exe
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
-LINK32=link.exe
+LINK32=xilink6.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt312.lib libmysql.lib /nologo /version:12.9 /subsystem:console /map /debug /machine:I386 /out:"..\Wolfpack.exe" /pdbtype:sept /libpath:"lib\bugreport\lib" /libpath:"flatstore\Debug"
+# ADD LINK32 kernel32.lib user32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt320.lib libmysql.lib /nologo /version:12.9 /subsystem:console /map /debug /machine:I386 /out:"..\Wolfpack.exe" /pdbtype:sept /libpath:"lib\bugreport\lib" /libpath:"flatstore\Debug"
 # SUBTRACT LINK32 /pdb:none
 
 !ENDIF 
@@ -391,35 +391,7 @@ SOURCE=.\ai.h
 # Begin Source File
 
 SOURCE=.\basechar.h
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
 # PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing basechar.h...
-InputDir=.
-InputPath=.\basechar.h
-InputName=basechar
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing basechar.h...
-InputDir=.
-InputPath=.\basechar.h
-InputName=basechar
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
@@ -432,68 +404,12 @@ SOURCE=.\basics.h
 # Begin Source File
 
 SOURCE=.\boats.h
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
 # PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing boats.h...
-InputDir=.
-InputPath=.\boats.h
-InputName=boats
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing boats.h...
-InputDir=.
-InputPath=.\boats.h
-InputName=boats
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
 SOURCE=.\books.h
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
 # PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing books.h...
-InputDir=.
-InputPath=.\books.h
-InputName=books
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing books.h...
-InputDir=.
-InputPath=.\books.h
-InputName=books
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
@@ -552,35 +468,7 @@ SOURCE=.\coord.h
 # Begin Source File
 
 SOURCE=.\corpse.h
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
 # PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing corpse.h...
-InputDir=.
-InputPath=.\corpse.h
-InputName=corpse
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing corpse.h...
-InputDir=.
-InputPath=.\corpse.h
-InputName=corpse
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
@@ -684,15 +572,6 @@ InputName=house
 !ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
 
 # PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing house.h...
-InputDir=.
-InputPath=.\house.h
-InputName=house
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
 
 !ENDIF 
 
@@ -741,35 +620,7 @@ SOURCE=.\itemid.h
 # Begin Source File
 
 SOURCE=.\items.h
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
 # PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing items.h...
-InputDir=.
-InputPath=.\items.h
-InputName=items
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing items.h...
-InputDir=.
-InputPath=.\items.h
-InputName=items
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
@@ -856,35 +707,7 @@ SOURCE=.\network.h
 # Begin Source File
 
 SOURCE=.\npc.h
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
 # PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing npc.h...
-InputDir=.
-InputPath=.\npc.h
-InputName=npc
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing npc.h...
-InputDir=.
-InputPath=.\npc.h
-InputName=npc
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
@@ -921,35 +744,7 @@ InputName=persistentbroker
 # Begin Source File
 
 SOURCE=.\persistentobject.h
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
 # PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing persistentobject.h...
-InputDir=.
-InputPath=.\persistentobject.h
-InputName=persistentobject
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing persistentobject.h...
-InputDir=.
-InputPath=.\persistentobject.h
-InputName=persistentobject
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
@@ -962,35 +757,7 @@ SOURCE=.\platform.h
 # Begin Source File
 
 SOURCE=.\player.h
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
 # PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing player.h...
-InputDir=.
-InputPath=.\player.h
-InputName=player
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing player.h...
-InputDir=.
-InputPath=.\player.h
-InputName=player
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
@@ -1223,35 +990,7 @@ SOURCE=.\typedefs.h
 # Begin Source File
 
 SOURCE=.\uobject.h
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
 # PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing uobject.h...
-InputDir=.
-InputPath=.\uobject.h
-InputName=uobject
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# PROP Ignore_Default_Tool 1
-# Begin Custom Build - MOCing uobject.h...
-InputDir=.
-InputPath=.\uobject.h
-InputName=uobject
-
-"$(InputDir)\moc_$(InputName).cpp" : $(SOURCE) "$(INTDIR)" "$(OUTDIR)"
-	%qtdir%\bin\moc.exe $(InputDir)\$(InputName).h -o $(InputDir)\moc_$(InputName).cpp
-
-# End Custom Build
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 
@@ -1497,18 +1236,6 @@ SOURCE=.\python\utilities.h
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=.\moc_basechar.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\moc_boats.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\moc_books.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\moc_commands.cpp
 
 !IF  "$(CFG)" == "wolf - Win32 Release"
@@ -1522,23 +1249,11 @@ SOURCE=.\moc_commands.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\moc_corpse.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\moc_gumps.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\moc_house.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\moc_iserialization.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\moc_items.cpp
 # End Source File
 # Begin Source File
 
@@ -1547,18 +1262,6 @@ SOURCE=.\moc_makemenus.cpp
 # Begin Source File
 
 SOURCE=.\moc_multis.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\moc_npc.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\moc_persistentobject.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\moc_player.cpp
 # End Source File
 # Begin Source File
 
@@ -1575,19 +1278,6 @@ SOURCE=.\moc_territories.cpp
 # Begin Source File
 
 SOURCE=.\moc_TmpEff.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\moc_uobject.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /GR
-
-!ENDIF 
-
 # End Source File
 # Begin Source File
 

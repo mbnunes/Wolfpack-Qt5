@@ -156,6 +156,7 @@ bool PersistentBroker::executeQuery( const QString& query )
 	if( !connection )
 		throw QString( "PersistentBroker not connected to database." );
 
+	//qWarning( query );
 	bool result = connection->exec(query);
 	if( !result )
 	{

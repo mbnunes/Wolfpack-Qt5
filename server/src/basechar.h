@@ -144,6 +144,7 @@ public:
 	cItem* atLayer( enLayer layer ) const;
 	bool Owns( P_ITEM pi ) const;
 	virtual void callGuards();
+	virtual void flagUnchanged();
 
 	// Wrapper events
 	virtual bool onSingleClick( P_PLAYER Viewer ); // Shows the name of a character to someone else
@@ -554,6 +555,12 @@ protected:
     // Char which the character guards.
     P_CHAR guarding_;
 };
+
+inline void cBaseChar::flagUnchanged()
+{
+	cBaseChar::changed_ = false;
+	cUObject::flagUnchanged();
+}
 
 inline P_CHAR cBaseChar::guarding() const
 {
