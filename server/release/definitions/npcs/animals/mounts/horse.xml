@@ -16,29 +16,28 @@
 		<inherit id="KARMA_NL0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->
-		<str><random min="22" max="98" /></str>
-		<dex><random min="56" max="75" /></dex>
-		<int><random min="6" max="10" /></int>
+		<str min="22" max="98" />
+		<dex min="56" max="75" />
+		<int min="6" max="10" />
 		<!-- Status -->
-		<maxhitpoints><random min="28" max="45" /></maxhitpoints>
-		<maxmana>0</maxmana>
+		<maxhitpoints min="28" max="45" />
+		<maxmana value="0" />
 		<!-- Damage -->
-		<mindamage>4</mindamage>
-		<maxdamage>6</maxdamage>
+		<mindamage value="4" />
+		<maxdamage value="6" />
 		<!-- Defense -->
 		<tag name="res_physical" value="15,20" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="293" max="440" /></wrestling>
-		<tactics><random min="293" max="440" /></tactics>
-		<magicresistance><random min="251" max="300" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling" min="293" max="440" />
+		<skill id="tactics" min="293" max="440" />
+		<skill id="magicresist" min="251" max="300" />
+		<skill id="anatomy" value="0" />
 		<!-- Misc. -->
-		<controlslots>1</controlslots>
-		<mintaming>291</mintaming>
-		<food>5</food>
+		<controlslots value="1" />
+		<mintaming value="291" />
+		<food value="5" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Horse (Random)</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="10" />
 		<intproperty name="carve_meat" value="3" />
@@ -46,29 +45,29 @@
 
 	<!-- Gray Horses -->
 	<npc id="horse_1" inherit="horse">
-		<baseid>horse</baseid>
-		<id>226</id>
+		<baseid value="horse" />
+		<id value="226" />
 		<category>Animals\Mounts\Horse 1 (Gray)</category>
 	</npc>
 
 	<!-- Gray Brown Horses -->
 	<npc id="horse_2" inherit="horse">
-		<baseid>horse</baseid>
-		<id>200</id>
+		<baseid value="horse" />
+		<id value="200" />
 		<category>Animals\Mounts\Horse 2 (Gray/Brown)</category>
 	</npc>
 
 	<!-- Light Brown Horses -->
 	<npc id="horse_3" inherit="horse">
-		<baseid>horse</baseid>
-		<id>228</id>
+		<baseid value="horse" />
+		<id value="228" />
 		<category>Animals\Mounts\Horse 3 (Light Brown)</category>
 	</npc>
 
 	<!-- Brown Horses -->
 	<npc id="horse_4" inherit="horse">
-		<baseid>horse</baseid>
-		<id>204</id>
+		<baseid value="horse" />
+		<id value="204" />
 		<category>Animals\Mounts\Horse 4 (Brown)</category>
 	</npc>
 

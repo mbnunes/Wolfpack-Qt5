@@ -11,32 +11,32 @@
 	<!-- Desert Ostards -->
 	<npc id="ostard_desert" inherit="animal_base">
 		<name>desert ostard</name>
-		<id>210</id>
+		<id value="210" />
 		<ai>Animal_Wild</ai>
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->
-		<str><random min="94" max="170" /></str>
-		<dex><random min="56" max="75" /></dex>
-		<int><random min="6" max="10" /></int>
+		<str min="94" max="170" />
+		<dex min="56" max="75" />
+		<int min="6" max="10" />
 		<!-- Status -->
-		<maxhitpoints><random min="71" max="88" /></maxhitpoints>
-		<maxmana>0</maxmana>
+		<maxhitpoints min="71" max="88" />
+		<maxmana value="0" />
 		<!-- Damage -->
-		<mindamage>8</mindamage>
-		<maxdamage>18</maxdamage>
+		<mindamage value="8" />
+		<maxdamage value="18" />
 		<!-- Defense -->
 		<tag name="res_physical" value="15,20" type="int" />
 		<tag name="res_fire" value="5,15" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="293" max="440" /></wrestling>
-		<tactics><random min="253" max="400" /></tactics>
-		<magicresistance><random min="251" max="300" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling" min="293" max="440" />
+		<skill id="tactics" min="253" max="400" />
+		<skill id="magicresist" min="251" max="300" />
+		<skill id="anatomy" value="0" />
 		<!-- Misc. -->
-		<controlslots>1</controlslots>
-		<mintaming>291</mintaming>
-		<food>5</food>
+		<controlslots value="1" />
+		<mintaming value="291" />
+		<food value="5" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Desert Ostard</category>
 		<intproperty name="carve_meat" value="3" />
@@ -45,32 +45,32 @@
 	<!-- Forest Ostards -->
 	<npc id="ostard_forest" inherit="animal_base">
 		<name>forest ostard</name>
-		<id>218</id>
+		<id value="218" />
 		<ai>Animal_Wild</ai>
-		<skin><random list="SKINS_BIRD" /></skin>
+		<skin list="SKINS_BIRD" />
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->
-		<str><random min="94" max="170" /></str>
-		<dex><random min="56" max="75" /></dex>
-		<int><random min="6" max="10" /></int>
+		<str min="94" max="170" />
+		<dex min="56" max="75" />
+		<int min="6" max="10" />
 		<!-- Status -->
-		<maxhitpoints><random min="71" max="88" /></maxhitpoints>
-		<maxmana>0</maxmana>
+		<maxhitpoints min="71" max="88" />
+		<maxmana value="0" />
 		<!-- Damage -->
-		<mindamage>13</mindamage>
-		<maxdamage>23</maxdamage>
+		<mindamage value="13" />
+		<maxdamage value="23" />
 		<!-- Defense -->
 		<tag name="res_physical" value="15,20" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="293" max="440" /></wrestling>
-		<tactics><random min="293" max="440" /></tactics>
-		<magicresistance><random min="271" max="320" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling" min="293" max="440" />
+		<skill id="tactics" min="293" max="440" />
+		<skill id="magicresist" min="271" max="320" />
+		<skill id="anatomy" value="0" />
 		<!-- Misc. -->
-		<controlslots>1</controlslots>
-		<mintaming>291</mintaming>
-		<food>5</food>
+		<controlslots value="1" />
+		<mintaming value="291" />
+		<food value="5" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Forest Ostard</category>
 		<intproperty name="carve_meat" value="3" />
@@ -79,34 +79,34 @@
 	<!-- Frenzied Ostard -->
 	<npc id="ostard_frenzied" inherit="monster_base">
 		<name>frenzied ostard</name>
-		<id>219</id>
-		<skin><random list="SKINS_BIRD" /></skin>
+		<id value="219" />
+		<skin list="SKINS_BIRD" />
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->
-		<str><random min="94" max="170" /></str>
-		<dex><random min="96" max="115" /></dex>
-		<int><random min="6" max="10" /></int>
+		<str min="94" max="170" />
+		<dex min="96" max="115" />
+		<int min="6" max="10" />
 		<!-- Status -->
-		<maxhitpoints><random min="71" max="110" /></maxhitpoints>
-		<maxmana>0</maxmana>
+		<maxhitpoints min="71" max="110" />
+		<maxmana value="0" />
 		<!-- Damage -->
-		<mindamage>25</mindamage>
-		<maxdamage>35</maxdamage>
+		<mindamage value="25" />
+		<maxdamage value="35" />
 		<!-- Defense -->
 		<tag name="res_physical" value="25,30" type="int" />
 		<tag name="res_fire" value="10,15" type="int" />
 		<tag name="res_poison" value="20,25" type="int" />
 		<tag name="res_energy" value="20,25" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="793" max="940" /></wrestling>
-		<tactics><random min="793" max="940" /></tactics>
-		<magicresistance><random min="751" max="800" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling" min="793" max="940" />
+		<skill id="tactics" min="793" max="940" />
+		<skill id="magicresist" min="751" max="800" />
+		<skill id="anatomy" value="0" />
 		<!-- Misc. -->
-		<controlslots>2</controlslots>
-		<mintaming>771</mintaming>
-		<food>1</food>
+		<controlslots value="2" />
+		<mintaming value="771" />
+		<food value="1" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Frenzied Ostard</category>
 		<intproperty name="carve_meat" value="3" />

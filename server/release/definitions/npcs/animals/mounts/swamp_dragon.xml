@@ -16,14 +16,14 @@
 		<inherit id="KARMA_L2" />
 		<inherit id="FAME_L2" />
 		<!-- Stats -->
-		<str><random min="201" max="300" /></str>
-		<dex><random min="66" max="85" /></dex>
-		<int><random min="61" max="100" /></int>
+		<str min="201" max="300" />
+		<dex min="66" max="85" />
+		<int min="61" max="100" />
 		<!-- Status -->
-		<maxhitpoints><random min="121" max="180" /></maxhitpoints>
+		<maxhitpoints min="121" max="180" />
 		<!-- Damage -->
-		<mindamage>7</mindamage>
-		<maxdamage>9</maxdamage>
+		<mindamage value="7" />
+		<maxdamage value="9" />
 		<tag name="dmg_poison" value="25" type="int" />
 		<!-- Defense -->
 		<tag name="res_physical" value="35,40" type="int" />
@@ -32,14 +32,14 @@
 		<tag name="res_poison" value="20,30" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="451" max="550" /></wrestling>
-		<tactics><random min="451" max="550" /></tactics>
-		<magicresistance><random min="451" max="550" /></magicresistance>
-		<anatomy><random min="451" max="550" /></anatomy>
+		<skill id="wrestling" min="451" max="550" />
+		<skill id="tactics" min="451" max="550" />
+		<skill id="magicresist" min="451" max="550" />
+		<skill id="anatomy" min="451" max="550" />
 		<!-- Misc. -->
-		<controlslots>1</controlslots>
-		<mintaming>939</mintaming>
-		<food>1</food>
+		<controlslots value="1" />
+		<mintaming value="939" />
+		<food value="1" />
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Swamp Dragon (Random)</category>
 		<strproperty name="slayer_group" value="dragons" />
@@ -52,30 +52,33 @@
 
 	<!-- Swamp Dragon -->
 	<npc id="swamp_dragon_1" inherit="swamp_dragon">
-		<id>794</id>
+		<id value="794" />
+		<baseid value="swamp_dragon" />
 		<category>Animals\Mounts\Swamp Dragon</category>
 	</npc>
 
 	<!-- Armored Swamp Dragon, Weak -->
 	<npc id="swamp_dragon_2" inherit="swamp_dragon">
-		<id>799</id>
+		<id value="799" />
+		<baseid value="swamp_dragon" />
 		<category>Animals\Mounts\Armored Swamp Dragon (Weak)</category>
 	</npc>
 
 	<!-- Armored Swamp Dragon, Strong -->
 	<npc id="swamp_dragon_3" inherit="swamp_dragon">
-		<id>799</id>
+		<id value="799" />
+		<baseid value="swamp_dragon" />
 		<inherit id="KARMA_L3" />
 		<inherit id="FAME_L3" />
 		<!-- Stats -->
-		<str><random min="301" max="400" /></str>
-		<dex><random min="166" max="185" /></dex>
-		<int><random min="161" max="200" /></int>
+		<str min="301" max="400" />
+		<dex min="166" max="185" />
+		<int min="161" max="200" />
 		<!-- Status -->
-		<maxhitpoints><random min="191" max="230" /></maxhitpoints>
+		<maxhitpoints min="191" max="230" />
 		<!-- Damage -->
-		<mindamage>14</mindamage>
-		<maxdamage>18</maxdamage>
+		<mindamage value="14" />
+		<maxdamage value="18" />
 		<tag name="dmg_poison" value="25" type="int" />
 		<!-- Defense -->
 		<tag name="res_physical" value="45,50" type="int" />
@@ -84,10 +87,10 @@
 		<tag name="res_poison" value="30,40" type="int" />
 		<tag name="res_energy" value="40,50" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="751" max="950" /></wrestling>
-		<tactics><random min="751" max="950" /></tactics>
-		<magicresistance><random min="751" max="950" /></magicresistance>
-		<anatomy><random min="751" max="950" /></anatomy>
+		<skill id="wrestling" min="751" max="950" />
+		<skill id="tactics" min="751" max="950" />
+		<skill id="magicresist" min="751" max="950" />
+		<skill id="anatomy" min="751" max="950" />
 		<!-- Misc. -->
 		<category>Animals\Mounts\Armored Swamp Dragon (Strong)</category>
 	</npc>

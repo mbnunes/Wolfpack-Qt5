@@ -9,10 +9,10 @@
 <definitions>
 
 	<!-- Dark Steeds -->
-	<npc id="steed_dark" inherit="nightmare">
+	<npc id="dark_steed" inherit="nightmare">
 		<name>dark steed</name>
 		<ai>Animal_Wild</ai>
-		<id>114</id>
+		<id value="114" />
 		<category>Animals\Mounts\Dark Steed</category>
 	</npc>
 

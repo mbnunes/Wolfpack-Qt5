@@ -11,13 +11,13 @@
 	<!-- Kirins -->
 	<npc id="kirin" inherit="animal_base">
 		<name>ki-rin</name>
-		<id>132</id>
+		<id value="132" />
 		<ai>Animal_Wild</ai>
 		<inherit id="KARMA_NL4" />
 		<inherit id="FAME_L4" />
 		<!-- Damage -->
-		<mindamage>35</mindamage>
-		<maxdamage>45</maxdamage>
+		<mindamage value="35" />
+		<maxdamage value="45" />
 		<tag name="dmg_fire" value="10" type="int" />
 		<tag name="dmg_cold" value="10" type="int" />
 		<tag name="dmg_energy" value="10" type="int" />
@@ -28,25 +28,24 @@
 		<tag name="res_poison" value="25,35" type="int" />
 		<tag name="res_energy" value="25,35" type="int" />
 		<!-- Stats -->
-		<str><random min="296" max="325" /></str>
-		<dex><random min="86" max="105" /></dex>
-		<int><random min="186" max="225" /></int>
-		<maxhitpoints><random min="191" max="210" /></maxhitpoints>
+		<str min="296" max="325" />
+		<dex min="86" max="105" />
+		<int min="186" max="225" />
+		<maxhitpoints min="191" max="210" />
 		<!-- Skills -->
-		<wrestling><random min="805" max="925" /></wrestling>
-		<tactics><random min="201" max="225" /></tactics>
-		<magicresistance><random min="853" max="1000" /></magicresistance>
-		<magery><random min="604" max="1000" /></magery>
-		<evaluatingintelligence><random min="801" max="900" /></evaluatingintelligence>
-		<meditation><random min="901" max="1000" /></meditation>
+		<skill id="wrestling" min="805" max="925" />
+		<skill id="tactics" min="201" max="225" />
+		<skill id="magicresist" min="853" max="1000" />
+		<skill id="magery" min="604" max="1000" />
+		<skill id="evaluatingintelligence" min="801" max="900" />
+		<skill id="meditation" min="901" max="1000" />
 		<!-- Misc. -->
 		<!-- Missing: 1-7CS, LNS, Potion -->
-		<controlslots>2</controlslots>
+		<controlslots value="2" />
 		<lootpacks>lootpack_rich</lootpacks>
-		<mintaming>951</mintaming>
-		<food>5</food>
+		<mintaming value="951" />
+		<food value="5" />
 		<category>Animals\Mounts\Kirin</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="10" />
 		<strproperty name="carve_hides_type" value="horned" />
