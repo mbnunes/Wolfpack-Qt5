@@ -37,7 +37,6 @@
 #include "globals.h"
 #include "guildstones.h"
 #include "srvparams.h"
-#include "classes.h"
 #include "skills.h"
 #include "network.h"
 #include "gumps.h"
@@ -49,6 +48,8 @@
 #include "multis.h"
 #include "targetactions.h"
 #include "boats.h"
+#include "magic.h"
+#include "itemid.h"
 
 #undef  DBGFILE
 #define DBGFILE "dbl_single_click.cpp"

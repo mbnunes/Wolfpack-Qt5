@@ -40,7 +40,6 @@
 #include "mapobjects.h"
 #include "srvparams.h"
 #include "network.h"
-#include "classes.h"
 #include "territories.h"
 #include "network/uosocket.h"
 #include "pagesystem.h"
@@ -48,6 +47,7 @@
 #include "house.h"
 #include "boats.h"
 #include "wpdefaultscript.h"
+#include "itemid.h"
 
 // Library Includes
 #include <qdatetime.h>

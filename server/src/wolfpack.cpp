@@ -54,7 +54,6 @@
 #include "srvparams.h"
 #include "network.h"
 #include "exceptions.h"
-#include "classes.h"
 #include "gumps.h"
 #include "commands.h"
 #include "spawnregions.h"
@@ -80,6 +79,7 @@
 #include "multiscache.h"
 #include "Trade.h"
 #include "network/uotxpackets.h"
+#include "magic.h"
 
 // Library Includes
 #include <qapplication.h>

@@ -49,13 +49,13 @@
 #include "wpdefaultscript.h"
 #include "maps.h"
 #include "network.h"
-#include "classes.h"
 #include "multis.h"
 #include "spellbook.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"
 #include "world.h"
 #include "wpscriptmanager.h"
+#include "itemid.h"
 
 // System Includes
 #include <math.h>

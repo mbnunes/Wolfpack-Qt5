@@ -40,9 +40,12 @@
 #include "network/uotxpackets.h"
 #include "territories.h"
 #include "multiscache.h"
-#include "classes.h" // only for the illegal_z!
+#include "defines.h"
 #include "dbdriver.h"
 #include "persistentbroker.h"
+#include "world.h"
+#include "globals.h"
+#include "wpconsole.h"
 
 
 #undef DBGFILE
@@ -971,13 +974,13 @@ bool cBoat::leave( cUOSocket* socket, P_ITEM pplank )
 		{
 			sz = Map->staticTop( Coord_cl( x, y, 0, 0) );
 			mz = Map->mapElevation( Coord_cl( x, y, 0, 0) );
-			if( (sz == illegal_z) && (mz != -5) ) 
+			if( (sz == ILLEGAL_Z) && (mz != -5) ) 
 			{
 				z = mz;
 				check = true;
 				break;
 			} 
-			else if( (sz != illegal_z) && (sz != -5) ) 
+			else if( (sz != ILLEGAL_Z) && (sz != -5) ) 
 			{
 				z = sz;
 				check = true;

@@ -32,7 +32,6 @@
 
 #include "multiscache.h"
 #include "defines.h"
-#include "classes.h" // only because of illegal_z
 #include "exceptions.h"
 
 // Library Includes
@@ -103,7 +102,7 @@ signed char MultiDefinition::multiHeight( short x, short y, short z ) const
 			}
 		}                                                                                                                 
 	}
-	return illegal_z;
+	return ILLEGAL_Z;
 }
 
 /*!

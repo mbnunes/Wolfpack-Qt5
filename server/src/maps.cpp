@@ -31,10 +31,11 @@
 
 
 #include "maps.h"
-#include "classes.h" // due to illegal_z
 #include "tilecache.h"
 #include "mapobjects.h"
 #include "multiscache.h"
+#include "defines.h"
+#include "items.h"
 
 // Library Includes
 #include <qstring.h>
@@ -194,7 +195,7 @@ signed char Maps::mapElevation( const Coord_cl& p ) const
 	// make sure nothing can move into black areas
 	if (430 == map.id || 475 == map.id || 580 == map.id || 610 == map.id ||
 		611 == map.id || 612 == map.id || 613 == map.id)
-		return illegal_z;
+		return ILLEGAL_Z;
 	/*! 
 	\internal
 	\note maybe the above if could be better checked thru flags. Or even better yet,
@@ -225,7 +226,7 @@ signed char Maps::mapAverageElevation( const Coord_cl& p ) const
 	map_st map1 = seekMap( p );
 	//id = map1.id;
 	// if this appears to be a valid land id, <= 2 is invalid
-	if (map1.id > 2 && illegal_z != mapElevation(p))
+	if (map1.id > 2 && ILLEGAL_Z != mapElevation(p))
 	{
 		// get three other nearby maps to decide on an average z?
 		INT8 map2z = mapElevation( p + Coord_cl( 1, 0, 0 ) );
@@ -235,7 +236,7 @@ signed char Maps::mapAverageElevation( const Coord_cl& p ) const
 		INT8 testz = 0;
 		if (abs(map1.z - map4z) <= abs(map2z - map3z))
 		{
-			if (illegal_z == map4z)
+			if (ILLEGAL_Z == map4z)
 				testz = map1.z;
 			else
 			{
@@ -245,7 +246,7 @@ signed char Maps::mapAverageElevation( const Coord_cl& p ) const
 		} 
 		else 
 		{
-			if (illegal_z == map2z || illegal_z == map3z)
+			if (ILLEGAL_Z == map2z || ILLEGAL_Z == map3z)
 				testz = map1.z;
 			else
 			{
@@ -255,13 +256,13 @@ signed char Maps::mapAverageElevation( const Coord_cl& p ) const
 		}
 		return testz;
 	}
-	return illegal_z;
+	return ILLEGAL_Z;
 }
 
 signed char Maps::dynamicElevation(const Coord_cl& pos) const
 {
-	//int z = illegal_z;
-	signed char z = illegal_z;
+	//int z = ILLEGAL_Z;
+	signed char z = ILLEGAL_Z;
 	RegionIterator4Items ri( pos );
 	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{
@@ -294,7 +295,7 @@ signed char Maps::dynamicElevation(const Coord_cl& pos) const
 
 signed char Maps::staticTop(const Coord_cl& pos)
 {
-	signed char top = illegal_z;
+	signed char top = ILLEGAL_Z;
 	unsigned long loopexit = 0;
 
 	StaticsIterator msi = this->staticsIterator(pos);
@@ -315,11 +316,11 @@ signed char Maps::height(const Coord_cl& pos)
 {
 	// let's check in this order.. dynamic, static, then the map
 	signed char dynz = dynamicElevation(pos);
-	if (illegal_z != dynz)
+	if (ILLEGAL_Z != dynz)
 		return dynz;
 
 	signed char staticz = staticTop(pos);
-	if (illegal_z != staticz)
+	if (ILLEGAL_Z != staticz)
 		return staticz;
 
 	return mapElevation(pos);

@@ -39,13 +39,15 @@
 #include "combat.h"
 #include "mapobjects.h"
 #include "srvparams.h"
-#include "classes.h"
 #include "network.h"
 #include "spawnregions.h"
 #include "territories.h"
 #include "skills.h"
 #include "boats.h"
 #include "house.h"
+#include "typedefs.h"
+#include "magic.h"
+#include "itemid.h"
 
 // Library Includes
 #include <qdatetime.h>

@@ -55,6 +55,8 @@ extern long int oldtime, newtime;
 //#define MSG_NOSIGNAL 0
 //#endif
 
+#define ILLEGAL_Z	128
+
 #define MAX_GUILDTYPE 2	// Code to support the Chaos/order system
 #define MAXSERV 5 // Maximum servers in login listing
 //#define MAXSTART 15 // Maximum starting locations

@@ -44,12 +44,12 @@
 #include "srvparams.h"
 #include "wolfpack.h"
 #include "iserialization.h"
-#include "classes.h"
 #include "network.h"
 #include "wpdefmanager.h"
 #include "network/uosocket.h"
 #include "skills.h"
 #include "mapobjects.h"
+#include "magic.h"
 
 #include <algorithm>
 #include <typeinfo>

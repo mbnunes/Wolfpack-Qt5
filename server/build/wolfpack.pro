@@ -58,7 +58,6 @@ HEADERS         = \
 		  boats.h \
 		  books.h \
 		  chars.h \
-		  classes.h \
 		  coord.h \
 		  combat.h \
 		  commands.h \

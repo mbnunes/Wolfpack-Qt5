@@ -43,7 +43,6 @@
 #include "wpdefmanager.h"
 #include "wpdefaultscript.h"
 #include "network.h"
-#include "classes.h"
 #include "maps.h"
 #include "multis.h"
 

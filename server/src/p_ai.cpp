@@ -33,8 +33,8 @@
 #include "debug.h"
 #include "mapobjects.h"
 #include "srvparams.h"
-#include "classes.h"
 #include "territories.h"
+#include "magic.h"
 
 using namespace std;
 

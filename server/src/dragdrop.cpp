@@ -39,7 +39,6 @@
 #include "mapobjects.h"
 #include "srvparams.h"
 #include "skills.h"
-#include "classes.h"
 #include "maps.h"
 #include "network.h"
 #include "network/uosocket.h"

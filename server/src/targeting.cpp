@@ -42,7 +42,6 @@
 #include "wpscriptmanager.h"
 #include "targetrequests.h"
 #include "maps.h"
-#include "classes.h"
 #include "network/uosocket.h"
 #include "gumps.h"
 #include "network.h"

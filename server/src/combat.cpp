@@ -42,7 +42,6 @@
 #include "combat.h"
 #include "srvparams.h"
 #include "skills.h"
-#include "classes.h"
 #include "network.h"
 #include "network/uosocket.h"
 #include "network/uotxpackets.h"

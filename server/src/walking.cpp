@@ -40,7 +40,6 @@
 #include "mapobjects.h"
 #include "srvparams.h"
 #include "network.h"
-#include "classes.h"
 #include "maps.h"
 #include "tilecache.h"
 #include "territories.h"
@@ -48,6 +47,7 @@
 #include "multiscache.h"
 #include "tilecache.h"
 #include "multis.h"
+#include "magic.h"
 
 // Library Includes
 #include <qvaluevector.h>
@@ -807,7 +807,7 @@ void cMovement::GetBlockingMap( const Coord_cl pos, unitile_st *xyblock, int &xy
 {
 	int mapid = 0;
 	signed char mapz = Map->mapElevation(pos);  //Map->AverageMapElevation(x, y, mapid);
-	if (mapz != illegal_z)
+	if (mapz != ILLEGAL_Z)
 	{
 		land_st land = TileCache::instance()->getLand( mapid );
 	
@@ -1180,16 +1180,16 @@ void cMovement::HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket)
 
 			// dynamics-check
 			int x = Map->dynamicElevation(pc->pos);
-			if (x!=illegal_z)
-				x=illegal_z; // check for dynamic buildings
+			if (x!=ILLEGAL_Z)
+				x=ILLEGAL_Z; // check for dynamic buildings
 			if (x==1)
-				x = illegal_z; // 1 seems to be the multi-borders
+				x = ILLEGAL_Z; // 1 seems to be the multi-borders
 			
 			//printf("x: %i\n",x);
 			// ah hah! this was a bug waiting to happen if not already, we have overloaded the use of the
 			// variable k, which used to hold the socket
 //			int k = noweather[socket];
-			if (inDungeon || i || x!= illegal_z )
+			if (inDungeon || i || x!= ILLEGAL_Z )
 				noweather[socket] = 1;
 			else
 				noweather[socket] = 0; // no rain & snow in static buildings+dungeons;
@@ -1616,11 +1616,11 @@ bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
     const signed char elev = Map->height( pos );
 	Coord_cl target = pos;
 	target.z = elev;
-	if (illegal_z == elev)
+	if (ILLEGAL_Z == elev)
 		return false;
 
 	// is it too great of a difference z-value wise?
-	if (pos.z != illegal_z)
+	if (pos.z != ILLEGAL_Z)
 	{
 		// you can climb MaxZstep, but fall up to 15
 		if (elev - pos.z > MaxZstep)

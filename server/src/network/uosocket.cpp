@@ -46,7 +46,6 @@
 #include "../structs.h"
 #include "../speech.h"
 #include "../commands.h"
-#include "../classes.h"
 #include "../srvparams.h"
 #include "../wpdefmanager.h"
 #include "../wpscriptmanager.h"

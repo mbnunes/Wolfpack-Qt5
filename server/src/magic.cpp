@@ -41,7 +41,6 @@
 #include "srvparams.h"
 #include "globals.h"
 #include "wpdefmanager.h"
-#include "classes.h"
 #include "maps.h"
 #include "network.h"
 #include "TmpEff.h"

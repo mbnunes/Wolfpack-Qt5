@@ -37,7 +37,6 @@
 #include "guildstones.h"
 #include "srvparams.h"
 #include "wpdefmanager.h"
-#include "classes.h"
 #include "network.h"
 #include "network/uosocket.h"
 #include "spawnregions.h"

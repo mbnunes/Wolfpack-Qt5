@@ -39,7 +39,7 @@
 #include "Trade.h"
 #include "inlines.h"
 #include "srvparams.h"
-#include "classes.h"
+#include "typedefs.h"
 #include "network.h"
 #include "network/uorxpackets.h"
 #include "network/uotxpackets.h"
