@@ -29,7 +29,6 @@ deeds = {
 	'training_dummy_e':[ 1015143, 0, "1074" ],
 	'training_dummy_s':[ 1015144, 0, "1070" ],
 	'pickpocket_dip_e':[ 1015145, 0, "1ec0" ],
-	#'pickpocket_dip_s':[ 1015146, ],
 	'spinning_wheel_e':[ 1015139, 0, "1019" ],
 	'spinning_wheel_s':[ 1015140, 0, "1015" ],
 	'loom_s':[ 1015141, 1, "1060", "105f" ],
@@ -42,7 +41,12 @@ deeds = {
 	'water_trough_s':[ 1015154, 1, "b41", "b42" ],
 	'bulletin_board':[ 1027774, 0, "1e5e" ],
 	'dresser_e': [ 1022620, 2, "a3d", "a3c" ],
-	'dresser_s': [ 1022620, 1, "a45", "a44" ]
+	'dresser_s': [ 1022620, 1, "a45", "a44" ],
+	# not really carpentry...
+	'stonetable_medium_e': [ 1044508, 1, "1202", "1201" ],
+	'stonetable_medium_s': [ 1044509, 2, "1205", "1204" ],
+	'stonetable_large_e': [ 1044511, 1, "1202", "1203", "1201" ],
+	'stonetable_large_s': [ 1044512, 2, "1205", "1206", "1204" ],
 }
 
 def onShowTooltip( sender, target, tooltip ):
