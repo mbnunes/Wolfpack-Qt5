@@ -86,39 +86,11 @@ LINK32=xilink6.exe
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=.\asyncnetio.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\listener.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\main.cpp
 # End Source File
 # Begin Source File
 
 SOURCE=.\uopacket.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\uopacketmanager.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\uorxpackets.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\uosocket.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\uosocketmanager.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\uotxpackets.cpp
 # End Source File
 # End Group
 # Begin Group "Header Files"

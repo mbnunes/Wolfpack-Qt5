@@ -423,11 +423,13 @@ void cAsyncNetIO::buildUOPackets( cAsyncNetIOPrivate* d )
 					d->ungetch( packetID ); // byte was read, put back to buffer.
 					continue;
 				}
-
-				Q_UINT16 length = ( ( ( d->getch() & 0x000000FF ) << 8 ) | ( d->getch() & 0x000000FF ) );
-				d->ungetch( length & 0x00FF );
-				d->ungetch( length >> 8 ); 
-
+				Q_UINT16 length = 0;
+				Q_UINT8* p = (Q_UINT8*)&length;
+				*(p+1)     = (Q_UINT8) d->getch();
+				*p         = (Q_UINT8) d->getch();
+				d->ungetch( *p     );
+				d->ungetch( *(p+1) );
+				d->ungetch( packetID );
 				if ( d->rsize < length )
 				{
 					keepExtracting = false;

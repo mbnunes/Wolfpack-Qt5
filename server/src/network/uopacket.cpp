@@ -36,27 +36,66 @@
 
 #include <ctype.h>
 
+
+/*****************************************************************************
+  cUOPacket member functions
+ *****************************************************************************/
+
+/*!
+  \class cUOPacket uopacket.h
+
+  \brief The cUOPacket class provides an abstraction of Ultima Online network 
+  packets.
+
+  \ingroup network
+  \mainclass
+*/
+
+/*!
+  Constructs a packet that is a deep copy of \a d interpreted as
+  raw data.
+*/
 cUOPacket::cUOPacket( QByteArray d )
 {
 	rawPacket = d.copy();
 }
 
+/*!
+  Constructs a packet that is a deep copy of \a p.
+*/
 cUOPacket::cUOPacket( cUOPacket& p ) // copy constructor
 {
 	assign(p);
 }
 
+/*!
+  Constructs a packet of size \a size and filled with 0's.
+*/
 cUOPacket::cUOPacket( Q_UINT32 size ) : rawPacket( size )
 {
 	rawPacket.fill( (char)0 );
 }
 
+/*!
+  Constructs a packet of type \a packetId, of size \a size and filled
+  with 0's in all positions except for the first byte which contains
+  the packet type.
+*/
 cUOPacket::cUOPacket( Q_UINT8 packetId, Q_UINT32 size ) : rawPacket( size )
 {
 	rawPacket.fill( (char)0 );
 	rawPacket[0] = packetId;
 }
 
+/*!
+  \fn cUOPacket::assign( cUOPacket& p )
+  \internal
+  Performs a deep copy of the internal packet buffers:
+  \list
+  \i rawPacket - Uncompressed raw data
+  \i compressedBuffer - Compressed data
+  \endlist
+*/
 void cUOPacket::assign( cUOPacket& p)
 {
 	rawPacket = p.rawPacket.copy();

@@ -108,6 +108,7 @@ void cUOSocket::recieve()
 			moveOk[1] = (*packet)[2];
 			send( &moveOk );
 		}
+		break;
 	case 0x80:
 		handleLoginRequest( dynamic_cast< cUORxLoginRequest* >( packet ) ); break;
 	case 0xA4:
@@ -215,12 +216,13 @@ void cUOSocket::sendCharList()
 	vector< P_CHAR > characters = Accounts->characters( _account );
 
 	// Add the characters
-	for( Q_UINT8 i = 0; i < characters.size(); ++i )
+	Q_UINT8 i = 0;
+	for(; i < characters.size(); ++i )
 		charList->addCharacter( characters[ i ]->name.c_str() );
 
 	// Add the Starting Locations
 	vector< StartLocation_st > startLocations = SrvParams->startLocation();
-	for( Q_UINT8 i = 0; i < startLocations.size(); ++i )
+	for( i = 0; i < startLocations.size(); ++i )
 		charList->addTown( i, startLocations[i].name, startLocations[i].name );
 
 	charList->compile();

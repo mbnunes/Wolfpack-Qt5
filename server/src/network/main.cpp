@@ -30,11 +30,7 @@
 //========================================================================================
 
 
-
-#include "listener.h"
-#include "asyncnetio.h"
 #include "uopacket.h"
-#include "uosocket.h"
 
 // Library Includes
 #include "zthread/exceptions.h"
@@ -48,62 +44,18 @@
 using namespace std;
 using namespace ZThread;
 
-cAsyncNetIO* netio = 0;
-vector< cUOSocket* > uoSockets;
 
 int main( int argc, char** argv )
 {
-	cListener* listener = new cListener(2593);
-	netio = new cAsyncNetIO;
+	cUOPacket test(100);
+	QString name = "Correa - Wolfpack Dev";
+	test.setUnicodeString(0, name, 100 - 16 );
 
-	listener->start();
-	netio->start();
-
-	try
-	{
-		while ( true )
-		{
-			if ( listener->haveNewConnection() )
-			{
-				QSocketDevice *socket = listener->getNewConnection(); 
-				netio->registerSocket( socket );
-				uoSockets.push_back( new cUOSocket(socket) );
-				cout << QString( "Socket connected [%1]\n" ).arg( socket->peerAddress().toString() ).latin1();
-			}
-
-			// Process waiting packets
-			vector< cUOSocket* >::iterator uoIterator;
-
-			for( uoIterator = uoSockets.begin(); uoIterator != uoSockets.end(); ++uoIterator )
-			{
-				cUOSocket *uoSocket = (*uoIterator);
-
-				if( !uoSocket->socket()->error() == QSocketDevice::NetworkFailure )
-				{
-					cout << QString( "Socket disconnected [%1]\n" ).arg( uoSocket->socket()->peerAddress().toString() ).latin1();
-					netio->unregisterSocket( uoSocket->socket() );
-					uoSockets.erase( uoIterator );
-				}
-				else
-				{
-					uoSocket->recieve();
-				}
-			}
-
-			_sleep( 40 );
-		}
-	}
-	catch( Synchronization_Exception& e )
-	{
-		cerr << e.what() << endl;
-		netio->cancel();
-		listener->cancel();
-	}
-//	catch ( ... )
-//	{
-//		cerr << "Unknown exception" << endl;
-//		terminate();
-//	}
-
+	test.print( &cout );
+	QString name2;
+	name2 = test.getUnicodeString(0, 100);
+	cout << name2.latin1() << endl;
+	test.setUnicodeString(0, name2, 100 - 16);
+	test.print( &cout );
 	return 0;
 }
