@@ -1,0 +1,22 @@
+<definitions>
+	<menu id="CRAFTMENU_CARPENTRY">
+		<name>Carpentry</name>
+		
+		<menu inherit="CARPENTRY_chairs" />
+	</menu>
+	
+	<menu id="CARPENTRY_chairs">
+		<name>Chairs</name>
+		
+		<action>
+			<name>Throne</name>
+			<model>0xB33</model>
+			<description>A throne for us kings</description>
+			<make>
+				<useitem itemid="0x1BD7-0x1BDC" name="boards" amount="5" />
+				<makeitem section="throne" amount="1" />
+				<skillcheck skillid="11" min="350" max="850" />
+			</make>
+		</action>
+	</menu>
+</definitions>
