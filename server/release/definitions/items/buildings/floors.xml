@@ -1527,13 +1527,13 @@
 	<item id="2720">
 		<id>0x2720</id>
 		<nodecay />
-		<category>Buildings\Floors\Samurai\Wooden Floor 04\01<category>
+		<category>Buildings\Floors\Samurai\Wooden Floor 04\01</category>
 	</item>
 
 	<item id="2721">
 		<id>0x2721</id>
 		<nodecay />
-		<category>Buildings\Floors\Samurai\Wooden Floor 05\01<category>
+		<category>Buildings\Floors\Samurai\Wooden Floor 05\01</category>
 	</item>
 
 </definitions>
