@@ -92,7 +92,7 @@ def lock_response(char, args, target):
 	if target.item.hasscript('lock') and target.item.hastag('lock'):
 		gump.addBackground(id=0x2436, width=425, height=285)
 
-		lock = str(target.item.gettag('lock'))
+		lock = unicode(target.item.gettag('lock'))
 		locked = 0
 
 		if target.item.hastag('locked') and int(target.item.gettag('locked')) != 0:
@@ -182,7 +182,7 @@ def onUse(char, item):
 		return 0
 
 	# The magic lock spell has the lock id 'magic'
-	lock = str(item.gettag('lock'))
+	lock = unicode(item.gettag('lock'))
 	locked = 0
 
 	if item.hastag('locked'):
@@ -225,7 +225,7 @@ def onShowTooltip(viewer, object, tooltip):
     lock = 'None'
 
     if object.hastag('lock'):
-      lock = str(object.gettag('lock'))
+      lock = unicode(object.gettag('lock'))
 
     if object.hastag('locked') and int(object.gettag('locked')) != 0:
       suffix = ' (Locked)'
