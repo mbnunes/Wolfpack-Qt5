@@ -34,6 +34,7 @@
 #include "../targetrequests.h"
 #include "../timers.h"
 #include "../serverconfig.h"
+#include "../console.h"
 
 #include "../sectors.h"
 #include "../world.h"
@@ -109,6 +110,7 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString& message
 		{
 			int gold = pTalker->countBankGold() + pTalker->countGold();
 			P_ITEM pPack = m_npc->getBankbox();
+			
 			cItem::ContainerContent stableitems;
 			if ( pPack )
 			{
@@ -136,6 +138,8 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString& message
 						if ( pPet )
 						{
 							pPet->free = false;
+							// we need this for db saves
+							pPet->setStablemasterSerial( INVALID_SERIAL );
 							pPet->moveTo( m_npc->pos() );
 							pPet->resend();
 						}
@@ -183,7 +187,7 @@ void Human_Stablemaster::handleTargetInput( P_PLAYER player, cUORxTarget* target
 	// the pet becomes "free", which means, that it isnt in the world
 	// but will still be saved.
 	P_ITEM pGem = new cItem();
-	pGem->Init( false );
+	pGem->Init( true );
 	pGem->setTag( "player", cVariant( player->serial() ) );
 	pGem->setTag( "pet", cVariant( pPet->serial() ) );
 	pGem->setId( 0x1ea7 );
@@ -192,11 +196,14 @@ void Human_Stablemaster::handleTargetInput( P_PLAYER player, cUORxTarget* target
 	pPack->addItem( pGem );
 	pGem->update();
 
-	pPet->free = true;
+
+	//pPet->free = true;
 	MapObjects::instance()->remove( pPet );
+	pPet->setStablemasterSerial( this->m_npc->serial() );
 	pPet->removeFromView();
 
-	m_npc->talk( tr( "Say release to get your pet back!" ) );
+	// we need this for db saves
+    m_npc->talk( tr( "Say release to get your pet back!" ) );
 }
 
 static AbstractAI* productCreator_HGC()
