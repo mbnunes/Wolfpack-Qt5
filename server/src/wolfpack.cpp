@@ -158,7 +158,7 @@ void signal_handler(int signal)
 		Accounts::instance()->reload();
 		break ;
 	case SIGUSR2:
-		World->instance()->save();
+		World::instance()->save();
 		SrvParams->flush();
 		break ;
 	case SIGTERM:
