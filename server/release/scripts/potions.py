@@ -285,7 +285,8 @@ def potiondamage( char, target, potion, dmgbonus ):
 		damage = damage * dmgbonus
 	damage += bonus
 	if not potion.container:
-		damage = damage / char.distanceto(potion)
+		if char.distanceto(potion) > 1:
+			damage = damage / char.distanceto(potion)
 	else:
 		damage = damage / char.distanceto(char)
 	energydamage(target, char, damage, fire=100)
