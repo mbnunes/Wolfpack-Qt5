@@ -1,3 +1,4 @@
+<!-- edited with XML Spy v4.4 U (http://www.xmlspy.com) by Kosha (SiH) -->
 <!--
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
@@ -14,7 +15,23 @@
 		<menu inherit="CARTOGRAPHY_REGIONAL"/>
 		<menu inherit="CARTOGRAPHY_DETAL"/>
 		<menu inherit="CARTOGRAPHY_CITY"/>
-		<menu inherit="CARTOGRAPHY_CITY_2"/>
+	</menu>
+	<menu id="CARTOGRAPHY_CITY">
+		<name>City maps</name>
+		<menu inherit="CARTOGRAPHY_CITY_BRITAIN"/>
+		<menu inherit="CARTOGRAPHY_CITY_BUCCANEERS_DEN"/>
+		<menu inherit="CARTOGRAPHY_CITY_COVE"/>
+		<menu inherit="CARTOGRAPHY_CITY_JHELOM"/>
+		<menu inherit="CARTOGRAPHY_CITY_NUJELM"/>
+		<menu inherit="CARTOGRAPHY_CITY_MAGINCIA"/>
+		<menu inherit="CARTOGRAPHY_CITY_MINOC"/>
+		<menu inherit="CARTOGRAPHY_CITY_MOON_GLOW"/>
+		<menu inherit="CARTOGRAPHY_CITY_OCLLO"/>
+		<menu inherit="CARTOGRAPHY_CITY_SERPENTS_HOLD"/>
+		<menu inherit="CARTOGRAPHY_CITY_SKARA_BRAE"/>
+		<menu inherit="CARTOGRAPHY_CITY_TRINSIC"/>
+		<menu inherit="CARTOGRAPHY_CITY_VESPER"/>
+		<menu inherit="CARTOGRAPHY_CITY_YEW"/>
 	</menu>
 	<menu id="CARTOGRAPHY_WORLD">
 		<name>World maps</name>
@@ -24,7 +41,31 @@
 			<description>A world map (small)</description>
 			<make>
 				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
-				<makeitem section="world_map_small" amount="1"/>
+				<makeitem section="map_world_small" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>World map (middle)</name>
+			<model>0x14ec</model>
+			<description>A world map (middle)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_world_middle" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>World map (large)</name>
+			<model>0x14ec</model>
+			<description>A world map (large)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_world_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
 			<fail>You failed to make map</fail>
@@ -34,12 +75,36 @@
 	<menu id="CARTOGRAPHY_LAND">
 		<name>Land maps</name>
 		<action>
-			<name>Lend map (small)</name>
+			<name>Land world map (small)</name>
 			<model>0x14ec</model>
-			<description>A lend map (small)</description>
+			<description>A land world map (small)</description>
 			<make>
 				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
-				<makeitem section="world_map_small" amount="1"/>
+				<makeitem section="map_land_small" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Land world map (middle)</name>
+			<model>0x14ec</model>
+			<description>A land world map (middle)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_land_middle" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Land world map (large)</name>
+			<model>0x14ec</model>
+			<description>A land world map (large)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_land_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
 			<fail>You failed to make map</fail>
@@ -49,12 +114,36 @@
 	<menu id="CARTOGRAPHY_REGIONAL">
 		<name>Regional world maps</name>
 		<action>
-			<name>Regional world map (small)</name>
+			<name>Regional map (small)</name>
 			<model>0x14ec</model>
-			<description>A Regional world map (small)</description>
+			<description>A Regional map (small)</description>
 			<make>
 				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
-				<makeitem section="world_map_small" amount="1"/>
+				<makeitem section="map_regional_small" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Regional world map (middle)</name>
+			<model>0x14ec</model>
+			<description>A Regional map (middle)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_regional_middle" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Regional world map (large)</name>
+			<model>0x14ec</model>
+			<description>A Regional map (large)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_regional_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
 			<fail>You failed to make map</fail>
@@ -66,184 +155,580 @@
 		<action>
 			<name>Detaled world map (small)</name>
 			<model>0x14ec</model>
-			<description>A Detaled world map (small)</description>
+			<description>A detaled world map(small)</description>
 			<make>
 				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
-				<makeitem section="world_map_small" amount="1"/>
+				<makeitem section="map_world_detaled_small" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Detaled world map (middle)</name>
+			<model>0x14ec</model>
+			<description>A detaled world map(middle)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_world_detaled_middle" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Detaled world map (large)</name>
+			<model>0x14ec</model>
+			<description>A detaled world map(large)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_world_detaled_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
 			<fail>You failed to make map</fail>
 			<success>You succeeded in makeing map</success>
 		</action>
 	</menu>
-	<menu id="CARTOGRAPHY_CITY">
-		<name>Sity maps</name>
+	<menu id="CARTOGRAPHY_CITY_BRITAIN">
+		<name>Britain maps</name>
 		<action>
-			<name>Britain map small</name>
+			<name>Britain map (small)</name>
 			<model>0x14ec</model>
-			<description>Britain map small</description>
+			<description>A Britain map(small)</description>
 			<make>
 				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
-				<makeitem section="world_map_small" amount="1"/>
+				<makeitem section="map_city_britain_small" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
 			<fail>You failed to make map</fail>
 			<success>You succeeded in makeing map</success>
 		</action>
 		<action>
-			<name>Buccaneers Den map small</name>
+			<name>Britain map (middle)</name>
 			<model>0x14ec</model>
-			<description>Buccaneers Den map small</description>
+			<description>A Britain map(middle)</description>
 			<make>
 				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
-				<makeitem section="world_map_small" amount="1"/>
+				<makeitem section="map_city_britain_middle" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
 			<fail>You failed to make map</fail>
 			<success>You succeeded in makeing map</success>
 		</action>
 		<action>
-			<name>Covemap small</name>
+			<name>Britain map (large)</name>
 			<model>0x14ec</model>
-			<description>Covemap small</description>
+			<description>A Britain map(large)</description>
 			<make>
 				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
-				<makeitem section="world_map_small" amount="1"/>
-				<skillcheck skillid="12" min="750" max="950"/>
-			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
-		</action>
-		<action>
-			<name>Jhelom map small</name>
-			<model>0x14ec</model>
-			<description>Jhelom map small</description>
-			<make>
-				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
-				<makeitem section="world_map_small" amount="1"/>
-				<skillcheck skillid="12" min="750" max="950"/>
-			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
-		</action>
-		<action>
-			<name>Nujelm map small</name>
-			<model>0x14ec</model>
-			<description>Nujelm map small</description>
-			<make>
-				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
-				<makeitem section="world_map_small" amount="1"/>
-				<skillcheck skillid="12" min="750" max="950"/>
-			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
-		</action>
-		<action>
-			<name>Magincia map small</name>
-			<model>0x14ec</model>
-			<description>Magincia map small</description>
-			<make>
-				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
-				<makeitem section="world_map_small" amount="1"/>
-				<skillcheck skillid="12" min="750" max="950"/>
-			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
-		</action>
-		<action>
-			<name>Minoc map small</name>
-			<model>0x14ec</model>
-			<description>Minoc map small</description>
-			<make>
-				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
-				<makeitem section="world_map_small" amount="1"/>
-				<skillcheck skillid="12" min="750" max="950"/>
-			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
-		</action>
-		<action>
-			<name>Moon Glow map small</name>
-			<model>0x14ec</model>
-			<description>Moon Glow map small</description>
-			<make>
-				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
-				<makeitem section="world_map_small" amount="1"/>
-				<skillcheck skillid="12" min="750" max="950"/>
-			</make>
-			<fail>You failed to make map</fail>
-			<success>You succeeded in makeing map</success>
-		</action>
-		<action>
-			<name>Ocllo map small</name>
-			<model>0x14ec</model>
-			<description>Ocllo map small</description>
-			<make>
-				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
-				<makeitem section="world_map_small" amount="1"/>
+				<makeitem section="map_city_britain_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
 			<fail>You failed to make map</fail>
 			<success>You succeeded in makeing map</success>
 		</action>
 	</menu>
-	<menu id="CARTOGRAPHY_CITY_2">
-		<name>Sity maps 2</name>
+	<menu id="CARTOGRAPHY_CITY_BUCCANEERS_DEN">
+		<name>Buccaneers Den maps</name>
 		<action>
-			<name>Serpents Hold map small</name>
+			<name>Buccaneers Den map (small)</name>
 			<model>0x14ec</model>
-			<description>Serpents Hold map small</description>
+			<description>A Buccaneers Den map(small)</description>
 			<make>
 				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
-				<makeitem section="world_map_small" amount="1"/>
+				<makeitem section="map_city_buccaneersden_small" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
 			<fail>You failed to make map</fail>
 			<success>You succeeded in makeing map</success>
 		</action>
 		<action>
-			<name>Skara Brae map small</name>
+			<name>Buccaneers Den map (middle)</name>
 			<model>0x14ec</model>
-			<description>Skara Brae map small</description>
+			<description>A Buccaneers Den map(middle)</description>
 			<make>
 				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
-				<makeitem section="world_map_small" amount="1"/>
+				<makeitem section="map_city_buccaneersden_middle" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
 			<fail>You failed to make map</fail>
 			<success>You succeeded in makeing map</success>
 		</action>
 		<action>
-			<name>Trinsic map small</name>
+			<name>Buccaneers Den map (large)</name>
 			<model>0x14ec</model>
-			<description>Trinsic map small</description>
+			<description>A Buccaneers Den map(large)</description>
 			<make>
 				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
-				<makeitem section="world_map_small" amount="1"/>
+				<makeitem section="map_city_buccaneersden_large" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+	</menu>
+	<menu id="CARTOGRAPHY_CITY_COVE">
+		<name>Cove maps</name>
+		<action>
+			<name>Cove map (small)</name>
+			<model>0x14ec</model>
+			<description>A Cove map(small)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_cove_small" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
 			<fail>You failed to make map</fail>
 			<success>You succeeded in makeing map</success>
 		</action>
 		<action>
-			<name>Vesper map small</name>
+			<name>Cove map (middle)</name>
 			<model>0x14ec</model>
-			<description>Vesper map small</description>
+			<description>A Cove map(middle)</description>
 			<make>
 				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
-				<makeitem section="world_map_small" amount="1"/>
+				<makeitem section="map_city_cove_middle" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
 			<fail>You failed to make map</fail>
 			<success>You succeeded in makeing map</success>
 		</action>
 		<action>
-			<name>Yew map small</name>
+			<name>Cove map (large)</name>
 			<model>0x14ec</model>
-			<description>Yew map small</description>
+			<description>A Cove map(large)</description>
 			<make>
 				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
-				<makeitem section="world_map_small" amount="1"/>
+				<makeitem section="map_city_cove_large" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+	</menu>
+	<menu id="CARTOGRAPHY_CITY_JHELOM">
+		<name>Jhelom maps</name>
+		<action>
+			<name>Jhelom map (small)</name>
+			<model>0x14ec</model>
+			<description>A Jhelom map(small)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_jhelom_small" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Jhelom map (middle)</name>
+			<model>0x14ec</model>
+			<description>A Jhelom map(middle)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_jhelom_middle" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Jhelom map (large)</name>
+			<model>0x14ec</model>
+			<description>A Jhelom map(large)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_jhelom_large" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+	</menu>
+	<menu id="CARTOGRAPHY_CITY_NUJELM">
+		<name>Nujelm maps</name>
+		<action>
+			<name>Nujelm map (small)</name>
+			<model>0x14ec</model>
+			<description>A Nujelm map(small)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_nujelm_small" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Nujelm map (middle)</name>
+			<model>0x14ec</model>
+			<description>A Nujelm map(middle)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_nujelm_middle" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Nujelm map (large)</name>
+			<model>0x14ec</model>
+			<description>A Nujelm map(large)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_nujelm_large" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+	</menu>
+	<menu id="CARTOGRAPHY_CITY_MAGINCIA">
+		<name>Magincia maps</name>
+		<action>
+			<name>Magincia map (small)</name>
+			<model>0x14ec</model>
+			<description>A Magincia map(small)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_magincia_small" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Magincia map (middle)</name>
+			<model>0x14ec</model>
+			<description>A Magincia map(middle)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_magincia_middle" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Magincia map (large)</name>
+			<model>0x14ec</model>
+			<description>A Magincia map(large)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_magincia_large" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+	</menu>
+	<menu id="CARTOGRAPHY_CITY_MINOC">
+		<name>Minoc maps</name>
+		<action>
+			<name>Minoc map (small)</name>
+			<model>0x14ec</model>
+			<description>A Minoc map(small)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_Minoc_small" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Minoc map (middle)</name>
+			<model>0x14ec</model>
+			<description>A Minoc map(middle)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_Minoc_middle" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Minoc map (large)</name>
+			<model>0x14ec</model>
+			<description>A Minoc map(large)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_Minoc_large" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+	</menu>
+	<menu id="CARTOGRAPHY_CITY_MOON_GLOW">
+		<name>Moon Glow maps</name>
+		<action>
+			<name>Moon Glow map (small)</name>
+			<model>0x14ec</model>
+			<description>A Moon Glow map(small)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_moonglow_small" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Moon Glow map (middle)</name>
+			<model>0x14ec</model>
+			<description>A Moon Glow map(middle)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_moonglow_middle" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Moon Glow map (large)</name>
+			<model>0x14ec</model>
+			<description>A Moon Glow map(large)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_moonglow_large" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+	</menu>
+	<menu id="CARTOGRAPHY_CITY_OCLLO">
+		<name>Ocllo maps</name>
+		<action>
+			<name>Ocllo map (small)</name>
+			<model>0x14ec</model>
+			<description>A Ocllo map(small)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_ocllo_small" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Ocllo map (middle)</name>
+			<model>0x14ec</model>
+			<description>A Ocllo map(middle)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_ocllo_middle" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Ocllo map (large)</name>
+			<model>0x14ec</model>
+			<description>A Ocllo map(large)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_ocllo_large" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+	</menu>
+	<menu id="CARTOGRAPHY_CITY_SERPENTS_HOLD">
+		<name>Serpents Hold maps</name>
+		<action>
+			<name>Serpents Hold map (small)</name>
+			<model>0x14ec</model>
+			<description>ASerpents Hold map(small)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_serpentshold_small" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Serpents Hold map (middle)</name>
+			<model>0x14ec</model>
+			<description>A Serpents Hold map(middle)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_serpentshold_middle" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Serpents Hold map (large)</name>
+			<model>0x14ec</model>
+			<description>A Serpents Hold map(large)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_serpentshold_large" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+	</menu>
+	<menu id="CARTOGRAPHY_CITY_SKARA_BRAE">
+		<name>Skara Brae maps</name>
+		<action>
+			<name>Skara Brae map (small)</name>
+			<model>0x14ec</model>
+			<description>A Skara Braen map(small)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_skarabrae_small" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Skara Brae map (middle)</name>
+			<model>0x14ec</model>
+			<description>A Skara Brae map(middle)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_skarabrae_middle" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Skara Brae map (large)</name>
+			<model>0x14ec</model>
+			<description>A Skara Brae map(large)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_skarabrae_large" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+	</menu>
+	<menu id="CARTOGRAPHY_CITY_TRINSIC">
+		<name>Trinsic maps</name>
+		<action>
+			<name>Trinsic map (small)</name>
+			<model>0x14ec</model>
+			<description>A Trinsic map(small)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_trinsic_small" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Trinsic map (middle)</name>
+			<model>0x14ec</model>
+			<description>A Trinsic map(middle)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_trinsic_middle" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Trinsic map (large)</name>
+			<model>0x14ec</model>
+			<description>A Trinsic map(large)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_trinsic_large" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+	</menu>
+	<menu id="CARTOGRAPHY_CITY_VESPER">
+		<name>Vesper maps</name>
+		<action>
+			<name>Vesper map (small)</name>
+			<model>0x14ec</model>
+			<description>A Vesper map(small)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_vesper_small" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Vesper map (middle)</name>
+			<model>0x14ec</model>
+			<description>A Vesper map(middle)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_vesper_middle" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Vesper map (large)</name>
+			<model>0x14ec</model>
+			<description>A Vesper map(large)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_vesper_large" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+	</menu>
+	<menu id="CARTOGRAPHY_CITY_YEW">
+		<name>Yew maps</name>
+		<action>
+			<name>Yew map (small)</name>
+			<model>0x14ec</model>
+			<description>AYew map(small)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_yew_small" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Yew map (middle)</name>
+			<model>0x14ec</model>
+			<description>A Yew map(middle)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_yew_middle" amount="1"/>
+				<skillcheck skillid="12" min="750" max="950"/>
+			</make>
+			<fail>You failed to make map</fail>
+			<success>You succeeded in makeing map</success>
+		</action>
+		<action>
+			<name>Yew map (large)</name>
+			<model>0x14ec</model>
+			<description>A Yew map(large)</description>
+			<make>
+				<useitem itemid="0x14ed-0x14ee" name="empty map" amount="1"/>
+				<makeitem section="map_city_yew_large" amount="1"/>
 				<skillcheck skillid="12" min="750" max="950"/>
 			</make>
 			<fail>You failed to make map</fail>
