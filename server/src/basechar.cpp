@@ -159,7 +159,7 @@ void cBaseChar::load( char **result, UINT16 &offset )
 
 	orgName_ = result[offset++];
 	title_ = result[offset++];
-	creationDate_ = QDateTime::fromString( result[offset++] );
+	creationDate_ = QDateTime::fromString( result[offset++], Qt::ISODate );
 	direction_ = atoi( result[offset++] );
 	bodyID_ = atoi( result[offset++] );
 	orgBodyID_ = atoi( result[offset++] );

@@ -150,11 +150,11 @@ static void playerRegisterAfterLoading( P_PLAYER pc )
 		cCharStuff::DeleteChar(pc);
 		return;
 	} 
-	else
+/*	else
 	{
 		pc->setBodyID(0x0190);
 		clConsole.send("player: %s with bugged body-value detected, restored to male shape\n",pc->name().latin1());
-	}
+	}*/
 }
 
 // Update flags etc.
