@@ -35,13 +35,10 @@
 #undef  DBGFILE
 #define DBGFILE "storage.cpp"
 
-
-//##ModelId=3C5D92CB03D2
 template<class T> Storage_cl<T>::Storage_cl()
 {
 }
 
-//##ModelId=3C5D92CB03D3
 template<class T> Storage_cl<T>::~Storage_cl()
 {
 	//We need to delete the items we contain as well
@@ -53,26 +50,23 @@ template<class T> Storage_cl<T>::~Storage_cl()
 	mapData.clear() ;
 }
 
-//##ModelId=3C5D92CC0027
 template<class T> int Storage_cl<T>::Count(void)
 {
 	return mapData.size();
 }
 
-//##ModelId=3C5D92CB03DC
 template<class T> bool Storage_cl<T>::insert(T& cData, int serial) 
 {
 	indices.push_back(serial);
 	return mapData.insert(make_pair(serial,&cData));
 }
-//##ModelId=3C5D92CC000A
+
 template<class T> bool Storage_cl<T>::insert(T* ptrData, int serial) 
 {
 	indices.push_back(serial);
 	return mapData.insert(make_pair(serial,ptrData)) ;
 }
 
-//##ModelId=3C5D92CC003B
 template<class T> T* Storage_cl<T>::getPtr(int serial)
 {
 
@@ -83,7 +77,6 @@ template<class T> T* Storage_cl<T>::getPtr(int serial)
 	return ptrData ;
 }
 
-//##ModelId=3C5D92CC0059
 template<class T> void Storage_cl<T>::remove(int serial) 
 {
 	// First find the ptr
@@ -97,7 +90,6 @@ template<class T> void Storage_cl<T>::remove(int serial)
 	}
 }
 
-//##ModelId=3C5D92CC0046
 template<class T> T* Storage_cl<T>::Next(int &offset)
 {
 	iterData = mapData.begin();
@@ -113,7 +105,6 @@ template<class T> T* Storage_cl<T>::Next(int &offset)
 		return NULL;
 }
 
-//##ModelId=3C5D92CC006D
 template<class T> T* Storage_cl<T>::operator[](long index)
 {
 	iterData = mapData.begin();
@@ -134,18 +125,15 @@ template<class T> T* Storage_cl<T>::operator[](long index)
 	return ptrData;
 }
 
-//##ModelId=3C5D92CC01A3
 Container_cl::Container_cl() 
 {
 }
 
-//##ModelId=3C5D92CC01AD
 Container_cl::~Container_cl() 
 {
 	mapData.clear() ;
 }
 
-//##ModelId=3C5D92CC01B7
 bool Container_cl::insert(SERIAL serContainer, SERIAL serObject) 
 {
 	bool bStatus = false;
@@ -158,7 +146,6 @@ bool Container_cl::insert(SERIAL serContainer, SERIAL serObject)
 	return bStatus;
 }
 
-//##ModelId=3C5D92CC01DF
 bool Container_cl::find(SERIAL serContainer, SERIAL serObject)
 {
 	bool bStatus = false ;
@@ -176,7 +163,6 @@ bool Container_cl::find(SERIAL serContainer, SERIAL serObject)
 	return bStatus;
 }
 
-//##ModelId=3C5D92CC01F3
 bool Container_cl::remove(SERIAL serContainer, SERIAL serObject)
 {
 	bool bStatus = false;
@@ -195,7 +181,6 @@ bool Container_cl::remove(SERIAL serContainer, SERIAL serObject)
 	return bStatus;
 }
 
-//##ModelId=3C5D92CC01CB
 vector<SERIAL> Container_cl::getData(SERIAL serContainer) 
 {
 	vector<SERIAL> vecValue;

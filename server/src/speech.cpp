@@ -951,7 +951,6 @@ bool VendorSpeech(cChar* pVendor, string& comm, cChar* pPlayer, UOXSOCKET s)
 //			that they might be interested in.
 //			This is especially usefull in crowded places.
 
-//##ModelId=3C5D92D0005E
 int cSpeech::response(UOXSOCKET s, P_CHAR pPlayer, string& SpeechUpr)
 {
 	string comm=SpeechUpr;

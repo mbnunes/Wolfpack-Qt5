@@ -55,8 +55,6 @@ using namespace std ;
 #define ACCOUNT_BANNED -5
 #define ACCOUNT_WIPE -6
 
-
-//##ModelId=3C5D92D703BC
 cNetworkStuff::cNetworkStuff() // Initialize sockets
 {
 
@@ -333,8 +331,6 @@ void cNetworkStuff::LoginMain(int s)
 	}
 }
 
-
-//##ModelId=3C5D92D902C4
 void cNetworkStuff::Login2(int s)
 {
 	unsigned long int i;
@@ -370,7 +366,6 @@ void cNetworkStuff::Login2(int s)
 	}
 }
 
-//##ModelId=3C5D92D902E2
 void cNetworkStuff::Relay(int s) // Relay player to a certain IP
 {
 	unsigned long int ip;
@@ -391,7 +386,6 @@ void cNetworkStuff::Relay(int s) // Relay player to a certain IP
 	Xsend(s, login03, 11);
 }
 
-//##ModelId=3C5D92D90300
 void cNetworkStuff::GoodAuth(int s)
 {
 	int tlen;
@@ -457,7 +451,6 @@ void cNetworkStuff::GoodAuth(int s)
 	//Instalog really necessary?
 }
 
-//##ModelId=3C5D92D9033C
 void cNetworkStuff::CharList(int s) // Gameserver login and character listing
 {
 	signed long int i;
@@ -495,7 +488,6 @@ void cNetworkStuff::CharList(int s) // Gameserver login and character listing
 		GoodAuth(s);
 }
 
-//##ModelId=3C5D92D903C9
 void cNetworkStuff::pSplit (char *pass0) // Split login password into Wolfpack password and UO password
 {
 	int i,loopexit=0;
@@ -507,7 +499,6 @@ void cNetworkStuff::pSplit (char *pass0) // Split login password into Wolfpack p
 	if (pass0[i]!=0) strcpy(pass2, pass0+i+1);
 }
 
-//##ModelId=3C5D92D9031E
 void cNetworkStuff::charplay (int s) // After hitting "Play Character" button //Instalog
 {
 	int j;
@@ -1074,7 +1065,6 @@ static unsigned int bit_table[257][2] =
 
 };
 
-//##ModelId=3C5D92D90292
 int cNetworkStuff::Pack(void *pvIn, void *pvOut, int len)
 {
 	unsigned char *pIn = (unsigned char *)pvIn;
@@ -1998,8 +1988,6 @@ bool cNetworkStuff::CheckPacket(UOXSOCKET s, unsigned char packetnumber, int len
 
 // when we have erros in send, i.g synch error, lets try to fire an error message to client before disconnecting
 // of course xsend can't be used, because it's called for erorrs IN xsend.
-
-//##ModelId=3C5D92D901F3
 void cNetworkStuff::SendGoodByeMessageRaw(UOXSOCKET s)
 {
 
