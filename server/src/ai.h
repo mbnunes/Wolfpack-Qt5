@@ -49,11 +49,14 @@ class AbstractState;
 class Coord_cl;
 class cUORxBuy;
 class cUORxSell;
+class cUORxTarget;
+class cUOSocket;
 
 class cNPC_AI
 {
 public:
 	cNPC_AI() { currentState = NULL; }
+	cNPC_AI( P_NPC npc ) : m_npc( npc ) , currentState( NULL ) {}
 	~cNPC_AI();
 		
 	virtual void eventHandler() = 0;
@@ -128,13 +131,14 @@ public:
 	virtual void hitpointsCritical() {}
 	virtual void hitpointsRestored() {}
 	virtual void speechInput( P_PLAYER pTalker, const QString &message ) {}
-	virtual void targetCursorInput() {}
+	virtual void targetCursorInput( cUOSocket *socket, cUORxTarget *target ) {}
 	virtual void pay() {}
 	virtual void foundVictim( P_CHAR pVictim ) {}
 	virtual void handleSelection( P_PLAYER pPlayer, cUORxBuy* packet ) {}
 	virtual void handleSelection( P_PLAYER pPlayer, cUORxSell* packet ) {}
 	virtual void selectionCancelled() {}
 	virtual void selectionTimeOut() {}
+	virtual void refresh() {}
 };
 
 class AbstractState : public Actions, public Events
@@ -148,11 +152,42 @@ public:
 
 	AbstractState* nextState;
 
+	virtual void init() {}
 	virtual void execute() {}
 	void setInterface( cNPC_AI* newInterface ) { m_interface = newInterface; }
 
 protected:
 	cNPC_AI*	m_interface;
+};
+
+class AbstractState_Wander : public AbstractState
+{
+public:
+	AbstractState_Wander() { m_interface = NULL; npc = NULL; }
+	AbstractState_Wander( cNPC_AI* interface_, P_NPC npc_ ) { m_interface = interface_; npc = npc_; }
+	~AbstractState_Wander() {}
+
+	virtual void execute();
+};
+
+class AbstractState_Combat : public AbstractState
+{
+public:
+	AbstractState_Combat() { m_interface = NULL; npc = NULL; }
+	AbstractState_Combat( cNPC_AI* interface_, P_NPC npc_ ) { m_interface = interface_; npc = npc_; }
+	~AbstractState_Combat() {}
+
+	virtual void execute();
+};
+
+class AbstractState_Flee : public AbstractState
+{
+public:
+	AbstractState_Flee() { m_interface = NULL; npc = NULL; }
+	AbstractState_Flee( cNPC_AI* interface_, P_NPC npc_ ) { m_interface = interface_; npc = npc_; }
+	~AbstractState_Flee() {}
+
+	virtual void execute();
 };
 
 /*
@@ -176,7 +211,7 @@ public:
 	static void registerInFactory();
 };
 
-class Monster_Aggr_L0_Wander : public AbstractState
+class Monster_Aggr_L0_Wander : public AbstractState_Wander
 {
 public:
 	Monster_Aggr_L0_Wander() { m_interface = NULL; npc = NULL; }
@@ -184,7 +219,6 @@ public:
 	~Monster_Aggr_L0_Wander() {}
 
 	virtual QString stateType() { return "Monster_Aggr_L0_Wander"; }
-	virtual void execute();
 	static void registerInFactory();
 
 	// events handled
@@ -220,7 +254,7 @@ public:
 	static void registerInFactory();
 };
 
-class Monster_Aggr_L1_Wander : public AbstractState
+class Monster_Aggr_L1_Wander : public AbstractState_Wander
 {
 public:
 	Monster_Aggr_L1_Wander() { m_interface = NULL; }
@@ -228,7 +262,6 @@ public:
 	~Monster_Aggr_L1_Wander() {}
 
 	virtual QString stateType() { return "Monster_Aggr_L1_Wander"; }
-	virtual void execute();
 	static void registerInFactory();
 
 	// events handled
@@ -282,7 +315,7 @@ public:
 	static void registerInFactory();
 };
 
-class Human_Vendor_Wander : public AbstractState
+class Human_Vendor_Wander : public AbstractState_Wander
 {
 public:
 	Human_Vendor_Wander() { m_interface = NULL; }
@@ -290,7 +323,6 @@ public:
 	~Human_Vendor_Wander() {}
 
 	virtual QString stateType() { return "Human_Vendor_Wander"; }
-	virtual void execute();
 	static void registerInFactory();
 
 	// events handled
@@ -300,7 +332,7 @@ public:
 	virtual void handleSelection( P_PLAYER pPlayer, cUORxSell* packet );
 };
 
-class Human_Vendor_Combat : public AbstractState
+class Human_Vendor_Combat : public AbstractState_Combat
 {
 public:
 	Human_Vendor_Combat() { m_interface = NULL; }
@@ -308,7 +340,7 @@ public:
 	~Human_Vendor_Combat() {}
 
 	virtual QString stateType() { return "Human_Vendor_Combat"; }
-	virtual void execute();
+//	virtual void execute();
 	static void registerInFactory();
 
 	// events handled
@@ -317,7 +349,7 @@ public:
 	virtual void hitpointsCritical();
 };
 
-class Human_Vendor_Flee : public AbstractState
+class Human_Vendor_Flee : public AbstractState_Flee
 {
 public:
 	Human_Vendor_Flee() { m_interface = NULL; }
@@ -325,7 +357,7 @@ public:
 	~Human_Vendor_Flee() {}
 
 	virtual QString stateType() { return "Human_Vendor_Flee"; }
-	virtual void execute();
+//	virtual void execute();
 	static void registerInFactory();
 
 	// events handled
@@ -369,5 +401,72 @@ public:
 	virtual void selectionTimeOut();
 };
 */
+
+class Human_Stablemaster : public cNPC_AI
+{
+public:
+	Human_Stablemaster();
+	Human_Stablemaster( P_NPC currnpc );
+
+	virtual void eventHandler();
+
+	virtual QString AIType() { return "Human_Stablemaster"; }
+	static void registerInFactory();
+};
+
+class Human_Stablemaster_Wander : public AbstractState_Wander
+{
+public:
+	Human_Stablemaster_Wander() { m_interface = NULL; }
+	Human_Stablemaster_Wander( cNPC_AI* interface_, P_NPC npc_ ) { m_interface = interface_; npc = npc_; }
+	~Human_Stablemaster_Wander() {}
+
+	virtual QString stateType() { return "Human_Stablemaster_Wander"; }
+	static void registerInFactory();
+	virtual void init();
+
+	// events handled
+	virtual void attacked();
+	virtual void speechInput( P_PLAYER pTalker, const QString &message );
+	virtual void targetCursorInput( cUOSocket *socket, cUORxTarget *target );
+	virtual void refresh();
+//	virtual void handleSelection( P_PLAYER pPlayer, cUORxBuy* packet );
+//	virtual void handleSelection( P_PLAYER pPlayer, cUORxSell* packet );
+};
+
+class Human_Stablemaster_Combat : public AbstractState_Combat
+{
+public:
+	Human_Stablemaster_Combat() { m_interface = NULL; }
+	Human_Stablemaster_Combat( cNPC_AI* interface_, P_NPC npc_ ) { m_interface = interface_; npc = npc_; }
+	~Human_Stablemaster_Combat() {}
+
+	virtual QString stateType() { return "Human_Stablemaster_Combat"; }
+//	virtual void execute();
+	static void registerInFactory();
+
+	// events handled
+	virtual void won();
+	virtual void combatCancelled();
+	virtual void hitpointsCritical();
+};
+
+class Human_Stablemaster_Flee : public AbstractState_Flee
+{
+public:
+	Human_Stablemaster_Flee() { m_interface = NULL; }
+	Human_Stablemaster_Flee( cNPC_AI* interface_, P_NPC npc_ ) { m_interface = interface_; npc = npc_; }
+	~Human_Stablemaster_Flee() {}
+
+	virtual QString stateType() { return "Human_Stablemaster_Flee"; }
+//	virtual void execute();
+	static void registerInFactory();
+
+	// events handled
+	virtual void won();
+	virtual void combatCancelled();
+	virtual void hitpointsRestored();
+};
+
 
 #endif /* AI_H_HEADER_INCLUDED */

@@ -53,6 +53,8 @@ class cSpeech;
 #include "speech.h"
 #include "utilsys.h"
 
+bool VendorChkName( P_CHAR pVendor, const QString& comm );
+
 class cSpeech
 {
 public:

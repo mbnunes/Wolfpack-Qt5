@@ -70,6 +70,7 @@ void cNPC_AI::updateState()
 		AbstractState* temp = currentState->nextState;
 		delete currentState;
 		currentState = temp;
+		currentState->init();
 	}
 }
 
@@ -82,6 +83,7 @@ void cNPC_AI::updateState( AbstractState* newState )
 		currentState = newState;
 		currentState->setInterface( this );
 		currentState->npc = m_npc;
+		currentState->init();
 	}
 }
 
@@ -242,3 +244,51 @@ void Actions::callGuards()
 	npc->talk( tr("Guards! Help me!") );
 	npc->callGuards();
 }
+
+void AbstractState_Wander::execute()
+{
+	// wander freely
+	wanderFreely();
+}
+
+void AbstractState_Combat::execute()
+{
+	P_CHAR pTarget = World::instance()->findChar( npc->combatTarget() );
+	if( !pTarget )
+	{
+		won();
+		return;
+	}
+
+	UINT8 range = 1;
+	if( npc->rightHandItem() && IsBowType( npc->rightHandItem()->id() ) )
+		range = ARCHERY_RANGE;
+
+	if( !npc->inRange( pTarget, range ) )
+	{ // move towards the target
+		if( SrvParams->pathfind4Combat() )
+			movePath( pTarget->pos() );
+		else
+			moveTo( pTarget->pos() );
+	}
+}
+
+void AbstractState_Flee::execute()
+{
+	if( !npc->hasPath() )
+	{
+		Coord_cl newPos = npc->pos();
+		// find a valid spot in a circle of flee_radius fields to move to
+		float rnddist = (float)RandomNum( 1, SrvParams->pathfindFleeRadius() );
+		// now get a point on this circle around the npc
+		float rndphi = (float)RandomNum( 0, 100 ) / 100.0f * 2.0f * 3.14159265358979323846f;
+		newPos.x = newPos.x + (INT16)floor( cos( rndphi ) * rnddist );
+		newPos.y = newPos.y + (INT16)floor( sin( rndphi ) * rnddist );
+
+		// we use pathfinding for fleeing
+		movePath( newPos );
+	}
+	else
+		movePath();
+}
+

@@ -52,6 +52,7 @@
 #include "basechar.h"
 #include "player.h"
 #include "npc.h"
+#include "ai.h"
 
 #include <algorithm>
 #include <typeinfo>
@@ -610,4 +611,23 @@ cDelayedHeal::cDelayedHeal( P_CHAR pSource, P_CHAR pTarget, UINT16 _amount )
 	objectid = "cDelayedHeal";
 	serializable = false;
 	dispellable = false;
+}
+
+cAIRefreshTimer::cAIRefreshTimer( P_NPC pNPC, UINT32 time )
+{
+	m_npc = pNPC;
+	objectid = "cAIRefreshTimer";
+	serializable = false;
+	dispellable = false;
+	expiretime = uiCurrentTime + time * MY_CLOCKS_PER_SEC;
+}
+
+void cAIRefreshTimer::Expire()
+{
+	if( m_npc )
+	{
+		cNPC_AI* ai = m_npc->ai();
+		if( ai && ai->currState() )
+			ai->currState()->refresh();
+	}
 }

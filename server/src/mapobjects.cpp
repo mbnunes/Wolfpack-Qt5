@@ -326,6 +326,9 @@ void cMapObjects::search( const Coord_cl &pos, UI32 distance, std::vector< cMapO
 
 void cMapObjects::add( cUObject* object )
 {
+	if( object->free )
+		return;
+
 	QMap< UI08, cQuadNode* >::iterator it = rootmap_.find( object->pos().map );
 	if( it != rootmap_.end() )
 		it.data()->add( object->pos().x, object->pos().y, object->serial() );

@@ -134,12 +134,6 @@ void Monster_Aggr_L0_Wander::foundVictim( P_CHAR pVictim )
 	nextState = new Monster_Aggr_L0_Combat( m_interface, npc );
 }
 
-void Monster_Aggr_L0_Wander::execute()
-{
-	// wander freely
-	wanderFreely();
-}
-
 static AbstractState* productCreator_MAL0_Combat()
 {
 	return new Monster_Aggr_L0_Combat();
@@ -279,12 +273,6 @@ void Monster_Aggr_L1_Wander::foundVictim( P_CHAR pVictim )
 		npc->setCombatTarget( pVictim->serial() );
 	attack();
 	nextState = new Monster_Aggr_L1_Combat( m_interface, npc );
-}
-
-void Monster_Aggr_L1_Wander::execute()
-{
-	// wander freely
-	wanderFreely();
 }
 
 static AbstractState* productCreator_MAL1_Combat()

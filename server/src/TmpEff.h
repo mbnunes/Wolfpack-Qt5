@@ -236,4 +236,14 @@ public:
 	void Expire();
 };
 
+class cAIRefreshTimer: public cTempEffect
+{
+private:
+	P_NPC m_npc;
+public:
+	cAIRefreshTimer( P_NPC m_npc, UINT32 time );
+	void Expire();
+};
+
+
 #endif

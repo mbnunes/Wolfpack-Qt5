@@ -39,6 +39,8 @@
 #include "world.h"
 #include "player.h"
 #include "tilecache.h"
+#include "npc.h"
+#include "ai.h"
 
 static QStringList getFlagNames( const tile_st &tile )
 {
@@ -955,6 +957,26 @@ class cDyeTubDyeTarget: public cTargetRequest
 public:
 	cDyeTubDyeTarget( UINT16 color ) : _color(color) {}
 	bool responsed( cUOSocket *socket, cUORxTarget *target );
+};
+
+class cStableTarget: public cTargetRequest
+{
+	Q_OBJECT
+private:
+	P_NPC m_npc;
+public:
+	cStableTarget( P_NPC npc ) : m_npc( npc ) {}
+
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		if( m_npc )
+		{
+			cNPC_AI* ai = m_npc->ai();
+			if( ai->currState() )
+				ai->currState()->targetCursorInput( socket, target );
+		}
+		return true;
+	}
 };
 
 
