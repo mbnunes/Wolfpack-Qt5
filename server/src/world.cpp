@@ -731,7 +731,7 @@ void cWorld::save()
 		gump.setX(-10);
 		gump.setY(-10);
 		gump.setType(0x98FA2C10);
-		
+
 		gump.addResizeGump(0, 0, 9200, 291, 90);
 		gump.addCheckertrans(0, 0, 291, 90);
 		gump.addText(47, 19, tr("WORLDSAVE IN PROGRESS"), 2122);
@@ -857,7 +857,7 @@ void cWorld::getOption( const QString name, QString &value, const QString fallba
 		return;
 	}
 
-	cDBResult res = persistentBroker->query( QString( "SELECT option,value FROM settings WHERE option = '%1'" ).arg( persistentBroker->quoteString( name ) ) );
+	cDBResult res = persistentBroker->query( QString( "SELECT `option`,`value` FROM `settings` WHERE `option` = '%1'" ).arg( persistentBroker->quoteString( name ) ) );
 
 	if( !res.isValid() || !res.fetchrow() )
 	{
@@ -878,14 +878,14 @@ void cWorld::getOption( const QString name, QString &value, const QString fallba
  */
 void cWorld::setOption( const QString name, const QString value, bool newconnection )
 {
-	if (newconnection) 
+	if (newconnection)
 	{
 		if( !persistentBroker->openDriver( SrvParams->databaseDriver() ) )
 		{
 			Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml").arg( SrvParams->databaseDriver() ) );
 			return;
 		}
-	
+
 		try
 		{
 			if (!persistentBroker->driver()) {
@@ -900,10 +900,10 @@ void cWorld::setOption( const QString name, const QString value, bool newconnect
 	}
 
 	// check if the option already exists
-	persistentBroker->executeQuery( QString( "DELETE FROM settings WHERE option = '%1'" ).arg( persistentBroker->quoteString( name ) ) );
+	persistentBroker->executeQuery( QString( "DELETE FROM `settings` WHERE `option` = '%1'" ).arg( persistentBroker->quoteString( name ) ) );
 
 	QString sql;
-	sql = "INSERT INTO settings VALUES('%1','%2')";
+	sql = "INSERT INTO `settings` VALUES('%1','%2')";
 	sql = sql.arg( persistentBroker->quoteString( name ), persistentBroker->quoteString( value ) );
 
 	persistentBroker->executeQuery( sql );
