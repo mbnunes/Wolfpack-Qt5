@@ -7,6 +7,7 @@ Wolfpack 12.9.10 Beta (CVS)
 		- Fixed Fame and Karma for all NPCs.
 		- Moved equipment properties to the definitions again.
 		- Added several small testing items.
+		- Fixed blue moongate definitions.
 	* Python Script Changes:
 		- Added a script for database structure updates (system/dbupdate.py).
 		- Added an event for database updates (onUpdateDatabase).
@@ -24,6 +25,9 @@ Wolfpack 12.9.10 Beta (CVS)
 		- Cast recovery times are now correct and take the CastRecoveryBonus properties into account.
 		- Spellcasting speeds are now corrected and take bonusses into account.
 		- Fixed the skillinfo command gump for remote clients.
+		- Fixed gatetravel spell.
+		- Tele and other spells no longer show a smoke puff if you're invisible.
+		- Rewrote properties.fromitem
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
