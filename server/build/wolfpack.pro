@@ -16,7 +16,7 @@ win32-msvc:DEFINES +=  _CONSOLE _MBCS
 win32:INCLUDEPATH += lib/Python/PC
 unix:INCLUDEPATH += lib/Python
 
-unix:LIBS       = -Llib/ZThread/lib -Llib/wrl/lib -lZThread -lwrl
+unix:LIBS       = -Llib/ZThread/lib -Llib/wrl/lib -Llib/Python -ldl -lZThread -lwrl -lpython2.2
 
 
 
