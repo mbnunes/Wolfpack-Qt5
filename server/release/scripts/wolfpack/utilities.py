@@ -220,3 +220,6 @@ def isspellbook( item ):
 		
 	else:
 	        return 0
+	        
+def isinstrument( item ):
+	return item.id in [ 0xE9C, 0xE9D, 0xE9E, 0xEB1, 0xEB2, 0xEB3, 0xEB4 ]

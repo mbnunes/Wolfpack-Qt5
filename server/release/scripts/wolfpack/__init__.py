@@ -160,3 +160,7 @@ def newitem( createserial = 0 ):
 
 def newplayer( createserial = 0 ):
 	return _wolfpack.newplayer( createserial )
+
+def tickcount():
+	return _wolfpack.tickcount()
+	
