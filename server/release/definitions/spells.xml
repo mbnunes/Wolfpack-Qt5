@@ -80,7 +80,7 @@
 		</reagents>
 	</spell>
 
-<!-- // Magic Arrow -->
+	<!-- Magic Arrow -->
 	<spell id="5">
 		<circle>1</circle>
 		<booklow>11</booklow>
@@ -89,14 +89,17 @@
 		<scrollhigh>201</scrollhigh>
 		<mantra>In Por Ylem</mantra>
 		<action>0x10</action>
+		<delay>500</delay>
 		<target>Select target for magic arrow.</target>
-		<reflect />
+		<mana>4</mana>
 		<reagents>
-			<mana>4</mana>
 			<blackpearl>1</blackpearl>
 			<nightshade>1</nightshade>
 		</reagents>
-		<agressive />		
+		<flags>
+			<agressive />
+			<reflectable />
+		</flags>
 	</spell>
 
 <!-- // Night Sight -->

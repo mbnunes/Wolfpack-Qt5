@@ -8,13 +8,15 @@
 #===============================================================#
 
 from wolfpack.speech import addKeyword,setCatchAll
+from wolfpack.consts import *
+import wolfpack
 
 def onLoad():
 	setCatchAll( 'speech_pets', 0 ) # We don't want to catch all speech but only the pet commands
 
 	# Register some keywords
 	addKeyword( 'speech_pets', 0x155 ) # "*come"
-	#addKeyword( 'speech_pets', 0x156 ) # "*drop"
+	addKeyword( 'speech_pets', 0x156 ) # "*drop"
 	#addKeyword( 'speech_pets', 0x157 ) # "*fetch"
 	#addKeyword( 'speech_pets', 0x158 ) # "*get"
 	#addKeyword( 'speech_pets', 0x159 ) # "*bring"
@@ -43,6 +45,9 @@ def onLoad():
 	addKeyword( 'speech_pets', 0x170 ) # "all stay"
 
 def onSpeech( pet, char, text, keywords ):
+	if not char.socket:
+		return 0
+
 	# Check for keywords
 	checkname = 1
 
@@ -60,11 +65,139 @@ def onSpeech( pet, char, text, keywords ):
 	for keyword in keywords:
 
 		# "come"
-		if keyword == 0x155
-			pet_come( pet, char )
+		if keyword == 0x155:
+			char.socket.showspeech( pet, pet.name + " comes to your position." )
+
+			# Check if all pets should come (0x0164 = all come)
+			if 0x164 in keywords:
+				for pet in char.followers:
+					if pet.pos.distance( char.pos ) < 16:
+						pet.goto( char.pos )
+						pet.sound( SND_ATTACK )
+			else:
+				pet.goto( char.pos )
+				pet.sound( SND_ATTACK )
+
 			break
+
+		# "attack"/"kill"
+		elif keyword == 0x15D or keyword == 0x15E:
+			char.socket.sysmessage( "Select the target to attack." )
+
+			# 0x0168 "all kill"
+			# 0x0169 "all attack"
+			if ( keyword == 0x15D and 0x168 in keywords ) or ( keyword == 0x15E and 0x169 in keywords ):
+				char.socket.attachtarget( "speech.pets.kill_target", [ "all" ] )
+			else:
+				char.socket.attachtarget( "speech.pets.kill_target", [ "single", pet.serial ] )
+			break
+
+		# "guard"
+		elif keyword == 0x15C:
+			char.socket.sysmessage( "Who should be guarded?" )
+
+			# all guard?
+			if 0x166 in keywords:				
+				char.socket.attachtarget( "speech.pets.guard_target", [ "all" ] )
+			else:
+				char.socket.attachtarget( "speech.pets.guard_target", [ "single", pet.serial ] )
+
+		# "transfer"
+		elif keyword == 0x16E:
+			char.socket.sysmessage( "Who do you want to transfer your pet to?" )
+			char.socket.attachtarget( "speech.pets.transfer_target", [ pet.serial ] )
+
+		# "drop"
+		elif keyword == 0x156:
+			char.socket.sysmessage( pet.name + " drops all his belongings to ground." )
+
+			# This drops all items in the backpack of the pet to the ground
+			backpack = pet.getbackpack()
+			pos = pet.pos
+
+			for item in backpack.content:
+				item.container = None
+				item.moveto( pos.x, pos.y, pos.z, pos.map )
+				item.update()
+			
+			# Play the confirmation
+			pet.sound( SND_ATTACK )
+
+		# "stay"
+		elif keyword == 0x16F:
+			# Check if all followers should stay at their current position and stop fighting
+			if 0x170 in keywords:
+				for pet in char.followers:
+					if pet.pos.distance( char.pos ) < 16:
+						pet.target = None
+						pet.following = None
+						pet.guarding = None
+						pet.war = 0
+						pet.npcwander = 0
+						pet.updateflags()
+						pet.sound( SND_ATTACK )
+			else:
+				pet.target = None
+				pet.following = None
+				pet.guarding = None
+				pet.war = 0
+				pet.npcwander = 0
+				pet.updateflags()
+				pet.sound( SND_ATTACK )
+
+		# "follow"
+	
+		# "release"
 
 	return 1
 
-def pet_come( pet, char ):
-	char.message( pet.name + " wants to come to you" )
+# Target for selecting a target to transfer a pet to
+def transfer_target( char, args, target ):
+	if not target.char or not target.char.socket:
+		char.socket.sysmessage( "You can only transfer your pets to other players." )
+
+	pet = wolfpack.findchar( args[0] )
+
+	if pet:
+		pet.owner = target.char
+		pet.sound( SND_ATTACK )
+
+# Target for selecting a target to guard
+def guard_target( char, args, target ):
+	if not target.char:
+		char.socket.sysmessage( "You have to target a character." )
+		return
+
+	# Check who should guard
+	if args[0] == "single":
+		pet = wolfpack.findchar( args[1] )
+		if pet:
+			pet.follow( target.char )
+			pet.guarding = target.char
+			pet.sound( SND_ATTACK )
+
+	elif args[0] == "all":
+		# Let all followers in sight guard the target
+		for pet in char.followers:
+			if( pet.distanceto( char ) < 16 ):
+				pet.follow( target.char )
+				pet.guarding = target.char
+				pet.sound( SND_ATTACK )
+
+# Target for selecting a target to kill
+def kill_target( char, args, target ):
+	if not target.char:
+		char.socket.sysmessage( "You have to target a character." )
+		return
+
+	# Check who should attack
+	if args[0] == "single":
+		pet = wolfpack.findchar( args[1] )
+		if pet:
+			pet.attack( target.char )
+
+	elif args[0] == "all":
+		# Let all followers in sight attack the target
+		for pet in char.followers:			
+			if( pet.distanceto( char ) < 16 ):
+				pet.attack( target.char )

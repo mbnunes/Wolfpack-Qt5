@@ -21,4 +21,7 @@
 	<!-- Context menu scripts -->
 	<script id="daggermenu" type="python" module="daggermenu" />
 
+	<!-- Speech Scripts -->
+	<script id="speech_pets" type="python" module="speech.pets" />
+
 </definitions>
