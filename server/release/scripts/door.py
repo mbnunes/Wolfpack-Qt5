@@ -233,18 +233,18 @@ def opendoor( char, item ):
 			# This is used to track multiple open/close actions 
 			# We cannot dispel the effect on the item, so we have
 			# to do it this way.
-			if not item.hastag( 'opencount' ):
+			if not item.hastag('opencount'):
 				opencount = 1
 			else:
-				opencount = int( item.gettag( 'opencount' ) ) + 1
+				opencount = int(item.gettag('opencount')) + 1
 				
-			item.settag( 'opencount', str(opencount) )
+			item.settag('opencount', str(opencount))
 			
 			if not item.hastag('opened'):
-				item.settag( 'opened', 'true' )
+				item.settag('opened', 'true')
 			
 			# Add an autoclose tempeffect
-			item.addtimer( CLOSEDOOR_DELAY, "door.autoclose", [ opencount ], 1 )
+			item.addtimer(CLOSEDOOR_DELAY, "door.autoclose", [ opencount ], 1)
 			
 			# Refresh a House if we opened it
 			# Multis are completely broken right now. add refresh later here
