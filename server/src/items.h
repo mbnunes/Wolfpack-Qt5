@@ -102,7 +102,6 @@ class cItem : public cUObject
 	Q_PROPERTY ( int		rndvaluerate READ rndvaluerate	WRITE setRndValueRate	)
 	Q_PROPERTY ( uchar		madewith	READ madewith		WRITE setMadeWith		)
 
-//	friend class cChar; // temporary
 public:
 	typedef QValueVector<cItem*> ContainerContent;
 public:
@@ -196,22 +195,22 @@ public:
 
 //----------------------[ ADVANCED PROPERTIES GETTERS ]------------------
 
-	short	regen( ushort id ) { return regen_[ id ]; }			// Regeneration value
-	short	bonus( ushort id ) { return statsbonus_[ id ]; }	// Stats bonuses
-	short	damage( ushort id )	{ return damage_[ id ]; }		// Damage modifiers %
-	short	enh( ushort id ) { return enhancement_[ id ]; }		// Misc enhancements %
-	short	hit( ushort id ) { return hit_[ id ]; }				// Attack and defence modifiers %
-	short	req( ushort id ) { return requirements_[ id ]; }    // Reagent, Mana and other requirements %
-	short	resist( ushort id ) { return resist_[ id ]; }		// Resisting damage %
-	short	reflect( ushort id ) { return reflect_[ id ]; }		// Reflecting damage %
+	short	regen( ushort id )		const { return regen_[ id ]; }			// Regeneration value
+	short	bonus( ushort id )		const { return statsbonus_[ id ]; }		// Stats bonuses
+	short	damage( ushort id )		const { return damage_[ id ]; }			// Damage modifiers %
+	short	enh( ushort id )		const { return enhancement_[ id ]; }	// Misc enhancements %
+	short	hit( ushort id )		const { return hit_[ id ]; }			// Attack and defence modifiers %
+	short	req( ushort id )		const { return requirements_[ id ]; }   // Reagent, Mana and other requirements %
+	short	resist( ushort id )		const { return resist_[ id ]; }			// Resisting damage %
+	short	reflect( ushort id )	const { return reflect_[ id ]; }		// Reflecting damage %
 	
-	short	charge_count() { return charge_count_; }
-	short	charge_spell() { return charge_spell_; }
+	short	charge_count()			const { return charge_count_; }
+	short	charge_spell()			const { return charge_spell_; }
 
-	ushort	drb_base() { return drb_base_; }
-	ushort	drb_current() { return drb_current_; }
-	ushort	uses_base() { return uses_base_; }
-	ushort	uses_current() { return uses_current_; }
+	ushort	drb_base()				const { return drb_base_; }
+	ushort	drb_current()			const { return drb_current_; }
+	ushort	uses_base()				const { return uses_base_; }
+	ushort	uses_current()			const { return uses_current_; }
 
 
 //------------------[ END OF ADVANCED PROPERTIES GETTERS ]---------------

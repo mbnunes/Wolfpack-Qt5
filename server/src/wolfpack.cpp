@@ -618,6 +618,36 @@ void callguards( P_CHAR pc_player )
 	}
 }
 
+void reloadScripts()
+{
+	clConsole.send( "Reloading definitions, scripts and wolfpack.xml\n" );
+
+	SrvParams->reload(); // Reload wolfpack.xml
+	DefManager->reload(); //Reload Definitions
+	Accounts::instance()->reload();
+	SpawnRegions::instance()->reload();
+	cAllTerritories::getInstance()->reload();
+	Resources::instance()->reload();
+	MakeMenus::instance()->reload();
+	ScriptManager->reload(); // Reload Scripts
+	ContextMenus::instance()->reload();
+	NewMagic->load();
+	Skills->reload();
+
+	// Update the Regions
+	AllCharsIterator iter;
+	for( iter.Begin(); !iter.atEnd(); iter++ )
+	{
+		P_CHAR pChar = iter.GetData();
+		if( pChar )
+		{
+			cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
+			pChar->setRegion( region );
+		}
+	}
+	cNetwork::instance()->reload(); // This will be integrated into the normal definition system soon
+}
+
 
 ZThread::FastMutex commandMutex;
 QStringList commandQueue;
@@ -625,6 +655,10 @@ QStringList commandQueue;
 class cConsoleThread: public ZThread::Thread
 {
 public:
+	~cConsoleThread() {
+		join(); // wait for it to stop
+	}
+
 	virtual void run() throw()
 	{
 		#if !defined(__unix__)
@@ -636,19 +670,27 @@ public:
 			
 			while( keeprun )
 			{
-				key = getch();
-
-				if( key != 0 )
+				if ( kbhit() )
 				{
-					commandMutex.acquire();
-					commandQueue.push_back( QString( "%1" ).arg( key ) );
-					commandMutex.release();
+					key = getch();
+	
+					if( key != 0 )
+					{
+						try {
+							commandMutex.acquire();
+							commandQueue.push_back( QString( "%1" ).arg( key ) );
+							commandMutex.release();
+						} catch ( ZThread::Synchronization_Exception &e ) {
+							commandMutex.release();
+						}
+					}
 				}
+				this->sleep(10);
 			}			
 		}
 		catch( ... )
 		{
-			commandMutex.release();
+//			commandMutex.release();
 		}
 		#endif
 	}
@@ -745,33 +787,7 @@ void interpretCommand( const QString &command )
 				break;
 			case 'r':
 			case 'R':
-				clConsole.send( "Reloading definitions, scripts and wolfpack.xml\n" );
-
-				SrvParams->reload(); // Reload wolfpack.xml
-				DefManager->reload(); //Reload Definitions
-				Accounts::instance()->reload();
-				SpawnRegions::instance()->reload();
-				cAllTerritories::getInstance()->reload();
-				Resources::instance()->reload();
-				MakeMenus::instance()->reload();
-				ScriptManager->reload(); // Reload Scripts
-				ContextMenus::instance()->reload();
-				NewMagic->load();
-				Skills->reload();
-
-				// Update the Regions
-				for( iter.Begin(); !iter.atEnd(); iter++ )
-				{
-					P_CHAR pChar = iter.GetData();
-
-					if( pChar )
-					{
-						cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
-						pChar->setRegion( region );
-					}
-				}
-
-				cNetwork::instance()->reload(); // This will be integrated into the normal definition system soon
+				reloadScripts();
 				break;
 			case '?':
 				clConsole.send("Console commands:\n");
@@ -933,6 +949,8 @@ int main( int argc, char *argv[] )
 	clConsole.send( QString( "\n%1 %2 %3 \n\n" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() ) );
 
 	clConsole.send( "Copyright (C) 1997, 98 Marcus Rating (Cironian)\n");
+	clConsole.send( "Copyright (C) 2000-2003 Wolfpack Development Team\n");
+	clConsole.send( "Wolfpack Homepage: http://www.wpdev.org/");
 	clConsole.send( "By using this software you agree to the license accompanying this release.\n");
 	clConsole.send( "Compiled on %s (%s %s)\n",__DATE__,__TIME__, wp_version.timezonestring.c_str() );
 	clConsole.send( "\n" );
@@ -1395,7 +1413,7 @@ int main( int argc, char *argv[] )
 
 		loopTime += tempTime;
 		
-//		qApp->processOneEvent();
+		qApp->processOneEvent();
 	}
 
 	consoleThread.cancel();
@@ -1406,17 +1424,20 @@ int main( int argc, char *argv[] )
 	cNetwork::shutdown();
 	clConsole.ProgressDone();
 
+	SrvParams->flush(); // Save config options
+
 	// Simply emptying of containers, no progressbar needed
 	Magic->unload();
 	NewMagic->unload();
 	DefManager->unload();
 
-	SrvParams->flush();
+	// Stop Python Interpreter.
+	ScriptManager->unload();
+	stopPython();
 
 	if( SrvParams->serverLog() ) 
 		savelog( "Server shutdown","server.log" );
 
-	stopPython();
 	return 0;
 }
 

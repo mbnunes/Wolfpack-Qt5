@@ -14,3 +14,7 @@ def getbuffer():
 
 def send():
 	return _wolfpack.console.send( sring2console )
+
+def reloadScripts():
+        return _wolfpack.console.reloadScripts()
+

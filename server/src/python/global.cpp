@@ -51,6 +51,7 @@
 // Library Includes
 #include <qdatetime.h>
 
+#include <zthread/fastmutex.h>
 /*!
 	Sends a string to the wolfpack console.
 */
@@ -141,6 +142,26 @@ PyObject* wpConsole_getbuffer( PyObject* self, PyObject* args )
 	return list;
 }
 
+extern QStringList commandQueue;
+extern ZThread :: FastMutex commandMutex;
+PyObject* wpConsole_reloadScripts( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+	Q_UNUSED(args);
+	// Temporary implementation while thread comunication is not done
+	commandMutex.acquire();
+	if ( !secure )
+		commandQueue.push_back( "R" );
+	else
+	{
+		commandQueue.push_back("S");
+		commandQueue.push_back("R");
+		commandQueue.push_back("S");
+	}
+	commandMutex.release();
+	
+	return PyInt_FromLong( 1 );
+}
 
 /*!
 	wolfpack.console
@@ -154,10 +175,11 @@ static PyMethodDef wpConsole[] =
 	{ "progressFail",	wpConsole_progressFail,	METH_VARARGS, "Prints a [fail] block" },
 	{ "progressSkip",	wpConsole_progressSkip,	METH_VARARGS, "Prints a [skip] block" },
 	{ "getbuffer",		wpConsole_getbuffer,	METH_VARARGS, "Gets the linebuffer of the console" },
+	{ "reloadScripts",	wpConsole_reloadScripts,METH_VARARGS, "Reloads Scripts and Definitions"	},
     { NULL, NULL, 0, NULL } // Terminator
 };
 
-/*!
+/*!0
 	Gets the seconds of the current uo time
 */
 PyObject* wpTime_second( PyObject* self, PyObject* args )

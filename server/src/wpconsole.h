@@ -75,8 +75,6 @@ private:
 	QStringList linebuffer_;
 	QString incompleteLine_;
 public:
-	QStringList linebuffer() const { return QStringList(); } //linebuffer_; }
-
 	// Constructor
 	WPConsole_cl();
 	// Destructor
@@ -109,6 +107,8 @@ public:
 
 	void ChangeColor( WPC_ColorKeys Color );
 	void setConsoleTitle( const QString& data );
+
+	QStringList linebuffer() const { return linebuffer_; }
 
 private:
 

@@ -94,6 +94,7 @@ int hexnumber(int countx);
 int makenumber(int countx);
 inline int calcserial(unsigned char a1,unsigned char a2,unsigned char a3,unsigned char a4) {return (static_cast<int>((a1<<24))|static_cast<int>((a2<<16)) | static_cast<int>((a3<<8)) | static_cast<int>(a4));}
 int lineOfSight( const Coord_cl&, const Coord_cl&, int checkfor );
+void reloadScripts();
 
 // Guildstone related functions
 int chardirxyz(P_CHAR pc, int x, int y);	// direction from character a to char b
