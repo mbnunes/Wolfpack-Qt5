@@ -9,4 +9,7 @@
 	<!-- Spell Scripts -->
 	<script id="spell_clumsy" type="python" module="spells.clumsy" />
 	<script id="spell_createfood" type="python" module="spells.createfood" />
+
+	<!-- moongate -->
+	<script id="moongate" type="python" module="moongate" />
 </definitions>
