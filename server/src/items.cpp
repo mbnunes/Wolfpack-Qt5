@@ -774,7 +774,7 @@ void cItem::respawn( unsigned int currenttime )
 
 	pItem->setGateTime(currenttime + ( RandomNum( pItem->morex(), pItem->morey() ) * MY_CLOCKS_PER_SEC ));
 
-	/*
+	*//*
 
 	// Chest spawner
 			else if ((pi->type()==63)||(pi->type()==64)||(pi->type()==65)||(pi->type()==66)||(pi->type()==8))
