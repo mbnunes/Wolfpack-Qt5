@@ -395,7 +395,53 @@ void monstergate(P_CHAR pc_s, int x)
 
 	QDomElement* npcSect = DefManager->getSection( WPDT_NPC, QString("%1").arg(x) );
 	if( !npcSect->isNull() )
+	{
+         AllItemsIterator iterItem;   
+         for(iterItem.Begin(); !iterItem.atEnd(); iterItem++)   
+         {   
+                 P_ITEM pi = iterItem.GetData();   
+                 if (pc_s->Wears(pi) &&   
+                         pi->layer()!=0x15 && pi->layer()!=0x1D &&   
+                         pi->layer()!=0x10 && pi->layer()!=0x0B && (!pi->free))   
+                 {   
+                         if (pBackpack == NULL)   
+                         {   
+                                 pBackpack = Packitem(pc_s);   
+    
+                         }   
+                         if (pBackpack == NULL)   
+                         {   
+                                 scpMark m=pScp->Suspend();   
+                                 pBackpack = Items->SpawnItem(calcSocketFromChar(pc_s),pc_s,1,"#",0,0x0E,0x75,0,0,0);   
+                                 if (pBackpack == NULL)   
+                                         return;   
+                                 pc_s->packitem = pBackpack->serial;   
+                                 pScp->Resume(m);   
+    
+                                 pBackpack->setContSerial(pc_s->serial);   
+                                 pBackpack->setLayer(0x15);   
+                                 pBackpack->setType( 1 );   
+                                 pBackpack->dye=1;   
+                                 pRetitem = pBackpack;   
+                         }   
+                         pi->pos.x = RandomNum(50, 130);   
+                         pi->pos.y = RandomNum(50, 130);   
+                         pi->pos.z=9;   
+                         pi->setContSerial(pBackpack->serial);   
+                         pi->setLayer(0x00);   
+    
+                         SndRemoveitem(pi->serial);   
+                         RefreshItem(pi);//AntiChrist   
+                 }   
+                 else if (pc_s->Wears(pi) &&   
+                         (pi->layer() == 0x0B || pi->layer() == 0x10))   
+                 {   
+                         Items->DeleItem(pi);   
+                 }   
+        } 
+
 		pc_s->applyDefinition( *npcSect );
+	}
 	
 	pc_s->setTitle(QString::null);
 
