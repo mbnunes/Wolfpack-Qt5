@@ -45,6 +45,9 @@
 		<!-- Misc. -->
 		<strproperty name="slayer_group" value="undeads" />
 		<category>Monsters\Shadows\Darknight Creeper</category>
+		
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="4" />
 	</npc>
 
 </definitions>

@@ -44,6 +44,9 @@
 		<category>Monsters\Terathan\Terathan Avenger</category>
 		<strproperty name="slayer_group" value="terathans" />
 		<intproperty name="carve_meat" value="2" />
+		
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="3" />
 	</npc>
 
 </definitions>

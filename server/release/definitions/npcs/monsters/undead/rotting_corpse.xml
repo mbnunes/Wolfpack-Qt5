@@ -45,6 +45,9 @@
 		<category>Monsters\Undead\Rotting Corpse</category>
 		<strproperty name="slayer_group" value="undeads" />
 		<inherit id="speed_slow" />
+		
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="4" />
 	</npc>
 
 </definitions>

@@ -15,38 +15,47 @@
 		<skin><random list="SKINS_SNAKE" /></skin>
 		<inherit id="KARMA_L2" />
 		<inherit id="FAME_L2" />
+
 		<!-- Stats -->
 		<str><random min="186" max="215"/></str>
 		<dex><random min="56" max="80"/></dex>
 		<int><random min="66" max="85"/></int>
 		<maxmana>0</maxmana>
 		<maxhitpoints><random min="112" max="129"/></maxhitpoints>
+
 		<!-- Skills -->
 		<poisoning><random min="701" max="1000"/></poisoning>
 		<magicresistance><random min="251" max="400"/></magicresistance>
 		<tactics><random min="651" max="700"/></tactics>
 		<wrestling><random min="601" max="800"/></wrestling>
+
 		<!-- Damage -->
 		<mindamage>19</mindamage>
 		<maxdamage>35</maxdamage>
 		<tag name="dmg_poison" value="60" type="int" />
+
 		<!-- Resists -->
 		<tag name="res_cold" value="10,20" type="int" />
 		<tag name="res_energy" value="10,20" type="int" />
 		<tag name="res_fire" value="5,10" type="int" />
 		<tag name="res_physical" value="30,35" type="int" />
 		<tag name="res_poison" value="70,90" type="int" />
+
 		<!-- Misc. -->
 		<desc>These serpents are unnaturally large, easily able to devour a grownman whole. They are found in the deepest forests and jungles, where they wait in hiding for their prey to walk by. They produce a sweet meat with a flavor not unlike chicken, but they are most earnestly hunted for their scales, which are sought by mages and alchemists for their useful properties in the brewing of thaumaturgical substances.</desc>
+
 		<!-- Missing: Body Parts -->
 		<lootpacks>lootpack_average</lootpacks>
-		<carve>carve_serpent_gaint</carve>
 		<category>Monsters\Reptiles\Gaint Serpent</category>
 		<strproperty name="slayer_group" value="snakes" />
+		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="15" />
 		<strproperty name="carve_hides_type" value="spined" />
 		<intproperty name="carve_meat" value="4" />
+		
+		<intproperty name="hit_poison_level" value="5" />
+		<basescript>npc.poison</basescript>
 	</npc>
 
 </definitions>

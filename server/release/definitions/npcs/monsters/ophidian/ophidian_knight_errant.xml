@@ -42,6 +42,8 @@
 		<strproperty name="slayer_group" value="ophidians" />
 		<intproperty name="carve_meat" value="2" />
 		<inherit id="speed_fast" />
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="4" />
 	</npc>
 
 </definitions>

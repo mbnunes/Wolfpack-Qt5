@@ -45,6 +45,9 @@
 		<category>Monsters\Insects\Giant Scorpion</category>
 		<strproperty name="slayer_group" value="scorpions" />
 		<intproperty name="carve_meat" value="1" />
+		
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="5" />
 	</npc>
 
 </definitions>

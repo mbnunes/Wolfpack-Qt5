@@ -40,6 +40,9 @@
 		<category>Monsters\Insects\Giant Spider</category>
 		<!-- Priv -->
 		<strproperty name="slayer_group" value="spiders" />
+		
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="1" />
 	</npc>
 
 </definitions>

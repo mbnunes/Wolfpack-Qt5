@@ -40,6 +40,9 @@
 		<mintaming>231</mintaming>
 		<category>Monsters\Common\Slime</category>
 		<inherit id="speed_slow" />
+		
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="0" />
 	</npc>
 
 </definitions>

@@ -45,6 +45,9 @@
 		<category>Animals\Land\Snake</category>
 		<strproperty name="slayer_group" value="snakes" />
 		<intproperty name="carve_meat" value="1" />
+		
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="0" />		
 	</npc>
 
 </definitions>

@@ -43,6 +43,10 @@
 		<lootpacks>lootpack_rich;lootpack_average;gems</lootpacks>
 		<category>Monsters\Elementals\Acid Elemental</category>
 		<ai>Monster_Mage</ai>
+		
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="4" />
+		<intproperty name="hit_poison_chance" value="60" />
 	</npc>
 
 </definitions>

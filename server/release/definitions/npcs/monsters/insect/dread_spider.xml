@@ -44,6 +44,9 @@
 		<strproperty name="slayer_group" value="spiders" />
 		<inherit id="speed_fast" />
 		<ai>Monster_Mage</ai>
+		
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="4" />
 	</npc>
 
 </definitions>

@@ -41,6 +41,9 @@
 		<category>Monsters\Insects\Giant Black Widow</category>
 		<strproperty name="slayer_group" value="spiders" />
 		<inherit id="speed_fast" />
+		
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="3" />
 	</npc>
 
 </definitions>

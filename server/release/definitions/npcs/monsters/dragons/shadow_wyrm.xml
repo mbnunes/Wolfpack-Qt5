@@ -49,6 +49,9 @@
 		<strproperty name="carve_hides_type" value="barbed" />
 		<intproperty name="carve_meat" value="19" />
 		<ai>Monster_Mage</ai>
+		
+		<basescript>npc.poison</basescript>
+		<intproperty name="hit_poison_level" value="3" />
 	</npc>
 
 </definitions>
