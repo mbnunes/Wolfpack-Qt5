@@ -467,7 +467,7 @@ public:
 	
 	void setSerial( Q_UINT32 data ) { setInt( 3, data ); }
 	void setModel( Q_UINT16 data ) { setShort( 7, data ); }
-	void setX( Q_UINT16 data ) { setShort( 9, data | 0x8000 ); }
+	void setX( Q_UINT16 data ) { setShort( 9, data ); }
 	void setY( Q_UINT16 data ) { setShort( 11, data ); }	
 	void setZ( Q_INT8 data ) { rawPacket[13] = data;  }
 	void setDirection( Q_UINT8 data ) { rawPacket[14] = data; }
@@ -644,6 +644,21 @@ public:
 	cUOTxTarget(): cUOPacket( 0x6c, 19 ) {}
 	void setAllowGround( bool data ) { rawPacket[1] = data ? 1 : 0; }
 	void setTargSerial( UINT32 data ) { setInt( 2, data ); }
+};
+
+// 0x54 SoundEffect
+class cUOTxSoundEffect: public cUOPacket
+{
+public:
+	cUOTxSoundEffect(): cUOPacket( 0x54, 12 ) { rawPacket[1] = 1; }
+	void setSound( UINT16 data ) { setShort( 2, data ); }
+	void setUnknown( UINT16 data ) { setShort( 4, data ); }
+	void setCoord( const Coord_cl &coord ) 
+	{
+		setShort( 6, coord.x );
+		setShort( 8, coord.y );
+		setShort( 10, coord.z );
+	}
 };
 
 #endif

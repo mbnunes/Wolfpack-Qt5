@@ -564,7 +564,6 @@ void cMovement::GetBlockingStatics(const Coord_cl pos, unitile_st *xyblock, int 
 	staticrecord *stat;
  	while (stat = msi.Next())
 	{
-		//printf("staticr[X] type=%d, id=%d\n", 2, stat->itemid);
 		tile_st tile;
 		msi.GetTile(&tile);
 		xyblock[xycount].type=2;
@@ -1116,9 +1115,6 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
     int dnpctime=0;
     if (pc_i->isNpc() && (pc_i->npcmovetime<=currenttime||(overflow)))
     {
-#if DEBUG_NPCWALK
-		printf("ENTER (%s): %d AI %d WAR %d J\n", pc_i->name.c_str(), pc_i->npcWander, pc_i->war, j);
-#endif
 		if (pc_i->war && pc_i->npcWander != 5)
         {
             P_CHAR pc_attacker = FindCharBySerial(pc_i->attacker);

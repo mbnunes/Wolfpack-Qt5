@@ -140,6 +140,7 @@ public:
 	void sendContainer( P_ITEM pCont );
 	void updatePlayer();
 	void poll();
+	void soundEffect( UINT16 soundId, cUObject *source = NULL ); 
 	void attachTarget( cTargetRequest *request );
 
 	void allowMove( Q_UINT8 sequence );

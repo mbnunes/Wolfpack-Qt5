@@ -40,6 +40,7 @@
 #include "regions.h"
 #include "srvparams.h"
 #include "classes.h"
+#include "network/uosocket.h"
 #include "network.h"
 #include "spawnregions.h"
 #include "territories.h"
@@ -620,7 +621,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 	}
 }
 
-void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
+void checkNPC(P_CHAR pc, unsigned int currenttime)
 {
 	if (pc == NULL)
 		return;
@@ -629,15 +630,16 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 	int pcalc;
 	char t[120];
 
-	Npcs->CheckAI(currenttime, pc);//Lag fix
-	Movement->NpcMovement(currenttime, pc);//Lag fix
-	setcharflag(pc);
+	Npcs->CheckAI( currenttime, pc );
+	Movement->NpcMovement( currenttime, pc );
+    setcharflag( pc );
+
 	if (!pc->dead && pc->swingtarg()==-1 )
 		Combat->DoCombat(pc, currenttime);
 	else if(!pc->dead && (pc->swingtarg()>=0 && pc->timeout<=currenttime))
 		Combat->CombatHitCheckLoS(pc,currenttime);
 
-	Magic->CheckFieldEffects2(currenttime, pc, 0);//Lag fix
+	Magic->CheckFieldEffects2( currenttime, pc, 0 );
 
 	restockNPC(currenttime, pc);
 
@@ -673,9 +675,6 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 		}
 	}
 
-//	if ((pc->fleeat==0)) pc->fleeat=SrvParms->npc_base_fleeat;
-//	if ((pc->reattackat==0)) pc->reattackat=SrvParms->npc_base_reattackat;
-
 	if (pc->npcWander!=5 &&	pc->hp < pc->st*pc->fleeat()/100)
 	{
 		pc->oldnpcWander = pc->npcWander;
@@ -692,7 +691,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 	}
 	// end of flee code
 
-	// new poisoning code, Lord Binary
+	// new poisoning code
 	if (pc->poisoned() && !(pc->isInvul()) )
 	{
 		if ((pc->poisontime()<=currenttime)||(overflow))
@@ -920,18 +919,6 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 			cwmWorldState->savenewworld(0);
 			dosavewarning = 1;
 		}
-
-		// Dupois - Added Dec 20, 1999
-		//			After an automatic world save occurs, lets check to see if
-		//			anyone is online (clients connected). If nobody is connected
-		//			Lets do some maintenance on the bulletin boards.
-	/*		if( !now )
-		{
-				clConsole.send("WOLFPACK: No players currently online. Starting bulletin board maintenance.\n" );
-				savelog( "Bulletin Board Maintenance routine running (AUTO)\n", "server.log" );
-			MsgBoardMaintenance();
-		}
-		*/
 	}
 
 	//Time functions
@@ -970,85 +957,93 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 			}
 		}
 	}
-	for(i=0;i<now;i++)
+
+	for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
 	{
-		if (online(currchar[i]) && currchar[i]->account()==acctno[i])
+		if( !socket->player() )
+			continue;
+
+		genericCheck( socket->player(), currenttime );
+		checkPC( socket->player(), currenttime );
+
+		// Check all Characters first
+		RegionIterator4Chars iterator( socket->player()->pos );
+		for( iterator.Begin(); !iterator.atEnd(); iterator++ )
 		{
+			P_CHAR pChar = iterator.GetData();
 
-			genericCheck(currchar[i], currenttime);
-			checkPC(currchar[i], currenttime);
+			if( !pChar )
+				continue;
 
-			int	StartGrid=mapRegions->StartGrid(currchar[i]->pos);
-
-			unsigned int increment=0;
-			for (unsigned int checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
+			// we check tamed npcs more often than
+			// untamed npcs so they can react faster
+			if( ( !pChar->tamed() && checknpcs <= currenttime ) ||
+				( pChar->tamed() && checktamednpcs <= currenttime ) ||
+				( ( pChar->npcWander == 1 ) && checknpcfollow <= currenttime ) ||
+				overflow )
 			{
-				for (int a=0;a<3;a++)
+				if( pChar->isNpc() )
 				{
-					cRegion::raw vecEntries( mapRegions->GetCellEntries(checkgrid + a) );
-					cRegion::rawIterator it = vecEntries.begin();
-					for (; it != vecEntries.end(); ++it)
+					genericCheck( pChar, currenttime );
+
+					// We only process the AI for NPCs who are in a used area
+					if( pChar->pos.distance( socket->player()->pos ) <= 24 )
+						checkNPC( pChar, currenttime );
+				}
+				// Timed for logout
+				else if( ( 
+						( Accounts->GetInWorld( pChar->account() ) == pChar->serial ) && pChar->logout() && 
+						( pChar->logout() >= currenttime ) 
+					) || overflow )
+				{
+					Accounts->SetOffline( pChar->account() );
+					pChar->setLogout( 0 );
+					pChar->removeFromView( false );
+					pChar->resend( false );
+				}
+			}		
+		}
+
+		// Now for the items
+		if( ( checkitemstime <= currenttime ) || overflow )
+		{
+			RegionIterator4Items itemIter( socket->player()->pos );
+			for( itemIter.Begin(); !itemIter.atEnd(); itemIter++ )
+			{
+				P_ITEM pItem = itemIter.GetData();
+	
+				if( !pItem )
+					continue;
+			
+				Items->RespawnItem( currenttime, pItem ); // Checks if the item is a spawner
+				Items->DecayItem( currenttime, pItem ); // Checks if the item should decay
+
+				switch( pItem->type() )
+				{
+				case 51:
+				case 52:
+					if( pItem->gatetime < currenttime )
+						Items->DeleItem( pItem );
+					break;
+
+				case 88:
+					if( pItem->pos.distance( socket->player()->pos ) < pItem->morey )
+						if( RandomNum( 1, 100 ) <= pItem->morez )
+							socket->soundEffect( pItem->morex, pItem );
+					break;
+				case 117:
+					if( ( pItem->tags.get( "tiller" ).isValid() && 
+						( pItem->gatetime <= currenttime ) ) || overflow )
 					{
-						P_CHAR mapchar = FindCharBySerial(*it);
-						P_ITEM mapitem = FindItemBySerial(*it);
-						if (mapchar != NULL)
-						{//Instalog //AntiChrist
-								//AntiChrist
-								//so we can use two different speeds
-								//for checking tamed and non-tamed npcs!
-								//players WANT to have faster tamed npcs....
-							if( (!mapchar->tamed() && checknpcs<=currenttime) || (mapchar->tamed() && checktamednpcs<=currenttime) || (mapchar->npcWander==1 && checknpcfollow<=currenttime) || overflow)
-							{
-								if (mapchar->isNpc()) 
-									genericCheck(mapchar, currenttime); // lb, lagfix
-								if (chardist(currchar[i], mapchar)<=24 && mapchar->isNpc()) //Morrolan tweak from 30 to 24 tiles
-									checkNPC(mapchar, currenttime);
-								else if (mapchar->isPlayer() &&
-									Accounts->GetInWorld(mapchar->account()) == mapchar->serial && mapchar->logout()>0 &&
-									(mapchar->logout()<=currenttime || (overflow)))
-								{										
-									Accounts->SetOffline(mapchar->account());
-									mapchar->setLogout(0);
-									updatechar(mapchar);
-								}
-							}
-						}
-						else if (mapitem != NULL && (checkitemstime<=currenttime||(overflow))) // moroallan !!! -1 is important !!!
-						{//BugFix
-							Items->RespawnItem(currenttime, mapitem);
-							if(mapitem->type() == 51 || mapitem->type() == 52) // LB !!!!
-							{
-								if(mapitem->gatetime<=currenttime) // LB !!!
-								{
-									unsigned int k;
-									for (k=0;k<2;k++) 
-										Items->DeleItem(mapitem); // bugfix for items disappearing
-								}
-							}
-							Items->DecayItem(currenttime, mapitem);
-							if (mapitem->type()==88 && mapitem->morey<25 )
-							{
-								if (itemdist(currchar[i], mapitem)<=mapitem->morey)
-								{
-									if (RandomNum(1,100)<=mapitem->morez)
-										soundeffect4(mapitem,i, mapitem->morex>>8, mapitem->morex%256);
-								}
-							}
-						} else if (mapitem != NULL) {//Boats
-							if(mapitem->type()==117 &&
-								(mapitem->tags.get("tiller").toInt() == 1) &&
-								(mapitem->gatetime<=currenttime||overflow))
-							{
-								cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial(mapitem->tags.get( "boatserial" ).toUInt()));
-								if( pBoat != NULL )
-								{
-									pBoat->move();
-									mapitem->gatetime=(unsigned int)(currenttime + (double)(SrvParams->boatSpeed()*MY_CLOCKS_PER_SEC));
-								}
-							}	
+						cBoat* pBoat = dynamic_cast< cBoat* >( FindItemBySerial( pItem->tags.get( "boatserial" ).toUInt() ) );
+						if( pBoat )
+						{
+							pBoat->move();
+							pItem->gatetime=(UINT32)( currenttime + (double)( SrvParams->boatSpeed() * MY_CLOCKS_PER_SEC ) );
 						}
 					}
-				}
+					break;
+				};				
 			}
 		}
 	}
@@ -1081,24 +1076,4 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		nextdecaytime = currenttime + (15*MY_CLOCKS_PER_SEC); // lb ...
 	if (SrvParams->autoAccountReload() > 0 && Accounts->lasttimecheck + (SrvParams->autoAccountReload()*60*MY_CLOCKS_PER_SEC) <= currenttime)
 		Accounts->CheckAccountFile();
-
-	// Do Eclipse stuff.. /blackwind 
-/*	if (SrvParms->eclipsetimer>0) 
-	{ 
-		if (SrvParms->eclipsetimer <= uiCurrentTime) 
-		{ 
-			SrvParms->eclipsetimer = (unsigned int)((double) uiCurrentTime +(ECLIPSETIMER*MY_CLOCKS_PER_SEC)); 
-			if (SrvParms->eclipsemode)
-				SrvParams->worldCurrentLevel()--;
-			else 
-				SrvParams->worldCurrentLevel()++; 
-			setabovelight(SrvParams->worldFixedLevel()); 
-			if ((SrvParams->worldFixedLevel()>20) ||(SrvParams->worldFixedLevel() < 1)) 
-			{ 
-				SrvParms->eclipsetimer = 0; 
-				server_data.eclipsemode=!server_data.eclipsemode; 
-			} 
-		} 
-	} // end eclipse / blackwind..
-*/
 }

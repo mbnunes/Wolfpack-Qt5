@@ -1112,3 +1112,19 @@ void cUOSocket::handleTarget( cUORxTarget *packet )
 	targetRequest->responsed( this, packet );
 	delete targetRequest;
 }
+
+void cUOSocket::soundEffect( UINT16 soundId, cUObject *source )
+{
+	if( !_player )
+		return;
+
+	cUOTxSoundEffect sound;
+	sound.setSound( soundId );
+	
+	if( !source )
+		sound.setCoord( _player->pos );
+	else
+		sound.setCoord( source->pos );
+
+	send( &sound );
+}
