@@ -667,6 +667,9 @@ class cUOTxAcceptMove: public cUOPacket
 public:
 	cUOTxAcceptMove(): cUOPacket( 0x22, 3 ) {}
 	void setSequence( Q_UINT8 data ) { (*this)[1] = data; }
+	void setHighlight( unsigned char data ) {
+		(*this)[2] = data;
+	}
 };
 
 // 0x1D Delete object

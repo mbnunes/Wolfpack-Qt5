@@ -1183,10 +1183,11 @@ void cUOSocket::showSpeech( const cUObject *object, const QString &message, Q_UI
 void cUOSocket::allowMove( Q_UINT8 sequence )
 {
 	cUOTxAcceptMove acceptMove;
-	acceptMove.setSequence( sequence );
-	send( &acceptMove );
+	acceptMove.setSequence(sequence);
+	acceptMove.setHighlight(_player->notority(_player));
+	send(&acceptMove);
 
-	_walkSequence = ( sequence < 255 ) ? sequence : 0;
+	_walkSequence = (sequence < 255) ? sequence : 0;
 }
 
 /*!
