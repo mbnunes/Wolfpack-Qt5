@@ -65,7 +65,8 @@ def onSwing(attacker, defender, time):
 			attacker.nextswing = time + 10000
 			raise
 
-		attacker.nextswing = time + properties.getdelay(attacker, weapon)
+		delay = properties.getdelay(attacker, weapon)
+		attacker.nextswing = time + delay
 
 #
 # Callback for showing the status gump to yourself.

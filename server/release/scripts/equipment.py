@@ -340,6 +340,10 @@ def onUse(player, item):
 		return 0
 
 	tile = wolfpack.tiledata(item.id)
+	
+	if not tile.has_key('layer'):
+		return 0
+		
 	layer = tile['layer']
 
 	if layer == 0 or not (tile['flag3'] & 0x40):
