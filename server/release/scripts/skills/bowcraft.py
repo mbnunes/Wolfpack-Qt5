@@ -56,9 +56,10 @@ def makeshaft( char ):
 		char.useresource( 0x1bd7, num_boards )
 
 	char.checkskill( BOWCRAFT, 0, 400 )
-	num_shafts = floor( num_shafts * skills.bowcraft.shaft_chance( char ) )
-	if not num_shafts:
-		return
+	#chance = skills.bowcraft.shaft_chance( char ) / 100
+	#num_shafts = floor( chance * num_shafts )
+	#if not num_shafts:
+	#	return
 	# make and insert item into backpack
 	if num_shafts == 1:
 		item = "1bd4"
@@ -86,9 +87,9 @@ def makearrows( char, str ):
 	# count resources and set the number to make
 	num_shafts = char.countresource( 0x1bdd )
 	num_feathers = char.countresource( 0x1bd1 )
-	if not num_feathers or not num_shafts:
-		return
 	num_arrows = min( num_feathers, num_shafts )
+	if not num_arrows:
+		return
 
 	# use up resources
 	char.useresource( 0x1bdd, num_arrows )
@@ -96,9 +97,10 @@ def makearrows( char, str ):
 
 	char.checkskill( BOWCRAFT, 0, 400 )
 	# make and insert shafts into char's backpack
-	num_arrows = floor( num_arrows * skills.bowcraft.shaft_chance( char ) )
-	if not num_arrows:
-		return
+	#chance = skills.bowcraft.shaft_chance( char ) / 100
+	#num_arrows = floor( chance * num_arrows )
+	#if not num_arrows:
+	#	return
 	if str == "arrow":
 		if num_arrows == 1:
 			item = "f3f"
@@ -121,6 +123,7 @@ def makearrows( char, str ):
 	backpack.additem( arrows )
 	arrows.update()
 
+# % success chance on making shaft/arrow/bolt
 def shaft_chance( char ):
 	skill = char.skill[ BOWCRAFT ]
 	chance = 50 + floor( 0.125 * skill )
