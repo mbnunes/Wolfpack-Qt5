@@ -47,7 +47,7 @@
 
 // Postprocessing stuff, can be deleted later on
 #include "maps.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "territories.h"
 
 // Objects ( => Factory later on )
@@ -845,7 +845,12 @@ void cWorld::deleteObject( cUObject *object )
 		return;
 	}
 
+	// Delete from Database
+	object->del();
+
+	// Mark it as Free
 	object->free = true;
+
 	p->pendingObjects.push_back( object );
 }
 

@@ -37,7 +37,7 @@
 #include "walking.h"
 #include "TmpEff.h"
 #include "combat.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "srvparams.h"
 #include "network.h"
 #include "spawnregions.h"
@@ -725,22 +725,12 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 			for( itemIter.Begin(); !itemIter.atEnd(); itemIter++ )
 			{
 				P_ITEM pItem = itemIter.GetData();
-	
-				if( !pItem )
-					continue;
-			
-				Items->RespawnItem( currenttime, pItem ); // Checks if the item is a spawner
-				Items->DecayItem( currenttime, pItem ); // Checks if the item should decay
+				
+				pItem->respawn( currenttime ); // Checks if the item is a spawner
+				pItem->decay( currenttime ); // Checks if the Item should decay
 
 				switch( pItem->type() )
 				{
-				// This is rather stupid, why is it not a normal decaytimer!
-				case 51:
-				case 52:
-					if( pItem->gatetime() < currenttime )
-						Items->DeleItem( pItem );
-					break;
-
 				// If it is a sound-item there is a 1%*item->morez chance that
 				// It "emits" a sound to this character.
 				// This is a rather stupid method...

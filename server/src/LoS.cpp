@@ -31,7 +31,7 @@
 
 #include "wolfpack.h"
 #include "debug.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "maps.h"
 #include "tilecache.h"
 #include "itemid.h"

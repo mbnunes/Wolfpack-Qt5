@@ -108,7 +108,7 @@ void StonePlacement(const cUOSocket* socket)
 //		pStone->setOwnSerialOnly(pc->serial());
 //
 //		pStone->update();//AntiChrist
-//		Items->DeleItem(pDeed);
+//		pDeed->remove();
 //		//entrygump(toOldSocket(socket), pc->serial(),100,1,40,"Enter a name for the guild.");
 //	}
 //	else
@@ -134,7 +134,7 @@ void StonePlacement(const cUOSocket* socket)
 //			pStone->type = 202;
 //			pStone->priv = 0;		
 //			pStone->update();//AntiChrist
-//			Items->DeleItem(pDeed);
+//			pDeed->remove();
 //			pc->fx1 = INVALID_SERIAL;
 //			guilds[guildnumber].stone = pStone->serial();
 //		}
@@ -605,7 +605,7 @@ void GuildResign(int s)
 //	}
 //	if (pStone->member.empty())
 //	{
-//		Items->DeleItem( pStone );
+//		pStone->remove();
 ////		sysmessage(s,"You have been the last member of that guild so the stone vanishes.");
 //	}
 //	return;
@@ -626,7 +626,7 @@ void EraseGuild(int guildnumber)
 	
 	memset(&guilds[guildnumber], 0, sizeof(guild_st));
 	guilds[guildnumber].free = true;
-	Items->DeleItem(pStone);
+	pStone->remove();
 	for (counter=1;counter<MAXGUILDS;counter++)
 	{
 		if (!guilds[counter].free)

@@ -62,7 +62,6 @@ void delequan(P_CHAR pc, short id, int amount, int *not_deleted = NULL);
 void dooruse( cUOSocket*, P_ITEM );
 void playmonstersound(P_CHAR monster, unsigned short id, int sfx);
 void sellaction(int s);
-void addgold(cUOSocket* s, int totgold);
 void StoreItemRandomValue(P_ITEM pi,QString tmpreg); // by Magius(CHE) (2) for trade system
 
 void clearalltrades();

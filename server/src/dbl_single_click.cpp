@@ -75,7 +75,7 @@ void usehairdye(cUOSocket* socket, P_ITEM piDye)
 			pi->update();
 		}
 	}
-	Items->DeleItem(piDye);	//Now delete the hair dye bottle!
+	piDye->remove();	//Now delete the hair dye bottle!
 }
 
 
@@ -752,7 +752,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 					return;
 				case 0x0E73: // cannon ball
 //					target(s, 0, 1, 0, 170, "Select cannon to load."); 
-					Items->DeleItem(pi);
+					pi->remove();
 					return;
 				case 0x0FF8:
 				case 0x0FF9: // pitcher of water to flour
@@ -843,73 +843,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 						socket->attachTarget( target );
 						socket->sysMessage( tr("What lock would you like to pick?") );
 					}
-					return;
-				case 0x0C4F:
-				case 0x0C50:
-				case 0x0C51:
-				case 0x0C52:
-				case 0x0C53:
-				case 0x0C54: // cotton plants
-					{
-						pc_currchar->action( 0xD );
-						pc_currchar->soundEffect( 0x13E );
-
-						P_ITEM p_cotton = Items->SpawnItem(pc_currchar, 1, "#", 1, 0x0DF9, 0, 1);
-						if ( !p_cotton )
-							return;
-						
-						p_cotton->toBackpack( pc_currchar );
-						
-						if( socket )
-							socket->sysMessage( tr( "You reach down and pick some cotton." ) );
-					}
-					return; // cotton
-				case 0x105B:
-				case 0x105C:
-				case 0x1053:
-				case 0x1054: // tinker axle
-//					addid1[s] = static_cast<unsigned char>((pi->serial()&0xFF000000)>>24);
-//					addid2[s] = static_cast<unsigned char>((pi->serial()&0x00FF0000)>>16);
-//					addid3[s] = static_cast<unsigned char>((pi->serial()&0x0000FF00)>>8);
-//					addid4[s] = static_cast<unsigned char>((pi->serial()&0x000000FF));
-//					target(s, 0, 1, 0, 183, "Select part to combine that with.");
-					return;
-				case 0x1051:
-				case 0x1052:
-				case 0x1055:
-				case 0x1056:
-				case 0x105D:
-				case 0x105E:
-//					addid1[s] = static_cast<unsigned char>((pi->serial()&0xFF000000)>>24);
-//					addid2[s] = static_cast<unsigned char>((pi->serial()&0x00FF0000)>>16);
-//					addid3[s] = static_cast<unsigned char>((pi->serial()&0x0000FF00)>>8);
-//					addid4[s] = static_cast<unsigned char>((pi->serial()&0x000000FF));
-					// itemmake[s].materialid1=pi->id1;
-					// itemmake[s].materialid2=pi->id2;
-//					target(s, 0, 1, 0, 184, "Select part to combine it with.");
-					return;
-				case 0x104F:
-				case 0x1050:
-				case 0x104D:
-				case 0x104E:// tinker clock
-//					addid1[s] = static_cast<unsigned char>((pi->serial()&0xFF000000)>>24);
-//					addid2[s] = static_cast<unsigned char>((pi->serial()&0x00FF0000)>>16);
-//					addid3[s] = static_cast<unsigned char>((pi->serial()&0x0000FF00)>>8);
-//					addid4[s] = static_cast<unsigned char>((pi->serial()&0x000000FF));
-//					target(s, 0, 1, 0, 185, "Select part to combine with");
-					return;
-				case 0x1059:
-				case 0x105A:// tinker sextant
-					if( pc_currchar->checkSkill( TINKERING, 500, 1000))
-					{
-						socket->sysMessage(tr("You create the sextant."));
-						P_ITEM pi_sextant = Items->SpawnItem(pc_currchar, 1, "a sextant", 0, 0x1057, 0, 1);
-						if (pi_sextant != NULL)
-							pi_sextant->setPriv( pi_sextant->priv() | 0x01 );
-						pi->reduceAmount(1);
-					}
-					else 
-						socket->sysMessage(tr("you fail to create the sextant."));
 					return;
 				default:
 					break;

@@ -32,7 +32,7 @@
 // rewritten, 14.06.2002, sereg
 #include "boats.h"
 #include "network.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "tilecache.h"
 #include "maps.h"
 #include "srvparams.h"
@@ -146,7 +146,7 @@ void cBoat::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL 
 		}
 	}
 
-	P_ITEM pTiller = Items->SpawnItem( pc_currchar, 1, "a tiller man", 0, this->itemids[0][ TILLER_ID ], 0, 0 );
+	P_ITEM pTiller = cItem::createFromId( this->itemids[0][ TILLER_ID ] );
 	if( !pTiller )
 		siproblem = 1;
 	else
@@ -160,7 +160,7 @@ void cBoat::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL 
 		pTiller->setGateTime((unsigned int)(uiCurrentTime + (double)(SrvParams->boatSpeed()*MY_CLOCKS_PER_SEC)));
 	}
 		
-	P_ITEM pPlankR = Items->SpawnItem( pc_currchar, 1, "#", 0, this->itemids[0][ PORT_P_C ], 0, 0 );
+	P_ITEM pPlankR = cItem::createFromId( this->itemids[0][ PORT_P_C ] );
 	if( !pPlankR ) 
 		siproblem = 1;
 	else
@@ -173,7 +173,7 @@ void cBoat::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL 
 		this->itemserials[ PORT_PLANK ] = pPlankR->serial();
 	}
 
-	P_ITEM pPlankL = Items->SpawnItem( pc_currchar, 1, "#", 0, this->itemids[0][ STAR_P_C ], 0, 0 );//Plank1 is on the LEFT side of the boat
+	P_ITEM pPlankL = cItem::createFromId( this->itemids[0][ STAR_P_C ] );
 	if( !pPlankL )
 		siproblem = 1;
 	else
@@ -186,7 +186,7 @@ void cBoat::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL 
 		this->itemserials[ STARB_PLANK ] = pPlankL->serial();
 	}
 
-	P_ITEM pHold = Items->SpawnItem( pc_currchar, 1, "#", 0, this->itemids[0][ HOLD_ID ], 0, 0 );
+	P_ITEM pHold = cItem::createFromId( this->itemids[0][ HOLD_ID ] );
 	if( !pHold )
 		siproblem = 1;
 	else
@@ -210,10 +210,10 @@ void cBoat::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL 
 
 		World::instance()->unregisterObject( this );
 		World::instance()->deleteObject( this );
-		Items->DeleItem( pTiller );
-		Items->DeleItem( pPlankL );
-		Items->DeleItem( pPlankR );
-		Items->DeleItem( pHold );
+		pTiller->remove();
+		pPlankL->remove();
+		pPlankR->remove();
+		pHold->remove();
 		return;
 	}
 
@@ -229,7 +229,7 @@ void cBoat::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL 
 
 	P_ITEM pDeed = FindItemBySerial( deedserial );
 	if( pDeed != NULL )
-		Items->DeleItem( pDeed );
+		pDeed->remove();
 
 	cUOTxPause uoResume;
 	uoResume.resume();
@@ -1200,7 +1200,7 @@ void cBoat::toDeed( cUOSocket* socket )
 	P_ITEM pBackpack = pc->getBackpack();
 	if( pBackpack )
 	{
-		P_ITEM pDeed = Items->createScriptItem( this->deedsection_ );
+		P_ITEM pDeed = cItem::createFromScript( this->deedsection_ );
 
 		if( !pDeed ) 
 			socket->sysMessage ( tr("An error occured. Send a bug report to the staff, please.") );
@@ -1212,22 +1212,22 @@ void cBoat::toDeed( cUOSocket* socket )
 
 	P_ITEM pTiller = FindItemBySerial( this->itemserials[ TILLER ] );
 	if( pTiller != NULL )
-		Items->DeleItem( pTiller );
+		pTiller->remove();
 	
 	P_ITEM pPortplank = FindItemBySerial( this->itemserials[ PORT_PLANK ] );
 	if( pPortplank != NULL ) 
-		Items->DeleItem( pPortplank );
+		pPortplank->remove();
 
 	P_ITEM pStarplank = FindItemBySerial( this->itemserials[ STARB_PLANK ] );
 	if( pStarplank != NULL ) 
-		Items->DeleItem( pStarplank );
+		pStarplank->remove();
 
 	P_ITEM pHold = FindItemBySerial( this->itemserials[ HOLD ] );
 	if( pHold != NULL ) 
-		Items->DeleItem( pHold );
+		pHold->remove();
 
 	this->removeChar( pc );
-	Items->DeleItem (this);
+	remove();
 	socket->sysMessage( tr("You turned the boat into a deed.") );
 }
 

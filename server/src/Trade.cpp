@@ -354,7 +354,7 @@ void Trade::sellAction( cUOSocket *socket, cUORxSell *packet )
 				pBought->addItem( pSold );
 				pSold->update();
 				if( pItem->amount() <= iter->second )
-					Items->DeleItem( pItem );
+					pItem->remove();
 				else
 					pItem->setAmount( pItem->amount() - iter->second );
 				pItem->update();
@@ -384,7 +384,7 @@ P_ITEM Trade::startTrade( P_CHAR pPlayer, P_CHAR pChar )
 	SERIAL box1,box2;
 	
 	// One for our player
-	P_ITEM tCont = Items->createScriptItem( "2af8" );
+	P_ITEM tCont = cItem::createFromScript( "2af8" );
 	tCont->setLayer( 0x1f );
 
 //	tCont->setContSerial( pPlayer->serial() );
@@ -537,7 +537,7 @@ void Trade::clearalltrades()
 					}
 			}
 			//iterItems++; // Iterator will became invalid when deletting.
-			Items->DeleItem(pi);
+			pi->remove();
 			clConsole.send("Trade cleared\n");
 		}
 	}

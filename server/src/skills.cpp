@@ -41,7 +41,7 @@
 #include "tilecache.h"
 #include "combat.h"
 #include "targetrequests.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "srvparams.h"
 #include "scriptmanager.h"
 #include "skills.h"

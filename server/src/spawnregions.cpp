@@ -264,7 +264,7 @@ void cSpawnRegion::reSpawn( void )
 			if( this->findValidSpot( pos ) )
 			{
 				QString ItemSect = this->itemSections_[ RandomNum( 1, this->itemSections_.size() ) - 1 ];
-				P_ITEM pi = Items->createScriptItem( ItemSect );
+				P_ITEM pi = cItem::createFromScript( ItemSect );
 				if( pi != NULL )
 				{
 					pi->moveTo( pos );
@@ -307,7 +307,7 @@ void cSpawnRegion::reSpawnToMax( void )
 		if( this->findValidSpot( pos ) )
 		{
 			QString ItemSect = this->itemSections_[ RandomNum( 1, this->itemSections_.size() ) - 1 ];
-			P_ITEM pi = Items->createScriptItem( ItemSect );
+			P_ITEM pi = cItem::createFromScript( ItemSect );
 			if( pi != NULL )
 			{
 				pi->setPos( pos );
@@ -335,7 +335,7 @@ void cSpawnRegion::deSpawn( void )
 	it = this->itemSerials_.begin();
 	while( it != this->itemSerials_.end() )
 	{
-		Items->DeleItem( FindItemBySerial( *it ) );
+		FindItemBySerial( *it )->remove();
 		it++;
 	}
 	itemSerials_.erase( itemSerials_.begin(), itemSerials_.end() );

@@ -41,8 +41,6 @@
 #include "../basechar.h"
 #include "../network/uotxpackets.h"
 
-extern cAllItems *Items;
-
 #include "utilities.h"
 #include "content.h"
 #include "tempeffect.h"
@@ -164,7 +162,7 @@ static PyObject* wpMulti_delete( wpMulti* self, PyObject* args )
 		return PyFalse;
 
 	self->pMulti->del();
-	Items->DeleItem( self->pMulti );
+	self->pMulti->remove();
 
 	return PyTrue;
 }

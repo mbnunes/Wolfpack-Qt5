@@ -30,7 +30,7 @@
 
 #include "multis.h"
 
-#include "mapobjects.h"
+#include "sectors.h"
 #include "tilecache.h"
 #include "maps.h"
 #include "network/uosocket.h"
@@ -349,7 +349,7 @@ void cMulti::createKeys( P_PLAYER pc, const QString &name )
 	if( !pBackpack && !pBankbox )
 		return;
 
-	P_ITEM pKey = Items->createScriptItem( "100f" );
+	P_ITEM pKey = cItem::createFromScript( "100f" );
 	if( pKey )
 	{
 		pKey->tags().set( "linkserial", this->serial() );
@@ -365,7 +365,7 @@ void cMulti::createKeys( P_PLAYER pc, const QString &name )
 	// just create 3 additional keys...
 	for( register int i = 0; i < 3; ++i )
 	{
-		pKey = Items->createScriptItem( "100f" );
+		pKey = cItem::createFromScript( "100f" );
 		if( pKey )
 		{
 			pKey->tags().set( "linkserial", this->serial() );
@@ -393,7 +393,7 @@ void cMulti::removeKeys( void )
 	QPtrListIterator< cItem > it( todelete );
 	while( it.current() )
 	{
-		Items->DeleItem( it.current() );
+		it.current()->remove();
 		++it;
 	}
 }

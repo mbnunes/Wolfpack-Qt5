@@ -34,7 +34,7 @@
 #include "flatstore/flatstore.h"
 #include "flatstore_keys.h"
 #include "territories.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "npc.h"
 #include "player.h"
 #include "world.h"

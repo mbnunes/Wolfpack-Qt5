@@ -43,7 +43,7 @@
 #include "npc.h"
 #include "wpdefmanager.h"
 #include "corpse.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "tilecache.h"
 #include "skills.h"
 #include "pythonscript.h"
@@ -157,7 +157,7 @@ static void playerRegisterAfterLoading( P_PLAYER pc )
 			if( !pItem )
 				continue;
 
-			Items->DeleItem( pItem );
+			pItem->remove();
 		}
 		pc->del();
 		return;
@@ -547,12 +547,9 @@ void cPlayer::kill()
 
 	corpse->setMore1(nType);
 	corpse->setDirection( direction() );
-	corpse->startDecay();
 	
 	// Set the ownerserial to the player's
-	corpse->SetOwnSerial(serial());
-	// This is.... stupid...
-	corpse->setMore4( char( SrvParams->playercorpsedecaymultiplier()&0xff ) ); // how many times longer for the player's corpse to decay
+	corpse->SetOwnSerial( serial() );
 
 	// stores the time and the murderer's name
 	corpse->setMurderer( murderer );
@@ -602,7 +599,7 @@ void cPlayer::kill()
 						{
 							soundEffect( 0x01FE );
 							this->effect( 0x372A, 0x09, 0x06 );
-							Items->DeleItem( pi_k );
+							pi_k->remove();
 						}
 					}
 				}
@@ -648,7 +645,7 @@ void cPlayer::kill()
 	corpse->update();
 
 #pragma note( "Deathshroud has to be defined as 204e in the scripts" )
-	P_ITEM pItem = Items->createScriptItem( "204e" );
+	P_ITEM pItem = cItem::createFromScript( "204e" );
 	if( pItem )
 	{
 		this->addItem( cBaseChar::OuterTorso, pItem );
@@ -704,7 +701,7 @@ P_NPC cPlayer::unmount()
 			pMount->moveTo( pos() );
 			pMount->resend( false );
 		}
-		Items->DeleItem( pi );
+		pi->remove();
 		removeItem( Mount );
 		resend( false );
 		return pMount;
@@ -1002,7 +999,7 @@ bool cPlayer::canPickUp( cItem* pi )
 {
 	if( !pi )
 	{
-		LogCritical("cChar::canPickUp() - bad parm");
+		LogCritical( "cChar::canPickUp() - bad parm" );
 		return false;
 	}
 
@@ -1132,7 +1129,7 @@ void cPlayer::applyStartItemDefinition( const cElement *Tag )
 			if( DefSection )
 			{
 				// books wont work without this
-				pItem = Items->createScriptItem( node->getAttribute("id") );
+				pItem = cItem::createFromScript( node->getAttribute("id") );
 			}
 			else
 			{
@@ -1146,7 +1143,7 @@ void cPlayer::applyStartItemDefinition( const cElement *Tag )
 				pItem->setNewbie( true ); // make it newbie
 
 				if( pItem->id() <= 1 )
-					Items->DeleItem( pItem );
+					pItem->remove();
 				else
 				{
 					// Put it into the backpack
@@ -1154,7 +1151,7 @@ void cPlayer::applyStartItemDefinition( const cElement *Tag )
 					if( backpack )
 						backpack->addItem( pItem );
 					else
-						Items->DeleItem( pItem );
+						pItem->remove();
 				}
 			}
 		}
@@ -1165,7 +1162,7 @@ void cPlayer::applyStartItemDefinition( const cElement *Tag )
 			if( DefSection )
 			{
 				// books wont work without this
-				pItem = Items->createScriptItem( node->getAttribute("id") );
+				pItem = cItem::createFromScript( node->getAttribute("id") );
 			}
 			else
 			{
@@ -1179,7 +1176,7 @@ void cPlayer::applyStartItemDefinition( const cElement *Tag )
 				pItem->setNewbie( true ); // make it newbie
 
 				if( pItem->id() <= 1 )
-					Items->DeleItem( pItem );
+					pItem->remove();
 				else
 				{
 					// Put it into the bankbox
@@ -1187,7 +1184,7 @@ void cPlayer::applyStartItemDefinition( const cElement *Tag )
 					if( bankbox )
 						bankbox->addItem( pItem );
 					else
-						Items->DeleItem( pItem );
+						pItem->remove();
 				}
 			}
 		}
@@ -1198,7 +1195,7 @@ void cPlayer::applyStartItemDefinition( const cElement *Tag )
 			if( DefSection )
 			{
 				// books wont work without this
-				pItem = Items->createScriptItem( node->getAttribute("id") );
+				pItem = cItem::createFromScript( node->getAttribute("id") );
 			}
 			else
 			{
@@ -1220,7 +1217,7 @@ void cPlayer::applyStartItemDefinition( const cElement *Tag )
 				}
 
 				if( pItem->id() <= 1 || !mLayer )
-					Items->DeleItem( pItem );
+					pItem->remove();
 				else
 				{
 					// Put it onto the char

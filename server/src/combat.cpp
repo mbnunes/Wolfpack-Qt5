@@ -38,7 +38,7 @@
 #include "itemid.h"
 #include "utilsys.h"
 #include "guildstones.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "combat.h"
 #include "srvparams.h"
 #include "skills.h"
@@ -453,8 +453,6 @@ namespace Combat
 				if( pAmmo && RandomNum( 1, 3 ) == 1 ) // 1/3 chance
 				{
 					pAmmo->moveTo( pDefender->pos() );
-					pAmmo->setPriv( 1 );
-					pAmmo->startDecay();
 					pAmmo->update();
 				}
 			}

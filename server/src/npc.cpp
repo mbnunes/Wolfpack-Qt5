@@ -42,7 +42,7 @@
 #include "world.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "srvparams.h"
 #include "corpse.h"
 #include "wpdefmanager.h"
@@ -529,7 +529,6 @@ void cNPC::kill()
 
 	corpse->setMore1(nType);
 	corpse->setDirection( direction() );
-	corpse->startDecay();
 	
 	// stores the time and the murderer's name
 	corpse->setMurderer( murderer );
@@ -541,7 +540,7 @@ void cNPC::kill()
 
 	while( it != lootItemSections.end() )
 	{
-		P_ITEM pi_loot = Items->createScriptItem( (*it) );
+		P_ITEM pi_loot = cItem::createFromScript( (*it) );
 		if( pi_loot )
 			corpse->addItem( pi_loot );
 		it++;
@@ -591,7 +590,7 @@ void cNPC::kill()
 						{
 							soundEffect( 0x01FE );
 							this->effect( 0x372A, 0x09, 0x06 );
-							Items->DeleItem( pi_k );
+							pi_k->remove();
 						}
 					}
 				}

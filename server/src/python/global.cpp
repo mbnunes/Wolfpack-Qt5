@@ -35,7 +35,7 @@
 #include "../network/uotxpackets.h"
 #include "../wpconsole.h"
 #include "../TmpEff.h"
-#include "../mapobjects.h"
+#include "../sectors.h"
 #include "../territories.h"
 #include "../maps.h"
 #include "../tilecache.h"
@@ -349,7 +349,7 @@ static PyObject* wpAdditem( PyObject* self, PyObject* args )
 	}
 
 
-	P_ITEM pItem = Items->createScriptItem( PyString_AsString( PyTuple_GetItem( args, 0 ) ) );
+	P_ITEM pItem = cItem::createFromScript( PyString_AsString( PyTuple_GetItem( args, 0 ) ) );
 	return PyGetItemObject( pItem );
 }
 

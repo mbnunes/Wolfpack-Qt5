@@ -134,6 +134,7 @@ public:
 	QString			spawnregion()	const { return spawnregion_; }
 	bool			corpse()		const { return priv_&0x40; }		// Is the item a corpse
 	bool			newbie()		const { return priv_&0x02; }		// Is the Item Newbie
+	bool			nodecay()		const { return priv_&0x01; }		// Is the item protected from decaying
 	P_CHAR			owner()			const;
 	int				totalweight()	const { return totalweight_; }
 	uint			antispamtimer() const { return antispamtimer_;}
@@ -215,6 +216,7 @@ public:
 	void	setHidamage( SI16 nValue ) { hidamage_ = nValue; changed( SAVE+TOOLTIP );};
 	void	setLodamage( SI16 nValue ) { lodamage_ = nValue; changed( SAVE+TOOLTIP );};
 	void	setWipe( bool nValue ) { ( nValue ) ? priv_ &= 0x10 : priv_ |= 0xEF; changed( SAVE );};
+	void	setNoDecay( bool nValue ) { ( nValue ) ? priv_ &= 0x01 : priv_ |= 0xFE; changed( SAVE ); };
 	void	setWeight( SI16 nValue );
 	void	setHp( SI16 nValue ) { hp_ = nValue; changed( SAVE+TOOLTIP );};
 	void	setMaxhp( SI16 nValue ) { maxhp_ = nValue; changed( SAVE+TOOLTIP );};
@@ -297,17 +299,6 @@ public:
 
 	SERIAL spawnserial;
 
-	// Bit | Hex | Description
-	//===================
-	//   0 |  01 | Decay
-	//   1 |  02 | Newbie
-	//   2 |  04 | Dispellable
-	//   3 |  08 | Secured (Chests)
-	//   4 |  10 | Wipeable (/WIPE affects the item)
-	//   5 |  20 | Twohanded
-	//   6 |  40 | Corpse
-	//   7 |  80 | <unused>
-	
 	bool incognito; //AntiChrist - for items under incognito effect
 	// ^^ NUTS !! - move that to priv
 
@@ -372,6 +363,11 @@ public:
 
 ////
 	void flagUnchanged() { changed_ = false; cUObject::flagUnchanged(); }
+	static P_ITEM createFromScript( const QString& Section );
+	static P_ITEM createFromId( unsigned short id );
+	void respawn( unsigned int currenttime );
+	void decay( unsigned int currenttime );
+	void remove();
 
 protected:
 	// Methods
@@ -439,7 +435,19 @@ protected:
 	QString		creator_; // Store the name of the player made this item
 	SERIAL		ownserial_;
 	uchar		visible_; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
+
+	// Bit | Hex | Description
+	//===================
+	//   0 |  01 | NoDecay
+	//   1 |  02 | Newbie
+	//   2 |  04 | Dispellable
+	//   3 |  08 | Secured (Chests)
+	//   4 |  10 | Wipeable (/WIPE affects the item)
+	//   5 |  20 | Twohanded
+	//   6 |  40 | Corpse
+	//   7 |  80 | <unused>
 	uchar		priv_;
+
 	int			good_; // Store type of GOODs to trade system! (Plz not set as UNSIGNED)  --- Magius(CHE)
 	int			rndvaluerate_; // Store the value calculated base on RANDOMVALUE in region.scp. ---- MAgius(CHE) (2)
 	uchar		madewith_; // Store the skills used to make this item -- Magius(CHE)
@@ -494,24 +502,6 @@ protected:
 
 private:
 //	bool changed_;
-};
-
-
-//forward declaration
-
-class cAllItems
-{
-public:
-	// Added by DarkStorm
-	P_ITEM createScriptItem( const QString& Section ); // Creates an item from an item-section
-
-	void DeleItem(P_ITEM pi);
-	char isFieldSpellItem(P_ITEM pi);
-	P_ITEM SpawnItem(P_CHAR pc_ch,int nAmount, const char* cName, bool pileable, short id, short color, bool bPack);
-	P_ITEM SpawnItemBank(P_PLAYER pc_ch, QString nItem);
-	void DecayItem(uint currenttime, P_ITEM pi);
-	void RespawnItem(uint Currenttime, P_ITEM pi);
-	void AddRespawnItem(P_ITEM pItem, QString itemSect, bool spawnInItem);
 };
 
 #endif

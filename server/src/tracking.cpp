@@ -37,7 +37,7 @@
 #include "globals.h"
 #include "wolfpack.h"
 #include "TmpEff.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "gumps.h"
 #include "basechar.h"
 #include "player.h"

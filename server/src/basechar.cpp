@@ -38,7 +38,7 @@
 #include "wpconsole.h"
 #include "maps.h"
 #include "chars.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "network/uosocket.h"
 #include "network/uotxpackets.h"
 #include "network.h"
@@ -561,9 +561,9 @@ void cBaseChar::resurrect()
 	P_ITEM pRobe = GetItemOnLayer( 0x16 );
 
 	if( pRobe )
-		Items->DeleItem( pRobe );
+		pRobe->remove();
 
-	pRobe = Items->createScriptItem( "1f03" );
+	pRobe = cItem::createFromScript( "1f03" );
 
 	if( !pRobe ) 
 		return;
@@ -704,7 +704,7 @@ P_ITEM cBaseChar::getBackpack()
 		backpack->Init();
 		backpack->setId( 0xE75 );
 		backpack->setOwner( this );
-		backpack->setType( 1 );		
+		backpack->setType( 1 );
 		addItem( Backpack, backpack );
 		backpack->update();
 	}
@@ -1211,23 +1211,10 @@ void cBaseChar::processNode( const cElement *Tag )
 	//</backpack>
 	else if( TagName == "backpack" )
 	{
-		if( !this->getBackpack() )
-		{
-			P_ITEM pBackpack = Items->SpawnItem( this, 1, "Backpack", 0, 0x0E75,0,0);
-			if( pBackpack == NULL )
-			{
-				cCharStuff::DeleteChar( this );
-				return;
-			}
-			
-			pBackpack->setPos( Coord_cl(0, 0, 0) );
-			this->addItem( Backpack, pBackpack );
-			pBackpack->setType( 1 );
-			pBackpack->setDye(1);
+		P_ITEM pBackpack = getBackpack(); // This autocreates a backpack
 
-			if( Tag->childCount() )
-				pBackpack->applyDefinition( Tag );
-		}
+		if( Tag->childCount() )
+			pBackpack->applyDefinition( Tag );
 	}
 
 	//<stat type="str">100</stats>
@@ -1394,7 +1381,7 @@ void cBaseChar::processNode( const cElement *Tag )
 				
 			// Recheck
 			if( !mLayer )
-				Items->DeleItem( nItem );
+				nItem->remove();
 			else
 				this->addItem( static_cast<cBaseChar::enLayer>(mLayer), nItem ); // not sure about this one.
 

@@ -33,7 +33,7 @@
 #include "player.h"
 #include "srvparams.h"
 #include "globals.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "basics.h"
 #include "targetrequests.h"
 #include "chars.h"

@@ -40,8 +40,6 @@
 #include "../basechar.h"
 #include "../singleton.h"
 
-extern cAllItems *Items;
-
 #include "utilities.h"
 #include "content.h"
 #include "tempeffect.h"
@@ -129,7 +127,7 @@ static PyObject* wpItem_delete( wpItem* self, PyObject* args )
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
 
-	Items->DeleItem( self->pItem );
+	self->pItem->remove();
 
 	return PyTrue;
 }

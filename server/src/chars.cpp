@@ -41,7 +41,7 @@
 #include "globals.h"
 #include "multis.h"
 #include "world.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "wpdefmanager.h"
 #include "wpconsole.h"
 
@@ -79,7 +79,7 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 		if( !pItem )
 			continue;
 
-		Items->DeleItem( pItem );
+		pItem->remove();
 	}
 
 	// multi check
@@ -94,8 +94,7 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 
 	pc_k->removeFromView( false ); // Remove the character from all in-range sockets view
 	MapObjects::instance()->remove( pc_k ); // taking it out of mapregions BEFORE x,y changed
-	pc_k->del(); // Remove from Database
-	pc_k->free = true;
+	
 	World::instance()->deleteObject( pc_k );
 }
 

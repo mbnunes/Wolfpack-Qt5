@@ -118,7 +118,6 @@ unsigned int hungerdamagetimer=0; // For hunger damage
 
 //-=-=-=-=-=-=-Classes Definitions=-=-=-=-=-=//
 cSrvParams		*SrvParams;
-cAllItems		*Items;
 Maps			*Map;
 cSkills			*Skills;
 cSpeech	        *Speech;

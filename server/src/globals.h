@@ -137,7 +137,6 @@ extern char temp[1024];
 class cSrvParams;
 class cBoat;
 class cAccount;
-class cAllItems;
 class Maps;
 class cSkills;
 class cTargets;
@@ -149,7 +148,6 @@ class PersistentBroker;
 
 //-=-=-=-=-=-=-Classes Definitions=-=-=-=-=-=//
 extern cSrvParams				*SrvParams;
-extern cAllItems				*Items;
 extern Maps						*Map;
 extern cSkills					*Skills;
 extern cSpeech					*Speech;

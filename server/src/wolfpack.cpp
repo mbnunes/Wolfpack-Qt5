@@ -40,7 +40,7 @@
 #include "TmpEff.h"
 #include "guildstones.h"
 #include "combat.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "srvparams.h"
 #include "network.h"
 #include "exceptions.h"
@@ -746,7 +746,6 @@ static void parseParameter( const QString &param )
 */
 static void startClasses()
 {
-	Items			 = 0;
 	Map				 = 0;
 	Skills			 = 0;
 	ScriptManager	 = 0;
@@ -755,7 +754,6 @@ static void startClasses()
 	persistentBroker = 0;
 
 	SrvParams		 = new cSrvParams( "wolfpack.xml", "Wolfpack", "1.0" );
-	Items			 = new cAllItems;
 	Map				 = new Maps ( SrvParams->mulPath() );
 	Skills			 = new cSkills;
 	ScriptManager	 = new cScriptManager;
@@ -769,7 +767,6 @@ static void startClasses()
 static void freeClasses( void )
 {
 	delete SrvParams;
-	delete Items;
 	delete Map;
 	delete Skills;
 	delete ScriptManager;
@@ -1439,11 +1436,6 @@ void playmonstersound(P_CHAR monster, unsigned short id, int sfx)
 			monster->soundEffect( basesound );
 		return;
 	}
-}
-
-void addgold(cUOSocket* socket, int totgold)
-{
-	Items->SpawnItem(socket->player(), totgold,"#",true,0x0EED,0,1);
 }
 
 void StoreItemRandomValue(P_ITEM pi,QString tmpreg)

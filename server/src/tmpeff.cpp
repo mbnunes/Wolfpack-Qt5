@@ -47,7 +47,7 @@
 #include "wpdefmanager.h"
 #include "network/uosocket.h"
 #include "skills.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "basechar.h"
 #include "player.h"
 #include "npc.h"

@@ -38,7 +38,6 @@
 #include "iserialization.h"
 #include "globals.h"
 #include "network.h"
-#include "mapobjects.h"
 #include "wolfpack.h"
 #include "defines.h"
 #include "pythonscript.h"
@@ -49,6 +48,7 @@
 #include "persistentbroker.h"
 #include "dbdriver.h"
 #include "basechar.h"
+#include "sectors.h"
 #include "player.h"
 
 // Library Includes

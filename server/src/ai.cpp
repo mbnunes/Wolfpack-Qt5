@@ -32,7 +32,7 @@
 
 #include "ai.h"
 #include "npc.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "player.h"
 #include "srvparams.h"
 #include "globals.h"

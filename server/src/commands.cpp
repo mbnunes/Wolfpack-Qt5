@@ -48,7 +48,7 @@
 #include "scriptmanager.h"
 #include "pagesystem.h"
 #include "makemenus.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "resources.h"
 #include "contextmenu.h"
 #include "pythonscript.h"

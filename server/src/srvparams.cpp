@@ -152,7 +152,9 @@ void cSrvParams::readData()
 	housedecay_secs_	    = getNumber("Game Speed", "House Decay-Sec.", 604800, true);
 	default_jail_time_	    = getNumber("Game Speed", "Default Jail Time", 86400, true);
 	spawnRegionCheckTime_   = getNumber("Game Speed", "SpawnRegion Check Time", 300, true);
-	decayTime_				= getNumber("Game Speed", "Decay Time", 300, true);
+	itemDecayTime_			= getNumber("Game Speed", "Item Decay Time", 300, true);
+	corpseDecayTime_		= getNumber("Game Speed", "Corpse Decay Time", 600, true );
+
 	secondsPerUOMinute_     = getNumber("Game Speed", "Seconds Per UO Minute", 5, true);
 	beggingTime_            = getNumber("Game Speed", "Begging Time", 120, true);
 	checkTammedTime_		= getDouble("Game Speed", "Tamed Check Time", 1.0, true);
@@ -175,7 +177,6 @@ void cSrvParams::readData()
 	stablingFee_			= getDouble("General",	"StablingFee",		0.25, true);
 	announceWorldSaves_		= getBool("General",	"Announce WorldSaves", true, true);
 	goldWeight_             = getDouble("General",    "Gold Weight", 0.001000, true);
-	playercorpsedecaymultiplier_ = getNumber("General", "Player Corpse Decay Multiplier", 1, true);
 	lootdecayswithcorpse_   = getBool("General",    "Loot Decays With Corpse", true, true);
 	invisTimer_             = getDouble("General",    "InvisTimer", 60, true);
 	bandageInCombat_		= getBool("General",	"Bandage In Combat",	true, true);

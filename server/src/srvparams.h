@@ -94,7 +94,8 @@ protected:
 	float checkNPCTime_;
 	float checkFollowTime_;
 	float checkTammedTime_;
-	unsigned int decayTime_;
+	unsigned int itemDecayTime_;
+	unsigned int corpseDecayTime_;
 	int niceLevel_;
 	unsigned short loginPort_;
 	bool enableLogin_;
@@ -284,9 +285,9 @@ public:
 	float checkFollowTime() const;
 	float checkTammedTime() const;
 	int niceLevel() const;
-	unsigned int decayTime() const;
+	unsigned int itemDecayTime() const;
+	unsigned int corpseDecayTime() const;
 	float goldWeight() const;
-	unsigned int playercorpsedecaymultiplier() const;
 	bool lootdecayswithcorpse() const;
 	float invisTimer() const;
 	unsigned short skillDelay() const;
@@ -622,19 +623,19 @@ inline int cSrvParams::niceLevel() const
 	return niceLevel_;
 }
 
-inline unsigned int cSrvParams::decayTime() const
+inline unsigned int cSrvParams::itemDecayTime() const
 {
-	return decayTime_;
+	return itemDecayTime_;
+}
+
+inline unsigned int cSrvParams::corpseDecayTime() const
+{
+	return corpseDecayTime_;
 }
 
 inline float cSrvParams::goldWeight() const
 {
 	return goldWeight_;
-}
-
-inline unsigned int cSrvParams::playercorpsedecaymultiplier() const
-{
-	return playercorpsedecaymultiplier_;
 }
 
 inline bool cSrvParams::lootdecayswithcorpse() const

@@ -36,7 +36,7 @@
 #include "wpdefmanager.h"
 #include "network/uosocket.h"
 #include "maps.h"
-#include "mapobjects.h"
+#include "sectors.h"
 
 #include "skills.h"
 #include "srvparams.h"
@@ -880,8 +880,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 	pResItem->setMoreX(amount);
 	if( amount == 0 )
 	{
-		pResItem->setDecayTime(uiCurrentTime + refreshtime_ * MY_CLOCKS_PER_SEC);
-		pResItem->startDecay();
+		pResItem->setDecayTime( uiCurrentTime + refreshtime_ * MY_CLOCKS_PER_SEC );
 		pResItem->update();
 	}
 
@@ -914,7 +913,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 
 		if( !item.definition.isNull() )
 		{
-			pi = Items->createScriptItem( item.definition );
+			pi = cItem::createFromScript( item.definition );
 			pi->setId( id );
 			pi->setColor( color );
 
@@ -1102,7 +1101,7 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 		pc->soundEffect( sound_, true );
 		UINT16 delamount = RandomNum( 1, pSource->amount() );
 		if( delamount == pSource->amount() )
-			Items->DeleItem( pSource );
+			pSource->remove();
 		else
 			pSource->setAmount( pSource->amount() - delamount );
 		if( failmsg_.left( 7 ) == "cliloc:" )
@@ -1130,7 +1129,7 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 	{
 		pc->action( charaction_ );
 		pc->soundEffect( sound_, true );
-		Items->DeleItem( pSource );
+		pSource->remove();
 		if( failmsg_.left( 7 ) == "cliloc:" )
 		{
 			QString id = hex2dec( failmsg_.right( failmsg_.length() - 7 ) );
@@ -1141,7 +1140,7 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 		return;
 	}
 	
-	Items->DeleItem( pSource );
+	pSource->remove();
 	
 	if( succmsg_.left( 7 ) == "cliloc:" )
 	{
@@ -1161,10 +1160,14 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 	{
 		UINT16 id = item.ids[ RandomNum( 0, item.ids.size()-1 ) ];
 		UINT16 color = item.colors[ RandomNum( 0, item.colors.size()-1 ) ];
+
+		pi = cItem::createFromId( id );
+		pi->setColor( color );
+		
 		if( !item.name.isNull() )
-			pi = Items->SpawnItem( pc, 1, (char*)QString("%1 %2").arg( item.name ).arg( name_ ).latin1(), true, id, color, true );
+			pi->setName( QString("%1 %2").arg( item.name ).arg( name_ ) );
 		else
-			pi = Items->SpawnItem( pc, 1, (char*)QString("%1").arg( name_ ).latin1(), true, id, color, true );
+			pi->setName( QString("%1").arg( name_ ) );
 
 		spawnamount -= 1;
 	}
@@ -1180,8 +1183,7 @@ cResourceItem::cResourceItem( const QString& resource, UINT32 amount, UINT32 vei
 		setPriv( 0 ); // nodecay
 	else
 	{
-		startDecay();
-		setDecayTime(uiCurrentTime + SrvParams->resitemdecaytime() * MY_CLOCKS_PER_SEC);
+		setDecayTime(uiCurrentTime + SrvParams->resitemdecaytime() * MY_CLOCKS_PER_SEC );
 	}
 	setMoreX(amount);
 	setMoreY(vein);
@@ -1340,7 +1342,7 @@ bool cFindResource::responsed( cUOSocket *socket, cUORxTarget *target )
 				{
 					P_ITEM pi = FindItemBySerial( target->serial() );
 					if( pi )
-						Items->DeleItem( pi );
+						pi->remove();
 				}
 			}
 			else

@@ -552,7 +552,7 @@ void cMakeCustomSection::execute( cUOSocket* const socket )
 			++miit;
 			continue;
 		}
-		P_ITEM pItem = Items->createScriptItem( miit.current()->section() );
+		P_ITEM pItem = cItem::createFromScript( miit.current()->section() );
 		if( pItem )
 		{
 			if( pItem->isPileable() )
@@ -567,7 +567,7 @@ void cMakeCustomSection::execute( cUOSocket* const socket )
 		{
 			for( UINT16 i = 1; i < miit.current()->amount(); ++i )
 			{
-				pItem = Items->createScriptItem( miit.current()->section() );
+				pItem = cItem::createFromScript( miit.current()->section() );
 				if( pItem )
 				{
 					pItem->applyRank( rank );

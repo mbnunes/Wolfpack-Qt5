@@ -42,7 +42,6 @@
 #include "debug.h"
 #include "items.h"
 #include "books.h"
-#include "mapobjects.h"
 #include "tilecache.h"
 #include "srvparams.h"
 #include "wpdefmanager.h"
@@ -53,6 +52,7 @@
 #include "persistentbroker.h"
 #include "dbdriver.h"
 #include "world.h"
+#include "sectors.h"
 #include "scriptmanager.h"
 #include "itemid.h"
 #include "basechar.h"
@@ -185,16 +185,6 @@ void cItem::toBackpack( P_CHAR pChar )
 	update();
 }
 
-void cItem::startDecay()			
-{
-	if( container_ )
-		return;
-
-	changed( SAVE );
-	this->decaytime_ = SrvParams->decayTime()*MY_CLOCKS_PER_SEC+uiCurrentTime;
-}
-
-
 ///////////////
 // Name:	ReduceAmount
 // history:	by Duke, 4.06.2000
@@ -204,7 +194,7 @@ void cItem::startDecay()
 //			necessary and returns 0. If the request could not be fully satisfied,
 //			the remainder is returned
 //
-long cItem::reduceAmount(const short amt)
+long cItem::reduceAmount( const short amt )
 {
 	UINT16 rest = 0;
 	if( amount_ > amt )
@@ -215,7 +205,7 @@ long cItem::reduceAmount(const short amt)
 	}
 	else
 	{
-		Items->DeleItem(this);
+		this->remove();
 		rest = amt - amount_;
 	}
 	return rest;
@@ -342,7 +332,7 @@ bool cItem::PileItem(cItem* pItem)	// pile two items
 	else
 	{
 		this->setAmount( this->amount()  + pItem->amount() );
-		Items->DeleItem( pItem );
+		pItem->remove();
 	}
 	
 	changed( SAVE|TOOLTIP );
@@ -662,7 +652,7 @@ void cItem::Init( bool createSerial )
 	this->visible_=0; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
 	this->spawnserial=-1;
 	// Everything decays by default.
-	this->priv_=1; // Bit 0, decay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
+	this->priv_ = 0; // Bit 0, nodecay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
 	this->disabled_ = 0; //Item is disabled, cant trigger.
 	this->poisoned_ = 0; //AntiChrist -- for poisoning skill
 	this->time_unused = 0;
@@ -674,258 +664,106 @@ void cItem::Init( bool createSerial )
 /*!
 	This Function is used for removing items
 */
-void cAllItems::DeleItem(P_ITEM pi)
+void cItem::remove()
 {
-	// TODO: Insert handling of the unequip events here
-
-	if( !pi )
+	// Already Deleted
+	if( free )
 		return;
 
-	if (!pi->free)
+	// Remove it from view
+	removeFromView( false );
+
+	// Update Top Objects
+	SetSpawnSerial( -1 );
+	SetOwnSerial( -1 );
+
+	// - remove from cMapObjects if a world item
+	if( container() && !container()->free )
+		removeFromCont();
+	else
+		MapObjects::instance()->remove( this );
+
+	// Recurse into all subitems
+	cItem::ContainerContent container( content() );
+	cItem::ContainerContent::const_iterator it ( container.begin() );
+	cItem::ContainerContent::const_iterator end( container.end() );
+	for ( ; it != end; ++it )
+		(*it)->remove();
+
+	if( multis() != INVALID_SERIAL )
 	{
-		// Remove it from view
-		pi->removeFromView( true );
+		cMulti *pMulti = dynamic_cast< cMulti* >( FindItemBySerial( multis() ) );
 
-		pi->SetSpawnSerial(-1);
-		pi->SetOwnSerial(-1);
-
-		// - remove from cMapObjects::getInstance() if a world item
-		if( pi->isInWorld() ) 
-			MapObjects::instance()->remove(pi);
-		else
-			pi->removeFromCont();
-
-        // if a new book gets deleted also delete the corresponding bok file
-
-		// Also delete all items inside if it's a container.
-		cItem::ContainerContent container(pi->content());
-		cItem::ContainerContent::const_iterator it ( container.begin() );
-		cItem::ContainerContent::const_iterator end( container.end()   );
-		for ( ; it != end; ++it )
-		{
-			// This could turn out to be a problem. We're removing from top-cont as well
-			P_ITEM pContent = *it;
-			if( pContent )
-				DeleItem( pContent );
-		}
-
-		// if it is within a multi, delete it from the multis vector
-		if( pi->multis() != INVALID_SERIAL )
-		{
-			cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis() ) );
-			if( pMulti )
-			{
-				pMulti->removeItem( pi );
-			}
-		}
-
-		pi->del(); // Remove from database
-		
-		// Queue for later delete.
-		World::instance()->deleteObject( pi );
-	}
-}
-
-P_ITEM cAllItems::SpawnItemBank(P_PLAYER pc_ch, QString nItem)
-{
-	if (pc_ch == NULL) 
-		return NULL;
-	
-	P_ITEM bankbox = pc_ch->getBankBox();
-
-	P_ITEM pi = createScriptItem(nItem);
-	if (pi == NULL)
-		return NULL;
-	bankbox->addItem(pi);
-	return pi;
-}
-
-P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, const char* cName, bool pileable, short id, short color, bool bPack)
-{
-	if (pc_ch == NULL) 
-		return NULL;
-
-	P_ITEM pPack = pc_ch->getBackpack();
-	bool pile = false;
-	
-	if (pileable)
-	{
-		// make sure it's REALLY pileable ! (Duke)
-		tile_st tile = TileCache::instance()->getTile( id );
-		if( tile.flag2 & 0x08 )
-			pile = true;
-		else
-		{
-			// some calls to this functions (eg. IDADD) *allways* try to spawn pileable :/
-			// to get rid of this message, let's try to use the .mul default (Duke, 20.10.01)
-			// LogErrorVar("Spawning an item that is not truly pileable, id=%x",id);
-			// pile=pileable;
-		}
-	}
-	//Auto-Stack code!
-	// If we already have an item of the same kind in our backpack,
-	// we can simply spawn by increasing the amount of that item
-	if (bPack && pPack && pile==1)
-	{
-		cItem::ContainerContent container = pPack->content();
-		cItem::ContainerContent::const_iterator it ( container.begin() );
-		cItem::ContainerContent::const_iterator end( container.end()   );
-		for ( ; it != end; ++it )
-		{
-			P_ITEM pSt = *it;
-			if (pSt->id() == id && !pSt->free && pSt->color() == color)
-			{
-				if (pSt->amount() + nAmount > 65535)	// if it would create an overflow (amount is ushort!),
-					continue;						// let's search for another pile to add to
-				pSt->setAmount( pSt->amount() + nAmount );
-				pSt->update();
-				return pSt;
-			}
-		}
-	}
-	// no such item found, so let's create it
-	P_ITEM pi = new cItem;
-	if (pi == NULL) return NULL;
-
-	pi->Init();
-	if(cName!=NULL)
-		pi->setName( cName );
-	pi->setId(id);
-	pi->setColor( color );
-	pi->setAmount( nAmount );
-	pi->setAtt(5);
-	pi->setPriv( pi->priv() | 0x01 );
-	if (IsCutCloth(pi->id())) pi->setDye(1);// -Fraz- fix for cut cloth not dying
-	if (bPack)
-	{
-		if (pPack)
-		{
-			pPack->addItem(pi);
-		}
-		else
-		{// LB place it at players feet if he hasnt got backpack
-			pi->moveTo(pc_ch->pos());
-		}
+		if( pMulti )
+			pMulti->removeItem( this );
 	}
 	
-	pi->update();
-	return pi;
+	// Queue for later deletion
+	World::instance()->deleteObject( this );
 }
 
-char cAllItems::isFieldSpellItem(P_ITEM pi) //LB
+void cItem::startDecay()			
 {
-	int a=0;
-	if (pi == NULL)
-		return 0;
-	short id = pi->id();
-	if (id==0x3996 || id==0x398C) a=1; // fire field
-	else if (id==0x3915 || id==0x3920) a=2; // poison field
-	else if (id==0x3979 || id==0x3967) a=3; // paralyse field
-	else if (id==0x3956 || id==0x3946) a=4; // energy field;
-	else if (id==0x0080) a=5;                // wall of stone
-	else if (id>=0x122a && id <=0x122e) a=6; // blood
-	
-	return a;
-}
-
-void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi) 
-{
-	int preservebody;
-	if ( pi == NULL )
+	if( container_ || nodecay() )
 		return;
-	cMulti* pi_multi = NULL;
+
+	changed( SAVE );
+
+	decaytime_ = uiCurrentTime;
 	
-	if(pi->isLockedDown()) {pi->setDecayTime(0); return;}
-	if( pi->decaytime() <= currenttime )
+	// Player corpses take longer to decay
+	if( !corpse() )
 	{
-		if (pi->priv()&0x01 && pi->isInWorld() && !pi->free)
-		{  // decaytime = 5 minutes, * 60 secs per min, * MY_CLOCKS_PER_SEC
-			if (pi->decaytime()==0) 
-			{
-				pi->startDecay();
-			}
-			
-			if (pi->decaytime()<=currenttime)
-			{
-                //Multis --Boats ->
-				
-				if (!Items->isFieldSpellItem(pi)) // Gives fieldspells a chance to decay in multis, LB
-				{
-					if (pi->multis()<1 && !pi->corpse())
-					{
-						// JustMichael -- Added a check to see if item is in a house
-						pi_multi = cMulti::findMulti( pi->pos() );
-						if ( pi_multi )
-						{
-							if( pi_multi->itemsdecay() ) //JustMichael -- set more to 1 and stuff can decay in the building
-							{
-								pi->startDecay();
-								return;
-							}
-						}
-					} 
-					else if (pi->multis()>0 && !pi->corpse()) 
-					{					
-						pi->startDecay();
-						return;
-					}
-				}
-				//End Boats/Mutlis
-				
-				//Keep player's corpse as long as it has more than 1 item on it
-				//up to playercorpsedecaymultiplier times the decay rate
-				if (pi->corpse() && pi->ownSerial()!=-1)
-				{
-					preservebody = pi->content().size();
-					if( preservebody > 1 && pi->more4() )
-					{
-						pi->setMore4( pi->more4() - 1 );
-						pi->startDecay();
-						return;
-					}
-				}
-				if( (pi->type() == 1 && !pi->corpse() ) || (pi->ownSerial() != -1 && pi->corpse() ) || (!SrvParams->lootdecayswithcorpse() && pi->corpse() ))
-				{
-					cItem::ContainerContent container(pi->content());
-					cItem::ContainerContent::const_iterator it (container.begin());
-					cItem::ContainerContent::const_iterator end(container.end());
-					for (; it != end; ++it )
-					{
-						P_ITEM pi_j = *it;
-                        if (pi_j != NULL) //lb
-						{
-							if ( pi_j == pi->container() )
-							{
-								pi->removeItem(pi_j);
-								pi_j->moveTo(pi->pos());
-								
-								pi_j->startDecay();
-								pi_j->update();//AntiChrist
-							}
-						}
-					}
-					Items->DeleItem(pi);
-				} 
-				else 
-				{
-					if( pi->isInWorld() )
-					{
-						Items->DeleItem(pi);
-					}
-					else
-					{
-						pi->startDecay();
-					}
-				}
-			}
-		}
+		decaytime_ += SrvParams->itemDecayTime() * MY_CLOCKS_PER_SEC;
+	}
+	else
+	{
+		decaytime_ += SrvParams->corpseDecayTime() * MY_CLOCKS_PER_SEC;
 	}
 }
-//END FUNCTION
 
-void cAllItems::RespawnItem( UINT32 currenttime, P_ITEM pItem )
+void cItem::decay( unsigned int currenttime )
 {
-/*	if( !pItem || pItem->free )
+	// Locked Down Items, NoDecay Items and Items in Containers can never decay
+	// And ofcourse items in multis cannot
+	if( container() || nodecay() || isLockedDown() || multis() != INVALID_SERIAL )
+		return;
+
+	// Start decaying
+	if( !decaytime() )
+	{
+		startDecay();
+		return;
+	}
+
+	// The Item is about to decay
+	if( decaytime() <= currenttime )
+	{
+		// If it's a corpse and the items should not decay along with
+		// it, then place them at the corpse's position
+		if( corpse() && !SrvParams->lootdecayswithcorpse() )
+		{
+			cItem::ContainerContent container( content() );
+			cItem::ContainerContent::const_iterator it (container.begin() );
+			cItem::ContainerContent::const_iterator end(container.end());
+			for (; it != end; ++it )
+			{
+				P_ITEM pItem = *it;
+				pItem->removeFromCont( true );
+				pItem->moveTo( pos() );
+				pItem->update();
+			}
+		}
+
+		remove();
+	}
+}
+
+void cItem::respawn( unsigned int currenttime )
+{
+/*void cAllItems::RespawnItem( UINT32 currenttime, P_ITEM pItem )
+{
+	if( !pItem || pItem->free )
 		return;
 
 	// Not ready to respawn yet
@@ -967,7 +805,7 @@ void cAllItems::RespawnItem( UINT32 currenttime, P_ITEM pItem )
 			if( amount < pItem->amount() )
 			{
 				// Create the spawned item @ our position
-				P_ITEM pSpawned = Items->createScriptItem( pItem->carve() );
+				P_ITEM pSpawned = cItem::createFromScript( pItem->carve() );
 
 				if( !pSpawned )
 				{
@@ -1060,15 +898,15 @@ void cAllItems::RespawnItem( UINT32 currenttime, P_ITEM pItem )
 				}
 			}
 		}//If time
-	}//for */
-}
-
+	}//for 
+}*/
+/*
 void cAllItems::AddRespawnItem(P_ITEM pItem, QString itemSect, bool spawnInItem )
 {
 	if (pItem == NULL)
 		return;
 
-	P_ITEM pi = createScriptItem(itemSect); // lb, bugfix
+	P_ITEM pi = cItem::createFromScript( itemSect ); // lb, bugfix
 	if (pi == NULL) return;
 	
 	if( !spawnInItem )
@@ -1081,8 +919,6 @@ void cAllItems::AddRespawnItem(P_ITEM pItem, QString itemSect, bool spawnInItem 
 	}
 	pi->SetSpawnSerial(pItem->serial());
 
-
-	//** Lb bugfix for spawning in wrong pack positions **//
 	if(spawnInItem)
 	{
 		P_ITEM pChest = NULL;
@@ -1094,12 +930,14 @@ void cAllItems::AddRespawnItem(P_ITEM pItem, QString itemSect, bool spawnInItem 
 		}
 	}
 	pi->update();//AntiChrist
+}*/
 }
+
 
 /*!
 	Retrieves the Item Information stored in Section and creates an item based on it
 */
-P_ITEM cAllItems::createScriptItem( const QString& Section )
+P_ITEM cItem::createFromScript( const QString& Section )
 {
 	if( Section.length() == 0 )
 		return NULL;
@@ -1337,9 +1175,9 @@ void cItem::processNode( const cElement *Tag )
 	// <decay />
 	// <nodecay />
 	else if( TagName == "decay" )
-		this->priv_ |= 0x01;
+		setNoDecay( false );
 	else if( TagName == "nodecay" )
-		this->priv_ &= 0xFE;
+		setNoDecay( true );
 
 	// <dispellable />
 	// <notdispellable />
@@ -2104,7 +1942,7 @@ bool cItem::wearOut()
 			}
 		}
 
-		Items->DeleItem( this );
+		this->remove();
 		return true;
 	}
 
@@ -2426,7 +2264,7 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 		int val = value.toInt();
 		if( val <= 0 )
 		{
-			Items->DeleItem( this );
+			this->remove();
 			return 0;
 		}
 
@@ -2600,9 +2438,9 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	else if( name == "decay" )
 	{
 		if( value.toInt() )
-			priv_ |= 0x01;
+			setNoDecay( false );
 		else
-			priv_ &= ~0x01;
+			setNoDecay( true );
 		return 0;
 	}
 	else if( name == "newbie" )
@@ -2759,4 +2597,19 @@ void cItem::sendTooltip( cUOSocket* mSock )
 		return;
 
 	cUObject::sendTooltip( mSock );
+}
+
+P_ITEM cItem::createFromId( unsigned short id )
+{
+	P_ITEM pItem = new cItem;
+	pItem->Init( true );
+	pItem->setId( id );
+
+	// Set the Weight based on the Tiledata
+	tile_st tile = TileCache::instance()->getTile( id );
+
+	if( tile.weight < 255 )
+		pItem->setWeight( tile.weight );
+
+	return pItem;
 }

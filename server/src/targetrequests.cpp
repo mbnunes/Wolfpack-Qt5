@@ -32,7 +32,7 @@
 // Wolfpack Includes
 #include "targetrequests.h"
 #include "maps.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "wpdefmanager.h"
 #include "territories.h"
 #include "items.h"
@@ -79,7 +79,7 @@ bool cAddItemTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	// Otherwise create our item here
 	P_ITEM pItem = NULL;
 	if( node )
-		pItem = Items->createScriptItem( item_ );
+		pItem = cItem::createFromScript( item_ );
 	else
 	{
 		pItem = new cItem;
@@ -428,7 +428,7 @@ bool cRemoveTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	}
 	else if( pItem )
 	{
-		Items->DeleItem( pItem );
+		pItem->remove();
 	}
 	else
 		socket->sysMessage( "You need to select either an item or a character" );
@@ -511,7 +511,7 @@ bool cTileTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 			{
 				// Select a Random Tile from the list
 				QString id = ids[ RandomNum( 0, ids.count()-1 ) ];
-				P_ITEM pItem = Items->createScriptItem( id );
+				P_ITEM pItem = cItem::createFromScript( id );
 				
 				if( pItem )
 				{

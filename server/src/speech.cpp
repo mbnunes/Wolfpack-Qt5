@@ -37,7 +37,7 @@
 #include "speech.h"
 
 #include "guildstones.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "srvparams.h"
 #include "network.h"
 #include "territories.h"
@@ -341,7 +341,7 @@ bool ShieldSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pGuard, const QStri
 		}
 
 		// lets give them a new chaos shield.
-		P_ITEM pShield = Items->createScriptItem( "28" );
+		P_ITEM pShield = cItem::createFromScript( "28" );
 		pPlayer->getBackpack()->addItem( pShield );
 		
 		socket->sysMessage( tr( "You put the chaos shield into your backpack" ) );
@@ -367,7 +367,7 @@ bool ShieldSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pGuard, const QStri
 		}
 
 		// lets give them a new order shield.
-		P_ITEM pShield = Items->createScriptItem( "29" );
+		P_ITEM pShield = cItem::createFromScript( "29" );
 		pPlayer->getBackpack()->addItem( pShield );
 		
 		socket->sysMessage( tr( "You put the order shield into your backpack" ) );
@@ -569,60 +569,6 @@ bool VendorChkName( P_CHAR pVendor, const QString& comm )
 		return false;
 }
 
-bool PlayerVendorSpeech( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pVendor, const QString &comm )
-{
-/*	if( pVendor->npcaitype() != 17 )
-	     return false;*/
-
-	if( pPlayer->dist( pVendor ) > 4 )
-		return false;
-
-	if( !VendorChkName( pVendor, comm ) )
-		return false;
-
-	if( ( comm.contains( " BROWSE" ) ) || ( comm.contains( " VIEW" ) ) || ( comm.contains( " LOOK" ) ) )
-	{
-		pVendor->talk( tr( "Take a look at my goods." ) );
-		if( pPlayer->socket() )
-			pPlayer->socket()->sendContainer( pVendor->getBackpack() );
-	    return true;
-	}
-	
-	if( ( comm.contains( " BUY" ) ) || ( comm.contains( " PURCHASE" ) ) )
-	{
-		// >> LEGACY
-		/*addx[s]=pVendor->serial();
-		npctalk(s,pVendor,"What would you like to buy?",0);
-		target(s,0,1,0,224," ");*/
-		return true;
-	}
-
-	if( pVendor->owner() != pPlayer )
-		return false;
-
-	if( ( comm.contains( " COLLECT" ) ) || ( comm.contains( " GOLD" ) ) || ( comm.contains( " GET" ) ) )
-	{
-		PlVGetgold( socket, pPlayer, pVendor);
-		return true;
-	}
-
-	if( comm.contains( "PACKUP" ) )
-	{
-		P_ITEM pDeed = Items->SpawnItem( pPlayer, 1, "employment deed", 0, 0x14F0, 0, 1 );
-		if( pDeed )
-		{
-			pDeed->setType( 217 );
-			pDeed->setBuyprice( 2000 );
-			pDeed->setSellprice( 1000 );
-			pDeed->update();
-			cCharStuff::DeleteChar( pVendor );
-			socket->sysMessage( tr( "Packed up vendor %1." ).arg( pVendor->name() ) );
-			return true;
-		}
-	}
-	return false;
-}
-
 // Handles house commands from friends of the house.
 // msg must already be capitalized
 void HouseSpeech( cUOSocket *socket, P_CHAR pPlayer, const QString& msg )
@@ -748,11 +694,7 @@ bool cSpeech::response( cUOSocket *socket, P_PLAYER pPlayer, const QString& comm
 			return true;
 		
 		if( TrainerSpeech( socket, pPlayer, pNpc, speechUpr ) )
-			return true;
-		
-		if( PlayerVendorSpeech( socket, pPlayer, pNpc, speechUpr ) )
-			return true;
-		
+			return true;	
 	}
 	
 	return false;

@@ -36,7 +36,7 @@
 #include "speech.h"
 #include "itemid.h"
 #include "guildstones.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "srvparams.h"
 #include "skills.h"
 #include "maps.h"
@@ -674,9 +674,6 @@ void cDragItems::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &
 	pItem->moveTo( pos );
 	pItem->update();
 
-	if( pItem->priv() & 0x01 )
-		pItem->startDecay();
-
 	// Multi handling
 	// Has it been dropped into a multi
 	cMulti* pMulti = cMulti::findMulti( pos );
@@ -706,7 +703,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 		cUOTxBounceItem bounce;
 		bounce.setReason( BR_NO_REASON );
 		socket->send( &bounce );
-		Items->DeleItem( pItem );
+		pItem->remove();
 		return;
 	}
 	
@@ -784,7 +781,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	// Trash can
 	if( pCont->type()==87 )
 	{
-		Items->DeleItem( pItem );
+		pItem->remove();
 		socket->sysMessage( tr( "As you let go of the item it disappears." ) );
 		return;
 	}
@@ -841,7 +838,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 		{
 			pCont->setAmount( pCont->amount() + pItem->amount() );
 			
-			Items->DeleItem( pItem );
+			pItem->remove();
 			pCont->update(); // Need to update the amount
 			return;
 		}
@@ -918,7 +915,7 @@ void cDragItems::dropFoodOnChar( cUOSocket* socket, P_ITEM pItem, P_CHAR pChar )
 	}
 
 	pChar->setHunger( pChar->hunger() + pItem->amount() );
-	Items->DeleItem( pItem );
+	pItem->remove();
 }
 
 void cDragItems::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar )
@@ -972,7 +969,7 @@ void cDragItems::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar )
 		tempint = pItem->amount() * 10;
 		socket->player()->setKarma( socket->player()->karma() + tempint );
 
-		Items->DeleItem( pItem );
+		pItem->remove();
 		return;
 	}
 
@@ -992,7 +989,7 @@ void cDragItems::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar )
 	else
 		socket->player()->setKarma( socket->player()->karma() + 50 );
 	
-	Items->DeleItem( pItem );
+	pItem->remove();
 }
 
 void cDragItems::dropOnBroker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBroker )
@@ -1009,7 +1006,7 @@ void cDragItems::dropOnBroker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBroker )
 		
 		socket->player()->giveGold( pItem->sellprice(), true );
 		pBroker->talk( tr( "Here you have your %1 gold, %2" ).arg( pItem->sellprice() ).arg( socket->player()->name() ) );
-		Items->DeleItem( pItem );
+		pItem->remove();
 		return;
 	}
 
@@ -1047,7 +1044,7 @@ void cDragItems::dropOnTrainer( cUOSocket* socket, P_ITEM pItem, P_CHAR pTrainer
 	else
 	{
 		skillDelta = pItem->amount();
-		Items->DeleItem( pItem );
+		pItem->remove();
 	}
 	
 	pChar->setSkillValue( skill, pChar->skillValue( skill ) + skillDelta );

@@ -31,7 +31,7 @@
 
 #include "maps.h"
 #include "tilecache.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "multiscache.h"
 #include "defines.h"
 #include "items.h"

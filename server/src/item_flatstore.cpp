@@ -34,7 +34,7 @@
 #include "globals.h"
 #include "wpconsole.h"
 #include "world.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "basechar.h"
 
 static cUObject* productCreator()

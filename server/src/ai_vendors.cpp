@@ -37,7 +37,7 @@
 #include "TmpEff.h"
 #include "srvparams.h"
 #include "globals.h"
-#include "mapobjects.h"
+#include "sectors.h"
 
 // library includes
 #include <math.h>
@@ -168,7 +168,7 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString &message
 							pPet->moveTo( m_npc->pos() );
 							pPet->resend();
 						}
-						Items->DeleItem( *it );
+						(*it)->remove();
 					}
 					++it;
 				}

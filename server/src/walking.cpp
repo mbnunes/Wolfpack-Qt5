@@ -37,7 +37,7 @@
 #include "wolfpack.h"
 #include "debug.h"
 #include "guildstones.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "srvparams.h"
 #include "network.h"
 #include "maps.h"

@@ -217,12 +217,11 @@ public:
 			socket->sysMessage( tr("You fail to apply the poison.") );
 		
 		//empty bottle after poisoning
-		Items->DeleItem( pPoison );
+		pPoison->remove();
 		pPoison = new cItem;
 		pPoison->Init(true);
 		pPoison->setId(0x0F0E);
 		pPoison->moveTo(pc->pos());
-		pPoison->startDecay();
 		pPoison->update();
 		return true;
 	}
@@ -665,7 +664,7 @@ public:
 			}
 
 			for( std::vector< P_ITEM >::iterator sIter = toDelete.begin(); sIter != toDelete.end(); ++sIter )
-				Items->DeleItem( (*sIter) );
+				(*sIter)->remove();
 
 			socket->sysMessage( tr( "Deleted %1 items." ).arg( dCount ) );
 			return true;

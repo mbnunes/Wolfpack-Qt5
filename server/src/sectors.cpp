@@ -314,6 +314,10 @@ void cSectorMaps::add( cUObject *object )
 				throw QString( "Couldn't find a map with the id %1." ).arg( pos.map );
 			
 			it->second->addItem( (cUObject*)pItem );
+
+			// Start Decay... 
+			// This makes it a lot easier *g*
+			pItem->startDecay();
 		}
 	}
 	else if( isCharSerial( object->serial() ) )

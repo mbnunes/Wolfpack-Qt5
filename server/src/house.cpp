@@ -33,7 +33,7 @@
 //#include "wolfpack.h"
 #include "house.h"
 #include "persistentbroker.h"
-#include "mapobjects.h"
+#include "sectors.h"
 #include "srvparams.h"
 #include "maps.h"
 #include "debug.h"
@@ -218,14 +218,14 @@ void cHouse::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL
 		if( socket )
 			socket->sysMessage( tr("Can not build a house at this location!") );
 		this->remove();
-		Items->DeleItem( this );
+		this->remove();
 		return;
 	}
 	this->update();
 
 	P_ITEM pDeed = FindItemBySerial( deedserial );
 	if( pDeed != NULL )
-		Items->DeleItem( pDeed );
+		pDeed->remove();
 
 	if( !nokey_ )
 		createKeys( pc_currchar, tr("house key") );
@@ -259,7 +259,7 @@ void cHouse::remove( void )
 	{
 		P_ITEM pi = rii.GetData();
 		if(pi->multis() == this->serial() && pi->serial() != this->serial() && pi->type() != 202)
-			Items->DeleItem(pi);
+			pi->remove();
 	}
 }
 
@@ -278,7 +278,7 @@ void cHouse::toDeed( cUOSocket* socket )
 			continue;
 		if( pBackpack && pc->npcaitype() == 17 && pc->multis() == this->serial() )
 		{
-			P_ITEM pPvDeed = Items->createScriptItem( "14f0" );
+			P_ITEM pPvDeed = cItem::createFromScript( "14f0" );
 			if( pPvDeed )
 			{
 				pPvDeed->setName( tr("A vendor deed for %1").arg( pc->name() ) );
@@ -295,17 +295,17 @@ void cHouse::toDeed( cUOSocket* socket )
 	
 	if( this->deedsection_.isNull() || this->deedsection_.isEmpty() || !pBackpack )
 	{
-		Items->DeleItem( this );
+		this->remove();
 		return;
 	}
 
-	P_ITEM pDeed = Items->createScriptItem( this->deedsection_ );
+	P_ITEM pDeed = cItem::createFromScript( this->deedsection_ );
 	if( pDeed ) 
 	{
 		pBackpack->addItem( pDeed );
 		pDeed->update();
 	}
-	Items->DeleItem( this );
+	this->remove();
 	socket->sysMessage( tr("You turned the boat into a deed.") );
 }
 

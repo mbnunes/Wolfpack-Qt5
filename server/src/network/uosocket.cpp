@@ -41,7 +41,7 @@
 #include "../globals.h"
 #include "../wolfpack.h"
 #include "../territories.h"
-#include "../mapobjects.h"
+#include "../sectors.h"
 #include "../structs.h"
 #include "../speech.h"
 #include "../commands.h"
