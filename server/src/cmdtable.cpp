@@ -523,7 +523,6 @@ void command_reloadcachedscripts(UOXSOCKET s)
 // Returns the current bulletin board posting mode for the player
 void command_post(UOXSOCKET s)
 {
-	int err;
 	P_CHAR pc_cs = currchar[s];
 	if (pc_cs) return;
 	
@@ -655,7 +654,7 @@ void command_readaccounts(UOXSOCKET s)
 void command_showp(UOXSOCKET s)
 // Displays hex values of your PRIV3 settings.
 {
-	int i,err;
+	int i;
 	
     PC_CHAR pcc_cs = currchar[s];
     if (pcc_cs == NULL) return;
@@ -684,7 +683,7 @@ void command_setpriv3(UOXSOCKET s)
 // <A HREF="http://stud4.tuwien.ac.at/%7Ee9425109/uox3_1.htm">
 // Lord Binary's UOX Site</A>.</P>
 {
-	int y, z,err;
+	int y, z;
 	unsigned int i;
 	unsigned long loopexit=0;
 	
@@ -776,7 +775,6 @@ void command_where(UOXSOCKET s)
 // Prints your current coordinates+region.
 // added region-name too, LB
 {
-	int err;
 	PC_CHAR pcc_cs = currchar[s];
     if (pcc_cs == NULL) return;
 	
@@ -793,7 +791,6 @@ void command_where(UOXSOCKET s)
 void command_q(UOXSOCKET s)
 // Shows the GM or Counsellor queue.
 {
-    int err;
 	P_CHAR pc_cs = currchar[s];
 	
 	if (!pc_cs->isGM()) //They are not a GM
@@ -825,7 +822,6 @@ void command_next(UOXSOCKET s)
 void command_clear(UOXSOCKET s)
 // For Counselor's and GM's, removes current call from queue.
 {
-	int err;
 	P_CHAR pc_cs = currchar[s];
 	
 	if (!pc_cs->isGM()) //They are not a GM

@@ -60,6 +60,7 @@ HEADERS         = Client.h \
 		  hFile.h \
 		  im.h \
 		  inlines.h \
+                  iserialization.h \
 		  itemid.h \
 		  items.h \
                   itemsmgr.h \
@@ -80,6 +81,7 @@ HEADERS         = Client.h \
 		  scriptc.h \
 		  speech.h \
 		  sregions.h \
+                  sertextfile.h \
 		  stl_headers_end.h \
 		  stl_headers_start.h \
 		  storage.h \
@@ -135,6 +137,7 @@ SOURCES         = Client.cpp \
 		  house.cpp \
 		  html.cpp \
 		  im.cpp \
+                  iserialization.cpp \
 		  itemid.cpp \
 		  items.cpp \
                   itemsmgr.cpp \
@@ -156,6 +159,7 @@ SOURCES         = Client.cpp \
 		  remadmin.cpp \
 		  scriptc.cpp \
 		  scripts.cpp \
+                  sertextfile.cpp \
 		  skills.cpp \
 		  speech.cpp \
 		  sregions.cpp \
