@@ -37,6 +37,7 @@
 //
 
 #include "Timing.h"
+#include "worldmain.h"
 #undef  DBGFILE
 #define DBGFILE "Timing.cpp"
 

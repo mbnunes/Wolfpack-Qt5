@@ -48,6 +48,7 @@
 #include "im.h"
 #include "remadmin.h"
 #include "utilsys.h"
+#include "worldmain.h"
 
 #undef DBGFILE
 #define DBGFILE "wolfpack.cpp"

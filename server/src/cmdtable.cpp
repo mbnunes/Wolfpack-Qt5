@@ -49,6 +49,7 @@
 #include "sregions.h"
 #include "bounty.h"
 #include "SndPkg.h"
+#include "worldmain.h"
 #include "debug.h"
 
 #undef  DBGFILE

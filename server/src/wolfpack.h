@@ -68,7 +68,7 @@ using namespace std;
 #include "typedefs.h"
 #include "verinfo.h"
 #include "scriptc.h"
-#include "worldmain.h"
+//#include "worldmain.h"
 #include "boats.h"    // Boats
 #include "msgboard.h" // Bulletin Boards
 #include "hCache.h"   // MUL Cache stuff.

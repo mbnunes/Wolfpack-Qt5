@@ -44,61 +44,59 @@
 
 #include <iostream>
 
-using namespace std ;
+using namespace std;
 
 // forward class declaration
 
 class CWorldMain ;
 
 //Wolfpack Includes
-#include "wolfpack.h"
-#include "verinfo.h"
-#include "SndPkg.h"
-#include "sregions.h"
+//#include "wolfpack.h"
+//#include "verinfo.h"
+//#include "SndPkg.h"
+//#include "sregions.h"
+#include "typedefs.h"
 #include "debug.h"
-#include "utilsys.h"
+//#include "utilsys.h"
 
 
-//##ModelId=3C5D92A90094
+#include <zthread/Thread.h>
+#include <zthread/CheckedMutex.h>
+
 class CWorldMain  
 {
 public:
-	//##ModelId=3C5D92A900A8
 	virtual int announce();
-	//##ModelId=3C5D92A9010D
 	virtual void announce(int choice);
-	//##ModelId=3C5D92A9012B
 	virtual void loadnewworld();
-	//##ModelId=3C5D92A90135
 	virtual void savenewworld(char x);
-	//##ModelId=3C5D92A90153
 	CWorldMain();
-	//##ModelId=3C5D92A9015D
 	virtual ~CWorldMain();
 
-	//##ModelId=3C5D92A90171
 	void SetLoopSaveAmt( long toSet );
-	//##ModelId=3C5D92A90185
 	long LoopSaveAmt( void );
-	//##ModelId=3C5D92A90190
 	bool Saving( void );
-	//##ModelId=3C5D92A901A3
 	bool RemoveItemsFromCharBody(int charserial, int type1, int type2);
 private:
-	//##ModelId=3C5D92A901D5
 	bool isSaving;
-	//##ModelId=3C5D92A901E9
 	int DisplayWorldSaves;
 	FILE *iWsc, *cWsc;
 	unsigned long Cur, Max;
-	//##ModelId=3C5D92A90207
 	long PerLoop;
 
-	//##ModelId=3C5D92A90225
 	void SaveChar( P_CHAR );
-	//##ModelId=3C5D92A90239
 	void SaveItem( P_ITEM pi, P_ITEM pDefault );
+
+	class cItemsSaver : public ZThread::Thread
+	{
+	private:
+		ZThread::CheckedMutex waitMutex;		
+	public:
+		virtual ~cItemsSaver() throw() {}
+		virtual void run() throw();
+		void wait();
+	};
 };
 
-#endif //
+#endif 
  

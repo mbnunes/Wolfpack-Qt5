@@ -60,6 +60,10 @@ struct statcap_st
 #include "dragdrop.h"
 #include "Trade.h"
 #include "bounty.h"
+
+// Forward declarations
+class CWorldMain;
+
 //-=-=-=-=-=-=-Classes Definitions=-=-=-=-=-=//
 extern cBoat			*Boats;
 extern CWorldMain		*cwmWorldState;

@@ -51,6 +51,7 @@
 #include "sregions.h"
 #include "rcvpkg.h"
 #include "SndPkg.h"
+#include "worldmain.h"
 
 #include <iostream>
 

@@ -30,6 +30,7 @@
 //========================================================================================
 
 #include "speech.h"
+#include "worldmain.h"
 
 #undef  DBGFILE
 #define DBGFILE "speech.cpp"

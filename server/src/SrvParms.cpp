@@ -31,6 +31,7 @@
 
 #include "wolfpack.h"
 #include "verinfo.h"
+#include "worldmain.h"
 #include "debug.h"
 
 #undef  DBGFILE

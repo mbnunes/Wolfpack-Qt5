@@ -35,6 +35,8 @@
 #include "worldmain.h"
 #include "serbinfile.h"
 #include "progress.h"
+#include "charsmgr.h"
+#include "itemsmgr.h"
 
 #undef  DBGFILE
 #define DBGFILE "worldmain.cpp"
@@ -44,7 +46,41 @@
 //////////////////////////////////////////////////////////////////////
 
 
-//##ModelId=3C5D92A90153
+// Items Saver thread
+void CWorldMain::cItemsSaver::run() throw()
+{
+	try
+	{
+		waitMutex.acquire();
+		serBinFile archive;
+		archive.prepareWritting("items");
+		AllItemsIterator iterItems;
+		for (iterItems.Begin(); !iterItems.atEnd(); ++iterItems)
+		{
+			archive.writeObject( iterItems.GetData() );
+		}
+		archive.close();
+		waitMutex.release();
+	}
+	catch( ... )
+	{
+		waitMutex.release();
+	}
+}
+
+void CWorldMain::cItemsSaver::wait()
+{
+	try
+	{
+		waitMutex.acquire();
+		waitMutex.release();
+	}
+	catch ( ... )
+	{
+		waitMutex.release();
+	}
+}
+
 CWorldMain::CWorldMain()
 {
 	announce(false);
@@ -955,6 +991,10 @@ void CWorldMain::savenewworld(char x)
 		isSaving = true;
 	}
 
+
+	cItemsSaver ItemsThread;
+	ItemsThread.run();
+
 	serBinFile archive;
 	archive.prepareWritting("chars");
 	AllCharsIterator iterChars;
@@ -964,13 +1004,15 @@ void CWorldMain::savenewworld(char x)
 	}
 	archive.close();
 
-	archive.prepareWritting("items");
-	AllItemsIterator iterItems;
-	for (iterItems.Begin(); !iterItems.atEnd(); ++iterItems)
-	{
-		archive.writeObject( iterItems.GetData() );
-	}
-	archive.close();
+	ItemsThread.wait();
+
+//	archive.prepareWritting("items");
+//	AllItemsIterator iterItems;
+//	for (iterItems.Begin(); !iterItems.atEnd(); ++iterItems)
+//	{
+//		archive.writeObject( iterItems.GetData() );
+//	}
+//	archive.close();
 	
 	if ( announce() )
 	{

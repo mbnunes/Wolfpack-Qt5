@@ -46,6 +46,7 @@
 #include "debug.h"
 #include "wolfpack.h"
 #include "iserialization.h"
+#include "worldmain.h"
 
 #undef  DBGFILE
 #define DBGFILE "guildstones.cpp"
