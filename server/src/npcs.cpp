@@ -417,11 +417,9 @@ void cCharStuff::applyNpcSection( P_CHAR Char, const QString &Section )
 		
 		//<backpack>
 		//	<color>0x132</color>
-		//	<contains>
-		//		<item id="a">
-		//		...
-		//		<item id="z">
-		//	</contains>
+		//	<item id="a">
+		//	...
+		//	<item id="z">
 		//</backpack>
 		else if( TagName == "backpack" )
 			if( Char->packitem == INVALID_SERIAL )
@@ -444,13 +442,7 @@ void cCharStuff::applyNpcSection( P_CHAR Char, const QString &Section )
 				if( Tag.hasChildNodes() )
 				{
 					Items->processScriptItemNode( pBackpack, Tag ); //colorlist
-
-					for( j = 0; j < Tag.childNodes().count(); j++ )
-					{
-						QDomElement currNode = Tag.childNodes().item( j ).toElement();
-						if( currNode.nodeName() == "contains" )
-							Items->processItemContainerNode( pBackpack, currNode );
-					}
+					Items->processItemContainerNode( pBackpack, Tag );
 				}
 			}
 
