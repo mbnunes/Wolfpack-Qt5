@@ -241,6 +241,7 @@ def main():
 	checkPython(options)
 	if options.enable_mysql:
 		CONFIG += "mysql "
+		DEFINES += "MYSQL_DRIVER "
 		checkMySQL(options)
 	checkQt()
 
