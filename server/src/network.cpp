@@ -123,8 +123,6 @@ cNetworkStuff::cNetworkStuff() // Initialize sockets
 
 }
 
-
-//##ModelId=3C5D92D9027E
 void cNetworkStuff::DoStreamCode(UOXSOCKET s)
 { 
 	int status ;

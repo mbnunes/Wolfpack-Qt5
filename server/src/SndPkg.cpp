@@ -2819,10 +2819,10 @@ void sendshopinfo(int s, P_CHAR pc, P_ITEM pi)
 				m1[m1t+6]=0;			//Always zero
 				m1[m1t+7]=pi_j->amount>>8;//Amount for sale
 				m1[m1t+8]=pi_j->amount%256;//Amount for sale
-				m1[m1t+9]=pi_j->pos.x>>8; //Item x position
-				m1[m1t+10]=pi_j->pos.x%256;//Item x position
-				m1[m1t+11]=pi_j->pos.y>>8;//Item y position
-				m1[m1t+12]=pi_j->pos.y%256;//Item y position
+				m1[m1t+9]=ci;//pi_j->pos.x>>8; //Item x position
+				m1[m1t+10]=ci;//pi_j->pos.x%256;//Item x position
+				//m1[m1t+11]=pi_j->pos.y>>8;//Item y position
+				//m1[m1t+12]=pi_j->pos.y%256;//Item y position
 				LongToCharPtr(pi->serial,m1+m1t+13); //Container serial number
 				ShortToCharPtr(pi->color, &m1[m1t+17]);
 				m1[4]++; // Increase item count.

@@ -461,9 +461,6 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 	}// switch
 }// void checknpcai
 
-
-
-//##ModelId=3C5D932A0267
 void cCharStuff::cDragonAI::DoAI(P_CHAR pc_i, int currenttime)
 {
 	int randvalue;
@@ -490,15 +487,9 @@ void cCharStuff::cDragonAI::DoAI(P_CHAR pc_i, int currenttime)
 						randvalue = RandomNum(0, 4);
 						switch (randvalue)
 						{
-							case 1:	
-								Breath(pc_i, currenttime);
-								break;
-							case 3:	
-								HarmMagic(pc_i, currenttime, pc);
-								break;
-							case 4:	
-								HealMagic(pc_i, currenttime);
-								break;
+							case 1:				Breath(pc_i, currenttime);				break;
+							case 3:				HarmMagic(pc_i, currenttime, pc);		break;
+							case 4:				HealMagic(pc_i, currenttime);			break;
 						}
 					}
 					else
@@ -513,7 +504,6 @@ void cCharStuff::cDragonAI::DoAI(P_CHAR pc_i, int currenttime)
 	return;
 }
 
-//##ModelId=3C5D932A02E9
 void cCharStuff::cDragonAI::Breath(P_CHAR pc_i, int currenttime)
 {
 	Magic->PFireballTarget(pc_i, FindCharBySerial(pc_i->targ), 20);
@@ -521,28 +511,17 @@ void cCharStuff::cDragonAI::Breath(P_CHAR pc_i, int currenttime)
 	return; 
 }
 
-//##ModelId=3C5D932A0285
 void cCharStuff::cDragonAI::HarmMagic(P_CHAR pc_i, unsigned int currenttime, P_CHAR pc)
 {
 	if (currenttime >= pc_i->spatimer)
 	{
 		switch (RandomNum(0, 5))
 		{
-			case 0:	
-				Magic->EnergyBoltSpell(pc_i, pc);
-				break;
-			case 1:	
-				Magic->FlameStrikeSpell(pc_i, pc);
-				break;
-			case 2:	
-				Magic->ParalyzeSpell(pc_i, pc);
-				break;
-			case 3:	
-				Magic->LightningSpell(pc_i, pc);
-				break;
-			case 4:	
-				Magic->ParalyzeSpell(pc_i, pc);
-				break;
+			case 0:					Magic->EnergyBoltSpell(pc_i, pc);				break;
+			case 1:					Magic->FlameStrikeSpell(pc_i, pc);				break;
+			case 2:					Magic->ParalyzeSpell(pc_i, pc);					break;
+			case 3:					Magic->LightningSpell(pc_i, pc);				break;
+			case 4:					Magic->ParalyzeSpell(pc_i, pc);					break;
 			case 5: 
 				if (pc->priv2&0x20)
 				{
@@ -555,7 +534,6 @@ void cCharStuff::cDragonAI::HarmMagic(P_CHAR pc_i, unsigned int currenttime, P_C
 	return;
 }
 
-//##ModelId=3C5D932A02A3
 void cCharStuff::cDragonAI::HealMagic(P_CHAR pc_i, unsigned int currenttime)
 {
 	if (currenttime >= pc_i->spatimer)
@@ -573,14 +551,13 @@ void cCharStuff::cDragonAI::HealMagic(P_CHAR pc_i, unsigned int currenttime)
 	}
 	DoneAI(pc_i, currenttime);
 }
-//##ModelId=3C5D932A0307
+
 void cCharStuff::cDragonAI::DoneAI(P_CHAR pc_i, int currenttime)
 {
 	pc_i->spatimer = currenttime + (pc_i->spadelay*MY_CLOCKS_PER_SEC); 
 	return;
 }
 
-//##ModelId=3C5D932B000F
 //bool cCharStuff::cBankerAI::DoAI(int c, P_CHAR pBanker, char *comm)
 bool cCharStuff::cBankerAI::DoAI(int c, P_CHAR pBanker, string& comm)
 {
@@ -613,12 +590,12 @@ bool cCharStuff::cBankerAI::DoAI(int c, P_CHAR pBanker, string& comm)
 			openspecialbank(c, currchar[c]);
 		}
 	}
-    	else if ((comm.find(search1)!=string::npos) &&(!(pc_currchar->dead)))
+    else if ((comm.find(search1)!=string::npos) &&(!(pc_currchar->dead)))
 	{
 		OpenBank(c);
 		return true;
 	}
-    	else if ((comm.find(search2)!=string::npos) &&(!(pc_currchar->dead)))
+    else if ((comm.find(search2)!=string::npos) &&(!(pc_currchar->dead)))
 	{
 		return Balance(c, pBanker);
 	}
@@ -662,7 +639,7 @@ bool cCharStuff::cBankerAI::Withdraw(int c, P_CHAR pBanker, string& comm)
 	{
 		if ((endoffset=comm.find_first_not_of("0123456789",beginoffset))== string::npos)
 			endoffset = comm.length();
-		value2= comm.substr(beginoffset,endoffset-beginoffset) ;
+		value2= comm.substr(beginoffset,endoffset-beginoffset);
 		value = str2num(value2) ;
 	}
 	else 
