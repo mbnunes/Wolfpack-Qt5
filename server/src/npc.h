@@ -123,7 +123,9 @@ public:
 	QString			lootList() const;
 	cNPC_AI*		ai() const;
 	UINT32			aiCheckTime() const;
+	UINT8			criticalHealth() const;
 	// bit flag getters
+	bool			hasSpell( UINT8 spell ) const;
 	// advanced getters for data structures
 	// path finding
 	bool			hasPath( void );
@@ -155,10 +157,13 @@ public:
 	void setLootList(const QString &data);
     void setGuarding(P_PLAYER data);
 	void setAI( cNPC_AI* ai );
-	void setAI( const QString &data );
 	void setAICheckTime( UINT32 data );
+	void setCriticalHealth( UINT8 data );
 	// bit flag setters
+	void setSpell( UINT8 spell, bool data );
 	// advanced setters for data structures
+	// AI
+	void setAI( const QString &data );
 	// path finding
 	void pushMove( const Coord_cl &move );
 	void pushMove( UI16 x, UI16 y, SI08 z );
@@ -248,6 +253,13 @@ protected:
 
 	// NPC AI check timer
 	UINT32	aiCheckTime_;
+
+	// percentage of maxhitpoints when hitpoints are restored
+	UINT8	criticalHealth_;
+
+	// 2 * 32 = 64 bit flags for spells the npc can cast
+	UINT32	spellsLow_;
+	UINT32	spellsHigh_;
 };
 
 inline UINT32 cNPC::additionalFlags() const
@@ -415,6 +427,46 @@ inline UINT32 cNPC::aiCheckTime() const
 inline void cNPC::setAICheckTime( UINT32 data )
 {
 	aiCheckTime_ = data;
+	changed( SAVE );
+}
+
+inline bool cNPC::hasSpell( UINT8 spell ) const
+{
+	if( spell < 32 )
+		return spellsLow_ & ( 1 << spell );
+	else if( spell >= 32 && spell < 64 )
+		return spellsHigh_ & ( 1 << (spell-32) );
+	else
+		return false;
+}
+
+inline void cNPC::setSpell( UINT8 spell, bool data )
+{
+	if( data ) 
+	{
+		if( spell < 32 )
+			spellsLow_ |= ( 1 << spell );
+		else if( spell >= 32 && spell < 64 )
+			spellsHigh_ |= ( 1 << (spell-32) );
+	}
+	else 
+	{
+		if( spell < 32 )
+			spellsLow_ &= ~( 1 << spell );
+		else if( spell >= 32 && spell < 64 )
+			spellsHigh_ &= ~( 1 << (spell-32) );
+	}
+	changed( SAVE );
+}
+
+inline UINT8 cNPC::criticalHealth() const
+{
+	return criticalHealth_;
+}
+
+inline void cNPC::setCriticalHealth( UINT8 data )
+{
+	criticalHealth_ = data;
 	changed( SAVE );
 }
 

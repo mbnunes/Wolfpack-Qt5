@@ -225,7 +225,7 @@ void Monster_Aggressive_L1::eventHandler()
 		else if( !pVictim->inRange( npc, VISRANGE ) )
 			currentState->combatCancelled();
 
-		if( npc->hitpoints() < 0.1f * npc->maxHitpoints() )
+		if( npc->hitpoints() < (float)npc->criticalHealth() * 0.01f * npc->maxHitpoints() )
 			currentState->hitpointsCritical();
 		else
 			currentState->hitpointsRestored();

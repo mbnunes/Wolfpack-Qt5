@@ -81,6 +81,9 @@ enum eNPCKeys
 	NPC_LOOTLIST,
 	NPC_ADDFLAGS,
 	NPC_AI,
+	NPC_FLEEAT,
+	NPC_SPELLSLOW,
+	NPC_SPELLSHIGH
 };
 
 //			addField( "value", (*it).value );
@@ -154,6 +157,15 @@ void cNPC::save( FlatStore::OutputFile *output, bool first ) throw()
 		}
 		output->chunkData( NPC_AI, temp );
 	}
+
+	if( criticalHealth() != 10 )
+		output->chunkData( NPC_FLEEAT, criticalHealth() );
+
+	if( spellsLow_ )
+		output->chunkData( NPC_SPELLSLOW, spellsLow_ );
+
+	if( spellsHigh_ )
+		output->chunkData( NPC_SPELLSHIGH, spellsHigh_ );
 
 	output->finishChunkGroup();
 
@@ -271,6 +283,18 @@ bool cNPC::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::I
 
 	case NPC_AI:
 		setAI( QString::fromUtf8( input->readString() ) );
+		break;
+
+	case NPC_FLEEAT:
+		input->readUChar( criticalHealth_ );
+		break;
+
+	case NPC_SPELLSLOW:
+		input->readUInt( spellsLow_ );
+		break;
+
+	case NPC_SPELLSHIGH:
+		input->readUInt( spellsHigh_ );
 		break;
 	
 	default:

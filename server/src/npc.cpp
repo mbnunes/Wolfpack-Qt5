@@ -64,13 +64,13 @@ cNPC::cNPC()
 	summonTime_			= 0;
 	additionalFlags_	= 0;
 	owner_				= NULL;
-//	carve_				= (char*)0;
-//	spawnregion_		= (char*)0;
 	stablemasterSerial_	= INVALID_SERIAL;
 	wanderType_			= stWanderType();
-//	lootList_			= (char*)0;
-	ai_					= new Monster_Aggressive_L0( this );
+	ai_					= new Monster_Aggressive_L1( this );
 	aiCheckTime_		= uiCurrentTime + SrvParams->checkAITime() * MY_CLOCKS_PER_SEC;
+	criticalHealth_		= 10; // 10% !
+	spellsLow_			= 0;
+	spellsHigh_			= 0;
 }
 
 cNPC::cNPC(const cNPC& right)
@@ -100,7 +100,7 @@ void cNPC::buildSqlString( QStringList &fields, QStringList &tables, QStringList
 	fields.push_back( "npcs.carve,npcs.spawnregion,npcs.stablemaster" );
 	fields.push_back( "npcs.lootlist,npcs.ai,npcs.wandertype" );
 	fields.push_back( "npcs.wanderx1,npcs.wanderx2,npcs.wandery1,npcs.wandery2" );
-	fields.push_back( "npcs.wanderradius" );
+	fields.push_back( "npcs.wanderradius,npcs.fleeat,npcs.spellslow,npcs.spellshigh" );
 	tables.push_back( "npcs" );
 	conditions.push_back( "uobjectmap.serial = npcs.serial" );
 }
@@ -132,6 +132,9 @@ void cNPC::load( char **result, UINT16 &offset )
 	setWanderY1( atoi( result[offset++] ) );
 	setWanderY2( atoi( result[offset++] ) );
 	setWanderRadius( atoi( result[offset++] ) );
+	setCriticalHealth( atoi( result[offset++] ) );
+	spellsLow_ = atoi( result[offset++] );
+	spellsHigh_ = atoi( result[offset++] );
 
 	npcRegisterAfterLoading( this );
 	changed_ = false;
@@ -170,6 +173,9 @@ void cNPC::save()
 		addField( "wandery1", wanderY1() );
 		addField( "wandery2", wanderY2() );
 		addField( "wanderradius", wanderRadius() );
+		addField( "fleeat", criticalHealth() );
+		addField( "spellslow", spellsLow_ );
+		addField( "spellshigh", spellsHigh_ );
 		
 		addCondition( "serial", serial() );
 		saveFields;
@@ -938,9 +944,9 @@ void cNPC::processNode( const QDomElement &Tag )
 		}
 	}
 
-/*	//<fleeat>10</fleeat>
+	//<fleeat>10</fleeat>
 	else if( TagName == "fleeat" )
-		this->setFleeat( Value.toShort() );*/
+		this->setCriticalHealth( Value.toShort() );
 
 	//<hidamage>10</hidamage>
 	else if( TagName == "hidamage" )
@@ -996,15 +1002,12 @@ void cNPC::processNode( const QDomElement &Tag )
 		}
 	}
 
-/*	//<ai>2</ai>
+	//<ai>Monster_Aggressive_L1</ai>
+	//<ai>Monster_Aggressive_L1,Monster_Aggr_L1_Wander</ai>
 	else if( TagName == "ai" )
-		this->setNpcAIType( Value.toInt() );
+		this->setAI( Value );
 
-	//<reattackat>40</reattackat>
-	else if( TagName == "reattackat" )
-		this->setReattackat( Value.toShort() );
-
-	//<shopkeeper>
+/*	//<shopkeeper>
 	//	<sellable>...handled like item-<contains>-section...</sellable>
 	//	<buyable>...see above...</buyable>
 	//	<restockable>...see above...</restockable>
@@ -1115,7 +1118,12 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "totame", tamingMinSkill_ )
 	else SET_INT_PROPERTY( "summontime", summonTime_) 
 	else SET_INT_PROPERTY( "summontimer", summonTime_) 
-//	else SET_CHAR_PROPERTY( "owner", owner_ )
+	else if( name == "owner" )
+	{
+		P_PLAYER pOwner = dynamic_cast<P_PLAYER>(value.toChar());
+		setOwner( pOwner );
+		return 0;
+	}
 
 	// skill.
 	else if( name.left( 6 ) == "skill." )
@@ -1132,6 +1140,17 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 	else if( name == "ai" )
 	{
 		setAI( value.toString() );
+		return 0;
+	}
+	else SET_INT_PROPERTY( "fleeat", criticalHealth_ )
+	else SET_INT_PROPERTY( "criticalhealth", criticalHealth_ )
+	else SET_INT_PROPERTY( "spellslow", spellsLow_ )
+	else SET_INT_PROPERTY( "spellshigh", spellsHigh_ )
+	else if( name == "spell" )
+	{
+		UINT8 spell = name.right( name.length() - 6 ).toShort();
+
+		setSpell( spell, value.toInt() );
 		return 0;
 	}
 	
@@ -1171,6 +1190,17 @@ stError *cNPC::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "summontimer", (int)summonTime_) 
 	else GET_PROPERTY( "owner", owner_ )
 	else GET_PROPERTY( "ai", ai_ ? ai_->AIType() : "" )
+	else GET_PROPERTY( "fleeat", criticalHealth_ )
+	else GET_PROPERTY( "criticalhealth", criticalHealth_ )
+	else GET_PROPERTY( "spellslow", (int)spellsLow_ )
+	else GET_PROPERTY( "spellshigh", (int)spellsHigh_ )
+	else if( "name" == "spell" )
+	{
+		UINT8 spell = name.right( name.length() - 6 ).toShort();
+		
+		value = cVariant( hasSpell( spell ) );
+		return 0;
+	}
 
 	return cBaseChar::getProperty( name, value );
 }
