@@ -37,7 +37,7 @@
 		<name>small boat deed</name>
 		<tag type="string">
 			<key>multisection</key>
-			<item>smallboat</item>
+			<value>smallboat</value>
 		</tag>
 	</item>
 </definitions>
