@@ -207,7 +207,7 @@ def put_item( str, pos ):
 		return 0
 	item.moveto( pos )
 	# locked down
-	item.magic = 4
+	item.movable = 3
 	item.update()
 	return 1
 
@@ -217,6 +217,6 @@ def put_item( str, x, y, map ):
 		return 0
 	item.moveto( x, y, map )
 	# locked down
-	item.magic = 4
+	item.movable = 3
 	item.update()
 	return 1

@@ -141,7 +141,7 @@ def targetitem( char, args, target ):
 		if not finditem:
 			socket.sysmessage("You must target an item!")
 			return 1
-		if finditem.magic != 1:
+		if ( finditem.movable != 1 ) or ( finditem.movable == 1 and finditem.owner != char.serial ):
 			socket.sysmessage("This object is not movable by you!")
 			return 1
 		# Object Exists

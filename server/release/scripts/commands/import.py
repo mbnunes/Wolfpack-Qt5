@@ -209,7 +209,7 @@ def parseSphere(file, map):
 
 				item = wolfpack.newitem(1)
 				item.decay = 0
-				item.magic = 2
+				item.movable = 2
 				item.id = itemid
 				item.color = color
 				item.moveto( x, y, z, map )

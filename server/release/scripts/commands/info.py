@@ -827,7 +827,7 @@ def iteminfo( socket, item ):
 	# This should really be .movable! :P
 	gump.addText( 113, 400, "Movable:", 0x834 )
 	gump.addResizeGump( 280, 400, 0xBB8, 215, 20 )
-	gump.addInputField( 284, 400, 200, 16, 0x834, 13, unicode( item.magic ) )
+	gump.addInputField( 284, 400, 200, 16, 0x834, 13, unicode( item.movable ) )
 
 	# next page
 	gump.addText( 415, 450, "Page 1 of 4", 0x834 )
@@ -1089,9 +1089,8 @@ def iteminfo_response( player, args, choice ):
 			item.decay = int( hex2dec( textentries[ key ] ) )
 		elif key == 12:
 			item.newbie = int( hex2dec( textentries[ key ] ) )
-		elif key == 13:
-			# this should be .movable :P
-			item.magic = int( hex2dec( textentries[ key ] ) )
+		elif key == 13
+			item.movable = int( hex2dec( textentries[ key ] ) )
 		elif key == 14:
 			item.visible = int( hex2dec( textentries[ key ] ) )
 		elif key == 15:

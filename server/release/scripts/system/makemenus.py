@@ -479,7 +479,7 @@ class CraftItemAction(MakeItemAction):
 			# Create the item
 			item = wolfpack.additem(self.definition)
 			item.decay = 1 # Should always decay
-			item.magic = 1 # Should always be movable
+			item.movable = 1 # Should always be movable
 
 			if self.amount > 0:
 				item.amount = self.amount

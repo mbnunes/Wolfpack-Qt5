@@ -29,7 +29,8 @@ circle_ids = [1015163, 1015171, 1015177, 1015185, 1015193, 1015202, 1015210, 101
 # empty scroll cliloc id : 1044377
 # empty recall rune cliloc id : 104447
 # reagents required to make a spell scroll (reactive armor first)
-spell_regs = [['f84', 'f8d', 'f8c'],\
+spell_regs = [\
+		['f84', 'f8d', 'f8c'],\
 		['f7b', 'f88'],\
 		['f84', 'f85', 'f86'],\
 		['f88', 'f85'],\
@@ -269,7 +270,7 @@ class InsItemAction(CraftItemAction):
 					console.log(LOG_ERROR, "Unknown item definition used in action %u of menu %s.\n" % (self.parent.subactions.index(self), self.parent.id))
 				else:
 					item.decay = 1
-					item.magic = 1
+					item.movable = 1
 					if not tobackpack(item, player):
 						item.update()
 			self.parent.send(player, args)
@@ -291,7 +292,7 @@ class InsItemAction(CraftItemAction):
 						console.log(LOG_ERROR, "Unknown item definition used in action %u of menu %s.\n" % (self.parent.subactions.index(self), self.parent.id))
 					else:
 						item.decay = 1
-						item.magic = 1
+						item.movable = 1
 						if not tobackpack(item, player):
 							item.update()
 				self.parent.send(player, args)
