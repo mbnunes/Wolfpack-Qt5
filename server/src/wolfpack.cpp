@@ -329,8 +329,8 @@ int main( int argc, char *argv[] )
 	/*Console::instance()->send( QString::number( sizeof( cUObject ) ) );
 	return 0;*/
 
-	Console::instance()->setAttributes( true, false, false, 0, 0, 255, 0, FONT_FIXEDWIDTH );
-	Console::instance()->send( QString( "\n%1 %2 %3 \n\n" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() ) );
+	Console::instance()->setAttributes( true, false, true, 60, 140, 70, 12, FONT_NOSERIF );
+	Console::instance()->send( QString( "\n%1 %2 %3\n\n" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() ) );
 
 	Console::instance()->send( "Copyright (C) 1997, 98 Marcus Rating (Cironian)\n");
 	Console::instance()->send( "Copyright (C) 2000-2003 Wolfpack Development Team\n");

@@ -105,6 +105,7 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 		// Set up the fonts we need        
 		ZeroMemory( &lfont, sizeof( LOGFONT ) );
 		qstrcpy( lfont.lfFaceName, "Fixedsys" );
+		lfont.lfQuality = ANTIALIASED_QUALITY;
 		font = CreateFontIndirect( &lfont );
 		if ( !font )
 		{
@@ -276,7 +277,7 @@ protected:
 
 		returnValue_ = main( argc, argv.data() );	
 
-		PostQuitMessage( returnValue_ );
+		PostMessage( mainWindow, WM_QUIT, 0, 0 );
 	}
 };
 
@@ -371,8 +372,7 @@ void cConsole::send(const QString &sMessage)
 	unsigned int textLength = sMessage.length();
 
 	// Check for the caret
-	CHARRANGE range;
-	SendMessage( logWindow, EM_EXGETSEL, 0, (LPARAM)&range );
+	SendMessage( logWindow, EM_SETSEL, ctrlLength, ctrlLength );
 
 	// Delete lines from the beginning if we exceed the maximum limit.
 	if( ctrlLength + textLength > logLimit )
@@ -497,7 +497,7 @@ void cConsole::setAttributes( bool bold, bool italic, bool underlined, unsigned 
 	if( size )
 	{
 		cf.dwMask |= CFM_SIZE;
-		cf.yHeight = size;
+		cf.yHeight = size * 20;
 	}
 
 	cf.dwMask |= CFM_FACE;
