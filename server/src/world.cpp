@@ -437,6 +437,9 @@ void cWorld::loadBinary( QPtrList<PersistentObject> &objects )
 			unsigned int count = reader.objectCount();
 			unsigned int lastpercent = 0;
 			unsigned int percent = 0;
+			QPtrList<cUObject> invalidSpawnregion;
+			invalidSpawnregion.setAutoDelete(false);
+
 			do
 			{
 				type = reader.readByte();
@@ -509,7 +512,7 @@ void cWorld::loadBinary( QPtrList<PersistentObject> &objects )
 					if (object && region) {
 						object->setSpawnregion(region);
 					} else if (object) {
-						object->remove();
+						invalidSpawnregion.append(object);
 					}
 				}
 				else if ( type == 0xFB )
@@ -554,11 +557,20 @@ void cWorld::loadBinary( QPtrList<PersistentObject> &objects )
 
 			// post process all loaded objects
 			QPtrList<PersistentObject>::const_iterator cit(objects.begin());
-
 			while (cit != objects.end()) {
 				(*cit)->postload(reader.version());
 				++cit;
 			}
+
+			// Delete all objects with an invalid spawnregion
+			QPtrList<cUObject>::const_iterator sit(invalidSpawnregion.begin());
+			while (sit != invalidSpawnregion.end()) {
+				(*sit)->remove();
+				++sit;
+			}
+
+			// Flush the delete queue
+			p->purgePendingObjects();			
 		}
 
 	// load server time from db

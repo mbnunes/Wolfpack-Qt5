@@ -381,7 +381,7 @@ void cTerritories::load()
 		cTerritory *rSource = region(clSource);		
 		if (rSource) {
 			rSource->addTeleporter(clSource, clDestination); // Add the teleportation spot
-		} else {
+		} else if(Maps::instance()->hasMap(clSource.map)) {
 			Console::instance()->log(LOG_WARNING, tr("Couldn't find source region for teleporter at %1.").arg(source));
 		}
 
@@ -391,7 +391,7 @@ void cTerritories::load()
 			cTerritory *rDestination = region(clDestination);
 			if (rDestination) {
 				rDestination->addTeleporter(clDestination, clSource); // Add the teleportation spot
-			} else {
+			} else if(Maps::instance()->hasMap(clDestination.map)) {
 				Console::instance()->log(LOG_WARNING, tr("Couldn't find destination region for two-way teleporter at %1.").arg(destination));
 			}
 		}

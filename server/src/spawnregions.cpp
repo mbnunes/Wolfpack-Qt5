@@ -505,6 +505,8 @@ bool cSpawnRegion::findValidSpot(Coord& result, int tries) {
 
 void cSpawnRegion::spawnSingleNPC()
 {
+	unsigned int pointCount = countPoints();
+
 	Coord pos;
 	if ( findValidSpot( pos ) )
 	{
@@ -561,7 +563,7 @@ void cSpawnRegion::spawnSingleNPC()
 
 		// Apply these settings between the inherited npc and the custom settings in the spawnregion
 		// file
-		if (countPoints() == 1) {
+		if (pointCount == 1) {
 			pChar->setWanderType( enHalt ); // Most likely a vendor spawn with only one point
 			pChar->setWanderX1( pos.x );
 			pChar->setWanderY1( pos.y );
@@ -584,14 +586,18 @@ void cSpawnRegion::spawnSingleNPC()
 
 		pChar->resend(false); // Resend the NPC
 		onSpawn( pChar ); // Call the onSpawn event
-	} else {
-		Console::instance()->log(LOG_ERROR, tr("Unable to find valid spot for spawnregion %1.\n").arg(id_));
+
+	// Only warn if there is only ONE spot
+	} else if(pointCount <= 1) {
+		Console::instance()->log(LOG_WARNING, tr("Unable to find valid spot for spawnregion %1.\n").arg(id_));
 	}
 }
 
 void cSpawnRegion::spawnSingleItem()
 {
+	unsigned int pointCount = countPoints();
 	Coord pos;
+
 	if ( findValidSpot( pos ) )
 	{
 		// This is a little tricky.
@@ -652,6 +658,8 @@ void cSpawnRegion::spawnSingleItem()
 
 		pItem->update(); // Resend the NPC
 		onSpawn( pItem ); // Call the onSpawn event
+	} else if(pointCount <= 1) {
+		Console::instance()->log(LOG_WARNING, tr("Unable to find valid spot for spawnregion %1.\n").arg(id_));
 	}
 }
 

@@ -101,25 +101,15 @@ void cPlayer::buildSqlString( const char *objectid, QStringList& fields, QString
 
 void cPlayer::postload( unsigned int version )
 {
-	// account removed?
-	if( account() == 0 )
-	{
-		// we need to remove the equipment here.
-		cBaseChar::ItemContainer::const_iterator it;
-		for( it = content_.begin(); it != content_.end(); ++it )
-		{
-			P_ITEM item = *it;
-			if( !item )
-				continue;
-
-			item->remove();
-		}
-		del();
-		return;
-	}
-
 	cBaseChar::postload( version );
 	MapObjects::instance()->add( this );
+
+	// account removed?
+	if( account() == 0 ) {
+		Console::instance()->log(LOG_WARNING, tr("Removing player %1 (0x%2) because of missing account.\n").arg(orgName_).arg(serial_, 0, 16));
+		remove();
+		return;
+	}
 }
 
 void cPlayer::load( cBufferedReader& reader )

@@ -132,6 +132,8 @@ void cUObject::moveTo( const Coord& newpos, bool noRemove )
 	if( noRemove )
 	{
 		// place the object onto the map
+		pos_ = newpos; // This is required since MapObjects transparently checks
+					   // for objects->pos()
 		MapObjects::instance()->add( this );
 	}
 	else

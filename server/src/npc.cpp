@@ -1452,7 +1452,7 @@ cNPC* cNPC::createFromScript( const QString& section, const Coord& pos )
 	P_NPC pChar = new cNPC;
 	pChar->Init();
 	pChar->basedef_ = CharBaseDefs::instance()->get( section.latin1() );
-	pChar->moveTo( pos );
+	pChar->moveTo( pos, true );
 	pChar->applyDefinition( DefSection );
 
 	// OrgBody and OrgSkin are often not set in the scripts
