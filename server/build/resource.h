@@ -12,8 +12,13 @@
 #define IDI_ICONRED                     106
 #define IDD_DIALOGABOUT                 107
 #define IDD_ACCOUNTDIALOG               109
+#define IDD_ADDACCOUNT                  110
 #define IDC_RICHEDIT                    1000
 #define IDC_ACCOUNTS                    1002
+#define IDC_USERNAME                    1005
+#define IDC_PASSWORD                    1006
+#define IDC_COMBO1                      1007
+#define IDC_ACL                         1007
 #define IDC_EXIT                        40001
 #define ID_RELOAD_ACCOUNTS              40002
 #define ID_RELOAD_CONFIGURATION         40003
@@ -31,9 +36,9 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1
-#define _APS_NEXT_RESOURCE_VALUE        110
+#define _APS_NEXT_RESOURCE_VALUE        111
 #define _APS_NEXT_COMMAND_VALUE         40015
-#define _APS_NEXT_CONTROL_VALUE         1005
+#define _APS_NEXT_CONTROL_VALUE         1008
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

@@ -8,6 +8,7 @@
 // Generated from the TEXTINCLUDE 2 resource.
 //
 #include "afxres.h"
+#include <commctrl.h>
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
@@ -49,11 +50,6 @@ BEGIN
     POPUP "&File"
     BEGIN
         MENUITEM "E&xit",                       IDC_EXIT
-    END
-    POPUP "&Accounts"
-    BEGIN
-        MENUITEM "&Add",                        ID_ACCOUNTS_ADD
-        MENUITEM "&Manage",                     ID_ACCOUNTS_MANAGE
     END
     POPUP "&Reload"
     BEGIN
@@ -164,21 +160,6 @@ BEGIN
                     143,WS_EX_TRANSPARENT
 END
 
-IDD_ACCOUNTDIALOG DIALOGEX 0, 0, 248, 150
-STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU | 
-    WS_THICKFRAME
-EXSTYLE WS_EX_CONTROLPARENT | WS_EX_APPWINDOW
-CAPTION "Account Management"
-FONT 8, "MS Shell Dlg", 400, 0, 0x1
-BEGIN
-    CONTROL         "",IDC_ACCOUNTS,"SysListView32",LVS_REPORT | 
-                    LVS_SORTASCENDING | LVS_ALIGNLEFT | WS_BORDER | 
-                    WS_TABSTOP,7,7,234,116,WS_EX_CLIENTEDGE
-    PUSHBUTTON      "&Ok",IDOK,7,129,50,14
-    PUSHBUTTON      "&Cancel",IDCANCEL,63,129,50,14
-END
-
-
 /////////////////////////////////////////////////////////////////////////////
 //
 // DESIGNINFO
@@ -193,14 +174,6 @@ BEGIN
         RIGHTMARGIN, 284
         TOPMARGIN, 7
         BOTTOMMARGIN, 168
-    END
-
-    IDD_ACCOUNTDIALOG, DIALOG
-    BEGIN
-        LEFTMARGIN, 7
-        RIGHTMARGIN, 241
-        TOPMARGIN, 7
-        BOTTOMMARGIN, 143
     END
 END
 #endif    // APSTUDIO_INVOKED

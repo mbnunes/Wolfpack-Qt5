@@ -124,69 +124,6 @@ void drawWindow( HWND window )
 	EndPaint( window, &paintInfo );
 }
 
-LRESULT CALLBACK ManageAccountsDialog(HWND hwnd, unsigned int msg, WPARAM wparam, LPARAM lparam) {
-	switch (msg) {
-		case WM_COMMAND:
-			if (HIWORD(wparam) == BN_CLICKED) {				
-				EndDialog(hwnd, 0);
-
-				// Show a new dialog if we pressed ok.
-				if ((HWND) lparam == GetDlgItem(hwnd, IDOK)) {
-				}
-			} 
-			break;
-
-		case WM_CLOSE:
-			EndDialog(hwnd, 0);
-			break;
-
-		case WM_INITDIALOG:
-			{
-				HWND accountList = GetDlgItem(hwnd, IDC_ACCOUNTS);
-				LVCOLUMN column;
-				ZeroMemory(&column, sizeof(column));
-				column.mask = LVCF_TEXT|LVCF_WIDTH;
-				column.pszText = "Username";
-				column.cx = 150;
-				SendMessage(accountList, LVM_INSERTCOLUMN, 0, (LPARAM)&column);
-
-				//column.mask |= LVCF_SUBITEM;
-
-				// ACL Column
-				column.pszText = "ACL";
-				column.cx = 75;
-				SendMessage(accountList, LVM_INSERTCOLUMN, 1, (LPARAM)&column);
-
-				// Wait until the main thread gives us time to 
-				// access the accounts.
-				lockDataMutex();
-				cAccounts::const_iterator it;
-
-				for (it = Accounts::instance()->begin(); it != Accounts::instance()->end(); ++it) {
-					//MessageBox(mainWindow, it.data()->login().latin1(), "Account Name", MB_OK|MB_ICONINFORMATION);
-					LVITEM item;
-					ZeroMemory(&item, sizeof(item));
-					item.mask = LVIF_DI_SETITEM|LVIF_TEXT;
-					item.pszText = new char[it.data()->login().length() + 1];
-					qstrcpy(item.pszText, it.data()->login().latin1());
-                    
-					int id = SendMessage(accountList, LVM_INSERTITEM, 0, (LPARAM)&item);
-
-					item.mask = LVIF_DI_SETITEM|LVIF_TEXT;
-					item.iItem = id;
-					item.iSubItem = 1;
-					item.pszText = new char[it.data()->login().length() + 1];
-					qstrcpy(item.pszText, it.data()->acl().latin1());
-					SendMessage(accountList, LVM_SETITEM, 0, (LPARAM)&item);
-				}
-
-				unlockDataMutex();
-			}
-	}
-
-	return FALSE;
-}
-
 LRESULT CALLBACK AboutDialog(HWND hwnd, unsigned int msg, WPARAM wparam, LPARAM lparam) {
 	HWND richtext;
 
@@ -241,20 +178,6 @@ bool handleMenuSelect( unsigned int id )
 		if( canClose )
 			DestroyWindow( mainWindow );
 
-		break;
-
-	case ID_ACCOUNTS_ADD:
-		// Only display this dialog if we're actually running the server.
-		if (serverState == RUNNING) {
-			MessageBox(0, "Add Account", "ADDACCOUNT", MB_OK|MB_ICONINFORMATION);
-		}
-		break;
-
-	case ID_ACCOUNTS_MANAGE:
-		// Only display this dialog if we're actually running the server.
-		if (serverState == RUNNING) {
-			DialogBox(appInstance, MAKEINTRESOURCE(IDD_ACCOUNTDIALOG), mainWindow, (DLGPROC)ManageAccountsDialog);
-		}
 		break;
 
 	case ID_HELP_ABOUT:
