@@ -65,7 +65,8 @@ def statics( x, y, map, exact=1 ):
 	if not type( x ) is IntType or not type( y ) is IntType or not type( map ) is IntType or not type( exact ) is IntType:
 		raise TypeError, "x, y and map need to be integer values"
 	else:
-		return _wolfpack.statics( x, y, map, range )
+		return _wolfpack.statics( x, y, map, exact )
+#statics = _wolfpack.statics
 
 def items( x, y, map, range=1 ):
 	if not type( x ) is IntType or not type( y ) is IntType or not type( map ) is IntType or not type( range ) is IntType:
@@ -158,9 +159,6 @@ def multi( id ):
 	
 def tiledata( id ):
 	return _wolfpack.tiledata( id )
-	
-def statics( x, y, map ):
-	return _wolfpack.statics( x, y, map )
 	
 def newnpc( createserial = 0 ):
 	return _wolfpack.newnpc( createserial )
