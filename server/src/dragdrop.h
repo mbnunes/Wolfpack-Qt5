@@ -50,7 +50,7 @@ public:
 	void	dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &pos );
 
 	// Drop-on-char subfunctions
-	void	dropOnPet( cUOSocket* socket, P_ITEM pItem, P_CHAR pPet );
+	void	dropFoodOnChar( cUOSocket* socket, P_ITEM pItem, P_CHAR pChar );
 	void	dropOnGuard( cUOSocket* socket, P_ITEM pItem, P_CHAR pGuard );
 	void	dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar );
 	void	dropOnBanker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBanker );

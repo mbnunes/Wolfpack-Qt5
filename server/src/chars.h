@@ -303,6 +303,8 @@ protected:
 //END ADDED FROM PUBLIC ******************************************
 	QMap< cMakeMenu*, QPtrList< cMakeSection > >	lastselections_;
 
+	unsigned int			food_;
+
 	// Public Methods
 public:
 	cChar();
@@ -473,8 +475,8 @@ public:
 	bool					war() const { return war_; }
 //END ADDED GETTERS***********************************************
 	QPtrList< cMakeSection > lastSelections( cMakeMenu* basemenu );
-
 	cMakeSection*			lastSection( cMakeMenu* basemenu );
+	unsigned int			food() const { return food_; }
 	
 	// Setters
 	void					setGuildType(short data);
@@ -625,6 +627,7 @@ public:
 	void					setSpeech( unsigned char data ) { speech_ = data; }
 	void					setDef( unsigned int data ) { def_ = data; }
 	void					setWar( bool data ) { war_ = data; }
+	void					setFood( unsigned int data ) { food_ = data; }
 	//END SETTERS********************************************************
 
 	void					clearLastSelections( void );
@@ -740,6 +743,7 @@ public:
 	P_ITEM leftHandItem();
 
 	bool checkSkill( UI16 skill, SI32 min, SI32 max, bool advance = true );
+	void setSkillDelay();
 
 	// Definition loading - sereg
 protected:

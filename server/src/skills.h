@@ -40,6 +40,8 @@
 // Forward Declaration
 class cUOSocket;
 
+
+
 class cSkills
 {
 private:

@@ -74,7 +74,7 @@ enum WPPAGE_TYPE
 
 enum enBodyParts
 {
-	ALL = 0,
+	ALLBODYPARTS = 0,
 	LEGS,
 	BODY,
 	ARMS,
@@ -82,6 +82,36 @@ enum enBodyParts
 	NECK,
 	HEAD,
 	DEADLY
+};
+
+/*
+Food explanation:
+
+Food items:
+  - have type 14 to indicate that they are food..
+  - have type2 in enFoodTypes to indicate the type of food..
+
+NPCs:
+  - have UI32 food variable that stores a bit flag for each food type.
+  - food == 0 would mean no food, food == 0xFFFFFFFF would mean each.
+  - hence, we have a maximum of 32 food types for future changes.
+*/
+enum enFoodTypes
+{
+	NOFOOD = 0,
+	MEAT,			//  all uncooked meat items, also (non-player) body parts
+	RAWFISH,		//  all uncooked fish items (fishsteaks, whole fish, big fish, small fish, magic fish)
+	EGGS,			//  raw eggs
+	CROPS,			//  all vegetable items
+	FRUIT,			//  all fruits
+	HAY,			//  sheaves of hay, ears of corn
+	GRAIN,			//  corn
+	COOKEDMEAT,		//  cooked meat
+	COOKEDFISH,		//  cooked fish
+	PASTRIES,		//  all bakery products
+	LEATHER,		//  leather, leather items and hides
+	METAL,			//  all metal items
+	ALLFOOD = 0xFFFFFFFF
 };
 
 #endif

@@ -611,13 +611,6 @@ void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar 
 		return;
 	}
 
-	// For our hirelings we have a special function
-	/*if( pChar->Owns( pOtherChar ) )
-	{
-		dropOnPet( client, pItem, pOtherChar );
-		return;
-	}*/
-
 	// Dropping based on AI Type
 	/*switch( pOtherChar->npcaitype() )
 	{
@@ -641,6 +634,13 @@ void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar 
 			dropOnTrainer( client, pItem, pOtherChar );
 		else
 			pOtherChar->talk( "You need to tell me what you want to learn first" );*/
+
+	// Finally lets check if it is simple food
+	if( pItem->type() == 14 )
+	{
+		dropFoodOnChar( socket, pItem, pOtherChar );
+		return;
+	}
 
 	socket->sysMessage( "Dropping on other characters is disabled" );
 	socket->bounceItem( pItem, BR_NO_REASON );
@@ -868,11 +868,11 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	}
 }
 
-// Item was dropped on a pet
-void cDragItems::dropOnPet( cUOSocket* socket, P_ITEM pItem, P_CHAR pPet )
+// Food was dropped on a pet
+void cDragItems::dropFoodOnChar( cUOSocket* socket, P_ITEM pItem, P_CHAR pChar )
 {
 	// Feed our pets
-	if( ( pPet->hunger() >= 6 ) || pItem->type() != 14 )
+	if( pChar->hunger() >= 6 || !( pChar->food() & ( 1 << pItem->type2() ) ) )
 	{
 		socket->sysMessage( tr("It doesn't seem to want your item") );
 		bounceItem( socket, pItem );
@@ -880,41 +880,41 @@ void cDragItems::dropOnPet( cUOSocket* socket, P_ITEM pItem, P_CHAR pPet )
 	}
 
 	// We have three different eating-sounds (I don't like the idea as they sound too human)
-	pPet->soundEffect( 0x3A + RandomNum( 1, 3 ) );
+	pChar->soundEffect( 0x3A + RandomNum( 1, 3 ) );
 
 	// If you want to poison a pet... Why not
-	if( pItem->poisoned && pPet->poisoned() < pItem->poisoned )
+	if( pItem->poisoned && pChar->poisoned() < pItem->poisoned )
 	{
-		pPet->soundEffect( 0x246 );
-		pPet->setPoisoned( pItem->poisoned );
+		pChar->soundEffect( 0x246 );
+		pChar->setPoisoned( pItem->poisoned );
 		
 		// a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
-		pPet->setPoisontime( uiCurrentTime + ( MY_CLOCKS_PER_SEC * ( 40 / pPet->poisoned() ) ) );
+		pChar->setPoisontime( uiCurrentTime + ( MY_CLOCKS_PER_SEC * ( 40 / pChar->poisoned() ) ) );
 		
 		//wear off starts after poison takes effect - AntiChrist
-		pPet->setPoisonwearofftime(pPet->poisontime() + ( MY_CLOCKS_PER_SEC * SrvParams->poisonTimer() ) );
+		pChar->setPoisonwearofftime(pChar->poisontime() + ( MY_CLOCKS_PER_SEC * SrvParams->poisonTimer() ) );
 		
 		// Refresh the health-bar of our target
-		pPet->resend( false );
+		pChar->resend( false );
 	}
 
 	// *You see Snowwhite eating some poisoned apples*
 	// Color: 0x0026
-	QString emote = QString( "*You see %1 eating %2*" ).arg( pPet->name.c_str() ).arg( pItem->getName() );
-	pPet->emote( emote );
+	QString emote = QString( "*You see %1 eating %2*" ).arg( pChar->name.c_str() ).arg( pItem->getName() );
+	pChar->emote( emote );
 
 	// We try to feed it more than it needs
-	if( pPet->hunger() + pItem->amount() > 6 )
+	if( pChar->hunger() + pItem->amount() > 6 )
 	{
-		pItem->setAmount( pItem->amount() - ( 6 - pPet->hunger() ) );
-		pPet->setHunger( 6 );
+		pItem->setAmount( pItem->amount() - ( 6 - pChar->hunger() ) );
+		pChar->setHunger( 6 );
 
 		// Pack the rest into his backpack
 		bounceItem( socket, pItem );
 		return;
 	}
 
-	pPet->setHunger( pPet->hunger() + pItem->amount() );
+	pChar->setHunger( pChar->hunger() + pItem->amount() );
 	Items->DeleItem( pItem );
 }
 

@@ -312,6 +312,7 @@ void cChar::Init(bool ser)
 	for (i = 0; i < ALLSKILLS; i++) 
 		this->lockSkill[i]=0;
 
+	this->setFood( 0 );
 }
 
 ///////////////////////
@@ -860,6 +861,7 @@ void cChar::Serialize(ISerialization &archive)
 			jailtimer_ += uiCurrentTime;
 		archive.read("jailsecs",		jailsecs_); 
 		archive.read("lootlist",		loot_ );
+		archive.read("food",			food_ );
 		SetOwnSerial(ownserial_);
 		SetSpawnSerial(spawnserial_);
 		setAccount( account_ );
@@ -995,6 +997,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("jailtimer",		jtimer); 
 		archive.write("jailsecs",		jailsecs_); 
 		archive.write("lootlist",		loot_);
+		archive.write("food",			food_);
 	}
 	cUObject::Serialize(archive);
 }
@@ -1308,6 +1311,14 @@ void cChar::processNode( const QDomElement &Tag )
 	//<fame>8000</fame>
 	else if( TagName == "fame" )
 		this->fame_ = Value.toInt();
+
+	//<food>3</food>
+	else if( TagName == "food" )
+	{
+		UI16 bit = Value.toUShort();
+		if( bit < 32 )
+			this->food_ |= ( 1 << bit );
+	}
 
 	//<gold>100</gold>
 	else if( TagName == "gold" )
@@ -3120,7 +3131,7 @@ UI16 cChar::calcDefense( enBodyParts bodypart, bool wearout )
 	P_ITEM pHitItem = NULL; 
 	UI16 total = def(); // the body armor is base value
 
-	if( bodypart == ALL )
+	if( bodypart == ALLBODYPARTS )
 	{
 		P_ITEM pShield = leftHandItem();
 		// Displayed AR = ((Parrying Skill * Base AR of Shield) ÷ 200) + 1
@@ -3145,7 +3156,7 @@ UI16 cChar::calcDefense( enBodyParts bodypart, bool wearout )
 			if( pi->maxhp() > 0 ) 
 				effdef = (UI16)floor( (float)pi->hp() / (float)pi->maxhp() * (float)pi->def );
 
-			if( bodypart == ALL )
+			if( bodypart == ALLBODYPARTS )
 			{
 				if( effdef > 0 )
 				{
@@ -3227,7 +3238,7 @@ UI16 cChar::calcDefense( enBodyParts bodypart, bool wearout )
 		}
 	}
 	
-	if( total < 2 && bodypart == ALL ) 
+	if( total < 2 && bodypart == ALLBODYPARTS ) 
 		total = 2;
 
 	return total;
@@ -3280,3 +3291,9 @@ bool cChar::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
 	}
 	return skillused;
 }
+
+void cChar::setSkillDelay() 
+{ 	
+	SetTimerSec(&skilldelay,SrvParams->skillDelay());
+}
+

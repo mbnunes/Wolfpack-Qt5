@@ -48,7 +48,7 @@ class cUORxAction: public cUOPacket
 public:
 	cUORxAction( const QByteArray &data ): cUOPacket( data ) {}
 	UINT8 type() const		{ return (*this)[3]; }
-	QString action() const	{ return this->getAsciiString(4, getShort(1) - 3 ); }
+	QString action() const	{ return this->getAsciiString(4, getShort(1) - 4 ); }
 };
 
 // 0x34: Query
@@ -76,8 +76,8 @@ public:
 	UINT32 pattern1( void ) const		{ return getInt( 1 ); }
 	UINT32 pattern2( void ) const		{ return getInt( 5 ); }
 	UINT8 pattern3( void ) const		{ return (*this)[ 9 ]; }
-	QString name( void ) const			{ return this->getAsciiString(10, 31); }
-	QString password( void ) const		{ return this->getAsciiString(40, 31); }
+	QString name( void ) const			{ return this->getAsciiString(10, 30); }
+	QString password( void ) const		{ return this->getAsciiString(40, 30); }
 	UINT8 gender( void ) const			{ return (*this)[70]; } // 0 = male, 1 = female
 	UINT8 strength( void ) const		{ return (*this)[71]; }
 	UINT8 dexterity( void )	const		{ return (*this)[72]; }
@@ -262,7 +262,7 @@ class cUORxSetLanguage: public cUOPacket
 {
 public:
 	cUORxSetLanguage( const QByteArray &data ): cUOPacket( data ) {}
-	QString language( void ) const { return this->getAsciiString(5, 3); }
+	QString language( void ) const { return this->getAsciiString(5, 4); }
 };
 
 // 0xBD Set Version

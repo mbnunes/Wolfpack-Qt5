@@ -48,12 +48,12 @@
 */
 int RandomNum(int nLowNum, int nHighNum)
 {
-	if( nLowNum > nHighNum )
+/*	if( nLowNum > nHighNum )
 	{
 		nHighNum += nLowNum; // a = a+b
 		nLowNum = nHighNum - nLowNum; // b = a+b - b = a
 		nHighNum -= nLowNum; // a = a+b - a = b		
-	}
+	}*/
 
 	if (nHighNum - nLowNum + 1)
 		return ((rand() % (nHighNum - nLowNum + 1)) + nLowNum);

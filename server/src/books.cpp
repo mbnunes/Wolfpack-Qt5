@@ -119,9 +119,9 @@ void cBook::processNode( const QDomElement &Tag )
 				QDomElement childTag = childNode.toElement();
 				QString text = childTag.text();
 				text = text.replace( QRegExp( "\\t" ), "" );
-				if( text.left( 1 ) == "\n" || text.left( 1 ) == "\r" )
+				while( text.left( 1 ) == "\n" || text.left( 1 ) == "\r" )
 					text = text.right( text.length()-1 );
-				if( text.right( 1 ) == "\n" || text.right( 1 ) == "\r" )
+				while( text.right( 1 ) == "\n" || text.right( 1 ) == "\r" )
 					text = text.left( text.length()-1 );
 
 				if( childTag.attributes().contains("no") )
@@ -203,9 +203,9 @@ void cBook::refresh( void )
 							QDomElement chchildTag = chchildNode.toElement();
 							QString text = chchildTag.text();
 							text = text.replace( QRegExp( "\\t" ), "" );
-							if( text.left( 1 ) == "\n" || text.left( 1 ) == "\r" )
+							while( text.left( 1 ) == "\n" || text.left( 1 ) == "\r" )
 								text = text.right( text.length()-1 );
-							if( text.right( 1 ) == "\n" || text.right( 1 ) == "\r" )
+							while( text.right( 1 ) == "\n" || text.right( 1 ) == "\r" )
 								text = text.left( text.length()-1 );
 
 							if( chchildTag.attributes().contains("no") )
@@ -254,7 +254,7 @@ void cBook::open( cUOSocket* socket )
 		UINT32 i, size = 9;
 		for( i = 0; i < content_.count(); i++ )
 		{
-			QStringList tmpLines = QStringList::split( "\n", content_[i] );
+			QStringList tmpLines = QStringList::split( "\n", content_[i], true );
 			size += 4;
 			QStringList::const_iterator it = tmpLines.begin();
 			while( it != tmpLines.end() )
@@ -291,7 +291,7 @@ void cBook::readPage( cUOSocket *socket, UINT32 page )
 	if( page > content_.size() )
 		return;
 
-	QStringList lines = QStringList::split( "\n", content_[page-1] );
+	QStringList lines = QStringList::split( "\n", content_[page-1], true );
 
 	UINT32 size = 13;
 	QStringList::const_iterator it = lines.begin();

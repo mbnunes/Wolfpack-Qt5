@@ -46,7 +46,7 @@ void cUOTxShardList::addServer( Q_UINT16 serverIndex, QString serverName, Q_UINT
 	if( serverName.length() > 31 ) 
 		serverName = serverName.left( 31 );
 
-	setAsciiString( offset + 2, serverName.latin1(), serverName.length() );
+	setAsciiString( offset + 2, serverName.latin1(), serverName.length()+1 );
 
 	(*this)[ offset + 34 ] = serverFull;
 	(*this)[ offset + 35 ] = serverTimeZone;
@@ -81,7 +81,7 @@ void cUOTxCharTownList::compile( void )
 	for( Q_UINT8 c = 0; c < 5; ++c )
 		if( c < characters.size() )
 		{
-			setAsciiString( 4 + ( c * 60 ), characters[ c ].latin1(), 30 );
+			setAsciiString( 4 + ( c * 60 ), characters[ c ].left( 29 ).latin1(), 30 );
 			(*this)[ 4 + ( c * 60 ) + 30 ] = 0x00; // No Password (!)
 		}
 		else
@@ -94,8 +94,8 @@ void cUOTxCharTownList::compile( void )
 	for( Q_UINT8 t = 0; t < towns.size(); ++t )
 	{
 		(*this)[ offset ] = towns[ t ].index;
-		setAsciiString( offset + 1, towns[ t ].town.latin1(), 30 );
-		setAsciiString( offset + 32, towns[ t ].area.latin1(), 30 );
+		setAsciiString( offset + 1, towns[ t ].town.left( 29 ).latin1(), 30 );
+		setAsciiString( offset + 32, towns[ t ].area.left( 29 ).latin1(), 30 );
 		offset += 63;
 	}
 
@@ -113,8 +113,8 @@ void cUOTxUpdateCharList::setCharacter( Q_UINT8 index, QString name )
 	Q_INT32 offset = 4 + ( index * 60 );
 	++(*this)[ 3 ];
 
-//	if( name.length() > 29 )
-//		name = name.left( 29 );
+	if( name.length() > 29 )
+		name = name.left( 29 );
 
 	setAsciiString(offset, name.latin1(), 30 );
 }
@@ -155,7 +155,7 @@ void cUOTxUnicodeSpeech::setText( const QString &data )
 	Q_INT32 offset = 48; // Pad right by one - remeber to copy one byte less
 	(*this)[ offset ] = 0x00;
 	QString tmpData = data; // get around the const
-	setUnicodeString( offset + 1, tmpData, (tmpData.length()*2)-1 );
+	setUnicodeString( offset , tmpData, (tmpData.length()*2) );
 	//memcpy( &rawPacket.data()[ offset + 1 ], data.unicode(), (data.length()*2)-1 );
 
 	// Add the new Terminator
@@ -332,10 +332,10 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 void cUOTxTipWindow::setMessage( QString m )
 {
 	ushort length = m.length();
-	resize( length + 10 );
-	setShort(1, length + 10 );
+	resize( length + 11 );
+	setShort(1, length + 11 );
 	setShort(8, length );
-	setAsciiString(10, m.latin1(), length);
+	setAsciiString(10, m.latin1(), length+1);
 }
 
 void cUOTxAddContainerItem::fromItem( P_ITEM pItem )
@@ -469,7 +469,7 @@ void cUOTxTrade::setName( const QString &name )
 	(*this)[16] = 1;
 	resize( size() + name.length() + 1 );
 	setShort( 1, size() );
-	setAsciiString( 17, name.latin1(), name.length() );
+	setAsciiString( 17, name.latin1(), name.length()+1 );
 	//strcpy( &rawPacket.data()[17], name.latin1() );
 }
 

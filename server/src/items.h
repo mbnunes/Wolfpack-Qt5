@@ -287,7 +287,9 @@ public:
 
 	// Public event wrappers added by darkstorm
 	bool onShowItemName( P_CHAR Viewer );
-	bool onTalkToItem( P_CHAR Talker, const QString &Text );	
+	bool onTalkToItem( P_CHAR Talker, const QString &Text );
+	
+	QPtrList< cItem > getContainment();
 };
 
 

@@ -102,10 +102,10 @@ cUOSocket::~cUOSocket(void)
 	delete _socket;
 	delete targetRequest;
 
-	std::map< SERIAL, cGump* >::iterator it = gumps.begin();
+	QMap< SERIAL, cGump* >::iterator it = gumps.begin();
 	while( it != gumps.end() )
 	{
-		delete it->second;
+		delete it.data();
 		it++;
 	}
 }
@@ -140,7 +140,7 @@ void cUOSocket::send( cGump *gump )
 	// Remove/Timeout the old one first
 	else if( gumps.find( gump->serial() ) != gumps.end() )
 	{
-		cGump *pGump = gumps.find( gump->serial() )->second;
+		cGump *pGump = gumps.find( gump->serial() ).data();
 		if( pGump )
 		{
 			gumps.erase( gumps.find( pGump->serial() ) );
@@ -148,7 +148,7 @@ void cUOSocket::send( cGump *gump )
 		}
 	}
 
-	gumps.insert( make_pair( gump->serial(), gump ) );
+	gumps.insert( gump->serial(), gump );
 
 	QString layout = gump->layout().join( "" );
 	Q_UINT32 gumpsize = 21 + layout.length() + 2;
@@ -168,7 +168,6 @@ void cUOSocket::send( cGump *gump )
 	uoPacket.setContent( layout, text );
 
 	send( &uoPacket );
-	//uoPacket.print( &cout ); // for debugging
 }
 
 /*!
@@ -1873,7 +1872,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		sendStats.setIntelligence( pChar->in() );
 		sendStats.setWeight( pChar->weight() );
 		sendStats.setGold( pChar->CountBankGold() + pChar->CountGold() );
-		sendStats.setArmor( pChar->calcDefense( ALL ) );
+		sendStats.setArmor( pChar->calcDefense( ALLBODYPARTS ) );
 		sendStats.setSex( true );
 		if( _version.left(1).toInt() == 3 )
 		{
@@ -1914,8 +1913,8 @@ void cUOSocket::handleBookPage( cUORxBookPage* packet )
 			QStringList::const_iterator it = lines.begin();
 			while( it != lines.end() )
 			{
-				toInsert += (*it);
-				it++;
+				toInsert += (*it)+"\n";
+				++it;
 			}
 
 			UINT16 n = packet->page();
@@ -1973,7 +1972,7 @@ void cUOSocket::handleGumpResponse( cUORxGumpResponse* packet )
 		return;
 	}
 
-	cGump* pGump = gumps.find( packet->serial() )->second;
+	cGump* pGump = gumps.find( packet->serial() ).data();
 	
 	if( pGump )
 	{

@@ -889,7 +889,7 @@ namespace Combat
 
 						setWeaponTimeout( pAttacker, pRightItem );
 						setWeaponTimeout( pAttacker, pAttacker->leftHandItem() );
-						pAttacker->timeout2 = pAttacker->timeout; // set shotclock memory-BackStab
+						pAttacker->timeout2 = pAttacker->timeout; // set shotclock memory
 
 						if( !pDefender->isInvul() )
 						{

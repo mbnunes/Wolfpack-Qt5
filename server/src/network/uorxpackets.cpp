@@ -111,7 +111,7 @@ QString cUORxSpeechRequest::message()
 		if( skipCount % 8 > 0 )
 			skipBytes++;
 
-		return getAsciiString(12 + skipBytes, getShort(1) - 12);
+		return getAsciiString(12 + skipBytes, getShort(1) - (12 + skipBytes) );
 	}
 	else
 		return getUnicodeString( 12, getShort( 1 ) - 12 );

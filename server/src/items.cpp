@@ -1616,8 +1616,20 @@ void cItem::processNode( const QDomElement& Tag )
 	else if( TagName == "defense" )
 		this->def = Value.toInt();
 
+	// for convenience
+	// <food>1</food>
+	else if( TagName == "food" )
+	{
+		setType( 14 );
+		setType2( Value.toUInt() );
+	}
+
 	// <type>10</type>
 	else if( TagName == "type" )
+		this->setType( Value.toUInt() );
+
+	// <type2>10</type2>
+	else if( TagName == "type2" )
 		this->setType( Value.toUInt() );
 
 	// <weight>10</weight>
@@ -2515,3 +2527,40 @@ bool cItem::wearOut()
 
 	return false;
 }
+
+QPtrList< cItem > cItem::getContainment()
+{
+	std::vector< SERIAL > containment = contsp.getData( serial );
+	std::vector< SERIAL >::iterator it = containment.begin();
+	QPtrList< cItem > itemlist;
+
+	while( it != containment.end() )
+	{
+		P_ITEM pItem = FindItemBySerial( *it );
+
+		// we'v got a container
+		if( pItem->type() == 1 || pItem->type() == 63 )
+		{
+			QPtrList< cItem > sublist = pItem->getContainment();
+
+			// Transfer the items
+			QPtrListIterator< cItem > pit( sublist );
+			P_ITEM pi;
+			while( pi = pit.current() )
+			{
+				itemlist.append( pi );
+				++pit;
+			}
+		}
+		// Or just put it into our list
+		else 
+			itemlist.append( pItem );
+
+		++it;
+	}	
+
+	return itemlist;
+}
+
+
+

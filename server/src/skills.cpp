@@ -57,41 +57,12 @@
 #define DBGFILE "skills.cpp"
 #include "debug.h"
 
-// Gets all items within the container recursively
-vector< P_ITEM > GetContainedItems( P_ITEM Container )
-{
-	std::vector< SERIAL > Contained = contsp.getData( Container->serial );
-	std::vector< P_ITEM > ItemList;
+/*
+List of implemented skills:
+Anatomy
+ArmsLore
 
-	for( UI32 i = 0; i < Contained.size(); i++ )
-	{
-		P_ITEM Item = FindItemBySerial( Contained[ i ] );
-
-		// we'v got a container
-		if( Item->type() == 1 )
-		{
-			vector< P_ITEM > SubContainer = GetContainedItems( Item );
-
-			// Transfer the items
-			for( UI32 j = 0; j < SubContainer.size(); j++ )
-				ItemList.push_back( SubContainer[ j ] );
-		}
-		// Or just put it into our list
-		else 
-			ItemList.push_back( Item );
-	}	
-
-	return ItemList;
-}
-
-//int goldsmithing;
-//1=iron, 2=golden, 3=agapite, 4=shadow, 5=mythril, 6=bronze, 7=verite, 8=merkite, 9=copper, 10=silver
-int ingottype=0;//will hold number of ingot type to be deleted
-
-inline void SetSkillDelay(P_CHAR pc) 
-{ 	
-	SetTimerSec(&pc->skilldelay,SrvParams->skillDelay());
-}
+*/
 
 // This is the target-request for Anatomy
 class cSkAnatomy: public cTargetRequest
@@ -2052,7 +2023,7 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 	if( message )
 		pChar->message( message );
 
-	SetSkillDelay( pChar );
+	pChar->setSkillDelay();
 }
 
 void cSkills::RandomSteal(cUOSocket* socket, SERIAL victim)
@@ -2731,7 +2702,7 @@ void cSkills::Persecute ( cUOSocket* socket )
 			{
 				target->socket()->sysMessage(tr("A damned soul is disturbing your mind!"));
 			}
-			SetSkillDelay(pc_currchar);
+			pc_currchar->setSkillDelay();
 
 			sprintf((char*)temp, "%s is persecuted by a ghost!!", target->name.c_str());
 					

@@ -496,31 +496,31 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			return;
 		}
 
-	// Food
+	// Food, OSI style
 	case 14:
 		pc_currchar->objectdelay = 0;
-		if (pi->isLockedDown())
+		if( pi->isLockedDown() )
 			return; // Ripper..cant eat locked down food :)
 		
-		if (pc_currchar->hunger() >= 6)
+		if( pc_currchar->hunger() >= 6 )
 		{
-			socket->sysMessage(tr("You are simply too full to eat any more!"));
+			socket->sysMessage( tr( "You are simply too full to eat any more!" ) );
 			return;
 		}
-		else
+		else if( pi->type2() == COOKEDMEAT || pi->type2() == COOKEDFISH || pi->type2() == PASTRIES )
 		{
 			pc_currchar->soundEffect( 0x3A + RandomNum( 0, 2 ) );
 			
-			switch (pc_currchar->hunger())
+			switch( pc_currchar->hunger() )
 			{
-			case 0:  socket->sysMessage(tr("You eat the food, but are still extremely hungry."));		break;
-			case 1:  socket->sysMessage(tr("You eat the food, but are still extremely hungry."));		break;
-			case 2:  socket->sysMessage(tr("After eating the food, you feel much less hungry."));		break;
-			case 3:  socket->sysMessage(tr("You eat the food, and begin to feel more satiated."));		break;
-			case 4:  socket->sysMessage(tr("You feel quite full after consuming the food."));			break;
-			case 5:  socket->sysMessage(tr("You are nearly stuffed, but manage to eat the food."));		break;
+			case 0:  socket->sysMessage( tr( "You eat the food, but are still extremely hungry." ) );		break;
+			case 1:  socket->sysMessage( tr( "You eat the food, but are still extremely hungry." ) );		break;
+			case 2:  socket->sysMessage( tr( "After eating the food, you feel much less hungry." ) );		break;
+			case 3:  socket->sysMessage( tr( "You eat the food, and begin to feel more satiated." ) );		break;
+			case 4:  socket->sysMessage( tr( "You feel quite full after consuming the food." ) );			break;
+			case 5:  socket->sysMessage( tr( "You are nearly stuffed, but manage to eat the food." ) );		break;
 			case 6:  
-			default: socket->sysMessage(tr("You are simply too full to eat any more!"));				break;
+			default: socket->sysMessage( tr( "You are simply too full to eat any more!" ) );				break;
 			}// switch(pc_currchar->hunger)
 			
 			if ((pi->poisoned) &&(pc_currchar->poisoned() < pi->poisoned)) 
@@ -535,6 +535,10 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			
 			pi->ReduceAmount(1);	// Remove a food item
 			pc_currchar->setHunger( pc_currchar->hunger()+1 );
+		}
+		else
+		{
+			socket->sysMessage( tr( "You can't eat that!" ) );
 		}
 		return;
 	
