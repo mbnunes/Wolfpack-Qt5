@@ -42,7 +42,10 @@
 // Library Includes
 #include "qstring.h"
 
-
+/*!
+  Returns a random number between \a nLowNum
+  and \a nHighNum.
+*/
 int RandomNum(int nLowNum, int nHighNum)
 {
 	if (nHighNum - nLowNum + 1)
@@ -51,6 +54,13 @@ int RandomNum(int nLowNum, int nHighNum)
 		return nLowNum;
 }
 
+/*!
+  Returns a random number according to the supplied pattern
+  \a dicePattern. The pattern is similar to the ones found
+  in RPG books of Dungeons & Dragons and others. It consists
+  of xdy + z, which means roll a dice with y faces x times adding
+  the result. After the x rolls, add z to the result.
+*/
 int rollDice( QString dicePattern ) // roll dices d&d style
 {
 	// dicePattern looks like "xdy+z"

@@ -24,13 +24,14 @@
 //	* the version used by you available or provide people with a location to
 //	* download it.
 //
-//	Wolfpack Homepage: http://www.wpdev.sf.net/
+//	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#ifndef __CORPSE_H__
+#if !defined(__CORPSE_H__)
 #define __CORPSE_H__
 
 #include "items.h"
+#include "qstring.h"
 
 class cUOSocket;
 
@@ -48,17 +49,17 @@ private:
 public:
 	cCorpse( bool init = false );
 
-	void setBodyId( UINT16 data ) { bodyId_ = data; }
-	void setHairStyle( UINT16 data ) { hairStyle_ = data; }
-	void setHairColor( UINT16 data ) { hairColor_ = data; }
-	void setBeardStyle( UINT16 data ) { beardStyle_ = data; }
-	void setBeardColor( UINT16 data ) { beardColor_ = data; }
+	void setBodyId( UINT16 data );
+	void setHairStyle( UINT16 data );
+	void setHairColor( UINT16 data );
+	void setBeardStyle( UINT16 data );
+	void setBeardColor( UINT16 data );
 
-	UINT16 bodyId() { return bodyId_; }
-	UINT16 hairStyle() { return hairStyle_; }
-	UINT16 hairColor() { return hairColor_; }
-	UINT16 beardStyle() { return beardStyle_; }
-	UINT16 beardColor() { return beardColor_; }
+	UINT16 bodyId() const;
+	UINT16 hairStyle() const;
+	UINT16 hairColor() const;
+	UINT16 beardStyle() const;
+	UINT16 beardColor() const;
 
 	void addEquipment( UINT8 layer, SERIAL serial );
 
@@ -70,7 +71,59 @@ public:
 	virtual void processNode( const QDomElement &Tag );
 
 	// override update
-	virtual void update( cUOSocket *mSock = NULL );
+	virtual void update( cUOSocket *mSock = 0 );
 };
 
-#endif
+// Inline members
+inline void cCorpse::setBodyId( UINT16 data ) 
+{ 
+	bodyId_ = data; 
+}
+
+inline void cCorpse::setHairStyle( UINT16 data ) 
+{ 
+	hairStyle_ = data; 
+}
+
+inline void cCorpse::setHairColor( UINT16 data ) 
+{ 
+	hairColor_ = data; 
+}
+
+inline void cCorpse::setBeardStyle( UINT16 data ) 
+{ 
+	beardStyle_ = data; 
+}
+
+inline void cCorpse::setBeardColor( UINT16 data ) 
+{ 
+	beardColor_ = data; 
+}
+
+inline UINT16 cCorpse::bodyId() const
+{ 
+	return bodyId_; 
+}
+
+inline UINT16 cCorpse::hairStyle() const
+{ 
+	return hairStyle_; 
+}
+
+inline UINT16 cCorpse::hairColor() const
+{ 
+	return hairColor_; 
+}
+
+inline UINT16 cCorpse::beardStyle() const
+{ 
+	return beardStyle_; 
+}
+
+inline UINT16 cCorpse::beardColor() const
+{ 
+	return beardColor_; 
+}
+
+
+#endif // __CORPSE_H__

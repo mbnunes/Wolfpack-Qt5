@@ -45,13 +45,6 @@ using namespace std;
 #undef  DBGFILE
 #define DBGFILE "gumpsmgr.cpp"
 
-struct max_serialPred : binary_function<pair<SERIAL, cGump*>, pair<SERIAL, cGump*>, bool>
-{
-	bool operator()(pair<SERIAL,cGump*> a, pair<SERIAL,cGump*> b)
-	{
-		return a.first < b.first;
-	}
-};
 
 cGumpsManager::~cGumpsManager()
 {

@@ -39,6 +39,10 @@
 // Forward Declarations
 class cSpawnRegion;
 
+/*****************************************************************************
+  cGump class
+ *****************************************************************************/
+
 class cGump
 {
 protected:
@@ -47,31 +51,29 @@ protected:
 	QStringList layout_, text_;
 	bool noMove_, noClose_, noDispose_;
 public:
+	cGump();
+	virtual ~cGump() {}
 
-	SERIAL serial( void )			{ return serial_; }
-	SERIAL type( void )				{ return type_; }
-	Q_UINT32 x( void )				{ return x_; }
-	Q_UINT32 y( void )				{ return y_; }
-	QStringList layout( void )		{ return layout_; }
-	QStringList text( void )		{ return text_; }
-	bool noMove( void )				{ return noMove_; }
-	bool noDispose( void )			{ return noDispose_; }
-	bool noClose( void )			{ return noClose_; }
+	SERIAL serial( void ) const;
+	SERIAL type( void )	const;
+	Q_UINT32 x( void ) const;
+	Q_UINT32 y( void ) const;
+	QStringList layout( void ) const;
+	QStringList text( void ) const;
+	bool noMove( void )	const;
+	bool noDispose( void ) const;
+	bool noClose( void ) const;
 
-	void setType( SERIAL data ) { type_ = data; }
-	void setSerial( SERIAL data ) { serial_ = data; }
-	void setX( Q_UINT32 data ) { x_ = data; }
-	void setY( Q_UINT32 data ) { y_ = data; }
-	void setNoMove( bool data ) { noMove_ = data; }
-	void setNoClose( bool data ) { noClose_ = data; }
-	void setNoDispose( bool data ) { noDispose_ = data; }
+	void setType( SERIAL data );
+	void setSerial( SERIAL data );
+	void setX( Q_UINT32 data );
+	void setY( Q_UINT32 data );
+	void setNoMove( bool data );
+	void setNoClose( bool data );
+	void setNoDispose( bool data );
 
 	void addRawLayout( const QString &data ) { layout_.push_back( data ); }
 	Q_UINT32 addRawText( const QString &data );
-
-	cGump(): noMove_( false ), noClose_( false ), noDispose_( false ), x_( -1 ), y_( -1 ),
-			 serial_( INVALID_SERIAL ), type_( 1 ) {}
-	virtual ~cGump() {}
 
 	virtual void handleResponse( cUOSocket* socket, UINT32 choice ) {}
 	
@@ -111,6 +113,91 @@ public:
 	//void send( cUOSocket *socket );
 };
 
+/*****************************************************************************
+  cGump inline functions
+ *****************************************************************************/
+
+inline SERIAL cGump::serial( void ) const
+{
+	return serial_; 
+}
+
+inline SERIAL cGump::type( void ) const
+{ 
+	return type_; 
+}
+
+inline Q_UINT32 cGump::x( void ) const 
+{ 
+	return x_;
+}
+
+inline Q_UINT32 cGump::y( void ) const
+{ 
+	return y_; 
+}
+
+inline QStringList cGump::layout( void ) const
+{ 
+	return layout_; 
+}
+
+inline QStringList cGump::text( void ) const
+{ 
+	return text_; 
+}
+
+inline bool cGump::noMove( void ) const
+{ 
+	return noMove_; 
+}
+
+inline bool cGump::noDispose( void ) const 
+{ 
+	return noDispose_; 
+}
+
+inline bool cGump::noClose( void ) const
+{ 
+	return noClose_; 
+}
+
+inline void cGump::setType( SERIAL data ) 
+{ 
+	type_ = data; 
+}
+
+inline void cGump::setSerial( SERIAL data ) 
+{ 
+	serial_ = data; 
+}
+
+inline void cGump::setX( Q_UINT32 data ) 
+{ 
+	x_ = data; 
+}
+
+inline void cGump::setY( Q_UINT32 data ) 
+{ 
+	y_ = data; 
+}
+
+inline void cGump::setNoMove( bool data ) 
+{ 
+	noMove_ = data; 
+}
+
+inline void cGump::setNoClose( bool data ) 
+{ 
+	noClose_ = data; 
+}
+
+inline void cGump::setNoDispose( bool data ) 
+{ 
+	noDispose_ = data; 
+}
+
+
 void entrygump(int s, SERIAL serial, unsigned char type, char index, short int maxlength, char *text1);
 
 class cPythonGump : public cGump
@@ -120,8 +207,7 @@ protected:
 	QString responsefuncname_;
 
 public:
-	cPythonGump() : cGump(), scriptname_( (char*)0 ), responsefuncname_( (char*)0 ) { type_ = 2; }
-	virtual ~cPythonGump() {}
+	cPythonGump() { type_ = 2; }
 
 	virtual void handleResponse( cUOSocket* socket, UINT32 choice ) 
 	{

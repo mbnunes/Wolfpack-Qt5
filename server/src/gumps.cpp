@@ -387,6 +387,12 @@ void ShowMenu( UOXSOCKET Socket, UI16 Menu ) // Menus for item creation
 	Xsend( Socket, ByteArray.data(), ByteArray.count() );
 }
 
+cGump::cGump() : noMove_( false ), noClose_( false ), 
+noDispose_( false ), x_( -1 ), y_( -1 ), serial_( INVALID_SERIAL ), 
+type_( 1 ) 
+{
+}
+
 // New Single gump implementation, written by darkstorm
 Q_UINT32 cGump::addRawText( const QString &data )
 {

@@ -61,7 +61,7 @@ LINK32=link.exe
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
-# PROP Output_Dir "c:\wolfpack"
+# PROP Output_Dir ""
 # PROP Intermediate_Dir "Debug"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
@@ -111,11 +111,6 @@ SOURCE=.\cache.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\corpse.cpp
-# End Source File
-
-# Begin Source File
-
 SOURCE=.\chars.cpp
 # End Source File
 # Begin Source File
@@ -137,6 +132,10 @@ SOURCE=.\commands.cpp
 # Begin Source File
 
 SOURCE=.\coord.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\corpse.cpp
 # End Source File
 # Begin Source File
 
@@ -456,6 +455,10 @@ SOURCE=.\coord.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\corpse.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\customtags.h
 # End Source File
 # Begin Source File
@@ -634,11 +637,6 @@ SOURCE=.\storage.h
 
 SOURCE=.\stream.h
 # End Source File
-# Begin Source File
-
-SOURCE=.\corpse.h
-# End Source File
-
 # Begin Source File
 
 SOURCE=.\structs.h

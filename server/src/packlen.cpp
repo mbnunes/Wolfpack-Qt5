@@ -30,7 +30,7 @@
 //========================================================================================
 
 #include "packlen.h"
-
+/*
 unsigned short packlen_cl::size(const unsigned char id)
 {
 #include "extract.h"
@@ -40,3 +40,4 @@ unsigned short packlen_cl::size(const unsigned char id)
 		uiValue = m_packetLen[id];
 	return uiValue;
 }
+*/
