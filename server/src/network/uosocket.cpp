@@ -3156,7 +3156,7 @@ bool cUOSocket::useItem( P_ITEM item )
 		P_PLAYER owner = dynamic_cast<P_PLAYER>(item->owner());
 
 		if (owner && owner != _player) {
-			log(LOG_NOTICE, tr("Looking into corpse of player '%1' ('%2', 0x%3)").arg(owner->name()).arg(owner->account() ? owner->account()->login() : QString("unknown")).arg(owner->serial(), 0, 16));
+			log(LOG_NOTICE, tr("Looking into corpse of player '%1' ('%2', 0x%3)\n").arg(owner->name()).arg(owner->account() ? owner->account()->login() : QString("unknown")).arg(owner->serial(), 0, 16));
 		}
 	}
 
