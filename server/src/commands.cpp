@@ -966,7 +966,7 @@ public:
 				P_CHAR pChar = FindCharBySerial( target->serial() );
 				if( pChar )
 				{
-					cCharInfoGump* pGump = new cCharInfoGump( pChar, 1 );
+					cCharInfoGump* pGump = new cCharInfoGump( pChar );
 					socket->send( pGump );
 				}
 			}
@@ -1302,7 +1302,7 @@ void commandSpawnRegion( cUOSocket *socket, const QString &command, QStringList 
 				pGump->addButton( 90, 210 + numrects * 20, 0x481, 0x483, 0 ); // Only Exit possible
 				pGump->addText( 130, 210 + numrects * 20, tr( "Close" ), 0x834 );*/
 
-				cSpawnRegionInfoGump* pGump = new cSpawnRegionInfoGump( spawnRegion, 1 );
+				cSpawnRegionInfoGump* pGump = new cSpawnRegionInfoGump( spawnRegion );
 
 				socket->send( pGump );
 			}

@@ -232,10 +232,9 @@ class cSpawnRegionInfoGump : public cGump
 {
 protected:
 	cSpawnRegion* region_;
-	UINT32 page_;
 
 public:
-	cSpawnRegionInfoGump( cSpawnRegion* region, UINT32 page );
+	cSpawnRegionInfoGump( cSpawnRegion* region );
 	
 	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
 };
@@ -244,10 +243,9 @@ class cCharInfoGump : public cGump
 {
 protected:
 	cChar* char_;
-	UINT32 page_;
 
 public:
-	cCharInfoGump( cChar* char_, UINT32 page );
+	cCharInfoGump( cChar* char_ );
 
 	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
 };
