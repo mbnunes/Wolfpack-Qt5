@@ -1,0 +1,265 @@
+
+<definitions>
+
+	<!-- Reagents -->
+	<item id="f78">
+		<id>0x0f78</id>
+		<buyprice>12</buyprice>
+		<sellprice>6</sellprice>
+		<category>Professions\Alchemist\Reagents\Batwing</category>
+		<category>Professions\Mage\Reagents\Batwing</category>
+		<category>Equipment\Reagents\Batwing</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f79">
+		<id>0x0f79</id>
+		<buyprice>15</buyprice>
+		<sellprice>7</sellprice>
+		<category>Professions\Alchemist\Reagents\Blackmoor</category>
+		<category>Professions\Mage\Reagents\Blackmoor</category>
+		<category>Equipment\Reagents\Blackmoor</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f7a">
+		<id>0x0f7a</id>
+		<buyprice>6</buyprice>
+		<sellprice>3</sellprice>
+		<category>Professions\Alchemist\Reagents\Black Pearl</category>
+		<category>Professions\Mage\Reagents\Black Pearl</category>
+		<category>Equipment\Reagents\Black Pearl</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f7b">
+		<id>0x0f7b</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<category>Professions\Alchemist\Reagents\Blood Moss</category>
+		<category>Professions\Mage\Reagents\Blood Moss</category>
+		<category>Equipment\Reagents\Blood Moss</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f7c">
+		<id>0x0f7c</id>
+		<buyprice>10</buyprice>
+		<sellprice>3</sellprice>
+		<category>Professions\Alchemist\Reagents\Bloodspawn</category>
+		<category>Professions\Mage\Reagents\Bloodspawn</category>
+		<category>Equipment\Reagents\Bloodspawn</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f7d">
+		<id>0x0f7d</id>
+		<buyprice>18</buyprice>
+		<sellprice>7</sellprice>
+		<category>Professions\Alchemist\Reagents\Daemon Blood</category>
+		<category>Professions\Mage\Reagents\Daemon Blood</category>
+		<category>Equipment\Reagents\Daemon Blood</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f7e">
+		<id>0x0f7e</id>
+		<buyprice>5</buyprice>
+		<sellprice>2</sellprice>
+		<category>Professions\Alchemist\Reagents\Bone</category>
+		<category>Professions\Mage\Reagents\Bone</category>
+		<category>Equipment\Reagents\Bone</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f7f">
+		<id>0x0f7f</id>
+		<buyprice>13</buyprice>
+		<sellprice>5</sellprice>
+		<category>Professions\Alchemist\Reagents\Brimstone</category>
+		<category>Professions\Mage\Reagents\Brimstone</category>
+		<category>Equipment\Reagents\Brimstone</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f80">
+		<id>0x0f80</id>
+		<buyprice>19</buyprice>
+		<sellprice>6</sellprice>
+		<category>Professions\Alchemist\Reagents\Daemon Bone</category>
+		<category>Professions\Mage\Reagents\Daemon Bone</category>
+		<category>Equipment\Reagents\Daemon Bone</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f81">
+		<id>0x0f81</id>
+		<buyprice>5</buyprice>
+		<sellprice>2</sellprice>
+		<category>Professions\Alchemist\Reagents\Fertile Dirt</category>
+		<category>Professions\Mage\Reagents\Fertile Dirt</category>
+		<category>Equipment\Reagents\Fertile Dirt</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f82">
+		<id>0x0f82</id>
+		<buyprice>21</buyprice>
+		<sellprice>9</sellprice>
+		<category>Professions\Alchemist\Reagents\Dragon's Blood</category>
+		<category>Professions\Mage\Reagents\Dragon's Blood</category>
+		<category>Equipment\Reagents\Dragon's Blood</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f83">
+		<id>0x0f83</id>
+		<buyprice>7</buyprice>
+		<sellprice>4</sellprice>
+		<category>Professions\Alchemist\Reagents\Executioner's cap</category>
+		<category>Professions\Mage\Reagents\Executioner's cap</category>
+		<category>Equipment\Reagents\Executioner's Cap</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f84">
+		<id>0x0f84</id>
+		<buyprice>2</buyprice>
+		<sellprice>1</sellprice>
+		<category>Professions\Alchemist\Reagents\Garlic</category>
+		<category>Professions\Mage\Reagents\Garlic</category>
+		<category>Equipment\Reagents\Garlic</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f85">
+		<id>0x0f85</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<category>Professions\Alchemist\Reagents\Ginseng</category>
+		<category>Professions\Mage\Reagents\Ginseng</category>
+		<category>Equipment\Reagents\Ginseng</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f86">
+		<id>0x0f86</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<category>Professions\Alchemist\Reagents\Mandrake Root</category>
+		<category>Professions\Mage\Reagents\Mandrake Root</category>
+		<category>Equipment\Reagents\Mandrake Root</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f87">
+		<id>0x0f87</id>
+		<buyprice>8</buyprice>
+		<sellprice>3</sellprice>
+		<category>Professions\Alchemist\Reagents\Eye of Newt</category>
+		<category>Professions\Mage\Reagents\Eye of Newt</category>
+		<category>Equipment\Reagents\Eye of Newt</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f88">
+		<id>0x0f88</id>
+		<buyprice>3</buyprice>
+		<sellprice>2</sellprice>
+		<category>Professions\Alchemist\Reagents\Nightshade</category>
+		<category>Professions\Mage\Reagents\Nightshade</category>
+		<category>Equipment\Reagents\Nightshade</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f89">
+		<id>0x0f89</id>
+		<buyprice>14</buyprice>
+		<sellprice>7</sellprice>
+		<category>Professions\Alchemist\Reagents\Obsidian</category>
+		<category>Professions\Mage\Reagents\Obsidian</category>
+		<category>Equipment\Reagents\Obsidian</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f8a">
+		<id>0x0f8a</id>
+		<buyprice>13</buyprice>
+		<sellprice>6</sellprice>
+		<category>Professions\Alchemist\Reagents\Pig Iron</category>
+		<category>Professions\Mage\Reagents\Pig Iron</category>
+		<category>Equipment\Reagents\Pig Iron</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f8b">
+		<id>0x0f8b</id>
+		<buyprice>17</buyprice>
+		<sellprice>7</sellprice>
+		<category>Professions\Alchemist\Reagents\Pumice</category>
+		<category>Professions\Mage\Reagents\Pumice</category>
+		<category>Equipment\Reagents\Pumice</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f8c">
+		<id>0x0f8c</id>
+		<buyprice>3</buyprice>
+		<sellprice>1</sellprice>
+		<category>Professions\Alchemist\Reagents\Sulfurous Ash</category>
+		<category>Professions\Mage\Reagents\Sulfurous Ash</category>
+		<category>Equipment\Reagents\Sulfurous Ash</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f8d">
+		<id>0x0f8d</id>
+		<buyprice>2</buyprice>
+		<sellprice>1</sellprice>
+		<category>Professions\Alchemist\Reagents\Spider's Silk</category>
+		<category>Professions\Mage\Reagents\Spider's Silk</category>
+		<category>Equipment\Reagents\Spider's Silk</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f8e">
+		<id>0x0f8e</id>
+		<buyprice>16</buyprice>
+		<sellprice>8</sellprice>
+		<category>Professions\Alchemist\Reagents\Nox Crystal</category>
+		<category>Professions\Mage\Reagents\Nox Crystal</category>
+		<category>Equipment\Reagents\Nox Crystal</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f8f">
+		<id>0x0f8f</id>
+		<buyprice>7</buyprice>
+		<sellprice>1</sellprice>
+		<category>Professions\Alchemist\Reagents\Grave Dust</category>
+		<category>Professions\Mage\Reagents\Grave Dust</category>
+		<category>Equipment\Reagents\Grave Dust</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f90">
+		<id>0x0f90</id>
+		<buyprice>8</buyprice>
+		<sellprice>3</sellprice>
+		<category>Professions\Alchemist\Reagents\Dead Wood</category>
+		<category>Professions\Mage\Reagents\Dead Wood</category>
+		<category>Equipment\Reagents\Dead Wood</category>
+		<weight>0.1</weight>
+	</item>
+
+	<item id="f91">
+		<id>0x0f91</id>
+		<buyprice>30</buyprice>
+		<sellprice>15</sellprice>
+		<category>Professions\Alchemist\Reagents\Wyrm's Heart</category>
+		<category>Professions\Mage\Reagents\Wyrm's Heart</category>
+		<category>Equipment\Reagents\Wyrm's Heart</category>
+		<weight>0.1</weight>
+	</item>
+
+</definitions>
