@@ -447,20 +447,6 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 }
 
 /*
-	\command who
-	\description Manage connected clients.
-	\notes The gump shown will allow you to travel to the client, send messages or bring them directly to you.
-*/
-void commandWho( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
-{
-	Q_UNUSED( args );
-	Q_UNUSED( command );
-	// Who
-	cWhoMenuGump* pGump = new cWhoMenuGump( 1 );
-	socket->send( pGump );
-}
-
-/*
 	\command pages
 	\description Manage support tickets.
 */
@@ -942,6 +928,5 @@ stCommand cCommands::commands[] =
 	{ "SHUTDOWN", commandShutDown },
 	{ "STAFF", commandStaff },
 	{ "SPAWNREGION", commandSpawnRegion },
-	{ "WHO", commandWho },
 	{ NULL, NULL }
 };
