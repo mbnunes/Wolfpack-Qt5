@@ -1634,7 +1634,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 		{
 	       if ((pp->crimflag>0) ||(pp->isMurderer()))
 		   {
-		       criminal(s);
+		       criminal(currchar[s]);
 		   }
 		}
 		

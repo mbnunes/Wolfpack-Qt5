@@ -1041,7 +1041,6 @@ void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, 
 #endif
 				//Let GMs see logged out players
 				if ( online(DEREF_P_CHAR(mapchar)) || mapchar->npc || pc->isGM())
-				if (oldx != newx || oldy != newy)
 				{
 					if (
 						(((abs(newx-mapchar->pos.x)== visibleRange )||(abs(newy-mapchar->pos.y)== visibleRange )) &&
@@ -1052,6 +1051,8 @@ void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, 
 						impowncreate(socket, DEREF_P_CHAR(mapchar), 1);
 					}
 				}
+				if (oldx == newx && oldy == newy)	// just turning ?
+				continue;						// no multiple shoving
 				if (!(
 					((pc->id1==0x03)&&(pc->id2==0xDB)) ||
 					((pc->id1==0x01)&&(pc->id2==0x92)) ||

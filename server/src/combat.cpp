@@ -648,25 +648,25 @@ static void NpcSpellAttack(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int 
 // Formulas take from OSI's combat formulas
 // attack speed should be determined here.
 // attack speed = 15000 / ((DEX+100) * weapon speed)
-static void SetWeaponTimeout(P_CHAR pc_attacker, P_ITEM pWeapon)
+static void SetWeaponTimeout(P_CHAR Attacker, P_ITEM Weapon)
 {
 	int x,j;
 	
-	if (pWeapon) 
+	if (Weapon) 
 	{ 
-		if (pWeapon->spd==0) pWeapon->spd=35;
-		x = (15000 / ((pc_attacker->effDex()+100) * pWeapon->spd)*MY_CLOCKS_PER_SEC); //Calculate combat delay
+		if (Weapon->spd==0) Weapon->spd=35;
+		x = (15000*MY_CLOCKS_PER_SEC) / ((Attacker->effDex()+100) * Weapon->spd); //Calculate combat delay
 	}
 	else 
 	{
-		if(pc_attacker->skill[WRESTLING] > 800) j = 50;
-		else if(pc_attacker->skill[WRESTLING] > 600) j = 45;
-		else if(pc_attacker->skill[WRESTLING] > 400) j = 40;
-		else if(pc_attacker->skill[WRESTLING] > 200) j = 35;
+		if(Attacker->skill[WRESTLING]>200) j = 35;
+		else if(Attacker->skill[WRESTLING]>400) j = 40;
+		else if(Attacker->skill[WRESTLING]>600) j = 45;
+		else if(Attacker->skill[WRESTLING]>800) j = 50;
 		else j = 30;
-		x = (15000 / ((pc_attacker->effDex()+100) * j)*MY_CLOCKS_PER_SEC);
+		x = (15000*MY_CLOCKS_PER_SEC) / ((Attacker->effDex()+100) * j);
 	}
-	pc_attacker->timeout=uiCurrentTime+x;
+	Attacker->timeout=uiCurrentTime+x;
 }
 
 
