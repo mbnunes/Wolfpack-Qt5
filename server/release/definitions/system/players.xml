@@ -3,6 +3,7 @@
 	Properties inherited by players when they're created for instance.
 -->
 <definitions>
+
 	<npc id="player_male">
 		<events>system.regionchange,system.hunger</events>
 	</npc>
@@ -10,4 +11,5 @@
 	<npc id="player_female">
 		<events>system.regionchange,system.hunger</events>
 	</npc>
+
 </definitions>

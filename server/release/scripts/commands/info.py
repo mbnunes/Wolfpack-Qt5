@@ -1089,7 +1089,7 @@ def iteminfo_response( player, args, choice ):
 			item.decay = int( hex2dec( textentries[ key ] ) )
 		elif key == 12:
 			item.newbie = int( hex2dec( textentries[ key ] ) )
-		elif key == 13
+		elif key == 13:
 			item.movable = int( hex2dec( textentries[ key ] ) )
 		elif key == 14:
 			item.visible = int( hex2dec( textentries[ key ] ) )
