@@ -709,6 +709,31 @@ PyObject* wpItem_spellscount( wpItem* self, PyObject* args )
 	return PyInt_FromLong( pBook->spellCount() );
 
 }
+
+/*
+ * Check if this spellbook has a spell
+ */
+PyObject* wpItem_hasspell( wpItem* self, PyObject* args )
+{
+	if( !self->pItem || self->pItem->free )
+	{
+		return PyFalse;
+	}
+	if( !checkArgInt( 0 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+	cSpellBook *pBook = dynamic_cast< cSpellBook* >( self->pItem );
+	if( !pBook )
+	{
+		return PyFalse;
+	}
+
+	UINT8 spell_num = getArgInt( 0 );
+	return PyInt_FromLong( pBook->hasSpell( spell_num ) );
+}
+
 static PyMethodDef wpItemMethods[] = 
 {
 	{ "additem",			(getattrofunc)wpItem_additem, METH_VARARGS, "Adds an item to this container." },
@@ -728,6 +753,7 @@ static PyMethodDef wpItemMethods[] =
 	{ "getadv",				(getattrofunc)wpItem_getadv, METH_VARARGS,"Get advanced modifiers." },
 	{ "setadv",				(getattrofunc)wpItem_setadv, METH_VARARGS,"Set advanced modifiers." },
 	{ "spellscount",		(getattrofunc)wpItem_spellscount, METH_VARARGS,"Get spells count in spellbook" },
+	{ "hasspell", (getattrofunc)wpItem_hasspell, METH_VARARGS,"Check if this spellbook has the spell" },
 
 	// Effects
 	{ "movingeffect",		(getattrofunc)wpItem_movingeffect, METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },
