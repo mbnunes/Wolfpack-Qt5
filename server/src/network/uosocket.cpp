@@ -1724,6 +1724,9 @@ void cUOSocket::resendWorld( bool clean )
 			send( &rObject );
 		}
 		
+		if( ( pChar->isHidden() || ( pChar->dead() && !pChar->war() ) ) && !_player->account()->isAllShow() )
+			continue;
+
 		cUOTxDrawChar drawChar;
 		drawChar.fromChar( pChar );
 		drawChar.setHighlight( pChar->notority( _player ) );

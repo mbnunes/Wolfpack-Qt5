@@ -2053,7 +2053,7 @@ void cItem::update( cUOSocket *mSock )
 	else if( container_ && container_->isItem() )
 	{
 		cUOTxAddContainerItem contItem;
-		contItem.fromItem( this );
+		contItem.fromItem( this );	
 
 		P_ITEM iCont = getOutmostItem();
 		cUObject *oCont = iCont;

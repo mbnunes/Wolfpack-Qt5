@@ -98,10 +98,8 @@ void WPScriptManager::reload( void )
 	{
 		P_ITEM pi = iter_items.GetData();
 		
-		if( pi == NULL )
-			continue;
-
-		pi->recreateEvents();
+		if( pi )
+			pi->recreateEvents();
 	}
 
 	AllCharsIterator iter_chars;
@@ -110,10 +108,8 @@ void WPScriptManager::reload( void )
 	{
 		P_CHAR pc = iter_chars.GetData();
 		
-		if( pc == NULL )
-			continue;
-
-		pc->recreateEvents();
+		if( pc )
+			pc->recreateEvents();
 	}
 
 	clConsole.ProgressDone();

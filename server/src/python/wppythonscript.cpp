@@ -72,9 +72,7 @@ void WPPythonScript::unload( void )
 		PyReportError();
 	}
 
-	// Invalidate ourself
-	if( codeModule )
-		PyImport_ReloadModule( codeModule );
+	codeModule = PyImport_ReloadModule( codeModule );
 }
 
 // Find our module name

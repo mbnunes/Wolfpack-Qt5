@@ -148,16 +148,12 @@ void cCorpse::update( cUOSocket *mSock )
 	
 	for( map< UINT8, SERIAL >::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
 	{
-		// Only add it to the equipment if it's still in there
-		if( find_if( content.begin(), content.end(), bind2nd(MatchItemAndSerial(), it->second) ) != content.end() )
-		{
-			P_ITEM pItem = FindItemBySerial( it->second );
+		P_ITEM pItem = FindItemBySerial( it->second );
 
-			if( pItem )
-			{
-				corpseEquip.addItem( it->first, it->second );
-				corpseContent.addItem( pItem );
-			}			
+		if( pItem && pItem->container() == this )
+		{
+			corpseEquip.addItem( it->first, it->second );
+			corpseContent.addItem( pItem );
 		}
 	}
 
