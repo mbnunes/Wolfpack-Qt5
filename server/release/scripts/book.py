@@ -32,7 +32,7 @@ def onUse(char, item):
   title = item.name
   
   if item.hastag('author'):
-    author = str(item.gettag('author'))
+    author = item.gettag('author')
       
   # Calculate Packet Length
   packetlength = 15 + len(author) + 1 + len(title) + 1
