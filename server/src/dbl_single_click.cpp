@@ -55,30 +55,6 @@
 #undef  DBGFILE
 #define DBGFILE "dbl_single_click.cpp"
 
-void usehairdye(cUOSocket* socket, P_ITEM piDye)
-{
-	if (piDye == NULL)
-		return;
-
-	P_ITEM pi;
-	P_PLAYER pc_currchar = socket->player();
-
-	cPlayer::ItemContainer container(pc_currchar->content());
-	cPlayer::ItemContainer::const_iterator it (container.begin());
-	cPlayer::ItemContainer::const_iterator end(container.end());
-	for (; it != end; ++it )
-	{
-		pi = *it;
-		if(pi->layer()==0x10 || pi->layer()==0x0B)//beard(0x10) and hair
-		{
-			pi->setColor( piDye->color() );	//Now change the color to the hair dye bottle color!
-			pi->update();
-		}
-	}
-	piDye->remove();	//Now delete the hair dye bottle!
-}
-
-
 bool isInLockedItem( P_ITEM pItem )
 {
 	if( pItem->container() && pItem->container()->isItem() )
@@ -802,10 +778,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 				case 0x1058: // sextants
 					getSextantCords(pc_currchar->pos().x, pc_currchar->pos().y, socket->isT2A(), temp);
 					socket->sysMessage( tr("You are at: %1").arg(temp) );
-					return;
-				case 0x0E27:
-				case 0x0EFF:   // Hair Dye
-					usehairdye(socket, pi);
 					return;
 				case 0x14FB:
 				case 0x14FC:
