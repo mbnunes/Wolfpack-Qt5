@@ -32,28 +32,39 @@ def cotton( char, item ):
 	return 1
 	
 def sextant_parts( char, item ):
-	if item.amount > 1:
-		item.amount -= 1
-		item.update()
-	else:
-		item.update
-
 	if not char.checkskill( TINKERING, 0, 500 ):
-		char.message( "You don't manage to create the sextant" )
+		if random.randint( 1, 100 ) <= 25:
+			additional = ' and break the parts'
+			
+			if item.amount > 1:
+				item.amount -= 1
+				item.update()
+			else:
+				item.delete()			
+		else:
+			additional = ''
+	
+		char.message( "You don't manage to create the sextant%s" % additional )
 	else:
+		if item.amount > 1:
+			item.amount -= 1
+			item.update()
+		else:
+			item.remove()	
+	
 		if item.id == 0x1059:
 			item = wolfpack.additem( '1057' )
 		else:
 			item = wolfpack.additem( '1058' )
 
-		char.getbackpack().container.additem( item, 1, 1, 0 )
+		char.getbackpack().additem( item, 1, 1, 0 )
 		item.update()
 		char.message( "You put the sextant into your backpack" )
 		
 	return 1		
 
 def sextant( char, item ):
-	char.message( 'You used a sextant' )
+	char.message( 'Sorry but this feature is not implemented yet' )
 	return 1
 
 def drum( char, item ):
