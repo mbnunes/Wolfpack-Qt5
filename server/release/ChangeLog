@@ -64,6 +64,7 @@ Wolfpack 12.9.13 Beta (CVS)
   - Fixed a walking bug that caused monsters to walk trough certain objects.
   - type="3" in bodyinfo.xml is now correctly interpreted by the core.
   - Exploit bugfix for locked containers.
+  - The status only shows the gold directly in your backpack now. (performance issues)
  * Definition Changes:
   - Added the mage AI to most creatures.
   - Adjusted carving sheeps.
@@ -90,6 +91,7 @@ Wolfpack 12.9.13 Beta (CVS)
   - Cleanups with equipment for the cleaner xml style.
   - Gave guards colored hair.
   - NPC skill defines are now: <skill id="skilldef">value</skill>
+  - Gold now has weight.
  * Python Script Changes:
   - Fixed bug #0000369. (Equip possible although item.movable = 3)
   - Fixed bug #0000361. (Pets don't follow trough gate)
