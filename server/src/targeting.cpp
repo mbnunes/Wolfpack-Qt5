@@ -3173,7 +3173,7 @@ void cTargets::MenuPrivTarg(int s)//LB's menu privs
 		sprintf(temp,"Setting Menupriv number %i",i);
 		sysmessage(s,temp);
 		sprintf(temp,"Menupriv %i set by %s",i,currchar[s]->name);
-		sysmessage(calcSocketFromChar(DEREF_P_CHAR(pc)),temp);
+		sysmessage(calcSocketFromChar(pc),temp);
 		pc->menupriv=i;
 	}
 }

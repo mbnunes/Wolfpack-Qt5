@@ -761,7 +761,7 @@ void cSkills::PeaceMaking(int s)
 			{
 				if (inrange1p(mapchar, pc_currchar) && mapchar->war)
 				{
-					j = calcSocketFromChar(DEREF_P_CHAR(mapchar));
+					j = calcSocketFromChar(mapchar);
 					if ( j != INVALID_UOXSOCKET )
 						if (perm[j]) 
 							sysmessage(j, "You hear some lovely music, and forget about fighting.");
@@ -1035,7 +1035,7 @@ void cSkills::PotionToBottle(CHARACTER s, P_ITEM pi_mortar)
 		return;
 	}
 	
-	P_ITEM pi_potion = Items->SpawnItem(calcSocketFromChar(DEREF_P_CHAR(pc)), pc, 1,"#",0, id1, id2,0,0,1,0);
+	P_ITEM pi_potion = Items->SpawnItem(calcSocketFromChar(pc), pc, 1,"#",0, id1, id2,0,0,1,0);
 	if (pi_potion == NULL) 
 		return;
 	
@@ -1077,7 +1077,8 @@ char cSkills::CheckSkill(P_CHAR pc, unsigned short int sk, int low, int high)
 	if ( pc == NULL ) 
 		return 0;
     UOXSOCKET s=-1;
-    if(pc->isPlayer()) s=calcSocketFromChar(DEREF_P_CHAR(pc));
+    if(pc->isPlayer()) 
+		s = calcSocketFromChar(pc);
 	
 	if( pc->dead ) // fix for magic resistance exploit and probably others too, LB
 	{
@@ -1161,7 +1162,7 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 		if (ges>SrvParms->skillcap && c==0) // skill capped and no skill is marked as fall down.
 		{
 			sprintf((char*)temp,"You have reached the skill-cap of %i and no skill can fall!", SrvParms->skillcap);
-			sysmessage(calcSocketFromChar(DEREF_P_CHAR(pc)),(char*)temp);
+			sysmessage(calcSocketFromChar(pc), (char*)temp);
 			return 0;
 		}
 
@@ -1204,7 +1205,7 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 					if (d==1 && pc->baseskill[dsk]==0) d=0; // should never happen ...
 						pc->baseskill[dsk]-=d;
 					Skills->updateSkillLevel(DEREF_P_CHAR(pc), dsk); 		// we HAVE to correct the skill-value
-					updateskill(calcSocketFromChar(DEREF_P_CHAR(pc)), dsk); // and send changed skill values packet so that client can re-draw correctly			
+					updateskill(calcSocketFromChar(pc), dsk); // and send changed skill values packet so that client can re-draw correctly			
 				}
 			// this is very important cauz this is ONLY done for the calling skill value automatically .
 			} 
@@ -1216,7 +1217,7 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 				{
 					pc->baseskill[dsk]--;
 					Skills->updateSkillLevel(DEREF_P_CHAR(pc), dsk); 	
-					updateskill(calcSocketFromChar(DEREF_P_CHAR(pc)), dsk); 				
+					updateskill(calcSocketFromChar(pc), dsk); 				
 				}
 
 				if (c!=0) d=rand()%c; else d=0;
@@ -1225,7 +1226,7 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 				{
 					pc->baseskill[dsk]--;
 					Skills->updateSkillLevel(DEREF_P_CHAR(pc), dsk); 	
-					updateskill(calcSocketFromChar(DEREF_P_CHAR(pc)), dsk); 			
+					updateskill(calcSocketFromChar(pc), dsk); 			
 				}
 			}
 		}
@@ -1315,7 +1316,7 @@ void cSkills::AdvanceStats(CHARACTER s, int sk)
 		if (AdvanceOneStat(sk, i, &(pc->in), &(pc->in2), &update, isGM) && atCap && !isGM)
 			if (rand()%2) pc->chgRealDex(-1); else pc->st-=1;
 	
-	so=calcSocketFromChar(DEREF_P_CHAR(pc));
+	so=calcSocketFromChar(pc);
 	if (update && (so!=-1))
 	{
 		statwindow(so, pc);				// update client's status window
@@ -1840,8 +1841,8 @@ void cSkills::TrackingMenu(int s,int gmindex)
 
 void cSkills::Track(int i)
 {
-	UOXSOCKET s = calcSocketFromChar(i);
 	P_CHAR pc_i = MAKE_CHARREF_LR(i);
+	UOXSOCKET s = calcSocketFromChar(pc_i);
 	P_CHAR pc_trackingTarget = FindCharBySerial(pc_i->trackingtarget);
 	int direction=5;
 	if((pc_i->pos.y-direction)>=pc_trackingTarget->pos.y)  // North
@@ -1972,7 +1973,7 @@ void TellScroll( char *menu_name, int s, long snum )
 	npctalkall(pc_currchar, spells[num].mantra,0);
 	
 	if(!Magic->CheckReagents(DEREF_P_CHAR(pc_currchar), spells[num].reagents)
-		|| !Magic->CheckMana(DEREF_P_CHAR(pc_currchar), num))
+		|| !Magic->CheckMana(pc_currchar, num))
 	{
 		Magic->SpellFail(s);
 		return;
@@ -2702,7 +2703,7 @@ void cSkills::Snooping(P_CHAR player, P_ITEM container)
 		else
 		{
 			sprintf((char*)temp, "You notice %s trying to peek into your pack!", player->name);
-			UOXSOCKET owner_sock = calcSocketFromChar(DEREF_P_CHAR(pc_owner));
+			UOXSOCKET owner_sock = calcSocketFromChar(pc_owner);
 			if (owner_sock != -1)
 				sysmessage(owner_sock, (char*)temp); 
 		}

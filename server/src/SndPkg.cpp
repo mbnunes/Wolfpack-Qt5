@@ -3156,8 +3156,8 @@ void sendtradestatus(P_ITEM cont1, P_ITEM cont2)
 
 	P_CHAR p1 = FindCharBySerial(cont1->contserial);
 	P_CHAR p2 = FindCharBySerial(cont2->contserial);
-	UOXSOCKET s1 = calcSocketFromChar(DEREF_P_CHAR(p1));
-	UOXSOCKET s2 = calcSocketFromChar(DEREF_P_CHAR(p2));
+	UOXSOCKET s1 = calcSocketFromChar(p1);
+	UOXSOCKET s2 = calcSocketFromChar(p2);
 
 	if ( ( s1 == -1 ) || ( s2 == -1 ) ) return; 
 
@@ -3199,8 +3199,8 @@ void endtrade(int b1, int b2, int b3, int b4)
 	if (pi_bp1 == NULL) return;
 	P_ITEM pi_bp2 = Packitem(pc2);
 	if (pi_bp2 == NULL) return;
-	UOXSOCKET s1 = calcSocketFromChar(DEREF_P_CHAR(pc1));
-	UOXSOCKET s2 = calcSocketFromChar(DEREF_P_CHAR(pc2));
+	UOXSOCKET s1 = calcSocketFromChar(pc1);
+	UOXSOCKET s2 = calcSocketFromChar(pc2);
 
 	msg[0]=0x6F;//Header Byte
 	msg[1]=0x00;//Size

@@ -597,17 +597,17 @@ void cMagic::SbOpenContainer(UOXSOCKET s)
 // History:	Unknown, Modified by AntiChrist to use spells[] array.
 // Purpose:	Check if character has enought mana to cast a spell of that circle.
 //
-char cMagic::CheckMana(CHARACTER s, int num)
+char cMagic::CheckMana(P_CHAR pc, int num)
 {
 
-	if (chars[s].priv2&0x10)
+	if (pc->priv2&0x10)
 		return 1;
 
-	if (chars[s].mn >= spells[num].mana) 
+	if (pc->mn >= spells[num].mana) 
 		return 1;
 	else 
 	{
-		UOXSOCKET p = calcSocketFromChar(s);
+		UOXSOCKET p = calcSocketFromChar(pc);
 		if (p != -1) 
 			sysmessage(p, "You have insufficient mana to cast that spell.");
 		return 0;
@@ -900,7 +900,7 @@ char cMagic::CheckReagents(CHARACTER s, reag_st reagents)
 	if (reagents.silk!=0 && getamount(pc, 0x0F8D)<reagents.silk)
 		failmsg.silk=1;
 
-	int fail = RegMsg(DEREF_P_CHAR(pc),failmsg);
+	int fail = RegMsg(pc,failmsg);
 
 	return fail;
 }
@@ -910,7 +910,7 @@ char cMagic::CheckReagents(CHARACTER s, reag_st reagents)
 // History:	Unknown, Reprogrammed by AntiChrist to display missing reagents types.
 // Purpose:	Display an error message if character has no enougth resgs.
 //
-int cMagic::RegMsg(CHARACTER s, reag_st failmsg)
+int cMagic::RegMsg(P_CHAR pc, reag_st failmsg)
 {
 	bool display = false;
 	char message[100] = {0,};  //just to make sure we end with '\0'
@@ -930,7 +930,7 @@ int cMagic::RegMsg(CHARACTER s, reag_st failmsg)
 
 	if (display)
 	{
-		UOXSOCKET i = calcSocketFromChar(s);
+		UOXSOCKET i = calcSocketFromChar(pc);
 		if (i != -1) 
 			sysmessage(i, message);
 		return 0;
@@ -1033,7 +1033,7 @@ void cMagic::NPCHeal(CHARACTER s)
 		}
 		return;
 	}
-	if (CheckMana(s,10))
+	if (CheckMana(pc,10))
 	{
 		SubtractMana(pc, 10);
 		int j=pc->hp+(pc->skill[MAGERY]/30+RandomNum(1,12));
@@ -1057,7 +1057,7 @@ void cMagic::NPCCure(CHARACTER s)
 		}
 		return;
 	}
-	if (CheckMana(s,11))
+	if (CheckMana(pc,11))
 	{
 		doStaticEffect(pc, 11);
 		SubtractMana(pc,5);
@@ -1083,7 +1083,7 @@ void cMagic::NPCDispel(P_CHAR pc_s, P_CHAR pc_i)
 		}
 		return;
 	}
-	if (CheckMana(DEREF_P_CHAR(pc_s),41))
+	if (CheckMana(pc_s, 41))
 	{
 		if ( pc_i == NULL)
 			return;

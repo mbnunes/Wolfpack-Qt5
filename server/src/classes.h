@@ -228,7 +228,7 @@ public:
 class cWeight
 {
 public:
-	int CheckWeight(int s, int k);
+	int CheckWeight(UOXSOCKET s, int k);
 	float RecursePacks(P_ITEM bp);
 	int CheckWeight2(int s);
 	void NewCalc(P_CHAR pc);
@@ -300,7 +300,7 @@ public:
 	char CheckReagents(int s, reag_st reagents);
 
 
-	char CheckMana(int s, int num);
+	char CheckMana(P_CHAR pc, int num);
 //	void DeleReagents(int s, int ash, int drake, int garlic, int ginseng, int moss, int pearl, int shade, int silk);
 
     void Recall(UOXSOCKET s); // we need this four ones for the commands (separatly) !!!
@@ -324,7 +324,7 @@ private:
 	void SummonMonster(int s, unsigned char d1, unsigned char id2, char *monstername, unsigned char color1, unsigned char color2, int x, int y, int z, int spellnum);
 //	void MagicReflect(int s);
 	void BoxSpell(int s, int& x1, int& x2, int& y1, int& y2, int& z1, int& z2);
-	int RegMsg(CHARACTER s, reag_st failmsg);
+	int RegMsg(P_CHAR pc, reag_st failmsg);
 //	void DirectDamage(int p, int amount);
 	void PolymorphMenu( int s, int gmindex ); // added by AntiChrist (9/99)
 };

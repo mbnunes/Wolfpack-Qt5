@@ -116,7 +116,7 @@ float cWeight::RecursePacks(P_ITEM bp)
 	return totalweight;
 }
 
-int cWeight::CheckWeight(int s, int k) // Check when player is walking if overloaded
+int cWeight::CheckWeight(UOXSOCKET s, int k) // Check when player is walking if overloaded
 {
 	P_CHAR pc = currchar[s];
 	if (pc != NULL)
@@ -129,7 +129,7 @@ int cWeight::CheckWeight(int s, int k) // Check when player is walking if overlo
 		{
 			pc->stm=0;
 			//AntiChrist - displays a message
-			sysmessage(calcSocketFromChar(s),"You are overloaded! You can't hold all this weight..");
+			sysmessage(s, "You are overloaded! You can't hold all this weight..");
 			return 0;
 		}
 	}

@@ -3574,7 +3574,7 @@ void npcattacktarget(int target2, int target)
 
 	if (pc_target->dead || pc_target2->dead) return;
 
-	if (pc_target->targ!=INVALID_SERIAL)
+	if (pc_target->targ != INVALID_SERIAL)
 		cdist = chardist( pc_target, FindCharBySerial(pc_target->targ));
 	else cdist=30;
 
@@ -3605,7 +3605,8 @@ void npcattacktarget(int target2, int target)
 
 	if (pc_target->isNpc())
 	{
-		if (!(pc_target->war)) npcToggleCombat(DEREF_P_CHAR(pc_target));
+		if (!(pc_target->war)) 
+			npcToggleCombat(DEREF_P_CHAR(pc_target));
 		pc_target->setNextMoveTime();
 	}
 	if ((pc_target2->isNpc())&&!(pc_target2->npcaitype==4)) // changed from 0x40 to 4, LB
@@ -4038,9 +4039,9 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 {
 	int s, x;
 
-	s=calcSocketFromChar(p);
-	P_CHAR pc_currchar = currchar[s];
 	P_CHAR pc_p        = MAKE_CHARREF_LR(p);
+	s = calcSocketFromChar(pc_p);
+	P_CHAR pc_currchar = currchar[s];
 
 	//blackwinds fix for potion delay 
 	// disabled for now, because both objectdelay AND skilldelay are set, so you can't do anything (Duke)
@@ -4966,7 +4967,7 @@ void bgsound(P_CHAR pc)
 				sfx[7]=inrange[sound]->pos.x%256;
 				sfx[8]=inrange[sound]->pos.y>>8;
 				sfx[9]=inrange[sound]->pos.y%256;
-				Xsend(calcSocketFromChar(DEREF_P_CHAR(pc)), sfx, 12); //bugfix, LB
+				Xsend(calcSocketFromChar(pc), sfx, 12); //bugfix, LB
 			}
 		}
 	}
@@ -4997,7 +4998,7 @@ void bgsound(P_CHAR pc)
 			sfx[7] = (unsigned char) (pc->pos.x%256);
 			sfx[8] = (unsigned char) (pc->pos.y>>8);
 			sfx[9] = (unsigned char) (pc->pos.y%256);
-			Xsend(calcSocketFromChar(DEREF_P_CHAR(pc)), sfx, 12); //bugfix LB
+			Xsend(calcSocketFromChar(pc), sfx, 12); //bugfix LB
 		}
 	}
 }
@@ -5135,52 +5136,52 @@ void Fame(int nCharID, int nFame)
 	if(nChange<=25)
 		if(nEffect)
 		{
-			sysmessage(calcSocketFromChar(nCharID),
+			sysmessage(calcSocketFromChar(pc_toChange),
 				"You have gained a little fame.");
 			return;
 		}
 		else
 		{
-			sysmessage(calcSocketFromChar(nCharID),
+			sysmessage(calcSocketFromChar(pc_toChange),
 				"You have lost a little fame.");
 			return;
 		}
 	if(nChange<=75)
 		if(nEffect)
 		{
-			sysmessage(calcSocketFromChar(nCharID),
+			sysmessage(calcSocketFromChar(pc_toChange),
 				"You have gained some fame.");
 			return;
 		}
 		else
 		{
-			sysmessage(calcSocketFromChar(nCharID),
+			sysmessage(calcSocketFromChar(pc_toChange),
 				"You have lost some fame.");
 			return;
 		}
 	if(nChange<=100)
 		if(nEffect)
 		{
-			sysmessage(calcSocketFromChar(nCharID),
+			sysmessage(calcSocketFromChar(pc_toChange),
 				"You have gained alot of fame.");
 			return;
 		}
 		else
 		{
-			sysmessage(calcSocketFromChar(nCharID),
+			sysmessage(calcSocketFromChar(pc_toChange),
 				"You have lost alot of fame.");
 			return;
 		}
 	if(nChange>100)
 		if(nEffect)
 		{
-			sysmessage(calcSocketFromChar(nCharID),
+			sysmessage(calcSocketFromChar(pc_toChange),
 				"You have gained a huge amount of fame.");
 			return;
 		}
 		else
 		{
-			sysmessage(calcSocketFromChar(nCharID),
+			sysmessage(calcSocketFromChar(pc_toChange),
 				"You have lost a huge amount of fame.");
 			return;
 		}

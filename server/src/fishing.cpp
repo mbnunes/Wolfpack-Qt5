@@ -212,12 +212,13 @@ void cFishing::FishTarget(P_CLIENT ps)
 // LB: added fish stacking !!
 void cFishing::Fish(CHARACTER i)
 {
+	P_CHAR pc_i = MAKE_CHARREF_LR(i);
+
 	int ii,b;
 	int idnum;
-	int s=calcSocketFromChar(i);
+	int s=calcSocketFromChar(pc_i);
 	int color,c1,c2;
 
-	P_CHAR pc_i = MAKE_CHARREF_LR(i);
 
 	if(!Skills->CheckSkill(pc_i, FISHING, 0, 1000))
 	{
