@@ -1569,11 +1569,13 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else if( !strcmp( "region", name ) )
 		return PyGetRegionObject( self->pChar->region() );
 
-/*	else if( !strcmp( "account", name ) )
+	else if( !strcmp( "account", name ) )
 	{
-		return Py_None;
-	}*/
-
+		P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
+		if ( !player )
+			return Py_None;
+		return PyGetAccountObject( player->account() );
+	}
 	else if( !strcmp( "socket", name ) )
 	{
 		P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
