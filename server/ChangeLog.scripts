@@ -53,6 +53,7 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Added a "static" command.
 		- Made .move work correctly on players again.
 		- Nuke also works from bottom right to top left now.
+		- Fix for guildstone if guild has more than 4 members.
 	* Misc. Changes:
 		- Fixed configure.py for FreeBSD 5
 	* Known Issues, Bugs, and Missing Features:

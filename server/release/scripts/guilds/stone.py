@@ -448,7 +448,7 @@ def guildMembers(player, guild):
     else:
       dialog.addText(259, 223 + offset, "No Title", 2100)
 
-    if offset == 280:
+    if offset == 210:
       offset = 0
     else:
       offset += 70
