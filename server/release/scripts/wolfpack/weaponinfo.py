@@ -97,17 +97,7 @@ WEAPONINFO = {
     MINDAMAGE: 16,
     MAXDAMAGE: 18,
     SPEED: 25,
-    PROJECTILE: 0xf42,
-    AMMUNITION: 'f3f',
-    SWING: [ 0x12 ],
-    HITSOUND: [ 0x234 ],
-    MISSSOUND: [ 0x238 ]
-  },
-  # Bow 2
-  '13b2': {
-    MINDAMAGE: 16,
-    MAXDAMAGE: 18,
-    SPEED: 25,
+    REQSTR: 30,
     PROJECTILE: 0xf42,
     AMMUNITION: 'f3f',
     SWING: [ 0x12 ],
@@ -119,17 +109,7 @@ WEAPONINFO = {
     MINDAMAGE: 18,
     MAXDAMAGE: 20,
     SPEED: 24,
-    PROJECTILE: 0x1bfe,
-    AMMUNITION: '1bfb',
-    SWING: [ 0x13 ],
-    HITSOUND: [ 0x234 ],
-    MISSSOUND: [ 0x238 ]
-  },
-  # Crossbow 2
-  'f50': {
-    MINDAMAGE: 18,
-    MAXDAMAGE: 20,
-    SPEED: 24,
+    REQSTR: 35,
     PROJECTILE: 0x1bfe,
     AMMUNITION: '1bfb',
     SWING: [ 0x13 ],
@@ -141,17 +121,7 @@ WEAPONINFO = {
     MINDAMAGE: 19,
     MAXDAMAGE: 20,
     SPEED: 22,
-    PROJECTILE: 0x1bfe,
-    AMMUNITION: '1bfb',
-    SWING: [ 0x13 ],
-    HITSOUND: [ 0x234 ],
-    MISSSOUND: [ 0x238 ]
-  },
-  # Heavy Crossbow 2
-  '13fc': {
-    MINDAMAGE: 19,
-    MAXDAMAGE: 20,
-    SPEED: 22,
+    REQSTR: 80,
     PROJECTILE: 0x1bfe,
     AMMUNITION: '1bfb',
     SWING: [ 0x13 ],
@@ -163,17 +133,7 @@ WEAPONINFO = {
     MINDAMAGE: 15,
     MAXDAMAGE: 17,
     SPEED: 25,
-    PROJECTILE: 0xf42,
-    AMMUNITION: 'f3f',
-    SWING: [ 0x12 ],
-    HITSOUND: [ 0x234 ],
-    MISSSOUND: [ 0x238 ]
-  },
-  # Composite Bow 2
-  '26cc': {
-    MINDAMAGE: 15,
-    MAXDAMAGE: 17,
-    SPEED: 25,
+    REQSTR: 45,
     PROJECTILE: 0xf42,
     AMMUNITION: 'f3f',
     SWING: [ 0x12 ],
@@ -185,17 +145,7 @@ WEAPONINFO = {
     MINDAMAGE: 30,
     MAXDAMAGE: 49,
     SPEED: 41,
-    PROJECTILE: 0x1bfe,
-    AMMUNITION: '1bfb',
-    SWING: [ 0x13 ],
-    HITSOUND: [ 0x234 ],
-    MISSSOUND: [ 0x238 ]
-  },
-  # Repeating Crossbow 2
-  '26c3': {
-    MINDAMAGE: 30,
-    MAXDAMAGE: 49,
-    SPEED: 41,
+    REQSTR: 30,
     PROJECTILE: 0x1bfe,
     AMMUNITION: '1bfb',
     SWING: [ 0x13 ],
@@ -207,15 +157,7 @@ WEAPONINFO = {
     MINDAMAGE: 11,
     MAXDAMAGE: 13,
     SPEED: 46,
-    SWING: [ 0x9 ],
-    HITSOUND: [0x23b, 0x23c],
-    MISSSOUND: [ 0x23a, 0x238, 0x239 ]
-  },
-  # Katana 2
-  '13fe': {
-    MINDAMAGE: 11,
-    MAXDAMAGE: 13,
-    SPEED: 46,
+    REQSTR: 25,
     SWING: [ 0x9 ],
     HITSOUND: [0x23b, 0x23c],
     MISSSOUND: [ 0x23a, 0x238, 0x239 ]
@@ -225,15 +167,7 @@ WEAPONINFO = {
     MINDAMAGE: 14,
     MAXDAMAGE: 16,
     SPEED: 37,
-    SWING: [ 0xd ],
-    HITSOUND: [0x233, 0x232],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Axe 2
-  'f4a': {
-    MINDAMAGE: 14,
-    MAXDAMAGE: 16,
-    SPEED: 37,
+    REQSTR: 35,
     SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
@@ -243,14 +177,7 @@ WEAPONINFO = {
     MINDAMAGE: 17,
     MAXDAMAGE: 18,
     SPEED: 28,
-    HITSOUND: [ 0x237 ],
-    MISSSOUND: [ 0x23a, 0x238, 0x239 ]
-  },
-  # Bardiche 2
-  'f4e': {
-    MINDAMAGE: 17,
-    MAXDAMAGE: 18,
-    SPEED: 28,
+    REQSTR: 45,
     HITSOUND: [ 0x237 ],
     MISSSOUND: [ 0x23a, 0x238, 0x239 ]
   },
@@ -259,15 +186,7 @@ WEAPONINFO = {
     MINDAMAGE: 15,
     MAXDAMAGE: 17,
     SPEED: 31,
-    SWING: [ 0xd ],
-    HITSOUND: [0x233, 0x232],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Battle Axe 2
-  'f48': {
-    MINDAMAGE: 15,
-    MAXDAMAGE: 17,
-    SPEED: 31,
+    REQSTR: 35,
     SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
@@ -277,14 +196,7 @@ WEAPONINFO = {
     MINDAMAGE: 14,
     MAXDAMAGE: 16,
     SPEED: 37,
-    HITSOUND: [0x23b, 0x23c],
-    MISSSOUND: [ 0x239 ]
-  },
-  # Bladed Staff 2
-  '26bd': {
-    MINDAMAGE: 14,
-    MAXDAMAGE: 16,
-    SPEED: 37,
+    REQSTR: 40,
     HITSOUND: [0x23b, 0x23c],
     MISSSOUND: [ 0x239 ]
   },
@@ -293,14 +205,7 @@ WEAPONINFO = {
     MINDAMAGE: 13,
     MAXDAMAGE: 15,
     SPEED: 36,
-    HITSOUND: [0x23b, 0x23c],
-    MISSSOUND: [ 0x239 ]
-  },
-  # Bone Harvester 2
-  '26bb': {
-    MINDAMAGE: 13,
-    MAXDAMAGE: 15,
-    SPEED: 36,
+    REQSTR: 25,
     HITSOUND: [0x23b, 0x23c],
     MISSSOUND: [ 0x239 ]
   },
@@ -309,15 +214,7 @@ WEAPONINFO = {
     MINDAMAGE: 14,
     MAXDAMAGE: 15,
     SPEED: 33,
-    SWING: [ 0x9 ],
-    HITSOUND: [0x23b, 0x23c, 0x237],
-    MISSSOUND: [ 0x23a, 0x238, 0x239 ]
-  },
-  # Broadsword 2
-  'f5f': {
-    MINDAMAGE: 14,
-    MAXDAMAGE: 15,
-    SPEED: 33,
+    REQSTR: 30,
     SWING: [ 0x9 ],
     HITSOUND: [0x23b, 0x23c, 0x237],
     MISSSOUND: [ 0x23a, 0x238, 0x239 ]
@@ -327,15 +224,7 @@ WEAPONINFO = {
     MINDAMAGE: 9,
     MAXDAMAGE: 11,
     SPEED: 49,
-    SWING: [ 0x9 ],
-    HITSOUND: [0x23b, 0x23c],
-    MISSSOUND: [ 0x23a, 0x238, 0x239 ]
-  },
-  # Butcher Knife 2
-  '13f7': {
-    MINDAMAGE: 9,
-    MAXDAMAGE: 11,
-    SPEED: 49,
+    REQSTR: 5,
     SWING: [ 0x9 ],
     HITSOUND: [0x23b, 0x23c],
     MISSSOUND: [ 0x23a, 0x238, 0x239 ]
@@ -345,15 +234,7 @@ WEAPONINFO = {
     MINDAMAGE: 11,
     MAXDAMAGE: 13,
     SPEED: 46,
-    SWING: [ 0x9 ],
-    HITSOUND: [0x23b, 0x23c],
-    MISSSOUND: [ 0x23a, 0x238, 0x239 ]
-  },
-  # Cleaver 2
-  'ec2': {
-    MINDAMAGE: 11,
-    MAXDAMAGE: 13,
-    SPEED: 46,
+    REQSTR: 10,
     SWING: [ 0x9 ],
     HITSOUND: [0x23b, 0x23c],
     MISSSOUND: [ 0x23a, 0x238, 0x239 ]
@@ -363,14 +244,7 @@ WEAPONINFO = {
     MINDAMAGE: 11,
     MAXDAMAGE: 14,
     SPEED: 47,
-    HITSOUND: [0x23b, 0x23c],
-    MISSSOUND: [ 0x239 ]
-  },
-  # Crescent Blade 2
-  '26c1': {
-    MINDAMAGE: 11,
-    MAXDAMAGE: 14,
-    SPEED: 47,
+    REQSTR: 55,
     HITSOUND: [0x23b, 0x23c],
     MISSSOUND: [ 0x239 ]
   },
@@ -379,14 +253,7 @@ WEAPONINFO = {
     MINDAMAGE: 11,
     MAXDAMAGE: 13,
     SPEED: 44,
-    HITSOUND: [0x23b, 0x23c],
-    MISSSOUND: [ 0x23a, 0x238, 0x239 ]
-  },
-  # Cutlass 2
-  '1440': {
-    MINDAMAGE: 11,
-    MAXDAMAGE: 13,
-    SPEED: 44,
+    REQSTR: 25,
     HITSOUND: [0x23b, 0x23c],
     MISSSOUND: [ 0x23a, 0x238, 0x239 ]
   },
@@ -395,15 +262,7 @@ WEAPONINFO = {
     MINDAMAGE: 15,
     MAXDAMAGE: 17,
     SPEED: 33,
-    SWING: [ 0xd ],
-    HITSOUND: [0x233, 0x232],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Double Axe 2
-  'f4c': {
-    MINDAMAGE: 15,
-    MAXDAMAGE: 17,
-    SPEED: 33,
+    REQSTR: 45,
     SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
@@ -413,15 +272,7 @@ WEAPONINFO = {
     MINDAMAGE: 15,
     MAXDAMAGE: 17,
     SPEED: 33,
-    SWING: [ 0xd ],
-    HITSOUND: [0x233, 0x232],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Executioners Axe 2
-  'f46': {
-    MINDAMAGE: 15,
-    MAXDAMAGE: 17,
-    SPEED: 33,
+    REQSTR: 40,
     SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
@@ -431,14 +282,7 @@ WEAPONINFO = {
     MINDAMAGE: 18,
     MAXDAMAGE: 19,
     SPEED: 25,
-    HITSOUND: [ 0x237 ],
-    MISSSOUND: [ 0x23a, 0x238, 0x239 ]
-  },
-  # Halberd 2
-  '143e': {
-    MINDAMAGE: 18,
-    MAXDAMAGE: 19,
-    SPEED: 25,
+    REQSTR: 95,
     HITSOUND: [ 0x237 ],
     MISSSOUND: [ 0x23a, 0x238, 0x239 ]
   },
@@ -447,15 +291,7 @@ WEAPONINFO = {
     MINDAMAGE: 13,
     MAXDAMAGE: 15,
     SPEED: 41,
-    SWING: [ 0xd ],
-    HITSOUND: [0x233, 0x232],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Hatchet 2
-  'f44': {
-    MINDAMAGE: 13,
-    MAXDAMAGE: 15,
-    SPEED: 41,
+    REQSTR: 20,
     SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
@@ -465,15 +301,7 @@ WEAPONINFO = {
     MINDAMAGE: 16,
     MAXDAMAGE: 17,
     SPEED: 29,
-    SWING: [ 0xd ],
-    HITSOUND: [0x233, 0x232],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Large Battle Axe 2
-  '13fa': {
-    MINDAMAGE: 16,
-    MAXDAMAGE: 17,
-    SPEED: 29,
+    REQSTR: 80,
     SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
@@ -483,14 +311,7 @@ WEAPONINFO = {
     MINDAMAGE: 15,
     MAXDAMAGE: 16,
     SPEED: 30,
-    HITSOUND: [0x23b, 0x23c],
-    MISSSOUND: [ 0x23a, 0x238, 0x239 ]
-  },
-  # Long Sword 2
-  '13b7': {
-    MINDAMAGE: 15,
-    MAXDAMAGE: 16,
-    SPEED: 30,
+    REQSTR: 35,
     HITSOUND: [0x23b, 0x23c],
     MISSSOUND: [ 0x23a, 0x238, 0x239 ]
   },
@@ -499,14 +320,7 @@ WEAPONINFO = {
     MINDAMAGE: 15,
     MAXDAMAGE: 16,
     SPEED: 30,
-    HITSOUND: [0x23b, 0x23c],
-    MISSSOUND: [ 0x23a, 0x238, 0x239 ]
-  },
-  # Longsword 2
-  'f60': {
-    MINDAMAGE: 15,
-    MAXDAMAGE: 16,
-    SPEED: 30,
+    REQSTR: 35,
     HITSOUND: [0x23b, 0x23c],
     MISSSOUND: [ 0x23a, 0x238, 0x239 ]
   },
@@ -515,14 +329,7 @@ WEAPONINFO = {
     MINDAMAGE: 14,
     MAXDAMAGE: 15,
     SPEED: 33,
-    HITSOUND: [0x23b, 0x23c, 0x237],
-    MISSSOUND: [ 0x23a, 0x238, 0x239 ]
-  },
-  # Paladin Sword 2
-  '26ce': {
-    MINDAMAGE: 14,
-    MAXDAMAGE: 15,
-    SPEED: 33,
+    REQSTR: 30,
     HITSOUND: [0x23b, 0x23c, 0x237],
     MISSSOUND: [ 0x23a, 0x238, 0x239 ]
   },
@@ -531,14 +338,7 @@ WEAPONINFO = {
     MINDAMAGE: 13,
     MAXDAMAGE: 15,
     SPEED: 35,
-    HITSOUND: [0x233, 0x232],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Pickaxe 2
-  'e85': {
-    MINDAMAGE: 13,
-    MAXDAMAGE: 15,
-    SPEED: 35,
+    REQSTR: 50,
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -547,14 +347,7 @@ WEAPONINFO = {
     MINDAMAGE: 13,
     MAXDAMAGE: 15,
     SPEED: 37,
-    HITSOUND: [0x23b, 0x23c],
-    MISSSOUND: [ 0x23a, 0x238, 0x239 ]
-  },
-  # Scimitar 2
-  'f13b5': {
-    MINDAMAGE: 13,
-    MAXDAMAGE: 15,
-    SPEED: 37,
+    REQSTR: 25,
     HITSOUND: [0x23b, 0x23c],
     MISSSOUND: [ 0x23a, 0x238, 0x239 ]
   },
@@ -563,14 +356,7 @@ WEAPONINFO = {
     MINDAMAGE: 15,
     MAXDAMAGE: 18,
     SPEED: 32,
-    HITSOUND: [0x23b, 0x23c],
-    MISSSOUND: [ 0x23a, 0x238, 0x239 ]
-  },
-  # Scythe 2
-  '26ba': {
-    MINDAMAGE: 15,
-    MAXDAMAGE: 18,
-    SPEED: 32,
+    REQSTR: 45,
     HITSOUND: [0x23b, 0x23c],
     MISSSOUND: [ 0x23a, 0x238, 0x239 ]
   },
@@ -579,14 +365,7 @@ WEAPONINFO = {
     MINDAMAGE: 9,
     MAXDAMAGE: 11,
     SPEED: 49,
-    HITSOUND: [0x23b, 0x23c],
-    MISSSOUND: [ 0x23a, 0x238, 0x239 ]
-  },
-  # Skinning Knife 2
-  'ec5': {
-    MINDAMAGE: 9,
-    MAXDAMAGE: 11,
-    SPEED: 49,
+    REQSTR: 5,
     HITSOUND: [0x23b, 0x23c],
     MISSSOUND: [ 0x23a, 0x238, 0x239 ]
   },
@@ -595,15 +374,7 @@ WEAPONINFO = {
     MINDAMAGE: 16,
     MAXDAMAGE: 17,
     SPEED: 31,
-    SWING: [ 0xd ],
-    HITSOUND: [0x233, 0x232],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Two Handed Axe 2
-  '1442': {
-    MINDAMAGE: 16,
-    MAXDAMAGE: 17,
-    SPEED: 31,
+    REQSTR: 40,
     SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
@@ -613,14 +384,7 @@ WEAPONINFO = {
     MINDAMAGE: 15,
     MAXDAMAGE: 17,
     SPEED: 28,
-    HITSOUND: [0x23b, 0x23c, 0x237],
-    MISSSOUND: [ 0x23a, 0x238, 0x239 ]
-  },
-  # Viking Sword 2
-  '13ba': {
-    MINDAMAGE: 15,
-    MAXDAMAGE: 17,
-    SPEED: 28,
+    REQSTR: 40,
     HITSOUND: [0x23b, 0x23c, 0x237],
     MISSSOUND: [ 0x23a, 0x238, 0x239 ]
   },
@@ -629,14 +393,7 @@ WEAPONINFO = {
     MINDAMAGE: 10,
     MAXDAMAGE: 11,
     SPEED: 49,
-    HITSOUND: [0x23b, 0x23c],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Dagger 2
-  'f52': {
-    MINDAMAGE: 10,
-    MAXDAMAGE: 11,
-    SPEED: 49,
+    REQSTR: 10,
     HITSOUND: [0x23b, 0x23c],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -645,14 +402,7 @@ WEAPONINFO = {
     MINDAMAGE: 12,
     MAXDAMAGE: 13,
     SPEED: 49,
-    HITSOUND: [0x23b, 0x23c],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Double Bladed Staff 2
-  '26bf': {
-    MINDAMAGE: 12,
-    MAXDAMAGE: 13,
-    SPEED: 49,
+    REQSTR: 50,
     HITSOUND: [0x23b, 0x23c],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -661,14 +411,7 @@ WEAPONINFO = {
     MINDAMAGE: 10,
     MAXDAMAGE: 12,
     SPEED: 53,
-    HITSOUND: [0x23b, 0x23c],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Kryss 2
-  '1400': {
-    MINDAMAGE: 10,
-    MAXDAMAGE: 12,
-    SPEED: 53,
+    REQSTR: 10,
     HITSOUND: [0x23b, 0x23c],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -677,14 +420,7 @@ WEAPONINFO = {
     MINDAMAGE: 17,
     MAXDAMAGE: 18,
     SPEED: 24,
-    HITSOUND: [0x23b, 0x23c],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Lance 2
-  '26c0': {
-    MINDAMAGE: 17,
-    MAXDAMAGE: 18,
-    SPEED: 24,
+    REQSTR: 95,
     HITSOUND: [0x23b, 0x23c],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -693,14 +429,7 @@ WEAPONINFO = {
     MINDAMAGE: 14,
     MAXDAMAGE: 16,
     SPEED: 37,
-    HITSOUND: [0x23b, 0x23c],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Pike 2
-  '26c8': {
-    MINDAMAGE: 14,
-    MAXDAMAGE: 16,
-    SPEED: 37,
+    REQSTR: 50,
     HITSOUND: [0x23b, 0x23c],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -709,14 +438,7 @@ WEAPONINFO = {
     MINDAMAGE: 13,
     MAXDAMAGE: 14,
     SPEED: 43,
-    HITSOUND: [0x23b, 0x23c],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Pitchfork 2
-  'e88': {
-    MINDAMAGE: 13,
-    MAXDAMAGE: 14,
-    SPEED: 43,
+    REQSTR: 50,
     HITSOUND: [0x23b, 0x23c],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -725,14 +447,7 @@ WEAPONINFO = {
     MINDAMAGE: 10,
     MAXDAMAGE: 13,
     SPEED: 55,
-    HITSOUND: [0x23b, 0x23c],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Short Spear 2
-  '1402': {
-    MINDAMAGE: 10,
-    MAXDAMAGE: 13,
-    SPEED: 55,
+    REQSTR: 40,
     HITSOUND: [0x23b, 0x23c],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -741,14 +456,7 @@ WEAPONINFO = {
     MINDAMAGE: 13,
     MAXDAMAGE: 15,
     SPEED: 42,
-    HITSOUND: [0x23b, 0x23c],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Spear 2
-  'f63': {
-    MINDAMAGE: 13,
-    MAXDAMAGE: 15,
-    SPEED: 42,
+    REQSTR: 50,
     HITSOUND: [0x23b, 0x23c],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -757,14 +465,7 @@ WEAPONINFO = {
     MINDAMAGE: 12,
     MAXDAMAGE: 13,
     SPEED: 43,
-    HITSOUND: [0x23b, 0x23c, 0x237],
-    MISSSOUND: [ 0x23a, 0x239, 0x238 ]
-  },
-  # War Fork 2
-  '1404': {
-    MINDAMAGE: 12,
-    MAXDAMAGE: 13,
-    SPEED: 43,
+    REQSTR: 35,
     HITSOUND: [0x23b, 0x23c, 0x237],
     MISSSOUND: [ 0x23a, 0x239, 0x238 ]
   },
@@ -773,14 +474,7 @@ WEAPONINFO = {
     MINDAMAGE: 13,
     MAXDAMAGE: 16,
     SPEED: 39,
-    HITSOUND: [0x233, 0x232],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Black Staff 2
-  'df0': {
-    MINDAMAGE: 13,
-    MAXDAMAGE: 16,
-    SPEED: 39,
+    REQSTR: 35,
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -789,14 +483,7 @@ WEAPONINFO = {
     MINDAMAGE: 11,
     MAXDAMAGE: 13,
     SPEED: 44,
-    HITSOUND: [0x233, 0x232],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Club 2
-  '13b3': {
-    MINDAMAGE: 11,
-    MAXDAMAGE: 13,
-    SPEED: 44,
+    REQSTR: 40,
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -805,14 +492,7 @@ WEAPONINFO = {
     MINDAMAGE: 15,
     MAXDAMAGE: 17,
     SPEED: 33,
-    HITSOUND: [0x233, 0x232],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Gnarled Staff 2
-  '13f9': {
-    MINDAMAGE: 15,
-    MAXDAMAGE: 17,
-    SPEED: 33,
+    REQSTR: 20,
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -821,14 +501,7 @@ WEAPONINFO = {
     MINDAMAGE: 15,
     MAXDAMAGE: 17,
     SPEED: 28,
-    HITSOUND: [0x233, 0x232],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Hammer Pick 2
-  '143c': {
-    MINDAMAGE: 15,
-    MAXDAMAGE: 17,
-    SPEED: 28,
+    REQSTR: 45,
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -837,14 +510,7 @@ WEAPONINFO = {
     MINDAMAGE: 12,
     MAXDAMAGE: 14,
     SPEED: 40,
-    HITSOUND: [0x233, 0x232],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Mace 2
-  'f5d': {
-    MINDAMAGE: 12,
-    MAXDAMAGE: 14,
-    SPEED: 40,
+    REQSTR: 45,
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -853,14 +519,7 @@ WEAPONINFO = {
     MINDAMAGE: 14,
     MAXDAMAGE: 16,
     SPEED: 32,
-    HITSOUND: [0x233, 0x232],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Maul 2
-  '143a': {
-    MINDAMAGE: 14,
-    MAXDAMAGE: 16,
-    SPEED: 32,
+    REQSTR: 45,
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -869,14 +528,7 @@ WEAPONINFO = {
     MINDAMAGE: 11,
     MAXDAMAGE: 14,
     SPEED: 48,
-    HITSOUND: [0x233, 0x232],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Quarter Staff 2
-  'e8a': {
-    MINDAMAGE: 11,
-    MAXDAMAGE: 14,
-    SPEED: 48,
+    REQSTR: 35,
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -885,14 +537,7 @@ WEAPONINFO = {
     MINDAMAGE: 14,
     MAXDAMAGE: 17,
     SPEED: 30,
-    HITSOUND: [0x233, 0x232],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Scepter 2
-  '26bc': {
-    MINDAMAGE: 14,
-    MAXDAMAGE: 17,
-    SPEED: 30,
+    REQSTR: 40,
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -901,14 +546,7 @@ WEAPONINFO = {
     MINDAMAGE: 13,
     MAXDAMAGE: 15,
     SPEED: 40,
-    HITSOUND: [0x233, 0x232],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Shepherds Crook 2
-  '13f4': {
-    MINDAMAGE: 13,
-    MAXDAMAGE: 15,
-    SPEED: 40,
+    REQSTR: 20,
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -917,15 +555,7 @@ WEAPONINFO = {
     MINDAMAGE: 14,
     MAXDAMAGE: 15,
     SPEED: 33,
-    SWING: [ 0xd ],
-    HITSOUND: [0x233, 0x232],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # War Axe 2
-  '13af': {
-    MINDAMAGE: 14,
-    MAXDAMAGE: 15,
-    SPEED: 33,
+    REQSTR: 35,
     SWING: [ 0xd ],
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
@@ -935,14 +565,7 @@ WEAPONINFO = {
     MINDAMAGE: 17,
     MAXDAMAGE: 18,
     SPEED: 28,
-    HITSOUND: [0x233, 0x232],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # War Hammer 2
-  '1438': {
-    MINDAMAGE: 17,
-    MAXDAMAGE: 18,
-    SPEED: 28,
+    REQSTR: 95,
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -951,14 +574,7 @@ WEAPONINFO = {
     MINDAMAGE: 16,
     MAXDAMAGE: 17,
     SPEED: 26,
-    HITSOUND: [0x233, 0x232],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # War Mace 2
-  '1406': {
-    MINDAMAGE: 16,
-    MAXDAMAGE: 17,
-    SPEED: 26,
+    REQSTR: 80,
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -967,14 +583,7 @@ WEAPONINFO = {
     MINDAMAGE: 13,
     MAXDAMAGE: 15,
     SPEED: 33,
-    HITSOUND: [0x233, 0x232],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Smithing Hammer 2
-  '13e4': {
-    MINDAMAGE: 13,
-    MAXDAMAGE: 15,
-    SPEED: 33,
+    REQSTR: 30,
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   },
@@ -983,14 +592,7 @@ WEAPONINFO = {
     MINDAMAGE: 13,
     MAXDAMAGE: 15,
     SPEED: 33,
-    HITSOUND: [0x233, 0x232],
-    MISSSOUND: [ 0x23a, 0x239 ]
-  },
-  # Sledge Hammer 2
-  'fb5': {
-    MINDAMAGE: 13,
-    MAXDAMAGE: 15,
-    SPEED: 33,
+    REQSTR: 40,
     HITSOUND: [0x233, 0x232],
     MISSSOUND: [ 0x23a, 0x239 ]
   }

@@ -93,11 +93,11 @@ class CarpItemAction(CraftItemAction):
     # See if special ingots were used in the creation of
     # this item. All items crafted by carpenterss gain the
     # color!
-    item.decay = 1
+
     if self.submaterial1 > 0:
       material = self.parent.getsubmaterial1used(player, arguments)
       material = self.parent.submaterials1[material]
-      item.color = material[4]
+      item.decay = 1
 
 
     # Reduce the uses remain count
@@ -129,84 +129,15 @@ class CarpentryMenu(MakeMenu):
   def __init__(self, id, parent, title):
     MakeMenu.__init__(self, id, parent, title)
     self.allowmark = 1
-    self.allowrepair = 0
-    self.allowenhance = 0
-    self.allowsmelt = 0
-    self.submaterial3 = METALS
-    self.submaterial4 = CLOTH
-    self.submaterial1missing = 1041524 # Wood
-    self.submaterial2missing = 1042598 # Boards
-    self.submaterial3missing = 1042081 # Ingots
-    self.submaterial4missing = 1042081 # Cloth
+    #self.allowrepair = 1
+    self.submaterials2 = METALS
+    self.submaterial2missing = 1042081 # Ingots
+    #self.submaterial1missing = 1041524 # Wood
+    #self.submaterial2missing = 1042598 # Boards
+    #self.submaterial3missing = 1042081 # Ingots
+    #self.submaterial4missing = 1042081 # Cloth
     self.submaterial1noskill = 500586
-    self.gumptype = 0x4f1ba410 # This should be unique
-
-  #
-  # Repair an item
-  #
-  def repair(self, player, arguments, target):
-
-    if not checktool(player, wolfpack.finditem(arguments[0])):
-      return
-
-    if not target.item:
-      player.socket.clilocmessage(500426)
-      return
-
-    if target.item.container != player.getbackpack():
-      player.socket.clilocmessage(1044275)
-      return
-
-    item = target.item
-    weapon = properties.itemcheck(item, ITEM_WEAPON)
-    shield = properties.itemcheck(item, ITEM_SHIELD)
-
-    if weapon or shield:
-      # Item in full repair
-      if item.maxhealth <= 0 or item.health >= item.maxhealth:
-        player.socket.clilocmessage(500423)
-        return
-
-      skill = player.skill[CARPENTRY]
-      if skill >= 900:
-        weaken = 1
-      elif skill >= 700:
-        weaken = 2
-      else:
-        weaken = 3
-
-      action = self.findcraftitem(item.baseid)
-
-      # We can't craft it, so we can't repair it.
-      if not action:
-        player.socket.clilocmessage(1044277)
-        return
-
-      # We will either destroy or repair it from here on
-      # So we can play the craft effect.
-      player.soundeffect(0x2a)
-
-      if item.maxhealth <= weaken:
-        player.socket.clilocmessage(500424)
-        item.delete()
-      elif player.checkskill(CARPENTRY, 0, 1000):
-        player.socket.clilocmessage(1044279)
-        item.maxhealth -= weaken
-        item.health = item.maxhealth
-        item.resendtooltip()
-      else:
-        player.socket.clilocmessage(1044280)
-        item.maxhealth -= weaken
-        item.health = max(0, item.health - weaken)
-        item.resendtooltip()
-
-      # Warn the user if we'll break the item next time
-      if item.maxhealth <= weaken:
-        player.socket.clilocmessage(1044278)
-
-      return
-
-    player.socket.clilocmessage(1044277)
+    self.gumptype = 0x4f6ba469 # This should be unique
 
 #
 # Load a menu with a given id and
@@ -264,7 +195,7 @@ def loadMenu(id, parent = None):
           if subchild.name == 'wood':
             action.submaterial1 = hex2dec(subchild.getattribute('amount', '0'))
 
-          if subchild.name == 'boards':
+          elif subchild.name == 'boards':
             action.submaterial2 = hex2dec(subchild.getattribute('amount', '0'))
 
           # How much of the secondary resource should be consumed
@@ -314,5 +245,9 @@ def loadMenu(id, parent = None):
   menu.sort()
 
 #
-# Load the blacksmithing menu.
+# Load the carpentry menu.
 #
+
+def onLoad():
+  loadMenu('CARPENTRY')
+
