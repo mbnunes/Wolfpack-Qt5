@@ -775,7 +775,7 @@ bool cBaseChar::resurrect( cUObject* source )
 	{
 		corpse = dynamic_cast<cCorpse*>( item );
 
-		if ( !corpse || corpse->owner() != this )
+		if ( !corpse || corpse->owner() != this || corpse->id() != 0x2006 )
 		{
 			corpse = 0;
 		}
