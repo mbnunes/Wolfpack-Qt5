@@ -943,7 +943,7 @@ void cUOSocket::sendChar( P_CHAR pChar )
 	// Then completely resend it
 	cUOTxDrawChar drawChar;
 	drawChar.fromChar( pChar );
-	drawChar.setHighlight( 7 );
+	drawChar.setHighlight( pChar->notority( _player ) );
 	send( &drawChar );
 }
 
@@ -1543,6 +1543,8 @@ void cUOSocket::resendWorld( bool clean )
 	}
 
 	RegionIterator4Chars chIterator( _player->pos );
+	cUOTxDrawChar drawChar;
+
 	for( chIterator.Begin(); !chIterator.atEnd(); chIterator++ )
 	{
 		P_CHAR pChar = chIterator.GetData();
@@ -1557,9 +1559,9 @@ void cUOSocket::resendWorld( bool clean )
 			rObject.setSerial( pChar->serial );
 			send( &rObject );
 		}
-
-		cUOTxDrawChar drawChar;
+		
 		drawChar.fromChar( pChar );
+		drawChar.setHighlight( pChar->notority( _player ) );
 		send( &drawChar );
 	}
 }

@@ -162,6 +162,7 @@ public:
 
 	// Protected Data Members	
 protected:
+	bool					animated;
 	short					GuildType;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild
 	bool					GuildTraitor; // (true) This character converted, (false) Neve converted, or not an order/chaos guild member
 	QString					orgname_;//original name - for Incognito
@@ -299,6 +300,7 @@ public:
 	// Change coordinates for the char
 	// Resend( clean = false )
 	// This saves bandwith and CPU time !
+	void setAnimated( bool data ) { animated = data; }
 	void update( void ); // This is called when flags/name have been changed
 	void resend( bool clean = true ); // this is called when the char is being created or anything like that
 	void makeShop( void );

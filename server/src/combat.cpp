@@ -192,11 +192,21 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 	if( pc_defender->isInvul() ) 
 		return;
 
-	bool hit = Skills->CheckSkill( pc_attacker, fightskill, 0, 1000 );  // increase fighting skill for attacker and defender
+	bool hit = Skills->CheckSkill( pc_attacker, fightskill, 0, 1000 );  // This is the mandatory skillcheck
 	
-	// MISS
+	// We missed our target
 	if( !hit )
 	{
+		// Display a message to both players that the 
+		// swing dind't hit
+		// NOTE: There should be a random chance that this
+		// message appears *or* a flag to set
+		if( pc_attacker->socket() )
+			pc_attacker->socket()->sysMessage( tr( "You miss %1" ).arg( pc_defender->name.c_str() ) );
+
+		if( pc_defender->socket() )
+			pc_defender->socket()->sysMessage( tr( "%1 misses you" ).arg( pc_attacker->name.c_str() ) );
+
 		if( pc_attacker->isPlayer() )
 			doMissedSoundEffect( pc_attacker );
 
@@ -212,22 +222,22 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 				if( pAmmo )
 				{
 					pAmmo->moveTo( pc_defender->pos );
-					pAmmo->priv=1;
+					pAmmo->priv = 1;
 					pAmmo->update();
 				}
 			}
 		}
+
+		return;
 	}
-	// on Hit
-	else
-	{
-		// ==== HIT SOUNDS
-		if( pc_defender->id() == 0x191 )
-			pc_defender->soundEffect( 0x14b );
-		else if( pc_defender->id() == 0x190 ) 
-			pc_defender->soundEffect( 0x156 );
-		else	
-			playmonstersound( pc_defender, pc_defender->id(), SND_DEFEND );
+
+	// ==== HIT SOUNDS
+	if( pc_defender->id() == 0x191 )
+		pc_defender->soundEffect( 0x14b );
+	else if( pc_defender->id() == 0x190 ) 
+		pc_defender->soundEffect( 0x156 );
+	else	
+		playmonstersound( pc_defender, pc_defender->id(), SND_DEFEND );
 			
 		// ==== POISONING
 		if( pWeapon && ( pWeapon->poisoned > 0 ) )
@@ -257,8 +267,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 		}
 		else 
 			basedamage = rand() % 2;
-		}
-
+	
 		if( pc_attacker->isPlayer() && ( fightskill != WRESTLING ) )
 		{ 
 			if( pWeapon->racehate() != 0 && pc_defender->race != 0 ) //-Fraz- Racehating combat
@@ -323,7 +332,9 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 			// Armor destruction and sped up by hitting with maces should go in here somewhere 
 			// According to lacation of body hit Id imagine -Frazurbluu- **NEEDS ADDED**
 			x=rand()%100;// determine area of body hit
-			if (!SrvParams->combatHitMessage())
+			QString cMessage;
+
+			if( !SrvParams->combatHitMessage() )
 			{
 				if (x<=44) x=1; // body
 				else if (x<=58) x=2; // arms
@@ -333,8 +344,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 				else x=6; // hands
 			}
 			else
-			{
-				QString cMessage;
+			{				
 				hitin = rand()%2;
 				if (x<=44)
 				{
@@ -416,15 +426,6 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 						if (damage > 1) cMessage = tr("hits you in Right Hand!");
 					}
 				}
-
-				if( !cMessage.isEmpty() )
-				{
-					if( pc_defender->socket() )
-						pc_defender->socket()->sysMessage( QString( "%1 %2" ).arg( pc_attacker->name.c_str() ).arg( cMessage ) );
-
-					//if( pc_attacker->socket() )
-					//	pc_attacker->socket()->sysMessage( QString( ou %2" ).arg( pc_attacker->name.c_str() ).arg( cMessage ) );
-				}
 			}
 
 			x = CalcDef( pc_defender, x );
@@ -460,10 +461,9 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 			if( pc_attacker->isPlayer() )
 				ItemCastSpell( pc_attacker, pc_defender, pWeapon );
 
-			// AntiChrist - 26/10/99
 			// when hitten and damage >1, defender fails if casting a spell!
 			// Thats not really good, better make a check versus int+magic
-			if( damage>1 && pc_defender->isPlayer() )//only if damage>1 and against a player
+			if( damage > 1 && pc_defender->isPlayer() )//only if damage>1 and against a player
 			{
 				// TODO: Implement spell apruption
 				/*if(pc_defender->casting() && currentSpellType[s2]==0 )
@@ -479,6 +479,14 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 
 			if( damage > 0 )
 			{
+				// Now we know that damage has actually been dealt
+				// So we may now display the where-hit message
+				if( !cMessage.isEmpty() )
+				{
+					if( pc_defender->socket() )
+						pc_defender->socket()->sysMessage( QString( "%1 %2" ).arg( pc_attacker->name.c_str() ).arg( cMessage ) );
+				}
+
 				//===== REACTIVE ARMOR
 				if( pc_defender->ra() )
 				{
@@ -496,7 +504,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 						//pc_attacker->stm-=3+(rand()%4);
 					}
 
-					if ((fightskill==FENCING) && (IsFencing2H(pWeapon->id())))// Paralyzing
+					if( ( fightskill == FENCING ) && ( IsFencing2H( pWeapon->id() ) ) ) // Paralyzing
 					{ 
 						//will call the combat caused paralyzation **NEED TO DO**
 					}
@@ -532,22 +540,35 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 					}
 				}
 
-				//===== BLOOD
-				if( damage > 10 )
+				//===== BLOOD ( This *needs* a blood-color check)
+				if( RandomNum( 1, 10 ) == 1 ) // 10% chance
 				{
-	               short id = 0x122c;	
-	               if (damage>50) id=0x122a;
-				   else if (damage>40) id=0x122d;
-	               else if (damage>30) id=0x122e;
-	               else if (damage>20) id=0x122b;
-				   P_ITEM pBlood = Items->SpawnItem(pc_defender, 1, "#", 0, id, 0, 0);
-				   if (pBlood)
+	               UINT16 id = 0x122c;
+
+	               if( damage > 50 )
+					   id = 0x122a;
+
+				   else if( damage > 40 )
+					   id = 0x122d;
+
+	               else if( damage > 30 )
+					   id = 0x122e;
+
+	               else if( damage > 20 )
+					   id = 0x122b;
+
+				   else if( damage < 10 )
+					   id = 0x1645;
+
+				   P_ITEM pBlood = Items->SpawnItem( pc_defender, 1, "#", 0, id, 0, 0 );
+				   
+				   if( pBlood )
 				   {
 					  pBlood->moveTo( pc_defender->pos );
 					  pBlood->priv = 1;
-					  pBlood->setGMMovable(); //Moveable by GM
+					  pBlood->setGMMovable(); // Moveable by GM
 					  pBlood->update();
-					  pBlood->decaytime = (SrvParams->decayTime()/2)*MY_CLOCKS_PER_SEC+uiCurrentTime;
+					  pBlood->decaytime = ( 8 * MY_CLOCKS_PER_SEC ) + uiCurrentTime; // Will stay 8 secs
 				   }
 				}
 
@@ -565,22 +586,31 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 				}
 			}
 
+		/* 
+			Concept note( Sebastian@hartte.de - darkstorm ):
+			We deal the damage in the moment the swing animation
+			starts, this is *bad* we shoudl determine a given
+			amount of time it will take for the swing animation 
+			to complete and *then* deal the damage if the user is 
+			still in range (srvparams option!)
+		*/
 		pc_defender->hp = QMAX( 0, pc_defender->hp );
-
-		//===== SOUNDEFFECTS
-		if( pc_attacker->isPlayer() )
-			if( ( fightskill == ARCHERY && los) || fightskill != ARCHERY )
-				doSoundEffect( pc_attacker, fightskill, pWeapon );
 
 		//===== RESEND HEALTH BAR(S)
 		pc_defender->updateHealth();
 
 		//===== DAMAGE ANIMATION
-		if( pc_defender->id() >= 0x0190 )
+		// Only show it when damage has been dealt at all.
+		if( pc_defender->id() >= 0x0190 && damage )
 		{
 			if( !pc_defender->onHorse() ) 
 				pc_defender->action( 0x14 );
 		}
+
+		//===== SOUNDEFFECTS
+		if( pc_attacker->isPlayer() )
+			if( ( fightskill == ARCHERY && los) || fightskill != ARCHERY )
+				doSoundEffect( pc_attacker, fightskill, pWeapon );
 }
 
 static void NpcSpellAttack( P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int currenttime, int los )
@@ -732,7 +762,7 @@ static void SetWeaponTimeout( P_CHAR Attacker, P_ITEM Weapon )
 	Attacker->timeout=uiCurrentTime+x;
 }
 
-void cCombat::DoCombatAnimations(P_CHAR pc_attacker, P_CHAR pc_defender, int fightskill, int bowtype, int los)
+void cCombat::DoCombatAnimations( P_CHAR pc_attacker, P_CHAR pc_defender, int fightskill, int bowtype, int los )
 {
 	// Check that pc_attacker is facing the right direction
 	UINT8 dir = chardir( pc_attacker, pc_defender );
@@ -743,39 +773,42 @@ void cCombat::DoCombatAnimations(P_CHAR pc_attacker, P_CHAR pc_defender, int fig
 	}
 
 	UINT16 id = pc_attacker->id();
-	int cc,aa;
+
+	// Monsters recieve special treatment
 	if( id < 0x0190 )
 	{
-		aa = 4 + RandomNum( 0, 3 ); // bugfix, LB, some creatures dont have animation #4
-		cc = ( creatures[id].who_am_i ) & 0x2; // anti blink bit set ?
-		if (cc==2)
+		UINT8 action = 4 + RandomNum( 0, 3 ); // some creatures dont have animation #4
+		if( creatures[id].who_am_i & 0x2 ) // anti blink bit set ?
 		{
-			aa++;
+			action++;
+
 			if( id == 5 ) // eagles need special treatment
 			{
 				switch( RandomNum( 0, 2 ) )
 				{
-				case 0: aa = 0x1;  break;
-				case 1: aa = 0x14; break;
-				case 2: aa = 0x4;  break;
+				case 0: action = 0x1;  break;
+				case 1: action = 0x14; break;
+				case 2: action = 0x4;  break;
 				}
 			}
 		}
-		pc_attacker->action( aa );
+
+		pc_attacker->action( action );
 		playmonstersound( pc_attacker, pc_attacker->id(), SND_ATTACK );
 	}
 	else if (pc_attacker->onHorse())
 	{
-		CombatOnHorse( pc_attacker ); // determines weapon in hand and runs animation kolours (09/19/98)
+		CombatOnHorse( pc_attacker ); // determines weapon in hand and runs animation
 	}
 	else
 	{
-		CombatOnFoot( pc_attacker );	// determines weapon in hand and runs animation kolours (09/19/98)
+		CombatOnFoot( pc_attacker );	// determines weapon in hand and runs animation kolours
 	}
 
+	// Show flying arrows if archery was used
 	if( fightskill == ARCHERY )
 	{
-		if (los)
+		if( los )
 		{
 			if (bowtype==1)
 			{
@@ -1513,13 +1546,17 @@ void cCombat::doSoundEffect( P_CHAR pc, int fightskill, P_ITEM pWeapon )
 	}
 }
 
-
-//AntiChrist - do the "MISSED" sound effect
-void cCombat::doMissedSoundEffect(P_CHAR pc)
+// do the "MISSED" sound effect
+void cCombat::doMissedSoundEffect( P_CHAR pChar )
 {
-	int a=rand()%3;
+	UINT16 soundId;
+    
+	switch( RandomNum( 1, 3 ) )
+	{
+	case 1: soundId = 0x238; break;
+	case 2: soundId = 0x239; break;
+	case 3: soundId = 0x23A; break;
+	};
 
-	if (a==0) soundeffect2(pc, 0x0238);
-	else if (a==1) soundeffect2(pc, 0x0239);
-	else soundeffect2(pc, 0x023A);
+	pChar->soundEffect( soundId );
 }

@@ -156,7 +156,7 @@ P_ITEM FindItemBySerPtr(unsigned char *p)
 // Purpose:	creates an chars pointer from the given serial, returns NULL if not found
 // History:	by Duke, 11.11.2000
 //			added BySerPtr Duke, 24.2.2001
-//
+// NOTE: Eventually we should check if the char has been freed
 P_CHAR FindCharBySerial(int serial)
 {
 	if (!isCharSerial(serial))

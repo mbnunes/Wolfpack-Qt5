@@ -238,6 +238,32 @@ void commandWhere( cUOSocket *socket, const QString &command, QStringList &args 
 	pChar->message( message );
 }
 
+class cKillTarget: public cTargetRequest
+{
+public:
+	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		if( !socket->player() )
+			return;
+
+		P_CHAR pChar = FindCharBySerial( target->serial() );
+
+		if( !pChar )
+		{
+			socket->sysMessage( tr( "You need to target a living being" ) );
+			return;
+		}
+
+		deathstuff( pChar );
+	}
+};
+
+void commandKill( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	socket->sysMessage( tr( "Please select a target to kill" ) );
+	socket->attachTarget( new cKillTarget );
+}
+
 void commandFix( cUOSocket *socket, const QString &command, QStringList &args )
 {
 	// TODO: Eventually check if the character is stuck etc.
@@ -420,6 +446,21 @@ public:
 			}
 			else
 				pItem->in = hex2dec( value ).toInt();
+
+		// Health + Stamina + Mana
+		else if( key == "hp" || key == "health" || key == "hitpoints" )
+		{
+			if( pChar )
+				pChar->hp = hex2dec( value ).toInt();
+			else 
+				pItem->setHp( hex2dec( value ).toInt() );
+		}
+
+		else if( key = "stamina" && pChar )
+			pChar->stm = hex2dec( value ).toInt();
+
+		else if( key = "mana" && pChar )
+			pChar->mn = hex2dec( value ).toInt();
 
 		// Object tags
 		else if( key.left( 4 ) == "tag." )
@@ -1217,6 +1258,7 @@ stCommand cCommands::commands[] =
 	{ "SET",			commandSet },
 	{ "SHOW",			commandShow },
 	{ "SPAWNREGION",	commandSpawnRegion },
+	{ "KILL",			commandKill },
 	{ "TELE",			commandTele },
 	{ "WHERE",			commandWhere },
 	{ NULL, NULL }

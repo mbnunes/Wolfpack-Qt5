@@ -812,17 +812,17 @@ void deathstuff( P_CHAR pChar )
 	int nType=0;
 	UINT32 ci;
 
-	if( !pChar )
+	if( !pChar || pChar->free )
 		return;
 
-	if(pChar->dead || pChar->npcaitype() == 17 || pChar->isInvul())
+	if( pChar->dead || pChar->npcaitype() == 17 || pChar->isInvul() )
 		return;
 
 	if( pChar->polymorph() )
 	{
 		pChar->setId( pChar->xid );
 		pChar->setPolymorph( false );
-		pChar->resend( false );
+		// Resending here is pointless as the character will be removed l8er anyway
 	}
 
 	pChar->xid = pChar->id(); // lb bugfix
@@ -1060,8 +1060,6 @@ void deathstuff( P_CHAR pChar )
 							staticeffect(pChar, 0x37, 0x2A, 0x09, 0x06);
 							Items->DeleItem( pi_k );
 						}
-
-						pi_k->update();
 					}
 				}
 			}
@@ -1079,7 +1077,7 @@ void deathstuff( P_CHAR pChar )
 					pi_j->setContSerial( pi_c->serial );
 			}
 			else if(pi_backpack != NULL && pi_j->layer()!=0x1D)
-			{//else if the item is newbie put it into char's backpack
+			{ //else if the item is newbie put it into char's backpack
 				if(pi_j != pi_backpack)
 				{
 					pi_j->setLayer( 0 );
@@ -1093,13 +1091,11 @@ void deathstuff( P_CHAR pChar )
 			pi_j->pos.x = RandomNum(20, 70);
 			pi_j->pos.y = RandomNum(85, 160);
 			pi_j->pos.z=9;
-
-			pi_j->removeFromView( false ); // Check if this is neccesary!
-			pi_j->update();
 		}
 		if ((pi_j->contserial == pChar->serial)&& ((pi_j->layer()==0x0B)||(pi_j->layer()==0x10)))
 		{
 			pi_j->setName( "Hair/Beard" );
+			
 			// Seems a stupid idea
 			pi_j->pos.x = 0x47;
 			pi_j->pos.y = 0x93;
@@ -1125,7 +1121,7 @@ void deathstuff( P_CHAR pChar )
 	cUOTxClearBuy rShop;
 	rShop.setSerial( pChar->serial );
 
-	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; cNetwork::instance()->next() )
+	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 		if( mSock->player() && mSock->player()->inRange( pChar, mSock->player()->VisRange ) )
 		{
 			if( SrvParams->showDeathAnim() )
@@ -1154,7 +1150,7 @@ void deathstuff( P_CHAR pChar )
 	// St00pid -> spawned chars shoudl become invis so they keep their stats
 	// and information
 	if( pChar->isNpc() )
-		Npcs->DeleteChar(pChar );
+		Npcs->DeleteChar( pChar );
 
 	// Wtf ?? Summoned Creatures -> should be flag
 	if( ele == 65535 )

@@ -41,6 +41,7 @@
 #include "items.h"
 #include "debug.h"
 #include "tilecache.h"
+#include "TmpEff.h"
 #include "globals.h"
 #include "wolfpack.h"
 #include "iserialization.h"
@@ -112,6 +113,8 @@ void cChar::Init(bool ser)
 	{
 		this->serial = INVALID_SERIAL;
 	}
+
+	this->animated = false;
 	this->multis=-1;//Multi serial
 	this->free = false;
 	this->name = "Mr. noname";
@@ -1222,35 +1225,34 @@ void cChar::processNode( const QDomElement &Tag )
 	else if( TagName == "direction" )
 	{
 		if( Value == "NE" )
-			this->dir=1;
+			this->dir = 1;
 		else if( Value == "E" )
-			this->dir=2;
+			this->dir = 2;
 		else if( Value == "SE" )
-			this->dir=3;
+			this->dir = 3;
 		else if( Value == "S" )
-			this->dir=4;
+			this->dir = 4;
 		else if( Value == "SW" )
-			this->dir=5;
+			this->dir = 5;
 		else if( Value == "W" )
-			this->dir=6;
+			this->dir = 6;
 		else if( Value == "NW" )
-			this->dir=7;
+			this->dir = 7;
 		else if( Value == "N" )
-			this->dir=0;
+			this->dir = 0;
 		else
-			this->dir=Value.toUShort();
+			this->dir = Value.toUShort();
 	}
 
 	//<stat type="str">100</stats>
 	else if( TagName == "stat" )
 	{
-		if( Tag.attributes().contains("type") )
+		if( Tag.attributes().contains( "type" ) )
 		{
-			QString statType = Tag.attribute("type");
+			QString statType = Tag.attribute( "type" );
 			if( statType == "str" )
 			{
 				this->st = Value.toShort();
-				this->st2 = this->st;
 				this->hp = this->st;
 			}
 			else if( statType == "dex" )
@@ -1261,7 +1263,6 @@ void cChar::processNode( const QDomElement &Tag )
 			else if( statType == "int" )
 			{
 				this->in = Value.toShort();
-				this->in2 = this->in;
 				this->mn = this->in;
 			}
 		}
@@ -1835,19 +1836,17 @@ void cChar::showName( cUOSocket *socket )
 // Update flags etc.
 void cChar::update( void )
 {
-	cRegion::RegionIterator4Chars ri( pos );
-
 	cUOTxUpdatePlayer updatePlayer;
 	updatePlayer.fromChar( this );
 
-	for( ri.Begin(); !ri.atEnd(); ri++ )
+	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 	{
-		P_CHAR pChar = ri.GetData();
+		P_CHAR pChar = mSock->player();
 
 		if( pChar && pChar->socket() && pChar->inRange( this, pChar->VisRange ) )
 		{
 			updatePlayer.setHighlight( notority( pChar ) );
-			pChar->socket()->send( &updatePlayer );	
+			mSock->send( &updatePlayer );	
 		}
 	}
 }
@@ -1871,6 +1870,9 @@ void cChar::resend( bool clean )
 		if( !pChar || !pChar->socket() || pChar == this )
 			continue;
 
+		if( pChar->pos.distance( pos ) > pChar->VisRange )
+			continue;
+
         // Remove it ONLY before resending if we have to do it "clean"
 		if( clean )
 			pChar->socket()->removeObject( this );
@@ -1879,10 +1881,7 @@ void cChar::resend( bool clean )
 			continue;
 
 		drawChar.setHighlight( notority( pChar ) );
-
-		// Resend if in range
-		if( pChar->pos.distance( pos ) <= pChar->VisRange )
-			pChar->socket()->send( &drawChar );
+		pChar->socket()->send( &drawChar );
 	}
 }
 
@@ -1971,8 +1970,32 @@ void cChar::updateHealth( void )
 	}
 }
 
+class cResetAnimated: public cTempEffect
+{
+public:
+	cResetAnimated( P_CHAR pChar, UINT32 ms )
+	{
+		expiretime = uiCurrentTime + ms;
+		sourSer = pChar->serial;
+		serializable = false; // We dont want to save this
+	}
+
+	virtual void Expire() 
+	{
+		// Reset the animated status
+		P_CHAR pChar = FindCharBySerial( sourSer );
+
+		if( pChar )
+			pChar->setAnimated( false );
+	}
+};
+
 void cChar::action( UINT8 id )
 {
+	// No "double" actions using this function
+	if( animated )
+		return;
+
 	if( onHorse() && ( id == 0x10 || id == 0x11 ) )
 		id = 0x1b;
 	else if( ( onHorse() || this->id() < 0x190 ) && ( id == 0x22 ) )
@@ -1991,6 +2014,9 @@ void cChar::action( UINT8 id )
 		if( socket->player() && socket->player()->inRange( this, socket->player()->VisRange ) && ( !isHidden() || socket->player()->isGM() ) )
 			socket->send( &action );
 	}
+
+	// Reset the animated status after a given amount of time.
+	cTempEffects::getInstance()->insert( new cResetAnimated( this, 1500 ) );
 }
 
 UINT8 cChar::notority( P_CHAR pChar ) // Gets the notority toward another char
