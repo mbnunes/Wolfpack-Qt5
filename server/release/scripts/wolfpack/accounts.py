@@ -15,3 +15,9 @@ def acl( name ):
 
 def add( username, password ):
 	return _wolfpack.accounts.add( username, password )
+
+def save():
+	return _wolfpack.accounts.save()
+
+def reload():
+	return _wolfpack.accounts.reload()

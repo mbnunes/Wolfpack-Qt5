@@ -784,6 +784,24 @@ PyObject *wpAccountsAdd( PyObject* self, PyObject* args )
 }
 
 /*!
+	Reload accounts.
+ */
+PyObject *wpAccountsReload( PyObject* self, PyObject* args )
+{
+	Accounts::instance()->reload();
+	return PyTrue;
+}
+
+/*!
+	Save accounts.
+ */
+PyObject *wpAccountsSave( PyObject* self, PyObject* args )
+{
+	Accounts::instance()->save();
+	return PyTrue;
+}
+
+/*!
 	wolfpack.accounts
 	account related functions
 */
@@ -794,6 +812,8 @@ static PyMethodDef wpAccounts[] =
 	{ "acls",		wpAccountsAcls,	METH_VARARGS, "Gets a list of valid ACL names." },
 	{ "acl",		wpAccountsAcl,	METH_VARARGS, "Returns an acl as a double dictionary." },
 	{ "add",		wpAccountsAdd,	METH_VARARGS, "Creates an account." },
+	{ "save",		wpAccountsSave,	METH_VARARGS, "Save accounts." },
+	{ "reload",		wpAccountsReload,METH_VARARGS, "Reload accounts." },
 	{ NULL, NULL, 0, NULL } // Terminator
 };
 
