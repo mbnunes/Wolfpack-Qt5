@@ -366,6 +366,8 @@ void itemmessage(UOXSOCKET s, char *txt, int serial, short color)
 		(pi->type == 9 && color == 0x0000)||
 		(pi->id()==0x1BF2 && color == 0x0000))
 		color = 0x03B2;
+	    else
+		color = 0x0481;
 
 	int tl=44+strlen(txt)+1;
 	talk[1]=tl>>8;
