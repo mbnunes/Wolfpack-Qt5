@@ -41,7 +41,7 @@
 		<decay />
 		<newbie />
 		<buyprice>2500</buyprice>
-		<sellprice>1250</sellprice>
+		<sellprice>250</sellprice>
 		<category>Professions\Mage\Runebook </category>
 		<basescripts>magic.runebook</basescripts>
 		<weight>0.0</weight>
