@@ -565,7 +565,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			return; // case 19 (potions)					
 			
 		case 50: // rune
-			if (pi->morex == 0 && pi->morey == 0 && pi->morez == 0)
+			if (pi->morex() == 0 && pi->morey() == 0 && pi->morez() == 0)
 			{
 				socket->sysMessage(tr("That rune is not yet marked!"));
 			}
@@ -586,7 +586,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			}
 			pi->setMoreX((tempuint=pi->morex())--);
 			//pi->morex--;
-			sprintf((char*)temp, "Your wand now has %i charges left", pi->morex);
+			sprintf((char*)temp, "Your wand now has %i charges left", pi->morex());
 			socket->sysMessage((char*) temp);
 			
 			for (wi = 0; wi <(rand()%4 + 1); wi++)
@@ -853,7 +853,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 						}
 						pi->setMoreX((tempuint=pi->morex())--);
 						//pi->morex--;
-						sprintf((char*)temp, "Your wand now has %i charges left", pi->morex);
+						sprintf((char*)temp, "Your wand now has %i charges left", pi->morex());
 						socket->sysMessage((char*) temp);
 //						target(s, 0, 1, 0, 75, "What do you wish to identify?");
 					}
