@@ -46,10 +46,10 @@ protected:
 		{
 			while( serverState < SHUTDOWN )
 			{
-				char c = cin.get();
+				char c = getch();
 				if( c > 0 && serverState == RUNNING )
 				{
-					Console::instance()->handleCommand( QChar( c ) );			
+					Console::instance()->queueCommand( QChar( c ) );
 				}
 				else
 				{	
@@ -76,7 +76,17 @@ void cConsole::start()
 
 void cConsole::poll()
 {
-	// Normally we would check if there is a command in the command queue and execute it
+	// Poll for new Commands
+	commandMutex.lock();
+	QStringList commands = commandQueue;
+	commandQueue.clear();
+	commandMutex.unlock();
+
+	while( commands.count() > 0 )
+	{
+		handleCommand( commands.front() );
+		commands.pop_front();
+	}
 }
 
 void cConsole::stop()
