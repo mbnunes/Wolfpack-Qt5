@@ -138,9 +138,9 @@ def onSpeech( listener, speaker, text, keywords ):
           
           # Resend Status (Money changed)
           speaker.socket.resendstatus()
-      break
+      return 1
 
-  return 1
+  return False
 
 # An item has been dropped on us
 def onDropOnChar( char, item ):
