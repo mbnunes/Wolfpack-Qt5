@@ -22,11 +22,11 @@
 		<hidamage>14</hidamage>
 		<!-- Resists -->
 		<defense><random min="35" max="45"/></defense>
-		<coldresist><random min="15" max="25"/></coldresist>
-		<energyresist><random min="5" max="15"/></energyresist>
-		<fireresist><random min="25" max="35"/></fireresist>
-		<physicalresist><random min="35" max="45"/></physicalresist>
-		<poisonresist><random min="5" max="15"/></poisonresist>
+		<tag name="coldresist" value="15,25" />
+		<tag name="energyresist" value="5,15" />
+		<tag name="fireresist" value="25,35" />
+		<tag name="physicalresist" value="35,45" />
+		<tag name="poisonresist" value="5,15" />
 		<!-- Misc. -->
 		<desc>These creatures are perhaps the least human of all the humanoid races of the land. They are treacherously clever, but utterly devoid of civilized impulse. It is said that they can heal themselves from wounds at an unnatural rate.</desc>
 		<carve>carve_troll</carve>

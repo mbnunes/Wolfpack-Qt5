@@ -20,15 +20,14 @@
 		<!-- Damage -->
 		<lodamage>14</lodamage>
 		<hidamage>20</hidamage>
-		<colddamage>25</colddamage>
-		<physicaldamage>75</physicaldamage>
+		<tag name="colddamage" value="25" />
+		<tag name="physicaldamage" value="75" />
 		<!-- Resists -->
 		<defense><random min="45" max="55" /></defense>
-		<coldresist><random min="40" max="50"/></coldresist>
-		<energyresist><random min="5" max="10"/></energyresist>
-		<fireresist>0</fireresist>
-		<physicalresist><random min="45" max="55"/></physicalresist>
-		<poisonresist><random min="5" max="10"/></poisonresist>
+		<tag name="coldresist" value="40,50" />
+		<tag name="energyresist" value="5,10" />
+		<tag name="physicalresist" value="45,55" />
+		<tag name="poisonresist" value="5,10" />
 		<!-- Misc. -->
 		<desc>A Troll of the northern wastes has but two goals. Hunt and eat. Not surprisingly, they are good at both. They resemble normal Trolls inmany aspects, except the troll of the frozen wastes tend to have less around to eat. This means that they are more aggressive and much hungrier than a normal troll.</desc>
 		<category>Monsters\Giants\Frost Troll</category>

@@ -22,11 +22,11 @@
 		<hidamage>17</hidamage>
 		<!-- Resists -->
 		<defense><random min="35" max="40" /></defense>
-		<coldresist><random min="40" max="50"/></coldresist>
-		<energyresist><random min="15" max="25"/></energyresist>
-		<fireresist><random min="15" max="25"/></fireresist>
-		<physicalresist><random min="35" max="40"/></physicalresist>
-		<poisonresist><random min="15" max="25"/></poisonresist>
+		<tag name="coldresist" value="40,50" />
+		<tag name="energyresist" value="15,25" />
+		<tag name="fireresist" value="15,25" />
+		<tag name="physicalresist" value="35,40" />
+		<tag name="poisonresist" value="15,25" />
 		<!-- Misc. -->
 		<desc>Ettins are the largest of Britannia's humanoid races by far, but their great size is less remarkable than their two heads. It is said that the heads of an Ettin often quarrel together, but this may be a fancy. Ettins live together in family groups, and are most numerous along the Serpent Spine mountains. They are stupid and vicious creatures, buthave some degree of reason and speak a debased dialect of Britannian. Ettins are common brigands, who slay travelers for their gold, which they love dearly and hoard whenever they may. (Some of the wilder tribes hew gold directly from the ground in crude mines.) They are most notorious for their cowardly habit of hurling boulders of greatsize down on travelers in the high mountain passes.</desc>
 		<carve>carve_ettin</carve>

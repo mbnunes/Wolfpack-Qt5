@@ -22,11 +22,11 @@
 		<hidamage>25</hidamage>
 		<!-- Resists -->
 		<defense><random min="45" max="55" /></defense>
-		<coldresist><random min="30" max="40"/></coldresist>
-		<energyresist><random min="40" max="50"/></energyresist>
-		<fireresist><random min="30" max="40"/></fireresist>
-		<physicalresist><random min="45" max="55"/></physicalresist>
-		<poisonresist><random min="40" max="50"/></poisonresist>
+		<tag name="coldresist" value="30,40" />
+		<tag name="energyresist" value="40,50" />
+		<tag name="fireresist" value="30,40" />
+		<tag name="physicalresist" value="45,55" />
+		<tag name="poisonresist" value="40,50" />
 		<!-- Misc. -->
 		<desc>Although ogres have no true martial order, the largest and meanest call themselves lords. If they differ from normal ogres, it is only in their size and strength. Given that they are ogres, this is no small worry. Ogre lords have been known to kill with one swipe of their massive club.</desc>
 		<category>Monsters\Giants\Ogre Lord</category>
