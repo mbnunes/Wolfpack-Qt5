@@ -1,6 +1,6 @@
 import time
 import wolfpack
-import whrandom
+import random
 import wolfpack.settings
 from wolfpack.consts import *
 from random import randrange
@@ -87,93 +87,16 @@ def onSkillUse( char, skill ):
 		
 	return 0
 
-def checkskill( char, targetobject, skillid, chance ):
-	if char.dead:
-		return OOPS
-	skillvalue = char.skill[ skillid ]
-	skillscap = wolfpack.settings.getNumber( "General", "SkillCap", 700 ) * 10
-	charskillcap = char.skillcap[ skillid ]
-	chartotalskills = totalskills( char )
-
-	if chance >= whrandom.random():
-		mult = 0.5
-	else:
-		mult = 0.2
-
-	gainchance = ( float( skillscap - chartotalskills ) / skillscap )
-	gainchance += ( ( float( charskillcap - skillvalue ) / charskillcap ) / 2 )
-	gainchance = ( ( gainchance + ( 1.0 - chance ) * mult ) / 2 ) * skilltable[ skillid ][ GAINFACTOR ]
-
-	if gainchance < 0.01:
-		gainchance = 0.01
-	
-	#If you lucky and antimacro is agree so let's gain this skill
-	# 3/5 chance to gain if below 10.0 skill.
-	if ( gainchance >= whrandom.random() ) or ( ( skillvalue < 100 ) and ( randrange( 1, 5 ) > 2 ) ): 
-		skillgain( char, skillid )
-
-	return OK
-
-
-def skillgain( char, skillid ):
-	skillvalue = char.skill[ skillid ]
-	charskillcap = char.skillcap[ skillid ]
-	skillscap = wolfpack.settings.getNumber( "General", "SkillCap", 700 ) * 10
-	charskilllock = char.skilllock[ skillid ]
-	chartotalskills = totalskills( char )
-
-	#Skill growing
-	if skillvalue < charskillcap and charskilllock == GROWUP:
-		#Base skill value < 10.0 ?
-		toGain = 1
-		if skillvalue <= 100:
-			toGain = whrandom.randint( 1, 5 )
-
-		#Pull down skill which is marked as GROWDOWN
-		if ( chartotalskills / skillscap ) >= whrandom.random():
-			for i in range( 0, ALLSKILLS ):
-				if char.skilllock[ i ] == GROWDOWN and skillvalue > toGain:
-					char.skill[ i ] = char.skill[ i ] - toGain
-					break
-	
-		if chartotalskills + toGain <= skillscap:
-			char.skill[ skillid ] = char.skill[ skillid ] + toGain
-
-	#Stats growing
-	if charskilllock == GROWUP:
-		if float( skilltable[ skillid ][ STRGAIN ] ) / 33.3 > whrandom.random():
-			statgain( char, STRENGTH )
-		elif float( skilltable[ skillid ][ DEXGAIN ] ) / 33.3 > whrandom.random():
-			statgain( char, DEXTERITY )
-		elif float( skilltable[ skillid ][ INTGAIN ] ) / 33.3 > whrandom.random():
-			statgain( char, INTELLIGENCE )
-
-
-	return OK
-
-
-def statgain( char, stat ):
-	#STATGAINDELAY is not over ?
-	if char.hastag( 'laststatgain' ) and ( time.time() - float(char.gettag( 'laststatgain' ) ) ) < STATGAINDELAY:
-		return OOPS
-	
-	char.settag( 'laststatgain', str( time.time() ) )
-	if float( totalstats( char ) ) / wolfpack.settings.getNumber( "General", "StatCap", 225 ) >= whrandom.random():
-		if stat == STRENGTH:
-			char.strength = char.strength + 1
-		elif stat == DEXTERITY:
-			char.dexterity = char.dexterity + 1
-		elif stat == INTELLIGENCE:
-			char.intelligence = char.intelligence + 1
-			
-	return OK
-
-def totalskills( char ):
-	total = 0
-	charSkill = char.skill
-	for i in range( 0, ALLSKILLS ):
-		total += charSkill[ i ]
-	return total
+#
+# Check if a certain chance can be met using the skill
+#
+def checkskill(char, skill, chance):
+  # Normalize
+  chance = min(1.0, max(0.02, chance))
+  minskill = (1.0 - chance) * 1200
+  maxskill = 1200
+  char.checkskill(skill, minskill, maxskill)
+  return chance >= random.random()
 
 def totalstats( char ):
 	return char.strength + char.dexterity + char.intelligence

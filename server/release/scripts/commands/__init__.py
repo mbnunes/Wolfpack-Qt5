@@ -68,12 +68,31 @@ def nudgeup(socket, command, arguments):
 		
 	socket.attachtarget('commands.nudgetarget', [amount])
 
+def nightsight(socket, command, arguments):
+	player = socket.player
+	player.removeevent('magic.nightsight')
+	
+	if player.hastag('nightsight'):
+		bonus = player.gettag('nightsight')
+		player.lightbonus = max(0, player.lightbonus - bonus)
+		player.deltag('nightsight')
+	else:
+		player.settag('nightsight', 255)
+		player.lightbonus = 255
+	socket.updatelightlevel()
+
 def onLoad():
 	wolfpack.registercommand("season", season)
 	wolfpack.registercommand("updateplayer", updateplayer)
 	wolfpack.registercommand("time", uotime)
 	wolfpack.registercommand("nudgeup", nudgeup)
 	wolfpack.registercommand("nudgedown", nudgedown)
+	wolfpack.registercommand("nightsight", nightsight)
+
+"""
+	\command nightsight
+	\description Toggle gamemaster nightsight.
+"""
 
 """
 	\command time

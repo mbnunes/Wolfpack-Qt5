@@ -268,11 +268,7 @@ def dosmelt ( char, args ):
 	resname = args[2]
 	success = 0
 	reqskill = ingottable[ resname ][ REQSKILL ]
-	chance =  int( ( char.skill[ MINING ] - ingottable[ resname ][ MINSKILL ] )  / 10 )
-	if chance > 100:
-		chance = 100
-	elif chance < 0:
-		chance  = 0
+	chance = max(0, char.skill[MINING] - ingottable[resname][MINSKILL]) / 1000.0
 
 	if not char.skill[ MINING ] >= reqskill:
 		# You have no idea how to smelt this strange ore!
@@ -280,12 +276,11 @@ def dosmelt ( char, args ):
 		return OOPS
 
 	if ore.amount >= 1 and char.skill[ MINING ] >= reqskill:
-		if not skills.checkskill( char, forge, MINING, chance ):
+		if not skills.checkskill(char, MINING, chance):
 			success = 0
-			return
-		elif chance >= randint(1, 100):
+		else:
 			if ore.id == oreids[3]:
-				amount = ( ore.amount * 2 )
+				amount = (ore.amount * 2)
 				successsmelt( char, ingottable, resname, amount )
 				ore.delete()
 			elif ore.id == oreids[2] or ore.id == oreids[1]:
@@ -307,8 +302,6 @@ def dosmelt ( char, args ):
 					char.socket.clilocmessage( 501987, '', GRAY )
 					return OOPS
 			success = 1
-		else:
-			success = 0
 
 	if success == 0:
 		if ore.amount >= 2:
