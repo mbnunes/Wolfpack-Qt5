@@ -906,6 +906,7 @@ int main( int argc, char *argv[] )
 #endif
 
 	QApplication app( argc, argv, false ); // we need one instance
+	QTranslator translator( 0 ); // must be valid thru app life.
 
 	unsigned int i;
 
@@ -954,12 +955,11 @@ int main( int argc, char *argv[] )
 	// Startup Translator
 	try
 	{
-		QTranslator translator( 0 ); // must be valid thru app life.
 		QString languageFile = SrvParams->getString( "General", "Language File", "", true );
 		if ( !languageFile.isEmpty() )
 		{
 			translator.load( languageFile, "." );
-			app.installTranslator( &translator );
+			qApp->installTranslator( &translator );
 		}
 	}
 	catch( ... )

@@ -275,12 +275,12 @@ void commandWhere( cUOSocket *socket, const QString &command, QStringList &args 
 
 	cTerritory *mRegion = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
 
-	QString message = tr( "You are " );
+	QString message = tr( "You are" );
 
 	if( mRegion )
-		message.append( tr( "in %1 " ).arg( mRegion->name() ) );
+		message.append( " " + tr( "in %1" ).arg( mRegion->name() ) );
 
-	message.append( tr( "at %1,%2,%3 on map %4" ).arg( pChar->pos().x ).arg( pChar->pos().y ).arg( pChar->pos().z ).arg( pChar->pos().map ) );
+	message.append( " " + tr( "at %1,%2,%3 on map %4" ).arg( pChar->pos().x ).arg( pChar->pos().y ).arg( pChar->pos().z ).arg( pChar->pos().map ) );
 	pChar->message( message );
 }
 
