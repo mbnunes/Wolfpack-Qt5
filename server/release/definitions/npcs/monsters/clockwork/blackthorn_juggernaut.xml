@@ -12,20 +12,21 @@
 	<npc id="blackthorn_juggernaut" inherit="monster_base">
 		<name>blackthorn juggernaut</name>
 		<id>768</id>
-		<karma>-12000</karma>
-		<fame>12000</fame>
+		<karma><random list="KARMA_L5" /></karma>
+		<fame><random list="FAME_L5" /></fame>
 		<!-- Stats -->
 		<str><random min="301" max="400"/></str>
 		<dex><random min="51" max="70"/></dex>
 		<int><random min="51" max="100"/></int>
+		<maxhitpoints><random min="181" max="240" /></maxhitpoints>
 		<!-- Skills -->
 		<anatomy><random min="901" max="1000"/></anatomy>
 		<magicresistance><random min="1401" max="1500"/></magicresistance>
 		<tactics><random min="901" max="1000"/></tactics>
 		<wrestling><random min="901" max="1000"/></wrestling>
 		<!-- Damage -->
-		<mindamage>12</mindamage>
-		<maxdamage>19</maxdamage>
+		<mindamage>37</mindamage>
+		<maxdamage>64</maxdamage>
 		<tag name="dmg_energy" value="25" type="int" />
 		<tag name="dmg_fire" value="25" type="int" />
 		<!-- Resists -->

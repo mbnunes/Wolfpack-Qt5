@@ -11,13 +11,25 @@
 	<npc id="monster_base">
 		<ai>Monster_Aggressive_L1</ai>
 		<name>unknown monster</name>
+		<karma>0</karma>
+		<fame>0</fame>
+		<!-- Base Stats -->
+		<str><random min="10" max="50" /></str>
+		<dex><random min="10" max="50" /></dex>
+		<int><random min="10" max="50" /></int>
+		<!-- lets give base creatures a chance! -->
+		<mindamage>1</maxdamage>
+		<maxdamage>10</maxdamage>
+		<!-- Skills -->
+		<anatomy>0</anatomy>
+		<wrestling>0</wrestling>
+		<tactics>0</tactics>
+		<magicresistance>0</magicresistance>
+		<!-- Misc -->
 		<totame>1100</totame>
 		<wandertype>1</wandertype>
 		<direction>
 			<random min="0" max="7"/>
 		</direction>
-		<!-- lets give base creatures a chance! -->
-		<tag name="mindamage" value="1" type="int" />
-		<tag name="maxdamage" value="2" type="int" />
 	</npc>
 </definitions>

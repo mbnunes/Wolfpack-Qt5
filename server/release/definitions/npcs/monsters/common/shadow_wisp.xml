@@ -12,13 +12,16 @@
 	<npc id="shadow_wisp" inherit="monster_base">
 		<name>shadow wisp</name>
 		<id>165</id>
-		<karma>-500</karma>
-		<fame>500</fame>
+		<karma><random list="KARMA_L0" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str><random min="16" max="40"/></str>
 		<dex><random min="16" max="45"/></dex>
 		<int><random min="11" max="25"/></int>
 		<maxhitpoints><random min="10" max="24"/></maxhitpoints>
+		<!-- Damage -->
+		<mindamage>5</mindamage>
+		<maxdamage>13</maxdamage>
 		<!-- Skills -->
 		<evaluatingintel>400</evaluatingintel>
 		<magery>500</magery>
@@ -27,9 +30,6 @@
 		<tactics><random min="1" max="150"/></tactics>
 		<wrestling><random min="251" max="400"/></wrestling>
 		<anatomy>0</anatomy>
-		<!-- Damage -->
-		<tag name="mindamage" value="5" type="int" />
-		<tag name="maxdamage" value="10" type="int" />
 		<!-- Resists -->
 		<tag name="res_physical" value="15,20" type="int" />
 		<tag name="res_fire" value="5,10" type="int" />

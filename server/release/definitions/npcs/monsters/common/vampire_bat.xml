@@ -12,8 +12,8 @@
 	<npc id="vampire_bat" inherit="monster_base">
 		<name>vampire bat</name>
 		<id>317</id>
-		<karma>-800</karma>
-		<fame>900</fame>
+		<karma><random list="KARMA_L1" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str><random min="91" max="110"/></str>
 		<dex><random min="91" max="115"/></dex>

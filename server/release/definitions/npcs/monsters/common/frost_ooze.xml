@@ -12,19 +12,21 @@
 	<npc id="frost_ooze" inherit="monster_base">
 		<name>frost ooze</name>
 		<id>94</id>
-		<karma>-450</karma>
-		<fame>450</fame>
+		<karma><random list="KARMA_L0" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str><random min="18" max="30"/></str>
 		<dex><random min="16" max="21"/></dex>
 		<int><random min="16" max="20"/></int>
+		<maxhitpoints><random min="13" max="17" /></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="51" max="100"/></magicresistance>
 		<tactics><random min="193" max="340"/></tactics>
 		<wrestling><random min="253" max="400"/></wrestling>
+		<anatomy>0</anatomy>
 		<!-- Damage -->
 		<mindamage>3</mindamage>
-		<maxdamage>9</maxdamage>
+		<maxdamage>11</maxdamage>
 		<tag name="dmg_cold" value="60" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="40,50" type="int" />

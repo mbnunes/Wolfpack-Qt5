@@ -12,12 +12,13 @@
 	<npc id="elder_gazer" inherit="monster_base">
 		<name>elder gazer</name>
 		<id>68</id>
-		<karma>-12500</karma>
-		<fame>12500</fame>
+		<karma><random list="KARMA_L5" /></karma>
+		<fame><random list="FAME_L5" /></fame>
 		<!-- Stats -->
 		<str><random min="296" max="325"/></str>
 		<dex><random min="86" max="105"/></dex>
 		<int><random min="901" max="1000"/></int>
+		<maxhitpoints><random min="178" max="195" /></maxhitpoints>
 		<!-- Skills -->
 		<anatomy><random min="620" max="1000"/></anatomy>
 		<evaluatingintel><random min="901" max="1000"/></evaluatingintel>
@@ -26,8 +27,8 @@
 		<tactics><random min="801" max="1000"/></tactics>
 		<wrestling><random min="801" max="1000"/></wrestling>
 		<!-- Damage -->
-		<mindamage>8</mindamage>
-		<maxdamage>19</maxdamage>
+		<mindamage>23</mindamage>
+		<maxdamage>59</maxdamage>
 		<tag name="dmg_energy" value="50" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="40,50" type="int" />

@@ -12,19 +12,21 @@
 	<npc id="swamp_tentacle" inherit="monster_base">
 		<name>swamp tentacle</name>
 		<id>66</id>
-		<karma>-3000</karma>
-		<fame>3000</fame>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="96" max="120"/></str>
 		<dex><random min="66" max="85"/></dex>
 		<int><random min="16" max="30"/></int>
+		<maxhitpoints><random min="58" max="72" /></maxhitpoints>
+		<maxmana>0</maxmana>
 		<!-- Skills -->
 		<magicresistance><random min="151" max="200"/></magicresistance>
 		<tactics><random min="651" max="800"/></tactics>
 		<wrestling><random min="651" max="800"/></wrestling>
 		<!-- Damage -->
-		<mindamage>6</mindamage>
-		<maxdamage>12</maxdamage>
+		<mindamage>11</mindamage>
+		<maxdamage>21</maxdamage>
 		<tag name="dmg_poison" value="60" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="10,20" type="int" />

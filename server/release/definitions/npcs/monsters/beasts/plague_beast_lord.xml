@@ -12,18 +12,21 @@
 	<npc id="plague_beast_lord" inherit="monster_base">
 		<name>plague beast lord</name>
 		<id>775</id>
-		<karma>-2000</karma>
-		<fame>2000</fame>
+		<karma><random list="KARMA_L2" /></karma>
+		<fame><random list="FAME_L2" /></fame>
 		<!-- Stats -->
 		<str>500</str>
 		<dex>100</dex>
 		<int>30</int>
+		<maxhitpoints>1800</maxhitpoints>
 		<!-- Skills -->
 		<tactics>1000</tactics>
 		<wrestling>1000</wrestling>
+		<anatomy>0</anatomy>
+		<magicresistance>0</magicresistance>
 		<!-- Damage -->
-		<mindamage>20</mindamage>
-		<maxdamage>25</maxdamage>
+		<mindamage>66</mindamage>
+		<maxdamage>78</maxdamage>
 		<tag name="dmg_fire" value="25" type="int" />
 		<tag name="dmg_poison" value="25" type="int" />
 		<!-- Resists -->

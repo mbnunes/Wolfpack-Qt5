@@ -8,23 +8,26 @@
 -->
 <definitions>
 
-	<!-- a slime -->
+	<!-- Slime -->
 	<npc id="slime" inherit="monster_base">
-		<name>a slime</name>
+		<name>slime</name>
 		<id>0x33</id>
 		<skin><random list="SKINS_SLIME" /></skin>
-		<karma>-300</karma>
-		<fame>300</fame>
+		<karma><random list="KARMA_L0" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str><random min="22" max="34"/></str>
 		<dex><random min="16" max="21"/></dex>
 		<int><random min="16" max="20"/></int>
+		<maxhitpoints><random min="15" max="19"/></int>
 		<!-- Skills -->
 		<poisoning><random min="301" max="500"/></poisoning>
 		<magicresistance><random min="151" max="200"/></magicresistance>
 		<tactics><random min="193" max="340"/></tactics>
 		<wrestling><random min="193" max="340"/></wrestling>
 		<!-- Damage -->
+		<mindamage>1</mindamage>
+		<maxdamage>6</maxdamage>
 		<tag name="mindamage" value="1" type="int" />
 		<tag name="maxdamage" value="5" type="int" />
 		<!-- Resists -->

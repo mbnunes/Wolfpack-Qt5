@@ -12,8 +12,8 @@
 	<npc id="bogling" inherit="monster_base">
 		<name>bogling</name>
 		<id>779</id>
-		<karma>-450</karma>
-		<fame>450</fame>
+		<karma><random list="KARMA_L0" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str><random min="96" max="120"/></str>
 		<dex><random min="91" max="115"/></dex>

@@ -13,20 +13,22 @@
 		<name>wisp</name>
 		<id>58</id>
 		<karma>0</karma>
-		<fame>4000</fame>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="196" max="225"/></str>
 		<dex><random min="196" max="225"/></dex>
-		<int>800</int>
+		<int><random min="196" max="255" /></int>
+		<maxhitpoints><random min="118" max="135" /></maxhitpoints>
 		<!-- Skills -->
 		<evaluatingintel>800</evaluatingintel>
 		<magery>800</magery>
 		<magicresistance>800</magicresistance>
 		<tactics>800</tactics>
 		<wrestling>800</wrestling>
+		<meditation>0</meditation>
 		<!-- Damage -->
-		<mindamage>17</mindamage>
-		<maxdamage>18</maxdamage>
+		<mindamage>36</mindamage>
+		<maxdamage>40</maxdamage>
 		<tag name="dmg_energy" value="50" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="10,30" type="int" />

@@ -8,16 +8,18 @@
 -->
 <definitions>
 
-	<!-- a rat -->
+	<!-- sewer rat -->
 	<npc id="sewer_rat" inherit="monster_base">
 		<name>sewer rat</name>
 		<id>238</id>
-		<karma><random min="0" max="-624" /></karma>
-		<fame><random min="0" max="1249" /></fame>
+		<karma><random list="KARMA_L0" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str>9</str>
 		<dex>25</dex>
 		<int><random min="6" max="10" /></int>
+		<maxhitpoints>6</maxhitpoints>
+		<maxmana>0</maxmana>
 		<!-- Skills -->
 		<wrestling>50</wrestling>
 		<tactics>50</tactics>

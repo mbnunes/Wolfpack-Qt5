@@ -8,25 +8,28 @@
 -->
 <definitions>
 
-	<!-- a reaper -->
+	<!-- Reaper -->
 	<npc id="reaper" inherit="monster_base">
 		<name>reaper</name>
 		<id>47</id>
-		<karma>-3500</karma>
-		<fame>3500</fame>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="66" max="215"/></str>
 		<dex><random min="66" max="75"/></dex>
-		<int><random min="901" max="1000"/></int>
+		<int><random min="101" max="250"/></int>
+		<maxhitpoints><random min="40" max="129" /></maxhitpoints>
+		<maxstamina>0</maxstamina>
 		<!-- Skills -->
 		<evaluatingintel><random min="901" max="1000"/></evaluatingintel>
 		<magery><random min="901" max="1000"/></magery>
 		<magicresistance><random min="1001" max="1250"/></magicresistance>
 		<tactics><random min="451" max="600"/></tactics>
 		<wrestling><random min="501" max="600"/></wrestling>
+		<meditation>0</meditation>
 		<!-- Damage -->
-		<mindamage>9</mindamage>
-		<maxdamage>11</maxdamage>
+		<mindamage>17</mindamage>
+		<maxdamage>20</maxdamage>
 		<tag name="dmg_poison" value="20" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="10,20" type="int" />

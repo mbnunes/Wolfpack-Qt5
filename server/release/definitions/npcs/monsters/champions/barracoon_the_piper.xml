@@ -13,8 +13,8 @@
 		<name>Baracoon</name>
 		<title>the piper</title>
 		<id>400</id>
-		<karma>-50000</karma>
-		<fame>50000</fame>
+		<karma>-25000</karma>
+		<fame>25000</fame>
 		<!-- Stats -->
 		<str><random min="305" max="425"/></str>
 		<dex><random min="72" max="150"/></dex>

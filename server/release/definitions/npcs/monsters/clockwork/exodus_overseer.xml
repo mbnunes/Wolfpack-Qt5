@@ -12,19 +12,21 @@
 	<npc id="exodus_overseer" inherit="monster_base">
 		<name>exodus overseer</name>
 		<id>756</id>
-		<karma>-10000</karma>
-		<fame>10000</fame>
+		<karma><random list="KARMA_L5" /></karma>
+		<fame><random list="FAME_L5" /></fame>
 		<!-- Stats -->
 		<str><random min="551" max="650"/></str>
 		<dex><random min="76" max="95"/></dex>
 		<int><random min="61" max="90"/></int>
+		<maxhitpoints><random min="331" max="390"/></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="802" max="980"/></magicresistance>
 		<tactics><random min="802" max="980"/></tactics>
 		<wrestling><random min="802" max="980"/></wrestling>
+		<anatomy>0</anatomy>
 		<!-- Damage -->
-		<mindamage>13</mindamage>
-		<maxdamage>19</maxdamage>
+		<mindamage>43</mindamage>
+		<maxdamage>67</maxdamage>
 		<tag name="dmg_energy" value="50" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="25,35" type="int" />

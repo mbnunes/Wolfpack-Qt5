@@ -12,9 +12,9 @@
 	<npc id="neira" inherit="monster_base">
 		<name>Neira</name>
 		<title>The Necromancer</title>
-		<id></id>
-		<karma></karma>
-		<fame></fame>
+		<id>401</id>
+		<karma>-25000</karma>
+		<fame>25000</fame>
 		<!-- Stats -->
 		<str><random min="" max=""/></str>
 		<dex><random min="" max=""/></dex>

@@ -12,8 +12,8 @@
 	<npc id="semidar" inherit="monster_base">
 		<name>Semidar</name>
 		<id></id>
-		<karma></karma>
-		<fame></fame>
+		<karma>-25000</karma>
+		<fame>25000</fame>
 		<!-- Stats -->
 		<str><random min="" max=""/></str>
 		<dex><random min="" max=""/></dex>

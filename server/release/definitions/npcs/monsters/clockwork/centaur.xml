@@ -12,12 +12,13 @@
 	<npc id="centaur" inherit="monster_base">
 		<name><random list="NAMES_CENTAUR" /></name>
 		<id>101</id>
-		<karma>0</karma>
-		<fame>6500</fame>
+		<karma><random list="KARMA_NL0" /></karma>
+		<fame><random list="FAME_L4" /></fame>
 		<!-- Stats -->
 		<str><random min="202" max="300" /></str>
 		<dex><random min="104" max="260" /></dex>
 		<int><random min="91" max="100" /></int>
+		<maxhitpoints><random min="130" max="172" /></maxhitpoints>
 		<!-- Skills -->
 		<wrestling><random min="951" max="1000" /></wrestling>
 		<archery><random min="951" max="1000" /></archery>
@@ -25,8 +26,8 @@
 		<magicresist><random min="503" max="800" /></magicresist>
 		<anatomy><random min="951" max="1150" /></anatomy>
 		<!-- Damage -->
-		<mindamage>13</mindamage>
-		<maxdamage>24</maxdamage>
+		<mindamage>47</mindamage>
+		<maxdamage>53</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="25,35" type="int" />
 		<tag name="res_energy" value="35,45" type="int" />
