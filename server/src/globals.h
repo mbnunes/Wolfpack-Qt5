@@ -112,7 +112,7 @@ extern unsigned long initialservermill ;
 // - the below structure is for looking up items based on serial #
 // - item's serial, owner's serial, char's serial, and container's serial
 
-extern Container_cl stablesp, cspawnsp, spawnsp;
+extern Container_cl stablesp;
 extern std::list<SERIAL> guilds;
 
 /******************************************************/
@@ -124,22 +124,14 @@ extern std::list<SERIAL> guilds;
 extern unsigned short int doorbase[DOORTYPES];
 
 extern creat_st creatures[2048]; //LB, stores the base-sound+sound flags of monsters, animals
-extern advance_st wpadvance[1000];
-extern int validEscortRegion[256];
 
 extern int npcshape[5]; //Stores the coords of the bouding shape for the NPC
-extern int escortRegions;
-extern jail_st jails[11];
 
 /////////////////////////////////////////
 ///////////// global string vars /////////
 /////////////////////////////////////////
 
 extern char temp[1024];
-
-#ifdef __unix__
-extern termios termstate ;
-#endif
 
 // Forward declarations
 class cSrvParams;

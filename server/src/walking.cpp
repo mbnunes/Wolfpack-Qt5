@@ -552,7 +552,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 
 		// We moved so let's update our location
 		pChar->moveTo( newCoord );
-		cAllTerritories::getInstance()->check( pChar );
+		AllTerritories::instance()->check( pChar );
 
 		handleItems( pChar, oldpos );
 		HandleTeleporters( pChar, oldpos );
@@ -1150,7 +1150,7 @@ void cMovement::HandleTeleporters(P_CHAR pc, const Coord_cl& oldpos)
 	cTerritory* territory = pc->region();
 
 	if( !territory )
-		cAllTerritories::getInstance()->check( pc );
+		AllTerritories::instance()->check( pc );
 
 	if( territory && pc->pos() != oldpos )
 	{

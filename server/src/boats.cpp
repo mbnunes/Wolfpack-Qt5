@@ -544,7 +544,7 @@ void cBoat::turn( SI08 turn )
 			}
 			pc->MoveTo( newx, newy, pos().z );
 
-			cAllTerritories::getInstance()->check( pc );
+			AllTerritories::instance()->check( pc );
 
 			cUOTxDrawChar drawChar;
 			drawChar.fromChar( pc );
@@ -769,7 +769,7 @@ bool cBoat::move( void )
 		{
 			pc->MoveTo( pc->pos().x + dx, pc->pos().y + dy, pc->pos().z );
 
-			cAllTerritories::getInstance()->check( pc );
+			AllTerritories::instance()->check( pc );
 
 			cUOTxDrawChar drawChar;
 			drawChar.fromChar( pc );

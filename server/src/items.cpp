@@ -258,14 +258,8 @@ void cItem::SetOwnSerial(int ownser)
 
 void cItem::SetSpawnSerial(long spawnser)
 {
-	if (spawnserial != INVALID_SERIAL)	// if it was set, remove the old one
-		spawnsp.remove(spawnserial, this->serial());
-
 	spawnserial = spawnser;
 	changed( SAVE );
-
-	if (spawnser!=-1)		// if there is a spawner, add it
-		spawnsp.insert(spawnserial, this->serial());
 }
 
 void cItem::SetMultiSerial(long mulser)

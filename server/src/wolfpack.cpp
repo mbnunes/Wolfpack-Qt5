@@ -140,7 +140,7 @@ void signal_handler(int signal)
                 DefManager->reload();
 				Accounts::instance()->reload();
                 SpawnRegions::instance()->reload();
-                cAllTerritories::getInstance()->reload();
+                AllTerritories::instance()->reload();
                 Resources::instance()->reload();
                 MakeMenus::instance()->reload();
                 ScriptManager->reload();
@@ -151,7 +151,7 @@ void signal_handler(int signal)
 				// Update the Regions
 				for( P_CHAR pChar = iter.first(); pChar; pChar = iter.next() )
 				{
-					cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
+					cTerritory *region = AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
 					pChar->setRegion( region );
 				}
 		break ;
@@ -486,7 +486,7 @@ void reloadScripts()
 	DefManager->reload(); //Reload Definitions
 	Accounts::instance()->reload();
 	SpawnRegions::instance()->reload();
-	cAllTerritories::getInstance()->reload();
+	AllTerritories::instance()->reload();
 	Resources::instance()->reload();
 	MakeMenus::instance()->reload();
 	ScriptManager->reload(); // Reload Scripts
@@ -498,7 +498,7 @@ void reloadScripts()
 	cCharIterator iter;
 	for( P_CHAR pChar = iter.first(); pChar; pChar = iter.next() )
 	{
-		cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
+		cTerritory *region = AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
 		pChar->setRegion( region );
 	}
 
@@ -863,7 +863,7 @@ int main( int argc, char *argv[] )
 		cNetwork::instance()->load();
 
 		clConsole.send( "Loading regions...\n" );
-		cAllTerritories::getInstance()->load();
+		AllTerritories::instance()->load();
 
 		clConsole.send( "Loading spawn regions...\n" );
 		SpawnRegions::instance()->load();
@@ -1472,7 +1472,7 @@ int calcValue(P_ITEM pi, int value)
 
 int calcGoodValue(P_CHAR npcnum2, P_ITEM pi, int value,int goodtype)
 { // Function Created by Magius(CHE) for trade System
-	cTerritory* Region = cAllTerritories::getInstance()->region( npcnum2->pos().x, npcnum2->pos().y, npcnum2->pos().map );
+	cTerritory* Region = AllTerritories::instance()->region( npcnum2->pos().x, npcnum2->pos().y, npcnum2->pos().map );
 
 	int regvalue=0;
 	int x;
@@ -1511,7 +1511,7 @@ void StoreItemRandomValue(P_ITEM pi,QString tmpreg)
 		cTerritory* Region;
 		if (pio->isInWorld())
 		{
-			Region = cAllTerritories::getInstance()->region( pio->pos().x, pio->pos().y, pio->pos().map );
+			Region = AllTerritories::instance()->region( pio->pos().x, pio->pos().y, pio->pos().map );
 			if( Region != NULL )
 				tmpreg = Region->name();
 		}
@@ -1519,7 +1519,7 @@ void StoreItemRandomValue(P_ITEM pi,QString tmpreg)
 		{
 			P_CHAR pc = dynamic_cast<P_CHAR>(pio->container());
 			if (!pc) return;
-			Region = cAllTerritories::getInstance()->region( pc->pos().x, pc->pos().y, pc->pos().map );
+			Region = AllTerritories::instance()->region( pc->pos().x, pc->pos().y, pc->pos().map );
 			if( Region != NULL )
 				tmpreg = Region->name();
 		}
@@ -1529,7 +1529,7 @@ void StoreItemRandomValue(P_ITEM pi,QString tmpreg)
 	if( pi->good() < 0 || pi->good() > 255 ) 
 		return;
 
-	cTerritory* Region = cAllTerritories::getInstance()->region( tmpreg );
+	cTerritory* Region = AllTerritories::instance()->region( tmpreg );
 
 	min=Region->tradesystem_[pi->good()].rndmin;
 	max=Region->tradesystem_[pi->good()].rndmax;

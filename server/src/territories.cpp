@@ -3,7 +3,6 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//	Copyright 1997, 98 by Marcus Rating (Cironian)
 //  Copyright 2001-2003 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
@@ -247,7 +246,7 @@ void cTerritory::processNode( const QDomElement &Tag )
 		cBaseRegion::processNode( Tag );
 }
 
-QString cTerritory::getGuardSect( void )
+QString cTerritory::getGuardSect( void ) const
 {
 	return this->guardSections_[ RandomNum( 0, this->guardSections_.size()-1 ) ];
 }
@@ -353,7 +352,5 @@ void cAllTerritories::check( P_CHAR pc )
 	}
 }
 
-// Singleton
-cAllTerritories cAllTerritories::instance;
 
 

@@ -406,7 +406,7 @@ void cWorld::loadSql()
 				pMulti->addChar( pChar );
 		}
 
-		cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
+		cTerritory *region = AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
 		pChar->setRegion( region );
 
 		// Now that we have our owner set correctly

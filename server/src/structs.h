@@ -82,65 +82,6 @@ struct location_st
 	QString region;
 };
 
-struct logout_st// Instalog
-{
-	unsigned int x1;
-	unsigned int y1;
-	unsigned int x2;
-	unsigned int y2;
-};
-
-struct skill_st
-{
-	UINT16 st;
-	UINT16 dx;
-	UINT16 in;
-	UINT16 advance_index;
-	QString madeword;
-};
-
-struct advance_st
-{
-	UINT8 skill;
-	UINT16 base;
-	UINT16 success;
-	UINT16 failure;
-};
-
-struct make_st
-{
-	int has;
-	int has2;
-	int needs;
-	int minskill;
-	int maxskill;
-	unsigned short newcolor; // This color is setted if coloring>-1 // Magius(CHE) §
-	int coloring; // Color modification activated by trigger token!  // Magius(CHE) §
-	short Mat1id;		// id of material 1 used to make item
-	short Mat1color;	// color of material 1 used to make item
-	short Mat2id;		// id of material 2 used to make item
-	short Mat2color;	// color of material 2 used to make item
-	int minrank; // value of minum rank level of the item to create! - Magius(CHE)
-	int maxrank; // value of maximum rank level of the item to create! - Magius(CHE)
-	int number; // Store Script Number used to Rank System by Magius(CHE)
-};
-
-struct gmpage_st
-{
-	std::string reason;
-	SERIAL serial;
-	char timeofcall[9];
-	std::string name;
-	int handled;
-};
-
-struct jail_st
-{
-	Coord_cl oldpos;
-	Coord_cl pos;
-	bool occupied;
-};
-
 struct reag_st
 {
 	int ginseng;

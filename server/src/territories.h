@@ -33,6 +33,7 @@
 #define __TERRITORIES_H__ 
 
 #include "baseregion.h"
+#include "singleton.h"
 
 #include <map>
 
@@ -79,7 +80,7 @@ public:
 	bool		haveTeleporters() const;
 	bool		findTeleporterSpot( Coord_cl& ) const;
 
-	QString		getGuardSect( void );
+	QString		getGuardSect( void ) const;
 private:
 	// Setters to ease up the flag meanings
 	void		setGuarded( bool data )				{ if( data ) flags_ |= 0x0001; else flags_ &= ~0x0001; }
@@ -121,15 +122,12 @@ public:
 class cAllTerritories : public QObject, public cAllBaseRegions
 {
 	Q_OBJECT
-private:
-	static cAllTerritories instance;
-	cAllTerritories() {}
 public:
 
 	void		load( void );
 	void		check( P_CHAR pc );
 
-	cTerritory* region( const QString& regName )
+	cTerritory* region( const QString& regName ) const
 	{
 		QMap<uint, cBaseRegion*>::const_iterator it( topregions.begin() );
 		for ( ; it != topregions.end(); ++it )
@@ -150,10 +148,9 @@ public:
 			return 0;
 	}
 
-	QString		getGuardSect( void );
-	
-	static cAllTerritories *getInstance( void ) { return &instance; }
 };
+
+typedef SingletonHolder<cAllTerritories> AllTerritories;
 
 #endif
 

@@ -3,7 +3,6 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//	Copyright 1997, 98 by Marcus Rating (Cironian)
 //  Copyright 2001-2003 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
@@ -213,7 +212,6 @@ void cSrvParams::readData()
 	
 	saveInterval_			= getNumber("General", "Save Interval", 900, true);
 	heartBeat_				= getBool("General", "HeartBeat", false, true);
-	defaultpriv1_			= getNumber("General", "DefaultPrivileage1", 0, true);
 	defaultpriv2_			= getNumber("General", "DefaultPrivileage2", 0, true);
 	mulPath_				= QDir::convertSeparators( getString("General", "MulPath", "./", true) );
 

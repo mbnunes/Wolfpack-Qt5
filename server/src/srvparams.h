@@ -151,7 +151,6 @@ protected:
 	QString databaseHost_;
 	int saveInterval_;
 	bool heartBeat_;
-	int defaultpriv1_;
 	int defaultpriv2_;
 	QString mulPath_;
 	int maxLoginAttempts_;
@@ -330,7 +329,6 @@ public:
 	void setSeason( unsigned char );
 	int saveInterval() const;
 	bool heartBeat() const;
-	int defaultpriv1() const;
 	int defaultpriv2() const;
 	QString mulPath() const;
 	void setMulPath( QString data ) { mulPath_ = data; }
@@ -1031,11 +1029,6 @@ inline int cSrvParams::saveInterval() const
 inline bool cSrvParams::heartBeat() const
 {
 	return heartBeat_;
-}
-
-inline int cSrvParams::defaultpriv1() const
-{
-	return defaultpriv1_;
 }
 
 inline int cSrvParams::defaultpriv2() const

@@ -197,7 +197,7 @@ cChar::cChar( const P_CHAR mob )
 	this->fy1_ = mob->fy1();
 	this->fy2_ = mob->fy2();
 	this->fz1_ = mob->fz1();
-	this->setRegion( cAllTerritories::getInstance()->region( mob->region()->name() ) );
+	this->setRegion( AllTerritories::instance()->region( mob->region()->name() ) );
 	this->skilldelay_ = mob->skilldelay();
 	this->objectdelay_ = mob->objectdelay();
 	this->taming_ = mob->taming();
@@ -3447,7 +3447,7 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 	pc->setHidden( 0 );
 	pc->setStealth( -1 );
 	
-	pc->setRegion( cAllTerritories::getInstance()->region( pc->pos().x, pc->pos().y, pc->pos().map ) );
+	pc->setRegion( AllTerritories::instance()->region( pc->pos().x, pc->pos().y, pc->pos().map ) );
 	
 	pc->setAntispamtimer( 0 );   //LB - AntiSpam -
 	pc->setAntiguardstimer( 0 ); //AntiChrist - AntiSpam for "GUARDS" call - to avoid (laggy) guards multi spawn

@@ -56,9 +56,6 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 	if( !pc_k )
 		return;
 
-//	if( pc_k->spawnSerial() != INVALID_SERIAL ) 
-//		cspawnsp.remove(pc_k->spawnSerial(), pc_k->serial());
-
 	pc_k->setOwner( 0 );
 	pc_k->setGuarding( 0 );
 	
@@ -142,7 +139,7 @@ P_CHAR cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos 
 
 	pChar->moveTo( pos );
 
-	pChar->setRegion( cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map ) );
+	pChar->setRegion( AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map ) );
 
 	pChar->applyDefinition( *DefSection );
 
@@ -163,7 +160,7 @@ P_CHAR cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos 
 //
 bool cChar::inGuardedArea()
 {
-	cTerritory* Region = cAllTerritories::getInstance()->region( this->pos().x, this->pos().y, this->pos().map );
+	cTerritory* Region = AllTerritories::instance()->region( this->pos().x, this->pos().y, this->pos().map );
 	if( Region )
 		return Region->isGuarded();
 	else

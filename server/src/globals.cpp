@@ -39,9 +39,6 @@
 #include "wptargetrequests.h"
 #include "typedefs.h"
 
-#if defined(__unix__)
-termios termstate ;
-#endif
 unsigned int uiCurrentTime;
 wp_version_info wp_version;
 
@@ -71,8 +68,6 @@ int uotickcount=1;
 unsigned long initialserversec ;
 unsigned long initialservermill ;
 //int goldamount;
-int defaultpriv1;
-int defaultpriv2;
 unsigned int nextfieldeffecttime=0;
 unsigned int nextnpcaitime=0;
 unsigned int nextdecaytime=0;
@@ -138,7 +133,7 @@ PersistentBroker* persistentBroker;
 // - the below structure is for looking up items based on serial #
 // - item's serial, owner's serial, char's serial, and container's serial
 
-Container_cl stablesp, contsp, cspawnsp, spawnsp;
+Container_cl stablesp;
 
 list<SERIAL> guilds;
 
@@ -147,12 +142,9 @@ list<SERIAL> guilds;
 ///////////////////////////////////////////
 ///   and the rest                        /
 ///////////////////////////////////////////
- int validEscortRegion[256];
  creat_st creatures[2048];
 
  int npcshape[5]; //Stores the coords of the bouding shape for the NPC
-
- jail_st jails[11];
 
  std::vector<std::string> clientsAllowed; // client version controll system
 

@@ -28,8 +28,8 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-#include "qstring.h"
-#include "qdatastream.h"
+#include <qstring.h>
+#include <qdatastream.h>
 
 #include "encryption.h"
 #include "wpdefmanager.h"

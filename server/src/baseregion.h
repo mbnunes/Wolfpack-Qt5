@@ -106,7 +106,7 @@ public:
 			return this;
 		else
 		{
-			QValueVector< cBaseRegion* >::iterator it = this->subregions_.begin();
+			QValueVector< cBaseRegion* >::const_iterator it = this->subregions_.begin();
 			while( it != this->subregions_.end() )
 			{
 				cBaseRegion* currRegion = 0;

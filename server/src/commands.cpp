@@ -273,7 +273,7 @@ void commandWhere( cUOSocket *socket, const QString &command, QStringList &args 
 	if( !pChar )
 		return;
 
-	cTerritory *mRegion = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
+	cTerritory *mRegion = AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
 
 	QString message = tr( "You are" );
 
@@ -988,7 +988,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		DefManager->reload(); //Reload Definitions
 		Accounts::instance()->reload();
 		SpawnRegions::instance()->reload();
-		cAllTerritories::getInstance()->reload();
+		AllTerritories::instance()->reload();
 		Resources::instance()->reload();
 		MakeMenus::instance()->reload();
 		ScriptManager->reload(); // Reload Scripts
@@ -1001,7 +1001,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		P_CHAR pChar;
 		for( pChar = iter.first(); pChar; pChar = iter.next() )
 		{
-			cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
+			cTerritory *region = AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
 			pChar->setRegion( region );
 		}
 
@@ -1016,7 +1016,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		DefManager->reload(); //Reload Definitions
 		Accounts::instance()->reload();
 		SpawnRegions::instance()->reload();
-		cAllTerritories::getInstance()->reload();
+		AllTerritories::instance()->reload();
 		Resources::instance()->reload();
 		MakeMenus::instance()->reload();
 		ScriptManager->reload(); // Reload Scripts
@@ -1028,7 +1028,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		P_CHAR pChar;
 		for( pChar = iter.first(); pChar; pChar = iter.next() )
 		{
-			cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
+			cTerritory *region = AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
 			pChar->setRegion( region );
 		}
 

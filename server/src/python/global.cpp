@@ -410,7 +410,7 @@ PyObject* wpRegion( PyObject* self, PyObject* args )
 		return 0;
 	}
 
-	return PyGetRegionObject( cAllTerritories::getInstance()->region( getArgInt( 0 ), getArgInt( 1 ), getArgInt(2) ) );
+	return PyGetRegionObject( AllTerritories::instance()->region( getArgInt( 0 ), getArgInt( 1 ), getArgInt(2) ) );
 }
 
 /*!
