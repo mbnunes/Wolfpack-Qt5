@@ -21,9 +21,9 @@ class cGump:
 		# There are two possibilities
 		socket = None
 
-		if type( char ).__name__ == "WPChar":
+		if type( char ).__name__ == "wpchar":
 			socket = char.socket
-		elif type( char ).__name__ == "WPSocket":
+		elif type( char ).__name__ == "wpsocket":
 			socket = char
 
 		# Dump the gump data
