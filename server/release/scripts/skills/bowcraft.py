@@ -1,0 +1,126 @@
+#################################################################
+#   )      (\_     # WOLFPACK 13.0.0 Scripts                    #
+#  ((    _/{  "-;  # Created by: khpae									 #
+#   )).-' {{ ;'`   # Revised by:                                #
+#  ( (  ;._ \\ ctr # Last Modification: Created                 #
+#################################################################
+
+import wolfpack
+import wolfpack.utilities
+from math import *
+
+# tool : "1022", "1023"
+# log : "1bdd - 1be2"
+# board : "1bd7 - 1bdc"
+# shaft : ("1024", "1025",) "1bd4 - 1bd6"
+# feather : ("dfa", "dfb",) "1bd1 - 1bd3"
+# arrow : "f3f - f41", 0x0f40, 0x0f41
+# bolt : "1bfb - 1bfd"
+
+def onUse( char, item ):
+	# Needs to be on ourself
+	if item.getoutmostchar() != char:
+		char.socket.clilocmessage( 0x7A258 )
+		return 1
+	# is it in use already ?
+	if item.gettag( "use" ):
+		#char.socket.clilocmessage( )
+		return 1
+
+	# alchemy menu gump
+	char.sendmakemenu( "CRAFTMENU_BOWCRAFT" )
+
+	# set response function
+
+	return 1
+
+# these are moved to python script b/c it will make all the logs into the items
+def makeshaft( char ):
+	if not char:
+		return
+	backpack = char.getbackpack()
+	if not backpack:
+		return
+
+	# count logs and boards
+	num_logs = char.countresource( 0x1bdd )
+	num_boards = char.countresource( 0x1bd7 )
+	num_shafts = num_logs + num_boards
+	if not num_shafts:
+		return
+
+	# use up resources
+	if num_logs:
+		char.useresource( 0x1bdd, num_logs )
+	if num_boards:
+		char.useresource( 0x1bd7, num_boards )
+
+	num_shafts = floor( num_shafts * skills.bowcraft.shaft_chance( char ) )
+	if not num_shafts:
+		return
+	# make and insert item into backpack
+	if num_shafts == 1:
+		item = "1bd4"
+	elif num_shafts < 6:
+		item = "1bd5"
+	else:
+		item = "1bd6"
+	shafts = wolfpack.additem( item )
+	if not shafts:
+		return
+	shafts.amount = num_shafts
+	backpack.additem( shafts )
+	shafts.update()
+
+def makearrow( char ):
+	skills.bowcraft.makearrows( char, "arrow" )
+
+def makebolt( char ):
+	skills.bowcraft.makearrows( char, "bolt" )
+
+def makearrows( char, str ):
+	if not char:
+		return
+	
+	# count resources and set the number to make
+	num_shafts = char.countresource( 0x1bdd )
+	num_feathers = char.countresource( 0x1bd1 )
+	if not num_feathers or not num_shafts:
+		return
+	num_arrows = min( num_feathers, num_shafts )
+
+	# use up resources
+	char.useresource( 0x1bdd, num_arrows )
+	char.useresource( 0x1bd1, num_arrows )
+
+	# make and insert shafts into char's backpack
+	num_arrows = floor( num_arrows * skills.bowcraft.shaft_chance( char ) )
+	if not num_arrows:
+		return
+	if str == "arrow":
+		if num_arrows == 1:
+			item = "f3f"
+		elif num_arrows < 6:
+			item = "f40"
+		else:
+			item = "f41"
+	else:
+		if num_arrows == 1:
+			item = "1bfb"
+		elif num_arrows < 6:
+			item = "1bfc"
+		else:
+			item = "1bfd"
+	arrows = wolfpack.additem( item )
+	backpack = char.getbackpack()
+	if not arrows or not backpack:
+		return
+	arrows.amount = num_arrows
+	backpack.additem( arrows )
+	arrows.update()
+
+def shaft_chance( char ):
+	skill = char.skill[ BOWCRAFT ]
+	chance = 50 + floor( 1.25 * skill )
+	chance = min( chance, 100 )
+	return chance

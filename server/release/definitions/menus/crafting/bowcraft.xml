@@ -1,0 +1,107 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: khpae                          |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<menu id="CRAFTMENU_BOWCRAFT">
+		<name>Carpentry</name>
+		
+		<menu inherit="BOWCRAFT_resources" />
+		<menu inherit="BOWCRAFT_arrow" />
+		<menu inherit="BOWCRAFT_weapon" />
+	</menu>
+	
+	<menu id="BOWCRAFT_resources">
+		<name>Resources</name>
+		
+		<action>
+			<name>Kindling</name>
+			<model>0x0de1</model>
+			<description>a kindling</description>
+			<make>
+				<useitem itemid="0x1bd7-0x1be2" name="logs/boards" amount="1" />
+				<makeitem section="kindling" amount="1" />
+				<skillcheck skillid="8" min="0" max="1" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="script">
+			<name>Shaft</name>
+			<model>0x1bd4</model>
+			<description>shafts</description>
+			<make script="skills.bowcraft.makeshaft" />
+		</action>
+	</menu>
+
+	<menu id="BOWCRAFT_arrow">
+		<name>Arrow / Crossbow Bolt</name>
+
+		<action type="script">
+			<name>Arrow</name>
+			<model>0x0f3f</model>
+			<description>arrows</description>
+			<make script="skills.bowcraft.makearrow" />
+		</action>
+
+		<action type="script">
+			<name>Crossbow Bolt</name>
+			<model>0x1bfb</model>
+			<description>crossbow bolts</description>
+			<make script="skills.bowcraft.makebolt" />
+		</action>
+	</menu>
+
+	<menu id="BOWCRAFT_weapon">
+		<name>Bow / Crossbow</name>
+		
+		<action>
+			<name>Bow</name>
+			<mode>0x13b2</model>
+			<description>a bow</description>
+			<make>
+				<useitem itemid="0x1bd7-0x1be2" name="logs/boards" amount="7" />
+				<makeitem section="13b2" amount="1" />
+				<skillchek skillid="8" min="300" max="599" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action>
+			<name>Crossbow</name>
+			<model>0x0f4f</model>
+			<description>a crossbow</description>
+			<make>
+				<useitem itemid="0x1bd7-0x1be2" name="logs/boards" amount="7" />
+				<makeitem section="f4f" amount="1" />
+				<skillchek skillid="8" min="600" max="899" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action>
+			<name>Heavy Crossbow</name>
+			<model>0x13fc</model>
+			<description>a heavy crossbow</description>
+			<make>
+				<useitem itemid="0x1bd7-0x1be2" name="logs" amount="10" />
+				<makeitem section="13fc" amount="1" />
+				<skillcheck skillid="8" min="900" max="1200" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+	<!-- TODO :
+	composite bow
+	repeating crossbow
+	-->
+	</menu>
+</definitions>
