@@ -74,12 +74,13 @@ Wolfpack 12.9.8 Beta (CVS)
 			Inscription - Thanks to khpae
 		- Decoration Saving
 		- Magic fixes: Fire, Poison, Energy and Paralyze fields should work better.
-			Mass dispell can now wipe out these fields.
+			Mass dispell can now wipe out these fields.		
 	* Misc. Changes:
 		- New Features:
 			Farm animals will eat spawned crops!
 			Potion Kegs now work.
 			Player Hunger now works again.
+		- New look for the remote administration console.
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
 		- Spawn regions are incomplete.

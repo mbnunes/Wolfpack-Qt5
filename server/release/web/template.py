@@ -11,11 +11,12 @@ def output( navigation, username, navbar, content, session_id ):
 	template = template.replace( '%NAVIGATION%', navigation )
 
 	if navbar:
-		navigation = '<br /><br />'
-		navigation += '- <a href="main.py?session=%s">Main</a><br />' % session_id
-		navigation += '- <a href="console.py?session=%s">Console</a><br />' % session_id
-		navigation += '- <a href="pythonlog.py?session=%s">Python Log</a><br />' % session_id
-		navigation += '- <a href="accounts.py?session=%s">Accounts</a><br />' % session_id
+		navigation = """&nbsp;&nbsp;&nbsp; <a href="main.py?session=%(session)s">Start Page</a><br />
+		&nbsp;&nbsp;&nbsp; <a href="console.py?session=%(session)s">Console</a><br />
+		&nbsp;&nbsp;&nbsp; <a href="accounts.py?session=%(session)s">Accounts</a><br />
+		&nbsp;&nbsp;&nbsp; <a href="pythonlog.py?session=%(session)s">Python Log</a><br />
+		<br />
+		&nbsp;&nbsp;&nbsp; <a href="logout.py?session=%(session)s">Logout</a>""" % { 'session': session_id }
 	else:
 		navigation = ''
 

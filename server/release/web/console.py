@@ -60,7 +60,7 @@ content = """
 <p>
 <h1>Console</h1>
 Below you see the Wolfpack console output. Use your browsers refresh button in order to see the current output.<br>
-<textarea cols="70" rows="25" readonly="readonly" style="background-color: #004025; color: #EFEFEF">
+<textarea cols="70" rows="25" readonly="readonly" style="background-color: #DDDDDD">
 """
 
 for line in wolfpack.console.getbuffer():
