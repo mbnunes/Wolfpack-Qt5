@@ -810,6 +810,8 @@ bool cUOSocket::authenticate( const QString& username, const QString& password )
 			log( QString( "Failed to log in as '%1', account is already in use\n" ).arg( username ) );
 			denyPacket.setReason( cUOTxDenyLogin::DL_INUSE );
 			break;
+		case cAccounts::NoError:
+			break;
 		};
 
 		log( QString( "Failed to log in as '%1'.\n" ).arg( username ) );

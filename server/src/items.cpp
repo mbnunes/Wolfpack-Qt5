@@ -181,13 +181,13 @@ void cItemBaseDefs::reset()
  *****************************************************************************/
 
 // constructor
-cItem::cItem() : container_( 0 ), totalweight_( 0 )
+cItem::cItem() : totalweight_( 0 ), container_( 0 )
 {
 	basedef_ = 0;
 	Init( false );
 };
 
-cItem::cItem( const cItem& src ) : container_( 0 ), totalweight_( 0 )
+cItem::cItem( const cItem& src ) : cUObject(src), totalweight_( 0 ), container_( 0 )
 {
 	Init( false );
 	// Copy Events
@@ -476,7 +476,7 @@ void cItem::save( cBufferedWriter& writer, unsigned int version )
 	writer.writeAscii( baseid() );
 }
 
-void cItem::postload( unsigned int version )
+void cItem::postload( unsigned int /*version*/ )
 {
 }
 
@@ -546,8 +546,6 @@ void cItem::save()
 	}
 	cUObject::save();
 }
-
-static void itemRegisterAfterLoading( P_ITEM pi );
 
 bool cItem::del()
 {

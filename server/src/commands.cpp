@@ -1221,7 +1221,7 @@ void commandExportDefinitions( cUOSocket* socket, const QString& /*command*/, co
 	you find any broken doors after you use this command. Don't use this command
 	on custom maps.
 */
-void commandDoorGenerator( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
+void commandDoorGenerator( cUOSocket* socket, const QString& /*command*/, const QStringList& args ) throw()
 {
 	Q_UNUSED( args );
 	class DoorGenerator
@@ -1320,7 +1320,7 @@ void commandDoorGenerator( cUOSocket* socket, const QString& command, const QStr
 
 		cItem* addDoor( int x, int y, int z, int map, DoorFacing facing )
 		{
-			int doorTop = z + 20;
+			//int doorTop = z + 20;
 
 			if ( y == 1743 && x >= 1343 && x <= 1344 )
 				return 0;
@@ -1338,7 +1338,7 @@ void commandDoorGenerator( cUOSocket* socket, const QString& command, const QStr
 		}
 	public:
 
-		int generate( int region[], int map, cUOSocket* socket )
+		int generate( int region[], int map, cUOSocket* )
 		{
 			int count = 0;
 			for ( int rx = region[0]; rx < region[2]; ++rx )

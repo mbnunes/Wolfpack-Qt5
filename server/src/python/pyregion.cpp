@@ -74,7 +74,7 @@ wpDealloc,
 0,
 0, // Call
 ( reprfunc ) wpRegion_str,
-0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
 
 static PyMethodDef wpRegionMethods[] =

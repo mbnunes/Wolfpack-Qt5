@@ -1173,3 +1173,4 @@ DWORD TwofishCodeSize( void )
 	return x - TwofishCodeStart();
 };
 #endif
+

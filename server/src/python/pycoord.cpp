@@ -73,7 +73,8 @@ wpDealloc,
 0,
 0,
 0, // Call
-( reprfunc ) wpCoord_str
+( reprfunc ) wpCoord_str,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 };
 
 static int wpCoord_compare( PyObject* a, PyObject* b )

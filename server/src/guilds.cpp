@@ -372,7 +372,7 @@ wpDealloc,
 ( getattrfunc ) wpGuild_getAttr, 
 ( setattrfunc ) wpGuild_setAttr, 
 wpGuild_compare,
-0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
 
 static int wpGuild_compare( PyObject* a, PyObject* b )
@@ -831,7 +831,8 @@ PyObject* cGuild::getPyObject()
 	return ( PyObject * ) returnVal;
 }
 
-void cGuild::load( cBufferedReader& reader, unsigned int version ) {
+void cGuild::load( cBufferedReader& reader, unsigned int /*version*/ )
+{
 	serial_ = reader.readInt();
 	name_ = reader.readUtf8();
 	abbreviation_ = reader.readUtf8();
@@ -873,7 +874,8 @@ void cGuild::load( cBufferedReader& reader, unsigned int version ) {
 	}
 }
 
-void cGuild::save( cBufferedWriter& writer, unsigned int version ) {
+void cGuild::save( cBufferedWriter& writer, unsigned int /*version*/ )
+{
 	writer.writeByte(0xFD);
 
 	writer.writeInt(serial_);
@@ -903,3 +905,4 @@ void cGuild::save( cBufferedWriter& writer, unsigned int version ) {
 		writer.writeInt(player->serial());
 	}
 }
+

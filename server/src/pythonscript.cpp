@@ -603,7 +603,7 @@ bool cPythonScript::load( const QString& name )
 	return true;
 }
 
-stError* cPythonScriptable::setProperty( const QString& name, const cVariant& value )
+stError* cPythonScriptable::setProperty( const QString& name, const cVariant& /*value*/ )
 {
 	// No settable properties are available for this class
 	PROPERTY_ERROR( -1, QString( "Property not found: '%1'" ).arg( name ) )
@@ -832,37 +832,38 @@ bool cPythonScriptable::convertPyObject( PyObject* object, P_CHAR& pChar )
 	return false;
 }
 
-bool cPythonScriptable::convertPyObject( PyObject* object, P_ITEM& pItem )
+bool cPythonScriptable::convertPyObject( PyObject* /*object*/, P_ITEM& /*pItem*/ )
 {
 	return false;
 }
 
-bool cPythonScriptable::convertPyObject( PyObject* object, Coord_cl& pos )
+bool cPythonScriptable::convertPyObject( PyObject* /*object*/, Coord_cl& /*pos*/ )
 {
 	return false;
 }
 
-bool cPythonScriptable::convertPyObject( PyObject* object, QString& string )
+bool cPythonScriptable::convertPyObject( PyObject* /*object*/, QString& /*string*/ )
 {
 	return false;
 }
 
-bool cPythonScriptable::convertPyObject( PyObject* object, QCString& string )
+bool cPythonScriptable::convertPyObject( PyObject* /*object*/, QCString& /*string*/ )
 {
 	return false;
 }
 
-bool cPythonScriptable::convertPyObject( PyObject* object, unsigned int& data )
+bool cPythonScriptable::convertPyObject( PyObject* /*object*/, unsigned int& /*data*/ )
 {
 	return false;
 }
 
-bool cPythonScriptable::convertPyObject( PyObject* object, int& data )
+bool cPythonScriptable::convertPyObject( PyObject* /*object*/, int& /*data*/ )
 {
 	return false;
 }
 
-bool cPythonScriptable::setPropety( const QString& name, PyObject* value )
+bool cPythonScriptable::setPropety( const QString& /*name*/, PyObject* /*value*/ )
 {
 	return true;
 }
+

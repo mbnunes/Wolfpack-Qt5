@@ -251,7 +251,7 @@ void equipItem( P_CHAR wearer, P_ITEM item )
 	wearer->addItem( static_cast<cBaseChar::enLayer>( item->layer() ), item );
 }
 
-void DragAndDrop::bounceItem( cUOSocket* socket, P_ITEM pItem, bool denyMove )
+void DragAndDrop::bounceItem( cUOSocket* socket, P_ITEM pItem, bool /*denyMove*/ )
 {
 	// Reject the move of the item
 	socket->bounceItem( pItem, BR_NO_REASON );

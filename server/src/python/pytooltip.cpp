@@ -75,7 +75,7 @@ wpDealloc,
 0,
 ( getattrfunc ) wpTooltip_getAttr,
 ( setattrfunc ) wpTooltip_setAttr,
-0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 
 };
 

@@ -73,7 +73,7 @@ cUObject::~cUObject()
 	delete[] scriptChain;
 }
 
-cUObject::cUObject( const cUObject& src )
+cUObject::cUObject( const cUObject& src ) : cDefinable(src), cPythonScriptable(src), PersistentObject( src )
 {
 	// Copy Events
 	if ( src.scriptChain )
@@ -217,7 +217,7 @@ void cUObject::save()
 	flagUnchanged(); // This is the botton of the chain, now go up and flag everyone unchanged.
 }
 
-void cUObject::save( cBufferedWriter& writer, unsigned int version )
+void cUObject::save( cBufferedWriter& writer, unsigned int /*version*/ )
 {
 	writer.writeUtf8( name_ );
 	writer.writeInt( serial_ );
@@ -229,7 +229,7 @@ void cUObject::save( cBufferedWriter& writer, unsigned int version )
 	writer.writeUtf8( eventList() );
 }
 
-void cUObject::load( cBufferedReader& reader, unsigned int version )
+void cUObject::load( cBufferedReader& reader, unsigned int /*version*/ )
 {
 	name_ = reader.readUtf8();
 	serial_ = reader.readInt();
@@ -931,7 +931,7 @@ bool cUObject::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
 	return result;
 }
 
-void cUObject::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
+void cUObject::createTooltip( cUOTxTooltipList& tooltip, cPlayer* /*player*/ )
 {
 	if ( tooltip.size() != 19 )
 	{

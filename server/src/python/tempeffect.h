@@ -230,6 +230,7 @@ public:
 
 			variant.serialize(reader, version);
 			switch (variant.type()) {
+				case cVariant::Long:
 				case cVariant::Int:
 					object = PyInt_FromLong(variant.asInt());
 					break;
@@ -252,6 +253,8 @@ public:
 
 				case cVariant::Coord:
 					object = PyGetCoordObject(variant.toCoord());
+					break;
+				case cVariant::Invalid:
 					break;
 			}
 

@@ -63,15 +63,15 @@
 */
 
 /* dummy functions */
-bool cDBDriver::exec( const QString& query )
+bool cDBDriver::exec( const QString& /*query*/ )
 {
 	return true;
 }
-void cDBDriver::lockTable( const QString& table )
+void cDBDriver::lockTable( const QString& /*table*/ )
 {
 }
 
-void cDBDriver::unlockTable( const QString& table )
+void cDBDriver::unlockTable( const QString& /*table*/ )
 {
 }
 
@@ -196,7 +196,7 @@ sizeof( wpDbResultType ),
 wpDeallocDbResult,
 0,
 ( getattrfunc ) wpDbResult_getAttr,
-0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
 
 /*

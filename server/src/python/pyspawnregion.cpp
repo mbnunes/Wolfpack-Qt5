@@ -58,7 +58,7 @@ wpDealloc,
 0,
 ( getattrfunc ) wpSpawnRegion_getAttr,
 ( setattrfunc ) wpSpawnRegion_setAttr,
-0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
 
 /*
@@ -100,7 +100,7 @@ static PyObject* wpSpawnRegion_remove( wpSpawnRegion* self, PyObject* args )
 \description Remove the given object from a spawnregion, freeing the slot for a new item
 to be spawned.
 */
-static PyObject* wpSpawnRegion_spawn( wpSpawnRegion* self, PyObject* args )
+static PyObject* wpSpawnRegion_spawn( wpSpawnRegion* /*self*/, PyObject* args )
 {
 	PyObject* baseids = 0;
 	if ( !PyArg_ParseTuple( args, "|O!:spawnregion.spawn([baseids])", &PyList_Type, &baseids ) )

@@ -105,7 +105,7 @@ wpDealloc,
 0,
 0,
 0,
-0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
 
 PyObject* PyGetGumpResponse( const gumpChoice_st& response )

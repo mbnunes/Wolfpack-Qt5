@@ -78,7 +78,8 @@ wpDealloc,
 0,
 0,
 0, // Call
-( reprfunc ) wpAccount_str
+( reprfunc ) wpAccount_str,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
 
 /*
@@ -152,7 +153,7 @@ static PyObject* wpAccount_addcharacter( wpAccount* self, PyObject* args )
 	\param player The player that should be removed from this account.
 	\description Removes a player from this account.
 */
-static PyObject* wpAccount_removecharacter( wpAccount* self, PyObject* args )
+static PyObject* wpAccount_removecharacter( wpAccount* /*self*/, PyObject* args )
 {
 	if ( !checkArgChar( 0 ) )
 	{

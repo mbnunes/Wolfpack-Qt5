@@ -612,7 +612,7 @@ bool cMovement::verifySequence( cUOSocket* socket, Q_UINT8 sequence ) throw()
 }
 
 // This only gets called when running
-void cMovement::checkRunning( cUOSocket* socket, P_CHAR pChar, Q_UINT8 dir )
+void cMovement::checkRunning( cUOSocket* socket, P_CHAR pChar, Q_UINT8 /*dir*/ )
 {
 	// Don't regenerate stamina while running
 	pChar->setRegenStaminaTime( ( uint )( Server::instance()->time() + floor( pChar->getStaminaRate() * 1000 ) ) );
@@ -752,7 +752,7 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running )
 	This checks the new tile we're moving to
 	for Character we could eventually bump into.
 */
-bool cMovement::checkObstacles( P_CHAR pChar, const Coord_cl& newPos, bool running )
+bool cMovement::checkObstacles( P_CHAR /*pChar*/, const Coord_cl& /*newPos*/, bool /*running*/ )
 {
 	// TODO: insert code here
 	return true;

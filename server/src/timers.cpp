@@ -218,7 +218,7 @@ void cTimer::save( unsigned int id )
 	PersistentBroker::instance()->executeQuery( QString( "INSERT INTO effects VALUES(%1,'%2',%3,%4,%5,%6);" ).arg( id ).arg( PersistentBroker::instance()->quoteString( objectID() ) ).arg( expiretime - Server::instance()->time() ).arg( dispellable ? 1 : 0 ).arg( sourSer ).arg( destSer ) );
 }
 
-void cTimer::load( unsigned int id, const char** result )
+void cTimer::load( unsigned int /*id*/, const char** result )
 {
 	unsigned int offset = 2;
 
@@ -476,7 +476,8 @@ void cTimers::erase( cTimer* pT )
 	}
 }
 
-void cTimer::load(cBufferedReader &reader, unsigned int version) {
+void cTimer::load(cBufferedReader &reader, unsigned int /*version*/)
+{
 	serializable = true;
 	expiretime = Server::instance()->time() + reader.readInt();
 	dispellable = reader.readBool();
@@ -484,17 +485,21 @@ void cTimer::load(cBufferedReader &reader, unsigned int version) {
 	destSer = reader.readInt();
 }
 
-void cTimer::save(cBufferedWriter &writer, unsigned int version) {	
+void cTimer::save(cBufferedWriter &writer, unsigned int /*version*/)
+{	
 	writer.writeInt(expiretime - Server::instance()->time());
 	writer.writeBool(dispellable);
 	writer.writeInt(sourSer);
 	writer.writeInt(destSer);
 }
 
-void cTimers::save(cBufferedWriter &writer) {
+void cTimers::save(cBufferedWriter &writer) 
+{
 	std::vector<cTimer*>::iterator it;
-	for (it = teffects.begin(); it != teffects.end(); ++it) {
-		if ((*it)->isSerializable()) {
+	for (it = teffects.begin(); it != teffects.end(); ++it) 
+	{
+		if ((*it)->isSerializable()) 
+		{
 			writer.writeByte(0xFC);
 			writer.writeAscii((*it)->objectID().latin1());
 			(*it)->save(writer, writer.version());			
@@ -502,7 +507,8 @@ void cTimers::save(cBufferedWriter &writer) {
 	}
 }
 
-void cTimers::load(cBufferedReader &reader) {
+void cTimers::load(cBufferedReader &reader) 
+{
 	QCString objectId = reader.readAscii();
 
 	cTimer *timer = 0;
@@ -516,3 +522,4 @@ void cTimers::load(cBufferedReader &reader) {
 	timer->load(reader, reader.version());
 	insert(timer);
 }
+

@@ -217,7 +217,7 @@ public:
 		If source is 0 and silent is true, nothing happens. Otherwise
 		the canidate is removed from the party without notification.
 	*/
-	void Dispel( P_CHAR source, bool silent )
+	void Dispel( P_CHAR /*source*/, bool silent )
 	{
 		P_PLAYER player = dynamic_cast<P_PLAYER>( World::instance()->findChar( destSer ) );
 		P_PLAYER leader = dynamic_cast<P_PLAYER>( World::instance()->findChar( this->leader ) );
@@ -465,7 +465,7 @@ wpDealloc,
 ( getattrfunc ) wpParty_getAttr, 
 ( setattrfunc ) wpParty_setAttr, 
 wpParty_compare,
-0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
 
 static int wpParty_compare( PyObject* a, PyObject* b )

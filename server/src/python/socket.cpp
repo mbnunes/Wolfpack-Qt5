@@ -59,7 +59,7 @@ wpDealloc,
 0,
 ( getattrfunc ) wpSocket_getAttr,
 ( setattrfunc ) wpSocket_setAttr,
-0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 
 };
 

@@ -70,7 +70,7 @@ cNPC::cNPC()
 	aiCheckTime_ = Server::instance()->time() + aiCheckInterval_;
 }
 
-cNPC::cNPC( const cNPC& right )
+cNPC::cNPC( const cNPC& right ) : cBaseChar(right)
 {
 }
 
@@ -79,7 +79,7 @@ cNPC::~cNPC()
 	delete ai_;
 }
 
-cNPC& cNPC::operator=( const cNPC& right )
+cNPC& cNPC::operator=( const cNPC& /*right*/ )
 {
 	return *this;
 }
@@ -1056,7 +1056,7 @@ void cNPC::findPath( const Coord_cl& goal, float sufficient_cost /* = 0.0f */ )
 
 	pathnode_cl* currentNode = NULL;
 	pathnode_cl* newNode = NULL;
-	pathnode_cl* prevNode = NULL;
+	//pathnode_cl* prevNode = NULL;
 	int iterations = 0;
 	while ( !unvisited_nodes.empty() )
 	{

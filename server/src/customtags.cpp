@@ -629,7 +629,7 @@ bool cVariant::cast( Type t )
 	return canCast( t );
 }
 
-void cVariant::serialize( cBufferedWriter& writer, unsigned int version )
+void cVariant::serialize( cBufferedWriter& writer, unsigned int /*version*/ )
 {
 	writer.writeByte( typ );
 	char skipper[8];
@@ -700,7 +700,7 @@ void cVariant::serialize( cBufferedWriter& writer, unsigned int version )
 	}
 }
 
-void cVariant::serialize( cBufferedReader& reader, unsigned int version )
+void cVariant::serialize( cBufferedReader& reader, unsigned int /*version*/ )
 {
 	// Only invalid can be loaded
 	if ( typ != Invalid )

@@ -69,7 +69,7 @@ sizeof( wpPacketType ),
 wpPacketDestructor,
 0,
 wpPacket_getattr,
-0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
 
 /*

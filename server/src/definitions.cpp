@@ -424,7 +424,7 @@ QStringList cDefinitions::getList( const QString& ListSection )
 	return list;
 }
 
-QString cDefinitions::getText( const QString& TextSection ) const
+QString cDefinitions::getText( const QString& /*TextSection*/ ) const
 {
 	/*const QDomElement* DefSection = this->getSection( WPDT_TEXT, TextSection );
 	if( DefSection->isNull() )
@@ -740,7 +740,7 @@ sizeof( wpElementType ),
 wpDealloc,
 0,
 ( getattrfunc ) wpElement_getAttr,
-0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
 
 /*
