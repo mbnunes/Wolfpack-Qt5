@@ -131,3 +131,5 @@ def isreloading():
 def isclosing():
 	return _wolfpack.isclosing()
 	
+def spell( id ):
+	return _wolfpack.spell( id )
