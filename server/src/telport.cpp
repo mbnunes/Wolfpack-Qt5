@@ -41,10 +41,10 @@
 #undef  DBGFILE
 #define DBGFILE "teleport.cpp"
 
-void teleporters(CHARACTER s)
+void teleporters(P_CHAR pc_s)
 {
 
-	P_CHAR pc_s = MAKE_CHARREF_LR(s);
+	if ( pc_s == NULL ) return;
 
 	multimap<int, tele_locations_st>::iterator iter_tele_locations;
 	iter_tele_locations = tele_locations.find(pc_s->pos.x);
@@ -128,12 +128,12 @@ int validtelepos(int s)
 	return z;
 }
 
-void advancementobjects(int s, int x, int allways)
+void advancementobjects(P_CHAR pc_s, int x, int allways)
 {
 	char sect[512];
 	unsigned long loopexit=0;
 
-	P_CHAR pc_s = MAKE_CHARREF_LR(s);
+	if ( pc_s == NULL ) return;
 
 	int pos;
 	if ((pc_s->advobj==0)||(allways==1))
@@ -377,12 +377,12 @@ void advancementobjects(int s, int x, int allways)
 	else sysmessage(calcSocketFromChar(pc_s),"You have already used an advancement object with this character.");
 }
 
-void monstergate(int s, int x)
+void monstergate(P_CHAR pc_s, int x)
 {
 	int tmp, z, lovalue, hivalue;
 	char sect[512];
 	
-	P_CHAR pc_s = MAKE_CHARREF_LR(s);
+	if ( pc_s == NULL ) return;
 	P_ITEM pBackpack = NULL;
 	P_ITEM pRetitem = NULL;
 	
@@ -453,7 +453,7 @@ void monstergate(int s, int x)
 			if (!(strcmp("NAMELIST", (char*)script1)))
 			{
 				scpMark m=pScp->Suspend();
-				setrandomname(s,(char*)script2);
+				setrandomname(pc_s,(char*)script2);
 				pScp->Resume(m);
 				
 				strcpy((char*)script1, "DUMMY"); // To prevent accidental exit of loop.
@@ -726,12 +726,12 @@ void monstergate(int s, int x)
 // Gate has to be of type 84. 
 // 
 // 
-void polycolorgate(int s, int x) 
+void polycolorgate(P_CHAR pc_s, int x) 
 { 
 	int tmp; 
 	char sect[256]; 
 
-	P_CHAR pc_s = MAKE_CHARREF_LR(s);
+	if ( pc_s == NULL ) return; 
 
 	if (pc_s->isNpc())
 		return; 
@@ -775,9 +775,9 @@ void polycolorgate(int s, int x)
 // Aldur 
 ////////////////////////////////// 
 
-void objTeleporters(int s)
+void objTeleporters(P_CHAR pc_s)
 {
-	P_CHAR pc_s = MAKE_CHARREF_LR(s);
+	if (pc_s == NULL) return;
 
 	int x = pc_s->pos.x, y = pc_s->pos.y;
 	
@@ -809,19 +809,19 @@ void objTeleporters(int s)
 							if (pmi->more1 != 0 || pmi->more2 != 0 || pmi->more3 != 0 || pmi->more4 != 0)
 							{
 								if (pc_s->ser1 == pmi->more1 && pc_s->ser2 == pmi->more2 && pc_s->ser3 == pmi->more3 && pc_s->ser4 == pmi->more4)
-									advancementobjects(s, pmi->morex, 0);
+									advancementobjects(pc_s, pmi->morex, 0);
 							}
 							else
-								advancementobjects(s, pmi->morex, 0);
+								advancementobjects(pc_s, pmi->morex, 0);
 							
 							if ((pmi->type == 81)&&(pc_s->isPlayer()))
 								if (pmi->more1 != 0 || pmi->more2 != 0 || pmi->more3 != 0 || pmi->more4 != 0)
 								{
 									if (pc_s->ser1 == pmi->more1 && pc_s->ser2 == pmi->more2 && pc_s->ser3 == pmi->more3 && pc_s->ser4 == pmi->more4)
-										advancementobjects(s, pmi->morex, 1);
+										advancementobjects(pc_s, pmi->morex, 1);
 								}
 								else
-									advancementobjects(s, pmi->morex, 1);
+									advancementobjects(pc_s, pmi->morex, 1);
 								// The above code lets you restrict a gate's use by setting its MORE values to a char's
 								// serial #
 								
@@ -837,7 +837,7 @@ void objTeleporters(int s)
 								}
 								// monster gates
 								if (pmi->type == 82)
-									monstergate(s, pmi->morex);
+									monstergate(pc_s, pmi->morex);
 								////////////////////////////////// 
 								// This will be just a body type switching 
 								// item. 
@@ -845,7 +845,7 @@ void objTeleporters(int s)
 								// 
 								// 
 								if (pmi->type == 84) 
-									polycolorgate(s, pmi->morex); 
+									polycolorgate(pc_s, pmi->morex); 
 								// 
 								// 
 								// Aldur 

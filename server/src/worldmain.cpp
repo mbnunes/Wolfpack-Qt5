@@ -417,7 +417,7 @@ void loadchar(int x) // Load a character from WSC
  {
 	if (pc->account==-1)
 	{
-		Npcs->DeleteChar(DEREF_P_CHAR(pc));
+		Npcs->DeleteChar(pc);
 	} else
 	{
 		pc->id1 = 0x01;
@@ -456,7 +456,7 @@ void loadchar(int x) // Load a character from WSC
    if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account ==-1) || ((pc->pos.x>max_x || pc->pos.y>max_y) && pc->account == -1))
 // if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account ==-1) || ((pc->pos.x>max_x || pc->pos.y>max_y || pc->pos.x<0 || pc->pos.y<0) && pc->account==-1))
  {
-	 Npcs->DeleteChar(DEREF_P_CHAR(pc)); //character in an invalid location
+	 Npcs->DeleteChar(pc); //character in an invalid location
  }
 if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account != -1) || (( pc->pos.x>max_x || pc->pos.y>max_y ) && pc->account !=-1))
 // if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account !=-1) || ((pc->pos.x>max_x || pc->pos.y>max_y || pc->pos.x<0 || pc->pos.y<0) && pc->account!=-1))
@@ -1034,7 +1034,7 @@ void CWorldMain::savenewworld(char x)
 	AllCharsIterator iterChars;
 	for (iterChars.Begin(); !iterChars.atEnd(); iterChars++)
 	{
-		SaveChar(DEREF_P_CHAR(iterChars.GetData()));
+		SaveChar(iterChars.GetData());
 	}
 
 	AllItemsIterator iterItems;
@@ -1107,11 +1107,13 @@ bool CWorldMain::Saving( void )
 	return isSaving;
 }
 
-void CWorldMain::SaveChar( CHARACTER i )
+void CWorldMain::SaveChar( P_CHAR pc )
 {
 	char valid=0;
 	int j;
-	P_CHAR pc = MAKE_CHARREF_LR(i);
+	if ( pc == NULL )
+		return;
+
 	P_CHAR pc_reference = new cChar;
 	pc_reference->Init(false);
 
@@ -1120,14 +1122,15 @@ void CWorldMain::SaveChar( CHARACTER i )
 	if (!SrvParms->savespawns && pc->spawnregion>0) valid=0;
 	if (valid)
 	{
-			fprintf(cWsc, "SECTION CHARACTER %i\n", i);
+			fprintf(cWsc, "SECTION CHARACTER\n");
 			fprintf(cWsc, "{\n");
 			fprintf(cWsc, "SERIAL %i\n", pc->serial);
 			//AntiChrist - special incognito related stuff - 12/99
 			if(pc->incognito)
 			{//save original name
 				fprintf(cWsc, "NAME %s\n", pc->orgname);
-			} else
+			} 
+			else
 			{
 				fprintf(cWsc, "NAME %s\n", pc->name);
 			}

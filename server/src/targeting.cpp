@@ -147,24 +147,24 @@ void cTargets::PlVBuy(int s)//PlayerVendors
 	int price=pi->value;
 
 	P_ITEM np = FindItemBySerial(pi->contserial);		// the pack
-	int npc = DEREF_P_CHAR(GetPackOwner(np));				// the vendor
-	if(npc!=v || pc->npcaitype!=17) return;
+	P_CHAR npc = GetPackOwner(np);				// the vendor
+	if(npc != pc || pc->npcaitype!=17) return;
 
 	if (pc_currchar->Owns(pc))
 	{
-		npctalk(s, v, "I work for you, you need not buy things from me!",0);
+		npctalk(s, pc, "I work for you, you need not buy things from me!",0);
 		return;
 	}
 
 	int gleft=pc_currchar->CountGold();
 	if (gleft<pi->value)
 	{
-		npctalk(s, v, "You cannot afford that.",0);
+		npctalk(s, pc, "You cannot afford that.",0);
 		return;
 	}
 	pBackpack->DeleteAmount(price,0x0EED);	// take gold from player
 
-	npctalk(s, v, "Thank you.",0);
+	npctalk(s, pc, "Thank you.",0);
 	pc->holdg+=pi->value; // putting the gold to the vendor's "pocket"
 
 	// sends item to the proud new owner's pack
@@ -297,7 +297,7 @@ public:
 			return;
 		}
 		sysmessage(s, "Removing character.");
-		Npcs->DeleteChar(DEREF_P_CHAR(pc));
+		Npcs->DeleteChar( pc );
 	}
 	void ItemSpecific()
 	{
@@ -659,7 +659,6 @@ void cTargets::TargIdTarget(int s) // Fraz
 static void CstatsTarget(P_CLIENT ps, P_CHAR pc)
 {
 	UOXSOCKET s = ps->GetSocket();
-//	CHARACTER c = DEREF_P_CHAR(pc);
 
 	sprintf((char*)temp, "Ser [%x %x %x %x] ID [%x %x] Name [%s] Skin [%x] Account [%x] Priv [%x %x] Position [%i %i %i] CTimeout [%i] Fame [%i] Karma [%i] Deaths [%i] Kills [%i] NPCAI [%x] NPCWANDER [%d] WEIGHT [%.2f]",
 		pc->ser1,pc->ser2,pc->ser3,pc->ser4,pc->id1,pc->id2,
@@ -672,14 +671,13 @@ static void CstatsTarget(P_CLIENT ps, P_CHAR pc)
 	sprintf((char*)temp, "Other Info: Poisoned [%i] Poison [%i] Hunger [%i] Attacker Serial [%x] Target Serial [%x] Carve[%i]", //Changed by Magius(CHE)
 		pc->poisoned,pc->poison,pc->hunger,pc->attacker,pc->targ,pc->carve); //Changed by Magius(CHE)
 	sysmessage(s, (char*)temp);
-	Gumps->Open(s, DEREF_P_CHAR(pc), 0, 8);
+	Gumps->Open(s, pc, 0, 8);
 	statwindow(s, pc);
 }
 
-static void MoveBelongingsToBp(P_CHAR pc, CHARACTER c)
+static void MoveBelongingsToBp(P_CHAR pc, P_CHAR pc_c)
 {
 	P_ITEM pPack = Packitem(pc);
-	P_CHAR pc_c = MAKE_CHAR_REF(c);
 	if (pPack == NULL)
 	{
 		pPack = Items->SpawnItem(calcSocketFromChar(pc_c),pc_c,1,"#",0,0x0E,0x75,0,0,0,0);
@@ -703,7 +701,7 @@ static void MoveBelongingsToBp(P_CHAR pc, CHARACTER c)
 		{
 			if ((pi->trigon==1) && (pi->trigtype==2) && (pi->layer<19))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 			{
-				Trig->triggerwitem(DEREF_P_CHAR(pc_c), pi, 1); // trigger is fired
+				Trig->triggerwitem(calcSocketFromChar(pc_c), pi, 1); // trigger is fired
 			}
 			pi->pos.x=(rand()%80)+50;
 			pi->pos.y=(rand()%80)+50;
@@ -725,7 +723,7 @@ static void MoveBelongingsToBp(P_CHAR pc, CHARACTER c)
 static void GMTarget(P_CLIENT ps, P_CHAR pc)
 {
 	UOXSOCKET s = ps->GetSocket();
-	//CHARACTER c = DEREF_P_CHAR(pc);
+
 	int i;	
 	if (SrvParms->gm_log)
 	{
@@ -775,13 +773,12 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 		sprintf((char*)temp, "GM %s", pc->name);
 		strcpy(pc->name,(char*)temp);
 	}
-	MoveBelongingsToBp(pc, DEREF_P_CHAR(pc));
+	MoveBelongingsToBp(pc, pc);
 }
 
 static void CnsTarget(P_CLIENT ps, P_CHAR pc)
 {
 	UOXSOCKET s = ps->GetSocket();
-	CHARACTER c = DEREF_P_CHAR(pc);
 
 	if (SrvParms->gm_log)
 	{
@@ -809,7 +806,7 @@ static void CnsTarget(P_CLIENT ps, P_CHAR pc)
 		//pc->menupriv=4;
 		if (pc->account==0) pc->priv3[u]=0xffffffff;
 	}
-	MoveBelongingsToBp(pc,c);
+	MoveBelongingsToBp(pc, pc);
 }
 
 static void KillTarget(P_CHAR pc, int ly)
@@ -836,7 +833,7 @@ void cTargets::GhostTarget(int s)
 		{
 			P_CHAR pc_currchar = currchar[s];
 			pc->attacker=pc_currchar->serial; //AntiChrist -- for forensics ev
-			bolteffect(DEREF_P_CHAR(pc), true);
+			bolteffect(pc, true);
 			soundeffect2(pc, 0x0029);
 			deathstuff(pc);
 		}
@@ -853,13 +850,13 @@ public:
 	{
 		if (w_anim[0]==0 && w_anim[1]==0)
 		{
-			bolteffect(DEREF_P_CHAR(pc), true);
+			bolteffect(pc, true);
 			soundeffect2(pc, 0x0029);
 		}
 		else
 		{
 			for (int j=0;j<=333;j++) 
-				bolteffect2(DEREF_P_CHAR(pc), w_anim[0],w_anim[1]);
+				bolteffect2(pc, w_anim[0],w_anim[1]);
 		}
 	}
 };
@@ -1332,7 +1329,7 @@ static void ExpPotionTarget(int s, PKGx6C *pp) //Throws the potion and places it
 			pi->MoveTo(x, y, z);
 			pi->SetContSerial(-1);
 			pi->setGMMovable(); //make item unmovable once thrown
-			movingeffect2(DEREF_P_CHAR(pc_currchar), pi, 0x0F, 0x0D, 0x11, 0x00, 0x00);
+			movingeffect2(pc_currchar, pi, 0x0F, 0x0D, 0x11, 0x00, 0x00);
 			RefreshItem(pi);
 		}
 	}
@@ -1962,7 +1959,7 @@ void cTargets::xBankTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 	{
-		openbank(s, DEREF_P_CHAR(pc));
+		openbank(s, pc);
 	}
 }
 
@@ -1972,7 +1969,7 @@ void cTargets::xSpecialBankTarget(int s)//AntiChrist
 	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 	{
-		openspecialbank(s, DEREF_P_CHAR(pc));
+		openspecialbank(s, pc);
 	}
 }
 
@@ -1982,7 +1979,7 @@ void cTargets::SellStuffTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 	{
-		sellstuff(s, DEREF_P_CHAR(pc));
+		sellstuff(s, pc);
 	}
 }
 
@@ -2076,7 +2073,7 @@ void cTargets::MakeShopTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 	{
-		Commands->MakeShop(DEREF_P_CHAR(pc));
+		Commands->MakeShop(pc);
 		teleport(pc);
 		sysmessage(s, "The buy containers have been added.");
 		return;
@@ -2463,7 +2460,7 @@ bool cTargets::NpcResurrectTarget(P_CHAR pc)
 
 	if (pc->dead)
 	{//Shouldn' be a validNPCMove inside a door, might fix house break in. -- from zippy code
-		Fame(DEREF_P_CHAR(pc),0);
+		Fame(pc,0);
 		soundeffect2(pc, 0x0214);
 		pc->id1=pc->xid1;
 		pc->id2=pc->xid2;
@@ -3257,7 +3254,7 @@ void cTargets::GuardTarget( UOXSOCKET s )
 		return;
 	}
 	pPet->npcaitype = 32; // 32 is guard mode
-	pPet->ftarg = DEREF_P_CHAR(currchar[s]);
+	pPet->ftarg = currchar[s]->serial;
 	pPet->npcWander=1;
 	sysmessage(s, "Your pet is now guarding you.");
 	currchar[s]->guarded = true;

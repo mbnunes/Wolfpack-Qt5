@@ -78,9 +78,9 @@ void    MsgBoardSetPostType( int nSerial, int nPostType );
 void    MsgBoardGetPostType( int nSerial );
 int     MsgBoardPostQuest( int nSerial, int nQuestType );
 void    MsgBoardQuestEscortCreate( int nSerial );
-void    MsgBoardQuestEscortArrive( int nNPCIndex, int nPCIndex );
-void    MsgBoardQuestEscortDelete( int nNPCIndex );
-void    MsgBoardQuestEscortRemovePost( int nNPCIndex );
+void    MsgBoardQuestEscortArrive( P_CHAR pc_npc, int nPCIndex );
+void    MsgBoardQuestEscortDelete( P_CHAR pc_npc );
+void    MsgBoardQuestEscortRemovePost( P_CHAR pc_npc );
 void    MsgBoardMaintenance( void );
 bool    MsgBoardRemoveGlobalPostBySerial( int nPostSerial );
 #if defined(__unix__)

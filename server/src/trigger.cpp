@@ -1140,7 +1140,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						else if (!(strcmp("MISC", (char*)script1)))  // Perform a miscellaneous function
 						{
 							if (!(strcmp("bank", strlwr((char*)script2))))
-								openbank(ts, DEREF_P_CHAR(currchar[ts]));
+								openbank(ts, currchar[ts]);
 						}
 						else if (!(strcmp("MSG", (char*)script1)))  // Display a message when trigger is activated
 						{
@@ -1833,7 +1833,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 									pc_ts->baseskill[p] += j;
 									if (pc_ts->baseskill[p]>1000)
 										pc_ts->baseskill[p] = 1000;
-									Skills->AdvanceStats(DEREF_P_CHAR(currchar[ts]), p);
+									Skills->AdvanceStats(currchar[ts], p);
 									Skills->updateSkillLevel(currchar[ts], p);
 									updateskill(ts, p);
 								}
@@ -1903,8 +1903,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						{
 							if (pi != NULL)
 							{
-								int p = DEREF_P_CHAR(currchar[ts]);
-								pi->SetOwnSerial(chars[p].serial);
+								pi->SetOwnSerial(currchar[ts]->serial);
 							}
 						}
 						else if (!(strcmp("SETTRG", (char*)script1)))  // Set items trigger to new trigger
@@ -2707,9 +2706,9 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 						else if (!(strcmp("MISC", (char*)script1)))  // Perform a miscellaneous function
 						{
 							if (!(strcmp("bank", strlwr((char*)script2))))
-								openbank(ts, DEREF_P_CHAR(pc_ts));
+								openbank(ts, pc_ts);
 							if (!(strcmp("ware", strlwr((char*)script2))))
-								openspecialbank(ts, DEREF_P_CHAR(pc_ts));// AntiChrist
+								openspecialbank(ts, pc_ts);// AntiChrist
 							if (!(strcmp("balance", strlwr((char*)script2))))
 							{
 								sprintf(sect, "You have %i gp in your bank account!", pc_ts->CountBankGold());
@@ -2773,7 +2772,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 						{
 							cline = &script2[0];
 							splitline();
-							npcaction(DEREF_P_CHAR(ti), hexnumber(0));
+							npcaction(ti, hexnumber(0));
 						}
 						else if (!(strcmp("NADD", (char*)script1)))  // Add a NPC at given location - AntiChrist -- Fixed here by Magius(CHE) §
 						{// Usage: NADD <npc_number> <life_in_seconds>
@@ -3112,7 +3111,6 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 						{
 							if (ti!=NULL)
 							{
-//								p = DEREF_P_CHAR(currchar[ts]);
 								ti->SetOwnSerial(pc_ts->serial);
 							}
 						}

@@ -80,7 +80,7 @@ private:
 	unsigned long Cur, Max;
 	long PerLoop;
 
-	void SaveChar( CHARACTER i );
+	void SaveChar( P_CHAR );
 	void SaveItem( P_ITEM pi, P_ITEM pDefault );
 };
 

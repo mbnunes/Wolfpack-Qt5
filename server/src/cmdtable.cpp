@@ -973,7 +973,7 @@ void command_showids(UOXSOCKET s)
 		if ( mapchar != NULL)
 		{
 			if (inrange1p(currchar[s], mapchar)) 
-				showcname(s, DEREF_P_CHAR(mapchar), 1);
+				showcname(s, mapchar, 1);
 		}
 	}
 	return;
@@ -1865,7 +1865,8 @@ void command_midi(UOXSOCKET s)
 void command_gumpopen(UOXSOCKET s)
 // (h h) Opens the specified GUMP menu.
 {
-	if (tnum==3) Gumps->Open(s, DEREF_P_CHAR(currchar[s]), hexnumber(1), hexnumber(2));
+	if (tnum==3) 
+		Gumps->Open(s, currchar[s], hexnumber(1), hexnumber(2));
 	return;
 	
 }
@@ -2382,7 +2383,7 @@ void command_wipenpcs(UOXSOCKET s)
 					Xsend(i, removeitem, 5);
 			}
 			
-			Npcs->DeleteChar(DEREF_P_CHAR(toCheck));
+			Npcs->DeleteChar(toCheck);
 			deleted++;
 		}
 	}

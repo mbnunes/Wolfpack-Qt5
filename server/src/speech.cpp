@@ -329,7 +329,7 @@ bool ShieldSpeech(cChar* pGuard, char* comm, cChar* pPlayer, UOXSOCKET s)
 				}
 				else
 				{
-					cwmWorldState->RemoveItemsFromCharBody(DEREF_P_CHAR(currchar[s]),0x1B, 0xC3);
+					cwmWorldState->RemoveItemsFromCharBody(currchar[s]->serial,0x1B, 0xC3);
 					// if they are wearing a chaos shield lets just delete it.
 					Items->SpawnItemBackpack2( s,28,1 );	// lets give them a new chaos shield.
 					npctalk(s,pGuard,"Hi fellow guild member,here is your new shield.",1);
@@ -361,7 +361,7 @@ bool ShieldSpeech(cChar* pGuard, char* comm, cChar* pPlayer, UOXSOCKET s)
 				}
 				else
 				{
-					cwmWorldState->RemoveItemsFromCharBody(DEREF_P_CHAR(currchar[s]),0x1B, 0xC4);
+					cwmWorldState->RemoveItemsFromCharBody(currchar[s]->serial, 0x1B, 0xC4);
 					// if they are wearing a order shield lets just delete it.
 					Items->SpawnItemBackpack2( s,29,1 );	// lets give them a new order shield.
 					npctalk(s,pGuard,"Hi fellow guild member,here is your new shield.",1);
@@ -463,7 +463,7 @@ bool EscortSpeech(cChar* pEscortee, char* comm, cChar* pPlayer, UOXSOCKET s)
 				// Send out the rant about accepting the escort
 				sprintf(temp, "Lead on! Payment shall be made when we arrive at %s.", region[pEscortee->questDestRegion].name);
 				npctalkall(pEscortee,temp, 0);
-				MsgBoardQuestEscortRemovePost( DEREF_P_CHAR(pEscortee) );	// Remove post from message board
+				MsgBoardQuestEscortRemovePost( pEscortee );	// Remove post from message board
 				return 1;	// Return 1 so that we indicate that we handled the message
 			}
 			else
@@ -507,7 +507,7 @@ bool BankerSpeech(cChar* pBanker, char* comm, cChar* pPlayer, UOXSOCKET s)
 		return 0;
 	if (strstr(comm,"BANK") || strstr(comm,"BALANCE") || strstr(comm,"WITHDRAW") || strstr(comm,"CHECK"))
 	{
-	    BankerAI->DoAI(s,DEREF_P_CHAR(pBanker),comm);
+	    BankerAI->DoAI(s, pBanker, comm);
 	    return 1;
 	}
     return 0;	// speech was NOT handled
@@ -614,7 +614,6 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 	if (!strstr( comm, petname))	//if petname is not in
 		return 0;
 	
-	//int k=DEREF_P_CHAR(pPet);
 	
 	if (strstr( comm, " FOLLOW"))
 	{
@@ -709,7 +708,7 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 		{
 			soundeffect2(pPet, 0x01FE);
 			if(SrvParms->tamed_disappear==1)
-				Npcs->DeleteChar(DEREF_P_CHAR(pPet)) ;
+				Npcs->DeleteChar(pPet) ;
 		}
 		return 1;
 	}
@@ -801,7 +800,7 @@ bool PlayerVendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
 	}
 	if (strstr(comm, " BUY") || strstr(comm, " PURCHASE"))
 	{
-		addx[s]=DEREF_P_CHAR(pVendor);
+		addx[s]=pVendor->serial;
 		npctalk(s,pVendor,"What would you like to buy?",0);
 		target(s,0,1,0,224," ");
 		return true;
@@ -823,7 +822,7 @@ bool PlayerVendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
 			pDeed->type = 217;
 			pDeed->value = 2000;
 			RefreshItem( pDeed );
-			Npcs->DeleteChar( DEREF_P_CHAR(pVendor) );
+			Npcs->DeleteChar( pVendor );
 			sysmessage(s, "Packed up vendor %s.", pVendor->name);
 			return true;
 		}
@@ -849,7 +848,7 @@ bool VendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
 	}
 	if (strstr( comm, " SELL"))
 	{
-		sellstuff(s, DEREF_P_CHAR(pVendor));						
+		sellstuff(s, pVendor);						
 		return true;
 	}
 	return false;
@@ -1079,7 +1078,7 @@ void cSpeech::talking(int s, string speech) // PC speech
 		return;  // Vendor responded already
 	
 	if (strstr(SpeechUpr, "GUARDS"))
-		callguards(DEREF_P_CHAR(currchar[s]));
+		callguards(currchar[s]);
 	
 	if (Boats->Speech(s, SpeechUpr))
 		return;

@@ -195,10 +195,11 @@ void action(int s, int x) // Character does a certain action
 	for (i=0;i<now;i++) if ((inrange1(s, i))&&(perm[i])) { Xsend(i, doact, 14); }
 }
 
-void npcaction(int npc, int x) // NPC character does a certain action
+void npcaction(P_CHAR pc_npc, int x) // NPC character does a certain action
 {
 	int i;
-	P_CHAR pc_npc      = MAKE_CHARREF_LR(npc);
+	if ( pc_npc == NULL )
+		return;
 
 	LongToCharPtr(pc_npc->serial, &doact[1]);
 	doact[5]=x>>8;
@@ -1061,14 +1062,12 @@ void senditem_lsd(UOXSOCKET s, P_ITEM pi,char color1, char color2, int x, int y,
 }
 
 // LB 3-JULY 2000
-void sendperson_lsd(UOXSOCKET s, CHARACTER c, char color1, char color2)
+void sendperson_lsd(UOXSOCKET s, P_CHAR pc, char color1, char color2)
 {
 	int j, k,ci,color,c1,c2,b,cc1=0,cc2=0;
 	unsigned char oc[1024];
-	CHARACTER i=c;
 
-	if ( (i < 0) || (i > cmem)) return;
-	P_CHAR pc = MAKE_CHARREF_LR(i)
+	if ( pc == NULL ) return;
 	if (s==-1) return;
 	int sendit;
 	P_CHAR pc_currchar = currchar[s];
@@ -1291,10 +1290,10 @@ void chardel (UOXSOCKET s) // Deletion of character
 		if (toDelete != NULL)
 		{
 			if (!SrvParms->checkcharage)
-				Npcs->DeleteChar(DEREF_P_CHAR(toDelete));
+				Npcs->DeleteChar(toDelete);
 			else
 				if ((toDelete->creationday+7) < getPlatformDay())
-					Npcs->DeleteChar(DEREF_P_CHAR(toDelete));
+					Npcs->DeleteChar(toDelete);
 				else
 				{
 					unsigned char delete_error[2] = {0x85, 0x03};
@@ -1343,12 +1342,13 @@ void chardel (UOXSOCKET s) // Deletion of character
 	}
 }
 
-void textflags (int s, int i, char *name)
+void textflags (UOXSOCKET s, P_CHAR pc, char *name)
 {
 	int a1, a2, a3, a4;
 	char name2[150];
 
-    P_CHAR pc = MAKE_CHARREF_LR(i);
+    if ( pc == NULL )
+		return;
 
 	a1=pc->ser1;
 	a2=pc->ser2;
@@ -1386,7 +1386,7 @@ void textflags (int s, int i, char *name)
 													{ if  (strcmp(title[18].other,"")) sprintf((char*)temp, " [%s]",title[18].other); else sprintf((char*)temp,""); strcat(name2,(char*)temp); }// ripper
 	if (pc->kills>=repsys.maxkills)            { if  (strcmp(title[19].other,"")) sprintf((char*)temp, " [%s]",title[19].other); else sprintf((char*)temp,""); strcat(name2,(char*)temp); } // AntiChrist
 
-	Guilds->Title(s,i);
+	Guilds->Title(s, pc);
 
 	int tl,guild,race;
 	tl=44+strlen(name2)+1;
@@ -2039,19 +2039,13 @@ void itemtalk(int s, P_ITEM pi, char *txt) // Item "speech"
 	Xsend(s, txt, strlen(txt)+1);
 }
 
-void npctalk(int s, cChar* pNpc, char *txt,char antispam) // NPC speech
-{
-	npctalk(s, DEREF_P_CHAR(pNpc),txt,antispam);
-}
-
-void npctalk(int s, int npc, char *txt,char antispam) // NPC speech
+void npctalk(int s, P_CHAR pc_npc, char *txt,char antispam) // NPC speech
 {
 	int tl;
 	char machwas;
 
-	if (npc==-1 || s==-1) return; //lb
+	if (pc_npc == NULL || s==-1) return; //lb
 
-	P_CHAR pc_npc      = MAKE_CHARREF_LR(npc);
 	P_CHAR pc_currchar = currchar[s];
 
 	if (antispam)
@@ -2358,7 +2352,7 @@ void movingeffect(P_CHAR pc_source, P_CHAR pc_dest, unsigned char eff1, unsigned
 			 } else if (clientDimension[j]==3) // 3d client, send 3d-Particles	
 			 {
 
-				movingeffectUO3D(DEREF_P_CHAR(pc_source), DEREF_P_CHAR(pc_dest), str);			
+				movingeffectUO3D(pc_source, pc_dest, str);			
 				Xsend(j, particleSystem, 49);
 			 }
 			 else if (clientDimension[j] != 2 && clientDimension[j] !=3 ) { sprintf(temp, "Invalid Client Dimension: %i\n",clientDimension[j]); LogError(temp); }
@@ -2368,12 +2362,13 @@ void movingeffect(P_CHAR pc_source, P_CHAR pc_dest, unsigned char eff1, unsigned
 
 }
 
-void bolteffect(int player, bool UO3DonlyEffekt, bool skip_old )
+void bolteffect(P_CHAR pc_player, bool UO3DonlyEffekt, bool skip_old )
 {
 	char effect[29];
 	int  j;
 
-	P_CHAR pc_player = MAKE_CHARREF_LR(player);
+	if ( pc_player == NULL )
+		return;
 
 	if (!skip_old)
 	{
@@ -2507,11 +2502,12 @@ void staticeffect2(P_ITEM pi, unsigned char eff1, unsigned char eff2, unsigned c
 }
 
 
-void bolteffect2(int player,char a1,char a2)	// experimenatal, lb
+void bolteffect2(P_CHAR pc_player,char a1,char a2)	// experimenatal, lb
 {
 	char effect[29] = {0,};
 	int j,x2,x,y2,y;
-	P_CHAR pc_player = MAKE_CHARREF_LR(player);
+	if ( pc_player == NULL )
+		return;
 
 	effect[0]=0x70; // Effect message
 	effect[1]=0x00; // effect from source to dest
@@ -2565,14 +2561,13 @@ void bolteffect2(int player,char a1,char a2)	// experimenatal, lb
 
 //	- Movingeffect3 is used to send an object from a char
 //    to another object (like purple potions)
-void movingeffect3(CHARACTER source, unsigned short x, unsigned short y, signed char z, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode)
+void movingeffect3(P_CHAR pc_source, unsigned short x, unsigned short y, signed char z, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode)
 {
-	char effect[29];
+	char effect[29] = {0,};
 	int j;
 
-	P_CHAR pc_source = MAKE_CHARREF_LR(source);
+	if ( pc_source == NULL ) return;
 
-	memset (&effect, 0, 29);
 	effect[0]=0x70; // Effect message
 	effect[1]=0x00; // Moving effect
 	effect[2]=pc_source->ser1;
@@ -2648,14 +2643,14 @@ void staticeffect3(UI16 x, UI16 y, SI08 z, unsigned char eff1, unsigned char eff
 	}
 }
 
-void movingeffect3(int source, int dest, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode,unsigned char unk1,unsigned char unk2,unsigned char ajust,unsigned char type)
+void movingeffect3(P_CHAR pc_source, P_CHAR pc_dest, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode,unsigned char unk1,unsigned char unk2,unsigned char ajust,unsigned char type)
 {
 	//0x0f 0x42 = arrow 0x1b 0xfe=bolt
 	char effect[29];
 	int j;
 
-	P_CHAR pc_source = MAKE_CHARREF_LR(source);
-	P_CHAR pc_dest   = MAKE_CHARREF_LR(dest);
+	if (pc_source == NULL || pc_dest == NULL)
+		return;
 
 	effect[0]=0x70; // Effect message
 	effect[1]=type; // Moving effect
@@ -2698,13 +2693,14 @@ void movingeffect3(int source, int dest, unsigned char eff1, unsigned char eff2,
 
 //	- Movingeffect2 is used to send an object from a char
 //	to another object (like purple potions)
-void movingeffect2(int source, P_ITEM dest, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode)
+void movingeffect2(P_CHAR pc_source, P_ITEM dest, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode)
 {
 	//0x0f 0x42 = arrow 0x1b 0xfe=bolt
 	char effect[29];
 	int j;
 	const P_ITEM pi = dest;	// on error return
-	P_CHAR pc_source = MAKE_CHARREF_LR(source);
+	if ( pc_source == NULL )
+		return;
 
 	effect[0]=0x70; // Effect message
 	effect[1]=0x00; // Moving effect
@@ -3028,7 +3024,7 @@ void sendshopinfo(int s, P_CHAR pc, P_ITEM pi)
 	}
 }
 
-int sellstuff(int s, int i)
+int sellstuff(int s, P_CHAR pc)
 {
 	char itemname[256];
 	int m1t, z, value;
@@ -3038,7 +3034,7 @@ int sellstuff(int s, int i)
 	char ciname[256]; // By Magius(CHE)
 	char cinam2[256]; // By Magius(CHE)
 
-    P_CHAR pc = MAKE_CHARREF_LRV(i, 0);
+    if ( pc == NULL ) return 0;
 	P_CHAR pc_currchar = currchar[s];
 	P_ITEM sellcont = NULL;
 
@@ -3419,12 +3415,9 @@ void staticeffectUO3D(P_CHAR pc_cs, stat_st *sta)
 // effect 15 -> adjust  
 // effect 16 -> explode on impact
 
-void movingeffectUO3D(CHARACTER source, CHARACTER dest, move_st *sta)
+void movingeffectUO3D(P_CHAR pc_cs, P_CHAR pc_cd, move_st *sta)
 {
-   PC_CHAR pc_cs=MAKE_CHARREF_LOGGED(source,err);
-   if (err) return;
-   PC_CHAR pc_cd=MAKE_CHARREF_LOGGED(dest, err);
-   if (err) return;
+   if (pc_cs == NULL || pc_cd == NULL) return;
 
    particleSystem[0]=0xc7;
    particleSystem[1]=0x0;

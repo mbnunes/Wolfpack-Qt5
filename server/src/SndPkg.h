@@ -70,7 +70,7 @@ void soundeffect3(P_ITEM pi, short sound);
 void soundeffect4(P_ITEM pi, UOXSOCKET s, unsigned char a, unsigned char b);
 void soundeffect5(UOXSOCKET s, unsigned char a, unsigned char b);
 void action(int s, int x); // Character does a certain action
-void npcaction(int npc, int x); // NPC character does a certain action
+void npcaction(P_CHAR pc_npc, int x); // NPC character does a certain action
 void sysbroadcast(const char *txt); // System broadcast in bold text
 void sysmessage(UOXSOCKET s, char *txt, ...); // System message (In lower left corner);
 void sysmessage(UOXSOCKET s, short color, char *txt, ...);
@@ -82,9 +82,9 @@ void sendbpitem(UOXSOCKET s, P_ITEM pi); // Update single item in backpack
 void tileeffect(int x, int y, int z, char eff1, char eff2, char speed, char loop);
 void senditem(UOXSOCKET s, P_ITEM pi); // Send items (on ground);
 void senditem_lsd(UOXSOCKET s, P_ITEM pi,char color1, char color2, int x, int y, signed char z);
-void sendperson_lsd(UOXSOCKET s, CHARACTER c, char color1, char color2);
+void sendperson_lsd(UOXSOCKET s, P_CHAR pc, char color1, char color2);
 void chardel (UOXSOCKET s); // Deletion of character
-void textflags (int s, int i, char *name);
+void textflags (UOXSOCKET s, P_CHAR pc, char *name);
 void teleport(P_CHAR pc); // Teleports character to its current set coordinates
 void teleport2(CHARACTER s); // used for /RESEND only - Morrolan, so people can find their corpses
 void updatechar(P_CHAR pc); // If character status has been changed (Polymorph);, resend him
@@ -99,7 +99,6 @@ void weblaunch(int s, char *txt); // Direct client to a web page
 void broadcast(int s); // GM Broadcast (Done if a GM yells something);
 void itemtalk(int s, P_ITEM pi, char *txt); // Item "speech"
 void npctalk(int s, cChar* pNpc, char *txt,char antispam); // NPC speech
-void npctalk(int s, int npc, char *txt,char antispam); // NPC speech
 void npctalkall(cChar* pNpc, char *txt,char antispam); // NPC speech to all in range.
 void npctalk_runic(int s, int npc, char *txt,char antispam); // NPC speech
 void npcemote(int s, P_CHAR pc_npc, char *txt, char antispam); // NPC speech
@@ -107,17 +106,17 @@ void npcemote(int s, P_CHAR pc_npc, char *txt, char antispam); // NPC speech
 
 void staticeffect (P_CHAR pc_player, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, bool UO3DonlyEffekt=false, stat_st *str=NULL, bool skip_old=false );
 void movingeffect(P_CHAR pc_source, P_CHAR pc_dest, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode, bool UO3DonlyEffekt=false, move_st *str=NULL, bool skip_old=false);
-void bolteffect(CHARACTER player, bool UO3DonlyEffekt=false, bool skip_old=false);
+void bolteffect(P_CHAR pc_player, bool UO3DonlyEffekt=false, bool skip_old=false);
 void staticeffect2(P_ITEM pi, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode, bool UO3DonlyEffekt=false, stat_st *str=NULL, bool skip_old=false);
 
 void staticeffect3(UI16 x, UI16 y, SI08 z, unsigned char eff1, unsigned char eff2, char speed, char loop, char explode);
-void movingeffect3(CHARACTER source, unsigned short x, unsigned short y, signed char z, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode);
-void movingeffect3(CHARACTER source, CHARACTER dest, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode,unsigned char unk1,unsigned char unk2,unsigned char ajust,unsigned char type);
-void movingeffect2(CHARACTER source, P_ITEM dest, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode);
-void bolteffect2(CHARACTER player,char a1,char a2);	// experimenatal, lb
+void movingeffect3(P_CHAR pc_source, unsigned short x, unsigned short y, signed char z, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode);
+void movingeffect3(P_CHAR pc_source, P_CHAR pc_dest, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode,unsigned char unk1,unsigned char unk2,unsigned char ajust,unsigned char type);
+void movingeffect2(P_CHAR pc_source, P_ITEM dest, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode);
+void bolteffect2(P_CHAR pc_player,char a1,char a2);	// experimenatal, lb
 
 void staticeffectUO3D(P_CHAR pc_cs, stat_st *sta);
-void movingeffectUO3D(CHARACTER source, CHARACTER dest, move_st *sta);
+void movingeffectUO3D(P_CHAR pc_cs, P_CHAR pc_cd, move_st *sta);
 void bolteffectUO3D(P_CHAR player);
 void itemeffectUO3D(P_ITEM pi, stat_st *sta);
 
@@ -127,7 +126,7 @@ void deathaction(int s, P_ITEM pi_x); // Character does a certain action
 void deathmenu(int s); // Character sees death menu
 void impowncreate(int s, P_CHAR pc, int z); //socket, player to send
 void sendshopinfo(int s, P_CHAR pc, P_ITEM pi);
-int sellstuff(int s, int i);
+int sellstuff(UOXSOCKET s, P_CHAR pc);
 void playmidi(int s, char num1, char num2);
 void sendtradestatus(P_ITEM cont1, P_ITEM cont2);
 void endtrade(int b1, int b2, int b3, int b4);

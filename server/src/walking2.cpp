@@ -301,7 +301,7 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 	
 	// would have already collided, right??
 	if (!amTurning && pc->isPlayer())
-		Magic->GateCollision(DEREF_P_CHAR(pc));
+		Magic->GateCollision(pc);
 	
 	// again, don't know if we need to check when turning or not
 	if( !amTurning )
@@ -400,7 +400,7 @@ bool cMovement::isOverloaded(P_CHAR pc, UOXSOCKET socket, int sequence)
 		// Can probably put this in the above check, but I'll keep it here for now.
 		if ( socket != INVALID_UOXSOCKET )
 		{
-			if (!Weight->CheckWeight(DEREF_P_CHAR(pc), socket) || (pc->stm<3))
+			if (!Weight->CheckWeight(socket) || (pc->stm<3))
 			{
 				sysmessage(socket, "You are too fatigued to move, you are carrying %d stones.", pc->weight);
 				deny(socket, pc, sequence);
@@ -1161,7 +1161,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 						{
 							if (!Magic->CheckResist(NULL, pc, 5))
 							{                                               
-								Magic->PoisonDamage(DEREF_P_CHAR(pc),1);
+								Magic->PoisonDamage(pc, 1);
 							}
 							soundeffect2(pc, 0x0208);
 						}
@@ -1253,10 +1253,9 @@ void cMovement::HandleTeleporters(P_CHAR pc, UOXSOCKET socket, short int oldx, s
 	// well, we wouldn't be in Walking() if we weren't trying to move!
 	if ((pc->pos.x!=oldx)||(pc->pos.y!=oldy))
 	{
-		//    /*if (!(pc->dead))*/ objTeleporters(DEREF_P_CHAR(pc)); //morrolan
 		if ( pc->isPlayer())
-			objTeleporters( DEREF_P_CHAR(pc) );   // ripper
-		teleporters( DEREF_P_CHAR(pc) );
+			objTeleporters( pc );   // ripper
+		teleporters( pc );
 	}
 }
 
@@ -1593,7 +1592,7 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
                     if ( online( pc_attacker ) || pc_attacker->isNpc() )
                     {
 						PathFind(pc_i, pc_attacker->pos.x, pc_attacker->pos.y);
-                        j = chardirxyz(DEREF_P_CHAR(pc_i), pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
+                        j = chardirxyz(pc_i, pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
                         if ( ( pc_i->dir & 0x07 ) == ( j & 0x07 ) ) pc_i->pathnum++;
                         Walking(pc_i, j, 256);
                     }
@@ -1619,7 +1618,7 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
 				        if ( chardist( pc_i, pc_target) > 1 /* || chardir(i, k)!=chars[i].dir // by THyme: causes problems, will fix */)
 					    {
 						    PathFind(pc_i, pc_target->pos.x, pc_target->pos.y);
-	                        j=chardirxyz(DEREF_P_CHAR(pc_i), pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
+	                        j = chardirxyz(pc_i, pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
 		                    pc_i->pathnum++;
 			                Walking(pc_i,j,256);
 				        }
@@ -1628,7 +1627,7 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
 						if( ( !pc_target->dead ) && ( pc_i->questDestRegion == pc_i->region ) )
 						{
 							// Pay the Escortee and free the NPC
-							MsgBoardQuestEscortArrive( DEREF_P_CHAR(pc_i), calcSocketFromChar( pc_target ) );
+							MsgBoardQuestEscortArrive( pc_i, calcSocketFromChar( pc_target ) );
 						}
 					// End - Dupois
 	                }
@@ -1662,7 +1661,7 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
 					{
 						// calculate a x,y to flee towards
 						int mydist = P_PF_MFD - chardist( pc_i, pc_k) + 1;
-						j=chardirxyz(DEREF_P_CHAR(pc_i), pc_k->pos.x, pc_k->pos.y);
+						j=chardirxyz(pc_i, pc_k->pos.x, pc_k->pos.y);
 						short int myx = GetXfromDir(j, pc_i->pos.x);
 						short int myy = GetYfromDir(j, pc_i->pos.y);
 						
@@ -1687,7 +1686,7 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
 								// now, got myx, myy... lets go.
 								
 								PathFind(pc_i, myx, myy);
-								j=chardirxyz(DEREF_P_CHAR(pc_i), pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
+								j=chardirxyz(pc_i, pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
 								pc_i->pathnum++;
 								Walking(pc_i,j,256);
 					}

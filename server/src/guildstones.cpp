@@ -516,7 +516,7 @@ void cGuilds::Resign(int s)
 		return;
 	}
 
-	Guilds->EraseMember(DEREF_P_CHAR(currchar[s]));
+	Guilds->EraseMember( currchar[s] );
 	sysmessage(s,"You are no longer in that guild.");
 	if ((guilds[guildnumber].master == pc->serial) && (guilds[guildnumber].members!=0))
 	{
@@ -564,11 +564,11 @@ void cGuilds::EraseGuild(int guildnumber)
 }
 
 
-static void RemoveShields(CHARACTER c)
+static void RemoveShields(P_CHAR pc)
 {
-	cwmWorldState->RemoveItemsFromCharBody(c,0x1B, 0xC3);
-	cwmWorldState->RemoveItemsFromCharBody(c,0x1B, 0xC4);
-	P_ITEM pPack = Packitem(&chars[c]);
+	cwmWorldState->RemoveItemsFromCharBody(pc->serial,0x1B, 0xC3);
+	cwmWorldState->RemoveItemsFromCharBody(pc->serial,0x1B, 0xC4);
+	P_ITEM pPack = Packitem(pc);
 	if (pPack)
 	{
 		pPack->DeleteAmount(666,0x1BC3);	// hope they don't have more than 666 shields ;-) (Duke)
@@ -577,9 +577,9 @@ static void RemoveShields(CHARACTER c)
 }
 
 // guilderasemember() Wipes all guild related data from a player
-void cGuilds::EraseMember(int c)
+void cGuilds::EraseMember(P_CHAR pc)
 {
-	P_CHAR pc = MAKE_CHARREF_LR(c);
+	if ( pc == NULL ) return;
 	int guildnumber = pc->guildnumber;
 
 	if (guildnumber>=0 && guildnumber <MAXGUILDS)
@@ -592,7 +592,7 @@ void cGuilds::EraseMember(int c)
 				P_CHAR holding = FindCharBySerial(guilds[guildnumber].member[j]);
 				if (holding != NULL) 
 				{
-					RemoveShields(DEREF_P_CHAR(holding));
+					RemoveShields(holding);
 				}
 			}
 		}
@@ -941,7 +941,7 @@ void cGuilds::GumpChoice(int s,int main,int sub)
 					else
 					{
 						P_CHAR pc_member = FindCharBySerial(guilds[guildnumber].member[member]);
-						Guilds->EraseMember(DEREF_P_CHAR(pc_member));
+						Guilds->EraseMember(pc_member);
 						sysmessage(s,"Kicked that member out of the guild.");
 						if (online(pc_member))
 							sysmessage(calcSocketFromChar(pc_member),"You got dismissed out of your guild.");
@@ -1246,7 +1246,7 @@ void cGuilds::SetType(int guildnumber, int type)
 				P_CHAR holding = FindCharBySerial(guilds[guildnumber].member[j]);
                 if (holding != NULL) 
 				{
-					RemoveShields(DEREF_P_CHAR(holding));
+					RemoveShields( holding );
 					Items->SpawnItemBackpack2( calcSocketFromChar( holding ), 29, 1 );	// will not work for offline chars (Duke)
 				}
 			}
@@ -1259,7 +1259,7 @@ void cGuilds::SetType(int guildnumber, int type)
 				P_CHAR holding = FindCharBySerial(guilds[guildnumber].member[j]);
                 if ( holding != NULL ) 
 				{
-					RemoveShields( DEREF_P_CHAR( holding ) );
+					RemoveShields( holding );
 					Items->SpawnItemBackpack2( calcSocketFromChar( holding ), 28, 1 );
 				}
 			}
@@ -1274,7 +1274,7 @@ void cGuilds::SetType(int guildnumber, int type)
 				P_CHAR holding = FindCharBySerial(guilds[guildnumber].member[j]);
 				if( holding != NULL )
 				{
-					RemoveShields( DEREF_P_CHAR( holding ) );
+					RemoveShields( holding );
 				}
 			}
 			Guilds->Broadcast( guildnumber, "Your guild is now a Standard guild." );
@@ -1460,14 +1460,15 @@ cGuilds::cGuilds(void)
 // guildtitle(viewing character socket, clicked character) displays players title string, over the name
 // of clicked character, name color gets calculated from the guild relationship of both players
 // Called by: textflags()
-void cGuilds::Title(int s,int player2)
+void cGuilds::Title(int s, P_CHAR pc_player2)
 {
 	char title[150];
 	char abbreviation[5];
 	char guildtype[10];
 	int tl;
 
-	P_CHAR pc_player2 = MAKE_CHARREF_LR(player2);
+	if ( pc_player2 == NULL )
+		return;
 
 	if (pc_player2->guildnumber<0 || pc_player2->guildnumber>=MAXGUILDS) return;
 

@@ -202,7 +202,7 @@ void cFishing::FishTarget(P_CLIENT ps)
 		
 		soundeffect(s, 0x02, 0x3F);
 		pPlayer->unhide();
-		Fish(DEREF_P_CHAR(pPlayer));
+		Fish(pPlayer);
 	}
 	else
 		ps->SysMsg("You need to be closer to the water to fish!");
@@ -210,9 +210,9 @@ void cFishing::FishTarget(P_CLIENT ps)
 
 
 // LB: added fish stacking !!
-void cFishing::Fish(CHARACTER i)
+void cFishing::Fish(P_CHAR pc_i)
 {
-	P_CHAR pc_i = MAKE_CHARREF_LR(i);
+	if ( pc_i == NULL ) return;
 
 	int ii,b;
 	int idnum;

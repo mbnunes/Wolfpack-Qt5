@@ -116,7 +116,7 @@ float cWeight::RecursePacks(P_ITEM bp)
 	return totalweight;
 }
 
-int cWeight::CheckWeight(UOXSOCKET s, int k) // Check when player is walking if overloaded
+int cWeight::CheckWeight(UOXSOCKET s) // Check when player is walking if overloaded
 {
 	P_CHAR pc = currchar[s];
 	if (pc != NULL)

@@ -91,7 +91,7 @@ void cTrade::buyaction(int s)
 	useBank = (goldtotal >= SrvParms->CheckBank );
 
 	if( useBank )
-		playergoldtotal = GetBankCount( DEREF_P_CHAR(pc_currchar), 0x0EED );
+		playergoldtotal = GetBankCount( pc_currchar, 0x0EED );
 	else
 		playergoldtotal = pc_currchar->CountGold();
 
@@ -134,13 +134,13 @@ void cTrade::buyaction(int s)
 				}
 			}
 			npctalkall(npc, (char*)temp, 0);
-			npcaction(DEREF_P_CHAR(npc), 0x20);		// bow (Duke, 17.3.2001)
+			npcaction(npc, 0x20);		// bow (Duke, 17.3.2001)
 
 			clear = 1;
 			if( !(pc_currchar->isGM() ) ) 
 			{
 				if( useBank )
-					DeleBankItem( DEREF_P_CHAR(pc_currchar), 0x0EED, 0, goldtotal );
+					DeleBankItem( pc_currchar, 0x0EED, 0, goldtotal );
 				else
 					delequan( pc_currchar, 0x0EED, goldtotal, NULL );
 			}
@@ -398,10 +398,9 @@ void cTrade::sellaction(int s)
 	Xsend(s, clearmsg, 8);
 }
 
-P_ITEM cTrade::tradestart(int s, int i)
+P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 {
 	P_CHAR pc_currchar = currchar[s];
-	P_CHAR pc_i        = MAKE_CHAR_REF(i);
 	unsigned char msg[90];
 
 	P_ITEM pi_bps = Packitem(pc_currchar);

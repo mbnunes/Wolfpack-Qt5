@@ -96,7 +96,7 @@ void do_lsd(UOXSOCKET s)
 						 if (rand()%10==0) zz=pi->pos.z+rand()%33; else zz=pi->pos.z;
 						 if (rand()%10==0) xx=pi->pos.x+rand()%3; else xx=pi->pos.x;
 						 if (rand()%10==0) yy=pi->pos.y+rand()%3; else yy=pi->pos.y;
-						 di = itemdist(DEREF_P_CHAR(pc_currchar), pi);
+						 di = itemdist(pc_currchar, pi);
 						 if (di<13) if (rand()%7==0)
 						 {
 							icnt++;
@@ -112,7 +112,7 @@ void do_lsd(UOXSOCKET s)
 						{
 							icnt++;
 							if (icnt%10==0 || icnt<10) 
-								sendperson_lsd(s, DEREF_P_CHAR(mapchar),c1,c2); // attempt to cut packet-bombing by this thing
+								sendperson_lsd(s, mapchar, c1, c2); // attempt to cut packet-bombing by this thing
 						}
 					}
 				}
@@ -132,19 +132,19 @@ void do_lsd(UOXSOCKET s)
 	}
 }
 
-void restockNPC(unsigned int currenttime, int i)
+void restockNPC(unsigned int currenttime, P_CHAR pc_i)
 {
 	unsigned int a, b;
 
 	if (SrvParms->shoprestock==1 && (shoprestocktime<=currenttime || overflow))
 	{
-		vector<SERIAL> vecContainer = contsp.getData(chars[i].serial);
+		vector<SERIAL> vecContainer = contsp.getData(pc_i->serial);
 		for ( a = 0; a < vecContainer.size(); a++ )
 		{
 			const PC_ITEM pici = FindItemBySerial(vecContainer[a]);
 			if (pici != NULL)
 			{
-				if(pici->layer==0x1A && chars[i].shop==1) //morrolan item restock fix
+				if(pici->layer==0x1A && pc_i->shop==1) //morrolan item restock fix
 				{
 					vector<SERIAL> vecContainer2 = contsp.getData(pici->serial);
 					for (b=0;b<vecContainer2.size();b++)
@@ -160,7 +160,7 @@ void restockNPC(unsigned int currenttime, int i)
 							}
 							// MAgius(CHE): All items in shopkeeper need a new randomvaluerate.
 							if (SrvParms->trade_system==1)
-								StoreItemRandomValue(pic, calcRegionFromXY(chars[i].pos.x,chars[i].pos.y));// Magius(CHE) (2)
+								StoreItemRandomValue(pic, calcRegionFromXY(pc_i->pos.x, pc_i->pos.y));// Magius(CHE) (2)
 						}
 					}// for b
 				}
@@ -169,11 +169,10 @@ void restockNPC(unsigned int currenttime, int i)
 	}//if time
 }
 
-void genericCheck(int i, unsigned int currenttime)// Char mapRegions
+void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 {
 	int c;
 	
-	P_CHAR pc = MAKE_CHARREF_LR(i);
 	if (pc == NULL)
 		return;
 	
@@ -270,8 +269,7 @@ void genericCheck(int i, unsigned int currenttime)// Char mapRegions
 					int ratio = ((100 + 50)/SrvParms->manarate);
 					// 100 = Maximum skill (GM)
 					// 50 = int affects mana regen (%50)
-					// int s = calcSocketFromChar(DEREF_P_CHAR(pc));
-					int armorhandicap = ((Skills->GetAntiMagicalArmorDefence(DEREF_P_CHAR(pc)) + 1) / SrvParms->manarate);
+					int armorhandicap = ((Skills->GetAntiMagicalArmorDefence(pc) + 1) / SrvParms->manarate);
 					int charsmeditsecs = (1 + SrvParms->manarate - ((((pc->skill[MEDITATION] + 1)/10) + ((pc->in + 1) / 2)) / ratio));
 					if (pc->med)
 					{
@@ -295,20 +293,20 @@ void genericCheck(int i, unsigned int currenttime)// Char mapRegions
 		deathstuff(pc);
 }
 
-void checkPC(int i, unsigned int currenttime)//Char mapRegions
+void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 {
 	int y,x, timer;//, valid=0;
 	char t[120];
 
-	P_CHAR pc = MAKE_CHARREF_LR(i);  // pc-> and chars[i] are the same char for now.
+	if ( pc == NULL ) return;
 
 	UOXSOCKET s = calcSocketFromChar(pc);//Only calc socket once!
 
-	Magic->CheckFieldEffects2(currenttime, DEREF_P_CHAR(pc), 1);//Lag fix
+	Magic->CheckFieldEffects2(currenttime, pc, 1);//Lag fix
 	if (!pc->dead && pc->swingtarg==-1 )
-		Combat->DoCombat(DEREF_P_CHAR(pc),currenttime);
+		Combat->DoCombat(pc, currenttime);
 	else if(!pc->dead && (pc->swingtarg>=0 && pc->timeout<=currenttime))
-		Combat->CombatHitCheckLoS(pc,currenttime);
+		Combat->CombatHitCheckLoS(pc, currenttime);
 
 /*	if (wtype==1 && raindroptime<=currenttime && !noweather[s]) // implment. of xuri's raindrop idea, LB
 	{
@@ -453,7 +451,7 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 		if(pc->trackingdisplaytimer<=currenttime)
 		{
 			pc->trackingdisplaytimer=currenttime+tracking_data.redisplaytime*MY_CLOCKS_PER_SEC;
-			Skills->Track(DEREF_P_CHAR(pc));
+			Skills->Track(pc);
 		}
 	} else
 	{
@@ -471,11 +469,6 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 			Xsend(s,arrow,6);
 		}
 	}
-/*	if(pc->fishingtimer)
-	{
-		if(pc->fishingtimer==1) Fishing->Fish(DEREF_P_CHAR(pc));
-		pc->fishingtimer--;
-	}*/
 
 	if (SrvParms->hungerrate>1 && (pc->hungertime<=currenttime || overflow))
 	{
@@ -636,17 +629,17 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 	int pcalc;
 	char t[120];
 
-	Npcs->CheckAI(currenttime, DEREF_P_CHAR(pc));//Lag fix
+	Npcs->CheckAI(currenttime, pc);//Lag fix
 	Movement->NpcMovement(currenttime, pc);//Lag fix
 	setcharflag(pc);
 	if (!pc->dead && pc->swingtarg==-1 )
-		Combat->DoCombat(DEREF_P_CHAR(pc),currenttime);
+		Combat->DoCombat(pc, currenttime);
 	else if(!pc->dead && (pc->swingtarg>=0 && pc->timeout<=currenttime))
 		Combat->CombatHitCheckLoS(pc,currenttime);
 
-	Magic->CheckFieldEffects2(currenttime, DEREF_P_CHAR(pc),0);//Lag fix
+	Magic->CheckFieldEffects2(currenttime, pc, 0);//Lag fix
 
-	restockNPC(currenttime, DEREF_P_CHAR(pc));
+	restockNPC(currenttime, pc);
 
 	if (!pc->free) //bud
 	{
@@ -666,15 +659,15 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 				// Only need to remove the post if the NPC does not have a follow target set
 				if ( (pc->questType==ESCORTQUEST) && (pc->ftarg == INVALID_SERIAL) )
 				{
-					MsgBoardQuestEscortRemovePost( DEREF_P_CHAR(pc) );
-					MsgBoardQuestEscortDelete( DEREF_P_CHAR(pc) );
+					MsgBoardQuestEscortRemovePost( pc );
+					MsgBoardQuestEscortDelete( pc );
 					return;
 				}
 				// Dupois - End
 
-				soundeffect2(DEREF_P_CHAR(pc), 0x01, 0xFE);
+				soundeffect2(pc, 0x01FE);
 				pc->dead=true;
-				Npcs->DeleteChar(DEREF_P_CHAR(pc));
+				Npcs->DeleteChar(pc);
 				return;
 			}
 		}
@@ -818,7 +811,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					{
 						soundeffect2(pc, 0x01FE);
 						if(SrvParms->tamed_disappear==1)
-						Npcs->DeleteChar(DEREF_P_CHAR(pc));
+						Npcs->DeleteChar(pc);
 					}
 				}
 				//sprintf(t,"* %s must eat very soon or he will die! *",pc->name);
@@ -1004,8 +997,8 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		if (online(currchar[i]) && currchar[i]->account==acctno[i])
 		{
 
-			genericCheck(DEREF_P_CHAR(currchar[i]),currenttime);
-			checkPC(DEREF_P_CHAR(currchar[i]),currenttime);
+			genericCheck(currchar[i], currenttime);
+			checkPC(currchar[i], currenttime);
 
 			int	StartGrid=mapRegions->StartGrid(currchar[i]->pos.x, currchar[i]->pos.y);
 
@@ -1028,7 +1021,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 							if( (!mapchar->tamed && checknpcs<=currenttime) || (mapchar->tamed && checktamednpcs<=currenttime) || (mapchar->npcWander==1 && checknpcfollow<=currenttime) || overflow)
 							{
 								if (mapchar->isNpc()) 
-									genericCheck(DEREF_P_CHAR(mapchar),currenttime); // lb, lagfix
+									genericCheck(mapchar, currenttime); // lb, lagfix
 								if (chardist(currchar[i], mapchar)<=24 && mapchar->isNpc()) //Morrolan tweak from 30 to 24 tiles
 									checkNPC(mapchar, currenttime);
 								else if (mapchar->isPlayer() &&
@@ -1055,7 +1048,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 							Items->DecayItem(currenttime, mapitem);
 							if (mapitem->type==88 && mapitem->morey<25 )
 							{
-								if (itemdist(DEREF_P_CHAR(currchar[i]), mapitem)<=mapitem->morey)
+								if (itemdist(currchar[i], mapitem)<=mapitem->morey)
 								{
 									if (RandomNum(1,100)<=mapitem->morez)
 										soundeffect4(mapitem,i, mapitem->morex>>8, mapitem->morex%256);

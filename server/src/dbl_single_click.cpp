@@ -319,49 +319,48 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 	case 1: // normal containers
 	case 63:
 		if (pi->moreb1)
-			Magic->MagicTrap(DEREF_P_CHAR(pc_currchar), pi); // added by AntiChrist
+			Magic->MagicTrap(pc_currchar, pi); // added by AntiChrist
 		// only 1 and 63 can be trapped, so pleaz leave it here :) - Anti
 	case 65: // nodecay item spawner..Ripper
 	case 66: // decaying item spawner..Ripper
-		pc_currchar->objectdelay = 0;	// no delay for opening containers
-
-		int npc, contser;
-		npc=-1;
-		contser = pi->contserial;
-		if ((contser <= 0 && iteminrange(s, pi, 2)) ||  // Backpack in world - free access to everyone
-			pc_currchar->Wears(pi))	// primary pack
 		{
-			pc_currchar->objectdelay = 0;
-			backpack(s, serial);
-			return;
-		}
-		if (isItemSerial(pi->contserial))
-		{
-			P_ITEM pio = GetOutmostCont(pi);
-			if (pio == NULL) return;		// this should *not* happen, but it does ! Watch the logfiles (Duke)
-			if (pc_currchar->Wears(pio) ||	// sub-pack
-				(pio->isInWorld() && iteminrange(s, pio, 2)))	// in world and in range
+			pc_currchar->objectdelay = 0;	// no delay for opening containers
+			
+			SERIAL contser = pi->contserial;
+			if ((contser <= 0 && iteminrange(s, pi, 2)) ||  // Backpack in world - free access to everyone
+				pc_currchar->Wears(pi))	// primary pack
 			{
+				pc_currchar->objectdelay = 0;
 				backpack(s, serial);
 				return;
 			}
-		}
-		P_CHAR pco;
-		pco = GetPackOwner(pi);
-		npc = DEREF_P_CHAR(pco);
-		
-		if ((npcinrange(s, pco, 2)) || (iteminrange(s, pi, 2)))
-		{	
-			if (pco == NULL)// reorganized by AntiChrist to avoid crashes
-				backpack(s, serial);
-			else if (pc_currchar->serial == pco->serial || pc_currchar->isGMorCounselor() || pco->npcaitype == 17)
-				backpack(s, serial);
+			if (isItemSerial(pi->contserial))
+			{
+				P_ITEM pio = GetOutmostCont(pi);
+				if (pio == NULL) return;		// this should *not* happen, but it does ! Watch the logfiles (Duke)
+				if (pc_currchar->Wears(pio) ||	// sub-pack
+					(pio->isInWorld() && iteminrange(s, pio, 2)))	// in world and in range
+				{
+					backpack(s, serial);
+					return;
+				}
+			}
+			P_CHAR pco;
+			pco = GetPackOwner(pi);
+			
+			if ((npcinrange(s, pco, 2)) || (iteminrange(s, pi, 2)))
+			{	
+				if (pco == NULL)// reorganized by AntiChrist to avoid crashes
+					backpack(s, serial);
+				else if (pc_currchar->serial == pco->serial || pc_currchar->isGMorCounselor() || pco->npcaitype == 17)
+					backpack(s, serial);
+				else
+					Skills->Snooping(pc_currchar, pi);
+			}
 			else
-				Skills->Snooping(pc_currchar, pi);
-		}
-		else
-		{
-			sysmessage(s, "You are too far away!");
+			{
+				sysmessage(s, "You are too far away!");
+			}
 		}
 		return;
 	case 2: // Order gates?
@@ -437,7 +436,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		// Added traps effects by AntiChrist
 		pc_currchar->objectdelay = 0;
 		if (pi->moreb1)
-			Magic->MagicTrap(DEREF_P_CHAR(pc_currchar), pi);
+			Magic->MagicTrap(pc_currchar, pi);
 		sysmessage(s, "This item is locked.");
 		return;// case 8/64 (locked container)
 	case 9: // spellbook
@@ -610,7 +609,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		soundeffect(s, 0x01, 0xEC);
 		return;// case 18 (crystal ball?)
 		case 19: // potions
-			usepotion(DEREF_P_CHAR(currchar[s]), pi);
+			usepotion(currchar[s], pi);
 			return; // case 19 (potions)					
 			
 		case 50: // rune
@@ -641,7 +640,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			{
 				wx = (pc_currchar->pos.x +(rand()%11 - 5));
 				wy = (pc_currchar->pos.y +(rand()%11 - 5));
-				movingeffect3(DEREF_P_CHAR(currchar[s]), (unsigned short)(wx), (unsigned short)(wy), pc_currchar->pos.z + 10, (unsigned char)(0x36), (unsigned char)(0xE4), 17, 0, rand()%2);
+				movingeffect3(currchar[s], (unsigned short)(wx), (unsigned short)(wy), pc_currchar->pos.z + 10, (unsigned char)(0x36), (unsigned char)(0xE4), 17, 0, rand()%2);
 				switch (RandomNum(0, 4))
 				{
 				case 0:	staticeffect3(wx, wy, pc_currchar->pos.z + 10, 0x37, 0x3A, 0x09, 0, 0);	break;
@@ -902,7 +901,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
             return;// End jailball
 	    case 402: // Blackwinds Reputation ball 
 			{ 
-                 soundeffect(DEREF_P_CHAR(currchar[s]), 1, 0xec); // Play sound effect for player 
+                 soundeffect2(currchar[s], 0x01ec); // Play sound effect for player 
                  sysmessage(s,"Your karma is %i",pc_currchar->karma); 
                  sysmessage(s,"Your fame is %i",pc_currchar->fame); 
                  sysmessage(s,"Your Kill count is %i ",pc_currchar->kills); 
@@ -1471,7 +1470,7 @@ void singleclick(UOXSOCKET s)
 		P_CHAR pc = FindCharBySerial(serial);
 		if (pc != NULL)		
 		{
-			showcname(s, DEREF_P_CHAR(pc), 0);
+			showcname(s, pc, 0);
 			return;
 		}
 	}
@@ -1645,7 +1644,7 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 			if (target->war)
 				sysmessage(s,"Your pet is in battle right now!");
 			else
-				mounthorse(s, DEREF_P_CHAR(target));
+				mounthorse(s, target);
 		}
 		else sysmessage(s, "You need to get closer.");
 		return; 

@@ -68,7 +68,7 @@ struct guild_st
 class cGuilds
 {
 private:
-	void EraseMember(int c);
+	void EraseMember(P_CHAR pc);
 	void EraseGuild(int guildnumber);
 	void ToggleAbbreviation(int s);
 	int SearchSlot(int guildnumber, int type);
@@ -96,7 +96,7 @@ public:
 	void GumpInput(int s, int type, int index, char *text);
 	void GumpChoice(int s, int main, int sub);
 	int SearchByStone(int s);
-	void Title(int s, int player2);
+	void Title(int s, P_CHAR pc_player2);
 	void Read(int guildnumber);
 	void Write(FILE *wscfile);
 	void CheckConsistancy(void);

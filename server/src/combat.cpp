@@ -39,11 +39,11 @@
 #define DBGFILE "combat.cpp"
 #define SWINGAT (unsigned int)1.75 * MY_CLOCKS_PER_SEC // changed from signed to unsigned, LB
 
-int cCombat::GetBowType(int c)
+int cCombat::GetBowType(P_CHAR pc)
 {
 	unsigned int ci=0;
 	P_ITEM pi;
-	vector<SERIAL> vecContainer = contsp.getData(chars[c].serial);
+	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
@@ -132,20 +132,19 @@ void cCombat::CombatHitCheckLoS(P_CHAR pAttacker, unsigned int currenttime)
 
 	unsigned short los=line_of_sight(s1,pAttacker->pos, pDefender->pos,	WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING);
 
-	CombatHit(DEREF_P_CHAR(pAttacker),DEREF_P_CHAR(pDefender),currenttime,los);
+	CombatHit(pAttacker, pDefender, currenttime, los);
 }
 
 // CombatHit now expects that LineOfSight has been checked before (Duke, 10.7.2001)
-void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
+void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int currenttime, short los)
 {
-	if (d==-1) return;
 	char hit;
 
-	P_CHAR pc_attacker = MAKE_CHARREF_LR(a);
-	P_CHAR pc_deffender = MAKE_CHARREF_LR(d);
+	if (pc_deffender == NULL || pc_attacker == NULL)
+		return;
 
 	UOXSOCKET s1=calcSocketFromChar(pc_attacker), s2=calcSocketFromChar(pc_deffender);
-	unsigned short fightskill=Skills->GetCombatSkill(DEREF_P_CHAR(pc_attacker)), bowtype=Combat->GetBowType(DEREF_P_CHAR(pc_attacker)),splitnum,splitcount,hitin;
+	unsigned short fightskill = Skills->GetCombatSkill(pc_attacker), bowtype = Combat->GetBowType(pc_attacker),splitnum,splitcount,hitin;
 	unsigned int basedamage;
 	int damage; // removed from unsigne by Magius(CHE)
 	signed int x;
@@ -184,7 +183,7 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 	if (!hit)
 	{
 		if (pc_attacker->isPlayer())
-			doMissedSoundEffect(DEREF_P_CHAR(pc_attacker));
+			doMissedSoundEffect(pc_attacker);
 		if ((fightskill==ARCHERY)&&(los))
 		{
 			if (rand()%3-1)//-1 0 or 1
@@ -226,7 +225,7 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 				Combat->ItemSpell(pc_attacker, pc_deffender);
 			
 			if (fightskill!=WRESTLING || pc_attacker->isNpc())
-				basedamage=Combat->CalcAtt(DEREF_P_CHAR(pc_attacker)); // Calc base damage
+				basedamage=Combat->CalcAtt(pc_attacker); // Calc base damage
 			else
 			{
 				if ((pc_attacker->skill[WRESTLING]/100) > 0) 
@@ -404,7 +403,7 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 				clConsole.send("SERVER.SCP:ComabatHit() Error in MAX_NON_HUMAN_ABSORBTION. Reset to Deafult (100).\n");
 				SrvParms->maxnohabsorbtion=maxnohabs;
 			}
-			if (!ishuman(DEREF_P_CHAR(pc_deffender))) maxabs=maxnohabs;
+			if (!ishuman(pc_deffender)) maxabs=maxnohabs;
 			tmpj=(int) (damage*x)/maxabs; // Absorbtion by Magius(CHE)
 			damage -= tmpj;
 			if (damage<0) damage=0;
@@ -504,20 +503,21 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 						else splitnum=rand()%pc_deffender->split+1;
 						
 						for (splitcount=0;splitcount<splitnum;splitcount++)
-							Npcs->Split(DEREF_P_CHAR(pc_deffender));
+							Npcs->Split(pc_deffender);
 					}
 				}
 				////////      End of spliting NPCs
 			}
 			if (pc_attacker->isPlayer())
 				if((fightskill==ARCHERY && los)|| fightskill!=ARCHERY)
-					doSoundEffect(a, fightskill, pWeapon);
+					doSoundEffect(pc_attacker, fightskill, pWeapon);
 			if (pc_deffender->hp<0) pc_deffender->hp=0;
 			updatestats((pc_deffender), 0);
 			x = pc_deffender->id();
 			if (x>=0x0190)
 			{
-				if (!pc_deffender->onhorse) npcaction(DEREF_P_CHAR(pc_deffender), 0x14);
+				if (!pc_deffender->onhorse) 
+					npcaction(pc_deffender, 0x14);
 			}
 		}
 	}
@@ -539,105 +539,105 @@ static void NpcSpellAttack(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int 
 				case 1:
 					if (pc_attacker->mn>=4)
 					{
-						npcaction(DEREF_P_CHAR(pc_attacker), 6);
+						npcaction(pc_attacker, 6);
 						Magic->MagicArrow(pc_attacker, pc_defender);
 					}
 					break; 
 				case 2:
 					if (pc_attacker->mn>=6)
 					{
-						npcaction(DEREF_P_CHAR(pc_attacker), 6);
+						npcaction(pc_attacker, 6);
 						Magic->HarmSpell(pc_attacker, pc_defender);
 					}
 					break; //lb
 				case 3:
 					if (pc_attacker->mn>=4)
 					{
-						npcaction(DEREF_P_CHAR(pc_attacker), 6);
+						npcaction(pc_attacker, 6);
 						Magic->ClumsySpell(pc_attacker, pc_defender);										
 					}
 					break; //LB
 				case 4:
 					if (pc_attacker->mn>=4)
 					{
-						npcaction(DEREF_P_CHAR(pc_attacker), 6);
+						npcaction(pc_attacker, 6);
 						Magic->FeebleMindSpell(pc_attacker, pc_defender);
 					}
 					break; //LB
 				case 5:
 					if (pc_attacker->mn>=4)
 					{
-						npcaction(DEREF_P_CHAR(pc_attacker), 6);
+						npcaction(pc_attacker, 6);
 						Magic->WeakenSpell(pc_attacker, pc_defender);
 					}
 					break; //LB
 				case 6:
 					if (pc_attacker->mn>=9)
 					{
-						npcaction(DEREF_P_CHAR(pc_attacker), 6);
+						npcaction(pc_attacker, 6);
 						Magic->FireballSpell(pc_attacker, pc_defender);
 					}
 					break; //LB
 				case 7:
 					if (pc_attacker->mn>=11)
 					{
-						npcaction(DEREF_P_CHAR(pc_attacker), 6);
+						npcaction(pc_attacker, 6);
 						Magic->CurseSpell(pc_attacker, pc_defender);
 					}
 					break; //LB
 				case 8:
 					if (pc_attacker->mn>=11)
 					{
-						npcaction(DEREF_P_CHAR(pc_attacker), 6);
+						npcaction(pc_attacker, 6);
 						Magic->LightningSpell(pc_attacker, pc_defender);
 					}
 					break; //lb
 				case 9:
 					if (pc_attacker->mn>=14)
 					{
-						npcaction(DEREF_P_CHAR(pc_attacker), 6);
+						npcaction(pc_attacker, 6);
 						Magic->ParalyzeSpell(pc_attacker, pc_defender);
 					}
 					break; //lb
 				case 10:
 					if (pc_attacker->mn>=14)
 					{
-						npcaction(DEREF_P_CHAR(pc_attacker), 6);
+						npcaction(pc_attacker, 6);
 						Magic->MindBlastSpell(pc_attacker, pc_defender);
 					}
 					break;
 				case 11:
 					if (pc_attacker->mn>=20)
 					{
-						npcaction(DEREF_P_CHAR(pc_attacker), 6);
+						npcaction(pc_attacker, 6);
 						Magic->EnergyBoltSpell(pc_attacker, pc_defender);
 					}
 					break;
 				case 12:
 					if (pc_attacker->mn>=20)
 					{
-						npcaction(DEREF_P_CHAR(pc_attacker), 6);
+						npcaction(pc_attacker, 6);
 						Magic->ExplosionSpell(pc_attacker, pc_defender);
 					}
 					break;
 				case 13:
 					if (pc_attacker->mn>=40)
 					{
-						npcaction(DEREF_P_CHAR(pc_attacker), 6);
+						npcaction(pc_attacker, 6);
 						Magic->FlameStrikeSpell(pc_attacker, pc_defender);
 					}
 					break;
 				case 14:
-					npcaction(DEREF_P_CHAR(pc_attacker), 6);
-					Magic->PFireballTarget(DEREF_P_CHAR(pc_attacker), DEREF_P_CHAR(pc_defender), 10);
+					npcaction(pc_attacker, 6);
+					Magic->PFireballTarget(pc_attacker, pc_defender, 10);
 					break;
 				case 15:
-					npcaction(DEREF_P_CHAR(pc_attacker), 6);
-					Magic->PFireballTarget(DEREF_P_CHAR(pc_attacker), DEREF_P_CHAR(pc_defender), 20);
+					npcaction(pc_attacker, 6);
+					Magic->PFireballTarget(pc_attacker, pc_defender, 20);
 					break;
 				case 16:
-					npcaction(DEREF_P_CHAR(pc_attacker), 6);
-					Magic->PFireballTarget(DEREF_P_CHAR(pc_attacker), DEREF_P_CHAR(pc_defender), 40);
+					npcaction(pc_attacker, 6);
+					Magic->PFireballTarget(pc_attacker, pc_defender, 40);
 					break;
 				}
 			}			
@@ -674,7 +674,6 @@ static void SetWeaponTimeout(P_CHAR Attacker, P_ITEM Weapon)
 void cCombat::DoCombatAnimations(P_CHAR pc_attacker, P_CHAR pc_defender, int fightskill, int bowtype, int los)
 {
 	short id = pc_attacker->id();
-	CHARACTER a=DEREF_P_CHAR(pc_attacker);
 	int cc,aa;
 	if (id<0x0190)
 	{
@@ -693,42 +692,42 @@ void cCombat::DoCombatAnimations(P_CHAR pc_attacker, P_CHAR pc_defender, int fig
 				}
 			}
 		}
-		npcaction(a,aa); 
+		npcaction(pc_attacker,aa); 
 		playmonstersound(pc_attacker, pc_attacker->id1, pc_attacker->id2, SND_ATTACK);
 	}
 	else if (pc_attacker->onhorse)
 	{
-		CombatOnHorse(a);	// determines weapon in hand and runs animation kolours (09/19/98)
+		CombatOnHorse(pc_attacker);	// determines weapon in hand and runs animation kolours (09/19/98)
 	}
 	else
 	{
-		CombatOnFoot(a);	// determines weapon in hand and runs animation kolours (09/19/98)
+		CombatOnFoot(pc_attacker);	// determines weapon in hand and runs animation kolours (09/19/98)
 	}
 
 	if (fightskill==ARCHERY)
 	{
 		if (los)
 		{
-			CHARACTER d=DEREF_P_CHAR(pc_defender);
 			if (bowtype==1)
 			{
 				delequan(pc_attacker, 0x0F3F, 1, NULL);
-				movingeffect3(a, d, 0x0F, 0x42, 0x08, 0x00, 0x00,0,0,0,0);
+				movingeffect3(pc_attacker, pc_defender, 0x0F, 0x42, 0x08, 0x00, 0x00,0,0,0,0);
 			}
 			else
 			{
 				delequan(pc_attacker, 0x1BFB, 1, NULL);
-				movingeffect3(a, d, 0x1B, 0xFE, 0x08, 0x00, 0x00,0,0,0,0);
+				movingeffect3(pc_attacker, pc_defender, 0x1B, 0xFE, 0x08, 0x00, 0x00,0,0,0,0);
 			}
 		}
 	}
 }
 
-void cCombat::DoCombat(int a, unsigned int currenttime)
+void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 {
 	int x, bowtype=0;// spamanachecking, tmp;
 
-	P_CHAR pc_attacker = MAKE_CHARREF_LR(a);
+	if ( pc_attacker == NULL )
+		return;
 	if (pc_attacker->free) return;
 	P_ITEM pWeapon=pc_attacker->getWeapon();
 
@@ -786,23 +785,23 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 			{
 				if (pc_attacker->targ == INVALID_SERIAL)
 				{
-					npcsimpleattacktarget(DEREF_P_CHAR(pc_attacker), DEREF_P_CHAR(pc_defender));
+					npcsimpleattacktarget(pc_attacker, pc_defender);
 					x=(((100-pc_attacker->effDex())*MY_CLOCKS_PER_SEC)/25)+(1*MY_CLOCKS_PER_SEC); //Yet another attempt.
 					pc_attacker->timeout=currenttime+x;
 					return;
 				}
-				if (Combat->TimerOk(DEREF_P_CHAR(pc_attacker)))
+				if (Combat->TimerOk(pc_attacker))
 				{
 					int los = line_of_sight(-1, pc_attacker->pos, pc_defender->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING);
 					UOXSOCKET s1 = calcSocketFromChar(pc_attacker);
-					int fightskill=Skills->GetCombatSkill(DEREF_P_CHAR(pc_attacker));
+					int fightskill=Skills->GetCombatSkill(pc_attacker);
 					x=0;
 					if (fightskill==ARCHERY)
 					{
 						if (los)
 						{
 							int arrowsquant;
-							bowtype=Combat->GetBowType(DEREF_P_CHAR(pc_attacker));
+							bowtype=Combat->GetBowType(pc_attacker);
 							if (bowtype==1) 
 								arrowsquant=getamount(pc_attacker, 0x0F3F);
 							else 
@@ -838,14 +837,14 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
                         {
 							if (los)
 							{
-								npcsimpleattacktarget(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender));
+								npcsimpleattacktarget(pc_attacker, pc_defender);
 							}
 						}
 						if (pc_attacker->timeout2 > uiCurrentTime) return; //check shotclock memory-BackStab
 						if (fightskill==ARCHERY)
-							Combat->CombatHit(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender),currenttime,los);
+							Combat->CombatHit(pc_attacker, pc_defender, currenttime,los);
 						else
-							pc_attacker->swingtarg = DEREF_P_CHAR(pc_defender);
+							pc_attacker->swingtarg = pc_defender->serial;
 					}
 
 					SetWeaponTimeout(pc_attacker, pWeapon);
@@ -856,7 +855,7 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 					}
 					if (fightskill!=ARCHERY)
 					{
-						Combat->CombatHit(DEREF_P_CHAR(pc_attacker),DEREF_P_CHAR(pc_defender),currenttime,los); // LB !!!
+						Combat->CombatHit(pc_attacker, pc_defender, currenttime, los); // LB !!!
 						//return; // Ripper	???? (Duke)
 					}
 				}
@@ -865,11 +864,11 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 			{
 				if(pc_attacker->npcaitype==4 && pc_defender->isNpc())
 				{
-					npcaction(DEREF_P_CHAR(pc_defender), 0x15);
+					npcaction(pc_defender, 0x15);
 					
 					PlayDeathSound(pc_defender);
 					
-					Npcs->DeleteChar(DEREF_P_CHAR(pc_defender));//Guards, don't give body
+					Npcs->DeleteChar(pc_defender);//Guards, don't give body
 				}
 				else
 				{
@@ -903,11 +902,11 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 	}
 }
 
-int cCombat::CalcAtt(int p) // Calculate total attack powerer
+int cCombat::CalcAtt(P_CHAR pc_p) // Calculate total attack powerer
 {
 	int total = 0, j;
 	
-	P_CHAR pc_p = MAKE_CHARREF_LRV(p,0);
+	if ( pc_p == NULL ) return 0;
 
 	if(pc_p->isNpc()) 
 	{
@@ -947,7 +946,7 @@ int cCombat::CalcAtt(int p) // Calculate total attack powerer
 		}
 	}
 	if (total<1) total=1;
-	unsigned short fightskill=Skills->GetCombatSkill(DEREF_P_CHAR(pc_p));
+	unsigned short fightskill = Skills->GetCombatSkill(pc_p);
 	if(fightskill==Races[pc_p->race]->BestFightSkill)
 		total+=5;
 	return total;
@@ -965,7 +964,7 @@ int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power
 	} 		//Displayed AR = ((Parrying Skill * Base AR of Shield) ÷ 200) + 1
 	if (pc->skill[PARRYING]==1000) 
 		total+=5; // gm parry bonus. 
-	if (ishuman(DEREF_P_CHAR(pc))) // Added by Magius(CHE) 
+	if (ishuman(pc)) // Added by Magius(CHE) 
 	{ 
 		unsigned int ci=0; 
 		P_ITEM pi; 
@@ -1076,10 +1075,11 @@ int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power
 	return total;
 }
 
-int cCombat::TimerOk(int c)
+int cCombat::TimerOk(P_CHAR pc)
 {
 	int d=0;
-	P_CHAR pc = MAKE_CHARREF_LRV(c,0);
+	if (pc == NULL)
+		return 0;
 	//if (chars[c].timeout<uiCurrentTime) d=1;
 	//---BackStab-- Tab-Machinegun stopper- meet both timeout requirements---------- 
     if(( pc->timeout < uiCurrentTime )&&(pc->timeout2 < uiCurrentTime)) d=1;
@@ -1088,9 +1088,9 @@ int cCombat::TimerOk(int c)
 }
 
 //play animation for weapon in hand during combat on a horse //kolours - modularized (09/20/98)
-void cCombat::CombatOnHorse(CHARACTER c)
+void cCombat::CombatOnHorse(P_CHAR pc)
 {
-	P_CHAR pc = MAKE_CHARREF_LR(c);
+	if ( pc == NULL ) return;
 	P_ITEM pWeapon=pc->getWeapon();
 	if (pWeapon)
 	{
@@ -1098,12 +1098,12 @@ void cCombat::CombatOnHorse(CHARACTER c)
 
 		if (IsBow(id))
 		{
-			npcaction(c, 0x1B);
+			npcaction(pc, 0x1B);
 			return;
 		}
 		if (IsCrossbow(id) || IsHeavyCrossbow(id))
 		{
-			npcaction(c, 0x1C);
+			npcaction(pc, 0x1C);
 			return;
 		}
 
@@ -1111,26 +1111,26 @@ void cCombat::CombatOnHorse(CHARACTER c)
 			(id ==0x0FB4 || id ==0x0FB5) || // sledge hammer
 			IsFencing1H(id) )
 		{
-			npcaction(c, 0x1A);
+			npcaction(pc, 0x1A);
 			return;
 		}
 		if ( IsAxe(id) || IsFencing2H(id) )
 		{
-			npcaction(c, 0x1D); //2Handed
+			npcaction(pc, 0x1D); //2Handed
 			return;
 		}
 	} // end of !=-1
 	else
 	{
-		npcaction(c, 0x1A); //fist fighting
+		npcaction(pc, 0x1A); //fist fighting
 		return;
 	}
 }
 
 //play animation for weapon in hand for combat on foot //kolours - (09/20/98)
-void cCombat::CombatOnFoot(int c)
+void cCombat::CombatOnFoot(P_CHAR pc)
 {
-	 P_CHAR pc = MAKE_CHARREF_LR(c);
+	 if ( pc == NULL ) return;
 	 P_ITEM pWeapon=pc->getWeapon();
 	int m = rand()%4; //randomize the animation sequence
 
@@ -1140,55 +1140,55 @@ void cCombat::CombatOnFoot(int c)
 
 		if (IsBow(id))
 		{
-			npcaction(c, 0x12); //bow
+			npcaction(pc, 0x12); //bow
 			return;
 		}
 		if (IsCrossbow(id) || IsHeavyCrossbow(id))
 		{
-			npcaction(c, 0x13); //crossbow - regular
+			npcaction(pc, 0x13); //crossbow - regular
 			return;
 		}
 		if (IsSword(id))
 		{
 			switch (m) //swords
 			{
-			case 0:		npcaction(c, 0x0D);	return; //side swing
-			case 1:		npcaction(c, 0x0A);	return; //poke
-			default:	npcaction(c, 0x09);	return; //top-down swing
+			case 0:		npcaction(pc, 0x0D);	return; //side swing
+			case 1:		npcaction(pc, 0x0A);	return; //poke
+			default:	npcaction(pc, 0x09);	return; //top-down swing
 			}
 		}
 		if (IsMace1H(id))
 		{
 			switch (m) //maces
 			{
-			case 0:		npcaction(c, 0x0D);	return;	//side swing
-			default:	npcaction(c, 0x09);	return; //top-down swing
+			case 0:		npcaction(pc, 0x0D);	return;	//side swing
+			default:	npcaction(pc, 0x09);	return; //top-down swing
 			}
 		}
 		if (IsMace2H(id) || IsAxe(id))
 		{
 			switch (m)
 			{
-			case 0:		npcaction(c, 0x0D);	return; //2H top-down
-			case 1:		npcaction(c, 0x0C);	return; //2H swing
-			default:	npcaction(c, 0x0D);	return; //2H top-down
+			case 0:		npcaction(pc, 0x0D);	return; //2H top-down
+			case 1:		npcaction(pc, 0x0C);	return; //2H swing
+			default:	npcaction(pc, 0x0D);	return; //2H top-down
 			}
 		}
 		if (IsFencing1H(id))	// one handed fencing
 		{
 			switch (m) //fencing
 			{
-			case 0:		npcaction(c, 0x09);	return; //top-down
-			case 1:		npcaction(c, 0x0D);	return; //side-swipe
-			default:	npcaction(c, 0x0A);	return; //default: poke
+			case 0:		npcaction(pc, 0x09);	return; //top-down
+			case 1:		npcaction(pc, 0x0D);	return; //side-swipe
+			default:	npcaction(pc, 0x0A);	return; //default: poke
 			}
 		}
 		if (IsFencing2H(id))	//pitchfork & spear
 		{
 			switch (m) //pitchfork
 			{
-			case 0:		npcaction(c, 0x0D);	return; //top-down
-			default:	npcaction(c, 0x0E);	return; //default: 2-handed poke
+			case 0:		npcaction(pc, 0x0D);	return; //top-down
+			default:	npcaction(pc, 0x0E);	return; //default: 2-handed poke
 			}
 		}
 	} // end of !=-1
@@ -1196,9 +1196,9 @@ void cCombat::CombatOnFoot(int c)
 	{
 		switch (m) //fist fighting
 		{
-		case 0:		npcaction(c, 0x0A);	return; //fist straight-punch
-		case 1:		npcaction(c, 0x09);	return; //fist top-down
-		default:	npcaction(c, 0x1F);	return; //default: //fist over-head
+		case 0:		npcaction(pc, 0x0A);	return; //fist straight-punch
+		case 1:		npcaction(pc, 0x09);	return; //fist top-down
+		default:	npcaction(pc, 0x1F);	return; //default: //fist over-head
 		}
 	}
 }
@@ -1296,7 +1296,7 @@ void cCombat::ItemSpell(cChar* Attacker, cChar* Defender)
 }
 
 //AntiChrist - do the sound effect ( only if HITTEN! )
-void cCombat::doSoundEffect(CHARACTER p, int fightskill, P_ITEM pWeapon)
+void cCombat::doSoundEffect(P_CHAR pc, int fightskill, P_ITEM pWeapon)
 {
 	bool heavy=false;
 	int a=rand()%4;
@@ -1307,44 +1307,49 @@ void cCombat::doSoundEffect(CHARACTER p, int fightskill, P_ITEM pWeapon)
 
 	if(heavy)
 	{
-		if (a==0 || a==1) soundeffect2(p, 0x02, 0x36);
-		else soundeffect2(p, 0x02, 0x37);
+		if (a==0 || a==1) soundeffect2(pc, 0x0236);
+		else soundeffect2(pc, 0x0237);
 		return;
 	}		
 
 	switch(fightskill)
 	{
 	case ARCHERY:
-		soundeffect2(p, 0x02, 0x34);
+		soundeffect2(pc, 0x0234);
 		break;
 	case FENCING:
 	case SWORDSMANSHIP:
-		if (a==0 || a==1) soundeffect2(p, 0x02, 0x3B);
-		else soundeffect2(p, 0x02, 0x3C);
+		if (a==0 || a==1) 
+			soundeffect2(pc, 0x023B);
+		else 
+			soundeffect2(pc, 0x023C);
 		break;
 	case MACEFIGHTING:
-		if (a==0 || a==1) soundeffect2(p, 0x02, 0x32);
-		else if (a==2) soundeffect2(p, 0x01, 0x39);
-		else soundeffect2(p, 0x02, 0x33);
+		if (a==0 || a==1) 
+			soundeffect2(pc, 0x0232);
+		else if (a==2) 
+			soundeffect2(pc, 0x0139);
+		else 
+			soundeffect2(pc, 0x0233);
 		break;
 	case WRESTLING:
-		if (a==0) soundeffect2(p, 0x01, 0x35);
-		else if (a==1) soundeffect2(p, 0x01, 0x37);
-		else if (a==2) soundeffect2(p, 0x01, 0x3D);
-		else soundeffect2(p, 0x01, 0x3B);
+		if (a==0) soundeffect2(pc, 0x0135);
+		else if (a==1) soundeffect2(pc, 0x0137);
+		else if (a==2) soundeffect2(pc, 0x013D);
+		else soundeffect2(pc, 0x013B);
 		break;
 	default:
-		soundeffect2(p, 0x01, 0x3D);
+		soundeffect2(pc, 0x013D);
 	}
 }
 
 
 //AntiChrist - do the "MISSED" sound effect
-void cCombat::doMissedSoundEffect(CHARACTER p)
+void cCombat::doMissedSoundEffect(P_CHAR pc)
 {
 	int a=rand()%3;
 
-	if (a==0) soundeffect2(p, 0x02, 0x38);
-	else if (a==1) soundeffect2(p, 0x02, 0x39);
-	else soundeffect2(p, 0x02, 0x3A);
+	if (a==0) soundeffect2(pc, 0x0238);
+	else if (a==1) soundeffect2(pc, 0x0239);
+	else soundeffect2(pc, 0x023A);
 }

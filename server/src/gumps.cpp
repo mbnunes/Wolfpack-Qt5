@@ -1672,9 +1672,8 @@ void itemmenu(int s, int m) // Menus for item creation
 
 }
 
-void cGump::Open(int s, int i, int num1, int num2)
+void cGump::Open(int s, P_CHAR pc, int num1, int num2)
 {
-	P_CHAR pc = MAKE_CHAR_REF(i);
 	unsigned char shopgumpopen[8]="\x24\x00\x00\x00\x01\x00\x30";
 	shopgumpopen[1] = pc->ser1;
 	shopgumpopen[2] = pc->ser2;

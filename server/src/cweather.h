@@ -63,7 +63,7 @@ public:
 	}
 	void WTimer();
 	void CTimer();
-	void CalcType(int s);
+	void CalcType(UOXSOCKET s);
 	virtual void run() throw();
 	virtual void kill() throw();
 	int Type[256]; // 0 dry, 1 rain, 2 snow

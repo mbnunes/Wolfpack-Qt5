@@ -311,13 +311,12 @@ unsigned int chardist (P_CHAR a, P_CHAR b) // Distance between characters a and 
 }
 
 
-unsigned int itemdist(CHARACTER a, P_ITEM pi)// calculates distance between item i and player a
+unsigned int itemdist(P_CHAR pc, P_ITEM pi)// calculates distance between item i and player a
 {
-	if ( pi == NULL)
+	if ( pi == NULL || pc == NULL )
 		return 30;
 
-	if (a<=-1) return 30;
-	return dist(chars[a].pos, pi->pos);
+	return dist(pc->pos, pi->pos);
 }
 
 bool online(P_CHAR pc) // Is the player owning the character c online
@@ -338,10 +337,11 @@ bool online(P_CHAR pc) // Is the player owning the character c online
 	return false;
 }
 
-int bestskill(CHARACTER p) // Which skill is the highest for character p
+int bestskill(P_CHAR pc_p) // Which skill is the highest for character p
 {
 	int i,a=0,b=0;
-	P_CHAR pc_p = MAKE_CHARREF_LRV(p,0);
+	if ( pc_p == NULL)
+		return 0;
 	for (i=0;i<TRUESKILLS;i++) 
 		if (pc_p->baseskill[i]>b)
 		{
@@ -476,7 +476,7 @@ void loadcustomtitle() // for custom titles
 char *title1(P_CHAR pc) // Paperdoll title for character p (1)
 {
 	int titlenum = 0;
-	int x = pc->baseskill[bestskill(DEREF_P_CHAR(pc))];
+	int x = pc->baseskill[bestskill(pc)];
 
 	//if (x>=1000) titlenum=10;
 	//else if (x>=960) titlenum=9;
@@ -499,7 +499,7 @@ char *title2(P_CHAR pc) // Paperdoll title for character p (2)
 {
 
 	int titlenum=0;
-	int x=bestskill(DEREF_P_CHAR(pc));
+	int x=bestskill(pc);
 	titlenum=x+1;
     if(pc->isNpc())
     strcpy(skilltitle," ");
@@ -625,10 +625,10 @@ char *title3(P_CHAR pc) // Paperdoll title for character p (3)
 }
 
 
-char *complete_title(CHARACTER p) // generates the ENTIRE title plus criminal stuff
+char *complete_title(P_CHAR pc) // generates the ENTIRE title plus criminal stuff
 {
 	char tempstr[1024];
-	P_CHAR pc = MAKE_CHARREF_LRV(p,"error");
+	if (pc == NULL) return "error";
 
 	if (pc->account==0 && pc->isGM()) // Ripper..special titles for admins :)
 	{
@@ -920,14 +920,13 @@ void all_items(int s) // Send ALL items to player
 	}
 }
 
-void showcname (int s, int i, char b) // Singleclick text for a character
+void showcname (UOXSOCKET s, P_CHAR pc_i, char b) // Singleclick text for a character
 {
 	int a1, a2, a3, a4;
 	int c;
 	int x;
 
 	P_CHAR pc_currchar = currchar[s];
-	P_CHAR pc_i = MAKE_CHARREF_LR(i);
 
 	if (pc_i == NULL)
 		return;
@@ -978,7 +977,7 @@ void showcname (int s, int i, char b) // Singleclick text for a character
 			while ((c!=0) && x<50 );
 		}
 	}
-	textflags(s, i, (char*)temp);
+	textflags(s, pc_i, (char*)temp);
 }
 
 /////////////////
@@ -1048,13 +1047,13 @@ void deathstuff(P_CHAR pc_player)
 			if (pc_t->npcaitype==4 || pc_t->npcaitype==9) // Ripper...so non human npcs disapear if killed by guards.
 			{
 				if (pc_player->isNpc() && !pc_player->isHuman())
-					Npcs->DeleteChar(DEREF_P_CHAR(pc_player));
+					Npcs->DeleteChar(pc_player);
 			}
 
 			if(pc_t->isPlayer() && !pc_t->inGuardedArea())
 			{//AntiChrist
 				Karma(pc_t, pc_player, (0-(pc_player->karma)));
-				Fame(DEREF_P_CHAR(pc_t),pc_player->fame);
+				Fame(pc_t,pc_player->fame);
 				//murder count \/
 				if ((pc_player->isPlayer())&&(pc_t->isPlayer()))//Player vs Player
 				{
@@ -1136,7 +1135,7 @@ void deathstuff(P_CHAR pc_player)
 //    if(pc_player->isNpc() || pc_player->isPlayer())
 
 	ele=pi_c->amount=(pc_player->xid1<<8)+pc_player->xid2; // Amount == corpse type
-	pi_c->morey=ishuman(DEREF_P_CHAR(pc_player));//is human?? - AntiChrist
+	pi_c->morey = ishuman(pc_player);//is human?? - AntiChrist
 	pi_c->carve=pc_player->carve;//store carve section - AntiChrist
 	strcpy(pi_c->name2,pc_player->name);
 
@@ -1278,17 +1277,18 @@ void deathstuff(P_CHAR pc_player)
 //		pi_c->corpse=0; 
 //	}
 	RefreshItem(pi_c);//AntiChrist
-	if (pc_player->isNpc()) Npcs->DeleteChar(DEREF_P_CHAR(pc_player));
+	if (pc_player->isNpc()) 
+		Npcs->DeleteChar(pc_player);
 	if(ele==65535) Items->DeleItem(pi_c);
 }
 
-int GetBankCount( CHARACTER p, unsigned short itemid, unsigned short color )
+int GetBankCount( P_CHAR pc, unsigned short itemid, unsigned short color )
 {
-	if( p < 0 || p > cmem )
+	if( pc == NULL )
 		return 0;
 	unsigned char cid1 = (char)(color>>8);
 	unsigned char cid2 = (char)(color%256);
-	SERIAL serial = chars[p].serial;
+	SERIAL serial = pc->serial;
 	long int goldCount = 0;
 	int counter2 = 0;
 	int ci;
@@ -1323,13 +1323,13 @@ int GetBankCount( CHARACTER p, unsigned short itemid, unsigned short color )
 }
 
 
-int DeleBankItem( CHARACTER p, unsigned short itemid, unsigned short color, int amt )
+int DeleBankItem( P_CHAR pc, unsigned short itemid, unsigned short color, int amt )
 {
-	if( p < 0 || p > cmem )
+	if( pc == NULL )
 		return amt;
 	unsigned char cid1 = (char)(color>>8);
 	unsigned char cid2 = (char)(color%256);
-	SERIAL serial = chars[p].serial;
+	SERIAL serial = pc->serial;
 	int counter2 = 0;
 	int total = amt;
 	int ci;
@@ -1415,7 +1415,7 @@ void explodeitem(int s, P_ITEM pi)
 		pi->pos.x=pc_currchar->pos.x;
 		pi->pos.y=pc_currchar->pos.y;
 		pi->pos.z=pc_currchar->pos.z;
-		npcaction(DEREF_P_CHAR(pc_currchar),0x15);
+		npcaction( pc_currchar, 0x15 );
 		soundeffect2(pc_currchar, 0x0207);
 	}
 	else
@@ -2006,7 +2006,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	}
 
 	currchar[s] = pc;
-	newbieitems(s, DEREF_P_CHAR(pc));
+	newbieitems(s, pc);
 
 	perm[s]=1;
 	if(pc->st<10)
@@ -2018,7 +2018,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	Network->startchar(s);
 }
 
-int unmounthorse(int s) // Get off a horse (Remove horse item and spawn new horse) 
+int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn new horse) 
 { 
 //	CHARACTER cc = currchar[s]; 
 	unsigned int ci = 0;
@@ -2392,9 +2392,8 @@ void npcemoteall(P_CHAR npc, char *txt,unsigned char antispam) // NPC speech to 
 }
 
 //taken from 6904t2(5/10/99) - AntiChrist
-void callguards( int p )
+void callguards( P_CHAR pc_player )
 {
-	P_CHAR pc_player = MAKE_CHAR_REF(p);
 	if( pc_player == NULL ) return;
 
 	//AntiChrist - anti "GUARDS" spawn timer
@@ -2423,10 +2422,10 @@ void callguards( int p )
 	}
 }
 
-void mounthorse(int s, int x1) // Remove horse char and give player a horse item 
+void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give player a horse item 
 { 
 	int j; 
-	P_CHAR pc_mount = MAKE_CHARREF_LR(x1);
+	if ( pc_mount == NULL ) return;
 	P_CHAR pc_currchar = currchar[s];
 	
 	if (npcinrange(s, pc_mount, 2) == 0 && !pc_currchar->isGM())
@@ -3298,10 +3297,10 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 	return 0;
 }
 
-int ishuman(int p)
+int ishuman(P_CHAR pc)
 {
 	// Check if the Player or Npc is human! -- by Magius(CHE)
-	if ((chars[p].xid1==0x01) && (chars[p].xid2==0x90 || chars[p].xid2==0x91)) return 1;
+	if ((pc->xid1==0x01) && (pc->xid2==0x90 || pc->xid2==0x91)) return 1;
 	else return 0;
 }
 
@@ -3310,7 +3309,7 @@ void npcact(int s)
 	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
 	if (pc != NULL)
 	{
-		npcaction(DEREF_P_CHAR(pc),addid1[s]);
+		npcaction( pc, addid1[s]);
 	}
 }
 
@@ -3463,12 +3462,12 @@ int chardir(int a, int b)	// direction from character a to char b
 	return dir;
 }
 
-int chardirxyz(int a, int x, int y)	// direction from character a to char b
+int chardirxyz(P_CHAR pc, int x, int y)	// direction from character a to char b
 {
-	int dir,xdif,ydif;
+	int dir, xdif, ydif;
 
-	xdif = x-chars[a].pos.x;
-	ydif = y-chars[a].pos.y;
+	xdif = x-pc->pos.x;
+	ydif = y-pc->pos.y;
 
 	if ((xdif==0)&&(ydif<0)) dir=0;
 	else if ((xdif>0)&&(ydif<0)) dir=1;
@@ -3483,10 +3482,10 @@ int chardirxyz(int a, int x, int y)	// direction from character a to char b
 	return dir;
 }
 
-int fielddir(CHARACTER s, int x, int y, int z)
+int fielddir(P_CHAR pc, int x, int y, int z)
 {
 //WARNING: unreferenced formal parameter z
-	int dir=chardirxyz(s, x, y);
+	int dir=chardirxyz(pc, x, y);
 	switch (dir)
 	{
 	case 0:
@@ -3502,7 +3501,7 @@ int fielddir(CHARACTER s, int x, int y, int z)
 	case 5:
 	case 7:
 	case -1:
-		switch(chars[s].dir) //crashfix, LB
+		switch(pc->dir) //crashfix, LB
 		{
 		case 0:
 		case 4:
@@ -3705,10 +3704,10 @@ void getSextantCords(signed int x, signed int y, bool t2a, char *sextant)
 
 }
 
-void npcsimpleattacktarget(int target2, int target)
+void npcsimpleattacktarget(P_CHAR pc_target2, P_CHAR pc_target)
 {
-	P_CHAR pc_target  = MAKE_CHARREF_LR(target);
-	P_CHAR pc_target2 = MAKE_CHARREF_LR(target2);
+	if (pc_target2 == NULL || pc_target == NULL)
+		return;
 	if ((pc_target->targ==pc_target2->serial)&&(pc_target2->targ==pc_target->serial)) return;
 
 	if (pc_target->dead || pc_target2->dead) return;
@@ -3719,9 +3718,8 @@ void npcsimpleattacktarget(int target2, int target)
 	pc_target2->resetAttackFirst();
 }
 
-void openbank(int s, int i)
+void openbank(int s, P_CHAR pc_i)
 {
-	P_CHAR pc_i = MAKE_CHAR_REF(i);
 	unsigned int ci;
 	SERIAL serial = pc_i->serial;
 	vector<SERIAL> vecOwn = ownsp.getData(serial);
@@ -3754,7 +3752,7 @@ void openbank(int s, int i)
 		}
 	} // end of !=-1
 
-	sprintf((char*)temp, "%s's bank box.", chars[i].name);
+	sprintf((char*)temp, "%s's bank box.", pc_i->name);
 	const P_ITEM pic = Items->SpawnItem(s, pc_i, 1, (char*)temp,0,0x09,0xAB,0,0,0,0);
 	if ( pic == NULL ) return;
 	pic->layer=0x1d;
@@ -3781,10 +3779,9 @@ void openbank(int s, int i)
 //(and surely the Mercenary work, so now have to pay strong
 //warriors to escort u during your travels!)
 //
-void openspecialbank(int s, int i)
+void openspecialbank(int s, P_CHAR pc)
 {
 	int serial;
-	P_CHAR pc = MAKE_CHAR_REF(i);
 	P_CHAR pc_currchar = currchar[s];
 	serial=pc->serial;
 	unsigned int ci;
@@ -4034,11 +4031,11 @@ void addgold(UOXSOCKET s, int totgold)
 	Items->SpawnItem(s, currchar[s], totgold,"#",1,0x0E,0xED,0,0,1,1);
 }
 
-void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
+void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 {
 	int s, x;
 
-	P_CHAR pc_p        = MAKE_CHARREF_LR(p);
+	if ( pc_p == NULL ) return;
 	s = calcSocketFromChar(pc_p);
 	P_CHAR pc_currchar = currchar[s];
 
@@ -4251,7 +4248,7 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 	}
 	soundeffect2(pc_p, 0x0030);
 	if (pc_p->id1>=1 && pc_p->id2>90 && pc_p->onhorse==0) 
-		npcaction(DEREF_P_CHAR(pc_p), 0x22);
+		npcaction( pc_p, 0x22);
 	//empty bottle after drinking - Tauriel
 	if (pi->amount!=1)
 	{
@@ -5097,10 +5094,9 @@ void Karma(P_CHAR pc_toChange,P_CHAR pc_Killed, int nKarma)
 }
 
 //added by Genesis 11-8-98
-void Fame(int nCharID, int nFame)
+void Fame(P_CHAR pc_toChange, int nFame)
 {
 	int nCurFame, nChange=0, nEffect=0;
-	P_CHAR pc_toChange = MAKE_CHAR_REF(nCharID);
 
 	if (pc_toChange->isNpc()) //NPCs don't gain fame.
 		return;

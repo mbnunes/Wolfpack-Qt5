@@ -438,7 +438,7 @@ void cNetworkStuff::GoodAuth(int s)
 //	j=0;
 	
 	// calc # of chars in advance, also let's save their position.
-	vector<CHARACTER> accounts_chars;
+	vector<P_CHAR> accounts_chars;
 	accounts_chars.clear(); // Just to make sure we get a clean vector.
 	AllCharsIterator iter_char;
 	for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
@@ -446,7 +446,7 @@ void cNetworkStuff::GoodAuth(int s)
 		P_CHAR toCheck = iter_char.GetData();
 		if ( toCheck->account == acctno[s] && !toCheck->free )			
 		{		
-			accounts_chars.push_back(DEREF_P_CHAR(toCheck));
+			accounts_chars.push_back(toCheck);
 		}
 	}
 
@@ -462,7 +462,7 @@ void cNetworkStuff::GoodAuth(int s)
 
 	for (i = 0; i < accounts_chars.size(); i++)
 	{
-		strcpy((char*)login04b, chars[accounts_chars[i]].name);
+		strcpy((char*)login04b, accounts_chars[i]->name);
 		Xsend(s, login04b, 60);
 		j++;
 	}

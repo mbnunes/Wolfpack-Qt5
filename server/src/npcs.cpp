@@ -161,11 +161,10 @@ static int addrandomhaircolor(int s, char *colorlist)
 	return (haircolor);
 }
 
-void setrandomname(int s, char * namelist)
+void setrandomname(P_CHAR pc_s, char * namelist)
 {
 	char sect[512];
 	int i=0,j=0;
-	P_CHAR pc_s = MAKE_CHAR_REF(s);
 
 	sprintf(sect, "RANDOMNAME %s", namelist);
 	Script *pScpBase=i_scripts[npc_script];
@@ -447,12 +446,11 @@ void cChar::Init(bool ser)
 		this->lockSkill[i]=0;
 }
 
-void cCharStuff::DeleteChar (int k) // Delete character
+void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 {
 	int j;//,serial; //Zippy lag
 	//int ptr,ci;
-	P_CHAR pc_k = MAKE_CHAR_REF(k);
-	
+
 	removeitem[1]=pc_k->ser1;
 	removeitem[2]=pc_k->ser2;
 	removeitem[3]=pc_k->ser3;
@@ -477,7 +475,8 @@ void cCharStuff::DeleteChar (int k) // Delete character
 			Xsend(j, removeitem, 5);		
 	}
 	
-	if (k>-1) mapRegions->Remove(pc_k); // taking it out of mapregions BEFORE x,y changed, LB
+	if (pc_k != NULL) 
+		mapRegions->Remove(pc_k); // taking it out of mapregions BEFORE x,y changed, LB
 	
 	pc_k->free = true;
 	pc_k->pos.x=20+(xcounter++);
@@ -498,7 +497,7 @@ void cCharStuff::DeleteChar (int k) // Delete character
 	if (cmemcheck<300)
 	{
 		cmemcheck++;
-		freecharmem[cmemcheck]=k;
+		freecharmem[cmemcheck]=DEREF_P_CHAR(pc_k);
 	}
 	else cmemover=1;
 }
@@ -1001,7 +1000,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 	pScp=pScpBase->Select(sect,custom_npc_script);
 	if (!pScp)
 	{
-		Npcs->DeleteChar(c);
+		Npcs->DeleteChar(pc_c);
 		return -1;
 	}
 
@@ -1032,7 +1031,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 					pBackpack = Items->SpawnItem(-1, pc_c,1,"Backpack",0,0x0E,0x75,0,0,0,0);
 					if(pBackpack == NULL)
 					{
-						Npcs->DeleteChar(DEREF_P_CHAR(pc_c));
+						Npcs->DeleteChar(pc_c);
 						return -1;
 					}
 					pc_c->packitem = pBackpack->serial;
@@ -1162,7 +1161,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 					P_ITEM pGold = Items->SpawnItem(pc_c,1,"#",1,0x0EED,0,1);
 					if(!pGold)
 					{
-						Npcs->DeleteChar(DEREF_P_CHAR(pc_c));
+						Npcs->DeleteChar(pc_c);
 						return -1;
 					}
 					pScp->Resume(m);
@@ -1294,7 +1293,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 			if (!(strcmp("NAME",(char*)script1))) strcpy(pc_c->name, (char*)script2);
 			else if (!(strcmp("NAMELIST", (char*)script1))) {
 				scpMark m=pScp->Suspend();
-				setrandomname(DEREF_P_CHAR(pc_c),(char*)script2);
+				setrandomname(pc_c,(char*)script2);
 				pScp->Resume(m);
 				strcpy((char*)script1, "DUMMY"); // To prevent accidental exit of loop.
 			}
@@ -1403,7 +1402,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 			else if (!(strcmp("SHOPKEEPER", (char*)script1))) 
 			{
 				scpMark m=pScp->Suspend();
-				Commands->MakeShop(DEREF_P_CHAR(pc_c)); 
+				Commands->MakeShop(pc_c); 
 				pScp->Resume(m);
 			}
 			else if (!(strcmp("SELLITEM",(char*)script1))) 
@@ -1690,15 +1689,16 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
    return DEREF_P_CHAR(pc_c);
 }
 
-void cCharStuff::Split(int k) // For NPCs That Split during combat
+void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat
 {
 	int c,serial,z;
+
+	if ( pc_k == NULL ) return;
 	
 	c=Npcs->MemCharFree();
 	
 	P_CHAR pc_c = MAKE_CHARREF_LR(c);
 	pc_c->Init();
-	P_CHAR pc_k = MAKE_CHARREF_LR(k);
 	serial=pc_c->serial;
 	memcpy(pc_c, pc_k, sizeof(cChar));
 	pc_c->ser1=serial>>24;

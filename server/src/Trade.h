@@ -62,7 +62,7 @@ public:
 	void buyaction(int s);
 	void restock(int s);
 	void sellaction(int s);
-	P_ITEM tradestart(int s, int i);
+	P_ITEM tradestart(UOXSOCKET s, P_CHAR pc_i);
 	void clearalltrades();
 	void trademsg(int s);
 	void dotrade(P_ITEM cont1, P_ITEM cont2);

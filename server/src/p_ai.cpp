@@ -36,12 +36,11 @@
 #undef  DBGFILE
 #define DBGFILE "p_ai.cpp"
 
-void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
+void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zippy
 {
 	int d, onl;
 	unsigned int chance;
 	// unsigned int StartGrid, getcell, increment, a, checkgrid;
-	P_CHAR pc_i = MAKE_CHARREF_LR(i);
 	if ( pc_i == NULL )
 		return;
 	
@@ -107,7 +106,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 						}
 						else if (pc->isInnocent())
 						{
-							npcaction(DEREF_P_CHAR(pc_i), 0x10);
+							npcaction(pc_i, 0x10);
 							Targ->NpcResurrectTarget(pc);
 							staticeffect(pc, 0x37, 0x6A, 0x09, 0x06);
 							switch (RandomNum(0, 4)) 
@@ -201,7 +200,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 						}
 						else
 						{
-							npcaction(DEREF_P_CHAR(pc_i), 0x10);
+							npcaction(pc_i, 0x10);
 							Targ->NpcResurrectTarget(pc);
 							staticeffect(pc, 0x37, 0x09, 0x09, 0x19); // Flamestrike effect
 							switch (RandomNum(0, 4)) 
@@ -523,7 +522,7 @@ void cCharStuff::cDragonAI::DoAI(int i, int currenttime)
 void cCharStuff::cDragonAI::Breath(int i, int currenttime)
 {
 	P_CHAR pc_i = MAKE_CHARREF_LR(i);
-	Magic->PFireballTarget(i, DEREF_P_CHAR(FindCharBySerial(pc_i->targ)), 20);
+	Magic->PFireballTarget(pc_i, FindCharBySerial(pc_i->targ), 20);
 	DoneAI(i, currenttime);
 	return; 
 }
@@ -587,7 +586,7 @@ void cCharStuff::cDragonAI::DoneAI(int i, int currenttime)
 	return;
 }
 
-bool cCharStuff::cBankerAI::DoAI(int c, int i, char *comm)
+bool cCharStuff::cBankerAI::DoAI(int c, P_CHAR pBanker, char *comm)
 {
 	P_CHAR pc_currchar = currchar[c];
 	char search1[50], search2[50], search3[50], search4[50];
@@ -609,7 +608,7 @@ bool cCharStuff::cBankerAI::DoAI(int c, int i, char *comm)
 		response1 = (strstr(comm, search1));
 		if (response1 &&(!(pc_currchar->dead)))
 		{
-			openspecialbank(c, DEREF_P_CHAR(currchar[c]));
+			openspecialbank(c, currchar[c]);
 		}
 	}
     else if (response1 &&(!(pc_currchar->dead)))
@@ -619,34 +618,34 @@ bool cCharStuff::cBankerAI::DoAI(int c, int i, char *comm)
 	}
     else if (response2 &&(!(pc_currchar->dead)))
 	{
-		return Balance(c, i);
+		return Balance(c, pBanker);
 	}
 	else if (response3 &&(!(pc_currchar->dead)))
 	{
-		return Withdraw(c, i, comm);
+		return Withdraw(c, pBanker, comm);
 	}
 	else if (response4 &&(!(pc_currchar->dead)))
 	{
-		return BankCheck(c, i, comm);
+		return BankCheck(c, pBanker, comm);
 	}
 	return true;
 }
 
-void cCharStuff::cBankerAI::OpenBank(int c)
+void cCharStuff::cBankerAI::OpenBank(UOXSOCKET c)
 {
-	openbank(c, DEREF_P_CHAR(currchar[c]));
+	openbank(c, currchar[c]);
 	return;
 }
 
-bool cCharStuff::cBankerAI::Balance(int c, int i)
+bool cCharStuff::cBankerAI::Balance(int c, P_CHAR pBanker)
 {
 	P_CHAR pc_currchar = currchar[c];
 	sprintf(temp, "%s's balance as of now is %i.", pc_currchar->name, pc_currchar->CountBankGold());
-	npctalk(c, i, temp, 1);
+	npctalk(c, pBanker, temp, 1);
 	return true;
 }
 
-bool cCharStuff::cBankerAI::Withdraw(int c, int i, char *comm)
+bool cCharStuff::cBankerAI::Withdraw(int c, P_CHAR pBanker, char *comm)
 {
 	P_CHAR pc_currchar = currchar[c];
 	int a = 0;
@@ -667,18 +666,18 @@ bool cCharStuff::cBankerAI::Withdraw(int c, int i, char *comm)
 		int goldcount = str2num(value2);
 		addgold(c, goldcount);
 		goldsfx(c, goldcount);
-		DeleBankItem(DEREF_P_CHAR(pc_currchar), 0x0EED, 0, goldcount);
+		DeleBankItem(pc_currchar, 0x0EED, 0, goldcount);
 		sprintf(temp, "%s here is your withdraw of %i.", pc_currchar->name, goldcount);
-		npctalk(c, i, temp, 1);
+		npctalk(c, pBanker, temp, 1);
 		return true;
 	}
 	else
 		sprintf(temp, "%s you have insufficent funds!", pc_currchar->name);
-	npctalk(c, i, temp, 1);
+	npctalk(c, pBanker, temp, 1);
 	return true;
 }
 
-bool cCharStuff::cBankerAI::BankCheck(int c, int i, char *comm)
+bool cCharStuff::cBankerAI::BankCheck(int c, P_CHAR pBanker, char *comm)
 {
 	P_CHAR pc_currchar = currchar[c];
 	int a = 0;
@@ -700,7 +699,7 @@ bool cCharStuff::cBankerAI::BankCheck(int c, int i, char *comm)
 		if (goldcount < 5000 || goldcount > 1000000)
 		{
 			sprintf(temp, "%s you can only get checks worth 5000gp to 1000000gp.", pc_currchar->name);
-			npctalk(c, i, temp, 1);
+			npctalk(c, pBanker, temp, 1);
 			return false;
 		}
 		if (d >= goldcount)
@@ -713,17 +712,17 @@ bool cCharStuff::cBankerAI::BankCheck(int c, int i, char *comm)
 			pi->color2 = 0x99;
 			pi->priv |= 0x02;
 			pi->value = goldcount;
-			DeleBankItem(DEREF_P_CHAR(pc_currchar), 0x0EED, 0, goldcount);
+			DeleBankItem(pc_currchar, 0x0EED, 0, goldcount);
 			P_ITEM bankbox = pc_currchar->GetBankBox();
 			bankbox->AddItem(pi);
 			statwindow(c, pc_currchar);
 			sprintf(temp, "%s your check has been placed in your bankbox, it is worth %i.", pc_currchar->name, goldcount);
-			npctalk(c, i, temp, 1);
+			npctalk(c, pBanker, temp, 1);
 			return true;
 		}
 		else
 			sprintf(temp, "%s you have insufficent funds!", pc_currchar->name);
-		npctalk(c, i, temp, 1);
+		npctalk(c, pBanker, temp, 1);
 		return true;
 	}
 }

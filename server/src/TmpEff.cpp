@@ -48,7 +48,6 @@
 //
 static void reverseIncognito(P_CHAR pc)
 {
-	CHARACTER c = DEREF_P_CHAR(pc);
 
 	if(pc->incognito)//let's ensure it's under incognito effect!
 	{
@@ -334,7 +333,7 @@ void cTmpEff::Expire()
 		pc_s = FindCharBySerial(getSour());
 		P_ITEM pMortar = FindItemBySerial(getDest());
 		if(pMortar != NULL) //AntiChrist - to prevent crashes
-			Skills->CreatePotion(DEREF_P_CHAR(pc_s), more1, more2, pMortar);
+			Skills->CreatePotion(pc_s, more1, more2, pMortar);
 		}
 		break;
 	case 11:
@@ -703,7 +702,8 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 		int c1,b,k;
 		//Grey flag when polymorphed - AntiChrist (9/99)
 		pc_dest->crimflag=(polyduration*MY_CLOCKS_PER_SEC)+uiCurrentTime;
-		if(pc_dest->onhorse) k=unmounthorse(DEREF_P_CHAR(pc_dest));
+		if(pc_dest->onhorse) 
+			k = unmounthorse(calcSocketFromChar(pc_dest));
 		k=(more1<<8)+more2;
 
 		pc_dest->xid1=pc_dest->id1;//let's backup previous id
@@ -793,8 +793,10 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 		// ------ NAME -----
 		strcpy(pc_dest->orgname,pc_dest->name);
 
-		if(pc_dest->id2==0x90) setrandomname(DEREF_P_CHAR(pc_dest),"1");//get a name from male list
-		else setrandomname(DEREF_P_CHAR(pc_dest),"2");//get a name from female list
+		if(pc_dest->id2==0x90) 
+			setrandomname(pc_dest, "1");//get a name from male list
+		else 
+			setrandomname(pc_dest, "2");//get a name from female list
 
 		//
 		//damn..this formula seems to include also some bad color...

@@ -1051,9 +1051,8 @@ P_ITEM cAllItems::SpawnItem(UOXSOCKET nSocket, P_CHAR ch,
 	return pi;
 }
 
-P_ITEM cAllItems::SpawnItemBank(CHARACTER ch, int nItem)
+P_ITEM cAllItems::SpawnItemBank(P_CHAR pc_ch, int nItem)
 {
-	P_CHAR pc_ch = MAKE_CHAR_REF(ch);
 	if (pc_ch == NULL) 
 		return NULL;
 	
@@ -1688,7 +1687,7 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 			pc_p->removeItemBonus(pi);
 			if ((pi->trigon==1) && (pi->layer >0))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 			{
-				Trig->triggerwitem(DEREF_P_CHAR(pc_p), pi, 1); // trigger is fired when unequipped? sorry this needs checked
+				Trig->triggerwitem(calcSocketFromChar(pc_p), pi, 1); // trigger is fired when unequipped? sorry this needs checked
 			}
 						
 			pi->SetContSerial(-1);

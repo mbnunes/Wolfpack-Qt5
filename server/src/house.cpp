@@ -464,7 +464,7 @@ void deedhouse(UOXSOCKET s, P_ITEM pHouse) // Ripper & AB
 								pPvDeed->value = 2000;
 								RefreshItem( pPvDeed );
 								sysmessage(s, "Packed up vendor %s.", mapchar->name);
-								Npcs->DeleteChar( DEREF_P_CHAR(mapchar) );
+								Npcs->DeleteChar( mapchar );
 							}
 						}
 					}
@@ -499,7 +499,7 @@ void cHouseManager::RemoveHouse(int h)
 		P_CHAR pc = ri.GetData();
 		if(GetHouseNum(pc)==h)
 			if(pc->npcaitype == 17)
-				Npcs->DeleteChar(DEREF_P_CHAR(pc));
+				Npcs->DeleteChar(pc);
 	}
 	cRegion::RegionIterator4Items rii(House[h]->pos);
 	for(rii.Begin(); rii.GetData() != rii.End(); ri++)

@@ -62,19 +62,19 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial);
 void singleclick(UOXSOCKET s);
 
 //void walking(int s, int dir, int sequence);
-void teleporters(CHARACTER s);
+void teleporters(P_CHAR pc_s);
 void read_in_teleport(void);
 void npcwalk(CHARACTER i, int j, int type);
 //void walking2(CHARACTER s);
 void all_items(int s);
 void savelog(const char *msg, char *logfile);
 void explodeitem(int s, P_ITEM pi);
-void monstergate(int s, int x);
+void monstergate(P_CHAR pc_s, int x);
 //void npcMovement2(unsigned int, int);//Lag fix -- Zippy
 //void npcMovement(unsigned int);
 void Karma(P_CHAR pc_toChange, P_CHAR pc_Killed, int nKarma);
 void npctalkall_runic(P_CHAR npc, char *txt,char antispam);
-void Fame(int nCharID, int nFame);
+void Fame(P_CHAR pc_toChange, int nFame);
 void charstartup(int s);
 void checkdumpdata(unsigned int currenttime); // This dumps data for Ridcully's UOXBot 0.02 (jluebbe@hannover.aball.de)
 void killall(int s, int percent, char* sysmsg);
@@ -97,9 +97,9 @@ bool ishouse(P_ITEM);
 void cleanup(int s);
 P_ITEM packitem(int p);
 void titletarget(int s);
-int ishuman(int p);
+int ishuman(P_CHAR pc);
 void npcact(int s);
-void objTeleporters(CHARACTER s);
+void objTeleporters(P_CHAR pc_s);
 void SkillVars();
 void StartClasses();
 void LoadCustomScripts();
@@ -112,12 +112,12 @@ void npcToggleCombat(P_CHAR pc);
 int chardir(int a, int b);
 int checkBoundingBox(int xPos, int yPos, int fx1, int fy1, int fz1, int fx2, int fy2);
 int checkBoundingCircle(int xPos, int yPos, int fx1, int fy1, int fz1, int radius);
-int unmounthorse(int s);
+int unmounthorse(UOXSOCKET s);
 void telltime(int s);
 void impaction(int s, int act);
-int fielddir(int s, int x, int y, int z);
+int fielddir(P_CHAR pc, int x, int y, int z);
 void npcattacktarget(P_CHAR pc_target2, P_CHAR pc_target);
-void npcsimpleattacktarget(int target2, int target);
+void npcsimpleattacktarget(P_CHAR pc_target2, P_CHAR pc_target);
 int RandomNum(int nLowNum, int nHighNum);
 void enlist(int s, int listnum); // For enlisting in army
 
@@ -128,7 +128,7 @@ void setabovelight(unsigned char);
 
 void tweakmenu(UOXSOCKET, SERIAL);
 int validtelepos(int s);
-void showcname (int s, int i, char b);
+void showcname (UOXSOCKET s, P_CHAR pc_i, char b);
 void addhere(int s, signed char z);
 void whomenu(int s, int type);
 void playermenu(int s, int type);
@@ -145,17 +145,17 @@ void gcollect();
 void weather(int s, unsigned char bolt);
 unsigned char npcinrange (UOXSOCKET s, P_CHAR i, int distance);  //check for horse distance...
 //void xbanktarget(int s);
-void openbank(int s, int i);
-void openspecialbank(int s, int i);//AntiChrist
+void openbank(int s, P_CHAR pc_i);
+void openspecialbank(int s, P_CHAR pc);//AntiChrist
 char inbankrange(int i);
 int getamount(P_CHAR pc, short id);
 void delequan(P_CHAR pc, short id, int amount, int *not_deleted = NULL);
 void gettokennum(char * s, int num);
-void setrandomname(int s, char * namelist);
+void setrandomname(P_CHAR pc_s, char * namelist);
 void donewithcall(int s, int type);
 void initque();
 void choice(int s);
-void mounthorse(UOXSOCKET s, CHARACTER x);
+void mounthorse(UOXSOCKET s, P_CHAR pc_mount);
 char *title1(P_CHAR pc);
 char *title2(P_CHAR pc);
 char *title3(P_CHAR pc);
@@ -174,7 +174,6 @@ int calcValue(P_ITEM pi, int value);
 int calcGoodValue(P_CHAR npcnum, P_ITEM pi, int value,int goodtype); // by Magius(CHE) for trade system
 void StoreItemRandomValue(P_ITEM pi,int tmpreg); // by Magius(CHE) (2) for trade system
 
-P_ITEM tradestart(int s, int i);
 void clearalltrades();
 void trademsg(int s);
 void dotrade(P_ITEM cont1, P_ITEM cont2);
@@ -202,10 +201,10 @@ void loadserverdefaults(void);
 int numbitsset( int number );
 int whichbit( int number, int bit );
 unsigned int chardist (P_CHAR a, P_CHAR b);
-unsigned int itemdist(CHARACTER a, P_ITEM pi);
+unsigned int itemdist(P_CHAR pc, P_ITEM pi);
 
-int GetBankCount( CHARACTER p, unsigned short itemid, unsigned short color = 0x0000 );
-int DeleBankItem( CHARACTER p, unsigned short itemid, unsigned short color, int amt );
+int GetBankCount( P_CHAR pc, unsigned short itemid, unsigned short color = 0x0000 );
+int DeleBankItem( P_CHAR pc, unsigned short itemid, unsigned short color, int amt );
 
 void getSextantCords(signed int x, signed int y, bool t2a, char *sextant);
 
@@ -229,9 +228,9 @@ void lockpick(int s);
 
 short getstatskillvalue(char *stringguy);
 // for newbie stuff
-int bestskill(CHARACTER p);
-int nextbestskill(CHARACTER m, int bstskll);
-void newbieitems(UOXSOCKET s, CHARACTER c);
+int bestskill(P_CHAR pc);
+int nextbestskill(P_CHAR pc, int bstskll);
+void newbieitems(UOXSOCKET s, P_CHAR pc);
 void read3 ();
 void read4 ();
 void readscript ();
@@ -242,7 +241,7 @@ void loadskills();
 void loadmenuprivs();
 
 
-void advancementobjects(CHARACTER s, int x, int always);
+void advancementobjects(P_CHAR pc_s, int x, int always);
 void itemsfx(UOXSOCKET s, short item);
 void bgsound(P_CHAR pc);
 void splitline();
@@ -275,7 +274,7 @@ void    MsgBoardEvent(int nSerial);
 
 void doGmMoveEff(UOXSOCKET s); //gm movement effects
 // Guildstone related functions
-int chardirxyz(int a, int x, int y);	// direction from character a to char b
+int chardirxyz(P_CHAR pc, int x, int y);	// direction from character a to char b
 
 
 void batchcheck(int s);
@@ -285,7 +284,7 @@ void readw3();
 
 //void selectspell2cast(int s, int num); //Socket, Spell Number
 void criminal(P_CHAR pc);
-void callguards( int p );
+void callguards( P_CHAR pc_player );
 int recursestatcap(int chr); //Morrolan - stat/skill cap
 void skillfreq(int chr, int skill); //Morrolan - stat/skill cap
 

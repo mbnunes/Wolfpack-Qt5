@@ -81,7 +81,7 @@ static bool CheckWhereItem( P_ITEM pack, P_ITEM pi, int s)
 
 void UpdateStatusWindow(UOXSOCKET s, P_ITEM pi)
 {
-	P_ITEM packnum = packitem(DEREF_P_CHAR(currchar[s]));
+	P_ITEM packnum = Packitem(currchar[s]);
 	if (CheckWhereItem(packnum, pi, s))
 		statwindow(s, currchar[s]);
 }
@@ -311,7 +311,7 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 					
 					if (pi->id() == 0x0EED) // gold coin
 					{
-						P_ITEM packnum = packitem(DEREF_P_CHAR(currchar[s]));
+						P_ITEM packnum = Packitem(currchar[s]);
 						if (packnum != NULL) // lb
 							if (pi->contserial == packnum->serial)
 								update = 1;
@@ -825,7 +825,7 @@ static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	P_CHAR pTC = FindCharBySerial(pp->Tserial);	// the targeted character
 	if (!pTC) return true;
 
-	if (DEREF_P_CHAR(pTC)!=DEREF_P_CHAR(pc_currchar))
+	if (pTC != pc_currchar)
 	{
 		if (pTC->isNpc())
 		{
@@ -926,17 +926,15 @@ static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 			}
 			else
 			{
-				P_ITEM pj = Trade->tradestart(s, DEREF_P_CHAR(pTC)); //trade-stuff
+				P_ITEM pj = Trade->tradestart(s, pTC); //trade-stuff
 				pi->SetContSerial(pj->serial);
-				pi->pos.x=30;
-				pi->pos.y=30;
-				pi->pos.z=9;
+				pi->pos.x = 30;
+				pi->pos.y = 30;
+				pi->pos.z = 9;
 				SndRemoveitem(pi->serial);
 				RefreshItem(pi);
 			}
 		}
-
-
 	}
 	else // dumping stuff to his own backpack !
 	{
@@ -1023,16 +1021,16 @@ void dump_item(P_CLIENT ps, PKGx08 *pp) // Item is dropped on ground or a charac
 void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 {
 	int j, serial;
-	bool abort=false;
-	UOXSOCKET s=ps->GetSocket();
+	bool abort = false;
+	UOXSOCKET s = ps->GetSocket();
 	P_CHAR pc_currchar = ps->getPlayer();
 	
 	serial=pp->Tserial;
-	if(serial == INVALID_SERIAL) abort=true;
+	if(serial == INVALID_SERIAL) abort = true;
 	const P_ITEM pCont= FindItemBySerial( serial );
 	
-	serial=pp->Iserial;
-	if(serial == INVALID_SERIAL) abort=true;
+	serial = pp->Iserial;
+	if(serial == INVALID_SERIAL) abort = true;
 	const P_ITEM pItem = FindItemBySerial( serial );
 	
 	if (pCont == NULL)
@@ -1042,20 +1040,22 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 	} 
 	
 	if (pItem == NULL || pCont == NULL) return; //LB
-	pItem->flags.isBeeingDragged=false;
+	pItem->flags.isBeeingDragged = false;
 
 	if (pItem->id1>=0x40) 
 	{ 
-	   abort=true; // LB crashfix that prevents moving multi objcts in BP's
+	   abort = true; // LB crashfix that prevents moving multi objcts in BP's
        sysmessage(s,"Hey, putting houses in your pack crashes your back and client!");
 	}
-	j=DEREF_P_CHAR(GetPackOwner(pCont));
-	if (j>-1)
-		if (chars[j].npcaitype==17 && chars[j].isNpc() && !pc_currchar->Owns(&chars[j]))
+	P_CHAR pc_j = GetPackOwner(pCont);
+	if (pc_j != NULL)
+	{
+		if (pc_j->npcaitype==17 && pc_j->isNpc() && !pc_currchar->Owns(pc_j))
 		{
-			abort=true;
+			abort = true;
 			sysmessage(s, "This aint your vendor!");				
 		}
+	}
 
 	if(abort)
 	{//AntiChrist to preview item disappearing
@@ -1063,8 +1063,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 		return;
 	}
 
-	if (pCont->layer==0 && pCont->id() == 0x1E5E &&
-		pc_currchar->Wears(pCont))
+	if (pCont->layer==0 && pCont->id() == 0x1E5E &&	pc_currchar->Wears(pCont))
 	{
 		// Trade window???
 		serial=calcserial(pCont->moreb1, pCont->moreb2, pCont->moreb3, pCont->moreb4);
@@ -1189,10 +1188,10 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 	if (!(pCont->pileable && pItem->pileable && pCont->id()==pItem->id()
 		|| (pCont->type!=1 && pCont->type!=9)))
 	{
-		j=DEREF_P_CHAR(GetPackOwner(pCont));
-		if (j>-1) // bugkilling, LB, was j=!-1, arghh, C !!!
+		P_CHAR pc_j = GetPackOwner(pCont);
+		if (pc_j != NULL)
 		{
-			if (chars[j].npcaitype==17 && chars[j].isNpc() && pc_currchar->Owns(&chars[j]))
+			if (pc_j->npcaitype==17 && pc_j->isNpc() && pc_currchar->Owns(pc_j))
 			{
 				pc_currchar->inputitem = pItem->serial;
 				pc_currchar->inputmode = cChar::enPricing;
@@ -1266,12 +1265,12 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 
 			if (pItem->glow>0) // LB's glowing items stuff
 			{
-				int p = DEREF_P_CHAR(GetPackOwner(pCont)); 
+				P_CHAR pc = GetPackOwner(pCont); 
 				pc_currchar->removeHalo(pItem); // if gm put glowing object in another pack, handle glowsp correctly !
-				if (p!=-1) 
+				if (pc != NULL) 
 				{
-					chars[p].addHalo(pItem);
-					chars[p].glowHalo(pItem);
+					pc->addHalo(pItem);
+					pc->glowHalo(pItem);
 				}		   
 				
 			}	

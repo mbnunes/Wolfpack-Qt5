@@ -274,9 +274,9 @@ mstring cCommands::GetAllParams(void)
 }
 
 
-void cCommands::MakeShop(int c)
+void cCommands::MakeShop(P_CHAR pc_c)
 {
-	P_CHAR pc_c = MAKE_CHARREF_LR(c);
+	if ( pc_c == NULL ) return;
 	pc_c->shop=1;
 	if (pc_c->GetItemOnLayer(0x1A) == NULL)
 	{
@@ -414,9 +414,9 @@ void cCommands::KillSpawn(int s, int r)  //courtesy of Revana
 		P_CHAR toCheck = iter_char.GetData();
 		if(toCheck->spawnregion==r && !toCheck->free)
 		{
-			bolteffect(DEREF_P_CHAR(toCheck), true);
-			soundeffect2(DEREF_P_CHAR(toCheck), 0x00, 0x29);
-			Npcs->DeleteChar(DEREF_P_CHAR(toCheck));
+			bolteffect(toCheck, true);
+			soundeffect2(toCheck, 0x0029);
+			Npcs->DeleteChar(toCheck);
             killed++;
 		}
 	}
@@ -514,7 +514,7 @@ void cCommands::KillAll(int s, int percent, const char* sysmsg)
 		{
 			if(rand()%100+1<=percent)
 			{
-				bolteffect(DEREF_P_CHAR(pc), true);
+				bolteffect(pc, true);
 				soundeffect2(pc, 0x0029);
 				deathstuff(pc);
 			}

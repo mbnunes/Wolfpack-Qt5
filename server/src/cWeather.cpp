@@ -49,7 +49,7 @@ void cWeather::DoWeather(int s)
 	    Region=pc_currchar->region;
 	    if(Type[Region]==-1)
 		{
-		    CalcType(DEREF_P_CHAR(pc_currchar));
+		    CalcType(s);
 		}
 	    else if(Type[Region]==1)
 		{
@@ -67,7 +67,7 @@ void cWeather::DoWeather(int s)
 	return;
 }
 
-void cWeather::CalcType(int s)
+void cWeather::CalcType(UOXSOCKET s)
 {
 	int rchance=0;
 	int schance=0;

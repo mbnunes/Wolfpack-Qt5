@@ -106,7 +106,7 @@ bool inrange1p (PC_CHAR pca, P_CHAR pcb);
 bool iteminrange (const UOXSOCKET s, const P_ITEM pi, const int distance);
 void vialtarget(int nSocket);
 void MakeNecroReg(int nSocket,P_ITEM pMat, short id);
-void usepotion(int p, P_ITEM pi);
+void usepotion(P_CHAR pc_p, P_ITEM pi);
 
 unsigned char tempeffect(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3,short dur=-1);
 unsigned char tempeffect2(P_CHAR source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3);

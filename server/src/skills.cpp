@@ -204,7 +204,7 @@ public:
 	cMMTsmith(short badsnd=0x002A) : cMMT(badsnd) {}
 	virtual void deletematerial(SOCK s, int amount)
 	{
-		P_ITEM pPack= packitem(DEREF_P_CHAR(currchar[s]));
+		P_ITEM pPack= Packitem(currchar[s]);
 		if (pPack == NULL)
 			return;
 		amount=(amount>0 ? amount : 1);
@@ -908,11 +908,11 @@ void cSkills::DoPotion(int s, int type, int sub, P_ITEM mortar)
 // Purpose:	does the appropriate skillcheck for the potion, creates it
 //			in the mortar on success and tries to put it into a bottle
 //
-void cSkills::CreatePotion(int s, char type, char sub, P_ITEM pi_mortar)
+void cSkills::CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar)
 {
 	int success=0;
 
-	P_CHAR pc = MAKE_CHARREF_LR(s)
+	if ( pc == NULL ) return;
 
 	switch((10*type)+sub)
 	{
@@ -959,11 +959,11 @@ void cSkills::CreatePotion(int s, char type, char sub, P_ITEM pi_mortar)
 	else
 	{
 		// Dupois - Added pouring potion sfx Oct 09, 1998
-		soundeffect(s, 0x02, 0x40);	// Liquid sfx
+		soundeffect2(pc, 0x0240);	// Liquid sfx
 		sprintf((char*)temp, "*%s pours the completed potion into a bottle.*", pc->name);
 		npcemoteall(pc, (char*)temp,0);
 		delequan(pc, 0x0F0E, 1);
-		Skills->PotionToBottle(s, pi_mortar);
+		Skills->PotionToBottle(pc, pi_mortar);
 	} 
 }
 
@@ -989,7 +989,7 @@ void cSkills::BottleTarget(int s)
 		{
 			sprintf((char*)temp, "*%s pours the completed potion into a bottle.*", pc_currchar->name);
 			npcemoteall(pc_currchar, (char*)temp,0);
-			Skills->PotionToBottle(DEREF_P_CHAR(pc_currchar), mortar);
+			Skills->PotionToBottle(pc_currchar, mortar);
 		}
 	}
 	else
@@ -1001,12 +1001,12 @@ void cSkills::BottleTarget(int s)
 // history: unknown, revamped by Duke,23.04.2000
 // Purpose: this really creates the potion
 //
-void cSkills::PotionToBottle(CHARACTER s, P_ITEM pi_mortar)
+void cSkills::PotionToBottle(P_CHAR pc, P_ITEM pi_mortar)
 {
 	unsigned char id1,id2;
 	char pn[50];
 
-	P_CHAR pc = MAKE_CHARREF_LR(s);
+	if ( pc == NULL ) return;
 
 	switch((10*pi_mortar->more1)+pi_mortar->more2)
 	{
@@ -1230,7 +1230,7 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 				}
 			}
 		}
-		Skills->AdvanceStats(DEREF_P_CHAR(pc), sk);
+		Skills->AdvanceStats(pc, sk);
 	}
 	return retval;
 }
@@ -1279,14 +1279,14 @@ static int AdvanceOneStat(int sk, int i, int *stat, int *stat2, bool *update, bo
 //			gives all three stats the chance (from skills.scp & server.scp) to rise
 //			and reduces the two other stats if necessary
 //
-void cSkills::AdvanceStats(CHARACTER s, int sk)
+void cSkills::AdvanceStats(P_CHAR pc, int sk)
 {
 	int i,so;
 	bool update=false;
 	bool atCap=false;
 	bool isGM=false;
 
-	P_CHAR pc = MAKE_CHARREF_LR(s)
+	if ( pc == NULL ) return;
 
 	if(pc->isGM())		// a GM ?
 		isGM=true;
@@ -1349,13 +1349,13 @@ void cSkills::SpiritSpeak(int s) // spirit speak time, on a base of 30 seconds +
 	SetTimerSec(&currchar[s]->spiritspeaktimer,spiritspeak_data.spiritspeaktimer+currchar[s]->in);
 }
 
-int cSkills::GetCombatSkill(int c)
+int cSkills::GetCombatSkill(P_CHAR pc)
 {
 	int skillused = WRESTLING;
 	
 	unsigned int ci=0;
 	P_ITEM pi;
-	vector<SERIAL> vecContainer = contsp.getData(chars[c].serial);
+	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
@@ -1639,7 +1639,7 @@ void cSkills::Tracking(int s,int selection)
 	P_CHAR pc_trackingTarget = FindCharBySerial(pc_currchar->trackingtarget);
 	sprintf((char*)temp,"You are now tracking %s.", pc_trackingTarget->name);
 	sysmessage(s,(char*)temp);
-	Skills->Track(DEREF_P_CHAR(pc_currchar));
+	Skills->Track(pc_currchar);
 }
 
 void cSkills::CreateTrackingMenu(int s,int m)
@@ -1839,9 +1839,10 @@ void cSkills::TrackingMenu(int s,int gmindex)
 	}
 }
 
-void cSkills::Track(int i)
+void cSkills::Track(P_CHAR pc_i)
 {
-	P_CHAR pc_i = MAKE_CHARREF_LR(i);
+	if ( pc_i == NULL)
+		return;
 	UOXSOCKET s = calcSocketFromChar(pc_i);
 	P_CHAR pc_trackingTarget = FindCharBySerial(pc_i->trackingtarget);
 	int direction=5;
@@ -2249,19 +2250,19 @@ void cSkills::TDummy(int s)
 {
 	//unsigned int i;
 	int serial,hit;
-	int type = Combat->GetBowType(DEREF_P_CHAR(currchar[s]));
+	int type = Combat->GetBowType(currchar[s]);
 	
 	if (type > 0)
 	{
 		sysmessage(s, "Practice archery on archery buttes !");
 		return;
 	}
-	int skillused = Skills->GetCombatSkill(DEREF_P_CHAR(currchar[s]));
+	int skillused = Skills->GetCombatSkill(currchar[s]);
 	
 	if (currchar[s]->onhorse)
-		Combat->CombatOnHorse(DEREF_P_CHAR(currchar[s]));
+		Combat->CombatOnHorse(currchar[s]);
 	else
-		Combat->CombatOnFoot(DEREF_P_CHAR(currchar[s]));
+		Combat->CombatOnFoot(currchar[s]);
 	
 	hit=rand()%3;
 	switch(hit)
@@ -2317,7 +2318,7 @@ void cSkills::AButte(int s1, P_ITEM pButte)
 	int v1,i;
 	int arrowsquant=0;
 	P_CHAR pc_currchar = currchar[s1];
-	int type=Combat->GetBowType(DEREF_P_CHAR(pc_currchar));
+	int type=Combat->GetBowType(pc_currchar);
 	if(pButte->id()==0x100A)
 	{ // East Facing Butte
 		if ((pButte->pos.x > pc_currchar->pos.x)||(pButte->pos.y != pc_currchar->pos.y))
@@ -2407,8 +2408,8 @@ void cSkills::AButte(int s1, P_ITEM pButte)
 			pButte->more2++;
 			//add moving effect here to item, not character
 		} 
-		if (pc_currchar->onhorse) Combat->CombatOnHorse(DEREF_P_CHAR(pc_currchar));
-		else Combat->CombatOnFoot(DEREF_P_CHAR(pc_currchar));
+		if (pc_currchar->onhorse) Combat->CombatOnHorse(pc_currchar);
+		else Combat->CombatOnFoot(pc_currchar);
 		
 		if (pc_currchar->skill[ARCHERY] < 350)
 			Skills->CheckSkill(pc_currchar,ARCHERY, 0, 1000);
@@ -2461,7 +2462,7 @@ void cSkills::Meditation(UOXSOCKET s) // Morrolan - meditation(int socket)
 		sysmessage(s, "Your mind is too busy with the war thoughts.");
 		return;
 	}
-	if (Skills->GetAntiMagicalArmorDefence(DEREF_P_CHAR(pc_currchar))>15) // blackwind armor affect fix
+	if (Skills->GetAntiMagicalArmorDefence(pc_currchar)>15) // blackwind armor affect fix
 	{
 		sysmessage(s, "Regenerative forces cannot penetrate your armor.");
 		pc_currchar->med = 0;
@@ -2653,15 +2654,15 @@ void SkillVars()
 	strcpy(skill[REMOVETRAPS].madeword,"made");
 }
 
-int cSkills::GetAntiMagicalArmorDefence(int p)
+int cSkills::GetAntiMagicalArmorDefence(P_CHAR pc)
 {// blackwind
 	int ar = 0;
 
-	if (ishuman(p))
+	if (ishuman(pc))
 	{
 		unsigned int ci = 0;
 		P_ITEM pi;
-		vector<SERIAL> vecContainer = contsp.getData(chars[p].serial);
+		vector<SERIAL> vecContainer = contsp.getData(pc->serial);
 		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
 			pi = FindItemBySerial(vecContainer[ci]);

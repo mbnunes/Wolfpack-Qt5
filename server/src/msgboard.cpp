@@ -2197,7 +2197,7 @@ void MsgBoardQuestEscortCreate( int npcIndex )
 	if ( !pc_npc->questDestRegion )
 	{
 		clConsole.send("WOLFPACK: MsgBoardQuestEscortCreate() No valid regions defined for escort quests\n");
-		Npcs->DeleteChar( npcIndex );
+		Npcs->DeleteChar( pc_npc );
 		//deletechar( npcIndex );
 		return;
 	}
@@ -2207,7 +2207,7 @@ void MsgBoardQuestEscortCreate( int npcIndex )
 	{
 		clConsole.send( "WOLFPACK: MsgBoardQuestEscortCreate() Failed to add quest post for %s\n", pc_npc->name );
 		clConsole.send( "WOLFPACK: MsgBoardQuestEscortCreate() Deleting NPC %s\n", pc_npc->name );
-		Npcs->DeleteChar( npcIndex );
+		Npcs->DeleteChar( pc_npc );
 		//deletechar( npcIndex );
 		return;
 	}
@@ -2229,11 +2229,11 @@ void MsgBoardQuestEscortCreate( int npcIndex )
 //
 // RETURNS:     void
 //////////////////////////////////////////////////////////////////////////////
-void MsgBoardQuestEscortArrive( int npcIndex, int pcIndex )
+void MsgBoardQuestEscortArrive( P_CHAR pc_npc, int pcIndex )
 {
-	int i = npcIndex;
+	//int i = npcIndex;
 	int k = pcIndex;
-	P_CHAR pc_npc = MAKE_CHARREF_LR(npcIndex);
+	//P_CHAR pc_npc = MAKE_CHARREF_LR(npcIndex);
 	
 	// Calculate payment for services rendered
 	int servicePay = ( RandomNum(0, 20) * RandomNum(1, 30) );  // Equals a range of 0 to 600 possible gold with a 5% chance of getting 0 gold
@@ -2242,7 +2242,7 @@ void MsgBoardQuestEscortArrive( int npcIndex, int pcIndex )
 	if ( servicePay == 0 )
 	{
 		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Alas, I seem to be a little short on gold. I have nothing to pay you with.", currchar[k]->name, region[pc_npc->questDestRegion].name );
-		npctalk( k, i, (char*)temp, 0 );
+		npctalk( k, pc_npc, (char*)temp, 0 );
 	}
 	else // Otherwise pay the poor sod for his time
 	{
@@ -2251,7 +2251,7 @@ void MsgBoardQuestEscortArrive( int npcIndex, int pcIndex )
 		addgold( k, servicePay );
 		goldsfx( k, servicePay );
 		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Here is thy pay as promised.", currchar[k]->name, region[pc_npc->questDestRegion].name );
-		npctalk( k, i, (char*)temp, 0 );
+		npctalk( k, pc_npc, (char*)temp, 0 );
 	}
 	
 	// Inform the PC of what he has just been given as payment
@@ -2281,11 +2281,11 @@ void MsgBoardQuestEscortArrive( int npcIndex, int pcIndex )
 //
 // RETURNS:     void
 //////////////////////////////////////////////////////////////////////////////
-void MsgBoardQuestEscortDelete( int npcIndex )
+void MsgBoardQuestEscortDelete( P_CHAR pc_npc )
 {
-	P_CHAR pc_npc = MAKE_CHARREF_LR(npcIndex);
+	if ( pc_npc == NULL ) return;
 	pc_npc->dead = true;
-	Npcs->DeleteChar(npcIndex);
+	Npcs->DeleteChar(pc_npc);
 	return;
 }
 
@@ -2300,14 +2300,14 @@ void MsgBoardQuestEscortDelete( int npcIndex )
 //
 // RETURNS:     void
 //////////////////////////////////////////////////////////////////////////////
-void MsgBoardQuestEscortRemovePost( int npcIndex )
+void MsgBoardQuestEscortRemovePost( P_CHAR pc_npc )
 {
 	
 	// Read bbi file to determine messages on boards list
 	// Find the post related to this NPC's quest and mark it for deletion
 	// thereby removing it from the bulletin boards list
 	
-	P_CHAR pc_npc = MAKE_CHARREF_LR(npcIndex);
+	if ( pc_npc == NULL ) return;
 	SERIAL s = pc_npc->serial;
 	unsigned long loopexit=0;
 	

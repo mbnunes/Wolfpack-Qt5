@@ -61,11 +61,12 @@ void read4() // used for newbie items
 	return;
 }
 
-int nextbestskill(CHARACTER m, int bstskll)  // Which skill is the second highest
+int nextbestskill(P_CHAR pc, int bstskll)  // Which skill is the second highest
 {
 	int i, a = 0, b = 0;
 
-	P_CHAR pc = MAKE_CHARREF_LRV(m, 0);
+	if ( pc == NULL )
+		return 0;
 	
 	for (i = 0; i < TRUESKILLS; i++) 
 	{
@@ -84,17 +85,18 @@ int nextbestskill(CHARACTER m, int bstskll)  // Which skill is the second highes
 }
 
 
-void newbieitems(UOXSOCKET s, CHARACTER c)
+void newbieitems(UOXSOCKET s, P_CHAR pc)
 {
 	int first, second, third, storeval, itemaddperskill, loopexit = 0;
 	char sect[512];
 	char whichsect[15];
 	long int pos;
 
-	P_CHAR pc = MAKE_CHARREF_LR(c);
-	first = bestskill(c);
-	second = nextbestskill(c, first);
-	third = nextbestskill(c, second);
+	if ( pc == NULL )
+		return;
+	first = bestskill(pc);
+	second = nextbestskill(pc, first);
+	third = nextbestskill(pc, second);
 	if (pc->baseskill[third] < 190)
 		third = 46;
 
@@ -140,7 +142,7 @@ void newbieitems(UOXSOCKET s, CHARACTER c)
 					pos = ftell(scpfile);
 					closescript();
 				
-					P_ITEM pi = Items->SpawnItemBank(c, storeval); // Tauriel 11-24-98
+					P_ITEM pi = Items->SpawnItemBank(pc, storeval); // Tauriel 11-24-98
 					if (pi != NULL)
 						pi->priv |= 0x02; // Mark as a newbie item
 					strcpy((char*)script1, "DUMMY");

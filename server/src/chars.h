@@ -411,15 +411,15 @@ private:
 	int  GetReusableSlot();
 	
 public:
-	void DeleteChar(int k);
+	void DeleteChar(P_CHAR pc_k);
 	void CheckMemoryRequest();
 	bool AllocateMemory(int NumberOfChars);
 	int MemCharFree();
 	P_ITEM AddRandomLoot(P_ITEM pBackpack, char * lootlist);
 	int AddRandomNPC(int s, char *npclist, int spawnpoint);
 	int AddNPCxyz(int s, int npcNum, int type, int x1, int y1, signed char z1);
-	void Split(int k);
-	void CheckAI(unsigned int currenttime, int i);
+	void Split(P_CHAR pc_k);
+	void CheckAI(unsigned int currenttime, P_CHAR pc_i);
 	int AddNPC(int s, P_ITEM pi_i, int npcNum, int x1 = 0, int y1 = 0, signed char z1 = 0);
 	// Sky's AI Stuff
 	class cDragonAI
@@ -437,11 +437,11 @@ public:
 	class cBankerAI
 	{
 	public:
-		bool DoAI(int c,int i,char *comm);
-		bool Withdraw(int c,int i, char *comm);
-		bool BankCheck(int c,int i, char *comm);
-		bool Balance(int c, int i);
-		void OpenBank(int c);
+		bool DoAI(int c, P_CHAR pBanker,char *comm);
+		bool Withdraw(int c, P_CHAR pBanker, char *comm);
+		bool BankCheck(int c, P_CHAR pBanker, char *comm);
+		bool Balance(int c, P_CHAR pBanker);
+		void OpenBank(UOXSOCKET c);
 	};
 };
 

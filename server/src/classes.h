@@ -59,20 +59,20 @@ class cCombat
 {
 private:
 	void ItemCastSpell(UOXSOCKET s, P_CHAR pc, P_ITEM pi);
-	int TimerOk(int c);
+	int TimerOk(P_CHAR pc);
 	void ItemSpell(cChar* Attacker, cChar* Defender);
-	void doSoundEffect(CHARACTER p, int fightskill, P_ITEM pWeapon);//AntiChrist
-	void doMissedSoundEffect(CHARACTER p);//AntiChrist
+	void doSoundEffect(P_CHAR pc, int fightskill, P_ITEM pWeapon);//AntiChrist
+	void doMissedSoundEffect(P_CHAR pc);//AntiChrist
 	void DoCombatAnimations(P_CHAR pc_attacker, P_CHAR pc_defender, int fightskill, int bowtype, int los);
 public:
-	int GetBowType(int i);
-	int CalcAtt(int p);
+	int GetBowType(P_CHAR pc);
+	int CalcAtt(P_CHAR pc);
 	int CalcDef(P_CHAR pc, int x);
-	void CombatOnHorse(int i);
-	void CombatOnFoot(int i);
+	void CombatOnHorse(P_CHAR pc);
+	void CombatOnFoot(P_CHAR pc);
 	void CombatHitCheckLoS(P_CHAR pAttacker, unsigned int currenttime);
-	void CombatHit(int a, int d, unsigned int currenttime, short los);
-	void DoCombat(int a, unsigned int currenttime);
+	void CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int currenttime, short los);
+	void DoCombat(P_CHAR pc_attacker, unsigned int currenttime);
 	void SpawnGuard( P_CHAR pc_offender, P_CHAR pc_caller, int x, int y, signed char z);
 };
 
@@ -100,7 +100,7 @@ public:
 	void GMPage(int s, char * reason);
 	void MakePlace(int s, int i);
 	void Command( UOXSOCKET, string );
-	void MakeShop(int c);
+	void MakeShop(P_CHAR pc_c);
 	void DyeItem(int s);
 	void SetItemTrigger(int s);
 	void SetTriggerType(int s);
@@ -119,7 +119,7 @@ class cFishing
 {
 public:
 	void FishTarget(P_CLIENT ps);
-	void Fish(CHARACTER c);
+	void Fish(P_CHAR pc_i);
 };
 
 class cSkills
@@ -156,15 +156,15 @@ public:
 	void SmeltItemTarget(UOXSOCKET s); // Ripper
 	void TasteIDTarget(int s);
 	int TrackingDirection(int s, int i);
-	void CreatePotion(CHARACTER s, char type, char sub, P_ITEM pi_mortar);
+	void CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar);
 	char AdvanceSkill(P_CHAR pc, int sk, char skillused);
-	void AdvanceStats(CHARACTER s, int sk);
+	void AdvanceStats(P_CHAR pc, int sk);
 	void TinkerAxel(int s);
 	void TinkerAwg(int s);
 	void TinkerClock(int s);
 	void MakeDough(int s);
 	void MakePizza(int s);
-	void Track(int i);
+	void Track(P_CHAR pc_i);
 	void DoPotion(int s, int type, int sub, P_ITEM mortar);
 	void Tailoring(int s);
 	void Fletching(int s);
@@ -187,7 +187,7 @@ public:
 	void EnticementTarget2(UOXSOCKET s);
 	void AlchemyTarget(int s);
 	void BottleTarget(int s);
-	void PotionToBottle(CHARACTER s, P_ITEM pi_mortar);
+	void PotionToBottle(P_CHAR pc, P_ITEM pi_mortar);
 	char CheckSkill(P_CHAR pc, unsigned short int sk, int low, int high);
 	void CreateBandageTarget(int s);
 	void HealingSkillTarget(UOXSOCKET s);
@@ -197,7 +197,7 @@ public:
 	void Evaluate_int_Target(UOXSOCKET s);
 	void AnatomyTarget(int s);
 	void TameTarget(int s);
-	int GetCombatSkill(int i);
+	int GetCombatSkill(P_CHAR pc);
 	void SkillUse(int s, int x);
 	void StealingTarget(int s);
 	void PickPocketTarget(int s);
@@ -219,7 +219,7 @@ public:
 	bool HasEmptyMap(int cc); // By Polygon - checks if player has an empty map
 	bool DelEmptyMap(int cc); // By Polygon - deletes an empty map from the player's pack
 	void Decipher(P_ITEM tmap, int s); // By Polygon - attempt to decipher a tattered treasure map
-	int GetAntiMagicalArmorDefence(int p); // blackwind meditation armor stuff
+	int GetAntiMagicalArmorDefence(P_CHAR pc); // blackwind meditation armor stuff
 	void Snooping(P_CHAR, P_ITEM);
 };
 
@@ -228,7 +228,7 @@ public:
 class cWeight
 {
 public:
-	int CheckWeight(UOXSOCKET s, int k);
+	int CheckWeight(UOXSOCKET s);
 	float RecursePacks(P_ITEM bp);
 	int CheckWeight2(int s);
 	void NewCalc(P_CHAR pc);
@@ -242,12 +242,12 @@ class cMagic
 {
 public:
 	char CheckResist(P_CHAR attacker, P_CHAR defender, int circle);
-	void PoisonDamage(CHARACTER p, int poison);
-	void CheckFieldEffects2(unsigned int currenttime, CHARACTER c,char timecheck);
+	void PoisonDamage(P_CHAR pc, int poison);
+	void CheckFieldEffects2(unsigned int currenttime, P_CHAR pc, char timecheck);
 	int InitSpells( void );
 	void SpellBook(UOXSOCKET s, P_ITEM pi);
 	int  SpellsInBook(P_ITEM pi);
-	char GateCollision(int s);
+	char GateCollision(P_CHAR pc_player);
 	bool newSelectSpell2Cast( int s, int num );
 	bool requireTarget( unsigned char num );
 	bool reqItemTarget( int num );
@@ -263,28 +263,28 @@ public:
 	void preParticles(int num, P_CHAR pc);
 	void afterParticles(int num, P_CHAR pc);
 	void itemParticles(int num, P_ITEM pi);
-	void invisibleItemParticles(CHARACTER c, int num, short x, short y, signed char z);
+	void invisibleItemParticles(P_CHAR pc, int num, short x, short y, signed char z);
 	move_st getMoveEffects( int num );
 	sound_st getSoundEffects( int num );
 	bool aggressiveSpell( int num );
 	bool fieldSpell( int num );
 	void doMoveEffect( int num, P_CHAR target, P_CHAR source );
 	void doStaticEffect( P_CHAR source, int num );
-	void playSound( int source, int num );
+	void playSound( P_CHAR pc_source, int num );
 //	void NewDelReagents( CHARACTER s, reag_st reags );
 	
 	void DelReagents( P_CHAR pc, reag_st reags );
 
 	void NewCastSpell( UOXSOCKET s );
 	void SbOpenContainer(int s);
-	void PFireballTarget(int i, int k, int j);
+	void PFireballTarget(P_CHAR pc_i, P_CHAR pc, int j);
 	void LightningSpell(P_CHAR pc_Attacker, P_CHAR pc_Defender, bool usemana = true);
 	void EnergyBoltSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana = true);
 	void NPCHeal(int s);
 	void NPCCure(int s);
 	void NPCDispel(P_CHAR pc_s, P_CHAR pc_i);
 	void NPCCannonTarget(int s, int t);
-	char CheckParry(int player, int circle);
+	char CheckParry(P_CHAR pc_player, int circle);
 	void MagicArrow(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana = true);
 	void ClumsySpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana = true);
 	void FeebleMindSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana = true);
@@ -314,7 +314,7 @@ public:
 	void MagicDamage(P_CHAR pc, int amount);
 	void SpellFail(int s);
 	char SubtractMana(P_CHAR pc, int mana);
-	void MagicTrap(int s, P_ITEM pTrap);	// moved here by AntiChrist (9/99)
+	void MagicTrap(P_CHAR pc, P_ITEM pTrap);	// moved here by AntiChrist (9/99)
 	void Polymorph( int s, int gmindex, int creaturenumer); // added by AntiChrist (9/99)
 	short SpellNumFromScrollID(short id);
 
