@@ -22,18 +22,22 @@
 		<!-- The Equipment of a standard standard_guard -->
 		<inherit>base_guard</inherit>
 		
-		<fame>10000</fame> 		<karma>10000</karma>
-		
-		<defense>1000</defense> 		<attack>1000</attack> 		
+		<fame>10000</fame>
+		<karma>10000</karma>
+		<defense>1000</defense>
+		<attack>1000</attack> 		
 		<priv1>4</priv1> 		
-		<str><random min="1000" max="1500" /></str> 		<dex><random min="1000" max="1500" /></dex> 		<int><random min="1000" max="1500" /></int>
+		<str><random min="1000" max="1500" /></str>
+		<dex><random min="1000" max="1500" /></dex>
+		<int><random min="1000" max="1500" /></int>
 		
 		<parrying>990</parrying>
 		<magicresistance>990</magicresistance>
 		<tactics>1000</tactics>
 		<wrestling>990</wrestling> 
 		
-		<hidamage>1000</hidamage> 		<lodamage>1000</lodamage>
+		<hidamage>1000</hidamage>
+		<lodamage>1000</lodamage>
 		
 		<title>the guard</title>
 		
