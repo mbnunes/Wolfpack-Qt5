@@ -104,7 +104,7 @@ static PyTypeObject wpSkillsType =
 {
 	PyObject_HEAD_INIT( NULL )
 	0,
-	"WPSkills",
+	"wpSkills",
 	sizeof( wpSkillsType ),
 	0,
 	wpDealloc,

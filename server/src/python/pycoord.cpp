@@ -29,8 +29,10 @@
 #include "../coord.h"
 #include "../walking.h"
 
-/*!
-	The object for Wolfpack Coord items
+/*
+	\object coord
+	\description This object type represents a coordinate in the ultima online world.
+	Use the coord function in the <module id="wolfpack">wolfpack</module> module to create an instance of this object type.
 */
 typedef struct
 {
@@ -59,6 +61,15 @@ PyTypeObject wpCoordType =
 
 };
 
+/*
+	\method coord.distance
+	\param pos A <object id="coord">coord</object> object.
+	\return An integer value.
+	\description This method measures the distance between this coordinate
+	and the given <object id="coord">coord</object> coord object. 
+	The return value is -1 if the distance is infinite, otherwise the distance
+	in tiles is returned.
+*/
 static PyObject* wpCoord_distance( wpCoord* self, PyObject* args )
 {
 	// Check if the paramter is a coordinate
@@ -75,6 +86,13 @@ static PyObject* wpCoord_distance( wpCoord* self, PyObject* args )
 	}
 }
 
+/*
+	\method coord.direction
+	\param pos A <object id="coord">coord</object> object.
+	\return An integer value.
+	\description This method calculates the direction from this coordinate to the
+	given one. If no direction can be determined, -1 is returned.
+*/
 static PyObject* wpCoord_direction( wpCoord* self, PyObject* args )
 {
 	// Check if the paramter is a coordinate
@@ -91,12 +109,27 @@ static PyObject* wpCoord_direction( wpCoord* self, PyObject* args )
 	}
 }
 
+/*
+	\method coord.validspawnspot
+	\return A boolean value.
+	\description This method returns true if this coordinate is a valid spawn spot for a monster, character or item.
+	Otherwise it returns false.
+*/
 static PyObject* wpCoord_validspawnspot( wpCoord* self, PyObject* args )
 {
 	Q_UNUSED( args );
 	return Movement::instance()->canLandMonsterMoveHere( self->coord ) ? PyTrue() : PyFalse();
 }
 
+/*
+	\method coord.lineofsight
+	\param coord Another <object id="coord">coord</object> object.
+	\param targetheight The height of the line of sight target.
+	Can be 0.
+	\param touch A boolean value. Defaults to false.
+	\description Returns true if an object at the given coordinate with the given height can be seen from this coordinate.
+	Touch determines whether the target needs to be touched or only be seen.
+*/
 static PyObject* wpCoord_lineofsight( wpCoord* self, PyObject* args )
 {
 	Coord_cl pos;
@@ -120,12 +153,24 @@ static PyMethodDef wpCoordMethods[] =
 
 static PyObject* wpCoord_getAttr( wpCoord* self, char* name )
 {
+	/*
+		\property coord.x This is the x component of the coordinate.
+	*/
 	if ( !strcmp( name, "x" ) )
 		return PyInt_FromLong( self->coord.x );
+	/*
+		\property coord.y This is the y component of the coordinate.
+	*/
 	else if ( !strcmp( name, "y" ) )
 		return PyInt_FromLong( self->coord.y );
+	/*
+		\property coord.z This is the z component of the coordinate.
+	*/
 	else if ( !strcmp( name, "z" ) )
 		return PyInt_FromLong( self->coord.z );
+	/*
+		\property coord.map This is the map this coordinate is on.
+	*/
 	else if ( !strcmp( name, "map" ) )
 		return PyInt_FromLong( self->coord.map );
 	else

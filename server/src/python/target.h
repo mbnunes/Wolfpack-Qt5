@@ -32,6 +32,10 @@
 #include "utilities.h"
 #include "../targetrequests.h"
 
+/*
+	\object target
+	\description This object type represents the clients response to a target request.
+*/
 typedef struct
 {
 	PyObject_HEAD;
@@ -42,15 +46,29 @@ typedef struct
 
 static PyObject* wpTarget_getAttr( wpTarget* self, char* name )
 {
+	/*
+		\rproperty target.pos The value of this property is a <object id="coord">coord</object> object representing the location of the targetted object or ground tile.
+		Remember that this value should not be trusted.
+	*/
 	if ( !strcmp( name, "pos" ) )
 		return PyGetCoordObject( self->pos );
+	/*
+		\rproperty target.model If a static tile has been targetted by the client, this property contains the art id of the targetted static tile. If a character has been targetted,
+		this property contains the body id of the targetted character. Please note that this value is sent by the client and not determined by the server.
+	*/
 	else if ( !strcmp( name, "model" ) )
 		return PyInt_FromLong( self->model );
+	/*
+		\rproperty target.item If a valid item has been targetted, this property contains an <object id="item">item</object> object for the targetted item.
+	*/
 	else if ( !strcmp( name, "item" ) )
 	{
 		if ( isItemSerial( self->object ) )
 			return PyGetItemObject( FindItemBySerial( self->object ) );
 	}
+	/*
+		\rproperty target.char If a valid character has been targetted, this property contains a <object id="char">char</object> object for the targetted character.
+	*/
 	else if ( !strcmp( name, "char" ) )
 		if ( isCharSerial( self->object ) )
 			return PyGetCharObject( FindCharBySerial( self->object ) );

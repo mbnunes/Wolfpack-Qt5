@@ -2507,7 +2507,7 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		}
 
 		/*
-				\rproperty char.region A <object id="REGION">REGION</object> object for the region the character is in.
+				\rproperty char.region A <object id="REGION">region</object> object for the region the character is in.
 				May be None if the region the character is in is undefined.
 				This property is exclusive to python scripts and overrides normal properties with the same name.
 			*/

@@ -32,6 +32,16 @@
 #include "utilities.h"
 #include "../sectors.h"
 
+/*
+	\object itemregioniterator
+	\description This object type allows you to iterate over a set of items in a memory efficient way.
+	A typical iteration could look like this:
+	
+	<code>item = iterator.first
+	while item:
+	&nbsp;&nbsp;# Access item properties here
+	&nbsp;&nbsp;item = iterator.next</code>
+*/
 typedef struct
 {
 	PyObject_HEAD;
@@ -46,8 +56,16 @@ static void wpItemIteratorDealloc( PyObject* self )
 
 static PyObject* wpRegionIteratorItems_getAttr( wpRegionIteratorItems* self, char* name )
 {
+	/*
+		\rproperty itemregioniterator.first Accessing this property will reset the iterator to the first item and return it. 
+		If there are no items to iterate over, None is returned.
+	*/
 	if ( !strcmp( name, "first" ) )
 		return PyGetItemObject( self->iter->first() );
+	/*
+		\rproperty itemregioniterator.next Accessing this property will advance the iterator to the next item and return it. 
+		At the end of the iteration, None is returned.
+	*/	
 	else if ( !strcmp( name, "next" ) )
 		return PyGetItemObject( self->iter->next() );
 
@@ -58,7 +76,7 @@ static PyTypeObject wpRegionIteratorItemsType =
 {
 	PyObject_HEAD_INIT( NULL )
 	0,
-	"wpRegionIteratorItems",
+	"wpItemRegionIterator",
 	sizeof( wpRegionIteratorItemsType ),
 	0,
 	wpItemIteratorDealloc,
@@ -90,7 +108,16 @@ static PyObject* PyGetItemRegionIterator( unsigned short xBlock, unsigned short 
 /*
  *	Character Region Iterator
  */
-
+/*
+	\object charregioniterator
+	\description This object type allows you to iterate over a set of chars in a memory efficient way.
+	A typical iteration could look like this:
+	
+	<code>char = iterator.first
+	while char:
+	&nbsp;&nbsp;# Access char properties here
+	&nbsp;&nbsp;char = iterator.next</code>
+*/
 typedef struct
 {
 	PyObject_HEAD;
@@ -105,8 +132,16 @@ static void wpCharIteratorDealloc( PyObject* self )
 
 static PyObject* wpRegionIteratorChars_getAttr( wpRegionIteratorChars* self, char* name )
 {
+	/*
+		\rproperty charregioniterator.first Accessing this property will reset the iterator to the first character and return it. 
+		If there are no characters to iterate over, None is returned.
+	*/	
 	if ( !strcmp( name, "first" ) )
 		return PyGetCharObject( self->iter->first() );
+	/*
+		\rproperty charregioniterator.next Accessing this property will advance the iterator to the next character and return it. 
+		At the end of the iteration, None is returned.
+	*/			
 	else if ( !strcmp( name, "next" ) )
 		return PyGetCharObject( self->iter->next() );
 
@@ -117,7 +152,7 @@ static PyTypeObject wpRegionIteratorCharsType =
 {
 	PyObject_HEAD_INIT( NULL )
 	0,
-	"wpRegionIteratorChars",
+	"wpCharRegionIterator",
 	sizeof( wpRegionIteratorCharsType ),
 	0,
 	wpCharIteratorDealloc,

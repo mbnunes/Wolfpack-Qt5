@@ -31,8 +31,9 @@
 
 #include <vector>
 
-/*!
-	The object for Wolfpack Python items
+/*
+	\object region
+	\description This object type represents a region within the ultima online world.
 */
 typedef struct
 {
@@ -70,12 +71,19 @@ static PyMethodDef wpRegionMethods[] =
 
 static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 {
+	/*
+		\rproperty region.parent This property represents the parent region of this region. If there is no parent region this 
+		property contains None, otherwise another region object for the parent region.
+	*/
 	if ( !strcmp( name, "parent" ) )
 	{
 		// Check if valid region
 		cTerritory* pRegion = dynamic_cast<cTerritory*>( self->pRegion->parent() );
 		return PyGetRegionObject( pRegion );
 	}
+	/*
+		\rproperty region.children This property contains a tuple of region objects for the subregions within this region.
+	*/
 	else if ( !strcmp( name, "children" ) )
 	{
 		QValueVector<cBaseRegion*> children = self->pRegion->children();
@@ -87,7 +95,10 @@ static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 		}
 		return tuple;
 	}
-	// Return a Tuple of Tuples
+	/*
+		\rproperty region.rectangles This property is a tuple of tuples containing x1, y1, x2 and y2 for the rectangles that define
+		the area of this region.
+	*/
 	else if ( !strcmp( name, "rectangles" ) )
 	{
 		QValueVector<cBaseRegion::rect_st> rectangles = self->pRegion->rectangles();
@@ -104,38 +115,66 @@ static PyObject* wpRegion_getAttr( wpRegion* self, char* name )
 		}
 		return tuple;
 	}
+	/*
+		\rproperty region.name The name of this region.
+	*/
 	else if ( !strcmp( name, "name" ) )
 		return QString2Python( self->pRegion->name() );
+	/*
+		\rproperty region.midilist A list of midi sounds to be played for this region.
+	*/
 	else if ( !strcmp( name, "midilist" ) )
 		return QString2Python( self->pRegion->midilist() );
+	/*
+		\rproperty region.guardowner The name of the guardowner for this region.
+	*/
 	else if ( !strcmp( name, "guardowner" ) )
 		return QString2Python( self->pRegion->guardOwner() );
-	else if ( !strcmp( name, "rainchance" ) )
-		return PyInt_FromLong( self->pRegion->rainChance() );
-	else if ( !strcmp( name, "snowchance" ) )
-		return PyInt_FromLong( self->pRegion->snowChance() );
 
 	// Flags
+	/*
+		\rproperty region.guarded This boolean flag indicates whether the region is guarded or not.
+	*/
 	else if ( !strcmp( name, "guarded" ) )
 		return PyInt_FromLong( self->pRegion->isGuarded() ? 1 : 0 );
+	/*
+		\rproperty region.nomark This boolean flag indicates whether runes aren't markable in this region or not.
+	*/
 	else if ( !strcmp( name, "nomark" ) )
 		return PyInt_FromLong( self->pRegion->isNoMark() ? 1 : 0 );
+	/*
+		\rproperty region.nogate This boolean flag indicates whether gates in or out of this region are allowed.
+	*/
 	else if ( !strcmp( name, "nogate" ) )
 		return PyInt_FromLong( self->pRegion->isNoGate() ? 1 : 0 );
+	/*
+		\rproperty region.norecallout This boolean flag indicates whether recalling out of this region is allowed.
+	*/
 	else if ( !strcmp( name, "norecallout" ) )
 		return PyInt_FromLong( self->pRegion->isNoRecallOut() ? 1 : 0 );
+	/*
+		\rproperty region.norecallin This boolean flag indicates whether recalling into this region is allowed.
+	*/
 	else if ( !strcmp( name, "norecallin" ) )
 		return PyInt_FromLong( self->pRegion->isNoRecallIn() ? 1 : 0 );
-	else if ( !strcmp( name, "recallshield" ) )
-		return PyInt_FromLong( self->pRegion->isRecallShield() ? 1 : 0 );
+	/*
+		\rproperty region.noagressivemagic This boolean flag indicates whether agressive magic is forbidden in this region or not.
+	*/
 	else if ( !strcmp( name, "noagressivemagic" ) )
 		return PyInt_FromLong( self->pRegion->isNoAgressiveMagic() ? 1 : 0 );
+	/*
+		\rproperty region.noagressivemagic This boolean flag indicates whether magic is forbidden in this region or not.
+	*/
 	else if ( !strcmp( name, "antimagic" ) )
 		return PyInt_FromLong( self->pRegion->isAntiMagic() ? 1 : 0 );
-	else if ( !strcmp( name, "validescortregion" ) )
-		return PyInt_FromLong( self->pRegion->isValidEscortRegion() ? 1 : 0 );
+	/*
+		\rproperty region.cave This boolean flag indicates that this region is underground.
+	*/
 	else if ( !strcmp( name, "cave" ) )
 		return PyInt_FromLong( self->pRegion->isCave() ? 1 : 0 );
+	/*
+		\rproperty region.nomusic This boolean flag indicates that no music should be played in this region.
+	*/
 	else if ( !strcmp( name, "nomusic" ) )
 		return PyInt_FromLong( self->pRegion->isNoMusic() ? 1 : 0 );
 

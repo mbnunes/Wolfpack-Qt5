@@ -28,6 +28,18 @@
 #include "worlditerator.h"
 #include "../world.h"
 
+/*
+	\object itemiterator
+	\description This object type allows you to iterate over all items 
+	registered in the world in a memory efficient way. A typical iteration could look
+	like this:
+	
+	<code>iterator = wolfpack.allitemsiterator()
+	item = iterator.first
+	while item:
+	&nbsp;&nbsp;# Access item properties here
+	&nbsp;&nbsp;item = iterator.next</code>
+*/
 typedef struct {
 	PyObject_HEAD;
 	cItemIterator* iter;
@@ -40,8 +52,16 @@ static void wpItemIteratorDealloc( PyObject* self) {
 
 static PyObject* wpItemIterator_getAttr( wpItemIterator* self, char* name )
 {
+	/*
+		\rproperty itemiterator.first Accessing this property will reset the iterator to the first item and return it. 
+		If there are no items to iterate over, None is returned.
+	*/
 	if ( !strcmp( name, "first" ) )
 		return PyGetItemObject( self->iter->first() );
+	/*
+		\rproperty itemiterator.next Accessing this property will advance the iterator to the next item and return it. 
+		At the end of the iteration, None is returned.
+	*/		
 	else if ( !strcmp( name, "next" ) )
 		return PyGetItemObject( self->iter->next() );
 
@@ -78,6 +98,18 @@ PyObject* PyGetItemIterator()
  *	Character Region Iterator
  */
 
+/*
+	\object chariterator
+	\description This object type allows you to iterate over all characters
+	registered in the world in a memory efficient way. A typical iteration could look
+	like this:
+	
+	<code>iterator = wolfpack.allcharsiterator()
+	char = iterator.first
+	while char:
+	&nbsp;&nbsp;# Access char properties here
+	&nbsp;&nbsp;char = iterator.next</code>
+*/
 typedef struct
 {
 	PyObject_HEAD;
@@ -92,8 +124,16 @@ static void wpCharIteratorDealloc( PyObject* self )
 
 static PyObject* wpCharIterator_getAttr( wpCharIterator* self, char* name )
 {
+	/*
+		\rproperty chariterator.first Accessing this property will reset the iterator to the first character and return it. 
+		If there are no characters to iterate over, None is returned.
+	*/	
 	if ( !strcmp( name, "first" ) )
 		return PyGetCharObject( self->iter->first() );
+	/*
+		\rproperty chariterator.next Accessing this property will advance the iterator to the next character and return it. 
+		At the end of the iteration, None is returned.
+	*/	
 	else if ( !strcmp( name, "next" ) )
 		return PyGetCharObject( self->iter->next() );
 
@@ -104,7 +144,7 @@ static PyTypeObject wpCharIteratorType =
 {
 	PyObject_HEAD_INIT( NULL )
 	0,
-	"wpIteratorChars",
+	"wpCharIterator",
 	sizeof( wpCharIteratorType ),
 	0,
 	wpCharIteratorDealloc,
