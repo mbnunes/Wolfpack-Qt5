@@ -192,6 +192,7 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 				}
 				else
 				{
+					addmitem[s] = SrvParms->default_jail_time;
 					Targ->JailTarget (s,pc_c->serial);
 					break;
 				}						 

@@ -196,7 +196,7 @@ void loadchar(int x) // Load a character from WSC
 		case 'J': 
 		case 'j': 
 			if (!strcmp((char*)script1, "JAILTIMER"))			  pc->jailtimer=uiCurrentTime+str2num(script2); 
-			else if(!strcmp((char*)script1, "JAILCELL"))		  { pc->cell=str2num(script2); jails[i].occupied = true;} 
+			else if(!strcmp((char*)script1, "JAILCELL"))		  { pc->cell=str2num(script2); jails[pc->cell].occupied = true;} 
 			else if(!strcmp((char*)script1, "JAILSECS"))		  pc->jailsecs=str2num(script2); 
 		break;
 

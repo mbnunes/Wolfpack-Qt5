@@ -4092,7 +4092,7 @@ void cMagic::BuildCannon(int s)
 // AntiChrist
 void cMagic::Gate(UOXSOCKET s)
 {
-	int c, n;
+	int n;
 
 	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);	//Targeted item
 	if (pi)
