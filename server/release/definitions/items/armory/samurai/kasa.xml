@@ -12,10 +12,8 @@
 	<item id="2798">
 		<id>0x2798</id>
 		<dye />
-		<durability><random min="20" max="25" /></durability>
-		<buyprice>25</buyprice>
-		<sellprice>12</sellprice>
-		<weight>1.0</weight>
+		<durability><random min="20" max="30" /></durability>
+		<weight>3.0</weight>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<!-- Properties -->
