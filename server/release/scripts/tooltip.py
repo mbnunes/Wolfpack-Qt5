@@ -41,7 +41,7 @@ def onShowTooltip( sender, target, tooltip ):
 		
 			if target.name == '#' or target.name == '':
 				if target.amount > 1:
-					tooltip.add( 1050045, " \t#" + str( 0xF9060 + target.id ) + "\t: " + str( target.amount ) )
+					tooltip.add( 1050045, " \t#" + str( 0xF9060 + target.id ) + "\t`s: " + str( target.amount ) )
 				else:			
 					tooltip.add( 0xF9060 + target.id, '' )
 				
