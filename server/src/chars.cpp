@@ -3844,7 +3844,7 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 	if( name == "account" )
 	{
 		account_ = Accounts::instance()->getRecord( value.toString() );
-		npc_ = ( account == 0 );
+		npc_ = ( account() == 0 );
 		return 0;
 	}
 
