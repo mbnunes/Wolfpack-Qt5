@@ -39,7 +39,7 @@
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<food>0</food>
-		<totame>0</totame>
+		<mintaming>0</mintaming>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 	</npc>
 

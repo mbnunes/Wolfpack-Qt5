@@ -38,7 +38,7 @@
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
-		<totame>291</totame>
+		<mintaming>291</mintaming>
 		<food>5</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Llama</category>

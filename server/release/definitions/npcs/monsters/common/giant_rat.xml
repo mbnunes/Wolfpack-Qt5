@@ -34,7 +34,7 @@
 		<!-- Missing:  -->
 		<lootpacks>lootpack_poor</lootpacks>
 		<carve>carve_ret_giant</carve>
-		<totame>291</totame>
+		<mintaming>291</mintaming>
 		<category>Monsters\Common\Giant Rat</category>
 	</npc>
 

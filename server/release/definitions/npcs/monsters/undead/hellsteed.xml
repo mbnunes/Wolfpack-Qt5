@@ -33,7 +33,7 @@
 		<magicresistance><random min="901" max="1100" /></magicresistance>
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
-		<totame>1100</totame>
+		<mintaming>1100</mintaming>
 		<category>Animals\Undead\Hellsteed</category>
 	</npc>
 

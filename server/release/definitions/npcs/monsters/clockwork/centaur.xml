@@ -38,7 +38,7 @@
 		<!-- Missing: 60 Arrow -->
 		<lootpacks>lootpack_rich;lootpack_average;gems</lootpacks>
 		<category>Animals\Clockwork\Centaur</category>
-		<totame>1100</totame>
+		<mintaming>1100</mintaming>
 	</npc>
 
 </definitions>

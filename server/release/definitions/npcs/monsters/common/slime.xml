@@ -37,7 +37,7 @@
 		<desc>Slimes are creatures of pure instinct, lacking even the intelligence of a fish or tiny vermin. They live by dissolving anything that comes into contact with them, living or dead. Gold is one of the few things their acids cannot touch, and they are often found in its presence. Perhaps over the centuries they have come to dimly recognize that gold will lure their prey to them.</desc>
 		<!-- Missing:  -->
 		<lootpacks>lootpack_poor</lootpacks>
-		<totame>231</totame>
+		<mintaming>231</mintaming>
 		<category>Monsters\Common\Slime</category>
 	</npc>
 

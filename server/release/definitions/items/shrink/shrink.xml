@@ -11,21 +11,21 @@
 	<item id="shrink_pig">
 		<id>0x2101</id>
 		<basescripts>shrink</basescripts>
-		<name>shrink pig</name>
+		<name>pig</name>
 		<weight>0.1</weight>
 	</item>
 
 	<item id="shrink_cow">
 		<id>0x2103</id>
 		<basescripts>shrink</basescripts>
-		<name>shrink cow</name>
+		<name>cow</name>
 		<weight>0.1</weight>
 	</item>
 
 	<item id="shrink_llama">
 		<id>0x20f6</id>
 		<basescripts>shrink</basescripts>
-		<name>shrink llama</name>
+		<name>llama</name>
 		<weight>0.1</weight>
 		<tag name="npc_id" value="ridable_llama" />
 	</item>
@@ -33,28 +33,32 @@
 	<item id="shrink_sheep">
 		<id>0x20e6</id>
 		<basescripts>shrink</basescripts>
-		<name>shrink sheep</name>
+		<name>sheep</name>
 		<weight>0.1</weight>
 	</item>
 
 	<item id="shrink_cat">
 		<id>0x211b</id>
 		<basescripts>shrink</basescripts>
-		<name>shrink cat</name>
+		<name>Cat</name>
 		<weight>0.1</weight>
+		<buyprice>138</buyprice>
+		<tag name="npc_id" value="cat" />
 	</item>
 
 	<item id="shrink_dog">
 		<id>0x211c</id>
 		<basescripts>shrink</basescripts>
-		<name>shrink dog</name>
+		<name>dog</name>
 		<weight>0.1</weight>
+		<buyprice>181</buyprice>
+		<tag name="npc_id" value="dog" />
 	</item>
 
 	<item id="shrink_horse_1">
 		<id>0x211f</id>
 		<basescripts>shrink</basescripts>
-		<name>shrink horse 1</name>
+		<name>horse 1</name>
 		<weight>0.1</weight>
 		<tag name="npc_id" value="horse_1" />
 		<buyprice>602</buyprice>
@@ -63,7 +67,7 @@
 	<item id="shrink_horse_2">
 		<id>0x2120</id>
 		<basescripts>shrink</basescripts>
-		<name>shrink horse 2</name>
+		<name>horse 2</name>
 		<weight>0.1</weight>
 		<tag name="npc_id" value="horse_2" />
 		<buyprice>602</buyprice>
@@ -72,7 +76,7 @@
 	<item id="shrink_horse_3">
 		<id>0x2121</id>
 		<basescripts>shrink</basescripts>
-		<name>shrink horse 3</name>
+		<name>horse 3</name>
 		<weight>0.1</weight>
 		<tag name="npc_id" value="horse_3" />
 		<buyprice>602</buyprice>
@@ -81,7 +85,7 @@
 	<item id="shrink_horse_4">
 		<id>0x2124</id>
 		<basescripts>shrink</basescripts>
-		<name>shrink horse 4</name>	
+		<name>horse 4</name>	
 		<weight>0.1</weight>
 		<tag name="npc_id" value="horse_4" />
 		<buyprice>602</buyprice>
@@ -90,21 +94,25 @@
 	<item id="shrink_packhorse">
 		<id>0x2126</id>
 		<basescripts>shrink</basescripts>
-		<name>shrink packhorse</name>
+		<name>packhorse</name>
 		<weight>0.1</weight>
+		<tag name="npc_id" value="pack_llama" />
+		<buyprice>606</buyprice>
 	</item>
 
 	<item id="shrink_packllama">
 		<id>0x2127</id>
 		<basescripts>shrink</basescripts>
-		<name>shrink packllama</name>
+		<name>packllama</name>
 		<weight>0.1</weight>
+		<tag name="npc_id" value="pack_llama" />
+		<buyprice>491</buyprice>
 	</item>
 
 	<item id="shrink_wooly_sheep">
 		<id>0x20eb</id>
 		<basescripts>shrink</basescripts>
-		<name>shrink wooly sheep</name>
+		<name>wooly sheep</name>
 		<weight>0.1</weight>
 	</item>
 

@@ -7,6 +7,17 @@
 =================================================================
 -->
 <definitions>
+	<npc id="veterinarian_inventory">
+		<shopkeeper>
+			<restockable>
+				<item id="shrink_cat"><amount>10</amount></item> <!-- Cat -->
+				<item id="shrink_dog"><amount>10</amount></item> <!-- Dog -->
+				<item id="shrink_packhorse"><amount>10</amount></item> <!-- Pack Horse -->
+				<item id="shrink_packllama"><amount>10</amount></item> <!-- Pack Llama -->
+				<item id="e21"><amount>20</amount></item> <!-- Bandages -->
+			</restockable>
+		</shopkeeper>
+	</npc>
 
 	<!-- A veterinarian -->
 	<npc id="veterinarian_male">
@@ -15,6 +26,7 @@
 		<veterinary><random min="900" max="1000"/></veterinary>
 		<animallore><random min="850" max="1000"/></animallore>
 		<category>Vendors\Veterinarian (Male)</category>
+		<inherit id="veterinarian_inventory" />
 	</npc>
 	
 	<npc id="veterinarian_female">
@@ -23,6 +35,7 @@
 		<veterinary><random min="900" max="1000"/></veterinary>
 		<animallore><random min="850" max="1000"/></animallore>
 		<category>Vendors\Veterinarian (Female)</category>
+		<inherit id="veterinarian_inventory" />
 	</npc>
 
 </definitions>

@@ -39,7 +39,7 @@
 		<!-- Missing: Sulfurous Ash -->
 		<controlslots>2</controlslots>
 		<lootpacks>gems</lootpacks>
-		<totame>1060</totame>
+		<mintaming>1060</mintaming>
 		<food>1</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Fire Steed</category>

@@ -40,7 +40,7 @@
 		<carve>carve_scorpion_gaint</carve>
 		<!-- Missing: Lesser Poison Potion -->
 		<lootpacks>lootpack_meager</lootpacks>
-		<totame>471</totame>
+		<mintaming>471</mintaming>
 		<food>1</food>
 		<category>Monsters\Insects\Giant Scorpion</category>
 	</npc>

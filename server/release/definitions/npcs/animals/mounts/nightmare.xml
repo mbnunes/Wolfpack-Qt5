@@ -41,7 +41,7 @@
 		<!-- Missing: 1-7CS, LNS, Potion, 3 Sulfurous Ash -->
 		<controlslots>2</controlslots>
 		<lootpacks>lootpack_rich</lootpacks>
-		<totame>951</totame>
+		<mintaming>951</mintaming>
 		<food>1</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Nightmare (Random)</category>

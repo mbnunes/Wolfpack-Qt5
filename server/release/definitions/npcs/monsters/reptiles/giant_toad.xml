@@ -36,7 +36,7 @@
 		<carve>carve_giant_toad</carve>
 		<!-- Missing:  -->
 		<lootpacks>lootpack_poor</lootpacks>
-		<totame>771</totame>
+		<mintaming>771</mintaming>
 		<category>Monsters\Reptiles\giant Toad</category>
 	</npc>
 

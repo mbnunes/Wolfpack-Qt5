@@ -37,7 +37,7 @@
 		<anatomy>0</anatomy>
 		<!-- MIsc. -->
 		<controlslots>1</controlslots>
-		<totame>591</totame>
+		<mintaming>591</mintaming>
 		<food>1</food>
 		<carve>carve_grizzly_bear</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>

@@ -7,26 +7,35 @@
 =================================================================
 -->
 <definitions>
+	<npc id="weaver_inventory">
+		<shopkeeper>
+			<restockable>
+				<item id="f9f"><amount>20</amount></item> <!-- Scissor -->
+				<item id="fa9"><amount>20</amount></item> <!-- Dyes -->
+				<item id="fab"><amount>20</amount></item> <!-- Dye Tub -->
+				<item id="f95"><amount>20</amount></item> <!-- Bolt of Cloth-->
+				<item id="e1f"><amount>20</amount></item> <!-- Light Yarn Unraveled-->
+				<item id="e1e"><amount>20</amount></item> <!-- Light Yarn -->
+				<item id="e1d"><amount>20</amount></item> <!-- Dark Yarn -->
+			</restockable>
+		</shopkeeper>
+	</npc>
 
 	<!-- A weaver vendor -->
 	<npc id="weaver_male">
 		<inherit>vendor_male</inherit>
 		<title>the Weaver</title>
-		<shopkeeper>
-			<restockable/>
-		</shopkeeper>
 		<tailoring><random min="650" max="880" /></tailoring>
 		<category>Vendors\Weaver (Male)</category>
+		<inherit id="weaver_inventory" />
 	</npc>
 	
 	<npc id="weaver_female">
 		<inherit>vendor_female</inherit>
 		<title>the Weaver</title>
-		<shopkeeper>
-			<restockable/>
-		</shopkeeper>
 		<tailoring><random min="650" max="880" /></tailoring>
 		<category>Vendors\Weaver (Female)</category>
+		<inherit id="weaver_inventory" />
 	</npc>
 
 </definitions>

@@ -40,7 +40,7 @@
 		<!-- Missing: Jewel, Level 4 Map -->
 		<controlslots>3</controlslots>
 		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich</lootpacks>
-		<totame>939</totame>
+		<mintaming>939</mintaming>
 		<category>Monsters\Dragons\Dragon (Random)</category>
 	</npc>
 

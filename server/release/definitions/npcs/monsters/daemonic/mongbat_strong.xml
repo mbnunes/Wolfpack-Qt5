@@ -21,7 +21,7 @@
 		<magicresistance><random min="151" max="300"/></magicresistance>
 		<tactics><random min="351" max="500"/></tactics>
 		<wrestling><random min="201" max="350"/></wrestling>
-		<totame>771</totame>
+		<mintaming>771</mintaming>
 		<!-- Damage -->
 		<mindamage>7</mindamage>
 		<maxdamage>10</maxdamage>

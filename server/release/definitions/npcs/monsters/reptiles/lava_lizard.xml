@@ -37,7 +37,7 @@
 		<!-- Missing: 4-14 Sulfurous Ash -->
 		<lootpacks>lootpack_meager</lootpacks>
 		<carve>carve_lava_lizard</carve>
-		<totame>807</totame>
+		<mintaming>807</mintaming>
 		<category>Monsters\Reptiles\lava lizard</category>
 	</npc>
 

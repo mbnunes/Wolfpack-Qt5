@@ -35,7 +35,7 @@
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
 		<controlslots>2</controlslots>
-		<totame>711</totame>
+		<mintaming>711</mintaming>
 		<food>6</food>
 		<carve>carve_bull_black</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>

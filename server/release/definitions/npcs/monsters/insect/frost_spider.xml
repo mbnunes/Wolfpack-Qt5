@@ -39,7 +39,7 @@
 		<desc>The giant spider of the tundra hunts by burrowing into the snow and waiting to trap passers by. Unfortunate creatures caught by the spider are often paralyzed by its venom. The spider then envelops the victimin a cocoon of silk. Victims are then used over time to feed the spider. When the victim is used up, only the desiccated husk and their possessions remain.</desc>
 		<!-- Missing: 7 Spider Silk -->
 		<lootpacks>lootpack_meager;lootpack_poor</lootpacks>
-		<totame>747</totame>
+		<mintaming>747</mintaming>
 		<category>Monsters\Insects\Frost Spider</category>
 	</npc>
 

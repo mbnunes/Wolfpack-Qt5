@@ -34,7 +34,7 @@
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
-		<totame>111</totame>
+		<mintaming>111</mintaming>
 		<food>0</food>
 		<carve>carve_goat</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
@@ -69,7 +69,7 @@
 		<tactics><random min="293" max="440" /></tactics>
 		<magicresistance><random min="251" max="300" /></magicresistance>
 		<controlslots>1</controlslots>
-		<totame>0</totame>
+		<mintaming>0</mintaming>
 		<food>1</food>
 		<carve>carve_goat</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>

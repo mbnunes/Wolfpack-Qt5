@@ -39,7 +39,7 @@
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
 		<controlslots>2</controlslots>
-		<totame>291</totame>
+		<mintaming>291</mintaming>
 		<food>3</food>
 		<carve>carve_lama_pack</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>

@@ -34,7 +34,7 @@
 		<magicresistance><random min="268" max="445" /></magicresistance>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
-		<totame>591</totame>
+		<mintaming>591</mintaming>
 		<food>0</food>
 		<carve>carve_hart_great</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>

@@ -23,7 +23,7 @@
 		<wrestling><random min="501" max="650" /></wrestling>
 		<tactics><random min="501" max="650" /></tactics>
 		<magicresistance><random min="751" max="900" /></magicresistance>
-		<totame>891</totame>
+		<mintaming>891</mintaming>
 		<food>1</food>
 		<!-- Damage -->
 		<mindamage>10</mindamage>

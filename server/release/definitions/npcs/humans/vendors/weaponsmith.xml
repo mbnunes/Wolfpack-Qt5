@@ -7,6 +7,48 @@
 =================================================================
 -->
 <definitions>
+	<npc id="weaponsmith_inventory">
+		<shopkeeper>
+			<restockable>
+				<item id="f47"><amount>20</amount></item> <!-- Battle Axe -->
+				<item id="f4b"><amount>20</amount></item> <!-- Double Axe -->
+				<item id="f45"><amount>20</amount></item> <!-- Executioners Axe -->
+				<item id="13fb"><amount>20</amount></item> <!-- Large Battle Axe -->
+				<item id="e86"><amount>20</amount></item> <!-- Pickaxe -->
+				<item id="1443"><amount>20</amount></item> <!-- Two Handed Axe -->
+				<item id="13b0"><amount>20</amount></item> <!-- War Axe -->
+				<item id="f49"><amount>20</amount></item> <!-- Axe -->
+				
+				<item id="13f6"><amount>20</amount></item> <!-- Butcher Knife -->
+				<item id="ec3"><amount>20</amount></item> <!-- Cleaver -->
+				<item id="f52"><amount>20</amount></item> <!-- Dagger -->
+				<item id="ec4"><amount>20</amount></item> <!-- Skinning Knife -->
+
+				<item id="13b4"><amount>20</amount></item> <!-- Club --> 
+				<item id="143d"><amount>20</amount></item> <!-- Hammer Pick --> 
+				<item id="f5c"><amount>20</amount></item> <!-- Mace --> 
+				<item id="143b"><amount>20</amount></item> <!-- Maul --> 
+				<item id="1439"><amount>20</amount></item> <!-- War Hammer--> 
+				<item id="1407"><amount>20</amount></item> <!-- War Mace --> 
+
+				<item id="f4e"><amount>20</amount></item> <!-- Bardiche --> 
+				<item id="143e"><amount>20</amount></item> <!-- Halberd --> 
+
+				<item id="f63"><amount>20</amount></item> <!-- Spear -->
+				<item id="e88"><amount>20</amount></item> <!-- Pitchfork -->
+				<item id="1403"><amount>20</amount></item> <!-- Short Spear -->
+
+				<item id="f5e"><amount>20</amount></item>--> <!-- Broadsword -->
+				<item id="1441"><amount>20</amount></item>--> <!-- Cutlass -->
+				<item id="13ff"><amount>20</amount></item>--> <!-- Katana -->
+				<item id="1401"><amount>20</amount></item>--> <!-- Kryss -->
+				<item id="f60"><amount>20</amount></item>--> <!-- Longsword -->
+				<item id="13b6"><amount>20</amount></item>--> <!-- Scimitar -->
+				<item id="13b8"><amount>20</amount></item>--> <!-- Thin Longsword -->
+				<item id="13b9"><amount>20</amount></item>--> <!-- Viking Sword -->
+			</restockable>
+		</shopkeeper>	
+	</npc>
 
 	<!-- A weaponsmith vendor -->
 	<npc id="weaponsmith_male">
@@ -15,12 +57,6 @@
 		<equipped>
 			<item id="153b" /> <!-- Half Apron -->
 		</equipped>
-		<shopkeeper>
-			<restockable>
-			</restockable>
-			<sellable>
-			</sellable>
-		</shopkeeper>
 		<armslore><random min="640" max="1000" /></armslore>
 		<blacksmithing><random min="650" max="880" /></blacksmithing>
 		<fencing><random min="450" max="680" /></fencing>
@@ -28,6 +64,7 @@
 		<tactics><random min="360" max="680" /></tactics>
 		<swordsmanship><random min="450" max="680" /></swordsmanship>
 		<category>Vendors\Weaponsmith (Male)</category>
+		<inherit id="weaponsmith_inventory" />
 	</npc>
 	
 	<npc id="weaponsmith_female">
@@ -49,6 +86,7 @@
 		<tactics><random min="360" max="680" /></tactics>
 		<swordsmanship><random min="450" max="680" /></swordsmanship>
 		<category>Vendors\Weaponsmith (Female)</category>
+		<inherit id="weaponsmith_inventory" />
 	</npc>
 
 </definitions>

@@ -38,7 +38,7 @@
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
-		<totame>831</totame>
+		<mintaming>831</mintaming>
 		<food>5</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Ridgeback</category>
@@ -74,7 +74,7 @@
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
-		<totame>831</totame>
+		<mintaming>831</mintaming>
 		<food>5</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Ridgeback (Savage)</category>

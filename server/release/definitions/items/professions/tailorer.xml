@@ -256,18 +256,21 @@
 		<id>0xe1d</id>
 		<category>Professions\Tailorer\Resources\Ball of Yarn 1</category>
 		<basescripts>yarn</basescripts>
+		<buyprice>18</buyprice>
 	</item>
 
 	<item id="e1e">
 		<id>0xe1e</id>
 		<category>Professions\Tailorer\Resources\Ball of Yarn 2</category>
 		<basescripts>yarn</basescripts>
+		<buyprice>18</buyprice>
 	</item>
 
 	<item id="e1f">
 		<id>0xe1f</id>
 		<category>Professions\Tailorer\Resources\Ball of Yarn 3</category>
 		<basescripts>yarn</basescripts>
+		<buyprice>18</buyprice>
 	</item>
 
 	<!-- Bolt of Cloth -->

@@ -14,12 +14,12 @@
 		<id>0xe20</id>
 		<category>Professions\Healer\Bloody Bandages 2</category>
 		<basescripts>bandages</basescripts>
+		<buyprice>5</buyprice>
 	</item>
 
-	<item id="e21">
+	<item id="e21" inherit="e20">
 		<id>0xe21</id>
 		<category>Professions\Healer\Clean Bandages 2</category>
-		<basescripts>bandages</basescripts>
 	</item>
 
 	<item id="e22">

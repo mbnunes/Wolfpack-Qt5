@@ -40,7 +40,7 @@
 		<!-- Missing: Jewel, Level 4 Map -->
 		<controlslots>3</controlslots>
 		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich;lootpack_filthy_rich;lootpack_average</lootpacks>
-		<totame>963</totame>
+		<mintaming>963</mintaming>
 		<category>Monsters\Dragons\White Wyrm (Random)</category>
 	</npc>
 

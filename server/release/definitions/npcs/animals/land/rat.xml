@@ -38,7 +38,7 @@
 		<!-- Missing:  -->
 		<controlslots>1</controlslots>
 		<lootpacks>lootpack_poor</lootpacks>
-		<totame>0</totame>
+		<mintaming>0</mintaming>
 		<food>1</food>
 		<carve>carve_rat</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>

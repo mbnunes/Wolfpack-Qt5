@@ -38,7 +38,7 @@
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
 		<controlslots>2</controlslots>
-		<totame>291</totame>
+		<mintaming>291</mintaming>
 		<food>2</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Seahorse</category>

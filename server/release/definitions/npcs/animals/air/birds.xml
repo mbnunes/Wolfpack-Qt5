@@ -35,7 +35,7 @@
 		<tag name="res_physical" value="0,3" type="int" />
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
-		<totame>0</totame>
+		<mintaming>0</mintaming>
 		<food>3</food>
 		<carve>carve_bird</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>

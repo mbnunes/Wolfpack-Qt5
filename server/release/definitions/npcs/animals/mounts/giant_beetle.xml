@@ -36,7 +36,7 @@
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
 		<controlslots>3</controlslots>
-		<totame>291</totame>
+		<mintaming>291</mintaming>
 		<food>1</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Giant Beetle</category>

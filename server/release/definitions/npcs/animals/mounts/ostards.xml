@@ -35,7 +35,7 @@
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
-		<totame>291</totame>
+		<mintaming>291</mintaming>
 		<food>5</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Desert Ostard</category>
@@ -68,7 +68,7 @@
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
-		<totame>291</totame>
+		<mintaming>291</mintaming>
 		<food>5</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Forest Ostard</category>
@@ -103,7 +103,7 @@
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
 		<controlslots>2</controlslots>
-		<totame>771</totame>
+		<mintaming>771</mintaming>
 		<food>1</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Frenzied Ostard</category>

@@ -35,7 +35,7 @@
 		<tag name="res_physical" value="20,25" type="int" />
 		<tag name="res_poison" value="60,70" type="int" />
 		<!-- Misc. -->
-		<totame>711</totame>
+		<mintaming>711</mintaming>
 		<category>Monsters\Reptiles\Giant Ice Worm</category>
 	</npc>
 

@@ -11,7 +11,7 @@
 	<!-- Blade Spirit -->
 	<npc id="summoned_blade_spirit">
 		<name>blade spirit</name>
-		<totame>1100</totame>
+		<mintaming>1100</mintaming>
 		<wandertype>1</wandertype>
 		<ai>Monster_Berserk</ai>
 		<id>574</id>

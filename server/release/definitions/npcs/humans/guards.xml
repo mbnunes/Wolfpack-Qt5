@@ -16,7 +16,7 @@
 		<ai>Human_Guard</ai>
 		<wandertype>1</wandertype>
 		<direction><random min="0" max="7" /></direction> <!-- Facing a random direction -->
-		<totame>1100</totame>
+		<mintaming>1100</mintaming>
 		<notrain />
  	</npc>
 
@@ -28,7 +28,7 @@
 		<ai>Human_Guard</ai>
 		<wandertype>1</wandertype>
 		<direction><random min="0" max="7" /></direction> <!-- Facing a random direction -->
-		<totame>1100</totame>
+		<mintaming>1100</mintaming>
 		<notrain />
  	</npc>
 

@@ -37,7 +37,7 @@
 		<controlslots>2</controlslots>
 		<!-- Missing: 1-7CS, MNS, Potions, Reagents, Level 3 Map -->
 		<lootpacks>lootpack_rich</lootpacks>
-		<totame>843</totame>
+		<mintaming>843</mintaming>
 		<category>Monsters\Dragons\Drake (Random)</category>
 	</npc>
 

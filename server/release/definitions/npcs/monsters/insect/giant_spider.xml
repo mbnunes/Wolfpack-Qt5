@@ -36,7 +36,7 @@
 		<controlslots>1</controlslots>
 		<lootpacks>lootpack_poor</lootpacks>
 		<carve>carve_spider_giant</carve>
-		<totame>591</totame>
+		<mintaming>591</mintaming>
 		<category>Monsters\Insects\Giant Spider</category>
 		<!-- Priv -->
 	</npc>
