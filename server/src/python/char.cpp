@@ -46,6 +46,15 @@
 #include "../npc.h"
 #include "../basechar.h"
 #include "../player.h"
+#include "objectcache.h"
+#include "../singleton.h"
+
+typedef SingletonHolder< cObjectCache > CharCache;
+
+static void FreeCharObject( PyObject *obj )
+{
+	CharCache::instance()->freeObj( obj );
+}
 
 /*!
 	Struct for WP Python Chars
@@ -72,7 +81,7 @@ static PyTypeObject wpCharType = {
     "wpchar",
     sizeof(wpCharType),
     0,
-    wpDealloc,
+    FreeCharObject,
     0,
     (getattrfunc)wpChar_getAttr,
     (setattrfunc)wpChar_setAttr,
@@ -84,7 +93,7 @@ PyObject* PyGetCharObject( P_CHAR pChar )
 	if( !pChar )
 		return Py_None;
 
-	wpChar *returnVal = PyObject_New( wpChar, &wpCharType );
+	wpChar *returnVal = (wpChar*)CharCache::instance()->allocObj( 50, &wpCharType );
 	returnVal->pChar = pChar;
 	return (PyObject*)returnVal;
 }

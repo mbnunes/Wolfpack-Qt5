@@ -142,8 +142,8 @@ void cScriptManager::load()
 		const cElement *element = sections[i];
 
 		cPythonScript *script = new cPythonScript;
+		add( element->text(), script );
 		script->load( element );
-		add( script->name(), script );
 
 		++ScriptsLoaded;
 	}

@@ -113,8 +113,8 @@ idshrink = {
 
 
 def onLoad():
-	setCatchAll( 'speech_stablemaster', 0 )
-	addKeyword( 'speech_stablemaster', 0x171 )
+	setCatchAll( 'speech.stablemaster', 0 )
+	addKeyword( 'speech.stablemaster', 0x171 )
 
 
 def onSpeech( listener, speaker, text, keywords ):

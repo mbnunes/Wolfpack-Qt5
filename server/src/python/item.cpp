@@ -45,14 +45,24 @@ extern cAllItems *Items;
 #include "utilities.h"
 #include "content.h"
 #include "tempeffect.h"
+#include "objectcache.h"
+#include "../singleton.h"
+
+typedef SingletonHolder< cObjectCache > ItemCache;
+
+static void FreeItemObject( PyObject *obj )
+{
+	ItemCache::instance()->freeObj( obj );
+}
 
 /*!
 	The object for Wolfpack Python items
 */
-typedef struct {
+struct wpItem
+{
     PyObject_HEAD;
 	P_ITEM pItem;
-} wpItem;
+};
 
 // Forward Declarations
 PyObject *wpItem_getAttr( wpItem *self, char *name );
@@ -68,7 +78,7 @@ static PyTypeObject wpItemType = {
     "wpitem",
     sizeof(wpItemType),
     0,
-    wpDealloc,				
+    FreeItemObject,				
     0,								
     (getattrfunc)wpItem_getAttr,
     (setattrfunc)wpItem_setAttr,
@@ -80,7 +90,7 @@ inline PyObject* PyGetItemObject( P_ITEM item )
 	if( item == NULL )
 		return Py_None;
 
-	wpItem *returnVal = PyObject_New( wpItem, &wpItemType );
+	wpItem *returnVal = (wpItem*)ItemCache::instance()->allocObj( 50, &wpItemType );
 	returnVal->pItem = item;
 	return (PyObject*)returnVal;
 }

@@ -110,7 +110,7 @@ bool cPythonScript::load( const cElement *element )
 	codeModule = NULL;
 	catchAllSpeech_ = false;
 
-	QString name = element->getAttribute( "id" );
+	QString name = element->text();
 
 	if( name == QString::null )
 		return false;

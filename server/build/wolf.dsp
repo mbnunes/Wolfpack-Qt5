@@ -916,6 +916,10 @@ InputName=npc
 # End Source File
 # Begin Source File
 
+SOURCE=.\python\objectcache.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\pagesystem.h
 # End Source File
 # Begin Source File
