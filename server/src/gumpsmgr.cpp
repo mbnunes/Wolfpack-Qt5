@@ -35,6 +35,7 @@
 #include "basics.h"
 #include "network/uopacket.h"
 #include "network/uosocket.h"
+#include "srvparams.h"
 
 #include <algorithm>
 
@@ -67,6 +68,7 @@ void cGumpsManager::registerGump(cGump* pi) throw(wp_exceptions::wpbad_ptr)
 	{
 		insert(make_pair(pi->serial(), pi));
 		lastUsedSerial = QMAX(lastUsedSerial, pi->serial());
+		pi->setTimeOut( uiCurrentTime + SrvParams->gumpTimeOut() * MY_CLOCKS_PER_SEC );
 	}
 	else
 	{
@@ -109,43 +111,33 @@ void cGumpsManager::attachGump( cUOSocket *socket, cGump *gump )
 	registerGump( gump );
 
 	QString layout = gump->layout().join( "" );
-	QByteArray packet( 21 + layout.length() + 2 );
-	packet[ 0 ] = 0xB0;
-	LongToCharPtr( gump->serial(), (Q_UINT8*)&packet.data()[3] );
-	LongToCharPtr( gump->type(), (Q_UINT8*)&packet.data()[7] );
-	LongToCharPtr( gump->x(), (Q_UINT8*)&packet.data()[11] );
-	LongToCharPtr( gump->y(), (Q_UINT8*)&packet.data()[15] );
-	ShortToCharPtr( layout.length(), (Q_UINT8*)&packet.data()[19] );
-
-	memcpy( &packet.data()[21], layout.latin1(), layout.length() );
-
-	// Send the unicode text-lines
-	QStringList text_ = gump->text();
-	ShortToCharPtr( text_.count(), (Q_UINT8*)&packet.data()[ 21 + layout.length() ] );
-
-	for( Q_INT32 i = 0; i < text_.count(); ++i )
+	Q_UINT32 gumpsize = 21 + layout.length() + 2;
+	QStringList text = gump->text();
+	QStringList::const_iterator it = text.begin();
+	while( it != text.end() )
 	{
-		packet.resize( packet.count() + 2 + ( text_[ i ].length() * 2 ) );
-	
-		// Bytes are not swapped for network byteorder so lets shift them left by one byte and copy one byte less
-		packet[ (int)(packet.count() - ( text_[ i ].length() * 2 ) ) ] = 0;
-		memcpy( (Q_UINT8*)&packet.data()[ packet.count() - ( text_[ i ].length() * 2 ) + 1 ], text_[i].unicode(), (text_[i].length()*2) - 1 );
-		ShortToCharPtr( text_[i].length(), (Q_UINT8*)&packet.data()[ packet.count() - ( text_[ i ].length() * 2 ) - 2 ]  );
+		gumpsize += (*it).length() * 2 + 2;
+		it++;
 	}
-	
-	// Calc the packet length
-	ShortToCharPtr( packet.count(), (Q_UINT8*)&packet.data()[1] );
-	cUOPacket uoPacket( packet );
+	cUOTxGumpDialog uoPacket( gumpsize );
+
+	uoPacket.setSerial( gump->serial() );
+	uoPacket.setType( gump->type() );
+	uoPacket.setX( gump->x() );
+	uoPacket.setY( gump->y() );
+	uoPacket.setContent( layout, text );
+
 	socket->send( &uoPacket );
+	//uoPacket.print( &cout ); // for debugging
 }
 
-void cGumpsManager::handleResponse( cUOSocket* socket, SERIAL serial, UINT32 type, UINT32 choice ) throw(wp_exceptions::wpbad_ptr)
+void cGumpsManager::handleResponse( cUOSocket* socket, SERIAL serial, UINT32 type, gumpChoice_st choice ) throw(wp_exceptions::wpbad_ptr)
 {
 	std::map<SERIAL, cGump*>::iterator iter = this->find( serial );
 	if ( iter != this->end() )
 	{
 		cGump* gump = iter->second;
-		switch( type )
+/*		switch( type )    <--- not needed yet...
 		{
 		case 1:
 			// normal cGump
@@ -158,7 +150,7 @@ void cGumpsManager::handleResponse( cUOSocket* socket, SERIAL serial, UINT32 typ
 			break;
 		default:
 			break;
-		}
+		}*/
 
 		gump->handleResponse( socket, choice );
 
@@ -176,6 +168,18 @@ void cGumpsManager::handleResponse( cUOSocket* socket, SERIAL serial, UINT32 typ
  */
 void cGumpsManager::purge()
 {
+	std::map<SERIAL, cGump*>::iterator iter = this->begin();
+	while( iter != this->end() )
+	{
+		if( iter->second )
+		{
+			if( iter->second->timeout() <= uiCurrentTime )
+				deletedGumps.push_back( iter->second );
+			unregisterGump( iter->second );
+		}
+		iter++;
+	}
+
 	list<cGump*>::iterator it;
 	for (it = deletedGumps.begin(); it != deletedGumps.end(); ++it)
 	{

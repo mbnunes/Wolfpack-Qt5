@@ -958,6 +958,20 @@ public:
 
 			cGumpsManager::getInstance()->attachGump( socket, pGump );
 		}
+		
+		// dynamic objects
+		else if( target->serial() )
+		{
+			if( isCharSerial( target->serial() ) )
+			{
+				P_CHAR pChar = FindCharBySerial( target->serial() );
+				if( pChar )
+				{
+					cCharInfoGump* pGump = new cCharInfoGump( pChar, 1 );
+					cGumpsManager::getInstance()->attachGump( socket, pGump );
+				}
+			}
+		}
 	}
 };
 

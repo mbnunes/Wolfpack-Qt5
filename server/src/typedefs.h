@@ -55,6 +55,11 @@ typedef const cItem *		PC_ITEM;
 typedef cChar *				P_CHAR;
 typedef const cChar *		PC_CHAR;
 
+struct gumpChoice_st 
+{
+	unsigned int button;
+	// TO-DO insert vectors for checkbox information
+};
 
 #endif
 

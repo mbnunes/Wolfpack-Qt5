@@ -425,11 +425,11 @@ void cGump::addTiledGump( Q_INT32 gumpX, Q_INT32 gumpY, Q_INT32 width, Q_INT32 h
 	layout_.push_back( QString( "{gumppictiled %1 %2 %3 %4 %5%6}" ).arg( gumpX ).arg( gumpY ).arg( gumpId ).arg( width ).arg( height ).arg( ( hue != -1 ) ? QString( " hue=%1" ).arg( hue ) : QString("") ) ); 
 }
 
-cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region, UINT32 choice )
+cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region, UINT32 page )
 {
 	type_ = 3;
 	region_ = region;
-	page_ = choice;
+	page_ = page;
 
 	if( region )
 	{
@@ -483,14 +483,113 @@ cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region, UINT32 choice 
 	}
 }
 
-void cSpawnRegionInfoGump::handleResponse( cUOSocket* socket, UINT32 choice )
+void cSpawnRegionInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 {
-	if( choice == 0 )
+	if( choice.button == 0 )
 		return;
 
 	if( region_ )
 	{
-		cSpawnRegionInfoGump* pGump = new cSpawnRegionInfoGump( region_, choice );
+		cSpawnRegionInfoGump* pGump = new cSpawnRegionInfoGump( region_, choice.button );
 		cGumpsManager::getInstance()->attachGump( socket, pGump );
 	}
 }
+
+cCharInfoGump::cCharInfoGump( cChar* pChar, UINT32 page )
+{
+	type_ = 4;
+	char_ = pChar;
+	page_ = page;
+	UINT32 pages = 2;
+
+	if( char_ )
+	{
+		if( page == 1 )
+		{
+			addResizeGump( 0, 40, 0xA28, 450, 350 ); //Background
+			addGump( 105, 18, 0x58B ); // Fancy top-bar
+			addGump( 182, 0, 0x589 ); // "Button" like gump
+			addTilePic( 202, 23, 0x14eb ); // Type of info menu
+
+			addText( 155, 90, tr( "Char Info - Page %1 / %2" ).arg( page_ ).arg( pages ), 0x530 );
+
+			// Give information about the spawnregion
+			addText( 50, 120, tr( "Name:" ), 0x834 );
+			addText( 250, 120, QString( "%1" ).arg( pChar->name.c_str() ), 0x834 );
+			addText( 50, 140, tr( "Title:" ), 0x834 );
+			addText( 250, 140, QString( "%1" ).arg( pChar->title() ), 0x834 );
+			addText( 50, 160, tr( "Body:" ), 0x834 );
+			addText( 250, 160, QString( "%1" ).arg( pChar->id() ), 0x834 );
+			addText( 50, 180, tr( "Skin:" ), 0x834 );
+			addText( 250, 180, QString( "%1" ).arg( pChar->skin() ), 0x834 );
+			addText( 50, 200, tr( "Strength:" ), 0x834 );
+			addText( 250, 200, QString( "%1 / %2" ).arg( pChar->st2 ).arg( pChar->st ), 0x834 );
+			addText( 50, 220, tr( "Dexterity:" ), 0x834 );
+			addText( 250, 220, QString( "%1 / %2" ).arg( pChar->decDex() ).arg( pChar->realDex() ), 0x834 );
+			addText( 50, 240, tr( "Intelligence:" ), 0x834 );
+			addText( 250, 240, QString( "%1 / %2" ).arg( pChar->in2 ).arg( pChar->in2 ), 0x834 );
+			addText( 50, 260, tr( "Hitpoints:" ), 0x834 );
+			addText( 250, 260, QString( "%1" ).arg( pChar->hp ), 0x834 );
+			addText( 50, 280, tr( "Stamina:" ), 0x834 );
+			addText( 250, 280, QString( "%1" ).arg( pChar->stm ), 0x834 );
+			addText( 50, 300, tr( "Mana:" ), 0x834 );
+			addText( 250, 300, QString( "%1" ).arg( pChar->mn ), 0x834 );
+
+			// OK button
+			addButton( 50, 340, 0x481, 0x483, 0 ); 
+			addText( 90, 340, tr( "Close" ), 0x834 );
+			// next page
+			addButton( 340, 340, 0x0FA, 0x0FA, page_+1 );
+		}
+		else if( page == 2 )
+		{
+			addResizeGump( 0, 40, 0xA28, 450, 350 ); //Background
+			addGump( 105, 18, 0x58B ); // Fancy top-bar
+			addGump( 182, 0, 0x589 ); // "Button" like gump
+			addTilePic( 202, 23, 0x14eb ); // Type of info menu
+
+			addText( 155, 90, tr( "Char Info - Page %1 / %2" ).arg( page_ ).arg( pages ), 0x530 );
+
+			// Give information about the spawnregion
+			addText( 50, 120, tr( "Spawnregion:" ), 0x834 );
+			addText( 250, 120, QString( "%1" ).arg( pChar->spawnregion() ), 0x834 );
+			addText( 50, 140, tr( "Karma:" ), 0x834 );
+			addText( 250, 140, QString( "%1" ).arg( pChar->karma ), 0x834 );
+			addText( 50, 160, tr( "Fame:" ), 0x834 );
+			addText( 250, 160, QString( "%1" ).arg( pChar->fame ), 0x834 );
+			addText( 50, 180, tr( "Kills:" ), 0x834 );
+			addText( 250, 180, QString( "%1" ).arg( pChar->kills ), 0x834 );
+			addText( 50, 200, tr( "Deaths:" ), 0x834 );
+			addText( 250, 200, QString( "%1" ).arg( pChar->deaths ), 0x834 );
+			addText( 50, 220, tr( "Defense:" ), 0x834 );
+			addText( 250, 220, QString( "%1" ).arg( pChar->def ), 0x834 );
+			addText( 50, 240, tr( "Npc Wander:" ), 0x834 );
+			addText( 250, 240, QString( "%1" ).arg( pChar->npcWander ), 0x834 );
+			addText( 50, 260, tr( "Carve:" ), 0x834 );
+			addText( 250, 260, QString( "%1" ).arg( pChar->carve() ), 0x834 );
+			addText( 50, 280, tr( "Loot:" ), 0x834 );
+			addText( 250, 280, QString( "%1" ).arg( pChar->lootList() ), 0x834 );
+			addText( 50, 300, tr( "Hunger:" ), 0x834 );
+			addText( 250, 300, QString( "%1" ).arg( pChar->hunger() ), 0x834 );
+
+			// OK button
+			addButton( 50, 340, 0x481, 0x483, 0 ); 
+			addText( 90, 340, tr( "Close" ), 0x834 );
+			// previous page
+			addButton( 320, 340, 0x0FC, 0x0FC, page_-1 );
+		}
+	}
+}
+
+void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
+{
+	if( choice.button == 0 )
+		return;
+
+	if( char_ )
+	{
+		cCharInfoGump* pGump = new cCharInfoGump( char_, choice.button );
+		cGumpsManager::getInstance()->attachGump( socket, pGump );
+	}
+}
+

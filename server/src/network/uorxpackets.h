@@ -410,7 +410,7 @@ public:
 	UINT16 size() { return getShort( 1 ); }
 	UINT32 serial() { return getInt( 3 ); }
 	UINT32 type() { return getInt( 7 ); }
-	UINT32 choice() { return getInt( 11 ); }
+	gumpChoice_st choice();
 };
 
 // 0x3B Buy

@@ -50,6 +50,7 @@ protected:
 	Q_INT32 x_,y_;
 	QStringList layout_, text_;
 	bool noMove_, noClose_, noDispose_;
+	Q_UINT32 timeout_;
 public:
 	cGump();
 	virtual ~cGump() {}
@@ -58,6 +59,7 @@ public:
 	SERIAL type( void )	const;
 	Q_UINT32 x( void ) const;
 	Q_UINT32 y( void ) const;
+	Q_UINT32 timeout( void ) const;
 	QStringList layout( void ) const;
 	QStringList text( void ) const;
 	bool noMove( void )	const;
@@ -68,6 +70,7 @@ public:
 	void setSerial( SERIAL data );
 	void setX( Q_UINT32 data );
 	void setY( Q_UINT32 data );
+	void setTimeOut( Q_UINT32 data );
 	void setNoMove( bool data );
 	void setNoClose( bool data );
 	void setNoDispose( bool data );
@@ -75,7 +78,7 @@ public:
 	void addRawLayout( const QString &data ) { layout_.push_back( data ); }
 	Q_UINT32 addRawText( const QString &data );
 
-	virtual void handleResponse( cUOSocket* socket, UINT32 choice ) {}
+	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice ) {}
 	
 	// Comfort Setters
 	void startPage( Q_UINT32 pageId = 0 ) { layout_.push_back( QString( "{page %1}" ).arg( pageId ) ); }
@@ -137,6 +140,11 @@ inline Q_UINT32 cGump::y( void ) const
 	return y_; 
 }
 
+inline Q_UINT32 cGump::timeout( void ) const
+{
+	return timeout_;
+}
+
 inline QStringList cGump::layout( void ) const
 { 
 	return layout_; 
@@ -182,6 +190,11 @@ inline void cGump::setY( Q_UINT32 data )
 	y_ = data; 
 }
 
+inline void cGump::setTimeOut( Q_UINT32 data )
+{
+	timeout_ = data;
+}
+
 inline void cGump::setNoMove( bool data ) 
 { 
 	noMove_ = data; 
@@ -209,7 +222,7 @@ protected:
 public:
 	cPythonGump() { type_ = 2; }
 
-	virtual void handleResponse( cUOSocket* socket, UINT32 choice ) 
+	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice ) 
 	{
 		// TODO: passing choice to script/function
 	}
@@ -222,9 +235,21 @@ protected:
 	UINT32 page_;
 
 public:
-	cSpawnRegionInfoGump( cSpawnRegion* region, UINT32 choice );
+	cSpawnRegionInfoGump( cSpawnRegion* region, UINT32 page );
 	
-	virtual void handleResponse( cUOSocket* socket, UINT32 choice );
+	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
+};
+
+class cCharInfoGump : public cGump
+{
+protected:
+	cChar* char_;
+	UINT32 page_;
+
+public:
+	cCharInfoGump( cChar* char_, UINT32 page );
+
+	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
 };
 
 #endif

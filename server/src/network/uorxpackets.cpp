@@ -131,3 +131,10 @@ QStringList cUORxBookPage::lines()
 	}
 	return lines_;
 }
+
+gumpChoice_st cUORxGumpResponse::choice()
+{
+	gumpChoice_st choice;
+	choice.button = getInt( 11 );
+	return choice;
+}

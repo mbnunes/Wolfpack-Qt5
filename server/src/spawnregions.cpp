@@ -390,6 +390,9 @@ cAllSpawnRegions::~cAllSpawnRegions( void )
 void cAllSpawnRegions::load( void )
 {
 	UI32 starttime = getNormalizedTime();
+	
+	this->clear(); // clear the std::map
+
 	QStringList DefSections = DefManager->getSections( WPDT_SPAWNREGION );
 	clConsole.PrepareProgress( "Loading spawn regions" );
 

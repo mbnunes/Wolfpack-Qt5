@@ -153,6 +153,7 @@ protected:
 	int resetAttemptCount_;
 	int accountsBlockTime_;
 	QString accountsArchiver_;
+	unsigned int gumpTimeOut_;
 
 
 	// Remote Admin
@@ -335,6 +336,7 @@ public:
 	int AccountBlockTime() const;
 	int resetAttemptCount() const;
 	QString accountsArchiver() const;
+	unsigned int gumpTimeOut() const;
 
 	// Remote Admin
 	unsigned int ra_port() const;
@@ -1157,6 +1159,11 @@ inline int cSrvParams::resetAttemptCount() const
 inline QString cSrvParams::accountsArchiver() const
 {
 	return accountsArchiver_;
+}
+
+inline unsigned int cSrvParams::gumpTimeOut() const
+{
+	return gumpTimeOut_;
 }
 
 #endif //__SRVPARAMS_H___

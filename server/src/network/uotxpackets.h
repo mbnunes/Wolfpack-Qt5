@@ -880,4 +880,19 @@ public:
 	void addItem( UINT32 price, const QString &description );
 };
 
+// 0xB0 Gump Dialog
+class cUOTxGumpDialog: public cUOPacket
+{
+public:
+	cUOTxGumpDialog( UINT16 size ): cUOPacket( 0xB0, size ) 
+	{
+		setShort( 1, size );
+	}
+	void setSerial( UINT32 data )	{ setInt( 3, data ); }
+	void setType( UINT32 data )		{ setInt( 7, data ); }
+	void setX( UINT32 data )		{ setInt( 11, data ); }
+	void setY( UINT32 data )		{ setInt( 15, data ); }
+	void setContent( QString layout, QStringList text );
+};
+
 #endif

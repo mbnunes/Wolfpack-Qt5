@@ -65,7 +65,7 @@ public:
 	
 	// finds the gump object by serial and type, passes choice to the
 	// gump's handleResponse method and finally deletes the gump object.
-	void handleResponse( cUOSocket* socket, SERIAL serial, UINT32 type, UINT32 choice );
+	void handleResponse( cUOSocket* socket, SERIAL serial, UINT32 type, gumpChoice_st choice );
 
 	void purge();
 	SERIAL getUnusedSerial() const;
