@@ -448,7 +448,8 @@ void RegionIterator4Chars::reset( const Coord_cl &pos, UI32 distance )
 
 RegionIterator4Chars& RegionIterator4Chars::operator++ ( int )
 {
-	++currentIterator;
+	if ( currentIterator != serials.end() ) // Only increase if it's not past end();
+		++currentIterator;
 	while( currentIterator != serials.end() && !isCharSerial( *currentIterator ) )
 		++currentIterator;
 	return *this;

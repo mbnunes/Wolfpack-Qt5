@@ -440,7 +440,7 @@ void cWorld::registerObject( SERIAL serial, cUObject *object )
 
 		if( it != p->chars.end() )
 		{
-			clConsole.log( LOG_ERROR, QString( "Trying to register a character with the Serial 0x%08x which is already in use." ).arg( serial ) );
+			clConsole.log( LOG_ERROR, QString( "Trying to register a character with the Serial 0x%1 which is already in use." ).arg( QString::number( serial, 16 ) ) );
 			return;
 		}
 
@@ -449,7 +449,7 @@ void cWorld::registerObject( SERIAL serial, cUObject *object )
 
 		if( !pChar )
 		{
-			clConsole.log( LOG_ERROR, QString( "Trying to register an object with a character serial (0x%08x) which is no character." ).arg( serial ) );
+			clConsole.log( LOG_ERROR, QString( "Trying to register an object with a character serial (0x%1) which is no character." ).arg( QString::number( serial, 16 ) ) );
 			return;
 		}
 
@@ -461,7 +461,7 @@ void cWorld::registerObject( SERIAL serial, cUObject *object )
 	}
 	else
 	{
-		clConsole.log( LOG_ERROR, QString( "Tried to register an object with an invalid Serial (0x%08x) in the World." ).arg( serial ) );
+		clConsole.log( LOG_ERROR, QString( "Tried to register an object with an invalid Serial (0x%1) in the World." ).arg( QString::number( serial, 16 ) ) );
 		return;
 	}
 }

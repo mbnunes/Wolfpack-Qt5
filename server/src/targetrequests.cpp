@@ -132,7 +132,8 @@ bool cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	// Otherwise create our character here
 	P_CHAR pChar = new cChar;
 	pChar->Init();
-	World::instance()->registerObject( pChar );
+//	World::instance()->registerObject( pChar );
+//	Have been already registered by Init()
 
 	pChar->setPriv( 0x10 ); // No skill titles
 	pChar->setNpc(1);
