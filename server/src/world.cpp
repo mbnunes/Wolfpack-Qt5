@@ -84,8 +84,8 @@ typedef std::map<SERIAL, P_CHAR> CharMap;
 // Don't forget to change the version number before changing tableInfo!
 //
 // ONCE AGAIN, DON'T FORGET TO INCREASE THIS VALUE
-#define DATABASE_VERSION 9
-#define WP_DATABASE_VERSION "9"
+#define DATABASE_VERSION 10
+#define WP_DATABASE_VERSION "10"
 
 unsigned int cWorld::getDatabaseVersion() const {
 	return DATABASE_VERSION;
@@ -122,6 +122,16 @@ PRIMARY KEY(guild,player) \
 guild unsigned int(10) NOT NULL default '0', \
 player unsigned int(10) NOT NULL default '0', \
 PRIMARY KEY(guild,player) \
+);"},
+{ "guilds_enemies", "CREATE TABLE guilds_enemies ( \
+guild unsigned int(10) NOT NULL default '0', \
+enemy unsigned int(10) NOT NULL default '0', \
+PRIMARY KEY(guild,enemy) \
+);"},
+{ "guilds_allies", "CREATE TABLE guilds_allies ( \
+guild unsigned int(10) NOT NULL default '0', \
+ally unsigned int(10) NOT NULL default '0', \
+PRIMARY KEY(guild,ally) \
 );"},
 { "settings", "CREATE TABLE settings ( \
 option varchar(255) NOT NULL default '', \

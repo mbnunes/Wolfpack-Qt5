@@ -44,6 +44,10 @@
 		<controlslots>1</controlslots>
 		<category>Summoned\Blade Spirit</category>
 		<inherit id="speed_fast" />
+
+		<!-- Dispel Difficulty -->
+		<intproperty name="dispelfocus" value="20" />
+		<intproperty name="dispeldifficulty" value="0" />
 		
 		<!-- Poison immunity -->
 		<intproperty name="poison_immunity" value="4" />

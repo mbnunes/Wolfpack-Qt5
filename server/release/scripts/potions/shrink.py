@@ -53,7 +53,7 @@ def potion( player, arguments, target ):
 	figurine.color = target.char.skin
 	figurine.name = target.char.name
 	figurine.update()
-	player.getbackpack().additem(figurine, True, False) # Random pos, no auto stacking
+	player.getbackpack().additem(figurine, True, True, False) # Random pos, no auto stacking
 	figurine.update()
 
 	target.char.removefromview()

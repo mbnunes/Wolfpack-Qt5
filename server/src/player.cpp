@@ -395,11 +395,11 @@ Q_UINT8 cPlayer::notoriety( P_CHAR pChar ) // Gets the notoriety toward another 
 		if ( player && player->guild_ )
 		{
 			// Same Guild => Green
-			if ( player->guild_ == guild_ )
-			{
+			if ( player->guild_ == guild_ || guild_->isAllied(player->guild_) ) {
 				return 0x02;
+			} else if ( guild_->isAtWar(player->guild_) ) {
+				return 0x05;
 			}
-			// TODO: Enemy Guilds, Allied Guilds
 		}
 	}
 

@@ -64,8 +64,10 @@ class EnergyVortex(Spell):
 			return
 
 		ev = wolfpack.addnpc('summoned_energy_vortex', target)
+		ev.addscript('speech.pets') # Not for the owner but for GMs
 		ev.summontime = wolfpack.time.currenttime() + 120000
 		ev.summoned = 1
+		ev.owner = char
 		ev.soundeffect(0x212)
 
 class Resurrection(Spell):

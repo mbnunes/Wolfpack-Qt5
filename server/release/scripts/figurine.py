@@ -104,7 +104,6 @@ def shrinktarget( char, args, target ):
 	figurine.name = target.char.name
 	figurine.update()
 	figurine.moveto(target.char.pos)
-	#char.getbackpack().additem(figurine, True, False) # Random pos, no auto stacking
 	figurine.update()
 
 	target.char.removefromview()

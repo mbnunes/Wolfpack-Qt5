@@ -62,6 +62,8 @@ void cGuilds::save()
 	PersistentBroker::instance()->executeQuery( "DELETE FROM guilds;" );
 	PersistentBroker::instance()->executeQuery( "DELETE FROM guilds_members;" );
 	PersistentBroker::instance()->executeQuery( "DELETE FROM guilds_canidates;" );
+	PersistentBroker::instance()->executeQuery( "DELETE FROM guilds_allies;" );
+	PersistentBroker::instance()->executeQuery( "DELETE FROM guilds_enemies;" );
 
 	for ( iterator it = begin(); it != end(); ++it )
 	{
@@ -139,6 +141,24 @@ void cGuild::load( const cDBResult& result )
 	}
 
 	Guilds::instance()->registerGuild( this );
+
+	cDBResult allies = PersistentBroker::instance()->query( QString( "SELECT ally FROM guilds_allies WHERE guild = %1" ).arg( serial_ ) );
+
+	while ( allies.fetchrow() )
+	{
+		allies_.append(allies.getInt(0));
+	}
+
+	allies.free();
+
+	cDBResult enemies = PersistentBroker::instance()->query( QString( "SELECT enemy FROM guilds_enemies WHERE guild = %1" ).arg( serial_ ) );
+
+	while ( enemies.fetchrow() )
+	{
+		enemies_.append(enemies.getInt(0));
+	}
+
+	enemies.free();
 }
 
 void cGuild::save()
@@ -186,6 +206,18 @@ void cGuild::save()
 	{
 		PersistentBroker::instance()->executeQuery( QString( "INSERT INTO guilds_canidates VALUES(%1,%2);" ).arg( serial_ ).arg( player->serial() ) );
 	}
+
+	QValueList<unsigned int>::iterator it;
+
+	for (it = allies_.begin(); it != allies_.end(); ++it) {
+		unsigned int serial = *it;
+		PersistentBroker::instance()->executeQuery( QString( "INSERT INTO guilds_allies VALUES(%1,%2);" ).arg( serial_ ).arg( serial ) );
+	}
+
+	for (it = enemies_.begin(); it != enemies_.end(); ++it) {
+		unsigned int serial = *it;
+		PersistentBroker::instance()->executeQuery( QString( "INSERT INTO guilds_enemies VALUES(%1,%2);" ).arg( serial_ ).arg( serial ) );
+	}
 }
 
 cGuild::cGuild( bool createSerial )
@@ -232,6 +264,24 @@ cGuild::~cGuild()
 		MemberInfo* info = getMemberInfo( player );
 		delete info;
 		memberinfo_.remove( player );
+	}
+
+	QValueList<unsigned int>::iterator it;
+
+	for (it = allies_.begin(); it != allies_.end(); ++it) {
+		unsigned int serial = *it;
+		cGuild *guild = Guilds::instance()->findGuild(serial);
+		if (guild && guild != this) {
+			guild->allies_.remove(serial_);
+		}
+	}
+
+	for (it = enemies_.begin(); it != enemies_.end(); ++it) {
+		unsigned int serial = *it;
+		cGuild *guild = Guilds::instance()->findGuild(serial);
+		if (guild && guild != this) {
+			guild->enemies_.remove(serial_);
+		}
 	}
 }
 
@@ -603,12 +653,151 @@ PyObject* wpGuild_delete( wpGuild* self, PyObject* args )
 	Guilds::instance()->unregisterGuild( self->guild );
 	delete self->guild;
 	self->guild = 0;
-	Py_RETURN_TRUE;
+	Py_RETURN_NONE;
+}
+
+/*
+	\method guild.addally
+	\param ally The other guild.
+	\description Add an ally to this guild and remove it from the enemy list if neccesary.
+*/
+PyObject* wpGuild_addally( wpGuild* self, PyObject* args )
+{
+	wpGuild *pyguild;
+
+	if ( !PyArg_ParseTuple( args, "O!:guild.addally(ally)", &wpGuildType, &pyguild ) ) {
+		return 0;
+	}
+
+	if (pyguild->guild) {
+		self->guild->addAlly(pyguild->guild);
+	}
+
+	Py_RETURN_NONE;
+}
+
+/*
+	\method guild.addenemy
+	\param enemy The other guild.
+	\description Add an enemy to this guild and remove it from the ally list if neccesary.
+*/
+PyObject* wpGuild_addenemy( wpGuild* self, PyObject* args )
+{
+	wpGuild *pyguild;
+
+	if ( !PyArg_ParseTuple( args, "O!:guild.addenemy(enemy)", &wpGuildType, &pyguild ) ) {
+		return 0;
+	}
+
+	if (pyguild->guild) {
+		self->guild->addEnemy(pyguild->guild);
+	}
+
+	Py_RETURN_NONE;
+}
+
+/*
+	\method guild.removeally
+	\param ally The other guild.
+	\description Remove an ally from the ally list of this guild.
+*/
+PyObject* wpGuild_removeally( wpGuild* self, PyObject* args )
+{
+	wpGuild *pyguild;
+
+	if ( !PyArg_ParseTuple( args, "O!:guild.removeally(ally)", &wpGuildType, &pyguild ) ) {
+		return 0;
+	}
+
+	if (pyguild->guild) {
+		self->guild->removeAlly(pyguild->guild);
+	}
+
+	Py_RETURN_NONE;
+}
+
+/*
+	\method guild.removeenemy
+	\param enemy The other guild.
+	\description Remove an enemy from the enemy list of this guild.
+*/
+PyObject* wpGuild_removeenemy( wpGuild* self, PyObject* args )
+{
+	wpGuild *pyguild;
+
+	if ( !PyArg_ParseTuple( args, "O!:guild.removeenemy(enemy)", &wpGuildType, &pyguild ) ) {
+		return 0;
+	}
+
+	if (pyguild->guild) {
+		self->guild->removeEnemy(pyguild->guild);
+	}
+
+	Py_RETURN_NONE;
+}
+
+/*
+	\method guild.isallied
+	\param guild The other guild.
+	\return True if the guilds are allied. False otherwise.
+	\description Checks if this guild is allied with the given guild.
+*/
+PyObject* wpGuild_isallied( wpGuild* self, PyObject* args )
+{
+	wpGuild *pyguild;
+
+	if ( !PyArg_ParseTuple( args, "O!:guild.isallied(guild)", &wpGuildType, &pyguild ) ) {
+		return 0;
+	}
+
+	if (pyguild->guild) {
+		if (self->guild->isAllied(pyguild->guild)) {
+			Py_RETURN_TRUE;
+		}
+	}
+
+	Py_RETURN_FALSE;
+}
+
+/*
+	\method guild.isatwar
+	\param guild The other guild.
+	\return True if the guilds are at war. False otherwise.
+	\description Checks if this guild is at war with the given guild.
+*/
+PyObject* wpGuild_isatwar( wpGuild* self, PyObject* args )
+{
+	wpGuild *pyguild;
+
+	if ( !PyArg_ParseTuple( args, "O!:guild.isatwar(guild)", &wpGuildType, &pyguild ) ) {
+		return 0;
+	}
+
+	if (pyguild->guild) {
+		if (self->guild->isAtWar(pyguild->guild)) {
+			Py_RETURN_TRUE;
+		}
+	}
+
+	Py_RETURN_FALSE;
 }
 
 static PyMethodDef wpGuildMethods[] =
 {
-{"delete", ( getattrofunc ) wpGuild_delete, METH_VARARGS, 0}, {"addmember", ( getattrofunc ) wpGuild_addmember, METH_VARARGS, 0}, {"removemember", ( getattrofunc ) wpGuild_removemember, METH_VARARGS, 0}, {"addcanidate", ( getattrofunc ) wpGuild_addcanidate, METH_VARARGS, 0}, {"removecanidate", ( getattrofunc ) wpGuild_removecanidate, METH_VARARGS, 0}, {"getmemberinfo", ( getattrofunc ) wpGuild_getmemberinfo, METH_VARARGS, 0}, {"setmemberinfo", ( getattrofunc ) wpGuild_setmemberinfo, METH_VARARGS, 0}, {0, 0, 0, 0}
+	{"delete", ( getattrofunc ) wpGuild_delete, METH_VARARGS, 0}, 
+	{"addmember", ( getattrofunc ) wpGuild_addmember, METH_VARARGS, 0}, 
+	{"removemember", ( getattrofunc ) wpGuild_removemember, METH_VARARGS, 0}, 
+	{"addcanidate", ( getattrofunc ) wpGuild_addcanidate, METH_VARARGS, 0}, 
+	{"removecanidate", ( getattrofunc ) wpGuild_removecanidate, METH_VARARGS, 0}, 
+	{"getmemberinfo", ( getattrofunc ) wpGuild_getmemberinfo, METH_VARARGS, 0}, 
+	{"setmemberinfo", ( getattrofunc ) wpGuild_setmemberinfo, METH_VARARGS, 0},
+	{"addally", ( getattrofunc ) wpGuild_addally, METH_VARARGS, 0},
+	{"addenemy", ( getattrofunc ) wpGuild_addenemy, METH_VARARGS, 0},
+	{"removeally", ( getattrofunc ) wpGuild_removeally, METH_VARARGS, 0},
+	{"removeenemy", ( getattrofunc ) wpGuild_removeenemy, METH_VARARGS, 0},
+	{"isatwar", ( getattrofunc ) wpGuild_isatwar, METH_VARARGS, 0},
+	{"isallied", ( getattrofunc ) wpGuild_isallied, METH_VARARGS, 0},
+	{0, 0, 0, 0}
 };
 
 static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
@@ -724,6 +913,56 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 		return PyInt_FromLong( self->guild->founded().toTime_t() );
 	}
 	/*
+		\rproperty guild.allies A tuple of serials of guilds that are allied with this guild.
+	*/
+	else if ( !strcmp( name, "allies" ) )
+	{
+		const QValueList<unsigned int> &allies = self->guild->allies();
+		QValueList<unsigned int>::const_iterator it;
+
+		PyObject *result = PyTuple_New( allies.size() );
+		unsigned int i = 0;
+
+		for ( it = allies.begin(); it != allies.end(); ++it ) {
+			cGuild *other = Guilds::instance()->findGuild(*it);
+
+			if (other) {
+				PyTuple_SetItem(result, i++, other->getPyObject());
+			} else {
+				Py_INCREF(Py_None);
+				PyTuple_SetItem(result, i++, Py_None);
+			}
+		}
+
+		return result;
+	}
+	
+	/*
+		\rproperty guild.enemies A tuple of serials of guilds that are at war with this guild.
+	*/
+	else if ( !strcmp( name, "enemies" ) )
+	{
+		const QValueList<unsigned int> &enemies = self->guild->enemies();
+		QValueList<unsigned int>::const_iterator it;
+
+		PyObject *result = PyTuple_New( enemies.size() );
+		unsigned int i = 0;
+
+		for ( it = enemies.begin(); it != enemies.end(); ++it ) {
+			cGuild *other = Guilds::instance()->findGuild(*it);
+
+			if (other) {
+				PyTuple_SetItem(result, i++, other->getPyObject());
+			} else {
+				Py_INCREF(Py_None);
+				PyTuple_SetItem(result, i++, Py_None);
+			}
+		}
+
+		return result;
+	}
+
+	/*
 		\property guild.guildstone This is the main guildstone for this guild. It can be None if there is no main guildstone for this guild.
 	*/
 	else if ( !strcmp( name, "guildstone" ) )
@@ -813,7 +1052,7 @@ PyObject* cGuild::getPyObject()
 	return ( PyObject * ) returnVal;
 }
 
-void cGuild::load( cBufferedReader& reader, unsigned int /*version*/ )
+void cGuild::load( cBufferedReader& reader, unsigned int version )
 {
 	serial_ = reader.readInt();
 	name_ = reader.readUtf8();
@@ -860,9 +1099,21 @@ void cGuild::load( cBufferedReader& reader, unsigned int /*version*/ )
 			addCanidate( player );
 		}
 	}
+
+	if (version >= 10) {
+		count = reader.readInt();
+		for ( i = 0; i < count; ++i ) {
+			allies_.append( reader.readInt() );
+		}
+
+		count = reader.readInt();
+		for ( i = 0; i < count; ++i ) {
+			enemies_.append( reader.readInt() );
+		}
+	}
 }
 
-void cGuild::save( cBufferedWriter& writer, unsigned int /*version*/ )
+void cGuild::save( cBufferedWriter& writer, unsigned int version )
 {
 	writer.writeByte( 0xFD );
 
@@ -894,5 +1145,68 @@ void cGuild::save( cBufferedWriter& writer, unsigned int /*version*/ )
 	{
 		writer.writeInt( player->serial() );
 	}
+
+	if (version >= 10) {
+		QValueList<unsigned int>::iterator it;
+
+		writer.writeInt(allies_.count());
+		for (it = allies_.begin(); it != allies_.end(); ++it) {
+			writer.writeInt(*it);
+		}
+
+		writer.writeInt(enemies_.count());
+		for (it = enemies_.begin(); it != enemies_.end(); ++it) {
+			writer.writeInt(*it);
+		}
+	}
 }
 
+void cGuild::addEnemy(cGuild *enemy) {
+	if (enemy != this) {
+		removeAlly(enemy);
+	
+		// Add them to our enemy list
+		if (!enemies_.contains(enemy->serial())) {
+			enemies_.append(enemy->serial());
+		}
+	
+		// Add us to their enemy list.
+		if (!enemy->enemies_.contains(serial_)) {
+			enemy->enemies_.append(serial_);
+		}
+	}
+}
+
+void cGuild::addAlly(cGuild *ally) {
+	if (ally != this) {
+		removeEnemy(ally); // Remove them first
+	
+		// Add them to our ally list
+		if (!allies_.contains(ally->serial())) {
+			allies_.append(ally->serial());
+		}
+	
+		// Add us to their ally list
+		if (!ally->allies_.contains(serial_)) {
+			ally->allies_.append(serial_);
+		}
+	}
+}
+
+void cGuild::removeAlly(cGuild *ally) {
+	allies_.remove(ally->serial());
+	ally->allies_.remove(serial_); // Remove us from their list
+}
+
+void cGuild::removeEnemy(cGuild *enemy) {
+	enemies_.remove(enemy->serial());
+	enemy->enemies_.remove(serial_); // Remove us from their list
+}
+
+bool cGuild::isAllied(cGuild *other) {
+	return allies_.contains(other->serial());
+}
+
+bool cGuild::isAtWar(cGuild *other) {
+	return enemies_.contains(other->serial());
+}

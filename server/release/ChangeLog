@@ -13,6 +13,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Implemented an onLog event.
   - GMs can now drop items everywhere without a LOS check.
   - Added a property flag for hiding the reputation titles and white underwear per character.
+  - Added lists of enemy and allied guilds to the core and added the appropriate python interfaces.
  * Definition Changes:
   - Bench (0x1049) which was crafted was "unusable"
   - fixed bug #0000381 ("potion_keg" and "potionkeg")

@@ -35,6 +35,7 @@
 #include <qptrlist.h>
 #include <qstring.h>
 #include <qdatetime.h>
+#include <qvaluelist.h>
 
 /*!
 	\brief This class represents a guild and all associated information.
@@ -129,6 +130,8 @@ private:
 	QPtrList<cPlayer> members_;
 	QPtrList<cPlayer> canidates_;
 	QMap<P_PLAYER, MemberInfo*> memberinfo_;
+	QValueList<unsigned int> allies_;
+	QValueList<unsigned int> enemies_;
 
 public:
 	const char* objectID() const
@@ -159,6 +162,29 @@ public:
 		\param result The resultset for this guild.
 	*/
 	void load( const cDBResult& result );
+
+	/*
+		\returns A constant reference to the list of enemy guilds.
+	*/
+	const QValueList<unsigned int> &enemies()
+	{
+		return enemies_;
+	}
+
+	/*
+		\returns A constant reference to the list of allies guilds.
+	*/
+	const QValueList<unsigned int> &allies()
+	{
+		return allies_;
+	}
+
+	void addEnemy(cGuild *enemy);
+	void addAlly(cGuild *ally);
+	void removeAlly(cGuild *ally);
+	void removeEnemy(cGuild *enemy);
+	bool isAllied(cGuild *other);
+	bool isAtWar(cGuild *other);
 
 	/*!
 		\returns The guildstone for this guild. May be NULL.

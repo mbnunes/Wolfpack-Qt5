@@ -10,10 +10,33 @@ from wolfpack.database import WORLD
 def mysql_update_7():
 	sql = "ALTER TABLE players ADD `maxcontrolslots` tinyint(4) NOT NULL default '5' AFTER intlock;"
 	database.execute(sql)
+
+def mysql_update_10():
+	# Create new guild tables
+	
+	sql = """CREATE TABLE guilds_enemies ( 
+		guild unsigned int(10) NOT NULL default '0', 
+		enemy unsigned int(10) NOT NULL default '0', 
+		PRIMARY KEY(guild,enemy) 
+		);"""
+		
+	database.execute(sql)
+	
+	sql = """CREATE TABLE guilds_allies ( 
+		guild unsigned int(10) NOT NULL default '0', 
+		ally unsigned int(10) NOT NULL default '0', 
+		PRIMARY KEY(guild,ally) 
+		);"""
+		
+	database.execute(sql)
+
 	return True
 #
 # MySQL Database Updates
 #
+
+def sqlite_update_10():
+	return True # Do Nothing
 
 def sqlite_update_8():
 
@@ -42,10 +65,13 @@ def sqlite_update_8():
 
 MYSQL_UPDATES = {
 	7: mysql_update_7,
+	9: mysql_update_10,
 }
 
 SQLITE_UPDATES = {
 	7: sqlite_update_8,
+	# ???? What the hell happened to 9 ????
+	9: sqlite_update_10,
 }
 
 #
