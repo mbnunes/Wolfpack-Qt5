@@ -8,6 +8,8 @@
 -->
 <definitions>
 
+	<include file="definitions/items/armory/samurai/kasa.xml" />
+
 	<include file="definitions/items/armory/samurai/cloth_ninja_hood.xml" />
 	<include file="definitions/items/armory/samurai/cloth_ninja_jacket.xml" />
 
