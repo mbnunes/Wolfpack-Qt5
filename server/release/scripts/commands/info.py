@@ -22,7 +22,7 @@ from wolfpack.utilities import *
 from wolfpack import *
 
 def str2bool( str ):
-	if str.upper() == "TRUE":
+	if str == "1" or str.upper() == "TRUE":
 		return True
 	return False
 
