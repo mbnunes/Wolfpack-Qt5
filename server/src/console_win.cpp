@@ -62,6 +62,7 @@ HINSTANCE appInstance = 0;	// Application Instance
 HFONT font = 0;				// The font we'll use
 unsigned int inputHeight = 0; // For measuring the height of the input field
 unsigned int logLimit = 0;	// How many characters fit into the log window
+bool canClose = false;
 
 /*
 	Directly taken from MSDN
@@ -205,6 +206,10 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 		
 	case WM_CLOSE:
 		keeprun = 0;
+		
+		if( canClose )
+			DestroyWindow( mainWindow );
+
 		return 1;
 
 	case WM_DESTROY:
@@ -282,9 +287,17 @@ protected:
 		}				
 		argv[argc] = 0;
 
-		returnValue_ = main( argc, argv.data() );	
+		returnValue_ = main( argc, argv.data() );
 
-		PostMessage( mainWindow, WM_QUIT, 0, 0 );
+		if( returnValue_ != 0 )
+		{
+			Console::instance()->send( "\nThe server has been shut down. You can close this window now.\n" );
+			canClose = true;
+		}
+		else
+		{
+			PostMessage( mainWindow, WM_QUIT, 0, 0 );
+		}
 	}
 };
 

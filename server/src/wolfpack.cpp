@@ -163,7 +163,7 @@ void reloadScripts()
 	cNetwork::instance()->reload(); // This will be integrated into the normal definition system soon
 }
 
-static void parseParameter( const QString &param )
+static bool parseParameter( const QString &param )
 {
 	// Add what ever paramters you want
 	// Right now we don't have any parameters
@@ -200,7 +200,7 @@ static void parseParameter( const QString &param )
 						Py_DECREF(pModule);
 						PyErr_Print();
 						fprintf(stderr,"Call failed\n");
-						return;
+						return false;
 					}
 					/* pDict and pFunc are borrowed and must not be Py_DECREF-ed */
 				}
@@ -215,12 +215,13 @@ static void parseParameter( const QString &param )
 				fprintf(stderr, "Failed to load \"%s\"\n", param.latin1());
 			}
 			stopPython();
-			exit(0);
+			return false;
 		}
 		else
 			Console::instance()->send( QString("The specified python script [%1] doesn't exist.").arg(param) );
-
 	}
+
+	return true;
 }
 
 /*!
@@ -330,7 +331,7 @@ int main( int argc, char *argv[] )
 	catch( ... )
 	{
 		Console::instance()->log( LOG_ERROR, "Couldn't start up classes.\n" );
-		exit( -1 );
+		return 1;
 	}
 
 	// Startup Translator
@@ -346,7 +347,7 @@ int main( int argc, char *argv[] )
 	catch( ... )
 	{
 		Console::instance()->log( LOG_ERROR, "Couldn't load translator.\n" );
-		exit( -1 );
+		return 1;
 	}
 
 	// Try to start up python
@@ -357,13 +358,14 @@ int main( int argc, char *argv[] )
 	catch( ... )
 	{
 		Console::instance()->log( LOG_ERROR, "Couldn't start up python.\n" );
-		exit( -1 );
+		return 1;
 	}
 
 	unsigned int i;
 
 	for( i = 1; i <= argc; ++i )
-		parseParameter( QString( argv[ i ] ) );
+		if( !parseParameter( QString( argv[ i ] ) ) )
+			return 1;
 
 	// Load data
 	DefManager->load();
@@ -422,12 +424,12 @@ int main( int argc, char *argv[] )
 	catch( wpException &exception )
 	{
 		Console::instance()->log( LOG_ERROR, exception.error() );
-		exit( -1 );
+		return 1;
 	}
 	catch( ... )
 	{
 		Console::instance()->log( LOG_ERROR, "Unknown error while loading data files.\n" );
-		exit( -1 );
+		return 1;
 	}
 
 
@@ -484,12 +486,12 @@ int main( int argc, char *argv[] )
 	catch( QString &error )
 	{
 		Console::instance()->log( LOG_ERROR, error );
-		exit( -1 );
+		return 1;
 	}
 	catch( ... )
 	{
 		Console::instance()->log( LOG_ERROR, "An unknown error occured while loading the world.\n" );
-		exit( -1 );
+		return 1;
 	}
 
 	Console::instance()->PrepareProgress( "Initializing Multis" );

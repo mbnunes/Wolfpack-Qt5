@@ -70,8 +70,7 @@ bool PersistentBroker::openDriver( const QString& driver )
 		connection = new cMySQLDriver;
 		sqlite = false;
 #else
-		Log::instance()->print( LOG_ERROR, "Sorry, you have to define MYSQL_DRIVER to make wolfpack work with MySQL.\n" );		
-		exit( -1 );
+		throw QString( "Sorry, you have to define MYSQL_DRIVER to make wolfpack work with MySQL.\n" );
 #endif
 	}
 
