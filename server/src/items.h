@@ -208,7 +208,6 @@ public:
 	int restock; // Number up to which shopkeeper should restock this item
 	int trigger; //Trigger number that item activates
 	int trigtype; //Type of trigger
-	int trigon; //New trigger for items -Frazurbluu-
 	unsigned int disabled; //Item is disabled, cant trigger.
 	string disabledmsg; //Item is disabled, so display this message. -- added by Magius(CHE) §
 	int tuses;    //Number of uses for trigger

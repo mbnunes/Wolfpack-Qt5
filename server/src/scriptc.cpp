@@ -69,7 +69,7 @@ char get_modification_date(const char *filename, time_t* mod_time)
     *mod_time = stat_buf.st_mtime;
     return 1;
 }
-
+/*
 bool Script::preload()	// load the complete script into memory (Duke,6.1.2001)
 {
     FILE *fp;
@@ -384,3 +384,4 @@ char Script::isin(const char *section) {
 		return 1;
 	}
 }
+*/

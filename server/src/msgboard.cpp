@@ -1815,7 +1815,7 @@ void MsgBoardEvent(int s)
 //////////////////////////////////////////////////////////////////////////////
 int MsgBoardPostQuest( int serial, int questType )
 {
-	char        subjectEscort[]     = "Escort: Needed for the day.";  // Default escort message 
+/*	char        subjectEscort[]     = "Escort: Needed for the day.";  // Default escort message 
 	char        subjectBounty[]     = "Bounty: Reward for capture.";  // Default bounty message 
 	char        subjectItem[]       = "Lost valuable item.";          // Default item message 
 	char        subject[50]         = "";                             // String that will hold the default subject
@@ -2182,6 +2182,8 @@ int MsgBoardPostQuest( int serial, int questType )
 	}
 	
 	// Post failed
+	return 0;
+*/
 	return 0;
 }
 

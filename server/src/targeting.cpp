@@ -203,7 +203,7 @@ void cTargets::triggertarget(int s)
 		P_ITEM pi = FindItemBySerial(serial);
 		if(pi != NULL)
 		{
-			Trig->triggerwitem(s, pi,1);
+//			Trig->triggerwitem(s, pi,1);
 		}
 	}
 }
@@ -708,10 +708,6 @@ static void MoveBelongingsToBp(P_CHAR pc, P_CHAR pc_c)
 		if (pi->layer() != 0x15 && pi->layer() != 0x1D &&
 			pi->layer() != 0x10 && pi->layer() != 0x0B && (!pi->free))
 		{
-			if ((pi->trigon==1) && (pi->trigtype==2) && (pi->layer()<19))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
-			{
-				Trig->triggerwitem(calcSocketFromChar(pc_c), pi, 1); // trigger is fired
-			}
 			pi->removeFromView( false );
 
 			pi->pos.x=(rand()%80)+50;
@@ -4030,7 +4026,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 				P_CHAR pc_currchar = currchar[s];
 				if ( pi != NULL )
 				{
-					Trig->triggerwitem(s, pi, 0);
+//					Trig->triggerwitem(s, pi, 0);
 					pc_currchar->setEnvokeid(0x00);
 					return;
 				}
@@ -4038,12 +4034,12 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 				P_CHAR pc_i = FindCharBySerial(serial);
 				if(pc_i != NULL)
 				{
-					Trig->triggernpc(s, pc_i, 0);
+//					Trig->triggernpc(s, pc_i, 0);
 					pc_currchar->setEnvokeid(0x00);
 					return;
 				}
 				// End Addons by Magius(CHE) §
-				Trig->triggerwitem(s, NULL, 0);
+//				Trig->triggerwitem(s, NULL, 0);
 				pc_currchar->setEnvokeid(0x00);
 				return;
 			}

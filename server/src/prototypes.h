@@ -102,7 +102,6 @@ void npcact(int s);
 //void objTeleporters(P_CHAR pc_s);
 void SkillVars();
 void StartClasses();
-void LoadCustomScripts();
 void SetGlobalVars();
 void BuildPointerArray();
 void InitMultis();
@@ -165,7 +164,6 @@ void wipe(int s);
 void xteleport(int s,int x);
 void wornitems(UOXSOCKET s, P_CHAR pc);
 void RefreshItem(P_ITEM pi);
-int MenuListGenerator();
 void ShowMenu( UOXSOCKET s, UI16 Menu );
 void npcemoteall(P_CHAR npc, char *txt,unsigned char antispam);
 int findsection (unsigned char *s);
@@ -218,7 +216,6 @@ void fileArchive(char *pFile2Archive_chars, char *pFile2Archive_items, char *pAr
 // End - Dupois
 
 //Trigger routines
-void triggerwitem(UOXSOCKET ts, P_ITEM pi, int ttype);  // trigger.cpp
 int checkenvoke(char eid1, char eid2);  //trigger.scp
 
 inline int calcserial(unsigned char a1,unsigned char a2,unsigned char a3,unsigned char a4) {return (static_cast<int>((a1<<24))|static_cast<int>((a2<<16)) | static_cast<int>((a3<<8)) | static_cast<int>(a4));}

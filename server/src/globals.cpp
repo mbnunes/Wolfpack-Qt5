@@ -237,7 +237,6 @@ char n_scripts[NUM_SCRIPTS][512] =
 	"spawn.scp", "htmlstrm.scp", "metagm.scp", "polymorph.scp",
 	"harditems.scp", "", "", "carve.scp", 
 	"msgboard.scp", "fishing.scp", "gumps.scp"};//the two ""s are for custom scripts.
-Script *i_scripts[NUM_SCRIPTS];
 
 
 int escortRegions = 0;

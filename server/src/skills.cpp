@@ -1668,7 +1668,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 
 void cSkills::MakeMenu(int s, int m, int skill) // Menus for playermade objects
 { // s - character online #, m - menu to use, skill - skill being used
-	int total, i;
+/*	int total, i;
 	char lentext;
 	char sect[512];
 	char gmtext[30][257];
@@ -1805,6 +1805,7 @@ void cSkills::MakeMenu(int s, int m, int skill) // Menus for playermade objects
 		Xsend(s, gmtext[i], lentext);
 	}
 	targetok[s]=1; 
+*/
 }
 
 void cSkills::Hide( cUOSocket *socket ) 
@@ -3617,7 +3618,7 @@ bool cSkills::DelEmptyMap(P_CHAR pc)	// Delete an empty map from the player's ba
 
 void cSkills::Decipher(P_ITEM tmap, int s)
 {
-	P_CHAR pc_currchar = currchar[s];
+/*	P_CHAR pc_currchar = currchar[s];
 	char sect[500];			// Needed for script search
 	int regtouse;			// Stores the region-number of the TH-region
 	int i;					// Loop variable
@@ -3725,6 +3726,7 @@ void cSkills::Decipher(P_ITEM tmap, int s)
 	}
 	else
 		sysmessage(s, "You must wait to perform another action");	// wait a bit
+*/
 }
 
 // END OF: By Polygon

@@ -414,7 +414,7 @@ bool TriggerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pChar, const QStri
 		return false;
 	}
 
-	Trig->triggernpc( calcSocketFromChar( pPlayer ), pChar, 1 ); // LEGACY
+//	Trig->triggernpc( calcSocketFromChar( pPlayer ), pChar, 1 ); // LEGACY
 	return true;
 }
 
@@ -1089,7 +1089,7 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, UINT16 color, UINT8 
 
 	if( pNpc && pNpc->speech )
 	{
-		Script *pScp=i_scripts[speech_script];
+/*		Script *pScp=i_scripts[speech_script];
 		if (!pScp->Open())
 			return;
 		char sect[512];
@@ -1152,5 +1152,6 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, UINT16 color, UINT8 
 			pNpc->talk( sect );
 		
 		pScp->Close();
+	*/
 	}
 }

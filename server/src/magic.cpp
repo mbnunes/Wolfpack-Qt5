@@ -4161,7 +4161,7 @@ bool cMagic::fieldSpell( int num )
 // added by AntiChrist (9/99)
 void cMagic::PolymorphMenu(int s,int gmindex)
 {
-	int total, i, loopexit=0;
+/*	int total, i, loopexit=0;
 	char lentext;
 	char sect[512];
 	static char gmtext[30][257];
@@ -4235,12 +4235,13 @@ void cMagic::PolymorphMenu(int s,int gmindex)
 		Xsend(s, &lentext, 1);
 		Xsend(s, gmtext[i], lentext);
 	}
+*/
 }
 
 // added by AntiChrist (9/99)
 void cMagic::Polymorph(int s, int gmindex, int creaturenumber)
 {
-	int i,k,loopexit=0;
+/*	int i,k,loopexit=0;
 	int id1,id2;
 
 	char sect[512];
@@ -4276,6 +4277,8 @@ void cMagic::Polymorph(int s, int gmindex, int creaturenumber)
 	tempeffect(pc_currchar, pc_currchar, 18, id1, id2, 0);
 
 	teleport((pc_currchar));
+
+  */
 }
 
 // only used for the /heal command

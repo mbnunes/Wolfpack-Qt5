@@ -53,7 +53,6 @@ using namespace std;
 
 //Forward Class Declaration
 
-class Script;
 class QDateTime;
 class WPScriptManager;
 class WPDefManager;
@@ -179,7 +178,6 @@ enum  enScripts { items_script = 0,npc_script,create_script,regions_script,misc_
 			custom_item_script,carve_script,msgboard_script,
 			fishing_script, gump_script, NUM_SCRIPTS} ;
 
-extern Script *i_scripts[NUM_SCRIPTS]; // array of script references
 extern char n_scripts[NUM_SCRIPTS][512] ; // array of script filenames
 
 extern unsigned long initialserversec ;

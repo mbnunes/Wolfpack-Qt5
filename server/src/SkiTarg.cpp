@@ -670,11 +670,6 @@ void cSkills::Mine(int s)
 		//
 		if(SrvParams->miningtrigger()>0)
 		{
-			pc->setTargtrig(SrvParams->miningtrigger());
-			P_ITEM pi = FindItemBySerial(addmitem[s]);
-			Trig->triggerwitem(s, pi, 1);
-			// Currently Disabled.
-			return;
 		} else
 		{//normal mining skill
 		
@@ -828,9 +823,6 @@ void cSkills::TreeTarget(int s)
 		if(SrvParams->logtrigger()>0)
 		{
 			//pc->targtrig=resource.logtrigger;
-			P_ITEM pi = FindItemBySerial(addmitem[s]);
-			Trig->triggerwitem(s, pi, 0);	// routing to wtrigrs instead of triggers.scp Duke, 5.11.2000
-			return;
 		} else
 		{//normal mining skill
 			

@@ -170,7 +170,6 @@ cItem::cItem( cItem &src )
 	this->restock=src.restock;
 	this->trigger=src.trigger;
 	this->trigtype=src.trigtype;
-	this->trigon=src.trigon;
 	this->disabled=src.disabled;
 	this->disabledmsg = src.disabledmsg;
 	this->tuses=src.tuses;
@@ -628,7 +627,6 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("dx2",			dx2);
 		archive.read("in",			in);
 		archive.read("in2",			in2);
-		archive.read("trigon",		trigon);
 		archive.read("speed",		speed_);
 		archive.read("poisoned",	poisoned);
 		archive.read("magic",		magic);
@@ -696,7 +694,6 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("dx2",		dx2);
 		archive.write("in",			in);
 		archive.write("in2",		in2);
-		archive.write("trigon",		trigon);
 		archive.write("speed",		speed_);
 		archive.write("poisoned",	poisoned);
 		archive.write("magic",		magic);
@@ -866,7 +863,6 @@ void cItem::Init( bool mkser )
 	this->restock=0; // Number up to which shopkeeper should restock this item
 	this->trigger=0; //Trigger number that item activates
 	this->trigtype=0; //Type of trigger
-	this->trigon = 0; // equipped item trigger -Frazurbluu-
 	this->disabled = 0; //Item is disabled, cant trigger.
 	this->disabledmsg = ""; //Item disabled message. -- by Magius(CHE) §
 	this->tuses = 0;    //Number of uses for trigger
@@ -1445,10 +1441,6 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 			
 			//Subtract stats bonus and poison
 			pc_p->removeItemBonus(pi);
-			if ((pi->trigon==1) && (pi->layer() >0))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
-			{
-				Trig->triggerwitem(calcSocketFromChar(pc_p), pi, 1); // trigger is fired when unequipped? sorry this needs checked
-			}
 						
 			pi->setContSerial(-1);
 			pi->MoveTo(pc_p->pos.x,pc_p->pos.y,pc_p->pos.z);

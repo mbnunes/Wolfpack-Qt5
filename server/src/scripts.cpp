@@ -227,7 +227,7 @@ void readw3 ()
 
 void scriptlist(int x, int spc, int all)
 {
-	int pos, i;
+/*	int pos, i;
 	char file[512];
 
 	openscript("items.scp");
@@ -274,11 +274,12 @@ void scriptlist(int x, int spc, int all)
 	}
 	while ((script1[0]!='}') && (++loopexit < MAXLOOPS) );
 	closescript();
+	*/
 }
 
 void scriptmax(char *txt)
 {
-	int ok, i, x, highest, current;
+/*	int ok, i, x, highest, current;
 	char str[512];
 	Script *pScp;
 
@@ -307,41 +308,7 @@ void scriptmax(char *txt)
 	while ((strcmp("EOF",(char*)temp)) && (++loopexit < MAXLOOPS) );
 	pScp->Close();
 	fprintf(lstfile, " %s: %i\n", txt, highest);
-}
-
-int MenuListGenerator()
-{
-	clConsole.send("\nWOLFPACK Menu List Generator Module\n\n");
-	clConsole.send("Creating UOXMENUS.LST...\n");
-	lstfile=fopen("UOXMENUS.LST","w");
-	if (lstfile==NULL)
-	{
-		clConsole.send("ERROR: UOXMENUS.LST could not be created.\n");
-		error=1;
-		keeprun=0;
-		return 0;
-	}
-	fprintf(lstfile, "WOLFPACK Script Menu List\n\n");
-	fprintf(lstfile, "This file is intended to allow you to do a quick lookup for certain items\n");
-	fprintf(lstfile, "or menus that you might be searching.\n\n");
-	fprintf(lstfile, "Maximum used numbers: (Always use numbers higher than those)\n");
-	scriptmax("GMMENU");
-	scriptmax("BATCH");
-	scriptmax("NPC");
-	scriptmax("SPEECH");
-	scriptmax("ITEMMENU");
-	scriptmax("ITEM");
-	scriptmax("LOCATION");
-	fprintf(lstfile, "\nShort List: (Menus only)\n");
-	fprintf(lstfile, "GM Master Item Menu (ITEMMENU 1)\n");
-	scriptlist(1, 1, 0);
-	fprintf(lstfile, "\nLong List: (Menus and Items)\n");
-	fprintf(lstfile, "GM Master Item Menu (ITEMMENU 1)\n");
-	scriptlist(1, 1, 1);
-	fprintf(lstfile, "\nWOLFPACK Copyright 2000 by WOLFPACK Team\n");
-	fclose(lstfile);
-	clConsole.send("List creation complete!\n");
-	return 0;
+	*/
 }
 
 void gettokennum(char * s, int num)
@@ -416,38 +383,5 @@ short getstatskillvalue(char *stringguy)
 		retcode = lovalue;
 	}
 	return retcode;
-}
-
-void LoadCustomScripts()
-{
-	int i=0;
-	Script *pScp;
-
-	pScp=i_scripts[npc_script];
-	pScp->Open();
-	do
-	{
-		pScp->NextLineSplitted();
-		if (!(strcmp((char*)script1, "CUSTOM_NPC_SCRIPT"))) strcpy(n_scripts[custom_npc_script],(char*)script2);
-		i++;
-	} while (n_scripts[custom_npc_script][0]==0 && i<10);
-	pScp->Close();
-
-	if (n_scripts[custom_npc_script][0]!=0)
-		i_scripts[custom_npc_script]=new Script(n_scripts[custom_npc_script]);
-
-	i=0;
-	pScp=i_scripts[items_script];
-	pScp->Open();
-	do
-	{
-		pScp->NextLineSplitted();
-		if (!(strcmp((char*)script1, "CUSTOM_ITEM_SCRIPT"))) strcpy(n_scripts[custom_item_script],(char*)script2);
-		i++;
-	} while (n_scripts[custom_item_script][0]==0 && i<10);
-	pScp->Close();
-
-	if (n_scripts[custom_item_script][0]!=0)
-		i_scripts[custom_item_script]=new Script(n_scripts[custom_item_script]);
 }
 

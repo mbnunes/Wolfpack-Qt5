@@ -48,7 +48,7 @@ class cTrigger;
 #include "wolfpack.h"
 #include "SndPkg.h"
 #include "debug.h"
-
+/*
 class cTrigger
 {
 public:
@@ -58,7 +58,7 @@ public:
 };
 
 extern cTrigger	 *Trig;
-
+*/
 
 
 #endif

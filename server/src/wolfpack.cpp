@@ -331,7 +331,7 @@ int bestskill(P_CHAR pc_p) // Which skill is the highest for character p
 
 void loadcustomtitle() // for custom titles
 {
-	int titlecount=0;
+/*	int titlecount=0;
 	char sect[512];
 
 	for (int a=0; a<ALLSKILLS; a++)
@@ -448,7 +448,7 @@ void loadcustomtitle() // for custom titles
 	}
 	while ((script1[0]!='}') && (++loopexit < MAXLOOPS) );
 	closescript();
-
+*/
 }
 
 char *title1(P_CHAR pc) // Paperdoll title for character p (1)
@@ -1831,18 +1831,6 @@ int main( int argc, char *argv[] )
 
 	Map->Cache = 0;
 
-	clConsole.send( "Loading scripts:\n" );
-	for(i=0;i<NUM_SCRIPTS;i++)
-	{
-		if (i==custom_npc_script || i==custom_item_script)//Don't initialize these till we know the file names ;-)
-			continue;
-
-		if (i==npc_script /*||i==create_script || i==regions_script*/)
-			i_scripts[i] = new Script(n_scripts[i], SCP_PRELOADABLE);
-		else
-			i_scripts[i] = new Script(n_scripts[i]);
-	}
-	
 	clConsole.send( "\n" );
 
 	QTranslator translator(0); // must be valid thru app life.
@@ -1855,15 +1843,6 @@ int main( int argc, char *argv[] )
 
 	//Now lets load the custom scripts, if they have them defined...
 	i=0;
-	LoadCustomScripts();
-
-	if (argc>1)
-	{
-		if (!(strcmp(argv[1],"#")))
-		{
-			return MenuListGenerator();
-		}
-	}
 
 	CIAO_IF_ERROR;
 

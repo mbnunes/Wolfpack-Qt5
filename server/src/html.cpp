@@ -46,7 +46,7 @@
 
 void offlinehtml()//HTML
 {
-	char sect[512], hfile[512];
+/*	char sect[512], hfile[512];
 	unsigned int total,hr,min,sec,loopexit=0; //bugfix LB
 	FILE *html;
 	
@@ -83,11 +83,12 @@ void offlinehtml()//HTML
 
 	fclose(html);
 	closescript();
+	*/
 }
 
 void updatehtml()//HTML
 {
-	double eps=0.00000000001;
+/*	double eps=0.00000000001;
 	char sect[512],hfile[512],sh[3],sm[3],ss[3];
 	int a, n=0;
 	//unsigned long int ip;
@@ -270,6 +271,7 @@ void updatehtml()//HTML
 
 	fclose(html);
 	closescript();
+	*/
 }
 
 

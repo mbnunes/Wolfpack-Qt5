@@ -351,10 +351,6 @@ SOURCE=.\Trade.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\trigger.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\uobject.cpp
 # End Source File
 # Begin Source File

@@ -58,6 +58,7 @@ extern char script1[512];
 typedef long int _off_t ;
 #endif
 
+/*
 class Script
 {
 public:
@@ -89,5 +90,5 @@ private:
 	char *curmempos;	// current read position for preloaded files
 	short flags;
 };
-
+*/
 #endif
