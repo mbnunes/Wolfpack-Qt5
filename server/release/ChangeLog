@@ -45,6 +45,7 @@ Wolfpack 12.9.13 Beta (CVS)
     everything dead players have to say.
   - All geometrical bodies for spawnregions now support the except="true" tag that makes the rectangle, circle or
     point not be included in finding a random position within the region.
+  - Fix with spawnregion data. UShort != UInt
  * Definition Changes:
   - Added the mage AI to most creatures.
   - Adjusted carving sheeps.
