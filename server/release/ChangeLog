@@ -1,7 +1,7 @@
 Wolfpack 12.9.13 Beta (SVN)
  * Core Changes:
   - Fixed meditation skillcheck in mana regeneration code.
-  - Changed gm talk color.
+  - Changed GM talk color.
   - Implemented the onCheckVictim event.
   - Implemented the onDoDamage event.
   - Stablemasters now remove the stabled pets from the follower list.
@@ -19,14 +19,14 @@ Wolfpack 12.9.13 Beta (SVN)
   - Improved the configure script:
     Translations are disabled by default now.
     Cleaner output.
-    Fixed a bug with MySQL lib reporting.
+    Fixed a bug with MySQL library reporting.
   - The SectorMaps singleton has been renamed to MapObjects.
   - The deprecated RegionIterators have been removed.
   - The SectorIterators have also been replaced with a much faster iterator.
   - The new iterators don't allocate/copy memory anymore.
   - The "range" lookup now looks for items within a real circle.
   - Multis now have their own structure, and are now separate from items.
-  - Region calls now list online and offline chars in seperate lists.
+  - Region calls now list online and offline chars in sperate lists.
   - Implemented player collision stamina loss in Felucca.
   - Fixed lightlevel calculation.
   - Fixed the pythonscript* <-> integer conversion warnings by using size_t instead.
@@ -51,18 +51,18 @@ Wolfpack 12.9.13 Beta (SVN)
   - Added the ability to make yourself visible to other players.
   - Guildbutton now triggers onGuildButton(player) python event.
   - Fixed bug #0000376. (Stablemasters don't take money from the bank)
-  - Added "Refresh Characters Maximum Values" setting. Setting this to "false" will disable the automatic 
+  - Added "Refresh Characters Maximum Values" setting. Setting this to "false" will disable the automatic
     recalculation of Maxhitpoints/Maxmana/Maxstamina.
   - Added a warning in the console if translation file could not be found.
   - Fixed monsters not attacking players pets.
   - Fixed bug #0000363. (Pets don't attack a target if it's already fighting)
   - More tag documentation in the code.
-  - Definitoin Tag Cleanups.
+  - Definition Tag Cleanups.
   - Using skills no longer unhides by default, unhide moved to python.
   - Fixed a nasty bug in the map sector code which caused objects not to be in the map objects when moved
     between maps.
   - Fixed a walking bug that caused monsters to walk trough certain objects.
-  - type="3" in bodyinfo.xml is now correctly interpreted by the core.
+  - type="3" in bodyinfo.XML is now correctly interpreted by the core.
   - Exploit bugfix for locked containers.
   - The status only shows the gold directly in your backpack now. (performance issues)
   - Fixed a vision range bug with walking.
@@ -70,7 +70,7 @@ Wolfpack 12.9.13 Beta (SVN)
   - Updated SQLite to 2.8.15 and defaulted SQLite to encode data with UTF-8.
  * Definition Changes:
   - Added the mage AI to most creatures.
-  - Adjusted carving sheeps.
+  - Adjusted carving sheep.
   - Fixed leatherworkers and tanners not buying leather and hides.
   - Male NPCs now have a 75% chance of getting a beard when created.
   - Made shrink potions craftable.
@@ -86,12 +86,11 @@ Wolfpack 12.9.13 Beta (SVN)
   - Applied the index.xml branches to colored armor.
   - Added lightsources to fire elementals, wisps and horde minions.
   - Added bones to bone_magi and body parts to horde minions, zombies and others.
-  - Added colored weapons. Note: Only the metalic weapons.
+  - Added colored weapons. Note: Only the metallic weapons.
   - Sorted out the samurai weapons by type and fixed properties.
   - Ranged weapons set to 10 instead of 12.
   - Price fixes for arrows/bolts.
   - Fixed potion kegs.
-  - Cleanups with equipment for the cleaner xml style.
   - Gave guards colored hair.
   - NPC skill defines are now: <skill id="skilldef">value</skill>
   - Gold now has weight.
@@ -120,7 +119,7 @@ Wolfpack 12.9.13 Beta (SVN)
   - Guild button now opens guildstone menu by default.
   - Fixed resistances for dragon scale armors.
   - Fixed the open door macro.
-  - Fixed bug #0000310. (Invis spell duration too brief, Players will now be able to use stealth 
+  - Fixed bug #0000310. (Invis spell duration too brief, Players will now be able to use stealth
     if they are hidden by the invisibility spell, even if they don't have 80.0 Hiding )
   - Fixed bug #0000321. (Info Gump not setting boolean values to True if input is 1)
   - Poisoning now accepts stacked potions.
@@ -140,11 +139,11 @@ Wolfpack 12.9.13 Beta (SVN)
     We welcome donated OSI-like region scripts!
   - Possible that a few monsters are missing and/or incomplete.
   - Multis (Houses/Boats) are not currently supported.
-    
+
 Wolfpack 12.9.12 Beta (18. October 2004)
  * Core Changes:
-  - Fixed a unix console error
-  - Fixed a npc title loading problem (UTF-8)
+  - Fixed a Unix console error
+  - Fixed a NPC title loading problem (UTF-8)
   - Added an onResurrection event.
   - Hopefully fixed crashbug for NPC pathfinding.
   - Fix bug #0000342 ( "Show Npc Titles" treated as numeric value, instead of boolean )
@@ -164,15 +163,15 @@ Wolfpack 12.9.12 Beta (18. October 2004)
   - Fixed documentation for the socket object.
   - Changed some return values from true to none for socket methods.
   - Spawnregions have been rewritten for more speed and functionality.
-    Because of that the format changed, please hop on irc and ask for details if you want
+    Because of that the format changed, please hop on IRC and ask for details if you want
     to convert your scripts.
   - Guards now run towards their targets.
   - Fixed bug #0000345.
   - Python now allows effects and sounds on coords.
   - Corrected the default season for map 2, 3 and 4.
   - Made the spring season for the trammel map a configuration option.
-  - SIGPIPE is now ignored on unix systems.
-  - Bugfix for the unix console.
+  - SIGPIPE is now ignored on Unix systems.
+  - Bugfix for the Unix console.
   - Added several logging features.
   - Added the ability to sell items from subpacks.
   - Fixed a bug (Exploit) related to consumeResource.
@@ -202,22 +201,22 @@ Wolfpack 12.9.12 Beta (18. October 2004)
   - Added AI Monster_Mage.
   - Hitpoints are now unsigned.
   - Empty context menus are no longer send to the client.
-  - Added the onCheckSecurity event for housing.  
+  - Added the onCheckSecurity event for housing.
  * Definition Changes:
   - Made leather armors and hats auto mage armors.
   - Fixed a category error with some champions.
   - Fixed prices for jewels.
   - Added data for item flipping for carpentry items.
   - Added bloodcolor for undeads.
-  - Made leather containers dyable.
+  - Made leather containers dyeable.
   - Fixed categories for curtains.
   - Defined all teleporters thanks to bugging and work from DrkCodeman.
-  - Added teleporter stairs to ilshenar decoration.
+  - Added teleporter stairs to Ilshenar decoration.
   - Added index.xml files to armor categories. (Cleanups)
   - Began to add new Samurai armor and weapons (not complete).
   - Added most of the new Samurai Empire artwork (not yet sorted).
   - Added slayer weapon properties to NPCs.
-  - Fiexd bug #0000347. (Campfires not disappearing, wrong light id)
+  - Fixed bug #0000347. (Campfires not disappearing, wrong light id)
   - Added different NPC speeds.
   - Added encryption keys for 4.0.5
   - Fixed a carpentry resource bug.
@@ -225,7 +224,7 @@ Wolfpack 12.9.12 Beta (18. October 2004)
   - Fixed a lot of the monster sounds.
   - Fixed bug #0000242 (Missing Vendor: Mapmaker)
   - Corrected Evaluating Intelligence for all NPCs.
-  - Defined a few unscripted items (non UOSE related).
+  - Defined a few unscripted items (non UO:SE related).
  * Python Script Changes:
   - Fixed BONUS* properties.
   - Fixed other property issues.
@@ -233,7 +232,7 @@ Wolfpack 12.9.12 Beta (18. October 2004)
   - Added random property generation for shields and armors.
   - Fixed bug #0000336. (Exploitation of stat bonuses)
   - Fixed bug #0000333. (Implemented lower mana cost)
-  - Fixed bug #0000332. (Implemented lower reag cost)
+  - Fixed bug #0000332. (Implemented lower reagent cost)
   - Fixed bug #0000334. (Implemented spell damage bonus)
   - Random magic item loot.
   - Runebook fixes.
@@ -266,7 +265,7 @@ Wolfpack 12.9.12 Beta (18. October 2004)
   - Rewrote the bandages script.
   - Added macro support for bowing and salutes.
   - Removed the deprecated WEIGHTBONUS property.
-  - Fixed clientcrashs related to the page menu.
+  - Fixed client crashes related to the page menu.
   - Crashfix for wipe all in certain situations.
   - Blacksmithing now logs smelting and repairing and allows using static forges and anvils.
   - Withdraw now updates the gold put into the players backpack.
@@ -280,7 +279,7 @@ Wolfpack 12.9.12 Beta (18. October 2004)
   - Fixed bug #0000359. (Mana consumption on fizzle)
   - Fixed bug #0000349. (No movement during casting)
   - Victims of harmfull spells will now defend themself.
-  - Most monster cast magic spells no longer send socket messages to npcs.
+  - Most monster cast magic spells no longer send socket messages to NPCs.
   - Fixed bug #0000360. (Problem with duping spawngems)
   - Fixed a bug in inscription. (Mana being used even on failure)
  * Misc. Changes:
@@ -298,11 +297,11 @@ Wolfpack 12.9.11 Beta (26. September 2004)
   - Fixed a crashbug related to NPC ai storing invalidated character pointers.
     This will slow AI down a little but crash prevention is well worth it.
   - Fixed a crashbug with the delayed onCreate call.
-  - Fixed a bug with configure.py and static libs.
+  - Fixed a bug with configure.py and static libraries.
   - Added a bodytype property.
   - The server will now only process one action per loop.
   - Fixed bug #0000305. (Documentation fix)
-  - Fixed a memory leak in char.dispel. 
+  - Fixed a memory leak in char.dispel.
   - Fixed bug #0000307. (Timers not being deleted with character)
   - Added socket.removeobject() + socket.sendobject() methods.
   - Fixed bug #0000273. (Felucca doesnt have the felucca desolation season)
@@ -311,29 +310,29 @@ Wolfpack 12.9.11 Beta (26. September 2004)
   - Fixed bug #0000253. (Invalid drop sound for items dropped to ground)
   - Fixed bug #0000309. (Console in web administration caused endless loop)
   - Fixed a crashbug related to trying to remove basescripts from objects.
-  - Fixed a crasbhug related to players being removed and the owner property of their
+  - Fixed a crash bug related to players being removed and the owner property of their
     pets not being reset.
   - Added support for the Samurai Empire map.
   - Fixed negative z values for spawnregion xml files.
-  - Improved NPC walking functionality, greatly increased all character walking effieciency
-  - Fixed bug #0000317. (Server not refusing to load even when accounts db corrupt)
+  - Improved NPC walking functionality, greatly increased all character walking efficiency
+  - Fixed bug #0000317. (Server not refusing to load even when accounts DB corrupt)
   - Fixed bug #0000187. (Land and Static targets on height -1 were broken)
   - Resolved an issue with extreme lag and NPC ai.
   - Added a rudimentary method for profiling parts of the code.
-  - Complete LOS Rewrite (works much better and faster now)
-  - Fixed persistency issue for dupe() and sql saves.
+  - Complete LoS Rewrite (works much better and faster now)
+  - Fixed persistency issue for dupe() and SQL saves.
   - Fixed issues with large packet and encryption.
   - Animals no longer flee from approaching players.
   - Fixed several python reference count issues.
   - Fixed a stamina loss bug on damage.
   - Changed the amount of recovered mana and stamina from 10% to 50% on resurrection.
   - Fixed a bug related to NPCs not loosing their target even if the target is not valid anymore.
-  - Made mapdif *, stadi * and friends case insensitive, so under  *nix
+  - Made mapdiff *, staidx * and friends case insensitive, so under  *nix
     they don't have to be renamed.
   - Fixed crash under windows when the server terminates unexpectedly
   - Console will show which unicode format was compiled in Python UCS2 or UCS4
   - Fixed compile error on FreeBSD.
-  - Exposed the base definition class to python. 
+  - Exposed the base definition class to python.
   - Added wolfpack.bodyinfo(id)
   - Added/Changed wolfpack.itembase(def), wolfpack.charbase(def)
   - Fixed a base definition bug related to property not loading the base definition.
@@ -344,7 +343,7 @@ Wolfpack 12.9.11 Beta (26. September 2004)
   - Fixed translation support.
   - Added ability to disable translation support during compile time thru configure.py
   - Fixed a log rotation bug related to uninitialized variables (valgrind.kde.org)
-  - Fixed memory leaks in Territories, ACLs and PythonScripts. (valgrind.kde.org)
+  - Fixed memory leaks in Territories, ACLs and Python Scripts. (valgrind.kde.org)
   - Added an onShowVirtueGump event.
   - Fixed the emotecolor property not being set on speech.
   - Fixed a gump response vulnerability.
@@ -353,7 +352,7 @@ Wolfpack 12.9.11 Beta (26. September 2004)
   - Fixed stablemaster speech handling ( Stablemasters are also vendors )
   - Fixed bug #0000326. (onAttach not being called on startup)
  * Definition Changes:
-  - Fixed minimum taming for npcs.
+  - Fixed minimum taming for NPCs.
   - Added the shopkeeper inventory for many vendors.
   - Fixed bug #0000289 - Fixed/added weight values for many items.
   - Fixed bug #0000288 - All monsters should have 2000 mintaming.
@@ -361,10 +360,10 @@ Wolfpack 12.9.11 Beta (26. September 2004)
   - Fixed bug #0000304. (Cast animations for non humans)
   - Fishing pole now should have the twohanded flag.
   - Fishing now shows the success cliloc message correctly.
-  - Fixed the dyable attribute for certain new items.
+  - Fixed the dyeable attribute for certain new items.
   - Allowed more cloth resource types for tailoring.
   - Loot fixes for daemons.
-  - Added carve information to all npcs.
+  - Added carve information to all NPCs.
   - Fixed reagent requirements for cure potions.
   - Fixed the shopkeeper inventory for mages.
   - Fixed the lightsource id for braziers.
@@ -381,12 +380,12 @@ Wolfpack 12.9.11 Beta (26. September 2004)
     items).
   - Fixed bug #0000308. (Using blades on items not possible)
   - Fixed bug #0000290. (Running doesn't reveal stealthed players)
-  - Fixed bug #0000296. (ArmsLore/ItemID not possible on items equipped by others)
-  - Fixed bug #0000297. (Messages for Anatomy/EvalInt only showing up in journal)
+  - Fixed bug #0000296. (Arms Lore/Item ID not possible on items equipped by others)
+  - Fixed bug #0000297. (Messages for Anatomy/Eval Int only showing up in journal)
   - Fixed bug #0000301. (Spellbook not reopening after using it once)
-  - Added a goname <name> command to find players and npcs.
+  - Added a goname <name> command to find players and NPCs.
   - Fixed magic resistance penalty for the protection spell.
-  - Fixed the mindamage/maxdamage for npcs.
+  - Fixed the mindamage/maxdamage for NPCs.
   - Fixed the barber vendor responding to all text.
   - Rewrote the barber/hairstylist.
   - Fixed the trainmenu.
@@ -408,7 +407,7 @@ Wolfpack 12.9.11 Beta (26. September 2004)
   - Nuke also works from bottom right to top left now.
   - Removed spell cast animation while mounted.
   - Fixed a lumberjacking bug.
-  - Fixed a bug with kindlings.
+  - Fixed a bug with kindling.
   - Fixed a bug with canceling a magery target not canceling the spell.
   - Fixed a bug where the send command didn't resend the world to the target.
   - Fixed bug #0000314. (Fix for the info command)
@@ -439,7 +438,7 @@ Wolfpack 12.9.10 Beta (10. September 2004)
   - Stablemasters now respond to stabling requests.  No charge yet!
   - Fixed a bug where an error message for missing python gump
     callbacks led to a crash.
-  - Added a property system bound to the definitions. 
+  - Added a property system bound to the definitions.
     <intproperty name="..." value="..." /> and
     <strproperty name="..." value="..." /> define properties that can be
     accessed via the methods getstrproperty, getintproperty, hasstrproperty,
@@ -496,7 +495,7 @@ Wolfpack 12.9.10 Beta (10. September 2004)
   - Fixed nightsight potions.
   - Casting now clears hands if the weapon doesnt have the SpellChannelling property.
   - Cast recovery times are now correct and take the CastRecoveryBonus properties into account.
-  - Spellcasting speeds are now corrected and take bonusses into account.
+  - Spellcasting speeds are now corrected and take bonuses into account.
   - Fixed the skillinfo command gump for remote clients.
   - Fixed gatetravel spell.
   - Tele and other spells no longer show a smoke puff if you're invisible.
@@ -508,13 +507,13 @@ Wolfpack 12.9.10 Beta (10. September 2004)
   - Pet commands now always allow control by GMs.
   - Fixes for remove:
     Remove now gives a warning about deletion of players.
-    Remove should only delete player characters under the player acl.
+    Remove should only delete player characters under the player ACL.
   - New commands: kick, ban, unban.
   - Fixed bug #0000280. (Tooltip not being resent in wolfpack.utilities.tocontainer)
   - Summoning spells and the animal taming skill now take the player.maxcontrolslots property
     into account.
  * Misc. Changes:
-  - Fixed bug #0000279. (Memory leak in the npc preview of the gm tool)
+  - Fixed bug #0000279. (Memory leak in the npc preview of the GM tool)
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
   - Spawn regions are incomplete.
@@ -562,7 +561,7 @@ Wolfpack 12.9.9 Beta (4. September 2004)
   - Overweight prevents walking now.
   - Walking is denied if stamina is 0.
   - Fixed an issue with account names containing foreign characters on save.
-  - Fixed an issue with walking/running not being sent to other cliens.
+  - Fixed an issue with walking/running not being sent to other clients.
   - Added wolfpack.queuecode to queue a python function for the next mainloop iteration.
   - Ignore a 4.0.4a multi purpose packet that doesn't make sense.
   - Fixed a bug related to serverlists duplication on configuration reload.
@@ -572,13 +571,13 @@ Wolfpack 12.9.9 Beta (4. September 2004)
   - Fixed bug #0000268. (coord.validspawnspot() now corrects the z value of coordinates)
   - Made startup more fault tolerant.
   - Fixed a bug where the skin hue of mobiles was not being sent to clients in range.
-  - Fix for the unix console crashing if a QString::null was sent.
+  - Fix for the Unix console crashing if a QString::null was sent.
  * Definition Changes:
   - Tag Changes:
     <events></events> is now <scripts></scripts>
   - Basescripts added to many scripts. Read only assigned scripts.
     Format is: <basescripts></basescripts>
-  - Removed the last occurances of <inherit id="" />
+  - Removed the last occurrences of <inherit id="" />
   - Fix for bug #0000258. (Stablemaster doesn't sell horses)
  * Python Script Changes:
   - Function Changes:
@@ -586,7 +585,7 @@ Wolfpack 12.9.9 Beta (4. September 2004)
     New: addscript() hasscript() removescript()
     Note: hasevent still exists, but has another purpose.
   - Added the bolt command, just lightnings the target.
-  - Added the email command, changes your account's email.
+  - Added the email command, changes your account email.
   - Added sparkle effects to the heal/restore commands.
   - Fixes for the account command:
     Fixed a few typos.
@@ -603,8 +602,8 @@ Wolfpack 12.9.9 Beta (4. September 2004)
   - Implemented a new page system.
   - Fix for bug #0000270. (.controlslots for blade spirits)
   - Fix for bug #0000263. (casting with weapon allowed although weapon is not spell channeling)
-  - Fix for bug #0000260. (.tile now caps at 250 items if the acl doesn't allow unlimited items)
-  - Fix for bug #0000266. (summoned npcs had loot)
+  - Fix for bug #0000260. (.tile now caps at 250 items if the ACL doesn't allow unlimited items)
+  - Fix for bug #0000266. (summoned NPCs had loot)
   - Fix for bug #0000256. (Not checking for second submaterial in craftmenus)
   - Fix for bug #0000128. (Trademenu leading to client crash)
  * Misc. Changes:
@@ -622,7 +621,7 @@ Wolfpack 12.9.9 Beta (4. September 2004)
   - There are still some memory leaks.
   - Large gumps can potentially crash remote clients.
   - Multis (Houses/Boats) are not currently supported.
-  
+
 Wolfpack 12.9.8 Beta (19. August 2004)
  * Core Changes:
   - Save fixes
@@ -704,7 +703,7 @@ Wolfpack 12.9.8 Beta (19. August 2004)
     Potion Kegs now work.
     Door fixes for blocking check speed.
   - Cleanups to help reduce memory consumption.
-  - NPC Related: Fixed sheering of sheeps and wool regrowing,
+  - NPC Related: Fixed sheering of sheep and wool regrowing,
     Healers will now resurrect through the context menu.
   - Rudimentarily Implemented Map Plotting
   - Export command updates.
@@ -764,7 +763,7 @@ Wolfpack 12.9.7 Beta (4. July 2004)
     - Multi tables removed, being redone.
     - Item.type and other properties are no longer saved,
       uses base definitions.
-    - Removed the `spawnregion` field from the `items`,`npcs`
+    - Removed the `spawnregion` field from the `items`,`NPCs`
       database tables.
    * Code Changes:
     - Major cleanups and structure changes, much cleaner and more sane.
@@ -814,8 +813,8 @@ Wolfpack 12.9.7 Beta (4. July 2004)
       debugging options.
     - Support for the Open Door Macro
  * Misc. Changes:
-  - FAQ.html included in the documentaiton.
-  - ChangeLog.wolfpack included in the documentaiton.
+  - FAQ.html included in the documentation.
+  - ChangeLog.wolfpack included in the documentation.
   - Massive Documentation Update
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
@@ -856,7 +855,7 @@ Wolfpack 12.9.6 Beta (18. May 2004)
   - Food now works.
   - Multis were recoded.
  * NPC Improvements and Fixes
-  - Tinkered Golems name fix.
+  - Tinkered Golem name fix.
   - Blacksmith male vendor fix.
   - Frenzied ostard is no longer invulnerable.
   - swamp_dragon_2 no longer has the wrong inherit definition.
@@ -910,7 +909,7 @@ Wolfpack 12.9.5 Beta (8. May 2004)
   - Party System
   - NPCs should now be able to train players.
   - Spawngem system. (Similar to sphere's but with a gump for GMs on doubleclick): "system.spawns"
-  - Statlocks are now accesible via python and work.
+  - Statlocks are now accessible via python and work.
   - Stat and Skillgain has been rewritten in Python.
  * Definitions
   - General definition updates and corrections.
