@@ -13,6 +13,7 @@ from wolfpack.consts import *
 from wolfpack.utilities import *
 from skills.lumberjacking import *
 import wolfpack.utilities
+from wolfpack import settings
 import whrandom
 #import weapons.blades
 
@@ -24,6 +25,12 @@ def onUse( char, item ):
 	char.socket.clilocmessage( 0xF69A6 ) # What do you want to use this on?
 	char.socket.attachtarget( "blades.response", [ item.serial ] )
 	return 1
+
+def regrow_wool(char, arguments):
+	if char:
+		char.baseid = 'sheep_unsheered'
+		char.id = 207
+		char.update()
 
 def response( char, args, target ):
 	item = wolfpack.finditem( args[0] )
@@ -59,51 +66,57 @@ def response( char, args, target ):
 
 	# This is for sheering only
 	elif target.char:
-		if ( target.char.id == hex2dec(0xcf) ):
-			target.char.id = 0xdf
-			target.char.carve = "carve_sheep_sheered"
+		if target.char.baseid == 'sheep_unsheered':
+			target.char.id = 223
+			target.char.baseid = 'sheep_sheered'
 			target.char.update()
-		elif target.char.id == hex2dec(0xdf):
+			
+			# Create Wool
+			wool = wolfpack.additem("df8")
+			wool.amount = 2
+	
+			if not wolfpack.utilities.tobackpack(wool, char):
+				wool.update()
+
+			char.socket.clilocmessage( 0x7A2E4 ) # You place the gathered wool into your backpack.
+			
+			# Let the wool regrow (minutes)
+			delay = settings.getnumber('Game Speed', 'Regrow Wool Minutes', 180, 1)
+			delay *= 60000 # Miliseconds per Minute
+			target.char.dispel(None, 1, "regrow_wool", [])
+			target.char.addtimer(delay, "blades.regrow_wool", [], 1, 0, "regrow_wool")
+			return
+		elif target.char.id == 'sheep_sheered':
 			char.socket.clilocmessage( 0x7A2E1 ) # This sheep is not yet ready to be shorn.
 			return
 		else:
 			char.socket.clilocmessage( 0x7A2E2 ) # You can only skin dead creatures.
 			return
-
-		wool = wolfpack.additem( "df8" )
-		wool.amount = 2
-
-		if not wolfpack.utilities.tocontainer( wool, char.getbackpack() ):
-			wool.update()
-			char.socket.clilocmessage( 0x7A2E4 ) # You place the gathered wool into your backpack.
-			return
 	else:
 		model = target.model
 
-	if target.model == 0 or target.model != 0:
+	if target.model == 0:
+		map = wolfpack.map( target.pos.x, target.pos.y, target.pos.map )
+		treeid = map['id']
+	elif target.model != 0:
+		treeid = target.model
 
-		if target.model == 0:
-			map = wolfpack.map( target.pos.x, target.pos.y, target.pos.map )
-			treeid = map['id']
-		elif target.model != 0:
-			treeid = target.model
-
-		if istree(treeid):
-			# Axes/Polearms get Logs, Swords get kindling.
-			# Also allows a mace's war axe to be use. 0x13af and 0x13b0
-			if item.type == 1002 or item.id == 0x13af or item.id == 0x13b0:
-				if not item or not item.container == char:
-					char.message( "You must equip this item to use it on this target!" )
-					return
-				else:
-					skills.lumberjacking.response( [ target, item, char ] )
-			# Swords and Fencing Weapons: Get kindling
-			elif item.type == 1001 or item.type == 1005:
-				skills.lumberjacking.hack_kindling( char, target.pos )
-		else:
-			# You can't use a bladed item on that.
-			char.socket.clilocmessage( 500494, "", GRAY )
-			return False
+	if istree(treeid):
+		# Axes/Polearms get Logs, Swords get kindling.
+		# Also allows a mace's war axe to be use. 0x13af and 0x13b0
+		if item.type == 1002 or item.id == 0x13af or item.id == 0x13b0:
+			if not item or not item.container == char:
+				char.message( "You must equip this item to use it on this target!" )
+				return
+			else:
+				skills.lumberjacking.response( [ target, item, char ] )
+		# Swords and Fencing Weapons: Get kindling
+		elif item.type == 1001 or item.type == 1005:
+			skills.lumberjacking.hack_kindling( char, target.pos )
+	else:
+		# You can't use a bladed item on that.
+		char.socket.clilocmessage( 500494, "", GRAY )
+		return False
 
 # CARVE CORPSE
 def carve_corpse( char, corpse ):
@@ -121,12 +134,19 @@ def carve_corpse( char, corpse ):
 		return
 
 	# Not carvable or already carved
-	if corpse.carve == '':
+	try:
+		charbase = wolfpack.charbase(corpse.charbaseid)
+		carve = charbase['carve']
+	except:
+		char.socket.clilocmessage( 0x7A305, "", 0x3b2, 3, corpse ) # You see nothing useful to carve..
+		return
+		
+	if corpse.hastag('carved') or carve == '':
 		char.socket.clilocmessage( 0x7A305, "", 0x3b2, 3, corpse ) # You see nothing useful to carve..
 		return
 
 	# Create all items in the carve list
-	carve = wolfpack.list( str(corpse.carve) )
+	carve = wolfpack.list(str(carve))
 
 	for id in carve:
 		amount = 1
@@ -146,11 +166,10 @@ def carve_corpse( char, corpse ):
 	blooditem = wolfpack.additem( bloodid )
 	blooditem.moveto( corpse.pos )
 	blooditem.decay = 1
-	blooditem.decaytime = wolfpack.time.servertime() + ( 30 * 1000 ) # Decay after 30 Seconds
 	blooditem.update()
 
 	char.socket.clilocmessage( 0x7A2F3, "", 0x3b2, 3, corpse ) # You carve away some meat which remains on the corpse
-	corpse.carve = ''
+	corpse.settag('carved', 1)
 
 # CUT FISH
 def cut_fish( char, item ):
