@@ -1664,22 +1664,22 @@ void command_set(UOXSOCKET s)
 				case KARMA: pc->karma = addy[s];	return;
 				case ALLSKILLS:
 					for ( j = 0; j < TRUESKILLS; ++j )
-						pc->baseskill[j] = addy[s];
+						pc->baseskill[j] = max(0, min( addy[s], 1000 ) );
 					break;
 				case STR:
-					pc->str = addy[s];
+					pc->str = max(0, min( addy[s], 100 ) );
 					statwindow(s, pc);
 					break;
 				case INT:
-					pc->in = addy[s];
+					pc->in = max(0, min( addy[s], 100 ) );
 					statwindow(s, pc);
 					break;
 				case DEX:
-					pc->setDex( addy[s] );
+					pc->setDex( max(0, min( addy[s], 100 ) ) );
 					statwindow(s, pc);
 					break;
 				case default: // one of the skills.
-					pc->baseskill[addx[s]] = addy[s];
+					pc->baseskill[addx[s]] = max(0, min( addy[s], 1000 ) );
 					Skills->updateSkillLevel( pc, addx[s] );
 					updateskill(s, addx[s]);
 					return; // only one skill gets changed.

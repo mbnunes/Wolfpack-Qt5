@@ -141,9 +141,9 @@ inline string cItem::objectID()
 	return string("ITEM");
 }
 
-inline void cItem::startDecay()			
+void cItem::startDecay()			
 {
-	this->decaytime=SrvParms->decaytimer*MY_CLOCKS_PER_SEC+uiCurrentTime;
+	this->decaytime = SrvParms->decaytimer*MY_CLOCKS_PER_SEC+uiCurrentTime;
 }
 
 

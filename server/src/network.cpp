@@ -686,7 +686,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	}
 
 	Accounts->SetOnline(acctno[s], pc_currchar->serial);
-	teleport((pc_currchar));
+	teleport(pc_currchar);
 
 	pc_currchar->murderrate=uiCurrentTime+repsys.murderdecay*MY_CLOCKS_PER_SEC; // LB, bugfix for murder-count getting --'ed each start
 
@@ -740,7 +740,6 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 }
 
 //Boats->added multi checking to instalog.
-//##ModelId=3C5D92D903AB
 char cNetworkStuff::LogOut(int s)//Instalog
 {
 	P_CHAR pc_currchar = currchar[s];
@@ -813,7 +812,6 @@ char cNetworkStuff::LogOut(int s)//Instalog
 // parameters : x = # of bytes
 //            : a = buffer offset
 
-//##ModelId=3C5D92D9035A
 int cNetworkStuff::Receive(int s, int x, int a) // Old socket receive function (To be replaced soon)
 {   
 	int count,loopexit=0;
@@ -837,7 +835,6 @@ int cNetworkStuff::Receive(int s, int x, int a) // Old socket receive function (
 	return count;
 }
 
-//##ModelId=3C5D92D903DD
 void cNetworkStuff::sockInit()
 {
 	int bcode;
@@ -930,7 +927,6 @@ void cNetworkStuff::sockInit()
 }
 
 
-//##ModelId=3C5D92D800C4
 void cNetworkStuff::SockClose () // Close all sockets for shutdown
 {
 	int i;
@@ -938,7 +934,6 @@ void cNetworkStuff::SockClose () // Close all sockets for shutdown
 	for (i=0;i<MAXCLIENT;i++) closesocket(client[i]);
 }
 
-//##ModelId=3C5D92D8009C
 void cNetworkStuff::CheckConn() // Check for connection requests
 {
 	int s;
@@ -1029,7 +1024,6 @@ void cNetworkStuff::CheckConn() // Check for connection requests
 	}
 }
 
-//##ModelId=3C5D92D800B0
 void cNetworkStuff::CheckMessage() // Check for messages from the clients
 {
 	int s, i, oldnow;
@@ -1163,7 +1157,6 @@ int cNetworkStuff::Pack(void *pvIn, void *pvOut, int len)
 	return actByte;
 }
 
-//##ModelId=3C5D92D9038D
 void cNetworkStuff::GetMsg(int s) // Receive message from client 
 {
 	int count, j, serial, length, dyn_length, loopexit=0, fb;
@@ -1826,7 +1819,6 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 
 }
 
-//##ModelId=3C5D92D90260
 signed long cNetworkStuff::Authenticate( const char *username, const char *pass )
 {
 	// We want case sensitive password/usernames
@@ -1834,7 +1826,6 @@ signed long cNetworkStuff::Authenticate( const char *username, const char *pass 
 	return Accounts->Authenticate(dummyusername, dummypass);
 }
 
-//##ModelId=3C5D92D80100
 void cNetworkStuff::LoadHosts_deny(void)
 {
 	unsigned long loopexit = 0;
@@ -2003,7 +1994,6 @@ void cNetworkStuff::CountPackets(UOXSOCKET s, int &numpackets, long int & offset
   
 }
 
-//##ModelId=3C5D92D802C3
 bool cNetworkStuff::CheckPacket(UOXSOCKET s, unsigned char packetnumber, int length, unsigned long int offset)
 {
 	bool ok=true;

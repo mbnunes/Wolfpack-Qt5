@@ -56,8 +56,6 @@
 // Force placer to give that damn guild a damn name :)
 void StonePlacement(UOXSOCKET s)
 {
-	int guildnumber;
-	char stonename[60];
 	P_CHAR pc = currchar[s];
 	P_ITEM pDeed = FindItemBySerial(pc->fx1);
 	cGuildStone* pStone = NULL;
@@ -626,7 +624,6 @@ void cGuildStone::ToggleAbbreviation(UOXSOCKET s)
 // puts a tag with players serial number into the guilds recruit database.
 void cGuildStone::Recruit(UOXSOCKET s)
 {
-	int slot, dummy;
 
 	if ( currchar[s]->guildstone == INVALID_SERIAL ) 
 	{
@@ -658,7 +655,6 @@ void cGuildStone::Recruit(UOXSOCKET s)
 
 int GuildCompare(P_CHAR player1, P_CHAR player2)
 {
-	int counter;
 	if (player1 == NULL || player2 == NULL) return 0;
 
 	// one of both not in a guild -> no guildwarfare
@@ -716,7 +712,6 @@ void cGuildStone::GumpChoice(UOXSOCKET s,int main,int sub)
 	//int members[MAXGUILDMEMBERS];
 	//int recruits[MAXGUILDRECRUITS];
 	P_CHAR pc_currchar = currchar[s];
-	char text[200];
 	int counter = 1;
 
 	if ( pc_currchar->guildstone != this->serial ) return;
