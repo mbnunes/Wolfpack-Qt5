@@ -45,6 +45,33 @@ class cItem;
 // System Includes
 #include <map>
 #include <list>
+#include "my_hash_map.h"
+
+using namespace std;
+
+struct IntHasher {
+
+  // Since we are hashing based on integers we can just use the
+  // GENERIC_HASH macro.  GENERIC_HASH is a macro which takes
+  // an integer and scrambles it up.
+  int operator()(const int & key)const {return GENERIC_HASH(key);}
+
+  // SecondHashValue also takes an integer and scrambles it up.
+  // However, for this to be useful we need SecondHashValue to
+  // scramble the key up in a different way.  Therefore we multiply
+  // key by 3 before calling GENERIC_HASH.  Also note that we have
+  // set things up so SecondHashValue ALWAYS returns an odd number.
+  // This is REQUIRED.  SecondHashValue must ALWAYS return an odd
+  // number for the hash table to be properly searched.
+  int SecondHashValue(const int & key)const {
+    return 2*GENERIC_HASH(3*key) + 1;
+  }
+
+};
+
+struct IntEqualCmp {
+  bool operator()(const int x, const int y) const {return x == y;}
+};
 
 /*!
 CLASS
@@ -60,14 +87,21 @@ USAGE
 	\see cItem
 
 */
-class cItemsManager : public std::map<SERIAL, cItem*>
+class cItemsManager: public std::map< SERIAL, P_ITEM >
 {
 protected:
 	// Data members
 	std::list<cItem*> deletedItems;
 	SERIAL lastUsedSerial;
+	my_hash_map<SERIAL, cItem*, IntHasher, IntEqualCmp> *hashMap;
 protected:
-	cItemsManager() {} // Unallow anyone to instantiate.
+	// Initialize our hashmap
+	cItemsManager()
+	{
+		IntHasher intHasher;
+		IntEqualCmp equalCmp;
+		hashMap = new my_hash_map<SERIAL, cItem*, IntHasher, IntEqualCmp>( 1000, intHasher, equalCmp ); // Pre allocate 1000 items
+	}
 	cItemsManager(cItemsManager& _it) {} // Unallow copy constructor
 	cItemsManager& operator=(cItemsManager& _it) { return *this; } // Unallow Assignment
 public:

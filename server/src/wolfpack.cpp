@@ -408,19 +408,21 @@ void gcollect () // Remove items which were in deleted containers
 {
 	int removed = 0, rtotal = 0;
 	bool bdelete;
-	LogMessage( "Performing Garbage Collection..." );
-	std::vector< P_ITEM > toDelete;
-	AllItemsIterator iter_items;
-	
-	for( iter_items.Begin(); !iter_items.atEnd(); iter_items++ )
+	clConsole.PrepareProgress( "Performing Garbage Collection..." );
+
+	vector< P_ITEM > toDelete;
+	AllItemsIterator iter_items;	
+	for( iter_items.Begin(); !iter_items.atEnd(); ++iter_items )
 	{
 		P_ITEM pi = iter_items.GetData();
+		
 		if( pi->free || pi->isInWorld() )
 			continue;
 
 		bdelete = true;
+
 		// find the container if theres one.
-		if (isCharSerial(pi->contserial))
+		if( isCharSerial( pi->contserial ) )
 		{
 			P_CHAR pc = FindCharBySerial( pi->contserial );
 			if (pc != NULL)
@@ -447,9 +449,8 @@ void gcollect () // Remove items which were in deleted containers
 		it++;
 	}
 
-	
-	sprintf((char*)temp, " gc: Removed %i items", rtotal);
-	if (rtotal > 0) LogMessage((char*)temp);
+	clConsole.ProgressDone();
+	clConsole.send( QString( "Deleted %1 items.\n" ).arg( rtotal ) );
 }
 
 void item_char_test()

@@ -53,9 +53,12 @@
 #include "multis.h"
 #include "spellbook.h"
 #include "persistentbroker.h"
+#include "network/uopacket.h"
 
 // Library Includes
 #include <qsqlcursor.h>
+#include <qcstring.h>
+#include <mysql.h>
 
 #undef  DBGFILE
 #define DBGFILE "worldmain.cpp"
@@ -123,26 +126,64 @@ void CWorldMain::loadnewworld(QString module) // Load world
 
 	// Load cItem
 	clConsole.send( "Loading World... " );
-	QTime startTime = QTime::currentTime();
 	
-	QStringList types = UObjectFactory::instance()->objectTypes();
+	MYSQL mysql;
+	mysql_init(&mysql);
+	mysql_options(&mysql,MYSQL_OPT_COMPRESS,0);
+
+	if( !mysql_real_connect(&mysql,"localhost","root","","wolfpack",0,NULL,0))
+	{
+		fprintf( stderr, "Failed to connect to database: Error: %s\n", mysql_error(&mysql) );
+		return;
+	}
+
+	mysql_query( &mysql, UObjectFactory::instance()->findSqlQuery( "cItem" ).latin1() );
+	MYSQL_RES *result = mysql_use_result( &mysql );
+	MYSQL_ROW row;
+
+	UINT32 sTime = getNormalizedTime();
+	UINT16 offset;
+	cUObject *object;
+
+	// Fetch row-by-row
+	while( ( row = mysql_fetch_row( result ) ) )
+	{
+		// do something with data
+		object = UObjectFactory::instance()->createObject( "cItem" );
+		offset = 2; // Skip the first two fields
+		object->load( row, offset );
+		++i;
+
+		if( i % 1000 == 0 )
+			qWarning( QString::number( i ) );
+	}
+
+	mysql_free_result( result );
+	mysql_close(&mysql);
+
+	printf( "Took: %i msecs", getNormalizedTime() - sTime );
+
+	/*QStringList types = UObjectFactory::instance()->objectTypes();
 
 	QSqlQuery query;
 	query.setForwardOnly(true);
 	for( INT32 j = 0; j < types.count(); ++j )
 	{
 		QString type = types[j];
+		QSqlQuery query;
+			UINT16 offset;
+			cUObject *object;
+			query.exec( UObjectFactory::instance()->findSqlQuery( type ) );
+			while( query.isActive() && query.next() )
+			{
+				object = UObjectFactory::instance()->createObject( type );
+				offset = 2; // Skip the first two fields
+				object->load( &query, offset );
+			}
 
-		query.exec(UObjectFactory::instance()->findSqlQuery( type ) );
-		while( query.isActive() && query.next() )
-		{
-			cUObject *object = UObjectFactory::instance()->createObject( type );
-			UINT16 offset = 2; // Skip the first two fields
-			object->load( &query, offset );
-		}
-	}
-	
-	printf( " done in %0.02fs\n", startTime.msecsTo( QTime::currentTime() ) / 1000.0f );	
+	}*/
+
+	clConsole.send( "%i loaded\n", i );
 
 	// Load Temporary Effects
 	archive = cPluginFactory::serializationArchiver(module);

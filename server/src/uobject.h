@@ -82,7 +82,7 @@ public:
 	bool del ( const QString& = QString::null );
 	
 	// New Load (Query: result, offset: current field offset)
-	virtual void load( QSqlQuery *result, UINT16 &offset );
+	virtual void load( char **, UINT16& );
 
 	QString eventList( void ); // Returns the list of events
 	void recreateEvents( void ); // If the scripts are reloaded call that for each and every existing object
@@ -136,7 +136,7 @@ public:
 	void registerSqlQuery( const QString &type, const QString &query )
 	{
 		sql_queries.insert( make_pair( type, query ) );
-		sql_keys.push_back(type);
+		sql_keys.push_back( type );
 	}
 
 	QString findSqlQuery( const QString &type )

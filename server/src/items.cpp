@@ -278,7 +278,7 @@ void cItem::setContSerial( SERIAL nValue )
 
 	if( contserial != INVALID_SERIAL )
 	{
-		// Get the New owner only if we're taking an item along (no bank no sell conts. etc.)
+	/*	// Get the New owner only if we're taking an item along (no bank no sell conts. etc.)
 		if( isItemSerial( contserial ) )
 		{
 			P_ITEM pItem = FindItemBySerial( contserial );
@@ -298,7 +298,7 @@ void cItem::setContSerial( SERIAL nValue )
 				pChar->setWeight( pChar->weight() + totalweight_ );
 				newOwner = pChar;
 			}
-		}
+		}*/
 
 		contsp.insert( contserial, serial );		
 	}
@@ -335,7 +335,7 @@ void cItem::SetSpawnSerial(long spawnser)
 	if (spawnserial != INVALID_SERIAL)	// if it was set, remove the old one
 		spawnsp.remove(spawnserial, this->serial);
 
-	spawnserial=spawnser;
+	spawnserial = spawnser;
 
 	if (spawnser!=-1)		// if there is a spawner, add it
 		spawnsp.insert(spawnserial, this->serial);
@@ -2619,7 +2619,6 @@ static void itemRegisterAfterLoading( P_ITEM pi )
 	cItemsManager::getInstance()->registerItem( pi );
 	if( pi->objectID() == "cGuildStone" ) // register as guild as well
 		guilds.push_back(pi->serial);
-	pi->timeused_last = getNormalizedTime();
 
 	// Set the outside indices
 	pi->SetSpawnSerial( pi->spawnserial );
@@ -2630,7 +2629,7 @@ static void itemRegisterAfterLoading( P_ITEM pi )
 		pi->setMaxhp( pi->hp() );
 
 	// Tauriel adding region pointers
-	if (pi->isInWorld())
+	if( pi->isInWorld() )
 	{
 		int max_x = Map->mapTileWidth(pi->pos.map) * 8;
 		int max_y = Map->mapTileHeight(pi->pos.map) * 8;
@@ -2643,11 +2642,74 @@ static void itemRegisterAfterLoading( P_ITEM pi )
 	}
 }
 
-void cItem::load( QSqlQuery *result, UINT16 &offset )
+void cItem::load( char **result, UINT16 &offset )
 {
 	cUObject::load( result, offset ); // Load the items we inherit from first
 
-	id_			= result->value( offset++ ).toInt();
+	id_ = atoi( result[offset++] );
+	name_ = result[offset++];
+	name2_ = result[offset++];
+	creator = result[offset++];
+	madewith = atoi( result[offset++] );
+	color_ = atoi( result[offset++] );
+	contserial = atoi( result[offset++] );
+	layer_ = atoi( result[offset++] );
+	type_ = atoi( result[offset++] );
+	type2_ = atoi( result[offset++] );
+	offspell_ = atoi( result[offset++] );
+	more1 = atoi( result[offset++] );
+	more2 = atoi( result[offset++] );
+	more3 = atoi( result[offset++] );
+	more4 = atoi( result[offset++] );
+	moreb1_ = atoi( result[offset++] );
+	moreb2_ = atoi( result[offset++] );
+	moreb3_ = atoi( result[offset++] );
+	moreb4_ = atoi( result[offset++] );
+	morex = atoi( result[offset++] );
+	morey = atoi( result[offset++] );
+	morez = atoi( result[offset++] );
+	amount_ = atoi( result[offset++] );
+	doordir = atoi( result[offset++] );
+	dye = atoi( result[offset++] );
+	decaytime = atoi( result[offset++] );
+	if( decaytime > 0 ) 
+		decaytime += uiCurrentTime;
+	att = atoi( result[offset++] );
+	def = atoi( result[offset++] );
+	hidamage_ = atoi( result[offset++] );
+	lodamage_ = atoi( result[offset++] );
+	st = atoi( result[offset++] );
+	time_unused = atoi( result[offset++] );
+	weight_ = atoi( result[offset++] );
+	hp_ = atoi( result[offset++] );
+	maxhp_ = atoi( result[offset++] );
+	rank = atoi( result[offset++] );
+	st2 = atoi( result[offset++] );
+	dx = atoi( result[offset++] );
+	dx2 = atoi( result[offset++] );
+	in = atoi( result[offset++] );
+	in2 = atoi( result[offset++] );
+	speed_ = atoi( result[offset++] );
+	poisoned = atoi( result[offset++] );
+	magic = atoi( result[offset++] );
+	ownserial = atoi( result[offset++] );
+	visible = atoi( result[offset++] );
+	spawnserial = atoi( result[offset++] );
+	dir = atoi( result[offset++] );
+	priv = atoi( result[offset++] );
+	value = atoi( result[offset++] );
+	restock = atoi( result[offset++] );
+	disabled = atoi( result[offset++] );
+	spawnregion_ = result[offset++];
+	good = atoi( result[offset++] );
+	glow = atoi( result[offset++] );
+	glow_color = atoi( result[offset++] );
+	glow_effect = atoi( result[offset++] );
+	desc = result[offset++];
+	carve_ = result[offset++];
+	accuracy_ = atoi( result[offset++] );
+
+	/*id_			= result->value( offset++ ).toInt();
 	name_		= result->value( offset++ ).toString();
 	name2_		= result->value( offset++ ).toString();
 	creator		= result->value( offset++ ).toString();
@@ -2708,7 +2770,7 @@ void cItem::load( QSqlQuery *result, UINT16 &offset )
 	glow_effect = result->value( offset++ ).toInt();
 	desc		= result->value( offset++ ).toString();
 	carve_		= result->value( offset++ ).toString();
-	accuracy_	= result->value( offset++ ).toInt();
+	accuracy_	= result->value( offset++ ).toInt();*/
 
 	itemRegisterAfterLoading( this );
 }

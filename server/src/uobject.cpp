@@ -406,9 +406,19 @@ bool cUObject::inRange( cUObject *object, UINT32 range )
 }
 
 
-void cUObject::load( QSqlQuery *result, UINT16 &offset )
+void cUObject::load( char **result, UINT16 &offset )
 {
-	name	= result->value( offset++ ).toString();
+	name = result[offset++];
+	serial = atoi(result[offset++]);
+	multis = atoi(result[offset++]);
+	pos.x = atoi(result[offset++]);
+	pos.y = atoi(result[offset++]);
+	pos.z = atoi(result[offset++]);
+	pos.map = atoi(result[offset++]);
+	eventList_ = QStringList::split( ",", result[offset++] );
+	bindmenu_ = result[offset++];
+
+	/*name	= result->value( offset++ ).toString();
 	serial	= result->value( offset++ ).toInt();
 	multis	= result->value( offset++ ).toInt();
 	pos.x	= result->value( offset++ ).toInt();
@@ -417,7 +427,7 @@ void cUObject::load( QSqlQuery *result, UINT16 &offset )
 	pos.map = result->value( offset++ ).toInt();
 	QString events = result->value( offset++ ).toString();
 	eventList_	= QStringList::split( ",", events );
-	bindmenu_	= result->value( offset++ ).toString();
+	bindmenu_	= result->value( offset++ ).toString();*/
 }
 
 void cUObject::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
