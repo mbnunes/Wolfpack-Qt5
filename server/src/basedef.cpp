@@ -44,7 +44,7 @@ void cBaseDef::processNode( const cElement* node ) {
 				value = node->text();
 			}
 			value = hex2dec(value); // Convert hexadecimal numbers accordingly
-			
+
 			bool ok;
 			unsigned int intvalue = value.toInt(&ok);
 
@@ -53,14 +53,14 @@ void cBaseDef::processNode( const cElement* node ) {
 			}
 
 			intproperties.insert(name.lower(), intvalue, true);
-		}        
+		}
 	} else if (node->name() == "strproperty") {
 		QString name = node->getAttribute("name");
 		if (!name.isEmpty()) {
 			QString value = node->getAttribute("value");
 			if (value.isNull()) {
 				value = node->text();
-			}			
+			}
 			properties.insert(name.lower(), value, true);
 		}
 	}
@@ -236,13 +236,13 @@ void cCharBaseDefs::loadBodyInfo() {
 
 	QDomNode parent = document.namedItem("bodyinfo");
 	if (parent.isElement()) {
-		for (int i = 0; i < parent.childNodes().count(); ++i) {
+		for (unsigned int i = 0; i < parent.childNodes().count(); ++i) {
 			QDomElement element = parent.childNodes().item(i).toElement();
 
 			if (!element.isNull()) {
 				QString id = hex2dec(element.attribute("id"));
 				bool ok = false;
-				
+
 				stBodyInfo bodyinfo;
 
 				// The body id (mandatory)
@@ -422,7 +422,7 @@ void cItemBaseDef::processNode( const cElement* node )
 		if ( element )
 			applyDefinition( element );
 	}
-	else 
+	else
 	{
 		cBaseDef::processNode(node);
 	}

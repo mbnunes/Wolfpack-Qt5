@@ -223,7 +223,7 @@ void cConsole::changeColor( enConsoleColors Color )
 }
 
 void cConsole::rollbackChars(unsigned int count) {
-	for (int i = 0; i < count; ++i) {
+	for (unsigned int i = 0; i < count; ++i) {
 		fprintf( stdout, "\b" );
 	}
 	fflush(stdout);
@@ -239,7 +239,7 @@ void cConsole::send( const QString& sMessage )
 	if (sMessage.isNull() || sMessage.isEmpty()) {
 		return;
 	}
-	
+
 	// If a progress message is waiting, remove it.
 	if ( !progress.isEmpty() )
 	{

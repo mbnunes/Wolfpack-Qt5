@@ -183,7 +183,7 @@ void cNPC::load( char** result, Q_UINT16& offset )
 }
 
 void cNPC::save()
-{	
+{
 	if ( changed_ )
 	{
 		initSave;
@@ -205,7 +205,7 @@ void cNPC::save()
 		addCondition( "serial", serial() );
 		saveFields;
 	}
-	
+
 	cBaseChar::save();
 }
 
@@ -944,7 +944,7 @@ bool cNPC::hasPath( void )
 
 Coord_cl cNPC::pathDestination( void ) const
 {
-	
+
 	if ( path_.empty() )
 		return Coord_cl( 0xFFFF, 0xFFFF, (SI08) 0xFF, 0 );
 	else
