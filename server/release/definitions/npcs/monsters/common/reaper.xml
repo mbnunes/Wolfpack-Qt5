@@ -4,26 +4,36 @@
 	<!-- a reaper -->
 	<npc id="reaper">
 		<name>a reaper</name>
-		<id>0x02f</id>
+		<id>0x2f</id>
 		<inherit id="monster_base"/>
-		<category>Monsters\Common Monsters\Reaper</category>
-		<karma><random min="-2500" max="-4999"/></karma>
-		<fame><random min="2500" max="4999"/></fame>
-		<defense><random min="40" max="40"/></defense>
-		<lodamage>17</lodamage>
-		<hidamage>20</hidamage>
+		<karma>-3500</karma>
+		<fame>3500</fame>
 		<gold><random min="60" max="90"/></gold>
 		<!-- Stats -->
 		<str><random min="66" max="215"/></str>
 		<dex><random min="66" max="75"/></dex>
-		<int><random min="101" max="250"/></int>
+		<int><random min="901" max="1000"/></int>
 		<!-- Skills -->
-		<wrestling><random min="501" max="600"/></wrestling>
-		<tactics><random min="451" max="600"/></tactics>
-		<magicresistance><random min="1001" max="1250"/></magicresistance>
+		<evaluatingintel><random min="901" max="1000"/></evaluatingintel>
 		<magery><random min="901" max="1000"/></magery>
-		<evaluatingint><random min="901" max="1000"/></evaluatingint>
-		<!-- Priv -->
+		<magicresistance><random min="1001" max="1250"/></magicresistance>
+		<tactics><random min="451" max="600"/></tactics>
+		<wrestling><random min="501" max="600"/></wrestling>
+		<!-- Damage -->
+		<lodamage>9</lodamage>
+		<hidamage>11</hidamage>
+		<tag name="physicaldamage" value="80" />
+		<tag name="poisondamage" value="20" />
+		<!-- Resists -->
+		<defense><random min="35" max="40"/></defense>
+		<tag name="coldresist" value="10,20" />
+		<tag name="energyresist" value="30,40" />
+		<tag name="fireresist" value="15,25" />
+		<tag name="physicalresist" value="35,45" />
+		<tag name="poisonresist" value="45,50" />
+		<!-- Misc. -->
+		<desc>Although it is a beast and not a plant, the Reaper is rooted to the ground, from whence it lashes about itself with long, vine like tentacles. Any man or beast unfortunate enough to be caught in the reaper's grasp is drawn into the thing's maw. Reapers root themselves in shadowy areas for conceal ment purposes, so that they may lash out at their prey unseen.</desc>
+		<category>Monsters\Common\Reaper</category>
 	</npc>
 
 </definitions>

@@ -22,8 +22,10 @@
 		<magicresistance>50</magicresistance>
 		<totame>0</totame>
 		<food>1</food>
-		<!-- Priv -->
-		<category>Monsters\Common Monsters\Sewer Rat</category>
+		<!-- Damage -->
+		<!-- Resists -->
+		<!-- Misc. -->
+		<category>Monsters\Common\Sewer Rat</category>
 	</npc>
 
 </definitions>

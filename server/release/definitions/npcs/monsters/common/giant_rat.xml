@@ -4,26 +4,31 @@
 	<!-- a rat (giant) -->
 	<npc id="rat_giant">
 		<name>a giant rat</name>
-		<id>0x0d7</id>
-		<category>Monsters\Giant Animals\Giant Rat </category>
+		<id>0xd7</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-0" max="-624"/></karma>
-		<fame><random min="0" max="1249"/></fame>
-		<defense><random min="15" max="20"/></defense>
-		<lodamage>5</lodamage>
-		<hidamage>11</hidamage>
+		<karma>-300</karma>
+		<fame>300</fame>
 		<!-- Stats -->
 		<str><random min="32" max="74"/></str>
 		<dex><random min="46" max="65"/></dex>
 		<int><random min="16" max="30"/></int>
 		<!-- Skills -->
-		<wrestling><random min="293" max="440"/></wrestling>
-		<tactics><random min="293" max="440"/></tactics>
 		<magicresistance><random min="251" max="300"/></magicresistance>
+		<tactics><random min="293" max="440"/></tactics>
+		<wrestling><random min="293" max="440"/></wrestling>
+		<!-- Damage -->
+		<lodamage>4</lodamage>
+		<hidamage>8</hidamage>
+		<!-- Resists -->
+		<defense><random min="15" max="20"/></defense>
+		<tag name="fireresist" value="5,10" />
+		<tag name="physicalresist" value="15,20" />
+		<tag name="poisonresist" value="25,35" />
+		<!-- Misc. -->
+		<desc>Giant rats are, as their name implies, simply vermin increased to the size of a panther. They tend to congregate in the foulest, most eldritch regions of the dungeons they inhabit.</desc>
 		<carve>carve_ret_giant</carve>
 		<totame>291</totame>
-		<food>1</food>
-		<!-- Priv -->
+		<category>Monsters\Common\Giant Rat</category>
 	</npc>
 
 </definitions>

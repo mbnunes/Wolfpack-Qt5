@@ -4,26 +4,33 @@
 	<!-- shadow wisp -->
 	<npc id="shadow_wisp">
 		<name>a shadow wisp</name>
-		<id>0xA5</id>
-		<category>Monsters\Common Monsters\Shadow Wisp</category>
+		<id>0xa5</id>
 		<skin>0x66d</skin>
 		<inherit id="monster_base" />
-		<karma><random min="0" max="0" /></karma>
-		<fame><random min="0" max="0" /></fame>
-		<defense><random min="15" max="20" /></defense>
-		<lodamage>5</lodamage>
-		<hidamage>13</hidamage>
+		<karma>-500</karma>
+		<fame>500</fame>
 		<!-- Stats -->
-		<str><random min="16" max="40" /></str>
-		<dex><random min="16" max="45" /></dex>
-		<int><random min="11" max="25" /></int>
+		<str><random min="16" max="40"/></str>
+		<dex><random min="16" max="45"/></dex>
+		<int>400</int>
 		<!-- Skills -->
-		<wrestling><random min="251" max="400" /></wrestling>
-		<tactics><random min="1" max="150" /></tactics>
-		<magicresistance>100</magicresistance>
 		<evaluatingintel>400</evaluatingintel>
 		<magery>500</magery>
 		<meditation>400</meditation>
+		<magicresistance>100</magicresistance>
+		<tactics><random min="01" max="150"/></tactics>
+		<wrestling><random min="251" max="400"/></wrestling>
+		<!-- Damage -->
+		<lodamage>5</lodamage>
+		<hidamage>10</hidamage>
+		<!-- Resists -->
+		<defense><random min="15" max="20" /></defense>
+		<tag name="energyresist" value="15,20" />
+		<tag name="fireresist" value="5,10" />
+		<tag name="physicalresist" value="15,20" />
+		<tag name="poisonresist" value="5,10" />
+		<!-- Misc. -->
+		<category>Monsters\Common\Shadow Wisp</category>
 	</npc>
 
 </definitions>

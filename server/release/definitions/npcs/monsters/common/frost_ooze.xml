@@ -4,23 +4,30 @@
 	<!-- a frost ooze -->
 	<npc id="frost_ooze">
 		<name>a frost ooze</name>
-		<id>0x033</id>
+		<id>0x5e</id>
 		<inherit id="monster_base"/>
-		<category>Monsters\Common Monsters\Frost Ooze</category>
-		<karma><random min="-0" max="-624"/></karma>
-		<fame><random min="0" max="1249"/></fame>
-		<defense><random min="15" max="20"/></defense>
-		<lodamage>3</lodamage>
-		<hidamage>11</hidamage>
+		<karma>-450</karma>
+		<fame>450</fame>
 		<!-- Stats -->
 		<str><random min="18" max="30"/></str>
 		<dex><random min="16" max="21"/></dex>
 		<int><random min="16" max="20"/></int>
 		<!-- Skills -->
-		<wrestling><random min="253" max="400"/></wrestling>
-		<tactics><random min="193" max="340"/></tactics>
 		<magicresistance><random min="51" max="100"/></magicresistance>
-		<!-- Priv -->
+		<tactics><random min="193" max="340"/></tactics>
+		<wrestling><random min="253" max="400"/></wrestling>
+		<!-- Damage -->
+		<lodamage>3</lodamage>
+		<hidamage>9</hidamage>
+		<!-- Resists -->
+		<defense><random min="15" max="20"/></defense>
+		<tag name="coldresist" value="40,50" />
+		<tag name="energyresist" value="10,20" />
+		<tag name="physicalresist" value="15,20" />
+		<tag name="poisonresist" value="20,30" />
+		<!-- Misc. -->
+		<desc>The name of the Frost Ooze is somewhat misleading. The frost ooze has developed in the frozen wastes and is actually a unique form of fungus. Due to the lack of available material needed for the fungus to propagate, the fungus developed the unique ability to move. The frost ooze absorbs moisture from the air. It secretes this moisture in the form of an ooze tendril that freezes itself to the ground. With this attachment, it drags its center forward. Though motivation is slow, the ooze can consume almost anything it touches.</desc>
+		<category>Monsters\Common\Frost Ooze</category>
 	</npc>
 
 </definitions>

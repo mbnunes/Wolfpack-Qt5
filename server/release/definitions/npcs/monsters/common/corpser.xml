@@ -4,24 +4,33 @@
 	<!-- a corpser -->
 	<npc id="corpser">
 		<name>a corpser</name>
-		<id>0x008</id>
+		<id>0x8</id>
 		<inherit id="monster_base"/>
-		<category>Monsters\Common Monsters\Corpser</category>
-		<karma><random min="-625" max="-1249"/></karma>
-		<fame><random min="0" max="1249"/></fame>
-		<defense><random min="15" max="20"/></defense>
-		<lodamage>21</lodamage>
-		<hidamage>43</hidamage>
+		<karma>-1000</karma>
+		<fame>1000</fame>
 		<gold><random min="25" max="50"/></gold>
 		<!-- Stats -->
 		<str><random min="156" max="180"/></str>
 		<dex><random min="26" max="45"/></dex>
 		<int><random min="26" max="40"/></int>
 		<!-- Skills -->
-		<wrestling><random min="451" max="600"/></wrestling>
-		<tactics><random min="451" max="600"/></tactics>
 		<magicresistance><random min="151" max="200"/></magicresistance>
-		<!-- Priv -->
+		<tactics><random min="451" max="600"/></tactics>
+		<wrestling><random min="451" max="600"/></wrestling>
+		<!-- Damage -->
+		<lodamage>10</lodamage>
+		<hidamage>23</hidamage>
+		<tag name="physicaldamage" value="60" />
+		<tag name="poisondamage" value="40" />
+		<!-- Resists -->
+		<defense><random min="15" max="20"/></defense>
+		<tag name="coldresist" value="10,20" />
+		<tag name="fireresist" value="15,25" />
+		<tag name="physicalresist" value="15,20" />
+		<tag name="poisonresist" value="20,30" />
+		<!-- Misc. -->
+		<desc>These fearsome beasts of the jungle, swamp, and forest dwell beneath the earth. It is unlikely that any human has ever beheld the full measure of a corpser, as they move through the concealing earth aseasily as a fish does through water or a bird does through air. When these ravenous predators perceive the footsteps of a large creature moving on the surface above them, they thrust mighty tentacles upward, through the crust, to seize their prey. Unwitting creatures and unfortunate humans who do not wrest themselves free of the tentacles grasp, find themselves rent to bits and dragged below the surface to feed the creatures unsavory appetites. Combatants take heed! The way of the bow, staff, or sword is not always that to take with these vile creatures. Although weapons rarely damage a corpser, its kind might bebrought down by the judicious use of fire.</desc>
+		<category>Monsters\Common\Corpser</category>
 	</npc>
 
 </definitions>

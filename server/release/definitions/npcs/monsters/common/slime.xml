@@ -4,26 +4,30 @@
 	<!-- a slime -->
 	<npc id="slime">
 		<name>a slime</name>
-		<id>0x033</id>
+		<id>0x33</id>
 		<inherit id="monster_base"/>
-		<category>Monsters\Common Monsters\Slime</category>
-		<karma><random min="-0" max="-624"/></karma>
-		<fame><random min="0" max="1249"/></fame>
-		<defense><random min="5" max="10"/></defense>
-		<lodamage>1</lodamage>
-		<hidamage>6</hidamage>
+		<karma>-300</karma>
+		<fame>300</fame>
 		<!-- Stats -->
 		<str><random min="22" max="34"/></str>
 		<dex><random min="16" max="21"/></dex>
 		<int><random min="16" max="20"/></int>
 		<!-- Skills -->
-		<wrestling><random min="193" max="340"/></wrestling>
-		<tactics><random min="193" max="340"/></tactics>
-		<magicresistance><random min="151" max="200"/></magicresistance>
 		<poisoning><random min="301" max="500"/></poisoning>
+		<magicresistance><random min="151" max="200"/></magicresistance>
+		<tactics><random min="193" max="340"/></tactics>
+		<wrestling><random min="193" max="340"/></wrestling>
+		<!-- Damage -->
+		<lodamage>1</lodamage>
+		<hidamage>5</hidamage>
+		<!-- Resists -->
+		<defense><random min="5" max="10"/></defense>
+		<tag name="physicalresist" value=5,10"" />
+		<tag name="poisonresist" value="10,20" />
+		<!-- Misc. -->
+		<desc>Slimes are creatures of pure instinct, lacking even the intelligence of a fish or tiny vermin. They live by dissolving anything that comes into contact with them, living or dead. Gold is one of the few things their acids cannot touch, and they are often found in its presence. Perhaps over the centuries they have come to dimly recognize that gold will lure their prey to them.</desc>
 		<totame>231</totame>
-		<food>1</food>
-		<!-- Priv -->
+		<category>Monsters\Common\Slime</category>
 	</npc>
 
 </definitions>

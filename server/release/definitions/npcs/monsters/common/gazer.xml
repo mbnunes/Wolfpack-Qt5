@@ -5,24 +5,32 @@
 	<npc id="gazer">
 		<name>a gazer</name>
 		<id>0x16</id>
-		<category>Monsters\Common Monsters\Gazer</category>
-		<skin>0</skin>
 		<inherit id="monster_base" />
-		<karma><random min="-2500" max="-4999" /></karma>
-		<fame><random min="2500" max="4999" /></fame>
-		<defense><random min="35" max="40" /></defense>
-		<lodamage>9</lodamage>
-		<hidamage>19</hidamage>
+		<karma>-3500</karma>
+		<fame>3500</fame>
 		<!-- Stats -->
-		<str><random min="96" max="125" /></str>
-		<dex><random min="86" max="105" /></dex>
-		<int><random min="141" max="165" /></int>
+		<str><random min="96" max="125"/></str>
+		<dex><random min="86" max="105"/></dex>
+		<int><random min="501" max="650"/></int>
 		<!-- Skills -->
-		<wrestling><random min="501" max="700" /></wrestling>
-		<tactics><random min="501" max="700" /></tactics>
-		<magicresistance><random min="601" max="750" /></magicresistance>
-		<magery><random min="501" max="650" /></magery>
-		<evaluatingintel><random min="501" max="650" /></evaluatingintel>
+		<evaluatingintel><random min="501" max="650"/></evaluatingintel>
+		<magery><random min="501" max="650"/></magery>
+		<magicresistance><random min="601" max="750"/></magicresistance>
+		<tactics><random min="501" max="700"/></tactics>
+		<wrestling><random min="501" max="700"/></wrestling>
+		<!-- Damage -->
+		<lodamage>5</lodamage>
+		<hidamage>10</hidamage>
+		<!-- Resists -->
+		<defense><random min="35" max="40" /></defense>
+		<tag name="coldresist" value="20,30" />
+		<tag name="energyresist" value="20,30" />
+		<tag name="fireresist" value="40,50" />
+		<tag name="physicalresist" value="35,40" />
+		<tag name="poisonresist" value="10,20" />
+		<!-- Misc. -->
+		<desc>These unnatural beasts have the appearance of a floating, decapitated head sprouting myriad writhing tentacles, each with a staring eye at the end. Certain adventurers claim to have eaten the meat of the gazer with no ill effects, although the very thought to most is repugnant.</desc>
+		<category>Monsters\Common\Gazer</category>
 	</npc>
 
 </definitions>
