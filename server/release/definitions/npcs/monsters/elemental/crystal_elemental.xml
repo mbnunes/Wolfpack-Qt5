@@ -43,6 +43,9 @@
 		<!-- Misc. -->
 		<category>Monsters\Elementals\Crystal Elemental</category>
 		<inherit id="speed_slow" />
+		
+		<!-- Lvl 5 poison immunity -->
+		<intproperty name="poison_immunity" value="5" />
 	</npc>
 
 </definitions>
