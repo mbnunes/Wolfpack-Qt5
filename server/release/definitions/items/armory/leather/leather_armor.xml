@@ -18,10 +18,10 @@
 		<category>Armor\Leather\Female Leather Armor (N/S)</category>
 	</item>
 
-	<items id="1c07">
+	<item id="1c07">
 		<inherit id="1c06" />
 		<id>0x1c07</id>
 		<category>Armor\Leather\Female Leather Armor (E/W)</category>
-	</items>
+	</item>
 
  </definitions>

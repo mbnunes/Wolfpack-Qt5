@@ -7,7 +7,7 @@
 
 	<!-- Beasts -->
 	<include file="definitions/npcs/monsters/beasts/bog_thing.xml" />
-	<include file="definitions/npcs/monsters/beasts/bongling.xml" />
+	<include file="definitions/npcs/monsters/beasts/bogling.xml" />
 	<include file="definitions/npcs/monsters/beasts/plague_beast.xml" />
 	<include file="definitions/npcs/monsters/beasts/plague_beast_lord.xml" />
 
@@ -118,11 +118,11 @@
 	<include file="definitions/npcs/monsters/lizardmen/lizardmen.xml" />
 
 	<!-- Ophidian -->
-	<include file="definitions/npcs/monsters/ophidian/ophdian_apprentice_mage.xml" />
+	<include file="definitions/npcs/monsters/ophidian/ophidian_apprentice_mage.xml" />
 	<include file="definitions/npcs/monsters/ophidian/ophidian_avenger.xml" />
 	<include file="definitions/npcs/monsters/ophidian/ophidian_enforcer.xml" />
 	<include file="definitions/npcs/monsters/ophidian/ophidian_justicar.xml" />
-	<include file="definitions/npcs/monsters/ophidian/ophdian_knight_errant.xml" />
+	<include file="definitions/npcs/monsters/ophidian/ophidian_knight_errant.xml" />
 	<include file="definitions/npcs/monsters/ophidian/ophidian_matriarch.xml" />
 	<include file="definitions/npcs/monsters/ophidian/ophidian_shaman.xml" />
 	<include file="definitions/npcs/monsters/ophidian/ophidian_warrior.xml" />
@@ -155,7 +155,7 @@
 	<include file="definitions/npcs/monsters/reptiles/silver_serpent.xml" />
 
 	<!-- Sea Creatures -->
-	<include file="definitions/npcs/monsters/sea/deap_sea_serpent.xml" />
+	<include file="definitions/npcs/monsters/sea/deep_sea_serpent.xml" />
 	<include file="definitions/npcs/monsters/sea/kraken.xml" />
 	<include file="definitions/npcs/monsters/sea/sea_serpent.xml" />
 
@@ -187,7 +187,7 @@
 	<!-- Undead -->
 	<include file="definitions/npcs/monsters/undead/bone_knight.xml"/>
 	<include file="definitions/npcs/monsters/undead/bone_magi.xml"/>
-	<include file="definitions/npcs/monsters/undead/etheral_warrior.xml"/>
+	<include file="definitions/npcs/monsters/undead/ethereal_warrior.xml"/>
 	<include file="definitions/npcs/monsters/undead/headless_one.xml"/>
 	<include file="definitions/npcs/monsters/undead/lich.xml"/>
 	<include file="definitions/npcs/monsters/undead/lich_lord.xml"/>
