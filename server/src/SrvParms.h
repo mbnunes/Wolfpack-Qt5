@@ -34,8 +34,6 @@
 
 void loadserverdefaults(void);
 void loadserverscript(void);
-void loadclientsallowed(void);
-
 
 void saveserverscript(void);
 #define SrvParms (&server_data)	// in preparation of making sever_data a class.Use SrvParms->xxx instead of server_dat.xxx (Duke)
@@ -52,11 +50,6 @@ struct server_st
 {
 	unsigned int eclipsemode;
 	unsigned int eclipsetimer;
-	char specialbanktrigger[50]; //special bank trigger - AntiChrist
-	char msgboardpath[256];   // Dupois - Added April 4, 1999 for msgboard.cpp - path to store BB* files (ie C:\POSTS\)
-	int  msgpostaccess;       // Dupois - Added April 4, 1999 for msgboard.cpp - who gets to post messages (0=GM only, 1 = everyone)
-	int  msgpostremove;       // Dupois - Added April 4, 1999 for msgboard.cpp - who gets to remove post messages (0=GM only, 1 = everyone)
-	int  msgretention;        // Dupois - Added April 4, 1999 for msgboard.cpp - how long to keep posts before deleting them automatically (in days - default 30)
 };
 
 

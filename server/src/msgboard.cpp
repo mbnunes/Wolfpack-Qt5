@@ -245,8 +245,8 @@ void MsgBoardOpen(int s)
 	while ( currentFile <= 3 )
 	{
 		// If a MSBBOARDPATH has been define in the SERVER.SCP file, then use it
-		if (SrvParms->msgboardpath)
-			strcpy( fileName, SrvParms->msgboardpath );
+		if (!SrvParams->msgboardPath().isEmpty())
+			strcpy( fileName, SrvParams->msgboardPath().latin1() );
 		
 		// Open the next file to process
 		switch ( currentFile )
@@ -428,8 +428,8 @@ void MsgBoardList( int s )
 	while ( currentFile <= 3 )
 	{
 		// If a MSBBOARDPATH has been define in the SERVER.SCP file, then use it
-		if (SrvParms->msgboardpath)
-			strcpy( fileName, SrvParms->msgboardpath );
+		if (!SrvParams->msgboardPath().isEmpty())
+			strcpy( fileName, SrvParams->msgboardPath().latin1() );
 		
 		// Open the next file to process
 		switch ( currentFile )
@@ -623,8 +623,8 @@ int MsgBoardGetMaxMsgSN( int msgType, int autoPost=0 )
 	struct tm   timeOfPost;
 	time_t      now;
 	// If a MSBBOARDPATH has been define in the SERVER.SCP file, then use it
-	if (SrvParms->msgboardpath)
-		strcpy( fileName, SrvParms->msgboardpath );
+	if (!SrvParams->msgboardPath().isEmpty())
+		strcpy( fileName, SrvParams->msgboardPath().latin1() );
 	
 	switch ( msgType )
 	{
@@ -991,8 +991,8 @@ int MsgBoardPost( int s, int msgType, int autoPost )
 	}
 	
 	// If a MSBBOARDPATH has been define in the SERVER.SCP file, then use it
-	if (SrvParms->msgboardpath)
-		strcpy( fileName, SrvParms->msgboardpath );
+	if (!SrvParams->msgboardPath().isEmpty())
+		strcpy( fileName, SrvParams->msgboardPath().latin1() );
 	
 	
 	switch ( msgType )
@@ -1243,8 +1243,8 @@ void MsgBoardOpenPost( int s )
 	// LOCAL    Posts start at 03 00 00 00 -> 03 FF FF FF
 	
 	// If a MSBBOARDPATH has been define in the SERVER.SCP file, then use it
-	if (SrvParms->msgboardpath)
-		strcpy( fileName, SrvParms->msgboardpath );
+	if (!SrvParams->msgboardPath().isEmpty())
+		strcpy( fileName, SrvParams->msgboardPath().latin1() );
 	
 	
 	msgSN = calcserial(buffer[s][8], buffer[s][9], buffer[s][10], buffer[s][11]);
@@ -1503,8 +1503,8 @@ void MsgBoardRemovePost( int s )
 	}
 	
 	// If a MSBBOARDPATH has been define in the SERVER.SCP file, then use it
-	if (SrvParms->msgboardpath)
-		strcpy( fileName, SrvParms->msgboardpath );
+	if (!SrvParams->msgboardPath().isEmpty())
+		strcpy( fileName, SrvParams->msgboardPath().latin1() );
 	
 	// Create the full path to the file we need to open
 	strcat( fileName, (char*)temp );
@@ -1614,8 +1614,8 @@ bool MsgBoardRemoveGlobalPostBySerial( int nPostSerial )
 	strcpy( (char*)temp, "global.bbi" );
 	
 	// If a MSBBOARDPATH has been define in the SERVER.SCP file, then use it
-	if (SrvParms->msgboardpath)
-		strcpy( fileName, SrvParms->msgboardpath );
+	if (!SrvParams->msgboardPath().isEmpty())
+		strcpy( fileName, SrvParams->msgboardPath().latin1() );
 	
 	// Create the full path to the file we need to open
 	strcat( fileName, (char*)temp );
@@ -1739,7 +1739,7 @@ void MsgBoardEvent(int s)
 		{        //                 Reply just switches to the Post item.
 			
 			// Check privledge level against server.scp msgpostaccess
-			if ( (currchar[s]->isGM()) || (SrvParms->msgpostaccess) )
+			if ( (currchar[s]->isGM()) || (SrvParams->msgboardPostAccess()) )
 				MsgBoardPost( s, currchar[s]->postType, 0 );
 			else
 				sysmessage( s, "Thou art not allowed to post messages." );
@@ -1751,7 +1751,7 @@ void MsgBoardEvent(int s)
 		{
 			//             |p#|s1|s2|mt|b1|b2|b3|b4|m1|m2|m3|m4| 
 			// Client sends 71  0  c  6 40  0  0 18  1  0  0  4
-			if ( (currchar[s]->isGM()) || (SrvParms->msgpostremove) )
+			if ( (currchar[s]->isGM()) || (SrvParams->msgboardPostRemove()) )
 				MsgBoardRemovePost( s );
 			break;
 		}
@@ -2320,8 +2320,8 @@ void MsgBoardQuestEscortRemovePost( P_CHAR pc_npc )
 	sprintf( (char*)temp, "region%d.bbi", pc_npc->questOrigRegion );
 	
 	// If a MSBBOARDPATH has been define in the SERVER.SCP file, then use it
-	if (SrvParms->msgboardpath)
-		strcpy( fileName, SrvParms->msgboardpath );
+	if (!SrvParams->msgboardPath().isEmpty())
+		strcpy( fileName, SrvParams->msgboardPath().latin1() );
 	
 	// Set fileName to REGIONAL.bbi
 	//sysmessage( s, "Opening REGIONAL.bbi messages");
@@ -2447,8 +2447,8 @@ void MsgBoardMaintenance( void )
 	
 	// Load the MSGBOARDPATH into an array
 	// If a MSBBOARDPATH has been define in the SERVER.SCP file, then use it
-	if (SrvParms->msgboardpath)
-		strcpy( filePath, SrvParms->msgboardpath );
+	if (!SrvParams->msgboardPath().isEmpty())
+		strcpy( fileName, SrvParams->msgboardPath().latin1() );
 	
 	// Set the Tmp file names
 	strcpy( fileBBITmp, filePath  );
@@ -2764,7 +2764,7 @@ void MsgBoardMaintenance( void )
 					
 					// If the segment 6 is 0x00 OR the postAge is greater than the MSGRETENTION period
 					// then the message is marked for deletion so don't add it to the post2Keep array
-					if ( (msg[6]!=0x00 || msg[6]==BOUNTYQUEST) && (postAge<=SrvParms->msgretention) ) 
+					if ( (msg[6]!=0x00 || msg[6]==BOUNTYQUEST) && (postAge<=SrvParams->msgboardRetention()) ) 
 					{
 						// We found a message to be saved and compressed so lets find the matching
 						// message in the BBP file and compress it

@@ -13,6 +13,7 @@
 // Library Headers
 #include "qstring.h"
 #include "preferences.h"
+#include "qstringlist.h"
 
 // Forward Declarations
 class Preferences;
@@ -25,12 +26,16 @@ struct StartLocation_st
 	Coord_cl pos;
 };
 
+// Constants
+const unsigned int FIRST_YEAR = 1753;
+
 class cSrvParams : public Preferences
 {
 protected:
 	std::vector<ServerList_st> serverList_;
 	std::vector<StartLocation_st> startLocation_;
-
+	QStringList clientsAllowed_;
+	
 	// loaded data
 	unsigned int skillcap_;
 	unsigned int statcap_;
@@ -105,6 +110,7 @@ protected:
 	unsigned int secondsPerUOMinute_;
 	bool cacheMulFiles_;
 	bool useSpecialBank_;
+	QString specialBankTrigger_;
 
 	// Remote Admin
 	unsigned int ra_port_;
@@ -166,6 +172,12 @@ protected:
 	// Fishing
 	unsigned int basetime_;
 	unsigned int randomtime_;
+
+	// Message Board
+	QString msgboardPath_;
+	int  msgboardPostAccess_;
+	int  msgboardPostRemove_;
+	int  msgboardRetention_;
 
 public:
     cSrvParams( const QString& filename, const QString& format, const QString& version );
@@ -249,6 +261,9 @@ public:
 	unsigned int secondsPerUOMinute() const;
 	void setSecondsPerUOMinute( unsigned int );
 	bool useSpecialBank() const;
+	QString specialBankTrigger() const;
+	bool isClientAllowed( const QString& );
+	const QStringList& clientsAllowed() const;
 
 	// Remote Admin
 	unsigned int ra_port() const;
@@ -310,6 +325,13 @@ public:
 	// Fishing
 	unsigned int basetime() const;
 	unsigned int randomtime() const;
+
+	// MessageBoard
+	QString msgboardPath() const;
+	int  msgboardPostAccess() const;
+	int  msgboardPostRemove() const;
+	int  msgboardRetention() const;
+
 
 private:
 	void setDefaultStartLocation();
@@ -919,6 +941,37 @@ inline bool cSrvParams::useSpecialBank() const
 {
 	return useSpecialBank_;
 }
+
+inline QString cSrvParams::specialBankTrigger() const
+{
+	return specialBankTrigger_;
+}
+
+inline QString cSrvParams::msgboardPath() const
+{
+	return msgboardPath_;
+}
+
+inline int cSrvParams::msgboardPostAccess() const
+{
+	return msgboardPostAccess_;
+}
+
+inline int cSrvParams::msgboardPostRemove() const
+{
+	return msgboardPostRemove_;
+}
+
+inline int cSrvParams::msgboardRetention() const
+{
+	return msgboardRetention_;
+}
+
+inline const QStringList& cSrvParams::clientsAllowed() const
+{
+	return clientsAllowed_;
+}
+
 
 #endif //__SRVPARAMS_H___
 

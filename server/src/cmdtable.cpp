@@ -54,6 +54,9 @@
 #include "regions.h"
 #include "srvparams.h"
 
+// Library Includes
+#include "qdatetime.h"
+
 #undef  DBGFILE
 #define DBGFILE "cmdtable.cpp"
 
@@ -1329,13 +1332,8 @@ void command_send(UOXSOCKET s)
 void command_showtime(UOXSOCKET s)
 // Displays the current UO time.
 {
-	if (ampm || (!ampm && hour==12))
-		sprintf((char*)temp, "%s %2.2d %s %2.2d %s", tr("WOLFPACK: Time: ").latin1(), hour, ":", minute, "PM");
-	else
-		sprintf((char*)temp, "%s %2.2d %s %2.2d %s", tr("WOLFPACK: Time: ").latin1(), hour, ":",minute, "AM");
-	sysmessage(s,(char*)temp);
+	sysmessage(s, (char*) tr("WOLFPACK Time: %1").arg(uoTime.toString()).latin1());
 	return;
-	
 }
 
 void command_settime(UOXSOCKET s)
@@ -1348,21 +1346,10 @@ void command_settime(UOXSOCKET s)
 		newminutes = makenumber(2);
 		if ((newhours < 25) && (newhours > 0) && (newminutes > -1) && (newminutes <60))
 		{
-			if (newhours > 12)
-			{
-				ampm=1;
-				hour=newhours-12;
-			}
-			else
-			{
-				ampm=0;
-				hour=newhours;
-			}
-			minute=newminutes;
+			uoTime.time().setHMS(newhours, newminutes, 0);
 		}
 	}
 	return;
-	
 }
 
 void command_shutdown(UOXSOCKET s)

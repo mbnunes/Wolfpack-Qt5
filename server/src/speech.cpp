@@ -40,6 +40,9 @@
 #include "regions.h"
 #include "srvparams.h"
 
+// Library Includes
+#include "qdatetime.h"
+
 #undef  DBGFILE
 #define DBGFILE "speech.cpp"
 bool InputSpeech(string& comm, cChar* pPlayer, UOXSOCKET s)
@@ -435,9 +438,7 @@ bool QuestionSpeech(cChar* pc, string& comm, cChar* pPlayer, UOXSOCKET s)
     //if (strstr( comm, "TIME")) //Ripper...say time and the npc gives the time.
 	if (comm.find("TIME") != string::npos)
 	{
-		sprintf(temp, "it is now %2.2d : %2.2d in the %s.", hour, minute,
-				(ampm || (!ampm && hour==12)) ? "evening" :"morning");
-		npctalkall(pc,temp,0);
+		npctalkall(pc, (char*)tr("it is now %1").arg(uoTime.toString()).latin1(),0);
 		return 1;
 	}
 	

@@ -40,6 +40,9 @@
 #include "regions.h"
 #include "srvparams.h"
 
+// Library Includes
+#include "qdatetime.h"
+
 #undef  DBGFILE
 #define DBGFILE "Timing.cpp"
 
@@ -933,22 +936,11 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	//Time functions
 	if (uotickcount<=currenttime||(overflow))
 	{
-		if (minute < 59) {minute++;hbu++;}
-		else
-		{
-			minute=0;
-			if (hour < 12) hour++;
-			else
-			{
-				hour = 1;
-				ampm = !ampm;
-				if (!ampm) day++;
-			}
-		}
+		uoTime.addSecs(1);
 		uotickcount = currenttime + SrvParams->secondsPerUOMinute()*MY_CLOCKS_PER_SEC;
-		if (minute%8==0)
+		if (uoTime.time().minute()%8==0)
 			moon1=(moon1+1)%8;
-		if (minute%3==0)
+		if (uoTime.time().minute()%3==0)
 			moon2=(moon2+1)%8;
 	}
 

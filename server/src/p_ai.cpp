@@ -569,7 +569,7 @@ bool cCharStuff::cBankerAI::DoAI(int c, P_CHAR pBanker, string& comm)
 
 	if (SrvParams->useSpecialBank())
 	{
-		search1 = SrvParms->specialbanktrigger ;
+		search1 = SrvParams->specialBankTrigger().latin1();
 		if ((comm.find(search1)!= string::npos) &&(!(pc_currchar->dead)))
 		{
 			openspecialbank(c, currchar[c]);

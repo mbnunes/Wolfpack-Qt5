@@ -36,6 +36,10 @@
 
 #include <string>
 
+
+// Library Include
+#include "qstring.h"
+
 using namespace std;
 
 ///// do not chang those
@@ -125,7 +129,7 @@ struct wp_version_info
 	   string verstring; 
 	   string productstring;
 	   string betareleasestring;
-	   string clientsupportedstring;
+	   QString clientsupportedstring;
 	   string timezonestring;
 	   string compiledbystring;
 	   string codersstring;

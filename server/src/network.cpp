@@ -34,11 +34,15 @@
 
 #include <string>
 using namespace std ;
+
 //Wolfpack Includes
 #include "network.h"
 #include "walking2.h"
 #include "books.h"
 #include "srvparams.h"
+
+// Library Includes
+#include "qstringlist.h"
 
 #define PACKET_LEN_DYNAMIC	0x0000
 #define PACKET_LEN_NONE		0xffff
@@ -633,48 +637,39 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 
 	if (SrvParams->showCVCS() || pc_currchar->isGM())
 	{
-		const char * t;
-		std::vector < std::string>::const_iterator vis;
-		
-		vis = clientsAllowed.begin();
-		t = (*vis).c_str();
-		strcpy(temp, t);
-
-		idname[0]=0;
-		
-		if (!(strcmp(temp, "ALL")))
+		QString message;
+		if (SrvParams->clientsAllowed().contains("ALL"))
 		{
-			sysmessage(s, 0x37, "There is NO client version checking active on this shard. The recommanded-dev-team-supported client version for this server version is client version %s though", wp_version.clientsupportedstring.c_str() );
+			sysmessage(s, 0x37, "There is NO client version checking active on this shard. The recommanded-dev-team-supported client version for this server version is client version %s though", wp_version.clientsupportedstring.latin1() );
 			return;
 		}
-		else if (!(strcmp(temp, "SERVER_DEFAULT")))
+		else if (SrvParams->clientsAllowed().contains("SERVER_DEFAULT"))
 		{
-			sysmessage(s, 0x37, "This shard requires the recommanded-dev-team-supported client version for this server version client version %s", wp_version.clientsupportedstring.c_str() );
+			sysmessage(s, 0x37, "This shard requires the recommanded-dev-team-supported client version for this server version client version %s", wp_version.clientsupportedstring.latin1() );
 			return;
 		}
 		else
 		{	
-			sprintf(idname, "This shard requires client version[s] %s", temp);
+			message = "This shard requires client version[s]: ";
 		}
 		
 		// remark: although it doesn't look good [without], don't add /n's
 		// the (2-d) client doesn't like them
 		
 		temp2[0] = 0;
-		++vis;
-		for (; vis != clientsAllowed.end(); ++vis)
+		QStringList::const_iterator it = SrvParams->clientsAllowed().begin();
+		for (; it != SrvParams->clientsAllowed().end(); ++it)
 		{
-			t = (*vis).c_str();
-			strcpy(temp, t);	
-			strcat(temp2, " or ");
-			strcat(temp2, temp);
+			if ( *it != "SERVER_DEFAULT" )
+				message += *it;
+			else
+				message += wp_version.clientsupportedstring;
 		}
 		
-		strcat(idname, temp2);
-		strcat(idname, " The Wolfpack team recommanded client is ");
-		strcat(idname, wp_version.clientsupportedstring.c_str() );
+		message += " The Wolfpack team recommanded client is ";
+		message += wp_version.clientsupportedstring;
 		
-		sysmessage(s, 0x37, idname);
+		sysmessage(s, 0x37, (char*)message.latin1());
 	}
 }
 
@@ -1682,28 +1677,13 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					sprintf(temp,"You are using a %iD client, version %s", clientDimension[s], temp3);
 					sysmessage(s,temp);
 
-					viter = find(clientsAllowed.begin(), clientsAllowed.end(), "ALL");
-					if ( viter != clientsAllowed.end() ) break; // ALL mode found/activated -> quit						
-				
-					viter = find(clientsAllowed.begin(), clientsAllowed.end(), "SERVER_DEFAULT");
-					if ( viter != clientsAllowed.end() )  // server_default mode ?
-					{
-						if ( strcmp( temp3, wp_version.clientsupportedstring.c_str() ) ) // check if client version matches
-						{
-                       		Disconnect(s);
-							break;
-						}
-						break;
-					}
+			   		if (SrvParams->isClientAllowed(temp3) ) 
+						break; 
 					else
 					{
-				   		cpps.assign(temp3);				
-				   		viter = find(clientsAllowed.begin(), clientsAllowed.end(), cpps);
-				   		if (viter != clientsAllowed.end() ) break; else
-						{
-							clConsole.send("Client %i disconnected by Client Version Control System\n", s);
-							Disconnect(s);
-						}
+						clConsole.send("Client %i disconnected by Client Version Control System\n", s);
+						sysmessage(s, "This client version is not allowed on this server.");
+						Disconnect(s);
 					}
            			break;
 

@@ -41,6 +41,9 @@ termios termstate ;
 unsigned int uiCurrentTime;
 wp_version_info wp_version;
 
+// Library Includes
+#include "qdatetime.h"
+
 //	Instantiate our console object
 
 WPConsole_cl clConsole;
@@ -131,7 +134,7 @@ unsigned int polyduration=90;
 
 int gatecount=0;
 //Time variables
-int day=0, hour = 12, minute = 1, ampm = 0; //Initial time is noon.
+QDateTime uoTime;
 int secondsperuominute=5; //Number of seconds for a WOLFPACK minute.
 int uotickcount=1;
 int moon1update=0;

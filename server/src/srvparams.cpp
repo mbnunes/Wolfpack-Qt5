@@ -1,11 +1,13 @@
 
 #include "srvparams.h"
+#include "globals.h"
 
 // Library Includes
 #include "preferences.h"
 #include "qstring.h"
 #include "qstringlist.h"
 #include "qhostaddress.h"
+#include "qdatetime.h"
 
 const char preferencesFileVersion[] = "1.0";
 
@@ -98,6 +100,10 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	errors_to_console_      = getNumber("General",  "Errors To Console", 0, true);
 	showCVCS_               = getNumber("General",  "Show CVCS", 1, true);
 	cacheMulFiles_			= getBool  ("General",  "Cache Mul Files", true, true);
+	specialBankTrigger_     = getString("General",  "Special Bank Trigger", "WARE", true).upper();
+	useSpecialBank_			= getBool  ("General",  "Special Bank", false, true);
+	clientsAllowed_			= QStringList::split(",", getString("General", "Allowed Clients", "SERVER_DEFAULT", true));
+	uoTime.fromString( QString::number(FIRST_YEAR) + "-" + getString("General", "Initial Date/Time", "01-18T24:00:00", true), Qt::ISODate);
 
 	// Combat
 	combatHitMessage_		= getBool("Combat", "Hit Message", true, true );
@@ -150,6 +156,13 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	// Fishing
 	basetime_			    = getNumber("Fishing", "Base Fishing Time", 10, true);
 	randomtime_			    = getNumber("Fishing", "Random Fishing Time", 5, true);
+
+	// Message Board
+	msgboardPath_			= getString("MessageBoard", "Path", "./", true);
+	msgboardPostAccess_     = getNumber("MessageBoard", "Post Access", 1, true);
+	msgboardPostRemove_     = getNumber("MessageBoard", "Post Remove", 0, true);
+	msgboardRetention_      = getNumber("MessageBoard", "Retention", 30, true);
+
 
 	flush(); // if any key created, save it.
 }
@@ -246,4 +259,15 @@ void cSrvParams::setSecondsPerUOMinute( unsigned int data )
 {
 	secondsPerUOMinute_ = data;
 	flush();
+}
+
+bool cSrvParams::isClientAllowed( const QString& data )
+{
+	if ( clientsAllowed_.contains(data))
+		return true;
+	else if ( clientsAllowed_.contains("ALL"))
+		return true;
+	else if ( data == wp_version.clientsupportedstring && clientsAllowed_.contains("SERVER_DEFAULT"))
+		return true;
+	return false;
 }

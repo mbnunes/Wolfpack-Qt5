@@ -66,6 +66,7 @@
 #include "qapplication.h"
 #include "qtranslator.h"
 #include "qstring.h"
+#include "qdatetime.h"
 
 #undef DBGFILE
 #define DBGFILE "wolfpack.cpp"
@@ -260,8 +261,7 @@ void signal_handler(int signal)
 		Accounts->LoadAccounts();
 		break ;
 	case SIGUSR2:
-		cwmWorldState->savenewworld(1);
-		//saveserverscript(1);
+		cwmWorldState->savenewworld();
 		saveserverscript();
 		break ;
 	case SIGTERM:
@@ -2735,7 +2735,7 @@ int main(int argc, char *argv[])
 {
 	QApplication app( argc, argv ); // we need one instance
 
-    bDeamon = false ;
+	bDeamon = false ;
 	keeprun = 1; // First of all, we want to run :)
 	if (argc > 1)
 		for (int index=1; index < argc ; index++)
@@ -3094,33 +3094,21 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 		clConsole.send("ILSHENAR MAP SERVER \n");
 
     // print allowed clients
-    const char * t;
-    std::vector<std::string>::const_iterator vis;
-
     clConsole.send("\nAllowed clients\n");
-    for (vis=clientsAllowed.begin(); vis != clientsAllowed.end();  ++vis)
-    {
-      t = (*vis).c_str();  // a bit pervert to store c++ strings and operate with c strings, admitably
-	
-	  strcpy(temp2,t);	
-	  strcpy(temp,t);strcat(temp,"\n");
 
-	  if (!strcmp(temp2,"SERVER_DEFAULT") )
-	  {
-		  sprintf(temp3,"%s : %s\n",temp2, wp_version.clientsupportedstring.c_str() );
-		  clConsole.send(temp3);
-		  break;		
-	  }	
-	  else if (!strcmp(temp2,"ALL") )
-	  {
-		  clConsole.send("ALL\n");
-		  break;
-	  }
-
-	  clConsole.send(temp);	
-    }
-
-
+	if ( SrvParams->clientsAllowed().contains("ALL") )
+		clConsole.send("ALL");
+	else
+	{
+		QStringList::const_iterator it = SrvParams->clientsAllowed().begin();
+		for (; it != SrvParams->clientsAllowed().end(); ++it)
+		{
+			if ( *it != "SERVER_DEFAULT" )
+				clConsole.send((*it).latin1());
+			else
+				clConsole.send(wp_version.clientsupportedstring.latin1());
+		}
+	}
 
     clConsole.send("\n");
 
@@ -3323,14 +3311,14 @@ void doworldlight(void)
 {
 	char c='\xFF';
 	int i=-1;
-	if ((hour<=3 && (!ampm)) || (hour>=10 && ampm)) i=worlddarklevel;
-	if ((hour>=10&& (!ampm)) || (hour<=3 && ampm)) i=worldbrightlevel;
-	if (i==-1)
+	if ( uoTime.time().hour() <= 3 && uoTime.time().hour() >= 10 ) i=worlddarklevel;
+	else i = worldbrightlevel;
+	if (i == -1)
 	{
-		i=(((60*(hour-4))+minute) * (worlddarklevel-worldbrightlevel)) / 360;
-		if (ampm)
+		i=(((60*(uoTime.time().hour() - 4)) + uoTime.time().minute()) * (worlddarklevel-worldbrightlevel)) / 360;
+		if (uoTime.time().hour() < 12)
 		{
-			i=i+worldbrightlevel;
+			i += worldbrightlevel;
 		} else {
 			i=worlddarklevel-i;
 		}
@@ -3348,11 +3336,11 @@ void telltime( UOXSOCKET s )
 	char tstring[60];
 	char tstring2[60];
 	int lhour;
-	lhour=hour;
+	lhour=uoTime.time().hour();
 	
-	if ((minute>=0)&&(minute<=14)) strcpy(tstring,"It is");
-	else if ((minute>=15)&&(minute<=30)) strcpy(tstring,"It is a quarter past");
-	else if ((minute>=30)&&(minute<=45)) strcpy(tstring,"It is half past");
+	if ((uoTime.time().minute() >= 0)&&(uoTime.time().minute()<=14)) strcpy(tstring,"It is");
+	else if ((uoTime.time().minute()>=15)&&(uoTime.time().minute()<=30)) strcpy(tstring,"It is a quarter past");
+	else if ((uoTime.time().minute()>=30)&&(uoTime.time().minute()<=45)) strcpy(tstring,"It is half past");
 	else
 	{
 		strcpy(tstring,"It is a quarter till");
@@ -3373,7 +3361,7 @@ void telltime( UOXSOCKET s )
 	case 10: sprintf( tstring2, "%s ten o'clock", tstring );	break;
 	case 11: sprintf( tstring2, "%s eleven o'clock", tstring );	break;
 	case 12:
-		if( ampm )
+		if( uoTime.time().hour() < 12 )
 			sprintf( tstring2, "%s midnight.", tstring );
 		else
 			sprintf( tstring2, "%s noon.", tstring );
@@ -3381,7 +3369,7 @@ void telltime( UOXSOCKET s )
 	}
 	
 	if (lhour==12) strcpy(tstring, tstring2);
-	else if (ampm)
+	else if ( uoTime.time().hour() < 12 )
 	{
 		if ((lhour>=1)&&(lhour<6)) sprintf(tstring,"%s in the afternoon.",tstring2);
 		else if ((lhour>=6)&&(lhour<9)) sprintf(tstring,"%s in the evening.",tstring2);
@@ -3393,7 +3381,7 @@ void telltime( UOXSOCKET s )
 		else sprintf(tstring,"%s in the morning.",tstring2);
 	}
 	
-	sysmessage(s,tstring);
+	sysmessage(s, tstring);
 }
 
 void impaction(int s, int act)

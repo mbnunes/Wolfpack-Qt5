@@ -54,7 +54,7 @@ using namespace std;
 //Forward Class Declaration
 
 class Script;
-
+class QDateTime;
 
 //Wolfpack Includes
 
@@ -83,7 +83,7 @@ extern unsigned char fly_steps_max;
 
 extern int gatecount;
 //Time variables
-extern int day, hour, minute, ampm; //Initial time is noon.
+extern QDateTime uoTime;
 extern int uotickcount;
 extern int moon1update;
 extern int moon2update;
@@ -388,10 +388,7 @@ extern termios termstate ;
 #endif
 
 
-extern std::vector<std::string> clientsAllowed;
-
 //
-
 
 #endif
 
