@@ -26,8 +26,8 @@
 		<group name="command">
 			<action name="any" permit="true" />
 			<action name="ACCOUNT" permit="false" />
-			<action name="ALLMOVE" permit="false" />
-			<action name="ALLSHOW" permit="false" />
+			<!-- <action name="ALLMOVE" permit="false" /> -->
+			<!-- <action name="ALLSHOW" permit="false" /> -->
 			<action name="DECORATION" permit="false" />
 			<action name="DOORGEN" permit="false" />
 			<action name="EXPORT" permit="false" />
