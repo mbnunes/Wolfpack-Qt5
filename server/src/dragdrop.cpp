@@ -460,11 +460,8 @@ void DragAndDrop::dropItem( cUOSocket *socket, cUORxDropItem *packet )
 	P_ITEM iCont = FindItemBySerial( packet->cont() );
 	P_CHAR cCont = FindCharBySerial( packet->cont() );
 
-	// >> SEE LORD BINARIES DROPFIX <<
-
 	// A completely invalid Drop packet
-	if( !iCont && !cCont && ( dropPos.x == 0xFFFF ) && ( dropPos.y == 0xFFFF ) && ( (unsigned char)dropPos.z == 0xFF ) )
-	{
+	if( !iCont && !cCont && ( dropPos.x == 0xFFFF ) && ( dropPos.y == 0xFFFF )) {
 		socket->bounceItem( pItem, BR_NO_REASON );
 		return;
 	}
