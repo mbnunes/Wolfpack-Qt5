@@ -278,6 +278,7 @@ void cUOSocket::playChar( P_CHAR pChar )
 	// Confirm the Login
 	cUOTxConfirmLogin confirmLogin;
 	confirmLogin.fromChar( pChar );
+	confirmLogin.setBody( 0x3DB );
 		
 	confirmLogin.setUnknown3( 0x007f0000 );
 	confirmLogin.setUnknown4( 0x00000007 );
@@ -689,7 +690,22 @@ void cUOSocket::handleMultiPurpose( cUORxMultiPurpose *packet )
 void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
 {
 	// Send a dummy popup menu
-	cUOTxContextMenu menu;
+	/*cUOTxContextMenu menu;
 	menu.addEntry( 0x17EB, 0x0001 );
-	send( &menu );
+	send( &menu );*/
+
+	const char *pData = "\xbf\x00\x2c\x00\x14\x00\x01\x00\x20\x65\xb9\x05\x00\x0a\x17\xeb\x00\x20\xff\xff\x01\x93\x18\x08\x00\x00\x00\x6e\x17\xd7\x00\x00\x00\x6f\x17\xd8\x00\x00\x00\xcf\x17\x77\x00\x01";
+	//const char *pData = "\xbf\x00\x1a\x00\x14\x00\x01\x01\x88\xad\x4b\x02\x00\x0a\x17\xeb\x00\x20\xff\xff\x01\x2e\x18\x01\x00\x00";
+	QByteArray data( 0x2c );
+	memcpy( data.data(), pData, 0x2c );
+	cUOPacket cPacket( data );
+	send( &cPacket );
+
+	//0000: bf 00 2c 00 14 00 01 00 20 65 b9 05 00 0a 17 eb : ..,..... e......
+	//0010: 00 20 ff ff 01 93 18 08 00 00 00 6e 17 d7 00 00 : . .........n....
+	//0020: 00 6f 17 d8 00 00 00 cf 17 77 00 01 -- -- -- -- : .o.......w..
+
+	//0000: bf 00 1a 00 14 00 01 01 88 ad 4b 02 00 0a 17 eb : ..........K.....
+	//0010: 00 20 ff ff 01 2e 18 01 00 00 -- -- -- -- -- -- : . ........
+
 }
