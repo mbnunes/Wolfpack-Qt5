@@ -478,6 +478,7 @@ void Action_Wander::execute()
 	{
 		return;
 	}
+
 	m_npc->setNextMoveTime();
 
 	if ( m_npc->wanderType() == enHalt )
@@ -497,6 +498,12 @@ void Action_Wander::execute()
 			{
 				// Calculate the field we're facing.
 				unsigned char dir = m_npc->direction();
+
+				// There is a 5% chance of changing the direction
+				if (!RandomNum(0, 19)) {
+					dir = RandomNum(0, 7);
+				}
+
 				Coord_cl newpos = Movement::instance()->calcCoordFromDir( dir, m_npc->pos() );
 
 				// Calculate a new direction.
@@ -530,8 +537,7 @@ void Action_Wander::execute()
 						newdir = 0;
 					}
 
-					m_npc->setDirection( newdir );
-					m_npc->update();
+					Movement::instance()->Walking( m_npc, newdir, 0xFF );
 				}
 
 				break;
@@ -544,7 +550,6 @@ void Action_Wander::execute()
 			if ( RandomNum( 0, 100 ) < 20 )
 				dir = RandomNum( 0, 7 );
 
-			m_npc->setDirection( dir );
 			Movement::instance()->Walking( m_npc, dir, 0xFF );
 			break;
 		}
@@ -556,7 +561,6 @@ void Action_Wander::execute()
 			Q_UINT16 rndy = RandomNum( m_npc->wanderY1(), m_npc->wanderY2() );
 
 			Q_UINT8 dir = m_npc->pos().direction( Coord_cl( rndx, rndy ) );
-			m_npc->setDirection( dir );
 			Movement::instance()->Walking( m_npc, dir, 0xFF );
 			break;
 		}
@@ -574,7 +578,6 @@ void Action_Wander::execute()
 			pos.y = pos.y + ( Q_INT16 ) floor( sin( rndphi ) * rnddist );
 
 			Q_UINT8 dir = m_npc->pos().direction( pos );
-			m_npc->setDirection( dir );
 			Movement::instance()->Walking( m_npc, dir, 0xFF );
 			break;
 		}
@@ -638,7 +641,6 @@ void Action_Wander::moveTo( const Coord_cl& pos )
 		}
 	}
 
-	m_npc->setDirection( dir );
 	Movement::instance()->Walking( m_npc, dir, 0xFF );
 }
 
@@ -672,7 +674,6 @@ void Action_Wander::movePath( const Coord_cl& pos )
 		waitForPathCalculation = 0;
 		Coord_cl nextmove = m_npc->nextMove();
 		Q_UINT8 dir = m_npc->pos().direction( nextmove );
-		m_npc->setDirection( dir );
 		Movement::instance()->Walking( m_npc, dir, 0xFF );
 		m_npc->popMove();
 		return;

@@ -32,6 +32,7 @@
 #include "../platform.h"
 
 // wolfpack includes
+#include "../basics.h"
 #include "../factory.h"
 #include "../definable.h"
 #include "../singleton.h"

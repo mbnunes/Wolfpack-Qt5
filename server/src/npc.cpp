@@ -264,9 +264,10 @@ void cNPC::setNextMoveTime()
 	}
 
 	// Wander slowly if wandering freely.
-	if ( wanderType() == enFreely || wanderType() == enCircle || wanderType() == enRectangle )
+	if ( wanderType() == enFreely || wanderType() == enCircle || wanderType() == enRectangle || wanderType() == enWanderSpawnregion )
 	{
 		interval *= 3;
+		interval += RandomNum(1000, 5000);
 	}
 
 	setNextMoveTime( Server::instance()->time() + interval );

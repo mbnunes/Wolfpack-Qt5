@@ -22,6 +22,7 @@ Wolfpack 12.9.11 Beta (CVS)
 	  pets not being reset.
 	- Added support for the Samurai Empire map.
 	- Fixed negative z values for spawnregion xml files.
+	- Improved NPC walking.
 
 Wolfpack 12.9.10 Beta (10. September 2004)
 	- Made the maximum number of controlled pets a dynamic property for players.
