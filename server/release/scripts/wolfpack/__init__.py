@@ -58,6 +58,12 @@ def items( x, y, map, exact=1 ):
 	else:
 		return _wolfpack.items( x, y, map, exact )
 
+def chars( x, y, map, exact=1 ):
+	if not type( x ) is IntType or not type( y ) is IntType or not type( map ) is IntType or not type( exact ) is IntType:
+		raise TypeError, "x, y and map need to be integer values"
+	else:
+		return _wolfpack.chars( x, y, map, exact )
+
 def allitemsserials():
 	return _wolfpack.allitemsserials()
 
