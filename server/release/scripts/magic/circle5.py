@@ -161,8 +161,10 @@ class Incognito (Spell):
 			beard.color = newhaircolor
 			char.additem(LAYER_BEARD, beard)
 
-		hair.update()
-		beard.update()
+		if hair:
+			hair.update()
+		if beard:
+			beard.update()
 
 		char.incognito = 1
 
