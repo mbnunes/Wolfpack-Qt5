@@ -8,14 +8,14 @@ PROJECT = Wolfpack Emu
 
 INCLUDEPATH = ./ZThread/include
 win32:OBJECTS_DIR = obj
-win32-msvc:DEFINES  = WIN32 NDEBUG _CONSOLE _MBCS
-win32-g++:DEFINES = WIN32
+win32-msvc:DEFINES  = WIN32 NDEBUG _CONSOLE _MBCS ZTHREAD_STATIC
+win32-g++:DEFINES = WIN32 ZTHREAD_STATIC
 unix:DEFINES   =
 unix:TMAKE_CXXFLAGS = -funsigned-char
 win32-g++:TMAKE_CXXFLAGS = -funsigned-char
 win32-g++:LIBS= -LZThread/lib/ -lwsock32 -lZThread
 win32-msvc:RC_FILE         = res.rc
-win32-msvc:LIBS      = ws2_32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comdlg32.lib ws2_32.lib
+win32-msvc:LIBS      = ws2_32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comdlg32.lib ws2_32.lib ZThread.lib
 win32-msvc:TMAKE_CXXFLAGS = /J /nologo /ML /W3 /GX /O2 /YX /FD /c
 win32-borland:DEFINES= WIN32 __borland__
 win32-borland:TMAKE_CXXFLAGS = -K -5 -w-8057 -w-8066 -w-8060 -w-8027 -w-8059 -w-8004 -w-8012
