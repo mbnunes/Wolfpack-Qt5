@@ -119,3 +119,15 @@ def serveruptime():
 def serverversion():
 	return _wolfpack.serverversion()
 
+def isstarting():
+	return _wolfpack.isstarting()
+	
+def isrunning():
+	return _wolfpack.isrunning()
+	
+def isreloading():
+	return _wolfpack.isreloading()
+	
+def isclosing():
+	return _wolfpack.isclosing()
+	
