@@ -381,7 +381,7 @@ cSocketInfoGump::cSocketInfoGump( cUOSocket* socket )
 	bool contains = false;
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 	{
-		if( mSock = socket )
+		if( mSock == socket )
 			contains = true;
 	}
 

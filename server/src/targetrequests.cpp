@@ -803,7 +803,6 @@ bool cSkStealing::responsed( cUOSocket *socket, cUORxTarget *target )
 bool cSkProvocation::acquireFirst( cUOSocket* socket, cUORxTarget* target )
 {
 	P_CHAR pc = FindCharBySerial( target->serial() );
-	P_CHAR pc_currchar = socket->player();
 	
 	if( pc == NULL ) 
 		return true; // cancel the skill

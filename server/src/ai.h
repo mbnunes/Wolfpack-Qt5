@@ -90,6 +90,7 @@ protected:
 
 public:
 	AbstractAI( P_NPC npc ) : m_npc( npc ), m_currentAction( NULL ) { m_actions.setAutoDelete( true ); }
+	virtual ~AbstractAI() {} // virtual destructor.
 
 	// some events that can be triggered from outside
 	virtual void onSpeechInput( P_PLAYER pTalker, const QString &comm ) {}
