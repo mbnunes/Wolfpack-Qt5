@@ -20,7 +20,7 @@
 		<weight>5.0</weight>
 		<type>1001</type>
 		<basescripts>equipment,blades</basescripts>
-		<category>Weapons\Swords\Bone Harvester (N/S)</category>
+		<category>Base Weapons\Swordsmanship\Bone Harvester (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="25" />
@@ -32,7 +32,7 @@
 	<item id="26bb" inherit="26c5">
 		<id>0x26bb</id>
 		<baseid>26c5</baseid>
-		<category>Weapons\Swords\Bone Harvester (E/W)</category>
+		<category>Base Weapons\Swordsmanship\Bone Harvester (E/W)</category>
 	</item>
 
 </definitions>

@@ -1,6 +1,305 @@
 
 <definitions>
 
+	<item id="f4d_copper" inherit="f4d">
+		<copper_weapon />
+		<baseid>f4d</baseid>
+		<category>Weapons\Copper\Swordsmanship\Bardiche 1</category>
+	</item>
 
+	<item id="f4e_copper" inherit="f4e">
+		<copper_weapon />
+		<baseid>f4d</baseid>
+		<category>Weapons\Copper\Swordsmanship\Bardiche 2</category>
+	</item>
+
+	<item id="26c7_copper" inherit="26c7">
+		<copper_weapon />
+		<baseid>26c7</baseid>
+		<category>Weapons\Copper\Swordsmanship\Bladed Staff 1</category>
+	</item>
+
+	<item id="26bd_copper" inherit="26bd">
+		<copper_weapon />
+		<baseid>26c7</baseid>
+		<category>Weapons\Copper\Swordsmanship\Bladed Staff 2</category>
+	</item>
+
+	<item id="26c5_copper" inherit="26c5">
+		<copper_weapon />
+		<baseid>26c5</baseid>
+		<category>Weapons\Copper\Swordsmanship\Bone Harvester 1</category>
+	</item>
+
+	<item id="26bb_copper" inherit="26bb">
+		<copper_weapon />
+		<baseid>26c5</baseid>
+		<category>Weapons\Copper\Swordsmanship\Bone Harvester 2</category>
+	</item>
+
+	<item id="f5e_copper" inherit="f5e">
+		<copper_weapon />
+		<baseid>f5e</baseid>
+		<category>Weapons\Copper\Swordsmanship\Broadsword 1</category>
+	</item>
+
+	<item id="f5f_copper" inherit="f5f">
+		<copper_weapon />
+		<baseid>f5e</baseid>
+		<category>Weapons\Copper\Swordsmanship\Broadsword 2</category>
+	</item>
+
+	<item id="13f6_copper" inherit="13f6">
+		<copper_weapon />
+		<baseid>13f6</baseid>
+		<category>Weapons\Copper\Swordsmanship\Butcher Knife 1</category>
+	</item>
+
+	<item id="13f7_copper" inherit="13f7">
+		<copper_weapon />
+		<baseid>13f6</baseid>
+		<category>Weapons\Copper\Swordsmanship\Butcher Knife 2</category>
+	</item>
+
+	<item id="ec3_copper" inherit="ec3">
+		<copper_weapon />
+		<baseid>ec3</baseid>
+		<category>Weapons\Copper\Swordsmanship\Cleaver 1</category>
+	</item>
+
+	<item id="ec2_copper" inherit="ec2">
+		<copper_weapon />
+		<baseid>ec3</baseid>
+		<category>Weapons\Copper\Swordsmanship\Cleaver 2</category>
+	</item>
+
+	<item id="26cb_copper" inherit="26cb">
+		<copper_weapon />
+		<baseid>26cb</baseid>
+		<category>Weapons\Copper\Swordsmanship\Crescent Blade 1</category>
+	</item>
+
+	<item id="26c1_copper" inherit="26c1">
+		<copper_weapon />
+		<baseid>26cb</baseid>
+		<category>Weapons\Copper\Swordsmanship\Crescent Blade 2</category>
+	</item>
+
+	<item id="1441_copper" inherit="1441">
+		<copper_weapon />
+		<baseid>1441</baseid>
+		<category>Weapons\Copper\Swordsmanship\Cutlass 1</category>
+	</item>
+
+	<item id="1440_copper" inherit="1440">
+		<copper_weapon />
+		<baseid>1441</baseid>
+		<category>Weapons\Copper\Swordsmanship\Cutlass 2</category>
+	</item>
+
+	<item id="143f_copper" inherit="143f">
+		<copper_weapon />
+		<baseid>143f</baseid>
+		<category>Weapons\Copper\Swordsmanship\Halberd 1</category>
+	</item>
+
+	<item id="143e_copper" inherit="143e">
+		<copper_weapon />
+		<baseid>143f</baseid>
+		<category>Weapons\Copper\Swordsmanship\Halberd 2</category>
+	</item>
+
+	<item id="13ff_copper" inherit="13ff">
+		<copper_weapon />
+		<baseid>13ff</baseid>
+		<category>Weapons\Copper\Swordsmanship\Katana 1</category>
+	</item>
+
+	<item id="13fe_copper" inherit="13fe">
+		<copper_weapon />
+		<baseid>13ff</baseid>
+		<category>Weapons\Copper\Swordsmanship\Katana 2</category>
+	</item>
+
+	<item id="13b8_copper" inherit="13b8">
+		<copper_weapon />
+		<baseid>13b8</baseid>
+		<category>Weapons\Copper\Swordsmanship\Long Sword 1</category>
+	</item>
+
+	<item id="13b7_copper" inherit="13b7">
+		<copper_weapon />
+		<baseid>13b8</baseid>
+		<category>Weapons\Copper\Swordsmanship\Long Sword 2</category>
+	</item>
+
+	<item id="f61_copper" inherit="f61">
+		<copper_weapon />
+		<baseid>f61</baseid>
+		<category>Weapons\Copper\Swordsmanship\Longsword 1</category>
+	</item>
+
+	<item id="f60_copper" inherit="f610">
+		<copper_weapon />
+		<baseid>f61</baseid>
+		<category>Weapons\Copper\Swordsmanship\Longsword 2</category>
+	</item>
+
+	<item id="26cf_copper" inherit="26cf">
+		<copper_weapon />
+		<baseid>26cf</baseid>
+		<category>Weapons\Copper\Swordsmanship\Paladin Sword 1</category>
+	</item>
+
+	<item id="26ce_copper" inherit="26ce">
+		<copper_weapon />
+		<baseid>26cf</baseid>
+		<category>Weapons\Copper\Swordsmanship\Paladin Sword 2</category>
+	</item>
+
+	<item id="e86_copper" inherit="e86">
+		<copper_weapon />
+		<baseid>e86</baseid>
+		<category>Weapons\Copper\Swordsmanship\Pickaxe 1</category>
+	</item>
+
+	<item id="e85_copper" inherit="e85">
+		<copper_weapon />
+		<baseid>e86</baseid>
+		<category>Weapons\Copper\Swordsmanship\Pickaxe 2</category>
+	</item>
+
+	<item id="13b6_copper" inherit="13b6">
+		<copper_weapon />
+		<baseid>13b6</baseid>
+		<category>Weapons\Copper\Swordsmanship\Scimitar 1</category>
+	</item>
+
+	<item id="13b5_copper" inherit="13b5">
+		<copper_weapon />
+		<baseid>13b6</baseid>
+		<category>Weapons\Copper\Swordsmanship\Scimitar 2</category>
+	</item>
+
+	<item id="26c4_copper" inherit="26c4">
+		<copper_weapon />
+		<baseid>26c4</baseid>
+		<category>Weapons\Copper\Swordsmanship\Scythe 1</category>
+	</item>
+
+	<item id="26ba_copper" inherit="26ba">
+		<copper_weapon />
+		<baseid>26c4</baseid>
+		<category>Weapons\Copper\Swordsmanship\Scythe 2</category>
+	</item>
+
+	<item id="ec4_copper" inherit="ec4">
+		<copper_weapon />
+		<baseid>ec4</baseid>
+		<category>Weapons\Copper\Swordsmanship\Skinning Knife 1</category>
+	</item>
+
+	<item id="ec5_copper" inherit="ec5">
+		<copper_weapon />
+		<baseid>ec4</baseid>
+		<category>Weapons\Copper\Swordsmanship\Skinning Knife 2</category>
+	</item>
+
+	<item id="13b9_copper" inherit="13b9">
+		<copper_weapon />
+		<baseid>13b9</baseid>
+		<category>Weapons\Copper\Swordsmanship\Viking Sword 1</category>
+	</item>
+
+	<item id="13ba_copper" inherit="13ba">
+		<copper_weapon />
+		<baseid>13b9</baseid>
+		<category>Weapons\Copper\Swordsmanship\Viking Sword 2</category>
+	</item>
+
+	<!-- Axes -->
+	<item id="f49_copper" inherit="f49">
+		<copper_weapon />
+		<baseid>f49</baseid>
+		<category>Weapons\Copper\Swordsmanship\Axes\Axe 1</category>
+	</item>
+
+	<item id="f4a_copper" inherit="f4a">
+		<copper_weapon />
+		<baseid>f49</baseid>
+		<category>Weapons\Copper\Swordsmanship\Axes\Axe 2</category>
+	</item>
+
+	<item id="f47_copper" inherit="f47">
+		<copper_weapon />
+		<baseid>f47</baseid>
+		<category>Weapons\Copper\Swordsmanship\Axes\Battle Axe 1</category>
+	</item>
+
+	<item id="f48_copper" inherit="f48">
+		<copper_weapon />
+		<baseid>f47</baseid>
+		<category>Weapons\Copper\Swordsmanship\Axes\Battle Axe 2</category>
+	</item>
+
+	<item id="f4b_copper" inherit="f4b">
+		<copper_weapon />
+		<baseid>f4b</baseid>
+		<category>Weapons\Copper\Swordsmanship\Axes\Double Axe 1</category>
+	</item>
+
+	<item id="f4c_copper" inherit="f4c">
+		<copper_weapon />
+		<baseid>f4b</baseid>
+		<category>Weapons\Copper\Swordsmanship\Axes\Double Axe 2</category>
+	</item>
+
+	<item id="f45_copper" inherit="f45">
+		<copper_weapon />
+		<baseid>f45</baseid>
+		<category>Weapons\Copper\Swordsmanship\Axes\Executioner's Axe 1</category>
+	</item>
+
+	<item id="f46_copper" inherit="f46">
+		<copper_weapon />
+		<baseid>f45</baseid>
+		<category>Weapons\Copper\Swordsmanship\Axes\Executioner's Axe 2</category>
+	</item>
+
+	<item id="f43_copper" inherit="f43">
+		<copper_weapon />
+		<baseid>f43</baseid>
+		<category>Weapons\Copper\Swordsmanship\Axes\Hatchet 1</category>
+	</item>
+
+	<item id="f44_copper" inherit="f44">
+		<copper_weapon />
+		<baseid>f43</baseid>
+		<category>Weapons\Copper\Swordsmanship\Axes\Hatchet 2</category>
+	</item>
+
+	<item id="13fb_copper" inherit="13fb">
+		<copper_weapon />
+		<baseid>13fb</baseid>
+		<category>Weapons\Copper\Swordsmanship\Axes\Large Battle Axe 1</category>
+	</item>
+
+	<item id="13fa_copper" inherit="13fa">
+		<copper_weapon />
+		<baseid>13fb</baseid>
+		<category>Weapons\Copper\Swordsmanship\Axes\Large Battle Axe 2</category>
+	</item>
+
+	<item id="1443_copper" inherit="1443">
+		<copper_weapon />
+		<baseid>1443</baseid>
+		<category>Weapons\Copper\Swordsmanship\Axes\Two Handed Axe 1</category>
+	</item>
+
+	<item id="1442_copper" inherit="1442">
+		<copper_weapon />
+		<baseid>1443</baseid>
+		<category>Weapons\Copper\Swordsmanship\Axes\Two Handed Axe 2</category>
+	</item>
 
 </definitions>

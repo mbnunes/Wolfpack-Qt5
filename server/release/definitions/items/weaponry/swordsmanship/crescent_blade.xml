@@ -20,7 +20,7 @@
 		<weight>8.0</weight>
 		<type>1001</type>
 		<basescripts>equipment,blades</basescripts>
-		<category>Weapons\Swords\Crescent Blade (N/S)</category>
+		<category>Base Weapons\Swordsmanship\Crescent Blade (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="55" />
@@ -32,7 +32,7 @@
 	<item id="26c1" inherit="26cb">
 		<id>0x26c1</id>
 		<baseid>26cb</baseid>
-		<category>Weapons\Swords\Crescent Blade (E/W)</category>
+		<category>Base Weapons\Swordsmanship\Crescent Blade (E/W)</category>
 	</item>
 
 </definitions>

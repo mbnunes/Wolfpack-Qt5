@@ -1,6 +1,305 @@
 
 <definitions>
 
+	<item id="f4d_gold" inherit="f4d">
+		<gold_weapon />
+		<baseid>f4d</baseid>
+		<category>Weapons\Gold\Swordsmanship\Bardiche 1</category>
+	</item>
 
+	<item id="f4e_gold" inherit="f4e">
+		<gold_weapon />
+		<baseid>f4d</baseid>
+		<category>Weapons\Gold\Swordsmanship\Bardiche 2</category>
+	</item>
+
+	<item id="26c7_gold" inherit="26c7">
+		<gold_weapon />
+		<baseid>26c7</baseid>
+		<category>Weapons\Gold\Swordsmanship\Bladed Staff 1</category>
+	</item>
+
+	<item id="26bd_gold" inherit="26bd">
+		<gold_weapon />
+		<baseid>26c7</baseid>
+		<category>Weapons\Gold\Swordsmanship\Bladed Staff 2</category>
+	</item>
+
+	<item id="26c5_gold" inherit="26c5">
+		<gold_weapon />
+		<baseid>26c5</baseid>
+		<category>Weapons\Gold\Swordsmanship\Bone Harvester 1</category>
+	</item>
+
+	<item id="26bb_gold" inherit="26bb">
+		<gold_weapon />
+		<baseid>26c5</baseid>
+		<category>Weapons\Gold\Swordsmanship\Bone Harvester 2</category>
+	</item>
+
+	<item id="f5e_gold" inherit="f5e">
+		<gold_weapon />
+		<baseid>f5e</baseid>
+		<category>Weapons\Gold\Swordsmanship\Broadsword 1</category>
+	</item>
+
+	<item id="f5f_gold" inherit="f5f">
+		<gold_weapon />
+		<baseid>f5e</baseid>
+		<category>Weapons\Gold\Swordsmanship\Broadsword 2</category>
+	</item>
+
+	<item id="13f6_gold" inherit="13f6">
+		<gold_weapon />
+		<baseid>13f6</baseid>
+		<category>Weapons\Gold\Swordsmanship\Butcher Knife 1</category>
+	</item>
+
+	<item id="13f7_gold" inherit="13f7">
+		<gold_weapon />
+		<baseid>13f6</baseid>
+		<category>Weapons\Gold\Swordsmanship\Butcher Knife 2</category>
+	</item>
+
+	<item id="ec3_gold" inherit="ec3">
+		<gold_weapon />
+		<baseid>ec3</baseid>
+		<category>Weapons\Gold\Swordsmanship\Cleaver 1</category>
+	</item>
+
+	<item id="ec2_gold" inherit="ec2">
+		<gold_weapon />
+		<baseid>ec3</baseid>
+		<category>Weapons\Gold\Swordsmanship\Cleaver 2</category>
+	</item>
+
+	<item id="26cb_gold" inherit="26cb">
+		<gold_weapon />
+		<baseid>26cb</baseid>
+		<category>Weapons\Gold\Swordsmanship\Crescent Blade 1</category>
+	</item>
+
+	<item id="26c1_gold" inherit="26c1">
+		<gold_weapon />
+		<baseid>26cb</baseid>
+		<category>Weapons\Gold\Swordsmanship\Crescent Blade 2</category>
+	</item>
+
+	<item id="1441_gold" inherit="1441">
+		<gold_weapon />
+		<baseid>1441</baseid>
+		<category>Weapons\Gold\Swordsmanship\Cutlass 1</category>
+	</item>
+
+	<item id="1440_gold" inherit="1440">
+		<gold_weapon />
+		<baseid>1441</baseid>
+		<category>Weapons\Gold\Swordsmanship\Cutlass 2</category>
+	</item>
+
+	<item id="143f_gold" inherit="143f">
+		<gold_weapon />
+		<baseid>143f</baseid>
+		<category>Weapons\Gold\Swordsmanship\Halberd 1</category>
+	</item>
+
+	<item id="143e_gold" inherit="143e">
+		<gold_weapon />
+		<baseid>143f</baseid>
+		<category>Weapons\Gold\Swordsmanship\Halberd 2</category>
+	</item>
+
+	<item id="13ff_gold" inherit="13ff">
+		<gold_weapon />
+		<baseid>13ff</baseid>
+		<category>Weapons\Gold\Swordsmanship\Katana 1</category>
+	</item>
+
+	<item id="13fe_gold" inherit="13fe">
+		<gold_weapon />
+		<baseid>13ff</baseid>
+		<category>Weapons\Gold\Swordsmanship\Katana 2</category>
+	</item>
+
+	<item id="13b8_gold" inherit="13b8">
+		<gold_weapon />
+		<baseid>13b8</baseid>
+		<category>Weapons\Gold\Swordsmanship\Long Sword 1</category>
+	</item>
+
+	<item id="13b7_gold" inherit="13b7">
+		<gold_weapon />
+		<baseid>13b8</baseid>
+		<category>Weapons\Gold\Swordsmanship\Long Sword 2</category>
+	</item>
+
+	<item id="f61_gold" inherit="f61">
+		<gold_weapon />
+		<baseid>f61</baseid>
+		<category>Weapons\Gold\Swordsmanship\Longsword 1</category>
+	</item>
+
+	<item id="f60_gold" inherit="f610">
+		<gold_weapon />
+		<baseid>f61</baseid>
+		<category>Weapons\Gold\Swordsmanship\Longsword 2</category>
+	</item>
+
+	<item id="26cf_gold" inherit="26cf">
+		<gold_weapon />
+		<baseid>26cf</baseid>
+		<category>Weapons\Gold\Swordsmanship\Paladin Sword 1</category>
+	</item>
+
+	<item id="26ce_gold" inherit="26ce">
+		<gold_weapon />
+		<baseid>26cf</baseid>
+		<category>Weapons\Gold\Swordsmanship\Paladin Sword 2</category>
+	</item>
+
+	<item id="e86_gold" inherit="e86">
+		<gold_weapon />
+		<baseid>e86</baseid>
+		<category>Weapons\Gold\Swordsmanship\Pickaxe 1</category>
+	</item>
+
+	<item id="e85_gold" inherit="e85">
+		<gold_weapon />
+		<baseid>e86</baseid>
+		<category>Weapons\Gold\Swordsmanship\Pickaxe 2</category>
+	</item>
+
+	<item id="13b6_gold" inherit="13b6">
+		<gold_weapon />
+		<baseid>13b6</baseid>
+		<category>Weapons\Gold\Swordsmanship\Scimitar 1</category>
+	</item>
+
+	<item id="13b5_gold" inherit="13b5">
+		<gold_weapon />
+		<baseid>13b6</baseid>
+		<category>Weapons\Gold\Swordsmanship\Scimitar 2</category>
+	</item>
+
+	<item id="26c4_gold" inherit="26c4">
+		<gold_weapon />
+		<baseid>26c4</baseid>
+		<category>Weapons\Gold\Swordsmanship\Scythe 1</category>
+	</item>
+
+	<item id="26ba_gold" inherit="26ba">
+		<gold_weapon />
+		<baseid>26c4</baseid>
+		<category>Weapons\Gold\Swordsmanship\Scythe 2</category>
+	</item>
+
+	<item id="ec4_gold" inherit="ec4">
+		<gold_weapon />
+		<baseid>ec4</baseid>
+		<category>Weapons\Gold\Swordsmanship\Skinning Knife 1</category>
+	</item>
+
+	<item id="ec5_gold" inherit="ec5">
+		<gold_weapon />
+		<baseid>ec4</baseid>
+		<category>Weapons\Gold\Swordsmanship\Skinning Knife 2</category>
+	</item>
+
+	<item id="13b9_gold" inherit="13b9">
+		<gold_weapon />
+		<baseid>13b9</baseid>
+		<category>Weapons\Gold\Swordsmanship\Viking Sword 1</category>
+	</item>
+
+	<item id="13ba_gold" inherit="13ba">
+		<gold_weapon />
+		<baseid>13b9</baseid>
+		<category>Weapons\Gold\Swordsmanship\Viking Sword 2</category>
+	</item>
+
+	<!-- Axes -->
+	<item id="f49_gold" inherit="f49">
+		<gold_weapon />
+		<baseid>f49</baseid>
+		<category>Weapons\Gold\Swordsmanship\Axes\Axe 1</category>
+	</item>
+
+	<item id="f4a_gold" inherit="f4a">
+		<gold_weapon />
+		<baseid>f49</baseid>
+		<category>Weapons\Gold\Swordsmanship\Axes\Axe 2</category>
+	</item>
+
+	<item id="f47_gold" inherit="f47">
+		<gold_weapon />
+		<baseid>f47</baseid>
+		<category>Weapons\Gold\Swordsmanship\Axes\Battle Axe 1</category>
+	</item>
+
+	<item id="f48_gold" inherit="f48">
+		<gold_weapon />
+		<baseid>f47</baseid>
+		<category>Weapons\Gold\Swordsmanship\Axes\Battle Axe 2</category>
+	</item>
+
+	<item id="f4b_gold" inherit="f4b">
+		<gold_weapon />
+		<baseid>f4b</baseid>
+		<category>Weapons\Gold\Swordsmanship\Axes\Double Axe 1</category>
+	</item>
+
+	<item id="f4c_gold" inherit="f4c">
+		<gold_weapon />
+		<baseid>f4b</baseid>
+		<category>Weapons\Gold\Swordsmanship\Axes\Double Axe 2</category>
+	</item>
+
+	<item id="f45_gold" inherit="f45">
+		<gold_weapon />
+		<baseid>f45</baseid>
+		<category>Weapons\Gold\Swordsmanship\Axes\Executioner's Axe 1</category>
+	</item>
+
+	<item id="f46_gold" inherit="f46">
+		<gold_weapon />
+		<baseid>f45</baseid>
+		<category>Weapons\Gold\Swordsmanship\Axes\Executioner's Axe 2</category>
+	</item>
+
+	<item id="f43_gold" inherit="f43">
+		<gold_weapon />
+		<baseid>f43</baseid>
+		<category>Weapons\Gold\Swordsmanship\Axes\Hatchet 1</category>
+	</item>
+
+	<item id="f44_gold" inherit="f44">
+		<gold_weapon />
+		<baseid>f43</baseid>
+		<category>Weapons\Gold\Swordsmanship\Axes\Hatchet 2</category>
+	</item>
+
+	<item id="13fb_gold" inherit="13fb">
+		<gold_weapon />
+		<baseid>13fb</baseid>
+		<category>Weapons\Gold\Swordsmanship\Axes\Large Battle Axe 1</category>
+	</item>
+
+	<item id="13fa_gold" inherit="13fa">
+		<gold_weapon />
+		<baseid>13fb</baseid>
+		<category>Weapons\Gold\Swordsmanship\Axes\Large Battle Axe 2</category>
+	</item>
+
+	<item id="1443_gold" inherit="1443">
+		<gold_weapon />
+		<baseid>1443</baseid>
+		<category>Weapons\Gold\Swordsmanship\Axes\Two Handed Axe 1</category>
+	</item>
+
+	<item id="1442_gold" inherit="1442">
+		<gold_weapon />
+		<baseid>1443</baseid>
+		<category>Weapons\Gold\Swordsmanship\Axes\Two Handed Axe 2</category>
+	</item>
 
 </definitions>

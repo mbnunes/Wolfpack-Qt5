@@ -20,7 +20,7 @@
 		<weight>12.0</weight>
 		<type>1001</type>
 		<basescripts>equipment,blades</basescripts>
-		<category>Weapons\Swords\Bladed Staff (N/S)</category>
+		<category>Base Weapons\Swordsmanship\Bladed Staff (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="40" />
@@ -32,7 +32,7 @@
 	<item id="26bd" inherit="26c7">
 		<id>0x26bd</id>
 		<baseid>26c7</baseid>
-		<category>Weapons\Swords\Bladed Staff (E/W)</category>
+		<category>Base Weapons\Swordsmanship\Bladed Staff (E/W)</category>
 	</item>
 
 </definitions>

@@ -1,6 +1,305 @@
 
 <definitions>
 
+	<item id="f4d_valorite" inherit="f4d">
+		<valorite_weapon />
+		<baseid>f4d</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Bardiche 1</category>
+	</item>
 
+	<item id="f4e_valorite" inherit="f4e">
+		<valorite_weapon />
+		<baseid>f4d</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Bardiche 2</category>
+	</item>
+
+	<item id="26c7_valorite" inherit="26c7">
+		<valorite_weapon />
+		<baseid>26c7</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Bladed Staff 1</category>
+	</item>
+
+	<item id="26bd_valorite" inherit="26bd">
+		<valorite_weapon />
+		<baseid>26c7</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Bladed Staff 2</category>
+	</item>
+
+	<item id="26c5_valorite" inherit="26c5">
+		<valorite_weapon />
+		<baseid>26c5</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Bone Harvester 1</category>
+	</item>
+
+	<item id="26bb_valorite" inherit="26bb">
+		<valorite_weapon />
+		<baseid>26c5</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Bone Harvester 2</category>
+	</item>
+
+	<item id="f5e_valorite" inherit="f5e">
+		<valorite_weapon />
+		<baseid>f5e</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Broadsword 1</category>
+	</item>
+
+	<item id="f5f_valorite" inherit="f5f">
+		<valorite_weapon />
+		<baseid>f5e</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Broadsword 2</category>
+	</item>
+
+	<item id="13f6_valorite" inherit="13f6">
+		<valorite_weapon />
+		<baseid>13f6</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Butcher Knife 1</category>
+	</item>
+
+	<item id="13f7_valorite" inherit="13f7">
+		<valorite_weapon />
+		<baseid>13f6</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Butcher Knife 2</category>
+	</item>
+
+	<item id="ec3_valorite" inherit="ec3">
+		<valorite_weapon />
+		<baseid>ec3</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Cleaver 1</category>
+	</item>
+
+	<item id="ec2_valorite" inherit="ec2">
+		<valorite_weapon />
+		<baseid>ec3</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Cleaver 2</category>
+	</item>
+
+	<item id="26cb_valorite" inherit="26cb">
+		<valorite_weapon />
+		<baseid>26cb</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Crescent Blade 1</category>
+	</item>
+
+	<item id="26c1_valorite" inherit="26c1">
+		<valorite_weapon />
+		<baseid>26cb</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Crescent Blade 2</category>
+	</item>
+
+	<item id="1441_valorite" inherit="1441">
+		<valorite_weapon />
+		<baseid>1441</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Cutlass 1</category>
+	</item>
+
+	<item id="1440_valorite" inherit="1440">
+		<valorite_weapon />
+		<baseid>1441</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Cutlass 2</category>
+	</item>
+
+	<item id="143f_valorite" inherit="143f">
+		<valorite_weapon />
+		<baseid>143f</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Halberd 1</category>
+	</item>
+
+	<item id="143e_valorite" inherit="143e">
+		<valorite_weapon />
+		<baseid>143f</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Halberd 2</category>
+	</item>
+
+	<item id="13ff_valorite" inherit="13ff">
+		<valorite_weapon />
+		<baseid>13ff</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Katana 1</category>
+	</item>
+
+	<item id="13fe_valorite" inherit="13fe">
+		<valorite_weapon />
+		<baseid>13ff</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Katana 2</category>
+	</item>
+
+	<item id="13b8_valorite" inherit="13b8">
+		<valorite_weapon />
+		<baseid>13b8</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Long Sword 1</category>
+	</item>
+
+	<item id="13b7_valorite" inherit="13b7">
+		<valorite_weapon />
+		<baseid>13b8</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Long Sword 2</category>
+	</item>
+
+	<item id="f61_valorite" inherit="f61">
+		<valorite_weapon />
+		<baseid>f61</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Longsword 1</category>
+	</item>
+
+	<item id="f60_valorite" inherit="f610">
+		<valorite_weapon />
+		<baseid>f61</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Longsword 2</category>
+	</item>
+
+	<item id="26cf_valorite" inherit="26cf">
+		<valorite_weapon />
+		<baseid>26cf</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Paladin Sword 1</category>
+	</item>
+
+	<item id="26ce_valorite" inherit="26ce">
+		<valorite_weapon />
+		<baseid>26cf</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Paladin Sword 2</category>
+	</item>
+
+	<item id="e86_valorite" inherit="e86">
+		<valorite_weapon />
+		<baseid>e86</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Pickaxe 1</category>
+	</item>
+
+	<item id="e85_valorite" inherit="e85">
+		<valorite_weapon />
+		<baseid>e86</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Pickaxe 2</category>
+	</item>
+
+	<item id="13b6_valorite" inherit="13b6">
+		<valorite_weapon />
+		<baseid>13b6</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Scimitar 1</category>
+	</item>
+
+	<item id="13b5_valorite" inherit="13b5">
+		<valorite_weapon />
+		<baseid>13b6</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Scimitar 2</category>
+	</item>
+
+	<item id="26c4_valorite" inherit="26c4">
+		<valorite_weapon />
+		<baseid>26c4</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Scythe 1</category>
+	</item>
+
+	<item id="26ba_valorite" inherit="26ba">
+		<valorite_weapon />
+		<baseid>26c4</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Scythe 2</category>
+	</item>
+
+	<item id="ec4_valorite" inherit="ec4">
+		<valorite_weapon />
+		<baseid>ec4</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Skinning Knife 1</category>
+	</item>
+
+	<item id="ec5_valorite" inherit="ec5">
+		<valorite_weapon />
+		<baseid>ec4</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Skinning Knife 2</category>
+	</item>
+
+	<item id="13b9_valorite" inherit="13b9">
+		<valorite_weapon />
+		<baseid>13b9</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Viking Sword 1</category>
+	</item>
+
+	<item id="13ba_valorite" inherit="13ba">
+		<valorite_weapon />
+		<baseid>13b9</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Viking Sword 2</category>
+	</item>
+
+	<!-- Axes -->
+	<item id="f49_valorite" inherit="f49">
+		<valorite_weapon />
+		<baseid>f49</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Axes\Axe 1</category>
+	</item>
+
+	<item id="f4a_valorite" inherit="f4a">
+		<valorite_weapon />
+		<baseid>f49</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Axes\Axe 2</category>
+	</item>
+
+	<item id="f47_valorite" inherit="f47">
+		<valorite_weapon />
+		<baseid>f47</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Axes\Battle Axe 1</category>
+	</item>
+
+	<item id="f48_valorite" inherit="f48">
+		<valorite_weapon />
+		<baseid>f47</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Axes\Battle Axe 2</category>
+	</item>
+
+	<item id="f4b_valorite" inherit="f4b">
+		<valorite_weapon />
+		<baseid>f4b</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Axes\Double Axe 1</category>
+	</item>
+
+	<item id="f4c_valorite" inherit="f4c">
+		<valorite_weapon />
+		<baseid>f4b</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Axes\Double Axe 2</category>
+	</item>
+
+	<item id="f45_valorite" inherit="f45">
+		<valorite_weapon />
+		<baseid>f45</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Axes\Executioner's Axe 1</category>
+	</item>
+
+	<item id="f46_valorite" inherit="f46">
+		<valorite_weapon />
+		<baseid>f45</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Axes\Executioner's Axe 2</category>
+	</item>
+
+	<item id="f43_valorite" inherit="f43">
+		<valorite_weapon />
+		<baseid>f43</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Axes\Hatchet 1</category>
+	</item>
+
+	<item id="f44_valorite" inherit="f44">
+		<valorite_weapon />
+		<baseid>f43</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Axes\Hatchet 2</category>
+	</item>
+
+	<item id="13fb_valorite" inherit="13fb">
+		<valorite_weapon />
+		<baseid>13fb</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Axes\Large Battle Axe 1</category>
+	</item>
+
+	<item id="13fa_valorite" inherit="13fa">
+		<valorite_weapon />
+		<baseid>13fb</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Axes\Large Battle Axe 2</category>
+	</item>
+
+	<item id="1443_valorite" inherit="1443">
+		<valorite_weapon />
+		<baseid>1443</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Axes\Two Handed Axe 1</category>
+	</item>
+
+	<item id="1442_valorite" inherit="1442">
+		<valorite_weapon />
+		<baseid>1443</baseid>
+		<category>Weapons\Valorite\Swordsmanship\Axes\Two Handed Axe 2</category>
+	</item>
 
 </definitions>

@@ -20,7 +20,7 @@
 		<weight>6.0</weight>
 		<type>1001</type>
 		<basescripts>equipment,blades</basescripts>
-		<category>Weapons\Swords\Katana (N/S)</category>
+		<category>Base Weapons\Swordsmanship\Katana (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="25" />
@@ -32,7 +32,7 @@
 	<item id="13fe" inherit="13ff">
 		<id>0x13fe</id>
 		<baseid>13ff</baseid>
-		<category>Weapons\Swords\Katana (E/W)</category>
+		<category>Base Weapons\Swordsmanship\Katana (E/W)</category>
 	</item>
 
 </definitions>

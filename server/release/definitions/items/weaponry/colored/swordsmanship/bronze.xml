@@ -1,6 +1,305 @@
 
 <definitions>
 
+	<item id="f4d_bronze" inherit="f4d">
+		<bronze_weapon />
+		<baseid>f4d</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Bardiche 1</category>
+	</item>
 
+	<item id="f4e_bronze" inherit="f4e">
+		<bronze_weapon />
+		<baseid>f4d</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Bardiche 2</category>
+	</item>
+
+	<item id="26c7_bronze" inherit="26c7">
+		<bronze_weapon />
+		<baseid>26c7</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Bladed Staff 1</category>
+	</item>
+
+	<item id="26bd_bronze" inherit="26bd">
+		<bronze_weapon />
+		<baseid>26c7</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Bladed Staff 2</category>
+	</item>
+
+	<item id="26c5_bronze" inherit="26c5">
+		<bronze_weapon />
+		<baseid>26c5</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Bone Harvester 1</category>
+	</item>
+
+	<item id="26bb_bronze" inherit="26bb">
+		<bronze_weapon />
+		<baseid>26c5</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Bone Harvester 2</category>
+	</item>
+
+	<item id="f5e_bronze" inherit="f5e">
+		<bronze_weapon />
+		<baseid>f5e</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Broadsword 1</category>
+	</item>
+
+	<item id="f5f_bronze" inherit="f5f">
+		<bronze_weapon />
+		<baseid>f5e</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Broadsword 2</category>
+	</item>
+
+	<item id="13f6_bronze" inherit="13f6">
+		<bronze_weapon />
+		<baseid>13f6</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Butcher Knife 1</category>
+	</item>
+
+	<item id="13f7_bronze" inherit="13f7">
+		<bronze_weapon />
+		<baseid>13f6</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Butcher Knife 2</category>
+	</item>
+
+	<item id="ec3_bronze" inherit="ec3">
+		<bronze_weapon />
+		<baseid>ec3</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Cleaver 1</category>
+	</item>
+
+	<item id="ec2_bronze" inherit="ec2">
+		<bronze_weapon />
+		<baseid>ec3</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Cleaver 2</category>
+	</item>
+
+	<item id="26cb_bronze" inherit="26cb">
+		<bronze_weapon />
+		<baseid>26cb</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Crescent Blade 1</category>
+	</item>
+
+	<item id="26c1_bronze" inherit="26c1">
+		<bronze_weapon />
+		<baseid>26cb</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Crescent Blade 2</category>
+	</item>
+
+	<item id="1441_bronze" inherit="1441">
+		<bronze_weapon />
+		<baseid>1441</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Cutlass 1</category>
+	</item>
+
+	<item id="1440_bronze" inherit="1440">
+		<bronze_weapon />
+		<baseid>1441</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Cutlass 2</category>
+	</item>
+
+	<item id="143f_bronze" inherit="143f">
+		<bronze_weapon />
+		<baseid>143f</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Halberd 1</category>
+	</item>
+
+	<item id="143e_bronze" inherit="143e">
+		<bronze_weapon />
+		<baseid>143f</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Halberd 2</category>
+	</item>
+
+	<item id="13ff_bronze" inherit="13ff">
+		<bronze_weapon />
+		<baseid>13ff</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Katana 1</category>
+	</item>
+
+	<item id="13fe_bronze" inherit="13fe">
+		<bronze_weapon />
+		<baseid>13ff</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Katana 2</category>
+	</item>
+
+	<item id="13b8_bronze" inherit="13b8">
+		<bronze_weapon />
+		<baseid>13b8</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Long Sword 1</category>
+	</item>
+
+	<item id="13b7_bronze" inherit="13b7">
+		<bronze_weapon />
+		<baseid>13b8</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Long Sword 2</category>
+	</item>
+
+	<item id="f61_bronze" inherit="f61">
+		<bronze_weapon />
+		<baseid>f61</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Longsword 1</category>
+	</item>
+
+	<item id="f60_bronze" inherit="f610">
+		<bronze_weapon />
+		<baseid>f61</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Longsword 2</category>
+	</item>
+
+	<item id="26cf_bronze" inherit="26cf">
+		<bronze_weapon />
+		<baseid>26cf</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Paladin Sword 1</category>
+	</item>
+
+	<item id="26ce_bronze" inherit="26ce">
+		<bronze_weapon />
+		<baseid>26cf</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Paladin Sword 2</category>
+	</item>
+
+	<item id="e86_bronze" inherit="e86">
+		<bronze_weapon />
+		<baseid>e86</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Pickaxe 1</category>
+	</item>
+
+	<item id="e85_bronze" inherit="e85">
+		<bronze_weapon />
+		<baseid>e86</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Pickaxe 2</category>
+	</item>
+
+	<item id="13b6_bronze" inherit="13b6">
+		<bronze_weapon />
+		<baseid>13b6</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Scimitar 1</category>
+	</item>
+
+	<item id="13b5_bronze" inherit="13b5">
+		<bronze_weapon />
+		<baseid>13b6</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Scimitar 2</category>
+	</item>
+
+	<item id="26c4_bronze" inherit="26c4">
+		<bronze_weapon />
+		<baseid>26c4</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Scythe 1</category>
+	</item>
+
+	<item id="26ba_bronze" inherit="26ba">
+		<bronze_weapon />
+		<baseid>26c4</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Scythe 2</category>
+	</item>
+
+	<item id="ec4_bronze" inherit="ec4">
+		<bronze_weapon />
+		<baseid>ec4</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Skinning Knife 1</category>
+	</item>
+
+	<item id="ec5_bronze" inherit="ec5">
+		<bronze_weapon />
+		<baseid>ec4</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Skinning Knife 2</category>
+	</item>
+
+	<item id="13b9_bronze" inherit="13b9">
+		<bronze_weapon />
+		<baseid>13b9</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Viking Sword 1</category>
+	</item>
+
+	<item id="13ba_bronze" inherit="13ba">
+		<bronze_weapon />
+		<baseid>13b9</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Viking Sword 2</category>
+	</item>
+
+	<!-- Axes -->
+	<item id="f49_bronze" inherit="f49">
+		<bronze_weapon />
+		<baseid>f49</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Axes\Axe 1</category>
+	</item>
+
+	<item id="f4a_bronze" inherit="f4a">
+		<bronze_weapon />
+		<baseid>f49</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Axes\Axe 2</category>
+	</item>
+
+	<item id="f47_bronze" inherit="f47">
+		<bronze_weapon />
+		<baseid>f47</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Axes\Battle Axe 1</category>
+	</item>
+
+	<item id="f48_bronze" inherit="f48">
+		<bronze_weapon />
+		<baseid>f47</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Axes\Battle Axe 2</category>
+	</item>
+
+	<item id="f4b_bronze" inherit="f4b">
+		<bronze_weapon />
+		<baseid>f4b</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Axes\Double Axe 1</category>
+	</item>
+
+	<item id="f4c_bronze" inherit="f4c">
+		<bronze_weapon />
+		<baseid>f4b</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Axes\Double Axe 2</category>
+	</item>
+
+	<item id="f45_bronze" inherit="f45">
+		<bronze_weapon />
+		<baseid>f45</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Axes\Executioner's Axe 1</category>
+	</item>
+
+	<item id="f46_bronze" inherit="f46">
+		<bronze_weapon />
+		<baseid>f45</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Axes\Executioner's Axe 2</category>
+	</item>
+
+	<item id="f43_bronze" inherit="f43">
+		<bronze_weapon />
+		<baseid>f43</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Axes\Hatchet 1</category>
+	</item>
+
+	<item id="f44_bronze" inherit="f44">
+		<bronze_weapon />
+		<baseid>f43</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Axes\Hatchet 2</category>
+	</item>
+
+	<item id="13fb_bronze" inherit="13fb">
+		<bronze_weapon />
+		<baseid>13fb</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Axes\Large Battle Axe 1</category>
+	</item>
+
+	<item id="13fa_bronze" inherit="13fa">
+		<bronze_weapon />
+		<baseid>13fb</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Axes\Large Battle Axe 2</category>
+	</item>
+
+	<item id="1443_bronze" inherit="1443">
+		<bronze_weapon />
+		<baseid>1443</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Axes\Two Handed Axe 1</category>
+	</item>
+
+	<item id="1442_bronze" inherit="1442">
+		<bronze_weapon />
+		<baseid>1443</baseid>
+		<category>Weapons\Bronze\Swordsmanship\Axes\Two Handed Axe 2</category>
+	</item>
 
 </definitions>

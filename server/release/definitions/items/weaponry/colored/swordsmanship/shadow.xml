@@ -1,6 +1,305 @@
 
 <definitions>
 
+	<item id="f4d_shadow" inherit="f4d">
+		<shadow_weapon />
+		<baseid>f4d</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Bardiche 1</category>
+	</item>
 
+	<item id="f4e_shadow" inherit="f4e">
+		<shadow_weapon />
+		<baseid>f4d</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Bardiche 2</category>
+	</item>
+
+	<item id="26c7_shadow" inherit="26c7">
+		<shadow_weapon />
+		<baseid>26c7</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Bladed Staff 1</category>
+	</item>
+
+	<item id="26bd_shadow" inherit="26bd">
+		<shadow_weapon />
+		<baseid>26c7</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Bladed Staff 2</category>
+	</item>
+
+	<item id="26c5_shadow" inherit="26c5">
+		<shadow_weapon />
+		<baseid>26c5</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Bone Harvester 1</category>
+	</item>
+
+	<item id="26bb_shadow" inherit="26bb">
+		<shadow_weapon />
+		<baseid>26c5</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Bone Harvester 2</category>
+	</item>
+
+	<item id="f5e_shadow" inherit="f5e">
+		<shadow_weapon />
+		<baseid>f5e</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Broadsword 1</category>
+	</item>
+
+	<item id="f5f_shadow" inherit="f5f">
+		<shadow_weapon />
+		<baseid>f5e</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Broadsword 2</category>
+	</item>
+
+	<item id="13f6_shadow" inherit="13f6">
+		<shadow_weapon />
+		<baseid>13f6</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Butcher Knife 1</category>
+	</item>
+
+	<item id="13f7_shadow" inherit="13f7">
+		<shadow_weapon />
+		<baseid>13f6</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Butcher Knife 2</category>
+	</item>
+
+	<item id="ec3_shadow" inherit="ec3">
+		<shadow_weapon />
+		<baseid>ec3</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Cleaver 1</category>
+	</item>
+
+	<item id="ec2_shadow" inherit="ec2">
+		<shadow_weapon />
+		<baseid>ec3</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Cleaver 2</category>
+	</item>
+
+	<item id="26cb_shadow" inherit="26cb">
+		<shadow_weapon />
+		<baseid>26cb</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Crescent Blade 1</category>
+	</item>
+
+	<item id="26c1_shadow" inherit="26c1">
+		<shadow_weapon />
+		<baseid>26cb</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Crescent Blade 2</category>
+	</item>
+
+	<item id="1441_shadow" inherit="1441">
+		<shadow_weapon />
+		<baseid>1441</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Cutlass 1</category>
+	</item>
+
+	<item id="1440_shadow" inherit="1440">
+		<shadow_weapon />
+		<baseid>1441</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Cutlass 2</category>
+	</item>
+
+	<item id="143f_shadow" inherit="143f">
+		<shadow_weapon />
+		<baseid>143f</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Halberd 1</category>
+	</item>
+
+	<item id="143e_shadow" inherit="143e">
+		<shadow_weapon />
+		<baseid>143f</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Halberd 2</category>
+	</item>
+
+	<item id="13ff_shadow" inherit="13ff">
+		<shadow_weapon />
+		<baseid>13ff</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Katana 1</category>
+	</item>
+
+	<item id="13fe_shadow" inherit="13fe">
+		<shadow_weapon />
+		<baseid>13ff</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Katana 2</category>
+	</item>
+
+	<item id="13b8_shadow" inherit="13b8">
+		<shadow_weapon />
+		<baseid>13b8</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Long Sword 1</category>
+	</item>
+
+	<item id="13b7_shadow" inherit="13b7">
+		<shadow_weapon />
+		<baseid>13b8</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Long Sword 2</category>
+	</item>
+
+	<item id="f61_shadow" inherit="f61">
+		<shadow_weapon />
+		<baseid>f61</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Longsword 1</category>
+	</item>
+
+	<item id="f60_shadow" inherit="f610">
+		<shadow_weapon />
+		<baseid>f61</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Longsword 2</category>
+	</item>
+
+	<item id="26cf_shadow" inherit="26cf">
+		<shadow_weapon />
+		<baseid>26cf</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Paladin Sword 1</category>
+	</item>
+
+	<item id="26ce_shadow" inherit="26ce">
+		<shadow_weapon />
+		<baseid>26cf</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Paladin Sword 2</category>
+	</item>
+
+	<item id="e86_shadow" inherit="e86">
+		<shadow_weapon />
+		<baseid>e86</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Pickaxe 1</category>
+	</item>
+
+	<item id="e85_shadow" inherit="e85">
+		<shadow_weapon />
+		<baseid>e86</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Pickaxe 2</category>
+	</item>
+
+	<item id="13b6_shadow" inherit="13b6">
+		<shadow_weapon />
+		<baseid>13b6</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Scimitar 1</category>
+	</item>
+
+	<item id="13b5_shadow" inherit="13b5">
+		<shadow_weapon />
+		<baseid>13b6</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Scimitar 2</category>
+	</item>
+
+	<item id="26c4_shadow" inherit="26c4">
+		<shadow_weapon />
+		<baseid>26c4</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Scythe 1</category>
+	</item>
+
+	<item id="26ba_shadow" inherit="26ba">
+		<shadow_weapon />
+		<baseid>26c4</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Scythe 2</category>
+	</item>
+
+	<item id="ec4_shadow" inherit="ec4">
+		<shadow_weapon />
+		<baseid>ec4</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Skinning Knife 1</category>
+	</item>
+
+	<item id="ec5_shadow" inherit="ec5">
+		<shadow_weapon />
+		<baseid>ec4</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Skinning Knife 2</category>
+	</item>
+
+	<item id="13b9_shadow" inherit="13b9">
+		<shadow_weapon />
+		<baseid>13b9</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Viking Sword 1</category>
+	</item>
+
+	<item id="13ba_shadow" inherit="13ba">
+		<shadow_weapon />
+		<baseid>13b9</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Viking Sword 2</category>
+	</item>
+
+	<!-- Axes -->
+	<item id="f49_shadow" inherit="f49">
+		<shadow_weapon />
+		<baseid>f49</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Axes\Axe 1</category>
+	</item>
+
+	<item id="f4a_shadow" inherit="f4a">
+		<shadow_weapon />
+		<baseid>f49</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Axes\Axe 2</category>
+	</item>
+
+	<item id="f47_shadow" inherit="f47">
+		<shadow_weapon />
+		<baseid>f47</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Axes\Battle Axe 1</category>
+	</item>
+
+	<item id="f48_shadow" inherit="f48">
+		<shadow_weapon />
+		<baseid>f47</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Axes\Battle Axe 2</category>
+	</item>
+
+	<item id="f4b_shadow" inherit="f4b">
+		<shadow_weapon />
+		<baseid>f4b</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Axes\Double Axe 1</category>
+	</item>
+
+	<item id="f4c_shadow" inherit="f4c">
+		<shadow_weapon />
+		<baseid>f4b</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Axes\Double Axe 2</category>
+	</item>
+
+	<item id="f45_shadow" inherit="f45">
+		<shadow_weapon />
+		<baseid>f45</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Axes\Executioner's Axe 1</category>
+	</item>
+
+	<item id="f46_shadow" inherit="f46">
+		<shadow_weapon />
+		<baseid>f45</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Axes\Executioner's Axe 2</category>
+	</item>
+
+	<item id="f43_shadow" inherit="f43">
+		<shadow_weapon />
+		<baseid>f43</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Axes\Hatchet 1</category>
+	</item>
+
+	<item id="f44_shadow" inherit="f44">
+		<shadow_weapon />
+		<baseid>f43</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Axes\Hatchet 2</category>
+	</item>
+
+	<item id="13fb_shadow" inherit="13fb">
+		<shadow_weapon />
+		<baseid>13fb</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Axes\Large Battle Axe 1</category>
+	</item>
+
+	<item id="13fa_shadow" inherit="13fa">
+		<shadow_weapon />
+		<baseid>13fb</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Axes\Large Battle Axe 2</category>
+	</item>
+
+	<item id="1443_shadow" inherit="1443">
+		<shadow_weapon />
+		<baseid>1443</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Axes\Two Handed Axe 1</category>
+	</item>
+
+	<item id="1442_shadow" inherit="1442">
+		<shadow_weapon />
+		<baseid>1443</baseid>
+		<category>Weapons\Shadow Iron\Swordsmanship\Axes\Two Handed Axe 2</category>
+	</item>
 
 </definitions>

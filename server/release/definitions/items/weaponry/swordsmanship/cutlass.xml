@@ -20,7 +20,7 @@
 		<weight>8.0</weight>
 		<type>1001</type>
 		<basescripts>equipment,blades</basescripts>
-		<category>Weapons\Swords\Cutlass (N/S)</category>
+		<category>Base Weapons\Swordsmanship\Cutlass (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="25" />
@@ -32,7 +32,7 @@
 	<item id="1440" inherit="1441">
 		<id>0x1440</id>
 		<baseid>1441</baseid>
-		<category>Weapons\Swords\Cutlass (E/W)</category>
+		<category>Base Weapons\Swordsmanship\Cutlass (E/W)</category>
 	</item>
 
 </definitions>

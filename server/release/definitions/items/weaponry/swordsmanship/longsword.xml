@@ -20,7 +20,7 @@
 		<weight>7.0</weight>
 		<type>1001</type>
 		<basescripts>equipment,blades</basescripts>
-		<category>Weapons\Swords\Longsword (N/S)</category>
+		<category>Base Weapons\Swordsmanship\Longsword (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="35" />
@@ -32,7 +32,7 @@
 	<item id="f60" inherit="f61">
 		<id>0xf60</id>
 		<baseid>f61</baseid>
-		<category>Weapons\Swords\Longsword (E/W)</category>
+		<category>Base Weapons\Swordsmanship\Longsword (E/W)</category>
 	</item>
 
 </definitions>

@@ -20,7 +20,7 @@
 		<weight>6.0</weight>
 		<type>1001</type>
 		<basescripts>equipment,blades</basescripts>
-		<category>Weapons\Swords\Scimitar (N/S)</category>
+		<category>Base Weapons\Swordsmanship\Scimitar (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="25" />
@@ -32,7 +32,7 @@
 	<item id="13b5" inherit="13b6">
 		<id>0x13b5</id>
 		<baseid>13b6</baseid>
-		<category>Weapons\Swords\Scimitar (E/W)</category>
+		<category>Base Weapons\Swordsmanship\Scimitar (E/W)</category>
 	</item>
 
 </definitions>

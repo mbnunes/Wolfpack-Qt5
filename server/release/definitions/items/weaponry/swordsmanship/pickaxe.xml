@@ -20,7 +20,7 @@
 		<weight>11.0</weight>
 		<type>1001</type>
 		<basescripts>equipment,pickaxe</basescripts>
-		<category>Weapons\Swords\Pickaxe (N/S)</category>
+		<category>Base Weapons\Swordsmanship\Pickaxe (N/S)</category>
 		<category>Professions\Miner\Tools\Pickaxe (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
@@ -34,7 +34,7 @@
 	<item id="e85" inherit="e86">
 		<id>0xe85</id>
 		<baseid>e86</baseid>
-		<category>Weapons\Swords\Pickaxe (E/W)</category>
+		<category>Base Weapons\Swordsmanship\Pickaxe (E/W)</category>
 		<category>Professions\Miner\Tools\Pickaxe (E/W)</category>
 	</item>
 

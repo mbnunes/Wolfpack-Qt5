@@ -20,7 +20,7 @@
 		<weight>1.0</weight>
 		<type>1001</type>
 		<basescripts>equipment,blades</basescripts>
-		<category>Weapons\Swords\Butcher Knife (N/S)</category>
+		<category>Base Weapons\Swordsmanship\Butcher Knife (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="5" />
@@ -32,7 +32,7 @@
 	<item id="13f7" inherit="13f6">
 		<id>0x13f7</id>
 		<baseid>13f6</baseid>
-		<category>Weapons\Swords\Butcher Knife (E/W)</category>
+		<category>Base Weapons\Swordsmanship\Butcher Knife (E/W)</category>
 	</item>
 
 </definitions>

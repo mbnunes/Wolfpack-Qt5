@@ -20,7 +20,7 @@
 		<weight>6.0</weight>
 		<type>1001</type>
 		<basescripts>equipment,blades</basescripts>
-		<category>Weapons\Swords\Broadsword (N/S)</category>
+		<category>Base Weapons\Swordsmanship\Broadsword (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="30" />
@@ -32,7 +32,7 @@
 	<item id="f5f" inherit="f5e">
 		<id>0xf5f</id>
 		<baseid>f5e</baseid>
-		<category>Weapons\Swords\Broadsword (E/W)</category>
+		<category>Base Weapons\Swordsmanship\Broadsword (E/W)</category>
 	</item>
 
 </definitions>

@@ -20,7 +20,7 @@
 		<weight>6.0</weight>
 		<type>1001</type>
 		<basescripts>equipment,blades</basescripts>
-		<category>Weapons\Swords\Viking Sword (N/S)</category>
+		<category>Base Weapons\Swordsmanship\Viking Sword (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="40" />
@@ -32,7 +32,7 @@
 	<item id="13ba" inherit="13b9">
 		<id>0x13ba</id>
 		<baseid>13b9</baseid>
-		<category>Weapons\Swords\Viking Sword (E/W)</category>
+		<category>Base Weapons\Swordsmanship\Viking Sword (E/W)</category>
 	</item>
 
 </definitions>

@@ -19,7 +19,7 @@
 		<durability><random min="30" max="62" /></durability>
 		<weight>8.0</weight>
 		<basescripts>equipment,blades</basescripts>
-		<category>Weapons\Axes\Two Handed Axe (N/S)</category>
+		<category>Base Weapons\Swordsmanship\Axes\Two Handed Axe (N/S)</category>
 		<type>1002</type>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
@@ -32,7 +32,7 @@
 	<item id="1442" inherit="1443">
 		<id>0x1442</id>
 		<baseid>1443</baseid>
-		<category>Weapons\Axes\Two Handed Axe (E/W)</category>
+		<category>Base Weapons\Swordsmanship\Axes\Two Handed Axe (E/W)</category>
 	</item>
 
 </definitions>

@@ -20,7 +20,7 @@
 		<weight>6.0</weight>
 		<type>1001</type>
 		<basescripts>equipment,blades</basescripts>
-		<category>Weapons\Swords\Paladin Sword (N/S)</category>
+		<category>Base Weapons\Swordsmanship\Paladin Sword (N/S)</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
 		<intproperty name="req_strength" value="30" />
@@ -32,7 +32,7 @@
 	<item id="26ce" inherit="26cf">
 		<id>0x26ce</id>
 		<baseid>26cf</baseid>
-		<category>Weapons\Swords\Paladin Sword (E/W)</category>
+		<category>Base Weapons\Swordsmanship\Paladin Sword (E/W)</category>
 	</item>
 
 </definitions>
