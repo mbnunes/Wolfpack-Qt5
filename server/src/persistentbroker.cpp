@@ -134,21 +134,24 @@ bool PersistentBroker::saveObject( PersistentObject* object )
 
 bool PersistentBroker::deleteObject( PersistentObject* object )
 {
-//	static const bool hasTransaction = connection->driver()->hasFeature(QSqlDriver::Transactions);
-//	if ( hasTransaction )
-//		connection->transaction();
+	return object->del();
+
+/*	static const bool hasTransaction = connection->driver()->hasFeature(QSqlDriver::Transactions);
+	if ( hasTransaction )
+		connection->transaction();
 	if ( object->del() )
 	{
-//		if ( hasTransaction )
-//			connection->commit();
+		if ( hasTransaction )
+			connection->commit();
 		return true;
 	}
 	else
 	{
-//		if ( hasTransaction )
-//			connection->rollback();
+		if ( hasTransaction )
+			connection->rollback();
 		return false;
 	}
+	*/
 }
 
 bool PersistentBroker::executeQuery( const QString& query )

@@ -262,8 +262,11 @@ protected:
 	// A* calculated path which the NPC walks on.
 	std::deque< Coord_cl > path_;
 
-	// NPC AI State Machine interface
+	// NPC AI interface
 	AbstractAI* ai_;
+
+	// NPC AI ID
+	QString aiid_;
 
 	// NPC AI check timer
 	UINT32	aiCheckTime_;

@@ -66,6 +66,7 @@ cNPC::cNPC()
 	owner_				= NULL;
 	stablemasterSerial_	= INVALID_SERIAL;
 	wanderType_			= stWanderType();
+	aiid_				= "Monster_Aggressive_L1";
 	ai_					= new Monster_Aggressive_L1( this );
 	aiCheckInterval_	= (UINT16)floor(SrvParams->checkAITime() * 1000.0f);
 	aiCheckTime_		= uiCurrentTime + (float)aiCheckInterval_ * 0.001f * MY_CLOCKS_PER_SEC;
@@ -168,14 +169,7 @@ void cNPC::save()
 		addStrField( "spawnregion", spawnregion_);
 		addField( "stablemaster", stablemasterSerial_ );
 		addStrField( "lootlist", lootList_);
-		if( ai_ )
-		{
-			addStrField( "ai", ai_->name() );
-		}
-		else
-		{
-			addStrField( "ai", QString::null );
-		}
+		addStrField( "ai", aiid_ );
 		addField( "wandertype", (UINT8)wanderType() );
 		addField( "wanderx1", wanderX1() );
 		addField( "wanderx2", wanderX2() );
@@ -1153,7 +1147,7 @@ stError *cNPC::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "summontime", (int)summonTime_) 
 	else GET_PROPERTY( "summontimer", (int)summonTime_) 
 	else GET_PROPERTY( "owner", owner_ )
-	else GET_PROPERTY( "ai", ai_ ? ai_->name() : QString( "" ) )
+	else GET_PROPERTY( "ai", aiid_ )
 	else GET_PROPERTY( "fleeat", criticalHealth_ )
 	else GET_PROPERTY( "criticalhealth", criticalHealth_ )
 	else GET_PROPERTY( "spellslow", (int)spellsLow_ )
@@ -1435,8 +1429,15 @@ void cNPC::findPath( const Coord_cl &goal, float sufficient_cost /* = 0.0f */ )
 void cNPC::setAI( const QString &data )
 {
 	QString tmp = QStringList::split( ",", data )[0];
+	aiid_ = tmp;
+	
+	if( ai_ )
+		delete ai_;
+
+	ai_ = NULL;
+
 	AbstractAI* ai = AIFactory::instance()->createObject( tmp );
-	if( !ai )
+	if( !ai ) 
 		return;
 
 	ScriptAI* sai = dynamic_cast< ScriptAI* >( ai );
@@ -1445,9 +1446,6 @@ void cNPC::setAI( const QString &data )
 		sai->setName( tmp );
 	}
 	ai->init( this );
-
-	if( ai_ )
-		delete ai_;
 
 	setAI( ai );
 }

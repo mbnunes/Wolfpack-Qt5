@@ -361,7 +361,7 @@ void checkPC( P_PLAYER pc, unsigned int currenttime )
 		pc->setSpiritSpeakTimer(0);
 */
 	
-#pragma note("TODO: jail reimplementation with xml")
+#pragma note("TODO: jail reimplementation with python")
 /*
 	// Jail stuff
 	if( pc->cell() > 0 )
