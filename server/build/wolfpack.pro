@@ -108,7 +108,6 @@ HEADERS         = \
 SOURCES         = \
 		  LoS.cpp \
 		  corpse.cpp \
-		  SkiTarg.cpp \
 		  Timing.cpp \
 		  tmpeff.cpp \
 		  Trade.cpp \
