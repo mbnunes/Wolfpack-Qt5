@@ -205,7 +205,4 @@ struct wp_version_info
 };
 extern wp_version_info wp_version;
 
-// 0 -> compiles an old map (BRITANNIA) shard executable/binary
-// 1 -> compiles  a new map (ILSHENAR)  shard executable/binary
-
 #endif

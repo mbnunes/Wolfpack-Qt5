@@ -183,7 +183,7 @@ cVariant::cVariant( cBaseChar *val )
 }
 
 /*!
-  Constructs a new variant with a cChar* value, \a val.
+  Constructs a new variant with a cItem* value, \a val.
 */
 cVariant::cVariant( cItem *val )
 {

@@ -465,7 +465,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 				pc_currchar->resend( false );
 			}
 			
-			pi->ReduceAmount( 1 );	// Remove a food item
+			pi->reduceAmount( 1 );	// Remove a food item
 			pc_currchar->setHunger( pc_currchar->hunger() + 1 );
 		}
 		else
@@ -484,7 +484,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 		// Drinks (This needs some other effects as well)
 		case 105:  
 			pc_currchar->soundEffect( 0x30 + RandomNum( 0, 1 ) );			
-			pi->ReduceAmount( 1 ); // Remove a drink
+			pi->reduceAmount( 1 ); // Remove a drink
 			pc_currchar->message( "Gulp!" );
 			return;
 
@@ -608,7 +608,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
                 socket->sysMessage(tr("You died %1 times.").arg(pc_currchar->deaths()));
 				pc_currchar->effect( 0x372A, 0x09, 0x06 );
 				socket->sysMessage(tr("*The crystal ball seems to have vanished*"));
-                pi->ReduceAmount(1); 
+                pi->reduceAmount(1); 
                 return; 
 			}
 		case 404: // Fraz'z ID wand
@@ -981,7 +981,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 						P_ITEM pi_sextant = Items->SpawnItem(pc_currchar, 1, "a sextant", 0, 0x1057, 0, 1);
 						if (pi_sextant != NULL)
 							pi_sextant->setPriv( pi_sextant->priv() | 0x01 );
-						pi->ReduceAmount(1);
+						pi->reduceAmount(1);
 					}
 					else 
 						socket->sysMessage(tr("you fail to create the sextant."));

@@ -33,52 +33,49 @@
 
 #include "engine.h"
 
-template <class T, unsigned int S> 
+template <class T, unsigned int MAXSIZE> 
 class FixedSizePtrStack 
 {
 private:
-	T **base, **top, **end;
+	T* elements[MAXSIZE];
+	int numElements;
 	
     FixedSizePtrStack (const FixedSizePtrStack& src);	// disable copy
     FixedSizePtrStack& operator = (const FixedSizePtrStack& src);	// disable assignment
 
 public:
 	
-	FixedSizePtrStack() : base(0), top(0), end(0)
+	FixedSizePtrStack() : numElements(0)
 	{
-		base = new T*[S];
-		top = base;
-		end = base + S;
 	}
 	
-    ~FixedSizePtrStack (void)
-    {
-		delete [] base;
-    }
+    bool isEmpty()	const { return (numElements == 0); }		// check if stack is emptied
+    bool isFull()	const { return (numElements == MAXSIZE); } 	// check if stack reached limit
+    int size()		const { return numElements; }				// current number of elements
 
-    bool isEmpty() const { return (top == base); }	// check if stack is emptied
-    bool isFull() const { return (top == end); } 	// check if stack reached limit
-    int size() const { return int(top-base); }  // current number of elements
-
-    void push (T* x)			// push object
+    void push (T* x)			// push object ( Note, this is exception safe, don't change)
     {
-		if (top < end) *top++ = x;
+		if ( numElements == MAXSIZE )
+			throw std::out_of_range("FixedSizePtrStack<>::push(): stack is full");
+		elements[numElements] = x; // Append
+		++numElements;			   // Increase number.
     }
 	
-    T* pop (void)	// pop object - return as function
+    T* pop()	// pop object ( Note, this is exception safe, don't change )
     {
-        if (top > base) return *--top;
-		else if ( top == base ) return *base;
-		return 0;
+        if ( numElements <= 0 ) return 0;
+		T* ret = elements[numElements - 1];
+		--numElements;
+		return ret;
     }
 	
 };
 
-template< class T, unsigned int size >
+template< class T, unsigned int MAXSIZE >
 class cObjectCache
 {
 private:
-	FixedSizePtrStack< PyObject, size > stack;
+	FixedSizePtrStack< PyObject, MAXSIZE > stack;
 	
 public:
 	
@@ -98,7 +95,7 @@ public:
 	
 	void freeObj( PyObject *obj )
 	{
-		if( stack.size() >= size )
+		if( stack.size() >= MAXSIZE )
 		{
 			PyObject_Del( obj );
 			return;

@@ -567,6 +567,16 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	warmode.setStatus( pChar->isAtWar() );
 	send( &warmode );
 
+	cUOTxOptions unknown;
+	unknown.setOption(1);
+//	send( &unknown );
+
+	unknown.setOption(2);
+//	send( &unknown );
+
+	unknown.setOption(3);
+//	send( &unknown );
+
 	if( pChar->combatTarget() != INVALID_SERIAL )
 	{
 		cUOTxAttackResponse attack;
@@ -1081,7 +1091,7 @@ void cUOSocket::handleContextMenuRequest( cUORxContextMenuRequest *packet )
 	if( clicked->bindmenu().isEmpty() )
 		return;
 	
-	if( !ContextMenus::instance()->MenuExist( clicked->bindmenu() ) ) 
+	if( !ContextMenus::instance()->menuExists( clicked->bindmenu() ) ) 
 	{
 		clicked->setBindmenu(QString::null);
 		return;

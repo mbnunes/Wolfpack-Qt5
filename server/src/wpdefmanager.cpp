@@ -138,7 +138,7 @@ public:
 		}
 
 		cElement *element = new cElement;
-		element->setName( localName );
+		element->setName( localName.latin1() );
 		element->copyAttributes( atts );
 
 		// Child Element ?
@@ -501,7 +501,7 @@ void cElement::removeChild( cElement *element )
 	}
 }
 
-bool cElement::hasAttribute( const QString &name ) const
+bool cElement::hasAttribute( const QCString &name ) const
 {
 	for( unsigned int i = 0; i < attrCount_; ++i )
 		if( attributes[i]->name == name )
@@ -510,7 +510,7 @@ bool cElement::hasAttribute( const QString &name ) const
 	return false;
 }
 
-const QString &cElement::getAttribute( const QString &name, const QString &def ) const
+const QString &cElement::getAttribute( const QCString &name, const QString &def ) const
 {
 	for( unsigned int i = 0; i < attrCount_; ++i )
 		if( attributes[i]->name == name )
@@ -519,12 +519,12 @@ const QString &cElement::getAttribute( const QString &name, const QString &def )
 	return def;
 }
 
-void cElement::setName( const QString &data )
+void cElement::setName( const QCString &data )
 {
 	name_ = data;
 }
 
-const QString &cElement::name() const
+QString cElement::name() const
 {
 	return name_;
 }

@@ -122,7 +122,7 @@ bool inrange1p (PC_CHAR pca, P_CHAR pcb) // Are characters a and b in visual ran
 // Purpose:	checks if position 1 and 2 are in given range
 // history:	by Duke, 19.11.2000
 //
-inline bool inRange(int x1, int y1, int x2, int y2, int range)
+bool inRange(int x1, int y1, int x2, int y2, int range)
 {
 	return (QMAX(abs(x1-x2), abs(y1-y2)) <= range);
 }
@@ -138,6 +138,7 @@ void signal_handler(int signal)
 	switch (signal)
 	{
 	case SIGHUP:
+		{
                 SrvParams->reload();
                 cNetwork::instance()->reload();
 
@@ -160,6 +161,7 @@ void signal_handler(int signal)
 					cTerritory *region = AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
 					pChar->setRegion( region );
 				}
+		}
 		break ;
 		
 	case SIGUSR1:

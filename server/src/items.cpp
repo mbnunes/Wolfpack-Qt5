@@ -102,10 +102,6 @@ cItem::cItem( const cItem &src )
 	this->more2_ = src.more2_;
 	this->more3_ = src.more3_;
 	this->more4_ = src.more4_;
-	this->moreb1_ = src.moreb1_;
-	this->moreb2_ = src.moreb2_;
-	this->moreb3_ = src.moreb3_;
-	this->moreb4_ = src.moreb4_;
 	this->morex_ = src.morex_;
 	this->morey_ = src.morey_;;
 	this->morez_ = src.morez_;
@@ -210,21 +206,20 @@ void cItem::startDecay()
 //			necessary and returns 0. If the request could not be fully satisfied,
 //			the remainder is returned
 //
-long cItem::ReduceAmount(const short amt)
+long cItem::reduceAmount(const short amt)
 {
 	UINT16 rest = 0;
 	if( amount_ > amt )
 	{
 		setAmount( amount_ - amt );
 		update();
+		changed( SAVE|TOOLTIP );
 	}
 	else
 	{
 		Items->DeleItem(this);
 		rest = amt - amount_;
 	}
-
-	changed( SAVE|TOOLTIP );
 	return rest;
 }
 
@@ -448,7 +443,7 @@ int cItem::DeleteAmount(int amount, unsigned short _id, unsigned short _color)
 		if (pi->type() == 1)
 			rest = pi->DeleteAmount(rest, _id, _color);
 		if (pi->id() == _id && ( _color == 0 || ( pi->color() == _color ) ) )
-			rest=pi->ReduceAmount(rest);
+			rest=pi->reduceAmount(rest);
 		if (rest<=0)
 			break;
 	}
@@ -492,10 +487,6 @@ void cItem::save()
 		addField("more2",			more2_);
 		addField("more3",			more3_);
 		addField("more4",			more4_);
-		addField("moreb1",		moreb1_);
-		addField("moreb2",		moreb2_);
-		addField("moreb3",		moreb3_);
-		addField("moreb4",		moreb4_);
 		addField("morex",			morex_);
 		addField("morey",			morey_);
 		addField("morez",			morez_);
@@ -572,7 +563,7 @@ QString cItem::getName( bool shortName )
 		}
 	}
 
-	if( name_ != "#" )
+	if( !name_.isNull() )
 		return name_;
 
 	tile_st tile = TileCache::instance()->getTile( id_ );
@@ -648,10 +639,6 @@ void cItem::Init( bool createSerial )
 	this->more2_=0;
 	this->more3_=0;
 	this->more4_=0;
-	this->moreb1_=0;
-	this->moreb2_=0;
-	this->moreb3_=0;
-	this->moreb4_=0;
 	this->morex_=0;
 	this->morey_=0;
 	this->morez_=0;
@@ -2250,6 +2237,8 @@ static void itemRegisterAfterLoading( P_ITEM pi )
 
 	if( pi->maxhp() == 0) 
 		pi->setMaxhp( pi->hp() );
+	if( pi->name() == "#" )
+		pi->setName( QString::null );
 }
 
 void cItem::load( char **result, UINT16 &offset )
@@ -2286,10 +2275,6 @@ void cItem::load( char **result, UINT16 &offset )
 	more2_ = atoi( result[offset++] );
 	more3_ = atoi( result[offset++] );
 	more4_ = atoi( result[offset++] );
-	moreb1_ = atoi( result[offset++] );
-	moreb2_ = atoi( result[offset++] );
-	moreb3_ = atoi( result[offset++] );
-	moreb4_ = atoi( result[offset++] );
 	morex_ = atoi( result[offset++] );
 	morey_ = atoi( result[offset++] );
 	morez_ = atoi( result[offset++] );
@@ -2341,7 +2326,7 @@ void cItem::load( char **result, UINT16 &offset )
 void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cUObject::buildSqlString( fields, tables, conditions );
-	fields.push_back( "items.id,items.name,items.name2,items.creator,items.sk_name,items.color,items.cont,items.layer,items.type,items.type2,items.offspell,items.more1,items.more2,items.more3,items.more4,items.moreb1,items.moreb2,items.moreb3,items.moreb4,items.morex,items.morey,items.morez,items.amount,items.doordir,items.dye,items.decaytime,items.att,items.def,items.hidamage,items.lodamage,items.st,items.time_unused,items.weight,items.hp,items.maxhp,items.rank,items.st2,items.dx,items.dx2,items.intelligence,items.intelligence2,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.dir,items.priv,items.sellprice,items.buyprice,items.restock,items.disabled,items.spawnregion,items.good,items.description,items.accuracy" ); // for now! later on we should specify each field
+	fields.push_back( "items.id,items.name,items.name2,items.creator,items.sk_name,items.color,items.cont,items.layer,items.type,items.type2,items.offspell,items.more1,items.more2,items.more3,items.more4,items.morex,items.morey,items.morez,items.amount,items.doordir,items.dye,items.decaytime,items.att,items.def,items.hidamage,items.lodamage,items.st,items.time_unused,items.weight,items.hp,items.maxhp,items.rank,items.st2,items.dx,items.dx2,items.intelligence,items.intelligence2,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.dir,items.priv,items.sellprice,items.buyprice,items.restock,items.disabled,items.spawnregion,items.good,items.description,items.accuracy" ); // for now! later on we should specify each field
 	tables.push_back( "items" );
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
@@ -2553,11 +2538,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "health", hp_ )
 	else SET_INT_PROPERTY( "maxhealth", maxhp_ )
 	else SET_STR_PROPERTY( "spawnregion", spawnregion_ )
-	else SET_INT_PROPERTY( "moreb1", moreb1_ )
-	else SET_INT_PROPERTY( "moreb2", moreb2_ )
-	else SET_INT_PROPERTY( "moreb3", moreb3_ )
-	else SET_INT_PROPERTY( "moreb4", moreb4_ )
-
 	else SET_INT_PROPERTY( "owner", ownserial_ )
 
 	else if( name == "totalweight" )
@@ -2778,10 +2758,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "health", hp_ )
 	else GET_PROPERTY( "maxhealth", maxhp_ )
 	else GET_PROPERTY( "spawnregion", spawnregion_ )
-	else GET_PROPERTY( "moreb1", moreb1_ )
-	else GET_PROPERTY( "moreb2", moreb2_ )
-	else GET_PROPERTY( "moreb3", moreb3_ )
-	else GET_PROPERTY( "moreb4", moreb4_ )
 	else GET_PROPERTY( "owner", owner() )
 	else GET_PROPERTY( "totalweight", totalweight_ )
 	else GET_PROPERTY( "antispamtimer", (int)antispamtimer_ )

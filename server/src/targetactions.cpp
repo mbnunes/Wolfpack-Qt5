@@ -99,7 +99,7 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 			socket->sysMessage( tr( "Because of your skill, you were able to resurrect the ghost." ) );
 		}
 
-		pBandage->ReduceAmount();
+		pBandage->reduceAmount();
 
 		return true;
 	}
@@ -137,7 +137,7 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 			socket->sysMessage( tr( "You fail to cure the poison." ) );
 		}
 
-		pBandage->ReduceAmount();
+		pBandage->reduceAmount();
 		return true;
 	}
 
@@ -181,7 +181,7 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 	}
 
 	pHealer->setObjectDelay( SetTimerSec( pHealer->objectDelay(), SrvParams->objectDelay() + SrvParams->bandageDelay() ) );	
-	pBandage->ReduceAmount();
+	pBandage->reduceAmount();
 
 	return true;
 }
@@ -223,7 +223,7 @@ bool cSkLockpicking::responsed( cUOSocket *socket, cUORxTarget *target )
 					if((rand()%100)>50) 
 					{
 						socket->sysMessage( tr("You broke your lockpick!") );
-						piPick->ReduceAmount( 1 );
+						piPick->reduceAmount( 1 );
 					} 
 					else
 						socket->sysMessage( tr("You fail to open the lock.") );

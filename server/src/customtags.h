@@ -120,9 +120,9 @@ private:
         Type typ;
         union
         {
-	    int i;
-	    double d;
-	    void *ptr;
+		    int i;
+		    double d;
+			void *ptr;
         } value;
     };
 

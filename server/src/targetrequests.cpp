@@ -661,7 +661,7 @@ bool cSkBegging::responsed( cUOSocket *socket, cUORxTarget *target )
 							int k = pi_j->amount();
 							if(k >= y) // enough money in that pile in pack to satisfy pre-aclculated amount
 							{
-								pi_j->ReduceAmount( y );
+								pi_j->reduceAmount( y );
 								realgold += y; // calc gold actually given to player
 								
 								// This does not end in a crash !??

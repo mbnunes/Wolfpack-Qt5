@@ -61,8 +61,6 @@ private:
 	Q_UINT16	msgid_;
 };
 
-typedef QValueVector< cConSingleOption > vSingleOption;
-
 class cConMenuOptions : public cDefinable
 {
 public:
@@ -92,8 +90,7 @@ public:
 private:
 	QMap< QString, cConMenuOptions >	options_;
 	QStringList							eventList_;
-	std::vector<cPythonScript*>		scriptChain;
-
+	std::vector<cPythonScript*>			scriptChain;
 };
 
 class cAllConMenus
@@ -101,7 +98,7 @@ class cAllConMenus
 public:
 	~cAllConMenus()	{ menus_.clear(); }
 
-	bool	MenuExist( const QString& bindmenu ) const;
+	bool	menuExists( const QString& bindmenu ) const;
 	void	load( void );
 	void	reload( void );
 	const cConMenuOptions* getMenuOptions( const QString& bindmenu, const QString& acl ) const;

@@ -182,7 +182,7 @@ cPythonScript *cScriptManager::getCommandHook( const QString &command )
 	return *it;
 }
 
-const QValueVector< cPythonScript* > cScriptManager::getGlobalHooks( UINT32 object, UINT32 event )
+const QValueVector< cPythonScript* > cScriptManager::getGlobalHooks( UINT32 object, UINT32 event ) const
 {
 	return globalhooks[ object ][ event ];  
 }

@@ -156,18 +156,6 @@ void cItem::save( FlatStore::OutputFile *output, bool first ) throw()
 	if( more4() )
 		output->chunkData( ITEM_MORE4, (unsigned char)more4() );
 
-	if( moreb1() )
-		output->chunkData( ITEM_MOREB1, (unsigned char)moreb1() );
-
-	if( moreb2() )
-		output->chunkData( ITEM_MOREB2, (unsigned char)moreb2() );
-
-	if( moreb3() )
-		output->chunkData( ITEM_MOREB3, (unsigned char)moreb3() );
-
-	if( moreb4() )
-		output->chunkData( ITEM_MOREB4, (unsigned char)moreb4() );
-
 	if( morex() )
 		output->chunkData( ITEM_MOREX, (unsigned int)morex() );
 
@@ -346,22 +334,6 @@ bool cItem::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::
 
 	case ITEM_MORE4:
 		input->readUChar( more4_ );
-		break;
-
-	case ITEM_MOREB1:
-		input->readUChar( moreb1_ );
-		break;
-
-	case ITEM_MOREB2:
-		input->readUChar( moreb2_ );
-		break;
-
-	case ITEM_MOREB3:
-		input->readUChar( moreb3_ );
-		break;
-
-	case ITEM_MOREB4:
-		input->readUChar( moreb4_ );
 		break;
 
 	case ITEM_MOREX:

@@ -276,17 +276,17 @@ void cSectorMaps::addMap( unsigned char map, unsigned int width, unsigned int he
 	
 	if( !itemmap->init( width, height ) )
 	{
-		throw wpException( QString( itemmap->error() ) );
 		delete itemmap;
+		throw wpException( QString( itemmap->error() ) );
 	}
 
 	cSectorMap *charmap = new cSectorMap;
 
 	if( !charmap->init( width, height ) )
 	{
-		throw wpException( QString( charmap->error() ) );
 		delete charmap;
 		delete itemmap;
+		throw wpException( QString( charmap->error() ) );
 	}
 
 	charmaps.insert( std::make_pair( map, charmap ) );

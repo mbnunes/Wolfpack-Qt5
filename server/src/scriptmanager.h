@@ -109,7 +109,7 @@ public:
 	void clearGlobalHooks() { globalhooks.clear(); }
 	void clearCommandHooks() { commandhooks.clear(); }
 	cPythonScript *getCommandHook( const QString &command );
-	const QValueVector< cPythonScript* > getGlobalHooks( UINT32 object, UINT32 event );
+	const QValueVector< cPythonScript* > getGlobalHooks( UINT32 object, UINT32 event ) const;
 };
 
 #endif

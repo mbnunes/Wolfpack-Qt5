@@ -41,6 +41,12 @@
 #undef  DBGFILE
 #define DBGFILE "contextmenu.cpp"
 
+cConMenu::cConMenu( const cElement *Tag )
+{
+	applyDefinition( Tag );
+	recreateEvents();
+}
+
 void cConSingleOption::setOption( const cElement *Tag )
 {
 	this->tag_ = Tag->getAttribute( "tag" ).toUShort();
@@ -117,12 +123,6 @@ bool cConMenu::onContextEntry( cPlayer *Caller, cUObject *Target, Q_UINT16 Tag )
 	return false;
 }
 
-cConMenu::cConMenu( const cElement *Tag )
-{
-	applyDefinition( Tag );
-	recreateEvents();
-}
-
 const cConMenuOptions* cConMenu::getOptionsByAcl( const QString& acl ) const
 {
 	QMap< QString, cConMenuOptions >::const_iterator it = options_.find( acl );
@@ -149,7 +149,7 @@ void cAllConMenus::load( void )
 	
 }
 
-bool cAllConMenus::MenuExist( const QString& bindmenu ) const
+bool cAllConMenus::menuExists( const QString& bindmenu ) const
 {
 	QMap< QString, cConMenu >::const_iterator it( menus_.find( bindmenu ) );
 	return it != menus_.end();

@@ -80,11 +80,11 @@ class cElement
 private:
 	struct stAttribute
 	{
-		QString name;
+		QCString name;
 		QString value;
 	};
 
-	QString name_; // Tag Name spell for <spell i.e.
+	QCString name_; // Tag Name spell for <spell i.e.
 	QString text_; // This is not really a well implemented approach. this is subject to change
 
 	cElement *parent_;
@@ -109,11 +109,11 @@ public:
 	const cElement *findChild( const QString &name ) const;
 	const cElement *getChild( unsigned int index ) const;
 	unsigned int childCount() const;
-	bool hasAttribute( const QString &name ) const;
-	const QString &getAttribute( const QString &name, const QString &def = QString::null ) const;
+	bool hasAttribute( const QCString &name ) const;
+	const QString &getAttribute( const QCString &name, const QString &def = QString::null ) const;
 	
-	void setName( const QString &data );
-	const QString &name() const;
+	void setName( const QCString &data );
+	QString name() const;
 
 	void setText( const QString &data );
 	const QString &text() const;

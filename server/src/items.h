@@ -58,10 +58,6 @@ class cItem : public cUObject
 	Q_PROPERTY ( ushort		accuracy	READ accuracy		WRITE setAccuracy		)
 	Q_PROPERTY ( int		sellprice	READ sellprice		WRITE setSellprice		)
 	Q_PROPERTY ( int		buyprice	READ buyprice		WRITE setBuyprice		)
-	Q_PROPERTY ( uchar		moreb1		READ moreb1			WRITE setMoreb1			)
-	Q_PROPERTY ( uchar		moreb2		READ moreb2			WRITE setMoreb2			)
-	Q_PROPERTY ( uchar		moreb3		READ moreb3			WRITE setMoreb3			)
-	Q_PROPERTY ( uchar		moreb4		READ moreb4			WRITE setMoreb4			)
 	Q_PROPERTY ( uchar		more1		READ more1			WRITE setMore1			)
 	Q_PROPERTY ( uchar		more2		READ more2			WRITE setMore2			)
 	Q_PROPERTY ( uchar		more3		READ more3			WRITE setMore3			)
@@ -136,10 +132,6 @@ public:
 	SI16			hp()			const { return hp_; }			// Number of hitpoints an item has
 	SI16			maxhp()			const { return maxhp_; }		// Maximum number of hitpoints an item has
 	QString			spawnregion()	const { return spawnregion_; }
-	uchar			moreb1()		const { return moreb1_; }
-	uchar			moreb2()		const { return moreb2_; }
-	uchar			moreb3()		const { return moreb3_; }
-	uchar			moreb4()		const { return moreb4_; }
 	bool			corpse()		const { return priv_&0x40; }		// Is the item a corpse
 	bool			newbie()		const { return priv_&0x02; }		// Is the Item Newbie
 	P_CHAR			owner()			const;
@@ -228,10 +220,6 @@ public:
 	void	setHp( SI16 nValue ) { hp_ = nValue; changed( SAVE+TOOLTIP );};
 	void	setMaxhp( SI16 nValue ) { maxhp_ = nValue; changed( SAVE+TOOLTIP );};
 	void	setSpawnRegion( const QString& nValue ) { spawnregion_ = nValue; changed( SAVE );};
-	void	setMoreb1( uchar nValue ) { moreb1_ = nValue; changed( SAVE );};
-	void	setMoreb2( uchar nValue ) { moreb2_ = nValue; changed( SAVE );};
-	void	setMoreb3( uchar nValue ) { moreb3_ = nValue; changed( SAVE );};
-	void	setMoreb4( uchar nValue ) { moreb4_ = nValue; changed( SAVE );};
 	void	setCorpse( bool nValue ) { ( nValue ) ? priv_ |= 0x40 : priv_ &= 0xBF; changed( SAVE+TOOLTIP );}
 	void	setNewbie( bool nValue ) { ( nValue ) ? priv_ |= 0x02 : priv_ &= 0xFD; changed( SAVE+TOOLTIP );}
 	void	setOwner( P_CHAR nOwner );
@@ -345,7 +333,7 @@ public:
 	UINT16 getWeaponSkill();
 
 	void MoveTo(int newx, int newy, signed char newz);
-	long ReduceAmount(const short amount = 1);
+	long reduceAmount( short amount = 1 );
 	short GetContGumpType();
 	void SetRandPosInCont(cItem* pCont);
 	bool PileItem(cItem* pItem);
@@ -417,10 +405,6 @@ protected:
 	int			buyprice_;
 
 	// More values
-	uchar		moreb1_;
-	uchar		moreb2_;
-	uchar		moreb3_;
-	uchar		moreb4_;
 	ContainerContent content_;
 	cUObject*	container_;
 	uchar		more1_; // For various stuff
