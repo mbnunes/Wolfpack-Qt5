@@ -11,8 +11,10 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Fixed categories for curtains.
 		- Defined all teleporters thanks to bugging and work from DrkCodeman.
 		- Added teleporter stairs to ilshenar decoration.
-		- Added index.xml files to armor categories.
+		- Added index.xml files to armor categories. (Cleanups)
 		- Began to add new Samurai armor and weapons (not complete).
+		- Added most of the new Samurai Empire artwork (not yet sorted).
+		- Added slayer weapon properties to NPCs.
 		- Fiexd bug #0000347. (Campfires not disappearing, wrong light id)
 	* Python Script Changes:
 		- Fixed BONUS* properties.
@@ -43,6 +45,7 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Fixed bug #0000346. (Unmovable items crafted by carpenters)
 		- Fixed a bug with loot (typo)
 		- Fixed a bug with the who menu related to more than 10 players connected.
+		- Added slayer weapons. See ./scripts/system/slayer.py
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
