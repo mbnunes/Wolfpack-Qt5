@@ -11,20 +11,20 @@
 	<!-- Dire Wolf -->
 	<npc id="dire_wolf" inherit="animal_base">
 		<name>dire wolf</name>
-		<id value="23" />
+		<id>23</id>
 		<ai>Animal_Aggressive</ai>
-		<skin list="SKINS_NEUTRAL" />
+		<skin><random list="SKINS_NEUTRAL" /></skin>
 		<inherit id="KARMA_L2" />
 		<inherit id="FAME_L2" />
 		<!-- Stats -->
-		<str min="96" max="120" />
-		<dex min="81" max="105" />
-		<int min="36" max="60" />
+		<str><random min="96" max="120" /></str>
+		<dex><random min="81" max="105" /></dex>
+		<int><random min="36" max="60" /></int>
 		<!-- Status -->
-		<maxhitpoints min="58" max="72" />
+		<maxhitpoints><random min="58" max="72" /></maxhitpoints>
 		<!-- Damage -->
-		<mindamage value="20" />
-		<maxdamage value="32" />
+		<mindamage>20</mindamage>
+		<maxdamage>32</maxdamage>
 		<!-- Defense -->
 		<tag name="res_physical" value="20,25" type="int" />
 		<tag name="res_fire" value="10,20" type="int" />
@@ -32,16 +32,17 @@
 		<tag name="res_poison" value="5,10" type="int" />
 		<tag name="res_energy" value="10,15" type="int" />
 		<!-- Skills -->
-		<skill id="wrestling" min="601" max="800" />
-		<skill id="tactics" min="501" max="700" />
-		<skill id="magicresist" min="576" max="750" />
-		<skill id="anatomy" value="0" />
+		<wrestling><random min="601" max="800" /></wrestling>
+		<tactics><random min="501" max="700" /></tactics>
+		<magicresistance><random min="576" max="750" /></magicresistance>
+		<anatomy>0</anatomy>
 		<!-- Misc. -->
-		<controlslots value="2" />
-		<mintaming value="831" />
-		<food value="1" />
+		<controlslots>2</controlslots>
+		<mintaming>831</mintaming>
+		<food>1</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Dire Wolf</category>
+		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="7" />
 		<strproperty name="carve_hides_type" value="spined" />

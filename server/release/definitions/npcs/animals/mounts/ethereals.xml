@@ -10,18 +10,18 @@
 
 	<npc id="ETHEREAL_STATS" inherit="animal_base">
 		<ai>Animal_Wild</ai>
-		<color value="0x4001" />
-		<karma value="0" />
-		<fame value="0" />
+		<color>0x4001</color>
+		<karma>0</karma>
+		<fame>0</fame>
 		<!-- Stats -->
-		<str value="100" />
-		<dex value="100" />
-		<int value="100" />
+		<str>100</str>
+		<dex>100</dex>
+		<int>100</int>
 		<!-- Status -->
-		<maxmana value="0" />
+		<maxmana>0</maxmana>
 		<!-- Damage -->
-		<mindamage value="1" />
-		<maxdamage value="5" />
+		<mindamage>1</mindamage>
+		<maxdamage>5</maxdamage>
 		<!-- <tag name="dmg_physical" value="20" type="int" /> -->
 		<tag name="dmg_cold" value="20" type="int" />
 		<tag name="dmg_fire" value="20" type="int" />
@@ -38,65 +38,65 @@
 		<tactics>1000</tactics>
 		<magicresistance>1000</magicresistance>
 		<!-- Misc. -->
-		<controlslots value="1" />
-		<food value="0" />
-		<mintaming value="0" />
+		<controlslots>1</controlslots>
+		<food>0</food>
+		<mintaming>0</mintaming>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 	</npc>
 
 	<!-- Ethereal Beetle -->
 	<npc id="ethereal_beetle" inherit="ETHERAL_STATS">
 		<name>ethereal giant beetle</name>
-		<id value="195" />
+		<id>195</id>
 		<category>Animals\Mounts\Ethereal\Giant Beetle</category>
 	</npc>
 
 	<!-- Ethereal Horse -->
 	<npc id="ethereal_horse" inherit="ETHERAL_STATS">
 		<name>ethereal horse</name>
-		<id value="115" />
+		<id>115</id>
 		<category>Animals\Mounts\Ethereal\Horse</category>
 	</npc>
 
 	<!-- Ethereal Ki-rin -->
 	<npc id="ethereal_kirin" inherit="ETHERAL_STATS">
 		<name>an ethereal ki-rin</name>
-		<id value="191" />
+		<id>191</id>
 		<category>Animals\Mounts\Ethereal\Ki-rin</category>
 	</npc>
 
 	<!-- Ethereal Llama -->
 	<npc id="ethereal_llama" inherit="ETHERAL_STATS">
 		<name>ethereal llama</name>
-		<id value="170" />
+		<id>170</id>
 		<category>Animals\Mounts\Ethereal\Llama</category>
 	</npc>
 
 	<!-- Ethereal Ostard -->
 	<npc id="ethereal_ostard" inherit="ETHERAL_STATS">
 		<name>ethereal ostard</name>
-		<id value="171" />
+		<id>171</id>
 		<category>Animals\Mounts\Ethereal\Ostard</category>
 	</npc>
 
 	<!-- Ethereal Ridgeback -->
 	<npc id="ethereal_ridgeback" inherit="ETHERAL_STATS">
 		<name>ethereal ridgeback</name>
-		<id value="193" />
+		<id>193</id>
 		<category>Animals\Mounts\Ethereal\Ridgeback</category>
 	</npc>
 
 	<!-- Ethereal Swamp Dragon -->
 	<npc id="ethereal_swamp_dragon" inherit="ETHERAL_STATS">
 		<name>ethereal swamp dragon</name>
-		<id value="194" />
+		<id>194</id>
 		<category>Animals\Mounts\Ethereal\Swamp Dragon</category>
 	</npc>
 
 	<!-- Ethereal Unicorn -->
 	<npc id="ethereal_unicorn" inherit="ETHERAL_STATS">
 		<name>ethereal unicorn</name>
-		<id value="192" />
+		<id>192</id>
 		<category>Animals\Mounts\Ethereal\Unicorn</category>
 	</npc>
 

@@ -20,8 +20,8 @@
 		<dex value="15" />
 		<int value="5" />
 		<!-- Status -->
-		<maxhitpoints value="3" />
-		<maxmana value="0" />
+		<maxhitpoints>3</maxhitpoints>
+		<maxmana>0</maxmana>
 		<!-- Skills -->
 		<skill id="wrestling" value="50" />
 		<skill id="tactics" value="50" />
@@ -47,7 +47,6 @@
 
 	<!-- Super Chicken -->
 	<npc id="super_chicken" inherit="chicken">
-		<baseid value="chicken" />
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->

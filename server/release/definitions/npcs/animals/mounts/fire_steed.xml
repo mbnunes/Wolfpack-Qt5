@@ -11,18 +11,18 @@
 	<!-- Fire Steed -->
 	<npc id="fire_steed" inherit="monster_base">
 		<name>fire steed</name>
-		<id value="190" />
+		<id>190</id>
 		<inherit id="KARMA_L5" />
 		<inherit id="FAME_L5" />
 		<!-- Stats -->
-		<str min="376" max="400" />
-		<dex min="91" max="120" />
-		<int min="291" max="300" />
+		<str><random min="376" max="400" /></str>
+		<dex><random min="91" max="120" /></dex>
+		<int><random min="291" max="300" /></int>
 		<!-- Status -->
-		<maxhitpoints min="226" max="240" />
+		<maxhitpoints><random min="226" max="240" /></maxhitpoints>
 		<!-- Damage -->
-		<mindamage value="24" />
-		<maxdamage value="36" />
+		<mindamage>24</mindamage>
+		<maxdamage>36</maxdamage>
 		<tag name="dmg_fire" value="80" type="int" />
 		<!-- Defense -->
 		<tag name="res_physical" value="30,40" type="int" />
@@ -31,16 +31,16 @@
 		<tag name="res_poison" value="30,40" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />
 		<!-- Skills -->
-		<skill id="wrestling" value="1000" />
-		<skill id="tactics" value="1000" />
-		<skill id="magicresist" min="1000" max="1200" />
-		<skill id="anatomy" value="0" />
+		<wrestling>1000</wrestling>
+		<tactics>1000</tactics>
+		<magicresistance><random min="1000" max="1200" /></magicresistance>
+		<anatomy>0</anatomy>
 		<!-- Misc. -->
 		<!-- Missing: Sulfurous Ash -->
-		<controlslots value="2" />
+		<controlslots>2</controlslots>
 		<lootpacks>gems</lootpacks>
-		<mintaming value="1060" />
-		<food value="1" />
+		<mintaming>1060</mintaming>
+		<food>1</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Fire Steed</category>
 	</npc>

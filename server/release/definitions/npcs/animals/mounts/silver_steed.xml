@@ -9,11 +9,12 @@
 <definitions>
 
 	<!-- Silver Steeds -->
-	<npc id="silver_steed" inherit="nightmare">
+	<npc id="steed_silver" inherit="nightmare">
 		<name>silver steed</name>
 		<ai>Animal_Wild</ai>
-		<id value="117" />
+		<id>117</id>
 		<category>Animals\Mounts\Silver Steed (Weak)</category>
+		<ai>1</ai>
 	</npc>
 
 </definitions>

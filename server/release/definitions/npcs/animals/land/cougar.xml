@@ -11,7 +11,7 @@
 	<!-- Cougar -->
 	<npc id="cougar" inherit="animal_base">
 		<name>cougar</name>
-		<id value="63" />
+		<id>63</id>
 		<ai>Animal_Wild</ai>
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />
@@ -20,29 +20,29 @@
 		<dex><random min="66" max="85" /></dex>
 		<int><random min="26" max="50" /></int>
 		<!-- Status -->
-		<maxhitpoints min="34" max="48" />
-		<maxmana value="0" />
+		<maxhitpoints><random min="34" max="48" /></maxhitpoints>
+		<maxmana>0</maxmana>
 		<!-- Damage -->
-		<mindamage value="6" />
-		<maxdamage value="16" />
+		<mindamage>6</mindamage>
+		<maxdamage>16</maxdamage>
 		<!-- Defense -->
 		<tag name="res_physical" value="20,25" type="int" />
 		<tag name="res_fire" value="5,10" type="int" />
 		<tag name="res_cold" value="10,15" type="int" />
 		<tag name="res_poison" value="5,10" type="int" />
 		<!-- Skills -->
-		<skill id="wrestling" min="451" max="600" />
-		<skill id="tactics" min="451" max="600" />
-		<skill id="magicresist" min="151" max="300" />
-		<skill id="anatomy" value="0" />
+		<wrestling><random min="451" max="600" /></wrestling>
+		<tactics><random min="451" max="600" /></tactics>
+		<magicresistance><random min="151" max="300" /></magicresistance>
+		<anatomy>0</anatomy>
 		<!-- Misc. -->
-		<controlslots value="2" />
-		<mintaming value="411" />
-		<food value="5" />
+		<controlslots>2</controlslots>
+		<mintaming>411</mintaming>
+		<food>5</food>
 		<!--<carve></carve>-->
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Cougar</category>
-
+		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="10" />
 		<intproperty name="carve_meat" value="1" />

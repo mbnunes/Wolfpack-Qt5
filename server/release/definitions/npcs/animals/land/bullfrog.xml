@@ -13,7 +13,7 @@
 		<name>bullfrog</name>
 		<id value="81" />
 		<ai>Animal_Wild</ai>
-		<skin list="SKINS_SNAKE" />
+		<skin><random list="SKINS_SNAKE" /></skin>
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->

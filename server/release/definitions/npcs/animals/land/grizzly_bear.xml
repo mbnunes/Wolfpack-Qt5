@@ -11,37 +11,38 @@
 	<!-- Grizzly Bear -->
 	<npc id="grizzly_bear" inherit="animal_base">
 		<name>grizzly bear</name>
-		<id value="212" />
+		<id>212</id>
 		<ai>Animal_Wild</ai>
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->
-		<str min="126" max="155" />
-		<dex min="81" max="105" />
-		<int min="16" max="40" />
+		<str><random min="126" max="155" /></str>
+		<dex><random min="81" max="105" /></dex>
+		<int><random min="16" max="40" /></int>
 		<!-- Status -->
-		<maxhitpoints min="76" max="93" />
-		<maxmana value="0" />
+		<maxhitpoints><random min="76" max="93" /></maxhitpoints>
+		<maxmana>0</maxmana>
 		<!-- Damage -->
-		<mindamage value="16" />
-		<maxdamage value="26" />
+		<mindamage>16</mindamage>
+		<maxdamage>26</maxdamage>
 		<!-- Defense -->
 		<tag name="res_physical" value="25,35" type="int" />
 		<tag name="res_cold" value="25,35" type="int" />
 		<tag name="res_poison" value="25,35" type="int" />
 		<tag name="res_energy" value="25,35" type="int" />
 		<!-- Skills -->
-		<skill id="wrestling" min="451" max="700" />
-		<skill id="tactics" min="701" max="1000" />
-		<skill id="magicresist" min="251" max="400" />
-		<skill id="anatomy" value="0" />
+		<wrestling><random min="451" max="700" /></wrestling>
+		<tactics><random min="701" max="1000" /></tactics>
+		<magicresistance><random min="251" max="400" /></magicresistance>
+		<anatomy>0</anatomy>
 		<!-- MIsc. -->
-		<controlslots value="1" />
-		<mintaming value="591" />
-		<food value="1" />
+		<controlslots>1</controlslots>
+		<mintaming>591</mintaming>
+		<food>1</food>
 		<carve>carve_grizzly_bear</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Bears\Grizzly Bear</category>
+		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="16" />
 		<intproperty name="carve_meat" value="2" />

@@ -11,35 +11,36 @@
 	<!-- Rabbit -->
 	<npc id="rabbit" inherit="animal_base">
 		<name>rabbit</name>
-		<id value="205" />
+		<id>205</id>
 		<ai>Animal_Wild</ai>
-		<skin list="SKINS_ANIMAL" />
+		<skin><random list="SKINS_ANIMAL" /></skin>
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->
-		<str min="6" max="10" />
-		<dex min="26" max="38" />
-		<int min="6" max="14" />
+		<str><random min="6" max="10" /></str>
+		<dex><random min="26" max="38" /></dex>
+		<int><random min="6" max="14" /></int>
 		<!-- Status -->
-		<maxhitpoints min="4" max="6" />
-		<maxmana value="0" />
+		<maxhitpoints><random min="4" max="6" /></maxhitpoints>
+		<maxmana>0</maxmana>
 		<!-- Damage -->
-		<mindamage value="1" />
-		<maxdamage value="1" />
+		<mindamage>1</mindamage>
+		<maxdamage>1</maxdamage>
 		<!-- Defense -->
 		<tag name="res_physical" value="5,10" type="int" />
 		<!-- Skills -->
-		<skill id="wrestling" value="50" />
-		<skill id="tactics" value="50" />
-		<skill id="magicresist" value="50" />
-		<skill id="anatomy" value="0" />
+		<wrestling>50</wrestling>
+		<tactics>50</tactics>
+		<magicresistance>50</magicresistance>
+		<anatomy>0</anatomy>
 		<!-- Misc. -->
-		<controlslots value="1" />
-		<mintaming value="0" />
-		<food value="0" />
+		<controlslots>1</controlslots>
+		<mintaming>0</mintaming>
+		<food>0</food>
 		<carve>carve_bunny</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Rabbits\Rabbit</category>
+		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="1" />
 		<intproperty name="carve_meat" value="1" />

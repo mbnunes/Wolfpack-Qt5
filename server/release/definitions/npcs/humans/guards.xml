@@ -9,25 +9,25 @@
 <definitions>
 
 	<!-- Male Guard Base -->
-	<npc id="base_male_guard" inherit="base_male">
+	<npc id="base_male_guard">
 		<id>400</id>
 		<name><random list="NAMES_MALE" /></name>
-		<skin list="SKINS_HUMAN" />
+		<skin><random list="SKINS_HUMAN" /></skin>
 		<ai>Human_Guard</ai>
 		<wandertype>1</wandertype>
-		<direction min="0" max="7" /> <!-- Facing a random direction -->
+		<direction><random min="0" max="7" /></direction> <!-- Facing a random direction -->
 		<mintaming>1100</mintaming>
 		<notrain />
  	</npc>
 
  	<!-- Female Guard Base -->
-	<npc id="base_female_guard" inherit="base_female">
+	<npc id="base_female_guard">
 		<id>401</id>
 		<name><random list="NAMES_FEMALE" /></name>
-		<skin list="SKINS_HUMAN" />
+		<skin><random list="SKINS_HUMAN" /></skin>
 		<ai>Human_Guard</ai>
 		<wandertype>1</wandertype>
-		<direction min="0" max="7" /> <!-- Facing a random direction -->
+		<direction><random min="0" max="7" /></direction> <!-- Facing a random direction -->
 		<mintaming>1100</mintaming>
 		<notrain />
  	</npc>
@@ -66,6 +66,7 @@
 		<archery>1200</archery>
 		<!-- Equiped -->
 		<equipped>
+			<item list="HAIR" />
 			<item id="e75" /> <!-- Backpack -->
 			<item id="143f" /> <!-- Halberd -->
 			<item id="1f7b" /> <!-- Doublet -->
@@ -108,6 +109,7 @@
 		<archery>1200</archery>
 		<!-- Equiped -->
 		<equipped>
+			<item list="HAIR_FEMALE" />
 			<item id="e75" /> <!-- Backpack -->
 			<item id="143f" /> <!-- Halberd -->
 			<item id="1c04" /> <!-- Female Plate -->

@@ -11,20 +11,20 @@
 	<!-- Sea Horse -->
 	<npc id="sea_horse" inherit="animal_base">
 		<name>sea horse</name>
-		<id value="144" />
+		<id>144</id>
 		<ai>Animal_Wild</ai>
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->
-		<str min="55" max="75" />
-		<dex min="57" max="75" />
-		<int value="10" />
+		<str><random min="55" max="75" /></str>
+		<dex><random min="57" max="75" /></dex>
+		<int>10</int>
 		<!-- Status -->
-		<maxhitpoints value="100" />
-		<maxmana value="0" />
+		<maxhitpoints>100</maxhitpoints>
+		<maxmana>0</maxmana>
 		<!-- Damage -->
-		<mindamage value="2" />
-		<maxdamage value="10" />
+		<mindamage>2</mindamage>
+		<maxdamage>10</maxdamage>
 		<!-- Defense -->
 		<tag name="res_physical" value="15,20" type="int" />
 		<tag name="res_fire" value="70,80" type="int" />
@@ -32,14 +32,14 @@
 		<tag name="res_poison" value="10,15" type="int" />
 		<tag name="res_energy" value="10,15" type="int" />
 		<!-- Skills -->
-		<skill id="wrestling" min="337" max="449" />
-		<skill id="tactics" min="310" max="417" />
-		<skill id="magicresist" min="234" max="296" />
-		<skill id="anatomy" value="0" />
+		<wrestling><random min="337" max="449" /></wrestling>
+		<tactics><random min="310" max="417" /></tactics>
+		<magicresistance><random min="234" max="296" /></magicresistance>
+		<anatomy>0</anatomy>
 		<!-- Misc. -->
-		<controlslots value="2" />
-		<mintaming value="291" />
-		<food value="2" />
+		<controlslots>2</controlslots>
+		<mintaming>291</mintaming>
+		<food>2</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Seahorse</category>
 	</npc>

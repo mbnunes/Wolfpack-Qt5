@@ -11,20 +11,20 @@
 	<!-- Timber Wolf -->
 	<npc id="timber_wolf" inherit="animal_base">
 		<name>timber wolf</name>
-		<id value="225" />
+		<id>225</id>
 		<ai>Animal_Wild</ai>
 		<inherit id="KARMA_L0" />
 		<inherit id="FAME_L1" />
 		<!-- Stats -->
-		<str min="56" max="80" />
-		<dex min="56" max="75" />
-		<int min="11" max="25" />
+		<str><random min="56" max="80" /></str>
+		<dex><random min="56" max="75" /></dex>
+		<int><random min="11" max="25" /></int>
 		<!-- Status -->
-		<maxhitpoints min="34" max="48" />
-		<maxmana value="0" />
+		<maxhitpoints><random min="34" max="48" /></maxhitpoints>
+		<maxmana>0</maxmana>
 		<!-- Damage -->
-		<mindamage value="6" />
-		<maxdamage value="13" />
+		<mindamage>6</mindamage>
+		<maxdamage>13</maxdamage>
 		<!-- Defense -->
 		<tag name="res_physical" value="15,20" type="int" />
 		<tag name="res_fire" value="5,10" type="int" />
@@ -32,17 +32,18 @@
 		<tag name="res_poison" value="5,10" type="int" />
 		<tag name="res_energy" value="5,10" type="int" />
 		<!-- Skills -->
-		<skill id="wrestling" min="401" max="600" />
-		<skill id="tactics" min="301" max="500" />
-		<skill id="magicresist" min="276" max="450" />
-		<skill id="anatomy" value="0" />
+		<wrestling><random min="401" max="600" /></wrestling>
+		<tactics><random min="301" max="500" /></tactics>
+		<magicresistance><random min="276" max="450" /></magicresistance>
+		<anatomy>0</anatomy>
 		<!-- Misc. -->
-		<controlslots value="1" />
-		<mintaming value="231" />
-		<food value="1" />
+		<controlslots>1</controlslots>
+		<mintaming>231</mintaming>
+		<food>1</food>
 		<carve>carve_wolf</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Canine\Timber Wolf</category>
+		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="5" />
 		<intproperty name="carve_meat" value="1" />
