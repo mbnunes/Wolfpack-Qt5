@@ -1248,6 +1248,22 @@ void commandBroadcast( cUOSocket *socket, const QString &command, QStringList &a
 	sysbroadcast( args.join( " " ).latin1() );
 }
 
+void commandInvis( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	if( socket->player()->hidden() || ( args.count() > 0 && args[0].toInt() == 0 ) )
+	{
+		socket->player()->setHidden( 0 );
+		socket->player()->setPriv2( socket->player()->priv2() & 0xF7 );
+		socket->sysMessage( tr( "Invisible is now '0'." ) );
+	}
+	else if( !socket->player()->hidden() || ( args.count() > 0 && args[0].toInt() == 1 ) )
+	{
+		socket->player()->setHidden( 1 );
+		socket->player()->setPriv2( socket->player()->priv2() | 0x08 );
+		socket->sysMessage( tr( "Invisible is now '1'." ) );
+	}
+}
+
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
@@ -1266,6 +1282,7 @@ stCommand cCommands::commands[] =
 	{ "FIX",			commandFix },
 	{ "GO",				commandGo },
 	{ "INFO",			commandInfo },
+	{ "INVIS",			commandInvis },
 	{ "KILL",			commandKill },
 	{ "MAKEMENU",		commandMakeMenu },
 	{ "MOVE",			commandMove },

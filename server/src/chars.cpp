@@ -595,12 +595,6 @@ void cChar::unhide()
 		setStealth( -1 );
 		setHidden( 0 );
 		resend( false ); // They cant see us anyway
-		
-		if( socket() )
-			socket()->updatePlayer();
-
-		if( isGM() )
-			tempeffect(this, this, 34, 3, 0, 0); 
 	}
 }
 

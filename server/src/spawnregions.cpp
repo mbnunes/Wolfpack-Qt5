@@ -225,6 +225,8 @@ bool cSpawnRegion::findValidSpot( Coord_cl &pos )
 		else
 			pos.z = Map->height( pos );
 
+		pos.map = rectangles_[rndRectNum].map;
+
 		if( Movement::instance()->canLandMonsterMoveHere( pos ) )
 			return true;
 		i++;
@@ -272,7 +274,7 @@ void cSpawnRegion::reSpawn( void )
 				P_ITEM pi = Items->createScriptItem( ItemSect );
 				if( pi != NULL )
 				{
-					pi->pos = pos;
+					pi->moveTo( pos );
 					this->itemSerials_.push_back( pi->serial );
 					pi->setSpawnRegion( this->name_ );
 				}

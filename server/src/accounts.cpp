@@ -184,13 +184,13 @@ AccountRecord* cAccounts::authenticate(const QString& login, const QString& pass
 		}
 		else
 		{
-			it.data()->loginAttemped();
+		//	it.data()->loginAttemped();
 			*error = BadPassword;
 			// Now we check for the number of attempts;
-			if ( it.data()->loginAttempts() > SrvParams->MaxLoginAttempts() )
-			{
-				it.data()->block(SrvParams->AccountBlockTime());
-			}
+		//	if ( it.data()->loginAttempts() > SrvParams->MaxLoginAttempts() )
+		//	{
+		//		it.data()->block(SrvParams->AccountBlockTime());
+		//	}
 			return 0;
 		}
 	}
@@ -354,7 +354,7 @@ void AccountRecord::setBlocked( bool data )
 	if( data )
 		flags_ |= 0x00000001;
 	else
-		flags_ &= ~0x00000001;
+		flags_ &= 0xFFFFFFFE;
 }
 
 void AccountRecord::setAllMove( bool data )
@@ -362,7 +362,7 @@ void AccountRecord::setAllMove( bool data )
 	if( data )
 		flags_ |= 0x00000002;
 	else
-		flags_ &= ~0x00000002;
+		flags_ &= 0xFFFFFFFD;
 }
 
 void AccountRecord::setAllShow( bool data )
@@ -370,7 +370,7 @@ void AccountRecord::setAllShow( bool data )
 	if( data )
 		flags_ |= 0x00000004;
 	else
-		flags_ &= ~0x00000004;
+		flags_ &= 0xFFFFFFFB;
 }
 
 void AccountRecord::setShowSerials( bool data )
@@ -378,5 +378,5 @@ void AccountRecord::setShowSerials( bool data )
 	if( data )
 		flags_ |= 0x00000008;
 	else
-		flags_ &= ~0x00000008;
+		flags_ &= 0xFFFFFFF7;
 }
