@@ -1,0 +1,280 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: khpae                          |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<menu id="CRAFTMENU_COOKING">
+		<name>Cooker Menu</name>
+		
+		<menu inherit="COOKING_resources1" />
+		<menu inherit="COOKING_resources2" />
+		<menu inherit="COOKING_bake" />
+		<menu inherit="COOKING_barbecue" />
+	</menu>
+	
+	<menu id="COOKING_resources1">
+		<name>Cooking Resource</name>
+		
+		<action type="script">
+			<name>Sack of Flour</name>
+			<model>0x1039</model>
+			<description>a sack of flour</description>
+			<make script="skills.cooking.makeflour" />
+				<!-- we need the tag 'needitem' : 1920-1933 ( flour mill )
+				<useitem itemid="0x1ebd" name="wheat sheaf" amount="1" />
+				<makeitem section="1039" amount="1" />
+				<makeitem section="100d" amount="1" />
+				<skillcheck skillid="13" min="0" max="1000" />
+				-->
+			<!--/make-->
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action type="script">
+			<name>Dough</name>
+			<model>0x103d</model>
+			<description>a dough</description>
+			<!-- use 1/20 amount of a sack of flour and a small portion of water(whatever) for a dough -->
+			<make script="skills.cooking.makedough" />
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<!-- items not definded yet -->
+		<!--action>
+			<name>Sweat Dough</name>
+			<model>0x103d</model>
+			<description>a sweat dough</description>
+			<make>
+				<useitem itemid="0x103d" name="dough" amount="1" />
+				<useitem itemid="0x09ec" name="honey" amount="1" />
+				<makeitem section="" amount="1" />
+				<skillcheck skillid="13" min="0" max="1000" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action>
+			<name>Cake Mix</name>
+			<model>0x09e9</model>
+			<description>a cake mix</description>
+			<make>
+				<useitem itemid="0x1039" name="sack of flour" amount="1" />
+				<useitem itemid="0x103d" name="sweat dough" amount="1" />
+				<makeitem section="" amount="1" />
+				<skillcheck skillid="13" min="0" max="1000" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action-->
+
+		<action>
+			<name>Cookie Mix</name>
+			<model>0x09e9</model>
+			<description>a cookie mix</description>
+			<make>
+				<useitem itemid="0x09ec" name="honey" amount="1" />
+				<useitem itemid="0x103d" name="sweat dough" amount="1" />
+				<makeitem section="103f" amount="1" />
+				<skillcheck skillid="13" min="0" max="1000" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+	</menu>
+
+	<menu id="COOKING_resources2">
+		<name>Cooking Resources</name>
+
+		<action>
+			<name>Unbaked Cheese Bacon Pie</name>
+			<model>0x1042</model>
+			<description>an unbaked cheese bacon pie</description>
+			<make>
+				<useitem itemid="0x103d" name="dough" amount="1" />
+				<useitem itemid="0x09b5" name="eggs" amount="1" />
+				<makeitem section="1042" amount="1" />
+				<skillcheck skillid="13" min="0" max="1000" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action>
+			<name>Unbaked Meat Pie</name>
+			<model>0x1042</model>
+			<description>an unbaked meat pie</description>
+			<make>
+				<useitem itemid="0x103d" name="dough" amount="1" />
+				<useitem itemid="0x09f1" name="raw ribs" amount="1" />
+				<makeitem section="1042" amount="1" />
+				<skillcheck skillid="13" min="0" max="1000" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action>
+			<name>Unbaked Sausage Pizza</name>
+			<model>0x1083</model>
+			<description>an unbaked sausage pizza</description>
+			<make>
+				<useitem itemid="0x103d" name="dough" amount="1" />
+				<useitem itemid="0x09c0" name="sausage" amount="1" />
+				<makeitem section="1083" amount="1" />
+				<skillcheck skillid="13" min="0" max="1000" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action>
+			<name>Unbaked Cheese Pizza</name>
+			<model>0x1083</model>
+			<description>an unbaked cheese pizza</description>
+			<make>
+				<useitem itemid="0x103d" name="dough" amount="1" />
+				<useitem itemid="0x097e" name="wheel of cheese" amount="1" />
+				<makeitem section="1083" amount="1" />
+				<skillcheck skillid="13" min="0" max="1000" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action>
+			<name>Unbaked Fruit Pie</name>
+			<model>0x1042</model>
+			<description>an unbaked fruit pie</description>
+			<make>
+				<useitem itemid="0x103d" name="dough" amount="1" />
+				<useitem itemid="0x0994" name="pear" amount="1" />
+				<makeitem section="1042" amount="1" />
+				<skillcheck skillid="13" min="0" max="1000" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action>
+			<name>Unbaked Peach Pie</name>
+			<model>0x1042</model>
+			<description>an unbaked peach pie</description>
+			<make>
+				<useitem itemid="0x103d" name="dough" amount="1" />
+				<useitem itemid="0x09d2" name="peach" amount="1" />
+				<makeitem section="1042" amount="1" />
+				<skillcheck skillid="13" min="0" max="1000" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action>
+			<name>Unbaked Apple Pie</name>
+			<model>0x1042</model>
+			<description>an unbaked apple pie</description>
+			<make>
+				<useitem itemid="0x103d" name="dough" amount="1" />
+				<useitem itemid="0x09d0" name="apple" amount="1" />
+				<makeitem section="1042" amount="1" />
+				<skillcheck skillid="13" min="0" max="1000" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action>
+			<name>Unbaked Pumpkin Pie</name>
+			<model>0x1042</model>
+			<description>an unbaked pumpkin pie</description>
+			<make>
+				<useitem itemid="0x103d" name="dough" amount="1" />
+				<useitem itemid="0x0c6c" name="pumpkin" amount="1" />
+				<makeitem section="1042" amount="1" />
+				<skillcheck skillid="13" min="0" max="1000" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<!-- i have no idea yet
+		<action>
+			<name>Sabage Paint</name>
+		</action>
+		-->
+	</menu>
+
+	<menu id="COOKING_bake">
+		<name>Baking</name>
+
+		<!--
+		All of these are needed to do near the oven
+		45d - 48e, 8cf - 8df, 92b - 96c, 11ec - 11ef
+		-->
+		<action type="script">
+			<name>Bread Loaf</name>
+			<model>0x103c</model>
+			<description>a bread loaf</description>
+			<make script="skills.cooking.makebread" />
+		</action>
+
+		<action type="script">
+			<name>Pan of Cookies</name>
+			<model>0x160b</model>
+			<description>a pan of cookies</description>
+			<make script="skills.cooking.makecookiepan" />
+		</action>
+
+		<!--action type="script">
+			<name>Cake</name>
+			<model>0x09e9</model>
+			<description>a cake</description>
+			<make script="skills.cooking.makecake" />
+		</action>
+
+		<action type="script">
+			<name>Muffin</name>
+			<model>0x09eb</model>
+			<description>a muffin</description>
+			<make script="skills.cooking.makemuffin" />
+		</action-->
+
+		<action type="script">
+			<name>Baked Cheese Bacon Pie</name>
+			<model>0x1041</model>
+			<description>a baked cheese bacon pie</description>
+			<make script="skills.cooking.makecheesebaconpie" />
+		</action>
+
+		<action type="script">
+			<name>Baked Meat Pie</name>
+			<model>0x1041</model>
+			<description>a baked meat pie</description>
+			<make script="skills.cooking.makemeatpie" />
+		</action>
+
+		<action type="script">
+			<name>Baked Sausage Pizza</name>
+			<model>0x1040</model>
+			<description>a sausage pizza</description>
+			<make script="skills.cooking.makesausagepizza" />
+		</action>
+
+		<action type="script">
+			<name>Baked Pizza</name>
+			<model>0x1040</model>
+			<description>a baked pizza</description>
+			<make script="skills.cooking.makepizza" />
+		</action>
+	</menu>
+
+	<menu id="COOKING_barbecue">
+	</menu>
+</definitions>

@@ -27,11 +27,11 @@ def onUse( char, item ):
 		char.socket.clilocmessage( 0x7A258 )
 		return 1
 	# is it in use already ?
-	if item.gettag( "use" ):
+	#if item.gettag( "use" ):
 		#char.socket.clilocmessage( )
-		return 1
+	#	return 1
 
-	# alchemy menu gump
+	# bowcraft menu gump
 	char.sendmakemenu( "CRAFTMENU_BOWCRAFT" )
 
 	# set response function
@@ -55,9 +55,9 @@ def makeshaft( char ):
 
 	# use up resources
 	if num_logs:
-		char.useresource( 0x1bdd, num_logs )
+		char.useresource( num_logs, 0x1bdd )
 	if num_boards:
-		char.useresource( 0x1bd7, num_boards )
+		char.useresource( num_boards, 0x1bd7 )
 
 	char.checkskill( BOWCRAFT, 0, 400 )
 	#chance = skills.bowcraft.shaft_chance( char ) / 100
@@ -96,8 +96,8 @@ def makearrows( char, str ):
 		return
 
 	# use up resources
-	char.useresource( 0x1bdd, num_arrows )
-	char.useresource( 0x1bd1, num_arrows )
+	char.useresource( num_arrows, 0x1bdd )
+	char.useresource( num_arrows, 0x1bd1 )
 
 	char.checkskill( BOWCRAFT, 0, 400 )
 	# make and insert shafts into char's backpack
