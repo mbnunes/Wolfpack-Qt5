@@ -252,7 +252,7 @@ CREATE TABLE `effects_properties` (
 CREATE TABLE `guilds` (
 	`serial` int(11) NOT NULL default '0',
 	`name` varchar(255) NOT NULL default '',
-	`abbreviation` char(3) NOT NULL default '',
+	`abbreviation` varchar(6) NOT NULL default '',
 	`charta` LONGTEXT NOT NULL,
 	`website` varchar(255) NOT NULL default 'http://www.wpdev.org',
 	`alignment` int(2) NOT NULL default '0',
