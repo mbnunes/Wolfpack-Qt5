@@ -45,7 +45,37 @@
 
 const char preferencesFileVersion[] = "1.0";
 
-Q_INT32 resolveName( const QString& );
+Q_INT32 resolveName( const QString& data )
+{
+	if ( data.isEmpty() )
+		return INADDR_NONE;
+//	we do a dns lookup on this
+
+	Q_INT32 uiValue = inet_addr(data.latin1()) ;
+	if (uiValue == INADDR_NONE)
+	{
+		hostent* ptrHost = gethostbyname(data.latin1());
+ 		if(ptrHost != 0)
+		{
+	        char** ptrPtr = ptrHost->h_addr_list;
+                //We only use the first one
+            if(*ptrPtr != NULL)
+            {
+            //      I can think of no other way
+	            memcpy(&uiValue,*ptrPtr,sizeof(in_addr)) ;
+		    }
+		}
+	}
+
+	// inet_addr returns the ip in reverse order
+	Q_INT32 part1 = 0, part2 = 0, part3 = 0, part4 = 0;
+	part1 = ( (uiValue & 0x000000FF) << 24 );
+	part2 = ( (uiValue & 0x0000FF00) << 8 );
+	part3 = ( (uiValue & 0x00FF0000) >> 8 );
+	part4 = ( (uiValue & 0xFF000000) >> 24 );
+
+	return (part1 + part2 + part3 + part4);
+}
 
 cSrvParams::cSrvParams( const QString& filename, const QString& format, const QString& version )  : Preferences(filename, format, version)
 {
@@ -441,35 +471,4 @@ unsigned char& cSrvParams::worldCurrentLevel()
 	return worldCurrentLevel_;
 }
 
-Q_INT32 resolveName( const QString& data )
-{
-	if ( data.isEmpty() )
-		return INADDR_NONE;
-//	we do a dns lookup on this
-
-	Q_INT32 uiValue = inet_addr(data.latin1()) ;
-	if (uiValue == INADDR_NONE)
-	{
-		hostent* ptrHost = gethostbyname(data.latin1());
- 		if(ptrHost != 0)
-		{
-	        char** ptrPtr = ptrHost->h_addr_list;
-                //We only use the first one
-            if(*ptrPtr != NULL)
-            {
-            //      I can think of no other way
-	            memcpy(&uiValue,*ptrPtr,sizeof(in_addr)) ;
-		    }
-		}
-	}
-
-	// inet_addr returns the ip in reverse order
-	Q_INT32 part1 = 0, part2 = 0, part3 = 0, part4 = 0;
-	part1 = ( (uiValue & 0x000000FF) << 24 );
-	part2 = ( (uiValue & 0x0000FF00) << 8 );
-	part3 = ( (uiValue & 0x00FF0000) >> 8 );
-	part4 = ( (uiValue & 0xFF000000) >> 24 );
-
-	return (part1 + part2 + part3 + part4);
-}
 

@@ -150,12 +150,9 @@ SOURCES         = client.cpp \
 		  necro.cpp \
 		  netsys.cpp \
 		  network.cpp \
-		  newbie.cpp \
 		  npcs.cpp \
 		  p_ai.cpp \
                   pfactory.cpp \
-		  pointer.cpp \
-		  qsf.cpp \
 		  regions.cpp \
 		  remadmin.cpp \
 		  scriptc.cpp \
