@@ -78,7 +78,7 @@ HEADERS = \
 	defines.h \
 	definitions.h \
 	dragdrop.h \
-	encryption/encryption.h \
+	network/encryption.h \
 	exceptions.h \
 	factory.h \
 	getopts.h \
@@ -141,7 +141,7 @@ SOURCES = \
 	definable.cpp \
 	definitions.cpp \
 	dragdrop.cpp \
-	encryption/encryption.cpp \
+	network/encryption.cpp \
 	getopts.cpp \
 	guilds.cpp \
 	gumps.cpp \
