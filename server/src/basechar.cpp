@@ -3153,6 +3153,10 @@ cBaseChar::FightStatus cBaseChar::fight( P_CHAR enemy )
 			sysmessage( 1061621 );
 			enemy = 0;
 		}
+		else if (enemy == this)
+		{
+			enemy = 0;
+		}
 	}
 
 	// If we are fighting someone and our target is null,
@@ -3260,7 +3264,7 @@ void cBaseChar::poll( unsigned int time, unsigned int events )
 			P_CHAR target = attackTarget_;
 
 			// Invulnerable or Dead target. Stop fighting.
-			if ( isDead() || target->isInvulnerable() || target->isDead() )
+			if ( target == this || isDead() || target->isInvulnerable() || target->isDead() )
 			{
 				fight( 0 );
 				return;

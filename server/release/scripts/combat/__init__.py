@@ -21,6 +21,11 @@ def onLoad():
 # the next hit can be done.
 #
 def onSwing(attacker, defender, time):
+	# Allow under no circumstances a swing against yourself
+	if attacker == defender:
+		attacker.attacktarget = None
+		return
+	
 	# We won't allow any swings from or against players
 	# who are offline
 	if defender.player and not defender.socket and not defender.logouttime:
