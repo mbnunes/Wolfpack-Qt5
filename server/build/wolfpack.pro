@@ -26,7 +26,7 @@ win32-msvc:RC_FILE         = res.rc
 win32-msvc:LIBS      = ws2_32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comdlg32.lib ws2_32.lib ZThread.lib wrl.lib
 win32-msvc:TMAKE_CXXFLAGS = /J /nologo /ML /W3 /GX /O2 /YX /FD /c
 
-win32-borland:TMAKE_CXXFLAGS = -K -6 -q -x -w-8057 -w-8066 -w-8060 -w-8027 -w-8059 -w-8004 -w-8012
+win32-borland:TMAKE_CXXFLAGS =  -K -6 -q -x -WM -w-8057 -w-8066 -w-8060 -w-8027 -w-8059 -w-8004 -w-8012
 win32-borland:LIBS = ws2_32.lib lib/ZThread/lib/ZThread.lib lib/wrl/lib/wrl.lib
 
 HEADERS         = Client.h \
