@@ -49,13 +49,14 @@ PyObject *wpTarget_getAttr( wpTarget *self, char *name )
 		return PyGetCoordObject( self->pos );
 	else if( !strcmp( name, "model" ) )
 		return PyInt_FromLong( self->model );
-	else if( !strcmp( name, "object" ) )
+	else if( !strcmp( name, "item" ) )
 	{
 		if( isItemSerial( self->object ) )
 			return PyGetItemObject( FindItemBySerial( self->object ) );
-		else if( isCharSerial( self->object ) )
-			return PyGetCharObject( FindCharBySerial( self->object ) );
 	}
+	else if( !strcmp( name, "char" ) )
+		if( isCharSerial( self->object ) )
+			return PyGetCharObject( FindCharBySerial( self->object ) );
 
 	return PyFalse;
 }

@@ -61,7 +61,7 @@ int wpItem_setAttr( wpItem *self, char *name, PyObject *value );
 	The typedef for Wolfpack Python items
 */
 static PyTypeObject wpItemType = {
-    PyObject_HEAD_INIT(NULL)
+    PyObject_HEAD_INIT(&PyType_Type)
     0,
     "WPItem",
     sizeof(wpItemType),

@@ -67,7 +67,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /MDd /W1 /Gm /GR /GX /ZI /Od /I "lib/Python/PC" /I "lib/Python/include" /I "lib\ZThread\include" /I "$(QTDIR)\include" /I "c:\foxserv\mysql\include" /D "_CONSOLE" /D "_MBCS" /D "ZTHREAD_STATIC" /D "PY_NOSOCKETS" /D "_DEBUG" /D "WIN32" /D "QT_DLL" /D "WP_DONT_USE_HASH_MAP" /D "QT_NO_STL" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /MDd /Gm /GR /GX /ZI /Od /I "lib/Python/PC" /I "lib/Python/include" /I "lib\ZThread\include" /I "$(QTDIR)\include" /I "c:\foxserv\mysql\include" /D "_CONSOLE" /D "_MBCS" /D "ZTHREAD_STATIC" /D "PY_NOSOCKETS" /D "_DEBUG" /D "WIN32" /D "QT_DLL" /D "WP_DONT_USE_HASH_MAP" /D "QT_NO_STL" /FR /YX /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -909,6 +909,10 @@ SOURCE=.\python\global.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\python\gump.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\python\item.cpp
 # End Source File
 # Begin Source File
@@ -922,10 +926,6 @@ SOURCE=.\python\pycoord.cpp
 # Begin Source File
 
 SOURCE=.\python\pyregion.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\python\region.cpp
 # End Source File
 # Begin Source File
 

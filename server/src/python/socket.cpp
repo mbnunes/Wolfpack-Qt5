@@ -56,7 +56,7 @@ int wpSocket_setAttr( wpSocket *self, char *name, PyObject *value );
 	The typedef for Wolfpack Python chars
 */
 static PyTypeObject wpSocketType = {
-    PyObject_HEAD_INIT(NULL)
+    PyObject_HEAD_INIT(&PyType_Type)
     0,
     "WPSocket",
     sizeof(wpSocketType),
@@ -263,6 +263,15 @@ PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 	PyObject *py_args = PyList_AsTuple( PyTuple_GetItem( args, 10 ) );
 
 	cPythonGump *gump = new cPythonGump( callback, py_args );
+	if( serial )
+		gump->setSerial( serial );
+
+	if( type )
+		gump->setType( type );
+
+	gump->setNoClose( noclose );
+	gump->setNoMove( nomove );
+	gump->setNoDispose( nodispose );
 
 	INT32 i;
 	for( i = 0; i < PyList_Size( layout ); ++i )
@@ -280,6 +289,8 @@ PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 		else
 			gump->addRawText( "" );
 	}
+
+	self->pSock->send( gump );
 
 	return PyTrue;
 }

@@ -54,6 +54,35 @@ public:
 	void handleResponse( cUOSocket* socket, gumpChoice_st choice )
 	{
 		// Call the response function (and pass it a response-object)
+		// Try to call the python function
+		// Get everything before the last dot
+		if( callback.contains( "." ) )
+		{
+			// Find the last dot
+			INT32 position = callback.findRev( "." );
+			QString sModule = callback.left( position );
+			QString sFunction = callback.right( callback.length() - (position+1) );
+
+			PyObject *pModule = PyImport_ImportModule( const_cast< char* >( sModule.latin1() ) );
+
+			if( pModule )
+			{
+				PyObject *pFunc = PyObject_GetAttrString( pModule, const_cast< char* >( sFunction.latin1() ) );
+				if( pFunc && PyCallable_Check( pFunc ) )
+				{
+					// Create our Argument list
+					PyObject *p_args = PyTuple_New( 2 );
+					PyTuple_SetItem( p_args, 0, PyGetCharObject( socket->player() ) );
+					PyTuple_SetItem( p_args, 1, args );
+					//PyTuple_SetItem( p_args, 2, PyGetTarget( target, socket->player()->pos.map ) );
+
+					PyEval_CallObject( pFunc, p_args );
+
+					if( PyErr_Occurred() )
+						PyErr_Print();
+				}
+			}
+		}
 
 		tuple_decref( args );
 	}

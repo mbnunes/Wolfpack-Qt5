@@ -65,7 +65,7 @@ int wpChar_setAttr( wpChar *self, char *name, PyObject *value );
 	The typedef for Wolfpack Python chars
 */
 static PyTypeObject wpCharType = {
-    PyObject_HEAD_INIT(NULL)
+    PyObject_HEAD_INIT(&PyType_Type)
     0,
     "WPChar",
     sizeof(wpCharType),

@@ -200,24 +200,6 @@ inline void cGump::setNoDispose( bool data )
 	noDispose_ = data; 
 }
 
-
-void entrygump(int s, SERIAL serial, unsigned char type, char index, short int maxlength, char *text1);
-
-class cPythonGump : public cGump
-{
-protected:
-	QString scriptname_;
-	QString responsefuncname_;
-
-public:
-	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice ) 
-	{
-		// TODO: passing choice to script/function
-		Q_UNUSED(socket);
-		Q_UNUSED(choice);
-	}
-};
-
 class cSpawnRegionInfoGump : public cGump
 {
 protected:

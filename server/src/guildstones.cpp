@@ -107,7 +107,7 @@ void StonePlacement(const cUOSocket* socket)
 
 		pStone->update();//AntiChrist
 		Items->DeleItem(pDeed);
-		entrygump(toOldSocket(socket), pc->serial,100,1,40,"Enter a name for the guild.");
+		//entrygump(toOldSocket(socket), pc->serial,100,1,40,"Enter a name for the guild.");
 	}
 	else
 	{
@@ -835,8 +835,8 @@ void cGuildStone::GumpChoice( UOXSOCKET s, UI16 MenuID, UI16 Choice )
 	case 2:													// guildmaster menu
 		switch( Choice )
 		{
-		case 1:  entrygump(s,pc_currchar->serial,100,1,40,"Enter a new guildname.");		break;
-		case 2:  entrygump(s,pc_currchar->serial,100,2,3,"Enter a new guild abbreviation.");break;
+		case 1:  //entrygump(s,pc_currchar->serial,100,1,40,"Enter a new guildname.");		break;
+		case 2:  //entrygump(s,pc_currchar->serial,100,2,3,"Enter a new guild abbreviation.");break;
 		case 3:  Menu(s,3);																	break;
 		case 4:  Menu(s,4);																	break;
 		case 5:  Menu(s,8);																	break;
@@ -845,7 +845,7 @@ void cGuildStone::GumpChoice( UOXSOCKET s, UI16 MenuID, UI16 Choice )
 		case 8:  Menu(s,15);																break;
 		case 9:	 Menu(s,10);																break;
 		case 10: Menu(s,9);																	break;
-		case 11: entrygump(s,pc_currchar->serial,100,3,20,"Enter new guildmastertitle.");	break;
+		case 11: //entrygump(s,pc_currchar->serial,100,3,20,"Enter new guildmastertitle.");	break;
 		case 12: Menu(s,12);																break;
 		case 13: sysmessage(s, "Not yet");													break;
 		case 14: Menu(s,1);																	break;
@@ -858,8 +858,9 @@ void cGuildStone::GumpChoice( UOXSOCKET s, UI16 MenuID, UI16 Choice )
 		switch( Choice )
 		{
 		case 1: Menu( s, 2 );																break;
-		case 2: entrygump( s, pc_currchar->serial, 100, 5, 50, "Enter a new charter." );	break;
-		case 3:	entrygump( s, pc_currchar->serial, 100, 6, 50, "Enter a new URL." );		break;
+		case 2: //entrygump( s, pc_currchar->serial, 100, 5, 50, "Enter a new charter." );	break;
+		case 3:	//entrygump( s, pc_currchar->serial, 100, 6, 50, "Enter a new URL." );		break;
+			break;
 		}
 		return;
 	case 5:													// view charter menu
