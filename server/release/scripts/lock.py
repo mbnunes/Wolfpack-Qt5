@@ -6,7 +6,9 @@
 """
 
 import wolfpack
+from wolfpack.consts import *
 from wolfpack.gumps import cGump
+from wolfpack import *
 import random
 
 def createkey(char, id):
@@ -165,13 +167,14 @@ def searchkey(item, lock):
 	# It's a key.
 	if item.hasscript( 'key' ) and item.hastag( 'lock' ):
 		if lock == str(item.gettag('lock')):
-			return 1
+			return item
 
 	for subitem in item.content:
-		if searchkey(subitem, lock):
-			return 1
+		result = searchkey(subitem, lock)
+		if result:
+			return result
 
-	return 0
+	return None
 
 def onUse(char, item):
 	# The item is not locked
@@ -192,13 +195,16 @@ def onUse(char, item):
 	# GMs ignore locks but their access should be logged
 	if char.gm:
 		char.socket.clilocmessage(501281)
+		char.log(LOG_TRACE, tr("Accessed locked object 0x%x.\n") % item.serial)
 		return 0
 
 	# Only doors can be opened without unlocking them
 	# if the user has the key in his posession.
 	if item.hasscript( 'door' ):
-		if searchkey(char.getbackpack(), lock):
+		key = searchkey(char.getbackpack(), lock)
+		if key:
 			char.socket.clilocmessage(501282)
+			char.log(LOG_TRACE, tr("Accessed locked door 0x%x using key 0x%x.\n") % (item.serial, key.serial))
 			return 0
 
 		char.socket.clilocmessage(500788)
