@@ -773,11 +773,16 @@ void cResource::handleTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid, UIN
 	pc->action( charaction_ );
 	pc->soundEffect( sound_, true );
 
+	P_ITEM pi;
 	while( spawnamount > 0 )
 	{
 		UINT16 id = item.ids[ RandomNum( 0, item.ids.size()-1 ) ];
 		UINT16 color = item.colors[ RandomNum( 0, item.colors.size()-1 ) ];
-		P_ITEM pi = Items->SpawnItem( pc, 1, (char*)QString("%1 %2").arg( item.name ).arg( name_ ).latin1(), true, id, color, true );
+		if( !item.name.isNull() )
+			pi = Items->SpawnItem( pc, 1, (char*)QString("%1 %2").arg( item.name ).arg( name_ ).latin1(), true, id, color, true );
+		else
+			pi = Items->SpawnItem( pc, 1, (char*)QString("%1").arg( name_ ).latin1(), true, id, color, true );
+
 /*		if( pi )
 		{
 			pi->pos = pc->pos;
