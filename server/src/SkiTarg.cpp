@@ -1336,7 +1336,7 @@ void cSkills::ProvocationTarget1(UOXSOCKET s)
 
 	P_CHAR pc = MAKE_CHARREF_LR(c);
 
-	P_ITEM inst = MAKE_ITEM_REF(GetInstrument(s));
+	P_ITEM inst = GetInstrument(s);
 	if (inst == NULL) 
 	{
 		sysmessage(s, "You do not have an instrument to play on!");
@@ -1379,7 +1379,7 @@ void cSkills::EnticementTarget1(UOXSOCKET s)
 
 	P_CHAR pc = MAKE_CHARREF_LR(c);
 
-	P_ITEM inst = MAKE_ITEM_REF(GetInstrument(s));
+	P_ITEM inst = GetInstrument(s);
 	if (inst == NULL) 
 	{
 		sysmessage(s, "You do not have an instrument to play on!");
@@ -1420,7 +1420,7 @@ void cSkills::EnticementTarget2(UOXSOCKET s)
 	if( ftarg == -1 ) return;
 	P_CHAR pc = MAKE_CHARREF_LR(ftarg);
 	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
-	P_ITEM inst = MAKE_ITEM_REF(GetInstrument(s));
+	P_ITEM inst = GetInstrument(s);
 	if (inst == NULL) 
 	{
 		sysmessage(s, "You do not have an instrument to play on!");
@@ -1466,7 +1466,7 @@ void cSkills::ProvocationTarget2(UOXSOCKET s)
 		return;
 	}
 
-	P_ITEM inst = MAKE_ITEM_REF(GetInstrument(s));
+	P_ITEM inst = GetInstrument(s);
 	if (inst == NULL) 
 	{
 		sysmessage(s, "You do not have an instrument to play on!");

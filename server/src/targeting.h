@@ -184,7 +184,7 @@ public:
 	bool NpcResurrectTarget(int s);
 	void JailTarget(int s, int c);
 	void ReleaseTarget(int s, int c);
-	int AddMenuTarget(int s, int x, int addmitem);
+	P_ITEM AddMenuTarget(int s, int x, int addmitem);
 	void XTeleport(int s, int x);
 	int BuyShop(int s,int c);
 };

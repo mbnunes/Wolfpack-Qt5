@@ -398,7 +398,7 @@ void sellaction(int s)
 	Xsend(s, clearmsg, 8);
 }
 
-int tradestart(int s, int i)
+P_ITEM tradestart(int s, int i)
 {
 	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 	P_CHAR pc_i        = MAKE_CHAR_REF(i);
@@ -480,7 +480,7 @@ int tradestart(int s, int i)
 		strcpy((char*)&(msg[17]), pc_currchar->name);
 		Xsend(s2, msg, 47);
 	}
-	return DEREF_P_ITEM(pi_ps);
+	return pi_ps;
 }
 
 void clearalltrades()

@@ -119,7 +119,7 @@ static void handle_IADD(UOXSOCKET const ts, int const ttype,
 	long pos = ftell(scpfile);
 	closescript();
 	// first create the item on the ground
-	P_ITEM pi_i = MAKE_ITEM_REF(Targ->AddMenuTarget(ts, 1, str2num(script2)));
+	P_ITEM pi_i = Targ->AddMenuTarget(ts, 1, str2num(script2));
 	triggerx = 0;
 	P_ITEM pPack = Packitem(pc_currchar);
 	
@@ -320,7 +320,7 @@ void triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 				case 'C':
 					if (!(strcmp("CADD", (char*)script1)))  // add item into triggered container
 					{
-						P_ITEM pi_temp = MAKE_ITEM_REF(Targ->AddMenuTarget(ts, 1, str2num(script2)));
+						P_ITEM pi_temp = Targ->AddMenuTarget(ts, 1, str2num(script2));
 						pi->AddItem(pi_temp);
 						Weight->NewCalc(DEREF_P_CHAR(pc_ts));
 						statwindow(ts, DEREF_P_CHAR(pc_ts));

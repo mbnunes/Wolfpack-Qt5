@@ -178,7 +178,7 @@ int calcValue(P_ITEM pi, int value);
 int calcGoodValue(int npcnum, P_ITEM pi, int value,int goodtype); // by Magius(CHE) for trade system
 void StoreItemRandomValue(P_ITEM pi,int tmpreg); // by Magius(CHE) (2) for trade system
 
-int tradestart(int s, int i);
+P_ITEM tradestart(int s, int i);
 void clearalltrades();
 void trademsg(int s);
 void dotrade(P_ITEM cont1, P_ITEM cont2);

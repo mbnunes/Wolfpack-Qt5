@@ -143,7 +143,7 @@ private:
 	void PeaceMaking(int s);
 	void PlayInstrumentWell(int s, P_ITEM pi);
 	void PlayInstrumentPoor(int s, P_ITEM pi);
-	int GetInstrument(int s);
+	P_ITEM GetInstrument(int s);
 	void RandomSteal(int s);	
 	void TellScroll(char *menu_name, int player, long item_param);
 	void CollectAmmo(int s, int a, int b);

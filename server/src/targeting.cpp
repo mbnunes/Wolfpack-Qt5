@@ -895,16 +895,16 @@ void cTargets::CloseTarget(int s)
 }
 
 // public !!!
-int cTargets::AddMenuTarget(int s, int x, int addmitem) //Tauriel 11-22-98 updated for new items
+P_ITEM cTargets::AddMenuTarget(int s, int x, int addmitem) //Tauriel 11-22-98 updated for new items
 {
 	if (s>=0)
-		if (buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return -1;
+		if (buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return NULL;
 
 	P_ITEM pi = Items->CreateScriptItem(s, addmitem, 0);
-	if (pi == NULL) return -1;
+	if (pi == NULL) return NULL;
 	if (x)
 		RefreshItem(pi);
-	return DEREF_P_ITEM(pi);
+	return pi;
 }
 
 // public !!!

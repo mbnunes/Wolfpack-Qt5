@@ -734,7 +734,7 @@ void cSkills::Stealth(int s)//AntiChrist
 void cSkills::PeaceMaking(int s)
 {
 	int res1, res2, j;
-	P_ITEM p_inst = MAKE_ITEM_REF(Skills->GetInstrument(s));
+	P_ITEM p_inst = Skills->GetInstrument(s);
 	if (p_inst == NULL) 
 	{
 		sysmessage(s, "You do not have an instrument to play on!");
@@ -809,7 +809,7 @@ void cSkills::PlayInstrumentPoor(int s, P_ITEM pi)
 	}
 }
 
-int cSkills::GetInstrument(int s)
+P_ITEM cSkills::GetInstrument(int s)
 {
 	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 
@@ -820,10 +820,10 @@ int cSkills::GetInstrument(int s)
 		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
 		if ( IsInstrument(pi->id()) )
 		{
-			return DEREF_P_ITEM(pi);
+			return pi;
 		}
 	}
-	return -1;
+	return NULL;
 }
 
 //////////////////////////////

@@ -771,7 +771,7 @@ int cCharStuff::MemCharFree()
 }
 #endif
 
-int cCharStuff::AddRandomLoot(int s, char * lootlist)
+P_ITEM cCharStuff::AddRandomLoot(int s, char * lootlist)
 {
 	char sect[512];
 	int i,j, storeval,loopexit=0;
@@ -783,7 +783,7 @@ int cCharStuff::AddRandomLoot(int s, char * lootlist)
 	
 	Script *pScpBase=i_scripts[npc_script];
 	Script *pScp=pScpBase->Select(sect,custom_npc_script);
-	if (!pScp) return -1;
+	if (!pScp) return NULL;
 
 	loopexit=0;
 	do
@@ -812,7 +812,7 @@ int cCharStuff::AddRandomLoot(int s, char * lootlist)
 					storeval=str2num(script1);	//script1 = ITEM#
 
 					scpMark m=pScp->Suspend();
-					retitem = MAKE_ITEM_REF(Targ->AddMenuTarget(-1, 0, storeval));
+					retitem = Targ->AddMenuTarget(-1, 0, storeval);
 					pScp->Resume(m);
 
 					if(retitem!=NULL)
@@ -829,7 +829,7 @@ int cCharStuff::AddRandomLoot(int s, char * lootlist)
 		}	while ( (script1[0]!='}') && (++loopexit < MAXLOOPS) );
 		pScp->Close();
 	}
-	return DEREF_P_ITEM(retitem);
+	return retitem;
 }
 
 /*** s: socket ***/
@@ -1228,7 +1228,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 				int storeval=str2num(script2);
 
 				scpMark m=pScp->Suspend();
-				retitem = MAKE_ITEM_REF(Targ->AddMenuTarget(-1, 0, storeval));
+				retitem = Targ->AddMenuTarget(-1, 0, storeval);
 				pScp->Resume(m);
 
 				if ( retitem != NULL )
@@ -1264,7 +1264,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 				if (pBackpack != NULL)
 				{
 					scpMark m=pScp->Suspend();
-					retitem = MAKE_ITEM_REF(Npcs->AddRandomLoot(DEREF_P_ITEM(pBackpack), script2));
+					retitem = Npcs->AddRandomLoot(DEREF_P_ITEM(pBackpack), script2);
 					pScp->Resume(m);
 
 					strcpy((char*)script1, "DUMMY"); // Prevents unexpected matchups...
@@ -1325,7 +1325,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 					int storeval=str2num(script2);
 
 					scpMark m=pScp->Suspend();
-					retitem = MAKE_ITEM_REF(Targ->AddMenuTarget(-1, 0, storeval));
+					retitem = Targ->AddMenuTarget(-1, 0, storeval);
 					pScp->Resume(m);
 
 					if (retitem != NULL)
@@ -1374,7 +1374,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 					int storeval=str2num(script2);
 
 					scpMark m=pScp->Suspend();
-					retitem = MAKE_ITEM_REF(Targ->AddMenuTarget(-1, 0, storeval));
+					retitem = Targ->AddMenuTarget(-1, 0, storeval);
 					pScp->Resume(m);
 
 					if (retitem != NULL)
@@ -1429,7 +1429,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 					int storeval=str2num(script2);
 
 					scpMark m=pScp->Suspend();
-					retitem = MAKE_ITEM_REF(Targ->AddMenuTarget(-1, 0, storeval));
+					retitem = Targ->AddMenuTarget(-1, 0, storeval);
 					pScp->Resume(m);
 
 					if (retitem != NULL)
@@ -1471,7 +1471,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 					int storeval = str2num(script2);
 
 					scpMark m = pScp->Suspend();
-					retitem = MAKE_ITEM_REF(Targ->AddMenuTarget(-1, 0, storeval));
+					retitem = Targ->AddMenuTarget(-1, 0, storeval);
 					pScp->Resume(m);
 
 					if ( retitem != NULL)

@@ -415,7 +415,7 @@ public:
 	void CheckMemoryRequest();
 	bool AllocateMemory(int NumberOfChars);
 	int MemCharFree();
-	int AddRandomLoot(int s, char * lootlist);
+	P_ITEM AddRandomLoot(int s, char * lootlist);
 	int AddRandomNPC(int s, char *npclist, int spawnpoint);
 	int AddNPCxyz(int s, int npcNum, int type, int x1, int y1, signed char z1);
 	void Split(int k);

@@ -324,7 +324,7 @@ void advancementobjects(int s, int x, int allways)
 						x=str2num(script2);
 						pos=ftell(scpfile);
 						closescript();	/* lord binary */
-						P_ITEM retitem = MAKE_ITEM_REF(Targ->AddMenuTarget(-1, 0, x));
+						P_ITEM retitem = Targ->AddMenuTarget(-1, 0, x);
 						openscript("advance.scp");
 						fseek(scpfile, pos, SEEK_SET);
 						strcpy((char*)script1, "DUMMY");
@@ -501,7 +501,7 @@ void monstergate(int s, int x)
 			if (!(strcmp("LOOT",(char*)script1)))
 			{
 				scpMark m=pScp->Suspend();
-				pRetitem = MAKE_ITEM_REF(Npcs->AddRandomLoot(DEREF_P_ITEM(pBackpack), (char*)script2));
+				pRetitem = Npcs->AddRandomLoot(DEREF_P_ITEM(pBackpack), (char*)script2);
 				pScp->Resume(m);
 				strcpy((char*)script1, "DUMMY"); // Prevents unexpected matchups...
 			}
@@ -509,7 +509,7 @@ void monstergate(int s, int x)
 			{
 				int storeval=str2num(script2);
 				scpMark m=pScp->Suspend();
-				pRetitem = MAKE_ITEM_REF(Targ->AddMenuTarget(-1, 0, storeval));
+				pRetitem = Targ->AddMenuTarget(-1, 0, storeval);
 				pScp->Resume(m);
 				if (pRetitem == NULL)
 				{
@@ -526,7 +526,7 @@ void monstergate(int s, int x)
 			{
 				int storeval=str2num(script2);
 				scpMark m=pScp->Suspend();
-				pRetitem = MAKE_ITEM_REF(Targ->AddMenuTarget(-1, 0, storeval));
+				pRetitem = Targ->AddMenuTarget(-1, 0, storeval);
 				pScp->Resume(m);
 				if (pRetitem == NULL)
 				{
