@@ -78,9 +78,7 @@ def allitemsserials():
 
 def allcharsserials():
 	return _wolfpack.allcharsserials()
-
-
-
+	
 def addtimer( expiretime, function, args, serializable=0 ):
 	
 	if not type( expiretime ) is IntType:
