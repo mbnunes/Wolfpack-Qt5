@@ -1291,9 +1291,13 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 				//if it is in our way
 				if(	( zmax >= msi->zoff ) && ( zmin <= ( msi->zoff + tile.height ) ) )
 				{
-					if( tile.isBlocking() || tile.isRoofOrFloorTile() )
+					if( !( ((*pit).x == target.x) && ((*pit).y == target.y) && (msi->zoff <= target.z) && (msi->zoff + tile.height >= target.z) ) )
 					{
-						return false;
+						if( tile.isBlocking() || tile.isRoofOrFloorTile() )
+						{
+							//Console::instance()->send( QString( "statictilepos:%1,%2,%3, Target:%4, Height: %5\n" ).arg( (*pit).x ).arg( (*pit).y ).arg( msi->zoff ).arg( target.z ).arg( tile.height ) );
+							return false;
+						}
 					}
 				}
 			

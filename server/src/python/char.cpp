@@ -1202,11 +1202,6 @@ static PyObject* wpChar_unmount( wpChar* self, PyObject* args )
 	return PyGetCharObject(player->unmount());
 }
 
-/*
-	\method char.equip
-	\description Forces the character to equip a given item.
-	\param item The item that should be equipped.
-*/
 static PyObject* wpChar_equip( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )

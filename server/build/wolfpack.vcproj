@@ -41,7 +41,10 @@
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="$(OutDir)/wolfpack.pdb"
+				ProgramDatabaseFile="..\wolfpack.pdb"
+				GenerateMapFile="TRUE"
+				MapFileName="..\wolfpack.map"
+				MapExports="FALSE"
 				SubSystem="2"
 				TargetMachine="1"/>
 			<Tool
@@ -825,11 +828,6 @@
 			Filter="">
 			<File
 				RelativePath=".\bugreport\crashhandler.cpp">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\bugreport\crashhandler.h">
@@ -849,11 +847,6 @@
 			</File>
 			<File
 				RelativePath=".\bugreport\nt4processinfo.cpp">
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\bugreport\util.cpp">
