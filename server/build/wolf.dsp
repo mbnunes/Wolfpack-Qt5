@@ -51,7 +51,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 ws2_32.lib kernel32.lib user32.lib advapi32.lib ZThread.lib wrl.lib /nologo /subsystem:console /incremental:yes /map /machine:I386 /libpath:"lib\ZThread\lib" /libpath:"lib\wrl\lib" /libpath:"lib\Python\lib"
+# ADD LINK32 ws2_32.lib kernel32.lib user32.lib advapi32.lib ZThread.lib ws2_32.lib kernel32.lib user32.lib advapi32.lib wrl.lib /nologo /subsystem:console /incremental:yes /map /machine:I386 /nodefaultlib:"LIBCMTD" /libpath:"lib\ZThread\lib" /libpath:"lib\wrl\lib" /libpath:"lib\Python\lib"
 
 !ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
 
@@ -336,6 +336,10 @@ SOURCE=.\territories.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\tilecache.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\Timing.cpp
 # End Source File
 # Begin Source File
@@ -357,10 +361,6 @@ SOURCE=.\uobject.cpp
 # Begin Source File
 
 SOURCE=.\utilsys.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\tilecache.cpp
 # End Source File
 # Begin Source File
 

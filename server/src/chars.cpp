@@ -29,10 +29,6 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-// just temporary
-#undef  DBGFILE
-#define DBGFILE "chars.cpp"
-
 // Platform include
 #include "platform.h"
 
@@ -59,6 +55,8 @@
 #include "wpdefmanager.h"
 #include "guildstones.h"
 
+#undef  DBGFILE
+#define DBGFILE "chars.cpp"
 
 bool cChar::Owns(P_ITEM pi)				{	return (serial==pi->ownserial);		}
 bool cChar::Wears(P_ITEM pi)			{	return (serial == pi->contserial);	}

@@ -53,7 +53,7 @@
 
 
 #undef  DBGFILE
-#define DBGFILE "TmpEff.cpp"
+#define DBGFILE "tmpeff.cpp"
 
 
 /////////////

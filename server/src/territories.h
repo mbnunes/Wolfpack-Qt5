@@ -34,6 +34,8 @@
 
 #include "baseregion.h"
 
+#include <map>
+
 struct good_st
 {
 	UI32	sellable;
@@ -92,16 +94,16 @@ private:
 
 	QStringList				guardSections_;
 public:
-	map< UI32, good_st >		tradesystem_;
+	std::map< UI32, good_st >		tradesystem_;
 };
 
 class cAllTerritories : public cAllBaseRegions
 {
 private:
 	static cAllTerritories instance;
+	cAllTerritories() {}
 
 public:
-	cAllTerritories() {;}
 	~cAllTerritories();
 
 	void		load( void );

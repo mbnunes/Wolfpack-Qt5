@@ -44,7 +44,6 @@
 #include "qfile.h"
 
 #include <vector>
-#include <map>
 
 class cBaseRegion : public cDefinable
 {

@@ -34,6 +34,9 @@
 
 #include "baseregion.h"
 
+#include <map>
+#include <vector>
+
 class cSpawnRegion : public cBaseRegion
 {
 public:
