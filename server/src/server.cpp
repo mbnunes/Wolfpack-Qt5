@@ -43,6 +43,7 @@
 #include "player.h"
 #include "scriptmanager.h"
 #include "sectors.h"
+#include "action.h"
 #include "skills.h"
 #include "spawnregions.h"
 #include "serverconfig.h"
@@ -105,18 +106,45 @@ public:
 	bool secure;
 	QMutex actionMutex;
 	unsigned int time;
-	QValueVector<enActionType> actionQueue;
+	QValueVector<cAction*> actionQueue;
 	Private() : running( true ), state( STARTUP ), secure( true ), time( 0 )
 	{
 	}
 };
 
-void cServer::queueAction( enActionType type )
+void cServer::queueAction( enActionType type ) {
+	switch (type) {
+	case RELOAD_SCRIPTS:
+		queueAction( new cActionReloadScripts );
+		break;
+	case RELOAD_PYTHON:
+		queueAction( new cActionReloadPython );
+		break;
+	case RELOAD_ACCOUNTS:
+		queueAction( new cActionReloadAccounts );
+		break;
+	case RELOAD_CONFIGURATION:
+		queueAction( new cActionReloadConfiguration );
+		break;
+	case SAVE_WORLD:
+		queueAction( new cActionSaveWorld );
+		break;
+	case SAVE_ACCOUNTS:
+		queueAction( new cActionSaveAccounts );
+		break;
+	default:
+		break;
+	}
+}
+
+void cServer::queueAction( cAction *action )
 {
 	if ( d->state == RUNNING )
 	{
 		QMutexLocker lock( &d->actionMutex );
-		d->actionQueue.push_back( type );
+		d->actionQueue.push_back( action );
+	} else {
+		delete action; // Delete it right away
 	}
 }
 
@@ -128,77 +156,16 @@ void cServer::pollQueuedActions()
 		d->actionMutex.lock();
 		while ( d->actionQueue.begin() != d->actionQueue.end() )
 		{
-			enActionType type = *( d->actionQueue.begin() );
-			d->actionQueue.erase( d->actionQueue.begin() );
+			cAction *action = *(d->actionQueue.begin());
+			d->actionQueue.erase(d->actionQueue.begin());
 
-			switch ( type )
-			{
-			case SAVE_ACCOUNTS:
-				try
-				{
-					Accounts::instance()->save();
-				}
-				catch ( wpException e )
-				{
-					Console::instance()->log( LOG_PYTHON, e.error() + "\n" );
-				}
-				break;
+			try {
+				action->execute();
+			} catch ( wpException e ) {
+				Console::instance()->log( LOG_PYTHON, e.error() + "\n" );
+			}			
 
-			case RELOAD_ACCOUNTS:
-				try
-				{
-					reload( "accounts" );
-				}
-				catch ( wpException e )
-				{
-					Console::instance()->log( LOG_PYTHON, e.error() + "\n" );
-				}
-				break;
-
-			case RELOAD_CONFIGURATION:
-				try
-				{
-					reload( "configuration" );
-				}
-				catch ( wpException e )
-				{
-					Console::instance()->log( LOG_PYTHON, e.error() + "\n" );
-				}
-				break;
-
-			case RELOAD_SCRIPTS:
-				try
-				{
-					reload( "definitions" );
-				}
-				catch ( wpException e )
-				{
-					Console::instance()->log( LOG_PYTHON, e.error() + "\n" );
-				}
-				break;
-
-			case RELOAD_PYTHON:
-				try
-				{
-					reload( "scripts" );
-				}
-				catch ( wpException e )
-				{
-					Console::instance()->log( LOG_PYTHON, e.error() + "\n" );
-				}
-				break;
-
-			case SAVE_WORLD:
-				try
-				{
-					World::instance()->save();
-				}
-				catch ( wpException e )
-				{
-					Console::instance()->log( LOG_PYTHON, e.error() + "\n" );
-				}
-				break;
-			}
+			delete action;
 		}
 		d->actionMutex.unlock();
 	}

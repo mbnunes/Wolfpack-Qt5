@@ -41,9 +41,11 @@ enum enServerState
 	SHUTDOWN
 };
 
+class cAction;
+
 enum enActionType
 {
-	RELOAD_SCRIPTS			= 0,
+	RELOAD_SCRIPTS = 0,
 	RELOAD_PYTHON,
 	RELOAD_ACCOUNTS,
 	RELOAD_CONFIGURATION,
@@ -147,6 +149,7 @@ public:
 	cServer();
 	~cServer();
 
+	void queueAction( cAction *action );
 	void queueAction( enActionType type );
 	void setState( enServerState state );
 	enServerState getState();

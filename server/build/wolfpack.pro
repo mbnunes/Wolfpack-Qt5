@@ -62,6 +62,7 @@ include($$MULS_CPP/muls.pri)
 
 HEADERS += \
 	accounts.h \
+	action.h \
 	basechar.h \
 	basedef.h \
 	baseregion.h \
@@ -122,6 +123,7 @@ HEADERS += \
 
 SOURCES += \
 	accounts.cpp \
+	action.cpp \
 	basechar.cpp \
 	basedef.cpp \
 	basics.cpp \

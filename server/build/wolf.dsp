@@ -94,6 +94,10 @@ SOURCE=.\accounts.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\action.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\ai\ai.cpp
 # End Source File
 # Begin Source File
@@ -327,6 +331,10 @@ SOURCE=.\world.cpp
 # Begin Source File
 
 SOURCE=.\accounts.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\action.h
 # End Source File
 # Begin Source File
 

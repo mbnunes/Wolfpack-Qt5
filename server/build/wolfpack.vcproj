@@ -240,6 +240,12 @@
 				RelativePath=".\accounts.h">
 			</File>
 			<File
+				RelativePath=".\action.cpp">
+			</File>
+			<File
+				RelativePath=".\action.h">
+			</File>
+			<File
 				RelativePath=".\basechar.cpp">
 			</File>
 			<File
