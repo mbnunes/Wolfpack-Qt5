@@ -6,7 +6,7 @@
 
 import wolfpack
 from wolfpack.consts import *
-from magic.utilities import energydamage
+from wolfpack.utilities import energydamage
 
 def onUse(char, item):
 	try:

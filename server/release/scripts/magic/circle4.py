@@ -3,7 +3,7 @@ from magic.spell import CharEffectSpell, Spell, DelayedDamageSpell
 from magic.utilities import *
 import random
 import wolfpack
-from wolfpack.utilities import tobackpack
+from wolfpack.utilities import tobackpack, energydamage
 from system import poison
 
 class Curse (CharEffectSpell):

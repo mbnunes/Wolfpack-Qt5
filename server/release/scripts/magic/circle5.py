@@ -4,7 +4,7 @@ from magic.utilities import *
 import random
 import wolfpack
 import wolfpack.time
-from wolfpack.utilities import tobackpack
+from wolfpack.utilities import tobackpack, energydamage
 
 class BladeSpirits (Spell):
 	def __init__(self):

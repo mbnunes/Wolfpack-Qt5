@@ -28,8 +28,8 @@ AGEOFSHADOWS = 1
 FELUCIA2XRESGAIN = 0
 
 # These are properties you can get via
-# combat.properties.fromchar or
-# combat.properties.fromitem
+# wolfpack.properties.fromchar or
+# wolfpack.properties.fromitem
 RESISTANCE_PHYSICAL = 1
 RESISTANCE_ENERGY = 2
 RESISTANCE_COLD = 3
@@ -63,6 +63,7 @@ MANARATE = 30
 SPELLDAMAGEBONUS = 31
 MATERIALPREFIX = 32
 SWING = 33
+REFLECTPHYSICAL = 34
 
 # Checks for certain item types
 ITEM_ARMOR = 1 # Armor

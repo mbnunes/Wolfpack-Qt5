@@ -1,6 +1,6 @@
 
 import wolfpack
-from magic.utilities import energydamage
+from wolfpack.utilities import energydamage
 from wolfpack import console
 from wolfpack.consts import *
 

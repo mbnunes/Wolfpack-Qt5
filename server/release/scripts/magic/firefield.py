@@ -1,7 +1,7 @@
 
 import wolfpack
 from wolfpack.consts import *
-from magic.utilities import energydamage
+from wolfpack.utilities import energydamage
 
 #
 # Attach a tag to the character to note that he entered a firefield.

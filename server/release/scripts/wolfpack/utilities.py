@@ -13,10 +13,9 @@
 """
 
 # Calculates the Magic Damage (Base Damage + Base + Source)
-
 import wolfpack
+from wolfpack import properties 
 from wolfpack.consts import *
-from math import floor
 import random
 from types import *
 
@@ -514,3 +513,59 @@ def consumeresources(container, baseid, amount):
     return consumeresourcesinternal(container, baseid, amount) == 0
 
   return 0
+
+"""
+	\function magic.utilities.energydamage
+	\param target The target that is taking damage. Only characters are allowed.
+	\param source The source of the damage. May be None.
+	\param amount The amount of damage dealt.
+	\param physical The physical fraction of the damage.
+	\param fire The fire fraction of the damage.
+	\param cold The cold fraction of the damage.
+	\param poison The poison fraction of the damage.
+	\param energy The energy fraction of the damage.
+	\description Deal damage to a target and take the targets energy resistances into account.
+"""
+def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, energy=0, noreflect=0, damagetype=DAMAGE_MAGICAL):
+	if not target:
+		raise RuntimeError, "Invalid arguments for Spell.energydamage."
+	
+	if amount == 0 or physical + fire + cold + poison + energy == 0:
+		raise RuntimeError, "Invalid arguments for Spell.energydamage."
+
+	damage = 0
+
+	if physical > 0:
+		physical = amount * (physical / 100.0)
+		resistance = properties.fromchar(target, RESISTANCE_PHYSICAL) / 100.0
+		damage = max(0, physical - (physical * resistance))
+		
+		if source and not noreflect and damage > 0:
+			reflectphysical = properties.fromchar(target, REFLECTPHYSICAL)
+			reflect = reflectphysical / 100.0 * damage
+			
+			if reflect:
+				source.say('*damage damage damage*')
+	
+	if fire > 0:
+		fire = amount * (fire / 100.0)
+		resistance = properties.fromchar(target, RESISTANCE_FIRE) / 100.0
+		damage += max(0, fire - (fire * resistance))
+		
+	if cold > 0:
+		cold = amount * (cold / 100.0)
+		resistance = properties.fromchar(target, RESISTANCE_COLD) / 100.0
+		damage += max(0, cold - (cold * resistance))
+		
+	if poison > 0:
+		poison = amount * (poison / 100.0)
+		resistance = properties.fromchar(target, RESISTANCE_POISON) / 100.0
+		damage += max(0, poison - (poison * resistance))
+		
+	if energy > 0:
+		energy = amount * (energy / 100.0)
+		resistance = properties.fromchar(target, RESISTANCE_ENERGY) / 100.0
+		damage += max(0, energy - (energy * resistance))
+
+	damage = max(1, damage)
+	target.damage(damagetype, damage, source)

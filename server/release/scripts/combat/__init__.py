@@ -1,8 +1,8 @@
 
 import wolfpack
 from wolfpack.consts import *
-import combat.properties
 import combat.aos
+from wolfpack import properties
 
 DEBUG = 0
 
@@ -65,27 +65,27 @@ def onSwing(attacker, defender, time):
 			attacker.nextswing = time + 10000
 			raise
 
-		attacker.nextswing = time + combat.properties.getdelay(attacker, weapon)
+		attacker.nextswing = time + properties.getdelay(attacker, weapon)
 
 #
 # Callback for showing the status gump to yourself.
 # We need to insert the AOS resistances here.
 #
 def onShowStatus(char, packet):
-	damagebonus = combat.properties.fromchar(char, DAMAGEBONUS)
+	damagebonus = properties.fromchar(char, DAMAGEBONUS)
 
 	# Get weapon properties if applicable
-	(mindamage, maxdamage) = combat.properties.getdamage(char)
+	(mindamage, maxdamage) = properties.getdamage(char)
 
 	# Scale damage
 	mindamage = int(combat.aos.scaledamage(char, mindamage, 0))
 	maxdamage = int(combat.aos.scaledamage(char, maxdamage, 0))
 
-	packet.setshort(62, combat.properties.fromchar(char, RESISTANCE_PHYSICAL)) # Physical resistance
-	packet.setshort(70, combat.properties.fromchar(char, RESISTANCE_FIRE)) # Fire Resistance
-	packet.setshort(72, combat.properties.fromchar(char, RESISTANCE_COLD)) # Cold Resistance
-	packet.setshort(74, combat.properties.fromchar(char, RESISTANCE_POISON)) # Poison Resistance
-	packet.setshort(76, combat.properties.fromchar(char, RESISTANCE_ENERGY)) # Energy Resistance
+	packet.setshort(62, properties.fromchar(char, RESISTANCE_PHYSICAL)) # Physical resistance
+	packet.setshort(70, properties.fromchar(char, RESISTANCE_FIRE)) # Fire Resistance
+	packet.setshort(72, properties.fromchar(char, RESISTANCE_COLD)) # Cold Resistance
+	packet.setshort(74, properties.fromchar(char, RESISTANCE_POISON)) # Poison Resistance
+	packet.setshort(76, properties.fromchar(char, RESISTANCE_ENERGY)) # Energy Resistance
 	packet.setshort(78, 0) # Luck
 	packet.setshort(80, mindamage) # Min. Damage
 	packet.setshort(82, maxdamage) # Max. Damage

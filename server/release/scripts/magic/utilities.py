@@ -1,7 +1,7 @@
 
 import magic.spellbook
 from wolfpack.utilities import *
-from combat import properties
+from wolfpack import properties
 from wolfpack.consts import *
 
 TARGET_CHAR = 1
@@ -230,45 +230,3 @@ def field_expire(object, args):
 		item = wolfpack.finditem(serial)
 		if item:
 			item.delete()
-
-#
-# Helper function for distributing the damage among the energytypes
-#
-def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, energy=0):
-	if not target:
-		raise RuntimeError, "Invalid arguments for Spell.energydamage."
-	
-	if amount == 0 or physical + fire + cold + poison + energy == 0:
-		raise RuntimeError, "Invalid arguments for Spell.energydamage."
-
-	damage = 0
-
-	if physical > 0:
-		physical = amount * (physical / 100.0)
-		resistance = properties.fromchar(target, RESISTANCE_PHYSICAL) / 100.0
-		damage += max(0, physical - (physical * resistance))
-		
-	if fire > 0:
-		fire = amount * (fire / 100.0)
-		resistance = properties.fromchar(target, RESISTANCE_FIRE) / 100.0
-		damage += max(0, fire - (fire * resistance))
-		
-	if cold > 0:
-		cold = amount * (cold / 100.0)
-		resistance = properties.fromchar(target, RESISTANCE_COLD) / 100.0
-		damage += max(0, cold - (cold * resistance))
-		
-	if poison > 0:
-		poison = amount * (poison / 100.0)
-		resistance = properties.fromchar(target, RESISTANCE_POISON) / 100.0
-		damage += max(0, poison - (poison * resistance))
-		
-	if energy > 0:
-		energy = amount * (energy / 100.0)
-		resistance = properties.fromchar(target, RESISTANCE_ENERGY) / 100.0
-		damage += max(0, energy - (energy * resistance))
-		
-	damage = max(1, damage)
-	target.damage(DAMAGE_MAGICAL, damage, source)
-
-

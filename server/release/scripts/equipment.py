@@ -2,7 +2,7 @@
 import wolfpack
 from wolfpack.utilities import *
 from wolfpack.consts import *
-from combat.properties import itemcheck, fromitem, fromchar
+from wolfpack.properties import itemcheck, fromitem, fromchar
 from combat.utilities import weaponskill
 from combat import armorinfo, weaponinfo
 from math import ceil
@@ -26,9 +26,17 @@ def modifiers(object, tooltip):
 	for (tag, cliloc) in modifiers.items():
 		if object.hastag(tag):
 			tooltip.add(cliloc, str(object.gettag(tag)))
+
+	reflectphysical = fromitem(object, REFLECTPHYSICAL)
+	
+	if reflectphysical:
+		tooltip.add(1060442, str(reflectphysical))
+
+	if object.hastag("bestskill"):
+		tooltip.add(1060400, "")
 			
 	if object.hastag('magearmor'):
-		tooltip.add(1060437)
+		tooltip.add(1060437, "")
 
 #
 # Equipment has a lot of additional effects.

@@ -1,7 +1,7 @@
 
 import wolfpack
 from wolfpack.consts import *
-from magic.utilities import energydamage
+from wolfpack.utilities import energydamage
 from system import poison
 
 #

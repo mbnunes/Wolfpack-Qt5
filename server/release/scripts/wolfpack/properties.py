@@ -1,8 +1,8 @@
 
 from wolfpack.consts import *
 from math import floor
-from combat import weaponinfo
-from combat import armorinfo
+from wolfpack import weaponinfo
+from wolfpack import armorinfo
 
 #
 # Get the delay for the next swing from this attacker and his weapon.
@@ -60,7 +60,8 @@ PROPERTIES = {
 	AMMUNITION: ['ammunition', '', 0],
 	PROJECTILE: ['projectile', 0, 0],
 	PROJECTILEHUE: ['projectilehue', 0, 0],
-	SWING: ['swing', [0xa, 0x9, 0x1f] ]
+	SWING: ['swing', [0xa, 0x9, 0x1f] ],
+	REFLECTPHYSICAL: ['reflectphysical', 0, 1],
 }
 
 #

@@ -1,7 +1,7 @@
 
 import random
 import wolfpack
-import combat.properties
+from wolfpack import properties
 from wolfpack.utilities import hex2dec
 from wolfpack.consts import *
 
@@ -63,114 +63,140 @@ WEAPON_INFORMATION = {
 	},
 }
 
+def getbestskill(char):
+	skill = SWORDSMANSHIP
+	value = char.skill[SWORDSMANSHIP]
+	fencing = char.skill[FENCING]
+	archery = char.skill[ARCHERY]
+	macefighting = char.skill[MACEFIGHTING]
+	wrestling = char.skill[WRESTLING]
+	
+	if fencing > value:
+		skill = FENCING
+		value = fencing
+	if archery > value:
+		skill = ARCHERY
+		value = archery
+	if macefighting > value:
+		skill = MACEFIGHTING
+		value = macefighting
+	if wrestling > value:
+		skill = WRESTLING
+		value = wrestling
+		
+	return skill
+
 #
 # Returns the weapon skill used by the given character.
 # If bestskill is 1 and the weapon has the given property.
 # The best skill is used instead.
 #
 def weaponskill(char, weapon, bestskill = 0):
-  if not weapon:
-    return WRESTLING
-  else:
-    if not WEAPON_INFORMATION.has_key(weapon.type):
-      return WRESTLING
-    else:
-      return WEAPON_INFORMATION[weapon.type][SKILL]
+	if not weapon:
+		return WRESTLING
+	else:
+		if bestskill and weapon.hastag('bestskill'):
+			return getbestskill(char)
+	
+		if not WEAPON_INFORMATION.has_key(weapon.type):
+			return WRESTLING
+		else:
+			return WEAPON_INFORMATION[weapon.type][SKILL]
 
 #
 # This function plays the swing animation for the
 # given character.
 #
 def playswinganimation(char, target, weapon):
-  char.turnto(target)
+	char.turnto(target)
 
-  # Monsters
-  if char.id < 0x190:
-    action = random.randint(4, 6)
-    basedef = wolfpack.charbase(char.id)
+	# Monsters
+	if char.id < 0x190:
+		action = random.randint(4, 6)
+		basedef = wolfpack.charbase(char.id)
 
-    # Anti Blink Bit
-    if basedef and basedef['flags'] & 0x02:
-      action += 1
+		# Anti Blink Bit
+		if basedef and basedef['flags'] & 0x02:
+			action += 1
 
-    char.action(action)
+		char.action(action)
 
-  # Humans
-  else:
-    if weapon:
-      action = combat.properties.fromitem(weapon, SWING)
-    else:
-      action = [0x1f]
+	# Humans
+	else:
+		if weapon:
+			action = properties.fromitem(weapon, SWING)
+		else:
+			action = [0x1f]
 
-    char.action( random.choice(action) )
+		char.action( random.choice(action) )
 
 #
 # Play hurt animation for the defender
 #
 def playhurtanimation(char):
-  # The default action for humans
-  if char.id >= 0x190:
-    char.action(20)
-  else:
-    # Note: We lack support for correct animations
-    # processing here. animals have different hit anims
-    # for instance.
-    char.action(10)
+	# The default action for humans
+	if char.id >= 0x190:
+		char.action(20)
+	else:
+		# Note: We lack support for correct animations
+		# processing here. animals have different hit anims
+		# for instance.
+		char.action(10)
 
 #
 # Plays the miss sound for a given attacker
 # and defender.
 #
 def playmisssound(attacker, defender):
-  weapon = attacker.getweapon()
-  sounds = combat.properties.fromitem(weapon, MISSSOUND)
+	weapon = attacker.getweapon()
+	sounds = properties.fromitem(weapon, MISSSOUND)
 
-  # No sounds
-  if len(sounds) == 0:
-    return
+	# No sounds
+	if len(sounds) == 0:
+		return
 
-  attacker.soundeffect(random.choice(sounds))
+	attacker.soundeffect(random.choice(sounds))
 
 #
 # Play hurt sound
 #
 def playhurtsound(defender):
-  if defender.id == 0x190:
-    # Play a random soundeffect for a human male defender
-    sounds = wolfpack.list('SOUNDS_COMBAT_HIT_HUMAN_MALE')
+	if defender.id == 0x190:
+		# Play a random soundeffect for a human male defender
+		sounds = wolfpack.list('SOUNDS_COMBAT_HIT_HUMAN_MALE')
 
-    if len(sounds) > 0:
-      sound = hex2dec(random.choice(sounds))
-      defender.soundeffect(sound)
-    else:
-      defender.soundeffect(0x156)
+		if len(sounds) > 0:
+			sound = hex2dec(random.choice(sounds))
+			defender.soundeffect(sound)
+		else:
+			defender.soundeffect(0x156)
 
-  elif defender.id == 0x191:
-    # Play a random soundeffect for a human female defender
-    sounds = wolfpack.list('SOUNDS_COMBAT_HIT_HUMAN_FEMALE')
+	elif defender.id == 0x191:
+		# Play a random soundeffect for a human female defender
+		sounds = wolfpack.list('SOUNDS_COMBAT_HIT_HUMAN_FEMALE')
 
-    if len(sounds) > 0:
-      sound = hex2dec(random.choice(sounds))
-      defender.soundeffect(sound)
-    else:
-      defender.soundeffect(0x14b)
-  else:
-    # A standard monster defend sound
-    defender.sound(SND_DEFEND)
+		if len(sounds) > 0:
+			sound = hex2dec(random.choice(sounds))
+			defender.soundeffect(sound)
+		else:
+			defender.soundeffect(0x14b)
+	else:
+		# A standard monster defend sound
+		defender.sound(SND_DEFEND)
 
 #
 # Plays the hit sound for a given attacker and
 # defender
 #
 def playhitsound(attacker, defender):
-  weapon = attacker.getweapon()
+	weapon = attacker.getweapon()
 
-  # Play a special sound for monsters
-  if not weapon and attacker.id < 0x190:
-    attacker.sound(SND_ATTACK)
-  else:
-    sounds = combat.properties.fromitem(weapon, HITSOUND)
+	# Play a special sound for monsters
+	if not weapon and attacker.id < 0x190:
+		attacker.sound(SND_ATTACK)
+	else:
+		sounds = properties.fromitem(weapon, HITSOUND)
 
-    # Only play a sound if there are any
-    if len(sounds) != 0:
-      attacker.soundeffect(random.choice(sounds))
+		# Only play a sound if there are any
+		if len(sounds) != 0:
+			attacker.soundeffect(random.choice(sounds))

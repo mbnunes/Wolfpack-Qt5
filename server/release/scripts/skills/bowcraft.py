@@ -11,7 +11,7 @@ import math
 import wolfpack
 from system.makemenus import CraftItemAction, MakeMenu, findmenu
 from wolfpack.utilities import hex2dec, tobackpack
-from combat.properties import itemcheck, fromitem
+from wolfpack.properties import itemcheck, fromitem
 import random
 
 #

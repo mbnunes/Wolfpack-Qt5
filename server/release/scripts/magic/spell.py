@@ -4,7 +4,7 @@ from wolfpack.consts import *
 from magic.utilities import *
 import wolfpack.console
 import random
-from combat import properties
+from wolfpack import properties
 
 # Recursive Function for counting reagents
 def countReagents(item, items):
