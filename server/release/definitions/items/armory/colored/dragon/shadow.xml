@@ -13,70 +13,70 @@
 		<baseid>2641</baseid>
 		<shadow_armor />
 		<red_scaled_armor />
-		<category>Armor\Shadow\Dragon\Red\Red Dragon Breastplate 1</category>
+		<category>Armor\Shadow Iron\Dragon\Red\Red Dragon Breastplate 1</category>
 	</item>
 
 	<item id="2642_shadow_red" inherit="2642">
 		<baseid>2641</baseid>
 		<shadow_armor />
 		<red_scaled_armor />
-		<category>Armor\Shadow\Dragon\Red\Red Dragon Breastplate 2</category>
+		<category>Armor\Shadow Iron\Dragon\Red\Red Dragon Breastplate 2</category>
 	</item>
 
 	<item id="2643_shadow_red" inherit="2643">
 		<baseid>2643</baseid>
 		<shadow_armor />
 		<red_scaled_armor />
-		<category>Armor\Shadow\Dragon\Red\Red Dragon Gloves 1</category>
+		<category>Armor\Shadow Iron\Dragon\Red\Red Dragon Gloves 1</category>
 	</item>
 
 	<item id="2644_shadow_red" inherit="2644">
 		<baseid>2643</baseid>
 		<shadow_armor />
 		<red_scaled_armor />
-		<category>Armor\Shadow\Dragon\Red\Red Dragon Gloves 2</category>
+		<category>Armor\Shadow Iron\Dragon\Red\Red Dragon Gloves 2</category>
 	</item>
 
 	<item id="2645_shadow_red" inherit="2645">
 		<baseid>2645</baseid>
 		<shadow_armor />
 		<red_scaled_armor />
-		<category>Armor\Shadow\Dragon\Red\Red Dragon Helm 1</category>
+		<category>Armor\Shadow Iron\Dragon\Red\Red Dragon Helm 1</category>
 	</item>
 
 	<item id="2646_shadow_red" inherit="2646">
 		<baseid>2645</baseid>
 		<shadow_armor />
 		<red_scaled_armor />
-		<category>Armor\Shadow\Dragon\Red\Red Dragon Helm 2</category>
+		<category>Armor\Shadow Iron\Dragon\Red\Red Dragon Helm 2</category>
 	</item>
 
 	<item id="2647_shadow_red" inherit="2647">
 		<baseid>2647</baseid>
 		<shadow_armor />
 		<red_scaled_armor />
-		<category>Armor\Shadow\Dragon\Red\Red Dragon Leggings 1</category>
+		<category>Armor\Shadow Iron\Dragon\Red\Red Dragon Leggings 1</category>
 	</item>
 
 	<item id="2648_shadow_red" inherit="2648">
 		<baseid>2647</baseid>
 		<shadow_armor />
 		<red_scaled_armor />
-		<category>Armor\Shadow\Dragon\Red\Red Dragon Leggings 2</category>
+		<category>Armor\Shadow Iron\Dragon\Red\Red Dragon Leggings 2</category>
 	</item>
 
 	<item id="2657_shadow_red" inherit="2657">
 		<baseid>2657</baseid>
 		<shadow_armor />
 		<red_scaled_armor />
-		<category>Armor\Shadow\Dragon\Red\Red Dragon Sleeves 1</category>
+		<category>Armor\Shadow Iron\Dragon\Red\Red Dragon Sleeves 1</category>
 	</item>
 
 	<item id="2658_shadow_red" inherit="2658">
 		<baseid>2657</baseid>
 		<shadow_armor />
 		<red_scaled_armor />
-		<category>Armor\Shadow\Dragon\Red\Red Dragon Sleeves 2</category>
+		<category>Armor\Shadow Iron\Dragon\Red\Red Dragon Sleeves 2</category>
 	</item>
 
 	<!-- Shadow Yellow Scales -->
@@ -84,70 +84,70 @@
 		<baseid>2641</baseid>
 		<shadow_armor />
 		<yellow_scaled_armor />
-		<category>Armor\Shadow\Dragon\Yellow\Yellow Dragon Breastplate 1</category>
+		<category>Armor\Shadow Iron\Dragon\Yellow\Yellow Dragon Breastplate 1</category>
 	</item>
 
 	<item id="2642_shadow_yellow" inherit="2642">
 		<baseid>2641</baseid>
 		<shadow_armor />
 		<yellow_scaled_armor />
-		<category>Armor\Shadow\Dragon\Yellow\Yellow Dragon Breastplate 2</category>
+		<category>Armor\Shadow Iron\Dragon\Yellow\Yellow Dragon Breastplate 2</category>
 	</item>
 
 	<item id="2643_shadow_yellow" inherit="2643">
 		<baseid>2643</baseid>
 		<shadow_armor />
 		<yellow_scaled_armor />
-		<category>Armor\Shadow\Dragon\Yellow\Yellow Dragon Gloves 1</category>
+		<category>Armor\Shadow Iron\Dragon\Yellow\Yellow Dragon Gloves 1</category>
 	</item>
 
 	<item id="2644_shadow_yellow" inherit="2644">
 		<baseid>2643</baseid>
 		<shadow_armor />
 		<yellow_scaled_armor />
-		<category>Armor\Shadow\Dragon\Yellow\Yellow Dragon Gloves 2</category>
+		<category>Armor\Shadow Iron\Dragon\Yellow\Yellow Dragon Gloves 2</category>
 	</item>
 
 	<item id="2645_shadow_yellow" inherit="2645">
 		<baseid>2645</baseid>
 		<shadow_armor />
 		<yellow_scaled_armor />
-		<category>Armor\Shadow\Dragon\Yellow\Yellow Dragon Helm 1</category>
+		<category>Armor\Shadow Iron\Dragon\Yellow\Yellow Dragon Helm 1</category>
 	</item>
 
 	<item id="2646_shadow_yellow" inherit="2646">
 		<baseid>2645</baseid>
 		<shadow_armor />
 		<yellow_scaled_armor />
-		<category>Armor\Shadow\Dragon\Yellow\Yellow Dragon Helm 2</category>
+		<category>Armor\Shadow Iron\Dragon\Yellow\Yellow Dragon Helm 2</category>
 	</item>
 
 	<item id="2647_shadow_yellow" inherit="2647">
 		<baseid>2647</baseid>
 		<shadow_armor />
 		<yellow_scaled_armor />
-		<category>Armor\Shadow\Dragon\Yellow\Yellow Dragon Leggings 1</category>
+		<category>Armor\Shadow Iron\Dragon\Yellow\Yellow Dragon Leggings 1</category>
 	</item>
 
 	<item id="2648_shadow_yellow" inherit="2648">
 		<baseid>2647</baseid>
 		<shadow_armor />
 		<yellow_scaled_armor />
-		<category>Armor\Shadow\Dragon\Yellow\Yellow Dragon Leggings 2</category>
+		<category>Armor\Shadow Iron\Dragon\Yellow\Yellow Dragon Leggings 2</category>
 	</item>
 
 	<item id="2657_shadow_yellow" inherit="2657">
 		<baseid>2657</baseid>
 		<shadow_armor />
 		<yellow_scaled_armor />
-		<category>Armor\Shadow\Dragon\Yellow\Yellow Dragon Sleeves 1</category>
+		<category>Armor\Shadow Iron\Dragon\Yellow\Yellow Dragon Sleeves 1</category>
 	</item>
 
 	<item id="2658_shadow_yellow" inherit="2658">
 		<baseid>2657</baseid>
 		<shadow_armor />
 		<yellow_scaled_armor />
-		<category>Armor\Shadow\Dragon\Yellow\Yellow Dragon Sleeves 2</category>
+		<category>Armor\Shadow Iron\Dragon\Yellow\Yellow Dragon Sleeves 2</category>
 	</item>
 
 	<!-- Shadow Black Scales -->
@@ -155,70 +155,70 @@
 		<baseid>2641</baseid>
 		<shadow_armor />
 		<black_scaled_armor />
-		<category>Armor\Shadow\Dragon\Black\Black Dragon Breastplate 1</category>
+		<category>Armor\Shadow Iron\Dragon\Black\Black Dragon Breastplate 1</category>
 	</item>
 
 	<item id="2642_shadow_black" inherit="2642">
 		<baseid>2641</baseid>
 		<shadow_armor />
 		<black_scaled_armor />
-		<category>Armor\Shadow\Dragon\Black\Black Dragon Breastplate 2</category>
+		<category>Armor\Shadow Iron\Dragon\Black\Black Dragon Breastplate 2</category>
 	</item>
 
 	<item id="2643_shadow_black" inherit="2643">
 		<baseid>2643</baseid>
 		<shadow_armor />
 		<black_scaled_armor />
-		<category>Armor\Shadow\Dragon\Black\Black Dragon Gloves 1</category>
+		<category>Armor\Shadow Iron\Dragon\Black\Black Dragon Gloves 1</category>
 	</item>
 
 	<item id="2644_shadow_black" inherit="2644">
 		<baseid>2643</baseid>
 		<shadow_armor />
 		<black_scaled_armor />
-		<category>Armor\Shadow\Dragon\Black\Black Dragon Gloves 2</category>
+		<category>Armor\Shadow Iron\Dragon\Black\Black Dragon Gloves 2</category>
 	</item>
 
 	<item id="2645_shadow_black" inherit="2645">
 		<baseid>2645</baseid>
 		<shadow_armor />
 		<black_scaled_armor />
-		<category>Armor\Shadow\Dragon\Black\Black Dragon Helm 1</category>
+		<category>Armor\Shadow Iron\Dragon\Black\Black Dragon Helm 1</category>
 	</item>
 
 	<item id="2646_shadow_black" inherit="2646">
 		<baseid>2645</baseid>
 		<shadow_armor />
 		<black_scaled_armor />
-		<category>Armor\Shadow\Dragon\Black\Black Dragon Helm 2</category>
+		<category>Armor\Shadow Iron\Dragon\Black\Black Dragon Helm 2</category>
 	</item>
 
 	<item id="2647_shadow_black" inherit="2647">
 		<baseid>2647</baseid>
 		<shadow_armor />
 		<black_scaled_armor />
-		<category>Armor\Shadow\Dragon\Black\Black Dragon Leggings 1</category>
+		<category>Armor\Shadow Iron\Dragon\Black\Black Dragon Leggings 1</category>
 	</item>
 
 	<item id="2648_shadow_black" inherit="2648">
 		<baseid>2647</baseid>
 		<shadow_armor />
 		<black_scaled_armor />
-		<category>Armor\Shadow\Dragon\Black\Black Dragon Leggings 2</category>
+		<category>Armor\Shadow Iron\Dragon\Black\Black Dragon Leggings 2</category>
 	</item>
 
 	<item id="2657_shadow_black" inherit="2657">
 		<baseid>2657</baseid>
 		<shadow_armor />
 		<black_scaled_armor />
-		<category>Armor\Shadow\Dragon\Black\Black Dragon Sleeves 1</category>
+		<category>Armor\Shadow Iron\Dragon\Black\Black Dragon Sleeves 1</category>
 	</item>
 
 	<item id="2658_shadow_black" inherit="2658">
 		<baseid>2657</baseid>
 		<shadow_armor />
 		<black_scaled_armor />
-		<category>Armor\Shadow\Dragon\Black\Black Dragon Sleeves 2</category>
+		<category>Armor\Shadow Iron\Dragon\Black\Black Dragon Sleeves 2</category>
 	</item>
 
 	<!-- Shadow Green Scales -->
@@ -226,70 +226,70 @@
 		<baseid>2641</baseid>
 		<shadow_armor />
 		<green_scaled_armor />
-		<category>Armor\Shadow\Dragon\Green\Green Dragon Breastplate 1</category>
+		<category>Armor\Shadow Iron\Dragon\Green\Green Dragon Breastplate 1</category>
 	</item>
 
 	<item id="2642_shadow_green" inherit="2642">
 		<baseid>2641</baseid>
 		<shadow_armor />
 		<green_scaled_armor />
-		<category>Armor\Shadow\Dragon\Green\Green Dragon Breastplate 2</category>
+		<category>Armor\Shadow Iron\Dragon\Green\Green Dragon Breastplate 2</category>
 	</item>
 
 	<item id="2643_shadow_green" inherit="2643">
 		<baseid>2643</baseid>
 		<shadow_armor />
 		<green_scaled_armor />
-		<category>Armor\Shadow\Dragon\Green\Green Dragon Gloves 1</category>
+		<category>Armor\Shadow Iron\Dragon\Green\Green Dragon Gloves 1</category>
 	</item>
 
 	<item id="2644_shadow_green" inherit="2644">
 		<baseid>2643</baseid>
 		<shadow_armor />
 		<green_scaled_armor />
-		<category>Armor\Shadow\Dragon\Green\Green Dragon Gloves 2</category>
+		<category>Armor\Shadow Iron\Dragon\Green\Green Dragon Gloves 2</category>
 	</item>
 
 	<item id="2645_shadow_green" inherit="2645">
 		<baseid>2645</baseid>
 		<shadow_armor />
 		<green_scaled_armor />
-		<category>Armor\Shadow\Dragon\Green\Green Dragon Helm 1</category>
+		<category>Armor\Shadow Iron\Dragon\Green\Green Dragon Helm 1</category>
 	</item>
 
 	<item id="2646_shadow_green" inherit="2646">
 		<baseid>2645</baseid>
 		<shadow_armor />
 		<green_scaled_armor />
-		<category>Armor\Shadow\Dragon\Green\Green Dragon Helm 2</category>
+		<category>Armor\Shadow Iron\Dragon\Green\Green Dragon Helm 2</category>
 	</item>
 
 	<item id="2647_shadow_green" inherit="2647">
 		<baseid>2647</baseid>
 		<shadow_armor />
 		<green_scaled_armor />
-		<category>Armor\Shadow\Dragon\Green\Green Dragon Leggings 1</category>
+		<category>Armor\Shadow Iron\Dragon\Green\Green Dragon Leggings 1</category>
 	</item>
 
 	<item id="2648_shadow_green" inherit="2648">
 		<baseid>2647</baseid>
 		<shadow_armor />
 		<green_scaled_armor />
-		<category>Armor\Shadow\Dragon\Green\Green Dragon Leggings 2</category>
+		<category>Armor\Shadow Iron\Dragon\Green\Green Dragon Leggings 2</category>
 	</item>
 
 	<item id="2657_shadow_green" inherit="2657">
 		<baseid>2657</baseid>
 		<shadow_armor />
 		<green_scaled_armor />
-		<category>Armor\Shadow\Dragon\Green\Green Dragon Sleeves 1</category>
+		<category>Armor\Shadow Iron\Dragon\Green\Green Dragon Sleeves 1</category>
 	</item>
 
 	<item id="2658_shadow_green" inherit="2658">
 		<baseid>2657</baseid>
 		<shadow_armor />
 		<green_scaled_armor />
-		<category>Armor\Shadow\Dragon\Green\Green Dragon Sleeves 2</category>
+		<category>Armor\Shadow Iron\Dragon\Green\Green Dragon Sleeves 2</category>
 	</item>
 
 	<!-- Shadow White Scales -->
@@ -297,70 +297,70 @@
 		<baseid>2641</baseid>
 		<shadow_armor />
 		<white_scaled_armor />
-		<category>Armor\Shadow\Dragon\White\White Dragon Breastplate 1</category>
+		<category>Armor\Shadow Iron\Dragon\White\White Dragon Breastplate 1</category>
 	</item>
 
 	<item id="2642_shadow_white" inherit="2642">
 		<baseid>2641</baseid>
 		<shadow_armor />
 		<white_scaled_armor />
-		<category>Armor\Shadow\Dragon\White\White Dragon Breastplate 2</category>
+		<category>Armor\Shadow Iron\Dragon\White\White Dragon Breastplate 2</category>
 	</item>
 
 	<item id="2643_shadow_white" inherit="2643">
 		<baseid>2643</baseid>
 		<shadow_armor />
 		<white_scaled_armor />
-		<category>Armor\Shadow\Dragon\White\White Dragon Gloves 1</category>
+		<category>Armor\Shadow Iron\Dragon\White\White Dragon Gloves 1</category>
 	</item>
 
 	<item id="2644_shadow_white" inherit="2644">
 		<baseid>2643</baseid>
 		<shadow_armor />
 		<white_scaled_armor />
-		<category>Armor\Shadow\Dragon\White\White Dragon Gloves 2</category>
+		<category>Armor\Shadow Iron\Dragon\White\White Dragon Gloves 2</category>
 	</item>
 
 	<item id="2645_shadow_white" inherit="2645">
 		<baseid>2645</baseid>
 		<shadow_armor />
 		<white_scaled_armor />
-		<category>Armor\Shadow\Dragon\White\White Dragon Helm 1</category>
+		<category>Armor\Shadow Iron\Dragon\White\White Dragon Helm 1</category>
 	</item>
 
 	<item id="2646_shadow_white" inherit="2646">
 		<baseid>2645</baseid>
 		<shadow_armor />
 		<white_scaled_armor />
-		<category>Armor\Shadow\Dragon\White\White Dragon Helm 2</category>
+		<category>Armor\Shadow Iron\Dragon\White\White Dragon Helm 2</category>
 	</item>
 
 	<item id="2647_shadow_white" inherit="2647">
 		<baseid>2647</baseid>
 		<shadow_armor />
 		<white_scaled_armor />
-		<category>Armor\Shadow\Dragon\White\White Dragon Leggings 1</category>
+		<category>Armor\Shadow Iron\Dragon\White\White Dragon Leggings 1</category>
 	</item>
 
 	<item id="2648_shadow_white" inherit="2648">
 		<baseid>2647</baseid>
 		<shadow_armor />
 		<white_scaled_armor />
-		<category>Armor\Shadow\Dragon\White\White Dragon Leggings 2</category>
+		<category>Armor\Shadow Iron\Dragon\White\White Dragon Leggings 2</category>
 	</item>
 
 	<item id="2657_shadow_white" inherit="2657">
 		<baseid>2657</baseid>
 		<shadow_armor />
 		<white_scaled_armor />
-		<category>Armor\Shadow\Dragon\White\White Dragon Sleeves 1</category>
+		<category>Armor\Shadow Iron\Dragon\White\White Dragon Sleeves 1</category>
 	</item>
 
 	<item id="2658_shadow_white" inherit="2658">
 		<baseid>2657</baseid>
 		<shadow_armor />
 		<white_scaled_armor />
-		<category>Armor\Shadow\Dragon\White\White Dragon Sleeves 2</category>
+		<category>Armor\Shadow Iron\Dragon\White\White Dragon Sleeves 2</category>
 	</item>
 
 	<!-- Shadow Blue Scales -->
@@ -368,70 +368,70 @@
 		<baseid>2641</baseid>
 		<shadow_armor />
 		<blue_scaled_armor />
-		<category>Armor\Shadow\Dragon\Blue\Blue Dragon Breastplate 1</category>
+		<category>Armor\Shadow Iron\Dragon\Blue\Blue Dragon Breastplate 1</category>
 	</item>
 
 	<item id="2642_shadow_blue" inherit="2642">
 		<baseid>2641</baseid>
 		<shadow_armor />
 		<blue_scaled_armor />
-		<category>Armor\Shadow\Dragon\Blue\Blue Dragon Breastplate 2</category>
+		<category>Armor\Shadow Iron\Dragon\Blue\Blue Dragon Breastplate 2</category>
 	</item>
 
 	<item id="2643_shadow_blue" inherit="2643">
 		<baseid>2643</baseid>
 		<shadow_armor />
 		<blue_scaled_armor />
-		<category>Armor\Shadow\Dragon\Blue\Blue Dragon Gloves 1</category>
+		<category>Armor\Shadow Iron\Dragon\Blue\Blue Dragon Gloves 1</category>
 	</item>
 
 	<item id="2644_shadow_blue" inherit="2644">
 		<baseid>2643</baseid>
 		<shadow_armor />
 		<blue_scaled_armor />
-		<category>Armor\Shadow\Dragon\Blue\Blue Dragon Gloves 2</category>
+		<category>Armor\Shadow Iron\Dragon\Blue\Blue Dragon Gloves 2</category>
 	</item>
 
 	<item id="2645_shadow_blue" inherit="2645">
 		<baseid>2645</baseid>
 		<shadow_armor />
 		<blue_scaled_armor />
-		<category>Armor\Shadow\Dragon\Blue\Blue Dragon Helm 1</category>
+		<category>Armor\Shadow Iron\Dragon\Blue\Blue Dragon Helm 1</category>
 	</item>
 
 	<item id="2646_shadow_blue" inherit="2646">
 		<baseid>2645</baseid>
 		<shadow_armor />
 		<blue_scaled_armor />
-		<category>Armor\Shadow\Dragon\Blue\Blue Dragon Helm 2</category>
+		<category>Armor\Shadow Iron\Dragon\Blue\Blue Dragon Helm 2</category>
 	</item>
 
 	<item id="2647_shadow_blue" inherit="2647">
 		<baseid>2647</baseid>
 		<shadow_armor />
 		<blue_scaled_armor />
-		<category>Armor\Shadow\Dragon\Blue\Blue Dragon Leggings 1</category>
+		<category>Armor\Shadow Iron\Dragon\Blue\Blue Dragon Leggings 1</category>
 	</item>
 
 	<item id="2648_shadow_blue" inherit="2648">
 		<baseid>2647</baseid>
 		<shadow_armor />
 		<blue_scaled_armor />
-		<category>Armor\Shadow\Dragon\Blue\Blue Dragon Leggings 2</category>
+		<category>Armor\Shadow Iron\Dragon\Blue\Blue Dragon Leggings 2</category>
 	</item>
 
 	<item id="2657_shadow_blue" inherit="2657">
 		<baseid>2657</baseid>
 		<shadow_armor />
 		<blue_scaled_armor />
-		<category>Armor\Shadow\Dragon\Blue\Blue Dragon Sleeves 1</category>
+		<category>Armor\Shadow Iron\Dragon\Blue\Blue Dragon Sleeves 1</category>
 	</item>
 
 	<item id="2658_shadow_blue" inherit="2658">
 		<baseid>2657</baseid>
 		<shadow_armor />
 		<blue_scaled_armor />
-		<category>Armor\Shadow\Dragon\Blue\Blue Dragon Sleeves 2</category>
+		<category>Armor\Shadow Iron\Dragon\Blue\Blue Dragon Sleeves 2</category>
 	</item>
 
 </definitions>

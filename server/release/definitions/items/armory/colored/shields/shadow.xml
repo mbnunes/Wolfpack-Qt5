@@ -13,80 +13,80 @@
 	<item id="1b73_shadow" inherit="1b73">
 		<shadow_armor />
 		<baseid>1b73</baseid>
-		<category>Armor\Shadow\Shields\Buckler</category>
+		<category>Armor\Shadow Iron\Shields\Buckler</category>
 	</item>
 
 	<!-- bronze shield -->
 	<item id="1b72_shadow" inherit="1b72">
 		<shadow_armor />
 		<baseid>1b72</baseid>
-		<category>Armor\Shadow\Shields\Bronze</category>
+		<category>Armor\Shadow Iron\Shields\Bronze</category>
 	</item>
 
 	<!-- heater -->
 	<item id="1b76_shadow" inherit="1b76">
 		<shadow_armor />
 		<baseid>1b76</baseid>
-		<category>Armor\Shadow\Shields\Heater (N/S)</category>
+		<category>Armor\Shadow Iron\Shields\Heater (N/S)</category>
 	</item>
 
 	<item id="1b77_shadow" inherit="1b77">
 		<shadow_armor />
 		<baseid>1b76</baseid>
-		<category>Armor\Shadow\Shields\Heater (E/W)</category>
+		<category>Armor\Shadow Iron\Shields\Heater (E/W)</category>
 	</item>
 
 	<!-- metal shield -->
 	<item id="1b7b_shadow" inherit="1b7b">
 		<shadow_armor />
 		<baseid>1b7b</baseid>
-		<category>Armor\Shadow\Shields\Metal Shield</category>
+		<category>Armor\Shadow Iron\Shields\Metal Shield</category>
 	</item>
 
 	<!-- metal kite shield -->
 	<item id="1b74_shadow" inherit="1b74">
 		<baseid>1b74</baseid>
 		<shadow_armor />
-		<category>Armor\Shadow\Shields\Metal Kite (N/S)</category>
+		<category>Armor\Shadow Iron\Shields\Metal Kite (N/S)</category>
 	</item>
 
 	<item id="1b75_shadow" inherit="1b75">
 		<shadow_armor />
 		<baseid>1b74</baseid>
-		<category>Armor\Shadow\Shields\Metal Kite (E/W)</category>
+		<category>Armor\Shadow Iron\Shields\Metal Kite (E/W)</category>
 	</item>
 
 	<!-- wooden kite shield -->
 	<item id="1b78_shadow" inherit="1b78">
 		<shadow_armor />
 		<baseid>1b78</baseid>
-		<category>Armor\Shadow\Shields\Wooden Kite (N/S)</category>
+		<category>Armor\Shadow Iron\Shields\Wooden Kite (N/S)</category>
 	</item>
 
 	<item id="1b79_shadow" inherit="1b79">
 		<shadow_armor />
 		<baseid>1b78</baseid>
-		<category>Armor\Shadow\Shields\Wooden Kite (E/W)</category>
+		<category>Armor\Shadow Iron\Shields\Wooden Kite (E/W)</category>
 	</item>
 
 	<!-- chaos shield -->
 	<item id="1bc3_shadow" inherit="1bc3">
 		<shadow_armor />
 		<baseid>1bc3</baseid>
-		<category>Armor\Shadow\Shields\Chaos Shield</category>
+		<category>Armor\Shadow Iron\Shields\Chaos Shield</category>
 	</item>
 
 	<!-- order shield -->
 	<item id="1bc4_shadow" inherit="1bc4">
 		<shadow_armor />
 		<baseid>1bc4</baseid>
-		<category>Armor\Shadow\Shields\Order Shield (N/S)</category>
+		<category>Armor\Shadow Iron\Shields\Order Shield (N/S)</category>
 	</item>
 
 	<item id="1bc5_shadow" inherit="1bc5">
 		<shadow_armor />
 		<baseid>1bc4</baseid>
-		<category>Armor\Shadow\Shields\Order Shield (E/W)</category>
+		<category>Armor\Shadow Iron\Shields\Order Shield (E/W)</category>
 	</item>
 
 </definitions>

@@ -13,52 +13,52 @@
 	<item id="13eb_shadow" inherit="13eb">
 		<shadow_armor />
 		<baseid>13eb</baseid>
-		<category>Armor\Shadow\Ringmail\Gloves (N/S)</category>
+		<category>Armor\Shadow Iron\Ringmail\Gloves (N/S)</category>
 	</item>
 
 	<item id="13f2_shadow" inherit="13f2">
 		<shadow_armor />
 		<baseid>13eb</baseid>
-		<category>Armor\Shadow\Ringmail\Gloves (E/W)</category>
+		<category>Armor\Shadow Iron\Ringmail\Gloves (E/W)</category>
 	</item>
 
 	<!-- ring leggings -->
 	<item id="13f0_shadow" inherit="13f0">
 		<shadow_armor />
 		<baseid>13f0</baseid>
-		<category>Armor\Shadow\Ringmail\Leggings (N/S)</category>
+		<category>Armor\Shadow Iron\Ringmail\Leggings (N/S)</category>
 	</item>
 
 	<item id="13f1_shadow" inherit="13f1">
 		<shadow_armor />
 		<baseid>13f0</baseid>
-		<category>Armor\Shadow\Ringmail\Leggings (E/W)</category>
+		<category>Armor\Shadow Iron\Ringmail\Leggings (E/W)</category>
 	</item>
 
 	<!-- ring sleeves -->
 	<item id="13ee_shadow" inherit="13ee">
 		<shadow_armor />
 		<baseid>13ee</baseid>
-		<category>Armor\Shadow\Ringmail\Sleeves (N/S)</category>
+		<category>Armor\Shadow Iron\Ringmail\Sleeves (N/S)</category>
 	</item>
 
 	<item id="13ef_shadow" inherit="13ef">
 		<shadow_armor />
 		<baseid>13ee</baseid>
-		<category>Armor\Shadow\Ringmail\Sleeves (E/W)</category>
+		<category>Armor\Shadow Iron\Ringmail\Sleeves (E/W)</category>
 	</item>
 
 	<!-- ring tunic -->
 	<item id="13ec_shadow" inherit="13ec">
 		<shadow_armor />
 		<baseid>13ec</baseid>
-		<category>Armor\Shadow\Ringmail\Tunic (N/S)</category>
+		<category>Armor\Shadow Iron\Ringmail\Tunic (N/S)</category>
 	</item>
 
 	<item id="13ed_shadow" inherit="13ed">
 		<shadow_armor />
 		<baseid>13ec</baseid>
-		<category>Armor\Shadow\Ringmail\Tunic (E/W)</category>
+		<category>Armor\Shadow Iron\Ringmail\Tunic (E/W)</category>
 	</item>
 
 </definitions>
