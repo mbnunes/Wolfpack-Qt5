@@ -40,7 +40,6 @@
 
 #include <math.h>
 #include <qstring.h>
-#include <qshared.h>
 
 /*!
   Constructs an invalid variant.
