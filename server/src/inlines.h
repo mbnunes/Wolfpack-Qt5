@@ -64,7 +64,7 @@ inline bool isHairColor( Q_UINT16 color )
 	return ( ( color >= 0x44E ) && ( color <= 0x47D ) ) ? true : false;
 }
 
-inline int round(double n) {
+inline int roundInt(double n) {
     double f = n - floor(n);
 	if (f >= 0.50) {
 		return (int)ceil(n);

@@ -78,9 +78,9 @@ inline QValueList<Coord_cl> getPointList(const Coord_cl &origin, const Coord_cl 
 	Coord_cl pos = origin;
 
 	while (isBetween(currentX, target.x, origin.x) && isBetween(currentY, target.y, origin.y) && isBetween(currentZ, target.z, origin.z)) {
-		pos.x = round(currentX);
-		pos.y = round(currentY);
-		pos.z = round(currentZ);
+		pos.x = roundInt(currentX);
+		pos.y = roundInt(currentY);
+		pos.z = roundInt(currentZ);
 
 		if (pointList.count() == 0 || pointList.last() != pos) {
 			pointList.append(pos);
