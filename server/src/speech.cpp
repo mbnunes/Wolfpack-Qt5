@@ -396,7 +396,7 @@ bool QuestionSpeech( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pChar, const QSt
     // say time and the npChar gives the time.
 	if( comm.contains( "TIME" ) )
 	{
-		pChar->talk( tr( "It is now %1" ).arg( uoTime.toString() ) );
+		pChar->talk( tr( "It is now %1 on %3. %4 in year %5").arg(uoTime.time().toString()).arg(uoTime.date().day()).arg(QDate::monthName(uoTime.date().month())).arg(uoTime.date().year() - 1970) );
 		return true;
 	}	
 
