@@ -14,11 +14,6 @@
 
 import _wolfpack.settings
 
-getbool = _wolfpack.settings.getbool
-setbool = _wolfpack.settings.setbool
-getnumber = _wolfpack.settings.getnumber
-setnumber = _wolfpack.settings.setnumber
-getstring = _wolfpack.settings.getstring
-setstring = _wolfpack.settings.setstring
-reload = _wolfpack.settings.reload
-save = _wolfpack.settings.save
+d = globals()
+for (name, obj) in _wolfpack.settings.__dict__.items():
+	d[name] = obj

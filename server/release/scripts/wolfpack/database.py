@@ -22,8 +22,6 @@ MYSQL_ACCOUNTS = "`accounts`"
 SQLITE_WORLD = "characters, corpses, corpses_equipment, effects, effects_properties, guilds, guilds_canidates, guilds_members, items, npcs, players, settings, skills, spawnregions, tags, uobject, uobjectmap"
 MYSQL_WORLD = "`characters`, `corpses`, `corpses_equipment`, `effects`, `effects_properties`, `guilds`, `guilds_canidates`, `guilds_members`, `items`, `npcs`, `players`, `settings`, `skills`, `spawnregions`, `tags`, `uobject`, `uobjectmap`"
 
-query = _wolfpack.database.query
-execute = _wolfpack.database.execute
-driver = _wolfpack.database.driver
-open = _wolfpack.database.open
-close = _wolfpack.database.close
+d = globals()
+for (name, obj) in _wolfpack.database.__dict__.items():
+	d[name] = obj

@@ -12,7 +12,6 @@
 
 import _wolfpack.sockets
 
-first = _wolfpack.sockets.first
-next = _wolfpack.sockets.next
-count = _wolfpack.sockets.count
-
+d = globals()
+for (name, obj) in _wolfpack.sockets.__dict__.items():
+	d[name] = obj

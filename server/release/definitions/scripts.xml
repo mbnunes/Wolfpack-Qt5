@@ -148,6 +148,7 @@
 
 	<!-- NPC -->
 	<script>npc.healer</script>
+	<script>npc.vendor</script>
 
 	<!-- Context menu scripts -->
 	<script>contextmenus.bankermenu</script>

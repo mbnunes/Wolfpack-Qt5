@@ -902,7 +902,7 @@ Food subtypes:
 		<category>Equipment\Food\Lime</category>
 	</item>
 
-	<item id="172b" inherit="172b">
+	<item id="172b" inherit="172a">
 		<id>0x172b</id>
 		<weight>0.2</weight>
 		<category>Equipment\Food\Limes</category>
