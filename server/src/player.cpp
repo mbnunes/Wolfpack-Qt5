@@ -424,7 +424,7 @@ P_NPC cPlayer::unmount()
 		{
 			pMount->setWanderType( enHalt );
 			pMount->setStablemasterSerial( INVALID_SERIAL );
-			pMount->moveTo( pos() );
+			pMount->moveTo( pos(), true );
 			pMount->setDirection( direction_ );
 			pMount->resend( false );
 			pMount->bark( Bark_Idle );
