@@ -254,6 +254,7 @@ bool cServer::getSecure()
 bool cServer::run( int argc, char** argv )
 {
 	bool error = false;
+	
 	setState( STARTUP );
 
 	QApplication app( argc, argv, false );
@@ -283,79 +284,87 @@ bool cServer::run( int argc, char** argv )
 		qApp->installTranslator( &translator );
 	}
 
-	// Open the Worldsave and Account Database drivers.
-	if ( Config::instance()->databaseDriver() != "binary" && !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
-	{
-		Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
-		return 1;
-	}
-
-	if ( !PersistentBroker::instance()->openDriver( Config::instance()->accountsDriver() ) )
-	{
-		Console::instance()->log( LOG_ERROR, QString( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
-		return 1;
-	}
-
-	setState( RUNNING );
-
-	ScriptManager::instance()->onServerStart();	// Notify all scripts about server startup
-	Console::instance()->start(); // Notify the console about the server startup
-
-	PyThreadState* _save;
-	QWaitCondition niceLevel;
-	unsigned char cycles = 0;
-
-	while ( isRunning() )
-	{
-		// Every 10th cycle we sleep for a while and give other threads processing time.
-		if ( ++cycles == 10 )
+	try {
+		// Open the Worldsave and Account Database drivers.
+		if ( Config::instance()->databaseDriver() != "binary" && !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
 		{
-			cycles = 0;
-			_save = PyEval_SaveThread(); // Python threading - start
-			switch ( Config::instance()->niceLevel() )
+			Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
+			return 1;
+		}
+
+		if ( !PersistentBroker::instance()->openDriver( Config::instance()->accountsDriver() ) )
+		{
+			Console::instance()->log( LOG_ERROR, QString( "Unknown Account Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->accountsDriver() ) );
+			return 1;
+		}
+
+		setState( RUNNING );
+
+		ScriptManager::instance()->onServerStart();	// Notify all scripts about server startup
+		Console::instance()->start(); // Notify the console about the server startup
+
+		PyThreadState* _save;
+		QWaitCondition niceLevel;
+		unsigned char cycles = 0;
+
+		while ( isRunning() )
+		{
+			// Every 10th cycle we sleep for a while and give other threads processing time.
+			if ( ++cycles == 10 )
 			{
-			case 0:
-				break;	// very unnice - hog all cpu time
-			case 1:
-				if ( Network::instance()->count() != 0 )
-					niceLevel.wait( 10 );
-				else
-					niceLevel.wait( 100 ); break;
-			case 2:
-				niceLevel.wait( 10 ); break;
-			case 3:
-				niceLevel.wait( 40 ); break;// very nice
-			case 4:
-				if ( Network::instance()->count() != 0 )
-					niceLevel.wait( 10 );
-				else
-					niceLevel.wait( 4000 ); break; // anti busy waiting
-			case 5:
-				if ( Network::instance()->count() != 0 )
-					niceLevel.wait( 40 );
-				else
-					niceLevel.wait( 5000 ); break;
-			default:
-				niceLevel.wait( 10 ); break;
+				cycles = 0;
+				_save = PyEval_SaveThread(); // Python threading - start
+				switch ( Config::instance()->niceLevel() )
+				{
+				case 0:
+					break;	// very unnice - hog all cpu time
+				case 1:
+					if ( Network::instance()->count() != 0 )
+						niceLevel.wait( 10 );
+					else
+						niceLevel.wait( 100 ); break;
+				case 2:
+					niceLevel.wait( 10 ); break;
+				case 3:
+					niceLevel.wait( 40 ); break;// very nice
+				case 4:
+					if ( Network::instance()->count() != 0 )
+						niceLevel.wait( 10 );
+					else
+						niceLevel.wait( 4000 ); break; // anti busy waiting
+				case 5:
+					if ( Network::instance()->count() != 0 )
+						niceLevel.wait( 40 );
+					else
+						niceLevel.wait( 5000 ); break;
+				default:
+					niceLevel.wait( 10 ); break;
+				}
+				qApp->processEvents( 40 );
+				PyEval_RestoreThread( _save ); // Python threading - end
 			}
-			qApp->processEvents( 40 );
-			PyEval_RestoreThread( _save ); // Python threading - end
+
+			pollQueuedActions();
+
+			d->time = getNormalizedTime(); // Update our currenttime
+
+			try
+			{
+				Network::instance()->poll();
+				Timing::instance()->poll();
+				Console::instance()->poll();
+			}
+			catch ( wpException e )
+			{
+				Console::instance()->log( LOG_PYTHON, e.error() + "\n" );
+			}
 		}
 
-		pollQueuedActions();
-
-		d->time = getNormalizedTime(); // Update our currenttime
-
-		try
-		{
-			Network::instance()->poll();
-			Timing::instance()->poll();
-			Console::instance()->poll();
-		}
-		catch ( wpException e )
-		{
-			Console::instance()->log( LOG_PYTHON, e.error() + "\n" );
-		}
+	} catch (wpException &exception) {
+		Console::instance()->log(LOG_ERROR, exception.error() + "\n" );
+		error = true;
+	} catch (...) {
+		error = true;
 	}
 
 	setState( SHUTDOWN );
