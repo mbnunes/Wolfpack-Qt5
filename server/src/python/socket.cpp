@@ -55,8 +55,8 @@ static PyTypeObject wpSocketType = {
     "wpsocket",
     sizeof(wpSocketType),
     0,
-    wpDealloc,				
-    0,								
+    wpDealloc,
+    0,
     (getattrfunc)wpSocket_getAttr,
     (setattrfunc)wpSocket_setAttr,
 };
@@ -111,7 +111,7 @@ static PyObject* wpSocket_sysmessage( wpSocket* self, PyObject* args )
 	}
 	else if( checkArgUnicode( 0 ) )
 	{
-		message.setUnicodeCodes( PyUnicode_AsUnicode(param), PyUnicode_GetSize( param ) ) ;	
+		message.setUnicodeCodes( (unsigned short*)( PyUnicode_AsUnicode( param ) ), PyUnicode_GetSize( param ) ) ;
 	}
 	else
 	{
