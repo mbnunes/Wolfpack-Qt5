@@ -29,7 +29,7 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#ifndef __SPELLBOOK_H__
+#if !defined(__SPELLBOOK_H__)
 #define __SPELLBOOK_H__
 
 #include "items.h"
@@ -43,7 +43,7 @@ private:
 
 	UINT32 getBitmask( UINT8 spell );
 public:
-	class cSpellBook() {}
+	cSpellBook() {}
 	virtual void Init( bool mkser = true );
 
 	/*!
