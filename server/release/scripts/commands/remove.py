@@ -33,7 +33,7 @@ def doRemove( char, args, target ):
 			else:
 				socket = None
 
-			if player.rank >= char.rank:
+			if player.rank >= char.rank or not char.account.authorized('Misc', 'May Remove Players'):
 				char.socket.sysmessage("You cannot remove this player.")
 				return False
 			else:
