@@ -1,13 +1,71 @@
 
-# TODO: implementation of renaming and unlocking/locking etc.
-
 from wolfpack.consts import *
 import wolfpack
-import wolfpack.gumps
+from wolfpack.gumps import cGump
 import random
 
-def onLoad():
-  pass
+def gump_response(char, args, response):
+  if len(args) < 1:
+    return
+
+  key = wolfpack.finditem(args[0])
+
+  if not char.canreach(key, 5):
+    char.socket.clilocmessage(501661)
+    return
+
+  # Rename
+  new_name = response.text[1][:30] # 30 Chars max.
+  key.name = new_name
+
+  # Rekey
+  if char.gm:
+    new_lock = response.text[2]
+    
+    if len(new_lock) != 0:
+      key.settag(new_lock)
+      char.socket.sysmessage('This key now unlocks:' + new_lock)
+    else:
+      key.deltag('lock')
+      char.socket.sysmessage('You erase the lock information.')    
+
+def rename_key(char, key):
+  
+# Build the lock gump
+  gump = cGump(x=100, y=100, callback="key.gump_response")
+  gump.setArgs([key.serial])
+
+  # Renaming, blanking and modification of keys allowed for gms
+  gump.addBackground(id=0x2436, width=425, height=285)
+
+  if char.gm:
+    text = '<basefont color="#FECECE"><h3>Manage Key</h3><br><basefont color="#FEFEFE">This dialog will help you to manage or rename this key.'
+  else:
+    text = '<basefont color="#FECECE"><h3>Manage Key</h3><br><basefont color="#FEFEFE">This dialog will help you to rename this key.'
+
+  gump.addHtmlGump(x=20, y=20, width=410, height=90, html=text)
+
+  gump.addText(x=20, y=65, text='The name of this key:', hue=0x835)
+  gump.addResizeGump(x=20, y=88, id=0xBB8, width=200, height=25)
+  gump.addInputField(x=25, y=90, width=190, height=20, hue=0x834, id=1, starttext=key.name)
+
+  # InputField for the key id
+  if char.gm:
+    lock = ''
+    if key.hastag('lock'):
+      lock = str(key.gettag('lock'))
+  
+    gump.addText(x=235, y=65, text='The lock id of this key:', hue=0x835)
+    gump.addResizeGump(x=235, y=88, id=0xBB8, width=160, height=25)
+    gump.addInputField(x=240, y=90, width=150, height=20, hue=0x834, id=2, starttext=lock)
+
+  gump.addText(x=50, y=130, text='Modify key', hue=0x835)
+  gump.addButton(x=20, y=130, up=0x26af, down=0x26b1, returncode=1)
+
+  gump.addText(x=50, y=170, text='Cancel', hue=0x835)
+  gump.addButton(x=20, y=170, up=0x26af, down=0x26b1, returncode=0)
+
+  gump.send(char)
 
 def lock_response(char, args, target):
   if len(args) != 1:
@@ -23,16 +81,14 @@ def lock_response(char, args, target):
     char.socket.clilocmessage(501666)
     return
 
-  # a) Targetted a lockable item
   if target.item == key:
-    char.socket.sysmessage('rename key')
-    # Gump...
+    rename_key(char,key)
 
   elif 'lock' in target.item.events:
     if target.item.hastag('locked') and int(target.item.gettag('locked')) == 1:
       target.item.deltag('locked')
     else:
-      target.item.settag('locked','1')
+      target.item.settag('locked',1)
     char.soundeffect(0x241)
 
   else:
@@ -90,6 +146,10 @@ def onUse(char, key):
 
 def onShowTooltip(char, item, tooltip):
   tooltip.add(0xF9060 + item.id, '')
+
+  # The user defined name
+  if len(item.name) != 0:
+    tooltip.add(1050045, " \t" + item.name + "\t ")
 
   # Add the lock id for gms
   if char.gm:

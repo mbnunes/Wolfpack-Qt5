@@ -156,33 +156,48 @@ def commandLock( socket, command, arguments ):
 def onLoad():
   wolfpack.registercommand("lock", commandLock)
 
-#
-# Event for Locking Items
-#
-def onUse( char, item ):
-	events = item.events
+def searchkey(item, lock):
+  # It's a key.
+  if 'key' in item.events and item.hastag('lock'):
+    if lock == str(item.gettag('lock')):
+      return 1
 
-	if not item.hastag( 'lock' ):
-		return 0
+  for subitem in item.content:
+    if searchkey(subitem, lock):
+      return 1
 
-	lock = item.gettag( 'lock' )
-	
-	if lock != 'magic':
-		if item.hastag('locked'):
-			locked = int(item.gettag('locked'))
-		else:
-			locked = 0
-			
-		if locked == 0:
-			return 0
-	
-		# Search for a key in the users backpack
-		#backpack = char.getbackpack()
-				
-		#if searchkey(backpack, lock):
-		#	if 'door' in events:
-		#		char.message(501282) # quickly open / relock
-		#	return 0
-	
-	char.message(502503) # Thats locked
-	return 1
+  return 0
+
+def onUse(char, item):
+  # The item is not locked
+  if not item.hastag('lock'):
+    return 0
+  
+  # The magic lock spell has the lock id 'magic'
+  lock = str(item.gettag('lock'))
+  locked = 0
+
+  if item.hastag('locked'):
+    locked = int(item.gettag('locked'))
+
+  # For magic locks, the locked flag is irrelevant
+  if lock != 'magic' and locked == 0:
+    return 0
+
+  # GMs ignore locks but their access should be logged
+  if char.gm:
+    char.socket.clilocmessage(501281)
+    return 0
+
+  # Only doors can be opened without unlocking them
+  # if the user has the key in his posession.
+  if 'door' in item.events:
+    if searchkey(char.getbackpack(), lock):
+      char.socket.clilocmessage(501282)
+      return 0
+    
+    char.socket.clilocmessage(500788)
+  else:  
+    char.socket.clilocmessage(501746)
+
+  return 1
