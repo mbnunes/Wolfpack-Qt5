@@ -98,7 +98,8 @@ def response( char, args, target ):
 	
 	# Player can reach that ?
 	if char.pos.map != pos.map or char.pos.distance( pos ) > MINING_MAX_DISTANCE:
-		socket.clilocmessage( 500446, "", GRAY, NORMAL ) # That is too far away
+		# That is too far away
+		socket.clilocmessage( 500446, "", GRAY ) 
 		return OK
 	
 	tool = args[0]
@@ -106,7 +107,8 @@ def response( char, args, target ):
 	#Player also can't mine when riding, polymorphed and dead.
 	#Mine char ?!
 	if target.char:
-		socket.clilocmessage( 501863, "", GRAY, NORMAL ) # You can't mine that.
+		# You can't mine that.
+		socket.clilocmessage( 501863, "", GRAY ) 
 		return OK
 	
 	#Check if item is ore gem
@@ -122,7 +124,8 @@ def response( char, args, target ):
 		if ismountainorcave( map['id'] ):
 			mining( char, target.pos, tool )
 		else:
-			socket.clilocmessage( 501862, "", GRAY, NORMAL ) # You can't mine there.
+			# You can't mine there.
+			socket.clilocmessage( 501862, "", GRAY ) 
 		return OK
 	
 	#Find tile by it's model
@@ -131,7 +134,7 @@ def response( char, args, target ):
 			#add new ore gem here and mine
 			mining( char, target.pos, tool )
 		else:
-			socket.clilocmessage( 501862, "", GRAY, NORMAL ) # You can't mine there.
+			socket.clilocmessage( 501862, "", GRAY ) # You can't mine there.
 		return OK
 	else:
 		return OOPS
@@ -188,24 +191,31 @@ def domining( time, args ):
 	
 	# Are you skilled enough ? And here is ore ?
 	if ( resourcecount >= 1 ) and ( char.skill[ MINING ] >= reqskill ):
-		skills.checkskill( char, veingem, MINING, 0 )
-		if resourcecount >= 5: # Digs up the large ore.
-			successmining( char, veingem, oretable, resname, 1, oredefs[3] )
-		elif resourcecount == 3 or resourcecount == 4: # Picks one of the smaller ore types
-			randomore = randrange( 1, 2 ) 
-			successmining( char, veingem, oretable, resname, 1, oredefs[randomore] )
-		elif resourcecount == 1 or resourcecount == 2: # Smallest ore only
-			successmining( char, veingem, oretable, resname, 1, oredefs[0] )
-		# tool durability drain
-		if tool.health > 1:
-			tool.health -= 1
-			tool.update()
-		elif tool.health == 1:
-			tool.delete()
-		success = 1
+		if not skills.checkskill( char, veingem, MINING, 0 ):
+			# You loosen some rocks but fail to find any usable ore.
+			socket.clilocmessage( 501869, "", GRAY ) 
+			success = 0
+			return
+		else: 
+			if resourcecount >= 5: # Digs up the large ore.
+				successmining( char, veingem, oretable, resname, 1, oredefs[3] )
+			elif resourcecount == 3 or resourcecount == 4: # Picks one of the smaller ore types
+				randomore = randrange( 1, 2 ) 
+				successmining( char, veingem, oretable, resname, 1, oredefs[randomore] )
+			elif resourcecount == 1 or resourcecount == 2: # Smallest ore only
+				successmining( char, veingem, oretable, resname, 1, oredefs[0] )
+			# tool durability drain
+			if tool.health > 1:
+				tool.health -= 1
+				tool.update()
+			elif tool.health == 1:
+				tool.delete()
+				# You have worn out your tool!
+				socket.clilocmessage( 1044038, '', GRAY ) 
+			success = 1
 	
 	elif resourcecount == 0:
-		socket.sysmessage( "There is no ore left here to mine...", GRAY, NORMAL )
+		socket.sysmessage( "There is no metal here to mine.", GRAY )
 		if not veingem.hastag( 'resource_empty' ):
 			wolfpack.addtimer( orerespawndelay, "skills.mining.respawnvein", [ veingem ] )
 			veingem.settag( 'resource_empty', 'true')
@@ -213,7 +223,8 @@ def domining( time, args ):
 		success = 1
 	
 	if success == 0:
-		socket.clilocmessage( 501869, "", GRAY, NORMAL ) # You loosen some rocks but fail to find any usable ore.
+		# You loosen some rocks but fail to find any usable ore.
+		socket.clilocmessage( 501869, "", GRAY ) 
 	
 	char.deltag('is_mining')
 	
@@ -246,9 +257,10 @@ def successmining( char, gem, table, resname, amount, ore ):
 		resourceitem.update()
 
 	if resname == 'silver' or resname == 'merkite' or resname == 'mythril':
-		socket.sysmessage( "You dig some " + table[ resname ][ RESOURCENAME ]  + " and put it in your backpack.", GRAY, NORMAL )
+		socket.sysmessage( "You dig some " + table[ resname ][ RESOURCENAME ]  + " and put it in your backpack.", GRAY )
 	else:
-		socket.clilocmessage( message, "", GRAY, NORMAL )
+		# You dig some %s and put it in your backpack.
+		socket.clilocmessage( message, "", GRAY )
 	return OK
 
 def respawnvein( time, args ):

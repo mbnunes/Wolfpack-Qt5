@@ -49,22 +49,24 @@ def onUse( char, ore ):
 	if ore.id in oreids:
 		if ore.getoutmostchar() != char:
 			if char.pos.distance( ore.pos ) > 2:
-				char.socket.clilocmessage( 0x7A258 ) # You can't reach...
+				char.socket.clilocmessage( 501976, '', GRAY ) # You can't reach...
 				return OK
 			else:
 				if not ore.hastag( 'resname' ):
-					char.socket.sysmessage( "This ore is not of workable quality...", GRAY )
+					char.socket.clilocmessage( 501986, '', GRAY ) # Strange ore.
 					return OK
 				else:
-					char.socket.sysmessage( "Where do you want to smelt the ore?", GRAY )
+					# Where do you want to smelt the ore?
+					char.socket.clilocmessage( 501971, '', GRAY, NORMAL )
 					char.socket.attachtarget( "ore.response", [ ore.serial ] )
 					return OK
 		else:
 			if not ore.hastag( 'resname' ):
-				char.socket.sysmessage( "This ore is not of workable quality...", GRAY )
+				char.socket.clilocmessage( 501986, '', GRAY )
 				return OK
 			else:
-				char.socket.sysmessage( "Where do you want to smelt the ore?", GRAY )
+				# Where do you want to smelt the ore?
+				char.socket.clilocmessage( 501971, '', GRAY, NORMAL ) 
 				char.socket.attachtarget( "ore.response", [ ore.serial ] )
 				return OK
 
@@ -104,16 +106,16 @@ def response( char, args, target ):
 	# This is for merging the ore piles
 	elif target.item.id in oreids:
 		if targetitem.serial == item.serial:
-			char.socket.sysmessage( "You can not combine a pile of ore with itself...", GRAY )
 			return OOPS
 		if not targetitem.hastag('resname'):
-			char.socket.sysmessage( "That ore is not of workable quality...", GRAY )
+			char.socket.clilocmessage( 501986, '', GRAY )
 			return OOPS
 		# Largest Ore Pile
 		if item.id == oreids[3] and item.color == targetitem.color and item.gettag('resname') == targetitem.gettag('resname'):
 			if targetitem.getoutmostchar() != char:
 				if char.pos.distance( target.pos ) > 2:
-					char.socket.clilocmessage( 0x7A258 ) # You can't reach...
+					# The ore is too far away.
+					char.socket.clilocmessage( 501976, '', GRAY)
 					return OK
 				else:
 					# Merge the ore piles
@@ -121,17 +123,20 @@ def response( char, args, target ):
 						targetitem.amount += ( item.amount * 2 )
 						targetitem.update()
 						item.delete()
-						char.socket.sysmessage( "You combine the two ore piles to create a single pile of ore.", GRAY )
+						# Select the forge on which to smelt the ore, or another pile of ore with which to combine it.
+						char.socket.clilocmessage( 501971, '', GRAY, NORMAL )
 					elif targetitem.id == oreids[0]:
 						targetitem.amount += ( item.amount * 4 )
 						targetitem.update()
 						item.delete()
-						char.socket.sysmessage( "You combine the two ore piles to create a single pile of ore.", GRAY )
+						# Select the forge on which to smelt the ore, or another pile of ore with which to combine it.
+						char.socket.clilocmessage( 501971, '', GRAY, NORMAL ) 
 					elif targetitem.id == item.id:
 						targetitem.amount += item.amount
 						targetitem.update()
 						item.delete()
-						char.socket.sysmessage( "You combine the two ore piles to create a single pile of ore.", GRAY )
+						# Select the forge on which to smelt the ore, or another pile of ore with which to combine it.
+						char.socket.clilocmessage( 501971, '', GRAY, NORMAL ) 
 					return OK
 			else:
 				# Merge the ore piles
@@ -139,24 +144,28 @@ def response( char, args, target ):
 					targetitem.amount += ( item.amount * 2 )
 					targetitem.update()
 					item.delete()
-					char.socket.sysmessage( "You combine the two ore piles to create a single pile of ore.", GRAY )
+					# Select the forge on which to smelt the ore, or another pile of ore with which to combine it.
+					char.socket.clilocmessage( 501971, '', GRAY, NORMAL ) 
 				elif targetitem.id == oreids[0]:
 					targetitem.amount += ( item.amount * 4 )
 					targetitem.update()
 					item.delete()
-					char.socket.sysmessage( "You combine the two ore piles to create a single pile of ore.", GRAY )
+					# Select the forge on which to smelt the ore, or another pile of ore with which to combine it.
+					char.socket.clilocmessage( 501971, '', GRAY, NORMAL ) 
 				elif targetitem.id == item.id:
-						targetitem.amount += item.amount
-						targetitem.update()
-						item.delete()
-						char.socket.sysmessage( "You combine the two ore piles to create a single pile of ore.", GRAY )
+					targetitem.amount += item.amount
+					targetitem.update()
+					item.delete()
+					# Select the forge on which to smelt the ore, or another pile of ore with which to combine it.
+					char.socket.clilocmessage( 501971, '', GRAY, NORMAL ) 
 				return OK
 		
 		# Second Largest Ore
 		elif item.id == oreids[2] and item.color == targetitem.color and item.gettag('resname') == targetitem.gettag('resname'):
 			if targetitem.getoutmostchar() != char:
 				if char.pos.distance( target.pos ) > 2:
-					char.socket.clilocmessage( 0x7A258 ) # You can't reach...
+					# The ore is too far away.
+					char.socket.clilocmessage( 501976, '', GRAY)
 					return OK
 				else:
 					# Merge the ore piles
@@ -164,14 +173,14 @@ def response( char, args, target ):
 						targetitem.amount += item.amount
 						targetitem.update()
 						item.delete()
-						char.socket.sysmessage( "You combine the two ore piles to create a single pile of ore.", GRAY )
+						return OK
 					elif targetitem.id == oreids[0]:
 						targetitem.amount += ( item.amount * 2 )
 						targetitem.update()
 						item.delete()
-						char.socket.sysmessage( "You combine the two ore piles to create a single pile of ore.", GRAY )
+						return OK
 					elif targetitem.id == oreids[3]:
-						char.socket.sysmessage( "You can not create a larger pile from a small pile of ore.", GRAY )
+						return OOPS
 					return OK
 			else:
 				# Merge the ore piles
@@ -179,14 +188,14 @@ def response( char, args, target ):
 					targetitem.amount += item.amount
 					targetitem.update()
 					item.delete()
-					char.socket.sysmessage( "You combine the two ore piles to create a single pile of ore.", GRAY )
+					return OK
 				elif targetitem.id == oreids[0]:
 					targetitem.amount += ( item.amount * 2 )
 					targetitem.update()
 					item.delete()
-					char.socket.sysmessage( "You combine the two ore piles to create a single pile of ore.", GRAY )
+					return OK
 				elif targetitem.id == oreids[3]:
-						char.socket.sysmessage( "You can not create a larger pile from a small pile of ore.", GRAY )
+					return OOPS
 				return OK
 		
 		# Second Smallest
@@ -196,19 +205,18 @@ def response( char, args, target ):
 					char.socket.clilocmessage( 0x7A258 ) # You can't reach...
 					return OK
 				else:
-					# Merge the ore piles
 					if targetitem.id == oreids[1]:
 						targetitem.amount += item.amount
 						targetitem.update()
 						item.delete()
-						char.socket.sysmessage( "You combine the two ore piles to create a single pile of ore.", GRAY )
+						return OK
 					elif targetitem.id == oreids[0]:
 						targetitem.amount += ( item.amount * 2 )
 						targetitem.update()
 						item.delete()
-						char.socket.sysmessage( "You combine the two ore piles to create a single pile of ore.", GRAY )
+						return OK
 					elif targetitem.id == oreids[2] or targetitem.id == oreids[3]:
-						char.socket.sysmessage( "You can not create a larger pile from a small pile of ore.", GRAY )
+						return OOPS	
 					return OK
 			else:
 				# Merge the ore piles
@@ -216,21 +224,22 @@ def response( char, args, target ):
 					targetitem.amount += item.amount
 					targetitem.update()
 					item.delete()
-					char.socket.sysmessage( "You combine the two ore piles to create a single pile of ore.", GRAY )
+					return OK
 				elif targetitem.id == oreids[0]:
 					targetitem.amount += ( item.amount * 2 )
 					targetitem.update()
 					item.delete()
-					char.socket.sysmessage( "You combine the two ore piles to create a single pile of ore.", GRAY )
+					return OK
 				elif targetitem.id == oreids[2] or targetitem.id == oreids[3]:
-						char.socket.sysmessage( "You can not create a larger pile from a small pile of ore.", GRAY )
+					return OOPS
 				return OK
 		
 		# Smallest
 		elif item.id == oreids[0] and item.color == targetitem.color and item.gettag('resname') == targetitem.gettag('resname'):
 			if targetitem.getoutmostchar() != char:
 				if char.pos.distance( target.pos ) > 2:
-					char.socket.clilocmessage( 0x7A258 ) # You can't reach...
+					# The ore is too far away.
+					char.socket.clilocmessage( 501976 )
 					return OK
 				else:
 					# Merge the ore piles
@@ -261,35 +270,50 @@ def dosmelt ( char, args ):
 	success = 0
 	reqskill = ingottable[ resname ][ REQSKILL ]
 	
+	if not char.skill[ MINING ] >= reqskill:
+		# You have no idea how to smelt this strange ore!
+		char.socket.clilocmessage( 501986, '', GRAY )
+		return OOPS
+	
 	if ore.amount >= 1 and char.skill[ MINING ] >= reqskill:
-		skills.checkskill( char, forge, MINING, 0 )
-		if ore.id == oreids[3]:
-			amount = ( ore.amount * 2 )
-			successsmelt( char, ingottable, resname, amount, ingotdef )
-			ore.delete()
-		elif ore.id == oreids[2] or ore.id == oreids[1]:
-			amount = ore.amount
-			successsmelt( char, ingottable, resname, amount, ingotdef )
-			ore.delete()
-		elif ore.id == oreids[0]:
-			if evenorodd( ore.amount ) == "even":
-				amount = ( ore.amount / 2 )
+		if not skills.checkskill( char, forge, MINING, 0 ):
+			success = 0
+			return
+		else:
+			if ore.id == oreids[3]:
+				amount = ( ore.amount * 2 )
 				successsmelt( char, ingottable, resname, amount, ingotdef )
 				ore.delete()
-			elif evenorodd( ore.amount ) == "odd" and ore.amount > 1:
-				amount = ( ( ore.amount - 1 ) / 2 )
+			elif ore.id == oreids[2] or ore.id == oreids[1]:
+				amount = ore.amount
 				successsmelt( char, ingottable, resname, amount, ingotdef )
-				ore.amount = 1
-				ore.update()
-			elif ore.amount == 1:
-				char.socket.sysmessage( "You require more ore to produce any ingots.", GRAY )
-		success = 1
+				ore.delete()
+			elif ore.id == oreids[0]:
+				if evenorodd( ore.amount ) == "even":
+					amount = ( ore.amount / 2 )
+					successsmelt( char, ingottable, resname, amount, ingotdef )
+					ore.delete()
+				elif evenorodd( ore.amount ) == "odd" and ore.amount > 1:
+					amount = ( ( ore.amount - 1 ) / 2 )
+					successsmelt( char, ingottable, resname, amount, ingotdef )
+					ore.amount = 1
+					ore.update()
+				elif ore.amount == 1:
+					successsmelt( char, ingottable, resname, amount, ingotdef )
+					ore.delete()
+			success = 1
 		
 	if success == 0:
-		char.socket.sysmessage( "You smelt the ore but fail to produce any ingots.", GRAY )
-		ore.amount -= ( ore.amount / 2 )
-		ore.update()
-	
+		if ore.amount >= 2:
+			# You burn away the impurities but are left with less useable metal.
+			char.socket.clilocmessage( 501990, '', GRAY ) 
+			ore.amount -= ( ore.amount / 2 )
+			ore.update()
+		else:
+			# You burn away the impurities but are left with no useable metal.
+			char.socket.clilocmessage( 501989, '', GRAY ) 
+			ore.delete()
+		
 	return OK
 
 def successsmelt( char, table, resname, amount, ingotdef ):
@@ -303,12 +327,12 @@ def successsmelt( char, table, resname, amount, ingotdef ):
 	resourceitem.color = table[ resname ][ COLORID ]
 	resourceitem.amount = amount
 	resourceitem.settag( 'resname', str( resname ) ) # Used when smelting
-	message = "You smelt the ore and place some " + table[ resname ][ NAME] + "s into your backpack."
 	
 	if not wolfpack.utilities.tocontainer( resourceitem, char.getbackpack() ):
 		resourceitem.update()
 
-	socket.sysmessage( message, GRAY )
+	# You smelt the ore removing the impurities and put the metal in your backpack.
+	char.socket.clilocmessage( 501988, '', GRAY ) 
 	char.soundeffect( SOUND_HAMMER_1 )
 	
 	return OK

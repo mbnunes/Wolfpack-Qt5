@@ -74,8 +74,13 @@ def potioncheck( char, item, potiontype ):
 		# Heal Potions
 		if potiontype == 'lesser_heal' or potiontype == 'heal' or potiontype == 'greater_heal':
 			if canUsePotion( char, item ):
+				if char.hastag( 'poisoned' ):
+					# You can not heal yourself in your current state.
+					char.socket.clilocmessage( 1005000, '', GRAY )
+					return OOPS
 				if char.hitpoints >= char.maxhitpoints:
-					socket.sysmessage( 'You are already at full health!' )
+					# You decide against drinking this potion, as you are already at full health.
+					char.socket.clilocmessage( 1049547, '', GRAY )
 				else:
 					healPotion( char, item, potiontype )
 		
@@ -90,7 +95,8 @@ def potioncheck( char, item, potiontype ):
 				if not char.hastag( 'agility_effect' ):
 					agilityPotion( char, item, potiontype )
 				else:
-					char.socket.sysmessage( 'You are already under a similar effect!', GRAY )
+					# You are already under a similar effect.
+					char.socket.clilocmessage( 502173, '', GRAY )
 		
 		# Strength Potions
 		elif potiontype == 'strength' or potiontype == 'greater_strength':
@@ -98,7 +104,8 @@ def potioncheck( char, item, potiontype ):
 				if not char.hastag( 'strength_effect' ):
 					strengthPotion( char, item, potiontype )
 				else:
-					char.socket.sysmessage( 'You are already under a similar effect!', GRAY )
+					# You are already under a similar effect.
+					char.socket.clilocmessage( 502173, '', GRAY )
 		
 		# Poison Potions
 		elif potiontype == 'lesser_poison' or potiontype == 'poison' or potiontype == 'greater_poison' or potiontype == 'deadly_poison':
@@ -169,7 +176,7 @@ def checkHealTimer( char ):
 	# Compare 
 	elapsed = int( char.gettag( "heal_timer" ) )
 	if elapsed > wolfpack.time.servertime():
-		char.socket.clilocmessage( 0x7A20B, GRAY ) # You must wait 10 seconds before using another healing potion.
+		char.socket.clilocmessage( 500235, '', GRAY ) # You must wait 10 seconds before using another healing potion.
 		return OOPS
 	else:
 		char.settag( "heal_timer", wolfpack.time.servertime() + HEAL_POT_DELAY )
@@ -199,7 +206,8 @@ def healPotion( char, potion, healtype ):
 
 	# Resend Health
 	char.updatehealth()
-	char.socket.sysmessage( 'You healed ' + str( amount ) + ' hitpoints.', GRAY )
+	#char.socket.clilocmessage( 1060203, str(amount) , GRAY, NORMAL ) # broken
+	char.socket.sysmessage( 'You have had ' + str( amount ) + ' hit points of damage healed.', GRAY )
 
 	drinkAnim( char )
 	consumePotion( char, potion, potions[ healtype ][ POT_RETURN_BOTTLE ] )

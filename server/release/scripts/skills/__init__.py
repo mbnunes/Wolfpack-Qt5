@@ -3,6 +3,7 @@ import wolfpack
 import whrandom
 import wolfpack.settings
 from wolfpack.consts import *
+from random import randrange
 
 STRGAIN = 0
 DEXGAIN = 1
@@ -15,10 +16,10 @@ ANTIMACRO = 5
 skilltable = \
 {
 ALCHEMY:					[0, 0.5, 0.5, 1, 1000, FALSE],
-ANATOMY:					[0.15, 0.15, 0.7, 1, 1000, FALSE ],
+ANATOMY:					[0.1, 0.1, 0.8, 1, 1000, FALSE ],
 ANIMALLORE:				[0, 0, 1, 1, 1000, FALSE ], 
 ITEMID:						[0, 0, 1, 1, 1000, FALSE ],
-ARMSLORE:				[0.75, 0.15, 0.1, 1, 1000, FALSE ],
+ARMSLORE:				[0.8, 0.1, 0.1, 1, 1000, FALSE ],
 PARRYING:				[0.75, 0.25, 0, 1, 1000, FALSE],
 BEGGING:					[0, 0, 0, 1, 1000, FALSE ],
 BLACKSMITHING:		[1, 0, 0, 1, 1000, FALSE],
@@ -99,15 +100,16 @@ def checkskill( char, targetobject, skillid, chance ):
 	else:
 		mult = 0.2
 
-	gainchance = float( skillscap - chartotalskills ) / skillscap
-	gainchance += float( charskillcap - skillvalue ) / charskillcap / 2
+	gainchance = ( float( skillscap - chartotalskills ) / skillscap )
+	gainchance += ( ( float( charskillcap - skillvalue ) / charskillcap ) / 2 )
 	gainchance = ( ( gainchance + ( 1.0 - chance ) * mult ) / 2 ) * skilltable[ skillid ][ GAINFACTOR ]
 
 	if gainchance < 0.01:
 		gainchance = 0.01
 	
 	#If you lucky and antimacro is agree so let's gain this skill
-	if ( gainchance >= whrandom.random() ) or skillvalue < 100:
+	# 3/5 chance to gain if below 10.0 skill.
+	if ( gainchance >= whrandom.random() ) or ( ( skillvalue < 100 ) and ( randrange( 1, 5 ) > 2 ) ): 
 		skillgain( char, skillid )
 
 	return OK
