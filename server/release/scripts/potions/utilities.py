@@ -46,7 +46,8 @@ def consumePotion( char, potion, givebottle=True ):
 		potion.delete()
 	else:
 		potion.amount -= 1
-		potion.update()
+		if potion.container != char:
+			potion.update()
 	# Lets add an empty bottle!
 	if givebottle:
 		# Empty Bottle Definition

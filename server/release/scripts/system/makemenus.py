@@ -87,6 +87,9 @@ class MakeAction:
 
 		history = [identifier] + history[:9]
 		player.settag(historyname, ';'.join(history))
+		
+		# Show ourself to the user again
+		self.parent.send(player, arguments)
 
 	#
 	# Shows a detail page for this action.
@@ -232,6 +235,7 @@ class CraftItemAction(MakeItemAction):
 					player.socket.sysmessage(tr("You try to craft with an invalid material."))
 				return 0
 			material = materials[material]
+
 			# Check the skill requirement of the material.
 			if material[2] and player.skill[material[1]] < material[2]:
 				if not silent:
