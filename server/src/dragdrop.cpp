@@ -148,7 +148,7 @@ static void item_bounce6(const P_CLIENT ps, const P_ITEM pi)
 
 void get_item(P_CLIENT ps) // Client grabs an item
 {
-	int x,  npc=-1, c, amount, update = 0, serial;
+	int x,  npc=-1, amount, update = 0, serial;
 //	tile_st tile;
 	int z;// antichrist for trade fix
 	UOXSOCKET s = ps->GetSocket();

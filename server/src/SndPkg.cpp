@@ -3189,7 +3189,6 @@ void sendtradestatus(int cont1, int cont2)
 
 void endtrade(int b1, int b2, int b3, int b4)
 {
-	int i;
 	unsigned char msg[30];
 	P_ITEM pi_cont1 = NULL, pi_cont2 = NULL;
 

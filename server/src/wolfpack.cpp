@@ -1334,7 +1334,6 @@ int DeleBankItem( CHARACTER p, unsigned short itemid, unsigned short color, int 
 	SERIAL serial = chars[p].serial;
 	int serhash = serial%HASHMAX;
 	int counter2 = 0;
-	int j, i;
 	int total = amt;
 	int ci;
 	vector<SERIAL> vecOwn = ownsp.getData(serial);
@@ -3762,7 +3761,7 @@ void npcsimpleattacktarget(int target2, int target)
 
 void openbank(int s, int i)
 {
-	int j,c,serhash,ci;
+	int c,serhash,ci;
 	int serial=chars[i].serial;
 	serhash=serial%HASHMAX;
 	vector<SERIAL> vecOwn = ownsp.getData(serial);
@@ -3825,7 +3824,7 @@ void openbank(int s, int i)
 //
 void openspecialbank(int s, int i)
 {
-	int j,c,serial,serhash,ci;
+	int c,serial,serhash,ci;
 	int cc=currchar[s];
 	serial=chars[i].serial;
 	serhash=serial%HASHMAX;
