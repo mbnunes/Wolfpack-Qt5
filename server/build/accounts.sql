@@ -7,4 +7,4 @@ CREATE TABLE `accounts` (
 	`blockuntil` int NOT NULL default '0',
 	`email` varchar(255) NOT NULL default '',
 	PRIMARY KEY  (`login`)
-);
+) TYPE=MYISAM CHARACTER SET utf8;

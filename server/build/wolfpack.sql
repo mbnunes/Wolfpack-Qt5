@@ -48,7 +48,7 @@ CREATE TABLE `characters` (
 	`baseid` varchar(64) NOT NULL default '',
 	`direction` tinyint(1) unsigned NOT NULL default '0',
 	PRIMARY KEY  (`serial`)
-);
+) TYPE=MYISAM CHARACTER SET utf8;
 
 CREATE TABLE `corpses` (
 	`serial` int(10) unsigned NOT NULL default '0',
@@ -62,14 +62,14 @@ CREATE TABLE `corpses` (
 	`murderer` int(10) unsigned NOT NULL default '0',
 	`murdertime` int(10) unsigned NOT NULL default '0',
 	PRIMARY KEY  (`serial`)
-);
+) TYPE=MYISAM CHARACTER SET utf8;
 
 CREATE TABLE `corpses_equipment` (
 	`serial` int(10) unsigned NOT NULL default '0',
 	`layer` tinyint(3) unsigned NOT NULL default '0',
 	`item` int(10) unsigned NOT NULL default '0',
 	PRIMARY KEY  (`serial`,`layer`)
-);
+) TYPE=MYISAM CHARACTER SET utf8;
 
 CREATE TABLE `effects` (
 	`id` int(10) unsigned NOT NULL default '0',
@@ -79,7 +79,7 @@ CREATE TABLE `effects` (
 	`source` int(10) unsigned NOT NULL default '0',
 	`destination` int(10) unsigned NOT NULL default '0',
 	PRIMARY KEY  (`id`)
-);
+) TYPE=MYISAM CHARACTER SET utf8;
 
 CREATE TABLE `effects_properties` (
 	`id` int(10) unsigned NOT NULL default '0',
@@ -87,7 +87,7 @@ CREATE TABLE `effects_properties` (
 	`type` varchar(64) NOT NULL default '',
 	`value` text NOT NULL,
 	PRIMARY KEY  (`id`,`keyname`)
-);
+) TYPE=MYISAM CHARACTER SET utf8;
 
 CREATE TABLE `guilds` (
 	`serial` int(10) unsigned NOT NULL default '0',
@@ -100,13 +100,13 @@ CREATE TABLE `guilds` (
 	`founded` int(11) NOT NULL default '0',
 	`guildstone` int(10) unsigned NOT NULL default '0',
 	PRIMARY KEY  (`serial`)
-);
+) TYPE=MYISAM CHARACTER SET utf8;
 
 CREATE TABLE `guilds_canidates` (
 	`guild` int(10) unsigned NOT NULL default '0',
 	`player` int(10) unsigned NOT NULL default '0',
 	PRIMARY KEY  (`guild`,`player`)
-);
+) TYPE=MYISAM CHARACTER SET utf8;
 
 CREATE TABLE `guilds_members` (
 	`guild` int(10) unsigned NOT NULL default '0',
@@ -115,7 +115,7 @@ CREATE TABLE `guilds_members` (
 	`guildtitle` varchar(255) NOT NULL default '',
 	`joined` int(11) NOT NULL default '0',
 	PRIMARY KEY  (`guild`,`player`)
-);
+) TYPE=MYISAM CHARACTER SET utf8;
 
 CREATE TABLE `items` (
 	`serial` int(10) unsigned NOT NULL default '0',
@@ -132,7 +132,7 @@ CREATE TABLE `items` (
 	`priv` tinyint(3) NOT NULL default '0',
 	`baseid` varchar(64) NOT NULL default '',
   PRIMARY KEY  (`serial`)
-);
+) TYPE=MYISAM CHARACTER SET utf8;
 
 CREATE TABLE `npcs` (
 	`serial` int(10) unsigned NOT NULL default '0',
@@ -148,7 +148,7 @@ CREATE TABLE `npcs` (
 	`wandery2` smallint(6) NOT NULL default '0',
 	`wanderradius` smallint(6) NOT NULL default '0',
 	PRIMARY KEY  (`serial`)
-);
+) TYPE=MYISAM CHARACTER SET utf8;
 
 CREATE TABLE `players` (
 	`serial` int(10) unsigned NOT NULL default '0',
@@ -162,13 +162,13 @@ CREATE TABLE `players` (
 	`intlock` tinyint(4) NOT NULL default '0',
 	`maxcontrolslots` tinyint(4) NOT NULL default '5',
 	PRIMARY KEY  (`serial`)
-);
+) TYPE=MYISAM CHARACTER SET utf8;
 
 CREATE TABLE `settings` (
 	`option` varchar(255) NOT NULL default '',
 	`value` varchar(255) NOT NULL default '',
 	PRIMARY KEY  (`option`)
-);
+) TYPE=MYISAM CHARACTER SET utf8;
 
 CREATE TABLE `skills` (
 	`serial` int(10) unsigned NOT NULL default '0',
@@ -177,13 +177,13 @@ CREATE TABLE `skills` (
 	`locktype` tinyint(4) default '0',
 	`cap` smallint(6) default '0',
 	PRIMARY KEY  (`serial`,`skill`)
-);
+) TYPE=MYISAM CHARACTER SET utf8;
 
 CREATE TABLE `spawnregions` (
 	`spawnregion` varchar(64) NOT NULL default '',
 	`serial` int(10) unsigned NOT NULL default '0',
 	PRIMARY KEY  (`spawnregion`,`serial`)
-);
+) TYPE=MYISAM CHARACTER SET utf8;
 
 CREATE TABLE `tags` (
 	`serial` int(10) unsigned NOT NULL default '0',
@@ -191,7 +191,7 @@ CREATE TABLE `tags` (
 	`type` varchar(6) NOT NULL default '',
 	`value` longtext NOT NULL,
 	PRIMARY KEY  (`serial`,`name`)
-);
+) TYPE=MYISAM CHARACTER SET utf8;
 
 CREATE TABLE `uobject` (
 	`name` varchar(255) default NULL,
@@ -204,24 +204,24 @@ CREATE TABLE `uobject` (
 	`events` varchar(255) default NULL,
 	`havetags` tinyint(1) unsigned NOT NULL default '0',
 	PRIMARY KEY  (`serial`)
-);
+) TYPE=MYISAM CHARACTER SET utf8;
 
 CREATE TABLE `uobjectmap` (
 	`serial` int(10) unsigned NOT NULL default '0',
 	`type` varchar(80) NOT NULL default '',
 	PRIMARY KEY  (`serial`)
-);
+) TYPE=MYISAM CHARACTER SET utf8;
 
 CREATE TABLE `guilds_enemies` (
 	`guild` int(10) unsigned NOT NULL default '0',
 	`enemy` int(10) unsigned NOT NULL default '0',
 	PRIMARY KEY(`guild`,`enemy`)
-);
+) TYPE=MYISAM CHARACTER SET utf8;
 
 CREATE TABLE `guilds_allies` (
 	`guild` int(10) unsigned NOT NULL default '0',
 	`ally` int(10) unsigned NOT NULL default '0',
 	PRIMARY KEY(`guild`,`ally`)
-);
+) TYPE=MYISAM CHARACTER SET utf8;
 
 REPLACE INTO `settings` VALUES('db_version', '10');
