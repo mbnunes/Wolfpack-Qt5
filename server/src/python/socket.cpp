@@ -211,7 +211,7 @@ PyObject* wpSocket_attachtarget( wpSocket* self, PyObject* args )
 		targetargs = PyTuple_New( 0 );
 
 	if( checkArgStr( 2 ) )
-		cancelfunc = getArgStr( 1 );
+		cancelfunc = getArgStr( 2 );
 
 	if( checkArgStr( 3 ) && checkArgInt( 4 ) )
 	{
