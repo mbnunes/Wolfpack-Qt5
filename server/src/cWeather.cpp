@@ -150,7 +150,7 @@ void cWeather::run() throw()
 	{
 		try
 		{
-			sleep( 200 );
+			Thread::sleep( 200 );
 
 			WTimer();
 			CTimer();

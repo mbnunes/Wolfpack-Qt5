@@ -1,12 +1,20 @@
+#
+# Wolfpack TMake project
+#
+#
+#
+
+PROJECT = Wolfpack Emu
+
 INCLUDEPATH = ZThread/include
+win32:DEPENDPATH = ZThread
 win32:OBJECTS_DIR = obj
 win32-msvc:DEFINES  = WIN32 NDEBUG _CONSOLE _MBCS
 win32-g++:DEFINES = WIN32
 unix:DEFINES   =
 unix:TMAKE_CXXFLAGS = -funsigned-char
-win32-g++:TMAKE_CXXFLAGS = -funsigned-char -mwindows
-win32-g++:LIBS= -L./ZThread/lib -lwsock32 -lZThread -mwindows
-#unix:LIBS       = -lncurses
+win32-g++:TMAKE_CXXFLAGS = -funsigned-char
+win32-g++:LIBS= -LZThread/lib/ -lwsock32 -lZThread
 win32-msvc:RC_FILE         = res.rc
 win32-msvc:LIBS      = ws2_32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comdlg32.lib ws2_32.lib
 win32-msvc:TMAKE_CXXFLAGS = /J /nologo /ML /W3 /GX /O2 /YX /FD /c

@@ -898,7 +898,7 @@ int cHouse::FindBan(P_CHAR pc)
 int cHouse::AddFriend(P_CHAR pc)
 {
 	int i=FindFriend(pc);
-	SOCKET s=calcSocketFromChar(pc);
+	UOXSOCKET s=calcSocketFromChar(pc);
 	if(i==-1)
 	{
 		FriendList.push_back(pc->serial);
@@ -921,7 +921,7 @@ int cHouse::AddFriend(P_CHAR pc)
 int cHouse::AddBan(P_CHAR pc)
 {
 	int i=FindBan(pc);
-	SOCKET s=calcSocketFromChar(pc);
+	UOXSOCKET s=calcSocketFromChar(pc);
 	if(i==-1)
 	{
 		BanList.push_back(pc->serial);
