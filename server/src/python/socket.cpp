@@ -153,7 +153,25 @@ PyObject* wpSocket_clilocmessage( wpSocket* self, PyObject* args )
 	else if( checkArgItem( 4 ) )
 		object = getArgItem( 4 );
 
-	self->pSock->clilocMessage( getArgInt( 0 ), params, color, font, object );
+	if( checkArgStr( 4 ) )
+	{
+		bool dontmove = false;
+		bool prepend = false;
+
+		if( checkArgInt( 5 ) && getArgInt( 5 ) == 1 )
+			dontmove = true;
+
+		if( checkArgInt( 6 ) && getArgInt( 6 ) == 1 )
+			prepend = true;
+
+		// Message Affix
+		QString affix = getArgStr( 4 );
+		self->pSock->clilocMessageAffix( getArgInt( 0 ), params, affix, color, font, object, dontmove, prepend );
+	}
+	else
+	{
+		self->pSock->clilocMessage( getArgInt( 0 ), params, color, font, object );
+	}
 
 	return PyTrue;
 }

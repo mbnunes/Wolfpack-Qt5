@@ -125,7 +125,7 @@ void cGameEncryption::init( unsigned int seed )
 void cGameEncryption::decryptByte( unsigned char &byte )
 {
 	// Recalculate table
-	if( recvPos == 256 )
+	if( recvPos >= 256 )
 	{
 		UINT8 tempBuffer[256];
 		blockEncrypt( &tfCipher, &tfKey, cipherTable, 256*8, tempBuffer );
@@ -134,7 +134,7 @@ void cGameEncryption::decryptByte( unsigned char &byte )
 	}
 
 	// Simple XOR operation
-	byte ^= cipherTable[recvPos++];
+	byte ^= cipherTable[ recvPos++ ];
 }
 
 /*!
