@@ -4,6 +4,8 @@ from wolfpack.consts import *
 import combat.properties
 import combat.aos
 
+DEBUG = 0
+
 #
 # This function is used to initialize the basic combat
 # logic and register some events with the server.
@@ -22,7 +24,8 @@ def onSwing(attacker, defender, time):
   if not defender.attacktarget:
     defender.fight(attacker)
 
-  #attacker.log(LOG_PYTHON, "Swing at " + str(time) + "\n")
+  if DEBUG:
+    attacker.log(LOG_PYTHON, "Swing from 0x%x at 0x%x\n" % (defender.serial, attacker.serial))
 
   if AGEOFSHADOWS:
     weapon = attacker.getweapon()
@@ -53,7 +56,6 @@ def onSwing(attacker, defender, time):
       raise
 
     attacker.nextswing = time + combat.properties.getdelay(attacker, weapon)
-    #attacker.log(LOG_PYTHON, "Next swing in " + str(attacker.nextswing - time) + "ms\n")
 
 #
 # Callback for showing the status gump to yourself.

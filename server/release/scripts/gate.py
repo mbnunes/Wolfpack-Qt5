@@ -29,8 +29,9 @@ def onCollide(player, item):
   player.removefromview()
   player.moveto(pos)
   player.update(0, 1)
-  player.socket.updateplayer()
-  player.socket.resendworld()
+  if player.socket:
+    player.socket.updateplayer()
+    player.socket.resendworld()
 
   # show some nice effects
   if not item.hastag('silent'):  

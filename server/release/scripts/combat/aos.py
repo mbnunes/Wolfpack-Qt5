@@ -7,6 +7,8 @@ import combat.utilities
 import random
 from math import floor, ceil
 
+DEBUG = 0 # Turn off to turn off debug messages
+
 #
 # Check if a certain chance can be met using the skill
 #
@@ -304,7 +306,8 @@ def hit(attacker, defender, weapon, time):
   poison = ceil(poison * damage / 100)
   energy = ceil(energy * damage / 100)
 
-  #attacker.log(LOG_MESSAGE, "Damage distribution b4 resistances: ph: %u, fi: %u, co: %u, po: %u, en: %u\n" % (physical, fire, cold, poison, energy))
+  if DEBUG:
+    attacker.log(LOG_MESSAGE, "Damage distribution b4 resistances: ph: %u, fi: %u, co: %u, po: %u, en: %u\n" % (physical, fire, cold, poison, energy))
 
   # Reduce the individual damage by the defenders resistances
   if physical > 0:
@@ -327,11 +330,15 @@ def hit(attacker, defender, weapon, time):
     resistance = 100 - min(100, combat.properties.fromchar(defender, RESISTANCE_ENERGY))
     energy = ceil(energy * resistance / 100)
 
-  #attacker.log(LOG_MESSAGE, "Damage distribution after resistances: ph: %u, fi: %u, co: %u, po: %u, en: %u\n" % (physical, fire, cold, poison, energy))
+  if DEBUG:
+    attacker.log(LOG_MESSAGE, "Damage distribution after resistances: ph: %u, fi: %u, co: %u, po: %u, en: %u\n" % (physical, fire, cold, poison, energy))
 
   # Recalculate the total damage value, min. damage: 1
   damage = max(1, physical + fire + cold + poison + energy)
   defender.damage(DAMAGE_PHYSICAL, damage, attacker)
+  
+  if DEBUG:
+    attacker.log(LOG_MESSAGE, 'Character %x damaged character %x by %u points.' % (attacker.serial, defender.serial, damage))
 
   # Wear out the weapon
   if weapon:
