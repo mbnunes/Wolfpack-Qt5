@@ -39,10 +39,22 @@ inline UOXSOCKET calcSocketFromChar(P_CHAR pc)
 {
 	int j;
 	if (pc == NULL || pc->npc)
+	{
+//		cout << "in calk socket, we think null or npc" <<endl;
 		return -1;
+	}
+//	cout << " in calc sock, now is set to " << now << endl;
 	for (j = 0; j < now; j++)
+	{
+//		if (currchar[j] == pc)
+//		{
+//			cout << "we found ourself!" << endl;
+//			int punt = perm[j] ;
+//			cout << "and perm[j] is " << punt << endl;
+//		}
 		if (currchar[j] == pc && perm[j]) return j;
-
+	}
+	//cout << "in calc sock, we didnt find anything " << endl;
 	return -1;
 }
 

@@ -4,7 +4,7 @@
 //	UO Server Emulation Program
 //
 //	Copyright 1997, 98 by Marcus Rating (Cironian)
-//  Copyright 2001 by holders identified in authors.txt 
+//  Copyright 2001 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -129,7 +129,7 @@
 **
 ** dir - Which direction the character is trying to move. The first nibble holds
 ** the cardinal direction.      If the bit 0x80 is set, it means the character is
-** running instead of walking.  
+** running instead of walking.
 **              0: // North
 **              1: // Northeast
 **              2: // East
@@ -163,7 +163,7 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 	}
 
     UOXSOCKET socket = calcSocketFromChar(pc);
-    
+
     if (!VerifySequence(pc, socket, sequence))
         return;
 
@@ -173,7 +173,7 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 
     if ( isOverloaded(pc, socket, sequence) )
         return;
-    
+
 	// save our original location before we even think about moving
 	const short int oldx = pc->pos.x;
 	const short int oldy = pc->pos.y;
@@ -199,7 +199,7 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
         * call it only in the case of actual movement
         if (pc->med) //Morrolan - Meditation
         {
-            pc->med=false; 
+            pc->med=false;
             sysmessage(c, "You break your concentration.");
         }
 		*/
@@ -208,7 +208,7 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 		// this seems to be an usual place within this function to reset this
 		// i guess they can turn a whole lot this way
 		// Thyme: Already reset in NPCMovement (which calls this function, and NPCWalk)
-		//if (pc->npc) 
+		//if (pc->npc)
 		//{
 		//	pc->npcmovetime=(unsigned int)(uiCurrentTime+(double)(NPCSPEED*CLOCKS_PER_SEC)); //reset move timer
 		//}
@@ -261,7 +261,7 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 //  			playTileSound( socket );
 		
 		// since we actually moved, update the regions code
-		HandleRegionStuffAfterMove(pc, oldx, oldy);            
+		HandleRegionStuffAfterMove(pc, oldx, oldy);
 	}
 	else
 	{
@@ -282,7 +282,7 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 		{
 			int distance = chardist(pc_vis, pc);
 			if(distance<=Races[pc_vis->race]->VisRange)
-				SendWalkToOtherPlayers(pc_vis, dir, oldx, oldy);
+				SendWalkToOtherPlayers(pc_vis, dir, oldx, oldy,socket);
 		}
 	}
 	
@@ -357,7 +357,7 @@ bool cMovement::isFrozen(P_CHAR pc, UOXSOCKET socket, int sequence)
 		if ( socket != INVALID_UOXSOCKET )
 		{
 			sysmessage(socket, "You cannot move while casting.");
-			deny(socket, pc, sequence);  
+			deny(socket, pc, sequence);
 		}
 #if DEBUG_WALK
 		printf("%s (cMovement::isFrozen) casting char %s\n", DBGFILE, pc->name.c_str());
@@ -369,13 +369,13 @@ bool cMovement::isFrozen(P_CHAR pc, UOXSOCKET socket, int sequence)
 		if (socket != INVALID_UOXSOCKET)
 		{
 			sysmessage(socket, "You are frozen and cannot move.");
-			deny(socket, pc, sequence);  
+			deny(socket, pc, sequence);
 		}
 #if DEBUG_WALK
 		printf("%s (cMovement::isFrozen) frozen char %s\n", DBGFILE, pc->name.c_str());
 #endif
 		return true;
-	} 
+	}
 
 	return false;
 
@@ -429,7 +429,7 @@ bool cMovement::isOverloaded(P_CHAR pc, UOXSOCKET socket, int sequence)
 // NPC      0x40
 // Fish     0x80 (So they can swim!)
 // I left a gap between Player and NPC because someone may want to implement race
-// restrictions... 
+// restrictions...
 
 short int cMovement::CheckMovementType(P_CHAR pc)
 {
@@ -653,7 +653,7 @@ bool cMovement::VerifySequence(P_CHAR pc, UOXSOCKET socket, int sequence) throw(
     {
         if ((walksequence[socket] + 1 != sequence) && (sequence != 256))
         {
-            deny(socket, pc, sequence);  
+            deny(socket, pc, sequence);
             return false;
         }
     }
@@ -694,7 +694,7 @@ bool cMovement::CheckForRunning(P_CHAR pc, UOXSOCKET socket, int dir)
 
 	} else {
 		pc->running=0;
-	}                                           
+	}
 	return true;
 }
 
@@ -746,7 +746,7 @@ bool cMovement::CheckForHouseBan(P_CHAR pc, UOXSOCKET socket)
 				}
 			}
 		}
-*/    } 
+*/    }
     return true;
 }
 
@@ -955,29 +955,41 @@ void cMovement::SendWalkToPlayer(P_CHAR pc, UOXSOCKET socket, short int sequence
 }
 
 // send out our movement to all other players who can see us move
-void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short int oldy)
+void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short int oldy,UOXSOCKET socket )
 {
 	// lets cache these vars in advance
 	const int visibleRange = Races[pc->race]->VisRange;//Races->getVisRange( pc->race );
 	const int newx=pc->pos.x;
 	const int newy=pc->pos.y;
-	const UOXSOCKET socket = calcSocketFromChar( pc );
-
+	if (socket ==-1)
+		UOXSOCKET socket = calcSocketFromChar( pc );
+        if (socket == -1)
+        {
+        	//cout << "Error getting our own socket, but proceeding"<<endl;
+        	return ;
+        }  // We couldnt get our own entry, wich is an error, but for another day
 	for (int i = 0; i < now; ++i)
 	{
+
 		// lets see, its much cheaper to call perm[i] first so i'm reordering this
 		if ((socket != i) && (perm[i]) && (inrange1p(pc, currchar[i])))
 		{
-			/*if (
+		/*
+			if (
 				(((abs(newx-chars[currchar[i]].pos.x)==visibleRange )||(abs(newy-chars[currchar[i]].pos.y)== visibleRange )) &&
 				((abs(oldx-chars[currchar[i]].pos.x)>visibleRange )||(abs(oldy-chars[currchar[i]].pos.y)>visibleRange ))) ||
 				((abs(newx-chars[currchar[i]].pos.x)==visibleRange )&&(abs(newy-chars[currchar[i]].pos.y)==visibleRange ))
-				)*/
-			if ((abs(newx-currchar[i]->pos.x)<Races[pc->race]->VisRange) && (abs(newy-currchar[i]->pos.y)<Races[pc->race]->VisRange))
+				)
+		*/
+				
+			if (
+			(abs(newx-currchar[i]->pos.x)==Races[pc->race]->VisRange) && (abs(newy-currchar[i]->pos.y)==Races[pc->race]->VisRange) &&
+			(abs(oldx-currchar[i]->pos.x)>Races[pc->race]->VisRange) && (abs(oldx-currchar[i]->pos.y) > Races[pc->race]->VisRange) )
 			{
 				impowncreate(i, pc, 1);
 			}
 			else
+
 				//    if ((abs(newx-chars[currchar[i]].pos.x)<VISRANGE)||(abs(newy-chars[currchar[i]].pos.y)<VISRANGE))
 			{
 				P_CHAR pc_check = currchar[i];
@@ -1014,15 +1026,19 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short
 				{
 					switch(pc->flag)
 					{//1=blue 2=green 5=orange 6=Red 7=Transparent(Like skin 66 77a)
-					case 0x01: extmove[16]=6; break;// If a bad, show as red. 
+					case 0x01: extmove[16]=6; break;// If a bad, show as red.
 					case 0x04: extmove[16]=1; break;// If a good, show as blue.
 					case 0x08: extmove[16]=2; break; //green (guilds)
 					case 0x10: extmove[16]=5; break;//orange (guilds)
-					default:extmove[16]=3; break;//grey 
+					default:extmove[16]=3; break;//grey
 					}
 				}
 				if (currchar[i] != pc ) // fix from homey (NPCs will display right)
+				{
+					//unsigned int punt = extmove[0] ;
+					//cout << "NPC Walk sent, ID : " << hex<< punt <<dec <<endl;
 					Network->xSend(i, extmove, 17, 0);
+				}
 			}
 		}
 	}
@@ -1161,7 +1177,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 // Thyme END
 						{
 							if (!Magic->CheckResist(NULL, pc, 4))
-							{                                               
+							{
 								Magic->MagicDamage(pc, mapitem->morex/300);
 							}
 							soundeffect2(pc, 0x0208);
@@ -1173,7 +1189,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 						if ((mapitem->pos.x == newx) && (mapitem->pos.y == newy) && (mapitem->pos.z==pc->pos.z))
 						{
 							if (!Magic->CheckResist(NULL, pc, 5))
-							{                                               
+							{
 								Magic->PoisonDamage(pc, 1);
 							}
 							soundeffect2(pc, 0x0208);
@@ -1297,7 +1313,7 @@ void cMovement::HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket)
 			//printf("x: %i\n",x);
 			// ah hah! this was a bug waiting to happen if not already, we have overloaded the use of the
 			// variable k, which used to hold the socket
-//			int k = noweather[socket];    
+//			int k = noweather[socket];
 			if (inDungeon || i || x!= illegal_z )
 				noweather[socket] = 1;
 			else
@@ -1312,7 +1328,7 @@ void cMovement::HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket)
 void cMovement::HandleGlowItems(P_CHAR pc, UOXSOCKET socket)
 // PARAM WARNING: unreferenced paramater socket
 {
-	// i guess things only glow if you are online, i dunno what that means        
+	// i guess things only glow if you are online, i dunno what that means
 	if( online( pc ))
 	{
 		vector<SERIAL> vecGlowItems = glowsp.getData(pc->serial);
@@ -1339,7 +1355,7 @@ bool cMovement::IsGMBody(P_CHAR pc)
         ((pc->id1==0x03)&&(pc->id2==0xDB)) ||//Gm
         ((pc->id1==0x01)&&(pc->id2==0x92)) ||//Ghosts
         ((pc->id1==0x01)&&(pc->id2==0x93))
-        ) 
+        )
         return true;
     return false;
 }
@@ -1362,10 +1378,10 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
             extmove[10] = (unsigned char)(pc->pos.y%256);
             extmove[11] = pc->dispz;
             extmove[12] = (unsigned char)(pc->dir&0x7F);
-            
+
 			ShortToCharPtr(pc->skin, &extmove[13]);
-            
-            
+
+
             if (pc->war) extmove[15]=0x40; else extmove[15]=0x00;
             if (pc->hidden) extmove[15]=extmove[15]|0x80;
             if (pc->poisoned) extmove[15]=extmove[15]|0x04; //AntiChrist -- thnx to SpaceDog
@@ -1383,14 +1399,14 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
             else {
                 switch(pc->flag)
                 {//1=blue 2=green 5=orange 6=Red 7=Transparent(Like skin 66 77a)
-                case 0x01: extmove[16]=6; break;// If a bad, show as red. 
+                case 0x01: extmove[16]=6; break;// If a bad, show as red.
                 case 0x04: extmove[16]=1; break;// If a good, show as blue.
                 case 0x08: extmove[16]=2; break; //green (guilds)
                 case 0x10: extmove[16]=5; break;//orange (guilds)
-                default:extmove[16]=3; break;//grey 
+                default:extmove[16]=3; break;//grey
                 }
             }
-            
+
             if (!pc->war)
             {
                 //                              pc->attacker=INVALID_SERIAL;
@@ -1531,7 +1547,7 @@ void cMovement::PathFind(P_CHAR pc, unsigned short gx, unsigned short gy)
 
 	// Make sure the character has taken used all of their previously saved steps
 	if ( pc->pathnum < P_PF_MRV ) return;
-    
+
 
 	// Thyme 2000.09.21
 	// initial rewrite of pathfinding...
@@ -1592,7 +1608,7 @@ printf("Character stuck!\n");
 void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
 {
 //    register int k;
-    
+
 	int j = rand() % 40;
 
     int dnpctime=0;
@@ -1662,7 +1678,7 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
                 if (j<8 || j>32) dnpctime=5;
                 if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
                     j=pc_i->dir;
-                
+
                 NpcWalk(pc_i,j,1);
                 break;
             case 4: // Wander freely, within a defined circle
@@ -1846,11 +1862,11 @@ bool cMovement::CanCharWalk(P_CHAR pc, short int x, short int y, signed char &z)
 		printf( "CheckWalkable calculate Z=%s %d\n", pc->name.c_str(), nNewZ );
 #endif
 
-		// now the new Z-cordinate of creature is known, 
+		// now the new Z-cordinate of creature is known,
 		// check if it hits it's head against something (blocking in other words)
 		for(i = 0; i < xycount; i++)
 		{
-			unitile_st *thisblock = &xyblock[i]; 
+			unitile_st *thisblock = &xyblock[i];
 			signed char nItemTop = thisblock->basez + thisblock->height; // Calculate the items total height
 			if ((nItemTop >= nNewZ) && (thisblock->basez <= nNewZ + P_M_MAX_Z_INFLUENCE))
 			{ // in effact radius?
@@ -1872,10 +1888,10 @@ bool cMovement::CanCharWalk(P_CHAR pc, short int x, short int y, signed char &z)
 			}
     // knoxos: MAX_ITEM_Z_INFLUENCE is nice, but not truely correct,
     //         since the creature height should be the effect radius, if you are i.e.
-    //         polymorphed to a "slime", you could go through things you normally 
+    //         polymorphed to a "slime", you could go through things you normally
     //         wouldn't get under. (Just leaves the question what happens if you
     //         unpolymorph in a place where you can't fit, lucky there are no
-    //         such gaps or tunnels in Britannia). 
+    //         such gaps or tunnels in Britannia).
     //         (Well UO isn't ment to really think in 3d)
     // Thyme : He's right... Should be based of character's height.
 		}
@@ -1941,9 +1957,9 @@ void cMovement::deny( UOXSOCKET k, P_CHAR pc, int sequence )
 //| Function : calcTileHeight
 //| Author   : knoxos
 //o-------------------------------------------------------------o
-//| Description : 
+//| Description :
 //|   Out of some strange reason the tile height seems
-//|   to be an absolute value of a two's complement of 
+//|   to be an absolute value of a two's complement of
 //|   the last four bit. Don't know if it has a special
 //|   meaning if the tile is height is "negative"
 //|
@@ -1991,7 +2007,7 @@ inline int calcTileHeight( int h ) throw()
 	//return (h & 0x7);
 	//return ((h & 0x8) ? (((h & 0xF) ^ 0xF) + 1) : h & 0xF);
 	return ((h & 0x8) ? ((h & 0xF) >> 1) : h & 0xF);
-} 
+}
 
 
 /********************************************************
@@ -1999,17 +2015,17 @@ inline int calcTileHeight( int h ) throw()
 
   Description: (knoxos)
     Rewritten checkwalk-function, it calculates new z-position
-    for a walking creature (PC or NPC) walks, and checks if 
+    for a walking creature (PC or NPC) walks, and checks if
     movement is blocked.
 
     This function takes a little more calculation time, than the
     last one, since it walks two times through the static-tile set.
-    However at least this one is (more) correct, and these VERy guys 
+    However at least this one is (more) correct, and these VERy guys
     now hit their noses on the walls.
 
     In principle it is the same as the World-kernel in UMelange.
-   
-  Parameters:  
+
+  Parameters:
     CHARACTER c           Character's index in chars[]
 	int x, y			  new cords.
 	int oldx, oldy		  old cords.
@@ -2081,13 +2097,13 @@ int cMovement::calc_walk(P_CHAR pc, unsigned int x, unsigned int y, unsigned int
 		if( ( nItemTop >= newz ) && ( thisblock->basez <= oldz + MAX_Z_LEVITATE ) )
 		{
 			if( (thisblock->flag2 & 0x04) || ( thisblock->type == 0 ) || // Climbable tile, map tiles are also climbable
-			( (thisblock->flag1 == 0) && (thisblock->flag2 == 0x22) ) || // These are a special kind of tiles where OSI forgot 
+			( (thisblock->flag1 == 0) && (thisblock->flag2 == 0x22) ) || // These are a special kind of tiles where OSI forgot
 																		 // to set the climbable flag
 			( (nItemTop >= oldz && nItemTop <= oldz + 3) && (thisblock->flag2 & 0x02) )		 // Allow to climb a height of 1 even if the climbable flag is not set
 																		 // so you can walkupon mushrooms, grasses or so with height of 1
 																		 // if it is a walkable tile of course
 			)
-			{                 
+			{
 				ontype = thisblock->type;
 				newz = nItemTop;
 				if( thisblock->flag4 == 0x80 ) 	{ // if it was ladder the char is allowed to `levitate´ next move
@@ -2103,26 +2119,26 @@ int cMovement::calc_walk(P_CHAR pc, unsigned int x, unsigned int y, unsigned int
         int item_influence = higher( newz + MAX_ITEM_Z_INFLUENCE, oldz );
 		// also take care to look on all tiles the creature has fallen through
 		// (npc's walking on ocean bug)
-		// now the new Z-cordinate of creature is known, 
+		// now the new Z-cordinate of creature is known,
 		// check if it hits it's head against something (blocking in other words)
 		bool isGM = IsGMBody( pc );
 		for(i = 0; i < xycount; i++)
 		{
-			unitile_st *thisblock = &xyblock[i]; 
+			unitile_st *thisblock = &xyblock[i];
 			signed int nItemTop = thisblock->basez + ((xyblock[i].type == 0) ? xyblock[i].height : calcTileHeight(xyblock[i].height)); // Calculate the items total height
 			unsigned char flag1 = thisblock->flag1;
 			unsigned char flag2 = thisblock->flag2;
 			unsigned char flag4 = thisblock->flag4;
 		// yeah,yeah,  this if has grown more ugly than the devil hismelf...
-		if( ( (flag1 & 0x40) ||                                                  // a normal blocking tile      
+		if( ( (flag1 & 0x40) ||                                                  // a normal blocking tile
 			((flag2 & 0x02) && (nItemTop > newz))                                // staircases don't have blocking set, so very guy's could walk into them without this check.
-			) &&                                                                 //   but one can walk upon them!   
+			) &&                                                                 //   but one can walk upon them!
 			!( ( isGM || pc->dead ) && ((flag2 & 0x10) || (flag4 & 0x20))   // ghosts can walk through doors
-			) 
+			)
 			) {                                                                    // blocking
 				if ((nItemTop > newz) && (thisblock->basez <= item_influence ) ||
 				((nItemTop == newz) && (ontype == 0))
-				) 
+				)
 					{ // in effact radius?
                         newz = illegal_z;
 #if DEBUG_WALKING
@@ -2134,10 +2150,10 @@ int cMovement::calc_walk(P_CHAR pc, unsigned int x, unsigned int y, unsigned int
 			}
     // knoxos: MAX_ITEM_Z_INFLUENCE is nice, but not truely correct,
     //         since the creature height should be the effect radius, if you are i.e.
-    //         polymorphed to a "slime", you could go through things you normally 
+    //         polymorphed to a "slime", you could go through things you normally
     //         wouldn't get under. (Just leaves the question what happens if you
     //         unpolymorph in a place where you can't fit, lucky there are no
-    //         such gaps or tunnels in Britannia). 
+    //         such gaps or tunnels in Britannia).
     //         (Well UO isn't ment to really think in 3d)
 		}
 		//}
@@ -2177,19 +2193,19 @@ int cMovement::validNPCMove( short int x, short int y, signed char z, P_CHAR pc_
                 if (mapitem->id()==0x3946 || mapitem->id()==0x3956) return 0;
                 if (mapitem->id1<=2 || (mapitem->id()>=0x0300 && mapitem->id()<=0x03E2)) return 0;
                 if (mapitem->id()>0x0854 && mapitem->id()<0x0866) return 0;
-                
+
                 if (mapitem->type==12)
                 {
                     if (pc_s->isNpc() && (pc_s->title.size() > 0 || pc_s->npcaitype != 0))
-                    {                            
+                    {
                         // clConsole.send("doors!!!\n");
                         dooruse(-1, mapitem);
-                        
-                    }                                   
+
+                    }
                     pc_s->blocked=0;
                     return 0;
                 }
-                
+
             }
         }
     }

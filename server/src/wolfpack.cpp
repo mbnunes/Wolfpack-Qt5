@@ -2713,7 +2713,7 @@ void checkparm(string param)
 
 int main(int argc, char *argv[])
 {
-
+       //bDeamon = false ;
 	keeprun = 1; // First of all, we want to run :)
 	if (argc > 1)
 		for (int index=1; index < argc ; index++)
