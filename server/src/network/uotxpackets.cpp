@@ -507,7 +507,7 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 			}
 
 			// Lord/Lady Title
-			if (pChar->fame() == 10000) {
+			if (pChar->fame() >= 10000) {
 				prefix.append(pChar->gender() ? tr("Lady") : tr("Lord"));
 				prefix.append(" ");
 			}
