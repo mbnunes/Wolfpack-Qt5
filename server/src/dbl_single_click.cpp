@@ -196,10 +196,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 				{
 					socket->clilocMessage( 0x7A258, "", 0x3b2 ); // You cannot reach that
 					return;
-				}
-
-				else if( !pc_currchar->pos().lineOfSight( pi->pos(), true ) )
-				{
+				} else if(!pc_currchar->lineOfSight(pi, true)) {
 					socket->clilocMessage( 0x7A258, "", 0x3b2 ); // You cannot reach that
 					return;
 				}

@@ -1518,6 +1518,8 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args )
 
 	Coord_cl pos;
 
+	P_ITEM pItem = 0;
+
 	// Parameter 1: Coordinate
 	if( checkArgCoord( 0 ) )
 	{
@@ -1530,7 +1532,7 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args )
 
 		if( !obj )
 		{
-			P_ITEM pItem = getArgItem( 0 );
+			pItem = getArgItem( 0 );
 
 			if( pItem && pItem->getOutmostChar() == self->pChar )
 				return PyTrue;
@@ -1552,8 +1554,14 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args )
 	if( self->pChar->pos().distance( pos ) > range )
 		return PyFalse;
 
-	if( !self->pChar->pos().lineOfSight( pos ) )
-		return PyFalse;
+	if (pItem) {
+		if (!self->pChar->lineOfSight(pItem, true))
+			return PyFalse;
+	} else {
+		if (!self->pChar->lineOfSight(pos, true))
+			return PyFalse;
+	}
+	
 
 	return PyTrue;
 }

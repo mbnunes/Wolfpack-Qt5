@@ -46,7 +46,6 @@
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #include <shellapi.h>
-#include <strsafe.h>
 #include <richedit.h>
 #include <commctrl.h>
 #include <qthread.h>
@@ -874,7 +873,7 @@ void cConsole::setAttributes( bool bold, bool italic, bool underlined, unsigned 
 // Notify the tray area about our state change.
 void cConsole::notifyServerState(enServerState newstate) {
 	#define ARRAYSIZE(a) (sizeof(a)/sizeof(a[0]))
-	StringCchCopy(icondata.szInfoTitle, ARRAYSIZE(icondata.szInfoTitle), TEXT("Wolfpack Server Status"));
+	qstrcpy(icondata.szInfoTitle, "Wolfpack Server Status");
 	icondata.uFlags = NIF_ICON;
 	
 	if (newstate == RUNNING) {
@@ -888,22 +887,17 @@ void cConsole::notifyServerState(enServerState newstate) {
 		icondata.uFlags |= NIF_INFO;
 		icondata.uTimeout = 2500;
 		icondata.dwInfoFlags = NIIF_INFO;
-		StringCchCopy(icondata.szInfo, ARRAYSIZE(icondata.szInfo), TEXT("Wolfpack has started up and is now ready to use."));		
-	} else if (serverState == RUNNING && newstate == SCRIPTRELOAD) {
-		icondata.uFlags |= NIF_INFO;
-		icondata.uTimeout = 2500;
-		icondata.dwInfoFlags = NIIF_INFO;
-		StringCchCopy(icondata.szInfo, ARRAYSIZE(icondata.szInfo), TEXT("Reloading scripts."));
+		qstrcpy(icondata.szInfo, "Wolfpack has started up and is now ready to use.");
 	} else if (serverState == SCRIPTRELOAD && newstate == RUNNING) {
 		icondata.uFlags |= NIF_INFO;
 		icondata.uTimeout = 2500;
 		icondata.dwInfoFlags = NIIF_INFO;
-		StringCchCopy(icondata.szInfo, ARRAYSIZE(icondata.szInfo), TEXT("Wolfpack has finished reloading and is now ready to use again."));
+		qstrcpy(icondata.szInfo, "Wolfpack has finished reloading the scripts.");
 	} else if (newstate == SHUTDOWN) {
 		icondata.uFlags |= NIF_INFO;
 		icondata.uTimeout = 2500;
 		icondata.dwInfoFlags = NIIF_INFO;
-		StringCchCopy(icondata.szInfo, ARRAYSIZE(icondata.szInfo), TEXT("Wolfpack is now shutting down."));
+		qstrcpy(icondata.szInfo, "Wolfpack is now shutting down.");
 	}
 
 	Shell_NotifyIcon(NIM_MODIFY, &icondata);

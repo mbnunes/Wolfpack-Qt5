@@ -50,7 +50,7 @@ void Monster_Aggressive::check()
 
 static AbstractAI* productCreator_MAL0()
 {
-	return new Monster_Aggressive_L0( NULL );
+	return new Monster_Aggressive_L0(NULL);
 }
 
 void Monster_Aggressive_L0::registerInFactory()
@@ -64,26 +64,25 @@ void Monster_Aggressive_L0::selectVictim()
 	// If he already has one, we must check if it is still correct.
 	// Else we search a new one.
 
-	// If the npc is tamed, it cant attack
-	if( m_npc->isTamed() )
-	{
-		m_currentVictim = NULL;
+	// If the npc is tamed, it cant select it's own victim
+	if (m_npc->isTamed()) {
 		return;
 	}
-	
-	if( m_currentVictim )
-	{
-		// Check if the current target is valid, including:
-		// - Target not dead.
-		// - Target in attack range.
-		if( m_currentVictim->isDead() )
+
+	// Check if the current target is valid, including:
+	// - Target not dead.
+	// - Target in attack range.
+	if (m_currentVictim) {
+		if (m_currentVictim->isDead()) {
 			m_currentVictim = NULL;
-		else if( !m_npc->inRange( m_currentVictim, SrvParams->attack_distance() ) )
+			m_npc->log(QString("Lost Target because it's dead. [%1]").arg(m_npc->serial()));
+		} else if (!m_npc->inRange(m_currentVictim, SrvParams->attack_distance())) {
 			m_currentVictim = NULL;
+			m_npc->log(QString("Lost Target because it's out of range. [%1]").arg(m_npc->serial()));
+		}
 	}
 	
-	if( !m_currentVictim )
-	{
+	if (!m_currentVictim) {
 		// Get the first best character and attack it
 		RegionIterator4Chars ri( m_npc->pos(), VISRANGE );
 		for( ri.Begin(); !ri.atEnd(); ri++ )
@@ -100,10 +99,13 @@ void Monster_Aggressive_L0::selectVictim()
 		}
 
 		// If we found a new target, let us attack it
-		if( m_currentVictim )
-			m_npc->fight( m_currentVictim );
+		m_npc->fight(m_currentVictim);
+		if (m_currentVictim) {
+			m_npc->log(QString("Selected a new target [%1]. [%2]").arg(m_currentVictim->serial()).arg(m_npc->serial()));
+		} else {
+			m_npc->log(QString("No new target was found. [%2]").arg(m_currentVictim->serial()).arg(m_npc->serial()));
+		}
 	}
-
 }
 
 static AbstractAI* productCreator_MAL1()
@@ -250,13 +252,13 @@ void Monster_Aggr_MoveToTarget::execute()
 {
 	Monster_Aggressive* pAI = dynamic_cast< Monster_Aggressive* >( m_ai );
 
-	// Even if the victim is zero, thats correct.
-	if (pAI) {
-		m_npc->fight(pAI->currentVictim());
-	}
-
 	if( !pAI || !pAI->currentVictim() )
 		return;
+
+	// Even if the victim is zero, thats correct.
+	if (pAI && !m_npc->attackTarget()) {
+		m_npc->fight(pAI->currentVictim());
+	}
 
 	if( SrvParams->pathfind4Combat() )
 		movePath( pAI->currentVictim()->pos() );
@@ -320,8 +322,9 @@ float Monster_Aggr_Fight::postCondition()
 
 void Monster_Aggr_Fight::execute()
 {
-	Monster_Aggressive* pAI = dynamic_cast< Monster_Aggressive* >( m_ai );
-	if (pAI) {
-		m_npc->fight(pAI->currentVictim());
+	Monster_Aggressive *ai = dynamic_cast<Monster_Aggressive*>(m_ai);
+
+	if (!m_npc->attackTarget()) {
+		m_npc->fight(ai->currentVictim());
 	}
 }

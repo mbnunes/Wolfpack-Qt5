@@ -667,14 +667,14 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 				map1 = Map->seekMap( *pit );
 				map2 = Map->seekMap( Coord_cl( (*pit).x + sgn_x, (*pit).y + sgn_y, (*pit).z, map ) );
 			
-				//Console::instance()->send( QString( "try2" ) );
+				//Console::instance()->send( QString( "maphoehe:%1\n" ).arg( map1.z ) );
 				StaticsIterator msi = Map->staticsIterator( *pit );
 				if( (map1.id != 2) && (map2.id != 2) ) 
 				{
-					if( ( map1.z > zmin ) && ( map1.z < zmax ) )
+					if( ( map1.z >= zmin ) && ( map1.z <= zmax ) )
 					{
 						//its just in our way
-						//Console::instance()->send( QString( "try3" ) );
+						//Console::instance()->send( QString( "Map gescheitert\n" ) );
 						blocked = true;
 						break;
 					}

@@ -2385,12 +2385,12 @@ cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy)
 {
 	FightStatus result = FightDenied;
 
-	if (!inWorld()) 
+	if (!inWorld()) {
 		return result;
+	}
 
 	// Ghosts can't fight
-	if (isDead()) 
-	{
+	if (isDead()) {
 		sysmessage(500949);
 		return result;
 	}
@@ -2424,8 +2424,7 @@ cBaseChar::FightStatus cBaseChar::fight(P_CHAR enemy)
 	if (!enemy) 
 	{
 		// Update only if neccesary
-		if (attackTarget_) 
-		{
+		if (attackTarget_) {
 			attackTarget_ = 0;
 			send(&attack);
 		}

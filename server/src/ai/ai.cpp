@@ -107,63 +107,54 @@ void cAIFactory::checkScriptAI( const QStringList &oldSections, const QStringLis
   cAbstractAI member functions
  *****************************************************************************/
 
-struct stActionNode
-{
-	stActionNode( float fz, AbstractAction* ac ) : fuzzy( fz ), action( ac ) {}
+struct stActionNode {
+	stActionNode(float fz, AbstractAction* ac) : fuzzy(fz), action(ac) {}
 
 	float			fuzzy;
 	AbstractAction*	action;
 };
 
-struct ActionNodeComparePredicate : public std::binary_function<stActionNode, stActionNode, bool>
-{
-	bool operator()(const stActionNode &a, const stActionNode &b)
-	{
+struct ActionNodeComparePredicate : public std::binary_function<stActionNode, stActionNode, bool> {
+	bool operator()(const stActionNode &a, const stActionNode &b) {
 		return a.fuzzy > b.fuzzy;
 	}
 };
 
-void AbstractAI::check()
-{
+void AbstractAI::check() {
 	// If we have no current action or our action cant be executed, we must get a new one
-	if( !m_currentAction || ( m_currentAction && m_currentAction->preCondition() <= 0.0f ) )
-	{
-		std::vector< stActionNode > actions;
-		std::vector< stActionNode >::iterator it;
+	if (!m_currentAction || (m_currentAction && m_currentAction->preCondition() <= 0.0f)) {
+		std::vector<stActionNode> actions;
+		std::vector<stActionNode>::iterator it;
 
 		AbstractAction* action = NULL;
-		for( action = m_actions.first(); action; action = m_actions.next() )
-		{
-			actions.push_back( stActionNode( action->preCondition(), action ) );
+		for (action = m_actions.first(); action; action = m_actions.next()) {
+			actions.push_back(stActionNode(action->preCondition(), action));
 		}
-		std::sort( actions.begin(), actions.end(), ActionNodeComparePredicate() );
+		std::sort(actions.begin(), actions.end(), ActionNodeComparePredicate());
 
 		it = actions.begin();
-		while( it != actions.end() && !m_currentAction )
-		{
-			if( (*it).fuzzy > 0.0f )
+		while (it != actions.end() && !m_currentAction) {
+			if ((*it).fuzzy > 0.0f)
 				m_currentAction = (*it).action;
-
 			++it;
 		}
 	}
 
 	// Now we should have a current action set, else do nothing!
-	if( m_currentAction )
-	{
+	if (m_currentAction) {
 		m_currentAction->execute();
 
 		// We must check the postcondition now and set the current action to NULL
 		// if the action is finished (when it returns >= 1.0f)!
-		float rnd = RandomNum( 0, 1000 ) / 1000.0f;
-		if( m_currentAction->postCondition() >= rnd )
+		float rnd = RandomNum(0, 1000) / 1000.0f;
+		if (m_currentAction->postCondition() >= rnd) {
 			m_currentAction = NULL;
+		}
 	}
 }
 
-static AbstractAI* productCreator_SCP()
-{
-	return new ScriptAI( NULL );
+static AbstractAI* productCreator_SCP() {
+	return new ScriptAI(NULL);
 }
 
 /*****************************************************************************

@@ -72,7 +72,7 @@ cTiming::cTiming() {
 	nextShopRestock = time + 20 * 60 * MY_CLOCKS_PER_SEC; // Every 20 minutes
 	nextLightCheck = time + 30 * MY_CLOCKS_PER_SEC; // Every 30 seconds
 	nextHungerCheck = time + SrvParams->hungerDamageRate();
-	nextCombatCheck = time + 250; // Every 100 ms
+	nextCombatCheck = time + 100; // Every 100 ms
 	nextUOTimeTick = time + SrvParams->secondsPerUOMinute() * MY_CLOCKS_PER_SEC;
 }
 
@@ -122,11 +122,30 @@ void cTiming::poll() {
 
 	if (nextCombatCheck <= time) {
 		events |= cBaseChar::EventCombat;
-		nextCombatCheck = time + 250;
+		nextCombatCheck = time + 100;
+		
+		// Check for timed out fights
+		QPtrList<cFightInfo> &fights = Combat::instance()->fights();
+		QPtrList<cFightInfo> todelete;
+		cFightInfo *info;
+		for (info = fights.first(); info; info = fights.next()) {
+			// 60 Seconds without melee contact and 
+			// combatants are out of range...
+			if (info->lastaction() + 60000 <= time) {
+				if (info->victim()->isDead() || info->attacker()->isDead() && 
+					!info->attacker()->inRange(info->victim(), SrvParams->attack_distance())) {
+					todelete.append(info);
+				}
+			}
+		}
+
+		for (info = todelete.first(); info; info = todelete.next()) {
+			delete info;
+		}
 	}
 
 	// Save the positions of connected players
-	QValueVector<Coord_cl> positions;
+	//QValueVector<Coord_cl> positions;
 
 	// Periodic checks for connected players
 	for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
@@ -137,41 +156,36 @@ void cTiming::poll() {
 		socket->player()->poll(time, events);
 		checkRegeneration(socket->player(), time);
 		checkPlayer(socket->player(), time);
-		positions.append(socket->player()->pos());
+		//positions.append(socket->player()->pos());
 	}
 
 	// Check all other characters
-	if (nextTamedCheck <= time || nextNpcCheck <= time) 
+	if (nextNpcCheck <= time) 
 	{
 		cCharIterator chariter;
 		for (P_CHAR character = chariter.first(); character; character = chariter.next()) {
 			P_NPC npc = dynamic_cast<P_NPC>(character);
 
-			if (npc) 
-			{
+			if (npc && npc->stablemasterSerial() == INVALID_SERIAL) {				
+				checkRegeneration(npc, time);
+				checkNpc(npc, time);
 				npc->poll(time, events);
-				
-				if ((npc->isTamed() && nextTamedCheck <= time) || (!npc->isTamed() && nextNpcCheck <= time)) 
-				{
-					checkRegeneration(npc, time);
-					
-					// Check if we are anywhere near a player
-					// all other npcs are accounted as inactive
-					for (QValueVector<Coord_cl>::const_iterator it = positions.begin(); it != positions.end(); ++it) 
-					{
-						if ((*it).distance(npc->pos()) <= 24) 
-						{							
-							checkNpc(npc, time);
-							break;
-						}
-					}
-				}
 				continue;
 			}
 
+			// Check if we are anywhere near a player
+			// all other npcs are accounted as inactive
+			//for (QValueVector<Coord_cl>::const_iterator it = positions.begin(); it != positions.end(); ++it) 
+			//{
+			//	if ((*it).distance(npc->pos()) <= 24) 
+			//	{							
+			//		checkNpc(npc, time);
+			//		break;
+			//	}
+			//}
+
 			P_PLAYER player = dynamic_cast<P_PLAYER>(character);
-			if (player) 
-			{
+			if (player) {
 				if (!player->socket() && player->logoutTime() && player->logoutTime() >= time) 
 				{
 					player->setLogoutTime(0);
@@ -374,25 +388,16 @@ void cTiming::checkPlayer(P_PLAYER player, unsigned int time)
 void cTiming::checkNpc(P_NPC npc, unsigned int time) 
 {
 	// Remove summoned npcs
-	if (npc->summonTime() && npc->summonTime() <= time) 
-	{
+	if (npc->summonTime() && npc->summonTime() <= time) {
 		npc->kill(0);
 		return;
 	}
 
-	// We are stabled and don't receive events
-	if (npc->stablemasterSerial() != INVALID_SERIAL) 
-	{
-		return;
-	}
-
 	// Give the AI time to process events
-	if (npc->aiCheckTime() <= time) 
-	{
+	if (npc->aiCheckTime() <= time) {
 		npc->setAICheckTime(uiCurrentTime + npc->aiCheckInterval());
 
-		if (npc->ai()) 
-		{
+		if (npc->ai()) {
 			npc->ai()->check();
 		}
 	}
