@@ -56,7 +56,7 @@ void useSpellBook( cUOSocket *socket, P_CHAR mage, P_ITEM spellbook )
 {
 	mage->setObjectDelay( 0 );
 
-	if( ( spellbook->container() != mage ) && ( GetPackOwner( spellbook, 10 ) != mage  ) )
+	if( ( spellbook->container() != mage ) && ( spellbook->getOutmostChar() != mage  ) )
 	{
 		socket->sysMessage( tr( "The spellbook needs to be in your hands or in your backpack." ) );
 		return;
@@ -69,7 +69,7 @@ void useSpellBook( cUOSocket *socket, P_CHAR mage, P_ITEM spellbook )
 void useWand( cUOSocket *socket, P_CHAR mage, P_ITEM wand )
 {
 	// Is it in our backpack or on our body ?
-	if( ( wand->container() != mage )  && ( GetPackOwner( wand, 10 ) != mage ) )
+	if( ( wand->container() != mage )  && ( wand->getOutmostChar() != mage ) )
 	{
 		socket->sysMessage( tr( "If you wish to use this, it must be equipped or in your backpack." ) );
 		return;
@@ -142,7 +142,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 
 	if( pi->container() && pi->container()->isItem() && pi->type() != 1 && !pi->isInWorld())
 	{ // Cant use stuff that isn't in your pack.
-		P_CHAR pc_p = GetPackOwner(dynamic_cast<P_ITEM>(pi->container()));
+		P_CHAR pc_p = pi->getOutmostChar();
 		if( pc_p && pc_currchar != pc_p )
 				return;
 	}
@@ -205,7 +205,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 	// Spell Scroll
 	else if( IsSpellScroll( pi->id() ) && !pi->isLockedDown() )
 	{
-		P_CHAR owner = GetPackOwner( pi, 64 );
+		P_CHAR owner = pi->getOutmostChar();
 
 		if( owner != pc_currchar )
 		{
@@ -311,7 +311,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					return;
 				}
 			}
-			P_CHAR pco = GetPackOwner(pi);
+
+			P_CHAR pco = pi->getOutmostChar();
 			
 			if( pc_currchar->inRange( pco, 2 ) || pc_currchar->inRange( pi, 2 ) )
 			{	

@@ -128,8 +128,6 @@ P_ITEM FindItemBySerPtr(unsigned char *p);
 P_CHAR FindCharBySerial(int serial);
 P_CHAR FindCharBySerPtr(unsigned char *p);
 
-P_CHAR GetPackOwner(P_ITEM pItem, short rec = 10);
-
 /////////////////////////////////// Remove Me before release!!!! ///////////////////////////
 #include "network.h"
 #include "globals.h"

@@ -794,7 +794,7 @@ public:
 			return true;
 		}
 		
-		P_CHAR pc_npc = GetPackOwner(pi);
+		P_CHAR pc_npc = pi->getOutmostChar();
 		
 		if (pc_npc->npcaitype() == 17)
 		{
@@ -2866,7 +2866,7 @@ void cSkills::Snooping( P_CHAR player, P_ITEM container )
 	if( !socket )
 		return;
 
-	P_CHAR pc_owner = GetPackOwner( container );
+	P_CHAR pc_owner = container->getOutmostChar();
 
 	if( pc_owner->isGMorCounselor() )
 	{

@@ -74,7 +74,7 @@ void cTargets::PlVBuy(int s)//PlayerVendors
 	int price=pi->value;
 
 	P_ITEM np = dynamic_cast<P_ITEM>(pi->container());		// the pack
-	P_CHAR npc = GetPackOwner(np);				// the vendor
+	P_CHAR npc = np->getOutmostChar();				// the vendo
 	if(npc != pc || pc->npcaitype() != 17) return;
 
 	if (pc_currchar->Owns(pc))

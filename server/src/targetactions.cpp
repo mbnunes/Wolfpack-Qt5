@@ -216,7 +216,7 @@ bool cDyeTarget::responsed( cUOSocket* socket, cUORxTarget *target )
 	P_ITEM pi = FindItemBySerial(target->serial());
 	if ( pi && pi->dye == 1 )
 	{
-		P_CHAR pc = GetPackOwner(pi);
+		P_CHAR pc = pi->getOutmostChar();
 		if(pc == socket->player() || pi->isInWorld())
 		{//if on ground or currchar is owning the item - AntiChrist
 			pi->setColor( static_cast<unsigned short>( color ) );

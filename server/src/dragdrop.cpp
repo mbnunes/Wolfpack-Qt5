@@ -112,7 +112,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 	// Maybe a meditation check here ?!?
 	pChar->disturbMed(); // Meditation
 
-	P_CHAR itemOwner = GetPackOwner( pItem, 64 );
+	P_CHAR itemOwner = pItem->getOutmostChar();
 
 	// Try to pick something out of another characters posessions
 	if( itemOwner && ( itemOwner != pChar ) && ( !pChar->Owns( itemOwner ) ) )
@@ -654,7 +654,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	
 	// If the target belongs to another character 
 	// It needs to be our vendor or else it's denied
-	P_CHAR packOwner = GetPackOwner( pCont );
+	P_CHAR packOwner = pCont->getOutmostChar();
 
 	if( ( packOwner ) && ( packOwner != pChar ) )
 	{

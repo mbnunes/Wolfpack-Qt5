@@ -1910,23 +1910,20 @@ void cItem::showName( cUOSocket *socket )
 	}
 	
 	// Click in a Player Vendor item, show description, price and return
-	if (!isInWorld() && isItemSerial(contserial))
+	if( container_ && container_->isItem() )
 	{
-		P_CHAR pc_j = GetPackOwner(FindItemBySerial(contserial));
-		if (pc_j != NULL)
+		P_CHAR pc_j = getOutmostChar();
+		if( pc_j && pc_j->npcaitype() == 17 )
 		{
-			if (pc_j->npcaitype() == 17)
-			{
-				char temp2[256];
-				if (creator.length() > 0 && madewith>0)
-					sprintf((char*)temp2, "%s %s by %s", desc.latin1(), skill[madewith - 1].madeword.latin1(), creator.latin1()); 
-				else
-					strcpy((char*)temp2, desc.latin1()); // LB bugfix
-				
-				sprintf((char*)temp, "%s at %igp", temp2, value);
-				itemmessage(s, (char*)temp, serial);
-				return;
-			}
+			char temp2[256];
+			if (creator.length() > 0 && madewith>0)
+				sprintf((char*)temp2, "%s %s by %s", desc.latin1(), skill[madewith - 1].madeword.latin1(), creator.latin1()); 
+			else
+				strcpy((char*)temp2, desc.latin1()); // LB bugfix
+			
+			sprintf((char*)temp, "%s at %igp", temp2, value);
+			itemmessage(s, (char*)temp, serial);
+			return;
 		}
 	}
 	
@@ -2300,7 +2297,7 @@ bool cItem::wearOut()
 	if( hp() <= 0 )
 	{
 		// Get the owner of the item
-		P_CHAR pOwner = GetPackOwner( this, 64 );
+		P_CHAR pOwner = getOutmostChar();
 
 		if( pOwner )
 		{

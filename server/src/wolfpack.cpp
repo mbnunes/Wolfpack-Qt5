@@ -2017,14 +2017,6 @@ void initque() // Initilizes the gmpages[] and counspages[] arrays and also jail
 }
 */
 
-P_CHAR GetPackOwner(P_ITEM pItem, short rec)
-{
-	P_ITEM pio = pItem->getOutmostItem();
-	if ( !pio || pio->isInWorld() )
-		return 0;
-	return dynamic_cast<P_CHAR>(pio->container());
-}
-
 void goldsfx( cUOSocket *socket, UINT16 amount, bool hearall )
 {
 	if( !socket || !socket->player() )
