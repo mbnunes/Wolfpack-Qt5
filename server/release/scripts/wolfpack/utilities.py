@@ -212,3 +212,11 @@ def isshield( item ):
 	else: 
 		return 0
 
+def isspellbook( item ):
+	sbtypes = [ 9 ]
+	sbids = [ 0xe3b, 0xefa, 0x2252, 0x2253 ]
+	if item.id in sbids and item.type in sbtypes:
+		return 1
+		
+	else:
+	        return 0

@@ -33,6 +33,9 @@ def onShowToolTip( sender, target, tooltip ):
       elif isweapon( target ):
          weapon( target, tooltip )
          
+      elif isspellbook( target ):
+         spellbook( target, tooltip )
+         
       else:
          tooltip.add( 1050045, " \t" + name + "\t " )
          if (target.hastag( "blessed")):
@@ -110,3 +113,9 @@ def weapon( target, tooltip ):
       tooltip.add( 1061175, "" ) # Weapon Skill: Archery
    tooltip.add( 1060639, str( target.health ) + "\t" + str( target.maxhealth ))
    
+def spellbook( target, tooltip ):
+   name = target.getname()
+   tooltip.add( 1050045, " \t" + name + "\t " )
+   if (target.hastag( "blessed" )):
+      tooltip.add( 1038021, "" ) # Blessed
+   tooltip.add( 1042886, str( target.spellscount() ))
