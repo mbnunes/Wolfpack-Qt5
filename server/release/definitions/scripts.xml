@@ -13,6 +13,10 @@
 	
 	<script id="wall_clock" type="python">
 		<module name="wall_clock" />
+	</script>
+	
+	<script id="slotmachine" type="python">
+		<module name="slotmachine" />
 	</script>	
 
 	<script id="spell_clumsy" type="python"><module name="spells.clumsy" /></script>
