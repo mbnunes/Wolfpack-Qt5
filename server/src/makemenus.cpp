@@ -580,7 +580,7 @@ void cMakeSection::addMakeItemSectionPrefixes( QString prefix )
 	QPtrListIterator< cMakeItem > it( makeitems_ );
 	while( it.current() )
 	{
-		it.current()->setSection( QString( "%1_%2" ).arg( prefix.upper() ).arg( it.current()->section() ) );
+		it.current()->setSection( QString( "%1_%2" ).arg( prefix.lower() ).arg( it.current()->section() ) );
 		++it;
 	}
 }

@@ -1965,3 +1965,35 @@ void cUOSocket::handleSkillLock( cUORxSkillLock* packet )
 {
 	player()->lockSkill[ packet->skill() ] = packet->lock();
 }
+
+/*
+thanks to codex, see 
+http://www.wpdev.org/modules.php?op=modload&name=phpBB2&file=viewtopic&t=1117&sid=44a576c488c79ba923295eae549bed42
+for more information
+*/
+void cUOSocket::clilocMessage( const Q_INT16 FileID, const Q_UINT16 MsgID, const QString &params, const Q_UINT16 color, const Q_UINT16 font, cUObject *object )
+{
+	cUOTxClilocMsg msg;
+
+	if( object != 0 )
+	{
+		msg.setSerial( object->serial );
+		msg.setType( cUOTxClilocMsg::OnObject );
+		msg.setName( object->name.c_str() );
+	}
+	else
+	{
+		msg.setSerial( 0xFFFF );
+		msg.setType( cUOTxClilocMsg::LowerLeft );
+		msg.setName( "System" );
+	}
+	msg.setBody( 0xFF );
+	msg.setHue( color );
+	msg.setFont( font );
+	msg.setMsgNum( FileID*1000+MsgID+1000001 );
+	msg.setParams( params );
+
+	send( &msg );
+}
+
+

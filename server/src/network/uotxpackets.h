@@ -1027,4 +1027,31 @@ public:
 	}
 };*/
 
+// 0xC1 Cliloc message
+class cUOTxClilocMsg: public cUOPacket
+{
+public:
+	cUOTxClilocMsg(): cUOPacket (0xC1,PacketLen ) { setShort( 1, PacketLen ); }
+
+	enum { LowerLeft = 6, OnObject = 7, PacketLen = 48 };
+
+	void setSerial ( SERIAL data ) { setInt( 3, data ); }
+	void setBody ( Q_UINT16 data ) { setShort( 7, data ); }
+	void setType ( Q_UINT8 data ) { setShort( 9, data ); }
+	void setHue ( Q_UINT16 data ) { setShort(10, data ); }
+	void setFont ( Q_UINT16 data ) { setShort(12, data ); }
+	void setMsgNum ( Q_UINT32 data ) { setInt(14, data ); }
+	void setName ( const QString &data ) { memcpy( &rawPacket.data()[18], data.latin1(), MIN( data.length()+1, 30 ) ); }
+	void setParams ( const QString &data )
+	{
+		if ( data.length() > 0 )
+		{
+			rawPacket.resize(PacketLen+data.length()*2+2);
+			memcpy( &rawPacket.data()[PacketLen], data.unicode(), data.length()*2 );
+			setShort( 1, PacketLen+data.length()*2 );
+			setShort ( PacketLen+data.length()*2, 0 );
+		}
+	}
+}; 
+
 #endif
