@@ -39,7 +39,7 @@
 
 bool cAddItemTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 {
-	if( target->x() == -1 || target->y() == -1 || target->z() == -1 )
+	if( target->x() == 0xFFFF || target->y() == 0xFFFF || target->z() == 0xFF )
 		return true;
 
 	//QStringList arguments = QStringList::split( " ", npc_ );
@@ -87,7 +87,7 @@ bool cAddItemTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 
 bool cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 {
-	if( target->x() == -1 || target->y() == -1 || target->z() == -1 )
+	if( target->x() == 0xFFFF || target->y() == 0xFFFF || target->z() == 0xFF )
 		return true;
 
 	//QStringList arguments = QStringList::split( " ", npc_ );
@@ -143,7 +143,7 @@ bool cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 
 bool cBuildMultiTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 {
-	if( target->x() == -1 || target->y() == -1 || target->z() == -1 )
+	if( target->x() == 0xFFFF || target->y() == 0xFFFF || target->z() == 0xFF )
 		return true;
 	
 	QDomElement* DefSection = DefManager->getSection( WPDT_MULTI, multisection_ );

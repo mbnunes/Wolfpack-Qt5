@@ -251,7 +251,7 @@ static void AddTarget(int s, PKGx6C *pp)
 					childNode = childNode.nextSibling();
 				}
 				if( houseid != 0 )
-					attachPlaceRequest( s, new cBuildMultiTarget( QString("%1").arg(addid3[s]), currchar[s]->serial, NULL ), houseid );
+					attachPlaceRequest( s, new cBuildMultiTarget( QString("%1").arg(addid3[s]), currchar[s]->serial, INVALID_SERIAL ), houseid );
 			}
 			return; // Morrolan, here we WANT fall-thru, don't mess with this switch
 		}
@@ -4228,7 +4228,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 					childNode = childNode.nextSibling();
 				}
 				if( houseid != 0 )
-					attachPlaceRequest( s, new cBuildMultiTarget( QString("%1").arg(addid3[s]), currchar[s]->serial, NULL ), houseid );
+					attachPlaceRequest( s, new cBuildMultiTarget( QString("%1").arg(addid3[s]), currchar[s]->serial, INVALID_SERIAL ), houseid );
 			}
 		}
 			break;

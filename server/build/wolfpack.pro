@@ -64,6 +64,7 @@ HEADERS         = client.h \
                   itemsmgr.h \
 		  junk.h \
                   magic.h \
+		  makemenu.h \
 		  mapstuff.h \
 		  msgboard.h \
 		  netsys.h \
@@ -74,7 +75,6 @@ HEADERS         = client.h \
 		  regions.h \
 		  remadmin.h \
 		  resource.h \
-		  scriptc.h \
 		  spawnregions.h \
 		  speech.h \
                   srvparams.h \
@@ -86,7 +86,6 @@ HEADERS         = client.h \
                   targetrequests.h \
 		  telport.h \
                   territories.h \
-		  trigger.h \
 		  typedefs.h \
 		  uobject.h \
 		  utilsys.h \
@@ -97,7 +96,7 @@ HEADERS         = client.h \
 		  worldmain.h \
 		  wpconsole.h \
 		  tilecache.h \
-		  walking2.h \
+		  walking.h \
 		  packlen.h \
 		  extract.h \
 		  wpdefaultscript.h \
@@ -106,6 +105,9 @@ HEADERS         = client.h \
 		  menuactions.h \
 		  wptargetrequests.h \
 		  corpse.h
+		  
+# Python Module
+		+= python/content.h	  
 		  
 SOURCES         = client.cpp \
 		  LoS.cpp \
@@ -145,6 +147,7 @@ SOURCES         = client.cpp \
 		  items.cpp \
                   itemsmgr.cpp \
 		  magic.cpp \
+		  makemenu.cpp \
 		  mapstuff.cpp \
 		  msgboard.cpp \
 		  necro.cpp \
@@ -155,7 +158,6 @@ SOURCES         = client.cpp \
                   pfactory.cpp \
 		  regions.cpp \
 		  remadmin.cpp \
-		  scriptc.cpp \
 		  scripts.cpp \
                   serxmlfile.cpp \
                   serbinfile.cpp \
@@ -168,14 +170,13 @@ SOURCES         = client.cpp \
 		  targetrequests.cpp \
 		  telport.cpp \
                   territories.cpp \
-		  trigger.cpp \
 		  uobject.cpp \
 		  utilsys.cpp \
 		  weight.cpp \
 		  wolfpack.cpp \
 		  worldmain.cpp \
 		  wpconsole.cpp \
-		  walking2.cpp \
+		  walking.cpp \
 		  packlen.cpp \
 		  wpdefmanager.cpp \
 		  wpscriptmanager.cpp \
@@ -195,8 +196,8 @@ SOURCES		+= python/char.cpp \
 		   python/engine.cpp \
 		   python/global.cpp \
 		   python/item.cpp \
-		   python/socket.cpp \
-		   python/wppythonscript.cpp
+		   python/pycoord.cpp \
+		   python/socket.cpp
 
 INTERFACES	=
 TRANSLATIONS    = \

@@ -1657,7 +1657,7 @@ bool cMovement::consumeStamina( cUOSocket *socket, P_CHAR pChar, bool running )
 	if( overweight < 0 )
 		return true;
 
-	INT32 requiredStamina = ( overweight * 0.10 ) * pChar->weight();
+	INT32 requiredStamina = (INT32)((double)( (double)overweight * 0.10f ) * (double)pChar->weight());
 	
 	if( pChar->stm < requiredStamina ) 
 	{
