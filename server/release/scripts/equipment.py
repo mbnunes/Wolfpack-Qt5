@@ -67,7 +67,7 @@ def onShowTooltip(viewer, object, tooltip):
 		prefix1 = None
 		if object.hastag('resname'):
 			resname = str(object.gettag('resname'))
-			if armor and wolfpack.armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
+			if (armor or shield) and wolfpack.armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
 				resinfo = wolfpack.armorinfo.ARMOR_RESNAME_BONI[resname]
 				if resinfo.has_key(MATERIALPREFIX):
 					prefix1 = resinfo[MATERIALPREFIX]
@@ -77,7 +77,7 @@ def onShowTooltip(viewer, object, tooltip):
 					prefix1 = resinfo[MATERIALPREFIX]
 		elif object.hasstrproperty( 'resname' ):
 			resname = str( object.getstrproperty( 'resname' ) )
-			if armor and wolfpack.armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
+			if (armor or shield) and wolfpack.armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
 				resinfo = wolfpack.armorinfo.ARMOR_RESNAME_BONI[resname]
 				if resinfo.has_key(MATERIALPREFIX):
 					prefix1 = resinfo[MATERIALPREFIX]
@@ -89,7 +89,7 @@ def onShowTooltip(viewer, object, tooltip):
 		prefix2 = None
 		if object.hastag('resname2'):
 			resname2 = str(object.gettag('resname2'))
-			if armor and wolfpack.armorinfo.ARMOR_RESNAME_BONI.has_key(resname2):
+			if (armor or shield) and wolfpack.armorinfo.ARMOR_RESNAME_BONI.has_key(resname2):
 				resinfo = wolfpack.armorinfo.ARMOR_RESNAME_BONI[resname2]
 				if resinfo.has_key(MATERIALPREFIX):
 					prefix2 = resinfo[MATERIALPREFIX]
@@ -99,7 +99,7 @@ def onShowTooltip(viewer, object, tooltip):
 					prefix2 = resinfo[MATERIALPREFIX]
 		elif object.hasstrproperty( 'resname2' ):
 			resname2 = str( object.getstrproperty( 'resname2' ) )
-			if armor and wolfpack.armorinfo.ARMOR_RESNAME_BONI.has_key(resname2):
+			if (armor or shield) and wolfpack.armorinfo.ARMOR_RESNAME_BONI.has_key(resname2):
 				resinfo = wolfpack.armorinfo.ARMOR_RESNAME_BONI[resname2]
 				if resinfo.has_key(MATERIALPREFIX):
 					prefix2 = resinfo[MATERIALPREFIX]
