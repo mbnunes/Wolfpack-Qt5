@@ -1,0 +1,69 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Potions                                                       |
+=================================================================
+-->
+<definitions>
+	<!-- Nightsight -->
+	<item id="potion_nightsight">
+		<inherit id="0xf06" />
+		<name>Purple Potion</name>
+		<identified>a Nightsight</identified>
+		<more1>1</more1>
+		<weight>0.5</weight>
+		<event>potions</event>
+	</item>
+
+	<!-- Black Potion -->
+	<item id="f06">
+		<id>0xf06</id>
+		<category>Professions\Alchemist\Potions\Black Potion</category>
+	</item>
+
+	<!-- Orange Potion -->
+	<item id="f07">
+		<id>0xf07</id>
+		<category>Professions\Alchemist\Potions\Orange Potion</category>
+	</item>
+
+	<!-- Blue Potion -->
+	<item id="f08">
+		<id>0xf08</id>
+		<category>Professions\Alchemist\Potions\Blue Potion</category>
+	</item>
+
+	<!-- White Potion -->
+	<item id="f09">
+		<id>0xf09</id>
+		<category>Professions\Alchemist\Potions\White Potion</category>
+	</item>
+
+	<!-- Green Potion -->
+	<item id="f0a">
+		<id>0xf0a</id>
+		<category>Professions\Alchemist\Potions\Green Potion</category>
+	</item>
+
+	<!-- Red Potion -->
+	<item id="f0b">
+		<id>0xf0b</id>
+		<category>Professions\Alchemist\Potions\Red Potion</category>
+	</item>
+
+	<!-- Yellow Potion -->
+	<item id="f0c">
+		<id>0xf0c</id>
+		<category>Professions\Alchemist\Potions\Yellow Potion</category>
+	</item>
+
+	<!-- Purple Potion -->
+	<item id="f0d">
+		<id>0xf0d</id>
+		<category>Professions\Alchemist\Potions\Purple Potion</category>
+	</item>
+</definitions>

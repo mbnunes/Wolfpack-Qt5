@@ -491,114 +491,52 @@
 		<category>Professions\Alchemist\Empty Bottle</category>
 	</item>
 
-	<!-- Black potion -->
+	<!-- Black Potion -->
 	<item id="f06">
 		<id>0xf06</id>
-		<type>19</type>
-		<name>black potion</name>
-		<name2>nightsight potion</name2>
-		<decay/>
-		<morex>2</morex>
-		<morey>5</morey>
-		<morez>1</morez>
-		<value>15</value>
-		<category>Professions\Alchemist\Potions\Nightsight Potion</category>
+		<category>Professions\Alchemist\Potions\Black Potion</category>
 	</item>
 
-	<!-- Orange potion -->
+	<!-- Orange Potion -->
 	<item id="f07">
 		<id>0xf07</id>
-		<type>19</type>
-		<name>orange potion</name>
-		<name2>cure potion</name2>
-		<decay/>
-		<morex>2</morex>
-		<morey>2</morey>
-		<morez>1</morez>
-		<value>15</value>
-		<category>Professions\Alchemist\Potions\Cure Potion</category>
+		<category>Professions\Alchemist\Potions\Orange Potion</category>
 	</item>
 
-	<!-- Blue potion -->
+	<!-- Blue Potion -->
 	<item id="f08">
 		<id>0xf08</id>
-		<type>19</type>
-		<name>blue potion</name>
-		<name2>agility potion</name2>
-		<decay/>
-		<morex>2</morex>
-		<morey>1</morey>
-		<morez>1</morez>
-		<value>15</value>
-		<category>Professions\Alchemist\Potions\Agility Potion</category>
+		<category>Professions\Alchemist\Potions\Blue Potion</category>
 	</item>
 
-	<!-- White potion -->
+	<!-- White Potion -->
 	<item id="f09">
 		<id>0xf09</id>
-		<type>19</type>
-		<name>white potion</name>
-		<name2>strength potion</name2>
-		<decay/>
-		<morex>2</morex>
-		<morey>8</morey>
-		<morez>1</morez>
-		<value>15</value>
-		<category>Professions\Alchemist\Potions\Strength Potion</category>
+		<category>Professions\Alchemist\Potions\White Potion</category>
 	</item>
 
-	<!-- poison potion -->
+	<!-- Green Potion -->
 	<item id="f0a">
 		<id>0xf0a</id>
-		<type>19</type>
-		<name>poison potion</name>
-		<decay/>
-		<morex>4</morex>
-		<morey>6</morey>
-		<morez>1</morez>
-		<value>15</value>
-		<category>Professions\Alchemist\Potions\Poison Potion</category>
+		<category>Professions\Alchemist\Potions\Green Potion</category>
 	</item>
 
-	<!-- Energy potion -->
+	<!-- Red Potion -->
 	<item id="f0b">
 		<id>0xf0b</id>
-		<type>19</type>
-		<name>energy potion</name>
-		<decay/>
-		<morex>3</morex>
-		<morey>7</morey>
-		<morez>1</morez>
-		<value>15</value>
-		<category>Professions\Alchemist\Potions\Refresh Potion</category>
+		<category>Professions\Alchemist\Potions\Red Potion</category>
 	</item>
 
-	<!-- Yellow potion -->
+	<!-- Yellow Potion -->
 	<item id="f0c">
 		<id>0xf0c</id>
-		<type>19</type>
-		<name>yellow potion</name>
-		<name2>lesser heal potion</name2>
-		<decay/>
-		<morex>1</morex>
-		<morey>4</morey>
-		<morez>1</morez>
-		<value>15</value>
-		<category>Professions\Alchemist\Potions\Lesser Heal Potion</category>
+		<category>Professions\Alchemist\Potions\Yellow Potion</category>
 	</item>
 
-	<!-- Purple potion -->
+	<!-- Purple Potion -->
 	<item id="f0d">
 		<id>0xf0d</id>
-		<type>19</type>
-		<name>purple potion</name>
-		<name2>lesser explosion potion</name2>
-		<decay/>
-		<morex>300</morex>
-		<morey>3</morey>
-		<morez>1</morez>
-		<value>15</value>
-		<category>Professions\Alchemist\Potions\Lesser Explosion Potion</category>
+		<category>Professions\Alchemist\Potions\Purple Potion</category>
 	</item>
 
 	<!-- Reagents -->

@@ -4,8 +4,12 @@
 # more1 defines the type of the potion
 # more2 the strength
 
+# Nightsight potion
+def nightsightPotion( char, potion ):
+	char.message( "This potion will help you to see in the dark" )
+
 potions = {
-	1: healPotion
+	1: nightsightPotion
 }
 
 def onUse( char, item ):
@@ -22,7 +26,3 @@ def onUse( char, item ):
 	
 	potions[ pType ]( char, item )
 	return 1
-
-# Heal potion
-def healPotion( char, potion ):
-	char.message( "This potion will heal you" )
