@@ -87,7 +87,7 @@ then
 
 	# backward compatibility for 3.xx.xx
 	MYSQL_INC="$(mysql_config --cflags|sed -e "s/^\([^-]*-\)*I['\"]\?\([^ '\"$]*\).*$/\2/")";
-	MYSQL_LIB="$(mysql_config --libs)";
+	MYSQL_LIB="$(mysql_config --libs|sed -e "s/^\([^-]*-\)*L['\"]\?\([^ '\"$]*\).*$/\2/") -lmysqlclient";
 
 	if ! [ "$MYSQL_INC" ];
 	then
