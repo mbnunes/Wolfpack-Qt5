@@ -756,15 +756,11 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 	pc->priv2 = (unsigned char) (0xD9);
 	pc->setGmRestrict(0); // By default, let's not restrict them.
 	
-	for (i = 0; i < 7; i++) // this overwrites all previous settings !
-	{
-		//pc->menupriv=1;
-		if (pc->account() == 0) 
-			pc->priv3[i]=0xffffffff;
-		else
-			pc->priv3[i]=metagm[0][i]; // gm defaults is 0
-		pc->setMenupriv(-1); // LB, disabling menupriv stuff for gms per default
-	}
+	if (pc->account() == 0) 
+		pc->setPrivLvl("admin");
+	else
+		pc->setPrivLvl("gm"); // gm default
+	pc->setMenupriv(-1); // LB, disabling menupriv stuff for gms per default
 	
 	for (i = 0; i < TRUESKILLS; i++)
 	{
@@ -813,12 +809,8 @@ static void CnsTarget(P_CLIENT ps, P_CHAR pc)
 		sprintf((char*)temp, "Counselor %s", pc->name.c_str());
 		pc->name  = (char*)temp;
 	}
-	for (int u=0;u<7;u++) // this overwrites all previous settigns !!!
-	{
-		pc->priv3[u]=metagm[1][u]; // counselor defaults
-		//pc->menupriv=4;
-		if (pc->account()==0) pc->priv3[u]=0xffffffff;
-	}
+	pc->setPrivLvl("counselor"); // counselor defaults
+	if (pc->account()==0) pc->setPrivLvl("admin");
 	MoveBelongingsToBp(pc, pc);
 }
 
@@ -1393,18 +1385,6 @@ static void ExpPotionTarget(int s, PKGx6C *pp) //Throws the potion and places it
 	}
 	else 
 		sysmessage(s,"You cannot throw the potion there!");
-}
-
-static void Priv3Target(UOXSOCKET s, P_CHAR pc)
-{
-	clConsole.send("setpriv3target: %s\n", pc->name.c_str());
-	pc->priv3[0]=priv3a[s];
-	pc->priv3[1]=priv3b[s];
-	pc->priv3[2]=priv3c[s];
-	pc->priv3[3]=priv3d[s];
-	pc->priv3[4]=priv3e[s];
-	pc->priv3[5]=priv3f[s];
-	pc->priv3[6]=priv3g[s];
 }
 
 void cTargets::SquelchTarg(int s)//Squelch
@@ -3262,54 +3242,6 @@ void cTargets::IncYTarget(int s)
 	}
 }
 
-void cTargets::Priv3XTarget(int s) // crackerjack's addition, jul.24/99
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		clConsole.send("setpriv3target: %s\n", pc->name.c_str());
-		struct cmdtable_s *pct = &command_table[addx[s]];
-		if(addy[s])
-		{
-			pc->priv3[pct->cmd_priv_m] |= (0-0xFFFFFFFF<<pct->cmd_priv_b);
-			sysmessage(s, "%s has been granted access to the %s command.",pc->name.c_str(), pct->cmd_name);
-		}
-		else
-		{
-			pc->priv3[pct->cmd_priv_m] -= (0-0xFFFFFFFF<<pct->cmd_priv_b);
-			sysmessage(s, "%s has been revoked access to the %s command.",pc->name.c_str(), pct->cmd_name);
-		}
-	}
-}
-
-void cTargets::ShowPriv3Target(int s) // crackerjack, jul 25/99
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		char priv_info[10248];
-		int i;
-		sprintf(priv_info, "%s can execute the following commands:\n", pc->name.c_str());
-		i=0; unsigned long loopexit=0;
-		while(command_table[i].cmd_name && (++loopexit < MAXLOOPS) )
-		{
-			if(command_table[i].cmd_priv_m==255||
-				(pc->priv3[command_table[i].cmd_priv_m]&
-				(0-0xFFFFFFFF<<command_table[i].cmd_priv_b)))
-			{
-				sprintf((char*)temp, " %s", command_table[i].cmd_name);
-				strcpy(&priv_info[strlen(priv_info)], (char*)temp);
-			}
-			i++;
-		}
-		SndUpdscroll(s, strlen(priv_info), priv_info);
-	}
-	else
-		sysmessage(s, "You cannot retrieve privilige information on that.");
-}
-
 void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house owner
 {
 	int os, i;
@@ -4385,8 +4317,6 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 222: TeleStuff(s,pt); break;
 		case 223: Targ->SquelchTarg(s); break;//Squelch
 		case 224: Targ->PlVBuy(s); break;//PlayerVendors
-		case 225: Targ->Priv3XTarget(s); break; // SETPRIV3 +/- target
-		case 226: Targ->ShowPriv3Target(s); break; // SHOWPRIV3
 		case 227: Targ->HouseOwnerTarget(s); break; // cj aug11/99
 		case 228: Targ->HouseEjectTarget(s); break; // cj aug11/99
 		case 229: Targ->HouseBanTarget(s); break; // cj aug12/99
@@ -4406,7 +4336,6 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 247: Targ->ShowSkillTarget(s);break; //showskill target
 		case 248: Targ->MenuPrivTarg(s);break; // menupriv target
 		case 249: Targ->UnglowTaget(s);break; // unglow
-		case 250: if (Cready) Priv3Target(s,pc); break; // meta gm target
 		case 251: Targ->NewXTarget(s); break; // NEWX
 		case 252: Targ->NewYTarget(s); break; // NEWY
 		case 253: Targ->IncXTarget(s); break; // INCX

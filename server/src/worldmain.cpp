@@ -949,18 +949,12 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 		else
 			stablesp.insert(pc->stablemaster_serial(), pc->serial);
 
-		if (pc->isPlayer())
+		if (pc->isPlayer() && pc->privlvl().isEmpty())
 		{
-			for (int u=0;u<7;u++)
-			{
-				if (pc->priv3[u]==0) // dont overwrite alreday saved settings
-				{
-					if (!pc->isGMorCounselor()) pc->priv3[u]=metagm[2][u]; //normal player defaults
-					if (pc->isCounselor()) pc->priv3[u]=metagm[1][u]; // couscelor defaults
-					if (pc->isGM()) pc->priv3[u]=metagm[0][u]; // gm defaults
-						if (pc->account()==0) pc->priv3[u]=0xffffffff;
-				}
-			}
+			if (!pc->isGMorCounselor()) pc->setPrivLvl("player"); //normal player defaults
+			if (pc->isCounselor())		pc->setPrivLvl("counselor"); // couscelor defaults
+			if (pc->isGM()) 			pc->setPrivLvl("gm"); // gm defaults
+			if (pc->account()==0)		pc->setPrivLvl("admin");
 		}
 
 		if (pc->isPlayer() && pc->account() == 0) pc->setMenupriv(-1);

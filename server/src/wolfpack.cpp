@@ -261,7 +261,7 @@ void signal_handler(int signal)
 	case SIGHUP:
 		loadspawnregions();
 		loadregions();
-		loadmetagm();
+		Commands->loadPrivLvlCmds();
 		SrvParams->reload();
 		Network->LoadHosts_deny();
 		DefManager->reload();
@@ -1807,20 +1807,13 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	if (acctno[s]==0)
 	{
 		pc->setPriv(0xE7);
-		pc->priv3[0]=0xFFFFFFFF; // lb, meta gm
-		pc->priv3[1]=0xFFFFFFFF;
-		pc->priv3[2]=0xFFFFFFFF;
-		pc->priv3[3]=0xFFFFFFFF;
-		pc->priv3[4]=0xFFFFFFFF;
-		pc->priv3[5]=0xFFFFFFFF;
-		pc->priv3[6]=0xFFFFFFFF;
+		pc->setPrivLvl("admin");
 		pc->setMenupriv(-1); // lb, menu priv
 	}
 	else
 	{
 		unsigned int i;
-		for (i = 0; i < 7; ++i) // this overwrites all previous settings !
-			pc->priv3[i] = metagm[2][i]; // player defaults is 2
+		pc->setPrivLvl("player"); // player defaults is 2
 	}
 
 	pc->moveTo(SrvParams->startLocation()[buffer[s][0x5B]].pos);
@@ -2619,7 +2612,7 @@ void checkkey ()
 
 				loadspawnregions();
 				loadregions();
-				loadmetagm();
+				Commands->loadPrivLvlCmds();
 
 				SrvParams->reload(); // Reload wolfpack.xml
 				DefManager->reload(); //Reload Definitions
@@ -2929,7 +2922,7 @@ int main( int argc, char *argv[] )
 	clConsole.send("\nLoading vital scripts:\n");
 	
 	read_in_teleport();
-	loadmetagm();
+	Commands->loadPrivLvlCmds();
 	CIAO_IF_ERROR;
 
 	serverstarttime = getNormalizedTime();
@@ -4329,91 +4322,6 @@ void StoreItemRandomValue(P_ITEM pi,int tmpreg)
 	{
 		pi->rndvaluerate=(int) RandomNum(min,max);
 	}
-}
-
-void loadmetagm() // LORD BINARY
-{
-	char sect[512];
-	int i,k,mode,n;
-	unsigned int const plus=1;
-	int pm,ss,y;
-
-	clConsole.PrepareProgress( "Loading Meta GM Privs." );
-
-	openscript("metagm.scp");
-
-	for (i=0;i<256;i++)
-	{
-		for (int a=0;a<7;a++) metagm[i][a]=0;
-	}
-
-	i=-1;k=0;
-	do
-	{
-		i++;
-		sprintf(sect, "COMMAND_CLEARANCE %i", i);
-		if (i_scripts[metagm_script]->find(sect))
-		{
-			k++;n=0;mode=-1;pm=-1;
-			unsigned long loopexit=0;
-			do
-			{
-				read2();
-				if (script1[0]!='}')
-				{
-					if (!(strcmp("MODE+",(char*)script1))) { mode=1;n=1;pm=1;} // plus mode
-					if (!(strcmp("MODE-",(char*)script1))) { mode=2;n=1;pm=0;}	// minus mode
-
-					if (pm>-1 && n==0) // only check for commnad words AFTER the mode token
-					{
-						ss=0; y=-1;unsigned long loopexit=0;
-						while((command_table[ss].cmd_name)&&(y==-1)&& (++loopexit < MAXLOOPS) ) // search for the command
-						{
-							if(!(strcmp(command_table[ss].cmd_name, (char*)script1))) y=ss;
-							ss++;
-						}
-
-						if (y==-1) // not found ?
-						{
-							// Close the server
-							clConsole.ProgressFail();
-							clConsole.send( "Unknown command %s found in meta GM script", script1 );
-							error = 1;
-							return;
-						} else // found it!
-						{
-							if (command_table[y].cmd_priv_m!=255)
-							{
-								           metagm[i][command_table[y].cmd_priv_m] =  (metagm[i][command_table[y].cmd_priv_m]) | (plus << (command_table[y].cmd_priv_b) ) ;
-								if (pm==0) metagm[i][command_table[y].cmd_priv_m] = ~(metagm[i][command_table[y].cmd_priv_m]);
-							}
-						}
-					}
-					n=0;
-				}
-			}
-			while ( (script1[0]!='}') && (++loopexit < MAXLOOPS) );
-
-			if( mode == -1 )
-			{
-				error=1;
-				keeprun=0;
-				clConsole.ProgressFail();
-				clConsole.send("\n Meta-Gm script parsing error, mode keyword missing, section# %i - closing wolfpack\n",i);
-			}
-
-			if (pm==0)
-			{
-				for (int aa=0;aa<7;aa++) if (metagm[i][aa]==0) metagm[i][aa]=0xFFFFFFFF;
-			
-			}
-		}
-
-	} while (i<255);
-
-	closescript();
-	
-	clConsole.ProgressDone();
 }
 
 void dosocketmidi(int s)

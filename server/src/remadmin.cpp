@@ -54,6 +54,7 @@
 #include "worldmain.h"
 #include "srvparams.h"
 #include "network.h"
+#include "classes.h"
 
 #include <iostream>
 
@@ -519,7 +520,7 @@ void racProcessInput(int s)
 			racPrintf(s, "WOLFPACK: Reloading Server.scp, Spawn.scp, and Regions.scp....");
 			loadspawnregions();
 			loadregions();
-			loadmetagm();
+			Commands->loadPrivLvlCmds();
 			SrvParams->reload();
 
 			racPrintf(s, " Done!\r\n");

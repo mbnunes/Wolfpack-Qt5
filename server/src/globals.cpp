@@ -37,6 +37,7 @@
 #include "walking2.h"
 #include "wpscriptmanager.h"
 #include "wpdefmanager.h"
+#include "wptargetrequests.h"
 
 #if defined(__unix__)
 termios termstate ;
@@ -303,16 +304,6 @@ cCharStuff::cBankerAI	*BankerAI;
 
 char firstpacket[MAXCLIENT+1];
 
-// meta gm variables
- int priv3a[MAXCLIENT]; // sorry, my stupidity, (Lord Binary). basically not necassairy. but no time to rewrite now.
- int priv3b[MAXCLIENT]; // needed until priv3target rewritten
- int priv3c[MAXCLIENT];
- int priv3d[MAXCLIENT];
- int priv3e[MAXCLIENT];
- int priv3f[MAXCLIENT];
- int priv3g[MAXCLIENT];
-// end of meta gm variables
-
  int newclient[MAXCLIENT];
  char unsigned buffer[MAXCLIENT][MAXBUFFER_REAL];
  char  outbuffer[MAXCLIENT][MAXBUFFER_REAL];
@@ -391,7 +382,6 @@ list<SERIAL> guilds;
  std::vector<spawnregion_st> spawnregion;
  advance_st wpadvance[1000];
  //spell_st spells[100];
- unsigned int metagm[256][7]; // for meta gm script
  int validEscortRegion[256];
  creat_st creatures[2048];
 
@@ -427,6 +417,7 @@ list<SERIAL> guilds;
  char mapname[512], sidxname[512], statname[512], vername[512], tilename[512], multiname[512], midxname[512];
  char saveintervalstr[4];
  char scpfilename[32];//AntiChrist
+
 
 
 

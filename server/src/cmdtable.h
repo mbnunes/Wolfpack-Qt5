@@ -38,12 +38,8 @@
  * - Actual table of commands to execute, what perms are required, dialog
  *   messages for target commands, etc handled by a central system
  *
- * - /SETPRIV3 user-friendliness - /SETPRIV3 <command> works now instead of
- *   all that cumbersome bitmask math (Eg; /SETPRIV3 SAVE and click on a
- *   char and they get SAVE command perms, /SETPRIV3 !SAVE and click on a
- *   char and their SAVE privs are removed)
+ * - /SETPRIV3 removed replaced by /SETPRIVLVL
  */
-
 #ifndef __CMDTABLE_H 
 #define __CMDTABLE_H
 
@@ -72,8 +68,6 @@
 typedef struct cmdtable_s CMDTABLE_S;
 struct cmdtable_s {
 	const char *	cmd_name;
-	unsigned int	cmd_priv_m;	/* PRIV3 byte# - 0-6, 255=no privs needed */
-	unsigned int	cmd_priv_b;	/* PRIV3 bit within byte - 0-31 */
 	unsigned int	cmd_type;	/* Type of command - see above */
 	void 		(*cmd_extra) ();	/* extra data - see above */
 };
@@ -110,7 +104,7 @@ CMD_HANDLER(command_who);
 CMD_HANDLER(command_gmtransfer);
 CMD_HANDLER(command_gotocur);
 CMD_HANDLER(command_showp);
-CMD_HANDLER(command_setpriv3);
+CMD_HANDLER(command_setprivlvl);
 CMD_HANDLER(command_resend);
 CMD_HANDLER(command_teleport);
 CMD_HANDLER(command_where);
@@ -334,5 +328,7 @@ TAR_HANDLER(target_ban);
 TAR_HANDLER(target_glow);
 TAR_HANDLER(target_unglow);
 TAR_HANDLER(target_showskills);
-	
+
+class cSetPrivLvlTarget;
+
 #endif /* __CMDTABLE_H */

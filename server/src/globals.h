@@ -203,16 +203,6 @@ extern unsigned char LSD[MAXCLIENT];
 extern unsigned char DRAGGED[MAXCLIENT];
 extern unsigned char EVILDRAGG[MAXCLIENT];
 
-// meta gm variables
-extern int priv3a[MAXCLIENT]; // sorry, my stupidity, (Lord Binary). basically not necassairy. but no time to rewrite now.
-extern int priv3b[MAXCLIENT]; // needed until priv3target rewritten
-extern int priv3c[MAXCLIENT];
-extern int priv3d[MAXCLIENT];
-extern int priv3e[MAXCLIENT];
-extern int priv3f[MAXCLIENT];
-extern int priv3g[MAXCLIENT];
-// end of meta gm variables
-
 extern int newclient[MAXCLIENT];
 extern unsigned char  buffer[MAXCLIENT][MAXBUFFER_REAL];
 extern char  outbuffer[MAXCLIENT][MAXBUFFER_REAL];
@@ -299,7 +289,6 @@ extern std::vector<spawnregion_st> spawnregion;
 extern advance_st wpadvance[1000];
 //extern spell_st spells[100];
 extern char spellname[71][25];
-extern unsigned int metagm[256][7]; // for meta gm script
 extern int validEscortRegion[256];
 
 extern int npcshape[5]; //Stores the coords of the bouding shape for the NPC

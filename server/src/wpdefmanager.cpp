@@ -80,6 +80,8 @@ void WPDefManager::ProcessNode( QDomElement Node )
 		Resources[ NodeID ] = Node;
 	else if( NodeName == "itemlist" )
 		ItemLists[ NodeID ] = Node;
+	else if( NodeName == "privlevel" )
+		PrivLevels[ NodeID ] = Node;
 }
 
 // Recursive Function for Importing Script Sections
@@ -151,6 +153,7 @@ void WPDefManager::unload( void )
 	clearNodes( ItemLists );
 	clearNodes( Menus );
 	clearNodes( Resources );
+	clearNodes( PrivLevels );
 }
 
 void WPDefManager::reload( void )
@@ -203,6 +206,10 @@ QDomElement *WPDefManager::getSection( WPDEF_TYPE Type, QString Section )
 	case WPDT_RESOURCE:
 		ListPointer = &Resources;
 		break;
+
+	case WPDT_PRIVLEVEL:
+		ListPointer = &PrivLevels;
+		break;
 	};
 
 	return &( ListPointer->find( Section ).data() );
@@ -239,6 +246,10 @@ QStringList WPDefManager::getSections( WPDEF_TYPE Type )
 
 	case WPDT_ITEMLIST:
 		ListPointer = &ItemLists;
+		break;
+
+	case WPDT_PRIVLEVEL:
+		ListPointer = &PrivLevels;
 		break;
 
 	default:

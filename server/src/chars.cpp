@@ -107,8 +107,7 @@ void cChar::Init(bool ser)
 	// 10: Don't show skill titles, 20: GM Pagable, 40: Can snoop others packs, 80: Counselor clearance
 	this->priv2=0;	// 1:Allmove, 2: Frozen, 4: View houses as icons, 8: permanently hidden
 	// 10: no need mana, 20: dispellable, 40: permanent magic reflect, 80: no need reagents
-	for (i=0;i<7;i++)
-		this->priv3[i]=0;  // needed for Lord bianrys meta-gm stuff
+	this->setPrivLvl("");  // needed for special privs
 	this->fonttype=3; // Speech font to use
 	this->saycolor=0x1700; // Color for say messages
 	this->emotecolor = 0x0023; // Color for emote messages
@@ -714,14 +713,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("xskin",           xskin_);
 		archive.read("priv",			priv);
 		
-		archive.read("priv3a",			priv3[0]);
-		archive.read("priv3b",			priv3[1]);
-		archive.read("priv3c",			priv3[2]);
-		archive.read("priv3d",			priv3[3]);
-		archive.read("priv3e",			priv3[4]);
-		archive.read("priv3f",			priv3[5]);
-		archive.read("priv3g",			priv3[6]);
-		// end of meta-gm save
+		archive.read("privlvl",			privlvl_);
 		
 		archive.read("stablemaster",	stablemaster_serial_);
 		archive.read("npctype",			npc_type_);
@@ -863,13 +855,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("xskin",			xskin_);
 		archive.write("priv",			priv);
 		
-		archive.write("priv3a",			priv3[0]);
-		archive.write("priv3b",			priv3[1]);
-		archive.write("priv3c",			priv3[2]);
-		archive.write("priv3d",			priv3[3]);
-		archive.write("priv3e",			priv3[4]);
-		archive.write("priv3f",			priv3[5]);
-		archive.write("priv3g",			priv3[6]);
+		archive.write("privlvl",			privlvl_);
 		// end of meta-gm save
 		
 		archive.write("stablemaster",	stablemaster_serial_);

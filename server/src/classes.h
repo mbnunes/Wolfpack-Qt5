@@ -37,14 +37,24 @@
 #include "assert.h"
 #include "verinfo.h"
 #include <qdom.h>
+#include <map>
 
 // Foward declarations
 class QString;
 class QStringList;
 
+struct stPrivEntry
+{
+	QStringList commands;
+	bool		implicit;
+	
+	stPrivEntry() { implicit = true; };
+};
+
 class cCommands
 {
-
+private:
+	std::map< QString, stPrivEntry >				privlvl_commands; // replaces old metagm array...
 public:
 	QString command_line;
 	QStringList params;
@@ -71,6 +81,11 @@ public:
 	void DupeItem(int s, P_ITEM pi_target, int amount);
 	void Possess(int s);
 	int cmd_offset;
+
+	void addCmdToPrivLvl( QString privlvl, QString command );
+	void rmvCmdFromPrivLvl( QString privlvl, QString command );
+	bool containsCmd( QString privlvl, QString command );
+	void loadPrivLvlCmds( void );
 };
 
 #include "Client.h"

@@ -48,6 +48,7 @@ enum WPDEF_TYPE
 	WPDT_ITEMLIST,
 	WPDT_MENU,
 	WPDT_RESOURCE,
+	WPDT_PRIVLEVEL,
 	WPDT_INVALID
 };
 
@@ -61,6 +62,7 @@ private:
 	DefSections ItemLists;
 	DefSections Menus;
 	DefSections Resources;
+	DefSections PrivLevels;
 
 	bool ImportSections( const QString& FileName );
 	void ProcessNode( QDomElement Node );

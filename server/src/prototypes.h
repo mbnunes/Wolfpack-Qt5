@@ -175,7 +175,6 @@ void dotrade(P_ITEM cont1, P_ITEM cont2);
 void dosocketmidi(int s);
 void wipe(int s);
 
-void loadmetagm();
 void xteleport(int s,int x);
 void wornitems(UOXSOCKET s, P_CHAR pc);
 void RefreshItem(P_ITEM pi);

@@ -228,13 +228,6 @@ void cNetworkStuff::Disconnect (int s) // Force disconnection of player //Instal
 		addx[j]=addx[j+1];
 		addy[j]=addy[j+1];
 		addz[j]=addz[j+1];
-		priv3a[j]=priv3a[j+1];
-		priv3b[j]=priv3b[j+1];
-		priv3c[j]=priv3c[j+1];
-		priv3d[j]=priv3d[j+1];
-		priv3e[j]=priv3e[j+1];
-		priv3f[j]=priv3f[j+1];
-		priv3g[j]=priv3g[j+1];
         addid5[j]=addid5[j+1];
         tempint[j]=tempint[j+1];
 		dyeall[j]=dyeall[j+1];
@@ -926,9 +919,6 @@ void cNetworkStuff::CheckConn() // Check for connection requests
 
 			// probably not necassairy, targeting arrays
 				addid1[now]=0;addid2[now]=0;addid3[now]=0;addid4[now]=0;
-				priv3a[now]=0;priv3b[now]=0;priv3c[now]=0;
-				priv3d[now]=0;priv3e[now]=0;priv3f[now]=0;
-				priv3g[now]=0;
 				addid5[now]=0;
 	   		    tempint[now]=0;
 				addid1[now]=0;addid2[now]=0;addid3[now]=0;addid4[now]=0;

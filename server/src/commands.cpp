@@ -38,6 +38,8 @@
 #include "utilsys.h"
 #include "network.h"
 #include "mapstuff.h"
+#include "wpdefmanager.h"
+#include "wpxmlparser.h"
 
 #undef  DBGFILE
 #define DBGFILE "commands.cpp"
@@ -84,10 +86,8 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 		sysmessage(s, tr("Unrecognized command."));
 		return;
 	} else {
-		if((pc_currchar->isTrueGM() && !pc_currchar->isGM()) ||		// a restricted GM outside his region(s)
-			(pc_currchar->account()!=0)&&(command_table[y].cmd_priv_m!=255)&&
-			(!(pc_currchar->priv3[command_table[y].cmd_priv_m]&
-			(0-0xFFFFFFFF<<command_table[y].cmd_priv_b))))
+		if( ( pc_currchar->isTrueGM() && !pc_currchar->isGM() ) ||		// a restricted GM outside his region(s)
+			( pc_currchar->account() != 0 && !Commands->containsCmd(pc_currchar->privlvl(), command_table[y].cmd_name) ) )
 		{
 			sysmessage(s, tr("Access denied."));
 			return;
@@ -1116,3 +1116,57 @@ void cCommands::Possess(int s)
 */
 	sysmessage(s, "This command has been temporary disabled");
 }
+
+// adds a command (string) into the stringlist of the privlvl if it's not in yet
+void cCommands::addCmdToPrivLvl( QString privlvl, QString command )
+{
+	if( !privlvl_commands[ privlvl ].commands.contains( command ) )
+		privlvl_commands[ privlvl ].commands.push_back( command );
+}
+
+// rmvs a command (sting) from the stringlist of the privlvl
+void cCommands::rmvCmdFromPrivLvl( QString privlvl, QString command )
+{
+	if( privlvl_commands[ privlvl ].commands.contains( command ) )
+		privlvl_commands[ privlvl ].commands.remove( command );
+}
+
+// explains itself :)
+bool cCommands::containsCmd( QString privlvl, QString command )
+{
+	return privlvl_commands[ privlvl ].commands.contains( command );
+}
+
+void cCommands::loadPrivLvlCmds( void )
+{
+	clConsole.PrepareProgress( "Loading Meta GM Privs." );
+
+	QStringList ScriptSections = DefManager->getSections( WPDT_PRIVLEVEL );
+	
+	if( ScriptSections.isEmpty() )
+		return;
+
+	cWPXMLParser* Parser = new cWPXMLParser( WPDT_PRIVLEVEL );
+
+	UI32 i;
+	for( i = 0; i < ScriptSections.size(); i++ )
+	{
+		UI32 j;
+		
+		if( !Parser->prepareParsing( ScriptSections[i] ) || !Parser->baseTag()->attributes().contains( "id" ) )
+			continue;
+		
+		QDomElement Tag = *Parser->baseTag();
+		QString privlvl = Tag.attribute( "id" );
+		privlvl_commands[privlvl].implicit = !( Tag.attributes().contains( "type" ) && Tag.attribute( "type" ) == "explicit" );
+
+		if( !Parser->baseTag()->hasChildNodes() )
+			continue;
+		
+		for( j = 0; j < Tag.childNodes().count(); j++ )
+			this->addCmdToPrivLvl( privlvl, Tag.childNodes().item( j ).nodeName() );
+	}
+	delete Parser;
+	clConsole.ProgressDone();
+}
+

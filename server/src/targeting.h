@@ -98,8 +98,6 @@ private:
 	void HouseSecureDown( UOXSOCKET s ); // Ripper
 	void HouseLockdown( UOXSOCKET s ); // Abaddon
     void HouseRelease( UOXSOCKET s ); // Abaddon
-	void Priv3XTarget(int s);
-	void ShowPriv3Target(int s); // Whose been screwing with this? cj 8/11/99
 	void PlVBuy(int s);
 	void RenameTarget(int s);
 	void RemoveTarget(int s);

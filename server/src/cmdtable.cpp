@@ -38,10 +38,7 @@
 * - Actual table of commands to execute, what perms are required, dialog
 *   messages for target commands, etc handled by a central system
 *
-* - /SETPRIV3 user-friendliness - /SETPRIV3 <command> works now instead of
-*   all that cumbersome bitmask math (Eg; /SETPRIV3 + SAVE and click on a
-*   char and they get SAVE command perms, /SETPRIV3 - SAVE and click on a
-*   char and their SAVE privs are removed)
+* - /SETPRIV3 removed... /SETPRIVLVL included you can determine 255 privlevels so this should be enough...
 */
 
 #include "wolfpack.h"
@@ -60,6 +57,8 @@
 
 // Library Includes
 #include "qdatetime.h"
+
+#include "targetrequests.h"
 
 #undef  DBGFILE
 #define DBGFILE "cmdtable.cpp"
@@ -142,7 +141,7 @@ TARGET_S target_possess = { 0, 1, 0, 212, "Select creature to possess." };
 TARGET_S target_telestuff = { 0, 1, 0, 222, "Select player/object to teleport." };
 TARGET_S target_killpack = { 0, 1, 0, 18, "Select character to remove pack." };
 TARGET_S target_trainer = { 0, 1, 0, 206, "Select character to become a trainer." };
-TARGET_S target_showpriv3 = { 0, 1, 0, 226, "Select character to display priviliges." };
+TARGET_S target_showprivlvl = { 0, 1, 0, 226, "Select character to display priviliges." };
 TARGET_S target_ban = { 0, 1, 0, 235, "Select character to BAN." };
 TARGET_S target_newx = { 0, 1, 0, 251, "Select item to reposition." };
 TARGET_S target_newy = { 0, 1, 0, 252, "Select item to reposition." };
@@ -157,235 +156,235 @@ TARGET_S target_setwork = { 0,1,0,257, "Set work location for a npc."};
 TARGET_S target_setfood = { 0,1,0,258, "Set food location for a npc."};
 
 CMDTABLE_S command_table[] = {
-	{"SETGMMOVEEFF", 0, 21, CMD_FUNC, (CMD_DEFINE)&command_setGmMoveEff},
-	{"BOUNTY",  255,  0,  CMD_FUNC,   (CMD_DEFINE)&command_bounty},
-	{"POST",    1,  2,  CMD_FUNC,   (CMD_DEFINE)&command_post},
-	{"GPOST",   1,  2,  CMD_FUNC,   (CMD_DEFINE)&command_gpost},
-	{"RPOST",   1,  2,  CMD_FUNC,   (CMD_DEFINE)&command_rpost},
-	{"LPOST",   1,  2,  CMD_FUNC,   (CMD_DEFINE)&command_lpost},
-	{"SHOWP",	255,	0,	CMD_FUNC,	(CMD_DEFINE)&command_showp},
-	{"SETPRIV3",	0,	0,	CMD_FUNC,	(CMD_DEFINE)&command_setpriv3},
-	{"USE",		0,	1,	CMD_TARGET,	(CMD_DEFINE)&target_use},
-	{"RESEND",	0,	2,	CMD_FUNC,	(CMD_DEFINE)&command_resend},
-	{"POINT",	0,	3,	CMD_FUNC,	(CMD_DEFINE)&command_teleport},
-	{"WHERE",	0,	4,	CMD_FUNC,	(CMD_DEFINE)&command_where},
-	{"ADDU",	0,	5,	CMD_ITEMMENU,	(CMD_DEFINE)1}, // Opens the GM add menu.
-	{"Q",		0,	6,	CMD_FUNC,	(CMD_DEFINE)&command_q},
-	{"NEXT",	0,	7,	CMD_FUNC,	(CMD_DEFINE)&command_next},
-	{"CLEAR",	0,	8,	CMD_FUNC,	(CMD_DEFINE)&command_clear},
-	{"GOTOCUR",	0,	9,	CMD_FUNC,	(CMD_DEFINE)&command_gotocur},
-	{"GMTRANSFER",	0,	10,	CMD_FUNC,	(CMD_DEFINE)&command_gmtransfer},
+	{"SETGMMOVEEFF",	CMD_FUNC,	(CMD_DEFINE)&command_setGmMoveEff},
+	{"BOUNTY",			CMD_FUNC,   (CMD_DEFINE)&command_bounty},
+	{"POST",			CMD_FUNC,   (CMD_DEFINE)&command_post},
+	{"GPOST",			CMD_FUNC,   (CMD_DEFINE)&command_gpost},
+	{"RPOST",			CMD_FUNC,   (CMD_DEFINE)&command_rpost},
+	{"LPOST",			CMD_FUNC,   (CMD_DEFINE)&command_lpost},
+	{"SHOWP",			CMD_FUNC,	(CMD_DEFINE)&command_showp},
+	{"SETPRIVLVL",		CMD_FUNC,	(CMD_DEFINE)&command_setprivlvl},
+	{"USE",				CMD_TARGET,	(CMD_DEFINE)&target_use},
+	{"RESEND",			CMD_FUNC,	(CMD_DEFINE)&command_resend},
+	{"POINT",			CMD_FUNC,	(CMD_DEFINE)&command_teleport},
+	{"WHERE",			CMD_FUNC,	(CMD_DEFINE)&command_where},
+	{"ADDU",			CMD_ITEMMENU,	(CMD_DEFINE)1}, // Opens the GM add menu.
+	{"Q",				CMD_FUNC,	(CMD_DEFINE)&command_q},
+	{"NEXT",			CMD_FUNC,	(CMD_DEFINE)&command_next},
+	{"CLEAR",			CMD_FUNC,	(CMD_DEFINE)&command_clear},
+	{"GOTOCUR",			CMD_FUNC,	(CMD_DEFINE)&command_gotocur},
+	{"GMTRANSFER",		CMD_FUNC,	(CMD_DEFINE)&command_gmtransfer},
 	//{"JAIL",	0,	11,	CMD_TARGET,	(CMD_DEFINE)&target_jail},
-	{"JAIL",    0,  27, CMD_FUNC,   (CMD_DEFINE)&command_jail},
-	{"RELEASE",	0,	12,	CMD_TARGET,	(CMD_DEFINE)&target_release},
-	{"ISTATS",	0,	13,	CMD_TARGET,	(CMD_DEFINE)&target_istats},
-	{"CSTATS",	0,	14,	CMD_TARGET,	(CMD_DEFINE)&target_cstats},
-	{"GOPLACE",	0,	15,	CMD_FUNC,	(CMD_DEFINE)&command_goplace},
-	{"GOCHAR",	0,	16,	CMD_FUNC,	(CMD_DEFINE)&command_gochar},
-	{"FIX",		0,	17,	CMD_FUNC,	(CMD_DEFINE)&command_fix},
-	{"XGOPLACE",	0,	18,	CMD_FUNC,	(CMD_DEFINE)&command_xgoplace},
-	{"SHOWIDS",	0,	19,	CMD_FUNC,	(CMD_DEFINE)&command_showids},
-	{"POLY",	0,	20,	CMD_FUNC,	(CMD_DEFINE)&command_poly},
-	{"SKIN",	0,	21,	CMD_FUNC,	(CMD_DEFINE)&command_skin},
-	{"ACTION",	0,	22,	CMD_FUNC,	(CMD_DEFINE)&command_action},
-	{"TELE",	0,	23,	CMD_TARGET,	(CMD_DEFINE)&target_tele},
-	{"XTELE",	0,	24,	CMD_FUNC,	(CMD_DEFINE)&command_xtele},
-	{"GO",		0,	25,	CMD_FUNC,	(CMD_DEFINE)&command_go},
-	{"XGO",		0,	26,	CMD_TARGETXYZ,	(CMD_DEFINE)&target_xgo},
-	{"SETMOREX",	0,	27,	CMD_TARGETX,	(CMD_DEFINE)&target_setmorex},
-	{"SETMOREY",	0,	28,	CMD_TARGETX,	(CMD_DEFINE)&target_setmorey},
-	{"SETMOREZ",	0,	29,	CMD_TARGETX,	(CMD_DEFINE)&target_setmorez},
-	{"ZEROKILLS",	0,	30,	CMD_FUNC,	(CMD_DEFINE)&command_zerokills},
-	{"SETMOREXYZ",	0,	31,	CMD_TARGETXYZ,	(CMD_DEFINE)&target_setmorexyz},
-	{"SETHEXMOREXYZ",1,	0,	CMD_TARGETHXYZ,	(CMD_DEFINE)&target_sethexmorexyz},
-	{"SETNPCAI",	1,	1,	CMD_TARGETHX,	(CMD_DEFINE)&target_setnpcai},
-	{"XBANK",	1,	2,	CMD_TARGET,	(CMD_DEFINE)&target_xbank},
-	{"XSBANK",	1,	2,	CMD_TARGET,	(CMD_DEFINE)&target_xsbank},//AntiChrist
-	{"TILE",	1,	3,	CMD_FUNC,	(CMD_DEFINE)&command_tile},
-	{"WIPE",	1,	4,	CMD_FUNC,	(CMD_DEFINE)&command_wipe},
-	{"IWIPE",	1,	5,	CMD_FUNC,	(CMD_DEFINE)&command_iwipe},
-	{"ADD",		1,	6,	CMD_FUNC,	(CMD_DEFINE)&command_add},
-	{"ADDX",	1,	7,	CMD_FUNC,	(CMD_DEFINE)&command_addx},
-	{"RENAME",	1,	8,	CMD_FUNC,	(CMD_DEFINE)&command_rename},
-	{"TITLE",	1,	9,	CMD_FUNC,	(CMD_DEFINE)&command_title},
-	{"SAVE",	1,	10,	CMD_FUNC,	(CMD_DEFINE)&command_save},
-	{"REMOVE",	1,	11,	CMD_TARGET,	(CMD_DEFINE)&target_remove},
-	{"TRAINER",	1,	12,	CMD_TARGET,	(CMD_DEFINE)&target_trainer},
-	{"DYE",		1,	13,	CMD_FUNC,	(CMD_DEFINE)&command_dye},
-	{"NEWZ",	1,	14,	CMD_TARGETX,	(CMD_DEFINE)&target_newz},
-	{"SETTYPE",	1,	15,	CMD_TARGETID1,	(CMD_DEFINE)&target_settype},
-	{"ITRIG",	1,	16,	CMD_TARGETX,	(CMD_DEFINE)&target_itrig},
-	{"CTRIG",	1,	17,	CMD_TARGETX,	(CMD_DEFINE)&target_ctrig},
-	{"TTRIG",	1,	18,	CMD_TARGETX,	(CMD_DEFINE)&target_ttrig},
-	{"WTRIG",	1,	19,	CMD_FUNC,	(CMD_DEFINE)&command_wtrig},
-	{"SETID",	1,	20,	CMD_TARGETHXY,	(CMD_DEFINE)&target_setid},
-	{"SETPRIV",	1,	21,	CMD_FUNC,	(CMD_DEFINE)&command_setpriv},
-	{"NODECAY",	4,	30,	CMD_FUNC,	(CMD_DEFINE)&command_nodecay},
+	{"JAIL",			CMD_FUNC,   (CMD_DEFINE)&command_jail},
+	{"RELEASE",			CMD_TARGET,	(CMD_DEFINE)&target_release},
+	{"ISTATS",			CMD_TARGET,	(CMD_DEFINE)&target_istats},
+	{"CSTATS",			CMD_TARGET,	(CMD_DEFINE)&target_cstats},
+	{"GOPLACE",			CMD_FUNC,	(CMD_DEFINE)&command_goplace},
+	{"GOCHAR",			CMD_FUNC,	(CMD_DEFINE)&command_gochar},
+	{"FIX",				CMD_FUNC,	(CMD_DEFINE)&command_fix},
+	{"XGOPLACE",		CMD_FUNC,	(CMD_DEFINE)&command_xgoplace},
+	{"SHOWIDS",			CMD_FUNC,	(CMD_DEFINE)&command_showids},
+	{"POLY",			CMD_FUNC,	(CMD_DEFINE)&command_poly},
+	{"SKIN",			CMD_FUNC,	(CMD_DEFINE)&command_skin},
+	{"ACTION",			CMD_FUNC,	(CMD_DEFINE)&command_action},
+	{"TELE",			CMD_TARGET,	(CMD_DEFINE)&target_tele},
+	{"XTELE",			CMD_FUNC,	(CMD_DEFINE)&command_xtele},
+	{"GO",				CMD_FUNC,	(CMD_DEFINE)&command_go},
+	{"XGO",				CMD_TARGETXYZ,	(CMD_DEFINE)&target_xgo},
+	{"SETMOREX",		CMD_TARGETX,(CMD_DEFINE)&target_setmorex},
+	{"SETMOREY",		CMD_TARGETX,(CMD_DEFINE)&target_setmorey},
+	{"SETMOREZ",		CMD_TARGETX,(CMD_DEFINE)&target_setmorez},
+	{"ZEROKILLS",		CMD_FUNC,	(CMD_DEFINE)&command_zerokills},
+	{"SETMOREXYZ",		CMD_TARGETXYZ,	(CMD_DEFINE)&target_setmorexyz},
+	{"SETHEXMOREXYZ",	CMD_TARGETHXYZ,	(CMD_DEFINE)&target_sethexmorexyz},
+	{"SETNPCAI",		CMD_TARGETHX,	(CMD_DEFINE)&target_setnpcai},
+	{"XBANK",			CMD_TARGET,	(CMD_DEFINE)&target_xbank},
+	{"XSBANK",			CMD_TARGET,	(CMD_DEFINE)&target_xsbank},//AntiChrist
+	{"TILE",			CMD_FUNC,	(CMD_DEFINE)&command_tile},
+	{"WIPE",			CMD_FUNC,	(CMD_DEFINE)&command_wipe},
+	{"IWIPE",			CMD_FUNC,	(CMD_DEFINE)&command_iwipe},
+	{"ADD",				CMD_FUNC,	(CMD_DEFINE)&command_add},
+	{"ADDX",			CMD_FUNC,	(CMD_DEFINE)&command_addx},
+	{"RENAME",			CMD_FUNC,	(CMD_DEFINE)&command_rename},
+	{"TITLE",			CMD_FUNC,	(CMD_DEFINE)&command_title},
+	{"SAVE",			CMD_FUNC,	(CMD_DEFINE)&command_save},
+	{"REMOVE",			CMD_TARGET,	(CMD_DEFINE)&target_remove},
+	{"TRAINER",			CMD_TARGET,	(CMD_DEFINE)&target_trainer},
+	{"DYE",				CMD_FUNC,	(CMD_DEFINE)&command_dye},
+	{"NEWZ",			CMD_TARGETX,(CMD_DEFINE)&target_newz},
+	{"SETTYPE",			CMD_TARGETID1,	(CMD_DEFINE)&target_settype},
+	{"ITRIG",			CMD_TARGETX,(CMD_DEFINE)&target_itrig},
+	{"CTRIG",			CMD_TARGETX,(CMD_DEFINE)&target_ctrig},
+	{"TTRIG",			CMD_TARGETX,(CMD_DEFINE)&target_ttrig},
+	{"WTRIG",			CMD_FUNC,	(CMD_DEFINE)&command_wtrig},
+	{"SETID",			CMD_TARGETHXY,	(CMD_DEFINE)&target_setid},
+	{"SETPRIV",			CMD_FUNC,	(CMD_DEFINE)&command_setpriv},
+	{"NODECAY",			CMD_FUNC,	(CMD_DEFINE)&command_nodecay},
 #ifdef UNRELEASED
-	{"SEND",	255,	0,	CMD_FUNC,	(CMD_DEFINE)&command_send},
+	{"SEND",			CMD_FUNC,	(CMD_DEFINE)&command_send},
 #endif
-	{"SHOWTIME",	1,	23,	CMD_FUNC,	(CMD_DEFINE)&command_showtime},
-	{"SETTIME",	5,	2,	CMD_FUNC,	(CMD_DEFINE)&command_settime},
-	{"SETMORE",	1,	24,	CMD_TARGETHID4,	(CMD_DEFINE)&target_setmore},
-	{"SHUTDOWN",	1,	25,	CMD_FUNC,	(CMD_DEFINE)&command_shutdown},
-	{"MAKEGM",	1,	26,	CMD_TARGET,	(CMD_DEFINE)&target_makegm},
-	{"MAKECNS",	1,	27,	CMD_TARGET,	(CMD_DEFINE)&target_makecns},
-	{"KILLHAIR",	1,	28,	CMD_TARGET,	(CMD_DEFINE)&target_killhair},
-	{"KILLBEARD",	1,	29,	CMD_TARGET,	(CMD_DEFINE)&target_killbeard},
-	{"KILLPACK",	1,	30,	CMD_TARGET,	(CMD_DEFINE)&target_killpack},
-	{"SETFONT",	1,	31,	CMD_TARGETHID1,	(CMD_DEFINE)&target_setfont},
-	{"WHOLIST",	2,	0,	CMD_FUNC,	(CMD_DEFINE)&command_wholist},
-	{"PLAYERLIST",	2,	0,	CMD_FUNC,	(CMD_DEFINE)&command_playerlist},
-	{"KILL",	2,	1,	CMD_TARGET,	(CMD_DEFINE)&target_kill},
-	{"RESURRECT",	2,	2,	CMD_TARGET,	(CMD_DEFINE)&target_resurrect},
-	{"RES",	2,	2,	CMD_TARGET,	(CMD_DEFINE)&target_resurrect},
-	{"BOLT",	2,	3,	CMD_TARGET,	(CMD_DEFINE)&target_bolt},
+	{"SHOWTIME",		CMD_FUNC,	(CMD_DEFINE)&command_showtime},
+	{"SETTIME",			CMD_FUNC,	(CMD_DEFINE)&command_settime},
+	{"SETMORE",			CMD_TARGETHID4,	(CMD_DEFINE)&target_setmore},
+	{"SHUTDOWN",		CMD_FUNC,	(CMD_DEFINE)&command_shutdown},
+	{"MAKEGM",			CMD_TARGET,	(CMD_DEFINE)&target_makegm},
+	{"MAKECNS",			CMD_TARGET,	(CMD_DEFINE)&target_makecns},
+	{"KILLHAIR",		CMD_TARGET,	(CMD_DEFINE)&target_killhair},
+	{"KILLBEARD",		CMD_TARGET,	(CMD_DEFINE)&target_killbeard},
+	{"KILLPACK",		CMD_TARGET,	(CMD_DEFINE)&target_killpack},
+	{"SETFONT",			CMD_TARGETHID1,	(CMD_DEFINE)&target_setfont},
+	{"WHOLIST",			CMD_FUNC,	(CMD_DEFINE)&command_wholist},
+	{"PLAYERLIST",		CMD_FUNC,	(CMD_DEFINE)&command_playerlist},
+	{"KILL",			CMD_TARGET,	(CMD_DEFINE)&target_kill},
+	{"RESURRECT",		CMD_TARGET,	(CMD_DEFINE)&target_resurrect},
+	{"RES",				CMD_TARGET,	(CMD_DEFINE)&target_resurrect},
+	{"BOLT",			CMD_TARGET,	(CMD_DEFINE)&target_bolt},
 #ifdef UNRELEASED
-	{"BLT2",	255,	0,	CMD_FUNC,	(CMD_DEFINE)&command_blt2},
+	{"BLT2",			CMD_FUNC,	(CMD_DEFINE)&command_blt2},
 #endif
-	{"SFX",		2,	4,	CMD_FUNC,	(CMD_DEFINE)&command_sfx},
-	{"NPCACTION",	2,	5,	CMD_TARGETHID1,	(CMD_DEFINE)&target_npcaction},
-	{"LIGHT",	2,	6,	CMD_FUNC,	(CMD_DEFINE)&command_light},
-	{"SETAMOUNT",	2,	7,	CMD_TARGETX,	(CMD_DEFINE)&target_setamount},
-	{"SETAMOUNT2",	2,	8,	CMD_TARGETX,	(CMD_DEFINE)&target_setamount2},
+	{"SFX",				CMD_FUNC,	(CMD_DEFINE)&command_sfx},
+	{"NPCACTION",		CMD_TARGETHID1,	(CMD_DEFINE)&target_npcaction},
+	{"LIGHT",			CMD_FUNC,	(CMD_DEFINE)&command_light},
+	{"SETAMOUNT",		CMD_TARGETX,(CMD_DEFINE)&target_setamount},
+	{"SETAMOUNT2",		CMD_TARGETX,(CMD_DEFINE)&target_setamount2},
 #ifdef UNRELEASED
-	{"WEB",		255,	0,	CMD_FUNC,	(CMD_DEFINE)&command_web},
+	{"WEB",				CMD_FUNC,	(CMD_DEFINE)&command_web},
 #endif
-	{"DISCONNECT",	2,	9,	CMD_FUNC,	(CMD_DEFINE)&command_disconnect},
-	{"KICK",	2,	10,	CMD_TARGET,	(CMD_DEFINE)&target_kick},
-	{"TELL",	2,	11,	CMD_FUNC,	(CMD_DEFINE)&command_tell},
-	{"DRY",		2,	12,	CMD_FUNC,	(CMD_DEFINE)&command_dry},
+	{"DISCONNECT",		CMD_FUNC,	(CMD_DEFINE)&command_disconnect},
+	{"KICK",			CMD_TARGET,	(CMD_DEFINE)&target_kick},
+	{"TELL",			CMD_FUNC,	(CMD_DEFINE)&command_tell},
+	{"DRY",				CMD_FUNC,	(CMD_DEFINE)&command_dry},
 	/* lord binary's debugging comands - commented out by default, but gotta
 	be there I guess... */
-	// {"NPCS",	255,	0,	CMD_FUNC,	(CMD_DEFINE)&command_npcs},
-	// {"NPCSD",	255,	0,	CMD_FUNC,	(CMD_DEFINE)&command_npcsd},
-	// {"PCS",		255,	0,	CMD_FUNC,	(CMD_DEFINE)&command_pcs},
-	// {"CHARC",	255,	0,	CMD_FUNC,	(CMD_DEFINE)&command_charc},
-	// {"ITEMC",	255,	0,	CMD_FUNC,	(CMD_DEFINE)&command_itemc},
+	// {"NPCS",			CMD_FUNC,	(CMD_DEFINE)&command_npcs},
+	// {"NPCSD",		CMD_FUNC,	(CMD_DEFINE)&command_npcsd},
+	// {"PCS",			CMD_FUNC,	(CMD_DEFINE)&command_pcs},
+	// {"CHARC",		CMD_FUNC,	(CMD_DEFINE)&command_charc},
+	// {"ITEMC",		CMD_FUNC,	(CMD_DEFINE)&command_itemc},
 	/* end of lord binary's debugging commands */
-	{"RAIN",	2,	13,	CMD_FUNC,	(CMD_DEFINE)&command_rain},
-	{"SNOW",	2,	14,	CMD_FUNC,	(CMD_DEFINE)&command_snow},
-	{"GMMENU",	2,	15,	CMD_FUNC,	(CMD_DEFINE)&command_gmmenu},
-	{"ITEMMENU",	2,	16,	CMD_FUNC,	(CMD_DEFINE)&command_itemmenu},
-	{"ADDITEM",	2,	17,	CMD_FUNC,	(CMD_DEFINE)&command_additem},
-	{"DUPE",	2,	18,	CMD_FUNC,	(CMD_DEFINE)&command_dupe},
-	{"MOVETOBAG",	2,	19,	CMD_TARGET,	(CMD_DEFINE)&target_movetobag},
-	{"COMMAND",	2,	20,	CMD_FUNC,	(CMD_DEFINE)&command_command},
-	{"GCOLLECT",	2,	21,	CMD_FUNC,	(CMD_DEFINE)&command_gcollect},
-	{"ALLMOVEON",	2,	22,	CMD_FUNC,	(CMD_DEFINE)&command_allmoveon},
-	{"ALLMOVEOFF",	2,	23,	CMD_FUNC,	(CMD_DEFINE)&command_allmoveoff},
-	{"SHOWHS",	2,	24,	CMD_FUNC,	(CMD_DEFINE)&command_showhs},
-	{"HIDEHS",	2,	25,	CMD_FUNC,	(CMD_DEFINE)&command_hidehs},
-	{"SETMOVABLE",	2,	26,	CMD_TARGETX,	(CMD_DEFINE)&target_setmovable},
-	{"SET",		2,	27,	CMD_FUNC,	(CMD_DEFINE)&command_set},
+	{"RAIN",			CMD_FUNC,	(CMD_DEFINE)&command_rain},
+	{"SNOW",			CMD_FUNC,	(CMD_DEFINE)&command_snow},
+	{"GMMENU",			CMD_FUNC,	(CMD_DEFINE)&command_gmmenu},
+	{"ITEMMENU",		CMD_FUNC,	(CMD_DEFINE)&command_itemmenu},
+	{"ADDITEM",			CMD_FUNC,	(CMD_DEFINE)&command_additem},
+	{"DUPE",			CMD_FUNC,	(CMD_DEFINE)&command_dupe},
+	{"MOVETOBAG",		CMD_TARGET,	(CMD_DEFINE)&target_movetobag},
+	{"COMMAND",			CMD_FUNC,	(CMD_DEFINE)&command_command},
+	{"GCOLLECT",		CMD_FUNC,	(CMD_DEFINE)&command_gcollect},
+	{"ALLMOVEON",		CMD_FUNC,	(CMD_DEFINE)&command_allmoveon},
+	{"ALLMOVEOFF",		CMD_FUNC,	(CMD_DEFINE)&command_allmoveoff},
+	{"SHOWHS",			CMD_FUNC,	(CMD_DEFINE)&command_showhs},
+	{"HIDEHS",			CMD_FUNC,	(CMD_DEFINE)&command_hidehs},
+	{"SETMOVABLE",		CMD_TARGETX,(CMD_DEFINE)&target_setmovable},
+	{"SET",				CMD_FUNC,	(CMD_DEFINE)&command_set},
 #ifdef UNRELEASED
-	{"TEMP",	255,	0,	CMD_FUNC,	(CMD_DEFINE)&command_temp},
+	{"TEMP",			CMD_FUNC,	(CMD_DEFINE)&command_temp},
 #endif
-	{"SETVISIBLE",	2,	28,	CMD_TARGETX,	(CMD_DEFINE)&target_setvisible},
-	{"SETDIR",	2,	29,	CMD_TARGETX,	(CMD_DEFINE)&target_setdir},
-	{"SETSPEECH",	2,	30,	CMD_TARGETX,	(CMD_DEFINE)&target_setspeech},
-	{"SETOWNER",	2,	31,	CMD_TARGETHID4,	(CMD_DEFINE)&target_setowner},
-	{"ADDNPC",	3,	0,	CMD_FUNC,	(CMD_DEFINE)&command_addnpc},
-	{"FREEZE",	3,	1,	CMD_TARGET,	(CMD_DEFINE)&target_freeze},
-	{"UNFREEZE",	3,	2,	CMD_TARGET,	(CMD_DEFINE)&target_unfreeze},
-	{"READINI",	3,	3,	CMD_FUNC,	(CMD_DEFINE)&command_readini},
-	{"GUMPMENU",	3,	4,	CMD_FUNC,	(CMD_DEFINE)&command_gumpmenu},
-	{"TILEDATA",	3,	5,	CMD_TARGET,	(CMD_DEFINE)&target_tiledata},
-	{"RECALL",	3,	6,	CMD_TARGET,	(CMD_DEFINE)&target_recall},
-	{"MARK",	3,	7,	CMD_TARGET,	(CMD_DEFINE)&target_mark},
-	{"GATE",	3,	8,	CMD_TARGET,	(CMD_DEFINE)&target_gate},
-	{"HEAL",	3,	9,	CMD_TARGET,	(CMD_DEFINE)&target_heal},
-	{"NPCTARGET",	3,	10,	CMD_TARGET,	(CMD_DEFINE)&target_npctarget},
-	{"NPCRECT",	3,	12,	CMD_FUNC,	(CMD_DEFINE)&command_npcrect},
-	{"NPCCIRCLE",	3,	13,	CMD_FUNC,	(CMD_DEFINE)&command_npccircle},
-	{"NPCWANDER",	3,	14,	CMD_FUNC,	(CMD_DEFINE)&command_npcwander},
-	{"TWEAK",	3,	15,	CMD_TARGET,	(CMD_DEFINE)&target_tweak},
-	{"SBOPEN",	3,	16,	CMD_TARGET,	(CMD_DEFINE)&target_sbopen},
-	{"SECONDSPERUOMINUTE",	3,	17,	CMD_FUNC,	(CMD_DEFINE)&command_secondsperuominute},
-	{"BRIGHTLIGHT",	3,	18,	CMD_FUNC,	(CMD_DEFINE)&command_brightlight},
-	{"DARKLIGHT",	3,	19,	CMD_FUNC,	(CMD_DEFINE)&command_darklight},
-	{"DUNGEONLIGHT", 3,	20,	CMD_FUNC,	(CMD_DEFINE)&command_dungeonlight},
-	{"TIME",	3,	21,	CMD_FUNC,	(CMD_DEFINE)&command_time},
-	{"MANA",	3,	22,	CMD_TARGET,	(CMD_DEFINE)&target_mana},
-	{"STAMINA",	3,	23,	CMD_TARGET,	(CMD_DEFINE)&target_stamina},
-	{"GMOPEN",	3,	24,	CMD_FUNC,	(CMD_DEFINE)&command_gmopen},
-	{"MAKESHOP",	3,	25,	CMD_TARGET,	(CMD_DEFINE)&target_makeshop},
-	{"BUY",		3,	26,	CMD_TARGET,	(CMD_DEFINE)&target_buy},
-	{"SETVALUE",	3,	27,	CMD_TARGETX,	(CMD_DEFINE)&target_setvalue},
-	{"SETRESTOCK",	3,	28,	CMD_TARGETX,	(CMD_DEFINE)&target_setrestock},
-	{"RESTOCK",	3,	29,	CMD_FUNC,	(CMD_DEFINE)&command_restock},
-	{"RESTOCKALL",	3,	30,	CMD_FUNC,	(CMD_DEFINE)&command_restockall},
-	{"SETSHOPRESTOCKRATE",	3,	31,	CMD_FUNC,	(CMD_DEFINE)&command_setshoprestockrate},
-	{"WHO",		4,	0,	CMD_FUNC,	(CMD_DEFINE)&command_who},
-	{"GMS",		4,	1,	CMD_FUNC,	(CMD_DEFINE)&command_gms},
-	{"SELL",	4,	2,	CMD_TARGET,	(CMD_DEFINE)&target_sell},
-	{"MIDI",	4,	3,	CMD_FUNC,	(CMD_DEFINE)&command_midi},
-	{"GUMPOPEN",	4,	4,	CMD_FUNC,	(CMD_DEFINE)&command_gumpopen},
-	{"RESPAWN",	4,	5,	CMD_FUNC,	(CMD_DEFINE)&command_respawn},
-	{"REGSPAWNALL",	4,	5,	CMD_FUNC,	(CMD_DEFINE)&command_regspawnall},
-	{"REGSPAWNMAX",	4,	5,	CMD_FUNC,	(CMD_DEFINE)&command_regspawnmax},
-	{"REGSPAWN",	4,	5,	CMD_FUNC,	(CMD_DEFINE)&command_regspawn},
-	{"SETSPATTACK",	4,	6,	CMD_TARGETHTMP,	(CMD_DEFINE)&target_setspattack},
-	{"SETSPADELAY", 4,	7,	CMD_TARGETHTMP,	(CMD_DEFINE)&target_setspadelay},
-	{"SETPOISON",	4,	8,	CMD_TARGETHTMP,	(CMD_DEFINE)&target_setpoison},
-	{"SETPOISONED",	4,	9,	CMD_TARGETHTMP,	(CMD_DEFINE)&target_setpoisoned},
-	{"SETADVOBJ",	4,	10,	CMD_TARGETHTMP,	(CMD_DEFINE)&target_setadvobj},
-	{"SETWIPE",	4,	11,	CMD_TARGETID1,	(CMD_DEFINE)&target_setwipe},
-	{"FULLSTATS",	4,	12,	CMD_TARGET,	(CMD_DEFINE)&target_fullstats},
-	{"HIDE",	4,	13,	CMD_TARGET,	(CMD_DEFINE)&target_hide},
-	{"UNHIDE",	4,	14,	CMD_TARGET,	(CMD_DEFINE)&target_unhide},
-	{"RELOADSERVER",	4,	15,	CMD_FUNC,	(CMD_DEFINE)&command_reloadserver},
-	{"CQ",		4,	17,	CMD_FUNC,	(CMD_DEFINE)&command_cq},
-	{"WIPENPCS",	4,	18,	CMD_FUNC,	(CMD_DEFINE)&command_wipenpcs},
-	{"CNEXT",	4,	19,	CMD_FUNC,	(CMD_DEFINE)&command_cnext},
-	{"CCLEAR",	4,	20,	CMD_FUNC,	(CMD_DEFINE)&command_cclear},
-	{"MINECHECK",	4,	21,	CMD_FUNC,	(CMD_DEFINE)&command_minecheck},
-	{"INVUL",	4,	22,	CMD_FUNC,	(CMD_DEFINE)&command_invul},
-	{"NOINVUL",	4,	23,	CMD_FUNC,	(CMD_DEFINE)&command_noinvul},
-	{"GUARDSON",	4,	24,	CMD_FUNC,	(CMD_DEFINE)&command_guardson},
-	{"GUARDSOFF",	4,	25,	CMD_FUNC,	(CMD_DEFINE)&command_guardsoff},
-	{"HOUSE",	4,	26,	CMD_TARGETHTMP,	(CMD_DEFINE)&target_house},
-	{"ANNOUNCEON",	4,	27,	CMD_FUNC,	(CMD_DEFINE)&command_announceon},
-	{"ANNOUNCEOFF",	4,	28,	CMD_FUNC,	(CMD_DEFINE)&command_announceoff},
-	{"WF",		4,	29,	CMD_FUNC,	(CMD_DEFINE)&command_wf},
-	{"DECAY",	1,	22,	CMD_FUNC,	(CMD_DEFINE)&command_decay},
-	{"SPLIT",	4,	31,	CMD_TARGETHTMP,	(CMD_DEFINE)&target_split},
-	{"SPLITCHANCE",	5,	0,	CMD_TARGETHTMP,	(CMD_DEFINE)&target_splitchance},
-	{"POSSESS",	5,	1,	CMD_TARGET,	(CMD_DEFINE)&target_possess},
-	{"KILLALL",	5,	3,	CMD_FUNC,	(CMD_DEFINE)&command_killall},
-	{"PDUMP",	5,	4,	CMD_FUNC,	(CMD_DEFINE)&command_pdump},
-	{"RENAME2",	5,	5,	CMD_FUNC,	(CMD_DEFINE)&command_rename2},
-	{"READSPAWNREGIONS",	5,	6,	CMD_FUNC,	(CMD_DEFINE)&command_readspawnregions},
-	{"CLEANUP",	5,	7,	CMD_FUNC,	(CMD_DEFINE)&command_cleanup},
-	{"GY",		5,	8,	CMD_FUNC,	(CMD_DEFINE)&command_gy},
-	{"TILEW",	5,	9,	CMD_FUNC,	(CMD_DEFINE)&command_tilew},
-	{"SQUELCH",	5,	10,	CMD_FUNC,	(CMD_DEFINE)&command_squelch},
-	{"MUTE",	5,	10,	CMD_FUNC,	(CMD_DEFINE)&command_squelch},
-	{"TELESTUFF",	5,	11,	CMD_TARGET,	(CMD_DEFINE)&target_telestuff},
-	{"SPAWNKILL",	5,	12,	CMD_FUNC,	(CMD_DEFINE)&command_spawnkill},
-	{"SHOWPRIV3",	5,	13,	CMD_TARGET,	(CMD_DEFINE)&target_showpriv3},
-	{"NEWX",	5,	14,	CMD_TARGETX,	(CMD_DEFINE)&target_newx},
-	{"NEWY",	5,	15,	CMD_TARGETX,	(CMD_DEFINE)&target_newy},
-	{"INCX",	5,	16,	CMD_TARGETX,	(CMD_DEFINE)&target_incx},
-	{"INCY",	5,	17,	CMD_TARGETX,	(CMD_DEFINE)&target_incy},
-	{"WANIM",	5,	18,	CMD_FUNC,	(CMD_DEFINE)&command_wanim},
+	{"SETVISIBLE",		CMD_TARGETX,(CMD_DEFINE)&target_setvisible},
+	{"SETDIR",			CMD_TARGETX,(CMD_DEFINE)&target_setdir},
+	{"SETSPEECH",		CMD_TARGETX,(CMD_DEFINE)&target_setspeech},
+	{"SETOWNER",		CMD_TARGETHID4,	(CMD_DEFINE)&target_setowner},
+	{"ADDNPC",			CMD_FUNC,	(CMD_DEFINE)&command_addnpc},
+	{"FREEZE",			CMD_TARGET,	(CMD_DEFINE)&target_freeze},
+	{"UNFREEZE",		CMD_TARGET,	(CMD_DEFINE)&target_unfreeze},
+	{"READINI",			CMD_FUNC,	(CMD_DEFINE)&command_readini},
+	{"GUMPMENU",		CMD_FUNC,	(CMD_DEFINE)&command_gumpmenu},
+	{"TILEDATA",		CMD_TARGET,	(CMD_DEFINE)&target_tiledata},
+	{"RECALL",			CMD_TARGET,	(CMD_DEFINE)&target_recall},
+	{"MARK",			CMD_TARGET,	(CMD_DEFINE)&target_mark},
+	{"GATE",			CMD_TARGET,	(CMD_DEFINE)&target_gate},
+	{"HEAL",			CMD_TARGET,	(CMD_DEFINE)&target_heal},
+	{"NPCTARGET",		CMD_TARGET,	(CMD_DEFINE)&target_npctarget},
+	{"NPCRECT",			CMD_FUNC,	(CMD_DEFINE)&command_npcrect},
+	{"NPCCIRCLE",		CMD_FUNC,	(CMD_DEFINE)&command_npccircle},
+	{"NPCWANDER",		CMD_FUNC,	(CMD_DEFINE)&command_npcwander},
+	{"TWEAK",			CMD_TARGET,	(CMD_DEFINE)&target_tweak},
+	{"SBOPEN",			CMD_TARGET,	(CMD_DEFINE)&target_sbopen},
+	{"SECONDSPERUOMINUTE",CMD_FUNC,	(CMD_DEFINE)&command_secondsperuominute},
+	{"BRIGHTLIGHT",		CMD_FUNC,	(CMD_DEFINE)&command_brightlight},
+	{"DARKLIGHT",		CMD_FUNC,	(CMD_DEFINE)&command_darklight},
+	{"DUNGEONLIGHT",	CMD_FUNC,	(CMD_DEFINE)&command_dungeonlight},
+	{"TIME",			CMD_FUNC,	(CMD_DEFINE)&command_time},
+	{"MANA",			CMD_TARGET,	(CMD_DEFINE)&target_mana},
+	{"STAMINA",			CMD_TARGET,	(CMD_DEFINE)&target_stamina},
+	{"GMOPEN",			CMD_FUNC,	(CMD_DEFINE)&command_gmopen},
+	{"MAKESHOP",		CMD_TARGET,	(CMD_DEFINE)&target_makeshop},
+	{"BUY",				CMD_TARGET,	(CMD_DEFINE)&target_buy},
+	{"SETVALUE",		CMD_TARGETX,(CMD_DEFINE)&target_setvalue},
+	{"SETRESTOCK",		CMD_TARGETX,(CMD_DEFINE)&target_setrestock},
+	{"RESTOCK",			CMD_FUNC,	(CMD_DEFINE)&command_restock},
+	{"RESTOCKALL",		CMD_FUNC,	(CMD_DEFINE)&command_restockall},
+	{"SETSHOPRESTOCKRATE",CMD_FUNC,	(CMD_DEFINE)&command_setshoprestockrate},
+	{"WHO",				CMD_FUNC,	(CMD_DEFINE)&command_who},
+	{"GMS",				CMD_FUNC,	(CMD_DEFINE)&command_gms},
+	{"SELL",			CMD_TARGET,	(CMD_DEFINE)&target_sell},
+	{"MIDI",			CMD_FUNC,	(CMD_DEFINE)&command_midi},
+	{"GUMPOPEN",		CMD_FUNC,	(CMD_DEFINE)&command_gumpopen},
+	{"RESPAWN",			CMD_FUNC,	(CMD_DEFINE)&command_respawn},
+	{"REGSPAWNALL",		CMD_FUNC,	(CMD_DEFINE)&command_regspawnall},
+	{"REGSPAWNMAX",		CMD_FUNC,	(CMD_DEFINE)&command_regspawnmax},
+	{"REGSPAWN",		CMD_FUNC,	(CMD_DEFINE)&command_regspawn},
+	{"SETSPATTACK",		CMD_TARGETHTMP,	(CMD_DEFINE)&target_setspattack},
+	{"SETSPADELAY",		CMD_TARGETHTMP,	(CMD_DEFINE)&target_setspadelay},
+	{"SETPOISON",		CMD_TARGETHTMP,	(CMD_DEFINE)&target_setpoison},
+	{"SETPOISONED",		CMD_TARGETHTMP,	(CMD_DEFINE)&target_setpoisoned},
+	{"SETADVOBJ",		CMD_TARGETHTMP,	(CMD_DEFINE)&target_setadvobj},
+	{"SETWIPE",			CMD_TARGETID1,	(CMD_DEFINE)&target_setwipe},
+	{"FULLSTATS",		CMD_TARGET,	(CMD_DEFINE)&target_fullstats},
+	{"HIDE",			CMD_TARGET,	(CMD_DEFINE)&target_hide},
+	{"UNHIDE",			CMD_TARGET,	(CMD_DEFINE)&target_unhide},
+	{"RELOADSERVER",	CMD_FUNC,	(CMD_DEFINE)&command_reloadserver},
+	{"CQ",				CMD_FUNC,	(CMD_DEFINE)&command_cq},
+	{"WIPENPCS",		CMD_FUNC,	(CMD_DEFINE)&command_wipenpcs},
+	{"CNEXT",			CMD_FUNC,	(CMD_DEFINE)&command_cnext},
+	{"CCLEAR",			CMD_FUNC,	(CMD_DEFINE)&command_cclear},
+	{"MINECHECK",		CMD_FUNC,	(CMD_DEFINE)&command_minecheck},
+	{"INVUL",			CMD_FUNC,	(CMD_DEFINE)&command_invul},
+	{"NOINVUL",			CMD_FUNC,	(CMD_DEFINE)&command_noinvul},
+	{"GUARDSON",		CMD_FUNC,	(CMD_DEFINE)&command_guardson},
+	{"GUARDSOFF",		CMD_FUNC,	(CMD_DEFINE)&command_guardsoff},
+	{"HOUSE",			CMD_TARGETHTMP,	(CMD_DEFINE)&target_house},
+	{"ANNOUNCEON",		CMD_FUNC,	(CMD_DEFINE)&command_announceon},
+	{"ANNOUNCEOFF",		CMD_FUNC,	(CMD_DEFINE)&command_announceoff},
+	{"WF",				CMD_FUNC,	(CMD_DEFINE)&command_wf},
+	{"DECAY",			CMD_FUNC,	(CMD_DEFINE)&command_decay},
+	{"SPLIT",			CMD_TARGETHTMP,	(CMD_DEFINE)&target_split},
+	{"SPLITCHANCE",		CMD_TARGETHTMP,	(CMD_DEFINE)&target_splitchance},
+	{"POSSESS",			CMD_TARGET,	(CMD_DEFINE)&target_possess},
+	{"KILLALL",			CMD_FUNC,	(CMD_DEFINE)&command_killall},
+	{"PDUMP",			CMD_FUNC,	(CMD_DEFINE)&command_pdump},
+	{"RENAME2",			CMD_FUNC,	(CMD_DEFINE)&command_rename2},
+	{"READSPAWNREGIONS",CMD_FUNC,	(CMD_DEFINE)&command_readspawnregions},
+	{"CLEANUP",			CMD_FUNC,	(CMD_DEFINE)&command_cleanup},
+	{"GY",				CMD_FUNC,	(CMD_DEFINE)&command_gy},
+	{"TILEW",			CMD_FUNC,	(CMD_DEFINE)&command_tilew},
+	{"SQUELCH",			CMD_FUNC,	(CMD_DEFINE)&command_squelch},
+	{"MUTE",			CMD_FUNC,	(CMD_DEFINE)&command_squelch},
+	{"TELESTUFF",		CMD_TARGET,	(CMD_DEFINE)&target_telestuff},
+	{"SPAWNKILL",		CMD_FUNC,	(CMD_DEFINE)&command_spawnkill},
+	{"SHOWPRIVLVL",		CMD_TARGET,	(CMD_DEFINE)&target_showprivlvl},
+	{"NEWX",			CMD_TARGETX,(CMD_DEFINE)&target_newx},
+	{"NEWY",			CMD_TARGETX,(CMD_DEFINE)&target_newy},
+	{"INCX",			CMD_TARGETX,(CMD_DEFINE)&target_incx},
+	{"INCY",			CMD_TARGETX,(CMD_DEFINE)&target_incy},
+	{"WANIM",			CMD_FUNC,	(CMD_DEFINE)&command_wanim},
 	
-	/* {"SETACCOUNT",5,19,	CMD_FUNC,	(CMD_DEFINE)&command_setacct}, */
+	/* {"SETACCOUNT",		CMD_FUNC,	(CMD_DEFINE)&command_setacct}, */
 	
-	{"READACCOUNTS",5,20, CMD_FUNC,	(CMD_DEFINE)&command_readaccounts},
-	{"LETUSIN",     5,21, CMD_FUNC,	(CMD_DEFINE)&command_letusin},
-	{"SERVERSLEEP", 5,22, CMD_FUNC, (CMD_DEFINE)&command_serversleep},
-	{"RELOADCACHEDSCRIPTS", 5,23, CMD_FUNC, (CMD_DEFINE)&command_reloadcachedscripts},
+	{"READACCOUNTS",	CMD_FUNC,	(CMD_DEFINE)&command_readaccounts},
+	{"LETUSIN",			CMD_FUNC,	(CMD_DEFINE)&command_letusin},
+	{"SERVERSLEEP",		CMD_FUNC,	(CMD_DEFINE)&command_serversleep},
+	{"RELOADCACHEDSCRIPTS",CMD_FUNC,(CMD_DEFINE)&command_reloadcachedscripts},
 	
 	/*
-	{"REMOVEACCOUNT",5,24,CMD_FUNC,	(CMD_DEFINE)&command_removeacct},
+	{"REMOVEACCOUNT",		CMD_FUNC,	(CMD_DEFINE)&command_removeacct},
 	*/
 	
-	{"SETMURDER", 5, 26, CMD_FUNC,  (CMD_DEFINE)&command_setmurder},//taken from 6904t2(5/10/99) - AntiChrist
-	{"GLOW",         5,25,CMD_TARGET, (CMD_DEFINE)&target_glow},
-	{"UNGLOW",       5,26,CMD_TARGET, (CMD_DEFINE)&target_unglow},
-	{"SETMENUPRIV",  5,27,CMD_FUNC, (CMD_DEFINE)&command_setmenupriv},
-	{"SHOWSKILLS",    5,28,CMD_TARGETX, (CMD_DEFINE)&target_showskills},
+	{"SETMURDER",		CMD_FUNC,	(CMD_DEFINE)&command_setmurder},//taken from 6904t2(5/10/99) - AntiChrist
+	{"GLOW",			CMD_TARGET, (CMD_DEFINE)&target_glow},
+	{"UNGLOW",			CMD_TARGET, (CMD_DEFINE)&target_unglow},
+	{"SETMENUPRIV",		CMD_FUNC,	(CMD_DEFINE)&command_setmenupriv},
+	{"SHOWSKILLS",		CMD_TARGETX,(CMD_DEFINE)&target_showskills},
 	
 	/* always end with a section of NULLs to mark end of list */
 	//{NULL,		NULL,	NULL,	NULL,		NULL}
@@ -393,16 +392,16 @@ CMDTABLE_S command_table[] = {
 	
 	//{"SHOWACCOUNTCOMMENT",	2,	10,	CMD_TARGET,	(CMD_DEFINE)&target_showaccountcomment},//AntiChrist
 	
-	{"DELID",		2,	35,	CMD_FUNC,	(CMD_DEFINE)&command_delid},
-	{"DELTYPE",		2,	36,	CMD_FUNC,	(CMD_DEFINE)&command_deltype},
-	{"SETSEASON",	2,	13,	CMD_FUNC,	(CMD_DEFINE)&command_setseason},
-	{"SYSM",        5,  8,  CMD_FUNC,   (CMD_DEFINE)&command_sysm},
-	{"SETHOME",		0, 14, CMD_TARGETXYZ,	(CMD_DEFINE)&target_sethome},
-	{"SETWORK",		0, 14, CMD_TARGETXYZ,	(CMD_DEFINE)&target_setwork},
-	{"SETFOOD",		0, 14, CMD_TARGETXYZ,	(CMD_DEFINE)&target_setfood},	
-	{"PASSWORD",	5,	19,	CMD_FUNC,	(CMD_DEFINE)&command_password},
-	{"DEBUG",  		255, 0, CMD_FUNC,   (CMD_DEFINE)&command_debug},
-	{NULL,			0,	0,	0,		NULL}			// Tseramed, cleaner
+	{"DELID",			CMD_FUNC,	(CMD_DEFINE)&command_delid},
+	{"DELTYPE",			CMD_FUNC,	(CMD_DEFINE)&command_deltype},
+	{"SETSEASON",		CMD_FUNC,	(CMD_DEFINE)&command_setseason},
+	{"SYSM",			CMD_FUNC,   (CMD_DEFINE)&command_sysm},
+	{"SETHOME",			CMD_TARGETXYZ,	(CMD_DEFINE)&target_sethome},
+	{"SETWORK",			CMD_TARGETXYZ,	(CMD_DEFINE)&target_setwork},
+	{"SETFOOD",			CMD_TARGETXYZ,	(CMD_DEFINE)&target_setfood},	
+	{"PASSWORD",		CMD_FUNC,	(CMD_DEFINE)&command_password},
+	{"DEBUG",			CMD_FUNC,   (CMD_DEFINE)&command_debug},
+	{NULL,				0,			NULL}			// Tseramed, cleaner
 };
 
 static char *ch="abcdefg";
@@ -517,7 +516,7 @@ void command_reloadcachedscripts(UOXSOCKET s)
 	loadregions();
 	loadspawnregions();
 	Magic->InitSpells();
-	loadmetagm();
+	Commands->loadPrivLvlCmds();
 	loadskills();
 	read_in_teleport(); // hope i've cought all  ...
 	Network->LoadHosts_deny();
@@ -652,107 +651,19 @@ void command_readaccounts(UOXSOCKET s)
 }
 
 void command_showp(UOXSOCKET s)
-// Displays hex values of your PRIV3 settings.
+// Displays hex values of your PRIVLVL settings.
 {
 	int i;
 	
     PC_CHAR pcc_cs = currchar[s];
     if (pcc_cs == NULL) return;
 	
-	for (i=0;i<7;i++) 
-	{
-		sysmessage(s, tr("priv3%1 : %2 ").arg(ch[i]).arg(pcc_cs->priv3[i]));
-	}
+	sysmessage(s, tr("privlvl : ").arg(pcc_cs->privlvl()));
 }
 
-
-void command_setpriv3(UOXSOCKET s)
-// Alter GM Command Privs
-// <P>The Setpriv3 command has 3 different formats:</P>
-// <UL>
-// <LI><B>One argument</B> - Set priv3 to a template found in the game script.</LI>
-// <LI><B>Two arguments</B> - SETPRIV3 [+ or -] COMMAND, example: To allow a user to
-// have access to the SAVE command, use <B>SETPRIV3 + SAVE</B>, to take awake a
-// user's access to MAKECNS, use <B>SETPRIV3 - MAKECNS</B></LI>
-// <LI><B>Six or Seven Arguments</B> - Manually set the entire setpriv3
-// structure as a sequence of six or seven eight-digit hexadecimal
-// numbers.</LI>
-// </UL>
-// <P>For more information on Meta-GM permissions, check out
-// <A HREF="http://stud4.tuwien.ac.at/%7Ee9425109/uox3_1.htm">
-// Lord Binary's UOX Site</A>.</P>
+void command_setprivlvl(UOXSOCKET s)
 {
-	int z;
-	unsigned int i, y;
-	unsigned long loopexit=0;
-	
-    PC_CHAR pcc_cs = currchar[s];
-    if (!pcc_cs) return;
-	
-	switch(tnum) {
-	case 7:
-	case 8:
-		if (SrvParams->gmLog()) { sprintf((char*)temp,"%s.log", pcc_cs->name.c_str()); savelog("setpriv3 executed!\n",(char*)temp); }
-		priv3a[s]=hexnumber(1);
-		priv3b[s]=hexnumber(2);
-		priv3c[s]=hexnumber(3);
-		priv3d[s]=hexnumber(4);
-		priv3e[s]=hexnumber(5);
-		priv3f[s]=hexnumber(6);
-		if(tnum==8) priv3g[s]=hexnumber(7);
-		else priv3g[s]=0;
-		target(s, 0, 1, 0, 250, "Select player to set command clearance");
-		break;
-	case 2:
-		y=makenumber(1);
-		if (SrvParams->gmLog()) { sprintf((char*)temp,"%s.log",pcc_cs->name.c_str()); savelog("setpriv3 executed!\n",(char*)temp); }
-		//AntiChrist-this was metagm[y%255]-
-		if(y>255)
-		{
-			LogError("setpriv3-command: avoiding crash. argument was >255!\n");
-			sysmessage(s, tr("Setpriv3-command argument has to be between 0 and 255."));
-			return;
-		}
-		priv3a[s]=metagm[y][0];
-		priv3b[s]=metagm[y][1];
-		priv3c[s]=metagm[y][2];
-		priv3d[s]=metagm[y][3];
-		priv3e[s]=metagm[y][4];
-		priv3f[s]=metagm[y][5];
-		priv3g[s]=metagm[y][6];
-		target(s, 0, 1, 0, 250, "Select player to set command clearance");
-		break;
-	case 3:	/* new code to allow + COMMAND or - COMMAND 07/24/99 */
-		if((!strcmp((char*)comm[1], "+"))||(!strcmp((char*)comm[1], "-"))) {
-			y=comm[1][0]=='+' ? 1 : 0;
-			for (i=0;i<strlen((char*)comm[2]);i++) {
-				comm[2][i]=toupper(comm[2][i]);
-			}
-			i=0; z=-1;
-			loopexit=0;
-			while((command_table[i].cmd_name)&&(z==-1) && (++loopexit < MAXLOOPS)) {
-				if(!(strcmp((char*)command_table[i].cmd_name, (char*)comm[2]))) z=i;
-				i++;
-			}
-			if(z==-1) {
-				sysmessage(s, tr("That command doesn't exist."));
-			} else if(command_table[z].cmd_priv_m==255) {
-				sysmessage(s, tr("No special permissions are neccessary to use that command."));
-			} else {
-				addx[s]=z;
-				addy[s]=y;
-				sprintf((char*)temp, "Select player to alter %s command access.", command_table[z].cmd_name);
-				target(s, 0, 1, 0, 225, (char*)temp);
-			}
-		} else {
-			sysmessage(s, tr("2-Argument Usage: /SETPRIV3 +/- COMMAND"));
-		}
-		break;
-	default:
-		sysmessage(s, tr("This command takes 1, 2, 6, or 7 arguments."));
-		break;
-	}
-	return;
+	attachTargetRequest( s, new cSetPrivLvlTarget( Commands->GetAllParams() ) );
 }
 
 void command_resend(UOXSOCKET s)
@@ -2586,3 +2497,4 @@ void command_debug( UOXSOCKET s )
 	}
 	sysmessage(s, "%i Entries found", temppunt);
 }
+

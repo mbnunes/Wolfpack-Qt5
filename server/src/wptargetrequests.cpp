@@ -86,3 +86,5 @@ void attachTargetRequest( UOXSOCKET socket, cTargetRequest *targetRequest )
 	// Allow a target for the socket (useles...)
 	targetok[ socket ] = 1;
 }
+
+
