@@ -2234,7 +2234,9 @@ void cItem::processContainerNode( QDomElement &Tag )
 		...
 	</contains>
 	*/
-	for( QDomNode childNode = Tag.firstChild(); !childNode.isNull(); childNode = Tag.nextSibling() )
+	QDomNode childNode = Tag.firstChild();
+	while( !childNode.isNull() )
+	{
 		if( childNode.toElement().nodeName() == "item" )
 		{
 			P_ITEM nItem = Items->MemItemFree();
@@ -2248,5 +2250,7 @@ void cItem::processContainerNode( QDomElement &Tag )
 			nItem->applyDefinition( childNode.toElement() );	
 			nItem->setContSerial( this->serial );
 		}
+		childNode = childNode.nextSibling();
+	}
 }
 

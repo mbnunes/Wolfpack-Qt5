@@ -1349,8 +1349,8 @@ void cChar::processNode( QDomElement &Tag )
 	else if( TagName == "shopkeeper" )
 	{
 		Commands->MakeShop( this );
-		QDomNode childNode;
-		for( childNode = Tag.firstChild(); !childNode.isNull(); childNode = Tag.nextSibling() )
+		QDomNode childNode = Tag.firstChild();
+		while( !childNode.isNull() )
 		{
 			QDomElement currNode = childNode.toElement();
 			
@@ -1370,6 +1370,8 @@ void cChar::processNode( QDomElement &Tag )
 			P_ITEM contItem = this->GetItemOnLayer( contlayer );
 			if( contItem != NULL )
 				contItem->processContainerNode( currNode );
+
+			childNode = childNode.nextSibling();
 		}
 	}
 		
@@ -1437,8 +1439,8 @@ void cChar::processNode( QDomElement &Tag )
 	//</epuipped>
 	else if( TagName == "equipped" )
 	{
-		QDomNode childNode;
-		for( childNode = Tag.firstChild(); !childNode.isNull(); childNode = Tag.nextSibling() )
+		QDomNode childNode = Tag.firstChild();
+		while( !childNode.isNull() )
 		{
 			QDomElement currChild = childNode.toElement();
 			if( currChild.nodeName() == "item" && currChild.attributes().contains("id") )
@@ -1457,6 +1459,7 @@ void cChar::processNode( QDomElement &Tag )
 				if( currChild.hasChildNodes() )  // color
 					nItem->applyDefinition( currChild.toElement() );
 			}
+			childNode = childNode.nextSibling();
 		}
 	}
 

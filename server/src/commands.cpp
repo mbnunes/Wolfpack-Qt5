@@ -1162,11 +1162,12 @@ void cCommands::loadPrivLvlCmds( void )
 		QString privlvl = Tag->attribute( "id" );
 		privlvl_commands[privlvl].implicit = !( Tag->attributes().contains( "type" ) && Tag->attribute( "type" ) == "explicit" );
 
-		if( !Tag->hasChildNodes() )
-			continue;
-		else
-			for( UI32 j = 0; j < Tag->childNodes().count(); j++ )
-				this->addCmdToPrivLvl( privlvl, Tag->childNodes().item( j ).nodeName() );
+		QDomNode childNode = Tag->firstChild();
+		while( !childNode.isNull() )
+		{
+			this->addCmdToPrivLvl( privlvl, childNode.nodeName() );
+			childNode = childNode.nextSibling();
+		}
 	}
 	clConsole.ProgressDone();
 }

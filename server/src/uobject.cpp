@@ -283,13 +283,15 @@ void cUObject::recreateEvents( void )
 
 void cUObject::applyDefinition( QDomElement& sectionNode )
 {
-	QDomNode TagNode;
-	for( TagNode = sectionNode.firstChild(); !TagNode.isNull(); TagNode = sectionNode.nextSibling() )
+	QDomNode TagNode = sectionNode.firstChild();
+	while( !TagNode.isNull() )
 	{
 		if( !TagNode.isElement() )
 			continue;
 		else
 			this->processNode( TagNode.toElement() );
+
+		TagNode = TagNode.nextSibling();
 	}
 }
 
@@ -323,13 +325,15 @@ QString cUObject::getNodeValue( QDomNode &Node )
 		QString Value = QString();
 		if( Tag.hasChildNodes() )
 		{
-			QDomNode childNode;
-			for( childNode = Tag.firstChild(); !childNode.isNull(); childNode = Tag.nextSibling() )
+			QDomNode childNode = Tag.firstChild();
+			while( !childNode.isNull() )
 			{
 				if( childNode.isText() )
 					Value += childNode.toText().data();
 				else if( childNode.isElement() )
 					Value += this->getNodeValue( childNode );
+
+				childNode = childNode.nextSibling();
 			}
 		}
 		else
