@@ -370,32 +370,26 @@ static PyObject* wpSocket_customize( wpSocket* self, PyObject* args )
 /*!
 	Sends a gump to the socket. This function is used internally only.
 */
-static PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
-{
-	if( !self->pSock )
-		return PyFalse;
-
+static PyObject* wpSocket_sendgump(wpSocket* self, PyObject* args) {
 	// Parameters:
 	// x, y, nomove, noclose, nodispose, serial, type, layout, text, callback, args
 	if( PyTuple_Size( args ) != 11 )
 		return PyFalse;
 
-	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) || !checkArgInt( 3 ) ||
-		!checkArgInt( 4 ) || !checkArgInt( 5 ) || !checkArgInt( 6 ) || !PyList_Check( PyTuple_GetItem( args, 7 ) ) ||
-		!PyList_Check( PyTuple_GetItem( args, 8 ) ) || !checkArgStr( 9 ) || !PyList_Check( PyTuple_GetItem( args, 10 ) ) )
-		return PyFalse;
+	int x, y;
+	bool nomove, noclose, nodispose;
+	unsigned int serial, type;
+	PyObject *layout, *texts, *py_args;
+	char *callback;
 
-	INT32 x = getArgInt( 0 );
-	INT32 y = getArgInt( 1 );
-	bool nomove = getArgInt( 2 );
-	bool noclose = getArgInt( 3 );
-	bool nodispose = getArgInt( 4 );
-	UINT32 serial = getArgInt( 5 );
-	UINT32 type = getArgInt( 6 );
-	PyObject *layout = PyTuple_GetItem( args, 7 );
-	PyObject *texts = PyTuple_GetItem( args, 8 );
-	QString callback = getArgStr( 9 );
-	PyObject *py_args = PyList_AsTuple( PyTuple_GetItem( args, 10 ) );
+	if (!PyArg_ParseTuple(args, "iiBBBIIO!O!OsO!:socket.sendgump", &x, &y, &nomove, 
+		&noclose, &nodispose, &serial, &type, PyList_Type, &layout, PyList_Type, &texts, 
+		&callback, PyList_Type, &py_args)) {
+		return 0;
+	}
+
+	// Convert py_args to a tuple
+	py_args = PyList_AsTuple(py_args);
 
 	cPythonGump *gump = new cPythonGump( callback, py_args );
 	if( serial )
@@ -411,20 +405,28 @@ static PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 	gump->setNoDispose( nodispose );
 
 	INT32 i;
-	for( i = 0; i < PyList_Size( layout ); ++i )
-	{
-		if( PyString_Check( PyList_GetItem( layout, i ) ) )
-			gump->addRawLayout( PyString_AsString( PyList_GetItem( layout, i ) ) );
-		else
-			gump->addRawLayout( "" );
+	for (i = 0; i < PyList_Size( layout ); ++i) {
+        PyObject *item = PyList_GetItem(layout, i);
+
+		if (PyString_Check(item)) {
+			gump->addRawLayout(PyString_AsString(item));
+		} else if (PyUnicode_Check(item)) {
+			gump->addRawLayout(QString::fromUcs2(PyUnicode_AS_UNICODE(item)));
+		} else {
+			gump->addRawLayout("");
+		}
 	}
 
-	for( i = 0; i < PyList_Size( texts ); ++i )
-	{
-		if( PyString_Check( PyList_GetItem( texts, i ) ) )
-			gump->addRawText( PyString_AsString( PyList_GetItem( texts, i ) ) );
-		else
-			gump->addRawText( "" );
+	for (i = 0; i < PyList_Size(texts); ++i) {
+        PyObject *item = PyList_GetItem(texts, i);
+
+		if (PyString_Check(item)) {
+			gump->addRawText(PyString_AsString(item));
+		} else if (PyUnicode_Check(item)) {
+			gump->addRawText(QString::fromUcs2(PyUnicode_AS_UNICODE(item)));
+		} else {
+			gump->addRawText("");
+		}
 	}
 
 	self->pSock->send( gump );
