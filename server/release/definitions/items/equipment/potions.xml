@@ -13,6 +13,7 @@
 	<item id="potion_base">
 		<weight>1.0</weight>
 		<basescripts>potions</basescripts>
+		<movable />
 	</item>
 
 	<!-- Potion Keg -->

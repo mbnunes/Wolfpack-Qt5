@@ -12,16 +12,21 @@
 	<item id="eea">
 		<id>0xeea</id>
 		<category>Equipment\Coins\Copper Coin</category>
+		<weight>0.02</weight>
+	</item>
+
+	<item id="copper_coin" inherit="eea">
+		<baseid>eea</baseid>
 	</item>
 
 	<item id="eeb">
 		<id>0xeeb</id>
-		<category>Equipment\Coins\Copper Coins 1</category>
+		<category>Equipment\Coins\Decor\Copper Coins 1</category>
 	</item>
 
 	<item id="eec">
 		<id>0xeec</id>
-		<category>Equipment\Coins\Copper Coins 2</category>
+		<category>Equipment\Coins\Decor\Copper Coins 2</category>
 	</item>
 
 	<!-- Gold Coins -->
@@ -31,30 +36,39 @@
 		<weight>0.02</weight>
 	</item>
 
+	<item id="gold_coin" inherit="eed">
+		<baseid>eed</baseid>
+	</item>
+
 	<item id="eee">
 		<id>0xeee</id>
-		<category>Equipment\Coins\Gold Coins 1</category>
+		<category>Equipment\Coins\Decor\Gold Coins 1</category>
 	</item>
 
 	<item id="eef">
 		<id>0xeef</id>
-		<category>Equipment\Coins\Gold Coins 2</category>
+		<category>Equipment\Coins\Decor\Gold Coins 2</category>
 	</item>
 
     <!-- Silver Coins -->
 	<item id="ef0">
 		<id>0xef0</id>
 		<category>Equipment\Coins\Silver Coin</category>
+		<weight>0.02</weight>
+	</item>
+
+	<item id="silver_coin" inherit="ef0">
+		<baseid>ef0</baseid>
 	</item>
 
 	<item id="ef1">
 		<id>0xef1</id>
-		<category>Equipment\Coins\Silver Coins 1</category>
+		<category>Equipment\Coins\Decor\Silver Coins 1</category>
 	</item>
 
 	<item id="ef2">
 		<id>0xef2</id>
-		<category>Equipment\Coins\Silver Coins 2</category>
+		<category>Equipment\Coins\Decor\Silver Coins 2</category>
 	</item>
 
 </definitions>

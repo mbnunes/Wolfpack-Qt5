@@ -13,6 +13,7 @@
 		<id>0x2328</id>
 		<nodecay />
 		<category>Holiday\Snowman (N/S)</category>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Snowman 2 -->
@@ -20,6 +21,7 @@
 		<id>0x2329</id>
 		<nodecay />
 		<category>Holiday\Snowman (E/W)</category>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Poinsettia 1 -->
@@ -27,6 +29,7 @@
 		<id>0x2330</id>
 		<nodecay />
 		<category>Holiday\Poinsettia, Red</category>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Poinsettia 2 -->
@@ -34,58 +37,68 @@
 		<id>0x2331</id>
 		<nodecay />
 		<category>Holiday\Poinsettia, White</category>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Gift Box 1 -->
 	<item id="232a">
 		<id>0x232a</id>
 		<category>Holiday\Gift Box (N/S)</category>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Gift Box 2 -->
 	<item id="232b">
 		<id>0x232b</id>
 		<category>Holiday\Gift Box (E/W)</category>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Wreath 1 -->
 	<item id="232c">
 		<id>0x232c</id>
 		<category>Holiday\Wreath (N/S)</category>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Wreath 2 -->
 	<item id="232d">
 		<id>0x232d</id>
 		<category>Holiday\Wreath (E/W)</category>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Snowflake 1 -->
 	<item id="232e">
 		<id>0x232e</id>
 		<category>Holiday\Snowflake 1</category>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Snowflake 2 -->
 	<item id="232f">
 		<id>0x232f</id>
 		<category>Holiday\Snowflake 2</category>
+		<weight>1.0</weight>
 	</item>
 
 	<!-- Rose of Trinsic -->
 	<item id="234b">
 		<id>0x234b</id>
 		<category>Holiday\Rose of Trinsic 1</category>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="234c">
 		<id>0x234c</id>
 		<category>Holiday\Rose of Trinsic 3</category>
+		<weight>1.0</weight>
 	</item>
 
 	<item id="234d">
 		<id>0x234d</id>
 		<category>Holiday\Rose of Trinsic 3</category>
+		<weight>1.0</weight>
 	</item>
 
 </definitions>
