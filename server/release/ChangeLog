@@ -8,13 +8,14 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added a basedef property "max_restock_amount" that is used by the restocking code to never let
     the restock amount of a specific item type go above the given amount. (Integer property)
   - Fixed bug #0000387 and # 0000366 ( saying 'guard' in a guarded region hang the server )
-  
+  - Reimplemented different corpse decay times for players and npcs.  
  * Definition Changes:
   - Bench (0x1049) which was crafted was "unusable"
   - fixed bug #0000381 ("potion_keg" and "potionkeg")
   - Set the minimum restock amount of reagents, arrows and bolts to 50.
   - Fixed the name of sheep.
   - Fixed bug #0000386 (missing tongs sellprice tag)
+  - Fixed light radius for certain lightsources.
  * Python Script Changes:
   - Added a follow command.
   - Tinkers can now choose a second material.
@@ -37,6 +38,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added the tilepattern command.
   - Fixed an issue with the magic property generator (splash damage and hit spell effects were happening far too often)
   - Tracking skill now does something. It's not yet OSI compatible. Thanks to Surcouf.
+  - Implemented smove command to move yourself relatively to your current position without interrupting the current target.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.

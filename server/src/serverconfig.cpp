@@ -175,7 +175,8 @@ void cConfig::readData()
 	housedecay_secs_ = getNumber( "Game Speed", "House Decay-Sec.", 604800, true );
 	spawnRegionCheckTime_ = getNumber( "Game Speed", "SpawnRegion Check Time", 5, true );
 	itemDecayTime_ = getNumber( "Game Speed", "Item Decay Time", 300, true );
-	corpseDecayTime_ = getNumber( "Game Speed", "Corpse Decay Time", 600, true );
+	npcCorpseDecayTime_ = getNumber( "Game Speed", "NPC Corpse Decay Time", 600, true );
+	playerCorpseDecayTime_ = getNumber( "Game Speed", "Player Corpse Decay Time", 1200, true );
 
 	secondsPerUOMinute_ = getNumber( "Game Speed", "Seconds Per UO Minute", 5, true );
 	npcMoveTime_ = getDouble( "Game Speed", "NPC Move Time", 0.8, true );

@@ -100,7 +100,8 @@ protected:
 	float checkFollowTime_;
 	float checkTamedTime_;
 	unsigned int itemDecayTime_;
-	unsigned int corpseDecayTime_;
+	unsigned int npcCorpseDecayTime_;
+	unsigned int playerCorpseDecayTime_;
 	int niceLevel_;
 	unsigned short loginPort_;
 	bool enableFeluccaSeason_;
@@ -109,7 +110,6 @@ protected:
 	bool enableLogin_;
 	unsigned short gamePort_;
 	bool enableGame_;
-	unsigned int playercorpsedecaymultiplier_;
 	bool lootdecayswithcorpse_;
 	float invisTimer_;
 	unsigned short skillDelay_;
@@ -241,7 +241,8 @@ public:
 	}
 	int niceLevel() const;
 	unsigned int itemDecayTime() const;
-	unsigned int corpseDecayTime() const;
+	unsigned int npcCorpseDecayTime() const;
+	unsigned int playerCorpseDecayTime() const;
 	unsigned char mountRange() const;
 	bool lootdecayswithcorpse() const;
 	float invisTimer() const;
@@ -472,9 +473,14 @@ inline unsigned int cConfig::itemDecayTime() const
 	return itemDecayTime_;
 }
 
-inline unsigned int cConfig::corpseDecayTime() const
+inline unsigned int cConfig::playerCorpseDecayTime() const
 {
-	return corpseDecayTime_;
+	return playerCorpseDecayTime_;
+}
+
+inline unsigned int cConfig::npcCorpseDecayTime() const
+{
+	return npcCorpseDecayTime_;
 }
 
 inline bool cConfig::lootdecayswithcorpse() const

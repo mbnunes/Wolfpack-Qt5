@@ -452,5 +452,12 @@ unsigned int cCorpse::decayDelay()
 		return 0;
 	}
 
-	return Config::instance()->corpseDecayTime() * MY_CLOCKS_PER_SEC;
+	// Player Corpse?
+	P_PLAYER player = dynamic_cast<P_PLAYER>(owner());
+
+	if (player) {
+		return Config::instance()->playerCorpseDecayTime() * MY_CLOCKS_PER_SEC;
+	} else {
+		return Config::instance()->npcCorpseDecayTime() * MY_CLOCKS_PER_SEC;
+	}
 }
