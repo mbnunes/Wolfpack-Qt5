@@ -34,8 +34,9 @@
 #include "target.h"
 #include "gump.h"
 
-/*!
-	Struct for WP Python Sockets
+/*
+	\object socket
+	\description This object represents a connected client.
 */
 typedef struct {
     PyObject_HEAD;
@@ -79,6 +80,10 @@ PyObject* PyGetSocketObject( cUOSocket *socket )
 	return Py_None;
 }
 
+/*
+	\method socket.disconnect
+	\description Disconnects this client from the server.
+*/
 static PyObject* wpSocket_disconnect(wpSocket* self, PyObject* args) {
 	Q_UNUSED(args);
 	self->pSock->socket()->close();
@@ -86,6 +91,13 @@ static PyObject* wpSocket_disconnect(wpSocket* self, PyObject* args) {
 	return Py_None;
 }
 
+/*
+	\method socket.sysmessage
+	\description Sends a sysmessage to the client.
+	\param message The message text. Unicode or ASCII.
+	\param color Defaults to 0x3b2. The message color.
+	\param font The message font. Defaults to 3.
+*/
 static PyObject* wpSocket_sysmessage(wpSocket* self, PyObject* args) {
 	char *message;
 	unsigned short color = 0x3b2;
@@ -103,6 +115,21 @@ static PyObject* wpSocket_sysmessage(wpSocket* self, PyObject* args) {
 	return Py_None;
 }
 
+/*
+	\method socket.clilocmessage
+	\description Sends a localized message to the client.
+	\param message The id of the localized message.
+	\param params The parameters that should be parsed into the localized message.
+	Defaults to an empty string.
+	\param color The color of the localized message. Defaults to 0x3b2.
+	\param font The font of the message. Defaults to 3.
+	\param source The source of the message. The message will be a system message if
+	this is None. Defaults to None.
+	\param affix A text that should be appended to the localized message. Defaults to an
+	empty string.
+	\param dontmove If true, the message will not move with the source. Defaults to false.
+	\param prepend If true, the affix will be prepended instead of appended.
+*/
 static PyObject* wpSocket_clilocmessage(wpSocket* self, PyObject* args) {
 	unsigned int clilocid;
 	char *params = 0;
@@ -142,6 +169,15 @@ static PyObject* wpSocket_clilocmessage(wpSocket* self, PyObject* args) {
 	return Py_None;
 }
 
+/*
+	\method socket.showspeech
+	\description Sends an advanced text message to this client.
+	\param source The source of the message. Should not be None.
+	\param message The text of the message. Unicode or ASCII.
+	\param color The color of the message. Defaults to 0x3b2.
+	\param font The font of the message. Defaults to 3.
+	\param type The message type. Defaults to 0.
+*/
 static PyObject* wpSocket_showspeech(wpSocket* self, PyObject* args) {
 	cUObject *object;
 	char *message;
@@ -162,6 +198,25 @@ static PyObject* wpSocket_showspeech(wpSocket* self, PyObject* args) {
 	return Py_None;
 }
 
+/*
+	\method socket.attachtarget
+	\description Send a target request to this client.
+	\param callback The full name (including the module) of a python function
+	that will be called when the client selects a target. The function needs
+	to have the following prototype (name may differ):
+	<code>def callback(player, arguments, target):
+	&nbsp;&nbsp;pass</code>
+	- <code>player</code> The <object id="CHAR">char</object> object of the player sending the target response.
+	- <code>arguments</code> The arguments passed to attachtarget. This is converted to a tuple.
+	- <code>target</code> A <object id="TARGET">target</object> object representing the target.
+	
+	\param args A list of arguments that are passed to the callback function. This defaults to an empty list.
+	\param cancelcallback The full name of a python function that should be called when the target is canceled. 
+	Defaults to an empty string.
+	\param timeoutcallback The full name of a python function that should be called when the target times out.
+	\param timeout The timeout of this target in miliseconds. Defaults to zero which means the target doesn't 
+	time out at all.
+*/
 static PyObject* wpSocket_attachtarget(wpSocket* self, PyObject* args) {
 	char *responsefunc;
 	PyObject *targetargs = 0;
