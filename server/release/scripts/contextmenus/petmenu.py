@@ -22,6 +22,10 @@ def onContextEntry(char, target, tag):
 	if (not char.gm and target.owner != char) or not target.tamed:
 		return 0
 
+	#check if can be controlled
+	if not checkPetControl(target, char, "", ""):
+		return 1
+		
 	if tag == 1: # Command: Kill
 		attack(char, target, 0)
 	elif tag == 2: # Command: Follow

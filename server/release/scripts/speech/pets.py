@@ -9,6 +9,44 @@
 
 from wolfpack.consts import *
 import wolfpack
+import random
+
+#check if the pet does follow the order 
+#Formula from http://uo.stratics.com/content/professions/taming/taming-lore.shtml#loyalty
+#return true if pet follow the order
+#false if the refuses to follow the order
+def checkPetControl(pet, char, text, keywords):
+	
+	#GMs can control everything
+	if char.gm:
+		return True
+	
+	if pet.mintaming <=291:
+		return True
+		
+	diff = pet.mintaming / 10.0
+	taming = char.skill[TAMING]
+	lore = char.skill[ANIMALLORE]
+	#Effective Taming=(Animal Taming * 4 + Animal Lore) / 5
+	effTaming = ( taming * 4 + lore) / 5
+	effTaming = effTaming / 10.0
+	
+	if diff > effTaming:
+		#Pet Control %=70 + 14 * (Effective Taming - Pet Difficulty) if efftaming < diff
+		chance = 70 + 14* (effTaming - diff)
+	else:
+		# Pet Control %=70 + 6 * (Effective Taming - Pet Difficulty) if efftaming > diff
+		chance = 70 + 6 * (effTaming - diff)
+		
+	if chance > 99:
+		chance = 99
+	if chance < 20:
+		chance = 20
+	
+	if random.randint(1,100) <= chance:
+		return True
+	else:
+		return False
 
 def stopfight(pet):
 	pet.attacktarget = None
@@ -168,7 +206,11 @@ def onSpeech(pet, char, text, keywords):
 	# Test Ownership / Allow GMs to control
 	if (pet.owner != char or not pet.tamed) and not char.gm:
 		return 0
-
+	
+	
+	#check if can be controlled
+	if not checkPetControl(pet,char, text, keywords):
+		return 1
 	# Test All
 	# Check for keywords
 	

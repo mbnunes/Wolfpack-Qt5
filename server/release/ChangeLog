@@ -102,6 +102,8 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added scripts for special books (learning special abilities).
   - Miners can dig sand if they learned it from a book (sandmining_book).
   - Implemented masonry.
+  - implemented Orneriness for pets (There is now a chance, that a pet do not follow their orders, based
+    on animal taming and animal lore of the owner)
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
