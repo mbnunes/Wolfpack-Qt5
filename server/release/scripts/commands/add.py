@@ -231,4 +231,6 @@ def onUnload():
 	- <code>add</code>
 	If neither a npc nor an item id is passed to the add command, a menu with all
 	categorized item and npc definitions is shown.
+	The menu is automatically generated from the definitions of items and NPCs
+	based on the <category> tag.
 """
