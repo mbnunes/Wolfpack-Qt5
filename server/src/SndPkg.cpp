@@ -47,6 +47,8 @@
 #include "combat.h"
 #include "regions.h"
 #include "srvparams.h"
+#include "network.h"
+#include "classes.h"
 
 #undef  DBGFILE
 #define DBGFILE "SndPkg.cpp"
@@ -306,6 +308,11 @@ void sysbroadcast(const char *txt) // System broadcast in bold text
 void sysmessage(UOXSOCKET s, const QString& txt)
 {
 	sysmessage(s, (char*)txt.latin1());
+}
+
+void sysmessage(UOXSOCKET s, short color, const QString& txt)
+{
+	sysmessage(s, color, (char*)txt.latin1());
 }
 
 void sysmessage(UOXSOCKET s, char *txt, ...) // System message (In lower left corner)

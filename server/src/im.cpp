@@ -40,6 +40,7 @@
 #include "wolfpack.h"
 #include "im.h"
 #include "debug.h"
+#include "network.h"
 
 #undef  DBGFILE
 #define DBGFILE "im.cpp"

@@ -39,6 +39,8 @@
 #include "guildstones.h"
 #include "regions.h"
 #include "srvparams.h"
+#include "network.h"
+#include "classes.h"
 
 // Library Includes
 #include "qdatetime.h"

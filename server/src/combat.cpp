@@ -42,6 +42,8 @@
 #include "guildstones.h"
 #include "combat.h"
 #include "srvparams.h"
+#include "classes.h"
+#include "network.h"
 
 #include "debug.h"
 #undef  DBGFILE

@@ -38,6 +38,7 @@
 #include "SndPkg.h"
 #include "debug.h"
 #include "regions.h"
+#include "mapstuff.h"
 
 #undef  DBGFILE
 #define DBGFILE "LoS.cpp"

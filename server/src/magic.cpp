@@ -46,6 +46,9 @@
 #include "guildstones.h"
 #include "regions.h"
 #include "srvparams.h"
+#include "classes.h"
+#include "mapstuff.h"
+#include "network.h"
 
 #undef DBGFILE
 #define DBGFILE "magic.cpp"

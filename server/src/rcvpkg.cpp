@@ -34,6 +34,7 @@
 #include "guildstones.h"
 #include "combat.h"
 #include "srvparams.h"
+#include "classes.h"
 
 #undef DBGFILE
 #define DBGFILE "rcvpkg.cpp"

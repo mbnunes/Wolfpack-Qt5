@@ -34,6 +34,10 @@
 #include "cmdtable.h"
 #include "sregions.h"
 #include "SndPkg.h"
+#include "classes.h"
+#include "utilsys.h"
+#include "network.h"
+#include "mapstuff.h"
 
 #undef  DBGFILE
 #define DBGFILE "commands.cpp"

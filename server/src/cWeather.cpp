@@ -29,11 +29,13 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#undef  DBGFILE
-#define DBGFILE "cweather.cpp"
 
 #include "wolfpack.h"
 #include "cweather.h"
+#include "network.h"
+
+#undef  DBGFILE
+#define DBGFILE "cweather.cpp"
 
 //using namespace ZThread;
 void cWeather::DoWeather(int s)

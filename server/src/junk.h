@@ -45,13 +45,13 @@ struct statcap_st
 
 #include "items.h"
 #include "chars.h"
-#include "classes.h"
+//#include "classes.h"
 //#include "guildstones.h"
-#include "gumps.h"
-#include "network.h"
+//#include "gumps.h"
+//#include "network.h"
 //#include "TmpEff.h"
 //#include "walking2.h"
-#include "mapstuff.h"
+//#include "mapstuff.h"
 
 //#include "books.h"
 //#include "speech.h"

@@ -35,6 +35,8 @@
 #include "debug.h"
 #include "verinfo.h"
 #include "srvparams.h"
+#include "utilsys.h"
+
 static long entries_e=0;
 static long entries_c=0;
 static long entries_w=0;

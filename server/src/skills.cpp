@@ -43,6 +43,9 @@
 #include "regions.h"
 #include "srvparams.h"
 #include "wpscriptmanager.h"
+#include "classes.h"
+#include "network.h"
+#include "mapstuff.h"
 
 #undef DBGFILE
 #define DBGFILE "skills.cpp"

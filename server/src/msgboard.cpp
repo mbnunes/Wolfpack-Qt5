@@ -40,7 +40,8 @@
 #include "SndPkg.h"
 #include "debug.h"
 #include "srvparams.h"
-
+#include "network.h"
+#include "utilsys.h"
 
 #undef  DBGFILE
 #define DBGFILE "msgboard.cpp"

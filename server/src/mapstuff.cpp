@@ -35,6 +35,7 @@
 #include "progress.h"
 #include "debug.h"
 #include "regions.h"
+#include "classes.h"
 
 #include <assert.h>
 

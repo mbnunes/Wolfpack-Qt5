@@ -34,6 +34,7 @@
 #include "debug.h"
 #include "regions.h"
 #include "srvparams.h"
+#include "classes.h"
 
 #undef  DBGFILE
 #define DBGFILE "p_ai.cpp"

@@ -40,6 +40,8 @@
 #include "srvparams.h"
 #include "menuactions.h"
 #include "wpdefmanager.h"
+#include "classes.h"
+#include "network.h"
 
 #include "debug.h"
 

@@ -33,6 +33,8 @@
 #include "worldmain.h"
 #include "globals.h"
 #include "junk.h"
+#include "mapstuff.h"
+#include "network.h"
 
 // Library Includes
 #include "qfile.h"

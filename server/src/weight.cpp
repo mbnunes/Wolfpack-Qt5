@@ -36,6 +36,7 @@
 
 #include "weight.h"
 #include "srvparams.h"
+#include "classes.h"
 
 #undef  DBGFILE
 #define DBGFILE "weight.cpp"

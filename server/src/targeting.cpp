@@ -42,6 +42,10 @@
 #include "wpdefmanager.h"
 #include "wpscriptmanager.h"
 #include "wptargetrequests.h"
+#include "mapstuff.h"
+#include "classes.h"
+#include "gumps.h"
+#include "network.h"
 
 #undef DBGFILE
 #define DBGFILE "targeting.cpp"

@@ -45,6 +45,9 @@
 #include "srvparams.h"
 #include "wpdefmanager.h"
 #include "wpdefaultscript.h"
+#include "mapstuff.h"
+#include "network.h"
+#include "classes.h"
 
 #undef  DBGFILE
 #define DBGFILE "items.cpp"

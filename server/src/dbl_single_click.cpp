@@ -37,6 +37,9 @@
 #include "dbl_single_click.h"
 #include "guildstones.h"
 #include "srvparams.h"
+#include "classes.h"
+#include "network.h"
+#include "gumps.h"
 
 #undef  DBGFILE
 #define DBGFILE "dbl_single_click.cpp"

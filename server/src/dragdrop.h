@@ -36,9 +36,8 @@
 #if !defined(AFX_DRAGDROP_H__AB350791_EF80_4406_ADE8_FF309B0849AD__INCLUDED_)
 #define AFX_DRAGDROP_H__AB350791_EF80_4406_ADE8_FF309B0849AD__INCLUDED_
 
-#if _MSC_VER >= 1000
-#pragma once
-#endif // _MSC_VER >= 1000
+#include "client.h"
+
 class cDragdrop;
 
 void equipItem( P_CHAR wearer, P_ITEM item );

@@ -37,6 +37,7 @@
 // V1.1 12-dec-1999 -> nasty bug fixed (item# used as "key" instead of serial#) and a few very small bugfixes
 
 #include "books.h"
+#include "network.h"
 
 #undef DBGFILE
 #define DBGFILE "books.cpp"

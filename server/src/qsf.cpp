@@ -30,7 +30,9 @@
 //========================================================================================
 
 #include "wolfpack.h"
+#include "mapstuff.h"
 #include "debug.h"
+
 #undef DBGFILE
 #define DBGFILE "qsf.cpp"
 

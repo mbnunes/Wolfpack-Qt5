@@ -37,9 +37,11 @@ using namespace std ;
 
 //Wolfpack Includes
 #include "network.h"
+#include "gumps.h"
 #include "walking2.h"
 #include "books.h"
 #include "srvparams.h"
+#include "classes.h"
 
 // Library Includes
 #include "qstringlist.h"
@@ -545,7 +547,9 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	unsigned char setseason[4]="\xBC\x00\x01";
 	unsigned char world[7]="\xBF\x00\x06\x00\x08\x00";
 
-	if (MapTileHeight<300) world[5]=0x02;
+	P_CHAR pc_currchar = currchar[s];
+
+	if (pc_currchar->pos.map == 2) world[5]=0x02;
 	Xsend(s, world, 6);
 
 	unsigned char features[3];
@@ -560,8 +564,6 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	perm[s]=1;
 	targetok[s]=0;	
 
-	P_CHAR pc_currchar = currchar[s];
-
 	LongToCharPtr(pc_currchar->serial, &startup[1]);
 	ShortToCharPtr(pc_currchar->id(), &startup[9]);
 	startup[11]=pc_currchar->pos.x>>8;
@@ -572,8 +574,11 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	startup[17]=pc_currchar->dir;
 	startup[28]=0;
 
-	if(pc_currchar->poisoned()) startup[28]=0x04; else startup[28]=0x00; //AntiChrist -- thnx to SpaceDog
-	pc_currchar->spiritspeaktimer=0;	// initially set spiritspeak timer to 0
+	if(pc_currchar->poisoned()) 
+		startup[28]=0x04; 
+	else 
+		startup[28]=0x00;
+	pc_currchar->spiritspeaktimer = 0;	// initially set spiritspeak timer to 0
 
 	pc_currchar->setStealth(-1);//AntiChrist
 	if (! (pc_currchar->isGMorCounselor())) pc_currchar->setHidden( 0 );//AntiChrist
@@ -596,9 +601,9 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	/// you can change 0x37 to your liking, but not to 0
 	/////////////////////////////////////////////////////////////////////
 
-	sysmessage(s, 0x37, "Welcome to %s !", SrvParams->serverList()[0].sServer.c_str());
-	sysmessage(s, 0x37, "Running on %s %s %s ", wp_version.productstring.c_str() , wp_version.betareleasestring.c_str() , wp_version.verstring.c_str() );
-	sysmessage(s, 0x37, "Current developers: %s",wp_version.codersstring.c_str() );
+	sysmessage(s, 0x37, tr(QString("Welcome to %1 !").arg(SrvParams->serverList()[0].sServer.c_str())));
+	sysmessage(s, 0x37, tr(QString("Running on %1 %2 %3 ").arg(wp_version.productstring.c_str()).arg(wp_version.betareleasestring.c_str()).arg(wp_version.verstring.c_str())) );
+	sysmessage(s, 0x37, tr(QString("Current developers: %1").arg(wp_version.codersstring.c_str())) );
 
 	pc_currchar->region=255;
 	checkregion(pc_currchar);

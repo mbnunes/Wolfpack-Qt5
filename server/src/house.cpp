@@ -36,9 +36,10 @@
 #include "iserialization.h"
 #include "regions.h"
 #include "srvparams.h"
-//#include "SndPkg.h"
-//#include "debug.h"
-//#include "utilsys.h"
+#include "mapstuff.h"
+#include "debug.h"
+#include "utilsys.h"
+#include "network.h"
 
 // System Include Files
 #include <algorithm>

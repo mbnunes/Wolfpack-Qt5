@@ -53,6 +53,7 @@
 #include "SndPkg.h"
 #include "worldmain.h"
 #include "srvparams.h"
+#include "network.h"
 
 #include <iostream>
 

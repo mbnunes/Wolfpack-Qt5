@@ -38,12 +38,6 @@
 #include "verinfo.h"
 #include <qdom.h>
 
-struct ip_block_st
-{
-	unsigned long address;
-	unsigned long mask;
-};
-
 // Foward declarations
 class QString;
 class QStringList;

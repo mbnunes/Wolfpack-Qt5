@@ -40,6 +40,9 @@
 #include "guildstones.h"
 #include "regions.h"
 #include "srvparams.h"
+#include "network.h"
+#include "classes.h"
+#include "mapstuff.h"
 
 #undef  DBGFILE
 #define DBGFILE "SrvParms.cpp"

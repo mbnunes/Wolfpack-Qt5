@@ -75,6 +75,13 @@ class cNetworkStuff;
 
 #include "typedefs.h"
 
+struct ip_block_st
+{
+	unsigned long address;
+	unsigned long mask;
+};
+
+
 class cNetworkStuff
 {
 public:

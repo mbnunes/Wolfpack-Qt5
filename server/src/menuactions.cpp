@@ -31,6 +31,7 @@
 
 #include "menuactions.h"
 #include "srvparams.h"
+#include "classes.h"
 
 // Library Includes
 #include "qdom.h"

@@ -40,6 +40,9 @@ History: None
 #include "SndPkg.h"
 #include "debug.h"
 #include "srvparams.h"
+#include "classes.h"
+#include "mapstuff.h"
+#include "network.h"
 
 #undef  DBGFILE
 #define DBGFILE "fishing.cpp"

@@ -38,6 +38,8 @@
 
 #include "telport.h"
 #include "regions.h"
+#include "network.h"
+#include "classes.h"
 
 #undef  DBGFILE
 #define DBGFILE "teleport.cpp"

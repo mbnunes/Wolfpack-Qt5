@@ -39,6 +39,7 @@ History: None
 #include "wolfpack.h"
 #include "SndPkg.h"
 #include "debug.h"
+#include "network.h"
 
 #undef  DBGFILE
 #define DBGFILE "necro.cpp"

@@ -44,6 +44,9 @@
 #include "srvparams.h"
 #include "wolfpack.h"
 #include "iserialization.h"
+#include "classes.h"
+#include "network.h"
+
 #include <algorithm>
 #include <typeinfo>
 

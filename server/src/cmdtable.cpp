@@ -53,6 +53,10 @@
 #include "debug.h"
 #include "regions.h"
 #include "srvparams.h"
+#include "network.h"
+#include "classes.h"
+#include "gumps.h"
+#include "mapstuff.h"
 
 // Library Includes
 #include "qdatetime.h"

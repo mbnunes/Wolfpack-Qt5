@@ -44,6 +44,9 @@
 #include "guildstones.h"
 #include "regions.h"
 #include "srvparams.h"
+#include "classes.h"
+#include "mapstuff.h"
+#include "network.h"
 
 #undef  DBGFILE
 #define DBGFILE "dragdrop.cpp"
@@ -70,32 +73,32 @@ typedef struct _PKGx08
 // Packs an item to a characters backpack *or* places it before his feets
 void itemToBackpack( P_CHAR owner, P_ITEM item )
 {
-		P_ITEM backpack = Packitem( owner );
-
-		item->setLayer( 0 );
-
-		// Pack it to the ground
-		if( !backpack )
-		{
-			item->setContSerial( INVALID_SERIAL );
-			item->moveTo( owner->pos );
-			//soundeffect3( item, 0x43 );
-			return;
-		}
-		// Or to the backpack
-		else
-		{
-			item->setContSerial( backpack->serial );
-
-			// Place it at a random position in our backpack
-			item->pos.x=50+(rand()%80);
-			item->pos.y=50+(rand()%80);
-			item->pos.z=9;
-			//soundeffect3( item, 0x57 );
-		}
-
-		// Recalc the weight( just to be sure )
-		Weight->NewCalc( owner );
+	P_ITEM backpack = Packitem( owner );
+	
+	item->setLayer( 0 );
+	
+	// Pack it to the ground
+	if( !backpack )
+	{
+		item->setContSerial( INVALID_SERIAL );
+		item->moveTo( owner->pos );
+		//soundeffect3( item, 0x43 );
+		return;
+	}
+	// Or to the backpack
+	else
+	{
+		item->setContSerial( backpack->serial );
+		
+		// Place it at a random position in our backpack
+		item->pos.x=50+(rand()%80);
+		item->pos.y=50+(rand()%80);
+		item->pos.z=9;
+		//soundeffect3( item, 0x57 );
+	}
+	
+	// Recalc the weight( just to be sure )
+	Weight->NewCalc( owner );
 }
 
 // Tries to equip an item

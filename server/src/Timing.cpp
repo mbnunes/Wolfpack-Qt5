@@ -39,6 +39,8 @@
 #include "combat.h"
 #include "regions.h"
 #include "srvparams.h"
+#include "classes.h"
+#include "network.h"
 
 // Library Includes
 #include "qdatetime.h"

@@ -43,6 +43,9 @@
 #include "regions.h"
 #include "wpdefmanager.h"
 #include "wpdefaultscript.h"
+#include "network.h"
+#include "classes.h"
+#include "mapstuff.h"
 
 #include <string>
 

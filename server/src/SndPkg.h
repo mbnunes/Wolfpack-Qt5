@@ -132,5 +132,6 @@ void PlayDeathSound( P_CHAR pc );
 void sysmessage(UOXSOCKET s, char *txt, ...); // System message (In lower left corner);
 void sysmessage(UOXSOCKET s, short color, char *txt, ...);
 void sysmessage(UOXSOCKET s, const QString& txt);
+void sysmessage(UOXSOCKET s, short color, const QString&);
 
 #endif

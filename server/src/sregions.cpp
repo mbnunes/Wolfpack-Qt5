@@ -37,6 +37,8 @@
 //
 #include "sregions.h"
 #include "srvparams.h"
+#include "mapstuff.h"
+#include "network.h"
 
 #undef  DBGFILE
 #define DBGFILE "sregions.cpp"

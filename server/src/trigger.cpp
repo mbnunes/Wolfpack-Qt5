@@ -55,6 +55,10 @@
 
 #include "trigger.h"
 #include "regions.h"
+#include "mapstuff.h"
+#include "classes.h"
+#include "network.h"
+#include "gumps.h"
 
 #undef  DBGFILE
 #define DBGFILE "trigger.cpp"

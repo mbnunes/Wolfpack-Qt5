@@ -48,6 +48,9 @@
 #include "iserialization.h"
 #include "regions.h"
 #include "srvparams.h"
+#include "utilsys.h"
+#include "network.h"
+#include "mapstuff.h"
 
 // Inline members
 

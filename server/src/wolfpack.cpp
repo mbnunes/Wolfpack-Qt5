@@ -58,6 +58,10 @@
 #include "combat.h"
 #include "regions.h"
 #include "srvparams.h"
+#include "network.h"
+#include "classes.h"
+#include "mapstuff.h"
+#include "gumps.h"
 
 // new-style includes
 #include "wpdefmanager.h"

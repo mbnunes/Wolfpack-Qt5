@@ -35,6 +35,9 @@
 
 #include "boats.h"
 #include "regions.h"
+#include "mapstuff.h"
+#include "classes.h"
+#include "network.h"
 
 #undef DBGFILE
 #define DBGFILE "boats.cpp" 

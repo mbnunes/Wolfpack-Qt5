@@ -47,6 +47,8 @@
 #include "wolfpack.h"
 #include "iserialization.h"
 #include "worldmain.h"
+#include "gumps.h"
+#include "network.h"
 
 #undef  DBGFILE
 #define DBGFILE "guildstones.cpp"

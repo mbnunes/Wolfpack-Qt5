@@ -37,6 +37,7 @@
 #include "wolfpack.h"
 #include "regions.h"
 #include "debug.h"
+#include "mapstuff.h"
 
 #undef  DBGFILE
 #define DBGFILE "regions.cpp"

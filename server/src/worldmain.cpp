@@ -46,6 +46,9 @@
 #include "pfactory.h"
 #include "iserialization.h"
 #include "wolfpack.h"
+#include "utilsys.h"
+#include "mapstuff.h"
+#include "sregions.h"
 
 #undef  DBGFILE
 #define DBGFILE "worldmain.cpp"

@@ -39,6 +39,9 @@
 #include "Trade.h"
 #include "inlines.h"
 #include "srvparams.h"
+#include "classes.h"
+#include "network.h"
+
 
 #undef  DBGFILE
 #define DBGFILE "Trade.cpp"

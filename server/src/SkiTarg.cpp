@@ -41,6 +41,9 @@
 #include "combat.h"
 #include "regions.h"
 #include "srvparams.h"
+#include "classes.h"
+#include "mapstuff.h"
+#include "network.h"
 
 #undef DBGFILE
 #define DBGFILE "skiTarg.cpp"
