@@ -10,7 +10,7 @@ ContainerIterator::ContainerIterator(const cItem *item) : content(item->content(
 }
 
 ContainerCopyIterator::ContainerCopyIterator(const cItem *item) : pos(0) {
-	content = ContainerContent(item->content());
+	content = item->content();
 }
 
 QString ContainerContent::dump() {

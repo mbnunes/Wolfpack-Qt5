@@ -65,8 +65,8 @@ cUObject::~cUObject()
 	{
 		if ( isScriptChainFrozen() )
 		{
-			unsigned int count = reinterpret_cast<unsigned int>( scriptChain[0] );
-			for ( unsigned int i = 1; i <= count; ++i )
+			size_t count = reinterpret_cast<size_t>( scriptChain[0] );
+			for ( size_t i = 1; i <= count; ++i )
 			{
 				QCString* str = reinterpret_cast<QCString*>( scriptChain[i] );
 				delete str;
@@ -82,7 +82,7 @@ cUObject::cUObject( const cUObject& src ) : cDefinable(src), cPythonScriptable(s
 	// Copy Events
 	if ( src.scriptChain )
 	{
-		unsigned int count = reinterpret_cast<unsigned int>( src.scriptChain[0] );
+		size_t count = reinterpret_cast<size_t>( src.scriptChain[0] );
 		scriptChain = new cPythonScript * [count + 1];
 		memcpy( scriptChain, src.scriptChain, ( count + 1 ) * sizeof( cPythonScript * ) );
 	}
@@ -162,7 +162,7 @@ void cUObject::load( char** result, Q_UINT16& offset )
 	name_ = ( result[offset] == 0 ) ? QString::null : QString::fromUtf8( result[offset] );
 	offset++;
 	serial_ = atoi( result[offset++] );
-	multi_ = reinterpret_cast<cMulti*>( atoi( result[offset++] ) );
+	multi_ = reinterpret_cast<cMulti*>( static_cast<size_t>(atoi(result[offset++])) );
 	pos_.x = atoi( result[offset++] );
 	pos_.y = atoi( result[offset++] );
 	pos_.z = atoi( result[offset++] );
@@ -301,8 +301,8 @@ void cUObject::clearScripts()
 
 		if ( frozen && myChain )
 		{
-			unsigned int count = reinterpret_cast<unsigned int>( myChain[0] );
-			for ( unsigned int i = 1; i <= count; ++i )
+			size_t count = reinterpret_cast<size_t>( myChain[0] );
+			for ( size_t i = 1; i <= count; ++i )
 			{
 				QCString* str = reinterpret_cast<QCString*>( myChain[i] );
 				delete str;
@@ -329,9 +329,9 @@ bool cUObject::hasScript( const QCString &name )
 {
 	if ( scriptChain )
 	{
-		unsigned int count = reinterpret_cast<unsigned int>( scriptChain[0] );
+		size_t count = reinterpret_cast<size_t>( scriptChain[0] );
 
-		for ( unsigned int i = 1; i <= count; ++i )
+		for ( size_t i = 1; i <= count; ++i )
 		{
 			if ( scriptChain[i]->name() == name )
 				return true;
@@ -359,7 +359,7 @@ void cUObject::addScript( cPythonScript* event, bool append )
 	// Reallocate the ScriptChain
 	if ( scriptChain )
 	{
-		unsigned int count = reinterpret_cast<unsigned int>( *scriptChain );
+		size_t count = reinterpret_cast<size_t>( *scriptChain );
 
 		cPythonScript** newScriptChain = new cPythonScript* [count + 2];
 		if ( append || count == 0 )
@@ -407,9 +407,9 @@ void cUObject::removeScript( const QCString& name )
 
 	bool found = false;
 	if (scriptChain) {
-		unsigned int count = reinterpret_cast<unsigned int>( scriptChain[0] );
+		size_t count = reinterpret_cast<size_t>( scriptChain[0] );
 
-		for ( unsigned int i = 1; i <= count; ++i )
+		for ( size_t i = 1; i <= count; ++i )
 		{
 			if ( scriptChain[i]->name() == name )
 				found = true;
@@ -425,7 +425,7 @@ void cUObject::removeScript( const QCString& name )
 
 	if ( scriptChain )
 	{
-		unsigned int count = reinterpret_cast<unsigned int>( scriptChain[0] );
+		size_t count = reinterpret_cast<size_t>( scriptChain[0] );
 
 		if ( count == 1 )
 		{
@@ -438,7 +438,7 @@ void cUObject::removeScript( const QCString& name )
 			cPythonScript** newScriptChain = new cPythonScript*[count];
 			newScriptChain[0] = reinterpret_cast<cPythonScript*>( count - 1 );
 
-			for ( unsigned int i = 1; i <= count; ++i )
+			for ( size_t i = 1; i <= count; ++i )
 			{
 				if ( scriptChain[i]->name() != name )
 				{
@@ -990,8 +990,8 @@ void cUObject::freezeScriptChain()
 		return;
 	}
 
-	unsigned int count = reinterpret_cast<unsigned int>( scriptChain[0] );
-	for ( unsigned int i = 1; i <= count; ++i )
+	size_t count = reinterpret_cast<size_t>( scriptChain[0] );
+	for ( size_t i = 1; i <= count; ++i )
 	{
 		QCString* name = new QCString( scriptChain[i]->name() );
 		scriptChain[i] = reinterpret_cast<cPythonScript*>( name );
@@ -1006,11 +1006,11 @@ void cUObject::unfreezeScriptChain()
 		return;
 	}
 
-	unsigned int count = reinterpret_cast<unsigned int>( scriptChain[0] ) & ~0x80000000;
-	unsigned int pos = 1;
+	size_t count = reinterpret_cast<size_t>( scriptChain[0] ) & ~0x80000000;
+	size_t pos = 1;
 
 	scriptChain[0] = 0;	
-	for ( unsigned int i = 1; i <= count; ++i )
+	for ( size_t i = 1; i <= count; ++i )
 	{
 		QCString* name = reinterpret_cast<QCString*>( scriptChain[i] );
 		cPythonScript* script = ScriptManager::instance()->find( *name );
@@ -1037,7 +1037,7 @@ bool cUObject::isScriptChainFrozen()
 		return false;
 	}
 
-	unsigned int count = reinterpret_cast<unsigned int>( scriptChain[0] );
+	size_t count = reinterpret_cast<size_t>( scriptChain[0] );
 	return ( count & 0x80000000 ) != 0;
 }
 
@@ -1049,8 +1049,8 @@ QCString cUObject::scriptList() const
 	}
 
 	QCString result;
-	unsigned int count = reinterpret_cast<unsigned int>( scriptChain[0] );
-	for ( unsigned int i = 1; i <= count; ++i )
+	size_t count = reinterpret_cast<size_t>( scriptChain[0] );
+	for ( size_t i = 1; i <= count; ++i )
 	{
 		if ( i != count )
 		{
@@ -1074,7 +1074,7 @@ void cUObject::setScriptList( const QCString& eventlist )
 	}
 
 	QStringList events = QStringList::split( ",", eventlist );
-	unsigned int i = 1;
+	size_t i = 1;
 	QStringList::iterator it;
 
 	clearScripts();

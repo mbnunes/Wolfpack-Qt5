@@ -641,7 +641,7 @@ void cSpawnRegion::spawnSingleItem()
 		pItem->Init();
 		pItem->setSpawnregion(this);
 		pItem->setBaseid(id.latin1());
-		pItem->moveTo( pos );
+		pItem->moveTo( pos, true );
 
 		pItem->applyDefinition( parent ); // Apply the definition from the id first
 		pItem->applyDefinition( tag ); // Now apply the given tag

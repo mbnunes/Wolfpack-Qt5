@@ -799,13 +799,13 @@ bool cPythonScript::callChainedEventHandler( ePythonEvent event, cPythonScript**
 	if ( chain )
 	{
 		// Measure
-		unsigned int count = reinterpret_cast<unsigned int>( chain[0] );
+		size_t count = reinterpret_cast<size_t>( chain[0] );
 		cPythonScript** copy = new cPythonScript*[count];
-		for ( unsigned int j = 0; j < count; ++j )
+		for ( size_t j = 0; j < count; ++j )
 			copy[j] = chain[j + 1];
 
 		// Find a valid handler function
-		for ( unsigned int i = 0; i < count; ++i )
+		for ( size_t i = 0; i < count; ++i )
 		{
 			PyObject* result = copy[i]->callEvent( event, args );
 
@@ -835,13 +835,13 @@ PyObject* cPythonScript::callChainedEvent( ePythonEvent event, cPythonScript** c
 	if ( chain )
 	{
 		// Measure
-		unsigned int count = reinterpret_cast<unsigned int>( chain[0] );
+		size_t count = reinterpret_cast<size_t>( chain[0] );
 		cPythonScript** copy = new cPythonScript*[count];
-		for ( unsigned int j = 0; j < count; ++j )
+		for ( size_t j = 0; j < count; ++j )
 			copy[j] = chain[j + 1];
 
 		// Find a valid handler function
-		for ( unsigned int i = 0; i < count; ++i )
+		for ( size_t i = 0; i < count; ++i )
 		{
 			result = copy[i]->callEvent( event, args );
 
@@ -866,9 +866,9 @@ bool cPythonScript::canChainHandleEvent( ePythonEvent event, cPythonScript** cha
 
 	if ( event < EVENT_COUNT )
 	{
-		unsigned int count = reinterpret_cast<unsigned int>( *( chain++ ) );
+		size_t count = reinterpret_cast<size_t>( *( chain++ ) );
 
-		for ( unsigned int i = 0; i < count; ++i )
+		for ( size_t i = 0; i < count; ++i )
 		{
 			if ( chain[i]->canHandleEvent( event ) )
 			{

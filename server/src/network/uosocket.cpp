@@ -2247,7 +2247,7 @@ void cUOSocket::resendWorld( bool clean )
 	if ( !_player )
 		return;
 
-	// resend items
+	// resend items	
 	MapItemsIterator itemIt = MapObjects::instance()->listItemsInCircle( _player->pos(), _player->visualRange() );
 	for( P_ITEM item = itemIt.first(); item; item = itemIt.next() )
 	{
@@ -3009,11 +3009,11 @@ void cUOSocket::updateLightLevel()
 		cTerritory* region = Territories::instance()->region( _player->pos() );
 		if ( region && region->isCave() )
 		{
-			level = wpMax<UI08>( 0, Config::instance()->dungeonLightLevel() - static_cast<int>( _player->fixedLightLevel() ) );
+			level = wpMin<int>(0x1f, wpMax<int>( 0, Config::instance()->dungeonLightLevel() - static_cast<int>( _player->fixedLightLevel() ) ));
 		}
 		else
 		{
-			level = wpMax<UI08>( 0, Config::instance()->worldCurrentLevel() - static_cast<int>( _player->fixedLightLevel() ) );
+			level = wpMin<int>(0x1f, wpMax<int>( 0, Config::instance()->worldCurrentLevel() - static_cast<int>( _player->fixedLightLevel() ) ));
 		}
 		pLight.setLevel( level );
 		send( &pLight );

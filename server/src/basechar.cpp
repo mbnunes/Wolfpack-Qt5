@@ -205,7 +205,7 @@ void cBaseChar::load( cBufferedReader& reader, unsigned int version )
 	gender_ = reader.readByte();
 	propertyFlags_ = reader.readInt();
 	murdererSerial_ = reader.readInt();
-	guarding_ = reinterpret_cast<P_CHAR>( reader.readInt() ); // PostProcess
+	guarding_ = reinterpret_cast<P_CHAR>( static_cast<size_t>(reader.readInt()) ); // PostProcess
 	hitpointsBonus_ = reader.readShort();
 	staminaBonus_ = reader.readShort();
 	manaBonus_ = reader.readShort();
@@ -230,7 +230,7 @@ void cBaseChar::load( cBufferedReader& reader, unsigned int version )
 void cBaseChar::postload( unsigned int /*version*/ )
 {
 	// Resolve the guarding_ value.
-	SERIAL guarding = ( SERIAL ) guarding_;
+	SERIAL guarding = static_cast<SERIAL>( reinterpret_cast<size_t>( guarding_ ) );
 	guarding_ = 0;
 	setGuarding( World::instance()->findChar( guarding ) );
 }
@@ -2879,7 +2879,7 @@ bool cBaseChar::kill( cUObject* source )
 				corpse->addItem( item );
 			else
 			{
-				item->moveTo( pos_ );
+				item->moveTo( pos_, true );
 				item->update();
 			}
 		}

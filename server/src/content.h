@@ -27,18 +27,25 @@ friend class ContainerCopyIterator;
 
 private:
 	cItem **content;
+
+   	ContainerContent(const ContainerContent &src) {
+	}
 public:
-	ContainerContent(const ContainerContent &src) {
+
+	// Copy the content.
+	ContainerContent &operator =(const ContainerContent &src) {
 		// Copy content
 		if (!src.content) {
 			content = 0;
 		} else {
-			size_t count = src.maxCount() + 2; // How many slots
+			size_t count = src.maxCount(); // How many slots
 			content = new cItem* [count];
 			for (size_t i = 0; i < count; ++i) {
 				content[i] = src.content[i];
 			}
 		}
+
+		return *this;
 	}
 
 	ContainerContent() {

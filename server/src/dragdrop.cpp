@@ -617,7 +617,7 @@ void DragAndDrop::dropOnGround( cUOSocket* socket, P_ITEM pItem, const Coord& po
 	}
 
 	pItem->removeFromCont();
-	pItem->moveTo( pos );
+	pItem->moveTo( pos, true );
 	pItem->update();
 
 	// Play Sounds for non gold items
@@ -805,7 +805,7 @@ void DragAndDrop::dropOnItem( cUOSocket* socket, P_ITEM pItem, P_ITEM pCont, con
 	else
 	{
 		pItem->removeFromCont();
-		pItem->moveTo( pCont->pos() + Coord( 0, 0, 2 ) );
+		pItem->moveTo( pCont->pos() + Coord( 0, 0, 2 ), true );
 	}
 
 	pItem->update();

@@ -29,6 +29,10 @@ Wolfpack 12.9.13 Beta (CVS)
 	- Multis now have their own structure, and are now separate from items.
 	- Region calls now list online and offline chars in seperate lists.
 	- Implemented player collision stamina loss in Felucca.
+	- Fixed lightlevel calculation.
+	- Fixed the pythonscript* <-> integer conversion warnings by using size_t instead.
+	- Fixed adding items to the MapObjects.
+	- Fixed a bug in the new ContainerCopyIterator.
 
 Wolfpack 12.9.12 Beta (18. October 2004)
 	- Fixed a unix console error

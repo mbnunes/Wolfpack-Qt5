@@ -128,7 +128,7 @@ void cItem::toBackpack( P_CHAR pChar )
 	if ( !pPack )
 	{
 		removeFromCont();
-		moveTo( pChar->pos() );
+		moveTo( pChar->pos(), true );
 	}
 	// Or to the backpack
 	else
@@ -1099,7 +1099,7 @@ P_ITEM cItem::dupe()
 	}
 	else
 	{
-		nItem->moveTo( pos_ );
+		nItem->moveTo( pos_, true );
 	}
 	return nItem;
 }
@@ -1332,7 +1332,7 @@ void cItem::load( char** result, Q_UINT16& offset )
 	//  as it should be.
 	if ( containerSerial != INVALID_SERIAL )
 	{
-		container_ = reinterpret_cast<cUObject*>( containerSerial );
+		container_ = reinterpret_cast<cUObject*>( static_cast<size_t>(containerSerial) );
 		setUnprocessed( true );
 	}
 	// ugly optimization ends here.

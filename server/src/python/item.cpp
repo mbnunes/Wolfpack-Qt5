@@ -191,11 +191,11 @@ static PyObject* wpItem_moveto( wpItem* self, PyObject* args )
 {
 	// Gather parameters
 	Coord pos = self->pItem->pos();
-	uchar noRemove = 0;
+	uchar noRemove = 1; // otherwise it NEVER gets moved to the surface
 
 	if ( PyTuple_Size( args ) == 1 )
 	{
-		if ( !PyArg_ParseTuple( args, "O&|b:item.moveto(coord, [noremove=0])", &PyConvertCoord, &pos, &noRemove ) )
+		if ( !PyArg_ParseTuple( args, "O&|b:item.moveto(coord, [noremove=1])", &PyConvertCoord, &pos, &noRemove ) )
 		{
 			return 0;
 		}
@@ -1349,7 +1349,7 @@ static int wpItem_setAttr( wpItem* self, char* name, PyObject* value )
 		else
 		{
 			self->pItem->removeFromCont();
-			self->pItem->moveTo( self->pItem->pos() );
+			self->pItem->moveTo( self->pItem->pos(), true );
 		}
 	}
 	else
