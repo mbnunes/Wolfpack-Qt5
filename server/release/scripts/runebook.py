@@ -14,12 +14,14 @@ import whrandom
 def onUse( char, item ):
 	# char does not have it and distance > 2
 	if( char.distanceto( item ) > 2 and item.getoutmostchar() != char ):
-		char.socket.sysmessage( "You are too far away to use it." )
+		# "Target cannot be seen."
+		char.socket.clilocmessage( 502400 )
 		return 1
 
 	# check use delay
 	if item.hastag( "dclickdelay" ):
-		char.socket.sysmessage( "The runebook needs time to recharge" )
+		# "This book needs time to recharge."
+		char.socket.clilomessage( 502403 )
 		return 1
 
 	sendGump( char, item )
@@ -52,6 +54,9 @@ def onDropOnItem( book, item ):
 		i = i + 1
 	# runebook is full
 	if( i > 15 ):
+		# can we access the char.socket ?
+		# "This runebook is full."
+		#char.socket.clilocmessage( 502401 )
 		return 0
 	book.settag( "rune %i" % i, item.serial )
 	# insert rune - is runebook a container ?
@@ -233,14 +238,17 @@ def callback( char, args, target ):
 
 	# distance check
 	if( char.distanceto( item ) > 2 and item.getoutmostchar() != char ):
-		char.socket.sysmessage( "You are too far away to use it." )
+		char.socket.clilocmessage( 502400 )
 		return 1
 
 	button = int( target.button )
 
 	# rename book
 	if( button == 1000 ):
-		char.socket.sysmessage( "runebook button %i" % button )
+		# "Please enter a title for the runebook:"
+		char.socket.clilocmessage( 502414 )
+		# how do we request input and catch the response ?
+		char.socket.sysmessage( "not implemented yet - will be added." )
 		return 1
 	runes = [ -1 ] * 16
 	for i in range( 0, 16 ):
@@ -253,19 +261,22 @@ def callback( char, args, target ):
 	# selected rune number
 	runenum = ( button - 1 ) % 100
 	if( runenum < 0 or runenum > 15 ):
-		char.socket.sysmessage( "Canceled." )
+		# "Request cancelled."
+		char.socket.clilocmessage( 502415 )
 		return 1
 
 	# there's no rune
 	if( runes[ runenum ] < 0 ):
-		char.socket.sysmessage( "there's no recall rune at the location." )
+		# "This place in the book is empty."
+		char.socket.clilocmessage( 502411 )
 		return 1
 
 	# recall button - using charges : 1 - 16
 	if( button > 0 and button < 17 ):
 		charges = item.gettag( "charges" )
 		if( charges < 1 ):
-			char.socket.sysmessage( "This book has no charges." )
+			# "There are no charges left on that item."
+			char.socket.clilocmessage( 502412 )
 		else:
 			# recall to the rune
 			# char action / power word
@@ -311,7 +322,7 @@ def recall0( self, args ):
 	y = rune.gettag( "target_y" )
 	z = rune.gettag( "target_z" )
 	map = rune.gettag( "target_map" )
-	# check the spot if anything blocks there or is valid location
+	# check the spot if anything blocks or is valid location
 	char.soundeffect( 0x1fd )
 	char.removefromview()
 	# AoS : now we can recall between the worlds
@@ -333,6 +344,9 @@ def recall1( self, args ):
 		char.socket.sysmessage( "runebook script error." )
 		return 1
 	# cast spell
+	if( char.mana < 11 ):
+		char.socket.sysmessage( )
+		return 1
 	char.soundeffect( 0x1fd )
 	char.socket.sysmessage( "not implemented yet." )
 	return 1
