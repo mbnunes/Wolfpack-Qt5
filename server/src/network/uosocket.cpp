@@ -1309,143 +1309,149 @@ void cUOSocket::handleTarget( cUORxTarget *packet )
 */
 void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 {
+	// If we dont set any serial the attack is rejected
+	cUOTxAttackResponse attack;
+
 	P_CHAR pc_i = FindCharBySerial( packet->serial() );
-	if(pc_i == 0) 
-		return;
-	
-	if(_player->dead)//AntiChrist stuff
+	if( !pc_i ) 
 	{
-		if(SrvParams->persecute())
-		{//start persecute stuff - AntiChrist
+		send( &attack );
+		return;
+	}
+
+	// No Fighting in jail
+	if( _player->cell > 0 )
+	{
+		sysMessage( tr( "There is no fighting in the jail cells!" ) );
+		send( &attack );
+		return;
+	}
+
+	// Player is dead
+	if( _player->dead )
+	{
+		if( SrvParams->persecute() )
+		{
 			_player->targ = pc_i->serial;
-			if(_player->targ == INVALID_SERIAL) 
-				return;
-			else 
-				Skills->Persecute(this);
-			return;
+			if( _player->targ != INVALID_SERIAL ) 
+				Skills->Persecute( this );
 		} 
 		else
-		{
-			sysMessage(tr("You are dead and cannot do that."));
-			return;
-		}
-	}
-	if(_player->cell > 0)
-	{
-		sysMessage(tr("There is no fighting in the jail cells!"));
+			sysMessage( tr( "You are dead and cannot do that." ) );
+
+		send( &attack );
 		return;
 	}
 
-	if(!_player->dead)
+	// Attacking ghosts is not possible
+	if( pc_i->dead || pc_i->hp <= 0 )
 	{
-		_player->targ = pc_i->serial;
-		_player->unhide();
-		_player->disturbMed();
+		sysMessage( tr( "That person is already dead!" ) );
+		send( &attack );
+		return;
+	}
 
-		
-		if(pc_i->dead || pc_i->hp <= 0)//AntiChrist
+	// Playervendors are invulnerable
+	if( pc_i->npcaitype() == 17 ) 
+	{
+		sysMessage( tr( "%1 cannot be harmed." ).arg( pc_i->name.c_str() ) );
+		send( &attack );
+		return;
+	}
+
+	_player->targ = pc_i->serial;
+	_player->unhide();
+	_player->disturbMed();
+
+	// Accept the attack
+	attack.setSerial( pc_i->serial );
+	send( &attack );
+
+	// NPC already has a target
+	if( pc_i->targ != INVALID_SERIAL )
+	{
+		pc_i->attacker = _player->serial;
+		pc_i->resetAttackFirst();
+	}
+
+	_player->setAttackFirst();
+	_player->attacker = pc_i->serial;
+
+	_player->dir = chardir(_player, pc_i);	// turn to attacker, LB (& Duke)
+
+	updatechar(_player);
+
+	// The person being attacked is guarded by pets ?
+	if( pc_i->guarded() )
+	{
+		RegionIterator4Chars cIter( pc_i->pos );
+		for( cIter.Begin(); !cIter.atEnd(); cIter++ )
 		{
-			sysMessage(tr("That person is already dead!"));
-			return;
+			P_CHAR toCheck = cIter.GetData();
+			if( pc_i->Owns( toCheck ) && toCheck->npcaitype() == 32 && toCheck->inRange( _player, 10 ) )
+				npcattacktarget( toCheck, _player );
+				// This was: npcattacktarget( _player, toCheck );
+		}
+	}
+
+	if( pc_i->inGuardedArea() && SrvParams->guardsActive() )
+	{
+		if( pc_i->isPlayer() && pc_i->isInnocent() && GuildCompare( _player, pc_i ) == 0 ) //REPSYS
+		{
+			criminal( _player );
+			Combat->SpawnGuard( _player, pc_i, _player->pos );
+		}
+		else if( pc_i->isNpc() && pc_i->isInnocent() && !pc_i->isHuman() && pc_i->npcaitype() != 4 )
+		{
+			criminal( _player );
+			Combat->SpawnGuard( _player, pc_i, _player->pos );
+		}
+		else if( pc_i->isNpc() && pc_i->isInnocent() && pc_i->isHuman() && pc_i->npcaitype() != 4 )
+		{
+			pc_i->talk( "Help! Guards! I've been attacked!" );
+			criminal( _player );
+			callguards(pc_i);
+		}
+		else if( pc_i->isNpc() && pc_i->npcaitype() == 4 )
+		{
+			criminal( _player );
+			npcattacktarget( pc_i, _player );
+		}
+		else if ((pc_i->isNpc() || pc_i->tamed()) && !pc_i->war && pc_i->npcaitype() != 4) // changed from 0x40 to 4, cauz 0x40 was removed LB
+		{
+			npcToggleCombat(pc_i);
+			pc_i->setNextMoveTime();
+		}
+		else
+		{
+			pc_i->setNextMoveTime();
 		}
 		
-		if (pc_i->npcaitype() == 17)//PlayerVendors
+		QString message = tr("*You see %1 attacking %2!").arg(_player->name.c_str()).arg(pc_i->name.c_str());
+		for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
 		{
-			sysMessage(tr("%1 cannot be harmed.").arg(pc_i->name.c_str()));
-			return;
-		}
-		
-		SndAttackOK(toOldSocket(this), pc_i->serial);	//keep the target highlighted       
-		if (pc_i->targ != INVALID_SERIAL)
-		{
-			pc_i->attacker = _player->serial;
-			pc_i->resetAttackFirst();
-		}
-		_player->setAttackFirst();
-		_player->attacker = pc_i->serial;
- 
-		_player->dir = chardir(_player, pc_i);	// turn to attacker, LB (& Duke)
-
-		updatechar(_player);
-
-		if( pc_i->guarded() )
-		{
-			AllCharsIterator iter_char;
-			for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
+			if(this->inRange(s) && s != this) 
 			{
-				P_CHAR toCheck = iter_char.GetData();
-				if (pc_i->Owns(toCheck) && toCheck->npcaitype() == 32 && chardist( _player, toCheck )<= 10 )
-				{
-					npcattacktarget( _player, toCheck );
-				}
+				pc_i->emotecolor = 0x0026;
+				npcemote(toOldSocket(s), _player, message.latin1(), 1);
 			}
 		}
-
-		if (pc_i->inGuardedArea() && SrvParams->guardsActive())
+	}
+	else // not a guarded area
+	{
+		if( pc_i->isInnocent() )
 		{
-			if (pc_i->isPlayer() && pc_i->isInnocent() && GuildCompare( _player, pc_i ) == 0 ) //REPSYS
+			if( pc_i->isPlayer() && GuildCompare( _player, pc_i ) == 0 )
 			{
 				criminal( _player );
-				Combat->SpawnGuard(_player, pc_i ,_player->pos.x,_player->pos.y,_player->pos.z);
 			}
-			else if( pc_i->isNpc() && pc_i->isInnocent() && !pc_i->isHuman() && pc_i->npcaitype() != 4 )
-			{
-				criminal( _player );
-				Combat->SpawnGuard(_player, pc_i, _player->pos.x,_player->pos.y,_player->pos.z);
-			}
-			else if( pc_i->isNpc() && pc_i->isInnocent() && pc_i->isHuman() && pc_i->npcaitype() != 4 )
-			{
-				npctalkall(pc_i, "Help! Guards! I've been attacked!", 1);
-				criminal( _player );
-				callguards(pc_i);
-			}
-			else if( pc_i->isNpc() && pc_i->npcaitype() == 4)
+			else if( pc_i->isNpc() )
 			{
 				criminal( _player );
 				npcattacktarget(pc_i, _player);
-			}
-			else if ((pc_i->isNpc() || pc_i->tamed()) && !pc_i->war && pc_i->npcaitype() != 4) // changed from 0x40 to 4, cauz 0x40 was removed LB
-			{
-				npcToggleCombat(pc_i);
-				pc_i->setNextMoveTime();
-			}
-			else
-			{
-				pc_i->setNextMoveTime();
-			}
-			
-			QString message = tr("*You see %1 attacking %2!").arg(_player->name.c_str()).arg(pc_i->name.c_str());
-			for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
-			{
-				if(this->inRange(s) && s != this) 
-				{
-					pc_i->emotecolor = 0x0026;
-					npcemote(toOldSocket(s), _player, message.latin1(), 1);
-				}
-			}
-		}
-		else	// not a guarded area
-		{
-			if (pc_i->isInnocent())
-			{
-				if (pc_i->isPlayer() && GuildCompare( _player, pc_i )==0)
-				{
-					criminal( _player );
-				}
-				else if (pc_i->isNpc() && pc_i->tamed())
-				{
-					criminal( _player );
-					npcattacktarget(pc_i, _player);
-				}
-				else if (pc_i->isNpc())
-				{
-					criminal( _player );
-					npcattacktarget(pc_i, _player);
-					if (pc_i->isHuman() )
-					{
-						npctalkall(pc_i, "Help! Guards! Tis a murder being commited!", 1);
-					}
-				}
+
+				if( !pc_i->tamed() && pc_i->isHuman() )
+					pc_i->talk( tr( "Help! Guards! Tis a murder being commited!" ) );
 			}
 		}
 	}

@@ -33,11 +33,13 @@
 #define __COMBAT_H__
 
 #include "typedefs.h"
+class Coord_cl;
+class cUOSocket;
 
 class cCombat
 {
 private:
-	void ItemCastSpell(UOXSOCKET s, P_CHAR pc, P_ITEM pi);
+	void ItemCastSpell( P_CHAR pAttacker, P_CHAR pDefender, P_ITEM pItem );
 	int TimerOk(P_CHAR pc);
 	void ItemSpell(cChar* Attacker, cChar* Defender);
 	void doSoundEffect(P_CHAR pc, int fightskill, P_ITEM pWeapon);//AntiChrist
@@ -52,7 +54,7 @@ public:
 	void CombatHitCheckLoS(P_CHAR pAttacker, unsigned int currenttime);
 	void CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int currenttime, short los);
 	void DoCombat(P_CHAR pc_attacker, unsigned int currenttime);
-	void SpawnGuard( P_CHAR pc_offender, P_CHAR pc_caller, int x, int y, signed char z);
+	void SpawnGuard( P_CHAR pc_offender, P_CHAR pc_caller, const Coord_cl &pos );
 };
 
 #endif // __COMBAT_H__

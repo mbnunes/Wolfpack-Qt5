@@ -318,11 +318,12 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 	UOXSOCKET s = calcSocketFromChar(pc);//Only calc socket once!
 
 	Magic->CheckFieldEffects2(currenttime, pc, 1);//Lag fix
-	if (!pc->dead && pc->swingtarg() == -1 )
-		Combat->DoCombat(pc, currenttime);
-	else if(!pc->dead && (pc->swingtarg()>=0 && pc->timeout<=currenttime))
-		Combat->CombatHitCheckLoS(pc, currenttime);
+	if( !pc->dead && pc->swingtarg() == -1 )
+		Combat->DoCombat( pc, currenttime );
+	else if( !pc->dead && ( pc->swingtarg() >= 0 && pc->timeout <= currenttime ) )
+		Combat->CombatHitCheckLoS( pc, currenttime );
 
+	// Guess it was taken out because of traffic-concerns ?
 /*	if (wtype==1 && raindroptime<=currenttime && !noweather[s]) // implment. of xuri's raindrop idea, LB
 	{
 		switch(rand()%3)

@@ -31,6 +31,7 @@
 
 #include "commands.h"
 #include "globals.h"
+#include "classes.h"
 #include "tilecache.h"
 #include "gumps.h"
 #include "wpconsole.h"
@@ -365,6 +366,37 @@ public:
 		else if( ( key == "amount" ) && pItem && ( hex2dec( value ).toULong() > 0 ) )
 			pItem->setAmount( hex2dec( value ).toULong() );			
 
+		// Str Dex Int
+		else if( key == "str" )
+			if( pChar )
+			{
+				pChar->st = hex2dec( value ).toInt();
+				for( UINT8 i = 0; i < ALLSKILLS; ++i )
+					Skills->updateSkillLevel( pChar, i );
+			}
+			else
+				pItem->st = hex2dec( value ).toInt();
+
+		else if( key == "dex" )
+			if( pChar )
+			{
+				pChar->setDex( hex2dec( value ).toInt() );
+				for( UINT8 i = 0; i < ALLSKILLS; ++i )
+					Skills->updateSkillLevel( pChar, i );
+			}
+			else
+				pItem->dx = hex2dec( value ).toInt();
+
+		else if( key == "int" )
+			if( pChar )
+			{
+				pChar->in = hex2dec( value ).toInt();
+				for( UINT8 i = 0; i < ALLSKILLS; ++i )
+					Skills->updateSkillLevel( pChar, i );
+			}
+			else
+				pItem->in = hex2dec( value ).toInt();
+
 		// Object tags
 		else if( key.left( 4 ) == "tag." )
 		{
@@ -380,8 +412,24 @@ public:
 		// Unknown Tag
 		else
 		{
-			socket->sysMessage( tr( "Unknown key '%1'" ).arg( key ) );
-			return;
+			bool found = false;
+
+			if( pChar )
+			for( UINT8 i = 0; i < ALLSKILLS; ++i )
+				if( key.upper() == skillname[i] )
+				{
+					pChar->setBaseSkill( i, hex2dec( value ).toInt() );
+					Skills->updateSkillLevel( pChar, i );
+					found = true;
+					break;
+				}
+
+
+			if( !found )
+			{
+				socket->sysMessage( tr( "Unknown key '%1'" ).arg( key ) );
+				return;
+			}
 		}
 
 		if( pChar )
@@ -822,6 +870,101 @@ void commandInfo( cUOSocket *socket, const QString &command, QStringList &args )
 	socket->attachTarget( new cInfoTarget );
 }
 
+class cShowTarget: public cTargetRequest
+{
+private:
+	QString key;
+public:
+	cShowTarget( const QString _key ) { key = _key; }
+	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		// Check for a valid target
+		cUObject *pObject;
+		P_ITEM pItem = FindItemBySerial( target->serial() );
+		P_CHAR pChar = FindCharBySerial( target->serial() );
+		if( !pChar && !pItem )
+			return;
+
+		if( pChar )
+			pObject = pChar;
+		else
+			pObject = pItem;
+
+		QString result;
+
+		if( key == "name" )
+			if( pItem )
+				result = pItem->name();
+			else
+				result = pChar->name.c_str();
+		
+		else if( ( key == "title" ) )
+			result = pChar->title();
+
+		else if( ( key == "str" ) )
+			if( pChar )
+				result = QString( "%1" ).arg( pChar->st );
+			else 
+				result = QString( "%1" ).arg( pItem->st );
+
+		else if( ( key == "dex" ) )
+			if( pChar )
+				result = QString( "%1" ).arg( pChar->effDex() );
+			else 
+				result = QString( "%1" ).arg( pItem->dx );
+
+		else if( ( key == "int" ) )
+			if( pChar )
+				result = QString( "%1" ).arg( pChar->in );
+			else 
+				result = QString( "%1" ).arg( pItem->in );
+
+		else if( key == "pos" )
+			result = QString( "%1,%2,%3,%4" ).arg( pObject->pos.x ).arg( pObject->pos.y ).arg( pObject->pos.z ).arg( pObject->pos.plane );
+
+		else if( key == "color" )
+			if( pItem )
+				result = QString( "0x%1" ).arg( pItem->color(), 0, 16 );
+			else if( pChar )
+				result = QString( "0x%1" ).arg( pChar->skin(), 0, 16 );
+
+		else if( key == "skin" )
+		{
+			if( pChar )
+				result = QString( "0x%1" ).arg( pChar->skin(), 0, 16 );
+		}
+
+		// Check if key was a skillname
+		else 
+		{
+			bool found = false;
+
+			if( pChar )
+			for( UINT8 i = 0; i < ALLSKILLS; ++i )
+				if( key.upper() == skillname[i] )
+				{
+					result = QString( "%1" ).arg( pChar->baseSkill( i ) );
+					found = true;
+					break;
+				}
+
+			if( !found )
+			{
+				socket->sysMessage( tr( "Unknown key '%1'" ).arg( key ) );
+				return;
+			}
+		}
+
+		socket->sysMessage( tr( "'%1' is '%2'" ).arg( key ).arg( result ) );
+	}
+};
+
+void commandShow( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	socket->sysMessage( tr( "Please select a target" ) );
+	socket->attachTarget( new cShowTarget( args.join( " " ) ) );
+}
+
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
@@ -837,6 +980,7 @@ stCommand cCommands::commands[] =
 	{ "WHERE", commandWhere },
 	{ "FIX", commandFix },
 	{ "INFO", commandInfo },
+	{ "SHOW", commandShow },
 	{ "SET", commandSet },
 	{ NULL, NULL }
 };

@@ -1694,17 +1694,14 @@ void callguards( P_CHAR pc_player )
 		return;
 
 	cRegion::RegionIterator4Chars ri(pc_player->pos);
-	for (ri.Begin(); !ri.atEnd(); ri++)
+	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{
 		P_CHAR pc = ri.GetData();
-		if (pc != NULL)
+		if( pc )
 		{
-			if( chardist( pc_player, pc ) < 15 )
+			if( !pc->dead && !pc->isInnocent() && pc_player->inRange( pc, 14 ) )
 			{
-				if( !pc->dead && !pc->isInnocent() )
-				{
-					Combat->SpawnGuard( pc, pc, pc->pos.x, pc->pos.y, pc->pos.z );
-				}
+				Combat->SpawnGuard( pc, pc, pc->pos );
 			}
 		}
 	}
@@ -2738,7 +2735,7 @@ char indungeon(P_CHAR pc)
 	return 0;
 }
 
-void npcattacktarget(P_CHAR attacker, P_CHAR defender)
+void npcattacktarget( P_CHAR attacker, P_CHAR defender )
 {
 	if (attacker == defender) return;
 	if (attacker == NULL || defender == NULL) return;
@@ -2749,7 +2746,7 @@ void npcattacktarget(P_CHAR attacker, P_CHAR defender)
 	if( !lineOfSight( attacker->pos, defender->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) )
 		return;
 
-	playmonstersound(defender, defender->id(), SND_STARTATTACK);
+	playmonstersound( defender, defender->id(), SND_STARTATTACK );
 	int i;
 	unsigned int cdist=0 ;
 
@@ -2782,28 +2779,37 @@ void npcattacktarget(P_CHAR attacker, P_CHAR defender)
 	attacker->unhide();
 	attacker->disturbMed();
 
-	if (defender->isNpc())
+	if( defender->isNpc() )
 	{
-		if (!(defender->war))
-			npcToggleCombat(defender);
+		if( !( defender->war ) )
+			npcToggleCombat( defender );
 		defender->setNextMoveTime();
 	}
-	if ((attacker->isNpc())&&!(attacker->npcaitype()==4)) // changed from 0x40 to 4, LB
+	
+	if( ( attacker->isNpc() ) && !( attacker->npcaitype() == 4 ) ) // changed from 0x40 to 4, LB
 	{
-		if (!(attacker->war))
+		if ( !( attacker->war ) )
 			npcToggleCombat(attacker);
+
 		attacker->setNextMoveTime();
 	}
 	
-	sprintf((char*)temp, "You see %s attacking %s!", attacker->name.c_str(), defender->name.c_str());
+	// Send a message to the defender
+	if( defender->socket() )
+	{
+		QString message = tr( "You see %1 attacking you!" ).arg( attacker->name.c_str() );
+		defender->socket()->showSpeech( attacker, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
+	}
 
-	for (i=0;i<now;i++)
-		{
-		 if (inrange1p(currchar[i], defender)&&perm[i])
-		 {
-			  defender->emotecolor = 0x0026;
-			  npcemote(i, attacker, (char*)temp,1);
-		 }
+	QString emote = tr( "You see %1 attacking %2" ).arg( attacker->name.c_str() ).arg( defender->name.c_str() );
+
+	RegionIterator4Chars cIter( attacker->pos );
+	for( cIter.Begin(); !cIter.atEnd(); cIter++ )
+	{
+		P_CHAR pChar = cIter.GetData();
+
+		if( pChar && pChar->socket() && pChar->inRange( attacker, pChar->VisRange ) )
+			pChar->socket()->showSpeech( attacker, emote, 0x26, 3, cUOTxUnicodeSpeech::Emote );
 	}
 }
 
@@ -2885,7 +2891,7 @@ void getSextantCords(signed int x, signed int y, bool t2a, char *sextant)
 
 }
 
-void npcsimpleattacktarget(P_CHAR attacker, P_CHAR defender)
+void npcsimpleattacktarget( P_CHAR attacker, P_CHAR defender )
 {
 	if (attacker == NULL || defender == NULL) return;
 	if (attacker == defender) return;
@@ -4887,21 +4893,20 @@ void enlist(UOXSOCKET s, UI32 listnum) // listnum is stored in items morex
 	}
 }
 
-void criminal(P_CHAR pc)//Repsys ....Ripper
+void criminal(P_CHAR pc) //Repsys
 {
-	if (pc == NULL)
+	if( !pc )
 		return;
-	if (pc->isGMorCounselor())
+
+	if( pc->isGMorCounselor() )
 		return;
-	if ((pc->isPlayer())&&!(pc->isCriminal() || pc->isMurderer()))
-	{//Not an npc, not grey, not red
-		
+
+	if( pc->isPlayer() && !pc->isCriminal() || pc->isMurderer() )
+	{ //Not an npc, not grey, not red	
 		 pc->setCrimflag((SrvParams->crimtime()*MY_CLOCKS_PER_SEC)+uiCurrentTime);
-		 //printw(" Seeting Crimflag to %d \n",chars[c].crimflag) ;
-		 sysmessage(calcSocketFromChar(pc),"You are now a criminal!");
-		 setcharflag(pc);
-		 if(pc->inGuardedArea() && SrvParams->guardsActive())//guarded
-			Combat->SpawnGuard( pc, pc, pc->pos.x,pc->pos.y,pc->pos.z); // LB bugfix
+		 if( pc->socket() )
+			 pc->socket()->sysMessage( tr( "You are now a criminal!" ) );
+		 setcharflag( pc );
 	}
 }
 

@@ -2572,7 +2572,7 @@ void cSkills::updateSkillLevel(P_CHAR pc, int s)
 		*(1000-pc->baseSkill(s)))/1000+pc->baseSkill(s);
 	
 		
-	pc->setSkill(s, QMAX(static_cast<unsigned int>(pc->baseSkill(s)), static_cast<unsigned int>(temp)));
+	pc->setSkill( s, QMAX( static_cast<unsigned int>(pc->baseSkill(s)), static_cast<unsigned int>(temp) ) );
 }
 
 void cSkills::TDummy(int s)
@@ -2824,20 +2824,22 @@ void cSkills::Meditation(UOXSOCKET s) // Morrolan - meditation(int socket)
 	}
 }
 
-//AntiChrist - 5/11/99
-//
-//If you are a ghost and attack a player, you can PERSECUTE him
-//and his mana decreases each time you try to persecute him
-//decrease=3+(your int/10)
-//
-void cSkills::Persecute ( cUOSocket* socket ) //AntiChrist - persecute stuff
+// If you are a ghost and attack a player, you can PERSECUTE him
+// and his mana decreases each time you try to persecute him
+// decrease=3+(your int/10)
+void cSkills::Persecute ( cUOSocket* socket )
 {
 	P_CHAR pc_currchar = socket->player();
+
+	if( !pc_currchar )
+		return;
+
 	P_CHAR target = FindCharBySerial(pc_currchar->targ);
 
-	if (target->isGM()) return;
+	if( target->isGM() )
+		return;
 
-	int decrease=(pc_currchar->in/10)+3;
+	int decrease = ( pc_currchar->in / 10 ) + 3;
 
 	if((pc_currchar->skilldelay<=uiCurrentTime) || pc_currchar->isGM())
 	{
@@ -2870,12 +2872,12 @@ void cSkills::Persecute ( cUOSocket* socket ) //AntiChrist - persecute stuff
 		} 
 		else
 		{
-			socket->sysMessage(tr("Your mind is not strong enough to disturb the enemy."));
+			socket->sysMessage( tr( "Your mind is not strong enough to disturb the enemy." ) );
 		}
 	} 
 	else
 	{
-		socket->sysMessage(tr("You are unable to persecute him now...rest a little..."));
+		socket->sysMessage( tr( "You are unable to persecute him now...rest a little..." ) );
 	}
 }
 

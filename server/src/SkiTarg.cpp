@@ -1479,8 +1479,13 @@ void cSkills::ProvocationTarget2(UOXSOCKET s)
 		PlayInstrumentWell(s, inst);
 		if (CheckSkill((Player), PROVOCATION, 0, 1000))
 		{
-			if (Player->inGuardedArea())
-				Combat->SpawnGuard(Player, Player, Player->pos.x+1,Player->pos.y,Player->pos.z); //ripper
+			if( Player->inGuardedArea() )
+			{
+				Coord_cl cPos = Player->pos;
+				cPos.x++;
+				Combat->SpawnGuard( Player, Player, cPos );
+			}
+
 			sysmessage(s, tr("Your music succeeds as you start a fight.") );
 		}
 		else 

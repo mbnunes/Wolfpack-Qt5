@@ -1993,3 +1993,19 @@ void cChar::makeShop( void )
 		}
 	}
 }
+
+// Send the changed health-bar to all sockets in range
+void cChar::updateHealth( void )
+{
+	RegionIterator4Chars cIter( pos );
+	for( cIter.Begin(); !cIter.atEnd(); cIter++ )
+	{
+		P_CHAR pChar = cIter.GetData();
+
+		// Send only if target can see us
+		if( !pChar || !pChar->socket() || !pChar->inRange( this, pChar->VisRange ) || ( isHidden() && pChar->isGM() ) )
+			continue;
+	
+		pChar->socket()->updateHealth( this );
+	}
+}

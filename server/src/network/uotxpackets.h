@@ -774,4 +774,20 @@ public:
 	void setCurrent( UINT16 data ) { setShort( 7, data ); }
 };
 
+// 0xAA AttackResponse
+class cUOTxAttackResponse: public cUOPacket
+{
+public:
+	cUOTxAttackResponse(): cUOPacket( 0xAA, 5 ) {}
+	void setSerial( UINT32 data ) { setInt( 1, data ); }
+};
+
+// 0x72 Warmode
+class cUOTxWarmode: public cUOPacket
+{
+public:
+	cUOTxWarmode(): cUOPacket( 0x72, 5 ) { rawPacket[3] = 0x33; }
+	void setStatus( UINT8 data ) { rawPacket[1] = data; }
+};
+
 #endif

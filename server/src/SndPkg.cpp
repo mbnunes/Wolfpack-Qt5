@@ -191,10 +191,10 @@ void action(int s, int x) // Character does a certain action
 	for (i=0;i<now;i++) if ((inrange1(s, i))&&(perm[i])) { Xsend(i, doact, 14); }
 }
 
-void npcaction(P_CHAR pc_npc, int x) // NPC character does a certain action
+void npcaction( P_CHAR pc_npc, int x ) // NPC character does a certain action
 {
 	int i;
-	if ( pc_npc == NULL )
+	if ( !pc_npc )
 		return;
 
 	LongToCharPtr(pc_npc->serial, &doact[1]);

@@ -40,6 +40,7 @@
 #include "trigger.h"
 #include "utilsys.h"
 #include "guildstones.h"
+#include "regions.h"
 #include "combat.h"
 #include "srvparams.h"
 #include "classes.h"
@@ -77,59 +78,69 @@ int cCombat::GetBowType(P_CHAR pc)
 	return 0;
 }
 
-void cCombat::ItemCastSpell(UOXSOCKET s, P_CHAR pc, P_ITEM pi)//S=Socket c=Char # Target i=Item //Itemid
+void cCombat::ItemCastSpell( P_CHAR pAttacker, P_CHAR pDefender, P_ITEM pItem )
 {
-	if(!pi) return;
-	P_CHAR pc_currchar = currchar[s];
-	unsigned short int spellnum=((pi->morex*8)-8)+pi->morey;
-	unsigned short int tempmana=pc_currchar->mn;//Save their mana so we can give it back.
-	unsigned short int tempmage=pc_currchar->skill(MAGERY);//Easier than writing new functions for all these spells
+	if( !pAttacker || !pDefender || !pItem )
+		return;
 
-	if(pi->type() != 15 || pi->morez<=0 ) return;
+	UINT16 spellnum = ( ( pItem->morex * 8 ) - 8 ) + pItem->morey;
+	UINT16 tempmana = pAttacker->mn; //Save their mana so we can give it back.
+	UINT16 tempmage = pAttacker->skill( MAGERY ); //Easier than writing new functions for all these spells
+
+	if( pItem->type() != 15 || pItem->morez <= 0 )
+		return;
 	
-	switch(spellnum)
+	switch( spellnum )
 	{
-	case 1:  Magic->ClumsySpell(pc_currchar,pc);		break;
-	case 3:  Magic->FeebleMindSpell(pc_currchar,pc);	break;
-	case 5:	 Magic->MagicArrow(pc_currchar,pc);			break;
-	case 8:  Magic->WeakenSpell(pc_currchar,pc);		break;
-	case 18: Magic->FireballSpell(pc_currchar,pc);		break;
-	case 22: Magic->HarmSpell(pc_currchar,pc);			break;
-	case 27: Magic->CurseSpell(pc_currchar,pc);			break;
-	case 30: Magic->LightningSpell(pc_currchar,pc);		break;
-	case 37: Magic->MindBlastSpell(pc_currchar,pc);		break;
-	case 38: Magic->ParalyzeSpell(pc_currchar,pc);		break;
-	case 42: Magic->EnergyBoltSpell(pc_currchar,pc);	break;
-	case 43: Magic->ExplosionSpell(pc_currchar,pc);		break;
-	case 51: Magic->FlameStrikeSpell(pc_currchar,pc);	break;
+	case 1:  Magic->ClumsySpell( pAttacker, pDefender );		break;
+	case 3:  Magic->FeebleMindSpell( pAttacker, pDefender );	break;
+	case 5:	 Magic->MagicArrow( pAttacker, pDefender );			break;
+	case 8:  Magic->WeakenSpell( pAttacker, pDefender );		break;
+	case 18: Magic->FireballSpell( pAttacker, pDefender );		break;
+	case 22: Magic->HarmSpell( pAttacker, pDefender );			break;
+	case 27: Magic->CurseSpell( pAttacker, pDefender );			break;
+	case 30: Magic->LightningSpell( pAttacker, pDefender );		break;
+	case 37: Magic->MindBlastSpell( pAttacker, pDefender );		break;
+	case 38: Magic->ParalyzeSpell( pAttacker, pDefender );		break;
+	case 42: Magic->EnergyBoltSpell( pAttacker, pDefender );	break;
+	case 43: Magic->ExplosionSpell( pAttacker, pDefender );		break;
+	case 51: Magic->FlameStrikeSpell( pAttacker, pDefender );	break;
 	default:
-		staticeffect(pc_currchar, 0x37, 0x35, 0, 30);
-		soundeffect2(pc_currchar, 0x005C);
+		staticeffect( pAttacker, 0x37, 0x35, 0, 30 );
+		pAttacker->soundEffect( 0x5C );
 		break;
 	}
-	pc_currchar->mn+=tempmana;
-	pc_currchar->setSkill(MAGERY, tempmage);
-	if(pc_currchar->in<pc_currchar->mn) pc_currchar->mn=pc_currchar->in;//Shouldn't happen, but just in case;
-	updatestats(pc_currchar, 1);
+
+	pAttacker->mn += tempmana;
+	pAttacker->setSkill( MAGERY, tempmage );
 	
-	pi->morez--;
-	if(pi->morez==0)//JUST lost it's charge....
-		sysmessage(s, tr("This item is out of charges."));
+	if( pAttacker->in < pAttacker->mn )
+		pAttacker->mn = pAttacker->in;
+	
+	pItem->morez--;
+
+	if( pAttacker->socket() )
+	{
+		pAttacker->socket()->updateMana();
+
+		if( pItem->morez == 0 )
+			pAttacker->socket()->sysMessage( tr( "This item is out of charges." ) );
+	}
 }
 
-void CheckPoisoning(UOXSOCKET sd, P_CHAR pc_attacker, P_CHAR pc_defender)
+void CheckPoisoning( cUOSocket *socket, P_CHAR pc_attacker, P_CHAR pc_defender)
 {
-	if ((pc_attacker->poison())&&(pc_defender->poisoned() < pc_attacker->poison()))
+	if( pc_attacker->poison() && ( pc_defender->poisoned() < pc_attacker->poison() ) )
 	{
-		if (rand()%3==0) // || fightskill==FENCING)//0 1 or 2 //fencing always poisons :) - AntiChrist
+		if( rand()%3 == 0 ) // || fightskill==FENCING)//0 1 or 2 //fencing always poisons :) - AntiChrist
 		{
 			pc_defender->setPoisoned(pc_attacker->poison());
 			pc_defender->setPoisontime(uiCurrentTime+(MY_CLOCKS_PER_SEC*(40/pc_defender->poisoned()))); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
 			pc_defender->setPoisonwearofftime(pc_defender->poisontime()+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer())); //wear off starts after poison takes effect - AntiChrist
-			if (sd != -1) 
+			if( socket )
 			{
-				impowncreate(sd, pc_defender, 1); //Lb, sends the green bar ! 
-				sysmessage(sd, tr("You have been poisoned!"));//AntiChrist 
+				socket->updatePlayer();
+				socket->sysMessage( tr("You have been poisoned!" ) );
 			}
 		}
 	}
@@ -148,14 +159,11 @@ void cCombat::CombatHitCheckLoS(P_CHAR pAttacker, unsigned int currenttime)
 }
 
 // CombatHit now expects that LineOfSight has been checked before (Duke, 10.7.2001)
-void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int currenttime, short los)
+void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int currenttime, short los )
 {
-	char hit;
-
-	if (pc_deffender == NULL || pc_attacker == NULL)
+	if( !pc_defender || !pc_attacker )
 		return;
 
-	UOXSOCKET s1=calcSocketFromChar(pc_attacker), s2=calcSocketFromChar(pc_deffender);
 	unsigned short fightskill = Skills->GetCombatSkill(pc_attacker), bowtype = Combat->GetBowType(pc_attacker),splitnum,splitcount,hitin;
 	unsigned int basedamage;
 	int damage; // removed from unsigne by Magius(CHE)
@@ -164,107 +172,117 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 	int maxabs, maxnohabs, tmpj;
 
 
-	P_ITEM pWeapon=pc_attacker->getWeapon();// get the weapon item only once
+	P_ITEM pWeapon = pc_attacker->getWeapon(); // get the weapon item only once
 
-	if (pWeapon && !(rand()%50)	// a 2 percent chance (Duke, 07.11.2000)
-		&& pWeapon->type() !=9)	// but not for spellbooks (Duke, 09/10/00)
+	if( pWeapon && !( rand() % 50 )	// a 2 percent chance
+		&& pWeapon->type() !=9)	// but not for spellbooks
 	{
 		pWeapon->setHp( pWeapon->hp() - 1 ); //Take off a hit point
 		if( pWeapon->hp() <= 0 )
 		{
-			sysmessage(s1, tr("Your weapon has been destroyed"));
-			if ( ( pWeapon->trigon == 1 ) && ( pWeapon->layer() > 0 ) )// -Frazurbluu- Trigger Type 2 is my new trigger type *-
-			{
-				Trig->triggerwitem(s1, pWeapon, 1); // trigger is fired when item destroyed
-			}				
-			Items->DeleItem(pWeapon);
+			pc_attacker->message( tr( "Your weapon has been destroyed" ) );
+			Items->DeleItem( pWeapon );
 		}
 	}
 
-	// End here - Magius(CHE) - For armour absorbtion system
-	pc_attacker->setSwingTarg(-1);
+	pc_attacker->setSwingTarg( -1 );
+	if( ( chardist( pc_attacker, pc_defender ) > 1 && fightskill != ARCHERY ) || !los )
+		return;
 
-	if((chardist(pc_attacker, pc_deffender)>1 && fightskill!=ARCHERY) || !los) return;
-	if(pc_deffender->isNpc() && pc_deffender->isInvul()) return; // ripper
+	if( pc_defender->isInvul() ) 
+		return;
 
-
-	hit=Skills->CheckSkill(pc_attacker, fightskill, 0, 1000);  // increase fighting skill for attacker and defender
-	if (!hit)
+	bool hit = Skills->CheckSkill( pc_attacker, fightskill, 0, 1000 );  // increase fighting skill for attacker and defender
+	
+	// MISS
+	if( !hit )
 	{
-		if (pc_attacker->isPlayer())
-			doMissedSoundEffect(pc_attacker);
-		if ((fightskill==ARCHERY)&&(los))
+		if( pc_attacker->isPlayer() )
+			doMissedSoundEffect( pc_attacker );
+
+		if( ( fightskill == ARCHERY ) && ( los ) )
 		{
-			if (rand()%3-1)//-1 0 or 1
+			if( RandomNum( 1, 3 ) == 3 ) // 1/3 chance
 			{
-				short id=0x1BFB;	// bolts
-				if (bowtype==1)
+				short id = 0x1BFB;	// bolts
+				if( bowtype == 1 )
 					id=0x0F3F;		// arrows
 
-				P_ITEM pAmmo=Items->SpawnItem(pc_deffender,1,"#",1,id,0,0);
-				if(pAmmo)
+				P_ITEM pAmmo = Items->SpawnItem( pc_defender, 1, "#", 1, id, 0, 0);
+				if( pAmmo )
 				{
-					pAmmo->moveTo(pc_deffender->pos);
+					pAmmo->moveTo( pc_defender->pos );
 					pAmmo->priv=1;
-					RefreshItem(pAmmo);
+					pAmmo->update();
 				}
 			}
 		}
 	}
+	// on Hit
 	else
 	{
-		if (!pc_deffender->isInvul())
-		{
-			if (pc_deffender->xid==0x0191) soundeffect2(pc_deffender,0x014b);
-			else if (pc_deffender->xid==0x0190) soundeffect2(pc_deffender,0x0156);
-			playmonstersound(pc_deffender, pc_deffender->id(), SND_DEFEND);
-			//AntiChrist -- for poisoned weapons
-			if((pWeapon) && (pWeapon->poisoned>0))
-			{
-				   pc_deffender->setPoisoned(pWeapon->poisoned);
-				   pc_deffender->setPoisontime(uiCurrentTime+(MY_CLOCKS_PER_SEC*(40/pc_deffender->poisoned()))); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
-			       pc_deffender->setPoisonwearofftime(pc_deffender->poisontime()+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer())); //wear off starts after poison takes effect - AntiChrist
-			}
-			CheckPoisoning(s2, pc_attacker, pc_deffender);	// attacker poisons defender
-			CheckPoisoning(s1, pc_deffender, pc_attacker); // and vice versa
-
-			if ((pc_deffender->effDex()>0)) pc_deffender->priv2&=0xFD;	// unfreeze
-
-			if (fightskill!=WRESTLING && los)
-				Combat->ItemSpell(pc_attacker, pc_deffender);
+		// ==== HIT SOUNDS
+		if( pc_defender->id() == 0x191 )
+			pc_defender->soundEffect( 0x14b );
+		else if( pc_defender->id() == 0x190 ) 
+			pc_defender->soundEffect( 0x156 );
+		else	
+			playmonstersound( pc_defender, pc_defender->id(), SND_DEFEND );
 			
-			if (fightskill!=WRESTLING || pc_attacker->isNpc())
-				basedamage=Combat->CalcAtt(pc_attacker); // Calc base damage
-			else
-			{
-				if ((pc_attacker->skill(WRESTLING)/100) > 0) 
-				{
-					basedamage = rand()%(pc_attacker->skill(WRESTLING)/100);
-				}
-				else 
-					basedamage=rand()%2;
-			}
+		// ==== POISONING
+		if( pWeapon && ( pWeapon->poisoned > 0 ) )
+		{
+			   pc_defender->setPoisoned( pWeapon->poisoned );
+			   pc_defender->setPoisontime( uiCurrentTime + ( MY_CLOCKS_PER_SEC * ( 40 / pc_defender->poisoned() ) ) ); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs
+		       pc_defender->setPoisonwearofftime( pc_defender->poisontime() + ( MY_CLOCKS_PER_SEC * SrvParams->poisonTimer() ) ); //wear off starts after poison takes effect
+		}
 
-			if((pc_attacker->isPlayer()) && (fightskill!=WRESTLING))
-			{ 
-				if (pWeapon->racehate() != 0 && pc_deffender->race != 0)//-Fraz- Racehating combat
+		CheckPoisoning( pc_defender->socket(), pc_attacker, pc_defender ); // attacker poisons defender
+		CheckPoisoning( pc_attacker->socket(), pc_defender, pc_attacker ); // and vice versa
+
+		// ==== UNFREEZE
+		if( ( pc_defender->effDex() > 0 ) )
+			pc_defender->priv2 &= 0xFD;
+
+		// ==== ENCHANTED ITEMS
+		if( ( fightskill != WRESTLING ) && los)
+				Combat->ItemSpell( pc_attacker, pc_defender );
+			
+		if( ( fightskill != WRESTLING ) || pc_attacker->isNpc() )
+			basedamage=Combat->CalcAtt(pc_attacker); // Calc base damage
+		else if( ( pc_attacker->skill( WRESTLING ) / 100 ) > 0 )
+		{
+			basedamage = rand()%(pc_attacker->skill(WRESTLING)/100);
+		}
+		else 
+			basedamage = rand() % 2;
+		}
+
+		if( pc_attacker->isPlayer() && ( fightskill != WRESTLING ) )
+		{ 
+			if (pWeapon->racehate() != 0 && pc_defender->race != 0)	//-Fraz- Racehating combat
+			{
+				if (pWeapon->racehate() == pc_defender->race)
 				{
-					if (pWeapon->racehate() == pc_deffender->race)
+					basedamage *=2;
+					if( pc_defender->isPlayer() )
 					{
-						basedamage *=2;
-							if(pc_deffender->isPlayer())
-							{
-								sysmessage(s2, tr("You scream in agony from being hit by the accursed metal!"));
-								if (pc_deffender->xid == 0x0191) soundeffect2(pc_deffender,0x0152);
-								else if (pc_deffender->xid==0x0190) soundeffect2(pc_deffender,0x0157);
-							}// can add a possible effect below here for npc's being hit
-					}
-							
-				}
+						if( pc_defender->socket() )
+							pc_defender->socket()->sysMessage( tr( "You scream in agony from being hit by the accursed metal!" ) );
+
+						if( pc_defender->id() == 0x191 )
+							pc_defender->soundEffect( 0x152 );
+						else if( pc_defender->id() == 0x190 )
+							pc_defender->soundEffect( 0x157 );
+
+					}	// can add a possible effect below here for npc's being hit
+				}		
 			}
-			Skills->CheckSkill(pc_attacker, TACTICS, 0, 1000);
-			damage=(int)(basedamage*((pc_attacker->skill(TACTICS)+500.0)/1000.0)); // Add Tactical bonus
-			damage=damage+(int)((basedamage*(pc_attacker->st/500.0))); // Add Strength bonus
+		}
+
+		Skills->CheckSkill( pc_attacker, TACTICS, 0, 1000 );
+		damage=(int)(basedamage*((pc_attacker->skill(TACTICS)+500.0)/1000.0)); // Add Tactical bonus
+		damage=damage+(int)((basedamage*(pc_attacker->st/500.0))); // Add Strength bonus
 
 			//Adds a BONUS DAMAGE for ANATOMY
 			//Anatomy=100 -> Bonus +20% Damage - AntiChrist (11/10/99)
@@ -275,12 +293,12 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 			}
 			//Adds a BONUS DEFENCE for TACTICS
 			//Tactics=100 -> Bonus -20% Damage - AntiChrist (11/10/99)
-			float multiplier=1-(((pc_deffender->skill(TACTICS)*20)/1000.0f)/100.0f);
+			float multiplier=1-(((pc_defender->skill(TACTICS)*20)/1000.0f)/100.0f);
 			damage=(int)  (damage * multiplier);
-			P_ITEM pShield=pc_deffender->getShield();
+			P_ITEM pShield=pc_defender->getShield();
 			if(pShield)
 			{
-				if (Skills->CheckSkill(pc_deffender, PARRYING, 0, 1000))// chance to block with shield
+				if (Skills->CheckSkill(pc_defender, PARRYING, 0, 1000))// chance to block with shield
 				{
 					if (pShield->def!=0) damage-=rand()%(pShield->def);// damage absorbed by shield
 					if( rand() % 2 ) 
@@ -288,15 +306,13 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 
 					if( pShield->hp() <= 0 )
 					{
-						sysmessage(s2, tr("Your shield has been destroyed"));
-						if ( ( pShield->trigon == 1 ) && ( pShield->layer() > 0 ) )// -Frazurbluu- Trigger Type 2 is my new trigger type *-
-						{
-							Trig->triggerwitem(s2, pShield, 1); // trigger is fired when item destroyed
-						}	
+						if( pc_defender->socket() )
+							pc_defender->socket()->sysMessage( tr( "Your shield has been destroyed" ) );
 						Items->DeleItem(pShield);
 					}
 				}
 			}
+
 			// Armor destruction and sped up by hitting with maces should go in here somewhere 
 			// According to lacation of body hit Id imagine -Frazurbluu- **NEEDS ADDED**
 			x=rand()%100;// determine area of body hit
@@ -311,7 +327,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 			}
 			else
 			{
-				temp[0] = '\0';
+				QString cMessage;
 				hitin = rand()%2;
 				if (x<=44)
 				{
@@ -320,16 +336,16 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 					{
 					case 1:
 						//later take into account dir facing attacker during battle
-						if (damage < 10) strcpy(temp, "hits you in your Chest!");
-						else if (damage >=10) strcpy(temp, "lands a terrible blow to your Chest!");
+						if (damage < 10)		cMessage = "hits you in your Chest!";
+						else if (damage >=10)	cMessage = "lands a terrible blow to your Chest!";
 						break;
 					case 2:
-						if (damage < 10) strcpy(temp, "lands a blow to your Stomach!");
-						else if (damage >=10) strcpy(temp, "knocks the wind out of you!");
+						if (damage < 10)		cMessage = "lands a blow to your Stomach!";
+						else if (damage >=10)	cMessage = "knocks the wind out of you!";
 						break;
 					default:
-						if (damage < 10) strcpy(temp, "hits you in your Ribs!");
-						else if (damage >=10) strcpy(temp, "broken your Rib?!");
+						if (damage < 10)		cMessage = "hits you in your Ribs!";
+						else if (damage >=10)	cMessage = "has broken your Rib?!";
 					}
 				}
 				else if (x<=58)
@@ -339,9 +355,9 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 						x=2;  // arms
 						switch (hitin)
 						{
-						case 1:	strcpy(temp, "hits you in Left Arm!");	break;
-						case 2:	strcpy(temp, "hits you in Right Arm!");	break;
-						default:strcpy(temp, "hits you in Right Arm!");
+						case 1:		cMessage = tr( "hits you in Left Arm!" );	break;
+						case 2:		cMessage = tr( "hits you in Right Arm!" );	break;
+						default:	cMessage = tr( "hits you in Right Arm!" );
 						}
 					}
 				}
@@ -351,16 +367,16 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 					switch (hitin)
 					{
 					case 1:
-						if (damage < 10) strcpy(temp, "hits you you straight in the Face!");
-						else if (damage >=10) strcpy(temp, "lands a stunning blow to your Head!");
+						if (damage < 10)		cMessage = "hits you you straight in the Face!";
+						else if (damage >=10)	cMessage = "lands a stunning blow to your Head!";
 						break;
 					case 2:
-						if (damage < 10) strcpy(temp, "hits you to your Head!"); //kolours - (09/19/98)
-						else if (damage >=10) strcpy(temp, "smashed a blow across your Face!");
+						if (damage < 10)		cMessage = "hits you to your Head!";
+						else if (damage >=10)	cMessage = "smashed a blow across your Face!";
 						break;
 					default:
-						if (damage < 10) strcpy(temp, "hits you you square in the Jaw!");
-						else if (damage >=10) strcpy(temp, "lands a terrible hit to your Temple!");
+						if (damage < 10)		cMessage = "hits you you square in the Jaw!";
+						else if (damage >=10)	cMessage = "lands a terrible hit to your Temple!";
 					}
 				}
 				else if (x<=86) 
@@ -368,15 +384,15 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 					x=4;  // legs
 					switch (hitin)
 					{
-					case 1:	strcpy(temp, "hits you in Left Thigh!");	break;
-					case 2:	strcpy(temp, "hits you in Right Thigh!");	break;
-					default:strcpy(temp, "hits you in Groin!");
+					case 1:		cMessage = "hits you in Left Thigh!";	break;
+					case 2:		cMessage = "hits you in Right Thigh!";	break;
+					default:	cMessage = "hits you in Groin!";
 					}
 				}
 				else if (x<=93)
 				{
 					x=5;  // neck
-					strcpy(temp, "hits you to your Throat!");
+					cMessage = "hits you to your Throat!";
 				}
 				else
 				{
@@ -384,71 +400,76 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 					switch (hitin)
 					{
 					case 1:
-						if (damage > 1) strcpy(temp, tr("hits you in Left Hand!").latin1());
+						if (damage > 1) cMessage = tr("hits you in Left Hand!");
 						break;
 					case 2:
-						if (damage > 1) strcpy(temp, tr("hits you in Right Hand!").latin1());
+						if (damage > 1) cMessage = tr("hits you in Right Hand!");
 						break;
 					default:
-						if (damage > 1) strcpy(temp, tr("hits you in Right Hand!").latin1());
+						if (damage > 1) cMessage = tr("hits you in Right Hand!");
 					}
 				}
 
-				sprintf((char*)temp2,"%s %s",pc_attacker->name.c_str(), temp);
-				if (pc_deffender->isPlayer() && s2!=-1) sysmessage(s2, (char*)temp2); //kolours -- hit display
+				if( pc_defender->socket() )
+					pc_defender->socket()->sysMessage( QString( "%1 %2" ).arg( pc_defender->name.c_str() ).arg( cMessage ) );
 			}
-			x = CalcDef(pc_deffender,x);
+
+			x = CalcDef( pc_defender, x );
 			
 			// Magius(CHE) - For armour absorbtion system
 			maxabs = 20; //
-			           // there are monsters with DEF >20, this makes them undefeatable
-			maxnohabs=100;
-			if (SrvParams->maxAbsorbtion() > 0)
+						 // there are monsters with DEF >20, this makes them undefeatable
+			maxnohabs = 100;
+			
+			if( SrvParams->maxAbsorbtion() > 0 )
 			{
 				maxabs = SrvParams->maxAbsorbtion();
 			}
+
 			if (SrvParams->maxnohabsorbtion() > 0)
 			{
 				maxnohabs = SrvParams->maxnohabsorbtion();
 			}		
-			if (!ishuman(pc_deffender)) maxabs=maxnohabs;
+
+			if (!ishuman(pc_defender)) maxabs=maxnohabs;
 			tmpj=(int) (damage*x)/maxabs; // Absorbtion by Magius(CHE)
 			damage -= tmpj;
 			if (damage<0) damage=0;
-			if (pc_deffender->isPlayer()) damage /= SrvParams->npcdamage(); // Rate damage against other players
+			if (pc_defender->isPlayer()) damage /= SrvParams->npcdamage(); // Rate damage against other players
 			// End Armour Absorbtion by Magius(CHE) (See alse reactive armour spell damage)
 
-			if (pc_attacker->isPlayer())//Zippy
-				ItemCastSpell(s1, pc_deffender,pWeapon);
+			if( pc_attacker->isPlayer() )
+				ItemCastSpell( pc_attacker, pc_defender, pWeapon );
 
 			// AntiChrist - 26/10/99
 			// when hitten and damage >1, defender fails if casting a spell!
 			// Thats not really good, better make a check versus int+magic
-			if(damage>1 && pc_deffender->isPlayer())//only if damage>1 and against a player
+			if(damage>1 && pc_defender->isPlayer())//only if damage>1 and against a player
 			{
-				if(pc_deffender->casting() && currentSpellType[s2]==0 )
+				// TODO: Implement spell apruption
+				/*if(pc_defender->casting() && currentSpellType[s2]==0 )
 				{//if casting a normal spell (scroll: no concentration loosen)
 					Magic->SpellFail(s2);
 					currentSpellType[s2]=0;
-					pc_deffender->setSpell(-1);
-					pc_deffender->setCasting(false);
-					pc_deffender->setSpelltime(0);
-					pc_deffender->priv2 &= 0xfd; // unfreeze, bugfix LB
-				}
+					pc_defender->setSpell(-1);
+					pc_defender->setCasting(false);
+					pc_defender->setSpelltime(0);
+					pc_defender->priv2 &= 0xfd; // unfreeze, bugfix LB
+				}*/
 			}
 
-			if(damage>0)
+			if( damage > 0 )
 			{
-				if (pc_deffender->ra()) // For reactive armor spell
+				if (pc_defender->ra()) // For reactive armor spell
 				{
 					// -Frazurbluu- RA may need a rewrite to be more OSI standard here
 					// Its said 80% deflected 10% to attacker / 10% defender gotta check special effects
 					int damage1;
-					damage1=(int)( damage*(pc_deffender->skill(MAGERY)/2000.0));
-					pc_deffender->hp -= damage-damage1;
-					if (pc_deffender->isNpc()) damage1 = damage1 * SrvParams->npcdamage(); // by Magius(CHE)
+					damage1=(int)( damage*(pc_defender->skill(MAGERY)/2000.0));
+					pc_defender->hp -= damage-damage1;
+					if (pc_defender->isNpc()) damage1 = damage1 * SrvParams->npcdamage(); // by Magius(CHE)
 					pc_attacker->hp -= damage1;  // Remove damage from attacker
-					staticeffect(pc_deffender, 0x37, 0x4A, 0, 15);//RA effect - AntiChrist (9/99)
+					staticeffect(pc_defender, 0x37, 0x4A, 0, 15);//RA effect - AntiChrist (9/99)
 					if ((fightskill==MACEFIGHTING) && (IsSpecialMace(pWeapon->id())))// Stamina Loss -Fraz-
 					{ 
 						//pc_attacker->stm-=3+(rand()%4);
@@ -463,78 +484,81 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 						// for now make it subtract mana
 						//pc_attacker->mn-=(pc_attacker->mn/2);
 					}
-					updatestats(pc_attacker, 0);
+
+					pc_attacker->updateHealth();
 				}
 				else 
 				{	// -Fraz- Now needs adjusted to happen on a skill percentage 
-					pc_deffender->hp-=damage; // Remove damage from defender only apply special hits to non-npc's
-					if ((fightskill==MACEFIGHTING) && (IsSpecialMace(pWeapon->id())) && (pc_deffender->isPlayer()))// Stamina Loss -Fraz-
+					pc_defender->hp-=damage; // Remove damage from defender only apply special hits to non-npc's
+					if ((fightskill==MACEFIGHTING) && (IsSpecialMace(pWeapon->id())) && (pc_defender->isPlayer()))// Stamina Loss -Fraz-
 					{ 
-						pc_deffender->stm-=3+(rand()%3);
+						pc_defender->stm-=3+(rand()%3);
 					}
-					if ((fightskill==FENCING) && (IsFencing2H(pWeapon->id())) && (pc_deffender->isPlayer()))// Paralyzing -Fraz-
+
+					if ((fightskill==FENCING) && (IsFencing2H(pWeapon->id())) && (pc_defender->isPlayer()))// Paralyzing -Fraz-
 					{ 
-						tempeffect(pc_attacker, pc_deffender, 44, 0, 0, 0);
-						sysmessage(s1, tr("You delivered a paralyzing blow"));
-											}
-					if ((fightskill==SWORDSMANSHIP) && (IsAxe(pWeapon->id())) && (pc_deffender->isPlayer()))// Concussion Hit -Fraz-
+						tempeffect(pc_attacker, pc_defender, 44, 0, 0, 0);
+						pc_attacker->message( tr( "You delivered a paralyzing blow" ) );
+					}
+
+					if( ( fightskill == SWORDSMANSHIP ) && ( IsAxe( pWeapon->id() ) ) && ( pc_defender->isPlayer() ) )// Concussion Hit -Fraz-
 					{ 
-						tempeffect(pc_attacker, pc_deffender, 45, 0, 0, 0);
+						tempeffect(pc_attacker, pc_defender, 45, 0, 0, 0);
 						//pc_attacker->mn-=(pc_attacker->mn/2); //-Fraz- temp use of this for concussion
 					}
-					updatestats((pc_deffender), 0);
 				}
 				// blood shred by blackwind
-				if (damage>10)
+				if( damage > 10 )
 				{
 	               short id = 0x122c;	
 	               if (damage>50) id=0x122a;
 				   else if (damage>40) id=0x122d;
 	               else if (damage>30) id=0x122e;
 	               else if (damage>20) id=0x122b;
-				   P_ITEM pBlood = Items->SpawnItem(pc_deffender, 1, "#", 0, id, 0, 0);
+				   P_ITEM pBlood = Items->SpawnItem(pc_defender, 1, "#", 0, id, 0, 0);
 				   if (pBlood)
 				   {
-					  pBlood->moveTo(pc_deffender->pos);
+					  pBlood->moveTo( pc_defender->pos );
 					  pBlood->priv = 1;
 					  pBlood->setGMMovable(); //Moveable by GM
-					  RefreshItem(pBlood);
+					  pBlood->update();
 					  pBlood->decaytime = (SrvParams->decayTime()/2)*MY_CLOCKS_PER_SEC+uiCurrentTime;
 				   }
 				}
 
 				/////////  For Splitting NPCs ///  McCleod
-				if ((pc_deffender->split()>0)&&(pc_deffender->hp>=1))
+				if ((pc_defender->split()>0)&&(pc_defender->hp>=1))
 				{
-					if (rand()%100<=pc_deffender->splitchnc())
+					if (rand()%100<=pc_defender->splitchnc())
 					{
-						if (pc_deffender->split()==1) splitnum=1;
-						else splitnum=rand()%pc_deffender->split()+1;
+						if (pc_defender->split()==1) splitnum=1;
+						else splitnum=rand()%pc_defender->split()+1;
 						
 						for (splitcount=0;splitcount<splitnum;splitcount++)
-							Npcs->Split(pc_deffender);
+							Npcs->Split(pc_defender);
 					}
 				}
 				////////      End of spliting NPCs
 			}
-			if (pc_attacker->isPlayer())
-				if((fightskill==ARCHERY && los)|| fightskill!=ARCHERY)
-					doSoundEffect(pc_attacker, fightskill, pWeapon);
-			if (pc_deffender->hp<0) pc_deffender->hp=0;
-			updatestats((pc_deffender), 0);
-			x = pc_deffender->id();
-			if (x>=0x0190)
-			{
-				if (!pc_deffender->onHorse()) 
-					npcaction(pc_deffender, 0x14);
-			}
+
+		// Do soundeffects
+		if( pc_attacker->isPlayer() )
+			if( ( fightskill == ARCHERY && los) || fightskill != ARCHERY )
+				doSoundEffect( pc_attacker, fightskill, pWeapon );
+		
+		if (pc_defender->hp<0) pc_defender->hp=0;
+		pc_defender->updateHealth();
+		x = pc_defender->id();
+		if( x >= 0x0190 )
+		{
+			if( !pc_defender->onHorse() ) 
+				npcaction( pc_defender, 0x14 );
 		}
-	}
 }
 
-static void NpcSpellAttack(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int currenttime, int los)
+static void NpcSpellAttack( P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int currenttime, int los )
 {
-	if (pc_attacker->spatimer<=currenttime)
+	if( pc_attacker->spatimer <= currenttime )
 	{
 		int spattacks = numbitsset( pc_attacker->spattack );
 
@@ -658,7 +682,7 @@ static void NpcSpellAttack(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int 
 // Formulas take from OSI's combat formulas
 // attack speed should be determined here.
 // attack speed = 15000 / ((DEX+100) * weapon speed)
-static void SetWeaponTimeout(P_CHAR Attacker, P_ITEM Weapon)
+static void SetWeaponTimeout( P_CHAR Attacker, P_ITEM Weapon )
 {
 	int x,j;
 	
@@ -734,7 +758,7 @@ void cCombat::DoCombatAnimations(P_CHAR pc_attacker, P_CHAR pc_defender, int fig
 
 void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 {
-	int x, bowtype=0;// spamanachecking, tmp;
+	int x, bowtype=0; // spamanachecking, tmp;
 
 	if ( pc_attacker == NULL )
 		return;
@@ -742,135 +766,184 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 	P_ITEM pWeapon=pc_attacker->getWeapon();
 
 	P_CHAR pc_defender = FindCharBySerial(pc_attacker->targ);
-	/*if (pc_attacker->priv2&2) //The char is paralyzed 
-	{ 
-        sysmessage(calcSocketFromChar(pc_attacker), "You are frozen and cannot attack."); 
-        return; 
-	}*/
-	if ((pc_defender == NULL) || (pc_defender->isPlayer() && !online(pc_defender) || pc_defender->isHidden()) && pc_attacker->war)
+
+	// Several sanity checks (no defender, defender offline etc.)
+	// It automatically fails if we went out of warmode
+	if( ( !pc_defender || pc_defender->free || ( pc_defender->isPlayer() && !pc_defender->socket() ) || pc_defender->isHidden() ) && pc_attacker->war )
 	{
-		pc_attacker->war=false; // LB
-		pc_attacker->timeout=0;
+		pc_attacker->war = false;
+		pc_attacker->timeout = 0;
 		pc_attacker->attacker = INVALID_SERIAL;
 		pc_attacker->resetAttackFirst();
+
+		// Send a warmode update
+		cUOTxUpdatePlayer updatePlayer;
+		updatePlayer.fromChar( pc_attacker );
+
+		RegionIterator4Chars cIter( pc_attacker->pos );
+		for( cIter.Begin(); !cIter.atEnd(); cIter++ )
+		{
+			P_CHAR pChar = cIter.GetData();
+			if( pChar && pChar->socket() && pChar->inRange( pc_attacker, pChar->VisRange ) )
+			{
+				// Check if pChar can see pc_attacker
+				if( ( pChar == pc_attacker ) || !pc_attacker->isHidden() || ( pc_attacker->isHidden() && pChar->isGM() ) )
+					pChar->socket()->send( &updatePlayer );
+			}
+		}
+		
+		// Update the little button on the paperdoll
+		if( pc_attacker->socket() )
+		{
+			cUOTxWarmode warmode;
+			warmode.setStatus( 0 );
+			pc_attacker->socket()->send( &warmode );
+		}
+
 		return;
 	}
-	if (( pc_attacker->isNpc() || online(pc_attacker) ) && pc_defender != NULL )
-	{			
-		if (pc_defender == NULL) return;
-		if (pc_defender->free) return;
-		if (pc_attacker->dispz > (pc_defender->dispz +10)) return;//FRAZAI
-		if (pc_attacker->dispz < (pc_defender->dispz -10)) return;//FRAZAI
+
+	// We can be sure here that pc_defender is a valid hit-target
+	if( pc_attacker->isNpc() || pc_attacker->socket() )
+	{	
+		// Too far above or below us
+		if( pc_attacker->pos.z > ( pc_defender->pos.z + 10 ) ) 
+			return;
+
+		if( pc_attacker->pos.z < ( pc_defender->pos.z - 10 ) ) 
+			return;
 		
-		if ((pc_defender->isNpc() && pc_defender->npcaitype()!=17) || (online(pc_defender) && !pc_defender->dead) ) // ripper		
+		if( ( pc_defender->isNpc() && pc_defender->npcaitype() !=17 ) || ( pc_defender->socket() && !pc_defender->dead ) )
 		{
-			if (chardist( pc_attacker, pc_defender ) > SrvParams->attack_distance())
+			if( pc_attacker->inRange( pc_defender, SrvParams->attack_distance() ) )
 			{
-				if (pc_attacker->npcaitype()==4 && pc_attacker->inGuardedArea()) // changed from 0x40 to 4, LB
+				// Guards to scotty-beam-me-up
+				if( pc_attacker->npcaitype() == 4 && pc_attacker->inGuardedArea() )
 				{
-					pc_attacker->moveTo(pc_defender->pos);
+					pc_attacker->removeFromView( false );
+					pc_attacker->moveTo( pc_defender->pos );
+					pc_attacker->resend( false );
 					
-					teleport(pc_attacker);
-					soundeffect2(pc_attacker, 0x01FE); // crashfix, LB
+					pc_attacker->soundEffect( 0x1FE );
 					staticeffect(pc_attacker, 0x37, 0x2A, 0x09, 0x06);
-					npctalkall(pc_attacker,"Halt, scoundrel!",1);
+					pc_attacker->talk( "Halt, scoundrel!" );
 				}
-				else 
-				{ // else -> npcaityes != 4
+				else // Any other NPC
+				{
 					pc_attacker->targ = INVALID_SERIAL;
 					pc_attacker->timeout=0;
-					P_CHAR pc = FindCharBySerial(pc_attacker->attacker);
-					if (pc != NULL)
+					
+					P_CHAR pc = FindCharBySerial( pc_attacker->attacker );
+					if( pc )
 					{
 						pc->resetAttackFirst();
-						pc->attacker = INVALID_SERIAL; // lb crashfix
+						pc->attacker = INVALID_SERIAL;
 					}
-					pc_attacker->attacker=INVALID_SERIAL;
+					pc_attacker->attacker = INVALID_SERIAL;
 					pc_attacker->resetAttackFirst();
 					if (pc_attacker->isNpc() && pc_attacker->npcaitype()!=17 && !pc_attacker->dead && pc_attacker->war)
-						npcToggleCombat(pc_attacker); // ripper
+						npcToggleCombat(pc_attacker);
 				}
 			}
 			else
 			{
-				if (pc_attacker->targ == INVALID_SERIAL)
+				if( pc_attacker->targ == INVALID_SERIAL )
 				{
-					npcsimpleattacktarget(pc_attacker, pc_defender);
+					npcsimpleattacktarget( pc_attacker, pc_defender );
 					x=(((100-pc_attacker->effDex())*MY_CLOCKS_PER_SEC)/25)+(1*MY_CLOCKS_PER_SEC); //Yet another attempt.
 					pc_attacker->timeout=currenttime+x;
 					return;
 				}
-				if (Combat->TimerOk(pc_attacker))
+				if( Combat->TimerOk( pc_attacker ) )
 				{
 					int los = lineOfSight( pc_attacker->pos, pc_defender->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING );
-					UOXSOCKET s1 = calcSocketFromChar(pc_attacker);
-					int fightskill=Skills->GetCombatSkill(pc_attacker);
-					x=0;
-					if (fightskill==ARCHERY)
+					int fightskill = Skills->GetCombatSkill(pc_attacker);
+					bool mayAttack;
+
+					if( fightskill == ARCHERY )
 					{
-						if (los)
+						if( los )
 						{
 							int arrowsquant;
-							bowtype=Combat->GetBowType(pc_attacker);
-							if (bowtype==1) 
-								arrowsquant=getamount(pc_attacker, 0x0F3F);
-							else 
-								arrowsquant=getamount(pc_attacker, 0x1BFB);
-							if (arrowsquant>0)
-								x=1;
-							//else
-							//	sysmessage(s1, "You are out of ammunitions!"); //-Fraz- this message can cause problems removed
+							bowtype=Combat->GetBowType( pc_attacker );
+
+							if( bowtype == 1 ) 
+								arrowsquant=getamount( pc_attacker, 0x0F3F );
+							else
+								arrowsquant=getamount( pc_attacker, 0x1BFB );
+
+							if( arrowsquant > 0 )
+								mayAttack = true;
 						}
 					}
-					if ( chardist( pc_attacker, pc_defender )<2 && fightskill!=ARCHERY ) x=1;
-					if (x)
+					else if( pc_attacker->inRange( pc_defender, 1 ) )
+						mayAttack = true;
+					
+
+					if( mayAttack )
 					{
-						// - Do stamina maths - AntiChrist (6) -
-						if(abs(SrvParams->attackstamina())>0 && !pc_attacker->isGM())
+						// - Do stamina maths -
+						if( abs( SrvParams->attackstamina() ) > 0 && !pc_attacker->isGM() )
 						{
-							if((SrvParams->attackstamina()<0)&&(pc_attacker->stm<abs(SrvParams->attackstamina())))
+							if( (SrvParams->attackstamina() < 0 ) && ( pc_attacker->stm < abs( SrvParams->attackstamina() ) ) )
 							{
-								sysmessage(s1, tr("You are too tired to attack."));
-								SetWeaponTimeout(pc_attacker, pWeapon);
+								if( pc_attacker->socket() )
+									pc_attacker->socket()->sysMessage( tr( "You are too tired to attack." ) );
+								
+								SetWeaponTimeout( pc_attacker, pWeapon );
 								return;
 							}
+
 							pc_attacker->stm += SrvParams->attackstamina();
-							if (pc_attacker->stm>pc_attacker->effDex()) pc_attacker->stm=pc_attacker->effDex();
-							if (pc_attacker->stm<0) pc_attacker->stm=0;
-							updatestats((pc_attacker),2); //LB, crashfix, was currchar[a]
-							// --------ATTACK STAMINA END ------
+							if( pc_attacker->stm > pc_attacker->effDex() )
+								pc_attacker->stm = pc_attacker->effDex();
+							
+							if( pc_attacker->stm < 0 )
+								pc_attacker->stm = 0;
+
+							// Send the changed stamina
+							if( pc_attacker->socket() )
+								pc_attacker->socket()->updateStamina();
 						}
 						
-						DoCombatAnimations( pc_attacker, pc_defender, fightskill, bowtype, los);
+						DoCombatAnimations( pc_attacker, pc_defender, fightskill, bowtype, los );
 
-						if (((chardist( pc_attacker, pc_defender )<2)||(fightskill==ARCHERY))&&!(pc_attacker->npcaitype()==4)) // changed from 0x40 to 4
+						if( ( ( chardist( pc_attacker, pc_defender )<2)||(fightskill==ARCHERY))&&!(pc_attacker->npcaitype()==4))
                         {
 							if (los)
 							{
 								npcsimpleattacktarget(pc_attacker, pc_defender);
 							}
 						}
-						if (pc_attacker->timeout2 > uiCurrentTime) return; //check shotclock memory-BackStab
-						if (fightskill==ARCHERY)
-							Combat->CombatHit(pc_attacker, pc_defender, currenttime,los);
+
+						if( pc_attacker->timeout2 > uiCurrentTime )
+							return;
+
+						// A tempeffect is needed here eventually
+						// An Arrow doesnt hit its target immedeately..
+						if( fightskill == ARCHERY )
+							Combat->CombatHit( pc_attacker, pc_defender, currenttime, los );
 						else
-							pc_attacker->setSwingTarg(pc_defender->serial);
+							pc_attacker->setSwingTarg( pc_defender->serial );
 					}
 
 					SetWeaponTimeout(pc_attacker, pWeapon);
 					pc_attacker->timeout2=pc_attacker->timeout; // set shotclock memory-BackStab
-					if (!pc_defender->isInvul())
+
+					if( !pc_defender->isInvul() )
 					{
-						NpcSpellAttack(pc_attacker,pc_defender,currenttime,los);
+						NpcSpellAttack( pc_attacker,pc_defender,currenttime,los );
 					}
-					if (fightskill!=ARCHERY)
+
+					if( fightskill != ARCHERY)
 					{
-						Combat->CombatHit(pc_attacker, pc_defender, currenttime, los); // LB !!!
-						//return; // Ripper	???? (Duke)
+						Combat->CombatHit( pc_attacker, pc_defender, currenttime, los );
 					}
 				}
 			}			
-			if (pc_defender->hp<1)//Highlight //Repsys
+
+			// Our target finally died.
+			if( pc_defender->hp < 1 ) //Highlight //Repsys
 			{
 				if((pc_attacker->npcaitype() == 4 || pc_attacker->npcaitype() == 9) && pc_defender->isNpc())
 				{
@@ -884,29 +957,31 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 				{
 					deathstuff(pc_defender);
 				}
-				//murder count \/
 				
+				//murder count \/				
 				if ((pc_attacker->isPlayer())&&(pc_defender->isPlayer()))//Player vs Player
 				{
 					if(pc_defender->isInnocent() && GuildCompare(pc_attacker, pc_defender )==0 )
 					{
 						++pc_attacker->kills;
-						UOXSOCKET attacker_socket = calcSocketFromChar(pc_attacker);
-						sysmessage(attacker_socket, tr("You have killed %1 innocent people.").arg(pc_attacker->kills));
-						//clConsole.send("DEBUG %s's kills are now -> %i\n",pc_attacker->name,pc_attacker->kills);
-						if (pc_attacker->kills==SrvParams->maxkills()+1)
-							sysmessage(attacker_socket, tr("You are now a murderer!"));
+
+						if( pc_attacker->socket() )
+						{
+							pc_attacker->socket()->sysMessage( tr( "You have killed %1 innocent people." ).arg( pc_attacker->kills ) );
+
+							if( pc_attacker->kills == SrvParams->maxkills() + 1 )
+								pc_attacker->socket()->sysMessage( tr("You are now a murderer!") );
+						}
 					}
 					
-					if (SrvParams->pvpLog())
+					if( SrvParams->pvpLog() )
 					{
 						sprintf((char*)temp,"%s was killed by %s!\n",pc_defender->name.c_str(), pc_attacker->name.c_str());
 						savelog((char*)temp,"PvP.log");
 					}
-					
 				}
+
 				npcToggleCombat(pc_attacker);
-				return; // LB
 			}
 		}
 	}
@@ -1083,13 +1158,17 @@ int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power
 
 int cCombat::TimerOk(P_CHAR pc)
 {
-	int d=0;
-	if (pc == NULL)
+	int d = 0;
+	
+	if( !pc )
 		return 0;
-	//if (chars[c].timeout<uiCurrentTime) d=1;
-	//---BackStab-- Tab-Machinegun stopper- meet both timeout requirements---------- 
-    if(( pc->timeout < uiCurrentTime )&&(pc->timeout2 < uiCurrentTime)) d=1;
-	if (overflow) d=1;
+
+    if( ( pc->timeout < uiCurrentTime ) && ( pc->timeout2 < uiCurrentTime ) ) 
+		d=1;
+	
+	if( overflow )
+		d = 1;
+
 	return d;
 }
 
@@ -1249,7 +1328,7 @@ void cCombat::CombatOnFoot(P_CHAR pc)
 
 
 //s: char#
-void cCombat::SpawnGuard(P_CHAR pc_offender, P_CHAR pc_caller, int x, int y, signed char z)
+void cCombat::SpawnGuard( P_CHAR pc_offender, P_CHAR pc_caller, const Coord_cl &pos )
 {
 	QString guardSect;
 
@@ -1270,23 +1349,27 @@ void cCombat::SpawnGuard(P_CHAR pc_offender, P_CHAR pc_caller, int x, int y, sig
 	if (SrvParams->guardsActive() && !pc_offender->isInvul())
 	{
 		guardSect = Region->getGuardSect();
-		P_CHAR pc_guard = Npcs->createScriptNpc(calcSocketFromChar(pc_offender), NULL, guardSect, x, y, z);
-		if ( pc_guard == NULL ) 
+		
+		P_CHAR pc_guard = Npcs->createScriptNpc( calcSocketFromChar(pc_offender), NULL, guardSect, 0, 0, 0 );
+		pc_guard->moveTo( pos );
+		
+		if ( !pc_guard ) 
 			return;
 		
-		pc_guard->setNpcAIType( 4 ); // CITY GUARD, LB, bugfix, was 0x40 -> not existing
+		pc_guard->setNpcAIType( 4 );
 		pc_guard->setAttackFirst();
 		pc_guard->attacker = pc_offender->serial;
 		pc_guard->targ = pc_offender->serial;
-		pc_guard->npcWander = 2;  // set wander mode Tauriel
-		npcToggleCombat(pc_guard);
+		pc_guard->npcWander = 2;  // set wander mode
+		npcToggleCombat( pc_guard );
 		pc_guard->setNextMoveTime();
 		pc_guard->summontimer =(getNormalizedTime() +(MY_CLOCKS_PER_SEC*25));    
 		
-		soundeffect2(pc_guard, 0x01FE);  // Tauriel 1-9-99 changed to stop crashing used to call soundeffect (expeted socket)
-		staticeffect(pc_guard, 0x37, 0x2A, 0x09, 0x06);
+		pc_guard->soundEffect( 0x1FE );
+		staticeffect( pc_guard, 0x37, 0x2A, 0x09, 0x06 );
 		
-		updatechar(pc_guard);
+		pc_guard->resend( false ); // Newly created
+
 		switch (RandomNum(0,1))
 		{
 		case 0:		npctalkall(pc_guard, "Thou shalt regret thine actions, swine!", 1);	break;
@@ -1353,39 +1436,39 @@ void cCombat::doSoundEffect(P_CHAR pc, int fightskill, P_ITEM pWeapon)
 
 	if(heavy)
 	{
-		if (a==0 || a==1) soundeffect2(pc, 0x0236);
-		else soundeffect2(pc, 0x0237);
+		if (a==0 || a==1) pc->soundEffect( 0x236 );
+		else pc->soundEffect( 0x237 );
 		return;
 	}		
 
 	switch(fightskill)
 	{
 	case ARCHERY:
-		soundeffect2(pc, 0x0234);
+		pc->soundEffect( 0x234);
 		break;
 	case FENCING:
 	case SWORDSMANSHIP:
 		if (a==0 || a==1) 
-			soundeffect2(pc, 0x023B);
+			pc->soundEffect( 0x23B);
 		else 
-			soundeffect2(pc, 0x023C);
+			pc->soundEffect( 0x23C);
 		break;
 	case MACEFIGHTING:
 		if (a==0 || a==1) 
-			soundeffect2(pc, 0x0232);
+			pc->soundEffect( 0x232);
 		else if (a==2) 
-			soundeffect2(pc, 0x0139);
+			pc->soundEffect( 0x139);
 		else 
-			soundeffect2(pc, 0x0233);
+			pc->soundEffect( 0x233);
 		break;
 	case WRESTLING:
-		if (a==0) soundeffect2(pc, 0x0135);
-		else if (a==1) soundeffect2(pc, 0x0137);
-		else if (a==2) soundeffect2(pc, 0x013D);
-		else soundeffect2(pc, 0x013B);
+		if (a==0) pc->soundEffect( 0x135);
+		else if (a==1) pc->soundEffect( 0x137);
+		else if (a==2) pc->soundEffect( 0x13D);
+		else pc->soundEffect( 0x13B );
 		break;
 	default:
-		soundeffect2(pc, 0x013D);
+		pc->soundEffect( 0x13D );
 	}
 }
 

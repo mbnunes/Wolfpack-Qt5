@@ -291,7 +291,7 @@ public:
 	virtual ~cChar() {}
 	virtual void Serialize(ISerialization &archive);
 	virtual QString objectID() const;
-
+    
 	// A typical sequence for the following could be:
 	// Remove from View( clean = false )
 	// Change coordinates for the char
@@ -300,6 +300,7 @@ public:
 	void update( void ); // This is called when flags/name have been changed
 	void resend( bool clean = true ); // this is called when the char is being created or anything like that
 	void makeShop( void );
+	void updateHealth( void );
 	QString fullName( void );
 
 	// Getters
