@@ -269,12 +269,24 @@ def onBulletinBoard(char, packet):
 
 def findMessages(parent, messages):
   for item in parent.content:
-    messages.append(item.serial)
-    
-    if len(item.content) > 0:
-      messages = findMessages(item, messages)
+    post_time = 0
+
+    if item.hastag('time'):
+      post_time = int(item.gettag('time'))
+
+    # Check for timed out messages and delete them
+    if time.time() - post_time > 604800 or not post_time:
+      item.delete()
+    else:
+      messages.append([item.serial, time])
+
+      if len(item.content) > 0:
+        messages = findMessages(item, messages)
 
   return messages
+
+def compare_message(a, b):
+  return cmp(a[1], b[1])
 
 def onUse(char, board):
   if not char.canreach(board, 3):
@@ -301,6 +313,9 @@ def onUse(char, board):
   # Collect message information for this board
   messages = findMessages(board, [])
 
+  # Sort the messages by time
+  messages.sort(compare_message)
+
   # Send content of container to socket
   packet = wolfpack.packet(0x3c, 5 + 19 * len(messages))
   packet.setshort(1, packet.size)
@@ -309,7 +324,7 @@ def onUse(char, board):
   offset = 5
 
   for item in messages:
-    packet.setint(offset, item)
+    packet.setint(offset, item[0])
     packet.setshort(offset + 4, 0xeb0)
     packet.setbyte(offset + 6, 0)
     packet.setshort(offset + 7, 0)
