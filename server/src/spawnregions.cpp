@@ -212,7 +212,6 @@ bool cSpawnRegion::findValidSpot(Coord_cl& pos) {
 			pos.z = this->z_[rndRectNum];
 		else
 			pos.z = Maps::instance()->mapElevation( pos );
-
 		pos.map = rectangles_[rndRectNum].map;
 
 		if (Movement::instance()->canLandMonsterMoveHere(pos)) {
@@ -223,11 +222,17 @@ bool cSpawnRegion::findValidSpot(Coord_cl& pos) {
 			// Check if there are spawned items or npcs at the position.
 			cCharSectorIterator *chariterator = SectorMaps::instance()->findChars(pos, 0);
 
+			bool blocked = false;
 			P_CHAR pChar;
 			for (pChar = chariterator->first(); pChar; pChar = chariterator->next()) {
 				if (pChar->spawnregion()) {
-					continue;
+					blocked = true;
+					break;
 				}
+			}
+
+			if (blocked) {
+				continue;
 			}
 
 			cItemSectorIterator *itemiterator = SectorMaps::instance()->findItems(pos, 0);
@@ -235,9 +240,16 @@ bool cSpawnRegion::findValidSpot(Coord_cl& pos) {
 			P_ITEM pItem;
 			for (pItem = itemiterator->first(); pItem; pItem = itemiterator->next()) {
 				if (pItem->spawnregion()) {
-					continue;
+					blocked = true;
+					break;
 				}
 			}
+
+			if (blocked) {
+				continue;
+			}
+
+			return true;
 		}	
 	}
 
