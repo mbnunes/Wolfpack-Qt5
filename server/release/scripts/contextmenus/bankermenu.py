@@ -22,9 +22,9 @@ def onContextEntry( char, target, tag  ):
 	if bank:
 		amount = bank.countresource( 0xEED, 0x0 )
 		if not amount:
-		target.say( "Alas you don't have any money in your bank.",5 )
+			target.say( "Alas you don't have any money in your bank.",5 )
 		else:
-		target.say( "You have %i gold in your bank." % amount,5 )
+			target.say( "You have %i gold in your bank." % amount,5 )
 	
 	return 1
 
