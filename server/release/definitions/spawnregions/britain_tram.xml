@@ -73,6 +73,17 @@
 		<npcspercycle>1</npcspercycle>
 		<rectangle x1="1422" x2="1426" y1="1547" y2="1550" map="1" />
 	</spawnregion>
+	<spawnregion id="tram_weaponsmith2">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>weaponsmith_male</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1576" x2="1580" y1="1561" y2="1566" map="1" />
+	</spawnregion>
 	<spawnregion id="tram_bard1">
 		<maxnpcamount>1</maxnpcamount>
 		<mintime>0</mintime>
@@ -193,6 +204,72 @@
 
 		<npcspercycle>1</npcspercycle>
 		<rectangle x1="1616" x2="1622" y1="1762" y2="1766" map="1" />
+	</spawnregion>
+	<spawnregion id="tram_guard4">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>female_guard</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1422" x2="1442" y1="1695" y2="1698" map="1" />
+	</spawnregion>
+	<spawnregion id="tram_guard5">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>male_guard</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1504" x2="1515" y1="1673" y2="1677" map="1" />
+	</spawnregion>
+	<spawnregion id="tram_guard6">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>female_guard</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1580" x2="1487" y1="1623" y2="1636" map="1" />
+	</spawnregion>
+	<spawnregion id="tram_guard7">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>male_guard</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1484" x2="1501" y1="1573" y2="1578" map="1" />
+	</spawnregion>
+	<spawnregion id="tram_guard8">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>female_guard</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1472" x2="1490" y1="1525" y2="1535" map="1" />
+	</spawnregion>
+	<spawnregion id="tram_guard9">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>male_guard</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1422" x2="1432" y1="1561" y2="1572" map="1" />
 	</spawnregion>
 	<spawnregion id="tram_healer1">
 		<maxnpcamount>1</maxnpcamount>
@@ -501,5 +578,16 @@
 
 		<npcspercycle>1</npcspercycle>
 		<rectangle x1="1472" x2="1478" y1="1737" y2="1749" map="1" />
+	</spawnregion>
+	<spawnregion id="tram_innkeeper1">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>innkeeper_male</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1593" x2="1596" y1="1585" y2="1586" map="1" />
 	</spawnregion>
 </definitions>

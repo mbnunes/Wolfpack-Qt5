@@ -13,9 +13,9 @@
 		<name><random list="NAMES_MALE" /></name>
 		<skin><random list="SKINS_HUMAN" /></skin>
 		<ai>Human_Guard</ai>
+		<wandertype>1</wandertype>
 		<direction><random min="0" max="7" /></direction> <!-- Facing a random direction -->
 		<totame>1100</totame>
-		<npcwander type="circle" radius="20" />
 		<notrain />
  	</npc>
  	
@@ -25,9 +25,9 @@
 		<name><random list="NAMES_FEMALE" /></name>
 		<skin><random list="SKINS_HUMAN" /></skin>
 		<ai>Human_Guard</ai>
+		<wandertype>1</wandertype>
 		<direction><random min="0" max="7" /></direction> <!-- Facing a random direction -->
 		<totame>1100</totame>
-		<npcwander type="circle" radius="20" />
 		<notrain />
  	</npc>
  	
