@@ -164,6 +164,8 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 
 	P_ITEM pWeapon=pc_attacker->getWeapon();// get the weapon item only once
 
+	if (pWeapon == NULL) return;
+
 	if (pWeapon && !(rand()%50)	// a 2 percent chance (Duke, 07.11.2000)
 		&& pWeapon->type !=9)	// but not for spellbooks (Duke, 09/10/00)
 	{
@@ -256,7 +258,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 						basedamage *=2;
 							if(pc_deffender->isPlayer())
 							{
-								sysmessage(s2,"You sceam in agony from being hit by the accursed metal!");
+								sysmessage(s2,"You scream in agony from being hit by the accursed metal!");
 								if (pc_deffender->xid == 0x0191) soundeffect2(pc_deffender,0x0152);
 								else if (pc_deffender->xid==0x0190) soundeffect2(pc_deffender,0x0157);
 							}// can add a possible effect below here for npc's being hit
@@ -739,6 +741,7 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 		return;
 	if (pc_attacker->free) return;
 	P_ITEM pWeapon=pc_attacker->getWeapon();
+	if (pWeapon == NULL) return;
 
 	P_CHAR pc_defender = FindCharBySerial(pc_attacker->targ);
 	if (pc_attacker->priv2&2) //The char is paralyzed 
@@ -1101,6 +1104,7 @@ void cCombat::CombatOnHorse(P_CHAR pc)
 {
 	if ( pc == NULL ) return;
 	P_ITEM pWeapon=pc->getWeapon();
+	if (pWeapon == NULL) return;
 	if (pWeapon)
 	{
 		short id = pWeapon->id();
@@ -1141,6 +1145,7 @@ void cCombat::CombatOnFoot(P_CHAR pc)
 {
 	 if ( pc == NULL ) return;
 	 P_ITEM pWeapon=pc->getWeapon();
+	 if (pWeapon == NULL) return;
 	int m = rand()%4; //randomize the animation sequence
 
 	if (pWeapon)
@@ -1309,6 +1314,7 @@ void cCombat::doSoundEffect(P_CHAR pc, int fightskill, P_ITEM pWeapon)
 {
 	bool heavy=false;
 	int a=rand()%4;
+	if (pWeapon == NULL) return;
 
 	//check if a heavy weapon
 	if (pWeapon && IsAxe(pWeapon->id()))
