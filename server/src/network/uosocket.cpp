@@ -1886,7 +1886,8 @@ void cUOSocket::updateStamina( P_CHAR pChar )
 		return;
 
 	cUOTxUpdateStamina update;
-	
+	update.setSerial( pChar->serial() );
+
 	if( pChar == _player )
 	{
 		update.setMaximum( pChar->effDex() );
@@ -1910,6 +1911,7 @@ void cUOSocket::updateMana( P_CHAR pChar )
 		return;
 
 	cUOTxUpdateMana update;
+	update.setSerial( pChar->serial() );
 	
 	if( pChar == _player )
 	{
