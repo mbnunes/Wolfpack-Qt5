@@ -75,6 +75,7 @@
 		<bindmenu>vendor_menu,train_menu</bindmenu>
 		<basescripts>contextmenus.trainmenu</basescripts>
 		<invulnerable />
+		<wandertype>0</wandertype>
 	</npc>
 	<npc id="vendor_female">
 		<inherit>base_female</inherit>
@@ -82,5 +83,6 @@
 		<bindmenu>vendor_menu,train_menu</bindmenu>
 		<basescripts>contextmenus.trainmenu</basescripts>
 		<invulnerable />
+		<wandertype>0</wandertype>
 	</npc>
 </definitions>

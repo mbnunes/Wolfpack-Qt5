@@ -27,6 +27,7 @@
 		</shopkeeper>
 		<category>Vendors\Banker (Male)</category>
 		<invulnerable />
+		<wandertype>0</wandertype>
 	</npc>
 	
 	<npc id="banker_female">
@@ -47,6 +48,7 @@
 		</shopkeeper>
 		<category>Vendors\Banker (Female)</category>
 		<invulnerable />
+		<wandertype>0</wandertype>
 	</npc>
 	
 </definitions>
