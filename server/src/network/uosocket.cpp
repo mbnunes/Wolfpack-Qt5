@@ -234,7 +234,8 @@ void cUOSocket::handleHardwareInfo( cUORxHardwareInfo *packet )
 */
 void cUOSocket::disconnect( void )
 {
-	//_socket->close();
+	cNetwork::instance()->netIo()->flush( _socket );
+	_socket->close();
 }
 
 /*!

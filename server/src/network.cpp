@@ -124,7 +124,7 @@ void cNetwork::poll( void )
 
 	for ( uoSocket = loginSockets.first(); uoSocket; uoSocket = loginSockets.next())
 	{
-		if( !uoSocket->socket()->isValid() )
+		if( uoSocket->socket()->error() != QSocketDevice::NoError )
 		{
 			clConsole.send( tr( "Socket disconnected [%1]\n" ).arg( uoSocket->socket()->address().toString() ) );
 			netIo_->unregisterSocket( uoSocket->socket() );

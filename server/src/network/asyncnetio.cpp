@@ -310,7 +310,6 @@ void cAsyncNetIO::run() throw()
 {
 	while ( !canceled() )
 	{
-
 		mapsMutex.acquire(); // do not disturb me here.
 		for ( iterator it = buffers.begin(); it != buffers.end(); ++it )
 		{
@@ -340,54 +339,9 @@ void cAsyncNetIO::run() throw()
 				d->consumeReadBuf( 4, temp );
 				d->skippedUOHeader = true;
 			}
-
-			// Write all data in the buffer.
-			bool osBufferFull = false;
-			int consumed = 0;
-			// Before we continue, we should guarantee no one writes packets to the buffer.
-			d->wmutex.acquire();
-			while ( !osBufferFull && d->wsize > 0 )
-			{
-				QByteArray* a = d->wba.first();
-				int nwritten;
-				int i = 0;
-				if ( (int)a->size() - d->windex < 1460 ) 
-				{
-				    // Concatenate many smaller blocks.  the first may be
-				    // partial, but each subsequent block is copied entirely
-				    // or not at all.  the sizes here are picked so that we
-				    // generally won't trigger nagle's algorithm in the tcp
-				    // implementation: we concatenate if we'd otherwise send
-				    // less than PMTU bytes (we assume PMTU is 1460 bytes),
-				    // and concatenate up to the largest payload TCP/IP can
-				    // carry.  with these precautions, nagle's algorithm
-				    // should apply only when really appropriate.
-				    QByteArray out( 65536 );
-				    int j = d->windex;
-				    int s = a->size() - j;
-				    while ( a && i+s < (int)out.size() ) 
-					{
-						memcpy( out.data()+i, a->data()+j, s );
-						j = 0;
-						i += s;
-						a = d->wba.next();
-						s = a ? a->size() : 0;
-				    }
-				    nwritten = d->socket->writeBlock( out.data(), i );
-				} else {
-				    // Big block, write it immediately
-				    i = a->size() - d->windex;
-				    nwritten = d->socket->writeBlock( a->data() + d->windex, i );
-				}
-				if ( nwritten ) 
-				{
-				    if ( d->consumeWriteBuf( nwritten ) )
-						consumed += nwritten;
-				}
-				if ( nwritten < i )
-				    osBufferFull = TRUE;
-			}
-			d->wmutex.release(); // release this record
+			
+			// Write data to socket
+			flushWriteBuffer( d );
 		}
 		mapsMutex.release();		
 		//if ( buffers.empty() )
@@ -476,6 +430,63 @@ void cAsyncNetIO::buildUOPackets( cAsyncNetIOPrivate* d )
 }
 
 /*!
+  \internal
+  This method will check the buffer for data to be written and send
+  it to socket.
+  Lock is done in record level, should be safe to call from different
+  threads.
+*/
+void cAsyncNetIO::flushWriteBuffer( cAsyncNetIOPrivate* d )
+{
+	bool osBufferFull = false;
+	int consumed = 0;
+	// Before we continue, we should guarantee no one writes packets to the buffer.
+	d->wmutex.acquire();
+	while ( !osBufferFull && d->wsize > 0 )
+	{
+		QByteArray* a = d->wba.first();
+		int nwritten;
+		int i = 0;
+		if ( (int)a->size() - d->windex < 1460 ) 
+		{
+			// Concatenate many smaller blocks.  the first may be
+			// partial, but each subsequent block is copied entirely
+			// or not at all.  the sizes here are picked so that we
+			// generally won't trigger nagle's algorithm in the tcp
+			// implementation: we concatenate if we'd otherwise send
+			// less than PMTU bytes (we assume PMTU is 1460 bytes),
+			// and concatenate up to the largest payload TCP/IP can
+			// carry.  with these precautions, nagle's algorithm
+			// should apply only when really appropriate.
+			QByteArray out( 65536 );
+			int j = d->windex;
+			int s = a->size() - j;
+			while ( a && i+s < (int)out.size() ) 
+			{
+				memcpy( out.data()+i, a->data()+j, s );
+				j = 0;
+				i += s;
+				a = d->wba.next();
+				s = a ? a->size() : 0;
+			}
+			nwritten = d->socket->writeBlock( out.data(), i );
+		} else {
+			// Big block, write it immediately
+			i = a->size() - d->windex;
+			nwritten = d->socket->writeBlock( a->data() + d->windex, i );
+		}
+		if ( nwritten ) 
+		{
+			if ( d->consumeWriteBuf( nwritten ) )
+				consumed += nwritten;
+		}
+		if ( nwritten < i )
+			osBufferFull = TRUE;
+	}
+	d->wmutex.release(); // release this record
+}
+
+/*!
   Tries to receive a cUOPacket from \a socket if one is avaliable. 
   If no packet is avaliable at this time, the result will be 0.
   Packets retrieved from this method should be freed by
@@ -491,9 +502,9 @@ cUOPacket* cAsyncNetIO::recvPacket( QSocketDevice* socket )
 }
 
 /*!
-  Queues \packet for sending to \socket. UO Huffman compression will
-  be applied if \compress is true.
-  Notice \packet ownership is transfered to cAsyncNetIO and it's memory
+  Queues \a packet for sending to \a socket. UO Huffman compression will
+  be applied if \a compress is true.
+  Notice \a packet ownership is transfered to cAsyncNetIO and it's memory
   will be freed once the packet have been transmited.
 */
 void cAsyncNetIO::sendPacket( QSocketDevice* socket, cUOPacket* packet, bool compress )
@@ -507,3 +518,13 @@ void cAsyncNetIO::sendPacket( QSocketDevice* socket, cUOPacket* packet, bool com
 	it.data()->wmutex.release();
 }
 
+/*!
+  Sends to connected \a socket any packet writes still in buffer. This method 
+  is usually called prior to disconnection to ensure all data, including error
+  messages have been sent.
+*/
+void cAsyncNetIO::flush( QSocketDevice* socket)
+{
+	iterator it = buffers.find( socket );
+	flushWriteBuffer( it.data() );
+}

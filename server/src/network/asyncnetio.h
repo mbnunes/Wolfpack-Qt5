@@ -62,8 +62,11 @@ public:
 	cUOPacket* recvPacket( QSocketDevice* );
 	void sendPacket(QSocketDevice*, cUOPacket*, bool);
 
+	void flush( QSocketDevice* );
+
 private:
 	void buildUOPackets( cAsyncNetIOPrivate* );
+	void flushWriteBuffer( cAsyncNetIOPrivate* );
 };
 
 #endif //__ASYNCNETIO_H__
