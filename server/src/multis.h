@@ -88,6 +88,8 @@ public:
 	void	removeFriend( P_CHAR pc );
 	void	removeFriend( SERIAL serial );
 
+	QValueList< SERIAL >	chars()		const { return chars_; }
+	QValueList< SERIAL >	items()		const { return items_; }
 	std::vector<SERIAL>	friends()	const { return friends_; }
 	std::vector<SERIAL>	bans()		const { return bans_; }
 
@@ -101,6 +103,9 @@ public:
 
 	static cMulti*	findMulti( const Coord_cl &pos );
 	static bool		inMulti( const Coord_cl &srcpos, const Coord_cl &multipos, UI16 id );
+
+	virtual bool	ishouse()	{ return false; }
+	virtual bool	isboat()		{ return false; }
 
 protected:
 	virtual void processNode( const QDomElement &Tag );

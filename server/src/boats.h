@@ -97,6 +97,9 @@ public:
 	QString deedSection( void ) { return deedsection_; }
 	UI08	boatDir( void ) { return boatdir; }
 
+	bool	ishouse() { return false; }
+	bool	isboat() { return true; }
+
 protected:
 	virtual void processNode( const QDomElement &Tag );
 	void	processSpecialItemNode( const QDomElement &Tag, UI08 item );

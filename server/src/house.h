@@ -77,6 +77,9 @@ public:
 	QString	deedSection( void ) { return deedsection_; }
 	void	setDeedSection( QString data ) { deedsection_ = data; }
 
+	bool	ishouse() { return true; }
+	bool	isboat() { return false; }
+
 protected:
 	virtual void processNode( const QDomElement &Tag );
 	void processHouseItemNode( const QDomElement &Tag );
