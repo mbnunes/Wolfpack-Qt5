@@ -1372,9 +1372,12 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 			gump = 0x3D; break;
 
 		case 0x0E77:					// Barrel
-		case 0x0E7A:					// Square Basket
 		case 0x0E7F:					// Keg
+		case 0xFAE:
 			gump = 0x3E; break;
+
+		case 0x0E7A:					// Picknick Basket
+			gump = 0x3F; break;
 
 		case 0x0E7C:					// Silver Chest
 			gump = 0x4A; break;
@@ -1401,6 +1404,8 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 			gump = 0x49; break;
 
 		case 0x0990:					// Round Basket
+		case 0x9AC:
+		case 0x9B1:
 			gump = 0x41; break;
 
 		case 0x09B2:					// Backpack 2

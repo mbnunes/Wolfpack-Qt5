@@ -254,50 +254,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 	// Check item behaviour by it's tpye
 	switch (pi->type())
 	{
-
-	case 16:
-		// Check for 'resurrect item type' this is the ONLY type one can use if dead.
-		if( pc_currchar->dead() )
-		{
-			pc_currchar->resurrect();
-			socket->sysMessage( tr( "You have been resurrected." ) );
-			return;
-		} 
-		else 
-		{
-			socket->sysMessage( tr( "You are already living!" ) );
-			return;
-		}
-		
-	case 117:		
-		// Boats ->
-		if (pi->type2() == 3)
-		{
-			if( pc_currchar->inRange( pi, 3 ) )
-			{
-				if (pi->tags().get("boatserial").isValid())
-				{
-					cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial( pi->tags().get("boatserial").toInt() ) );
-					pBoat->handlePlankClick( socket, pi );
-				}
-				else 
-					socket->sysMessage(tr("That is locked."));
-			}
-			else
-				socket->clilocMessage( 0, 500, 312, "", 0x3b2 ); // You cannot reach that
-		}
-		else if( pi->type2() == 222 )
-		{
-			cMulti* pMulti = dynamic_cast< cMulti* >( pi );
-			if( pMulti && ( pMulti->owner() == pc_currchar || pMulti->coOwner() == pc_currchar || pc_currchar->isGM() ) && socket )
-			{
-				cMultiGump* pGump = new cMultiGump( pc_currchar->serial(), pMulti->serial() );
-				socket->send( pGump );
-			}
-		}
-		// End Boats --^
-		return;
-		
 	case 1: // normal containers
 	case 63:
 		if( pi->moreb1() )
@@ -378,6 +334,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					else if( pChar == pc_currchar )
 						socket->sendContainer( pi );
 				}
+
+				return;
 			}
 			else if( pi->container()->isChar() )
 			{
@@ -399,6 +357,50 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			return;
 		}
 		return;
+
+	case 16:
+		// Check for 'resurrect item type' this is the ONLY type one can use if dead.
+		if( pc_currchar->dead() )
+		{
+			pc_currchar->resurrect();
+			socket->sysMessage( tr( "You have been resurrected." ) );
+			return;
+		} 
+		else 
+		{
+			socket->sysMessage( tr( "You are already living!" ) );
+			return;
+		}
+		
+	case 117:		
+		// Boats ->
+		if (pi->type2() == 3)
+		{
+			if( pc_currchar->inRange( pi, 3 ) )
+			{
+				if (pi->tags().get("boatserial").isValid())
+				{
+					cBoat* pBoat = dynamic_cast< cBoat* >(FindItemBySerial( pi->tags().get("boatserial").toInt() ) );
+					pBoat->handlePlankClick( socket, pi );
+				}
+				else 
+					socket->sysMessage(tr("That is locked."));
+			}
+			else
+				socket->clilocMessage( 0, 500, 312, "", 0x3b2 ); // You cannot reach that
+		}
+		else if( pi->type2() == 222 )
+		{
+			cMulti* pMulti = dynamic_cast< cMulti* >( pi );
+			if( pMulti && ( pMulti->owner() == pc_currchar || pMulti->coOwner() == pc_currchar || pc_currchar->isGM() ) && socket )
+			{
+				cMultiGump* pGump = new cMultiGump( pc_currchar->serial(), pMulti->serial() );
+				socket->send( pGump );
+			}
+		}
+		// End Boats --^
+		return;
+		
 	case 2: // Order gates?
 		return;// order gates
 	case 4: // Chaos gates?
