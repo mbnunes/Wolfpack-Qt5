@@ -41,6 +41,7 @@
 		<!-- Missing: Daemon Bone Armor, Level 5 Map -->
 		<lootpacks>lootpack_rich;lootpack_average;gems</lootpacks>
 		<category>Monsters\Elementals\Efreet</category>
+		<inherit id="speed_fast" />
 	</npc>
 
 </definitions>

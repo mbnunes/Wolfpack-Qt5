@@ -37,6 +37,7 @@
 		
 		<!-- Carve -->
 		<intproperty name="carve_feathers" value="100" />
+		<inherit id="speed_fast" />
 	</npc>
 
 </definitions>

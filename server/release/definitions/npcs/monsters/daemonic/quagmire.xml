@@ -40,6 +40,7 @@
 		<lootpacks>lootpack_average</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Daemonic\Quagmire</category>
+		<inherit id="speed_slow" />
 	</npc>
 
 </definitions>

@@ -44,6 +44,7 @@
 		<lootpacks>lootpack_average;lootpack_average;gems</lootpacks>
 		<category>Monsters\Elementals\Air Elemental</category>
 		<strproperty name="slayer_group" value="airelementals" />
+		<inherit id="speed_fast" />
 	</npc>
 
 </definitions>

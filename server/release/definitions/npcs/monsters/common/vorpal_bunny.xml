@@ -31,6 +31,7 @@
 		<!-- Missing: 6-10 Carrot, Statue, Brightly Colored Eggs -->
 		<lootpacks>lootpack_filthy_rich;lootpack_rich;lootpack_rich;lootpack_rich</lootpacks>
 		<category>Monsters\Common\Vorpal Bunny</category>
+		<inherit id="speed_veryfast" />
 	</npc>
 
 </definitions>

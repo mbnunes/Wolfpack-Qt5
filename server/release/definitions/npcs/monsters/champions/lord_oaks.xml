@@ -18,7 +18,7 @@
 		<str><random min="403" max="850"/></str>
 		<dex><random min="101" max="150"/></dex>
 		<int><random min="503" max="800"/></int>
-		<maxhitpoints><random min="" max=""/></maxhitpoints>
+		<maxhitpoints>3000</maxhitpoints>
 		<!-- Skills -->
 		<wrestling><random min="1000" max="1000"/></wrestling>
 		<tactics><random min="1000" max="1000"/></tactics>
@@ -48,6 +48,7 @@
 		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;gems</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Champions\Lord Oaks</category>
+		<inherit id="speed_fast" />
 	</npc>
 
 </definitions>

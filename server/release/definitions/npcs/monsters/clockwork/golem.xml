@@ -38,6 +38,7 @@
 		<!-- Missing: 13-21 Iron Ingot, Arcane Gem, Clockwork Assembly, Power Crystal -->
 		<!--<lootpacks></lootpacks>-->
 		<category>Monsters\Clockwork\Golem</category>
+		<inherit id="speed_slow" />
 	</npc>
 
 </definitions>

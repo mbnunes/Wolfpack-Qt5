@@ -39,6 +39,7 @@
 		<category>Monsters\Giants\Ogre Lord</category>
 		<strproperty name="slayer_group" value="ogres" />
 		<intproperty name="carve_meat" value="1" />
+		<inherit id="speed_slow" />
 	</npc>
 
 </definitions>

@@ -37,6 +37,7 @@
 		<!-- Missing: Reagent, 2 Plain Seed, 10 Board or Log -->
 		<lootpacks>lootpack_average</lootpacks>
 		<category>Monsters\Beasts\Bog Thing</category>
+		<inherit id="speed_slow" />
 	</npc>
 
 </definitions>

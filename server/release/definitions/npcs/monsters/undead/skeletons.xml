@@ -36,6 +36,7 @@
 		<!-- Misc. -->
 		<desc>The animated bones of the dead are terrible to behold, but truth to tell they are not formidable warriors, being able to overcome awell-trained fighter only in large groups. Like ghouls, they appear to ingest meat in some supernatural fashion. The bones of a formerly animated skeleton are desired for certain dark magicks.</desc>
 		<strproperty name="slayer_group" value="undeads" />
+		<inherit id="speed_slow" />
 	</npc>
 
 	<!-- skeleton -->

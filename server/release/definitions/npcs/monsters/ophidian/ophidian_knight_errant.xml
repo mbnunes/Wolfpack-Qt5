@@ -41,6 +41,7 @@
 		<category>Monsters\Ophidians\Ophidian Knight-Errant</category>
 		<strproperty name="slayer_group" value="ophidians" />
 		<intproperty name="carve_meat" value="2" />
+		<inherit id="speed_fast" />
 	</npc>
 
 </definitions>

@@ -42,6 +42,7 @@
 		<lootpacks>lootpack_average</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Elementals\Crystal Elemental</category>
+		<inherit id="speed_slow" />
 	</npc>
 
 </definitions>

@@ -10,6 +10,7 @@
 
 	<!-- an arctic ogre lord -->
 	<npc id="arctic_ogre_lord" inherit="monster_base">
+		<inherit id="speed_slow" />
 		<name>arctic ogre lord</name>
 		<id>135</id>
 		<inherit id="KARMA_L5" />

@@ -41,6 +41,7 @@
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<category>Summoned\Energy Vortex</category>
+		<inherit id="speed_veryfast" />
 	</npc>
 
 </definitions>

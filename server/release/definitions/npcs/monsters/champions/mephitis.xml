@@ -48,6 +48,7 @@
 		<!-- Misc. -->
 		<category>Monsters\Champions\Mephitis</category>
 		<strproperty name="slayer_group" value="spiders" />
+		<inherit id="speed_veryfast" />
 	</npc>
 
 </definitions>

@@ -16,6 +16,7 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Added most of the new Samurai Empire artwork (not yet sorted).
 		- Added slayer weapon properties to NPCs.
 		- Fiexd bug #0000347. (Campfires not disappearing, wrong light id)
+		- Added different NPC speeds.
 	* Python Script Changes:
 		- Fixed BONUS* properties.
 		- Fixed other property issues.

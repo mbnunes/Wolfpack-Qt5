@@ -45,6 +45,7 @@
 		<category>Animals\Rats\Rat</category>
 		
 		<intproperty name="carve_meat" value="1" />
+		<inherit id="speed_slow" />
 	</npc>
 
 </definitions>

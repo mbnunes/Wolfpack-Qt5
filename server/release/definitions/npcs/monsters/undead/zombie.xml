@@ -38,6 +38,7 @@
 		<desc>Zombies are naught but rotting corpses, restored to a mockery of life through vile sorcery. Utterly devoid of any will save that which created them, they do share with the other undead an unnatural appetite for the gold and the flesh of the living. Shambling, slow creatures, they are easily destroyed or evaded by an experienced warrior, unless encountered in overwhelming number.</desc>
 		<category>Monsters\Undead\Zombie</category>
 		<strproperty name="slayer_group" value="undeads" />
+		<inherit id="speed_slow" />
 	</npc>
 
 </definitions>

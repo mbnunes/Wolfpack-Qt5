@@ -10,6 +10,7 @@
 
 	<!-- an ant lion -->
 	<npc id="ant_lion" inherit="monster_base">
+		<inherit id="speed_slow" />
 		<name>ant lion</name>
 		<id>787</id>
 		<inherit id="KARMA_L3" />
@@ -36,7 +37,7 @@
 		<!-- Misc. -->
 		<!-- Missing: Fertile Dirt, 3 Bone, Dull Copper or Shadow or Copper or Bronze Ore  -->
 		<lootpacks>gold_average;gems;</lootpacks>
-		<category>Monsters\Insects\Ant Lion</category>
+		<category>Monsters\Insects\Ant Lion</category>		
 	</npc>
 
 </definitions>

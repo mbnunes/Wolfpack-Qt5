@@ -40,6 +40,7 @@
 		<lootpacks>lootpack_average</lootpacks>
 		<category>Monsters\Insects\Giant Black Widow</category>
 		<strproperty name="slayer_group" value="spiders" />
+		<inherit id="speed_fast" />
 	</npc>
 
 </definitions>

@@ -42,6 +42,7 @@
 		<lootpacks>lootpack_filthy_rich</lootpacks>
 		<category>Monsters\Insects\Dread Spider</category>
 		<strproperty name="slayer_group" value="spiders" />
+		<inherit id="speed_fast" />
 	</npc>
 
 </definitions>

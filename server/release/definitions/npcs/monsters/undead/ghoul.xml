@@ -38,6 +38,7 @@
 		<!-- Misc. -->
 		<category>Monsters\Undead\Ghoul</category>
 		<strproperty name="slayer_group" value="undeads" />
+		<inherit id="speed_slow" />
 	</npc>
 
 	<npc name="bogle" inherit="ghoul">

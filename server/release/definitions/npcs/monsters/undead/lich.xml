@@ -44,6 +44,7 @@
 		<desc>The rarest and most feared of the undead, and rightfully so, the lich is the corpse of a mighty spell caster kept animate through the force of his undying spirit. The lich retains, in death, all the Magical potency it held in life, without any of the moderating influence of human feeling. The lich is, perhaps, the only monster more feared than the daemon.</desc>
 		<category>Monsters\Undead\Lich</category>
 		<strproperty name="slayer_group" value="undeads" />
+		<inherit id="speed_fast" />
 	</npc>
 
 </definitions>

@@ -37,6 +37,7 @@
 		<!-- Missing: Bone, Level 4 Map -->
 		<lootpacks>lootpack_rich</lootpacks>
 		<category>Monsters\Elementals\Sand Vortex</category>
+		<inherit id="speed_fast" />
 	</npc>
 
 </definitions>

@@ -38,7 +38,7 @@
 		<!-- Missing: Potion, Food -->
 		<lootpacks>lootpack_average;lootpack_meager</lootpacks>
 		<category>Monsters\Giants\Ettin (Random)</category>
-		
+		<inherit id="speed_slow" />
 		<intproperty name="carve_meat" value="4" />
 	</npc>
 

@@ -39,6 +39,7 @@
 		<category>Monsters\Giants\Frost Troll</category>
 		<strproperty name="slayer_group" value="trolls" />
 		<intproperty name="carve_meat" value="2" />
+		<inherit id="speed_slow" />
 	</npc>
 
 </definitions>

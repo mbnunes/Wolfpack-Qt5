@@ -39,6 +39,7 @@
 		<lootpacks>lootpack_poor</lootpacks>
 		<mintaming>231</mintaming>
 		<category>Monsters\Common\Slime</category>
+		<inherit id="speed_slow" />
 	</npc>
 
 </definitions>

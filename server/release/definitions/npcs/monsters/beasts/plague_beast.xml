@@ -38,6 +38,7 @@
 		<!-- Missing: Healthy Gland -->
 		<lootpacks>lootpack_filthy_rich;gems;armor_platemail_high</lootpacks>
 		<category>Monsters\Beasts\Plague Beast</category>
+		<inherit id="speed_slow" />
 	</npc>
 
 </definitions>

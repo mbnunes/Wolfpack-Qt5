@@ -49,6 +49,7 @@
 		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_filthy_rich;lootpack_meager</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Champions\Neira</category>
+		<inherit id="speed_veryfast" />
 	</npc>
 
 </definitions>

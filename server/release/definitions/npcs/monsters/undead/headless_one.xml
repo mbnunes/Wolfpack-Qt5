@@ -25,6 +25,9 @@
 		<wrestling><random min="251" max="400"/></wrestling>
 		<anatomy>0</anatomy>
 		
+		<!-- Slow Speed -->
+		<speed action="300" wander="600" />
+		
 		<!-- Damage -->
 		<mindamage>6</mindamage>
 		<maxdamage>12</maxdamage>

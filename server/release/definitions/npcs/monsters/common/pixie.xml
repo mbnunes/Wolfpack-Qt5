@@ -47,6 +47,7 @@
 		<intproperty name="carve_hides" value="5" />
 		<strproperty name="carve_hides_type" value="spined" />
 		<intproperty name="carve_meat" value="1" />
+		<inherit id="speed_veryfast" />
 	</npc>
 
 </definitions>

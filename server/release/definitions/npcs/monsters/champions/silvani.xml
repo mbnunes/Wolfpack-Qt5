@@ -49,6 +49,7 @@
 		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Champions\Silvani</category>
+		<inherit id="speed_fast" />
 	</npc>
 
 </definitions>

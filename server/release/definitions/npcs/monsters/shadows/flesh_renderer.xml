@@ -40,6 +40,7 @@
 		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Flesh Renderer</category>
+		<inherit id="speed_veryfast" />
 	</npc>
 
 </definitions>

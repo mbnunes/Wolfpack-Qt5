@@ -50,6 +50,7 @@
 		<!-- Misc. -->
 		<category>Monsters\Champions\Semidar</category>
 		<strproperty name="slayer_group" value="daemons" />
+		<inherit id="speed_veryfast" />
 	</npc>
 
 </definitions>

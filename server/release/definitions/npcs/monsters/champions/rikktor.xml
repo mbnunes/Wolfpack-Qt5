@@ -50,6 +50,7 @@
 		<!-- Carve -->
 		<intproperty name="carve_scales" value="20" />
 		<strproperty name="carve_scales_type" value="all" />
+		<inherit id="speed_veryfast" />
 	</npc>
 
 </definitions>

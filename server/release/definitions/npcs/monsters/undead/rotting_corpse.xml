@@ -44,6 +44,7 @@
 		<!-- Misc. -->
 		<category>Monsters\Undead\Rotting Corpse</category>
 		<strproperty name="slayer_group" value="undeads" />
+		<inherit id="speed_slow" />
 	</npc>
 
 </definitions>

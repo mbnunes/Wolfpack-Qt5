@@ -38,6 +38,7 @@
 		<lootpacks>lootpack_average;lootpack_average;gems_poor</lootpacks>
 		<category>Monsters\Elementals\Earth Elemental</category>
 		<strproperty name="slayer_group" value="earthelementals" />
+		<inherit id="speed_slow" />
 	</npc>
 
 </definitions>

@@ -43,6 +43,7 @@
 		<lootpacks>lootpack_filthy_rich;lootpack_rich;gems</lootpacks>
 		<category>Monsters\Elementals\Poison Elemental</category>
 		<strproperty name="slayer_group" value="poisonelementals" />
+		<inherit id="speed_fast" />
 	</npc>
 
 </definitions>

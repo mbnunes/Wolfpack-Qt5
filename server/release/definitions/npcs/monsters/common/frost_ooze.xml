@@ -38,6 +38,7 @@
 		<!-- Missing:  -->
 		<lootpacks>gems</lootpacks>
 		<category>Monsters\Common\Frost Ooze</category>
+		<inherit id="speed_slow" />
 	</npc>
 
 </definitions>

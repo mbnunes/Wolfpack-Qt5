@@ -39,6 +39,7 @@
 		<lootpacks>lootpack_rich</lootpacks>
 		<category>Monsters\Elementals\Snow Elemental</category>
 		<strproperty name="slayer_group" value="snowelementals" />
+		<inherit id="speed_fast" />
 	</npc>
 
 </definitions>

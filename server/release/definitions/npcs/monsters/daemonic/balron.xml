@@ -45,6 +45,7 @@
 		<category>Monsters\Daemonic\Balron</category>
 		<intproperty name="carve_meat" value="1" />
 		<strproperty name="slayer_group" value="balron" />
+		<inherit id="speed_fast" />
 	</npc>
 
 </definitions>
