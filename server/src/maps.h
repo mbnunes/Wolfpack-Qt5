@@ -37,6 +37,8 @@
 #include <qstring.h>
 #include <qmap.h>
 #include <qvaluevector.h>
+#include <qfile.h>
+#include <iterator>
 
 // Forward definitions
 class MapsPrivate;

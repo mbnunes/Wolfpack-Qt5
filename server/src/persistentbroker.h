@@ -132,7 +132,7 @@ inline QString __escapeReservedCharacters( const QString& d )
 // for inserting we use the faster VALUES() method
 
 #define addField( name, value ) fields.push_back( QString( "`%1` = '%2'" ).arg( name ).arg( value ) );
-#define addStrField( name, value ) fields.push_back( QString( "`%1` = '%2'" ).arg( name ).arg( __escapeReservedCharacters( value.isNull() ? "" : value ) ) );
+#define addStrField( name, value ) fields.push_back( QString( "`%1` = '%2'" ).arg( name ).arg( __escapeReservedCharacters( value.isNull() ? QString( "" ) : value ) ) );
 #define addCondition( name, value ) conditions.push_back( QString( "`%1` = '%2'" ).arg( name ).arg( value ) );
 #define saveFields \
 	if( isPersistent ) \

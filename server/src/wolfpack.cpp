@@ -38,6 +38,7 @@
 #include <signal.h>
 #endif
 
+
 #include "verinfo.h"
 #include "speech.h"
 #include "SndPkg.h"
@@ -1348,7 +1349,7 @@ int main( int argc, char *argv[] )
 		clConsole.send( "Press any key to continue..." );
 		cNetwork::instance()->shutdown();
 		DeleteClasses();
-		getch();
+		getchar();
 		exit(-1);		
 	}
 
