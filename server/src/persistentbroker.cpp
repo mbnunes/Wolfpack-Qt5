@@ -116,26 +116,7 @@ void PersistentBroker::disconnect()
 
 bool PersistentBroker::saveObject( PersistentObject* object )
 {
-	// Start Transaction
-	if( sqlite )
-		connection->exec( "BEGIN TRANSACTION;" );
-
-	try
-	{
-		object->save();
-	}
-	catch( ... )
-	{
-		// Rollback
-		if( sqlite )
-			connection->exec( "ROLLBACK TRANSACTION;" );
-		throw;
-	}
-
-	// Commit
-	if( sqlite )
-		connection->exec( "COMMIT TRANSACTION;" );
-
+	object->save();
 	return true;
 }
 
@@ -232,4 +213,22 @@ void PersistentBroker::lockTable( const QString& table ) const
 void PersistentBroker::unlockTable( const QString& table ) const
 {
 	connection->unlockTable( table );
+}
+
+void PersistentBroker::startTransaction()
+{
+	if( sqlite )
+		executeQuery( "BEGIN;" );
+}
+
+void PersistentBroker::commitTransaction()
+{
+	if( sqlite )
+		executeQuery( "END;" );
+}
+
+void PersistentBroker::rollbackTransaction()
+{
+	if( sqlite )
+		executeQuery( "ROLLBACK;" );
 }

@@ -40,7 +40,7 @@ class cUOSocket;
 class cItem;
 class cBaseChar;
 class Coord_cl;
-class AccountRecord;
+class cAccount;
 class cTerritory;
 class cUOTxTooltipList;
 class cMulti;
@@ -98,8 +98,8 @@ PyObject* PyGetCharObject( P_CHAR );
 P_CHAR getWpChar( PyObject* );
 
 bool checkWpAccount( PyObject *object );
-PyObject* PyGetAccountObject( AccountRecord* );
-AccountRecord* getWpAccount( PyObject* );
+PyObject* PyGetAccountObject( cAccount* );
+cAccount* getWpAccount( PyObject* );
 
 bool checkWpRegion( PyObject *object );
 PyObject* PyGetRegionObject( cTerritory* );

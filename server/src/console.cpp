@@ -246,3 +246,11 @@ bool cConsole::handleCommand( const QString &command, bool silentFail )
 
 	return true;
 }
+
+void cConsole::queueCommand( const QString &command )
+{
+	commandMutex.lock();
+	commandQueue.push_back( command );
+	commandMutex.unlock();
+}
+

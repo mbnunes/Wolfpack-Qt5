@@ -82,6 +82,10 @@ public:
 	bool deleteObject( PersistentObject* );
 	QString lastError() const;
 	cDBDriver* driver() const;
+
+	void startTransaction();
+	void commitTransaction();
+	void rollbackTransaction();
 };
 
 #define initSave QStringList conditions, fields, values; QString table;

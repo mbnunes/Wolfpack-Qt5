@@ -1268,7 +1268,7 @@ static PyObject *wpAccountsFind( PyObject* self, PyObject* args )
 		return 0;
 	}
 
-	AccountRecord* account = Accounts::instance()->getRecord( getArgStr( 0 ) );
+	cAccount* account = Accounts::instance()->getRecord( getArgStr( 0 ) );
 	return PyGetAccountObject( account );
 }
 
@@ -1367,7 +1367,7 @@ static PyObject *wpAccountsAdd( PyObject* self, PyObject* args )
 	if( login.length() < 1 && password.length() < 1 )
 		return PyFalse;
 
-	AccountRecord *account = Accounts::instance()->getRecord( login );
+	cAccount *account = Accounts::instance()->getRecord( login );
 
 	if( account )
 		return PyFalse;

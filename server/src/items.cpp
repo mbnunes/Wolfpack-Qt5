@@ -1876,9 +1876,6 @@ static void itemRegisterAfterLoading( P_ITEM pi )
 {
 	World::instance()->registerObject( pi );
 
-	if( pi->objectID() == "cGuildStone" ) // register as guild as well
-		guilds.push_back(pi->serial());
-
 	// Set the outside indices
 	pi->SetSpawnSerial( pi->spawnserial );
 	pi->SetOwnSerial( pi->ownSerial() );

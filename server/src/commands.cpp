@@ -408,7 +408,7 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 		}
 		else
 		{
-			AccountRecord *account = Accounts::instance()->getRecord( args[1].left( 30 ) );
+			cAccount *account = Accounts::instance()->getRecord( args[1].left( 30 ) );
 			QValueVector<P_PLAYER> characters = account->caracterList();
 			Accounts::instance()->remove( account );
 			UINT32 i = 0;
@@ -433,7 +433,7 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 		}
 		else
 		{
-			AccountRecord *account = Accounts::instance()->getRecord( args[1].left( 30 ) );
+			cAccount *account = Accounts::instance()->getRecord( args[1].left( 30 ) );
 			QString key = args[2];
 			QString value = args[3];
 
@@ -501,7 +501,7 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 		}
 		else
 		{
-			AccountRecord *account = Accounts::instance()->getRecord( args[1].left( 30 ) );
+			cAccount *account = Accounts::instance()->getRecord( args[1].left( 30 ) );
 			QString key = args[2];
 
 			if( key == "password" )

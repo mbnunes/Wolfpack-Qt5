@@ -83,6 +83,9 @@ static QString getErrorString()
 
 LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam )
 {
+	if( mainWindow && hwnd != mainWindow )
+		return DefWindowProc( hwnd, msg, wparam, lparam ); 
+
 	CHARFORMAT cf;	
 	LOGFONT lfont;
 	NMHDR *notify = (NMHDR*)lparam;
@@ -200,6 +203,10 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 		}
 		return 0;
 		
+	case WM_CLOSE:
+		keeprun = 0;
+		return 1;
+
 	case WM_DESTROY:
 		keeprun = 0;
 		PostQuitMessage( 0 );
@@ -335,9 +342,9 @@ int WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int 
 				char command[512] = { 0, };
 				GetWindowText( inputWindow, command, 512 );
 				SetWindowText( inputWindow, "" );
-
-				// Process Command
-				Console::instance()->handleCommand( command );
+      
+				// We are in a different Thread. Remember that.
+				Console::instance()->queueCommand( command );
 			}
 
 			continue;
@@ -360,6 +367,17 @@ void cConsole::start()
 
 void cConsole::poll()
 {
+	// Poll for new Commands
+	commandMutex.lock();
+	QStringList commands = commandQueue;
+	commandQueue.clear();
+	commandMutex.unlock();
+
+	while( commands.count() > 0 )
+	{
+		handleCommand( commands.front() );
+		commands.pop_front();
+	}
 }
 
 void cConsole::stop()
@@ -519,3 +537,4 @@ void cConsole::setAttributes( bool bold, bool italic, bool underlined, unsigned 
 
 	SendMessage( logWindow, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM)&cf );
 }
+

@@ -644,9 +644,7 @@ void cPlayer::kill()
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange() ) && ( mSock != socket_ ) )
 		{
-			if( SrvParams->showDeathAnim() )
-				mSock->send( &dAction );
-
+			mSock->send( &dAction );
 			mSock->send( &rObject );
 		}
 	

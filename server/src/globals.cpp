@@ -49,98 +49,24 @@ wp_version_info wp_version;
 // Library Includes
 #include <qdatetime.h>
 
-
-using namespace std;
-
 enServerState serverState;
-
-//	Instantiate our console object
-cConsole clConsole;
-
-time_t	oldtime, newtime;
-
-unsigned int polyduration=90;
-
-//Time variables
+time_t oldtime;
+time_t newtime;
 QDateTime uoTime;
-int secondsperuominute=5; //Number of seconds for a WOLFPACK minute.
-int uotickcount=1;
-unsigned long initialserversec ;
-unsigned long initialservermill ;
-//int goldamount;
-unsigned int nextfieldeffecttime=0;
-unsigned int nextnpcaitime=0;
-
-// MSVC fails to compile WOLFPACK if this is unsigned, change it then
-int autosaved, saveinterval;
-int dosavewarning=0;	
-bool heartbeat;
-
-int err, error;
+int autosaved;
+int secure = 1;
+int dosavewarning = 0;
 volatile int keeprun;
+unsigned int shoprestocktime = 0;
+unsigned int hungerdamagetimer = 0;
 
-//int now;
-
-int secure; // Secure mode
-
-// - the below structure is for looking up items based on serial #
-// - item's serial, owner's serial, char's serial, and container's serial
-
-unsigned int raindroptime;
-
-int tnum;
-
-unsigned int starttime, endtime, lclock;
-
-unsigned int shoprestocktime=0;
-
-//int *spawnedguards;
-// Profiling
-int networkTime = 0;
-int timerTime = 0;
-int autoTime = 0;
-int loopTime = 0;
-int networkTimeCount = 1000;
-int timerTimeCount = 1000;
-int autoTimeCount = 1000;
-int loopTimeCount = 1000;
-
-unsigned long int serverstarttime;
-
-// Script files that need to be cached
-// Crackerjack Jul 31/99
-
-int escortRegions = 0;
-
-
-unsigned int hungerdamagetimer=0; // For hunger damage
-
-//-=-=-=-=-=-=-Classes Definitions=-=-=-=-=-=//
 cSrvParams		*SrvParams;
 Maps			*Map;
 cSkills			*Skills;
 cSpeech	        *Speech;
-cBounty         *Bounty;
 cScriptManager	*ScriptManager;
 WPDefManager    *DefManager;
 PersistentBroker* persistentBroker;
 
-
-// - the below structure is for looking up items based on serial #
-// - item's serial, owner's serial, char's serial, and container's serial
-
-list<SERIAL> guilds;
-
-/******************************************************/
-
-///////////////////////////////////////////
-///   and the rest                        /
-///////////////////////////////////////////
-std::vector<std::string> clientsAllowed; // client version controll system
-
-/////////////////////////////////////////
-///////////// global string vars /////////
-/////////////////////////////////////////
-
- char temp[1024];
+char temp[1024];
 

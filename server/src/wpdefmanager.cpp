@@ -235,7 +235,6 @@ bool WPDefManager::ImportSections( const QString& FileName )
 
 	cXmlHandler *handler = new cXmlHandler( impl, FileName );
 	reader.setContentHandler( handler );
-
 	reader.parse( &input, false );
 
 	delete handler;
@@ -280,7 +279,7 @@ void WPDefManager::reload( void )
 void WPDefManager::load( void )
 {
 	Console::instance()->PrepareProgress( "Loading Definitions" );
-	
+
 	ImportSections( "definitions.xml" );
 
 	unsigned int i = 0;
@@ -503,6 +502,7 @@ void cElement::removeChild( cElement *element )
 			childCount_--;
 			free( children );
 			children = newChildren;
+			return;
 		}
 	}
 }

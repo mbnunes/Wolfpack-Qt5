@@ -39,11 +39,11 @@
 #include "qvaluevector.h"
 
 /*!
-	The object for Wolfpack AccountRecord items
+	The object for Wolfpack cAccount items
 */
 typedef struct {
     PyObject_HEAD;
-	AccountRecord *account;
+	cAccount *account;
 } wpAccount;
 
 // Forward Declarations
@@ -253,7 +253,7 @@ bool checkWpAccount( PyObject *object )
 	return ( object->ob_type == &wpAccountType );
 }
 
-PyObject* PyGetAccountObject( AccountRecord *account )
+PyObject* PyGetAccountObject( cAccount *account )
 {
 	if( !account )
 	{
@@ -266,7 +266,7 @@ PyObject* PyGetAccountObject( AccountRecord *account )
     return (PyObject*)( cObject );	
 }
 
-AccountRecord* getWpAccount( PyObject *wpaccount )
+cAccount* getWpAccount( PyObject *wpaccount )
 {
 	if( !wpaccount )
 		return 0;

@@ -41,6 +41,7 @@
 #include <cstdio>
 #include <qstringlist.h>
 #include <qstring.h>
+#include <qmutex.h>
 
 // Third Party includes
 
@@ -73,6 +74,9 @@ class cConsole
 private:
 	QStringList linebuffer_;
 	QString incompleteLine_;
+	QStringList commandQueue;
+	QMutex commandMutex;
+
 public:
 	cConsole();
 	virtual ~cConsole();
@@ -99,10 +103,9 @@ public:
 
 	virtual void ChangeColor( WPC_ColorKeys Color );
 	virtual void setConsoleTitle( const QString& data );
-
 	QStringList linebuffer() const { return linebuffer_; }
-
-	bool handleCommand( const QString &command, bool silentFail = false );
+	void queueCommand( const QString &command ); // Thread-Safe
+	
 	virtual void start();
 	virtual void poll();
 	virtual void stop();
@@ -113,6 +116,7 @@ private:
 	std::istream *inputstrm;
 	std::ostream *outputstrm;
 	bool bEnabled;
+	bool handleCommand( const QString &command, bool silentFail = false );
 };
 
 typedef SingletonHolder< cConsole > Console;

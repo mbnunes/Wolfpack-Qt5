@@ -736,19 +736,6 @@ void cSpeech::talking( P_PLAYER pChar, const QString &lang, const QString &speec
 	if( type == 0 || type == 2)
 		pChar->setSaycolor( color );
 
-	if( SrvParams->speechLog() )
-	{
-		QFile lFile( "speech.log" );
-		
-		if( lFile.open( IO_Append ) )
-		{
-			QString logMessage( "[%1] %2: %3 [%4, 0x%5]" );
-			logMessage = logMessage.arg( QDateTime::currentDateTime().toString() ).arg( pChar->name() ).arg( speech ).arg( pChar->account()->login() ).arg( pChar->serial(), 8, 16 );
-			lFile.writeBlock( logMessage.latin1(), logMessage.length() );
-			lFile.close();
-		}
-	}
-
 	if( pChar->onTalk( type, color, font, speech, lang ) )
 		return;
 

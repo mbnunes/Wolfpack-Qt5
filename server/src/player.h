@@ -115,7 +115,7 @@ public:
 	bool onPickup( P_ITEM pItem );
 
 	// getters
-    AccountRecord*			account() const;
+    cAccount*			account() const;
     UINT32					additionalFlags() const;
     UINT32					clientIdleTime() const;
     UINT32					logoutTime() const;
@@ -141,7 +141,7 @@ public:
 	CharContainer				pets() const;
 
 	// setters
-    void setAccount(AccountRecord* data, bool moveFromAccToAcc = true);
+    void setAccount(cAccount* data, bool moveFromAccToAcc = true);
     void setAdditionalFlags(UINT32 data);
     void setClientIdleTime(UINT32 data);
     void setLogoutTime(UINT32 data);
@@ -183,7 +183,7 @@ protected:
 
     // The account object including this char.
     // cOldChar::account_
-    AccountRecord* account_;
+    cAccount* account_;
 
     // time till char will be logged out
     // cOldChar::logout_
@@ -241,12 +241,12 @@ protected:
 
 };
 
-inline AccountRecord* cPlayer::account() const
+inline cAccount* cPlayer::account() const
 {
     return account_;
 }
 
-inline void cPlayer::setAccount(AccountRecord* data, bool moveFromAccToAcc)
+inline void cPlayer::setAccount(cAccount* data, bool moveFromAccToAcc)
 {
 	if( moveFromAccToAcc && account_ != 0 )
 		account_->removeCharacter( this );

@@ -65,15 +65,6 @@ using namespace std;
 #undef  DBGFILE
 #define DBGFILE "Timing.cpp"
 
-void checktimers() // Check shutdown timers
-{
-	if (endtime)
-	{
-		if (endtime <= uiCurrentTime) keeprun = 0;
-	}
-	lclock = uiCurrentTime;
-}
-
 void restockNPC( UINT32 currenttime, P_NPC pc_i )
 {
 	if( SrvParams->shopRestock() && ( shoprestocktime <= currenttime ) )
@@ -577,13 +568,6 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		}
 	}
 
-	//Time functions
-	if( uotickcount <= currenttime )
-	{
-		uoTime.addSecs(1);
-		uotickcount = currenttime + SrvParams->secondsPerUOMinute()*MY_CLOCKS_PER_SEC;
-	}
-
 	// Recalculate and Resend Lightlevel
 	if( lighttime <= currenttime )
 	{
@@ -710,13 +694,9 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	TempEffects::instance()->check();
 
 	if( checknpcs <= currenttime ) checknpcs=(unsigned int)((double)(SrvParams->checkNPCTime()*MY_CLOCKS_PER_SEC+currenttime)); //lb
-	if( checktamednpcs <= currenttime ) checktamednpcs=(unsigned int)((double) currenttime+(SrvParams->checkTammedTime()*MY_CLOCKS_PER_SEC)); //AntiChrist
+	if( checktamednpcs <= currenttime ) checktamednpcs=(unsigned int)((double) currenttime+(SrvParams->checkTamedTime()*MY_CLOCKS_PER_SEC)); //AntiChrist
 	if( checknpcfollow <= currenttime ) checknpcfollow=(unsigned int)((double) currenttime+(SrvParams->checkFollowTime()*MY_CLOCKS_PER_SEC)); //Ripper
 	if( checkitemstime <= currenttime ) checkitemstime=(unsigned int)((double)(SrvParams->checkItemTime()*MY_CLOCKS_PER_SEC+currenttime)); //lb
 	if( shoprestocktime <= currenttime )
 		shoprestocktime = currenttime + MY_CLOCKS_PER_SEC * 60 * 20;
-
-	// Update the delay for the next field-effect (every 500ms)
-	if( nextfieldeffecttime <= currenttime )
-		nextfieldeffecttime = (unsigned int) ( currenttime + ( 0.5 * MY_CLOCKS_PER_SEC ) );
 }

@@ -267,9 +267,8 @@ static void freeClasses( void )
 
 void SetGlobalVars()
 {
-	keeprun=1;
-	error=0;
-	secure=1;
+	keeprun = 1;
+	secure = 1;
 	autosaved = 0;
 	dosavewarning = 0;
 }
@@ -315,19 +314,9 @@ int main( int argc, char *argv[] )
 	signal( SIGUSR2, &signal_handler ); // Reload Accounts
 	signal( SIGTERM, &signal_handler ); // Terminate Server
 	signal( SIGPIPE, SIG_IGN );			// Ignore SIGPIPE
-#endif	
-
-	#define CIAO_IF_ERROR if (error==1) { cNetwork::instance()->shutdown(); exit( -1 ); }
-
-	unsigned long tempSecs;
-	unsigned long loopSecs;
-	unsigned long tempTime;
-	uiCurrentTime = serverstarttime = getNormalizedTime();
+#endif
 
 	serverState = STARTUP;
-	// Print a seperator somehow
-	/*Console::instance()->send( QString::number( sizeof( cUObject ) ) );
-	return 0;*/
 
 	Console::instance()->setAttributes( true, false, true, 60, 140, 70, 12, FONT_NOSERIF );
 	Console::instance()->send( QString( "\n%1 %2 %3\n\n" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() ) );
@@ -457,13 +446,20 @@ int main( int argc, char *argv[] )
 
 	// initial randomization call
 	srand( uiCurrentTime );
-	serverstarttime = getNormalizedTime();
 
-	// Try to open our driver
+	/*
+		Check for valid database driers.
+	*/
 	if( !persistentBroker->openDriver( SrvParams->databaseDriver() ) )
 	{		
-		Console::instance()->log( LOG_ERROR, QString("Error trying to open %1 database driver, check your wolfpack.xml").arg(SrvParams->databaseDriver()) );
-		exit( -1 );
+		Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml").arg( SrvParams->databaseDriver() ) );
+		return 1;
+	}
+
+	if( !persistentBroker->openDriver( SrvParams->accountsDriver() ) )
+	{
+		Console::instance()->log( LOG_ERROR, QString( "Unknown Account Database Driver '%1', check your wolfpack.xml").arg( SrvParams->accountsDriver() ) );
+		return 1;
 	}
 
 	// Registers our Built-in types into factory.
@@ -510,27 +506,11 @@ int main( int argc, char *argv[] )
 	InitMultis();
 	Console::instance()->ProgressDone();
 
-	starttime = uiCurrentTime;
-	endtime = 0;
-	lclock = 0;
-
 	uiCurrentTime = getNormalizedTime();
-	serverstarttime = getNormalizedTime(); // dont remove, its absolutly necassairy that its 3 times in the startup sequence for several timing reasons.
-
-	CIAO_IF_ERROR;
-
-    // print allowed clients	
-	Console::instance()->send( "Allowed clients: " );
-
-	if( SrvParams->clientsAllowed().contains( "ALL" ) )
-		Console::instance()->send( "All\n\n" );
-	else
-		Console::instance()->send( SrvParams->clientsAllowed().join( ", " ) + "\n\n" );
 
 	Console::instance()->PrepareProgress( "Starting up Network" );
 	cNetwork::startup();
 	Console::instance()->ProgressDone();
-	CIAO_IF_ERROR;
 
 	if( SrvParams->enableLogin() )
         Console::instance()->send( QString( "LoginServer running on port %1\n" ).arg( SrvParams->loginPort() ) );
@@ -569,24 +549,6 @@ int main( int argc, char *argv[] )
 
 		Console::instance()->poll();
 
-		if( loopTimeCount >= 1000 )
-		{
-			loopTimeCount = 0;
-			loopTime = 0;
-		}
-
-		++loopTimeCount;
-
-		loopSecs = getNormalizedTime();  // Starting time
-
-		if( networkTimeCount >= 1000 )
-		{
-			networkTimeCount = 0;
-			networkTime = 0;
-		}
-
-		tempSecs = getNormalizedTime();
-
 		// Process any Network Events
 		cNetwork::instance()->poll();
 
@@ -603,43 +565,7 @@ int main( int argc, char *argv[] )
 			}
 		}
 
-		tempTime = getNormalizedTime() - tempSecs ;
-		networkTime += tempTime;
-		++networkTimeCount;
-
-		if( timerTimeCount >= 1000 )
-		{
-			timerTimeCount = 0;
-			timerTime = 0;
-		}
-
-		tempSecs = getNormalizedTime() ;		
-
-		checktimers();
-
-		uiCurrentTime = getNormalizedTime();
-		tempTime = getNormalizedTime() - tempSecs;
-		timerTime += tempTime;
-		++timerTimeCount;
-
-		if( autoTimeCount >= 1000 )
-		{
-			autoTimeCount = 0;
-			autoTime = 0;
-		}
-		
-		tempSecs = getNormalizedTime() ;		
-
 		checkauto();
-
-		tempTime = getNormalizedTime() - tempSecs;
-		autoTime += tempTime;
-		++autoTimeCount;
-
-		tempTime = getNormalizedTime() - loopSecs;
-
-		loopTime += tempTime;
-		
 		qApp->processEvents( 40 );
 	}
 
@@ -774,19 +700,6 @@ void setcharflag( P_CHAR pc )
 		else
 		{
 			pp->makeCriminal();
-		}
-	}
-	else if (pc->objectType() == enNPC) // && ((pc->npcaitype() == 2) || // bad npc
-		//(pc->npcaitype() == 3) ||  // bad healer
-		//(pc->npcaitype() == 50)))   // EV & BS
-	{
-		if (SrvParams->badNpcsRed() == 0)
-		{
-			pc->setCriminalTime( uiCurrentTime + SrvParams->crimtime() * MY_CLOCKS_PER_SEC );
-		}
-		else
-		{
-			pc->setMurdererTime( uiCurrentTime + SrvParams->murderdecay() * MY_CLOCKS_PER_SEC );
 		}
 	}
 	else

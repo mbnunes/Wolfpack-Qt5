@@ -31,8 +31,10 @@
 
 #if !defined(__GLOBALS_H__)
 #define __GLOBALS_H__
-// Platform specifics
+
+// Wolfpack Includes
 #include "platform.h"
+#include "structs.h"
 
 // System Includes
 
@@ -43,101 +45,45 @@
 #if defined(__unix__)
 #include <termios.h>
 #endif
-// Third Party
 
-
-//Forward Class Declaration
-
+// Forward Class Declaration
 class QDateTime;
 class cScriptManager;
 class WPDefManager;
 
-#include "structs.h"
-
 // Global Variables
-
 extern enServerState serverState;
-
 extern unsigned int uiCurrentTime;
-extern unsigned int raindroptime;
-extern unsigned int polyduration;
-//extern wp_version_info wp_version;
-
-//Time variables
 extern QDateTime uoTime;
-extern int uotickcount;
 
-//extern int goldamount;
-
-extern unsigned int nextfieldeffecttime;
 extern unsigned int nextnpcaitime;
 
 extern int autosaved, dosavewarning;
-extern int err, error;
 extern volatile int keeprun;
-//extern int now;
-extern int secure; // Secure mode
 
-extern unsigned int starttime, endtime, lclock;
+extern int secure; // Secure mode
 
 extern unsigned int shoprestocktime;
 
 extern unsigned int hungerdamagetimer; // Used for hunger damage
-// Profiling
-extern int networkTime;
-extern int timerTime;
-extern int autoTime;
-extern int loopTime;
-extern int networkTimeCount;
-extern int timerTimeCount;
-extern int autoTimeCount;
-extern int loopTimeCount;
-
-extern unsigned long int serverstarttime;
-
-extern unsigned long initialserversec;
-extern unsigned long initialservermill ;
-
-
-
-// - the below structure is for looking up items based on serial #
-// - item's serial, owner's serial, char's serial, and container's serial
-
-extern std::list<SERIAL> guilds;
-
-/******************************************************/
-
-/////////////////////////////////////////
-///////////// global string vars /////////
-/////////////////////////////////////////
 
 extern char temp[1024];
 
-// Forward declarations
 class cSrvParams;
 class cBoat;
 class cAccount;
 class Maps;
 class cSkills;
-class cTargets;
-class cMovement;
 class cSpeech;
-class cBounty;
-class cAccounts;
 class PersistentBroker;
 
-//-=-=-=-=-=-=-Classes Definitions=-=-=-=-=-=//
 extern cSrvParams				*SrvParams;
 extern Maps						*Map;
 extern cSkills					*Skills;
 extern cSpeech					*Speech;
-extern cBounty					*Bounty;
 extern cScriptManager			*ScriptManager;
 extern WPDefManager				*DefManager;
 extern PersistentBroker			*persistentBroker;
-// END
-//-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-//
-
 
 #endif
 

@@ -361,16 +361,6 @@ void cUOSocket::disconnect( void )
 	if( _player )
 	{
 		_player->onLogout();
-
-		cUOSocket* mSocket = 0;
-		QPtrListIterator<cUOSocket> it( cNetwork::instance()->getIterator() );
-		while ( ( mSocket = it.current() ) )
-		{
-			++it;
-			if ( mSocket == this || !SrvParams->joinMsg() || !mSocket->player() || !mSocket->player()->isGMorCounselor() )
-				continue;
-			mSocket->sysMessage( tr("%1 left the world!").arg( _player->name() ), 0x25 );
-		}		
 		_player->setSocket( NULL );
 		_player->account()->setInUse( false );
 	}
@@ -601,10 +591,6 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	send( &gameTime );
 
 	pChar->sendTooltip( this );
-
-	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-		if( mSock != this && SrvParams->joinMsg() && mSock->player() && mSock->player()->isGMorCounselor() )
-			mSock->sysMessage( tr("%1 entered the world!").arg( pChar->name() ), 0x48 );
 }
 
 /*!
@@ -616,7 +602,7 @@ void cUOSocket::playChar( P_PLAYER pChar )
 bool cUOSocket::authenticate( const QString &username, const QString &password )
 {
 	cAccounts::enErrorCode error = cAccounts::NoError;
-	AccountRecord* authRet = Accounts::instance()->authenticate( username, password, &error );
+	cAccount* authRet = Accounts::instance()->authenticate( username, password, &error );
 
 	// Reject login
 	if( !_account && error != cAccounts::NoError )

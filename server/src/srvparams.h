@@ -64,7 +64,6 @@ class cSrvParams : public Preferences
 protected:
 	std::vector<ServerList_st> serverList_;
 	std::vector<StartLocation_st> startLocation_;
-	QStringList clientsAllowed_;
 	
 	// loaded data
 	bool allowUnencryptedClients_;
@@ -75,25 +74,14 @@ protected:
 	unsigned int skillAdvanceModifier_;
 	unsigned int statsAdvanceModifier_;
 	unsigned short objectDelay_;
-	unsigned char bgSound_;
 	bool stealing_;
 	bool guardsActive_;
-	bool partMsg_;
-	bool joinMsg_;
 	bool saveSpawns_;
 	bool autoAccountCreate_;
-	bool serverLog_;
-	bool speechLog_;
-	bool pvpLog_;
-	bool gmLog_;
-	unsigned int autoAccountReload_;
-	float stablingFee_;
-	bool checkCharAge_;
-	bool announceWorldSaves_;
 	float checkItemTime_;
 	float checkNPCTime_;
 	float checkFollowTime_;
-	float checkTammedTime_;
+	float checkTamedTime_;
 	unsigned int itemDecayTime_;
 	unsigned int corpseDecayTime_;
 	int niceLevel_;
@@ -101,7 +89,6 @@ protected:
 	bool enableLogin_;
 	unsigned short gamePort_;
 	bool enableGame_;
-	float goldWeight_;
 	unsigned int playercorpsedecaymultiplier_;
 	bool lootdecayswithcorpse_;
 	float invisTimer_;
@@ -109,13 +96,9 @@ protected:
 	int skillLevel_;
 	unsigned short bandageDelay_;
 	bool bandageInCombat_;
-	float gateTimer_;
-	unsigned int inactivityTimeout_;
-	unsigned int showDeathAnim_;
 	unsigned int poisonTimer_;
 	signed int maxStealthSteps_;
 	unsigned int runningStamSteps_;
-	int backupSaveRatio_;
 	unsigned int hungerRate_;
 	unsigned int hungerDamageRate_;
 	unsigned char hungerDamage_;
@@ -124,48 +107,32 @@ protected:
 	unsigned int tamedDisappear_;
 	unsigned int houseInTown_;
 	unsigned int shopRestock_;
-	unsigned int badNpcsRed_;
-	unsigned int slotAmount_;
 	unsigned int snoopdelay_;
-	int  escortactive_;
-	int  escortinitexpire_;
-	int  escortactiveexpire_;
-	int  escortdoneexpire_;
-	int  bountysactive_;
-	int  bountysexpire_;
 	unsigned short int quittime_;
-	char errors_to_console_;
 	unsigned long int housedecay_secs_;
-	unsigned int default_jail_time_;
-	unsigned char showCVCS_;
 	unsigned int spawnRegionCheckTime_;
 	unsigned int secondsPerUOMinute_;
 	bool cacheMulFiles_;
-	unsigned int beggingRange_;
-	unsigned int beggingTime_;
-	unsigned char season_;
 	QString databaseDriver_;
 	QString databaseName_;
 	QString databaseUsername_;
 	QString databasePassword_;
 	QString databaseHost_;
+	QString accountsDriver_;
+	QString accountsName_;
+	QString accountsUsername_;
+	QString accountsPassword_;
+	QString accountsHost_;
 	int saveInterval_;
-	bool heartBeat_;
-	int defaultpriv2_;
 	QString mulPath_;
 	QString logPath_;
-	int maxLoginAttempts_;
-	int resetAttemptCount_;
-	int accountsBlockTime_;
-	QString accountsArchiver_;
 	bool categoryTagAddMenu_;
 	double npcMoveTime_;
 	double tamedNpcMoveTime_;
+	unsigned int showNpcTitles_;
 
 	// AI
 	float checkAITime_;
-	unsigned int stablemasterRefreshTime_;
-	float stablemasterGoldPerRefresh_;
 	unsigned int animalWildFleeRange_;
 
 	// Regenerate
@@ -175,30 +142,8 @@ protected:
 	char armoraffectmana_;
 
 	// Combat
-	bool combatHitMessage_;
-	unsigned int maxAbsorbtion_;
-	unsigned int maxnohabsorbtion_;
-	unsigned int monsters_vs_animals_;
-	unsigned int animals_attack_chance_;
-	unsigned int animals_guarded_;
-	unsigned int npcdamage_;
-	unsigned int npc_base_fleeat_;
-	unsigned int npc_base_reattackat_;
 	int attackstamina_;
 	unsigned char attack_distance_;
-
-	// Vendor
-	unsigned int sellbyname_;
-	unsigned int sellmaxitem_;
-	unsigned int trade_system_;
-	unsigned int rank_system_;
-	short checkBank_;
-	unsigned int vendorGreet_;
-	unsigned int showNpcTitles_;
-
-	// added by darkstorm: make-menus
-	bool belowminskillfails_;
-	bool hungeraffectsskills_;
 
 	//Repsys
 	long int		murderdecay_;
@@ -208,23 +153,12 @@ protected:
 	// Resources
 	unsigned int resourceitemdecaytime_;
 
-	//Tracking
-	unsigned int baserange_;
-	unsigned int maxtargets_;
-	unsigned int basetimer_;
-	unsigned int redisplaytime_;
-
 	// Light
 	unsigned char worldBrightLevel_;
 	unsigned char worldFixedLevel_;
 	unsigned char worldDarkLevel_;
 	unsigned char dungeonLightLevel_;
 	unsigned char worldCurrentLevel_;
-
-	// Magic
-	bool precasting_;
-	bool walkDisturbsCast_;
-	bool cutScrollReq_;
 
 	// Path Finding
 	int		pathfindMaxSteps_;
@@ -254,81 +188,42 @@ public:
 	bool stealingEnabled() const;
 	bool guardsActive() const;
 	void guardsActive(bool);
-	unsigned char bgSound() const;
 	unsigned short objectDelay() const;
-	bool partMsg() const;
-	bool joinMsg() const;
-	unsigned int autoAccountReload() const;
 	bool autoAccountCreate() const;
 	bool saveSpawns() const;
-	bool serverLog() const;
-	bool speechLog() const;
-	bool pvpLog() const;
-	bool gmLog() const;
-	float stablingFee() const;
-	bool checkCharAge() const;
-	bool announceWorldSaves() const;
-	void announceWorldSaves(bool enable);
 	float checkItemTime() const;
 	float checkNPCTime() const;
 	float checkAITime() const;
-	float stablemasterGoldPerRefresh() const;
-	unsigned int stablemasterRefreshTime() const;
 	unsigned int animalWildFleeRange() const;
 	float checkFollowTime() const;
-	float checkTammedTime() const;
+	float checkTamedTime() const;
 	int niceLevel() const;
 	unsigned int itemDecayTime() const;
 	unsigned int corpseDecayTime() const;
-	float goldWeight() const;
 	bool lootdecayswithcorpse() const;
 	float invisTimer() const;
 	unsigned short skillDelay() const;
-	int skillLevel() const;
 	unsigned short bandageDelay() const;
 	bool bandageInCombat() const;
-	float gateTimer() const;
-	unsigned int inactivityTimeout() const;
-	unsigned int showDeathAnim() const;
 	unsigned int poisonTimer() const;
 	signed int maxStealthSteps() const;
 	unsigned int runningStamSteps() const;
-	int backupSaveRatio() const;
 	unsigned int hungerRate() const;
 	unsigned int hungerDamageRate() const;
 	unsigned char hungerDamage() const;
 	float boatSpeed() const;
-	bool cutScrollReq() const;
-	bool precasting() const;
-	bool walkDisturbsCast() const;
 	int persecute() const;
 	unsigned int tamedDisappear() const;
 	unsigned int houseInTown() const;
 	unsigned int shopRestock() const;
-	unsigned int badNpcsRed() const;
-	unsigned int slotAmount() const;
 	unsigned int snoopdelay() const;
-	int  escortactive() const;
-	int  escortinitexpire() const;
-	int  escortactiveexpire() const;
-	int  escortdoneexpire() const;
-	int  bountysactive() const;
-	int  bountysexpire() const;
 	unsigned short int quittime() const;
-	char errors_to_console() const;
 	unsigned long int housedecay_secs() const;
 	unsigned int default_jail_time() const;
-	unsigned char showCVCS() const;
 	bool cacheMulFiles() const;
 	unsigned int spawnRegionCheckTime() const;
 	unsigned int secondsPerUOMinute() const;
 	void setSecondsPerUOMinute( unsigned int );
-	bool isClientAllowed( const QString& );
-	const QStringList& clientsAllowed() const;
-	unsigned int beggingRange() const;
-	unsigned int beggingTime() const;
-	unsigned char season() const;
-	void setSeason( unsigned char );
 	int saveInterval() const;
 	bool heartBeat() const;
 	int defaultpriv2() const;
@@ -336,13 +231,10 @@ public:
 	QString logPath() const;
 	void setMulPath( const QString& data );
 	void setLogPath( const QString& data );
-	int MaxLoginAttempts() const;
-	int AccountBlockTime() const;
-	int resetAttemptCount() const;
-	QString accountsArchiver() const;
 	bool addMenuByCategoryTag() const;
 	double npcMoveTime() const;
 	double tamedNpcMoveTime() const;
+	unsigned int showNpcTitles() const;
 
 	// Persistency Module
 	QString databaseDriver() const;
@@ -350,6 +242,11 @@ public:
 	QString databasePassword() const;
 	QString databaseUsername() const;
 	QString databaseName() const;
+	QString accountsDriver() const;
+	QString accountsHost() const;
+	QString accountsPassword() const;
+	QString accountsUsername() const;
+	QString accountsName() const;
 
 	// Regenerate
 	unsigned int hitpointrate() const;
@@ -358,29 +255,8 @@ public:
 	char armoraffectmana() const;
 
 	// Combat
-	bool combatHitMessage() const;
-	unsigned int maxAbsorbtion() const;
-	unsigned int maxnohabsorbtion() const;
-	unsigned int monsters_vs_animals() const;
-	unsigned int animals_attack_chance() const;
-	unsigned int animals_guarded() const;
-	unsigned int npcdamage() const;
-	unsigned int npc_base_fleeat() const;
-	unsigned int npc_base_reattackat() const;
 	int attackstamina() const;
 	unsigned char attack_distance() const;
-
-	// Vendor
-	unsigned int sellbyname() const;
-	unsigned int sellmaxitem() const;
-	unsigned int trade_system() const;
-	unsigned int rank_system() const;
-	short checkBank() const;
-	unsigned int vendorGreet() const;
-	unsigned int showNpcTitles() const;
-
-	bool BelowMinSkillFails() const;
-	bool HungerAffectsSkills() const;
 
 	// Repsys
 	long int		murderdecay() const;
@@ -389,12 +265,6 @@ public:
 
 	// Resources
 	unsigned int resitemdecaytime() const;
-
-	// Tracking
-	unsigned int baserange() const;
-	unsigned int maxtargets() const;
-	unsigned int basetimer() const;
-	unsigned int redisplaytime() const;
 
 	// Light
 	unsigned char worldBrightLevel() const;
@@ -482,54 +352,14 @@ inline void cSrvParams::guardsActive(bool enabled)
 	setBool("General" "Guards Enabled", enabled);
 }
 
-inline unsigned char cSrvParams::bgSound() const
-{
-	return bgSound_;
-}
-
 inline unsigned short cSrvParams::objectDelay() const
 {
 	return objectDelay_;
 }
 
-inline bool cSrvParams::partMsg() const
-{
-	return partMsg_;
-}
-
 inline bool cSrvParams::allowUnencryptedClients() const
 {
 	return allowUnencryptedClients_;
-}
-
-inline bool cSrvParams::serverLog() const
-{
-	return serverLog_;
-}
-
-inline bool cSrvParams::speechLog() const
-{
-	return speechLog_;
-}
-
-inline bool cSrvParams::pvpLog() const
-{
-	return pvpLog_;
-}
-
-inline bool cSrvParams::gmLog() const
-{
-	return gmLog_;
-}
-
-inline bool cSrvParams::joinMsg() const
-{
-	return joinMsg_;
-}
-
-inline unsigned int cSrvParams::autoAccountReload() const
-{
-	return autoAccountReload_;
 }
 
 inline bool cSrvParams::autoAccountCreate() const
@@ -540,27 +370,6 @@ inline bool cSrvParams::autoAccountCreate() const
 inline bool cSrvParams::saveSpawns() const
 {
 	return saveSpawns_;
-}
-
-inline float cSrvParams::stablingFee() const
-{
-	return stablingFee_;
-}
-
-inline bool cSrvParams::checkCharAge() const
-{
-	return checkCharAge_;
-}
-
-inline bool cSrvParams::announceWorldSaves() const
-{
-	return announceWorldSaves_;
-}
-
-inline void cSrvParams::announceWorldSaves(bool enable)
-{
-	announceWorldSaves_ = enable;
-	setBool("General", "Announce WorldSaves", enable);
 }
 
 inline float cSrvParams::checkItemTime() const
@@ -578,16 +387,6 @@ inline float cSrvParams::checkAITime() const
 	return checkAITime_;
 }
 
-inline float cSrvParams::stablemasterGoldPerRefresh() const
-{
-	return stablemasterGoldPerRefresh_;
-}
-
-inline unsigned int cSrvParams::stablemasterRefreshTime() const
-{
-	return stablemasterRefreshTime_;
-}
-
 inline unsigned int cSrvParams::animalWildFleeRange() const
 {
 	return animalWildFleeRange_;
@@ -598,9 +397,9 @@ inline float cSrvParams::checkFollowTime() const
 	return checkFollowTime_;
 }
 
-inline float cSrvParams::checkTammedTime() const
+inline float cSrvParams::checkTamedTime() const
 {
-	return checkTammedTime_;
+	return checkTamedTime_;
 }
 
 inline int cSrvParams::niceLevel() const
@@ -618,29 +417,14 @@ inline unsigned int cSrvParams::corpseDecayTime() const
 	return corpseDecayTime_;
 }
 
-inline float cSrvParams::goldWeight() const
-{
-	return goldWeight_;
-}
-
 inline bool cSrvParams::lootdecayswithcorpse() const
 {
 	return lootdecayswithcorpse_;
 }
 
-inline float cSrvParams::invisTimer() const
-{
-	return invisTimer_;
-}
-
 inline unsigned short cSrvParams::skillDelay() const
 {
 	return skillDelay_;
-}
-
-inline int cSrvParams::skillLevel() const
-{
-	return skillLevel_;
 }
 
 inline unsigned short cSrvParams::bandageDelay() const
@@ -651,21 +435,6 @@ inline unsigned short cSrvParams::bandageDelay() const
 inline bool cSrvParams::bandageInCombat() const
 {
 	return bandageInCombat_;
-}
-
-inline float cSrvParams::gateTimer() const
-{
-	return gateTimer_;
-}
-
-inline unsigned int cSrvParams::inactivityTimeout() const
-{
-	return inactivityTimeout_;
-}
-
-inline unsigned int cSrvParams::showDeathAnim() const
-{
-	return showDeathAnim_;
 }
 
 inline unsigned int cSrvParams::poisonTimer() const
@@ -683,11 +452,6 @@ inline unsigned int cSrvParams::runningStamSteps() const
 	return runningStamSteps_;
 }
 
-inline int cSrvParams::backupSaveRatio() const
-{
-	return backupSaveRatio_;
-}
-
 inline unsigned int cSrvParams::hungerRate() const
 {
 	return hungerRate_;
@@ -703,29 +467,9 @@ inline unsigned char cSrvParams::hungerDamage() const
 	return hungerDamage_;
 }
 
-inline bool cSrvParams::combatHitMessage() const
-{
-	return combatHitMessage_;
-}
-
 inline float cSrvParams::boatSpeed() const
 {
 	return boatSpeed_;
-}
-
-inline bool cSrvParams::cutScrollReq() const
-{
-	return cutScrollReq_;
-}
-
-inline bool cSrvParams::precasting() const
-{
-	return precasting_;
-}
-
-inline bool cSrvParams::walkDisturbsCast() const
-{
-	return walkDisturbsCast_;
 }
 
 inline int cSrvParams::persecute() const
@@ -748,94 +492,14 @@ inline unsigned int cSrvParams::shopRestock() const
 	return shopRestock_;
 }
 
-inline unsigned int cSrvParams::badNpcsRed() const
-{
-	return badNpcsRed_;
-}
-
-inline unsigned int cSrvParams::slotAmount() const
-{
-	return slotAmount_;
-}
-
-inline unsigned int cSrvParams::maxAbsorbtion() const
-{
-	return maxAbsorbtion_;
-}
-
-inline unsigned int cSrvParams::maxnohabsorbtion() const
-{
-	return maxnohabsorbtion_;
-}
-
-inline unsigned int cSrvParams::monsters_vs_animals() const
-{
-	return monsters_vs_animals_;
-}
-
-inline unsigned int cSrvParams::animals_attack_chance() const
-{
-	return animals_attack_chance_;
-}
-
-inline unsigned int cSrvParams::animals_guarded() const
-{
-	return animals_guarded_;
-}
-
-inline unsigned int cSrvParams::npcdamage() const
-{
-	return npcdamage_;
-}
-
-inline unsigned int cSrvParams::npc_base_fleeat() const
-{
-	return npc_base_fleeat_;
-}
-
 inline int cSrvParams::attackstamina() const
 {
 	return attackstamina_;
 }
 
-inline unsigned int cSrvParams::npc_base_reattackat() const
-{
-	return npc_base_reattackat_;
-}
-
 inline unsigned char cSrvParams::attack_distance() const
 {
 	return attack_distance_;
-}
-
-inline unsigned int cSrvParams::sellbyname() const
-{
-	return sellbyname_;
-}
-
-inline unsigned int cSrvParams::sellmaxitem() const
-{
-	return sellmaxitem_;
-}
-
-inline unsigned int cSrvParams::trade_system() const
-{
-	return trade_system_;
-}
-
-inline unsigned int cSrvParams::rank_system() const
-{
-	return rank_system_;
-}
-
-inline short cSrvParams::checkBank() const
-{
-	return checkBank_;
-}
-
-inline unsigned int cSrvParams::vendorGreet() const
-{
-	return vendorGreet_;
 }
 
 inline unsigned int cSrvParams::hitpointrate() const
@@ -858,49 +522,9 @@ inline char cSrvParams::armoraffectmana() const
 	return armoraffectmana_;
 }
 
-inline bool cSrvParams::BelowMinSkillFails() const
-{
-	return belowminskillfails_; 
-}
-
-inline bool cSrvParams::HungerAffectsSkills() const
-{
-	return hungeraffectsskills_;
-}
-
 inline unsigned int cSrvParams::snoopdelay() const
 {
 	return snoopdelay_;
-}
-
-inline int cSrvParams::escortactive() const
-{
-	return escortactive_;
-}
-
-inline int cSrvParams::escortinitexpire() const
-{
-	return escortinitexpire_;
-}
-
-inline int cSrvParams::escortactiveexpire() const
-{
-	return escortactiveexpire_;
-}
-
-inline int cSrvParams::escortdoneexpire() const
-{
-	return escortdoneexpire_;
-}
-
-inline int cSrvParams::bountysactive() const
-{
-	return bountysactive_;
-}
-
-inline int cSrvParams::bountysexpire() const
-{
-	return bountysexpire_;
 }
 
 inline unsigned short int cSrvParams::quittime() const
@@ -908,24 +532,9 @@ inline unsigned short int cSrvParams::quittime() const
 	return quittime_;
 }
 
-inline char cSrvParams::errors_to_console() const
-{
-	return errors_to_console_;
-}
-
 inline unsigned long int cSrvParams::housedecay_secs() const
 {
 	return housedecay_secs_;
-}
-
-inline unsigned int cSrvParams::default_jail_time() const
-{
-	return default_jail_time_;
-}
-
-inline unsigned char cSrvParams::showCVCS() const
-{
-	return showCVCS_;
 }
 
 inline long int cSrvParams::murderdecay() const
@@ -948,26 +557,6 @@ inline unsigned int cSrvParams::resitemdecaytime() const
 	return resourceitemdecaytime_;
 }
 
-inline unsigned int cSrvParams::baserange() const
-{
-	return baserange_;
-}
-
-inline unsigned int cSrvParams::maxtargets() const
-{
-	return maxtargets_;
-}
-
-inline unsigned int cSrvParams::basetimer() const
-{
-	return basetimer_;
-}
-
-inline unsigned int cSrvParams::redisplaytime() const
-{
-	return redisplaytime_;
-}
-
 inline bool cSrvParams::cacheMulFiles() const
 {
 	return cacheMulFiles_;
@@ -981,21 +570,6 @@ inline unsigned int cSrvParams::spawnRegionCheckTime() const
 inline unsigned int cSrvParams::secondsPerUOMinute() const
 {
 	return secondsPerUOMinute_;
-}
-
-inline const QStringList& cSrvParams::clientsAllowed() const
-{
-	return clientsAllowed_;
-}
-
-inline unsigned int cSrvParams::beggingRange() const
-{
-	return beggingRange_;
-}
-
-inline unsigned int cSrvParams::beggingTime() const
-{
-	return beggingTime_;
 }
 
 inline unsigned char cSrvParams::worldBrightLevel() const
@@ -1018,54 +592,14 @@ inline unsigned char cSrvParams::dungeonLightLevel() const
 	return dungeonLightLevel_;
 }
 
-inline unsigned char cSrvParams::season() const
-{
-	return season_;
-}
-
-inline void cSrvParams::setSeason( unsigned char data)
-{
-	season_ = data;
-}
-
 inline int cSrvParams::saveInterval() const
 {
 	return saveInterval_;
 }
 
-inline bool cSrvParams::heartBeat() const
-{
-	return heartBeat_;
-}
-
-inline int cSrvParams::defaultpriv2() const
-{
-	return defaultpriv2_;
-}
-
 inline unsigned int cSrvParams::showNpcTitles() const
 {
 	return showNpcTitles_;
-}
-
-inline int cSrvParams::MaxLoginAttempts() const
-{
-	return maxLoginAttempts_;
-}
-
-inline int cSrvParams::AccountBlockTime() const
-{
-	return accountsBlockTime_;
-}
-
-inline int cSrvParams::resetAttemptCount() const
-{
-	return resetAttemptCount_;
-}
-
-inline QString cSrvParams::accountsArchiver() const
-{
-	return accountsArchiver_;
 }
 
 inline QString cSrvParams::databaseDriver() const 
@@ -1091,6 +625,31 @@ inline QString cSrvParams::databaseUsername() const
 inline QString cSrvParams::databasePassword() const
 {
 	return databasePassword_;
+}
+
+inline QString cSrvParams::accountsDriver() const 
+{
+	return accountsDriver_;
+}
+
+inline QString cSrvParams::accountsHost() const 
+{
+	return accountsHost_;
+}
+
+inline QString cSrvParams::accountsName() const
+{
+	return accountsName_;
+}
+
+inline QString cSrvParams::accountsUsername() const
+{
+	return accountsUsername_;
+}
+
+inline QString cSrvParams::accountsPassword() const
+{
+	return accountsPassword_;
 }
 
 inline bool cSrvParams::showSkillTitles() const

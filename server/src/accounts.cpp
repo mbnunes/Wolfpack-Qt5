@@ -31,26 +31,26 @@
 // Wolfpack Includes
 #include "accounts.h"
 #include "srvparams.h"
-#include "pfactory.h"
 #include "network/uosocket.h"
-
+#include "dbdriver.h"
+#include "console.h"
 #include "commands.h"
 #include "player.h"
 #include "network.h"
-#include "exceptions.h"
 #include "globals.h"
+#include "persistentbroker.h"
 #include "world.h"
 
 /*****************************************************************************
-  AccountRecord member functions
+  cAccount member functions
  *****************************************************************************/
 
-AccountRecord::AccountRecord()
+cAccount::cAccount()
 : acl_(0), inUse_(false), flags_(0)
 {
 }
 
-void AccountRecord::Serialize( ISerialization& archive )
+/*void cAccount::Serialize( ISerialization& archive )
 {
 	if ( archive.isReading() )
 	{
@@ -86,9 +86,9 @@ void AccountRecord::Serialize( ISerialization& archive )
 			archive.write( "blockuntil", QString( "0" ) );
 	}
 	cSerializable::Serialize( archive );
-}
+}*/
 
-bool AccountRecord::isBlocked() const
+bool cAccount::isBlocked() const
 {
 	if ( (blockUntil.isValid() && blockUntil < QDateTime::currentDateTime()) || flags_&0x00000001 )
 		return true;
@@ -96,7 +96,7 @@ bool AccountRecord::isBlocked() const
 		return false;
 }
 
-uint AccountRecord::secsToUnblock() const
+uint cAccount::secsToUnblock() const
 {
 	if ( isBlocked() )
 		return ~0;
@@ -105,7 +105,7 @@ uint AccountRecord::secsToUnblock() const
 	return 0;
 }
 
-bool AccountRecord::addCharacter( P_PLAYER d )
+bool cAccount::addCharacter( P_PLAYER d )
 {
 	if( qFind( characters_.begin(), characters_.end(), d ) == characters_.end() )
 	{
@@ -115,7 +115,7 @@ bool AccountRecord::addCharacter( P_PLAYER d )
 	return false;
 }
 
-bool AccountRecord::removeCharacter( P_PLAYER d )
+bool cAccount::removeCharacter( P_PLAYER d )
 {
 	QValueVector<P_PLAYER>::iterator it = qFind( characters_.begin(), characters_.end(), d );
 	if ( it != characters_.end() )
@@ -126,7 +126,7 @@ bool AccountRecord::removeCharacter( P_PLAYER d )
 	return false;
 }
 
-bool AccountRecord::authorized( const QString& group, const QString& value ) const
+bool cAccount::authorized( const QString& group, const QString& value ) const
 {
 	// No Valid ACL specified
 	if( !acl_ )
@@ -159,49 +159,49 @@ bool AccountRecord::authorized( const QString& group, const QString& value ) con
 	return false;
 }
 
-void AccountRecord::remove()
+void cAccount::remove()
 {
 	Accounts::instance()->remove( this );
 }
 
-void cAccounts::remove( AccountRecord *record )
+void cAccounts::remove( cAccount *record )
 {
 	if( accounts.contains( record->login() ) )
 		accounts.remove( record->login() );
 	delete record;
 }
 
-void AccountRecord::refreshAcl()
+void cAccount::refreshAcl()
 {
 	acl_ = cCommands::instance()->getACL( aclName_ ); 
 }
 
-bool AccountRecord::isAllMove() const
+bool cAccount::isAllMove() const
 {
 	return flags_&0x00000002;
 }
 
-bool AccountRecord::isAllShow() const
+bool cAccount::isAllShow() const
 {
 	return flags_&0x00000004;
 }
 
-bool AccountRecord::isShowSerials() const
+bool cAccount::isShowSerials() const
 {
 	return flags_&0x00000008;
 }
 
-bool AccountRecord::isPageNotify() const
+bool cAccount::isPageNotify() const
 {
 	return flags_&0x00000010;
 }
 
-bool AccountRecord::isStaff() const
+bool cAccount::isStaff() const
 {
 	return flags_&0x00000020;
 }
 
-void AccountRecord::setBlocked( bool data )
+void cAccount::setBlocked( bool data )
 {
 	if( data )
 		flags_ |= 0x00000001;
@@ -209,7 +209,7 @@ void AccountRecord::setBlocked( bool data )
 		flags_ &= 0xFFFFFFFE;
 }
 
-void AccountRecord::setAllMove( bool data )
+void cAccount::setAllMove( bool data )
 {
 	if( data )
 		flags_ |= 0x00000002;
@@ -217,7 +217,7 @@ void AccountRecord::setAllMove( bool data )
 		flags_ &= 0xFFFFFFFD;
 }
 
-void AccountRecord::setAllShow( bool data )
+void cAccount::setAllShow( bool data )
 {
 	if( data )
 		flags_ |= 0x00000004;
@@ -225,7 +225,7 @@ void AccountRecord::setAllShow( bool data )
 		flags_ &= 0xFFFFFFFB;
 }
 
-void AccountRecord::setShowSerials( bool data )
+void cAccount::setShowSerials( bool data )
 {
 	if( data )
 		flags_ |= 0x00000008;
@@ -233,7 +233,7 @@ void AccountRecord::setShowSerials( bool data )
 		flags_ &= 0xFFFFFFF7;
 }
 
-void AccountRecord::setPageNotify( bool data )
+void cAccount::setPageNotify( bool data )
 {
 	if( data )
 		flags_ |= 0x00000010;
@@ -241,7 +241,7 @@ void AccountRecord::setPageNotify( bool data )
 		flags_ &= 0xFFFFFFEF;
 }
 
-void AccountRecord::setStaff( bool data )
+void cAccount::setStaff( bool data )
 {
 	if( data )
 		flags_ |= 0x00000020;
@@ -262,11 +262,10 @@ void cAccounts::clear()
 {
 	iterator it = accounts.begin();
 	for (; it != accounts.end(); ++it)
-		delete it.data();
-	
+		delete it.data();	
 }
 
-AccountRecord* cAccounts::authenticate(const QString& login, const QString& password, enErrorCode* error) const
+cAccount* cAccounts::authenticate(const QString& login, const QString& password, enErrorCode* error) const
 {
 	const_iterator it = accounts.find(login);
 	if( error )
@@ -297,14 +296,9 @@ AccountRecord* cAccounts::authenticate(const QString& login, const QString& pass
 		}
 		else
 		{
-		//	it.data()->loginAttemped();
 			if( error )
 				*error = BadPassword;
-			// Now we check for the number of attempts;
-		//	if ( it.data()->loginAttempts() > SrvParams->MaxLoginAttempts() )
-		//	{
-		//		it.data()->block(SrvParams->AccountBlockTime());
-		//	}
+
 			return 0;
 		}
 	}
@@ -318,37 +312,98 @@ AccountRecord* cAccounts::authenticate(const QString& login, const QString& pass
 
 void cAccounts::save()
 {
-	ISerialization* archive = cPluginFactory::serializationArchiver( SrvParams->accountsArchiver());
-	archive->prepareWritting("accounts");
-	// Now save accounts
-	iterator it = accounts.begin();
-	for (; it != accounts.end(); ++it )
+	// Open the Account Driver
+	if( !persistentBroker->openDriver( SrvParams->accountsDriver() ) )
 	{
-		archive->writeObject( it.data() );
+		Console::instance()->log( LOG_ERROR, QString( "Unknown Account Database Driver '%1', check your wolfpack.xml").arg( SrvParams->accountsDriver() ) );
+		return;
 	}
-	archive->close();
-	delete archive;
+
+	bool connected = false;
+
+	try
+	{
+		persistentBroker->connect( SrvParams->accountsHost(), SrvParams->accountsName(), SrvParams->accountsUsername(), SrvParams->accountsPassword() );
+		connected = true;
+
+		persistentBroker->executeQuery( "BEGIN;" );
+
+		persistentBroker->executeQuery( "DELETE FROM accounts;" );
+
+		iterator it = accounts.begin();
+		for (; it != accounts.end(); ++it)
+		{
+			// INSERT 
+			cAccount *account = it.data();
+	
+			QString sql( "INSERT INTO accounts VALUES( '%1', '%2', %3, '%4', %5, %6 );" );
+
+			sql = sql.arg( account->login_ ).arg( account->password_ ).arg( account->flags_ ).arg( account->aclName_ ).arg( !account->lastLogin_.isNull() ? account->lastLogin_.toTime_t() : 0 ).arg( !account->blockUntil.isNull() ? account->blockUntil.toTime_t() : 0 );
+
+			persistentBroker->executeQuery( sql );
+		}
+
+		persistentBroker->executeQuery( "COMMIT;" );
+	}
+	catch( QString &error )
+	{
+		if( connected )
+			persistentBroker->executeQuery( "ROLLBACK;" );
+		Console::instance()->log( LOG_ERROR, QString( "Error while saving Accounts: %1." ).arg( error ) );
+	}
+	catch( ... )
+	{
+		if( connected )
+			persistentBroker->executeQuery( "ROLLBACK;" );
+		Console::instance()->log( LOG_ERROR, "Unknown error while saving Accounts." );
+	}	
 }
 
 void cAccounts::load()
 {
-	ISerialization* archive = cPluginFactory::serializationArchiver( SrvParams->accountsArchiver());
-	archive->prepareReading("accounts");
-	for (uint i = 0; i < archive->size(); ++i)
+	// Open the Account Driver
+	if( !persistentBroker->openDriver( SrvParams->accountsDriver() ) )
 	{
-		QString objectID;
-		archive->readObjectID( objectID );
-		if ( objectID == "ACCOUNT" )
-		{
-			AccountRecord* d = new AccountRecord;
-			archive->readObject( d );
-			accounts.insert( d->login(), d );
-		}
-		else
-			throw wpException( "Error parsing account records." );
+		Console::instance()->log( LOG_ERROR, QString( "Unknown Account Database Driver '%1', check your wolfpack.xml").arg( SrvParams->accountsDriver() ) );
+		return;
 	}
-	archive->close();
-	delete archive;
+
+	// Load all Accounts
+	try
+	{
+		persistentBroker->connect( SrvParams->accountsHost(), SrvParams->accountsName(), SrvParams->accountsUsername(), SrvParams->accountsPassword() );
+
+		cDBResult result = persistentBroker->query( "SELECT accounts.login,accounts.password,accounts.flags,accounts.acl,accounts.lastlogin,accounts.blockuntil FROM accounts;" );
+
+		// Clear Accounts HERE
+		// Here we can be pretty sure that we have a valid datasource for accounts
+		clear();
+
+		while( result.fetchrow() )
+		{
+			cAccount *account = new cAccount;
+			account->login_ = result.getString( 0 );
+			account->password_ = result.getString( 1 );
+			account->flags_ = result.getInt( 2 );
+			account->aclName_ = result.getString( 3 );
+			account->refreshAcl();
+			if( result.getInt( 4 ) != 0 )
+				account->lastLogin_.setTime_t( result.getInt( 4 ) );
+
+			if( result.getInt( 5 ) != 0 )
+				account->blockUntil.setTime_t( result.getInt( 5  ) );
+
+			accounts.insert( account->login_, account );
+		}
+	}
+	catch( QString &error )
+	{
+		Console::instance()->log( LOG_ERROR, QString( "Error while loading Accounts: %1" ).arg( error ) );
+	}
+	catch( ... )
+	{
+		Console::instance()->log( LOG_ERROR, "Unknown error while loading Accounts" );
+	}	
 }
 
 void cAccounts::reload()
@@ -376,7 +431,6 @@ void cAccounts::reload()
 			sockaccnames.push_back( QString() );
 	}
 
-	clear();
 	load();
 
 	QMap< SERIAL, QString >::Iterator it = characcnames.begin();
@@ -395,12 +449,11 @@ void cAccounts::reload()
 			mSock->setAccount( getRecord( (*sit) ) );
 		++sit;
 	}
-	
 }
 
-AccountRecord* cAccounts::createAccount( const QString& login, const QString& password )
+cAccount* cAccounts::createAccount( const QString& login, const QString& password )
 {
-	AccountRecord* d = new AccountRecord;
+	cAccount* d = new cAccount;
 	d->login_ = login;
 	d->password_ = password;
 	accounts.insert(d->login(), d);
@@ -418,7 +471,7 @@ uint cAccounts::count()
 	return accounts.count();
 }
 
-AccountRecord* cAccounts::getRecord( const QString& login )
+cAccount* cAccounts::getRecord( const QString& login )
 {
 	iterator it = accounts.find( login );
 	if ( it == accounts.end() )

@@ -41,7 +41,7 @@
 
 // Forward Declarations
 class cUOPacket;
-class AccountRecord;
+class cAccount;
 class cTargetRequest;
 class cGump;
 class cUObject;
@@ -71,7 +71,7 @@ public:
 private:
 	QSocketDevice *_socket;
 	UINT32 _rxBytes, _txBytes, _uniqueId;
-	AccountRecord* _account;
+	cAccount* _account;
 	P_PLAYER _player;
 	eSocketState _state;
 	UINT8 lastPacket, _viewRange, _walkSequence;
@@ -114,8 +114,8 @@ public:
 
 	P_PLAYER player( void ) const;
 	P_ITEM dragging() const;
-	AccountRecord* account( void ) const { return _account; }
-	void setAccount( AccountRecord* data ) { _account = data; }
+	cAccount* account( void ) const { return _account; }
+	void setAccount( cAccount* data ) { _account = data; }
 
 
 	Q_UINT32 rxBytes( void ) const;

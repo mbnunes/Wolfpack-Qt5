@@ -100,19 +100,16 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 void cSrvParams::readData()
 {
 	// Account Group
-	autoAccountCreate_		= getBool("Accounts",	"Auto Create",		false, true);
-	autoAccountReload_		= getNumber("Accounts",	"Auto Reload",		10, true);
-	checkCharAge_			= getBool("Accounts",	"Check Delete Age", true, true);
-	maxLoginAttempts_		= getNumber("Accounts", "Max Login Attempts", 5, true);
-	resetAttemptCount_		= getNumber("Accounts", "Reset Attempts Count", 3*60, true);
-	accountsBlockTime_		= getNumber("Accounts", "Block Failed Logins", 3*60, true);
-	accountsArchiver_		= getString("Accounts", "Archiver Module", "xml", true);
-
+	autoAccountCreate_		= getBool("Accounts",	"Auto Create",		false, true );
+	accountsDriver_			= getString( "Accounts", "Database Driver", "sqlite", true );
+	accountsHost_			= getString( "Accounts", "Database Host", "", true );
+	accountsName_			= getString( "Accounts", "Database Name", "accounts.db", true );
+	accountsUsername_		= getString( "Accounts", "Database Username", "", true );
+	accountsPassword_		= getString( "Accounts", "Database Password", "", true );
+	
 	// AI
-	checkAITime_			= getDouble("AI", "Default AI Check Time", 1.2, true);
-	stablemasterRefreshTime_	= getNumber( "AI", "Refresh time in sec (Stablemasters)", 60, true );
-	stablemasterGoldPerRefresh_	= getDouble( "AI", "Gold cost per refresh cycle (Stablemaster)", 0.2, true );
-	animalWildFleeRange_	= getNumber("AI", "Wild animals flee range", 8, true );
+	checkAITime_			=		getDouble( "AI", "Default AI Check Time", 1.2, true );
+	animalWildFleeRange_	=		getNumber( "AI", "Wild animals flee range", 8, true );
 
 	// Persistency
 	databasePassword_		= getString("Database", "password", "", true);
@@ -130,7 +127,7 @@ void cSrvParams::readData()
 	objectDelay_			= getNumber("Game Speed", "ObjectDelay", 1, true);
 	checkItemTime_			= getDouble("Game Speed", "Items Check Time", 1.1, true);
 	checkNPCTime_			= getDouble("Game Speed", "NPCs Check Time", 1.0, true);
-	checkTammedTime_		= getDouble("Game Speed", "Tamed Check Time", 0.5, true);
+	checkTamedTime_			= getDouble("Game Speed", "Tamed Check Time", 0.5, true);
 	niceLevel_				= getNumber("Game Speed", "Nice Level", 2, true);
 	skillDelay_			    = getNumber("Game Speed", "SkillDelay", 7, true);
 	skillLevel_				= getNumber("Game Speed", "SkillLevel", 3, true);
@@ -142,106 +139,59 @@ void cSrvParams::readData()
 	boatSpeed_              = getDouble("Game Speed", "Boat Speed", 0.750000, true);
 	snoopdelay_			    = getNumber("Game Speed", "Snoop Delay", 7, true);
 	housedecay_secs_	    = getNumber("Game Speed", "House Decay-Sec.", 604800, true);
-	default_jail_time_	    = getNumber("Game Speed", "Default Jail Time", 86400, true);
 	spawnRegionCheckTime_   = getNumber("Game Speed", "SpawnRegion Check Time", 300, true);
 	itemDecayTime_			= getNumber("Game Speed", "Item Decay Time", 300, true);
 	corpseDecayTime_		= getNumber("Game Speed", "Corpse Decay Time", 600, true );
 
 	secondsPerUOMinute_     = getNumber("Game Speed", "Seconds Per UO Minute", 5, true);
-	beggingTime_            = getNumber("Game Speed", "Begging Time", 120, true);
-	checkTammedTime_		= getDouble("Game Speed", "Tamed Check Time", 1.0, true);
 	npcMoveTime_			= getDouble("Game Speed", "NPC Move Time", 3.0, true );
 	tamedNpcMoveTime_		= getDouble("Game Speed", "Tamed NPC Move Time", 0.6, true );
     
 	// General Group
-	showSkillTitles_		= getBool("General", "ShowSkillTitles", true, true );
+	showSkillTitles_		= getBool("General",	"ShowSkillTitles", true, true );
 	skillcap_				= getNumber("General",	"SkillCap",			700, true);
 	statcap_				= getNumber("General",	"StatsCap",			300, true);
 	commandPrefix_			= getString("General",	"Command Prefix",	"'", true);
 	skillAdvanceModifier_	= getNumber("General",	"Skill Advance Modifier", 1000, true);
 	statsAdvanceModifier_	= getNumber("General",	"Stats Advance Modifier", 500, true);
-	bgSound_				= getNumber("General",	"BackGround Sound Chance", 2, true);
 	stealing_				= getBool("General",	"Stealing Enabled",	true, true);			
 	guardsActive_			= getBool("General",	"Guards Enabled",	true, true);
-	partMsg_				= getBool("General",	"PartMessage",		true, true);
-	joinMsg_				= getBool("General",	"JoinMessage",		true, true);
 	saveSpawns_				= getBool("General",	"Save Spawned Regions", true, true);
-	stablingFee_			= getDouble("General",	"StablingFee",		0.25, true);
-	announceWorldSaves_		= getBool("General",	"Announce WorldSaves", true, true);
-	goldWeight_             = getDouble("General",    "Gold Weight", 0.001000, true);
 	lootdecayswithcorpse_   = getBool("General",    "Loot Decays With Corpse", true, true);
 	invisTimer_             = getDouble("General",    "InvisTimer", 60, true);
 	bandageInCombat_		= getBool("General",	"Bandage In Combat",	true, true);
-	gateTimer_              = getDouble("General",    "GateTimer", 30, true);
-	inactivityTimeout_		= getNumber("General",  "Inactivity Timeout", 300, true);
-	showDeathAnim_		    = getNumber("General",  "Show Death Animation", 1, true);
 	poisonTimer_		    = getNumber("General",  "PoisonTimer", 180, true);
-	serverLog_		        = getBool("General",	"Server Log", false, true);
-	speechLog_		        = getBool("General",	"Speech Log", false, true);
-	pvpLog_		            = getBool("General",	"PvP Log", false, true);
-	gmLog_		            = getBool("General",	"GM Log", false, true);
-	backupSaveRatio_		= getNumber("General",  "Backup Save Ratio", 1, true);
 	hungerDamage_			= getNumber("General",  "Hunger Damage", 0, true);
 	persecute_              = getNumber("General",  "Persecution", 1, true);
 	tamedDisappear_         = getNumber("General",  "Tamed Disappear", 0, true);
 	houseInTown_            = getNumber("General",  "House In Town", 0, true);
 	shopRestock_            = getNumber("General",  "Shop Restock", 1, true);
-	badNpcsRed_             = getNumber("General",  "Bad Npcs Red", 1, true);
-	slotAmount_             = getNumber("General",  "Slot Amount", 5, true);
-	hungeraffectsskills_	= getBool("General",  "Hunger affects Skills", true, true);
-	belowminskillfails_		= getBool("General",  "Below Min Skill Fails", false, true);
-	escortactive_           = getNumber("General",  "Escort Active", 1, true);
-	escortinitexpire_       = getNumber("General",  "Escorting Expire", 86400, true);
-	escortactiveexpire_     = getNumber("General",  "Escort Active Expire", 1800, true);
-	escortdoneexpire_       = getNumber("General",  "Escort Done Expire", 1800, true);
-	bountysactive_          = getNumber("General",  "Bounty Active", 1, true);
-	bountysexpire_          = getNumber("General",  "Bounty Expire", 0, true);
 	quittime_               = getNumber("General",  "Char Time Out", 300, true);
-	errors_to_console_      = getNumber("General",  "Errors To Console", 0, true);
-	showCVCS_               = getNumber("General",  "Show CVCS", 0, true);
 	cacheMulFiles_			= getBool  ("General",  "Cache Mul Files", true, true);
-	beggingRange_           = getNumber("General",  "Begging Range", 3, true);
-	clientsAllowed_			= QStringList::split(",", getString("General", "Allowed Clients", "SERVER_DEFAULT", true).upper());
 	categoryTagAddMenu_		= getBool  ("General",	"Build AddMenu by Category Tags", true, true);
+	showNpcTitles_			= getNumber("General",  "Show Npc Titles", 1, true);
 	
 	// We're saving the elapsed seconds since server-start (INGAME SECONDS!)
 	// fromString( QString::number(FIRST_YEAR) + "-" + getString("General", "Initial Date/Time", "01-18T01:00:00", true), Qt::ISODate);
+	/*
+		NOTE: This SHOULD be saved in the worldsave instead
+	*/
 	uoTime.setTime_t( getNumber( "General", "UO Time", 0, true ) );
 	
 	saveInterval_			= getNumber("General", "Save Interval", 900, true);
-	heartBeat_				= getBool("General", "HeartBeat", false, true);
-	defaultpriv2_			= getNumber("General", "DefaultPrivileage2", 0, true);
 	mulPath_				= QDir::convertSeparators( getString("General", "MulPath", "./muls/", true) );
 	logPath_				= QDir::convertSeparators( getString("General", "LogPath", "./logs/", true ) );
 
 	// Network
-	loginPort_				= getNumber( "Network",		"Loginserver Port", 2593, true );
-	gamePort_               = getNumber( "Network",		"Gameserver Port", 2592, true );
-	enableLogin_			= getBool( "Network",		"Enable Loginserver", true, true );
-	enableGame_				= getBool( "Network",		"Enable Gameserver", true, true );
-	allowUnencryptedClients_ = getBool("Network",		"Allow Unencrypted Clients", true, true );
+	loginPort_				=	getNumber( "Network",		"Loginserver Port", 2593, true );
+	gamePort_               =	getNumber( "Network",		"Gameserver Port", 2592, true );
+	enableLogin_			=	getBool( "Network",		"Enable Loginserver", true, true );
+	enableGame_				=	getBool( "Network",		"Enable Gameserver", true, true );
+	allowUnencryptedClients_ =	getBool( "Network",		"Allow Unencrypted Clients", true, true );
 
 	// Combat
-	combatHitMessage_		= getBool("Combat", "Hit Message", true, true );
-	maxAbsorbtion_		    = getNumber("Combat", "Max Absorbtion", 20, true );
-	maxnohabsorbtion_		= getNumber("Combat", "Max Non Human Absorbtion", 100, true );
-	monsters_vs_animals_	= getNumber("Combat", "Monsters vs Animals", 0, true );
-	animals_attack_chance_	= getNumber("Combat", "Animals Attack Chance", 15, true );
-	animals_guarded_	    = getNumber("Combat", "Animals Guarded", 0, true );
-	npcdamage_	            = getNumber("Combat", "Npc Damage", 2, true );
-	npc_base_fleeat_	    = getNumber("Combat", "Npc Base Flee At", 20, true );
-	npc_base_reattackat_	= getNumber("Combat", "Npc Base Reattack At", 40, true );
 	attackstamina_	        = getNumber("Combat", "Attack Stamina", -2, true );
 	attack_distance_	    = getNumber("Combat", "Attack Distance", 13, true );
-
-	// Vendor
-	sellbyname_	            = getNumber("Vendor", "Sell By Name", 1, true );
-	sellmaxitem_	        = getNumber("Vendor", "Sell Max Item", 5, true );
-	trade_system_	        = getNumber("Vendor", "Trade System", 0, true );
-	rank_system_	        = getNumber("Vendor", "Rank System", 0, true );
-	checkBank_	            = getNumber("Vendor", "Check Bank", 2000, true );
-	vendorGreet_	        = getNumber("Vendor", "Vendor Greet", 1, true );
-	showNpcTitles_			= getNumber("Vendor",  "Show Npc Titles", 1, true);
 
 	// Regenerate
 	hitpointrate_			= getNumber("Regenerate", "Hitpoints Regenerate", 8, true);
@@ -252,23 +202,11 @@ void cSrvParams::readData()
 	// Resources
 	resourceitemdecaytime_	= getNumber("Resources", "ResourceItem Decay Time (not empty)", 60*60*12, true);
 
-	// Tracking
-	baserange_			    = getNumber("Tracking", "Base Tracking Range", 10, true);
-	maxtargets_			    = getNumber("Tracking", "Max Tracking Targets", 20, true);
-	basetimer_			    = getNumber("Tracking", "Base Tracking Time", 5, true);
-	redisplaytime_			= getNumber("Tracking", "Tracking Message Redisplay Time", 5, true);
-
 	// Light
 	worldBrightLevel_       = getNumber("Light", "World Bright Level", 1, true);
 	worldFixedLevel_		= getNumber("Light", "World Fixed Level", 0, true);
 	worldDarkLevel_			= getNumber("Light", "World Dark Level", 18, true);
 	dungeonLightLevel_		= getNumber("Light", "Dungeon Level", 18, true);
-	season_		            = getNumber("Light", "Set Season", 0, true);
-
-	// Magic
-	cutScrollReq_			= getBool( "Magic", "Cut Scroll Requirements", false, true );
-	walkDisturbsCast_		= getBool( "Magic", "Walking Disturbs Casting", true, true );
-	precasting_				= getBool( "Magic", "Precasting", true, true );
 
 	// Path Finding
 	pathfind4Follow_		= getBool( "Path Finding", "Activate for Following", true, true );
@@ -390,17 +328,6 @@ void cSrvParams::setLogPath( const QString &data )
 	logPath_ = data;
 	setString("General", "LogPath", data );
 	flush();
-}
-
-bool cSrvParams::isClientAllowed( const QString& data )
-{
-	if ( clientsAllowed_.contains(data))
-		return true;
-	else if ( clientsAllowed_.contains("ALL"))
-		return true;
-	else if ( data == wp_version.clientsupportedstring && clientsAllowed_.contains("SERVER_DEFAULT"))
-		return true;
-	return false;
 }
 
 unsigned char& cSrvParams::worldCurrentLevel()

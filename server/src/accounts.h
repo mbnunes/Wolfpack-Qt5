@@ -53,7 +53,7 @@
 class cPlayer;
 class cAcl;
 
-class AccountRecord : public cSerializable
+class cAccount
 {
 	friend class cAccounts; // my manager
 private:
@@ -77,7 +77,7 @@ private:
 	bool inUse_;
 
 public:	
-	AccountRecord();
+	cAccount();
 
 	QString login() const;
 
@@ -104,9 +104,6 @@ public:
 	void setFlags( UINT32 data );
 	UINT32 flags() const;
 	QDateTime blockedUntil() const { return blockUntil; }
-		
-	void Serialize( ISerialization& );
-	QString	objectID( void ) const;
 
 	// Flag Setters/Getters
 	bool isBlocked() const;
@@ -128,102 +125,97 @@ public:
 class cAccounts
 {
 private:
-	QMap<QString, AccountRecord*> accounts;
-	typedef QMap<QString, AccountRecord*>::iterator iterator;
+	QMap<QString, cAccount*> accounts;
+	typedef QMap<QString, cAccount*>::iterator iterator;
 public:
 	enum enErrorCode {LoginNotFound, BadPassword, Banned, Wipped, AlreadyInUse, NoError};
 
 public:
 	~cAccounts();
-	AccountRecord* authenticate(const QString& login, const QString& password, enErrorCode* = 0) const; 
-	AccountRecord* getRecord( const QString& );
-	AccountRecord* createAccount( const QString& login, const QString& password );
+	cAccount* authenticate(const QString& login, const QString& password, enErrorCode* = 0) const; 
+	cAccount* getRecord( const QString& );
+	cAccount* createAccount( const QString& login, const QString& password );
 
 	uint count();
-	void remove( AccountRecord *record );
+	void remove( cAccount *record );
 
 	void save();
 	void load();
 	void reload();
 	void clear();
 
-	typedef QMap<QString, AccountRecord*>::const_iterator const_iterator;
+	typedef QMap<QString, cAccount*>::const_iterator const_iterator;
 	const_iterator begin() const { return accounts.begin(); }
 	const_iterator end() const { return accounts.end(); }
 };
 
 // inline members
-inline QString AccountRecord::acl() const
+inline QString cAccount::acl() const
 {
 	return aclName_;
 }
 
-inline QString AccountRecord::login() const
+inline QString cAccount::login() const
 {
 	return login_;
 }
 
-inline QString AccountRecord::password() const
+inline QString cAccount::password() const
 {
 	return password_;
 }
 
-inline void AccountRecord::setPassword( const QString& data )
+inline void cAccount::setPassword( const QString& data )
 {
 	password_ = data;
 }
 
-inline QValueVector<P_PLAYER> AccountRecord::caracterList() const
+inline QValueVector<P_PLAYER> cAccount::caracterList() const
 {
 	return characters_;
 }
 
-inline QString AccountRecord::objectID( void ) const
-{
-	return "ACCOUNT";
-}
-
-inline void AccountRecord::setAcl( const QString &d )
+inline void cAccount::setAcl( const QString &d )
 {
 	aclName_ = d;
 }
 
-inline void AccountRecord::block( int seconds )
+inline void cAccount::block( int seconds )
 {
 	blockUntil = QDateTime::currentDateTime().addSecs( seconds );
 }
 
-inline QDateTime AccountRecord::lastLogin() const
+inline QDateTime cAccount::lastLogin() const
 {
 	return lastLogin_;
 }
 
-inline UINT32 AccountRecord::flags() const
+inline UINT32 cAccount::flags() const
 {
 	return flags_;
 }
 
-inline void AccountRecord::setLastLogin( const QDateTime& d )
+inline void cAccount::setLastLogin( const QDateTime& d )
 {
 	lastLogin_ = d;
 }
 
-inline bool AccountRecord::inUse() const
+inline bool cAccount::inUse() const
 {
 	return inUse_;
 }
 
-inline void AccountRecord::setInUse( bool data )
+inline void cAccount::setInUse( bool data )
 {
 	inUse_ = data;
 }
 
-inline void AccountRecord::setBlockUntil( const QDateTime &d )
+inline void cAccount::setBlockUntil( const QDateTime &d )
 {
 	blockUntil = d;
 }
 
-inline void AccountRecord::setFlags( UINT32 data )
+inline void cAccount::setFlags( UINT32 data )
 {
 	flags_ = data;
 }

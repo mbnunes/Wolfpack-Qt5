@@ -182,6 +182,12 @@ void cWorld::load()
 {
 	Console::instance()->send( "Loading World...\n" );
 
+	if( !persistentBroker->openDriver( SrvParams->databaseDriver() ) )
+	{
+		Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml").arg( SrvParams->databaseDriver() ) );
+		return;
+	}
+
 	persistentBroker->connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() );
 
 	ISerialization* archive = cPluginFactory::serializationArchiver( "xml" );
@@ -443,6 +449,12 @@ void cWorld::save()
 {
 	Console::instance()->send( "Saving World..." );
 
+	if( !persistentBroker->openDriver( SrvParams->databaseDriver() ) )
+	{
+		Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml").arg( SrvParams->databaseDriver() ) );
+		return;
+	}
+
 	try
 	{
 		persistentBroker->connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() );
@@ -463,7 +475,7 @@ void cWorld::save()
 	
 	p->purgePendingObjects();
 
-	//persistentBroker->executeQuery( "BEGIN;" );
+	persistentBroker->startTransaction();
 
 	try
 	{
@@ -474,10 +486,12 @@ void cWorld::save()
 		cCharIterator iChars;
 		for( P_CHAR pChar = iChars.first(); pChar; pChar = iChars.next() )
 			persistentBroker->saveObject( pChar );
+
+		persistentBroker->commitTransaction();
 	}
 	catch( QString &e )
 	{
-		//persistentBroker->executeQuery( "ROLLBACK;" );
+		persistentBroker->rollbackTransaction();
 
 		Console::instance()->ChangeColor( WPC_RED );
 		Console::instance()->send( " Failed" );
@@ -486,8 +500,6 @@ void cWorld::save()
 		Console::instance()->log( LOG_ERROR, "Saving failed: " + e );
 		return;
 	}
-
-	//persistentBroker->executeQuery( "COMMIT;" );
 
 	ISerialization *archive = cPluginFactory::serializationArchiver( "xml" );
 	archive->prepareWritting( "effects" );
