@@ -57,6 +57,7 @@
 	<script>wolfpack.commands.stat</script>
 	<script>wolfpack.commands.sound</script>
 	<script>wolfpack.commands.travel</script>
+	<script>wolfpack.commands.rippeddecoration</script>
 
 	<!-- Magic -->
 	<script>spellbook</script>
@@ -96,10 +97,10 @@
 
 	<!-- Context menu scripts -->
 	<script>daggermenu</script>
-	<script>bankermenu</script>
-	<script>trainmenu</script>
-	<script>paperdollmenu</script>
-	<script>vendormenu</script>
+	<script>contextmenus.bankermenu</script>
+	<script>contextmenus.trainmenu</script>
+	<script>contextmenus.paperdollmenu</script>
+	<script>contextmenus.vendormenu</script>
 
 	<!-- Speech Scripts -->
 	<script>speech.pets</script>

@@ -7,7 +7,7 @@
 
 <definitions>
 	<contextmenu id="train_menu">
-		<events>trainmenu</events>
+		<events>contextmenus.trainmenu</events>
 		<option tag="1"  msgid="6000" checkvisible="true" checkenabled="true" /> <!-- Alchemy -->
 		<option tag="2"  msgid="6001" checkvisible="true" checkenabled="true" /> <!-- Anatomy -->
 		<option tag="3"  msgid="6002" checkvisible="true" checkenabled="true" /> <!-- AnimalLore -->
@@ -60,19 +60,19 @@
 	</contextmenu>
 
 	<contextmenu id="vendor_menu">
-		<events>vendormenu</events>
+		<events>contextmenus.vendormenu</events>
 		<option tag="1" msgid="6103" />
 		<option tag="2" msgid="6104" />
 	</contextmenu>
 
 	<contextmenu id="banker_menu">
-	    <events>bankermenu</events>
+	    <events>contextmenus.bankermenu</events>
 		<option tag="1" msgid="6105"/>
 		<option tag="2" msgid="6124"/>
 	</contextmenu>
 
 	<contextmenu id="paperdoll_menu">
-		<events>paperdollmenu</events>
+		<events>contextmenus.paperdollmenu</events>
 		<option tag="1" msgid="6123"/>
 	</contextmenu>
 
