@@ -45,6 +45,7 @@
 		<basescripts>skills.blacksmithing,equipment</basescripts>
 		<category>Professions\Blacksmith\Tongs (W/E)</category>
 		<tag name="remaining_uses" type="int" value="35" />
+		<buyprice>3</buyprice>
 	</item>
 
 	<item id="fbc" inherit="fbb">

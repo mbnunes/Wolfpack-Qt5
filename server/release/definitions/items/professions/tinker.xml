@@ -12,9 +12,10 @@
 	<item id="104b">
 		<id>0x104b</id>
 		<category>Professions\Tinker\Clock (W/E)</category>
+		<buyprice>22</buyprice>
 	</item>
 
-	<item id="104c">
+	<item id="104c" inherit="104b">
 		<id>0x104c</id>
 		<category>Professions\Tinker\Clock (N/S)</category>
 	</item>
@@ -32,9 +33,10 @@
 	<item id="104f">
 		<id>0x104f</id>
 		<category>Professions\Tinker\Clock Parts (W/E)</category>
+		<buyprice>3</buyprice>
 	</item>
 
-	<item id="1050">
+	<item id="1050" inherit="104f">
 		<id>0x1050</id>
 		<category>Professions\Tinker\Clock Parts (N/S)</category>
 	</item>
@@ -42,9 +44,10 @@
 	<item id="1051">
 		<id>0x1051</id>
 		<category>Professions\Tinker\Axle with Gears (W/E)</category>
+		<buyprice>3</buyprice>
 	</item>
 
-	<item id="1052">
+	<item id="1052" inherit="1051">
 		<id>0x1052</id>
 		<category>Professions\Tinker\Axle with Gears (N/S)</category>
 	</item>
@@ -52,9 +55,10 @@
 	<item id="1053">
 		<id>0x1053</id>
 		<category>Professions\Tinker\Gears (W/E)</category>
+		<buyprice>2</buyprice>
 	</item>
 
-	<item id="1054">
+	<item id="1054" inherit="1053">
 		<id>0x1054</id>
 		<category>Professions\Tinker\Gears (N/S)</category>
 	</item>
@@ -62,9 +66,10 @@
 	<item id="1055">
 		<id>0x1055</id>
 		<category>Professions\Tinker\Hinge (W/E)</category>
+		<buyprice>2</buyprice>
 	</item>
 
-	<item id="1056">
+	<item id="1056" inherit="1055">
 		<id>0x1056</id>
 		<category>Professions\Tinker\Hinge (N/S)</category>
 	</item>
@@ -73,32 +78,33 @@
 		<id>0x1057</id>
 		<category>Professions\Tinker\Sextant (W/E)</category>
 		<basescripts>environment</basescripts>
+		<buyprice>25</buyprice>
 	</item>
 
-	<item id="1058">
+	<item id="1058" inherit="1057">
 		<id>0x1058</id>
 		<category>Professions\Tinker\Sextant (N/S)</category>
-		<basescripts>environment</basescripts>
 	</item>
 
 	<item id="1059">
 		<id>0x1059</id>
 		<category>Professions\Tinker\Sextant Parts (W/E)</category>
 		<basescripts>environment</basescripts>
+		<buyprice>5</buyprice>
 	</item>
 
-	<item id="105a">
+	<item id="105a" inherit="1059">
 		<id>0x105a</id>
-		<category>Professions\Tinker\Sextant Parts (N/S)</category>
-		<basescripts>environment</basescripts>
+		<category>Professions\Tinker\Sextant Parts (N/S)</category>		
 	</item>
 
 	<item id="105b">
 		<id>0x105b</id>
 		<category>Professions\Tinker\Axle (W/E)</category>
+		<buyprice>2</buyprice>
 	</item>
 
-	<item id="105c">
+	<item id="105c" inherit="105b">
 		<id>0x105c</id>
 		<category>Professions\Tinker\Axle (N/S)</category>
 	</item>
@@ -106,9 +112,10 @@
 	<item id="105d">
 		<id>0x105d</id>
 		<category>Professions\Tinker\Springs (W/E)</category>
+		<buyprice>3</buyprice>
 	</item>
 
-	<item id="105e">
+	<item id="105e" inherit="105d">
 		<id>0x105e</id>
 		<category>Professions\Tinker\Springs (N/S)</category>
 	</item>
@@ -147,26 +154,29 @@
 		<id>0x1eb8</id>
 		<category>Professions\Tinker\Tools\Toolkit 1 (W/E)</category>
 		<tag name="remaining_uses" type="int" value="35" />
+		<buyprice>30</buyprice>
+		<basescripts>equipment,skills.tinkering</basescripts>
 	</item>
 
 	<item id="1eb9">
 		<id>0x1eb9</id>
 		<category>Professions\Tinker\Tools\Toolkit 1 (N/S)</category>
 		<tag name="remaining_uses" type="int" value="35" />
+		<basescripts>equipment,skills.tinkering</basescripts>
 	</item>
 
 	<item id="1eba">
 		<id>0x1eba</id>
 		<category>Professions\Tinker\Tools\Toolkit 2 (W/E)</category>
 		<tag name="remaining_uses" type="int" value="35" />
-		<basescripts>skills.tinkering</basescripts>
+		<basescripts>equipment,skills.tinkering</basescripts>
 	</item>
 
 	<item id="1ebb">
 		<id>0x1ebb</id>
 		<category>Professions\Tinker\Tools\Toolkit 2 (N/S)</category>
 		<tag name="remaining_uses" type="int" value="35" />
-		<basescripts>skills.tinkering</basescripts>
+		<basescripts>equipment,skills.tinkering</basescripts>
 	</item>
 
 	<item id="1ebc">

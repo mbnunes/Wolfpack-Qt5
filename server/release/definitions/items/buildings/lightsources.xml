@@ -211,14 +211,12 @@
 		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Lantern (Off)</category>
 		<lightsource>29</lightsource>
+		<buyprice>2</buyprice>
 	</item>
 
-	<item id="a22">
+	<item id="a22" inherit="a25">
 		<id>0xa22</id>
-		<nodecay />
-		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Lantern (On)</category>
-		<lightsource>29</lightsource>
 	</item>
 
 	<item id="a28">
@@ -227,6 +225,7 @@
 		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Candle 1 (Off)</category>
 		<lightsource>2</lightsource>
+		<buyprice>6</buyprice>
 	</item>
 
 	<item id="a0f">
@@ -541,12 +540,11 @@
 		<nodecay />
 		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Torch (W/E) (Off)</category>
+		<buyprice>7</buyprice>
 	</item>
 
-	<item id="f6b">
+	<item id="f6b" inherit="f64">
 		<id>0xf6b</id>
-		<nodecay />
-		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Torch (N/S) (Off)</category>
 	</item>
 

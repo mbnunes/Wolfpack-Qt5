@@ -547,6 +547,7 @@
 	<item id="ff6">
 		<id>0xff6</id>
 		<category>Professions\Cook\Decoration\Bar\Glass Pitcher 1</category>
+		<buyprice>7</buyprice>
 	</item>
 
 	<item id="ff7" inherit="ff6">

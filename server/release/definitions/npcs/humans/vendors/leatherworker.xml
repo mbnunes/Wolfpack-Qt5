@@ -7,30 +7,28 @@
 =================================================================
 -->
 <definitions>
+	<npc id="leatherworker_inventory">
+		<shopkeeper>
+			<restockable>
+				<item id="1078"><amount>999</amount></item>
+				<item id="1711"><amount>10</amount></item>
+			</restockable>
+		</shopkeeper>
+	</npc>
 
 	<!-- A leatherworker vendor -->
 	<npc id="leatherworker_male">
 		<inherit>vendor_male</inherit>
 		<title>the Leatherworker</title>
-		<shopkeeper>
-			<restockable>
-			</restockable>
-			<sellable>
-			</sellable>
-		</shopkeeper>
 		<category>Vendors\Leatherworker (Male)</category>
+		<inherit id="leatherworker_inventory" />
 	</npc>
 	
 	<npc id="leatherworker_female">
 		<inherit>vendor_female</inherit>
 		<title>the Leatherworker</title>
-		<shopkeeper>
-			<restockable>
-			</restockable>
-			<sellable>
-			</sellable>
-		</shopkeeper>
 		<category>Vendors\Leatherworker (Female)</category>
+		<inherit id="leatherworker_inventory" />
 	</npc>
 
 </definitions>

@@ -13,7 +13,7 @@
 	<!-- Kindling -->
 	<item id="de1">
 		<id>0xde1</id>
-		<value>1</value>
+		<buyprice>2</buyprice>
 		<weight>0.02</weight>
 		<category>Equipment\Misc\Kindling</category>
 		<basescripts>kindling</basescripts>

@@ -63,6 +63,7 @@
 	<item id="e1c">
 		<id>0xe1c</id>
 		<category>Professions\Barkeeper\Backgammon Board 1</category>
+		<buyprice>2</buyprice>
 	</item>
 
 	<item id="fa2">
@@ -93,6 +94,7 @@
 	<item id="fa7">
 		<id>0xfa7</id>
 		<category>Professions\Barkeeper\Dice and Cup</category>
+		<buyprice>2</buyprice>
 	</item>
 
 	<item id="fa8">

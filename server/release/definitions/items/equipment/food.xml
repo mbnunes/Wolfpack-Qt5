@@ -177,7 +177,7 @@ Food subtypes:
 	<!-- Cooked bird w/e -->
 	<item id="9b7">
 		<id>0x9b7</id>
-		<buyprice>24</buyprice>
+		<buyprice>17</buyprice>
 		<sellprice>12</sellprice>
 		<weight>1</weight>
 		<basescripts>food</basescripts>
@@ -772,6 +772,7 @@ Food subtypes:
 		<basescripts>food</basescripts>
 		<weight>0.2</weight>
 		<category>Equipment\Food\Leg of Lamb</category>
+		<buyprice>8</buyprice>
 	</item>
 
 	<item id="160b">

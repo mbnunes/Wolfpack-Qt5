@@ -15,6 +15,7 @@
 		<weight>1.0</weight> <!-- A bit low i think -->
 		<type>11</type>
 		<basescripts>book</basescripts>
+		<buyprice>15</buyprice>
 	</item>
 
 	<!-- Book 1 -->

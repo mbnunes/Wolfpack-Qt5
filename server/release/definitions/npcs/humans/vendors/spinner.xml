@@ -12,24 +12,12 @@
 	<npc id="spinner_male">
 		<inherit>vendor_male</inherit>
 		<title>the Spinner</title>
-		<shopkeeper>
-			<restockable>
-			</restockable>
-			<sellable>
-			</sellable>
-		</shopkeeper>
 		<category>Vendors\Spinner (Male)</category>
 	</npc>
 	
 	<npc id="spinner_female">
 		<inherit>vendor_female</inherit>
 		<title>the Spinner</title>
-		<shopkeeper>
-			<restockable>
-			</restockable>
-			<sellable>
-			</sellable>
-		</shopkeeper>
 		<category>Vendors\Spinner (Female)</category>
 	</npc>
 

@@ -7,31 +7,74 @@
 =================================================================
 -->
 <definitions>
+	<npc id="tinker_inventory">
+		<shopkeeper>
+			<restockable>
+				<item id="e9c"><amount>20</amount></item> <!-- Drums -->
+				<item id="e9e"><amount>20</amount></item> <!-- Tambourine -->
+				<item id="eb2"><amount>20</amount></item> <!-- Lap Harp -->
+				<item id="eb3"><amount>20</amount></item> <!-- Lute -->
+				
+				<item id="f39"><amount>20</amount></item> <!-- Shovel -->
+				<item id="f9d"><amount>20</amount></item> <!-- Sewing Kit -->
+				<item id="f9f"><amount>20</amount></item> <!-- Scissors -->
+				<item id="fbb"><amount>20</amount></item> <!-- Tongs -->
+				<item id="100e"><amount>20</amount></item> <!-- Key -->
+
+				<item id="1028"><amount>20</amount></item> <!-- Dovetail Saw -->
+				<item id="102c"><amount>20</amount></item> <!-- Moulding Plane -->
+				<item id="102e"><amount>20</amount></item> <!-- Nails -->
+				<item id="1030"><amount>20</amount></item> <!-- Jointing Plane -->
+				<item id="1032"><amount>20</amount></item> <!-- Smoothing Plane -->
+				<item id="1034"><amount>20</amount></item> <!-- Saw -->
+				
+				<item id="104b"><amount>20</amount></item> <!-- Clock -->
+				<item id="104f"><amount>20</amount></item> <!-- Clock Parts -->
+				<item id="1051"><amount>20</amount></item> <!-- Axle Gears -->
+				<item id="1053"><amount>20</amount></item> <!-- Gears -->
+				<item id="1055"><amount>20</amount></item> <!-- Hinge -->
+				<item id="1057"><amount>20</amount></item> <!-- Sextant -->
+				<item id="1059"><amount>20</amount></item> <!-- Sextant Parts -->
+				<item id="105b"><amount>20</amount></item> <!-- Axle -->
+				<item id="105d"><amount>20</amount></item> <!-- Springs -->
+				
+				<item id="10e4"><amount>20</amount></item> <!-- Draw Knife -->
+				<item id="10e5"><amount>20</amount></item> <!-- Froe -->
+				<item id="10e6"><amount>20</amount></item> <!-- Inshave -->
+				<item id="10e7"><amount>20</amount></item> <!-- Scorp -->
+				
+				<item id="14fc"><amount>20</amount></item> <!-- Lockpick -->
+				<item id="1eb8"><amount>20</amount></item> <!-- Tinker Tools -->
+				
+				<item id="e86"><amount>20</amount></item> <!-- Pickaxe -->
+				
+				<item id="102a"><amount>20</amount></item> <!-- Hammer -->
+				<item id="13e3"><amount>20</amount></item> <!-- Smith Hammer -->
+				<item id="13f6"><amount>20</amount></item> <!-- Butcher Knife -->
+			</restockable>
+		</shopkeeper>
+	</npc>
 
 	<!-- A tinker vendor -->
 	<npc id="tinker_male">
 		<inherit>vendor_male</inherit>
 		<title>the Tinker</title>
-		<shopkeeper>
-			<restockable/>
-		</shopkeeper>
 		<lockpicking><random min="600" max="830"/></lockpicking>
 		<removetraps><random min="750" max="980"/></removetraps>
 		<tinkering><random min="640" max="1000"/></tinkering>
 		<category>Vendors\Tinker (Male)</category>
+		<inherit id="tinker_inventory" />
 	</npc>
 	
 	<!-- A tinker vendor -->
 	<npc id="tinker_female">
 		<inherit>vendor_female</inherit>
 		<title>the Tinker</title>
-		<shopkeeper>
-			<restockable/>
-		</shopkeeper>
 		<lockpicking><random min="600" max="830"/></lockpicking>
 		<removetraps><random min="750" max="980"/></removetraps>
 		<tinkering><random min="640" max="1000"/></tinkering>
 		<category>Vendors\Tinker (Female)</category>
+		<inherit id="tinker_inventory" />
 	</npc>
 
 </definitions>

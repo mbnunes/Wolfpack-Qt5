@@ -462,6 +462,7 @@
 		<id>0x1078</id>
 		<tag name="resname" value="leather" />
 		<category>Professions\Tailorer\Pile of Hides 1 (W/E)</category>
+		<buyprice>4</buyprice>
 	</item>
 
 	<item id="1079">
@@ -474,11 +475,11 @@
 		<id>0x1081</id>
 		<tag name="resname" value="leather" />
 		<category>Professions\Tailorer\Pile of Hides 2 (W/E)</category>
+		<buyprice>6</buyprice>
 	</item>
 
-	<item id="1082">
-		<id>0x1082</id>
-		<tag name="resname" value="leather" />
+	<item id="1082" inherit="1081">
+		<id>0x1082</id>		
 		<category>Professions\Tailorer\Pile of Hides 2 (N/S)</category>
 	</item>
 

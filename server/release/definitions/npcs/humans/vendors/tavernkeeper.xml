@@ -7,6 +7,31 @@
 =================================================================
 -->
 <definitions>
+	<npc id="tavernkeeper_inventory">
+		<shopkeeper>
+			<restockable>
+				<item id="bottle_ale"><amount>20</amount></item> <!-- Bottle of Ale -->
+				<item id="bottle_wine"><amount>20</amount></item> <!-- Bottle of Wine -->
+				<item id="bottle_liquor"><amount>20</amount></item> <!-- Bottle of Liquor -->
+				<item id="9ad"><amount>20</amount></item> <!-- Pitcher of Milk -->
+				<item id="1f95"><amount>20</amount></item> <!-- Pitcher of Ale -->
+				<item id="1f97"><amount>20</amount></item> <!-- Pitcher of Cider -->
+				<item id="1f99"><amount>20</amount></item> <!-- Pitcher of Liquor -->
+				<item id="1f9b"><amount>20</amount></item> <!-- Pitcher of Wine -->
+				<item id="ff8"><amount>20</amount></item> <!-- Pitcher of Water -->
+				<item id="ff6"><amount>20</amount></item> <!-- Pitcher -->
+				<item id="103b"><amount>20</amount></item> <!-- Bread Loaf -->
+				<item id="97e"><amount>20</amount></item> <!-- Cheese Wheel -->
+				<item id="9b7"><amount>20</amount></item> <!-- Cooked Bird -->
+				<item id="160a"><amount>20</amount></item> <!-- Lamb Leg -->
+				<item id="chessboard"><amount>20</amount></item> <!-- Chessboard -->
+				<item id="checkerboard"><amount>20</amount></item> <!-- Checker Board -->
+				<item id="e1c"><amount>20</amount></item> <!-- Backgammon -->
+				<item id="fa7"><amount>20</amount></item> <!-- Dices -->
+				<!--<item id=""><amount>20</amount></item>--> <!-- Contract of Employment (1025) -->
+			</restockable>
+		</shopkeeper>
+	</npc>
 
 	<!-- A tavernkeeper vendor -->
 	<npc id="tavernkeeper_male">
@@ -17,13 +42,8 @@
 				<color><random list="COLORS_MISC" /></color>
 			</item>
 		</equipped>
-		<shopkeeper>
-			<restockable>
-			</restockable>
-			<sellable>
-			</sellable>
-		</shopkeeper>
 		<category>Vendors\Tavernkeeper (Male)</category>
+		<inherit id="tavernkeeper_inventory" />
 	</npc>
 	
 	<npc id="tavernkeeper_female">
@@ -41,6 +61,7 @@
 			</sellable>
 		</shopkeeper>
 		<category>Vendors\Tavernkeeper (Female)</category>
+		<inherit id="tavernkeeper_inventory" />
 	</npc>
 
 </definitions>

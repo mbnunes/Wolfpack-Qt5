@@ -232,10 +232,11 @@
 	</item>
 
 	<item id="guildstone_deed" inherit="blank_deed">
-		<name>Guildstone Deed</name>
+		<name>#1041055</name>
 		<color>0x3c</color>
 		<basescripts>guilds.deed</basescripts>
 		<category>Misc\Guilds\Guildstone Deed</category>
+		<buyprice>12450</buyprice>
 	</item>
 
 </definitions>

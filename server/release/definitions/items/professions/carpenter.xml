@@ -306,6 +306,7 @@
 		<category>Professions\Carpenter\Tools\Nails (W/E)</category>
 		<tag name="remaining_uses" type="int" value="35" />
 		<basescripts>equipment,skills.carpentry</basescripts>
+		<buyprice>3</buyprice>
 	</item>
 
 	<item id="102f" inherit="102e">

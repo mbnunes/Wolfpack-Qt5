@@ -109,6 +109,7 @@
 		<tag name="quantity" value="5" />
 		<basescripts>beverage</basescripts>
 		<weight>1.0</weight>
+		<buyprice>7</buyprice>
 	</item>
 	
 	<item id="bottle_cider" inherit="99f">
@@ -117,6 +118,7 @@
 		<tag name="quantity" value="5" />
 		<basescripts>beverage</basescripts>
 		<weight>1.0</weight>
+		<buyprice>7</buyprice>
 	</item>
 	
 	<item id="bottle_liquor" inherit="99b">
@@ -125,6 +127,7 @@
 		<tag name="quantity" value="5" />
 		<basescripts>beverage</basescripts>
 		<weight>1.0</weight>
+		<buyprice>7</buyprice>
 	</item>
 	
 	<item id="bottle_milk" inherit="99b">
@@ -133,6 +136,7 @@
 		<tag name="quantity" value="5" />
 		<basescripts>beverage</basescripts>
 		<weight>1.0</weight>
+		<buyprice>7</buyprice>
 	</item>
 	
 	<item id="bottle_wine" inherit="9c7">
@@ -141,6 +145,7 @@
 		<tag name="quantity" value="5" />
 		<basescripts>beverage</basescripts>
 		<weight>1.0</weight>
+		<buyprice>7</buyprice>
 	</item>
 	
 	<item id="bottle_water" inherit="99b">
@@ -149,6 +154,7 @@
 		<tag name="quantity" value="5" />
 		<basescripts>beverage</basescripts>
 		<weight>1.0</weight>
+		<buyprice>7</buyprice>
 	</item>
 
 	<!-- Pitcher of Milk -->
@@ -158,6 +164,9 @@
 		<basescripts>beverage</basescripts>
 		<weight>0.5</weight>
 		<category>Equipment\Drinks\Pitcher of Milk 1</category>
+		<tag name="fluid" value="milk" />
+		<tag name="quantity" value="5" type="int" />
+		<buyprice>7</buyprice>
 	</item>
 	
 	<!-- Milk -->
@@ -326,6 +335,7 @@
 		<tag name="fluid" value="ale" />
 		<tag name="quantity" value="5" type="int" />
 		<category>Equipment\Drinks\Pitcher of Ale 1</category>
+		<buyprice>11</buyprice>
 	</item>
 
 	<item id="1f96" inherit="1f95">
@@ -342,6 +352,7 @@
 		<tag name="fluid" value="cider" />
 		<tag name="quantity" value="5" type="int" />
 		<category>Equipment\Drinks\Pitcher of Cider 1</category>
+		<buyprice>11</buyprice>
 	</item>
 
 	<item id="1f98" inherit="1f97">
@@ -358,6 +369,7 @@
 		<tag name="fluid" value="liquor" />
 		<tag name="quantity" value="5" type="int" />
 		<category>Equipment\Drinks\Pitcher of Liquor 1</category>
+		<buyprice>11</buyprice>
 	</item>
 
 	<item id="1f9a" inherit="1f99">
@@ -374,6 +386,7 @@
 		<tag name="fluid" value="wine" />
 		<tag name="quantity" value="5" type="int" />
 		<category>Equipment\Drinks\Pitcher of Wine 1</category>
+		<buyprice>11</buyprice>
 	</item>
 
 	<item id="1f9c" inherit="1f9b">
@@ -391,6 +404,7 @@
 		<tag name="fluid" value="water" />
 		<tag name="quantity" value="5" type="int" />
 		<category>Equipment\Food\Pitcher of Water 1</category>
+		<buyprice>11</buyprice>
 	</item>
 
 	<!-- Pitcher of Water 2 -->

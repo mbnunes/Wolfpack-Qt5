@@ -69,15 +69,17 @@
 	<!-- arrows -->
 	<item id="f3f">
 		<id>0xf3f</id>
-    <weight>0.1</weight>
+	    <weight>0.1</weight>
 		<category>Professions\Fletcher\Arrow</category>
+		<buyprice>3</buyprice>
 	</item>
 
 	<!-- crossbow bolts -->
 	<item id="1bfb">
 		<id>0x1bfb</id>
-    <weight>0.1</weight>
+    	<weight>0.1</weight>
 		<category>Professions\Fletcher\Crossbow Bolt</category>
+		<buyprice>6</buyprice>
 	</item>
 
 	<item id="1bfc">

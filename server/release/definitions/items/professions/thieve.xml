@@ -14,11 +14,12 @@
 		<id>0x14fb</id>
 		<category>Professions\Thieve\Lockpick (W/E)</category>
 		<basescripts>lockpick</basescripts>
+		<buyprice>12</buyprice>
 	</item>
 
 	<item id="14fc" inherit="14fb">
 		<id>0x14fc</id>
-		<category>Professions\Thieve\Lockpick (E/W)</category>
+		<category>Professions\Thieve\Lockpick (E/W)</category>		
 	</item>
 
 	<item id="14fd">

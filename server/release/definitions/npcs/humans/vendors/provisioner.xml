@@ -7,28 +7,64 @@
 =================================================================
 -->
 <definitions>
+	<npc id="provisioner_inventory">
+		<shopkeeper>
+			<restockable>
+				<item id="f3f"><amount>20</amount></item> <!-- Arrow -->
+				<item id="1bfb"><amount>20</amount></item> <!-- Bolt -->
+				<item id="9b2"><amount>20</amount></item> <!-- Backpack -->
+				<item id="e79"><amount>20</amount></item> <!-- Pouch -->
+				<item id="e76"><amount>20</amount></item> <!-- Bag -->
+				<item id="a28"><amount>20</amount></item> <!-- Candle -->
+				<item id="f6b"><amount>20</amount></item> <!-- Torch -->
+				<item id="a25"><amount>20</amount></item> <!-- Lantern -->
+				<item id="14fc"><amount>20</amount></item> <!-- Lockpick -->
+				<item id="103b"><amount>20</amount></item> <!-- Bread Loaf -->
+				<item id="160a"><amount>20</amount></item> <!-- Lamb Leg -->
+				<item id="1608"><amount>20</amount></item> <!-- Chicken Leg -->
+				<item id="9b7"><amount>20</amount></item> <!-- Cooked Bird -->
+				<item id="bottle_ale"><amount>20</amount></item> <!-- Bottle of Ale -->
+				<item id="bottle_wine"><amount>20</amount></item> <!-- Bottle of Wine -->
+				<item id="bottle_liquor"><amount>20</amount></item> <!-- Bottle of Liquor -->
+				<item id="994"><amount>20</amount></item> <!-- Pear -->
+				<item id="9d0"><amount>20</amount></item> <!-- Apple -->
+				<item id="f84"><amount>20</amount></item> <!-- Garlic -->
+				<item id="f85"><amount>20</amount></item> <!-- Ginseng -->
+				<item id="1422"><amount>20</amount></item> <!-- Beeswax -->
+				<item id="f0e"><amount>20</amount></item> <!-- Bottle -->
+				<item id="ff1"><amount>20</amount></item> <!-- Red Book -->
+				<item id="ff2"><amount>20</amount></item> <!-- Blue Book -->
+				<item id="ff0"><amount>20</amount></item> <!-- Tan Book -->
+				<item id="e7d"><amount>20</amount></item> <!-- Wooden Box -->
+				<item id="100e"><amount>20</amount></item> <!-- Copper Key -->
+				<item id="de1"><amount>20</amount></item> <!-- Kindling -->
+				<item id="guildstone_deed"><amount>20</amount></item> <!-- Guildstone Deed -->
+				<item id="eff"><amount>20</amount></item> <!-- Hair Dye -->
+				<item id="chessboard"><amount>20</amount></item> <!-- Chessboard -->
+				<item id="checkerboard"><amount>20</amount></item> <!-- Checkerboard -->
+				<item id="e1c"><amount>20</amount></item> <!-- Backgammon -->
+				<item id="fa7"><amount>20</amount></item> <!-- Dices -->
+			</restockable>
+		</shopkeeper>
+	</npc>
 
 	<!-- A provisioner vendor -->
 	<npc id="provisioner_male">
 		<inherit>vendor_male</inherit>
 		<title>the Provisioner</title>
-		<shopkeeper>
-			<restockable/>
-		</shopkeeper>
 		<camping><random min="450" max="680" /></camping>
 		<tactics><random min="450" max="680" /></tactics>
 		<category>Vendors\Provisioner (Male)</category>
+		<inherit id="provisioner_inventory" />
 	</npc>
 	
 	<npc id="provisioner_female">
 		<inherit>vendor_female</inherit>
 		<title>the Provisioner</title>
-		<shopkeeper>
-			<restockable/>
-		</shopkeeper>
 		<camping><random min="450" max="680" /></camping>
 		<tactics><random min="450" max="680" /></tactics>
 		<category>Vendors\Provisioner (Female)</category>
+		<inherit id="provisioner_inventory" />
 	</npc>
 
 </definitions>

@@ -131,7 +131,7 @@
 
 	<item id="f84">
 		<id>0x0f84</id>
-		<buyprice>2</buyprice>
+		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<category>Professions\Alchemist\Reagents\Garlic</category>
 		<category>Professions\Mage\Reagents\Garlic</category>

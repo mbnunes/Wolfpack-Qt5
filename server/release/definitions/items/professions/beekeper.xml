@@ -38,6 +38,7 @@
 	<item id="1422">
 		<id>0x1422</id>
 		<category>Professions\Beekeper\Beeswax 1 (W/E)</category>
+		<buyprice>1</buyprice>
 	</item>
 
 	<item id="1423">

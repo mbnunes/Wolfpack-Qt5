@@ -27,7 +27,7 @@
 
 	<item id="e27">
 		<id>0xe27</id>
-		<name>hair dye</name>
+		<name>#1041060</name>
 		<category>Professions\Alchemist\Hair Dye 1</category>
 		<basescripts>environment</basescripts>
 	</item>
@@ -142,6 +142,7 @@
 		<name>hair dye</name>
 		<category>Professions\Alchemist\Hair Dye 2</category>
 		<basescripts>environment</basescripts>
+		<buyprice>60</buyprice>
 	</item>
 
 	<item id="f00">

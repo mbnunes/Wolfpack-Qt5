@@ -7,6 +7,120 @@
 =================================================================
 -->
 <definitions>
+	<npc id="mage_inventory">
+		<shopkeeper>
+			<restockable>
+				<item id="efa">
+					<amount>10</amount>
+				</item>
+				<item id="1f14">
+					<amount>10</amount>
+				</item>
+				<item id="1f15">
+					<amount>10</amount>
+				</item>
+				<item id="1f16">
+					<amount>10</amount>
+				</item>
+				<item id="1f17">
+					<amount>10</amount>
+				</item>
+				<item id="1f2e">
+					<amount>10</amount>
+				</item>
+				<item id="1f2f">
+					<amount>10</amount>
+				</item>
+				<item id="1f30">
+					<amount>10</amount>
+				</item>
+				<item id="1f31">
+					<amount>10</amount>
+				</item>
+				<item id="1f32">
+					<amount>10</amount>
+				</item>
+				<item id="1f33">
+					<amount>10</amount>
+				</item>
+				<item id="1f2d">
+					<amount>10</amount>
+				</item>
+				<item id="1f34">
+					<amount>10</amount>
+				</item>
+				<item id="1f35">
+					<amount>10</amount>
+				</item>
+				<item id="1f36">
+					<amount>10</amount>
+				</item>
+				<item id="1f37">
+					<amount>10</amount>
+				</item>
+				<item id="1f38">
+					<amount>10</amount>
+				</item>
+				<item id="f7a">
+					<amount>999</amount>
+				</item>
+				<item id="f7b">
+					<amount>999</amount>
+				</item>
+				<item id="f84">
+					<amount>999</amount>
+				</item>
+				<item id="f85">
+					<amount>999</amount>
+				</item>
+				<item id="f86">
+					<amount>999</amount>
+				</item>
+				<item id="f88">
+					<amount>999</amount>
+				</item>
+				<item id="f8c">
+					<amount>999</amount>
+				</item>
+				<item id="f8d">
+					<amount>999</amount>
+				</item>
+				<item id="e34">
+					<amount>10</amount>
+				</item>
+				<item id="scribes_pen"><amount>10</amount></item> <!-- Blank Scrolls -->
+				<item id="e34"><amount>20</amount></item> <!-- Blank Scrolls -->
+			</restockable>
+			<sellable>
+				<item id="efa"/>
+				<item id="1f14"/>
+				<item id="1f15"/>
+				<item id="1f16"/>
+				<item id="1f17"/>
+				<item id="1f2e"/>
+				<item id="1f2f"/>
+				<item id="1f30"/>
+				<item id="1f31"/>
+				<item id="1f32"/>
+				<item id="1f33"/>
+				<item id="1f2d"/>
+				<item id="1f34"/>
+				<item id="1f35"/>
+				<item id="1f36"/>
+				<item id="1f37"/>
+				<item id="1f38"/>
+				<item id="f7a"/>
+				<item id="f7b"/>
+				<item id="f84"/>
+				<item id="f85"/>
+				<item id="f86"/>
+				<item id="f88"/>
+				<item id="f8c"/>
+				<item id="f8d"/>
+				<item id="e34"/>
+			</sellable>
+		</shopkeeper>
+	</npc>
 
 	<!-- A mage vendor -->
 	<npc id="mage_male">
@@ -18,116 +132,6 @@
 				<color><random min="1301" max="1355" /></color>
 			</item>
 		</equipped>
-		<shopkeeper>
-			<restockable>
-				<item id="efa">
-					<amount>10</amount>
-				</item>
-				<item id="1f14">
-					<amount>10</amount>
-				</item>
-				<item id="1f15">
-					<amount>10</amount>
-				</item>
-				<item id="1f16">
-					<amount>10</amount>
-				</item>
-				<item id="1f17">
-					<amount>10</amount>
-				</item>
-				<item id="1f2e">
-					<amount>10</amount>
-				</item>
-				<item id="1f2f">
-					<amount>10</amount>
-				</item>
-				<item id="1f30">
-					<amount>10</amount>
-				</item>
-				<item id="1f31">
-					<amount>10</amount>
-				</item>
-				<item id="1f32">
-					<amount>10</amount>
-				</item>
-				<item id="1f33">
-					<amount>10</amount>
-				</item>
-				<item id="1f2d">
-					<amount>10</amount>
-				</item>
-				<item id="1f34">
-					<amount>10</amount>
-				</item>
-				<item id="1f35">
-					<amount>10</amount>
-				</item>
-				<item id="1f36">
-					<amount>10</amount>
-				</item>
-				<item id="1f37">
-					<amount>10</amount>
-				</item>
-				<item id="1f38">
-					<amount>10</amount>
-				</item>
-				<item id="f7a">
-					<amount>50</amount>
-				</item>
-				<item id="f7b">
-					<amount>50</amount>
-				</item>
-				<item id="f84">
-					<amount>50</amount>
-				</item>
-				<item id="f85">
-					<amount>50</amount>
-				</item>
-				<item id="f86">
-					<amount>50</amount>
-				</item>
-				<item id="f88">
-					<amount>50</amount>
-				</item>
-				<item id="f8c">
-					<amount>50</amount>
-				</item>
-				<item id="f8d">
-					<amount>50</amount>
-				</item>
-				<item id="e34">
-					<amount>10</amount>
-				</item>
-			</restockable>
-			<sellable>
-				<item id="efa"/>
-				<item id="1f14"/>
-				<item id="1f15"/>
-				<item id="1f16"/>
-				<item id="1f17"/>
-				<item id="1f2e"/>
-				<item id="1f2f"/>
-				<item id="1f30"/>
-				<item id="1f31"/>
-				<item id="1f32"/>
-				<item id="1f33"/>
-				<item id="1f2d"/>
-				<item id="1f34"/>
-				<item id="1f35"/>
-				<item id="1f36"/>
-				<item id="1f37"/>
-				<item id="1f38"/>
-				<item id="f7a"/>
-				<item id="f7b"/>
-				<item id="f84"/>
-				<item id="f85"/>
-				<item id="f86"/>
-				<item id="f88"/>
-				<item id="f8c"/>
-				<item id="f8d"/>
-				<item id="e34"/>
-			</sellable>
-		</shopkeeper>
 		<evaluatinginteligence><random min="650" max="880" /></evaluatinginteligence>
 		<inscription><random min="600" max="830" /></inscription>
 		<magery><random min="640" max="1000" /></magery>
@@ -135,6 +139,7 @@
 		<magicresist><random min="650" max="880" /></magicresist>
 		<wrestling><random min="360" max="680" /></wrestling>
 		<category>Vendors\Mage (Male)</category>
+		<inherit id="mage_inventory" />
 	</npc>
 	
 	<npc id="mage_female">
@@ -145,116 +150,6 @@
 				<color><random min="1301" max="1355" /></color>
 			</item>
 		</equipped>
-		<shopkeeper>
-			<restockable>
-				<item id="efa">
-					<amount>10</amount>
-				</item>
-				<item id="1f14">
-					<amount>10</amount>
-				</item>
-				<item id="1f15">
-					<amount>10</amount>
-				</item>
-				<item id="1f16">
-					<amount>10</amount>
-				</item>
-				<item id="1f17">
-					<amount>10</amount>
-				</item>
-				<item id="1f2e">
-					<amount>10</amount>
-				</item>
-				<item id="1f2f">
-					<amount>10</amount>
-				</item>
-				<item id="1f30">
-					<amount>10</amount>
-				</item>
-				<item id="1f31">
-					<amount>10</amount>
-				</item>
-				<item id="1f32">
-					<amount>10</amount>
-				</item>
-				<item id="1f33">
-					<amount>10</amount>
-				</item>
-				<item id="1f2d">
-					<amount>10</amount>
-				</item>
-				<item id="1f34">
-					<amount>10</amount>
-				</item>
-				<item id="1f35">
-					<amount>10</amount>
-				</item>
-				<item id="1f36">
-					<amount>10</amount>
-				</item>
-				<item id="1f37">
-					<amount>10</amount>
-				</item>
-				<item id="1f38">
-					<amount>10</amount>
-				</item>
-				<item id="f7a">
-					<amount>50</amount>
-				</item>
-				<item id="f7b">
-					<amount>50</amount>
-				</item>
-				<item id="f84">
-					<amount>50</amount>
-				</item>
-				<item id="f85">
-					<amount>50</amount>
-				</item>
-				<item id="f86">
-					<amount>50</amount>
-				</item>
-				<item id="f88">
-					<amount>50</amount>
-				</item>
-				<item id="f8c">
-					<amount>50</amount>
-				</item>
-				<item id="f8d">
-					<amount>50</amount>
-				</item>
-				<item id="e34">
-					<amount>10</amount>
-				</item>
-			</restockable>
-			<sellable>
-				<item id="efa"/>
-				<item id="1f14"/>
-				<item id="1f15"/>
-				<item id="1f16"/>
-				<item id="1f17"/>
-				<item id="1f2e"/>
-				<item id="1f2f"/>
-				<item id="1f30"/>
-				<item id="1f31"/>
-				<item id="1f32"/>
-				<item id="1f33"/>
-				<item id="1f2d"/>
-				<item id="1f34"/>
-				<item id="1f35"/>
-				<item id="1f36"/>
-				<item id="1f37"/>
-				<item id="1f38"/>
-				<item id="f7a"/>
-				<item id="f7b"/>
-				<item id="f84"/>
-				<item id="f85"/>
-				<item id="f86"/>
-				<item id="f88"/>
-				<item id="f8c"/>
-				<item id="f8d"/>
-				<item id="e34"/>
-			</sellable>
-		</shopkeeper>
 		<evaluatinginteligence><random min="650" max="880" /></evaluatinginteligence>
 		<inscription><random min="600" max="830" /></inscription>
 		<magery><random min="640" max="1000" /></magery>
@@ -262,6 +157,7 @@
 		<magicresist><random min="650" max="880" /></magicresist>
 		<wrestling><random min="360" max="680" /></wrestling>
 		<category>Vendors\Mage (Female)</category>
+		<inherit id="mage_inventory" />
 	</npc>
 
 </definitions>

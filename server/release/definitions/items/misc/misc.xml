@@ -133,12 +133,14 @@
 
 	<item id="chessboard">
 		<id>0xfa6</id>
+		<name>#1016450</name>
 		<buyprice>2</buyprice>
 		<sellprice>1</sellprice>
 	</item>
 
 	<item id="checkerboard">
 		<id>0xfa6</id>
+		<name>#1016449</name>
 		<buyprice>2</buyprice>
 		<sellprice>1</sellprice>
 	</item>
@@ -162,6 +164,7 @@
 		<type>7</type>
 		<category>Misc\Keys\Copper Key</category>
 		<basescripts>key</basescripts>
+		<buyprice>3</buyprice>
 	</item>
 
 	<item id="100f">

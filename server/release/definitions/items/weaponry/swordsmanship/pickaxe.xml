@@ -15,7 +15,7 @@
 		<decay />
 		<nodye />
 		<sellprice>11</sellprice>
-		<buyprice>23</buyprice>
+		<buyprice>32</buyprice>
 		<durability><random min="30" max="55" /></durability>
 		<weight>11.0</weight>
 		<type>1001</type>

@@ -536,6 +536,7 @@
 		<decay/>
 		<basescripts>equipment,pickaxe</basescripts>
 		<category>Professions\Miner\Tools\Shovel (E/W)</category>
+		<buyprice>12</buyprice>
 	</item>
 
 	<item id="f3a" inherit="f39">
