@@ -49,54 +49,26 @@ void cSpellBook::Init( bool mkser )
 
 void cSpellBook::addSpell( UINT8 spell )
 {
-	// Lower 32 bits
-	if( spell < 32 )
-	{
-		UINT32 bitmask = 1 << spell;
-		spells1_ |= bitmask;
-	}
-	// Upper 32 bits
-	else
-	{
-		UINT32 bitmask = 1 << ( spell - 32 );
-		spells2_ |= bitmask;
-	}
+	UINT32 bitmask = 0x80000000 >> ( ( 7 - spell % 8 ) + ( spell - spell % 8 ) );	
+	if( spell < 32 ) spells1_ |= bitmask; 
+	else spells2_ |= bitmask;
 }
 
 void cSpellBook::removeSpell( UINT8 spell )
 {
-	// Get a bitmask and reverse it
-	UINT32 bitmask;
 
-	if( spell < 32 )
-	{
-		bitmask = 0xFFFFFFFF - ( 1 << spell );
-		spells1_ &= bitmask;
-	}
-	else if( spell < 64 )
-	{
-		bitmask = 0xFFFFFFFF - ( 1 << ( spell - 32 ) );
-		spells2_ &= bitmask;
-	}
+	UINT32 bitmask = 0xFFFFFFFF - ( 0x80000000 >> ( ( 7 - spell % 8 ) + ( spell - spell % 8 ) ) );	
+	if( spell < 32 ) spells1_ &= bitmask; 
+	else spells2_ &= bitmask;
+
 }
 
 bool cSpellBook::hasSpell( UINT8 spell ) const
 {
-	bool found = false;
-	UINT32 bitmask;
+	UINT32 bitmask = 0x80000000 >> ( ( 7 - spell % 8 ) + ( spell - spell % 8 ) );	
+	if( spell < 32 ) return spells1_ & bitmask; 
+	else return spells2_ & bitmask;
 
-	if( spell < 32 )
-	{
-		bitmask = 1 << spell;
-		found = spells1_ &  bitmask;
-	}
-	else if( spell < 64 )
-	{
-		bitmask = 1 << ( spell - 32 );
-		found = spells2_ & bitmask;
-	}
-
-	return found;
 }
 
 // abstract cDefinable
@@ -132,14 +104,23 @@ bool cSpellBook::onUse( cUObject *Target )
 	SERIAL sSerial = 0x70000000; // Just some unused ID
 
 	// First we send a multi-object-to-container packet and then open the gump
-	cUOTxItemContent content;
+/*	cUOTxItemContent content;
 
 	for( UINT8 i = 0; i < 64; ++i )
 		if( hasSpell( i ) )
 			content.addItem( --sSerial, 0x1, 0, 0, 0, 1+i, serial() );
 
 	pChar->socket()->send( &content );
+*/
+	cUOTxNewSpellbook book;
+
+	book.setBook( serial() );
+	book.setModel( 0x0efa ); // common spellbook model
+	book.setSpell1( spells1() );
+	book.setSpell2( spells2() );
 	
+	pChar->socket()->send( &book );
+
 	cUOTxDrawContainer drawcont;
 	drawcont.setGump( 0xFFFF );
 	drawcont.setSerial( serial() );

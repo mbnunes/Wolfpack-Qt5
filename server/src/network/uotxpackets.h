@@ -964,6 +964,18 @@ public:
 	void setButton( UINT32 data ) { setInt( 9, data ); }
 };
 
+// 0xBF sub 0x1b New spellbook
+class cUOTxNewSpellbook: public cUOPacket
+{
+public:
+	cUOTxNewSpellbook(): cUOPacket( 0xBF, 0x17 ) { setShort( 1, 0x17 ); setShort( 3, 0x1b ); setShort( 5, 1 ); setShort( 13, 1 ); }
+	void setBook		( SERIAL data ) { setInt( 7, data ); }
+	void setModel		( Q_UINT16 data )		{ setShort( 11, data ); }
+	void setSpell1		( Q_UINT32 data )		{ setInt( 15, data ); }
+	void setSpell2		( Q_UINT32 data )		{ setInt( 19, data ); }
+
+};
+
 // 0x6F Trade
 class cUOTxTrade: public cUOPacket
 {
