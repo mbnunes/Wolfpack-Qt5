@@ -21,10 +21,19 @@ def response(player, arguments, response):
 
 	if not target:
 		return False
+		
+	# Switch Page
+	if response.button & 0x1000 != 0:
+		page = response.button & 0xFFF
+		showgump(player, target, page)
+		return
 
 	# Iterate trough all skills and see what changed
 	for skill in range( 0, ALLSKILLS ):
-		try:
+		if not response.text.has_key(0x1000 | skill) or not response.text.has_key(0x2000 | skill):
+			continue
+		
+		try:		
 			newvalue = int(floor(float(response.text[0x1000 | skill]) * 10))
 			newcap = int(floor(float(response.text[0x2000 | skill]) * 10))
 		except:
@@ -43,16 +52,16 @@ def response(player, arguments, response):
 			target.skill[skill] = newvalue
 			target.skillcap[skill] = newcap
 
-#
-# Show the skillinfo gump
-#
-def callback(player, arguments, target):
-	if not target.char:
-		return
-
+def showgump(player, target, page):
+	# 80 pixel diameter
+	pages = int(ceil(ALLSKILLS / 5.0))
+	
+	if page > pages:
+		return	
+	
 	dialog = wolfpack.gumps.cGump()
 	dialog.setCallback("commands.skillinfo.response")
-	dialog.setArgs([target.char.serial])
+	dialog.setArgs([target.serial])
 
 	dialog.startPage(0)
 	dialog.addResizeGump(35, 12, 9260, 460, 504)
@@ -75,45 +84,49 @@ def callback(player, arguments, target):
 	dialog.addButton(60, 476, 247, 248, 1)
 	dialog.addButton(136, 476, 242, 241, 0)
 
-	# 80 pixel diameter
-	pages = int(ceil(ALLSKILLS / 5.0))
-	page = 0
-	while page <= pages:
-		page += 1
-		dialog.startPage(page)
-		if page > 1:
-			dialog.addPageButton(60, 444, 9909, 9911, page - 1)
-			dialog.addText(88, 444, unicode("Previous Page"), 2100)
-		if page < pages:
-			dialog.addPageButton(448, 444, 9903, 9905, page + 1)
-			dialog.addText(376, 448, unicode("Next Page"), 2100)
+	if page > 0:
+		dialog.addButton(60, 444, 9909, 9911, 0x1000 | page - 1)
+		dialog.addText(88, 444, unicode("Previous Page"), 2100)
 
-		yoffset = 0
-		for i in range(0, 5):
-			skill = int(((page - 1) * 5) + i)
+	if page + 1 < pages:
+		dialog.addButton(448, 444, 9903, 9905, 0x1000 | page + 1)
+		dialog.addText(376, 448, unicode("Next Page"), 2100)
 
-			if skill >= ALLSKILLS:
-				break
+	yoffset = 0
+	for i in range(0, 5):
+		skill = int((page * 5) + i)
 
-			skillname = SKILLNAMES[skill]
-			skillname = str( skillname[0].upper() + skillname[1:] )
-			skillvalue = ( target.char.skill[skill] / 10.0 )
-			skillcapvalue = ( target.char.skillcap[skill] / 10.0 )
+		if skill >= ALLSKILLS:
+			break
 
-			dialog.addResizeGump(65, 109 + yoffset, 9200, 405, 62)
-			dialog.addText(76, 115 + yoffset, unicode( "Skill: %s (%i)" % (skillname, skill) ), 2100)
-			dialog.addResizeGump(123, 135 + yoffset, 9300, 63, 26)
-			dialog.addText(76, 137 + yoffset, unicode( "Value:" ), 2100)
-			dialog.addText(187, 138 + yoffset, unicode( "%" ), 2100)
-			dialog.addInputField(128, 138 + yoffset, 50, 20, 2100, 0x1000 | skill, unicode( "%0.1f" % skillvalue ) )
-			dialog.addText(232, 138 + yoffset, unicode( "Cap:" ), 2100)
-			dialog.addText(329, 139 + yoffset, unicode( "%" ), 2100)
-			dialog.addResizeGump(264, 135 + yoffset, 9300, 63, 26)
-			dialog.addInputField(268, 139 + yoffset, 53, 20, 2100, 0x2000 | skill, unicode( "%0.1f" % skillcapvalue ) )
+		skillname = SKILLNAMES[skill]
+		skillname = str( skillname[0].upper() + skillname[1:] )
+		skillvalue = ( target.skill[skill] / 10.0 )
+		skillcapvalue = ( target.skillcap[skill] / 10.0 )
 
-			yoffset += 65
+		dialog.addResizeGump(65, 109 + yoffset, 9200, 405, 62)
+		dialog.addText(76, 115 + yoffset, unicode( "Skill: %s (%i)" % (skillname, skill) ), 2100)
+		dialog.addResizeGump(123, 135 + yoffset, 9300, 63, 26)
+		dialog.addText(76, 137 + yoffset, unicode( "Value:" ), 2100)
+		dialog.addText(187, 138 + yoffset, unicode( "%" ), 2100)
+		dialog.addInputField(128, 138 + yoffset, 50, 20, 2100, 0x1000 | skill, unicode( "%0.1f" % skillvalue ) )
+		dialog.addText(232, 138 + yoffset, unicode( "Cap:" ), 2100)
+		dialog.addText(329, 139 + yoffset, unicode( "%" ), 2100)
+		dialog.addResizeGump(264, 135 + yoffset, 9300, 63, 26)
+		dialog.addInputField(268, 139 + yoffset, 53, 20, 2100, 0x2000 | skill, unicode( "%0.1f" % skillcapvalue ) )
+
+		yoffset += 65
 
 	dialog.send(player)
+
+#
+# Show the skillinfo gump
+#
+def callback(player, arguments, target):
+	if not target.char:
+		return
+
+	showgump(player, target.char, 0)
 
 #
 # Show the skillinfo target
