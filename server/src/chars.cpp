@@ -335,19 +335,7 @@ void cChar::Init(bool ser)
 
 P_ITEM cChar::GetItemOnLayer(unsigned char layer)
 {
-	P_ITEM pi;
-	unsigned int ci;
-	vector<SERIAL> vecContainer = contsp.getData(serial);
-	for ( ci = 0; ci < vecContainer.size(); ci++)
-	{
-		pi = FindItemBySerial(vecContainer[ci]);
-		if ( pi != NULL)
-		{
-			if( pi->layer() == layer )
-				return pi;
-		}
-	}
-	return NULL;
+	return atLayer( static_cast<enLayer>(layer) );
 }
 
 ///////////////////////
@@ -466,24 +454,26 @@ int cChar::CountItems( short ID, short col )
 {
 	// Dont you think it's better to search the char's equipment as well?
 	UINT32 number = 0;
-	vector< SERIAL > equipment = contsp.getData( serial );
+	ContainerContent container = this->content();
+	ContainerContent::const_iterator it  = container.begin();
+	ContainerContent::const_iterator end = container.end();
 
-	for( UINT32 i = 0; i < equipment.size(); ++i )
+	for( ; it != end; ++it )
 	{
-		P_ITEM pItem = FindItemBySerial( equipment[i] );
+		P_ITEM pItem = *it;
 
 		if( !pItem )
 			continue;
 
 		if( ( pItem->id() == ID ) && ( pItem->color() == col ) )
-			number++;
+			++number;
 	}
 
 	P_ITEM pi = getBackpack();
 	
 	if( pi )
 		number = pi->CountItems( ID, col );
-	return number ;
+	return number;
 }
 
 int cChar::CountBankGold()
@@ -556,13 +546,13 @@ void cChar::glowHalo(P_ITEM pi)
 
 bool cChar::hasWeapon()
 {
-	vector<SERIAL> vecContainer = contsp.getData(serial);
-	for( UINT32 ci = 0; ci < vecContainer.size(); ++ci )
-	{
-		P_ITEM pi = FindItemBySerial( vecContainer[ci] );
-		if( pi && ( ( pi->layer() == 1 && pi->type() != 9 ) || ( pi->layer() == 2 && !IsShield( pi->id() ) ) ) )
-			return true;
-	}
+	P_ITEM pi = atLayer( SingleHandedWeapon );
+	if ( pi && pi->type() != 9 )
+		return true;
+	// Checking the other hand
+	pi = atLayer( DualHandedWeapon );
+	if ( pi && !IsShield(pi->id()) )
+		return true;
 
 	return false;
 }
@@ -578,7 +568,7 @@ bool cChar::hasShield()
 
 P_ITEM Packitem(P_CHAR pc) // Find packitem
 {
-	return pc->getBackpack();
+	return pc->atLayer( cChar::Backpack );
 }
 
 P_ITEM cChar::getBackpack()	
@@ -2470,16 +2460,9 @@ void cChar::kill()
 	unmount();
 
 	P_ITEM pi_j;
-	vector<SERIAL> vecContainer( contsp.getData( serial ) );
-	for( ci = 0; ci < vecContainer.size(); ++ci )
-	{
-		pi_j = FindItemBySerial(vecContainer[ci]);
-		if(pi_j && pi_j->type()==1 && pi_j->pos.x==26 && pi_j->pos.y==0 &&
-			pi_j->pos.z==0 && pi_j->id()==0x1E5E )
-		{
-			endtrade( pi_j->serial );
-		}
-	}
+#pragma note("Implement here tradewindow closing and disposal of it's cItem*")
+	// Close here the trade window... we still not sure how this will work, so I took out
+	//the old code
 	ele = 0;
 
 	// I would *NOT* do that but instead replace several *send* things
@@ -2584,13 +2567,12 @@ void cChar::kill()
 	}
 	
 	// Put objects on corpse
-	vecContainer.clear();
-	vecContainer = contsp.getData( serial );
+	ContainerContent::const_iterator it = content_.begin();
 	bool resetShop = false;
 
-	for ( ci = 0; ci < vecContainer.size(); ci++)
+	for ( ; it != content_.end(); ++it )
 	{
-		pi_j = FindItemBySerial( vecContainer[ci] );
+		pi_j = *it;
 		// for BONUS ITEMS - remove bonus
 		removeItemBonus( pi_j );
 
@@ -2608,10 +2590,11 @@ void cChar::kill()
 			if( pi_j->type() == 1 && pi_j->layer() != 0x1A && pi_j->layer() != 0x1B && pi_j->layer() != 0x1C && pi_j->layer() != 0x1D )
 			{   // if this is a pack but it's not a VendorContainer(like the buy container) or a bankbox
 				unsigned int ci1;
-				vector<SERIAL> vecContainer = contsp.getData( pi_j->serial );
-				for ( ci1 = 0; ci1 < vecContainer.size(); ++ci1)
+				cItem::ContainerContent container = pi_j->content();
+				cItem::ContainerContent::const_iterator it2 = container.begin();
+				for ( ; it2 != container.end(); ++it )
 				{
-					P_ITEM pi_k = FindItemBySerial( vecContainer[ ci1 ] );
+					P_ITEM pi_k = *it;
 
 					if( !pi_k )
 						continue;
@@ -2835,12 +2818,13 @@ UINT32 cChar::takeGold( UINT32 amount, bool useBank )
 void cChar::updateWornItems()
 {
 	this->setOnHorse( false );
-	unsigned int ci = 0;
 	P_ITEM pi;
-	vector<SERIAL> vecContainer(contsp.getData(this->serial));
-	for ( ci = 0; ci < vecContainer.size(); ++ci)
+	ContainerContent container = this->content();
+	ContainerContent::const_iterator it  = container.begin();
+	ContainerContent::const_iterator end = container.end();
+	for ( ; it != end; ++it )
 	{
-		pi = FindItemBySerial(vecContainer[ci]);
+		pi = *it;
 		if (pi != NULL && !pi->free)
 		{
 			if (pi->layer() == 0x19)
@@ -2863,15 +2847,15 @@ void cChar::updateWornItems()
 void cChar::updateWornItems( cUOSocket* socket )
 {
 	this->setOnHorse( false );
-	unsigned int ci=0;
-	P_ITEM pi;
-	vector<SERIAL> vecContainer(contsp.getData(this->serial));
-	for ( ci = 0; ci < vecContainer.size(); ++ci)
+	ContainerContent container = this->content();
+	ContainerContent::const_iterator it  = container.begin();
+	ContainerContent::const_iterator end = container.end();
+	for ( ; it != end; ++it )
 	{
-		pi = FindItemBySerial(vecContainer[ci]);
+		cItem* pi = *it;
 		if (pi != NULL && !pi->free)
 		{
-			if (pi->layer()==0x19)
+			if (pi->layer() == 0x19)
 				this->setOnHorse( true );
 			cUOTxCharEquipment packet;
 			packet.setWearer( this->serial );
@@ -2899,11 +2883,12 @@ void cChar::wear( P_ITEM pi )
 
 P_CHAR cChar::unmount()
 {
-	std::vector< SERIAL > vecContainer = contsp.getData( serial );
-	std::vector< SERIAL >::iterator it = vecContainer.begin();
-	while( it != vecContainer.end() )
+	ContainerContent container = this->content();
+	ContainerContent::const_iterator it  = container.begin();
+	ContainerContent::const_iterator end = container.end();
+	for ( ; it != end; ++it )
 	{
-		P_ITEM pi = FindItemBySerial( *it );
+		P_ITEM pi = *it;
 		if( pi && pi->layer() == 0x19 && !pi->free)
 		{
 			setOnHorse( false );
@@ -2930,7 +2915,6 @@ P_CHAR cChar::unmount()
 				pMount->moveTo( pos );
 				pMount->resend( false );
 			}
-			
 			Items->DeleItem( pi );
 			resend( false );
 			return pMount;
@@ -3396,12 +3380,11 @@ UI16 cChar::calcDefense( enBodyParts bodypart, bool wearout )
 		total += 5; // gm parry bonus. 
 
 	P_ITEM pi; 
-	std::vector< SERIAL > vecContainer = contsp.getData( serial );
-	std::vector< SERIAL >::iterator it = vecContainer.begin();
+	ContainerContent::const_iterator it = content_.begin();
 
-	while( it != vecContainer.end() )
+	while( it != content_.end() )
 	{
-		pi = FindItemBySerial( *it );
+		pi = *it;
 		if( pi && pi->layer() > 1 && pi->layer() < 25 ) 
 		{ 
 			//blackwinds new stuff 

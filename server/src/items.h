@@ -102,6 +102,9 @@ public:
 	virtual void load( char **, UINT16& );
 	bool del ( const QString& = QString::null );
 
+	static void* operator new( size_t size);
+	static void operator delete( void* p, size_t size);
+
 	void	processContainerNode( const QDomElement &Tag );
 	virtual void update( cUOSocket *mSock = NULL );
 	P_ITEM	dupe();

@@ -115,11 +115,13 @@ public:
 	P_ITEM Begin()								
 	{
 		iterItems = cItemsManager::getInstance()->begin();
+		if ( cItemsManager::getInstance()->end() == iterItems )
+			return 0;
 		return GetData();
 	}
 	P_ITEM Next()
 	{
-		iterItems++;
+		++iterItems;
 		return iterItems->second;
 	}
 

@@ -52,6 +52,7 @@
 #include "multis.h"
 #include "spellbook.h"
 #include "persistentbroker.h"
+#include "blockallocator.h"
 
 #include <qsqlcursor.h>
 
@@ -2722,4 +2723,14 @@ bool cItem::contains( const cItem* pItem ) const
 {
 	ContainerContent::const_iterator it = std::find(content_.begin(), content_.end(), pItem);
 	return it != content_.end();
+}
+
+void* cItem::operator new( size_t size )
+{
+	return SingletonHolder<MyObjectAllocator< sizeof(cItem)*1000> , NoDestroy>::instance()->allocate(size);
+}
+
+void cItem::operator delete( void* p, size_t size )
+{
+	SingletonHolder<MyObjectAllocator< sizeof(cItem)*1000> , NoDestroy>::instance()->deallocate(p, size);
 }
