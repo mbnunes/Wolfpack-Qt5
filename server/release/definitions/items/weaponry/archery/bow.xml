@@ -9,9 +9,7 @@
 		<nodye />
 		<sellprice>18</sellprice>
 		<buyprice>36</buyprice>
-		<tag name="req_str" value="30" type="int" />
 		<tag name="range" value="12" type="int" />
-		<tag name="resname" value="plainwood" />
 		<durability><random min="30" max="50" /></durability>
 		<weight>7.0</weight>
 		<events>equipment</events>
@@ -21,6 +19,7 @@
 
 	<item id="13b2" inherit="13b1">
 		<id>0x13b2</id>
+		<baseid>13b1</baseid>
 		<category>Weapons\Bows\Bow (E/W)</category>
 	</item>
 

@@ -10,7 +10,6 @@
 		<buyprice>22</buyprice>
 		<durability><random min="30" max="60" /></durability>
 		<weight>4.0</weight>
-		<tag name="req_str" value="30" type="int" />
 		<events>equipment</events>
 		<type>1003</type>
 		<twohanded />
@@ -19,6 +18,7 @@
 
 	<item id="e8a" inherit="e89">
 		<id>0xe8a</id>
+		<baseid>e89</baseid>
 		<category>Weapons\Staves\Quarter Staff (E/W)</category>
 	</item>
 

@@ -10,7 +10,6 @@
 		<buyprice>18</buyprice>
 		<durability><random min="30" max="39" /></durability>
 		<weight>6.0</weight>
-		<tag name="req_str" value="35" type="int" />
 		<events>equipment</events>
 		<type>1003</type>
 		<twohanded />
@@ -19,6 +18,7 @@
 
 	<item id="df0" inherit="df1">
 		<id>0xdf0</id>
+		<baseid>df1</baseid>
 		<category>Weapons\Staves\Black Staff (E/W)</category>
 	</item>
 

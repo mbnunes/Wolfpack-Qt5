@@ -21,6 +21,7 @@
 
 	<item id="1442" inherit="1443">
 		<id>0x1442</id>
+		<baseid>1443</baseid>
 		<category>Weapons\Axes\Two Handed Axe (E/W)</category>
 	</item>
 

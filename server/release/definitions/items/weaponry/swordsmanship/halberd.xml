@@ -11,7 +11,6 @@
 		<buyprice>38</buyprice>
 		<durability><random min="30" max="60" /></durability>
 		<weight>16.0</weight>
-		<tag name="req_str" value="95" type="int" />
 		<tag name="resname" value="iron" />
 		<tag name="remaining_uses" type="int" value="35" />
 		<type>1002</type>
@@ -21,6 +20,7 @@
 
 	<item id="143e" inherit="143f">
 		<id>0x143e</id>
+		<baseid>143f</baseid>
 		<category>Weapons\Swords\Halberd (E/W)</category>
 	</item>
 

@@ -10,9 +10,7 @@
 		<nodye />
 		<sellprice>26</sellprice>
 		<buyprice>53</buyprice>
-		<tag name="req_str" value="80" type="int" />
 		<tag name="range" value="12" type="int" />
-		<tag name="resname" value="plainwood" />
 		<durability><random min="30" max="55" /></durability>
 		<weight>9.0</weight>
 		<events>equipment</events>
@@ -22,6 +20,7 @@
 
 	<item id="13fc" inherit="13fd">
 		<id>0x13fc</id>
+		<baseid>13fd</baseid>
 		<category>Weapons\Bows\Heavy Crossbow (E/W)</category>
 	</item>
 

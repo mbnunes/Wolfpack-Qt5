@@ -11,7 +11,6 @@
 		<buyprice>23</buyprice>
 		<durability><random min="30" max="55" /></durability>
 		<weight>11.0</weight>
-		<tag name="req_str" type="int" value="50" />
 		<tag name="resname" value="iron" />
 		<tag name="remaining_uses" type="int" value="35" />
 		<type>1001</type>
@@ -22,6 +21,7 @@
 
 	<item id="e85" inherit="e86">
 		<id>0xe85</id>
+		<baseid>e86</baseid>
 		<category>Weapons\Swords\Pickaxe (E/W)</category>
 		<category>Professions\Miner\Tools\Pickaxe (E/W)</category>
 	</item>

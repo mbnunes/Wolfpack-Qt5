@@ -10,7 +10,6 @@
 		<buyprice>18</buyprice>
 		<durability><random min="30" max="49" /></durability>
 		<weight>3.0</weight>
-		<tag name="req_str" value="20" type="int" />
 		<events>equipment</events>
 		<type>1003</type>
 		<twohanded />
@@ -19,6 +18,7 @@
 
 	<item id="13f9" inherit="13f8">
 		<id>0x13f9</id>
+		<baseid>13f8</baseid>
 		<category>Weapons\Staves\Grarled Staff (E/W)</category>
 	</item>
 

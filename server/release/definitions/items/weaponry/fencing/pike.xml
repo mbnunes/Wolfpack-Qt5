@@ -11,7 +11,6 @@
 		<buyprice>33</buyprice>
 		<durability><random min="30" max="38" /></durability>
 		<weight>10.0</weight>
-		<tag name="req_str" value="50" type="int" />
 		<tag name="resname" value="iron" />
 		<events>equipment,blades</events>
 		<type>1005</type>
@@ -20,6 +19,7 @@
 
 	<item id="26c8" inherit="26be">
 		<id>0x26c8</id>
+		<baseid>26be</baseid>
 		<category>Weapons\Fencing\Pike (E/W)</category>
 	</item>
 

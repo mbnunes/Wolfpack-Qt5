@@ -11,7 +11,6 @@
 		<buyprice>21</buyprice>
 		<durability><random min="30" max="40" /></durability>
 		<weight>4.0</weight>
-		<tag name="req_str" value="40" type="int" />
 		<tag name="resname" value="iron" />
 		<events>equipment</events>
 		<type>1005</type>
@@ -20,6 +19,7 @@
 
 	<item id="1402" inherit="1403">
 		<id>0x1402</id>
+		<baseid>1403</baseid>
 		<category>Weapons\Fencing\Short Spear (E/W)</category>
 	</item>
 

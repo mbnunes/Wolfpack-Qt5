@@ -9,7 +9,6 @@
 		<nodye />
 		<sellprice>10</sellprice>
 		<buyprice>21</buyprice>
-		<tag name="req_str" value="10" type="int" />
 		<tag name="resname" value="iron" />
 		<durability><random min="30" max="39" /></durability>
 		<weight>1.0</weight>
@@ -20,6 +19,7 @@
 
 	<item id="f52" inherit="f51">
 		<id>0xf52</id>
+		<baseid>f51</baseid>
 		<category>Weapons\Fencing\Dagger (E/W)</category>
 	</item>
 

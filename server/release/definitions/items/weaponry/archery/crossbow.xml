@@ -10,9 +10,7 @@
 		<nodye />
 		<sellprice>23</sellprice>
 		<buyprice>46</buyprice>
-		<tag name="req_str" value="35" type="int" />
 		<tag name="range" value="12" type="int" />
-		<tag name="resname" value="plainwood" />
 		<durability><random min="30" max="51" /></durability>
 		<weight>7.0</weight>
 		<events>equipment</events>
@@ -22,6 +20,7 @@
 
 	<item id="f50" inherit="f4f">
 		<id>0xf50</id>
+		<baseid>f4f</baseid>
 		<category>Weapons\Bows\Crossbow (E/W)</category>
 	</item>
 
