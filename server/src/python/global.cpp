@@ -238,16 +238,6 @@ static PyObject* wpConsole_getbuffer( PyObject* self, PyObject* args )
 	return list;
 }
 
-static PyObject* wpConsole_reloadScripts( PyObject* self, PyObject* args )
-{
-	Q_UNUSED(self);
-	Q_UNUSED(args);
-
-	reloadScripts();
-
-	return PyInt_FromLong( 1 );
-}
-
 /*!
 	wolfpack.console
 	Initializes wolfpack.console
@@ -260,7 +250,6 @@ static PyMethodDef wpConsole[] =
 	{ "progressFail",	wpConsole_progressFail,		METH_NOARGS,	"Prints a [fail] block" },
 	{ "progressSkip",	wpConsole_progressSkip,		METH_NOARGS,	"Prints a [skip] block" },
 	{ "getbuffer",		wpConsole_getbuffer,		METH_NOARGS,	"Gets the linebuffer of the console" },
-	{ "reloadScripts",	wpConsole_reloadScripts,	METH_NOARGS,	"Reloads Scripts and Definitions"	},
 	{ "log",			wpConsole_log,				METH_VARARGS,	NULL },
     { NULL, NULL, 0, NULL } // Terminator
 };
@@ -1084,6 +1073,20 @@ static PyObject* wpPacket( PyObject* self, PyObject* args )
 	return CreatePyPacket( (unsigned char)id, (unsigned short)size );
 }
 
+static PyObject* wpQueueReload( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+	
+	unsigned int type = 0;
+
+	if( !PyArg_ParseTuple( args, "i:wolfpack.queuereload( type )", &type ) )
+		return 0;
+	
+	queueReload( (eReloadType)type );
+
+	return PyInt_FromLong( 1 );
+}
+
 /*!
 	wolfpack
 	Initializes wolfpack
@@ -1131,6 +1134,7 @@ static PyMethodDef wpGlobal[] =
 	{ "isclosing",			wpIsClosing,					METH_NOARGS, "Returns if the server is in closing state" },
 	{ "tickcount",			wpTickcount,					METH_NOARGS, "Returns the current Tickcount on Windows" },
 	{ "charbase",			wpCharBase,						METH_VARARGS, NULL },
+	{ "queuereload",		wpQueueReload,					METH_VARARGS, NULL },
 	{ NULL, NULL, 0, NULL } // Terminator
 };
 

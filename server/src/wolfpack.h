@@ -32,6 +32,14 @@
 #if !defined( __WOLFPACK_H__ )
 #define __WOLFPACK_H__
 
-void reloadScripts();
+enum eReloadType
+{
+	RELOAD_SCRIPTS = 0,
+	RELOAD_PYTHON,
+	RELOAD_ACCOUNTS,
+	RELOAD_CONFIGURATION
+};
+
+void queueReload( eReloadType );
 
 #endif

@@ -58,6 +58,7 @@
 #include "tilecache.h"
 #include "Timing.h"
 #include "verinfo.h"
+#include "wolfpack.h"
 #include "world.h"
 #include "wpdefmanager.h"
 
@@ -132,36 +133,6 @@ void signal_handler(int signal)
 }
 	
 #endif
-
-void reloadScripts()
-{
-	Console::instance()->send( "Reloading scripts...\n" );
-
-	SrvParams->reload(); // Reload wolfpack.xml
-	
-	QStringList oldAISections = DefManager->getSections( WPDT_AI );
-	DefManager->reload(); //Reload Definitions
-	AIFactory::instance()->checkScriptAI( oldAISections, DefManager->getSections( WPDT_AI ) );
-
-	Accounts::instance()->reload();
-	SpawnRegions::instance()->reload();
-	AllTerritories::instance()->reload();
-	Resources::instance()->reload();
-	MakeMenus::instance()->reload();
-	ScriptManager::instance()->reload(); // Reload Scripts
-	ContextMenus::instance()->reload();
-	Skills->reload();
-
-	// Update the Regions
-	cCharIterator iter;
-	for( P_CHAR pChar = iter.first(); pChar; pChar = iter.next() )
-	{
-		cTerritory *region = AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
-		pChar->setRegion( region );
-	}
-
-	cNetwork::instance()->reload(); // This will be integrated into the normal definition system soon
-}
 
 static bool parseParameter( const QString &param )
 {
@@ -275,6 +246,15 @@ static void InitMultis()
 			pMulti->checkItems();
 		}
 	}
+}
+
+QMutex reloadMutex;
+QValueVector< eReloadType > reloadQueue;
+
+void queueReload( eReloadType type )
+{
+	QMutexLocker lock( &reloadMutex );
+	reloadQueue.push_back( type );
 }
 
 //#if defined(_DEBUG)
@@ -542,6 +522,39 @@ int main( int argc, char *argv[] )
 
 		// Update our currenttime
 		uiCurrentTime = getNormalizedTime();
+
+		// It is save to process any pending reloads now
+		reloadMutex.lock();
+
+		while( reloadQueue.count() > 0 )
+		{
+			eReloadType type = reloadQueue[0];
+			reloadQueue.erase( reloadQueue.begin() );
+
+			switch( type )
+			{
+			case RELOAD_ACCOUNTS:
+				Console::instance()->PrepareProgress( "Reloading Accounts" );
+				Accounts::instance()->reload();
+				Console::instance()->ProgressDone();
+				break;
+
+			case RELOAD_CONFIGURATION:
+				Console::instance()->PrepareProgress( "Reloading Configuration" );
+				SrvParams->reload();
+				Console::instance()->ProgressDone();
+				break;
+
+			case RELOAD_SCRIPTS:
+				DefManager->reload();
+
+			case RELOAD_PYTHON:
+				ScriptManager::instance()->reload();
+				break;
+			}
+		}
+
+		reloadMutex.unlock();
 
 		Console::instance()->poll();
 

@@ -214,7 +214,7 @@ bool cConsole::handleCommand( const QString &command, bool silentFail )
 		Accounts::instance()->reload();
 		break;
 	case 'R':
-		reloadScripts();
+		queueReload( RELOAD_SCRIPTS );
 		break;
 	case '?':
 		Console::instance()->send("Console commands:\n");

@@ -1,16 +1,55 @@
 //Microsoft Developer Studio generated resource script.
 //
+#include "resource.h"
 
 #define APSTUDIO_READONLY_SYMBOLS
 /////////////////////////////////////////////////////////////////////////////
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-#include "resource.h"
+
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
 
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_ICON1               ICON    DISCARDABLE     "icon2.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_LOGO                BITMAP  DISCARDABLE     "logo.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINMENU MENU DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "E&xit",                       IDC_EXIT
+    END
+    POPUP "&Reload"
+    BEGIN
+        MENUITEM "&Accounts",                   ID_RELOAD_ACCOUNTS
+        MENUITEM "&Configuration",              ID_RELOAD_CONFIGURATION
+        MENUITEM "&Python",                     ID_RELOAD_PYTHON
+        MENUITEM "&Scripts",                    ID_RELOAD_SCRIPTS
+    END
+END
+
+
+#ifndef _MAC
 /////////////////////////////////////////////////////////////////////////////
 //
 // Version
@@ -53,16 +92,8 @@ BEGIN
     END
 END
 
-/////////////////////////////////////////////////////////////////////////////
-//
-// Icon
-//
+#endif    // !_MAC
 
-// Icon with lowest ID value placed first to ensure application icon
-// remains consistent on all systems.
-IDI_ICON1               ICON    DISCARDABLE     "icon2.ico"
-
-IDB_LOGO				BITMAP	DISCARDABLE		"logo.bmp"
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -72,12 +103,12 @@ IDB_LOGO				BITMAP	DISCARDABLE		"logo.bmp"
 
 1 TEXTINCLUDE DISCARDABLE 
 BEGIN
-    "resrc1.h\0"
+    "resource.h\0"
 END
 
 2 TEXTINCLUDE DISCARDABLE 
 BEGIN
-    "#include ""resource.h""\r\n"
+    "\r\n"
     "\0"
 END
 
@@ -88,10 +119,6 @@ BEGIN
 END
 
 #endif    // APSTUDIO_INVOKED
-
-////////////////////////////////////////////////////////////////////////////
-
-
 
 #ifndef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////

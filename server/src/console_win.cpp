@@ -56,6 +56,7 @@ extern int main( int argc, char **argv );
 #define CONTROL_LOGWINDOW 0x10
 #define CONTROL_INPUT 0x11
 
+HMENU hmMainMenu;
 HBITMAP hLogo = 0;
 HBRUSH hbSeparator = 0, hbBackground = 0;
 HWND logWindow = 0;			// Log Window
@@ -123,6 +124,43 @@ void drawWindow( HWND window )
 	EndPaint( window, &paintInfo );
 }
 
+bool handleMenuSelect( unsigned int id )
+{
+	bool result = true;
+
+	switch( id )
+	{
+	case IDC_EXIT:
+		keeprun = 0;
+
+		if( canClose )
+			DestroyWindow( mainWindow );
+
+		break;
+
+	case ID_RELOAD_ACCOUNTS:
+		Console::instance()->send( "RELOADING ACCOUNTS\n" );
+		break;
+
+	case ID_RELOAD_PYTHON:
+		Console::instance()->send( "RELOADING PYTHON\n" );
+		break;
+
+	case ID_RELOAD_SCRIPTS:
+		Console::instance()->send( "RELOADING SCRIPTS\n" );
+		break;
+
+	case ID_RELOAD_CONFIGURATION:
+		Console::instance()->send( "RELOADING CONFIGURATION\n" );
+		break;
+
+	default:
+		result = false;
+	}
+
+	return result;
+}
+
 LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam )
 {
 	if( mainWindow && hwnd != mainWindow )
@@ -134,6 +172,11 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 
 	switch( msg )
 	{
+	case WM_COMMAND:
+		if( handleMenuSelect( wparam ) )
+			return 0;
+		break;
+
 	case WM_CREATE:
 		hLogo = LoadBitmap( appInstance, MAKEINTRESOURCE( IDB_LOGO ) );
 		hbSeparator = CreateSolidBrush( RGB( 0xAF, 0xAF, 0xAF ) );
@@ -261,16 +304,16 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 		return 1;
 
 	case WM_DESTROY:
+		DestroyMenu( hmMainMenu );
 		DeleteObject( hLogo );
 		DeleteObject( hbSeparator );
 		DeleteObject( hbBackground );
 		keeprun = 0;
 		PostQuitMessage( 0 );
 		return 0;
-
-	default:
-		return DefWindowProc( hwnd, msg, wparam, lparam ); 
 	}
+
+	return DefWindowProc( hwnd, msg, wparam, lparam ); 
 }
 
 class cGuiThread : public QThread
@@ -382,7 +425,9 @@ int WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int 
 	}
 
 	// Create the Window itself
-	mainWindow = CreateWindow( WOLFPACK_CLASS, "Wolfpack", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, NULL, 0, hInstance, NULL );
+	hmMainMenu = LoadMenu( appInstance, MAKEINTRESOURCE( IDR_MAINMENU ) );
+
+	mainWindow = CreateWindow( WOLFPACK_CLASS, "Wolfpack", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, NULL, hmMainMenu, hInstance, NULL );
 
 	if( mainWindow == 0 )
 	{

@@ -38,6 +38,19 @@
 #include <qstringlist.h>
 #include <qvaluevector.h>
 
+// Reloading
+#include "ai.h"
+#include "spawnregions.h"
+#include "territories.h"
+#include "resources.h"
+#include "makemenus.h"
+#include "contextmenu.h"
+#include "skills.h"
+#include "world.h"
+#include "skills.h"
+#include "basechar.h"
+#include "network.h"
+
 #include "wpdefmanager.h"
 #include "globals.h"
 #include "basics.h"
@@ -273,9 +286,31 @@ void WPDefManager::unload( void )
 
 void WPDefManager::reload( void )
 {
+	QStringList oldAISections = DefManager->getSections( WPDT_AI );
+
 	unload();
 	load();
+
+	// Update all SubSystems associated with this Definition Manager
 	KeyManager::instance()->load();
+	AIFactory::instance()->checkScriptAI( oldAISections, DefManager->getSections( WPDT_AI ) );
+
+	SpawnRegions::instance()->reload();
+	AllTerritories::instance()->reload();
+	Resources::instance()->reload();
+	MakeMenus::instance()->reload();
+	ContextMenus::instance()->reload();
+	Skills->reload();
+
+	// Update the Regions
+	cCharIterator iter;
+	for( P_CHAR pChar = iter.first(); pChar; pChar = iter.next() )
+	{
+		cTerritory *region = AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
+		pChar->setRegion( region );
+	}
+
+	cNetwork::instance()->reload(); // This will be integrated into the normal definition system soon
 }
 
 // Load the Definitions
