@@ -1218,6 +1218,11 @@
                 <category>Dungeon\Traps\Crumbling Floor 6</category>
         </item>
 
+	<item id="1b71">
+		<id>0x1b71</id>
+                <category>Dungeon\Traps\Crumbling Floor 7</category>
+	</item>
+
         <item id="1D99">
                 <id>0x1D99</id>
                 <category>Dungeon\Traps\Spike Trap 1</category>

@@ -251,6 +251,71 @@
 		<category>Professions\Fisher\Small Fish 4</category>
 	</item>
 
+	<item id="1e15">
+		<id>0x1e15</id>
+		<category>Professions\Fisher\Raw Fish 1</category>
+	</item>
+
+	<item id="1e16">
+		<id>0x1e16</id>
+		<category>Professions\Fisher\Raw Fish 2</category>
+	</item>
+
+	<item id="1e17">
+		<id>0x1e17</id>
+		<category>Professions\Fisher\Raw Fish 3</category>
+	</item>
+
+	<item id="1e18">
+		<id>0x1e18</id>
+		<category>Professions\Fisher\Raw Fish 4</category>
+	</item>
+
+	<item id="1e19">
+		<id>0x1e19</id>
+		<category>Professions\Fisher\Fish Heads 1</category>
+	</item>
+
+	<item id="1e1a">
+		<id>0x1e1a</id>
+		<category>Professions\Fisher\Fish Heads 2</category>
+	</item>
+
+	<item id="1e1b">
+		<id>0x1e1b</id>
+		<category>Professions\Fisher\Fish Heads 3</category>
+	</item>
+
+	<item id="1ea1">
+		<id>0x1ea1</id>
+		<category>Professions\Fisher\Rope 1</category>
+	</item>
+
+	<item id="1ea2">
+		<id>0x1ea2</id>
+		<category>Professions\Fisher\Rope 2</category>
+	</item>
+
+	<item id="1ea3">
+		<id>0x1ea3</id>
+		<category>Professions\Fisher\Hanging Net 1</category>
+	</item>
+
+	<item id="1ea4">
+		<id>0x1ea4</id>
+		<category>Professions\Fisher\Hanging Net 2</category>
+	</item>
+
+	<item id="1ea5">
+		<id>0x1ea5</id>
+		<category>Professions\Fisher\Hanging Net 3</category>
+	</item>
+
+	<item id="1ea6">
+		<id>0x1ea6</id>
+		<category>Professions\Fisher\Hanging Net 4</category>
+	</item>
+
 	<!-- Tailorer -->
 	<item id="def">
 		<id>0x0def</id>
@@ -709,6 +774,46 @@
 	<item id="fad">
 		<id>0x0fad</id>
 		<category>Professions\Barkeeper\Backgammon Board 2</category>
+	</item>
+
+	<item id="1ad6">
+		<id>0x1ad6</id>
+		<category>Professions\Barkeeper\Keg (N/S)</category>
+	</item>
+
+	<item id="1ad7">
+		<id>0x1ad7</id>
+		<category>Professions\Barkeeper\Keg (W/E)</category>
+	</item>
+
+	<item id="1e2e">
+		<id>0x1e2e</id>
+		<category>Professions\Barkeeper\Dartboard 1 (N/S)</category>
+	</item>
+
+	<item id="1e2f">
+		<id>0x1e2f</id>
+		<category>Professions\Barkeeper\Dartboard 1 (W/E)</category>
+	</item>
+
+	<item id="1e30">
+		<id>0x1e30</id>
+		<category>Professions\Barkeeper\Dartboard 2 (N/S)</category>
+	</item>
+
+	<item id="1e31">
+		<id>0x1e31</id>
+		<category>Professions\Barkeeper\Dartboard 2 (W/E)</category>
+	</item>
+
+	<item id="1e32">
+		<id>0x1e32</id>
+		<category>Professions\Barkeeper\Dartboard 3 (N/S)</category>
+	</item>
+
+	<item id="1e33">
+		<id>0x1e33</id>
+		<category>Professions\Barkeeper\Dartboard 3 (W/E)</category>
 	</item>
 
 	<!-- Healer -->
@@ -1198,6 +1303,16 @@
 		<category>Professions\Alchemist\Dishing Stump (W/E)</category>
 	</item>
 
+	<item id="1c18">
+		<id>0x1c18</id>
+		<category>Professions\Alchemist\Oil Flask</category>
+	</item>
+
+	<item id="1c19">
+		<id>0x1c19</id>
+		<category>Professions\Alchemist\Oil Flask (Exploding)</category>
+	</item>
+
 	<!-- Gipsy -->
 	<item id="e2d">
 		<id>0x0e2d</id>
@@ -1613,16 +1728,6 @@
 		<category>Professions\Blacksmith\Tongs (N/S)</category>
 	</item>
 
-	<item id="10e1">
-		<id>0x10e1</id>
-		<category>Professions\Blacksmith\Barrel Hoops 1</category>
-	</item>
-
-	<item id="10e2">
-		<id>0x10e2</id>
-		<category>Professions\Blacksmith\Barrel Hoops 2</category>
-	</item>
-
 	<item id="13bc">
 		<id>0x13bc</id>
 		<category>Professions\Blacksmith\Hanging Chainmail Leggings (N/S)</category>
@@ -1673,10 +1778,300 @@
 		<category>Professions\Blacksmith\Hanging Ringmail Sleeves (W/E)</category>
 	</item>
 
+	<item id="197a">
+		<id>0x197a</id>
+		<category>Professions\Blacksmith\Forge (W/E) (1/3)</category>
+	</item>
+
+	<item id="197e">
+		<id>0x197e</id>
+		<category>Professions\Blacksmith\Forge (W/E) (2/3)</category>
+	</item>
+
+	<item id="1982">
+		<id>0x1982</id>
+		<category>Professions\Blacksmith\Forge (W/E) (3/3)</category>
+	</item>
+
+	<item id="1986">
+		<id>0x1986</id>
+		<category>Professions\Blacksmith\Forge (N/S) (1/3)</category>
+	</item>
+
+	<item id="198a">
+		<id>0x198a</id>
+		<category>Professions\Blacksmith\Forge (N/S) (2/3)</category>
+	</item>
+
+	<item id="198e">
+		<id>0x198e</id>
+		<category>Professions\Blacksmith\Forge (N/S) (3/3)</category>
+	</item>
+
+	<item id="1992">
+		<id>0x1992</id>
+		<category>Professions\Blacksmith\Forge (S/N) (1/3)</category>
+	</item>
+
+	<item id="1996">
+		<id>0x1996</id>
+		<category>Professions\Blacksmith\Forge (S/N) (2/3)</category>
+	</item>
+
+	<item id="199a">
+		<id>0x199a</id>
+		<category>Professions\Blacksmith\Forge (S/N) (3/3)</category>
+	</item>
+
+	<item id="199e">
+		<id>0x199e</id>
+		<category>Professions\Blacksmith\Forge (E/W) (1/3)</category>
+	</item>
+
+	<item id="19a2">
+		<id>0x19a2</id>
+		<category>Professions\Blacksmith\Forge (E/W) (2/3)</category>
+	</item>
+
+	<item id="19a6">
+		<id>0x19a6</id>
+		<category>Professions\Blacksmith\Forge (E/W) (3/3)</category>
+	</item>
+
 	<!-- Carpenter -->
 	<item id="1038">
 		<id>0x1038</id>
 		<category>Professions\Carpenter\Wood Curls</category>
+	</item>
+
+	<item id="19f1">
+		<id>0x19f1</id>
+		<category>Professions\Carpenter\Woodworker's Bench (N/S) (1/3)</category>
+	</item>
+
+	<item id="19f2">
+		<id>0x19f2</id>
+		<category>Professions\Carpenter\Woodworker's Bench (N/S) (2/3)</category>
+	</item>
+
+	<item id="19f3">
+		<id>0x19f3</id>
+		<category>Professions\Carpenter\Woodworker's Bench (N/S) (3/3)</category>
+	</item>
+
+	<item id="19f4">
+		<id>0x19f4</id>
+		<category>Professions\Carpenter\Vise (N/S)</category>
+	</item>
+
+	<item id="19f5">
+		<id>0x19f5</id>
+		<category>Professions\Carpenter\Woodworker's Bench (W/E) (1/3)</category>
+	</item>
+
+	<item id="19f6">
+		<id>0x19f6</id>
+		<category>Professions\Carpenter\Woodworker's Bench (W/E) (2/3)</category>
+	</item>
+
+	<item id="19f7">
+		<id>0x19f7</id>
+		<category>Professions\Carpenter\Woodworker's Bench (W/E) (3/3)</category>
+	</item>
+
+	<item id="19f8">
+		<id>0x19f8</id>
+		<category>Professions\Carpenter\Vise (W/E)</category>
+	</item>
+
+	<item id="19f9">
+		<id>0x19f9</id>
+		<category>Professions\Carpenter\Cooper's Bench (N/S) (1/2)</category>
+	</item>
+
+	<item id="19fa">
+		<id>0x19fa</id>
+		<category>Professions\Carpenter\Cooper's Bench (N/S) (2/2)</category>
+	</item>
+
+	<item id="19fb">
+		<id>0x19fb</id>
+		<category>Professions\Carpenter\Cooper's Bench (W/E) (1/2)</category>
+	</item>
+
+	<item id="19fc">
+		<id>0x19fc</id>
+		<category>Professions\Carpenter\Cooper's Bench (W/E) (2/2)</category>
+	</item>
+
+	<item id="1db3">
+		<id>0x1db3</id>
+		<category>Professions\Carpenter\Broken Barrel 1</category>
+	</item>
+
+	<item id="1db4">
+		<id>0x1db4</id>
+		<category>Professions\Carpenter\Broken Barrel 2</category>
+	</item>
+
+	<item id="1db5">
+		<id>0x1db5</id>
+		<category>Professions\Carpenter\Broken Barrel 3</category>
+	</item>
+
+	<item id="1db6">
+		<id>0x1db6</id>
+		<category>Professions\Carpenter\Broken Barrel 4</category>
+	</item>
+
+	<item id="10e1">
+		<id>0x10e1</id>
+		<category>Professions\Carpenter\Barrel Hoops 1</category>
+	</item>
+
+	<item id="10e2">
+		<id>0x10e2</id>
+		<category>Professions\Carpenter\Barrel Hoops 2</category>
+	</item>
+
+	<item id="1db7">
+		<id>0x1db7</id>
+		<category>Professions\Carpenter\Barrel Hoops 3</category>
+	</item>
+
+	<item id="1db8">
+		<id>0x1db8</id>
+		<category>Professions\Carpenter\Barrel Lid</category>
+	</item>
+
+	<item id="1e6e">
+		<id>0x1e6e</id>
+		<category>Professions\Carpenter\Unfinished Woodwork 1</category>
+	</item>
+
+	<item id="1e6f">
+		<id>0x1e6f</id>
+		<category>Professions\Carpenter\Unfinished Woodwork 2</category>
+	</item>
+
+	<item id="1e70">
+		<id>0x1e70</id>
+		<category>Professions\Carpenter\Unfinished Woodwork 3</category>
+	</item>
+
+	<item id="1e71">
+		<id>0x1e71</id>
+		<category>Professions\Carpenter\Unfinished Woodwork 4</category>
+	</item>
+
+	<item id="1e72">
+		<id>0x1e72</id>
+		<category>Professions\Carpenter\Unfinished Woodwork 5</category>
+	</item>
+
+	<item id="1e73">
+		<id>0x1e73</id>
+		<category>Professions\Carpenter\Unfinished Woodwork 6</category>
+	</item>
+
+	<item id="1e74">
+		<id>0x1e74</id>
+		<category>Professions\Carpenter\Unfinished Woodwork 7</category>
+	</item>
+
+	<item id="1e75">
+		<id>0x1e75</id>
+		<category>Professions\Carpenter\Unfinished Woodwork 8</category>
+	</item>
+
+	<item id="1e76">
+		<id>0x1e76</id>
+		<category>Professions\Carpenter\Unfinished Woodwork 9</category>
+	</item>
+
+	<item id="1e77">
+		<id>0x1e77</id>
+		<category>Professions\Carpenter\Unfinished Woodwork 10</category>
+	</item>
+
+	<item id="1e78">
+		<id>0x1e78</id>
+		<category>Professions\Carpenter\Unfinished Woodwork 11</category>
+	</item>
+
+	<item id="1e79">
+		<id>0x1e79</id>
+		<category>Professions\Carpenter\Unfinished Woodwork 12</category>
+	</item>
+
+	<item id="1e7a">
+		<id>0x1e7a</id>
+		<category>Professions\Carpenter\Unfinished Woodwork 13</category>
+	</item>
+
+	<item id="1e7b">
+		<id>0x1e7b</id>
+		<category>Professions\Carpenter\Unfinished Woodwork 14</category>
+	</item>
+
+	<item id="1e7c">
+		<id>0x1e7c</id>
+		<category>Professions\Carpenter\Unfinished Woodwork 15</category>
+	</item>
+
+	<item id="1e7d">
+		<id>0x1e7d</id>
+		<category>Professions\Carpenter\Unfinished Woodwork 16</category>
+	</item>
+
+	<item id="1e7e">
+		<id>0x1e7e</id>
+		<category>Professions\Carpenter\Unfinished Woodwork 17</category>
+	</item>
+
+	<item id="1e7f">
+		<id>0x1e7f</id>
+		<category>Professions\Carpenter\Unfinished Woodwork 18</category>
+	</item>
+
+	<item id="1e80">
+		<id>0x1e80</id>
+		<category>Professions\Carpenter\Unfinished Woodwork 19</category>
+	</item>
+
+	<item id="1e81">
+		<id>0x1e81</id>
+		<category>Professions\Carpenter\Unfinished Woodwork 20</category>
+	</item>
+
+	<item id="1e82">
+		<id>0x1e82</id>
+		<category>Professions\Carpenter\Unfinished Woodwork 21</category>
+	</item>
+
+	<item id="1eb1">
+		<id>0x1eb1</id>
+		<category>Professions\Carpenter\Barrel Staves 1</category>
+	</item>
+
+	<item id="1eb2">
+		<id>0x1eb2</id>
+		<category>Professions\Carpenter\Barrel Staves 2</category>
+	</item>
+
+	<item id="1eb3">
+		<id>0x1eb3</id>
+		<category>Professions\Carpenter\Barrel Staves 3</category>
+	</item>
+
+	<item id="1eb4">
+		<id>0x1eb4</id>
+		<category>Professions\Carpenter\Barrel Staves 4</category>
+	</item>
+
+	<item id="1eb5">
+		<id>0x1eb5</id>
+		<category>Professions\Carpenter\Unfinished Barrel</category>
 	</item>
 
 	<!-- Baker -->
@@ -1885,6 +2280,41 @@
 		<category>Professions\Baker\Rotating Crank (N/S)</category>
 	</item>
 
+	<item id="1e26">
+		<id>0x1e26</id>
+		<category>Professions\Baker\Oar (N/S) (1/2)</category>
+	</item>
+
+	<item id="1e27">
+		<id>0x1e27</id>
+		<category>Professions\Baker\Oar (N/S) (2/2)</category>
+	</item>
+
+	<item id="1e28">
+		<id>0x1e28</id>
+		<category>Professions\Baker\Oar (W/E) (1/2)</category>
+	</item>
+
+	<item id="1e29">
+		<id>0x1e29</id>
+		<category>Professions\Baker\Oar (W/E) (2/2)</category>
+	</item>
+
+	<item id="1e2a">
+		<id>0x1e2a</id>
+		<category>Professions\Baker\Oars (N/S)</category>
+	</item>
+
+	<item id="1e2b">
+		<id>0x1e2b</id>
+		<category>Professions\Baker\Oars (W/E)</category>
+	</item>
+
+	<item id="1ebd">
+		<id>0x1ebd</id>
+        <category>Professions\Baker\Sheaf of Wheat</category>
+	</item>
+
 	<!-- Mapmaker -->
 	<item id="1047">
 		<id>0x1047</id>
@@ -2077,6 +2507,71 @@
 		<category>Professions\Tinker\Copper Wire</category>
 	</item>
 
+	<item id="1eb6">
+		<id>0x1eb6</id>
+		<category>Professions\Tinker\Empty Toolkit 1</category>
+	</item>
+
+	<item id="1eb7">
+		<id>0x1eb7</id>
+		<category>Professions\Tinker\Empty Toolkit 2</category>
+	</item>
+
+	<item id="1eb8">
+		<id>0x1eb8</id>
+		<category>Professions\Tinker\Toolkit 1 (W/E)</category>
+	</item>
+
+	<item id="1eb9">
+		<id>0x1eb9</id>
+		<category>Professions\Tinker\Toolkit 1 (N/S)</category>
+	</item>
+
+	<item id="1eba">
+		<id>0x1eba</id>
+		<category>Professions\Tinker\Toolkit 2 (W/E)</category>
+	</item>
+
+	<item id="1ebb">
+		<id>0x1ebb</id>
+		<category>Professions\Tinker\Toolkit 2 (N/S)</category>
+	</item>
+
+	<item id="1ebc">
+		<id>0x1ebc</id>
+		<category>Professions\Tinker\Tinker Tools</category>
+	</item>
+
+	<item id="26b1">
+		<id>0x26b1</id>
+		<category>Professions\Tinker\Dragon Scale 1</category>
+	</item>
+
+	<item id="26b2">
+		<id>0x26b2</id>
+		<category>Professions\Tinker\Dragon Scale 2</category>
+	</item>
+
+	<item id="26b3">
+		<id>0x26b3</id>
+		<category>Professions\Tinker\Dragon Scale 3</category>
+	</item>
+
+	<item id="26b4">
+		<id>0x26b4</id>
+		<category>Professions\Tinker\Dragon Scale 4</category>
+	</item>
+
+	<item id="26b5">
+		<id>0x26b5</id>
+		<category>Professions\Tinker\Dragon Scale 5</category>
+	</item>
+
+	<item id="26b6">
+		<id>0x26b6</id>
+		<category>Professions\Tinker\Dragon Scale 6</category>
+	</item>
+
 	<!-- Cook -->
 	<item id="10ee">
 		<id>0x10ee</id>
@@ -2206,6 +2701,17 @@
 		<category>Professions\Thieve\Lockpicks (N/S)</category>
 	</item>
 
+	<item id="1ec0">
+		<id>0x1ec0</id>
+		<category>Professions\Thieve\Pickpocket Dip</category>
+	</item>
+
+	<item id="1ec1">
+		<id>0x1ec1</id>
+		<category>Professions\Thieve\Pickpocket Dip (Animated)</category>
+	</item>
+
+
 	<!-- Peasant -->
 	<item id="14ff">
 		<id>0x14ff</id>
@@ -2252,4 +2758,311 @@
 		<category>Professions\Peasant\Harrow (W/E) (2/2)</category>
 	</item>
 
+	<item id="1e34">
+		<id>0x1e34</id>
+		<category>Professions\Peasant\Scarecrow (N/S)</category>
+	</item>
+
+	<item id="1e35">
+		<id>0x1e35</id>
+		<category>Professions\Peasant\Scarecrow (W/E)</category>
+	</item>
+
+	<!-- Miner -->
+	<item id="19b7">
+		<id>0x19b7</id>
+		<category>Professions\Miner\Iron Ore 1</category>
+	</item>
+
+	<item id="19b8">
+		<id>0x19b8</id>
+		<category>Professions\Miner\Iron Ore 2</category>
+	</item>
+
+	<item id="19b9">
+		<id>0x19b9</id>
+		<category>Professions\Miner\Iron Ore 3</category>
+	</item>
+
+	<item id="19ba">
+		<id>0x19ba</id>
+		<category>Professions\Miner\Iron Ore 4</category>
+	</item>
+
+	<item id="1a82">
+		<id>0x1a82</id>
+		<category>Professions\Miner\Ore Cart (N/S) (1/3)</category>
+	</item>
+
+	<item id="1a83">
+		<id>0x1a83</id>
+		<category>Professions\Miner\Ore Cart (N/S) (2/3)</category>
+	</item>
+
+	<item id="1a86">
+		<id>0x1a86</id>
+		<category>Professions\Miner\Ore Cart (N/S) (3/3)</category>
+	</item>
+
+	<item id="1a87">
+		<id>0x1a87</id>
+		<category>Professions\Miner\Ore Cart (W/E) (1/3)</category>
+	</item>
+
+	<item id="1a88">
+		<id>0x1a88</id>
+		<category>Professions\Miner\Ore Cart (W/E) (2/3)</category>
+	</item>
+
+	<item id="1a8b">
+		<id>0x1a8b</id>
+		<category>Professions\Miner\Ore Cart (W/E) (3/3)</category>
+	</item>
+
+	<item id="1be3">
+		<id>0x1be3</id>
+		<category>Professions\Miner\Copper Ingot (W/E)</category>
+	</item>
+
+	<item id="1be4">
+		<id>0x1be4</id>
+		<category>Professions\Miner\Copper Ingots 1 (W/E)</category>
+	</item>
+
+	<item id="1be5">
+		<id>0x1be5</id>
+		<category>Professions\Miner\Copper Ingots 2 (W/E)</category>
+	</item>
+
+	<item id="1be6">
+		<id>0x1be6</id>
+		<category>Professions\Miner\Copper Ingot (N/S)</category>
+	</item>
+
+	<item id="1be7">
+		<id>0x1be7</id>
+		<category>Professions\Miner\Copper Ingots 1 (N/S)</category>
+	</item>
+
+	<item id="1be8">
+		<id>0x1be8</id>
+		<category>Professions\Miner\Copper Ingots 2 (N/S)</category>
+	</item>
+
+	<item id="1be9">
+		<id>0x1be9</id>
+		<category>Professions\Miner\Gold Ingot (W/E)</category>
+	</item>
+
+	<item id="1bea">
+		<id>0x1bea</id>
+		<category>Professions\Miner\Gold Ingots 1 (W/E)</category>
+	</item>
+
+	<item id="1beb">
+		<id>0x1beb</id>
+		<category>Professions\Miner\Gold Ingots 2 (W/E)</category>
+	</item>
+
+	<item id="1bec">
+		<id>0x1bec</id>
+		<category>Professions\Miner\Gold Ingot (N/S)</category>
+	</item>
+
+	<item id="1bed">
+		<id>0x1bed</id>
+		<category>Professions\Miner\Gold Ingots 1 (N/S)</category>
+	</item>
+
+	<item id="1bee">
+		<id>0x1bee</id>
+		<category>Professions\Miner\Gold Ingots 2 (N/S)</category>
+	</item>
+
+	<item id="1bef">
+		<id>0x1bef</id>
+		<category>Professions\Miner\Iron Ingot (W/E)</category>
+	</item>
+
+	<item id="1bf0">
+		<id>0x1bf0</id>
+		<category>Professions\Miner\Iron Ingots 1 (W/E)</category>
+	</item>
+
+	<item id="1bf1">
+		<id>0x1bf1</id>
+		<category>Professions\Miner\Iron Ingots 2 (W/E)</category>
+	</item>
+
+	<item id="1bf2">
+		<id>0x1bf2</id>
+		<category>Professions\Miner\Iron Ingot (N/S)</category>
+	</item>
+
+	<item id="1bf3">
+		<id>0x1bf3</id>
+		<category>Professions\Miner\Iron Ingots 1 (N/S)</category>
+	</item>
+
+	<item id="1bf4">
+		<id>0x1bf4</id>
+		<category>Professions\Miner\Iron Ingots 2 (N/S)</category>
+	</item>
+
+	<item id="1bf5">
+		<id>0x1bf5</id>
+		<category>Professions\Miner\Silver Ingot (W/E)</category>
+	</item>
+
+	<item id="1bf6">
+		<id>0x1bf6</id>
+		<category>Professions\Miner\Silver Ingots 1 (W/E)</category>
+	</item>
+
+	<item id="1bf7">
+		<id>0x1bf7</id>
+		<category>Professions\Miner\Silver Ingots 2 (W/E)</category>
+	</item>
+
+	<item id="1bf8">
+		<id>0x1bf8</id>
+		<category>Professions\Miner\Silver Ingot (N/S)</category>
+	</item>
+
+	<item id="1bf9">
+		<id>0x1bf9</id>
+		<category>Professions\Miner\Silver Ingots 1 (N/S)</category>
+	</item>
+
+	<item id="1bfa">
+		<id>0x1bfa</id>
+		<category>Professions\Miner\Silver Ingots 2 (N/S)</category>
+	</item>
+
+	<!-- Butcher -->
+	<item id="1e83">
+		<id>0x1e83</id>
+		<category>Professions\Butcher\Bird 1 (N/S)</category>
+	</item>
+
+	<item id="1e84">
+		<id>0x1e84</id>
+		<category>Professions\Butcher\Bird 1 (W/E)</category>
+	</item>
+
+	<item id="1e85">
+		<id>0x1e85</id>
+		<category>Professions\Butcher\Bird 2 (N/S)</category>
+	</item>
+
+	<item id="1e86">
+		<id>0x1e86</id>
+		<category>Professions\Butcher\Bird 2 (W/E)</category>
+	</item>
+
+	<item id="1e87">
+		<id>0x1e87</id>
+		<category>Professions\Butcher\Chicken</category>
+	</item>
+
+	<item id="1e88">
+		<id>0x1e88</id>
+		<category>Professions\Butcher\Skinned Goat (N/S)</category>
+	</item>
+
+	<item id="1e89">
+		<id>0x1e89</id>
+		<category>Professions\Butcher\Skinned Goat (W/E)</category>
+	</item>
+
+	<item id="1e8a">
+		<id>0x1e8a</id>
+		<category>Professions\Butcher\Lard</category>
+	</item>
+
+	<item id="1e8b">
+		<id>0x1e8b</id>
+		<category>Professions\Butcher\Plucked Chicken</category>
+	</item>
+
+	<item id="1e8c">
+		<id>0x1e8c</id>
+		<category>Professions\Butcher\Pig's Feet (W/E)</category>
+	</item>
+
+	<item id="1e8d">
+		<id>0x1e8d</id>
+		<category>Professions\Butcher\Pig's Feet (N/S)</category>
+	</item>
+
+	<item id="1e8e">
+		<id>0x1e8e</id>
+		<category>Professions\Butcher\Pig's Head (N/S)</category>
+	</item>
+
+	<item id="1e8f">
+		<id>0x1e8f</id>
+		<category>Professions\Butcher\Pig's Head (W/E)</category>
+	</item>
+
+	<item id="1e90">
+		<id>0x1e90</id>
+		<category>Professions\Butcher\Skinned Deer (N/S)</category>
+	</item>
+
+	<item id="1e91">
+		<id>0x1e91</id>
+		<category>Professions\Butcher\Skinned Deer (W/E)</category>
+	</item>
+
+	<item id="1e92">
+		<id>0x1e92</id>
+		<category>Professions\Butcher\Skinned Rabbit (N/S)</category>
+	</item>
+
+	<item id="1e93">
+		<id>0x1e93</id>
+		<category>Professions\Butcher\Skinned Rabbit (W/E)</category>
+	</item>
+
+	<item id="1e94">
+		<id>0x1e94</id>
+		<category>Professions\Butcher\Spit 1 (W/E) (2/2)</category>
+	</item>
+
+	<item id="1e95">
+		<id>0x1e95</id>
+		<category>Professions\Butcher\Spit 2 (W/E) (2/2)</category>
+	</item>
+
+	<item id="1e96">
+		<id>0x1e96</id>
+		<category>Professions\Butcher\Spit (W/E) (1/2)</category>
+	</item>
+
+	<item id="1e97">
+		<id>0x1e97</id>
+		<category>Professions\Butcher\Spit 1 (N/S) (2/2)</category>
+	</item>
+
+	<item id="1e98">
+		<id>0x1e98</id>
+		<category>Professions\Butcher\Spit 2 (N/S) (2/2)</category>
+	</item>
+
+	<item id="1e99">
+		<id>0x1e99</id>
+		<category>Professions\Butcher\Spit (N/S) (1/2)</category>
+	</item>
+
+	<!-- Mage -->
+	<item id="1f19">
+		<id>0x1f19</id>
+		<category>Professions\Mage\Green Magical Crystal</category>
+	</item>
+
+	<item id="1f1c">
+		<id>0x1f1c</id>
+		<category>Professions\Mage\Purple Magical Crystal</category>
+	</item>
 </definitions>

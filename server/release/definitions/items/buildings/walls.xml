@@ -928,6 +928,126 @@
 		<id>0x0148</id>
 		<category>Buildings\Walls\Log Wall\Post 4</category>
 	</item>
+
+	<item id="21b1">
+		<id>0x21b1</id>
+		<category>Buildings\Walls\Log Wall\Tiny Wall 5</category>
+	</item>
+
+	<item id="21b2">
+		<id>0x21b2</id>
+		<category>Buildings\Walls\Log Wall\Tiny Wall 6</category>
+	</item>
+
+	<item id="21b3">
+		<id>0x21b3</id>
+		<category>Buildings\Walls\Log Wall\Tiny Wall 7</category>
+	</item>
+
+	<item id="21b4">
+		<id>0x21b4</id>
+		<category>Buildings\Walls\Log Wall\Tiny Wall 8</category>
+	</item>
+
+	<item id="21b5">
+		<id>0x21b5</id>
+		<category>Buildings\Walls\Log Wall\Tiny Wall 9</category>
+	</item>
+
+	<item id="21b6">
+		<id>0x21b6</id>
+		<category>Buildings\Walls\Log Wall\Tiny Wall 10</category>
+	</item>
+
+	<item id="21b7">
+		<id>0x21b7</id>
+		<category>Buildings\Walls\Log Wall\Tiny Wall 11</category>
+	</item>
+
+	<item id="21b8">
+		<id>0x21b8</id>
+		<category>Buildings\Walls\Log Wall\Tiny Wall 12</category>
+	</item>
+
+	<item id="21bd">
+		<id>0x21bd</id>
+		<category>Buildings\Walls\Log Wall\Tiny Wall 13</category>
+	</item>
+
+	<item id="21be">
+		<id>0x21be</id>
+		<category>Buildings\Walls\Log Wall\Small Wall 9</category>
+	</item>
+
+	<item id="21bf">
+		<id>0x21bf</id>
+		<category>Buildings\Walls\Log Wall\Small Wall 10</category>
+	</item>
+
+	<item id="21c0">
+		<id>0x21c0</id>
+		<category>Buildings\Walls\Log Wall\Small Wall 11</category>
+	</item>
+
+	<item id="21c1">
+		<id>0x21c1</id>
+		<category>Buildings\Walls\Log Wall\Small Wall 12</category>
+	</item>
+
+	<item id="21c2">
+		<id>0x21c2</id>
+		<category>Buildings\Walls\Log Wall\Small Wall 13</category>
+	</item>
+
+	<item id="21c3">
+		<id>0x21c3</id>
+		<category>Buildings\Walls\Log Wall\Small Wall 14</category>
+	</item>
+
+	<item id="21c4">
+		<id>0x21c4</id>
+		<category>Buildings\Walls\Log Wall\Small Wall 15</category>
+	</item>
+
+	<item id="21c5">
+		<id>0x21c5</id>
+		<category>Buildings\Walls\Log Wall\Wall 9</category>
+	</item>
+
+	<item id="21c6">
+		<id>0x21c6</id>
+		<category>Buildings\Walls\Log Wall\Wall 10</category>
+	</item>
+
+	<item id="21c7">
+		<id>0x21c7</id>
+		<category>Buildings\Walls\Log Wall\Wall 11</category>
+	</item>
+
+	<item id="21c8">
+		<id>0x21c8</id>
+		<category>Buildings\Walls\Log Wall\Wall 12</category>
+	</item>
+
+	<item id="21c9">
+		<id>0x21c9</id>
+		<category>Buildings\Walls\Log Wall\Wall 13</category>
+	</item>
+
+	<item id="21ca">
+		<id>0x21ca</id>
+		<category>Buildings\Walls\Log Wall\Wall 14</category>
+	</item>
+
+	<item id="21cb">
+		<id>0x21cb</id>
+		<category>Buildings\Walls\Log Wall\Wall 15</category>
+	</item>
+
+	<item id="21cc">
+		<id>0x21cc</id>
+		<category>Buildings\Walls\Log Wall\Wall 16</category>
+	</item>
 	
 	<!-- Wooden Wall 2 -->
 	<item id="a6">
@@ -1075,6 +1195,66 @@
 		<category>Buildings\Walls\Wooden Wall 2\Edge 2</category>
 	</item>
 	
+	<item id="21cd">
+		<id>0x21cd</id>
+		<category>Buildings\Walls\Wooden Wall 2\Tiny Wall 5</category>
+	</item>
+
+	<item id="21ce">
+		<id>0x21ce</id>
+		<category>Buildings\Walls\Wooden Wall 2\Tiny Wall 6</category>
+	</item>
+
+	<item id="21cf">
+		<id>0x21cf</id>
+		<category>Buildings\Walls\Wooden Wall 2\Tiny Wall 7</category>
+	</item>
+
+	<item id="21d0">
+		<id>0x21d0</id>
+		<category>Buildings\Walls\Wooden Wall 2\Tiny Wall 8</category>
+	</item>
+
+	<item id="21d5">
+		<id>0x21d5</id>
+		<category>Buildings\Walls\Wooden Wall 2\Wall 9</category>
+	</item>
+
+	<item id="21d6">
+		<id>0x21d6</id>
+		<category>Buildings\Walls\Wooden Wall 2\Wall 10</category>
+	</item>
+
+	<item id="21d7">
+		<id>0x21d7</id>
+		<category>Buildings\Walls\Wooden Wall 2\Wall 11</category>
+	</item>
+
+	<item id="21d8">
+		<id>0x21d8</id>
+		<category>Buildings\Walls\Wooden Wall 2\Wall 12</category>
+	</item>
+
+	<item id="21d9">
+		<id>0x21d9</id>
+		<category>Buildings\Walls\Wooden Wall 2\Wall w. Bar 9</category>
+	</item>
+
+	<item id="21da">
+		<id>0x21da</id>
+		<category>Buildings\Walls\Wooden Wall 2\Wall w. Bar 10</category>
+	</item>
+
+	<item id="21db">
+		<id>0x21db</id>
+		<category>Buildings\Walls\Wooden Wall 2\Wall w. Bar 11</category>
+	</item>
+
+	<item id="21dc">
+		<id>0x21dc</id>
+		<category>Buildings\Walls\Wooden Wall 2\Wall w. Bar 12</category>
+	</item>
+
 	<!-- Stone Wall 4 -->
 	<item id="c5">
 		<id>0x00c5</id>
@@ -1249,6 +1429,11 @@
 	<item id="e7">
 		<id>0x00e7</id>
 		<category>Buildings\Walls\Stone Wall 4\Small Wall 6</category>
+	</item>
+
+	<item id="1ecb">
+		<id>0x1ecb</id>
+		<category>Buildings\Walls\Stone Wall 4\Pylon</category>
 	</item>
 	
 	<!-- Marble Wall 1 -->
@@ -2422,6 +2607,11 @@
 		<id>0x025b</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Fancy\Wall 13</category>
 	</item>
+
+	<item id="1ecc">
+		<id>0x1ecc</id>
+		<category>Buildings\Walls\Sandstone Wall 1\Pylon</category>
+	</item>
 	
 	<!-- Rattan Wall -->
 	<item id="19b">
@@ -2529,6 +2719,21 @@
 		<category>Buildings\Walls\Rattan Wall\Window 4</category>
 	</item>	
 	
+	<item id="215a">
+		<id>0x215a</id>
+		<category>Buildings\Walls\Rattan Wall\Small Wall 1</category>
+	</item>
+
+	<item id="215b">
+		<id>0x215b</id>
+		<category>Buildings\Walls\Rattan Wall\Small Wall 2</category>
+	</item>
+
+	<item id="215c">
+		<id>0x215c</id>
+		<category>Buildings\Walls\Rattan Wall\Small Wall 3</category>
+	</item>
+
 	<!-- Hide Wall -->
 	<item id="1b5">
 		<id>0x01b5</id>
@@ -3176,6 +3381,146 @@
 		<category>Buildings\Walls\Palisade Wall\Curtain 8</category>
 	</item>
 
+	<item id="2188">
+		<id>0x2188</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 14</category>
+	</item>
+
+	<item id="2189">
+		<id>0x2189</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 15</category>
+	</item>
+
+	<item id="218a">
+		<id>0x218a</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 16</category>
+	</item>
+
+	<item id="218b">
+		<id>0x218b</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 17</category>
+	</item>
+
+	<item id="218c">
+		<id>0x218c</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 18</category>
+	</item>
+
+	<item id="218d">
+		<id>0x218d</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 19</category>
+	</item>
+
+	<item id="218e">
+		<id>0x218e</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 20</category>
+	</item>
+
+	<item id="218f">
+		<id>0x218f</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 21</category>
+	</item>
+
+	<item id="2190">
+		<id>0x2190</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 22</category>
+	</item>
+
+	<item id="2191">
+		<id>0x2191</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 23</category>
+	</item>
+
+	<item id="2192">
+		<id>0x2192</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 24</category>
+	</item>
+
+	<item id="2193">
+		<id>0x2193</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 25</category>
+	</item>
+
+	<item id="2194">
+		<id>0x2194</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 26</category>
+	</item>
+
+	<item id="2195">
+		<id>0x2195</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 27</category>
+	</item>
+
+	<item id="2196">
+		<id>0x2196</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 28</category>
+	</item>
+
+	<item id="2197">
+		<id>0x2197</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 29</category>
+	</item>
+
+	<item id="21a5">
+		<id>0x21a5</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 30</category>
+	</item>
+
+	<item id="21a6">
+		<id>0x21a6</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 31</category>
+	</item>
+
+	<item id="21a7">
+		<id>0x21a7</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 32</category>
+	</item>
+
+	<item id="21a8">
+		<id>0x21a8</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 33</category>
+	</item>
+
+	<item id="21a9">
+		<id>0x21a9</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 34</category>
+	</item>
+
+	<item id="21aa">
+		<id>0x21aa</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 35</category>
+	</item>
+
+	<item id="21ab">
+		<id>0x21ab</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 36</category>
+	</item>
+
+	<item id="21ac">
+		<id>0x21ac</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 37</category>
+	</item>
+
+	<item id="21ad">
+		<id>0x21ad</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 38</category>
+	</item>
+
+	<item id="21ae">
+		<id>0x21ae</id>
+		<category>Buildings\Walls\Palisade Wall\Wall 39</category>
+	</item>
+
+	<item id="21af">
+		<id>0x21af</id>
+		<category>Buildings\Walls\Palisade Wall\Post 1</category>
+	</item>
+
+	<item id="21b0">
+		<id>0x21b0</id>
+		<category>Buildings\Walls\Palisade Wall\Post 2</category>
+	</item>
+
 	<!-- Dungeon Wall -->
 	<item id="241">
 		<id>0x0241</id>
@@ -3265,6 +3610,71 @@
 	<item id="300">
 		<id>0x0300</id>
 		<category>Buildings\Walls\Dungeon Wall\Smaller Wall 4</category>
+	</item>
+
+	<item id="1eca">
+		<id>0x1eca</id>
+		<category>Buildings\Walls\Dungeon Wall\Pylon</category>
+	</item>
+
+	<item id="21dd">
+		<id>0x21dd</id>
+		<category>Buildings\Walls\Dungeon Wall\Smaller Wall 5</category>
+	</item>
+
+	<item id="21de">
+		<id>0x21de</id>
+		<category>Buildings\Walls\Dungeon Wall\Smaller Wall 6</category>
+	</item>
+
+	<item id="21df">
+		<id>0x21df</id>
+		<category>Buildings\Walls\Dungeon Wall\Smaller Wall 7</category>
+	</item>
+
+	<item id="21e0">
+		<id>0x21e0</id>
+		<category>Buildings\Walls\Dungeon Wall\Smaller Wall 8</category>
+	</item>
+
+	<item id="21e1">
+		<id>0x21e1</id>
+		<category>Buildings\Walls\Dungeon Wall\Small Wall 5</category>
+	</item>
+
+	<item id="21e2">
+		<id>0x21e2</id>
+		<category>Buildings\Walls\Dungeon Wall\Small Wall 6</category>
+	</item>
+
+	<item id="21e3">
+		<id>0x21e3</id>
+		<category>Buildings\Walls\Dungeon Wall\Small Wall 7</category>
+	</item>
+
+	<item id="21e4">
+		<id>0x21e4</id>
+		<category>Buildings\Walls\Dungeon Wall\Small Wall 8</category>
+	</item>
+
+	<item id="21e5">
+		<id>0x21e5</id>
+		<category>Buildings\Walls\Dungeon Wall\Wall 4</category>
+	</item>
+
+	<item id="21e6">
+		<id>0x21e6</id>
+		<category>Buildings\Walls\Dungeon Wall\Wall 6</category>
+	</item>
+
+	<item id="21e7">
+		<id>0x21e7</id>
+		<category>Buildings\Walls\Dungeon Wall\Wall 7</category>
+	</item>
+
+	<item id="21e8">
+		<id>0x21e8</id>
+		<category>Buildings\Walls\Dungeon Wall\Wall 8</category>
 	</item>
 
 	<!-- Gray Tent -->
@@ -3946,6 +4356,26 @@
 		<category>Buildings\Walls\Cave Wall\Wall 31</category>
 	</item>
 
+	<item id="2166">
+		<id>0x2166</id>
+		<category>Buildings\Walls\Cave Wall\Entrance (W/E) (1/2)</category>
+	</item>
+
+	<item id="2167">
+		<id>0x2167</id>
+		<category>Buildings\Walls\Cave Wall\Entrance (W/E) (2/2)</category>
+	</item>
+
+	<item id="2168">
+		<id>0x2168</id>
+		<category>Buildings\Walls\Cave Wall\Entrance (N/S) (1/2)</category>
+	</item>
+
+	<item id="2169">
+		<id>0x2169</id>
+		<category>Buildings\Walls\Cave Wall\Entrance (N/S) (2/2)</category>
+	</item>
+
 	<!-- Ruined Stone Wall -->
 	<item id="277">
 		<id>0x0277</id>
@@ -4207,5 +4637,211 @@
 	<item id="3e2">
 		<id>0x03e2</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 25</category>
+	</item>
+
+	<!-- Round Jungle Wall -->
+	<item id="253f">
+		<id>0x253f</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 1</category>
+	</item>
+
+	<item id="2540">
+		<id>0x2540</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 2</category>
+	</item>
+
+	<item id="2541">
+		<id>0x2541</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 3</category>
+	</item>
+
+	<item id="2542">
+		<id>0x2542</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 4</category>
+	</item>
+
+	<item id="2543">
+		<id>0x2543</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 5</category>
+	</item>
+
+	<item id="2544">
+		<id>0x2544</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 6</category>
+	</item>
+
+	<item id="2545">
+		<id>0x2545</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 7</category>
+	</item>
+
+	<item id="2547">
+		<id>0x2547</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 8</category>
+	</item>
+
+	<item id="2548">
+		<id>0x2548</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 9</category>
+	</item>
+
+	<item id="2549">
+		<id>0x2549</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 10</category>
+	</item>
+
+	<item id="254a">
+		<id>0x254a</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 11</category>
+	</item>
+
+	<item id="254b">
+		<id>0x254b</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 12</category>
+	</item>
+
+	<item id="254c">
+		<id>0x254c</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 13</category>
+	</item>
+
+	<item id="254d">
+		<id>0x254d</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 14</category>
+	</item>
+
+	<item id="254e">
+		<id>0x254e</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 15</category>
+	</item>
+
+	<item id="254f">
+		<id>0x254f</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 16</category>
+	</item>
+
+	<item id="2550">
+		<id>0x2550</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 17</category>
+	</item>
+
+	<item id="2551">
+		<id>0x2551</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 18</category>
+	</item>
+
+	<item id="2552">
+		<id>0x2552</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 19</category>
+	</item>
+
+	<item id="2553">
+		<id>0x2553</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 20</category>
+	</item>
+
+	<item id="3ef2">
+		<id>0x3ef2</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 21</category>
+	</item>
+
+	<item id="3ef3">
+		<id>0x3ef3</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 22</category>
+	</item>
+
+	<item id="3ef4">
+		<id>0x3ef4</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 23</category>
+	</item>
+
+	<item id="3ef5">
+		<id>0x3ef5</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 24</category>
+	</item>
+
+	<item id="3ef6">
+		<id>0x3ef6</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 25</category>
+	</item>
+
+	<item id="3ef7">
+		<id>0x3ef7</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 26</category>
+	</item>
+
+	<item id="3ef8">
+		<id>0x3ef8</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 27</category>
+	</item>
+
+	<item id="3ef9">
+		<id>0x3ef9</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 28</category>
+	</item>
+
+	<item id="3efa">
+		<id>0x3efa</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 29</category>
+	</item>
+
+	<item id="3efb">
+		<id>0x3efb</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 30</category>
+	</item>
+
+	<item id="3efc">
+		<id>0x3efc</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 31</category>
+	</item>
+
+	<item id="3efd">
+		<id>0x3efd</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 32</category>
+	</item>
+
+	<item id="3efe">
+		<id>0x3efe</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 33</category>
+	</item>
+
+	<item id="3eff">
+		<id>0x3eff</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 34</category>
+	</item>
+
+	<item id="3f00">
+		<id>0x3f00</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 35</category>
+	</item>
+
+	<item id="3f01">
+		<id>0x3f01</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 36</category>
+	</item>
+
+	<item id="3f02">
+		<id>0x3f02</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 37</category>
+	</item>
+
+	<item id="3f03">
+		<id>0x3f03</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 38</category>
+	</item>
+
+	<item id="3f04">
+		<id>0x3f04</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 39</category>
+	</item>
+
+	<item id="3f05">
+		<id>0x3f05</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 40</category>
+	</item>
+
+	<item id="3f06">
+		<id>0x3f06</id>
+		<category>Buildings\Walls\Round Jungle Wall\Wall 41</category>
 	</item>
 </definitions>

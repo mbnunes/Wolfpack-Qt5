@@ -219,27 +219,47 @@
 	<!-- Decoration / Bedroom -->
 	<item id="a55">
 		<id>0x0a55</id>
-		<category>Decoration\Bedroom\Bedroll (W/E) (Open)</category>
+		<category>Decoration\Bedroom\Bedroll 1 (W/E) (Open)</category>
 	</item>
 
 	<item id="a56">
 		<id>0x0a56</id>
-		<category>Decoration\Bedroom\Bedroll (N/S) (Open)</category>
+		<category>Decoration\Bedroom\Bedroll 1 (N/S) (Open)</category>
 	</item>
 
 	<item id="a57">
 		<id>0x0a57</id>
-		<category>Decoration\Bedroom\Bedroll</category>
+		<category>Decoration\Bedroom\Bedroll 2</category>
+	</item>
+
+	<item id="1f24">
+		<id>0x1f24</id>
+		<category>Decoration\Bedroom\Bedroll 3</category>
+	</item>
+
+	<item id="1f25">
+		<id>0x1f25</id>
+		<category>Decoration\Bedroom\Bedroll 4</category>
+	</item>
+
+	<item id="1f26">
+		<id>0x1f26</id>
+		<category>Decoration\Bedroom\Bedroll 5</category>
+	</item>
+
+	<item id="1f27">
+		<id>0x1f27</id>
+		<category>Decoration\Bedroom\Bedroll 6</category>
 	</item>
 
 	<item id="a58">
 		<id>0x0a58</id>
-		<category>Decoration\Bedroom\Bedroll (W/E) (Closed)</category>
+		<category>Decoration\Bedroom\Bedroll 1 (W/E) (Closed)</category>
 	</item>
 
 	<item id="a59">
 		<id>0x0a59</id>
-		<category>Decoration\Bedroom\Bedroll (N/S) (Closed)</category>
+		<category>Decoration\Bedroom\Bedroll 1 (N/S) (Closed)</category>
 	</item>
 
 	<item id="a5a">
@@ -981,17 +1001,17 @@
 	<!-- Wooden Tables -->
 	<item id="b6b">
 		<id>0x0b6b</id>
-		<category>Decoration\Tables\Sandstone Table (W/E) (1/3)</category>
+		<category>Decoration\Tables\Sandstone Table 1 (W/E) (1/3)</category>
 	</item>
 
 	<item id="b6c">
 		<id>0x0b6c</id>
-		<category>Decoration\Tables\Sandstone Table (W/E) (2/3)</category>
+		<category>Decoration\Tables\Sandstone Table 1 (W/E) (2/3)</category>
 	</item>
 
 	<item id="b6d">
 		<id>0x0b6d</id>
-		<category>Decoration\Tables\Sandstone Table (W/E) (3/3)</category>
+		<category>Decoration\Tables\Sandstone Table 1 (W/E) (3/3)</category>
 	</item>
 
 	<item id="b6e">
@@ -1076,17 +1096,17 @@
 
 	<item id="b7e">
 		<id>0x0b7e</id>
-		<category>Decoration\Tables\Sandstone Table (N/S) (1/3)</category>
+		<category>Decoration\Tables\Sandstone Table 1 (N/S) (1/3)</category>
 	</item>
 
 	<item id="b7f">
 		<id>0x0b7f</id>
-		<category>Decoration\Tables\Sandstone Table (N/S) (2/3)</category>
+		<category>Decoration\Tables\Sandstone Table 1 (N/S) (2/3)</category>
 	</item>
 
 	<item id="b80">
 		<id>0x0b80</id>
-		<category>Decoration\Tables\Sandstone Table (N/S) (3/3)</category>
+		<category>Decoration\Tables\Sandstone Table 1 (N/S) (3/3)</category>
 	</item>
 
 	<item id="b81">
@@ -1329,6 +1349,108 @@
 	<item id="1206">
 		<id>0x1206</id>
 		<category>Decoration\Tables\Stone Table (W/E) (3/3)</category>
+	</item>
+
+	<!-- Wooden Tables -->
+	<item id="1da5">
+		<id>0x1da5</id>
+		<category>Decoration\Tables\Wooden Table 11 (W/E) (1/2)</category>
+	</item>
+
+	<item id="1da6">
+		<id>0x1da6</id>
+		<category>Decoration\Tables\Wooden Table 11 (W/E) (2/2)</category>
+	</item>
+
+	<item id="1da7">
+		<id>0x1da7</id>
+		<category>Decoration\Tables\Wooden Table 12 (W/E) (1/2)</category>
+	</item>
+
+	<item id="1da8">
+		<id>0x1da8</id>
+		<category>Decoration\Tables\Wooden Table 12 (W/E) (2/2)</category>
+	</item>
+
+	<item id="1da9">
+		<id>0x1da9</id>
+		<category>Decoration\Tables\Wooden Table 11 (N/S) (1/2)</category>
+	</item>
+
+	<item id="1daa">
+		<id>0x1daa</id>
+		<category>Decoration\Tables\Wooden Table 11 (N/S) (2/2)</category>
+	</item>
+
+	<item id="1dab">
+		<id>0x1dab</id>
+		<category>Decoration\Tables\Wooden Table 12 (N/S) (1/2)</category>
+	</item>
+
+	<item id="1dac">
+		<id>0x1dac</id>
+		<category>Decoration\Tables\Wooden Table 12 (N/S) (2/2)</category>
+	</item>
+
+	<!-- Sandstone Table -->
+	<item id="1dbb">
+		<id>0x1dbb</id>
+		<category>Decoration\Tables\Sandstone Table 2 (N/S) (1/3)</category>
+	</item>
+
+	<item id="1dbc">
+		<id>0x1dbc</id>
+		<category>Decoration\Tables\Sandstone Table 2 (N/S) (3/3)</category>
+	</item>
+
+	<item id="1dbd">
+		<id>0x1dbd</id>
+		<category>Decoration\Tables\Sandstone Table 2 (N/S) (2/3)</category>
+	</item>
+
+	<item id="1dbe">
+		<id>0x1dbe</id>
+		<category>Decoration\Tables\Sandstone Table 2 (W/E) (1/3)</category>
+	</item>
+
+	<item id="1dbf">
+		<id>0x1dbf</id>
+		<category>Decoration\Tables\Sandstone Table 2 (W/E) (3/3)</category>
+	</item>
+
+	<item id="1dc0">
+		<id>0x1dc0</id>
+		<category>Decoration\Tables\Sandstone Table 2 (W/E) (2/3)</category>
+	</item>
+
+	<item id="1dc1">
+		<id>0x1dc1</id>
+		<category>Decoration\Tables\Marble Table (N/S) (1/3)</category>
+	</item>
+
+	<item id="1dc2">
+		<id>0x1dc2</id>
+		<category>Decoration\Tables\Marble Table (N/S) (3/3)</category>
+	</item>
+
+	<item id="1dc3">
+		<id>0x1dc3</id>
+		<category>Decoration\Tables\Marble Table (N/S) (2/3)</category>
+	</item>
+
+	<item id="1dc4">
+		<id>0x1dc4</id>
+		<category>Decoration\Tables\Marble Table (W/E) (1/3)</category>
+	</item>
+
+	<item id="1dc5">
+		<id>0x1dc5</id>
+		<category>Decoration\Tables\Marble Table (W/E) (3/3)</category>
+	</item>
+
+	<item id="1dc6">
+		<id>0x1dc6</id>
+		<category>Decoration\Tables\Marble Table (W/E) (2/3)</category>
 	</item>
 
 	<!-- Broken Furniture -->

@@ -267,6 +267,21 @@
 		<category>Misc\Switches &amp; Levers\Lever 3 (N/S)</category>
 	</item>
 
+	<item id="1bbf">
+		<id>0x1bbf</id>
+		<category>Misc\Switches &amp; Levers\Stone Trigger 1</category>
+	</item>
+
+	<item id="1bc0">
+		<id>0x1bc0</id>
+		<category>Misc\Switches &amp; Levers\Stone Trigger 2</category>
+	</item>
+
+	<item id="1bc1">
+		<id>0x1bc1</id>
+		<category>Misc\Switches &amp; Levers\Stone Trigger 3</category>
+	</item>
+
 	<!-- Scaffolds -->
 	<item id="12b1">
 		<id>0x12b1</id>
@@ -874,6 +889,111 @@
 		<category>Misc\Fountains\Stone Fountain (15/16) (Not Animated)</category>
 	</item>
 
+	<item id="19c3">
+		<id>0x19c3</id>
+		<category>Misc\Fountains\Sandstone Fountain (1/16)</category>
+	</item>
+
+	<item id="19c4">
+		<id>0x19c4</id>
+		<category>Misc\Fountains\Sandstone Fountain (2/16)</category>
+	</item>
+
+	<item id="19c5">
+		<id>0x19c5</id>
+		<category>Misc\Fountains\Sandstone Fountain (3/16)</category>
+	</item>
+
+	<item id="19c6">
+		<id>0x19c6</id>
+		<category>Misc\Fountains\Sandstone Fountain (4/16)</category>
+	</item>
+
+	<item id="19c7">
+		<id>0x19c7</id>
+		<category>Misc\Fountains\Sandstone Fountain (5/16)</category>
+	</item>
+
+	<item id="19c8">
+		<id>0x19c8</id>
+		<category>Misc\Fountains\Sandstone Fountain (6/16)</category>
+	</item>
+
+	<item id="19c9">
+		<id>0x19c9</id>
+		<category>Misc\Fountains\Sandstone Fountain (7/16)</category>
+	</item>
+
+	<item id="19ca">
+		<id>0x19ca</id>
+		<category>Misc\Fountains\Sandstone Fountain (8/16)</category>
+	</item>
+
+	<item id="19cb">
+		<id>0x19cb</id>
+		<category>Misc\Fountains\Sandstone Fountain (9/16)</category>
+	</item>
+
+	<item id="19cc">
+		<id>0x19cc</id>
+		<category>Misc\Fountains\Sandstone Fountain (10/16)</category>
+	</item>
+
+	<item id="19cd">
+		<id>0x19cd</id>
+		<category>Misc\Fountains\Sandstone Fountain (11/16)</category>
+	</item>
+
+	<item id="19ce">
+		<id>0x19ce</id>
+		<category>Misc\Fountains\Sandstone Fountain (12/16)</category>
+	</item>
+
+	<item id="19cf">
+		<id>0x19cf</id>
+		<category>Misc\Fountains\Sandstone Fountain (13/16)</category>
+	</item>
+
+	<item id="19d0">
+		<id>0x19d0</id>
+		<category>Misc\Fountains\Sandstone Fountain (14/16)</category>
+	</item>
+
+	<item id="19d1">
+		<id>0x19d1</id>
+		<category>Misc\Fountains\Sandstone Fountain (15/16)</category>
+	</item>
+
+	<item id="19d2">
+		<id>0x19d2</id>
+		<category>Misc\Fountains\Sandstone Fountain (16/16) (Not Animated)</category>
+	</item>
+
+	<item id="19d3">
+		<id>0x19d3</id>
+		<category>Misc\Fountains\Sandstone Fountain (16/16)</category>
+	</item>
+
+	<item id="19e5">
+		<id>0x19e5</id>
+		<category>Misc\Fountains\Sandstone Fountain (11/16) (Not Animated)</category>
+	</item>
+
+	<item id="19e7">
+		<id>0x19e7</id>
+		<category>Misc\Fountains\Sandstone Fountain (9/16) (Not Animated)</category>
+	</item>
+
+	<item id="19e9">
+		<id>0x19e9</id>
+		<category>Misc\Fountains\Sandstone Fountain (13/16) (Not Animated)</category>
+	</item>
+
+	<item id="19eb">
+		<id>0x19eb</id>
+		<category>Misc\Fountains\Sandstone Fountain (15/16) (Not Animated)</category>
+	</item>
+
 	<!-- Teleporter -->
 	<item id="17cf">
 		<id>0x17cf</id>
@@ -1184,5 +1304,518 @@
 	<item id="1870">
 		<id>0x1870</id>
 		<category>Misc\Quest Items\Virtue Stone 8</category>
+	</item>
+
+	<item id="1c12">
+		<id>0x1c12</id>
+		<category>Misc\Quest Items\Bell of Courage</category>
+	</item>
+
+	<item id="1c13">
+		<id>0x1c13</id>
+		<category>Misc\Quest Items\Book of Truth</category>
+	</item>
+
+	<item id="1c14">
+		<id>0x1c14</id>
+		<category>Misc\Quest Items\Candle of Love (On)</category>
+	</item>
+
+	<item id="1c16">
+		<id>0x1c16</id>
+		<category>Misc\Quest Items\Candle of Love (Off)</category>
+	</item>
+
+	<!-- Lighthouse -->
+	<item id="1aa4">
+		<id>0x1aa4</id>
+		<category>Misc\Lighthouse\Lighthouse (1/29)</category>
+	</item>
+
+	<item id="1aa5">
+		<id>0x1aa5</id>
+		<category>Misc\Lighthouse\Lighthouse (2/29)</category>
+	</item>
+
+	<item id="1aa6">
+		<id>0x1aa6</id>
+		<category>Misc\Lighthouse\Lighthouse (3/29)</category>
+	</item>
+
+	<item id="1aa7">
+		<id>0x1aa7</id>
+		<category>Misc\Lighthouse\Lighthouse (4/29)</category>
+	</item>
+
+	<item id="1aa8">
+		<id>0x1aa8</id>
+		<category>Misc\Lighthouse\Lighthouse (5/29)</category>
+	</item>
+
+	<item id="1aa9">
+		<id>0x1aa9</id>
+		<category>Misc\Lighthouse\Lighthouse (6/29)</category>
+	</item>
+
+	<item id="1aaa">
+		<id>0x1aaa</id>
+		<category>Misc\Lighthouse\Lighthouse (7/29)</category>
+	</item>
+
+	<item id="1aab">
+		<id>0x1aab</id>
+		<category>Misc\Lighthouse\Lighthouse (8/29)</category>
+	</item>
+
+	<item id="1aac">
+		<id>0x1aac</id>
+		<category>Misc\Lighthouse\Lighthouse (9/29)</category>
+	</item>
+
+	<item id="1aad">
+		<id>0x1aad</id>
+		<category>Misc\Lighthouse\Lighthouse (10/29)</category>
+	</item>
+
+	<item id="1ab0">
+		<id>0x1ab0</id>
+		<category>Misc\Lighthouse\Lighthouse (11/29)</category>
+	</item>
+
+	<item id="1ab3">
+		<id>0x1ab3</id>
+		<category>Misc\Lighthouse\Lighthouse (12/29)</category>
+	</item>
+
+	<item id="1ab6">
+		<id>0x1ab6</id>
+		<category>Misc\Lighthouse\Lighthouse (13/29)</category>
+	</item>
+
+	<item id="1ab9">
+		<id>0x1ab9</id>
+		<category>Misc\Lighthouse\Lighthouse (14/29)</category>
+	</item>
+
+	<item id="1aba">
+		<id>0x1aba</id>
+		<category>Misc\Lighthouse\Lighthouse (15/29)</category>
+	</item>
+
+	<item id="1abb">
+		<id>0x1abb</id>
+		<category>Misc\Lighthouse\Lighthouse (16/29)</category>
+	</item>
+
+	<item id="1abc">
+		<id>0x1abc</id>
+		<category>Misc\Lighthouse\Lighthouse (17/29)</category>
+	</item>
+
+	<item id="1abd">
+		<id>0x1abd</id>
+		<category>Misc\Lighthouse\Lighthouse (18/29)</category>
+	</item>
+
+	<item id="1abe">
+		<id>0x1abe</id>
+		<category>Misc\Lighthouse\Lighthouse (19/29)</category>
+	</item>
+
+	<item id="1ac1">
+		<id>0x1ac1</id>
+		<category>Misc\Lighthouse\Lighthouse (20/29)</category>
+	</item>
+
+	<item id="1ac4">
+		<id>0x1ac4</id>
+		<category>Misc\Lighthouse\Lighthouse (21/29)</category>
+	</item>
+
+	<item id="1ac7">
+		<id>0x1ac7</id>
+		<category>Misc\Lighthouse\Lighthouse (22/29)</category>
+	</item>
+
+	<item id="1aca">
+		<id>0x1aca</id>
+		<category>Misc\Lighthouse\Lighthouse (23/29)</category>
+	</item>
+
+	<item id="1acb">
+		<id>0x1acb</id>
+		<category>Misc\Lighthouse\Lighthouse (24/29)</category>
+	</item>
+
+	<item id="1acc">
+		<id>0x1acc</id>
+		<category>Misc\Lighthouse\Lighthouse (25/29)</category>
+	</item>
+
+	<item id="1acd">
+		<id>0x1acd</id>
+		<category>Misc\Lighthouse\Lighthouse (26/29)</category>
+	</item>
+
+	<item id="1ace">
+		<id>0x1ace</id>
+		<category>Misc\Lighthouse\Lighthouse (27/29)</category>
+	</item>
+
+	<item id="1acf">
+		<id>0x1acf</id>
+		<category>Misc\Lighthouse\Lighthouse (28/29)</category>
+	</item>
+
+	<item id="1ad0">
+		<id>0x1ad0</id>
+		<category>Misc\Lighthouse\Lighthouse (29/29)</category>
+	</item>
+
+	<!-- Birds Nest -->
+	<item id="1ad4">
+		<id>0x1ad4</id>
+		<category>Misc\Birds Nest\Nest with Eggs</category>
+	</item>
+
+	<item id="1ad5">
+		<id>0x1ad5</id>
+		<category>Misc\Birds Nest\Nest</category>
+	</item>
+
+	<!-- Treasure -->
+	<item id="1b3f">
+		<id>0x1b3f</id>
+		<category>Misc\Treasure\Treasure (1/41)</category>
+	</item>
+
+	<item id="1b40">
+		<id>0x1b40</id>
+		<category>Misc\Treasure\Treasure (2/41)</category>
+	</item>
+
+	<item id="1b41">
+		<id>0x1b41</id>
+		<category>Misc\Treasure\Treasure (3/41)</category>
+	</item>
+
+	<item id="1b42">
+		<id>0x1b42</id>
+		<category>Misc\Treasure\Treasure (4/41)</category>
+	</item>
+
+	<item id="1b43">
+		<id>0x1b43</id>
+		<category>Misc\Treasure\Treasure (5/41)</category>
+	</item>
+
+	<item id="1b44">
+		<id>0x1b44</id>
+		<category>Misc\Treasure\Treasure (6/41)</category>
+	</item>
+
+	<item id="1b45">
+		<id>0x1b45</id>
+		<category>Misc\Treasure\Treasure (7/41)</category>
+	</item>
+
+	<item id="1b46">
+		<id>0x1b46</id>
+		<category>Misc\Treasure\Treasure (8/41)</category>
+	</item>
+
+	<item id="1b47">
+		<id>0x1b47</id>
+		<category>Misc\Treasure\Treasure (9/41)</category>
+	</item>
+
+	<item id="1b48">
+		<id>0x1b48</id>
+		<category>Misc\Treasure\Treasure (10/41)</category>
+	</item>
+
+	<item id="1b4a">
+		<id>0x1b4a</id>
+		<category>Misc\Treasure\Treasure (11/41)</category>
+	</item>
+
+	<item id="1b4b">
+		<id>0x1b4b</id>
+		<category>Misc\Treasure\Treasure (12/41)</category>
+	</item>
+
+	<item id="1b4c">
+		<id>0x1b4c</id>
+		<category>Misc\Treasure\Treasure (13/41)</category>
+	</item>
+
+	<item id="1b4d">
+		<id>0x1b4d</id>
+		<category>Misc\Treasure\Treasure (14/41)</category>
+	</item>
+
+	<item id="1b4e">
+		<id>0x1b4e</id>
+		<category>Misc\Treasure\Treasure (15/41)</category>
+	</item>
+
+	<item id="1b4f">
+		<id>0x1b4f</id>
+		<category>Misc\Treasure\Treasure (16/41)</category>
+	</item>
+
+	<item id="1b50">
+		<id>0x1b50</id>
+		<category>Misc\Treasure\Treasure (17/41)</category>
+	</item>
+
+	<item id="1b51">
+		<id>0x1b51</id>
+		<category>Misc\Treasure\Treasure (18/41)</category>
+	</item>
+
+	<item id="1b53">
+		<id>0x1b53</id>
+		<category>Misc\Treasure\Treasure (19/41)</category>
+	</item>
+
+	<item id="1b54">
+		<id>0x1b54</id>
+		<category>Misc\Treasure\Treasure (20/41)</category>
+	</item>
+
+	<item id="1b55">
+		<id>0x1b55</id>
+		<category>Misc\Treasure\Treasure (21/41)</category>
+	</item>
+
+	<item id="1b56">
+		<id>0x1b56</id>
+		<category>Misc\Treasure\Treasure (22/41)</category>
+	</item>
+
+	<item id="1b57">
+		<id>0x1b57</id>
+		<category>Misc\Treasure\Treasure (23/41)</category>
+	</item>
+
+	<item id="1b58">
+		<id>0x1b58</id>
+		<category>Misc\Treasure\Treasure (23/41)</category>
+	</item>
+
+	<item id="1b59">
+		<id>0x1b59</id>
+		<category>Misc\Treasure\Treasure (24/41)</category>
+	</item>
+
+	<item id="1b5a">
+		<id>0x1b5a</id>
+		<category>Misc\Treasure\Treasure (25/41)</category>
+	</item>
+
+	<item id="1b5b">
+		<id>0x1b5b</id>
+		<category>Misc\Treasure\Treasure (26/41)</category>
+	</item>
+
+	<item id="1b5c">
+		<id>0x1b5c</id>
+		<category>Misc\Treasure\Treasure (27/41)</category>
+	</item>
+
+	<item id="1b5d">
+		<id>0x1b5d</id>
+		<category>Misc\Treasure\Treasure (28/41)</category>
+	</item>
+
+	<item id="1b5f">
+		<id>0x1b5f</id>
+		<category>Misc\Treasure\Treasure (29/41)</category>
+	</item>
+
+	<item id="1b60">
+		<id>0x1b60</id>
+		<category>Misc\Treasure\Treasure (30/41)</category>
+	</item>
+
+	<item id="1b61">
+		<id>0x1b61</id>
+		<category>Misc\Treasure\Treasure (31/41)</category>
+	</item>
+
+	<item id="1b62">
+		<id>0x1b62</id>
+		<category>Misc\Treasure\Treasure (32/41)</category>
+	</item>
+
+	<item id="1b63">
+		<id>0x1b63</id>
+		<category>Misc\Treasure\Treasure (33/41)</category>
+	</item>
+
+	<item id="1b64">
+		<id>0x1b64</id>
+		<category>Misc\Treasure\Treasure (34/41)</category>
+	</item>
+
+	<item id="1b65">
+		<id>0x1b65</id>
+		<category>Misc\Treasure\Treasure (35/41)</category>
+	</item>
+
+	<item id="1b66">
+		<id>0x1b66</id>
+		<category>Misc\Treasure\Treasure (36/41)</category>
+	</item>
+
+	<item id="1b67">
+		<id>0x1b67</id>
+		<category>Misc\Treasure\Treasure (37/41)</category>
+	</item>
+
+	<item id="1b68">
+		<id>0x1b68</id>
+		<category>Misc\Treasure\Treasure (38/41)</category>
+	</item>
+
+	<item id="1b69">
+		<id>0x1b69</id>
+		<category>Misc\Treasure\Treasure (39/41)</category>
+	</item>
+
+	<item id="1b6a">
+		<id>0x1b6a</id>
+		<category>Misc\Treasure\Treasure (40/41)</category>
+	</item>
+
+	<item id="1b6b">
+		<id>0x1b6b</id>
+		<category>Misc\Treasure\Treasure (41/41)</category>
+	</item>
+
+	<!-- Message Boards -->
+	<item id="1e5e">
+		<id>0x1e5e</id>
+		<category>Misc\Message Boards\Message Board (N/S)</category>
+	</item>
+
+	<item id="1e5f">
+		<id>0x1e5f</id>
+		<category>Misc\Message Boards\Message Board (W/E)</category>
+	</item>
+
+	<!-- Communication Crystal -->
+	<item id="1ecd">
+		<id>0x1ecd</id>
+		<category>Misc\Comm. Crystals\Green Communication Crystal</category>
+	</item>
+
+	<item id="1ed0">
+		<id>0x1ed0</id>
+		<category>Misc\Comm. Crystals\Red Communication Crystal</category>
+	</item>
+
+	<!-- Serpent Pillar -->
+	<item id="233c">
+		<id>0x233c</id>
+		<category>Misc\Serpent Pillar\Serpent Pillar (1/15)</category>
+	</item>
+
+	<item id="233d">
+		<id>0x233d</id>
+		<category>Misc\Serpent Pillar\Serpent Pillar (2/15)</category>
+	</item>
+
+	<item id="233e">
+		<id>0x233e</id>
+		<category>Misc\Serpent Pillar\Serpent Pillar (3/15)</category>
+	</item>
+
+	<item id="233f">
+		<id>0x233f</id>
+		<category>Misc\Serpent Pillar\Serpent Pillar (4/15)</category>
+	</item>
+
+	<item id="2340">
+		<id>0x2340</id>
+		<category>Misc\Serpent Pillar\Serpent Pillar (5/15)</category>
+	</item>
+
+	<item id="2341">
+		<id>0x2341</id>
+		<category>Misc\Serpent Pillar\Serpent Pillar (6/15)</category>
+	</item>
+
+	<item id="2342">
+		<id>0x2342</id>
+		<category>Misc\Serpent Pillar\Serpent Pillar (7/15)</category>
+	</item>
+
+	<item id="2343">
+		<id>0x2343</id>
+		<category>Misc\Serpent Pillar\Serpent Pillar (8/15)</category>
+	</item>
+
+	<item id="2344">
+		<id>0x2344</id>
+		<category>Misc\Serpent Pillar\Serpent Pillar (9/15)</category>
+	</item>
+
+	<item id="2345">
+		<id>0x2345</id>
+		<category>Misc\Serpent Pillar\Serpent Pillar (10/15)</category>
+	</item>
+
+	<item id="2346">
+		<id>0x2346</id>
+		<category>Misc\Serpent Pillar\Serpent Pillar (11/15)</category>
+	</item>
+
+	<item id="2347">
+		<id>0x2347</id>
+		<category>Misc\Serpent Pillar\Serpent Pillar (12/15)</category>
+	</item>
+
+	<item id="2348">
+		<id>0x2348</id>
+		<category>Misc\Serpent Pillar\Serpent Pillar (13/15)</category>
+	</item>
+
+	<item id="2349">
+		<id>0x2349</id>
+		<category>Misc\Serpent Pillar\Serpent Pillar (14/15)</category>
+	</item>
+
+	<item id="234a">
+		<id>0x234a</id>
+		<category>Misc\Serpent Pillar\Serpent Pillar (15/15)</category>
+	</item>
+
+	<!-- Rope -->
+	<item id="2710">
+		<id>0x2710</id>
+		<category>Misc\Rope\Rope (W/E)</category>
+	</item>
+
+	<item id="2711">
+		<id>0x2711</id>
+		<category>Misc\Rope\Rope (N/S)</category>
+	</item>
+
+	<!-- Plant Growing -->
+	<item id="26b7">
+		<id>0x26b7</id>
+		<category>Misc\Plant Growing\Zoogi Fungus</category>
+	</item>
+
+	<item id="26b8">
+		<id>0x26b8</id>
+		<category>Misc\Plant Growing\Translocation Powd</category>
+	</item>
+
+	<item id="26b9">
+		<id>0x26b9</id>
+		<category>Misc\Plant Growing\Plant Bowl</category>
 	</item>
 </definitions>

@@ -58,6 +58,50 @@
 		<category>Armor\Leather\Tunic (W/E)</category>
 	</item>
 
+	<item id="1c06">
+		<id>0x1c06</id>
+		<category>Armor\Leather\Female Tunic (N/S)</category>
+	</item>
+
+	<item id="1c07">
+		<inherit id="1c06" />
+		<id>0x1c07</id>
+		<category>Armor\Leather\Female Tunic (W/E)</category>
+	</item>
+
+	<item id="1c08">
+		<id>0x1c08</id>
+		<category>Armor\Leather\Female Skirt (N/S)</category>
+	</item>
+
+	<item id="1c09">
+		<inherit id="1c08" />
+		<id>0x1c09</id>
+		<category>Armor\Leather\Female Skirt (W/E)</category>
+	</item>
+
+	<item id="1c0a">
+		<id>0x1c0a</id>
+		<category>Armor\Leather\Bustier (N/S)</category>
+	</item>
+
+	<item id="1c0b">
+		<inherit id="1c0a" />
+		<id>0x1c0b</id>
+		<category>Armor\Leather\Bustier (W/E)</category>
+	</item>
+
+	<item id="1db9">
+		<id>0x1db9</id>
+		<category>Armor\Leather\Cap (N/S)</category>
+	</item>
+
+	<item id="1dba">
+		<inherit id="1db9" />
+		<id>0x1dba</id>
+		<category>Armor\Leather\Cap (W/E)</category>
+	</item>
+
 	<!-- Studded -->
 	<item id="13d4">
 		<id>0x13d4</id>
@@ -106,5 +150,37 @@
 		<inherit id="13db" />
 		<id>0x13e2</id>
 		<category>Armor\Studded Leather\Tunic (W/E)</category>
+	</item>
+
+	<item id="1c00">
+		<id>0x1c00</id>
+		<category>Armor\Studded Leather\Female Leggings (N/S)</category>
+	</item>
+
+	<item id="1c01">
+		<inherit id="1c00" />
+		<id>0x1c01</id>
+		<category>Armor\Studded Leather\Female Leggings (W/E)</category>
+	</item>
+
+	<item id="1c02">
+		<id>0x1c02</id>
+		<category>Armor\Studded Leather\Female Tunic 1</category>
+	</item>
+
+	<item id="1c03">
+		<id>0x1c03</id>
+		<category>Armor\Studded Leather\Female Tunic 2</category>
+	</item>
+
+	<item id="1c0c">
+		<id>0x1c0c</id>
+		<category>Armor\Studded Leather\Bustier (N/S)</category>
+	</item>
+
+	<item id="1c0d">
+		<inherit id="1c0c" />
+		<id>0x1c0d</id>
+		<category>Armor\Studded Leather\Bustier (W/E)</category>
 	</item>
 </definitions>

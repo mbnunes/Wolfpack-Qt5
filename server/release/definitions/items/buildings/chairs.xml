@@ -12,12 +12,12 @@
 	<!-- Marble Bench -->
 	<item id="459">
 		<id>0x0459</id>
-		<category>Decoration\Chairs\Marble Bench (N/S)</category>
+		<category>Decoration\Chairs\Marble Bench 1 (N/S)</category>
 	</item>
 
 	<item id="45a">
 		<id>0x045a</id>
-		<category>Decoration\Chairs\Marble Bench (W/E)</category>
+		<category>Decoration\Chairs\Marble Bench 1 (W/E)</category>
 	</item>
 
 	<!-- Sandstone Bench -->
@@ -314,5 +314,76 @@
 	<item id="1527">
 		<id>0x1527</id>
 		<category>Decoration\Chairs\Lord British Throne (2/2)</category>
+	</item>
+
+	<item id="1dc7">
+		<id>0x1dc7</id>
+		<category>Decoration\Chairs\Sandstone Bench 3 (N/S) (1/3)</category>
+	</item>
+
+	<item id="1dc8">
+		<id>0x1dc8</id>
+		<category>Decoration\Chairs\Sandstone Bench 3 (N/S) (3/3)</category>
+	</item>
+
+	<item id="1dc9">
+		<id>0x1dc9</id>
+		<category>Decoration\Chairs\Sandstone Bench 3 (N/S) (2/3)</category>
+	</item>
+
+	<item id="1dca">
+		<id>0x1dca</id>
+		<category>Decoration\Chairs\Sandstone Bench 3 (W/E) (1/3)</category>
+	</item>
+
+	<item id="1dcb">
+		<id>0x1dcb</id>
+		<category>Decoration\Chairs\Sandstone Bench 3 (W/E) (3/3)</category>
+	</item>
+
+	<item id="1dcc">
+		<id>0x1dcc</id>
+		<category>Decoration\Chairs\Sandstone Bench 3 (W/E) (2/3)</category>
+	</item>
+
+	<item id="1dcd">
+		<id>0x1dcd</id>
+		<category>Decoration\Chairs\Marble Bench 2 (N/S) (1/3)</category>
+	</item>
+
+	<item id="1dce">
+		<id>0x1dce</id>
+		<category>Decoration\Chairs\Marble Bench 2 (N/S) (3/3)</category>
+	</item>
+
+	<item id="1dcf">
+		<id>0x1dcf</id>
+		<category>Decoration\Chairs\Marble Bench 2 (N/S) (2/3)</category>
+	</item>
+
+	<item id="1dd0">
+		<id>0x1dd0</id>
+		<category>Decoration\Chairs\Marble Bench 2 (W/E) (1/3)</category>
+	</item>
+
+	<item id="1dd1">
+		<id>0x1dd1</id>
+		<category>Decoration\Chairs\Marble Bench 2 (W/E) (3/3)</category>
+	</item>
+
+	<item id="1dd2">
+		<id>0x1dd2</id>
+		<category>Decoration\Chairs\Marble Bench 2 (W/E) (2/3)</category>
+	</item>
+
+	<!-- Stone Bench 2 -->
+	<item id="3dff">
+		<id>0x3dff</id>
+		<category>Decoration\Chairs\Stone Bench 2 (N/S)</category>
+	</item>
+
+	<item id="3e00">
+		<id>0x3e00</id>
+		<category>Decoration\Chairs\Stone Bench 2 (W/E)</category>
 	</item>
 </definitions>

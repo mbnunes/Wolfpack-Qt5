@@ -756,6 +756,31 @@
                 <category>Vegetation\Plants\Hops cones</category>
         </item>
 
+	<item id="1a92">
+		<id>0x1a92</id>
+        <category>Vegetation\Plants\Hay 1</category>
+	</item>
+
+	<item id="1a93">
+		<id>0x1a93</id>
+        <category>Vegetation\Plants\Hay 2</category>
+	</item>
+
+	<item id="1a94">
+		<id>0x1a94</id>
+        <category>Vegetation\Plants\Hay 3</category>
+	</item>
+
+	<item id="1a95">
+		<id>0x1a95</id>
+        <category>Vegetation\Plants\Hay 4</category>
+	</item>
+
+	<item id="1a96">
+		<id>0x1a96</id>
+        <category>Vegetation\Plants\Hay 5</category>
+	</item>
+
 	<!-- Growing Plants -->
 	<item id="c68">
 		<id>0x0c68</id>
@@ -867,6 +892,16 @@
 		<category>Vegetation\Growing\Ginseng Root (W/E)</category>
 	</item>
 
+	<item id="1ebe">
+		<id>0x1ebe</id>
+		<category>Vegetation\Growing\Wheat Sprout 1</category>
+	</item>
+
+	<item id="1ebf">
+		<id>0x1ebf</id>
+		<category>Vegetation\Growing\Wheat Sprout 2</category>
+	</item>
+
 	<!-- Potted Flowers -->
         <item id="11C6">
                 <id>0x11C6</id>
@@ -891,5 +926,35 @@
 	<item id="11cc">
 		<id>0x11cc</id>
                 <category>Vegetation\Flowers\Flower Pot 3</category>
+	</item>
+
+	<item id="1e0f">
+		<id>0x1e0f</id>
+                <category>Vegetation\Flowers\Potted Cactus 1</category>
+	</item>
+
+	<item id="1e10">
+		<id>0x1e10</id>
+                <category>Vegetation\Flowers\Potted Cactus 2</category>
+	</item>
+
+	<item id="1e11">
+		<id>0x1e11</id>
+                <category>Vegetation\Flowers\Potted Cactus 3</category>
+	</item>
+
+	<item id="1e12">
+		<id>0x1e12</id>
+                <category>Vegetation\Flowers\Potted Cactus 4</category>
+	</item>
+
+	<item id="1e13">
+		<id>0x1e13</id>
+                <category>Vegetation\Flowers\Potted Cactus 5</category>
+	</item>
+
+	<item id="1e14">
+		<id>0x1e14</id>
+                <category>Vegetation\Flowers\Potted Cactus 6</category>
 	</item>
 </definitions>

@@ -320,7 +320,7 @@
 
 	<!-- Bracelet -->
 	<item id="1086">
-		<category>Clothes\Accessories\Bracelet</category>
+		<category>Clothes\Accessories\Bracelet 1</category>
 		<id>0x1086</id>
 		<decay />
 		<value>40</value>
@@ -328,7 +328,7 @@
 
 	<!-- Earrings -->
 	<item id="1087">
-		<category>Clothes\Accessories\Earrings</category>
+		<category>Clothes\Accessories\Earrings 1</category>
 		<id>0x1087</id>
 		<decay />
 		<value>45</value>
@@ -352,10 +352,51 @@
 
 	<!-- Ring -->
 	<item id="108a">
-		<category>Clothes\Accessories\Ring</category>
+		<category>Clothes\Accessories\Ring 1</category>
 		<id>0x108a</id>
 		<decay />
 		<value>35</value>
+	</item>
+
+	<item id="1f05">
+		<id>0x1f05</id>
+		<category>Clothes\Accessories\Bead Necklace</category>
+	</item>
+
+	<item id="1f06">
+		<id>0x1f06</id>
+		<category>Clothes\Accessories\Bracelet 2</category>
+	</item>
+
+	<item id="1f07">
+		<id>0x1f07</id>
+		<category>Clothes\Accessories\Earrings 2</category>
+	</item>
+
+	<item id="1f08">
+		<id>0x1f08</id>
+		<category>Clothes\Accessories\Necklace 4</category>
+	</item>
+
+	<item id="1f09">
+		<id>0x1f09</id>
+		<category>Clothes\Accessories\Ring 2</category>
+	</item>
+
+	<item id="1f0a">
+		<id>0x1f0a</id>
+		<category>Clothes\Accessories\Necklace 5</category>
+	</item>
+
+	<!-- Orc Helmet -->
+	<item id="1f0b">
+		<id>0x1f0b</id>
+		<category>Clothes\Headwear\Orc Helm (N/S)</category>
+	</item>
+
+	<item id="1f0c">
+		<id>0x1f0c</id>
+		<category>Clothes\Headwear\Orc Helm (W/E)</category>
 	</item>
 
 	<!-- Boots n/s -->

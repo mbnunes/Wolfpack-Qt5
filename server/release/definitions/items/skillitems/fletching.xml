@@ -7,22 +7,6 @@
 =================================================================
 -->
 <definitions>
-	<!-- Feather -->
-	<item id="1bd1">
-		<id>0x1bd1</id>
-		<decay/>
-		<value>2</value>
-		<weight>.02</weight>
-	</item>
-	
-	<!-- Shaft -->
-	<item id="1bd4">
-		<id>0x1bd4</id>
-		<decay/>
-		<value>2</value>
-		<weight>.02</weight>
-	</item>
-	
 	<!-- arrows -->
 	<item id="f3f">
 		<id>0x0f3f</id>
@@ -41,5 +25,46 @@
 		<durability>15</durability>
 		<rank>5</rank>
 		<category>Skill Items\Fletching\Crossbow Bolt</category>		
+	</item>
+
+	<item id="1bfc">
+		<id>0x1bfc</id>
+		<category>Skill Items\Fletching\Crossbow Bolts 1</category>
+	</item>
+
+	<item id="1bfd">
+		<id>0x1bfd</id>
+		<category>Skill Items\Fletching\Crossbow Bolts 2</category>
+	</item>
+
+
+	<item id="1bd1">
+		<id>0x1bd1</id>
+		<category>Skill Items\Fletching\Feather</category>		
+	</item>
+
+	<item id="1bd2">
+		<id>0x1bd2</id>
+		<category>Skill Items\Fletching\Feathers 1</category>
+	</item>
+
+	<item id="1bd3">
+		<id>0x1bd3</id>
+		<category>Skill Items\Fletching\Feathers 2</category>
+	</item>
+
+	<item id="1bd4">
+		<id>0x1bd4</id>
+		<category>Skill Items\Fletching\Shaft</category>
+	</item>
+
+	<item id="1bd5">
+		<id>0x1bd5</id>
+		<category>Skill Items\Fletching\Shafts 1</category>
+	</item>
+
+	<item id="1bd6">
+		<id>0x1bd6</id>
+		<category>Skill Items\Fletching\Shafts 2</category>
 	</item>
 </definitions>

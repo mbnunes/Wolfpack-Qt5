@@ -319,6 +319,16 @@
 		<category>Signs\Blank Signs\Brass Sign (W/E)</category>
 	</item>
 
+	<item id="1f28">
+		<id>0x1f28</id>
+		<category>Signs\Blank Signs\Blank Sign (W/E)</category>
+	</item>
+
+	<item id="1f29">
+		<id>0x1f29</id>
+		<category>Signs\Blank Signs\Blank Sign (N/S)</category>
+	</item>
+
 	<item id="bd3">
 		<id>0x0bd3</id>
 		<category>Signs\Guild Signs\Armaments Guild (N/S)</category>

@@ -1567,4 +1567,250 @@ Food subtypes:
 		<value>10</value>
 		<category>Equipment\Food\Beef Carcass 2 (W/E)</category>
 	</item>
+
+	<item id="1ad3">
+		<id>0x1ad3</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Donuts</category>
+	</item>
+
+	<item id="1e1c">
+		<id>0x1e1c</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Cooked Fish 1</category>
+	</item>
+
+	<item id="1e1d">
+		<id>0x1e1d</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Cooked Fish 2</category>
+	</item>
+
+	<item id="1e1e">
+		<id>0x1e1e</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Cooked Fish 3</category>
+	</item>
+
+	<item id="1e1f">
+		<id>0x1e1f</id>
+		<type>14</type>
+		<decay/>
+		<value>10</value>
+		<category>Equipment\Food\Sliced Ham</category>
+	</item>
+
+	<item id="1eb0">
+		<id>0x1eb0</id>
+		<category>Equipment\Food\Burned Food</category>
+	</item>
+
+	<!-- Drinks -->
+	<item id="1f7d">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Glass of Cider 1</category>
+		<id>0x1f7d</id>
+	</item>
+
+	<item id="1f7e">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Glass of Cider 2</category>
+		<id>0x1f7e</id>
+	</item>
+
+	<item id="1f7f">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Glass of Cider 3</category>
+		<id>0x1f7f</id>
+	</item>
+
+	<item id="1f80">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Glass of Cider 4</category>
+		<id>0x1f80</id>
+	</item>
+
+	<item id="1f81">
+		<category>Decoration\Kitchen\Glass 1</category>
+		<id>0x1f81</id>
+	</item>
+
+	<item id="1f82">
+		<id>0x1f82</id>
+		<category>Decoration\Kitchen\Glass 2</category>
+	</item>
+
+	<item id="1f83">
+		<id>0x1f83</id>
+		<category>Decoration\Kitchen\Glass 3</category>
+	</item>
+
+	<item id="1f84">
+		<id>0x1f84</id>
+		<category>Decoration\Kitchen\Glass 4</category>
+	</item>
+
+	<item id="1f85">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Glass of Liquor 1</category>
+		<id>0x1f85</id>
+	</item>
+
+	<item id="1f86">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Glass of Liquor 2</category>
+		<id>0x1f86</id>
+	</item>
+
+	<item id="1f87">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Glass of Liquor 3</category>
+		<id>0x1f87</id>
+	</item>
+
+	<item id="1f88">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Glass of Liquor 4</category>
+		<id>0x1f88</id>
+	</item>
+
+	<item id="1f89">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Glass of Milk 1</category>
+		<id>0x1f89</id>
+	</item>
+
+	<item id="1f8a">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Glass of Milk 2</category>
+		<id>0x1f8a</id>
+	</item>
+
+	<item id="1f8b">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Glass of Milk 3</category>
+		<id>0x1f8b</id>
+	</item>
+
+	<item id="1f8c">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Glass of Milk 4</category>
+		<id>0x1f8c</id>
+	</item>
+
+	<item id="1f8d">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Glass of Wine 1</category>
+		<id>0x1f8d</id>
+	</item>
+
+	<item id="1f8e">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Glass of Wine 2</category>
+		<id>0x1f8e</id>
+	</item>
+
+	<item id="1f8f">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Glass of Wine 3</category>
+		<id>0x1f8f</id>
+	</item>
+
+	<item id="1f90">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Glass of Wine 4</category>
+		<id>0x1f90</id>
+	</item>
+
+	<item id="1f91">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Glass of Water 1</category>
+		<id>0x1f91</id>
+	</item>
+
+	<item id="1f92">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Glass of Water 2</category>
+		<id>0x1f92</id>
+	</item>
+
+	<item id="1f93">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Glass of Water 3</category>
+		<id>0x1f93</id>
+	</item>
+
+	<item id="1f94">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Glass of Water 4</category>
+		<id>0x1f94</id>
+	</item>
+
+	<item id="1f95">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Pitcher of Ale 1</category>
+		<id>0x1f95</id>
+	</item>
+
+	<item id="1f96">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Pitcher of Ale 2</category>
+		<id>0x1f96</id>
+	</item>
+
+	<item id="1f97">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Pitcher of Cider 1</category>
+		<id>0x1f97</id>
+	</item>
+
+	<item id="1f98">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Pitcher of Cider 2</category>
+		<id>0x1f98</id>
+	</item>
+
+	<item id="1f99">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Pitcher of Liquor 1</category>
+		<id>0x1f99</id>
+	</item>
+
+	<item id="1f9a">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Pitcher of Liquor 2</category>
+		<id>0x1f9a</id>
+	</item>
+
+	<item id="1f9b">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Pitcher of Wine 1</category>
+		<id>0x1f9b</id>
+	</item>
+
+	<item id="1f9c">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Pitcher of Wine 2</category>
+		<id>0x1f9c</id>
+	</item>
+
+	<item id="1f9d">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Pitcher of Water 3</category>
+		<id>0x1f9d</id>
+	</item>
+
+	<item id="1f9e">
+		<inherit id="drinks_base" />
+		<category>Equipment\Drinks\Pitcher of Water 4</category>
+		<id>0x1f9e</id>
+	</item>
 </definitions>

@@ -21,4 +21,23 @@
 		<category>Misc\Moongates\Blue Moongate</category>
 	</item>
 
+	<item id="1ae5">
+		<id>0x1ae5</id>
+		<category>Misc\Moongates\Summon Red Moongate 1</category>
+	</item>
+
+	<item id="1ae9">
+		<id>0x1ae9</id>
+		<category>Misc\Moongates\Summon Red Moongate 2</category>
+	</item>
+
+	<item id="1af3">
+		<id>0x1af3</id>
+		<category>Misc\Moongates\Summon Blue Moongate 1</category>
+	</item>
+
+	<item id="1af7">
+		<id>0x1af7</id>
+		<category>Misc\Moongates\Summon Blue Moongate 2</category>
+	</item>
 </definitions>

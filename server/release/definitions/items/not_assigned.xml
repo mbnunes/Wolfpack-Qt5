@@ -2,6 +2,536 @@
 	These items are not available ingame.
 -->
 <definitions>
+	<!-- "Texture" instead of Rock -->
+	<item id="3539">
+		<id>0x3539</id>
+	</item>
+
+	<item id="353a">
+		<id>0x353a</id>
+	</item>
+
+	<item id="353b">
+		<id>0x353b</id>
+	</item>
+
+	<item id="353c">
+		<id>0x353c</id>
+	</item>
+
+	<!-- Duplicate Stone Wall -->
+	<item id="3127">
+		<id>0x3127</id>
+	</item>
+
+	<!-- Duplicate of the W/E dresser -->
+	<item id="2bd1">
+		<id>0x2bd1</id>
+	</item>
+
+	<item id="2bd2">
+		<id>0x2bd2</id>
+	</item>
+
+	<item id="2bd3">
+		<id>0x2bd3</id>
+	</item>
+
+	<item id="2bd4">
+		<id>0x2bd4</id>
+	</item>
+
+	<item id="2bd5">
+		<id>0x2bd5</id>
+	</item>
+
+	<item id="2bd6">
+		<id>0x2bd6</id>
+	</item>
+
+	<item id="2bd7">
+		<id>0x2bd7</id>
+	</item>
+
+	<item id="2bd8">
+		<id>0x2bd8</id>
+	</item>
+
+	<!-- Broken Lava Blob Animation, Would be really nice if it'd work -->
+	<item id="2b3e">
+		<id>0x2b3e</id>
+	</item>
+
+	<item id="2b40">
+		<id>0x2b40</id>
+	</item>
+
+	<item id="2b42">
+		<id>0x2b42</id>
+	</item>
+
+	<item id="2b44">
+		<id>0x2b44</id>
+	</item>
+
+	<item id="2b45">
+		<id>0x2b45</id>
+	</item>
+
+	<item id="2b47">
+		<id>0x2b47</id>
+	</item>
+
+	<item id="2b48">
+		<id>0x2b48</id>
+	</item>
+
+	<item id="2b49">
+		<id>0x2b49</id>
+	</item>
+
+	<item id="2b4b">
+		<id>0x2b4b</id>
+	</item>
+
+	<item id="2b4d">
+		<id>0x2b4d</id>
+	</item>
+
+	<item id="2b4f">
+		<id>0x2b4f</id>
+	</item>
+
+	<item id="2b50">
+		<id>0x2b50</id>
+	</item>
+
+	<item id="2b52">
+		<id>0x2b52</id>
+	</item>
+
+	<item id="2b53">
+		<id>0x2b53</id>
+	</item>
+
+	<item id="2b54">
+		<id>0x2b54</id>
+	</item>
+
+	<item id="2b56">
+		<id>0x2b56</id>
+	</item>
+
+	<item id="2b58">
+		<id>0x2b58</id>
+	</item>
+
+	<item id="2b5c">
+		<id>0x2b5c</id>
+	</item>
+
+	<item id="2b5e">
+		<id>0x2b5e</id>
+	</item>
+
+	<item id="2b60">
+		<id>0x2b60</id>
+	</item>
+
+	<item id="2b61">
+		<id>0x2b61</id>
+	</item>
+
+	<item id="2b62">
+		<id>0x2b62</id>
+	</item>
+
+	<item id="2b63">
+		<id>0x2b63</id>
+	</item>
+
+	<item id="2b64">
+		<id>0x2b64</id>
+	</item>
+
+	<item id="2b65">
+		<id>0x2b65</id>
+	</item>
+
+	<!-- Shopkeeper Contain, created via the display id, not via script -->
+	<item id="2af8">
+		<id>0x2af8</id>
+	</item>
+
+	<!-- Unused Bearskin Rug Tiles -->
+	<item id="2ac8">
+		<id>0x2ac8</id>
+	</item>
+
+	<item id="2ac9">
+		<id>0x2ac9</id>
+	</item>
+
+	<item id="2acd">
+		<id>0x2acd</id>
+	</item>
+
+	<item id="2ace">
+		<id>0x2ace</id>
+	</item>
+
+	<!-- Useless (Dupe!) Corn Items -->
+	<item id="3d17">
+		<id>0x3d17</id>
+	</item>
+
+	<item id="3d18">
+		<id>0x3d18</id>
+	</item>
+
+	<item id="3d19">
+		<id>0x3d19</id>
+	</item>
+
+	<item id="3d1a">
+		<id>0x3d1a</id>
+	</item>
+
+	<item id="3d1b">
+		<id>0x3d1b</id>
+	</item>
+
+	<item id="3d1c">
+		<id>0x3d1c</id>
+	</item>
+
+	<!-- Black "Empty" Tile -->
+	<item id="3d84">
+		<id>0x3d84</id>
+	</item>
+
+	<!-- Alpha Corpses -->
+	<item id="3d64">
+		<id>0x3d64</id>
+	</item>
+
+	<item id="3d65">
+		<id>0x3d65</id>
+	</item>
+
+	<item id="3d66">
+		<id>0x3d66</id>
+	</item>
+
+	<item id="3d67">
+		<id>0x3d67</id>
+	</item>
+
+	<item id="3d68">
+		<id>0x3d68</id>
+	</item>
+
+	<item id="3d69">
+		<id>0x3d69</id>
+	</item>
+
+	<item id="3d6a">
+		<id>0x3d6a</id>
+	</item>
+
+	<item id="3d6b">
+		<id>0x3d6b</id>
+	</item>
+
+	<!-- Horse ? -->
+	<item id="3ffe">
+		<id>0x3ffe</id>
+	</item>
+
+	<!-- NONGEN -->
+	<item id="2007">
+		<id>0x2007</id>
+	</item>
+
+	<!-- Broken White & Black Moongate Summoning -->
+	<item id="1fcb">
+		<id>0x1fcb</id>
+	</item>
+
+	<item id="1fcc">
+		<id>0x1fcc</id>
+	</item>
+
+	<item id="1fcd">
+		<id>0x1fcd</id>
+	</item>
+
+	<item id="1fce">
+		<id>0x1fce</id>
+	</item>
+
+	<item id="1fcf">
+		<id>0x1fcf</id>
+	</item>
+
+	<item id="1fd0">
+		<id>0x1fd0</id>
+	</item>
+
+	<item id="1fd1">
+		<id>0x1fd1</id>
+	</item>
+
+	<item id="1fd2">
+		<id>0x1fd2</id>
+	</item>
+
+	<item id="1fd3">
+		<id>0x1fd3</id>
+	</item>
+
+	<item id="1fd4">
+		<id>0x1fd4</id>
+	</item>
+
+	<item id="1fd5">
+		<id>0x1fd5</id>
+	</item>
+
+	<item id="1fd6">
+		<id>0x1fd6</id>
+	</item>
+
+	<item id="1fd7">
+		<id>0x1fd7</id>
+	</item>
+
+	<item id="1fd8">
+		<id>0x1fd8</id>
+	</item>
+
+	<item id="1fde">
+		<id>0x1fde</id>
+	</item>
+
+	<item id="1fdf">
+		<id>0x1fdf</id>
+	</item>
+
+	<item id="1fe0">
+		<id>0x1fe0</id>
+	</item>
+
+	<item id="1fe1">
+		<id>0x1fe1</id>
+	</item>
+
+	<item id="1fe2">
+		<id>0x1fe2</id>
+	</item>
+
+	<item id="1fe3">
+		<id>0x1fe3</id>
+	</item>
+
+	<item id="1fe4">
+		<id>0x1fe4</id>
+	</item>
+
+	<item id="1fe5">
+		<id>0x1fe5</id>
+	</item>
+
+	<item id="1fe6">
+		<id>0x1fe6</id>
+	</item>
+
+	<item id="1fe7">
+		<id>0x1fe7</id>
+	</item>
+
+	<item id="1fe8">
+		<id>0x1fe8</id>
+	</item>
+
+	<item id="1fe9">
+		<id>0x1fe9</id>
+	</item>
+
+	<item id="1fea">
+		<id>0x1fea</id>
+	</item>
+
+	<item id="1feb">
+		<id>0x1feb</id>
+	</item>
+
+	<!-- Rather stupid Switchs because there is no not-animated tile -->
+	<item id="1ed3">
+		<id>0x1ed3</id>
+	</item>
+
+	<item id="1ed6">
+		<id>0x1ed6</id>
+	</item>
+
+	<!-- Two more or less broken pickpocket dips -->
+	<item id="1e2c">
+		<id>0x1e2c</id>
+	</item>
+
+	<item id="1e2d">
+		<id>0x1e2d</id>
+	</item>
+
+	<!-- Worldgem Bits -->
+	<item id="1ea7">
+		<id>0x1ea7</id>
+	</item>
+
+	<item id="1f13">
+		<id>0x1f13</id>
+	</item>
+
+	<!-- Unused -->
+	<item id="1c0e">
+		<id>0x1c0e</id>
+	</item>
+
+	<item id="1c0f">
+		<id>0x1c0f</id>
+	</item>
+
+	<item id="1c10">
+		<id>0x1c10</id>
+	</item>
+
+	<item id="1c11">
+		<id>0x1c11</id>
+	</item>
+
+	<!-- Flying Crossbow Bolt -->
+	<item id="1bfe">
+		<id>0x1bfe</id>
+	</item>
+
+	<!-- Target Tile (actually it's just empty) -->
+	<item id="1b70">
+		<id>0x1b70</id>
+	</item>
+	
+	<!-- Duplicate north south keg -->
+	<item id="1940">
+		<id>0x1940</id>
+	</item>
+	
+	<!-- Broken Lava Animation -->
+	<item id="1a7c">
+		<id>0x1a7c</id>
+	</item>
+
+	<item id="1a7d">
+		<id>0x1a7d</id>
+	</item>
+
+	<item id="1a7e">
+		<id>0x1a7e</id>
+	</item>
+
+	<!-- Duplicate Hanging Skeleton tiles -->
+	<item id="1a0b">
+		<id>0x1a0b</id>
+	</item>
+
+	<item id="1a0c">
+		<id>0x1a0c</id>
+	</item>
+
+	<item id="1a0d">
+		<id>0x1a0d</id>
+	</item>
+
+	<item id="1a0e">
+		<id>0x1a0e</id>
+	</item>
+
+	<!-- These seem to be internally used region graphics and such things -->
+	<item id="1964">
+		<id>0x1964</id>
+	</item>
+
+	<item id="1965">
+		<id>0x1965</id>
+	</item>
+
+	<item id="1966">
+		<id>0x1966</id>
+	</item>
+
+	<item id="1967">
+		<id>0x1967</id>
+	</item>
+
+	<item id="1968">
+		<id>0x1968</id>
+	</item>
+
+	<item id="1969">
+		<id>0x1969</id>
+	</item>
+
+	<item id="196a">
+		<id>0x196a</id>
+	</item>
+
+	<item id="196b">
+		<id>0x196b</id>
+	</item>
+
+	<item id="196c">
+		<id>0x196c</id>
+	</item>
+
+	<item id="196d">
+		<id>0x196d</id>
+	</item>
+
+	<item id="196e">
+		<id>0x196e</id>
+	</item>
+
+	<item id="196f">
+		<id>0x196f</id>
+	</item>
+
+	<item id="1970">
+		<id>0x1970</id>
+	</item>
+
+	<item id="1971">
+		<id>0x1971</id>
+	</item>
+
+	<item id="1972">
+		<id>0x1972</id>
+	</item>
+
+	<item id="1973">
+		<id>0x1973</id>
+	</item>
+
+	<item id="1977">
+		<id>0x1977</id>
+	</item>
+
+	<item id="1978">
+		<id>0x1978</id>
+	</item>
+
+	<item id="1979">
+		<id>0x1979</id>
+	</item>
+
 	<!-- Useless (because duplicate) flour mill tiles -->
 	<item id="188b">
 		<id>0x188b</id>

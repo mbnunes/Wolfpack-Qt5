@@ -167,5 +167,40 @@
                 <category>Animations\Magical Sparkles</category> 
         </item>
 
+		<item id="19ab">
+			<id>0x19ab</id>
+                <category>Animations\Fire</category> 
+		</item>
+
+
+	<item id="1ec6">
+		<id>0x1ec6</id>
+                <category>Animations\Falling Coins</category> 
+	</item>
+
+	<item id="1ed9">
+		<id>0x1ed9</id>
+        <category>Animations\Magic Face 1 (N/S)</category> 
+	</item>
+
+	<item id="1ee2">
+		<id>0x1ee2</id>
+        <category>Animations\Magic Face 2 (N/S)</category> 
+	</item>
+
+	<item id="1eec">
+		<id>0x1eec</id>
+        <category>Animations\Magic Face 1 (W/E)</category> 
+	</item>
+
+	<item id="1ef4">
+		<id>0x1ef4</id>
+        <category>Animations\Magic Face 2 (W/E)</category> 
+	</item>
+
+	<item id="1f1f">
+		<id>0x1f1f</id>
+        <category>Animations\Rotating Head</category> 
+	</item>
 </definitions>
 

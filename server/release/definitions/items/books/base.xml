@@ -10,7 +10,6 @@
 	<!-- Dont create this as a normal item -->
 	<item id="base_book" type="book">
 		<value>130</value>
-		<name>book</name>
 		<decay />
 		<weight>1.0</weight> <!-- A bit low i think -->
 		<type>11</type>
@@ -69,5 +68,36 @@
 		<inherit id="base_book" />
 		<id>0x0fbe</id>
 		<category>Equipment\Books\Book 7 (W/E)</category>
+	</item>
+
+	<item id="1e20" type="book">
+		<inherit id="base_book" />
+		<id>0x1e20</id>
+		<category>Equipment\Books\Book 8</category>
+	</item>
+
+	<item id="1e21">
+		<id>0x1e21</id>
+		<category>Equipment\Books\Books 1</category>
+	</item>
+
+	<item id="1e22">
+		<id>0x1e22</id>
+		<category>Equipment\Books\Books 2</category>
+	</item>
+
+	<item id="1e23">
+		<id>0x1e23</id>
+		<category>Equipment\Books\Books 3</category>
+	</item>
+
+	<item id="1e24">
+		<id>0x1e24</id>
+		<category>Equipment\Books\Books 4</category>
+	</item>
+
+	<item id="1e25">
+		<id>0x1e25</id>
+		<category>Equipment\Books\Books 5</category>
 	</item>
 </definitions>

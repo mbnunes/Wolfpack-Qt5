@@ -31,15 +31,7 @@
 		<id>0x13e4</id>
 		<category>Skill Items\Blacksmithing\Smith's Hammer (N/S)</category>
 	</item>
-	
-	<!-- Ingot -->
-	<item id="1bf2">
-		<id>0x1bf2</id>
-		<decay />
-		<value>10</value>
-		<weight>.20</weight>
-	</item>
-	
+		
 <!-- 
 =================================================================
 | CRAFTABLE ARMOR DEFINITIONS 					|

@@ -58,4 +58,9 @@
                 <id>0xD24</id>
                 <category>Vegetation\Fruits\Grapevines 10</category>
         </item>
+
+	<item id="3d12">
+		<id>0x3d12</id>
+                <category>Vegetation\Fruits\Grapevines 11</category>
+	</item>
 </definitions>

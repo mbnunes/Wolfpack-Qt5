@@ -80,6 +80,61 @@
 		<category>Buildings\Docks\Furled Rope (N/S)</category>
 	</item>
 
+	<item id="1e9a">
+		<id>0x1e9a</id>
+		<category>Buildings\Docks\Hook 1</category>
+	</item>
+
+	<item id="1e9b">
+		<id>0x1e9b</id>
+		<category>Buildings\Docks\Hook 2</category>
+	</item>
+
+	<item id="1e9c">
+		<id>0x1e9c</id>
+		<category>Buildings\Docks\Hook 3</category>
+	</item>
+
+	<item id="1e9d">
+		<id>0x1e9d</id>
+		<category>Buildings\Docks\Hook 4</category>
+	</item>
+
+	<item id="1e9e">
+		<id>0x1e9e</id>
+		<category>Buildings\Docks\Hook 5</category>
+	</item>
+
+	<item id="1e9f">
+		<id>0x1e9f</id>
+		<category>Buildings\Docks\Hook 6</category>
+	</item>
+
+	<item id="1ea0">
+		<id>0x1ea0</id>
+		<category>Buildings\Docks\Hook 7</category>
+	</item>
+
+	<item id="1ea8">
+		<id>0x1ea8</id>
+		<category>Buildings\Docks\Winch (N/S)</category>
+	</item>
+
+	<item id="1ea9">
+		<id>0x1ea9</id>
+		<category>Buildings\Docks\Winch (N/S) (Animated)</category>
+	</item>
+
+	<item id="1eac">
+		<id>0x1eac</id>
+		<category>Buildings\Docks\Winch (W/E)</category>
+	</item>
+
+	<item id="1ead">
+		<id>0x1ead</id>
+		<category>Buildings\Docks\Winch (W/E) (Animated)</category>
+	</item>
+
 	<!-- Ankhs -->
 	<item id="2">
 		<id>0x0002</id>
@@ -99,6 +154,26 @@
 	<item id="5">
 		<id>0x0005</id>
 		<category>Decoration\Ankhs\Ankh 4</category>
+	</item>
+
+	<item id="1d97">
+		<id>0x1d97</id>
+		<category>Decoration\Ankhs\Ankh of Sacrifice (W/E) (1/2)</category>
+	</item>
+
+	<item id="1d98">
+		<id>0x1d98</id>
+		<category>Decoration\Ankhs\Ankh of Sacrifice (W/E) (2/2)</category>
+	</item>
+
+	<item id="1e5c">
+		<id>0x1e5c</id>
+		<category>Decoration\Ankhs\Ankh of Sacrifice (N/S) (1/2)</category>
+	</item>
+
+	<item id="1e5d">
+		<id>0x1e5d</id>
+		<category>Decoration\Ankhs\Ankh of Sacrifice (N/S) (2/2)</category>
 	</item>
 
 	<!-- Suspension Bridge -->
@@ -562,6 +637,11 @@
                 <category>Buildings\Cracks\Wall Cracks 3</category> 
         </item>
 
+	<item id="1b6f">
+		<id>0x1b6f</id>
+                <category>Buildings\Cracks\Wall Cracks 4</category> 
+	</item>
+
 	<!-- Paintings & Tapestry -->
 	<item id="e9f">
 		<id>0x0e9f</id>
@@ -915,6 +995,46 @@
 		<category>Decoration\Mats &amp; Furs\Fur 4 (N/S)</category> 
 	</item>
 
+	<item id="1f73">
+		<id>0x1f73</id>
+		<category>Decoration\Mats &amp; Furs\Fur 5 (N/S) (1/2)</category> 
+	</item>
+
+	<item id="1f74">
+		<id>0x1f74</id>
+		<category>Decoration\Mats &amp; Furs\Fur 5 (N/S) (2/2)</category> 
+	</item>
+
+	<item id="1f75">
+		<id>0x1f75</id>
+		<category>Decoration\Mats &amp; Furs\Fur 5 (W/E) (1/2)</category> 
+	</item>
+
+	<item id="1f76">
+		<id>0x1f76</id>
+		<category>Decoration\Mats &amp; Furs\Fur 5 (W/E) (2/2)</category> 
+	</item>
+
+	<item id="1f77">
+		<id>0x1f77</id>
+		<category>Decoration\Mats &amp; Furs\Fur 6 (N/S) (1/2)</category> 
+	</item>
+
+	<item id="1f78">
+		<id>0x1f78</id>
+		<category>Decoration\Mats &amp; Furs\Fur 6 (N/S) (2/2)</category> 
+	</item>
+
+	<item id="1f79">
+		<id>0x1f79</id>
+		<category>Decoration\Mats &amp; Furs\Fur 6 (W/E) (1/2)</category> 
+	</item>
+
+	<item id="1f7a">
+		<id>0x1f7a</id>
+		<category>Decoration\Mats &amp; Furs\Fur 6 (W/E) (2/2)</category> 
+	</item>
+
 	<!-- Hammock &amp; Cots -->
 	<item id="11f0">
 		<id>0x11f0</id>
@@ -1143,6 +1263,11 @@
 		<category>Decoration\Statues\Small Statues\Pedestal</category>
 	</item>
 
+	<item id="1f2a">
+		<id>0x1f2a</id>
+		<category>Decoration\Statues\Small Statues\Small Pedestal</category>
+	</item>
+
 	<item id="1224">
 		<id>0x1224</id>
 		<category>Decoration\Statues\Small Statues\Statue 1 (W/E)</category>
@@ -1186,6 +1311,11 @@
 	<item id="1228">
 		<id>0x1228</id>
 		<category>Decoration\Statues\Small Statues\Statue 4 (W/E)</category>
+	</item>
+
+	<item id="1f18">
+		<id>0x1f18</id>
+		<category>Decoration\Statues\Small Statues\Statue 6</category>
 	</item>
 
 	<item id="12ca">
@@ -1298,6 +1428,21 @@
 		<category>Decoration\Statues\Statue 2 (W/E) (3/3)</category>
 	</item>
 
+	<item id="2a9e">
+		<id>0x2a9e</id>
+		<category>Decoration\Statues\Statue 6 (1/3)</category>
+	</item>
+
+	<item id="2a9f">
+		<id>0x2a9f</id>
+		<category>Decoration\Statues\Statue 6 (2/3)</category>
+	</item>
+
+	<item id="2aa0">
+		<id>0x2aa0</id>
+		<category>Decoration\Statues\Statue 6 (3/3)</category>
+	</item>
+
 	<!-- Decorative Armor -->
 	<item id="1508">
 		<id>0x1508</id>
@@ -1338,4 +1483,77 @@
 		<id>0x151d</id>
 		<category>Decoration\Decorative Armor\Decorative Armor 2 (N/S)</category>
 	</item>
+
+	<!-- Trophies -->
+
+	<item id="1e60">
+		<id>0x1e60</id>
+		<category>Decoration\Trophies\Bear (N/S)</category>
+	</item>
+
+	<item id="1e61">
+		<id>0x1e61</id>
+		<category>Decoration\Trophies\Deer (N/S)</category>
+	</item>
+
+	<item id="1e62">
+		<id>0x1e62</id>
+		<category>Decoration\Trophies\Fish (N/S)</category>
+	</item>
+
+	<item id="1e63">
+		<id>0x1e63</id>
+		<category>Decoration\Trophies\Gorilla (N/S)</category>
+	</item>
+
+	<item id="1e64">
+		<id>0x1e64</id>
+		<category>Decoration\Trophies\Orc (N/S)</category>
+	</item>
+
+	<item id="1e65">
+		<id>0x1e65</id>
+		<category>Decoration\Trophies\Polar Bear (N/S)</category>
+	</item>
+
+	<item id="1e66">
+		<id>0x1e66</id>
+		<category>Decoration\Trophies\Troll (N/S)</category>
+	</item>
+
+	<item id="1e67">
+		<id>0x1e67</id>
+		<category>Decoration\Trophies\Bear (W/E)</category>
+	</item>
+
+	<item id="1e68">
+		<id>0x1e68</id>
+		<category>Decoration\Trophies\Deer (W/E)</category>
+	</item>
+
+	<item id="1e69">
+		<id>0x1e69</id>
+		<category>Decoration\Trophies\Fish (W/E)</category>
+	</item>
+
+	<item id="1e6a">
+		<id>0x1e6a</id>
+		<category>Decoration\Trophies\Gorilla (W/E)</category>
+	</item>
+
+	<item id="1e6b">
+		<id>0x1e6b</id>
+		<category>Decoration\Trophies\Orc (W/E)</category>
+	</item>
+
+	<item id="1e6c">
+		<id>0x1e6c</id>
+		<category>Decoration\Trophies\Polar Bear (W/E)</category>
+	</item>
+
+	<item id="1e6d">
+		<id>0x1e6d</id>
+		<category>Decoration\Trophies\Troll (W/E)</category>
+	</item>
+
 </definitions>

@@ -621,6 +621,46 @@
                 <category>Buildings\Roofs\Palm Frond Roof\Roof 42</category>
         </item>
 
+	<item id="2180">
+		<id>0x2180</id>
+                <category>Buildings\Roofs\Palm Frond Roof\Roof 43</category>
+	</item>
+
+	<item id="2181">
+		<id>0x2181</id>
+                <category>Buildings\Roofs\Palm Frond Roof\Roof 44</category>
+	</item>
+
+	<item id="2182">
+		<id>0x2182</id>
+                <category>Buildings\Roofs\Palm Frond Roof\Roof 45</category>
+	</item>
+
+	<item id="2183">
+		<id>0x2183</id>
+                <category>Buildings\Roofs\Palm Frond Roof\Roof 46</category>
+	</item>
+
+	<item id="2184">
+		<id>0x2184</id>
+                <category>Buildings\Roofs\Palm Frond Roof\Roof 47</category>
+	</item>
+
+	<item id="2185">
+		<id>0x2185</id>
+                <category>Buildings\Roofs\Palm Frond Roof\Roof 48</category>
+	</item>
+
+	<item id="2186">
+		<id>0x2186</id>
+                <category>Buildings\Roofs\Palm Frond Roof\Roof 49</category>
+	</item>
+
+	<item id="2187">
+		<id>0x2187</id>
+                <category>Buildings\Roofs\Palm Frond Roof\Roof 50</category>
+	</item>
+
         <!-- Slate Roof 2 -->
         <item id="595">
                 <id>0x0595</id>
@@ -697,6 +737,46 @@
                 <category>Buildings\Roofs\Slate Roof 2\Roof 15</category>
         </item>
 
+	<item id="2178">
+		<id>0x2178</id>
+                <category>Buildings\Roofs\Slate Roof 2\Roof 16</category>
+	</item>
+
+	<item id="2179">
+		<id>0x2179</id>
+                <category>Buildings\Roofs\Slate Roof 2\Roof 17</category>
+	</item>
+
+	<item id="217a">
+		<id>0x217a</id>
+                <category>Buildings\Roofs\Slate Roof 2\Roof 18</category>
+	</item>
+
+	<item id="217b">
+		<id>0x217b</id>
+                <category>Buildings\Roofs\Slate Roof 2\Roof 19</category>
+	</item>
+
+	<item id="217c">
+		<id>0x217c</id>
+                <category>Buildings\Roofs\Slate Roof 2\Roof 20</category>
+	</item>
+
+	<item id="217d">
+		<id>0x217d</id>
+                <category>Buildings\Roofs\Slate Roof 2\Roof 21</category>
+	</item>
+
+	<item id="217e">
+		<id>0x217e</id>
+                <category>Buildings\Roofs\Slate Roof 2\Roof 22</category>
+	</item>
+
+	<item id="217f">
+		<id>0x217f</id>
+                <category>Buildings\Roofs\Slate Roof 2\Roof 23</category>
+	</item>
+
         <!-- Thatch Roof -->
         <item id="5a4">
                 <id>0x05a4</id>
@@ -772,6 +852,46 @@
                 <id>0x05b2</id>
                 <category>Buildings\Roofs\Thatch Roof\Roof 15</category>
         </item>
+
+	<item id="2148">
+		<id>0x2148</id>
+                <category>Buildings\Roofs\Thatch Roof\Roof 16</category>
+	</item>
+
+	<item id="2149">
+		<id>0x2149</id>
+                <category>Buildings\Roofs\Thatch Roof\Roof 17</category>
+	</item>
+
+	<item id="214a">
+		<id>0x214a</id>
+                <category>Buildings\Roofs\Thatch Roof\Roof 18</category>
+	</item>
+
+	<item id="214b">
+		<id>0x214b</id>
+                <category>Buildings\Roofs\Thatch Roof\Roof 19</category>
+	</item>
+
+	<item id="214c">
+		<id>0x214c</id>
+                <category>Buildings\Roofs\Thatch Roof\Roof 20</category>
+	</item>
+
+	<item id="214d">
+		<id>0x214d</id>
+                <category>Buildings\Roofs\Thatch Roof\Roof 21</category>
+	</item>
+
+	<item id="214e">
+		<id>0x214e</id>
+                <category>Buildings\Roofs\Thatch Roof\Roof 22</category>
+	</item>
+
+	<item id="214f">
+		<id>0x214f</id>
+                <category>Buildings\Roofs\Thatch Roof\Roof 23</category>
+	</item>
 
         <!-- Tile Roof -->
         <item id="5b3">
@@ -869,6 +989,46 @@
 			<category>Buildings\Roofs\Tile Roof\Roof 19</category>
 		</item>
 
+	<item id="21e9">
+		<id>0x21e9</id>
+			<category>Buildings\Roofs\Tile Roof\Roof 20</category>
+	</item>
+
+	<item id="21ea">
+		<id>0x21ea</id>
+			<category>Buildings\Roofs\Tile Roof\Roof 21</category>
+	</item>
+
+	<item id="21eb">
+		<id>0x21eb</id>
+			<category>Buildings\Roofs\Tile Roof\Roof 22</category>
+	</item>
+
+	<item id="21ec">
+		<id>0x21ec</id>
+			<category>Buildings\Roofs\Tile Roof\Roof 23</category>
+	</item>
+
+	<item id="21ed">
+		<id>0x21ed</id>
+			<category>Buildings\Roofs\Tile Roof\Roof 24</category>
+	</item>
+
+	<item id="21ee">
+		<id>0x21ee</id>
+			<category>Buildings\Roofs\Tile Roof\Roof 25</category>
+	</item>
+
+	<item id="21ef">
+		<id>0x21ef</id>
+			<category>Buildings\Roofs\Tile Roof\Roof 26</category>
+	</item>
+
+	<item id="21f0">
+		<id>0x21f0</id>
+			<category>Buildings\Roofs\Tile Roof\Roof 27</category>
+	</item>
+
         <!-- Wooden Shingle -->
         <item id="5c2">
                 <id>0x05c2</id>
@@ -944,6 +1104,46 @@
                 <id>0x05d0</id>
                 <category>Buildings\Roofs\Wooden Shingle\Roof 15</category>
         </item>
+
+	<item id="2170">
+		<id>0x2170</id>
+                <category>Buildings\Roofs\Wooden Shingle\Roof 16</category>
+	</item>
+
+	<item id="2171">
+		<id>0x2171</id>
+                <category>Buildings\Roofs\Wooden Shingle\Roof 17</category>
+	</item>
+
+	<item id="2172">
+		<id>0x2172</id>
+                <category>Buildings\Roofs\Wooden Shingle\Roof 18</category>
+	</item>
+
+	<item id="2173">
+		<id>0x2173</id>
+                <category>Buildings\Roofs\Wooden Shingle\Roof 19</category>
+	</item>
+
+	<item id="2174">
+		<id>0x2174</id>
+                <category>Buildings\Roofs\Wooden Shingle\Roof 20</category>
+	</item>
+
+	<item id="2175">
+		<id>0x2175</id>
+                <category>Buildings\Roofs\Wooden Shingle\Roof 21</category>
+	</item>
+
+	<item id="2176">
+		<id>0x2176</id>
+                <category>Buildings\Roofs\Wooden Shingle\Roof 22</category>
+	</item>
+
+	<item id="2177">
+		<id>0x2177</id>
+                <category>Buildings\Roofs\Wooden Shingle\Roof 23</category>
+	</item>
 
         <!-- Log Roof -->
         <item id="5f0">

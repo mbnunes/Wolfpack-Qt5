@@ -74,4 +74,34 @@
 		<type>1008</type>
 		<value>500</value>
 	</item>
+
+	<item id="1bc3">
+		<id>0x1bc3</id>
+		<type>1008</type>
+		<category>Armors\Shields\Chaos Shield</category>
+	</item>
+
+	<item id="1bc4">
+		<id>0x1bc4</id>
+		<type>1008</type>
+		<category>Armors\Shields\Order Shield (N/S)</category>
+	</item>
+
+	<item id="1bc5">
+		<inherit id="1bc4" />
+		<id>0x1bc5</id>
+		<category>Armors\Shields\Order Shield (W/E)</category>
+	</item>
+
+	<item id="1bc6">
+		<type>1008</type>
+		<id>0x1bc6</id>
+		<category>Armors\Shields\Scale Shield (W/E)</category>
+	</item>
+
+	<item id="1bc7">
+		<inherit id="1bc6" />
+		<id>0x1bc7</id>
+		<category>Armors\Shields\Scale Shield (N/S)</category>
+	</item>
 </definitions>

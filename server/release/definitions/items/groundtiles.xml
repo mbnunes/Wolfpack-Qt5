@@ -390,11 +390,23 @@
 		<id>0x3459</id>
 	<category>Ground Tiles\Lava\Misc\Blob\Lava 4</category>
 	</item>
+	<item id="1a75">
+		<id>0x1a75</id>
+	<category>Ground Tiles\Lava\Misc\Blob\Lava 5</category>
+	</item>
 
+	<item id="2ae4">
+		<id>0x2ae4</id>
+	<category>Ground Tiles\Lava\Misc\Blob\Lava 6</category>
+	</item>
 
-<!-- Lava: not animated border -->
+	<item id="2ae5">
+		<id>0x2ae5</id>
+		<category>Ground Tiles\Lava\Misc\Blob\Lava 7</category>
+	</item>
 
-        <item id="3286">
+	<!-- Lava: not animated border -->
+    <item id="3286">
 		<id>0x3286</id>
 	<category>Ground Tiles\Lava\Not animated\Border\Lava 1</category>
 	</item>
@@ -594,6 +606,111 @@
 	<category>Ground Tiles\Lava\Not animated\Border\Lava 40</category>	
 	</item>
 
+	<item id="354d">
+		<id>0x354d</id>
+	<category>Ground Tiles\Lava\Not animated\Border\Lava 41</category>	
+	</item>
+
+	<item id="354e">
+		<id>0x354e</id>
+	<category>Ground Tiles\Lava\Not animated\Border\Lava 42</category>	
+	</item>
+
+	<item id="354f">
+		<id>0x354f</id>
+	<category>Ground Tiles\Lava\Not animated\Border\Lava 43</category>	
+	</item>
+
+	<item id="3550">
+		<id>0x3550</id>
+	<category>Ground Tiles\Lava\Not animated\Border\Lava 44</category>	
+	</item>
+
+	<item id="3551">
+		<id>0x3551</id>
+	<category>Ground Tiles\Lava\Not animated\Border\Lava 45</category>	
+	</item>
+
+	<item id="3552">
+		<id>0x3552</id>
+	<category>Ground Tiles\Lava\Not animated\Border\Lava 46</category>	
+	</item>
+
+	<item id="3553">
+		<id>0x3553</id>
+	<category>Ground Tiles\Lava\Not animated\Border\Lava 47</category>	
+	</item>
+
+	<item id="3554">
+		<id>0x3554</id>
+	<category>Ground Tiles\Lava\Not animated\Border\Lava 48</category>	
+	</item>
+
+	<item id="3555">
+		<id>0x3555</id>
+	<category>Ground Tiles\Lava\Not animated\Border\Lava 49</category>	
+	</item>
+
+	<item id="3556">
+		<id>0x3556</id>
+	<category>Ground Tiles\Lava\Not animated\Border\Lava 50</category>	
+	</item>
+
+	<item id="3557">
+		<id>0x3557</id>
+	<category>Ground Tiles\Lava\Not animated\Border\Lava 51</category>	
+	</item>
+
+	<item id="3558">
+		<id>0x3558</id>
+	<category>Ground Tiles\Lava\Not animated\Border\Lava 52</category>	
+	</item>
+
+	<item id="3559">
+		<id>0x3559</id>
+	<category>Ground Tiles\Lava\Not animated\Border\Lava 53</category>	
+	</item>
+
+	<item id="355a">
+		<id>0x355a</id>
+	<category>Ground Tiles\Lava\Not animated\Border\Lava 54</category>	
+	</item>
+
+	<item id="355b">
+		<id>0x355b</id>
+	<category>Ground Tiles\Lava\Not animated\Border\Lava 55</category>	
+	</item>
+
+	<item id="355c">
+		<id>0x355c</id>
+	<category>Ground Tiles\Lava\Not animated\Border\Lava 56</category>	
+	</item>
+
+	<item id="355d">
+		<id>0x355d</id>
+	<category>Ground Tiles\Lava\Not animated\Border\Lava 57</category>	
+	</item>
+
+	<item id="355e">
+		<id>0x355e</id>
+	<category>Ground Tiles\Lava\Not animated\Border\Lava 58</category>	
+	</item>
+
+	<item id="355f">
+		<id>0x355f</id>
+	<category>Ground Tiles\Lava\Not animated\Border\Lava 59</category>	
+	</item>
+
+	<item id="3560">
+		<id>0x3560</id>
+	<category>Ground Tiles\Lava\Not animated\Border\Lava 60</category>	
+	</item>
+
+	<item id="3561">
+		<id>0x3561</id>
+	<category>Ground Tiles\Lava\Not animated\Border\Lava 61</category>	
+	</item>
+
 	
 	
 <!-- Lava: Not animated  -->
@@ -619,6 +736,39 @@
 	</item>
 
 
+	<item id="3547">
+		<id>0x3547</id>
+	<category>Ground Tiles\Lava\Not animated\Lava 5</category>
+	</item>
+
+	<item id="3548">
+		<id>0x3548</id>
+	<category>Ground Tiles\Lava\Not animated\Lava 6</category>
+
+	</item>
+
+	<item id="3549">
+		<id>0x3549</id>
+	<category>Ground Tiles\Lava\Not animated\Lava 7</category>
+
+	</item>
+
+	<item id="354a">
+		<id>0x354a</id>
+	<category>Ground Tiles\Lava\Not animated\Lava 8</category>
+
+	</item>
+
+	<item id="354b">
+		<id>0x354b</id>
+	<category>Ground Tiles\Lava\Not animated\Lava 9</category>
+
+	</item>
+
+	<item id="354c">
+		<id>0x354c</id>
+	<category>Ground Tiles\Lava\Not animated\Lava 10</category>
+	</item>
 
 <!-- Water:Animated tiles -->
 
@@ -2620,5 +2770,454 @@
 	<item id="17ce">
 		<id>0x17ce</id>
 		<category>Ground Tiles\Snow\Snow 6</category>
+	</item>
+
+	<!-- Dirt -->
+	<item id="1b27">
+		<id>0x1b27</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 1</category>
+	</item>
+
+	<item id="1b28">
+		<id>0x1b28</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 2</category>
+	</item>
+
+	<item id="1b29">
+		<id>0x1b29</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 3</category>
+	</item>
+
+	<item id="1b2a">
+		<id>0x1b2a</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 4</category>
+	</item>
+
+	<item id="1b2b">
+		<id>0x1b2b</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 5</category>
+	</item>
+
+	<item id="1b2c">
+		<id>0x1b2c</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 6</category>
+	</item>
+
+	<item id="1b2d">
+		<id>0x1b2d</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 7</category>
+	</item>
+
+	<item id="1b2e">
+		<id>0x1b2e</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 8</category>
+	</item>
+
+	<item id="1b2f">
+		<id>0x1b2f</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 9</category>
+	</item>
+
+	<item id="1b30">
+		<id>0x1b30</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 10</category>
+	</item>
+
+	<item id="1b31">
+		<id>0x1b31</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 11</category>
+	</item>
+
+	<item id="1b32">
+		<id>0x1b32</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 12</category>
+	</item>
+
+	<item id="1b33">
+		<id>0x1b33</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 13</category>
+	</item>
+
+	<item id="1b34">
+		<id>0x1b34</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 14</category>
+	</item>
+
+	<item id="1b35">
+		<id>0x1b35</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 15</category>
+	</item>
+
+	<item id="1b36">
+		<id>0x1b36</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 16</category>
+	</item>
+
+	<item id="1b37">
+		<id>0x1b37</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 17</category>
+	</item>
+
+	<item id="1b38">
+		<id>0x1b38</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 18</category>
+	</item>
+
+	<item id="1b39">
+		<id>0x1b39</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 19</category>
+	</item>
+
+	<item id="1b3a">
+		<id>0x1b3a</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 20</category>
+	</item>
+
+	<item id="1b3b">
+		<id>0x1b3b</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 21</category>
+	</item>
+
+	<item id="1b3c">
+		<id>0x1b3c</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 22</category>
+	</item>
+
+	<item id="1b3d">
+		<id>0x1b3d</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 23</category>
+	</item>
+
+	<item id="1b3e">
+		<id>0x1b3e</id>
+		<category>Ground Tiles\Dirt\Transparent Dirt 24</category>
+	</item>
+	
+	<item id="1dfd">
+		<id>0x1dfd</id>
+		<category>Ground Tiles\Dirt\Spilled Dirt 1</category>
+	</item>
+
+	<item id="1dfe">
+		<id>0x1dfe</id>
+		<category>Ground Tiles\Dirt\Spilled Dirt 2</category>
+	</item>
+
+	<item id="1dff">
+		<id>0x1dff</id>
+		<category>Ground Tiles\Dirt\Spilled Dirt 3</category>
+	</item>
+
+	<item id="1e00">
+		<id>0x1e00</id>
+		<category>Ground Tiles\Dirt\Spilled Dirt 4</category>
+	</item>
+
+	<item id="1e01">
+		<id>0x1e01</id>
+		<category>Ground Tiles\Dirt\Mud 1</category>
+	</item>
+
+	<item id="1e02">
+		<id>0x1e02</id>
+		<category>Ground Tiles\Dirt\Mud 2</category>
+	</item>
+
+	<item id="1e03">
+		<id>0x1e03</id>
+		<category>Ground Tiles\Dirt\Footprints 1</category>
+	</item>
+
+	<item id="1e04">
+		<id>0x1e04</id>
+		<category>Ground Tiles\Dirt\Footprints 2</category>
+	</item>
+
+	<item id="1e05">
+		<id>0x1e05</id>
+		<category>Ground Tiles\Dirt\Footprints 3</category>
+	</item>
+
+	<item id="1e06">
+		<id>0x1e06</id>
+		<category>Ground Tiles\Dirt\Footprints 4</category>
+	</item>
+
+	<item id="1e07">
+		<id>0x1e07</id>
+		<category>Ground Tiles\Dirt\Stain 1</category>
+	</item>
+
+	<item id="1e08">
+		<id>0x1e08</id>
+		<category>Ground Tiles\Dirt\Stain 2</category>
+	</item>
+
+	<item id="1e09">
+		<id>0x1e09</id>
+		<category>Ground Tiles\Dirt\Stain 3</category>
+	</item>
+
+	<item id="1e0a">
+		<id>0x1e0a</id>
+		<category>Ground Tiles\Dirt\Stain 4</category>
+	</item>
+
+	<item id="1e0b">
+		<id>0x1e0b</id>
+		<category>Ground Tiles\Dirt\Stain 5</category>
+	</item>
+
+	<item id="1e0c">
+		<id>0x1e0c</id>
+		<category>Ground Tiles\Dirt\Stain 6</category>
+	</item>
+
+	<item id="1e0d">
+		<id>0x1e0d</id>
+		<category>Ground Tiles\Dirt\Stain 7</category>
+	</item>
+
+	<item id="1e0e">
+		<id>0x1e0e</id>
+		<category>Ground Tiles\Dirt\Stain 8</category>
+	</item>
+
+	<item id="31f4">
+		<id>0x31f4</id>
+		<category>Ground Tiles\Dirt\Dirt 1</category>
+	</item>
+
+	<item id="31f5">
+		<id>0x31f5</id>
+		<category>Ground Tiles\Dirt\Dirt 2</category>
+	</item>
+
+	<item id="31f6">
+		<id>0x31f6</id>
+		<category>Ground Tiles\Dirt\Dirt 3</category>
+	</item>
+
+	<item id="31f7">
+		<id>0x31f7</id>
+		<category>Ground Tiles\Dirt\Dirt 4</category>
+	</item>
+
+	<item id="31f8">
+		<id>0x31f8</id>
+		<category>Ground Tiles\Dirt\Dirt 5</category>
+	</item>
+
+	<item id="31f9">
+		<id>0x31f9</id>
+		<category>Ground Tiles\Dirt\Dirt 6</category>
+	</item>
+
+	<item id="31fa">
+		<id>0x31fa</id>
+		<category>Ground Tiles\Dirt\Dirt 7</category>
+	</item>
+
+	<item id="31fb">
+		<id>0x31fb</id>
+		<category>Ground Tiles\Dirt\Dirt 8</category>
+	</item>
+
+	<item id="32c9">
+		<id>0x32c9</id>
+		<category>Ground Tiles\Dirt\Dirt 9</category>
+	</item>
+
+	<item id="32ca">
+		<id>0x32ca</id>
+		<category>Ground Tiles\Dirt\Dirt 10</category>
+	</item>
+
+	<!-- Refuse -->
+	<item id="1b9f">
+		<id>0x1b9f</id>
+		<category>Ground Tiles\Refuse\Refuse 1</category>
+	</item>
+
+	<item id="1ba0">
+		<id>0x1ba0</id>
+		<category>Ground Tiles\Refuse\Refuse 2</category>
+	</item>
+
+	<item id="1ba1">
+		<id>0x1ba1</id>
+		<category>Ground Tiles\Refuse\Refuse 3</category>
+	</item>
+
+	<item id="1ba2">
+		<id>0x1ba2</id>
+		<category>Ground Tiles\Refuse\Refuse 4</category>
+	</item>
+
+	<item id="1ba3">
+		<id>0x1ba3</id>
+		<category>Ground Tiles\Refuse\Refuse 5</category>
+	</item>
+
+	<item id="1ba4">
+		<id>0x1ba4</id>
+		<category>Ground Tiles\Refuse\Refuse 6</category>
+	</item>
+
+	<item id="1ba5">
+		<id>0x1ba5</id>
+		<category>Ground Tiles\Refuse\Refuse 7</category>
+	</item>
+
+	<item id="1ba6">
+		<id>0x1ba6</id>
+		<category>Ground Tiles\Refuse\Refuse 8</category>
+	</item>
+
+	<item id="1ba7">
+		<id>0x1ba7</id>
+		<category>Ground Tiles\Refuse\Refuse 9</category>
+	</item>
+
+	<item id="1ba8">
+		<id>0x1ba8</id>
+		<category>Ground Tiles\Refuse\Refuse 10</category>
+	</item>
+
+	<item id="1ba9">
+		<id>0x1ba9</id>
+		<category>Ground Tiles\Refuse\Refuse 11</category>
+	</item>
+
+	<item id="1baa">
+		<id>0x1baa</id>
+		<category>Ground Tiles\Refuse\Refuse 12</category>
+	</item>
+
+	<item id="1bab">
+		<id>0x1bab</id>
+		<category>Ground Tiles\Refuse\Refuse 13</category>
+	</item>
+
+	<item id="1bac">
+		<id>0x1bac</id>
+		<category>Ground Tiles\Refuse\Refuse 14</category>
+	</item>
+
+	<item id="1bad">
+		<id>0x1bad</id>
+		<category>Ground Tiles\Refuse\Refuse 15</category>
+	</item>
+
+	<item id="1bae">
+		<id>0x1bae</id>
+		<category>Ground Tiles\Refuse\Refuse 16</category>
+	</item>
+
+	<item id="1baf">
+		<id>0x1baf</id>
+		<category>Ground Tiles\Refuse\Refuse 17</category>
+	</item>
+
+	<item id="1bb0">
+		<id>0x1bb0</id>
+		<category>Ground Tiles\Refuse\Refuse 18</category>
+	</item>
+
+	<item id="1bb1">
+		<id>0x1bb1</id>
+		<category>Ground Tiles\Refuse\Refuse 19</category>
+	</item>
+
+	<item id="1bb2">
+		<id>0x1bb2</id>
+		<category>Ground Tiles\Refuse\Refuse 20</category>
+	</item>
+
+	<item id="1bb4">
+		<id>0x1bb4</id>
+		<category>Ground Tiles\Refuse\Refuse 21</category>
+	</item>
+
+	<item id="1bb5">
+		<id>0x1bb5</id>
+		<category>Ground Tiles\Refuse\Refuse 22</category>
+	</item>
+
+	<item id="1bb6">
+		<id>0x1bb6</id>
+		<category>Ground Tiles\Refuse\Refuse 23</category>
+	</item>
+
+	<item id="1bb7">
+		<id>0x1bb7</id>
+		<category>Ground Tiles\Refuse\Refuse 24</category>
+	</item>
+
+	<item id="1bb8">
+		<id>0x1bb8</id>
+		<category>Ground Tiles\Refuse\Refuse 25</category>
+	</item>
+
+	<item id="1bb9">
+		<id>0x1bb9</id>
+		<category>Ground Tiles\Refuse\Refuse 26</category>
+	</item>
+
+	<item id="1bba">
+		<id>0x1bba</id>
+		<category>Ground Tiles\Refuse\Refuse 27</category>
+	</item>
+
+	<item id="1bbb">
+		<id>0x1bbb</id>
+		<category>Ground Tiles\Refuse\Refuse 28</category>
+	</item>
+
+	<item id="1bbc">
+		<id>0x1bbc</id>
+		<category>Ground Tiles\Refuse\Refuse 29</category>
+	</item>
+
+	<item id="1bbd">
+		<id>0x1bbd</id>
+		<category>Ground Tiles\Refuse\Refuse 30</category>
+	</item>
+	
+	<!-- Stars -->
+	<item id="213f">
+		<id>0x213f</id>
+		<category>Ground Tiles\Stars\Stars 1</category>
+	</item>
+
+	<item id="2140">
+		<id>0x2140</id>
+		<category>Ground Tiles\Stars\Stars 2</category>
+	</item>
+
+	<item id="2141">
+		<id>0x2141</id>
+		<category>Ground Tiles\Stars\Stars 3</category>
+	</item>
+
+	<item id="2142">
+		<id>0x2142</id>
+		<category>Ground Tiles\Stars\Stars 4</category>
+	</item>
+
+	<item id="2143">
+		<id>0x2143</id>
+		<category>Ground Tiles\Stars\Stars 5</category>
+	</item>
+
+	<item id="2144">
+		<id>0x2144</id>
+		<category>Ground Tiles\Stars\Stars 6</category>
+	</item>
+
+	<!-- Misc -->
+	<item id="337a">
+		<id>0x337a</id>
+		<category>Ground Tiles\Misc\Forest</category>
 	</item>
 </definitions>

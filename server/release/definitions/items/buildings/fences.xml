@@ -30,6 +30,26 @@
 		<category>Buildings\Fences\Wooden Fence 1\Fence 4</category>
 	</item>
 
+	<item id="21d1">
+		<id>0x21d1</id>
+		<category>Buildings\Fences\Wooden Fence 1\Fence 5</category>
+	</item>
+
+	<item id="21d2">
+		<id>0x21d2</id>
+		<category>Buildings\Fences\Wooden Fence 1\Fence 6</category>
+	</item>
+
+	<item id="21d3">
+		<id>0x21d3</id>
+		<category>Buildings\Fences\Wooden Fence 1\Fence 7</category>
+	</item>
+
+	<item id="21d4">
+		<id>0x21d4</id>
+		<category>Buildings\Fences\Wooden Fence 1\Fence 8</category>
+	</item>
+
 	<!-- Rails -->
 	<item id="7d7">
 		<id>0x07d7</id>

@@ -785,4 +785,34 @@
 		<id>0x0ef9</id>
 		<category>Skill Items\Magery\Scroll 6 (N/S)</category>
 	</item>
+
+	<item id="1f6d">
+		<id>0x1f6d</id>
+		<category>Skill Items\Magery\Scroll 7 (N/S)</category>
+	</item>
+
+	<item id="1f6e">
+		<id>0x1f6e</id>
+		<category>Skill Items\Magery\Scroll 7 (W/E)</category>
+	</item>
+
+	<item id="1f6f">
+		<id>0x1f6f</id>
+		<category>Skill Items\Magery\Scroll 8 (N/S)</category>
+	</item>
+
+	<item id="1f70">
+		<id>0x1f70</id>
+		<category>Skill Items\Magery\Scroll 8 (W/E)</category>
+	</item>
+
+	<item id="1f71">
+		<id>0x1f71</id>
+		<category>Skill Items\Magery\Scroll 9 (N/S)</category>
+	</item>
+
+	<item id="1f72">
+		<id>0x1f72</id>
+		<category>Skill Items\Magery\Scroll 9 (W/E)</category>
+	</item>
 </definitions>

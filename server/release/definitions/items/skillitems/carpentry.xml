@@ -107,4 +107,64 @@
 		<id>0x10e7</id>
 		<category>Skill Items\Carpentry\Scorp</category>
 	</item>
+
+	<item id="1bd7">
+		<id>0x1bd7</id>
+		<category>Skill Items\Carpentry\Board (N/S)</category>
+	</item>
+
+	<item id="1bd8">
+		<id>0x1bd8</id>
+		<category>Skill Items\Carpentry\Boards 1 (N/S)</category>
+	</item>
+
+	<item id="1bd9">
+		<id>0x1bd9</id>
+		<category>Skill Items\Carpentry\Boards 2 (N/S)</category>
+	</item>
+
+	<item id="1bda">
+		<id>0x1bda</id>
+		<category>Skill Items\Carpentry\Board (W/E)</category>
+	</item>
+
+	<item id="1bdb">
+		<id>0x1bdb</id>
+		<category>Skill Items\Carpentry\Boards 1 (W/E)</category>
+	</item>
+
+	<item id="1bdc">
+		<id>0x1bdc</id>
+		<category>Skill Items\Carpentry\Boards 2 (W/E)</category>
+	</item>
+
+	<item id="1bdd">
+		<id>0x1bdd</id>
+		<category>Skill Items\Carpentry\Log (W/E)</category>
+	</item>
+
+	<item id="1bde">
+		<id>0x1bde</id>
+		<category>Skill Items\Carpentry\Logs 1 (W/E)</category>
+	</item>
+
+	<item id="1bdf">
+		<id>0x1bdf</id>
+		<category>Skill Items\Carpentry\Logs 2 (W/E)</category>
+	</item>
+
+	<item id="1be0">
+		<id>0x1be0</id>
+		<category>Skill Items\Carpentry\Log (N/S)</category>
+	</item>
+
+	<item id="1be1">
+		<id>0x1be1</id>
+		<category>Skill Items\Carpentry\Logs 1 (N/S)</category>
+	</item>
+
+	<item id="1be2">
+		<id>0x1be2</id>
+		<category>Skill Items\Carpentry\Logs 2 (N/S)</category>
+	</item>
 </definitions>
