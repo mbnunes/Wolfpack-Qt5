@@ -183,7 +183,7 @@ def domining( time, args ):
 
 	resourcecount = veingem.gettag( 'resourcecount' )
 	reqskill = oretable[ resname ][ REQSKILL ]
-	chance = int( ( oretable[ resname ][ REQSKILL ] - oretable[ resname ][ MINSKILL ] ) / 10 )
+	chance = int( ( char.skill[ MINING ] - oretable[ resname ][ MINSKILL ] ) / 10 )
 	if chance > 100:
 		chance = 100
 	elif chance < 0:
@@ -206,8 +206,7 @@ def domining( time, args ):
 			if resourcecount >= 5: # Digs up the large ore.
 				successmining( char, veingem, oretable, resname, 1, oredefs[3] )
 			elif resourcecount == 3 or resourcecount == 4: # Picks one of the smaller ore types
-				randomore = randint( 1, 2 )
-				successmining( char, veingem, oretable, resname, 1, oredefs[randomore] )
+				successmining( char, veingem, oretable, resname, 1, oredefs[randint( 1, 2 )] )
 			elif resourcecount == 1 or resourcecount == 2: # Smallest ore only
 				successmining( char, veingem, oretable, resname, 1, oredefs[0] )
 			# tool durability drain

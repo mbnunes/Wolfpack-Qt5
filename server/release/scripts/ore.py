@@ -274,7 +274,6 @@ def dosmelt ( char, args ):
 	elif chance < 0:
 		chance  = 0
 
-
 	if not char.skill[ MINING ] >= reqskill:
 		# You have no idea how to smelt this strange ore!
 		char.socket.clilocmessage( 501986, '', GRAY )

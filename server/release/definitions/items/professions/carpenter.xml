@@ -379,61 +379,74 @@
 	<item id="1bd7">
 		<id>0x1bd7</id>
 		<category>Professions\Carpenter\Board (N/S)</category>
+		<tag name="resname" value="plainwood" />
 	</item>
 
 	<item id="1bd8">
 		<id>0x1bd8</id>
 		<category>Professions\Carpenter\Boards 1 (N/S)</category>
+		<tag name="resname" value="plainwood" />
 	</item>
 
 	<item id="1bd9">
 		<id>0x1bd9</id>
 		<category>Professions\Carpenter\Boards 2 (N/S)</category>
+		<tag name="resname" value="plainwood" />
 	</item>
 
 	<item id="1bda">
 		<id>0x1bda</id>
 		<category>Professions\Carpenter\Board (W/E)</category>
+		<tag name="resname" value="plainwood" />
 	</item>
 
 	<item id="1bdb">
 		<id>0x1bdb</id>
 		<category>Professions\Carpenter\Boards 1 (W/E)</category>
+		<tag name="resname" value="plainwood" />
 	</item>
 
 	<item id="1bdc">
 		<id>0x1bdc</id>
 		<category>Professions\Carpenter\Boards 2 (W/E)</category>
+		<tag name="resname" value="plainwood" />
 	</item>
 
 	<item id="1bdd">
 		<id>0x1bdd</id>
 		<category>Professions\Carpenter\Log (W/E)</category>
+		<tag name="resname" value="plainwood" />
 	</item>
 
 	<item id="1bde">
 		<id>0x1bde</id>
 		<category>Professions\Carpenter\Logs 1 (W/E)</category>
+		<tag name="resname" value="plainwood" />
 	</item>
 
 	<item id="1bdf">
 		<id>0x1bdf</id>
 		<category>Professions\Carpenter\Logs 2 (W/E)</category>
+		<tag name="resname" value="plainwood" />
 	</item>
 
 	<item id="1be0">
 		<id>0x1be0</id>
 		<weight>2.0</weight>
 		<category>Professions\Carpenter\Log (N/S)</category>
+		<tag name="resname" value="plainwood" />
 	</item>
 
 	<item id="1be1">
 		<id>0x1be1</id>
 		<category>Professions\Carpenter\Logs 1 (N/S)</category>
+		<tag name="resname" value="plainwood" />
 	</item>
 
 	<item id="1be2">
 		<id>0x1be2</id>
 		<category>Professions\Carpenter\Logs 2 (N/S)</category>
+		<tag name="resname" value="plainwood" />
 	</item>
+
 </definitions>
