@@ -1890,9 +1890,12 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		sendStats.setArmor( pChar->calcDefense( ALLBODYPARTS ) );
 		sendStats.setSex( true );
 		
-		sendStats.setPets( _player->followers().size() );
-		sendStats.setMaxPets( 0xFF );
-		sendStats.setStatCap( SrvParams->statcap() );
+		if( sendStats[2] == 0x46 )
+		{
+			sendStats.setPets( _player->followers().size() );
+			sendStats.setMaxPets( 0xFF );
+			sendStats.setStatCap( SrvParams->statcap() );
+		}
 	}
 
 	send( &sendStats );
