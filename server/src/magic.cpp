@@ -173,7 +173,7 @@ void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
 			pj = FindItemBySerial(vecContainer[ci]);
-			if (pj->type==9 && pj->layer==1)
+			if ( pj->type == 9 && pj->layer() == 1 )
 			{
 				pi=pj;
 				break;
@@ -192,7 +192,7 @@ void cMagic::SpellBook(UOXSOCKET s, P_ITEM pi)
 		return;
 	}
 
-	if (pi->layer!=1) senditem(s,pi); // prevents crash if pack not open
+	if( pi->layer() != 1 ) senditem(s,pi); // prevents crash if pack not open
 
 	unsigned char sbookstart[8]="\x24\x40\x01\x02\x03\xFF\xFF";
 	LongToCharPtr(pi->serial, &sbookstart[1]);
@@ -1515,7 +1515,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
 			pj = FindItemBySerial(vecContainer[ci]);
-			if (type!=2 && (pj->layer==2||(pj->layer==1 && pj->type!=9 )))
+			if (type!=2 && (pj->layer()==2||(pj->layer()==1 && pj->type!=9 )))
 			{
 				if (!(pj->id()==0x13F9 || pj->id()==0x0E8A || pj->id()==0x0DF0 || pj->id()==0x0DF2
 					|| IsChaosOrOrderShield(pj->id()) ))

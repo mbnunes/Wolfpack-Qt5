@@ -414,7 +414,7 @@ void wearIt(const UOXSOCKET s, const P_ITEM pi)
 {
 	LongToCharPtr(pi->serial,wearitem+1);
 	ShortToCharPtr(pi->id(),wearitem+5);
-	wearitem[8]=pi->layer;
+	wearitem[8]=pi->layer();
 	LongToCharPtr(pi->contserial,wearitem+9);
 	ShortToCharPtr(pi->color(), &wearitem[13]);
 	Xsend(s, wearitem, 15);
@@ -651,7 +651,7 @@ void backpack2(int s, SERIAL serial) // Send corpse stuff
 	for ( ci = 0; ci < vecContainer.size(); ++ci)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->layer!=0)
+		if (pi->layer()!=0)
 		{
 			++count;
 		}
@@ -665,9 +665,9 @@ void backpack2(int s, SERIAL serial) // Send corpse stuff
 	for ( ci = 0; ci < vecContainer.size(); ++ci)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->layer!=0)
+		if (pi->layer()!=0)
 		{
-			display2[0]=pi->layer;
+			display2[0]=pi->layer();
 			LongToCharPtr(pi->serial, &display2[1]);
 			Xsend(s, display2, 5);
 		}
@@ -685,7 +685,7 @@ void backpack2(int s, SERIAL serial) // Send corpse stuff
 	for ( ci = 0; ci < vecContainer.size(); ++ci)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->layer!=0)
+		if (pi->layer()!=0)
 		{
 			LongToCharPtr(pi->serial, &bpitem[0]);
 			ShortToCharPtr(pi->id(),bpitem+4);
@@ -1090,11 +1090,11 @@ void sendperson_lsd(UOXSOCKET s, P_CHAR pc, char color1, char color2)
 		{
 			if (pc->Wears(pi_j) && (!pi_j->free))
 			{
-				if ( layers[pi_j->layer] == 0 )
+				if ( layers[pi_j->layer()] == 0 )
 				{
 					LongToCharPtr(pi_j->serial,oc+k+0);
 					ShortToCharPtr(pi_j->id(),oc+k+4);
-					oc[k+6]=pi_j->layer;
+					oc[k+6]=pi_j->layer();
 					k += 7;
 					if /*(pi_j->color1!=0 || pi_j->color2!=0)*/ (1==1)
 					{
@@ -1128,7 +1128,7 @@ void sendperson_lsd(UOXSOCKET s, P_CHAR pc, char color1, char color2)
 						}
 						k=k+2;
 					}
-					layers[pi_j->layer] = 1;
+					layers[pi_j->layer()] = 1;
 				}
 				else
 				{
@@ -2720,11 +2720,11 @@ void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 		if (pi != NULL)
 			if (pc->Wears(pi) && !pi->free)
 			{
-				if ( layers[pi->layer] == 0 )
+				if ( layers[pi->layer()] == 0 )
 				{
 					LongToCharPtr(pi->serial,oc+k+0);
 					ShortToCharPtr(pi->id(),oc+k+4);
-					oc[k+6]=pi->layer;
+					oc[k+6]=pi->layer();
 					k=k+7;
 					if ( pi->color() != 0 )
 					{
@@ -2732,14 +2732,14 @@ void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 						ShortToCharPtr(pi->color(), &oc[k+0]);
 						k=k+2;
 					}
-					layers[pi->layer] = 1;
+					layers[pi->layer()] = 1;
 				}
 				else
 				{
 #ifdef DEBUG
-					ConOut("Double layer (%i) on Item (%i) on Char (%i)\n", pi->layer , j , i);
+					ConOut("Double layer (%i) on Item (%i) on Char (%i)\n", pi->layer() , j , i);
 					sprintf(temp, "Double layer (%i) on Item (%2x %2x %2x %2x) on Char (%2x %2x %2x %2x)\n",
-						pi->layer, pi->ser1, pi->ser2, pi->ser3, pi->ser4,
+						pi->layer(), pi->ser1, pi->ser2, pi->ser3, pi->ser4,
 						pc->ser1, pc->ser2, pc->ser3, pc->ser4);
 					sysbroadcast(temp);
 #endif
@@ -2859,7 +2859,7 @@ int sellstuff(int s, P_CHAR pc)
 	{
 		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
 		if (pi != NULL)
-			if ((pi->contserial==serial) && (pi->layer==0x1C))
+			if ((pi->contserial==serial) && (pi->layer()==0x1C))
 			{
 				sellcont = pi;
 				break;

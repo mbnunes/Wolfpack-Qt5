@@ -611,7 +611,7 @@ void cTargets::IstatsTarget(int s)
 				pi->serial, pi->id(),
 				pi->name().ascii(),pi->name2().ascii(),pi->color,
 				contstr,
-				pi->layer,pi->type,pi->magic,
+				pi->layer(),pi->type,pi->magic,
 				pi->more1,pi->more2,pi->more3,pi->more4,
 				pi->pos.x,pi->pos.y,pi->pos.z,pi->amount, pi->priv);
 			sysmessage(s, (char*)temp);
@@ -692,7 +692,7 @@ static void MoveBelongingsToBp(P_CHAR pc, P_CHAR pc_c)
 			return;
 		pc->packitem = pPack->serial; 
 		pPack->SetContSerial(pc_c->serial);
-		pPack->layer=0x15;
+		pPack->setLayer( 0x15 );
 		pPack->type=1;
 		pPack->dye=1;
 	}
@@ -703,10 +703,10 @@ static void MoveBelongingsToBp(P_CHAR pc, P_CHAR pc_c)
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->layer!=0x15 && pi->layer!=0x1D &&
-			pi->layer!=0x10 && pi->layer!=0x0B && (!pi->free))
+		if (pi->layer() != 0x15 && pi->layer() != 0x1D &&
+			pi->layer() != 0x10 && pi->layer() != 0x0B && (!pi->free))
 		{
-			if ((pi->trigon==1) && (pi->trigtype==2) && (pi->layer<19))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
+			if ((pi->trigon==1) && (pi->trigtype==2) && (pi->layer()<19))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 			{
 				Trig->triggerwitem(calcSocketFromChar(pc_c), pi, 1); // trigger is fired
 			}
@@ -714,12 +714,12 @@ static void MoveBelongingsToBp(P_CHAR pc, P_CHAR pc_c)
 			pi->pos.y=(rand()%80)+50;
 			pi->pos.z=9;
 			pi->SetContSerial(pPack->serial);
-			pi->layer=0x00;
+			pi->setLayer( 0x00 );
 			SndRemoveitem(pi->serial);
 			RefreshItem(pi);
 		}
 		else if (pc->Wears(pi) &&
-			(pi->layer==0x0B || pi->layer==0x10))	// hair & beard (Duke)
+			(pi->layer()==0x0B || pi->layer()==0x10))	// hair & beard (Duke)
 		{
 			Items->DeleItem(pi);
 		}
@@ -825,7 +825,7 @@ static void KillTarget(P_CHAR pc, int ly)
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->layer==ly)
+		if (pi->layer()==ly)
 		{
 			Items->DeleItem(pi);
 		}
@@ -1580,7 +1580,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		P_ITEM pi = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA0,0,0,0);
 		if(pi == NULL) return;
 		pi->SetContSerial(pi3->serial);
-		pi->layer=0x01;
+		pi->setLayer( 0x01 );
 		pi->att=5;
 
 		//AntiChrist & Magius(CHE) - store item's owner, so that lately
@@ -1592,7 +1592,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		P_ITEM pi4 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1C,0xED,0,0,0);
 		if(pi4 == NULL) return;
 		pi4->SetContSerial(pi3->serial);
-		pi4->layer=0x01;
+		pi4->setLayer( 0x01 );
 		pi4->att=5;
 		pi4->setOwnSerialOnly(pi3->ownserial);	// see above
 
@@ -1601,7 +1601,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		P_ITEM pi5 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xAD,0,0,0);
 		if(pi5 == NULL) return;
 		pi5->SetContSerial(pi3->serial);
-		pi5->layer=0x01;
+		pi5->setLayer( 0x01 );
 		pi5->att=5;
 		pi5->setOwnSerialOnly(pi3->ownserial);	// see above
 
@@ -1610,7 +1610,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		P_ITEM pi6 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA1,0,0,0);
 		if(pi6==NULL) return;
 		pi6->SetContSerial(pi3->serial);
-		pi6->layer=0x01;
+		pi6->setLayer( 0x01 );
 		pi6->att=5;
 		pi6->setOwnSerialOnly(pi3->ownserial);	// see above
 
@@ -1619,7 +1619,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		P_ITEM pi7 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA2,0,0,0);
 		if(pi7==NULL) return;//AntiChrist to preview crashes
 		pi7->SetContSerial(pi3->serial);
-		pi7->layer=0x01;
+		pi7->setLayer( 0x01 );
 		pi7->att=5;
 		pi7->setOwnSerialOnly(pi3->ownserial);	// see above
 
@@ -1628,7 +1628,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		P_ITEM pi8 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA3,0,0,0);
 		if(pi8 == NULL) return;//AntiChrist to preview crashes
 		pi8->SetContSerial(pi3->serial);
-		pi8->layer=0x01;
+		pi8->setLayer( 0x01 );
 		pi8->att=5;
 		pi8->setOwnSerialOnly(pi3->ownserial);	// see above
 
@@ -1638,7 +1638,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		if(pi9==NULL) return;
 		
 		pi9->SetContSerial(pi3->serial);
-		pi9->layer=0x01;
+		pi9->setLayer( 0x01 );
 		pi9->att=5;
 		pi9->setOwnSerialOnly(pi3->ownserial);	// see above
 
@@ -1668,7 +1668,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 					P_ITEM pi10 = Items->CreateScriptItem(s,storeval,0);
 					if (pi10 == NULL)
 						return;
-					pi10->layer=0;
+					pi10->setLayer( 0x00 );
 					pi10->SetContSerial(pi3->serial);
 					pi10->pos.x=20+(rand()%50);
 					pi10->pos.y=85+(rand()%75);
@@ -2675,7 +2675,7 @@ void cTargets::GmOpenTarget(int s)
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->layer==addmitem[s])
+		if( pi->layer() == addmitem[s] )
 		{
 			backpack(s, pi->serial);
 			return;
@@ -2854,11 +2854,11 @@ int cTargets::BuyShop(UOXSOCKET s, P_CHAR pc)
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->layer==0x1A)
+		if( pi->layer() == 0x1A )
 		{
 			pCont1=pi;
 		}
-		else if (pi->layer==0x1B)
+		else if( pi->layer() == 0x1B )
 		{
 			pCont2=pi;
 		}
@@ -3122,9 +3122,9 @@ bool cTargets::NpcResurrectTarget(P_CHAR pc)
 		for (iterItems.Begin(); !iterItems.atEnd();iterItems++)
 		{
 			P_ITEM pj = iterItems.GetData();
-			if (pc->Wears(pj) && pj->layer==0x1A)
+			if (pc->Wears(pj) && pj->layer()==0x1A)
 			{
-				pj->layer=0x15;
+				pj->setLayer( 0x15 );
 				pc->packitem = pj->serial;	//Tauriel packitem speedup
 				//break;
 			}
@@ -3139,7 +3139,7 @@ bool cTargets::NpcResurrectTarget(P_CHAR pc)
 				P_ITEM pi = Items->SpawnItem(pc, 1, "a robe", 0, 0x1F03, 0, 0);
 				if(!pi) return false;
 				pi->SetContSerial(pc->serial);
-				pi->layer=0x16;
+				pi->setLayer( 0x16 );
 				pi->dye=1;
 				break;
 			}
@@ -3702,8 +3702,8 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 	pi2->setOwnerMovable();
 
 	mapRegions->Remove(pi2); // remove if add in spawnitem
-	pi2->layer=pi1->layer;
-	if (pi2->layer==0) // if not equipped -> coords of the light-object = coords of the
+	pi2->setLayer( pi1->layer() );
+	if( pi2->layer() == 0 ) // if not equipped -> coords of the light-object = coords of the
 	{
 		pi2->pos.x=pi1->pos.x;
 		pi2->pos.y=pi1->pos.y;
@@ -4091,7 +4091,7 @@ void cTargets::MoveToBagTarget(int s)
 	pi->pos.x=50+rand()%80;
 	pi->pos.y=50+rand()%80;
 	pi->pos.z=9;
-	pi->layer=0x00;
+	pi->setLayer( 0x00 );
 	pi->decaytime=0;//reset decaytimer
 	
 	SndRemoveitem(pi->serial);

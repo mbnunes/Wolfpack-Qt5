@@ -865,7 +865,7 @@ void wornitems(UOXSOCKET s, P_CHAR pc) // Send worn items of player j
 		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi != NULL && !pi->free)
 		{
-			if (pi->layer==0x19)
+			if (pi->layer()==0x19)
 				pc->onhorse = true;
 			wearIt(s,pi);
 		}
@@ -1125,11 +1125,11 @@ void deathstuff(P_CHAR pc_player)
 		pi_j = FindItemBySerial(vecContainer[ci]);
 		// for BONUS ITEMS - remove bonus
 		pc_player->removeItemBonus(pi_j);
-		if ((pi_j->trigon==1) && (pi_j->layer >0) && (pi_j->layer!=15) && (pi_j->layer<19))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
+		if ((pi_j->trigon==1) && (pi_j->layer() >0) && (pi_j->layer()!=15) && (pi_j->layer()<19))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 		{
 			Trig->triggerwitem(z, pi_j, 1); // trigger is fired when item destroyed
 		}
-		if ((pi_j->contserial== pc_player->serial) && (pi_j->layer!=0x0B) && (pi_j->layer!=0x10))
+		if ((pi_j->contserial== pc_player->serial) && (pi_j->layer()!=0x0B) && (pi_j->layer()!=0x10))
 		{//Let's check all items, except HAIRS and BEARD
 			// Ripper...so order/chaos shields disappear when on corpse backpack.
 			if( pi_j->id() == 0x1BC3 || pi_j->id() == 0x1BC4 )
@@ -1138,8 +1138,8 @@ void deathstuff(P_CHAR pc_player)
 				staticeffect(pc_player, 0x37, 0x2A, 0x09, 0x06);
 				Items->DeleItem( pi_j );
 			}
-			if (pi_j->type==1 && pi_j->layer!=0x1A && pi_j->layer!=0x1B &&
-				pi_j->layer!=0x1C && pi_j->layer!=0x1D)
+			if (pi_j->type==1 && pi_j->layer()!=0x1A && pi_j->layer()!=0x1B &&
+				pi_j->layer()!=0x1C && pi_j->layer()!=0x1D)
 			{//if this is a pack but it's not a VendorContainer(like the buy container) or a bankbox
 				unsigned int ci1;
 				vector<SERIAL> vecContainer = contsp.getData(pi_j->serial);
@@ -1148,7 +1148,7 @@ void deathstuff(P_CHAR pc_player)
 					P_ITEM pi_k = FindItemBySerial(vecContainer[ci1]);
 					if ( (!(pi_k->priv&0x02)) && (pi_k->type!=9))//Morrolan spellbook disappearance fix
 					{//put the item in the corpse only of we're sure it's not a newbie item or a spellbook
-						pi_k->layer=0;
+						pi_k->setLayer( 0 );
 						pi_k->SetContSerial(pi_c->serial);
 						pi_k->SetRandPosInCont(pi_c);
 						// Ripper...so order/chaos shields disappear when on corpse backpack.
@@ -1162,7 +1162,7 @@ void deathstuff(P_CHAR pc_player)
 					}
 				}
 			}
-			else if (pi_j->layer==0x1A)
+			else if (pi_j->layer()==0x1A)
 			{//else if it's a NPC vendor special container
 				clearmsg[0]=0x3B;
 				clearmsg[1]=0x00;
@@ -1173,29 +1173,31 @@ void deathstuff(P_CHAR pc_player)
 					if (perm[l] && inrange1p(pc_player, currchar[l]))
 						Xsend(l, clearmsg, 8);
 			}//else if it's a normal item but ( not newbie and not bank items )
-			else if ((!(pi_j->priv&0x02)) && pi_j->layer!=0x1D)
+			else if ((!(pi_j->priv&0x02)) && pi_j->layer()!=0x1D)
 			{
 				if (pi_j != pi_backpack)
 				{
 					pi_j->SetContSerial(pi_c->serial);
 				}
 			}
-			else if(pi_backpack != NULL && pi_j->layer!=0x1D)
+			else if(pi_backpack != NULL && pi_j->layer()!=0x1D)
 			{//else if the item is newbie put it into char's backpack
 				if(pi_j != pi_backpack)
 				{
-					pi_j->layer = 0;
+					pi_j->setLayer( 0 );
 					pi_j->SetContSerial(pi_backpack->serial);
 				}
 			}
-			if ((pi_j->layer==0x15)&&(pc_player->shop==0)) pi_j->layer=0x1A;
+			if ((pi_j->layer()==0x15)&&(pc_player->shop==0)) 
+				pi_j->setLayer( 0x1A );
+
 			pi_j->pos.x = RandomNum(20, 70);
 			pi_j->pos.y = RandomNum(85, 160);
 			pi_j->pos.z=9;
 			SndRemoveitem(pi_j->serial);
 			RefreshItem(pi_j);//AntiChrist
 		}
-		if ((pi_j->contserial == pc_player->serial)&& ((pi_j->layer==0x0B)||(pi_j->layer==0x10)))
+		if ((pi_j->contserial == pc_player->serial)&& ((pi_j->layer()==0x0B)||(pi_j->layer()==0x10)))
 		{
 			pi_j->setName( "Hair/Beard" );
 			pi_j->pos.x=0x47;
@@ -1210,7 +1212,7 @@ void deathstuff(P_CHAR pc_player)
 		if(pi_c == NULL) return;
 		pc_player->robe = pi_c->serial;
 		pi_c->SetContSerial(pc_player->serial);
-		pi_c->layer=0x16;
+		pi_c->setLayer( 0x16 );
 		pi_c->def=1;
 	}
 	if (SrvParams->showDeathAnim())
@@ -1344,7 +1346,7 @@ void usehairdye(UOXSOCKET s, P_ITEM piDye)	// x is the hair dye bottle object nu
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if(pi->layer==0x10 || pi->layer==0x0B)//beard(0x10) and hair
+		if(pi->layer()==0x10 || pi->layer()==0x0B)//beard(0x10) and hair
 		{
 			pi->setColor( piDye->color() );	//Now change the color to the hair dye bottle color!
 			RefreshItem(pi);
@@ -1845,7 +1847,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 			pi->setColor( 0x044E );
 		}
 		pi->SetContSerial(pc->serial);
-		pi->layer=0x0B;
+		pi->setLayer( 0x0B );
 	}
 
 	if ( (validbeard(buffer[s][0x56],buffer[s][0x57])) && (pc->id2==0x90) )
@@ -1857,7 +1859,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 			pi->setColor( 0x044E );
 		}
 		pi->SetContSerial(pc->serial);
-		pi->layer=0x10;
+		pi->setLayer( 0x10 );
 	}
 
 	{	// just to limit the scope of pi
@@ -1867,7 +1869,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 		return;
 	pc->packitem = pi->serial;
 	pi->SetContSerial(pc->serial);
-	pi->layer=0x15;
+	pi->setLayer( 0x15 );
 	pi->type=1;
 	pi->dye=1;
 	}
@@ -1881,23 +1883,23 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	case 0:
 		if ((pc->id() == 0x0190) && (pc->xid == 0x0190))
 		{
-			pi->setId(0x1539);
-			pi->layer=0x04; // pant
+			pi->setId( 0x1539 );
+			pi->setLayer( 0x04 ); // pant
 		} else
 		{
-			pi->setId(0x1516);
-			pi->layer=23; //skirt
+			pi->setId( 0x1516 );
+			pi->setLayer( 23 ); //skirt
 		}
 		break;
 	case 1:
 		if ((pc->id() == 0x0190) && (pc->xid == 0x0190))
 		{
 			pi->setId(0x152E);
-			pi->layer=0x04;
+			pi->setLayer( 0x04 );
 		} else
 		{
 			pi->setId(0x1537);
-			pi->layer=23;
+			pi->setLayer( 23 );
 		}
 		break;
 	}
@@ -1924,7 +1926,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	pi->setColor( static_cast<unsigned short>(buffer[s][100]<<8) + buffer[s][101] );
 
 	pi->SetContSerial(pc->serial);
-	pi->layer=0x05;
+	pi->setLayer( 0x05 );
 	pi->dye=1;
 	pi->hp=10;
 	pi->def=1;
@@ -1935,7 +1937,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	const P_ITEM pi = Items->SpawnItem(s,pc,1,"#",0,0x17,0x0F,0x0287,0,0); // shoes
 	if(pi == NULL) return;//AntiChrist to preview crashes
 	pi->SetContSerial(pc->serial);
-	pi->layer=0x03;
+	pi->setLayer( 0x03 );
 	pi->dye=1;
 	pi->hp=10;
 	pi->def=1;
@@ -1946,7 +1948,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	const P_ITEM pi = Items->SpawnItem(s,pc,1,"#",0,0x0F,0x51,0,0,0); // dagger
 	if(pi == NULL) return;
 	pi->SetContSerial(pc->serial);
-	pi->layer=0x01;
+	pi->setLayer( 0x01 );
 	//pi->att=5;
 	pi->hp=10;
 	pi->spd=50;
@@ -1980,7 +1982,7 @@ int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn ne
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->layer == 0x19 && !pi->free)
+		if (pi->layer() == 0x19 && !pi->free)
 		{
 			//////////////////////////////////////
 			// Lets 'unstable' the mount.
@@ -2368,7 +2370,7 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 		}
 		
 		pi->SetContSerial(pc_currchar->serial);
-		pi->layer = 0x19;
+		pi->setLayer( 0x19 );
 		Coord_cl pos(pc_currchar->pos);
 		pos.x = pc_mount->fx1;
 		pos.y = pc_mount->fy1;
@@ -3748,7 +3750,7 @@ void openbank(int s, P_CHAR pc_i)
 	sprintf((char*)temp, "%s's bank box.", pc_i->name.c_str());
 	const P_ITEM pic = Items->SpawnItem(s, pc_i, 1, (char*)temp,0,0x09,0xAB,0,0,0);
 	if ( pic == NULL ) return;
-	pic->layer=0x1d;
+	pic->setLayer( 0x1d );
 	pic->SetOwnSerial(pc_i->serial);
 	pic->SetContSerial(pc_i->serial);
 	pic->morex=1;
@@ -3804,7 +3806,7 @@ void openspecialbank(int s, P_CHAR pc)
 	sprintf((char*)temp, "%s's items bank box.", pc->name.c_str());
 	const P_ITEM pic = Items->SpawnItem(s, pc,1,(char*)temp,0,0x09,0xAB,0,0,0);
 	if(pic == NULL) return;
-	pic->layer=0x1d;
+	pic->setLayer( 0x1d );
 	pic->SetOwnSerial(pc->serial);
 	pic->SetContSerial(pc->serial);
 	pic->morex=1;
@@ -6141,7 +6143,7 @@ void RefreshItem(P_ITEM pi)//Send this item to all online people in range
 	{
 		LongToCharPtr(pi->serial,wearitem+1);
 		ShortToCharPtr(pi->id(),wearitem+5);
-		wearitem[8]=pi->layer;
+		wearitem[8]=pi->layer();
 		LongToCharPtr(pi->contserial,wearitem+9);
 		ShortToCharPtr(pi->color(), wearitem+13);
 		P_CHAR charcont = FindCharBySerial(pi->contserial);

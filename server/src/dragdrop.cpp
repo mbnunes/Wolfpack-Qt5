@@ -103,11 +103,11 @@ static void item_bounce3(const P_ITEM pi)
 {
 	pi->SetContSerial(pi->oldcontserial);
 	pi->pos = pi->oldpos;
-	pi->layer=pi->oldlayer;
+	pi->setLayer( pi->oldlayer );
 	pi->flags.isBeeingDragged=false;
 	P_CHAR pc = FindCharBySerial(pi->oldcontserial);
 
-	if (pi->layer > 0 && pc != NULL)
+	if (pi->layer() > 0 && pc != NULL)
 	{
 		pc->st += pi->st2;
 		pc->chgDex(pi->dx2);
@@ -188,7 +188,7 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 				// ANTICHRIST -- SECURE TRADE FIX
 				if (px != NULL) // LB overwriting x is essential here, dont change it!!!
 				{
-					if (px->layer == 0 && px->id() == 0x1E5E)
+					if (px->layer() == 0 && px->id() == 0x1E5E)
 					{
 						// Trade window???
 						serial = calcserial(px->moreb1, px->moreb2, px->moreb3, px->moreb4);
@@ -252,11 +252,11 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 		// End Boats Change
 		
 		// AntiChrist -- for poisoned items
-		if (px->layer>0)
+		if( px->layer() > 0 )
 		{
 			npc->removeItemBonus(px);	// remove BONUS STATS given by equipped special items
 		}
-		if ((px->trigon==1) && (px->layer != 0) && (px->layer != 15) && (px->layer < 19))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
+		if ((px->trigon==1) && (px->layer() != 0) && (px->layer() != 15) && (px->layer() < 19))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 		{
 			Trig->triggerwitem(s, pi, 1); // trigger is fired
 		}	
@@ -283,9 +283,9 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 				
 				pi->oldpos = pi->pos;	// first let's save the position
 				pi->oldcontserial = pi->contserial;	// then let's save the container
-				pi->oldlayer = pi->layer;	// then the layer
+				pi->oldlayer = pi->layer();	// then the layer
 				
-				pi->layer = 0;
+				pi->setLayer( 0 );
 				if (!pi->isInWorld())
 					soundeffect(s, 0x00, 0x57);
 				if ( pi->amount() > 1 )
@@ -466,7 +466,7 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 			if (pi2 == NULL) return;
 			if (pi2->contserial == serial)
 			{
-				if (pi2->layer == tile.layer)
+				if (pi2->layer() == tile.layer)
 				{
  					sysmessage(s, "You already have an armor equipped!");
 					letsbounce = 1;
@@ -525,7 +525,7 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 			}
 		}
 		pi->SetContSerial(LongFromCharPtr(buffer[s]+6));
-		pi->layer=buffer[s][5];
+		pi->setLayer( buffer[s][5] );
 		// AntiChrist - now the STAT BONUS works -
 		pc_currchar->st = (pc_currchar->st + pi->st2);
 		pc_currchar->chgDex(pi->dx2);
@@ -535,13 +535,13 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 			Trig->triggerwitem(s, pi, 1); // trigger is fired
 		}	
 		// AntiChrist -- for poisoned items
-		if (showlayer)	clConsole.send("Item equipped on layer %i.\n",pi->layer);
+		if (showlayer)	clConsole.send("Item equipped on layer %i.\n",pi->layer() );
 		
 		SndRemoveitem(pi->serial);
 		
 		LongToCharPtr(pi->serial,wearitem+1);
 		ShortToCharPtr(pi->id(),wearitem+5);
-		wearitem[8]=pi->layer;
+		wearitem[8]=pi->layer();
 		LongToCharPtr(pi->contserial,wearitem+9);
 		ShortToCharPtr(pi->color(), &wearitem[13]);
 		Xsend(s, wearitem, 15);
@@ -1133,7 +1133,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 		return;
 	}
 
-	if (pCont->layer==0 && pCont->id() == 0x1E5E &&	pc_currchar->Wears(pCont))
+	if( pCont->layer() == 0 && pCont->id() == 0x1E5E &&	pc_currchar->Wears( pCont ) )
 	{
 		// Trade window???
 		serial=calcserial(pCont->moreb1, pCont->moreb2, pCont->moreb3, pCont->moreb4);

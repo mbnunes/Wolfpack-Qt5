@@ -185,7 +185,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 	{// in a character.
 		P_CHAR pc_p = FindCharBySerial(pi->contserial);
 		if (pc_p != NULL)
-			if (pc_p != pc_currchar && pi->layer != 15 && pi->type != 1)
+			if( pc_p != pc_currchar && pi->layer() != 15 && pi->type != 1 )
 				return;
 	}
 	
@@ -226,9 +226,9 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		sysmessage(s, "You may not do that as a ghost.");
 		return;
 	}
-	else if (!pc_currchar->isGM() && pi->layer != 0 && !pc_currchar->Wears(pi))
+	else if (!pc_currchar->isGM() && pi->layer() != 0 && !pc_currchar->Wears(pi))
 	{// can't use other people's things!
-		if (!(pi->layer == 0x15  && SrvParams->stealingEnabled())) // bugfix for snooping not working, LB
+		if (!(pi->layer() == 0x15  && SrvParams->stealingEnabled())) // bugfix for snooping not working, LB
 		{
 			sysmessage(s, "You cannot use items equipped by other players.");
 			return;
@@ -460,7 +460,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		return;// case 8/64 (locked container)
 	case 9: // spellbook
 		pc_currchar->objectdelay = 0;
-		if ((pi->contserial == pc_currchar->packitem) || pc_currchar->Wears(pi) &&(pi->layer == 1))
+		if ((pi->contserial == pc_currchar->packitem) || pc_currchar->Wears(pi) &&(pi->layer() == 1))
 		{
 			Magic->SpellBook(s, pi);
 		}
@@ -581,7 +581,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		return; // case 14 (food)
 	case 15: // -Fraz- Modified and tuned up, Wands must now be equipped or in pack
 		{
-			if ((pi->contserial == pc_currchar->packitem) || pc_currchar->Wears(pi) &&(pi->layer == 1))
+			if ((pi->contserial == pc_currchar->packitem) || pc_currchar->Wears(pi) &&(pi->layer() == 1))
 			{
 				if (pi->morez != 0)
 				{
@@ -918,7 +918,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				P_ITEM pBackpack = Packitem(pc_currchar);
 				if ( pBackpack != NULL )
 				{
-					if ((pi->contserial == pBackpack->serial) || pc_currchar->Wears(pi) &&(pi->layer == 1))
+					if ((pi->contserial == pBackpack->serial) || pc_currchar->Wears(pi) &&(pi->layer() == 1))
 					{
 						if (pi->morex <= 0)
 						{

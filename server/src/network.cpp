@@ -610,7 +610,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 		const P_ITEM pi = FindItemBySerial(vecContainer[i]);
 		if (pi != NULL)
 		{
-			if (pi->contserial==serial && (pi->layer==0x15))
+			if (pi->contserial==serial && (pi->layer()==0x15))
 			{
 				pc_currchar->packitem = pi->serial;
 			}
@@ -1429,7 +1429,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 							{
 								P_ITEM ci = FindItemBySerial(vecContainer[i]);
 								if ( ci != NULL ) //lb
-									if ((ci->contserial==serial) && (ci->layer==1))
+									if ((ci->contserial==serial) && (ci->layer()==1))
 									{
 										pj = ci;
 									}

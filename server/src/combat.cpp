@@ -57,7 +57,7 @@ int cCombat::GetBowType(P_CHAR pc)
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->layer==1 || pi->layer==2)
+		if( pi->layer() == 1 || pi->layer() == 2 )
 		{
 			switch( pi->id() )
 			{
@@ -172,7 +172,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 		if(pWeapon->hp<=0)
 		{
 			sysmessage(s1, tr("Your weapon has been destroyed"));
-			if ((pWeapon->trigon==1) && (pWeapon->layer>0))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
+			if ( ( pWeapon->trigon == 1 ) && ( pWeapon->layer() > 0 ) )// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 			{
 				Trig->triggerwitem(s1, pWeapon, 1); // trigger is fired when item destroyed
 			}				
@@ -290,7 +290,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 					if(pShield->hp<=0)
 					{
 						sysmessage(s2, tr("Your shield has been destroyed"));
-						if ((pShield->trigon==1) && (pShield->layer >0))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
+						if ( ( pShield->trigon == 1 ) && ( pShield->layer() > 0 ) )// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 						{
 							Trig->triggerwitem(s2, pShield, 1); // trigger is fired when item destroyed
 						}	
@@ -942,7 +942,7 @@ int cCombat::CalcAtt(P_CHAR pc_p) // Calculate total attack powerer
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->layer==1 || pi->layer==2)
+		if( pi->layer() == 1 || pi->layer() == 2 )
 		{
 			if (pi->lodamage == pi->hidamage) total+=pi->lodamage;
 			else if ((pi->lodamage>0)&&(pi->hidamage>0))
@@ -977,7 +977,7 @@ int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power
 		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
 			pi = FindItemBySerial(vecContainer[ci]);
-			if (pi != NULL && pi->layer>1 && pi->layer<25) 
+			if( pi != NULL && pi->layer() > 1 && pi->layer() < 25 ) 
 			{ 
 				//blackwinds new stuff 
 				int armordef=0; 
@@ -991,7 +991,7 @@ int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power
 					total+=pi->def; 
 				else 
 				{ 
-					switch (pi->layer) 
+					switch( pi->layer() ) 
 					{ 
 					case 5: 
 					case 13: 
@@ -1057,7 +1057,7 @@ int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power
 		//AntiChrist - don't damage hairs, beard and backpack 
 		//important! this sometimes cause backpack destroy! 
 		// 
-		if(pj->layer!=0x0B && pj->layer!=0x10 && pj->layer!=0x15) // bugfix lB,was 0x15, 0x15,0x15 !! 
+		if(pj->layer()!=0x0B && pj->layer()!=0x10 && pj->layer()!=0x15) // bugfix lB,was 0x15, 0x15,0x15 !! 
 		{ 
 			if((rand()%2)==0) 
 				pj->hp--; //Take off a hit point 
@@ -1066,7 +1066,7 @@ int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power
 				sysmessage(k, tr("Your %1 has been destroyed").arg(pj->getName()));
 				pc->removeItemBonus(pj);	// remove BONUS STATS given by equipped special items
 				//-Frazurbluu-  need to have tactics bonus removed also
-				if ((pj->trigon==1) && (pj->layer >0))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
+				if ((pj->trigon==1) && (pj->layer() >0))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 				{
 					Trig->triggerwitem(k, pj, 1); // trigger is fired when item destroyed
 				}
@@ -1302,7 +1302,7 @@ void cCombat::ItemSpell(cChar* Attacker, cChar* Defender)
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if (((pi->layer==1 && pi->type!=9) || (pi->layer==2)))
+		if ( ( ( pi->layer() == 1 && pi->type != 9 ) || (pi->layer() == 2 ) ) )
 		{
 			if (pi->offspell && (pi->att||pi->hidamage) && pi->type == 15)
 			{

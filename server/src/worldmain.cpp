@@ -1393,7 +1393,7 @@ static void decay1(P_ITEM pi, P_ITEM pItem)
 			if( pi_j != NULL )
 			{
 				if ((pi_j->contserial==pi->serial) &&
-					(pi_j->layer!=0x0B)&&(pi_j->layer!=0x10))
+					(pi_j->layer()!=0x0B)&&(pi_j->layer()!=0x10))
 				{
 					pi_j->SetContSerial(-1);
 					pi_j->moveTo(pi->pos);
@@ -1434,11 +1434,11 @@ void swapDragInfo(P_ITEM pi)
 
 	tmpPos=pi->pos;
 	tmpSer=pi->contserial;
-	tmpLayer=pi->layer;
+	tmpLayer=pi->layer();
 
 	pi->pos = pi->oldpos;
 	pi->contserial=pi->oldcontserial;
-	pi->layer=pi->oldlayer;
+	pi->setLayer( pi->oldlayer );
 
 	pi->oldpos = tmpPos;
 	pi->oldcontserial=tmpSer;
@@ -1584,7 +1584,7 @@ bool CWorldMain::RemoveItemsFromCharBody( int charserial, int type1, int type2 )
 
  		if (pci != NULL)
  		{
-			if( ( pci->layer == 0x01 || pci->layer == 0x02 ) && ( pci->contserial == serial ) )
+			if( ( pci->layer() == 0x01 || pci->layer() == 0x02 ) && ( pci->contserial == serial ) )
  			{
  				// in first hand, or second hand
  				if( ( pci->id() >> 8 ) == type1 && ( pci->id()&0x00FF ) == type2 )

@@ -70,7 +70,7 @@ cItem::cItem( cItem &src )
 	this->color_ = src.color_;
 	this->SetContSerial(src.contserial);
 	this->oldcontserial=INVALID_SERIAL;
-	this->layer = this->oldlayer = src.layer;
+	this->layer_ = this->oldlayer = src.layer_;
 	this->itmhand = src.itmhand;
 	this->type = src.type;
 	this->type2 = src.type2;
@@ -439,7 +439,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("sk_name",		madewith);
 		archive.read("color",		color_);
 		archive.read("cont",		contserial);
-		archive.read("layer",		layer);
+		archive.read("layer",		layer_);
 		archive.read("itemhand",	itmhand);
 		archive.read("type",		type);
 		archive.read("type2",		type2);
@@ -512,7 +512,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("sk_name",	madewith);
 		archive.write("color",		color());
 		archive.write("cont",		contserial);
-		archive.write("layer",		layer);
+		archive.write("layer",		layer_);
 		archive.write("itemhand",	itmhand);
 		archive.write("type",		type);
 		archive.write("type2",		type2);
@@ -698,7 +698,7 @@ void cItem::Init(bool mkser)
 	this->color_ = 0x00; // Hue
 	this->contserial = INVALID_SERIAL; // Container that this item is found in
 	this->oldcontserial=INVALID_SERIAL;
-	this->layer=this->oldlayer=0; // Layer if equipped on paperdoll
+	this->layer_ = this->oldlayer = 0; // Layer if equipped on paperdoll
 	this->itmhand=0; // Layer if equipped on paperdoll
 	this->type=0; // For things that do special things on doubleclicking
 	this->type2=0;
@@ -964,7 +964,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 				case 'L':
 				case 'l':
 					if (!strcmp("LAYER", (char*)script1) && (so==-1))
-						pi->layer = str2num(script2);
+						pi->setLayer( str2num(script2) );
 					else if (!strcmp("LODAMAGE", (char*)script1))
 						pi->lodamage = str2num(script2);
 					break;
@@ -1465,7 +1465,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 					if (!(strcmp("INT", (char*)script1))) pi->in=str2num(script2);
 					else if (!(strcmp("INTADD", (char*)script1))) pi->in2=str2num(script2);
 					else if (!(strcmp("ITEMHAND",(char*)script1))) pi->itmhand=str2num(script2);
-					else if (!(strcmp("LAYER",(char*)script1))) pi->layer=str2num(script2);
+					else if (!(strcmp("LAYER",(char*)script1))) pi->setLayer( str2num(script2) );
 					else if (!(strcmp("LODAMAGE", (char*)script1))) pi->lodamage=str2num(script2);
 				break;
 
@@ -1908,7 +1908,7 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 			
 			//Subtract stats bonus and poison
 			pc_p->removeItemBonus(pi);
-			if ((pi->trigon==1) && (pi->layer >0))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
+			if ((pi->trigon==1) && (pi->layer() >0))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 			{
 				Trig->triggerwitem(calcSocketFromChar(pc_p), pi, 1); // trigger is fired when unequipped? sorry this needs checked
 			}
@@ -1972,7 +1972,7 @@ void cAllItems::applyItemSection( P_ITEM Item, QString Section )
 		// <name>my Item</name>
 		if( TagName == "name" )
 			Item->setName( Value );
-
+		 
 		// <identified>my magic item</identified>
 		else if( TagName == "identified" )
 			Item->setName2( Value.latin1() );
@@ -2025,7 +2025,7 @@ void cAllItems::applyItemSection( P_ITEM Item, QString Section )
 
 		// <layer>10</layer>
 		else if( TagName == "layer" )
-			Item->layer = Value.toUShort();
+			Item->setLayer( Value.toShort() );
 
 		// <durability>10</durabilty>
 		else if( TagName == "durability" )

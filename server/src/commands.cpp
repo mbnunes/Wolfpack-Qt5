@@ -279,7 +279,7 @@ void cCommands::MakeShop(P_CHAR pc_c)
 		if(p1A)
 		{
 			p1A->SetContSerial(pc_c->serial);
-			p1A->layer=0x1A;
+			p1A->setLayer( 0x1A );
 			p1A->type=1;
 			p1A->priv |= 0x02;
 		}
@@ -291,7 +291,7 @@ void cCommands::MakeShop(P_CHAR pc_c)
 		if(p1B)
 		{
 			p1B->SetContSerial(pc_c->serial);
-			p1B->layer=0x1B;
+			p1B->setLayer( 0x1B );
 			p1B->type=1;
 			p1B->priv |= 0x02;
 		}
@@ -303,7 +303,7 @@ void cCommands::MakeShop(P_CHAR pc_c)
 		if(p1C)
 		{
 			p1C->SetContSerial(pc_c->serial);
-			p1C->layer=0x1C;
+			p1C->setLayer( 0x1C );
 			p1C->type=1;
 			p1C->priv |= 0x02;
 		}
@@ -945,7 +945,7 @@ void cCommands::DupeItem(int s, P_ITEM pi_target, int amount)
 	pi_c->SetContSerial(pPack->serial);
 	pi_c->SetOwnSerial(pi_target->ownserial);
 	pi_c->SetSpawnSerial(pi_target->spawnserial);
-	pi_c->layer=0;	// it's created in a backpack
+	pi_c->setLayer( 0 ); // it's created in a backpack
 	pi_c->setAmount( amount );
 	
 	RefreshItem(pi_c);//AntiChrist

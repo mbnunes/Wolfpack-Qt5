@@ -749,9 +749,9 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 			for ( ci = 0; ci < vecContainer.size(); ci++)
 			{
 				pi = FindItemBySerial(vecContainer[ci]);
-				if(pi->layer==0x10)//beard
+				if(pi->layer()==0x10)//beard
 					pc_dest->setBeardSerial(pi->serial);
-				if(pi->layer==0x0B)//hairs
+				if(pi->layer()==0x0B)//hairs
 					pc_dest->setHairSerial(pi->serial);
 			}
 			// ------ SEX ------

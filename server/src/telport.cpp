@@ -236,7 +236,7 @@ void advancementobjects(P_CHAR pc_s, int x, int allways)
 						{
 							P_ITEM pi_temp = FindItemBySerial(vecContainer[ci]);
 							if (pi_temp != NULL)
-								if (pi_temp->layer == 0x0B)
+								if( pi_temp->layer() == 0x0B )
 								{
 									pi_hair = pi_temp;
 									break;
@@ -260,7 +260,7 @@ void advancementobjects(P_CHAR pc_s, int x, int allways)
 						{
 							P_ITEM pi_temp = FindItemBySerial(vecContainer[ci]);
 							if (pi_temp != NULL)
-								if (pi_temp->layer == 0x10)
+								if (pi_temp->layer() == 0x10)
 								{
 									pi_beard = pi_temp;
 									break;
@@ -283,7 +283,7 @@ void advancementobjects(P_CHAR pc_s, int x, int allways)
 						{
 							P_ITEM pi_temp = FindItemBySerial(vecContainer[ci]);
 							if (pi_temp != NULL)
-								if (pi_temp->layer == 0x0B)
+								if (pi_temp->layer() == 0x0B)
 								{
 									Items->DeleItem(pi_temp);
 									break;
@@ -299,7 +299,7 @@ void advancementobjects(P_CHAR pc_s, int x, int allways)
 						{
 							P_ITEM pi_temp = FindItemBySerial(vecContainer[ci]);
 							if (pi_temp != NULL)
-								if (pi_temp->layer==0x10)
+								if (pi_temp->layer()==0x10)
 								{
 									Items->DeleItem(pi_temp);
 									break;
@@ -315,7 +315,7 @@ void advancementobjects(P_CHAR pc_s, int x, int allways)
 						{
 							P_ITEM pi = FindItemBySerial(vecContainer[ci]);
 							if (pi != NULL)
-								if (pi->layer==0x15)
+								if (pi->layer()==0x15)
 								{
 									Items->DeleItem(pi);
 									break;
@@ -337,7 +337,7 @@ void advancementobjects(P_CHAR pc_s, int x, int allways)
 							retitem->pos.x=50+(rand()%80);
 							retitem->pos.y=50+(rand()%80);
 							retitem->pos.z=9;
-							if(retitem->layer==0x0b || retitem->layer==0x10)
+							if(retitem->layer()==0x0b || retitem->layer()==0x10)
 							{
 								retitem->SetContSerial(pc_s->serial);
 							}
@@ -402,8 +402,8 @@ void monstergate(P_CHAR pc_s, int x)
 	{
 		P_ITEM pi = iterItem.GetData();
 		if (pc_s->Wears(pi) &&
-			pi->layer!=0x15 && pi->layer!=0x1D &&
-			pi->layer!=0x10 && pi->layer!=0x0B && (!pi->free))
+			pi->layer()!=0x15 && pi->layer()!=0x1D &&
+			pi->layer()!=0x10 && pi->layer()!=0x0B && (!pi->free))
 		{
 			if (pBackpack == NULL)
 			{
@@ -420,7 +420,7 @@ void monstergate(P_CHAR pc_s, int x)
 				pScp->Resume(m);
 				
 				pBackpack->SetContSerial(pc_s->serial);
-				pBackpack->layer=0x15;
+				pBackpack->setLayer(0x15);
 				pBackpack->type=1;
 				pBackpack->dye=1;
 				pRetitem = pBackpack;
@@ -429,13 +429,13 @@ void monstergate(P_CHAR pc_s, int x)
 			pi->pos.y = RandomNum(50, 130);
 			pi->pos.z=9;
 			pi->SetContSerial(pBackpack->serial);
-			pi->layer=0x00;
+			pi->setLayer(0x00);
 			
 			SndRemoveitem(pi->serial);
 			RefreshItem(pi);//AntiChrist
 		}
 		else if (pc_s->Wears(pi) &&
-			(pi->layer == 0x0B || pi->layer == 0x10))
+			(pi->layer() == 0x0B || pi->layer() == 0x10))
 		{
 			Items->DeleItem(pi);
 		}
@@ -519,7 +519,7 @@ void monstergate(P_CHAR pc_s, int x)
 				if (pRetitem == NULL)
 				{
 					pRetitem->SetContSerial(pc_s->serial);
-					if (pRetitem->layer==0)
+					if (pRetitem->layer()==0)
 					{
 						clConsole.send("Warning: Bad NPC Script %d with problem item %d executed!\n", x, storeval);
 					}

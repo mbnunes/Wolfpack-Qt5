@@ -2968,7 +2968,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							{
 								pi_evti = FindItemBySerial(pc_ts->envokeitem);
 								if (pi_evti->name() != "#") // Get Temporany Name of the REQUIRED Item - Magius(CHE)
-									strcpy(tempname2, pi_evti->name().ascii() );
+ 									strcpy(tempname2, pi_evti->name().ascii() );
 								else 
 								{
 									Map->SeekTile(pi_evti->id(), &tile);

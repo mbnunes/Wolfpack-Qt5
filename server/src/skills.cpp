@@ -1404,7 +1404,7 @@ int cSkills::GetCombatSkill(P_CHAR pc)
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if (pi->layer==1 || pi->layer==2)
+		if( pi->layer() == 1 || pi->layer() == 2 )
 		{
 			if (IsSwordType(pi->id()) )
 			{
@@ -1996,7 +1996,7 @@ void TellScroll( char *menu_name, int s, long snum )
 	{
 		P_ITEM pb = iterItems.GetData();
 		if (pb->type==9 && (pb->contserial==pBackpack->serial ||
-			(pb->layer==1 && pc_currchar->Wears(pb))))
+			(pb->layer()==1 && pc_currchar->Wears(pb))))
 		{
 			if (!Magic->CheckBook( cir, spl-1, pb))
 			{
@@ -2704,7 +2704,7 @@ int cSkills::GetAntiMagicalArmorDefence(P_CHAR pc)
 		{
 			pi = FindItemBySerial(vecContainer[ci]);
 			if (pi != NULL)
-			if (pi->layer>1 && pi->layer < 25)
+			if (pi->layer()>1 && pi->layer() < 25)
 			{
 				if (!(strstr(pi->name().ascii(), "leather") || strstr(pi->name().ascii(), "magic") ||
 					strstr(pi->name().ascii(), "boot")|| strstr(pi->name().ascii(), "mask")))

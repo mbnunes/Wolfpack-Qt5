@@ -98,7 +98,7 @@ bool InputSpeech(string& comm, cChar* pPlayer, UOXSOCKET s)
 				//char temp[50] = {0,};
 				//strncpy(temp, comm, 49);
 				//pTarget->name = temp;
-				pTarget->setName( comm.c_str() );
+				pTarget->setName( comm.c_str() ); 
 				sysmessage(s, "Renamed to: %s", comm.c_str());
 				pPlayer->inputmode = cChar::enNone;
 				pPlayer->inputitem=INVALID_SERIAL;

@@ -299,7 +299,7 @@ P_ITEM cChar::GetItemOnLayer(unsigned char layer)
 		pi = FindItemBySerial(vecContainer[ci]);
 		if ( pi != NULL)
 		{
-			if (pi->layer==layer)
+			if( pi->layer() == layer )
 				return pi;
 		}
 	}
@@ -333,7 +333,7 @@ P_ITEM cChar::GetBankBox( short banktype )
 	pi = Items->SpawnItem(this, 1, (char*)temp, 0, 0x09AB, 0, 0);
 	if(pi == NULL) 
 		return NULL;
-	pi->layer=0x1d;
+	pi->setLayer( 0x1D );
 	pi->SetOwnSerial(this->serial);
 	pi->SetContSerial(this->serial);
 	pi->morex=1;
@@ -467,15 +467,15 @@ void cChar::glowHalo(P_ITEM pi)
 		P_ITEM pHalo=FindItemBySerial(pi->glow);
 		if (!pHalo) return;
 		
-		pHalo->layer=pi->layer; // copy layer information of the glowing item to the invisible light emitting object
+		pHalo->setLayer( pi->layer() ); // copy layer information of the glowing item to the invisible light emitting object
 		
-		if(pHalo->layer==0 && pi->isInWorld()) // unequipped -> light source coords = item coords
+		if(pHalo->layer()==0 && pi->isInWorld()) // unequipped -> light source coords = item coords
 		{
 			pHalo->dir=29;
 			pHalo->pos.x=pi->pos.x;
 			pHalo->pos.y=pi->pos.y;
 			pHalo->pos.z=pi->pos.z;
-		} else if (pHalo->layer==0 && !pi->isInWorld()) // euqipped -> light source coords = players coords
+		} else if (pHalo->layer() == 0 && !pi->isInWorld()) // euqipped -> light source coords = players coords
 		{
 			pHalo->pos.x=this->pos.x;
 			pHalo->pos.y=this->pos.y;
@@ -506,8 +506,8 @@ P_ITEM cChar::getWeapon()
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi != NULL)
-		if ((pi->layer==1 && pi->type!=9)		// not a spellbook (hozonko)
-			|| (pi->layer==2 && !getShield()) ) //Morrolan don't check for shields
+		if ( ( pi->layer() == 1 && pi->type != 9 )		// not a spellbook (hozonko)
+			|| (pi->layer() == 2 && !getShield()) ) //Morrolan don't check for shields
 		{
 			return pi;
 		}
@@ -536,7 +536,7 @@ P_ITEM Packitem(P_CHAR pc) // Find packitem
 	P_ITEM pi = FindItemBySerial(pc->packitem);
 	if (pi != NULL)
 	{
-		if (pc->Wears(pi) && pi->layer==0x15)
+		if (pc->Wears(pi) && pi->layer()==0x15)
 		{
 			return pi;
 		}
@@ -548,7 +548,7 @@ P_ITEM Packitem(P_CHAR pc) // Find packitem
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
-		if (pi != NULL && pi->layer==0x15)
+		if (pi != NULL && pi->layer()==0x15)
 		{
 			pc->packitem = pi->serial;	//Record it for next time
 			return (pi);

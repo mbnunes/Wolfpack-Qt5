@@ -499,7 +499,7 @@ PyObject *Py_WPItemGetAttr( Py_WPItem *self, char *name )
 	else getIntProperty( "y", Item->pos.y )
 	else getIntProperty( "z", Item->pos.z )
 	else getIntProperty( "plane", Item->pos.plane )
-	else getIntProperty( "layer", Item->layer )
+	else getIntProperty( "layer", Item->layer() )
 	else getIntProperty( "itemhand", Item->itmhand )
 	else getIntProperty( "type", Item->type )
 	else getIntProperty( "type2", Item->type2 )
@@ -596,7 +596,7 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 
 	//else setStrProperty( "name", Item->name )
 	else if( !strcmp( "name", name ) )
-		self->Item->setName( PyString_AS_STRING( value ) );
+		self->Item->setName( PyString_AS_STRING( value ) ); 
 
 	else if( !strcmp( "name2", name ) )
 		self->Item->setName2( PyString_AS_STRING( value ) );
@@ -615,7 +615,10 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 	else setIntProperty( "y", Item->pos.y )
 	else setIntProperty( "z", Item->pos.z )
 	else setIntProperty( "plane", Item->pos.plane )
-	else setIntProperty( "layer", Item->layer )
+	
+	else if( !strcmp( name, "layer" ) )
+		self->Item->setLayer( PyInt_AS_LONG( value ) );
+	
 	else setIntProperty( "itemhand", Item->itmhand )
 	else setIntProperty( "type", Item->type )
 	else setIntProperty( "type2", Item->type2 )

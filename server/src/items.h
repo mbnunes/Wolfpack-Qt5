@@ -50,6 +50,7 @@ protected:
 	UI16 amount2_; 
 	QString name2_;
 	QString name_;
+	SI08 layer_;
 
 public:
 	// Getters
@@ -59,6 +60,7 @@ public:
 	UI16			amount2()	const { return amount2_; }; //Used to track things like number of yards left in a roll of cloth
 	const QString	&name2()	const { return name2_; };
 	const QString	&name()		const { return name_; };
+	UI08			layer()		const { return layer_; }; // Layer if equipped on paperdoll
 
 	// Setters
 	void	setId( UI16 nValue ) { id_ = nValue; };
@@ -67,6 +69,7 @@ public:
 	void	setAmount2( UI16 nValue ) { amount2_ = nValue; }; //Used to track things like number of yards left in a roll of cloth
 	void	setName2( const QString nValue ) { name2_ = nValue; };
 	void	setName( const QString nValue ) { name_ = nValue; };
+	void	setLayer( SI08 nValue ) { layer_ = nValue; };
 
 	cItem() {};
 	cItem( cItem& src); // Copy constructor
@@ -79,7 +82,6 @@ public:
 	} flags;
 	
 	SERIAL contserial;
-	signed char layer; // Layer if equipped on paperdoll
 	int itmhand; // ITEMHAND system - AntiChrist
 	unsigned int type; // For things that do special things on doubleclicking
 	unsigned int type2;

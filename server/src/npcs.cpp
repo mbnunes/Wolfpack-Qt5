@@ -490,7 +490,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 					pBackpack->pos.y=0;
 					pBackpack->pos.z=0;
 					pBackpack->SetContSerial(pc_c->serial);
-					pBackpack->layer=0x15;
+					pBackpack->setLayer( 0x15 );
 					pBackpack->type=1;
 					pBackpack->dye=1;
 					
@@ -682,7 +682,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 				if ( retitem != NULL )
 				{
 					retitem->SetContSerial(pc_c->serial);
-					if (retitem->layer==0) {
+					if (retitem->layer()==0) {
 						clConsole.send("Warning: Bad NPC Script %d with problem item %d executed!\n", npcNum, storeval);
 					}
 				}
@@ -807,7 +807,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 						if (!pz->free)
 						{
 							if (pc_c->Wears(pz) &&
-								pz->layer==0x1A)
+								pz->layer() == 0x1A)
 							{
 								shoppack1 = pz;
 								break;
@@ -866,7 +866,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 						P_ITEM pz = iterItems.GetData();
 						if (!pz->free)
 						{
-							if (pc_c->Wears(pz) && pz->layer==0x1C)
+							if (pc_c->Wears(pz) && pz->layer()==0x1C)
 							{
 								shoppack3 = pz;
 								break;
@@ -908,7 +908,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 						P_ITEM pz = iterItems.GetData();
 						if (!pz->free)
 						{
-							if (pc_c->Wears(pz) && pz->layer==0x1B)
+							if (pc_c->Wears(pz) && pz->layer()==0x1B)
 							{
 								shoppack2 = pz;
 								break;

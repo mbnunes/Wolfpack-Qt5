@@ -67,8 +67,8 @@ void cWeight::NewCalc(P_CHAR pc)
 		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi == NULL || (pi != NULL && pi->id() == 0x1E5E))	// trade window ?
 			continue;
-		if ((pi->layer!=0x0B) && (pi->layer!=0x10) && //no weight for hair/beard
-			(pi->layer!=0x1D) && (pi->layer!=0x19))   //no weight for steed/bank box
+		if ((pi->layer()!=0x0B) && (pi->layer()!=0x10) && //no weight for hair/beard
+			(pi->layer()!=0x1D) && (pi->layer()!=0x19))   //no weight for steed/bank box
 		{
 			totalweight+=(pi->getWeight()/100.0f);
 		}

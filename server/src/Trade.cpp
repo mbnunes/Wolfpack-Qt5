@@ -249,7 +249,7 @@ void cTrade::restock(int s)
 				P_ITEM ci = FindItemBySerial(serial);
 				if (ci != NULL)
 				{
-					if ((ci->layer==0x1A))
+					if ((ci->layer()==0x1A))
 					{
 						if (s)
 						{
@@ -305,9 +305,9 @@ void cTrade::sellaction(int s)
 		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
 			pi = FindItemBySerial(vecContainer[ci]);
-			if (pi->layer==0x1A) pRestock = pi;				// Buy Restock container
-			else if (pi->layer==0x1B) pNoRestock = pi;		// Buy no restock container
-			else if (pi->layer==0x1C) pSellCont = pi;		// Sell container
+			if (pi->layer()==0x1A) pRestock = pi;				// Buy Restock container
+			else if (pi->layer()==0x1B) pNoRestock = pi;		// Buy no restock container
+			else if (pi->layer()==0x1C) pSellCont = pi;		// Sell container
 		}
 
 		// Pre Calculate Total Amount of selling items to STOPS if the items if greater than SELLMAXITEM - Magius(CHE)
@@ -427,7 +427,7 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 		return 0;
 	pi_ps->pos = Coord_cl(26, 0, 0);
 	pi_ps->SetContSerial(pc_currchar->serial);
-	pi_ps->layer=0;
+	pi_ps->setLayer( 0 );
 	pi_ps->type=1;
 	pi_ps->dye=0;
 	sendbpitem(s, pi_ps);
@@ -439,7 +439,7 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 		return 0;
 	pi_pi->pos = Coord_cl(26, 0, 0);
 	pi_pi->SetContSerial(pc_i->serial);
-	pi_pi->layer=0;
+	pi_pi->setLayer( 0 );
 	pi_pi->type=1;
 	pi_pi->dye=0;
 	sendbpitem(s, pi_pi);

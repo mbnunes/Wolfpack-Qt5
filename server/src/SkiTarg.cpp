@@ -2135,7 +2135,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 		Skills->PickPocketTarget(s);
 		return;
 	}
-	if ( pi->layer!=0	// no stealing for items on layers other than 0 (equipped!) ,
+	if ( pi->layer()!=0	// no stealing for items on layers other than 0 (equipped!) ,
 		|| pi->priv&2	// newbie items,
 		|| pi->isInWorld() )	// and items not being in containers allowed !
 	{
