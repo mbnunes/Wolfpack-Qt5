@@ -199,6 +199,13 @@ PyObject *wpAccount_getAttr( wpAccount *self, char *name )
 		else
 			return PyString_FromString( "" );
 	}
+	else if( !strcmp( name, "inuse" ) )
+	{
+		if( self->account->inUse() )
+			return PyTrue;
+		else
+			return PyFalse;
+	}
 	else
 		return Py_FindMethod( wpAccountMethods, (PyObject*)self, name );
 }

@@ -1630,7 +1630,7 @@ bool cSkills::advanceSkill( P_CHAR pChar, UINT16 skill, bool success ) const
 
 	// Is the skill at it's single cap already ?
 	// NOTE: Later on we need to provide support for power scrolls
-	if( pChar->skillValue( skill ) >= pChar->skillCap() )
+	if( pChar->skillValue( skill ) >= pChar->skillCap( skill ) )
 		return false;
 
 	// If our skillsum is at the serverset skill cap we need

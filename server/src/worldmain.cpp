@@ -123,7 +123,7 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 	QString objectID;
 	register unsigned int i = 0;
 
-	clConsole.send( "Loading World...\n" );
+	clConsole.send( tr("Loading World...\n") );
 
 	cDBDriver driver;
 
@@ -143,7 +143,7 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 		UINT32 count = res.getInt( 0 );
 		res.free();
 
-		clConsole.send( "Loading " + QString::number( count ) + " objects of type " + type + "\n" );
+		clConsole.send( tr("Loading ") + QString::number( count ) + tr(" objects of type ") + type + "\n" );
 
 		res = driver.query( UObjectFactory::instance()->findSqlQuery( type ) );
 
@@ -172,7 +172,7 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 
 		res.free();
 
-		clConsole.send( "Loaded %i objects in %i msecs\n", progress.count(), getNormalizedTime() - sTime );
+		clConsole.send( tr("Loaded %1 objects in %2 msecs\n").arg(progress.count()).arg(getNormalizedTime() - sTime) );
 	}
 
 	// Load Pages
@@ -182,7 +182,7 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 	archive = cPluginFactory::serializationArchiver(module);
 
 	archive->prepareReading( "effects" );
-	clConsole.send("Loading Temp. Effects %i...\n", archive->size());
+	clConsole.send(tr("Loading Temp. Effects %1...\n").arg(archive->size()));
 	progress_display progress( archive->size() );
 	for ( i = 0; i < archive->size(); ++progress, ++i)
 	{
@@ -201,7 +201,7 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 
 		else
 		{
-			clConsole.log( LOG_FATAL, QString( "An unknown temporary Effect class was found: %1" ).arg( objectID ) );
+			clConsole.log( LOG_FATAL, tr( "An unknown temporary Effect class was found: %1" ).arg( objectID ) );
 			continue; // an error occured..
 		}
 
@@ -209,7 +209,7 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 
 		TempEffects::instance()->insert( pTE );
 	}
-	clConsole.send(" Done.\n");
+	clConsole.send(tr(" Done.\n"));
 	archive->close();
 
 	delete archive;
@@ -233,10 +233,10 @@ void CWorldMain::savenewworld(QString module)
 	if ( announce() )
 	{
 		cNetwork::instance()->broadcast( tr( "World data saving..." ) );
-		clConsole.send("Worldsave Started!\n" );
-		clConsole.send("items  : %i\n", ItemsManager::instance()->size());
-		clConsole.send("chars  : %i\n", CharsManager::instance()->size());
-		clConsole.send("effects: %i\n", TempEffects::instance()->size());
+		clConsole.send(tr("Worldsave Started!\n") );
+		clConsole.send(tr("items  : %1\n").arg( ItemsManager::instance()->size() ));
+		clConsole.send(tr("chars  : %1\n").arg( CharsManager::instance()->size() ));
+		clConsole.send(tr("effects: %1\n").arg( TempEffects::instance()->size() ));
 	}
 
 	SrvParams->flush();
@@ -267,16 +267,16 @@ void CWorldMain::savenewworld(QString module)
 	catch( QString error )
 	{
 		clConsole.ChangeColor( WPC_RED );
-		clConsole.send( "\nERROR" );
+		clConsole.send( tr("\nERROR") );
 		clConsole.ChangeColor( WPC_NORMAL );
 		clConsole.send( ": " + error + "\n" );
 	}
 	catch( ... )
 	{
 		clConsole.ChangeColor( WPC_RED );
-		clConsole.send( "\nERROR" );
+		clConsole.send( tr("\nERROR") );
 		clConsole.ChangeColor( WPC_NORMAL );
-		clConsole.send( ": Unhandled Exception\n" );
+		clConsole.send( tr(": Unhandled Exception")+"\n" );
 	}
 
 	ISerialization *archive = cPluginFactory::serializationArchiver( module );
@@ -296,9 +296,7 @@ void CWorldMain::savenewworld(QString module)
 	if ( announce() )
 	{
 		cNetwork::instance()->broadcast( tr( "Worldsave Done!\n" ) );
-		char temp[128];
-		sprintf( temp, "World saved in %.03f sec", (float)(((float)getNormalizedTime() - (float)savestarttime) / CLOCKS_PER_SEC ) );
-		clConsole.PrepareProgress( temp );
+		clConsole.PrepareProgress( tr("World saved in %1 sec").arg( (float)(((float)getNormalizedTime() - (float)savestarttime) / CLOCKS_PER_SEC ) ) );
 		clConsole.ProgressDone();
 	}
 
