@@ -148,11 +148,12 @@ static void item_bounce6(const P_CLIENT ps, const P_ITEM pi)
 
 void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 {
-	int npc=-1, amount, update = 0, serial;
+	int amount, update = 0, serial;
 	UOXSOCKET s = ps->GetSocket();
 	int cc = ps->GetCurrChar();
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(cc);
 	
+	P_CHAR npc = NULL;
 	
 	serial = calcserial(buffer[s][1], buffer[s][2], buffer[s][3], buffer[s][4]);
 	if (serial == INVALID_SERIAL || buffer[s][1] < 0x40)
@@ -172,13 +173,13 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 		{
 			if (isCharSerial(px->contserial))
 			{
-				npc = calcCharFromSer(px->contserial);
+				npc = FindCharBySerial(px->contserial);
 			}
 			else  // its an item
 			{
 				if (px->isInWorld())
 				{
-					npc=-1;
+					npc = NULL;
 					break;
 				}
 				px = FindItemBySerial(px->contserial);
@@ -220,12 +221,12 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 				if (px == NULL)
 					npc = 0; 
 			}
-		} while ((npc==-1) &&(++loopexit < MAXLOOPS));
+		} while ((npc == NULL) &&(++loopexit < MAXLOOPS));
 	}
 	
-	if (npc>0) // 0=corpse, hence >0 ..
+	if (npc != NULL) // 0=corpse, hence >0 ..
 	{
-		if (!(pc_currchar->isGM()) && npc != DEREF_P_CHAR(pc_currchar) && ! pc_currchar->Owns(&chars[npc]))
+		if (!(pc_currchar->isGM()) && npc != pc_currchar && ! pc_currchar->Owns(npc))
 		{// Own serial stuff by Zippy -^ Pack aniamls and vendors.
 			bounce[1] = 0;
 			Xsend(s, bounce, 2);
@@ -241,7 +242,7 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 	// End Zippy's change
 	
 	// Boats->
-	if (px != NULL && npc!=-1)
+	if (px != NULL && npc != NULL)
 	{
 		if (px->multis>0)
 			imultisp.remove(px->multis, px->serial);
@@ -251,7 +252,7 @@ void cDragdrop::get_item(P_CLIENT ps) // Client grabs an item
 		// AntiChrist -- for poisoned items
 		if (px->layer>0)
 		{
-			chars[npc].removeItemBonus(px);	// remove BONUS STATS given by equipped special items
+			npc->removeItemBonus(px);	// remove BONUS STATS given by equipped special items
 		}
 		if ((px->trigon==1) && (px->layer != 0) && (px->layer != 15) && (px->layer < 19))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 		{
@@ -616,9 +617,9 @@ static bool ItemDroppedOnPet(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 static bool ItemDroppedOnGuard(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 {
 	UOXSOCKET s=ps->GetSocket();
-	CHARACTER cc=ps->GetCurrChar();
-	P_CHAR pc_currchar = MAKE_CHARREF_LRV(cc,false);
-	int t=calcCharFromSer(pp->Tserial);
+//	CHARACTER cc=ps->GetCurrChar();
+	P_CHAR pc_currchar = ps->getPlayer();
+	P_CHAR target = FindCharBySerial(pp->Tserial);
 	// Search for the key word "the head of"
 	if( strstr( pi->name, "the head of" ) )
 	{
@@ -639,7 +640,7 @@ static bool ItemDroppedOnGuard(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 				sprintf((char*) temp, "Excellent work! You have brought us the head of %s. Here is your reward of %d gold coins.",
 					pCharIdx->name,
 					pCharIdx->questBountyReward );
-				npctalk( s, t, (char*)temp, 0);
+				npctalk( s, target, (char*)temp, 0);
 				
 				// Delete the Bounty from the bulletin board
 				Bounty->BountyDelete( pCharIdx->serial );
@@ -649,7 +650,7 @@ static bool ItemDroppedOnGuard(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 				pc_currchar->karma  += 100;
 			}
 			else
-				npctalk(s, t, "You can not claim that prize scoundrel. You are lucky I don't strike you down where you stand!",0);
+				npctalk(s, target, "You can not claim that prize scoundrel. You are lucky I don't strike you down where you stand!",0);
 			
 			// Delete the item
 			Items->DeleItem(pi);
@@ -662,17 +663,16 @@ static bool ItemDroppedOnGuard(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 static bool ItemDroppedOnBeggar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 {
 	UOXSOCKET s=ps->GetSocket();
-	CHARACTER cc=ps->GetCurrChar();
-	P_CHAR pc_currchar = MAKE_CHARREF_LRV(cc,false);
-	int t=calcCharFromSer(pp->Tserial);
+	P_CHAR pc_currchar = ps->getPlayer();
+	P_CHAR target = FindCharBySerial(pp->Tserial);
 	if(pi->id()!=0x0EED)
 	{
 		sprintf((char*)temp,"Sorry %s i can only use gold",pc_currchar->name);
-		npctalk(s,t,(char*)temp,0);
+		npctalk(s,target,(char*)temp,0);
 		return false;
 	}
 	sprintf((char*)temp,"Thank you %s for the %i gold!",pc_currchar->name,pi->amount);
-	npctalk(s,t,(char*)temp,0);
+	npctalk(s,target,(char*)temp,0);
 	if(pi->amount<=100)
 	{
 		pc_currchar->karma += 10;
@@ -690,9 +690,8 @@ static bool ItemDroppedOnBeggar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 static bool ItemDroppedOnBanker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 {
 	UOXSOCKET s=ps->GetSocket();
-	CHARACTER cc=ps->GetCurrChar();
-	P_CHAR pc_currchar = MAKE_CHARREF_LRV(cc,true);
-	int t=calcCharFromSer(pp->Tserial);
+	P_CHAR pc_currchar = ps->getPlayer();
+	P_CHAR target = FindCharBySerial(pp->Tserial);
 	P_ITEM bankbox = pc_currchar->GetBankBox();
 	int amt = pi->amount;
 	int value = pi->value;
@@ -702,17 +701,15 @@ static bool ItemDroppedOnBanker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 		 const P_ITEM pi_n = Items->SpawnItem(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_currchar),value,"#",1,0x0E,0xED,0,0,0,0);
 	     if(pi_n == NULL) return false;
 		 sprintf((char*)temp,"%s I have cashed your check and deposited %i gold.",pc_currchar->name, value);
-		 npctalk(s,t,(char*)temp,0);
+		 npctalk(s,target,(char*)temp,0);
 		 bankbox->AddItem(pi_n);
 	     statwindow(s, DEREF_P_CHAR(pc_currchar));
 		 return true;
 	}
-    else
-	{	    
-	if (pi->id() == 0x0EED)
+    else if (pi->id() == 0x0EED)
 	{
 		sprintf((char*)temp,"%s you have deposited %i gold.",pc_currchar->name, amt);
-		npctalk(s,t,(char*)temp,0);
+		npctalk(s,target,(char*)temp,0);
 		bankbox->AddItem(pi);
 	    statwindow(s, DEREF_P_CHAR(pc_currchar));
 		return true;
@@ -720,7 +717,7 @@ static bool ItemDroppedOnBanker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
     else
 	{
 		  sprintf((char*)temp,"Sorry %s i can only deposit gold",pc_currchar->name);
-		  npctalk(s,t,(char*)temp,0);
+		  npctalk(s,target,(char*)temp,0);
 		  Sndbounce5(s);
 		  if (ps->IsDragging())
 		  {
@@ -730,14 +727,12 @@ static bool ItemDroppedOnBanker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 		  }
 	}
 	return true;
-	}
 }
 
 static bool ItemDroppedOnTrainer(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 {
-	UOXSOCKET s=ps->GetSocket();
-	CHARACTER cc=ps->GetCurrChar();
-	P_CHAR pc_currchar = MAKE_CHARREF_LRV(cc,true);
+	UOXSOCKET s = ps->GetSocket();
+	P_CHAR pc_currchar = ps->getPlayer();
 	P_CHAR pc_t = FindCharBySerial(pp->Tserial);
 
 	if( pi->id() ==0x0EED )
@@ -791,9 +786,8 @@ static bool ItemDroppedOnTrainer(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 
 static bool ItemDroppedOnSelf(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 {
-	UOXSOCKET s=ps->GetSocket();
-	CHARACTER cc=ps->GetCurrChar();
-	P_CHAR pc_currchar = MAKE_CHARREF_LRV(cc,true);
+	UOXSOCKET s = ps->GetSocket();
+	P_CHAR pc_currchar = ps->getPlayer();
 	
 	if (pi->id1>=0x40) // crashfix , prevents putting multi-objects ni your backback
 	{
@@ -828,10 +822,9 @@ static bool ItemDroppedOnSelf(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 
 static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 {
-	UOXSOCKET s=ps->GetSocket();
-	CHARACTER cc=ps->GetCurrChar();
-	P_CHAR pc_currchar = MAKE_CHARREF_LRV(cc,true);
-	P_CHAR pTC=FindCharBySerial(pp->Tserial);	// the targeted character
+	UOXSOCKET s = ps->GetSocket();
+	P_CHAR pc_currchar = ps->getPlayer();
+	P_CHAR pTC = FindCharBySerial(pp->Tserial);	// the targeted character
 	if (!pTC) return true;
 
 	if (DEREF_P_CHAR(pTC)!=DEREF_P_CHAR(pc_currchar))
@@ -957,20 +950,19 @@ static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 void dump_item(P_CLIENT ps, PKGx08 *pp) // Item is dropped on ground or a character
 {
 //	tile_st tile;
-	UOXSOCKET s=ps->GetSocket();
-	CHARACTER cc=ps->GetCurrChar();
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(cc);
+	UOXSOCKET s = ps->GetSocket();
+	P_CHAR pc_currchar = ps->getPlayer();
 	
-	P_ITEM pi=FindItemBySerial(pp->Iserial);
+	P_ITEM pi = FindItemBySerial(pp->Iserial);
 	if (!pi)
 	{
-		LogErrorVar("client sent bad itemserial %d",pp->Iserial);
+		LogErrorVar("client sent bad itemserial %d", pp->Iserial);
 		return;
 	}
 
 	Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
 	statwindow(s,DEREF_P_CHAR(pc_currchar));
-	pi->flags.isBeeingDragged=false;
+	pi->flags.isBeeingDragged = false;
 	
 	//Ripper...so order/chaos shields disappear when on ground.
 	if( pi->id1 == 0x1B && ( pi->id2 == 0xC3 || pi->id2 == 0xC4 ) )

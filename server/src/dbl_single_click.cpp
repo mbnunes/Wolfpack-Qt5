@@ -1468,10 +1468,10 @@ void singleclick(UOXSOCKET s)
 	
 	if (isCharSerial(serial))
 	{
-		CHARACTER c = calcCharFromSer(serial);
-		if (c!=-1)		
+		P_CHAR pc = FindCharBySerial(serial);
+		if (pc != NULL)		
 		{
-			showcname(s, c, 0);
+			showcname(s, DEREF_P_CHAR(pc), 0);
 			return;
 		}
 	}
@@ -1610,12 +1610,9 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 {
 	int keyboard;
 	unsigned char pdoll[256]="\x88\x00\x05\xA8\x90\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
-//	int cc=currchar[s];
 	P_CHAR pc_currchar = currchar[s];
 	keyboard=buffer[s][1]&0x80;
 	
-//	CHARACTER x = calcCharFromSer( target_serial );
-
 	P_CHAR target = FindCharBySerial( target_serial );
 
 

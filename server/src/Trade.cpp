@@ -286,7 +286,7 @@ static bool items_match(P_ITEM pi1, P_ITEM pi2)
  
 void cTrade::sellaction(int s)
 {
-	int n, i, amt, value=0, totgold=0;
+	int i, amt, value=0, totgold=0;
 
 	P_ITEM pRestock = NULL;
 	P_ITEM pNoRestock = NULL;
@@ -294,12 +294,12 @@ void cTrade::sellaction(int s)
 
 	if (buffer[s][8]!=0)
 	{
-		n=calcCharFromSer(buffer[s][3], buffer[s][4], buffer[s][5], buffer[s][6]);
-		if (n<0 || n>=cmem) return;
+		P_CHAR pc_n = FindCharBySerial(calcserial(buffer[s][3], buffer[s][4], buffer[s][5], buffer[s][6]));
+		if (pc_n == NULL) return;
 
 		P_ITEM pi;
 		unsigned int ci;
-		vector<SERIAL> vecContainer = contsp.getData(chars[n].serial);
+		vector<SERIAL> vecContainer = contsp.getData(pc_n->serial);
 		for ( ci = 0; ci < vecContainer.size(); ci++)
 		{
 			pi = FindItemBySerial(vecContainer[ci]);
@@ -321,7 +321,7 @@ void cTrade::sellaction(int s)
 		{
 			char tmpmsg[256];
 			sprintf(tmpmsg,"Sorry %s but i can buy only %i items at time!",currchar[s]->name,SrvParms->sellmaxitem);
-			npctalkall(n, tmpmsg,0);
+			npctalkall(pc_n, tmpmsg,0);
 			return;
 		}
 
@@ -334,7 +334,7 @@ void cTrade::sellaction(int s)
 			// player may have taken items out of his bp while the sell menu was up ;-)
 			if (pSell->amount<amt)
 			{
-				npctalkall(n, "Cheating scum! Leave now, before I call the guards!",0);
+				npctalkall(pc_n, "Cheating scum! Leave now, before I call the guards!",0);
 				return;
 			}
 

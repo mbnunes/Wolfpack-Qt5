@@ -789,21 +789,18 @@ void cCommands::AddHere(int s, char z)
 
 void cCommands::SetNPCTrigger(int s)
 {
-	int i,serial;
-	 
-	
-  serial=calcserial(buffer[s][7],buffer[s][8],buffer[s][9],buffer[s][10]);
-  i = calcCharFromSer( serial );
-  if (i!=-1)
-  {
+	SERIAL serial = calcserial(buffer[s][7],buffer[s][8],buffer[s][9],buffer[s][10]);
+	P_CHAR pc = FindCharBySerial( serial );
+	if (pc != NULL)
+	{
 		//   if (chars[i].npc)
 		//   {
-    sysmessage(s,"NPC triggered");
-    chars[i].trigger=addx[s];
+		sysmessage(s, "NPC triggered");
+		pc->trigger = addx[s];
 		//   }else{
 		//    sysmessage(s,"You can not trigger Player Characters");
 		//   }
-  }
+	}
 }
 
 
@@ -811,7 +808,7 @@ void cCommands::WhoCommand(int s, int type,int buttonnum)
 {
 	char sect[512];
 	short int length, length2, textlines;
-	int k,c;
+	int k;
 	unsigned int line, i;
 	char menuarray[7*(MAXCLIENT)+50][50];  /** lord binary **/
 	char menuarray1[7*(MAXCLIENT)+50][50]; /** the ( IS important !!! **/
@@ -822,14 +819,14 @@ void cCommands::WhoCommand(int s, int type,int buttonnum)
 	
 	k=buttonnum;
 	
-	serial=whomenudata[buttonnum];
-	c = calcCharFromSer( serial ); // find selected char ...
-	if (c==-1) 
+	serial = whomenudata[buttonnum];
+	P_CHAR pc_c = FindCharBySerial( serial ); // find selected char ...
+	if (pc_c == NULL) 
 	{
 		sysmessage(s,"selected character not found");
 		return;
 	}
-	P_CHAR pc_c = MAKE_CHARREF_LR(c);
+//	P_CHAR pc_c = MAKE_CHARREF_LR(c);
 	
 	//--static pages
 	strcpy(menuarray[linecount++], "nomove");

@@ -53,14 +53,11 @@
 void cBounty::BountyAskVictim( int nVictimSerial, int nMurdererSerial )
 {
   int nAmount     = 0;
-  int nVictimIdx  = calcCharFromSer( nVictimSerial );
-  int nMurderIdx  = calcCharFromSer( nMurdererSerial );
+  PC_CHAR pcc_nVictimIdx  = FindCharBySerial( nVictimSerial );
+  PC_CHAR pcc_nMurderIdx  = FindCharBySerial( nMurdererSerial );
   int err2;
  
-  PC_CHAR pcc_nVictimIdx=MAKE_CHARREF_LOGGED(nVictimIdx,err);
-  PC_CHAR pcc_nMurderIdx=MAKE_CHARREF_LOGGED(nMurderIdx,err2);
-
-  if (err || err2) return;
+  if (pcc_nVictimIdx == NULL || pcc_nMurderIdx == NULL) return;
 
   // Indicate that the victim is being asked if they want to place a bounty
   sprintf((char*)temp, "BountyAskVictim():  %s is attempting to place a bounty of %i on %s\n",
@@ -108,11 +105,10 @@ void cBounty::BountyAskVictim( int nVictimSerial, int nMurdererSerial )
 //////////////////////////////////////////////////////////////////////////////
 bool cBounty::BountyCreate( int nMurdererSerial, int nRewardAmount )
 {
-  int   nIndex      = calcCharFromSer( nMurdererSerial );
+  P_CHAR pc_nIndex  = FindCharBySerial( nMurdererSerial );
   int   nPostSerial = 0;
   
-  P_CHAR pc_nIndex = MAKE_CHARREF_LOGGED(nIndex,err);
-  if (err) return false;
+  if (pc_nIndex == NULL) return false;
 
   // Check that we have a reward amount greater than zero
   if( nRewardAmount > 0 )
@@ -155,10 +151,9 @@ bool cBounty::BountyCreate( int nMurdererSerial, int nRewardAmount )
 bool cBounty::BountyDelete( int nMurdererSerial )
 {
   bool  bReturn = true;
-  int   nIndex  = calcCharFromSer( nMurdererSerial );
+  P_CHAR pc_nIndex  = FindCharBySerial( nMurdererSerial );
 
-  P_CHAR pc_nIndex=MAKE_CHARREF_LOGGED(nIndex, err);
-  if (err) return false;
+  if ( pc_nIndex == NULL ) return false;
 
 
   // Find and mark the post associated with this bounty as deleted

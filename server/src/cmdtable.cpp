@@ -451,8 +451,7 @@ void command_bounty(UOXSOCKET s)
 			{
 				sprintf((char*) temp,
 					"You have placed a bounty of %d gold coins on %s.",
-					nAmount,
-					chars[calcCharFromSer(pc_cs->murdererSer)].name );
+					nAmount, FindCharBySerial(pc_cs->murdererSer)->name );
 				sysmessage( s, (char*)temp );
 			}
 			else
@@ -2216,7 +2215,6 @@ void command_wanim(UOXSOCKET s)
 void command_gotocur(UOXSOCKET s)
 // Goes to the current call in the GM/Counsellor Queue
 {
-	int i;
 	int x=0;
 	P_CHAR pc_currchar = currchar[s];
 	
@@ -2227,22 +2225,22 @@ void command_gotocur(UOXSOCKET s)
 	else
 	{  
 		int serial = gmpages[pc_currchar->callnum].serial;
-		i = calcCharFromSer( serial );
-		if(i!=-1)
+		P_CHAR pc_i = FindCharBySerial( serial );
+		if(pc_i != NULL)
 		{
-			pc_currchar->MoveTo(chars[i].pos.x,chars[i].pos.y,chars[i].pos.z);
+			pc_currchar->MoveTo(pc_i->pos.x, pc_i->pos.y, pc_i->pos.z);
 			sysmessage(s,"Transporting to your current call.");
 			teleport(DEREF_P_CHAR(currchar[s]));
 			x++;
 		}  
-		if(x==0)
+		if(x == 0)
 		{
-			int serial = gmpages[pc_currchar->callnum].serial;
-			i = calcCharFromSer( serial );
-			if(i!=-1)
+			SERIAL serial = gmpages[pc_currchar->callnum].serial;
+			P_CHAR pc_i = FindCharBySerial( serial );
+			if(pc_i != NULL)
 				
 			{
-				pc_currchar->MoveTo(chars[i].pos.x,chars[i].pos.y,chars[i].pos.z);
+				pc_currchar->MoveTo(pc_i->pos.x, pc_i->pos.y, pc_i->pos.z);
 				sysmessage(s,"Transporting to your current call.");
 				teleport(DEREF_P_CHAR(currchar[s]));
 			}

@@ -2678,9 +2678,8 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 	int os, i;
 	int o_serial = LongFromCharPtr(buffer[s]+7);
 	if(o_serial==-1) return;
-	int own=calcCharFromSer(o_serial);
-	if(own==-1) return;
-	P_CHAR pc = MAKE_CHARREF_LR(own);
+	P_CHAR pc = FindCharBySerial(o_serial);
+	if ( pc == NULL ) return;
 
 	SERIAL serial = calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
 	P_ITEM pSign = FindItemBySerial(serial);
@@ -2713,12 +2712,12 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 	P_ITEM pi3=NULL;
 	if(os!=-1)
 	{
-		pi3 = Items->SpawnItem(os, own, 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1);//gold key for everything else
+		pi3 = Items->SpawnItem(os, DEREF_P_CHAR(pc), 1, "a house key", 0, 0x10, 0x0F, 0, 0,1,1);//gold key for everything else
 		if(pi3 == NULL) return;
 	}
 	else
 	{
-		pi3=Items->SpawnItem(own, 1, "a house key", 0, 0x100F,0,0);//gold key for everything else
+		pi3=Items->SpawnItem(DEREF_P_CHAR(pc), 1, "a house key", 0, 0x100F,0,0);//gold key for everything else
 		if(!pi3) return;
 		pi3->MoveTo(pc->pos.x,pc->pos.y,pc->pos.z);
 		RefreshItem(pi3);
@@ -3052,10 +3051,9 @@ void cTargets::HouseRelease( UOXSOCKET s ) // Abaddon & Ripper
 void cTargets::SetMurderCount( int s )
 {
 	int serial=LongFromCharPtr(buffer[s]+7);
-	int i = calcCharFromSer(serial);
-	if( i != -1 )
+	P_CHAR pc = FindCharBySerial(serial);
+	if( pc != NULL )
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
 		pc->kills = addmitem[s];
 		setcharflag(pc);
 	}
@@ -3063,7 +3061,7 @@ void cTargets::SetMurderCount( int s )
 
 void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 {
-	int c,k,l;
+	int c;
 
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
 	if( serial == INVALID_SERIAL) return;
@@ -3074,17 +3072,19 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 		return;
 	}
 
-//	int cc=currchar[s];
 	P_CHAR pc_currchar = currchar[s];
 	if (!pi1->isInWorld())
 	{
 		P_ITEM pj = FindItemBySerial(pi1->contserial); // in bp ?
-		l=calcCharFromSer(pi1->contserial); // equipped ?
-		if (l==-1) k=DEREF_P_CHAR(GetPackOwner(pj)); else k=l;
-
-		if (k!=DEREF_P_CHAR(pc_currchar))	// creation only allowed in the creators pack/char otherwise things could go wrong
+		P_CHAR pc_l = FindCharBySerial(pi1->contserial); // equipped ?
+		P_CHAR pc_k = NULL;
+		if (pc_l == NULL) 
+			pc_k = GetPackOwner(pj); 
+		else 
+			pc_k = pc_l;
+		if (pc_k != currchar[s])	// creation only allowed in the creators pack/char otherwise things could go wrong
 		{
-			sysmessage(s,"you can't create glowing items in other perons packs or hands");
+			sysmessage(s,"you can't unglow items in other persons packs or hands");
 			return;
 		}
 	}
@@ -3125,7 +3125,6 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 		pi2->pos.z=pc_currchar->pos.z+4;
 	}
 
-	//mapRegions->AddItem(c);
 	pi2->priv=0; // doesnt decay
 
 	pi1->glow=pi2->serial; // set glow-identifier
@@ -3139,9 +3138,7 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 
 void cTargets::UnglowTaget(int s) // LB 4/9/99, removes the glow-effect from items
 {
-	int c,l;
-	int k;
-
+	int c;
 	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	if (!pi)
 	{
@@ -3152,17 +3149,21 @@ void cTargets::UnglowTaget(int s) // LB 4/9/99, removes the glow-effect from ite
 	if (!pi->isInWorld())
 	{
 		P_ITEM pj = FindItemBySerial(pi->contserial); // in bp ?
-		l=calcCharFromSer(pi->contserial); // equipped ?
-		if (l==-1) k = DEREF_P_CHAR(GetPackOwner(pj)); else k=l;
-		if (k!=DEREF_P_CHAR(currchar[s]))	// creation only allowed in the creators pack/char otherwise things could go wrong
+		P_CHAR pc_l = FindCharBySerial(pi->contserial); // equipped ?
+		P_CHAR pc_k = NULL;
+		if (pc_l == NULL) 
+			pc_k = GetPackOwner(pj); 
+		else 
+			pc_k = pc_l;
+		if (pc_k != currchar[s])	// creation only allowed in the creators pack/char otherwise things could go wrong
 		{
-			sysmessage(s,"you can't unglow items in other perons packs or hands");
+			sysmessage(s,"you can't unglow items in other persons packs or hands");
 			return;
 		}
 	}
 
-	c=pi->glow;
-	if(c==-1) return;
+	c = pi->glow;
+	if(c == INVALID_SERIAL) return;
 	P_ITEM pj = FindItemBySerial(c);
 
 	if (pi->glow==0 || pj == NULL )
@@ -3186,20 +3187,19 @@ void cTargets::UnglowTaget(int s) // LB 4/9/99, removes the glow-effect from ite
 
 void cTargets::MenuPrivTarg(int s)//LB's menu privs
 {
-	int p,i;
+	int i;
 	char temp[512];
 
 	int serial=LongFromCharPtr(buffer[s]+7);
 	if( serial == INVALID_SERIAL ) return;
-	p=calcCharFromSer(serial);
-	if (p!=-1)
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc!=NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(p);
 		i=addid1[s];
 		sprintf(temp,"Setting Menupriv number %i",i);
 		sysmessage(s,temp);
 		sprintf(temp,"Menupriv %i set by %s",i,currchar[s]->name);
-		sysmessage(calcSocketFromChar(p),temp);
+		sysmessage(calcSocketFromChar(DEREF_P_CHAR(pc)),temp);
 		pc->menupriv=i;
 	}
 }
@@ -3212,10 +3212,9 @@ void cTargets::ShowSkillTarget(int s) // LB's showskills
 
 	int serial=LongFromCharPtr(buffer[s]+7);
 	if( serial == INVALID_SERIAL ) return;
-	p=calcCharFromSer(serial);
-	if (p!=-1)
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(p);
 		z=addx[s];
 		if (z<0 || z>3) z=0;
 		if (z==2 || z==3)

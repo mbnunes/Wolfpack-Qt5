@@ -513,10 +513,10 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 	// the person you targeted ( if you targeted a char, naturally :) )
 	int serial=LongFromCharPtr(buffer[s]+7);
 	if (serial==-1) return;
-	int i = calcCharFromSer( serial );
-	if(i==-1) return;
+	P_CHAR pc_i = FindCharBySerial( serial );
+	if(pc_i == NULL) return;
 
-	npcattacktarget(i,c);
+	npcattacktarget(DEREF_P_CHAR(pc_i), c);
 }
 
 ///////////////////
@@ -1891,8 +1891,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 		{
 			// TARGET CALC HERE
 			defender=LongFromCharPtr(buffer[s]+7);	// character we are attacking is HERE
-			int i = calcCharFromSer( defender );
-			P_CHAR pc_defender = MAKE_CHAR_REF(i);
+			P_CHAR pc_defender = FindCharBySerial( defender );
 			// IF TARGET VALID
 			if (pc_defender != NULL)				// we have to have targetted a person to kill them :)
 			{
@@ -2203,14 +2202,14 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			z=buffer[s][16]+Map->TileHeight((buffer[s][17]<<8)+buffer[s][18]); // bugfix, LB
 			
 			defender=LongFromCharPtr(buffer[s]+7);
-			int i = calcCharFromSer( defender );
+			P_CHAR pc_i = FindCharBySerial( defender );
 			P_ITEM pi_l = FindItemBySerial( defender );
 			
 			// ..[1] 0-> object or item selected, 1-> terrain selected
 			char_selected=item_selected=terrain_selected=false;
-			if      (i!=-1 && buffer[s][1]==0)      char_selected=true;
+			if      (pc_i != NULL && buffer[s][1]==0)      char_selected=true;
             else if (pi_l != NULL && buffer[s][1]==0)      item_selected=true;
-			else                                    terrain_selected=true;
+			else						                   terrain_selected=true;
 			
 			//AntiChrist - location check
 			if (!(buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF))
@@ -2674,7 +2673,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 										}
 										else
 										{
-											MagicDamage(mapchar, (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(39+1*(chars[i].skill[MAGICRESISTANCE]/30)));
+											MagicDamage(mapchar, (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(39+1*(pc_i->skill[MAGICRESISTANCE]/30)));
 										}
 									}
 									else
