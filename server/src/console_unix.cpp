@@ -28,6 +28,7 @@
 //
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
+#include <stdio.h>
 // Qt Includes
 #include <qthread.h>
 
@@ -46,7 +47,7 @@ protected:
 		{
 			while( serverState < SHUTDOWN )
 			{
-				char c = getch();
+				char c = fgetc( stdin );
 				if( c > 0 && serverState == RUNNING )
 				{
 					Console::instance()->queueCommand( QChar( c ) );
