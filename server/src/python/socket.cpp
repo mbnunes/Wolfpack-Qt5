@@ -870,6 +870,23 @@ static PyObject* wpSocket_updateskill( wpSocket* self, PyObject* args )
 	Py_RETURN_NONE;
 }
 
+/*
+	\method socket.denymove
+	\param sequence The id of the sequence that has been denied.
+	\description Send a deny move packet and bounce the character back to its current position.
+	Use this in the onWalk event.
+*/
+static PyObject *wpSocket_denymove( wpSocket* self, PyObject* args ) {
+	unsigned char sequence;
+
+	if (!PyArg_ParseTuple( args, "b:socket.denymove(sequence)", &sequence)) {
+		return 0;
+	}
+
+	self->pSock->denyMove(sequence);
+	Py_RETURN_NONE;
+}
+
 static PyMethodDef wpSocketMethods[] =
 {
 { "useitem",			( getattrofunc ) wpSocket_useitem, METH_VARARGS, NULL },
@@ -900,6 +917,7 @@ static PyMethodDef wpSocketMethods[] =
 { "customize",			( getattrofunc ) wpSocket_customize, METH_VARARGS,	"Begin house customization." },
 { "log",				( getattrofunc ) wpSocket_log, METH_VARARGS, NULL },
 { "updatelightlevel",   ( getattrofunc ) wpSocket_updatelightlevel, METH_VARARGS, NULL },
+{ "denymove",			( getattrofunc ) wpSocket_denymove, METH_VARARGS, NULL },
 { NULL, NULL, 0, NULL }
 };
 
