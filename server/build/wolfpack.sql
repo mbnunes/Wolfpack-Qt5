@@ -1,29 +1,15 @@
-# phpMyAdmin MySQL-Dump
-# version 2.3.2
-# http://www.phpmyadmin.net/ (download page)
-#
-# Servidor: localhost
-# Tempo de Generação: Out 22, 2002 at 03:42 PM
-# Versão do Servidor: 4.00.01
-# Versão do PHP: 4.2.2
-# Banco de Dados : `wolfpack`
-# --------------------------------------------------------
+# MAINTAIN THE SEPARATORS!
+# This is needed by our configuration program
 
-#
-# Estrutura da tabela `bookpages`
-#
-CREATE TABLE bookpages (    
+CREATE TABLE bookpages (
 	serial int(11) NOT NULL default '0',
 	page tinyint(3) unsigned NOT NULL default '0',
 	text varchar(255) binary NOT NULL default '',
 	KEY page (page),
 	KEY serial (serial)
 ) TYPE=MyISAM;
-# --------------------------------------------------------
 
-#
-# Estrutura da tabela `books`
-#
+#!
 
 CREATE TABLE books (
   serial int(11) NOT NULL default '0',
@@ -36,11 +22,8 @@ CREATE TABLE books (
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM COMMENT='cBook class';
-# --------------------------------------------------------
 
-#
-# Estrutura da tabela `characters`
-#
+#!
 
 CREATE TABLE characters (
   serial int(11) NOT NULL default '0',
@@ -138,11 +121,8 @@ CREATE TABLE characters (
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM COMMENT='cChar';
-# --------------------------------------------------------
 
-#
-# Estrutura da tabela `items`
-#
+#!
 
 CREATE TABLE items (
   serial int(11) NOT NULL default '0',
@@ -209,11 +189,8 @@ CREATE TABLE items (
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM COMMENT='cItem';
-# --------------------------------------------------------
 
-#
-# Estrutura da tabela `skills`
-#
+#!
 
 CREATE TABLE skills (
   serial int(11) NOT NULL default '0',
@@ -224,11 +201,8 @@ CREATE TABLE skills (
   KEY skill (skill),
   KEY serial (serial)
 ) TYPE=MyISAM PACK_KEYS=0 COMMENT='Skills from characters';
-# --------------------------------------------------------
 
-#
-# Estrutura da tabela `uobject`
-#
+#!
 
 CREATE TABLE uobject (
   name varchar(255) default NULL,
@@ -243,11 +217,8 @@ CREATE TABLE uobject (
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM COMMENT='class cUObject';
-# --------------------------------------------------------
 
-#
-# Estrutura da tabela `uobjectmap`
-#
+#!
 
 CREATE TABLE uobjectmap (
   serial int(11) NOT NULL default '0',
@@ -255,6 +226,8 @@ CREATE TABLE uobjectmap (
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM;
+
+#!
 
 CREATE TABLE spellbooks (
   serial int(11) NOT NULL default '0',
@@ -264,17 +237,23 @@ CREATE TABLE spellbooks (
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM COMMENT='class cSpellBook';
 
+#!
+
 CREATE TABLE multis_bans (
   serial int(11) NOT NULL default '0',
   ban int(11) NOT NULL default '-1',
   KEY  (serial)
 ) TYPE=MyISAM COMMENT='Bans of cMulti';
 
+#!
+
 CREATE TABLE multis_friends (
   serial int(11) NOT NULL default '0',
   friend int(11) NOT NULL default '-1',
   KEY  (serial)
 ) TYPE=MyISAM COMMENT='Friends of cMulti';
+
+#!
 
 CREATE TABLE multis (
   serial int(11) NOT NULL default '0',
@@ -283,6 +262,8 @@ CREATE TABLE multis (
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM COMMENT='class cMulti';
+
+#!
 
 CREATE TABLE boats_itemoffsets (
   serial int(11) NOT NULL default '0',
@@ -293,6 +274,8 @@ CREATE TABLE boats_itemoffsets (
   KEY (serial)
 ) TYPE=MyISAM COMMENT='Itemoffsets of cBoat Components';
 
+#!
+
 CREATE TABLE boats_itemids (
   serial int(11) NOT NULL default '0',
   a tinyint(1) UNSIGNED NOT NULL default '0',
@@ -300,6 +283,8 @@ CREATE TABLE boats_itemids (
   id smallint(6) unsigned default '0',
   KEY (serial)
 ) TYPE=MyISAM COMMENT='ItemIDs of cBoat Components';
+
+#!
 
 CREATE TABLE boats (
   serial int(11) NOT NULL default '0',
@@ -317,6 +302,8 @@ CREATE TABLE boats (
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM COMMENT='class cBoat';
 
+#!
+
 CREATE TABLE houses (
   serial int(11) NOT NULL default '0',
   nokey tinyint(1) NOT NULL default '0',
@@ -327,20 +314,28 @@ CREATE TABLE houses (
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM COMMENT='class cHouse';
 
+#!
+
 CREATE TABLE guildstones_war (
   serial int(11) NOT NULL default '0',
   enemy int(11) NOT NULL default '-1'
 ) TYPE=MyISAM COMMENT='Other guildstones this guild is at war with.';
+
+#!
 
 CREATE TABLE guildstones_recruits (
   serial int(11) NOT NULL default '0',
   recruit int(11) NOT NULL default '-1'
 ) TYPE=MyISAM COMMENT='Recruitees of this guild.';
 
+#!
+
 CREATE TABLE guildstones_members (
   serial int(11) NOT NULL default '0',
   member int(11) NOT NULL default '-1'
 ) TYPE=MyISAM COMMENT='Members in this guild.';
+
+#!
 
 CREATE TABLE guildstones (
   serial int(11) NOT NULL default '0',
@@ -355,11 +350,15 @@ CREATE TABLE guildstones (
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM COMMENT='class cGuildStone';
 
+#!
+
 CREATE TABLE corpses_equipment (
   serial int(11) NOT NULL default '0',
   item int(11) NOT NULL default '-1',
   layer tinyint(3) UNSIGNED NOT NULL default '0'
 ) TYPE=MyISAM COMMENT='Equipment of corpses.';
+
+#!
 
 CREATE TABLE corpses (
   serial int(11) NOT NULL default '0',
@@ -371,6 +370,8 @@ CREATE TABLE corpses (
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM COMMENT='class cCorpse';
+
+#!
 
 CREATE TABLE tags (
   serial int(11) NOT NULL default '0',
