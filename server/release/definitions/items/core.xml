@@ -7,19 +7,6 @@
 =================================================================
 -->
 <definitions>
-   	<!-- Wooden Shield -->
-	<item id="1b7a">
-		<id>0x1b7a</id>
-		<itemhand>3</itemhand>
-		<durability>20</durability>
-		<decay />
-		<requires type="str">5</requires>
-		<defense>2</defense>
-		<layer>2</layer>
-		<value>39</value>
-		<weight>5.0</weight>
-	</item>
-
 	<item id="bank_check">
 		<id>0x14ef</id>
 		<events>check</events>

@@ -1,4 +1,3 @@
-<!-- edited with XML Spy v4.4 U (http://www.xmlspy.com) by Kosha (SiH) -->
 <!--
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
@@ -14,507 +13,139 @@
 		<npcwander type="circle" radius="20"/>
 		<totame>1100</totame>
 	</npc>
-	<!-- a headless weak-->
-	<npc id="headless_weak">
+
+	<!-- undead_loot_small -->
+	<npc id="undead_loot_small">
+		<gold><random min="0" max="50"/></gold>
+	</npc>
+
+	<npc id="undead_loot_medium">
+		<gold><random min="0" max="50"/></gold>
+	</npc>
+
+	<npc id="undead_loot_big">
+		<gold><random min="0" max="50"/></gold>
+	</npc>
+
+	<!-- headless -->
+	<list id="CARVE_HEADLESS">
+		<item>9f1,1</item> <!-- 1 meat -->
+	</list>
+
+	<npc id="headless">
 		<name>headless</name>
 		<id>0x01f</id>
-		<inherit id="undead_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1249"/>
-		</fame>
-		<defense>
-			<random min="15" max="15"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="0" max="50"/>
-		</gold>
+		<inherit id="undead_base" />
+		<inherit id="undead_loot_small" />
+		<karma><random min="-0" max="-624"/></karma>
+		<fame><random min="0" max="1249"/></fame>
+		<defense>18</defense>
+		<lodamage>2</lodamage>
+		<hidamage>5</hidamage>
+		<carve>CARVE_HEADLESS</carve>
+
 		<!-- Stats -->
-		<str>
-			<random min="22" max="39"/>
-		</str>
-		<dex>
-			<random min="33" max="46"/>
-		</dex>
-		<int>
-			<random min="14" max="25"/>
-		</int>
+		<str><random min="26" max="47"/></str>
+		<dex><random min="39" max="55"/></dex>
+		<int><random min="17" max="30"/></int>
+
 		<!-- Skills -->
-		<wrestling>
-			<random min="270" max="359"/>
-		</wrestling>
-		<tactics>
-			<random min="213" max="325"/>
-		</tactics>
-		<magicresistance>
-			<random min="128" max="165"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<!-- Priv -->
+		<magicresistance><random min="151" max="195" /></magicresistance>
+		<tactics><random min="251" max="383" /></tactics>
+		<wrestling><random min="318" max="423" /></wrestling>
+
+		<category>Monsters\Undead\Headless</category>
 	</npc>
-	<!-- a headless medium-->
-	<npc id="headless_medium">
-		<name>headless</name>
-		<id>0x01f</id>
-		<inherit id="undead_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1249"/>
-		</fame>
-		<defense>
-			<random min="18" max="18"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="0" max="50"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="26" max="47"/>
-		</str>
-		<dex>
-			<random min="39" max="55"/>
-		</dex>
-		<int>
-			<random min="17" max="30"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="318" max="423"/>
-		</wrestling>
-		<tactics>
-			<random min="251" max="383"/>
-		</tactics>
-		<magicresistance>
-			<random min="151" max="195"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<!-- Priv -->
-	</npc>
-	<!-- a headless hard-->
-	<npc id="headless_hard">
-		<name>headless</name>
-		<id>0x01f</id>
-		<inherit id="undead_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1249"/>
-		</fame>
-		<defense>
-			<random min="20" max="20"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="0" max="50"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="29" max="54"/>
-		</str>
-		<dex>
-			<random min="44" max="63"/>
-		</dex>
-		<int>
-			<random min="19" max="34"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="365" max="486"/>
-		</wrestling>
-		<tactics>
-			<random min="288" max="440"/>
-		</tactics>
-		<magicresistance>
-			<random min="173" max="224"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<!-- Priv -->
-	</npc>
-	<!-- a skeleton weak-->
-	<npc id="skeleton_weak">
+
+	<!-- skeleton -->
+	<npc id="skeleton">
 		<name>skeleton</name>
 		<id>0x032</id>
-		<inherit id="undead_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1249"/>
-		</fame>
-		<defense>
-			<random min="13" max="13"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="0" max="50"/>
-		</gold>
+		<inherit id="undead_base" />
+		<inherit id="undead_loot_small" />
+		<karma><random min="-0" max="-624"/></karma>
+		<fame><random min="0" max="1249"/></fame>
+
+		<defense>16</defense>
+		<lodamage>5</lodamage>
+		<hidamage>10</hidamage>
+
 		<!-- Stats -->
-		<str>
-			<random min="51" max="64"/>
-		</str>
-		<dex>
-			<random min="47" max="62"/>
-		</dex>
-		<int>
-			<random min="13" max="31"/>
-		</int>
+		<str><random min="61" max="76"/></str>
+		<dex><random min="56" max="73"/></dex>
+		<int><random min="16" max="37"/></int>
+
 		<!-- Skills -->
-		<wrestling>
-			<random min="419" max="488"/>
-		</wrestling>
-		<tactics>
-			<random min="383" max="503"/>
-		</tactics>
-		<magicresistance>
-			<random min="385" max="494"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<!-- Priv -->
+		<wrestling><random min="494" max="575"/></wrestling>
+		<tactics><random min="451" max="592"/></tactics>
+		<magicresistance><random min="454" max="582"/></magicresistance>
+
+		<category>Monsters\Undead\Skeleton</category>
 	</npc>
-	<!-- a skeleton medium-->
-	<npc id="skeleton_medium">
-		<name>skeleton</name>
-		<id>0x032</id>
-		<inherit id="undead_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1249"/>
-		</fame>
-		<defense>
-			<random min="16" max="16"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="0" max="50"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="61" max="76"/>
-		</str>
-		<dex>
-			<random min="56" max="73"/>
-		</dex>
-		<int>
-			<random min="16" max="37"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="494" max="575"/>
-		</wrestling>
-		<tactics>
-			<random min="451" max="592"/>
-		</tactics>
-		<magicresistance>
-			<random min="454" max="582"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<!-- Priv -->
-	</npc>
-	<!-- a skeleton hard-->
-	<npc id="skeleton_hard">
-		<name>skeleton</name>
-		<id>0x032</id>
-		<inherit id="undead_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1249"/>
-		</fame>
-		<defense>
-			<random min="18" max="18"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="0" max="50"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="70" max="87"/>
-		</str>
-		<dex>
-			<random min="64" max="83"/>
-		</dex>
-		<int>
-			<random min="18" max="42"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="568" max="661"/>
-		</wrestling>
-		<tactics>
-			<random min="518" max="680"/>
-		</tactics>
-		<magicresistance>
-			<random min="522" max="669"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<!-- Priv -->
-	</npc>
-	<!-- a skeleton (with axe) weak-->
-	<npc id="skeleton_with_axe_weak">
+
+	<!-- skeleton (with axe) -->
+	<npc id="skeleton_axe">
 		<name>skeleton</name>
 		<id>0x038</id>
-		<inherit id="undead_base"/>
-		<karma>
-			<random min="-2500" max="-4999"/>
-		</karma>
-		<fame>
-			<random min="2500" max="4999"/>
-		</fame>
-		<defense>
-			<random min="34" max="34"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="0" max="150"/>
-		</gold>
+		<inherit id="undead_base" />
+		<inherit id="undead_loot_small" />
+		<karma><random min="-0" max="-624"/></karma>
+		<fame><random min="0" max="1249"/></fame>
+
+		<defense>16</defense>
+		<lodamage>5</lodamage>
+		<hidamage>10</hidamage>
+
 		<!-- Stats -->
-		<str>
-			<random min="171" max="210"/>
-		</str>
-		<dex>
-			<random min="62" max="80"/>
-		</dex>
-		<int>
-			<random min="33" max="51"/>
-		</int>
+		<str><random min="61" max="76"/></str>
+		<dex><random min="56" max="73"/></dex>
+		<int><random min="16" max="37"/></int>
+
+		<!-- This is a loot replacement section ;) -->
+		<backpack>
+			<item inherit="f43" />
+		</backpack>
+
 		<!-- Skills -->
-		<wrestling>
-			<random min="741" max="810"/>
-		</wrestling>
-		<tactics>
-			<random min="755" max="847"/>
-		</tactics>
-		<magicresistance>
-			<random min="567" max="679"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<!-- Priv -->
+		<wrestling><random min="594" max="675"/></wrestling>
+		<tactics><random min="451" max="592"/></tactics>
+		<magicresistance><random min="454" max="582"/></magicresistance>
+
+		<category>Monsters\Undead\Skeleton (with Axe)</category>
 	</npc>
-	<!-- a skeleton (with axe) medium-->
-	<npc id="skeleton_with_axe_medium">
-		<name>skeleton</name>
-		<id>0x038</id>
-		<inherit id="undead_base"/>
-		<karma>
-			<random min="-2500" max="-4999"/>
-		</karma>
-		<fame>
-			<random min="2500" max="4999"/>
-		</fame>
-		<defense>
-			<random min="40" max="40"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="0" max="150"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="202" max="248"/>
-		</str>
-		<dex>
-			<random min="74" max="95"/>
-		</dex>
-		<int>
-			<random min="39" max="60"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="872" max="954"/>
-		</wrestling>
-		<tactics>
-			<random min="889" max="997"/>
-		</tactics>
-		<magicresistance>
-			<random min="668" max="799"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<!-- Priv -->
-	</npc>
-	<!-- a skeleton (with axe) hard-->
-	<npc id="skeleton_with_axe_hard">
-		<name>skeleton</name>
-		<id>0x038</id>
-		<inherit id="undead_base"/>
-		<karma>
-			<random min="-2500" max="-4999"/>
-		</karma>
-		<fame>
-			<random min="2500" max="4999"/>
-		</fame>
-		<defense>
-			<random min="46" max="46"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="0" max="150"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="232" max="285"/>
-		</str>
-		<dex>
-			<random min="85" max="109"/>
-		</dex>
-		<int>
-			<random min="44" max="69"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="1002" max="1097"/>
-		</wrestling>
-		<tactics>
-			<random min="1022" max="1146"/>
-		</tactics>
-		<magicresistance>
-			<random min="768" max="918"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<!-- Priv -->
-	</npc>
-	<!-- a skeleton (with schimitar) weak-->
-	<npc id="skeleton_with_schimitar_weak">
+
+	<!-- skeleton (with scimitar) -->
+	<npc id="skeleton_scimitar">
 		<name>skeleton</name>
 		<id>0x039</id>
-		<inherit id="undead_base"/>
-		<karma>
-			<random min="-2500" max="-4999"/>
-		</karma>
-		<fame>
-			<random min="2500" max="4999"/>
-		</fame>
-		<defense>
-			<random min="34" max="34"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="0" max="150"/>
-		</gold>
+		<inherit id="undead_base" />
+		<inherit id="undead_loot_small" />
+		<karma><random min="-0" max="-624"/></karma>
+		<fame><random min="0" max="1249"/></fame>
+
+		<defense>16</defense>
+		<lodamage>5</lodamage>
+		<hidamage>10</hidamage>
+
 		<!-- Stats -->
-		<str>
-			<random min="171" max="210"/>
-		</str>
-		<dex>
-			<random min="62" max="80"/>
-		</dex>
-		<int>
-			<random min="33" max="51"/>
-		</int>
+		<str><random min="61" max="76"/></str>
+		<dex><random min="56" max="73"/></dex>
+		<int><random min="16" max="37"/></int>
+
+		<!-- This is a loot replacement section ;) -->
+		<backpack>
+			<item inherit="13b5" />
+			<item inherit="1b7a" />
+		</backpack>
+
 		<!-- Skills -->
-		<wrestling>
-			<random min="741" max="810"/>
-		</wrestling>
-		<!-- Priv -->
+		<swordsmanship><random min="594" max="675"/></swordsmanship>
+		<tactics><random min="451" max="592"/></tactics>
+		<magicresistance><random min="454" max="582"/></magicresistance>
+
+		<category>Monsters\Undead\Skeleton (with Scimitar)</category>
 	</npc>
-	<!-- a skeleton (with schimitar) medium-->
-	<npc id="skeleton_with_schimitar_medium">
-		<name>skeleton</name>
-		<id>0x039</id>
-		<inherit id="undead_base"/>
-		<karma>
-			<random min="-2500" max="-4999"/>
-		</karma>
-		<fame>
-			<random min="2500" max="4999"/>
-		</fame>
-		<defense>
-			<random min="40" max="40"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="0" max="150"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="202" max="248"/>
-		</str>
-		<dex>
-			<random min="74" max="95"/>
-		</dex>
-		<int>
-			<random min="39" max="60"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="872" max="954"/>
-		</wrestling>
-		<!-- Priv -->
-	</npc>
-	<!-- a skeleton (with schimitar) hard-->
-	<npc id="skeleton_with_schimitar_hard">
-		<name>skeleton</name>
-		<id>0x039</id>
-		<inherit id="undead_base"/>
-		<karma>
-			<random min="-2500" max="-4999"/>
-		</karma>
-		<fame>
-			<random min="2500" max="4999"/>
-		</fame>
-		<defense>
-			<random min="46" max="46"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="0" max="150"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="232" max="285"/>
-		</str>
-		<dex>
-			<random min="85" max="109"/>
-		</dex>
-		<int>
-			<random min="44" max="69"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="1002" max="1097"/>
-		</wrestling>
-		<!-- Priv -->
-	</npc>
+
 	<!-- a zombie weak-->
 	<npc id="zombie_weak">
 		<name>zombie</name>

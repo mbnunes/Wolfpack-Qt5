@@ -13,13 +13,11 @@
 		<maxtime>30</maxtime>
 		<!-- 3/4 headless, 1/4 skeleton -->
 		<npcs>
-			<npc>headless</npc>
-			<npc>headless</npc>
-			<npc>headless</npc>
-			<npc>skeleton</npc>
+			<npc mult="3">headless</npc>
+			<npc mult="1">skeleton</npc>
 		</npcs>
 
-		<npcspercycle>5</npcspercycle>
+		<npcspercycle>1</npcspercycle>
 		<rectangle x1="1337" x2="1374" y1="1493" y2="1509" />
 	</spawnregion>
 </definitions>
