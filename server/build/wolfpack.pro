@@ -66,6 +66,7 @@ HEADERS         = client.h \
                   magic.h \
 		  makemenus.h \
 		  mapstuff.h \
+		  multis.h \
 		  msgboard.h \
 		  netsys.h \
 		  network.h \
@@ -149,6 +150,7 @@ SOURCES         = client.cpp \
 		  magic.cpp \
 		  makemenus.cpp \
 		  mapstuff.cpp \
+		  multis.cpp \
 		  msgboard.cpp \
 		  necro.cpp \
 		  netsys.cpp \
