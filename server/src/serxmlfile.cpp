@@ -253,19 +253,14 @@ void serXmlFile::doneWritting()
 
 void serXmlFile::readObjectID(std::string &data)
 {
-	if ( node.hasChildNodes() )
+	// Read the object-id if we're done reading the current item (this *will* lead to bugs with non-new item-files)
+	if( ( node.nodeName() != "objectID" ) && ( !node.hasChildNodes() ) )
 	{
-		if ( node.nodeName() == "objectID" )
-		{
-			data = node.attribute("value").latin1();
-			return;
-		}
-		else
-			node = node.nextSibling().toElement();
+		node = node.nextSibling().toElement();
+		readObjectID( data ); // "Re-read"
 	}
-	else
-		node = node.parentNode().toElement();
-	readObjectID( data );
+	else if ( node.nodeName() == "objectID" )
+		data = node.attribute("value").latin1();
 }
 
 void serXmlFile::read(const char* Key, std::string& data)
