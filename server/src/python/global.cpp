@@ -453,7 +453,8 @@ PyObject *wpAllItemsSerials( PyObject* self, PyObject* args )
 	for( iter.Begin(); !iter.atEnd(); iter++ )
 	{
 		P_ITEM pItem = iter.GetData();
-		PyList_Append( list, PyInt_FromLong( pItem->serial() ) );
+		if( pItem )
+			PyList_Append( list, PyInt_FromLong( pItem->serial() ) );
 	}
 
 	return list;
@@ -470,7 +471,8 @@ PyObject *wpAllCharsSerials( PyObject* self, PyObject* args )
 	for( iter.Begin(); !iter.atEnd(); iter++ )
 	{
 		P_CHAR pChar = iter.GetData();
-		PyList_Append( list, PyInt_FromLong( pChar->serial() ) );
+		if( pChar )
+			PyList_Append( list, PyInt_FromLong( pChar->serial() ) );
 	}
 
 	return list;

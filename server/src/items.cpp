@@ -572,8 +572,8 @@ void cItem::save()
 		addCondition( "serial", serial() );
 		saveFields;
 	}
-	changed_ = false;
 	cUObject::save();
+	changed_ = false;
 }
 
 static void itemRegisterAfterLoading( P_ITEM pi );

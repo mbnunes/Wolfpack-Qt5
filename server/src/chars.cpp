@@ -1135,8 +1135,8 @@ void cChar::save()
 			saveFields;
 		}
 	}
-	changed_ = false;
 	cUObject::save();
+	changed_ = false;
 }
 
 bool cChar::del()

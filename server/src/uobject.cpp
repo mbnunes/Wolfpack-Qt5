@@ -157,9 +157,9 @@ void cUObject::save()
 	}
 	tags_.save( serial_ );
 
-	changed_ = false;
 
 	PersistentObject::save();
+	changed_ = false;
 
 }
 
