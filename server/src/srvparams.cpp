@@ -120,10 +120,10 @@ void cSrvParams::readData()
 	animalWildFleeRange_	= getNumber("AI", "Wild animals flee range", 8, true );
 
 	// Persistency
-	databasePassword_		= getString("Database", "password", "", false);
-	databaseUsername_		= getString("Database", "username", "", false);
-	databaseHost_			= getString("Database", "host", "", false);
-	databaseName_			= getString("Database", "name", "", false);
+	databasePassword_		= getString("Database", "password", "", true);
+	databaseUsername_		= getString("Database", "username", "", true);
+	databaseHost_			= getString("Database", "host", "", true);
+	databaseName_			= getString("Database", "name", "", true);
 
 	// Remote Admin
 	ra_port_		        = getNumber("Remote Admin",	"Port", 2594, true);
