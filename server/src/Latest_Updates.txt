@@ -72,3 +72,4 @@ collect,get,look,view,browse and packup. A little code change for them also. (Ri
 60) Fixed: duplicate and wrong messages plus a 'dead' item when dropping items on beggars or guards (Lonewolf)
 61) Fixed: npc_base_fleeat and _reattack in server.scp didn't work. NOTE: existing npcs and
     those with their own setting in npc.scp will keep their fleeat-values (Lonewolf)
+62) Fixed: Fighting thru floors in houses & performance boost. (Fraz)

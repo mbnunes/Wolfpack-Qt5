@@ -750,6 +750,8 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 	{			
 		if (d<=-1 || d>=cmem) return;
 		if (pc_defender->free) return;
+		if (pc_attacker->dispz > (pc_defender->dispz +10)) return;//FRAZAI
+		if (pc_attacker->dispz < (pc_defender->dispz -10)) return;//FRAZAI
 		
 		if ((pc_defender->isNpc() && pc_defender->npcaitype!=17) || (online(d) && !pc_defender->dead) ) // ripper		
 		{

@@ -989,7 +989,7 @@ void showcname (int s, int i, char b) // Singleclick text for a character
 //
 void deathstuff(int i)
 {
-	int z, c, l, q, ele;
+	int z, l, q, ele;
 	char murderername[50]; //AntiChrist
 	char clearmsg[8];
 	int nType=0;
@@ -1797,7 +1797,6 @@ int validbeard(int a, int b) // Is selected beard type valid
 
 void charcreate( UOXSOCKET s ) // All the character creation stuff
 {
-	int n;
 	unsigned int i ;
 	signed int ii ;
 	int totalstats,totalskills;
@@ -2776,7 +2775,7 @@ void checkkey ()
 void start_glow(void)	// better to make an extra function cauze in loaditem it could be the case that the
 						// glower is loaded before the pack
 {
-	int j,k,l;
+	int k,l;
 	unsigned int i ;
 	for (i=0;i<itemcount;i++)
 	{
@@ -3600,6 +3599,8 @@ void npcattacktarget(int target2, int target)
 	if (target < 0 || target2<0 || target>cmem || target2>cmem) return;
 	P_CHAR pc_target  = MAKE_CHARREF_LR(target);
 	P_CHAR pc_target2 = MAKE_CHARREF_LR(target2);
+	if (pc_target->dispz > (pc_target2->dispz +10)) return;//FRAZAI
+	if (pc_target->dispz < (pc_target2->dispz -10)) return;//FRAZAI
 	if (!(line_of_sight(-1,pc_target2->pos, pc_target->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING))) return; //From Leviathan - Morrolan
 	playmonstersound(DEREF_P_CHAR(pc_target), pc_target->id1, pc_target->id2, SND_STARTATTACK);
 	int i;
@@ -3754,7 +3755,7 @@ void npcsimpleattacktarget(int target2, int target)
 
 void openbank(int s, int i)
 {
-	int c,serhash,ci;
+	int serhash,ci;
 	int serial=chars[i].serial;
 	serhash=serial%HASHMAX;
 	vector<SERIAL> vecOwn = ownsp.getData(serial);
@@ -3816,7 +3817,7 @@ void openbank(int s, int i)
 //
 void openspecialbank(int s, int i)
 {
-	int c,serial,serhash,ci;
+	int serial,serhash,ci;
 	int cc=currchar[s];
 	serial=chars[i].serial;
 	serhash=serial%HASHMAX;
@@ -5224,7 +5225,7 @@ void Fame(int nCharID, int nFame)
 
 void enlist(int s, int listnum) // listnum is stored in items morex
 {
-	int x,pos,j;
+	int x,pos;
 	char sect[50];
 
 	openscript("items.scp");
