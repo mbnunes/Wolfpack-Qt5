@@ -203,7 +203,7 @@ def export( char, args, choice ):
 			if item.amount > 1:
 				warnings += 'Item %s has an amount of %i. This information will be lost when made static.<br><br>' % ( hex( item.serial ), item.amount )
 
-			eventlist = item.scripts
+			eventlist = list(item.scripts) + item.basescripts.split(',')
 			if len( eventlist ) > 0:
 				warnings += 'Item %s has events (%s) assigned to it. It wont be usable when made static.<br><br>' % ( hex( item.serial ), eventlist )
 

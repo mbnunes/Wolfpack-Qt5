@@ -743,7 +743,7 @@ def onUse(player, item):
 	# Check if there is another dclick handler
 	# in the eventchain somewhere. if not,
 	# return True to handle the equip event.
-	scripts = item.scripts
+	scripts = list(item.scripts) + item.basescripts.split(',')
 
 	for script in scripts:
 		if wolfpack.hasevent(script, EVENT_WEARITEM):

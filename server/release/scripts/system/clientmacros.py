@@ -72,7 +72,7 @@ def openDoor( socket ):
 					break
 
 		if opendoor == 1:
-			scripts = door.scripts + door.basescripts.split(',')
+			scripts = list(door.scripts) + door.basescripts.split(',')
 			args = (char, door)
 			for script in scripts:
 				if wolfpack.hasevent(script, EVENT_USE):

@@ -28,7 +28,7 @@ def request(player, item, id):
 	packet.send(player.socket)
 
 def callEvent(item, event, args):
-	scripts = item.scripts + item.basescripts.split(',') # Build the scriptlist
+	scripts = list(item.scripts) + item.basescripts.split(',') # Build the scriptlist
 	
 	for script in scripts:
 		if len(script) == 0:

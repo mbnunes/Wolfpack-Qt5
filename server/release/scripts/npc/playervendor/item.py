@@ -73,7 +73,7 @@ def onTextInput(player, item, inputid, text):
 #
 def onShowTooltip(viewer, item, tooltip):
 	## Call the other tooltip scripts first
-	scripts = item.scripts + item.basescripts.split(',') # Build the scriptlist
+	scripts = list(item.scripts) + item.basescripts.split(',') # Build the scriptlist
 
 	for script in scripts:
 		if len(script) == 0 or script == 'npc.playervendor.item': # Ignore us
