@@ -21,8 +21,9 @@
 		<succmsg>You have found</succmsg>
 		<emptymsg>It seems as if no resources were left!</emptymsg>
 		<item>
-			<name>Iron</name>
+			<name>Iron ore</name>
 			<amount min="1" max="5" />
+			<definition>19ba</definition>
 			<id>0x19BA</id>
 			<color>0</color>
 			<vein min="50" max="80" quota="630" />
@@ -30,8 +31,9 @@
 			<quota>630</quota>
 		</item>
 		<item>
-			<name>Shadow</name>
+			<name>Shadow ore</name>
 			<amount min="1" max="4" />
+			<definition>19ba</definition>
 			<id>0x19BA</id>
 			<color>0x0386</color>
 			<vein min="50" max="70" quota="126" />
@@ -39,7 +41,8 @@
 			<quota>126</quota>
 		</item>
 		<item>
-			<name>Merkite</name>
+			<name>Merkite ore</name>
+			<definition>19ba</definition>
 			<amount min="1" max="4" />
 			<id>0x19BA</id>
 			<color>0x02C3</color>
@@ -48,7 +51,8 @@
 			<quota>112</quota>
 		</item>
 		<item>
-			<name>Copper</name>
+			<name>Copper ore</name>
+			<definition>19ba</definition>
 			<amount min="1" max="4" />
 			<id>0x19BA</id>
 			<color>0x046E</color>
@@ -57,7 +61,8 @@
 			<quota>98</quota>
 		</item>
 		<item>
-			<name>Silver</name>
+			<name>Silver ore</name>
+			<definition>19ba</definition>
 			<amount min="1" max="3" />
 			<id>0x19BA</id>
 			<color>0x0961</color>
@@ -66,7 +71,8 @@
 			<quota>84</quota>
 		</item>
 		<item>
-			<name>Bronze</name>
+			<name>Bronze ore</name>
+			<definition>19ba</definition>
 			<amount min="1" max="3" />
 			<id>0x19BA</id>
 			<color>0x02E7</color>
@@ -75,7 +81,8 @@
 			<quota>70</quota>
 		</item>
 		<item>
-			<name>Golden</name>
+			<name>Golden ore</name>
+			<definition>19ba</definition>
 			<amount min="1" max="2" />
 			<id>0x19BA</id>
 			<color>0x0466</color>
@@ -84,7 +91,8 @@
 			<quota>56</quota>
 		</item>
 		<item>
-			<name>Agapite</name>
+			<name>Agapite ore</name>
+			<definition>19ba</definition>
 			<amount min="1" max="2" />
 			<id>0x19BA</id>
 			<color>0x0150</color>
@@ -93,7 +101,8 @@
 			<quota>42</quota>
 		</item>	
 		<item>
-			<name>Verite</name>
+			<name>Verite ore</name>
+			<definition>19ba</definition>
 			<amount min="1" max="2" />
 			<id>0x19BA</id>
 			<color>0x022F</color>
@@ -102,7 +111,8 @@
 			<quota>28</quota>
 		</item>	
 		<item>
-			<name>Mythril</name>
+			<name>Mythril ore</name>
+			<definition>19ba</definition>
 			<amount>1</amount>
 			<id>0x19BA</id>
 			<color>0x0191</color>

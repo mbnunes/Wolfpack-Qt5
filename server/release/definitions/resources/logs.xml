@@ -16,10 +16,11 @@
 		<stamina>1</stamina>
 		<charaction>0x0D</charaction>
 		<sound>0x013E</sound>
-		<failmsg>You couldnt get any useful logs!</failmsg>
-		<succmsg>You hacked</succmsg>
-		<emptymsg>The tree looks like dead.</emptymsg>
+		<failmsg>cliloc:0,500,495</failmsg>
+		<succmsg>cliloc:0,500,498</succmsg>
+		<emptymsg>cliloc:0,500,493</emptymsg>
 		<item>
+			<definition>1be0</definition> <!-- We want the properties of the standard item definition as well -->
 			<amount min="1" max="10" />
 			<id>0x1BE0</id>
 			<color>0</color>
