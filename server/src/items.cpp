@@ -1214,60 +1214,115 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 }
 //END FUNCTION
 
-//NEW RESPAWNITEM FUNCTION STARTS HERE -- AntiChrist merging codes -- (24/6/99)
-
-void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
+void cAllItems::RespawnItem( UINT32 currenttime, P_ITEM pItem )
 {
-	int  k,m,serial, c;
-	//char ilist[66]="101010100010100101010100001101010000110101010101011010";
-	if (pi == NULL)
+	if( !pItem || pItem->free )
 		return;
-	if (pi->free) return;
 
-	for(c=0;c<pi->amount();c++)
+	// Not ready to respawn yet
+	if( pItem->gatetime > currenttime )
+		return;
+
+	switch( pItem->type() )
 	{
-		if(pi->gatetime+(c*pi->morez*MY_CLOCKS_PER_SEC)<=currenttime)// && chars[i].hp<=chars[i].st)
+	// Item Spawner
+	case 61:
 		{
-			if ((pi->disabled>0)&&((pi->disabled<=currenttime)||(overflow)))
+			// Check if it's worth respawning
+			vector< SERIAL > spawned = spawnsp.getData( pItem->serial );
+			UINT32 amount = spawned.size();
+
+			// Do a sanity check
+			for( UINT32 i = 0; i < spawned.size(); ++i )
 			{
-				pi->disabled=0;
-			}
-			m=0;
-			if (pi->type()==61)
-			{
-				k=0;
-				serial = pi->serial;
-				vector<SERIAL> vecSpawn = spawnsp.getData(pi->serial);
-				unsigned int j;
-				for (j = 0; j < vecSpawn.size(); j++)
+				P_ITEM pSpawned = FindItemBySerial( spawned[i] );
+
+				// Item has been deleted
+				if( !pSpawned )
 				{
-					P_ITEM pi_ci = FindItemBySerial(vecSpawn[j]);
-					if (pi_ci != NULL) 
-						if((!pi_ci->free))
-						{
-							if (pi != pi_ci && pi_ci->pos.x == pi->pos.x && pi_ci->pos.y == pi->pos.y && pi_ci->pos.z == pi->pos.z)
-							{
-								k = 1;
-								break;
-							}
-						}
+					spawnsp.remove( pItem->serial, pSpawned->serial );
+					--amount;
+				}
+				// Item has been moved
+				else if( pSpawned->pos != pItem->pos )
+				{
+					spawnsp.remove( pItem->serial, pSpawned->serial );
+					--amount;
+				}
+			}
+
+			// Respawn the item
+			// morex = min Time in secs till next respawn
+			// morey = max Time in secs till next respawn
+			// carve = item-section
+			if( amount < pItem->amount() )
+			{
+				// Create the spawned item @ our position
+				P_ITEM pSpawned = Items->createScriptItem( pItem->carve() );
+
+				if( !pSpawned )
+				{
+					clConsole.send( QString( "Unable to spawn unscripted item: %1" ).arg( pItem->carve() ) );
+					break;
 				}
 
-				if (k==0)
+				pSpawned->moveTo( pItem->pos );
+				pSpawned->SetSpawnSerial( pItem->serial );
+				pSpawned->update();				
+
+				spawnsp.insert( pItem->serial, pSpawned->serial );				
+			}			
+		}
+		break;
+	};
+
+	pItem->gatetime = currenttime + ( RandomNum( pItem->morex, pItem->morey ) * MY_CLOCKS_PER_SEC );
+
+	return;
+
+	// Amount seems spawn-amount
+	/*for( UINT16 c = 0; c < pi->amount(); ++c )
+	{
+		if( pi->gatetime + ( c * pi->morez * MY_CLOCKS_PER_SEC) <= currenttime ) )
+		{
+			if( pi->disabled && ( pi->disabled <= currenttime ) )
+				pi->disabled = 0;
+
+			// Type 61: Item Spawner
+			if( pi->type() == 61 )
+			{
+				bool found = false;
+                vector<SERIAL> vecSpawn = spawnsp.getData( pi->serial );
+
+				for( UINT16 j = 0; j < vecSpawn.size(); ++j )
 				{
-					if (pi->gatetime==0)
+					P_ITEM pSpawned = FindItemBySerial( vecSpawn[j] );
+					if( pSpawned && !pSpawned->free )
 					{
-						pi->gatetime=(rand()%((int)(1+((pi->morez-pi->morey)*(MY_CLOCKS_PER_SEC*60))))) +
-							(pi->morey*MY_CLOCKS_PER_SEC*60)+currenttime;
+						if( pi != pSpawned && pSpawned->inRange( pi, 0 ) )
+						{
+							found = true;
+							break;
+						}
 					}
-					if ((pi->gatetime<=currenttime ||(overflow)) && pi->morex!=0)
+				}
+
+				if( found )
+				{
+					if( pi->gatetime == 0 )
+					{
+						pi->gatetime=(rand()%( (int)( 1 + ( ( pi->morez - pi->morey ) * ( MY_CLOCKS_PER_SEC * 60 ) ) ) ) ) + ( pi->morey * MY_CLOCKS_PER_SEC * 60 ) + currenttime;
+					}
+
+					if( ( pi->gatetime <= currenttime ) && pi->morex != 0 )
 					{
 						Items->AddRespawnItem(pi, QString("%1").arg(pi->morex), false);
 						pi->gatetime=0;
 					}
 				}
 			}
-			else if (pi->type()==62 || pi->type()==69 || pi->type()==125)
+			// Npc Spawner
+			else if( pi->type() == 62 || pi->type() == 69 || pi->type() == 125 )
 			{
 				k=0;
 				serial=pi->serial;
@@ -1299,6 +1354,7 @@ void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 					}
 				}
 			}
+			// Chest spawner
 			else if ((pi->type()==63)||(pi->type()==64)||(pi->type()==65)||(pi->type()==66)||(pi->type()==8))
 			{
 				serial=pi->serial;
@@ -1337,7 +1393,7 @@ void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 				}
 			}
 		}//If time
-	}//for 
+	}//for */
 }
 
 void cAllItems::AddRespawnItem(P_ITEM pItem, QString itemSect, bool spawnInItem )
@@ -1587,6 +1643,10 @@ void cItem::processNode( const QDomElement& Tag )
 	// <value>10</value>
 	else if( TagName == "value" )
 		this->value = Value.toInt();
+
+	// <carve></carve> For corpses and item spawners
+	else if( TagName == "carve" )
+		this->carve_ = Value;
 		
 	// <restock>10</restock>
 	else if( TagName == "restock" )

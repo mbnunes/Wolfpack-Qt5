@@ -840,11 +840,11 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 			if(pi != NULL)
 			{
 				// lets make sure they are spawners.
-				if ((pi->type()>=61 && pi->type()<=65) || (pi->type()==69) || (pi->type()==125))
+				if( ( pi->type() >= 61 && pi->type() <= 65) || ( pi->type() == 69) || ( pi->type() == 125 ) )
 				{
 					// set to nodecay and refresh.
 	                pi->priv=0;
-		            RefreshItem(pi);
+		            pi->update();
 				 }
 			}
 		}
