@@ -618,7 +618,6 @@ def throwobject( char, object, target, sendobject=0, movable=1, speed=10, fixedd
 			# Container Workaround
 			if object.container:
 				object.container = 0
-			char.say('Bombing a character with %s!' % (object.name) )
 			object.moveto(target.char.pos)
 		elif target.item:
 			if target.item.type == 1 or target.item.type == 21:
@@ -626,13 +625,11 @@ def throwobject( char, object, target, sendobject=0, movable=1, speed=10, fixedd
 			# Container Workaround
 			if object.container:
 				object.container = 0
-			char.say('Bombing an item with %s!' % (object.name) )
 			object.moveto( target.item.pos )
 		else:
 			# Container Workaround
 			if object.container:
 				object.container = 0
-			char.say('Bombing something else with %s!' % (object.name) )
 			object.moveto( target.pos )
 		char.turnto(target.pos)
 		char.action(0x9)
