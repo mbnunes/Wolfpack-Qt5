@@ -96,6 +96,7 @@ CREATE TABLE `characters` (
 	`dexcap` tinyint(4)  NOT NULL default '125',
 	`intcap` tinyint(4)  NOT NULL default '125',
 	`statcap` tinyint(4)  NOT NULL default '225',
+	`baseid` varchar(64) NOT NULL default ''
 	PRIMARY KEY (`serial`)
 );
 
