@@ -1196,59 +1196,6 @@ void cMovement::HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket)
 void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
 {
 	pc->update();
-	/*
-    for (int i=0;i<now;i++)
-    {
-        if ((perm[i]) && (inrange1p(pc, currchar[i])))
-        {
-			P_CHAR pc_check = currchar[i];
-			LongToCharPtr(pc->serial, &extmove[1]);
-			ShortToCharPtr(pc->id(),  &extmove[5]);
-            extmove[7] = (unsigned char)(pc->pos.x>>8);
-            extmove[8] = (unsigned char)(pc->pos.x%256);
-            extmove[9] = (unsigned char)(pc->pos.y>>8);
-            extmove[10] = (unsigned char)(pc->pos.y%256);
-            extmove[11] = pc->dispz;
-            extmove[12] = (unsigned char)(pc->dir&0x7F);
-
-			ShortToCharPtr(pc->skin(), &extmove[13]);
-
-
-            if (pc->war) 
-				extmove[15]=0x40; 
-			else 
-				extmove[15]=0x00;
-            if (pc->hidden()) extmove[15] |= 0x80;
-            if (pc->poisoned()) extmove[15] |= 0x04; //AntiChrist -- thnx to SpaceDog
-            const int guild = GuildCompare( pc, currchar[i] );
-            if (pc->kills > SrvParams->maxkills() ) extmove[16]=6; // ripper
-            //if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
-            //chars[i].flag=0x04;       // everyone should be blue on default
-            else if (guild==1)//Same guild (Green)
-                extmove[16]=2;
-            else if (guild==2) // Enemy guild.. set to orange
-                extmove[16]=5;
-            //                  else if( !chars[i].npc && ( chars[i].priv&1 || chars[i].priv&80 ) )
-            //                          extmove[16] = 7;
-            else {
-                switch(pc->flag())
-                {//1=blue 2=green 5=orange 6=Red 7=Transparent(Like skin 66 77a)
-                case 0x01: extmove[16]=6; break;// If a bad, show as red.
-                case 0x04: extmove[16]=1; break;// If a good, show as blue.
-                case 0x08: extmove[16]=2; break; //green (guilds)
-                case 0x10: extmove[16]=5; break;//orange (guilds)
-                default:extmove[16]=3; break;//grey
-                }
-            }
-
-            if (!pc->war)
-            {
-                //                              pc->attacker=INVALID_SERIAL;
-                pc->targ = INVALID_SERIAL;
-            }
-            cNetwork::instance()->xSend(i, extmove, 17, 0);
-        }
-    }*/
 }
 
 // type is npcwalk mode ( 0 for normal, 1 for box, 2 for circle )

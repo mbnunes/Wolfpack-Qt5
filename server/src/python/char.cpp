@@ -45,6 +45,7 @@
 #include "../prototypes.h"
 #include "../junk.h"
 #include "../classes.h"
+#include "../newmagic.h"
 #include "../skills.h"
 #include "../combat.h"
 #include "../srvparams.h"
@@ -388,13 +389,13 @@ PyObject* wpChar_itemonlayer( wpChar* self, PyObject* args )
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
-	if( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
+	if( checkArgInt( 0 ) )
 	{
 		PyErr_BadArgument();
-		return NULL;
+		return 0;
 	}
 
-	return PyGetItemObject( self->pChar->GetItemOnLayer( PyInt_AsLong( PyTuple_GetItem( args, 0 ) ) ) );
+	return PyGetItemObject( self->pChar->atLayer( (cChar::enLayer)getArgInt( 0 ) ) );
 }
 
 /*!
@@ -1222,16 +1223,7 @@ PyObject* wpChar_attack( wpChar* self, PyObject* args )
 	if( !pChar || self->pChar == pChar )
 		return PyFalse;
 
-	self->pChar->fight( pChar );
-
-	// Show the You see XXX attacking YYY messages
-	QString message = tr( "*You see %1 attacking %2*" ).arg( self->pChar->name ).arg( pChar->name );
-	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-		if( mSock->player() && mSock->player() != self->pChar && mSock->player() != pChar && mSock->player()->inRange( self->pChar, mSock->player()->VisRange() ) )
-			mSock->showSpeech( self->pChar, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
-	
-	if( pChar->socket() )
-		pChar->socket()->showSpeech( self->pChar, tr( "*You see %1 attacking you*" ).arg( self->pChar->name ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
+	self->pChar->attackTarget( pChar );
 
 	return PyTrue;
 }
@@ -1258,6 +1250,20 @@ PyObject* wpChar_follow( wpChar* self, PyObject* args )
 	self->pChar->setFtarg( pChar->serial );
 	self->pChar->setNpcWander( 1 );
 	self->pChar->setNextMoveTime();
+
+	return PyTrue;
+}
+
+/*!
+	Disturbs whatever this character is doing right now.
+*/
+PyObject* wpChar_disturb( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	self->pChar->disturbMed();
+	NewMagic->disturb( self->pChar );
 
 	return PyTrue;
 }
@@ -1291,6 +1297,21 @@ PyObject* wpChar_goto( wpChar* self, PyObject* args )
 	return PyTrue;
 }
 
+/*!
+	This resends the flags of a certain character.
+	Please note that you have to do a socket.resendplayer in addition
+	to this if you want to update the socket itself.
+*/
+PyObject* wpChar_updateflags( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	self->pChar->update( true );
+	
+	return PyTrue;
+}
+
 static PyMethodDef wpCharMethods[] = 
 {
 	{ "moveto",			(getattrofunc)wpChar_moveto, METH_VARARGS, "Moves the character to the specified location." },
@@ -1298,6 +1319,7 @@ static PyMethodDef wpCharMethods[] =
 	{ "kill",			(getattrofunc)wpChar_kill, METH_VARARGS, "This kills the character." },
 	{ "damage",			(getattrofunc)wpChar_damage, METH_VARARGS, "This damages the current character." },
     { "update",			(getattrofunc)wpChar_update, METH_VARARGS, "Resends the char to all clients in range." },
+	{ "updateflags",	(getattrofunc)wpChar_updateflags, METH_VARARGS, "Resends the character if flags have changed (take care, this might look like a move)." },
 	{ "removefromview", (getattrofunc)wpChar_removefromview, METH_VARARGS, "Removes the char from all surrounding clients." },
 	{ "message",		(getattrofunc)wpChar_message, METH_VARARGS, "Displays a message above the characters head - only visible for the player." },
 	{ "soundeffect",	(getattrofunc)wpChar_soundeffect, METH_VARARGS, "Plays a soundeffect for the character." },
@@ -1316,6 +1338,7 @@ static PyMethodDef wpCharMethods[] =
 	{ "equip",			(getattrofunc)wpChar_equip, METH_VARARGS, "Equips a given item on this character." },
 	{ "maywalk",		(getattrofunc)wpChar_maywalk, METH_VARARGS, "Checks if this character may walk to a specific cell." },
 	{ "sound",			(getattrofunc)wpChar_sound, METH_VARARGS, "Play a creature specific sound." },
+	{ "disturb",		(getattrofunc)wpChar_disturb, METH_VARARGS, "Disturbs whatever this character is doing right now." },
 	
 	// Mostly NPC functions
 	{ "attack",			(getattrofunc)wpChar_attack, METH_VARARGS, "Let's the character attack someone else." },
@@ -1516,7 +1539,7 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 
 	else pGetStr( "profile", profile() )
 
-	else if( !strcmp( "follow", name ) )
+	else if( !strcmp( "following", name ) )
 		return PyGetCharObject( FindCharBySerial( self->pChar->ftarg() ) );
 
 	else if( !strcmp( "destination", name ) )
@@ -1554,15 +1577,22 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 int wpChar_setAttr( wpChar *self, char *name, PyObject *value )
 {
 	setStrProperty( "name", pChar->name )
-	else if( !strcmp( "follow", name ) )
+	else if( !strcmp( "following", name ) )
 	{
 		P_CHAR pChar = getWpChar( value );
-		if( pChar )
-			self->pChar->setFtarg( pChar->serial );
-		else
-			self->pChar->setFtarg( INVALID_SERIAL );
+		self->pChar->setFtarg( pChar ? pChar->serial : INVALID_SERIAL );
 	}
 
+	else if( !strcmp( "target", name ) )
+	{
+		P_CHAR pChar = getWpChar( value );
+		self->pChar->setTarg( pChar ? pChar->serial : INVALID_SERIAL );
+	}
+
+	else if( !strcmp( "npcwander", name ) )
+		self->pChar->setNpcWander( PyInt_AsLong( value ) );
+	else if( !strcmp( "guarding", name ) )
+		self->pChar->setGuarding( getWpChar( value ) );
 	else if ( !strcmp( "owner", name ) )
 		self->pChar->setOwner( getWpChar( value ) );
 	else if ( !strcmp( "tamed", name ) )
@@ -1610,6 +1640,8 @@ int wpChar_setAttr( wpChar *self, char *name, PyObject *value )
 		self->pChar->setKarma( PyInt_AS_LONG( value ) );
 	else if( !strcmp( name, "fame" ) )
 		self->pChar->setFame( PyInt_AS_LONG( value ) );
+	else if( !strcmp( name, "war" ) )
+		self->pChar->setWar( PyObject_IsTrue( value ) );
 
 	return 0;
 }

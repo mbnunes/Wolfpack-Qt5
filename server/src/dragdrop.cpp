@@ -116,7 +116,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 	P_CHAR itemOwner = pItem->getOutmostChar();
 
 	// Try to pick something out of another characters posessions
-	if( itemOwner && ( itemOwner != pChar ) && ( itemOwner->owner() != pChar ) )
+	if( !pChar->isGM() && itemOwner && ( itemOwner != pChar ) && ( itemOwner->owner() != pChar ) )
 	{
 		socket->bounceItem( pItem, BR_BELONGS_TO_SOMEONE_ELSE );
 		return;
@@ -158,7 +158,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 
 	// If the top-most container ( thats important ) is a corpse 
 	// and looting is a crime, flag the character criminal.
-	if( outmostCont && outmostCont->corpse() )
+	if( !pChar->isGM() && outmostCont && outmostCont->corpse() )
 	{
 		// For each item we take out we loose carma
 		// if the corpse is innocent and not in our guild
@@ -661,7 +661,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	// It needs to be our vendor or else it's denied
 	P_CHAR packOwner = pCont->getOutmostChar();
 
-	if( ( packOwner ) && ( packOwner != pChar ) )
+	if( ( packOwner ) && ( packOwner != pChar ) && !pChar->isGM() )
 	{
 		// For each item someone puts into there 
 		// He needs to do a snoop-check

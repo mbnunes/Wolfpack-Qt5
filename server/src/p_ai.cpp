@@ -52,18 +52,10 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 	if ( nextnpcaitime > currenttime )
 		return;
 
-    // in npc.scp add script # for npc`s ai
-	// case - script - case - script -   case - script -  case - script
-	//   0   -  0     -  4    -  4     -  8    -  8     -  12   -  C
-	//   1   -  1     -  5    -  5     -  9    -  9     -  13   -  D
-	//   2   -  2     -  6    -  6     -  10   -  A     -  14   -  E
-	//   3   -  3     -  7    -  7     -  11   -  B     -  15   -  F
-	// case - script - case - script
-	//   16  -  10    -  20   -  14
-	//   17  -  11    -  21   -  15
-	//   18  -  12    -  22   -  16
-	//   19  -  13    -  23   -  17  ...this is just a guide...Ripper
-	switch (pc_i->npcaitype())
+	if( pc_i->targ() == INVALID_SERIAL && pc_i->war() )
+		pc_i->toggleCombat();
+
+	switch( pc_i->npcaitype() )
 	{
 		case 0: // Shopkeepers greet players..Ripper
 			if (SrvParams->vendorGreet() == 1 && pc_i->isNpc() && pc_i->shop() && pc_i->isHuman())
@@ -142,11 +134,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 			}
 			break;
 		case 2 : // Monsters, PK's - (stupid NPCs)
-			if( pc_i->targ() == INVALID_SERIAL && pc_i->war() )
-			{
-				pc_i->toggleCombat();
-			}
-			if (!pc_i->war())
+			if( !pc_i->war() )
 			{
 				// Get the one with the least distance!
 				P_CHAR Victim = NULL;

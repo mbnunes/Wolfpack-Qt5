@@ -2962,15 +2962,17 @@ void cChar::attackTarget( P_CHAR defender )
 //	if (defender->pos.z > (attacker->pos.z +10)) return;//FRAZAI
 //	if (defender->pos.z < (attacker->pos.z -10)) return;//FRAZAI
 
-	Coord_cl attpos( pos );
-	Coord_cl defpos( defender->pos );
+	//Coord_cl attpos( pos );
+	//Coord_cl defpos( defender->pos );
 
-	attpos.z += 13; // eye height of attacker
+	//attpos.z += 13; // eye height of attacker
 
-	if( !lineOfSight( attpos, defpos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) )
-		return;
+	// I think this is nuts, it should be possible to go into combat even if 
+	// there is something between us
+	//if( !lineOfSight( attpos, defpos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) )
+	//	return;
 
-	playmonstersound( defender, defender->id(), SND_STARTATTACK );
+	playmonstersound( this, id_, SND_STARTATTACK );
 	unsigned int cdist=0 ;
 
 	P_CHAR target = FindCharBySerial( defender->targ() );
@@ -2999,12 +3001,9 @@ void cChar::attackTarget( P_CHAR defender )
 		resetAttackFirst();
 	}
 
-	defender->unhide();
-	defender->disturbMed();
-
 	unhide();
 	disturbMed();
-
+	
 	if( defender->isNpc() )
 	{
 		if( !( defender->war() ) )
@@ -3012,14 +3011,36 @@ void cChar::attackTarget( P_CHAR defender )
 		defender->setNextMoveTime();
 	}
 	
-	if( ( isNpc() ) && !( npcaitype() == 4 ) )
+	if( isNpc() && npcaitype_ != 4 )
 	{
-		if ( !( war_ ) )
+		if ( !war_ )
 			toggleCombat();
 
 		setNextMoveTime();
 	}
-	
+
+	// Check if the defender has pets defending him
+	Followers guards = defender->guardedby();
+
+	for( Followers::const_iterator iter = guards.begin(); iter != guards.end(); ++iter )
+	{
+		P_CHAR pPet = *iter;
+
+		if( pPet->targ() == INVALID_SERIAL && pPet->inRange( this, SrvParams->attack_distance() ) ) // is it on screen?
+		{
+			pPet->fight( this );
+
+			// Show the You see XXX attacking YYY messages
+			QString message = tr( "*You see %1 attacking %2*" ).arg( pPet->name ).arg( name );
+			for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+				if( mSock->player() && mSock != socket_ && mSock->player()->inRange( pPet, mSock->player()->VisRange() ) )
+					mSock->showSpeech( pPet, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
+			
+			if( socket_ )
+				socket_->showSpeech( pPet, tr( "*You see %1 attacking you*" ).arg( pPet->name ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
+		}
+	}
+
 	// Send a message to the defender
 	if( defender->socket() )
 	{
@@ -3029,13 +3050,13 @@ void cChar::attackTarget( P_CHAR defender )
 
 	QString emote = tr( "You see %1 attacking %2" ).arg( name.latin1() ).arg( defender->name.latin1() );
 
-	RegionIterator4Chars cIter( pos );
-	for( cIter.Begin(); !cIter.atEnd(); cIter++ )
+	cUOSocket *mSock = 0;
+	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 	{
-		P_CHAR pChar = cIter.GetData();
-
-		if( pChar && ( pChar != defender ) && pChar->socket() && pChar->inRange( this, pChar->VisRange() ) )
-			pChar->socket()->showSpeech( this, emote, 0x26, 3, cUOTxUnicodeSpeech::Emote );
+		if( mSock->player() && mSock->player() != this && mSock->player() != defender && mSock->player()->inRange( this, mSock->player()->VisRange() ) )
+		{
+			mSock->showSpeech( this, emote, 0x26, 3, cUOTxUnicodeSpeech::Emote );
+		}
 	}
 }
 
@@ -3275,9 +3296,7 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 		if (pc->lockSkill(zeta) != 0 && pc->lockSkill(zeta) != 1 && pc->lockSkill(zeta) != 2)
 			pc->setLockSkill(zeta, 0);
 	
-	// WTF Are these two doing here
-	pc->setPriv2(pc->priv2() & 0xf7);
-	pc->setPriv2(pc->priv2() & 0xBF);
+	pc->setPriv2(pc->priv2() & 0xBF); // ???
 
 	pc->setHidden( 0 );
 	pc->setStealth( -1 );
@@ -3303,7 +3322,7 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 			}
 		}
 	} 
-	else	// client crashing body --> delete if non player esle put onl”x a warning on server screen
+	else	// client crashing body --> delete if non player esle put only a warning on server screen
 	{	// we dont want to delete that char, dont we ?
 	
 		if (pc->account() == 0)

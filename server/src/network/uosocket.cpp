@@ -1496,7 +1496,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 		++count;
 	}
 
-	if( pCont->objectID() == "CORPSE" )
+	if( pCont->objectID() == "cCorpse" )
 	{
 		cCorpse *pCorpse = dynamic_cast< cCorpse* >( pCont );
 
@@ -1863,10 +1863,7 @@ void cUOSocket::bounceItem( P_ITEM pItem, eBounceReason reason )
 		pItem->toBackpack( player() );
 		
 		if( pItem->isInWorld() )
-		{
-			for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-				mSock->soundEffect( 0x42, pItem );
-		}
+			pItem->soundEffect( 0x42 );
 		else
 			soundEffect( 0x57, pItem );
 	}

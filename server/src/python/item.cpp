@@ -582,10 +582,12 @@ PyObject *wpItem_getAttr( wpItem *self, char *name )
 
 	// What we contain
 	else if( !strcmp( "content", name ) )
-	{
-		wpContent *content = PyObject_New( wpContent, &wpContentType );
-		content->contserial = self->pItem->serial;
-		return (PyObject*)content;
+	{		
+		cItem::ContainerContent content = self->pItem->content();
+		PyObject *list = PyList_New( content.size() );
+		for( INT32 i = 0; i < content.size(); ++i )
+			PyList_SetItem( list, i, PyGetItemObject( content[i] ) );		
+		return list;
 	}
 
 	// What we're contained in
@@ -693,9 +695,6 @@ int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
 
 	else setIntProperty( "serial", pItem->serial )
 
-	else if( !strcmp( name, "layer" ) )
-		self->pItem->setLayer( PyInt_AS_LONG( value ) );
-	
 	else if( !strcmp( name, "twohanded" ) )
 		self->pItem->setTwohanded( ( PyInt_AS_LONG( value ) != 0 ) ? true : false );
 
@@ -819,49 +818,21 @@ int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
 	// Moving the item into a container
 	else if( !strcmp( name, "container" ) )
 	{
-		// Check if we're passed an item
-		SERIAL contserial = 0; // 0 = invalid = cancel
-
 		P_CHAR pChar = getWpChar( value );
 		P_ITEM pItem = getWpItem( value );
-
-		if( value == Py_None )
-			contserial = INVALID_SERIAL;
+		
+		if( pItem )
+			pItem->addItem( self->pItem );
 		else if( pChar )
-			contserial = pChar->serial;
-		else if( pItem )
-			contserial = pItem->serial;
-		else if( PyInt_Check( value ) )
 		{
-			// Check if it could be a valid serial
-			SERIAL sSerial = PyInt_AsLong( value );
-			pItem = FindItemBySerial( sSerial );
-			pChar = FindCharBySerial( sSerial );
-
-			if( pItem )
-				contserial = sSerial;
-			else if( pChar )
-				contserial = sSerial;
+			// Get a valid layer
+			tile_st tInfo = TileCache::instance()->getTile( self->pItem->id() );
+			if( tInfo.layer != 0 )
+				pChar->addItem( (cChar::enLayer)tInfo.layer, self->pItem );
 		}
-
-		if( contserial != 0 )
-		{
-			// I'm not quite sure about this.
-			return 0;
-			//self->pItem->setContSerial( contserial );
-
-			// Get a random position
-			if( pItem && ( pItem->GetContGumpType() != -1 ) )
-				self->pItem->SetRandPosInCont( pItem );
-
-			// Or put it on the right layer (chars)
-			if( pChar && self->pItem->layer() == 0 )
-			{
-				tile_st tInfo = TileCache::instance()->getTile( self->pItem->id() );
-				if( tInfo.layer > 0 )
-					self->pItem->setLayer( tInfo.layer );
-			}
-		}
+		// Are we intentionally moving us into an invalid container?
+		else if( !PyObject_IsTrue( value ) )
+			self->pItem->removeFromCont();
 	}
 
 	return 0;

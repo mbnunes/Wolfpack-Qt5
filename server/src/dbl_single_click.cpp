@@ -99,6 +99,21 @@ void useWand( cUOSocket *socket, P_CHAR mage, P_ITEM wand )
 	}
 }
 
+bool isInLockedItem( P_ITEM pItem )
+{
+	if( pItem->container() && pItem->container()->isItem() )
+	{
+		P_ITEM pCont = dynamic_cast< P_ITEM >( pItem->container() );
+		
+		if( pCont->type() == 8 || pCont->type() == 64 )
+			return false;
+		else
+			return isInLockedItem( pCont );
+	}
+	else
+		return true;
+}
+
 void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 {
 	unsigned char map1[20] = "\x90\x40\x01\x02\x03\x13\x9D\x00\x00\x00\x00\x13\xFF\x0F\xFF\x01\x90\x01\x90";
@@ -281,9 +296,38 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		{
 			pc_currchar->setObjectDelay( 0 );	// no delay for opening containers
 			
-			if ( ( !pi->container() && pc_currchar->inRange( pi, 2 ) ) ||  // Backpack in world - free access to everyone
-				pc_currchar->Wears( pi ) )	// primary pack
+			if( pc_currchar->isGM() )
 			{
+				socket->sendContainer( pi );
+				return;
+			}
+
+			if( pi->layer() > 0x18 )
+			{
+				socket->sysMessage( tr( "You can't see this." ) );
+				return;
+			}
+
+			if( isInLockedItem( pi ) )
+			{
+				socket->sysMessage( tr( "You have to unlock it before taking a look." ) );
+				return;
+			}
+
+			if( !pi->container() )
+			{
+				if( !pi->inRange( pc_currchar, 2 ) )
+				{
+					socket->sysMessage( tr( "You can't reach this." ) );
+					return;
+				}
+
+				else if( !lineOfSight( pc_currchar->pos, pi->pos, WALLS_CHIMNEYS|DOORS|FLOORS_FLAT_ROOFING ) )
+				{
+					socket->sysMessage( tr( "You can't reach this." ) );
+					return;
+				}
+				
 				if( pi->corpse() )
 				{
 					if( pc_currchar->isHuman() )
@@ -291,39 +335,56 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 
 					pc_currchar->emote( tr( "*%1 loots the body of %2*" ).arg( pc_currchar->name ).arg( pi->name2() ), 0x26 );
 				}
-
-				pc_currchar->setObjectDelay( 0 );
+				
 				socket->sendContainer( pi );
-				return;
 			}
-			if (pi->container() && pi->container()->isItem())
+			else if( pi->container()->isItem() )
 			{
-				P_ITEM pio = pi->getOutmostItem();
-				if( !pio ) 
-					return;		// this should *not* happen, but it does ! Watch the logfiles (Duke)
+				P_ITEM pOCont = pi->getOutmostItem();
 
-				if( pc_currchar->Wears( pio ) || ( pio->isInWorld() && pc_currchar->inRange( pi, 2 ) ) ) // in world and in range
+				// Check if we can reach the top-container
+				if( !pOCont->container() )
 				{
+					if( !pOCont->inRange( pc_currchar, 2 ) )
+					{
+						socket->sysMessage( tr( "You can't reach this." ) );
+						return;
+					}
+
 					socket->sendContainer( pi );
-					return;
+				}
+				else
+				{
+					P_CHAR pChar = dynamic_cast< P_CHAR >( pOCont->container() );
+					if( pChar && pChar != pc_currchar )
+					{
+						if( !pChar->inRange( pc_currchar, 2 ) )
+							socket->sysMessage( tr( "You must stand nearer to snoop!" ) );
+						else						
+							Skills->Snooping( pc_currchar, pi );
+					}
+					else if( pChar == pc_currchar )
+						socket->sendContainer( pi );
 				}
 			}
-
-			P_CHAR pco = pi->getOutmostChar();
-			
-			if( pc_currchar->inRange( pco, 2 ) || pc_currchar->inRange( pi, 2 ) )
-			{	
-				if (pco == NULL)// reorganized by AntiChrist to avoid crashes
-					socket->sendContainer( pi );
-				else if (pc_currchar->serial == pco->serial || pc_currchar->isGMorCounselor() || pco->npcaitype() == 17)
-					socket->sendContainer( pi );
-				else
-					Skills->Snooping( pc_currchar, pi );
-			}
-			else
+			else if( pi->container()->isChar() )
 			{
-				socket->sysMessage(tr("You are too far away!"));
+				// Equipped on another character
+				P_CHAR pChar = dynamic_cast< P_CHAR >( pi->container() );
+
+				if( pChar && pChar != pc_currchar )
+				{
+					if( !pChar->inRange( pc_currchar, 2 ) )
+						socket->sysMessage( tr( "You must stand nearer to snoop!" ) );
+					else						
+						Skills->Snooping( pc_currchar, pi );
+				}
+				else if( pChar == pc_currchar )
+					socket->sendContainer( pi );
 			}
+
+			socket->sysMessage( tr( "You can't open this container." ) );
+			return;
 		}
 		return;
 	case 2: // Order gates?
