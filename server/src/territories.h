@@ -114,21 +114,30 @@ class cAllTerritories : public QObject, public cAllBaseRegions
 private:
 	static cAllTerritories instance;
 	cAllTerritories() {}
-
 public:
-	~cAllTerritories();
 
 	void		load( void );
 	void		check( P_CHAR pc );
 
-	cTerritory* region( QString regName )
+	cTerritory* region( const QString& regName )
 	{
-		return dynamic_cast< cTerritory* >(this->topregion_->region( regName ));
+		QMap<uint, cBaseRegion*>::const_iterator it( topregions.begin() );
+		for ( ; it != topregions.end(); ++it )
+		{
+			cTerritory* result = dynamic_cast< cTerritory* >(it.data()->region( regName ));
+			if ( result )
+				return result;
+		}
+		return 0;
 	}
 
-	cTerritory* region( UI16 posx, UI16 posy )
+	cTerritory* region( UI16 posx, UI16 posy, UI08 map )
 	{
-		return dynamic_cast< cTerritory* >(this->topregion_->region( posx, posy ));
+		QMap<uint, cBaseRegion*>::const_iterator it( topregions.find(map) );
+		if ( it != topregions.end() )
+			return dynamic_cast< cTerritory* >(it.data()->region( posx, posy, map ));
+		else
+			return 0;
 	}
 
 	QString		getGuardSect( void );

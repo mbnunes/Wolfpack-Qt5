@@ -35,7 +35,6 @@
 #define __Classes_h
 
 #include "assert.h"
-#include "verinfo.h"
 #include "typedefs.h"
 
 // use this value whereever you need to return an illegal z value

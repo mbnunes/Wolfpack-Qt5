@@ -57,7 +57,7 @@ class WPConsole_cl;
 //Wolfpack Includes
 
 #include "structs.h"
-#include "verinfo.h"
+//#include "verinfo.h"
 #include "storage.h"
 //#include "wpscriptmanager.h"
 //#include "wpdefmanager.h"
@@ -70,7 +70,7 @@ extern WPConsole_cl clConsole;
 extern unsigned int uiCurrentTime;
 extern unsigned int raindroptime;
 extern unsigned int polyduration;
-extern wp_version_info wp_version;
+//extern wp_version_info wp_version;
 
 extern unsigned int fly_p; // flying probability = 1/fly_p each step (if it doesnt fly)
 extern unsigned char fly_steps_max;

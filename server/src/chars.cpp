@@ -3333,7 +3333,7 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 	pc->setStealth( -1 );
 	pc->SetSpawnSerial( pc->spawnSerial() );
 	
-	pc->setRegion( cAllTerritories::getInstance()->region( pc->pos.x, pc->pos.y ) );
+	pc->setRegion( cAllTerritories::getInstance()->region( pc->pos.x, pc->pos.y, pc->pos.map ) );
 	
 	pc->setAntispamtimer( 0 );   //LB - AntiSpam -
 	pc->setAntiguardstimer( 0 ); //AntiChrist - AntiSpam for "GUARDS" call - to avoid (laggy) guards multi spawn

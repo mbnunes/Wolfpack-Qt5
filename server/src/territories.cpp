@@ -91,7 +91,7 @@ void cTerritory::processNode( const QDomElement &Tag )
 				}
 			}
 
-			childNode.nextSibling();
+			childNode = childNode.nextSibling();
 		}
 	}
 
@@ -222,11 +222,6 @@ QString cTerritory::getGuardSect( void )
 
 // cAllTerritories
 
-cAllTerritories::~cAllTerritories( void )
-{
-	delete this->topregion_;
-}
-
 void cAllTerritories::load( void )
 {
 	UI32 starttime = getNormalizedTime();
@@ -241,29 +236,33 @@ void cAllTerritories::load( void )
 		return;
 	}
 	
-	QStringList::iterator it = DefSections.begin();
+	QStringList::iterator it( DefSections.begin() );
 	while( it != DefSections.end() )
 	{
 		const QDomElement* DefSection = DefManager->getSection( WPDT_REGION, *it );
-		this->topregion_ = new cTerritory( *DefSection, 0 );
+		cTerritory* territory = new cTerritory( *DefSection, 0 );
+		if ( territory->rectangles().isEmpty() )
+		{
+			clConsole.send( tr("Warning: Top level region %1 lacks rectangle tag, ignoring region").arg(territory->name()) );
+			delete territory;
+		}
+		else
+		{
+			topregions.insert( territory->rectangles()[0].map, territory );
+		}
 		++it;
 	}
 
 	UI32 endtime = getNormalizedTime();
 	clConsole.ProgressDone();
 
-	if( DefSections.size() > 1 )
-	{
-		clConsole.error( QString("WARNING: found more than 1 top level region! check your scripts! (found %1)\n").arg( DefSections.size() ).latin1() );
-	}
-
-	clConsole.send( QString( "Loaded %1 regions in %2 sec.\n" ).arg( this->count() ).arg( (float)((float)endtime - (float)starttime) / MY_CLOCKS_PER_SEC ) );
+	clConsole.send( tr( "Loaded %1 regions in %2 sec.\n" ).arg( this->count() ).arg( (float)((float)endtime - (float)starttime) / MY_CLOCKS_PER_SEC ) );
 }
 
 void cAllTerritories::check( P_CHAR pc )
 {
 	cUOSocket *socket = pc->socket();
-	cTerritory* currRegion = this->region( pc->pos.x, pc->pos.y );
+	cTerritory* currRegion = this->region( pc->pos.x, pc->pos.y, pc->pos.map );
 	cTerritory* lastRegion = pc->region();
 
 	if( !currRegion )

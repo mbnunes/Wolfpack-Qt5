@@ -44,42 +44,23 @@
 #include <stdio.h>
 #include <fcntl.h>
 //#define getch() getchar()
-#else
-
-//#include <winsock2.h>
-//#include <winbase.h>
-//#include <dos.h>
-//#include <io.h>
-//#include <climits>
-//#include <conio.h>
-// Wolfpack includes
 #endif
 
 //using namespace std;
 
 // Forward class declarations
-
-
-
-
-
 #include "wpconsole.h"
 #include "typedefs.h"
-#include "verinfo.h"
 #include "boats.h"    // Boats
 #include "msgboard.h" // Bulletin Boards
 #include "house.h"    // Housing System
 #include "defines.h"
 #include "structs.h"
-
 #include "globals.h"
 #include "itemsmgr.h"
 #include "charsmgr.h"
-
 #include "prototypes.h"
-
 #include "junk.h"
-
 #include "inlines.h"
 
 //#include "WPScriptManager.h" // Script System

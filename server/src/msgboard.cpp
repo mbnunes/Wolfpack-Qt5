@@ -238,7 +238,7 @@ void MsgBoardOpen(int s)
 	strcpy( fileName1, "global.bbi" );
 	
 	// REGIONAL post file
-	cTerritory* Region = cAllTerritories::getInstance()->region( pi_msgBoard->pos.x, pi_msgBoard->pos.y );
+	cTerritory* Region = cAllTerritories::getInstance()->region( pi_msgBoard->pos.x, pi_msgBoard->pos.y, pi_msgBoard->pos.map );
 	if( Region != NULL )
 		sprintf( fileName2, "region_%s.bbi", Region->name().latin1() );
 	
@@ -417,7 +417,7 @@ void MsgBoardList( int s )
 	
 	// REGIONAL post file
 	// sprintf( fileName2, "%s.bbp", region[calcRegionFromXY(items[boardSN].x, items[boardSN].y)].name );
-	cTerritory* Region = cAllTerritories::getInstance()->region( boardSN->pos.x, boardSN->pos.y );
+	cTerritory* Region = cAllTerritories::getInstance()->region( boardSN->pos.x, boardSN->pos.y, boardSN->pos.map );
 	if( Region != NULL )
 		sprintf( fileName2, "region_%s.bbi", Region->name().latin1() );
 	
@@ -652,7 +652,7 @@ int MsgBoardGetMaxMsgSN( int msgType, int autoPost=0 )
 			P_ITEM msgBoard = FindItemBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]));
 			if( msgBoard == NULL )
 				break;
-			cTerritory* Region = cAllTerritories::getInstance()->region( msgBoard->pos.x, msgBoard->pos.y );
+			cTerritory* Region = cAllTerritories::getInstance()->region( msgBoard->pos.x, msgBoard->pos.y, msgBoard->pos.map );
 			if( Region != NULL )
 				sprintf( (char*)temp, "region_%s.bbi", Region->name().latin1() );
 		}
@@ -1026,7 +1026,7 @@ int MsgBoardPost( int s, int msgType, int autoPost )
 			P_ITEM msgBoard = FindItemBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]));
 			if( msgBoard == NULL )
 				break;
-			cTerritory* Region = cAllTerritories::getInstance()->region( msgBoard->pos.x, msgBoard->pos.y );
+			cTerritory* Region = cAllTerritories::getInstance()->region( msgBoard->pos.x, msgBoard->pos.y, msgBoard->pos.map );
 			if( Region != NULL )
 				sprintf( (char*)temp, "region_%s.bbi", Region->name().latin1() );
 		}
@@ -1282,7 +1282,7 @@ void MsgBoardOpenPost( int s )
 		P_ITEM msgBoard = FindItemBySerial(calcserial(msg2Post[4], msg2Post[5], msg2Post[6], msg2Post[7]));
 		if( msgBoard != NULL )
 		{
-			cTerritory* Region = cAllTerritories::getInstance()->region( msgBoard->pos.x, msgBoard->pos.y );
+			cTerritory* Region = cAllTerritories::getInstance()->region( msgBoard->pos.x, msgBoard->pos.y, msgBoard->pos.map );
 			if( Region != NULL )
 			{
 				sprintf( (char*)temp, "region_%s.bbp", Region->name().latin1() );
@@ -1512,7 +1512,7 @@ void MsgBoardRemovePost( int s )
 	case 0x02:
 		{
 			// REGIONAL post file
-			cTerritory* Region = cAllTerritories::getInstance()->region( msgBoardSN->pos.x, msgBoardSN->pos.y );
+			cTerritory* Region = cAllTerritories::getInstance()->region( msgBoardSN->pos.x, msgBoardSN->pos.y, msgBoardSN->pos.map );
 			if( Region != NULL )
 				sprintf( (char*)temp, "region_%s.bbi", Region->name().latin1() );
 			break;

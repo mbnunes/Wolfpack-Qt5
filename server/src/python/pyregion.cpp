@@ -79,7 +79,7 @@ PyObject *wpRegion_getAttr( wpRegion *self, char *name )
 	}
 	else if( !strcmp( name, "children" ) )
 	{
-		std::vector< cBaseRegion* > children = self->pRegion->children();
+		QValueVector< cBaseRegion* > children = self->pRegion->children();
 		PyObject *tuple = PyTuple_New( children.size() );
 		for( INT32 i = 0; i < children.size(); ++i )
 		{
@@ -91,7 +91,7 @@ PyObject *wpRegion_getAttr( wpRegion *self, char *name )
 	// Return a Tuple of Tuples
 	else if( !strcmp( name, "rectangles" ) )
 	{
-		std::vector< cBaseRegion::rect_st > rectangles = self->pRegion->rectangles();
+		QValueVector< cBaseRegion::rect_st > rectangles = self->pRegion->rectangles();
 		PyObject *tuple = PyTuple_New( rectangles.size() );
 		for( INT32 i = 0; i < rectangles.size(); ++i )
 		{

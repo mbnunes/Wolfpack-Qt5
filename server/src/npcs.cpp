@@ -143,7 +143,7 @@ P_CHAR cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos 
 
 	pChar->moveTo( pos );
 
-	pChar->setRegion( cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y ) );
+	pChar->setRegion( cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y, pChar->pos.map ) );
 
 	pChar->applyDefinition( *DefSection );
 
@@ -164,7 +164,7 @@ P_CHAR cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos 
 //
 bool cChar::inGuardedArea()
 {
-	cTerritory* Region = cAllTerritories::getInstance()->region( this->pos.x, this->pos.y );
+	cTerritory* Region = cAllTerritories::getInstance()->region( this->pos.x, this->pos.y, this->pos.map );
 	if( Region )
 		return Region->isGuarded();
 	else

@@ -105,14 +105,12 @@ private:
 class cAllSpawnRegions : public cAllBaseRegions, public std::map< QString, cSpawnRegion* >
 {
 public:
-	cAllSpawnRegions() { this->topregion_ = 0; }
-	~cAllSpawnRegions();
 
 	virtual void	load( void );
 	void	check( void );
 
-	cSpawnRegion*	region( QString regName );
-	cSpawnRegion*	region( UI16 posx, UI16 posy );
+	cSpawnRegion*	region( const QString& regName );
+	cSpawnRegion*	region( UI16 posx, UI16 posy, UI08 map );
 
 	void	reSpawn( void );
 	void	reSpawnToMax( void );
@@ -125,7 +123,7 @@ public:
 		while( it != this->end() )
 		{
 			numNpcs += it->second->npcs();	
-			it++;
+			++it;
 		}
 		return numNpcs;
 	}
@@ -137,7 +135,7 @@ public:
 		while( it != this->end() )
 		{
 			numItems += it->second->items();	
-			it++;
+			++it;
 		}
 		return numItems;
 	}
@@ -149,7 +147,7 @@ public:
 		while( it != this->end() )
 		{
 			numNpcs += it->second->maxNpcs();	
-			it++;
+			++it;
 		}
 		return numNpcs;
 	}
@@ -161,7 +159,7 @@ public:
 		while( it != this->end() )
 		{
 			numItems += it->second->maxItems();	
-			it++;
+			++it;
 		}
 		return numItems;
 	}

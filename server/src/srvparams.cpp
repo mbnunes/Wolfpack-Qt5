@@ -35,13 +35,14 @@
 
 #include "srvparams.h"
 #include "globals.h"
+#include "verinfo.h"
+#include "preferences.h"
 
 // Library Includes
-#include "preferences.h"
-#include "qstring.h"
-#include "qstringlist.h"
-#include "qhostaddress.h"
-#include "qdatetime.h"
+#include <qstring.h>
+#include <qstringlist.h>
+#include <qhostaddress.h>
+#include <qdatetime.h>
 
 const char preferencesFileVersion[] = "1.0";
 

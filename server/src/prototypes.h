@@ -99,7 +99,6 @@ unsigned int itemdist(P_CHAR pc, P_ITEM pi);
 
 int DeleBankItem( P_CHAR pc, unsigned short itemid, unsigned short color, int amt );
 void getSextantCords(signed int x, signed int y, bool t2a, char *sextant);
-void usehairdye(int s, P_ITEM piDye);
 int bestskill(P_CHAR pc);
 void loadskills();
 void itemsfx(UOXSOCKET s, short item);

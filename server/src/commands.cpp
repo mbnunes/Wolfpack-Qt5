@@ -101,12 +101,12 @@ void cCommands::dispatch( cUOSocket *socket, const QString &command, QStringList
 			return;
 		}
 
-	socket->sysMessage( "Unknown Command" );
+	socket->sysMessage( tr("Unknown Command") );
 }
 
 void cCommands::loadACLs( void )
 {
-	clConsole.PrepareProgress( "Loading Access Control Lists" );
+	clConsole.PrepareProgress( tr("Loading Access Control Lists") );
 
 	QStringList ScriptSections = DefManager->getSections( WPDT_PRIVLEVEL );
 	
@@ -114,7 +114,7 @@ void cCommands::loadACLs( void )
 	{
 		clConsole.ProgressFail();
 		clConsole.ChangeColor( WPC_RED );
-		clConsole.send( "WARNING: No ACLs for players, counselors, gms and admins defined!\n" );
+		clConsole.send( tr("WARNING: No ACLs for players, counselors, gms and admins defined!\n") );
 		clConsole.ChangeColor( WPC_NORMAL );
 		return;
 	}
@@ -133,7 +133,7 @@ void cCommands::loadACLs( void )
 		if ( ACLname == QString::null )
 		{
 			clConsole.ChangeColor( WPC_RED );
-			clConsole.send( QString("WARNING: Tag %1 lacks \"id\" attribute").arg(Tag->tagName()) );
+			clConsole.send( tr("WARNING: Tag %1 lacks \"id\" attribute").arg(Tag->tagName()) );
 			clConsole.ChangeColor( WPC_NORMAL );
 			continue;
 		}
@@ -261,7 +261,7 @@ void commandWhere( cUOSocket *socket, const QString &command, QStringList &args 
 	if( !pChar )
 		return;
 
-	cTerritory *mRegion = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y );
+	cTerritory *mRegion = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y, pChar->pos.map );
 
 	QString message = tr( "You are " );
 
@@ -943,7 +943,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 
 			if( pChar )
 			{
-				cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y );
+				cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y, pChar->pos.map );
 				pChar->setRegion( region );
 			}
 		}
@@ -975,7 +975,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 
 			if( pChar )
 			{
-				cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y );
+				cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y, pChar->pos.map );
 				pChar->setRegion( region );
 			}
 		}

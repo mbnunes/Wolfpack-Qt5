@@ -62,7 +62,7 @@ LINK32=xilink6.exe
 # PROP BASE Target_Dir ""
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
-# PROP Output_Dir "c:\wolfpack"
+# PROP Output_Dir "Debug"
 # PROP Intermediate_Dir "Debug"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
@@ -75,7 +75,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=xilink6.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 ws2_32.lib ZThread.lib $(QTDIR)\lib\qt-mt310.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib libmysql.lib /nologo /version:12.9 /subsystem:console /debug /machine:I386 /nodefaultlib:"libcmt" /nodefaultlib:"libcmtd" /out:"C:\Wolfpack\wolfpack.exe" /pdbtype:sept /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib"
+# ADD LINK32 ws2_32.lib ZThread.lib $(QTDIR)\lib\qt-mt310.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib libmysql.lib /nologo /version:12.9 /subsystem:console /debug /machine:I386 /nodefaultlib:"libcmt" /nodefaultlib:"libcmtd" /out:"Debug\wolfpack.exe" /pdbtype:sept /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib"
 # SUBTRACT LINK32 /pdb:none
 
 !ENDIF 

@@ -45,7 +45,6 @@
 #include "territories.h"
 #include "remadmin.h"
 #include "worldmain.h"
-//#include "walking.h"
 #include "books.h"
 #include "TmpEff.h"
 #include "guildstones.h"
@@ -509,30 +508,6 @@ int DeleBankItem( P_CHAR pc, unsigned short itemid, unsigned short color, int am
 		return 0;
 }
 
-void usehairdye(UOXSOCKET s, P_ITEM piDye)	// x is the hair dye bottle object number
-{
-	if (piDye == NULL)
-		return;
-
-	P_ITEM pi;
-	P_CHAR pc_currchar = currchar[s];
-
-	unsigned int ci = 0;
-	cChar::ContainerContent container(pc_currchar->content());
-	cChar::ContainerContent::const_iterator it (container.begin());
-	cChar::ContainerContent::const_iterator end(container.end());
-	for (; it != end; ++it )
-	{
-		pi = *it;
-		if(pi->layer()==0x10 || pi->layer()==0x0B)//beard(0x10) and hair
-		{
-			pi->setColor( piDye->color() );	//Now change the color to the hair dye bottle color!
-			pi->update();
-		}
-	}
-	Items->DeleItem(piDye);	//Now delete the hair dye bottle!
-}
-
 void explodeitem(int s, P_ITEM pi)
 {
 	unsigned int dmg=0,len=0;
@@ -906,13 +881,6 @@ void endmessage(int x) // If shutdown is initialized
 	clConsole.send(temp);
 }
 
-void illinst(int x=0) //Thunderstorm linux fix
-{
-	sysbroadcast("Fatal Server Error! Bailing out - Have a nice day!");
-	clConsole.send("Illegal Instruction Signal caught - attempting shutdown");
-	endmessage(x);
-}
-
 void npctalkall_runic(P_CHAR npc, const char *txt,char antispam)
 {
 	if (npc == NULL) return;
@@ -1120,7 +1088,7 @@ void interpretCommand( const QString &command )
 
 					if( pChar )
 					{
-						cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y );
+						cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y, pChar->pos.map );
 						pChar->setRegion( region );
 					}
 				}
@@ -1285,10 +1253,6 @@ int main( int argc, char *argv[] )
 	clConsole.setConsoleTitle( consoleTitle );
 
 	StartClasses();
-	clConsole.PrepareProgress( "Starting up Network" );
-	cNetwork::startup();
-	clConsole.ProgressDone();
-	CIAO_IF_ERROR;
 
 	DefManager->load();
 
@@ -1308,12 +1272,10 @@ int main( int argc, char *argv[] )
 	//Now lets load the custom scripts, if they have them defined...
 	i=0;
 
-	CIAO_IF_ERROR;
-
 	SetGlobalVars();
 	SkillVars();	// Set Creator Variables
 
-	clConsole.PrepareProgress( "Loading skills" );
+	clConsole.PrepareProgress( tr("Loading skills") );
 	loadskills();
 	clConsole.ProgressDone();
 
@@ -1343,9 +1305,8 @@ int main( int argc, char *argv[] )
 	Map->registerMap(0, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
 	Map->registerMap(1, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
 	Map->registerMap(2, "map2.mul", 288, 200, "statics2.mul", "staidx2.mul");
-//	Map->registerMap(3, "map2.mul", 288, 200, "statics2.mul", "staidx2.mul");
 
-	if (keeprun==0) { cNetwork::instance()->shutdown(); DeleteClasses(); exit(-1); }
+	if (keeprun==0) { DeleteClasses(); exit(-1); }
 		
 	srand(uiCurrentTime); // initial randomization call
 
@@ -1357,7 +1318,6 @@ int main( int argc, char *argv[] )
 	// Try to open our driver
 	if( !persistentBroker->openDriver( "mysql" ) )
 	{
-		cNetwork::instance()->shutdown();
 		DeleteClasses();
 		exit(-1);
 	}
@@ -1365,7 +1325,6 @@ int main( int argc, char *argv[] )
 	// Establish the connection to our database (persistent!)
 	if( !persistentBroker->connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() ) )
 	{
-		cNetwork::instance()->shutdown();
 		DeleteClasses();
 		exit(-1);
 	}
@@ -1390,13 +1349,11 @@ int main( int argc, char *argv[] )
 		clConsole.ChangeColor( WPC_NORMAL );
 		clConsole.send( ": " + error + "\n" );
 		clConsole.send( "Press any key to continue..." );
-		cNetwork::instance()->shutdown();
 		DeleteClasses();
-		getchar();
 		exit(-1);		
 	}
 
-	clConsole.PrepareProgress( "Postprocessing" );
+	clConsole.PrepareProgress( tr("Postprocessing") );
 
 	// this loop is for things that have to be done after *all* items and chars have been loaded (Duke)
 	P_ITEM pi;	
@@ -1497,7 +1454,7 @@ int main( int argc, char *argv[] )
 				}
 				else
 				{
-					clConsole.send( QString( "The owner of Serial 0x%1 is invalid: %2" ).arg( pChar->serial, 16 ).arg( owner, 16 ) );
+					clConsole.send( tr( "The owner of Serial 0x%1 is invalid: %2" ).arg( pChar->serial, 16 ).arg( owner, 16 ) );
 					pChar->setOwnerOnly( 0 );
 				}
 			}
@@ -1515,7 +1472,7 @@ int main( int argc, char *argv[] )
 				}
 				else
 				{
-					clConsole.send( QString( "The guard target of Serial 0x%1 is invalid: %2" ).arg( pChar->serial, 16 ).arg( guarding, 16 ) );
+					clConsole.send( tr( "The guard target of Serial 0x%1 is invalid: %2" ).arg( pChar->serial, 16 ).arg( guarding, 16 ) );
 					pChar->setGuardingOnly( 0 );
 				}
 			}
@@ -1532,7 +1489,7 @@ int main( int argc, char *argv[] )
 					pMulti->addChar( pChar );
 			}
 
-			cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y );
+			cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y, pChar->pos.map );
 			pChar->setRegion( region );
 
 			// Now that we have our owner set correctly
@@ -1543,7 +1500,7 @@ int main( int argc, char *argv[] )
 
 	clConsole.ProgressDone();
 
-	clConsole.PrepareProgress( "Deleting lost items" );
+	clConsole.PrepareProgress( tr("Deleting lost items") );
 
 	// Do we have to delete items?
 	for( P_ITEM pItem = deleteItems.first(); pItem; pItem = deleteItems.next() )
@@ -1562,11 +1519,11 @@ int main( int argc, char *argv[] )
 	MakeMenus::instance()->load();
 	ContextMenus::instance()->reload();
 
-	clConsole.PrepareProgress( "Resetting all Trade windows" ); // Should automatically be done whenever a char disconnects
+	clConsole.PrepareProgress( tr("Resetting all Trade windows") ); // Should automatically be done whenever a char disconnects
 	Trade->clearalltrades();
 	clConsole.ProgressDone();
 
-	clConsole.PrepareProgress( "Initializing Multis" );
+	clConsole.PrepareProgress( tr("Initializing Multis") );
 	InitMultis();
 	clConsole.ProgressDone();
 
@@ -1574,7 +1531,7 @@ int main( int argc, char *argv[] )
 	endtime=0;
 	lclock=0;
 
-	clConsole.PrepareProgress( "Initializing GM Pages" );
+	clConsole.PrepareProgress( tr("Initializing GM Pages") );
 	clConsole.ProgressDone();
 
 	cwmWorldState->announce(SrvParams->announceWorldSaves());
@@ -1584,7 +1541,7 @@ int main( int argc, char *argv[] )
 	Magic->load(); // Load the new magic system
 	NewMagic->load();
 
-	clConsole.PrepareProgress( "Loading IP Blocking rules" );
+	clConsole.PrepareProgress( tr("Loading IP Blocking rules") );
 	cNetwork::instance()->load();
 	clConsole.ProgressDone();
 
@@ -1609,7 +1566,11 @@ int main( int argc, char *argv[] )
 	else
 		clConsole.send( SrvParams->clientsAllowed().join( ", " ) + "\n\n" );
 
-	clConsole.send( QString( "Wolfpack running on port %1\n" ).arg( SrvParams->port() ) );
+	clConsole.PrepareProgress( "Starting up Network" );
+	cNetwork::startup();
+	clConsole.ProgressDone();
+	CIAO_IF_ERROR;
+	clConsole.send( tr( "Wolfpack running on port %1\n" ).arg( SrvParams->port() ) );
 
 	PyThreadState *_save;
 
@@ -1751,13 +1712,13 @@ int main( int argc, char *argv[] )
 	Magic->unload();
 	NewMagic->unload();
 
-	clConsole.PrepareProgress( "Shutting down network" );
+	clConsole.PrepareProgress( tr("Shutting down network") );
 	cNetwork::shutdown();
 	clConsole.ProgressDone();
 		
 	DefManager->unload();
 
-	clConsole.PrepareProgress( "Saving configuration" );
+	clConsole.PrepareProgress( tr("Saving configuration") );
 	SrvParams->flush();
 	clConsole.ProgressDone();
 	clConsole.send("\n");
@@ -2406,7 +2367,7 @@ int calcValue(P_ITEM pi, int value)
 
 int calcGoodValue(P_CHAR npcnum2, P_ITEM pi, int value,int goodtype)
 { // Function Created by Magius(CHE) for trade System
-	cTerritory* Region = cAllTerritories::getInstance()->region( npcnum2->pos.x, npcnum2->pos.y );
+	cTerritory* Region = cAllTerritories::getInstance()->region( npcnum2->pos.x, npcnum2->pos.y, npcnum2->pos.map );
 
 	int regvalue=0;
 	int x;
@@ -2445,7 +2406,7 @@ void StoreItemRandomValue(P_ITEM pi,QString tmpreg)
 		cTerritory* Region;
 		if (pio->isInWorld())
 		{
-			Region = cAllTerritories::getInstance()->region( pio->pos.x, pio->pos.y );
+			Region = cAllTerritories::getInstance()->region( pio->pos.x, pio->pos.y, pio->pos.map );
 			if( Region != NULL )
 				tmpreg = Region->name();
 		}
@@ -2453,7 +2414,7 @@ void StoreItemRandomValue(P_ITEM pi,QString tmpreg)
 		{
 			P_CHAR pc=FindCharBySerial(pio->contserial);
 			if (!pc) return;
-			Region = cAllTerritories::getInstance()->region( pc->pos.x, pc->pos.y );
+			Region = cAllTerritories::getInstance()->region( pc->pos.x, pc->pos.y, pc->pos.map );
 			if( Region != NULL )
 				tmpreg = Region->name();
 		}

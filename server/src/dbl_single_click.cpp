@@ -99,6 +99,30 @@ void useWand( cUOSocket *socket, P_CHAR mage, P_ITEM wand )
 	}
 }
 
+void usehairdye(cUOSocket* socket, P_ITEM piDye)
+{
+	if (piDye == NULL)
+		return;
+
+	P_ITEM pi;
+	P_CHAR pc_currchar = socket->player();
+
+	cChar::ContainerContent container(pc_currchar->content());
+	cChar::ContainerContent::const_iterator it (container.begin());
+	cChar::ContainerContent::const_iterator end(container.end());
+	for (; it != end; ++it )
+	{
+		pi = *it;
+		if(pi->layer()==0x10 || pi->layer()==0x0B)//beard(0x10) and hair
+		{
+			pi->setColor( piDye->color() );	//Now change the color to the hair dye bottle color!
+			pi->update();
+		}
+	}
+	Items->DeleItem(piDye);	//Now delete the hair dye bottle!
+}
+
+
 bool isInLockedItem( P_ITEM pItem )
 {
 	if( pItem->container() && pItem->container()->isItem() )
@@ -1237,14 +1261,12 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					return;
 				case 0x1057:
 				case 0x1058: // sextants
-					
 					getSextantCords(pc_currchar->pos.x, pc_currchar->pos.y, socket->isT2A(), temp);
-					sprintf((char*)temp, "You are at: %s", temp);
-					sysmessage(s, (char*)temp);
+					socket->sysMessage( tr("You are at: %1").arg(temp) );
 					return;
 				case 0x0E27:
 				case 0x0EFF:   // Hair Dye
-					usehairdye(s, pi);
+					usehairdye(socket, pi);
 					return;
 				case 0x14FB:
 				case 0x14FC:

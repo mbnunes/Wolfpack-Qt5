@@ -57,8 +57,6 @@ using namespace std;
 void cSpawnRegion::init( void )
 {
 	cBaseRegion::init();
-	npcSections_ = QStringList();
-	itemSections_ = QStringList();
 	maxNpcAmt_ = 0;
 	maxItemAmt_ = 0;
 	npcsPerCycle_ = 1;
@@ -70,7 +68,7 @@ void cSpawnRegion::init( void )
 
 void cSpawnRegion::add( UI32 serial )
 {
-	if( isItemSerial(serial) /*>= 0x40000000*/ )
+	if( isItemSerial(serial) )
 		this->itemSerials_.push_back( serial );
 	else
 		this->npcSerials_.push_back( serial );
@@ -380,15 +378,6 @@ void cSpawnRegion::checkTimer( void )
 		this->reSpawn();
 }
 
-// cAllSpawnRegions
-cAllSpawnRegions::~cAllSpawnRegions( void )
-{
-	if( topregion_ )
-		delete topregion_;
-	// the destructor of cBaseRegion contains the deletion of its subregion!
-	// so the regions will be deleted recursively from the stack by this one
-	// operation!
-}
 
 void cAllSpawnRegions::load( void )
 {
@@ -405,9 +394,16 @@ void cAllSpawnRegions::load( void )
 		const QDomElement* DefSection = DefManager->getSection( WPDT_SPAWNREGION, *it );
 
 		cSpawnRegion* toinsert_ = new cSpawnRegion( *DefSection );
-		pair< QString, cSpawnRegion* > toInsert( *it, toinsert_ );
-		this->insert( toInsert );
-		this->topregion_ = toinsert_;
+		this->insert( make_pair(*it, toinsert_) );
+		if ( toinsert_->cBaseRegion::rectangles().isEmpty() )
+		{
+			clConsole.send( tr("Warning: Top level spawnregion %1 lacks rectangle tag, ignoring region").arg(toinsert_->name()) );
+			delete toinsert_;
+		}
+		else
+		{
+			topregions.insert( toinsert_->cBaseRegion::rectangles()[0].map, toinsert_ );
+		}
 
 		++it;
 	}
@@ -439,56 +435,58 @@ void cAllSpawnRegions::load( void )
 
 void cAllSpawnRegions::check( void )
 {
-	iterator it = this->begin();
+	iterator it(this->begin());
 	while( it != this->end() )
 	{
 		it->second->checkTimer();
-		it++;
+		++it;
 	}
 }
 
 void cAllSpawnRegions::reSpawn( void )
 {
-	iterator it = this->begin();
+	iterator it(this->begin());
 	while( it != this->end() )
 	{
 		it->second->reSpawn();
-		it++;
+		++it;
 	}
 }
 
 void cAllSpawnRegions::reSpawnToMax( void )
 {
-	iterator it = this->begin();
+	iterator it(this->begin());
 	while( it != this->end() )
 	{
 		it->second->reSpawnToMax();
-		it++;
+		++it;
 	}
 }
 
 void cAllSpawnRegions::deSpawn( void )
 {
-	iterator it = this->begin();
+	iterator it(this->begin());
 	while( it != this->end() )
 	{
 		it->second->deSpawn();
-		it++;
+		++it;
 	}
 }
 
-cSpawnRegion*	cAllSpawnRegions::region( QString regName )
+cSpawnRegion*	cAllSpawnRegions::region( const QString& regName )
 {
-	cSpawnRegion* Region = NULL;
-	if( this->find( regName ) != this->end() )
-		Region = this->find( regName )->second;
-	
-	return Region;
+	iterator it(find( regName ) );
+	if( it != this->end() )
+		return it->second;
+	else
+		return 0;
 }
 
-cSpawnRegion*	cAllSpawnRegions::region( UI16 posx, UI16 posy )
+cSpawnRegion*	cAllSpawnRegions::region( UI16 posx, UI16 posy, UI08 map )
 {
-	if( this->topregion_ )
-		return dynamic_cast< cSpawnRegion* >(this->topregion_->region( posx, posy ));
-	return NULL;
+	QMap<uint, cBaseRegion*>::const_iterator it( topregions.find(map) );
+	if ( it != topregions.end() )
+		return dynamic_cast< cSpawnRegion* >(it.data()->region( posx, posy, map ));
+	else
+		return 0;
 }

@@ -46,7 +46,7 @@ unsigned int uiCurrentTime;
 wp_version_info wp_version;
 
 // Library Includes
-#include "qdatetime.h"
+#include <qdatetime.h>
 
 //	Instantiate our console object
 WPConsole_cl clConsole;

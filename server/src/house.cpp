@@ -120,7 +120,7 @@ void cHouse::processHouseItemNode( const QDomElement &Tag )
 
 bool cHouse::onValidPlace()
 {
-    cTerritory* Region = cAllTerritories::getInstance()->region( pos.x, pos.y );
+    cTerritory* Region = cAllTerritories::getInstance()->region( pos.x, pos.y, pos.map );
 	if( Region != NULL && Region->isGuarded() && SrvParams->houseInTown() == 0 )
 		return false;
 
