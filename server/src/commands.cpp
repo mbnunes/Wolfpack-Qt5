@@ -84,8 +84,8 @@ void cCommands::process( cUOSocket *socket, const QString &command )
 	}
 
 	// Dispatch the command
-	dispatch( socket, pCommand, pArgs );
 	socket->log( QString( "Used command '%1'.\n" ).arg( command ) );
+	dispatch( socket, pCommand, pArgs );
 }
 
 // Selects the right command Stub
