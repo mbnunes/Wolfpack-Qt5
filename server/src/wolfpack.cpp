@@ -5339,20 +5339,17 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 			pc->setCriminal();
 		}
 	}
-	if (pc->isNpc())
+	if (pc->isNpc() && ((pc->npcaitype == 0x02) || // bad npc
+		(pc->npcaitype == 0x03) ||  // bad healer
+		(pc->npcaitype == 0x50)))   // EV & BS
 	{
-		if ((pc->npcaitype == 0x02) || // bad npc
-			(pc->npcaitype == 0x03) ||  // bad healer
-			(pc->npcaitype == 0x50))   // EV & BS
+		if (server_data.BadNpcsRed == 0)
 		{
-			if (server_data.BadNpcsRed == 0)
-			{
-			    pc->setCriminal();
-			}
-		   else if (server_data.BadNpcsRed == 1)
-		   {
-			  pc->setMurderer();
-		   }
+			pc->setCriminal();
+		}
+		else
+		{
+			pc->setMurderer();
 		}
 	}
 	else
