@@ -156,9 +156,7 @@ public:
 	unsigned int			spatimer;
 	int						taming; //Skill level required for taming
 	unsigned int			summontimer; //Timer for summoned creatures.
-	unsigned int			trackingtimer; // Timer used for the duration of tracking
-	SERIAL					trackingtarget; // Tracking target ID
-	SERIAL					trackingtargets[MAXTRACKINGTARGETS];
+	
 	//int statuse[3]; //Morrolan - stat/skill cap STR/INT/DEX in that order
 	//int skilluse[TRUESKILLS][1]; //Morrolan - stat/skill cap
 	unsigned char			lockSkill[ALLSKILLS+1]; // LB, client 1.26.2b skill managment
@@ -171,6 +169,7 @@ public:
 
 	// Protected Data Members	
 protected:
+	SERIAL					trackingTarget_;
 	bool					animated;
 	short					GuildType;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild
 	bool					GuildTraitor; // (true) This character converted, (false) Neve converted, or not an order/chaos guild member
@@ -197,7 +196,6 @@ protected:
 	SERIAL					swingtarg_; //Tagret they are going to hit after they swing
 	unsigned int			holdg_; // Gold a player vendor is holding for Owner
 	unsigned char			fly_steps_; // number of step the creatures flies if it can fly
-	unsigned int			trackingdisplaytimer_;
 	int						menupriv_; // needed fro LB's menu priv system
 	bool					tamed_;
 	bool					guarded_;							// (Abaddon) if guarded
@@ -267,6 +265,7 @@ protected:
 	SERIAL					guildstone_;			// Number of guild player is in (0=no guild)			(DasRaetsel)
 	char					flag_; //1=red 2=grey 4=Blue 8=green 10=Orange
 	unsigned int			tempflagtime_;
+	UINT32					trackingTimer_;
 	// End of Guild Related Character information
 	unsigned int			murderrate_; //#of ticks until one murder decays //REPSYS 
 	long int				crimflag_; //Time when No longer criminal -1=Not Criminal
@@ -333,6 +332,7 @@ public:
 	UI16					skin() const	  { return skin_;		}
 	unsigned short			orgskin() const	  { return orgskin_;	}
 	UI16					xskin() const     { return xskin_;		}
+	SERIAL					trackingTarget() const { return trackingTarget_; }
 	unsigned int			creationday() const{return creationday_;}
 	int						stealth() const { return stealth_; }
 	unsigned int			running() const { return running_; }
@@ -341,7 +341,6 @@ public:
 	SERIAL					swingtarg() const { return swingtarg_; }
 	unsigned int			holdg() const {return holdg_;}
 	unsigned char			fly_steps() const {return fly_steps_;} // number of step the creatures flies if it can fly
-	unsigned int			trackingdisplaytimer() const { return trackingdisplaytimer_; }
 	int						menupriv() const {return menupriv_;}
 	bool					tamed() const {return tamed_;}
 	bool					guarded() const {return guarded_;}
@@ -425,6 +424,8 @@ public:
 	unsigned short			weight() const { return weight_; }
 	unsigned short			stones() const { return (weight_ / 10); }
 	QString					lootList() const { return loot_; }
+	UINT32					trackingTimer() const { return trackingTimer_; }
+
 	QPtrList< cMakeSection > lastSelections( cMakeMenu* basemenu )
 	{ 
 		std::map< cMakeMenu*, QPtrList< cMakeSection > >::iterator it = lastselections_.find( basemenu );
@@ -433,6 +434,7 @@ public:
 		else
 			return QPtrList< cMakeSection >();
 	}
+
 	cMakeSection*			lastSection( cMakeMenu* basemenu )
 	{
 		std::map< cMakeMenu*, QPtrList< cMakeSection > >::iterator it = lastselections_.find( basemenu );
@@ -471,7 +473,6 @@ public:
 	void					setSwingTarg( SERIAL data ) { swingtarg_ = data; }
 	void					setHoldg( unsigned int data ) {holdg_ = data; }
 	void					setFlySteps( unsigned char data) {fly_steps_ = data; }
-	void					setTrackingdisplaytimer( unsigned int data ) { trackingdisplaytimer_ = data;}
 	void					setMenupriv(int data) { menupriv_ = data;}
 	void					setTamed( bool data ) { tamed_ = data; }
 	void					setGuarded( bool data ) { guarded_ = data; }
@@ -554,6 +555,8 @@ public:
 	void					setSocket( cUOSocket* data ) { socket_ = data; }
 	void					setWeight( unsigned short data ) { weight_ = data; }
 	void					setLootList( QString data ) { loot_ = data; }
+	void					setTrackingTarg( SERIAL data ) { trackingTarget_ = data; }
+	void					setTrackingTimer( UINT32 data ) { trackingTimer_ = data; }
 
 	void					setLastSection( cMakeMenu* basemenu, cMakeSection* data )
 	{

@@ -235,10 +235,8 @@ void cChar::Init(bool ser)
 	this->spatimer=0;
 	this->taming=0; //Skill level required for taming
 	this->summontimer=0; //Timer for summoned creatures.
-	this->trackingtimer=0; // Timer used for the duration of tracking
-	this->trackingtarget = INVALID_SERIAL; // Tracking target ID
-	for (i=0;i<MAXTRACKINGTARGETS;i++)
-		this->trackingtargets[i]=0;
+	this->trackingTimer_ = 0; // Timer used for the duration of tracking
+	this->trackingTarget_ = INVALID_SERIAL;
 	this->setFishingtimer(0); // Timer used to delay the catching of fish
 
 	this->setAdvobj(0); //Has used advance gate?

@@ -29,15 +29,6 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-/*
-*	WOLFPACK Magic stuff
-*
-*	Completed the restructuration by AntiChrist (9/99)
-*	Functions' description added by AntiChrist (9/99)
-*
-*   UO:3D particle System implementation [and packet hacking]: Lord Binary 4/2001
-*/
-
 #include "magic.h"
 #include "chars.h"
 #include "items.h"
@@ -68,7 +59,6 @@
 //		- ITEMs magic powers related funcions
 //		- PCs casting spells related functions
 /////////////////////////////////////////////////////////////////
-
 
 /////////////////////////////////////////////////////////////////
 /////// MISC MAGIC FUNCTIONS ////////////////////////////////////

@@ -109,7 +109,7 @@ public:
 
 	// HTML Stuff
 	void addHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, const QString &html, bool hasBack = false, bool canScroll = false );
-	// void addXmfHtmlGump( );
+	void addXmfHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, UINT32 clilocid, bool hasBack = false, bool canScroll = false );
 	// void addXmfHtmlColorGump( );
 
 	// CheckerTrans

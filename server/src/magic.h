@@ -42,6 +42,11 @@
 
 using namespace std;
 
+// Information storage for spells
+struct stSpell
+{
+};
+
 // Handles the casting of a specific spell
 class cSpell
 {

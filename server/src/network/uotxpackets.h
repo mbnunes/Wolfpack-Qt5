@@ -974,4 +974,12 @@ public:
 	void setRendermode( UINT32 data ) { setInt( 32, data ); }
 };
 
+class cUOTxCloseGump: public cUOPacket
+{
+public:
+	cUOTxCloseGump(): cUOPacket( 0xBF, 13 ) { setShort( 1, 13 ); setShort( 3, 0x04 ); }
+	void setType( SERIAL data ) { setInt( 5, data ); }
+	void setButton( UINT32 data ) { setInt( 9, data ); }
+};
+
 #endif

@@ -355,29 +355,11 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 		}
 	}	
 
-	// changed to seconds instead of crappy #of checks
-	// This is totally broken
-	/*if( pc->trackingtimer > currenttime )
+	if( pc->trackingTimer() && ( pc->trackingTimer() < currenttime ) )
 	{
-		// TODO: Disable quest-arrow here
-
-		if( pc->trackingdisplaytimer() <= currenttime )
-		{
-			pc->setTrackingdisplaytimer( currenttime + SrvParams->redisplaytime() * MY_CLOCKS_PER_SEC );
-			Skills->Track( pc );
-		}
-	}
-	else
-	{
-		// dont send arrow-away packet all the time
-		// NOTE: This should be send every 5 seconds (!)
-		if( pc->trackingtimer > ( currenttime / 10 ) )
-		{
-			pc->trackingtimer = 0;
-			unsigned char arrow[7] = {0xBA, 0,};
-			P_CHAR pc_trackingTarget = FindCharBySerial( pc->trackingtarget );
-		}
-	}*/
+		pc->setTrackingTarg( INVALID_SERIAL );
+		pc->setTrackingTimer( 0 );
+	}		
 
 	if( SrvParams->hungerRate() > 1 && ( pc->hungertime() <= currenttime  ) )
 	{

@@ -434,6 +434,14 @@ void cGump::addHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, const QStr
 	layout_.push_back( layout );
 }
 
+void cGump::addXmfHtmlGump( INT32 x, INT32 y, INT32 width, INT32 height, UINT32 clilocid, bool hasBack , bool canScroll )
+{
+	QString layout = "{xmfhtmlgump %1 %2 %3 %4 %5 %6 %7}";
+	layout = layout.arg( x ).arg( y ).arg( width ).arg( height );
+	layout = layout.arg( clilocid ).arg( hasBack ? 1 : 0 ).arg( canScroll ? 1 : 0 );
+	layout_.push_back( layout );
+}
+
 void cGump::addCheckertrans( INT32 x, INT32 y, INT32 width, INT32 height )
 {
 	QString layout = "{checkertrans %1 %2 %3 %4}";

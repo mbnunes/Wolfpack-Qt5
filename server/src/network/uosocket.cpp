@@ -98,10 +98,10 @@ cUOSocket::~cUOSocket(void)
 	delete _socket;
 	delete targetRequest;
 
-	std::vector< cGump* >::iterator it = gumps.begin();
+	std::map< SERIAL, cGump* >::iterator it = gumps.begin();
 	while( it != gumps.end() )
 	{
-		delete (*it);
+		delete it->second;
 		it++;
 	}
 }
@@ -123,8 +123,23 @@ void cUOSocket::send( cUOPacket *packet )
 */
 void cUOSocket::send( cGump *gump )
 {
-	gump->setSerial( gumps.size() + 1 );
-	gumps.push_back( gump );
+	if( gump->serial() == INVALID_SERIAL )
+	{
+		while( gump->serial() == INVALID_SERIAL || ( gumps.find( gump->serial() ) != gumps.end() ) )
+			gump->setSerial( RandomNum( 1, 0xFFFFFFFE ) );
+	}
+	// Remove/Timeout the old one first
+	else if( gumps.find( gump->serial() ) != gumps.end() )
+	{
+		cGump *pGump = gumps.find( gump->serial() )->second;
+		if( pGump )
+		{
+			gumps.erase( gumps.find( pGump->serial() ) );
+			delete pGump;
+		}
+	}
+
+	gumps.insert( make_pair( gump->serial(), gump ) );
 
 	QString layout = gump->layout().join( "" );
 	Q_UINT32 gumpsize = 21 + layout.length() + 2;
@@ -1841,13 +1856,19 @@ void cUOSocket::handleAction( cUORxAction *packet )
 
 void cUOSocket::handleGumpResponse( cUORxGumpResponse* packet )
 {
-	cGump* pGump = gumps[ packet->serial()-1 ];
+	if( gumps.find( packet->serial() ) == gumps.end() )
+	{
+		sysMessage( tr( "Unexpected button input" ) );
+		return;
+	}
+
+	cGump* pGump = gumps.find( packet->serial() )->second;
 	
 	if( pGump )
 	{
 		pGump->handleResponse( this, packet->choice() );
 		delete pGump;
-		gumps[ packet->serial()-1 ] = NULL;
+		gumps.erase( gumps.find( packet->serial() ) );
 	}
 }
 
