@@ -30,6 +30,7 @@ Wolfpack 12.9.12 Beta (CVS)
 	- Corrected the default season for map 2, 3 and 4.
 	- Made the spring season for the trammel map a configuration option.
 	- SIGPIPE is now ignored on unix systems.
+	- Bugfix for the unix console.
 
 Wolfpack 12.9.11 Beta (26. September 2004)
 	- Fixed a crashbug related to NPC ai storing invalidated character pointers.
