@@ -94,6 +94,7 @@ public:
 
 	// Events
 	virtual bool onUse( cUObject *Target );
+	virtual bool onCreate( const QString &definition );
 	virtual bool onCollide( cUObject* Obstacle ); // This is called for the walking character first, then for the item walked on
 	
 	SERIAL serial;

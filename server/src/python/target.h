@@ -43,7 +43,7 @@ typedef struct {
 	SERIAL object;
 } wpTarget;
 
-PyObject *wpTarget_getAttr( wpTarget *self, char *name )
+static PyObject *wpTarget_getAttr( wpTarget *self, char *name )
 {	
 	if( !strcmp( name, "pos" ) )
 		return PyGetCoordObject( self->pos );
@@ -77,7 +77,7 @@ static PyTypeObject wpTargetType = {
     0,
 };
 
-PyObject *PyGetTarget( cUORxTarget *target, UINT8 map )
+static PyObject *PyGetTarget( cUORxTarget *target, UINT8 map )
 {
 	if( !target )
 		return Py_None;

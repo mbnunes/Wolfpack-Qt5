@@ -111,7 +111,10 @@ PyObject* wpChar_removefromview( wpChar* self, PyObject* args )
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
-	self->pChar->removeFromView( false );
+	if( !checkArgInt( 0 ) || getArgInt( 0 ) == 0 )
+		self->pChar->removeFromView( false );
+	else
+		self->pChar->removeFromView( true );
 
 	return PyTrue;
 }

@@ -47,14 +47,7 @@
 
 // Extension includes
 #include "utilities.h"
-
-/*
-inline PyObject* PyGetTargetObject( cUOTxTarget *target )
-{
-	Py_WPTarget *returnVal = PyObject_New( Py_WPTarget, &Py_WPTargetType );
-	returnVal->targetInfo = Target;
-	return (PyObject*)returnVal;
-}*/
+#include "target.h"
 
 void WPPythonScript::unload( void )
 {
@@ -349,530 +342,57 @@ bool WPPythonScript::onEndCast( P_CHAR pMage, UINT8 spell, UINT8 type )
 	PyEvalMethod( "onEndCast" )
 }
 
-bool WPPythonScript::onSpellTarget( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model )
+bool WPPythonScript::onSpellCheckTarget( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget *target )
 {
-	PyHasMethod( "onSpellTarget" )
+	PyHasMethod( "onSpellCheckTarget" )
 	
-	PyObject *tuple = PyTuple_New( 6 );
+	PyObject *tuple = PyTuple_New( 4 );
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( pMage ) );
 	PyTuple_SetItem( tuple, 1, PyInt_FromLong( spell ) );
-	PyTuple_SetItem( tuple, 2, PyInt_FromLong( spell ) );
-	
-	// Check what kind of data we have here
-	if( pObject && isCharSerial( pObject->serial ) )
-		PyTuple_SetItem( tuple, 3, PyGetCharObject( (P_CHAR)pObject ) );
-	else if( pObject && isItemSerial( pObject->serial ) )
-		PyTuple_SetItem( tuple, 3, PyGetItemObject( (P_ITEM)pObject ) );
-	else if( !pObject )
-		PyTuple_SetItem( tuple, 3, Py_None );
+	PyTuple_SetItem( tuple, 2, PyInt_FromLong( type ) );
+	PyTuple_SetItem( tuple, 3, PyGetTarget( target, pMage->pos.map ) );
 
-	PyTuple_SetItem( tuple, 4, PyGetCoordObject( pos ) );
-	PyTuple_SetItem( tuple, 5, PyInt_FromLong( model ) );
-
-	PyEvalMethod( "onSpellTarget" )
+	PyEvalMethod( "onSpellCheckTarget" )
 }
 
-bool WPPythonScript::onSpellSuccess( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model )
+bool WPPythonScript::onSpellSuccess( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget *target )
 {
 	PyHasMethod( "onSpellSuccess" )
 	
-	PyObject *tuple = PyTuple_New( 6 );
+	PyObject *tuple = PyTuple_New( 4 );
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( pMage ) );
 	PyTuple_SetItem( tuple, 1, PyInt_FromLong( spell ) );
-	PyTuple_SetItem( tuple, 2, PyInt_FromLong( spell ) );
-	
-	// Check what kind of data we have here
-	if( pObject && isCharSerial( pObject->serial ) )
-		PyTuple_SetItem( tuple, 3, PyGetCharObject( (P_CHAR)pObject ) );
-	else if( pObject && isItemSerial( pObject->serial ) )
-		PyTuple_SetItem( tuple, 3, PyGetItemObject( (P_ITEM)pObject ) );
-	else if( !pObject )
-		PyTuple_SetItem( tuple, 3, Py_None );
-
-	PyTuple_SetItem( tuple, 4, PyGetCoordObject( pos ) );
-	PyTuple_SetItem( tuple, 5, PyInt_FromLong( model ) );
+	PyTuple_SetItem( tuple, 2, PyInt_FromLong( type ) );
+	PyTuple_SetItem( tuple, 3, PyGetTarget( target, pMage->pos.map ) );
 
 	PyEvalMethod( "onSpellSuccess" )
 }
 
-bool WPPythonScript::onSpellFailure( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model )
+bool WPPythonScript::onSpellFailure( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget *target )
 {
 	PyHasMethod( "onSpellFailure" )
 	
-	PyObject *tuple = PyTuple_New( 6 );
+	PyObject *tuple = PyTuple_New( 4 );
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( pMage ) );
 	PyTuple_SetItem( tuple, 1, PyInt_FromLong( spell ) );
 	PyTuple_SetItem( tuple, 2, PyInt_FromLong( spell ) );
+	PyTuple_SetItem( tuple, 3, PyGetTarget( target, pMage->pos.map ) );
 	
-	// Check what kind of data we have here
-	if( pObject && isCharSerial( pObject->serial ) )
-		PyTuple_SetItem( tuple, 3, PyGetCharObject( (P_CHAR)pObject ) );
-	else if( pObject && isItemSerial( pObject->serial ) )
-		PyTuple_SetItem( tuple, 3, PyGetItemObject( (P_ITEM)pObject ) );
-	else if( !pObject )
-		PyTuple_SetItem( tuple, 3, Py_None );
-
-	PyTuple_SetItem( tuple, 4, PyGetCoordObject( pos ) );
-	PyTuple_SetItem( tuple, 5, PyInt_FromLong( model ) );
-
 	PyEvalMethod( "onSpellFailure" )
 }
 
-//============ wolfpack.server
-/*PyObject* PyWPServer_shutdown( PyObject* self, PyObject* args )
+bool WPPythonScript::onCreate( cUObject *object, const QString &definition )
 {
-	keeprun = 0;
-
-	return PyTrue;
-}
-
-PyObject* PyWPServer_save( PyObject* self, PyObject* args )
-{
-	cwmWorldState->savenewworld( "binary" );
-
-	return PyTrue;
-}
-
-PyObject* PyWPItems_findbyserial( PyObject* self, PyObject* args )
-{
-	if( PyTuple_Size( args ) < 1 )
-		return Py_None;
-
-	PyObject *pySerial = PyTuple_GetItem( args, 0 );
-
-	if( pySerial == NULL )
-		return Py_None;
-
-	SERIAL serial;
-
-	// Integer Serial
-	if( PyInt_Check( pySerial ) )
-		serial = PyInt_AsLong( pySerial );
-	// String serial
-	else if( PyString_Check( pySerial ) )
-	{
-		QString qSerial( PyString_AS_STRING( pySerial ) );
-		serial = qSerial.toUInt( 0, 16 );
-	}
-	// Invalid Serial
-	else
-		return Py_None;
-
-	P_ITEM rItem = FindItemBySerial( serial );
-
-	if( rItem == NULL )
-		return Py_None;
-
-	return PyGetItemObject( rItem );
-}
-
-//============ wolfpack.map.gettile
-PyObject* PyWPMap_gettile( PyObject* self, PyObject* args )
-{
-	if( PyTuple_Size( args ) != 2 )
-		return Py_None;
-
-	Coord_cl mapCoord;
-	mapCoord.x = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
-	mapCoord.y = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
+	PyHasMethod( "onCreate" )
 	
-	map_st mapTile = Map->SeekMap( mapCoord );
+	PyObject *tuple = PyTuple_New( 2 );
 
-	return PyInt_FromLong( mapTile.id );
-}
+	if( object->isChar() )
+		PyTuple_SetItem( tuple, 0, PyGetCharObject( (P_CHAR)object ) );
+	else if( object->isItem() )
+		PyTuple_SetItem( tuple, 0, PyGetItemObject( (P_ITEM)object ) );
 
-//============ wolfpack.map.getheight
-PyObject* PyWPMap_getheight( PyObject* self, PyObject* args )
-{
-	if( PyTuple_Size( args ) != 2 )
-		return Py_None;
-
-	Coord_cl mapCoord;
-	mapCoord.x = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
-	mapCoord.y = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
+	PyTuple_SetItem( tuple, 1, PyString_FromString( definition.latin1() ) );
 	
-	map_st mapTile = Map->SeekMap( mapCoord );
-
-	return PyInt_FromLong( mapTile.z );
+	PyEvalMethod( "onCreate" )
 }
-
-//============ wolfpack.chars
-PyObject* PyWPChars_findbyserial( PyObject* self, PyObject* args )
-{
-	if( PyTuple_Size( args ) < 1 )
-		return Py_None;
-
-	PyObject *pySerial = PyTuple_GetItem( args, 0 );
-
-	if( pySerial == NULL )
-		return Py_None;
-
-	SERIAL serial;
-
-	// Integer Serial
-	if( PyInt_Check( pySerial ) )
-		serial = PyInt_AsLong( pySerial );
-	// String serial
-	else if( PyString_Check( pySerial ) )
-	{
-		QString qSerial( PyString_AS_STRING( pySerial ) );
-		serial = qSerial.toUInt( 0, 16 );
-	}
-	// Invalid Serial
-	else
-		return Py_None;
-
-	P_CHAR rChar = FindCharBySerial( serial );
-
-	if( rChar == NULL )
-		return Py_None;
-
-	return PyGetCharObject( rChar );
-}
-
-//============ wolfpack.clients
-PyObject* PyWP_clients( PyObject* self, PyObject* args )
-{
-	// Construct a clients object
-	Py_WPClients *clients = PyObject_New( Py_WPClients, &Py_WPClientsType );
-
-	if( clients == NULL )
-		return Py_None;
-
-	return (PyObject*)clients;
-}
-
-// ============================ class: char
-
-PyObject* Py_WPChar_lineofsight( Py_WPChar* self, PyObject* args )
-{
-	// For one object check if it's a char or an item
-	if( PyTuple_Size( args ) < 1 )
-		return PyFalse;
-
-	Coord_cl source = self->Char->pos;
-	Coord_cl destination;
-
-	// Line of sight either to an item or to a char
-	if( PyTuple_Size( args ) == 1 )
-	{
-		PyObject *object = PyTuple_GetItem( args, 0 );
-
-		if( !strcmp( object->ob_type->tp_name, "char" ) )
-			destination = ((Py_WPChar*)object)->Char->pos;
-		else if( !strcmp( object->ob_type->tp_name, "item" ) )
-			destination = ((Py_WPItem*)object)->Item->pos;
-		else
-			return PyFalse;
-	}
-	// To another location
-	else if( PyTuple_Size( args ) == 3 )
-	{
-		destination.x = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
-		destination.y = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
-		destination.z = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
-	}
-	else
-		return PyFalse;
-
-	if( lineOfSight( source, destination, 1|2|4|8|16|32 ) )
-		return PyTrue;
-	else 
-		return PyFalse;
-}
-
-PyObject* Py_WPChar_distance( Py_WPChar* self, PyObject* args )
-{
-	// For one object check if it's a char or an item
-	if( PyTuple_Size( args ) < 1 )
-		return PyInt_FromLong( -1 );
-
-	Coord_cl source = self->Char->pos;
-	Coord_cl destination;
-
-	// Line of sight either to an item or to a char
-	if( PyTuple_Size( args ) == 1 )
-	{
-		PyObject *object = PyTuple_GetItem( args, 0 );
-
-		if( !strcmp( object->ob_type->tp_name, "char" ) )
-			destination = ((Py_WPChar*)object)->Char->pos;
-		else if( !strcmp( object->ob_type->tp_name, "item" ) )
-			destination = ((Py_WPItem*)object)->Item->pos;
-		else
-			return PyInt_FromLong( -1 );
-	}
-	// To another location
-	else if( PyTuple_Size( args ) == 3 )
-	{
-		destination.x = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
-		destination.y = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
-		destination.z = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
-	}
-	else
-		return PyInt_FromLong( -1 );
-
-	return PyInt_FromLong( destination.distance( source ) );
-}
-
-PyObject* Py_WPChar_requesttarget( Py_WPChar* self, PyObject* args )
-{
-	if( !self->Char->socket() )
-		return PyFalse;
-
-	if( PyTuple_Size( args ) < 1 )
-		return PyFalse;
-
-	// Three arguments maximum
-	// 1: callback function
-	// 2: arguments for that function
-	// 3: timeout
-	PyObject *callbackName = PyTuple_GetItem( args, 0 );
-
-	// Get the real thing
-	QString fullName( PyString_AsString( callbackName ) );
-	QStringList nameParts = QStringList::split( ".", fullName );
-
-	if( nameParts.size() < 2 )
-	{
-		clConsole.send( "You have to pass a full qualified function name to requesttarget\n" );
-		return PyFalse;
-	}
-
-	// All except the last are the module name
-	QString functionName = nameParts.back();
-	nameParts.pop_back();
-	QString moduleName = nameParts.join( "." );
-
-	PyObject *module = PyImport_Import( PyString_FromString( moduleName.ascii() ) );
-
-	if( module == NULL )
-	{
-		clConsole.send( "Invalid module name %s", moduleName.ascii() );
-		return PyFalse;
-	}
-
-	PyObject *callback = PyObject_GetAttr( module, PyString_FromString( functionName.ascii() ) );
-
-	if( ( callback == NULL ) || ( !PyCallable_Check( callback ) ) )
-	{
-		clConsole.send( "Invalid function name %s", functionName.ascii() );
-		return PyFalse;
-	}
-
-	PyObject *arguments;
-	
-	if( PyTuple_Size( args ) > 1 )
-		arguments = PyTuple_GetItem( args, 1 );
-	else
-		arguments = PyTuple_New( 0 );
-
-	cPythonTarget *target = new cPythonTarget( callback, arguments );
-
-	if( ( PyTuple_Size( args ) == 3 ) && ( PyInt_Check( PyTuple_GetItem( args, 2 ) ) ) )
-		target->setTimeout( PyInt_AS_LONG( PyTuple_GetItem( args, 2 ) ) );
-	
-	// Send target to client
-	self->Char->socket()->attachTarget( target );
-
-	return PyTrue;
-}
-
-//================= CLIENTS
-int Py_WPClientsLength( Py_WPClients *self )
-{
-	return now;
-}
-
-
-PyObject *Py_WPClientsGet( Py_WPClients *self, int Num )
-{
-	if( Num > now )
-		return Py_None;
-
-	Py_WPClient *returnVal = PyObject_New( Py_WPClient, &Py_WPClientType );
-	returnVal->Socket = Num;
-	
-	return (PyObject*)returnVal;
-}
-
-//================ CLIENT
-PyObject *Py_WPClientGetAttr( Py_WPClient *self, char *name )
-{
-	if( !strcmp( name, "char" ) )
-		return PyGetCharObject( currchar[ self->Socket ] );
-	else
-		return Py_FindMethod( Py_WPClientMethods, (PyObject*)self, name );
-}
-
-PyObject* Py_WPClient_disconnect( Py_WPClient* self, PyObject* args )
-{
-	//cNetwork::instance()->Disconnect( self->Socket );
-	return PyTrue;
-}
-
-PyObject* Py_WPClient_send( Py_WPClient* self, PyObject* args )
-{
-	if( PyTuple_Size( args ) < 2 )
-		return PyFalse;
-
-	PyObject *pyMessage = PyTuple_GetItem( args, 0 );
-	int len = PyInt_AS_LONG( PyTuple_GetItem( args, 0 ) );
-
-	if( pyMessage == Py_None )
-		return PyFalse;
-
-	char *Message = PyString_AS_STRING( pyMessage );
-
-	Xsend( self->Socket, Message, len );
-
-	// send the buffer
-	//cNetwork::instance()->xSend( self->Socket, buffer, buffLen, 0 );
-
-	return PyTrue;
-}
-
-//================ CONTENT
-int Py_WPContentLength( Py_WPContent *self )
-{
-	return contsp.getData( self->Item->serial ).size();
-}
-
-PyObject *Py_WPContentGet( Py_WPContent *self, int Num )
-{
-	vector< SERIAL > contItems = contsp.getData( self->Item->serial );
-
-	if( ( Num < 0 ) || ( Num >= contItems.size() ) )
-		return Py_None;
-
-	return PyGetItemObject( FindItemBySerial( contItems[ Num ] ) );  
-}
-
-//================ EQUIPMENT 
-
-// we have a FIXED amount !!
-int Py_WPEquipmentLength( Py_WPEquipment *self )
-{
-	return MAXLAYERS; 
-}
-
-PyObject *Py_WPEquipmentGet( Py_WPEquipment *self, int Num )
-{
-	if( ( Num < 0 ) || ( Num > MAXLAYERS ) )
-		return Py_None;
-
-	vector< SERIAL > equipItems = contsp.getData( self->Char->serial );
-
-	return PyGetItemObject( FindItemBySerial( equipItems[ Num ] ) );  	
-}
-
-//================= TARGETTING
-
-PyObject *Py_WPTargetGetAttr( Py_WPTarget *self, char *name )
-{
-	// Return what we've targetted
-	if( !strcmp( name, "target" ) )
-	{
-		if( self->targetInfo.Tserial != 0x00000000 )
-		{
-			if( self->targetInfo.Tserial >= 0x40000000 )
-				return PyString_FromString( "item" );
-			else
-				return PyString_FromString( "char" );
-		}
-		else if( self->targetInfo.model == 0 )
-			return PyString_FromString( "ground" );
-		else
-			return PyString_FromString( "static" );
-	}
-	// Return an item object
-	else if( !strcmp( name, "item" ) )
-	{
-		if( ( self->targetInfo.Tserial == 0x00000000 ) || ( self->targetInfo.Tserial < 0x40000000 ) )
-			return Py_None;  
-		else 
-			return PyGetItemObject( FindItemBySerial( self->targetInfo.Tserial ) ); 
-	}
-	// Return a char object
-	else if( !strcmp( name, "char" ) )
-	{
-		if( ( self->targetInfo.Tserial == 0x00000000 ) || ( self->targetInfo.Tserial >= 0x40000000 ) )
-			return Py_None;  
-		else 
-			return PyGetCharObject( FindCharBySerial( self->targetInfo.Tserial ) ); 
-	}
-	else if( !strcmp( name, "x" ) )
-	{
-		return PyInt_FromLong( self->targetInfo.TxLoc );
-	}
-	else if( !strcmp( name, "y" ) )
-	{
-		return PyInt_FromLong( self->targetInfo.TyLoc );
-	}
-	else if( !strcmp( name, "z" ) )
-	{
-		return PyInt_FromLong( self->targetInfo.TzLoc );
-	}
-	else if( !strcmp( name, "static" ) )
-	{
-		return PyInt_FromLong( self->targetInfo.model );
-	}
-
-	return Py_None;
-}
-
-cPythonTarget::cPythonTarget( PyObject *callback, PyObject *arguments )
-{
-	callback_ = callback;
-	
-	// INCREF for the arguments so they dont get garbage collected
-	arguments_ = PyTuple_New( PyTuple_Size( arguments ) );
-
-	for( UI08 i = 0; i < PyTuple_Size( arguments ); i++ )
-	{
-		PyObject *mObject = PyTuple_GetItem( arguments, i );
-		Py_INCREF( mObject );
-		PyTuple_SetItem( arguments_, i, mObject );
-	}
-
-	Py_INCREF( arguments_ );
-}
-
-// Call the codeobject
-void cPythonTarget::responsed( UOXSOCKET socket, PKGx6C targetInfo )
-{
-	if( !PyCallable_Check( callback_ ) )
-		return;
-
-	// Set the target-information
-	PyObject *arguments = PyTuple_New( PyTuple_Size( arguments_ ) + 1 );
-
-	PyObject *target = PyGetTargetObject( targetInfo );
-	Py_INCREF( target );
-	PyTuple_SetItem( arguments, 0, target );
-
-	UI32 i = 0;
-
-	for( i = 1; i <= PyTuple_Size( arguments_ ); i++ )
-	{
-		PyTuple_SetItem( arguments, i, PyTuple_GetItem( arguments_, i-1 ) );
-	}
-
-	PyObject_CallObject( callback_, arguments );
-
-	// DECREF as the arguments are no longer needed
-	for( i = 0; i < PyTuple_Size( arguments ); i++ )
-		Py_DECREF( PyTuple_GetItem( arguments, i ) );
-
-	if( PyErr_Occurred() )
-		PyErr_Print();
-}
-
-// Free our arguments
-void cPythonTarget::timedout( UOXSOCKET socket )
-{
-	// DECREF as the arguments are no longer needed
-	for( UI08 i = 0; i < PyTuple_Size( arguments_ ); i++ )
-		Py_DECREF( PyTuple_GetItem( arguments_, i ) );
-}*/
-

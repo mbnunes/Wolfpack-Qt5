@@ -146,6 +146,10 @@ P_CHAR cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos 
 	pChar->setRegion( cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y ) );
 
 	pChar->applyDefinition( *DefSection );
+
+	// Now we call onCreate
+	pChar->onCreate( section );
+
 	pChar->resend( false );
 
 	return pChar;
@@ -280,6 +284,10 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 	nChar->setRegion( cAllTerritories::getInstance()->region( nChar->pos.x, nChar->pos.y ) );
 
 	nChar->applyDefinition( *DefSection );
+
+	// Now we call onCreate
+	nChar->onCreate( Section );
+
 	nChar->resend( false );
 
 	return nChar;

@@ -70,12 +70,6 @@ public:
 		if( !socket->player() || !socket->player()->casting() )
 			return true;
 
-		// Target information:
-		socket->sysMessage( tr("Target information:") );
-		socket->sysMessage( tr( "SERIAL: %1" ).arg( target->serial() ) );
-		socket->sysMessage( tr( "Pos: %1,%2,%3" ).arg( target->x() ).arg( target->y() ).arg( target->z() ) );
-		socket->sysMessage( tr( "Model: %1" ).arg( target->model() ) );
-
 		stNewSpell *sInfo = NewMagic->findSpell( spell );
 
 		if( !sInfo || !NewMagic->checkTarget( socket->player(), sInfo, target ) )
@@ -83,6 +77,10 @@ public:
 			socket->player()->setCasting( false );
 			return true;
 		}
+
+		// Eventually here should be the call for another python function
+		// But i'm not sure how this will affect cpu usage, so i will leave it 
+		// out for now.
 
 		// The Target is correct, let us do our spellcheck now and consume mana + reagents.
 		if( !NewMagic->useMana( socket->player(), spell ) || !NewMagic->useReagents( socket->player(), spell ) )
@@ -97,21 +95,9 @@ public:
 			return true;
 		}
 
-		cUObject *pObject = 0;
-
-		if( isCharSerial( target->serial() ) )
-			pObject = FindCharBySerial( target->serial() );
-		else if( isItemSerial( target->serial() ) )
-			pObject = FindItemBySerial( target->serial() );
-
-		Coord_cl pos = socket->player()->pos;
-		pos.x = target->x();
-		pos.y = target->y();
-		pos.z = target->z();
-
 		// Call the Spell Effect for this Spell
 		if( sInfo->script )
-			sInfo->script->onSpellSuccess( socket->player(), spell, type, pObject, pos, target->model() );
+			sInfo->script->onSpellSuccess( socket->player(), spell, type, target );
 
 		// End Casting
 		socket->player()->setCasting( false );
@@ -187,7 +173,7 @@ void cNewMagic::load()
 			else if( node.nodeName() == "delay" )
 				spells[id].delay = node.text().toInt();
 			else if( node.nodeName() == "action" )
-				spells[id].action = node.text().toInt();
+				spells[id].action = hex2dec( node.text() ).toInt();
 			else if( node.nodeName() == "targets" )
 			{
 				// process subnodes <char />, <item />, <ground />
@@ -266,7 +252,8 @@ void cEndCasting::Expire()
 	if( !pMage )
 		return;
 
-	pMage->stopRepeatedAction();
+	pMage->setPriv2( pMage->priv2() &~ 0x02 );
+	//pMage->stopRepeatedAction();
 
 	if( !pMage->socket() )
 		return;
@@ -329,7 +316,7 @@ void cNewMagic::disturb( P_CHAR pMage, bool fizzle, INT16 chance )
 	pMage->setPriv2( pMage->priv2() & 0xEF ); // Unfreeze, NOTE: This could lead into problems with a normal "wanted" freeze
 
 	// Stop the repeating animation and the endspell thing
-	pMage->stopRepeatedAction();
+	//pMage->stopRepeatedAction();
 	TempEffects::instance()->dispel( pMage, 0, "endcasting" ); // just to be sure...
 	
 	if( fizzle )
@@ -547,7 +534,9 @@ void cNewMagic::castSpell( P_CHAR pMage, UINT8 spell )
 	// This will repeat the animation until
 	// We are done casting or until we are being
 	// disturbed.
-	pMage->startRepeatedAction( sInfo->action, sInfo->actiondelay ); // Repeat every 1250 ms
+	//pMage->startRepeatedAction( sInfo->action, sInfo->actiondelay ); // Repeat every 1250 ms
+	// I *do* know that this is a drawback but for now a single animation is exactly what we need.
+	pMage->action( sInfo->action );
 
 	// Now we have to do the following: 
 	// We show the target cursor after a given amount of time (set in the scripts)

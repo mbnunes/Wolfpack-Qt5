@@ -276,6 +276,28 @@ bool cUObject::onUse( cUObject *Target )
 	return false;
 }
 
+bool cUObject::onCreate( const QString &definition )
+{
+	// If we dont have any events assigned just skip processing
+	if( scriptChain.empty() )
+		return false;
+
+	// If we got ANY events process them in order
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+	{
+		// If we're the Character pass us as the second param
+		// if not as the first
+		bool Handeled = false;
+
+		Handeled = scriptChain[ i ]->onCreate( this, definition );
+
+		if( Handeled )
+			return true;
+	}
+
+	return false;
+}
+
 bool cUObject::onCollide( cUObject* Obstacle )
 {
 	// If we dont have any events assigned just skip processing

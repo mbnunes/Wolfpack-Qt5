@@ -35,6 +35,8 @@
 #include "../wpdefaultscript.h"
 #include "Python.h"
 
+class cUORxTarget;
+
 class WPPythonScript : public WPDefaultScript  
 {
 private:
@@ -58,6 +60,7 @@ public:
 	bool onCollideItem( P_CHAR Character, P_ITEM Obstacle );
 	bool onCollideChar( P_CHAR Character, P_CHAR Obstacle );
 	bool onWalk( P_CHAR Character, UI08 Direction, UI08 Sequence );
+	bool onCreate( cUObject *object, const QString &definition );
 
 	// if this events returns true (handeled) then we should not display the text
 	bool onTalk( P_CHAR Character, char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang );
@@ -72,12 +75,15 @@ public:
 
 	bool onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id );
 	bool onShowContextMenu( P_CHAR pChar, cUObject *pObject );
-
+	
+	// Magic System (This should be reduced eventually. It's a bit much)
+	// But as soon as the flag-system is introduced for python-script 
+	// It shouldn't be that much.
 	bool onBeginCast( P_CHAR pMage, UINT8 spell, UINT8 type );
 	bool onEndCast( P_CHAR pMage, UINT8 spell, UINT8 type );
-	bool onSpellTarget( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model );
-	bool onSpellSuccess( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model );
-	bool onSpellFailure( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model );
+	bool onSpellCheckTarget( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget *target );
+	bool onSpellSuccess( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget* );
+	bool onSpellFailure( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget* );
 };
 
 #endif // __WPPYTHONSCRIPT_H__

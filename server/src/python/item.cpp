@@ -170,7 +170,10 @@ PyObject* wpItem_removefromview( wpItem* self, PyObject* args )
 	if( !self->pItem || self->pItem->free )
 		return PyFalse;
 
-	self->pItem->removeFromView( false );
+	if( !checkArgInt( 0 ) || getArgInt( 0 ) == 0 )
+		self->pItem->removeFromView( false );
+	else
+		self->pItem->removeFromView( true );
 
 	return PyTrue;
 }

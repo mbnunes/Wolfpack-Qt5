@@ -41,6 +41,7 @@
 
 class cUObject;
 class Coord_cl;
+class cUORxTarget;
 
 class WPDefaultScript  
 {
@@ -77,6 +78,7 @@ public:
 	virtual bool onCollideItem( P_CHAR Character, P_ITEM Obstacle ) { return false; }
 	virtual bool onCollideChar( P_CHAR Character, P_CHAR Obstacle ) { return false; }
 	virtual bool onWalk( P_CHAR Character, UI08 Direction, UI08 onSequence ) { return false; }
+	virtual bool onCreate( cUObject *object, const QString &definition ) { return false; }
 
 	// if this events returns true (handeled) then we should not display the text
 	virtual bool onLogin( P_CHAR pChar ) { return false; }
@@ -90,11 +92,13 @@ public:
 	virtual bool onSkillUse( P_CHAR Character, UI08 Skill ) { return false; }
 	virtual bool onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id ) { return false; }
 	virtual bool onShowContextMenu( P_CHAR pChar, cUObject *pObject ) { return false; }
+
+	// Magic System
 	virtual bool onBeginCast( P_CHAR pMage, UINT8 spell, UINT8 type ) { return false; }
 	virtual bool onEndCast( P_CHAR pMage, UINT8 spell, UINT8 type ) { return false; }
-	virtual bool onSpellTarget( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model ) { return false; }
-	virtual bool onSpellSuccess( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model ) { return false; }
-	virtual bool onSpellFailure( P_CHAR pMage, UINT8 spell, UINT8 type, cUObject *pObject, const Coord_cl &pos, UINT16 model ) { return false; }
+	virtual bool onSpellCheckTarget( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget *target ) { return false; }
+	virtual bool onSpellSuccess( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget* ) { return false; }
+	virtual bool onSpellFailure( P_CHAR pMage, UINT8 spell, UINT8 type, cUORxTarget* ) { return false; }
 };
 
 #endif
