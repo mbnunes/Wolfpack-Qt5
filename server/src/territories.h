@@ -147,6 +147,11 @@ public:
 			return 0;
 	}
 
+	cTerritory* region( const Coord_cl& pos )
+	{
+		return region( pos.x, pos.y, pos.map );
+	}
+
 };
 
 typedef SingletonHolder<cAllTerritories> AllTerritories;

@@ -3,7 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -40,12 +40,12 @@
 #include <qthread.h>
 
 // Wolfpack Includes
-#include "console.h"
-#include "resource.h"
-#include "globals.h"
-#include "network.h"
-#include "player.h"
-#include "wolfpack.h"
+#include "../console.h"
+#include "../resource.h"
+#include "../globals.h"
+#include "../network.h"
+#include "../player.h"
+#include "../wolfpack.h"
 
 /*
 	This file includes the Windows GUI implementation of our Console.

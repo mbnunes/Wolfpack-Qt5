@@ -49,7 +49,6 @@
 		<category>Professions\Mage\Runes\Recall Rune (1)</category>
 		<id>0x1f14</id>
 		<weight>1</weight>
-		<newbie />
 		<decay />
 		<buyprice>15</buyprice>
 		<sellprice>8</sellprice>

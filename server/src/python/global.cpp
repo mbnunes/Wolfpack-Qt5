@@ -335,18 +335,26 @@ static PyObject* wpTime_timestamp( PyObject* self, PyObject* args )
 	return PyInt_FromLong( uoTime.time().elapsed() );
 }
 
+static PyObject* wpTime_currentlightlevel( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);	
+	Q_UNUSED(args);
+	return PyInt_FromLong( SrvParams->worldCurrentLevel() );
+}
+
 /*!
 	Methods for handling UO Time from within python
 */
 static PyMethodDef wpTime[] = 
 {
-	{ "second",		wpTime_second,		METH_NOARGS, "Returns the current time-seconds" },
-	{ "minute",		wpTime_minute,		METH_NOARGS, "Returns the current time-minutes" },
-	{ "hour",		wpTime_hour,		METH_NOARGS, "Returns the current time-hour" },
-	{ "day",		wpTime_day,			METH_NOARGS, "Returns the current date-day" },
-	{ "month",		wpTime_month,		METH_NOARGS, "Returns the current date-month" },
-	{ "year",		wpTime_year,		METH_NOARGS, "Returns the current date-year" },
-	{ "timestamp",	wpTime_timestamp,	METH_NOARGS, "Returns the current timestamp" },
+	{ "second",				wpTime_second,				METH_NOARGS, "Returns the current time-seconds" },
+	{ "minute",				wpTime_minute,				METH_NOARGS, "Returns the current time-minutes" },
+	{ "hour",				wpTime_hour,				METH_NOARGS, "Returns the current time-hour" },
+	{ "day",				wpTime_day,					METH_NOARGS, "Returns the current date-day" },
+	{ "month",				wpTime_month,				METH_NOARGS, "Returns the current date-month" },
+	{ "year",				wpTime_year,				METH_NOARGS, "Returns the current date-year" },
+	{ "timestamp",			wpTime_timestamp,			METH_NOARGS, "Returns the current timestamp" },
+	{ "currentlightlevel",	wpTime_currentlightlevel,	METH_NOARGS, "Returns the current light level" },
     { NULL, NULL, 0, NULL } // Terminator
 };
 

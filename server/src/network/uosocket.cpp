@@ -2486,8 +2486,8 @@ void cUOSocket::updateLightLevel( UINT8 level )
 		else if( _player->fixedLightLevel() != 255 )
 			pLight.setLevel( _player->fixedLightLevel() );
 
-		//else if( indungeon( _player ) )
-		//	pLight.setLevel( SrvParams->dungeonLightLevel() );
+		else if( AllTerritories::instance()->region( _player->pos() )->isCave() )
+			pLight.setLevel( SrvParams->dungeonLightLevel() );
 
 		else if( level != 0xFF )
 			pLight.setLevel( level );

@@ -1128,7 +1128,7 @@ stError *cPlayer::setProperty( const QString &name, const cVariant &value )
 		return 0;
 	}
 	else SET_INT_PROPERTY( "logouttime", logoutTime_ )
-	else SET_INT_PROPERTY( "lightbonus", fixedLightLevel_ )
+	else SET_INT_PROPERTY( "fixedlight", fixedLightLevel_ )
 	else if( name == "inputmode" )
 	{
 		inputMode_ = (enInputMode)value.toInt();
