@@ -1,0 +1,286 @@
+<definitions>
+	<!-- Cloak n/s -->
+	<item id="1515">
+		<category>Clothes\Accessories</category>
+		<id>0x1515</id>
+		<dye />
+		<decay />
+		<value>40</value>
+	</item>
+
+	<!-- Skirt n/s -->
+	<item id="1516">
+		<category>Clothes\Legs</category>
+		<id>0x1516</id>
+		<dye />
+		<decay />
+		<value>40</value>
+		
+	</item>
+
+	<!-- Plain Shirt n/s -->
+	<item id="1517">
+		<category>Clothes\Torso</category>
+		<id>0x1517</id>
+		<dye />
+		<decay />
+		<value>30</value>
+	</item>
+
+	<!-- Plain Shirt w/e -->
+	<item id="1518">
+		<category>Clothes\Torso</category>
+		<id>0x1518</id>
+		<dye />
+		<decay />
+		<value>30</value>
+	</item>
+
+	<!-- Short Pants n/s -->
+	<item id="152e">
+		<category>Clothes\Legs</category>
+		<id>0x152e</id>
+		<dye />
+		<decay />
+		<value>35</value>
+	</item>
+
+	<!-- Short Pants w/e -->
+	<item id="152f">
+		<category>Clothes\Legs</category>
+		<id>0x152f</id>
+		<dye />
+		<decay />
+		<value>35</value>
+	</item>
+
+	<!-- Cloak w/e-->
+	<item id="1530">
+		<category>Clothes\Accessories</category>
+		<id>0x1530</id>
+		<dye />
+		<decay />
+		<value>40</value>		
+	</item>
+
+	<!-- Skirt w/e -->
+	<item id="1531">
+		<category>Clothes\Legs</category>
+		<id>0x1531</id>
+		<dye />
+		<decay />
+		<value>40</value>
+	</item>
+	
+	<!-- Gold Belt n/s -->
+	<!-- Can't be equipped -->
+	<item id="1535">
+		<category>Clothes\Accessories</category>
+		<id>0x1535</id>
+	</item>
+
+	<!-- Gold Belt w/e -->
+	<!-- Can't be equipped -->
+	<item id="1536">
+		<category>Clothes\Accessories</category>
+		<id>0x1536</id>
+	</item>
+
+	<!-- Kilt n/s -->
+	<item id="1537">
+		<category>Clothes\Legs</category>
+		<id>0x1537</id>
+		<dye />
+		<decay />
+		<value>35</value>
+	</item>
+
+	<!-- Kilt w/e -->
+	<item id="1538">
+		<category>Clothes\Legs</category>
+		<id>0x1538</id>
+		<dye />
+		<decay />
+		<value>35</value>
+	</item>
+
+	<!-- Long Pants n/s -->
+	<item id="1539">
+		<category>Clothes\Legs</category>
+		<id>0x1539</id>
+		<dye />
+		<decay />
+		<value>40</value>
+	</item>
+
+	<!-- Long Pants w/e -->
+	<item id="153a">
+		<category>Clothes\Legs</category>
+		<id>0x153a</id>
+		<dye />
+		<decay />
+		<value>40</value>
+	</item>
+
+	<!-- Half Apron n/s -->
+	<item id="153b">
+		<category>Clothes\Accessories</category>
+		<id>0x153b</id>
+		<dye />
+		<decay />
+		<value>40</value>
+	</item>
+
+	<!-- Half Apron w/e -->
+	<item id="153c">
+		<category>Clothes\Accessories</category>
+		<id>0x153c</id>
+		<dye />
+		<decay />
+		<value>40</value>
+	</item>
+
+	<!-- Full Apron n/s -->
+	<item id="153d">
+		<category>Clothes\Accessories</category>
+		<id>0x153d</id>
+		<dye />
+		<decay />
+		<value>60</value>
+	</item>
+
+	<!-- Full Apron w/e -->
+	<item id="153e">
+		<category>Clothes\Accessories</category>
+		<id>0x153e</id>
+		<dye />
+		<decay />
+		<value>60</value>
+	</item>
+
+	<!-- Bandana n/s -->
+	<item id="153f">
+		<category>Clothes\Headwear</category>
+		<id>0x153f</id>
+		<dye />
+		<decay />
+		<value>20</value>
+	</item>
+
+	<!-- Bandana w/e -->
+	<item id="1540">
+		<category>Clothes\Headwear</category>
+		<id>0x1540</id>
+		<dye />
+		<decay />
+		<value>20</value>
+	</item>
+
+	<!-- Body Sash n/s -->
+	<item id="1541">
+		<category>Clothes\Accessories</category>
+		<id>0x1541</id>
+		<dye />
+		<decay />
+		<value>30</value>
+	</item>
+
+	<!-- Body Sash w/e -->
+	<item id="1542">
+		<category>Clothes\Accessories</category>
+		<id>0x1542</id>
+		<dye />
+		<decay />
+		<value>30</value>
+	</item>
+
+	<!-- Skullcap n/s -->
+	<item id="1543">
+		<category>Clothes\Headwear</category>
+		<id>0x1543</id>
+		<dye />
+		<decay />
+		<value>30</value>
+	</item>
+
+	<!-- Skullcap w/e -->
+	<item id="1544">
+		<category>Clothes\Headwear</category>
+		<id>0x1544</id>
+		<dye />
+		<decay />
+		<value>30</value>
+	</item>
+
+	<!-- Bear Mask n/s -->
+	<item id="1545">
+		<category>Clothes\Headwear</category>
+		<id>0x1545</id>
+		<dye />
+		<decay />
+		<value>40</value>
+	</item>
+
+	<!-- Bear Mask w/e -->
+	<item id="1546">
+		<category>Clothes\Headwear</category>
+		<id>0x1546</id>
+		<dye />
+		<decay />
+		<value>40</value>
+	</item>
+
+	<!-- Deer Mask n/s -->
+	<item id="1547">
+		<category>Clothes\Headwear</category>
+		<id>0x1547</id>
+		<dye />
+		<decay />
+		<value>40</value>
+	</item>
+
+	<!-- Deer Mask w/e -->
+	<item id="1548">
+		<category>Clothes\Headwear</category>
+		<id>0x1548</id>
+		<dye />
+		<decay />
+		<value>40</value>
+	</item>
+
+	<!-- Tribal Mask n/s -->
+	<item id="1549">
+		<category>Clothes\Headwear</category>
+		<id>0x1549</id>
+		<dye />
+		<decay />
+		<value>40</value>
+	</item>
+
+	<!-- Tribal Mask w/e -->
+	<item id="154a">
+		<category>Clothes\Headwear</category>
+		<id>0x154a</id>
+		<dye />
+		<decay />
+		<value>40</value>
+	</item>
+
+	<!-- Tribal Mask 2 n/s -->
+	<item id="154b">
+		<category>Clothes\Headwear</category>
+		<id>0x154b</id>
+		<dye />
+		<decay />
+		<value>40</value>
+	</item>
+
+	<!-- Tribal Mask 2 w/e -->
+	<item id="154c">
+		<category>Clothes\Headwear</category>
+		<id>0x154c</id>
+		<dye />
+		<decay />
+		<value>40</value>
+	</item>	
+</definitions>
