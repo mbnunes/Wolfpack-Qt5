@@ -1518,7 +1518,7 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 		// Their packs should open instead of their paperdoll
 		if( pTarget->npcaitype() == 17 )
 		{
-			pTarget->talk( "Take a look at my goods" );
+			pTarget->talk( tr( "Take a look at my goods" ) );
 
 			if( pTarget->packitem != INVALID_SERIAL )
 				socket->sendContainer( pTarget->getBackpack() );
@@ -1531,7 +1531,7 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 		if( !hotkey && ( pTarget == pChar ) && ( unmounthorse( s ) == 0 )  )
 			return; // We have been unmounted
 
-		socket->sendPaperdoll( pTarget, true );
+		socket->sendPaperdoll( pTarget );
 	}
 
 	UINT16 body = pTarget->id();

@@ -87,7 +87,7 @@ void cItem::toBackpack( P_CHAR pChar )
 	{
 		setContSerial( INVALID_SERIAL );
 		moveTo( pChar->pos );
-		RefreshItem( this );
+		update();
 		return;
 	}
 	// Or to the backpack
@@ -99,7 +99,7 @@ void cItem::toBackpack( P_CHAR pChar )
 		pos.x = 50 + ( rand() % 80 );
 		pos.y = 50 + ( rand() % 80 );
 		pos.z = 9;
-		RefreshItem( this );
+		update();
 	}
 	
 	// Recalc the weight( just to be sure )
@@ -375,21 +375,25 @@ short cItem::GetContGumpType()
 
 bool cItem::AddItem(cItem* pItem, short xx, short yy)	// Add Item to container
 {
-	if (pItem == NULL) return false;
-	pItem->setContSerial(this->serial);
-	if (xx!=-1)	// use the given position
+	if( !pItem ) 
+		return false;
+
+	pItem->setContSerial( serial );
+	
+	// use the given position
+	if( xx != -1 ) 
 	{
-		pItem->pos.x=xx;
-		pItem->pos.y=yy;
-		pItem->pos.z=9;
-	}
-	else		// no pos given
+		pItem->pos.x = xx;
+		pItem->pos.y = yy;
+		pItem->pos.z = 9;
+	}	// no pos given
+	else		
 	{
-		if (!this->ContainerPileItem(pItem))	// try to pile
-			pItem->SetRandPosInCont(this);		// not piled, random pos
+		if( !this->ContainerPileItem( pItem ) ) // try to pile
+			pItem->SetRandPosInCont( this ); // not piled, random pos
 	}
-	SndRemoveitem(pItem->serial);
-	RefreshItem(pItem);
+
+	pItem->update();
 	return true;
 }
 
@@ -697,10 +701,10 @@ int cItem::getWeight()
 	else
 	{
 		tile_st tile = cTileCache::instance()->getTile( id_ );
-		if (tile.weight==0) // can't find weight
+		if( tile.weight == 0 ) // Stupid - Tiles can have weight 0 !!
 		{
 			if( this->type_ != 14 )
-				itemweight = 2;		// not food weighs .02 stone
+				itemweight = 2;		// not food weights .02 stone
 			else
 				itemweight = 100;	//food weighs 1 stone
 		}
@@ -2003,6 +2007,27 @@ void cItem::update()
 	// items in containers
 	else if( isItemSerial( contserial ) )
 	{
+		cUOTxAddContainerItem contItem;
+		contItem.fromItem( this );
+
+		P_ITEM iCont = GetOutmostCont( this, 0xFF );
+		cUObject *oCont = iCont;
+
+		if( isCharSerial( iCont->contserial ) )
+			oCont = FindCharBySerial( iCont->contserial );
+
+		if( !oCont )
+			return;
+
+		for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
+		{
+			P_CHAR pChar = socket->player();
+
+			if( !pChar || ( pChar->pos.distance( oCont->pos ) > pChar->VisRange ) )
+				continue;
+
+			socket->send( &contItem );
+		}
 	}
 }
 

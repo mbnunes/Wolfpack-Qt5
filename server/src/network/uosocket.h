@@ -133,7 +133,7 @@ public:
 	void disconnect( void ); // Call this whenever the socket should disconnect
 	void playChar( P_CHAR player ); // Play a character
 	bool isT2A()	{ return true; } // ???
-	void sendPaperdoll( P_CHAR pChar, bool detailed = false );
+	void sendPaperdoll( P_CHAR pChar );
 	void playMusic( void );
 	void sendContainer( P_ITEM pCont );
 	void bounceItem( P_ITEM pItem, eBounceReason reason );

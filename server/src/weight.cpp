@@ -90,11 +90,12 @@ void cWeight::NewCalc(P_CHAR pc)
 // History:	Ison 2-20-99  - rewrote by Tauriel 3/20/99
 //			rewritten by Duke 4.11.2k
 //
-float cWeight::RecursePacks(P_ITEM bp)
+float cWeight::RecursePacks( P_ITEM bp )
 {
 	float totalweight=0.0;
 
-	if (bp == NULL) return 0.0f;
+	if( !bp ) 
+		return 0.0f;
 	
 	unsigned int ci = 0;
 	vector<SERIAL> vecContainer = contsp.getData(bp->serial);

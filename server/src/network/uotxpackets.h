@@ -449,6 +449,7 @@ public:
 	void setDirection( Q_UINT8 data ) { (*this)[12] = data; }
 	void setHue( Q_UINT16 data ) { setShort( 13, data ); }
 	void setFlag( Q_UINT8 data ) { (*this)[15] = data; }
+	UINT8 flag() { return (*this)[15]; }
 	void setHighlight( Q_UINT8 data ) { (*this)[16] = data; }
 
 	void fromChar( P_CHAR pChar );
@@ -601,7 +602,9 @@ public:
 	cUOTxOpenPaperdoll(): cUOPacket( 0x88, 66 ) {}
 	void setSerial( UINT32 data ) { setInt( 1, data ); }
 	void setName( const QString &name ) { memcpy( &rawPacket.data()[5], name.latin1(), MIN( 60, name.length()+1 ) ); }
-	void setFlag( UINT8 flag ) { rawPacket[65] = flag; }
+	void setFlag( UINT8 flag ) { (*this)[65] = flag; }
+	UINT8 flag() { return (*this)[65]; }
+	void fromChar( P_CHAR pChar );
 };
 
 // 0x93 Book Title

@@ -610,14 +610,15 @@ bool cMovement::verifySequence( cUOSocket *socket, Q_UINT8 sequence ) throw()
 	return true;
 }
 
-void cMovement::checkRunning( P_CHAR pc, Q_UINT8 dir )
+// This only gets called when running
+void cMovement::checkRunning( P_CHAR pChar, Q_UINT8 dir )
 {
 	// Running automatically stops stealthing
 	if( pc->stealth() != -1 ) 
 	{
-		pc->setStealth(-1);
-		pc->setHidden( 0 );
-		updatechar(pc);
+		pChar->setStealth(-1);
+		pChar->setHidden( 0 );
+		pChar->update();
 	}
 
 	// Don't regenerate stamina while running

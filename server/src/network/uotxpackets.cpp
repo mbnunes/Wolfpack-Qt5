@@ -176,8 +176,8 @@ void cUOTxSendSkills::fromChar( P_CHAR pChar )
 	if( !pChar )
 		return;
 
-	for( Q_UINT8 i = 0; i < ALLSKILLS; ++i )
-		addSkill( i, pChar->skill( i ), pChar->baseSkill( i ), cUOTxSendSkills::Up );
+	for( UINT8 i = 0; i < ALLSKILLS; ++i )
+		addSkill( i+1, pChar->skill( i ), pChar->baseSkill( i ), cUOTxSendSkills::Up );
 }
 
 void cUOTxContextMenu::addEntry( Q_UINT16 textId, Q_UINT16 returnVal )
@@ -233,12 +233,20 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 	// ->running() is greater than zero in that case
 	setDirection( pChar->running() ? pChar->dir|0x80 : pChar->dir );
 
+	if( pChar->war )
+		setFlag( 0x40 );
+
+	if( pChar->hidden() )
+		setFlag( flag() | 0x80 );
+
+	if( pChar->dead && !pChar->war )
+		setFlag( flag() | 0x80 );
+
+	if( pChar->poisoned() )
+		setFlag( flag() | 0x04 );
 	// Set Flag and Highlight color
-/*			if (us->war) extmove[15]=0x40; else extmove[15]=0x00;
-			if (us->hidden()) extmove[15]=extmove[15]|0x80;
-			if( us->dead && !pc->war ) extmove[15] = extmove[15]|0x80; // Ripper
-			if(us->poisoned()) extmove[15]=extmove[15]|0x04; //AntiChrist -- thnx to SpaceDog
-			//if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
+	/*
+	//if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
 			int guild;
 			//chars[i].flag=0x04;       // everyone should be blue on default
 			guild = GuildCompare( pc, us );
@@ -355,3 +363,22 @@ void cUOTxPopupMenu::addEntry( UINT16 entryId, UINT16 stringId, bool flagged )
 
 	setShort( 1, rawPacket.count() );
 }
+
+void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar )
+{
+	setSerial( pChar->serial );
+	setName( pChar->name.c_str() );
+
+	if( pChar->war )
+		setFlag( 0x40 );
+
+	if( pChar->hidden() )
+		setFlag( flag() | 0x80 );
+
+	if( pChar->dead && !pChar->war )
+		setFlag( flag() | 0x80 );
+
+	if( pChar->poisoned() )
+		setFlag( flag() | 0x04 );
+}
+

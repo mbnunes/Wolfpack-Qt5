@@ -457,17 +457,23 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	// SndRemoveitem( pi->serial );
 
 	// Build our packets
-	cWornItems wearItem( pWearer->serial, pItem->serial, pItem->layer(), pItem->id(), pItem->color() );
-	cSoundEffect soundEffect( 0x57, pWearer->pos );
+	cUOTxCharEquipment wearItem;
+	wearItem.fromItem( pItem );
+
+	cUOTxSoundEffect soundEffect;
+	soundEffect.setSound( 0x57 );
+	soundEffect.setCoord( pWearer->pos );
 
 	// Send to all sockets in range
 	// ONLY the new equipped item and the sound-effect
-	for( UOXSOCKET s = 0; s < now; s++ )
-		if( perm[s] && inrange1p( pWearer, currchar[s] ) )
+	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	{
+		if( mSock->player() && ( mSock->player()->pos.distance( pWearer->pos ) <= mSock->player()->VisRange ) );
 		{
-			soundEffect.send( s );
-			wearItem.send( s );
+			mSock->send( &wearItem );
+			mSock->send( &soundEffect );
 		}
+	}
 
 	// Lord Binaries Glow stuff
 	if( pItem->glow != INVALID_SERIAL )
@@ -653,9 +659,6 @@ void cDragItems::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &
 	pItem->setLayer( 0 );
 	pItem->update();
 
-	pChar->weight -= pItem->getWeight(); // We're dropping
-	//statwindow( client->socket(), pChar ); // Update our weight-stats
-
 	if( pItem->glow != INVALID_SERIAL )
 	{
 		pChar->removeHalo( pItem );
@@ -673,6 +676,10 @@ void cDragItems::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &
 				pItem->SetMultiSerial( pMulti->serial );
 		}
 	}
+
+	// Here we can be sure that noone else subtracted the weight
+	// for us, so let's do that here
+	pChar->weight -= pItem->getWeight();
 }
 
 void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, const Coord_cl &dropPos )
@@ -725,11 +732,11 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 
 		// If it *IS* a trade-window, replace the status
 		if( tradeWindow && ( pCont->morez || tradeWindow->morez ) )
-			{
-				tradeWindow->morez = 0;
-				pCont->morez = 0;
-				sendtradestatus( tradeWindow, pCont );
-			}
+		{
+			tradeWindow->morez = 0;
+			pCont->morez = 0;
+			sendtradestatus( tradeWindow, pCont );
+		}
 	}
 	
 	if( !pChar->canPickUp( pItem ) )
@@ -741,6 +748,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	// Trash can
 	if( pCont->type()==87 )
 	{
+		pChar->weight -= pItem->getWeight();
 		Items->DeleItem( pItem );
 		socket->sysMessage( tr( "As you let go of the item it disappears." ) );
 		return;
@@ -790,6 +798,12 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 		}
 	*/
 	
+	// The Item cannot bounce anymore
+	pChar->weight -= pItem->getWeight();
+
+	if( packOwner )
+		packOwner->weight += pItem->getWeight();
+
 	// We may also drop into *any* locked chest
 	// So we can have post-boxes ;o)
 	// Spellbooks are containers for us as well
@@ -800,7 +814,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 			pCont->AddItem( pItem );
 		else
 			pCont->AddItem( pItem, dropPos.x, dropPos.y );
-		
+
 		// Dropped on another Container/in another Container
 		pChar->soundEffect( 0x57 );
 		return;
@@ -811,6 +825,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 		if( pCont->amount() + pItem->amount() <= 65535 )
 		{
 			pCont->setAmount( pCont->amount() + pItem->amount() );
+			
 			Items->DeleItem( pItem );
 
 			pCont->update(); // Need to update the amount
@@ -836,7 +851,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	pItem->setLayer( 0 );
 	pItem->setContSerial( pCont->contserial );
 	pItem->update();
-				
+
 	// This needs to be checked
 	// It annoyingly shows the spellbook
 	// whenever you add a scroll

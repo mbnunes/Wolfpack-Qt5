@@ -476,9 +476,9 @@ int cChar::CountItems( short ID, short col )
 			number++;
 	}
 
-	P_ITEM pi = this->getBackpack();
+	P_ITEM pi = getBackpack();
 	
-	if (pi != NULL)
+	if( pi )
 		number = pi->CountItems( ID, col );
 	return number ;
 }

@@ -47,6 +47,7 @@
 #include "../structs.h"
 #include "../speech.h"
 #include "../commands.h"
+#include "../classes.h"
 #include "../srvparams.h"
 #include "../wpdefmanager.h"
 #include "../walking2.h"
@@ -190,6 +191,8 @@ void cUOSocket::recieve()
 		cDragItems::getInstance()->dropItem( this, dynamic_cast< cUORxDropItem* >( packet ) ); break;
 	case 0x13:
 		cDragItems::getInstance()->equipItem( this, dynamic_cast< cUORxWearItem* >( packet ) ); break;
+	case 0x72:
+		handleChangeWarmode( dynamic_cast< cUORxChangeWarmode* >( packet ) ); break;
 	default:
 		//cout << "Recieved packet: " << endl;
 		packet->print( &cout );
@@ -317,7 +320,24 @@ void cUOSocket::sendCharList()
 */
 void cUOSocket::handleDeleteCharacter( cUORxDeleteCharacter *packet )
 {
-	// TODO: Implement code here
+	QValueVector< P_CHAR > charList = _account->caracterList();
+
+	if( packet->index() >= charList.size() )
+	{
+		cUOTxDenyLogin dLogin;
+		dLogin.setReason( DL_BADCOMMUNICATION );
+		send( &dLogin );
+		return;
+	}
+
+	P_CHAR pChar = charList[ packet->index() ];
+
+	if( pChar )
+	{
+		Npcs->DeleteChar( pChar ); // Does everything for us
+		_account->removeCharacter( pChar );
+	}
+
 	updateCharList();
 }
 
@@ -539,9 +559,13 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pChar->in = packet->intelligence();
 	pChar->mn = pChar->in;
 
-	pChar->setBaseSkill( packet->skillId1(), packet->skillValue1() );
-	pChar->setBaseSkill( packet->skillId2(), packet->skillValue2() );
-	pChar->setBaseSkill( packet->skillId3(), packet->skillValue3() );
+	pChar->setBaseSkill( packet->skillId1(), packet->skillValue1()*10 );
+	pChar->setBaseSkill( packet->skillId2(), packet->skillValue2()*10 );
+	pChar->setBaseSkill( packet->skillId3(), packet->skillValue3()*10 );
+	Skills->updateSkillLevel( pChar, packet->skillId1() );
+	Skills->updateSkillLevel( pChar, packet->skillId2() );
+	Skills->updateSkillLevel( pChar, packet->skillId3() );
+
 	cCharsManager::getInstance()->registerChar( pChar );
 
 	// Create the char equipment (JUST the basics !!)
@@ -604,6 +628,8 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pChar->setAccount( _account );
 	giveNewbieItems( packet );
 	
+	Weight->NewCalc( pChar );
+
 	// Start the game with the newly created char -- OR RELAY HIM !!
     playChar( pChar );
 }
@@ -740,9 +766,16 @@ void cUOSocket::handleQuery( cUORxQuery *packet )
 		{
 			sendStats.setHp( pChar->hp );
 			sendStats.setMaxHp( pChar->st );
+			sendStats.setStamina( pChar->stm );
+			sendStats.setMaxStamina( pChar->effDex() );
+			sendStats.setMana( pChar->mn );
+			sendStats.setMaxMana( pChar->in );
 			sendStats.setStrength( pChar->st );
 			sendStats.setDexterity( pChar->effDex() );
 			sendStats.setIntelligence( pChar->in );
+			sendStats.setWeight( pChar->weight );
+			sendStats.setGold( pChar->CountBankGold() + pChar->CountGold() );
+			sendStats.setArmor( pChar->def ); // TODO: Inaccurate			
 		}
 
 		send( &sendStats );
@@ -1010,12 +1043,10 @@ void cUOSocket::handleGetTip( cUORxGetTip* packet )
 	}
 }
 
-void cUOSocket::sendPaperdoll( P_CHAR pChar, bool detailed )
+void cUOSocket::sendPaperdoll( P_CHAR pChar )
 {
 	cUOTxOpenPaperdoll oPaperdoll;
-	oPaperdoll.setSerial( pChar->serial );
-	oPaperdoll.setName( pChar->name.c_str() );
-	oPaperdoll.setFlag( detailed ? 1 : 0 );
+	oPaperdoll.fromChar( pChar );
 	send( &oPaperdoll );
 }
 
@@ -1029,12 +1060,25 @@ void cUOSocket::handleChangeWarmode( cUORxChangeWarmode* packet )
 	_player->war = packet->warmode() ? 1 : 0;
 
 	if( _player->dead ) 
-		if( packet->warmode() ) // Either make him visible
-			_player->update();
-		//else // Or remove him from sight
-		//	_player->removeFromSight();
+	{
+		_player->update();
+	}
+	else
+	{
+		// Update warmode status to other players
+		cUOTxUpdatePlayer updatePlayer;
+		updatePlayer.fromChar( _player );
 
-	Movement->CombatWalk( _player );
+		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+		{
+			if( mSock->player() && ( mSock->player()->pos.distance( _player->pos ) < mSock->player()->VisRange ) )
+			{
+				// TODO: Check for visible/invisible status here.
+				mSock->send( &updatePlayer );
+			}
+		}
+	}
+    	
 	playMusic();
 	_player->disturbMed();
 }
