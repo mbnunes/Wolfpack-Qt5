@@ -132,7 +132,6 @@ cChar::cChar( const P_CHAR mob )
 	this->poisonwearofftime_ = mob->poisonwearofftime();
 	this->fleeat_ = mob->fleeat();
 	this->reattackat_ = mob->reattackat();
-	this->envokeitem_ = mob->envokeitem();
 	this->split_ = mob->split();
 	this->splitchnc_ = mob->splitchnc();
 	this->ra_ = mob->ra();
@@ -201,7 +200,6 @@ cChar::cChar( const P_CHAR mob )
 	this->setRegion( cAllTerritories::getInstance()->region( mob->region()->name() ) );
 	this->skilldelay_ = mob->skilldelay();
 	this->objectdelay_ = mob->objectdelay();
-	this->lastTarget_ = mob->lastTarget();
 	this->taming_ = mob->taming();
 	this->summontimer_ = mob->summontimer();
 	this->VisRange_ = mob->VisRange();
@@ -347,7 +345,6 @@ void cChar::Init( bool createSerial )
 	
 	this->setFleeat(SrvParams->npc_base_fleeat());
 	this->setReattackat(SrvParams->npc_base_reattackat());
-	this->setEnvokeitem(INVALID_SERIAL);
 	this->setSplit(0);
 	this->setSplitchnc(0);
 	this->setRa(0);  // Reactive Armor spell
@@ -3964,7 +3961,6 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "fz1", fz1_ )
 	else SET_INT_PROPERTY( "skilldelay", skilldelay_ )
 	else SET_INT_PROPERTY( "objectdelay", objectdelay_ )
-	else SET_INT_PROPERTY( "lasttarget", lastTarget_  )
 	else SET_INT_PROPERTY( "totame", taming_ )
 	else SET_INT_PROPERTY( "summontimer", summontimer_) 
 	else SET_INT_PROPERTY( "visrange", VisRange_ )
@@ -4091,15 +4087,6 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "region", ( region_ != 0 ) ? region_->name() : QString( "" ) )
 	GET_PROPERTY( "skilldelay", (int)skilldelay_ )
 	GET_PROPERTY( "objectdelay", (int)objectdelay_ )
-	if( name == "lasttarget" )
-	{
-		if( isCharSerial( lastTarget_ ) )
-			value = cVariant( FindCharBySerial( lastTarget_ ) );
-		else
-			value = cVariant( FindItemBySerial( lastTarget_ ) );
-
-		return 0;
-	}
 	GET_PROPERTY( "totame", taming_ )
 	GET_PROPERTY( "summontimer", (int)summontimer_) 
 	GET_PROPERTY( "visrange", VisRange_ )

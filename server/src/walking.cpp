@@ -1419,6 +1419,7 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 		break;
 	// Try to find your way to a specified position
 	case 6:
+#pragma note("Implement pathfinding for this!")
 		if( pc_i->pos().map != pc_i->ptarg().map )
 		{
 			pc_i->setNpcWander( 0 );

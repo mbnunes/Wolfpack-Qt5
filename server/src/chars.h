@@ -138,7 +138,6 @@ protected:
 	unsigned int			poisonwearofftime_; // LB, makes poision wear off ...
 	short					fleeat_;
 	short					reattackat_;
-	SERIAL					envokeitem_;
 	unsigned char			split_;
 	unsigned char			splitchnc_;
 	char					ra_;  // Reactive Armor spell
@@ -219,7 +218,6 @@ protected:
 	cTerritory*				region_;
 	unsigned int			skilldelay_;
 	unsigned int			objectdelay_;
-	SERIAL					lastTarget_;
 	int						taming_; //Skill level required for taming
 	unsigned int			summontimer_; //Timer for summoned creatures.
 	UINT8					VisRange_;
@@ -299,7 +297,6 @@ public:
 	unsigned int			poisontxt() const { return poisontxt_; }
 	short					fleeat() const { return fleeat_;}
 	short					reattackat() const { return reattackat_; }
-	SERIAL					envokeitem() const { return envokeitem_;}
 	unsigned char			split() const { return split_;}
 	unsigned char			splitchnc() const { return splitchnc_;}
 	char					ra() const { return ra_;}
@@ -363,7 +360,6 @@ public:
 	cTerritory*				region() const { return region_; }
 	unsigned int			skilldelay() const { return skilldelay_; }
 	unsigned int			objectdelay() const { return objectdelay_; }
-	SERIAL					lastTarget() const { return lastTarget_; }
 	int						taming() const { return taming_; }
 	unsigned int			summontimer() const { return summontimer_; }
 	int						VisRange() const { return VisRange_; }
@@ -414,7 +410,6 @@ public:
 	void					setPoisontxt( unsigned int d ) { poisontxt_ = d; }
 	void					setFleeat( short d ) { fleeat_ = d; changed( SAVE );}
 	void					setReattackat(short d) { reattackat_ = d; changed( SAVE );}
-	void					setEnvokeitem( SERIAL d ) { envokeitem_ = d; changed( SAVE );}
 	void					setSplit(unsigned char d) {split_ = d; changed( SAVE );}
 	void					setSplitchnc(unsigned char d) {splitchnc_ = d; changed( SAVE );}
 	void					setRa( char d ) { ra_ = d; changed( SAVE );}
@@ -479,7 +474,6 @@ public:
 	void					setRegion( cTerritory* d ) { region_ = d; changed( SAVE );}
 	void					setSkillDelay( unsigned int d ) { skilldelay_ = d; changed( SAVE );}
 	void					setObjectDelay( unsigned int d ) { objectdelay_ = d; changed( SAVE );}
-	void					setLastTarget( SERIAL d ) { lastTarget_ = d; changed( SAVE );}
 	void					setTaming( int d ) { taming_ = d; changed( SAVE );}
 	void					setSummonTimer( unsigned int d ) { summontimer_ = d; changed( SAVE );}
 	void					setVisRange( int d ) { VisRange_ = d; changed( SAVE );}
