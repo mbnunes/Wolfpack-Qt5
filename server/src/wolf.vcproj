@@ -24,7 +24,7 @@
 				AdditionalIncludeDirectories="lib/Python/PC,lib/Python/include,lib\bugreport,lib\ZThread\include,$(QTDIR)\include,c:\mysql\include"
 				PreprocessorDefinitions="_CONSOLE;ZTHREAD_STATIC;PY_NOSOCKETS;_DEBUG;WIN32;QT_DLL;WP_DONT_USE_HASH_MAP;QT_THREAD_SUPPORT"
 				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				BufferSecurityCheck="TRUE"
 				EnableFunctionLevelLinking="TRUE"
 				RuntimeTypeInfo="TRUE"
@@ -298,6 +298,9 @@
 			</File>
 			<File
 				RelativePath=".\resources.cpp">
+			</File>
+			<File
+				RelativePath="sectors.cpp">
 			</File>
 			<File
 				RelativePath=".\serbinfile.cpp">
@@ -818,6 +821,9 @@
 "
 						Outputs="$(InputDir)moc_$(InputName).cpp"/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="sectors.h">
 			</File>
 			<File
 				RelativePath=".\serbinfile.h">

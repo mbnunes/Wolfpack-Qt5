@@ -73,6 +73,7 @@
 #include "player.h"
 #include "npc.h"
 #include "ai.h"
+#include "sectors.h"
 
 // Library Includes
 #include <qapplication.h>
@@ -893,11 +894,17 @@ int main( int argc, char *argv[] )
 		clConsole.send( "Loading muls...\n" );
 		TileCache::instance()->load( SrvParams->mulPath() );
 		MultiCache::instance()->load( SrvParams->mulPath() );
-
+		
 		Map->registerMap(0, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
 		Map->registerMap(1, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
-		Map->registerMap(2, "map2.mul", 288, 200, "statics2.mul", "staidx2.mul");	
-		Map->registerMap(3, "map3.mul", 320, 256, "statics3.mul", "staidx3.mul");	
+		Map->registerMap(2, "map2.mul", 288, 200, "statics2.mul", "staidx2.mul");
+		Map->registerMap(3, "map3.mul", 320, 256, "statics3.mul", "staidx3.mul");
+
+		// For each map we register, register a GridMap as well
+		SectorMaps::instance()->addMap( 0, 768, 512 );
+		SectorMaps::instance()->addMap( 1, 768, 512 );
+		SectorMaps::instance()->addMap( 2, 288, 200 );
+		SectorMaps::instance()->addMap( 3, 320, 256 );
 
 		clConsole.send( "\n" );
 	}

@@ -37,11 +37,11 @@
 #include <qstring.h>
 #include <qglobal.h>
 
+#include <iostream>
+
 #if defined(Q_OS_WIN32) 
 # include <windows.h>
 #endif
-
-#include <iostream>
 
 using namespace std;
 
@@ -81,7 +81,7 @@ void WPConsole_cl::send(char* szMessage, ...)
 	va_list argptr;
 	char msg[512];
 	va_start(argptr, szMessage);
-	vsnprintf(msg, 512, szMessage, argptr);
+	::vsnprintf(msg, 512, szMessage, argptr);
 	va_end(argptr);
 	
 	QString sMessage(msg);

@@ -71,13 +71,7 @@ enum enByteOrder{ littleEndian, bigEndian };
 */
 #endif
 
-#if !defined(vsnprintf)
-#define vsnprintf _vsnprintf
-#endif
-
 #define PACK
-
-
 
 #endif
 //========================================================================
@@ -86,9 +80,6 @@ enum enByteOrder{ littleEndian, bigEndian };
 
 #if defined(WIN32) // mingw needs these
 #define OBSOLETETIME
-#if !defined(vsnprintf)
-#define vsnprintf _vsnprintf
-#endif
 #endif
 
 #define PACK __attribute__((packed))
