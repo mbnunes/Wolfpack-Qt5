@@ -23,6 +23,7 @@
 		<intproperty name="res_fire" value="9" />
 		<intproperty name="res_poison" value="4" />
 		<intproperty name="res_energy" value="5" />
+		<allowmeditation />
 	</item>
 
 	<!-- Tribal Mask Horned w/e -->
@@ -47,6 +48,7 @@
 		<intproperty name="res_cold" value="6" />
 		<intproperty name="res_poison" value="10" />
 		<intproperty name="res_energy" value="5" />
+		<allowmeditation />
 	</item>
 
 	<!-- Tribal Mask Red w/e -->

@@ -29,6 +29,7 @@
 		<intproperty name="res_cold" value="3" />
 		<intproperty name="res_poison" value="3" />
 		<intproperty name="res_energy" value="3" />
+		<allowmeditation />
 	</item>
 
 	<item id="1c09" inherit="1c08">

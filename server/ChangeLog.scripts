@@ -1,6 +1,26 @@
 Wolfpack ChangeLog
 
-Wolfpack 12.9.11 Beta (CVS)
+Wolfpack 12.9.12 Beta (CVS)
+	* Definition Changes:
+		- Made leather armors and hats auto mage armors.
+	* Python Script Changes:
+		- Fixed BONUS* properties.
+		- Fixed other property issues.
+	* Misc. Changes:
+	* Known Issues, Bugs, and Missing Features:
+		- Some skills are still incomplete.
+		- Spawn regions are incomplete.
+			We welcome donated OSI-like spawn scripts!
+		- Town/World regions are incomplete.
+			We welcome donated OSI-like region scripts!
+		- Teleport Scripts are incomplete.
+			We welcome donated OSI-like teleport scripts!
+		- Possible that a few monsters are missing and/or incomplete.
+		- Reloading Python too many times can crash the server.
+		- There are still some memory leaks.
+		- Multis (Houses/Boats) are not currently supported.
+
+Wolfpack 12.9.11 Beta (26. September 2004)
 	* Definition Changes:
 		- Fixed minimum taming for npcs.
 		- Added the shopkeeper inventory for many vendors.

@@ -25,6 +25,7 @@
 		<intproperty name="res_cold" value="8" />
 		<intproperty name="res_poison" value="1" />
 		<intproperty name="res_energy" value="7" />
+		<allowmeditation />
 	</item>
 
 	<!-- Deer Mask w/e -->

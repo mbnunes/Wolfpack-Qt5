@@ -13,14 +13,8 @@ from math import ceil
 #
 def modifiers(object, tooltip):
 	modifiers = {
-		"boni_dex": 1060409,
-		"boni_int": 1060432,
-		"boni_str": 1060485,
 		"remaining_uses": 1060584,
 		"aos_boni_damage": 1060401,
-		"regenhitpoints": 1060444,
-		"regenstamina": 1060443,
-		"regenmana": 1060440,
 	}
 
 	for (tag, cliloc) in modifiers.items():
@@ -43,14 +37,50 @@ def modifiers(object, tooltip):
 		tooltip.add(1060413, str(castspeed))
 	
 	spelldamagebonus = properties.fromitem(object, SPELLDAMAGEBONUS)
-
+	
 	if spelldamagebonus:
 		tooltip.add(1060483, str(spelldamagebonus))	
+
+	bonus = properties.fromitem(object, BONUSSTRENGTH)
+	if bonus != 0:
+		tooltip.add(1060485, str(bonus))
+		
+	bonus = properties.fromitem(object, BONUSDEXTERITY)
+	if bonus != 0:
+		tooltip.add(1060409, str(bonus))
+		
+	bonus = properties.fromitem(object, BONUSINTELLIGENCE)
+	if bonus != 0:
+		tooltip.add(1060432, str(bonus))
+
+	bonus = properties.fromitem(object, BONUSHITPOINTS)
+	if bonus != 0:
+		tooltip.add(1060431, str(bonus))
+		
+	bonus = properties.fromitem(object, BONUSSTAMINA)
+	if bonus != 0:
+		tooltip.add(1060484, str(bonus))
+		
+	bonus = properties.fromitem(object, BONUSMANA)
+	if bonus != 0:
+		tooltip.add(1060439, str(bonus))				
+
+	regenhitpoints = properties.fromitem(object, REGENHITPOINTS)
+	if regenhitpoints:
+		tooltip.add(1060444, str(regenhitpoints))
+		
+	regenstamina = properties.fromitem(object, REGENSTAMINA)
+	if regenstamina:
+		tooltip.add(1060443, str(regenstamina))
+
+	regenmana = properties.fromitem(object, REGENMANA)
+	if regenmana:
+		tooltip.add(1060440, str(regenmana))
 
 	if object.hastag("bestskill"):
 		tooltip.add(1060400, "")
 
-	if object.hastag('magearmor'):
+	if properties.fromitem(object, MAGEARMOR):
 		tooltip.add(1060437, "")
 
 #
@@ -178,7 +208,7 @@ def onShowTooltip(viewer, object, tooltip):
 			mindamage = int( object.gettag( 'mindamage' ) )
 		maxdamage = object.getintproperty( 'maxdamage', 2 )
 		if object.hastag( 'maxdamage' ):
-			mindamage = int( object.gettag( 'maxdamage' ) )
+			maxdamage = int( object.gettag( 'maxdamage' ) )
 		tooltip.add( 1061168, "%u\t%u" % ( mindamage, maxdamage ) )
 
 		# Speed
@@ -244,6 +274,14 @@ def onShowTooltip(viewer, object, tooltip):
 		tooltip.add(1060446, str(energy))
 
 	modifiers(object, tooltip)
+
+	lowermana = properties.fromitem(object, LOWERMANACOST)
+	if lowermana:
+		tooltip.add(1060433, str(lowermana))
+
+	lowerreags = properties.fromitem(object, LOWERREAGENTCOST)
+	if lowerreags:
+		tooltip.add(1060434, str(lowerreags))
 
 	lower = properties.fromitem(object, LOWERREQS)
 	if lower:
@@ -323,38 +361,71 @@ def onWearItem(player, wearer, item, layer):
 def onEquip(char, item, layer):
 	changed = 0
 
-	# Bonus Strength
-	if item.hastag('boni_str'):
-		char.strength = char.strength + int(item.gettag('boni_str'))
-		changed = 1
+	# Bonus Str
+	bonus = properties.fromitem(item, BONUSSTRENGTH)
+	value = max(0, char.strength + bonus)
+	if value != char.strength:
+		char.strength = value
+		char.strength2 = max(0, char.strength2 + bonus)
+		changed = True
 
 	# Bonus Dex
-	if item.hastag('boni_dex'):
-		char.dexterity = char.dexterity + int(item.gettag('boni_dex'))
-		changed = 1
+	bonus = properties.fromitem(item, BONUSDEXTERITY)
+	value = max(0, char.dexterity + bonus)
+	if value != char.dexterity:
+		char.dexterity = value
+		char.dexterity2 = max(0, char.dexterity2 + bonus)
+		changed = True
 
 	# Bonus Int
-	if item.hastag('boni_int'):
-		char.intelligence = char.intelligence + int(item.gettag('boni_int'))
-		changed = 1
+	bonus = properties.fromitem(item, BONUSINTELLIGENCE)
+	value = max(0, char.intelligence + bonus)
+	if value != char.intelligence:
+		char.intelligence = value
+		char.intelligence2 = max(0, char.intelligence2 + bonus)
+		changed = True
+
+	# Bonus Hitpoints
+	bonushitpoints = properties.fromitem(item, BONUSHITPOINTS)
+	if bonushitpoints != 0:
+		char.hitpointsbonus += bonushitpoints
+		changed = True
+
+	# Bonus Stamina
+	bonusstamina = properties.fromitem(item, BONUSSTAMINA)
+	if bonusstamina != 0:
+		char.staminabonus += bonusstamina
+		changed = True
+	
+	# Bonus Mana
+	bonusmana = properties.fromitem(item, BONUSMANA)
+	if bonusmana != 0:
+		char.manabonus += bonusmana
+		changed = True
 
 	# Add hitpoint regeneration rate bonus
-	if item.hastag('regenhitpoints'):
+	regenhitpoints = properties.fromitem(item, REGENHITPOINTS)
+	if regenhitpoints:
 		if char.hastag('regenhitpoints'):
-			regenhitpoints = int(char.gettag('regenhitpoints')) + int(item.gettag('regenhitpoints'))
-		else:
-			regenhitpoints = int(item.gettag('regenhitpoints'))
-
+			regenhitpoints += int(char.gettag('regenhitpoints'))
+	
 		char.settag('regenhitpoints', regenhitpoints)
 
 	# Add stamina regeneration rate bonus
-	if item.hastag('regenstamina'):
+	regenstamina = properties.fromitem(item, REGENSTAMINA)
+	if regenstamina:
 		if char.hastag('regenstamina'):
-			regenstamina = int(char.gettag('regenstamina')) + int(item.gettag('regenstamina'))
-		else:
-			regenstamina = int(item.gettag('regenstamina'))
-
+			regenstamina += int(char.gettag('regenstamina'))
+	
 		char.settag('regenstamina', regenstamina)
+		
+	# Add mana regeneration rate bonus
+	regenmana = properties.fromitem(item, REGENMANA)
+	if regenmana:
+		if char.hastag('regenmana'):
+			regenmana += int(char.gettag('regenmana'))
+	
+		char.settag('regenmana', regenmana)
 
 	# Update Stats
 	if changed:
@@ -365,43 +436,89 @@ def onEquip(char, item, layer):
 #
 def onUnequip(char, item, layer):
 	changed = 0
-
+	
 	# Bonus Str
-	if item.hastag('boni_str'):
-		char.strength = char.strength - int(item.gettag('boni_str'))
-		changed = 1
+	bonus = properties.fromitem(item, BONUSSTRENGTH)
+	value = max(0, char.strength - bonus)
+	if value != char.strength:
+		char.strength = value
+		char.strength2 = max(0, char.strength2 - bonus)
+		changed = True
 
 	# Bonus Dex
-	if item.hastag('boni_dex'):
-		char.dexterity = char.dexterity - int(item.gettag('boni_dex'))
-		changed = 1
+	bonus = properties.fromitem(item, BONUSDEXTERITY)
+	value = max(0, char.dexterity - bonus)
+	if value != char.dexterity:
+		char.dexterity = value
+		char.dexterity2 = max(0, char.dexterity2 - bonus)
+		changed = True
 
 	# Bonus Int
-	if item.hastag('boni_int'):
-		char.intelligence = char.intelligence - int(item.gettag('boni_int'))
-		changed = 1
+	bonus = properties.fromitem(item, BONUSINTELLIGENCE)
+	value = max(0, char.intelligence - bonus)
+	if value != char.intelligence:
+		char.intelligence = value
+		char.intelligence2 = max(0, char.intelligence2 - bonus)
+		changed = True
 
-	# Remove the hitpoint regeneration rate bonus
-	if item.hastag('regenhitpoints') and char.hastag('regenhitpoints'):
-		regenhitpoints = int(char.gettag('regenhitpoints'))
-		regenhitpoints -= int(item.gettag('regenhitpoints'))
-		if regenhitpoints <= 0:
+	# Bonus Hitpoints
+	bonushitpoints = properties.fromitem(item, BONUSHITPOINTS)
+	if bonushitpoints != 0:
+		char.hitpointsbonus -= bonushitpoints
+		changed = True
+
+	# Bonus Stamina
+	bonusstamina = properties.fromitem(item, BONUSSTAMINA)
+	if bonusstamina != 0:
+		char.staminabonus -= bonusstamina
+		changed = True
+	
+	# Bonus Mana
+	bonusmana = properties.fromitem(item, BONUSMANA)
+	if bonusmana != 0:
+		char.manabonus -= bonusmana
+		changed = True
+		
+	# Remove hitpoint regeneration rate bonus
+	regenhitpoints = properties.fromitem(item, REGENHITPOINTS)
+	if regenhitpoints and char.hastag('regenhitpoints'):
+		value = int(char.gettag('regenhitpoints')) - regenhitpoints
+			
+		if value <= 0:
 			char.deltag('regenhitpoints')
 		else:
-			char.settag('regenhitpoints', regenhitpoints)
+			char.settag('regenhitpoints', value)
 
-	# Remove the stamina regeneration rate bonus
-	if item.hastag('regenstamina') and char.hastag('regenstamina'):
-		regenstamina = int(char.gettag('regenstamina'))
-		regenstamina -= int(item.gettag('regenstamina'))
-		if regenstamina <= 0:
+	# Remove stamina regeneration rate bonus
+	regenstamina = properties.fromitem(item, REGENSTAMINA)
+	if regenstamina and char.hastag('regenstamina'):
+		value = int(char.gettag('regenstamina')) - regenstamina
+			
+		if value <= 0:
 			char.deltag('regenstamina')
 		else:
-			char.settag('regenstamina', regenstamina)
+			char.settag('regenstamina', value)
+			
+	# Remove mana regeneration rate bonus
+	regenmana = properties.fromitem(item, REGENMANA)
+	if regenmana and char.hastag('regenmana'):
+		value = int(char.gettag('regenmana')) - regenmana
+			
+		if value <= 0:
+			char.deltag('regenmana')
+		else:
+			char.settag('regenmana', value)			
 
 	# Update Stats
 	if changed:
 		char.updatestats()
+
+#
+# Remove boni
+#
+def onDelete(item):
+	char = item.container
+	onUnequip(char, item, item.layer)
 
 # Try to equip an item after calling onWearItem for it
 def onUse(player, item):

@@ -20,6 +20,7 @@
 		<intproperty name="res_cold" value="5" />
 		<intproperty name="res_poison" value="8" />
 		<intproperty name="res_energy" value="8" />
+		<allowmeditation />
 	</item>
 
 	<!-- Skullcap w/e -->

@@ -30,6 +30,7 @@
 		<intproperty name="res_cold" value="3" />
 		<intproperty name="res_poison" value="3" />
 		<intproperty name="res_energy" value="5" />
+		<allowmeditation />
 	</item>
 
 	<!-- Orc Helmet East-West -->

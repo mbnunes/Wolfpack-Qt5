@@ -24,6 +24,7 @@
 		<intproperty name="res_cold" value="7" />
 		<intproperty name="res_poison" value="7" />
 		<intproperty name="res_energy" value="8" />
+		<allowmeditation />
 	</item>
 
 	<!-- Orc Mask 1 w/e -->

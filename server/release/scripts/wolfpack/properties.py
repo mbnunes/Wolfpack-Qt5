@@ -1,21 +1,13 @@
 
-from math import floor
+from math import floor, sqrt, ceil
+import random
 #from wolfpack import weaponinfo
 #from wolfpack import armorinfo
 import wolfpack.armorinfo
 import wolfpack.weaponinfo
-from wolfpack.consts import RESISTANCE_PHYSICAL, RESISTANCE_ENERGY, \
-	RESISTANCE_COLD, RESISTANCE_POISON, RESISTANCE_FIRE, DAMAGE_PHYSICAL, \
-	DAMAGE_ENERGY, DAMAGE_COLD, DAMAGE_POISON, DAMAGE_FIRE, DAMAGEBONUS, \
-	SPEEDBONUS, HITBONUS, DEFENSEBONUS, MINDAMAGE, MAXDAMAGE, SPEED, MISSSOUND, \
-	HITSOUND, PROJECTILE, PROJECTILEHUE, AMMUNITION, REQSTR, REQDEX, REQINT, \
-	LUCK, GOLDINCREASE, LOWERREQS, HITPOINTRATE, STAMINARATE, MANARATE, \
-	SPELLDAMAGEBONUS, MATERIALPREFIX, SWING, REFLECTPHYSICAL, \
-	DURABILITYBONUS, WEIGHTBONUS, \
-	MAGICRESISTANCE, INSCRIPTION, LAYER_RIGHTHAND, LAYER_MOUNT, \
-	ITEM_ARMOR, ITEM_WEAPON, ITEM_SHIELD, ITEM_MELEE, ITEM_RANGED, \
-	ITEM_PIERCING, ITEM_SLASHING, ITEM_BASHING, SPELLCHANNELING, \
-	CASTRECOVERYBONUS, CASTSPEEDBONUS
+from wolfpack import console
+from wolfpack.consts import *
+from system.lootlists import *
 
 #
 # Get the delay for the next swing from this attacker and his weapon.
@@ -56,6 +48,7 @@ PROPERTIES = {
 
 	# Flags (Weapons):
 	SPELLCHANNELING: ['spellchanneling', 0, 0],
+	MAGEARMOR: ['magearmor', 0, 0],
 	
 	# % Boni
 	LOWERREQS: ['lower_reqs', 0, 1],
@@ -66,6 +59,24 @@ PROPERTIES = {
 	SPELLDAMAGEBONUS: ['spelldamagebonus', 0, 1],
 	CASTRECOVERYBONUS: ['castrecoverybonus', 0, 1],
 	CASTSPEEDBONUS: ['castspeedbonus', 0, 1],
+	LOWERMANACOST: ['lowermanacost', 0, 1],
+	LOWERREAGENTCOST: ['lowerreagentcost', 0, 1],
+
+	# Bonus Hitpoints etc.
+	BONUSHITPOINTS: ['bonushitpoints', 0, 1],
+	BONUSSTAMINA: ['bonusstamina', 0, 1],
+	BONUSMANA: ['bonusmana', 0, 1],
+	BONUSSTRENGTH: ['bonusstrength', 0, 1],
+	BONUSDEXTERITY: ['bonusdexterity', 0, 1],
+	BONUSINTELLIGENCE: ['bonusintelligence', 0, 1],
+
+	# Regeneration rates
+	REGENHITPOINTS: ['regenhitpoints', 0, 1],
+	REGENSTAMINA: ['regenstamina', 0, 1],
+	REGENMANA: ['regenmana', 0, 1],
+	
+	# Misc
+	LUCK: ['luck', 0, 1],
 
 	# Requirements
 	REQSTR: ['req_strength', 0, 0],
@@ -91,6 +102,9 @@ PROPERTIES = {
 # Get a certain property for an item.
 #
 def fromitem(item, property):
+	if property == MAGEARMOR and item.allowmeditation:
+		return True
+	
 	if not PROPERTIES.has_key(property):
 		raise Exception, "Unknown property value %u" % property
 
@@ -298,3 +312,172 @@ def itemcheck(item, check):
 		return item.type == 1005
 
 	return 0
+
+LUCKTABLE = []
+# Generate lucktable
+p = 1.0 / 1.8
+for i in range(0, 1201):
+	LUCKTABLE.append(int(pow(i, p) * 100))
+
+# 0, 1, 2, 3, 4, 5 properties chances
+CHANCES = [
+	[3, 1, 0, 0, 0, 0], # 1 max property
+	[6, 3, 1, 0, 0, 0], # 2 max properties
+	[10, 6, 3, 1, 0, 0], # 3 max properties
+	[16, 12, 6, 5, 1, 0], # 4 max properties
+	[30, 25, 20, 15, 9, 1], # 5 max properties
+]
+
+#
+# How many properties does the item actually have.
+#
+def bonusProps(maxprops, luckChance):
+	if maxprops > 5:
+		maxprops = 5
+		
+	if maxprops < 1:
+		return 0
+		
+	maxprops -= 1
+			
+	chances = CHANCES[maxprops]
+	chancesum = sum(chances)
+	
+	result = 0
+	
+	rnd = random.randrange(0, chancesum)
+	for i in [5, 4, 3, 2, 1, 0]:
+		if rnd < chances[i]:
+			result = i
+			break
+		else:
+			rnd -= chances[i]
+			
+	# Take luck into account
+	if result < maxprops and luckChance > random.randint(0, 10000):
+		result += 1
+
+	return result
+
+#
+# Scale a property value based on luck and intensity and a custom scale factor
+#
+def scaleValue( minimum, maximum, propmin, propmax, scale, luckchance ):
+	if scale != 1:
+		propmin = propmin / float(scale)
+		propmax = propmax / float(scale)
+	
+	# Although this is the "Worst system ever" (c) RunUO
+	# I think the basic idea of having the chance increase slower than
+	# using a normal rand function is good.	
+	percent = 100 - sqrt(random.randint(0, 10000)) # Range of the property value
+	
+	if luckchance > random.randint(0, 10000):
+		percent += 10
+		
+	# Normalize the percentage
+	percent = min(maximum, max(minimum, percent))
+
+	if scale != 1:
+		return int(propmin + float(propmax - propmin) * (percent / 100.0)) * scale
+	else:
+		return int(propmin + float(propmax - propmin) * (percent / 100.0))
+
+# List of allowed properties
+ARMOR_PROPERTIES = {
+	# PROPERT KEY, min value, max value, factor, accumulate
+	LOWERREQS: [10, 100, 10, True],
+	#[SELFREPAIR, 1, 5, 1, False],
+	DURABILITYBONUS: [10, 100, 10, True],
+	MAGEARMOR: [1, 1, 1, False],
+	REGENHITPOINTS: [1, 2, 1, False],
+	REGENSTAMINA: [1, 3, 1, False],
+	REGENMANA: [1, 2, 1, False],
+	BONUSHITPOINTS: [1, 5, 1, False],
+	BONUSSTAMINA: [1, 8, 1, False],
+	BONUSMANA: [1, 8, 1, False],
+	LOWERMANACOST: [1, 8, 1, False],
+	LOWERREAGENTCOST: [1, 20, 1, False],
+	LUCK: [1, 100, 1, True],
+	REFLECTPHYSICAL: [1, 15, 1, False],
+	RESISTANCE_PHYSICAL: [1, 15, 1, True],
+	RESISTANCE_FIRE: [1, 15, 1, True],
+	RESISTANCE_COLD: [1, 15, 1, True],
+	RESISTANCE_POISON: [1, 15, 1, True],
+	RESISTANCE_ENERGY: [1, 15, 1, True],
+}
+
+#
+#  Apply a random armor property
+#
+def applyArmorRandom(item, props, minintensity, maxintensity, luckchance):
+	properties = ARMOR_PROPERTIES.keys()
+	
+	# Remove MageArmor from the list if it's already on the item
+	magearmor = fromitem(item, MAGEARMOR)
+	if magearmor:
+		properties.remove(MAGEARMOR)
+
+	# Select unique properties
+	for i in range(0, props):
+		property = random.choice(properties)
+		properties.remove(property)
+		
+		if not PROPERTIES.has_key(property):
+			continue
+
+		# Scale the value for the property
+		info = ARMOR_PROPERTIES[property]
+		value = scaleValue(minintensity, maxintensity, info[0], info[1], info[2], luckchance)
+
+		# Some special handling for special boni
+		if property == DURABILITYBONUS:
+			bonus = int(ceil(item.maxhealth * (value / 100.0)))
+			item.maxhealth = max(1, item.maxhealth + bonus)
+			item.health = item.maxhealth
+
+		# Resistances are cummulative
+		if info[3]:
+			value += fromitem(item, property)		
+		
+		item.settag(PROPERTIES[property][0], value)	
+
+	item.resendtooltip()
+
+#
+# Apply random properties to the given items.
+#
+def applyRandom(item, maxprops, minintensity, maxintensity, luck=0 ):
+	if luck < 0:
+		luck = 0
+	if luck > 1200:
+		luck = 1200
+		
+	luckchance = LUCKTABLE[luck]
+
+	props = 1 + bonusProps(maxprops, luckchance)
+	
+	if itemcheck(item, ITEM_ARMOR):
+		applyArmorRandom(item, props, minintensity, maxintensity, luckchance)
+		
+	elif itemcheck(item, ITEM_SHIELD):
+		applyShieldRandom(item, props, minintensity, maxintensity, luckchance)
+
+	elif itemcheck(item, ITEM_WEAPON):
+		applyWeaponRandom(item, props, minintensity, maxintensity, luckchance)
+		
+	else:
+		applyJuwelRandom(item, props, minintensity, maxintensity, luckchance)
+
+# List of random armors for magic
+# item generation
+
+def testarmor(container):
+	DEF_ARMOR = DEF_LEATHER + DEF_STUDDED + DEF_CHAINMAIL + DEF_RINGMAIL + DEF_BONEMAIL + DEF_PLATEMAIL + DEF_HELMS + DEF_SHIELDS
+	id = random.choice(DEF_ARMOR)
+	
+	item = wolfpack.additem(id)
+	container.additem(item)
+	applyRandom(item, random.randint(1, 5), 50, 100, 0)
+	item.update()
+
