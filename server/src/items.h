@@ -89,13 +89,13 @@ public:
 	SI16			stones()		const { return (SI16)( weight_ / 10 ); } // Weight transformed to UO Stones
 	SI16			hp()			const { return hp_; }			// Number of hitpoints an item has
 	SI16			maxhp()			const { return maxhp_; }		// Maximum number of hitpoints an item has
+	bool			dye()			const { return priv_&0x80; }	// Can the item be dyed
 	bool			corpse()		const { return priv_&0x40; }		// Is the item a corpse
 	bool			newbie()		const { return priv_&0x02; }		// Is the Item Newbie
 	bool			nodecay()		const { return priv_&0x01; }		// Is the item protected from decaying
 	P_CHAR			owner()			const;
 	int				totalweight()	const { return totalweight_; }
 	uint			antispamtimer() const { return antispamtimer_;}
-	ushort			accuracy()		const { return accuracy_; }		// for weapons, could be used for certain tools too.
 	cUObject*		container()		const { return container_; }
 	int				sellprice()		const { return sellprice_; } // Price this item is being bought at by normal vendors
 	int				buyprice()		const { return buyprice_; } // Price this item is being sold at by normal vendors
@@ -106,12 +106,10 @@ public:
 	uchar			more4()			const { return more4_; }
 	uint			morex()			const { return morex_; }
 	uint			morey()			const { return morey_; }
-	uint			morez()			const { return morez_; }	
-	uchar			dye()			const { return dye_; }
+	uint			morez()			const { return morez_; }		
 	uint			def()			const { return def_; }
 	uchar			magic()			const { return magic_; }
 	uint			decaytime()		const { return decaytime_; }
-	uint			disabled()		const { return disabled_; } 
 	uint			poisoned()		const { return poisoned_; }
 	uchar			visible()		const { return visible_;}
 	uchar			priv()			const { return priv_;	}
@@ -124,10 +122,11 @@ public:
 	void	setAmount( ushort nValue );
 	void	setRestock( ushort nValue ) { restock_ = nValue; flagChanged();}
 	void	setLayer( uchar nValue ) { layer_ = nValue; flagChanged();};
-	void	setTwohanded( bool nValue ) { nValue ? priv_ &= 0x20 : priv_ |= 0xDF; flagChanged(); changed( TOOLTIP );};
+	void	setTwohanded( bool nValue ) { nValue ? priv_ |= 0x20 : priv_ &= 0xDF; flagChanged(); changed( TOOLTIP );};
+	void	setDye( bool nValue ) {  nValue ? priv_ |= 0x80 : priv_ &= 0x7F; flagChanged();}
 	void	setType( UI32 nValue ) { type_ = nValue; flagChanged();};
 	void	setType2( UI32 nValue ) { type2_ = nValue; flagChanged();};	
-	void	setSecured( bool nValue ) { ( nValue ) ? priv_ &= 0x08 : priv_ |= 0xF7; flagChanged(); changed( TOOLTIP );};
+	void	setSecured( bool nValue ) { ( nValue ) ? priv_ |= 0x08 : priv_ &= 0xF7; flagChanged(); changed( TOOLTIP );};
 	void	setSpeed( SI16 nValue ) { speed_ = nValue; flagChanged(); changed( TOOLTIP );};
 	void	setHidamage( SI16 nValue ) { hidamage_ = nValue; flagChanged(); changed( TOOLTIP );};
 	void	setLodamage( SI16 nValue ) { lodamage_ = nValue; flagChanged(); changed( TOOLTIP );};
@@ -141,7 +140,6 @@ public:
 	void	setOwner( P_CHAR nOwner );
 	void	setTotalweight( int data );
 	void	setAntispamtimer ( uint data ) { antispamtimer_ = data; flagChanged();}
-	void	setAccuracy( ushort data ) { accuracy_ = data; flagChanged();}
 
 	cItem();
 	cItem( const cItem& src); // Copy constructor
@@ -158,14 +156,12 @@ public:
 	void	setMoreX( uint data ) { morex_ = data; flagChanged();}
 	void	setMoreY( uint data ) { morey_ = data; flagChanged();}
 	void	setMoreZ( uint data ) { morez_ = data; flagChanged();}
-	void	setDye( uchar data ) { dye_ = data; flagChanged();}
 	void	setDef( uint data ) { def_ = data; 	flagChanged(); changed( TOOLTIP );}
 	void	setMagic( uchar data ) { magic_ = data; flagChanged(); changed( TOOLTIP );}
 	void	setDecayTime( uint data ) { decaytime_ = data; }
 	void	setBuyprice( int data ) { buyprice_ = data; flagChanged(); changed( TOOLTIP );}
 	void	setSellprice( int data ) { sellprice_ = data; flagChanged(); changed( TOOLTIP );}
 
-	void	setDisabled(uint data) { disabled_ = data; flagChanged();}
 	void	setPoisoned(uint data) { poisoned_ = data; flagChanged();}
 	void	setVisible( uchar d ) { visible_ = d; flagChanged();}
 	void	setPriv( uchar d ) { priv_ = d; flagChanged(); changed( TOOLTIP );}
@@ -272,7 +268,6 @@ protected:
 	SI16		maxhp_;
 	int			totalweight_;
 	uint		antispamtimer_;
-	ushort		accuracy_;	// for weapons, could be used for certain tools too.
 	int			sellprice_;
 	int			buyprice_;
 
@@ -286,11 +281,9 @@ protected:
 	uint		morex_;
 	uint		morey_;
 	uint		morez_;
-	uchar		dye_; // Reserved: Can item be dyed by dye kit
 	uint		def_; // Item defense
 	uchar		magic_; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable, 4=Locked Down
 	uint		decaytime_;
-	uint		disabled_; //Item is disabled, cant trigger.
 	uint		poisoned_; //AntiChrist -- for poisoning skill
 	SERIAL		ownserial_;
 	uchar		visible_; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
@@ -304,7 +297,7 @@ protected:
 	//   4 |  10 | Wipeable (/WIPE affects the item)
 	//   5 |  20 | Twohanded
 	//   6 |  40 | Corpse
-	//   7 |  80 | <unused>
+	//   7 |  80 | Dye
 	uchar		priv_;
 };
 

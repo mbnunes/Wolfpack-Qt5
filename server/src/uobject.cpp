@@ -115,7 +115,8 @@ unsigned int cUObject::dist(cUObject* d) const
 */
 void cUObject::load( char **result, UINT16 &offset )
 {
-	name_ = result[offset++];
+	name_ = result[offset] == 0 ? QString::null : result[offset];
+	offset++;
 	serial_ = atoi(result[offset++]);
 	multis_ = atoi(result[offset++]);
 	dir_ = atoi( result[offset++] );
@@ -210,6 +211,7 @@ bool cUObject::del()
 */
 void cUObject::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
+	// We are requiring fixed order by now, so this *is* possible
 	fields.push_back( "uobject.name,uobject.serial,uobject.multis,uobject.direction,uobject.pos_x,uobject.pos_y,uobject.pos_z,uobject.pos_map,uobject.events,uobject.bindmenu,uobject.havetags" );
 	tables.push_back( "uobject" );
 	conditions.push_back( "uobjectmap.serial = uobject.serial" );

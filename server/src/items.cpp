@@ -103,7 +103,6 @@ cItem::cItem( const cItem &src )
 	this->morey_ = src.morey_;;
 	this->morez_ = src.morez_;
 	this->amount_ = src.amount_;
-	this->dye_ = src.dye_;
 	this->def_ = src.def_;
 	this->lodamage_=src.lodamage_;
 	this->hidamage_=src.hidamage_;
@@ -119,14 +118,12 @@ cItem::cItem( const cItem &src )
 	this->buyprice_ = src.buyprice_;
 	this->sellprice_ = src.sellprice_;
 	this->restock_ = src.restock_;
-	this->disabled_ = src.disabled_;
 	this->poisoned_ = src.poisoned_;
 	this->time_unused=src.time_unused;
 	this->timeused_last=getNormalizedTime();
 	// We're *NOT* copying the contents over
 	
 	this->setTags( src.tags() );
-	this->accuracy_ = 100;
 	this->container_ = src.container_;
 	this->totalweight_ = src.totalweight_;
 	setTotalweight( amount_ * weight_ );
@@ -459,7 +456,6 @@ void cItem::save()
 		addField("morey",		morey_);
 		addField("morez",		morez_);
 		addField("amount",		amount_);
-		addField("dye",			dye_);
 		addField("decaytime",	(decaytime_ > uiCurrentTime) ? decaytime_ - uiCurrentTime : 0	);
 		addField("def",			def_);
 		addField("hidamage",		hidamage_);
@@ -478,8 +474,6 @@ void cItem::save()
 		addField("sellprice",			sellprice_);
 		addField("buyprice",			buyprice_);
 		addField("restock",		restock_);
-		addField("disabled",		disabled_);
-		addField("accuracy",		accuracy_);
 		
 		addCondition( "serial", serial() );
 		saveFields;
@@ -591,7 +585,6 @@ void cItem::Init( bool createSerial )
 	this->morey_=0;
 	this->morez_=0;
 	this->amount_ = 1; // Amount of items in pile
-	this->dye_=0; // Reserved: Can item be dyed by dye kit
 	this->def_=0; // Item defense
 	this->lodamage_=0; //Minimum Damage weapon inflicts
 	this->hidamage_=0; //Maximum damage weapon inflicts
@@ -605,11 +598,9 @@ void cItem::Init( bool createSerial )
 	this->spawnserial=-1;
 	// Everything decays by default.
 	this->priv_ = 0; // Bit 0, nodecay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
-	this->disabled_ = 0; //Item is disabled, cant trigger.
 	this->poisoned_ = 0; //AntiChrist -- for poisoning skill
 	this->time_unused = 0;
 	this->timeused_last=getNormalizedTime();
-	this->accuracy_ = 100;
 }
 
 /*!
@@ -1288,9 +1279,9 @@ void cItem::processNode( const cElement *Tag )
 	// <dye />
 	// <nodye />
 	else if( TagName == "dye" )
-		this->setDye(1);
+		this->setDye( true );
 	else if( TagName == "nodye" )
-		this->setDye(0);
+		this->setDye( false );
 
 	// <corpse />
 	// <nocorpse />
@@ -1958,7 +1949,7 @@ void cItem::registerInFactory()
 {
 	QStringList fields, tables, conditions;
 	buildSqlString( fields, tables, conditions ); // Build our SQL string
-	QString sqlString = QString( "SELECT /*! STRAIGHT_JOIN SQL_SMALL_RESULT */ uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cItem' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
+	QString sqlString = QString( "SELECT %1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cItem' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
 	UObjectFactory::instance()->registerType("cItem", productCreator);
 	UObjectFactory::instance()->registerSqlQuery( "cItem", sqlString );
 }
@@ -1981,7 +1972,7 @@ void cItem::load( char **result, UINT16 &offset )
 	SERIAL containerSerial = atoi( result[offset++] );
 
 	if( containerSerial != INVALID_SERIAL ) // if it's invalid, we won't set.
-		container_ = (cUObject*)containerSerial;
+		container_ = reinterpret_cast<cUObject*>(containerSerial);
 	
 	// ugly optimization ends here.
 	
@@ -1996,7 +1987,6 @@ void cItem::load( char **result, UINT16 &offset )
 	morey_ = atoi( result[offset++] );
 	morez_ = atoi( result[offset++] );
 	amount_ = atoi( result[offset++] );
-	dye_ = atoi( result[offset++] );
 	decaytime_ = atoi( result[offset++] );
 	if( decaytime_ > 0 ) 
 		decaytime_ += uiCurrentTime;
@@ -2017,8 +2007,6 @@ void cItem::load( char **result, UINT16 &offset )
 	sellprice_ = atoi( result[offset++] );
 	buyprice_ = atoi( result[offset++] );
 	restock_ = atoi( result[offset++] );
-	disabled_ = atoi( result[offset++] );
-	accuracy_ = atoi( result[offset++] );
 
 	// Their own weight should already be set.
 	totalweight_ = amount_ * weight_;
@@ -2029,7 +2017,7 @@ void cItem::load( char **result, UINT16 &offset )
 void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cUObject::buildSqlString( fields, tables, conditions );
-	fields.push_back( "items.id,items.color,items.cont,items.layer,items.type,items.type2,items.more1,items.more2,items.more3,items.more4,items.morex,items.morey,items.morez,items.amount,items.dye,items.decaytime,items.def,items.hidamage,items.lodamage,items.time_unused,items.weight,items.hp,items.maxhp,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.priv,items.sellprice,items.buyprice,items.restock,items.disabled,items.accuracy" ); // for now! later on we should specify each field
+	fields.push_back( "items.id,items.color,items.cont,items.layer,items.type,items.type2,items.more1,items.more2,items.more3,items.more4,items.morex,items.morey,items.morez,items.amount,items.decaytime,items.def,items.hidamage,items.lodamage,items.time_unused,items.weight,items.hp,items.maxhp,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.priv,items.sellprice,items.buyprice,items.restock" ); // for now! later on we should specify each field
 	tables.push_back( "items" );
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
@@ -2247,7 +2235,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 		return 0;
 	}
 	else SET_INT_PROPERTY( "antispamtimer", antispamtimer_ )
-	else SET_INT_PROPERTY( "accuracy", accuracy_ )
 	
 	else if( name == "container" )
 	{
@@ -2288,7 +2275,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "morex", morex_ )
 	else SET_INT_PROPERTY( "morey", morey_ )
 	else SET_INT_PROPERTY( "morez", morez_ )
-	else SET_INT_PROPERTY( "dye", dye_ )
 	else SET_INT_PROPERTY( "defense", def_ )
 	else SET_INT_PROPERTY( "decaytime", decaytime_ )
 
@@ -2316,7 +2302,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "sellprice", sellprice_ )
 	else SET_INT_PROPERTY( "buyprice", buyprice_ )
 	else SET_INT_PROPERTY( "restock", restock_ )
-	else SET_INT_PROPERTY( "disabled", disabled_ )
 	else SET_INT_PROPERTY( "poisoned", poisoned_ )
 	else SET_INT_PROPERTY( "incognito", incognito )
 	else SET_INT_PROPERTY( "timeunused", time_unused )
@@ -2373,6 +2358,10 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 			priv_ &= ~0x20;
 		return 0;
 	}
+	else if( name == "dye" )
+	{
+		setDye( value.toInt() != 0 ? true : false );			
+	}
 	else if( name == "corpse" )
 	{
 		if( value.toInt() )
@@ -2404,7 +2393,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "owner", owner() )
 	else GET_PROPERTY( "totalweight", totalweight_ )
 	else GET_PROPERTY( "antispamtimer", (int)antispamtimer_ )
-	else GET_PROPERTY( "accuracy", accuracy_ )
 	
 	// container
 	else if( name == "container" )
@@ -2426,7 +2414,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "morex", (int)morex_ )
 	else GET_PROPERTY( "morey", (int)morey_ )
 	else GET_PROPERTY( "morez", (int)morez_ )
-	else GET_PROPERTY( "dye", dye_ )
 	else GET_PROPERTY( "defense", (int)def_ )
 	else GET_PROPERTY( "decaytime", (int)decaytime_ )
 
@@ -2438,7 +2425,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "buyprice", buyprice_ )
 	else GET_PROPERTY( "sellprice", sellprice_ )
 	else GET_PROPERTY( "restock", restock_ )
-	else GET_PROPERTY( "disabled", (int)disabled_ )
 	else GET_PROPERTY( "poisoned", (int)poisoned_ )
 	else GET_PROPERTY( "incognito", incognito ? 1 : 0 )
 	else GET_PROPERTY( "timeunused", (int)time_unused )

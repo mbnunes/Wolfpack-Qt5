@@ -53,7 +53,7 @@ void cBook::registerInFactory()
 {
 	QStringList fields, tables, conditions;
 	buildSqlString( fields, tables, conditions ); // Build our SQL string
-	QString sqlString = QString( "SELECT uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cBook' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
+	QString sqlString = QString( "SELECT %1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cBook' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
 	UObjectFactory::instance()->registerSqlQuery( "cBook", sqlString );
 
 	UObjectFactory::instance()->registerType( "cBook", productCreator );

@@ -216,20 +216,18 @@ void cWorld::load()
 			throw persistentBroker->lastError();
 
 		//UINT32 sTime = getNormalizedTime();
-		UINT16 offset;
 		cUObject *object;
-
 		progress_display progress( count );
 
 		// Fetch row-by-row
 		persistentBroker->driver()->setActiveConnection( CONN_SECOND );
 		while( res.fetchrow() )
 		{
+			unsigned short offset = 0;
 			char **row = res.data();
 
 			// do something with data
-			object = UObjectFactory::instance()->createObject( type );
-			offset = 2; // Skip the first two fields
+			object = UObjectFactory::instance()->createObject( type );			
 			object->load( row, offset );
 
 			++progress;
