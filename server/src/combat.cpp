@@ -466,6 +466,8 @@ namespace Combat
 
 		// If we used a poisoned Weapon to deal 
 		// damage, apply the poison here
+		/*
+		We currently do not support poisoned weapons
 		if( pWeapon && ( pWeapon->poisoned() > 0 ) )
 		{
 			   pDefender->setPoisoned( pWeapon->poisoned() );
@@ -473,7 +475,7 @@ namespace Combat
 			   // a lev.1 poison takes effect after 40 secs, a isDeadly pois.(lev.4) takes 40/4 secs
 			   pDefender->setPoisonTime( uiCurrentTime + ( MY_CLOCKS_PER_SEC * ( 40 / pDefender->poisoned() ) ) );
 			   pDefender->setPoisonWearOffTime( pDefender->poisonTime() + ( MY_CLOCKS_PER_SEC * SrvParams->poisonTimer() ) );
-		}
+		}*/
 
 		// If we item we used was enchantet using 
 		// some kind of spell, it's now time to

@@ -460,8 +460,10 @@ void cUObject::processNode( const cElement *Tag )
 		recreateEvents();
 	}
 	else 
-		setProperty( TagName, Value );
-//		qWarning( tr("Unknown tag %1").arg(TagName) );
+	{
+		cVariant variant( Value );
+		//setProperty( TagName, variant );
+	}
 }
 
 // Remove it from all in-range sockets

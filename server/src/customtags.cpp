@@ -42,72 +42,12 @@
 #include <qstring.h>
 #include <qshared.h>
 
-cVariant::Private::Private()
-{
-    typ = cVariant::Invalid;
-}
-
-cVariant::Private::Private( Private* d )
-{
-
-    switch( d->typ )
-	{
-	case cVariant::Invalid:
-	    break;
-	case cVariant::String:
-	    value.ptr = new QString( *((QString*)d->value.ptr) );
-	    break;
-	case cVariant::Int:
-	    value.i = d->value.i;
-	    break;
-	case cVariant::Double:
-	    value.d = d->value.d;
-	    break;
-	case cVariant::BaseChar:
-		value.ptr = d->value.ptr;
-	case cVariant::Item:
-		value.ptr = d->value.ptr;
-	case cVariant::Coord:
-		value.ptr = d->value.ptr;
-	default:
-	    Q_ASSERT( 0 );
-	}
-
-    typ = d->typ;
-}
-
-cVariant::Private::~Private()
-{
-    clear();
-}
-
-void cVariant::Private::clear()
-{
-    switch( typ )
-	{
-	case cVariant::String:
-	    delete (QString*)value.ptr;
-	    break;
-	case cVariant::Invalid:
-	case cVariant::Int:
-	case cVariant::Double:
-	case cVariant::BaseChar:
-	case cVariant::Item:
-		break;
-	case cVariant::Coord:
-		delete (Coord_cl*)value.ptr;
-	    break;
-	}
-
-    typ = cVariant::Invalid;
-}
-
 /*!
   Constructs an invalid variant.
 */
 cVariant::cVariant()
 {
-    d = new Private;
+	typ = cVariant::Invalid;
 }
 
 /*!
@@ -120,19 +60,64 @@ cVariant::cVariant()
 */
 cVariant::~cVariant()
 {
-    if ( d->deref() )
-	delete d;
+	clear();
 }
 
-/*!
-  Constructs a copy of the variant, \a p, passed as the argument to this
-  constructor. Usually this is a deep copy, but a shallow copy is made
-  if the stored data type is explicitly shared, as e.g. QImage is.
-*/
-cVariant::cVariant( const cVariant& p )
+cVariant& cVariant::operator= ( const cVariant &v )
 {
-    d = new Private;
-    *this = p;
+	typ = v.typ;
+
+	// For non pointer types we can simply use the union
+    switch( typ )
+	{
+	case cVariant::String:
+	    value.ptr = new QString( v.toString() );
+	    break;
+	case cVariant::Coord:
+		value.ptr = new Coord_cl( v.toCoord() );
+	    break;
+	default:
+		memcpy( &value, &v.value, sizeof( value ) );
+		break;
+	}
+
+	return *this;
+}
+
+bool cVariant::operator==( const cVariant &v ) const
+{
+	if( typ == v.typ )
+	{
+		switch( typ )
+		{
+		case cVariant::String:
+			return *(QString*)value.ptr == *(QString*)v.value.ptr;
+			
+		case cVariant::Coord:
+			return *(Coord_cl*)value.ptr == *(Coord_cl*)v.value.ptr;
+
+		case Int:
+			return value.i == v.value.i;
+
+		case Double:
+			return value.d == v.value.d;
+
+		default:
+			return true;
+		}
+	}
+
+	return false;
+}
+
+bool cVariant::operator!=( const cVariant &v ) const
+{
+	return !operator==( v );
+}
+
+cVariant::cVariant( const cVariant &v )
+{
+	*this = v;
 }
 
 /*!
@@ -140,9 +125,8 @@ cVariant::cVariant( const cVariant& p )
 */
 cVariant::cVariant( const QString& val )
 {
-    d = new Private;
-    d->typ = String;
-    d->value.ptr = new QString( val );
+    typ = String;
+    value.ptr = new QString( val );
 }
 
 /*!
@@ -150,9 +134,8 @@ cVariant::cVariant( const QString& val )
 */
 cVariant::cVariant( int val )
 {
-    d = new Private;
-    d->typ = Int;
-    d->value.i = val;
+    typ = Int;
+    value.i = val;
 }
 
 /*!
@@ -160,16 +143,14 @@ cVariant::cVariant( int val )
 */
 cVariant::cVariant( double val )
 {
-    d = new Private;
-    d->typ = Double;
-    d->value.d = val;
+    typ = Double;
+    value.d = val;
 }
 
 cVariant::cVariant( long int val )
 {
-	d = new Private;
-	d->typ = Long;
-	d->value.d = val;
+	typ = Long;
+	value.d = val;
 }
 
 /*!
@@ -177,9 +158,8 @@ cVariant::cVariant( long int val )
 */
 cVariant::cVariant( cBaseChar *val )
 {
-    d = new Private;
-    d->typ = BaseChar;
-    d->value.ptr = val;
+    typ = BaseChar;
+    value.ptr = val;
 }
 
 /*!
@@ -187,9 +167,8 @@ cVariant::cVariant( cBaseChar *val )
 */
 cVariant::cVariant( cItem *val )
 {
-    d = new Private;
-    d->typ = Item;
-    d->value.ptr = val;
+    typ = Item;
+    value.ptr = val;
 }
 
 /*!
@@ -197,41 +176,8 @@ cVariant::cVariant( cItem *val )
 */
 cVariant::cVariant( Coord_cl val )
 {
-    d = new Private;
-    d->typ = Coord;
-    d->value.ptr = new Coord_cl( val );
-}
-
-/*!
-  Assigns the value of the variant \a variant to this variant.
-
-  This is a deep copy of the variant, but note that if the variant
-  holds an explicitly shared type such as QImage, a shallow copy
-  is performed.
-*/
-cVariant& cVariant::operator= ( const cVariant& variant )
-{
-    cVariant& other = (cVariant&)variant;
-
-    other.d->ref();
-    if ( d->deref() )
-	delete d;
-
-    d = other.d;
-
-    return *this;
-}
-
-/*!
-  \internal
-*/
-void cVariant::detach()
-{
-    if ( d->count == 1 )
-	return;
-
-    d->deref();
-    d = new Private( d );
+    typ = Coord;
+    value.ptr = new Coord_cl( val );
 }
 
 /*!
@@ -242,7 +188,7 @@ void cVariant::detach()
 */
 const char* cVariant::typeName() const
 {
-    return typeToName( d->typ );
+    return typeToName( typ );
 }
 
 /*! Convert this variant to type Invalid and free up any resources
@@ -250,14 +196,17 @@ const char* cVariant::typeName() const
 */
 void cVariant::clear()
 {
-    if ( d->count > 1 )
-    {
-	d->deref();
-	d = new Private;
-	return;
-    }
+    switch( typ )
+	{
+	case cVariant::String:
+	    delete (QString*)value.ptr;
+	    break;
+	case cVariant::Coord:
+		delete (Coord_cl*)value.ptr;
+	    break;
+	}
 
-    d->clear();
+    typ = cVariant::Invalid;
 }
 
 static const int ntypes = 7;
@@ -322,42 +271,42 @@ cVariant::Type cVariant::nameToType( const char* name )
 */
 const QString cVariant::toString() const
 {
-    if ( d->typ == Int )
-		return QString::number( d->value.i );
+    if ( typ == Int )
+		return QString::number( value.i );
 
-	if ( d->typ == Long )
-		return QString::number( d->value.d );
+	if ( typ == Long )
+		return QString::number( value.d );
     
-	if ( d->typ == Double )
+	if ( typ == Double )
 		return QString::number( toDouble() );
 
-	if ( d->typ == BaseChar )
+	if ( typ == BaseChar )
 	{
-		P_CHAR pChar = static_cast< P_CHAR >( d->value.ptr );
+		P_CHAR pChar = static_cast< P_CHAR >( value.ptr );
 		if( pChar )
 			return "0x" + QString::number( (unsigned int)pChar->serial(), 16 );
 		else
 			return "0x" + QString::number( (unsigned int)INVALID_SERIAL, 16 );
 	}
 
-	if ( d->typ == Item )
+	if ( typ == Item )
 	{		
-		P_ITEM pItem = static_cast< P_ITEM >( d->value.ptr );
+		P_ITEM pItem = static_cast< P_ITEM >( value.ptr );
 		if( pItem )
 			return "0x" + QString::number( (unsigned int)pItem->serial(), 16 );
 		else
 			return "0x" + QString::number( (unsigned int)INVALID_SERIAL, 16 );
 	}
 
-	if ( d->typ == Coord )
+	if ( typ == Coord )
 	{
-		Coord_cl *pos = static_cast< Coord_cl* >( d->value.ptr );
+		Coord_cl *pos = static_cast< Coord_cl* >( value.ptr );
 		return QString( "%1,%2,%3,%4" ).arg( pos->x ).arg( pos->y ).arg( pos->z ).arg( pos->map );
 	}
 
-    if ( d->typ != String )
+    if ( typ != String )
 		return QString::null;
-    return *((QString*)d->value.ptr);
+    return *((QString*)value.ptr);
 }
 
 /*!
@@ -371,30 +320,30 @@ const QString cVariant::toString() const
 */
 int cVariant::toInt( bool * ok ) const
 {
-    if( d->typ == String )
-		return hex2dec( *( (QString*)d->value.ptr ) ).toInt( ok );
+    if( typ == String )
+		return hex2dec( *( (QString*)value.ptr ) ).toInt( ok );
     
 	if ( ok )
 		*ok = canCast( Int );
 
-    if( d->typ == Int )
-		return d->value.i;
+    if( typ == Int )
+		return value.i;
 
-	if( d->typ == Long )
-		return d->value.d;
+	if( typ == Long )
+		return value.d;
 
-    if ( d->typ == Double )
-		return (int)d->value.d;
+    if ( typ == Double )
+		return (int)value.d;
 
-	if ( d->typ == BaseChar )
+	if ( typ == BaseChar )
 	{
-		P_CHAR pChar = static_cast< P_CHAR >( d->value.ptr );
+		P_CHAR pChar = static_cast< P_CHAR >( value.ptr );
 		return pChar ? pChar->serial() : INVALID_SERIAL;
 	}
 
-	if ( d->typ == Item )
+	if ( typ == Item )
 	{		
-		P_ITEM pItem = static_cast< P_ITEM >( d->value.ptr );
+		P_ITEM pItem = static_cast< P_ITEM >( value.ptr );
 		return pItem ? pItem->serial() : INVALID_SERIAL;
 	}
 
@@ -412,30 +361,30 @@ int cVariant::toInt( bool * ok ) const
 */
 double cVariant::toDouble( bool * ok ) const
 {
-    if( d->typ == String )
-		return ((QString*)d->value.ptr)->toDouble( ok );
+    if( typ == String )
+		return ((QString*)value.ptr)->toDouble( ok );
     
 	if ( ok )
 		*ok = canCast( Double );
 
-    if ( d->typ == Double )
-		return d->value.d;
+    if ( typ == Double )
+		return value.d;
 
-    if ( d->typ == Int )
-		return (double)d->value.i;
+    if ( typ == Int )
+		return (double)value.i;
 
-	if ( d->typ == Long )
-		return (double)d->value.d;
+	if ( typ == Long )
+		return (double)value.d;
 
-	if ( d->typ == BaseChar )
+	if ( typ == BaseChar )
 	{
-		P_CHAR pChar = static_cast< P_CHAR >( d->value.ptr );
+		P_CHAR pChar = static_cast< P_CHAR >( value.ptr );
 		return pChar ? (double)pChar->serial() : (double)INVALID_SERIAL;
 	}
 
-	if ( d->typ == Item )
+	if ( typ == Item )
 	{		
-		P_ITEM pItem = static_cast< P_ITEM >( d->value.ptr );
+		P_ITEM pItem = static_cast< P_ITEM >( value.ptr );
 		return pItem ? (double)pItem->serial() : (double)INVALID_SERIAL;
 	}
 
@@ -450,20 +399,20 @@ double cVariant::toDouble( bool * ok ) const
 */
 cBaseChar *cVariant::toChar() const
 {
-	if( d->typ == BaseChar )
-		return (P_CHAR)d->value.ptr;
+	if( typ == BaseChar )
+		return (P_CHAR)value.ptr;
 
-	if( d->typ == String )
-		return FindCharBySerial( hex2dec( *( (QString*)d->value.ptr ) ).toUInt() );
+	if( typ == String )
+		return FindCharBySerial( hex2dec( *( (QString*)value.ptr ) ).toUInt() );
 
-	if( d->typ == Int )
-		return FindCharBySerial( d->value.i );
+	if( typ == Int )
+		return FindCharBySerial( value.i );
 
-	if( d->typ == Long )
-		return FindCharBySerial( d->value.d );
+	if( typ == Long )
+		return FindCharBySerial( value.d );
 
-	if( d->typ == Double )
-		return FindCharBySerial( floor( d->value.d ) );
+	if( typ == Double )
+		return FindCharBySerial( floor( value.d ) );
 
 	return 0;
 }
@@ -474,20 +423,20 @@ cBaseChar *cVariant::toChar() const
 */
 cItem *cVariant::toItem() const
 {
-	if( d->typ == Item )
-		return (P_ITEM)d->value.ptr;
+	if( typ == Item )
+		return (P_ITEM)value.ptr;
 
-	if( d->typ == String )
-		return FindItemBySerial( hex2dec( *( (QString*)d->value.ptr ) ).toUInt() );
+	if( typ == String )
+		return FindItemBySerial( hex2dec( *( (QString*)value.ptr ) ).toUInt() );
 
-	if( d->typ == Int )
-		return FindItemBySerial( d->value.i );
+	if( typ == Int )
+		return FindItemBySerial( value.i );
 
-	if( d->typ == Long )
-		return FindItemBySerial( d->value.d );
+	if( typ == Long )
+		return FindItemBySerial( value.d );
 
-	if( d->typ == Double )
-		return FindItemBySerial( floor( d->value.d ) );
+	if( typ == Double )
+		return FindItemBySerial( floor( value.d ) );
 
 	return 0;
 }
@@ -498,14 +447,14 @@ cItem *cVariant::toItem() const
 */
 Coord_cl cVariant::toCoord() const
 {
-	if( d->typ == Coord )
-		return *( (Coord_cl*)d->value.ptr );
+	if( typ == Coord )
+		return *( (Coord_cl*)value.ptr );
 
 	// Parse Coord
-	if( d->typ == String )
+	if( typ == String )
 	{
 		Coord_cl pos;
-		if( parseCoordinates( *( (QString*)d->value.ptr ), pos ) )
+		if( parseCoordinates( *( (QString*)value.ptr ), pos ) )
 			return pos;
 	}
 
@@ -513,7 +462,7 @@ Coord_cl cVariant::toCoord() const
 }
 
 #define Q_VARIANT_AS( f ) Q##f& cVariant::as##f() { \
-   if ( d->typ != f ) *this = cVariant( to##f() ); else detach(); return *((Q##f*)d->value.ptr);}
+   if ( typ != f ) *this = cVariant( to##f() ); return *((Q##f*)value.ptr);}
 
 Q_VARIANT_AS(String)
 
@@ -532,14 +481,13 @@ Q_VARIANT_AS(String)
 */
 int& cVariant::asInt()
 {
-    detach();
-    if ( d->typ != Int ) {
+    if ( typ != Int ) {
 	int i = toInt();
-	d->clear();
- 	d->value.i = i;
-	d->typ = Int;
+	clear();
+ 	value.i = i;
+	typ = Int;
     }
-    return d->value.i;
+    return value.i;
 }
 
 /*!
@@ -547,13 +495,13 @@ int& cVariant::asInt()
 */
 double& cVariant::asDouble()
 {
-    if ( d->typ != Double ) {
+    if ( typ != Double ) {
 	double dbl = toDouble();
-	d->clear();
-	d->value.d = dbl;
-	d->typ = Double;
+	clear();
+	value.d = dbl;
+	typ = Double;
     }
-    return d->value.d;
+    return value.d;
 }
 
 /*!
@@ -570,19 +518,19 @@ double& cVariant::asDouble()
 */
 bool cVariant::canCast( Type t ) const
 {
-    if ( d->typ == t )
+    if ( typ == t )
 		return TRUE;
-    if ( t == Int && ( d->typ == Int || d->typ == Long || d->typ == BaseChar || d->typ == Item || d->typ == String || d->typ == Double ) )
+    if ( t == Int && ( typ == Int || typ == Long || typ == BaseChar || typ == Item || typ == String || typ == Double ) )
 		return TRUE;
-    if ( t == Double && ( d->typ == BaseChar || d->typ == Item || d->typ == Long || d->typ == String || d->typ == Int ) )
+    if ( t == Double && ( typ == BaseChar || typ == Item || typ == Long || typ == String || typ == Int ) )
 		return TRUE;
-    if ( t == String && ( d->typ == BaseChar || d->typ == Item || d->typ == Long || d->typ == Int || d->typ == Double ) )
+    if ( t == String && ( typ == BaseChar || typ == Item || typ == Long || typ == Int || typ == Double ) )
 		return TRUE;
-	if ( t == BaseChar && ( d->typ == BaseChar || d->typ == Int || d->typ == Double || d->typ == String || d->typ == Long ) )
+	if ( t == BaseChar && ( typ == BaseChar || typ == Int || typ == Double || typ == String || typ == Long ) )
 		return TRUE;
-	if ( t == Item && ( d->typ == Item || d->typ == Int || d->typ == Double || d->typ == String || d->typ == Long ) )
+	if ( t == Item && ( typ == Item || typ == Int || typ == Double || typ == String || typ == Long ) )
 		return TRUE;
-	if ( t == Coord && ( d->typ == String || d->typ == Coord ) )
+	if ( t == Coord && ( typ == String || typ == Coord ) )
 		return TRUE;
 
     return FALSE;
@@ -617,38 +565,6 @@ bool cVariant::cast( Type t )
     }
     return canCast( t );
 }
-
-/*!  Compares this cVariant with \a v and returns TRUE if they are
-  equal; otherwise returns FALSE.
-*/
-
-bool cVariant::operator==( const cVariant &v ) const
-{
-    if ( !v.canCast( type() ) )
-	return FALSE;
-    switch( d->typ ) {
-    case String:
-	return v.toString() == toString();
-    case Int:
-	return v.toInt() == toInt();
-    case Double:
-	return v.toDouble() == toDouble();
-    case Invalid:
-	break;
-    }
-    return FALSE;
-}
-
-/*!  Compares this cVariant with \a v and returns TRUE if they are
-  not equal; otherwise returns FALSE.
-*/
-
-bool cVariant::operator!=( const cVariant &v ) const
-{
-    return !( v == *this );
-}
-
-
 
 /*****************************************************************************
   cCustomTags member functions
@@ -780,7 +696,7 @@ void cCustomTags::set( const QString& key, const cVariant& value )
 			tags_->erase( iter );
 			changed = true;
 		}
-		else if( iter.data() != value )
+		else
 		{
 			iter.data() = value;
 			changed = true;
@@ -839,4 +755,4 @@ cCustomTags::~cCustomTags()
 		delete tags_;
 }
 
-cVariant cVariant::null;
+const cVariant cVariant::null;

@@ -52,7 +52,8 @@ class Coord_cl;
 class cVariant
 {
 public:
-	static cVariant null;
+	// Static NULL instance
+	static const cVariant null;
 
     enum Type
 	{
@@ -69,7 +70,7 @@ public:
 	cVariant();
 	~cVariant();
 	
-	cVariant( const cVariant& p );
+	cVariant( const cVariant &v );
     cVariant( const QString& );
 	cVariant( int );
 	cVariant( cBaseChar* );
@@ -77,10 +78,6 @@ public:
 	cVariant( Coord_cl );
     cVariant( double );
 	cVariant( long int );
-
-    cVariant& operator= ( const cVariant& );
-    bool operator==( const cVariant& ) const;
-    bool operator!=( const cVariant& ) const;
 
     Type type() const;
     const char* typeName() const;
@@ -99,6 +96,10 @@ public:
 	cItem *toItem() const;
 	Coord_cl toCoord() const;
 
+    cVariant& operator= ( const cVariant& );
+    bool operator==( const cVariant& ) const;
+    bool operator!=( const cVariant& ) const;
+
     QString& asString();
     int& asInt();
     double& asDouble();
@@ -108,38 +109,24 @@ public:
 
 	bool		isString();
 private:
-    void detach();
-
-    class Private : public QShared
-    {
-    public:
-        Private();
-        Private( Private* );
-        ~Private();
-
-        void clear();
-
-        Type typ;
-        union
-        {
-		    int i;
-		    double d;
-			void *ptr;
-        } value;
-    };
-
-    Private* d;
+	Type typ;
+	
+	union {
+		int i;
+		double d;
+		void *ptr;
+	} value;
 };
 
 // Inline methods
 inline cVariant::Type cVariant::type() const
 {
-    return d->typ;
+    return typ;
 }
 
 inline bool cVariant::isValid() const
 {
-    return (d->typ != Invalid);
+    return (typ != Invalid);
 }
 
 class cCustomTags

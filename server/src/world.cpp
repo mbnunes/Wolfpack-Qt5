@@ -201,7 +201,6 @@ struct {
   hp smallint(6) NOT NULL default '0',\
   maxhp smallint(6) NOT NULL default '0',\
   speed int(11) NOT NULL default '0',\
-  poisoned int(10)  NOT NULL default '0',\
   magic tinyint(3)  NOT NULL default '0',\
   owner int(11) NOT NULL default '-1',\
   visible tinyint(3)  NOT NULL default '0',\

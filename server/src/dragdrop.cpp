@@ -805,22 +805,6 @@ void DragAndDrop::dropFoodOnChar( cUOSocket* socket, P_ITEM pItem, P_CHAR pChar 
 	// We have three different eating-sounds (I don't like the idea as they sound too human)
 	pChar->soundEffect( 0x3A + RandomNum( 1, 3 ) );
 
-	// If you want to poison a pet... Why not
-	if( pItem->poisoned() && pChar->poisoned() < pItem->poisoned() )
-	{
-		pChar->soundEffect( 0x246 );
-		pChar->setPoisoned( pItem->poisoned() );
-		
-		// a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
-		pChar->setPoisonTime( uiCurrentTime + ( MY_CLOCKS_PER_SEC * ( 40 / pChar->poisoned() ) ) );
-		
-		//wear off starts after poison takes effect - AntiChrist
-		pChar->setPoisonWearOffTime(pChar->poisonTime() + ( MY_CLOCKS_PER_SEC * SrvParams->poisonTimer() ) );
-		
-		// Refresh the health-bar of our target
-		pChar->resend( false );
-	}
-
 	// *You see Snowwhite eating some poisoned apples*
 	// Color: 0x0026
 	pChar->emote( tr( "*You see %1 eating %2*" ).arg( pChar->name() ).arg( pItem->getName() ) );
@@ -848,23 +832,6 @@ void DragAndDrop::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar 
 	{
 		pBeggar->talk( tr("*cough* Thank thee!") );
 		pBeggar->soundEffect( 0x3A + RandomNum( 1, 3 ) );
-
-		// If you want to poison a pet... Why not
-		if( pItem->poisoned() && pBeggar->poisoned() < pItem->poisoned() )
-		{
-			pBeggar->soundEffect( 0x246 );
-			pBeggar->setPoisoned( pItem->poisoned() );
-			
-			// a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
-			pBeggar->setPoisonTime( uiCurrentTime + ( MY_CLOCKS_PER_SEC * ( 40 / pBeggar->poisoned() ) ) );
-			
-			//wear off starts after poison takes effect - AntiChrist
-			pBeggar->setPoisonWearOffTime( pBeggar->poisonTime() + ( MY_CLOCKS_PER_SEC * SrvParams->poisonTimer() ) );
-			
-			// Refresh the health-bar of our target
-			pBeggar->resend( false );
-		}
-
 
 		// *You see Snowwhite eating some poisoned apples*
 		// Color: 0x0026

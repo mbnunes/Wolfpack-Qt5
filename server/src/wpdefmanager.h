@@ -114,7 +114,7 @@ public:
 	const QString &getAttribute( const QCString &name, const QString &def = QString::null ) const;
 	
 	void setName( const QCString &data );
-	QString name() const;
+	const QCString &name() const;
 
 	void setText( const QString &data );
 	const QString &text() const;

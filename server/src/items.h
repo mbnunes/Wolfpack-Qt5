@@ -78,17 +78,17 @@ public:
 
 typedef SingletonHolder< cItemBases > ItemBases;
 
+#pragma pack(1)
 class cItem : public cUObject
 {
 private:
 	bool changed_;
-	void flagChanged() { changed_ = true; } // easier to debug, compiler should make it inline;
 	cItemBase *base;
+	void flagChanged() { changed_ = true; } // easier to debug, compiler should make it inline;
 
 public:
 	typedef QValueVector<cItem*> ContainerContent;
 
-public:
 	const char *objectID() const
 	{
         return "cItem";
@@ -129,7 +129,6 @@ public:
 	bool			nodecay()		const { return priv_&0x01; }		// Is the item protected from decaying
 	P_CHAR			owner()			const;
 	int				totalweight()	const { return totalweight_; }
-	uint			antispamtimer() const { return antispamtimer_;}
 	cUObject*		container()		const { return container_; }
 	int				sellprice()		const { return sellprice_; } // Price this item is being bought at by normal vendors
 	int				buyprice()		const { return buyprice_; } // Price this item is being sold at by normal vendors
@@ -137,7 +136,6 @@ public:
 	uint			def()			const { return def_; }
 	uchar			magic()			const { return magic_; }
 	uint			decaytime()		const { return decaytime_; }
-	uint			poisoned()		const { return poisoned_; }
 	uchar			visible()		const { return visible_;}
 	uchar			priv()			const { return priv_;	}
 
@@ -168,7 +166,6 @@ public:
 	void	setNewbie( bool nValue ) { ( nValue ) ? priv_ |= 0x02 : priv_ &= 0xFD; flagChanged(); changed( TOOLTIP );}
 	void	setOwner( P_CHAR nOwner );
 	void	setTotalweight( int data );
-	void	setAntispamtimer ( uint data ) { antispamtimer_ = data; flagChanged();}
 	void	setSpawnRegion( const QString &data ) { spawnregion_ = data; flagChanged(); }
 
 	cItem();
@@ -178,19 +175,15 @@ public:
 	bool wearOut(); // The item wears out and true is returned if it's destroyed
 	void	toBackpack( P_CHAR pChar );
 	void	showName( cUOSocket *socket );
-//*****************************************ADDED SETTERS ***************
+
 	void	setDef( uint data ) { def_ = data; 	flagChanged(); changed( TOOLTIP );}
 	void	setMagic( uchar data ) { magic_ = data; flagChanged(); changed( TOOLTIP );}
 	void	setDecayTime( uint data ) { decaytime_ = data; }
 	void	setBuyprice( int data ) { buyprice_ = data; flagChanged(); changed( TOOLTIP );}
 	void	setSellprice( int data ) { sellprice_ = data; flagChanged(); changed( TOOLTIP );}
-
-	void	setPoisoned(uint data) { poisoned_ = data; flagChanged();}
 	void	setVisible( uchar d ) { visible_ = d; flagChanged();}
 	void	setPriv( uchar d ) { priv_ = d; flagChanged(); changed( TOOLTIP );}
 	void	setContainer( cUObject* d ) { container_ = d; flagChanged(); }
-
-//*******************************************END ADDED SETTERS**********
 
 	virtual void Init( bool mkser = true );
 	void setSerial(SERIAL ser);
@@ -271,35 +264,32 @@ protected:
 	virtual void	processNode( const cElement *Tag );
 	void	processModifierNode( const cElement *Tag );
 
-	// Data
-	ushort		id_;
-	ushort		color_;
-	ushort		amount_; 
-	ushort		restock_;
-	uchar		layer_;
-	SI16		lodamage_; 
-	SI16		hidamage_; 
-	ushort		type_;
-	ushort		type2_;
-	SI16		speed_;
-	SI16		weight_;
-	SI16		hp_;
-	SI16		maxhp_;
-	int			totalweight_;
-	uint		antispamtimer_;
-	int			sellprice_;
-	int			buyprice_;
-	QString		spawnregion_;
+protected:
+	unsigned short	id_;			// Display id of the item
+	unsigned short	color_;			// Color of this item
+	unsigned short	amount_;		// Amount of this item
+	
+	unsigned char	layer_;			// The layer this item is equipped on
+	unsigned short	hp_;			// Amount of hitpoints this item has
+	unsigned short	maxhp_;			// The maximum amount of hitpoints this item can have
+	int				totalweight_;	// The weight of this item including all contained items
+	ContainerContent content_;		// The content of this item
+	QString			spawnregion_;	// The name of the spawnregion this item was spawned into
+	cUObject*		container_;		// The object this item is contained in
 
-	ContainerContent content_;
-	cUObject*	container_;
-	uint		def_; // Item defense
-	uchar		magic_; // 0=Default as stored in client, 1=Always movable, 2=Never movable, 3=Owner movable, 4=Locked Down
-	uint		decaytime_;
-	uint		poisoned_; //AntiChrist -- for poisoning skill
-	SERIAL		ownserial_;
-	uchar		visible_; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
-
+	unsigned char	magic_;			// Specifies in which manner this item can be moved.
+									// 0: This property is ignored
+									// 1: This item is always movable
+									// 2: This item cannot be moved
+									// 3: This item can only be moved by it's owner
+									// 4: This item has been locked down
+	
+	unsigned int	decaytime_;		// This timer specifies when the item will decay. If this value is 0, the item will never decay
+	SERIAL			ownserial_;		// This property specifies the owner of this item. If it is INVALID_SERIAL, this item has no owner
+	unsigned char	visible_;		// This property specifies the visibility of the item.
+									// 0: This property is ignored
+									// 1: This item can only be seen by the owner
+									// 2: This item cannot be seen
 	// Bit | Hex | Description
 	//===================
 	//   0 |  01 | NoDecay
@@ -310,7 +300,19 @@ protected:
 	//   5 |  20 | Twohanded
 	//   6 |  40 | Corpse
 	//   7 |  80 | Dye
-	uchar		priv_;
+	unsigned char priv_;
+
+	ushort		restock_;
+	SI16		lodamage_; 
+	SI16		hidamage_; 
+	ushort		type_;
+	ushort		type2_;
+	SI16		speed_;
+	SI16		weight_;
+	uint		def_;
+	int			sellprice_;
+	int			buyprice_;
 };
+#pragma pack()
 
 #endif

@@ -359,16 +359,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 				break;
 			}
 
-			if ((pi->poisoned()) &&(pc_currchar->poisoned() < pi->poisoned())) 
-			{
-				socket->sysMessage(tr("You have been poisoned!"));
-				pc_currchar->soundEffect( 0x246 ); // poison sound
-				pc_currchar->setPoisoned( pi->poisoned() );
-				pc_currchar->setPoisonTime( uiCurrentTime +(MY_CLOCKS_PER_SEC*(40/pc_currchar->poisoned()))); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
-				pc_currchar->setPoisonWearOffTime( pc_currchar->poisonTime() +(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()) ); // wear off starts after poison takes effect - AntiChrist
-				pc_currchar->resend( false );
-			}
-			
 			pi->reduceAmount( 1 );	// Remove a food item
 			pc_currchar->setHunger( pc_currchar->hunger() + 1 );
 		}

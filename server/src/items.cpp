@@ -109,7 +109,7 @@ inline cItemBase *cItemBases::getItemBase( const QString &id )
 
 // constructor
 cItem::cItem(): container_(0), totalweight_(0), sellprice_( 0 ), 
-buyprice_( 0 ), restock_( 1 ), antispamtimer_( 0 ), base( 0 )
+buyprice_( 0 ), restock_( 1 ), base( 0 )
 {
 	spawnregion_ = QString::null;
 	Init( false );
@@ -128,7 +128,6 @@ cItem::cItem( const cItem &src )
 	
 	//cItem properties setting
 	this->amount_ = src.amount_;
-	this->antispamtimer_ = src.antispamtimer();
 	this->buyprice_ = src.buyprice_;
 	this->changed( TOOLTIP );
 	this->color_ = src.color_;
@@ -144,7 +143,6 @@ cItem::cItem( const cItem &src )
 	this->lodamage_=src.lodamage_;
 	this->magic_ = src.magic_;
 	this->maxhp_ = src.maxhp_;
-	this->poisoned_ = src.poisoned_;
 	this->priv_=src.priv_;
 	this->restock_ = src.restock_;
 	this->sellprice_ = src.sellprice_;
@@ -470,7 +468,6 @@ void cItem::save()
 		addField("hp",				hp_ );
 		addField("maxhp",			maxhp_ );
 		addField("speed",			speed_ );
-		addField("poisoned",		poisoned_ );
 		addField("magic",			magic_ );
 		addField("owner",			ownserial_ );
 		addField("visible",			visible_ );
@@ -578,7 +575,6 @@ void cItem::Init( bool createSerial )
 	this->setOwnSerialOnly(-1);
 	this->visible_=0; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
 	this->priv_ = 0; // Bit 0, nodecay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
-	this->poisoned_ = 0; //AntiChrist -- for poisoning skill
 }
 
 /*!
@@ -1181,7 +1177,7 @@ void cItem::processNode( const cElement *Tag )
 	else if( TagName == "nocorpse" )
 		this->setCorpse( false );
 
-	// <id>12f9</id>
+	// <id>0x12f9</id>
 	else if( TagName == "id" )
 	{
 		this->setId( Value.toUShort() );
@@ -1670,14 +1666,6 @@ void cItem::setTotalweight( INT32 data )
 
 void cItem::talk( const QString &message, UI16 color, UINT8 type, bool autospam, cUOSocket* socket )
 {
-	if( autospam )
-	{
-		if( antispamtimer() < uiCurrentTime )
-			setAntispamtimer( uiCurrentTime + MY_CLOCKS_PER_SEC*10 );
-		else 
-			return;
-	}
-
 	QString lang;
 
 	if( socket )
@@ -1855,7 +1843,6 @@ void cItem::load( char **result, UINT16 &offset )
 	hp_ = atoi( result[offset++] );
 	maxhp_ = atoi( result[offset++] );
 	speed_ = atoi( result[offset++] );
-	poisoned_ = atoi( result[offset++] );
 	magic_ = atoi( result[offset++] );
 	ownserial_ = atoi( result[offset++] );
 	visible_ = atoi( result[offset++] );
@@ -1881,7 +1868,7 @@ void cItem::load( char **result, UINT16 &offset )
 void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cUObject::buildSqlString( fields, tables, conditions );
-	fields.push_back( "items.id,items.color,items.cont,items.layer,items.type,items.type2,items.amount,items.decaytime,items.def,items.hidamage,items.lodamage,items.weight,items.hp,items.maxhp,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawnregion,items.priv,items.sellprice,items.buyprice,items.restock,items.baseid" );
+	fields.push_back( "items.id,items.color,items.cont,items.layer,items.type,items.type2,items.amount,items.decaytime,items.def,items.hidamage,items.lodamage,items.weight,items.hp,items.maxhp,items.speed,items.magic,items.owner,items.visible,items.spawnregion,items.priv,items.sellprice,items.buyprice,items.restock,items.baseid" );
 	tables.push_back( "items" );
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
@@ -2054,6 +2041,7 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 {
 	changed( TOOLTIP );
 	flagChanged();
+	
 	SET_INT_PROPERTY( "id", id_ )
 	else SET_INT_PROPERTY( "color", color_ )
 	
@@ -2103,7 +2091,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 		setTotalweight( value.toInt() );
 		return 0;
 	}
-	else SET_INT_PROPERTY( "antispamtimer", antispamtimer_ )
 	
 	else if( name == "container" )
 	{
@@ -2164,7 +2151,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "sellprice", sellprice_ )
 	else SET_INT_PROPERTY( "buyprice", buyprice_ )
 	else SET_INT_PROPERTY( "restock", restock_ )
-	else SET_INT_PROPERTY( "poisoned", poisoned_ )
 	else SET_INT_PROPERTY( "magic", magic_ )
 	else SET_INT_PROPERTY( "visible", visible_ )
 
@@ -2251,7 +2237,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "maxhealth", maxhp_ )
 	else GET_PROPERTY( "owner", owner() )
 	else GET_PROPERTY( "totalweight", totalweight_ )
-	else GET_PROPERTY( "antispamtimer", (int)antispamtimer_ )
 	
 	// container
 	else if( name == "container" )
@@ -2277,7 +2262,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "buyprice", buyprice_ )
 	else GET_PROPERTY( "sellprice", sellprice_ )
 	else GET_PROPERTY( "restock", restock_ )
-	else GET_PROPERTY( "poisoned", (int)poisoned_ )
 	else GET_PROPERTY( "magic", magic_ )
 
 	// Flags

@@ -706,7 +706,6 @@ P_NPC cPlayer::unmount()
 			pMount->setHitpoints( pi->hp() );
 			pMount->setFame( pi->lodamage() );
 			pMount->setKarma( pi->hidamage() );
-			pMount->setPoisoned( pi->poisoned() );
 			pMount->setSummonTime( pi->decaytime() );
 			
 			pMount->moveTo( pos() );
@@ -800,7 +799,6 @@ void cPlayer::mount( P_NPC pMount )
 		pMountItem->setHp( pMount->hitpoints() );
 		pMountItem->setLodamage( pMount->fame() );
 		pMountItem->setHidamage( pMount->karma() );
-		pMountItem->setPoisoned( pMount->poisoned() );
 		if (pMount->summonTime() != 0)
 			pMountItem->setDecayTime(pMount->summonTime());
 

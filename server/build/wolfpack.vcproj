@@ -38,8 +38,7 @@
 					RuntimeLibrary="1"
 					ForceConformanceInForLoopScope="0"
 					RuntimeTypeInfo="1"
-					AllOptions="/c  /I &quot;sqlite&quot; /Zi /nologo /W1 /Wp64 /Od /D &quot;WIN32&quot; /D &quot;_DEBUG&quot; /D &quot;_WINDOWS&quot; /D &quot;QT_DLL&quot; /D &quot;QT_NO_STL&quot; /D &quot;QT_THREAD_SUPPORT&quot; /D &quot;_MBCS&quot; /Gm /EHsc /RTC1 /MTd /GR /Fo&quot;Debug/&quot; /Fd&quot;Debug/vc70.pdb&quot; /FR&quot;Debug/&quot; /Gd /TP /GR"
-					MSOriginalAdditionalOptions="/GR"/>
+					AllOptions="/c  /I &quot;sqlite&quot; /Zi /nologo /W1 /Wp64 /Od /D &quot;WIN32&quot; /D &quot;_DEBUG&quot; /D &quot;_WINDOWS&quot; /D &quot;QT_DLL&quot; /D &quot;QT_NO_STL&quot; /D &quot;QT_THREAD_SUPPORT&quot; /D &quot;_MBCS&quot; /Gm /EHsc /RTC1 /MTd /GR /Fo&quot;Debug/&quot; /Fd&quot;Debug/vc70.pdb&quot; /FR&quot;Debug/&quot; /Gd /TP /GR"/>
 			</Tool>
 			<Tool
 				Name="VCCustomBuildTool"/>
@@ -52,11 +51,9 @@
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile="$(OutDir)/wolfpack.pdb"
 				SubSystem="2"
-				TargetMachine="1"
-				AdditionalOptions="">
+				TargetMachine="1">
 				<IntelOptions
-					AllOptions="/NOLOGO /OUT:&quot;../wolfpack.exe&quot; /INCREMENTAL qt-mt321.lib ws2_32.lib /DEBUG /PDB:&quot;Debug/wolfpack.pdb&quot; /SUBSYSTEM:WINDOWS /TLBID:1 /MACHINE:IX86  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib"
-					MSOriginalAdditionalOptions=""/>
+					AllOptions="/NOLOGO /OUT:&quot;../wolfpack.exe&quot; /INCREMENTAL qt-mt321.lib ws2_32.lib /DEBUG /PDB:&quot;Debug/wolfpack.pdb&quot; /SUBSYSTEM:WINDOWS /TLBID:1 /MACHINE:IX86  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib"/>
 			</Tool>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -89,46 +86,53 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="/GR"
+				Optimization="3"
+				GlobalOptimizations="TRUE"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="TRUE"
+				FavorSizeOrSpeed="1"
+				OptimizeForWindowsApplication="FALSE"
+				AdditionalIncludeDirectories="sqlite"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;QT_DLL;QT_NO_STL;QT_THREAD_SUPPORT"
-				RuntimeLibrary="4"
+				MinimalRebuild="FALSE"
+				RuntimeLibrary="0"
+				BufferSecurityCheck="FALSE"
+				EnableFunctionLevelLinking="FALSE"
 				ForceConformanceInForLoopScope="TRUE"
 				UsePrecompiledHeader="0"
 				BrowseInformation="1"
-				WarningLevel="3"
-				Detect64BitPortabilityProblems="TRUE"
-				DebugInformationFormat="3"
-				CallingConvention="1"
-				AdditionalOptions="">
+				WarningLevel="0"
+				Detect64BitPortabilityProblems="FALSE"
+				DebugInformationFormat="0">
 				<IntelOptions
-					Optimization="2"
-					InlineFunctionExpansion="1"
+					Optimization="4"
+					GlobalOptimizations="1"
+					InlineFunctionExpansion="2"
+					EnableIntrinsicFunctions="1"
+					FavorSizeOrSpeed="1"
 					OmitFramePointers="1"
 					StringPooling="1"
-					RuntimeLibrary="4"
-					BufferSecurityCheck="1"
-					EnableFunctionLevelLinking="1"
+					RuntimeLibrary="0"
 					ForceConformanceInForLoopScope="1"
 					RuntimeTypeInfo="1"
-					AllOptions="/c  /Zi /nologo /W3 /Wp64 /O2 /Ob1 /Oy /D &quot;WIN32&quot; /D &quot;NDEBUG&quot; /D &quot;_WINDOWS&quot; /D &quot;QT_DLL&quot; /D &quot;QT_NO_STL&quot; /D &quot;QT_THREAD_SUPPORT&quot; /D &quot;_MBCS&quot; /GF /FD /EHsc /ML /GS /Gy /Zc:forScope /GR /Fo&quot;Release/&quot; /Fd&quot;Release/vc70.pdb&quot; /FR&quot;Release/&quot; /Gr /TP"
-					MSOriginalAdditionalOptions=""/>
+					AllOptions="/c  /I &quot;sqlite&quot; /nologo /W0 /Ox /Og /Ob2 /Oi /Ot /Oy /D &quot;WIN32&quot; /D &quot;NDEBUG&quot; /D &quot;_WINDOWS&quot; /D &quot;QT_DLL&quot; /D &quot;QT_NO_STL&quot; /D &quot;QT_THREAD_SUPPORT&quot; /D &quot;_MBCS&quot; /GF /FD /EHsc /MT /Zc:forScope /GR /Fo&quot;Release/&quot; /Fd&quot;Release/vc70.pdb&quot; /FR&quot;Release/&quot; /Gd /TP /GR"/>
 			</Tool>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="qt-mt321.lib ws2_32.lib"
-				OutputFile="$(OutDir)/wolfpack.exe"
+				OutputFile="../wolfpack.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
-				TargetMachine="1"
-				AdditionalOptions="">
+				TargetMachine="1">
 				<IntelOptions
-					AllOptions="/NOLOGO /OUT:&quot;Release/wolfpack.exe&quot; /INCREMENTAL:NO qt-mt321.lib ws2_32.lib /DEBUG /PDB:&quot;Release/wolfpack.pdb&quot; /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /TLBID:1 /MACHINE:IX86  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib"
-					MSOriginalAdditionalOptions=""/>
+					AllOptions="/NOLOGO /OUT:&quot;../wolfpack.exe&quot; /INCREMENTAL:NO qt-mt321.lib ws2_32.lib /DEBUG /PDB:&quot;Release/wolfpack.pdb&quot; /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /TLBID:1 /MACHINE:IX86  kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib"/>
 			</Tool>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -150,6 +154,8 @@
 				Name="VCManagedWrapperGeneratorTool"/>
 			<Tool
 				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+			<IntelOptions
+				CompilerName="1"/>
 		</Configuration>
 	</Configurations>
 	<References/>

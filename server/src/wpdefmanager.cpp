@@ -598,7 +598,7 @@ void cElement::setName( const QCString &data )
 	name_ = data;
 }
 
-QString cElement::name() const
+const QCString &cElement::name() const
 {
 	return name_;
 }
@@ -637,7 +637,7 @@ const cElement *cElement::findChild( const QString &name ) const
 {
 	for( unsigned int i = 0; i < childCount_; ++i )
 	{
-		if( children[i]->name() == name )
+		if( children[i]->name() == name.latin1() )
 			return children[i];
 	}
 	
