@@ -408,7 +408,7 @@ list<SERIAL> guilds;
  region_st region[256];
  std::vector<spawnregion_st> spawnregion;
  advance_st wpadvance[1000];
- spell_st spells[100];
+ //spell_st spells[100];
  unsigned int metagm[256][7]; // for meta gm script
  signed short int menupriv[64][256]; // for menu priv script
  int validEscortRegion[256];

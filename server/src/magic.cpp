@@ -69,6 +69,26 @@
 // History:	AntiChrist, 11 September 1999
 // Purpose:	Initialize magery system. Parse spells.scp and store spells data.
 //
+struct spell_st
+{
+	int enabled;		// spell enabled?
+	int circle;		// circle number
+	int mana;			// mana requirements
+	int loskill;		// low magery skill req.
+	int hiskill;		// high magery skill req.
+	int sclo;			// low magery skill req. if using scroll
+	int schi;			// high magery skill req. if using scroll
+	char mantra[25];	// words of power
+	int action;		// character action
+	int delay;			// spell delay
+	reag_st reagents;	// reagents req.
+	char strToSay[100];// string visualized with targ. system
+	int reflect;		// 1=spell reflectable, 0=spell not reflectable
+	unsigned char runic;
+};
+
+spell_st spells[100];
+
 int cMagic::InitSpells(void)
 {
 	int curspell = 0; // current spell
@@ -607,6 +627,10 @@ char cMagic::CheckMana(P_CHAR pc, int num)
 // History:	Unknown
 // Purpose:	Substract the required mana from character's mana reserve.
 //
+char cMagic::SubtractMana4Spell(P_CHAR pc, int num)
+{
+	return Magic->SubtractMana(pc, spells[num].mana);
+}
 char cMagic::SubtractMana(P_CHAR pc, int mana)
 {
 	if (pc->priv2&0x10)
@@ -856,8 +880,9 @@ void cMagic::MagicTrap(P_CHAR pc, P_ITEM pTrap)
 // History:	Unknown, Modified by AntiChrist to use reag_st
 // Purpose:	Check for required reagents in player's backpack.
 //
-char cMagic::CheckReagents(P_CHAR pc, reag_st reagents)
+char cMagic::CheckReagents(P_CHAR pc, int num)
 {
+	reag_st reagents = spells[num].reagents;
 	reag_st failmsg = {0,};
 
 	if (pc->priv2&0x80) return 1;
@@ -947,7 +972,7 @@ void cMagic::SpellFail(UOXSOCKET s)
 	P_CHAR pc_currchar = currchar[s];
 	//Use Reagents on failure ( if casting from spellbook )
 	if (currentSpellType[s]==0)
-		DelReagents( pc_currchar, spells[pc_currchar->spell].reagents );
+		DelReagents( pc_currchar, pc_currchar->spell );
 
 	//npcaction(cc, 128); // whaaaaaaaaaaaaaat ?
 	//orders the PG to move a step on, but the pg doesn't really move
@@ -1509,7 +1534,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 	pc_currchar->disturbMed(s); // Meditation
 
 	//Check for enough reagents
-	if (type==0 && (!CheckReagents(pc_currchar, spells[num].reagents)))
+	if (type==0 && (!CheckReagents(pc_currchar, num)))
 	{
 		pc_currchar->spell = 0;
 		pc_currchar->casting = 0;
@@ -1544,7 +1569,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 	pc_currchar->nextact=75;
 	if (type==0 && (!(pc_currchar->isGM())))//if they are a gm they don't have a delay :-)
 	{
-		pc_currchar->spelltime=((spells[num].delay/10)*MY_CLOCKS_PER_SEC)+uiCurrentTime;
+		pc_currchar->spelltime=(spells[num].delay*MY_CLOCKS_PER_SEC)+uiCurrentTime;
 		pc_currchar->priv2 |= 2;//freeze
 	}
 	else
@@ -1648,7 +1673,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 	}
 	if (currentSpellType[s]!=2) SubtractMana(pc_currchar, spells[curSpell].mana);
 	
-	if (currentSpellType[s]==0) DelReagents(pc_currchar, spells[curSpell].reagents );
+	if (currentSpellType[s]==0) DelReagents(pc_currchar, curSpell );
 	
 	if( requireTarget( curSpell ) )					// target spells if true
 	{
@@ -3001,17 +3026,19 @@ bool cMagic::requireTarget( unsigned char num )
 	return false;
 }
 
-void cMagic::DelReagents( P_CHAR pc, reag_st reags )
+void cMagic::DelReagents( P_CHAR pc, int num )
 {
+	if (!pc) return;
 	if (pc->priv2&0x80) return;
-	delequan(pc, 0x0F7A, reags.pearl);
-	delequan(pc, 0x0F7B, reags.moss);
-	delequan(pc, 0x0F84, reags.garlic);
-	delequan(pc, 0x0F85, reags.ginseng);
-	delequan(pc, 0x0F86, reags.drake);
-	delequan(pc, 0x0F88, reags.shade);
-	delequan(pc, 0x0F8C, reags.ash);
-	delequan(pc, 0x0F8D, reags.silk);
+	reag_st& R = spells[num].reagents;
+	delequan(pc, 0x0F7A, R.pearl);
+	delequan(pc, 0x0F7B, R.moss);
+	delequan(pc, 0x0F84, R.garlic);
+	delequan(pc, 0x0F85, R.ginseng);
+	delequan(pc, 0x0F86, R.drake);
+	delequan(pc, 0x0F88, R.shade);
+	delequan(pc, 0x0F8C, R.ash);
+	delequan(pc, 0x0F8D, R.silk);
 }
 
 bool cMagic::spellReflectable( int num )
@@ -4007,4 +4034,30 @@ short cMagic::SpellNumFromScrollID(short id)
 	if (id>=0x1F2E && id<=0x1F33)	return (short) (id-0x1F2D);	// first circle without weaken
 	if (id>=0x1F34 && id<=0x1F6C)	return (short)(id-0x1F2D+1);	// 2 to 8 circle spell scrolls plus weaken
 	return -1;						// not a scroll
+}
+
+void cMagic::Action4Spell(UOXSOCKET s, int num)
+{
+	if (spells[num].action)
+		impaction(s, spells[num].action);
+}
+
+void cMagic::SpeakMantra4Spell(P_CHAR Caster, int num)
+{
+	npctalkall(Caster, spells[num].mantra,0);
+}
+
+void cMagic::AfterSpellDelay(UOXSOCKET s, P_CHAR pc)
+{
+	if( Magic->requireTarget( pc->spell ) )
+	{
+		target(s,0,0,0,100, spells[pc->spell].strToSay );
+	}
+	else
+	{
+		Magic->NewCastSpell( s );
+	}
+	pc->casting=0;
+	pc->spelltime=0;
+	pc->priv2 &= 0xfd; // unfreeze, bugfix LB
 }

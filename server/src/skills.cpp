@@ -1962,17 +1962,16 @@ void TellScroll( char *menu_name, int s, long snum )
 	
 	int num = (8*(cir-1)) + spl;	// circle & spell combined to a zero-based index
 	
-	if (spells[num].action)
-		impaction(s, spells[num].action);
-	npctalkall(pc_currchar, spells[num].mantra,0);
+	Magic->Action4Spell(s,num);
+	Magic->SpeakMantra4Spell(pc_currchar,num);
 	
-	if(!Magic->CheckReagents(pc_currchar, spells[num].reagents)
+	if(!Magic->CheckReagents(pc_currchar, num)
 		|| !Magic->CheckMana(pc_currchar, num))
 	{
 		Magic->SpellFail(s);
 		return;
 	}
-	Magic->SubtractMana(pc_currchar, spells[num].mana);
+	Magic->SubtractMana4Spell(pc_currchar, num);
 	
 	if (pi->id()==0x0E34)  //is it a scroll?
 	{
@@ -1982,7 +1981,7 @@ void TellScroll( char *menu_name, int s, long snum )
 		itemmake[s].minskill=(cir-1)*100;	//set range values based on scroll level
 		itemmake[s].maxskill=(cir+2)*100;
 
-		Magic->DelReagents(pc_currchar, spells[num].reagents);
+		Magic->DelReagents(pc_currchar, num);
 		
 		Skills->MakeMenuTarget(s,snum,INSCRIPTION); //put it in your pack
 	}
@@ -2100,7 +2099,7 @@ int cSkills::EngraveAction(int s, P_ITEM pi, int cir, int spl)
 	int num=(8*(cir-1))+spl;
 	if (pi == NULL)
 		return -1;
-	Magic->DelReagents(currchar[s], spells[num].reagents);
+	Magic->DelReagents(currchar[s], num);
 		
 	switch(cir*10 + spl)
 	{

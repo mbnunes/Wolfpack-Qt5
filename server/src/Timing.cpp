@@ -379,19 +379,9 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 		pc->nextact--;
 		if (pc->spelltime<=currenttime||overflow)//Spell is complete target it.
 		{
-			//currentSpellType[s]=0;//Normal Spell
-			if( Magic->requireTarget( pc->spell ) )
-			{
-				target(s, 0, 1, 0, 100, spells[pc->spell].strToSay );
-			}
-			else
-			{
-				Magic->NewCastSpell( s );
-			}
-			pc->casting=0;
-			pc->spelltime=0;
-			pc->priv2 &= 0xfd; // unfreeze, bugfix LB
-		} else if (pc->nextact<=0)//redo the spell action
+			Magic->AfterSpellDelay( s, pc );
+		}
+		else if (pc->nextact<=0)//redo the spell action
 		{
 			pc->nextact=75;
 			impaction(s, pc->spellaction);

@@ -102,3 +102,4 @@ will be placed in the bank. Need new npc.scp with the brokers in it. They are NP
 83) Fixed: Tamed pets will now go on their own when their hunger gets to 0.(Ripper)
 84) Added: LBR support. Thanks to LB (Ripper)
 85) verdata.mul still required in ini file, but if not found, server continues (punt)
+86) fixed: spells have a delay again (Duke)

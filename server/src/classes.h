@@ -246,7 +246,8 @@ public:
 	void doStaticEffect( P_CHAR source, int num );
 	void playSound( P_CHAR pc_source, int num );
 //	void NewDelReagents( CHARACTER s, reag_st reags );
-	void DelReagents( P_CHAR pc, reag_st reags );
+//	void DelReagents( P_CHAR pc, reag_st reags );
+	void DelReagents( P_CHAR pc, int num );
 	void NewCastSpell( UOXSOCKET s );
 	void SbOpenContainer(int s);
 	void PFireballTarget(P_CHAR pc_i, P_CHAR pc, int j);
@@ -268,7 +269,8 @@ public:
 	void ExplosionSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana = true);
 	void FlameStrikeSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana = true);
 	bool CheckBook(int circle, int spell, P_ITEM pi);
-	char CheckReagents(P_CHAR pc, reag_st reagents);
+//  char CheckReagents(P_CHAR pc, reag_st reagents);
+	char CheckReagents(P_CHAR pc, int num);
 	char CheckMana(P_CHAR pc, int num);
 //	void DeleReagents(int s, int ash, int drake, int garlic, int ginseng, int moss, int pearl, int shade, int silk);
     void Recall(UOXSOCKET s); // we need this four ones for the commands (separatly) !!!
@@ -284,6 +286,10 @@ public:
 	void MagicTrap(P_CHAR pc, P_ITEM pTrap);	// moved here by AntiChrist (9/99)
 	void Polymorph( int s, int gmindex, int creaturenumer); // added by AntiChrist (9/99)
 	short SpellNumFromScrollID(short id);
+	void Action4Spell(UOXSOCKET s, int num);
+	void SpeakMantra4Spell(P_CHAR Caster, int num);
+	char SubtractMana4Spell(P_CHAR pc, int num);
+	void AfterSpellDelay(UOXSOCKET s, P_CHAR pc);
 
 
 private:

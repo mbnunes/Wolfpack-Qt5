@@ -504,41 +504,6 @@ struct reag_st
 	int garlic;
 };
 
-// AntiChrist (9/99)
-//##ModelId=3C5D92C90307
-struct spell_st
-{
-	//##ModelId=3C5D92C9032F
-	int enabled;		// spell enabled?
-	//##ModelId=3C5D92C90343
-	int circle;		// circle number
-	//##ModelId=3C5D92C90375
-	int mana;			// mana requirements
-	//##ModelId=3C5D92C90389
-	int loskill;		// low magery skill req.
-	//##ModelId=3C5D92C9039E
-	int hiskill;		// high magery skill req.
-	//##ModelId=3C5D92C903A8
-	int sclo;			// low magery skill req. if using scroll
-	//##ModelId=3C5D92C903BC
-	int schi;			// high magery skill req. if using scroll
-	//##ModelId=3C5D92C903D0
-	char mantra[25];	// words of power
-	//##ModelId=3C5D92C903E4
-	int action;		// character action
-	//##ModelId=3C5D92CA0010
-	int delay;			// spell delay
-	//##ModelId=3C5D92CA0025
-	reag_st reagents;	// reagents req.
-	//##ModelId=3C5D92CA004C
-	char strToSay[100];// string visualized with targ. system
-	//##ModelId=3C5D92CA0056
-	int reflect;		// 1=spell reflectable, 0=spell not reflectable
-	//##ModelId=3C5D92CA0074
-	unsigned char runic;
-};
-
-//##ModelId=3C5D92CA00C4
 struct tele_locations_st 
 {
 	Coord_cl destination, origem;

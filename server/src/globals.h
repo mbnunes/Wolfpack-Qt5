@@ -328,7 +328,7 @@ extern logout_st logout[1024];//Instalog
 extern region_st region[256];
 extern std::vector<spawnregion_st> spawnregion;
 extern advance_st wpadvance[1000];
-extern spell_st spells[100];
+//extern spell_st spells[100];
 extern char spellname[71][25];
 extern unsigned int metagm[256][7]; // for meta gm script
 extern signed short int menupriv[64][256]; // for menu priv script

@@ -2501,9 +2501,7 @@ void cSkills::LockPick(int s)
 						success=Magic->SubtractMana(pc_currchar, 5);  // subtract mana on scroll or spell
 						if (currentSpellType[s] == 0)	// del regs on normal spell
 						{
-							reag_st regs = {0,};
-							regs.ash = regs.moss = 1;
-							Magic->DelReagents(pc_currchar, regs);
+							Magic->DelReagents(pc_currchar, 23); // 23 = magic unlock
 						}
 
 					}
