@@ -312,20 +312,20 @@ class BlacksmithingMenu(MakeMenu):
 
 			if item.maxhealth <= weaken:
 				player.socket.clilocmessage(500424)
-				player.log("Tries to repair item %s (0x%x) and destroys it.\n" % (item.baseid, item.serial))
+				player.log(LOG_MESSAGE, "Tries to repair item %s (0x%x) and destroys it.\n" % (item.baseid, item.serial))
 				item.delete()
 			elif player.checkskill(BLACKSMITHING, 0, 1000):
 				player.socket.clilocmessage(1044279)
 				item.maxhealth -= weaken
 				item.health = item.maxhealth				
 				item.resendtooltip()
-				player.log("Repairs item %s (0x%x) and weakens it by %u points.\n" % (item.baseid, item.serial, weaken))
+				player.log(LOG_MESSAGE, "Repairs item %s (0x%x) and weakens it by %u points.\n" % (item.baseid, item.serial, weaken))
 			else:
 				player.socket.clilocmessage(1044280)
 				item.maxhealth -= weaken
 				item.health = max(0, item.health - weaken)
 				item.resendtooltip()
-				player.log("Fails to repair item %s (0x%x) and weakens it by %u points.\n" % (item.baseid, item.serial, weaken))
+				player.log(LOG_MESSAGE, "Fails to repair item %s (0x%x) and weakens it by %u points.\n" % (item.baseid, item.serial, weaken))
 
 			# Warn the user if we'll break the item next time
 			if item.maxhealth <= weaken:

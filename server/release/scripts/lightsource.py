@@ -9,6 +9,7 @@
 #===============================================================#
 
 import wolfpack
+import wolfpack.utilities
 
 # List of "burning" lightsources
 burning = [ 0x9fd, 0xa02, 0xa07, 0xa0c, 0xa0f, 0xa12, 0xa15, 0xa1a, 0xa22, 0xb1a, 0xb1d, 0xb20, 0xb22, 0xb24, 0xb26, 0x142c, 0x1430, 0x1434, 0x1854, 0x1858 ]
@@ -120,10 +121,11 @@ def onDropOnItem( container, item ):
 	# Turn off the lightsource
 	if item.id in burning and ids.has_key( item.id ):
 		item.id = ids[ item.id ]
-		item.update()
-		dropper.soundeffect( 0x226, 0 )
+		if not wolfpack.utilities.tocontainer(item, container):
+			item.update()
+		dropper.soundeffect(0x226)
 
-	return False
+	return True
 
 def onDropOnChar( char, item ):
 
