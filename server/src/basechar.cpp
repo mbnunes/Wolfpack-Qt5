@@ -112,9 +112,7 @@ cBaseChar::cBaseChar()
     guarding_			= NULL;
 	cUObject::pos_		= Coord_cl( 100, 100, 0, 0 );	
 	setDead(false);  // we want to live ;)
-	regenHitpointsTime_	= uiCurrentTime + floor(getHitpointRate() * 1000);
-	regenStaminaTime_	= uiCurrentTime + floor(getStaminaRate() * 1000);
-	regenManaTime_		= uiCurrentTime + floor(getManaRate() * 1000);
+
 	saycolor_			= 600;
 	hitpointsBonus_		= 0;
 	staminaBonus_		= 0;
@@ -124,6 +122,9 @@ cBaseChar::cBaseChar()
 	intelligenceCap_	= 125;
 	statCap_			= SrvParams->statcap();
 	skills_.resize(ALLSKILLS);
+	regenHitpointsTime_	= uiCurrentTime + floor(getHitpointRate() * 1000);
+	regenStaminaTime_	= uiCurrentTime + floor(getStaminaRate() * 1000);
+	regenManaTime_		= uiCurrentTime + floor(getManaRate() * 1000);
 }
 
 cBaseChar::cBaseChar(const cBaseChar& right)
