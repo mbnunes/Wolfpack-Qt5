@@ -281,9 +281,9 @@ void cSrvParams::readData()
 	precasting_				= getBool( "Magic", "Precasting", true, true );
 
 	// Worldsave
-	saveModule_ = SrvParams->getString( "Worldsaves", "Loader", "sql", true );
-	savePrefix_ = SrvParams->getString( "Worldsaves", "Prefix", "", true );
-	savePath_	= SrvParams->getString( "Worldsaves", "Path", "", true );
+	saveModule_				= getString( "Worldsaves", "Loader", "sql", true );
+	savePrefix_				= getString( "Worldsaves", "Prefix", "", true );
+	savePath_				= getString( "Worldsaves", "Path", "", true );
 }
 
 void cSrvParams::reload()
