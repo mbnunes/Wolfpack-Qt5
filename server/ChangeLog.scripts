@@ -19,6 +19,10 @@ Wolfpack 12.9.10 Beta (CVS)
 		- Fixed bug #0000255. Smelting/Melting ingot combine fix.
 		- Resurrection now can affect dead chars.
 		- Fixed multibags.
+		- Fixed nightsight potions.
+		- Casting now clears hands if the weapon doesnt have the SpellChannelling property.
+		- Cast recovery times are now correct and take the CastRecoveryBonus properties into account.
+		- Spellcasting speeds are now corrected and take bonusses into account.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
