@@ -10,11 +10,10 @@
 
 	<!-- a corpser -->
 	<npc id="corpser" inherit="monster_base">
-		<name>a corpser</name>
-		<id>0x8</id>
+		<name>corpser</name>
+		<id>8</id>
 		<karma>-1000</karma>
 		<fame>1000</fame>
-		<gold><random min="25" max="50"/></gold>
 		<!-- Stats -->
 		<str><random min="156" max="180"/></str>
 		<dex><random min="26" max="45"/></dex>
@@ -24,8 +23,8 @@
 		<tactics><random min="451" max="600"/></tactics>
 		<wrestling><random min="451" max="600"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="10" type="int" />
-		<tag name="maxdamage" value="23" type="int" />
+		<mindamage>10</mindamage>
+		<maxdamage>23</maxdamage>
 		<tag name="dmg_poison" value="40" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="10,20" type="int" />

@@ -10,8 +10,8 @@
 
 	<!-- a frost ooze -->
 	<npc id="frost_ooze" inherit="monster_base">
-		<name>a frost ooze</name>
-		<id>0x5e</id>
+		<name>frost ooze</name>
+		<id>94</id>
 		<karma>-450</karma>
 		<fame>450</fame>
 		<!-- Stats -->
@@ -23,8 +23,8 @@
 		<tactics><random min="193" max="340"/></tactics>
 		<wrestling><random min="253" max="400"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="3" type="int" />
-		<tag name="maxdamage" value="9" type="int" />
+		<mindamage>3</mindamage>
+		<maxdamage>9</maxdamage>
 		<tag name="dmg_cold" value="60" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="40,50" type="int" />

@@ -10,8 +10,8 @@
 
 	<!-- gazer -->
 	<npc id="gazer" inherit="monster_base">
-		<name>a gazer</name>
-		<id>0x16</id>
+		<name>gazer</name>
+		<id>22</id>
 		<karma>-3500</karma>
 		<fame>3500</fame>
 		<!-- Stats -->
@@ -25,8 +25,8 @@
 		<tactics><random min="501" max="700"/></tactics>
 		<wrestling><random min="501" max="700"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="5" type="int" />
-		<tag name="maxdamage" value="10" type="int" />
+		<mindamage>5</mindamage>
+		<maxdamage>10</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="20,30" type="int" />
 		<tag name="res_energy" value="20,30" type="int" />

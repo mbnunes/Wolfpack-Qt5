@@ -10,8 +10,8 @@
 
 	<!-- Golem -->
 	<npc id="golem" inherit="monster_base">
-		<name>a golem</name>
-		<id>0x2f0</id>
+		<name>golem</name>
+		<id>752</id>
 		<karma>-3500</karma>
 		<fame>3500</fame>
 		<!-- Stats -->
@@ -23,8 +23,8 @@
 		<tactics><random min="601" max="1000"/></tactics>
 		<wrestling><random min="601" max="1000"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="13" type="int" />
-		<tag name="maxdamage" value="24" type="int" />
+		<mindamage>13</mindamage>
+		<maxdamage>24</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="10,30" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />

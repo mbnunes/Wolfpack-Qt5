@@ -10,8 +10,8 @@
 
 	<!-- Exodus Minion -->
 	<npc id="exodus_minion" inherit="monster_base">
-		<name>an exodus minion</name>
-		<id>0x2f5</id>
+		<name>exodus minion</name>
+		<id>757</id>
 		<karma>-18000</karma>
 		<fame>18000</fame>
 		<!-- Stats -->
@@ -23,8 +23,8 @@
 		<tactics><random min="901" max="1000"/></tactics>
 		<wrestling><random min="901" max="1000"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="16" type="int" />
-		<tag name="maxdamage" value="22" type="int" />
+		<mindamage>16</mindamage>
+		<maxdamage>22</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="15,25" type="int" />
 		<tag name="res_energy" value="15,25" type="int" />

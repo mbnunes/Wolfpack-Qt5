@@ -10,8 +10,8 @@
 
 	<!-- phoenix -->
 	<npc id="phoenix" inherit="monster_base">
-		<name>a phoenix</name>
-		<id>0x340</id>
+		<name>phoenix</name>
+		<id>5</id>
 		<skin>0x66d</skin>
 		<karma>0</karma>
 		<fame>15000</fame>
@@ -27,8 +27,8 @@
 		<tactics><random min="801" max="900"/></tactics>
 		<wrestling><random min="901" max="1000"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="24" type="int" />
-		<tag name="maxdamage" value="25" type="int" />
+		<mindamage>24</mindamage>
+		<maxdamage>25</maxdamage>
 		<tag name="dmg_fire" value="50" type="int" />
 		<!-- Resists -->
 		<tag name="dmg_energy" value="40,50" type="int" />

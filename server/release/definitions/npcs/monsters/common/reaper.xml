@@ -10,11 +10,10 @@
 
 	<!-- a reaper -->
 	<npc id="reaper" inherit="monster_base">
-		<name>a reaper</name>
-		<id>0x2f</id>
+		<name>reaper</name>
+		<id>47</id>
 		<karma>-3500</karma>
 		<fame>3500</fame>
-		<gold><random min="60" max="90"/></gold>
 		<!-- Stats -->
 		<str><random min="66" max="215"/></str>
 		<dex><random min="66" max="75"/></dex>
@@ -26,8 +25,8 @@
 		<tactics><random min="451" max="600"/></tactics>
 		<wrestling><random min="501" max="600"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="9" type="int" />
-		<tag name="maxdamage" value="11" type="int" />
+		<mindamage>9</mindamage>
+		<maxdamage>11</maxdamage>
 		<tag name="dmg_poison" value="20" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="10,20" type="int" />

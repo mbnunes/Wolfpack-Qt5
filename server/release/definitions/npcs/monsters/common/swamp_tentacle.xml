@@ -9,10 +9,9 @@
 <definitions>
 
 	<!-- swamp tentacle -->
-	<npc id="swamp tentacle" inherit="monster_base">
-		<name>a swamp tentacle</name>
-		<id>0x42</id>
-		<skin>0x66d</skin>
+	<npc id="swamp_tentacle" inherit="monster_base">
+		<name>swamp tentacle</name>
+		<id>66</id>
 		<karma>-3000</karma>
 		<fame>3000</fame>
 		<!-- Stats -->
@@ -24,8 +23,8 @@
 		<tactics><random min="651" max="800"/></tactics>
 		<wrestling><random min="651" max="800"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="6" type="int" />
-		<tag name="maxdamage" value="12" type="int" />
+		<mindamage>6</mindamage>
+		<maxdamage>12</maxdamage>
 		<tag name="dmg_poison" value="60" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="10,20" type="int" />

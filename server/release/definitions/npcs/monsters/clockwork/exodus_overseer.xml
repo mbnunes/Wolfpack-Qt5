@@ -10,8 +10,8 @@
 
 	<!-- Exodus Overseer -->
 	<npc id="exodus_overseer" inherit="monster_base">
-		<name>an exodus overseer</name>
-		<id>0x2f4</id>
+		<name>exodus overseer</name>
+		<id>756</id>
 		<karma>-10000</karma>
 		<fame>10000</fame>
 		<!-- Stats -->
@@ -23,8 +23,8 @@
 		<tactics><random min="802" max="980"/></tactics>
 		<wrestling><random min="802" max="980"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="13" type="int" />
-		<tag name="maxdamage" value="19" type="int" />
+		<mindamage>13</mindamage>
+		<maxdamage>19</maxdamage>
 		<tag name="dmg_energy" value="50" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="25,35" type="int" />

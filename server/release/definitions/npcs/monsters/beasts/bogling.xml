@@ -10,8 +10,8 @@
 
 	<!-- bogling -->
 	<npc id="bogling" inherit="monster_base">
-		<name>a bogling</name>
-		<id>0x30b</id>
+		<name>bogling</name>
+		<id>779</id>
 		<karma>-450</karma>
 		<fame>450</fame>
 		<gold><random min="25" max="50"/></gold>
@@ -24,8 +24,8 @@
 		<tactics><random min="551" max="800"/></tactics>
 		<wrestling><random min="551" max="750"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="5" type="int" />
-		<tag name="maxdamage" value="7" type="int" />
+		<mindamage>5</mindamage>
+		<maxdamage>7</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="15,25" type="int" />
 		<tag name="res_energy" value="15,25" type="int" />

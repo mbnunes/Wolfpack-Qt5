@@ -10,9 +10,8 @@
 
 	<!-- shadow wisp -->
 	<npc id="shadow_wisp" inherit="monster_base">
-		<name>a shadow wisp</name>
-		<id>0xa5</id>
-		<skin>0x66d</skin>
+		<name>shadow wisp</name>
+		<id>165</id>
 		<karma>-500</karma>
 		<fame>500</fame>
 		<!-- Stats -->

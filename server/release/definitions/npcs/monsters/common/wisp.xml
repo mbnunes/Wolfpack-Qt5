@@ -10,8 +10,8 @@
 
 	<!-- wisp -->
 	<npc id="wisp" inherit="animal_base">
-		<name>a wisp</name>
-		<id>0xa5</id>
+		<name>wisp</name>
+		<id>58</id>
 		<karma>0</karma>
 		<fame>4000</fame>
 		<!-- Stats -->

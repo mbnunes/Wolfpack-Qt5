@@ -10,8 +10,8 @@
 
 	<!-- bog thing -->
 	<npc id="bog_thing" inherit="monster_base">
-		<name>a bog thing</name>
-		<id>0x30c</id>
+		<name>bog thing</name>
+		<id>780</id>
 		<karma>-8000</karma>
 		<fame>8000</fame>
 		<gold><random min="50" max="100"/></gold>
@@ -24,8 +24,8 @@
 		<tactics><random min="701" max="850"/></tactics>
 		<wrestling><random min="651" max="800"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="10" type="int" />
-		<tag name="maxdamage" value="23" type="int" />
+		<mindamage>10</mindamage>
+		<maxdamage>23</maxdamage>
 		<tag name="dmg_poison" value="40" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="10,15" type="int" />

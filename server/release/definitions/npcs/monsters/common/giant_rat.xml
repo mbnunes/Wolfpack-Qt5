@@ -10,8 +10,8 @@
 
 	<!-- a rat (giant) -->
 	<npc id="rat_giant" inherit="monster_base">
-		<name>a giant rat</name>
-		<id>0xd7</id>
+		<name>giant rat</name>
+		<id>215</id>
 		<karma>-300</karma>
 		<fame>300</fame>
 		<!-- Stats -->
@@ -23,8 +23,8 @@
 		<tactics><random min="293" max="440"/></tactics>
 		<wrestling><random min="293" max="440"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="4" type="int" />
-		<tag name="maxdamage" value="8" type="int" />
+		<mindamage>4</mindamage>
+		<maxdamage>8</maxdamage>
 		<!-- Resists -->
 		<tag name="res_fire" value="5,10" type="int" />
 		<tag name="res_physical" value="15,20" type="int" />

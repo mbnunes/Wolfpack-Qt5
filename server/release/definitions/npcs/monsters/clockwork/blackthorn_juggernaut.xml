@@ -10,8 +10,8 @@
 
 	<!-- Blackthorn Juggernaut -->
 	<npc id="blackthorn_juggernaut" inherit="monster_base">
-		<name>a blackthorn juggernaut</name>
-		<id>0x300</id>
+		<name>blackthorn juggernaut</name>
+		<id>768</id>
 		<karma>-12000</karma>
 		<fame>12000</fame>
 		<!-- Stats -->
@@ -24,8 +24,8 @@
 		<tactics><random min="901" max="1000"/></tactics>
 		<wrestling><random min="901" max="1000"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="12" type="int" />
-		<tag name="maxdamage" value="19" type="int" />
+		<mindamage>12</mindamage>
+		<maxdamage>19</maxdamage>
 		<tag name="dmg_energy" value="25" type="int" />
 		<tag name="dmg_fire" value="25" type="int" />
 		<!-- Resists -->
