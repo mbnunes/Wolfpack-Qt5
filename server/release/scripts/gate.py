@@ -33,9 +33,8 @@ def onCollide(player, item):
   pos.z = target[2]
   player.removefromview()
   player.moveto(pos)
-  player.update(0, 1)
-  if player.socket:
-    player.socket.updateplayer()
+  player.update(0)
+  if player.socket:    
     player.socket.resendworld()
 
   # show some nice effects
