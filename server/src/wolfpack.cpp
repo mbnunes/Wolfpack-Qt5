@@ -1488,8 +1488,8 @@ int main( int argc, char *argv[] )
 	cNetwork::instance()->load();
 	clConsole.ProgressDone();
 
-    if (SrvParams->EnableRA())
-		RemoteAdmin::initialize( SrvParams->ra_port() );
+//    if (SrvParams->EnableRA())
+//		RemoteAdmin::initialize( SrvParams->ra_port() );
 
 	item_char_test(); //LB
 
@@ -1593,8 +1593,8 @@ int main( int argc, char *argv[] )
 			}
 		}
 
-        if (SrvParams->EnableRA())
-           RemoteAdmin::instance()->processNextEvent();
+//        if (SrvParams->EnableRA())
+//           RemoteAdmin::instance()->processNextEvent();
 
 		tempTime = getNormalizedTime() - tempSecs ;
 		networkTime += tempTime;
@@ -1641,8 +1641,8 @@ int main( int argc, char *argv[] )
 
 	cNetwork::instance()->broadcast( tr( "The server is shutting down." ) );
 
-	if ( SrvParams->EnableRA() )
-		RemoteAdmin::stop();
+//	if ( SrvParams->EnableRA() )
+//		RemoteAdmin::stop();
 
 	if (SrvParams->html()>0)
 	{

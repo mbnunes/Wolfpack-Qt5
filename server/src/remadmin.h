@@ -32,34 +32,10 @@
 #if !defined(__REMADMIN_H__)
 #define __REMADMIN_H__
 
-// Library Includes
-#include "qptrlist.h"
-
 // Forward declarations
-class PrivateSocket;
-class QSocketDevice;
 
 class RemoteAdmin
 {
-	static QPtrList<PrivateSocket> sockets;
-	static QSocketDevice* listenningSocket;
-
-public:
-	~RemoteAdmin();
-	static void initialize( Q_UINT16 port, bool verbose = false);
-	static void stop();
-	static RemoteAdmin* instance();
-
-	void processNextEvent();
-
-private:
-	RemoteAdmin() {};
-
-	void tryCompleteCommand( PrivateSocket* );
-	void executeCommand( PrivateSocket* );
-	void sendPrompt( PrivateSocket* socket );
-
-	bool parseTelnetCommand( char command );
 };
 
 #endif //__REMADMIN_H__

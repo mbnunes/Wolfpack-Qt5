@@ -940,7 +940,7 @@ void tuple_decref( PyObject *object )
 {	
 	if( PyTuple_Check( object ) )
 	{
-		for( UINT32 i = 0; i < PyTuple_Size( object ); ++i )
+		for( int i = 0; i < PyTuple_Size( object ); ++i )
 			tuple_decref( PyTuple_GetItem( object, i ) );
 	}
 	Py_DECREF( object );

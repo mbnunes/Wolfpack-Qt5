@@ -62,7 +62,7 @@ PyObject *wpGumpResponse_getAttr( wpGumpResponse *self, char *name )
 	{
 		// Create a list
 		PyObject *list = PyList_New( self->response->switches.size() );
-		for( INT32 i = 0; i < self->response->switches.size(); ++i )
+		for( uint i = 0; i < self->response->switches.size(); ++i )
 			PyList_SetItem( list, i, PyInt_FromLong( self->response->switches[ i ] ) );
 		return list;
 	}

@@ -40,12 +40,12 @@
 #include <iosfwd>
 #include <cstdarg>
 #include <cstdio>
-#include "qstringlist.h"
+#include <qstringlist.h>
+#include <qstring.h>
 
 // Third Party includes
 
 // Forward class declaration
-class QString;
 class WPConsole_cl;
 class WPDefaultScript;
 
@@ -75,7 +75,7 @@ private:
 	QStringList linebuffer_;
 	QString incompleteLine_;
 public:
-	QStringList linebuffer() const { return linebuffer_; }
+	QStringList linebuffer() const { return QStringList(); } //linebuffer_; }
 
 	// Constructor
 	WPConsole_cl();

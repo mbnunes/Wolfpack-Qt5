@@ -141,11 +141,6 @@ bool isInLockedItem( P_ITEM pItem )
 
 void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 {
-	unsigned char map1[20] = "\x90\x40\x01\x02\x03\x13\x9D\x00\x00\x00\x00\x13\xFF\x0F\xFF\x01\x90\x01\x90";
-	// By Polygon: Lower map border is 4095, not 4000, no more needed with new system anyway ;)
-	unsigned char map2[12] = "\x56\x40\x01\x02\x03\x05\x00\x00\x00\x00\x00";
-	// By Polygon: This one is needed to show the location on treasure maps
-	unsigned char map3[12] = "\x56\x40\x01\x02\x03\x01\x00\x00\x00\x00\x00";
 	unsigned int tempuint;
 
 	SERIAL serial = target_serial;
@@ -153,8 +148,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 
 	UOXSOCKET s = calcSocketFromChar( socket->player() ); // for Legacy code
 
-	int w = 0;
-	
 	if( !pc_currchar->isGM() && pc_currchar->objectdelay() > 10 && pc_currchar->objectdelay() >= uiCurrentTime )
 	{
 		socket->sysMessage(tr("You must wait to perform another action."));

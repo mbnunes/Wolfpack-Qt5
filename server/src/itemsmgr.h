@@ -77,6 +77,7 @@ protected:
 	SERIAL lastUsedSerial;
 
 public:
+	cItemsManager() : lastUsedSerial(0) {}
 	~cItemsManager();
 	void registerItem( cItem* ) throw(wp_exceptions::wpbad_ptr);
 	void unregisterItem( cItem* ) throw (wp_exceptions::wpbad_ptr);

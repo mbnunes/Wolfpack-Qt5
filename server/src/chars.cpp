@@ -517,7 +517,8 @@ void cChar::Init(bool ser)
     this->setStablemaster_serial(INVALID_SERIAL);
 	this->setTimeused_last(getNormalizedTime());
 	this->setTime_unused(0);
-
+	this->questType_ = 0; //??
+	this->GuildType = 0;
 	for (i=0;i<TRUESKILLS;i++)
 	{
 		this->setBaseSkill(i, 0);
@@ -2013,11 +2014,12 @@ void cChar::showName( cUOSocket *socket )
 	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red
 	switch( notority( socket->player() ) )
 	{		
-		case 0x01:	speechColor = 0x5A; break; //blue
-		case 0x02:	speechColor = 0x43; break; //green
-		case 0x03:	speechColor = 0x3B2; break; //grey
-		case 0x05:	speechColor = 0x30; break; //orange
-		case 0x06:	speechColor = 0x26; break; //red		
+		case 0x01:	speechColor = 0x5A;		break; //blue
+		case 0x02:	speechColor = 0x43;		break; //green
+		case 0x03:	speechColor = 0x3B2;	break; //grey
+		case 0x05:	speechColor = 0x30;		break; //orange
+		case 0x06:	speechColor = 0x26;		break; //red
+		default:	speechColor = 0x3B2;	break; // grey		
 	}
 
 	// Show it to the socket

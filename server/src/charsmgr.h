@@ -76,6 +76,7 @@ protected:
 	SERIAL	lastUsedSerial;
 
 public:
+	cCharsManager() : lastUsedSerial(0) {}
 	~cCharsManager();
 	void registerChar( cChar* ) throw(wp_exceptions::wpbad_ptr);
 	void unregisterChar( cChar* ) throw (wp_exceptions::wpbad_ptr);

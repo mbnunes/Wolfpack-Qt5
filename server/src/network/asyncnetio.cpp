@@ -396,7 +396,11 @@ void cAsyncNetIO::run() throw()
 		mapsMutex.release();		
 		//if( buffers.empty() )
 		// Disconnecting doesnt work for now
+		try {
 		sleep(40); // we've done our job, let's relax for a while.
+		} catch ( ZThread::Interrupted_Exception& e )
+		{ // Looks like we are going to finish this thread.
+		}
 	}
 }
 

@@ -371,7 +371,6 @@ bool CWorldMain::RemoveItemsFromCharBody( int charserial, int type1, int type2 )
 	P_CHAR pc = FindCharBySerial(charserial);
 	if (pc == NULL) return false;
  	bool foundMatch = false;
-	unsigned int ci;
 	cChar::ContainerContent container(pc->content());
 	cChar::ContainerContent::const_iterator it (container.begin());
 	cChar::ContainerContent::const_iterator end(container.end());

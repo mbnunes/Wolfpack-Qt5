@@ -28,7 +28,7 @@
 				BufferSecurityCheck="TRUE"
 				EnableFunctionLevelLinking="TRUE"
 				RuntimeTypeInfo="TRUE"
-				UsePrecompiledHeader="2"
+				UsePrecompiledHeader="0"
 				PrecompiledHeaderThrough="wolfpack.h"
 				PrecompiledHeaderFile=".\Debug/wolf.pch"
 				AssemblerListingLocation=".\Debug/"
@@ -40,17 +40,19 @@
 				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="4"
 				CompileAs="0"
-				DisableSpecificWarnings="4290,4267"/>
+				DisableSpecificWarnings="4290,4267"
+				ForcedIncludeFiles="qvaluelist.h;qstring.h"
+				ShowIncludes="FALSE"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="ws2_32.lib ZThread.lib $(QTDIR)\lib\qt-mt310.lib odbc32.lib odbccp32.lib libmysql.lib pdh.lib"
-				ShowProgress="1"
+				AdditionalOptions="/MACHINE:I386 /FIXED:NO"
+				AdditionalDependencies="ws2_32.lib ZThread.lib $(QTDIR)\lib\qt-mt311.lib libmysql.lib"
+				ShowProgress="2"
 				OutputFile="C:\Wolfpack\Wolfpack.exe"
 				Version="12.9"
-				LinkIncremental="1"
+				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="lib\ZThread\lib,lib\Python\lib,lib\bugreport\lib"
 				IgnoreDefaultLibraryNames=""
@@ -59,8 +61,11 @@
 				GenerateMapFile="TRUE"
 				MapFileName=".\Debug/Wolfpack.map"
 				SubSystem="1"
-				OptimizeReferences="0"
-				OptimizeForWindows98="0"/>
+				OptimizeReferences="1"
+				OptimizeForWindows98="0"
+				SetChecksum="FALSE"
+				SupportUnloadOfDelayLoadedDLL="FALSE"
+				TargetMachine="1"/>
 			<Tool
 				Name="VCMIDLTool"
 				TypeLibraryName=".\Debug/wolf.tlb"/>

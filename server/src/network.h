@@ -41,12 +41,12 @@
 //Forward class Declaration
 class cNetworkStuff;
 class cAsyncNetIO;
-class cUOSocket;
 class cListener;
 class QHostAddress;
 
 //Wolfpack includes
 #include "typedefs.h"
+#include "network/uosocket.h"
 
 // Library Includes
 #include <qptrlist.h>

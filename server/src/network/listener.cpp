@@ -78,8 +78,14 @@ void cListener::run() throw()
 			socket->setBlocking( false );
 			readyConnections.add( socket );
 		}
-		else 
-			sleep(2000); // if nothing interesting happen take a nap
+		else
+		{ 
+			try {
+				sleep(2000); // if nothing interesting happen take a nap
+			} catch ( ZThread::Interrupted_Exception& e )
+			{ // Looks like we are about to exit from this thread
+			}
+		}
 	}
 }
 
