@@ -308,9 +308,10 @@ def main():
 	if sys.platform == "darwin":
 		# MacPython is build as a Framework, not a library :/
 		PY_LIBDIR = distutils.sysconfig.get_config_vars("LINKFORSHARED")[0]
+		PY_LIBDIR += " -flat_namespace"
 	else:
 		PY_LIBDIR = buildLibLine( py_libpath, py_libfile ) 
-		config.write("PY_LIBDIR = %s\n" % PY_LIBDIR)
+	config.write("PY_LIBDIR = %s\n" % PY_LIBDIR)
 	config.write("PY_INCDIR = %s\n" % py_incpath )
 
 	# Build MySQL Libs and Includes
