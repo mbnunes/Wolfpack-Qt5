@@ -10,7 +10,7 @@
 	<!-- Barber (no real vendor) -->
 	<npc id="barber_male">
 		<inherit>base_male</inherit>
-		<title>the Barber</title>
+		<title>the Hairstylist</title>
 		<basescript>speech.barber</basescript>
 		<category>Vendors\Barber (Male)</category>
 		<invulnerable />
@@ -18,7 +18,7 @@
 	
 	<npc id="barber_female">
 		<inherit>base_female</inherit>
-		<title>the Barber</title>
+		<title>the Hairstylist</title>
 		<basescript>speech.barber</basescript>
 		<category>Vendors\Barber (Female)</category>
 		<invulnerable />

@@ -12,40 +12,295 @@ from wolfpack.gumps import cGump
 import wolfpack
 import wolfpack.console
 
-prices = {
-			# Remove
-			0x0000: 10,
+# Gump Types
+TYPE_BUYGUMP = 259823146
+TYPE_CHANGEHAIR = 259823147
+TYPE_CHANGEHUE = 259823148
 
-			# Hair
-			0x203b: 10,
-			0x203c: 10,
-			0x203d: 10,
-			0x2044: 10,
-			0x2045: 10,
-			0x2046: 10,
-			0x2047: 10,
-			0x2048: 10,
-			0x2049: 10,
-			0x204a: 10,
+REGULAR = [
+	[ "*****", 1602, 26 ],
+	[ "*****", 1628, 27 ],
+	[ "*****", 1502, 32 ],
+	[ "*****", 1302, 32 ],
+	[ "*****", 1402, 32 ],
+	[ "*****", 1202, 24 ],
+	[ "*****", 2402, 29 ],
+	[ "*****", 2213, 6 ],
+	[ "*****", 1102, 8 ],
+	[ "*****", 1110, 8 ],
+	[ "*****", 1118, 16 ],
+	[ "*****", 1134, 16 ],
+]
 
-			# Beards
-			0x203E: 10,
-			0x203F: 10,
-			0x2040: 10,
-			0x2041: 10,
-			0x204B: 10,
-			0x204C: 10,
-			0x204D: 10,
+BRIGHT = [
+	[ "*****", 12, 10 ],
+	[ "*****", 32, 5 ],
+	[ "*****", 38, 8 ],
+	[ "*****", 54, 3 ],
+	[ "*****", 62, 10 ],
+	[ "*****", 81, 2 ],
+	[ "*****", 89, 2 ],
+	[ "*****", 1153, 2 ],
+]
 
-			#Hair dye
-			0x0e27: 50
-		}
+def changeHairHue(vendor, char, item, args):
+	char.socket.closegump(TYPE_BUYGUMP)
+	char.socket.closegump(TYPE_CHANGEHAIR)
+	char.socket.closegump(TYPE_CHANGEHUE)
+	
+	price = item[1]
+	if args[0] == 'all':
+		layers = [LAYER_HAIR, LAYER_BEARD]
+	elif args[0] == 'hair':
+		layers = [LAYER_HAIR]
+	elif args[0] == 'facial':
+		layers = [LAYER_BEARD]
+		
+	if args[1] == 'regular':
+		entries = REGULAR
+	else:
+		entries = BRIGHT
+	
+	gump = wolfpack.gumps.cGump()
+	gump.setType(TYPE_CHANGEHUE)
+	
+	gump.startPage(0)
+	gump.addResizeGump( 100, 10, 2600, 350, 370 )
+	gump.addResizeGump( 120, 54, 5100, 110, 270 )
+	gump.addXmfHtmlGump( 155, 25, 240, 30, 1011013, False, False ) # <center>Hair Color Selection Menu</center>	
 
-# 0x0171 *buy*
+	gump.addXmfHtmlGump( 150, 330, 220, 35, 1011014, False, False ) # // Dye my hair this color!
+	gump.addButton( 380, 330, 4005, 4007, 1 )
+	
+	for i in range(0, len(entries)):
+		gump.addText(130, 59 + i * 22, entries[i][0], entries[i][1] - 1)
+		gump.addPageButton( 207, 60 + i * 22, 5224, 5224, 1 + i )
+		
+	for i in range(0, len(entries)):
+		gump.startPage(i + 1)
+
+		for j in range(0, entries[i][2]):
+			gump.addText(278 + (j / 16) * 80, 52 + (j % 16) * 17, entries[i][0], entries[i][1] + j - 1)
+			gump.addRadioButton( 255 + (j / 16) * 80, 52 + (j % 16) * 17, 210, 211, j * len(entries) + i, False )
+	
+	gump.setCallback('speech.barber.changehairhue_response')
+	gump.setArgs([vendor.serial, entries, layers, price])
+	gump.send(char)
+	
+def changehairhue_response(char, arguments, response):
+	(vendor, entries, layers, price) = arguments
+	vendor = wolfpack.findchar(vendor)
+	
+	if not vendor:
+		return
+	
+	if response.button == 0 or len(response.switches) == 0:
+		vendor.say(1013009, "", "", False, vendor.saycolor, char.socket)		
+		return	
+		
+	# Get the hair color
+	index = int(response.switches[0] % len(entries))
+	offset = int(response.switches[0] / len(entries))
+	
+	if index >= len(entries):
+		vendor.say(1013009, "", "", False, vendor.saycolor, char.socket)		
+		return
+		
+	if offset >= entries[index][2]:
+		vendor.say(1013009, "", "", False, vendor.saycolor, char.socket)
+		return
+
+	hue = entries[index][1] + offset
+
+	gold = char.getbackpack().countitems(['eed'])
+	gold += char.getbankbox().countitems(['eed'])
+	
+	if price > gold and not char.gm:
+		vendor.say(1042293, "", "", False, vendor.saycolor, char.socket)
+		return
+		
+	found = False
+	items = []
+	for layer in layers:
+		item = char.itemonlayer(layer)
+		if item:
+			found = True
+			items.append(item)
+			
+	if not found:
+		vendor.say(502623, "", "", False, vendor.saycolor, char.socket)
+		return
+		
+	if not char.gm:
+		rest = char.getbackpack().removeitems(['eed'], arguments[3])
+		if rest != 0:
+			char.getbankbox().removeitems(['eed'], rest)
+		
+	for item in items:
+		item.color = hue
+		item.update()
+		
+# Entries
+HAIR = [
+	[ 50700,  70 - 137,  20 -  60, '203b' ],
+	[ 60710, 193 - 260,  18 -  60, '2045' ],
+	[ 50703, 316 - 383,  25 -  60, '2044' ],
+	[ 60708,  70 - 137,  75 - 125, '203c' ],
+	[ 60900, 193 - 260,  85 - 125, '2047' ],
+	[ 60713, 320 - 383,  85 - 125, '204a' ],
+	[ 60702,  70 - 137, 140 - 190, '203d' ],
+	[ 60707, 193 - 260, 140 - 190, '2049' ],
+	[ 60901, 315 - 383, 150 - 190, '2048' ],
+	[ 0, 0, 0, None ],
+]
+	
+BEARDS = [
+	[ 50800, 120 - 187,  30 -  80, '2040' ],
+	[ 50904, 243 - 310,  33 -  80, '204b' ],
+	[ 50906, 120 - 187, 100 - 150, '204d' ],
+	[ 50801, 243 - 310,  95 - 150, '203e' ],
+	[ 50802, 120 - 187, 173 - 220, '203f' ],
+	[ 50905, 243 - 310, 165 - 220, '204c' ],
+	[ 50808, 120 - 187, 242 - 290, '2041' ],
+	[ 0, 0, 0, None ],
+]
+
+def changeHairStyle(vendor, char, item, args):
+	char.socket.closegump(TYPE_BUYGUMP)
+	char.socket.closegump(TYPE_CHANGEHAIR)
+	char.socket.closegump(TYPE_CHANGEHUE)
+	
+	facial = args[0] == 'facial'
+	
+	if facial:
+		entries = BEARDS
+		tableWidth = 2
+		tableHeight = int((len(entries) + tableWidth - 1) / tableWidth)
+		offsetWidth = 123
+		offsetHeight = 70
+		
+	else:
+		entries = HAIR
+		tableWidth = 3
+		tableHeight = int((len(entries) + tableWidth - 2) / tableWidth)
+		offsetWidth = 123
+		offsetHeight = 65
+
+	gump = wolfpack.gumps.cGump()
+	gump.setType(TYPE_CHANGEHAIR)
+	
+	gump.startPage(0)
+	gump.addResizeGump(0, 0, 2600, 81 + tableWidth * offsetWidth, 105 + tableHeight * offsetHeight )
+	gump.addButton( 45, 45 + tableHeight * offsetHeight, 4005, 4007, 1 )
+	gump.addXmfHtmlGump(77 , 45 + tableHeight * offsetHeight, 90, 50, 1006044, False, False) # Ok
+	gump.addButton( 81 + tableWidth * offsetWidth - 180, 45 + tableHeight * offsetHeight, 4005, 4007, 0)
+	gump.addXmfHtmlGump(81 + tableWidth * offsetWidth - 148 , 45 + tableHeight * offsetHeight, 90, 50, 1006045, False, False) # Cancel
+
+	if facial:
+		gump.addXmfHtmlGump( 55, 15, 200, 20, 1018354, False, False) # New Beard
+	else:
+		gump.addXmfHtmlGump( 50, 15, 350, 20, 1018353, False, False) # New Hairstyle
+		
+		
+	for i in range(0, len(entries)):
+		xTable = i % tableWidth
+		yTable = i / tableWidth
+		
+		if entries[i][0] != 0:
+			gump.addRadioButton( 40 + xTable * offsetWidth, 70 + yTable * offsetHeight, 208, 209, i, False )
+			gump.addResizeGump( 87 + xTable * offsetWidth, 50 + yTable * offsetHeight, 2620, 50, 50)
+			gump.addGump( 87 + xTable * offsetWidth + entries[i][1], 50 + yTable * offsetHeight + entries[i][2], entries[i][0] )
+		elif facial:
+			gump.addRadioButton( 40 + xTable * offsetWidth, 70 + yTable * offsetHeight, 208, 209, i, False )
+			gump.addXmfHtmlGump( 65 + xTable * offsetWidth, 70 + yTable * offsetHeight, 85, 35, 1011064, False, False) # Bald
+		else:
+			gump.addRadioButton( 40 + (xTable + 1) * offsetWidth, 240, 208, 209, i, False )
+			gump.addXmfHtmlGump( 65 + (xTable + 1) * offsetWidth, 240, 85, 35, 1011064, False, False) # Bald
+
+	gump.setCallback('speech.barber.hairstyle_response')
+	gump.setArgs([vendor.serial, entries, facial, item[1]])
+	gump.send(char)
+		
+def hairstyle_response(char, arguments, response):
+	vendor = wolfpack.findchar(arguments[0])
+	if not vendor:
+		return
+	
+	if response.button == 0 or len(response.switches) == 0 or response.switches[0] >= len(arguments[1]):
+		vendor.say(1013009, "", "", False, vendor.saycolor, char.socket)
+		return
+		
+	item = arguments[1][response.switches[0]]
+	facial = arguments[2]
+	
+	oldcolor = 0
+	if facial:
+		current = char.itemonlayer(LAYER_BEARD)
+	else:
+		current = char.itemonlayer(LAYER_HAIR)
+		
+	if current:
+		oldcolor = current.color
+	else:
+		if facial:
+			other = char.itemonlayer(LAYER_HAIR)
+		else:
+			other = char.itemonlayer(LAYER_BEARD)
+		if other:
+			oldcolor = other.color
+		
+	if not current and not item[3] or current and current.baseid == item[3]:
+		return
+
+	# Gold?
+	female = char.id == 0x191
+	gold = char.getbackpack().countitems(['eed'])
+	gold += char.getbankbox().countitems(['eed'])
+		
+	if female and facial:
+		vendor.say(1010639, "", "", False, vendor.saycolor, char.socket)
+		return
+	
+	# Check if we can afford it
+	if arguments[3] > gold and not char.gm:
+		vendor.say(1042293, "", "", False, vendor.saycolor, char.socket)
+		return	
+		
+	rest = char.getbackpack().removeitems(['eed'], arguments[3])
+	if rest != 0:
+		char.getbankbox().removeitems(['eed'], rest)
+	
+	if item[3]:
+		newhair = wolfpack.additem(item[3])
+		
+		if newhair:
+			newhair.color = oldcolor
+			if current:
+				current.delete()
+			if facial:
+				char.additem(LAYER_BEARD, newhair)
+			else:
+				char.additem(LAYER_HAIR, newhair)
+			newhair.update()
+	else:
+		if current:
+			current.delete()
+
+# Cliloc Id, Price, Beard (True/False), function pointer, arguments
+sellList = [
+	[1018357, 50000, False, changeHairStyle, ['hair']],
+	[1018358, 50000, True, changeHairStyle, ['facial']],
+	[1018359, 50, False, changeHairHue, ['all', 'regular']],
+	[1018360, 500000, False, changeHairHue, ['all', 'bright']],
+	[1018361, 30000, False, changeHairHue, ['hair', 'regular']],
+	[1018362, 30000, True, changeHairHue, ['facial', 'regular']],
+	[1018363, 500000, False, changeHairHue, ['hair', 'bright']],
+	[1018364, 500000, True, changeHairHue, ['facial', 'bright']],
+]
 
 def onSpeech( listener, speaker, text, keywords ):
 	# Check if our name is in the beginning of the string
-	if not text.lower().startswith( listener.name.lower() ) and not text.lower.startswith( 'vendor' ):
+	if not text.lower().startswith( listener.name.lower() ) and not text.lower().startswith( 'vendor' ):
 		return 0
 		
 	if 369 not in keywords and 60 not in keywords:
@@ -58,406 +313,74 @@ def onSpeech( listener, speaker, text, keywords ):
 		return 0
 
 	if speaker.id != 0x190 and speaker.id != 0x191:
-		listener.say( "I can't cut your hair!" )
-		return 1
+		listener.say("I can't cut your hair!")
 	else:
-		gump(listener, speaker )
+		gump(listener, speaker)
+		
+	return True
 
-	# We only have one keyword
 def gump( listener, speaker ):
-	gump = cGump( 0, 0, 0, 50, 50 )
-	gump.addBackground( 0x24a4, 425, 400 )
-	gump.startPage( 0 )
-	gump.addHtmlGump( 10, 30, 450, 20, '<basefont size="7" color="#336699"><center>Barber shop</center></basefont>' )
-	gump.addTilePic( 155, 31, 0xDFD )
+	speaker.socket.closegump(TYPE_BUYGUMP)
+	speaker.socket.closegump(TYPE_CHANGEHAIR)
+	speaker.socket.closegump(TYPE_CHANGEHUE)
+	
+	female = speaker.id == 0x191
+	gold = speaker.getbackpack().countitems(['eed'])
+	gold += speaker.getbankbox().countitems(['eed'])
+	
+	count = 0
+	
+	for i in range(0, len(sellList)):
+		item = sellList[i]
+		if speaker.gm or (gold >= item[1] and (not female or not item[2])):
+			count += 1
 
-	gump.addPageButton( 40, 61, 0x4B9, 0x4BA, 0x11 )
-	gump.addHtmlGump( 60, 60, 100, 20, '<basefont color="#333333"><u>Hair</u></basefont>' )
+	gump = wolfpack.gumps.cGump()
 
-	gump.addPageButton( 40, 81, 0x4B9, 0x4BA, 0x31 )
-	gump.addHtmlGump( 60, 80, 100, 20, u'<basefont color="#333333"><u>Hair dye</u></basefont>' )
+	gump.addResizeGump(50, 10, 2600, 450, 100 + count * 25)
+	gump.startPage(0)
+	gump.addXmfHtmlGump( 100, 40, 350, 20, 1018356, False, False) # Choose your hairstyle change:
 
-	# Page Switches (only for men)
-	if speaker.id == 0x190:
-		gump.addPageButton( 190, 61, 0x4B9, 0x4BA, 0x21 )
-		gump.addHtmlGump( 210, 60, 100, 20, '<basefont color="#333333"><u>Beard</u></basefont>' )
+	offset = 0
+	for i in range(0, len(sellList)):
+		item = sellList[i]
+		if not speaker.gm and (gold < item[1] or (female and item[2])):
+			continue
+		
+		gump.addXmfHtmlGump(140, 75 + offset * 25, 360, 20, item[0], False, False) # Choose your hairstyle change:
+		gump.addButton( 100, 75 + offset * 25, 4005, 4007, 1 + i)
+		
+		offset += 1
 
-	# Hair
-	addHairfarbePage( speaker, gump, 0x31, 0x0E27 ) # hair dye
+	gump.setType(TYPE_BUYGUMP)
+	gump.setArgs([listener.serial])
+	gump.setCallback("speech.barber.gump_response")
+	gump.send(speaker)
 
-	# Hair
-	addHairPage( speaker, gump, 0x11, 0x203B ) # Short Hair
-	addHairPage( speaker, gump, 0x12, 0x203C ) # Long Hair
-	addHairPage( speaker, gump, 0x13, 0x203D ) # Ponytail
-	addHairPage( speaker, gump, 0x14, 0x2044 ) # Mohawk
-	addHairPage( speaker, gump, 0x15, 0x2045 ) # Pageboy
-	addHairPage( speaker, gump, 0x16, 0x2046 ) # Buns hair
-	addHairPage( speaker, gump, 0x17, 0x2047 ) # Afro
-	addHairPage( speaker, gump, 0x18, 0x2048 ) # Receding hair
-	addHairPage( speaker, gump, 0x19, 0x2049 ) # 2 pig-tails
-	addHairPage( speaker, gump, 0x1A, 0x204a ) # Krisna Hair
-	addHairPage( speaker, gump, 0x1B, 0x0000 ) # None
-
-	if speaker.id == 0x190:
-		# Beard
-		gump.startPage( 0x21 )
-
-		# BEARDS
-		addBeardPage( speaker, gump, 0x21, 0x203E ) # Long Beard
-		addBeardPage( speaker, gump, 0x22, 0x203F ) # Short Beard
-		addBeardPage( speaker, gump, 0x23, 0x2040 ) # Goatee
-		addBeardPage( speaker, gump, 0x24, 0x2041 ) # Mustache
-		addBeardPage( speaker, gump, 0x25, 0x204B ) # Med Short Beard
-		addBeardPage( speaker, gump, 0x26, 0x204C ) # Med Long Beard
-		addBeardPage( speaker, gump, 0x27, 0x204D ) # Vandyke
-		addBeardPage( speaker, gump, 0x28, 0x0000 ) # None
-
-	gump.startPage( 0 )
-	gump.addButton( 350, 335, 2119, 2120, 0 ) # Cancel
-
-	gump.setCallback( "speech.barber.gump_callback" )
-	gump.setArgs( [ listener.serial ] )
-	gump.send( speaker )
-
-	return 1
-
-def addHairfarbePage( char, gump, page, id ):
-	gump.startPage( page )
-	addHairfarbeButtons( gump, page & 0x000F )
-	gump.addResizeGump( 200, 95, 0x2486, 190, 225 )
-
-	gump.addTilePic( 260, 200, 0x0E27 )
-
-	# Ok button for this page
-	gump.addButton( 208, 292, 0x850, 0x851, id | 0x2000 )
-	gump.addHtmlGump( 275, 292, 150, 20, '<basefont color="#336699"><u>Price:</u><basefont color="#333333"> %i goldcoins</basefont></basefont>' % prices[ id ] )
-
-
-
-def addHairPage( char, gump, page, id ):
-	gump.startPage( page )
-	addHairButtons( gump, page & 0x000F )
-	gump.addResizeGump( 200, 95, 0x2486, 190, 225 )
-
-	haircolor = getHairColor( char )
-
-	# Add a colored base body
-	if char.id == 0x190:
-		gump.addGump( 200, 60, 0xC, char.skin )
-		gump.addGump( 200, 60, 0xC503 ) # Fancy Shirt
-		gump.addGump( 200, 60, 0xC4FF ) # Long Pants
-		gump.addGump( 200, 60, 0xC52D ) # Boots
-		if id != 0:
-			gump.addGump( 200, 60, getHairGump( id ), haircolor )
-
-		beard = char.itemonlayer( 16 )
-		if beard:
-			gumpid = getBeardGump( beard.id )
-			if gumpid != 0:
-				gump.addGump( 200, 60, gumpid, beard.color )
-	else:
-		gump.addGump( 200, 60, 0xD, char.skin )
-		gump.addGump( 200, 60, 0xEC3D ) # Boots
-		gump.addGump( 200, 60, 0xC511 ) # Skirt
-		gump.addGump( 200, 60, 0xEC13 ) # Fancy Shirt
-
-		if id != 0:
-			gump.addGump( 200, 60, getHairGump( id )+10000, haircolor )
-
-	# Ok button for this page
-	gump.addButton( 208, 292, 0x850, 0x851, id | 0x4000 ) # 0x4000 = Hair
-	gump.addHtmlGump( 275, 292, 150, 20, '<basefont color="#336699"><u>Price:</u><basefont color="#333333"> %i goldcoins</basefont></basefont>' % prices[ id ] )
-
-# Detail page for a certain beard
-def addBeardPage( char, gump, page, id ):
-	gump.startPage( page )
-	addBeardButtons( gump, page & 0x000F )
-	gump.addResizeGump( 200, 95, 0x2486, 190, 225 )
-
-	beardcolor = getBeardColor( char )
-
-	# Add a colored base body
-	gump.addGump( 200, 60, 0xC, char.skin )
-	gump.addGump( 200, 60, 0xC503 ) # Fancy Shirt
-	gump.addGump( 200, 60, 0xC4FF ) # Long Pants
-	gump.addGump( 200, 60, 0xC52D ) # Boots
-	if id != 0:
-		gump.addGump( 200, 60, getBeardGump( id ), beardcolor )
-
-	hair = char.itemonlayer( LAYER_HAIR )
-	if hair:
-		gumpid = getHairGump( hair.id )
-		if gumpid != 0:
-			gump.addGump( 200, 60, gumpid, hair.color )
-
-	# Ok button for this page
-	gump.addButton( 208, 292, 0x850, 0x851, id | 0x8000 ) # 0x8000 = Beard
-	gump.addHtmlGump( 275, 292, 150, 20, '<basefont color="#336699"><u>Price:</u><basefont color="#333333"> %i goldcoins</basefont></basefont>' % prices[ id ] )
-
-# Get a valid hair color
-def getHairColor( char ):
-	hair = char.itemonlayer( LAYER_HAIR )
-	if hair:
-		return hair.color
-
-	beard = char.itemonlayer( 16 )
-	if beard:
-		return beard.color
-
-	return 0
-
-# Get a valid hair color
-def getBeardColor( char ):
-	beard = char.itemonlayer( 16 )
-	if beard:
-		return beard.color
-
-	hair = char.itemonlayer( LAYER_HAIR )
-	if hair:
-		return hair.color
-
-	return 0
-
-# Buttons for Haircolor Types
-def addHairfarbeButtons( gump, active=0 ):
-	if active == 1:
-		gump.addGump( 40, 101, 0x4BA )
-	else:
-		gump.addPageButton( 40, 101, 0x4B9, 0x4BA, 0x31 )
-	gump.addHtmlGump( 60, 100, 100, 20, u'Hair dye' )
-
-# Buttons for Hair Types
-def addHairButtons( gump, active=0 ):
-	if active == 1:
-		gump.addGump( 40, 101, 0x4BA )
-	else:
-		gump.addPageButton( 40, 101, 0x4B9, 0x4BA, 0x11 )
-	gump.addHtmlGump( 60, 100, 100, 20, 'Short Hair' )
-
-	if active == 2:
-		gump.addGump( 40, 121, 0x4BA )
-	else:
-		gump.addPageButton( 40, 121, 0x4B9, 0x4BA, 0x12 )
-	gump.addHtmlGump( 60, 120, 100, 20, 'Long Hair' )
-
-	if active == 3:
-		gump.addGump( 40, 141, 0x4BA )
-	else:
-		gump.addPageButton( 40, 141, 0x4B9, 0x4BA, 0x13 )
-	gump.addHtmlGump( 60, 140, 100, 20, 'Ponytail' )
-
-	if active == 4:
-		gump.addGump( 40, 161, 0x4BA )
-	else:
-		gump.addPageButton( 40, 161, 0x4B9, 0x4BA, 0x14 )
-	gump.addHtmlGump( 60, 160, 100, 20, 'Mohawk' )
-
-	if active == 5:
-		gump.addGump( 40, 181, 0x4BA )
-	else:
-		gump.addPageButton( 40, 181, 0x4B9, 0x4BA, 0x15 )
-	gump.addHtmlGump( 60, 180, 100, 20, 'Pageboy' )
-
-	if active == 6:
-		gump.addGump( 40, 201, 0x4BA )
-	else:
-		gump.addPageButton( 40, 201, 0x4B9, 0x4BA, 0x16 )
-	gump.addHtmlGump( 60, 200, 100, 20, 'Buns hair' )
-
-	if active == 7:
-		gump.addGump( 40, 221, 0x4BA )
-	else:
-		gump.addPageButton( 40, 221, 0x4B9, 0x4BA, 0x17 )
-	gump.addHtmlGump( 60, 220, 100, 20, 'Afro' )
-
-	if active == 8:
-		gump.addGump( 40, 241, 0x4BA )
-	else:
-		gump.addPageButton( 40, 241, 0x4B9, 0x4BA, 0x18 )
-	gump.addHtmlGump( 60, 240, 100, 20, 'Receding hair' )
-
-	if active == 9:
-		gump.addGump( 40, 261, 0x4BA )
-	else:
-		gump.addPageButton( 40, 261, 0x4B9, 0x4BA, 0x19 )
-	gump.addHtmlGump( 60, 260, 100, 20, '2 pig-tails' )
-
-	if active == 10:
-		gump.addGump( 40, 281, 0x4BA )
-	else:
-		gump.addPageButton( 40, 281, 0x4B9, 0x4BA, 0x1A )
-	gump.addHtmlGump( 60, 280, 100, 20, 'Krisna Hair' )
-
-	if active == 11:
-		gump.addGump( 40, 301, 0x4BA )
-	else:
-		gump.addPageButton( 40, 301, 0x4B9, 0x4BA, 0x1B )
-	gump.addHtmlGump( 60, 300, 100, 20, 'None' )
-
-# Buttons for Beard Types
-def addBeardButtons( gump, active=0 ):
-	if active == 1:
-		gump.addGump( 40, 101, 0x4BA )
-	else:
-		gump.addPageButton( 40, 101, 0x4B9, 0x4BA, 0x21 )
-	gump.addHtmlGump( 60, 100, 100, 20, 'Long Beard' )
-
-	if active == 2:
-		gump.addGump( 40, 121, 0x4BA )
-	else:
-		gump.addPageButton( 40, 121, 0x4B9, 0x4BA, 0x22 )
-	gump.addHtmlGump( 60, 120, 100, 20, 'Short Beard' )
-
-	if active == 3:
-		gump.addGump( 40, 141, 0x4BA )
-	else:
-		gump.addPageButton( 40, 141, 0x4B9, 0x4BA, 0x23 )
-	gump.addHtmlGump( 60, 140, 100, 20, 'Goatee' )
-
-	if active == 4:
-		gump.addGump( 40, 161, 0x4BA )
-	else:
-		gump.addPageButton( 40, 161, 0x4B9, 0x4BA, 0x24 )
-	gump.addHtmlGump( 60, 160, 100, 20, 'Mustache' )
-
-	if active == 5:
-		gump.addGump( 40, 181, 0x4BA )
-	else:
-		gump.addPageButton( 40, 181, 0x4B9, 0x4BA, 0x25 )
-	gump.addHtmlGump( 60, 180, 100, 20, 'Med Short Beard' )
-
-	if active == 6:
-		gump.addGump( 40, 201, 0x4BA )
-	else:
-		gump.addPageButton( 40, 201, 0x4B9, 0x4BA, 0x26 )
-	gump.addHtmlGump( 60, 200, 100, 20, 'Med Long Beard' )
-
-	if active == 7:
-		gump.addGump( 40, 221, 0x4BA )
-	else:
-		gump.addPageButton( 40, 221, 0x4B9, 0x4BA, 0x27 )
-	gump.addHtmlGump( 60, 220, 100, 20, 'Vandyke' )
-
-	if active == 8:
-		gump.addGump( 40, 241, 0x4BA )
-	else:
-		gump.addPageButton( 40, 241, 0x4B9, 0x4BA, 0x28 )
-	gump.addHtmlGump( 60, 240, 100, 20, 'None' )
-
-beards = {
-		0x203E: 0xC671,
-		0x203F: 0xC672,
-		0x2040: 0xC670,
-		0x2041: 0xC673,
-		0x204B: 0xC6D8,
-		0x204C: 0xC6D9,
-		0x204D: 0xC6DA
-		}
-
-def getBeardGump( id ):
-	if beards.has_key( id ):
-		return beards[ id ]
-	else:
-		return 0
-
-hairs = {
-		0x203B: 0xC60C,
-		0x203C: 0xC60D,
-		0x203D: 0xC60E,
-		0x2044: 0xC60F,
-		0x2045: 0xC616,
-		0x2046: 0xC618,
-		0x2047: 0xC6D4,
-		0x2048: 0xC6D5,
-		0x2049: 0xC6D6,
-		0x204A: 0xC6D7
-		}
-
-def getHairGump( id ):
-	if hairs.has_key( id ):
-		return hairs[ id ]
-	else:
-		return 0
-
-
-### Callback
-def gump_callback( char, args, response ):
+def gump_response(char, arguments, response):
+	vendor = wolfpack.findchar(arguments[0])
+	if not vendor or vendor.distanceto(char) > 4:
+		return
+	
 	if response.button == 0:
 		return
-
-	# Check if the vendor is ok
-	vendor = wolfpack.findchar( args[0] )
-
-	if not vendor:
+		
+	if response.button > len(sellList):		
 		return
+		
+	item = sellList[response.button - 1]
 
-	if vendor.distanceto( char ) > 5:
-		vendor.say( "I can't cut your hair from here!" )
-		char.socket.sysmessage( "You can't reach the vendor." )
+	female = char.id == 0x191	
+	gold = char.getbackpack().countitems(['eed'])
+	gold += char.getbankbox().countitems(['eed'])
+		
+	# Check if we can afford it
+	if female and item[2]:
+		vendor.say(1010639, "", "", False, vendor.saycolor, char.socket)
 		return
-
-	type = response.button & 0xF000
-
-	id = response.button & 0x0FFF
-
-	if (id <> 0x0e27) and not id == 0x0000:
-		id = id | 0x2000
-
-	if not prices.has_key( id ):
-		vendor.say( "I can't cut your hair in this way!" )
+		
+	if item[1] > gold and not char.gm:
+		vendor.say(1042293, "", "", False, vendor.saycolor, char.socket)
 		return
-
-	price = prices[ id ]
-
-	if char.countresource( 0xeed, 0 ) < price:
-		vendor.say( "You don't have enough money!" )
-		return
-
-	char.useresource( price, 0xeed, 0 )
-	char.soundeffect( 0x37, 0 )
-	vendor.say( "That makes %i gold coins." % price )
-
-	color = 0
-
-	# Hairfarbe
-	if type == 0x2000:
-		backpack = char.getbackpack()
-		item = wolfpack.additem( "e27" )
-		backpack.additem( item )
-		item.update()
-
-	# Hair
-	if type == 0x6000 or type == 0x4000:
-		# Remove old hair
-		color = getHairColor( char )
-		hair = char.itemonlayer( LAYER_HAIR )
-		if hair:
-			hair.delete()
-
-	# Beard
-	elif type == 0xa000 or type == 0x8000:
-		if char.id == 0x191:
-			char.socket.sysmessage( "You can't get a beard." )
-			return
-
-		# Remove old beard
-		color = getBeardColor( char )
-		beard = char.itemonlayer( 16 )
-		if beard:
-			beard.delete()
-
-	else:
-		return
-
-	# None
-	if id == 0:
-		return
-
-	item = wolfpack.additem( "%x" % id )
-	if not item:
-		char.message( "Invalid defintion: %x\n" % id )
-		return
-
-	item.color = color
-	char.equip( item )
-
+		
+	item[3](vendor, char, item, item[4])
