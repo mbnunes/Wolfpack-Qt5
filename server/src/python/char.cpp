@@ -1580,24 +1580,21 @@ static PyObject* wpChar_cansee( wpChar *self, PyObject *args )
 		return PyFalse;
 
 	PyObject *object = 0;
-	unsigned int touch = 1;
 
-	if( !PyArg_ParseTuple( args, "O|i:char.cansee( [char,item], [lineofsight] )", &object, &touch ) )
+	if (!PyArg_ParseTuple(args, "O:char.cansee([char,item])", &object))
 		return 0;
 
 	bool result = false;
 
 	// Item
 	if (checkWpItem(object)) {
-		result = self->pChar->canSee(getWpItem(object), touch != 0);
+		result = self->pChar->canSee(getWpItem(object));
 
 	// Char
 	} else if (checkWpChar(object)) {
-		result = self->pChar->canSee(getWpChar(object), touch != 0);
-	} else if (checkWpCoord(object)) {
-		result = getWpCoord(object).lineOfSight(self->pChar->pos(), touch != 0);
+		result = self->pChar->canSee(getWpChar(object));
 	} else {
-		PyErr_SetString(PyExc_RuntimeError, "Argument types required: char, item or coordinate.");
+		PyErr_SetString(PyExc_TypeError, "Argument types required: char, item");
 		return 0;
 	}
 

@@ -3,7 +3,8 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//  Copyright 2001-2004 by holders identified in authors.txt
+//	Copyright 1997, 98 by Marcus Rating (Cironian)
+//  Copyright 2001-2003 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -58,6 +59,7 @@ public:
 	unsigned int distance( const Coord_cl &src) const;
 	unsigned char direction( const Coord_cl &dest ) const;
 	bool lineOfSight( const Coord_cl &target, bool touch = false );
+	bool lineOfSight( const Coord_cl &target, UI16 targethight, bool touch = false );
 	static UI32 distance ( const Coord_cl &a, const Coord_cl &b );
 
 	/*!
@@ -66,6 +68,9 @@ public:
 	void effect( UI16 id, UI08 speed = 10, UI08 duration = 5, UI16 hue = 0, UI16 renderMode = 0 );
 	
 	static Coord_cl null;
+
+private:
+	double specialFloor( const double value ) const;
 
 public:
 	UI16 	x;

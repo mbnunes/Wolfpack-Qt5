@@ -65,9 +65,15 @@ struct tile_st
 	bool isWet() const;
 	bool isBlocking() const;
 	bool isRoofOrFloorTile() const;
+	bool isNoShoot() const;
 };
 
 // Inline Methods
+inline bool tile_st::isNoShoot() const
+{
+	return flag2 & 0x20;
+}
+
 inline bool tile_st::isWet() const
 {
 	return flag1 & 0x80;

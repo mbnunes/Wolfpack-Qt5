@@ -2663,34 +2663,34 @@ void cUOSocket::log( eLogLevel loglevel, const QString &message )
 	Log::instance()->print( loglevel, this, message );
 }
 
-bool cUOSocket::canSee(cUOSocket *socket, bool lineOfSight) {
+bool cUOSocket::canSee(cUOSocket *socket) {
 	if (!socket || !socket->player() || !_player) {
 		return false;
 	} else {
-		return _player->canSee(socket->player(), lineOfSight);
+		return _player->canSee(socket->player());
 	}
 }
 
-bool cUOSocket::canSee(P_ITEM item, bool lineOfSight) {
+bool cUOSocket::canSee(P_ITEM item) {
 	if (!item || !_player) {
 		return false;
 	} else {
-		return _player->canSeeItem(item, lineOfSight);
+		return _player->canSeeItem(item);
 	}
 }
 
-bool cUOSocket::canSee(P_CHAR character, bool lineOfSight) {
+bool cUOSocket::canSee(P_CHAR character) {
 	if (!character || !_player) {
 		return false;
 	} else {
-		return _player->canSeeChar(character, lineOfSight);
+		return _player->canSeeChar(character);
 	}
 }
 
-bool cUOSocket::canSee(cUObject *object, bool lineOfSight) {
+bool cUOSocket::canSee(cUObject *object) {
 	if (!object || !_player) {
 		return false;
 	} else {
-		return _player->canSee(object, lineOfSight);
+		return _player->canSee(object);
 	}
 }

@@ -183,8 +183,8 @@ public:
 	// pets
 	void addPet( P_NPC pPet, bool noOwnerChange = false );	
 	void removePet( P_NPC pPet, bool noOwnerChange = false );
-	bool canSeeChar(P_CHAR character, bool lineOfSight = false);
-	bool canSeeItem(P_ITEM item, bool lineOfSight = false);
+	bool canSeeChar(P_CHAR character);
+	bool canSeeItem(P_ITEM item);
 
 	// cPythonScriptable inherited methods
 	PyObject *getPyObject();

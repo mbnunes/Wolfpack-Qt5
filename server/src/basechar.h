@@ -103,9 +103,12 @@ public:
 	// other methods
 	virtual uchar notoriety( P_CHAR pChar ) = 0; // Gets the notoriety towards another char
 
-	bool canSee(cUObject *object, bool lineOfSight = false);
-	virtual bool canSeeChar(P_CHAR character, bool lineOfSight = false);
-	virtual bool canSeeItem(P_ITEM item, bool lineOfSight = false);
+	bool canSee(cUObject *object);
+	virtual bool canSeeChar(P_CHAR character);
+	virtual bool canSeeItem(P_ITEM item);
+	bool lineOfSight(P_ITEM item, bool touch = false);
+	bool lineOfSight(Coord_cl position, bool touch = false);
+	bool lineOfSight(P_CHAR character, bool touch = false);
 
 	/*!
 		\brief This enumeration contains values that specify what events should be processed

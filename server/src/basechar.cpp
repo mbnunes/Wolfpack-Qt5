@@ -2317,22 +2317,22 @@ bool cBaseChar::kill(cUObject *source)
 	return true;
 }
 
-bool cBaseChar::canSee(cUObject *object, bool lineOfSight) 
+bool cBaseChar::canSee(cUObject *object)
 {
 	P_ITEM item = dynamic_cast<P_ITEM>(object);
 
 	if (item) 
-		return canSeeItem(item, lineOfSight);
+		return canSeeItem(item);
 
 	P_CHAR character = dynamic_cast<P_CHAR>(object);
 
 	if (character) 
-		return canSeeChar(character, lineOfSight);
+		return canSeeChar(character);
 
 	return false;
 }
 
-bool cBaseChar::canSeeChar(P_CHAR character, bool lineOfSight) 
+bool cBaseChar::canSeeChar(P_CHAR character) 
 {
 	if (character != this) 
 	{
@@ -2358,7 +2358,7 @@ bool cBaseChar::canSeeChar(P_CHAR character, bool lineOfSight)
 	return true;
 }
 
-bool cBaseChar::canSeeItem(P_ITEM item, bool lineOfSight) 
+bool cBaseChar::canSeeItem(P_ITEM item) 
 {
 	if (!item) 
 		return false;
@@ -2370,13 +2370,10 @@ bool cBaseChar::canSeeItem(P_ITEM item, bool lineOfSight)
 
 	// Check for container
 	if (item->container()) 
-		return canSee(item->container(), lineOfSight);
+		return canSee(item->container());
 	else 
 	{
 		if (pos_.distance(item->pos()) > VISRANGE) 
-			return false;
-
-		if (lineOfSight && !pos_.lineOfSight(item->pos())) 
 			return false;
 	}
 
@@ -2668,7 +2665,7 @@ void cBaseChar::poll(unsigned int time, unsigned int events)
 				return;
 
 			// Can we see our target?
-			if (!canSee(attackTarget_, true))
+			if (!canSee(attackTarget_) || (range > 1 && !lineOfSight(attackTarget_, false)))
 				return;
 	
 			cPythonScript *global = ScriptManager::instance()->getGlobalHook(EVENT_SWING);
@@ -2690,4 +2687,30 @@ void cBaseChar::refreshMaximumValues()
 
 	maxStamina_ = QMAX(1, dexterity_ + dexterityMod_ + staminaBonus_);
 	maxMana_ = QMAX(1, intelligence_ + intelligenceMod_ + manaBonus_);
+}
+
+bool cBaseChar::lineOfSight(P_CHAR target, bool touch)
+{
+	if (target == this) 
+	{
+		return true;
+	}
+
+	Coord_cl eyes = pos_ + Coord_cl( 0, 0, 15 );
+	return eyes.lineOfSight(target->pos(), 15, touch);
+}
+
+bool cBaseChar::lineOfSight(P_ITEM target, bool touch)
+{
+	tile_st tile = TileCache::instance()->getTile( target->id() );
+	Coord_cl eyes = pos_ + Coord_cl(0, 0, 15);
+
+	return eyes.lineOfSight(target->pos(), tile.height, touch);
+}
+
+bool cBaseChar::lineOfSight(Coord_cl target, bool touch)
+{
+	Coord_cl eyes = pos_ + Coord_cl( 0, 0, 15 );
+	
+	return eyes.lineOfSight(target, 0, touch);
 }

@@ -1322,7 +1322,7 @@ void cPlayer::log( const QString &string )
 	log( LOG_NOTICE, string );
 }
 
-bool cPlayer::canSeeChar(P_CHAR character, bool lineOfSight) {
+bool cPlayer::canSeeChar(P_CHAR character) {
 	if (character != this) {
 		if (!character || character->free) {
 			return false;
@@ -1378,7 +1378,7 @@ bool cPlayer::canSeeChar(P_CHAR character, bool lineOfSight) {
 	return true;
 }
 
-bool cPlayer::canSeeItem(P_ITEM item, bool lineOfSight) {
+bool cPlayer::canSeeItem(P_ITEM item) {
 	if (!item) {
 		return false;
 	}
@@ -1398,20 +1398,14 @@ bool cPlayer::canSeeItem(P_ITEM item, bool lineOfSight) {
 		P_ITEM container = dynamic_cast<P_ITEM>(item->container());
 
 		if (container) {
-			return canSeeItem(container, lineOfSight);
+			return canSeeItem(container);
 		} else {
 			P_CHAR character = dynamic_cast<P_CHAR>(item->container());
-			return canSeeChar(character, lineOfSight);
+			return canSeeChar(character);
 		}		
 	} else {
 		if (pos_.distance(item->pos()) > visualRange()) {
 				return false;
-		}
-
-		if (lineOfSight && !pos_.lineOfSight(item->pos())) {
-			if (!isGM()) {
-				return false;
-			}
 		}
 	}
 

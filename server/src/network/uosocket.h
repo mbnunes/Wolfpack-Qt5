@@ -249,10 +249,10 @@ public:
 	void log( eLogLevel loglevel, const QString &message );
 	void log( const QString &message );
 
-	bool canSee(cUOSocket *socket, bool lineOfSight = false);
-	bool canSee(P_ITEM item, bool lineOfSight = false);
-	bool canSee(P_CHAR character, bool lineOfSight = false);
-	bool canSee(cUObject *object, bool lineOfSight = false);
+	bool canSee(cUOSocket *socket);
+	bool canSee(P_ITEM item);
+	bool canSee(P_CHAR character);
+	bool canSee(cUObject *object);
 
 	void allowMove( Q_UINT8 sequence );
 	void denyMove( Q_UINT8 sequence );
