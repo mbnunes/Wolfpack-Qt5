@@ -438,10 +438,10 @@ void cUObject::processNode( const cElement *Tag )
 	// <events>a,b,c</events>
 	else if( TagName == "events" )
 	{
-		if( Value.isEmpty() )
+		if( Value.isEmpty() && eventList_.isEmpty() )
 			eventList_ = QString::null;
 		else
-			eventList_ = Value;
+			eventList_ = eventList_.isEmpty() ? Value : eventList_ + "," + Value;
 
 		recreateEvents();
 	}
@@ -797,3 +797,4 @@ void cUObject::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
 	tooltip.setSerial(serial_);
 	tooltip.setId(tooltip_);
 }
+

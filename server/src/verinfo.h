@@ -3,8 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//	Copyright 1997, 98 by Marcus Rating (Cironian)
-//  Copyright 2001-2003 by holders identified in authors.txt
+//	Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -156,11 +155,7 @@ struct wp_version_info
 
 		   timezonestring = "GMT+1";   // your timezone
 
-		   #ifdef __unix__
-             compiledbystring = "Wolfpack" ;	// person that compiled linux version
-           #else
              compiledbystring = "Wolfpack" ;	// person that compiled windows version
-           #endif
            codersstring = "Wolfpack Developers"; // Keep in alphabetic order.
 
            emailstring = "http://www.wpdev.org/";		  
@@ -197,3 +192,4 @@ struct wp_version_info
 extern wp_version_info wp_version;
 
 #endif
+

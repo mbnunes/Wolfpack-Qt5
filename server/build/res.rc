@@ -96,7 +96,7 @@ BEGIN
             VALUE "CompanyName", "Wolfpack Development Team"
             VALUE "FileDescription", "Ultima Online Server Emulator"
             VALUE "FileVersion", "12, 9, 4, 0"
-            VALUE "LegalCopyright", "© 2002-2003 Wolfpack Dev. Team"
+            VALUE "LegalCopyright", "© 2001-2004 Wolfpack Dev. Team"
             VALUE "OriginalFilename", "wolfpack.exe"
             VALUE "ProductName", "Wolfpack Emu"
             VALUE "ProductVersion", "13, 0, 0, 0"
