@@ -102,6 +102,10 @@ private:
 	QPtrList< cUOSocket > loginSockets;
 	cAsyncNetIO *netIo_;
 	cListener *listener_;
+
+	// junk
+	UOXSOCKET getuoSocketsIndex( cUOSocket* );
+	friend UOXSOCKET calcSocketFromChar(P_CHAR);
 };
 
 // Helper Function

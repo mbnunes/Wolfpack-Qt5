@@ -56,9 +56,6 @@ cAsyncNetIO* netio;
 // Library Includes
 #include "qstringlist.h"
 
-#define PACKET_LEN_DYNAMIC	0x0000
-#define PACKET_LEN_NONE		0xffff
-
 #undef  DBGFILE
 #define DBGFILE "Network.cpp"
 
@@ -73,6 +70,8 @@ cNetwork *cNetwork::instance_;
 
 cNetwork::cNetwork( void )
 {
+	loginSockets.setAutoDelete( true );
+	uoSockets.setAutoDelete( true );
 	listener_ = new cListener( SrvParams->port() );
 	netIo_ = new cAsyncNetIO;
 
@@ -150,9 +149,9 @@ void cNetwork::xSend( int s, const void *point, int length, int test) // Bufferi
 
 	QByteArray data( length );
 	memcpy( data.data(), point, length );
-	cUOPacket *packet = new cUOPacket( data );
+	cUOPacket packet( data );
 
-	socket->send( packet );
+	socket->send( &packet );
 }
 
 // Load IP Blocking rules
@@ -171,6 +170,13 @@ void cNetwork::reload( void )
 void cNetwork::unload( void )
 {
 	hosts_deny.clear();
+}
+
+// This is junk code to interface with the old junk code. Don't relay on that.
+// It's ugly and slower.
+UOXSOCKET cNetwork::getuoSocketsIndex( cUOSocket* data )
+{
+	return uoSockets.findRef( data );	
 }
 
 /*void cNetworkStuff::Disconnect (int s) // Force disconnection of player //Instalog
@@ -1868,15 +1874,9 @@ bool cNetworkStuff::CheckPacket(UOXSOCKET s, unsigned char packetnumber, int len
 
 UOXSOCKET calcSocketFromChar(P_CHAR pc)
 {
-	if (pc == NULL || pc->npc)
+	if ( !pc || !pc->socket() || pc->npc )
 	{
 		return -1;
 	}
-	register int j;
-	for (j = 0; j < now; ++j)
-	{
-		if (currchar[j] == pc && perm[j]) 
-			return j;
-	}
-	return -1;
+	return cNetwork::instance()->getuoSocketsIndex( pc->socket() );
 }

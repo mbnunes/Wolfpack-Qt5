@@ -259,6 +259,7 @@ public:
 	}
 };
 
+// 0x02 Walk Request.
 class cUORxWalkRequest : public cUOPacket
 {
 public:

@@ -298,6 +298,7 @@ void cUOSocket::playChar( P_CHAR pChar )
 	send( &gameTime );
 
 	// We're now playing this char:
+	pChar->setSocket( this );
 	_player = pChar;
 	_state  = InGame;
 }

@@ -2428,15 +2428,8 @@ int main( int argc, char *argv[] )
 	int r;
 	uiCurrentTime = serverstarttime = getNormalizedTime();
 
-#ifndef __unix__
-	clearscreen();
-	QString os( "WIN32" );
-#else
-	QString os( "LINUX" );
-#endif
-
 	// Print a seperator somehow
-	clConsole.send( QString( "\n%1 %2 %3 [%4]\n\n" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() ).arg( os ) );
+	clConsole.send( QString( "\n%1 %2 %3 \n\n" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() ) );
 
 	clConsole.send( "Copyright (C) 1997, 98 Marcus Rating (Cironian)\n");
 	clConsole.send( "This program is free software; you can redistribute it and/or modify\n");
@@ -2453,10 +2446,6 @@ int main( int argc, char *argv[] )
 	#ifndef __unix__
 		QString consoleTitle = QString( "%1 %2 %3" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() );
 		SetConsoleTitle( consoleTitle.latin1() );
-
-		// Initialize WIP (Whatever that is for)
-		if( !WIP_Init() )
-			clConsole.send( "WIP not startet. WIP Clients unavailable." );
     #endif
 
 	StartClasses();
@@ -5519,7 +5508,7 @@ void StartClasses(void)
 	clConsole.ProgressDone();
 }
 
-void DeleteClasses(void)
+void DeleteClasses()
 {
 	//Weather->kill();
 	delete SrvParams;

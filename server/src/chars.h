@@ -269,6 +269,7 @@ protected:
 	bool					med_; // 0=not meditating, 1=meditating //Morrolan - Meditation 
 	unsigned short  		baseSkill_[ALLSKILLS+1]; // Base skills without stat modifiers
 	unsigned short  		skill_[ALLSKILLS+1]; // List of skills (with stat modifiers)
+	cUOSocket*				socket_;
 
 	
 	unsigned char			priv;	// 1:GM clearance, 2:Broadcast, 4:Invulnerable, 8: single click serial numbers
@@ -392,6 +393,7 @@ public:
 	bool					med() const { return med_;}
 	unsigned short			baseSkill( int v ) const { return baseSkill_[v]; }
 	unsigned short			skill( int v ) const {return skill_[v];} // List of skills (with stat modifiers)
+	cUOSocket*				socket() const { return socket_; }
 
 	
 	// Setters
@@ -500,6 +502,8 @@ public:
 	void					setMed( bool data ) { med_ = data;}
 	void					setBaseSkill( int s, unsigned short v) { baseSkill_[s] = v; }
 	void					setSkill( int s, unsigned short v) { skill_[s] = v;}
+	void					setSocket( cUOSocket* data ) { socket_ = data; }
+
 	
 	short effDex()				{return dx+tmpDex>0 ? dx+tmpDex : 0;}	// returns current effective Dexterity
 	short realDex()				{return dx;}	// returns the true Dexterity
