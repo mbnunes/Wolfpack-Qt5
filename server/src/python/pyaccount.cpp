@@ -222,8 +222,11 @@ static PyObject *wpAccount_getAttr( wpAccount *self, char *name )
 		else
 			return PyFalse;
 	}
-	else
+	else if(!strcmp(name,"plevel")) {
+		return PyInt_FromLong(self->account->plevel());
+	} else {
 		return Py_FindMethod( wpAccountMethods, (PyObject*)self, name );
+	}
 }
 
 static int wpAccount_setAttr( wpAccount *self, char *name, PyObject *value )
