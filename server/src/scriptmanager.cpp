@@ -64,22 +64,19 @@ cScriptManager::~cScriptManager()
 cPythonScript* cScriptManager::find( const QCString &name )
 {
 	cScriptManager::iterator it = scripts.find( name );
-	
+
 	if ( it != scripts.end() )
 		return it.data();
 	else
 		return 0;
 }
 
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
-
 void cScriptManager::reload( void )
 {
 	changeServerState(SCRIPTRELOAD);
 
 	ContextMenus::instance()->unload();
-	
+
 	// First unload, then reload
 	unload();
 
@@ -89,16 +86,16 @@ void cScriptManager::reload( void )
 
 	load();
 
-	// After reloading all scripts we *need* to recreate all script-pointers 
+	// After reloading all scripts we *need* to recreate all script-pointers
 	// assigned to scripted items and characters
 	// because all of them got invalidated while relaoding
 	cItemIterator iter_items;
-	
+
 	for( P_ITEM pItem = iter_items.first(); pItem; pItem = iter_items.next() )
 		pItem->recreateEvents();
 
 	cCharIterator iter_chars;
-	
+
 	for( P_CHAR pChar = iter_chars.first(); pChar; pChar = iter_chars.next() )
 		pChar->recreateEvents();
 
@@ -113,7 +110,7 @@ void cScriptManager::unload() {
 	cUOSocket::clearPacketHandlers();
 
 	cScriptManager::iterator it;
-	
+
 	for (it = scripts.begin(); it != scripts.end(); ++it) {
 		it.data()->unload();
 		delete it.data();
@@ -143,10 +140,10 @@ void cScriptManager::load()
 
 	unsigned int loaded = 0;
 	unsigned int i;
-	
+
 	for (i = 0; i < sections.size(); ++i) {
 		const cElement *element = sections[i];
-		
+
 		if (scripts.contains(element->text().latin1())) {
 			Console::instance()->log(LOG_WARNING, QString("Duplicate Script: %1").arg(element->text()));
 			continue;
