@@ -1023,7 +1023,7 @@ static PyObject* wpChar_updatehealth( wpChar* self, PyObject* args )
 /*
 	\method char.updatemana
 	\description Update the minimum and maximum mana of this character. 
-	This function only has an effect for connected players. The change will 
+	This method only has an effect for connected players. The change will 
 	also be visible to party members of the player.
 */
 static PyObject* wpChar_updatemana( wpChar* self, PyObject* args )
@@ -1045,7 +1045,7 @@ static PyObject* wpChar_updatemana( wpChar* self, PyObject* args )
 /*
 	\method char.updatestamina
 	\description Update the minimum and maximum stamina of this character. 
-	This function only has an effect for connected players. The change will 
+	This method only has an effect for connected players. The change will 
 	also be visible to party members of the player.
 */
 static PyObject* wpChar_updatestamina( wpChar* self, PyObject* args )
@@ -1266,8 +1266,24 @@ static PyObject* wpChar_getbackpack( wpChar* self, PyObject* args )
 	return PyGetItemObject( self->pChar->getBackpack() );
 }
 
-/*!
-	Shows a moving effect moving toward a given object or coordinate.
+/*
+	\method char.movingeffect
+	\description Shows an effect that moves from the character toward another object or location.
+	\param id The effect item id.
+	\param target The effect target. May either be an item, a character or a coord object.
+	\param fixeddirection Defaults to true.
+	If false, the animated object will turn towards the target. This is used
+	for arrows, fireballs and similar effects.
+	\param explodes Defaults to false.
+	If this is true, an explosion will be shown when the effect reaches 
+	its target.
+	\param speed Defaults to 10.
+	This is the speed of the moving effect.
+	\param color Defaults to 0.
+	This is the color of the moving effect.
+	\param rendermode Defaults to 0.
+	This is a special rendermode for the moving effect.
+	Valid values are unknown.
 */
 static PyObject* wpChar_movingeffect(wpChar* self, PyObject* args) {
 	PyObject *target;
@@ -1299,11 +1315,23 @@ static PyObject* wpChar_movingeffect(wpChar* self, PyObject* args) {
 		return 0;
 	}
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Shows an effect staying with this character.
+/*
+	\method char.effect
+	\description Show an effect that moves along with the character.
+	\param id The effect item id.
+	\param speed Defaults to 5.
+	This is the animation speed of the effect.
+	\param duration Defaults to 10.
+	This is how long the effect should be visible.
+	\param hue Defaults to 0.
+	This is the color for the effect.
+	\param rendermode Defaults to 0.
+	This is a special rendermode for the effect.
+	Valid values are unknown.
 */
 static PyObject* wpChar_effect( wpChar* self, PyObject* args )
 {
@@ -1323,26 +1351,36 @@ static PyObject* wpChar_effect( wpChar* self, PyObject* args )
 	UINT8 duration = 10;
 	UINT16 hue = 0;
 	UINT16 renderMode = 0;
+
+	if (!PyArg_ParseTuple(args, 
+		"H|BBHH:char.effect(id, [speed], [duration], [hue], [rendermode])", 
+		&id, &speed, &duration, &hue, &renderMode)) {
+		return 0;
+	}
 	
-	if( checkArgInt( 1 ) )
-		speed = getArgInt( 1 );
-
-	if( checkArgInt( 2 ) )
-		duration = getArgInt( 2 );
-
-	if( checkArgInt( 3 ) )
-		hue = getArgInt( 3 );
-
-	if( checkArgInt( 4 ) )
-		renderMode = getArgInt( 4 );
-
 	self->pChar->effect( id, speed, duration, hue, renderMode );
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Adds a temp effect to this character.
+/*
+	\method char.dispel
+	\description Dispels all effects on this character marked as dispellable.
+*/
+/*
+	\method char.dispel
+	\description Dispel a certain kind of effect.
+	\param source The character who is responsible for dispelling.
+	\param force Defaults to false.
+	If this is true, all effects matching the dispelid will be dispelled,
+	even if they're not marked as dispellable.
+	\param dispelid Defaults to an empty string.
+	If this string is empty, all effects will be affected. Otherwise dispel 
+	will only affect effects that have the given dispel id.
+	\param dispelargs Defaults to an empty list.
+	This list of parameters will be passed on to the dispel callback specified
+	when applying the effect to this character.
 */
 static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 {
@@ -1410,11 +1448,39 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 		}
 	}
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Adds a temp effect to this character.
+/*
+	\method char.addtimer
+	\description Add a timed effect to this character.
+	\param expiretime The time in miliseconds until this effect expires and the given expire function is called.
+	\param expirecallback The full name of the function (preceding the name of the script and modules it is in) that should be called 
+	when the effect expires. The prototype for this function is:
+	<code>def expire_callback(char, args):
+		&nbsp;&nbsp;pass</code>
+	Char is the character the effect was applied to. Args is the list of custom arguments you passed to addtimer.
+	\param arguments A list of arguments that should be passed on to the effect. Please note that you should only pass on 
+	strings, integers and floats because they are the only objects that can be saved to the worldfile. If you want to pass on
+	items or characters, please pass the serial instead and use the findchar and finditem functions in the <library id="wolfpack">wolfpack</library>
+	library.
+	\param serializable Defaults to false. 
+	If this is true, the effect will be saved to the worldfile as well. Otherwise the effect will be lost when the server is
+	shutted down or crashes.
+	\param dispellable Defaults to false.
+	This flag indicates that the effect can be dispelled by a normal dispel spell.
+	\param dispelname Defaults to an empty string.
+	This string is an identifier you need to specify if you later want to dispel this specific effect. It should be an identifier
+	unique to this type of effect.
+	\param dispelcallback Defaults to an empty string.
+	Like the expirecallback this string is the full name of a function including script and modules it may be in. It's called when the 
+	effect is dispelled by any means. The prototype for this function is:	
+	<code>def dispel_callback(char, args, source, dispelargs):
+		&nbsp;&nbsp;pass</code>
+	Char is the character the effect was applied to, args are the custom arguments you passed to addtimer. 
+	Source is the character responsible for the dispelling of the effect, but may also be None. For a 
+	description of dispelargs see the description of the dispel method.
 */
 static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 {
@@ -1458,11 +1524,18 @@ static PyObject* wpChar_addtimer( wpChar* self, PyObject* args )
 	effect->setExpiretime_ms( expiretime );
 	TempEffects::instance()->insert( effect );
 
-	return PyFalse;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Checks if we can stand at a certain point.
+/*
+	\method char.maywalk
+	\description Check if the character could walk from his present location to the given coordinates.
+	\param x The x component of the coordinate.
+	\param y The y component of the coordinate.
+	\param z The z component of the coordinate.
+	\param map The map component of the coordinate.
+	\return True if the character can walk there, false otherwise.
 */
 static PyObject* wpChar_maywalk( wpChar* self, PyObject* args )
 {
@@ -1488,8 +1561,10 @@ static PyObject* wpChar_maywalk( wpChar* self, PyObject* args )
 		return PyTrue;
 }
 
-/*!
-	Are we criminal.
+/*
+	\method char.iscriminal
+	\description Check if the character is a criminal.
+	\return True if the character is criminal, false otherwise.
 */
 static PyObject* wpChar_iscriminal( wpChar* self, PyObject* args )
 {
@@ -1500,6 +1575,10 @@ static PyObject* wpChar_iscriminal( wpChar* self, PyObject* args )
 	return self->pChar->isCriminal() ? PyTrue : PyFalse;
 }
 
+/*
+	\method char.delete
+	\description Delete the character.
+*/
 static PyObject* wpChar_delete( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
@@ -1510,8 +1589,10 @@ static PyObject* wpChar_delete( wpChar* self, PyObject* args )
 	return Py_None;
 }
 
-/*!
-	Are we a murderer.
+/*
+	\method char.ismurderer
+	\description Check if the character is a murderer.
+	\return True if the character is a murderer, false otherwise.
 */
 static PyObject* wpChar_ismurderer( wpChar* self, PyObject* args )
 {
@@ -1522,8 +1603,9 @@ static PyObject* wpChar_ismurderer( wpChar* self, PyObject* args )
 	return self->pChar->isMurderer() ? PyTrue : PyFalse;
 }
 
-/*!
-	Make this character criminal.
+/*
+	\method char.criminal
+	\description Flag the player as a criminal. This method only works for players and does nothing for NPCs.
 */
 static PyObject* wpChar_criminal( wpChar* self, PyObject* args )
 {
@@ -1533,26 +1615,22 @@ static PyObject* wpChar_criminal( wpChar* self, PyObject* args )
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 
-	if ( !player )
-		return PyFalse;
+	if (!player) {
+		Py_INCREF(Py_None);
+		return Py_None;
+	}
 
 	player->makeCriminal();
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Are we dead.
+/*
+	\method char.fight
+	\description Initiate a fight between this character and another.
+	\param target Another character.
 */
-static PyObject* wpChar_isdead( wpChar* self, PyObject* args )
-{
-	Q_UNUSED(args);
-	if( !self->pChar || self->pChar->free )
-		return PyTrue;
-
-	return self->pChar->isDead() ? PyTrue : PyFalse;
-}
-
 static PyObject* wpChar_fight( wpChar* self, PyObject* args ) {
 	if (!checkArgChar(0)) {
 		PyErr_BadArgument();
@@ -1572,8 +1650,11 @@ static PyObject* wpChar_fight( wpChar* self, PyObject* args ) {
 	}
 }
 
-/*!
-	The character should follow someone else.
+/*
+	\method char.follow
+	\description This method only works for NPCs. Let this character
+	follow another player.
+	\param player The player who should be followed.
 */
 static PyObject* wpChar_follow( wpChar* self, PyObject* args )
 {
@@ -1599,11 +1680,14 @@ static PyObject* wpChar_follow( wpChar* self, PyObject* args )
 	npc->setWanderType( enFollowTarget );
 	npc->setWanderFollowTarget( pChar );
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Disturbs whatever this character is doing right now.
+/*
+	\method char.disturb
+	\description This method only works for players. 
+	Disturb the player at whatever he is doing. Meditation for instance.
 */
 static PyObject* wpChar_disturb( wpChar* self, PyObject* args )
 {
@@ -1613,16 +1697,22 @@ static PyObject* wpChar_disturb( wpChar* self, PyObject* args )
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 
-	if ( !player )
-		return PyFalse;
+	if (!player) {
+		Py_INCREF(Py_None);
+		return Py_None;
+	}
 
 	player->disturbMed();
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	The character should follow someone else.
+/*
+	\method char.goto
+	\description This method only works for NPCs. Let the character
+	go to a given position.
+	\param target A coordinate object giving the position the NPC should move to.
 */
 static PyObject* wpChar_goto( wpChar* self, PyObject* args )
 {
@@ -1645,19 +1735,24 @@ static PyObject* wpChar_goto( wpChar* self, PyObject* args )
 
 	P_NPC npc = dynamic_cast<P_NPC>( self->pChar );
 
-	if ( !npc )
-		return PyFalse;
+	if (!npc) {
+		Py_INCREF(Py_None);
+		return Py_None;
+	}
 
 	npc->setWanderType( enDestination );
 	npc->setWanderDestination( pos );
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	This resends the flags of a certain character.
-	Please note that you have to do a socket.resendplayer in addition
-	to this if you want to update the socket itself.
+/*
+	\method char.updateflags
+	\description This method will resend the flags for this character. Please be sure 
+	to only use this if you are sure that the flags have changed. If the flags didn't change
+	and you use this method, all clients in range will see the character walking one 
+	cell forward, although he didn't do serverside.
 */
 static PyObject* wpChar_updateflags( wpChar* self, PyObject* args )
 {
@@ -1667,9 +1762,24 @@ static PyObject* wpChar_updateflags( wpChar* self, PyObject* args )
 
 	self->pChar->update( true );
 	
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
+/*
+	\method char.notoriety
+	\description Calculate the notoriety value toward another character or a generic 
+	notoriety value if no target is given.
+	\param target The character you want to calculate the notoriety value with.
+	\return The notoriety, which is one of the following values:
+	<code>0x01 - Innocent
+	0x02 - Guild ally
+	0x03 - Attackable but not criminal
+	0x04 - Criminal
+	0x05 - Guild enemy
+	0x06 - Murderer
+	0x07 - Invulnerable</code>
+*/
 static PyObject* wpChar_notoriety( wpChar* self, PyObject* args )
 {
 	if (self->pChar->free) {
@@ -1688,9 +1798,14 @@ static PyObject* wpChar_notoriety( wpChar* self, PyObject* args )
 	return PyInt_FromLong(self->pChar->notoriety(target));
 }
 
-/*!
-	Checks if a certain character is able to reach another object. 
-	The second parameter specifies the range the character needs to be in.
+/*
+	\method char.canreach
+	\description Check if the character can reach the given object or coordinate and if he is in
+	within a given range.
+	\param target The object the character wants to reach. This can either be an item, a character or a 
+	coordinate object.
+	\param range The range the character needs to be within.
+	\return True if the character can reach the given object, false otherwise.
 */
 static PyObject* wpChar_canreach( wpChar* self, PyObject* args )
 {
@@ -1753,6 +1868,13 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args )
 	return PyTrue;
 }
 
+/*
+	\method char.canpickup
+	\description Check if the character can pick up a given item. This
+	works only for players.
+	\param item The item the player wants to pick up.
+	\return True if the character can pick up the item. False otherwise.
+*/
 static PyObject* wpChar_canpickup( wpChar* self, PyObject* args )
 {
 	if( self->pChar->free )
@@ -1774,6 +1896,13 @@ static PyObject* wpChar_canpickup( wpChar* self, PyObject* args )
 	return pPlayer->canPickUp( pItem ) ? PyTrue : PyFalse;
 }
 
+/*
+	\method char.cansee
+	\description Check if the character can see another character or an item.
+	This is for checking if the character can see an invisible or hidden object.
+	\param object The object you want to check. This is either an item or a character.
+	\return True if the object can be seen by the player, false otherwise.
+*/
 static PyObject* wpChar_cansee( wpChar *self, PyObject *args )
 {
 	if( self->pChar->free )
@@ -1801,6 +1930,12 @@ static PyObject* wpChar_cansee( wpChar *self, PyObject *args )
 	return result ? PyTrue : PyFalse;
 }
 
+/*
+	\method char.lightning
+	\description Show a lightning animation striking the character.
+	\param hue Defaults to 0.
+	The color of the lightning bolt.
+*/
 static PyObject* wpChar_lightning( wpChar *self, PyObject *args )
 {
 	unsigned short hue = 0;
@@ -1810,9 +1945,14 @@ static PyObject* wpChar_lightning( wpChar *self, PyObject *args )
 
 	self->pChar->lightning( hue );
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
+/*
+	\method char.resendtooltip
+	\description Resend the tooltip of this character to surrounding clients.
+*/
 static PyObject* wpChar_resendtooltip( wpChar *self, PyObject *args )
 {
 	Q_UNUSED(args);
@@ -1820,9 +1960,21 @@ static PyObject* wpChar_resendtooltip( wpChar *self, PyObject *args )
 		return PyFalse;
 
 	self->pChar->resendTooltip();
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
+/*
+	\method char.additem
+	\description Add an item to a certain layer of this player.
+	Normally you should use equip instead.
+	\param layer The layer you want to add the item to.
+	\param item The item you want to add there.
+	\param handleweight Defaults to true.
+	Should the totalweight of the player be modified accordingly.
+	\param noremove Defaults to false.
+	If this is true, the item should not be removed from the previous container. Handle this with extreme care!
+*/
 static PyObject* wpChar_additem( wpChar *self, PyObject *args )
 {
 	if( self->pChar->free )
@@ -1845,14 +1997,22 @@ static PyObject* wpChar_additem( wpChar *self, PyObject *args )
 	int layer = getArgInt( 0 );
 	P_ITEM pItem = getArgItem( 1 );
 	
-	if( !pItem )
-		return PyFalse;
+	if (!pItem) {
+		Py_INCREF(Py_None);
+		return Py_None;		
+	}
 
 	self->pChar->addItem( (cBaseChar::enLayer)layer, pItem, handleWeight, noRemove );
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
+/*
+	\method char.vendorbuy
+	\description Show the buy dialog for this NPC to a player.
+	\param player The player you want to show the dialog to.
+*/
 static PyObject* wpChar_vendorbuy( wpChar *self, PyObject* args )
 {
 	if ( self->pChar->free )
@@ -1866,13 +2026,21 @@ static PyObject* wpChar_vendorbuy( wpChar *self, PyObject* args )
 	P_PLAYER player = dynamic_cast<P_PLAYER>( getArgChar( 0 ) );
 	P_NPC npc = dynamic_cast<P_NPC>( self->pChar );
 	
-	if ( !player || !npc )
-		return PyFalse;
+	if ( !player || !npc ) {
+		Py_INCREF(Py_None);
+		return Py_None;
+	}
 
 	npc->vendorBuy( player );
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
+/*
+	\method char.vendorsell
+	\description Show the sell dialog for this NPC to a player.
+	\param player The player you want to show the dialog to.
+*/
 static PyObject* wpChar_vendorsell( wpChar *self, PyObject* args )
 {
 	if ( self->pChar->free )
@@ -1886,13 +2054,22 @@ static PyObject* wpChar_vendorsell( wpChar *self, PyObject* args )
 	P_PLAYER player = dynamic_cast<P_PLAYER>( getArgChar( 0 ) );
 	P_NPC npc = dynamic_cast<P_NPC>( self->pChar );
 	
-	if ( !player || !npc )
-		return PyFalse;
+	if (!player || !npc) {
+		Py_INCREF(Py_None);
+		return Py_None;		
+	}
 
 	npc->vendorSell( player );
-	return PyTrue;
+		Py_INCREF(Py_None);
+		return Py_None;
 }
 
+/*
+	\method char.aiengine
+	\description Get the ai engine associated with this NPC.
+	This only works for NPCs and returns None otherwise
+	\return The Ai object used by this npc.
+*/
 static PyObject* wpChar_aiengine( wpChar* self, PyObject* args )
 {
 	Q_UNUSED( args );
@@ -1905,6 +2082,21 @@ static PyObject* wpChar_aiengine( wpChar* self, PyObject* args )
 	return Py_None;
 }
 
+/*
+	\method char.log
+	\description Log an event associated with this character.
+	If the character is a connected player, his socket id will be 
+	prepended to the message.
+	\param level The loglevel to use for the message. Possible constants from <library id="wolfpack.consts">wolfpack.consts</library> are:
+	<code>0x00 LOG_MESSAGE
+0x01 LOG_ERROR
+0x02 LOG_PYTHON
+0x03 LOG_WARNING
+0x04 LOG_NOTICE
+0x05 LOG_TRACE
+0x06 LOG_DEBUG</code>
+	\param message The message you want to send to the logfile and console. Please make sure to include a newline (\n) at the end.
+*/
 static PyObject *wpChar_log(wpChar *self, PyObject *args) {	
 	char *message;
 	unsigned int loglevel;
@@ -1915,7 +2107,8 @@ static PyObject *wpChar_log(wpChar *self, PyObject *args) {
 
 	self->pChar->log((eLogLevel)loglevel, message);
 	PyMem_Free(message);
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 static PyMethodDef wpCharMethods[] = 
@@ -1953,7 +2146,6 @@ static PyMethodDef wpCharMethods[] =
 	{ "lightning",		(getattrofunc)wpChar_lightning,			METH_VARARGS, NULL },
 	{ "log",			(getattrofunc)wpChar_log,				METH_VARARGS, NULL },
 	{ "additem",		(getattrofunc)wpChar_additem,			METH_VARARGS, "Creating item on specified layer."},
-	{ "isdead",			(getattrofunc)wpChar_isdead,			METH_VARARGS, "Checks if the character is alive or not."},
 	
 	// Mostly NPC functions
 	{ "fight",			(getattrofunc)wpChar_fight,			METH_VARARGS, "Let's the character attack someone else." },

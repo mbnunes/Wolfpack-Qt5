@@ -98,8 +98,10 @@ public:
 						PyTuple_SetItem( p_args, 0, PyGetItemObject( FindItemBySerial( destSer ) ) );
 					else if( isCharSerial( destSer ) )
 						PyTuple_SetItem( p_args, 0, PyGetCharObject( FindCharBySerial( destSer ) ) );
-					else
-						PyTuple_SetItem( p_args, 0, PyFalse );
+					else {
+						Py_INCREF(Py_None);
+						PyTuple_SetItem(p_args, 0, Py_None);
+					}
 
 					PyTuple_SetItem( p_args, 1, args );
 					PyTuple_SetItem( p_args, 2, PyGetCharObject( pSource ) );
