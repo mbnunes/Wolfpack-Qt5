@@ -37,11 +37,32 @@
 #include <string>
 
 
+
+/*!
+ * Reads the entiere object out of the serialization stream.
+ * The object must be already instantiated and be of the proper time
+ * according to the value returned by readObjectID().
+ *
+ * @param *base : Pointer to object to be loaded.
+ *
+ * @return void  : none
+ *
+ * @see readObjectID
+ */
 void ISerialization::readObject( cUObject *base )
 {
 	base->Serialize(*this);
 }
 
+/*!
+ * Writes the entiere object to the serialization stream.
+ *
+ * @param *base : Pointer to object to be saved.
+ *
+ * @return void  : none
+ *
+ * @see readObjec
+ */
 void ISerialization::writeObject( cUObject *base )
 {
 	writeObjectID( base->objectID() );

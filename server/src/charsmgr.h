@@ -43,7 +43,18 @@
 #include <map>
 #include <list>
 
-// Singleton Class to manage Items.
+/*!
+CLASS
+    cCharsManager 
+
+    This class storage management to Characters ...
+
+
+USAGE
+    Singleton responsable for memory management and serial lookups
+	for characters. To access the single instance, call the static member
+	getInstance().
+*/
 class cCharsManager : public std::map<SERIAL, cChar*>
 {
 protected:
@@ -68,6 +79,17 @@ public:
 	}
 };
 
+/*!
+CLASS
+    
+
+    This class provides an iterator service for the CharsManager \see cCharsManager
+
+USAGE
+	
+	Iterators are classes that act like pointers to provide access to
+	cCharsManager singleton's data.
+*/
 class AllCharsIterator
 {
 protected:

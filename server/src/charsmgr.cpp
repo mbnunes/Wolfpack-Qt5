@@ -60,7 +60,6 @@ struct max_serialPred : binary_function<pair<SERIAL, cChar*>, pair<SERIAL, cChar
  *
  * @return void  : none
  */
-
 void cCharsManager::registerChar(cChar* pc) throw(wp_exceptions::bad_ptr)
 {
 	if ( pc != NULL)
@@ -82,7 +81,6 @@ void cCharsManager::registerChar(cChar* pc) throw(wp_exceptions::bad_ptr)
  *
  * @return void  : none
  */
-
 void cCharsManager::unregisterChar(cChar* pc) throw(wp_exceptions::bad_ptr)
 {
 	if ( pc != NULL)
@@ -99,7 +97,6 @@ void cCharsManager::unregisterChar(cChar* pc) throw(wp_exceptions::bad_ptr)
  *
  * @return SERIAL  : Valid serial number
  */
-
 SERIAL cCharsManager::getUnusedSerial() const
 {
 //	typedef maxKeyPred<SERIAL, cChar*> max_serialPred;

@@ -209,56 +209,36 @@ public:
 
 int	ContainerCountItems(const int serial, short id, short color=-1);
 
-//##ModelId=3C5D92EE009E
 class cAllItems
 {
 private:
-	//##ModelId=3C5D92EE00BC
 	cItem* CreateScriptRandomItem(int s, char *sItemList);
-	//##ModelId=3C5D92EE00DA
 	unsigned char PackType(unsigned char id1, unsigned char id2);
 public:
-	//##ModelId=3C5D92EE00F8
 	cAllItems() {}
-	//##ModelId=3C5D92EE0102
 	void DeleItem(P_ITEM pi);
-	//##ModelId=3C5D92EE0134
 	P_ITEM  MemItemFree();
-	//##ModelId=3C5D92EE013E
 	char isFieldSpellItem(P_ITEM pi);
-	//##ModelId=3C5D92EE0149
 	P_ITEM CreateFromScript(UOXSOCKET s, int itemnum);
-	//##ModelId=3C5D92EE01C0
 	P_ITEM  CreateScriptItem(int s, int itemnum, int nSpawned);
-	//##ModelId=3C5D92EE01DE
 	int  CreateRandomItem(char *sItemList);
-	//##ModelId=3C5D92EE0210
 	P_ITEM  SpawnItem(UOXSOCKET nSocket,
 				int nAmount, char* cName, int nStackable,
 				unsigned char cItemId1, unsigned char cItemId2,
 				unsigned short cColorId, 
 				int nPack, int nSend);
-	//##ModelId=3C5D92EE027E
     P_ITEM  SpawnItem(UOXSOCKET nSocket, P_CHAR ch,
 				int nAmount, char* cName, int nStackable,
 				unsigned char cItemId1, unsigned char cItemId2,
 				unsigned short cColorId,
 				int nPack, int nSend);
-	//##ModelId=3C5D92EE0365
 	P_ITEM SpawnItem(P_CHAR pc_ch,int nAmount, char* cName, bool pileable, short id, short color, bool bPack);
-	//##ModelId=3C5D92EF0013
 	P_ITEM SpawnItemBank(P_CHAR pc_ch, int nItem);
-	//##ModelId=3C5D92EF0045
 	P_ITEM  SpawnItemBackpack2(UOXSOCKET s, int nItem, int nDigging);
-	//##ModelId=3C5D92EF008B
 	void DecayItem(unsigned int currenttime, P_ITEM pi);
-	//##ModelId=3C5D92EF00C7
 	void RespawnItem(unsigned int Currenttime, P_ITEM pi);
-	//##ModelId=3C5D92EF00F9
 	void AddRespawnItem(P_ITEM pItem, int x, int y);
-	//##ModelId=3C5D92EF0153
 	void CheckEquipment(P_CHAR pc_p); //AntiChrist
-	//##ModelId=3C5D92EF0167
 	void GetScriptItemSetting(P_ITEM pi); // by Magius(CHE)
 };
 

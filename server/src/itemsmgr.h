@@ -46,7 +46,20 @@ class cItem;
 #include <map>
 #include <list>
 
-// Singleton Class to manage Items.
+/*!
+CLASS
+    cItemsManager 
+
+    This class storage management to Items ...
+
+
+USAGE
+    Singleton responsable for memory management and serial lookups
+	for characters. To access the single instance, call the static member
+	getInstance().
+	\see cItem
+
+*/
 class cItemsManager : public std::map<SERIAL, cItem*>
 {
 protected:

@@ -58,7 +58,6 @@ struct max_serialPred : binary_function<pair<SERIAL, cItem*>, pair<SERIAL, cItem
  *
  * @return void  : none
  */
-//##ModelId=3C5D92E3034B
 void cItemsManager::registerItem(cItem* pi) throw(wp_exceptions::bad_ptr)
 {
 	if ( pi != NULL)
@@ -79,7 +78,6 @@ void cItemsManager::registerItem(cItem* pi) throw(wp_exceptions::bad_ptr)
  *
  * @return void  : none
  */
-//##ModelId=3C5D92E30369
 void cItemsManager::unregisterItem(cItem* pi) throw(wp_exceptions::bad_ptr)
 {
 	if ( pi != NULL)
@@ -95,7 +93,6 @@ void cItemsManager::unregisterItem(cItem* pi) throw(wp_exceptions::bad_ptr)
  *
  * @return SERIAL  : Valid serial number
  */
-//##ModelId=3C5D92E3039B
 SERIAL cItemsManager::getUnusedSerial() const
 {
 //	typedef maxKeyPred<SERIAL, cItem*> max_serialPred;
@@ -111,7 +108,6 @@ SERIAL cItemsManager::getUnusedSerial() const
  *
  * @return void  : none
  */
-//##ModelId=3C5D92E3037D
 void cItemsManager::deleteItem(cItem* pi) throw(wp_exceptions::bad_ptr)
 {
 	if ( pi != NULL)
@@ -130,7 +126,6 @@ void cItemsManager::deleteItem(cItem* pi) throw(wp_exceptions::bad_ptr)
  *
  * @return void  : none
  */
-//##ModelId=3C5D92E30391
 void cItemsManager::purge()
 {
 	list<cItem*>::iterator it;
