@@ -17,7 +17,7 @@ import string
 import math
 import wolfpack.gumps
 from wolfpack.consts import *
-from wolfpack.gumps import *
+from wolfpack.gumps import cGump
 from wolfpack.utilities import *
 from wolfpack import *
 
