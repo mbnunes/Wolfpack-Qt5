@@ -23,6 +23,10 @@ Wolfpack 12.9.14 Beta (SVN)
   - Fixed several major memory leaks.
   - Fixed all crashes related to iterating over non existing maps.
   - Fixed a bug related to pets not being teleported along with you.
+  - Moved the definition export to a separate file and made it more than 10 times faster.
+  - Added wolfpack.exportdefinitions() to the python api.
+  - Added export definitions to the file menu of the windows gui.
+  - Fixed another major memory leak in definitions reloading.
  * Definition Changes:
   - Bench (0x1049) which was crafted was "unusable"
   - fixed bug #0000381 ("potion_keg" and "potionkeg")

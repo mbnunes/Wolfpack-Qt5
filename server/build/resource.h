@@ -30,6 +30,7 @@
 #define ID_HELP_WOLFPACKHOMEPAGE		40010
 #define ID_ACCOUNTS_MANAGE  			40013
 #define ID_ACCOUNTS_ADD 				40014
+#define IDC_EXPORTDEFS					40015
 
 // Next default values for new objects
 // 

@@ -89,6 +89,7 @@ HEADERS += \
 	../src/definitions.h \
 	../src/dragdrop.h \
 	../src/exceptions.h \
+	../src/exportdefinitions.h \
 	../src/factory.h \
 	../src/getopts.h \
 	../src/guilds.h \
@@ -147,6 +148,7 @@ SOURCES += \
 	../src/definable.cpp \
 	../src/definitions.cpp \
 	../src/dragdrop.cpp \
+	../src/exportdefinitions.cpp \
 	../src/getopts.cpp \
 	../src/guilds.cpp \
 	../src/gumps.cpp \

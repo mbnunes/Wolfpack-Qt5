@@ -13,6 +13,7 @@ IDR_MAINMENU MENU
 {
     POPUP "&File"
     {
+    	MENUITEM "&Export Definitions",			IDC_EXPORTDEFS
         MENUITEM "E&xit",                       IDC_EXIT
     }
     POPUP "&Reload"

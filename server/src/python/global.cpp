@@ -47,6 +47,7 @@
 #include "../definitions.h"
 #include "../pythonscript.h"
 #include "../verinfo.h"
+#include "../exportdefinitions.h"
 
 #include "../items.h"
 #include "../serverconfig.h"
@@ -1580,6 +1581,27 @@ static PyObject* wpQueueCode( PyObject* self, PyObject* args )
 }
 
 /*
+	\function wolfpack.exportdefinitions
+	\param filename The filename of the category database.
+	\description This function behaves like the exportdefinitions command. It exports a WPGM compatible database
+	to the given filename.
+*/
+static PyObject* wpExportDefinitions( PyObject* self, PyObject* args )
+{
+	Q_UNUSED( self );
+
+	char *filename;
+
+	if ( !PyArg_ParseTuple( args, "s:wolfpack.exportdefinitions( filename )", &filename ) )
+		return 0;
+
+	cDefinitionExporter exporter;
+	exporter.generate(filename);
+
+	Py_RETURN_NONE;
+}
+
+/*
 	\function wolfpack.getdefinition
 	\param type The definition type.
 	Use one of the "Definition Constants" from <module id="wolfpack.consts">wolfpack.consts</module>.
@@ -2010,6 +2032,7 @@ static PyMethodDef wpGlobal[] =
 { "tickcount",			wpTickcount,					METH_NOARGS, "Returns the current Tickcount on Windows" },
 { "queueaction",		wpQueueAction,					METH_VARARGS, NULL },
 { "queuecode",			wpQueueCode,					METH_VARARGS, NULL },
+{ "exportdefinitions",	wpExportDefinitions,			METH_VARARGS, NULL },
 { "charcount",			wpCharCount,					METH_NOARGS,  "Returns the number of chars in the world" },
 { "itemcount",			wpItemCount,					METH_NOARGS,  "Returns the number of items in the world" },
 { "tr",					wpTr,							METH_VARARGS, NULL },

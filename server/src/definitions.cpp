@@ -547,12 +547,17 @@ void cElement::freeChildren()
 {
 	if ( children != 0 )
 	{
-		for ( unsigned int i = 0; i < childCount_; ++i )
-			delete children[i];
+		cElement **copy = children;
+		unsigned int copyCount = childCount_;
 
+		// This prevents removeChild from doing any work
+		children = 0; 
 		childCount_ = 0;
-		delete[] children;
-		children = 0;
+
+		for ( unsigned int i = 0; i < copyCount; ++i )
+			delete copy[i];
+
+		delete[] copy;
 	}
 }
 

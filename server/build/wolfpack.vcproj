@@ -348,6 +348,12 @@
 				RelativePath="..\src\exceptions.h">
 			</File>
 			<File
+				RelativePath="..\src\exportdefinitions.cpp">
+			</File>
+			<File
+				RelativePath="..\src\exportdefinitions.h">
+			</File>
+			<File
 				RelativePath="..\src\factory.h">
 			</File>
 			<File

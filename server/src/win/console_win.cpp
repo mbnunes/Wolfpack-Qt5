@@ -34,6 +34,7 @@
 // Wolfpack Includes
 #include "../accounts.h"
 #include "../console.h"
+#include "../exportdefinitions.h"
 #include "resource.h"
 #include "../python/engine.h"
 #include "../network/network.h"
@@ -281,6 +282,13 @@ bool handleMenuSelect( unsigned int id )
 
 	switch ( id )
 	{
+	case IDC_EXPORTDEFS:
+		{
+			cDefinitionExporter exporter;
+			exporter.generate("categories.db");
+		}
+		break;
+
 	case IDC_EXIT:
 		Server::instance()->cancel();
 
