@@ -389,10 +389,10 @@ void init_wolfpack_globals()
 	for( UINT8 i = 0; i < ALLSKILLS; ++i )
 		PyModule_AddIntConstant( wpNamespace, skillname[ i ], i );
 
-	PyObject *mConsole = Py_InitModule( "console", wpConsole );
+	PyObject *mConsole = Py_InitModule( "wolfpack.console", wpConsole );
     PyObject_SetAttrString( wpNamespace, "console", mConsole );
 
-	PyObject *mTime = Py_InitModule( "time", wpTime );
+	PyObject *mTime = Py_InitModule( "wolfpack.time", wpTime );
     PyObject_SetAttrString( wpNamespace, "time", mTime );
 }
 

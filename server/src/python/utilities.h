@@ -68,4 +68,20 @@ inline void wpDealloc( PyObject* self )
     PyObject_Del( self );
 }
 
+bool checkWpSocket( PyObject *object );
+PyObject *PyGetSocketObject( cUOSocket* );
+cUOSocket *getWpSocket( PyObject* object );
+
+bool checkWpCoord( PyObject *object );
+PyObject *PyGetCoordObject( const Coord_cl& coord );
+Coord_cl getWpCoord( PyObject* object );
+
+bool checkWpItem( P_ITEM );
+PyObject* PyGetItemObject( P_ITEM );
+P_ITEM getWpItem( PyObject* );
+
+bool checkWpChar( P_CHAR );
+PyObject* PyGetCharObject( P_CHAR );
+P_CHAR getWpChar( PyObject* );
+
 #endif
