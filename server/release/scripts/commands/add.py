@@ -219,6 +219,10 @@ def generateAddMenu():
 def onLoad():
 	wolfpack.registercommand('add', add)
 
+def onUnload():
+        global generated
+        generated = 0
+
 """
 	\command add
 	\description Add a npc or item and if no definition was specified, open a menu.

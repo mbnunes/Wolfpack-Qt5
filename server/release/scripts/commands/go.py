@@ -31,6 +31,8 @@ import wolfpack
 from wolfpack.consts import *
 from system.makemenus import MakeMenu, MakeAction, findmenu
 
+from wolfpack.console import *
+
 generated = 0
 
 def sendresponse2(player, arguments, target):
@@ -256,6 +258,9 @@ def generateGoMenu():
 # Kommando registrieren.
 #
 def onLoad():
-	generateGoMenu()
 	wolfpack.registercommand('go', go)
 	wolfpack.registercommand('send', send)
+
+def onUnload():
+        global generated
+        generated = 0
