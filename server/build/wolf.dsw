@@ -3,7 +3,7 @@ Microsoft Developer Studio Workspace File, Format Version 6.00
 
 ###############################################################################
 
-Project: "ZTHREAD_2_2_3_static"=.\lib\ZThread\ZTHREAD_static.dsp - Package Owner=<4>
+Project: "ZTHREAD_2_2_9_static"=.\lib\ZThread\ZTHREAD_static.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -54,7 +54,7 @@ Package=<4>
     Project_Dep_Name pythoncore
     End Project Dependency
     Begin Project Dependency
-    Project_Dep_Name ZTHREAD_2_2_3_static
+    Project_Dep_Name ZTHREAD_2_2_9_static
     End Project Dependency
 }}}
 

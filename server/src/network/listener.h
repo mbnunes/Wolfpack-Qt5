@@ -35,6 +35,7 @@
 
 #include "zthread/Thread.h"
 #include "zthread/LockedQueue.h"
+#include "zthread/FastMutex.h"
 
 #include "qsocketdevice.h"
 
