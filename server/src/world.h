@@ -32,6 +32,7 @@
 #include "defines.h"
 #include "typedefs.h"
 #include "singleton.h"
+#include "objectdef.h"
 
 // Library Includes
 #include <qvaluevector.h>
@@ -79,6 +80,7 @@ public:
 
 class cWorld : public cComponent
 {
+	OBJECTDEF(cWorld)
 	friend class cCharIterator;
 	friend class cItemIterator;
 

@@ -31,13 +31,7 @@
 // library Includes
 #include <algorithm>
 #include <math.h>
-#include "qapplication.h"
-#include "qstring.h"
-
-inline QString tr( const QString& text, const char* comment = 0, const char* context = "@default" )
-{
-	return qApp->translate( context, text.latin1(), comment );
-}
+#include <qglobal.h>
 
 inline bool isHair( Q_UINT16 model )
 {

@@ -43,6 +43,7 @@
 #include "timers.h"
 #include "territories.h"
 #include "log.h"
+#include "objectdef.h"
 
 // include for ceilf()
 #include <math.h>
@@ -54,6 +55,7 @@ class cUOTxTooltipList;
 // This class is the base interface for all char objects.
 class cBaseChar : public cUObject
 {
+	OBJECTDEF(cBaseChar)
 public:
 	const char* objectID() const
 	{

@@ -107,7 +107,7 @@ bool cRemoveTarget::responsed( cUOSocket* socket, cUORxTarget* target )
 		pItem->remove();
 	}
 	else
-		socket->sysMessage( "You need to select either an item or a character" );
+		socket->sysMessage( tr("You need to select either an item or a character") );
 	return true;
 }
 

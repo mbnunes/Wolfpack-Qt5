@@ -52,6 +52,7 @@ class cContextMenu;
 #include "../python/engine.h"
 #include "../targetrequest.h"
 #include "../customtags.h"
+#include "../objectdef.h"
 
 struct stTargetItem
 {
@@ -64,6 +65,7 @@ struct stTargetItem
 
 class cUOSocket
 {
+	OBJECTDEF(cUOSocket)
 public:
 	enum eSocketState
 	{

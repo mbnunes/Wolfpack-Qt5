@@ -56,16 +56,17 @@
 #include "multi.h"
 #include "persistentbroker.h"
 #include "profile.h"
-
-// System Includes
-#include <qwaitcondition.h>
-#include <qptrvector.h>
-#include <qapplication.h>
 #include "python/engine.h"
 #include "verinfo.h"
 #include "network/network.h"
-
 #include "sqlite/sqlite.h"
+
+// Qt Includes
+#include <qwaitcondition.h>
+#include <qptrvector.h>
+#include <qapplication.h>
+#include <qtextcodec.h>
+
 #if defined(MYSQL_DRIVER)
 #if defined(Q_OS_WIN32)
 #include <winsock.h>
@@ -259,7 +260,6 @@ bool cServer::run( int argc, char** argv )
 	setState( STARTUP );
 
 	new QApplication ( argc, argv, false );
-	QTranslator translator( 0 );
 
 	// Load wolfpack.xml
 	Config::instance()->load();
@@ -278,17 +278,23 @@ bool cServer::run( int argc, char** argv )
 	// Print a header and useful version informations
 	setupConsole();
 
+#if !defined( QT_NO_TRANSLATION )
 	// Start the QT translator
-	QString languageFile = Config::instance()->getString( "General", "Language File", "", true );
+	QString languageFile = Config::instance()->getString( "General", "Language File", QString("wolfpack_") + QTextCodec::locale(), true );
 	if ( !languageFile.isEmpty() )
 	{
-		if ( !translator.load( languageFile, "." ) )
+		QTranslator* translator = new QTranslator( qApp );
+		if ( !translator->load( languageFile, "." ) )
 		{
 			Console::instance()->log( LOG_ERROR, "Couldn't load translator.\n" );
 			return false;
 		}
-		qApp->installTranslator( &translator );
+		else
+		{
+			qApp->installTranslator( translator );
+		}
 	}
+#endif
 
 	// Load all subcomponents
 	try 
@@ -395,7 +401,7 @@ bool cServer::run( int argc, char** argv )
 	setState( SHUTDOWN );
 	Console::instance()->stop();
 	ScriptManager::instance()->onServerStop(); // Notify python scripts about shutdown
-	Network::instance()->broadcast( "The server is shutting down." );
+	Network::instance()->broadcast( tr("The server is shutting down.") );
 	unload();
 
 	// Stop Python
@@ -429,7 +435,7 @@ void cServer::setupConsole()
 #else
 	QString UnicodeType("UCS-2");
 #endif
-	Console::instance()->send( tr("Compiled for Python %1 %2 (Using: %3 )\n").arg(PY_VERSION, UnicodeType, pythonBuild) );
+	Console::instance()->send( tr("Compiled for Python %1 %2 (Using: %3)\n").arg(PY_VERSION, UnicodeType, pythonBuild) );
 	Console::instance()->send( "Compiled with SQLite " SQLITE_VERSION "\n" );
 #if defined (MYSQL_DRIVER)
 	Console::instance()->send( tr( "Compiled for MySQL %1 (Using: %2)\n" ).arg( MYSQL_SERVER_VERSION, mysql_get_client_info() ) );

@@ -30,6 +30,7 @@
 
 #include "baseregion.h"
 #include "singleton.h"
+#include "objectdef.h"
 
 #include <map>
 #include <qmap.h>
@@ -250,6 +251,7 @@ public:
 
 class cTerritories : public cComponent
 {
+	OBJECTDEF(cTerritories)
 private:
 	QMap<uint, QPtrList<cTerritory> > topregions;
 public:

@@ -30,12 +30,14 @@
 
 #include "singleton.h"
 #include "typedefs.h"
+#include "objectdef.h"
 
 #include <qpair.h>
 #include <qvaluelist.h>
 
 class cTiming
 {
+	OBJECTDEF(cTiming)
 private:
 	unsigned int nextSpawnRegionCheck;
 	unsigned int nextLightCheck;

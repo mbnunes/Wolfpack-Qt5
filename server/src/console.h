@@ -33,6 +33,7 @@
 #include "typedefs.h"
 #include "singleton.h"
 #include "server.h"
+#include "objectdef.h"
 
 // System Includes
 #include <qstringlist.h>
@@ -68,6 +69,7 @@ enum enFontType
 */
 class cConsole
 {
+	OBJECTDEF(cConsole)
 private:
 	QString linebuffer_;
 	QString incompleteLine_;

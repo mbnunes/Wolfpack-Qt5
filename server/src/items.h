@@ -34,6 +34,7 @@
 #include "defines.h"
 #include "network/uotxpackets.h"
 #include "singleton.h"
+#include "objectdef.h"
 
 // Library Includes
 #include <qvaluevector.h>
@@ -53,6 +54,7 @@ class cUOSocket;
 #pragma pack(1)
 class cItem : public cUObject
 {
+	OBJECTDEF(cItem)
 	friend class cBaseChar;
 private:
 	static unsigned char classid;

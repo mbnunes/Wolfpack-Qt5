@@ -31,11 +31,13 @@
 #include "baseregion.h"
 #include "singleton.h"
 #include "server.h"
+#include "objectdef.h"
 
 #include <map>
 
 class cSpawnRegion : public cBaseRegion
 {
+	OBJECTDEF(cSpawnRegion)
 public:
 	cSpawnRegion( const cElement* Tag )
 	{

@@ -32,6 +32,7 @@
 #include <qstringlist.h>
 #include <qvaluevector.h>
 #include "singleton.h"
+#include "objectdef.h"
 
 enum enServerState
 {
@@ -121,6 +122,7 @@ public:
 
 class cServer
 {
+	OBJECTDEF(cServer)
 private:
 	class Private;
 	Private* d;

@@ -739,11 +739,11 @@ This is an unsorted and not neccesarily complete list of people who contributed 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> <byte value="x9"/>Lady %1<byte value="x9"/>%2</source>
+        <source><byte value="x9"/>Lady %1<byte value="x9"/>%2</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source> <byte value="x9"/>Lord %1<byte value="x9"/>%2</source>
+        <source><byte value="x9"/>Lord %1<byte value="x9"/>%2</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -784,56 +784,57 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <name>cServer</name>
     <message>
         <source>Unknown Worldsave Database Driver &apos;%1&apos;, check your wolfpack.xml</source>
-        <translation type="unfinished"></translation>
+        <translation>Driver de banco de dados &apos;%1&apos; de worldsave desconhecido, verifique o arquivo wolfpack.xml</translation>
     </message>
     <message>
         <source>Unknown Account Database Driver &apos;%1&apos;, check your wolfpack.xml</source>
-        <translation type="unfinished"></translation>
+        <translation>Driver de banco de dados &apos;%1&apos; de contas desconhecido, verifique o arquivo wolfpack.xml</translation>
     </message>
     <message>
         <source>Compiled for Qt %1 (Using: %2 %3)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Compilado para Qt %1 ( Usando: %2 %3 )</translation>
     </message>
     <message>
         <source>Compiled for Python %1 %2 (Using: %3 )
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Compilado para Python %1 %2 (Usando %3)
+</translation>
     </message>
     <message>
         <source>Compiled for MySQL %1 (Using: %2)
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Compilado para MySQL %1 (Usando: %2)\n</translation>
     </message>
     <message>
         <source>Loading %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Carregando %1</translation>
     </message>
     <message>
         <source>Unloading %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Descarregando %1</translation>
     </message>
     <message>
         <source>Reloading %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Recarregando %1</translation>
     </message>
 </context>
 <context>
     <name>cSetTagTarget</name>
     <message>
         <source>Better do not try that!</source>
-        <translation type="unfinished"></translation>
+        <translation>Melhor não tentar isso!</translation>
     </message>
 </context>
 <context>
     <name>cSetTarget</name>
     <message>
         <source>Please select a valid character or item</source>
-        <translation type="unfinished"></translation>
+        <translation>Por favor selecione um personagem ou item válido</translation>
     </message>
     <message>
         <source>Better do not try that!</source>
-        <translation type="unfinished"></translation>
+        <translation>Melhor não tentar isso!</translation>
     </message>
 </context>
 <context>

@@ -176,7 +176,7 @@ SOURCES += twofish/twofish2.cpp
 
 INTERFACES =
 TRANSLATIONS = \
-	languages/wolfpack_pt-BR.ts \
+	languages/wolfpack_pt_br.ts \
 	languages/wolfpack_it.ts \
 	languages/wolfpack_nl.ts \
 	languages/wolfpack_es.ts \

@@ -43,10 +43,6 @@
 #include "world.h"
 #include "inlines.h"
 
-#undef  DBGFILE
-#define DBGFILE "dragdrop.cpp"
-
-
 // New Class implementation
 void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 {

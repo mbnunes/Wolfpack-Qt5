@@ -281,6 +281,7 @@ def main():
 	parser.add_option("--enable-debug", action="store_true", dest="enable_debug", help="Enables basic debugging support.")
 	parser.add_option("--enable-aidebug", action="store_true", dest="enable_aidebug", help="Enabled debugging of NPC AI.")
 	parser.add_option("--enable-mysql", action="store_true", dest="enable_mysql", help="Enables MySQL support.")
+	parser.add_option("--disable-translation", action="store_true", dest="disable_translation", help="Disable non-English language support.")
 	(options, args) = parser.parse_args()
 
 	if options.nocolor or sys.platform == "win32":
@@ -292,6 +293,9 @@ def main():
 		DEFINES += "MYSQL_DRIVER "
 		checkMySQL(options)
 	checkQt()
+
+        if options.disable_translation:
+                DEFINES += "QT_NO_TRANSLATION "
 
 	# Create config.pri
 	global py_libpath

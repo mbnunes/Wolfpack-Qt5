@@ -32,6 +32,7 @@
 
 #include "typedefs.h"
 #include "targetrequests.h"
+#include "objectdef.h"
 
 // Library Includes
 #include <qmap.h>
@@ -48,6 +49,7 @@ struct stSkill
 
 class cSkills
 {
+	OBJECTDEF(cSkills)
 private:
 	QStringList skillRanks;
 	QValueVector<stSkill> skills;

@@ -29,6 +29,7 @@
 #define __GUMPS_H__
 
 #include "typedefs.h"
+#include "objectdef.h"
 
 #include <qstringlist.h>
 #include <qobject.h>
@@ -242,6 +243,7 @@ inline void cGump::setNoDispose( bool data )
 
 class cSpawnRegionInfoGump : public cGump
 {
+	OBJECTDEF(cSpawnRegionInfoGump)
 protected:
 	cSpawnRegion* region_;
 
@@ -253,6 +255,7 @@ public:
 
 class cPagesGump : public cGump
 {
+	OBJECTDEF(cPagesGump)
 private:
 	uint page_;
 	WPPAGE_TYPE ptype_;
@@ -267,6 +270,7 @@ public:
 
 class cPageInfoGump : public cGump
 {
+	OBJECTDEF(cPageInfoGump)
 private:
 	cPage* page_;
 
@@ -278,6 +282,7 @@ public:
 
 class cHelpGump : public cGump
 {
+	OBJECTDEF(cHelpGump)
 private:
 	SERIAL char_;
 

@@ -36,12 +36,14 @@
 
 // wolfpack includes
 #include "basechar.h"
+#include "objectdef.h"
 
 class AbstractAI;
 
 // Class for Non Player Characters. Implements cBaseChar.
 class cNPC : public cBaseChar
 {
+	OBJECTDEF(cNPC)
 public:
 	const char* objectID() const
 	{

@@ -36,12 +36,14 @@
 // wolfpack includes
 #include "basechar.h"
 #include "accounts.h"
+#include "objectdef.h"
 
 class cGuild;
 
 // Class for player characters. Implements cBaseChar.
 class cPlayer : public cBaseChar
 {
+	OBJECTDEF(cPlayer)
 public:
 	const char* objectID() const
 	{

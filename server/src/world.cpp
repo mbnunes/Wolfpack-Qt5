@@ -500,7 +500,7 @@ void cWorld::loadBinary( QPtrList<PersistentObject> &objects )
 						guild = new cGuild();
 						guild->load(reader, reader.version());
 						Guilds::instance()->registerGuild(guild);
-					} catch (wpException& e) {
+					} catch (wpException& ) {
 						delete guild;
 					}
 				}
@@ -613,7 +613,7 @@ void cWorld::loadSQL( QPtrList<PersistentObject> &objects )
 			if ( count == 0 )
 				continue; // Move on...
 
-			Console::instance()->send( "\n" + tr( "Loading " ) + QString::number( count ) + tr( " objects of type " ) + type );
+			Console::instance()->send( "\n" + tr( "Loading %1 objects of type %2" ).arg( count ).arg( type ) );
 
 			res = PersistentBroker::instance()->query( PersistentFactory::instance()->findSqlQuery( type ) );
 
