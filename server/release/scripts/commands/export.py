@@ -10,7 +10,7 @@
 """
 	\command export
 	\description Export worlditems into three different formats.
-	\notes The following two formats are supported:
+	\notes The following three formats are supported:
 
 	<b>Sphere</b>
 	The sphere format consists of a number of item blocks
