@@ -58,19 +58,6 @@ enum enByteOrder{ littleEndian, bigEndian };
 #pragma warning(disable: 985) 
 //#pragma optimize("y", off)
 #define OBSOLETETIME
-
-//DIRECTIVES
-#if defined(_MSC_VER)
-/*
-#if !defined(min)
-#define min(x,y) _MIN(x,y)
-#endif
-#if !defined(max)
-#define max(x,y) _MAX(x,y)
-#endif
-*/
-#endif
-
 #define PACK
 
 #endif

@@ -35,10 +35,6 @@
 // Wolfpack Includes
 #include "platform.h"
 
-//System Includes
-#include <string>
-
-
 // Library Include
 #include <qstring.h>
 

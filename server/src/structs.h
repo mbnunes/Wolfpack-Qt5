@@ -36,7 +36,6 @@
 #include "platform.h"
 
 // System Headers
-#include <string>
 #include <map>
 
 // Library Headers

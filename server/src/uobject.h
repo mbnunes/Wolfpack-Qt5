@@ -41,7 +41,6 @@
 #include "factory.h"
 
 // System includes
-#include <string>
 #include <vector>
 #include <map>
 

@@ -9,6 +9,7 @@
 #if !defined(__SINGLETONHOLDER_H__)
 #define __SINGLETONHOLDER_H__
 
+#include "platform.h" // just to silent the warnings.
 #include <stdlib.h>
 
 /*****************************************************************************

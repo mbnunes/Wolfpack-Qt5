@@ -45,14 +45,7 @@
 
 #define Reminder  __FILE__LINE__ ":Remind: "
 
-//#define MAXLOOPS 250000
 #define MaxZstep 5
-
-#if defined(__unix__)
-
-#include <sys/types.h>
-
-#endif
 
 #define ILLEGAL_Z	128
 
@@ -195,10 +188,10 @@ enum enDirection
 };
 
 // Line Of Sight
-#define ITEM_TYPE_CHOICES 6
 #define TREES_BUSHES 1 // Trees and other large vegetaion in the way
 #define WALLS_CHIMNEYS 2  // Walls, chimineys, ovens, etc... in the way
 #define DOORS 4 // Doors in the way
+#define ITEM_TYPE_CHOICES 6
 #define ROOFING_SLANTED 8  // So can't tele onto slanted roofs, basically
 #define FLOORS_FLAT_ROOFING 16  //  For attacking between floors
 #define LAVA_WATER 32  // Don't know what all to use this for yet
@@ -210,7 +203,6 @@ enum enDirection
 
 #define MY_CLOCKS_PER_SEC 1000
 #define INVALID_SERIAL -1
-#define INVALID_UOXSOCKET -1
 
 #define CONN_MAIN 1
 #define CONN_SECOND 2

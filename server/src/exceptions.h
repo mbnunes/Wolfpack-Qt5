@@ -36,7 +36,6 @@
 
 // System Includes
 #include <exception>
-#include <string>
 
 // Library Includes
 #include <qstring.h>
@@ -67,13 +66,13 @@ namespace wp_exceptions
 	class wpbad_ptr : public std::exception
 	{
 	private:
-		std::string m_Error;
+		QString m_Error;
 	public:
-		wpbad_ptr(std::string sError) throw() : m_Error(sError) {};
+		wpbad_ptr(const QString& sError) throw() : m_Error(sError) {};
 
 		virtual const char *what() const throw()
 		{
-			return m_Error.c_str();
+			return m_Error.latin1();
 		}
 		~wpbad_ptr() throw(){} ;
 	};
