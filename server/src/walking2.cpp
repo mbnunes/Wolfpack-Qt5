@@ -632,22 +632,26 @@ void cMovement::checkRunning( cUOSocket *socket, P_CHAR pChar, Q_UINT8 dir )
 
 void cMovement::checkStealth( P_CHAR pChar )
 {
-	if( ( pChar->hidden() ) && ( !( pChar->priv2 & 8 ) ) )
+	if( pChar->hidden() && !pChar->isHiddenPermanently() )
 	{
 		if( pChar->stealth() != -1 )
 		{
 			pChar->setStealth( pChar->stealth() + 1 );
 			if( pChar->stealth() > ( ( SrvParams->maxStealthSteps() * pChar->skill( STEALTH ) ) / 1000 ) )
 			{
+				if( pChar->socket() )
+					pChar->socket()->sysMessage( tr( "You have been revealed." ) );
 				pChar->setStealth( -1 );
 				pChar->setHidden( 0 );
-				updatechar( pChar );
+				pChar->resend( false );
 			}
 		}
 		else
 		{
+			if( pChar->socket() )
+				pChar->socket()->sysMessage( tr( "You have been revealed." ) );
 			pChar->setHidden( 0 );
-			updatechar( pChar );
+			pChar->resend( false );
 		}
 	}
 }

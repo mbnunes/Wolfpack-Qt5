@@ -1894,7 +1894,7 @@ void cChar::resend( bool clean )
 			pChar->socket()->removeObject( this );
 
 		if( isHidden() && !pChar->isGMorCounselor() )
-			return;
+			continue;
 
 		// Resend if in range
 		if( pChar->pos.distance( pos ) <= pChar->VisRange )

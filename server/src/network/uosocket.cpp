@@ -1236,9 +1236,16 @@ void cUOSocket::updatePlayer()
 	if( !_player )
 		return;
 
-	cUOTxDrawPlayer pUpdate;
+	// Remove it first (?)
+	//removeObject( _player );
+
+	cUOTxUpdatePlayer pUpdate;
 	pUpdate.fromChar( _player );
 	send( &pUpdate );
+
+	/*cUOTxDrawPlayer pUpdate;
+	pUpdate.fromChar( _player );
+	send( &pUpdate );*/
 
 	// Reset the walking sequence
 	_walkSequence = 0xFF;

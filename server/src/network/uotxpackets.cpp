@@ -277,7 +277,19 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 	setZ( pChar->pos.z );
 	setDirection( pChar->dir );
 	setColor( pChar->skin() );
-	setFlags( 0 ); // NEED TO SET FLAGS
+
+	if( pChar->war )
+		setFlag( 0x40 );
+
+	if( pChar->hidden() )
+		setFlag( flag() | 0x80 );
+
+	if( pChar->dead && !pChar->war )
+		setFlag( flag() | 0x80 );
+
+	if( pChar->poisoned() )
+		setFlag( flag() | 0x04 );
+	
 	setHightlight( 0 ); // NEED TO SET HIGHLIGHT
 
 	// Add our equipment - This does not seem to work !?
@@ -320,7 +332,19 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	setSerial( pChar->serial );
 	setBody( pChar->id() );
 	setSkin( pChar->skin() );
-	setFlags( 0x00 );
+	
+	if( pChar->war )
+		setFlag( 0x40 );
+
+	if( pChar->hidden() )
+		setFlag( flag() | 0x80 );
+
+	if( pChar->dead && !pChar->war )
+		setFlag( flag() | 0x80 );
+
+	if( pChar->poisoned() )
+		setFlag( flag() | 0x04 );	
+
 	setX( pChar->pos.x );
 	setY( pChar->pos.y );
 	setZ( pChar->pos.z );

@@ -425,7 +425,8 @@ public:
 	void setBody( Q_UINT16 data ) { setShort( 5, data ); }
 	void setUnknown1( Q_UINT8 data ) { rawPacket[ 7 ] = data; }
 	void setSkin( Q_UINT16 data ) { setShort( 8, data ); }
-	void setFlags( Q_UINT8 data ) { rawPacket[ 10 ] = data; } // // 10 = 0=normal, 4=poison, 0x40=attack, 0x80=hidden CHARMODE_WAR
+	void setFlag( Q_UINT8 data ) { rawPacket[ 10 ] = data; } // // 10 = 0=normal, 4=poison, 0x40=attack, 0x80=hidden CHARMODE_WAR
+	UINT8 flag() { return rawPacket[ 10 ]; }
 	void setX( Q_UINT16 x ) { setShort( 11, x ); }
 	void setY( Q_UINT16 y ) { setShort( 13, y ); }
 	void setUnknown2( Q_UINT16 data ) { setShort( 15, data ); }
@@ -470,7 +471,8 @@ public:
 	void setZ( Q_INT8 data ) { rawPacket[13] = data;  }
 	void setDirection( Q_UINT8 data ) { rawPacket[14] = data; }
 	void setColor( Q_UINT16 data ) { setShort( 15, data ); }
-    void setFlags( Q_UINT8 data ) { rawPacket[17] = data; }
+    void setFlag( Q_UINT8 data ) { rawPacket[17] = data; }
+	UINT8 flag() { return rawPacket[17]; }
 	void setHightlight( Q_UINT8 data ) { rawPacket[18] = data; }
 	void fromChar( P_CHAR pChar );
 	
