@@ -568,7 +568,7 @@ void cItem::remove()
 	// Create a copy of the content so we don't accidently change our working copy
 	ContainerContent container(content()); 
 	ContainerContent::const_iterator it2;
-	for (it2 = container.begin(); it2 != container.end(); ++it) {
+	for (it2 = container.begin(); it2 != container.end(); ++it2) {
 		(*it2)->remove();
 	}
 
