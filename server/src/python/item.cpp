@@ -72,7 +72,20 @@ long wpItem_hash( wpItem* self )
 static PyTypeObject wpItemType =
 {
 	PyObject_HEAD_INIT( &PyType_Type )
-	0, "wpitem", sizeof( wpItemType ), 0, wpDealloc, 0, ( getattrfunc ) wpItem_getAttr, ( setattrfunc ) wpItem_setAttr, wpItem_compare, 0, 0, 0, 0, ( hashfunc ) wpItem_hash
+	0,
+	"wpitem",
+	sizeof( wpItemType ),
+	0,
+	wpDealloc,
+	0,
+	( getattrfunc ) wpItem_getAttr,
+	( setattrfunc ) wpItem_setAttr,
+	wpItem_compare,
+	0,
+	0,
+	0,
+	0,
+	( hashfunc ) wpItem_hash
 };
 
 PyObject* PyGetItemObject( P_ITEM item )
@@ -724,7 +737,6 @@ static PyObject* wpItem_multi( wpItem* self, PyObject* args )
 			Py_INCREF( Py_None );
 			return Py_None;
 		}
-
 		return PyGetMultiObject( dynamic_cast< cMulti* >( FindItemBySerial( self->pItem->multis() ) ) */
 	Py_INCREF( Py_None );
 	return Py_None;
@@ -986,7 +998,13 @@ static PyObject* wpItem_say( wpItem* self, PyObject* args, PyObject* keywds )
 
 		static char* kwlist[] =
 		{
-			"clilocid", "args", "affix", "prepend", "color", "socket", NULL
+			"clilocid",
+			"args",
+			"affix",
+			"prepend",
+			"color",
+			"socket",
+			NULL
 		};
 
 		if ( !PyArg_ParseTupleAndKeywords( args, keywds, "i|ssbiO&:char.say( clilocid, [args], [affix], [prepend], [color], [socket] )", kwlist, &id, &clilocargs, &affix, &prepend, &color, &PyConvertSocket, &socket ) )
@@ -1076,19 +1094,50 @@ static PyObject* wpItem_effect( wpItem* self, PyObject* args )
 
 static PyMethodDef wpItemMethods[] =
 {
-	{ "additem",			( getattrofunc ) wpItem_additem, METH_VARARGS, "Adds an item to this container." }, { "countitem",			( getattrofunc ) wpItem_countItem, METH_VARARGS, "Counts how many items are inside this container." }, { "countitems",			( getattrofunc ) wpItem_countitems, METH_VARARGS, "Counts the items inside of this container based on a list of baseids." }, { "removeitems",		( getattrofunc ) wpItem_removeitems, METH_VARARGS, "Removes items inside of this container based on a list of baseids." }, { "update",				( getattrofunc ) wpItem_update, METH_VARARGS, "Sends the item to all clients in range." }, { "removefromview",		( getattrofunc ) wpItem_removefromview, METH_VARARGS, "Removes the item from the view of all in-range clients." }, { "delete",				( getattrofunc ) wpItem_delete, METH_VARARGS, "Deletes the item and the underlying reference." }, { "moveto",				( getattrofunc ) wpItem_moveto, METH_VARARGS, "Moves the item to the specified location." }, { "soundeffect",		( getattrofunc ) wpItem_soundeffect, METH_VARARGS, "Sends a soundeffect to the surrounding sockets." }, { "distanceto",			( getattrofunc ) wpItem_distanceto, METH_VARARGS, "Distance to another object or a given position." }, { "canstack",			( getattrofunc ) wpItem_canstack, METH_VARARGS, "Sees if the item can be stacked on another item." }, { "useresource",		( getattrofunc ) wpItem_useresource, METH_VARARGS, "Consumes a given resource from within the current item." }, { "countresource",		( getattrofunc ) wpItem_countresource, METH_VARARGS, "Returns the amount of a given resource available in this container." }, { "addtimer",			( getattrofunc ) wpItem_addtimer, METH_VARARGS, "Attaches a timer to this object." }, { "getoutmostchar",		( getattrofunc ) wpItem_getoutmostchar, METH_VARARGS, "Get the outmost character." }, { "getoutmostitem",		( getattrofunc ) wpItem_getoutmostitem, METH_VARARGS, "Get the outmost item." }, { "getname",			( getattrofunc ) wpItem_getname, METH_VARARGS, "Get item name." }, { "multi",				( getattrofunc ) wpItem_multi,	METH_VARARGS, 0 }, { "lightning",			( getattrofunc ) wpItem_lightning, METH_VARARGS, 0 }, { "resendtooltip",		( getattrofunc ) wpItem_resendtooltip, METH_VARARGS, 0 }, { "dupe",				( getattrofunc ) wpItem_dupe, METH_VARARGS, 0 }, { "say",				( getattrofunc ) wpItem_say, METH_VARARGS | METH_KEYWORDS, 0 }, { "effect",				( getattrofunc ) wpItem_effect, METH_VARARGS, 0 },
+	{ "additem",			( getattrofunc ) wpItem_additem, METH_VARARGS, "Adds an item to this container." },
+	{ "countitem",			( getattrofunc ) wpItem_countItem, METH_VARARGS, "Counts how many items are inside this container." },
+	{ "countitems",			( getattrofunc ) wpItem_countitems, METH_VARARGS, "Counts the items inside of this container based on a list of baseids." },
+	{ "removeitems",		( getattrofunc ) wpItem_removeitems, METH_VARARGS, "Removes items inside of this container based on a list of baseids." },
+	{ "update",				( getattrofunc ) wpItem_update, METH_VARARGS, "Sends the item to all clients in range." },
+	{ "removefromview",		( getattrofunc ) wpItem_removefromview, METH_VARARGS, "Removes the item from the view of all in-range clients." },
+	{ "delete",				( getattrofunc ) wpItem_delete, METH_VARARGS, "Deletes the item and the underlying reference." },
+	{ "moveto",				( getattrofunc ) wpItem_moveto, METH_VARARGS, "Moves the item to the specified location." },
+	{ "soundeffect",		( getattrofunc ) wpItem_soundeffect, METH_VARARGS, "Sends a soundeffect to the surrounding sockets." },
+	{ "distanceto",			( getattrofunc ) wpItem_distanceto, METH_VARARGS, "Distance to another object or a given position." },
+	{ "canstack",			( getattrofunc ) wpItem_canstack, METH_VARARGS, "Sees if the item can be stacked on another item." },
+	{ "useresource",		( getattrofunc ) wpItem_useresource, METH_VARARGS, "Consumes a given resource from within the current item." },
+	{ "countresource",		( getattrofunc ) wpItem_countresource, METH_VARARGS, "Returns the amount of a given resource available in this container." },
+	{ "addtimer",			( getattrofunc ) wpItem_addtimer, METH_VARARGS, "Attaches a timer to this object." },
+	{ "getoutmostchar",		( getattrofunc ) wpItem_getoutmostchar, METH_VARARGS, "Get the outmost character." },
+	{ "getoutmostitem",		( getattrofunc ) wpItem_getoutmostitem, METH_VARARGS, "Get the outmost item." },
+	{ "getname",			( getattrofunc ) wpItem_getname, METH_VARARGS, "Get item name." },
+	{ "multi",				( getattrofunc ) wpItem_multi,	METH_VARARGS, 0 },
+	{ "lightning",			( getattrofunc ) wpItem_lightning, METH_VARARGS, 0 },
+	{ "resendtooltip",		( getattrofunc ) wpItem_resendtooltip, METH_VARARGS, 0 },
+	{ "dupe",				( getattrofunc ) wpItem_dupe, METH_VARARGS, 0 },
+	{ "say",				( getattrofunc ) wpItem_say, METH_VARARGS | METH_KEYWORDS, 0 },
+	{ "effect",				( getattrofunc ) wpItem_effect, METH_VARARGS, 0 },
 
 	// Event handling
-	{ "callevent",			( getattrofunc ) wpItem_callevent, METH_VARARGS, 0 }, { "addevent",			( getattrofunc ) wpItem_addevent,			METH_VARARGS, 0}, { "removeevent",		( getattrofunc ) wpItem_removeevent,		METH_VARARGS, 0}, { "hasevent",			( getattrofunc ) wpItem_hasevent,			METH_VARARGS, 0},
+	{ "callevent",			( getattrofunc ) wpItem_callevent, METH_VARARGS, 0 },
+	{ "addevent",			( getattrofunc ) wpItem_addevent,			METH_VARARGS, 0},
+	{ "removeevent",		( getattrofunc ) wpItem_removeevent,		METH_VARARGS, 0},
+	{ "hasevent",			( getattrofunc ) wpItem_hasevent,			METH_VARARGS, 0},
 
 	// Effects
 	{ "movingeffect",		( getattrofunc ) wpItem_movingeffect, METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },
 
 	// Tag System
-	{ "gettag",				( getattrofunc ) wpItem_gettag, METH_VARARGS, "Gets a tag assigned to a specific item." }, { "settag",				( getattrofunc ) wpItem_settag, METH_VARARGS, "Sets a tag assigned to a specific item." }, { "hastag",				( getattrofunc ) wpItem_hastag, METH_VARARGS, "Checks if a certain item has the specified tag." }, { "deltag",				( getattrofunc ) wpItem_deltag, METH_VARARGS, "Deletes the specified tag." },
+	{ "gettag",				( getattrofunc ) wpItem_gettag, METH_VARARGS, "Gets a tag assigned to a specific item." },
+	{ "settag",				( getattrofunc ) wpItem_settag, METH_VARARGS, "Sets a tag assigned to a specific item." },
+	{ "hastag",				( getattrofunc ) wpItem_hastag, METH_VARARGS, "Checks if a certain item has the specified tag." },
+	{ "deltag",				( getattrofunc ) wpItem_deltag, METH_VARARGS, "Deletes the specified tag." },
 
 	// Is*? Functions
-	{ "isitem",				( getattrofunc ) wpItem_isitem, METH_VARARGS, "Is this an item." }, { "ischar",				( getattrofunc ) wpItem_ischar, METH_VARARGS, "Is this a char." }, { "isblessed",			( getattrofunc ) wpItem_isblessed, METH_VARARGS, "Is this item blessed(newbie) "}, { NULL, NULL, 0, NULL }
+	{ "isitem",				( getattrofunc ) wpItem_isitem, METH_VARARGS, "Is this an item." },
+	{ "ischar",				( getattrofunc ) wpItem_ischar, METH_VARARGS, "Is this a char." },
+	{ "isblessed",			( getattrofunc ) wpItem_isblessed, METH_VARARGS, "Is this item blessed(newbie) "},
+	{ NULL, NULL, 0, NULL }
 };
 
 // Getters + Setters
@@ -1121,9 +1170,9 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 
 		return list;
 		/*
-			\rproperty item.objects If the item is a multi object, this is a list of objects that are within
-			the multi. If it's not a multi, this property is None.
-		*/
+				\rproperty item.objects If the item is a multi object, this is a list of objects that are within
+				the multi. If it's not a multi, this property is None.
+			*/
 	}
 	else if ( !strcmp( "objects", name ) )
 	{

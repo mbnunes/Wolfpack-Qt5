@@ -48,7 +48,15 @@ static int wpCoord_setAttr( wpCoord* self, char* name, PyObject* value );
 PyTypeObject wpCoordType =
 {
 	PyObject_HEAD_INIT( NULL )
-	0, "WPCoord", sizeof( wpCoordType ), 0, wpDealloc, 0, ( getattrfunc ) wpCoord_getAttr, ( setattrfunc ) wpCoord_setAttr, 
+	0,
+	"WPCoord",
+	sizeof( wpCoordType ),
+	0,
+	wpDealloc,
+	0,
+	( getattrfunc ) wpCoord_getAttr,
+	( setattrfunc ) wpCoord_setAttr,
+
 };
 
 static PyObject* wpCoord_distance( wpCoord* self, PyObject* args )
@@ -91,7 +99,10 @@ static PyObject* wpCoord_validspawnspot( wpCoord* self, PyObject* args )
 
 static PyMethodDef wpCoordMethods[] =
 {
-	{ "distance",	( getattrofunc ) wpCoord_distance, METH_VARARGS, "Whats the distance between Point A and Point B" }, { "direction", ( getattrofunc ) wpCoord_direction, METH_VARARGS, NULL }, { "validspawnspot",	( getattrofunc ) wpCoord_validspawnspot, METH_VARARGS, NULL }, { 0, 0, 0, 0 }
+	{ "distance",	( getattrofunc ) wpCoord_distance, METH_VARARGS, "Whats the distance between Point A and Point B" },
+	{ "direction", ( getattrofunc ) wpCoord_direction, METH_VARARGS, NULL },
+	{ "validspawnspot",	( getattrofunc ) wpCoord_validspawnspot, METH_VARARGS, NULL },
+	{ 0, 0, 0, 0 }
 };
 
 static PyObject* wpCoord_getAttr( wpCoord* self, char* name )

@@ -51,7 +51,15 @@ static int wpSocket_setAttr( wpSocket* self, char* name, PyObject* value );
 static PyTypeObject wpSocketType =
 {
 	PyObject_HEAD_INIT( &PyType_Type )
-	0, "wpsocket", sizeof( wpSocketType ), 0, wpDealloc, 0, ( getattrfunc ) wpSocket_getAttr, ( setattrfunc ) wpSocket_setAttr, 
+	0,
+	"wpsocket",
+	sizeof( wpSocketType ),
+	0,
+	wpDealloc,
+	0,
+	( getattrfunc ) wpSocket_getAttr,
+	( setattrfunc ) wpSocket_setAttr,
+
 };
 
 PyObject* PyGetSocketObject( cUOSocket* socket )
@@ -258,7 +266,9 @@ static PyObject* wpSocket_attachitemtarget( wpSocket* self, PyObject* args )
 	char* cancelfunc = 0;
 	char* timeoutfunc = 0;
 	unsigned int timeout = 0;
-	int xoffset, yoffset, zoffset;
+	int xoffset,
+	yoffset,
+	zoffset;
 
 	if ( !PyArg_ParseTuple( args, "sO!iii|O!ssI:socket.attachitemtarget"
 		"(callback, [items], [args], [cancelcallback], [timeoutcallback], [timeout])", &responsefunc, &PyList_Type, &items, &xoffset, &yoffset, &zoffset, &PyList_Type, &targetargs, &cancelfunc, &timeoutfunc, &timeout ) )
@@ -378,10 +388,15 @@ static PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 {
 	// Parameters:
 	// x, y, nomove, noclose, nodispose, serial, type, layout, text, callback, args
-	int x, y;
-	bool nomove, noclose, nodispose;
+	int x,
+	y;
+	bool nomove,
+	noclose,
+	nodispose;
 	unsigned int serial, type;
-	PyObject* layout, * texts, * py_args;
+	PyObject* layout,
+	* texts,
+	* py_args;
 	char* callback;
 
 	if ( !PyArg_ParseTuple( args, "iiBBBIIO!O!sO!:socket.sendgump", &x, &y, &nomove, &noclose, &nodispose, &serial, &type, &PyList_Type, &layout, &PyList_Type, &texts, &callback, &PyList_Type, &py_args ) )
@@ -782,7 +797,33 @@ static PyObject* wpSocket_updateskill( wpSocket* self, PyObject* args )
 
 static PyMethodDef wpSocketMethods[] =
 {
-	{ "useitem",			( getattrofunc ) wpSocket_useitem, METH_VARARGS, NULL }, { "updateskill",		( getattrofunc ) wpSocket_updateskill, METH_VARARGS, NULL }, { "updateplayer",		( getattrofunc ) wpSocket_updateplayer, METH_VARARGS, NULL }, { "questarrow",			( getattrofunc ) wpSocket_questarrow, METH_VARARGS, NULL }, { "sysmessage",			( getattrofunc ) wpSocket_sysmessage, METH_VARARGS, "Sends a system message to the char." }, { "clilocmessage",		( getattrofunc ) wpSocket_clilocmessage, METH_VARARGS, "Sends a localized message to the socket." }, { "showspeech",			( getattrofunc ) wpSocket_showspeech, METH_VARARGS, "Sends raw speech to the socket." }, { "disconnect",			( getattrofunc ) wpSocket_disconnect, METH_VARARGS, "Disconnects the socket." }, { "attachtarget",		( getattrofunc ) wpSocket_attachtarget,  METH_VARARGS, "Adds a target request to the socket" }, { "attachmultitarget",	( getattrofunc ) wpSocket_attachmultitarget,  METH_VARARGS, "Adds a multi target request to the socket" }, { "attachitemtarget",	( getattrofunc ) wpSocket_attachitemtarget,  METH_VARARGS, "Adds a target request to the socket" }, { "sendgump",			( getattrofunc ) wpSocket_sendgump,	METH_VARARGS, "INTERNAL! Sends a gump to this socket." }, { "closegump",			( getattrofunc ) wpSocket_closegump,	METH_VARARGS, "Closes a gump that has been sent to the client." }, { "resendworld",		( getattrofunc ) wpSocket_resendworld,  METH_VARARGS, "Sends the surrounding world to this socket." }, { "resendplayer",		( getattrofunc ) wpSocket_resendplayer,  METH_VARARGS, "Resends the player only." }, { "sendcontainer",		( getattrofunc ) wpSocket_sendcontainer,  METH_VARARGS, "Sends a container to the socket." }, { "sendpacket",			( getattrofunc ) wpSocket_sendpacket,		METH_VARARGS, "Sends a packet to this socket." }, { "sendpaperdoll",		( getattrofunc ) wpSocket_sendpaperdoll,	METH_VARARGS,	"Sends a char's paperdool to this socket."	}, { "gettag",				( getattrofunc ) wpSocket_gettag,	METH_VARARGS,	"Gets a tag from a socket." }, { "settag",				( getattrofunc ) wpSocket_settag,	METH_VARARGS,	"Sets a tag to a socket." }, { "hastag",				( getattrofunc ) wpSocket_hastag,	METH_VARARGS,	"Checks if a socket has a specific tag." }, { "deltag",				( getattrofunc ) wpSocket_deltag,	METH_VARARGS,	"Delete specific tag." }, { "resendstatus",		( getattrofunc ) wpSocket_resendstatus, METH_VARARGS,	"Resends the status windows to this client." }, { "customize",			( getattrofunc ) wpSocket_customize, METH_VARARGS,	"Begin house customization." }, { "log",				( getattrofunc ) wpSocket_log, METH_VARARGS, NULL }, { "updatelightlevel",   ( getattrofunc ) wpSocket_updatelightlevel, METH_VARARGS, NULL }, { NULL, NULL, 0, NULL }
+	{ "useitem",			( getattrofunc ) wpSocket_useitem, METH_VARARGS, NULL },
+	{ "updateskill",		( getattrofunc ) wpSocket_updateskill, METH_VARARGS, NULL },
+	{ "updateplayer",		( getattrofunc ) wpSocket_updateplayer, METH_VARARGS, NULL },
+	{ "questarrow",			( getattrofunc ) wpSocket_questarrow, METH_VARARGS, NULL },
+	{ "sysmessage",			( getattrofunc ) wpSocket_sysmessage, METH_VARARGS, "Sends a system message to the char." },
+	{ "clilocmessage",		( getattrofunc ) wpSocket_clilocmessage, METH_VARARGS, "Sends a localized message to the socket." },
+	{ "showspeech",			( getattrofunc ) wpSocket_showspeech, METH_VARARGS, "Sends raw speech to the socket." },
+	{ "disconnect",			( getattrofunc ) wpSocket_disconnect, METH_VARARGS, "Disconnects the socket." },
+	{ "attachtarget",		( getattrofunc ) wpSocket_attachtarget,  METH_VARARGS, "Adds a target request to the socket" },
+	{ "attachmultitarget",	( getattrofunc ) wpSocket_attachmultitarget,  METH_VARARGS, "Adds a multi target request to the socket" },
+	{ "attachitemtarget",	( getattrofunc ) wpSocket_attachitemtarget,  METH_VARARGS, "Adds a target request to the socket" },
+	{ "sendgump",			( getattrofunc ) wpSocket_sendgump,	METH_VARARGS, "INTERNAL! Sends a gump to this socket." },
+	{ "closegump",			( getattrofunc ) wpSocket_closegump,	METH_VARARGS, "Closes a gump that has been sent to the client." },
+	{ "resendworld",		( getattrofunc ) wpSocket_resendworld,  METH_VARARGS, "Sends the surrounding world to this socket." },
+	{ "resendplayer",		( getattrofunc ) wpSocket_resendplayer,  METH_VARARGS, "Resends the player only." },
+	{ "sendcontainer",		( getattrofunc ) wpSocket_sendcontainer,  METH_VARARGS, "Sends a container to the socket." },
+	{ "sendpacket",			( getattrofunc ) wpSocket_sendpacket,		METH_VARARGS, "Sends a packet to this socket." },
+	{ "sendpaperdoll",		( getattrofunc ) wpSocket_sendpaperdoll,	METH_VARARGS,	"Sends a char's paperdool to this socket."	},
+	{ "gettag",				( getattrofunc ) wpSocket_gettag,	METH_VARARGS,	"Gets a tag from a socket." },
+	{ "settag",				( getattrofunc ) wpSocket_settag,	METH_VARARGS,	"Sets a tag to a socket." },
+	{ "hastag",				( getattrofunc ) wpSocket_hastag,	METH_VARARGS,	"Checks if a socket has a specific tag." },
+	{ "deltag",				( getattrofunc ) wpSocket_deltag,	METH_VARARGS,	"Delete specific tag." },
+	{ "resendstatus",		( getattrofunc ) wpSocket_resendstatus, METH_VARARGS,	"Resends the status windows to this client." },
+	{ "customize",			( getattrofunc ) wpSocket_customize, METH_VARARGS,	"Begin house customization." },
+	{ "log",				( getattrofunc ) wpSocket_log, METH_VARARGS, NULL },
+	{ "updatelightlevel",   ( getattrofunc ) wpSocket_updatelightlevel, METH_VARARGS, NULL },
+	{ NULL, NULL, 0, NULL }
 };
 
 // Getters & Setters

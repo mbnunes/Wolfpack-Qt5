@@ -52,7 +52,15 @@ static int wpRegion_setAttr( wpRegion* self, char* name, PyObject* value );
 static PyTypeObject wpRegionType =
 {
 	PyObject_HEAD_INIT( NULL )
-	0, "wpregion", sizeof( wpRegionType ), 0, wpDealloc, 0, ( getattrfunc ) wpRegion_getAttr, ( setattrfunc ) wpRegion_setAttr, 
+	0,
+	"wpregion",
+	sizeof( wpRegionType ),
+	0,
+	wpDealloc,
+	0,
+	( getattrfunc ) wpRegion_getAttr,
+	( setattrfunc ) wpRegion_setAttr,
+
 };
 
 static PyMethodDef wpRegionMethods[] =

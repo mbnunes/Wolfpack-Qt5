@@ -91,11 +91,29 @@ PyObject* wpSkills_set( wpSkills* self, int skill, PyObject* pValue )
 
 static PySequenceMethods wpSkillsSequence =
 {
-	( inquiry ) wpSkills_length, 0, 0, ( intargfunc ) wpSkills_get, 0, ( intobjargproc ) wpSkills_set, 
+	( inquiry ) wpSkills_length,
+	0,
+	0,
+	( intargfunc ) wpSkills_get,
+	0,
+	( intobjargproc ) wpSkills_set,
+
 };
 
 static PyTypeObject wpSkillsType =
 {
 	PyObject_HEAD_INIT( NULL )
-	0, "WPSkills", sizeof( wpSkillsType ), 0, wpDealloc, 0, 0, 0, 0, 0, 0, & wpSkillsSequence, 
+	0,
+	"WPSkills",
+	sizeof( wpSkillsType ),
+	0,
+	wpDealloc,
+	0,
+	0,
+	0,
+	0,
+	0,
+	0,
+	& wpSkillsSequence,
+
 };

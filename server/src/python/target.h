@@ -61,7 +61,19 @@ static PyObject* wpTarget_getAttr( wpTarget* self, char* name )
 static PyTypeObject wpTargetType =
 {
 	PyObject_HEAD_INIT( NULL )
-	0, "wpTarget", sizeof( wpTargetType ), 0, wpDealloc, 0, ( getattrfunc ) wpTarget_getAttr, 0, 0, 0, 0, 0, 
+	0,
+	"wpTarget",
+	sizeof( wpTargetType ),
+	0,
+	wpDealloc,
+	0,
+	( getattrfunc ) wpTarget_getAttr,
+	0,
+	0,
+	0,
+	0,
+	0,
+
 };
 
 static PyObject* PyGetTarget( cUORxTarget* target, UINT8 map )
@@ -90,7 +102,9 @@ static PyObject* PyGetTarget( cUORxTarget* target, UINT8 map )
 class cPythonTarget : public cTargetRequest
 {
 private:
-	QString responsefunc, timeoutfunc, cancelfunc;
+	QString responsefunc,
+	timeoutfunc,
+	cancelfunc;
 	PyObject* args;
 public:
 	cPythonTarget( QString _responsefunc, QString _timeoutfunc, QString _cancelfunc, PyObject* _args ) : responsefunc( _responsefunc ), timeoutfunc( _timeoutfunc ), cancelfunc( _cancelfunc ), args( _args )

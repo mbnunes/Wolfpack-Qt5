@@ -251,7 +251,15 @@ static PyObject* wpConsole_shutdown( PyObject* self, PyObject* args )
 */
 static PyMethodDef wpConsole[] =
 {
-	{ "send",		wpConsole_send,			METH_VARARGS,	"Prints something to the wolfpack console" }, { "progress",		wpConsole_sendprogress,		METH_VARARGS,	"Prints a .....[xxxx] block" }, { "progressDone",	wpConsole_senddone,		METH_NOARGS,	"Prints a [done] block" }, { "progressFail",	wpConsole_sendfail,		METH_NOARGS,	"Prints a [fail] block" }, { "progressSkip",	wpConsole_sendskip,		METH_NOARGS,	"Prints a [skip] block" }, { "getbuffer",		wpConsole_getbuffer,		METH_NOARGS,	"Gets the linebuffer of the console" }, { "log",		wpConsole_log,			METH_VARARGS,	NULL }, { "shutdown",		wpConsole_shutdown,		METH_NOARGS,	"Shut the server down" }, { NULL, NULL, 0, NULL } // Terminator
+	{ "send",		wpConsole_send,			METH_VARARGS,	"Prints something to the wolfpack console" },
+	{ "progress",		wpConsole_sendprogress,		METH_VARARGS,	"Prints a .....[xxxx] block" },
+	{ "progressDone",	wpConsole_senddone,		METH_NOARGS,	"Prints a [done] block" },
+	{ "progressFail",	wpConsole_sendfail,		METH_NOARGS,	"Prints a [fail] block" },
+	{ "progressSkip",	wpConsole_sendskip,		METH_NOARGS,	"Prints a [skip] block" },
+	{ "getbuffer",		wpConsole_getbuffer,		METH_NOARGS,	"Gets the linebuffer of the console" },
+	{ "log",		wpConsole_log,			METH_VARARGS,	NULL },
+	{ "shutdown",		wpConsole_shutdown,		METH_NOARGS,	"Shut the server down" },
+	{ NULL, NULL, 0, NULL } // Terminator
 
 };
 
@@ -304,7 +312,12 @@ static PyObject* wpTime_currentlightlevel( PyObject* self, PyObject* args )
 */
 static PyMethodDef wpTime[] =
 {
-	{ "minute",				wpTime_minute,				METH_NOARGS, "Returns the current time-minutes" }, { "hour",				wpTime_hour,				METH_NOARGS, "Returns the current time-hour" }, { "days",				wpTime_days,				METH_NOARGS, "Returns the current date-day" }, { "minutes",			wpTime_minutes,				METH_NOARGS, "Returns the current timestamp" }, { "currentlightlevel",	wpTime_currentlightlevel,	METH_NOARGS, "Returns the current light level" }, { NULL, NULL, 0, NULL } // Terminator
+	{ "minute",				wpTime_minute,				METH_NOARGS, "Returns the current time-minutes" },
+	{ "hour",				wpTime_hour,				METH_NOARGS, "Returns the current time-hour" },
+	{ "days",				wpTime_days,				METH_NOARGS, "Returns the current date-day" },
+	{ "minutes",			wpTime_minutes,				METH_NOARGS, "Returns the current timestamp" },
+	{ "currentlightlevel",	wpTime_currentlightlevel,	METH_NOARGS, "Returns the current light level" },
+	{ NULL, NULL, 0, NULL } // Terminator
 
 };
 
@@ -480,7 +493,9 @@ static PyObject* wpRegion( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
 	// Three arguments
-	int x = 0, y = 0, map = 0;
+	int x = 0,
+	y = 0,
+	map = 0;
 	if ( !PyArg_ParseTuple( args, "iii:wolfpack.region", &x, &y, &map ) )
 		return 0;
 
@@ -505,7 +520,9 @@ static PyObject* wpStatics( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
 	// Minimum is x, y, map
-	uint x = 0, y = 0, map = 0;
+	uint x = 0,
+	y = 0,
+	map = 0;
 	uchar exact = 0;
 	if ( !PyArg_ParseTuple( args, "iii|b:wolfpack.statics", &x, &y, &map, &exact ) )
 		return 0;
@@ -592,7 +609,10 @@ static PyObject* wpItems( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
 	// Minimum is x, y, map
-	uint x = 0, y = 0, map = 0, range = 1;
+	uint x = 0,
+	y = 0,
+	map = 0,
+	range = 1;
 	if ( !PyArg_ParseTuple( args, "iii|i:wolfpack.items", &x, &y, &map, &range ) )
 		return 0;
 
@@ -618,7 +638,10 @@ static PyObject* wpChars( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
 	// Minimum is x, y, map
-	uint x = 0, y = 0, map = 0, range = 1;
+	uint x = 0,
+	y = 0,
+	map = 0,
+	range = 1;
 	if ( !PyArg_ParseTuple( args, "iii|i:wolfpack.chars", &x, &y, &map, &range ) )
 		return 0;
 
@@ -677,7 +700,9 @@ static PyObject* wpMap( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
 	// Minimum is x, y, map
-	uint x = 0, y = 0, map = 0;
+	uint x = 0,
+	y = 0,
+	map = 0;
 	if ( !PyArg_ParseTuple( args, "iii:wolfpack.map", &x, &y, &map ) )
 		return 0;
 
@@ -896,7 +921,9 @@ static PyObject* wpCoord( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
 
-	uint x = 0, y = 0, z = 0;
+	uint x = 0,
+	y = 0,
+	z = 0;
 	uchar map = 0;
 	if ( !PyArg_ParseTuple( args, "iiib:wolfpack.coord", &x, &y, &z, &map ) )
 		return 0;
@@ -1346,7 +1373,61 @@ static PyObject* wpHasNamedEvent( PyObject* self, PyObject* args )
 */
 static PyMethodDef wpGlobal[] =
 {
-	{ "callevent",			wpCallEvent,					METH_VARARGS, "Call an event in a script and return the result." }, { "hasevent",			wpHasEvent,						METH_VARARGS, "If the given script has the given event. Return true." }, { "callnamedevent",		wpCallEvent,					METH_VARARGS, "Call an event in a script and return the result." }, { "hasnamedevent",		wpHasEvent,						METH_VARARGS, "If the given script has the given event. Return true." }, { "getdefinition",		wpGetDefinition,				METH_VARARGS, "Gets a certain definition by it's id." }, { "getdefinitions",		wpGetDefinitions,				METH_VARARGS, "Gets all definitions by type." }, { "packet",				wpPacket,						METH_VARARGS, NULL }, { "charblock",			wpCharBlock,					METH_VARARGS, NULL }, { "itemblock",			wpItemBlock,					METH_VARARGS, NULL }, { "charregion",			wpCharRegion,					METH_VARARGS, NULL }, { "itemregion",			wpItemRegion,					METH_VARARGS, NULL }, { "additem",			wpAdditem,						METH_VARARGS, "Adds an item with the specified script-section" }, { "newnpc",				wpNewNpc,						METH_VARARGS, "Creates an entirely new npc." }, { "newitem",			wpNewItem,						METH_VARARGS, "Creates an entirely new item." }, { "newplayer",			wpNewPlayer,					METH_VARARGS, "Creates an entirely new player." }, { "addnpc",				wpAddnpc,						METH_VARARGS, "Adds a npc with the specified script-section" }, { "finditem",			wpFinditem,						METH_VARARGS, "Tries to find an item based on it's serial" }, { "guilds",				wpGuilds,						METH_VARARGS, 0}, { "findguild",			wpFindguild,					METH_VARARGS, 0}, { "findchar",			wpFindchar,						METH_VARARGS, "Tries to find a char based on it's serial" }, { "findmulti",			wpFindmulti,					METH_VARARGS, "Tries to find a multi based on it's position" }, { "addtimer",			wpAddtimer,						METH_VARARGS, "Adds a timed effect" }, { "effect",				wpEffect,						METH_VARARGS, "Shows a graphical effect." }, { "region",				wpRegion,						METH_VARARGS, "Gets the region at a specific position" }, { "currenttime",		wpCurrenttime,					METH_NOARGS, "Time in ms since server-start" }, { "newguild",			wpNewguild,						METH_VARARGS, 0}, { "statics",			wpStatics,						METH_VARARGS, "Returns a list of static-item at a given position" }, { "map",				wpMap,							METH_VARARGS, "Returns a dictionary with information about a given map tile" }, { "hasmap",				wpHasMap,						METH_VARARGS, "Returns true if the map specified is present"	}, { "items",				wpItems,						METH_VARARGS, "Returns a list of items in a specific sector." }, { "itemiterator",		wpAllItemsIterator,				METH_NOARGS,  "Returns an iterator for all items in the world."	}, { "chariterator",		wpAllCharsIterator,				METH_NOARGS,  "Returns an iterator for all chars in the world."	}, { "chars",				wpChars,						METH_VARARGS, "Returns a list of chars in a specific sector." }, { "allcharsserials",	wpAllCharsSerials,				METH_VARARGS, "Returns a list of all chars serials" }, { "allitemsserials",	wpAllItemsSerials,				METH_VARARGS, "Returns a list of all items serials" }, { "landdata",			wpLanddata,						METH_VARARGS, "Returns the landdata information for a given tile stored on the server." }, { "tiledata",			wpTiledata,						METH_VARARGS, "Returns the tiledata information for a given tile stored on the server." }, { "coord",				wpCoord,						METH_VARARGS, "Creates a coordinate object from the given parameters (x,y,z,map)." }, { "addmulti",			wpAddMulti,						METH_VARARGS, "Creates a multi object by given type CUSTOMHOUSE, HOUSE, BOAT." }, { "list",				wpList,							METH_VARARGS, "Returns a list defined in the definitions as a Python List" }, { "registerglobal",		wpRegisterGlobal,				METH_VARARGS, "Registers a global script hook." }, { "registerpackethook", wpRegisterPacketHook,			METH_VARARGS, "Registers a packet hook." }, { "registercommand",	wpRegisterCommand,				METH_VARARGS, "Registers a global command hook." }, { "serveruptime",		wpServerUptime,					METH_NOARGS, "Returns uptime of server in seconds." }, { "serverversion",		wpServerVersion,				METH_NOARGS, "Returns the server version string." }, { "currentdatetime",	wpCurrentdatetime,				METH_NOARGS, "Returns the current real date/time" }, { "isstarting",			wpIsStarting,					METH_NOARGS, "Returns if the server is in starting state" }, { "isrunning",			wpIsRunning,					METH_NOARGS, "Returns if the server is in running state" }, { "isreloading",		wpIsReloading,					METH_NOARGS, "Returns if the server is in reload state" }, { "isclosing",			wpIsClosing,					METH_NOARGS, "Returns if the server is in closing state" }, { "tickcount",			wpTickcount,					METH_NOARGS, "Returns the current Tickcount on Windows" }, { "queueaction",		wpQueueAction,					METH_VARARGS, NULL }, { "charcount",			wpCharCount,					METH_NOARGS,  "Returns the number of chars in the world" }, { "itemcount",			wpItemCount,					METH_NOARGS,  "Returns the number of items in the world" }, { NULL, NULL, 0, NULL } // Terminator
+	{ "callevent",			wpCallEvent,					METH_VARARGS, "Call an event in a script and return the result." },
+	{ "hasevent",			wpHasEvent,						METH_VARARGS, "If the given script has the given event. Return true." },
+	{ "callnamedevent",		wpCallEvent,					METH_VARARGS, "Call an event in a script and return the result." },
+	{ "hasnamedevent",		wpHasEvent,						METH_VARARGS, "If the given script has the given event. Return true." },
+	{ "getdefinition",		wpGetDefinition,				METH_VARARGS, "Gets a certain definition by it's id." },
+	{ "getdefinitions",		wpGetDefinitions,				METH_VARARGS, "Gets all definitions by type." },
+	{ "packet",				wpPacket,						METH_VARARGS, NULL },
+	{ "charblock",			wpCharBlock,					METH_VARARGS, NULL },
+	{ "itemblock",			wpItemBlock,					METH_VARARGS, NULL },
+	{ "charregion",			wpCharRegion,					METH_VARARGS, NULL },
+	{ "itemregion",			wpItemRegion,					METH_VARARGS, NULL },
+	{ "additem",			wpAdditem,						METH_VARARGS, "Adds an item with the specified script-section" },
+	{ "newnpc",				wpNewNpc,						METH_VARARGS, "Creates an entirely new npc." },
+	{ "newitem",			wpNewItem,						METH_VARARGS, "Creates an entirely new item." },
+	{ "newplayer",			wpNewPlayer,					METH_VARARGS, "Creates an entirely new player." },
+	{ "addnpc",				wpAddnpc,						METH_VARARGS, "Adds a npc with the specified script-section" },
+	{ "finditem",			wpFinditem,						METH_VARARGS, "Tries to find an item based on it's serial" },
+	{ "guilds",				wpGuilds,						METH_VARARGS, 0},
+	{ "findguild",			wpFindguild,					METH_VARARGS, 0},
+	{ "findchar",			wpFindchar,						METH_VARARGS, "Tries to find a char based on it's serial" },
+	{ "findmulti",			wpFindmulti,					METH_VARARGS, "Tries to find a multi based on it's position" },
+	{ "addtimer",			wpAddtimer,						METH_VARARGS, "Adds a timed effect" },
+	{ "effect",				wpEffect,						METH_VARARGS, "Shows a graphical effect." },
+	{ "region",				wpRegion,						METH_VARARGS, "Gets the region at a specific position" },
+	{ "currenttime",		wpCurrenttime,					METH_NOARGS, "Time in ms since server-start" },
+	{ "newguild",			wpNewguild,						METH_VARARGS, 0},
+	{ "statics",			wpStatics,						METH_VARARGS, "Returns a list of static-item at a given position" },
+	{ "map",				wpMap,							METH_VARARGS, "Returns a dictionary with information about a given map tile" },
+	{ "hasmap",				wpHasMap,						METH_VARARGS, "Returns true if the map specified is present"	},
+	{ "items",				wpItems,						METH_VARARGS, "Returns a list of items in a specific sector." },
+	{ "itemiterator",		wpAllItemsIterator,				METH_NOARGS,  "Returns an iterator for all items in the world."	},
+	{ "chariterator",		wpAllCharsIterator,				METH_NOARGS,  "Returns an iterator for all chars in the world."	},
+	{ "chars",				wpChars,						METH_VARARGS, "Returns a list of chars in a specific sector." },
+	{ "allcharsserials",	wpAllCharsSerials,				METH_VARARGS, "Returns a list of all chars serials" },
+	{ "allitemsserials",	wpAllItemsSerials,				METH_VARARGS, "Returns a list of all items serials" },
+	{ "landdata",			wpLanddata,						METH_VARARGS, "Returns the landdata information for a given tile stored on the server." },
+	{ "tiledata",			wpTiledata,						METH_VARARGS, "Returns the tiledata information for a given tile stored on the server." },
+	{ "coord",				wpCoord,						METH_VARARGS, "Creates a coordinate object from the given parameters (x,y,z,map)." },
+	{ "addmulti",			wpAddMulti,						METH_VARARGS, "Creates a multi object by given type CUSTOMHOUSE, HOUSE, BOAT." },
+	{ "list",				wpList,							METH_VARARGS, "Returns a list defined in the definitions as a Python List" },
+	{ "registerglobal",		wpRegisterGlobal,				METH_VARARGS, "Registers a global script hook." },
+	{ "registerpackethook", wpRegisterPacketHook,			METH_VARARGS, "Registers a packet hook." },
+	{ "registercommand",	wpRegisterCommand,				METH_VARARGS, "Registers a global command hook." },
+	{ "serveruptime",		wpServerUptime,					METH_NOARGS, "Returns uptime of server in seconds." },
+	{ "serverversion",		wpServerVersion,				METH_NOARGS, "Returns the server version string." },
+	{ "currentdatetime",	wpCurrentdatetime,				METH_NOARGS, "Returns the current real date/time" },
+	{ "isstarting",			wpIsStarting,					METH_NOARGS, "Returns if the server is in starting state" },
+	{ "isrunning",			wpIsRunning,					METH_NOARGS, "Returns if the server is in running state" },
+	{ "isreloading",		wpIsReloading,					METH_NOARGS, "Returns if the server is in reload state" },
+	{ "isclosing",			wpIsClosing,					METH_NOARGS, "Returns if the server is in closing state" },
+	{ "tickcount",			wpTickcount,					METH_NOARGS, "Returns the current Tickcount on Windows" },
+	{ "queueaction",		wpQueueAction,					METH_VARARGS, NULL },
+	{ "charcount",			wpCharCount,					METH_NOARGS,  "Returns the number of chars in the world" },
+	{ "itemcount",			wpItemCount,					METH_NOARGS,  "Returns the number of items in the world" },
+	{ NULL, NULL, 0, NULL } // Terminator
 
 };
 
@@ -1380,7 +1461,10 @@ static PyObject* wpSocketsCount( PyObject* self, PyObject* args )
 */
 static PyMethodDef wpSockets[] =
 {
-	{ "first",	wpSocketsFirst,	METH_NOARGS, "Returns the first connected socket." }, { "next",	wpSocketsNext,	METH_NOARGS, "Returns the next connected socket." }, { "count",	wpSocketsCount,	METH_NOARGS, "Returns the number of connected sockets." }, { NULL, NULL, 0, NULL } // Terminator
+	{ "first",	wpSocketsFirst,	METH_NOARGS, "Returns the first connected socket." },
+	{ "next",	wpSocketsNext,	METH_NOARGS, "Returns the next connected socket." },
+	{ "count",	wpSocketsCount,	METH_NOARGS, "Returns the number of connected sockets." },
+	{ NULL, NULL, 0, NULL } // Terminator
 
 };
 
@@ -1532,7 +1616,14 @@ static PyObject* wpAccountsSave( PyObject* self, PyObject* args )
 */
 static PyMethodDef wpAccounts[] =
 {
-	{ "find",		wpAccountsFind,		METH_VARARGS, "Finds an account object." }, { "list",		wpAccountsList,		METH_NOARGS, "Gets a list of Account names." }, { "acls",		wpAccountsAcls,		METH_NOARGS, "Gets a list of valid ACL names." }, { "acl",		wpAccountsAcl,		METH_VARARGS, "Returns an acl as a double dictionary." }, { "add",		wpAccountsAdd,		METH_VARARGS, "Creates an account." }, { "save",		wpAccountsSave,		METH_NOARGS, "Save accounts." }, { "reload",		wpAccountsReload,	METH_NOARGS, "Reload accounts." }, { NULL, NULL, 0, NULL } // Terminator
+	{ "find",		wpAccountsFind,		METH_VARARGS, "Finds an account object." },
+	{ "list",		wpAccountsList,		METH_NOARGS, "Gets a list of Account names." },
+	{ "acls",		wpAccountsAcls,		METH_NOARGS, "Gets a list of valid ACL names." },
+	{ "acl",		wpAccountsAcl,		METH_VARARGS, "Returns an acl as a double dictionary." },
+	{ "add",		wpAccountsAdd,		METH_VARARGS, "Creates an account." },
+	{ "save",		wpAccountsSave,		METH_NOARGS, "Save accounts." },
+	{ "reload",		wpAccountsReload,	METH_NOARGS, "Reload accounts." },
+	{ NULL, NULL, 0, NULL } // Terminator
 
 };
 
@@ -1545,7 +1636,10 @@ static PyMethodDef wpAccounts[] =
 static PyObject* wpSettingsGetBool( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
-	char* pyGroup, * pyKey, pyDef, create = 0;
+	char* pyGroup,
+	* pyKey,
+	pyDef,
+	create = 0;
 	if ( !PyArg_ParseTuple( args, "ssb|b:getBool(group, key, default, create)", &pyGroup, &pyKey, &pyDef, &create ) )
 		return 0;
 
@@ -1561,7 +1655,9 @@ static PyObject* wpSettingsGetBool( PyObject* self, PyObject* args )
 static PyObject* wpSettingsSetBool( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
-	char* pyGroup, * pyKey, pyValue;
+	char* pyGroup,
+	* pyKey,
+	pyValue;
 	if ( !PyArg_ParseTuple( args, "ssb:setBool(group, key, value)", &pyGroup, &pyKey, &pyValue ) )
 		return 0;
 
@@ -1579,7 +1675,9 @@ static PyObject* wpSettingsSetBool( PyObject* self, PyObject* args )
 static PyObject* wpSettingsGetNumber( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
-	char* pyGroup, * pyKey, create = 0;
+	char* pyGroup,
+	* pyKey,
+	create = 0;
 	int pyDef;
 	if ( !PyArg_ParseTuple( args, "ssi|b:getNumber(group, key, default, create)", &pyGroup, &pyKey, &pyDef, &create ) )
 		return 0;
@@ -1596,7 +1694,8 @@ static PyObject* wpSettingsGetNumber( PyObject* self, PyObject* args )
 static PyObject* wpSettingsSetNumber( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
-	char* pyGroup, * pyKey;
+	char* pyGroup,
+	* pyKey;
 	int pyValue;
 	if ( !PyArg_ParseTuple( args, "ssi:setNumber(group, key, value)", &pyGroup, &pyKey, &pyValue ) )
 		return 0;
@@ -1616,7 +1715,10 @@ static PyObject* wpSettingsSetNumber( PyObject* self, PyObject* args )
 static PyObject* wpSettingsGetString( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
-	char* pyGroup, * pyKey, * pyDef, create = 0;
+	char* pyGroup,
+	* pyKey,
+	* pyDef,
+	create = 0;
 	if ( !PyArg_ParseTuple( args, "sss|b:getString(group, key, default, create)", &pyGroup, &pyKey, &pyDef, &create ) )
 		return 0;
 
@@ -1632,7 +1734,9 @@ static PyObject* wpSettingsGetString( PyObject* self, PyObject* args )
 static PyObject* wpSettingsSetString( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
-	char* pyGroup, * pyKey, * pyValue;
+	char* pyGroup,
+	* pyKey,
+	* pyValue;
 	if ( !PyArg_ParseTuple( args, "sss:setString(group, key, value)", &pyGroup, &pyKey, &pyValue ) )
 		return 0;
 
@@ -1668,7 +1772,15 @@ static PyObject* wpSettingsSave( PyObject* self, PyObject* args )
 */
 static PyMethodDef wpSettings[] =
 {
-	{ "getBool",		wpSettingsGetBool,		METH_VARARGS, "Reads a boolean value from wolfpack.xml." }, { "setBool",		wpSettingsSetBool,		METH_VARARGS, "Sets a boolean value to wolfpack.xml." }, { "getNumber",		wpSettingsGetNumber,	METH_VARARGS, "Gets a numeric value from wolfpack.xml." }, { "setNumber",		wpSettingsSetNumber,	METH_VARARGS, "Sets a numeric value to wolfpack.xml." }, { "getString",		wpSettingsGetString,	METH_VARARGS, "Reads a string value from wolfpack.xml." }, { "setString",		wpSettingsSetString,	METH_VARARGS, "Writes a string value to wolfpack.xml." }, { "reload",			wpSettingsReload,		METH_NOARGS, "Reloads wolfpack.xml." }, { "save",			wpSettingsSave,			METH_NOARGS, "Saves changes made to wolfpack.xml"	}, { NULL, NULL, 0, NULL } // Terminator
+	{ "getBool",		wpSettingsGetBool,		METH_VARARGS, "Reads a boolean value from wolfpack.xml." },
+	{ "setBool",		wpSettingsSetBool,		METH_VARARGS, "Sets a boolean value to wolfpack.xml." },
+	{ "getNumber",		wpSettingsGetNumber,	METH_VARARGS, "Gets a numeric value from wolfpack.xml." },
+	{ "setNumber",		wpSettingsSetNumber,	METH_VARARGS, "Sets a numeric value to wolfpack.xml." },
+	{ "getString",		wpSettingsGetString,	METH_VARARGS, "Reads a string value from wolfpack.xml." },
+	{ "setString",		wpSettingsSetString,	METH_VARARGS, "Writes a string value to wolfpack.xml." },
+	{ "reload",			wpSettingsReload,		METH_NOARGS, "Reloads wolfpack.xml." },
+	{ "save",			wpSettingsSave,			METH_NOARGS, "Saves changes made to wolfpack.xml"	},
+	{ NULL, NULL, 0, NULL } // Terminator
 
 };
 
@@ -1704,7 +1816,9 @@ static PyObject* wpOptionsSetOption( PyObject* self, PyObject* args )
 */
 static PyMethodDef wpOptions[] =
 {
-	{ "getOption",		wpOptionsGetOption,		METH_VARARGS, "Reads a string value from the database." }, { "setOption",		wpOptionsSetOption,		METH_VARARGS, "Sets a string value and a key to the database." }, { NULL, NULL, 0, NULL } // Terminator
+	{ "getOption",		wpOptionsGetOption,		METH_VARARGS, "Reads a string value from the database." },
+	{ "setOption",		wpOptionsSetOption,		METH_VARARGS, "Sets a string value and a key to the database." },
+	{ NULL, NULL, 0, NULL } // Terminator
 
 };
 
@@ -1840,7 +1954,12 @@ static PyObject* wpOpen( PyObject* self, PyObject* args )
 
 static PyMethodDef wpDatabase[] =
 {
-	{ "query",				wpQuery,	METH_VARARGS, "Executes a sql query and returns the result." }, { "execute",			wpExecute,	METH_VARARGS, "Executes a sql query and dont return a result." }, { "driver",				wpDriver,	METH_VARARGS, "Returns the name of the database driver used." }, { "close",				wpClose,	METH_VARARGS, "Closes the database." }, { "open",				wpOpen,		METH_VARARGS, "Opens the database." }, { 0, 0, 0, 0 }
+	{ "query",				wpQuery,	METH_VARARGS, "Executes a sql query and returns the result." },
+	{ "execute",			wpExecute,	METH_VARARGS, "Executes a sql query and dont return a result." },
+	{ "driver",				wpDriver,	METH_VARARGS, "Returns the name of the database driver used." },
+	{ "close",				wpClose,	METH_VARARGS, "Closes the database." },
+	{ "open",				wpOpen,		METH_VARARGS, "Opens the database." },
+	{ 0, 0, 0, 0 }
 };
 
 /*!

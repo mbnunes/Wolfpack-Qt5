@@ -80,7 +80,19 @@ PyObject* wpGumpResponse_getAttr( wpGumpResponse* self, char* name )
 static PyTypeObject wpGumpResponseType =
 {
 	PyObject_HEAD_INIT( &PyType_Type )
-	0, "wpGumpResponse", sizeof( wpGumpResponseType ), 0, wpDealloc, 0, ( getattrfunc ) wpGumpResponse_getAttr, 0, 0, 0, 0, 0, 
+	0,
+	"wpGumpResponse",
+	sizeof( wpGumpResponseType ),
+	0,
+	wpDealloc,
+	0,
+	( getattrfunc ) wpGumpResponse_getAttr,
+	0,
+	0,
+	0,
+	0,
+	0,
+
 };
 
 PyObject* PyGetGumpResponse( const gumpChoice_st& response )

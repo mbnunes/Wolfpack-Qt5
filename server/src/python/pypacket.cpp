@@ -58,7 +58,14 @@ static void wpPacketDestructor( PyObject* obj )
 static PyTypeObject wpPacketType =
 {
 	PyObject_HEAD_INIT( &PyType_Type )
-	0, "wppacket", sizeof( wpPacketType ), 0, wpPacketDestructor, 0, wpPacket_getattr, 
+	0,
+	"wppacket",
+	sizeof( wpPacketType ),
+	0,
+	wpPacketDestructor,
+	0,
+	wpPacket_getattr,
+
 };
 
 // Resize the packet
@@ -261,7 +268,20 @@ static PyObject* wpPacket_dump( PyObject* self, PyObject* args )
 // List of Methods
 PyMethodDef wpPacketMethods[] =
 {
-	{"resize",		wpPacket_resize,		METH_VARARGS,	NULL}, {"setbyte",		wpPacket_setbyte,		METH_VARARGS,	NULL}, {"setshort",	wpPacket_setshort,		METH_VARARGS,	NULL}, {"setint",		wpPacket_setint,		METH_VARARGS,	NULL}, {"getascii",	wpPacket_getascii,		METH_VARARGS,   NULL}, {"getunicode",	wpPacket_getunicode,	METH_VARARGS,   NULL}, {"setascii",	wpPacket_setascii,		METH_VARARGS,	NULL}, {"setunicode",	wpPacket_setunicode,	METH_VARARGS,	NULL}, {"send",		wpPacket_send,			METH_VARARGS,	NULL}, {"dump",		wpPacket_dump,			METH_VARARGS,	NULL}, {"getbyte",		wpPacket_getbyte,		METH_VARARGS,	NULL}, {"getshort",	wpPacket_getshort,		METH_VARARGS,	NULL}, {"getint",		wpPacket_getint,		METH_VARARGS,	NULL}, {NULL, NULL, 0, NULL}
+	{"resize",		wpPacket_resize,		METH_VARARGS,	NULL},
+	{"setbyte",		wpPacket_setbyte,		METH_VARARGS,	NULL},
+	{"setshort",	wpPacket_setshort,		METH_VARARGS,	NULL},
+	{"setint",		wpPacket_setint,		METH_VARARGS,	NULL},
+	{"getascii",	wpPacket_getascii,		METH_VARARGS,   NULL},
+	{"getunicode",	wpPacket_getunicode,	METH_VARARGS,   NULL},
+	{"setascii",	wpPacket_setascii,		METH_VARARGS,	NULL},
+	{"setunicode",	wpPacket_setunicode,	METH_VARARGS,	NULL},
+	{"send",		wpPacket_send,			METH_VARARGS,	NULL},
+	{"dump",		wpPacket_dump,			METH_VARARGS,	NULL},
+	{"getbyte",		wpPacket_getbyte,		METH_VARARGS,	NULL},
+	{"getshort",	wpPacket_getshort,		METH_VARARGS,	NULL},
+	{"getint",		wpPacket_getint,		METH_VARARGS,	NULL},
+	{NULL, NULL, 0, NULL}
 };
 
 static PyObject* wpPacket_getattr( PyObject* self, char* name )

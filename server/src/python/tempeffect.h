@@ -42,7 +42,8 @@ class cPythonEffect : public cTimer
 {
 protected:
 	QString functionName;
-	QString dispelId_, dispelFunc_;
+	QString dispelId_,
+	dispelFunc_;
 	PyObject* args;
 public:
 	cPythonEffect()

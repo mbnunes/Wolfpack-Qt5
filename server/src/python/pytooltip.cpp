@@ -62,7 +62,15 @@ static int wpTooltip_setAttr( wpTooltip* self, char* name, PyObject* value );
 static PyTypeObject wpTooltipType =
 {
 	PyObject_HEAD_INIT( NULL )
-	0, "wpTooltip", sizeof( wpTooltipType ), 0, wpDealloc, 0, ( getattrfunc ) wpTooltip_getAttr, ( setattrfunc ) wpTooltip_setAttr, 
+	0,
+	"wpTooltip",
+	sizeof( wpTooltipType ),
+	0,
+	wpDealloc,
+	0,
+	( getattrfunc ) wpTooltip_getAttr,
+	( setattrfunc ) wpTooltip_setAttr,
+
 };
 
 static PyObject* wpTooltip_add( wpTooltip* self, PyObject* args )
@@ -89,7 +97,9 @@ static PyObject* wpTooltip_reset( wpTooltip* self, PyObject* args )
 
 static PyMethodDef wpTooltipMethods[] =
 {
-	{"reset", ( getattrofunc ) wpTooltip_reset, METH_VARARGS, "Resets the tooltip packet."}, {"add", ( getattrofunc ) wpTooltip_add, METH_VARARGS, "Adds new line to tooltip packet."}, { NULL, NULL, 0, NULL }
+	{"reset", ( getattrofunc ) wpTooltip_reset, METH_VARARGS, "Resets the tooltip packet."},
+	{"add", ( getattrofunc ) wpTooltip_add, METH_VARARGS, "Adds new line to tooltip packet."},
+	{ NULL, NULL, 0, NULL }
 };
 
 PyObject* PyGetTooltipObject( cUOTxTooltipList* tooltip )

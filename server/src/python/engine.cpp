@@ -165,7 +165,9 @@ void reportPythonError( QString moduleName )
 	// Print the Error
 	if ( PyErr_Occurred() )
 	{
-		PyObject* exception, * value, * traceback;
+		PyObject* exception,
+		* value,
+		* traceback;
 
 		PyErr_Fetch( &exception, &value, &traceback );
 		PyErr_NormalizeException( &exception, &value, &traceback );

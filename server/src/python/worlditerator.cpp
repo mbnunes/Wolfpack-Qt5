@@ -53,7 +53,19 @@ static PyObject* wpItemIterator_getAttr( wpItemIterator* self, char* name )
 static PyTypeObject wpItemIteratorType =
 {
 	PyObject_HEAD_INIT( NULL )
-	0, "wpItemIterator", sizeof( wpItemIteratorType ), 0, wpItemIteratorDealloc, 0, ( getattrfunc ) wpItemIterator_getAttr, 0, 0, 0, 0, 0, 
+	0,
+	"wpItemIterator",
+	sizeof( wpItemIteratorType ),
+	0,
+	wpItemIteratorDealloc,
+	0,
+	( getattrfunc ) wpItemIterator_getAttr,
+	0,
+	0,
+	0,
+	0,
+	0,
+
 };
 
 PyObject* PyGetItemIterator()
@@ -93,7 +105,19 @@ static PyObject* wpCharIterator_getAttr( wpCharIterator* self, char* name )
 static PyTypeObject wpCharIteratorType =
 {
 	PyObject_HEAD_INIT( NULL )
-	0, "wpIteratorChars", sizeof( wpCharIteratorType ), 0, wpCharIteratorDealloc, 0, ( getattrfunc ) wpCharIterator_getAttr, 0, 0, 0, 0, 0, 
+	0,
+	"wpIteratorChars",
+	sizeof( wpCharIteratorType ),
+	0,
+	wpCharIteratorDealloc,
+	0,
+	( getattrfunc ) wpCharIterator_getAttr,
+	0,
+	0,
+	0,
+	0,
+	0,
+
 };
 
 PyObject* PyGetCharIterator()

@@ -135,7 +135,7 @@ public:
 
 struct stError
 {
-	unsigned char code;
+	signed char code;
 	QString text;
 };
 
