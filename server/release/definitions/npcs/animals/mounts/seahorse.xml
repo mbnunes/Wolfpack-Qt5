@@ -13,8 +13,8 @@
 		<name>sea horse</name>
 		<id>144</id>
 		<ai>Animal_Wild</ai>
-		<karma><random min="0" max="625" /></karma>
-		<fame><random min="0" max="1249" /></fame>
+		<karma><random list="KARMA_L0" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str><random min="55" max="75" /></str>
 		<dex><random min="57" max="75" /></dex>

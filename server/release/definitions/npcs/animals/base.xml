@@ -13,6 +13,7 @@
 		<name>unknown animal</name>
 		<wandertype>1</wandertype>
 		<direction><random min="0" max="18" /></direction>
+		<anatomy>0</anatomy>
 		<mindamage>1</mindamage>
 		<maxdamage>3</maxdamage>
 		<bindmenu>tame_menu,pet_menu</bindmenu>

@@ -13,8 +13,8 @@
 		<name>snow leopard</name>
 		<id><random list="NPCIDS_SNOWLEOPARD" /></id>
 		<ai>Animal_Wild</ai>
-		<karma><random min="0" max="-624" /></karma>
-		<fame><random min="0" max="1249" /></fame>
+		<karma><random list="KARMA_L0" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str><random min="56" max="80" /></str>
 		<dex><random min="66" max="85" /></dex>

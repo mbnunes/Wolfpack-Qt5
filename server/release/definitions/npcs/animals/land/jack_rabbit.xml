@@ -14,8 +14,8 @@
 		<id>205</id>
 		<ai>Animal_Wild</ai>
 		<skin><random list="SKINS_ANIMAL" /></skin>
-		<karma><random min="0" max="-624" /></karma>
-		<fame><random min="0" max="1249" /></fame>
+		<karma><random list="KARMA_L0" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str>15</str>
 		<dex>25</dex>

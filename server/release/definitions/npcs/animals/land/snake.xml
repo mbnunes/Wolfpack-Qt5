@@ -10,12 +10,12 @@
 
 	<!-- Snake -->
 	<npc id="snake" inherit="animal_base">
-		<name>a snake</name>
+		<name><random list="NAMES_SNAKE" /></name>
 		<id>52</id>
 		<ai>Animal_Wild</ai>
 		<skin><random list="SKINS_SNAKE" /></skin>
-		<karma>-300</karma>
-		<fame>300</fame>
+		<karma><random list="KARMA_L0" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<poison>1</poison>
 		<!-- Stats -->
 		<str><random min="22" max="34" /></str>

@@ -12,8 +12,8 @@
 	<npc id="nightmare" inherit="monster_base">
 		<name>nightmare</name>
 		<id><random list="NPCIDS_NIGHTMARE" /></id>
-		<karma>-14000</karma>
-		<fame>14000</fame>
+		<karma><random list="KARMA_L5" /></karma>
+		<fame><random list="FAME_L5" /></fame>
 		<!-- Stats -->
 		<str><random min="496" max="525" /></str>
 		<dex><random min="86" max="105" /></dex>

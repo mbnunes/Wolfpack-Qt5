@@ -51,7 +51,6 @@
 	<include file="definitions/npcs/animals/mounts/ethereals.xml" />
 	<include file="definitions/npcs/animals/mounts/fire_steed.xml" />
 	<include file="definitions/npcs/animals/mounts/giant_beetle.xml" />
-	<include file="definitions/npcs/animals/mounts/hell_steed.xml" />
 	<include file="definitions/npcs/animals/mounts/horse.xml" />
 	<include file="definitions/npcs/animals/mounts/kirin.xml" />
 	<include file="definitions/npcs/animals/mounts/nightmare.xml" />

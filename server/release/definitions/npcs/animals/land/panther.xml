@@ -13,8 +13,8 @@
 		<name>panther</name>
 		<id>214</id>
 		<ai>Animal_Wild</ai>
-		<karma>0</karma>
-		<fame>450</fame>
+		<karma><random list="KARMA_L0" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str><random min="61" max="85" /></str>
 		<dex><random min="86" max="105" /></dex>

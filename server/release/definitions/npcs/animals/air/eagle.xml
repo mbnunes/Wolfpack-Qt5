@@ -12,8 +12,8 @@
 		<name>eagle</name>
 		<ai>Animal_Wild</ai>
 		<id>5</id>
-		<karma>0</karma>
-		<fame>300</fame>
+		<karma><random list="KARMA_L0" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str><random min="31" max="47" /></str>
 		<dex><random min="36" max="60" /></dex>

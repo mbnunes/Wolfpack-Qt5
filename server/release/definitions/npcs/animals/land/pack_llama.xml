@@ -13,8 +13,8 @@
 		<name>pack llama</name>
 		<id>292</id>
 		<ai>Animal_Domestic</ai>
-		<karma><random min="0" max="624" /></karma>
-		<fame><random min="0" max="1249" /></fame>
+		<karma><random list="KARMA_NL0" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str><random min="52" max="80" /></str>
 		<dex><random min="36" max="55" /></dex>

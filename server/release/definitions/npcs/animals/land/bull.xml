@@ -13,8 +13,8 @@
 		<name>bull</name>
 		<id><random list="NPCIDS_BULL" /></id>
 		<ai>Animal_Domestic</ai>
-		<karma>0</karma>
-		<fame>600</fame>
+		<karma><random list="KARMA_L0" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str><random min="77" max="111" /></str>
 		<dex><random min="56" max="75" /></dex>

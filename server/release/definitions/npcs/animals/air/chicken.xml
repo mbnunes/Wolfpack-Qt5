@@ -13,14 +13,14 @@
 		<name>chicken</name>
 		<ai>Animal_Domestic</ai>
 		<id>208</id>
-		<karma>0</karma>
-		<fame><random min="0" max="150" /></fame>
+		<karma><random list="KARMA_L0" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str>5</str>
 		<dex>15</dex>
 		<int>5</int>
 		<!-- Status -->
-		<maxhitpoints>5</maxhitpoints>
+		<maxhitpoints>3</maxhitpoints>
 		<maxmana>0</maxmana>
 		<!-- Skills -->
 		<wrestling>50</wrestling>

@@ -13,8 +13,8 @@
 		<name>alligator</name>
 		<id>202</id>
 		<ai>Animal_Aggressive</ai>
-		<karma>-600</karma>
-		<fame>600</fame>
+		<karma><random list="KARMA_L1" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str><random min="76" max="100" /></str>
 		<dex><random min="6" max="25" /></dex>

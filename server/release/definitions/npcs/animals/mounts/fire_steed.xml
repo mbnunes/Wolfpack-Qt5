@@ -12,8 +12,8 @@
 	<npc id="fire_steed" inherit="monster_base">
 		<name>fire steed</name>
 		<id>190</id>
-		<karma>-20000</karma>
-		<fame>-20000</fame>
+		<karma><random list="KARMA_L5" /></karma>
+		<fame><random list="FAME_L5" /></fame>
 		<!-- Stats -->
 		<str><random min="376" max="400" /></str>
 		<dex><random min="91" max="120" /></dex>

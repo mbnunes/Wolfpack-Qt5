@@ -13,8 +13,8 @@
 		<name>swamp dragon</name>
 		<id><random list="NPCIDS_SWAMPDRAGON" /></id>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
-		<karma>-2000</karma>
-		<fame>2000</fame>
+		<karma><random list="KARMA_L2" /></karma>
+		<fame><random list="FAME_L2" /></fame>
 		<!-- Stats -->
 		<str><random min="201" max="300" /></str>
 		<dex><random min="66" max="85" /></dex>
@@ -58,8 +58,8 @@
 	<!-- Armored Swamp Dragon, Strong -->
 	<npc id="swamp_dragon_3" inherit="swamp_dragon">
 		<id>799</id>
-		<karma>-3500</karma>
-		<fame>3500</fame>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="301" max="400" /></str>
 		<dex><random min="166" max="185" /></dex>

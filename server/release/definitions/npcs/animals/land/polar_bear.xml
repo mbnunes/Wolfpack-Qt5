@@ -13,8 +13,8 @@
 		<name>polar bear</name>
 		<id>213</id>
 		<ai>Animal_Aggressive</ai>
-		<karma>0</karma>
-		<fame>1500</fame>
+		<karma><random list="KARMA_L0" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str><random min="116" max="140" /></str>
 		<dex><random min="81" max="105" /></dex>

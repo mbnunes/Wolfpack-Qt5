@@ -14,8 +14,8 @@
 		<ai>Animal_Wild</ai>
 		<id>6</id>
 		<skin><random list="SKINS_BIRD" /></skin>
-		<karma>0</karma>
-		<fame>150</fame>
+		<karma><random list="KARMA_L0" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str><random min="1" max="4" /></str>
 		<dex>25</dex>
@@ -30,7 +30,7 @@
 		<anatomy>0</anatomy>
 		<!-- Damage -->
 		<mindamage>1</mindamage>
-		<maxdamage>3</maxdamage>
+		<maxdamage>1</maxdamage>
 		<!-- Defense -->
 		<tag name="res_physical" value="0,3" type="int" />
 		<!-- Misc. -->

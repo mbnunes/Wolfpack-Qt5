@@ -13,8 +13,8 @@
 		<name>hind</name>
 		<ai>Animal_Wild</ai>
 		<id>237</id>
-		<karma>0</karma>
-		<fame>300</fame>
+		<karma><random list="KARMA_L0" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str><random min="21" max="51" /></str>
 		<dex><random min="47" max="77" /></dex>
