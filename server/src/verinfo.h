@@ -140,8 +140,8 @@ struct wp_version_info
 		   /////////////////////////////////////
 
 		   verstruct.major_version  = 12;
-		   verstruct.sub_version    = 8;
-		   verstruct.subsub_version = 6; // no subsub
+		   verstruct.sub_version    = 9;
+		   verstruct.subsub_version = 0; // no subsub
 
 		   verstruct.flags    = WPV_RELEASE;
 		   verstruct.derivate = WOLF;
@@ -149,13 +149,13 @@ struct wp_version_info
            vernumber = to_32bitver(verstruct);		   
 		  
 		   /// code for auto generation of verstring, productstring and betareleasestring coming soon (LB) ...
-		   verstring = "13.0.0";  // Wolfpack version 
+		   verstring = "Pre-12.9.0";  // Wolfpack version 
 		   productstring = "Wolfpack"; // selfexplainatory, isnt't it :)
-		   betareleasestring = ""; // release status
+		   betareleasestring = "Alpha"; // release status
 
 		   //////////////////////////////////////////////////
 
-		   clientsupportedstring = "3.0.7b";
+		   clientsupportedstring = "3.0.7g";
 
 		   // SUPPORTED_CLIENT is part of the client version control system.
            // this is NOT necassairily the lastest client.
@@ -170,7 +170,7 @@ struct wp_version_info
            #else
              compiledbystring = "Wolfpack" ;	// person that compiled windows version
            #endif
-           codersstring = "Correa, DarkStorm, punt, Ripper, sereg"; // Keep in alphabetic order.
+           codersstring = "Wolfpack Developers"; // Keep in alphabetic order.
 
            emailstring = "http://www.wpdev.org/";		  
 	   }

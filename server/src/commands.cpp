@@ -1952,7 +1952,7 @@ public:
 		return true;
 	}
 
-	virtual void canceled( cUOSocket *socket ) {}
+	virtual void canceled( cUOSocket *socket ) { Q_UNUSED(socket); }
 };
 
 void commandAddSpell( cUOSocket *socket, const QString &command, QStringList &args )
