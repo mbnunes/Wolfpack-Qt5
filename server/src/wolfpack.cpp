@@ -1332,7 +1332,6 @@ int main( int argc, char *argv[] )
 	cBook::registerInFactory();
 	cSpellBook::registerInFactory();
 	cCorpse::registerInFactory();
-	cMulti::registerInFactory();
 	cBoat::registerInFactory();
 	cHouse::registerInFactory();
 
