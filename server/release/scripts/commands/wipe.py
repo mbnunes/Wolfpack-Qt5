@@ -64,13 +64,17 @@ def wipeAllWorld( player, accept, state ):
 	player.socket.sysmessage( "Removing all items from world, this may take a while" )
 	iterator = wolfpack.itemiterator()
 	item = iterator.first
-	count = 0
+	serials = []
 	while item:
 		if item.container == None:
-			item.delete()
-			count += 1
+			serials.append(item.serial)
 		item = iterator.next
-	player.socket.sysmessage( "%i items have been removed from world" % count )
+	for serial in serials:
+		item = wolfpack.finditem(serial)
+		if item:
+			item.delete()
+		
+	player.socket.sysmessage( "%i items have been removed from world" % len(serials) )
 	return
 
 def wipeBoundingBox( socket, target1, target2 ):

@@ -58,6 +58,7 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Added macro support for bowing and salutes.
 		- Removed the deprecated WEIGHTBONUS property.
 		- Fixed clientcrashs related to the page menu.
+		- Crashfix for wipe all in certain situations.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
