@@ -168,8 +168,8 @@ def main():
 	if options.dsp:
 		sys.stdout.write("Generating Visual Studio project files...\n")
 		os.spawnv(os.P_WAIT, qt_qmake, [qt_qmake, "wolfpack.pro", "-t vcapp"])
-	sys.stdout.write("Done")
-	sys.stdout.write("Configure finished. Please run make now.")
+	sys.stdout.write("Done\n")
+	sys.stdout.write("Configure finished. Please run make now.\n")
 	
 if __name__ == "__main__":
     main()
