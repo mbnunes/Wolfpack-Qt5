@@ -97,9 +97,6 @@ void Trade::buyAction( cUOSocket *socket, cUORxBuy *packet )
 		return;
 	}
 
-	// Get our total gold at once
-	UINT32 totalGold = pChar->CountBankGold() + pChar->CountGold();
-
 	P_ITEM pStock = pVendor->GetItemOnLayer( 0x1A );
 	cItem::ContainerContent sContent;
 
@@ -170,21 +167,31 @@ void Trade::buyAction( cUOSocket *socket, cUORxBuy *packet )
 			items.insert( make_pair( pItem->serial(), amount ) );
 	}
 
-	bool fromBank = false;
-	if (pChar->CountGold() < totalValue && !pChar->account()->isStaff())
-	{
-		pVendor->talk( 500192, 0, 0, false, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thou casnt afford that.
-		return;
-	} else if (pChar->CountBankGold() < totalValue && !pChar->account()->isStaff()) {
-		pVendor->talk( 500191, 0, 0, false, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thy bank account lacks these funds.
-		return;
-	}
-
 	if ( !items.size() )
 	{
 		socket->send( &clearBuy );
 		pVendor->talk( 500190, 0, 0, false, 0xFFFF, pChar->socket() ); // Thou hast bought nothing!
 		return;
+	}
+
+	// Get our total gold at once
+	UINT32 bankGold = pChar->CountBankGold();
+	UINT32 packGold = pChar->CountGold();
+	bool fromBank;
+
+	if (!pChar->isGM()) {
+		if (packGold >= totalValue) {
+			fromBank = false;
+			pChar->getBackpack()->removeItems("eed", totalValue);
+			socket->sendStatWindow();
+		} else if (bankGold >= totalValue) {
+			fromBank = true;
+			pChar->getBankbox()->removeItems("eed", totalValue);
+			socket->sendStatWindow();
+		} else {
+			pVendor->talk( 500192, 0, 0, false, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thou casnt afford that.
+			return;
+		}
 	}
 
 	// Sanity checks all passed here
@@ -226,8 +233,6 @@ void Trade::buyAction( cUOSocket *socket, cUORxBuy *packet )
 	else
 		pVendor->talk( tr("The total of thy purchase is %1 gold.  My thanks for the patronage.").arg(totalValue), 0xFFFF, 0, false, pChar->socket() );
 
-	if( pChar->takeGold( totalValue, fromBank ) < totalValue && !pChar->account()->isStaff() )
-		Console::instance()->send( QString( "Player 0x%1 payed less than he should have to vendor 0x%2" ).arg( pChar->serial(), 8, 16 ).arg( pVendor->serial(), 8, 16 ) );
 	pChar->socket()->soundEffect( 0x32 );
 }
 
@@ -268,9 +273,6 @@ void Trade::sellAction( cUOSocket *socket, cUORxSell *packet )
 		socket->send( &clearBuy );
 		return;
 	}
-
-	// Get our total gold at once
-	//UINT32 totalGold = pChar->CountBankGold() + pChar->CountGold();
 
 	P_ITEM pPurchase = pVendor->GetItemOnLayer( 0x1C );
 	if( !pPurchase )
