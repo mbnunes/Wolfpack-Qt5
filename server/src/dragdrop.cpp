@@ -323,7 +323,7 @@ void get_item(P_CLIENT ps) // Client grabs an item
 					
 				}
 				
-				int amt = 0, wgt; bool tooheavy=false;				
+			/*	int amt = 0, wgt; bool tooheavy=false;				
 				wgt = (int)Weight->LockeddownWeight(pi, &amt, 0);
 				if(pi->contserial>0)
 				{
@@ -347,10 +347,10 @@ void get_item(P_CLIENT ps) // Client grabs an item
 						 return;
 					 }
 					}
-				}
+				} 
 
                 if (!tooheavy) pc_currchar->weight+=wgt;				   
-				update = 1;					
+				update = 1;	*/				
 
 				// LB remark: drop item if too heavy is a good solution,
 				// but there's still a small bug remaining.
