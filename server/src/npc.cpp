@@ -466,10 +466,6 @@ void cNPC::showName( cUOSocket *socket )
 	if( socket->player()->showSerials() )
 		charName.append( QString( " [0x%1]" ).arg( serial(), 4, 16 ) );
 
-	// Invulnerability
-	if( isInvulnerable() && socket->player()->isGMorCounselor() )
-		charName.append( tr(" [invul]") );
-
 	// Frozen
 	if (isFrozen())
 		charName.append( tr(" [frozen]") );
@@ -481,22 +477,6 @@ void cNPC::showName( cUOSocket *socket )
 	// Guarding
 	if( isTamed() && guarding_ )
 		charName.append( tr(" [guarding]") );
-
-	// Tamed
-	if( isTamed() )
-		charName.append( tr(" [tamed]") );
-
-	// WarMode ?
-	if( isAtWar() )
-		charName.append( tr(" [war mode]") );
-
-	// Criminal ?
-	if( ( criminalTime() > uiCurrentTime ) && ( kills_ < SrvParams->maxkills() ) )
-		charName.append( tr(" [criminal]") );
-
-	// Murderer
-	if( kills_ >= SrvParams->maxkills() )
-		charName.append( tr(" [murderer]") );
 
 	Q_UINT16 speechColor;
 

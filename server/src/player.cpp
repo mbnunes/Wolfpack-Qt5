@@ -543,14 +543,6 @@ void cPlayer::showName( cUOSocket *socket )
 	if( !socket_ )
 		charName.append( tr(" [offline]") );
 
-	// Invulnerability
-	if( isInvulnerable() )
-		charName.append( tr(" [invul]") );
-
-	// Frozen
-	if( isFrozen() )
-		charName.append( tr(" [frozen]") );
-
 	// Guarded
 	if( guardedby_.size() > 0 )
 		charName.append( tr(" [guarded]") );
@@ -558,22 +550,6 @@ void cPlayer::showName( cUOSocket *socket )
 	// Guarding
 	if( isTamed() && guarding_ )
 		charName.append( tr(" [guarding]") );
-
-	// Tamed
-	if( isTamed() )
-		charName.append( tr(" [tamed]") );
-
-	// WarMode ?
-	if( isAtWar() )
-		charName.append( tr(" [war mode]") );
-
-	// Criminal ?
-	if( ( criminalTime_ > uiCurrentTime ) && ( kills_ < SrvParams->maxkills() ) )
-		charName.append( tr(" [criminal]") );
-
-	// Murderer
-	if( kills_ >= SrvParams->maxkills() )
-		charName.append( tr(" [murderer]") );
 
 	Q_UINT16 speechColor;
 

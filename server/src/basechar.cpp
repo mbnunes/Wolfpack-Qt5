@@ -2151,12 +2151,7 @@ bool cBaseChar::kill(cUObject *source) {
 		// Storing the player's notoriety
 		// So a singleclick on the corpse
 		// Will display the right color
-		if( isInnocent() )
-			corpse->setTag("notoriety", cVariant(1));
-		else if( isCriminal() )
-			corpse->setTag("notoriety", cVariant(2));
-		else if( isMurderer() )
-			corpse->setTag("notoriety", cVariant(3));
+		corpse->setTag("notoriety", cVariant(notoriety(this)));
 
 		if (npc) {
 			corpse->setCarve(npc->carve());
