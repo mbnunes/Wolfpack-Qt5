@@ -33,6 +33,8 @@ Wolfpack 12.9.8 Beta (4. August 2004)
 		Haven should now work.
 	- Database Change:
 		items.magic is now items.movable
+	- QT_CLEAN_NAMESPACE Cleanups
+	- Python UCS4 Support
 
 Wolfpack 12.9.7 Beta (4. July 2004)
 	- Region/Spawn Region Updates:
