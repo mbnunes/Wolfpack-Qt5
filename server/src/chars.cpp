@@ -1298,6 +1298,19 @@ bool cChar::onHelp( void )
 	return false;
 }
 
+// The paperdoll of this character has been requested
+bool cChar::onShowPaperdoll( P_CHAR pOrigin )
+{
+	if( scriptChain.empty() )
+		return false;
+
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onShowPaperdoll( this, pOrigin ) )
+			return true;
+
+	return false;
+}
+
 // The character wants to chat
 bool cChar::onChat( void )
 {

@@ -1116,6 +1116,9 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 	if( !pChar || !pTarget )
 		return;
 
+	if( pTarget->onShowPaperdoll( pChar ) )
+		return;
+
 	// For players we'll always show the Paperdoll
 	if( pTarget->isHuman() || !pTarget->isNpc() )
 	{

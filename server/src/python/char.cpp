@@ -1326,6 +1326,37 @@ PyObject* wpChar_updateflags( wpChar* self, PyObject* args )
 	return PyTrue;
 }
 
+/*!
+	Checks if a certain character is able to reach another object. 
+	The second parameter specifies the range the character needs to be in.
+*/
+PyObject* wpChar_canreach( wpChar* self, PyObject* args )
+{
+	Q_UNUSED(args);
+	if( !self->pChar || self->pChar->free || !checkArgObject( 0 ) || !checkArgInt( 1 ) )
+		return PyFalse;
+
+	cUObject *obj = getArgChar( 0 );
+	if( !obj )
+		obj = getArgItem( 1 );
+
+	if( !obj )
+		return PyFalse;
+
+	UINT32 range = getArgInt( 1 );
+
+	if( self->pChar->pos().map != obj->pos().map )
+		return PyFalse;
+
+	if( self->pChar->pos().distance( obj->pos() ) > range )
+		return PyFalse;
+
+	if( !lineOfSight( self->pChar->pos(), obj->pos(), TREES_BUSHES|DOORS|ROOFING_SLANTED|FLOORS_FLAT_ROOFING|LAVA_WATER ) )
+		return PyFalse;
+
+	return PyTrue;
+}
+
 static PyMethodDef wpCharMethods[] = 
 {
 	{ "moveto",			(getattrofunc)wpChar_moveto, METH_VARARGS, "Moves the character to the specified location." },
@@ -1353,6 +1384,7 @@ static PyMethodDef wpCharMethods[] =
 	{ "maywalk",		(getattrofunc)wpChar_maywalk, METH_VARARGS, "Checks if this character may walk to a specific cell." },
 	{ "sound",			(getattrofunc)wpChar_sound, METH_VARARGS, "Play a creature specific sound." },
 	{ "disturb",		(getattrofunc)wpChar_disturb, METH_VARARGS, "Disturbs whatever this character is doing right now." },
+	{ "canreach",		(getattrofunc)wpChar_canreach, METH_VARARGS, "Checks if this character can reach a certain object." },
 	
 	// Mostly NPC functions
 	{ "attack",			(getattrofunc)wpChar_attack, METH_VARARGS, "Let's the character attack someone else." },

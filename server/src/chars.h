@@ -753,6 +753,7 @@ public:
 	virtual bool onWarModeToggle( bool War ); // The character switches warmode
 	virtual bool onLogin( void ); // The character enters the world
 	virtual bool onLogout( void ); // The character enters the world
+	virtual bool onShowPaperdoll( P_CHAR pOrigin ); // The paperdoll of this character is requested, there is no vice-versa call
 	
 	virtual bool onHelp( void ); // The character wants help
 	virtual bool onChat( void ); // The character wants to chat

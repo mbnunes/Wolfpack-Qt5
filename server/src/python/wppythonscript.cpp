@@ -451,3 +451,15 @@ bool WPPythonScript::onCommand( cUOSocket *socket, const QString &name, const QS
 
 	PyEvalMethod( "onCommand" )
 }
+
+bool WPPythonScript::onShowPaperdoll( P_CHAR pChar, P_CHAR pOrigin )
+{
+	PyHasMethod( "onShowPaperdoll" )
+
+	// Create our args for the python function
+	PyObject *tuple = PyTuple_New( 2 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
+	PyTuple_SetItem( tuple, 1, PyGetCharObject( pOrigin ) );
+
+	PyEvalMethod( "onShowPaperdoll" )
+}
