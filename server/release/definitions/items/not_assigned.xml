@@ -1477,4 +1477,598 @@
 		<id>0x2546</id>
 	</item>
 
+	<!-- Samurai Empire -->
+	<!-- Unsorted, Adding here for now -->
+
+	<item id="238c">
+		<id>0x283c</id>
+		<category>Unsorted\Samurai\Book of Bushido</category>
+	</item>
+
+	<item id="23a0">
+		<id>0x283c</id>
+		<category>Unsorted\Samurai\Book of Ninjitsu</category>
+	</item>
+
+	<item id="2393">
+		<id>0x2393</id>
+	</item>
+
+	<item id="2409">
+		<id>0x2409</id>
+	</item>
+
+	<item id="240a">
+		<id>0x240a</id>
+	</item>
+
+	<item id="240b">
+		<id>0x240b</id>
+	</item>
+
+	<item id="240c">
+		<id>0x240c</id>
+	</item>
+
+	<item id="240d">
+		<id>0x240d</id>
+	</item>
+
+	<item id="240e">
+		<id>0x240e</id>
+	</item>
+
+	<item id="240f">
+		<id>0x240f</id>
+	</item>
+
+	<item id="2410">
+		<id>0x2410</id>
+	</item>
+
+	<item id="2411">
+		<id>0x2411</id>
+	</item>
+
+	<item id="2412">
+		<id>0x2412</id>
+	</item>
+
+	<item id="2413">
+		<id>0x2413</id>
+	</item>
+
+	<item id="2414">
+		<id>0x2414</id>
+	</item>
+
+	<item id="2415">
+		<id>0x2415</id>
+	</item>
+
+	<item id="2416">
+		<id>0x2416</id>
+	</item>
+
+	<item id="2417">
+		<id>0x2417</id>
+	</item>
+
+	<item id="2418">
+		<id>0x2418</id>
+	</item>
+
+	<item id="2419">
+		<id>0x2419</id>
+	</item>
+
+	<item id="241a">
+		<id>0x241a</id>
+	</item>
+
+	<item id="241b">
+		<id>0x241b</id>
+	</item>
+
+	<item id="241c">
+		<id>0x241c</id>
+	</item>
+
+	<item id="241d">
+		<id>0x241d</id>
+	</item>
+
+	<item id="241e">
+		<id>0x241e</id>
+	</item>
+
+	<item id="24de">
+		<id>0x24de</id>
+	</item>
+
+	<item id="24df">
+		<id>0x24df</id>
+	</item>
+
+	<item id="24e0">
+		<id>0x24e0</id>
+	</item>
+
+	<item id="24e1">
+		<id>0x24e1</id>
+	</item>
+
+	<item id="24e2">
+		<id>0x24e2</id>
+	</item>
+
+	<item id="24e3">
+		<id>0x24e3</id>
+	</item>
+
+	<item id="24e4">
+		<id>0x24e4</id>
+	</item>
+
+	<item id="24e5">
+		<id>0x24e5</id>
+	</item>
+
+	<item id="24e6">
+		<id>0x24e6</id>
+	</item>
+
+	<item id="24e7">
+		<id>0x24e7</id>
+	</item>
+
+	<item id="24e8">
+		<id>0x24e8</id>
+	</item>
+
+	<item id="24e9">
+		<id>0x24e9</id>
+	</item>
+
+	<item id="24eb">
+		<id>0x24eb</id>
+	</item>
+
+	<!-- Lattice Works -->
+	<item id="2712">
+		<id>0x2712</id>
+		<nodecay />
+	</item>
+
+	<item id="2752">
+		<id>0x2752</id>
+		<nodecay />
+	</item>
+
+	<item id="2753">
+		<id>0x2753</id>
+		<nodecay />
+	</item>
+
+	<item id="2754">
+		<id>0x2754</id>
+		<nodecay />
+	</item>
+
+	<item id="2755">
+		<id>0x2755</id>
+		<nodecay />
+	</item>
+
+	<item id="2756">
+		<id>0x2756</id>
+		<nodecay />
+	</item>
+
+	<item id="2757">
+		<id>0x2757</id>
+		<nodecay />
+	</item>
+
+	<item id="2758">
+		<id>0x2758</id>
+		<nodecay />
+	</item>
+
+	<item id="2759">
+		<id>0x2759</id>
+		<nodecay />
+	</item>
+
+	<item id="275a">
+		<id>0x275a</id>
+		<nodecay />
+	</item>
+
+	<item id="275b">
+		<id>0x275b</id>
+		<nodecay />
+	</item>
+
+	<item id="275c">
+		<id>0x275c</id>
+		<nodecay />
+	</item>
+
+	<item id="275d">
+		<id>0x275d</id>
+		<nodecay />
+	</item>
+
+	<item id="275e">
+		<id>0x275e</id>
+		<nodecay />
+	</item>
+
+	<item id="275f">
+		<id>0x275f</id>
+		<nodecay />
+	</item>
+
+	<item id="2760">
+		<id>0x2760</id>
+		<nodecay />
+	</item>
+
+	<item id="2761">
+		<id>0x2761</id>
+		<nodecay />
+	</item>
+
+	<item id="2762">
+		<id>0x2762</id>
+		<nodecay />
+	</item>
+
+	<!-- End Lattice Works -->
+
+	<item id="2830">
+		<id>0x2830</id>
+	</item>
+
+	<item id="2831">
+		<id>0x2831</id>
+	</item>
+
+	<item id="2832">
+		<id>0x832</id>
+	</item>
+
+	<item id="2833">
+		<id>0x2833</id>
+	</item>
+
+	<item id="2834">
+		<id>0x2834</id>
+	</item>
+
+	<item id="2835">
+		<id>0x2835</id>
+	</item>
+
+	<item id="2836">
+		<id>0x2836</id>
+	</item>
+
+	<item id="2837">
+		<id>0x2837</id>
+	</item>
+
+	<!-- Begin Origami -->
+
+	<item id="2838">
+		<id>0x2838</id>
+	</item>
+
+	<item id="2839">
+		<id>0x2839</id>
+	</item>
+
+	<item id="283a">
+		<id>0x283a</id>
+	</item>
+
+	<item id="283b">
+		<id>0x283b</id>
+	</item>
+
+	<item id="283c">
+		<id>0x283c</id>
+	</item>
+
+	<item id="283d">
+		<id>0x283d</id>
+	</item>
+
+	<!-- End Origami -->
+
+	<!-- Begin Sushi -->
+
+	<item id="283e">
+		<id>0x283e</id>
+	</item>
+
+	<item id="283f">
+		<id>0x283f</id>
+	</item>
+
+	<item id="2840">
+		<id>0x2840</id>
+	</item>
+
+	<item id="2841">
+		<id>0x2841</id>
+	</item>
+
+	<!-- End Sushi -->
+
+	<item id="2846">
+		<id>0x2846</id>
+	</item>
+
+	<item id="2847">
+		<id>0x2847</id>
+	</item>
+
+	<item id="2848">
+		<id>0x2848</id>
+	</item>
+
+	<item id="2849">
+		<id>0x2849</id>
+	</item>
+
+	<item id="284a">
+		<id>0x284a</id>
+	</item>
+
+	<item id="284b">
+		<id>0x284b</id>
+	</item>
+
+	<item id="284c">
+		<id>0x284c</id>
+	</item>
+
+	<item id="284d">
+		<id>0x284d</id>
+	</item>
+
+	<item id="284e">
+		<id>0x284e</id>
+	</item>
+
+	<item id="284f">
+		<id>0x284f</id>
+	</item>
+
+	<item id="2850">
+		<id>0x2850</id>
+	</item>
+
+	<!-- Begin Sword Displays -->
+
+	<item id="2842">
+		<id>0x2842</id>
+	</item>
+
+	<item id="2843">
+		<id>0x2843</id>
+	</item>
+
+	<item id="2844">
+		<id>0x2844</id>
+	</item>
+
+	<item id="2855">
+		<id>0x2855</id>
+	</item>
+
+	<item id="2851">
+		<id>0x2851</id>
+	</item>
+
+	<item id="2852">
+		<id>0x2852</id>
+	</item>
+
+	<item id="2853">
+		<id>0x2853</id>
+	</item>
+
+	<item id="2854">
+		<id>0x2854</id>
+	</item>
+
+	<item id="2855">
+		<id>0x2855</id>
+	</item>
+
+	<item id="2856">
+		<id>0x2856</id>
+	</item>
+
+	<item id="291c">
+		<id>0x291c</id>
+	</item>
+
+	<item id="291d">
+		<id>0x291d</id>
+	</item>
+
+	<item id="291e">
+		<id>0x291e</id>
+	</item>
+
+	<item id="291f">
+		<id>0x291f</id>
+	</item>
+
+	<item id="2a2a">
+		<id>0x2a2a</id>
+	</item>
+
+	<item id="2a45">
+		<id>0x2a45</id>
+	</item>
+
+	<item id="2a46">
+		<id>0x2a46</id>
+	</item>
+
+	<item id="2a47">
+		<id>0x2a47</id>
+	</item>
+
+	<item id="2a48">
+		<id>0x2a48</id>
+	</item>
+
+	<item id="2a49">
+		<id>0x2a49</id>
+	</item>
+
+	<item id="2a4a">
+		<id>0x2a4a</id>
+	</item>
+
+	<!-- End Sword Displays -->
+
+	<item id="2886">
+		<id>0x2886</id>
+	</item>
+
+	<item id="2887">
+		<id>0x2887</id>
+	</item>
+
+	<!-- Begin Bonsai Trees -->
+
+	<item id="28dc">
+		<id>0x28dc</id>
+	</item>
+
+	<item id="28dd">
+		<id>0x28dd</id>
+	</item>
+
+	<item id="28de">
+		<id>0x28de</id>
+	</item>
+
+	<item id="28df">
+		<id>0x28df</id>
+	</item>
+
+	<item id="28e0">
+		<id>0x28e0</id>
+	</item>
+
+	<item id="28e1">
+		<id>0x28e1</id>
+	</item>
+
+	<item id="28e2">
+		<id>0x28e2</id>
+	</item>
+
+	<item id="28e3">
+		<id>0x28e3</id>
+	</item>
+
+	<!-- End Bonsai Trees -->
+
+	<item id="2936">
+		<id>0x2936</id>
+	</item>
+
+	<item id="2937">
+		<id>0x2937</id>
+	</item>
+
+	<!-- Begin Futons -->
+
+	<item id="295c">
+		<id>0x295c</id>
+	</item>
+
+	<item id="295d">
+		<id>0x295d</id>
+	</item>
+
+	<item id="295e">
+		<id>0x295e</id>
+	</item>
+
+	<item id="295f">
+		<id>0x295f</id>
+	</item>
+
+	<!-- End Futons -->
+
+	<!-- Begin Soulstones -->
+
+	<item id="2a93">
+		<id>0x2a93</id>
+	</item>
+
+	<item id="2a94">
+		<id>0x2a94</id>
+	</item>
+
+	<item id="2a95">
+		<id>0x2a95</id>
+	</item>
+
+	<item id="2a96">
+		<id>0x2a96</id>
+	</item>
+
+	<item id="2a97">
+		<id>0x29a7</id>
+	</item>
+
+	<!-- End Soulstones -->
+
+	<!-- Begin Fire Pits -->
+
+	<item id="29fd">
+		<id>0x29fd</id>
+	</item>
+
+	<item id="29fe">
+		<id>0x29fe</id>
+	</item>
+
+	<item id="29ff">
+		<id>0x29ff</id>
+	</item>
+
+	<item id="2a00">
+		<id>0x2a01</id>
+	</item>
+
+	<item id="2a02">
+		<id>0x2a02</id>
+	</item>
+
+	<item id="2a03">
+		<id>0x2a03</id>
+	</item>
+
+	<item id="2a04">
+		<id>0x2a04</id>
+	</item>
+
+	<item id="2a05">
+		<id>0x2a05</id>
+	</item>
+
+	<!-- End Fire Pits -->
+
 </definitions>

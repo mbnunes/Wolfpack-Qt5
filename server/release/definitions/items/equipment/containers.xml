@@ -380,4 +380,58 @@
 		<category>Equipment\Containers\Samurai\Armoire 08</category>
 	</item>
 
+	<item id="24d5">
+		<id>0x24d5</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Basket 01</category>
+	</item>
+
+	<item id="24d6">
+		<id>0x24d6</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Basket 02</category>
+	</item>
+
+	<item id="24d7">
+		<id>0x24d7</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Basket 03</category>
+	</item>
+
+	<item id="24d8">
+		<id>0x24d8</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Basket 04</category>
+	</item>
+
+	<item id="24d9">
+		<id>0x24d9</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Basket 05</category>
+	</item>
+
+	<item id="24da">
+		<id>0x24da</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Basket 06</category>
+	</item>
+
+	<item id="24db">
+		<id>0x24db</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Basket 07</category>
+	</item>
+
+	<item id="24dc">
+		<id>0x24dc</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Basket 08</category>
+	</item>
+
+	<item id="24dd">
+		<id>0x24dd</id>
+		<type>1</type>
+		<category>Equipment\Containers\Samurai\Basket 09</category>
+	</item>
+
 </definitions>

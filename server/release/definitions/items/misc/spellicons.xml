@@ -370,4 +370,105 @@
 		<category>Misc\Spellicons\Circle 8</category>
 	</item>
 
+	<!-- Samurai Empire -->
+	<item id="238d">
+		<id>0x23ed</id>
+		<category>Misc\Spellicons\Samurai\Honorable Execution</category>
+	</item>
+
+	<item id="238e">
+		<id>0x238e</id>
+		<category>Misc\Spellicons\Samurai\Confidence</category>
+	</item>
+
+	<item id="238f">
+		<id>0x2398f</id>
+		<category>Misc\Spellicons\Samurai\Evasion</category>
+	</item>
+
+	<item id="2390">
+		<id>0x2390</id>
+		<category>Misc\Spellicons\Samurai\Counter Attack</category>
+	</item>
+
+	<item id="2391">
+		<id>0x2391</id>
+		<category>Misc\Spellicons\Samurai\Lightning Strike</category>
+	</item>
+
+	<item id="2392">
+		<id>0x2392</id>
+		<category>Misc\Spellicons\Samurai\Momentum Strike</category>
+	</item>
+
+	<item id="2394">
+		<id>0x2394</id>
+		<category>Misc\Spellicons\Samurai\Unlabled 1</category>
+	</item>
+
+	<item id="2395">
+		<id>0x2395</id>
+		<category>Misc\Spellicons\Samurai\Unlabled 2</category>
+	</item>
+
+	<item id="2396">
+		<id>0x2396</id>
+		<category>Misc\Spellicons\Samurai\Unlabled 3</category>
+	</item>
+
+	<item id="2397">
+		<id>0x2397</id>
+		<category>Misc\Spellicons\Samurai\Unlabled 4</category>
+	</item>
+
+	<item id="2398">
+		<id>0x2398</id>
+		<category>Misc\Spellicons\Samurai\Unlabled 5</category>
+	</item>
+
+	<item id="2399">
+		<id>0x2399</id>
+		<category>Misc\Spellicons\Samurai\Unlabled 6</category>
+	</item>
+
+	<item id="23a1">
+		<id>0x23a1</id>
+		<category>Misc\Spellicons\Samurai\Focus Attack</category>
+	</item>
+
+	<item id="23a2">
+		<id>0x23a2</id>
+		<category>Misc\Spellicons\Samurai\Death Strike</category>
+	</item>
+
+	<item id="23a3">
+		<id>0x23a3</id>
+		<category>Misc\Spellicons\Samurai\Animal Form</category>
+	</item>
+
+	<item id="23a4">
+		<id>0x23a4</id>
+		<category>Misc\Spellicons\Samurai\Ki Attack</category>
+	</item>
+
+	<item id="23a5">
+		<id>0x23a5</id>
+		<category>Misc\Spellicons\Samurai\Surprise Attack</category>
+	</item>
+
+	<item id="23a6">
+		<id>0x23a6</id>
+		<category>Misc\Spellicons\Samurai\Backstab</category>
+	</item>
+
+	<item id="23a7">
+		<id>0x23a7</id>
+		<category>Misc\Spellicons\Samurai\Shadowjump</category>
+	</item>
+
+	<item id="23a8">
+		<id>0x23a8</id>
+		<category>Misc\Spellicons\Samurai\Mirror Image</category>
+	</item>
+
 </definitions>
