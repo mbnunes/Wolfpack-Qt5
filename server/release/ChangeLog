@@ -5,6 +5,7 @@ Wolfpack 12.9.14 Beta (SVN)
   	the restock amount of a specific item type go below the given amount. (Integer property)
   - Added a basedef property "max_restock_amount" that is used by the restocking code to never let
     the restock amount of a specific item type go above the given amount. (Integer property)
+  - Fixed bug #0000387 and # 0000366 ( saying 'guard' in a guarded region hang the server )
  * Definition Changes:
   - Bench (0x1049) which was crafted was "unusable"
   - fixed bug #0000381 ("potion_keg" and "potionkeg")
@@ -31,7 +32,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Its no longer possible to equip movable>=2 items with doubleclicks.
   - Added the tilepattern command.
   - Fixed an issue with the magic property generator (splash damage and hit spell effects were happening far too often)
-  - Fixed bug #0000387 and # 0000366 ( saying 'guard' in a guarded region hang the server )
+  - Tracking skill now does something. It's not yet OSI compatible. Thanks to Surcouf.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
