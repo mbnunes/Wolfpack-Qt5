@@ -260,8 +260,8 @@ void cUObject::addEvent( cPythonScript *Event )
 
 		// i is the count of real elements in the old array
 		cPythonScript **newScriptChain = new cPythonScript* [ count + 1 ];
-		memcpy( newScriptChain, scriptChain, count * sizeof( cPythonScript* ) );
-		newScriptChain[ count ] = Event;
+		memcpy( newScriptChain, scriptChain, (count+1) * sizeof( cPythonScript* ) );
+		newScriptChain[ count+1 ] = Event;
 		newScriptChain[ 0 ] = reinterpret_cast< cPythonScript* >( count + 1 );
 		
 		delete [] scriptChain;
@@ -296,10 +296,10 @@ void cUObject::removeEvent( const QString& name )
 		{
 			unsigned int pos = 1;
 
-			cPythonScript **newScriptChain = new cPythonScript*[ count - 1 ];
+			cPythonScript **newScriptChain = new cPythonScript*[ count ];
 			newScriptChain[0] = reinterpret_cast< cPythonScript* >( count - 1 );
 
-			for( unsigned int i = 1; i <= count; ++i )
+			for( unsigned int i = 1; i < count; ++i )
 			{
 				if( scriptChain[i]->name() != name )
 					newScriptChain[pos++] = scriptChain[i];
@@ -376,9 +376,9 @@ void cUObject::recreateEvents()
 					unsigned int count = reinterpret_cast< unsigned int >( scriptChain[0] );
 
 					// i is the count of real elements in the old array
-					cPythonScript **newScriptChain = new cPythonScript* [ count + 1 ];
-					memcpy( newScriptChain, scriptChain, count * sizeof( cPythonScript* ) );
-					newScriptChain[ count ] = Event;
+					cPythonScript **newScriptChain = new cPythonScript* [ count + 2 ];
+					memcpy( newScriptChain, scriptChain, (count+1) * sizeof( cPythonScript* ) );
+					newScriptChain[ count+1 ] = Event;
 					newScriptChain[ 0 ] = reinterpret_cast< cPythonScript* >( count + 1 );
 					
 					delete [] scriptChain;
