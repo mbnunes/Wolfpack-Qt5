@@ -59,6 +59,7 @@ extern cCharArray *CharArray;
 #include "speech.h"
 #include "trigger.h"
 #include "dragdrop.h"
+#include "Trade.h"
 //-=-=-=-=-=-=-Classes Definitions=-=-=-=-=-=//
 extern cBoat			*Boats;
 extern CWorldMain		*cwmWorldState;
@@ -83,6 +84,7 @@ extern cMovement		*Movement;
 extern cSpeech	        *Speech;
 extern cTrigger	        *Trig;
 extern cDragdrop        *Drag;
+extern cTrade	        *Trade;
 // Skys AI 
 extern cCharStuff::cDragonAI	*DragonAI;
 extern cCharStuff::cBankerAI	*BankerAI;

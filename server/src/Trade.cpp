@@ -41,7 +41,7 @@
 #undef  DBGFILE
 #define DBGFILE "Trade.cpp"
 
-void buyaction(int s)
+void cTrade::buyaction(int s)
 {
 	char clearmsg[8];
 	int clear, i, j;
@@ -230,7 +230,7 @@ void buyaction(int s)
 	statwindow(s, DEREF_P_CHAR(pc_currchar));
 }
 
-void restock(int s)
+void cTrade::restock(int s)
 {
 	int a,serial;
 	AllItemsIterator iter_items;
@@ -284,7 +284,7 @@ static bool items_match(P_ITEM pi1, P_ITEM pi2)
 	return false;
 }
  
-void sellaction(int s)
+void cTrade::sellaction(int s)
 {
 	int n, i, amt, value=0, totgold=0;
 
@@ -398,7 +398,7 @@ void sellaction(int s)
 	Xsend(s, clearmsg, 8);
 }
 
-P_ITEM tradestart(int s, int i)
+P_ITEM cTrade::tradestart(int s, int i)
 {
 	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 	P_CHAR pc_i        = MAKE_CHAR_REF(i);
@@ -483,7 +483,7 @@ P_ITEM tradestart(int s, int i)
 	return pi_ps;
 }
 
-void clearalltrades()
+void cTrade::clearalltrades()
 {
 	AllItemsIterator iterItems;
 	for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)
@@ -516,7 +516,7 @@ void clearalltrades()
 	}
 }
 
-void trademsg(int s)
+void cTrade::trademsg(int s)
 {
 	P_ITEM cont1, cont2;
 	switch(buffer[s][3])
@@ -548,7 +548,7 @@ void trademsg(int s)
 	}
 }
 
-void dotrade(P_ITEM cont1, P_ITEM cont2)
+void cTrade::dotrade(P_ITEM cont1, P_ITEM cont2)
 {
 	int serial,ci;
 

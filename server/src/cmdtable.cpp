@@ -1845,7 +1845,7 @@ void command_gmopen(UOXSOCKET s)
 void command_restock(UOXSOCKET s)
 // Forces a manual vendor restock.
 {
-	restock(0);
+	Trade->restock(0);
 	sysmessage(s, "Manual shop restock has occurred.");
 	return;
 	
@@ -1854,7 +1854,7 @@ void command_restock(UOXSOCKET s)
 void command_restockall(UOXSOCKET s)
 // Forces a manual vendor restock to maximum values.
 {
-	restock(1);
+	Trade->restock(1);
 	sysmessage(s, "Restocking all shops to their maximums");
 	return;
 	

@@ -2990,7 +2990,7 @@ int main(int argc, char *argv[])
 	}
 
 	clConsole.send("Clearing all trades...");
-	clearalltrades();
+	Trade->clearalltrades();
 	clConsole.send(" Done.\n");
 
 	//Boats --Check the multi status of every item character at start up to get them set!

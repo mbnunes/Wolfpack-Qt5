@@ -1639,18 +1639,18 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					break;
 
 				case 0x3B:// Buy from vendor...		
-					buyaction(s);
+					Trade->buyaction(s);
 					break;
 
 				case 0x9F:// Sell to vendor...			
-					sellaction(s);
+					Trade->sellaction(s);
 					break;
 
 				case 0x69:// Client text change			
 					break;
 
 				case 0x6F:// Secure Trading message			
-					trademsg(s);
+					Trade->trademsg(s);
 					break;
 
 				case 0xB6:// T2A Popuphelp request			

@@ -1091,7 +1091,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	if(SrvParms->shoprestock==1 && shoprestocktime<=currenttime)
 	{
 		shoprestocktime=currenttime+(shoprestockrate*60*MY_CLOCKS_PER_SEC);
-		restock(0);
+		Trade->restock(0);
 	}
 	if (nextnpcaitime <= currenttime)
 		nextnpcaitime = (unsigned int)((double) currenttime + (speed.npcaitime*MY_CLOCKS_PER_SEC)); // lb

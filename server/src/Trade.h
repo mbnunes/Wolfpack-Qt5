@@ -46,6 +46,7 @@ using namespace std ;
 
 
 //forward class
+class cTrade;
 
 
 // Wolfpack includes
@@ -54,6 +55,20 @@ using namespace std ;
 #include "SndPkg.h"
 #include "itemid.h"
 #include "debug.h"
+
+class cTrade
+{
+public:
+	void buyaction(int s);
+	void restock(int s);
+	void sellaction(int s);
+	P_ITEM tradestart(int s, int i);
+	void clearalltrades();
+	void trademsg(int s);
+	void dotrade(P_ITEM cont1, P_ITEM cont2);
+};
+
+extern cTrade	*Trade;
 
 #endif
 

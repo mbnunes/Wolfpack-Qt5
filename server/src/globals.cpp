@@ -303,6 +303,7 @@ cHouseManager   *HouseManager;
 cSpeech	        *Speech;
 cTrigger	    *Trig;
 cDragdrop       *Drag;
+cTrade	        *Trade;
 cRaces			Races;
 // Sky's AI
 cCharStuff::cDragonAI	*DragonAI;

@@ -936,7 +936,7 @@ static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 			}
 			else
 			{
-				P_ITEM pj = tradestart(s, DEREF_P_CHAR(pTC)); //trade-stuff
+				P_ITEM pj = Trade->tradestart(s, DEREF_P_CHAR(pTC)); //trade-stuff
 				pi->SetContSerial(pj->serial);
 				pi->pos.x=30;
 				pi->pos.y=30;
