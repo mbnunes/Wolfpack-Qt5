@@ -48,6 +48,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Adjusted light radius of some items.
   - Added books to learn special abilities (mining sand/stone; glassblowing; masonry)
   - Added granite and sand definitions
+  - Added craftmenu for glassblowing
  * Python Script Changes:
   - Improved/fixed goitem and gouid command in relation to containers (sending content).
   - Added an follow button to who menu.
@@ -104,6 +105,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Implemented masonry.
   - implemented Orneriness for pets (There is now a chance, that a pet do not follow their orders, based
     on animal taming and animal lore of the owner)
+  - Implemented glassblowing.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
