@@ -37,7 +37,7 @@ ask_path ()
 	echo "not found." >&2;
 	SUPPLIED_PATH="";
 
-	[ "$(echo "$1"|grep 'so$')" ] && LIB_OR_INC="library" || LIB_OR_INC="include";
+	[ "$(echo "$1"|grep '\(so\|a\)$')" ] && LIB_OR_INC="library" || LIB_OR_INC="include";
 
 	while [ ! -d "$SUPPLIED_PATH" ] && ! regexp_exist "${SUPPLIED_PATH}/${1}";
 	do
@@ -75,7 +75,7 @@ check_version ()
 			fi;
 			;;
 		python-lib)
-			if [ ! -e "${2}/libpython2.3.so" ];
+			if [ ! -e "${2}/libpython2.3.so" ] && [ ! -e "${2}/libpython2.3.a" ];
 			then
 				cat >&2 <<-EOF
 				Python 2.3.x library files not found in ${2}!
@@ -246,9 +246,9 @@ then
 	echo -n "Searching for MySQL libraries... ";
 	if [ "${_MYSQL_LIB}" ];
 	then
-		if ! regexp_exist "${_MYSQL_LIB}/libmysqlclient.*\.so";
+		if ! regexp_exist "${_MYSQL_LIB}/libmysqlclient.*\.\(so\|a\)";
 		then
-			MYSQL_LIB="$(ask_path 'mysql\.h')";
+			MYSQL_LIB="$(ask_path 'libmysqlclient.*\.\(so\|a\)')";
 			if [ ! "$MYSQL_LIB" ];
 			then
 				echo "MySQL support disabled.";
@@ -263,7 +263,7 @@ then
 
 		if ! [ "$MYSQL_LIB" ] && [ "$MYSQL_DISABLED" != "y" ];
 		then
-			MYSQL_LIB="$(ask_path 'libmysqlclient.*\.so')";
+			MYSQL_LIB="$(ask_path 'libmysqlclient.*\.\(so\|a\)')";
 			if [ ! "$MYSQL_LIB" ];
 			then
 				echo "MySQL support disabled.";
@@ -326,9 +326,17 @@ if ! [ "${_PYTHON_LIB}" ];
 then
 	for py_libpath in \
 			/usr/lib/libpython*.so \
+			/usr/lib/libpython*.a \
 			/usr/lib/[Pp]ython*/libpython*.so \
+			/usr/lib/[Pp]ython*/libpython*.a \
 			/usr/lib/[Pp]ython*/config/libpython*.so \
+			/usr/lib/[Pp]ython*/config/libpython*.a \
 			/usr/local/lib/libpython*.so \
+			/usr/local/lib/libpython*.a \
+			/usr/local/lib/[Pp]ython*/libpython*.so \
+			/usr/local/lib/[Pp]ython*/libpython*.a \
+			/usr/local/lib/[Pp]ython*/config/libpython*.so \
+			/usr/local/lib/[Pp]ython*/config/libpython*.a \
 			;
 	do
 		if [ -e "$py_libpath" ];
@@ -343,14 +351,14 @@ then
 
 	if [ ! "$PYTHON_LIB" ];
 	then
-		PYTHON_LIB="$(ask_path 'libpython.*\.so')";
+		PYTHON_LIB="$(ask_path 'libpython.*\.\(so\|a\)')";
 	else
 		echo "( $PYTHON_LIB )";
 	fi;
 else
-	if ! regexp_exist "${_PYTHON_LIB}/libpython.*\.so";
+	if ! regexp_exist "${_PYTHON_LIB}/libpython.*\.\(so\|a\)";
 	then
-		PYTHON_LIB="$(ask_path 'libpython.*\.so')";
+		PYTHON_LIB="$(ask_path 'libpython.*\.\(so\|a\)')";
 	else
 		PYTHON_LIB="${_PYTHON_LIB}";
 		echo "( $PYTHON_LIB )";
