@@ -422,7 +422,7 @@ bool mayWalk( P_CHAR pChar, Coord& pos )
 		// note: the following test was commented out.  by putting the code back in,
 		// npcs stop wandering through the walls of multis.  I am curious if this code
 		// has other (negative) affects besides that.
-		if ( ( item.z > oldz ) && ( item.z < oldz + P_M_MAX_Z_BLOCKS / 2 ) )
+		if ( ( item.z >= oldz ) && ( item.z < oldz + P_M_MAX_Z_BLOCKS / 2 ) )
 			return false;
 
 		// Or does it spread the whole range ?

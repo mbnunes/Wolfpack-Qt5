@@ -321,6 +321,13 @@ public:
 		cell( cellId( pos.x, pos.y ) ).add( object );
 	}
 
+	//! add() never fails, no need to return a bool. It doesn't validate the
+	//! object's position, as that can be more effectively done by the caller.
+	void add( cUObject* object, const Coord &pos )
+	{
+		cell( cellId( pos.x, pos.y ) ).add( object );
+	}
+
 	//! Returns true only if the item was removed by this method call.
 	bool remove( cUObject* object )
 	{
@@ -533,10 +540,9 @@ void MapObjects::update( cUObject* object, const Coord& newPos )
 	{
 		// we must move the object to another map (worst case)...
 		MapObjectsGrid *newGrid = resolveGrid( mMaps[newPos.map], object );
-		if ( newGrid->validCoord( newPos ) )
-		{
+		if ( newGrid->validCoord( newPos ) ) {
 			grid->remove( object );
-			newGrid->add( object );
+			newGrid->add( object, newPos );
 		}
 	}
 }
