@@ -42,7 +42,7 @@
 		<category>Armor\Agapite\Helmets\Helmet (N/S)</category>
 	</item>
 
-	<item id="agapite_helmets_helmet">
+	<item id="agapite_helmets_helmet_2">
 		<inherit id="140a" />
 		<agapite_armor />
 		<category>Armor\Agapite\Helmets\Helmet (E/W)</category>
@@ -55,7 +55,7 @@
 		<category>Armor\Agapite\Helmets\Close Helm (N/S)</category>
 	</item>
 
-	<item id="agapite_helmets_close">
+	<item id="agapite_helmets_close_2">
 		<inherit id="1408" />
 		<agapite_armor />
 		<category>Armor\Agapite\Helmets\Close Helm (E/W)</category>

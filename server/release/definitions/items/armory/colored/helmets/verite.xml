@@ -42,7 +42,7 @@
 		<category>Armor\Verite\Helmets\Helmet (N/S)</category>
 	</item>
 
-	<item id="verite_helmets_helmet">
+	<item id="verite_helmets_helmet_2">
 		<inherit id="140a" />
 		<verite_armor />
 		<category>Armor\Verite\Helmets\Helmet (E/W)</category>
@@ -55,7 +55,7 @@
 		<category>Armor\Verite\Helmets\Close Helm (N/S)</category>
 	</item>
 
-	<item id="verite_helmets_close">
+	<item id="verite_helmets_close_2">
 		<inherit id="1408" />
 		<verite_armor />
 		<category>Armor\Verite\Helmets\Close Helm (E/W)</category>

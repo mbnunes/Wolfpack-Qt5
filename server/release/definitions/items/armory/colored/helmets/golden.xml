@@ -42,7 +42,7 @@
 		<category>Armor\Golden\Helmets\Helmet (N/S)</category>
 	</item>
 
-	<item id="golden_helmets_helmet">
+	<item id="golden_helmets_helmet_2">
 		<inherit id="140a" />
 		<golden_armor />
 		<category>Armor\Golden\Helmets\Helmet (E/W)</category>
@@ -55,7 +55,7 @@
 		<category>Armor\Golden\Helmets\Close Helm (N/S)</category>
 	</item>
 
-	<item id="golden_helmets_close">
+	<item id="golden_helmets_close_2">
 		<inherit id="1408" />
 		<golden_armor />
 		<category>Armor\Golden\Helmets\Close Helm (E/W)</category>

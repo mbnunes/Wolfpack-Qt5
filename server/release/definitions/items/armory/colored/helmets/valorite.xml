@@ -42,7 +42,7 @@
 		<category>Armor\Valorite\Helmets\Helmet (N/S)</category>
 	</item>
 
-	<item id="valorite_helmets_helmet">
+	<item id="valorite_helmets_helmet_2">
 		<inherit id="140a" />
 		<valorite_armor />
 		<category>Armor\Valorite\Helmets\Helmet (E/W)</category>
@@ -55,7 +55,7 @@
 		<category>Armor\Valorite\Helmets\Close Helm (N/S)</category>
 	</item>
 
-	<item id="valorite_helmets_close">
+	<item id="valorite_helmets_close_2">
 		<inherit id="1408" />
 		<valorite_armor />
 		<category>Armor\Valorite\Helmets\Close Helm (E/W)</category>

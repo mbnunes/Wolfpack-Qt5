@@ -42,7 +42,7 @@
 		<category>Armor\Merkite\Helmets\Helmet (N/S)</category>
 	</item>
 
-	<item id="merkite_helmets_helmet">
+	<item id="merkite_helmets_helmet_2">
 		<inherit id="140a" />
 		<merkite_armor />
 		<category>Armor\Merkite\Helmets\Helmet (E/W)</category>
@@ -55,7 +55,7 @@
 		<category>Armor\Merkite\Helmets\Close Helm (N/S)</category>
 	</item>
 
-	<item id="merkite_helmets_close">
+	<item id="merkite_helmets_close_2">
 		<inherit id="1408" />
 		<merkite_armor />
 		<category>Armor\Merkite\Helmets\Close Helm (E/W)</category>

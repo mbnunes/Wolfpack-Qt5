@@ -42,7 +42,7 @@
 		<category>Armor\Dull Copper\Helmets\Helmet (N/S)</category>
 	</item>
 
-	<item id="dull_copper_helmets_helmet">
+	<item id="dull_copper_helmets_helmet_2">
 		<inherit id="140a" />
 		<dull_copper_armor />
 		<category>Armor\Dull Copper\Helmets\Helmet (E/W)</category>
@@ -55,7 +55,7 @@
 		<category>Armor\Dull Copper\Helmets\Close Helm (N/S)</category>
 	</item>
 
-	<item id="dull_copper_helmets_close">
+	<item id="dull_copper_helmets_close_2">
 		<inherit id="1408" />
 		<dull_copper_armor />
 		<category>Armor\Dull Copper\Helmets\Close Helm (E/W)</category>

@@ -42,7 +42,7 @@
 		<category>Armor\Iron\Helmets\Helmet (N/S)</category>
 	</item>
 
-	<item id="iron_helmets_helmet">
+	<item id="iron_helmets_helmet_2">
 		<inherit id="140a" />
 		<iron_armor />
 		<category>Armor\Iron\Helmets\Helmet (E/W)</category>
@@ -55,7 +55,7 @@
 		<category>Armor\Iron\Helmets\Close Helm (N/S)</category>
 	</item>
 
-	<item id="iron_helmets_close">
+	<item id="iron_helmets_close_2">
 		<inherit id="1408" />
 		<iron_armor />
 		<category>Armor\Iron\Helmets\Close Helm (E/W)</category>

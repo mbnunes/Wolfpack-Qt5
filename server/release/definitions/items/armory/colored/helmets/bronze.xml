@@ -42,7 +42,7 @@
 		<category>Armor\Bronze\Helmets\Helmet (N/S)</category>
 	</item>
 
-	<item id="bronze_helmets_helmet">
+	<item id="bronze_helmets_helmet_2">
 		<inherit id="140a" />
 		<bronze_armor />
 		<category>Armor\Bronze\Helmets\Helmet (E/W)</category>
@@ -55,7 +55,7 @@
 		<category>Armor\Bronze\Helmets\Close Helm (N/S)</category>
 	</item>
 
-	<item id="bronze_helmets_close">
+	<item id="bronze_helmets_close_2">
 		<inherit id="1408" />
 		<bronze_armor />
 		<category>Armor\Bronze\Helmets\Close Helm (E/W)</category>

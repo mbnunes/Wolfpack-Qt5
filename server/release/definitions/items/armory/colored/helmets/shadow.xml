@@ -42,7 +42,7 @@
 		<category>Armor\Shadow\Helmets\Helmet (N/S)</category>
 	</item>
 
-	<item id="shadow_helmets_helmet">
+	<item id="shadow_helmets_helmet_2">
 		<inherit id="140a" />
 		<shadow_armor />
 		<category>Armor\Shadow\Helmets\Helmet (E/W)</category>
@@ -55,7 +55,7 @@
 		<category>Armor\Shadow\Helmets\Close Helm (N/S)</category>
 	</item>
 
-	<item id="shadow_helmets_close">
+	<item id="shadow_helmets_close_2">
 		<inherit id="1408" />
 		<shadow_armor />
 		<category>Armor\Shadow\Helmets\Close Helm (E/W)</category>
