@@ -73,6 +73,7 @@
 #include <qfile.h>
 #include <qmutex.h>
 #include <qthread.h>
+#include <qglobal.h>
 
 #ifdef Q_OS_UNIX
 # include <sys/wait.h>
@@ -318,11 +319,12 @@ int main( int argc, char **argv )
 	Console::instance()->send( QString( "\n%1 %2 %3\n\n" ).arg( wp_version.productstring.latin1() ).arg( wp_version.betareleasestring.latin1() ).arg( wp_version.verstring.latin1() ) );
 	Console::instance()->setAttributes( false, false, false, 0xAF, 0xAF, 0xAF, 0, FONT_FIXEDWIDTH );
 
-	Console::instance()->send( "Copyright (C) 2000-2004 Wolfpack Development Team\n");
-	Console::instance()->send( "Wolfpack Homepage: http://www.wpdev.org/\n");
-	Console::instance()->send( "By using this software you agree to the license accompanying this release.\n");
-	Console::instance()->send( "Compiled on " __DATE__ " " __TIME__ "\n" );
-	Console::instance()->send( "\n" );
+	Console::instance()->send("Copyright (C) 2000-2004 Wolfpack Development Team\n");
+	Console::instance()->send("Wolfpack Homepage: http://www.wpdev.org/\n");
+	Console::instance()->send("By using this software you agree to the license accompanying this release.\n");
+	Console::instance()->send("Compiled on " __DATE__ " " __TIME__ "\n");
+	Console::instance()->send("Compiled for QT " QT_VERSION_STR "\n");
+	Console::instance()->send("\n");
 	
 	QString consoleTitle = QString( "%1 %2 %3" ).arg( wp_version.productstring.latin1() ).arg( wp_version.betareleasestring.latin1() ).arg( wp_version.verstring.latin1() );
 	Console::instance()->setConsoleTitle( consoleTitle );
