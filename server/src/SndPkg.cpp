@@ -2955,7 +2955,7 @@ void sendshopinfo(int s, int c, P_ITEM pi)
 	memset(m1,0,6096);
 	memset(m2,0,6096);
 	memset(itemname,0,256);
-	int j, k, m1t, m2t, value,serial,serhash,ci;
+	int k, m1t, m2t, value,serial,ci;
                
 	m1[0]=0x3C; // Container content message
 	m1[1]=0;// Size of message

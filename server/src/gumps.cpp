@@ -44,7 +44,7 @@
 
 void cGump::Button(int s, int button, SERIAL serial, char type)
 {
-	int i,c,serhash;
+	int i;
 	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 	
     // if ((button)==0 || (button==1)) clConsole.send("gump-menu, type# %i closed\n",type); // lord bin

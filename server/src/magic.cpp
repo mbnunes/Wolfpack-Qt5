@@ -1740,7 +1740,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 	int calcreg;
 	int defender;
 	unsigned long loopexit=0;
-	int c,a;
+	int a;
 	double d;
 	bool recalled;
 	int n;

@@ -397,17 +397,19 @@ void gettokennum(char * s, int num)
 // Takes a string, gets the tokens.
 // If its one value - It returns that value.
 // If its two values - It gets a random number between the values
-int getstatskillvalue(char *stringguy) {
+short getstatskillvalue(char *stringguy) 
+{
 	char values[512];
-	int lovalue,hivalue,retcode;
+	short lovalue,hivalue, retcode;
 
 	strcpy(values, stringguy);
 	gettokennum(values, 0);
-	lovalue=str2num(gettokenstr);
+	lovalue = static_cast<short>(str2num(gettokenstr));
 	gettokennum(values, 1);
-	hivalue=str2num(gettokenstr);
+	hivalue = static_cast<short>(str2num(gettokenstr));
 
-	if (hivalue) {
+	if (hivalue) 
+	{
 		retcode = RandomNum(lovalue, hivalue);
 	} else {
 		retcode = lovalue;

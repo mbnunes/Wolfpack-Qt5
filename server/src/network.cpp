@@ -601,7 +601,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	if (MapTileHeight<300) world[5]=0x02;
 	Xsend(s, world, 6);
 
-	int i,serial,serhash,ci;
+	int i,serial;
 
 	perm[s]=1;
 	targetok[s]=0;	    
@@ -1150,7 +1150,7 @@ int cNetworkStuff::Pack(void *pvIn, void *pvOut, int len)
 
 void cNetworkStuff::GetMsg(int s) // Receive message from client 
 {
-	int count, j, k, book,serial,serhash,ci,length, dyn_length,loopexit=0, fb;
+	int count, j, book,serial,length, dyn_length,loopexit=0, fb;
 	unsigned char nonuni[512];
 	unsigned char packet;
 	int  myoffset,  myj, mysize, subcommand, subsubcommand ;

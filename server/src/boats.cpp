@@ -147,7 +147,7 @@ void cBoat::PlankStuff(UOXSOCKET s, P_ITEM pi_plank)//If the plank is opened, do
 
 	pc_cs=MAKE_CHARREF_LR(currchar[s]);
 
-	int a,b,serhash=pc_cs->serial%HASHMAX;
+	int a;
 	P_ITEM boat = GetBoat(pc_cs);
 	if(boat == NULL)//They aren't on a boat, so put then on the plank.
 	{
@@ -209,7 +209,7 @@ void cBoat::LeaveBoat(UOXSOCKET s, P_ITEM pi_plank)//Get off a boat (dbl clicked
 	int y,y2=pi_plank->pos.y;
 	signed char z = pi_plank->pos.z, mz, sz, typ;
 	P_ITEM pBoat = GetBoat(pc_cs);
-	int a,b;
+	int a;
 	
 	if (pBoat == NULL) 
 		return;

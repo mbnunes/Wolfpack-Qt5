@@ -1497,7 +1497,7 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 {
 	int cc = currchar[s];
 	bool deletecorpse=false;
-	int c, storeval, n;
+	int storeval;
 	char sect[512];
 	long int pos;
 
@@ -2676,7 +2676,6 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 	if(own==-1) return;
 	P_CHAR pc = MAKE_CHARREF_LR(own);
 
-	int key;
 	SERIAL serial = calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
 	P_ITEM pSign = FindItemBySerial(serial);
 	if ( pSign == NULL )
@@ -3058,7 +3057,7 @@ void cTargets::SetMurderCount( int s )
 
 void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 {
-	int c,k,l,j;
+	int c,k,l;
 
 	SERIAL serial = LongFromCharPtr(buffer[s]+7);
 	if( serial == INVALID_SERIAL) return;

@@ -232,7 +232,7 @@ int addrandomcolor(int s, char *colorlist);
 void lockpick(int s);
 
 
-int getstatskillvalue(char *stringguy);
+short getstatskillvalue(char *stringguy);
 // for newbie stuff
 int bestskill(CHARACTER p);
 int nextbestskill(CHARACTER m, int bstskll);

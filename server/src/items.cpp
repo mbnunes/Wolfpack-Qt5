@@ -1213,7 +1213,7 @@ P_ITEM cAllItems::SpawnItem(UOXSOCKET nSocket, CHARACTER ch,
 					unsigned char cColorId1, unsigned char cColorId2,
 					int nPack, int nSend)
 {
-	P_ITEM pi=SpawnItem(ch, nAmount, cName, nStackable,(short)((cItemId1<<8)+cItemId2), (short)((cColorId1<<8)+cColorId2), nPack);
+	P_ITEM pi = SpawnItem(ch, nAmount, cName, nStackable,(short)((cItemId1<<8)+cItemId2), (short)((cColorId1<<8)+cColorId2), nPack);
 	if (pi==NULL) return NULL;
 	if (nSend && nSocket>=0)
 		statwindow(nSocket,ch);
@@ -1566,7 +1566,7 @@ char cAllItems::isFieldSpellItem(int i) //LB
 //taken from 6904t2(5/10/99) - AntiChrist
 void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi) 
 {
-	int j, serial, serhash, ci, preservebody;
+	int serial, ci, preservebody;
 	if ( pi == NULL )
 		return;
 	P_ITEM pi_multi = NULL;
@@ -1636,7 +1636,6 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 				if( (pi->type == 1 && pi->corpse != 1 ) || (pi->GetOwnSerial() != -1 && pi->corpse) || (!SrvParms->lootdecayswithcorpse && pi->corpse ))
 				{
 					serial=pi->serial;
-					serhash=serial%HASHMAX;
 					vector<SERIAL> vecContainer = contsp.getData(serial);
 					for (ci=0;ci<vecContainer.size();ci++)
 					{

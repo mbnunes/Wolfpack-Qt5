@@ -1599,7 +1599,7 @@ int cGuilds::CheckValidPlace(int x,int y)
 
 int cGuilds::CheckValidPlace(int s)
 {
-	int p,los,i;
+	int los;
 	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[s],0);
 	P_ITEM pi_multi = findmulti(pc_currchar->pos); 
 	if (pi_multi == NULL) 

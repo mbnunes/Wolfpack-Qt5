@@ -402,7 +402,6 @@ int tradestart(int s, int i)
 {
 	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 	P_CHAR pc_i        = MAKE_CHAR_REF(i);
-	ITEM c;
 	unsigned char msg[90];
 
 	P_ITEM pi_bps = Packitem(pc_currchar);
@@ -550,8 +549,7 @@ void trademsg(int s)
 
 void dotrade(P_ITEM cont1, P_ITEM cont2)
 {
-	int i;
-	int serial,serhash,ci;
+	int serial,ci;
 
 	P_CHAR p1 = FindCharBySerial(cont1->contserial);
 	if(p1 == NULL) return;

@@ -215,13 +215,10 @@ void cFishing::Fish(CHARACTER i)
 	const int max_fish_piles = 1;		// attention: thats per fish *type*, so the efffective limit of piles is *3
 	const int max_fish_stacksize = 15;	// attention: rela max size = value+1
 
-	int d,ii,min,ss,b,mc;
+	int ii,b;
 	int idnum;
 	int s=calcSocketFromChar(i);
 	int color,c1,c2;
-
-	int fishes_around_player;
-	int fish_sers[max_fish_piles];
 
 	P_CHAR pc_i = MAKE_CHARREF_LR(i);
 
@@ -363,7 +360,7 @@ void cFishing::Fish(CHARACTER i)
 	/**** end of exotic fish stuff stuff */
 
 	// Spawn in his backpack
-	P_ITEM pFish = Items->SpawnItem(DEREF_P_CHAR(pc_i),1,"#",1,0x0900+idnum,(c1<<8)+c2, true);
+	Items->SpawnItem(DEREF_P_CHAR(pc_i),1,"#",1,0x0900+idnum,(c1<<8)+c2, true);
 	if(c2>0)
 	{
 		sysmessage(s,"You pull out an exotic fish!");

@@ -237,7 +237,6 @@ cMMT* cMMT::factory(short skill)
 
 void cSkills::MakeMenuTarget(int s, int x, int skill)
 {
-	int c;
 	int cc=currchar[s];
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 	int rank=10; // For Rank-System --- Magius§(çhe)
@@ -1934,7 +1933,7 @@ void TellScroll( char *menu_name, int s, long snum )
 	CHARACTER cc=currchar[s];
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 	unsigned cir,spl;
-	int i,part;
+	int part;
 
 	if(snum<=0) return;				// bad spell selction
 
@@ -2034,7 +2033,7 @@ void TellScroll( char *menu_name, int s, long snum )
 
 			else
 			{
-				Skills->EngraveAction(s, i, cir, spl);	// check mana & set name
+				Skills->EngraveAction(s, DEREF_P_ITEM(pi), cir, spl);	// check mana & set name
 
 				if (!(pi->morex == cir && pi->morey == spl))	// not THIS spell
 				{
@@ -2308,7 +2307,7 @@ void CollectAmmo(int s, int a, int b)
 
 void cSkills::AButte(int s1, P_ITEM pButte)
 {
-	int v1,i,c;
+	int v1,i;
 	int arrowsquant=0;
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s1]);
 	int type=Combat->GetBowType(DEREF_P_CHAR(pc_currchar));

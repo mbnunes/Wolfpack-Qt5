@@ -86,7 +86,7 @@ int nextbestskill(CHARACTER m, int bstskll)  // Which skill is the second highes
 
 void newbieitems(CHARACTER c)
 {
-	int n, first, second, third, storeval, itemaddperskill, loopexit = 0;
+	int first, second, third, storeval, itemaddperskill, loopexit = 0;
 	char sect[512];
 	char whichsect[15];
 	long int pos;

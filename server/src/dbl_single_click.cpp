@@ -121,7 +121,7 @@ void slotmachine(UOXSOCKET s, P_ITEM pi)
 
 void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 {
-	int i, j, c, w = 0, k, serial;
+	int i, w = 0, serial;
 	unsigned char a1, a2, a3, a4;
 	//	unsigned char map1[20] = "\x90\x40\x01\x02\x03\x13\x9D\x00\x00\x00\x00\x13\xFF\x0F\xA0\x01\x90\x01\x90";
 	unsigned char map1[20] = "\x90\x40\x01\x02\x03\x13\x9D\x00\x00\x00\x00\x13\xFF\x0F\xFF\x01\x90\x01\x90";
@@ -371,52 +371,58 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		}
 		return;
 	case 2: // Order gates?
-		for (j = 0; j < itemcount; j++)
 		{
-			P_ITEM pj = &items[j];
-			if (pj->type == 3)
+			AllItemsIterator iterItems;
+			for (iterItems.Begin(); iterItems.GetData() != iterItems.End(); iterItems++)
 			{
-				if (pj->morez == 1)
+				P_ITEM pj = iterItems.GetData();
+				if (pj->type == 3)
 				{
-					pj->morez = 2;
-					pj->pos.z = pj->pos.z + 17;
-					RefreshItem(pj);// AntiChrist
-					w = 1;
-				}
-				else if (pj->morez == 2)
-				{
-					pj->morez = 1;
-					pj->pos.z = pj->pos.z - 17;
-					RefreshItem(pj);// AntiChrist
-					w = 0;
+					if (pj->morez == 1)
+					{
+						pj->morez = 2;
+						pj->pos.z = pj->pos.z + 17;
+						RefreshItem(pj);// AntiChrist
+						w = 1;
+					}
+					else if (pj->morez == 2)
+					{
+						pj->morez = 1;
+						pj->pos.z = pj->pos.z - 17;
+						RefreshItem(pj);// AntiChrist
+						w = 0;
+					}
 				}
 			}
 		}
 		return;// order gates
 	case 4: // Chaos gates?
-		for (j = 0; j < itemcount; j++)
 		{
-			P_ITEM pj = &items[j];
-			if (pj->type == 5)
+			AllItemsIterator iterItems;
+			for (iterItems.Begin(); iterItems.GetData() != iterItems.End(); iterItems++)
 			{
-				if (pj->morez == 3)
+				P_ITEM pj = iterItems.GetData();
+				if (pj->type == 5)
 				{
-					pj->morez = 4;
-					pj->pos.z = pj->pos.z + 17;							
-					RefreshItem(pj);// AntiChrist
-					w = 1;
-				}
-				else if (pj->morez == 4)
-				{
-					pj->morez = 3;
-					pj->pos.z = pj->pos.z - 17;							
-					RefreshItem(pj);// AntiChrist
-					w = 0;
+					if (pj->morez == 3)
+					{
+						pj->morez = 4;
+						pj->pos.z = pj->pos.z + 17;							
+						RefreshItem(pj);// AntiChrist
+						w = 1;
+					}
+					else if (pj->morez == 4)
+					{
+						pj->morez = 3;
+						pj->pos.z = pj->pos.z - 17;							
+						RefreshItem(pj);// AntiChrist
+						w = 0;
+					}
 				}
 			}
+			//						if (w==1) sysmessage(s, "Chaos Gate opened.");
+			//						else sysmessage(s, "Chaos Gate closed.");
 		}
-		//						if (w==1) sysmessage(s, "Chaos Gate opened.");
-		//						else sysmessage(s, "Chaos Gate closed.");
 		return;// chaos gates
 	case 6: // teleport item (ring?)
 		target(s, 0, 1, 0, 2, "Select teleport target.");
@@ -778,6 +784,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					{
 						los = 0;
 						vector<SERIAL> vecContainer = contsp.getData(pi_p->serial);
+						unsigned int j;
 						for (j = 0; j < vecContainer.size(); j++)
 						{
 							const P_ITEM pi_i = FindItemBySerial(vecContainer[j]);
@@ -1448,7 +1455,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 
 void singleclick(UOXSOCKET s)
 {
-	int j,  serial;
+	int serial;
 	int amt = 0, wgt;
 	char itemname[100];
 	unsigned char temp2[100];
@@ -1594,7 +1601,7 @@ void singleclick(UOXSOCKET s)
 
 void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 {
-	int keyboard, y;
+	int keyboard;
 	unsigned char pdoll[256]="\x88\x00\x05\xA8\x90\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
 //	int cc=currchar[s];
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
