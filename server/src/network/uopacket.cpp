@@ -339,17 +339,17 @@ int cUOPacket::getInt( uint pos ) const
 	int value;
 	if (noswap)
 	{
-		value  = rawPacket.at(pos+3) & 0x000000FF;
-		value |= rawPacket.at(pos+2) << 8;
-		value |= rawPacket.at(pos+1) << 16;
-		value |= rawPacket.at(pos)   << 24;
+		value  = static_cast<Q_UINT8>( rawPacket.at(pos+3) ) & 0x000000FF;
+		value |= static_cast<Q_UINT8>( rawPacket.at(pos+2) ) << 8;
+		value |= static_cast<Q_UINT8>( rawPacket.at(pos+1) ) << 16;
+		value |= static_cast<Q_UINT8>( rawPacket.at(pos) )  << 24;
 	}
 	else
 	{
-		value  = rawPacket.at(pos) & 0x000000FF;
-		value |= rawPacket.at(pos+1) << 8;
-		value |= rawPacket.at(pos+2) << 16;
-		value |= rawPacket.at(pos+3) << 24;
+		value  = static_cast<Q_UINT8>( rawPacket.at(pos) ) & 0x000000FF;
+		value |= static_cast<Q_UINT8>( rawPacket.at(pos+1) ) << 8;
+		value |= static_cast<Q_UINT8>( rawPacket.at(pos+2) ) << 16;
+		value |= static_cast<Q_UINT8>( rawPacket.at(pos+3) ) << 24;
 	}
 	return value;
 }
