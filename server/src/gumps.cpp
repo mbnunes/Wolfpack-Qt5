@@ -1117,7 +1117,7 @@ void ttext(int line, SERIAL serial)
 		if (pj == NULL)
 			return;
 		line--; if( line == 0 ) strcpy( (char*)script1, "Name");
-		line--; if( line == 0 ) strcpy( (char*)script1, pj->name().ascii() );
+		line--; if( line == 0 ) strcpy( (char*)script1, (char*)pj->name().latin1() );
 		line--; if( line == 0 ) strcpy( (char*)script1, "ID");
 		line--; if( line == 0 ) sprintf( (char*)script1,"0x%x (%i)", pj->id(), pj->id());
 		line--; if( line == 0 ) strcpy( (char*)script1, "Hue");
