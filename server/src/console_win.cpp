@@ -361,14 +361,14 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 	return DefWindowProc( hwnd, msg, wparam, lparam ); 
 }
 
-class cGuiThread : public QThread
+class cServerThread : public QThread
 {
 	LPSTR cmdLine;
 	int returnValue_;
 
 public:
 
-	cGuiThread( LPSTR lpCmdLine ) : cmdLine( lpCmdLine ) {}
+	cServerThread( LPSTR lpCmdLine ) : cmdLine( lpCmdLine ) {}
 
 	int returnValue() { return returnValue_; }
 
@@ -486,8 +486,7 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 
 	ShowWindow( mainWindow, SW_NORMAL );
 
-	cGuiThread guiThread( lpCmdLine );
-	guiThread.start( QThread::LowPriority );
+	cServerThread serverThread( lpCmdLine );
 
 	MSG msg;
 
@@ -527,9 +526,9 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 
 	keeprun = 0; // We quit, so let's quit the server too
 
-	guiThread.wait();
+	serverThread.wait();
 	
-	return guiThread.returnValue();
+	return serverThread.returnValue();
 }
 
 void cConsole::start()
