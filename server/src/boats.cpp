@@ -49,7 +49,8 @@ cBoat::cBoat()
 	this->deedsection_ = (char*)0;
 	this->boatdir = 0;
 	this->autosail_ = 0;
-	this->moves_ = false;
+	this->moves_ = 0;
+	this->shift_ = 0;
 
 
 	// default special-item ids!
@@ -662,7 +663,7 @@ void cBoat::turn( SI08 turn )
 
 bool cBoat::move( void )
 {
-	if( !this->moves_ )
+	if( this->moves_ == 0 && this->shift_ == 0 )
 		return false;
 
 	if( this->autosail_ > 0 )
@@ -694,32 +695,34 @@ bool cBoat::move( void )
 	switch( this->boatdir )
 	{
 	case 0: 
-		dy--;
+		dx += shift_;
+		dy -= moves_;
 		break;
 	case 2:
-		dx++;
+		dx += moves_;
+		dy += shift_;
 		break;
 	case 4: 
-		dy++;
+		dx -= shift_;
+		dy += moves_;
 		break;
 	case 6: 
-		dx--;
+		dx -= moves_;
+		dy -= shift_;
 		break;
 	default:
 		clConsole.log( QString( "WARNING: cBoat::Move: invalid boatdirection caught (boatdir: %1, serial: %2), corrected to north boatdir!").arg(this->boatdir).arg(this->serial).latin1() );
 		this->boatdir = 0;
-		dy--;
+		dy -= moves_;
 		break;
 	}
 
 	if( ( this->pos.x+dx<=200 || this->pos.x+dx>=6000) && (this->pos.y+dy<=200 || this->pos.y+dy>=4900)) //bugfix LB
 	{
-		this->setType2( 9 );
 		errormsg = "Arr, Sir, we've hit rough waters!";
 	}
 	else if( !this->isValidPlace( pos.x+dx, pos.y+dy, pos.z, boatdir ) )
 	{
-		this->setType2( 9 );
 		errormsg = "Arr, somethings in the way!";
 	}
 
@@ -1059,7 +1062,6 @@ char cBoat::speechInput( UOXSOCKET s, const QString& msg )//See if they said a c
 {
 	P_CHAR pc_currchar = currchar[s];
 	SERIAL serial;
-	char msg2[512];
 
 	if( s == INVALID_UOXSOCKET ) 
 		return 0;
@@ -1072,189 +1074,90 @@ char cBoat::speechInput( UOXSOCKET s, const QString& msg )//See if they said a c
 	if ( tiller == NULL ) 
 		return 0;
 
-	// khpae - command add
-	if((msg.find("ONE")!= string::npos) || (msg.find("DRIFT")!=string::npos))
-	{
-		if (msg.find ("FORWARD LEFT") != string::npos) {
-			boatdir -= 1;
-			if (boatdir < 0) {
-				boatdir += 8;
-			}
-			if (move ()) {
-				itemtalk (s, tiller, "Aye, sir.");
-			}
-			this->type2_ = 9;
-			return 1;
-		} else if (msg.find ("FORWARD RIGHT") != string::npos) {
-			boatdir += 1;
-			if (boatdir > 7) {
-				boatdir -= 8;
-			}
-			if (move ()) {
-				itemtalk (s, tiller, "Aye, sir.");
-			}
-			this->type2_ = 9;
-			return 1;
-		} else if (msg.find ("BACKWARD RIGHT") != string::npos) {
-			boatdir += 3;
-			if (boatdir > 7) {
-				boatdir -= 8;
-			}
-			if (move ()) {
-				itemtalk (s, tiller, "Aye, sir.");
-			}
-			this->type2_ = 9;
-			return 1;
-		} else if (msg.find ("BACKWARD LEFT") != string::npos) {
-			boatdir += 5;
-			if (boatdir > 7) {
-				boatdir -= 8;
-			}
-			if (move ()) {
-				itemtalk (s, tiller, "Aye, sir.");
-			}
-			this->type2_ = 9;
-			return 1;
-		} else
-		if (msg.find ("FORWARD") != string::npos) {
-			if (move ()) {
-				itemtalk (s, tiller, "Aye, sir.");
-			}
-			this->type2_ = 9;
-		} else if (msg.find ("BACKWARD") != string::npos) {
-			boatdir -= 4;
-			if (boatdir < 0) {
-				boatdir += 8;
-			}
-			if (move ()) {
-				itemtalk (s, tiller, "Aye, sir.");
-			}
-			this->type2_ = 9;
-		} else 
-		if(msg.find("LEFT")!=string::npos)
-		{
-			boatdir-=2;
-			if(boatdir<0) boatdir+=8;			
-			if (move()) {
-				itemtalk(s, tiller, "Aye, sir.");
-			}
-			// khpae
-			this->type2_ = 9; // stop
-			return 1;
-
-		} else if(msg.find("RIGHT")!=string::npos)
-		{
-			boatdir+=2;
-			if(boatdir>=8) boatdir-=8; 			
-			if (move()) {
-				itemtalk(s, tiller, "Aye, sir.");
-			}
-			// khpae
-			this->type2_ = 9;
-			return 1;
-		}
-	} else if (msg.find ("FORWARD RIGHT") != string::npos) {
-		boatdir = this->boatdir + 1;
-		if (boatdir > 7) {
-			boatdir -= 8;
-		}
-		if (move ()) {
+	if(msg.contains("FORWARD LEFT")) {
+		this->shift_ = -1;
+		this->moves_ = 1;
+		if( move() )
 			itemtalk (s, tiller, "Aye, sir.");
-			this->type2_ = 2;
-		} else {
-			this->type2_ = 9;
-		}
+		this->moves_ = 0;
+		this->shift_ = 0;
 		return 1;
-	} else if (msg.find ("FORWARD LEFT") != string::npos) {
-		boatdir = this->boatdir - 1;
-		if (boatdir < 0) {
-			boatdir += 8;
-		}
-		if (move ()) {
+	} else if (msg.contains ("FORWARD RIGHT") ) {
+		this->shift_ = 1;
+		this->moves_ = 1;
+		if( move() )
 			itemtalk (s, tiller, "Aye, sir.");
-			this->type2_ = 8;
-		} else {
-			this->type2_ = 9;
-		}
+		this->moves_ = 0;
+		this->shift_ = 0;
 		return 1;
-	} else if (msg.find ("BACKWARD RIGHT") != string::npos) {
-		boatdir = this->boatdir + 3;
-		if (boatdir > 7) {
-			boatdir -= 8;
-		}
-		if (move ()) {
+	} else if (msg.contains ("BACKWARD RIGHT") ) {
+		this->shift_ = 1;
+		this->moves_ = -1;
+		itemtalk (s, tiller, "Aye, sir.");
+		this->moves_ = 0;
+		this->shift_ = 0;
+		return 1;
+	} else if (msg.contains ("BACKWARD LEFT")) {
+		this->shift_ = -1;
+		this->moves_ = -1;
+		if( move() )
 			itemtalk (s, tiller, "Aye, sir.");
-			this->type2_ = 4;
-		} else {
-			this->type2_ = 9;
-		}
+		this->moves_ = 0;
+		this->shift_ = 0;
 		return 1;
-	} else if (msg.find ("BACKWARD LEFT") != string::npos) {
-		boatdir = this->boatdir - 3;
-		if (boatdir < 0) {
-			boatdir += 8;
-		}
-		if (move ()) {
+	} else	if (msg.contains ("FORWARD")) {
+		this->moves_ = 1;
+		if( move() )
 			itemtalk (s, tiller, "Aye, sir.");
-			this->type2_ = 6;
-		} else {
-			this->type2_ = 9;
-		}
-		return 1;
-	} else
-	if((msg.find("FORWARD")!= string::npos) || (msg.find("UNFURL SAIL")!=string::npos))
-	{
-		if (move()) {
+		this->shift_ = 0;
+		this->moves_ = 0;
+	} else if (msg.contains ("BACKWARD")) {
+		this->moves_ = -1;
+		if( move() )
+			itemtalk (s, tiller, "Aye, sir.");
+		this->shift_ = 0;
+		this->moves_ = 0;
+	} else if(msg.contains("LEFT"))	{
+		this->shift_ = -1;
+		if( move() )
 			itemtalk(s, tiller, "Aye, sir.");
-			this->type2_=1;//Moving : khpae - moving the same boatdirection of the boat
-		} else {
-			this->type2_ = 9;	// stop
-		}
+		this->shift_ = 0;
+		this->moves_ = 0;
 		return 1;
-	} else if(msg.find("BACKWARD")!= string::npos)
-	{
-		if(boatdir >= 4) boatdir-=4;
-		else boatdir+=4;
-		if (move()) {
+	} else if(msg.contains("RIGHT")) {
+		this->shift_ = 1;
+		if( move() )
 			itemtalk(s, tiller, "Aye, sir.");
-			this->type2_=5;//Moving backward // khpae : changed from 2 to 5
-		} else {
-			this->type2_ = 9;
-		}
+		this->shift_ = 0;
+		this->moves_ = 0;
 		return 1;
 	}
-	else if((msg.find("STOP")!=string::npos) || (msg.find("FURL SAIL")!=string::npos))
-	{ 
-		this->type2_=9;
-		if (this->doesAutoSail()) {
-			this->autosail_ = 0;
-		}
+
+	if(msg.contains("ONE") || msg.contains("DRIFT") ||
+		msg.contains("STOP") || msg.contains("FURL SAIL") ) // reset to 0
+	{
+		this->autosail_ = 0;
+		this->shift_ = 0;
+		this->moves_ = 0;
 		itemtalk(s, tiller, "Aye, sir."); 
 		return 1;
-	}//Moving is type2 1 and 2, so stop is 0 :-)
-	
-	else if(((msg.find("TURN")!=string::npos) && ((msg.find("AROUND")!=string::npos) || (msg.find("LEFT")!=string::npos) || (msg.find("RIGHT")!=string::npos)))
-		|| (msg.find("PORT")!=string::npos) || (msg.find("STARBOARD")!=string::npos) || (msg.find("COME ABOUT")!=string::npos))
+	}
+
+	if( msg.contains("TURN") )
 	{
-		if((msg.find("RIGHT")!=string::npos) || (msg.find("STARBOARD")!=string::npos)) 
+		if( msg.contains("RIGHT") || msg.contains("STARBOARD") )
 		{
-			// khpae
-			boatdir+=2; if(boatdir>7) boatdir-=8;
-			int tx=0,ty=0;
-			turn(1);
-			this->type2_ = 9;
+			this->turn(1);
+			itemtalk(s, tiller, "Aye, sir.");
 			return 1;
 		}
-		else if((msg.find("LEFT")!=string::npos) || (msg.find("PORT")!=string::npos)) 
+		else if( msg.contains("LEFT") || msg.contains("PORT") )
 		{
-			// khpae
-			boatdir-=2; if(boatdir<0) boatdir+=8;
-			int tx=0,ty=0;
-			turn(-1);
-			this->type2_ = 9;
+			this->turn(-1);
+			itemtalk(s, tiller, "Aye, sir.");
 			return 1;
 		}
-		else if((msg.find("COME ABOUT")!=string::npos) || (msg.find("AROUND")!=string::npos))
+		else if( msg.contains("COME ABOUT") || msg.contains("AROUND") )
 		{
 			turn(1);
 			turn(1);
@@ -1262,33 +1165,13 @@ char cBoat::speechInput( UOXSOCKET s, const QString& msg )//See if they said a c
 			return 1;
 		}
 	}
-	else if(msg.find("SET NAME")!=string::npos)
+
+	if(msg.contains("SET NAME"))
 	{
-		tiller->setName( QString("a ship named %1").arg(msg2+8) );
+		tiller->setName( QString("a ship named %1").arg(msg.right(msg.length()-8)) );
 		return 1;
 	}
-	// khpae - bugfix
-	else if (msg.find ("LEFT") != string::npos) {
-		boatdir-=2;
-		if (boatdir<0) boatdir+=8;  
-		if (move ()) {
-			itemtalk(s, tiller, "Aye, sir.");
-			this->type2_ = 7;
-		} else {
-			this->type2_ = 9;
-		}
-		return 1;
-	} else if (msg.find ("RIGHT") != string::npos) {
-		boatdir+=2;
-		if (boatdir>=8) boatdir-=8;
-		if (move ()) {
-			itemtalk (s, tiller, "Aye, sir.");
-			this->type2_ = 3;
-		} else {
-			this->type2_ = 9;
-		}
-		return 1;
-	}
+
 	return 0;
 }
 
