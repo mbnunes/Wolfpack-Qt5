@@ -17,6 +17,9 @@
 		<inherit id="swords_base" />
 		<id>0x0f5e</id>
 		<category>Weapons\Swords\Broadsword (N/S)</category>
+		<buyprice>44</buyprice>
+		<sellprice>22</sellprice>
+		<weight>6.0</weight>
 
 		<!-- Weapon Properties -->
 		<attack min="5" max="29" />
@@ -36,6 +39,9 @@
 		<id>0x0f60</id>
 		<inherit id="swords_base" />
 		<category>Weapons\Swords\Longsword 1 (W/E)</category>
+		<buyprice>60</buyprice>
+		<sellprice>30</sellprice>
+		<weight>7.0</weight>
 		
 		<!-- Weapon Properties -->
 		<attack min="5" max="33" />
@@ -55,6 +61,9 @@
 		<id>0x13b5</id>
 		<inherit id="swords_base" />
 		<category>Weapons\Swords\Scimitar (W/E)</category>
+		<buyprice>43</buyprice>
+		<sellprice>21</sellprice>
+		<weight>5.0</weight>
 
 		<!-- Weapon Properties -->
 		<attack min="4" max="30" />
@@ -87,6 +96,9 @@
 		<id>0x13b9</id>
 		<inherit id="swords_base" />
 		<category>Weapons\Swords\Viking Sword (N/S)</category>
+		<buyprice>66</buyprice>
+		<sellprice>33</sellprice>
+		<weight>6.0</weight>
 
 		<!-- Weapon Properties -->
 		<attack min="6" max="34" />
@@ -106,6 +118,9 @@
 		<id>0x13fe</id>
 		<inherit id="swords_base" />
 		<category>Weapons\Swords\Katana (W/E)</category>
+		<buyprice>42</buyprice>
+		<sellprice>21</sellprice>
+		<weight>6.0</weight>
 
 		<!-- Weapon Properties -->
 		<attack min="5" max="26" />
@@ -126,6 +141,9 @@
 		<id>0x143e</id>
 		<category>Weapons\Pole Arms\Halberd (W/E)</category>
 		<twohanded />
+		<buyprice>50</buyprice>
+		<sellprice>25</sellprice>
+		<weight>16.0</weight>
 
 		<!-- Weapon Properties -->
 		<requires type="str">45</requires>
@@ -145,6 +163,9 @@
 		<inherit id="swords_base" />
 		<id>0x1440</id>
 		<category>Weapons\Swords\Cutlass (W/E)</category>
+		<buyprice>32</buyprice>
+		<sellprice>27</sellprice>
+		<weight>8.0</weight>
 
 		<!-- Weapon Properties -->
 		<requires type="str">10</requires>
@@ -165,6 +186,9 @@
 		<id>0x0f4d</id>
 		<category>Weapons\Pole Arms\Bardiche (N/S)</category>
 		<twohanded />
+		<buyprice>68</buyprice>
+		<sellprice>34</sellprice>
+		<weight>7.0</weight>
 
 		<!-- Weapon Properties -->
 		<requires type="str">40</requires>
@@ -184,6 +208,9 @@
 		<inherit id="swords_base" />
 		<id>0x13f6</id>
 		<category>Weapons\Knives &amp; Daggers\Butcher Knife (N/S)</category>
+		<buyprice>21</buyprice>
+		<sellprice>10</sellprice>
+		<weight>1.0</weight>
 
 		<!-- Weapon Properties -->
 		<requires type="str">5</requires>
@@ -203,6 +230,9 @@
 		<inherit id="swords_base" />
 		<id>0x0ec2</id>
 		<category>Weapons\Knives &amp; Daggers\Cleaver (W/E)</category>
+		<buyprice>24</buyprice>
+		<sellprice>12</sellprice>
+		<weight>1.0</weight>
 
 		<!-- Weapon Properties -->
 		<requires type="str">10</requires>
@@ -222,6 +252,9 @@
 		<inherit id="swords_base" />
 		<id>0x0ec4</id>
 		<category>Weapons\Knives &amp; Daggers\Skinning Knive (N/S)</category>
+		<buyprice>26</buyprice>
+		<sellprice>13</sellprice>
+		<weight>1.0</weight>
 
 		<!-- Weapon Properties -->
 		<requires type="str">5</requires>

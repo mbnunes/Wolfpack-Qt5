@@ -20,6 +20,9 @@
 		<inherit id="mace_base" />
 		<id>0x0f5c</id>
 		<category>Weapons\Maces &amp; Hammers\Mace (W/E)</category>
+		<buyprice>38</buyprice>
+		<sellprice>30</sellprice>
+		<weight>14.0</weight>
 
 		<!-- Weapon Properties -->
 		<requires type="str">20</requires>
@@ -39,6 +42,9 @@
 		<inherit id="mace_base" />
 		<id>0x13b3</id>
 		<category>Weapons\Maces &amp; Hammers\Club (W/E)</category>
+		<buyprice>27</buyprice>
+		<sellprice>13</sellprice>
+		<weight>9.0</weight>
 
 		<!-- Weapon Properties -->
 		<requires type="str">10</requires>
@@ -57,6 +63,9 @@
 		<inherit id="mace_base" />
 		<id>0x1406</id>
 		<category>Weapons\Maces &amp; Hammers\War Mace (W/E)</category>
+		<buyprice>37</buyprice>
+		<sellprice>18</sellprice>
+		<weight>17.0</weight>
 
 		<!-- Weapon Properties -->
 		<requires type="str">30</requires>
@@ -77,6 +86,9 @@
 		<id>0x1438</id>
 		<category>Weapons\Maces &amp; Hammers\War Hammer (W/E)</category>
 		<twohanded />
+		<buyprice>27</buyprice>
+		<sellprice>13</sellprice>
+		<weight>10.0</weight>
 
 		<!-- Weapon Properties -->
 		<requires type="str">40</requires>
@@ -96,6 +108,9 @@
 		<inherit id="mace_base" />
 		<id>0x143a</id>
 		<category>Weapons\Maces &amp; Hammers\Maul (W/E)</category>
+		<buyprice>31</buyprice>
+		<sellprice>15</sellprice>
+		<weight>14.0</weight>
 
 		<!-- Weapon Properties -->
 		<requires type="str">20</requires>
@@ -115,6 +130,9 @@
 		<inherit id="mace_base" />
 		<id>0x143c</id>
 		<category>Weapons\Maces &amp; Hammers\Hammer Pick (W/E)</category>
+		<buyprice>31</buyprice>
+		<sellprice>15</sellprice>
+		<weight>9.0</weight>
 
 		<!-- Weapon Properties -->
 		<requires type="str">35</requires>
@@ -135,6 +153,9 @@
 		<id>0x0df0</id>
 		<category>Weapons\Staves\Black Staff (W/E)</category>
 		<twohanded />
+		<buyprice>27</buyprice>
+		<sellprice>24</sellprice>
+		<weight>6.0</weight>
 
 		<!-- Weapon Properties -->
 		<requires type="str">35</requires>
@@ -155,6 +176,9 @@
 		<id>0x0e89</id>
 		<category>Weapons\Staves\Quarter Staff (N/S)</category>
 		<twohanded />
+		<buyprice>30</buyprice>
+		<sellprice>15</sellprice>
+		<weight>4.0</weight>
 
 		<!-- Weapon Properties -->
 		<requires type="str">30</requires>
@@ -175,6 +199,9 @@
 		<id>0x13F8</id>
 		<category>Weapons\Staves\Gnarled Staff (N/S)</category>
 		<twohanded />
+		<buyprice>24</buyprice>
+		<sellprice>12</sellprice>
+		<weight>3.0</weight>
 
 		<!-- Weapon Properties -->
 		<requires type="str">20</requires>
@@ -195,6 +222,9 @@
 		<id>0x0e81</id>
 		<category>Weapons\Staves\Shepherds Crook (W/E)</category>
 		<twohanded />
+		<buyprice>33</buyprice>
+		<sellprice>24</sellprice>
+		<weight>2.0</weight>
 
 		<!-- Weapon Properties -->
 		<requires type="str">10</requires>
@@ -227,6 +257,9 @@
 		<inherit id="mace_base" />
 		<id>0x13af</id>
 		<category>Weapons\Axes\War Axe (N/S)</category>
+		<buyprice>38</buyprice>
+		<sellprice>19</sellprice>
+		<weight>8.0</weight>
 
 		<!-- Weapon Properties -->
 		<requires type="str">35</requires>

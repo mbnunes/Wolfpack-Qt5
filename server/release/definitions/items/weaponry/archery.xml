@@ -14,6 +14,9 @@
 		<category>Weapons\Bows\Bow (W/E)</category>
 		<type>1006</type>
 		<twohanded />
+		<weight>7.0</weight>
+		<buyprice>70</buyprice>
+		<sellprice>35</sellprice>
 
 		<!-- Weapon Properties -->
 		<requires type="str">20</requires>
@@ -36,6 +39,9 @@
 		<category>Weapons\Bows\Crossbow (W/E)</category>
 		<type>1007</type>
 		<twohanded />
+		<weight>7.0</weight>
+		<buyprice>70</buyprice>
+		<sellprice>35</sellprice>
 
 		<!-- Weapon Properties -->
 		<requires type="str">30</requires>
@@ -58,6 +64,9 @@
 		<category>Weapons\Bows\Heavy Crossbow (W/E)</category>
 		<type>1007</type>
 		<twohanded />
+		<weight>9.0</weight>
+		<buyprice>116</buyprice>
+		<sellprice>58</sellprice>
 
 		<!-- Weapon Properties -->
 		<requires type="str">40</requires>

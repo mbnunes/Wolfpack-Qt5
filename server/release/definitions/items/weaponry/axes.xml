@@ -17,6 +17,9 @@
 		<id>0x1442</id>
 		<category>Weapons\Axes\Two Handed Axe (W/E)</category>
 		<twohanded />
+		<weight>8.0</weight>
+		<buyprice>42</buyprice>
+		<sellprice>21</sellprice>
 
 		<!-- Weapon Properties -->
 		<requires type="str">35</requires>
@@ -37,6 +40,9 @@
 		<id>0x13fa</id>
 		<category>Weapons\Axes\Large Battle Axe (W/E)</category>
 		<twohanded />
+		<weight>6.0</weight>
+		<buyprice>43</buyprice>
+		<sellprice>21</sellprice>
 
 		<!-- Weapon Properties -->
 		<requires type="str">40</requires>
@@ -57,6 +63,7 @@
 		<id>0xf43</id>
 		<category>Weapons\Axes\Hatchet (N/S)</category>
 		<twohanded />
+		<weight>4.0</weight>
 
 		<!-- Weapon Properties -->
 		<requires type="str">15</requires>
@@ -77,6 +84,9 @@
 		<id>0x0f45</id>
 		<category>Weapons\Axes\Executioner's Axe (N/S)</category>
 		<twohanded />
+		<weight>8.0</weight>
+		<buyprice>38</buyprice>
+		<sellprice>33</sellprice>
 
 		<!-- Weapon Properties -->
 		<requires type="str">35</requires>
@@ -97,6 +107,9 @@
 		<id>0x0f47</id>
 		<category>Weapons\Axes\Battle Axe (N/S)</category>
 		<twohanded />
+		<weight>4.0</weight>
+		<buyprice>38</buyprice>
+		<sellprice>36</sellprice>
 
 		<!-- Weapon Properties -->
 		<requires type="str">40</requires>
@@ -117,6 +130,9 @@
 		<id>0x0f49</id>
 		<category>Weapons\Axes\Axe (N/S)</category>
 		<twohanded />
+		<weight>4.0</weight>
+		<buyprice>48</buyprice>
+		<sellprice>24</sellprice>
 
 		<!-- Weapon Properties -->
 		<requires type="str">35</requires>
@@ -137,6 +153,9 @@
 		<id>0x0f4b</id>
 		<category>Weapons\Axes\Double Axe (N/S)</category>
 		<twohanded />
+		<weight>8.0</weight>
+		<buyprice>32</buyprice>
+		<sellprice>16</sellprice>
 
 		<!-- Weapon Properties -->
 		<requires type="str">45</requires>
