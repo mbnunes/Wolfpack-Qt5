@@ -5,8 +5,8 @@
 	other scripts or eventlists).
 -->
 <definitions>
+	<script>trading</script>
 	<script>npc.healer</script>
-
 	<script>training_dummy</script>
 	<script>pickpocket_dip</script>
 	<script>archery_butte</script>
@@ -112,4 +112,5 @@
 	<script>skills.peacemaking</script>
 	<script>skills.provocation</script>
 	<script>skills.mining</script>
+
 </definitions>

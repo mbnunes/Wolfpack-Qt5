@@ -140,6 +140,12 @@ def tocontainer( item, container ):
 	container.additem( item, 1, 1, 0 )
 	return 0 # Not stacked
 
+def cont2cont( container1, container2 ):
+	for item in container1.content:
+		tocontainer( item, container2 )
+		item.update()
+		
+
 def isclothing( item ):
 
 	clothes = [ 0x152e, 0x152f, 0x1530, 0x1531, 0x152e, 0x1537, 0x1538, 0x1539, \
