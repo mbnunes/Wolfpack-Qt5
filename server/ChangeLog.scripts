@@ -43,6 +43,7 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Fixed crafting of stackable bowcrafting items.
 		- Fix for evaluating intelligence. (Skill delay message not being shown)
 		- Fixed Python loglevel constants.
+		- Fixed a clilocmessage in dyes.py.
 	* Misc. Changes:
 		- Fixed configure.py for FreeBSD 5
 	* Known Issues, Bugs, and Missing Features:
