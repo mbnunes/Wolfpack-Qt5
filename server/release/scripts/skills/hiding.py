@@ -23,6 +23,7 @@ def onSkillUse( char, skill ):
 	if success:
 		char.socket.clilocmessage( 501240, "", 0x3b2, 3 )
 		char.hidden = 1
+		char.update()
 	else:
 		char.socket.clilocmessage( 501237, "", 0x3b2, 4, char )
 	

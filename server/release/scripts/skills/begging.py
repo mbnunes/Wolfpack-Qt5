@@ -28,7 +28,9 @@ def onSkillUse( char, skill ):
 	if skill != BEGGING:
 		return 0
 
-	char.socket.clilocmessage( 0x7A277, "", 0x3b2, 3 )
+	char.socket.clilocmessage( 500397, "", 0x3b2, 3 )
+	# decrease karma
+
 	char.socket.attachtarget( "skills.begging.response" )
 	return 1
 
