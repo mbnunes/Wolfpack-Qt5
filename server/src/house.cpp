@@ -333,7 +333,7 @@ void cHouseManager::AddHome(int s, int i)
 						{
 							pos=ftell(scpfile);// To prevent accidental exit of loop.
 							closescript();
-							pHouseItem = MAKE_ITEM_REF(Items->CreateScriptItem(s,str2num(script2),0));//This opens the item script... so we gotta keep track of where we are with the other script.
+							pHouseItem = Items->CreateScriptItem(s,str2num(script2),0);//This opens the item script... so we gotta keep track of where we are with the other script.
 							openscript("house.scp");
 							fseek(scpfile, pos, SEEK_SET);
 							strcpy((char*)script1, "ITEM");
@@ -428,7 +428,7 @@ void deedhouse(UOXSOCKET s, int i) // Ripper & AB
 	{
 		Map->MultiArea(pHouse, &x1,&y1,&x2,&y2);
 		
-		P_ITEM pDeed = MAKE_ITEM_REF(Items->SpawnItemBackpack2(s, pHouse->morex, 0));        // need to make before delete
+		P_ITEM pDeed = Items->SpawnItemBackpack2(s, pHouse->morex, 0);        // need to make before delete
 		if( pDeed == NULL ) return;
 		sprintf((char*)temp, "Demolishing House %s", pHouse->name);
 		sysmessage( s, (char*)temp );

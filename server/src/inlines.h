@@ -41,14 +41,14 @@ inline int calcCharFromPtr(unsigned char *p)
 	if((serial=LongFromCharPtr(p)) == INVALID_SERIAL) return -1;
 	return findbyserial(&charsp[serial%HASHMAX], serial, 1);
 }
-
+/*
 inline int calcItemFromPtr(unsigned char *p)
 {
 	int serial;
 	if((serial=LongFromCharPtr(p)) == INVALID_SERIAL) return -1;
 	return findbyserial(&itemsp[serial%HASHMAX], serial, 0);
 }
-
+*/
 inline int calcItemFromSer(unsigned char ser1, unsigned char ser2, unsigned char ser3, unsigned char ser4)
 {
 	if(ser1==255 && ser2==255 && ser3==255 && ser4==255 ) return -1;//AntiChrist

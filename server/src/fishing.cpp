@@ -362,56 +362,8 @@ void cFishing::Fish(CHARACTER i)
 
 	/**** end of exotic fish stuff stuff */
 
-	fishes_around_player=Items->Find_items_around_player(DEREF_P_CHAR(pc_i), 0x09, idnum, 2, 2, max_fish_piles, fish_sers); // lets search for fish in a 2*2 rectangle around the player
-	
-	P_ITEM pFish;
-	if (fishes_around_player<=0) // no fish around -> spawn a new one
-	{
-		pFish=Items->SpawnItem(DEREF_P_CHAR(pc_i),1,"#",1,0x0900+idnum,(c1<<8)+c2,0);
-		if(!pFish) return;//AntiChrist to prevent crashes
-		pFish->type=14;
-		pFish->MoveTo(pc_i->pos.x,pc_i->pos.y,pc_i->pos.z);
-		RefreshItem(pFish);
-	}
-	else // fishes around ?
-	{
-		ITEM c = -1;
-		min=1234567;
-		mc=0; // crash prevention if for some strange reason no min is found
-		for (d=0;d<fishes_around_player;d++) // lets pick the smallest pile form the return list
-		{
-			c = calcItemFromSer( fish_sers[d] );
-			if (c>-1)
-			{
-				ss=items[c].amount;
-				if (ss<min) { min=ss; mc=c; }
-			}
-		}
-
-		if (items[mc].amount>max_fish_stacksize) // if smaleest fish-stack > max_stacksize spawn a new fish anyway
-		{
-			if (fishes_around_player>=max_fish_piles)
-			{
-				sysmessage(s,"you catch a fish, but no place for it left");
-				return;
-			}
-			
-			P_ITEM pFish=Items->SpawnItem(DEREF_P_CHAR(pc_i),1,"#",1,0x0900+idnum,(c1<<8)+c2,0);
-			if(!pFish) return;
-			pFish->type=14;
-			pFish->MoveTo(pc_i->pos.x,pc_i->pos.y,pc_i->pos.z);
-			RefreshItem(pFish);
-		}
-		else // if fish stack <=max_ -> just increase stack !!
-		{
-			if (c>-1)
-			{
-				items[c].amount++;
-				RefreshItem(c);
-			}
-		}
-
-	} // end else fishes around
+	// Spawn in his backpack
+	P_ITEM pFish = Items->SpawnItem(DEREF_P_CHAR(pc_i),1,"#",1,0x0900+idnum,(c1<<8)+c2, true);
 	if(c2>0)
 	{
 		sysmessage(s,"You pull out an exotic fish!");

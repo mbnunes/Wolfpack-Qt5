@@ -86,7 +86,6 @@ extern cCharStuff::cBankerAI	*BankerAI;
 #if !defined(MIN)
 #define MIN(arga, argb) (arga<argb?arga:argb)
 #endif
-extern int *contcache;
 extern int *itemids;
 
 extern int escortRegions;
@@ -120,8 +119,8 @@ P_ITEM Packitem(P_CHAR pc); // Find packitem
 extern cRegion			*mapRegions; //setup map regions Tauriel
 
 int GetPackOwner(int p);
-P_ITEM GetOutmostCont(P_ITEM pItem, short rec=50);
-P_CHAR GetPackOwner(P_ITEM pItem, short rec=50);
+P_ITEM GetOutmostCont(P_ITEM pItem, short rec = 10);
+P_CHAR GetPackOwner(P_ITEM pItem, short rec = 10);
 
 
 //////////////////////////// INLINES /////////////////////

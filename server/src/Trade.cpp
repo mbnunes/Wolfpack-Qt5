@@ -484,31 +484,31 @@ int tradestart(int s, int i)
 
 void clearalltrades()
 {
-	int i, j, k, p,serial,serhash,ci;
-	for (i=0;i<itemcount;i++)
+	AllItemsIterator iterItems;
+	for (iterItems.Begin();iterItems.GetData() != iterItems.End(); iterItems++)
 	{
-		P_ITEM pi = &items[i];
+		P_ITEM pi = iterItems.GetData();
 		if (pi->type==1 && pi->pos.x==26 && pi->pos.y==0 && pi->pos.z==0 &&
 			pi->id()==0x1E5E)
 		{
-			k=calcCharFromSer(pi->contserial);
-			p=packitem(k);
-			serial=pi->serial;
-			serhash=serial%HASHMAX;
+			P_CHAR pc = FindCharBySerial(pi->contserial);
+			P_ITEM pBackpack = Packitem(pc);
+			SERIAL serial = pi->serial;
+			unsigned int ci;
 			vector<SERIAL> vecContainer = contsp.getData(serial);
-			for (ci=0;ci<vecContainer.size();ci++)
+			for (ci = 0; ci < vecContainer.size(); ci++)
 			{
-				j=calcItemFromSer(vecContainer[ci]);
-				if (j!=-1)
-					if ((items[j].contserial==serial))
+				P_ITEM pj = FindItemBySerial(vecContainer[ci]);
+				if (pj != NULL)
+					if ((pj->contserial==serial))
 					{
-						if(p>-1)
+						if(pBackpack != NULL)
 						{
-							items[j].SetContSerial(items[p].serial);
+							pBackpack->AddItem(pj);
 						}
 					}
 			}
-			Items->DeleItem(i);
+			Items->DeleItem(pi);
 			clConsole.send("Trade cleared\n");
 		}
 	}

@@ -162,8 +162,8 @@ void cTargets::PlVBuy(int s)//PlayerVendors
 	if (pi->isInWorld()) return;
 	int price=pi->value;
 
-	int np=calcItemFromSer(pi->contserial);	// the pack
-	int npc=GetPackOwner(np);				// the vendor
+	P_ITEM np = FindItemBySerial(pi->contserial);		// the pack
+	int npc=GetPackOwner(DEREF_P_ITEM(np));				// the vendor
 	if(npc!=v || pc->npcaitype!=17) return;
 
 	if (pc_currchar->Owns(pc))
@@ -203,10 +203,10 @@ void cTargets::triggertarget(int s)
 			//triggerwitem(i,-1,1); is this used also for npcs?!?!
 	} else
 	{//item
-		i=calcItemFromSer(serial);
-		if(i!=-1)
+		P_ITEM pi = FindItemBySerial(serial);
+		if(pi != NULL)
 		{
-			triggerwitem(s,i,1);
+			triggerwitem(s,DEREF_P_ITEM(pi),1);
 		}
 	}
 }
@@ -281,14 +281,6 @@ public:
 	}
 };
 
-//we don't need this anymore - AntiChrist (9/99)
-// hehe, yes we do
-// what about the /tele command ???
-// modified for command only purpose and uncommented by LB...
-
-// Changed to have a gmmove effect at origin and at target point 
-// Aldur
-// 
 static void TeleTarget(int s, PKGx6C *pp) 
 { 
 	if(pp->TxLoc==-1 || pp->TyLoc==-1) return; 
@@ -417,8 +409,7 @@ public:
 //public !!
 void cTargets::IDtarget(int s)
 {
-	SERIAL serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcItemFromSer(serial);
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
 	if (isItemSerial(serial))
 	{
 		P_ITEM pi = FindItemBySerial(serial);
@@ -478,22 +469,22 @@ void cTargets::XTeleport(int s, int x)
 		updatechar(i);
 		return;// Zippy
 	}
-	i = calcItemFromSer(serial);
-	if (i!=-1)
+	P_ITEM pi = FindItemBySerial(serial);
+	if (pi != NULL)
 	{
-		items[i].MoveTo(chars[cc].pos.x, chars[cc].pos.y, chars[cc].pos.z);
-		RefreshItem(i);
+		pi->MoveTo(chars[cc].pos.x, chars[cc].pos.y, chars[cc].pos.z);
+		RefreshItem(pi);
 	}
 }
 
 void XgoTarget(int s)
 {
 	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcCharFromSer(serial);
-	if (i!=-1)
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc != NULL)
 	{
-		chars[i].MoveTo(addx[s],addy[s],addz[s]);
-		updatechar(i);
+		pc->MoveTo(addx[s],addy[s],addz[s]);
+		updatechar(DEREF_P_CHAR(pc));
 	}
 }
 
@@ -921,15 +912,14 @@ void cTargets::CloseTarget(int s)
 // public !!!
 int cTargets::AddMenuTarget(int s, int x, int addmitem) //Tauriel 11-22-98 updated for new items
 {
-	int c;
 	if (s>=0)
 		if (buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return -1;
 
-	c=Items->CreateScriptItem(s, addmitem, 0);
-	if (c==-1) return -1;
+	P_ITEM pi = Items->CreateScriptItem(s, addmitem, 0);
+	if (pi == NULL) return -1;
 	if (x)
-		RefreshItem(c);
-	return c;
+		RefreshItem(pi);
+	return DEREF_P_ITEM(pi);
 }
 
 // public !!!
@@ -945,15 +935,16 @@ void cTargets::VisibleTarget (int s)
 
 	if(isItemSerial(serial))//item
 	{
-		P_ITEM pi = MAKE_ITEMREF_LR(calcItemFromSer(serial));
+		P_ITEM pi = FindItemBySerial(serial);
 		if(pi != NULL)
 		{
 			pi->visible=addx[s];
 			RefreshItem(DEREF_P_ITEM(pi));
 		}
-	} else
+	}
+	else
 	{//char
-		P_CHAR pc = MAKE_CHARREF_LR(calcCharFromSer(serial));
+		P_CHAR pc = FindCharBySerial(serial);
 		if(pc != NULL)
 		{
 			pc->hidden=addx[s];
@@ -1626,14 +1617,15 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 					storeval=str2num(script2);
 					pos=ftell(scpfile);
 					closescript();
-					n=Items->CreateScriptItem(s,storeval,0);
-					P_ITEM pi10=MAKE_ITEMREF_LR(n);
+					P_ITEM pi10 = Items->CreateScriptItem(s,storeval,0);
+					if (pi10 == NULL)
+						return;
 					pi10->layer=0;
 					pi10->SetContSerial(pi3->serial);
 					pi10->pos.x=20+(rand()%50);
 					pi10->pos.y=85+(rand()%75);
 					pi10->pos.z=9;
-					RefreshItem(n);//let's finally refresh the item
+					RefreshItem(pi10);//let's finally refresh the item
 					strcpy((char*)script1, "DUMMY");
 					openscript("carve.scp");
 					fseek(scpfile, pos, SEEK_SET);
@@ -1670,13 +1662,12 @@ static void CorpseTarget(const P_CLIENT pC)
 	UOXSOCKET s = pC->GetSocket();
 
 	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcItemFromSer(serial);
-	P_ITEM pi=MAKE_ITEMREF_LR(i);
-	if(i!=-1)
+	P_ITEM pi = FindItemBySerial(serial);
+	if(pi != NULL)
 	{
-		if(iteminrange(s,i,1))
+		if(iteminrange(s,DEREF_P_ITEM(pi),1))
 		{
-			npcshape[0]=i;
+			npcshape[0]=DEREF_P_ITEM(pi);
 			action(s,0x20);
 			n=1;
 			if(pi->more1==0)
@@ -1685,7 +1676,7 @@ static void CorpseTarget(const P_CLIENT pC)
 
 				if(pi->morey || pi->carve>-1)
 				{//if specified, use enhanced carving system!
-					newCarveTarget(s, i);//AntiChrist
+					newCarveTarget(s, DEREF_P_ITEM(pi));//AntiChrist
 				} else
 				{//else use standard carving
 					switch(pi->amount) {
@@ -2465,13 +2456,11 @@ void cTargets::SetSplitChanceTarget(int s)
 
 void cTargets::SetDirTarget(int s)
 {
-	int i;
 	int serial=LongFromCharPtr(buffer[s]+7);
 
 	if (isItemSerial(serial))
 	{
-		i=calcItemFromSer(serial);
-		P_ITEM pi=MAKE_ITEMREF_LR(i);
+		P_ITEM pi = FindItemBySerial(serial);
 		if (pi != NULL)
 		{
 			pi->dir=addx[s];
@@ -2481,8 +2470,7 @@ void cTargets::SetDirTarget(int s)
 	}
 	else
 	{
-		i=calcCharFromSer(serial);
-		P_CHAR pc = MAKE_CHARREF_LR(i);
+		P_CHAR pc = FindCharBySerial(serial);
 		if (pc != NULL)
 		{
 			pc->dir=addx[s];
@@ -2691,23 +2679,24 @@ void cTargets::ShowPriv3Target(int s) // crackerjack, jul 25/99
 
 void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house owner
 {
-	int sign, house, os, i;
-	int o_serial=LongFromCharPtr(buffer[s]+7);
+	int os, i;
+	int o_serial = LongFromCharPtr(buffer[s]+7);
 	if(o_serial==-1) return;
 	int own=calcCharFromSer(o_serial);
 	if(own==-1) return;
 	P_CHAR pc = MAKE_CHARREF_LR(own);
 
 	int key;
-	int serial=calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
-	sign=calcItemFromSer(serial);
-	P_ITEM pSign=MAKE_ITEMREF_LR(sign);
+	SERIAL serial = calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
+	P_ITEM pSign = FindItemBySerial(serial);
+	if ( pSign == NULL )
+		return;
 
-	serial=calcserial(pSign->more1, pSign->more2, pSign->more3, pSign->more4);
-	house=calcItemFromSer(serial);
-	P_ITEM pHouse=MAKE_ITEMREF_LR(house);
+	serial = calcserial(pSign->more1, pSign->more2, pSign->more3, pSign->more4);
+	P_ITEM pHouse = FindItemBySerial(serial);
+	if ( pHouse == NULL )
+		return;
 	
-	if (sign ==-1 || house ==-1) return; //lb
 	if(pc->serial == chars[currchar[s]].serial)
 	{
 		sysmessage(s, "you already own this house!");
@@ -2908,20 +2897,17 @@ void cTargets::HouseLockdown( UOXSOCKET s ) // Abaddon
 // DATE:	17th December, 1999
 {
 	int ser = LongFromCharPtr(buffer[s]+7);
-	int itemToLock = calcItemFromSer(ser);
+	P_ITEM pi = FindItemBySerial(ser);
 
-	if( itemToLock != -1 )
+	if( pi != NULL )
 	{
-		P_ITEM pi=MAKE_ITEMREF_LR(itemToLock);
 		short id = pi->id();
-		/*houseSer = calcserial( addid1[s], addid2[s], addid3[s], addid4[s] );	// let's find our house
-		house = calcItemFromSer(houseSer);*/
 
 		// not needed anymore, cause called from house_sped that already checks that ...
 
 		// time to lock it down!
 
-		if (Items->isFieldSpellItem ( itemToLock ))
+		if (Items->isFieldSpellItem ( DEREF_P_ITEM(pi) ))
 		{
 			sysmessage(s,"you cannot lock this down!");
 			return;
@@ -2974,13 +2960,11 @@ void cTargets::HouseSecureDown( UOXSOCKET s ) // Ripper
 // For locked down and secure chests
 {
 	int ser = LongFromCharPtr(buffer[s]+7);
-	int itemToLock = calcItemFromSer(ser);
-	if( itemToLock != -1 )
+	P_ITEM pi = FindItemBySerial(ser);
+	if( pi != NULL )
 	{
 		// time to lock it down!
-		P_ITEM pi=MAKE_ITEMREF_LR(itemToLock);
-
-		if (Items->isFieldSpellItem ( itemToLock ))
+		if (Items->isFieldSpellItem ( DEREF_P_ITEM( pi ) ) )
 		{
 			sysmessage(s,"you cannot lock this down!");
 			return;
@@ -3033,11 +3017,10 @@ void cTargets::HouseRelease( UOXSOCKET s ) // Abaddon & Ripper
 // update: 5-8-00
 {
 	int ser = LongFromCharPtr(buffer[s]+7);
-	int itemToLock = calcItemFromSer(ser);
-	if( itemToLock != -1 )
+	P_ITEM pi = FindItemBySerial(ser);
+	if( pi != NULL )
 	{
-		P_ITEM pi=MAKE_ITEMREF_LR(itemToLock);
-		if (Items->isFieldSpellItem(itemToLock))
+		if (Items->isFieldSpellItem(DEREF_P_ITEM(pi)))
 		{
 			sysmessage(s,"you cannot release this!");
 			return;
@@ -3047,15 +3030,14 @@ void cTargets::HouseRelease( UOXSOCKET s ) // Abaddon & Ripper
 			sysmessage(s, "You cant release doors or signs!");
 			return;
 		}
-		/*houseSer = calcserial( addid1[s], addid2[s], addid3[s], addid4[s] );	// let's find our house
-		house = calcItemFromSer(houseSer);*/
+
 		// time to lock it down!
 		P_ITEM pi_multi = findmulti( pi->pos );
 		if( pi_multi != NULL && pi->magic==4 || pi->type==1)
 		{
 			pi->magic = 1;	// Default as stored by the client, perhaps we should keep a backup?
 			pi->secureIt = 0;
-			RefreshItem( itemToLock );
+			RefreshItem( pi );
 			return;
 		}
 		else if( pi_multi == NULL )
@@ -3086,25 +3068,24 @@ void cTargets::SetMurderCount( int s )
 
 void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 {
-	int c,i,k,l,j;
+	int c,k,l,j;
 
-	int serial=LongFromCharPtr(buffer[s]+7);
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
 	if( serial == INVALID_SERIAL) return;
-	i=calcItemFromSer(serial);
-	if (i==-1)
+	P_ITEM pi1 = FindItemBySerial(serial);
+	if (pi1 == NULL)
 	{
 		sysmessage(s,"Item not found.");
 		return;
 	}
 
-	P_ITEM pi1=MAKE_ITEMREF_LR(i);
 	int cc=currchar[s];
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 	if (!pi1->isInWorld())
 	{
-		j=calcItemFromSer(pi1->contserial); // in bp ?
+		P_ITEM pj = FindItemBySerial(pi1->contserial); // in bp ?
 		l=calcCharFromSer(pi1->contserial); // equipped ?
-		if (l==-1) k=GetPackOwner(j); else k=l;
+		if (l==-1) k=GetPackOwner(DEREF_P_ITEM(pj)); else k=l;
 
 		if (k!=cc)	// creation only allowed in the creators pack/char otherwise things could go wrong
 		{
@@ -3155,7 +3136,7 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 	pi1->glow=pi2->serial; // set glow-identifier
 
 
-	RefreshItem(i);
+	RefreshItem(pi1);
 	RefreshItem(c);
 
 	impowncreate(s,cc,0); // if equipped send new color too
@@ -3163,7 +3144,7 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 
 void cTargets::UnglowTaget(int s) // LB 4/9/99, removes the glow-effect from items
 {
-	int c,j,l;
+	int c,l;
 	int k;
 
 	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
@@ -3175,9 +3156,9 @@ void cTargets::UnglowTaget(int s) // LB 4/9/99, removes the glow-effect from ite
 
 	if (!pi->isInWorld())
 	{
-		j=calcItemFromSer(pi->contserial); // in bp ?
+		P_ITEM pj = FindItemBySerial(pi->contserial); // in bp ?
 		l=calcCharFromSer(pi->contserial); // equipped ?
-		if (l==-1) k=GetPackOwner(j); else k=l;
+		if (l==-1) k = GetPackOwner(DEREF_P_ITEM(pj)); else k=l;
 		if (k!=currchar[s])	// creation only allowed in the creators pack/char otherwise things could go wrong
 		{
 			sysmessage(s,"you can't unglow items in other perons packs or hands");
@@ -3187,9 +3168,9 @@ void cTargets::UnglowTaget(int s) // LB 4/9/99, removes the glow-effect from ite
 
 	c=pi->glow;
 	if(c==-1) return;
-	j=calcItemFromSer(c);
+	P_ITEM pj = FindItemBySerial(c);
 
-	if (pi->glow==0 || j==-1 )
+	if (pi->glow==0 || pj == NULL )
 	{
 		sysmessage(s,"that object doesnt glow!\n");
 		return;
@@ -3198,7 +3179,7 @@ void cTargets::UnglowTaget(int s) // LB 4/9/99, removes the glow-effect from ite
 	pi->color1=pi->glow_c1;
 	pi->color2=pi->glow_c2; // restore old color
 
-	Items->DeleItem(j); // delete glowing object
+	Items->DeleItem(pj); // delete glowing object
 
 	pi->glow=0; // remove glow-identifier
 	RefreshItem(pi);
@@ -3502,16 +3483,15 @@ static void ItemTarget(P_CLIENT ps, PKGx6C *pt)
 void cTargets::LoadCannon(int s)
 {
 	int serial=LongFromCharPtr(buffer[s]+7);
-	int i=calcItemFromSer(serial);
-	P_ITEM pi=MAKE_ITEMREF_LR(i);
-	if (i!=-1)
+	P_ITEM pi = FindItemBySerial(serial);
+	if (pi != NULL)
 	{
 		//if((pi->id1==0x0E && pi->id2==0x91) && pi->morez==0)
 		if (((pi->more1==addid1[s])&&(pi->more2==addid2[s])&&
 			(pi->more3==addid3[s])&&(pi->more4==addid4[s]))||
 			(addid1[s]==(unsigned char)'\xFF'))
 		{
-			if ((pi->morez==0)&&(iteminrange(s,i,2)))
+			if ((pi->morez==0)&&(iteminrange(s,DEREF_P_ITEM(pi),2)))
 			{
 				if(pi->morez==0)
 				pi->type=15;
@@ -3534,12 +3514,12 @@ void cTargets::DupeTarget(int s)
 	if (addid1[s]>=1)
 	{
 		int serial=LongFromCharPtr(buffer[s]+7);
-		int i=calcItemFromSer(serial);
-		if (i!=-1)
+		P_ITEM pi = FindItemBySerial(serial);
+		if (pi != NULL)
 		{
 			for (int j=0;j<addid1[s];j++)
 			{
-				Commands->DupeItem(s, i, 1); // lb bugfix
+				Commands->DupeItem(s, DEREF_P_ITEM(pi), 1); // lb bugfix
 				sysmessage(s,"DupeItem done.");//AntiChrist
 			}
 		}
@@ -3635,18 +3615,18 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 23: { cSetAmountTarget	T(ps);	T.process();} break;
 		case 24:
 			{
-				int serial=LongFromCharPtr(buffer[s]+7);
-				int i=calcItemFromSer(serial);
+				SERIAL serial=LongFromCharPtr(buffer[s]+7);
+				P_ITEM pi = FindItemBySerial(serial);
 				P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
-				if(i!=-1)
+				if ( pi != NULL )
 				{
-					triggerwitem(s,i,0);
+					triggerwitem(s,DEREF_P_ITEM(pi),0);
 					pc_currchar->envokeid1=0x00;
 					pc_currchar->envokeid2=0x00;
 					return;
 				}
 				// Checking if target is an NPC	--- By Magius(CHE) §
-				i = calcCharFromSer(serial);
+				CHARACTER i = calcCharFromSer(serial);
 				if(i!=-1)
 				{
 					triggernpc(s,i,0);

@@ -231,7 +231,7 @@ public:
 	void DeleItem(int i);
 	char isFieldSpellItem(int i);
 	P_ITEM CreateFromScript(UOXSOCKET s, int itemnum);
-	int  CreateScriptItem(int s, int itemnum, int nSpawned);
+	P_ITEM  CreateScriptItem(int s, int itemnum, int nSpawned);
 	int  CreateRandomItem(char *sItemList);
 	P_ITEM  SpawnItem(UOXSOCKET nSocket,
 				int nAmount, char* cName, int nStackable,
@@ -243,14 +243,13 @@ public:
 				unsigned char cItemId1, unsigned char cItemId2,
 				unsigned char cColorId1, unsigned char cColorId2,
 				int nPack, int nSend);
-	P_ITEM SpawnItem(CHARACTER ch,int nAmount, char* cName, char pileable, short id, short color, short nPack);
+	P_ITEM SpawnItem(CHARACTER ch,int nAmount, char* cName, char pileable, short id, short color, bool bPack);
 	P_ITEM SpawnItemBank(CHARACTER ch, int nItem);
-	int  SpawnItemBackpack2(UOXSOCKET s, int nItem, int nDigging);
+	P_ITEM  SpawnItemBackpack2(UOXSOCKET s, int nItem, int nDigging);
 	void DecayItem(unsigned int currenttime, int i);
 	void RespawnItem(unsigned int Currenttime, int i);
 	void AddRespawnItem(int s, int x, int y);
 	void CheckEquipment(P_CHAR pc_p); //AntiChrist
-	int  Find_items_around_player(int player, unsigned char id1, unsigned char id2, unsigned char x, unsigned char y, int max_returns, int* items_found);
 	void CheckMemoryRequest();
 	bool AllocateMemory(int NumberOfItems);
 };

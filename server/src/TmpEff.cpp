@@ -258,7 +258,7 @@ void cTmpEff::Reverse()
 
 void cTmpEff::Expire()
 {
-	int mortar,k,ccc;
+	int k,ccc;
 
 	P_CHAR pc_s = FindCharBySerial(getDest());
 	if (   num != 9		// grinding
@@ -330,10 +330,12 @@ void cTmpEff::Expire()
 		}
 		break;
 	case 10:
+		{
 		pc_s = FindCharBySerial(getSour());
-		mortar = calcItemFromSer(getDest());
-		if(mortar>-1) //AntiChrist - to prevent crashes
-			Skills->CreatePotion(DEREF_P_CHAR(pc_s), more1, more2, mortar);
+		P_ITEM pMortar = FindItemBySerial(getDest());
+		if(pMortar != NULL) //AntiChrist - to prevent crashes
+			Skills->CreatePotion(DEREF_P_CHAR(pc_s), more1, more2, DEREF_P_ITEM(pMortar));
+		}
 		break;
 	case 11:
 		pc_s->st-=more1;

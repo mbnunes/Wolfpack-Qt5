@@ -62,7 +62,7 @@ void offlinehtml()//HTML
 	html = fopen(hfile, "w");
 	if (html == NULL) // LB
 	{ 
-		clConsole.send("Could not create html file, plz check html.scp\n"); 
+		clConsole.send("Could not create html file, plz check htmlstrm.scp\n"); 
 		closescript();
 		return;
 	}
@@ -106,7 +106,7 @@ void updatehtml()//HTML
 	                        
 	if (html == NULL) // LB
 	{ 
-		clConsole.send("Could not create html file, please check html.scp\n");
+		clConsole.send("Could not create html file, please check htmlstrm.scp\n");
 		closescript();
 		return;
 	}

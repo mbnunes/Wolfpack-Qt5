@@ -133,9 +133,9 @@ void newbieitems(CHARACTER c)
 					pos = ftell(scpfile);
 					closescript();
 					
-					n = Items->SpawnItemBackpack2(s, storeval, 0); // Tauriel 11-24-98
-					if (n!=-1)
-						items[n].priv |= 0x02; // Mark as a newbie item
+					P_ITEM pi_n = Items->SpawnItemBackpack2(s, storeval, 0); // Tauriel 11-24-98
+					if (pi_n != NULL)
+						pi_n->priv |= 0x02; // Mark as a newbie item
 					strcpy((char*)script1, "DUMMY");
 					openscript("newbie.scp");
 					fseek(scpfile, pos, SEEK_SET);

@@ -196,7 +196,6 @@ int xycount;
 // - the below structure is for looking up items based on serial #
 // - item's serial, owner's serial, char's serial, and container's serial
 
-int *contcache;
 int *itemids;
 
 

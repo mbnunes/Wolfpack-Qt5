@@ -2094,7 +2094,7 @@ void cSkills::TameTarget(int s)
 
 void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 {
-	int i, skill, npc;
+	int i, skill;
 	char temp2[512];
 	tile_st tile;
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
@@ -2131,15 +2131,15 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 		return;
 	}
 	
-	npc=GetPackOwner(DEREF_P_ITEM(pi));
-	P_CHAR pc_npc = MAKE_CHARREF_LR(npc);
+	P_CHAR pc_npc = GetPackOwner(pi);
+//	 = MAKE_CHARREF_LR(npc);
 	if (pc_npc->npcaitype == 17)
 	{
 		sysmessage(s, "You cannot steal that.");
 		return;
 	}
 	
-	if (npc==DEREF_P_CHAR(pc_currchar))
+	if (pc_npc == pc_currchar)
 	{
 		sysmessage(s,"You catch yourself red handed.");
 		return;
@@ -2797,7 +2797,7 @@ void cSkills::RepairTarget(UOXSOCKET s)
 	}
 
 	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
-	if (pi && pi->magic!=4)
+	if (pi && pi->magic != 4)
 	{
 		if (!CheckInPack(s,pi)) 
 			return;

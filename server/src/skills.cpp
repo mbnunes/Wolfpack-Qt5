@@ -308,19 +308,18 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 			delequan(cc, itemmake[s].Mat1id, itemmake[s].needs);
 		}
 		itemmake[s].Mat1id=0;
-		c=Items->SpawnItemBackpack2(s, x, 0);
-		if (c==-1)
+		const P_ITEM pi = Items->SpawnItemBackpack2(s, x, 0);
+		if (pi == NULL)
 		{
 			LogWarningVar("bad script item # %d(Item Not found).", x);
 			return;	//invalid script item
 		} 
 		// Starting Rank System Addon, Identify Item and Store the Creator Name- by Magius(CHE)
-		const P_ITEM pi=MAKE_ITEMREF_LR(c);	// on error return
 		if (pi->name2 && (strcmp(pi->name2,"#"))) 
 			strcpy(pi->name,pi->name2); // Item identified! - }
 		if (SrvParms->rank_system==1) rank=CalcRank(s,skill);
 		else if (SrvParms->rank_system==0) rank=10;
-		ApplyRank(s,c,rank);
+		ApplyRank(s,DEREF_P_ITEM(pi),rank);
 
 		if(!pc_currchar->isGM())		//AntiChrist - do this only if not a GM! bugfix - to avoid "a door mixed by GM..."
 		{
@@ -400,7 +399,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 		}
 
 		if(pc_currchar->making==999)
-			pc_currchar->making=c; // store item #
+			pc_currchar->making=DEREF_P_ITEM(pi); // store item #
 		else
 			pc_currchar->making=0;
 		if (skill==MINING) soundeffect(s,0x00,0x54); // Added by Magius(CHE)
@@ -436,9 +435,8 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 			pi->more2 = pi->ser2;		// Needed as unique lock-ID
 			pi->more3 = pi->ser3;
 			pi->more4 = pi->ser4;
-			c=Items->CreateScriptItem(-1, 339, 1);
-			if (c < 0) return;
-			P_ITEM pik=MAKE_ITEMREF_LR(c);
+			P_ITEM pik = Items->CreateScriptItem(-1, 339, 1);
+			if (pik == NULL) return;
 			pik->type = 7;				// Item is a key
 			pik->more1 = pi->more1;		// Copy the lock-number to the keys more-variable
 			pik->more2 = pi->more2;		// to make it fit the lock
@@ -447,7 +445,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 			strcpy(pik->creator,pc_currchar->name);	// Store the creator
 			pik->SetContSerial(pi->serial);			// Set the container
 			pik->SetRandPosInCont(pi);				// Put the damn thing in the container
-			RefreshItem(c);							// Refresh it
+			RefreshItem(pik);							// Refresh it
 			sysmessage(s, "You create a corresponding key and put it in the chest");
 		}
 //		End of: By Polygon
@@ -742,9 +740,9 @@ void cSkills::Stealth(int s)//AntiChrist
 
 void cSkills::PeaceMaking(int s)
 {
-	int inst, res1, res2, j;
-	inst=Skills->GetInstrument(s);
-	if (inst==-1) 
+	int res1, res2, j;
+	P_ITEM p_inst = MAKE_ITEM_REF(Skills->GetInstrument(s));
+	if (p_inst == NULL) 
 	{
 		sysmessage(s, "You do not have an instrument to play on!");
 		return;
@@ -754,7 +752,7 @@ void cSkills::PeaceMaking(int s)
 	res2=Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), MUSICIANSHIP, 0, 1000);
 	if (res1 && res2)
 	{
-		Skills->PlayInstrumentWell(s, inst);
+		Skills->PlayInstrumentWell(s, DEREF_P_ITEM(p_inst));
 		sysmessage(s, "You play your hypnotic music, stopping the battle.");
 		
 		//Char mapRegions
@@ -781,7 +779,7 @@ void cSkills::PeaceMaking(int s)
 	} 
 	else 
 	{
-		Skills->PlayInstrumentPoor(s, inst);
+		Skills->PlayInstrumentPoor(s, DEREF_P_ITEM(p_inst));
 		sysmessage(s, "You attempt to calm everyone, but fail.");
 	}
 }
@@ -2817,14 +2815,12 @@ void cSkills::Decipher(P_ITEM tmap, int s)
 	{
 		if (CheckSkill(s, CARTOGRAPHY, tmap->morey * 10, 1000))	// Is the char skilled enaugh to decipher the map
 		{
-			P_ITEM nmap;	// Stores the new map
-			int newmap=Items->SpawnItemBackpack2(s, 70025, 0);
-			if (newmap==-1)
+			P_ITEM nmap = Items->SpawnItemBackpack2(s, 70025, 0);
+			if (nmap == NULL)
 			{
 				LogWarning("bad script item # 70025(Item Not found).");
 				return;	//invalid script item
 			} 
-			nmap = MAKE_ITEMREF_LR(newmap);	// Get the item
 			sprintf(nmap->name, "a deciphered lvl.%d treasure map", tmap->morez);	// Give it the correct name
 			nmap->morez = tmap->morez;				// Give it the correct level
 			strcpy(nmap->creator, pc_currchar->name);	// Store the creator

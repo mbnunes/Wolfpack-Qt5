@@ -646,7 +646,7 @@ void backpack2(int s, int a1, int a2, int a3, int a4) // Send corpse stuff
 	unsigned char display1[8]="\x89\x00\x0D\x40\x01\x02\x03";
 	unsigned char display2[6]="\x01\x40\x01\x02\x03";
 
-	int serial=calcserial(a1,a2,a3,a4);
+	SERIAL serial = calcserial(a1,a2,a3,a4);
 	int ci=0,loopexit=0;
 	P_ITEM pi;
 	vector<SERIAL> vecContainer = contsp.getData(serial);

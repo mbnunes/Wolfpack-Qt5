@@ -444,8 +444,6 @@ bool cAllItems::AllocateMemory(int NumberOfItems)
 	clConsole.send(" Allocating initial dynamic Item memory of %i... ",imem);
 	if ((realitems= (cItem *) malloc(imem*sizeof(cItem)))==NULL)
 		memerr=true;
-	else if ((contcache = (int *) malloc(imem*sizeof(int)))==NULL)
-		memerr=true;
 	else if ((itemids = (int *) malloc(imem*sizeof(int)))==NULL)
 		memerr=true;
 
@@ -475,8 +473,6 @@ bool cAllItems::ResizeMemory()
 	// under nt and unix this limit doesnt exist
 
 	if ((realitems = (cItem *)realloc(realitems, (imem + slots)*sizeof(cItem)))==NULL)
-		memerr=1;
-	else if ((contcache = (int *)realloc(contcache, (imem + slots)*sizeof(int)))==NULL)
 		memerr=1;
 	else if ((itemids = (int *)realloc(itemids, (imem + slots)*sizeof(int)))==NULL)
 		memerr=1;
@@ -1052,14 +1048,13 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 	return pi;	
 }
 
-int cAllItems::CreateScriptItem(int s, int itemnum, int nSpawned)
+P_ITEM cAllItems::CreateScriptItem(int s, int itemnum, int nSpawned)
 {
-	P_ITEM pi= NULL;
-	pi = Items->CreateFromScript(s,itemnum);
+	P_ITEM pi = Items->CreateFromScript(s,itemnum);
 	if (pi == NULL)
 	{
 		LogWarningVar("ITEM <%i> not found in the scripts",itemnum);
-		return -1;
+		return NULL;
 	}
 
 	if ((s!=-1) && (!nSpawned))
@@ -1084,7 +1079,7 @@ int cAllItems::CreateScriptItem(int s, int itemnum, int nSpawned)
 			mapRegions->Add(pi);
 	}
 
-	return DEREF_P_ITEM(pi);
+	return pi;
 }
 
 int cAllItems::CreateRandomItem(char * sItemList)//NEW FUNCTION -- 24/6/99 -- AntiChrist merging codes
@@ -1156,13 +1151,11 @@ cItem* cAllItems::CreateScriptRandomItem(int s, char * sItemList)
 
 
 	if (i!=0) i=rand()%(i);
-	k=iList[i];   // -- Get random Item #
+		k=iList[i];   // -- Get random Item #
 
 	if (k!=0)
 	{
-		i=CreateScriptItem(s, k, 1);  // -- Create Item
-		if (i!=-1)
-			return MAKE_ITEMREF_LRV(i,NULL);
+		return CreateScriptItem(s, k, 1);  // -- Create Item
 	}
 	return NULL;
 }
@@ -1239,15 +1232,16 @@ P_ITEM cAllItems::SpawnItemBank(CHARACTER ch, int nItem)
 	}
 
 	UOXSOCKET s = calcSocketFromChar(DEREF_P_CHAR(pc_ch));          // Don't check if s == -1, it's ok if it is.
-	ITEM i = CreateScriptItem(s, nItem, 1);
-	P_ITEM pi = MAKE_ITEMREF_LRV(i, NULL);
+	P_ITEM pi = CreateScriptItem(s, nItem, 1);
+	if (pi == NULL)
+		return NULL;
 	GetScriptItemSetting(pi); 
 	bankbox->AddItem(pi);
 	statwindow(s, DEREF_P_CHAR(pc_ch));
 	return pi;
 }
 
-P_ITEM cAllItems::SpawnItem(CHARACTER ch,int nAmount, char* cName, char pileable, short id, short color, short nPack)
+P_ITEM cAllItems::SpawnItem(CHARACTER ch,int nAmount, char* cName, char pileable, short id, short color, bool bPack)
 {
 	if (ch < 0) 
 		return NULL;
@@ -1274,7 +1268,7 @@ P_ITEM cAllItems::SpawnItem(CHARACTER ch,int nAmount, char* cName, char pileable
 	//Auto-Stack code!
 	// If we already have an item of the same kind in our backpack,
 	// we can simply spawn by increasing the amount of that item
-	if (nPack && pPack && pile==1)
+	if (bPack && pPack && pile==1)
 	{
 		
 		unsigned int ci;
@@ -1307,7 +1301,7 @@ P_ITEM cAllItems::SpawnItem(CHARACTER ch,int nAmount, char* cName, char pileable
 	pi->att=5;
 	pi->priv |= 0x01;
 	if (IsCutCloth(pi->id())) pi->dye=1;// -Fraz- fix for cut cloth not dying
-	if (nPack)
+	if (bPack)
 	{
 		if (pPack)
 		{
@@ -1523,17 +1517,14 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 
 }
 
-int cAllItems::SpawnItemBackpack2(UOXSOCKET s, int nItem, int nDigging) // Added by Genesis 11-5-98
+P_ITEM cAllItems::SpawnItemBackpack2(UOXSOCKET s, int nItem, int nDigging) // Added by Genesis 11-5-98
 {
-	ITEM p = packitem(currchar[s]);
-	if (p == -1) 
-		return -1;
-	P_ITEM backpack = MAKE_ITEMREF_LRV(p, -1);
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_ITEM backpack = Packitem(pc_currchar);
 	
-	ITEM i = CreateScriptItem(s, nItem, 1);
-	if (i==-1)
-		return -1;
-	P_ITEM pi = MAKE_ITEMREF_LRV(i,-1);
+	P_ITEM pi = CreateScriptItem(s, nItem, 1);
+	if (pi == NULL)
+		return NULL;
 
 	if(nDigging) 
 	{
@@ -1552,8 +1543,8 @@ int cAllItems::SpawnItemBackpack2(UOXSOCKET s, int nItem, int nDigging) // Added
 	backpack->AddItem(pi);
 	RefreshItem(pi);
 	
-	statwindow(s,currchar[s]);
-	return i;
+	statwindow(s, currchar[s]);
+	return pi;
 }
 
 char cAllItems::isFieldSpellItem(int i) //LB
@@ -1804,9 +1795,8 @@ void cAllItems::RespawnItem(unsigned int currenttime, int i)
 
 void cAllItems::AddRespawnItem(int s, int x, int y)
 {
-	int i=CreateScriptItem(-1, x, 1); // lb, bugfix
-	if (i<0) return;
-	P_ITEM pi=MAKE_ITEMREF_LR(i);
+	P_ITEM pi = CreateScriptItem(-1, x, 1); // lb, bugfix
+	if (pi == NULL) return;
 	
 	if(y<=0)
 	{
@@ -1873,76 +1863,6 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 				}
 		}
 	}		
-}
-
-//+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-// Author: LB, (2.7.2000)
-// Purpose: Finding Items per Item-Id in a x*y rectangle around a player
-// Input paramters: player      -> players' index in the chars array. (= calling via currchar[s] )
-//                  id1,id2     -> item id to search for
-//                  x,y         -> x*y rectangle around the players current x,y location. (current x,y = middle point of the rect) 
-//                                 thats the region where the searching takes place
-//                                 warning: x and y should be max 10, because mapregions are used.
-//
-//                  max_returns -> no more than return_max items are returned
-//
-// Output paramters: number of items found
-//                   items_found -> list of found items's serials.
-//
-// PRE: items_found pointer must have memory allocated for max_return int's. if not it might **crash**           
-//      mapregion array has to be correct (no duplicate entries etc). 
-//      It usually contains all items in a (10 until 15) * (10 until 15) grid/recantagle. 
-//      uncertian about exact number, but I'd say everything below 10 is save. ( -> x,y <= 10)    
-//      player must be valid player_index
-//       
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    
-int cAllItems::Find_items_around_player(int player, unsigned char id1, unsigned char id2, unsigned char x, unsigned char y, int max_returns, int* items_found)
-{
-
-  if (player<0) return -1;
-  if (max_returns<1) return -1;
-
-  int x_player=chars[player].pos.x;
-  int y_player=chars[player].pos.y;
-  int found=0;
-
-  int StartGrid=mapRegions->StartGrid(x_player,y_player);
-  unsigned int increment=0;
-  for (unsigned int checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
-  {
-	 for (int i=0;i<3;i++)
-	 {
-		vector<SERIAL> vecEntries = mapRegions->GetCellEntries(checkgrid+i);
-		for ( unsigned int k = 0; k < vecEntries.size(); k++)
-		{
-    	   P_ITEM mapitem = FindItemBySerial(vecEntries[k]);
-		   if (mapitem != NULL)
-		   {
-			 if ( (mapitem->id1==id1) && (mapitem->id2==id2) ) // found the item
-			 {				
-                if ( (mapitem->pos.x >= (x_player-x)) && (mapitem->pos.x <= (x_player+x)) ) // in x-range ?
-				{
-				   if ( (mapitem->pos.y >= (y_player-y)) && (mapitem->pos.y <= (y_player+y)) ) // in y-range ? 
-				   {
-                      // remark: case ignored where players' x,y - range x,y < 0
-					   
-					  if (found<max_returns) 
-					  {
-					    items_found[found] = mapitem->serial;
-				        found++;
-					  } else break;
-				   }
-				}
-			 }
-		   }		
-		}
-	} //- end of itemcount for loop
-	
- }	
- 
-  return found;
-
 }
 
 /////////////

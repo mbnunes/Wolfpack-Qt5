@@ -135,26 +135,24 @@ void do_lsd(UOXSOCKET s)
 
 void restockNPC(unsigned int currenttime, int i)
 {
-	int a, b, c, ci;
+	unsigned int a, b;
 
 	if (SrvParms->shoprestock==1 && (shoprestocktime<=currenttime || overflow))
 	{
 		vector<SERIAL> vecContainer = contsp.getData(chars[i].serial);
 		for ( a = 0; a < vecContainer.size(); a++ )
 		{
-			ci = calcItemFromSer(vecContainer[a]);
-			if (ci!=-1)
+			const PC_ITEM pici = FindItemBySerial(vecContainer[a]);
+			if (pici != NULL)
 			{
-				const PC_ITEM pici=MAKE_ITEMREF_LR(ci);	// on error return
 				if(pici->layer==0x1A && chars[i].shop==1) //morrolan item restock fix
 				{
 					vector<SERIAL> vecContainer2 = contsp.getData(pici->serial);
 					for (b=0;b<vecContainer2.size();b++)
 					{
-						c = calcItemFromSer(vecContainer2[b]);
-						if (c!=-1)
+						const P_ITEM pic = FindItemBySerial(vecContainer2[b]);
+						if (pic != NULL)
 						{
-							const P_ITEM pic=MAKE_ITEMREF_LR(c);	// on error return
 							if (pic->restock)
 							{
 								int tmp=min(pic->restock, (pic->restock/2)+1);
@@ -163,7 +161,7 @@ void restockNPC(unsigned int currenttime, int i)
 							}
 							// MAgius(CHE): All items in shopkeeper need a new randomvaluerate.
 							if (SrvParms->trade_system==1)
-								StoreItemRandomValue(c,calcRegionFromXY(chars[i].pos.x,chars[i].pos.y));// Magius(CHE) (2)
+								StoreItemRandomValue(DEREF_P_ITEM(pic), calcRegionFromXY(chars[i].pos.x,chars[i].pos.y));// Magius(CHE) (2)
 						}
 					}// for b
 				}

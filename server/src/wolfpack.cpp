@@ -2785,9 +2785,9 @@ void start_glow(void)	// better to make an extra function cauze in loaditem it c
 		{
 			if (!pi->isInWorld())
 			{
-				j=calcItemFromSer(pi->contserial); // find glowing item in backpack
+				P_ITEM pj = FindItemBySerial(pi->contserial); // find glowing item in backpack
 				l=calcCharFromSer(pi->contserial); // find equipped glowing items
-				if (l==-1) k=GetPackOwner(j); else k=l;
+				if (l==-1) k = GetPackOwner(DEREF_P_ITEM(pj)); else k=l;
 				if (k!=-1)
 				{
 					chars[k].addHalo(pi);
@@ -4010,25 +4010,14 @@ P_CHAR GetPackOwner(P_ITEM pItem, short rec)
 
 int GetPackOwner(int p)
 {
-	int a=0,b;
-
-	if (p==-1) return -1;
-	P_ITEM pix=MAKE_ITEMREF_LRV(p,-1);
-	if (pix->isInWorld()) return -1;
-	if (isCharSerial(pix->contserial)) return calcCharFromSer(pix->contserial);
-	do
-	{
-		if (a>=50) return -1;//Too many packs! must stop endless loop!
-		if (pix->contserial==-1) return -1;
-
-		if (isItemSerial(pix->contserial))
-			pix=FindItemBySerial(pix->contserial);
-		if (pix!=NULL)
-			b=pix->contserial;
-		else b=0x42000000;
-		a++;
-	} while (isItemSerial(b));
-	return calcCharFromSer(pix->contserial);
+	P_ITEM pi = MAKE_ITEM_REF(p);
+	if (pi == NULL)
+		return -1;
+	P_CHAR pc = GetPackOwner(pi, 10);
+	if (pc == NULL)
+		return -1;
+	else
+		return DEREF_P_CHAR(pc);
 }
 
 void goldsfx(int s, int goldtotal)
@@ -5267,12 +5256,12 @@ void enlist(int s, int listnum) // listnum is stored in items morex
 			x=str2num(script1);
 			pos=ftell(scpfile);
 			closescript();//AntiChrist
-			j=Items->SpawnItemBackpack2(s, x, 0);
-			if(j==-1) return;//AntiChrist to preview crashes
+			P_ITEM pi_j = Items->SpawnItemBackpack2(s, x, 0);
+			if(pi_j == NULL) return;//AntiChrist to preview crashes
 			openscript(sect);
 			fseek(scpfile, pos, SEEK_SET);
 			strcpy((char*)script1, "DUMMY");
-			RefreshItem(j);//AntiChrist
+			RefreshItem(pi_j);//AntiChrist
 		}
 	}
 	while((strcmp((char*)script1,"}")) && (++loopexit < MAXLOOPS) );

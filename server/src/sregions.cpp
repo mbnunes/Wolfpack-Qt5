@@ -112,8 +112,9 @@ bool doregionspawn(int r)//Regionspawns
 				char list[512];
 				sprintf( list, "%i", spawnregion[r].itemlists[counter] ); // morrolan
 				int num = Items->CreateRandomItem( list );
-				item = Items->CreateScriptItem( -1, num, 0 );
-				const P_ITEM pi=MAKE_ITEMREF_LRV(item,false);	// on error return
+				const P_ITEM pi = Items->CreateScriptItem( -1, num, 0 );
+				if (pi == NULL)
+					return false;
 				pi->MoveTo(x,y,z);
 				pi->spawnregion=r;
 				RefreshItem(pi);
