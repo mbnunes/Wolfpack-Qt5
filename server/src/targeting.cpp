@@ -670,7 +670,7 @@ static void CstatsTarget(P_CLIENT ps, P_CHAR pc)
 		pc->account,pc->getPriv(),pc->priv2,
 		pc->pos.x,pc->pos.y,pc->pos.z, pc->timeout,
 		pc->fame,pc->karma,pc->deaths,pc->kills,
-		pc->npcaitype, pc->npcWander, pc->weight);
+		pc->npcaitype, pc->npcWander, (float)pc->weight);
 	sysmessage(s, (char*)temp);
 	sprintf((char*)temp, "Other Info: Poisoned [%i] Poison [%i] Hunger [%i] Attacker Serial [%x] Target Serial [%x] Carve[%i]", //Changed by Magius(CHE)
 		pc->poisoned,pc->poison,pc->hunger,pc->attacker,pc->targ,pc->carve); //Changed by Magius(CHE)

@@ -1136,7 +1136,7 @@ signed char cMapStuff::Height(const Coord_cl& pos)
 //bool cMapStuff::CanMonsterMoveHere(int x, int y, int oldz)
 bool cMapStuff::CanMonsterMoveHere(const Coord_cl& pos)
 {
-	if( pos.x < 0 || pos.y < 0 || pos.x >= ( mapTileWidth(pos) * 8 ) || pos.y >= ( mapTileHeight(pos) * 8 ) )
+	if( pos.x >= ( mapTileWidth(pos) * 8 ) || pos.y >= ( mapTileHeight(pos) * 8 ) )
 		return false;
     const signed char elev = Height(pos);
 	Coord_cl target = pos;

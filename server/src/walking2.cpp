@@ -1159,7 +1159,7 @@ void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, 
 						{
 							if (mapchar->isHidden() && !mapchar->dead && !mapchar->isInvul() && !mapchar->isGM())
 							{
-								sprintf(temp, "Being perfectly rested, you shoved something invisible out of the way.", mapchar->name.c_str());
+								sprintf(temp, "Being perfectly rested, you shoved something invisible out of the way.");
 								if (socket!=INVALID_UOXSOCKET) sysmessage(socket, temp);
 							    pc->stm = max(pc->stm-4, 0);
 								updatestats(pc, 2);  // arm code
