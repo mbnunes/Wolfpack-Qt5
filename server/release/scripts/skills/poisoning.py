@@ -64,7 +64,7 @@ def selecttarget( char, args, target ):
 		return
 		
 	global ALLOWED
-	if not target.item.id in ALLOWED:
+	if not target.item.id in ALLOWED and not target.item.hasscript('food'):
 		char.socket.clilocmessage(1060204)
 		return
 	

@@ -60,22 +60,19 @@ def processSpawns(process):
 				area = int(item.gettag('area'))
 	
 			# This is a minimum/maximum spawn interval in minutes
-			mininterval = 1
-			maxinterval = 1
-			if item.hastag('interval'):
-				interval = item.gettag('interval')
-				if ',' in interval:
-					(mininterval, maxinterval) = interval.split(',', 1)
-					try:
-						mininterval = max(1, int(mininterval))
-						maxinterval = max(1, int(maxinterval))
-						if maxinterval < mininterval:
-							temp = mininterval
-							mininterval = maxinterval
-							maxinterval = temp
-					except:
-						mininterval = 1
-						maxinterval = 1
+			mininterval = 5
+			if item.hastag('mininterval'):
+				try:
+					mininterval = int(item.gettag('mininterval'))
+				except:
+					mininterval = 10
+					
+			maxinterval = mininterval
+			if item.hastag('maxinterval'):
+				try:
+					maxinterval = int(item.gettag('maxinterval'))
+				except:
+					maxinterval = 10
 	
 			# Currently / Maximimum spawned by this gem
 			current = 0
@@ -108,7 +105,9 @@ def processSpawns(process):
 	
 			# If we didn't have a spawntime set yet.
 			if nextspawn == 0 and current < maximum:
-				item.settag('nextspawn', currenttime + random.randint(mininterval, maxinterval) * 60 * 1000)
+				delay = random.randint(mininterval, maxinterval) * 60 * 1000
+				item.settag('nextspawn', currenttime + delay)
+				console.log(LOG_MESSAGE, "Set spawntime for spawngem 0x%x to %u miliseconds in the future.\n" % (item.serial, delay))
 				continue
 	
 			elif current >= maximum:
