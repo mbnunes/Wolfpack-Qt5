@@ -69,7 +69,6 @@ cBaseChar::cBaseChar()
 	runningSteps_		= 0;
 	murdererTime_		= 0;
 	criminalTime_		= -1;
-	fixedLightLevel_	= 0xFF;
 	nextHitTime_		= 0;
 	skillDelay_			= 0;
 	poison_				= 0;
@@ -86,7 +85,6 @@ cBaseChar::cBaseChar()
     combatTarget_		= INVALID_SERIAL;
     swingTarget_		= INVALID_SERIAL;
     murdererSerial_		= INVALID_SERIAL;
-    guarding_			= NULL;
 	cUObject::pos_		= Coord_cl( 100, 100, 0, 0 );
 	skills.resize( ALLSKILLS );
 }
@@ -106,25 +104,20 @@ cBaseChar& cBaseChar::operator=(const cBaseChar& right)
 void cBaseChar::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cUObject::buildSqlString( fields, tables, conditions );
-	fields.push_back( "characters.name,characters.title,characters.account,characters.creationday" );
-	fields.push_back( "characters.dir,characters.body,characters.xbody,characters.skin" );
-	fields.push_back( "characters.xskin,characters.priv,characters.stablemaster" );
-	fields.push_back( "characters.allmove,characters.say" );
-	fields.push_back( "characters.emote,characters.strength,characters.strength2,characters.dexterity" );
-	fields.push_back( "characters.dexterity2,characters.intelligence,characters.intelligence2" );
-	fields.push_back( "characters.hitpoints,characters.spawnregion,characters.stamina" );
-	fields.push_back( "characters.mana,characters.npc,characters.shop" );
-	fields.push_back( "characters.owner,characters.karma,characters.fame" );
-	fields.push_back( "characters.kills,characters.deaths,characters.dead,characters.fixedlight" );
-	fields.push_back( "characters.cantrain,characters.def" );
-	fields.push_back( "characters.lodamage,characters.hidamage,characters.war,characters.npcwander" );
-	fields.push_back( "characters.oldnpcwander,characters.carve,characters.fx1,characters.fy1,characters.fz1" );
-	fields.push_back( "characters.fx2,characters.fy2,characters.hidden,characters.hunger" );
-	fields.push_back( "characters.npcaitype,characters.taming" );
-	fields.push_back( "characters.summontimer,characters.poison,characters.poisoned" );
-	fields.push_back( "characters.fleeat,characters.reattackat,characters.split,characters.splitchance" );
-	fields.push_back( "characters.murderrate" );
-	fields.push_back( "characters.lootlist,characters.food,characters.profile,characters.guarding,characters.destination" );
+	fields.push_back( "characters.name,characters.title,characters.creationdate" );
+	fields.push_back( "characters.dir,characters.body,characters.orgbody,characters.skin" );
+	fields.push_back( "characters.orgskin,characters.saycolor" );
+	fields.push_back( "characters.emotecolor,characters.strength,characters.strengthmod,characters.dexterity" );
+	fields.push_back( "characters.dexteritymod,characters.intelligence,characters.intelligencemod" );
+	fields.push_back( "characters.maxhitpoints,characters.hitpoints,characters.maxstamina,characters.stamina" );
+	fields.push_back( "characters.maxmana,characters.mana" );
+	fields.push_back( "characters.karma,characters.fame" );
+	fields.push_back( "characters.kills,characters.deaths" );
+	fields.push_back( "characters.def,characters.hunger" );
+	fields.push_back( "characters.poison,characters.poisoned" );
+	fields.push_back( "characters.murderertime,characters.criminaltime,characters.nutriment" );
+	fields.push_back( "characters.stealthsteps,characters.gender,characters.propertyflags" );
+	fields.push_back( "characters.attacker,characters.combattarget,characters.murderer" );
 	tables.push_back( "characters" );
 	conditions.push_back( "uobjectmap.serial = characters.serial" );
 }
@@ -139,88 +132,46 @@ void cBaseChar::load( char **result, UINT16 &offset )
 	if( !isCharSerial( serial() ) )
 		throw QString( "Character has invalid char serial: 0x%1" ).arg( serial(), 0, 16 );
 
-	orgname_ = result[offset++];
+	orgName_ = result[offset++];
 	title_ = result[offset++];
-	setAccount( Accounts::instance()->getRecord( result[offset++] ) );
-	creationday_ = atoi( result[offset++] );
-	dir_ = atoi( result[offset++] );
-	xid_ = atoi( result[offset++] ); setId( xid_ );
-	xid_ = atoi( result[offset++] );
+	creationDate_ = QDateTime::fromString( atoi( result[offset++] ) );
+	direction_ = atoi( result[offset++] );
+	bodyID_ = atoi( result[offset++] );
+	orgBodyID_ = atoi( result[offset++] );
 	skin_ = atoi( result[offset++] );
-	xskin_ = atoi( result[offset++] );
-	priv = atoi( result[offset++] );
-	stablemaster_serial_ = atoi( result[offset++] );
-	priv2_ = atoi( result[offset++] );
+	orgSkin_ = atoi( result[offset++] );
 	saycolor_ = atoi( result[offset++] );
 	emotecolor_ = atoi( result[offset++] );
-	st_ = atoi( result[offset++] );
-	st2_ = atoi( result[offset++] );
-	dx = atoi( result[offset++] );
-	dx2 = atoi( result[offset++] );
-	in_ = atoi( result[offset++] );
-	in2_ = atoi( result[offset++] );
-	hp_ = atoi( result[offset++] );
-	spawnregion_ = result[offset++];
-	stm_ = atoi( result[offset++] );
-	mn_ = atoi( result[offset++] );
-	npc_ = atoi( result[offset++] );
-	shop_ = atoi( result[offset++] );
-
-	//  Warning, ugly optimization ahead, if you have a better idea, we want to hear it. 
-	//  For load speed and memory conservation, we will store the SERIAL of the container
-	//  here and then right after load is done we replace that value with it's memory address
-	//  as it should be.
-	owner_ = (P_CHAR)atoi( result[offset++] );
-	if( (SERIAL)owner_ == INVALID_SERIAL )
-		owner_ = 0;
-
+	strength_ = atoi( result[offset++] );
+	strengthMod_ = atoi( result[offset++] );
+	dexterity_ = atoi( result[offset++] );
+	dexterityMod_ = atoi( result[offset++] );
+	intelligence_ = atoi( result[offset++] );
+	intelligenceMod_ = atoi( result[offset++] );
+	maxHitpoints_ = atoi( result[offset++] );
+	hitpoints_ = atoi( result[offset++] );
+	maxStamina_ = atoi( result[offset++] );
+	stamina_ = atoi( result[offset++] );
+	maxMana_ = atoi( result[offset++] );
+	mana_ = atoi( result[offset++] );
 	karma_ = atoi( result[offset++] );
 	fame_ = atoi( result[offset++] );
 	kills_ = atoi( result[offset++] );
 	deaths_ = atoi( result[offset++] );
-	dead_ = atoi( result[offset++] );
-	fixedlight_ = atoi( result[offset++] );
-	cantrain_ = atoi( result[offset++] );
-	def_ = atoi( result[offset++] );
-	lodamage_ = atoi( result[offset++] );
-	hidamage_ = atoi( result[offset++] );
-	war_ = atoi( result[offset++] );
-	npcWander_ = atoi( result[offset++] );
-	oldnpcWander_ = atoi( result[offset++] );
-	carve_ = result[offset++];
-	fx1_ = atoi( result[offset++] );
-	fy1_ = atoi( result[offset++] );
-	fz1_ = atoi( result[offset++] );
-	fx2_ = atoi( result[offset++] );
-	fy2_ = atoi( result[offset++] );
-	hidden_ = atoi( result[offset++] );
+	bodyArmor_ = atoi( result[offset++] );
 	hunger_ = atoi( result[offset++] );
-	npcaitype_ = atoi( result[offset++] );
-	taming_ = atoi( result[offset++] );
-	summontimer_ = atoi( result[offset++] );
-	if( summontimer_ )
-		summontimer_ += uiCurrentTime;
-
 	poison_ = atoi( result[offset++] );
 	poisoned_ = atoi( result[offset++] );
-	fleeat_ = atoi( result[offset++] );
-	reattackat_ = atoi( result[offset++] );
-	split_ = atoi( result[offset++] );
-	splitchnc_ = atoi( result[offset++] );
-	murderrate_ = atoi( result[offset++] );
-
-	loot_ = result[offset++];
-	food_ = atoi( result[offset++] );
-	profile_ = result[offset++];
+	murdererTime_ = atoi( result[offset++] );
+	criminalTime_ = atoi( result[offset++] );
+	nutriment_ = atoi( result[offset++] );
+	stealthedSteps_ = atoi( result[offset++] );
+	gender_ = atoi( result[offset++] );
+	propertyFlags_ = atoi( result[offset++] );
+	attackerSerial_ = atoi( result[offset++] );
+	combatTarget_ = atoi( result[offset++] );
+	murdererSerial_ = atoi( result[offset++] );	
 	
-	// UGLY OPTIMIZATION!
-	guarding_ = (P_CHAR)atoi( result[offset++] );
-	if( (SERIAL)guarding_ == -1 )
-		guarding_ = 0;
-	
-	parseCoordinates( result[offset++], ptarg_ );
-	sex_ = atoi( result[offset++] );
-
 	// Query the Skills for this character
 	QString sql = "SELECT skills.skill,skills.value,skills.locktype,skills.cap FROM skills WHERE serial = '" + QString::number( serial() ) + "'";
 
@@ -331,7 +282,7 @@ void cBaseChar::save()
 		addField( "split", split_);
 		addField( "splitchance",	splitchnc_);
 		addField( "murderrate", murderrate_);
-		addStrField( "lootlist", loot_);
+		addStrField( "lootlist", lootlist_);
 		addField( "food", food_);
 		addStrField( "profile", profile_ );
 		addField( "guarding", guarding_ ? guarding_->serial() : INVALID_SERIAL );
@@ -1645,7 +1596,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 		weight_ = value.toInt() * 10;
 		return 0;
 	}
-	else SET_STR_PROPERTY( "lootlist", loot_ )
+	else SET_STR_PROPERTY( "lootlist", lootlist_ )
 	else SET_INT_PROPERTY( "saycolor", saycolor_ )
 	else SET_INT_PROPERTY( "emotecolor", emotecolor_ )
 	else SET_INT_PROPERTY( "strength", st_ )
@@ -1778,7 +1729,7 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "meditating", med_ )
 	GET_PROPERTY( "weight", weight_ )
 	GET_PROPERTY( "stones", weight_ / 10 )
-	GET_PROPERTY( "lootlist", loot_ )
+	GET_PROPERTY( "lootlist", lootlist_ )
 	GET_PROPERTY( "saycolor", saycolor_ )
 	GET_PROPERTY( "emotecolor", emotecolor_ )
 	GET_PROPERTY( "strength", st_ )

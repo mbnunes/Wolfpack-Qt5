@@ -160,10 +160,8 @@ public:
     UINT8			direction() const;
     UINT16			emoteColor() const;
     INT16			fame() const;
-    UINT8			fixedLightLevel() const;
     UINT8			flag() const;
     bool			gender() const;
-    P_CHAR			guarding() const;
     INT16			hitpoints() const;
     INT32			hunger() const;
     UINT32			hungerTime() const;
@@ -242,10 +240,8 @@ public:
     void setDirection(UINT8 data);
     void setEmoteColor(UINT16 data);
     void setFame(INT16 data);
-    void setFixedLightLevel(UINT8 data);
     void setFlag(UINT8 data);
     void setGender(bool data);
-    void setGuarding(P_CHAR data);
     void setHitpoints(INT16 data);
     void setHunger(INT32 data);
     void setHungerTime(UINT32 data);
@@ -470,10 +466,6 @@ protected:
     // Time, till criminal flag wears off. value -1 indicates not criminal!
     long int criminalTime_;
 
-    // Fixed light level. is used in dungeons or for nightsight spell.
-    // cOldChar:fixedlight_
-    UINT8 fixedLightLevel_;
-
     // Time till a combat hit times out.
     UINT32 nextHitTime_;
 
@@ -531,9 +523,6 @@ protected:
     // Serial of the last char which murdered this character.
     // cOldChar::murdererSer_
     SERIAL murdererSerial_;
-
-    // Char which the character guards.
-    P_CHAR guarding_;
 
     // Chars that guard this character.
     CharContainer guardedby_;
@@ -670,17 +659,6 @@ inline INT16 cBaseChar::fame() const
 inline void cBaseChar::setFame(INT16 data)
 {
     fame_ = data;
-	changed( SAVE );
-}
-
-inline UINT8 cBaseChar::fixedLightLevel() const
-{
-    return fixedLightLevel_;
-}
-
-inline void cBaseChar::setFixedLightLevel(UINT8 data)
-{
-    fixedLightLevel_ = data;
 	changed( SAVE );
 }
 
@@ -1032,26 +1010,6 @@ inline void cBaseChar::setCombatTarget(SERIAL data)
 {
     combatTarget_ = data;
 	changed( SAVE );
-}
-
-inline P_CHAR cBaseChar::guarding() const
-{
-    return guarding_;
-}
-
-inline void cBaseChar::setGuarding(P_CHAR data)
-{
-	if( data == guarding_ )
-		return;
-
-	if( guarding_ )
-		guarding_->removeGuard( this );
-
-	guarding_ = data;
-	changed( SAVE|TOOLTIP );
-
-	if( guarding_ )
-		guarding_->addGuard( this );		
 }
 
 inline SERIAL cBaseChar::murdererSerial() const

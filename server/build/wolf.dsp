@@ -237,10 +237,6 @@ SOURCE=.\npc.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\npcs.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\p_ai.cpp
 # End Source File
 # Begin Source File

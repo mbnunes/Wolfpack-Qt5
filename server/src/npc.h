@@ -121,7 +121,8 @@ public:
 	QString			carve() const;
 	QString			spawnregion() const;
 	SERIAL			stablemasterSerial() const;
-	QString			loot() const;
+	QString			lootList() const;
+    P_PLAYER		guarding() const;
 	// bit flag getters
 	bool			attackFirst() const;
 	// advanced getters for data structures
@@ -145,7 +146,8 @@ public:
 	void setCarve(const QString &data);
 	void setSpawnregion(const QString &data);
 	void setStablemasterSerial(SERIAL data);
-	void setLoot(const QString &data);
+	void setLootList(const QString &data);
+    void setGuarding(P_PLAYER data);
 	// bit flag setters
 	void setAttackFirst(bool data);
 	// advanced setters for data structures
@@ -221,7 +223,10 @@ protected:
 
 	// XML def. section which specifies the items that appear in the body
 	// of the NPC, when it's killed.
-	QString loot_;
+	QString lootList_;
+
+    // Player char which the character guards.
+    P_PLAYER guarding_;
 
 	// A* calculated path which the NPC walks on.
 	std::deque< Coord_cl > path_;
@@ -384,15 +389,35 @@ inline void cNPC::setStablemasterSerial(SERIAL data)
 	changed( SAVE );
 }
 
-inline QString cNPC::loot() const
+inline QString cNPC::lootList() const
 {
-	return loot_;
+	return lootList_;
 }
 
-inline void cNPC::setLoot(const QString &data)
+inline void cNPC::setLootList(const QString &data)
 {
-	loot_ = data;
+	lootList_ = data;
 	changed( SAVE );
+}
+
+inline P_PLAYER cNPC::guarding() const
+{
+    return guarding_;
+}
+
+inline void cNPC::setGuarding(P_PLAYER data)
+{
+	if( data == guarding_ )
+		return;
+
+	if( guarding_ )
+		guarding_->removeGuard( this );
+
+	guarding_ = data;
+	changed( SAVE|TOOLTIP );
+
+	if( guarding_ )
+		guarding_->addGuard( this );		
 }
 
 inline bool cNPC::attackFirst() const

@@ -51,6 +51,7 @@ cNPC::cNPC()
 	spawnregion_			= (char*)0;
 	stablemasterSerial_	= INVALID_SERIAL;
 	loot_				= (char*)0;
+    guarding_			= NULL;
 }
 
 cNPC::cNPC(const cNPC& right)
@@ -73,26 +74,12 @@ static cUObject* productCreator()
 void cNPC::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cBaseChar::buildSqlString( fields, tables, conditions );
-	fields.push_back( "characters.name,characters.title,characters.account,characters.creationday" );
-	fields.push_back( "characters.dir,characters.body,characters.xbody,characters.skin" );
-	fields.push_back( "characters.xskin,characters.priv,characters.stablemaster" );
-	fields.push_back( "characters.allmove,characters.say" );
-	fields.push_back( "characters.emote,characters.strength,characters.strength2,characters.dexterity" );
-	fields.push_back( "characters.dexterity2,characters.intelligence,characters.intelligence2" );
-	fields.push_back( "characters.hitpoints,characters.spawnregion,characters.stamina" );
-	fields.push_back( "characters.mana,characters.npc,characters.shop" );
-	fields.push_back( "characters.owner,characters.karma,characters.fame" );
-	fields.push_back( "characters.kills,characters.deaths,characters.dead,characters.fixedlight" );
-	fields.push_back( "characters.cantrain,characters.def" );
-	fields.push_back( "characters.lodamage,characters.hidamage,characters.war,characters.npcwander" );
-	fields.push_back( "characters.oldnpcwander,characters.carve,characters.fx1,characters.fy1,characters.fz1" );
-	fields.push_back( "characters.fx2,characters.fy2,characters.hidden,characters.hunger" );
-	fields.push_back( "characters.npcaitype,characters.taming" );
-	fields.push_back( "characters.summontimer,characters.poison,characters.poisoned" );
-	fields.push_back( "characters.fleeat,characters.reattackat,characters.split,characters.splitchance" );
-	fields.push_back( "characters.murderrate" );
-	fields.push_back( "characters.lootlist,characters.food,characters.profile,characters.guarding,characters.destination" );
-	tables.push_back( "characters" );
+	fields.push_back( "npcs.mindamage,npcs.maxdamage,npcs.tamingminskill" );
+	fields.push_back( "npcs.summontime,npcs.additionalflags,npcs.owner" );
+	fields.push_back( "npcs.carve,npcs.spawnregion,npcs.stablemaster" );
+	fields.push_back( "npcs.lootlist,npcs.guarding" );
+	tables.push_back( "npcs" );
+	conditions.push_back( "uobjectmap.serial = npcs.serial" );
 }
 
 static void characterRegisterAfterLoading( P_CHAR pc );
@@ -100,124 +87,23 @@ static void characterRegisterAfterLoading( P_CHAR pc );
 void cNPC::load( char **result, UINT16 &offset )
 {
 	cBaseChar::load( result, offset );
+	SERIAL ser;
 
-	// Broken Serial?
-	if( !isCharSerial( serial() ) )
-		throw QString( "Character has invalid char serial: 0x%1" ).arg( serial(), 0, 16 );
-
-	orgname_ = result[offset++];
-	title_ = result[offset++];
-	setAccount( Accounts::instance()->getRecord( result[offset++] ) );
-	creationday_ = atoi( result[offset++] );
-	dir_ = atoi( result[offset++] );
-	xid_ = atoi( result[offset++] ); setId( xid_ );
-	xid_ = atoi( result[offset++] );
-	skin_ = atoi( result[offset++] );
-	xskin_ = atoi( result[offset++] );
-	priv = atoi( result[offset++] );
-	stablemaster_serial_ = atoi( result[offset++] );
-	priv2_ = atoi( result[offset++] );
-	saycolor_ = atoi( result[offset++] );
-	emotecolor_ = atoi( result[offset++] );
-	st_ = atoi( result[offset++] );
-	st2_ = atoi( result[offset++] );
-	dx = atoi( result[offset++] );
-	dx2 = atoi( result[offset++] );
-	in_ = atoi( result[offset++] );
-	in2_ = atoi( result[offset++] );
-	hp_ = atoi( result[offset++] );
-	spawnregion_ = result[offset++];
-	stm_ = atoi( result[offset++] );
-	mn_ = atoi( result[offset++] );
-	npc_ = atoi( result[offset++] );
-	shop_ = atoi( result[offset++] );
-
-	//  Warning, ugly optimization ahead, if you have a better idea, we want to hear it. 
-	//  For load speed and memory conservation, we will store the SERIAL of the container
-	//  here and then right after load is done we replace that value with it's memory address
-	//  as it should be.
-	owner_ = (P_CHAR)atoi( result[offset++] );
-	if( (SERIAL)owner_ == INVALID_SERIAL )
-		owner_ = 0;
-
-	karma_ = atoi( result[offset++] );
-	fame_ = atoi( result[offset++] );
-	kills_ = atoi( result[offset++] );
-	deaths_ = atoi( result[offset++] );
-	dead_ = atoi( result[offset++] );
-	fixedlight_ = atoi( result[offset++] );
-	cantrain_ = atoi( result[offset++] );
-	def_ = atoi( result[offset++] );
-	lodamage_ = atoi( result[offset++] );
-	hidamage_ = atoi( result[offset++] );
-	war_ = atoi( result[offset++] );
-	npcWander_ = atoi( result[offset++] );
-	oldnpcWander_ = atoi( result[offset++] );
+	minDamage_ = atoi( result[offset++] );
+	maxDamage_ = atoi( result[offset++] );
+	tamingMinSkill_ = atoi( result[offset++] );
+	summonTime_ = atoi( result[offset++] );
+	if( summonTime_ )
+		summonTime_ += uiCurrentTime;
+	additionalFlags_ = atoi( result[offset++] );
+	ser = atoi( result[offset++] );
+	owner_ = dynamic_cast<P_PLAYER>(FindCharBySerial( ser ));
 	carve_ = result[offset++];
-	fx1_ = atoi( result[offset++] );
-	fy1_ = atoi( result[offset++] );
-	fz1_ = atoi( result[offset++] );
-	fx2_ = atoi( result[offset++] );
-	fy2_ = atoi( result[offset++] );
-	hidden_ = atoi( result[offset++] );
-	hunger_ = atoi( result[offset++] );
-	npcaitype_ = atoi( result[offset++] );
-	taming_ = atoi( result[offset++] );
-	summontimer_ = atoi( result[offset++] );
-	if( summontimer_ )
-		summontimer_ += uiCurrentTime;
-
-	poison_ = atoi( result[offset++] );
-	poisoned_ = atoi( result[offset++] );
-	fleeat_ = atoi( result[offset++] );
-	reattackat_ = atoi( result[offset++] );
-	split_ = atoi( result[offset++] );
-	splitchnc_ = atoi( result[offset++] );
-	murderrate_ = atoi( result[offset++] );
-
-	loot_ = result[offset++];
-	food_ = atoi( result[offset++] );
-	profile_ = result[offset++];
-	
-	// UGLY OPTIMIZATION!
-	guarding_ = (P_CHAR)atoi( result[offset++] );
-	if( (SERIAL)guarding_ == -1 )
-		guarding_ = 0;
-	
-	parseCoordinates( result[offset++], ptarg_ );
-	sex_ = atoi( result[offset++] );
-
-	// Query the Skills for this character
-	QString sql = "SELECT skills.skill,skills.value,skills.locktype,skills.cap FROM skills WHERE serial = '" + QString::number( serial() ) + "'";
-
-	cDBResult res = persistentBroker->query( sql );
-	if( !res.isValid() )
-		throw persistentBroker->lastError();
-
-	// Fetch row-by-row
-	while( res.fetchrow() )
-	{
-		// row[0] = skill
-		// row[1] = value
-		// row[2] = locktype
-		// row[3] = cap (unused!)
-		UINT16 skill = res.getInt( 0 );
-		UINT16 value = res.getInt( 1 );
-		UINT8 lockType = res.getInt( 2 );
-		UINT16 cap = res.getInt( 3 );
-
-		if( lockType > 2 )
-			lockType = 0;
-
-		stSkillValue skValue;
-		skValue.value = value;
-		skValue.lock = lockType;
-		skValue.cap = cap;
-
-		skills[ skill ] = skValue;
-	}
-
-	res.free();
+	spawnregion_ = result[offset++];
+	stablemasterSerial_ = atoi( result[offset++] );
+	lootList_ = result[offset++];
+	ser = atoi( result[offset++] );
+	guarding_ = dynamic_cast<P_PLAYER>(FindCharBySerial( ser ));
 
 	characterRegisterAfterLoading( this );
 	changed_ = false;

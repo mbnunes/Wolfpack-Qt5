@@ -119,6 +119,7 @@ public:
 	SERIAL					inputItem() const;
 	UINT8					visualRange() const;
 	QString					profile() const;
+    UINT8					fixedLightLevel() const;
 	// bit flag getters
 	bool					isMuted() const;
 	bool					maySnoop() const;
@@ -144,6 +145,7 @@ public:
 	void setInputItem(SERIAL data);
 	void setVisualRange(UINT8 data);
 	void setProfile(const QString &data);
+    void setFixedLightLevel(UINT8 data);
 	// bit flag setters
 	void setMuted(bool data);
 	void setMaySnoop(bool data);
@@ -216,6 +218,10 @@ protected:
 
 	// Last ten selections the char has made in specific MakeMenus.
 	QMap< cMakeMenu*, QPtrList< cMakeSection > > lastSelections_;
+
+    // Fixed light level. is used in dungeons or for nightsight spell.
+    // cOldChar:fixedlight_
+    UINT8 fixedLightLevel_;
 
 };
 
@@ -340,6 +346,17 @@ inline QString cPlayer::profile() const
 inline void cPlayer::setProfile(const QString &data)
 {
     profile_ = data;
+	changed( SAVE );
+}
+
+inline UINT8 cPlayer::fixedLightLevel() const
+{
+    return fixedLightLevel_;
+}
+
+inline void cPlayer::setFixedLightLevel(UINT8 data)
+{
+    fixedLightLevel_ = data;
 	changed( SAVE );
 }
 
