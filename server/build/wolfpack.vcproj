@@ -90,7 +90,7 @@
 				StringPooling="TRUE"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="0"
-				RuntimeLibrary="2"
+				RuntimeLibrary="0"
 				StructMemberAlignment="0"
 				BufferSecurityCheck="FALSE"
 				EnableFunctionLevelLinking="FALSE"
