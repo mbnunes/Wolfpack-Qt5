@@ -70,16 +70,23 @@ class MakeAction:
   # Arguments are the arguments passed down from the makemenu.
   #
   def make(self, player, arguments):
+    if self.index == -1:
+      return
+
     # Append this action to the players "last10" history
     history = []
-    identifier = '%s:%u' % (self.parent.id, self.parent.subactions.index(self))
-    if player.hastag('makehistory'):
-      history = str(player.gettag('makehistory')).split(';')
+    if self.parent.gumptype != 0:
+      historyname = 'makehistory%u' % self.parent.gumptype
+    else:
+      historyname = 'makehistory'
+    identifier = '%s:%u' % (self.parent.id, self.index)
+    if player.hastag(historyname):
+      history = str(player.gettag(historyname)).split(';')
       if identifier in history:
         history.remove(identifier)
 
     history = [identifier] + history[:9]
-    player.settag('makehistory', ';'.join(history))
+    player.settag(historyname, ';'.join(history))
 
   #
   # Shows a detail page for this action.
@@ -136,6 +143,9 @@ class MakeItemAction(MakeAction):
   # Shows a detail page for this action.
   #
   def details(self, player, arguments):
+    if self.parent.gumptype != 0:
+      player.socket.closegump(self.parent.gumptype, 0xFFFF)
+
     gump = cGump()
     gump.setType(self.parent.gumptype)
     gump.setArgs(['%s:%u' % (self.parent.id, self.parent.subactions.index(self))] + arguments)
@@ -166,7 +176,7 @@ class MakeItemAction(MakeAction):
     gump.addText(410, 389, "Make Now", 0x480)
 
     # Item Name 
-    gump.addHtmlGump(245, 39, 270, 20, whitehtml % self.title)
+    gump.addText(245, 39, self.title, 0x480)
 
     # Scrollable Skill List
     gump.addHtmlGump(170, 132, 345, 76, whitehtml % self.skillshtml, 0, self.skillshtml.count('<br>') > 4)
@@ -217,7 +227,7 @@ def MakeMenuTarget(player, arguments, target):
       menus[menu].repair(player, arguments, target)
     elif action == 2:
       menus[menu].enhance(player, arguments, target)
-    elif action == 1:
+    elif action == 3:
       menus[menu].smelt(player, arguments, target)
     else:
       raise RuntimeError, "Unknown subaction: %u." % action    
@@ -240,9 +250,7 @@ class MakeMenu:
     self.submenus = []
     self.subactions = []
     self.title = title
-    self.generated = 0
     self.gumptype = 0
-    self.sort = 0
 
     # Display a repair item button on the makemenu
     self.allowrepair = 0
@@ -323,11 +331,16 @@ class MakeMenu:
     gump = self.generate(arguments)
     self.addbuttons(gump, player, arguments, 1)
 
+    if self.gumptype != 0:
+      historyname = 'makehistory%u' % self.gumptype
+    else:
+      historyname = 'makehistory'
+
     # We know that we only have 10 makeactions if
     # we show the history. So we don't need a huge iteration 
     # here.
-    if player.hastag('makehistory'):
-      history = str(player.gettag('makehistory')).split(';')[:10]
+    if player.hastag(historyname):
+      history = str(player.gettag(historyname)).split(';')[:10]
       yoffset = 60
       j = 0
       for item in history:
@@ -340,7 +353,7 @@ class MakeMenu:
             gump.addButton(220, yoffset, 4005, 4007, 0x10000000 | j)
             if menu.subactions[action].hasdetails:
               gump.addButton(480, yoffset, 4011, 4012, 0x08000000 | j)
-            gump.addHtmlGump(255, yoffset + 3, 220, 18, whitehtml % menu.subactions[action].title)
+            gump.addText(255, yoffset + 3, menu.subactions[action].title, 0x480)
             yoffset += 20
         j += 1 # Always increase to keep in sync
     
@@ -365,10 +378,10 @@ class MakeMenu:
     for i in range(0, len(materials)):
       yoffset = 60 + i * 20      
       if materials[i][2] != 0 and player.skill[materials[i][1]] < materials[i][2]:
-        gump.addHtmlGump(255, yoffset + 3, 220, 18, grayhtml % materials[i][0])
+        gump.addText(255, yoffset + 3, materials[i][0], 0x3b1)
       else:
         gump.addButton(220, yoffset, 4005, 4007, i | mask)
-        gump.addHtmlGump(255, yoffset + 3, 220, 18, whitehtml % materials[i][0])
+        gump.addText(255, yoffset + 3, materials[i][0], 0x480)
 
     gump.send(player)
 
@@ -385,9 +398,9 @@ class MakeMenu:
     pass
 
   #
-  # Enchant an item.
+  # Enhance an item.
   #
-  def enchant(self, player, arguments, target):
+  def enhance(self, player, arguments, target):
     pass
 
   # 
@@ -462,8 +475,13 @@ class MakeMenu:
   # action is actually executed.
   #
   def makelast(self, player, arguments):
-    if player.hastag('makehistory'):
-      history = str(player.gettag('makehistory')).split(';')
+    if self.gumptype != 0:
+      historyname = 'makehistory%u' % self.gumptype
+    else:
+      historyname = 'makehistory'
+
+    if player.hastag(historyname):
+      history = str(player.gettag(historyname)).split(';')
       if len(history) > 0:
         (menu, action) = history[0].split(":")
         global menus
@@ -493,17 +511,17 @@ class MakeMenu:
     # Show the parent menu.
     elif response.button == 3:
       if self.parent:
-        self.parent.send(player)
+        self.parent.send(player, arguments)
 
     # DO NOT MARK ITEM -> MARK ITEM
     elif response.button == 4:
       player.settag('markitem', 0)
-      self.send(player)
+      self.send(player, arguments)
 
     # MARK ITEM -> DO NOT MARK ITEM
     elif response.button == 5:
       player.deltag('markitem')
-      self.send(player)
+      self.send(player, arguments)
 
     elif response.button == 6:
       pass
@@ -518,7 +536,7 @@ class MakeMenu:
 
     # Show ourself
     elif response.button == 9:
-      self.send(player)
+      self.send(player, arguments)
 
     # Repair Item
     elif response.button == 10:
@@ -555,9 +573,14 @@ class MakeMenu:
 
     # MakeHistory: Make Item
     elif response.button & 0x10000000:
+      if self.gumptype != 0:
+        historyname = 'makehistory%u' % self.gumptype
+      else:
+        historyname = 'makehistory'
+
       subaction = response.button & ~ 0x10000000
-      if player.hastag('makehistory'):
-        history = str(player.gettag('makehistory')).split(';')
+      if player.hastag(historyname):
+        history = str(player.gettag(historyname)).split(';')
         if subaction < len(history):
           (menu, action) = history[subaction].split(':')
           action = int(action)
@@ -567,9 +590,14 @@ class MakeMenu:
 
     # MakeHistory: Show Detail Page
     elif response.button & 0x08000000:
+      if self.gumptype != 0:
+        historyname = 'makehistory%u' % self.gumptype
+      else:
+        historyname = 'makehistory'
+
       subaction = response.button & ~ 0x08000000
-      if player.hastag('makehistory'):
-        history = str(player.gettag('makehistory')).split(';')
+      if player.hastag(historyname):
+        history = str(player.gettag(historyname)).split(';')
         if subaction < len(history):
           (menu, action) = history[subaction].split(':')
           action = int(action)
@@ -588,7 +616,7 @@ class MakeMenu:
           self.setsubmaterial1used(player, arguments, material)
       else:
         player.socket.sysmessage('You selected an invalid material.')
-      self.send(player)
+      self.send(player, arguments)
 
     # MaterialSelection: Secondary Material
     elif response.button & 0x02000000:
@@ -601,19 +629,23 @@ class MakeMenu:
           self.setsubmaterial2used(player, arguments, material)
       else:
         player.socket.sysmessage('You selected an invalid material.')
-      self.send(player)
+      self.send(player, arguments)
 
+  #
+  # Sort all subactions and submenus.
+  #
+  def sort(self):
+    self.submenus.sort(comparetitle)
+    self.subactions.sort(comparetitle)
+  
+    # Assign ids to every subaction
+    for i in range(0, len(self.subactions)):
+      self.subactions[i].index = i
   #
   # Generate the gump out of the properties of this
   # menu.
   #
   def generate(self, arguments):
-    # Sort them if neccesary
-    if self.sort and not self.generated:
-      self.submenus.sort(comparetitle)
-      self.subactions.sort(comparetitle)
-      self.generated = 1
-
     gump = cGump()
     gump.callback = "system.makemenus.MakeMenuResponse"
     gump.setArgs([self.id] + arguments)
@@ -638,6 +670,10 @@ class MakeMenu:
   # passed on between gump calls.
   #
   def send(self, player, args = []):
+    # Close gumps of the same type
+    if self.gumptype != 0:
+      player.socket.closegump(self.gumptype, 0xFFFF)
+
     gump = self.generate(args)
     self.addbuttons(gump, player, args)
 
@@ -657,7 +693,7 @@ class MakeMenu:
         if actions + j < len(self.submenus):
           yoffset = 80 + 20 * j
           gump.addButton(15, yoffset, 4005, 4007, 0x80000000 | (actions + j))
-          gump.addHtmlGump(50, yoffset + 3, 150, 18, whitehtml % self.submenus[actions + j].title)
+          gump.addText(50, yoffset + 3, self.submenus[actions + j].title, 0x480)
       actions += 9
 
       # Fill the page with subactions
@@ -668,9 +704,9 @@ class MakeMenu:
             gump.addButton(220, yoffset, 4005, 4007, 0x40000000 | (menus + j))
             if self.subactions[menus + j].hasdetails:
               gump.addButton(480, yoffset, 4011, 4012, 0x20000000 | (menus + j))
-            gump.addHtmlGump(255, yoffset+3, 220, 18, whitehtml % self.subactions[menus + j].title)
+            gump.addText(255, yoffset+3, self.subactions[menus + j].title, 0x480)
           else:
-            gump.addHtmlGump(255, yoffset+3, 220, 18, grayhtml % self.subactions[menus + j].title)
+            gump.addText(255, yoffset+3, self.subactions[menus + j].title, 0x3b1)
       menus += 9
 
       # Add a back button

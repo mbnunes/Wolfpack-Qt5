@@ -10,7 +10,7 @@ from wolfpack.consts import *
 import math
 import wolfpack
 from system.makemenus import CraftItemAction, MakeMenu, findmenu
-from wolfpack.utilities import hex2dec
+from wolfpack.utilities import hex2dec, tobackpack
 from combat.properties import itemcheck, fromitem
 import random
 
@@ -82,6 +82,9 @@ def checkanvilandforge(char):
 # Check if the character is using the right tool
 #
 def checktool(char, item, wearout = 0):
+  if not item:
+    return 0
+
   # Has to be in our posession
   if item.getoutmostchar() != char:
     char.socket.clilocmessage(500364)
@@ -223,13 +226,15 @@ class SmithItemAction(CraftItemAction):
   # Then play a blacksmithing sound.
   #
   def make(self, player, arguments):
+    assert(len(arguments) > 0, 'Arguments has to contain a tool reference.')
+
     # Look for forge and anvil
     if not checkanvilandforge(player):
       player.socket.clilocmessage(1044267)
       return 0
 
     if not checktool(player, wolfpack.finditem(arguments[0])):
-      return 0    
+      return 0
 
     return CraftItemAction.make(self, player, arguments)
 
@@ -246,7 +251,6 @@ class SmithItemAction(CraftItemAction):
 class BlacksmithingMenu(MakeMenu):
   def __init__(self, id, parent, title):
     MakeMenu.__init__(self, id, parent, title)
-    self.sort = 1
     self.allowmark = 1
     self.allowrepair = 1
     self.allowenhance = 1
@@ -256,6 +260,158 @@ class BlacksmithingMenu(MakeMenu):
     self.submaterial2missing = 1060884
     self.submaterial1missing = 1044037
     self.submaterial1noskill = 1044268
+    self.gumptype = 0x4f1ba410 # This should be unique
+
+  #
+  # Try to find a craftitem for a certain definition id
+  #
+  def findcraftitem(self, definition):
+    for item in self.subactions:
+      if isinstance(item, SmithItemAction) and item.definition == definition:
+        return item
+    for menu in self.submenus:
+      if isinstance(menu, BlacksmithingMenu):
+        item = menu.findcraftitem(definition)
+        if item:
+          return item
+    return None
+
+  #
+  # Repair an item
+  #
+  def repair(self, player, arguments, target):
+    if not checkanvilandforge(player):
+      player.socket.clilocmessage(1044282)
+      return
+
+    if not checktool(player, wolfpack.finditem(arguments[0])):
+      player.socket.clilocmessage(1044263)
+      return
+
+    if not target.item:
+      player.socket.clilocmessage(500426)
+      return
+
+    if target.item.container != player.getbackpack():
+      player.socket.clilocmessage(1044275)
+      return
+    
+    item = target.item
+    weapon = itemcheck(item, ITEM_WEAPON)
+    shield = itemcheck(item, ITEM_SHIELD)
+    armor = itemcheck(item, ITEM_ARMOR)
+
+    if weapon or armor or shield:
+      # Item in full repair
+      if item.maxhealth <= 0 or item.health >= item.maxhealth:
+        player.socket.clilocmessage(500423)
+        return
+
+      skill = player.skill[BLACKSMITHING]
+      if skill >= 900:
+        weaken = 1
+      elif skill >= 700:
+        weaken = 2
+      else:
+        weaken = 3
+
+      action = self.findcraftitem(item.baseid)
+
+      # We can't craft it, so we can't repair it.
+      if not action:
+        player.socket.clilocmessage(1044277)
+        return
+
+      # We will either destroy or repair it from here on
+      # So we can play the craft effect.
+      player.soundeffect(0x2a)
+
+      if item.maxhealth <= weaken:
+        player.socket.clilocmessage(500424)
+        item.delete()
+      elif player.checkskill(BLACKSMITHING, 0, 1000):
+        player.socket.clilocmessage(1044279)
+        item.maxhealth -= weaken
+        item.health = item.maxhealth
+        item.resendtooltip()
+      else:
+        player.socket.clilocmessage(1044280)
+        item.maxhealth -= weaken
+        item.health = max(0, item.health - weaken)
+        item.resendtooltip()
+
+      # Warn the user if we'll break the item next time
+      if item.maxhealth <= weaken:
+        player.socket.clilocmessage(1044278)
+
+      return
+
+    player.socket.clilocmessage(1044277)
+
+  #
+  # Smelt an item and create new ingots from it.
+  #
+  def smelt(self, player, arguments, target):
+    if not checkanvilandforge(player):
+      player.socket.clilocmessage(1042678)
+      return
+
+    tool = wolfpack.finditem(arguments[0])
+
+    if not checktool(player, tool):
+      player.socket.clilocmessage(1044263)
+      return
+    
+    if tool == target.item:
+      player.socket.clilocmessage(1044271)
+      return
+
+    # Smelt a weapon
+    item = target.item
+    weapon = itemcheck(item, ITEM_WEAPON)
+    shield = itemcheck(item, ITEM_SHIELD)
+    armor = itemcheck(item, ITEM_ARMOR)
+    
+    # See if it's in our ore list.
+    if weapon or shield or armor:
+      if item.container != player.getbackpack():
+        player.socket.clilocmessage(1044274)
+        return
+
+      if item.hastag('resname'):
+        resname = str(item.gettag('resname'))
+      else:
+        resname = None
+
+      for metal in METALS:
+        if metal[5] == resname:
+          # Try to find out how many ingots this item would need
+          menu = findmenu('BLACKSMITHING')
+          action = menu.findcraftitem(item.baseid)
+          returned = 0.25 + min(1000, player.skill[MINING]) / 2000
+
+          if action and action.submaterial1 > 0:
+            amount = int(math.floor(action.submaterial1 * returned))
+          else:
+            amount = 1
+
+          if amount > 0:
+            # Randomly select one of the resources required by that metal
+            item.delete()
+            ingots = wolfpack.additem(random.choice(metal[3]))
+            ingots.amount = amount
+            if not tobackpack(ingots, player):
+              ingots.update()
+					
+            player.soundeffect(0x2a)
+            player.soundeffect(0x240)
+
+            player.socket.clilocmessage(1044270)
+            self.send(player, arguments)
+            return
+      
+    player.socket.clilocmessage(1044272)
+    self.send(player, arguments)
 
   #
   # Get the material used by the character from the tags
@@ -325,7 +481,7 @@ def loadMenu(id, parent = None):
       if not child.hasattribute('id'):
         console.log(LOG_ERROR, "Submenu with missing id attribute in menu %s.\n" % menu.id)    
       else:
-        loadMenu(child.getattribute('id'), menu)
+        loadMenu(child.getattribute('id'), menu)      
     
     # Craft an item
     elif child.name == 'smith':
@@ -395,6 +551,9 @@ def loadMenu(id, parent = None):
             except:
               console.log(LOG_ERROR, "%s element with invalid max value in menu %s.\n" % (subchild.name, menu.id))
             action.skills[skill] = [minimum, maximum]
+  
+  # Sort the menu. This is important for the makehistory to make.
+  menu.sort()
 
 #
 # Load the blacksmithing menu.
