@@ -14,20 +14,19 @@ win32:DEFINES  += WIN32
 win32:OBJECTS_DIR = obj
 win32-msvc:DEFINES +=  _CONSOLE _MBCS
 win32:INCLUDEPATH += lib/Python/PC
-unix:INCLUDEPATH += lib/Python/Include lib/ZThread/include lib/Python /usr/include/mysql
-unix:LIBS  = -Llib/ZThread/lib -Llib/Python -Lmysql -ldl -lZThread -lpython2.2 -lmysqlclient -lutil
-
-
-
-unix:TMAKE_CXXFLAGS = -funsigned-char
+win32:SOURCES += srvparams_win.cpp
 win32-g++:TMAKE_CXXFLAGS = -funsigned-char
 win32-g++:LIBS= -Llib/ZThread/lib/ -lwsock32 -lZThread
 win32-msvc:RC_FILE         = res.rc
 win32-msvc:LIBS      = kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comdlg32.lib ws2_32.lib ZThread.lib
 win32-msvc:TMAKE_CXXFLAGS = /J /nologo /ML /W3 /GX /O2 /YX /FD /c
-
 win32-borland:TMAKE_CXXFLAGS =  -K -6 -q -x -WM -w-8057 -w-8066 -w-8060 -w-8027 -w-8059 -w-8004 -w-8012
 win32-borland:LIBS = ws2_32.lib lib/ZThread/lib/ZThread.lib
+
+unix:INCLUDEPATH += lib/Python/Include lib/ZThread/include lib/Python /usr/include/mysql
+unix:LIBS  = -Llib/ZThread/lib -Llib/Python -Lmysql -ldl -lZThread -lpython2.2 -lmysqlclient -lutil
+unix:SOURCES += srvparams_unix.cpp
+unix:TMAKE_CXXFLAGS = -funsigned-char
 
 HEADERS         = \
 		  SndPkg.h \
