@@ -56,7 +56,7 @@ class XMLConfig:
 		)
 	
 		try:
-			wolfconfig = parse('wolfpack.xml')
+			wolfconfig = parse('../wolfpack.xml')
 			childnodes = wolfconfig.childNodes
 		except:
 			print 'Could not parse wolfpack.xml!'
