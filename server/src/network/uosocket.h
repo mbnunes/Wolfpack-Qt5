@@ -122,6 +122,7 @@ public:
 	void handleTarget( cUORxTarget *packet );
 	void handleRequestAttack( cUORxRequestAttack* packet );
 	void handleBookPage( cUORxBookPage* packet );
+	void handleUpdateBook( cUORxUpdateBook* packet );
 
 	// Utilities
 	void updateChar( P_CHAR pChar );

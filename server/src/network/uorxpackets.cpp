@@ -118,17 +118,11 @@ QStringList cUORxBookPage::lines()
 
 	QStringList lines_ = QStringList();
 	UINT16 currLine = 0;
-	UINT16 start; // start marks the starting offset for the line
 	while( currLine < numOfLines() )
 	{
-		start = i;
-		while( i < size() && rawPacket.data()[i] != 0x00 )
-		{
-			i++;
-		}
-		lines_.push_back( getUnicodeString( start, i - start ) );
-
-		i++; // skip the null char
+		QString line = QString( &rawPacket.data()[i] );
+		i += (line.length()+1);
+		lines_.push_back( line );
 		currLine++; // next line!
 	}
 	return lines_;

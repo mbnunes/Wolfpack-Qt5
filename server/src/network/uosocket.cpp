@@ -201,6 +201,8 @@ void cUOSocket::recieve()
 		handleChangeWarmode( dynamic_cast< cUORxChangeWarmode* >( packet ) ); break;
 	case 0x66:
 		handleBookPage( dynamic_cast< cUORxBookPage* >( packet ) ); break;
+	case 0x93:
+		handleUpdateBook( dynamic_cast< cUORxUpdateBook* >( packet ) ); break;
 	default:
 		//cout << "Recieved packet: " << endl;
 		packet->print( &cout );
@@ -1668,3 +1670,14 @@ void cUOSocket::handleBookPage( cUORxBookPage* packet )
 		}
 	}	
 }
+
+void cUOSocket::handleUpdateBook( cUORxUpdateBook* packet )
+{
+	cBook* pBook = dynamic_cast< cBook* >(FindItemBySerial( packet->serial() ));
+	if( pBook )
+	{
+		pBook->setAuthor( packet->author() );
+		pBook->setTitle( packet->title() );
+	}
+}
+
