@@ -17,6 +17,7 @@
 		<restock>10</restock>
 		<weight>2.0</weight>
 		<value>0</value>
+		<sellprice>15</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Bone\Bone Gloves (N/S)</category>

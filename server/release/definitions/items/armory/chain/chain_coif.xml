@@ -18,7 +18,7 @@
 		<smelt>8</smelt>
 		<weight>7.0</weight>
 		<buyprice>130</buyprice>
-		<sellprice>65</sellprice>
+		<sellprice>8</sellprice>
 		<type>1009</type>
 		<basescripts>equipment</basescripts>
 		<category>Armor\Base\Chainmail\Coif NS</category>
