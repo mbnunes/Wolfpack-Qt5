@@ -65,8 +65,9 @@ class DecorationHandler( ContentHandler ):
             z = int( atts.getValue("z") )
             map = int( atts.getValue("map") )
             item.moveto( x, y, z, map )
+            item.magic = 3 # not moveable
             item.update()
-            item.decay = 0
+            item.decay = 0 # no decay
 
 
 class DecorationSaveHandler:
