@@ -221,3 +221,25 @@ cCorpse::cCorpse( bool init )
 	setCorpse( 1 );
 	setType( 1 );
 }
+
+stError *cCorpse::setProperty( const QString &name, const cVariant &value )
+{
+	SET_INT_PROPERTY( "bodyid", bodyId_ )
+	SET_INT_PROPERTY( "hairstyle", hairStyle_ )
+	SET_INT_PROPERTY( "haircolor", hairColor_ )
+	SET_INT_PROPERTY( "beardstyle", beardStyle_ )
+	SET_INT_PROPERTY( "beardcolor", beardColor_ )
+
+	return cItem::setProperty( name, value );
+}
+
+stError *cCorpse::getProperty( const QString &name, cVariant &value ) const
+{
+	GET_PROPERTY( "bodyid", bodyId_ )
+	GET_PROPERTY( "hairstyle", hairStyle_ )
+	GET_PROPERTY( "haircolor", hairColor_ )
+	GET_PROPERTY( "beardstyle", beardStyle_ )
+	GET_PROPERTY( "beardcolor", beardColor_ )
+
+	return cItem::getProperty( name, value );
+}
