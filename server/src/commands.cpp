@@ -194,19 +194,6 @@ void cCommands::loadACLs( void )
 }
 
 /*
-	\command fix
-	\description Resend the player information.
-*/
-void commandFix( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
-{
-	Q_UNUSED( args );
-	Q_UNUSED( command );
-	// TODO: Eventually check if the character is stuck etc.
-	socket->resendPlayer();
-	socket->player()->resendTooltip();
-}
-
-/*
 	\command set
 	\description Change properties of characters and items.
 	\usage - <code>set key value</code>
@@ -1038,7 +1025,6 @@ stCommand cCommands::commands[] =
 	{ "ALLSKILLS", commandAllSkills },
 	{ "BROADCAST", commandBroadcast },
 	{ "DOORGEN", commandDoorGenerator },
-	{ "FIX", commandFix },
 	{ "GMTALK", commandGmtalk },
 	{ "MOVE", commandMove },
 	{ "PAGES", commandPages },
