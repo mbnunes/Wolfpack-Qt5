@@ -88,4 +88,3 @@ Right now it will also showthe items real name.(Ripper)
 70) Changed: bank checks on singleclick now show "value : #" instead of "# gold". (Ripper)
 71) Added: TOPROVOK # to the npc.scp. Use this on npc`s to use provocation on. It is used just like
 the TOTAME # .(Ripper)
-72) Added: Taming & Provocation you now need more inthem skills than the npc your using them on.(Ripper)
