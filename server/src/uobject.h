@@ -29,67 +29,32 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#ifndef __WOLFPACK_H
-#define __WOLFPACK_H
-// Platform specifics
+#if !defined (__UOBJECT_H__)
+#define __UOBJECT_H__
 
 #include "platform.h"
-
-//system includes
-
-#include <iostream>
-
-#if defined (__unix__)
-#include <termios.h>
-#include <fcntl.h>
-#else
-
-//#include <winsock2.h>
-//#include <winbase.h>
-#include <dos.h>
-#include <io.h>
-#include <climits>
-#include <conio.h>
-#include <vector>
-
-#endif
-
-using namespace std;
+#include "typedefs.h"
 
 // Forward class declarations
+class Coord_cl;
 
+class cUObject
+{
+// Data Members
+public:
+	SERIAL serial;
+	SERIAL multis;
+	bool free;
 
-// Wolfpack includes
+	char name[50];
+	Coord_cl pos;
+// Methods
+protected:
+	void init();
+public:
+	cUObject();
+	cUObject( cUObject& ); // Copy constructor
+	virtual ~cUObject() = 0;
+};
 
-
-
-#include "wpconsole.h"
-#include "netsys.h"
-#include "typedefs.h"
-#include "verinfo.h"
-#include "scriptc.h"
-#include "worldmain.h"
-#include "boats.h"    // Boats
-#include "msgboard.h" // Bulletin Boards
-#include "hCache.h"   // MUL Cache stuff.
-//#include "hFile.h"  // New File IO stuff //Currently unused
-#include "SrvParms.h" // Bounty System
-#include "accounts.h" // Account System.
-#include "cweather.h" // Weather System
-#include "house.h"    // Housing System
-#include "races.h"    // Race System
-#include "defines.h"
-
-#include "structs.h"
-
-#include "globals.h"
-#include "itemsmgr.h"
-#include "charsmgr.h"
-
-#include "prototypes.h"
-
-#include "junk.h"
-
-#include "inlines.h"
-#endif // __WOLFPACK_H
-
+#endif // __UOBJECT_H__

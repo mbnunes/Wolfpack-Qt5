@@ -83,6 +83,7 @@ HEADERS         = Client.h \
 		  telport.h \
 		  trigger.h \
 		  typedefs.h \
+		  uobject.h \
 		  utilsys.h \
 		  verinfo.h \
 		  weight.h \
@@ -157,6 +158,7 @@ SOURCES         = Client.cpp \
 		  telport.cpp \
 		  translate.cpp \
 		  trigger.cpp \
+		  uobject.cpp \
 		  utilsys.cpp \
 		  weight.cpp \
 		  wip.cpp \

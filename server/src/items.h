@@ -34,20 +34,20 @@
 
 #include "wolfpack.h" //for now.
 
-#include "coord.h"
+#include "uobject.h"
 
-using namespace std ;
+//using namespace std ;
 //typedef struct item_st_
-class cItem
+class cItem : public cUObject
 {
 public:
 	cItem() {};
 	cItem( cItem& src); // Copy constructor
+	virtual ~cItem() {}
 	unsigned char ser1; // Item serial number
 	unsigned char ser2;
 	unsigned char ser3;
 	unsigned char ser4;
-	SERIAL serial;
 	
 	unsigned char id1; // Item visuals as stored in the client
 	unsigned char id2;
@@ -55,17 +55,13 @@ public:
 	unsigned char color2;
 	unsigned short amount; // Amount of items in pile
 	unsigned short amount2; //Used to track things like number of yards left in a roll of cloth
-	bool free;
-	Coord_cl pos;
 	struct						// Attention, this is a bit field
 	{
-		bool isBeeingDragged :1;	// true while the item hangs on the mouse cursor
+		bool isBeeingDragged;	// true while the item hangs on the mouse cursor
 	} flags;
 	
-	char name[50];
 	char name2[50];
 	SERIAL contserial;
-	int multis;//Multi serial
 	signed char layer; // Layer if equipped on paperdoll
 	int itmhand; // ITEMHAND system - AntiChrist
 	unsigned int type; // For things that do special things on doubleclicking
@@ -92,7 +88,7 @@ public:
 	unsigned int morez;
 	char doordir; // Reserved for doors
 	char dooropen;
-	char pileable; // Can item be piled
+	bool pileable; // Can item be piled
 	char dye; // Reserved: Can item be dyed by dye kit
 	char corpse; // Is item a corpse
 	unsigned int att; // Item attack
@@ -175,7 +171,6 @@ public:
 	void Init(char mkser=1);
 	void SetSerial(long ser);
 	
-	void setContSerialOnly(long contser);
 	void SetContSerial(long contser);
 	bool isInWorld()			{return (contserial == INVALID_SERIAL);}
 	bool isMulti()				{return (id1>=0x40);	}
@@ -243,7 +238,7 @@ public:
 				unsigned char cItemId1, unsigned char cItemId2,
 				unsigned char cColorId1, unsigned char cColorId2,
 				int nPack, int nSend);
-	P_ITEM SpawnItem(P_CHAR pc_ch,int nAmount, char* cName, char pileable, short id, short color, bool bPack);
+	P_ITEM SpawnItem(P_CHAR pc_ch,int nAmount, char* cName, bool pileable, short id, short color, bool bPack);
 	P_ITEM SpawnItemBank(P_CHAR pc_ch, int nItem);
 	P_ITEM  SpawnItemBackpack2(UOXSOCKET s, int nItem, int nDigging);
 	void DecayItem(unsigned int currenttime, P_ITEM pi);

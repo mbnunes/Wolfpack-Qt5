@@ -4258,7 +4258,7 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 		{
 			pi->setId(0x183d);
 		}
-		pi->pileable=1;
+		pi->pileable = true;
 		pi->MoveTo(pc_p->pos.x,pc_p->pos.y,pc_p->pos.z);
 		pi->priv|=0x01;
 	}

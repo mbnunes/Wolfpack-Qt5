@@ -233,11 +233,11 @@ static void AddTarget(int s, PKGx6C *pp)
 			return; // Morrolan, here we WANT fall-thru, don't mess with this switch
 		}
 	}
-	int pileable=0;
+	bool pileable = false;
 	short id=(addid1[s]<<8)+addid2[s];
 	tile_st tile;
 	Map->SeekTile(id, &tile);
-	if (tile.flag2&0x08) pileable=1;
+	if (tile.flag2&0x08) pileable=true;
 
 	P_ITEM pi = Items->SpawnItem(currchar[s], 1, "#", pileable, id, 0,0);
 	if(!pi) return;
@@ -1209,7 +1209,8 @@ static void Tiling(int s, PKGx6C *pp) // Clicking the corners of tiling calls th
 		return;
 	}
 
-	int c,pileable=0;
+	int c;
+	bool pileable = false;
 	tile_st tile;
 	int x1=clickx[s],x2=pp->TxLoc;
 	int y1=clicky[s],y2=pp->TyLoc;
@@ -1246,7 +1247,7 @@ static void Tiling(int s, PKGx6C *pp) // Clicking the corners of tiling calls th
 	int x,y;
 	short id=(addid1[s]<<8)+addid2[s];
 	Map->SeekTile(id, &tile);
-	if (tile.flag2&0x08) pileable=1;
+	if (tile.flag2&0x08) pileable = true;
 	for (x=x1;x<=x2;x++)
 		for (y=y1;y<=y2;y++)
 		{

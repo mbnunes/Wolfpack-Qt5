@@ -26,70 +26,43 @@
 //
 //
 //
-//	Wolfpack Homepage: http://wpdev.sf.net/
+//	Wolfpack Homepage: http://www.wpdev.sf.net/
 //========================================================================================
 
-#ifndef __WOLFPACK_H
-#define __WOLFPACK_H
-// Platform specifics
-
+// Platform Specifics
 #include "platform.h"
 
-//system includes
-
-#include <iostream>
-
-#if defined (__unix__)
-#include <termios.h>
-#include <fcntl.h>
-#else
-
-//#include <winsock2.h>
-//#include <winbase.h>
-#include <dos.h>
-#include <io.h>
-#include <climits>
-#include <conio.h>
-#include <vector>
-
-#endif
-
-using namespace std;
-
-// Forward class declarations
-
-
 // Wolfpack includes
+#include "coord.h"
+#include "uobject.h"
 
-
-
-#include "wpconsole.h"
-#include "netsys.h"
-#include "typedefs.h"
-#include "verinfo.h"
-#include "scriptc.h"
-#include "worldmain.h"
-#include "boats.h"    // Boats
-#include "msgboard.h" // Bulletin Boards
-#include "hCache.h"   // MUL Cache stuff.
-//#include "hFile.h"  // New File IO stuff //Currently unused
-#include "SrvParms.h" // Bounty System
-#include "accounts.h" // Account System.
-#include "cweather.h" // Weather System
-#include "house.h"    // Housing System
-#include "races.h"    // Race System
 #include "defines.h"
 
-#include "structs.h"
+// Debug includes and defines
+#undef  DBGFILE
+#define DBGFILE "uobject.cpp"
 
-#include "globals.h"
-#include "itemsmgr.h"
-#include "charsmgr.h"
+cUObject::cUObject()
+{
+	init();
+}
 
-#include "prototypes.h"
+cUObject::cUObject( cUObject &src )
+{
+	this->serial = src.serial;
+	this->multis = src.multis;
+	strncpy(this->name, src.name, 50);
+	this->free = src.free;
+}
 
-#include "junk.h"
+cUObject::~cUObject()
+{
+}
 
-#include "inlines.h"
-#endif // __WOLFPACK_H
-
+void cUObject::init()
+{
+	this->serial = INVALID_SERIAL;
+	this->multis = INVALID_SERIAL;
+	this->name[0] = 0;
+	this->free = false;
+}

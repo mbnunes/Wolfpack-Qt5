@@ -29,20 +29,17 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-//
-// -- Items.cpp  Item specific routines (add, delete change) in preperation for
-//               going to a pointer based system
-//
 
+// Wolfpack Includes
 #include "wolfpack.h"
 #include "SndPkg.h"
 #include "utilsys.h"
-#undef  DBGFILE
-#define DBGFILE "items.cpp"
 #include "debug.h"
 
-#define ITEM_RESERVE 300	// minimum of free slots that should be left in the array.
-							// otherwise, more memory will be allocated in the mainloop (Duke)
+
+#undef  DBGFILE
+#define DBGFILE "items.cpp"
+
 
 // constructor
 cItem::cItem( cItem &src )
@@ -63,7 +60,7 @@ cItem::cItem( cItem &src )
 	this->pos = src.pos;
 	this->color1 = src.color1;
 	this->color2 = src.color2;
-	this->setContSerialOnly(src.contserial);
+	this->SetContSerial(src.contserial);
 	this->oldcontserial=INVALID_SERIAL;
 	this->layer = this->oldlayer = src.layer;
 	this->itmhand = src.itmhand;
@@ -164,21 +161,14 @@ long cItem::ReduceAmount(const short amt)
 	return rest;
 }
 
-// This method does not change the pointer arrays !!
-// should only be used in VERY specific situations like initItem... Duke, 6.4.2001
-void cItem::setContSerialOnly(long contser)
-{
-	contserial=contser;
-}
-
 void cItem::SetContSerial(long contser)
 {
 	if (contserial != INVALID_SERIAL)
 		contsp.remove(this->contserial, this->serial);
 
-	setContSerialOnly(contser);
+	this->contserial = contser;
 
-	if (contser != INVALID_SERIAL)
+	if (contserial != INVALID_SERIAL)
 		contsp.insert(this->contserial, this->serial);
 }
 
@@ -211,13 +201,13 @@ void cItem::SetSpawnSerial(long spawnser)
 
 void cItem::SetMultiSerial(long mulser)
 {
-	if (multis!=-1)	// if it was set, remove the old one
-		imultisp.remove(multis, serial);
+	if (this->multis != INVALID_SERIAL)	// if it was set, remove the old one
+		imultisp.remove(this->multis, this->serial);
 
-	multis=mulser;
+	this->multis = mulser;
 
-	if (mulser!=-1)		// if there is multi, add it
-		imultisp.insert(mulser, serial);
+	if (this->multis != INVALID_SERIAL)		// if there is multi, add it
+		imultisp.insert(this->multis, this->serial);
 }
 
 void cItem::MoveTo(int newx, int newy, signed char newz)
@@ -555,7 +545,7 @@ void cItem::Init(char mkser)
 	this->pos.z=this->oldz=0;
 	this->color1=0x00; // Hue
 	this->color2=0x00;
-	this->setContSerialOnly(INVALID_SERIAL); // Container that this item is found in
+	this->contserial = INVALID_SERIAL; // Container that this item is found in
 	this->oldcontserial=INVALID_SERIAL;
 	this->layer=this->oldlayer=0; // Layer if equipped on paperdoll
 	this->itmhand=0; // Layer if equipped on paperdoll
@@ -578,7 +568,7 @@ void cItem::Init(char mkser)
 	this->amount2=0; //Used to track things like number of yards left in a roll of cloth
 	this->doordir=0; // Reserved for doors
 	this->dooropen=0;
-	this->pileable=0; // Can item be piled
+	this->pileable=false; // Can item be piled
 	this->dye=0; // Reserved: Can item be dyed by dye kit
 	this->corpse=0; // Is item a corpse
 	this->carve=-1;//AntiChrist-for new carving system
@@ -968,7 +958,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 	{
 		Map->SeekTile(pi->id(), &tile);
 		if (tile.flag2&0x08)
-			pi->pileable = 1;
+			pi->pileable = true;
 		
 		if (!pi->maxhp && pi->hp)
 			pi->maxhp = pi->hp; // Magius(CHE)
@@ -1169,20 +1159,20 @@ P_ITEM cAllItems::SpawnItemBank(P_CHAR pc_ch, int nItem)
 	return pi;
 }
 
-P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, char* cName, char pileable, short id, short color, bool bPack)
+P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, char* cName, bool pileable, short id, short color, bool bPack)
 {
 	if (pc_ch == NULL) 
 		return NULL;
 
 	P_ITEM pPack=Packitem(pc_ch);
-	char pile = 0;
+	bool pile = false;
 	
-	if (pileable==1)
+	if (pileable)
 	{					// make sure it's REALLY pileable ! (Duke)
 		tile_st tile;
 		Map->SeekTile(id, &tile);
 		if (tile.flag2&0x08)
-			pile=1;
+			pile=true;
 		else
 		{
 			// some calls to this functions (eg. IDADD) *allways* try to spawn pileable :/

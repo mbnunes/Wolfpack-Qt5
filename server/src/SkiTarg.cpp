@@ -86,7 +86,7 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 			if(npi == NULL) return;// crash check
 			npi->weight = 10;
 			npi->amount = amt1;
-			npi->pileable = 1;
+			npi->pileable = true;
 			RefreshItem(npi);
 			Items->DeleItem(pi_bolts);
 			Weight->NewCalc(pc_currchar);
@@ -1555,7 +1555,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			if(pi_c == NULL) return;
 			// need to set amount and weight and pileable, note: cannot set pilable while spawning item -Fraz-
 			pi_c->weight=10;
-			pi_c->pileable=1;
+			pi_c->pileable=true;
 			pi_c->att=9;
 			pi_c->amount=amt;
 			RefreshItem(pi_c);
@@ -1574,7 +1574,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			P_ITEM pi_c = Items->SpawnItem(s,pc_currchar,1,"cut cloth",0,0x17,0x66,col1,col2,1,1);
 			if(pi_c == NULL) return;
 			pi_c->weight=10;
-			pi_c->pileable=1;
+			pi_c->pileable=true;
 			pi_c->amount=amt;
 			RefreshItem(pi_c);
 			Items->DeleItem(pi);
@@ -1589,7 +1589,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			P_ITEM pi_c = Items->SpawnItem(s,pc_currchar,1,"leather piece",0,0x10,0x67,col1,col2,1,1);
 			if(pi_c == NULL) return;
 			pi_c->weight=100;
-			pi_c->pileable=1;
+			pi_c->pileable=true;
 			pi_c->amount=amt;
 			RefreshItem(pi_c);
 			Items->DeleItem(pi);
@@ -2434,7 +2434,7 @@ void cSkills::PoisoningTarget(int s) //AntiChrist
 		pPoi->Init(0);
 		pPoi->SetSerial(kser);
 		pPoi->setId(0x0F0E);
-		pPoi->pileable=1;
+		pPoi->pileable=true;
 		pPoi->MoveTo(pc->pos.x,pc->pos.y,pc->pos.z);
 		pPoi->priv|=0x01;
 		RefreshItem(pPoi);

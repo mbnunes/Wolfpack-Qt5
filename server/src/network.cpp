@@ -229,7 +229,11 @@ void cNetworkStuff::Disconnect (int s) // Force disconnection of player //Instal
 
 	//Instalog
 	char val=0;
-	if (!currchar[s]->free && online(currchar[s])) val=LogOut(s);
+	if (currchar[s] != NULL && perm[s])
+	{
+		if (!currchar[s]->free && online(currchar[s])) 
+			val=LogOut(s);
+	}
 
 	if (val)
 	{
@@ -304,7 +308,7 @@ void cNetworkStuff::Disconnect (int s) // Force disconnection of player //Instal
 			
 	}
 
-	currchar[now]=0;
+	currchar[now]=NULL;
 	now--;	
 }
 

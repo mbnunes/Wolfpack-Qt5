@@ -764,12 +764,12 @@ void cCommands::SetTriggerWord(int s)
 
 void cCommands::AddHere(int s, char z)
 {
-	int pileable=0;
+	bool pileable = false;
 	short id = (addid1[s]<<8)+addid2[s];
 	tile_st tile;
 	
 	Map->SeekTile(id, &tile);
-	if (tile.flag2&0x08) pileable=1;
+	if (tile.flag2&0x08) pileable=true;
 	
 	P_ITEM pi = Items->SpawnItem(currchar[s], 1, "#", pileable, id, 0, 0);
 	if(pi)

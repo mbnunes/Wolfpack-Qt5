@@ -37,18 +37,20 @@
 
 
 // just temporary
-#undef  DBGFILE
-#define DBGFILE "chars.h"
 #include "debug.h"
 
-#include "coord.h"
 #include "typedefs.h"
 #include "structs.h"
 #include "defines.h"
 #include "SrvParms.h"
+#include "uobject.h"
+
+#undef  DBGFILE
+#define DBGFILE "chars.h"
+
 
 //typedef struct char_st_
-class cChar
+class cChar : public cUObject
 {
 public:
     enum enInputMode { enNone, enRenameRune, enPricing, enDescription, enNameDeed, enHouseSign, enPageGM, enPageCouns};
@@ -74,17 +76,11 @@ public:
 	unsigned char			ser2;
 	unsigned char			ser3;
 	unsigned char			ser4;
-	int				serial;
-	
-	int				multis;//Multi serial
-	
-    bool			free;
-	char			name[50];
+
 	char			orgname[50];//original name - for Incognito
 	char			title[50];
 	bool			unicode; // This is set to 1 if the player uses unicode speech, 0 if not
 	int				account; // changed to signed, lb
-	Coord_cl		pos;
 	//	int				x;
 	//	int				y;
 	//	signed char z;
@@ -144,6 +140,7 @@ protected:
 	short dx2;		// holds the 3 digits behind the decimal point. Reserved for calculation
 	short tmpDex;	// holds all temporary effects on Dex, eg. plate, spells, potions
 public:
+	virtual ~cChar() {}
 	short effDex()				{return dx+tmpDex>0 ? dx+tmpDex : 0;}	// returns current effective Dexterity
 	short realDex()				{return dx;}	// returns the true Dexterity
 	short decDex()				{return dx2;}	// returns the 3 digits behind the decimal point
