@@ -23,6 +23,8 @@
 		<type>1006</type>
 		<category>Weapons\Bows\Composite Bow (N/S)</category>
 		<!-- Properties -->
+		<intproperty name="projectile" value="0xf42" />
+		<strproperty name="ammunition" value="f3f" />
 		<intproperty name="req_strength" value="45" />
 		<intproperty name="speed" value="25" />
 		<intproperty name="range" value="12" />
