@@ -13,85 +13,90 @@ import wolfpack
 import wolfpack.sockets
 import wolfpack.accounts
 import commands.info
+from wolfpack import tr
 import math
 from wolfpack.gumps import cGump
 
 def onLoad():
 	wolfpack.registercommand( "who", cmdWho )
 	return
+	
+def cmdWho(socket, command, arguments):
+	showWhoGump(socket.player, 0)
 
-def cmdWho( socket, command, argstring ):
+def showWhoGump(player, page):
+	# Collect the current list of sockets first
 	wholist = []
-	worldsocketcount = wolfpack.sockets.count()
+
 	worldsocket = wolfpack.sockets.first()
 	while worldsocket:
-		wholist += [ worldsocket.player.serial ]
+		char = worldsocket.player
+		if char.invisible and char.rank > player.rank:
+			continue
+		if not char.account:
+			continue	
+		wholist.append(char)
 		worldsocket = wolfpack.sockets.next()
+		
+	count = len(wholist)
+		
+	# Skip page * 10 users
+	newwholist = wholist[page * 10:]
 
-	if len(wholist) == 0:
-		return False
-
+	# Reduce the page id while page > 0 and len(newwholist) == 0
+	while len(newwholist) == 0 and page > 0:
+		page -= 1
+		newwholist = wholist[page * 10:]
+	
+	wholist = newwholist
+		
 	gump = cGump( 0, 0, 0, 50, 50 )
 	gump.addBackground( 0xE10, 380, 360 )
 	gump.addCheckerTrans( 15, 15, 350, 330 );
 	gump.addGump( 130, 18, 0xFA8 )
-	gump.addText( 165, 20, unicode("Who Menu"), 0x530 )
-	# Close Button
-	gump.addButton( 30, 320, 0xFB1, 0xFB3, 0 )
-	gump.addText( 70, 320, unicode("Close"), 0x834 )
-	# Start The First Page
-	# Notes, 10 per page
-	# Pages to create, (( socketcount / 10) + 1 )
+	gump.addText( 165, 20, tr("Who Menu"), 0x530 )
+	gump.addButton( 30, 320, 0xFB1, 0xFB3, 0 ) 	# Close Button
+	gump.addText( 70, 320, tr("Close"), 0x834 )
+	gump.addText( 145, 320, tr("Players: %u") % count, 0x834 )
+
 	# Player list increases by 22 pixels
-	maxpages = (worldsocketcount + 9) / 10
+	pages = (count + 9) / 10 # 10 per page
 
-	socket.sysmessage('Sockets: %u' % worldsocketcount)
+	player.socket.sysmessage(tr('Total sockets: %u') % count)
+	gump.addText( 280, 320, tr( "Page %i of %i" % ( page + 1, pages ) ), 0x834 )
 
-	page = 0
-	serialcount = 0
-	while page <= maxpages:
-		page += 1
-		gump.startPage( page )
-		gump.addText( 280, 320, unicode( "Page %i of %i" % ( page, maxpages ) ), 0x834 )
-		if page < maxpages:
-			gump.addPageButton( 260, 320, 0x0FA, 0x0FA, page + 1 )
-		if page > 1:
-			gump.addPageButton( 240, 320, 0x0FC, 0x0FC, page - 1 )
-		upby = 22
-		skip = (page - 1) * 10
-		skipped = 0
-		for serial in wholist:
-			# Skip the first X players
-			if skipped < skip:
-				skipped += 1
-				continue
-			
-			if not serial:
-				break
+	if page + 1 < pages:
+		gump.addButton( 260, 320, 0x0FA, 0x0FA, 1 ) # Next Page
 		
-			player = wolfpack.findchar( serial )
+	if page > 0:
+		gump.addButton( 240, 320, 0x0FC, 0x0FC, 2 ) # Previous Page
 		
-			if not player or not player.account or not player.socket:
-				continue
-
-			# Skip invisible gms with a higher rank
-			if player.invisible and player.rank > socket.player.rank:
-				continue
-
-			# serialcount + 10 for callback, we will -10 there and look at wholist.
-			gump.addButton( 20, 40 + upby, 0xFA5, 0xFA7, ( serialcount + 10 ) )
-			gump.addText( 50, 40 + upby, unicode( "%s [%s]" % ( player.name, player.account.name ) ), 0x834 )
-			gump.addText( 240, 40 + upby, unicode( "%s" % player.socket.address ), 0x834 )
-			upby += 22
-			serialcount += 1
-			if serialcount >= 10:
-				break
-
-	gump.setArgs( [ wholist ] )
-	gump.setCallback( "commands.who.callbackWho" )
-	gump.send( socket )
-	return
+	offset = 22
+	for item in wholist[:10]:
+		gump.addButton( 20, 40 + offset, 0xFA5, 0xFA7, 2 + player.serial )
+		gump.addText( 54, 40 + offset, tr("%s [%s]") % ( player.name, player.account.name ), 0x834 )
+		gump.addText( 257, 40 + offset, unicode(player.socket.address), 0x834 )
+		offset += 24
 	
+	gump.setArgs( [ page ] )
+	gump.setCallback( "commands.who.callbackWho" )
+	gump.send( player.socket )
+
+def callbackWho( char, args, choice ):
+	page = args[0]
+		
+	# Next page
+	if choice.button == 1:
+		showWhoGump(char, page + 1)
+	
+	elif choice.button == 2 and page > 0:
+		showWhoGump(char, page - 1)
+		
+	elif choice.button > 2:
+		serial = choice.button - 2
+		player = wolfpack.findchar(serial)
+		details(char, player)
+
 def details(char, player):
 	if not player.socket:
 		char.socket.sysmessage('The player is currently offline.')
@@ -149,18 +154,6 @@ def details(char, player):
 	gump.setCallback( "commands.who.callbackSocket" )
 	gump.setArgs( [ player.serial ] )
 	gump.send( char.socket )
-
-def callbackWho( char, args, choice ):
-	wholist = args[0]
-	if choice.button == 0:
-		return False
-	elif wholist[ choice.button - 10 ]:
-		player = wolfpack.findchar( wholist[ choice.button - 10 ] )
-		details(char, player)
-		return True
-	else:
-		return False
-
 
 def callbackSocket( char, args, choice ):
 	socket = char.socket
