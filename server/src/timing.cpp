@@ -443,7 +443,7 @@ void cTiming::checkNpc( P_NPC npc, unsigned int time )
 				npc->setHunger( npc->hunger() - 1 );
 			}
 
-			npc->setHungerTime( time + Config::instance()->hungerRate() * MY_CLOCKS_PER_SEC );
+			npc->setHungerTime( time + Config::instance()->hungerRate() * 60 * MY_CLOCKS_PER_SEC );
 
 			switch ( npc->hunger() )
 			{
