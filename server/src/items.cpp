@@ -2904,7 +2904,7 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "lodamage", lodamage_ )
 	else GET_PROPERTY( "hidamage", hidamage_ )
 	else GET_PROPERTY( "weight", weight_ )
-	else GET_PROPERTY( "stones", ceil( weight_ / 10 ) )
+	else GET_PROPERTY( "stones", weight_ / 10 )
 	else GET_PROPERTY( "health", hp_ )
 	else GET_PROPERTY( "maxhealth", maxhp_ )
 	else GET_PROPERTY( "spawnregion", spawnregion_ )

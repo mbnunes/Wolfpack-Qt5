@@ -90,8 +90,6 @@
 #define DBGFILE "wolfpack.cpp"
 #include "debug.h"
 
-#include "crash.h"
-
 ///////////
 // Name:	inVisRange
 // Purpose:	checks if position 1 and 2 are in visual range

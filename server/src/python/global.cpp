@@ -344,8 +344,8 @@ PyObject *wpStatics( PyObject* self, PyObject* args )
 	StaticsIterator iter = Map->staticsIterator( Coord_cl( getArgInt( 0 ), getArgInt( 1 ), 0, getArgInt( 2 ) ), exact );
 	
 	PyObject *list = PyList_New( 0 );
-	UINT32 xBlock = floor( getArgInt( 0 ) / 8 );
-	UINT32 yBlock = floor( getArgInt( 1 ) / 8 );
+	UINT32 xBlock = getArgInt( 0 ) / 8;
+	UINT32 yBlock = getArgInt( 1 ) / 8;
 
 	while( !iter.atEnd() )
 	{
@@ -385,8 +385,8 @@ PyObject *wpItems( PyObject* self, PyObject* args )
 	RegionIterator4Items iter( pos );
 
 	PyObject *list = PyList_New( 0 );
-	UINT32 xBlock = floor( getArgInt( 0 ) / 8 );
-	UINT32 yBlock = floor( getArgInt( 1 ) / 8 );
+	UINT32 xBlock = getArgInt( 0 ) / 8;
+	UINT32 yBlock = getArgInt( 1 ) / 8;
 
 	for( iter.Begin(); !iter.atEnd(); iter++ )
 	{
