@@ -389,19 +389,13 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 	if(cserial==INVALID_SERIAL) return;
 	P_CHAR pc_k = FindCharBySerial( cserial );
 	
-	if( pc_k->dead )  //Exploit fix: Dead ppl can't equip anything.
-		return;
+	if( pc_k->dead )  return; //Exploit fix: Dead ppl can't equip anything.
 	
 	P_ITEM pi=FindItemBySerPtr(buffer[s]+1);
-	if (!pi) return;
+	if (pi == NULL) return;
 	pi->flags.isBeeingDragged=false;
 
-//	if (clientDimension[s]==3)
-//	{
 	Map->SeekTile(pi->id(), &tile);
-		
-	// sprintf(temp, "Tiledata: name: %s flag1: %i flag2: %i flag3: %i flag4: %i layer: %i\n", tile.name, tile.flag1, tile.flag2, tile.flag3, tile.flag4, tile.layer);
-	// clConsole.send(temp);
 		
 	if (tile.layer==0)
 	{
@@ -415,7 +409,6 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 		}
 		return;
 	}
-//	}
 
 	if (pi->id1>=0x40) return; // LB, client crashfix if multi-objects are moved to PD
 
@@ -450,7 +443,6 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 				return;
 			}
 
-//			if (clientDimension[s]==2) Map->SeekTile(pi->id(), &tile);
 			if ((((pi->isGMMovable())||((tile.weight==255)&&(!pi->isAllMovable())))&&((pc_currchar->priv2&1)==0)) ||
 				( (pi->isOwnerMovable()|| pi->isLockedDown()) && !pc_currchar->Owns(pi)))
 			{
@@ -467,21 +459,27 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 		for (ci = 0; ci < vecContainer.size(); ci++)
 		{
 			P_ITEM pi2 = FindItemBySerial(vecContainer[ci]);
-			if (pi2 != NULL && pi2->contserial == serial)
+			if (pi2 == NULL) return;
+			if (pi2->contserial == serial)
 			{
-				if (pi2->itmhand==1 && pi->itmhand==1)
+				if (pi2->layer == tile.layer)
+				{
+ 					sysmessage(s, "You already have an armor equipped!");
+					letsbounce = 1;
+				}
+				else if (pi2->itmhand==1 && pi->itmhand==1)
 				{
 					sysmessage(s,"You already have a weapon equipped!");
-					letsbounce=1;
-				}
-				else if (pi2->itmhand==2 && pi->itmhand==1)
-				{
-					sysmessage(s,"Your hands are both occupied!");
 					letsbounce=1;
 				}
 				else if (pi2->itmhand==1 && pi->itmhand==2)
 				{
 					sysmessage(s,"You cannot equip a two handed weapon with a weapon equipped!");
+					letsbounce=1;
+				}
+				else if (pi2->itmhand==2 && pi->itmhand==1)
+				{
+					sysmessage(s,"Your hands are both occupied!");
 					letsbounce=1;
 				}
 				else if (pi2->itmhand==2 && pi->itmhand==2)
@@ -498,11 +496,6 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 				{
 					sysmessage(s,"You cannot equip a two handed weapon with a shield equipped!");
 					letsbounce=1;
-				}
-				else if (pi2->layer == tile.layer)
-				{
- 					sysmessage(s, "You already have an armor equipped!");
-					letsbounce = 1;
 				}
 			}
 			if(letsbounce)//Let's bounce the item
