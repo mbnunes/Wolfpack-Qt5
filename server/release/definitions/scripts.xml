@@ -95,7 +95,9 @@
 	<script>commands.go</script>
 	<script>commands.import</script>
 	<script>commands.info</script>
+	<script>commands.invis</script>
 	<script>commands.invul</script>
+	<script>commands.kill</script>
 	<script>commands.password</script>
 	<script>commands.restore</script>
 	<script>commands.resurrect</script>
