@@ -1001,7 +1001,7 @@ static PyObject* wpSocket_getAttr( wpSocket* self, char* name )
 	*/
 	else if ( !strcmp( name, "id" ) )
 	{
-		return PyInt_FromLong( self->pSock->socket()->socket() );
+		return PyInt_FromLong( self->pSock->uniqueId() );
 	}
 	else
 	{
