@@ -7,7 +7,6 @@
 PROJECT = Wolfpack Emu
 
 INCLUDEPATH = ./ZThread/include
-win32:DEPENDPATH = ZThread
 win32:OBJECTS_DIR = obj
 win32-msvc:DEFINES  = WIN32 NDEBUG _CONSOLE _MBCS
 win32-g++:DEFINES = WIN32
