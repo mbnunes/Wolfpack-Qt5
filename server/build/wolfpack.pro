@@ -114,6 +114,7 @@ HEADERS         = \
 		  Timing.h \
 		  TmpEff.h \
 		  Trade.h \
+		  ai/ai.h \
 		  accounts.h \
 		  basics.h \
 		  basechar.h \
@@ -172,10 +173,10 @@ HEADERS         = \
 		  
 SOURCES         = \
 		accounts.cpp \
-		ai.cpp \
-		ai_animals.cpp \
-		ai_humans.cpp \
-		ai_monsters.cpp \
+		ai/ai.cpp \
+		ai/ai_animals.cpp \
+		ai/ai_humans.cpp \
+		ai/ai_monsters.cpp \
 		basechar.cpp \
 		basedef.cpp \
 		basics.cpp \
