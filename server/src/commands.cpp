@@ -989,6 +989,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		MakeMenus::instance()->reload();
 		ScriptManager->reload(); // Reload Scripts
 		NewMagic->load();
+		Skills->reload();
 		ContextMenus::instance()->reload();
 
 		// Update the Regions

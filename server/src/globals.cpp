@@ -58,15 +58,6 @@ unsigned short int doorbase[DOORTYPES]={
 0x0675, 0x0685, 0x0695, 0x06A5, 0x06B5, 0x06C5, 0x06D5, 0x06E5, 0x0839, 0x084C, 
 0x0866, 0x00E8, 0x0314, 0x0324, 0x0334, 0x0344, 0x0354};
 
-char skillname[SKILLS+1][20]={
-"ALCHEMY", "ANATOMY", "ANIMALLORE", "ITEMID", "ARMSLORE", "PARRYING", "BEGGING", "BLACKSMITHING", "BOWCRAFT",
-"PEACEMAKING", "CAMPING", "CARPENTRY", "CARTOGRAPHY", "COOKING", "DETECTINGHIDDEN", "ENTICEMENT", "EVALUATINGINTEL",
-"HEALING", "FISHING", "FORENSICS", "HERDING", "HIDING", "PROVOCATION", "INSCRIPTION", "LOCKPICKING", "MAGERY",
-"MAGICRESISTANCE", "TACTICS", "SNOOPING", "MUSICIANSHIP", "POISONING", "ARCHERY", "SPIRITSPEAK", "STEALING",
-"TAILORING", "TAMING", "TASTEID", "TINKERING", "TRACKING", "VETERINARY", "SWORDSMANSHIP", "MACEFIGHTING", "FENCING",
-"WRESTLING", "LUMBERJACKING", "MINING", "MEDITATION", "STEALTH", "REMOVETRAPS", "ALLSKILLS", "STR", "DEX", "INT", "FAME", "KARMA"
-};
-
 char spellname[71][25]={
         "Clumsy","Create Food","Feeblemind","Heal","Magic Arrow","Night Sight","Reactive Armor","Weaken",
         "Agility","Cunning","Cure","Harm","Magic Trap","Magic Untrap","Protection","Strength",
@@ -194,12 +185,7 @@ list<SERIAL> guilds;
 ///////////////////////////////////////////
 ///   and the rest                        /
 ///////////////////////////////////////////
-
- skill_st skill[SKILLS+1];
  std::multimap <int, tele_locations_st> tele_locations; // can't use a map here, so using a multimap with x as the key :(
- title_st title[ALLSKILLS+1];
-
- advance_st wpadvance[1000];
  int validEscortRegion[256];
  creat_st creatures[2048];
 

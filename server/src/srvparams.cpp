@@ -157,6 +157,7 @@ void cSrvParams::readData()
 	checkTammedTime_		= getDouble("Game Speed", "Tamed Check Time", 1.0, true);
     
 	// General Group
+	showSkillTitles_		= getBool("General", true, true );
 	skillcap_				= getNumber("General",	"SkillCap",			700, true);
 	statcap_				= getNumber("General",	"StatsCap",			300, true);
 	commandPrefix_			= getString("General",	"Command Prefix",	"'", true);

@@ -171,7 +171,7 @@ extern long int oldtime, newtime;
 #define CARTOGRAPHY 12
 #define COOKING 13
 #define DETECTINGHIDDEN 14
-#define ENTICEMENT 15
+#define DISCORDANCE 15
 #define EVALUATINGINTEL 16
 #define HEALING 17
 #define FISHING 18
@@ -205,20 +205,13 @@ extern long int oldtime, newtime;
 
 #define MEDITATION 46
 #define STEALTH 47
-#define REMOVETRAPS 48  // lb, have to be extacly the numbers the client sends !!
+#define REMOVETRAPS 48
 
+#define NECROMANCY 49
+#define FOCUS 50
+#define CHIVALRY 51
 
-#define ALLSKILLS 49 // #skills+1
-
-#define STR 50 // #skills+2
-#define DEX 51 // #skills+3
-#define INTELIGENCE 52 // #skills+4
-#define FAME 53 // #skills+5
-#define KARMA 54 // #skills+6
-
-#define SKILLS 55 //#skills+7
-
-#define TRUESKILLS 49 //#skills+1
+#define ALLSKILLS 52 // # skills + 1
 
 #define DOORTYPES 17
 #define WEIGHT_PER_STR 4

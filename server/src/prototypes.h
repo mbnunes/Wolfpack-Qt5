@@ -58,7 +58,6 @@ void Fame(P_CHAR pc_toChange, int nFame);
 
 int check_house_decay();
 int ishuman(P_CHAR pc);
-void SkillVars();
 void StartClasses();
 void SetGlobalVars();
 void InitMultis();
@@ -73,9 +72,6 @@ void goldsfx( cUOSocket *socket, UINT16 amount, bool hearall );
 
 int getamount(P_CHAR pc, short id);
 void delequan(P_CHAR pc, short id, int amount, int *not_deleted = NULL);
-QString title1(P_CHAR pc);
-QString title2(P_CHAR pc);
-QString title3(P_CHAR pc);
 void dooruse( cUOSocket*, P_ITEM );
 void playmonstersound(P_CHAR monster, unsigned short id, int sfx);
 void sellaction(int s);
@@ -93,8 +89,6 @@ bool online(P_CHAR pc);
 
 int DeleBankItem( P_CHAR pc, unsigned short itemid, unsigned short color, int amt );
 void getSextantCords(signed int x, signed int y, bool t2a, char *sextant);
-int bestskill(P_CHAR pc);
-void loadskills();
 void bgsound(P_CHAR pc);
 int hexnumber(int countx);
 int makenumber(int countx);

@@ -463,219 +463,6 @@ void cSkills::PotionToBottle(P_CHAR pc, P_ITEM pi_mortar)
 	return;
 }
 
-char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
-{
-	int i=0, retval, incval,a,d=0;
-	unsigned int ges = 0;
-	unsigned char lockstate;
-
-	int atrophy_candidates[ALLSKILLS+1];
-
-	if (pc == NULL)
-		return 0;
-
-
-	lockstate=pc->lockSkill(sk);
-	if (pc->isGM()) lockstate=0;
-	// for gms no skill cap exists, also ALL skill will be interperted as up, no matter how they are set
-
-	if (lockstate==2 || lockstate==1) return 0;// skill is locked -> forget it
-
-	// also NOthing happens if you train a skill marked for atrophy !!!
-	// skills only fall if others raise, ( osi quote ), so my interpretion
-	// is that those marked as falling cant fall if you use them directly
-	// exception: if you are gm its ignored! 
-	
-	int c=0;
-
-	for (int b=0;b<(ALLSKILLS+1);b++) 
-	{
-		if (pc->lockSkill(b)==1 && pc->baseSkill(b)!=0) // only count atrophy candidtes if they are above 0 !!!
-		{
-			atrophy_candidates[c]=b;
-			c++;
-		}
-	}
-
-	if (!pc->isGM())
-	{
-		for (a=0;a<ALLSKILLS;a++)
-		{
-			ges+=pc->baseSkill(a);
-		}
-		ges=ges/10;
-
-		if( ges > SrvParams->skillcap() && c == 0 ) // skill capped and no skill is marked as fall down.
-			return 0;
-	} 
-	else 
-		ges=0;
-	
-	unsigned long loopexit=0;
-	while ( (wpadvance[1+i+skill[sk].advance_index].skill==sk && 
-		wpadvance[1+i+skill[sk].advance_index].base<=pc->baseSkill(sk)) && (++loopexit < MAXLOOPS) )
-	{
-		i++;
-	}
-
-	if(skillused)
-		incval=(wpadvance[i+skill[sk].advance_index].success)*10;
-	else
-		incval=(wpadvance[i+skill[sk].advance_index].failure)*10;
-
-	retval=0;
-	if (incval>rand()%SrvParams->skillAdvanceModifier())
-	{
-		retval=1;
-		pc->setBaseSkill(sk, pc->baseSkill(sk)+1);			
-	}
-
-	if (retval)
-	{
-		// no atrophy for gm's !! 
-		if (ges > SrvParams->skillcap()) // atrophy only if cap is reached !!!
-		// if we are above the skill cap -> we have to let the atrophy candidates fall
-		// important: we have to let 2 skills fall, or we'll never go down to cap
-		// (especially if we are far above the cap from previous verisons)
-		{
-			int dsk = 0;	// the skill to be decreased
-			if (c==1) 
-			{
-				dsk = atrophy_candidates[0];
-				if (pc->baseSkill(dsk)>=2) d=2; else d=1; // avoid value below 0 (=65535 cause unsigned)
-				{ 
-					if (d==1 && pc->baseSkill(dsk)==0) d=0; // should never happen ...
-						pc->setBaseSkill(dsk, pc->baseSkill(dsk)-d);
-					Skills->updateSkillLevel(pc, dsk); 		// we HAVE to correct the skill-value
-					if ( pc->socket() )
-						pc->socket()->sendSkill( dsk );
-				}
-			// this is very important cauz this is ONLY done for the calling skill value automatically .
-			} 
-			else
-			{
-				if (c!=0) d=rand()%c; else d=0;
-				dsk = atrophy_candidates[d];
-				if (pc->baseSkill(dsk)>=1) 
-				{
-					pc->setBaseSkill(dsk, pc->baseSkill(dsk)-1);
-					Skills->updateSkillLevel(pc, dsk); 	
-					if ( pc->socket() ) 
-						pc->socket()->sendSkill( dsk ); 				
-				}
-
-				if (c!=0) d=rand()%c; else d=0;
-				dsk = atrophy_candidates[d];
-				if (pc->baseSkill(dsk)>=1) 
-				{
-					pc->setBaseSkill(dsk, pc->baseSkill(dsk)-1);
-					Skills->updateSkillLevel(pc, dsk); 	
-					if ( pc->socket() ) 
-						pc->socket()->sendSkill( dsk ); 				
-				}
-			}
-		}
-		Skills->AdvanceStats(pc, sk);
-	}
-	return retval;
-}
-
-//////////////////////////////
-// name:	AdvanceOneStat
-// history:	by Duke, 21 March 2000
-// Purpose: little helper functions for cSkills::AdvanceStats
-//			finds the appropriate line for the used skill in advance table
-//			and uses the value of that skill (!) to increase the stat
-//			and cuts it down to 100 if necessary
-//
-static int calcStatIncrement(int sk, int i, int stat)
-{
-	unsigned long loopexit=0;
-	while ((wpadvance[i+1].skill==sk &&		// if NEXT line is for same skill
-			wpadvance[i+1].base <= stat*10) && (++loopexit < MAXLOOPS) )	// and is not higher than our stat
-	{
-		i++;								// then proceed to it !
-	}
-	return wpadvance[i].success;			// gather small increases
-}
-
-static int AdvanceOneStat(int sk, int i, signed short *stat, signed short *stat2, bool *update, bool aGM)
-{
-	*stat2 += calcStatIncrement(sk,i,*stat);// gather small increases
-	if (*stat2>1000)						// until they reach 1000
-	{
-		*stat2 -= 1000;						// then change it
-		*stat += 1;							// into one stat point
-		*update=true;
-	}
-	if(*stat>100 && !aGM)					// cutting, but not for GMs
-	{
-		*stat=100;
-		*update=true;
-	}
-	return *update;
-}
-
-///////////////////////////////
-// name:	AdvanceStats
-// history: revamped by Duke, 21 March 2000
-// Purpose: Advance STR, DEX and INT after use of a skill
-//			checks if STR+DEX+INT are higher than statcap from server.scp
-//			gives all three stats the chance (from skills.scp & server.scp) to rise
-//			and reduces the two other stats if necessary
-//
-void cSkills::AdvanceStats( P_CHAR pChar, UINT16 skillId )
-{
-	bool update = false;
-	bool atCap = false;
-	signed short temp1,temp2;
-	if ( !pChar ) 
-		return;
-	
-	INT32 i = skill[skillId].advance_index;
-	INT32 mod = SrvParams->statsAdvanceModifier();
-	
-	// Strength advancement
-	
-	if( skill[skillId].st > rand() % mod )
-		if( AdvanceOneStat( skillId, i, &( temp1 = pChar->st()), &( temp2 = pChar->st2()), &update, pChar->isGM() ) && atCap && !pChar->isGM() )
-			if( rand() % 2 ) 
-				pChar->chgRealDex(-1); 
-			else 
-//				pChar->in-=1;
-				pChar->setIn(pChar->in() - 1);
-	
-	if( skill[skillId].dx > rand() % mod )
-		if( pChar->incDecDex( calcStatIncrement( skillId, i, pChar->realDex() ) ) )
-		{
-			update = true;
-			if( atCap )
-				if( rand() % 2 )
-					pChar->setSt( ( pChar->st() ) - 1 );
-				else 
-//					pChar->in -= 1;
-					pChar->setIn(pChar->in() - 1);
-		}
-	
-	if( skill[skillId].in > rand() % mod )
-		if( AdvanceOneStat( skillId, i, &( temp1 = pChar->in() ), &(temp2 = pChar->in2()), &update, pChar->isGM() ) && atCap && !pChar->isGM() )
-			if( rand()%2 ) 
-				pChar->chgRealDex(-1); 
-			else 
-				pChar->setSt( ( pChar->st() ) - 1 );
-	
-	cUOSocket *socket = pChar->socket();
-	if( update && socket )
-	{
-		socket->sendStatWindow();
-		for( i = 0; i < ALLSKILLS; ++i )
-			updateSkillLevel(pChar, i); // When advancing stats we dont update the client (?)
-
-		if( atCap && !pChar->isGM() )
-			socket->sysMessage( tr( "You have reached the stat-cap of %1!" ).arg( SrvParams->statcap() ) );
-	}
-}
-
 void cSkills::SpiritSpeak(int s) // spirit speak time, on a base of 30 seconds + skill[SPIRITSPEAK]/50 + INT
 {
 	//	Unsure if spirit speaking should they attempt again?
@@ -776,7 +563,7 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 		message = tr("Whom do you wish to incite?");
 		targetRequest = new cSkProvocation;
 		break;
-	case ENTICEMENT:
+	case DISCORDANCE:
 		message = tr("Whom do you wish to entice?");
 		//target(s, 0, 1, 0, 81, );
 		break;
@@ -1151,15 +938,15 @@ void TellScroll( char *menu_name, int s, long snum )
 }
 
 // Calculate the skill of this character based on the characters baseskill and stats
-void cSkills::updateSkillLevel(P_CHAR pc, int s)
+void cSkills::updateSkillLevel( P_CHAR pc, UINT16 skill ) const
 {
-	int temp = (((skill[s].st * pc->st()) / 100 +
+/*	int temp = (((skill[s].st * pc->st()) / 100 +
 		(skill[s].dx * pc->effDex()) / 100 +
 		(skill[s].in * pc->in()) / 100)
 		*(1000-pc->baseSkill(s)))/1000+pc->baseSkill(s);
 	
 		
-	pc->setSkill( s, QMAX( static_cast<unsigned int>(pc->baseSkill(s)), static_cast<unsigned int>(temp) ) );
+	pc->setSkill( s, QMAX( static_cast<unsigned int>(pc->baseSkill(s)), static_cast<unsigned int>(temp) ) );*/
 }
 
 void cSkills::Meditation( cUOSocket *socket )
@@ -1256,114 +1043,6 @@ void cSkills::Persecute ( cUOSocket* socket )
 	{
 		socket->sysMessage( tr( "You are unable to persecute him now...rest a little..." ) );
 	}
-}
-
-void loadskills()
-{
-	QStringList skills = DefManager->getSections( WPDT_SKILL );
-	UINT16 l = 0;
-
-	for( UINT32 i = 0; i < skills.count(); ++i )
-	{
-		bool ok = false;
-		UINT16 skillId = skills[i].toInt( &ok );
-
-		if( !ok || skillId > SKILLS ) 
-			continue;
-
-        const QDomElement *skillNode = DefManager->getSection( WPDT_SKILL, skills[i] );
-		if( skillNode->isNull() )
-			skillNode = DefManager->getSection( WPDT_SKILL, QString( skillname[i] ).lower() );
-		if( skillNode->isNull() )
-			continue;
-
-		QDomNode childNode = skillNode->firstChild();
-		
-		skill[skillId].advance_index = l;
-		
-		while( !childNode.isNull() )
-		{
-			QDomElement node = childNode.toElement();
-			if( !node.isNull() )
-			{
-				if( node.nodeName() == "str" )
-					skill[skillId].st = node.text().toInt();
-				
-				else if( node.nodeName() == "dex" )
-					skill[skillId].dx = node.text().toInt();
-
-				else if( node.nodeName() == "int" )
-					skill[skillId].in = node.text().toInt();
-
-				else if( node.nodeName() == "makeword" )
-					skill[skillId].madeword = node.text();
-
-				else if( node.nodeName() == "advancement" )
-				{
-					wpadvance[l].base = node.attribute( "base", "0" ).toInt();
-					wpadvance[l].failure = node.attribute( "failure", "0" ).toInt();
-					wpadvance[l].success = node.attribute( "success", "0" ).toInt();
-					wpadvance[l].skill = skillId;
-					l++;
-				}
-			}
-
-			childNode = childNode.nextSibling();
-		}
-	}
-}
-
-void SkillVars()
-{
-/*	strcpy(skill[ALCHEMY].madeword,"mixed");
-	strcpy(skill[ANATOMY].madeword,"made");
-	strcpy(skill[ANIMALLORE].madeword,"made");
-	strcpy(skill[ITEMID].madeword,"made");
-	strcpy(skill[ARMSLORE].madeword,"made");
-	strcpy(skill[PARRYING].madeword,"made");
-	strcpy(skill[BEGGING].madeword,"made");
-	strcpy(skill[BLACKSMITHING].madeword,"forged");
-	strcpy(skill[BOWCRAFT].madeword,"bowcrafted");
-	strcpy(skill[PEACEMAKING].madeword,"made");
-	strcpy(skill[CAMPING].madeword,"made");
-	strcpy(skill[CARPENTRY].madeword,"made");
-	strcpy(skill[CARTOGRAPHY].madeword,"wrote");
-	strcpy(skill[COOKING].madeword,"cooked");
-	strcpy(skill[DETECTINGHIDDEN].madeword,"made");
-	strcpy(skill[ENTICEMENT].madeword,"made");
-	strcpy(skill[EVALUATINGINTEL].madeword,"made");
-	strcpy(skill[HEALING].madeword,"made");
-	strcpy(skill[FISHING].madeword,"made");
-	strcpy(skill[FORENSICS].madeword,"made");
-	strcpy(skill[HERDING].madeword,"made");
-	strcpy(skill[HIDING].madeword,"made");
-	strcpy(skill[PROVOCATION].madeword,"made");
-	strcpy(skill[INSCRIPTION].madeword,"wrote");
-	strcpy(skill[LOCKPICKING].madeword,"made");
-	strcpy(skill[MAGERY].madeword,"envoked");
-	strcpy(skill[MAGICRESISTANCE].madeword,"made");
-	strcpy(skill[TACTICS].madeword,"made");
-	strcpy(skill[SNOOPING].madeword,"made");
-	strcpy(skill[MUSICIANSHIP].madeword,"made");
-	strcpy(skill[POISONING].madeword,"made");
-	strcpy(skill[ARCHERY].madeword,"made");
-	strcpy(skill[SPIRITSPEAK].madeword,"made");
-	strcpy(skill[STEALING].madeword,"made");
-	strcpy(skill[TAILORING].madeword,"sewn");
-	strcpy(skill[TAMING].madeword,"made");
-	strcpy(skill[TASTEID].madeword,"made");
-	strcpy(skill[TINKERING].madeword,"made");
-	strcpy(skill[TRACKING].madeword,"made");
-	strcpy(skill[VETERINARY].madeword,"made");
-	strcpy(skill[SWORDSMANSHIP].madeword,"made");
-	strcpy(skill[MACEFIGHTING].madeword,"made");
-	strcpy(skill[FENCING].madeword,"made");
-	strcpy(skill[WRESTLING].madeword,"made");
-	strcpy(skill[LUMBERJACKING].madeword,"made");
-	strcpy(skill[MINING].madeword,"smelted");
-	strcpy(skill[MEDITATION].madeword,"envoked");
-	strcpy(skill[STEALTH].madeword,"made");
-	strcpy(skill[REMOVETRAPS].madeword,"made");*/
 }
 
 int cSkills::GetAntiMagicalArmorDefence(P_CHAR pc)
@@ -1620,4 +1299,432 @@ void cSkills::Tinkering( cUOSocket* socket )
 	MakeMenus::instance()->callMakeMenu( socket, "CRAFTMENU_TINKERING" );
 }
 
+void cSkills::load()
+{
+	// Try to get all skills first
+	UINT32 i;
+	
+	for( i = 0; i < ALLSKILLS; ++i )
+	{
+		const QDomElement *skill = DefManager->getSection( WPDT_SKILL, QString::number( i ) );
 
+		if( !skill || skill->isNull() )
+			continue;
+
+		stSkill nSkill;
+
+		QDomElement node = skill->firstChild().toElement();
+
+		while( !node.isNull() )
+		{
+			if( node.nodeName() == "str" )
+			{
+				nSkill.strength = node.text().toInt();
+			}
+			else if( node.nodeName() == "dex" )
+			{
+				nSkill.dexterity = node.text().toInt();
+			}
+			else if( node.nodeName() == "int" )
+			{
+				nSkill.intelligence = node.text().toInt();
+			}
+			else if( node.nodeName() == "name" )
+			{
+				nSkill.name = node.text();
+			}
+			else if( node.nodeName() == "title" )
+			{
+				nSkill.title = node.text();
+			}
+			// Advancement section
+			else if( node.nodeName() == "advancement" )
+			{
+				stAdvancement advancement;
+
+				advancement.base = node.attribute( "base", "0" ).toInt();
+				advancement.failure = node.attribute( "failure", "0" ).toInt();
+				advancement.success = node.attribute( "success", "0" ).toInt();
+
+				nSkill.advancement.push_back( advancement );
+			}
+
+			QDomNode subNode = node.nextSibling();
+
+			if( subNode.isNull() || !subNode.isElement() )
+				break;
+			node = subNode.toElement();
+		}
+
+		skills.push_back( nSkill );
+	}
+
+	// Load Strength/Dexterity/Intelligence Advancement tables
+	const QDomElement *stat;
+	
+	stat = DefManager->getSection( WPDT_SKILL, "strength" );
+	
+	if( !stat || stat->isNull() )
+	{
+		clConsole.log( LOG_ERROR, "Couldn't find strength advancement table." );		
+	}
+	else
+	{
+		QDomNodeList list = stat->childNodes();
+
+		for( INT32 i = 0; i < list.count(); ++i )
+		{
+			if( list.item( i ).nodeName() == "advancement" && list.item( i ).isElement() )
+			{
+				QDomElement elem = list.item( i ).toElement();
+				
+				stAdvancement advancement;
+
+				advancement.base = elem.attribute( "base", "0" ).toInt();
+				advancement.failure = elem.attribute( "failure", "0" ).toInt();
+				advancement.success = elem.attribute( "success", "0" ).toInt();
+
+				advStrength.push_back( advancement );
+			}
+		}
+	}
+
+	stat = DefManager->getSection( WPDT_SKILL, "dexterity" );
+	
+	if( !stat || stat->isNull() )
+	{
+		clConsole.log( LOG_ERROR, "Couldn't find dexterity advancement table." );
+	}
+	else
+	{
+		QDomNodeList list = stat->childNodes();
+
+		for( INT32 i = 0; i < list.count(); ++i )
+		{
+			if( list.item( i ).nodeName() == "advancement" && list.item( i ).isElement() )
+			{
+				QDomElement elem = list.item( i ).toElement();
+				
+				stAdvancement advancement;
+
+				advancement.base = elem.attribute( "base", "0" ).toInt();
+				advancement.failure = elem.attribute( "failure", "0" ).toInt();
+				advancement.success = elem.attribute( "success", "0" ).toInt();
+
+				advDexterity.push_back( advancement );
+			}
+		}
+	}
+
+	stat = DefManager->getSection( WPDT_SKILL, "intelligence" );
+	
+	if( !stat || stat->isNull() )
+	{
+		clConsole.log( LOG_ERROR, "Couldn't find intelligence advancement table." );		
+	}
+	else
+	{
+		QDomNodeList list = stat->childNodes();
+
+		for( INT32 i = 0; i < list.count(); ++i )
+		{
+			if( list.item( i ).nodeName() == "advancement" && list.item( i ).isElement() )
+			{
+				QDomElement elem = list.item( i ).toElement();
+				
+				stAdvancement advancement;
+
+				advancement.base = elem.attribute( "base", "0" ).toInt();
+				advancement.failure = elem.attribute( "failure", "0" ).toInt();
+				advancement.success = elem.attribute( "success", "0" ).toInt();
+
+				advIntelligence.push_back( advancement );
+			}
+		}
+	}
+
+	// Load Skill Ranks
+	skillRanks = DefManager->getList( "SKILL_RANKS" );
+
+	// Fill it up to 9 Ranks
+	while( skillRanks.count() < 9 )
+		skillRanks.push_back( "" );
+}
+
+void cSkills::unload()
+{
+	skills.clear();
+}
+
+// For the Paperdoll
+QString cSkills::getSkillTitle( P_CHAR pChar ) const
+{
+	QString skillTitle( "" );
+
+	// Two ways of getting an empty title:
+	// a) Configuration says we don't want Skill Titles
+	// b) Character has a specific flag (priv & 0x10)
+	if( !pChar->showSkillTitles() || !SrvParams->showSkillTitles() || pChar->isNpc() || pChar->isGMorCounselor() )
+		return skillTitle;
+
+	// Build our Skill Title (so first of all find the highest skill)
+	UINT16 skill = pChar->bestSkill();
+	UINT16 skillValue = pChar->baseSkill( skill );
+
+	// Append the Skill Rank
+	if( skillValue  >= 1000 )		skillTitle.append( skillRanks[8] );
+	else if( skillValue >= 900 )	skillTitle.append( skillRanks[7] );
+	else if( skillValue >= 800 )	skillTitle.append( skillRanks[6] );
+	else if( skillValue >= 700 )	skillTitle.append( skillRanks[5] );
+	else if( skillValue >= 600 )	skillTitle.append( skillRanks[4] );
+	else if( skillValue >= 500 )	skillTitle.append( skillRanks[3] );
+	else if( skillValue >= 400 )	skillTitle.append( skillRanks[2] );
+	else if( skillValue >= 300 )	skillTitle.append( skillRanks[1] );
+	else							skillTitle.append( skillRanks[0] );
+
+	// Skill not found
+	if( skill >= skills.size() )
+	{
+		clConsole.log( LOG_ERROR, QString( "Skill id out of range: %u" ).arg( skill ) );
+		return skillTitle;
+	}
+
+	if( skills[skill].title.isNull() )
+		return skillTitle;
+
+	// Append the real Skill Title
+	skillTitle.append( skills[skill].title );
+
+	return skillTitle;
+}
+
+const QString &cSkills::getSkillName( UINT16 skill ) const
+{
+	if( skill >= skills.size() )
+	{
+		clConsole.log( LOG_ERROR, QString( "Skill id out of range: %u" ).arg( skill ) );
+		return QString::null;
+	}
+
+	return skills[skill].name;	
+}
+
+INT16 cSkills::findSkillByDef( const QString &defname ) const
+{
+	QString defName = defname.upper();
+
+	unsigned int i;
+	for( i = 0; i < skills.size(); ++i )
+	{
+		if( skills[i].defname == defName )
+			return i;
+	}
+	return -1;
+}
+
+const QString &cSkills::getSkillDef( UINT16 skill ) const
+{
+	if( skill >= skills.size() )
+	{
+		clConsole.log( LOG_ERROR, QString( "Skill id out of range: %u" ).arg( skill ) );
+		return QString::null;
+	}
+	
+	return skills[skill].defname;
+}
+
+bool cSkills::advanceStats( P_CHAR pChar, UINT16 skill ) const
+{
+	if( !pChar )
+		return false;
+
+	UINT16 realStr = pChar->st() - pChar->st2();
+	UINT16 realDex = pChar->realDex();
+	UINT16 realInt = pChar->in() - pChar->in2();
+
+	UINT32 statSum = realDex + realStr + realInt;
+
+	// Check if we reached the StatCap
+	if( SrvParams->statcap() && statSum >= SrvParams->statcap() )
+		return false;
+
+	// First of all determine which stat can be raised using this skill
+	// 1: Strength, 2: Dexterity: 3: Intelligence
+
+	UINT8 strChance = 0, dexChance = 0, intChance = 0;
+
+	// Strength can be risen
+	if( realStr < 120 && realStr < skills[ skill ].strength )
+		strChance = skills[ skill ].strength - realStr;
+
+	// Dexterity can be risen
+	if( realDex < 120 && realDex < skills[ skill ].dexterity )
+		dexChance = skills[ skill ].dexterity - realDex;
+
+	// Intelligence can be risen
+	if( realInt < 120 && realInt < skills[ skill ].intelligence )
+		intChance = skills[ skill ].intelligence - realInt;
+
+	// No Stat can be risen by using this skill!
+	if( intChance == 0 && dexChance == 0 && strChance == 0 )
+		return false;
+
+	// Now select the skill that will actually be risen
+	UINT16 choice = RandomNum( 1, intChance + dexChance + strChance );
+
+	bool gained = false;
+
+	// 0 - strChance, strChance - ( strChance + dexChance ), ( strChance + dexChance ) - ( strChance + dexChance + intChance )
+	if( choice <= strChance )
+	{
+		// Raise Str
+		for( INT32 i = advStrength.size() - 1; i >= 0 ; --i )
+		{
+			if( advStrength[i].base <= realStr && ( advStrength[ i ].success >= RandomNum( 0, 10000 ) ) )
+			{
+				pChar->setSt( pChar->st() + 1 );
+				gained = true;
+				break;
+			}
+		}
+	}
+	else if( choice > strChance && ( choice - strChance ) < dexChance )
+	{
+		// Raise Dex
+		for( INT32 i = advDexterity.size() - 1; i >= 0 ; --i )
+		{
+			if( advDexterity[i].base <= realDex && ( advDexterity[ i ].success >= RandomNum( 0, 10000 ) ) )
+			{
+				pChar->setDex( pChar->realDex() + 1 );
+				gained = true;
+				break;
+			}
+		}
+	}
+	else if( choice > strChance + dexChance && ( choice - ( strChance + dexChance ) ) < intChance )
+	{
+		// Raise Int
+		for( INT32 i = advIntelligence.size() - 1; i >= 0 ; --i )
+		{
+			if( advIntelligence[i].base <= realInt && ( advIntelligence[ i ].success >= RandomNum( 0, 10000 ) ) )
+			{
+				pChar->setIn( pChar->in() + 1 );
+				gained = true;
+				break;
+			}
+		}
+	}
+
+	// If we gained a certain stat let's update the clients
+	// stat values.
+	if( gained )
+	{
+		// Atrohpy for Stats needs to be implemented here
+
+		if( pChar->socket() )
+			pChar->socket()->sendStatWindow();
+	}
+
+	return gained;
+}
+
+bool cSkills::advanceSkill( P_CHAR pChar, UINT16 skill, bool success ) const
+{
+	if( !pChar )
+		return false;
+
+	// For GMs there is no LockState
+	UINT8 lockState = pChar->isGM() ? 0 : pChar->lockSkill( skill );
+
+	// NOTE:
+	// Before this change, if you used locked skills you couldn't gain
+	// in stats. This is removed now
+	if( advanceStats( pChar, skill ) )
+		return false;
+
+	// We don't gain in locked or lowered skills
+	if( lockState )
+		return false;
+
+	// We should not gain above the skill cap
+	if( SrvParams->skillcap() && pChar->getSkillSum() > SrvParams->skillcap() * 10 )
+		return false;
+
+	// Is the skill at it's single cap already ?
+	// NOTE: Later on we need to provide support for power scrolls
+	if( pChar->baseSkill( skill ) >= 1000 )
+		return false;
+
+	// If our skillsum is at the serverset skill cap we need
+	// to find a skill we can lower in order to gain
+	UINT32 skillSum = pChar->getSkillSum();
+	
+	QValueVector< UINT16 > atrophySkills;
+
+	if( SrvParams->skillcap() && skillSum >= SrvParams->skillcap() * 10 )
+	{
+		// 1: Lower Skill
+		for( UINT32 i = 0; i < ALLSKILLS; ++i )
+		{
+			if( i != skill && pChar->lockSkill( i ) == 1 && pChar->baseSkill( i ) > 0 )
+			{
+				// Found a skill we can lower
+				atrophySkills.push_back( i );
+			}
+		}
+
+		// If we didn't find any skill we could lower, return false
+		if( atrophySkills.size() == 0 )
+			return false;
+	}
+
+	stAdvancement advance;
+	bool found = false;
+
+	// Find the stAdvance for our current skillLevel
+	for( INT32 i = skills[ skill ].advancement.size() - 1; i >= 0; --i )
+	{
+		advance = skills[ skill ].advancement[ i ];
+
+		if( advance.base <= pChar->baseSkill( skill ) )
+		{
+			found = true;
+			break;
+		}
+	}
+
+	// There is not one single advancement section defined for this skill
+	if( !found )
+		return false;
+
+	UINT32 chance = success ? advance.success : advance.failure;
+	chance *= 10;
+
+	bool gained = false;
+
+	if( chance > rand() % SrvParams->skillAdvanceModifier() )
+	{
+		gained = true;
+		pChar->setBaseSkill( skill, pChar->baseSkill( skill ) + 1 );
+		pChar->setSkill( skill, pChar->skill( skill ) + 1 );
+		updateSkillLevel( pChar, skill );
+
+		if( pChar->socket() )
+			pChar->socket()->sendSkill( skill );
+	}
+
+	// Let a skill fall if we really gained
+	if( gained && atrophySkills.size() < 0 )
+	{
+		// Which skill do we want to lower
+		UINT16 skill = atrophySkills[ RandomNum( 0, atrophySkills.size() ) ];
+
+		pChar->setBaseSkill( skill, pChar->baseSkill( skill ) - 1 );
+		updateSkillLevel( pChar, skill );
+		
+		if( pChar->socket() )
+			pChar->socket()->sendSkill( skill );
+	}
+	
+	return gained;
+}

@@ -147,14 +147,6 @@ struct jail_st
 	bool occupied;
 };
 
-struct title_st // For custom titles
-{
-	QString fame;
-	QString skill;
-	QString prowess;
-	QString other;
-};
-
 struct reag_st
 {
 	int ginseng;

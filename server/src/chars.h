@@ -303,6 +303,8 @@ public:
 	void action( UINT8 id ); // Do an action
 	P_ITEM getWeapon();
 	QString fullName( void );
+	UINT16 bestSkill();
+	QString reputationTitle();
 
 	// Getters
 	short					guildType() const;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild
@@ -696,11 +698,13 @@ public:
 	bool  canSnoop()const;
 	bool  canBroadcast() const;
 	bool  canSeeSerials() const;
+	bool  showSkillTitles() const;
 	bool  isInnocent()	const;
 	bool  isMurderer()	const;
 	bool  isCriminal()	const;
 	unsigned char getPriv() const;
 	void setPriv(unsigned char p);
+	void setShowSkillTitles( bool data );
 	void showName( cUOSocket *socket );
 	void makeInvulnerable();
 	void makeVulnerable();
@@ -837,6 +841,9 @@ inline bool  cChar::isInvul() const			{return (priv&0x04 ?true:false);}
 inline bool  cChar::canSnoop() const		{return (priv&0x40 ?true:false);}
 inline bool  cChar::canBroadcast() const	{return (priv&0x02 ?true:false);}
 inline bool  cChar::canSeeSerials() const 	{return (priv&0x08 ?true:false);}
+inline bool  cChar::showSkillTitles() const { return (priv&0x10 ?true:false);}
+inline void  cChar::setShowSkillTitles( bool data ) { data ? priv |= 0x10 : priv &= 0xEF; }
+
 inline bool  cChar::isInnocent() const		{return (flag_&0x04 ?true:false);}
 inline bool  cChar::isMurderer() const		{return (flag_&0x01 ?true:false);}
 inline bool  cChar::isCriminal() const		{return (flag_&0x02 ?true:false);}
@@ -847,6 +854,7 @@ inline void cChar::makeVulnerable()			{priv &= 0xFB; changed_ = true;}
 inline void cChar::setMurderer()			{flag_ = 0x01; changed_ = true;}
 inline void cChar::setInnocent()			{flag_ = 0x04; changed_ = true;}
 inline void cChar::setCriminal()			{flag_ = 0x02; changed_ = true;}
+
 
 // Getters
 inline short			cChar::guildType() const		{ return GuildType; }

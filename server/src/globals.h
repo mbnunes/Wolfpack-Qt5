@@ -129,11 +129,9 @@ extern std::list<SERIAL> guilds;
 ///   and the rest                        /
 ///////////////////////////////////////////
 
-extern skill_st skill[SKILLS+1];
 extern unsigned short int doorbase[DOORTYPES];
-extern char skillname[SKILLS+1][20];
+
 extern  std::multimap <int, tele_locations_st> tele_locations; // can't use a map here :(
-extern title_st title[ALLSKILLS+1];
 
 extern creat_st creatures[2048]; //LB, stores the base-sound+sound flags of monsters, animals
 extern advance_st wpadvance[1000];

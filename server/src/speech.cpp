@@ -44,6 +44,7 @@
 #include "territories.h"
 #include "network/uosocket.h"
 #include "pagesystem.h"
+#include "skills.h"
 #include "msgboard.h"
 #include "house.h"
 #include "boats.h"
@@ -506,7 +507,7 @@ bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pTrainer, const QS
 	pPlayer->setTrainer( INVALID_SERIAL ); 
 
 	for( i = 0; i < ALLSKILLS; ++i )
-		if( comm.contains( skillname[i], false ) )
+		if( comm.contains( Skills->getSkillName( i ), false ) )
 		{
 			skill = i;
 			break;
@@ -520,7 +521,7 @@ bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pTrainer, const QS
 			return true;
 		}
 
-		QString skillName = skillname[ skill ];
+		QString skillName = Skills->getSkillName( skill );
 		skillName = skillName.lower();
 
 		QString message = tr( "Thou wishest to learn of %1" ).arg( skillName );
@@ -560,8 +561,8 @@ bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pTrainer, const QS
 	{
 		if( pTrainer->baseSkill( i ) >= 10 && pPlayer->baseSkill( i ) < 250 )
 		{
-			QString skillName = skillname[i];
-			skillList.push_back( skillName.lower() );
+			QString skillName = Skills->getSkillName( i );
+			skillList.push_back( skillName );
 		}
 	}
 

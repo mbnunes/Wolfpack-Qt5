@@ -68,6 +68,7 @@ protected:
 	
 	// loaded data
 	unsigned int skillcap_;
+	bool showSkillTitles_;
 	unsigned int statcap_;
 	QString commandPrefix_;
 	unsigned int skillAdvanceModifier_;
@@ -238,6 +239,7 @@ public:
 	std::vector<StartLocation_st>& startLocation();
 
 	// gets
+	bool showSkillTitles() const;
 	unsigned int skillcap() const;
 	unsigned int statcap() const;
 	QString commandPrefix() const;
@@ -1108,6 +1110,11 @@ inline QString cSrvParams::databaseUsername() const
 inline QString cSrvParams::databasePassword() const
 {
 	return databasePassword_;
+}
+
+inline bool cSrvParams::showSkillTitles() const
+{
+	return showSkillTitles_; 
 }
 
 #endif //__SRVPARAMS_H___

@@ -278,9 +278,9 @@ bool cSkItemID::responsed( cUOSocket *socket, cUORxTarget *target )
 					if (pi->creator().length()>0)
 					{
 						if (pi->madewith()>0) 
-							socket->sysMessage( tr("It is %1 by %2").arg(skill[pi->madewith()-1].madeword).arg(pi->creator()) ); // Magius(CHE)
+							socket->sysMessage( tr("It is crafted by %2").arg(pi->creator()) ); // Magius(CHE)
 						else if (pi->madewith()<0) 
-							socket->sysMessage( tr("It is %1 by %2").arg(skill[0-pi->madewith()-1].madeword).arg(pi->creator()) ); // Magius(CHE)
+							socket->sysMessage( tr("It is crafted by %2").arg(pi->creator()) ); // Magius(CHE)
 						else 
 							socket->sysMessage( tr("It is made by %1").arg(pi->creator()) ); // Magius(CHE)
 					} else 

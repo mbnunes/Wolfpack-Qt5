@@ -388,7 +388,7 @@ void cChar::Init(bool ser)
     this->jailsecs_=0;
 	
 	this->setCreationDay(getPlatformDay());
-	for (i=0;i<TRUESKILLS;i++)
+	for (i=0;i<ALLSKILLS;i++)
 	{
 		this->setBaseSkill(i, 0);
 		this->setSkill(i, 0);
@@ -518,7 +518,7 @@ void cChar::Init(bool ser)
 	this->setTime_unused(0);
 	this->questType_ = 0; //??
 	this->GuildType = 0;
-	for (i=0;i<TRUESKILLS;i++)
+	for (i=0;i<ALLSKILLS;i++)
 	{
 		this->setBaseSkill(i, 0);
 		this->setSkill(i, 0);
@@ -1120,7 +1120,7 @@ void cChar::save()
 		addCondition( "serial", serial() );
 		saveFields;
 		
-		for( UINT32 j = 0; j < TRUESKILLS; ++j )
+		for( UINT32 j = 0; j < ALLSKILLS; ++j )
 		{
 			clearFields;
 			setTable( "skills" );
@@ -1744,11 +1744,8 @@ void cChar::processNode( const QDomElement &Tag )
 			this->setBaseSkill( ( Tag.attribute( "type" ).toInt() - 1 ), Value.toInt() );
 		else
 		{
-			for( UI32 j = 0; j < ALLSKILLS; j++ )
-			{
-				if( Tag.attribute("type").contains( QString(skillname[j]), false ) )
-					this->setBaseSkill( j, Value.toInt() );
-			}
+			INT16 skillId = Skills->findSkillByDef( Tag.attribute( "type", "" ) );
+			setBaseSkill( skillId, Value.toInt() );
 		}
 	}
 
@@ -1828,22 +1825,17 @@ void cChar::processNode( const QDomElement &Tag )
 
 	else
 	{
-		bool found = false;
+		INT16 skillId = Skills->findSkillByDef( TagName );
 
-		for( UINT8 i = 0; i < ALLSKILLS; ++i )
+		if( skillId == -1 )
 		{
-			// It's a skillname
-			if( TagName.upper() == skillname[i] )
-			{
-				setBaseSkill( i, Value.toInt() );
-				Skills->updateSkillLevel( this, i );
-				found = true;
-				break;
-			}
-		}
-
-		if( !found )
 			cUObject::processNode( Tag );
+		}
+		else
+		{
+			setBaseSkill( skillId, Value.toInt() );
+			Skills->updateSkillLevel( this, skillId );
+		}
 	}		
 }
 
@@ -2170,43 +2162,169 @@ void cChar::resend( bool clean, bool excludeself )
 	}
 }
 
+UINT16 cChar::bestSkill()
+{
+	UINT16 skill = 0;
+	UINT16 skillVal = 0;
+	bool skillUp = false;
+
+	for( UINT32 i = 0; i < ALLSKILLS; ++i )
+	{
+		// Non Locked Skills have Priority
+		if( baseSkill_[ i ] > skillVal || ( baseSkill_[ i ] == skillVal && !lockSkill_[i] && !skillUp ) )
+		{
+			skill = i;
+			skillVal = baseSkill_[ i ];
+			skillUp = ( lockSkill_[ i ] == 0 );
+		}
+	}
+
+	return skill;
+}
+
+QString cChar::reputationTitle()
+{
+	// !!! THIS IS A SLOW IMPLEMENTATION !!!
+	// Need to cache titles somewhere
+	
+	// Get our Reputation Titles
+	QStringList titles = DefManager->getList( "REPUTATION_TITLES" );
+
+	// Calculate the Row and Col of our Title
+	UINT8 col;
+
+	// FAME Column
+	if( fame_ >= 5000 )
+		col = 4;
+	else if( fame_ >= 5000 )
+		col = 3;
+	else if( fame_ >= 2500 )
+		col = 2;
+	else if( fame_ >= 1250 )
+		col = 1;
+	else
+		col = 0;
+
+	UINT8 row;
+
+	// Positive Karma
+	if( karma_ >= 10000 )
+		row = 0;
+	else if( karma_ >= 5000 )
+		row = 1;
+	else if( karma_ >= 2500 )
+		row = 2;
+	else if( karma_ >= 1250 )
+		row = 4;
+	else if( karma_ >= 625 )
+		row = 5;
+
+	// Neutral Karma
+	else if( karma_ >= -625 )
+		row = 6;
+
+	// Negative Karma
+	else if( karma_ >= -1249 )
+		row = 7;
+
+	else if( karma_ >= -2499 )
+		row = 8;
+
+	else if( karma_ >= -4999 )
+		row = 9;
+
+	else if( karma_ >= -9999 )
+		row = 10;
+
+	else
+		row = 11;
+	
+	// Offset = row * 5 + col
+	UINT32 offset = row * 5 + col;
+	
+	if( offset > titles.count() )
+		return QString::null;
+
+	QString fametitle;
+	
+	// Lady/Lord Title
+	if( fame_ >= 10000 )
+	{
+		if( kills_ >= (unsigned)SrvParams->maxkills() )
+		{
+			if ( id_ == 0x0191 ) 
+				fametitle = "The Murderous Lady ";
+			else
+				fametitle = "The Murderous Lord ";
+		}
+		else if( id_ == 0x0191 )
+			fametitle = QString( "The %1Lady " ).arg( titles[offset] );
+		else
+			fametitle = QString( "The %1Lord " ).arg( titles[offset] );
+	}
+	else
+	{
+		if( kills_ >= (unsigned)SrvParams->maxkills() )
+		{
+			fametitle = "The Murderer "; //Morrolan rep
+		}
+		else if( !titles[offset].isNull() && !titles[offset].isEmpty() )
+			fametitle = QString( "The %1" ).arg( titles[offset] );
+		else
+			fametitle = "";
+	}
+
+	return fametitle;
+}
+
 QString cChar::fullName( void )
 {
 	QString fName;
+
+	// Skill Title (full)
+	QString skillTitle = Skills->getSkillTitle( this );
+	QString repTitle = reputationTitle();
 
 	if( isGM() )
 		fName = QString( "%1 %2" ).arg( name() ).arg( title_ );
 
 	// Normal Criminal
 	else if( ( crimflag_ > 0 ) && !dead_ && ( kills_ < SrvParams->maxkills() ) )
-		fName = tr( "The Criminal %1, %2%3 %4" ).arg( name() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+		fName = tr( "The Criminal %1" ).arg( name() );
 
 	// The Serial Killer
 	else if( ( kills_ >= SrvParams->maxkills() ) && ( kills_ < 10 ) && !dead_ )
-		fName = tr( "The Serial Killer %1, %2%3 %4" ).arg( name() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+		fName = tr( "The Serial Killer %1" ).arg( name() );
 
 	// The Murderer
 	else if( ( kills_ >= 10 ) && ( kills_ < 20 ) && !dead_ )
-		fName = tr( "The Murderer %1, %2%3 %4" ).arg( name() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+		fName = tr( "The Murderer %1" ).arg( name() );
 
 	// The Mass Murderer
 	else if( ( kills_ >= 20 ) && ( kills_ < 50 ) && !dead_ )
-		fName = tr( "The Mass Murderer %1, %2%3 %4" ).arg( name() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+		fName = tr( "The Mass Murderer %1" ).arg( name() );
 
 	// The Evil Dread Murderer
 	else if( ( kills_ >= 50 ) && ( kills_ < 100 ) && !dead_ )
-		fName = tr( "The Evil Dread Murderer %1, %2%3 %4" ).arg( name() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+		fName = tr( "The Evil Dread Murderer %1" ).arg( name() );
 
 	// The Evil Emperor
 	else if( ( kills_ >= 100 ) && !dead_ )
-		fName = tr( "The Evil Emperor %1, %2%3 %4" ).arg( name() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+		fName = tr( "The Evil Emperor %1" ).arg( name() );
 
 	// Normal Player
-	else if( title_.isEmpty() )
-		fName = QString( "%1%2, %3 %4" ).arg( title3( this ) ).arg( name() ).arg( title1( this ) ).arg( title2( this ) );
+	else if( !repTitle.isNull() )
+		fName = QString( "%1%2" ).arg( repTitle ).arg( name() );
 
 	else
-		fName = QString( "%1%2 %4, %4 %5" ).arg( title3( this ) ).arg( name() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+		fName = name();
+
+	// Append title (skillTitle)
+	if( !title_.isEmpty() )
+		fName.append( QString( ", %1" ).arg( title_ ) );
+
+	if( !skillTitle.isNull() && !skillTitle.isEmpty() )
+		fName.append( QString( ", %1" ).arg( skillTitle ) );
 
 	return fName;
 }
@@ -3062,7 +3180,7 @@ void cChar::mount( P_CHAR pMount )
 
 void cChar::giveNewbieItems( Q_UINT8 skill ) 
 {
-	const QDomElement *startItems = DefManager->getSection( WPDT_STARTITEMS, ( skill == 0xFF ) ? QString("default") : QString( skillname[ skill ] ).lower() );
+	const QDomElement *startItems = DefManager->getSection( WPDT_STARTITEMS, ( skill == 0xFF ) ? QString("default") : Skills->getSkillDef( skill ).lower() );
 
 	// No Items defined
 	if( !startItems || startItems->isNull() )
@@ -3536,50 +3654,51 @@ UI16 cChar::calcDefense( enBodyParts bodypart, bool wearout )
 
 bool cChar::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
 {
-	bool skillused = false;
+	bool success = false;
 	
 	if( dead_ )
 	{
 		if( socket_ )
-			socket_->sysMessage( tr( "Ghosts can not train %1" ).arg( QString( skillname[ skill ] ).lower() ) );
+			socket_->clilocMessage( 0x7A12C ); // You cannot use skills while dead.
 		return false;
 	}
 
-	if( max > 1200 )
-		max = 1200;
+	// Maximum Value of 120 for checks
+	// I disabled this so you can make skillchecks for grandmasters that are still tough
+	//if( max > 1200 )
+	//    max = 1200;
 
-	// how far is the player's skill above the required minimum ?
+	// How far is the players skill above the required minimum.
 	int charrange = this->skill( skill ) - min;	
 	
 	if( charrange < 0 )
 		charrange = 0;
 
+	// To avoid division by zero
 	if( min == max )
-	{
-		LogCritical("cChar::checkSkill(..): minskill == maxskill, avoided division by zero\n");
-		return false;
-	}
-	float chance = (((float)charrange*890.0f)/(float)(max-min))+100.0f;	// +100 means: *allways* a minimum of 10% for success
+		max += 0.1;
+
+	// +100 means: *allways* a minimum of 10% for success
+	float chance = ( ( (float) charrange * 890.0f ) / (float)( max - min ) ) + 100.0f;
+	
 	if( chance > 990 ) 
-		chance=990;	// *allways* a 1% chance of failure
+		chance = 990;	// *allways* a 1% chance of failure
 	
-	if( chance >= RandomNum( 0, 1000 ) ) 
-		skillused = true;
+	if( chance >= RandomNum( 0, 1000 ) )
+		success = true;
 	
+	// We can only advance when doing things which aren't below our ability
 	if( baseSkill_[ skill ] < max )
 	{
-		// Take care. Only gain skill when not using scrolls
-		//if( sk != MAGERY || ( sk == MAGERY && pc->isPlayer() && currentSpellType[s] == 0 ) )
-		//{
-			if( advance && Skills->AdvanceSkill( this, skill, skillused ) )
-			{
-				Skills->updateSkillLevel(this, skill); 
-				if( socket_ )
-					socket_->sendSkill( skill );
-			}
-		//}
+		if( advance && Skills->advanceSkill( this, skill, success ) )
+		{
+			Skills->updateSkillLevel( this, skill ); 
+			if( socket_ )
+				socket_->sendSkill( skill );
+		}
 	}
-	return skillused;
+
+	return success;
 }
 
 void cChar::setSkillDelay() 
@@ -4119,15 +4238,15 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 	if( name.left( 10 ) == "baseskill." )
 	{
 		QString skill = name.right( name.length() - 10 );
-		for( int i = 0; i < ALLSKILLS; ++i )
+		INT16 skillId = Skills->findSkillByDef( name );
+
+		if( skillId != -1 )
 		{
-			if( skillname[i] == skill.upper() )
-			{
-				setBaseSkill( i, value.toInt() );
-				if( socket_ )
-					socket_->sendSkill( i );
-				return 0;
-			}
+			setBaseSkill( skillId, value.toInt() );
+			Skills->updateSkillLevel( this, skillId );
+			if( socket_ )
+				socket_->sendSkill( skillId );
+			return 0;
 		}
 	}
 
@@ -4135,15 +4254,14 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 	if( name.left( 6 ) == "skill." )
 	{
 		QString skill = name.right( name.length() - 6 );
-		for( int i = 0; i < ALLSKILLS; ++i )
+		INT16 skillId = Skills->findSkillByDef( name );
+
+		if( skillId != -1 )
 		{
-			if( skillname[i] == skill.upper() )
-			{
-				setSkill( i, value.toInt() );
-				if( socket_ )
-					socket_->sendSkill( i );
-				return 0;
-			}
+			setSkill( skillId, value.toInt() );
+			if( socket_ )
+				socket_->sendSkill( skillId );
+			return 0;
 		}
 	}
 	
@@ -4303,13 +4421,12 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 	if( name.left( 10 ) == "baseskill." )
 	{
 		QString skill = name.right( name.length() - 10 );
-		for( int i = 0; i < ALLSKILLS; ++i )
+		INT16 skillId = Skills->findSkillByDef( skill );
+
+		if( skillId != -1 )
 		{
-			if( skillname[i] == skill.upper() )
-			{
-				value = cVariant( baseSkill( i ) );
+				value = cVariant( baseSkill( skillId ) );
 				return 0;
-			}
 		}
 	}
 
@@ -4317,13 +4434,12 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 	if( name.left( 6 ) == "skill." )
 	{
 		QString skill = name.right( name.length() - 6 );
-		for( int i = 0; i < ALLSKILLS; ++i )
+		INT16 skillId = Skills->findSkillByDef( skill );
+
+		if( skillId != -1 )
 		{
-			if( skillname[i] == skill.upper() )
-			{
-				value = cVariant( this->skill( i ) );
-				return 0;
-			}
+			value = cVariant( this->skill( skillId ) );
+			return 0;
 		}
 	}
 

@@ -1143,7 +1143,7 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 		QPtrListIterator< cSkillCheck > sit( skillchecks );
 		while( sit.current() )
 		{
-			content += QString("%2% %1<br>").arg( skillname[ sit.current()->skillid() ] ).arg( QString::number( (double)sit.current()->minimum() / 10.0f, 'f', 1 ).lower() );
+			content += QString("%2% %1<br>").arg( Skills->getSkillName( sit.current()->skillid() ) ).arg( QString::number( (double)sit.current()->minimum() / 10.0f, 'f', 1 ).lower() );
 			++sit;
 		}
 		content = htmlmask.arg( content );
@@ -1179,9 +1179,9 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 			while( sit.current() )
 			{
 				if( pChar && sit.current()->skilledEnough( pChar ) )
-					content += QString("%2% %1<br>").arg( skillname[ sit.current()->skillid() ] ).arg( QString::number( (double)sit.current()->minimum() / 10.0f, 'f', 1 ).lower() );
+					content += QString("%2% %1<br>").arg( Skills->getSkillName( sit.current()->skillid() ) ).arg( QString::number( (double)sit.current()->minimum() / 10.0f, 'f', 1 ).lower() );
 				else
-					content += QString("<basefont color=\"#FF0000\">%2% %1<br><basefont color=\"#FFFFFF\">").arg( skillname[ sit.current()->skillid() ] ).arg( QString::number( (double)sit.current()->minimum() / 10.0f, 'f', 1 ).lower() );
+					content += QString("<basefont color=\"#FF0000\">%2% %1<br><basefont color=\"#FFFFFF\">").arg( Skills->getSkillName( sit.current()->skillid() ) ).arg( QString::number( (double)sit.current()->minimum() / 10.0f, 'f', 1 ).lower() );
 
 				++sit;
 			}

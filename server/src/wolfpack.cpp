@@ -144,6 +144,7 @@ void signal_handler(int signal)
                 ScriptManager->reload();
 				ContextMenus::instance()->reload();
 				NewMagic->load();
+				Skills->reload();
 
 				// Update the Regions
 				for( iter.Begin(); !iter.atEnd(); iter++ )
@@ -212,169 +213,6 @@ bool online(P_CHAR pc) // Is the player owning the character c online
 	if ( pc->socket() && pc->socket()->state() == cUOSocket::InGame )
 		return true;
 	return false;
-}
-
-int bestskill(P_CHAR pc_p) // Which skill is the highest for character p
-{
-	int i,a=0,b=0;
-	if ( pc_p == NULL)
-		return 0;
-	for (i=0;i<TRUESKILLS;i++)
-		if (pc_p->baseSkill(i)>b)
-		{
-			a=i;
-			b=pc_p->baseSkill(i);
-		}
-	return a;
-}
-
-QString title1(P_CHAR pc) // Paperdoll title for character p (1)
-{
-	int titlenum = 0;
-	int x = pc->baseSkill(bestskill(pc));
-
-	//if (x>=1000) titlenum=10;
-	//else if (x>=960) titlenum=9;
-	if (x>=1000) titlenum=8;
-	else if (x>=900) titlenum=7;
-	else if (x>=800) titlenum=6;
-	else if (x>=700) titlenum=5;
-	else if (x>=600) titlenum=4;
-	else if (x>=500) titlenum=3;
-	else if (x>=400) titlenum=2;
-	else if (x>=300) titlenum=1;
-    if(pc->isNpc())
-	    return QString(" ");
-    else
-		return title[titlenum].prowess;
-}
-
-QString title2(P_CHAR pc) // Paperdoll title for character p (2)
-{
-
-	int titlenum=0;
-	int x=bestskill(pc);
-	titlenum=x+1;
-    if(pc->isNpc())
-		return QString(" ");
-    else
-		return title[titlenum].skill;
-}
-
-QString title3(P_CHAR pc) // Paperdoll title for character p (3)
-{
-	char thetitle[50];
-	int titlenum=0;
-	int k;
-	unsigned int f;
-
-	k=pc->karma();
-	f=pc->fame();
-	thetitle[0] = 0;
-
-	if (k>=10000)
-	{
-		titlenum=3;
-		if (f>=5000) titlenum=0;
-		else if (f>=2500) titlenum=1;
-		else if (f>=1250) titlenum=2;
-	}
-	else if ((5000<=k)&&(k<9999))
-	{
-		titlenum=7;
-		if (f>=5000) titlenum=4;
-		else if (f>=2500) titlenum=5;
-		else if (f>=1250) titlenum=6;
-	}
-	else if ((2500<=k)&&(k<5000))
-	{
-		titlenum=11;
-		if (f>=5000) titlenum=8;
-		else if (f>=2500) titlenum=9;
-		else if (f>=1250) titlenum=10;
-	}
-	else if ((1250<=k)&&(k<2500))
-	{
-		titlenum=15;
-		if (f>=5000) titlenum=12;
-		else if (f>=2500) titlenum=13;
-		else if (f>=1250) titlenum=14;
-	}
-	else if ((625<=k)&&(k<1250))
-	{
-		titlenum=19;
-		if (f>=5000) titlenum=16;
-		else if (f>=1000) titlenum=17;
-		else if (f>=500) titlenum=18;
-	}
-	else if ((-635<k)&&(k<625))
-	{
-		titlenum=23;
-		if (f>=5000) titlenum=20;
-		else if (f>=2500) titlenum=21;
-		else if (f>=1250) titlenum=22;
-	}
-	else if ((-1250<k)&&(k<=-625))
-	{
-		titlenum=24;
-		if (f>=10000) titlenum=28;
-		else if (f>=5000) titlenum=27;
-		else if (f>=2500) titlenum=26;
-		else if (f>=1250) titlenum=25;
-	}
-	else if ((-2500<k)&&(k<=-1250))
-	{
-		titlenum=29;
-		if (f>=5000) titlenum=32;
-		else if (f>=2500) titlenum=31;
-		else if (f>=1250) titlenum=30;
-	}
-	else if ((-5000<k)&&(k<=-2500))
-	{
-		titlenum=33;
-		if (f>=10000) titlenum=37;
-		else if (f>=5000) titlenum=36;
-		else if (f>=2500) titlenum=35;
-		else if (f>=1250) titlenum=34;
-	}
-	else if ((-10000<k)&&(k<=-5000))
-	{
-		titlenum=38;
-		if (f>=5000) titlenum=41;
-		else if (f>=2500) titlenum=40;
-		else if (f>=1250) titlenum=39;
-	}
-	else if (k<=-10000)
-	{
-		titlenum=42;
-		if (f>=5000) titlenum=45;
-		else if (f>=2500) titlenum=44;
-		else if (f>=1250) titlenum=43;
-	}
-	sprintf(thetitle,"%s ",title[titlenum].fame.latin1());
-	if (titlenum==24) thetitle [0] = 0;
-
-	QString fametitle;
-	if (f>=10000) // Morollans bugfix for repsys
-	{
-		if (pc->kills() >= (unsigned)SrvParams->maxkills())
-		{
-			if (pc->id()==0x0191) fametitle = "The Murderous Lady ";//Morrolan rep
-			else fametitle = "The Murderer Lord ";
-		}
-		else if (pc->id()==0x0191) fametitle = QString("The %1Lady ").arg(thetitle);
-		else fametitle = QString("The %1Lord ").arg(thetitle);
-	}
-	else
-	{
-		if (pc->kills() >= (unsigned)SrvParams->maxkills())
-		{
-			fametitle = "The Murderer "; //Morrolan rep
-		}
-		else if (!(strcmp(thetitle," ")==0)) fametitle = QString("The %1").arg(thetitle);
-		else fametitle = "";
-	}
-	return fametitle;
 }
 
 static void item_char_test()
@@ -1003,6 +841,7 @@ void interpretCommand( const QString &command )
 				ScriptManager->reload(); // Reload Scripts
 				ContextMenus::instance()->reload();
 				NewMagic->load();
+				Skills->reload();
 
 				// Update the Regions
 				for( iter.Begin(); !iter.atEnd(); iter++ )
@@ -1196,12 +1035,8 @@ int main( int argc, char *argv[] )
 	i=0;
 
 	SetGlobalVars();
-	SkillVars();	// Set Creator Variables
 
-	clConsole.PrepareProgress( tr("Loading skills") );
-	loadskills();
-	clConsole.ProgressDone();
-
+	Skills->load();
 	Accounts::instance()->load();
 
 	keeprun = 1;
@@ -1233,9 +1068,6 @@ int main( int argc, char *argv[] )
 	if (keeprun==0) { DeleteClasses(); exit(-1); }
 		
 	srand(uiCurrentTime); // initial randomization call
-
-//	read_in_teleport();
-	CIAO_IF_ERROR;
 
 	serverstarttime = getNormalizedTime();
 
@@ -1269,16 +1101,12 @@ int main( int argc, char *argv[] )
 	}
 	catch( QString error )
 	{
-		clConsole.ChangeColor( WPC_RED );
-		clConsole.send( "\nERROR" );
-		clConsole.ChangeColor( WPC_NORMAL );
-		clConsole.send( ": " + error + "\n" );
-		clConsole.send( "Press any key to continue..." );
+		clConsole.log( LOG_FATAL, error );
 		DeleteClasses();
 		exit(-1);
 	}
 
-	clConsole.PrepareProgress( tr("Postprocessing") );
+	clConsole.PrepareProgress( "Postprocessing" );
 
 	// this loop is for things that have to be done after *all* items and chars have been loaded (Duke)
 	P_ITEM pi;	
@@ -1403,7 +1231,7 @@ int main( int argc, char *argv[] )
 			}
 
 			// Set Skills (non-real)
-			for( UINT8 i = 0; i < TRUESKILLS; ++i )
+			for( UINT8 i = 0; i < ALLSKILLS; ++i )
 				Skills->updateSkillLevel( pChar, i );
 
 			if( isItemSerial( pChar->multis() ) )

@@ -1897,7 +1897,7 @@ void cItem::showName( cUOSocket *socket )
 
 	// Add creator's mark (if any)
 	if( !creator_.isEmpty() && madewith() )
-		itemname.append( tr( " %1 by %2" ).arg( skill[ madewith() - 1 ].madeword ).arg( creator_ ) );
+		itemname.append( tr( " crafted by %2" ).arg( creator_ ) );
 
 	// Amount information
 	if( amount_ > 1 )

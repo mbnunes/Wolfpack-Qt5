@@ -37,10 +37,25 @@
 #include "typedefs.h"
 #include "wptargetrequests.h"
 
+// Library Includes
+#include <qmap.h>
+
 // Forward Declaration
 class cUOSocket;
 
+struct stAdvancement
+{
+	UINT16 base;
+	UINT16 success;
+	UINT16 failure;
+};
 
+struct stSkill
+{
+	UINT16 strength, dexterity, intelligence;
+	QString name, defname, title;
+	QValueVector< stAdvancement > advancement;
+};
 
 class cSkills
 {
@@ -61,7 +76,28 @@ private:
 	void Hide( cUOSocket* );
 	void Stealth( cUOSocket* );
 	void PeaceMaking( cUOSocket* );
+
+	QStringList skillRanks;
+	QValueVector< stAdvancement > advStrength;
+	QValueVector< stAdvancement > advDexterity;
+	QValueVector< stAdvancement > advIntelligence;
+	QValueVector< stSkill > skills;
 public:
+	// Skill management methods
+	void load();
+	void unload();
+	void reload() { unload(); load(); }
+	QString getSkillTitle( P_CHAR pChar ) const;
+	const QString &getSkillName( UINT16 skill ) const;
+	const QString &getSkillDef( UINT16 skill ) const;
+	INT16 findSkillByDef( const QString &defname ) const; // -1 = Not Found
+
+	bool advanceSkill( P_CHAR pChar, UINT16 skill, bool success ) const;
+	bool advanceStats( P_CHAR pChar, UINT16 skill ) const;
+
+	void updateSkillLevel( P_CHAR pChar, UINT16 skill ) const; // DEPRECATED
+
+	// Skill Usage methods
 	void PlayInstrumentWell(cUOSocket*, P_ITEM pi);
 	void PlayInstrumentPoor(cUOSocket*, P_ITEM pi);
 	P_ITEM GetInstrument( cUOSocket* );
@@ -81,8 +117,6 @@ public:
 	void SmeltItemTarget(UOXSOCKET s); // Ripper
 	int TrackingDirection(UOXSOCKET s, P_CHAR pc_i);
 	void CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar);
-	char AdvanceSkill(P_CHAR pc, int sk, char skillused);
-	void AdvanceStats(P_CHAR pc, UINT16 sk);
 	void TinkerAxel(int s);
 	void TinkerAwg(int s);
 	void TinkerClock(int s);
@@ -99,8 +133,7 @@ public:
 	void CreateTrackingMenu(int s, int m);
 	void TrackingMenu(int s, int gmindex);
 	int Inscribe(int s, long snum);
-	int EngraveAction(int s, P_ITEM pi, int cir, int spl);
-	void updateSkillLevel(P_CHAR pc, int s);
+	int EngraveAction(int s, P_ITEM pi, int cir, int spl);	
 	void Persecute(cUOSocket*);//AntiChrist persecute stuff
 	void Decipher(P_ITEM tmap, int s); // By Polygon - attempt to decipher a tattered treasure map
 	int GetAntiMagicalArmorDefence(P_CHAR pc); // blackwind meditation armor stuff
