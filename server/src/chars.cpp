@@ -1316,8 +1316,8 @@ void cChar::processNode( const QDomElement &Tag )
 	else if( TagName == "food" )
 	{
 		UI16 bit = Value.toUShort();
-		if( bit < 32 )
-			this->food_ |= ( 1 << bit );
+		if( bit < 32 && bit > 0 )
+			this->food_ |= ( 1 << (bit-1) );
 	}
 
 	//<gold>100</gold>

@@ -275,6 +275,7 @@ extern logout_st logout[1024];//Instalog
 extern advance_st wpadvance[1000];
 //extern spell_st spells[100];
 extern char spellname[71][25];
+extern char foodname[enNumberOfFood][20];
 extern int validEscortRegion[256];
 
 extern int npcshape[5]; //Stores the coords of the bouding shape for the NPC

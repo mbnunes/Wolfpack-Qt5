@@ -111,7 +111,7 @@ enum enFoodTypes
 	PASTRIES,		//  all bakery products
 	LEATHER,		//  leather, leather items and hides
 	METAL,			//  all metal items
-	ALLFOOD = 0xFFFFFFFF
+	enNumberOfFood
 };
 
 #endif

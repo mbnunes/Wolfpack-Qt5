@@ -872,7 +872,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 void cDragItems::dropFoodOnChar( cUOSocket* socket, P_ITEM pItem, P_CHAR pChar )
 {
 	// Feed our pets
-	if( pChar->hunger() >= 6 || !( pChar->food() & ( 1 << pItem->type2() ) ) )
+	if( pChar->hunger() >= 6 || pItem->type2() == 0 || !( pChar->food() & ( 1 << (pItem->type2()-1) ) ) )
 	{
 		socket->sysMessage( tr("It doesn't seem to want your item") );
 		bounceItem( socket, pItem );

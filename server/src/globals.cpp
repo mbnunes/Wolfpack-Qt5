@@ -37,6 +37,7 @@
 #include "wpscriptmanager.h"
 #include "wpdefmanager.h"
 #include "wptargetrequests.h"
+#include "typedefs.h"
 
 #if defined(__unix__)
 termios termstate ;
@@ -85,6 +86,11 @@ char spellname[71][25]={
         "Summon Daemon","Summon Earth Elemental","Summon Fire Elemental","Summon Water Elemental",
         "Random", "Necro1", "Necro2", "Necro3", "Necro4", "Necro5"
 };
+
+char foodname[enNumberOfFood][20]={
+"no food", "raw meat", "raw fish", "eggs", "crops", "fruits", "hay",
+"grain", "cooked meat", "cooked fish", "pastries", "leather", "metal" };
+
 unsigned char login04a[6]="\xA9\x09\x24\x02";
 unsigned char login04b[61]="\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
 unsigned char login04c[18]="\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";

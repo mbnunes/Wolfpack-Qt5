@@ -60,7 +60,8 @@
 /*
 List of implemented skills:
 Anatomy
-ArmsLore
+Animal Lore
+Arms Lore
 
 */
 
@@ -502,7 +503,7 @@ public:
 		bool tamed = false;
 		if ((pc->isNpc() && (chardist(pc_currchar, pc) <= 3))) //Ripper
 		{
-			if (pc->taming>1000||pc->taming==0)//Morrolan default is now no tame
+			if (pc->taming>1200||pc->taming==0)//Morrolan default is now no tame
 			{
 				socket->sysMessage( tr("You can't tame that creature.") );
 				return true;
@@ -705,22 +706,49 @@ public:
 		}
 		if (pc->isHuman()) // Used on human
 		{
-			socket->sysMessage( tr("The human race should use dvorak!") );
+			socket->sysMessage( tr("The human race should use conversation!") );
 			return true;
 		}
 		else // Lore used on a non-human
 		{
-#pragma note("Adjust to OSI style, see stratics")
-			if (pc_currchar->checkSkill( ANIMALLORE, 0, 1000))
+			UI16 skill = pc_currchar->skill( ANIMALLORE );
+			if( pc->tamed() || ( skill >= 1000 && skill <= 1100 && (pc->taming<=1200||pc->taming>0) ) ||
+				skill >= 1100 )
 			{
-				pc->talk( tr("Attack[%1-%2] Defense [%3] Taming [%4] Hit Points [%5]").arg(pc->lodamage()).arg(pc->hidamage()).arg(pc->def()).arg(pc->taming/10).arg(pc->hp()) );
+				if( pc_currchar->checkSkill( ANIMALLORE, 0, 1000 ) )
+				{
+					QString message = tr("Attack[%1-%2] Defense [%3] Hit Points [%5]. ").arg(pc->lodamage()).arg(pc->hidamage()).arg(pc->def()).arg(pc->hp());
+					message += tr("It accepts");
+					bool anyfood = false;
+					register int bit;
+					for( bit = 0; bit < enNumberOfFood; ++bit )
+						if( pc->food() & ( 1 << bit ) )
+						{
+							anyfood = true;
+							message += QString( " %1," ).arg( foodname[ bit+1 ] );
+						}
+					
+					if( anyfood )
+						message = message.left( message.length()-1 ); // cut the last ","
+					else
+						message += tr(" nothing");
+					message += tr(" for food." );
+					pc->talk( message );
+
+					if( pc->ownserial() == pc_currchar->serial )
+						pc->talk( tr("It is loyal to you!") );
+					else
+					{
+						P_CHAR pOwner = FindCharBySerial( pc->ownserial() );
+						QString ownername = "nobody";
+						if( pOwner )
+							ownername = QString( pOwner->name.c_str() );
+						pc->talk( tr("It is loyal to %1!").arg( ownername ) );
+					}
+				}
 				return true;
 			}
-			else
-			{
-				socket->sysMessage( tr("You can not think of anything relevant at this time.") );
-				return true;
-			}
+			socket->sysMessage( tr("You can not think of anything relevant at this time.") );
 		}
 		return true;
 	}
