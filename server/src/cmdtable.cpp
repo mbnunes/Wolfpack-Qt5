@@ -1667,7 +1667,7 @@ void command_set(UOXSOCKET s)
 						pc->baseskill[j] = max(0, min( addy[s], 1000 ) );
 					break;
 				case STR:
-					pc->str = max(0, min( addy[s], 100 ) );
+					pc->st = max(0, min( addy[s], 100 ) );
 					statwindow(s, pc);
 					break;
 				case INT:
@@ -1678,7 +1678,7 @@ void command_set(UOXSOCKET s)
 					pc->setDex( max(0, min( addy[s], 100 ) ) );
 					statwindow(s, pc);
 					break;
-				case default: // one of the skills.
+				default: // one of the skills.
 					pc->baseskill[addx[s]] = max(0, min( addy[s], 1000 ) );
 					Skills->updateSkillLevel( pc, addx[s] );
 					updateskill(s, addx[s]);
