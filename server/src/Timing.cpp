@@ -484,7 +484,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 		case 2:	sysmessage(s,"You are extremely hungry");					break;
 		case 1:	sysmessage(s,"You are very weak from starvation");			break;
 		case 0:
-			if (!pc->isCounselor())
+			if (!pc->isGMorCounselor())
 				sysmessage(s,"You must eat very soon or you will die!");
 			break;
 		}
@@ -493,7 +493,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 	if (((hungerdamagetimer<=currenttime)||(overflow))&&(SrvParms->hungerdamage>0)) // Damage them if they are very hungry
 	{
 		hungerdamagetimer=currenttime+(SrvParms->hungerdamagerate*MY_CLOCKS_PER_SEC); /** set new hungertime **/
-		if (pc->hp > 0 && pc->hunger<2 && !pc->isCounselor() && !pc->dead)
+		if (pc->hp > 0 && pc->hunger<2 && !pc->isGMorCounselor() && !pc->dead)
 		{
 			sysmessage(s,"You are starving !");
 			pc->hp -= SrvParms->hungerdamage;
@@ -799,6 +799,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					pc->npcWander=2;
 					if(pc->ownserial!=-1) 
 						pc->SetOwnSerial(-1);
+					pc->tamed = 0;
 					sprintf((char*)temp, "* %s appears to have decided that it is better off without a master *", pc->name.c_str());
 					npctalkall(pc, (char*)temp,0);
 					{

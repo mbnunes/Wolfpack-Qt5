@@ -99,3 +99,4 @@ Right now it will also showthe items real name.(Ripper)
 81) Added: New Broker NPC that will buy house deeds. Just drop deed on him/herand the gold
 will be placed in the bank. Need new npc.scp with the brokers in it. They are NPCAI 13.(Ripper)
 82) Fixed: update issue when unmounting horses (bymer)
+83) Fixed: Tamed pets will now go on their own when their hunger gets to 0.(Ripper)
