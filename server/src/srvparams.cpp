@@ -106,7 +106,7 @@ void cSrvParams::readData() {
 	convertUnhashedPasswords_ = getBool("Accounts", "Automatically Hash Loaded Passwords", false, true);
 
 	// AI
-	checkAITime_			=		getDouble( "AI", "Default AI Check Time", 1.2, true );
+	checkAITime_			=		getDouble( "AI", "Default AI Check Time", 0.5, true );
 	animalWildFleeRange_	=		getNumber( "AI", "Wild animals flee range", 8, true );
 	guardDispelTime_		=		getNumber( "AI", "Guard dispel time (sec)", 25, true );
 
@@ -125,8 +125,8 @@ void cSrvParams::readData() {
 	// Game Speed Group
 	objectDelay_			= getNumber("Game Speed", "ObjectDelay", 1, true);
 	checkItemTime_			= getDouble("Game Speed", "Items Check Time", 1.1, true);
-	checkNPCTime_			= getDouble("Game Speed", "NPCs Check Time", 1.0, true);
-	checkTamedTime_			= getDouble("Game Speed", "Tamed Check Time", 0.5, true);
+	checkNPCTime_			= getDouble("Game Speed", "NPCs Check Time", 0.8, true);
+	checkTamedTime_			= getDouble("Game Speed", "Tamed Check Time", 0.6, true);
 	niceLevel_				= getNumber("Game Speed", "Nice Level", 2, true);
 	skillDelay_			    = getNumber("Game Speed", "SkillDelay", 7, true);
 	skillLevel_				= getNumber("Game Speed", "SkillLevel", 3, true);
@@ -142,7 +142,7 @@ void cSrvParams::readData() {
 	corpseDecayTime_		= getNumber("Game Speed", "Corpse Decay Time", 600, true );
 
 	secondsPerUOMinute_     = getNumber("Game Speed", "Seconds Per UO Minute", 5, true);
-	npcMoveTime_			= getDouble("Game Speed", "NPC Move Time", 3.0, true );
+	npcMoveTime_			= getDouble("Game Speed", "NPC Move Time", 0.8, true );
 	tamedNpcMoveTime_		= getDouble("Game Speed", "Tamed NPC Move Time", 0.6, true );
 
 	// General Group
