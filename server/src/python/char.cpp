@@ -547,9 +547,9 @@ static PyObject* wpChar_checkskill( wpChar* self, PyObject* args )
 		Py_RETURN_FALSE;
 
 	unsigned short skill;
-	unsigned short min, max;
+	int min, max;
 
-	if ( !PyArg_ParseTuple( args, "hhh|char.checkskill( skill, min, max )", &skill, &min, &max ) )
+	if ( !PyArg_ParseTuple( args, "hii|char.checkskill( skill, min, max )", &skill, &min, &max ) )
 		return 0;
 
 	if ( self->pChar->checkSkill( skill, min, max ) )
