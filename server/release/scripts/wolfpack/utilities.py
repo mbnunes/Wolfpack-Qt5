@@ -275,3 +275,7 @@ def cleartag( self, args ):
 	tagname = args[1]
 	self.deltag( tagname )
 	return OK
+
+def rusmsg( player, locmsg ):
+	player.socket.sysmessage( unicode( locmsg, 'cp1251') )
+	return OK
