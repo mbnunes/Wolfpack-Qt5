@@ -705,16 +705,16 @@ def applyWeaponRandom(item, props, minintensity, maxintensity, luckchance):
 
 		properties.remove(property)
 		
+		# Scale the value for the property
+		info = WEAPON_PROPERTIES[property]
+		value = scaleValue(minintensity, maxintensity, info[0], info[1], info[2], luckchance)
+
 		# Now that it's out of the array, correct the 
 		# property to be one of the different possibilities
 		if property == SPLASHPHYSICAL:
 			property = random.choice([SPLASHPHYSICAL, SPLASHFIRE, SPLASHCOLD, SPLASHPOISON, SPLASHENERGY])
 		elif property == HITMAGICARROW:
 			property = random.choice([HITMAGICARROW, HITHARM, HITFIREBALL, HITLIGHTNING, HITDISPEL])
-
-		# Scale the value for the property
-		info = WEAPON_PROPERTIES[property]
-		value = scaleValue(minintensity, maxintensity, info[0], info[1], info[2], luckchance)
 
 		# Some special handling for special boni
 		if property == DURABILITYBONUS:
