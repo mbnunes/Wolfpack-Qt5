@@ -9,5 +9,9 @@
 	
 	<script id="archery_butte" type="python">
 		<module name="archery_butte" />
+	</script>
+	
+	<script id="wand_clock" type="python">
+		<module name="wand_clock" />
 	</script>	
 </definitions>
