@@ -351,7 +351,7 @@ void DragAndDrop::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	}
 
 	// Males can't wear female armor
-	if( ( pChar->bodyID() == 0x0190 ) && ( pItem->id() >= 0x1C00 ) && ( pItem->id() <= 0x1C0D ) )
+	if( ( pChar->body() == 0x0190 ) && ( pItem->id() >= 0x1C00 ) && ( pItem->id() <= 0x1C0D ) )
 	{
 		socket->sysMessage( tr( "You cannot wear female armor." ) );
 		socket->bounceItem( pItem, BR_NO_REASON );

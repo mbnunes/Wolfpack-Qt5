@@ -303,7 +303,7 @@ public:
 	void refreshMaximumValues();
 
 	// getters
-    ushort			bodyID() const;    
+    ushort			body() const;    
     QDateTime		creationDate() const;
     uint			criminalTime() const;
     ushort			deaths() const;
@@ -327,7 +327,7 @@ public:
     ushort			maxStamina() const;
     SERIAL			murdererSerial() const;
     uint			murdererTime() const;
-    short			orgBodyID() const;
+    short			orgBody() const;
     QString			orgName() const;
     ushort			orgSkin() const;
     signed char poison() const;
@@ -376,7 +376,7 @@ public:
 	ItemContainer	content() const;
 
 	// setters
-    void setBodyID(ushort data);
+    void setBody(ushort data);
     void setCreationDate(const QDateTime &data);
     void setCriminalTime(uint data);
     void setDeaths(ushort data);
@@ -400,7 +400,7 @@ public:
     void setMaxStamina(ushort data);
     void setMurdererSerial(SERIAL data);
     void setMurdererTime(uint data);
-    void setOrgBodyID(short data);
+    void setOrgBody(short data);
     void setOrgName(const QString &data);
     void setOrgSkin(ushort data);
 	void setLastMovement(unsigned int data);
@@ -506,11 +506,10 @@ protected:
 	virtual void processNode( const cElement *Tag );
 
     // The body ID for this character. cOldChar::id_
-    ushort bodyID_;
+    ushort body_;
 
     // The original body id, when the char is affected by magic.
-    // cOldChar::xid_
-    ushort orgBodyID_;
+    ushort orgBody_;
 
 	// The last time this character moved
 	unsigned int lastMovement_;
@@ -540,9 +539,10 @@ protected:
     // 12 - war, cOldChar::war
 		// 13 - invulnerable, cOldChar::priv2 Bit 3
 		// UPPER WORD:
-		// 17 - ReactiveArmor (0x2000)
-		// 18 - Protection (0x4000)
+		// 17 - ReactiveArmor (0x20000)
+		// 18 - Protection (0x40000)
 		// 19 - Magic Reflect (0x8000)
+		// 20 - Mana Drain (0x100000)
     uint propertyFlags_;
 
     // Weight of the char, including worn items.
@@ -726,14 +726,21 @@ inline void cBaseChar::setGuarding(P_CHAR data)
 		guarding_->addGuard( this );		
 }
 
-inline ushort cBaseChar::bodyID() const
+inline ushort cBaseChar::body() const
 {
-    return bodyID_;
+    return body_;
 }
 
-inline void cBaseChar::setBodyID(ushort data)
+inline void cBaseChar::setBody(ushort data)
 {
-    bodyID_ = data;
+    body_ = data;
+
+	if (data == 0x190) {
+		gender_ = 0;
+	} else if (data == 0x191) {
+		gender_ = 1;
+	}
+
 	changed_ = true;
 }
 
@@ -971,14 +978,14 @@ inline void cBaseChar::setMurdererTime(uint data)
 	changed_ = true;
 }
 
-inline short cBaseChar::orgBodyID() const
+inline short cBaseChar::orgBody() const
 {
-    return orgBodyID_;
+    return orgBody_;
 }
 
-inline void cBaseChar::setOrgBodyID(short data)
+inline void cBaseChar::setOrgBody(short data)
 {
-    orgBodyID_ = data;
+    orgBody_ = data;
 	changed_ = true;
 }
 
@@ -1323,7 +1330,7 @@ inline cBaseChar::ItemContainer cBaseChar::content() const
 
 inline bool cBaseChar::isHuman() const 
 { 
-	return (bodyID_ == 0x190 || bodyID_ == 0x191); 
+	return (body_ == 0x190 || body_ == 0x191); 
 }
 
 inline bool cBaseChar::isInnocent()

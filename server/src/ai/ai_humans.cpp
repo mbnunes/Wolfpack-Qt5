@@ -221,6 +221,7 @@ Human_Guard_Called::Human_Guard_Called( P_NPC npc ) : AbstractAI( npc )
 void Human_Guard_Called::init( P_NPC npc )
 {
 	npc->setSummonTime( uiCurrentTime + MY_CLOCKS_PER_SEC * SrvParams->guardDispelTime() );
+	npc->setSummoned(true);
 	AbstractAI::init( npc );
 }
 
@@ -234,6 +235,7 @@ void Human_Guard_Called_Fight::execute()
 	}
 
 	m_npc->setSummonTime( uiCurrentTime + MY_CLOCKS_PER_SEC * SrvParams->guardDispelTime() );
+	m_npc->setSummoned(true);
 
 	// Fighting is handled within combat..
 }
@@ -257,6 +259,7 @@ float Human_Guard_Called_Fight::postCondition()
 
 void Human_Guard_Called_TeleToTarget::execute() {
 	m_npc->setSummonTime(uiCurrentTime + MY_CLOCKS_PER_SEC * SrvParams->guardDispelTime());
+	m_npc->setSummoned(true);
 
 	// Teleports the guard towards the target
 	P_CHAR pTarget = m_npc->attackTarget();

@@ -185,10 +185,8 @@ struct {
 	fame int(11) NOT NULL default '0',\
 	kills int(10)  NOT NULL default '0',\
 	deaths int(10)  NOT NULL default '0',\
-	def int(10)  NOT NULL default '0',\
 	hunger int(11) NOT NULL default '0',\
-	poison int(11) NOT NULL default '0',\
-	poisoned int(10)  NOT NULL default '0',\
+	poison int(11) NOT NULL default '-1',\
 	murderertime int(11)  NOT NULL default '0',\
 	criminaltime int(11)  NOT NULL default '0',\
 	gender tinyint(1)  NOT NULL default '0',\
@@ -296,6 +294,7 @@ struct {
 	fleeat smallint(3)  NOT NULL default '10',\
 	spellslow int(11)  NOT NULL default '0',\
 	spellshigh int(11)  NOT NULL default '0',\
+	controlslots smallint(6) NOT NULL default '0',\
 	PRIMARY KEY (serial)\
 	);" },
 

@@ -77,6 +77,7 @@ cNPC::cNPC()
 	criticalHealth_		= 10; // 10% !
 	spellsLow_			= 0;
 	spellsHigh_			= 0;
+	controlSlots_		= 1;
 }
 
 cNPC::cNPC(const cNPC& right)
@@ -115,7 +116,7 @@ void cNPC::buildSqlString( QStringList &fields, QStringList &tables, QStringList
 	fields.push_back( "npcs.carve,npcs.spawnregion,npcs.stablemaster" );
 	fields.push_back( "npcs.lootlist,npcs.ai,npcs.wandertype" );
 	fields.push_back( "npcs.wanderx1,npcs.wanderx2,npcs.wandery1,npcs.wandery2" );
-	fields.push_back( "npcs.wanderradius,npcs.fleeat,npcs.spellslow,npcs.spellshigh" );
+	fields.push_back( "npcs.wanderradius,npcs.fleeat,npcs.spellslow,npcs.spellshigh,npcs.controlslots" );
 	tables.push_back( "npcs" );
 	conditions.push_back( "uobjectmap.serial = npcs.serial" );
 }
@@ -150,6 +151,7 @@ void cNPC::load( char **result, UINT16 &offset )
 	setCriticalHealth( atoi( result[offset++] ) );
 	spellsLow_ = atoi( result[offset++] );
 	spellsHigh_ = atoi( result[offset++] );
+	controlSlots_ = atoi( result[offset++] );
 
 	npcRegisterAfterLoading( this );
 	changed_ = false;
@@ -192,6 +194,7 @@ void cNPC::save()
 		addField( "fleeat", criticalHealth() );
 		addField( "spellslow", spellsLow_ );
 		addField( "spellshigh", spellsHigh_ );
+		addField( "controlslots", controlSlots_ );
 
 		addCondition( "serial", serial() );
 		saveFields;
@@ -224,8 +227,7 @@ void cNPC::setOwner(P_PLAYER data, bool nochecks)
 
 	if( !nochecks && owner_ )
 	{
-		owner_->removePet( this, true );
-		setTamed( false );
+		owner_->removePet(this, true);
 	}
 
 	owner_ = data;
@@ -234,8 +236,7 @@ void cNPC::setOwner(P_PLAYER data, bool nochecks)
 
 	if( !nochecks && owner_ )
 	{
-		owner_->addPet( this, true );
-		setTamed( true );
+		owner_->addPet(this, true);
 	}
 }
 
@@ -318,7 +319,7 @@ void cNPC::talk( const QString &message, UI16 color, UINT8 type, bool autospam, 
 
 	cUOTxUnicodeSpeech* textSpeech = new cUOTxUnicodeSpeech();
 	textSpeech->setSource( serial() );
-	textSpeech->setModel( bodyID_ );
+	textSpeech->setModel( body_ );
 	textSpeech->setFont( 3 ); // Default Font
 	textSpeech->setType( speechType );
 	textSpeech->setLanguage( "" );
@@ -681,6 +682,14 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 		This property is exclusive to NPC objects.
 	*/
 	SET_INT_PROPERTY( "nextmsgtime", nextMsgTime_ )
+
+	/*
+		\property char.controlslots The amount of follower slots this npc will consume when owned
+		by a player.
+		This property is exclusive to player characters.
+	*/
+	else SET_INT_PROPERTY( "controlslots", controlSlots_ )
+
 	/*
 		\property char.nextguardcalltime This integer value is the next time the npc will call for a guard.
 		This property is exclusive to NPC objects.
@@ -896,6 +905,7 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 stError *cNPC::getProperty( const QString &name, cVariant &value ) const
 {
 	GET_PROPERTY( "nextmsgtime", (int)nextMsgTime_ )
+	else GET_PROPERTY( "controlslots", (int)controlSlots_ )
 	else GET_PROPERTY( "antispamtimer", (int)nextMsgTime_ )
 	else GET_PROPERTY( "nextguardcalltime", (int)nextGuardCallTime_ )
 	else GET_PROPERTY( "antiguardstimer", (int)nextGuardCallTime_ )

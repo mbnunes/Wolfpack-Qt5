@@ -41,10 +41,10 @@
 #include "basics.h"
 #include "srvparams.h"
 #include "world.h"
-#include "npc.h"
 #include "wpdefmanager.h"
 #include "corpse.h"
 #include "sectors.h"
+#include "npc.h"
 #include "combat.h"
 #include "tilecache.h"
 #include "guilds.h"
@@ -194,7 +194,7 @@ static void playerRegisterAfterLoading( P_PLAYER pc )
 	}
 /*	else
 	{
-		pc->setBodyID(0x0190);
+		pc->setBody(0x0190);
 		Console::instance()->send("player: %s with bugged body-value detected, restored to male shape\n",pc->name().latin1());
 	}*/
 }
@@ -272,7 +272,7 @@ void cPlayer::talk( const QString &message, UI16 color, UINT8 type, bool autospa
 
 	cUOTxUnicodeSpeech* textSpeech = new cUOTxUnicodeSpeech();
 	textSpeech->setSource( serial() );
-	textSpeech->setModel( bodyID_ );
+	textSpeech->setModel( body_ );
 	textSpeech->setFont( 3 ); // Default Font
 	textSpeech->setType( speechType );
 	textSpeech->setLanguage( lang );
@@ -426,7 +426,7 @@ void cPlayer::mount( P_NPC pMount )
 		pMountItem->setId(0x915);
 		pMountItem->setColor(pMount->skin());
 
-		switch( static_cast< unsigned short >(pMount->bodyID() & 0x00FF) )
+		switch( static_cast< unsigned short >(pMount->body() & 0x00FF) )
 		{
 			case 0xC8: pMountItem->setId(0x3E9F); break; // Horse
 			case 0xE2: pMountItem->setId(0x3EA0); break; // Horse
@@ -506,17 +506,17 @@ void cPlayer::showName( cUOSocket *socket )
 	QString charName = name();
 
 	// Lord & Lady Title
-	if( fame_ == 10000 )
+	if( !isIncognito() && fame_ == 10000 )
 		charName.prepend( gender_ ? tr( "Lady " ) : tr( "Lord " ) );
 
 	QString affix = "";
 
-	if (guild_ && !guild_->abbreviation().isEmpty()) {
+	if (!isIncognito() && guild_ && !guild_->abbreviation().isEmpty()) {
 		affix.append(QString(" [%1]").arg(guild_->abbreviation()));
 	}
 
 	// Append serial for GMs
-	if( socket->player()->showSerials() )
+	if(socket->player()->showSerials())
 		affix.append( QString( "[0x%1]" ).arg( serial(), 4, 16 ) );
 
 	// Append offline flag
@@ -815,15 +815,21 @@ void cPlayer::addPet( P_NPC pPet, bool noOwnerChange )
 	if( pPet->owner() && pPet->owner() != this )
 		pPet->owner()->removePet( pPet, true );
 
-	pPet->setOwner( this, true );
-	pPet->setTamed( true );
+	// Only reset the owner if we have slots left
+	if (pets_.size() + pPet->controlSlots() <= 5) {
+		pPet->setOwner(this, true);
 
-	// Check if it already is our follower
-	CharContainer::iterator it = std::find(pets_.begin(), pets_.end(), pPet);
-	if ( it != pets_.end() )
-		return;
+		// Check if it already is our follower
+		CharContainer::iterator it = std::find(pets_.begin(), pets_.end(), pPet);
+		if ( it != pets_.end() )
+			return;
 
-	pets_.push_back( pPet );
+		pets_.push_back( pPet );
+
+		if (socket_) {
+			socket_->sendStatWindow();
+		}
+	}
 }
 
 void cPlayer::removePet( P_NPC pPet, bool noOwnerChange )
@@ -838,7 +844,10 @@ void cPlayer::removePet( P_NPC pPet, bool noOwnerChange )
 	if( !noOwnerChange )
 	{
 		pPet->setOwner( NULL, true );
-		pPet->setTamed( false );
+	}
+
+	if (socket_) {
+		socket_->sendStatWindow();
 	}
 }
 
@@ -1198,6 +1207,12 @@ stError *cPlayer::setProperty( const QString &name, const cVariant &value )
 stError *cPlayer::getProperty( const QString &name, cVariant &value ) const
 {
 	GET_PROPERTY( "account", ( account_ != 0 ) ? account_->login() : QString( "" ) )
+	/*
+		\rproperty controlslots The amount of controlslots currently used for this 
+		player.
+		This property is only available for player objects.		
+	*/
+	else GET_PROPERTY( "controlslots", (int)controlslots() )
 	else GET_PROPERTY( "logouttime", (int)logoutTime_ )	
 	else GET_PROPERTY( "npc", false )
 	else GET_PROPERTY( "lightbonus", fixedLightLevel_ )
@@ -1532,7 +1547,7 @@ void cPlayer::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
 	}
 
 	// Don't miss lord and lady titles
-	if (fame_ >= 1000) {
+	if (!isIncognito() && !isPolymorphed() && fame_ >= 1000) {
 		if (gender()) {
 			tooltip.addLine(1050045, tr(" \tLady %1\t%2").arg(name_).arg(affix));
 		} else {
@@ -1543,7 +1558,7 @@ void cPlayer::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
 	}
 
 	// Append guild title and name
-	if (guild_) {
+	if (!isIncognito() && !isPolymorphed() && guild_) {
 		cGuild::MemberInfo *info = guild_->getMemberInfo(this);
 
 		if (info) {
@@ -1577,4 +1592,16 @@ void cPlayer::poll(unsigned int time, unsigned int events) {
 			}
 		}
 	}
+}
+
+unsigned char cPlayer::controlslots() const {
+	unsigned char controlslots = 0;
+	CharContainer::const_iterator it;
+	for (it = pets_.begin(); it != pets_.end(); ++it) {
+		P_NPC npc = dynamic_cast<P_NPC>(*it);
+		if (npc) {
+			controlslots += npc->controlSlots();
+		}
+	}
+	return controlslots;
 }

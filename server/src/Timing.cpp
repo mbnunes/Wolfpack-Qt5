@@ -365,8 +365,11 @@ void cTiming::checkPlayer(P_PLAYER player, unsigned int time)
 void cTiming::checkNpc(P_NPC npc, unsigned int time) 
 {
 	// Remove summoned npcs
-	if (npc->summonTime() && npc->summonTime() <= time) {
-		npc->kill(0);
+	if (npc->summoned() && npc->summonTime() <= time) {
+		// Make pooofff and sheeesh
+		npc->soundEffect(0x1fe);
+		npc->pos().effect(0x3735, 10, 30);
+		cCharStuff::DeleteChar(npc);
 		return;
 	}
 
@@ -405,8 +408,9 @@ void cTiming::checkNpc(P_NPC npc, unsigned int time)
 			npc->setWanderType(enFreely);
 			npc->setTamed(false);
 
-			if (npc->owner()) 
+			if (npc->owner()) {
 				npc->setOwner(0);
+			}
 	
 			npc->bark(cBaseChar::Bark_Attacking);
 			npc->talk(1043255, npc->name(), 0, false, 0x26);

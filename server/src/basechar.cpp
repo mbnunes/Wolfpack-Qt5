@@ -65,8 +65,8 @@ cBaseChar::cBaseChar()
 	lastMovement_		= 0;
 	attackTarget_		= 0;
 	nextSwing_			= 0;
-	bodyID_				= 0x190;
-	orgBodyID_			= 0x190;
+	body_				= 0x190;
+	orgBody_			= 0x190;
 	gender_				= 0;
 	orgSkin_			= 0;
 	propertyFlags_		= 0;
@@ -148,8 +148,8 @@ void cBaseChar::buildSqlString( QStringList &fields, QStringList &tables, QStrin
 	fields.push_back( "characters.maxmana,characters.mana" );
 	fields.push_back( "characters.karma,characters.fame" );
 	fields.push_back( "characters.kills,characters.deaths" );
-	fields.push_back( "characters.def,characters.hunger" );
-	fields.push_back( "characters.poison,characters.poisoned" );
+	fields.push_back( "characters.hunger" );
+	fields.push_back( "characters.poison" );
 	fields.push_back( "characters.murderertime,characters.criminaltime" );
 	fields.push_back( "characters.gender,characters.propertyflags" );
 	fields.push_back( "characters.murderer" );
@@ -175,8 +175,8 @@ void cBaseChar::load( char **result, UINT16 &offset )
 	orgName_ = result[offset++];
 	title_ = result[offset++];
 	creationDate_ = QDateTime::fromString( result[offset++], Qt::ISODate );
-	bodyID_ = atoi( result[offset++] );
-	orgBodyID_ = atoi( result[offset++] );
+	body_ = atoi( result[offset++] );
+	orgBody_ = atoi( result[offset++] );
 	skin_ = atoi( result[offset++] );
 	orgSkin_ = atoi( result[offset++] );
 	saycolor_ = atoi( result[offset++] );
@@ -197,10 +197,8 @@ void cBaseChar::load( char **result, UINT16 &offset )
 	fame_ = atoi( result[offset++] );
 	kills_ = atoi( result[offset++] );
 	deaths_ = atoi( result[offset++] );
-	offset++; // Skip body armor which is out of use
 	hunger_ = atoi( result[offset++] );
 	poison_ = (char)atoi( result[offset++] );
-	offset++; // Skip poisoned
 	murdererTime_ = atoi( result[offset++] ) + uiCurrentTime;
 	criminalTime_ = atoi( result[offset++] ) + uiCurrentTime;
 	gender_ = atoi( result[offset++] );
@@ -263,8 +261,8 @@ void cBaseChar::save()
 		addStrField( "name", orgName_ );
 		addStrField( "title", title_ );
 		addStrField( "creationdate", creationDate_.toString(Qt::ISODate) );
-		addField( "body", bodyID_ );
-		addField( "orgbody", orgBodyID_ );
+		addField( "body", body_ );
+		addField( "orgbody", orgBody_ );
 		addField( "skin", skin_ );
 		addField( "orgskin", orgSkin_ );
 		addField( "saycolor", saycolor_);
@@ -285,10 +283,8 @@ void cBaseChar::save()
 		addField( "fame", fame_);
 		addField( "kills", kills_);
 		addField( "deaths", deaths_);
-		addField( "def", 0);
 		addField( "hunger", hunger_);
 		addField( "poison", poison_);
-		addField( "poisoned", 0);
 		addField( "murderertime", murdererTime_ ? murdererTime_ - uiCurrentTime : 0);
 		addField( "criminaltime", criminalTime_ ? criminalTime_ - uiCurrentTime : 0);
 		addField( "gender", gender_ );
@@ -427,7 +423,7 @@ void cBaseChar::action(unsigned char id, unsigned char speed, bool reverse)
 		}
 	}
 
-	if (bodyID_ < 0x190 && bodyID_ >= 0xc8) {
+	if (body_ < 0x190 && body_ >= 0xc8) {
 		// Animal specific translation
 		switch (id) {
 		case ANIM_WALK_UNARM:
@@ -600,7 +596,7 @@ void cBaseChar::setBeardStyle( UINT16 d)
 
 void cBaseChar::playDeathSound()
 {
-	if( orgBodyID_ == 0x0191 )
+	if( orgBody_ == 0x0191 )
 	{
 		switch( RandomNum(0, 3) )
 		{
@@ -609,7 +605,7 @@ void cBaseChar::playDeathSound()
 		case 2:		soundEffect( 0x0152 );	break;// Female Death
 		case 3:		soundEffect( 0x0153 );	break;// Female Death
 		}
-	} else if( orgBodyID_ == 0x0190 ) {
+	} else if( orgBody_ == 0x0190 ) {
 		switch( RandomNum(0, 3) )
 		{
 		case 0:		soundEffect( 0x015A );	break;// Male Death
@@ -653,7 +649,7 @@ void cBaseChar::resurrect() {
 	changed_ = true;
 	awardFame(0);
 	soundEffect(0x0214);
-	setBodyID(orgBodyID_);
+	setBody(orgBody_);
 	setSkin(orgSkin_);
 	setDead(false);
 	hitpoints_ = QMAX(1, (UINT16)(0.1 * maxHitpoints_));
@@ -937,7 +933,7 @@ void cBaseChar::emote( const QString &emote, UI16 color )
 
 	cUOTxUnicodeSpeech textSpeech;
 	textSpeech.setSource( serial() );
-	textSpeech.setModel( bodyID_ );
+	textSpeech.setModel( body_ );
 	textSpeech.setFont( 3 ); // Default Font
 	textSpeech.setType( cUOTxUnicodeSpeech::Emote );
 	textSpeech.setName( name() );
@@ -1600,7 +1596,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 		\property char.orgid This is the original body id of the character that is restored when he dies or any spell affecting it
 		expires.
 	*/
-	else SET_INT_PROPERTY( "orgid", orgBodyID_ )
+	else SET_INT_PROPERTY( "orgid", orgBody_ )
 	/*
 		\property char.hitpoints The current hitpoints of this character.
 	*/	
@@ -1673,7 +1669,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	/*
 		\property char.id The body id of this character.
 	*/
-	else SET_INT_PROPERTY( "id", bodyID_ )
+	else SET_INT_PROPERTY( "id", body_ )
 	/*
 		\property char.hitpointsbonus The integer bonus awarded to the maximum hitpoints of this character.
 	*/
@@ -1770,7 +1766,7 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "strength2", strengthMod_ )
 	else GET_PROPERTY( "dexterity2", dexterityMod_ )
 	else GET_PROPERTY( "intelligence2", intelligenceMod_ )
-	else GET_PROPERTY( "orgid", orgBodyID_ )
+	else GET_PROPERTY( "orgid", orgBody_ )
 	else GET_PROPERTY( "maxhitpoints", maxHitpoints_ )
 	else GET_PROPERTY( "hitpoints", hitpoints_ )
 	else GET_PROPERTY( "strengthcap", strengthCap_ )
@@ -1796,7 +1792,7 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "region", ( region_ != 0 ) ? region_->name() : QString( "" ) )
 	else GET_PROPERTY( "skilldelay", (int)skillDelay_ )
 	else GET_PROPERTY( "gender", gender_ )
-	else GET_PROPERTY( "id", bodyID_ )
+	else GET_PROPERTY( "id", body_ )
 	else GET_PROPERTY( "invulnerable", isInvulnerable() )
 	else GET_PROPERTY( "invisible", isInvisible() )
 	else GET_PROPERTY( "frozen", isFrozen() )
@@ -1904,6 +1900,8 @@ void cBaseChar::callGuards()
 
 unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject *source )
 {
+	setFrozen(false);
+
 	//
 	// First of all, call onDamage with the damage-type, amount and source
 	// to modify the damage if needed
@@ -1998,7 +1996,7 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 
 void cBaseChar::bark( enBark type )
 {
-	if( bodyID() == 0x190 || bodyID() == 0x192 )
+	if( body() == 0x190 || body() == 0x192 )
 	{
 		if( type == Bark_GetHit )
 		{
@@ -2012,7 +2010,7 @@ void cBaseChar::bark( enBark type )
 			return;
 		}
 	}
-	else if( bodyID() == 0x191 || bodyID() == 0x193 )
+	else if( body() == 0x191 || body() == 0x193 )
 	{
 		unsigned short sound = hex2dec( DefManager->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_FEMALE" ) ).toUShort();
 		if( sound > 0 )
@@ -2021,7 +2019,7 @@ void cBaseChar::bark( enBark type )
 			soundEffect( 0x14b );
 	}
 
-	cCharBaseDef *basedef = BaseDefManager::instance()->getCharBaseDef( bodyID_ );
+	cCharBaseDef *basedef = BaseDefManager::instance()->getCharBaseDef( body_ );
 
 	if( !basedef || !basedef->basesound() )	// Nothing known about this creature
 		return;
@@ -2087,7 +2085,7 @@ void cBaseChar::showPaperdoll(cUOSocket *source, bool hotkey) {
 	}
 
 	// Is that faster ??
-	switch( bodyID_ )
+	switch( body_ )
 	{
 	case 0x004E:
 	case 0x0050:
@@ -2363,12 +2361,18 @@ bool cBaseChar::kill(cUObject *source) {
 	updateHealth();
 	setDead(true);
 	setPoison(-1);	
-
-	if (isPolymorphed()) {
-		setBodyID(orgBodyID_);
-		setSkin(orgSkin_);
-		setPolymorphed(false);
+	
+	if (isIncognito()) {
+		setBody(orgBody());
+		setSkin(orgSkin());
+		setName(orgName());		
+	} else if (isPolymorphed()) {
+		setBody(orgBody());	
+		setSkin(orgSkin());
 	}
+	
+	setIncognito(false);
+	setPolymorphed(false);	
 
 	P_CHAR pKiller = dynamic_cast<P_CHAR>(source);
 	P_ITEM pTool = 0;
@@ -2454,7 +2458,7 @@ bool cBaseChar::kill(cUObject *source) {
 	if (player) 
 		player->unmount();
 	
-	cCharBaseDef *basedef = BaseDefManager::instance()->getCharBaseDef(bodyID_);
+	cCharBaseDef *basedef = BaseDefManager::instance()->getCharBaseDef(body_);
 
 	// If we are a creature type with a corpse and if we are not summoned
 	// we create a corpse
@@ -2467,7 +2471,7 @@ bool cBaseChar::kill(cUObject *source) {
 
 		corpse->setName(name_);
 		corpse->setColor(skin_);
-		corpse->setBodyId(bodyID_);
+		corpse->setBodyId(body_);
 		corpse->setTag("human", cVariant(isHuman() ? 1 : 0 ));
 		corpse->setTag("name", cVariant(name_));
 		

@@ -323,13 +323,10 @@ PyTypeObject wpGuildType = {
 };
 
 static int wpGuild_compare(PyObject *a, PyObject *b) {
-	if (a->ob_type == &wpGuildType && b->ob_type == &wpGuildType) {
-		if (((wpGuild*)a)->guild == ((wpGuild*)b)->guild) {
-			return 0;
-		}
-	}
+	if (a->ob_type != &wpGuildType || b->ob_type != &wpGuildType) 
+		return -1;
 
-	return PyObject_Compare(a, b);
+	return !(((wpGuild*)a)->guild == ((wpGuild*)b)->guild);
 }
 
 PyObject *wpGuild_addmember(wpGuild *self, PyObject *args) {

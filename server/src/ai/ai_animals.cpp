@@ -74,7 +74,6 @@ void AnimalAI::onSpeechInput( P_PLAYER pTalker, const QString &comm )
 	{
 		if( comm.contains( " ME" ) )
 		{
-
 			m_npc->setWanderFollowTarget( pTalker );
 			m_npc->setWanderType( enFollowTarget );
 			m_npc->bark( cBaseChar::Bark_Attacking );
@@ -87,7 +86,7 @@ void AnimalAI::onSpeechInput( P_PLAYER pTalker, const QString &comm )
 	}
 	else if( ( comm.contains( " KILL" ) ) || ( comm.contains( " ATTACK" ) ) )
 	{
-		if( m_npc->inGuardedArea() ) // Ripper..No pet attacking in town.
+		if( m_npc->inGuardedArea() )
 		{
 			pTalker->message( tr( "You can't have pets attack in town!" ) );
 		}
@@ -105,11 +104,9 @@ void AnimalAI::onSpeechInput( P_PLAYER pTalker, const QString &comm )
 	}
 	else if( comm.contains( " COME" ) )
 	{
-		//pPlayer->setGuarded( false );
-//		pPet->setWanderFollowTarget( pPlayer->serial() );
-//		pPet->setWanderType( enFollowTarget );
-//		m_npc->setNextMoveTime();
-//		pTalker->message( tr( "Your pet begins following you." ) );
+		m_npc->setWanderDestination(pTalker->pos());
+		m_npc->setWanderType(enDestination);
+		m_npc->bark(cBaseChar::Bark_Attacking);
 	}
 	else if( comm.contains( " GUARD" ) )
 	{
@@ -127,6 +124,7 @@ void AnimalAI::onSpeechInput( P_PLAYER pTalker, const QString &comm )
 	{
 		m_npc->fight(0);
 		m_npc->setWanderType( enHalt );
+		m_npc->bark(cBaseChar::Bark_Attacking);
 	}
 	else if( comm.contains( " TRANSFER" ) )
 	{
@@ -138,17 +136,19 @@ void AnimalAI::onSpeechInput( P_PLAYER pTalker, const QString &comm )
 	else if( comm.contains( " RELEASE" ) )
 	{
 		// Has it been summoned ? Let's dispel it
-		if( m_npc->summonTime() > uiCurrentTime )
-			m_npc->setSummonTime( uiCurrentTime );
+		if(m_npc->summoned()) {
+			m_npc->setSummonTime(uiCurrentTime);
+		}
 
 		m_npc->setWanderType( enFreely );
-		m_npc->setOwner( NULL );
-		m_npc->setTamed( false );
+		m_npc->setOwner(0);
+		m_npc->setTamed(false);
+		m_npc->bark(cBaseChar::Bark_Attacking);
 		m_npc->emote( tr( "%1 appears to have decided that it is better off without a master" ).arg( m_npc->name() ) );
 		if( SrvParams->tamedDisappear() )
 		{
-			m_npc->soundEffect( 0x01FE );
-			cCharStuff::DeleteChar( m_npc );
+			m_npc->soundEffect(0x01Fe);
+			cCharStuff::DeleteChar(m_npc);
 		}
 	}
 }

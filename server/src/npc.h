@@ -154,8 +154,10 @@ public:
 	UINT16			wanderRadius() const;
 	P_CHAR			wanderFollowTarget() const;
 	Coord_cl		wanderDestination() const;
+	unsigned char	controlSlots() const;
 
 	// setters
+	void setControlSlots(unsigned char data);
     void setMaxDamage(UINT16 data);
     void setAdditionalFlags(UINT32 data);
     void setMinDamage(UINT16 data);
@@ -294,6 +296,9 @@ protected:
 	// 2 * 32 = 64 bit flags for spells the npc can cast
 	UINT32	spellsLow_;
 	UINT32	spellsHigh_;
+
+	// Amount of follower slots this creature is using
+	unsigned char controlSlots_;
 };
 
 inline UINT32 cNPC::additionalFlags() const
@@ -609,6 +614,15 @@ inline void cNPC::setSummoned(bool data)
 		additionalFlags_ |= 0x01;
 	else		
 		additionalFlags_ &= ~0x01;
+	changed_ = true;
+}
+
+inline unsigned char cNPC::controlSlots() const {
+	return controlSlots_;
+}
+
+inline void cNPC::setControlSlots(unsigned char data) {
+	controlSlots_ = data;
 	changed_ = true;
 }
 

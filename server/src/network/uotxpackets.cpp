@@ -163,7 +163,7 @@ void cUOTxConfirmLogin::fromChar( P_CHAR pChar )
 	if (pChar->isDead()) {
 		setBody(pChar->gender() ? 0x193 : 0x192);
 	} else {
-		setBody(pChar->bodyID());
+		setBody(pChar->body());
 	}
 
 	setSerial( pChar->serial() );
@@ -261,7 +261,7 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 		setBody(pChar->gender() ? 0x193 : 0x192);
 		setHue(0);
 	} else {
-		setBody(pChar->bodyID());
+		setBody(pChar->body());
 
 		if (pChar->isHuman() && pChar->skin() > 0) {
 			setHue(pChar->skin() | 0x8000);
@@ -317,7 +317,7 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 		setModel(pChar->gender() ? 0x193 : 0x192);
 		setColor(0);
 	} else {
-		setModel(pChar->bodyID());
+		setModel(pChar->body());
 
 		if (pChar->isHuman() && pChar->skin() > 0) {
 			setColor(pChar->skin()|0x8000);
@@ -397,7 +397,7 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	if (pChar->isDead()) {
 		setBody(pChar->gender() ? 0x193 : 0x192);
 	} else {
-		setBody(pChar->bodyID());
+		setBody(pChar->body());
 
 		if (pChar->isHuman() && pChar->skin() > 0) {
 			setSkin(pChar->skin() | 0x8000);

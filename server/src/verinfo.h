@@ -36,7 +36,7 @@ inline const char *productString() {
 }
 
 inline const char *productVersion() {
-	return "12.9.4";
+	return "12.9.5";
 }
 
 inline const char *productBeta() {

@@ -448,6 +448,7 @@ struct wpParty {
 
 static PyObject *wpParty_getAttr(wpParty *self, char *name);
 static int wpParty_setAttr(wpParty *self, char *name, PyObject *value);
+static int wpParty_compare(PyObject *a, PyObject *b);
 
 /*!
 	The python type object for the party type.
@@ -462,7 +463,15 @@ PyTypeObject wpPartyType = {
     0,
     (getattrfunc)wpParty_getAttr,
     (setattrfunc)wpParty_setAttr,
+	wpParty_compare,
 };
+
+static int wpParty_compare(PyObject *a, PyObject *b) {
+	if (a->ob_type != &wpPartyType || b->ob_type != &wpPartyType) 
+		return -1;
+
+	return !(((wpParty*)a)->party == ((wpParty*)b)->party);
+}
 
 static PyObject *wpParty_tellsingle(wpParty *self, PyObject *args) 
 {

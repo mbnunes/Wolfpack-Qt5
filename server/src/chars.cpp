@@ -88,7 +88,7 @@ void cCharStuff::DeleteChar( P_CHAR pc_k ) // Delete character
 			}
 		}
 
-		pn_k->setOwner( 0 );
+		pn_k->setOwner(0);
 	}
 
 	pc_k->setGuarding( 0 );
@@ -165,7 +165,7 @@ P_NPC cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos )
 	pChar->applyDefinition( DefSection );
 
 	// OrgBody and OrgSkin are often not set in the scripts
-	pChar->setOrgBodyID(pChar->bodyID());
+	pChar->setOrgBody(pChar->body());
 	pChar->setOrgSkin(pChar->skin());
 
 	// Now we call onCreate

@@ -195,7 +195,7 @@ static PyObject* wpChar_message( wpChar* self, PyObject* args )
 	if (checkArgStr(0)) {
 		QString message = getArgStr( 0 );
 
-		if( ( player->bodyID() == 0x3DB ) && message.startsWith( SrvParams->commandPrefix() ) )
+		if( ( player->body() == 0x3DB ) && message.startsWith( SrvParams->commandPrefix() ) )
 			Commands::instance()->process( player->socket(), message.right( message.length()-1 ) );
 		else if( message.startsWith( SrvParams->commandPrefix() ) )
 			Commands::instance()->process( player->socket(), message.right( message.length()-1 ) );
@@ -1654,6 +1654,20 @@ static PyObject* wpChar_criminal( wpChar* self, PyObject* args )
 }
 
 /*
+	\method char.reveal
+	\description Reveal the character if he's currently hidden.
+*/
+static PyObject* wpChar_reveal( wpChar* self, PyObject* args )
+{
+	Q_UNUSED(args);
+
+	self->pChar->unhide();
+
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+/*
 	\method char.fight
 	\description Initiate a fight between this character and another.
 	\param target Another character.
@@ -2245,6 +2259,7 @@ static PyMethodDef wpCharMethods[] =
 	{ "addfollower",	(getattrofunc)wpChar_addfollower,		METH_VARARGS, "Adds a follower to the user." },
 	{ "removefollower",	(getattrofunc)wpChar_removefollower,	METH_VARARGS, "Removes a follower from the user." },
 	{ "hasfollower",	(getattrofunc)wpChar_hasfollower,		METH_VARARGS, "Checks if a certain character is a follower of this." },
+	{ "reveal", (getattrofunc)wpChar_reveal, METH_VARARGS, 0 },
 
 	// Tag System
 	{ "gettag",			(getattrofunc)wpChar_gettag,			METH_VARARGS, "Gets a tag assigned to a specific char." },

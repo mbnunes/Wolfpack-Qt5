@@ -567,7 +567,7 @@ short int cMovement::CheckMovementType(P_CHAR pc)
 	// Change this to a flag in NPC definition
 
 	short int retval = P_C_IS_NPC;
-	switch ( pc->bodyID() )
+	switch ( pc->body() )
 	{
 	case 0x0010 : // Water Elemental
 		retval = P_C_IS_FISH;

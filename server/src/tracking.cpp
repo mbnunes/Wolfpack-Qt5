@@ -128,15 +128,15 @@ public:
 			{
 			// Animals
 			case 1:
-				passed = !( pChar->objectType() != enNPC || pChar->bodyID() == 0x190 || pChar->bodyID() == 0x191 ); //|| pChar->npcaitype() == 2 );
+				passed = !( pChar->objectType() != enNPC || pChar->body() == 0x190 || pChar->body() == 0x191 ); //|| pChar->npcaitype() == 2 );
 				break;
 			// Monsters
 			case 2:
-				passed = !( pChar->objectType() != enNPC || pChar->bodyID() == 0x190 || pChar->bodyID() == 0x191 ); //|| pChar->npcaitype() != 2 );
+				passed = !( pChar->objectType() != enNPC || pChar->body() == 0x190 || pChar->body() == 0x191 ); //|| pChar->npcaitype() != 2 );
 				break;
 			// Human
 			case 3:
-				passed = !( pChar->objectType() != enNPC || ( pChar->bodyID() != 0x190 && pChar->bodyID() != 0x191 ) );
+				passed = !( pChar->objectType() != enNPC || ( pChar->body() != 0x190 && pChar->body() != 0x191 ) );
 				break;
 			case 4:
 				passed = ( pChar->objectType() == enPlayer && dynamic_cast<P_PLAYER>(pChar)->socket() );
@@ -164,7 +164,7 @@ public:
 				}
 			}
 
-			cCharBaseDef *def = BaseDefManager::instance()->getCharBaseDef( pChar->bodyID() );
+			cCharBaseDef *def = BaseDefManager::instance()->getCharBaseDef( pChar->body() );
 
 			if( def && def->shrinked() != 0 )
 				addTilePic( (pAmount*100)+20, 20, def->shrinked() );

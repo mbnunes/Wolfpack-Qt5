@@ -235,6 +235,7 @@ void commandFix( cUOSocket *socket, const QString &command, const QStringList &a
 	Q_UNUSED(command);
 	// TODO: Eventually check if the character is stuck etc.
 	socket->resendPlayer();
+	socket->player()->resendTooltip();
 }
 
 /*
@@ -304,6 +305,7 @@ void commandResend( cUOSocket *socket, const QString &command, const QStringList
 	Q_UNUSED(command);
 	socket->resendPlayer(false);
 	socket->resendWorld();
+	socket->player()->resendTooltip();
 }
 
 /*

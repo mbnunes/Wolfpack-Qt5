@@ -819,14 +819,14 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	
 	pChar->setName( packet->name() );
 	
-	pChar->setSkin( packet->skinColor() );
-	pChar->setOrgSkin( packet->skinColor() );
+	pChar->setSkin(packet->skinColor());
+	pChar->setOrgSkin(packet->skinColor());
+
+	pChar->setBody((packet->gender() == 1) ? 0x191 : 0x190);
+	pChar->setOrgBody(pChar->body());
 
 	pChar->moveTo( startLocations[ packet->startTown() ].pos );
 	pChar->setDirection(4);
-
-	pChar->setBodyID( ( packet->gender() == 1 ) ? 0x191 : 0x190 );
-	pChar->setOrgBodyID( pChar->bodyID() );
 
 	pChar->setStrength( packet->strength() );
 	pChar->setHitpoints( pChar->strength() );
@@ -1389,7 +1389,6 @@ void cUOSocket::resendPlayer( bool quick )
 
 	cUOTxDrawPlayer drawPlayer;
 	drawPlayer.fromChar(_player);
-	drawPlayer.setFlag(_player->notoriety(_player));
 	send(&drawPlayer);
 
 	// Send the equipment Tooltips
@@ -1423,7 +1422,7 @@ void cUOSocket::updateChar( P_CHAR pChar )
 	if (canSee(pChar)) {
 		cUOTxUpdatePlayer updatePlayer;
 		updatePlayer.fromChar( pChar );
-		updatePlayer.setHighlight( pChar->notoriety( _player ) );
+		updatePlayer.setHighlight( pChar->notoriety( _player));
 		send( &updatePlayer );
 	}
 }
@@ -1508,7 +1507,7 @@ void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
 
 	// There is one special case. if the user has the body 0x3db and the first char
 	// of the speech is = then it's always a command
-	if( ( _player->bodyID() == 0x3DB ) && speech.startsWith( SrvParams->commandPrefix() ) )
+	if( ( _player->body() == 0x3DB ) && speech.startsWith( SrvParams->commandPrefix() ) )
 		Commands::instance()->process( this, speech.right( speech.length()-1 ) );
 	else if( speech.startsWith( SrvParams->commandPrefix() ) )
 		Commands::instance()->process( this, speech.right( speech.length()-1 ) );
@@ -1828,17 +1827,11 @@ void cUOSocket::removeObject( cUObject *object )
 void cUOSocket::updatePlayer()
 {
 	if( _player ) {
-		/*cUOTxUpdatePlayer pUpdate;
-		pUpdate.fromChar(_player);
-		pUpdate.setHighlight(_player->notoriety(_player));
-		send(&pUpdate);*/
-
 		// Reset the walking sequence
 		_walkSequence = 0;
 
 		cUOTxDrawPlayer playerupdate;
 		playerupdate.fromChar(_player);
-		playerupdate.setFlag(_player->notoriety(_player));
 		send(&playerupdate);
 
 		updateLightLevel();
@@ -2170,7 +2163,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		sendStats.setWeight( _player->weight() );
 		sendStats.setGold( _player->CountBankGold() + _player->CountGold() );
 		sendStats.setSex( _player->gender() );
-		sendStats.setPets( _player->pets().size() );
+		sendStats.setPets( _player->controlslots() );
 		sendStats.setMaxPets( 5 );
 		sendStats.setStatCap( SrvParams->statcap() );
 
@@ -2474,7 +2467,7 @@ void cUOSocket::clilocMessage( const UINT32 MsgID, const QString &params, const 
 		if (object->isChar()) {
 			P_CHAR pchar = dynamic_cast<P_CHAR>(object);
 			if (pchar) {
-				msg.setBody(pchar->bodyID());
+				msg.setBody(pchar->body());
 			}
 			msg.setName( object->name() );
 		} else {

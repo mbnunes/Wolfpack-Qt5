@@ -77,7 +77,7 @@ void cCombat::playMissedSoundEffect( P_CHAR pChar, UINT16 skill )
 	case WRESTLING:
 		if( !pChar->isHuman() )
 		{
-			cCharBaseDef *def = BaseDefManager::instance()->getCharBaseDef( pChar->bodyID() );
+			cCharBaseDef *def = BaseDefManager::instance()->getCharBaseDef( pChar->body() );
 
 			if( def != 0 )
 				id = def->basesound() + RandomNum( 0, 1 );
@@ -157,7 +157,7 @@ void cCombat::playSoundEffect( P_CHAR pChar, UINT16 skill, P_ITEM pWeapon )
 */
 void cCombat::playGetHitSoundEffect( P_CHAR pChar )
 {
-	if( pChar->bodyID() == 0x191 )
+	if( pChar->body() == 0x191 )
 	{
 		UI16 sound = hex2dec( DefManager->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_FEMALE" ) ).toUShort();
 		if( sound > 0 )
@@ -165,7 +165,7 @@ void cCombat::playGetHitSoundEffect( P_CHAR pChar )
 		else
 			pChar->soundEffect( 0x14b );
 	}
-	else if( pChar->bodyID() == 0x190 )
+	else if( pChar->body() == 0x190 )
 	{
 		UI16 sound = hex2dec( DefManager->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_MALE" ) ).toUShort();
 		if( sound > 0 )
@@ -717,7 +717,7 @@ void cCombat::doCombatAnimations( P_CHAR pAttacker, P_CHAR pDefender, P_ITEM pWe
 	/*// make sure attacker is facing the right direction
 	pAttacker->turnTo( pDefender );
 
-	UINT16 id = pAttacker->bodyID();
+	UINT16 id = pAttacker->body();
 
 	// Monsters receive special treatment
 	if( id < 0x0190 )
