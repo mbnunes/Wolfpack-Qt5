@@ -1,0 +1,77 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: sereg                          |
+|  ( (  ;._ \\ ctr | Last Modification: reorganized             |
+=================================================================
+-->
+<definitions>
+	<!-- ring gloves -->
+	<item id="13f2">
+		<decay />
+		<defense>10</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x13F2</id>
+		<layer>4</layer>
+		<modifier type='dex'>-3</modifier>
+		<name>ring gloves</name>
+		<requires type='str'>50</requires> 
+		<restock>10</restock>
+		<smelt>7</smelt>
+		<weight>63</weight>
+		<value>200</value>
+	</item>
+
+	<!-- ring leggings -->
+	<item id="13f1">
+		<decay />
+		<defense>10</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x13F1</id>
+		<layer>13</layer>
+		<modifier type='dex'>-7</modifier>
+		<name>ring leggings</name>
+		<requires type='str'>50</requires> 
+		<restock>10</restock>
+		<smelt>7</smelt>
+		<weight>126</weight>
+		<value>200</value>
+	</item>
+
+	<!-- ring sleeves -->
+	<item id="13ef">
+		<decay />
+		<defense>10</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x13EF</id>
+		<layer>19</layer>
+		<modifier type='dex'>-3</modifier>
+		<name>ring sleeves</name>
+		<requires type='str'>50</requires> 
+		<restock>10</restock>
+		<smelt>7</smelt>
+		<weight>126</weight>
+		<value>200</value>
+	</item>
+
+	<!-- ring tunic -->
+	<item id="13ed">
+		<decay />
+		<defense>15</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x13ED</id>
+		<layer>19</layer>
+		<modifier type='dex'>-20</modifier>
+		<name>ring tunic</name>
+		<requires type='str'>50</requires> 
+		<restock>10</restock>
+		<smelt>11</smelt>
+		<weight>126</weight>
+		<value>300</value>
+	</item>
+</definitions>

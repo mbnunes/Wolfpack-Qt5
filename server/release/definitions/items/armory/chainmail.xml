@@ -1,0 +1,60 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh	                        |
+|   )).-' {{ ;'`   | Revised by: sereg                          |
+|  ( (  ;._ \\ ctr | Last Modification: reorganized             |
+=================================================================
+-->
+<definitions>
+	<!-- chainmail coif -->
+	<item id="13bb">
+		<name>chain coif</name>
+		<decay />
+		<nodye />
+		<layer>3</layer>
+		<modifier type='dex'>-4</modifier>
+		<requires type='str'>75</requires> 
+		<defense>15</defense>
+		<durability>100</durability>
+		<id>0x13BB</id>
+		<restock>10</restock>
+		<smelt>11</smelt>
+		<weight>36</weight>
+		<value>300</value>
+	</item>
+
+	<!-- chainmail leggings -->
+	<item id="13c3">
+		<decay />
+		<defense>20</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x13C3</id>
+		<layer>3</layer>
+		<modifier type='dex'>-3</modifier>
+		<name>chain leggings</name>
+		<requires type='str'>75</requires> 
+		<restock>10</restock>
+		<smelt>14</smelt>
+		<weight>63</weight>
+		<value>400</value>
+	</item>
+
+	<!-- chainmail tunic -->
+	<item id="13c4">
+		<decay />
+		<defense>20</defense>
+		<durability>100</durability>
+		<nodye />
+		<id>0x13C4</id>
+		<layer>2</layer>
+		<modifier type='dex'>-5</modifier>
+		<name>chain tunic</name>
+		<requires type='str'>75</requires> 
+		<restock>10</restock>
+		<smelt>14</smelt>
+		<weight>63</weight>
+		<value>400</value>
+	</item>
+</definitions>
