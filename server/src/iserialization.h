@@ -119,8 +119,14 @@ public:
 
 	void write(const char* Key, QString &data)
 	{
-		std::string temp(data.latin1());
-		write ( Key, temp );
+		std::string temp;
+
+		if( data.latin1() == NULL )
+			temp = "";
+		else
+			temp = data.latin1();
+
+		write( Key, temp );
 	}
 
 protected:

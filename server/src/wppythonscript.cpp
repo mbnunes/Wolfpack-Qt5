@@ -35,6 +35,131 @@
 #include "junk.h"
 #include "qfile.h"
 
+// Python Extension-modules
+extern "C" {
+#ifndef PY_NOSOCKETS
+	void init_socket( void );
+#endif
+#ifndef PY_NOSRE
+	void init_sre( void );
+#endif
+#ifndef PY_NOBINASCII
+	void initbinascii( void );
+#endif
+#ifndef PY_NOMD5
+	void initmd5( void );
+#endif
+};
+
+// Reloads the python interpreter
+void reloadPython( void )
+{
+}
+
+void stopPython( void )
+{
+}
+
+// Start the python engine
+void startPython( int argc, char* argv[] )
+{
+	clConsole.PrepareProgress( "Starting Python interpreter" );
+	
+	Py_SetProgramName( argv[ 0 ] );
+	Py_SetPythonHome( "python" ); // Subdirectory "python" is the base path
+
+	Py_NoSiteFlag = 1;
+
+	Py_Initialize(); // Initialize python finally
+	PySys_SetArgv( argc, argv );
+
+	// Modify our search-path
+	PyObject *sysModule = PyImport_ImportModule( "sys" );
+	PyObject *searchPath = PyObject_GetAttrString( sysModule, "path" );
+	
+	// Sorry but we can't use our DefManager for this
+	QDomDocument Document( "python" );
+	QFile File( QString( "python.xml" ) );
+
+    if ( !File.open( IO_ReadOnly ) )
+	{
+		clConsole.ProgressSkip();
+	
+		clConsole.send( "Unable to open python.xml!\n" );
+		return;
+	}
+
+    if ( !Document.setContent( &File ) ) {
+        File.close();
+        
+		clConsole.ProgressSkip();
+		clConsole.send( "Unable to parse python.xml" );
+
+		return;
+	}
+
+	File.close();
+
+	QDomElement pythonSettings = Document.documentElement();
+	QDomNodeList nodeList = pythonSettings.childNodes();
+
+	for( UI08 i = 0; i < nodeList.count(); i++ )
+	{
+		if( !nodeList.item( i ).isElement() )
+			continue;
+
+		QDomElement element = nodeList.item( i ).toElement();
+		
+		if( element.nodeName() != "searchpath" )
+			continue;
+
+		PyList_Append( searchPath, PyString_FromString( element.text().ascii() ) );
+	}
+
+        // Import site now
+        PyObject *m = PyImport_ImportModule("site");
+        if( m == NULL )
+        {
+                clConsole.ProgressFail();
+                if( PyErr_Occurred() )
+                        PyErr_Print();
+                return;
+        }
+        else
+        {
+                Py_XDECREF( m );
+        }
+
+	// Init several modules
+	try
+	{
+#ifndef PY_NOSOCKETS
+		init_socket(); // Sockets
+#endif
+
+#ifndef PY_NOSRE
+		init_sre(); // Regular Expression Engine
+#endif
+
+#ifndef PY_NOBINASCII
+		initbinascii(); // Binary/ASCII Transformations and Operations - i.e. CRC32
+#endif
+
+#ifndef PY_NOMD5		
+		initmd5(); // MD5 Crypto
+#endif
+		initPythonExtensions();	// Wolfpack Extension stuff
+	}
+	catch( ... )
+	{
+		clConsole.ProgressFail();
+		clConsole.send( "Failed to initialize the python extension modules\n" );
+		return;
+	}
+
+	clConsole.ProgressDone();
+}
+
 #define PyFalse PyInt_FromLong( 0 )
 #define PyTrue PyInt_FromLong( 1 )
 #define PyHasMethod(a) if( codeModule == NULL ) return false; if( !PyObject_HasAttr( codeModule, PyString_FromString( a ) ) ) return false;
@@ -86,6 +211,41 @@ inline PyObject* PyGetCharObject( P_CHAR Char )
 // Konstruktion/Destruktion
 //////////////////////////////////////////////////////////////////////
 
+void WPPythonScript::unload( void )
+{
+	if( codeModule == NULL )
+		return;
+
+	if( !PyObject_HasAttr( codeModule, PyString_FromString( "onUnload" ) ) ) 
+		return;	
+
+	PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( "onUnload" ) ); 
+	
+	if( ( method == NULL ) || ( !PyCallable_Check( method ) ) ) 
+		return; 
+	
+	PyObject_CallObject( method, NULL ); 
+	PyReportError();
+}
+
+// Assume we're reloaded
+void WPPythonScript::reload( void )
+{
+	if( codeModule == NULL )
+		return;
+
+	if( !PyObject_HasAttr( codeModule, PyString_FromString( "onReload" ) ) ) 
+		return;	
+
+	PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( "onReload" ) ); 
+	
+	if( ( method == NULL ) || ( !PyCallable_Check( method ) ) ) 
+		return; 
+	
+	PyObject_CallObject( method, NULL ); 
+	PyReportError();
+}
+
 // Find our module name
 void WPPythonScript::load( const QDomElement &Data )
 {
@@ -117,16 +277,6 @@ void WPPythonScript::load( const QDomElement &Data )
 			strcpy( &moduleNameStr[ 0 ], moduleName.ascii() );
 
 			codeModule = PyImport_ImportModule( moduleNameStr );
-
-			/*if( PyErr_Occurred() )
-			{
-				PyErr_Print(); // Hm, seems to simple... does it ?
-				//PyObject *errType, *errValue, *errTrace;
-				//PyErr_Fetch( &errType, &errValue, &errTrace );
-
-				//if( errType != NULL && errValue != NULL ) 
-				//	savelog( QString( "%1 %2" ).arg( PyString_AS_STRING( errType ) ).arg( PyString_AS_STRING( errValue ) ).ascii(), "python.log" );
-			}*/
 
 			if( codeModule == NULL )
 			{

@@ -49,6 +49,8 @@ public:
 	virtual ~WPPythonScript() {};
 
 	virtual void load( const QDomElement &Data );
+	virtual void unload( void );
+	virtual void reload( void );
 
 	// Normal Events
 	virtual bool onUse( P_CHAR User, P_ITEM Used );
@@ -84,6 +86,9 @@ public:
 
 //////////////
 // We will define our Python extensions here (!)
+void reloadPython( void );
+void stopPython( void );
+void startPython( int argc, char* argv[] );
 void initPythonExtensions( void );
 
 inline void Py_WPDealloc( PyObject* self )
