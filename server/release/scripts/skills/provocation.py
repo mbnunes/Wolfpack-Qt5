@@ -184,7 +184,7 @@ def playinstrument( char, item, how ):
 		char.soundeffect( instruments[ item.id ][ 1 ] )
 		return True
 
- char, type ):
+def tobard( char, type ):
 	socket = char.socket
 	value = skilltotal( char )
 	value +=  ( char.hitpoints + char.stamina + char.mana )
