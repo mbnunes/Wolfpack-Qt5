@@ -65,7 +65,7 @@ cListener::cListener( Q_UINT16 port )
 
 cListener::~cListener() throw()
 {
-	std::for_each( readyConnections.begin(), readyConnections.end(), destroy<QSocketDevice*>() );
+	std::for_each( readyConnections.begin(), readyConnections.end(), destroy_obj<QSocketDevice*>() );
 }
 
 void cListener::run() throw()

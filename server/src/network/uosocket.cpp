@@ -1867,14 +1867,6 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 		return;
 	}
 
-/*	// Playervendors are invulnerable
-	if( pc_i->npcaitype() == 17 ) 
-	{
-		sysMessage( tr( "%1 cannot be harmed." ).arg( pc_i->name() ) );
-		send( &attack );
-		return;
-	}*/
-
 	_player->setCombatTarget( pc_i->serial() );
 	_player->unhide();
 	_player->disturbMed();

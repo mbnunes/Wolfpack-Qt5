@@ -834,12 +834,12 @@ namespace Combat
 		// Check our Target
 		if( !pDefender || pDefender->free || pDefender->isHidden() || pDefender->isDead() )
 		{
-			pAttacker->setNextHitTime(0);
+			pAttacker->setNextHitTime( 0 );
 			if( pDefender )
-				pDefender->setAttackerSerial(INVALID_SERIAL);
-			pAttacker->setCombatTarget(INVALID_SERIAL);
+				pDefender->setAttackerSerial( INVALID_SERIAL );
+			pAttacker->setCombatTarget( INVALID_SERIAL );
 			pAttacker->setAttackFirst( false );
-
+			
 			// Reset the target
 			if( pAttacker->objectType() == enPlayer )
 			{
@@ -851,53 +851,7 @@ namespace Combat
 					pp->socket()->send( &aResponse );
 				}
 			}
-
 			return;
-		}
-
-		// Some special stuff for guards
-		if( pAttacker->objectType() == enNPC && !pAttacker->inRange( pDefender, SrvParams->attack_distance() ) )
-		{
-			// Guards beam to their target if they are out of range
-#pragma message("reimplement with new npc ai!")
-/*			if( pAttacker->npcaitype() == 4 && pDefender->inGuardedArea() )
-			{
-					pAttacker->removeFromView( false );
-					pAttacker->moveTo( pDefender->pos() );
-					pAttacker->resend( false );
-					
-					pAttacker->soundEffect( 0x1FE );
-					pAttacker->effect( 0x372A, 0x09, 0x06 );
-
-					if( RandomNum( 1, 4 ) == 1 )
-						pAttacker->talk( tr("Halt, scoundrel!"), -1, 0, true );
-			}
-			// If we are out of close range, get out of warmode and stop fighting
-			else if( pAttacker->npcaitype() != 4 )
-			{
-				pAttacker->setCombatTarget( INVALID_SERIAL );
-				pAttacker->setSwingTarget( INVALID_SERIAL );
-				pAttacker->setNextHitTime(0);
-				
-				P_CHAR pc = FindCharBySerial( pAttacker->attacker() );
-
-				if( pc )
-				{
-					pc->setAttackFirst( false );
-					pc->setAttackerSerial(INVALID_SERIAL);
-				}
-
-				pAttacker->setAttackerSerial(INVALID_SERIAL);
-				pAttacker->setAttackFirst( false );				
-				
-				// We have been at war for sure, so we can
-				// update without harm
-				pAttacker->setWar( false );
-				pAttacker->update();
-
-				return;
-			}
-			*/
 		}
 
 		// We have two delay-timers for attacking
@@ -916,7 +870,13 @@ namespace Combat
 		{
 			// Only shot if our "head" can see the opponent
 			if( !pAttacker->pos().lineOfSight( pDefender->pos() ) )
+			{
+				/*
+					This function get's hammerd
+					Maybe a 100 ms delay would be appropiate
+				*/
 				mayAttack = false;
+			}
 		}
 		// For other Combat Skills it's enough to stand near the opponent
 		else if( pAttacker->inRange( pDefender, 1 ) )
@@ -1323,14 +1283,12 @@ namespace Combat
 			if ( !pGuard ) 
 				return;
 			
-//			pGuard->setNpcAIType( 4 );
 			pGuard->setAttackFirst( true );
 			pGuard->setAttackerSerial(pOffender->serial());
 			pGuard->setCombatTarget(pOffender->serial());
-//			pGuard->setWanderType( enCombatTarget );
 			pGuard->toggleCombat();
 			pGuard->setNextMoveTime();
-			pGuard->setSummonTime( ( uiCurrentTime + (MY_CLOCKS_PER_SEC*25) ) );    
+			pGuard->setSummonTime( ( uiCurrentTime + (MY_CLOCKS_PER_SEC*25) ) );
 			
 			pGuard->soundEffect( 0x1FE );
 			pGuard->effect( 0x372A, 0x09, 0x06 );
