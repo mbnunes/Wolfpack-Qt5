@@ -1,30 +1,4 @@
 <decoration>
-	<!-- nodraw-->
-	<item id="0x1">
-		<pos x="637" y="814" z="-52" map="2" />
-		<pos x="636" y="814" z="-52" map="2" />
-		<pos x="666" y="930" z="-80" map="2" />
-		<pos x="666" y="929" z="-80" map="2" />
-		<pos x="666" y="928" z="-80" map="2" />
-	</item>
-
-	<!-- nodraw-->
-	<item id="0x1" hue="0x44">
-		<pos x="811" y="1152" z="-20" map="2" />
-		<pos x="816" y="1152" z="-15" map="2" />
-		<pos x="823" y="1152" z="-15" map="2" />
-		<pos x="828" y="1152" z="-20" map="2" />
-		<pos x="778" y="1086" z="1" map="2" />
-		<pos x="778" y="1082" z="1" map="2" />
-		<pos x="790" y="1082" z="1" map="2" />
-		<pos x="784" y="1082" z="1" map="2" />
-	</item>
-
-	<!-- nodraw-->
-	<item id="0x1" hue="0x591">
-		<pos x="771" y="1021" z="13" map="2" />
-	</item>
-
 	<!-- ankh-->
 	<item id="0x2">
 		<pos x="1170" y="1288" z="-30" map="2" />
@@ -2876,9 +2850,67 @@
 		<pos x="1217" y="740" z="0" map="2" />
 		<pos x="1270" y="762" z="0" map="2" />
 	</item>
-
-	<!-- -->
-	<item id="0x41f6">
-		<pos x="831" y="1211" z="-70" map="2" />
+	
+	<!-- These items are used to complete the teleporters -->
+	<item id="0x754" hue="0">
+		<pos x="242" y="27" z="-18" map="2" />
+		<pos x="242" y="26" z="-18" map="2" />
+		<pos x="242" y="25" z="-18" map="2" />
+		<pos x="371" y="31" z="-38" map="2" />
+		<pos x="371" y="30" z="-38" map="2" />
+		<pos x="371" y="29" z="-38" map="2" />
+		<pos x="370" y="31" z="-43" map="2" />
+		<pos x="370" y="30" z="-43" map="2" />
+		<pos x="370" y="29" z="-43" map="2" />
 	</item>
+	
+	<item id="0x753" hue="0x849">
+		<pos x="272" y="141" z="-18" map="2" />
+		<pos x="273" y="141" z="-18" map="2" />
+		<pos x="274" y="141" z="-18" map="2" />
+		<pos x="555" y="426" z="-8" map="2" />
+		<pos x="556" y="426" z="-8" map="2" />
+		<pos x="556" y="426" z="-8" map="2" />
+	</item>
+	
+	<item id="0x753" hue="0x835">
+		<pos x="265" y="129" z="-38" map="2" />
+		<pos x="266" y="129" z="-38" map="2" />
+		<pos x="267" y="129" z="-38" map="2" />
+		<pos x="268" y="129" z="-38" map="2" />
+		<pos x="284" y="73" z="-18" map="2" />
+		<pos x="285" y="73" z="-18" map="2" />
+		<pos x="286" y="73" z="-18" map="2" />
+		<pos x="287" y="73" z="-18" map="2" />
+		<pos x="284" y="66" z="-37" map="2" />
+		<pos x="285" y="66" z="-37" map="2" />
+		<pos x="286" y="66" z="-37" map="2" />
+		<pos x="287" y="66" z="-37" map="2" />
+		<pos x="131" y="129" z="-18" map="2" />
+		<pos x="132" y="129" z="-18" map="2" />
+		<pos x="133" y="129" z="-18" map="2" />
+		<pos x="134" y="129" z="-18" map="2" />		
+	</item>
+	
+	<item id="0x73a">
+		<pos x="359" y="40" z="-43" map="2" />
+		<pos x="359" y="41" z="-43" map="2" />
+		<pos x="359" y="42" z="-43" map="2" />
+		<pos x="155" y="88" z="-18" map="2" />
+		<pos x="155" y="89" z="-18" map="2" />
+		<pos x="155" y="90" z="-18" map="2" />
+	</item>
+	
+<!--	<item id="0x753" hue="0x530">
+		<pos x="" y="" z="" map="2" />
+	</item>	-->
+	<!--
+
+
+				CreateTeleporter( 358, 40, -36, 156, 88, -18, map, false ); // stairs - 0x73A 
+				CreateTeleporter( 358, 41, -36, 156, 89, -18, map, false ); // stairs - 0x73A 
+				CreateTeleporter( 358, 42, -36, 156, 90, -18, map, false ); // stairs - 0x73A 
+				CreateTeleporter( 155, 88, -16, 357, 40, -31, map, false ); // stairs - 0x73A 
+				CreateTeleporter( 155, 88, -16, 357, 41, -31, map, false ); // stairs - 0x73A 
+				CreateTeleporter( 155, 90, -16, 357, 42, -31, map, false ); // stairs - 0x73A 	-->
 </decoration>
