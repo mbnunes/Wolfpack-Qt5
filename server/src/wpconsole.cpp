@@ -167,11 +167,11 @@ void WPConsole_cl::PrepareProgress( const QString &sMessage )
 {
 	UI08 PrintedChars = sMessage.length() + 1; // one spacer
 
-	send( sMessage + " " );
+	send( sMessage.right(59) + " " );
 
 	ChangeColor( WPC_WHITE );
 	// Fill up the remaining chars with "....."
-	for( UI08 i = 0; i < 50 - PrintedChars; i++ )
+	for( UI08 i = 0; i < 60 - PrintedChars; i++ )
 		send( "." );
 
 	ChangeColor( WPC_NORMAL );

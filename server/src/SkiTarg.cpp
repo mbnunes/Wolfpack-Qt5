@@ -403,8 +403,8 @@ public:
 		// make sure both items are in the player's backpack
 		P_ITEM pPack = currchar[s]->getBackpack();
 		if (pPack==NULL) return;
-		if ( piTarg->contserial!=pPack->serial
-			|| piClick->contserial!=pPack->serial)
+		if ( piTarg->container() != pPack
+			|| piClick->container() != pPack )
 		{
 			sysmessage(s,tr("You can't use material outside your backpack") );
 			return;

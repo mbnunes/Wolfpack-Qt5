@@ -48,7 +48,7 @@
 cBoat::cBoat() : cMulti()
 {
 	this->priv = 0;
-	this->contserial = INVALID_SERIAL;
+//	this->contserial = INVALID_SERIAL;
 	this->boatdir = 0;
 	this->autosail_ = 0;
 	this->moves_ = 0;

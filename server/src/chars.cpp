@@ -77,7 +77,7 @@ void cChar::registerInFactory()
 }
 
 bool cChar::Owns(P_ITEM pi)				{	return (serial==pi->ownserial);		}
-bool cChar::Wears(P_ITEM pi)			{	return (serial == pi->contserial);	}
+bool cChar::Wears(P_ITEM pi)			{	return (this == pi->container());	}
 unsigned int cChar::dist(cChar* pc)		{	return pos.distance(pc->pos);		}
 unsigned int cChar::dist(cItem* pi)		{	return pos.distance(pi->pos);		}
 QString cChar::objectID() const			{	return "cChar";						}
@@ -2577,7 +2577,7 @@ void cChar::kill()
 		removeItemBonus( pi_j );
 
 		// unequip trigger...
-		if( ( pi_j->contserial == serial ) && ( pi_j->layer() != 0x0B ) && ( pi_j->layer() != 0x10 ) )
+		if( ( pi_j->container() == this ) && ( pi_j->layer() != 0x0B ) && ( pi_j->layer() != 0x10 ) )
 		{	// Let's check all items, except HAIRS and BEARD
 			// Ripper...so order/chaos shields disappear when on corpse backpack.
 			if( pi_j->id() == 0x1BC3 || pi_j->id() == 0x1BC4 )

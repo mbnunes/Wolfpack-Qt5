@@ -73,7 +73,7 @@ void cTargets::PlVBuy(int s)//PlayerVendors
 	if (pi->isInWorld()) return;
 	int price=pi->value;
 
-	P_ITEM np = FindItemBySerial(pi->contserial);		// the pack
+	P_ITEM np = dynamic_cast<P_ITEM>(pi->container());		// the pack
 	P_CHAR npc = GetPackOwner(np);				// the vendor
 	if(npc != pc || pc->npcaitype() != 17) return;
 
@@ -1586,8 +1586,8 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 	P_CHAR pc_currchar = currchar[s];
 	if (!pi1->isInWorld())
 	{
-		P_ITEM pj = FindItemBySerial(pi1->contserial); // in bp ?
-		P_CHAR pc_l = FindCharBySerial(pi1->contserial); // equipped ?
+		P_ITEM pj = dynamic_cast<P_ITEM>(pi1->container()); // in bp ?
+		P_CHAR pc_l = dynamic_cast<P_CHAR>(pi1->container()); // equipped ?
 		P_CHAR pc_k = NULL;
 		if (pc_l == NULL) 
 			pc_k = GetPackOwner(pj); 
@@ -1655,8 +1655,8 @@ void cTargets::UnglowTaget(int s) // LB 4/9/99, removes the glow-effect from ite
 
 	if (!pi->isInWorld())
 	{
-		P_ITEM pj = FindItemBySerial(pi->contserial); // in bp ?
-		P_CHAR pc_l = FindCharBySerial(pi->contserial); // equipped ?
+		P_ITEM pj = dynamic_cast<P_ITEM>(pi->container()); // in bp ?
+		P_CHAR pc_l = dynamic_cast<P_CHAR>(pi->container()); // equipped ?
 		P_CHAR pc_k = NULL;
 		if (pc_l == NULL) 
 			pc_k = GetPackOwner(pj); 

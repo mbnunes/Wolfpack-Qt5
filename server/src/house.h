@@ -49,7 +49,7 @@ public:
 	{
 		cItem::Init( false );
 
-		contserial = INVALID_SERIAL;
+//		contserial = INVALID_SERIAL;
 		deedsection_ = QString::null;
 		nokey_ = false;
 		charpos_.x = charpos_.y = charpos_.z = 0;

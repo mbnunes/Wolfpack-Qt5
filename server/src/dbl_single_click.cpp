@@ -56,7 +56,7 @@ void useSpellBook( cUOSocket *socket, P_CHAR mage, P_ITEM spellbook )
 {
 	mage->setObjectDelay( 0 );
 
-	if( ( spellbook->contserial != mage->serial ) && ( GetPackOwner( spellbook, 10 ) != mage  ) )
+	if( ( spellbook->container() != mage ) && ( GetPackOwner( spellbook, 10 ) != mage  ) )
 	{
 		socket->sysMessage( tr( "The spellbook needs to be in your hands or in your backpack." ) );
 		return;
@@ -69,7 +69,7 @@ void useSpellBook( cUOSocket *socket, P_CHAR mage, P_ITEM spellbook )
 void useWand( cUOSocket *socket, P_CHAR mage, P_ITEM wand )
 {
 	// Is it in our backpack or on our body ?
-	if( ( wand->contserial != mage->serial )  && ( GetPackOwner( wand, 10 ) != mage ) )
+	if( ( wand->container() != mage )  && ( GetPackOwner( wand, 10 ) != mage ) )
 	{
 		socket->sysMessage( tr( "If you wish to use this, it must be equipped or in your backpack." ) );
 		return;
@@ -140,15 +140,15 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 
 	// -- end - DarkStorm
 
-	if( isItemSerial( pi->contserial ) && pi->type() != 1 && !pi->isInWorld())
+	if( pi->container() && pi->container()->isItem() && pi->type() != 1 && !pi->isInWorld())
 	{ // Cant use stuff that isn't in your pack.
-		P_CHAR pc_p = GetPackOwner(FindItemBySerial(pi->contserial));
+		P_CHAR pc_p = GetPackOwner(dynamic_cast<P_ITEM>(pi->container()));
 		if( pc_p && pc_currchar != pc_p )
 				return;
 	}
-	else if( isCharSerial( pi->contserial ) && pi->type() != 1 && !pi->isInWorld() )
+	else if( pi->container() && pi->container()->isChar() && pi->type() != 1 && !pi->isInWorld() )
 	{// in a character.
-		P_CHAR pc_p = FindCharBySerial(pi->contserial);
+		P_CHAR pc_p = dynamic_cast<P_CHAR>(pi->container());
 		if (pc_p != NULL)
 			if( pc_p != pc_currchar && pi->layer() != 15 && pi->type() != 1 )
 				return;
@@ -194,7 +194,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 	}
 
 	// You can only use equipment on your own char
-	if( !pc_currchar->isGM() && isCharSerial( pi->contserial ) && pi->contserial != pc_currchar->serial )
+	if( !pc_currchar->isGM() && pi->container() && pi->container()->isChar() && pi->container() != pc_currchar )
 	{
 		if( pi->layer() != 15 || !SrvParams->stealingEnabled() )
 		{
@@ -284,8 +284,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		{
 			pc_currchar->setObjectDelay( 0 );	// no delay for opening containers
 			
-			SERIAL contser = pi->contserial;
-			if ( ( contser == INVALID_SERIAL && pc_currchar->inRange( pi, 2 ) ) ||  // Backpack in world - free access to everyone
+			if ( ( !pi->container() && pc_currchar->inRange( pi, 2 ) ) ||  // Backpack in world - free access to everyone
 				pc_currchar->Wears( pi ) )	// primary pack
 			{
 				if( pi->corpse() )
@@ -300,7 +299,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				socket->sendContainer( pi );
 				return;
 			}
-			if (isItemSerial(pi->contserial))
+			if (pi->container()->isItem())
 			{
 				P_ITEM pio = GetOutmostCont(pi);
 				if( !pio ) 
@@ -312,8 +311,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					return;
 				}
 			}
-			P_CHAR pco;
-			pco = GetPackOwner(pi);
+			P_CHAR pco = GetPackOwner(pi);
 			
 			if( pc_currchar->inRange( pco, 2 ) || pc_currchar->inRange( pi, 2 ) )
 			{	
@@ -854,7 +852,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				P_ITEM pBackpack = Packitem(pc_currchar);
 				if ( pBackpack != NULL )
 				{
-					if ((pi->contserial == pBackpack->serial) || pc_currchar->Wears(pi) &&(pi->layer() == 1))
+					if ((pi->container() == pBackpack) || pc_currchar->Wears(pi) &&(pi->layer() == 1))
 					{
 						if (pi->morex <= 0)
 						{
@@ -1011,7 +1009,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					{
 					P_ITEM pBackpack = Packitem(pc_currchar);
 					if (pBackpack != NULL)
-						if (pi->contserial == pBackpack->serial)
+						if (pi->container() == pBackpack)
 						{
 							addmitem[s] = pi->serial; // save the vials number, LB
 //							target(s, 0, 1, 0, 186, "What do you want to fill the vial with?");

@@ -381,11 +381,11 @@ void cUObject::removeFromView( bool clean )
 
 	if( isItemSerial( serial ) )
 	{
-		P_ITEM pCont = GetOutmostCont( (P_ITEM)this, 64 );
+		P_ITEM pCont = GetOutmostCont( dynamic_cast<P_ITEM>(this), 64 );
 		if( pCont )
 		{
 			mPos = pCont->pos;
-			P_CHAR pOwner = FindCharBySerial( pCont->contserial );
+			P_CHAR pOwner = dynamic_cast<P_CHAR>( pCont->container() );
 			if( pOwner )
 				mPos = pOwner->pos;
 		}

@@ -96,7 +96,7 @@ void cItem::toBackpack( P_CHAR pChar )
 	// Pack it to the ground
 	if( !pPack )
 	{
-		contserial = INVALID_SERIAL;
+		container_ = 0;
 		moveTo( pChar->pos );
 		update();
 	}
@@ -108,13 +108,13 @@ void cItem::toBackpack( P_CHAR pChar )
 // Gets the corpse an item is in
 P_ITEM cItem::getCorpse( void )
 {
-	if( isCharSerial( contserial ) || isInWorld() )
-		return NULL;
+	if( isInWorld() || ( container_ && container_->isChar() ) )
+		return 0;
 
 	P_ITEM Cont = GetOutmostCont( this );
 
 	if( !Cont || !Cont->corpse() )
-		return NULL;
+		return 0;
 
 	return Cont;
 }
@@ -717,6 +717,7 @@ void cItem::Init( bool mkser )
 		this->SetSerial(INVALID_SERIAL);
 	}
 
+	this->container_ = 0;
 	this->name_ = "#";
 	this->name2_ = "#";
 	this->incognito=false;//AntiChrist - incognito
@@ -2238,7 +2239,7 @@ void cItem::update( cUOSocket *mSock )
 		}
 	}
 	// items in containers
-	else if( isItemSerial( contserial ) )
+	else if( container_ && container_->isItem() )
 	{
 		cUOTxAddContainerItem contItem;
 		contItem.fromItem( this );
@@ -2246,8 +2247,8 @@ void cItem::update( cUOSocket *mSock )
 		P_ITEM iCont = GetOutmostCont( this, 0xFF );
 		cUObject *oCont = iCont;
 
-		if( isCharSerial( iCont->contserial ) )
-			oCont = FindCharBySerial( iCont->contserial );
+		if( iCont && iCont->isChar() )
+			oCont = dynamic_cast<P_CHAR>( iCont->container() );
 
 		if( !oCont )
 			return;
@@ -2274,7 +2275,7 @@ P_ITEM cItem::dupe()
 	cItemsManager::getInstance()->registerItem( nItem );
 	
 	// We wont dupe items on chars without proper handling
-	P_CHAR pWearer = FindCharBySerial( nItem->contserial );
+	P_CHAR pWearer = dynamic_cast<P_CHAR>( nItem->container() );
 	if( pWearer )
 	{
 		nItem->setLayer( 0 );
@@ -2496,7 +2497,7 @@ static void itemRegisterAfterLoading( P_ITEM pi )
 	// Set the outside indices
 	pi->SetSpawnSerial( pi->spawnserial );
 	/*pi->setContSerial( pi->contserial );*/
-	P_ITEM pCont = FindItemBySerial( pi->contserial );
+	P_ITEM pCont = dynamic_cast<P_ITEM>( pi->container() );
 
 	if( pCont )
 		pCont->setWeight( pCont->weight() + pi->weight() );

@@ -186,7 +186,7 @@ public:
 	void	setAntispamtimer ( unsigned int data ) { antispamtimer_ = data;}
 	void	setAccuracy( UI16 data ) { accuracy_ = data; }
 
-	cItem() { totalweight_ = 0; };
+	cItem() : container_(0) { totalweight_ = 0; };
 	cItem( cItem& src); // Copy constructor
 	virtual QString objectID() const;
 	static void registerInFactory();
@@ -285,7 +285,7 @@ public:
 	
 	virtual void Init( bool mkser = true );
 	void SetSerial(long ser);
-	bool isInWorld()			{ return (contserial == INVALID_SERIAL); }
+	bool isInWorld()			{ return (!container_); }
 	bool isMulti()				{ return ( id_ >= 0x4000 ); }
 	bool isPileable();
 	

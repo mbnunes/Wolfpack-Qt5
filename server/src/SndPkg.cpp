@@ -284,12 +284,14 @@ void itemmessage(UOXSOCKET s, char *txt, int serial, short color)
 
 void wearIt(const UOXSOCKET s, const P_ITEM pi)
 {
-	LongToCharPtr(pi->serial,wearitem+1);
+	qWarning("wearIt() disabled");
+/*	LongToCharPtr(pi->serial,wearitem+1);
 	ShortToCharPtr(pi->id(),wearitem+5);
 	wearitem[8]=pi->layer();
 	LongToCharPtr(pi->contserial,wearitem+9);
 	ShortToCharPtr(pi->color(), &wearitem[13]);
 	Xsend(s, wearitem, 15);
+*/
 }
 
 void backpack2(int s, SERIAL serial) // Send corpse stuff
@@ -363,7 +365,8 @@ void backpack2(int s, SERIAL serial) // Send corpse stuff
 
 void sendbpitem(UOXSOCKET s, P_ITEM pi) // Update single item in backpack
 {
-	unsigned char display3[2]="\x25";
+	qWarning("sendbpitem() function is disabled");
+/*	unsigned char display3[2]="\x25";
 	if (pi == NULL)
 		return;
 
@@ -423,6 +426,7 @@ void sendbpitem(UOXSOCKET s, P_ITEM pi) // Update single item in backpack
 		Xsend(s, bpitem, 19);
 	}
 	Weight->NewCalc(currchar[s]);	// Ison 2-20-99
+*/
 }
 
 
@@ -465,7 +469,8 @@ void tileeffect(int x, int y, int z, char eff1, char eff2, char speed, char loop
 
 void senditem(UOXSOCKET s, P_ITEM pi) // Send items (on ground)
 {
-	if( pi == NULL )
+	qWarning("senditem() function is disabled");
+/*	if( pi == NULL )
 		return;
 	int pack,serial;
 	unsigned char itmput[21]="\x1A\x00\x13\x40\x01\x02\x03\x20\x42\x00\x32\x06\x06\x06\x4A\x0A\x00\x00\x00";
@@ -592,6 +597,7 @@ void senditem(UOXSOCKET s, P_ITEM pi) // Send items (on ground)
 			backpack2(s, pi->serial);
 		}
 	}
+*/
 }
 
 void teleport(P_CHAR pc) // Teleports character to its current set coordinates
@@ -1590,7 +1596,8 @@ void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 
 void sendshopinfo(int s, P_CHAR pc, P_ITEM pi)
 {
-	unsigned char m1[6096] = {0,};
+	qWarning("sendshopinfo() function is disabled");
+/*	unsigned char m1[6096] = {0,};
 	unsigned char m2[6096] = {0,};
 	char itemname[256] = {0,};
 	char cFoundItems=0;
@@ -1665,6 +1672,7 @@ void sendshopinfo(int s, P_CHAR pc, P_ITEM pi)
 		Xsend(s, m1, m1t);
 		Xsend(s, m2, m2t);
 	}
+*/
 }
 
 int sellstuff(int s, P_CHAR pc)

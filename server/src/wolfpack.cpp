@@ -2078,11 +2078,15 @@ void initque() // Initilizes the gmpages[] and counspages[] arrays and also jail
 
 P_ITEM GetOutmostCont(P_ITEM pItem, short rec)
 {
-	if ( rec<0								// too many recursions
-		|| !pItem							// bad parm
-		|| ( pItem->container() && isCharSerial(pItem->container()->serial) )	// a character
-		|| pItem->isInWorld() )				// in the world
+	if ( rec < 0 )				// too many recursions
+		return pItem; 
+
+	if ( !pItem )				// bad param.
+		return 0; 
+	
+	if ( ( pItem->container() && isCharSerial( pItem->container()->serial ) || pItem->isInWorld() ) )
 		return pItem;
+
 	P_ITEM pOut = dynamic_cast<P_ITEM>(pItem->container());	// up one level
 	if (!pOut)
 	{

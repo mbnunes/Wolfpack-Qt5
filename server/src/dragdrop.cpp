@@ -145,7 +145,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 	P_ITEM outmostCont = GetOutmostCont( pItem, 64 );  
 
 	// If it's a trade-window, reset the ack-status
-	if( outmostCont && ( outmostCont->contserial == pChar->serial ) && ( outmostCont->layer() == 0 ) && ( outmostCont->id() == 0x1E5E ) )
+	if( outmostCont && ( outmostCont->container() == pChar ) && ( outmostCont->layer() == 0 ) && ( outmostCont->id() == 0x1E5E ) )
 	{
 		// Get the other sides tradewindow
 		P_ITEM tradeWindow = FindItemBySerial( calcserial( outmostCont->moreb1(), outmostCont->moreb2(), outmostCont->moreb3(), outmostCont->moreb4() ) );
@@ -186,7 +186,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 	// Remove eventual item-bonusses if we're unequipping something
 	if( pItem->layer() > 0 ) 
 	{
-		P_CHAR wearer = FindCharBySerial( pItem->contserial );
+		P_CHAR wearer = dynamic_cast<P_CHAR>( pItem->container() );
 
 		if( wearer )
 			wearer->removeItemBonus( pItem );
@@ -628,14 +628,14 @@ void cDragItems::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &
 		return;
 	}
 	
-	if ( pItem->contserial != INVALID_SERIAL )
+	if ( pItem->container() )
 	{
-		P_ITEM pi = FindItemBySerial( pItem->contserial );
+		P_ITEM pi = dynamic_cast<P_ITEM>( pItem->container() );
 		if ( pi )
 			pi->removeItem(pItem);
 		else
 		{
-			P_CHAR pc = FindCharBySerial( pItem->contserial );
+			P_CHAR pc = dynamic_cast<P_CHAR>( pItem->container() );
 			pc->removeItem( static_cast<cChar::enLayer>( pItem->layer() ) );
 		}
 	}
