@@ -10,6 +10,10 @@ import string
 
 def onChangeRegion( char, oldregion, newregion ):
 	socket = char.socket
+	
+	if not socket:
+		return False
+	
 	"""
 		 0. Both messages enabled == Show Messages Leave Old/Enter New *
 		 1. Both messages disabled == No Messages *
