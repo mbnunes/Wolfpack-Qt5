@@ -77,16 +77,16 @@
 				Optimization="3"
 				GlobalOptimizations="TRUE"
 				InlineFunctionExpansion="1"
-				EnableIntrinsicFunctions="TRUE"
+				EnableIntrinsicFunctions="FALSE"
 				FavorSizeOrSpeed="2"
-				OptimizeForProcessor="3"
+				OptimizeForProcessor="0"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories="sqlite"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;QT_DLL;QT_NO_STL;QT_THREAD_SUPPORT"
+				AdditionalIncludeDirectories="sqlite;&quot;D:\coding\STLport-5.0-0125\stlport&quot;;D:\coding\msvcrt\include;qt"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;QT_THREAD_SUPPORT;QT_LITE_COMPONENT;QT_DLL;QT_NO_STL;QT_NO_COMPRESS"
 				StringPooling="TRUE"
 				MinimalRebuild="FALSE"
 				BasicRuntimeChecks="0"
-				RuntimeLibrary="0"
+				RuntimeLibrary="2"
 				StructMemberAlignment="3"
 				BufferSecurityCheck="FALSE"
 				EnableFunctionLevelLinking="FALSE"
@@ -102,10 +102,12 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qt-mt322.lib ws2_32.lib comctl32.lib"
+				AdditionalDependencies="qt-mt322.lib ws2_32.lib comctl32.lib msvcrt.lib python23.lib"
 				OutputFile="../wolfpack.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories=";D:\coding\msvcrt\lib"
+				IgnoreAllDefaultLibraries="TRUE"
 				GenerateDebugInformation="FALSE"
 				SubSystem="2"
 				OptimizeReferences="2"
@@ -326,6 +328,12 @@
 			</File>
 			<File
 				RelativePath=".\md5.h">
+			</File>
+			<File
+				RelativePath=".\multis.cpp">
+			</File>
+			<File
+				RelativePath=".\multis.h">
 			</File>
 			<File
 				RelativePath=".\network.cpp">
@@ -782,12 +790,6 @@
 				RelativePath=".\mulstructs.h">
 			</File>
 			<File
-				RelativePath=".\multis.cpp">
-			</File>
-			<File
-				RelativePath=".\multis.h">
-			</File>
-			<File
 				RelativePath=".\multiscache.cpp">
 			</File>
 			<File
@@ -822,6 +824,15 @@
 				RelativePath=".\ai\ai_monsters.cpp">
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\ftol2.obj">
+			<FileConfiguration
+				Name="Debug|Win32"
+				ExcludedFromBuild="TRUE">
+				<Tool
+					Name="VCCustomBuildTool"/>
+			</FileConfiguration>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

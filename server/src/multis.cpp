@@ -47,9 +47,6 @@
 
 using namespace std;
 
-#undef DBGFILE
-#define DBGFILE "multis.cpp"
-
 cMulti::cMulti()
 {
 	cItem::Init( false );

@@ -41,8 +41,7 @@
 #include <qhostaddress.h>
 #include <qdatetime.h>
 
-const char preferencesFileVersion[] = "1.0";
-
+#include <qglobal.h>
 #if defined( Q_OS_WIN32 )
 # include <winsock.h>
 #elif defined ( Q_OS_UNIX )
@@ -52,6 +51,8 @@ const char preferencesFileVersion[] = "1.0";
 # include <netinet/in.h>
 # include <netdb.h> 
 #endif
+
+const char preferencesFileVersion[] = "1.0";
 
 #ifndef INADDR_NONE
 #define INADDR_NONE (-1)

@@ -47,11 +47,6 @@
 #include <qthread.h>
 #include <qmutex.h>
 
-#if defined(Q_OS_WIN32) 
-# include <windows.h>
-# include <conio.h>
-#endif
-
 #if defined(Q_OS_UNIX)
      #include <sys/types.h>
      #include <sys/time.h>
