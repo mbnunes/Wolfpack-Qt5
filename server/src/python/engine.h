@@ -39,7 +39,7 @@
 #include <qglobal.h>
 
 //#define DEBUG_PYTHON
-
+#undef slots
 #if defined(_DEBUG) && defined(Q_CC_MSVC) && !defined(DEBUG_PYTHON)
 #	undef _DEBUG
 #	include <Python.h>
@@ -47,9 +47,11 @@
 #else
 #	include <Python.h>
 #endif
+#define slots
 
 void reloadPython( void );
 void stopPython( void );
 void startPython( int argc, char* argv[], bool silent = false );
 
 #endif // __PYTHON_ENGINE_H__
+

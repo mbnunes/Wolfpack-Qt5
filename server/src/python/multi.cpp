@@ -79,7 +79,10 @@ static PyTypeObject wpMultiType = {
 PyObject* PyGetMultiObject( P_MULTI pMulti )
 {
 	if( pMulti == NULL )
+	{
+		Py_INCREF( Py_None );
 		return Py_None;
+	}
 
 	wpMulti *returnVal = PyObject_New( wpMulti, &wpMultiType );
 	returnVal->pMulti = pMulti;
@@ -294,7 +297,10 @@ PyObject* wpMulti_addtimer( wpMulti* self, PyObject* args )
 PyObject* wpMulti_gettag( wpMulti* self, PyObject* args )
 {
 	if( !self->pMulti || self->pMulti->free )
+	{
+		Py_INCREF( Py_None );
 		return Py_None;
+	}
 
 	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
 	{
@@ -317,6 +323,7 @@ PyObject* wpMulti_gettag( wpMulti* self, PyObject* args )
 	else if( value.type() == cVariant::Int )
 		return PyInt_FromLong( value.asInt() );
 
+	Py_INCREF( Py_None );
 	return Py_None;
 }
 

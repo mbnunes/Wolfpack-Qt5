@@ -59,6 +59,9 @@ protected:
 	PyObject *codeModule; // This object stores the compiled Python Module
 
 public:
+	cPythonScript(): catchAllSpeech_( false ), handleSpeech_( false ), codeModule( 0 ) {}
+	virtual ~cPythonScript() {};
+
 	void addKeyword( UINT16 data );	
 	void addWord( const QString &data );
 	void addRegexp( const QRegExp &data );
@@ -71,10 +74,7 @@ public:
 
 	// We need an identification value for the scripts
 	void setName( const QString &value ) { name_ = value; }
-	const QString &name() { return name_; }
-
-	cPythonScript(): catchAllSpeech_( false ), handleSpeech_( false ), codeModule( 0 ) {}
-	virtual ~cPythonScript() {};
+	QString name() const { return name_; }
 
 	bool load( const cElement *element );
 	void unload( void );

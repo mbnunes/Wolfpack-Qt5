@@ -64,15 +64,19 @@ static PyTypeObject wpSocketType = {
 PyObject* PyGetSocketObject( cUOSocket *socket )
 {
 	if( !socket )
+	{
+		Py_INCREF( Py_None );
 		return Py_None;
+	}
 
 	wpSocket *rVal = PyObject_New( wpSocket, &wpSocketType );
 	rVal->pSock = socket;
 
 	if( rVal )
 		return (PyObject*)rVal;
-	else
-		return Py_None;
+
+	Py_INCREF( Py_None );
+	return Py_None;
 }
 
 /*!
@@ -518,7 +522,10 @@ PyObject* wpSocket_sendpacket( wpSocket* self, PyObject* args )
 PyObject* wpSocket_gettag( wpSocket* self, PyObject* args )
 {
 	if( !self->pSock )
+	{
+		Py_INCREF( Py_None );
 		return Py_None;
+	}
 
 	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
 	{
@@ -534,6 +541,7 @@ PyObject* wpSocket_gettag( wpSocket* self, PyObject* args )
 	else if( value.type() == cVariant::Int )
 		return PyInt_FromLong( value.asInt() );
 
+	Py_INCREF( Py_None );
 	return Py_None;
 }
 

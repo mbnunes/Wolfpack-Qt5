@@ -1281,11 +1281,17 @@ static PyObject *wpAccountsAcl( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	if( !checkArgStr( 0 ) )
+	{
+		Py_INCREF( Py_None );
 		return Py_None;
+	}
 
 	cAcl *acl = cCommands::instance()->getACL( getArgStr( 0 ) );
 	if( !acl )
+	{
+		Py_INCREF( Py_None );
 		return Py_None;
+	}
 
 	PyObject *dict = PyDict_New();
 	

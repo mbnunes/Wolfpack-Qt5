@@ -242,7 +242,10 @@ bool checkWpAccount( PyObject *object )
 PyObject* PyGetAccountObject( AccountRecord *account )
 {
 	if( !account )
+	{
+		Py_INCREF( Py_None );
 		return Py_None;
+	}
 
 	wpAccount *cObject = PyObject_New( wpAccount, &wpAccountType );
 	cObject->account = account;

@@ -159,7 +159,10 @@ bool checkWpRegion( PyObject *object )
 PyObject* PyGetRegionObject( cTerritory *pRegion )
 {
 	if( !pRegion )
+	{
+		Py_INCREF( Py_None );
 		return Py_None;
+	}
 
 	wpRegion *returnVal = PyObject_New( wpRegion, &wpRegionType );
 	returnVal->pRegion = pRegion;

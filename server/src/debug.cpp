@@ -138,7 +138,7 @@ void LogMessageF(unsigned char Type, long Line, char *File, char *Message, ...)
 	Modifications from Correa
 */
 
-#if defined(Q_OS_WIN32) && 1
+#if defined(Q_OS_WIN32) && 0
 
 #include <qfile.h>
 #include <qdatetime.h>

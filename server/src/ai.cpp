@@ -28,6 +28,8 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
+#include "python/utilities.h"
+
 #include "ai.h"
 #include "npc.h"
 #include "mapobjects.h"
@@ -38,7 +40,6 @@
 #include "walking.h"
 #include "itemid.h"
 #include "world.h"
-#include "python/utilities.h"
 
 // library includes
 #include <math.h>

@@ -79,7 +79,10 @@ static PyTypeObject wpTargetType = {
 static PyObject *PyGetTarget( cUORxTarget *target, UINT8 map )
 {
 	if( !target )
+	{
+		Py_INCREF( Py_None );
 		return Py_None;
+	}
 
 	wpTarget *returnVal = PyObject_New( wpTarget, &wpTargetType );
 	

@@ -93,7 +93,10 @@ static PyTypeObject wpItemType = {
 PyObject* PyGetItemObject( P_ITEM item )
 {
 	if( item == NULL )
+	{
+		Py_INCREF( Py_None );
 		return Py_None;
+	}
 
 //	wpItem *returnVal = ItemCache::instance()->allocObj( &wpItemType );
 	wpItem *returnVal = PyObject_New( wpItem, &wpItemType );
@@ -334,7 +337,10 @@ PyObject* wpItem_countresource( wpItem* self, PyObject* args )
 PyObject* wpItem_gettag( wpItem* self, PyObject* args )
 {
 	if( !self->pItem || self->pItem->free )
+	{
+		Py_INCREF( Py_None );
 		return Py_None;
+	}
 
 	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
 	{
@@ -357,6 +363,7 @@ PyObject* wpItem_gettag( wpItem* self, PyObject* args )
 	else if( value.type() == cVariant::Int )
 		return PyInt_FromLong( value.asInt() );
 
+	Py_INCREF( Py_None );
 	return Py_None;
 }
 

@@ -109,7 +109,10 @@ PyObject *wpTooltip_add( wpTooltip *self, PyObject *args )
 PyObject* PyGetTooltipObject( cUOTxTooltipList *tooltip )
 {
 	if( !tooltip )
+	{
+		Py_INCREF( Py_None );
 		return Py_None;
+	}
 
 	wpTooltip *cObject = PyObject_New( wpTooltip, &wpTooltipType );
 	cObject->list = tooltip;

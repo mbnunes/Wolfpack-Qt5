@@ -97,7 +97,10 @@ static PyTypeObject wpCharType = {
 PyObject* PyGetCharObject( P_CHAR pChar )
 {
 	if( !pChar )
+	{
+		Py_INCREF( Py_None );
 		return Py_None;
+	}
 
 //	wpChar *returnVal = CharCache::instance()->allocObj( &wpCharType );
 	wpChar *returnVal = PyObject_New( wpChar, &wpCharType );
@@ -388,7 +391,7 @@ PyObject* wpChar_checkskill( wpChar* self, PyObject* args )
 /*!
 	Returns an item object for an item equipped
 	on the specified layer. If there is no item
-	it returns py_none.
+	it returns Py_None.
 */
 PyObject* wpChar_itemonlayer( wpChar* self, PyObject* args )
 {
@@ -607,7 +610,10 @@ PyObject* wpChar_ischar( wpChar* self, PyObject* args )
 PyObject* wpChar_gettag( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
+	{
+		Py_INCREF( Py_None );
 		return Py_None;
+	}
 
 	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
 	{
@@ -625,6 +631,7 @@ PyObject* wpChar_gettag( wpChar* self, PyObject* args )
 	else if( value.type() == cVariant::Double )
 		return PyFloat_FromDouble( value.asDouble() );		
 
+	Py_INCREF( Py_None );
 	return Py_None;
 }
 
@@ -1580,7 +1587,10 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	{
 		P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 		if ( !player )
+		{
+			Py_INCREF( Py_None );
 			return Py_None;
+		}
 		return PyGetAccountObject( player->account() );
 	}
 	else if( !strcmp( "socket", name ) )
@@ -1588,7 +1598,10 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 
 		if ( !player )
+		{
+			Py_INCREF( Py_None );
 			return Py_None;
+		}
 		return PyGetSocketObject( player->socket() );
 	}
 	else if( !strcmp( "skill", name ) )
@@ -1620,7 +1633,10 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 
 		if ( !player )
+		{
+			Py_INCREF( Py_None );
 			return Py_None;
+		}
 
 		cBaseChar::CharContainer followers = player->pets();
 		PyObject *rVal = PyTuple_New( followers.size() );

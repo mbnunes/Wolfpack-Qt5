@@ -82,7 +82,7 @@ static PyObject *wpPacket_resize( PyObject *self, PyObject *args )
 
 	( (wpPacket*)self )->packet->resize( (unsigned short)size );
 
-	Py_XINCREF( Py_None );
+	Py_INCREF( Py_None );
 	return Py_None;
 }
 
@@ -96,7 +96,7 @@ static PyObject *wpPacket_setbyte( PyObject *self, PyObject *args )
 
 	( *( (wpPacket*)self )->packet )[ (unsigned short)pos ] = (char)value;
 
-	Py_XINCREF( Py_None );
+	Py_INCREF( Py_None );
 	return Py_None;
 }
 
@@ -110,7 +110,7 @@ static PyObject *wpPacket_setshort( PyObject *self, PyObject *args )
 
 	( (wpPacket*)self )->packet->setShort( (unsigned short)pos, (unsigned short)value );
 
-	Py_XINCREF( Py_None );
+	Py_INCREF( Py_None );
 	return Py_None;
 }
 
@@ -124,7 +124,7 @@ static PyObject *wpPacket_setint( PyObject *self, PyObject *args )
 
 	( (wpPacket*)self )->packet->setInt( (unsigned short)pos, (unsigned int)value );
 
-	Py_XINCREF( Py_None );
+	Py_INCREF( Py_None );
 	return Py_None;
 }
 
@@ -141,7 +141,7 @@ static PyObject *wpPacket_setascii( PyObject *self, PyObject *args )
 
 	PyMem_Free( buffer );
 
-	Py_XINCREF( Py_None );
+	Py_INCREF( Py_None );
 	return Py_None;
 }
 
@@ -160,7 +160,7 @@ static PyObject *wpPacket_setunicode( PyObject *self, PyObject *args )
 
 	PyMem_Free( buffer );
 
-	Py_XINCREF( Py_None );
+	Py_INCREF( Py_None );
 	return Py_None;
 }
 
@@ -174,7 +174,7 @@ static PyObject *wpPacket_send( PyObject *self, PyObject *args )
 
 	socket->send( ( (wpPacket*)self )->packet );
 
-	Py_XINCREF( Py_None );
+	Py_INCREF( Py_None );
 	return Py_None;
 }
 
