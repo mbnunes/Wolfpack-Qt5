@@ -240,6 +240,17 @@ cDBResult cSQLiteDriver::query( const QString &query )
 	return cDBResult( result, connection, false ); 
 }
 
+bool cSQLiteDriver::tableExists( const QString &table )
+{
+	cDBResult result = query( QString( "PRAGMA table_info('%1');" ).arg( table ) );
+
+	bool res = result.fetchrow(); // Every table has at least one field
+
+	result.free();
+
+	return res;
+}
+
 /*****************************************************************************
   cMySQLDriver member functions
  *****************************************************************************/
@@ -332,6 +343,14 @@ void cMySQLDriver::setActiveConnection( int id )
 	{
 		connection = connections[ id ];
 	}
+}
+
+/*!
+	No checking done for MySQL yet.
+ */
+bool cMySQLDriver::tableExists( const QString &table )
+{
+	return true;
 }
 
 #endif

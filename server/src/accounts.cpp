@@ -41,6 +41,17 @@
 #include "persistentbroker.h"
 #include "world.h"
 
+// DB AutoCreation
+const char *createSql = "CREATE TABLE accounts (\
+  login varchar(255) NOT NULL default '',\
+  password varchar(255) NOT NULL default '',\
+  flags int NOT NULL default '0',\
+  acl varchar(255) NOT NULL default 'player',\
+  lastlogin int NOT NULL default '',\
+  blockuntil int NOT NULL default '',\
+  PRIMARY KEY (login)\
+);";
+
 /*****************************************************************************
   cAccount member functions
  *****************************************************************************/
@@ -288,6 +299,11 @@ void cAccounts::save()
 		persistentBroker->connect( SrvParams->accountsHost(), SrvParams->accountsName(), SrvParams->accountsUsername(), SrvParams->accountsPassword() );
 		connected = true;
 
+		if( !persistentBroker->tableExists( "accounts" ) )
+		{
+			persistentBroker->executeQuery( createSql );
+		}
+
 		persistentBroker->executeQuery( "BEGIN;" );
 
 		persistentBroker->executeQuery( "DELETE FROM accounts;" );
@@ -333,6 +349,11 @@ void cAccounts::load()
 	// Load all Accounts
 	try
 	{
+		if( !persistentBroker->tableExists( "accounts" ) )
+		{
+			persistentBroker->executeQuery( createSql );
+		}
+
 		persistentBroker->connect( SrvParams->accountsHost(), SrvParams->accountsName(), SrvParams->accountsUsername(), SrvParams->accountsPassword() );
 
 		cDBResult result = persistentBroker->query( "SELECT accounts.login,accounts.password,accounts.flags,accounts.acl,accounts.lastlogin,accounts.blockuntil FROM accounts;" );

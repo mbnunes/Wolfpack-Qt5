@@ -77,6 +77,7 @@ public:
 
 	void lockTable( const QString& table ) const;
 	void unlockTable( const QString& table ) const;
+	bool tableExists( const QString& table );
 
 	bool saveObject( PersistentObject* );
 	bool deleteObject( PersistentObject* );

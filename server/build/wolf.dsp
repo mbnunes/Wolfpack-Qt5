@@ -238,10 +238,6 @@ SOURCE=.\persistentobject.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\pfactory.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\player.cpp
 # End Source File
 # Begin Source File
@@ -696,10 +692,6 @@ InputName=persistentbroker
 
 SOURCE=.\persistentobject.h
 # PROP Ignore_Default_Tool 1
-# End Source File
-# Begin Source File
-
-SOURCE=.\pfactory.h
 # End Source File
 # Begin Source File
 

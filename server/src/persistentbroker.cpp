@@ -151,11 +151,7 @@ bool PersistentBroker::executeQuery( const QString& query )
 	bool result = connection->exec(query);
 	if( !result )
 	{
-		qWarning( query );
-		Console::instance()->ChangeColor( WPC_RED );
-		Console::instance()->send( "ERROR" );
-		Console::instance()->ChangeColor( WPC_NORMAL );
-		Console::instance()->send( ":" + connection->error() + "\n" );
+		Console::instance()->log( LOG_ERROR, connection->error() );
 	}
 	return result;
 }
@@ -231,4 +227,9 @@ void PersistentBroker::rollbackTransaction()
 {
 	if( sqlite )
 		executeQuery( "ROLLBACK;" );
+}
+
+bool PersistentBroker::tableExists( const QString &table )
+{
+	return connection->tableExists( table );
 }

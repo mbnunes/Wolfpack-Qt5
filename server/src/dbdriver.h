@@ -69,6 +69,7 @@ public:
 	virtual void lockTable( const QString& table );
 	virtual void unlockTable( const QString& table );
 	virtual QString error(); // Returns an error (if there is one), uses the current connection
+	virtual bool tableExists( const QString &table ) = 0;
 	
 	// Setters + Getters
 	virtual void setActiveConnection( int id = CONN_MAIN );
@@ -95,6 +96,7 @@ public:
 
 	void lockTable( const QString &table ) {}
 	void unlockTable( const QString &table ) {}
+	bool tableExists( const QString &table );
 	QString error() { return QString::null; }
 
 	bool exec( const QString &query );
@@ -115,6 +117,7 @@ public:
 
 	void lockTable( const QString& table );
 	void unlockTable( const QString& table );
+	bool tableExists( const QString &table );
 	QString error();
 	void setActiveConnection( int id );
 	bool exec( const QString &query );
