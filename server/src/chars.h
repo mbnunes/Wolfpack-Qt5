@@ -290,6 +290,7 @@ public:
 	void makeShop( void );
 	void updateHealth( void );
 	void action( UINT8 id ); // Do an action
+	P_ITEM getWeapon();
 	QString fullName( void );
 
 	// Getters

@@ -782,9 +782,8 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 		else
 			skillid = packet->skillId3();
 	}
+
 	pChar->giveNewbieItems( skillid );
-	
-	Weight->NewCalc( pChar );
 
 	// Start the game with the newly created char -- OR RELAY HIM !!
     playChar( pChar );
@@ -1850,7 +1849,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		sendStats.setStrength( pChar->st() );
 		sendStats.setDexterity( pChar->effDex() );
 		sendStats.setIntelligence( pChar->in() );
-		sendStats.setWeight( pChar->weight() );
+		sendStats.setWeight( pChar->weight() / 10 );
 		sendStats.setGold( pChar->CountBankGold() + pChar->CountGold() );
 		sendStats.setArmor( pChar->calcDefense( ALLBODYPARTS ) );
 		sendStats.setSex( true );

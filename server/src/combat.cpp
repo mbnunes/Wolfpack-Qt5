@@ -58,342 +58,347 @@
 
 namespace Combat 
 {
+	/*!
+
+		Check for the weaponskill required by this weapon by checking it's type.
+
+	*/
 	UI16 weaponSkill( P_ITEM pi )
 	{
 		if( !pi )
 			return WRESTLING;
 
-		if( IsSwordType( pi->id() ) )
+		switch( pi->type() )
 		{
-			return SWORDSMANSHIP;
-		}
-		else if( IsMaceType( pi->id() ) )
-		{
-			return MACEFIGHTING;
-		}
-		else if( IsFencingType( pi->id() ) )
-		{
-			return FENCING;
-		}
-		else if( IsBowType( pi->id() ) )
-		{
-			return ARCHERY;
-		}
-		else
-			return WRESTLING;
+			// 1001: Sword Weapons (Swordsmanship)
+			// 1002: Axe Weapons (Swordsmanship + Lumberjacking)
+			case 1001:			
+			case 1002:
+				return SWORDSMANSHIP;
+				break;
+	
+			// 1003: Macefighting (Staffs)
+			// 1004: Macefighting (Maces/WarHammer)
+			case 1003:			
+			case 1004:
+				return MACEFIGHTING;
+				break;
+	
+			// 1005: Fencing
+			case 1005:
+				return FENCING;
+				break;
+	
+			// 1006: Bows
+			// 1007: Crossbows
+			case 1006:
+			case 1007:
+				return ARCHERY;
+				break;
+
+			default:
+				return WRESTLING;
+		};
 	}
 
+	/*!
+		Check for the bow-type of this item by evaluating it's type.
+		BOW for a bow.
+		XBOW for a crossbow.
+	*/
 	enBowTypes bowType( P_ITEM pi )
 	{
 		if( !pi )
 			return INVALID_BOWTYPE;
 
-		switch( pi->id() )
+		switch( pi->type() )
 		{
-		case 0x13B1:	// bows
-		case 0x13B2:	
-			return BOW;
+			case 1006:
+				return BOW;
 
-		case 0x0F4F:	// crossbow
-		case 0x0F50:	
-			return XBOW;
+			case 1007:
+				return XBOW;
 
-		case 0x13FC:	// heavy xbow
-		case 0x13FD:	
-			return HEAVYXBOW;
+			default:
+				return INVALID_BOWTYPE;
 		}
-
-		return INVALID_BOWTYPE;
 	}
 
+	/*!
+		This is called when we finish to swing our weapon.
+		It basically checks for LoS and distance
+		and then calls hit().
+	*/
 	void checkandhit( P_CHAR pAttacker )
 	{
 		P_CHAR pDefender = FindCharBySerial( pAttacker->swingtarg() );
-		if( !pDefender || pDefender->isInvul() )
-		{
-			pAttacker->setSwingTarg( INVALID_SERIAL );
-			return;
-		}
-		
-		// set swingtarget serial back to invalid
 		pAttacker->setSwingTarg( INVALID_SERIAL );
 
+		if( !pDefender || pDefender->isInvul() )
+		{
+			if( pAttacker->socket() )
+				pAttacker->socket()->sysMessage( tr( "You can't hit your target." ) );
+
+			return;
+		}
+
+		// Can we see our target. 
+		// I don't know what the +z 13 means...
 		bool los = lineOfSight( pAttacker->pos + Coord_cl( 0, 0, 13 ), pDefender->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING );
 
 		hit( pAttacker, pDefender, los );
 	}
 
+	/*!
+		This function is responsible for calculating
+		the to-hit chance and dealing the right 
+		amount of damage. This is called *after* 
+		we completed a swing.
+	*/
 	void hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 	{
 		SI32 totaldamage = 0;
 
-		QValueList< cItem* > handitems;
-		handitems.push_back( pAttacker->rightHandItem() );
-		handitems.push_back( pAttacker->leftHandItem() );
+		// Get the weapon the attacker is wearing.
+		P_ITEM pWeapon = pAttacker->getWeapon();
+		UINT16 wSkill = pWeapon ? pWeapon->getWeaponSkill() : WRESTLING;
+		enBowTypes bowtype = bowType( pWeapon );
 
-		QValueList< cItem* >::iterator it = handitems.begin();
-		UI32 i = 0;
-		while( it != handitems.end() )
+		// We simply can't see our target.
+		if( !los || ( wSkill != ARCHERY && pAttacker->pos.distance( pDefender->pos ) > 1 ) )
+			return;
+
+		// There is a 50% chance that
+		// our weapon will be damaged.
+		if( wSkill != WRESTLING && pWeapon )
+			if( pWeapon->wearOut() ) // Our weapon has been destroyed
+				wSkill = WRESTLING;
+
+		// For Bows and Crossbows, 
+		// check if the user has enough ammunition
+		P_ITEM pAmmo = NULL;
+
+		if( wSkill == ARCHERY )
 		{
-			P_ITEM pItem = *it;
+			UINT16 id = ( bowtype == BOW ) ? 0xF3F : 0x1BFB;
 
-			UI16 fightskill = weaponSkill( pItem );
-			enBowTypes bowtype = bowType( pItem );
-			++i;
+			P_ITEM pBackpack = pAttacker->getBackpack();
 
-			if( i > 1 && fightskill == WRESTLING ) // dont handle an empty left hand!
-				break;
-			
-			// damage the item with a 50% change, but not spellbooks
-			if( pItem && RandomNum( 0, 1 ) == 1 && pItem->type() != 9 )
-				if( pItem->wearOut() )
-					fightskill = WRESTLING;
-
-			if( ( pAttacker->pos.distance( pDefender->pos ) > 1 && fightskill != ARCHERY ) || !los )
+			if( !pBackpack || !pBackpack->DeleteAmount( 1, id ) )
 			{
-				++it;
-				continue;
-			}
-
-			// if we are using archery, lets find the arrow to shoot :)
-			P_ITEM pAmmo = NULL;
-			if( fightskill == ARCHERY )
-			{
-				short id = 0x1BFB;	// bolts
-				if( bowtype == BOW )
-					id=0x0F3F;		// arrows
-
-				P_ITEM pBackpack = pAttacker->getBackpack();
-				if ( !pBackpack )
-					return;
-				cItem::ContainerContent container = pBackpack->content();
-				cItem::ContainerContent::iterator vit = container.begin();
-				while( vit != container.end() )
-				{
-					P_ITEM pi = *vit;
-					if( pi && pi->id() == id )
-					{
-						pAmmo = pi->dupe();
-						pAmmo->setAmount( 1 );
-						pi->setAmount( pi->amount()-1 );
-						if( pi->amount() <= 0 )
-							Items->DeleItem( pi );
-						break;
-					}
-					++vit;
-				}
-
-				if( !pAmmo )
-				{
-					if( pAttacker->socket() )
-						pAttacker->socket()->sysMessage( tr("You are out of ammunition!") );
-					return;
-				}
-			}
-
-			// the higher the damage rates of the weapon are,
-			// the higher is min and maxskill
-			UI32 minskill = 0;
-			UI32 maxskill = 1000;
-			if( pItem )
-			{
-				minskill = pItem->lodamage() * 10;
-				if( minskill > 990 ) // dont let it rise higher than 99%
-					minskill = 990;
-				maxskill = pItem->hidamage() * 10;
-			}
-
-			UI16 deffightskill = WRESTLING;
-			UI32 defminsk = 0;
-			UI32 defmaxsk = 1000;
-			P_ITEM pDefWeapon = pDefender->rightHandItem();
-			if( pDefWeapon )
-			{
-				deffightskill = weaponSkill( pDefWeapon );
-			}
-			else
-			{
-				pDefWeapon = pDefender->leftHandItem();
-				deffightskill = weaponSkill( pDefWeapon );
-			}
-			if( deffightskill == ARCHERY )
-				deffightskill = WRESTLING;
-			if( pDefWeapon )
-			{
-				defminsk = pDefWeapon->lodamage() * 10;
-				if( defminsk > 990 )
-					defminsk = 990;
-				defmaxsk = pDefWeapon->hidamage() * 10;
-			}
-
-			// skillchecks for attacker and defender
-			pAttacker->checkSkill( fightskill, minskill, maxskill );
-			pDefender->checkSkill( deffightskill, defminsk, defmaxsk );
-			pAttacker->checkSkill( TACTICS, minskill, maxskill );
-			pAttacker->checkSkill( ANATOMY, minskill, maxskill );
-			pDefender->checkSkill( TACTICS, defminsk, defmaxsk );
-
-			// Hit Evasion = (Evaluate Intelligence + Anatomy + 20) / 2 (with a maximum of 120) 
-			SI32 evasionchance = 0;
-			if( deffightskill == WRESTLING )
-			{
-				evasionchance = ( pDefender->skill( EVALUATINGINTEL ) + pDefender->skill( ANATOMY ) + 200 ) / 20;
-				if( evasionchance > 120 )
-					evasionchance = 120;
-				else if( evasionchance < 0 )
-					evasionchance = 0;
-			}
-
-			// Hit Chance = ( Attacker's Combat Ability + 50 ) ÷ ( [Defender's Combat Ability + 50] x 2 )
-			SI32 hitchance = (SI32)floor( ( (float)pAttacker->skill( fightskill ) + 500.0f ) / ( ( (float)pDefender->skill( deffightskill ) + 500.0f ) * 2.0f ) * 100.0f );
-			
-			if( RandomNum( 0, 100 ) <= evasionchance || RandomNum( 0, 100 ) >= hitchance )
-			{
-				// Display a message to both players that the 
-				// swing didn't hit
-				// NOTE: There should be a random chance that this
-				// message appears *or* a flag to set
+				// We have to be careful here.
+				// We could be spammed with those messages.
 				if( pAttacker->socket() )
-					pAttacker->socket()->sysMessage( tr( "You miss %1" ).arg( pDefender->name.latin1() ) );
+					pAttacker->socket()->sysMessage( tr( "You are out of ammunition!" ) );
 
-				if( pDefender->socket() )
-					pDefender->socket()->sysMessage( tr( "%1 misses you" ).arg( pAttacker->name.latin1() ) );
-
-				if( pAttacker->isPlayer() )
-					playMissedSoundEffect( pAttacker );
-
-				if( ( fightskill == ARCHERY ) && los )
-				{
-					if( RandomNum( 0, 2 ) == 2 ) // 1/3 chance
-					{
-						if( pAmmo ) // normally we should have a valid pointer here
-						{
-							pAmmo->moveTo( pDefender->pos );
-							pAmmo->priv = 1;
-							pAmmo->update();
-						}
-					}
-				}
-				playMissedSoundEffect( pAttacker );
 				return;
 			}
+		}
 
+		UINT16 minskill, maxskill;
+		
+		// If we are wearing a weapon, let the skill-check
+		// depend on the power of the weapon automatically.		
+		if( wSkill != WRESTLING && pWeapon )
+		{
+			// Maximum 99% minimum skill
+			minskill = QMIN( 990, pWeapon->lodamage() * 10 );
+			maxskill = pWeapon->hidamage() * 10;
+		}
+		// For wrestling a simple 0-100 check is made.
+		else
+		{
+			minskill = 0;
+			maxskill = 1000;
+		}
 
-			// ==== POISONING
-			if( pItem && ( pItem->poisoned > 0 ) )
+		// Gain in the three skills we use during combat.
+		pAttacker->checkSkill( wSkill, minskill, maxskill );
+		pAttacker->checkSkill( TACTICS, minskill, maxskill );
+		pAttacker->checkSkill( ANATOMY, minskill, maxskill );
+
+		// Calculate the defense Skill
+		P_ITEM pDefWeapon = pDefender->getWeapon();
+		UINT16 dSkill = pDefWeapon ? pDefWeapon->getWeaponSkill() : WRESTLING;
+		
+		// You can't defend yourself with a bow in your hand
+		if( dSkill == ARCHERY )
+		{
+			dSkill = WRESTLING;
+			pDefWeapon = 0; // So we dont get accounted for the weapon-strength
+		}
+
+		// Do the same check like we did	
+		if( dSkill != WRESTLING && pDefWeapon )
+		{
+			// Maximum 99% minimum skill
+			minskill = QMIN( 990, pDefWeapon->lodamage() * 10 );
+			maxskill = pDefWeapon->hidamage() * 10;
+		}
+		else
+		{
+			minskill = 0;
+			maxskill = 1000;
+		}
+
+		// Check skills for the defender
+		pDefender->checkSkill( dSkill, minskill, maxskill );
+		pDefender->checkSkill( TACTICS, minskill, maxskill );
+
+		// Now Calculate the Combat Ability of the Defender
+		// This is either the used skill OR for wrestling:
+		// wrestling skill *or* evasion skill
+		UINT16 dEvasion = QMIN( 120, pDefender->skill( dSkill ) / 10 ); // Up to 120
+
+		// If we are unarmed there could be a chance that we can 
+		// evade the blow by using EVALINT + ANATOMY
+		if( dSkill == WRESTLING )
+			dEvasion = QMAX( dEvasion, QMIN( 120, ( pDefender->skill( EVALUATINGINTEL ) + pDefender->skill( ANATOMY ) + 200 ) / 20 ) );
+
+		// Now we have to calculate hitChance
+		// Hit Chance = ( Attacker's Combat Ability + 50 ) ÷ ( [Defender's Combat Ability + 50] x 2 )
+		double hitChance = ( pAttacker->skill( wSkill ) / 10 ) + 50;
+		hitChance /= ( dEvasion + 50 ) * 2;
+		hitChance = floor( hitChance * 100 );
+
+		pAttacker->message( QString( "Your chance to hit %1 is %2" ).arg( pDefender->name ).arg( hitChance ) );
+
+		// Check if we missed
+		if( RandomNum( 1, 100 ) > hitChance )
+		{
+			// Display a message to both players that the 
+			// swing didn't hit
+			// NOTE: There should be a random chance that this
+			// message appears *or* a flag to set
+			if( pAttacker->socket() )
+				pAttacker->socket()->sysMessage( tr( "You miss %1" ).arg( pDefender->name ) );
+
+			if( pDefender->socket() )
+				pDefender->socket()->sysMessage( tr( "%1 misses you" ).arg( pAttacker->name ) );
+
+			// If we missed using a Bow or Crossbow we 
+			// could leave the ammunition at the feets of 
+			// our target. 
+			if( wSkill == ARCHERY )
 			{
-				   pDefender->setPoisoned( pItem->poisoned );
-				   // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs
-				   pDefender->setPoisontime( uiCurrentTime + ( MY_CLOCKS_PER_SEC * ( 40 / pDefender->poisoned() ) ) );
-				   //wear off starts after poison takes effect
-				   pDefender->setPoisonwearofftime( pDefender->poisontime() + ( MY_CLOCKS_PER_SEC * SrvParams->poisonTimer() ) );
-			}
-
-			/* see ItemSpell method
-			// ==== ENCHANTED ITEMS
-			if( ( fightskill != WRESTLING ) && los )
-					Combat->ItemSpell( pc_attacker, pc_defender );*/
-
-			SI32 damage = 0;
-			SI32 accuracy = pAttacker->skill( TACTICS ) / 10;
-
-			// Calc base damage
-			if( pAttacker->isNpc() )
-			{
-				damage = RandomNum( pAttacker->lodamage(), pAttacker->hidamage() );
-			}
-			else if( fightskill != WRESTLING )
-			{
-				// set basedamage to random value of weapon lo and hidamage
-				damage = RandomNum( pItem->lodamage(), pItem->hidamage() );
-				// modify basedamage by skill value of attacker
-				damage = (SI32)floor( (float)damage * (float)pAttacker->skill( fightskill ) / 1000.0f );
-			}
-			else if( ( pAttacker->skill( WRESTLING ) / 50 ) > 0 )
-			{
-				damage = RandomNum( 0, pAttacker->skill( WRESTLING ) / 50 );
-			}
-			else 
-				damage = RandomNum( 0, 1 );
-
-			// Now lets calculate the boni on damage and accuracy
-			// Attacker:
-
-			// % of Base Damage that is Dealt= Tactics + 50
-			damage = (SI32)floor( (float)damage * ( ( (float)pAttacker->skill( TACTICS ) + 500.0f ) / 1000.0f ) );
-
-			// Strength influences damage, 100 str equals +1/5 damage
-			damage += (SI32)floor( (float)damage * ( (float)pAttacker->st() / 500.0f ) );
-			// Dexterity influences accuracy, 100 dex equals +1/5 acc%
-			accuracy += (SI32)floor( (float)accuracy * ( (float)pAttacker->effDex() / 500.0f ) );
-			
-			//  Anatomy % Bonus = Anatomy ÷ 5, GM Anatomy gives an extra bonus of 10%, hence 30% instead of 20%
-			float multiplier = (float)pAttacker->skill( ANATOMY ) / 5000.0f;
-			if( pAttacker->skill( ANATOMY ) >= 1000 )
-				multiplier += 0.1f;
-			accuracy += (SI32)floor( (float)accuracy * multiplier );
-
-			
-			// Defender:
-
-			//  Tactics % Malus = Tactics ÷ 10, GM Tactics gives an extra bonus of 10%, hence 30% instead of 20%
-			multiplier = (float)pDefender->skill( TACTICS ) / 10000.0f;
-			if( pDefender->skill( TACTICS ) >= 1000 )
-				multiplier += 0.1f;
-			damage -= (SI32)floor( (float)damage * multiplier );
-
-			// Dexterity influences accuracy, 100 dex equals +1/5 acc%
-			accuracy -= (SI32)floor( (float)accuracy * ( (float)pDefender->effDex() / 500.0f ) );
-
-			// Parrying with shield
-			P_ITEM pShield = pDefender->leftHandItem();
-			if( pShield && IsShield( pShield->id() ) )
-			{
-				pDefender->checkSkill( PARRYING, (int)floor( ( (float)accuracy / 100.0f) * (float)pAttacker->skill( fightskill ) ), 1000 );
-				// % Chance of Blocking= Parrying Skill ÷ 2
-				if( pDefender->skill( PARRYING ) / 2 >= RandomNum( 0, 1000 ) )
+				if( pAmmo && RandomNum( 1, 3 ) == 1 ) // 1/3 chance
 				{
-					// damage absorbed by shield
-					if( pShield->def != 0 )
-						damage -= RandomNum( 0, pShield->def ); 
-
-					pShield->wearOut();
+					pAmmo->moveTo( pDefender->pos );
+					pAmmo->priv = 1;
+					pAmmo->startDecay();
+					pAmmo->update();
 				}
 			}
 
-			if( pDefender->isPlayer() )
-				damage /= SrvParams->npcdamage(); // Rate damage against other players
+			return;
+		}
 
-			if( accuracy <= 0 )
-				accuracy = 0;
+		// If we used a poisoned Weapon to deal 
+		// damage, apply the poison here
+		if( pWeapon && ( pWeapon->poisoned > 0 ) )
+		{
+			   pDefender->setPoisoned( pWeapon->poisoned );
 
-			SI32 bodyhit = RandomNum( 0, accuracy );
-			enBodyParts bodypart;
-			if( bodyhit > 100 )
-				bodyhit = 100;
+			   // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs
+			   pDefender->setPoisontime( uiCurrentTime + ( MY_CLOCKS_PER_SEC * ( 40 / pDefender->poisoned() ) ) );
+			   pDefender->setPoisonwearofftime( pDefender->poisontime() + ( MY_CLOCKS_PER_SEC * SrvParams->poisonTimer() ) );
+		}
 
-			if( bodyhit <= 14 )
-				bodypart = LEGS;
-			else if( bodyhit <= 58 )
-				bodypart = BODY;
-			else if( bodyhit <= 72 )
-				bodypart = ARMS;
-			else if( bodyhit <= 79 )
-				bodypart = HANDS;
-			else if( bodyhit <= 86 )
-				bodypart = NECK;
-			else if( bodyhit <= 100 )
-				bodypart = HEAD;
+		// If we item we used was enchantet using 
+		// some kind of spell, it's now time to
+		// apply the spell effect. This feature
+		// can only be used when magic has been
+		// rewritten.
 
-			// Damage Absorbed= Random value between of 1/2 AR to full AR of Hit Location's piece of armor.
-			SI32 ar = pDefender->calcDefense( bodypart, true );
-			damage -= RandomNum( ar / 2, ar );
-			/*
-			When we reached this point, nothing will affect the damage anymore.
-			If damage is <= 0, the defender was successful, so lets break this iteration here...
-			*/
-			if( damage <= 0 )
+		// Calc base damage
+		double damage;
+
+		// If we wear a weapon, use that value,
+		if( pWeapon )
+			damage = RandomNum( pWeapon->lodamage(), pWeapon->hidamage() );
+
+		// Modify the damaged based on the weapon skill
+		// I did not find this in the OSI specs
+		//damage = (SI32)ceil( (float)damage * (float)pAttacker->skill( wSkill ) / 1000.0f );
+		
+		// Fall back to lodamage/hidamage
+		else if( pAttacker->lodamage() != 0 && pAttacker->hidamage() != 0 )
+			// set basedamage to random value of weapon lo and hidamage
+			damage = RandomNum( pAttacker->lodamage(), pAttacker->hidamage() );
+
+		// otherwise use the WRESTLING skill
+		else
+			damage = RandomNum( 0, QMAX( 1, pAttacker->skill( WRESTLING ) / 50 ) );
+
+		// Boni to damage:
+
+		// Tactics (% of Base Damage is Tactics + 50)
+		damage = damage * ( floor( pAttacker->skill( TACTICS ) / 10 ) + 50 ) / 100;
+
+		// Strength (add 1/5 of strength * damage)
+		damage += damage * ( pAttacker->st() / 500 );
+
+		// Anatomy (add 1/5 of anatomy * damage)
+		damage += damage * ( pAttacker->skill( ANATOMY ) / 500 );
+
+		// Anatomy GM gives another +10%
+		if( pAttacker->baseSkill( ANATOMY ) >= 1000 )
+			damage += damage * 0.10;
+			
+		// If we are using an axe then add the lumberjacking bonus
+		if( pWeapon && pWeapon->type() == 1002 )
+		{
+			// Lumberjacking (add 1/5 of lumberjacking * damage)
+			damage += damage * ( pAttacker->skill( LUMBERJACKING ) / 500 );
+
+			// Lumberjacking GM gives another +10%
+			if( pAttacker->baseSkill( LUMBERJACKING ) >= 1000 )
+				damage += damage * 0.10;
+		}
+
+		pAttacker->message( QString( "You deal %1 points of damage" ).arg( damage ) );
+
+		// Parrying with shield
+		/*P_ITEM pShield = pDefender->leftHandItem();
+		if( pShield && IsShield( pShield->id() ) )
+		{
+			pDefender->checkSkill( PARRYING, (int)floor( ( (float)accuracy / 100.0f) * (float)pAttacker->skill( fightskill ) ), 1000 );
+			// % Chance of Blocking= Parrying Skill ÷ 2
+			if( pDefender->skill( PARRYING ) / 2 >= RandomNum( 0, 1000 ) )
 			{
+				// damage absorbed by shield
+				if( pShield->def != 0 )
+					damage -= RandomNum( 0, pShield->def ); 
+					pShield->wearOut();
+			}
+		}*/
+
+		/*SI32 bodyhit = RandomNum( 0, accuracy );
+		enBodyParts bodypart;
+		if( bodyhit > 100 )
+			bodyhit = 100;
+
+		if( bodyhit <= 14 )
+			bodypart = LEGS;
+		else if( bodyhit <= 58 )
+			bodypart = BODY;
+		else if( bodyhit <= 72 )
+			bodypart = ARMS;
+		else if( bodyhit <= 79 )
+			bodypart = HANDS;
+		else if( bodyhit <= 86 )
+			bodypart = NECK;
+		else if( bodyhit <= 100 )
+			bodypart = HEAD;
+
+		// Damage Absorbed= Random value between of 1/2 AR to full AR of Hit Location's piece of armor.
+		SI32 ar = pDefender->calcDefense( bodypart, true );
+		damage -= RandomNum( ar / 2, ar );
+		
+		//When we reached this point, nothing will affect the damage anymore.
+		//If damage is <= 0, the defender was successful, so lets break this iteration here...
+		if( damage <= 0 )
+		{
 				if( pAttacker->socket() )
 					pAttacker->socket()->sysMessage( tr("Your attack has been parried!") );
 				if( pDefender->socket() )
@@ -621,15 +626,15 @@ namespace Combat
 		if( totaldamage > 1 && pDefender->isPlayer() )//only if damage>1 and against a player
 		{
 			// TODO: Implement spell apruption
-			/*if(pc_defender->casting() && currentSpellType[s2]==0 )
-			{//if casting a normal spell (scroll: no concentration loosen)
-				Magic->SpellFail(s2);
-				currentSpellType[s2]=0;
-				pc_defender->setSpell(-1);
-				pc_defender->setCasting(false);
-				pc_defender->setSpelltime(0);
-				pc_defender->priv2 &= 0xfd; // unfreeze, bugfix LB
-			}*/
+			//if(pc_defender->casting() && currentSpellType[s2]==0 )
+			//{//if casting a normal spell (scroll: no concentration loosen)
+			//	Magic->SpellFail(s2);
+		//		currentSpellType[s2]=0;
+		//		pc_defender->setSpell(-1);
+		//		pc_defender->setCasting(false);
+		//		pc_defender->setSpelltime(0);
+		//		pc_defender->priv2 &= 0xfd; // unfreeze, bugfix LB
+		//	}
 		}
 
 		//===== REACTIVE ARMOR
@@ -698,14 +703,12 @@ namespace Combat
 			}
 		}
 
-		/* 
-			Concept note( Sebastian@hartte.de - darkstorm ):
-			We deal the damage in the moment the swing animation
-			starts, this is *bad* we shoudl determine a given
-			amount of time it will take for the swing animation 
-			to complete and *then* deal the damage if the user is 
-			still in range (srvparams option!)
-		*/
+		//	Concept note( Sebastian@hartte.de - darkstorm ):
+		//	We deal the damage in the moment the swing animation
+		//	starts, this is *bad* we shoudl determine a given
+		//	amount of time it will take for the swing animation 
+		//	to complete and *then* deal the damage if the user is 
+		//	still in range (srvparams option!)
 		pDefender->setHp( QMAX( 0, pDefender->hp() ) );
 		//===== RESEND HEALTH BAR(S)
 		pDefender->updateHealth();
@@ -716,7 +719,7 @@ namespace Combat
 		{
 			if( pDefender->atLayer( cChar::Mount ) ) 
 				pDefender->action( 0x14 );
-		}
+		}*/
 	}
 
 	void combat( P_CHAR pAttacker )

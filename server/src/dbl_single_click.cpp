@@ -865,6 +865,30 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				socket->sysMessage(tr("To cash this, you need to drop it on a banker."));
 				return;
 			}
+		// 1001: Sword Weapons (Swordsmanship)
+		case 1001:
+
+		// 1002: Axe Weapons (Swordsmanship + Lumberjacking)
+		case 1002:
+
+		// 1003: Macefighting (Staffs)
+		case 1003:
+
+		// 1004: Macefighting (Maces/WarHammer)
+		case 1004:
+
+		// 1005: Fencing
+		case 1005:
+
+		// 1006: Bows
+		case 1006:
+
+		// 1007: Crossbows
+		case 1007:
+
+		// 1008: Shields
+		case 1008:
+
 		default:						
 			break; // case (itype!) 
 		}// switch (itype)

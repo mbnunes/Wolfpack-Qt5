@@ -61,6 +61,7 @@
 #include "persistentbroker.h"
 #include "territories.h"
 #include "dbdriver.h"
+#include "combat.h"
 
 #undef  DBGFILE
 #define DBGFILE "chars.cpp"
@@ -3485,3 +3486,17 @@ bool cChar::Owns( P_ITEM pItem )
 	return ( pItem->ownserial == serial );
 }
 
+P_ITEM cChar::getWeapon()
+{
+	// Check if we have something on our right hand
+	P_ITEM rightHand = rightHandItem(); 
+	if( Combat::weaponSkill( rightHand ) != WRESTLING )
+		return rightHand;
+
+	// Check for two-handed weapons
+	P_ITEM leftHand = leftHandItem();
+	if( Combat::weaponSkill( leftHand ) != WRESTLING )
+		return leftHand;
+
+	return 0;
+}

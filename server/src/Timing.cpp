@@ -261,23 +261,16 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 	// Check if the character is in a field which affects him
 	Magic->CheckFieldEffects2( currenttime, pc, 1 ); 
 	
+	// We are not swinging 
+	// So set up a swing target and start swinging
 	if( !pc->dead() && pc->swingtarg() == -1 )
 		Combat::combat( pc );
+
+	// We are swinging and completed swinging
 	else if( !pc->dead() && ( pc->swingtarg() >= 0 && pc->timeout() <= currenttime ) )
 		Combat::checkandhit( pc );
 
-
-	// Guess it was taken out because of traffic-concerns ?
-/*	if (wtype==1 && raindroptime<=currenttime && !noweather[s]) // implment. of xuri's raindrop idea, LB
-	{
-		switch(rand()%3)
-		{
-		case 0:soundeffect2(i,0x00,0x24); // fall-throughs intentional !!
-		case 1:soundeffect2(i,0x00,0x23);
-		 case 2:soundeffect2(i,0x00,0x22);
-		}
-	} */
-
+	// Unmute players who have been muted for a certain amount of time
 	if( pc->isPlayer() && pc->squelched() == 2 )
 	{
 		if( pc->mutetime() && ( pc->mutetime() <= currenttime ) )
@@ -288,6 +281,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 		}
 	}
 
+	// Reputation System
 	if( pc->isPlayer() )
 	{
 		if ( pc->crimflag() > 0 && ( pc->crimflag() <= currenttime  ) &&  pc->isCriminal() )//AntiChrist
@@ -518,11 +512,13 @@ void checkNPC( P_CHAR pc, unsigned int currenttime )
 	Movement::instance()->NpcMovement( currenttime, pc );
     setcharflag( pc );
 
+	// We are at war and want to prepare a new swing
 	if( !pc->dead() && pc->swingtarg() == -1 && pc->war() )
 		Combat::combat( pc );
+
+	// We are swinging and completed our move
 	else if( !pc->dead() && ( pc->swingtarg() >= 0 && pc->timeout() <= currenttime ) )
 		Combat::checkandhit( pc );
-
 
 	Magic->CheckFieldEffects2( currenttime, pc, 0 );
 

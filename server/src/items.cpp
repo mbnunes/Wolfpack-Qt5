@@ -2507,3 +2507,45 @@ P_CHAR cItem::getOutmostChar()
 	else
 		return 0;		
 }
+
+// If we change the amount, the weight changes as well
+void cItem::setAmount( UI16 nValue )
+{
+	amount_ = nValue;
+	setWeight( amount_ * weight() );
+}
+
+UINT16 cItem::getWeaponSkill()
+{
+	switch( type_ )
+	{
+		// 1001: Sword Weapons (Swordsmanship)
+		// 1002: Axe Weapons (Swordsmanship + Lumberjacking)
+		case 1001:			
+		case 1002:
+			return SWORDSMANSHIP;
+			break;
+
+		// 1003: Macefighting (Staffs)
+		// 1004: Macefighting (Maces/WarHammer)
+		case 1003:			
+		case 1004:
+			return MACEFIGHTING;
+			break;
+
+		// 1005: Fencing
+		case 1005:
+			return FENCING;
+			break;
+
+		// 1006: Bows
+		// 1007: Crossbows
+		case 1006:
+		case 1007:
+			return ARCHERY;
+			break;
+
+		default:
+			return WRESTLING;
+	};
+}

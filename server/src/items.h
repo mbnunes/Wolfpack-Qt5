@@ -154,7 +154,7 @@ public:
 	// Setters
 	void	setId( UI16 nValue ) { id_ = nValue; };
 	void	setColor( UI16 nValue ) { color_ = nValue; };
-	void	setAmount( UI16 nValue ) { amount_ = nValue; }; // Amount of items in pile
+	void	setAmount( UI16 nValue );
 	void	setAmount2( UI16 nValue ) { amount2_ = nValue; }; //Used to track things like number of yards left in a roll of cloth
 	void	setName( const QString nValue ) { name_ = nValue; };
 	void	setName2( const QString nValue ) { name2_ = nValue; };
@@ -290,6 +290,9 @@ public:
 	void SetSpawnSerial(long spawnser);
 	void SetMultiSerial(long mulser);
 	
+	bool isShield() { return type_ == 1009; }
+	UINT16 getWeaponSkill();
+
 	void MoveTo(int newx, int newy, signed char newz);
 	long ReduceAmount(const short amount = 1);
 	short GetContGumpType();

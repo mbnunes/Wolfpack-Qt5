@@ -86,6 +86,8 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 	if( !pChar )
 		return;
 
+	UINT32 weight = pChar->weight();
+
 	// Fetch the grab information
 	UI16 amount = packet->amount();
 	if( !amount )
@@ -186,6 +188,10 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 
 		if( wearer )
 			wearer->removeItemBonus( pItem );
+
+		// resend the stat window
+		if( wearer && wearer->socket() )
+			wearer->socket()->sendStatWindow();
 	}
 
 	// Send the user a pickup sound if we're picking it up
@@ -232,6 +238,9 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 	}
 	
 	pChar->addItem( cChar::Dragging, pItem );
+
+	if( weight != pChar->weight() )
+		socket->sendStatWindow();
 }
 
 // Tries to equip an item
@@ -413,14 +422,13 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	}
 
 	// At this point we're certain that we can wear the item
-	pItem->setLayer( pTile.layer ); // Don't trust the user input on this one
 	pWearer->addItem( static_cast<cChar::enLayer>(pTile.layer), pItem );
-
-	if( pWearer->socket() )
-		pWearer->socket()->sendStatWindow();
 
 	// Apply the bonuses
 	pWearer->giveItemBonus( pItem );
+
+	if( pWearer->socket() )
+		pWearer->socket()->sendStatWindow();
 
 	// I don't think we need to remove the item
 	// as it's only visible to the current char
@@ -479,6 +487,8 @@ void cDragItems::dropItem( cUOSocket *socket, cUORxDropItem *packet )
 		return;
 	}
 
+	UINT32 weight = pChar->weight();
+
 	// Item dropped on Ground
 	if( !iCont && !cCont )
 		dropOnGround( socket, pItem, dropPos );
@@ -494,6 +504,10 @@ void cDragItems::dropItem( cUOSocket *socket, cUORxDropItem *packet )
 	// Handle the sound-effect
 	if( pItem->id() == 0xEED )
 		goldsfx( socket, pItem->amount(), true );
+
+	// Update our weight.
+	if( weight != pChar->weight() )
+		socket->sendStatWindow();
 }
 
 void cDragItems::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar )
