@@ -48,6 +48,7 @@
 	<menu id="CARPENTRY_OTHER" name="Other">
 		<craft definition="1bd7" name="Board">
 			<carpentry min="-250" max="250" />
+			<stackable />
 			<wood id="1bdd;1bde;1bdf;1be0;1be1;1be2" amount="1" name="Logs" />
 		</craft>
 		<craft definition="1eb1" name="Barrel Staves">

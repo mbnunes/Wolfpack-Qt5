@@ -44,6 +44,8 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Fix for evaluating intelligence. (Skill delay message not being shown)
 		- Fixed Python loglevel constants.
 		- Fixed a clilocmessage in dyes.py.
+		- If a carpenter makes boards that now consumes all resources available.
+		- Fixed bug #0000322. (Carpentry menu details page has a broken exceptional chance)
 	* Misc. Changes:
 		- Fixed configure.py for FreeBSD 5
 	* Known Issues, Bugs, and Missing Features:
