@@ -11,7 +11,7 @@
 <definitions>
 	<!-- Nightsight -->
 	<item id="potion_nightsight">
-		<inherit id="f06" />
+		<id>0xf06</id>
 		<name>Black Potion</name>
 		<identified>Nightsight</identified>
 		<more1>1</more1>
@@ -24,20 +24,20 @@
 
 	<!-- Lesser Heal -->
 	<item id="potion_lesserheal">
-		<inherit id="f0c" />
+		<id>0xf0c</id>
 		<name>Yellow Potion</name>
 		<identified>Lesser Heal</identified>
 		<more1>2</more1>
 		<weight>0.5</weight>
 		<events>potions</events>
-		<category>Equipment\Potions\Lesser Heal</category>
+		<category>Equipment\Potions\Heal (lesser)</category>
 
 		<!-- Pricing information -->
 	</item>
 
 	<!-- Heal -->
 	<item id="potion_heal">
-		<inherit id="f0c" />
+		<id>0xf0c</id>
 		<name>Yellow Potion</name>
 		<identified>Heal</identified>
 		<more1>3</more1>
@@ -50,17 +50,70 @@
 
 	<!-- Greater Heal -->
 	<item id="potion_greaterheal">
-		<inherit id="f0c" />
+		<id>0xf0c</id>
 		<name>Yellow Potion</name>
 		<identified>Greater Heal</identified>
 		<more1>3</more1>
 		<weight>0.5</weight>
 		<events>potions</events>
-		<category>Equipment\Potions\Greater Heal</category>
+		<category>Equipment\Potions\Heal (greater)</category>
 
 		<!-- Pricing information -->
 	</item>
 
+	<!-- Lesser Poison -->
+	<item id="potion_lesserpoison">
+		<id>0xf0a</id>
+		<name>Green Potion</name>
+		<identified>Lesser Poison</identified>
+		<more1>4</more1>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Poison (lesser)</category>
+
+		<!-- Pricing information -->
+	</item>	
+
+	<!-- Poison -->
+	<item id="potion_poison">
+		<id>0xf0a</id>
+		<name>Green Potion</name>
+		<identified>Poison</identified>
+		<more1>4</more1>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Poison</category>
+
+		<!-- Pricing information -->
+	</item>	
+
+	<!-- Greater Poison -->
+	<item id="potion_greaterpoison">
+		<id>0xf0a</id>
+		<name>Green Potion</name>
+		<identified>Greater Poison</identified>
+		<more1>4</more1>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Poison (greater)</category>
+
+		<!-- Pricing information -->
+	</item>	
+
+	<!-- Greater Poison -->
+	<item id="potion_deadlypoison">
+		<id>0xf0a</id>
+		<name>Green Potion</name>
+		<identified>Deadly Poison</identified>
+		<more1>4</more1>
+		<weight>0.5</weight>
+		<events>potions</events>
+		<category>Equipment\Potions\Poison (deadly)</category>
+
+		<!-- Pricing information -->
+	</item>	
+
+	<!-- Refresh -->
 <!--
 	 Orange Potion
 	<item id="f07">
@@ -80,22 +133,10 @@
 		<category>Professions\Alchemist\Potions\White Potion</category>
 	</item>
 
-	Green Potion
-	<item id="f0a">
-		<id>0xf0a</id>
-		<category>Professions\Alchemist\Potions\Green Potion</category>
-	</item>
-
 	Red Potion
 	<item id="f0b">
 		<id>0xf0b</id>
 		<category>Professions\Alchemist\Potions\Red Potion</category>
-	</item>
-
-	Yellow Potion
-	<item id="f0c">
-		<id>0xf0c</id>
-		<category>Professions\Alchemist\Potions\Yellow Potion</category>
 	</item>
 
 	Purple Potion

@@ -29,11 +29,6 @@
 		<category>Professions\Baker\Open Sack of Flour (N/S)</category>
 	</item>
 
-	<item id="103d">
-		<id>0x103d</id>
-		<category>Professions\Baker\Dough</category>
-	</item>
-
 	<item id="103e">
 		<id>0x103e</id>
 		<category>Professions\Baker\Flour Sifter</category>
