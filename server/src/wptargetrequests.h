@@ -31,7 +31,13 @@
 #ifndef __WPTARGETREQUEST_H__
 #define __WPTARGETREQUEST_H__
 
-#include "wolfpack.h"
+#include "platform.h"
+#include "typedefs.h"
+#include "targeting.h"
+
+// System Include
+#include <map>
+//#include "wolfpack.h"
 
 // Abstract base-class for target requests
 class cTargetRequest
@@ -55,6 +61,6 @@ void checkTimedOutTargets( void );
 void attachTargetRequest( UOXSOCKET socket, cTargetRequest *targetRequest );
 
 // We have that as only one targetting request is possible per socket
-extern map< UOXSOCKET, cTargetRequest* > targetRequests;
+extern std::map< UOXSOCKET, cTargetRequest* > targetRequests;
 
 #endif

@@ -407,8 +407,6 @@ CMDTABLE_S command_table[] = {
 	{NULL,				0,			NULL}			// Tseramed, cleaner
 };
 
-static char *ch="abcdefg";
-
 /* Actual commands go below. Define all the dynamic command_ functions as
 * the name of the function in lowercase, a void function, accepting one
 * integer, which is the player # that sent the command.
@@ -658,8 +656,6 @@ void command_readaccounts(UOXSOCKET s)
 void command_showp(UOXSOCKET s)
 // Displays hex values of your PRIVLVL settings.
 {
-	int i;
-	
     PC_CHAR pcc_cs = currchar[s];
     if (pcc_cs == NULL) return;
 	
@@ -2312,7 +2308,6 @@ void command_wipenpcs(UOXSOCKET s)
 void command_cleanup(UOXSOCKET s)
 {
 	int corpses=0;
-	char temp[100];
 	
 	sysmessage(s, tr("Cleaning corpses and closing gates..."));
 	AllItemsIterator iter_items;

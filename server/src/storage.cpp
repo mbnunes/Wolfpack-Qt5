@@ -97,7 +97,6 @@ vector<SERIAL> Container_cl::getData(SERIAL serContainer)
 	typedef multimap<SERIAL, SERIAL>::iterator iterSerial;
 	pair<iterSerial, iterSerial> iterRange = mapData.equal_range(serContainer);
 
-	bool debug = iterRange.first == mapData.end();
 	vecValue.reserve( distance(iterRange.first, iterRange.second) );
 
 	for (iterData = iterRange.first; iterData != iterRange.second; ++iterData)

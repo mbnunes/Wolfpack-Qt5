@@ -85,9 +85,9 @@ protected:
 class cAllBaseRegions : public std::map< QString, cBaseRegion* >
 {
 public:
-	virtual ~cAllBaseRegions() = 0 {;}
+	virtual ~cAllBaseRegions() {}
 
-	virtual void	Load( void ) = 0;
+	virtual void Load( void ) = 0;
 
 	void reload( void )
 	{

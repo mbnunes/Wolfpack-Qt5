@@ -73,7 +73,7 @@ static void handle_IADD(UOXSOCKET const ts, int const ttype, const int coloring,
 {
 	cline = &script2[0];
 	splitline();
-	unsigned int ItemNum = makenumber(0);
+//	unsigned int ItemNum = makenumber(0);
 	unsigned int InBackpack = makenumber(1);
 	P_CHAR pc_currchar = currchar[ts];
 	

@@ -1188,7 +1188,6 @@ void cSkills::CookOnFire(int s, short id1, short id2, char* matname)
 			{
 				if(iteminrange(s,pi,3))
 				{
-					char tmpmsg[250];
 					soundeffect(s,0x01,0xDD);	// cooking sound
 					if (!Skills->CheckSkill(pc_currchar,COOKING, 0, 1000)) 
 					{
@@ -2490,7 +2489,6 @@ void cSkills::PickPocketTarget(int s) // PickPocket dip`s..Ripper
 
 void cSkills::LockPick(int s)
 {
-	int success;
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	P_CHAR pc_currchar = currchar[s];
 	if (pi && !pi->isLockedDown()) // Ripper

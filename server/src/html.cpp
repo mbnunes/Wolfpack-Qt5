@@ -85,7 +85,7 @@ void updatehtml()//HTML
 	char sect[512],hfile[512],sh[3],sm[3],ss[3];
 	int a, n=0;
 	//unsigned long int ip;
-	int gm=0,cns=0,ccount=0,icount=0,npccount=0,loopexit=0;
+	int gm=0,cns=0,ccount=0,npccount=0,loopexit=0;
 	unsigned long int total,hr,min,sec; // bugfix, LB
 	FILE *html;
 

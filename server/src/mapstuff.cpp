@@ -917,7 +917,6 @@ void cMapStuff::CacheStatics( void )
 	Cache = 0;
 	
 	progress_display progress(StaticBlocks);
-	UI32 currentBlock = 0;
 	for( unsigned int x = 0; x < MapTileWidth; x++ )
     {
 		for( unsigned int y = 0; y < MapTileHeight; y++ )

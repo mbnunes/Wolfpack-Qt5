@@ -61,21 +61,21 @@ void checkTimedOutTargets( void )
 void attachTargetRequest( UOXSOCKET socket, cTargetRequest *targetRequest )
 {
 	// Issue the timeout for the old socket
-	if( targetRequests.find( socket ) != targetRequests.end() )
+	map< UOXSOCKET, cTargetRequest* >::iterator it = targetRequests.find( socket );
+	if( it != targetRequests.end() )
 	{
-		targetRequests[ socket ]->timedout( socket );
+		(*it).second->timedout( socket );
 
-		delete targetRequests[ socket ];
-		targetRequests.erase( targetRequests.find( socket ) );
+		delete (*it).second;
+		targetRequests.erase( it );
 	}
 
-	targetRequests[ socket ] = targetRequest;
+	targetRequests.insert( make_pair(socket, targetRequest));
 
 	// Send the target-packet to the socket
 	//target( socket, 0, 0, 0, 1, "" );
 
-	UI08 *byteArray = new UI08[ 19 ];
-	memset( byteArray, 0, 19 ); // Fill it with zeros
+	UI08 byteArray[ 19 ] = {0,};
 	
 	byteArray[ 0 ] = 0x6C; // Packet ID
 	byteArray[ 1 ] = 1;	// We want to allow map-only targets as well

@@ -184,9 +184,10 @@ void cMovement::Walking(P_CHAR pc, UI08 dir, int sequence)
         return;
 
 	// save our original location before we even think about moving
-	const short int oldx = pc->pos.x;
-	const short int oldy = pc->pos.y;
-	const signed char oldz = pc->pos.z;
+	const Coord_cl oldpos(pc->pos);
+//	const short int oldx = pc->pos.x;
+//	const short int oldy = pc->pos.y;
+//	const signed char oldz = pc->pos.z;
 	
 	// this if assumes that chars[s].dir has no high-bits just lets make sure of it
 	// assert((pc->dir & 0xFFF0) == 0);
@@ -270,7 +271,7 @@ void cMovement::Walking(P_CHAR pc, UI08 dir, int sequence)
 //  			playTileSound( socket );
 		
 		// since we actually moved, update the regions code
-		HandleRegionStuffAfterMove(pc, oldx, oldy);
+		HandleRegionStuffAfterMove(pc, oldpos);
 	}
 	else
 	{
@@ -293,12 +294,12 @@ void cMovement::Walking(P_CHAR pc, UI08 dir, int sequence)
 			int distance = chardist(pc_vis, pc);
 			if(distance<=pc_vis->VisRange)
 			{
-				SendWalkToOtherPlayers(pc_vis, pc, dir, oldx, oldy,socket);
+				SendWalkToOtherPlayers(pc_vis, pc, dir, oldpos, socket);
 			}
 		}
 	}
 	
-	OutputShoveMessage(pc, socket, oldx, oldy);
+	OutputShoveMessage( pc, socket, oldpos );
 	
 	// keep on checking this even if we just turned, because if you are taking damage
 	// for standing here, lets keep on dishing it out. if we pass whether we actually
@@ -309,7 +310,7 @@ void cMovement::Walking(P_CHAR pc, UI08 dir, int sequence)
 	// no need to check for teleporters and the weather shouldn't change
 	if (!amTurning)
 	{
-		HandleTeleporters(pc, socket, oldx, oldy);
+		HandleTeleporters(pc, socket, oldpos);
 		HandleWeatherChanges(pc, socket);
 	}
 	
@@ -899,7 +900,7 @@ void cMovement::FillXYBlockStuff(short int x, short int y, unitile_st *xyblock, 
 
 // so we are going to move, lets update the regions
 // FYI, Items equal to or greater than 1000000 are considered characters...
-void cMovement::HandleRegionStuffAfterMove(P_CHAR pc, short int oldx, short int oldy)
+void cMovement::HandleRegionStuffAfterMove(P_CHAR pc, const Coord_cl& oldpos)
 {
 	// save where we were moving to
 	const short int nowx = pc->pos.x;
@@ -908,17 +909,16 @@ void cMovement::HandleRegionStuffAfterMove(P_CHAR pc, short int oldx, short int 
 	// i'm trying a new optimization here, if we end up in the same map cell
 	// as we started, i'm sure there's no real reason to remove and readd back
 	// to the same spot..
-	if (cRegion::GetCell(Coord_cl(oldx, oldy, 0)) != cRegion::GetCell(Coord_cl(nowx, nowy, 0)))
+	if (cRegion::GetCell(oldpos) != cRegion::GetCell(pc->pos))
 	{
 		// restore our original location and remove ourself
-		pc->pos.x = oldx;
-		pc->pos.y = oldy;
+		Coord_cl newpos = pc->pos;
+		pc->pos = oldpos;
 		mapRegions->Remove(pc);
 		// we have to remove it with OLD x,y ... LB, very important, and he is right!
 
 		// restore the new location and add ourselves
-		pc->pos.x = nowx;
-		pc->pos.y = nowy;
+		pc->pos = newpos;
 	
 		mapRegions->Add(pc);
 
@@ -958,7 +958,7 @@ void cMovement::SendWalkToPlayer(P_CHAR pc, UOXSOCKET socket, short int sequence
 }
 
 	
-void cMovement::SendWalkToOtherPlayers(P_CHAR pc, P_CHAR us, UI08 dir, short int oldx, short int oldy, UOXSOCKET socket )
+void cMovement::SendWalkToOtherPlayers(P_CHAR pc, P_CHAR us, UI08 dir, const Coord_cl& oldpos, UOXSOCKET socket )
 {
 
 	// Ok, we are TOLD to how to send this to
@@ -968,9 +968,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, P_CHAR us, UI08 dir, short int
 	UOXSOCKET visSocket = calcSocketFromChar(pc);
 	{
 		// It is a real player, we actually care
-		const int newx = pc->pos.x ;
-		const int newy = pc->pos.y ;
-		if ( us->pos.distance( pc->pos ) <= pc->VisRange && pc->pos.distance( Coord_cl(oldx, oldy, 0, pc->pos.map) ) > pc->VisRange )
+		if ( us->pos.distance( pc->pos ) <= pc->VisRange && pc->pos.distance( oldpos ) > pc->VisRange )
 //		if (((abs(newx-us->pos.x) <= pc->VisRange) || (abs(newy-us->pos.y) <= pc->VisRange)) &&
 //		(!((abs(oldx-us->pos.x) <= pc->VisRange) || (abs(oldy-us->pos.y) <= pc->VisRange))))
 		{
@@ -1120,7 +1118,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, P_CHAR us, UI08 dir, short int
 }
 */
 // see if we should mention that we shove something out of the way
-void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, short int oldy)
+void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, const Coord_cl& oldpos)
 {
 	if (socket!=INVALID_UOXSOCKET)
 	{
@@ -1128,8 +1126,7 @@ void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, 
 
 
         const int visibleRange = VISRANGE;
-		const int newx=pc->pos.x;
-		const int newy=pc->pos.y;
+		const Coord_cl newpos(pc->pos);
 
 		cRegion::RegionIterator4Chars ri(pc->pos);
 		for (ri.Begin(); !ri.atEnd(); ri++)
@@ -1144,15 +1141,15 @@ void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, 
 				if ( online(mapchar) || mapchar->isNpc() || pc->isGM())
 				{
 					if (
-						(((abs(newx-mapchar->pos.x)== visibleRange )||(abs(newy-mapchar->pos.y)== visibleRange )) &&
-						((abs(oldx-mapchar->pos.x) > visibleRange )||(abs(oldy-mapchar->pos.y)> visibleRange ))) ||
-						((abs(newx-mapchar->pos.x)== visibleRange )&&(abs(newy-mapchar->pos.y)== visibleRange ))
+						(((abs(newpos.x-mapchar->pos.x)== visibleRange )||(abs(newpos.y-mapchar->pos.y)== visibleRange )) &&
+						((abs(oldpos.x-mapchar->pos.x) > visibleRange )||(abs(oldpos.y-mapchar->pos.y)> visibleRange ))) ||
+						((abs(newpos.x-mapchar->pos.x)== visibleRange )&&(abs(newpos.y-mapchar->pos.y)== visibleRange ))
 						)
 					{
 						impowncreate(socket, mapchar, 1);
 					}
 				}
-				if (oldx == newx && oldy == newy)	// just turning ?
+				if (oldpos.x == newpos.x && oldpos.y == newpos.y)	// just turning ?
 				continue;						// no multiple shoving
 				if (!(
 				pc->id()==0x03DB ||
@@ -1367,12 +1364,12 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 	}
 }
 
-void cMovement::HandleTeleporters(P_CHAR pc, UOXSOCKET socket, short int oldx, short int oldy)
+void cMovement::HandleTeleporters(P_CHAR pc, UOXSOCKET socket, const Coord_cl& oldpos)
 // PARAM WARNING: unreferenced paramater socket
 {
 	// now this is one wacky optimization. if we haven't moved don't do this
 	// well, we wouldn't be in Walking() if we weren't trying to move!
-	if ((pc->pos.x!=oldx)||(pc->pos.y!=oldy))
+	if ((pc->pos.x != oldpos.x) || (pc->pos.y != oldpos.y))
 	{
 		if ( pc->isPlayer())
 			objTeleporters( pc );   // ripper

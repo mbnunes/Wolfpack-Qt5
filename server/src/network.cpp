@@ -102,8 +102,6 @@ void cNetworkStuff::DoStreamCode(UOXSOCKET s)
 	}
 }
 
-
-
 void cNetworkStuff::FlushBuffer(int s) // Sends buffered data at once
 {
 	int status ;
@@ -312,7 +310,6 @@ void cNetworkStuff::Login2(int s)
 	unsigned long int i;
 	unsigned short tlen;
 	unsigned long int ip;
-	unsigned char acctused[3]="\x82\x01";
 	unsigned char newlist1[7]="\xA8\x01\x23\xFF\x00\x01";
 	unsigned char newlist2[41]="\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x12\x01\x7F\x00\x00\x01";
     sprintf((char*)temp,"Client [%s] connected [first] using Account '%s'.\n", sock_ntop(client_addr).c_str(), &buffer[s][1]);
@@ -1091,7 +1088,6 @@ int cNetworkStuff::Pack(void *pvIn, void *pvOut, int len)
 void cNetworkStuff::GetMsg(int s) // Receive message from client
 {
 	int count, j, serial, length, dyn_length, loopexit=0, fb;
-	unsigned char nonuni[512];
 	unsigned char packet;
 	int  myoffset,  myj, mysize, subcommand, subsubcommand ;
 	unsigned char mytempbuf[512] ;
@@ -1100,7 +1096,6 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 	P_CHAR pc_target = NULL;
 	P_ITEM pi_target = NULL;
 	string cpps;
-	vector<string>::const_iterator viter;
 		
 	if (newclient[s])
 	{

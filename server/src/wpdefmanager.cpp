@@ -225,6 +225,8 @@ QDomElement *WPDefManager::getSection( WPDEF_TYPE Type, QString Section )
 		ListPointer = &Regions;
 		break;
 
+	default:
+		return 0;
 	};
 
 	return &( ListPointer->find( Section ).data() );

@@ -1158,7 +1158,7 @@ void cTempEffects::Serialize(ISerialization &archive)
 	{
 		if( (*it)->isSerializable() )
 			archive.writeObject( (*it) );
-		it++;
+		++it;
 	}
 }
 

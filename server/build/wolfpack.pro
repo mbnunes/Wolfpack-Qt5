@@ -63,7 +63,7 @@ HEADERS         = Client.h \
 		  items.h \
                   itemsmgr.h \
 		  junk.h \
-		  magic.h
+                  magic.h \
 		  mapstuff.h \
 		  msgboard.h \
 		  netsys.h \
@@ -85,8 +85,9 @@ HEADERS         = Client.h \
 		  stream.h \
 		  structs.h \
 		  targeting.h \
-		  targetrequests.h
+                  targetrequests.h \
 		  telport.h \
+                  territories.h \
 		  trigger.h \
 		  typedefs.h \
 		  uobject.h \
@@ -172,6 +173,7 @@ SOURCES         = Client.cpp \
 		  targeting.cpp \
 		  targetrequests.cpp \
 		  telport.cpp \
+                  territories.cpp \
 		  trigger.cpp \
 		  uobject.cpp \
 		  utilsys.cpp \

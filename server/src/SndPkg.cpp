@@ -1025,7 +1025,7 @@ void senditem_lsd(UOXSOCKET s, P_ITEM pi,char color1, char color2, int x, int y,
 // LB 3-JULY 2000
 void sendperson_lsd(UOXSOCKET s, P_CHAR pc, char color1, char color2)
 {
-	int j, k,color,c1,c2,b,cc1=0,cc2=0;
+	int k,color,c1,c2,b,cc1=0,cc2=0;
 	unsigned char oc[1024];
 
 	if ( pc == NULL ) return;
@@ -1326,7 +1326,7 @@ void textflags (UOXSOCKET s, P_CHAR pc, char *name)
 
 	GuildTitle(s, pc);
 
-	int tl,guild,race;
+	int tl,guild;
 	tl=44+strlen(name2)+1;
 	talk[1]=tl>>8;//AntiChrist
 	talk[2]=tl%256;
@@ -2659,7 +2659,7 @@ void deathmenu(int s) // Character sees death menu
 
 void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 {
-	int j, k;
+	int k;
 	unsigned char oc[1024];
 
     if ( pc == NULL )
@@ -2700,7 +2700,7 @@ void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 	if (pc->poisoned()) oc[17]=oc[17]|0x04; //AntiChrist -- thnx to SpaceDog
 
 	k=19;
-	int guild,race;
+	int guild;
 	guild = GuildCompare( currchar[s], pc );
 	if (guild == 1)//Same guild (Green)
 		oc[18]=2;

@@ -934,7 +934,6 @@ char cBoat::Speech(UOXSOCKET s, string& msg)//See if they said a command. msg mu
 		return 0;
 	int dir = boat->dir&0x0F;
 	int serial;
-	char msg2[512];
 
 	if (s == INVALID_UOXSOCKET) 
 		return 0;

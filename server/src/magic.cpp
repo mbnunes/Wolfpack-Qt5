@@ -2142,7 +2142,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 										pi_c->pos.x=gatex[gatecount][n];
 										pi_c->pos.y=gatey[gatecount][n];
 										pi_c->pos.z=gatez[gatecount][n];
-										pi_c->gatetime=(uiCurrentTime+(SrvParams->gateTimer()*MY_CLOCKS_PER_SEC));
+										pi_c->gatetime = static_cast<unsigned int>(uiCurrentTime+(SrvParams->gateTimer()*MY_CLOCKS_PER_SEC));
 										//clConsole.send("GATETIME:%i UICURRENTTIME:%d GETCLOCK:%d\n",SrvParms->gatetimer,uiCurrentTime,getclock());
 										pi_c->gatenumber=gatecount;
 										pi_c->dir=1;
@@ -4375,7 +4375,7 @@ void cMagic::Gate(UOXSOCKET s)
 					pi_c->pos.x=gatex[gatecount][n];
 					pi_c->pos.y=gatey[gatecount][n];
 					pi_c->pos.z=gatez[gatecount][n];
-					pi_c->gatetime=(uiCurrentTime+(SrvParams->gateTimer()*MY_CLOCKS_PER_SEC));
+					pi_c->gatetime = static_cast<unsigned int>(uiCurrentTime+(SrvParams->gateTimer()*MY_CLOCKS_PER_SEC));
 					//clConsole.send("GATETIME:%i UICURRENTTIME:%d GETCLOCK:%d\n",SrvParms->gatetimer,uiCurrentTime,getclock());
 					pi_c->gatenumber=gatecount;
 					pi_c->dir=1;

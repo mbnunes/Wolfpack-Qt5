@@ -71,7 +71,6 @@ bool CheckBuildSite(const Coord_cl& pos, int sx, int sy)
 	//char statc;
 	int checkx;
 	int checky;
-	int ycount=0;
 	checkx=pos.x-abs(sx/2);
 	for (;checkx<(pos.x+abs(sx/2));checkx++)
 	{

@@ -55,7 +55,6 @@ bool NewWarningsLogged() {return (entries_w > 0);}
 void MessageReady(char *OutputMessage, char type)
 {
 	char file_name[256];
-	char b1[16],b2[16],b3[16],b4[16];	
 	FILE *er_log;	
 
     switch (type)

@@ -96,12 +96,12 @@ private:
 	bool CheckForStealth(P_CHAR pc, UOXSOCKET socket);
 	bool CheckForHouseBan(P_CHAR pc, UOXSOCKET socket);
 	void MoveCharForDirection(P_CHAR pc, UI08 dir);
-	void HandleRegionStuffAfterMove(P_CHAR pc, short int oldx, short int oldy);
+	void HandleRegionStuffAfterMove(P_CHAR pc, const Coord_cl& oldpos);
 	void SendWalkToPlayer(P_CHAR pc, UOXSOCKET socket, short int sequence);
-	void SendWalkToOtherPlayers(P_CHAR pc, P_CHAR us, UI08 dir, short int oldx, short int oldy, UOXSOCKET socket=-1);
-	void OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, short int oldy);
+	void SendWalkToOtherPlayers(P_CHAR pc, P_CHAR us, UI08 dir, const Coord_cl& oldpos, UOXSOCKET socket=-1);
+	void OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, const Coord_cl& oldpos );
 	void HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning);
-	void HandleTeleporters(P_CHAR pc, UOXSOCKET socket, short int oldx, short int oldy);
+	void HandleTeleporters(P_CHAR pc, UOXSOCKET socket, const Coord_cl& oldpos);
 	void HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket);
 	void HandleGlowItems(P_CHAR pc, UOXSOCKET socket);
 	bool IsGMBody(P_CHAR pc);
