@@ -658,8 +658,9 @@ void cCommands::DyeItem(int s) // Rehue an item
 {
 	int body,c1,c2,b,k;
 	int serial=calcserial(buffer[s][1],buffer[s][2],buffer[s][3],buffer[s][4]);
-	int i = calcItemFromSer( serial );
-	if(i!=-1)
+	P_ITEM pi = FindItemBySerial(serial);
+	if (pi == NULL)
+		return;
 	{
 			c1=buffer[s][7];
 			c2=buffer[s][8];
@@ -678,31 +679,32 @@ void cCommands::DyeItem(int s) // Rehue an item
            	b=((((c1<<8)+c2)&0x4000)>>14)+((((c1<<8)+c2)&0x8000)>>15);	       
 			if (!b)
             {
-              items[i].color1=c1;
-			  items[i].color2=c2;
+              pi->color1=c1;
+			  pi->color2=c2;
 			}
 
 			if (((c1<<8)+c2)==17969)
 			{
-				items[i].color1=c1;
-				items[i].color2=c2;
+				pi->color1=c1;
+				pi->color2=c2;
 			}
-			RefreshItem(i);//AntiChrist
+			RefreshItem(DEREF_P_ITEM(pi));//AntiChrist
 			
 			soundeffect( s, 0x02, 0x3e ); // plays the dye sound, LB
 			return;
 	}
 
 	serial=calcserial(buffer[s][7],buffer[s][8],buffer[s][9],buffer[s][10]);
-	i = calcCharFromSer( serial );
-	if(i!=-1)
+	P_CHAR pc = FindCharBySerial(serial);
+	if (pc == NULL)
+		return;
 	{
 		P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 		if( !(pc_currchar->isGM() ) ) return; // Only gms dye characters
 		k=(buffer[s][7]<<8)+buffer[s][8];
 
 
-		 body=(chars[i].id1<<8)+chars[i].id2;
+		 body=(pc->id1<<8)+pc->id2;
          b=k&0x4000; 
 
 		 if( ( ( k>>8 ) < 0x80 ) && body >= 0x0190 && body <= 0x0193 ) k+= 0x8000;
@@ -712,8 +714,8 @@ void cCommands::DyeItem(int s) // Rehue an item
          if (k!=0x8000) 
 		 {	
 		 
-			chars[i].skin = chars[i].xskin = k;
-			updatechar(i);
+			pc->skin = pc->xskin = k;
+			updatechar(DEREF_P_CHAR(pc));
          }
 	}
 	soundeffect( s, 0x02, 0x3e ); // plays the dye sound, LB
@@ -722,43 +724,46 @@ void cCommands::DyeItem(int s) // Rehue an item
 
 void cCommands::SetItemTrigger(int s)
 {
-	int i,serial;
+	int serial;
 	 
 	
   serial=calcserial(buffer[s][7],buffer[s][8],buffer[s][9],buffer[s][10]);
-  i = calcItemFromSer( serial );
-  if (i!=-1)
+  P_ITEM pi = FindItemBySerial(serial);
+  if (pi == NULL)
+	  return;
   {
 		sysmessage(s,"Item triggered");
-		items[i].trigger=addx[s];
+		pi->trigger=addx[s];
   }
 }
 
 void cCommands::SetTriggerType(int s)
 {
-	int i,serial;
+	int serial;
 	 
 	
   serial=calcserial(buffer[s][7],buffer[s][8],buffer[s][9],buffer[s][10]);
-  i = calcItemFromSer( serial );
-  if (i!=-1)
+  P_ITEM pi = FindItemBySerial(serial);
+  if (pi == NULL)
+	  return;
   {
 		sysmessage(s,"Trigger type set");
-		items[i].trigtype=addx[s];
+		pi->trigtype=addx[s];
   }
 }
 
 void cCommands::SetTriggerWord(int s)
 {
-	int i,serial;
+	int serial;
 	 
 	
   serial=calcserial(buffer[s][7],buffer[s][8],buffer[s][9],buffer[s][10]);
-  i = calcCharFromSer( serial );
-  if (i!=-1)
+  P_CHAR pc = FindCharBySerial(serial);
+  if (pc == NULL)
+	  return;
   {
 		sysmessage(s,"Trigger word set");
-		strcpy(chars[i].trigword,xtext[s]);
+		strcpy(pc->trigword,xtext[s]);
   }
 }
 
@@ -1061,7 +1066,6 @@ void cCommands::Wipe(int s)
 	
 	clConsole.send("WOLFPACK: %s has initiated an item wipe\n",pc_currchar->name);
 	
-#if 1
 	P_ITEM pi;
 	AllItemsIterator aii;
 	for(pi=aii.First(); (pi=aii.Next())!=aii.End(); )
@@ -1071,16 +1075,6 @@ void cCommands::Wipe(int s)
 			Items->DeleItem(pi);
 		}
 	}
-#else
-	int k;
-	for(k=0;k<=itemcount;k++)
-	{
-		if(items[k].isInWorld() && items[k].wipe==0)
-		{
-			Items->DeleItem(k);
-		}
-	}
-#endif
 	sysbroadcast("All items have been wiped."); 
 }
 
