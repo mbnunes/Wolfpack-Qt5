@@ -169,7 +169,7 @@
 
 	<!--  Blacksmithing -->
 	<skill id="7">
-		<str>100</str>
+		<str>120</str>
 		<dex>0</dex>
 		<int>0</int>
 		<defname>BLACKSMITHING</defname>
@@ -191,8 +191,8 @@
 
 	<!--  BowcraftFletching -->
 	<skill id="8">
-		<str>40</str>
-		<dex>60</dex>
+		<str>60</str>
+		<dex>80</dex>
 		<int>0</int>
 		<defname>BOWCRAFTING</defname>
 		<name>Bowcrafting</name>
@@ -369,7 +369,7 @@
 	<skill id="16">
 		<str>0</str>
 		<dex>0</dex>
-		<int>100</int>
+		<int>120</int>
 		<defname>EVALUATINGINTELLIGENCE</defname>
 		<name>Evaluating Inteligence</name>
 		<title>Mystic</title>
@@ -567,7 +567,7 @@
 	<skill id="25">
 		<str>0</str>
 		<dex>0</dex>
-		<int>150</int>
+		<int>120</int>
 		<defname>MAGERY</defname>
 		<name>Magery</name>
 		<title>Magus</title>
@@ -632,7 +632,7 @@
 	<!--  Snooping -->
 	<skill id="28">
 		<str>0</str>
-		<dex>100</dex>
+		<dex>120</dex>
 		<int>0</int>
 		<defname>SNOOPING</defname>
 		<name>Snooping</name>
@@ -698,7 +698,7 @@
 	<!--  Archery -->
 	<skill id="31">
 		<str>75</str>
-		<dex>100</dex>
+		<dex>120</dex>
 		<int>0</int>
 		<defname>ARCHERY</defname>
 		<name>Archery</name>
@@ -721,7 +721,7 @@
 	<skill id="32">
 		<str>0</str>
 		<dex>0</dex>
-		<int>100</int>
+		<int>120</int>
 		<defname>SPIRITSPEAK</defname>
 		<name>Spirit Speak</name>
 		<title>Medium</title>
@@ -742,7 +742,7 @@
 	<!--  Stealing -->
 	<skill id="33">
 		<str>0</str>
-		<dex>100</dex>
+		<dex>120</dex>
 		<int>0</int>
 		<defname>STEALING</defname>
 		<name>Stealing</name>
@@ -895,8 +895,8 @@
 
 	<!--  Swordsmanship -->
 	<skill id="40">
-		<str>75</str>
-		<dex>25</dex>
+		<str>120</str>
+		<dex>75</dex>
 		<int>0</int>
 		<defname>SWORDSMANSHIP</defname>
 		<name>Swordsmanship</name>
@@ -917,8 +917,8 @@
 
 	<!--  Mace  Fighting -->
 	<skill id="41">
-		<str>90</str>
-		<dex>10</dex>
+		<str>120</str>
+		<dex>55</dex>
 		<int>0</int>
 		<defname>MACEFIGHTING</defname>
 		<name>Mace Fighting</name>
@@ -939,8 +939,8 @@
 
 	<!--  Fencing -->
 	<skill id="42">
-		<str>50</str>
-		<dex>50</dex>
+		<str>85</str>
+		<dex>85</dex>
 		<int>0</int>
 		<defname>FENCING</defname>
 		<name>Fencing</name>
@@ -961,8 +961,8 @@
 
 	<!--  Wrestling -->
 	<skill id="43">
-		<str>90</str>
-		<dex>10</dex>
+		<str>120</str>
+		<dex>75</dex>
 		<int>0</int>
 		<defname>WRESTLING</defname>
 		<name>Wrestling</name>
@@ -983,7 +983,7 @@
 
 	<!--  Lumberjacking -->
 	<skill id="44">
-		<str>100</str>
+		<str>120</str>
 		<dex>0</dex>
 		<int>0</int>
 		<defname>LUMBERJACKING</defname>
@@ -1005,7 +1005,7 @@
 
 	<!--  Mining -->
 	<skill id="45">
-		<str>100</str>
+		<str>120</str>
 		<dex>0</dex>
 		<int>0</int>
 		<defname>MINING</defname>
@@ -1029,7 +1029,7 @@
 	<skill id="46">
 		<str>0</str>
 		<dex>0</dex>
-		<int>100</int>
+		<int>120</int>
 		<defname>MEDITATION</defname>
 		<name>Meditation</name>
 		<title>Medium</title>
@@ -1050,7 +1050,7 @@
 	<!--  STEALTH -->
 	<skill id="47">
 		<str>0</str>
-		<dex>100</dex>
+		<dex>120</dex>
 		<int>0</int>
 		<defname>STEALTH</defname>
 		<name>Stealth</name>
@@ -1073,7 +1073,7 @@
 	<skill id="48">
 		<str>0</str>
 		<dex>0</dex>
-		<int>100</int>
+		<int>120</int>
 		<defname>REMOVETRAPS</defname>
 		<name>Remove Traps</name>
 		<advancement base="0" failure="50" success="75" />
@@ -1094,7 +1094,7 @@
 	<skill id="49">
 		<str>0</str>
 		<dex>0</dex>
-		<int>150</int>
+		<int>120</int>
 		<defname>NECROMANCY</defname>
 		<name>Necromancy</name>
 		<title>Necromancer</title>
@@ -1116,7 +1116,7 @@
 	<skill id="50">
 		<str>0</str>
 		<dex>0</dex>
-		<int>100</int>
+		<int>120</int>
 		<defname>FOCUS</defname>
 		<name>Focus</name>
 		<advancement base="0" failure="50" success="75" />
@@ -1137,7 +1137,7 @@
 	<skill id="51">
 		<str>0</str>
 		<dex>0</dex>
-		<int>150</int>
+		<int>120</int>
 		<defname>CHIVALRY</defname>
 		<name>Chivalry</name>
 		<title>Paladin</title>
