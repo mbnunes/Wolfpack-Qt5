@@ -222,7 +222,7 @@ def isminingtool( item ):
 	return item.id in [ 0xf39, 0xf3a, 0xe85, 0xe86 ]
 
 def isoregem( item ):
-	return item.id == 0x1ea7 and item.hastag( 'resource' ) and item.gettag( 'resource' ) == 'ore' and item.hastag( 'min' ) and item.hastag( 'max' )
+	return item.id == 0x1ea7 and item.hastag( 'resource' ) and item.gettag( 'resource' ) == 'ore'
 
 def ismountainorcave( tile ):
 	return tile in  range(  220,  231 ) + \
