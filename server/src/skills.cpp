@@ -396,46 +396,6 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 
 	switch( id )
 	{
-	case ARMSLORE:
-		message = tr("What item do you wish to get information about?");
-		targetRequest = new cSkArmsLore;
-		break;
-	case ITEMID:
-		message = tr("What do you wish to appraise and identify?");
-		targetRequest = new cSkItemID;
-		break;
-	case EVALUATINGINTEL:
-		message = tr("What would you like to evaluate?");
-		targetRequest = new cSkIntEval;
-		break;
-	case TAMING:
-		message = tr("Tame which animal?");
-		targetRequest = new cSkTame;
-		break;
-	case HIDING:
-		Skills->Hide( socket );
-		break;
-	case STEALTH:
-		Skills->Stealth( socket );
-		break;
-	case DETECTINGHIDDEN:
-		message = tr("Where do you wish to search for hidden characters?");
-		targetRequest = new cSkDetectHidden;
-		break;
-	case PEACEMAKING:
-		Skills->PeaceMaking(socket);
-		break;
-	case PROVOCATION:
-		message = tr("Whom do you wish to incite?");
-		targetRequest = new cSkProvocation;
-		break;
-	case DISCORDANCE:
-		message = tr("Whom do you wish to entice?");
-		//target(s, 0, 1, 0, 81, );
-		break;
-	case SPIRITSPEAK:
-		Skills->SpiritSpeak(s);
-		break;
 	case STEALING:
 		if( !SrvParams->stealingEnabled() )
 		{
@@ -446,16 +406,8 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 		message = tr("What do you wish to steal?");
 		targetRequest = new cSkStealing;
 		break;
-	case INSCRIPTION:
-		message = tr("What do you wish to place a spell on?");
-		//target(s, 0, 1, 0, 160, );
-		break;
 	case TRACKING:
 		trackingMenu( socket );
-		break;
-	case BEGGING:
-		message = tr( "Whom do you wish to annoy?" );
-		targetRequest = new cSkBegging;
 		break;
 	case FORENSICS:
 		message = tr("What corpse do you want to examine?");
@@ -465,11 +417,6 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 		message = tr("What poison do you want to apply?");
 		targetRequest = new cSkPoisoning;
 		break;
-
-	case TASTEID:
-		message = tr("What do you want to taste?");
-        targetRequest = new cSkTasteID;
-        break;
 
 	case MEDITATION:
 		if( !SrvParams->armoraffectmana() )
