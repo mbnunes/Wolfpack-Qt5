@@ -1372,7 +1372,7 @@ void cUOSocket::poll()
 void cUOSocket::attachTarget( cTargetRequest *request )
 {
 	// Let the old one time out
-	if( targetRequest )
+	if( targetRequest && targetRequest != request )
 	{
 		targetRequest->timedout( this );
 		delete targetRequest;

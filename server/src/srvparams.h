@@ -197,19 +197,7 @@ protected:
 	int				crimtime_;
 
 	// Resources
-	unsigned int        minecheck_;
-	unsigned int		logs_;
-	unsigned long int	logtime_;
-	unsigned long int	lograte_;
-	unsigned int		logarea_;
-	int					logtrigger_;
-	int					logstamina_;
-	unsigned int		ore_;
-	unsigned long int	oretime_;
-	unsigned long int	orerate_;
-	unsigned int		orearea_;
-	int					miningtrigger_;
-	int					miningstamina_;
+	unsigned int resourceitemdecaytime_;
 
 	//Tracking
 	unsigned int baserange_;
@@ -377,19 +365,7 @@ public:
 	int				crimtime() const;
 
 	// Resources
-	unsigned int        minecheck() const;
-	unsigned int		logs() const;
-	unsigned long int	logtime() const;
-	unsigned long int	lograte() const;
-	unsigned int		logarea() const;
-	int					logtrigger() const;
-	int					logstamina() const;
-	unsigned int		ore() const;
-	unsigned long int	oretime() const;
-	unsigned long int	orerate() const;
-	unsigned int		orearea() const;
-	int					miningtrigger() const;
-	int					miningstamina() const;
+	unsigned int resitemdecaytime() const;
 
 	// Tracking
 	unsigned int baserange() const;
@@ -919,69 +895,9 @@ inline int cSrvParams::crimtime() const
 	return crimtime_;
 }
 
-inline unsigned int cSrvParams::logs() const
+inline unsigned int cSrvParams::resitemdecaytime() const
 {
-	return logs_;
-}
-
-inline unsigned long int cSrvParams::logtime() const
-{
-	return logtime_;
-}
-
-inline unsigned long int cSrvParams::lograte() const
-{
-	return lograte_;
-}
-
-inline unsigned int cSrvParams::logarea() const
-{
-	return logarea_;
-}
-
-inline int cSrvParams::logtrigger() const
-{
-	return logtrigger_;
-}
-
-inline int cSrvParams::logstamina() const
-{
-	return logstamina_;
-}
-
-inline unsigned int cSrvParams::ore() const
-{
-	return ore_;
-}
-
-inline unsigned long int cSrvParams::oretime() const
-{
-	return oretime_;
-}
-
-inline unsigned long int cSrvParams::orerate() const
-{
-	return orerate_;
-}
-
-inline unsigned int cSrvParams::orearea() const
-{
-	return orearea_;
-}
-
-inline int cSrvParams::miningtrigger() const
-{
-	return miningtrigger_;
-}
-
-inline int cSrvParams::miningstamina() const
-{
-	return miningstamina_;
-}
-
-inline unsigned int cSrvParams::minecheck() const
-{
-	return minecheck_;
+	return resourceitemdecaytime_;
 }
 
 inline unsigned int cSrvParams::baserange() const

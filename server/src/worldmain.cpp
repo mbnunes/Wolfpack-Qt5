@@ -71,7 +71,7 @@ void CWorldMain::cItemsSaver::run() throw()
 		for (iterItems.Begin(); !iterItems.atEnd(); ++iterItems)
 		{
 			P_ITEM pi = iterItems.GetData();
-			if( pi && pi->objectID() != "RESOURCE" )
+			if( pi && pi->objectID() != "RESOURCEITEM" )
 				archive->writeObject( pi );
 		}
 		archive->close();

@@ -223,7 +223,7 @@ void cSkills::TasteIDTarget(int s)
 	}*/
 }
 
-void cSkills::TreeTarget(int s)
+void cSkills::TreeTarget( int s )
 {
 /*	int lumber=0;
 	int px,py,cx,cy;

@@ -2460,7 +2460,7 @@ void cTargets::SwordTarget(const P_CLIENT pC, PKGx6C *pp)
 static void AxeTarget(P_CLIENT pC, PKGx6C *pp)
 {
 	if (IsTree(pp->model))
-		Skills->TreeTarget(pC->socket());
+		Skills->TreeTarget( pC->socket() );
 	else
 		BladeTarget(pC,pp);
 }
@@ -4091,7 +4091,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 71: if (Iready) ContainerEmptyTarget1(ps,pi); break;
 		case 72: if (Iready) ContainerEmptyTarget2(ps,pi); break;
 		case 75: Targ->TargIdTarget(s); break;
-		case 76: AxeTarget(ps,pt); break;
+//		case 76: AxeTarget(ps,pt); break;
 		case 77: Skills->DetectHidden(s); break;
 
 //		case 79: Skills->ProvocationTarget1(s); break;

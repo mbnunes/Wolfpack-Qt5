@@ -49,46 +49,6 @@
 #undef  DBGFILE
 #define DBGFILE "dbl_single_click.cpp"
 
-// Blade Target
-class cWeaponTarget: public cTargetRequest
-{
-protected:
-	void chopTree( P_CHAR pChar, const Coord_cl &pos )
-	{
-		// TODO: Check if there IS a tree at the given position
-		// If not we eiter have wrong statics clientside or a 
-		// cheater.
-
-
-	}
-
-public:
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
-	{
-		P_CHAR pChar = socket->player();
-
-		if( !pChar )
-			return false;
-
-		// Check what we targetted
-		Coord_cl pos = pChar->pos;
-		pos.x = target->x();
-		pos.y = target->y();
-		pos.z = target->z();
-
-		if( ( pChar->pos.distance( pos ) > 4 ) || !lineOfSight( pChar->pos, pos, DOORS|ROOFING_SLANTED|WALLS_CHIMNEYS ) )
-		{
-			socket->sysMessage( tr( "You can't reach this" ) );
-			return false;
-		}
-
-		if( IsTree( target->model() ) )
-			chopTree( pChar, pos );
-
-		return true;
-	}
-};
-
 // Loads a Cannonball
 class cLoadCannon: public cTargetRequest
 {
@@ -371,8 +331,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 	// Bladed Weapons (Swords, Axes)
 	case 3:
 		// Show a target-request
-		socket->attachTarget( new cWeaponTarget );
 		socket->sysMessage( tr( "What do you want to use this on?" ) );
+		socket->attachTarget( new cFindResource( "RESOURCE_LOG" ) );
 		return;
 
 	case 16:

@@ -55,6 +55,8 @@ public:
 		UINT32 maxamount_per_attempt;
 		QValueVector< UINT16 > ids;
 		QValueVector< UINT16 > colors;
+		QValueVector< UINT16 > artids;
+		QValueVector< UINT16 > mapids;
 		UINT32 vein_minamount;
 		UINT32 vein_maxamount;
 		UINT32 vein_quota;
@@ -66,10 +68,13 @@ public:
 	// implements cDefinable
 	virtual void processNode( const QDomElement &Tag );
 
+	// Getters
+	bool	deleteSource()	const { return deletesource_; }
+
 	bool	hasArtId( UINT16 id );
 	bool	hasMapId( UINT16 id );
 
-	void	handleTarget( cUOSocket* socket, Coord_cl pos );
+	void	handleTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid, UINT16 artid );
 
 private:
 	UINT32	amountmin_;
@@ -80,6 +85,12 @@ private:
 	UINT32	totalveinquota_;
 	UINT32	refreshtime_;
 	QString section_;
+	QString	name_;
+	bool	deletesource_;
+	UINT32	staminamin_;
+	UINT32	staminamax_;
+	UINT8	charaction_;
+	UINT16	sound_;
 
 	QValueVector< resourcespec_st > resourcespecs_;
 	QValueVector< UINT16 > mapids_;
