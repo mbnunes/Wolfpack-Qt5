@@ -169,12 +169,11 @@ public:
 		return currentTarget;
 	}
 
-	static const mageryPerCircle = (1000.0 / 7.0);
-
 	/*
 		Get the id of a random damage spell
 	*/
 	int getRandomHarmfulSpell() {
+		static const mageryPerCircle = (1000.0 / 7.0);
 		unsigned char maxCircle = QMIN(8, QMAX(1, (unsigned char)((m_npc->skillValue(MAGERY) + 200) / mageryPerCircle)));
 		int selected = RandomNum(1, maxCircle * 2) - 1; // Select a random spell
 
@@ -239,7 +238,7 @@ public:
 		if (m_npc->poison() != -1) { // Always try to cure if poisoned
 			spell = 11; // Cure
 			objTarget = m_npc;
-		} else if (dispelTarget) { // We have something to dispel that is attacking us. Easily dispatch threat.
+		} else if (dispelTarget && m_npc->skillValue(MAGERY) * 0.01 * 75 > RandomNum(1, 100)) { // We have something to dispel that is attacking us. Easily dispatch threat.
 			spell = 41; // Dispel
 			objTarget = dispelTarget;
 		} else {
@@ -265,8 +264,6 @@ public:
 		if (spell == -1) {
 			return; // Shouldn't happen
 		}
-
-		//m_npc->talk(tr("CASTING SPELL %1").arg(spell));
 
 		if (m_npc->canHandleEvent(EVENT_CASTSPELL)) {
 			PyObject *target = PyGetObjectObject(objTarget);
