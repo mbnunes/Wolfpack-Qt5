@@ -232,6 +232,30 @@ void cTempEffects::check()
 */
 void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString &type, bool silent, bool onlyDispellable )
 {
+	if (cPythonScript::canChainHandleEvent(EVENT_DISPEL, pc_dest->getEvents())) {
+		PyObject *source;
+		if (pSource) {
+			source = pSource->getPyObject();
+		} else {
+			Py_INCREF(Py_None);
+			source = Py_None;
+		}
+
+		const char *ptype = "";
+		if (!type.isEmpty()) {
+			ptype = type.latin1();
+		}
+
+		PyObject *args = Py_BuildValue("(NNBBsN", pc_dest->getPyObject(), source, 
+			silent ? 1 : 0, onlyDispellable ? 0 : 1, ptype, PyTuple_New(0));
+		bool result = cPythonScript::callChainedEventHandler(EVENT_DISPEL, pc_dest->getEvents(), args);
+		Py_DECREF(args);
+
+		if (result) {
+			return;
+		}
+	}
+
 	std::vector<cTempEffect*>::iterator it = teffects.begin();
 	QPtrList<cTempEffect> eraselist;
 
@@ -255,6 +279,24 @@ void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString &type, 
 
 void cTempEffects::dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent )
 {
+	if (cPythonScript::canChainHandleEvent(EVENT_DISPEL, pc_dest->getEvents())) {
+		PyObject *source;
+		if (pSource) {
+			source = pSource->getPyObject();
+		} else {
+			Py_INCREF(Py_None);
+			source = Py_None;
+		}
+
+		PyObject *args = Py_BuildValue("(NNBBsN", pc_dest->getPyObject(), source, silent ? 1 : 0, 0, "", PyTuple_New(0));
+		bool result = cPythonScript::callChainedEventHandler(EVENT_DISPEL, pc_dest->getEvents(), args);
+		Py_DECREF(args);
+
+		if (result) {
+			return;
+		}
+	}
+
 	std::vector< cTempEffect* >::iterator i = teffects.begin();
 	for( i = teffects.begin(); i != teffects.end(); i++ )
 		if( (*i) != NULL && (*i)->dispellable && (*i)->getDest() == pc_dest->serial() )

@@ -453,6 +453,24 @@ static char *eventNames[] =
 	*/
 	"onTimeChange",
 
+	/*
+		\event onDispel
+		\param player The player that is affected.
+		\param source The source character of the dispel effect. May be None.
+		\param silent Indicates that the effects should be silently dispelled.
+			This is a boolean value.
+		\param force Is the dispel effect dispelling even undispellable effects?
+			This is a boolean value.
+		\param dispelid Is the dispel effect limited to one kind of effect?
+			This is a string. If it's empty, all effects are affected.
+		\param dispelargs A tuple of arguments passed to the dispel function of the effects.
+			This may be an empty tuple.
+		\condition This event is called before a dispel effect affects the effects on this 
+		character.
+		\return Return 1 to ignore the dispel effect.
+	*/
+	"onDispel",
+
 	0
 };
 

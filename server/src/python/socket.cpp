@@ -82,7 +82,8 @@ PyObject* PyGetSocketObject( cUOSocket *socket )
 static PyObject* wpSocket_disconnect(wpSocket* self, PyObject* args) {
 	Q_UNUSED(args);
 	self->pSock->socket()->close();
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 static PyObject* wpSocket_sysmessage(wpSocket* self, PyObject* args) {
@@ -98,7 +99,8 @@ static PyObject* wpSocket_sysmessage(wpSocket* self, PyObject* args) {
 	self->pSock->sysMessage(QString::fromUtf8(message), color, font);
 	PyMem_Free(message);
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 static PyObject* wpSocket_clilocmessage(wpSocket* self, PyObject* args) {
@@ -136,7 +138,8 @@ static PyObject* wpSocket_clilocmessage(wpSocket* self, PyObject* args) {
 		PyMem_Free(params);
 	}
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 static PyObject* wpSocket_showspeech(wpSocket* self, PyObject* args) {
@@ -155,7 +158,8 @@ static PyObject* wpSocket_showspeech(wpSocket* self, PyObject* args) {
 	self->pSock->showSpeech(object, QString::fromUtf8(message), color, font, 
 		(cUOTxUnicodeSpeech::eSpeechType)type);
 	PyMem_Free(message);
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 static PyObject* wpSocket_attachtarget(wpSocket* self, PyObject* args) {
@@ -184,7 +188,8 @@ static PyObject* wpSocket_attachtarget(wpSocket* self, PyObject* args) {
 	}
 
 	self->pSock->attachTarget(target);
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 static PyObject* wpSocket_attachitemtarget(wpSocket* self, PyObject* args) {
@@ -246,7 +251,8 @@ static PyObject* wpSocket_attachitemtarget(wpSocket* self, PyObject* args) {
 	}
 
 	self->pSock->attachTarget(target, targetitems, xoffset, yoffset, zoffset);
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 static PyObject* wpSocket_attachmultitarget(wpSocket* self, PyObject* args) {
@@ -272,7 +278,8 @@ static PyObject* wpSocket_attachmultitarget(wpSocket* self, PyObject* args) {
 	}
 
 	self->pSock->attachTarget(target, 0x4000 + multiid);
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 /*!
@@ -294,7 +301,8 @@ static PyObject* wpSocket_customize( wpSocket* self, PyObject* args )
 	cUOTxStartCustomHouse custom;
 	custom.setSerial( signpost->getTag( "house" ).toInt() ); // Morex of signpost contain serial of house
 	self->pSock->send( &custom );
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 
@@ -393,7 +401,8 @@ static PyObject* wpSocket_resendworld( wpSocket* self, PyObject* args )
 	if( !self->pSock )
 		return PyFalse;
 	self->pSock->resendWorld( false );
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 /*!
@@ -405,7 +414,8 @@ static PyObject* wpSocket_resendplayer( wpSocket* self, PyObject* args )
 	if( !self->pSock )
 		return PyFalse;
 	self->pSock->resendPlayer( false );
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 /*!
@@ -427,7 +437,8 @@ static PyObject* wpSocket_sendcontainer( wpSocket* self, PyObject* args )
 
 	self->pSock->sendContainer( getArgItem( 0 ) );
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 /*!
@@ -460,7 +471,8 @@ static PyObject* wpSocket_sendpacket( wpSocket* self, PyObject* args )
 	cUOPacket packet( buffer );
 	self->pSock->send( &packet );
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 static PyObject* wpSocket_sendpaperdoll( wpSocket* self, PyObject* args )
@@ -479,7 +491,8 @@ static PyObject* wpSocket_sendpaperdoll( wpSocket* self, PyObject* args )
 
 	self->pSock->sendPaperdoll( getArgChar( 0 ) );
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 /*!
@@ -528,7 +541,8 @@ static PyObject* wpSocket_settag( wpSocket* self, PyObject* args )
 		self->pSock->tags().set(key, cVariant((double)PyFloat_AsDouble(object)));
 	}
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 /*!
@@ -567,7 +581,8 @@ static PyObject* wpSocket_deltag( wpSocket* self, PyObject* args )
 	QString key = getArgStr( 0 );
 	self->pSock->tags().remove( key );
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 /*!
@@ -577,6 +592,15 @@ static PyObject *wpSocket_resendstatus( wpSocket *self, PyObject *args )
 {
 	Q_UNUSED(args);
 	self->pSock->sendStatWindow();
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
+// Resend lightlevel
+static PyObject *wpSocket_updatelightlevel( wpSocket *self, PyObject *args )
+{
+	Q_UNUSED(args);
+	self->pSock->updateLightLevel();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
@@ -648,7 +672,8 @@ static PyMethodDef wpSocketMethods[] =
 	{ "resendstatus",		(getattrofunc)wpSocket_resendstatus, METH_VARARGS,	"Resends the status windows to this client." },
 	{ "customize",			(getattrofunc)wpSocket_customize, METH_VARARGS,	"Begin house customization." },
 	{ "log",				(getattrofunc)wpSocket_log, METH_VARARGS, NULL },
-    { NULL, NULL, 0, NULL }
+	{ "updatelightlevel",   (getattrofunc)wpSocket_updatelightlevel, METH_VARARGS, NULL },
+	{ NULL, NULL, 0, NULL }
 };
 
 // Getters & Setters

@@ -1413,6 +1413,31 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 		if( !dispelargs )
 			dispelargs = PyTuple_New( 0 );
 
+		if (cPythonScript::canChainHandleEvent(EVENT_DISPEL, self->pChar->getEvents())) {
+			PyObject *source;
+			if (pSource) {
+				source = pSource->getPyObject();
+			} else {
+				Py_INCREF(Py_None);
+				source = Py_None;
+			}
+
+			const char *ptype = "";
+			if (!dispelid.isEmpty()) {
+				ptype = dispelid.latin1();
+			}
+
+			PyObject *args = Py_BuildValue("(NNBBsN", self->pChar->getPyObject(), source, 
+				0, force ? 1 : 0, ptype, dispelargs);
+			bool result = cPythonScript::callChainedEventHandler(EVENT_DISPEL,self->pChar->getEvents(), args);
+			Py_DECREF(args);
+
+			if (result) {
+				Py_INCREF(Py_None);
+				return Py_None;
+			}
+		}
+
 		for( uint i = 0; i < effects.size(); ++i )
 		{
 			// No python effect, but we are forcing.
