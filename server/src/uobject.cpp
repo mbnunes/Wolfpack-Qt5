@@ -54,7 +54,7 @@
 
 // Library Includes
 
-cUObject::cUObject() : serial_( INVALID_SERIAL ), multi_( 0 ), free( false ), changed_( true ), tooltip_( 0xFFFFFFFF ), name_( QString::null ), scriptChain( 0 )
+cUObject::cUObject() : serial_( INVALID_SERIAL ), multi_( 0 ), free( false ), changed_( true ), tooltip_( 0xFFFFFFFF ), name_( QString::null ), scriptChain( 0 ), spawnregion_(0)
 {
 }
 
@@ -94,6 +94,7 @@ cUObject::cUObject( const cUObject& src )
 	this->name_ = src.name_;
 	this->pos_ = src.pos_;
 	this->tags_ = src.tags_;
+	this->spawnregion_ = 0; // SpawnRegion references aren't transferred
 	changed_ = true;
 }
 
@@ -104,8 +105,7 @@ void cUObject::init()
 void cUObject::moveTo( const Coord_cl& newpos, bool noRemove )
 {
 	// See if the map is valid
-	if ( !Maps::instance()->hasMap( newpos.map ) )
-	{
+	if (!Maps::instance()->hasMap(newpos.map)) {
 		return;
 	}
 
@@ -714,6 +714,14 @@ stError* cUObject::getProperty( const QString& name, cVariant& value )
 		This property is inherited by the baseid property of this object.
 	*/
 	GET_PROPERTY( "bindmenu", bindmenu() )
+
+	/*
+		\rproperty object.spawnregion The name of the spawnregion this object was spawned in. This is an empty string 
+		if the object wasn't spawned or removed from the spawnregion.
+	*/
+	else
+		GET_PROPERTY( "spawnregion", spawnregion_ ? spawnregion_->name() : "" )
+
 	else
 		GET_PROPERTY( "serial", serial_ )
 	else
@@ -903,8 +911,10 @@ void cUObject::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 
 void cUObject::remove()
 {
+	setSpawnregion(0); // Remove from a spawnregion if applicable
+
 	// Queue up for deletion from worldfile
-	World::instance()->deleteObject( this );
+	World::instance()->deleteObject(this);
 }
 
 void cUObject::freezeScriptChain()

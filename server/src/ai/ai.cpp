@@ -453,6 +453,7 @@ float Action_Wander::postCondition()
 	case enFreely:
 	case enCircle:
 	case enRectangle:
+	case enWanderSpawnregion:
 		return 1.0f;
 
 	case enDestination:
@@ -486,16 +487,69 @@ void Action_Wander::execute()
 
 	switch ( m_npc->wanderType() )
 	{
+	case enWanderSpawnregion:
+		{
+			// Only try to walk if we're not already out of the spawnregion
+			// Otherwise fall trough to enFreely
+			cSpawnRegion *region = m_npc->spawnregion();
+
+			if (region && region->contains(m_npc->pos().x, m_npc->pos().y, m_npc->pos().map))
+			{
+				// Calculate the field we're facing.
+				unsigned char dir = m_npc->direction();
+				Coord_cl newpos = Movement::instance()->calcCoordFromDir(dir, m_npc->pos());
+
+				// Calculate a new direction.
+                if (!region->contains(newpos.x, newpos.y, newpos.map))
+				{
+					unsigned char newdir = RandomNum(0, 7);
+					// Make sure we're not trying to walk in the same 
+					// direction or the directions directly beneath if we met the border of a 
+					// spawnregion. But we don't want to turn around exactly either. (Looks
+					// to mechanically)
+					while (newdir == dir 
+						|| newdir == ((dir == 0) ? 7 : dir - 1) 
+						|| newdir == ((dir == 7) ? 0 : dir + 1) )
+					{
+						newdir += RandomNum(0, 1) ? -1 : 1;
+					}
+					dir = newdir;
+				}
+
+				// Walk in the same direction or if the direction has changed simply turn around.
+				// If there's a obstacle, change the direction slightly to see if we can get
+				// around it.
+				if (!Movement::instance()->Walking(m_npc, dir, 0xFF))
+				{
+					signed char newdir = dir;
+					newdir += RandomNum(0, 1) ? -1 : 1;
+					if (newdir < 0)
+					{
+						newdir = 7;
+					} else if (newdir > 7)
+					{
+						newdir = 0;
+					}
+
+					m_npc->setDirection(newdir);
+					m_npc->update();
+				}
+
+				break;
+			}
+		}
+
 	case enFreely:
 		{
 			UINT8 dir = m_npc->direction();
 			if ( RandomNum( 0, 100 ) < 20 )
-				dir = RandomNum( 0, 7 );
+				dir = RandomNum(0, 7);
 
-			m_npc->setDirection( dir );
-			Movement::instance()->Walking( m_npc, dir, 0xFF );
+			m_npc->setDirection(dir);
+			Movement::instance()->Walking(m_npc, dir, 0xFF);
 			break;
 		}
+
 	case enRectangle:
 		{
 			// get any point out of the rectangle and calculate the direction to it

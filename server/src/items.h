@@ -25,8 +25,8 @@
  * Wolfpack Homepage: http://wpdev.sf.net/
  */
 
-#if !defined( __ITEMS_H )
-#define __ITEMS_H
+#if !defined( __ITEMS_H__ )
+#define __ITEMS_H__
 
 // Wolfpack Includes
 #include "uobject.h"
@@ -141,10 +141,6 @@ typedef SingletonHolder<cItemBaseDefs> ItemBaseDefs;
 
 /*
 	Notes for further memory footprint reduction:
-
-	a) Remove the SpawnRegion property or replace it
-	by a pointer to the spawnregion instead of having the
-	full string saved.
 
 	b) Think about the maxhp/hp properties. They're not needed
 	for most of the items.
@@ -318,11 +314,6 @@ public:
 		return basedef_ ? basedef_->bindmenu() : 0;
 	}
 
-	QString spawnregion() const
-	{
-		return spawnregion_;
-	}
-
 	//***************************END ADDED GETTERS************
 
 	// Setters
@@ -386,10 +377,6 @@ public:
 
 	void setOwner( P_CHAR nOwner );
 	void setTotalweight( float data );
-	void setSpawnRegion( const QString& data )
-	{
-		spawnregion_ = data; flagChanged();
-	}
 
 	cItem();
 	cItem( const cItem& src ); // Copy constructor
@@ -555,7 +542,6 @@ protected:
 	unsigned short maxhp_; // The maximum amount of hitpoints this item can have
 	float totalweight_; // The weight of this item including all contained items
 	ContainerContent content_; // The content of this item
-	QString spawnregion_; // The name of the spawnregion this item was spawned into
 	cUObject* container_; // The object this item is contained in
 
 	/*

@@ -418,14 +418,14 @@ void handleItems( P_CHAR pChar, const Coord_cl& oldpos )
 /*!
 	This handles if a character actually tries to walk (NPC & Player)
 */
-void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
+bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 {
 	if ( !pChar )
-		return;
+		return false;
 
 	// Scripting
 	if ( pChar->onWalk( dir, sequence ) )
-		return;
+		return false;
 
 	/*	if( !isValidDirection( dir ) )
 		{
@@ -437,14 +437,14 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 
 	// Is the sequence in order ?
 	if ( player && player->socket() && !verifySequence( player->socket(), sequence ) )
-		return;
+		return false;
 
 	// If checking for weight is more expensive, shouldn't we check for frozen first?
 	if ( pChar->isFrozen() )
 	{
 		if ( player && player->socket() )
 			player->socket()->denyMove( sequence );
-		return;
+		return false;
 	}
 
 	// save our original location before we even think about moving
@@ -470,7 +470,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		{
 			if ( player->socket() )
 				player->socket()->denyMove( sequence );
-			return;
+			return false;
 		}
 
 		// Check for Characters in our way
@@ -478,7 +478,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		{
 			if ( player && player->socket() )
 				player->socket()->denyMove( sequence );
-			return;
+			return false;
 		}
 
 		// Check if the char can move to those new coordinates
@@ -487,7 +487,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		{
 			if ( player && player->socket() )
 				player->socket()->denyMove( sequence );
-			return;
+			return false;
 		}
 		else
 		{
@@ -503,7 +503,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 			{
 				npc->clearPath();
 			}
-			return;
+			return false;
 		}
 
 		// We moved so let's update our location
@@ -564,6 +564,8 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		handleItems( pChar, oldpos );
 		handleTeleporters( pChar, oldpos );
 	}
+
+	return true;
 }
 
 bool cMovement::CheckForCharacterAtXYZ( P_CHAR pc, const Coord_cl& pos )

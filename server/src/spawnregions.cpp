@@ -25,13 +25,6 @@
  * Wolfpack Homepage: http://wpdev.sf.net/
  */
 
-
-/*
-BE AWARE, the cAllSpawnRegion object is a hybrid of cAllBaseObject and std::map !
-I. make sure you establish the recursive structure of the topregion/subregions
-and
-II. make sure to hold the map up to date !
-*/
 #include "spawnregions.h"
 #include "definitions.h"
 
@@ -61,12 +54,22 @@ void cSpawnRegion::init( void )
 	nextTime_ = 0;
 }
 
-void cSpawnRegion::add( UI32 serial )
+void cSpawnRegion::add(cUObject *object) 
 {
-	if ( isItemSerial( serial ) )
-		this->itemSerials_.push_back( serial );
-	else
-		this->npcSerials_.push_back( serial );
+	if (object->isItem()) {
+		items_.append(object);
+	} else if (object->isChar()) {
+		npcs_.append(object);
+	}
+}
+
+void cSpawnRegion::remove(cUObject *object)
+{
+	if (object->isItem()) {
+		items_.remove(object);
+	} else if (object->isChar()) {
+		npcs_.remove(object);
+	}
 }
 
 void cSpawnRegion::processNode( const cElement* Tag )
@@ -224,24 +227,24 @@ bool cSpawnRegion::findValidSpot( Coord_cl& pos )
 // do one spawn and reset the timer
 void cSpawnRegion::reSpawn( void )
 {
-	this->checkForDeleted();
-
-	UI16 i = 0;
-	for ( i = 0; i < this->npcsPerCycle_; i++ )
-	{
-		if ( this->npcSerials_.size() < this->maxNpcAmt_ )
-		{
+	unsigned int i = 0;
+	for (i = 0; i < npcsPerCycle_; ++i) {
+		if (npcs() < maxNpcAmt_) {
 			// spawn a random npc
 			// first find a valid position for the npc
 			Coord_cl pos;
-			if ( this->findValidSpot( pos ) )
+			if (findValidSpot(pos))
 			{
 				QString NpcSect = this->npcSections_[RandomNum( 1, this->npcSections_.size() ) - 1];
 				P_NPC pc = cNPC::createFromScript( NpcSect, pos );
-				if ( pc != NULL )
+				if (pc)
 				{
-					this->npcSerials_.push_back( pc->serial() );
-					pc->setSpawnregion( this->name_ );
+					pc->setSpawnregion(this);
+					if (pc->wanderType() == enFreely)
+					{
+						pc->setWanderType(enWanderSpawnregion);
+					}
+					pc->update();
 				}
 			}
 		}
@@ -249,7 +252,7 @@ void cSpawnRegion::reSpawn( void )
 
 	for ( i = 0; i < this->itemsPerCycle_; i++ )
 	{
-		if ( this->itemSerials_.size() < this->maxItemAmt_ )
+		if ( items() < this->maxItemAmt_ )
 		{
 			// spawn a random item
 			// first find a valid position for the item
@@ -260,9 +263,9 @@ void cSpawnRegion::reSpawn( void )
 				P_ITEM pi = cItem::createFromScript( ItemSect );
 				if ( pi != NULL )
 				{
-					pi->moveTo( pos );
-					this->itemSerials_.push_back( pi->serial() );
-					//					pi->setSpawnRegion( this->name_ );
+					pi->moveTo(pos, true);
+					pi->setSpawnregion(this);
+					pi->update();
 				}
 			}
 		}
@@ -273,40 +276,41 @@ void cSpawnRegion::reSpawn( void )
 
 void cSpawnRegion::reSpawnToMax( void )
 {
-	this->checkForDeleted();
-
-	while ( this->npcSerials_.size() < this->maxNpcAmt_ )
+	while ( npcs() < maxNpcAmt_ )
 	{
 		// spawn a random npc
 		// first find a valid position for the npc
 		Coord_cl pos;
-		if ( this->findValidSpot( pos ) )
+		if ( findValidSpot( pos ) )
 		{
-			QString NpcSect = this->npcSections_[RandomNum( 1, static_cast<uint>( this->npcSections_.size() ) ) - 1];
+			QString NpcSect = npcSections_[RandomNum( 1, static_cast<uint>( this->npcSections_.size() ) ) - 1];
 			P_NPC pc = cNPC::createFromScript( NpcSect, pos );
 			if ( pc != NULL )
 			{
-				this->npcSerials_.push_back( pc->serial() );
-				pc->setSpawnregion( this->name_ );
+				pc->setSpawnregion(this);
+				if (pc->wanderType() == enFreely)
+				{
+					pc->setWanderType(enWanderSpawnregion);
+				}
 				pc->update();
 			}
 		}
 	}
 
-	while ( this->npcSerials_.size() < this->maxNpcAmt_ )
+	while (items() < maxItemAmt_)
 	{
 		// spawn a random item
 		// first find a valid position for the item
 		Coord_cl pos;
-		if ( this->findValidSpot( pos ) )
+		if ( findValidSpot( pos ) )
 		{
 			QString ItemSect = this->itemSections_[RandomNum( 1, this->itemSections_.size() ) - 1];
 			P_ITEM pi = cItem::createFromScript( ItemSect );
-			if ( pi != NULL )
+			if ( pi )
 			{
-				pi->setPos( pos );
-				this->itemSerials_.push_back( pi->serial() );
-				//				pi->setSpawnRegion( this->name_ );
+				pi->moveTo(pos, true);
+				pi->setSpawnregion(this);
+				pi->update();
 			}
 		}
 	}
@@ -317,52 +321,19 @@ void cSpawnRegion::reSpawnToMax( void )
 // delete all spawns and reset the timer
 void cSpawnRegion::deSpawn( void )
 {
-	std::vector<SERIAL>::iterator it = this->npcSerials_.begin();
+	QPtrList<cUObject> items = items_; // Copy
+	QPtrList<cUObject> npcs = npcs_; // Copy
+	cUObject *object;
 
-	while ( it != this->npcSerials_.end() )
-	{
-		P_CHAR pChar = FindCharBySerial( *it );
-		if ( pChar )
-		{
-			pChar->remove();
-		}
-		it++;
+	for (object = items.first(); object; object = items.next()) {
+		object->remove();
 	}
-	npcSerials_.erase( npcSerials_.begin(), npcSerials_.end() );
 
-	it = this->itemSerials_.begin();
-	while ( it != this->itemSerials_.end() )
-	{
-		FindItemBySerial( *it )->remove();
-		it++;
+	for (object = npcs.first(); object; object = npcs.next()) {
+		object->remove();
 	}
-	itemSerials_.erase( itemSerials_.begin(), itemSerials_.end() );
 
-	this->nextTime_ = Server::instance()->time() + RandomNum( this->minTime_, this->maxTime_ ) * MY_CLOCKS_PER_SEC;
-}
-
-void cSpawnRegion::checkForDeleted( void )
-{
-	std::vector<SERIAL> foundSerials;
-	std::vector<SERIAL>::iterator it = this->npcSerials_.begin();
-	while ( it != this->npcSerials_.end() )
-	{
-		P_NPC pChar = dynamic_cast<P_NPC>( FindCharBySerial( *it ) );
-		if ( pChar && !pChar->free && pChar->spawnregion() == name_ )
-			foundSerials.push_back( ( *it ) );
-		it++;
-	}
-	npcSerials_ = foundSerials;
-
-	foundSerials.clear();
-	it = this->itemSerials_.begin();
-	while ( it != this->itemSerials_.end() )
-	{
-		if ( FindItemBySerial( *it ) )
-			foundSerials.push_back( ( *it ) );
-		it++;
-	}
-	itemSerials_ = foundSerials;
+	nextTime_ = Server::instance()->time() + RandomNum(minTime_, maxTime_) * MY_CLOCKS_PER_SEC;
 }
 
 // check the timer and if expired do reSpawn
@@ -441,33 +412,54 @@ void cAllSpawnRegions::load()
 
 void cAllSpawnRegions::reload()
 {
-	unload();
-	load();
+	// Save a list of all objects and their spawnregions 
+	// So the references can be recreated later.
+	QMap<QString, QPtrList<cUObject> > objects;
 
-	// Reassign Spawnregion Pointers
 	cItemIterator iItems;
-	for ( P_ITEM pItem = iItems.first(); pItem; pItem = iItems.next() )
-	{
-		QString srname = pItem->spawnregion();
-		if ( !srname.isNull() )
+	for (P_ITEM pItem = iItems.first(); pItem; pItem = iItems.next()) {
+		cSpawnRegion *region = pItem->spawnregion();
+		if (region)
 		{
-			cSpawnRegion* spawnregion = region( srname );
-			if ( spawnregion )
-				spawnregion->add( pItem->serial() );
+			if (!objects.contains(region->name())) 
+			{
+				objects[region->name()].setAutoDelete(false);
+			}
+
+			objects[region->name()].append(pItem);
+			pItem->setSpawnregion(0); // Remove from spawnregion before pointer gets invalid
 		}
 	}
 
 	cCharIterator iChars;
-	for ( P_CHAR pChar = iChars.first(); pChar; pChar = iChars.next() )
-	{
-		P_NPC npc = dynamic_cast<P_NPC>( pChar );
-
-		if ( npc && !npc->spawnregion().isEmpty() )
+	for (P_CHAR pChar = iChars.first(); pChar; pChar = iChars.next()) {
+		cSpawnRegion *region = pChar->spawnregion();
+		if (region)
 		{
-			cSpawnRegion* spawnregion = region( npc->spawnregion() );
-			if ( spawnregion )
+			if (!objects.contains(region->name())) 
 			{
-				spawnregion->add( npc->serial() );
+				objects[region->name()].setAutoDelete(false);
+			}
+
+			objects[region->name()].append(pChar);
+			pChar->setSpawnregion(0); // Remove from spawnregion before pointer gets invalid
+		}
+	}
+
+	unload();
+	load();
+
+	QMap<QString, QPtrList<cUObject> >::iterator it;
+	for (it = objects.begin(); it != objects.end(); ++it)
+	{
+		cSpawnRegion *region = this->region(it.key());
+		if (region)
+		{
+			cUObject *object;
+			QPtrList<cUObject> &list = it.data();
+			for (object = list.first(); object; object = list.next())
+			{
+				object->setSpawnregion(region);
 			}
 		}
 	}

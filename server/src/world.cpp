@@ -50,7 +50,6 @@
 #include "muls/maps.h"
 #include "sectors.h"
 #include "territories.h"
-#include "spawnregions.h"
 
 // Objects ( => Factory later on )
 #include "uobject.h"
@@ -190,7 +189,6 @@ struct
 	magic tinyint(3)  NOT NULL default '0',\
 	owner int(11) NOT NULL default '-1',\
 	visible tinyint(3)  NOT NULL default '0',\
-	spawnregion varchar(255) default NULL,\
 	priv tinyint(3)  NOT NULL default '0',\
 	baseid varchar(64) NOT NULL default '',\
 	PRIMARY KEY (serial)\
@@ -199,7 +197,6 @@ struct
 	summontime int(11)  NOT NULL default '0',\
 	additionalflags int(11)  NOT NULL default '0',\
 	owner int(11) NOT NULL default '-1',\
-	spawnregion varchar(255) default NULL,\
 	stablemaster int(11) NOT NULL default '-1',\
 	ai varchar(255) default NULL,\
 	wandertype smallint(3) NOT NULL default '0',\
@@ -262,6 +259,10 @@ struct
 	type varchar(64) NOT NULL,\
 	value text NOT NULL,\
 	PRIMARY KEY (id,keyname)\
+	);" }, { "spawnregions", "CREATE TABLE spawnregions (\
+	spawnregion varchar(64) NOT NULL,\
+	serial int(11) NOT NULL default '0',\
+	PRIMARY KEY (spawnregion, serial)\
 	);" }, { NULL, NULL }
 };
 
@@ -595,6 +596,24 @@ void cWorld::load()
 		deleteItems.clear();
 	}
 
+	// Load SpawnRegion information
+	cDBResult result = PersistentBroker::instance()->query("SELECT spawnregion,serial FROM spawnregions;");
+
+	while (result.fetchrow())
+	{
+		QString spawnregion = result.getString(0);
+		SERIAL serial = result.getInt(1);
+
+		cSpawnRegion *region = SpawnRegions::instance()->region(spawnregion);
+		cUObject *object = findObject(serial);
+		if (region)
+		{
+			object->setSpawnregion(region);
+		}
+	}
+
+	result.free();
+
 	// Load Guilds
 	Guilds::instance()->load();
 
@@ -685,13 +704,33 @@ void cWorld::save()
 
 	try
 	{
+		PersistentBroker::instance()->executeQuery("DELETE FROM spawnregions;");
+
 		cItemIterator iItems;
 		for ( P_ITEM pItem = iItems.first(); pItem; pItem = iItems.next() )
+		{
 			PersistentBroker::instance()->saveObject( pItem );
+
+			if (pItem->spawnregion())
+			{
+				QString name = PersistentBroker::instance()->quoteString(pItem->spawnregion()->name());
+				QString query = QString("INSERT INTO spawnregions VALUES('%1',%2);").arg(name).arg(pItem->serial());
+				PersistentBroker::instance()->executeQuery(query);
+			}
+		}
 
 		cCharIterator iChars;
 		for ( P_CHAR pChar = iChars.first(); pChar; pChar = iChars.next() )
+		{
 			PersistentBroker::instance()->saveObject( pChar );
+
+			if (pChar->spawnregion())
+			{
+				QString name = PersistentBroker::instance()->quoteString(pChar->spawnregion()->name());
+				QString query = QString("INSERT INTO spawnregions VALUES('%1',%2);").arg(name).arg(pChar->serial());
+				PersistentBroker::instance()->executeQuery(query);
+			}
+		}
 
 		Timers::instance()->save();
 

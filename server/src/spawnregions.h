@@ -43,16 +43,19 @@ public:
 		this->init();
 		this->name_ = Tag->getAttribute( "id" );
 		this->applyDefinition( Tag );
+		npcs_.setAutoDelete(false);
+		items_.setAutoDelete(false);
 	}
 
 	void init( void );
-	void add( UI32 serial );
+
+	// Manage spawned objects
+	void add(cUObject *object);
+	void remove(cUObject *object);
 
 	void reSpawn( void );
 	void deSpawn( void );
 	void reSpawnToMax( void );
-
-	void checkForDeleted( void );
 	void checkTimer( void );
 
 	bool findValidSpot( Coord_cl& pos );
@@ -62,13 +65,13 @@ public:
 	{
 		return name_;
 	}
-	UI16 npcs( void )
+	unsigned int npcs( void )
 	{
-		return npcSerials_.size();
+		return npcs_.count();
 	}
-	UI16 items( void )
+	unsigned int items( void )
 	{
-		return itemSerials_.size();
+		return items_.count();
 	}
 	UI16 maxNpcs( void )
 	{
@@ -95,8 +98,8 @@ private:
 	virtual void processNode( const cElement* Tag );
 
 private:
-	std::vector<SERIAL> npcSerials_; // serials of chars spawned by this area
-	std::vector<SERIAL> itemSerials_; // serials of items spawned by this area
+	QPtrList<cUObject> items_;
+	QPtrList<cUObject> npcs_;
 
 	QStringList npcSections_; // list of npc's sections
 	QStringList itemSections_; // list of item's sections
@@ -111,7 +114,7 @@ private:
 	UI32 maxTime_; // Maximum spawn time in sec
 	UI32 nextTime_; // Next time for this region to spawn
 
-	std::vector<UI08> z_; // Height, if not specified, z will be chosen
+	QValueVector<UI08> z_; // Height, if not specified, z will be chosen
 };
 
 class cAllSpawnRegions : public std::map<QString, cSpawnRegion*>, public cComponent

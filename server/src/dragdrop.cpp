@@ -170,13 +170,13 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 			if ( pContainer )
 				pContainer->addItem( splitItem, false );
 			splitItem->SetOwnSerial( pItem->ownSerial() );
-			splitItem->setSpawnRegion( pItem->spawnregion() );
+			splitItem->setSpawnregion(pItem->spawnregion());
 
 			// He needs to see the new item
 			splitItem->update();
 
 			// If we're taking something out of a spawn-region it's spawning "flag" is removed isn't it?
-			pItem->setSpawnRegion( ( char * ) 0 );
+			pItem->setSpawnregion(0);
 			pItem->setAmount( pickedAmount );
 		}
 	}

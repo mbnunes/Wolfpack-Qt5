@@ -43,7 +43,6 @@
 #include "config.h"
 #include "log.h"
 #include "console.h"
-#include "spawnregions.h"
 #include "corpse.h"
 #include "definitions.h"
 #include "combat.h"
@@ -103,7 +102,7 @@ void cNPC::buildSqlString( QStringList& fields, QStringList& tables, QStringList
 {
 	cBaseChar::buildSqlString( fields, tables, conditions );
 	fields.push_back( "npcs.summontime,npcs.additionalflags,npcs.owner" );
-	fields.push_back( "npcs.spawnregion,npcs.stablemaster" );
+	fields.push_back( "npcs.stablemaster" );
 	fields.push_back( "npcs.ai,npcs.wandertype" );
 	fields.push_back( "npcs.wanderx1,npcs.wanderx2,npcs.wandery1,npcs.wandery2" );
 	fields.push_back( "npcs.wanderradius" );
@@ -124,7 +123,6 @@ void cNPC::load( char** result, UINT16& offset )
 	additionalFlags_ = atoi( result[offset++] );
 	ser = atoi( result[offset++] );
 	owner_ = dynamic_cast<P_PLAYER>( FindCharBySerial( ser ) );
-	spawnregion_ = result[offset++];
 	stablemasterSerial_ = atoi( result[offset++] );
 	setAI( result[offset++] );
 	setWanderType( ( enWanderTypes ) atoi( result[offset++] ) );
@@ -136,19 +134,6 @@ void cNPC::load( char** result, UINT16& offset )
 
 	npcRegisterAfterLoading( this );
 	changed_ = false;
-
-	if ( !spawnregion_.isEmpty() )
-	{
-		cSpawnRegion* region = SpawnRegions::instance()->region( spawnregion_ );
-		if ( region )
-		{
-			region->add( serial_ );
-		}
-		else
-		{
-			spawnregion_ = QString::null;
-		}
-	}
 }
 
 void cNPC::save()
@@ -162,7 +147,6 @@ void cNPC::save()
 		addField( "summontime", summonTime_ ? summonTime_ - Server::instance()->time() : 0 );
 		addField( "additionalflags", additionalFlags_ );
 		addField( "owner", owner_ ? owner_->serial() : INVALID_SERIAL );
-		addStrField( "spawnregion", spawnregion_ );
 		addField( "stablemaster", stablemasterSerial_ );
 		addStrField( "ai", aiid_ );
 		addField( "wandertype", ( UINT8 ) wanderType() );
@@ -679,12 +663,6 @@ stError* cNPC::setProperty( const QString& name, const cVariant& value )
 	else
 		SET_INT_PROPERTY( "nextguardcalltime", nextGuardCallTime_ )
 		/*
-		\property char.spawnregion This string property is the id of the spawnregion this NPC was spawned by.
-		This property is exclusive to NPC objects.
-		*/
-	else
-		SET_STR_PROPERTY( "spawnregion", spawnregion_ )
-		/*
 		\property char.stablemaster If this integer property is not -1, the NPC won't be visible. Is is something like a container
 		value for NPCs. Item and character serials are valid here. If you set the stablemaster serial, the NPC will be automatically
 		removed from the map.
@@ -718,7 +696,8 @@ stError* cNPC::setProperty( const QString& name, const cVariant& value )
 			0x01 Rectangle
 			0x02 Circle
 			0x03 FollowTarget
-			0x04 Destination</code>
+			0x04 Destination
+			0x04 Inside Spawnregion only</code>
 			This property is exclusive to NPC objects.
 		*/
 	}
@@ -848,8 +827,6 @@ stError* cNPC::getProperty( const QString& name, cVariant& value )
 		GET_PROPERTY( "nextguardcalltime", ( int ) nextGuardCallTime_ )
 	else
 		GET_PROPERTY( "antiguardstimer", ( int ) nextGuardCallTime_ )
-	else
-		GET_PROPERTY( "spawnregion", spawnregion_ )
 	else
 		GET_PROPERTY( "stablemaster", stablemasterSerial_ )
 	else

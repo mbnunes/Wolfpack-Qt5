@@ -133,7 +133,6 @@ public:
 	UINT32 nextMsgTime() const;
 	UINT32 summonTime() const;
 	P_PLAYER owner() const;
-	QString spawnregion() const;
 	SERIAL stablemasterSerial() const;
 	AbstractAI* ai() const;
 	UINT32 aiCheckTime() const;
@@ -164,7 +163,6 @@ public:
 	void setSummonTime( UINT32 data );
 	void setOwner( P_PLAYER data, bool nochecks = false );
 	void setSummoned( bool data );
-	void setSpawnregion( const QString& data );
 	void setStablemasterSerial( SERIAL data );
 	void setGuarding( P_PLAYER data );
 	void setAI( AbstractAI* ai );
@@ -237,9 +235,6 @@ protected:
 
 	// Owner of this NPC.
 	P_PLAYER owner_;
-
-	// Spawnregion which has spawned the NPC
-	QString spawnregion_;
 
 	// Serial of the stablemaster that stables the NPC.
 	SERIAL stablemasterSerial_;
@@ -327,17 +322,6 @@ inline void cNPC::setSummonTime( UINT32 data )
 inline P_PLAYER cNPC::owner() const
 {
 	return owner_;
-}
-
-inline QString cNPC::spawnregion() const
-{
-	return spawnregion_;
-}
-
-inline void cNPC::setSpawnregion( const QString& data )
-{
-	spawnregion_ = data;
-	changed_ = true;
 }
 
 inline SERIAL cNPC::stablemasterSerial() const

@@ -35,7 +35,6 @@
 #include "network/uotxpackets.h"
 #include "items.h"
 #include "muls/tilecache.h"
-#include "spawnregions.h"
 #include "config.h"
 #include "definitions.h"
 #include "pythonscript.h"
@@ -181,7 +180,6 @@ void cItemBaseDefs::reset()
 cItem::cItem() : container_( 0 ), totalweight_( 0 )
 {
 	basedef_ = 0;
-	spawnregion_ = QString::null;
 	Init( false );
 };
 
@@ -551,7 +549,6 @@ void cItem::save()
 		addField( "magic", magic_ );
 		addField( "owner", ownserial_ );
 		addField( "visible", visible_ );
-		addStrField( "spawnregion", spawnregion_ );
 		addField( "priv", priv_ );
 		addStrField( "baseid", baseid() );
 
@@ -666,9 +663,7 @@ void cItem::remove()
 	removeFromView( false ); // Remove it from all clients in range
 	free = true;
 
-	// Update Top Objects
-	setSpawnRegion( QString::null );
-	SetOwnSerial( -1 );
+	SetOwnSerial(-1);
 
 	// Check if this item is registered as a guildstone and remove it from the guild
 	for ( cGuilds::iterator it = Guilds::instance()->begin(); it != Guilds::instance()->end(); ++it )
@@ -1479,13 +1474,6 @@ void cItem::load( char** result, UINT16& offset )
 	magic_ = atoi( result[offset++] );
 	ownserial_ = atoi( result[offset++] );
 	visible_ = atoi( result[offset++] );
-
-	if ( strlen( result[offset] ) == 0 )
-		spawnregion_ = QString::null;
-	else
-		spawnregion_ = QString::fromUtf8( result[offset] );
-	offset++;
-
 	priv_ = atoi( result[offset++] );
 	basedef_ = ItemBaseDefs::instance()->get( result[offset++] );
 
@@ -1502,27 +1490,13 @@ void cItem::load( char** result, UINT16& offset )
 		setUnprocessed( true );
 	}
 	// ugly optimization ends here.
-
-	if ( !spawnregion_.isEmpty() )
-	{
-		cSpawnRegion* region = SpawnRegions::instance()->region( spawnregion_ );
-		if ( region )
-		{
-			region->add( serial_ );
-		}
-		else
-		{
-			spawnregion_ = QString::null;
-		}
-	}
-
 	World::instance()->registerObject( this );
 }
 
 void cItem::buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions )
 {
 	cUObject::buildSqlString( fields, tables, conditions );
-	fields.push_back( "items.id,items.color,items.cont,items.layer,items.amount,items.hp,items.maxhp,items.magic,items.owner,items.visible,items.spawnregion,items.priv,items.baseid" );
+	fields.push_back( "items.id,items.color,items.cont,items.layer,items.amount,items.hp,items.maxhp,items.magic,items.owner,items.visible,items.priv,items.baseid" );
 	tables.push_back( "items" );
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
@@ -1888,11 +1862,7 @@ stError* cItem::setProperty( const QString& name, const cVariant& value )
 
 		return 0;
 	}
-	/*
-		\property item.spawnregion The region definition name that spawned this object.
-	*/
-	else
-		SET_STR_PROPERTY( "spawnregion", spawnregion_ )	
+
 		/*
 		\property item.magic The movable permission for the object.
 		Values:
@@ -2091,8 +2061,6 @@ stError* cItem::getProperty( const QString& name, cVariant& value )
 		GET_PROPERTY( "visible", visible_ == 0 ? 1 : 0 )
 	else
 		GET_PROPERTY( "ownervisible", visible_ == 1 ? 1 : 0 )
-	else
-		GET_PROPERTY( "spawnregion", spawnregion_ )
 	else
 		GET_PROPERTY( "magic", magic_ )
 

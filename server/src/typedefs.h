@@ -93,6 +93,7 @@ enum enWanderTypes
 	enCircle,
 	enFollowTarget,
 	enDestination,
+	enWanderSpawnregion,			// Wander inside the spawnregion rectangles
 	enNumberOfWanderTypes
 };
 

@@ -36,6 +36,7 @@
 #include "singleton.h"
 #include "customtags.h"
 #include "factory.h"
+#include "spawnregions.h"
 #include "pythonscript.h"
 
 // System includes
@@ -70,6 +71,7 @@ protected:
 	SERIAL serial_;
 	cMulti* multi_; // If we're in a Multi	
 	cPythonScript** scriptChain; // NULL Terminated Array
+	cSpawnRegion *spawnregion_;
 
 	// Things for building the SQL string
 	static void buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions );
@@ -110,10 +112,9 @@ public:
 	bool isScriptChainFrozen();
 	void setEventList( const QString& events );
 	QString eventList() const;
-	inline cPythonScript** getEvents()
-	{
+	inline cPythonScript** getEvents() {
 		return scriptChain;
-	}	
+	}
 
 	// Serialization Methods
 	void load( char**, UINT16& );
@@ -180,6 +181,10 @@ public:
 	{
 		return multi_;
 	}
+	inline cSpawnRegion* spawnregion() const
+	{
+		return spawnregion_;
+	}
 
 	// Setter Methods
 	void setName( const QString& d )
@@ -200,10 +205,23 @@ public:
 	}
 	inline void setMulti( cMulti* multi )
 	{
-		changed_ = true;
-		multi_ = multi;
+		multi_ = multi; changed_ = true;
 	}
+	inline void setSpawnregion( cSpawnRegion* spawnregion )
+	{
+		if (spawnregion_ && spawnregion_ != spawnregion)
+		{
+			spawnregion_->remove(this);
+		}
 
+		spawnregion_ = spawnregion;
+
+		if (spawnregion)
+		{
+			spawnregion->add(this);
+		}
+	}
+    
 	// Definable Methods
 	void processNode( const cElement* Tag );
 	stError* setProperty( const QString& name, const cVariant& value );
