@@ -109,8 +109,6 @@ int keeprun;
 
 int now;
 
-FILE *lstfile, *mapfile, *sidxfile, *statfile, *verfile, *tilefile, *multifile, *midxfile;
-
 int secure; // Secure mode
 
 int xycount;

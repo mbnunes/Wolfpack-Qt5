@@ -94,10 +94,6 @@ extern int autosaved, dosavewarning;
 extern int err, error;
 extern int keeprun;
 extern int now;
-
-
-extern FILE *lstfile, *mapfile, *sidxfile, *statfile, *verfile, *tilefile, *multifile, *midxfile;
-
 extern int secure; // Secure mode
 
 extern int xycount;
