@@ -43,7 +43,7 @@ class cListener : public ZThread::Thread
 private:
 	QSocketDevice listenningSocket;
 	ZThread::LockedQueue<QSocketDevice*, ZThread::FastMutex> readyConnections;
-
+	Q_UINT16 _port;
 	virtual void run() throw();
 
 public:

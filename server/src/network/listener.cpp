@@ -57,18 +57,19 @@
 
 cListener::cListener( Q_UINT16 port )
 {
-	listenningSocket.bind( static_cast<Q_UINT32>(0), port );
-	listenningSocket.listen( 20 );
-	listenningSocket.setBlocking( false ); // or else it would take a while to join()
+	_port = port;
 }
 
 cListener::~cListener() throw()
 {
-	listenningSocket.close();
 }
 
 void cListener::run() throw()
 {
+	listenningSocket.bind( static_cast<Q_UINT32>(0), _port );
+	listenningSocket.listen( 20 );
+	listenningSocket.setBlocking( false ); // or else it would take a while to join()
+
 	while ( !canceled() )
 	{
 		int fd = listenningSocket.accept();
@@ -80,13 +81,17 @@ void cListener::run() throw()
 		}
 		else
 		{ 
-			try {
+			try
+			{
 				sleep(2000); // if nothing interesting happen take a nap
-			} catch ( ZThread::Interrupted_Exception& e )
+			}
+			catch( ZThread::Interrupted_Exception& e )
 			{ // Looks like we are about to exit from this thread
 			}
 		}
 	}
+
+	listenningSocket.close();
 }
 
 /*!

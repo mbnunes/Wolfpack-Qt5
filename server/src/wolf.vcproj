@@ -50,14 +50,14 @@
 				AdditionalOptions="/MACHINE:I386 /FIXED:NO"
 				AdditionalDependencies="ws2_32.lib ZThread.lib qt-mt.lib libmysql.lib flatstore\debug\flatstore.lib"
 				ShowProgress="0"
-				OutputFile="C:\Wolfpack\Wolfpack.exe"
+				OutputFile="D:\Wolfpack\Wolfpack.exe"
 				Version="12.9"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				AdditionalLibraryDirectories="lib\ZThread\lib,lib\Python\lib,lib\bugreport\lib"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile="c:\wolfpack\Wolfpack.pdb"
+				ProgramDatabaseFile=".\Debug\Wolfpack.pdb"
 				GenerateMapFile="TRUE"
 				MapFileName=".\Debug/Wolfpack.map"
 				SubSystem="1"
@@ -171,9 +171,6 @@
 				RelativePath=".\books.cpp">
 			</File>
 			<File
-				RelativePath=".\bounty.cpp">
-			</File>
-			<File
 				RelativePath="char_flatstore.cpp">
 			</File>
 			<File
@@ -250,12 +247,6 @@
 			</File>
 			<File
 				RelativePath=".\maps.cpp">
-			</File>
-			<File
-				RelativePath=".\moc_books.cpp">
-			</File>
-			<File
-				RelativePath=".\msgboard.cpp">
 			</File>
 			<File
 				RelativePath=".\multis.cpp">
@@ -1120,6 +1111,9 @@
 			</File>
 			<File
 				RelativePath=".\moc_boats.cpp">
+			</File>
+			<File
+				RelativePath=".\moc_books.cpp">
 			</File>
 			<File
 				RelativePath=".\moc_chars.cpp">

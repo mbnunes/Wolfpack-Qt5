@@ -5,6 +5,22 @@
 #include "srvparams.h"
 #include "flatstore/flatstore.h"
 #include "flatstore_keys.h"
+#include "territories.h"
+
+static cUObject* productCreator()
+{
+	return new cChar;
+}
+
+void cChar::registerInFactory()
+{
+	QStringList fields, tables, conditions;
+	buildSqlString( fields, tables, conditions ); // Build our SQL string
+	QString sqlString = QString( "SELECT /*! STRAIGHT_JOIN SQL_SMALL_RESULT */ uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cChar' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
+	UObjectFactory::instance()->registerType( "cChar", productCreator );
+	UObjectFactory::instance()->registerType( QString::number( CHUNK_CHAR ), productCreator );
+	UObjectFactory::instance()->registerSqlQuery( "cChar", sqlString );
+}
 
 // Object-Type: 0x0002
 // Character Chunk Keys, Maximum: 256
@@ -355,6 +371,9 @@ bool cChar::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::
 
 	case CHAR_ACCOUNT:
 		account_ = Accounts::instance()->getRecord( QString::fromUtf8( input->readString() ) );
+
+		if( account_ )
+			account_->addCharacter( this );
 		break;
 
 	case CHAR_GUILDTYPE:
@@ -661,7 +680,8 @@ bool cChar::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::
 bool cChar::postload() throw()
 {
 	// if we are not bound to a stablemaster, register us with the map objects
-	
+	cTerritory *region = cAllTerritories::getInstance()->region( pos_.x, pos_.y, pos_.map );
+	setRegion( region );	
 
 	return cUObject::postload();
 }

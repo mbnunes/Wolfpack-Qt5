@@ -474,7 +474,7 @@ void Preferences::writeData()
 
     // write it out
     QTextStream textstream(datafile);
-    doc.save(textstream, 0);
+    doc.save(textstream, 4);
     datafile->close();
     delete (datafile);
     formatstate_ = true;

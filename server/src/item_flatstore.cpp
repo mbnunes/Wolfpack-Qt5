@@ -4,6 +4,23 @@
 #include "flatstore/flatstore.h"
 #include "flatstore_keys.h"
 #include "globals.h"
+#include "wpconsole.h"
+#include "world.h"
+
+static cUObject* productCreator()
+{
+	return new cItem;
+}
+
+void cItem::registerInFactory()
+{
+	QStringList fields, tables, conditions;
+	buildSqlString( fields, tables, conditions ); // Build our SQL string
+	QString sqlString = QString( "SELECT /*! STRAIGHT_JOIN SQL_SMALL_RESULT */ uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cItem' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
+	UObjectFactory::instance()->registerType("cItem", productCreator);
+	UObjectFactory::instance()->registerType(QString::number( CHUNK_ITEM ), productCreator);
+	UObjectFactory::instance()->registerSqlQuery( "cItem", sqlString );
+}
 
 // Object-Type: 0x0001
 // Item Chunk Keys, Maximum: 256
@@ -92,10 +109,10 @@ void cItem::save( FlatStore::OutputFile *output, bool first ) throw()
 	}
 
 	if( type() )
-		output->chunkData( ITEM_TYPE, (unsigned int)type() );
+		output->chunkData( ITEM_TYPE, (unsigned short)type_ );
 
 	if( type2() )
-		output->chunkData( ITEM_TYPE2, (unsigned int)type2() );
+		output->chunkData( ITEM_TYPE2, (unsigned short)type2_ );
 
 	if( more1() )
 		output->chunkData( ITEM_MORE1, (unsigned char)more1() );
@@ -266,13 +283,13 @@ bool cItem::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::
 		break;
 
 	case ITEM_CONTAINER:
-		/*
-		WARNING
-
-		We are temporarily caching the container serial in a 32-bit pointer.
-		*/
 		input->readUInt( temp );
-		container_ = reinterpret_cast< cUObject* >( temp );
+
+		/*
+			This is a very dirty hack :/
+			But this value is one of the only values that is not being saved or used.
+		*/
+		setAntispamtimer( temp );
 
 		break;
 
@@ -486,5 +503,44 @@ bool cItem::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::
 
 bool cItem::postload() throw()
 {
+	if( antispamtimer_ )
+	{
+		SERIAL contserial = antispamtimer_;
+		antispamtimer_ = 0;
+
+		// Invalid
+		if( isCharSerial( contserial ) )
+		{
+			if( !layer_ )
+			{
+				clConsole.log( LOG_ERROR, QString( "Item (%1) equipped on character (%2) has no layer:" ).arg( serial_, 0, 16 ).arg( contserial, 0, 16 ) );
+				return false;
+			}
+
+			P_CHAR pChar = World::instance()->findChar( contserial );
+
+			if( !pChar )
+			{
+				clConsole.log( LOG_ERROR, QString( "Item (%1) is equipped on non existing character (%2) on layer %3" ).arg( serial_, 0, 16 ).arg( contserial, 0, 16 ).arg( layer_ ) );
+				return false;
+			}
+
+			// Our weight should be correct so far, so it's safe to do it the "normal" way
+			pChar->addItem( (cChar::enLayer)layer_, this, true, true );
+		}
+		else
+		{
+			P_ITEM pItem = World::instance()->findItem( contserial );
+
+			if( !pItem )
+			{
+				clConsole.log( LOG_ERROR, QString( "Item (%1) is contained in a non existing container (%2)" ).arg( serial_, 0, 16 ).arg( contserial, 0, 16 ) );
+				return false;
+			}
+
+			pItem->addItem( pItem, false, true, true );
+		}
+	}
+
 	return cUObject::postload(); 
 }

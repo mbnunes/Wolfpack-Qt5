@@ -74,20 +74,6 @@
 #undef  DBGFILE
 #define DBGFILE "chars.cpp"
 
-static cUObject* productCreator()
-{
-	return new cChar;
-}
-
-void cChar::registerInFactory()
-{
-	QStringList fields, tables, conditions;
-	buildSqlString( fields, tables, conditions ); // Build our SQL string
-	QString sqlString = QString( "SELECT /*! STRAIGHT_JOIN SQL_SMALL_RESULT */ uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cChar' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
-	UObjectFactory::instance()->registerType("cChar", productCreator);
-	UObjectFactory::instance()->registerSqlQuery( "cChar", sqlString );
-}
-
 bool cChar::Wears(P_ITEM pi)			{	return (this == pi->container());	}
 bool  cChar::isGM() const				{return  priv&0x01 || account_ == 0 || ( account() && ( account()->acl() == "admin" || account()->acl() == "gm" ) );} 
 bool  cChar::isCounselor() const		{return (priv&0x80 || ( account() && ( account()->acl() == "counselor") ) );} 

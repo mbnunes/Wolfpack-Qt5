@@ -84,6 +84,8 @@ typedef std::map< SERIAL, P_CHAR > CharMap;
   cWorldPrivate member functions
  *****************************************************************************/
 
+#define ITEM_SPACE 0x40000000
+
 class cWorldPrivate
 {
 public:
@@ -137,7 +139,7 @@ cWorld::cWorld()
 	_itemCount = 0;
 	lastTooltip = 0;
 	_lastCharSerial = 0;
-	_lastItemSerial = 0x40000000;
+	_lastItemSerial = ITEM_SPACE;
 }
 
 /*!
@@ -150,6 +152,34 @@ cWorld::~cWorld()
 
 	// Destroy our private implementation
 	delete p;
+}
+
+
+static void quickdelete( P_ITEM pi ) throw()
+{
+	// Minimal way of deleting an item
+	pi->SetSpawnSerial( -1 );
+	pi->SetOwnSerial( -1 );
+
+	persistentBroker->addToDeleteQueue( "items", QString( "serial = '%1'" ).arg( pi->serial() ) );
+
+	// Also delete all items inside if it's a container.
+	cItem::ContainerContent container(pi->content());
+	cItem::ContainerContent::const_iterator it ( container.begin() );
+	cItem::ContainerContent::const_iterator end( container.end() );
+	for ( ; it != end; ++it )
+		quickdelete( *it );
+
+	// if it is within a multi, delete it from the multis vector
+	if( pi->multis() != INVALID_SERIAL )
+	{
+		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis() ) );
+		if( pMulti )
+			pMulti->removeItem( pi );
+	}
+
+	MapObjects::instance()->remove( pi );
+	World::instance()->unregisterObject( pi );
 }
 
 /*!
@@ -249,105 +279,6 @@ void cWorld::loadSql()
 
 	archive->close();
 	delete archive;
-}
-
-void cWorld::loadFlatstore( const QString &prefix )
-{
-	FlatStore::InputFile input;
-
-	input.startRead( QString( "%1world.fsd" ).arg( prefix ).latin1() );
-
-	unsigned int serial;
-	unsigned short objectType;
-
-	while( input.readObject( objectType, serial ) )
-	{
-		// Create a new object based on the object-type
-		unsigned char group, chunk;
-		cUObject *object = 0;
-
-		switch( objectType )
-		{
-		case CHUNK_CHAR:
-			object = new cChar;
-			break;
-
-		};
-
-		object->setSerial( serial ); // This autoregisters with us
-
-		while( input.readChunk( group, chunk ) )
-		{
-			if( !object->load( group, chunk, &input ) )
-			{
-				clConsole.log( LOG_ERROR, QString( "Invalid chunk key found in worldfile: %1 (Group: %2)." ).arg( chunk ).arg( group ) );
-			}
-		}
-	}
-
-	// postload the objects
-
-	input.finishRead();	
-}
-
-static void quickdelete( P_ITEM pi ) throw()
-{
-	// Minimal way of deleting an item
-	pi->SetSpawnSerial( -1 );
-	pi->SetOwnSerial( -1 );
-
-	persistentBroker->addToDeleteQueue( "items", QString( "serial = '%1'" ).arg( pi->serial() ) );
-
-	// Also delete all items inside if it's a container.
-	cItem::ContainerContent container(pi->content());
-	cItem::ContainerContent::const_iterator it ( container.begin() );
-	cItem::ContainerContent::const_iterator end( container.end() );
-	for ( ; it != end; ++it )
-		quickdelete( *it );
-
-	// if it is within a multi, delete it from the multis vector
-	if( pi->multis() != INVALID_SERIAL )
-	{
-		cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis() ) );
-		if( pMulti )
-			pMulti->removeItem( pi );
-	}
-
-	MapObjects::instance()->remove( pi );
-	World::instance()->unregisterObject( pi );
-}
-
-void cWorld::load( QString basepath, QString prefix, QString module )
-{
-	clConsole.send( "Loading World..." );
-
-	if( module == QString::null )
-		module = SrvParams->loadModule();
-
-	if( prefix == QString::null )
-		prefix = SrvParams->savePrefix();
-
-	if( basepath == QString::null )
-		basepath = SrvParams->savePath();
-
-	prefix.prepend( basepath );
-
-	if( module == "sql" )
-		loadSql();
-	else if( module == "flatstore" )
-		loadFlatstore( prefix );
-	else
-	{
-		clConsole.ChangeColor( WPC_RED );
-		clConsole.send( " Failed\n" );
-		clConsole.ChangeColor( WPC_NORMAL );
-
-		throw QString( "Unknown worldsave module: %1" ).arg( module );
-	}
-
-	clConsole.ChangeColor( WPC_GREEN );
-	clConsole.send( " Done\n" );
-	clConsole.ChangeColor( WPC_NORMAL );
 
 	clConsole.PrepareProgress( tr("Postprocessing") );
 
@@ -500,6 +431,99 @@ void cWorld::load( QString basepath, QString prefix, QString module )
 		clConsole.send( QString::number( deleteItems.count() ) + " deleted due to invalid container or position.\n" );
 		deleteItems.clear();
 	}
+}
+
+void cWorld::loadFlatstore( const QString &prefix )
+{
+	FlatStore::InputFile input;
+
+	input.startRead( QString( "%1world.fsd" ).arg( prefix ).latin1() );
+
+	unsigned int serial;
+	unsigned short objectType;
+
+	while( input.readObject( objectType, serial ) )
+	{
+		// Create a new object based on the object-type
+		unsigned char group, chunk;
+		cUObject *object = 0;
+
+		// Get an object
+		object = UObjectFactory::instance()->createObject( QString::number( objectType ) );
+
+		if( !object )
+		{
+			clConsole.log( LOG_ERROR, QString( "Invalid object type encountered: %1" ).arg( objectType ) );
+			continue;
+		}
+
+		object->setSerial( serial ); // This autoregisters the object too
+
+		while( input.readChunk( group, chunk ) )
+		{
+			if( !object->load( group, chunk, &input ) )
+			{
+				clConsole.log( LOG_ERROR, QString( "Invalid chunk key found in worldfile: %1 (Group: %2)." ).arg( chunk ).arg( group ) );
+
+				unregisterObject( object );
+				delete object;
+
+				break; // Problem about this is that most likely the whole object is corrupted until we have a world.fsh file
+			}
+		}
+	}
+
+	// Postprocessing (Items first)
+	cItemIterator i_iter;
+	for( P_ITEM pItem = i_iter.first(); pItem; pItem = i_iter.next() )
+	{
+		if( !pItem->postload() )
+			quickdelete( pItem );
+	}
+
+	cCharIterator c_iter;
+
+	for( P_CHAR pChar = c_iter.first(); pChar; pChar = c_iter.next() )
+	{
+		pChar->postload();
+		// I think we could delete characters the normal way here
+		// But it seems like characters never get deleted during postprocess
+	}
+
+	input.finishRead();	
+}
+
+void cWorld::load( QString basepath, QString prefix, QString module )
+{
+	clConsole.send( "Loading World..." );
+
+	if( module == QString::null )
+		module = SrvParams->loadModule();
+
+	if( prefix == QString::null )
+		prefix = SrvParams->savePrefix();
+
+	if( basepath == QString::null )
+		basepath = SrvParams->savePath();
+
+	prefix.prepend( basepath );
+
+	if( module == "sql" )
+		loadSql();
+	else if( module == "flatstore" )
+		loadFlatstore( prefix );
+	else
+	{
+		clConsole.ChangeColor( WPC_RED );
+		clConsole.send( " Failed\n" );
+		clConsole.ChangeColor( WPC_NORMAL );
+
+		throw QString( "Unknown worldsave module: %1" ).arg( module );
+	}
+
+	clConsole.ChangeColor( WPC_GREEN );
+	clConsole.send( " Done\n" );
+	clConsole.ChangeColor( WPC_NORMAL );
 }
 
 void cWorld::saveSql()
@@ -663,7 +687,7 @@ void cWorld::registerObject( SERIAL serial, cUObject *object )
 	// Check if the Serial really is correct
 	if( isItemSerial( serial ) )
 	{
-		ItemMap::iterator it = p->items.find( serial );
+		ItemMap::iterator it = p->items.find( serial - ITEM_SPACE );
 
 		if( it != p->items.end() )
 		{
@@ -680,7 +704,7 @@ void cWorld::registerObject( SERIAL serial, cUObject *object )
 			return;
 		}
 
-		p->items.insert( std::make_pair( serial - 0x40000000, pItem ) );
+		p->items.insert( std::make_pair( serial - ITEM_SPACE, pItem ) );
 		_itemCount++;
 		
 		if( serial > _lastItemSerial )
@@ -733,7 +757,7 @@ void cWorld::unregisterObject( SERIAL serial )
 {
 	if( isItemSerial( serial ) )
 	{
-		ItemMap::iterator it = p->items.find( serial - 0x40000000 );
+		ItemMap::iterator it = p->items.find( serial - ITEM_SPACE );
 
 		if( it == p->items.end() )
 		{
@@ -772,7 +796,13 @@ void cWorld::unregisterObject( SERIAL serial )
 
 P_ITEM cWorld::findItem( SERIAL serial ) const
 {
-	ItemMap::const_iterator it = p->items.find( serial - 0x40000000 );
+	if( !isItemSerial( serial ) )
+		return 0;
+
+	if( serial > _lastItemSerial )
+		return 0;
+
+	ItemMap::const_iterator it = p->items.find( serial - ITEM_SPACE );
 
 	if( it == p->items.end() )
 		return 0;
@@ -782,6 +812,12 @@ P_ITEM cWorld::findItem( SERIAL serial ) const
 
 P_CHAR cWorld::findChar( SERIAL serial ) const
 {
+	if( !isCharSerial( serial ) )
+		return 0;
+
+	if( serial > _lastCharSerial )
+		return 0;
+
 	CharMap::const_iterator it = p->chars.find( serial );
 
 	if( it == p->chars.end() )

@@ -66,26 +66,10 @@ using namespace std;
 #undef  DBGFILE
 #define DBGFILE "items.cpp"
 
-static cUObject* productCreator()
-{
-	return new cItem;
-}
-
-void cItem::registerInFactory()
-{
-	QStringList fields, tables, conditions;
-	buildSqlString( fields, tables, conditions ); // Build our SQL string
-	QString sqlString = QString( "SELECT /*! STRAIGHT_JOIN SQL_SMALL_RESULT */ uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cItem' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
-//	QString sqlString = QString( "SELECT uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cItem' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
-	UObjectFactory::instance()->registerType("cItem", productCreator);
-	UObjectFactory::instance()->registerSqlQuery( "cItem", sqlString );
-}
-
 // constructor
-cItem::cItem(): 
-container_(0), totalweight_(0), incognito(false),
+cItem::cItem(): container_(0), totalweight_(0), incognito(false),
 rndvaluerate_(0), dooropen_(0),gatetime_(0),gatenumber_(-1),murdertime_(0),
-timeused_last(0), sellprice_( 0 ), buyprice_( 0 ), price_( 0 ), restock_( 1 )
+timeused_last(0), sellprice_( 0 ), buyprice_( 0 ), price_( 0 ), restock_( 1 ), antispamtimer_( 0 )
 {
 	Init( false );
 };
