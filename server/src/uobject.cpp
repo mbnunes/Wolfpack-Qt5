@@ -780,7 +780,7 @@ PyObject* cUObject::getProperty( const QString& name )
 	\rproperty object.spawnregion The name of the spawnregion this object was spawned in. This is an empty string 
 	if the object wasn't spawned or removed from the spawnregion.
 	*/
-	PY_PROPERTY( "spawnregion", spawnregion_ ? spawnregion_->name() : QString() )
+	PY_PROPERTY( "spawnregion", spawnregion_ ? spawnregion_->id() : QString() )
 	PY_PROPERTY( "serial", serial_ )
 	PY_PROPERTY( "free", free ? 1 : 0 )
 	PY_PROPERTY( "name", this->name() )
@@ -1101,7 +1101,7 @@ void cUObject::save(cBufferedWriter& writer) {
 	// Save the spawnregion association
 	if (spawnregion_) {
 		writer.writeByte(0xFA);
-		writer.writeUtf8(spawnregion_->name());
+		writer.writeUtf8(spawnregion_->id());
 		writer.writeInt(serial_);
 	}
 

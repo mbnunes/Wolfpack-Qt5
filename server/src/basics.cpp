@@ -96,12 +96,12 @@ int rollDice( const QString& dicePattern ) // roll dices d&d style
 	return RandomNum( x, x * y ) + z;
 }
 
-bool parseCoordinates( const QString& input, Coord_cl& coord )
+bool parseCoordinates( const QString& input, Coord_cl& coord, bool ignoreZ )
 {
 	QStringList coords = QStringList::split( ",", input );
 
 	// We at least need x, y, z
-	if ( coords.size() < 3 )
+	if ( coords.size() < (ignoreZ ? 2 : 3) )
 		return false;
 
 	bool ok = false;
@@ -114,9 +114,12 @@ bool parseCoordinates( const QString& input, Coord_cl& coord )
 	if ( !ok )
 		return false;
 
-	Q_INT8 z = coords[2].toShort( &ok );
-	if ( !ok )
-		return false;
+	Q_INT8 z = 0;
+	if (!ignoreZ) {
+		z = coords[2].toShort( &ok );
+		if ( !ok )
+			return false;
+	}
 
 	Q_UINT8 map = coord.map; // Current by default
 	if ( coords.size() > 3 )

@@ -125,7 +125,7 @@ static PyObject* wpSpawnRegion_getAttr( wpSpawnRegion* self, char* name )
 	*/
 	if ( !strcmp( name, "id" ) )
 	{
-		return QString2Python( self->pRegion->name() );
+		return QString2Python( self->pRegion->id() );
 	}
 	/*
 	\rproperty spawnregion.maxitemspawn
@@ -160,26 +160,26 @@ static PyObject* wpSpawnRegion_getAttr( wpSpawnRegion* self, char* name )
 	*/
 	else if ( !strcmp( name, "npcspawnlist" ) )
 	{
-		QStringList sections = self->pRegion->npcSections();
+	/*	QStringList sections = self->pRegion->npcSections();
 		PyObject* tuple = PyTuple_New( sections.size() );
 		for ( uint i = 0; i < sections.size(); ++i )
 		{
 			PyTuple_SetItem( tuple, i, QString2Python( sections[i] ) );
 		}
-		return tuple;
+		return tuple;*/
 	}
 	/*
 	\rproperty spawnregion.itemspawnlist
 	*/
 	else if ( !strcmp( name, "itemspawnlist" ) )
 	{
-		QStringList sections = self->pRegion->itemSections();
+		/*QStringList sections = self->pRegion->itemSections();
 		PyObject* tuple = PyTuple_New( sections.size() );
 		for ( uint i = 0; i < sections.size(); ++i )
 		{
 			PyTuple_SetItem( tuple, i, QString2Python( sections[i] ) );
 		}
-		return tuple;
+		return tuple;*/
 	}
 	/*
 	\rproperty spawnregion.spawneditems

@@ -35,20 +35,24 @@
 
 #include <map>
 
-class cSpawnRegion : public cBaseRegion
-{
-	OBJECTDEF(cSpawnRegion)
+// Abstract class for spawn position
+class cSpawnPosition {
+protected:
+	unsigned int points_; // The number of points
 public:
-	cSpawnRegion( const cElement* Tag )
-	{
-		this->init();
-		this->name_ = Tag->getAttribute( "id" );
-		this->applyDefinition( Tag );
-		npcs_.setAutoDelete( false );
-		items_.setAutoDelete( false );
+	virtual unsigned int points() {
+		return points_;
 	}
 
-	void init( void );
+	virtual Coord_cl findSpot() = 0;
+	virtual bool inBounds(const Coord_cl &pos) = 0;
+};
+
+class cSpawnRegion : public cDefinable {
+	OBJECTDEF(cSpawnRegion)
+public:
+	cSpawnRegion(const cElement* tag);
+	~cSpawnRegion();
 
 	// Manage spawned objects
 	void add( cUObject* object );
@@ -59,21 +63,20 @@ public:
 	void reSpawnToMax( void );
 	void checkTimer( void );
 
-	bool findValidSpot( Coord_cl& pos );
+	unsigned int countPoints();
+	bool isValidSpot( Coord_cl& pos );
+	bool findValidSpot( Coord_cl& pos, int tries = -1 );
 
 	// Getters
-	QString name( void ) const
-	{
-		return name_;
+	const QString &id() const {
+		return id_;
 	}
 
-	unsigned int npcs( void ) const
-	{
+	unsigned int npcs( void ) const {
 		return npcs_.count();
 	}
 
-	unsigned int items( void ) const
-	{
+	unsigned int items( void ) const {
 		return items_.count();
 	}
 
@@ -87,16 +90,6 @@ public:
 		return maxItemAmt_;
 	}
 
-	QStringList npcSections() const
-	{
-		return npcSections_;
-	}
-
-	QStringList itemSections() const
-	{
-		return itemSections_;
-	}
-
 	QPtrList<cUObject> spawnedItems() const
 	{
 		return items_;
@@ -107,17 +100,12 @@ public:
 		return npcs_;
 	}
 
-	QStringList rectangles( void )
-	{
-		QStringList rectList;
-		QValueVector<rect_st>::iterator it = this->rectangles_.begin();
-		while ( it != this->rectangles_.end() )
-		{
-			QString rect = QString( "%1,%2->%3,%4" ).arg( ( *it ).x1 ).arg( ( *it ).y1 ).arg( ( *it ).x2 ).arg( ( *it ).y2 );
-			rectList.push_back( rect );
-			++it;
-		}
-		return rectList;
+	const QStringList &groups() const {
+		return groups_;
+	}
+
+	bool active() const {
+		return active_;
 	}
 
 	inline unsigned int nextTime() {
@@ -131,11 +119,23 @@ private:
 	void onSpawn( cUObject* );
 
 private:
-	QPtrList<cUObject> items_;
-	QPtrList<cUObject> npcs_;
+	QString id_; // Spawnregion id
+	QStringList groups_; // Spawngroups
+	bool active_; // Is this spawnregion active?
 
-	QStringList npcSections_; // list of npc's sections
-	QStringList itemSections_; // list of item's sections
+	QPtrList<cSpawnPosition> positions_; // Spawn positions
+
+	bool checkFreeSpot_; // The target spot has to be free.
+
+	QPtrList<cUObject> items_; // List of spawned items
+	QPtrList<cUObject> npcs_; // List of spawned npcs
+    
+	QPtrList<cElement> itemNodes_; // Pointers to definition elements for NPCs
+	QPtrList<cElement> npcNodes_; // Pointers to definition elements for Items
+	QValueList<unsigned int> itemNodeFrequencies_; // Frequencies for item nodes
+	QValueList<unsigned int> npcNodeFrequencies_; // Frequencies for npc nodes
+	unsigned int npcNodesTotal_; // The total spawn frequency value. Speedup property.
+	unsigned int itemNodesTotal_; // The total spawn frequency value. Speedup property.
 
 	UI16 maxNpcAmt_; // Max amount of characters to spawn
 	UI16 maxItemAmt_; // Max amount of items to spawn
@@ -146,8 +146,6 @@ private:
 	UI32 minTime_; // Minimum spawn time in sec
 	UI32 maxTime_; // Maximum spawn time in sec
 	UI32 nextTime_; // Next time for this region to spawn
-
-	QValueVector<UI08> z_; // Height, if not specified, z will be chosen
 };
 
 class cAllSpawnRegions : public std::map<QString, cSpawnRegion*>, public cComponent
@@ -162,8 +160,11 @@ public:
 	cSpawnRegion* region( const QString& regName );
 
 	void reSpawn( void );
+	bool reSpawnGroup( const QString &group );
 	void reSpawnToMax( void );
+	bool reSpawnToMaxGroup( const QString &group );
 	void deSpawn( void );
+	bool deSpawnGroup( const QString &group );
 
 	UI16 npcs( void )
 	{

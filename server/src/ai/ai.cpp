@@ -505,7 +505,7 @@ void Action_Wander::execute()
 			// Otherwise fall trough to enFreely
 			cSpawnRegion* region = m_npc->spawnregion();
 
-			if ( region && region->contains( m_npc->pos().x, m_npc->pos().y, m_npc->pos().map ) )
+			if ( region && region->isValidSpot( m_npc->pos() ) )
 			{
 				// Calculate the field we're facing.
 				unsigned char dir = m_npc->direction();
@@ -518,7 +518,7 @@ void Action_Wander::execute()
 				Coord_cl newpos = Movement::instance()->calcCoordFromDir( dir, m_npc->pos() );
 
 				// Calculate a new direction.
-				if ( !region->contains( newpos.x, newpos.y, newpos.map ) )
+				if ( !region->isValidSpot( newpos ) )
 				{
 					unsigned char newdir = RandomNum( 0, 7 );
 					// Make sure we're not trying to walk in the same

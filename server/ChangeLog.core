@@ -21,6 +21,9 @@ Wolfpack 12.9.12 Beta (CVS)
 	- Fixed even more UCS4 problems.
 	- Fixed documentation for the socket object.
 	- Changed some return values from true to none for socket methods.
+	- Spawnregions have been rewritten for more speed and functionality.
+	  Because of that the format changed, please hop on irc and ask for details if you want
+	  to convert your scripts.
 
 Wolfpack 12.9.11 Beta (26. September 2004)
 	- Fixed a crashbug related to NPC ai storing invalidated character pointers.

@@ -123,10 +123,10 @@ cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region )
 
 	if ( region )
 	{
-		QStringList allrectangles = region->rectangles();
-
+		/*QStringList allrectangles = region->rectangles();
+*/
 		uint page_ = 0;
-		uint numrects = allrectangles.size();
+		uint numrects = 0; /*allrectangles.size();*/
 		uint pages = ( ( uint ) ceil( ( double ) numrects / 10.0f ) );
 
 		startPage();
@@ -137,15 +137,15 @@ cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region )
 		addTilePic( 202, 23, 0x14eb ); // Type of info menu
 		addText( 170, 90, tr( "Spawnregion Info" ), 0x530 );
 		// Give information about the spawnregion
-		addText( 50, 120, tr( "Name: %1" ).arg( region->name() ), 0x834 );
+		addText( 50, 120, tr( "Name: %1" ).arg( region->id() ), 0x834 );
 		addText( 50, 140, tr( "NPCs: %1 of %2" ).arg( region->npcs() ).arg( region->maxNpcs() ), 0x834 );
 		addText( 50, 160, tr( "Items: %1 of %2" ).arg( region->items() ).arg( region->maxItems() ), 0x834 );
-		addText( 50, 180, tr( "Coordinates: %1" ).arg( allrectangles.size() ), 0x834 );
+		//addText( 50, 180, tr( "Coordinates: %1" ).arg( allrectangles.size() ), 0x834 );
 
 		// OK button
 		addButton( 50, 410, 0xF9, 0xF8, 0 ); // Only Exit possible
 
-		for ( page_ = 1; page_ <= pages; page_++ )
+		/*for ( page_ = 1; page_ <= pages; page_++ )
 		{
 			startPage( page_ );
 
@@ -175,7 +175,7 @@ cSpawnRegionInfoGump::cSpawnRegionInfoGump( cSpawnRegion* region )
 
 			if ( page_ < pages ) // next page
 				addPageButton( 290, 410, 0x0FA, 0x0FA, page_ + 1 );
-		}
+		}*/
 	}
 }
 

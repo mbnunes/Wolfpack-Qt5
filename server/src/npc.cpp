@@ -1413,6 +1413,7 @@ cNPC* cNPC::createFromScript( const QString& section, const Coord_cl& pos )
 	// OrgBody and OrgSkin are often not set in the scripts
 	pChar->setOrgBody( pChar->body() );
 	pChar->setOrgSkin( pChar->skin() );
+	pChar->setOrgName( pChar->name() );
 
 	// Now we call onCreate
 	cDelayedOnCreateCall* onCreateCall = new cDelayedOnCreateCall( pChar, section );

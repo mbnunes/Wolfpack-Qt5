@@ -859,9 +859,9 @@ void cWorld::save() {
 		cGump gump;
 		gump.setNoClose( true );
 		gump.setNoDispose( true );
-		gump.setNoMove( true );
-		gump.setX( -10 );
-		gump.setY( -10 );
+		gump.setNoMove( false );
+		gump.setX( 150 );
+		gump.setY( 150 );
 		gump.setType( 0x98FA2C10 );
 
 		gump.addResizeGump( 0, 0, 9200, 291, 90 );
@@ -975,7 +975,7 @@ void cWorld::save() {
 
 				if ( pItem->spawnregion() )
 				{
-					QString name = PersistentBroker::instance()->quoteString( pItem->spawnregion()->name() );
+					QString name = PersistentBroker::instance()->quoteString( pItem->spawnregion()->id() );
 					QString query = QString( "INSERT INTO spawnregions VALUES('%1',%2);" ).arg( name ).arg( pItem->serial() );
 					PersistentBroker::instance()->executeQuery( query );
 				}
@@ -988,7 +988,7 @@ void cWorld::save() {
 
 				if ( pChar->spawnregion() )
 				{
-					QString name = PersistentBroker::instance()->quoteString( pChar->spawnregion()->name() );
+					QString name = PersistentBroker::instance()->quoteString( pChar->spawnregion()->id() );
 					QString query = QString( "INSERT INTO spawnregions VALUES('%1',%2);" ).arg( name ).arg( pChar->serial() );
 					PersistentBroker::instance()->executeQuery( query );
 				}

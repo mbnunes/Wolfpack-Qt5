@@ -329,18 +329,22 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 			cSpawnRegion* spawnRegion = SpawnRegions::instance()->region( args[1] );
 			if ( !spawnRegion )
 			{
-				socket->sysMessage( tr( "Spawnregion %1 does not exist" ).arg( args[1] ) );
+				if ( !SpawnRegions::instance()->reSpawnGroup( args[1] ) ) {
+					socket->sysMessage( tr( "Spawnregion %1 does not exist." ).arg( args[1] ) );
+				} else {
+					socket->sysMessage( tr( "Spawnregion group '%1' has respawned." ).arg( args[1] ) );
+				}
 			}
 			else
 			{
 				spawnRegion->reSpawn();
-				socket->sysMessage( tr( "Spawnregion '%1' has respawned" ).arg( args[1] ) );
+				socket->sysMessage( tr( "Spawnregion '%1' has respawned." ).arg( args[1] ) );
 			}
 		}
 		else if ( args[1].lower() == "all" )
 		{
 			SpawnRegions::instance()->reSpawn();
-			socket->sysMessage( tr( "All spawnregions have respawned" ) );
+			socket->sysMessage( tr( "All spawnregions have respawned." ) );
 		}
 	}
 
@@ -356,18 +360,22 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 			cSpawnRegion* spawnRegion = SpawnRegions::instance()->region( args[1] );
 			if ( !spawnRegion )
 			{
-				socket->sysMessage( tr( "Spawnregion %1 does not exist" ).arg( args[1] ) );
+				if ( !SpawnRegions::instance()->deSpawnGroup(args[1])) {
+					socket->sysMessage( tr( "Spawnregion %1 does not exist." ).arg( args[1] ) );
+				} else {
+					socket->sysMessage( tr( "Spawnregion group '%1' has been cleared." ).arg( args[1] ) );
+				}
 			}
 			else
 			{
 				spawnRegion->deSpawn();
-				socket->sysMessage( tr( "Spawnregion '%1' has been cleared" ).arg( args[1] ) );
+				socket->sysMessage( tr( "Spawnregion '%1' has been cleared." ).arg( args[1] ) );
 			}
 		}
 		else if ( args[1].lower() == "all" )
 		{
 			SpawnRegions::instance()->deSpawn();
-			socket->sysMessage( tr( "All spawnregions have been cleared" ) );
+			socket->sysMessage( tr( "All spawnregions have been cleared." ) );
 		}
 	}
 
@@ -383,18 +391,22 @@ void commandSpawnRegion( cUOSocket* socket, const QString& command, const QStrin
 			cSpawnRegion* spawnRegion = SpawnRegions::instance()->region( args[1] );
 			if ( !spawnRegion )
 			{
-				socket->sysMessage( tr( "Spawnregion %1 does not exist" ).arg( args[1] ) );
+				if (!SpawnRegions::instance()->reSpawnToMaxGroup( args[1] ) ) {
+					socket->sysMessage( tr( "Spawnregion %1 does not exist." ).arg( args[1] ) );
+				} else {
+					socket->sysMessage( tr( "Spawnregion group '%1' has been filled." ).arg( args[1] ) );
+				}
 			}
 			else
 			{
 				spawnRegion->reSpawnToMax();
-				socket->sysMessage( tr( "Spawnregion '%1' has respawned to maximum" ).arg( args[1] ) );
+				socket->sysMessage( tr( "Spawnregion '%1' has been filled." ).arg( args[1] ) );
 			}
 		}
 		else if ( args[1].lower() == "all" )
 		{
 			SpawnRegions::instance()->reSpawnToMax();
-			socket->sysMessage( tr( "All spawnregions have respawned to maximum" ) );
+			socket->sysMessage( tr( "All spawnregions have respawned to maximum." ) );
 		}
 	}
 
