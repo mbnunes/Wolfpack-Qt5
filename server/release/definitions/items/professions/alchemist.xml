@@ -587,12 +587,4 @@
 		<weight>1.0</weight>
 	</item>
 
-	<!-- Potion Keg -->
-	<item id="potionkeg">
-		<id>0x1940</id>
-		<weight>20.0</weight>
-		<basescripts>potionkeg</basescripts>
-		<movable />
-	</item>
-
 </definitions>
