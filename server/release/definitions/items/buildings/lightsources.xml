@@ -137,7 +137,7 @@
 		<nodecay />
 		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Hanging Lantern 1 (Off)</category>
-		<lightsource>0x2</lightsource>
+		<lightsource>29</lightsource>
 	</item>
 
 	<item id="a15">
@@ -145,21 +145,21 @@
 		<nodecay />
 		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Hanging Lantern 1 (On)</category>
-		<lightsource>0x2</lightsource>
+		<lightsource>29</lightsource>
 	</item>
 
 	<item id="a16">
 		<id>0xa16</id>
 		<nodecay />
 		<basescripts>lightsource</basescripts>
-		<lightsource>0x2</lightsource>
+		<lightsource>29</lightsource>
 	</item>
 
 	<item id="a17">
 		<id>0xa17</id>
 		<nodecay />
 		<basescripts>lightsource</basescripts>
-		<lightsource>0x2</lightsource>
+		<lightsource>29</lightsource>
 	</item>
 
 	<item id="a1d">
@@ -167,7 +167,7 @@
 		<nodecay />
 		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Hanging Lantern 2 (Off)</category>
-		<lightsource>0x2</lightsource>
+		<lightsource>29</lightsource>
 	</item>
 
 	<item id="a1a">
@@ -175,7 +175,7 @@
 		<nodecay />
 		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Hanging Lantern 2 (On)</category>
-		<lightsource>0x2</lightsource>
+		<lightsource>29</lightsource>
 	</item>
 
 	<item id="a1b">
@@ -316,7 +316,7 @@
 		<nodecay />
 		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Big Candlabra (Off)</category>
-		<lightsource>0x2</lightsource>
+		<lightsource>29</lightsource>
 	</item>
 
 	<item id="b26">
@@ -324,7 +324,7 @@
 		<nodecay />
 		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Big Candlabra (On)</category>
-		<lightsource>0x2</lightsource>
+		<lightsource>29</lightsource>
 	</item>
 
 	<item id="b27" inherit="b26">
@@ -338,7 +338,7 @@
 		<nodecay />
 		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Lamp Post 1 (Off)</category>
-		<lightsource>0x2</lightsource>
+		<lightsource>29</lightsource>
 	</item>
 
 	<item id="b20">
@@ -346,7 +346,7 @@
 		<nodecay />
 		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Lamp Post 1 (On)</category>
-		<lightsource>0x2</lightsource>
+		<lightsource>29</lightsource>
 	</item>
 
 	<item id="b22">
@@ -354,7 +354,7 @@
 		<nodecay />
 		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Lamp Post 2 (Off)</category>
-		<lightsource>0x2</lightsource>
+		<lightsource>29</lightsource>
 	</item>
 
 	<item id="b23">
@@ -362,7 +362,7 @@
 		<nodecay />
 		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Lamp Post 2 (On)</category>
-		<lightsource>0x2</lightsource>
+		<lightsource>29</lightsource>
 	</item>
 
 	<item id="b24">
@@ -370,7 +370,7 @@
 		<nodecay />
 		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Lamp Post 3 (Off)</category>
-		<lightsource>0x2</lightsource>
+		<lightsource>29</lightsource>
 	</item>
 
 	<item id="b25">
@@ -378,7 +378,7 @@
 		<nodecay />
 		<basescripts>lightsource</basescripts>
 		<category>Decoration\Lightsources\Lamp Post 3 (On)</category>
-		<lightsource>0x2</lightsource>
+		<lightsource>29</lightsource>
 	</item>
 
 	<item id="e31">
