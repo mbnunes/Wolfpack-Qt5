@@ -64,7 +64,9 @@ cUObject::cUObject() :
 	bindmenu_( QString::null ), 
 	changed_(true), 
 	tooltip_( 0xFFFFFFFF ),
-	eventList_( QString::null )
+	eventList_( QString::null ),
+	name_( QString::null ),
+	scriptChain( 0 )
 {
 }
 
@@ -219,47 +221,32 @@ void cUObject::buildSqlString( QStringList &fields, QStringList &tables, QString
 */
 void cUObject::clearEvents()
 {
-	scriptChain.clear();
-	eventList_ = QString::null;
-	changed_ = true;
-}
+	if( scriptChain )
+	{
+		delete [] scriptChain;
+		scriptChain = 0;
 
-// Method for setting a list of cPythonScripts
-void cUObject::setEvents( std::vector< cPythonScript* > List )
-{
-	scriptChain.clear();
-	eventList_ = QString::null;
-
-	// "Reset" the events
-	if( List.size() == 0 )
-		return;
-
-	// Walk the List and add the events
-	for( UI08 i = 0; i < List.size(); i++ )
-		if( List[ i ] != NULL )
-		{
-			scriptChain.push_back( List[ i ] );
-
-			if( eventList_ == QString::null )
-				eventList_ = List[ i ]->name();
-			else 
-				eventList_.append( "," + List[ i ]->name() );
-		}
-	changed_ = true;
-}
-
-// Gets a vector of all assigned events
-const std::vector< cPythonScript* > &cUObject::getEvents( void )
-{
-	return scriptChain;
+		eventList_ = QString::null;
+		changed_ = true;
+	}
 }
 
 // Checks if the object has a specific event
-bool cUObject::hasEvent( const QString& Name ) const
+bool cUObject::hasEvent( const QString& name ) const
 {
-	QStringList eventList = QStringList::split( ",", eventList_ );
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		
+		while( scriptChain[i] )
+		{
+			if( scriptChain[i]->name() == name )
+				return true;
+			i++;
+		}
+	}
 
-	return eventList.find( Name ) != eventList.end();
+	return false;
 }
 
 void cUObject::addEvent( cPythonScript *Event )
@@ -267,7 +254,30 @@ void cUObject::addEvent( cPythonScript *Event )
 	if( hasEvent( Event->name() ) )
 		return;
 
-	scriptChain.push_back( Event );
+	// Reallocate the ScriptChain
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			i++;
+		}
+
+		// i is the count of real elements in the old array
+		cPythonScript **newScriptChain = new cPythonScript* [ i + 2 ];
+		memcpy( newScriptChain, scriptChain, i * sizeof( cPythonScript* ) );
+		newScriptChain[ i ] = Event;
+		newScriptChain[ i + 1 ] = 0;
+
+		delete [] scriptChain;
+		scriptChain = newScriptChain;
+	}
+	else
+	{
+		scriptChain = new cPythonScript*[2];
+		scriptChain[0] = Event;
+		scriptChain[1] = 0;
+	}
 
 	if( eventList_ == QString::null )
 		eventList_ = Event->name();
@@ -277,22 +287,41 @@ void cUObject::addEvent( cPythonScript *Event )
 	changed_ = true;
 }
 
-void cUObject::removeEvent( const QString& Name )
+void cUObject::removeEvent( const QString& name )
 {
-	std::vector< cPythonScript* >::iterator myIterator;
+	if( !hasEvent( name ) )
+		return;
 
-	for( myIterator = scriptChain.begin(); myIterator != scriptChain.end(); ++myIterator )
+	if( scriptChain )
 	{
-		if( (*myIterator)->name() == Name )
+		unsigned int i = 0;	
+		unsigned int pos;
+
+		while( scriptChain[i] )
 		{
-			scriptChain.erase( myIterator );
-			break;
+			// Found it
+			if( scriptChain[i]->name() == name )
+				pos = i;
+
+			i++;
 		}
+
+		// i = Count of New Array
+		cPythonScript **newScriptChain = new cPythonScript*[ i ];
+
+		// Copy over the first part
+		memcpy( newScriptChain, scriptChain, pos * sizeof( cPythonScript* ) );
+
+		// Dont miss the final 0 for the last part
+		memcpy( newScriptChain + ( pos * sizeof( cPythonScript* ) ), scriptChain + ( ( pos + 1 ) * sizeof( cPythonScript* ) ), ( i - pos ) * sizeof( cPythonScript* ) );
+
+		delete [] scriptChain;
+		scriptChain = newScriptChain;
 	}
  
 	// I hope this works
 	QStringList eventList = QStringList::split( ",", eventList_ );
-	eventList.remove( Name );
+	eventList.remove( name );
 	eventList_ = eventList.join( "," );
 
 	if( eventList_.isEmpty() )
@@ -306,68 +335,25 @@ void cUObject::removeEvent( const QString& Name )
  * Scripting events
  *
  ****************************/
-
-bool cUObject::onUse( cUObject *Target )
-{
-	// If we got ANY events process them in order
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-	{
-		// If we're the Character pass us as the second param
-		// if not as the first
-		bool Handeled = false;
-
-		if( !this->isChar() )
-			Handeled = scriptChain[ i ]->onUse( (P_PLAYER)Target, (P_ITEM)this );
-		else
-			Handeled = scriptChain[ i ]->onUse( (P_PLAYER)this, (P_ITEM)Target );
-
-		if( Handeled )
-			return true;
-	}
-
-	// Try to process the hooks then
-	QValueVector< cPythonScript* > hooks;
-	QValueVector< cPythonScript* >::const_iterator it;
-
-	hooks = ScriptManager->getGlobalHooks( OBJECT_OBJECT, EVENT_USE );
-	for( it = hooks.begin(); it != hooks.end(); ++it )
-	{
-		if( !this->isChar() )
-			(*it)->onUse( (P_PLAYER)Target, (P_ITEM)this );
-		else
-			(*it)->onUse( (P_PLAYER)this, (P_ITEM)Target );
-	}
-
-	if( isChar() )
-	{
-		hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_USE );
-		for( it = hooks.begin(); it != hooks.end(); ++it )
-				(*it)->onUse( (P_PLAYER)this, (P_ITEM)Target );
-	}
-	
-	if( isItem() )
-	{
-		hooks = ScriptManager->getGlobalHooks( OBJECT_ITEM, EVENT_USE );
-		for( it = hooks.begin(); it != hooks.end(); ++it )
-			(*it)->onUse( (P_PLAYER)Target, (P_ITEM)this );
-	}
-
-	return false;
-}
-
 bool cUObject::onCreate( const QString &definition )
 {
 	// If we got ANY events process them in order
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
+	if( scriptChain )
 	{
-		// If we're the Character pass us as the second param
-		// if not as the first
-		bool Handeled = false;
-
-		Handeled = scriptChain[ i ]->onCreate( this, definition );
-
-		if( Handeled )
-			return true;
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			// If we're the Character pass us as the second param
+			// if not as the first
+			bool Handeled = false;
+	
+			Handeled = scriptChain[ i ]->onCreate( this, definition );
+	
+			if( Handeled )
+				return true;
+	
+			i++;
+		}
 	}
 
 	// Try to process the hooks then
@@ -395,79 +381,15 @@ bool cUObject::onCreate( const QString &definition )
 	return false;
 }
 
-bool cUObject::onCollide( cUObject* Obstacle )
-{
-	// If we got ANY events process them in order
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-	{
-		// Items cannot collide with items
-		if( !isChar() ) // Item, so obstacle has to be character
-			scriptChain[ i ]->onCollideItem( (P_CHAR)Obstacle, (P_ITEM)this );
-		else
-			if( Obstacle->isItem() )
-				if( scriptChain[ i ]->onCollideItem( (P_CHAR)this, (P_ITEM)Obstacle ) )
-					return true;
-
-			else // Character, Character
-				if( scriptChain[ i ]->onCollideChar( (P_CHAR)this, (P_CHAR)Obstacle ) )
-					return true;
-	}
-
-	// Try to process the hooks then
-	QValueVector< cPythonScript* > hooks;
-	QValueVector< cPythonScript* >::const_iterator it;
-
-	hooks = ScriptManager->getGlobalHooks( OBJECT_OBJECT, EVENT_COLLIDE );
-	for( it = hooks.begin(); it != hooks.end(); ++it )
-	{
-		// Items cannot collide with items
-		if( !isChar() ) // Item, so obstacle has to be character
-			(*it)->onCollideItem( (P_CHAR)Obstacle, (P_ITEM)this );
-		else
-		{
-			if( Obstacle->isItem() )
-				(*it)->onCollideItem( (P_CHAR)this, (P_ITEM)Obstacle );
-			else
-				(*it)->onCollideChar( (P_CHAR)this, (P_CHAR)Obstacle );
-		}
-	}
-
-	if( isChar() )
-	{
-		hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_COLLIDE );
-		for( it = hooks.begin(); it != hooks.end(); ++it )
-		{
-			if( Obstacle->isItem() )
-				(*it)->onCollideItem( (P_CHAR)this, (P_ITEM)Obstacle );
-			else
-				(*it)->onCollideChar( (P_CHAR)this, (P_CHAR)Obstacle );
-		}
-	}
-	
-	if( isItem() )
-	{
-		hooks = ScriptManager->getGlobalHooks( OBJECT_ITEM, EVENT_COLLIDE );
-		for( it = hooks.begin(); it != hooks.end(); ++it )
-			(*it)->onCollideItem( (P_CHAR)Obstacle, (P_ITEM)this );
-	}
-
-	return false;
-}
-
-
-// Returns the list of events
-QString cUObject::eventList( void ) const
-{
-	return eventList_;
-}
-
 // If the scripts are reloaded call that for each and every existing object
-void cUObject::recreateEvents( void )
+void cUObject::recreateEvents()
 {
-	scriptChain.clear();
-
+	// clearEvents() would flag us as changed, but we didn't
 	if( eventList_ == QString::null )
 		return;
+
+	delete [] scriptChain;
+	scriptChain = 0;
 	
 	// Walk the eventList and recreate 
 	QStringList::const_iterator myIter;
@@ -475,13 +397,39 @@ void cUObject::recreateEvents( void )
 
 	for( myIter = eventList.begin(); myIter != eventList.end(); ++myIter )
 	{
-		cPythonScript *myScript = ScriptManager->find( *myIter );
+		cPythonScript *Event = ScriptManager->find( *myIter );
 
 		// Script not found
-		if( myScript == NULL )
-			continue;
+		if( Event )
+		{
+			if( hasEvent( Event->name() ) )
+				return;
 
-		scriptChain.push_back( myScript );
+			// Reallocate the ScriptChain
+			if( scriptChain )
+			{
+				unsigned int i = 0;
+				while( scriptChain[i] )
+				{
+					i++;
+				}
+
+				// i is the count of real elements in the old array
+				cPythonScript **newScriptChain = new cPythonScript* [ i + 2 ];
+				memcpy( newScriptChain, scriptChain, i * sizeof( cPythonScript* ) );
+				newScriptChain[ i ] = Event;
+				newScriptChain[ i + 1 ] = 0;
+
+				delete [] scriptChain;
+				scriptChain = newScriptChain;
+			}
+			else
+			{
+				scriptChain = new cPythonScript*[2];
+				scriptChain[0] = Event;
+				scriptChain[1] = 0;
+			}
+		}
 	}
 }
 

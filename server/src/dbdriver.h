@@ -60,6 +60,8 @@ public:
 	cDBDriver() : connection(0) {}
 	virtual ~cDBDriver();
 
+	virtual const char *name() const { return "mysql"; }
+
 	virtual bool open( int id = CONN_MAIN );
 	virtual void close();
 	virtual bool exec( const QString &query ); // Just execute some SQL code, no return!	
@@ -83,6 +85,8 @@ public:
 class cSQLiteDriver : public cDBDriver
 {
 public:
+	const char *name() const { return "sqlite"; }
+
 	cSQLiteDriver() {}
 	virtual ~cSQLiteDriver() {}
 

@@ -86,8 +86,7 @@ public:
 	bool onSingleClick( P_ITEM Item, P_CHAR Viewer );
 	bool onSingleClick( P_CHAR Character, P_CHAR Viewer );
 
-	bool onCollideItem( P_CHAR Character, P_ITEM Obstacle );
-	bool onCollideChar( P_CHAR Character, P_CHAR Obstacle );
+	bool onCollide( P_CHAR Character, P_ITEM Obstacle );
 	bool onWalk( P_CHAR Character, UINT8 Direction, UINT8 Sequence );
 	bool onCreate( cUObject *object, const QString &definition );
 
@@ -123,6 +122,11 @@ public:
 	bool onCommand( cUOSocket *socket, const QString &name, const QString &args );
 
 	unsigned int onDamage( P_CHAR pChar, unsigned char type, unsigned int amount, cUObject *source );
+
+	// WorldSave
+	class cDBDriver;
+	bool onWorldSave( cDBDriver* );
+	bool onWorldLoad( cDBDriver* );
 
 	// Magic System (This should be reduced eventually. It's a bit much)
 	// But as soon as the flag-system is introduced for python-script 

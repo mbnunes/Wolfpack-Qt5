@@ -336,6 +336,8 @@ public:
 
 	// Public event wrappers added by darkstorm
 	virtual bool onSingleClick( P_PLAYER Viewer );
+	bool onUse( P_CHAR pChar );
+	bool onCollide( P_CHAR pChar );
 	bool onDropOnChar( P_CHAR pChar );
 	bool onDropOnItem( P_ITEM pItem );
 	bool onDropOnGround( const Coord_cl &pos );

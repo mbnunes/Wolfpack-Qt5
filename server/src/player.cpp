@@ -1311,9 +1311,17 @@ void cPlayer::removePet( P_NPC pPet, bool noOwnerChange )
 
 bool cPlayer::onPickup( P_ITEM pItem )
 {
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onPickup( this, pItem ) )
-			return true;
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onPickup( this, pItem ) )
+				return true;
+
+			++i;
+		}
+	}
 
 	// Try to process the hooks then
 	QValueVector< cPythonScript* > hooks;
@@ -1329,9 +1337,17 @@ bool cPlayer::onPickup( P_ITEM pItem )
 
 bool cPlayer::onLogin( void )
 {
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onLogin( this ) )
-			return true;
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onLogin( this ) )
+				return true;
+
+			++i;
+		}
+	}
 
 	// Try to process the hooks then
 	QValueVector< cPythonScript* > hooks;
@@ -1346,9 +1362,17 @@ bool cPlayer::onLogin( void )
 
 bool cPlayer::onCastSpell( unsigned int spell )
 {
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onCastSpell( this, spell ) )
-			return true;
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onCastSpell( this, spell ) )
+				return true;
+
+			++i;
+		}
+	}
 
 	// Try to process the hooks then
 	QValueVector< cPythonScript* > hooks;
@@ -1363,9 +1387,17 @@ bool cPlayer::onCastSpell( unsigned int spell )
 
 bool cPlayer::onLogout( void )
 {
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onLogout( this ) )
-			return true;
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onLogout( this ) )
+				return true;
+
+			++i;
+		}
+	}
 
 	// Try to process the hooks then
 	QValueVector< cPythonScript* > hooks;
@@ -1382,9 +1414,17 @@ bool cPlayer::onLogout( void )
 bool cPlayer::onHelp( void )
 {
 	// If we got ANY events process them in order
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onHelp( this ) )
-			return true;
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onHelp( this ) )
+				return true;
+
+			++i;
+		}
+	}
 
 	// Try to process the hooks then
 	QValueVector< cPythonScript* > hooks;
@@ -1402,9 +1442,17 @@ bool cPlayer::onHelp( void )
 bool cPlayer::onChat( void )
 {
 	// If we got ANY events process them in order
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onChat( this ) )
-			return true;
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onChat( this ) )
+				return true;
+
+			++i;
+		}
+	}
 
 	// Try to process the hooks then
 	QValueVector< cPythonScript* > hooks;
@@ -1420,9 +1468,34 @@ bool cPlayer::onChat( void )
 
 bool cPlayer::onShowContext( cUObject *object )
 {
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onShowContextMenu( this, object ) )
-			return true;
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onShowContextMenu( this, object ) )
+				return true;
+
+			++i;
+		}
+	}
+
+	return false;
+}
+
+bool cPlayer::onUse( P_ITEM pItem )
+{
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onUse( this, pItem ) )
+				return true;
+
+			++i;
+		}
+	}
 
 	return false;
 }

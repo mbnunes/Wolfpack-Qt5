@@ -227,26 +227,15 @@ bool cPythonScript::onLogin( P_CHAR Character )
 	return PyEvalMethod( "onLogin", tuple );
 }
 
-bool cPythonScript::onCollideItem( P_CHAR Character, P_ITEM Obstacle )
+bool cPythonScript::onCollide( P_CHAR Character, P_ITEM Obstacle )
 {
-	PyHasMethod( "onCollideItem" )
+	PyHasMethod( "onCollide" )
 
 	PyObject *tuple = PyTuple_New( 2 ); // Create our args for the python function
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
 	PyTuple_SetItem( tuple, 1, PyGetItemObject( Obstacle ) );
 
-	return PyEvalMethod( "onCollideItem", tuple );
-}
-
-bool cPythonScript::onCollideChar( P_CHAR Character, P_CHAR Obstacle )
-{
-	PyHasMethod( "onCollideChar" )
-
-	PyObject *tuple = PyTuple_New( 2 ); // Create our args for the python function
-	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
-	PyTuple_SetItem( tuple, 1, PyGetCharObject( Obstacle ) );
-
-	return PyEvalMethod( "onCollideChar", tuple );
+	return PyEvalMethod( "onCollide", tuple );
 }
 
 bool cPythonScript::onWalk( P_CHAR Character, UINT8 Direction, UINT8 Sequence )
@@ -581,6 +570,28 @@ bool cPythonScript::onShowSkillGump( P_CHAR pChar )
 	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
 
 	return PyEvalMethod( "onShowSkillGump", tuple );
+}
+
+bool cPythonScript::onWorldSave( cDBDriver *connection )
+{
+	PyHasMethod( "onWorldSave" )
+
+	// Create our args for the python function
+	PyObject *tuple = PyTuple_New( 1 );
+	//PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
+
+	return PyEvalMethod( "onWorldSave", tuple );
+}
+
+bool cPythonScript::onWorldLoad( cDBDriver *connection )
+{
+	PyHasMethod( "onWorldLoad" )
+
+	// Create our args for the python function
+	PyObject *tuple = PyTuple_New( 1 );
+	//PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
+
+	return PyEvalMethod( "onWorldSave", tuple );
 }
 
 QString cPythonScript::onShowPaperdollName( P_CHAR pChar, P_CHAR pOrigin )

@@ -140,7 +140,7 @@ inline bool cVariant::isValid() const
     return (d->typ != Invalid);
 }
 
-class cCustomTags : public PersistentObject
+class cCustomTags
 {
 public:
 	cCustomTags(): changed( false ) {}

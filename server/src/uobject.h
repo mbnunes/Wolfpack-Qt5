@@ -91,22 +91,31 @@ protected:
 	};
 
 public:
-	const std::vector< cPythonScript* > &getEvents( void );
-	void setEvents( std::vector< cPythonScript* > List );
-	void clearEvents( void );
+	// EventHandling functions
+	cPythonScript **getEvents()
+	{
+		return scriptChain; 
+	}
+
+	void clearEvents();
 	void addEvent( cPythonScript *Event );
 	void removeEvent( const QString& Name );
-	void removeFromView( bool clean = true );
 	bool hasEvent( const QString& Name ) const;
+	void recreateEvents();
+	
+	// Returns the list of events
+	const QString &eventList() const
+	{
+		return eventList_; 
+	}	
 	
 	// New Load (Query: result, offset: current field offset)
 	void load( char **, UINT16& );
 	void save();
 	bool del();
 
-	QString eventList( void ) const; // Returns the list of events
-	void recreateEvents( void ); // If the scripts are reloaded call that for each and every existing object
 	bool inRange( const cUObject *object, UINT32 range ) const;
+	void removeFromView( bool clean = true );
 
 	// Multiple quick-effect methods
 	void effect( UINT16 id, UINT8 speed = 10, UINT8 duration = 5, UINT16 hue = 0, UINT16 renderMode = 0 ); // Moving with this character
@@ -114,11 +123,9 @@ public:
 	void effect( UINT16 id, const Coord_cl &target, bool fixedDirection = true, bool explodes = false, UINT8 speed = 10, UINT16 hue = 0, UINT16 renderMode = 0 );
 
 	// Events
-	virtual bool onUse( cUObject *Target );
 	virtual bool onCreate( const QString &definition );
-	virtual bool onCollide( cUObject* Obstacle ); // This is called for the walking character first, then for the item walked on
 	
-	bool free;	
+	bool free;
 
 // Methods
 public:
@@ -162,9 +169,9 @@ public:
 	char direction( cUObject* ) const;
 
 protected:
-
-	std::vector< cPythonScript* > scriptChain;
+	cPythonScript **scriptChain;	// NULL Terminated Array
 	QString eventList_; // Important for recreating the scriptChain on reloading
+
 	void init();
 };
 

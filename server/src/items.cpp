@@ -980,27 +980,41 @@ P_ITEM cItem::createFromScript( const QString& Section )
 bool cItem::onSingleClick( P_PLAYER Viewer )
 {
 
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onSingleClick( this, Viewer ) )
-			return true;
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onSingleClick( this, Viewer ) )
+				return true;
+
+			++i;
+		}
+	}
 
 	return false;
 }
 
 bool cItem::onDropOnItem( P_ITEM pItem )
 {
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
+	if( scriptChain )
 	{
-		// we are the item being dragged
-		if( layer_ == 0x1E )
+		unsigned int i = 0;
+		while( scriptChain[i] )
 		{
-			if( scriptChain[ i ]->onDropOnItem( pItem, this ) )
-				return true;
-		}
-		else
-		{
-			if( scriptChain[ i ]->onDropOnItem( this, pItem ) )
-				return true;
+			// we are the item being dragged
+			if( layer_ == 0x1E )
+			{
+				if( scriptChain[ i ]->onDropOnItem( pItem, this ) )
+					return true;
+			}
+			else
+			{
+				if( scriptChain[ i ]->onDropOnItem( this, pItem ) )
+					return true;
+			}
+
+			++i;
 		}
 	}
 
@@ -1009,19 +1023,69 @@ bool cItem::onDropOnItem( P_ITEM pItem )
 
 bool cItem::onDropOnGround( const Coord_cl &pos )
 {
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onDropOnGround( this, pos ) )
-			return true;
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onDropOnGround( this, pos ) )
+				return true;
+
+			++i;
+		}
+	}
 
 	return false;
 }
 
 bool cItem::onPickup( P_CHAR pChar )
 {
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onPickup( pChar, this ) )
+				return true;
 
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onPickup( pChar, this ) )
-			return true;
+			++i;
+		}
+	}
+
+	return false;
+}
+
+bool cItem::onUse( P_CHAR pChar )
+{
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onUse( pChar, this ) )
+				return true;
+
+			++i;
+		}
+	}
+
+	return false;
+}
+
+
+bool cItem::onCollide( P_CHAR pChar )
+{
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onCollide( pChar, this ) )
+				return true;
+
+			++i;
+		}
+	}
 
 	return false;
 }
@@ -1029,9 +1093,17 @@ bool cItem::onPickup( P_CHAR pChar )
 bool cItem::onDropOnChar( P_CHAR pChar )
 {
 	// If we got ANY events process them in order
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onDropOnChar( pChar, this ) )
-			return true;
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onDropOnChar( pChar, this ) )
+				return true;
+
+			++i;
+		}
+	}
 
 	return false;
 }
@@ -1039,9 +1111,17 @@ bool cItem::onDropOnChar( P_CHAR pChar )
 bool cItem::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
 {
 
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onShowToolTip( sender, this, tooltip ) )
-			return true;
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onShowToolTip( sender, this, tooltip ) )
+				return true;
+
+			++i;
+		}
+	}
 
 	// Try to process the hooks then
 	QValueVector< cPythonScript* > hooks;

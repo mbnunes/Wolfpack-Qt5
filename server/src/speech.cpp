@@ -661,16 +661,23 @@ bool cSpeech::response( cUOSocket *socket, P_PLAYER pPlayer, const QString& comm
 		// Check if the NPC has a script that can handle 
 		// speech events and then check if it can handle everything
 		// or just certain things
-		std::vector< cPythonScript* > events = pNpc->getEvents();
-		for( std::vector< cPythonScript* >::const_iterator iter = events.begin(); iter != events.end(); ++iter )
-		{
-			cPythonScript *script = *iter;
-			if( !script->handleSpeech() )
-				continue;
+		cPythonScript **events = pNpc->getEvents();
 
-			if( script->catchAllSpeech() || script->canHandleSpeech( comm, keywords ) )
-				if( script->onSpeech( pNpc, pPlayer, comm, keywords ) )
-					return true;
+		if( events )
+		{
+			unsigned int i = 0;
+
+			while( events[i] )
+			{
+				if( events[i]->handleSpeech() )
+				{
+					if( events[i]->catchAllSpeech() || events[i]->canHandleSpeech( comm, keywords ) )
+						if( events[i]->onSpeech( pNpc, pPlayer, comm, keywords ) )
+							return true;
+				}
+				
+				++i;
+			}
 		}
 
 		if( pNpc->ai() )

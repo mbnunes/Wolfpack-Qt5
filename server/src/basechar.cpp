@@ -1031,9 +1031,17 @@ void cBaseChar::removeEffect( cTempEffect *effect )
 bool cBaseChar::onSingleClick( P_PLAYER Viewer ) 
 {
 	// If we got ANY events process them in order
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onSingleClick( (P_PLAYER)this, (P_CHAR)Viewer ) )
-			return true;
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onSingleClick( (P_PLAYER)this, (P_CHAR)Viewer ) )
+				return true;
+			
+			++i;
+		}
+	}
 
 	// Try to process the hooks then
 	QValueVector< cPythonScript* > hooks;
@@ -1051,9 +1059,16 @@ bool cBaseChar::onSingleClick( P_PLAYER Viewer )
 bool cBaseChar::onWalk( UI08 Direction, UI08 Sequence )
 {
 	// If we got ANY events process them in order
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onWalk( (P_CHAR)this, Direction, Sequence ) )
-			return true;
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onWalk( (P_CHAR)this, Direction, Sequence ) )
+				return true;
+			++i;
+		}
+	}
 
 	return false;
 }
@@ -1061,9 +1076,16 @@ bool cBaseChar::onWalk( UI08 Direction, UI08 Sequence )
 // The character says something
 bool cBaseChar::onTalk( char speechType, UI16 speechColor, UI16 speechFont, const QString &Text, const QString &Lang )
 {
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onTalk( (P_CHAR)this, speechType, speechColor, speechFont, Text, Lang ) )
-			return true;
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onTalk( (P_CHAR)this, speechType, speechColor, speechFont, Text, Lang ) )
+				return true;
+			++i;
+		}
+	}
 
 	return false;
 }
@@ -1072,9 +1094,17 @@ bool cBaseChar::onTalk( char speechType, UI16 speechColor, UI16 speechFont, cons
 bool cBaseChar::onWarModeToggle( bool War )
 {
 	// If we got ANY events process them in order
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onWarModeToggle( this, War ) )
-			return true;
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onWarModeToggle( this, War ) )
+				return true;
+
+			++i;
+		}
+	}
 
 	return false;
 }
@@ -1082,10 +1112,16 @@ bool cBaseChar::onWarModeToggle( bool War )
 // The paperdoll of this character has been requested
 bool cBaseChar::onShowPaperdoll( P_CHAR pOrigin )
 {
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
+	if( scriptChain )
 	{
-		if( scriptChain[ i ]->onShowPaperdoll( this, pOrigin ) )
-			return true;
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onShowPaperdoll( this, pOrigin ) )
+				return true;
+
+			++i;
+		}
 	}
 
 	return false;
@@ -1093,9 +1129,17 @@ bool cBaseChar::onShowPaperdoll( P_CHAR pOrigin )
 
 bool cBaseChar::onShowSkillGump()
 {
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onShowSkillGump( this ) )
-			return true;
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onShowSkillGump( this ) )
+				return true;
+
+			++i;
+		}
+	}
 	
 	// Try to process the hooks then
 	QValueVector< cPythonScript* > hooks;
@@ -1113,9 +1157,17 @@ bool cBaseChar::onShowSkillGump()
 bool cBaseChar::onSkillUse( UI08 Skill ) 
 {
 	// If we got ANY events process them in order
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onSkillUse( this, Skill ) )
-			return true;
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onSkillUse( this, Skill ) )
+				return true;
+
+			++i;
+		}
+	}
 
 	// Try to process the hooks then
 	QValueVector< cPythonScript* > hooks;
@@ -1129,33 +1181,38 @@ bool cBaseChar::onSkillUse( UI08 Skill )
 	return false;
 }
 
-bool cBaseChar::onCollideChar( P_CHAR Obstacle ) 
-{
-	// If we got ANY events process them in order
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onCollideChar( this, Obstacle ) )
-			return true;
-
-	return false;
-}
-
 bool cBaseChar::onDropOnChar( P_ITEM pItem )
 {
 	// If we got ANY events process them in order
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onDropOnChar( this, pItem ) )
-			return true;
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onDropOnChar( this, pItem ) )
+				return true;
+
+			++i;
+		}
+	}
 
 	return false;
 }
 
 QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 {
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
+	if( scriptChain )
 	{
-		QString result = scriptChain[ i ]->onShowPaperdollName( this, pOrigin );
-		if( !result.isNull() )
-			return result;
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			QString result = scriptChain[ i ]->onShowPaperdollName( this, pOrigin );
+		
+			if( !result.isNull() )
+				return result;
+
+			++i;
+		}
 	}
 
 	return QString::null;
@@ -1164,18 +1221,34 @@ QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 bool cBaseChar::onDeath()
 {
 	// If we got ANY events process them in order
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onDeath( this ) )
-			return true;
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onDeath( this ) )
+				return true;
+
+			++i;
+		}
+	}
 
 	return false;
 }
 
 bool cBaseChar::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
 {
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onShowToolTip( sender, this, tooltip  ) )
-			return true;
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onShowToolTip( sender, this, tooltip  ) )
+				return true;
+
+			++i;
+		}
+	}
 
 	// Try to process the hooks then
 	QValueVector< cPythonScript* > hooks;
@@ -1803,9 +1876,17 @@ void cBaseChar::callGuards()
 bool cBaseChar::onSkillGain( UI08 Skill, SI32 min, SI32 max, bool success )
 {
 	// If we got ANY events process them in order
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onSkillGain( this, Skill, min, max, success ) )
-			return true;
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onSkillGain( this, Skill, min, max, success ) )
+				return true;
+
+			++i;
+		}
+	}
 
 	// Try to process the hooks then
 	QValueVector< cPythonScript* > hooks;
@@ -1822,9 +1903,17 @@ bool cBaseChar::onSkillGain( UI08 Skill, SI32 min, SI32 max, bool success )
 bool cBaseChar::onStatGain( UI08 stat, SI08 amount )
 {
 	// If we got ANY events process them in order
-	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		if( scriptChain[ i ]->onStatGain( this, stat, amount ) )
-			return true;
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			if( scriptChain[ i ]->onStatGain( this, stat, amount ) )
+				return true;
+
+			++i;
+		}
+	}
 
 	// Try to process the hooks then
 	QValueVector< cPythonScript* > hooks;
@@ -1845,8 +1934,15 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 	// to modify the damage if needed
 	//
 
-	for( UINT8 i = 0; i < scriptChain.size(); ++i )
-		amount = scriptChain[ i ]->onDamage( this, type, amount, source );
+	if( scriptChain )
+	{
+		unsigned int i = 0;
+		while( scriptChain[i] )
+		{
+			amount = scriptChain[ i ]->onDamage( this, type, amount, source );
+			++i;
+		}
+	}
 
 	QValueVector< cPythonScript* > hooks;
 	QValueVector< cPythonScript* >::const_iterator it;

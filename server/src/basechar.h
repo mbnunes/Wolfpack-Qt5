@@ -152,7 +152,6 @@ public:
 	virtual bool onShowPaperdoll( P_CHAR pOrigin ); // The paperdoll of this character is requested, there is no vice-versa call
 	virtual bool onShowSkillGump(); //Show Skillgump
 	virtual bool onSkillUse( UI08 Skill ); // The character uses %Skill
-	virtual bool onCollideChar( P_CHAR Obstacle ); // This is called for the walking character first, then for the character walked on
 	bool onDeath();
 	bool onDropOnChar( P_ITEM pItem );
 	QString onShowPaperdollName( P_CHAR pOrigin ); // only change the viewed name

@@ -579,6 +579,9 @@ int main( int argc, char *argv[] )
 
 	serverState = STARTUP;
 	// Print a seperator somehow
+	/*clConsole.send( QString::number( sizeof( cUObject ) ) );
+	return 0;*/
+
 	clConsole.send( QString( "\n%1 %2 %3 \n\n" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() ) );
 
 	clConsole.send( "Copyright (C) 1997, 98 Marcus Rating (Cironian)\n");
