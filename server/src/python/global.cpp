@@ -838,7 +838,7 @@ PyObject *wpMulti( PyObject* self, PyObject* args )
 		PyErr_BadArgument();
 		return 0;
 	}
-	UINT type = getArgInt( 0 );
+	uint type = getArgInt( 0 );
 	P_MULTI pMulti = NULL;
 
 	switch( type )

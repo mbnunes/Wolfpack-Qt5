@@ -146,6 +146,9 @@ void startPython( int argc, char* argv[], bool silent )
 		clConsole.ProgressDone();
 }
 
+/*!	
+	Reloads Python interpreter and restarts loaded modules
+*/
 void reloadPython()
 {
 	PyObject *sysModule = PyImport_ImportModule( "sys" );

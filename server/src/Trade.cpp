@@ -183,7 +183,7 @@ void cTrade::buyaction( cUOSocket *socket, cUORxBuy *packet )
 	for( map< SERIAL,  UINT16 >::iterator iter = items.begin(); iter != items.end(); ++iter )
 	{
 		P_ITEM pItem = FindItemBySerial( iter->first );
-		UINT16 amount = min( iter->second, pItem->restock() );
+		UINT16 amount = QMIN( iter->second, pItem->restock() );
 
 		pItem->setRestock( pItem->restock() - amount ); // Reduce the items in stock
 		P_ITEM pSold;
