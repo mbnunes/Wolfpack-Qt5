@@ -202,6 +202,11 @@ static PyObject* wpItem_moveto( wpItem* self, PyObject* args )
 			return 0;
 		}
 
+		if (pos.isInternalMap()) {
+			PyErr_SetString( PyExc_RuntimeError, "Moving to the internal map using item.moveto() is not supported." );
+			return 0;
+		}
+
 		self->pItem->moveTo( pos );
 	}
 	else
@@ -212,6 +217,12 @@ static PyObject* wpItem_moveto( wpItem* self, PyObject* args )
 			return 0;
 		}
 		pos.z = ( signed char ) z;
+		
+		if (pos.isInternalMap()) {
+			PyErr_SetString( PyExc_RuntimeError, "Moving to the internal map using item.moveto() is not supported." );
+			return 0;
+		}
+		
 		self->pItem->moveTo( pos );
 	}
 

@@ -115,6 +115,10 @@ void cPlayer::postload( unsigned int version )
 		remove();
 		return;
 	}
+
+	if (kills() > 0) {
+		setMurdererTime(Server::instance()->time()); // Reset murderer decay count
+	}
 }
 
 void cPlayer::load( cBufferedReader& reader )

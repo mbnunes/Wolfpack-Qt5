@@ -2740,6 +2740,7 @@ bool cBaseChar::kill( cUObject* source )
 			{
 				pPlayer->makeCriminal();
 				pPlayer->setKills( pPlayer->kills() + 1 );
+				pPlayer->setMurdererTime( Server::instance()->time() );
 				setMurdererSerial( pPlayer->serial() );
 
 				// Report the number of slain people to the player
