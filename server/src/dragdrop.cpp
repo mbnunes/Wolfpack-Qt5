@@ -1020,6 +1020,28 @@ void cDragItems::dropOnBeggar( P_CLIENT client, P_ITEM pItem, P_CHAR pBeggar )
 	Items->DeleItem( pItem );
 }
 
+void cDragItems::dropOnBroker( P_CLIENT client, P_ITEM pItem, P_CHAR pBroker )
+{
+	// For House and Boat deeds we should pay back 75% of the value
+	if( pItem->id() == 0x14EF )
+	{
+		if( !pItem->value )
+		{
+			pBroker->talk( "I can only accept deeds with value!" );
+			bounceItem( client, pItem );
+			return;
+		}
+
+		Q_UINT32 nValue = static_cast< Q_UINT32 >( 0.75 * pItem->value );
+		client->player()->giveGold( nValue, true );
+		Items->DeleItem( pItem );
+		pBroker->talk( QString( "Here you have your %1 gold, %2" ).arg( nValue ).arg( client->player()->name.c_str() ) );
+		return;
+	}
+
+	bounceItem( client, pItem );
+}
+
 void cDragItems::dropOnBanker( P_CLIENT client, P_ITEM pItem, P_CHAR pBanker )
 {
 	P_CHAR pChar = client->player();

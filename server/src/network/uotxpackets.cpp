@@ -80,7 +80,10 @@ void cUOTxCharTownList::compile( void )
 
 	for( Q_UINT8 c = 0; c < 5; ++c )
 		if( c < characters.size() )
+		{
 			strcpy( &rawPacket.data()[ 4 + ( c * 60 ) ], characters[ c ].latin1() );
+			rawPacket[ 4 + ( c * 60 ) + 30 ] = 0x00; // No Password (!)
+		}
 		else
 			rawPacket[ 4 + ( c * 60 ) ] = 0x00; // "Pad-out" the char
 
@@ -114,4 +117,30 @@ void cUOTxUpdateCharList::setCharacter( Q_UINT8 index, QString name )
 		name = name.left( 29 );
 
 	strcpy( &rawPacket.data()[offset], name.latin1() );
+}
+
+void cUOTxSendSkills::addSkill( Q_UINT16 skillId, Q_UINT16 skill, Q_UINT16 realSkill, eStatus status )
+{
+	// Overwrite the last 2 bytes (terminator) and readd them later
+	Q_INT32 offset = rawPacket.count() - 2;
+	rawPacket.resize( rawPacket.count() + 7 );
+
+	setShort( offset, skillId );
+	setShort( offset+2, skill );
+	setShort( offset+4, realSkill );
+	rawPacket[ offset+6 ] = status;
+	setShort( offset+7, 0 ); // Terminator
+}
+
+void cUOTxDrawObject::addEquipment( Q_UINT32 serial, Q_UINT16 model, Q_UINT8 layer, Q_UINT16 color )
+{
+	// Overwrite the last 4 bytes (terminator) and readd them later
+	Q_INT32 offset = rawPacket.count() - 4;
+	rawPacket.resize( rawPacket.count() + 9 );
+
+	setInt( offset, serial );
+	setShort( offset+4, (model|0x8000) );
+	rawPacket[offset+6] = layer;
+	setShort( offset+7, color );
+	setInt( offset+9, 0 ); // Terminator
 }

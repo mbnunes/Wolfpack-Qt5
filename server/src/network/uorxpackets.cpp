@@ -55,6 +55,8 @@ cUOPacket *getUOPacket( const QByteArray &data )
 		return new cUORxDeleteCharacter( data );
 	case 0x5D:
 		return new cUORxPlayCharacter( data );
+	case 0x2C:
+		return new cUORxResurrectionMenu( data );
 	default:
 		return new cUOPacket( data );
 	};	

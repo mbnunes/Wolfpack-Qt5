@@ -48,6 +48,7 @@ protected:
 public:
 	cUOPacket( QByteArray );
 	cUOPacket( Q_UINT32 );
+	cUOPacket( Q_UINT8, Q_UINT32 );
 	virtual ~cUOPacket() {}
 
 	virtual QByteArray compressed();

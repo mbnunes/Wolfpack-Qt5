@@ -157,7 +157,7 @@ void cUOSocket::handleServerAttach( cUORxServerAttach *packet )
 	// use the auth-id (not safe!!)
 	// but for testing/debugging we'll assume that it's safe to continue
 
-	sendCharList( packet->username() );
+	sendCharList();
 }
 
 void cUOSocket::sendCharList()
@@ -188,4 +188,53 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter *packet )
 {
 	cout << "User is trying to play character " << packet->character().latin1() << " [" << packet->password().latin1() << "]" << endl;
 	cout << "in slot " << packet->slot() << endl;
+
+	// Minimum Requirements for log in
+	// a) Set the map the user is on
+	// b) Set the client features
+	// c) Confirm the Login
+	// d) Start the Game
+	// E) Set the Game Time
+
+	cUOTxClientFeatures *clientFeatures = new cUOTxClientFeatures;
+	clientFeatures->setLbr( true );
+	clientFeatures->setT2a( true );
+	send( clientFeatures );
+	delete clientFeatures;
+
+	// Confirm the Login
+	cUOTxConfirmLogin *confirmLogin = new cUOTxConfirmLogin;
+
+	// Set our data here
+	confirmLogin->setSerial( 0x00000001 );
+	confirmLogin->setBody( 0x190 );
+	confirmLogin->setDirection( 0x00 );
+	confirmLogin->setX( 1000 );
+	confirmLogin->setY( 1000 );
+	confirmLogin->setZ( 20 );
+
+	// Set the unknown data
+	confirmLogin->setUnknown3( 0x007f0000 );
+	confirmLogin->setUnknown4( 0x00000007 );
+	confirmLogin->setUnknown5( "\x60\x00\x00\x00\x00\x00\x00" );
+
+	send( confirmLogin );
+	delete confirmLogin;
+
+	// Change the map after the client knows about the char
+	cUOTxChangeMap *changeMap = new cUOTxChangeMap;
+	changeMap->setMap( MT_TRAMMEL );
+	send( changeMap );
+	delete changeMap;
+
+	// Start the game!
+	cUOTxStartGame *startGame = new cUOTxStartGame;
+	send( startGame );
+	delete startGame;
+
+	// Send the gametime
+	cUOTxGameTime *gameTime = new cUOTxGameTime;
+	gameTime->setTime( 12, 19, 3 );
+	send( gameTime );
+	delete gameTime;
 }

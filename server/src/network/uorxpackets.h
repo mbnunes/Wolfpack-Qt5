@@ -112,4 +112,19 @@ public:
 	Q_UINT32 ip( void ) { return getInt( 69 ); }
 };
 
+// 0x2C Resurrection Menu
+class cUORxResurrectionMenu: public cUOPacket
+{
+public:
+	cUORxResurrectionMenu( const QByteArray &data ): cUOPacket( data ) {}
+
+	enum eChoice
+	{
+		Resurrect = 1,
+		Ghost
+	};
+
+	eChoice choice( void ) { return ( rawPacket[1] == 0x01 ) ? Resurrect : Ghost; }
+};
+
 #endif

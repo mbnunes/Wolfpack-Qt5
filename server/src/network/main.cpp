@@ -78,7 +78,7 @@ int main( int argc, char** argv )
 			{
 				cUOSocket *uoSocket = (*uoIterator);
 
-				if( !uoSocket->socket()->isOpen() )
+				if( uoSocket->socket()->status() != IO_Ok )
 				{
 					cout << QString( "Socket disconnected [%1]\n" ).arg( uoSocket->socket()->peerAddress().toString() ).latin1();
 					netio->unregisterSocket( uoSocket->socket() );

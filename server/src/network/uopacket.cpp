@@ -46,6 +46,12 @@ cUOPacket::cUOPacket( Q_UINT32 size )  : rawPacket( size )
 	rawPacket.fill( (char)0 );
 }
 
+cUOPacket::cUOPacket( Q_UINT8 packetId, Q_UINT32 size ) : rawPacket( size )
+{
+	rawPacket.fill( (char)0 );
+	rawPacket[0] = packetId;
+}
+
 // Compresses the packet
 // Author: Beosil
 static unsigned int bitTable[257][2] =
