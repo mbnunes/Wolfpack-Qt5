@@ -1242,6 +1242,10 @@ void cUOSocket::handleMultiPurpose( cUORxMultiPurpose* packet )
 	case cUORxMultiPurpose::partySystem:
 		handleParty( packet );
 		return;
+
+	// Unknown Packet
+	case 0x24:
+		return;
 	};
 
 	QString message;

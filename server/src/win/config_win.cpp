@@ -121,6 +121,8 @@ std::vector<ServerList_st>& cConfig::serverList()
 	static bool dynamicIP = false;
 	if ( serverList_.empty() || ( dynamicIP && lastIpCheck <= Server::instance()->time() ) ) // Empty? Try to load
 	{
+		serverList_.clear();
+
 		bool bKeepLooping = true;
 		unsigned int i = 1;
 		do
