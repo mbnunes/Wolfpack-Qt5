@@ -1,11 +1,10 @@
 
 import wolfpack
 import wolfpack.time
-import whrandom
 import skills
 from wolfpack.consts import *
 from wolfpack.utilities import *
-from random import randint
+from random import randint, random
 #import weapons.blades
 
 woodrespawndelay = randint( LUMBERJACKING_REFILLTIME[0], LUMBERJACKING_REFILLTIME[1] )
@@ -203,7 +202,8 @@ def successlumberjacking( char, args ):
 		return False
 	else:
 		# Skill Check against LUMBERJACKING
-		if not skills.checkskill(char, LUMBERJACKING, chance):
+		char.checkskill(LUMBERJACKING, 0, 1200) # Just do a static skillcheck here		
+		if chance < random():
 			socket.clilocmessage(500495)
 			success = 0
 			return False
