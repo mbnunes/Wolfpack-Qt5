@@ -370,9 +370,19 @@ def parseWsc( file, map ):
 				newitem = wolfpack.additem( "%s" % baseid ) # Generate a new serial for us
 			else:
 				baseid = lstrip( str( hex( id ) ), "0x" )
-				newitem = wolfpack.additem( "%s" % baseid ) # Generate a new serial for us
+				
+				# Multi ?
+				if id >= 0x4000:
+					newitem = wolfpack.addmulti( "%s" % baseid ) # Generate a new serial for us
+				else:
+					newitem = wolfpack.additem( "%s" % baseid ) # Generate a new serial for us
+
+			if not newitem:
+				warning += "Found an invalid item id: %s<br>" % baseid
+				continue
 
 			newitem.decay = 0
+			newitem.movable = 3 # Make everything gm movable by default
 			newitem.color = color
 			newitem.id = id
 			newitem.amount = amount
