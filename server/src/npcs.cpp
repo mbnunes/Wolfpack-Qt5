@@ -912,7 +912,7 @@ int cCharStuff::AddNPCxyz(int s, int npcNum, int type, int x1, int y1, signed ch
 
 int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 {
-	int tmp, z,c,n, lovalue, hivalue, mypack;
+	int tmp, z,c, lovalue, hivalue, mypack;
 	int storeval, shoppack1, shoppack2, shoppack3;
 	int k=0, xos=0, yos=0, lb;
 	char sect[512];

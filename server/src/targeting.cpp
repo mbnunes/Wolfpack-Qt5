@@ -701,7 +701,6 @@ static void CstatsTarget(P_CLIENT ps, P_CHAR pc)
 
 static void MoveBelongingsToBp(P_CHAR pc, CHARACTER c)
 {
-	int n;
 	P_ITEM pPack = Packitem(pc);
 	if (pPack == NULL)
 	{

@@ -2202,7 +2202,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 
 void cSkills::BeggingTarget(int s)
 {
-	int ci,j,gold,p,x,y,realgold;
+	int ci,j,gold,x,y,realgold;
 	char abort;
 	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 
@@ -2249,16 +2249,16 @@ void cSkills::BeggingTarget(int s)
 				if (y>25) y=25;
 				// pre-calculate the random amout of gold that is "targeted"
 
-				p = packitem(DEREF_P_CHAR(pc));
+				P_ITEM pi_p = Packitem(pc);
 				gold=0;
 				realgold=0;
 				abort=0;
 
 				// check for gold in target-npc pack
 			
-				if (p!=-1)				
+				if (pi_p != NULL)				
 				{
-					vector<SERIAL> vecContainer = contsp.getData(items[p].serial);
+					vector<SERIAL> vecContainer = contsp.getData(pi_p->serial);
 					for (ci = 0; ci < vecContainer.size(); ci++)
 					{
 						P_ITEM pi_j =  FindItemBySerial(vecContainer[ci]);
@@ -2424,8 +2424,9 @@ void cSkills::PoisoningTarget(int s) //AntiChrist
 		
 		//empty bottle after poisoning
 		int poison=DEREF_P_ITEM(pPoi);
+		P_ITEM pi_poison = MAKE_ITEMREF_LR(poison);
 		if (!pPoi->isInWorld()) 
-			contsp.remove(pPoi->contserial, items[poison].serial);
+			contsp.remove(pPoi->contserial, pi_poison->serial);
 		unsigned char k1 = pPoi->ser1;
 		unsigned char k2 = pPoi->ser2;
 		unsigned char k3 = pPoi->ser3;
