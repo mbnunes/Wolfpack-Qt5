@@ -90,8 +90,6 @@ CREATE TABLE `characters` (
 	`nutriment` int(10)  NOT NULL default '0',
 	`gender` tinyint(1)  NOT NULL default '0',
 	`propertyflags` int(11)  NOT NULL default '0',
-	`attacker` int(11) NOT NULL default '-1',
-	`combattarget` int(11) NOT NULL default '-1',
 	`murderer` int(11) NOT NULL default '-1',
 	`guarding` int(11) NOT NULL default '-1',
 	PRIMARY KEY (`serial`)
