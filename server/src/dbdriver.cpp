@@ -209,8 +209,8 @@ bool cSQLiteDriver::exec( const QString &query )
 	{
 		if( error )
 		{
-			QString err( QString( error ) + " (" + query + ")" );
-			sqlite_freemem( error );
+			QString err( QString(error) + " (" + query + ")" );
+			sqlite_freemem(error);
 			throw err;
 		}
 		else

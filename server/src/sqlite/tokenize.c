@@ -15,7 +15,7 @@
 ** individual tokens and sends those tokens one-by-one over to the
 ** parser for analysis.
 **
-** $Id: tokenize.c,v 1.2 2003/12/18 13:20:24 thiagocorrea Exp $
+** $Id: tokenize.c,v 1.3 2004/01/31 19:55:43 dark-storm Exp $
 */
 #include "sqliteInt.h"
 #include "os.h"
@@ -220,8 +220,8 @@ static const char isIdChar[] = {
 static int sqliteGetToken(const unsigned char *z, int *tokenType){
   int i;
   switch( *z ){
-    case ' ': case '\t': case '\n': case '\f': case '\r': {
-      for(i=1; isspace(z[i]); i++){}
+	case ' ': case '\t': case '\n': case '\f': case '\r': case '`': {
+      for(i=1; isspace(z[i]) || z[i] == '`'; i++){}
       *tokenType = TK_SPACE;
       return i;
     }

@@ -836,7 +836,7 @@ void cWorld::setOption( const QString name, const QString value )
 	}
 
 	// check if the option already exists
-	persistentBroker->executeQuery( QString( "DELETE FROM settings WHERE option = '%1'" ).arg( persistentBroker->quoteString( name ) ) );
+	persistentBroker->executeQuery( QString( "DELETE FROM `settings` WHERE `option` = '%1'" ).arg( persistentBroker->quoteString( name ) ) );
 
 	QString sql;
 	sql = "INSERT INTO settings VALUES('%1','%2')";
