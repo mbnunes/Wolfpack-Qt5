@@ -20,7 +20,7 @@
 		<durability><random min="30" max="60" /></durability>
 		<weight>4.0</weight>
 		<!--<basescripts>equipment,blades</basescripts>-->
-		<type>1001</type>
+		<!--<type>1001</type>-->
 		<category>Weapons\Samurai\Shuriken</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />

@@ -8,10 +8,11 @@
 -->
 <definitions>
 
+	<!-- Guessing Swordsmanship -->
 	<!-- No-Dachi -->
 	<item id="27a2">
 		<id>0x27a2</id>
-		<!--<twohanded />-->
+		<twohanded />
 		<decay />
 		<nodye />
 		<sellprice>120</sellprice>

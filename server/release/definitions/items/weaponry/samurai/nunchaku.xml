@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-	<!-- Guessing ??? -->
+	<!-- Guessing Macefighting -->
 	<!-- Nunchaku -->
 	<item id="27ae">
 		<id>0x27ae</id>
@@ -19,11 +19,11 @@
 		<buyprice>40</buyprice>
 		<durability><random min="30" max="60" /></durability>
 		<weight>4.0</weight>
-		<!--<basescripts>equipment,blades</basescripts>-->
-		<type>1001</type>
+		<basescripts>equipment</basescripts>
+		<type>1004</type>
 		<category>Weapons\Samurai\Nunchaku</category>
 		<!-- Properties -->
-		<tag name="resname" value="iron" />
+		<!--<tag name="resname" value="iron" />-->
 		<intproperty name="req_strength" value="35" />
 		<intproperty name="speed" value="37" />
 		<intproperty name="mindamage" value="14" />

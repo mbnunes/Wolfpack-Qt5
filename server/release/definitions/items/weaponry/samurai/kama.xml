@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-	<!-- Guessing ??? -->
+	<!-- Guessing fencing -->
 	<!-- Kama -->
 	<item id="27ad">
 		<id>0x27ad</id>
@@ -19,8 +19,8 @@
 		<buyprice>40</buyprice>
 		<durability><random min="30" max="60" /></durability>
 		<weight>4.0</weight>
-		<!--<basescripts>equipment,blades</basescripts>-->
-		<type>1001</type>
+		<basescripts>equipment,blades</basescripts>
+		<type>1005</type>
 		<category>Weapons\Samurai\Kama</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />

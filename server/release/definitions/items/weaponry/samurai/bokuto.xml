@@ -19,11 +19,11 @@
 		<buyprice>40</buyprice>
 		<durability><random min="30" max="60" /></durability>
 		<weight>4.0</weight>
-		<!--<basescripts>equipment,blades</basescripts>-->
+		<basescripts>equipment</basescripts>
 		<type>1001</type>
 		<category>Weapons\Samurai\Bokuto</category>
 		<!-- Properties -->
-		<tag name="resname" value="iron" />
+		<!--<tag name="resname" value="iron" />-->
 		<intproperty name="req_strength" value="35" />
 		<intproperty name="speed" value="37" />
 		<intproperty name="mindamage" value="14" />

@@ -19,8 +19,8 @@
 		<buyprice>40</buyprice>
 		<durability><random min="30" max="60" /></durability>
 		<weight>4.0</weight>
-		<!--<basescripts>equipment,blades</basescripts>-->
-		<type>1001</type>
+		<basescripts>equipment</basescripts>
+		<type>1000</type>
 		<category>Weapons\Samurai\Tekagi</category>
 		<!-- Properties -->
 		<tag name="resname" value="iron" />
