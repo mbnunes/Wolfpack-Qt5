@@ -665,9 +665,9 @@
 		</action>
 
 		<action type="script">
-			<name>Abattoir</name>
-			<description>a abattoir</description>
-			<make script="skills.carpentry.makeabattoir" />
+			<name>Abbatoir</name>
+			<description>a abbatoir</description>
+			<make script="skills.carpentry.makeabbatoir" />
 		</action>
 	</menu>
 

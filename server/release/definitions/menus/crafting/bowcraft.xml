@@ -23,7 +23,7 @@
 			<model>0x0de1</model>
 			<description>a kindling</description>
 			<make>
-				<useitem itemid="0x1bd7-0x1be2" name="logs/boards" amount="1" />
+				<useitem itemid="0x1bd7-0x1bdc" name="boards" amount="1" />
 				<makeitem section="kindling" amount="1" />
 				<skillcheck skillid="8" min="0" max="1" />
 			</make>
@@ -65,7 +65,7 @@
 			<mode>0x13b2</model>
 			<description>a bow</description>
 			<make>
-				<useitem itemid="0x1bd7-0x1be2" name="logs/boards" amount="7" />
+				<useitem itemid="0x1bd7-0x1bdc" name="boards" amount="7" />
 				<makeitem section="13b2" amount="1" />
 				<skillchek skillid="8" min="300" max="599" />
 			</make>
@@ -78,7 +78,7 @@
 			<model>0x0f4f</model>
 			<description>a crossbow</description>
 			<make>
-				<useitem itemid="0x1bd7-0x1be2" name="logs/boards" amount="7" />
+				<useitem itemid="0x1bd7-0x1bdc" name="boards" amount="7" />
 				<makeitem section="f4f" amount="1" />
 				<skillchek skillid="8" min="600" max="899" />
 			</make>
@@ -91,7 +91,7 @@
 			<model>0x13fc</model>
 			<description>a heavy crossbow</description>
 			<make>
-				<useitem itemid="0x1bd7-0x1be2" name="logs" amount="10" />
+				<useitem itemid="0x1bd7-0x1bdc" name="boards" amount="10" />
 				<makeitem section="13fc" amount="1" />
 				<skillcheck skillid="8" min="900" max="1200" />
 			</make>
