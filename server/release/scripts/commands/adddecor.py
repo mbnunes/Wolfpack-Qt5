@@ -61,6 +61,7 @@ logs = \
 	'log1': [ 'cf3', 'cf4' ], # Y + 1
 	'log2': [ 'cf5', 'cf6', 'cf7' ] # X + 1
 }
+	
 
 # Ground Decorations
 
@@ -241,7 +242,14 @@ bigflowers_decor = [
 	'cc0', # Orfluer Flowers
 	'cc1' # Orfluer Flowers
 ]
-
+fern_decor = [ 
+	'c9f',
+	'ca0',
+	'ca1',
+	'ca2',
+	'ca3',
+	'ca4'
+]
 # Constants
 TREE = 0
 LEAVES = 1
@@ -632,7 +640,7 @@ def adddecor( socket, command, args ):
 					socket.attachtarget( 'commands.adddecor.createground', [ item ] )
 					return True
 				# Desert Ground Decoration
-				elif value == "desert":
+			 	elif value == "desert":
 					if socket.hastag( 'last_ground_desert' ):
 						templist = []
 						for choice in desert_decor:
@@ -663,6 +671,20 @@ def adddecor( socket, command, args ):
 					else:
 						item = random.choice( flowers )
 						socket.settag( 'last_ground_flowers', str( item ) )
+					socket.attachtarget( 'commands.adddecor.createground', [ item ] )
+					return True
+					#ferns
+				elif value == "fern":
+					if socket.hastag( 'last_ground_fern' ):
+						templist = []
+						for choice in fern_decor:
+							if choice != str( socket.gettag( 'last_ground_fern' ) ):
+								templist += [ choice ]
+						item = random.choice( templist )
+						socket.settag( 'last_ground_fern', str( item ) )
+					else:
+						item = random.choice( fern_decor )
+						socket.settag( 'last_ground_fern', str( item ) )
 					socket.attachtarget( 'commands.adddecor.createground', [ item ] )
 					return True
 				# Nothing
