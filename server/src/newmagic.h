@@ -141,6 +141,8 @@ public:
 
     void disturb( P_CHAR pMage, bool fizzle = true, INT16 chance = -1 );
 	
+	bool hasSpell( P_CHAR pMage, UINT8 spell );
+
 	bool useMana( P_CHAR pMage, UINT8 spell );
 	bool checkMana( P_CHAR pMage, UINT8 spell );
 

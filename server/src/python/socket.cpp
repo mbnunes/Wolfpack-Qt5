@@ -289,15 +289,47 @@ PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 
 	self->pSock->send( gump );
 
+	return PyInt_FromLong( gump->serial() );
+}
+
+/*!
+	Closes a gump that has been sent to the client using it's
+	serial.
+*/
+PyObject* wpSocket_closegump( wpSocket* self, PyObject* args )
+{
+	if( !self->pSock )
+		return PyFalse;
+	
+	if( !checkArgInt( 0 ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	cUOTxCloseGump closeGump;
+	closeGump.setButton( 0 );
+	closeGump.setType( getArgInt( 0 ) );
+	self->pSock->send( &closeGump );
+
 	return PyTrue;
 }
 
 /*!
-	Attachs a target request to the socket.
+	Resends the world around this socket.
 */
 PyObject* wpSocket_resendworld( wpSocket* self, PyObject* args )
 {
 	self->pSock->resendWorld( false );
+	return PyTrue;
+}
+
+/*!
+	Resends the player only.
+*/
+PyObject* wpSocket_resendplayer( wpSocket* self, PyObject* args )
+{
+	self->pSock->resendPlayer( false );
 	return PyTrue;
 }
 
@@ -308,7 +340,9 @@ static PyMethodDef wpSocketMethods[] =
 	{ "disconnect",			(getattrofunc)wpSocket_disconnect, METH_VARARGS, "Disconnects the socket." },
 	{ "attachtarget",		(getattrofunc)wpSocket_attachtarget,  METH_VARARGS, "Adds a target request to the socket" },
 	{ "sendgump",			(getattrofunc)wpSocket_sendgump,	METH_VARARGS, "INTERNAL! Sends a gump to this socket." },
+	{ "closegump",			(getattrofunc)wpSocket_closegump,	METH_VARARGS, "Closes a gump that has been sent to the client." },
 	{ "resendworld",		(getattrofunc)wpSocket_resendworld,  METH_VARARGS, "Sends the surrounding world to this socket." },
+	{ "resendplayer",		(getattrofunc)wpSocket_resendplayer,  METH_VARARGS, "Resends the player only." },
     { NULL, NULL, 0, NULL }
 };
 

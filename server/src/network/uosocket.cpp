@@ -136,12 +136,8 @@ void cUOSocket::send( cGump *gump )
 	if( gump->serial() == INVALID_SERIAL )
 	{
 		while( gump->serial() == INVALID_SERIAL || ( gumps.find( gump->serial() ) != gumps.end() ) )
-			gump->setSerial( RandomNum( 1, 0xDDDDDDDC ) ); 
-		// randomnum takes int not uint... if 2nd val is above 0xdddddddd
-		// it will interpret it as negative... internally it checks
-		// if 1st < 2nd val, so it ended up in an infinite loop as soon
-		// as 2 gumps were in the queue
-		// plz dont touch this or replace it with 0xFFFFFFFE (= -2) again!
+			gump->setSerial( RandomNum( 0x10000000, 0x1000FFFF ) ); 
+		// I changed this, everything between 0x10000000 and 0x1000FFFF is randomly generated)
 	}
 	// Remove/Timeout the old one first
 	else if( gumps.find( gump->serial() ) != gumps.end() )
@@ -1075,6 +1071,14 @@ void cUOSocket::resendPlayer( bool quick )
 	pause.pause();
 	send( &pause );
 
+	// Make sure we switch client when this changes
+	if( !quick )
+	{
+		cUOTxChangeMap changeMap; 
+		changeMap.setMap( _player->pos.map );
+		send( &changeMap );
+	}
+
 	cUOTxDrawPlayer drawPlayer;
 	drawPlayer.fromChar( _player );
 	send( &drawPlayer );
@@ -1106,11 +1110,6 @@ void cUOSocket::resendPlayer( bool quick )
 		cUOTxWarmode warmode;
 		warmode.setStatus( _player->war() );
 		send( &warmode );
-	
-		// Make sure we switch client when this changes
-		cUOTxChangeMap changeMap; 
-		changeMap.setMap( _player->pos.map );
-		send( &changeMap );
 	}
 
 	// Resume

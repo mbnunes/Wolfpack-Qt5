@@ -12,11 +12,10 @@ def onUse( char, item ):
 	if( char.distanceto( item ) > 3):
 		char.socket.sysmessage( "You are too far away to use it." )
 		return 1
-	# check if the char is using a moongate
-	if( char.hastag( "moongate" ) ):
-		char.socket.sysmessage( "You are already using it." )
-		return 1
+
 	# send gate gump
+	char.socket.closegump( 0x87654321 )
+
 	sendGump( char, item )
 	return 1
 
@@ -24,11 +23,8 @@ def onCollideItem( char, item ):
 	# npc would not travel through moongate ;)
 	if( char.npc ):
 		return 1
-	if( char.hastag( "moongate" ) ):
-		char.socket.sysmessage( "You are already using it." )
-		return 1
+
 	sendGump( char, item )
-	char.settag( "moongate", 1 )
 	return 1
 
 def sendGump( char, item ):
@@ -93,7 +89,7 @@ def sendGump( char, item ):
 	gateGump.addButton( 150, 175, 0x837, 0x838, 18 )
 	gateGump.addText( 170, 190, "Yew" )
 	gateGump.addButton( 150, 195, 0x837, 0x838, 19 )
-	gateGump.addText( 170, 210, "Jhelom " )
+	gateGump.addText( 170, 210, "Jhelom" )
 	gateGump.addButton( 150, 215, 0x837, 0x838, 20 )
 	# ilshenar
 	gateGump.startPage( 3 )
@@ -131,40 +127,32 @@ def sendGump( char, item ):
 	gateGump.setCallback( "moongate.gateCallback" )
 	# send it
 	gateGump.setArgs( [ item ] )
+
+	gateGump.setType( 0x87654321 )
+
 	gateGump.send( char )
-	# attach tag
-	char.settag( "moongate", 1 )
 
 # callback function
 def gateCallback( char, args, target ):
-	if not char.hastag( "moongate" ):
-		char.socket.sysmessage( "script error 0. contact GM." )
-		return 1
 	if( len( args ) < 1 ):
-		char.deltag( "moongate" )
 		char.socket.sysmessage( "script error 1. contact GM." )
 		return 1
 	item = args[0]
 	if not item:
-		char.deltag( "moongate" )
 		char.socket.sysmessage( "script error 2. contact GM." )
 		return 1
 	if( char.distanceto( item ) > 3):
-		char.deltag( "moongate" )
 		char.socket.sysmessage( "You are too far away to use it." )
 		return 1
 	button = target.button
 	if not button:
-		char.deltag( "moongate" )
 		char.socket.sysmessage( "Canceled." )
 		return 1
 	elif( button > 29 ):
-		char.deltag( "moongate" )
 		char.socket.sysmessage( "script error 3. contact GM." )
 		char.socket.sysmessage( "button = " + button )
 		return 1
-	elif( ( button > 4 ) and ( button < 30 ) ):
-		char.deltag( "moongate" )
+
 	# set world number
 	numWorld = 0
 	if( ( button > 4 ) and ( button < 13 ) ):
@@ -231,5 +219,7 @@ def gateCallback( char, args, target ):
 			# else it will not follow him/her
 			else:
 				char.removefollower( follower )
+
+	char.socket.resendplayer()
 	char.socket.resendworld()
 	return 1

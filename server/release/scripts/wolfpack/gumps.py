@@ -34,14 +34,14 @@ class cGump:
 			socket = char
 
 		# Dump the gump data
-		file = open( 'dump.txt', 'w' )
-		file.write( "--------\nLayout:\n" )
-		for line in self.layout:
-			file.write( line + "\n" )
-		file.write( "--------\nText:\n" )
-		for line in self.texts:
-			file.write( line + "\n" )
-		file.close()
+		#file = open( 'dump.txt', 'w' )
+		#file.write( "--------\nLayout:\n" )
+		#for line in self.layout:
+		#	file.write( line + "\n" )
+		#file.write( "--------\nText:\n" )
+		#for line in self.texts:
+		#	file.write( line + "\n" )
+		#file.close()
 
 		if not socket:
 			raise TypeError( "You passed an invalid socket." )
