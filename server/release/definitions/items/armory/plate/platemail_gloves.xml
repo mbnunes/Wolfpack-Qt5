@@ -14,7 +14,6 @@
 		<name>platemail gloves</name>
 		<decay />
 		<nodye />
-		<defense>5</defense>
 		<durability><random min="60" max="100" /></durability>
 		<tag name="req_str" value="30" type="int" />
 		<tag name="boni_dex" value="-3" type="int" />

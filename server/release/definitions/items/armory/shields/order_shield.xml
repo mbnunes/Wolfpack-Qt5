@@ -14,7 +14,6 @@
 		<name>order shield</name>
 		<decay />
 		<nodye />
-		<defense>30</defense>
 		<durability><random min="100" max="125" /></durability>
 		<tag name="req_str" value="95" type="int" />
 		<tag name="aos_req_str" value="95" type="int" />

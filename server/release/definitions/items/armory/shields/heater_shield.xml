@@ -14,7 +14,6 @@
 		<name>heater shield</name>
 		<decay />
 		<nodye />
-		<defense>23</defense>
 		<durability><random min="50" max="65" /></durability>
 		<tag name="req_str" value="90" type="int" />
 		<tag name="aos_req_str" value="90" type="int" />

@@ -14,7 +14,6 @@
 		<name>platemail legs</name>
 		<decay />
 		<nodye />
-		<defense>5</defense>
 		<durability><random min="60" max="100" /></durability>
 		<tag name="req_str" value="60" type="int" />
 		<tag name="boni_dex" value="-5" type="int" />

@@ -14,7 +14,6 @@
 		<name>buckler</name>
 		<decay />
 		<nodye />
-		<defense>7</defense>
 		<durability><random min="40" max="50" /></durability>
 		<tag name="req_str" value="20" type="int" />
 		<tag name="aos_req_str" value="20" type="int" />

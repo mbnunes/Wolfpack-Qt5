@@ -14,7 +14,6 @@
 		<name>bronze shield</name>
 		<decay />
 		<nodye />
-		<defense>10</defense>
 		<durability><random min="25" max="30" /></durability>
 		<tag name="req_str" value="35" type="int" />
 		<tag name="aos_req_str" value="35" type="int" />

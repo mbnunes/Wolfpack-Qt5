@@ -14,7 +14,6 @@
 		<name>plate helm</name>
 		<decay />
 		<nodye />
-		<defense>5</defense>
 		<durability><random min="50" max="65" /></durability>
 		<tag name="req_str" value="45" type="int" />
 		<tag name="boni_dex" value="-2" type="int" />

@@ -14,7 +14,6 @@
 		<name>ringmail gloves</name>
 		<decay />
 		<nodye />
-		<defense>2</defense>
 		<durability><random min="40" max="50" /></durability>
 		<tag name="req_str" value="20" type="int" />
 		<tag name="boni_dex" value="-1" type="int" />

@@ -14,7 +14,6 @@
 		<name>metal shield</name>
 		<decay />
 		<nodye />
-		<defense>11</defense>
 		<durability><random min="50" max="65" /></durability>
 		<tag name="req_str" value="45" type="int" />
 		<tag name="aos_req_str" value="45" type="int" />

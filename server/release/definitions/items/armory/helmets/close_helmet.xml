@@ -14,7 +14,6 @@
 		<name>close helmet</name>
 		<decay />
 		<nodye />
-		<defense>3</defense>
 		<durability><random min="45" max="60" /></durability>
 		<tag name="req_str" value="30" type="int" />
 		<tag name="aos_req_str" value="55" type="int" />
