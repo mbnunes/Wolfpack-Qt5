@@ -198,6 +198,7 @@
 	<!--  Poisoning -->
 	<startitems id="poisoning">
 	        <inherit id="default" />
+	        <!--Poison Potion --><item id="f0a"><amount>2</amount></item>
 	</startitems>
 
 	<!--  Archery -->
@@ -228,6 +229,9 @@
 	<!--  Tasteid -->
 	<startitems id="tasteid">
 	        <inherit id="default" />
+	        <!--Random Potion--><item><inherit><random list="POTIONS" /></inherit></item>
+	        <!--Random Potion--><item><inherit><random list="POTIONS" /></inherit></item>
+	        <!--Random Potion--><item><inherit><random list="POTIONS" /></inherit></item>
 	</startitems>
 
 	<!--  Tinkering -->
