@@ -397,7 +397,8 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 			if ( SrvParams->autoAccountCreate() )
 			{
 				authRet = Accounts->createAccount( username, password );
-				error = cAccounts::NoError;
+				if( authRet )
+					return authenticate( username, password );
 			}
 			else
 				denyPacket.setReason( DL_NOACCOUNT );
@@ -409,11 +410,8 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 			denyPacket.setReason( DL_BLOCKED ); break;
 		};
 
-		if( error != cAccounts::NoError )
-		{
-			clConsole.send( QString( "Bad Authentication [%1]\n" ).arg( _socket->address().toString() ) );
-			send( &denyPacket );
-		}
+		clConsole.send( QString( "Bad Authentication [%1]\n" ).arg( _socket->address().toString() ) );
+		send( &denyPacket );
 	}
 
 	_account = authRet;
