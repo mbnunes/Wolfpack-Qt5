@@ -403,12 +403,6 @@
 				RelativePath=".\structs.h">
 			</File>
 			<File
-				RelativePath=".\targetactions.cpp">
-			</File>
-			<File
-				RelativePath=".\targetactions.h">
-			</File>
-			<File
 				RelativePath=".\targetrequests.cpp">
 			</File>
 			<File

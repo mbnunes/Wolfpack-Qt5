@@ -44,7 +44,6 @@
 #include "network/uotxpackets.h"
 #include "resources.h"
 #include "multis.h"
-#include "targetactions.h"
 #include "boats.h"
 #include "chars.h"
 #include "npc.h"
@@ -607,16 +606,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 //						target(s, 0, 1, 0, 108, "What do you wish to grind with your mortar and pestle?");
 			//		}
 			//		return; // alchemy
-				case 0x14FB:
-				case 0x14FC:
-				case 0x14FD:
-				case 0x14FE: // lockpicks
-					{
-						cSkLockpicking* target = new cSkLockpicking( pi->serial() );
-						socket->attachTarget( target );
-						socket->sysMessage( tr("What lock would you like to pick?") );
-					}
-					return;
 				default:
 					break;
 			}

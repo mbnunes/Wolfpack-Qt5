@@ -207,7 +207,6 @@ SOURCES         = \
 		speech.cpp \
 		spawnregions.cpp \
 		srvparams.cpp \
-		targetactions.cpp \
 		targetrequests.cpp \
 		territories.cpp \
 		tilecache.cpp \
