@@ -107,7 +107,7 @@ class MakeItemAction(MakeAction):
   def __init__(self, parent, title, itemid, definition, amount = 1):
     MakeAction.__init__(self, parent, title)
     self.itemid = itemid
-    self.definition = definition
+    self.definition = str(definition)
     self.amount = amount
     self.otherhtml = ''
     self.materialshtml = ''
