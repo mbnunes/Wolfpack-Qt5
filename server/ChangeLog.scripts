@@ -11,6 +11,7 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Fishing pole now should have the twohanded flag.
 		- Fishing now shows the success cliloc message correctly.
 		- Fixed the dyable attribute for certain new items.
+		- Allowed more cloth resource types for tailoring.
 	* Python Script Changes:
 		- Removed weight from the info menu.
 		- The info command now correctly resends the changed players.
@@ -30,6 +31,9 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Added a goname <name> command to find players and npcs.
 		- Fixed magic resistance penalty for the protection spell.
 		- Fixed the mindamage/maxdamage for npcs.
+		- Fixed the barber vendor responding to all text.
+		- Rewrote the barber/hairstylist.
+		- Fixed the trainmenu.
 		- Added a say <text> command
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
