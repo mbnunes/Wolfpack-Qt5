@@ -289,6 +289,7 @@ def autoclose( item, args ):
 	# where the door closes, this way the door doesn't close ON people.
 	"""
 	blocked = 0
+	chars = []
 	for door in doors:
 		if door[1] == item.id:
 			chars = wolfpack.chars( item.pos.x - door[2], item.pos.y - door[3], item.pos.map, 0 )

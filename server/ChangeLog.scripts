@@ -5,10 +5,15 @@ Wolfpack 12.9.8 Beta (CVS)
 		- Gump Responses are now passed on as Unicode rather than in the
 			local codepage.
 		- Floating point tags are now saved correctly.
+		- Removed command: tags
+		- Removed command: addevent
+		- Removed command: removeevent
 	* Definition Changes:
 	* Python Script Changes:
 		- New Command: taginfo
 		- New Function: wolfpack.findobject(serial)
+		- New command: addevent
+		- New command: removeevent
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
