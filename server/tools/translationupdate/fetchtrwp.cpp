@@ -17,8 +17,10 @@
 
 void fetchtr_py( const char* fileName, MetaTranslator* tor, const char* /*defaultContext*/, bool mustExist )
 {
-	static QRegExp matchtr("\\W(tr)\\s{0,1}\\(");
-	static QRegExp stringDelimiter("(\"?|\'?)");
+	static QRegExp matchtr1("\\btr\\s{0,1}\\(\\s*\""); // Escaped by "
+	static QRegExp matchtr2("\\btr\\s{0,1}\\(\\s*'"); // Escaped by "
+	//static QRegExp stringDelimiter("(\"?|\'?)");
+	//static QRegExp stringDelimiter2("(\"?|\'?)");
 	static QString context("@pythonscript");
 
 	QFile f( fileName );
@@ -29,31 +31,102 @@ void fetchtr_py( const char* fileName, MetaTranslator* tor, const char* /*defaul
 		return;
 	}
 	QString content = QString( f.readAll() );
-	content.replace( QRegExp("#[^\n]*"), "" );; // remove single line comments
+	//content.replace( QRegExp("^#[^\n]*"), "" );; // remove single line comments
+
+
 	int pos = 0;
-	while ( ( pos = matchtr.search(content, pos) ) != -1 )
+	while ( ( pos = matchtr1.search(content, pos) ) != -1 )
 	{
-		QString message = content.mid(pos + matchtr.matchedLength());
-		int start = 0, end = 0;
-		if ( ( start = stringDelimiter.search(message) ) == -1 )
-		{
-			pos += matchtr.matchedLength();
-			continue;
+		QString message = content.mid(pos + matchtr1.matchedLength());
+		QString realMessage;
+
+		// Process the following string char-by-char
+		unsigned int i = 0;
+		while (i < message.length()) {
+			QCharRef cref = message.at(i);
+
+			// An escaped character
+			if (cref == '\\' && i + 1 < message.length()) {
+				// Get the next character
+				QCharRef next = message.at(i+1);
+				if (next == 'n') {
+					realMessage.append('\n');
+				} else if ( next == '\t' ) {
+					realMessage.append('\t');
+				} else if ( next == '\n' ) {
+					// Skip escaped newlines
+				} else {
+					realMessage.append(next);
+				}
+
+				++i; // Skip the next character
+			// End of string
+			} else if ( cref == '\n' ) {
+				// This is an error, an unescaped newline breaks the string
+				fprintf( stderr, "translationUpdate error: Open string in tr() '%s': %i\n", fileName, pos );
+				return;
+			} else if ( cref == '"' ) {
+				break;
+			} else {
+				realMessage.append(cref);
+			}
+
+			++i;
 		}
-		QString startDelimiter = message.mid( start, stringDelimiter.matchedLength() );
-		end = message.find( startDelimiter, start + startDelimiter.length() );
-		if ( end == -1 )
-		{
-			fprintf( stderr, "translationUpdate error: Open string in tr() '%s': %i\n", fileName, pos );
-			return;
+
+		if (!realMessage.isEmpty()) {
+			tor->insert( MetaTranslatorMessage( context.utf8(), realMessage.utf8(), QString(fileName).utf8(), QString::null, TRUE ) );
 		}
-		
-		QString source = message.mid( start + startDelimiter.length(), end - startDelimiter.length() );
-		if ( !source.isEmpty() )
-			tor->insert( MetaTranslatorMessage( context.utf8(), source.utf8(), QString(fileName).utf8(), QString::null, TRUE ) );
-		pos += QMAX( end, matchtr.matchedLength() );
+
+		pos += matchtr1.matchedLength() + i;
 	}
-	
+
+	pos = 0;
+	while ( ( pos = matchtr2.search(content, pos) ) != -1 )
+	{
+		QString message = content.mid(pos + matchtr2.matchedLength());
+		QString realMessage;
+
+		// Process the following string char-by-char
+		unsigned int i = 0;
+		while (i < message.length()) {
+			QCharRef cref = message.at(i);
+
+			// An escaped character
+			if (cref == '\\' && i + 1 < message.length()) {
+				// Get the next character
+				QCharRef next = message.at(i+1);
+				if (next == 'n') {
+					realMessage.append('\n');
+				} else if ( next == '\t' ) {
+					realMessage.append('\t');
+				} else if ( next == '\n' ) {
+					// Skip escaped newlines
+				} else {
+					realMessage.append(next);
+				}
+
+				++i; // Skip the next character
+			// End of string
+			} else if ( cref == '\n' ) {
+				// This is an error, an unescaped newline breaks the string
+				fprintf( stderr, "translationUpdate error: Open string in tr() '%s': %i\n", fileName, pos );
+				return;
+			} else if ( cref == '\'' ) {
+				break;
+			} else {
+				realMessage.append(cref);
+			}
+
+			++i;
+		}
+
+		if (!realMessage.isEmpty()) {
+			tor->insert( MetaTranslatorMessage( context.utf8(), realMessage.utf8(), QString(fileName).utf8(), QString::null, TRUE ) );
+		}
+
+		pos += matchtr2.matchedLength() + i;
+	}
 }
 
 class DefinitionHandler : public QXmlDefaultHandler

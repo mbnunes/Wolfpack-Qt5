@@ -30,35 +30,11 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Spawnregion &apos;%1&apos; has respawned</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All spawnregions have respawned</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Usage: spawnregion clear &lt;region_name&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Spawnregion &apos;%1&apos; has been cleared</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All spawnregions have been cleared</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>Usage: spawnregion fill &lt;region_name&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Spawnregion &apos;%1&apos; has respawned to maximum</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>All spawnregions have respawned to maximum</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -235,11 +211,1112 @@ This is an unsorted and not neccesarily complete list of people who contributed 
 </source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>Spawnregion %1 does not exist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spawnregion group &apos;%1&apos; has respawned.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spawnregion &apos;%1&apos; has respawned.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All spawnregions have respawned.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spawnregion group &apos;%1&apos; has been cleared.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spawnregion &apos;%1&apos; has been cleared.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All spawnregions have been cleared.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spawnregion group &apos;%1&apos; has been filled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spawnregion &apos;%1&apos; has been filled.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>All spawnregions have respawned to maximum.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Total Users Online: %1
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Pirate</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the guard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the piper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Spider</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The Necromancer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Dragon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Succubus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Sprite Queen</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alchemist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Healer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ranger</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Merchant</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Warrior</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Beggar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Blacksmith</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bowyer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Bard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Carpenter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cartographer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Chef</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scout</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scholar</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fisherman</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Detective</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sheperd</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Rogue</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Scribe</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Mage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Pickpocket</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Assassin</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Archer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Medium</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tailor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Animal Tamer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Tinker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Veterinarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Swordsman</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Armsman</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Fencer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Wrestler</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lumberjack</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Miner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Stoic</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Necromancer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Paladin</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>@pythonscript</name>
+    <message>
+        <source>Who Menu</source>
+        <comment>C:/Wolfpack/scripts/commands/who.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Close</source>
+        <comment>C:/Wolfpack/scripts/commands/who.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Players: %u</source>
+        <comment>C:/Wolfpack/scripts/commands/who.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Page %i of %i</source>
+        <comment>C:/Wolfpack/scripts/commands/who.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%s [%s]</source>
+        <comment>C:/Wolfpack/scripts/commands/who.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your guild permissions have been modified by %s. See your guildstone for details.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have been granted the title &apos;%s&apos; by %s.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guildstone for %s%s</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Member Details</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Member Name: %s</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>General Information</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Member Since: %s</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Membership Status: %s</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guild Title:</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guild Title: %s</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Profile Information:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;%s</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Permissions</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Miscellaneous Actions</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>May edit the guild properties.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>May recruit new canidates for the guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>May promote canidates to full member status.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>May act as an diplomat for this guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>May kick members out of this guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>May expel canidates from the guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>May grant guild titles to members of this guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>May grant permissions to other guild members.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Send this member a private message:</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enter message...</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Kick this member out of the guild:</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Vote for a new leader:</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You vote for this member.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Member Overview</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Select a member you wish to see details about:</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Previous Page</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Next Page</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Joined: </source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Title: %s</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>No Title</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Canidate Overview</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Canidates</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>A new canidate %s has been recruited into your guild by %s.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have been expelled from your guild by %s.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The canidate %s has been expelled from your guild by %s.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have been promoted to be a full member of your guild by %s.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The canidate %s has been promoted to full member status by %s.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Canidate Management</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recruit a new canidate for this guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Recruit a new member for this guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Expel this canidate</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Accept this canidate</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The name of your guild has been changed to &apos;%s&apos; by %s.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The abbreviation of your guild has been changed to [%s] by %s.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The alignment of your guild has been changed to neutral by %s.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The alignment of your guild has been changed to good by %s.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The alignment of your guild has been changed to evil by %s.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The website of your guild has been changed to %s by %s.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The charta of your guild has been changed by %s. Check your guildstone for details.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>General Properties</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Guildname</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Abbreviation (3 chars max.)</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alignment</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Good</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Neutral</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Evil</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Website</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Charta (HTML allowed)</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Additional Information</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%s has left your guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%s has resigned from the leadership position of your guild. You can elect a new leader by voting for a member at your guildstone.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Membership Options</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disable your guildsign.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Enable your guildsign.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resign from this guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Resign from your leadership position.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your guild has been disbanded by %s!</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Main Menu</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modify the general properties of this guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View information about this guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage the members of this guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View the members of this guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Manage the canidates of this guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View the canidates of this guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>View the diplomatic relations of this guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Membership options.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Disband this guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%st
+</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%s</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%s [%s]</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Members: %u</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Canidates: %u</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leader: %s</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leader: None</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Abandoned</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The guild you try to manage has already been disbanded.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The character has already left this guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Original Switches: %x</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The permissions for %s have been modified.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The guildtitle for %s has been changed.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your message to %s has been sent.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%s: %s</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Your message has been queued up. You may edit your message on the guildstone until the recipient logs in.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You lack the permission to kick members out of this guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have been removed from your guild by %s.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%s has been removed from your guild by %s.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%s has withdrawn the vote for your leadership position.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You place your vote for %s.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%s has voted for your leadership position.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You place your vote for yourself.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You withdraw your vote for %s.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You withdraw your vote for yourself.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%s has been elected as the new leader of your guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have been elected as the new leader of your guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have enough votes to become the new leader of your guild. To accept this result, please vote for yourself at your guildstone.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> [%s]</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Member</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Leader</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shows Guildsign: Yes</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Shows Guildsign: No</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Online:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>%s&lt;br&gt;</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Offline:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There are currently no known canidates for a membership in this guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;br&gt;&lt;br&gt;</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source> (Leader)</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Responsible For Recruitment:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>There is currently no one responsible for recruiting canidates.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are not allowed to recruit canidates for this guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You can only recruit players for your guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>That character is already in a guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have been recruited as a canidate for %s by %s.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The selected player is not a canidate of this guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are not allowed to expel canidates in this guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You are not allowed to promote canidates in this guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Website:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;&lt;a href=&quot;%s&quot;&gt;%s&lt;/a&gt;&lt;br&gt;&lt;br&gt;</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Website:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;This guild has no website.&lt;br&gt;&lt;br&gt;</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Charta:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;%s</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;basefont color=&quot;#666666&quot;&gt;&lt;h3&gt;&lt;u&gt;Charta:&lt;/u&gt;&lt;/h3&gt;&lt;basefont color=&quot;#333333&quot;&gt;&lt;br&gt;This guild has not defined a charta yet.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You decide not to show your guildsign any longer.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You decide to show your guildsign from now on.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have resigned from your guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have resigned from your position as the leader of this guild.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You need to be the leader of this guild or a gamemaster to disband it.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This guildstone is abandoned.</source>
+        <comment>C:/Wolfpack/scripts/guilds/stone.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You renamed the key to &apos;%s&apos;</source>
+        <comment>../scripts/key.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Changing lock of key 0x%x from &apos;%s&apos; to &apos;%s&apos;.
+</source>
+        <comment>../scripts/key.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unlocks: </source>
+        <comment>../scripts/key.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Lock: </source>
+        <comment>../scripts/key.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This key is blank</source>
+        <comment>../scripts/key.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>This key now unlocks: </source>
+        <comment>../scripts/key.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You erase the lock information from the key.</source>
+        <comment>../scripts/key.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;basefont color=&quot;#FECECE&quot;&gt;&lt;h3&gt;Manage Key&lt;/h3&gt;&lt;br&gt;&lt;basefont color=&quot;#FEFEFE&quot;&gt;This dialog will help you to manage or rename this key.</source>
+        <comment>../scripts/key.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;basefont color=&quot;#FECECE&quot;&gt;&lt;h3&gt;Manage Key&lt;/h3&gt;&lt;br&gt;&lt;basefont color=&quot;#FEFEFE&quot;&gt;This dialog will help you to rename this key.</source>
+        <comment>../scripts/key.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The name of this key:</source>
+        <comment>../scripts/key.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The lock id of this key:</source>
+        <comment>../scripts/key.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modify key</source>
+        <comment>../scripts/key.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <comment>../scripts/key.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Accessed locked object 0x%x.
+</source>
+        <comment>../scripts/lock.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Accessed locked door 0x%x using key 0x%x.
+</source>
+        <comment>../scripts/lock.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;basefont color=&quot;#FECECE&quot;&gt;&lt;h3&gt;Manage Lock&lt;/h3&gt;&lt;br&gt;&lt;basefont color=&quot;#FEFEFE&quot;&gt;This dialog will help you to manage the lock and status of this item.</source>
+        <comment>../scripts/lock.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>The id for this lock:</source>
+        <comment>../scripts/lock.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Locked</source>
+        <comment>../scripts/lock.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Modify lock</source>
+        <comment>../scripts/lock.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <comment>../scripts/lock.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Remove lock</source>
+        <comment>../scripts/lock.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create key</source>
+        <comment>../scripts/lock.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>&lt;basefont color=&quot;#FECECE&quot;&gt;&lt;h3&gt;Add Lock&lt;/h3&gt;&lt;br&gt;&lt;basefont color=&quot;#FEFEFE&quot;&gt;This dialog will help you to add a lock to this item.Please enter a unique identifier for this lock. The lock has to share the same identifier with any key that is supposed to fit.</source>
+        <comment>../scripts/lock.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Please enter an id for this lock:</source>
+        <comment>../scripts/lock.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Create a key in my backpack</source>
+        <comment>../scripts/lock.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Add lock</source>
+        <comment>../scripts/lock.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Alas you don&apos;t have any money in your bank.</source>
+        <comment>C:/Wolfpack/scripts/speech/banker.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>You have %i gold in your bank.</source>
+        <comment>C:/Wolfpack/scripts/speech/banker.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Here is your bank box, %s.</source>
+        <comment>C:/Wolfpack/scripts/speech/banker.py</comment>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>AbstractAI</name>
     <message>
         <source>You can&apos;t have pets attack in town!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Sorry, not implemented yet :(</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -347,50 +1424,18 @@ This is an unsorted and not neccesarily complete list of people who contributed 
 <context>
     <name>Human_Stablemaster</name>
     <message>
-        <source>STABLEMASTER</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> STABLE</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Which pet do you want me to stable?</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> RELEASE</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Here&apos;s your pet back!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>I cannot stable that!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>This does not belong to you!</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>petitem: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Say release to get your pet back!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>Human_Vendor</name>
+</context>
+<context>
+    <name>ScriptAI</name>
     <message>
-        <source> BUY</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source> SELL</source>
+        <source>Action tag in ai definition must contain attributes for pre-,postcondition and execute at least
+</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -422,6 +1467,311 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
 </context>
 <context>
+    <name>Vendor Female Titles</name>
+    <message>
+        <source>the Alchemist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Architect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Armorer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Artist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Baker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Banker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Hairstylist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Bard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Blacksmith</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Bowyer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the butcher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Carpenter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Cobbler</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Cook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Fisherlady</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Healer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Herbalist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Innkeeper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Jeweler</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Leatherworker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Mage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Provisioner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Shipwright</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Spinner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Stablemaster</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Tailor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Tanner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Tavernkeeper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Tinker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Veterinarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Weaponsmith</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Weaver</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Vendor Male Titles</name>
+    <message>
+        <source>the Alchemist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Architect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Armorer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Artist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Baker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Banker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Hairstylist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Bard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Blacksmith</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Bowyer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the butcher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Carpenter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Cobbler</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Cook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Fisherman</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Healer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Herbalist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Innkeeper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Jeweler</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Leatherworker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Mage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Provisioner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Shipwright</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Spinner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Stablemaster</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Tailor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Tanner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Tavernkeeper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Tinker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Veterinarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Weaponsmith</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Weaver</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cAccounts</name>
+    <message>
+        <source>Unknown Account Database Driver &apos;%1&apos;, check your wolfpack.xml</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Accounts database didn&apos;t exist! Creating one
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Created default admin account: Login = admin, Password = admin
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error while saving Accounts: %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown error while saving Accounts.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Hashed account password for &apos;%1&apos;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Account &apos;%1&apos; has an unhashed password.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Error while loading Accounts: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unknown error while loading Accounts</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>cBaseChar</name>
     <message>
         <source>Your pet is in battle right now!</source>
@@ -445,6 +1795,11 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>*You see %1 attacking you.*</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Trying to put item 0x%1 on layer %2 which is already occupied.
+</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -546,6 +1901,14 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>Better do not try that!</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cMulti</name>
+    <message>
+        <source>Unable to create unscripted item: %1
+</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -821,6 +2184,67 @@ This is an unsorted and not neccesarily complete list of people who contributed 
         <source>Reloading %1</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>maps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>sectormaps</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>tiledata</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>multis</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>definitions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>scripts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>contextmenus</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>spawnregions</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>territories</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>accounts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>world</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>network</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>cServerThread</name>
+    <message>
+        <source>
+The server has been shut down. You can close this window now.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>cSetTagTarget</name>
@@ -949,7 +2373,103 @@ This is an unsorted and not neccesarily complete list of people who contributed 
 <context>
     <name>cSpawnRegion</name>
     <message>
-        <source>A problem has occured in spawnregion %1. Couldn&apos;t find valid spot.</source>
+        <source>Active spawnregion &apos;%1&apos; has been flagged inactive because its incomplete.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spawnregion &apos;%1&apos; has a npc tag with an invalid frequency attribute &apos;%2&apos;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spawnregion &apos;%1&apos; has an item tag with an invalid frequency attribute &apos;%2&apos;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spawnregion &apos;%1&apos; has a rectangle with an invalid from attribute &apos;%2&apos;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spawnregion &apos;%1&apos; has a rectangle with an invalid map attribute &apos;%2&apos;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ignoring rectangle with unknown map %1 for spawnregion &apos;%2&apos;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spawnregion &apos;%1&apos; has a rectangle with an invalid z attribute &apos;%2&apos;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spawnregion &apos;%1&apos; has a point with an invalid pos attribute &apos;%2&apos;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spawnregion &apos;%1&apos; has a circle with an invalid center attribute &apos;%2&apos;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spawnregion &apos;%1&apos; has a circle with an invalid map attribute &apos;%2&apos;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spawnregion &apos;%1&apos; has a circle with an invalid radius attribute &apos;%2&apos;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Ignoring circle with unknown map %1 for spawnregion &apos;%2&apos;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spawnregion &apos;%1&apos; has a circle with an invalid z attribute &apos;%2&apos;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Spawnregion &apos;%1&apos; is inheriting from unknown spawnregion &apos;%2&apos;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to find a valid npc definition for spawnregion &apos;%1&apos;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Npc tag for spawnregion &apos;%1&apos; lacks id attribute.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Npc tag for spawnregion &apos;%1&apos; has invalid id attribute &apos;%2&apos;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unable to find a valid item definition for spawnregion &apos;%1&apos;.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Item tag for spawnregion &apos;%1&apos; lacks id attribute.
+</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Item tag for spawnregion &apos;%1&apos; has invalid id attribute &apos;%2&apos;.
+</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -971,18 +2491,6 @@ This is an unsorted and not neccesarily complete list of people who contributed 
         <source>Items: %1 of %2</source>
         <translation type="unfinished"></translation>
     </message>
-    <message>
-        <source>Coordinates: %1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Rectangle %1: %2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Page %1 of %2</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>cTerritories</name>
@@ -1000,6 +2508,14 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>You are now under the protection of %1 guards.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t find source region for teleporter at %1.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Couldn&apos;t find destination region for two-way teleporter at %1.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1134,10 +2650,6 @@ This is an unsorted and not neccesarily complete list of people who contributed 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>Unexpected button input</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>You can only change your own profile</source>
         <translation type="unfinished"></translation>
     </message>
@@ -1195,6 +2707,10 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>You can&apos;t think of a way to use that item.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Unexpected button input.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
