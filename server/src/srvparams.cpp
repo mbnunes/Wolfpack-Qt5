@@ -221,7 +221,7 @@ void cSrvParams::readData()
 
 	// Network
 	loginPort_				= getNumber( "Network",		"Loginserver Port", 2593, true );
-	gamePort_               = getNumber( "Network",		"Gameserver Port", 2594, true );
+	gamePort_               = getNumber( "Network",		"Gameserver Port", 2592, true );
 	enableLogin_			= getBool( "Network",		"Enable Loginserver", true, true );
 	enableGame_				= getBool( "Network",		"Enable Gameserver", true, true );
 

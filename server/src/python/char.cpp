@@ -1333,25 +1333,39 @@ PyObject* wpChar_updateflags( wpChar* self, PyObject* args )
 PyObject* wpChar_canreach( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
-	if( !self->pChar || self->pChar->free || !checkArgObject( 0 ) || !checkArgInt( 1 ) )
+	if( !self->pChar || self->pChar->free || ( !checkArgObject( 0 ) && !checkArgCoord( 0 ) ) || !checkArgInt( 1 ) )
 		return PyFalse;
 
-	cUObject *obj = getArgChar( 0 );
-	if( !obj )
-		obj = getArgItem( 1 );
+	Coord_cl pos;
 
-	if( !obj )
-		return PyFalse;
+	// Parameter 1: Coordinate
+	if( checkArgCoord( 0 ) )
+	{
+		pos = getArgCoord( 0 );
+	}
+	// Parameter1: Item/Char
+	else
+	{
+		cUObject *obj = getArgChar( 0 );
+
+		if( !obj )
+			obj = getArgItem( 0 );
+	
+		if( !obj )
+			return PyFalse;
+
+		pos = obj->pos();
+	}
 
 	UINT32 range = getArgInt( 1 );
 
-	if( self->pChar->pos().map != obj->pos().map )
+	if( self->pChar->pos().map != pos.map )
 		return PyFalse;
 
-	if( self->pChar->pos().distance( obj->pos() ) > range )
+	if( self->pChar->pos().distance( pos ) > range )
 		return PyFalse;
 
-	if( !lineOfSight( self->pChar->pos(), obj->pos(), TREES_BUSHES|DOORS|ROOFING_SLANTED|FLOORS_FLAT_ROOFING|LAVA_WATER ) )
+	if( !lineOfSight( self->pChar->pos(), pos, TREES_BUSHES|DOORS|ROOFING_SLANTED|FLOORS_FLAT_ROOFING|LAVA_WATER ) )
 		return PyFalse;
 
 	return PyTrue;

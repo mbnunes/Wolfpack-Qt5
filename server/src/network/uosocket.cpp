@@ -94,7 +94,7 @@ cUOSocket::cUOSocket( QSocketDevice *sDevice ):
 		targetRequest(0), _account(0), _player(0), _rxBytes(0), _txBytes(0), _socket( sDevice )
 {
 	_socket->resetStatus();
-	_ip = _socket->peerAddress().toString()
+	_ip = _socket->peerAddress().toString();
 }
 
 /*!

@@ -1320,7 +1320,12 @@ int main( int argc, char *argv[] )
 	cNetwork::startup();
 	clConsole.ProgressDone();
 	CIAO_IF_ERROR;
-	clConsole.send( tr( "Wolfpack running on port %1\n" ).arg( SrvParams->port() ) );
+
+	if( SrvParams->enableLogin() )
+        clConsole.send( QString( "LoginServer running on port %1\n" ).arg( SrvParams->loginPort() ) );
+
+	if( SrvParams->enableGame() )
+        clConsole.send( QString( "GameServer running on port %1\n" ).arg( SrvParams->gamePort() ) );
 
 	PyThreadState *_save;
 
