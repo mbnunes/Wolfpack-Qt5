@@ -29,6 +29,7 @@ unix {
 	{
 	    INCLUDEPATH += $$(MYSQLINC)
 		DEFINES += MYSQL_DRIVER
+		LIBS += -lmysqlclient
 	}
 
 	contains( OPTIONS, mysql ) {
