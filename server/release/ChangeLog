@@ -66,6 +66,9 @@ Wolfpack 12.9.13 Beta (CVS)
   - Using skills no longer unhides by default, unhide moved to python.
   - Further xml suppport for lists: <color list="COLORS_MISC" />
     Only some xml tags can work properly with this.
+  - Fixed a nasty bug in the map sector code which caused objects not to be in the map objects when moved
+    between maps.
+  - Fixed a walking bug that caused monsters to walk trough certain objects.
  * Definition Changes:
   - Added the mage AI to most creatures.
   - Adjusted carving sheeps.
