@@ -99,7 +99,7 @@ def callbackWho( char, args, choice ):
 		gump.addText( 50, 100, unicode( "Position:" ), 0x834 )
 		gump.addText( 250, 100, unicode( "%i,%i,%i,%i" % ( pos.x, pos.y, pos.z, pos.map ) ), 0x834 )
 		gump.addText( 50, 120, unicode( "Region:" ), 0x834 )
-		gump.addText( 250, 120, unicode( "%s" % player.region ), 0x834 )
+		gump.addText( 250, 120, unicode( "%s" % unicode(player.region) ), 0x834 )
 		gump.addText( 50, 140, unicode( "Account / ACL:" ), 0x834 )
 		gump.addText( 250, 140, unicode( "%s / %s" % ( account.name, account.acl) ), 0x834 )
 		# Actions
