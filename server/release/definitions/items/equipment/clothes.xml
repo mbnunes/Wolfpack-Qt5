@@ -17,6 +17,7 @@
 	</item>
 
 	<item id="2306" inherit="2305">
+		<baseid>2305</baseid>
 		<id>0x2306</id>
 		<category>Clothes\Accessories\Flower Garland (W/E)</category>
 	</item>
@@ -30,6 +31,7 @@
 	</item>
 
 	<item id="230e" inherit="230d">
+		<baseid>230d</baseid>
 		<id>0x230e</id>
 		<category>Clothes\Torso\Gilded Dress (N/S)</category>
 	</item>
@@ -43,6 +45,7 @@
 	</item>
 
 	<item id="230a" inherit="2309">
+		<baseid>2309</baseid>
 		<id>0x230a</id>
 		<category>Clothes\Accessories\Fur Cape (N/S)</category>
 	</item>
@@ -56,6 +59,7 @@
 	</item>
 
 	<item id="230c" inherit="230b">
+		<baseid>230b</baseid>
 		<id>0x230c</id>
 		<category>Clothes\Accessories\Fur Sarong (N/S)</category>
 	</item>
@@ -69,6 +73,7 @@
 	</item>
 
 	<item id="2310" inherit="230f">
+		<baseid>230f</baseid>
 		<id>0x2310</id>
 		<category>Clothes\Accessories\Formal Shirt (N/S)</category>
 	</item>
@@ -87,6 +92,7 @@
 
 	<!-- Cloak w/e-->
 	<item id="1530" inherit="1515">
+		<baseid>1515</baseid>
 		<category>Clothes\Accessories\Cloak (W/E)</category>
 		<id>0x1530</id>
 	</item>
@@ -101,8 +107,21 @@
 		<events>equipment</events>
 	</item>
 
+	<!-- Skirt w/e -->
+	<item id="1531">
+		<category>Clothes\Legs\Skirt (W/E)</category>
+		<id>0x1531</id>
+		<dye />
+		<color><random list="COLORS_RANDOM" /></color>
+		<buyprice>33</buyprice>
+		<sellprice>16</sellprice>
+		<weight>4.0</weight>
+		<events>equipment</events>
+	</item>
+
 	<!-- Skirt n/s -->
 	<item id="1516" inherit="1531">
+		<baseid>1531</baseid>
 		<category>Clothes\Legs\Skirt (N/S)</category>
 		<id>0x1516</id>
 	</item>
@@ -121,6 +140,7 @@
 
 	<!-- Plain Shirt w/e -->
 	<item id="1518" inherit="1517">
+		<baseid>1517</baseid>
 		<category>Clothes\Torso\Plain Shirt (W/E)</category>
 		<id>0x1518</id>
 	</item>
@@ -139,20 +159,9 @@
 
 	<!-- Short Pants w/e -->
 	<item id="152f" inherit="152e">
+		<baseid>152e</baseid>
 		<category>Clothes\Legs\Short Pants (W/E)</category>
 		<id>0x152f</id>
-	</item>
-
-	<!-- Skirt w/e -->
-	<item id="1531">
-		<category>Clothes\Legs\Skirt (W/E)</category>
-		<id>0x1531</id>
-		<dye />
-		<color><random list="COLORS_RANDOM" /></color>
-		<buyprice>33</buyprice>
-		<sellprice>16</sellprice>
-		<weight>4.0</weight>
-		<events>equipment</events>
 	</item>
 
 	<!-- Gold Belt n/s -->
@@ -164,7 +173,8 @@
 
 	<!-- Gold Belt w/e -->
 	<!-- Can't be equipped -->
-	<item id="1536">
+	<item id="1536" inherit="1535">
+		<baseid>1535</baseid>
 		<category>Clothes\Accessories\Gold Belt (N/S)</category>
 		<id>0x1536</id>
 	</item>
@@ -183,6 +193,7 @@
 
 	<!-- Kilt w/e -->
 	<item id="1538" inherit="1537">
+		<baseid>1537</baseid>
 		<category>Clothes\Legs\Kilt (W/E)</category>
 		<id>0x1538</id>
 	</item>
@@ -201,6 +212,7 @@
 
 	<!-- Long Pants w/e -->
 	<item id="153a" inherit="1539">
+		<baseid>1539</baseid>
 		<category>Clothes\Legs\Long Pants (W/E)</category>
 		<id>0x153a</id>
 	</item>
@@ -218,6 +230,7 @@
 
 	<!-- Half Apron w/e -->
 	<item id="153c" inherit="153b">
+		<baseid>153b</baseid>
 		<category>Clothes\Accessories\Half Apron (W/E)</category>
 		<id>0x153c</id>
 	</item>
@@ -235,6 +248,7 @@
 
 	<!-- Full Apron w/e -->
 	<item id="153e" inherit="153d">
+		<baseid>153d</baseid>
 		<category>Clothes\Accessories\Full Apron (W/E)</category>
 		<id>0x153e</id>
 	</item>
@@ -250,6 +264,7 @@
 
 	<!-- Body Sash w/e -->
 	<item id="1542" inherit="1541">
+		<baseid>1541</baseid>
 		<category>Clothes\Accessories\Body Sash (W/E)</category>
 		<id>0x1542</id>
 	</item>
@@ -363,6 +378,7 @@
 
 	<!-- Boots w/e -->
 	<item id="170c" inherit="170b">
+		<baseid>170b</baseid>
 		<category>Clothes\Footwear\Boots (W/E)</category>
 		<id>0x170c</id>
 	</item>
@@ -379,6 +395,7 @@
 
 	<!-- Sandals w/e -->
 	<item id="170e" inherit="170d">
+		<baseid>170d</baseid>
 		<category>Clothes\Footwear\Sandals (W/E)</category>
 		<id>0x170e</id>
 	</item>
@@ -391,7 +408,8 @@
 		<events>equipment</events>
 	</item>
 
-  <item id="2308" inherit="2307">
+	<item id="2308" inherit="2307">
+		<baseid>2307</baseid>
 		<category>Clothes\Footwear\Fur Boots (N/S)</category>
 		<id>0x2308</id>
   </item>
@@ -409,6 +427,7 @@
 
 	<!-- Shoes (w/e)-->
 	<item id="1710" inherit="170f">
+		<baseid>170f</baseid>
 		<category>Clothes\Footwear\Shoes (W/E)</category>
 		<id>0x1710</id>
 	</item>
@@ -426,6 +445,7 @@
 
 	<!-- Thigh Boots (w/e) -->
 	<item id="1712" inherit="1711">
+		<baseid>1711</baseid>
 		<category>Clothes\Footwear\Thigh Boots (W/E)</category>
 		<id>0x1712</id>
 	</item>
@@ -444,6 +464,7 @@
 
 	<!-- Fancy Shirt w/e -->
 	<item id="1efe" inherit="1efd">
+		<baseid>1efd</baseid>
 		<category>Clothes\Torso\Fancy Shirt (W/E)</category>
 		<id>0x1efe</id>
 	</item>
@@ -462,6 +483,7 @@
 
 	<!-- Fancy Dress n/s -->
 	<item id="1f00" inherit="1eff">
+		<baseid>1eff</baseid>
 		<category>Clothes\Torso\Fancy Dress (N/S)</category>
 		<id>0x1f00</id>
 	</item>
@@ -480,6 +502,7 @@
 
 	<!-- Plain Dress w/e -->
 	<item id="1f02" inherit="1f01">
+		<baseid>1f01</baseid>
 		<category>Clothes\Torso\Plain Dress (W/E)</category>
 		<id>0x1f02</id>
 	</item>
@@ -498,6 +521,7 @@
 
 	<!-- Robe w/e -->
 	<item id="1f04" inherit="1f03">
+		<baseid>1f03</baseid>
 		<category>Clothes\Torso\Robe (W/E)</category>
 		<id>0x1f04</id>
 	</item>
@@ -515,6 +539,7 @@
 
 	<!-- Jester Suit w/e -->
 	<item id="1fa0" inherit="1f9f">
+		<baseid>1f9f</baseid>
 		<category>Clothes\Torso\Jester Suit (W/E)</category>
 		<id>0x1fa0</id>
 	</item>
@@ -533,6 +558,7 @@
 
 	<!-- Tunic w/e -->
 	<item id="1fa2" inherit="1fa1">
+		<baseid>1fa1</baseid>
 		<category>Clothes\Torso\Tunic (W/E)</category>
 		<id>0x1fa2</id>
 	</item>
@@ -550,7 +576,8 @@
 	</item>
 
 	<!-- Doublet w/e -->
-	<item id="1f7c" inherit="1f7c">
+	<item id="1f7c" inherit="1f7b">
+		<baseid>1f7c</baseid>
 		<category>Clothes\Torso\Doublet (W/E)</category>
 		<id>0x1f7c</id>
 	</item>
@@ -566,6 +593,7 @@
 
 	<!-- Surcoat w/e -->
 	<item id="1ffe" inherit="1ffd">
+		<baseid>1ffd</baseid>
 		<category>Clothes\Torso\Surcoat (W/E)</category>
 		<id>0x1ffe</id>
 	</item>
@@ -574,30 +602,35 @@
 	<item id="2042">
 		<category>Clothes\Special\Lord British</category>
 		<id>0x2042</id>
+		<newbie />
 	</item>
 
 	<!-- Lord Blackthorne -->
 	<item id="2043">
 		<category>Clothes\Special\Lord Blackthorne</category>
 		<id>0x2043</id>
+		<newbie />
 	</item>
 
 	<!-- Death Shroud -->
 	<item id="204e">
 		<category>Clothes\Special\Death Shroud</category>
 		<id>0x204e</id>
+		<newbie />
 	</item>
 
 	<!-- GM Robe -->
 	<item id="204f">
 		<category>Clothes\Special\GM Robe</category>
 		<id>0x204f</id>
+		<newbie />
 	</item>
 
 	 <!-- Dupre -->
 	<item id="2050">
 		<category>Clothes\Special\Dupre</category>
 		<id>0x2050</id>
+		<newbie />
 	</item>
 
 </definitions>
