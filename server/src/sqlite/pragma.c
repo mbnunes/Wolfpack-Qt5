@@ -11,7 +11,7 @@
 *************************************************************************
 ** This file contains code used to implement the PRAGMA command.
 **
-** $Id: pragma.c,v 1.2 2003/12/18 13:20:23 thiagocorrea Exp $
+** $Id: pragma.c,v 1.3 2004/02/24 16:47:25 thiagocorrea Exp $
 */
 #include "sqliteInt.h"
 #include <ctype.h>
@@ -34,7 +34,8 @@ static int getBoolean(char *z){
 
 /*
 ** Interpret the given string as a safety level.  Return 0 for OFF,
-** 1 for ON or NORMAL and 2 for FULL.
+** 1 for ON or NORMAL and 2 for FULL.  Return 1 for an empty or 
+** unrecognized string argument.
 **
 ** Note that the values returned are one less that the values that
 ** should be passed into sqliteBtreeSetSafetyLevel().  The is done

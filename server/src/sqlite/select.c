@@ -12,7 +12,7 @@
 ** This file contains C code routines that are called by the parser
 ** to handle SELECT statements in SQLite.
 **
-** $Id: select.c,v 1.2 2003/12/18 13:20:24 thiagocorrea Exp $
+** $Id: select.c,v 1.3 2004/02/24 16:47:25 thiagocorrea Exp $
 */
 #include "sqliteInt.h"
 
@@ -42,6 +42,9 @@ Select *sqliteSelectNew(
     sqliteExprDelete(pHaving);
     sqliteExprListDelete(pOrderBy);
   }else{
+    if( pEList==0 ){
+      pEList = sqliteExprListAppend(0, sqliteExpr(TK_ALL,0,0,0), 0);
+    }
     pNew->pEList = pEList;
     pNew->pSrc = pSrc;
     pNew->pWhere = pWhere;
@@ -479,16 +482,19 @@ static int selectInnerLoop(
     ** item into the set table with bogus data.
     */
     case SRT_Set: {
-      int lbl = sqliteVdbeMakeLabel(v);
+      int addr1 = sqliteVdbeCurrentAddr(v);
+      int addr2;
       assert( nColumn==1 );
-      sqliteVdbeAddOp(v, OP_IsNull, -1, lbl);
+      sqliteVdbeAddOp(v, OP_NotNull, -1, addr1+3);
+      sqliteVdbeAddOp(v, OP_Pop, 1, 0);
+      addr2 = sqliteVdbeAddOp(v, OP_Goto, 0, 0);
       if( pOrderBy ){
         pushOntoSorter(pParse, v, pOrderBy);
       }else{
         sqliteVdbeAddOp(v, OP_String, 0, 0);
         sqliteVdbeAddOp(v, OP_PutStrKey, iParm, 0);
       }
-      sqliteVdbeResolveLabel(v, lbl);
+      sqliteVdbeChangeP2(v, addr2, sqliteVdbeCurrentAddr(v));
       break;
     }
 
@@ -588,7 +594,9 @@ static void generateSortTail(
     }
     case SRT_Set: {
       assert( nColumn==1 );
-      sqliteVdbeAddOp(v, OP_IsNull, -1, sqliteVdbeCurrentAddr(v)+3);
+      sqliteVdbeAddOp(v, OP_NotNull, -1, sqliteVdbeCurrentAddr(v)+3);
+      sqliteVdbeAddOp(v, OP_Pop, 1, 0);
+      sqliteVdbeAddOp(v, OP_Goto, 0, sqliteVdbeCurrentAddr(v)+3);
       sqliteVdbeAddOp(v, OP_String, 0, 0);
       sqliteVdbeAddOp(v, OP_PutStrKey, iParm, 0);
       break;
@@ -772,8 +780,9 @@ static int fillInColumnList(Parse*, Select*);
 */
 Table *sqliteResultSetOfSelect(Parse *pParse, char *zTabName, Select *pSelect){
   Table *pTab;
-  int i;
+  int i, j;
   ExprList *pEList;
+  Column *aCol;
 
   if( fillInColumnList(pParse, pSelect) ){
     return 0;
@@ -786,17 +795,27 @@ Table *sqliteResultSetOfSelect(Parse *pParse, char *zTabName, Select *pSelect){
   pEList = pSelect->pEList;
   pTab->nCol = pEList->nExpr;
   assert( pTab->nCol>0 );
-  pTab->aCol = sqliteMalloc( sizeof(pTab->aCol[0])*pTab->nCol );
+  pTab->aCol = aCol = sqliteMalloc( sizeof(pTab->aCol[0])*pTab->nCol );
   for(i=0; i<pTab->nCol; i++){
-    Expr *p;
+    Expr *p, *pR;
     if( pEList->a[i].zName ){
-      pTab->aCol[i].zName = sqliteStrDup(pEList->a[i].zName);
-    }else if( (p=pEList->a[i].pExpr)->span.z && p->span.z[0] ){
+      aCol[i].zName = sqliteStrDup(pEList->a[i].zName);
+    }else if( (p=pEList->a[i].pExpr)->op==TK_DOT 
+               && (pR=p->pRight)!=0 && pR->token.z && pR->token.z[0] ){
+      int cnt;
+      sqliteSetNString(&aCol[i].zName, pR->token.z, pR->token.n, 0);
+      for(j=cnt=0; j<i; j++){
+        if( sqliteStrICmp(aCol[j].zName, aCol[i].zName)==0 ){
+          int n;
+          char zBuf[30];
+          sprintf(zBuf,"_%d",++cnt);
+          n = strlen(zBuf);
+          sqliteSetNString(&aCol[i].zName, pR->token.z, pR->token.n, zBuf, n,0);
+          j = -1;
+        }
+      }
+    }else if( p->span.z && p->span.z[0] ){
       sqliteSetNString(&pTab->aCol[i].zName, p->span.z, p->span.n, 0);
-    }else if( p->op==TK_DOT && p->pRight && p->pRight->token.z &&
-           p->pRight->token.z[0] ){
-      sqliteSetNString(&pTab->aCol[i].zName, 
-           p->pRight->token.z, p->pRight->token.n, 0);
     }else{
       char zBuf[30];
       sprintf(zBuf, "column%d", i+1);
@@ -1257,7 +1276,7 @@ static void computeLimitRegisters(Parse *pParse, Select *p){
 **      |
 **      `----->  SELECT b FROM t2
 **                |
-**                `------>  SELECT c FROM t1
+**                `------>  SELECT a FROM t1
 **
 ** The arrows in the diagram above represent the Select.pPrior pointer.
 ** So if this routine is called with p equal to the t3 query, then
@@ -1881,6 +1900,12 @@ static int simpleMinMaxQuery(Parse *pParse, Select *p, int eDest, int iParm){
     generateColumnTypes(pParse, p->pSrc, p->pEList);
   }
 
+  /* If the output is destined for a temporary table, open that table.
+  */
+  if( eDest==SRT_TempTable ){
+    sqliteVdbeAddOp(v, OP_OpenTemp, iParm, 0);
+  }
+
   /* Generating code to find the min or the max.  Basically all we have
   ** to do is find the first or the last entry in the chosen index.  If
   ** the min() or max() is on the INTEGER PRIMARY KEY, then find the first
@@ -1930,7 +1955,7 @@ static int simpleMinMaxQuery(Parse *pParse, Select *p, int eDest, int iParm){
 **
 **     SRT_Union       Store results as a key in a temporary table iParm
 **
-**     SRT_Except      Remove results form the temporary table iParm.
+**     SRT_Except      Remove results from the temporary table iParm.
 **
 **     SRT_Table       Store results in temporary table iParm
 **

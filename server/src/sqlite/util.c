@@ -14,7 +14,7 @@
 ** This file contains functions for allocating memory, comparing
 ** strings, and stuff like that.
 **
-** $Id: util.c,v 1.2 2003/12/18 13:20:24 thiagocorrea Exp $
+** $Id: util.c,v 1.3 2004/02/24 16:47:25 thiagocorrea Exp $
 */
 #include "sqliteInt.h"
 #include <stdarg.h>
@@ -252,7 +252,7 @@ char *sqliteStrNDup_(const char *z, int n, char *zFile, int line){
 void *sqliteMalloc(int n){
   void *p;
   if( (p = malloc(n))==0 ){
-    sqlite_malloc_failed++;
+    if( n>0 ) sqlite_malloc_failed++;
   }else{
     memset(p, 0, n);
   }
@@ -266,7 +266,7 @@ void *sqliteMalloc(int n){
 void *sqliteMallocRaw(int n){
   void *p;
   if( (p = malloc(n))==0 ){
-    sqlite_malloc_failed++;
+    if( n>0 ) sqlite_malloc_failed++;
   }
   return p;
 }
@@ -650,6 +650,87 @@ int sqliteIsNumber(const char *z){
   return *z==0;
 }
 
+/*
+** The string z[] is an ascii representation of a real number.
+** Convert this string to a double.
+**
+** This routine assumes that z[] really is a valid number.  If it
+** is not, the result is undefined.
+**
+** This routine is used instead of the library atof() function because
+** the library atof() might want to use "," as the decimal point instead
+** of "." depending on how locale is set.  But that would cause problems
+** for SQL.  So this routine always uses "." regardless of locale.
+*/
+double sqliteAtoF(const char *z){
+  int sign = 1;
+  LONGDOUBLE_TYPE v1 = 0.0;
+  if( *z=='-' ){
+    sign = -1;
+    z++;
+  }else if( *z=='+' ){
+    z++;
+  }
+  while( isdigit(*z) ){
+    v1 = v1*10.0 + (*z - '0');
+    z++;
+  }
+  if( *z=='.' ){
+    LONGDOUBLE_TYPE divisor = 1.0;
+    z++;
+    while( isdigit(*z) ){
+      v1 = v1*10.0 + (*z - '0');
+      divisor *= 10.0;
+      z++;
+    }
+    v1 /= divisor;
+  }
+  if( *z=='e' || *z=='E' ){
+    int esign = 1;
+    int eval = 0;
+    LONGDOUBLE_TYPE scale = 1.0;
+    z++;
+    if( *z=='-' ){
+      esign = -1;
+      z++;
+    }else if( *z=='+' ){
+      z++;
+    }
+    while( isdigit(*z) ){
+      eval = eval*10 + *z - '0';
+      z++;
+    }
+    while( eval>=64 ){ scale *= 1.0e+64; eval -= 64; }
+    while( eval>=16 ){ scale *= 1.0e+16; eval -= 16; }
+    while( eval>=4 ){ scale *= 1.0e+4; eval -= 4; }
+    while( eval>=1 ){ scale *= 1.0e+1; eval -= 1; }
+    if( esign<0 ){
+      v1 /= scale;
+    }else{
+      v1 *= scale;
+    }
+  }
+  return sign<0 ? -v1 : v1;
+}
+
+/*
+** The string zNum represents an integer.  There might be some other
+** information following the integer too, but that part is ignored.
+** If the integer that the prefix of zNum represents will fit in a
+** 32-bit signed integer, return TRUE.  Otherwise return FALSE.
+**
+** This routine returns FALSE for the string -2147483648 even that
+** that number will, in theory fit in a 32-bit integer.  But positive
+** 2147483648 will not fit in 32 bits.  So it seems safer to return
+** false.
+*/
+int sqliteFitsIn32Bits(const char *zNum){
+  int i, c;
+  if( *zNum=='-' || *zNum=='+' ) zNum++;
+  for(i=0; (c=zNum[i])>='0' && c<='9'; i++){}
+  return i<10 || (i==10 && memcmp(zNum,"2147483647",10)<=0);
+}
+
 /* This comparison routine is what we use for comparison operations
 ** between numeric values in an SQL expression.  "Numeric" is a little
 ** bit misleading here.  What we mean is that the strings have a
@@ -678,8 +759,8 @@ int sqliteCompare(const char *atext, const char *btext){
       result = -1;
     }else{
       double rA, rB;
-      rA = atof(atext);
-      rB = atof(btext);
+      rA = sqliteAtoF(atext);
+      rB = sqliteAtoF(btext);
       if( rA<rB ){
         result = -1;
       }else if( rA>rB ){
@@ -771,8 +852,8 @@ int sqliteSortCompare(const char *a, const char *b){
           res = -1;
           break;
         }
-        rA = atof(&a[1]);
-        rB = atof(&b[1]);
+        rA = sqliteAtoF(&a[1]);
+        rB = sqliteAtoF(&b[1]);
         if( rA<rB ){
           res = -1;
           break;

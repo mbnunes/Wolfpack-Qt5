@@ -16,7 +16,7 @@
 ** sqliteRegisterBuildinFunctions() found at the bottom of the file.
 ** All other code has file scope.
 **
-** $Id: func.c,v 1.2 2003/12/18 13:20:23 thiagocorrea Exp $
+** $Id: func.c,v 1.3 2004/02/24 16:47:25 thiagocorrea Exp $
 */
 #include <ctype.h>
 #include <math.h>
@@ -122,13 +122,11 @@ static void substrFunc(sqlite_func *context, int argc, const char **argv){
     p2 = len-p1;
   }
 #ifdef SQLITE_UTF8
-  for(i=0; i<p1; i++){
-    assert( z[i] );
+  for(i=0; i<p1 && z[i]; i++){
     if( (z[i]&0xc0)==0x80 ) p1++;
   }
   while( z[i] && (z[i]&0xc0)==0x80 ){ i++; p1++; }
-  for(; i<p1+p2; i++){
-    assert( z[i] );
+  for(; i<p1+p2 && z[i]; i++){
     if( (z[i]&0xc0)==0x80 ) p2++;
   }
   while( z[i] && (z[i]&0xc0)==0x80 ){ i++; p2++; }
@@ -149,7 +147,7 @@ static void roundFunc(sqlite_func *context, int argc, const char **argv){
   n = argc==2 ? atoi(argv[1]) : 0;
   if( n>30 ) n = 30;
   if( n<0 ) n = 0;
-  r = atof(argv[0]);
+  r = sqliteAtoF(argv[0]);
   sprintf(zBuf,"%.*f",n,r);
   sqlite_set_result_string(context, zBuf, -1);
 }
@@ -180,8 +178,8 @@ static void lowerFunc(sqlite_func *context, int argc, const char **argv){
 
 /*
 ** Implementation of the IFNULL(), NVL(), and COALESCE() functions.  
-** All three do the same thing.  They return the first argument
-** non-NULL argument.
+** All three do the same thing.  They return the first non-NULL
+** argument.
 */
 static void ifnullFunc(sqlite_func *context, int argc, const char **argv){
   int i;
@@ -360,7 +358,7 @@ static void randStr(sqlite_func *context, int argc, const char **argv){
   if( argc>=2 ){
     iMax = atoi(argv[1]);
     if( iMax<iMin ) iMax = iMin;
-    if( iMax>=sizeof(zBuf) ) iMax = sizeof(zBuf);
+    if( iMax>=sizeof(zBuf) ) iMax = sizeof(zBuf)-1;
   }else{
     iMax = 50;
   }
@@ -369,6 +367,7 @@ static void randStr(sqlite_func *context, int argc, const char **argv){
     r = sqliteRandomInteger() & 0x7fffffff;
     n += r%(iMax + 1 - iMin);
   }
+  assert( n<sizeof(zBuf) );
   r = 0;
   for(i=0; i<n; i++){
     r = (r + sqliteRandomByte())% (sizeof(zSrc)-1);
@@ -397,7 +396,7 @@ static void sumStep(sqlite_func *context, int argc, const char **argv){
   if( argc<1 ) return;
   p = sqlite_aggregate_context(context, sizeof(*p));
   if( p && argv[0] ){
-    p->sum += atof(argv[0]);
+    p->sum += sqliteAtoF(argv[0]);
     p->cnt++;
   }
 }
@@ -435,7 +434,7 @@ static void stdDevStep(sqlite_func *context, int argc, const char **argv){
   if( argc<1 ) return;
   p = sqlite_aggregate_context(context, sizeof(*p));
   if( p && argv[0] ){
-    x = atof(argv[0]);
+    x = sqliteAtoF(argv[0]);
     p->sum += x;
     p->sum2 += x*x;
     p->cnt++;
@@ -496,14 +495,16 @@ static void minStep(sqlite_func *context, int argc, const char **argv){
   if( p==0 || argc<1 || argv[0]==0 ) return;
   if( p->z==0 || sqliteCompare(argv[0],p->z)<0 ){
     int len;
-    if( p->z && p->z!=p->zBuf ){
+    if( !p->zBuf[0] ){
       sqliteFree(p->z);
     }
     len = strlen(argv[0]);
-    if( len < sizeof(p->zBuf) ){
-      p->z = p->zBuf;
+    if( len < sizeof(p->zBuf)-1 ){
+      p->z = &p->zBuf[1];
+      p->zBuf[0] = 1;
     }else{
       p->z = sqliteMalloc( len+1 );
+      p->zBuf[0] = 0;
       if( p->z==0 ) return;
     }
     strcpy(p->z, argv[0]);
@@ -515,14 +516,16 @@ static void maxStep(sqlite_func *context, int argc, const char **argv){
   if( p==0 || argc<1 || argv[0]==0 ) return;
   if( p->z==0 || sqliteCompare(argv[0],p->z)>0 ){
     int len;
-    if( p->z && p->z!=p->zBuf ){
+    if( !p->zBuf[0] ){
       sqliteFree(p->z);
     }
     len = strlen(argv[0]);
-    if( len < sizeof(p->zBuf) ){
-      p->z = p->zBuf;
+    if( len < sizeof(p->zBuf)-1 ){
+      p->z = &p->zBuf[1];
+      p->zBuf[0] = 1;
     }else{
       p->z = sqliteMalloc( len+1 );
+      p->zBuf[0] = 0;
       if( p->z==0 ) return;
     }
     strcpy(p->z, argv[0]);
@@ -534,7 +537,7 @@ static void minMaxFinalize(sqlite_func *context){
   if( p && p->z ){
     sqlite_set_result_string(context, p->z, strlen(p->z));
   }
-  if( p && p->z && p->z!=p->zBuf ){
+  if( p && !p->zBuf[0] ){
     sqliteFree(p->z);
   }
 }

@@ -23,7 +23,7 @@
 **     ROLLBACK
 **     PRAGMA
 **
-** $Id: build.c,v 1.2 2003/12/18 13:20:23 thiagocorrea Exp $
+** $Id: build.c,v 1.3 2004/02/24 16:47:25 thiagocorrea Exp $
 */
 #include "sqliteInt.h"
 #include <ctype.h>
@@ -240,7 +240,7 @@ void sqliteUnlinkAndDeleteIndex(sqlite *db, Index *pIndex){
 **
 ** If iDb<=0 then reset the internal schema tables for all database
 ** files.  If iDb>=2 then reset the internal schema for only the
-** single file indicates.
+** single file indicated.
 */
 void sqliteResetInternalSchema(sqlite *db, int iDb){
   HashElem *pElem;
@@ -1098,7 +1098,7 @@ void sqliteCreateView(
 /*
 ** The Table structure pTable is really a VIEW.  Fill in the names of
 ** the columns of the view in the pTable structure.  Return the number
-** of errors.  If an error is seen leave an error message in pPare->zErrMsg.
+** of errors.  If an error is seen leave an error message in pParse->zErrMsg.
 */
 int sqliteViewGetColumnNames(Parse *pParse, Table *pTable){
   ExprList *pEList;
@@ -1766,7 +1766,7 @@ void sqliteCreateIndex(
     sqliteVdbeAddOp(v, OP_String, 0, 0);
     sqliteVdbeChangeP3(v, -1, "index", P3_STATIC);
     sqliteVdbeAddOp(v, OP_String, 0, 0);
-    sqliteVdbeChangeP3(v, -1, pIndex->zName, P3_STATIC);
+    sqliteVdbeChangeP3(v, -1, pIndex->zName, strlen(pIndex->zName));
     sqliteVdbeAddOp(v, OP_String, 0, 0);
     sqliteVdbeChangeP3(v, -1, pTab->zName, P3_STATIC);
     addr = sqliteVdbeAddOp(v, OP_CreateIndex, 0, isTemp);

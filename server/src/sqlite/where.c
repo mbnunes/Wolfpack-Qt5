@@ -12,7 +12,7 @@
 ** This module contains C code that generates VDBE code used to process
 ** the WHERE clause of SQL statements.
 **
-** $Id: where.c,v 1.2 2003/12/18 13:20:24 thiagocorrea Exp $
+** $Id: where.c,v 1.3 2004/02/24 16:47:25 thiagocorrea Exp $
 */
 #include "sqliteInt.h"
 
@@ -764,7 +764,7 @@ WhereInfo *sqliteWhereBegin(
           ){
             if( pX->op==TK_EQ ){
               sqliteExprCode(pParse, pX->pRight);
-              /* aExpr[k].p = 0; // See ticket #461 */
+              aExpr[k].p = 0;
               break;
             }
             if( pX->op==TK_IN && nColumn==1 ){
@@ -781,7 +781,7 @@ WhereInfo *sqliteWhereBegin(
                 pLevel->inOp = OP_Next;
                 pLevel->inP1 = pX->iTable;
               }
-              /* aExpr[k].p = 0; // See ticket #461 */
+              aExpr[k].p = 0;
               break;
             }
           }
@@ -791,13 +791,16 @@ WhereInfo *sqliteWhereBegin(
              && aExpr[k].p->pRight->iColumn==pIdx->aiColumn[j]
           ){
             sqliteExprCode(pParse, aExpr[k].p->pLeft);
-            /* aExpr[k].p = 0; // See ticket #461 */
+            aExpr[k].p = 0;
             break;
           }
         }
       }
       pLevel->iMem = pParse->nMem++;
       cont = pLevel->cont = sqliteVdbeMakeLabel(v);
+      sqliteVdbeAddOp(v, OP_NotNull, -nColumn, sqliteVdbeCurrentAddr(v)+3);
+      sqliteVdbeAddOp(v, OP_Pop, nColumn, 0);
+      sqliteVdbeAddOp(v, OP_Goto, 0, brk);
       sqliteVdbeAddOp(v, OP_MakeKey, nColumn, 0);
       sqliteAddIdxKeyType(v, pIdx);
       if( nColumn==pIdx->nColumn || pLevel->bRev ){
@@ -815,16 +818,17 @@ WhereInfo *sqliteWhereBegin(
         sqliteVdbeAddOp(v, OP_MoveLt, pLevel->iCur, brk);
         start = sqliteVdbeAddOp(v, OP_MemLoad, pLevel->iMem, 0);
         sqliteVdbeAddOp(v, OP_IdxLT, pLevel->iCur, brk);
-        sqliteVdbeAddOp(v, OP_IdxRecno, pLevel->iCur, 0);
         pLevel->op = OP_Prev;
       }else{
         /* Scan in the forward order */
         sqliteVdbeAddOp(v, OP_MoveTo, pLevel->iCur, brk);
         start = sqliteVdbeAddOp(v, OP_MemLoad, pLevel->iMem, 0);
         sqliteVdbeAddOp(v, testOp, pLevel->iCur, brk);
-        sqliteVdbeAddOp(v, OP_IdxRecno, pLevel->iCur, 0);
         pLevel->op = OP_Next;
       }
+      sqliteVdbeAddOp(v, OP_RowKey, pLevel->iCur, 0);
+      sqliteVdbeAddOp(v, OP_IdxIsNull, nColumn, cont);
+      sqliteVdbeAddOp(v, OP_IdxRecno, pLevel->iCur, 0);
       if( i==pTabList->nSrc-1 && pushKey ){
         haveKey = 1;
       }else{
@@ -851,10 +855,8 @@ WhereInfo *sqliteWhereBegin(
         }else{
           sqliteExprCode(pParse, aExpr[k].p->pLeft);
         }
-        sqliteVdbeAddOp(v, OP_IsNumeric, 1, brk);
-        if( aExpr[k].p->op==TK_LT || aExpr[k].p->op==TK_GT ){
-          sqliteVdbeAddOp(v, OP_AddImm, 1, 0);
-        }
+        sqliteVdbeAddOp(v, OP_ForceInt,
+          aExpr[k].p->op==TK_LT || aExpr[k].p->op==TK_GT, brk);
         sqliteVdbeAddOp(v, OP_MoveTo, iCur, brk);
         aExpr[k].p = 0;
       }else{
@@ -933,7 +935,7 @@ WhereInfo *sqliteWhereBegin(
              && aExpr[k].p->pLeft->iColumn==pIdx->aiColumn[j]
           ){
             sqliteExprCode(pParse, aExpr[k].p->pRight);
-            /* aExpr[k].p = 0; // See ticket #461 */
+            aExpr[k].p = 0;
             break;
           }
           if( aExpr[k].idxRight==iCur
@@ -942,7 +944,7 @@ WhereInfo *sqliteWhereBegin(
              && aExpr[k].p->pRight->iColumn==pIdx->aiColumn[j]
           ){
             sqliteExprCode(pParse, aExpr[k].p->pLeft);
-            /* aExpr[k].p = 0; // See ticket #461 */
+            aExpr[k].p = 0;
             break;
           }
         }
@@ -979,7 +981,7 @@ WhereInfo *sqliteWhereBegin(
           ){
             sqliteExprCode(pParse, pExpr->pRight);
             leFlag = pExpr->op==TK_LE;
-            /* aExpr[k].p = 0; // See ticket #461 */
+            aExpr[k].p = 0;
             break;
           }
           if( aExpr[k].idxRight==iCur
@@ -989,7 +991,7 @@ WhereInfo *sqliteWhereBegin(
           ){
             sqliteExprCode(pParse, pExpr->pLeft);
             leFlag = pExpr->op==TK_GE;
-            /* aExpr[k].p = 0; // See ticket #461 */
+            aExpr[k].p = 0;
             break;
           }
         }
@@ -999,8 +1001,12 @@ WhereInfo *sqliteWhereBegin(
         leFlag = 1;
       }
       if( testOp!=OP_Noop ){
+        int nCol = nEqColumn + (score & 1);
         pLevel->iMem = pParse->nMem++;
-        sqliteVdbeAddOp(v, OP_MakeKey, nEqColumn + (score & 1), 0);
+        sqliteVdbeAddOp(v, OP_NotNull, -nCol, sqliteVdbeCurrentAddr(v)+3);
+        sqliteVdbeAddOp(v, OP_Pop, nCol, 0);
+        sqliteVdbeAddOp(v, OP_Goto, 0, brk);
+        sqliteVdbeAddOp(v, OP_MakeKey, nCol, 0);
         sqliteAddIdxKeyType(v, pIdx);
         if( leFlag ){
           sqliteVdbeAddOp(v, OP_IncrKey, 0, 0);
@@ -1034,7 +1040,7 @@ WhereInfo *sqliteWhereBegin(
           ){
             sqliteExprCode(pParse, pExpr->pRight);
             geFlag = pExpr->op==TK_GE;
-            /* aExpr[k].p = 0; // See ticket #461 */
+            aExpr[k].p = 0;
             break;
           }
           if( aExpr[k].idxRight==iCur
@@ -1044,7 +1050,7 @@ WhereInfo *sqliteWhereBegin(
           ){
             sqliteExprCode(pParse, pExpr->pLeft);
             geFlag = pExpr->op==TK_LE;
-            /* aExpr[k].p = 0; // See ticket #461 */
+            aExpr[k].p = 0;
             break;
           }
         }
@@ -1052,7 +1058,11 @@ WhereInfo *sqliteWhereBegin(
         geFlag = 1;
       }
       if( nEqColumn>0 || (score&2)!=0 ){
-        sqliteVdbeAddOp(v, OP_MakeKey, nEqColumn + ((score&2)!=0), 0);
+        int nCol = nEqColumn + ((score&2)!=0);
+        sqliteVdbeAddOp(v, OP_NotNull, -nCol, sqliteVdbeCurrentAddr(v)+3);
+        sqliteVdbeAddOp(v, OP_Pop, nCol, 0);
+        sqliteVdbeAddOp(v, OP_Goto, 0, brk);
+        sqliteVdbeAddOp(v, OP_MakeKey, nCol, 0);
         sqliteAddIdxKeyType(v, pIdx);
         if( !geFlag ){
           sqliteVdbeAddOp(v, OP_IncrKey, 0, 0);
@@ -1079,6 +1089,8 @@ WhereInfo *sqliteWhereBegin(
         sqliteVdbeAddOp(v, OP_MemLoad, pLevel->iMem, 0);
         sqliteVdbeAddOp(v, testOp, pLevel->iCur, brk);
       }
+      sqliteVdbeAddOp(v, OP_RowKey, pLevel->iCur, 0);
+      sqliteVdbeAddOp(v, OP_IdxIsNull, nEqColumn + (score & 1), cont);
       sqliteVdbeAddOp(v, OP_IdxRecno, pLevel->iCur, 0);
       if( i==pTabList->nSrc-1 && pushKey ){
         haveKey = 1;

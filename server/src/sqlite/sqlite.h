@@ -12,7 +12,7 @@
 ** This header file defines the interface that the SQLite library
 ** presents to client programs.
 **
-** @(#) $Id: sqlite.h,v 1.2 2003/12/18 13:20:24 thiagocorrea Exp $
+** @(#) $Id: sqlite.h,v 1.3 2004/02/24 16:47:25 thiagocorrea Exp $
 */
 #ifndef _SQLITE_H_
 #define _SQLITE_H_
@@ -28,7 +28,7 @@ extern "C" {
 /*
 ** The version of the SQLite library.
 */
-#define SQLITE_VERSION         "2.8.8"
+#define SQLITE_VERSION         "2.8.12"
 
 /*
 ** The version string is also compiled into the library so that a program
@@ -753,8 +753,52 @@ int sqlite_bind(sqlite_vm*, int idx, const char *value, int len, int copy);
 ** query is immediately terminated and any database changes rolled back. If the
 ** query was part of a larger transaction, then the transaction is not rolled
 ** back and remains active. The sqlite_exec() call returns SQLITE_ABORT. 
+**
+******* THIS IS AN EXPERIMENTAL API AND IS SUBJECT TO CHANGE ******
 */
 void sqlite_progress_handler(sqlite*, int, int(*)(void*), void*);
+
+/*
+** Register a callback function to be invoked whenever a new transaction
+** is committed.  The pArg argument is passed through to the callback.
+** callback.  If the callback function returns non-zero, then the commit
+** is converted into a rollback.
+**
+** If another function was previously registered, its pArg value is returned.
+** Otherwise NULL is returned.
+**
+** Registering a NULL function disables the callback.
+**
+******* THIS IS AN EXPERIMENTAL API AND IS SUBJECT TO CHANGE ******
+*/
+void *sqlite_commit_hook(sqlite*, int(*)(void*), void*);
+
+/*
+** Open an encrypted SQLite database.  If pKey==0 or nKey==0, this routine
+** is the same as sqlite_open().
+**
+** The code to implement this API is not available in the public release
+** of SQLite.
+*/
+sqlite *sqlite_open_encrypted(
+  const char *zFilename,   /* Name of the encrypted database */
+  const void *pKey,        /* Pointer to the key */
+  int nKey,                /* Number of bytes in the key */
+  char **pzErrmsg          /* Write error message here */
+);
+
+/*
+** Change the key on an open database.  If the current database is not
+** encrypted, this routine will encrypt it.  If pNew==0 or nNew==0, the
+** database is decrypted.
+**
+** The code to implement this API is not available in the public release
+** of SQLite.
+*/
+int sqlite_rekey(
+  sqlite *db,                    /* Database to be rekeyed */
+  const void *pKey, int nKey     /* The new key */
+);
 
 #ifdef __cplusplus
 }  /* End of the 'extern "C"' block */

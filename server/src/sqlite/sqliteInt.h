@@ -11,7 +11,7 @@
 *************************************************************************
 ** Internal interface definitions for SQLite.
 **
-** @(#) $Id: sqliteInt.h,v 1.2 2003/12/18 13:20:24 thiagocorrea Exp $
+** @(#) $Id: sqliteInt.h,v 1.3 2004/02/24 16:47:25 thiagocorrea Exp $
 */
 #include "config.h"
 #include "sqlite.h"
@@ -118,6 +118,15 @@ typedef UINT16_TYPE u16;           /* 2-byte unsigned integer */
 typedef UINT8_TYPE u8;             /* 1-byte unsigned integer */
 typedef INTPTR_TYPE ptr;           /* Big enough to hold a pointer */
 typedef unsigned INTPTR_TYPE uptr; /* Big enough to hold a pointer */
+
+/*
+** Most C compilers these days recognize "long double", don't they?
+** Just in case we encounter one that does not, we will create a macro
+** for long double so that it can be easily changed to just "double".
+*/
+#ifndef LONGDOUBLE_TYPE
+# define LONGDOUBLE_TYPE long double
+#endif
 
 /*
 ** This macro casts a pointer to an integer.  Useful for doing
@@ -313,6 +322,8 @@ struct sqlite {
   int nTable;                   /* Number of tables in the database */
   void *pBusyArg;               /* 1st Argument to the busy callback */
   int (*xBusyCallback)(void *,const char*,int);  /* The busy callback */
+  void *pCommitArg;             /* Argument to xCommitCallback() */   
+  int (*xCommitCallback)(void*);/* Invoked at every commit. */
   Hash aFunc;                   /* All functions that can be in SQL exprs */
   int lastRowid;                /* ROWID of most recent insert */
   int priorNewRowid;            /* Last randomly generated ROWID */
@@ -576,6 +587,10 @@ struct Index {
 /*
 ** Each token coming out of the lexer is an instance of
 ** this structure.  Tokens are also used as part of an expression.
+**
+** Note if Token.z==0 then Token.dyn and Token.n are undefined and
+** may contain random values.  Do not make any assuptions about Token.dyn
+** and Token.n when Token.z==0.
 */
 struct Token {
   const char *z;      /* Text of the token.  Not NULL-terminated! */
@@ -1203,3 +1218,6 @@ int sqliteFixSelect(DbFixer*, Select*);
 int sqliteFixExpr(DbFixer*, Expr*);
 int sqliteFixExprList(DbFixer*, ExprList*);
 int sqliteFixTriggerStep(DbFixer*, TriggerStep*);
+double sqliteAtoF(const char *z);
+int sqlite_snprintf(int,char*,const char*,...);
+int sqliteFitsIn32Bits(const char *);
