@@ -873,9 +873,10 @@ void cAllSpawnRegions::check( void )
 		if ( it->second->active() && it->second->nextTime() <= Server::instance()->time() )
 		{
 			if (it->second->npcs() < it->second->maxNpcs() || it->second->items() < it->second->maxItems()) {
-				it->second->reSpawn();
 				respawned++;
 			}
+			
+			it->second->reSpawn();
 		}
 		++it;
 	}

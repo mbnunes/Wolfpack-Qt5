@@ -2521,7 +2521,17 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		sendStats.setDexterity( _player->dexterity() );
 		sendStats.setIntelligence( _player->intelligence() );
 		sendStats.setWeight( ( short unsigned int ) _player->weight() );
-		sendStats.setGold( _player->countBankGold() + _player->countGold() );
+		
+		// use a different method of counting gold here. (not recursive)
+		unsigned int gold = 0;
+		ContainerIterator it(_player->getBackpack());
+		while (!it.atEnd()) {
+			if ((*it)->id() == 0xeed && (*it)->color() == 0) {
+				gold += (*it)->amount();
+			}
+		}
+	
+		sendStats.setGold(gold);
 		sendStats.setSex( _player->gender() );
 		sendStats.setPets( _player->controlslots() );
 		sendStats.setMaxPets( _player->maxControlSlots() );
