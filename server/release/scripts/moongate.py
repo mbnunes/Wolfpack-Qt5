@@ -7,6 +7,7 @@
 
 import wolfpack
 from wolfpack.gumps import cGump
+from wolfpack.utilities import isValidPosition
 
 def onUse( char, item ):
 	# check distance
@@ -124,7 +125,7 @@ def sendGump( char, item ):
 	gateGump.addText( 35, 110, "Malas" )
 	gateGump.addPageButton( 10, 110, 0x4B9, 0x4BA, 4 )
 	gateGump.addText( 35, 135, "Tokuno Islands" )
-	gateGump.addPageButton( 10, 135, 0x4B9, 0x4BA, 5 )	
+	gateGump.addPageButton( 10, 135, 0x4B9, 0x4BA, 5 )
 	#gates
 	gateGump.addText( 225, 40, "Compassion" )
 	gateGump.addRadioButton( 200, 40, 210, 211, 26 )
@@ -199,7 +200,7 @@ def sendGump( char, item ):
 	gateGump.addText( 35, 110, "Malas" )
 	gateGump.addPageButton( 10, 110, 0x4B9, 0x4BA, 4 )
 	gateGump.addText( 35, 135, "Tokuno Islands" )
-	gateGump.addPageButton( 10, 135, 0x4B9, 0x4BA, 5 )	
+	gateGump.addPageButton( 10, 135, 0x4B9, 0x4BA, 5 )
 	#gates
 	gateGump.addText( 225, 40, "Makoto-Jima" )
 	gateGump.addRadioButton( 200, 40, 210, 211, 43 )
@@ -317,7 +318,11 @@ def gateCallback( char, args, target ):
 		coord = [ 270, 628, 15, 4 ]
 	char.soundeffect( 0x1fc )
 	char.removefromview()
-	char.moveto( coord[0], coord[1], coord[2], coord[3] )
+	pos = wolfpack.coord( coord[0], coord[1], coord[2], coord[3] )
+	if not isValidPosition( pos ):
+		char.socket.sysmessage( "Destination Invalid!" )
+		return False
+	char.moveto( pos )
 	char.update()
 	char.soundeffect( 0x1fc )
 	char.effect( 0x372a )
@@ -329,7 +334,7 @@ def gateCallback( char, args, target ):
 			# only transport follower which is within 5 tile from the character
 			if( char.distanceto( follower ) < 5 ):
 				follower.removefromview()
-				follower.moveto( coord[0], coord[1], coord[2], coord[3] )
+				follower.moveto( pos )
 				follower.update()
 				follower.effect( 0x372a )
 			# else it will not follow him/her

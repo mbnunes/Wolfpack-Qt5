@@ -44,7 +44,7 @@
 import wolfpack
 from wolfpack.consts import *
 from wolfpack.gumps import cGump
-from wolfpack.utilities import hex2dec
+from wolfpack.utilities import hex2dec, isValidPosition
 from wolfpack import console
 from string import lstrip
 import os
@@ -163,7 +163,11 @@ def parseTxt( file, map ):
 
 		step4 = wolfpack.tickcount()
 
-		newitem.moveto( x, y, z, map, 1 )
+		newposition = wolfpack.coord( x, y, z, map )
+		if not isValidPosition( newposition ):
+			newitem.delete()
+			continue
+		newitem.moveto( newposition )
 
 		step5 = wolfpack.tickcount()
 
@@ -217,7 +221,11 @@ def parseSphere51a(file, map):
 					item.decay = 0
 					item.movable = 3
 					item.color = color
-					item.moveto( x, y, z, map )
+					newposition = wolfpack.coord( x, y, z, map )
+					if not isValidPosition( newposition ):
+						item.delete()
+						continue
+					item.moveto( newposition )
 					item.update()
 				else:
 					warnings += "Found an invalid item id '%x' at %u,%u,%d,%u<br>" % (itemid, x, y, z, map)
@@ -393,8 +401,11 @@ def parseWsc( file, map ):
 			newitem.amount = amount
 			if name != "#":
 				newitem.name = name
-			newposition = "%i,%i,%i,%i" % (x, y, z, map)
-			newitem.pos = newposition
+			newposition = wolfpack.coord( x, y, z, map )
+			if not isValidPosition( newposition ):
+				newitem.delete()
+				continue
+			newitem.moveto( newposition )
 			#newitem.moveto( x, y, z, map )
 			newitem.update()
 
