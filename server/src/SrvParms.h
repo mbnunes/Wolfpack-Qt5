@@ -54,23 +54,15 @@ void saveserverscript(void);
 #define ECLIPSETIMER .5
 
 #define DECAYTIMER 300  // 5 minute decay rate
-#define HUNGERRATE 6000 // 15 minutes
-#define REGENRATE1 8 // Seconds to heal ONE hp
-#define REGENRATE2 3 // Seconds to heal ONE stm
-#define REGENRATE3 5 // Seconds to heal ONE mn
 
 struct server_st
 {
 	unsigned int eclipsemode;
 	unsigned int eclipsetimer;
 	unsigned int snoopdelay;
-	unsigned int hitpointrate;
-	unsigned int staminarate;
-	unsigned int manarate;
 	unsigned int minecheck;
 	char archivepath[256];
 	unsigned int skilllevel; // Magius(CHE)
-	char armoraffectmana; // Should armor slow mana regen ?
 	unsigned short int quittime;//Instalog
 	char specialbanktrigger[50]; //special bank trigger - AntiChrist
 	int usespecialbank; //special bank - AntiChrist

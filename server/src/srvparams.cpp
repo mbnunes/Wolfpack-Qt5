@@ -94,6 +94,12 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	checkBank_	            = getNumber("Vendor", "Check Bank", 2000, true );
 	vendorGreet_	        = getNumber("Vendor", "Vendor Greet", 2000, true );
 
+	// Regenerate
+	hitpointrate_			= getNumber("Regenerate", "Hitpoints Regenerate", 8, true);
+	staminarate_			= getNumber("Regenerate", "Stamina Regenerate", 3, true);
+	manarate_				= getNumber("Regenerate", "Mana Regenerate", 5, true);
+	armoraffectmana_		= getNumber("Regenerate", "Armor Affect Mana Regenerate", 0, true);
+
 	flush(); // if any key created, save it.
 }
 

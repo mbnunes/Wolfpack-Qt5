@@ -5672,15 +5672,6 @@ void SetGlobalVars()
 	showlayer=0;
 	autosaved = 0;
 	dosavewarning = 0;
-	
-	
-    //server_data.invisibiliytimer = INVISTIMER ;
-    //server_data.skilldelay = SKILLDELAY ;
-    server_data.hitpointrate = REGENRATE1 ;
-    server_data.staminarate = REGENRATE2 ;
-    server_data.manarate = REGENRATE3 ;
-    //server_data.gatetimer = GATETIMER;
-	
 }
 
 void BuildPointerArray()

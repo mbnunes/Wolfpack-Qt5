@@ -89,6 +89,12 @@ protected:
 	unsigned int badNpcsRed_;
 	unsigned int slotAmount_;
 
+	// Regenerate
+	unsigned int hitpointrate_;
+	unsigned int staminarate_;
+	unsigned int manarate_;
+	char armoraffectmana_;
+
 	// Combat
 	bool combatHitMessage_;
 	unsigned int maxAbsorbtion_;
@@ -174,6 +180,12 @@ public:
 	unsigned int shopRestock() const;
 	unsigned int badNpcsRed() const;
 	unsigned int slotAmount() const;
+
+	// Regenerate
+	unsigned int hitpointrate() const;
+	unsigned int staminarate() const;
+	unsigned int manarate() const;
+	char armoraffectmana() const;
 
 	// Combat
 	bool combatHitMessage() const;
@@ -578,6 +590,26 @@ inline short cSrvParams::checkBank() const
 inline unsigned int cSrvParams::vendorGreet() const
 {
 	return vendorGreet_;
+}
+
+inline unsigned int cSrvParams::hitpointrate() const
+{
+	return hitpointrate_;
+}
+
+inline unsigned int cSrvParams::staminarate() const
+{
+	return staminarate_;
+}
+
+inline unsigned int cSrvParams::manarate() const
+{
+	return manarate_;
+}
+
+inline char cSrvParams::armoraffectmana() const
+{
+	return armoraffectmana_;
 }
 
 #endif __SRVPARAMS_H___

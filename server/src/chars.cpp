@@ -142,7 +142,7 @@ void cChar::Init(bool ser)
 	this->karma=0;
 	this->fame=0;
 	this->pathnum = PATHNUM;
-	this->kills=0; //PvP Kills
+	this->kills=0; // PvP Kills
 	this->deaths=0;
 	this->dead = false; // Is character dead
 	this->packitem=INVALID_SERIAL; // Only used during character creation
@@ -235,8 +235,8 @@ void cChar::Init(bool ser)
 	this->flag=0x02; //1=red 2=grey 4=Blue 8=green 10=Orange // grey as default - AntiChrist
 	this->tempflagtime=0;
 	// End of Guild Related Character information
-	this->murderrate=0; //#of ticks until one murder decays //REPSYS 
-	this->crimflag=-1; //Time when No longer criminal -1=Not Criminal
+	this->murderrate=0; //# of ticks till murder decays.
+	this->crimflag=-1; // time when no longer criminal -1 = not criminal
 	this->casting=0; // 0/1 is the cast casting a spell?
 	this->spelltime=0; //Time when they are done casting....
 	this->spell=0; //current spell they are casting....

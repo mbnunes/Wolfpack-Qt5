@@ -92,9 +92,6 @@ void loadserverdefaults(void)
 
 	// Should we check character age for delete?
 	server_data.snoopdelay=7;
-	server_data.hitpointrate=REGENRATE1;
-	server_data.staminarate=REGENRATE2;
-	server_data.manarate=REGENRATE3;
 	server_data.minecheck=2;
 	server_data.errors_to_console=0;
 
@@ -141,8 +138,8 @@ void loadserverdefaults(void)
 	resource.miningstamina=-5;
 	//REPSYS
 	repsys.crimtime=120;
-	repsys.maxkills=4;
-	repsys.murderdecay=420;
+	repsys.maxkills=5;
+	repsys.murderdecay=28800;
 	//RepSys ---^
 	tracking_data.baserange=TRACKINGRANGE;
 	tracking_data.maxtargets=MAXTRACKINGTARGETS;
@@ -169,20 +166,6 @@ void loadspeed()//Lag Fix -- Zippy -- NEW FUNCTION
 		else if(!(strcmp((char*)script1,"CACHE_MUL"))) Map->Cache = atoi((char*)script2);	
 	}
 	while (  (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
-}
-
-void loadregenerate() // by Magius(CHE)
-{
-	unsigned long loopexit=0;
-	do
-	{
-		readw2();
-		if(!(strcmp((char*)script1,"HITPOINTS_REGENRATE"))) server_data.hitpointrate=str2num(script2);
-		else if(!(strcmp((char*)script1,"STAMINA_REGENRATE"))) server_data.staminarate=str2num(script2);
-		else if(!(strcmp((char*)script1,"MANA_REGENRATE"))) server_data.manarate=str2num(script2);
-		else if(!(strcmp((char*)script1,"ARMOR_AFFECT_MANA_REGEN"))) server_data.armoraffectmana=str2num(script2);
-	}
-	while ( (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
 }
 
 void loadresources()
@@ -392,7 +375,6 @@ void loadserverscript(char *fn) // Load a server script
 			else if(!(strcmp((char*)script2, "SPIRITSPEAK"))) loadspiritspeak();
 			else if(!(strcmp((char*)script2, "TIME_LIGHT"))) loadtime_light();
 			// added by Magius(CHE)
-			else if(!(strcmp((char*)script2, "REGENERATE"))) loadregenerate();
 			else if(!(strcmp((char*)script2, "REMOTE_ADMIN"))) loadremote_admin();
 			// end addons by Magius(CHE)
 		}
@@ -473,14 +455,6 @@ void saveserverscript(void)
 	fprintf(file, "CACHE_MUL %i\n",Map->Cache);
 	fprintf(file, "}\n\n");
 
-
-	fprintf(file, "SECTION REGENERATE\n");
-	fprintf(file, "{\n");
-	fprintf(file, "HITPOINTS_REGENRATE %i\n",server_data.hitpointrate);
-	fprintf(file, "STAMINA_REGENRATE %i\n",server_data.staminarate);
-	fprintf(file, "MANA_REGENRATE %i\n",server_data.manarate);
-	fprintf(file, "ARMOR_AFFECT_MANA_REGEN %i\n",server_data.armoraffectmana);
-	fprintf(file, "}\n\n");
 
 	fprintf(file, "SECTION RESOURCE\n");
 	fprintf(file, "{\n");

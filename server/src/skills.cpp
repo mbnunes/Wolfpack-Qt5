@@ -1501,7 +1501,7 @@ void cSkills::SkillUse(int s, int x) // Skill is clicked on the skill list
          return;
 
 	case MEDITATION:  //Morrolan - Meditation
-		if(SrvParms->armoraffectmana)
+		if(SrvParams->armoraffectmana())
 		{
 			Skills->Meditation(s);
 			SetSkillDelay(pc_currchar);

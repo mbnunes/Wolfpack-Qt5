@@ -685,7 +685,7 @@ bool cMovement::CheckForRunning(P_CHAR pc, UOXSOCKET socket, int dir)
 
 
 //Don't regenerate stamina while running
-		pc->regen2=uiCurrentTime+(server_data.staminarate*MY_CLOCKS_PER_SEC);
+		pc->regen2=uiCurrentTime+(SrvParams->staminarate()*MY_CLOCKS_PER_SEC);
 		pc->running++;
 		// if all these things
 		if(!pc->dead && !pc->onhorse && pc->running>(SrvParams->runningStamSteps())*2)

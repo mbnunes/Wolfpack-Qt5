@@ -197,7 +197,7 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 		}
 		if ((pc->regen <= currenttime) || (overflow))
 		{
-			unsigned int interval = SrvParms->hitpointrate*MY_CLOCKS_PER_SEC;
+			unsigned int interval = SrvParams->hitpointrate()*MY_CLOCKS_PER_SEC;
 			if (pc->hp < pc->st && pc->hunger>3 || SrvParams->hungerRate() == 0)
 			{
 				for (c = 0; c < pc->st + 1; c++)
@@ -223,7 +223,7 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 		}
 		if ((pc->regen2 <= currenttime) || (overflow))
 		{
-			unsigned int interval = SrvParms->staminarate*MY_CLOCKS_PER_SEC;
+			unsigned int interval = SrvParams->staminarate()*MY_CLOCKS_PER_SEC;
 			for (c = 0; c < pc->effDex() + 1; c++)
 			{
 				if (pc->regen2 + (c*interval) <= currenttime && pc->stm <= pc->effDex())
@@ -243,7 +243,7 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 		// if (pc->in>pc->mn)  this leads to the 'mana not subtracted' bug (Duke)
 			if ((pc->regen3 <= currenttime) || (overflow))
 			{
-				unsigned int interval = SrvParms->manarate*MY_CLOCKS_PER_SEC;
+				unsigned int interval = SrvParams->manarate()*MY_CLOCKS_PER_SEC;
 				for(c=0;c<pc->in+1;c++)
 				{
 					if (pc->regen3 + (c*interval) <= currenttime && pc->mn <= pc->in)
@@ -265,14 +265,14 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 						updatestats(pc, 1);
 					}
 				}
-				if (SrvParms->armoraffectmana)
+				if (SrvParams->armoraffectmana())
 				{
 					// blackwind's osi style mana regeneration formula
-					int ratio = ((100 + 50)/SrvParms->manarate);
+					int ratio = ((100 + 50)/SrvParams->manarate());
 					// 100 = Maximum skill (GM)
 					// 50 = int affects mana regen (%50)
-					int armorhandicap = ((Skills->GetAntiMagicalArmorDefence(pc) + 1) / SrvParms->manarate);
-					int charsmeditsecs = (1 + SrvParms->manarate - ((((pc->skill[MEDITATION] + 1)/10) + ((pc->in + 1) / 2)) / ratio));
+					int armorhandicap = ((Skills->GetAntiMagicalArmorDefence(pc) + 1) / SrvParams->manarate());
+					int charsmeditsecs = (1 + SrvParams->manarate() - ((((pc->skill[MEDITATION] + 1)/10) + ((pc->in + 1) / 2)) / ratio));
 					if (pc->med)
 					{
 						pc->regen3 = currenttime + ((armorhandicap + charsmeditsecs/2)* MY_CLOCKS_PER_SEC);
