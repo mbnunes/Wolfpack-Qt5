@@ -180,7 +180,6 @@ SOURCES         = Client.cpp \
 		  tilecache.cpp \
 		  walking2.cpp \
 		  packlen.cpp \
-		  wpdefaultscript.cpp \
 		  wpdefmanager.cpp \
 		  wppythonscript.cpp \
 		  wpscriptmanager.cpp \

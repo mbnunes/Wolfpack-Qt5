@@ -49,15 +49,15 @@ public:
 		return "default";
 	};
 
-	WPDefaultScript();
-	virtual ~WPDefaultScript();
+	WPDefaultScript() {};
+	virtual ~WPDefaultScript() {};
 
 	// Methods for loading, unloading and reloading the scripts
 	// these methods are unused for the default script
 	// as it basically does nothing
-	virtual void load( const QDomElement &Data );
-	virtual void unload( void );
-	virtual void reload( void );
+	virtual void load( const QDomElement &Data ) {};
+	virtual void unload( void ) {};
+	virtual void reload( void ) {};
 
 	// We need an identification value for the scripts
 	void setName( QString Value );
@@ -67,35 +67,35 @@ public:
 	// That means first onUse for the character is called
 	// and afterwards it's called for the item
 	// That way you can add special behaviour
-	virtual bool onUse( P_CHAR User, P_ITEM Used );
+	virtual bool onUse( P_CHAR User, P_ITEM Used ) { return false; };
 
-	virtual bool onShowItemName( P_ITEM Item, P_CHAR Viewer );
-	virtual bool onShowCharName( P_CHAR Character, P_CHAR Viewer );
+	virtual bool onShowItemName( P_ITEM Item, P_CHAR Viewer ) { return false; };
+	virtual bool onShowCharName( P_CHAR Character, P_CHAR Viewer ) { return false; };
 
-	virtual void onCollideItem( P_CHAR Character, P_ITEM Obstacle );
-	virtual void onCollideChar( P_CHAR Character, P_CHAR Obstacle );
-	virtual bool onWalk( P_CHAR Character, UI08 Direction, UI08 onSequence );
+	virtual bool onCollideItem( P_CHAR Character, P_ITEM Obstacle ) { return false; };
+	virtual bool onCollideChar( P_CHAR Character, P_CHAR Obstacle ) { return false; };
+	virtual bool onWalk( P_CHAR Character, UI08 Direction, UI08 onSequence ) { return false; };
 
 	// if this events returns true (handeled) then we should not display the text
-	virtual bool onTalk( P_CHAR Character, QString Text );
+	virtual bool onTalk( P_CHAR Character, QString Text ) { return false; };
 
-	virtual void onTalkToNPC( P_CHAR Talker, P_CHAR Character, const QString &Text );
-	virtual void onTalkToItem( P_CHAR Talker, P_ITEM Item, const QString &Text );
+	virtual bool onTalkToNPC( P_CHAR Talker, P_CHAR Character, const QString &Text ) { return false; };
+	virtual bool onTalkToItem( P_CHAR Talker, P_ITEM Item, const QString &Text ) { return false; };
 
-	virtual void onWarModeToggle( P_CHAR Character, bool War );
+	virtual bool onWarModeToggle( P_CHAR Character, bool War ) { return false; };
 
 	// Is the Client version already known to us here ???
-	virtual bool onConnect( UOXSOCKET Socket, const QString &IP, const QString &Username, const QString &Password );
+	virtual bool onConnect( UOXSOCKET Socket, const QString &IP, const QString &Username, const QString &Password ) { return false; };
 
-	virtual bool onDisconnect( UOXSOCKET Socket, QString IP );
+	virtual bool onDisconnect( UOXSOCKET Socket, QString IP ) { return false; };
 
-	virtual void onEnterWorld( P_CHAR Character );
+	virtual bool onEnterWorld( P_CHAR Character ) { return false; };
 
-	virtual bool onHelp( P_CHAR Character );
+	virtual bool onHelp( P_CHAR Character ) { return false; };
 
-	virtual bool onChat( P_CHAR Character );
+	virtual bool onChat( P_CHAR Character ) { return false; };
 
-	virtual bool onSkillUse( P_CHAR Character, UI08 Skill );
+	virtual bool onSkillUse( P_CHAR Character, UI08 Skill ) { return false; };
 };
 
 #endif // !defined(AFX_WPDEFAULTSCRIPT_H__FDB3420A_822D_4D37_8D60_1ED584CC02DF__INCLUDED_)

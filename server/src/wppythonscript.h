@@ -29,8 +29,8 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#if !defined(AFX_WPPYTHONSCRIPT_H__F98DC0D9_AE54_46A6_9557_729DBDD07C03__INCLUDED_)
-#define AFX_WPPYTHONSCRIPT_H__F98DC0D9_AE54_46A6_9557_729DBDD07C03__INCLUDED_
+#ifndef __WPPYTHONSCRIPT_H__
+#define __WPPYTHONSCRIPT_H__
 
 #include "wpdefaultscript.h"
 #include "Python.h"
@@ -375,4 +375,4 @@ static PyTypeObject Py_WPEquipmentType = {
     0,
 };
 
-#endif // !defined(AFX_WPPYTHONSCRIPT_H__F98DC0D9_AE54_46A6_9557_729DBDD07C03__INCLUDED_)
+#endif // __WPPYTHONSCRIPT_H__
