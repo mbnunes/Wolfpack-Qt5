@@ -36,11 +36,11 @@ def onDropOnChar( char, item ):
 	value = int( item.gettag( 'value' ) )
 
 	if value < 1:	
-		char.say( "This check is worthless!" )
+		char.say( "This check is worthless!",5 )
 		return 1 # Auto Bounce
 
 	# Perfect, we found a banker to deposit this check at.
-	char.say( "I deposited %i gold on your bank in return for the check." % value )
+	char.say( "I deposited %i gold on your bank in return for the check." % value,5 )
 	item.delete()
 
 	bankbox = dropper.getbankbox()

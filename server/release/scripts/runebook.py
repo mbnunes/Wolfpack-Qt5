@@ -282,7 +282,7 @@ def callback( char, args, target ):
 			# char action / power word
 			charges = charges - 1
 			item.settag( "charges", charges )
-			char.say( "Kal Ort Por" )
+			char.say( "Kal Ort Por",5 )
 			wolfpack.addtimer( 2000, "runebook.recall0", [ char.serial, runes[ runenum ] ] )
 	# set default button : 101 - 116
 	elif( button > 100 and button < 117 ):
@@ -295,11 +295,11 @@ def callback( char, args, target ):
 	# recall button - spell : 301 - 316
 	elif( button > 300 and button < 317 ):
 		# char action / power word
-		char.say( "Kal Ort Por" )
+		char.say( "Kal Ort Por",5 )
 		wolfpack.addtimer( 2000, "runebook.recall1", [ char.serial, runes[ runenum ] ] )
 	# gate button : 401 - 416
 	elif( button > 400 and button < 417 ):
-		char.say( "Vas Rel Por" )
+		char.say( "Vas Rel Por",5 )
 		wolfpack.addtimer( 3500, "runebook.gate", [ char.serial, runes[ runenum ] ] )
 	# button number error - should not occur
 	else:
