@@ -34,6 +34,11 @@
 #include "../basechar.h"
 #include "../player.h"
 
+/*
+	\object tooltip
+	\description This object represents a tooltip for an object. It allows you to modify the tooltip sent to 
+	the client.
+*/
 typedef struct
 {
 	PyObject_HEAD;
@@ -73,6 +78,16 @@ static PyTypeObject wpTooltipType =
 
 };
 
+/*
+	\method tooltip.add
+	\param id The cliloc id of the text.
+	\param params Parameters for the cliloc text.
+	\description This method adds a line to the tooltip. The text is
+	determined by the given cliloc id and the parameters for it.
+	Please note that the first line is automatically colored by the
+	client. HTML is also allowed in tooltips. A cliloc id can only be used once 
+	in a tooltip.
+*/
 static PyObject* wpTooltip_add( wpTooltip* self, PyObject* args )
 {
 	char* params;
@@ -88,6 +103,10 @@ static PyObject* wpTooltip_add( wpTooltip* self, PyObject* args )
 	return PyTrue();
 }
 
+/*
+	\method tooltip.reset
+	\description This method deletes all lines from the tooltip.
+*/
 static PyObject* wpTooltip_reset( wpTooltip* self, PyObject* args )
 {
 	Q_UNUSED(args);
@@ -118,8 +137,14 @@ PyObject* PyGetTooltipObject( cUOTxTooltipList* tooltip )
 
 static PyObject* wpTooltip_getAttr( wpTooltip* self, char* name )
 {
+	/*
+		\property tooltip.id This is the internal id of this tooltip.
+	*/
 	if ( !strcmp( name, "id" ) )
 		return PyInt_FromLong( self->list->getInt( 11 ) );
+	/*
+		\property tooltip.serial This is the serial of the object this tooltip is for.
+	*/
 	else if ( !strcmp( name, "serial" ) )
 		return PyInt_FromLong( self->list->getInt( 5 ) );
 	else

@@ -244,7 +244,7 @@ static char* eventNames[] =
 	\event onShowTooltip
 	\param player The player who requested the tooltip.
 	\param object The object the tooltip was requested for.
-	\param tooltip The tooltip that is about to be sent.
+	\param tooltip The <object id="tooltip">tooltip</object> object that is about to be sent.
 	\condition Triggered just before a tooltip is sent for an object.
 	\notes Please note that you cannot stop the tooltip from being sent.
 	You can only modify the tooltip. This event is only called for the
