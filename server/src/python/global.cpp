@@ -141,12 +141,12 @@ static PyObject* wpConsole_log( PyObject* self, PyObject* args )
 	Q_UNUSED( self );
 
 	char loglevel;
-	char* text;
+	PyObject *text;
 
-	if ( !PyArg_ParseTuple( args, "bs:wolfpack.console.log( loglevel, text )", &loglevel, &text ) )
+	if ( !PyArg_ParseTuple( args, "bO:wolfpack.console.log( loglevel, text )", &loglevel, &text ) )
 		return 0;
 
-	Console::instance()->log( ( eLogLevel ) loglevel, text );
+	Console::instance()->log( ( eLogLevel ) loglevel, Python2QString(text) );
 
 	Py_RETURN_TRUE;
 }
@@ -1901,9 +1901,9 @@ static PyObject* wpAccountsList( PyObject* self, PyObject* args )
 	cAccounts::const_iterator it = Accounts::instance()->begin();
 	while ( it != Accounts::instance()->end() )
 	{
-		QString login = ( *it )->login();
-		if ( login != QString::null )
-			PyList_Append( list, PyString_FromString( login.latin1() ) );
+		const QString &login = ( *it )->login();
+		if ( !login.isNull() )
+			PyList_Append( list, QString2Python( login ) );
 		++it;
 	}
 
