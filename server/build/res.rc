@@ -28,8 +28,8 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,0,1
- PRODUCTVERSION 1,0,0,1
+ FILEVERSION 12,9,1,0
+ PRODUCTVERSION 13,0,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -46,15 +46,15 @@ BEGIN
         BEGIN
             VALUE "Comments", "http://www.wpdev.org/\0"
             VALUE "CompanyName", " \0"
-            VALUE "FileDescription", "joy12\0"
-            VALUE "FileVersion", "1, 0, 0, 1\0"
-            VALUE "InternalName", "joy12\0"
+            VALUE "FileDescription", "Ultima Online Server Emulator\0"
+            VALUE "FileVersion", "12, 9, 1, 0\0"
+            VALUE "InternalName", "\0"
             VALUE "LegalCopyright", "Copyright © 2002 Wolfpack Dev. Team\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "wolfpack.exe\0"
             VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "Wolfpack Emu\0"
-            VALUE "ProductVersion", "1, 0, 0, 1\0"
+            VALUE "ProductVersion", "13, 0, 0, 0\0"
             VALUE "SpecialBuild", "\0"
         END
     END
