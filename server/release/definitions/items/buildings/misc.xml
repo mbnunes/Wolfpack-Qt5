@@ -9,1550 +9,1857 @@
 =================================================================
 -->
 <definitions>
+
 	<!-- Docks -->
 	<item id="3a5">
-		<id>0x03a5</id> <nodecay />
+		<id>0x3a5</id>
+		<nodecay />
 		<category>Buildings\Docks\Pier 1</category>
 	</item>
 
 	<item id="3a6">
-		<id>0x03a6</id> <nodecay />
+		<id>0x3a6</id>
+		<nodecay />
 		<category>Buildings\Docks\Rope 1</category>
 	</item>
 
 	<item id="3a7">
-		<id>0x03a7</id> <nodecay />
+		<id>0x3a7</id>
+		<nodecay />
 		<category>Buildings\Docks\Rope 2</category>
 	</item>
 
 	<item id="3a8">
-		<id>0x03a8</id> <nodecay />
+		<id>0x3a8</id>
+		<nodecay />
 		<category>Buildings\Docks\Pier 3</category>
 	</item>
 
 	<item id="3a9">
-		<id>0x03a9</id> <nodecay />
+		<id>0x3a9</id>
+		<nodecay />
 		<category>Buildings\Docks\Pier 4</category>
 	</item>
 
 	<item id="3aa">
-		<id>0x03aa</id> <nodecay />
+		<id>0x3aa</id>
+		<nodecay />
 		<category>Buildings\Docks\Pier 2</category>
 	</item>
 
 	<item id="3ab">
-		<id>0x03ab</id> <nodecay />
+		<id>0x3ab</id>
+		<nodecay />
 		<category>Buildings\Docks\Pier 3</category>
 	</item>
 
 	<item id="3ac">
-		<id>0x03ac</id> <nodecay />
+		<id>0x3ac</id>
+		<nodecay />
 		<category>Buildings\Docks\Pier 4</category>
 	</item>
 
 	<item id="3ad">
-		<id>0x03ad</id> <nodecay />
+		<id>0x3ad</id>
+		<nodecay />
 		<category>Buildings\Docks\Pier 5</category>
 	</item>
 
 	<item id="3ae">
-		<id>0x03ae</id> <nodecay />
+		<id>0x3ae</id>
+		<nodecay />
 		<category>Buildings\Docks\Pier 6</category>
 	</item>
 
 	<item id="14f7">
-		<id>0x14f7</id> <nodecay />
+		<id>0x14f7</id>
+		<nodecay />
 		<category>Buildings\Docks\Anchor (W/E)</category>
 	</item>
 
 	<item id="14f8">
-		<id>0x14f8</id> <nodecay />
+		<id>0x14f8</id>
+		<nodecay />
 		<category>Buildings\Docks\Furled Rope (W/E)</category>
 	</item>
 
 	<item id="14f9">
-		<id>0x14f9</id> <nodecay />
+		<id>0x14f9</id>
+		<nodecay />
 		<category>Buildings\Docks\Anchor (N/S)</category>
 	</item>
 
 	<item id="14fa">
-		<id>0x14fa</id> <nodecay />
+		<id>0x14fa</id>
+		<nodecay />
 		<category>Buildings\Docks\Furled Rope (N/S)</category>
 	</item>
 
 	<item id="1e9a">
-		<id>0x1e9a</id> <nodecay />
+		<id>0x1e9a</id>
+		<nodecay />
 		<category>Buildings\Docks\Hook 1</category>
 	</item>
 
 	<item id="1e9b">
-		<id>0x1e9b</id> <nodecay />
+		<id>0x1e9b</id>
+		<nodecay />
 		<category>Buildings\Docks\Hook 2</category>
 	</item>
 
 	<item id="1e9c">
-		<id>0x1e9c</id> <nodecay />
+		<id>0x1e9c</id>
+		<nodecay />
 		<category>Buildings\Docks\Hook 3</category>
 	</item>
 
 	<item id="1e9d">
-		<id>0x1e9d</id> <nodecay />
+		<id>0x1e9d</id>
+		<nodecay />
 		<category>Buildings\Docks\Hook 4</category>
 	</item>
 
 	<item id="1e9e">
-		<id>0x1e9e</id> <nodecay />
+		<id>0x1e9e</id>
+		<nodecay />
 		<category>Buildings\Docks\Hook 5</category>
 	</item>
 
 	<item id="1e9f">
-		<id>0x1e9f</id> <nodecay />
+		<id>0x1e9f</id>
+		<nodecay />
 		<category>Buildings\Docks\Hook 6</category>
 	</item>
 
 	<item id="1ea0">
-		<id>0x1ea0</id> <nodecay />
+		<id>0x1ea0</id>
+		<nodecay />
 		<category>Buildings\Docks\Hook 7</category>
 	</item>
 
 	<item id="1ea8">
-		<id>0x1ea8</id> <nodecay />
+		<id>0x1ea8</id>
+		<nodecay />
 		<category>Buildings\Docks\Winch (N/S)</category>
 	</item>
 
 	<item id="1ea9">
-		<id>0x1ea9</id> <nodecay />
+		<id>0x1ea9</id>
+		<nodecay />
 		<category>Buildings\Docks\Winch (N/S) (Animated)</category>
 	</item>
 
 	<item id="1eac">
-		<id>0x1eac</id> <nodecay />
+		<id>0x1eac</id>
+		<nodecay />
 		<category>Buildings\Docks\Winch (W/E)</category>
 	</item>
 
 	<item id="1ead">
-		<id>0x1ead</id> <nodecay />
+		<id>0x1ead</id>
+		<nodecay />
 		<category>Buildings\Docks\Winch (W/E) (Animated)</category>
 	</item>
 
 	<!-- Ankhs -->
 	<item id="2">
-		<id>0x0002</id> <nodecay />
+		<id>0x02</id>
+		<nodecay />
 		<category>Decoration\Ankhs\Ankh 1</category>
 	</item>
 
 	<item id="3">
-		<id>0x0003</id> <nodecay />
+		<id>0x03</id>
+		<nodecay />
 		<category>Decoration\Ankhs\Ankh 2</category>
 	</item>
 
 	<item id="4">
-		<id>0x0004</id> <nodecay />
+		<id>0x04</id>
+		<nodecay />
 		<category>Decoration\Ankhs\Ankh 3</category>
 	</item>
 
 	<item id="5">
-		<id>0x0005</id> <nodecay />
+		<id>0x05</id>
+		<nodecay />
 		<category>Decoration\Ankhs\Ankh 4</category>
 	</item>
 
 	<item id="1d97">
-		<id>0x1d97</id> <nodecay />
+		<id>0x1d97</id>
+		<nodecay />
 		<category>Decoration\Ankhs\Ankh of Sacrifice (W/E) (1/2)</category>
 	</item>
 
 	<item id="1d98">
-		<id>0x1d98</id> <nodecay />
+		<id>0x1d98</id>
+		<nodecay />
 		<category>Decoration\Ankhs\Ankh of Sacrifice (W/E) (2/2)</category>
 	</item>
 
 	<item id="1e5c">
-		<id>0x1e5c</id> <nodecay />
+		<id>0x1e5c</id>
+		<nodecay />
 		<category>Decoration\Ankhs\Ankh of Sacrifice (N/S) (1/2)</category>
 	</item>
 
 	<item id="1e5d">
-		<id>0x1e5d</id> <nodecay />
+		<id>0x1e5d</id>
+		<nodecay />
 		<category>Decoration\Ankhs\Ankh of Sacrifice (N/S) (2/2)</category>
 	</item>
 
 	<!-- Suspension Bridge -->
 	<item id="7e1">
-		<id>0x07e1</id> <nodecay />
+		<id>0x7e1</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 1</category>
 	</item>
 
 	<item id="7e2">
-		<id>0x07e2</id> <nodecay />
+		<id>0x7e2</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 2</category>
 	</item>
 
 	<item id="7e3">
-		<id>0x07e3</id> <nodecay />
+		<id>0x7e3</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 3</category>
 	</item>
 
 	<item id="7e4">
-		<id>0x07e4</id> <nodecay />
+		<id>0x7e4</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 4</category>
 	</item>
 
 	<item id="7e5">
-		<id>0x07e5</id> <nodecay />
+		<id>0x7e5</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 5</category>
 	</item>
 
 	<item id="7e6">
-		<id>0x07e6</id> <nodecay />
+		<id>0x7e6</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 6</category>
 	</item>
 
 	<item id="7e7">
-		<id>0x07e7</id> <nodecay />
+		<id>0x7e7</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 7</category>
 	</item>
 
 	<item id="7e8">
-		<id>0x07e8</id> <nodecay />
+		<id>0x7e8</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 8</category>
 	</item>
 
 	<item id="7e9">
-		<id>0x07e9</id> <nodecay />
+		<id>0x7e9</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 9</category>
 	</item>
 
 	<item id="7ea">
-		<id>0x07ea</id> <nodecay />
+		<id>0x7ea</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 10</category>
 	</item>
 
 	<item id="7eb">
-		<id>0x07eb</id> <nodecay />
+		<id>0x7eb</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 11</category>
 	</item>
 
 	<item id="7ec">
-		<id>0x07ec</id> <nodecay />
+		<id>0x7ec</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 12</category>
 	</item>
 
 	<item id="7ed">
-		<id>0x07ed</id> <nodecay />
+		<id>0x7ed</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 13</category>
 	</item>
 
 	<item id="7ee">
-		<id>0x07ee</id> <nodecay />
+		<id>0x7ee</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 14</category>
 	</item>
 
 	<item id="7ef">
-		<id>0x07ef</id> <nodecay />
+		<id>0x7ef</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 15</category>
 	</item>
 
 	<item id="7f0">
-		<id>0x07f0</id> <nodecay />
+		<id>0x7f0</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 16</category>
 	</item>
 
 	<item id="7f1">
-		<id>0x07f1</id> <nodecay />
+		<id>0x7f1</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 17</category>
 	</item>
 
 	<item id="7f2">
-		<id>0x07f2</id> <nodecay />
+		<id>0x7f2</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 18</category>
 	</item>
 
 	<item id="7f3">
-		<id>0x07f3</id> <nodecay />
+		<id>0x7f3</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 19</category>
 	</item>
 
 	<item id="7f4">
-		<id>0x07f4</id> <nodecay />
+		<id>0x7f4</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 20</category>
 	</item>
 
 	<item id="7f5">
-		<id>0x07f5</id> <nodecay />
+		<id>0x7f5</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 21</category>
 	</item>
 
 	<item id="7f6">
-		<id>0x07f6</id> <nodecay />
+		<id>0x7f6</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 22</category>
 	</item>
 
 	<item id="7f7">
-		<id>0x07f7</id> <nodecay />
+		<id>0x7f7</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 23</category>
 	</item>
 
 	<item id="7f8">
-		<id>0x07f8</id> <nodecay />
+		<id>0x7f8</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 24</category>
 	</item>
 
 	<item id="7f9">
-		<id>0x07f9</id> <nodecay />
+		<id>0x7f9</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 25</category>
 	</item>
 
 	<item id="7fa">
-		<id>0x07fa</id> <nodecay />
+		<id>0x7fa</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 26</category>
 	</item>
 
 	<item id="7fb">
-		<id>0x07fb</id> <nodecay />
+		<id>0x7fb</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 27</category>
 	</item>
 
 	<item id="7fc">
-		<id>0x07fc</id> <nodecay />
+		<id>0x7fc</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (N/S) 28</category>
 	</item>
 
 	<item id="7fd">
-		<id>0x07fd</id> <nodecay />
+		<id>0x7fd</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 1</category>
 	</item>
 
 	<item id="7fe">
-		<id>0x07fe</id> <nodecay />
+		<id>0x7fe</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 2</category>
 	</item>
 
 	<item id="7ff">
-		<id>0x07ff</id> <nodecay />
+		<id>0x7ff</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 3</category>
 	</item>
 
 	<item id="800">
-		<id>0x0800</id> <nodecay />
+		<id>0x800</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 4</category>
 	</item>
 
 	<item id="801">
-		<id>0x0801</id> <nodecay />
+		<id>0x801</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 5</category>
 	</item>
 
 	<item id="802">
-		<id>0x0802</id> <nodecay />
+		<id>0x802</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 6</category>
 	</item>
 
 	<item id="803">
-		<id>0x0803</id> <nodecay />
+		<id>0x803</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 7</category>
 	</item>
 
 	<item id="804">
-		<id>0x0804</id> <nodecay />
+		<id>0x804</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 8</category>
 	</item>
 
 	<item id="805">
-		<id>0x0805</id> <nodecay />
+		<id>0x805</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 9</category>
 	</item>
 
 	<item id="806">
-		<id>0x0806</id> <nodecay />
+		<id>0x806</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 10</category>
 	</item>
 
 	<item id="807">
-		<id>0x0807</id> <nodecay />
+		<id>0x807</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 11</category>
 	</item>
 
 	<item id="808">
-		<id>0x0808</id> <nodecay />
+		<id>0x808</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 12</category>
 	</item>
 
 	<item id="809">
-		<id>0x0809</id> <nodecay />
+		<id>0x809</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 13</category>
 	</item>
 
 	<item id="80a">
-		<id>0x080a</id> <nodecay />
+		<id>0x80a</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 14</category>
 	</item>
 
 	<item id="80b">
-		<id>0x080b</id> <nodecay />
+		<id>0x80b</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 15</category>
 	</item>
 
 	<item id="80c">
-		<id>0x080c</id> <nodecay />
+		<id>0x80c</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 16</category>
 	</item>
 
 	<item id="80d">
-		<id>0x080d</id> <nodecay />
+		<id>0x80d</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 17</category>
 	</item>
 
 	<item id="80e">
-		<id>0x080e</id> <nodecay />
+		<id>0x80e</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 18</category>
 	</item>
 
 	<item id="80f">
-		<id>0x080f</id> <nodecay />
+		<id>0x80f</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 19</category>
 	</item>
 
 	<item id="810">
-		<id>0x0810</id> <nodecay />
+		<id>0x810</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 20</category>
 	</item>
 
 	<item id="811">
-		<id>0x0811</id> <nodecay />
+		<id>0x811</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 21</category>
 	</item>
 
 	<item id="812">
-		<id>0x0812</id> <nodecay />
+		<id>0x812</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 22</category>
 	</item>
 
 	<item id="813">
-		<id>0x0813</id> <nodecay />
+		<id>0x813</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 23</category>
 	</item>
 
 	<item id="814">
-		<id>0x0814</id> <nodecay />
+		<id>0x814</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 24</category>
 	</item>
 
 	<item id="815">
-		<id>0x0815</id> <nodecay />
+		<id>0x815</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 25</category>
 	</item>
 
 	<item id="816">
-		<id>0x0816</id> <nodecay />
+		<id>0x816</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 26</category>
 	</item>
 
 	<item id="817">
-		<id>0x0817</id> <nodecay />
+		<id>0x817</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 27</category>
 	</item>
 
 	<item id="818">
-		<id>0x0818</id> <nodecay />
+		<id>0x818</id>
+		<nodecay />
 		<category>Buildings\Suspension Bridge\Bridge (W/E) 28</category>
 	</item>
 
 	<!-- Stalagmites &amp; Flowstones -->
 	<item id="8e0">
-		<id>0x08e0</id> <nodecay />
+		<id>0x8e0</id>
+		<nodecay />
 		<category>Decoration\Flowstones &amp; Stalagmites\Stalagmites 1</category>
 	</item>
 
 	<item id="8e1">
-		<id>0x08e1</id> <nodecay />
+		<id>0x8e1</id>
+		<nodecay />
 		<category>Decoration\Flowstones &amp; Stalagmites\Stalagmites 2</category>
 	</item>
 
 	<item id="8e2">
-		<id>0x08e2</id> <nodecay />
+		<id>0x8e2</id>
+		<nodecay />
 		<category>Decoration\Flowstones &amp; Stalagmites\Flowstone 1</category>
 	</item>
 
 	<item id="8e3">
-		<id>0x08e3</id> <nodecay />
+		<id>0x8e3</id>
+		<nodecay />
 		<category>Decoration\Flowstones &amp; Stalagmites\Flowstone 2</category>
 	</item>
 
 	<item id="8e4">
-		<id>0x08e4</id> <nodecay />
+		<id>0x8e4</id>
+		<nodecay />
 		<category>Decoration\Flowstones &amp; Stalagmites\Stalagmites 3</category>
 	</item>
 
 	<item id="8e5">
-		<id>0x08e5</id> <nodecay />
+		<id>0x8e5</id>
+		<nodecay />
 		<category>Decoration\Flowstones &amp; Stalagmites\Stalagmites 4</category>
 	</item>
 
 	<item id="8e6">
-		<id>0x08e6</id> <nodecay />
+		<id>0x8e6</id>
+		<nodecay />
 		<category>Decoration\Flowstones &amp; Stalagmites\Flowstone 3</category>
 	</item>
 
 	<item id="8e7">
-		<id>0x08e7</id> <nodecay />
+		<id>0x8e7</id>
+		<nodecay />
 		<category>Decoration\Flowstones &amp; Stalagmites\Stalagmites 5</category>
 	</item>
 
 	<item id="8e8">
-		<id>0x08e8</id> <nodecay />
+		<id>0x8e8</id>
+		<nodecay />
 		<category>Decoration\Flowstones &amp; Stalagmites\Flowstone 4</category>
 	</item>
 
 	<item id="8e9">
-		<id>0x08e9</id> <nodecay />
+		<id>0x8e9</id>
+		<nodecay />
 		<category>Decoration\Flowstones &amp; Stalagmites\Stalagmites 6</category>
 	</item>
 
 	<item id="8ea">
-		<id>0x08ea</id> <nodecay />
+		<id>0x8ea</id>
+		<nodecay />
 		<category>Decoration\Flowstones &amp; Stalagmites\Stalagmites 7</category>
 	</item>
 
 	<!-- Vases -->
 	<item id="b45">
-		<id>0x0b45</id> <nodecay />
+		<id>0xb45</id>
+		<nodecay />
 		<category>Decoration\Vases\Vase 1</category>
 	</item>
 
 	<item id="b46">
-		<id>0x0b46</id> <nodecay />
+		<id>0xb46</id>
+		<nodecay />
 		<category>Decoration\Vases\Vase 2</category>
 	</item>
 
 	<item id="b47">
-		<id>0x0b47</id> <nodecay />
+		<id>0xb47</id>
+		<nodecay />
 		<category>Decoration\Vases\Vase 3</category>
 	</item>
 
 	<item id="b48">
-		<id>0x0b48</id> <nodecay />
+		<id>0xb48</id>
+		<nodecay />
 		<category>Decoration\Vases\Vase 4</category>
-	</item>	
+	</item>
 
 	<!-- Campfire -->
 	<item id="de3">
-		<id>0x0de3</id> <nodecay />
+		<id>0xde3</id>
+		<nodecay />
 		<category>Decoration\Campfire\Campfire</category>
 	</item>
 
 	<item id="de9">
-		<id>0x0de9</id> <nodecay />
+		<id>0xde9</id>
+		<nodecay />
 		<category>Decoration\Campfire\Embers</category>
 	</item>
 
 	<item id="dea">
-		<id>0x0dea</id> <nodecay />
+		<id>0xdea</id>
+		<nodecay />
 		<category>Decoration\Campfire\Burned Wood</category>
 	</item>
 
 	<item id="fac">
-		<id>0x0fac</id> <nodecay />
+		<id>0xfac</id>
+		<nodecay />
 		<category>Decoration\Campfire\Fire Pit</category>
 	</item>
 
 	<!-- Glowing Runes -->
 	<item id="e5c">
-		<id>0x0e5c</id> <nodecay />
+		<id>0xe5c</id>
+		<nodecay />
 		<category>Decoration\Glowing Runes\Rune 1</category>
 	</item>
 
 	<item id="e5f">
-		<id>0x0e5f</id> <nodecay />
+		<id>0xe5f</id>
+		nodecay />
 		<category>Decoration\Glowing Runes\Rune 2</category>
 	</item>
 
 	<item id="e62">
-		<id>0x0e62</id> <nodecay />
+		<id>0xe62</id>
+		<nodecay />
 		<category>Decoration\Glowing Runes\Rune 3</category>
 	</item>
 
 	<item id="e65">
-		<id>0x0e65</id> <nodecay />
+		<id>0xe65</id>
+		<nodecay />
 		<category>Decoration\Glowing Runes\Rune 4</category>
 	</item>
 
 	<item id="e68">
-		<id>0x0e68</id> <nodecay />
+		<id>0xe68</id>
+		<nodecay />
 		<category>Decoration\Glowing Runes\Rune 5</category>
 	</item>
 
 	<!-- Wall Cracks -->
-        <item id="1b01"> 
-                <id>0x1B01</id> <nodecay /> 
-                <category>Buildings\Cracks\Floor Cracks 1</category> 
-        </item> 
- 
-        <item id="1b02"> 
-                <id>0x1B02</id> <nodecay /> 
-                <category>Buildings\Cracks\Floor Cracks 2</category> 
-        </item> 
- 
-        <item id="1b03"> 
-                <id>0x1B03</id> <nodecay /> 
-                <category>Buildings\Cracks\Floor Cracks 3</category> 
-        </item> 
- 
-        <item id="1b04"> 
-                <id>0x1B04</id> <nodecay /> 
-                <category>Buildings\Cracks\Floor Cracks 4</category> 
-        </item> 
- 
-        <item id="1b05"> 
-                <id>0x1B05</id> <nodecay /> 
-                <category>Buildings\Cracks\Floor Cracks 5</category> 
-        </item> 
- 
-        <item id="1b06"> 
-                <id>0x1B06</id> <nodecay /> 
-                <category>Buildings\Cracks\Floor Cracks 6</category> 
-        </item> 
- 
-        <item id="1b07"> 
-                <id>0x1B07</id> <nodecay /> 
-                <category>Buildings\Cracks\Floor Cracks 7</category> 
-        </item> 
- 
-        <item id="1b08"> 
-                <id>0x1B08</id> <nodecay /> 
-                <category>Buildings\Cracks\Floor Cracks 8</category> 
-        </item> 
+	<item id="1b01">
+		<id>0x1B01</id>
+		<nodecay />
+		<category>Buildings\Cracks\Floor Cracks 1</category>
+	</item>
 
-        <item id="1b6c"> 
-                <id>0x1B6C</id> <nodecay /> 
-                <category>Buildings\Cracks\Wall Cracks 1</category> 
-        </item> 
- 
-        <item id="1b6d"> 
-                <id>0x1B6D</id> <nodecay /> 
-                <category>Buildings\Cracks\Wall Cracks 2</category> 
-        </item> 
- 
-        <item id="1b6e"> 
-                <id>0x1B6E</id> <nodecay /> 
-                <category>Buildings\Cracks\Wall Cracks 3</category> 
-        </item>
+	<item id="1b02">
+		<id>0x1B02</id>
+		<nodecay />
+		<category>Buildings\Cracks\Floor Cracks 2</category>
+	</item>
+
+	<item id="1b03">
+		<id>0x1B03</id>
+		<nodecay />
+		<category>Buildings\Cracks\Floor Cracks 3</category>
+	</item>
+
+	<item id="1b04">
+		<id>0x1B04</id>
+		<nodecay />
+		<category>Buildings\Cracks\Floor Cracks 4</category>
+	</item>
+
+	<item id="1b05">
+		<id>0x1B05</id>
+		<nodecay />
+		<category>Buildings\Cracks\Floor Cracks 5</category>
+	</item>
+
+	<item id="1b06">
+		<id>0x1B06</id>
+		<nodecay />
+		<category>Buildings\Cracks\Floor Cracks 6</category>
+	</item>
+
+	<item id="1b07">
+		<id>0x1B07</id>
+		<nodecay />
+		<category>Buildings\Cracks\Floor Cracks 7</category>
+	</item>
+
+	<item id="1b08">
+		<id>0x1B08</id>
+		<nodecay />
+		<category>Buildings\Cracks\Floor Cracks 8</category>
+	</item>
+
+	<item id="1b6c">
+		<id>0x1B6C</id>
+		<nodecay />
+		<category>Buildings\Cracks\Wall Cracks 1</category>
+	</item>
+
+	<item id="1b6d">
+		<id>0x1B6D</id>
+		<nodecay />
+		<category>Buildings\Cracks\Wall Cracks 2</category>
+	</item>
+
+	<item id="1b6e">
+		<id>0x1B6E</id>
+		<nodecay />
+		<category>Buildings\Cracks\Wall Cracks 3</category>
+	</item>
 
 	<item id="1b6f">
-		<id>0x1b6f</id> <nodecay />
-                <category>Buildings\Cracks\Wall Cracks 4</category> 
+		<id>0x1b6f</id>
+		<nodecay />
+		<category>Buildings\Cracks\Wall Cracks 4</category>
 	</item>
 
 	<!-- Paintings & Tapestry -->
 	<item id="e9f">
-		<id>0x0e9f</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Painting 1</category> 
+		<id>0xe9f</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Painting 1</category>
 	</item>
 
 	<item id="ea0">
-		<id>0x0ea0</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Painting 2</category> 
+		<id>0xea0</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Painting 2</category>
 	</item>
 
 	<item id="ea1">
-		<id>0x0ea1</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Painting 3</category> 
+		<id>0xea1</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Painting 3</category>
 	</item>
 
 	<item id="ea2">
-		<id>0x0ea2</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Painting 4</category> 
+		<id>0xea2</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Painting 4</category>
 	</item>
 
 	<item id="ea3">
-		<id>0x0ea3</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Painting 5</category> 
+		<id>0xea3</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Painting 5</category>
 	</item>
 
 	<item id="ea4">
-		<id>0x0ea4</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Painting 6</category> 
+		<id>0xea4</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Painting 6</category>
 	</item>
 
 	<item id="ea5">
-		<id>0x0ea5</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Painting 7</category> 
+		<id>0xea5</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Painting 7</category>
 	</item>
 
 	<item id="ea6">
-		<id>0x0ea6</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Painting 8</category> 
+		<id>0xea6</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Painting 8</category>
 	</item>
 
 	<item id="ea7">
-		<id>0x0ea7</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Painting 9</category> 
+		<id>0xea7</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Painting 9</category>
 	</item>
 
 	<item id="ea8">
-		<id>0x0ea8</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Painting 10</category> 
+		<id>0xea8</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Painting 10</category>
 	</item>
 
 	<item id="eaa">
-		<id>0x0eaa</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Tapestry 1 (1/2)</category> 
+		<id>0xeaa</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 1 (1/2)</category>
 	</item>
 
 	<item id="eab">
-		<id>0x0eab</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Tapestry 1 (2/2)</category> 
+		<id>0xeab</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 1 (2/2)</category>
 	</item>
 
 	<item id="eac">
-		<id>0x0eac</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Tapestry 2 (1/2)</category> 
+		<id>0xeac</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 2 (1/2)</category>
 	</item>
 
 	<item id="ead">
-		<id>0x0ead</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Tapestry 2 (2/2)</category> 
+		<id>0xead</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 2 (2/2)</category>
 	</item>
 
 	<item id="eae">
-		<id>0x0eae</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Tapestry 3 (1/2)</category> 
+		<id>0xeae</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 3 (1/2)</category>
 	</item>
 
 	<item id="eaf">
-		<id>0x0eaf</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Tapestry 3 (2/2)</category> 
+		<id>0xeaf</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 3 (2/2)</category>
 	</item>
 
 	<item id="ec8">
-		<id>0x0ec8</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Painting 11</category> 
+		<id>0xec8</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Painting 11</category>
 	</item>
 
 	<item id="ec9">
-		<id>0x0ec9</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Painting 12</category> 
+		<id>0xec9</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Painting 12</category>
 	</item>
 
    <item id="ee7">
-        <id>0xEE7</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Painting 12</category> 
+        <id>0xEE7</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Painting 12</category>
     </item>
 
 	<item id="fd5">
-		<id>0x0fd5</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Tapestry 4 (1/2)</category> 
+		<id>0xfd5</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 4 (1/2)</category>
 	</item>
 
 	<item id="fd6">
-		<id>0x0fd6</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Tapestry 4 (2/2)</category> 
+		<id>0xfd6</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 4 (2/2)</category>
 	</item>
 
 	<item id="fd7">
-		<id>0x0fd7</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Tapestry 5 (1/2)</category> 
+		<id>0xfd7</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 5 (1/2)</category>
 	</item>
 
 	<item id="fd8">
-		<id>0x0fd8</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Tapestry 5 (2/2)</category> 
+		<id>0xfd8</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 5 (2/2)</category>
 	</item>
 
 	<item id="fd9">
-		<id>0x0fd9</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Tapestry 6 (1/2)</category> 
+		<id>0xfd9</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 6 (1/2)</category>
 	</item>
 
 	<item id="fda">
-		<id>0x0fda</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Tapestry 6 (2/2)</category> 
+		<id>0xfda</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 6 (2/2)</category>
 	</item>
 
 	<item id="fdb">
-		<id>0x0fdb</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Tapestry 7 (1/2)</category> 
+		<id>0xfdb</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 7 (1/2)</category>
 	</item>
 
 	<item id="fdc">
-		<id>0x0fdc</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Tapestry 7 (2/2)</category> 
+		<id>0xfdc</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 7 (2/2)</category>
 	</item>
 
 	<item id="fdd">
-		<id>0x0fdd</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Tapestry 8 (1/2)</category> 
+		<id>0xfdd</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 8 (1/2)</category>
 	</item>
 
 	<item id="fde">
-		<id>0x0fde</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Tapestry 8 (2/2)</category> 
+		<id>0xfde</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 8 (2/2)</category>
 	</item>
 
 	<item id="fdf">
-		<id>0x0fdf</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Tapestry 9 (1/2)</category> 
+		<id>0xfdf</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 9 (1/2)</category>
 	</item>
 
 	<item id="fe0">
-		<id>0x0fe0</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Tapestry 9 (2/2)</category> 
+		<id>0xfe0</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 9 (2/2)</category>
 	</item>
 
 	<item id="fe1">
-		<id>0x0fe1</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Tapestry 10 (1/2)</category> 
+		<id>0xfe1</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 10 (1/2)</category>
 	</item>
 
 	<item id="fe2">
-		<id>0x0fe2</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Tapestry 10 (2/2)</category> 
+		<id>0xfe2</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 10 (2/2)</category>
 	</item>
 
 	<item id="fe3">
-		<id>0x0fe3</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Tapestry 11 (1/2)</category> 
+		<id>0xfe3</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 11 (1/2)</category>
 	</item>
 
 	<item id="fe4">
-		<id>0x0fe4</id> <nodecay />
-		<category>Decoration\Paintings &amp; Tapestry\Tapestry 11 (2/2)</category> 
+		<id>0xfe4</id>
+		<nodecay />
+		<category>Decoration\Paintings &amp; Tapestry\Tapestry 11 (2/2)</category>
 	</item>
 
 	<!-- Shells -->
 	<item id="fc4">
-		<id>0x0fc4</id> <nodecay />
-		<category>Decoration\Shells\Shell 1</category> 
+		<id>0xfc4</id>
+		<nodecay />
+		<category>Decoration\Shells\Shell 1</category>
 	</item>
 
 	<item id="fc5">
-		<id>0x0fc5</id> <nodecay />
-		<category>Decoration\Shells\Shell 2</category> 
+		<id>0xfc5</id>
+		<nodecay />
+		<category>Decoration\Shells\Shell 2</category>
 	</item>
 
 	<item id="fc6">
-		<id>0x0fc6</id> <nodecay />
-		<category>Decoration\Shells\Shell 3</category> 
+		<id>0xfc6</id>
+		<nodecay />
+		<category>Decoration\Shells\Shell 3</category>
 	</item>
 
 	<item id="fc7">
-		<id>0x0fc7</id> <nodecay />
-		<category>Decoration\Shells\Shell 4</category> 
+		<id>0xfc7</id>
+		<nodecay />
+		<category>Decoration\Shells\Shell 4</category>
 	</item>
 
 	<item id="fc8">
-		<id>0x0fc8</id> <nodecay />
-		<category>Decoration\Shells\Shell 5</category> 
+		<id>0xfc8</id>
+		<nodecay />
+		<category>Decoration\Shells\Shell 5</category>
 	</item>
 
 	<item id="fc9">
-		<id>0x0fc9</id> <nodecay />
-		<category>Decoration\Shells\Shell 6</category> 
+		<id>0xfc9</id>
+		<nodecay />
+		<category>Decoration\Shells\Shell 6</category>
 	</item>
 
 	<item id="fca">
-		<id>0x0fca</id> <nodecay />
-		<category>Decoration\Shells\Shell 7</category> 
+		<id>0xfca</id>
+		<nodecay />
+		<category>Decoration\Shells\Shell 7</category>
 	</item>
 
 	<item id="fcb">
-		<id>0x0fcb</id> <nodecay />
-		<category>Decoration\Shells\Shell 8</category> 
+		<id>0xfcb</id>
+		<nodecay />
+		<category>Decoration\Shells\Shell 8</category>
 	</item>
 
 	<item id="fcc">
-		<id>0x0fcc</id> <nodecay />
-		<category>Decoration\Shells\Shell 9</category> 
+		<id>0xfcc</id>
+		<nodecay />
+		<category>Decoration\Shells\Shell 9</category>
 	</item>
 
 	<item id="fcd">
-		<id>0x0fcd</id> <nodecay />
-		<category>Decoration\Shells\String of Shells 1</category> 
+		<id>0xfcd</id>
+		<nodecay />
+		<category>Decoration\Shells\String of Shells 1</category>
 	</item>
 
 	<item id="fce">
-		<id>0x0fce</id> <nodecay />
-		<category>Decoration\Shells\String of Shells 2</category> 
+		<id>0xfce</id>
+		<nodecay />
+		<category>Decoration\Shells\String of Shells 2</category>
 	</item>
 
 	<item id="fcf">
-		<id>0x0fcf</id> <nodecay />
-		<category>Decoration\Shells\String of Shells 3</category> 
+		<id>0xfcf</id>
+		<nodecay />
+		<category>Decoration\Shells\String of Shells 3</category>
 	</item>
 
 	<item id="fd0">
-		<id>0x0fd0</id> <nodecay />
-		<category>Decoration\Shells\String of Shells 4</category> 
+		<id>0xfd0</id>
+		<nodecay />
+		<category>Decoration\Shells\String of Shells 4</category>
 	</item>
 
 	<item id="fd1">
-		<id>0x0fd1</id> <nodecay />
-		<category>Decoration\Shells\String of Shells 5</category> 
+		<id>0xfd1</id>
+		<nodecay />
+		<category>Decoration\Shells\String of Shells 5</category>
 	</item>
 
 	<item id="fd2">
-		<id>0x0fd2</id> <nodecay />
-		<category>Decoration\Shells\String of Shells 6</category> 
+		<id>0xfd2</id>
+		<nodecay />
+		<category>Decoration\Shells\String of Shells 6</category>
 	</item>
 
 	<item id="fd3">
-		<id>0x0fd3</id> <nodecay />
-		<category>Decoration\Shells\String of Shells 7</category> 
+		<id>0xfd3</id>
+		<nodecay />
+		<category>Decoration\Shells\String of Shells 7</category>
 	</item>
 
 	<item id="fd4">
-		<id>0x0fd4</id> <nodecay />
-		<category>Decoration\Shells\String of Shells 8</category> 
+		<id>0xfd4</id>
+		<nodecay />
+		<category>Decoration\Shells\String of Shells 8</category>
 	</item>
 
 	<!-- Mats & Furs -->
 	<item id="11e2">
-		<id>0x11e2</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Grass Mat (N/S) (1/2)</category> 
+		<id>0x11e2</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Grass Mat (N/S) (1/2)</category>
 	</item>
 
 	<item id="11e3">
-		<id>0x11e3</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Grass Mat (N/S) (2/2)</category> 
+		<id>0x11e3</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Grass Mat (N/S) (2/2)</category>
 	</item>
 
 	<item id="11e4">
-		<id>0x11e4</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Grass Mat (W/E) (1/2)</category> 
+		<id>0x11e4</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Grass Mat (W/E) (1/2)</category>
 	</item>
 
 	<item id="11e5">
-		<id>0x11e5</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Grass Mat (W/E) (2/2)</category> 
+		<id>0x11e5</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Grass Mat (W/E) (2/2)</category>
 	</item>
 
 	<item id="11e6">
-		<id>0x11e6</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Woven Mat (N/S) (1/2)</category> 
+		<id>0x11e6</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Woven Mat (N/S) (1/2)</category>
 	</item>
 
 	<item id="11e7">
-		<id>0x11e7</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Woven Mat (N/S) (2/2)</category> 
+		<id>0x11e7</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Woven Mat (N/S) (2/2)</category>
 	</item>
 
 	<item id="11e8">
-		<id>0x11e8</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Woven Mat (W/E) (1/2)</category> 
+		<id>0x11e8</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Woven Mat (W/E) (1/2)</category>
 	</item>
 
 	<item id="11e9">
-		<id>0x11e9</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Woven Mat (W/E) (2/2)</category> 
+		<id>0x11e9</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Woven Mat (W/E) (2/2)</category>
 	</item>
 
 	<item id="11ea">
-		<id>0x11ea</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Straw Pillow (W/E)</category> 
+		<id>0x11ea</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Straw Pillow (W/E)</category>
 	</item>
 
 	<item id="11eb">
-		<id>0x11eb</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Straw Pillow (N/S)</category> 
+		<id>0x11eb</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Straw Pillow (N/S)</category>
 	</item>
 
 	<item id="11f4">
-		<id>0x11f4</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Fur 1 (W/E)</category> 
+		<id>0x11f4</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Fur 1 (W/E)</category>
 	</item>
 
 	<item id="11f5">
-		<id>0x11f5</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Fur 2 (W/E)</category> 
+		<id>0x11f5</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Fur 2 (W/E)</category>
 	</item>
 
 	<item id="11f6">
-		<id>0x11f6</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Fur 3 (W/E)</category> 
+		<id>0x11f6</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Fur 3 (W/E)</category>
 	</item>
 
 	<item id="11f7">
-		<id>0x11f7</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Fur 4 (W/E)</category> 
+		<id>0x11f7</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Fur 4 (W/E)</category>
 	</item>
 
 	<item id="11f8">
-		<id>0x11f8</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Fur 1 (N/S)</category> 
+		<id>0x11f8</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Fur 1 (N/S)</category>
 	</item>
 
 	<item id="11f9">
-		<id>0x11f9</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Fur 2 (N/S)</category> 
+		<id>0x11f9</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Fur 2 (N/S)</category>
 	</item>
 
 	<item id="11fa">
-		<id>0x11fa</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Fur 3 (N/S)</category> 
+		<id>0x11fa</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Fur 3 (N/S)</category>
 	</item>
 
 	<item id="11fb">
-		<id>0x11fb</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Fur 4 (N/S)</category> 
+		<id>0x11fb</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Fur 4 (N/S)</category>
 	</item>
 
 	<item id="1f73">
-		<id>0x1f73</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Fur 5 (N/S) (1/2)</category> 
+		<id>0x1f73</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Fur 5 (N/S) (1/2)</category>
 	</item>
 
 	<item id="1f74">
-		<id>0x1f74</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Fur 5 (N/S) (2/2)</category> 
+		<id>0x1f74</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Fur 5 (N/S) (2/2)</category>
 	</item>
 
 	<item id="1f75">
-		<id>0x1f75</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Fur 5 (W/E) (1/2)</category> 
+		<id>0x1f75</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Fur 5 (W/E) (1/2)</category>
 	</item>
 
 	<item id="1f76">
-		<id>0x1f76</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Fur 5 (W/E) (2/2)</category> 
+		<id>0x1f76</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Fur 5 (W/E) (2/2)</category>
 	</item>
 
 	<item id="1f77">
-		<id>0x1f77</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Fur 6 (N/S) (1/2)</category> 
+		<id>0x1f77</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Fur 6 (N/S) (1/2)</category>
 	</item>
 
 	<item id="1f78">
-		<id>0x1f78</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Fur 6 (N/S) (2/2)</category> 
+		<id>0x1f78</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Fur 6 (N/S) (2/2)</category>
 	</item>
 
 	<item id="1f79">
-		<id>0x1f79</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Fur 6 (W/E) (1/2)</category> 
+		<id>0x1f79</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Fur 6 (W/E) (1/2)</category>
 	</item>
 
 	<item id="1f7a">
-		<id>0x1f7a</id> <nodecay />
-		<category>Decoration\Mats &amp; Furs\Fur 6 (W/E) (2/2)</category> 
+		<id>0x1f7a</id>
+		<nodecay />
+		<category>Decoration\Mats &amp; Furs\Fur 6 (W/E) (2/2)</category>
 	</item>
 
 	<!-- Hammock &amp; Cots -->
 	<item id="11f0">
-		<id>0x11f0</id> <nodecay />
-		<category>Decoration\Hammock &amp; Cot\Hammock (W/E) (1/2)</category> 
+		<id>0x11f0</id>
+		<nodecay />
+		<category>Decoration\Hammock &amp; Cot\Hammock (W/E) (1/2)</category>
 	</item>
 
 	<item id="11f1">
-		<id>0x11f1</id> <nodecay />
-		<category>Decoration\Hammock &amp; Cot\Hammock (W/E) (2/2)</category> 
+		<id>0x11f1</id>
+		<nodecay />
+		<category>Decoration\Hammock &amp; Cot\Hammock (W/E) (2/2)</category>
 	</item>
 
 	<item id="11f2">
-		<id>0x11f2</id> <nodecay />
-		<category>Decoration\Hammock &amp; Cot\Hammock (N/S) (1/2)</category> 
+		<id>0x11f2</id>
+		<nodecay />
+		<category>Decoration\Hammock &amp; Cot\Hammock (N/S) (1/2)</category>
 	</item>
 
 	<item id="11f3">
-		<id>0x11f3</id> <nodecay />
-		<category>Decoration\Hammock &amp; Cot\Hammock (N/S) (2/2)</category> 
+		<id>0x11f3</id>
+		<nodecay />
+		<category>Decoration\Hammock &amp; Cot\Hammock (N/S) (2/2)</category>
 	</item>
 
 	<item id="11fd">
-		<id>0x11fd</id> <nodecay />
-		<category>Decoration\Hammock &amp; Cot\Cot (W/E) (1/2)</category> 
+		<id>0x11fd</id>
+		<nodecay />
+		<category>Decoration\Hammock &amp; Cot\Cot (W/E) (1/2)</category>
 	</item>
 
 	<item id="11fe">
-		<id>0x11fe</id> <nodecay />
-		<category>Decoration\Hammock &amp; Cot\Cot (W/E) (2/2)</category> 
+		<id>0x11fe</id>
+		<nodecay />
+		<category>Decoration\Hammock &amp; Cot\Cot (W/E) (2/2)</category>
 	</item>
 
 	<item id="11ff">
-		<id>0x11ff</id> <nodecay />
-		<category>Decoration\Hammock &amp; Cot\Cot (N/S) (1/2)</category> 
+		<id>0x11ff</id>
+		<nodecay />
+		<category>Decoration\Hammock &amp; Cot\Cot (N/S) (1/2)</category>
 	</item>
 
 	<item id="1200">
-		<id>0x1200</id> <nodecay />
-		<category>Decoration\Hammock &amp; Cot\Cot (N/S) (2/2)</category> 
-	</item>	
+		<id>0x1200</id>
+		<nodecay />
+		<category>Decoration\Hammock &amp; Cot\Cot (N/S) (2/2)</category>
+	</item>
 
 	<!-- Wall Carvings -->
 	<item id="121d">
-		<id>0x121d</id> <nodecay />
+		<id>0x121d</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 1 (1/3)</category>
 	</item>
 
 	<item id="121e">
-		<id>0x121e</id> <nodecay />
+		<id>0x121e</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 1 (2/3)</category>
 	</item>
 
 	<item id="121f">
-		<id>0x121f</id> <nodecay />
+		<id>0x121f</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 1 (3/3)</category>
 	</item>
 
 	<item id="1220">
-		<id>0x1220</id> <nodecay />
+		<id>0x1220</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 2 (1/3)</category>
 	</item>
 
 	<item id="1221">
-		<id>0x1221</id> <nodecay />
+		<id>0x1221</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 2 (2/3)</category>
 	</item>
 
 	<item id="1222">
-		<id>0x1222</id> <nodecay />
+		<id>0x1222</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 2 (3/3)</category>
 	</item>
 
 	<item id="1231">
-		<id>0x1231</id> <nodecay />
+		<id>0x1231</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 3 (N/S) (1/3)</category>
 	</item>
 
 	<item id="1232">
-		<id>0x1232</id> <nodecay />
+		<id>0x1232</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 3 (N/S) (2/3)</category>
 	</item>
 
 	<item id="1233">
-		<id>0x1233</id> <nodecay />
+		<id>0x1233</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 3 (N/S) (3/3)</category>
 	</item>
 
 	<item id="1234">
-		<id>0x1234</id> <nodecay />
+		<id>0x1234</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 4 (N/S) (1/2)</category>
 	</item>
 
 	<item id="1235">
-		<id>0x1235</id> <nodecay />
+		<id>0x1235</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 4 (N/S) (2/2)</category>
 	</item>
 
 	<item id="1237">
-		<id>0x1237</id> <nodecay />
+		<id>0x1237</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 5 (N/S) (1/3)</category>
 	</item>
 
 	<item id="1238">
-		<id>0x1238</id> <nodecay />
+		<id>0x1238</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 5 (N/S) (2/3)</category>
 	</item>
 
 	<item id="1239">
-		<id>0x1239</id> <nodecay />
+		<id>0x1239</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 5 (N/S) (3/3)</category>
 	</item>
 
 	<item id="123a">
-		<id>0x123a</id> <nodecay />
+		<id>0x123a</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 5 (W/E) (1/3)</category>
 	</item>
 
 	<item id="123b">
-		<id>0x123b</id> <nodecay />
+		<id>0x123b</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 5 (W/E) (2/3)</category>
 	</item>
 
 	<item id="123c">
-		<id>0x123c</id> <nodecay />
+		<id>0x123c</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 5 (W/E) (3/3)</category>
 	</item>
 
 	<item id="123d">
-		<id>0x123d</id> <nodecay />
+		<id>0x123d</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 3 (W/E) (1/3)</category>
 	</item>
 
 	<item id="123e">
-		<id>0x123e</id> <nodecay />
+		<id>0x123e</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 3 (W/E) (2/3)</category>
 	</item>
 
 	<item id="1240">
-		<id>0x1240</id> <nodecay />
+		<id>0x1240</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 3 (W/E) (3/3)</category>
 	</item>
 
 	<item id="1241">
-		<id>0x1241</id> <nodecay />
+		<id>0x1241</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 4 (W/E) (1/2)</category>
 	</item>
 
 	<item id="1242">
-		<id>0x1242</id> <nodecay />
+		<id>0x1242</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 4 (W/E) (2/2)</category>
 	</item>
 
 	<item id="1243">
-		<id>0x1243</id> <nodecay />
+		<id>0x1243</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 6 (W/E)</category>
 	</item>
 
 	<item id="1244">
-		<id>0x1244</id> <nodecay />
+		<id>0x1244</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 6 (N/S)</category>
 	</item>
 
 	<item id="1265">
-		<id>0x1265</id> <nodecay />
+		<id>0x1265</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 7 (1/3)</category>
 	</item>
 
 	<item id="1266">
-		<id>0x1266</id> <nodecay />
+		<id>0x1266</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 7 (2/3)</category>
 	</item>
 
 	<item id="1267">
-		<id>0x1267</id> <nodecay />
+		<id>0x1267</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 7 (3/3)</category>
 	</item>
 
 	<item id="12cc">
-		<id>0x12cc</id> <nodecay />
+		<id>0x12cc</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 8 (N/S) (1/5)</category>
 	</item>
 
 	<item id="12cd">
-		<id>0x12cd</id> <nodecay />
+		<id>0x12cd</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 8 (N/S) (2/5)</category>
 	</item>
 
 	<item id="12ce">
-		<id>0x12ce</id> <nodecay />
+		<id>0x12ce</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 8 (N/S) (3/5)</category>
 	</item>
 
 	<item id="12cf">
-		<id>0x12cf</id> <nodecay />
+		<id>0x12cf</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 8 (N/S) (4/5)</category>
 	</item>
 
 	<item id="12d0">
-		<id>0x12d0</id> <nodecay />
+		<id>0x12d0</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 8 (N/S) (5/5)</category>
 	</item>
 
 	<item id="12d1">
-		<id>0x12d1</id> <nodecay />
+		<id>0x12d1</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 8 (W/E) (1/4)</category>
 	</item>
 
 	<item id="12d2">
-		<id>0x12d2</id> <nodecay />
+		<id>0x12d2</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 8 (W/E) (2/4)</category>
 	</item>
 
 	<item id="12d3">
-		<id>0x12d3</id> <nodecay />
+		<id>0x12d3</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 8 (W/E) (3/4)</category>
 	</item>
 
 	<item id="12d4">
-		<id>0x12d4</id> <nodecay />
+		<id>0x12d4</id>
+		<nodecay />
 		<category>Decoration\Wall Carvings\Wall Carving 8 (W/E) (4/4)</category>
 	</item>
 
 	<!-- Statues -->
 	<item id="1223">
-		<id>0x1223</id> <nodecay />
+		<id>0x1223</id>
+		<nodecay />
 		<category>Decoration\Statues\Small Statues\Pedestal</category>
 	</item>
 
 	<item id="1f2a">
-		<id>0x1f2a</id> <nodecay />
+		<id>0x1f2a</id>
+		<nodecay />
 		<category>Decoration\Statues\Small Statues\Small Pedestal</category>
 	</item>
 
 	<item id="1224">
-		<id>0x1224</id> <nodecay />
+		<id>0x1224</id>
+		<nodecay />
 		<category>Decoration\Statues\Small Statues\Statue 1 (W/E)</category>
 	</item>
 
 	<item id="1225">
-		<id>0x1225</id> <nodecay />
+		<id>0x1225</id>
+		<nodecay />
 		<category>Decoration\Statues\Small Statues\Statue 5</category>
 	</item>
 
 	<item id="1226">
-		<id>0x1226</id> <nodecay />
+		<id>0x1226</id>
+		<nodecay />
 		<category>Decoration\Statues\Small Statues\Statue 2 (W/E)</category>
 	</item>
 
 	<item id="1227">
-		<id>0x1227</id> <nodecay />
+		<id>0x1227</id>
+		<nodecay />
 		<category>Decoration\Statues\Small Statues\Statue 3 (W/E)</category>
 	</item>
 
 	<item id="139a">
-		<id>0x139a</id> <nodecay />
+		<id>0x139a</id>
+		<nodecay />
 		<category>Decoration\Statues\Small Statues\Statue 1 (N/S)</category>
 	</item>
 
 	<item id="139b">
-		<id>0x139b</id> <nodecay />
+		<id>0x139b</id>
+		<nodecay />
 		<category>Decoration\Statues\Small Statues\Statue 2 (N/S)</category>
 	</item>
 
 	<item id="139c">
-		<id>0x139c</id> <nodecay />
+		<id>0x139c</id>
+		<nodecay />
 		<category>Decoration\Statues\Small Statues\Statue 3 (N/S)</category>
 	</item>
 
 	<item id="139d">
-		<id>0x139d</id> <nodecay />
+		<id>0x139d</id>
+		<nodecay />
 		<category>Decoration\Statues\Small Statues\Statue 4 (N/S)</category>
 	</item>
 
 	<item id="1228">
-		<id>0x1228</id> <nodecay />
+		<id>0x1228</id>
+		<nodecay />
 		<category>Decoration\Statues\Small Statues\Statue 4 (W/E)</category>
 	</item>
 
 	<item id="1f18">
-		<id>0x1f18</id> <nodecay />
+		<id>0x1f18</id>
+		<nodecay />
 		<category>Decoration\Statues\Small Statues\Statue 6</category>
 	</item>
 
 	<item id="12ca">
-		<id>0x12ca</id> <nodecay />
+		<id>0x12ca</id>
+		<nodecay />
 		<category>Decoration\Statues\Small Statues\Bust (W/E)</category>
 	</item>
 
 	<item id="12cb">
-		<id>0x12cb</id> <nodecay />
+		<id>0x12cb</id>
+		<nodecay />
 		<category>Decoration\Statues\Small Statues\Bust (N/S)</category>
 	</item>
 
 	<item id="129f">
-		<id>0x129f</id> <nodecay />
+		<id>0x129f</id>
+		<nodecay />
 		<category>Decoration\Statues\Statue 1 (N/S) (2/3)</category>
 	</item>
 
 	<item id="12a0">
-		<id>0x12a0</id> <nodecay />
+		<id>0x12a0</id>
+		<nodecay />
 		<category>Decoration\Statues\Statue 1 (N/S) (3/3)</category>
 	</item>
 
 	<item id="12a1">
-		<id>0x12a1</id> <nodecay />
+		<id>0x12a1</id>
+		<nodecay />
 		<category>Decoration\Statues\Statue 1 (N/S) (1/3)</category>
 	</item>
 
 	<item id="12a2">
-		<id>0x12a2</id> <nodecay />
+		<id>0x12a2</id>
+		<nodecay />
 		<category>Decoration\Statues\Statue 2 (N/S) (2/3)</category>
 	</item>
 
 	<item id="12a3">
-		<id>0x12a3</id> <nodecay />
+		<id>0x12a3</id>
+		<nodecay />
 		<category>Decoration\Statues\Statue 2 (N/S) (3/3)</category>
 	</item>
 
 	<item id="12a4">
-		<id>0x12a4</id> <nodecay />
+		<id>0x12a4</id>
+		<nodecay />
 		<category>Decoration\Statues\Statue 2 (N/S) (1/3)</category>
 	</item>
 
 	<item id="12ae">
-		<id>0x12ae</id> <nodecay />
+		<id>0x12ae</id>
+		<nodecay />
 		<category>Decoration\Statues\Statue 3 (2/3)</category>
 	</item>
 
 	<item id="12af">
-		<id>0x12af</id> <nodecay />
+		<id>0x12af</id>
+		<nodecay />
 		<category>Decoration\Statues\Statue 3 (3/3)</category>
 	</item>
 
 	<item id="12b0">
-		<id>0x12b0</id> <nodecay />
+		<id>0x12b0</id>
+		<nodecay />
 		<category>Decoration\Statues\Statue 3 (1/3)</category>
 	</item>
 
 	<item id="12d5">
-		<id>0x12d5</id> <nodecay />
+		<id>0x12d5</id>
+		<nodecay />
 		<category>Decoration\Statues\Statue 4 (1/3)</category>
 	</item>
 
 	<item id="12d6">
-		<id>0x12d6</id> <nodecay />
+		<id>0x12d6</id>
+		<nodecay />
 		<category>Decoration\Statues\Statue 4 (3/3)</category>
 	</item>
 
 	<item id="12d7">
-		<id>0x12d7</id> <nodecay />
+		<id>0x12d7</id>
+		<nodecay />
 		<category>Decoration\Statues\Statue 4 (2/3)</category>
 	</item>
 
 	<item id="12d8">
-		<id>0x12d8</id> <nodecay />
+		<id>0x12d8</id>
+		<nodecay />
 		<category>Decoration\Statues\Statue 5 (W/E)</category>
 	</item>
 
 	<item id="12d9">
-		<id>0x12d9</id> <nodecay />
+		<id>0x12d9</id>
+		<nodecay />
 		<category>Decoration\Statues\Statue 5 (N/S)</category>
 	</item>
 
 	<item id="139e">
-		<id>0x139e</id> <nodecay />
+		<id>0x139e</id>
+		<nodecay />
 		<category>Decoration\Statues\Statue 1 (W/E) (2/3)</category>
 	</item>
 
 	<item id="139f">
-		<id>0x139f</id> <nodecay />
+		<id>0x139f</id>
+		<nodecay />
 		<category>Decoration\Statues\Statue 1 (W/E) (1/3)</category>
 	</item>
 
 	<item id="13a0">
-		<id>0x13a0</id> <nodecay />
+		<id>0x13a0</id>
+		<nodecay />
 		<category>Decoration\Statues\Statue 1 (W/E) (3/3)</category>
 	</item>
 
 	<item id="13a1">
-		<id>0x13a1</id> <nodecay />
+		<id>0x13a1</id>
+		<nodecay />
 		<category>Decoration\Statues\Statue 2 (W/E) (2/3)</category>
 	</item>
 
 	<item id="13a2">
-		<id>0x13a2</id> <nodecay />
+		<id>0x13a2</id>
+		<nodecay />
 		<category>Decoration\Statues\Statue 2 (W/E) (1/3)</category>
 	</item>
 
 	<item id="13a3">
-		<id>0x13a3</id> <nodecay />
+		<id>0x13a3</id>
+		<nodecay />
 		<category>Decoration\Statues\Statue 2 (W/E) (3/3)</category>
 	</item>
 
 	<item id="2a9e">
-		<id>0x2a9e</id> <nodecay />
+		<id>0x2a9e</id>
+		<nodecay />
 		<category>Decoration\Statues\Statue 6 (1/3)</category>
 	</item>
 
 	<item id="2a9f">
-		<id>0x2a9f</id> <nodecay />
+		<id>0x2a9f</id>
+		<nodecay />
 		<category>Decoration\Statues\Statue 6 (2/3)</category>
 	</item>
 
 	<item id="2aa0">
-		<id>0x2aa0</id> <nodecay />
+		<id>0x2aa0</id>
+		<nodecay />
 		<category>Decoration\Statues\Statue 6 (3/3)</category>
 	</item>
 
 	<!-- Decorative Armor -->
 	<item id="1508">
-		<id>0x1508</id> <nodecay />
+		<id>0x1508</id>
+		<nodecay />
 		<category>Decoration\Decorative Armor\Decorative Armor 1 (W/E)</category>
 	</item>
 
 	<item id="1509">
-		<id>0x1509</id> <nodecay />
+		<id>0x1509</id>
+		<nodecay />
 		<category>Decoration\Decorative Armor\Decorative Armor 2 (W/E)</category>
 	</item>
 
 	<item id="1512">
-		<id>0x1512</id> <nodecay />
+		<id>0x1512</id>
+		<nodecay />
 		<category>Decoration\Decorative Armor\Decorative Armor 3 (N/S)</category>
 	</item>
 
 	<item id="1513">
-		<id>0x1513</id> <nodecay />
+		<id>0x1513</id>
+		<nodecay />
 		<category>Decoration\Decorative Armor\Decorative Armor 4 (N/S)</category>
 	</item>
 
 	<item id="151a">
-		<id>0x151a</id> <nodecay />
+		<id>0x151a</id>
+		<nodecay />
 		<category>Decoration\Decorative Armor\Decorative Armor 3 (N/S)</category>
 	</item>
 
 	<item id="151b">
-		<id>0x151b</id> <nodecay />
+		<id>0x151b</id>
+		<nodecay />
 		<category>Decoration\Decorative Armor\Decorative Armor 4 (N/S)</category>
 	</item>
 
 	<item id="151c">
-		<id>0x151c</id> <nodecay />
+		<id>0x151c</id>
+		<nodecay />
 		<category>Decoration\Decorative Armor\Decorative Armor 1 (N/S)</category>
 	</item>
 
 	<item id="151d">
-		<id>0x151d</id> <nodecay />
+		<id>0x151d</id>
+		<nodecay />
 		<category>Decoration\Decorative Armor\Decorative Armor 2 (N/S)</category>
 	</item>
 
 	<!-- Trophies -->
 
 	<item id="1e60">
-		<id>0x1e60</id> <nodecay />
+		<id>0x1e60</id>
+		<nodecay />
 		<category>Decoration\Trophies\Bear (N/S)</category>
 	</item>
 
 	<item id="1e61">
-		<id>0x1e61</id> <nodecay />
+		<id>0x1e61</id>
+		<nodecay />
 		<category>Decoration\Trophies\Deer (N/S)</category>
 	</item>
 
 	<item id="1e62">
-		<id>0x1e62</id> <nodecay />
+		<id>0x1e62</id>
+		<nodecay />
 		<category>Decoration\Trophies\Fish (N/S)</category>
 	</item>
 
 	<item id="1e63">
-		<id>0x1e63</id> <nodecay />
+		<id>0x1e63</id>
+		<nodecay />
 		<category>Decoration\Trophies\Gorilla (N/S)</category>
 	</item>
 
 	<item id="1e64">
-		<id>0x1e64</id> <nodecay />
+		<id>0x1e64</id>
+		<nodecay />
 		<category>Decoration\Trophies\Orc (N/S)</category>
 	</item>
 
 	<item id="1e65">
-		<id>0x1e65</id> <nodecay />
+		<id>0x1e65</id>
+		<nodecay />
 		<category>Decoration\Trophies\Polar Bear (N/S)</category>
 	</item>
 
 	<item id="1e66">
-		<id>0x1e66</id> <nodecay />
+		<id>0x1e66</id>
+		<nodecay />
 		<category>Decoration\Trophies\Troll (N/S)</category>
 	</item>
 
 	<item id="1e67">
-		<id>0x1e67</id> <nodecay />
+		<id>0x1e67</id>
+		<nodecay />
 		<category>Decoration\Trophies\Bear (W/E)</category>
 	</item>
 
 	<item id="1e68">
-		<id>0x1e68</id> <nodecay />
+		<id>0x1e68</id>
+		<nodecay />
 		<category>Decoration\Trophies\Deer (W/E)</category>
 	</item>
 
 	<item id="1e69">
-		<id>0x1e69</id> <nodecay />
+		<id>0x1e69</id>
+		<nodecay />
 		<category>Decoration\Trophies\Fish (W/E)</category>
 	</item>
 
 	<item id="1e6a">
-		<id>0x1e6a</id> <nodecay />
+		<id>0x1e6a</id>
+		<nodecay />
 		<category>Decoration\Trophies\Gorilla (W/E)</category>
 	</item>
 
 	<item id="1e6b">
-		<id>0x1e6b</id> <nodecay />
+		<id>0x1e6b</id>
+		<nodecay />
 		<category>Decoration\Trophies\Orc (W/E)</category>
 	</item>
 
 	<item id="1e6c">
-		<id>0x1e6c</id> <nodecay />
+		<id>0x1e6c</id>
+		<nodecay />
 		<category>Decoration\Trophies\Polar Bear (W/E)</category>
 	</item>
 
 	<item id="1e6d">
-		<id>0x1e6d</id> <nodecay />
+		<id>0x1e6d</id>
+		<nodecay />
 		<category>Decoration\Trophies\Troll (W/E)</category>
 	</item>
 

@@ -11,237 +11,284 @@
 <definitions>
 	<!-- Red Curtains -->
 	<item id="980">
-		<id>0x0980</id> <nodecay />
+		<id>0x0980</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Red Curtain\Red Curtain 1</categories>
 	</item>
 
 	<item id="981">
-		<id>0x0981</id> <nodecay />
+		<id>0x0981</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Red Curtain\Red Curtain 2</categories>
 	</item>
 
 	<item id="982">
-		<id>0x0982</id> <nodecay />
+		<id>0x0982</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Red Curtain\Red Curtain 3</categories>
 	</item>
 
 	<item id="983">
-		<id>0x0983</id> <nodecay />
+		<id>0x0983</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Red Curtain\Red Curtain 4</categories>
 	</item>
 
 	<item id="984">
-		<id>0x0984</id> <nodecay />
+		<id>0x0984</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Red Curtain\Red Curtain 5</categories>
 	</item>
 
 	<item id="985">
-		<id>0x0985</id> <nodecay />
+		<id>0x0985</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Red Curtain\Red Curtain 6</categories>
 	</item>
 
 	<item id="986">
-		<id>0x0986</id> <nodecay />
+		<id>0x0986</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Red Curtain\Red Curtain 7</categories>
 	</item>
 
 	<item id="987">
-		<id>0x0987</id> <nodecay />
+		<id>0x0987</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Red Curtain\Red Curtain 8</categories>
 	</item>
 
 	<item id="988">
-		<id>0x0988</id> <nodecay />
+		<id>0x0988</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Red Curtain\Red Curtain 9</categories>
 	</item>
 
 	<item id="989">
-		<id>0x0989</id> <nodecay />
+		<id>0x0989</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Red Curtain\Red Curtain 10</categories>
 	</item>
 
 	<item id="98a">
-		<id>0x098a</id> <nodecay />
+		<id>0x098a</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Red Curtain\Red Curtain 11</categories>
 	</item>
 
 	<item id="98b">
-		<id>0x098b</id> <nodecay />
+		<id>0x098b</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Red Curtain\Red Curtain 12</categories>
 	</item>
 
 	<item id="160d">
-		<id>0x160d</id> <nodecay />
+		<id>0x160d</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Red Curtain\Red Curtain 13</categories>
 	</item>
 
 	<item id="160e">
-		<id>0x160e</id> <nodecay />
+		<id>0x160e</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Red Curtain\Red Curtain 14</categories>
 	</item>
 
 	<item id="3ed8">
-		<id>0x3ed8</id> <nodecay />
+		<id>0x3ed8</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Red Curtain\Red Curtain 15</categories>
 	</item>
 
 	<item id="3ed9">
-		<id>0x3ed9</id> <nodecay />
+		<id>0x3ed9</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Red Curtain\Red Curtain 16</categories>
 	</item>
 
 	<item id="3eda">
-		<id>0x3eda</id> <nodecay />
+		<id>0x3eda</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Red Curtain\Red Curtain 17</categories>
 	</item>
 
 	<item id="3edb">
-		<id>0x3edb</id> <nodecay />
+		<id>0x3edb</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Red Curtain\Red Curtain 18</categories>
 	</item>
 
 	<item id="12da">
-		<id>0x12da</id> <nodecay />
+		<id>0x12da</id>
+		<nodecay />
 		<categories>Decoration\Curtains\White Curtain\White Curtain (W/E) 1</categories>
 	</item>
 
 	<item id="12db">
-		<id>0x12db</id> <nodecay />
+		<id>0x12db</id>
+		<nodecay />
 		<categories>Decoration\Curtains\White Curtain\White Curtain (W/E) 2</categories>
 	</item>
 
 	<item id="12dc">
-		<id>0x12dc</id> <nodecay />
+		<id>0x12dc</id>
+		<nodecay />
 		<categories>Decoration\Curtains\White Curtain\White Curtain (W/E) 3</categories>
 	</item>
 
 	<item id="12dd">
-		<id>0x12dd</id> <nodecay />
+		<id>0x12dd</id>
+		<nodecay />
 		<categories>Decoration\Curtains\White Curtain\White Curtain (W/E) 4</categories>
 	</item>
 
 	<item id="12de">
-		<id>0x12de</id> <nodecay />
+		<id>0x12de</id>
+		<nodecay />
 		<categories>Decoration\Curtains\White Curtain\White Curtain (W/E) 5</categories>
 	</item>
 
 	<item id="12df">
-		<id>0x12df</id> <nodecay />
+		<id>0x12df</id>
+		<nodecay />
 		<categories>Decoration\Curtains\White Curtain\White Curtain (W/E) 6</categories>
 	</item>
 
 	<item id="12e0">
-		<id>0x12e0</id> <nodecay />
+		<id>0x12e0</id>
+		<nodecay />
 		<categories>Decoration\Curtains\White Curtain\White Curtain (W/E) 7</categories>
 	</item>
 
 	<item id="12e1">
-		<id>0x12e1</id> <nodecay />
+		<id>0x12e1</id>
+		<nodecay />
 		<categories>Decoration\Curtains\White Curtain\White Curtain (W/E) 8</categories>
 	</item>
 
 	<item id="12e2">
-		<id>0x12e2</id> <nodecay />
+		<id>0x12e2</id>
+		<nodecay />
 		<categories>Decoration\Curtains\White Curtain\White Curtain Sash (W/E) 1</categories>
 	</item>
 
 	<item id="12e3">
-		<id>0x12e3</id> <nodecay />
+		<id>0x12e3</id>
+		<nodecay />
 		<categories>Decoration\Curtains\White Curtain\White Curtain Sash (W/E) 2</categories>
 	</item>
 
 	<item id="12e4">
-		<id>0x12e4</id> <nodecay />
+		<id>0x12e4</id>
+		<nodecay />
 		<categories>Decoration\Curtains\White Curtain\White Curtain Sash (W/E) 3</categories>
 	</item>
 
 	<item id="12e5">
-		<id>0x12e5</id> <nodecay />
+		<id>0x12e5</id>
+		<nodecay />
 		<categories>Decoration\Curtains\White Curtain\White Curtain (N/S) 1</categories>
 	</item>
 
 	<item id="12e6">
-		<id>0x12e6</id> <nodecay />
+		<id>0x12e6</id>
+		<nodecay />
 		<categories>Decoration\Curtains\White Curtain\White Curtain (N/S) 2</categories>
 	</item>
 
 	<item id="12e7">
-		<id>0x12e7</id> <nodecay />
+		<id>0x12e7</id>
+		<nodecay />
 		<categories>Decoration\Curtains\White Curtain\White Curtain (N/S) 3</categories>
 	</item>
 
 	<item id="12e8">
-		<id>0x12e8</id> <nodecay />
+		<id>0x12e8</id>
+		<nodecay />
 		<categories>Decoration\Curtains\White Curtain\White Curtain (N/S) 4</categories>
 	</item>
 
 	<item id="12e9">
-		<id>0x12e9</id> <nodecay />
+		<id>0x12e9</id>
+		<nodecay />
 		<categories>Decoration\Curtains\White Curtain\White Curtain (N/S) 5</categories>
 	</item>
 
 	<item id="12ea">
-		<id>0x12ea</id> <nodecay />
+		<id>0x12ea</id>
+		<nodecay />
 		<categories>Decoration\Curtains\White Curtain\White Curtain (N/S) 6</categories>
 	</item>
 
 	<item id="12eb">
-		<id>0x12eb</id> <nodecay />
+		<id>0x12eb</id>
+		<nodecay />
 		<categories>Decoration\Curtains\White Curtain\White Curtain (N/S) 7</categories>
 	</item>
 
 	<item id="12ec">
-		<id>0x12ec</id> <nodecay />
+		<id>0x12ec</id>
+		<nodecay />
 		<categories>Decoration\Curtains\White Curtain\White Curtain (N/S) 8</categories>
 	</item>
 
 	<item id="12ed">
-		<id>0x12ed</id> <nodecay />
+		<id>0x12ed</id>
+		<nodecay />
 		<categories>Decoration\Curtains\White Curtain\White Curtain Sash (N/S)</categories>
 	</item>
 
 	<item id="154e">
-		<id>0x154e</id> <nodecay />
+		<id>0x154e</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Standing Red Curtain\Red Curtain (1/3)</categories>
 	</item>
 
 	<item id="154f">
-		<id>0x154f</id> <nodecay />
+		<id>0x154f</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Standing Red Curtain\Red Curtain (3/3)</categories>
 	</item>
 
 	<item id="1557">
-		<id>0x1557</id> <nodecay />
+		<id>0x1557</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Standing Red Curtain\Red Curtain (2/3)</categories>
 	</item>
 
 	<item id="159e">
-		<id>0x159e</id> <nodecay />
+		<id>0x159e</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Small White Curtains\White Curtain 1 (W/E)</categories>
 	</item>
 
 	<item id="159f">
-		<id>0x159f</id> <nodecay />
+		<id>0x159f</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Small White Curtains\White Curtain 1 (N/S)</categories>
 	</item>
 
 	<item id="15f6">
-		<id>0x15f6</id> <nodecay />
+		<id>0x15f6</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Small White Curtains\White Curtain 2 (W/E)</categories>
 	</item>
 
 	<item id="15f7">
-		<id>0x15f7</id> <nodecay />
+		<id>0x15f7</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Small White Curtains\White Curtain 2 (N/S)</categories>
 	</item>
 
 	<item id="1638">
-		<id>0x1638</id> <nodecay />
+		<id>0x1638</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Small Red Curtain\Red Curtain 1</categories>
 	</item>
 
 	<item id="1639">
-		<id>0x1639</id> <nodecay />
+		<id>0x1639</id>
+		<nodecay />
 		<categories>Decoration\Curtains\Small Red Curtain\Red Curtain 2</categories>
 	</item>
 </definitions>

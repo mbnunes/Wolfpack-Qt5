@@ -7,4895 +7,5778 @@
 =================================================================
 -->
 <definitions>
+
 	<!-- Wooden Wall 1 -->
 	<item id="6">
-		<id>0x0006</id>
+		<id>0x6</id>
 		<category>Buildings\Walls\Wooden Wall 1\Wall 1</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="7">
-		<id>0x0007</id>
+		<id>0x7</id>
 		<category>Buildings\Walls\Wooden Wall 1\Wall 2</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="8">
-		<id>0x0008</id>
+		<id>0x8</id>
 		<category>Buildings\Walls\Wooden Wall 1\Wall 3</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="9">
-		<id>0x0009</id>
+		<id>0x9</id>
 		<category>Buildings\Walls\Wooden Wall 1\Wall 4</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="a">
-		<id>0x000a</id>
+		<id>0xa</id>
 		<category>Buildings\Walls\Wooden Wall 1\Wall 5</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="b">
-		<id>0x000b</id>
+		<id>0xb</id>
 		<category>Buildings\Walls\Wooden Wall 1\Wall 6</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="c">
-		<id>0x000c</id>
+		<id>0xc</id>
 		<category>Buildings\Walls\Wooden Wall 1\Wall 7</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="d">
-		<id>0x000d</id>
+		<id>0xd</id>
 		<category>Buildings\Walls\Wooden Wall 1\Wall 8</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="e">
-		<id>0x000e</id>
+		<id>0xe</id>
 		<category>Buildings\Walls\Wooden Wall 1\Window 1</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="f">
-		<id>0x000f</id>
+		<id>0xf</id>
 		<category>Buildings\Walls\Wooden Wall 1\Window 2</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="10">
-		<id>0x0010</id>
+		<id>0x10</id>
 		<category>Buildings\Walls\Wooden Wall 1\Small Wall 1</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="11">
-		<id>0x0011</id>
+		<id>0x11</id>
 		<category>Buildings\Walls\Wooden Wall 1\Small Wall 2</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="12">
-		<id>0x0012</id>
+		<id>0x12</id>
 		<category>Buildings\Walls\Wooden Wall 1\Small Wall 3</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="13">
-		<id>0x0013</id>
+		<id>0x13</id>
 		<category>Buildings\Walls\Wooden Wall 1\Small Wall 4</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="14">
-		<id>0x0014</id>
+		<id>0x14</id>
 		<category>Buildings\Walls\Wooden Wall 1\Tiny Wall 1</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="15">
-		<id>0x0015</id>
+		<id>0x15</id>
 		<category>Buildings\Walls\Wooden Wall 1\Tiny Wall 2</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="16">
-		<id>0x0016</id>
+		<id>0x16</id>
 		<category>Buildings\Walls\Wooden Wall 1\Tiny Wall 3</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="17">
-		<id>0x0017</id>
+		<id>0x17</id>
 		<category>Buildings\Walls\Wooden Wall 1\Tiny Wall 4</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="18">
-		<id>0x0018</id>
+		<id>0x18</id>
 		<category>Buildings\Walls\Wooden Wall 1\Tiny Wall 5</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="19">
-		<id>0x0019</id>
+		<id>0x19</id>
 		<category>Buildings\Walls\Wooden Wall 1\Tiny Wall 6</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
-	
+
 	<!-- Stone Wall 1 -->
 	<item id="1a">
-		<id>0x001a</id>
+		<id>0x1a</id>
 		<category>Buildings\Walls\Stone Wall 1\Wall 1</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="1b">
-		<id>0x001b</id>
+		<id>0x1b</id>
 		<category>Buildings\Walls\Stone Wall 1\Wall 2</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="1c">
-		<id>0x001c</id>
+		<id>0x1c</id>
 		<category>Buildings\Walls\Stone Wall 1\Wall 3</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="1d">
-		<id>0x001d</id>
+		<id>0x1d</id>
 		<category>Buildings\Walls\Stone Wall 1\Wall 4</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="1e">
-		<id>0x001e</id>
+		<id>0x1e</id>
 		<category>Buildings\Walls\Stone Wall 1\Wall 5</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="1f">
-		<id>0x001f</id>
+		<id>0x1f</id>
 		<category>Buildings\Walls\Stone Wall 1\Wall 6</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="20">
-		<id>0x0020</id>
+		<id>0x20</id>
 		<category>Buildings\Walls\Stone Wall 1\Wall 7</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="21">
-		<id>0x0021</id>
+		<id>0x21</id>
 		<category>Buildings\Walls\Stone Wall 1\Wall 8</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="22">
-		<id>0x0022</id>
+		<id>0x22</id>
 		<category>Buildings\Walls\Stone Wall 1\Window 1</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="23">
-		<id>0x0023</id>
+		<id>0x23</id>
 		<category>Buildings\Walls\Stone Wall 1\Window 2</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="24">
-		<id>0x0024</id>
+		<id>0x24</id>
 		<category>Buildings\Walls\Stone Wall 1\Small Wall 1</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="25">
-		<id>0x0025</id>
+		<id>0x25</id>
 		<category>Buildings\Walls\Stone Wall 1\Small Wall 2</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="26">
-		<id>0x0026</id>
+		<id>0x26</id>
 		<category>Buildings\Walls\Stone Wall 1\Small Wall 3</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="27">
-		<id>0x0027</id>
+		<id>0x27</id>
 		<category>Buildings\Walls\Stone Wall 1\Small Wall 4</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="28">
-		<id>0x0028</id>
+		<id>0x28</id>
 		<category>Buildings\Walls\Stone Wall 1\Arch 1</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="29">
-		<id>0x0029</id>
+		<id>0x29</id>
 		<category>Buildings\Walls\Stone Wall 1\Arch 2</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="2a">
-		<id>0x002a</id>
+		<id>0x2a</id>
 		<category>Buildings\Walls\Stone Wall 1\Arch 3</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="2b">
-		<id>0x002b</id>
+		<id>0x2b</id>
 		<category>Buildings\Walls\Stone Wall 1\Arch 4</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="2c">
-		<id>0x002c</id>
+		<id>0x2c</id>
 		<category>Buildings\Walls\Stone Wall 1\Arch 5</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="2d">
-		<id>0x002d</id>
+		<id>0x2d</id>
 		<category>Buildings\Walls\Stone Wall 1\Tiny Wall 1</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="2e">
-		<id>0x002e</id>
+		<id>0x2e</id>
 		<category>Buildings\Walls\Stone Wall 1\Tiny Wall 2</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="2f">
-		<id>0x002f</id>
+		<id>0x2f</id>
 		<category>Buildings\Walls\Stone Wall 1\Tiny Wall 3</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="30">
-		<id>0x0030</id>
+		<id>0x30</id>
 		<category>Buildings\Walls\Stone Wall 1\Tiny Wall 4</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="31">
-		<id>0x0031</id>
+		<id>0x31</id>
 		<category>Buildings\Walls\Stone Wall 1\Tiny Wall 5</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="32">
-		<id>0x0032</id>
+		<id>0x32</id>
 		<category>Buildings\Walls\Stone Wall 1\Tiny Wall 6</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
-	
+
 	<!-- Brick Wall -->
 	<item id="33">
-		<id>0x0033</id>
+		<id>0x33</id>
 		<category>Buildings\Walls\Brick Wall\Wall 1</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="34">
-		<id>0x0034</id>
+		<id>0x34</id>
 		<category>Buildings\Walls\Brick Wall\Wall 2</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="35">
-		<id>0x0035</id>
+		<id>0x35</id>
 		<category>Buildings\Walls\Brick Wall\Wall 3</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="36">
-		<id>0x0036</id>
+		<id>0x36</id>
 		<category>Buildings\Walls\Brick Wall\Wall 4</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="37">
-		<id>0x0037</id>
+		<id>0x37</id>
 		<category>Buildings\Walls\Brick Wall\Wall 5</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="38">
-		<id>0x0038</id>
+		<id>0x38</id>
 		<category>Buildings\Walls\Brick Wall\Wall 6</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="39">
-		<id>0x0039</id>
+		<id>0x39</id>
 		<category>Buildings\Walls\Brick Wall\Wall 7</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="3a">
-		<id>0x003a</id>
+		<id>0x3a</id>
 		<category>Buildings\Walls\Brick Wall\Wall 8</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="3b">
-		<id>0x003b</id>
+		<id>0x3b</id>
 		<category>Buildings\Walls\Brick Wall\Window 1</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="3c">
-		<id>0x003c</id>
+		<id>0x3c</id>
 		<category>Buildings\Walls\Brick Wall\Window 2</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="3d">
-		<id>0x003d</id>
+		<id>0x3d</id>
 		<category>Buildings\Walls\Brick Wall\Small Wall 1</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="3e">
-		<id>0x003e</id>
+		<id>0x3e</id>
 		<category>Buildings\Walls\Brick Wall\Small Wall 2</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="3f">
-		<id>0x003f</id>
+		<id>0x3f</id>
 		<category>Buildings\Walls\Brick Wall\Small Wall 3</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="40">
-		<id>0x0040</id>
+		<id>0x40</id>
 		<category>Buildings\Walls\Brick Wall\Small Wall 4</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="41">
-		<id>0x0041</id>
+		<id>0x41</id>
 		<category>Buildings\Walls\Brick Wall\Tiny Wall 1</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="42">
-		<id>0x0042</id>
+		<id>0x42</id>
 		<category>Buildings\Walls\Brick Wall\Tiny Wall 2</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="43">
-		<id>0x0043</id>
+		<id>0x43</id>
 		<category>Buildings\Walls\Brick Wall\Tiny Wall 3</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="44">
-		<id>0x0044</id>
+		<id>0x44</id>
 		<category>Buildings\Walls\Brick Wall\Tiny Wall 4</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="45">
-		<id>0x0045</id>
+		<id>0x45</id>
 		<category>Buildings\Walls\Brick Wall\Arch 1</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="46">
-		<id>0x0046</id>
+		<id>0x46</id>
 		<category>Buildings\Walls\Brick Wall\Arch 2</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="47">
-		<id>0x0047</id>
+		<id>0x47</id>
 		<category>Buildings\Walls\Brick Wall\Arch 3</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="48">
-		<id>0x0048</id>
+		<id>0x48</id>
 		<category>Buildings\Walls\Brick Wall\Arch 4</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="49">
-		<id>0x0049</id>
+		<id>0x49</id>
 		<category>Buildings\Walls\Brick Wall\Arch 5</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="4a">
-		<id>0x004a</id>
+		<id>0x4a</id>
 		<category>Buildings\Walls\Brick Wall\Archwall 1</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="4b">
-		<id>0x004b</id>
+		<id>0x4b</id>
 		<category>Buildings\Walls\Brick Wall\Archwall 2</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="4c">
-		<id>0x004c</id>
+		<id>0x4c</id>
 		<category>Buildings\Walls\Brick Wall\Archwall 3</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="4d">
-		<id>0x004d</id>
+		<id>0x4d</id>
 		<category>Buildings\Walls\Brick Wall\Archwall 4</category>
-	<nodecay/>
+		<nodecay/>
 	</item>
 
 	<item id="4e">
-		<id>0x004e</id>
+		<id>0x4e</id>
 		<category>Buildings\Walls\Brick Wall\Archedge 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="4f">
-		<id>0x004f</id>
+		<id>0x4f</id>
 		<category>Buildings\Walls\Brick Wall\Archedge 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="50">
-		<id>0x0050</id>
+		<id>0x50</id>
 		<category>Buildings\Walls\Brick Wall\Archedge 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="51">
-		<id>0x0051</id>
+		<id>0x51</id>
 		<category>Buildings\Walls\Brick Wall\Archedge 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="52">
-		<id>0x0052</id>
+		<id>0x52</id>
 		<category>Buildings\Walls\Brick Wall\Edge 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="53">
-		<id>0x0053</id>
+		<id>0x53</id>
 		<category>Buildings\Walls\Brick Wall\Edge 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="54">
-		<id>0x0054</id>
+		<id>0x54</id>
 		<category>Buildings\Walls\Brick Wall\Edge 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="55">
-		<id>0x0055</id>
+		<id>0x55</id>
 		<category>Buildings\Walls\Brick Wall\Edge 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="56">
-		<id>0x0056</id>
+		<id>0x56</id>
 		<category>Buildings\Walls\Brick Wall\Edge 5</category>
-	<nodecay/> </item>	
-	
+		<nodecay/>
+	</item>
+
 	<!-- Stone Wall 2 -->
 	<item id="57">
-		<id>0x0057</id>
+		<id>0x57</id>
 		<category>Buildings\Walls\Stone Wall 2\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="58">
-		<id>0x0058</id>
+		<id>0x58</id>
 		<category>Buildings\Walls\Stone Wall 2\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="59">
-		<id>0x0059</id>
+		<id>0x59</id>
 		<category>Buildings\Walls\Stone Wall 2\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="5a">
-		<id>0x005a</id>
+		<id>0x5a</id>
 		<category>Buildings\Walls\Stone Wall 2\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="5b">
-		<id>0x005b</id>
+		<id>0x5b</id>
 		<category>Buildings\Walls\Stone Wall 2\Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="5c">
-		<id>0x005c</id>
+		<id>0x5c</id>
 		<category>Buildings\Walls\Stone Wall 2\Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="5d">
-		<id>0x005d</id>
+		<id>0x5d</id>
 		<category>Buildings\Walls\Stone Wall 2\Window 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="5e">
-		<id>0x005e</id>
+		<id>0x5e</id>
 		<category>Buildings\Walls\Stone Wall 2\Window 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="5f">
-		<id>0x005f</id>
+		<id>0x5f</id>
 		<category>Buildings\Walls\Stone Wall 2\Small Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="60">
-		<id>0x0060</id>
+		<id>0x60</id>
 		<category>Buildings\Walls\Stone Wall 2\Small Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="61">
-		<id>0x0061</id>
+		<id>0x61</id>
 		<category>Buildings\Walls\Stone Wall 2\Small Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="62">
-		<id>0x0062</id>
+		<id>0x62</id>
 		<category>Buildings\Walls\Stone Wall 2\Small Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="63">
-		<id>0x0063</id>
+		<id>0x63</id>
 		<category>Buildings\Walls\Stone Wall 2\Smaller Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="64">
-		<id>0x0064</id>
+		<id>0x64</id>
 		<category>Buildings\Walls\Stone Wall 2\Smaller Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="65">
-		<id>0x0065</id>
+		<id>0x65</id>
 		<category>Buildings\Walls\Stone Wall 2\Smaller Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="66">
-		<id>0x0066</id>
+		<id>0x66</id>
 		<category>Buildings\Walls\Stone Wall 2\Smaller Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="67">
-		<id>0x0067</id>
+		<id>0x67</id>
 		<category>Buildings\Walls\Stone Wall 2\Smaller Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="68">
-		<id>0x0068</id>
+		<id>0x68</id>
 		<category>Buildings\Walls\Stone Wall 2\Smaller Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="69">
-		<id>0x0069</id>
+		<id>0x69</id>
 		<category>Buildings\Walls\Stone Wall 2\Tiny Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="6a">
-		<id>0x006a</id>
+		<id>0x6a</id>
 		<category>Buildings\Walls\Stone Wall 2\Tiny Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="6b">
-		<id>0x006b</id>
+		<id>0x6b</id>
 		<category>Buildings\Walls\Stone Wall 2\Tiny Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="6c">
-		<id>0x006c</id>
+		<id>0x6c</id>
 		<category>Buildings\Walls\Stone Wall 2\Tiny Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="6d">
-		<id>0x006d</id>
+		<id>0x6d</id>
 		<category>Buildings\Walls\Stone Wall 2\Arch 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="6e">
-		<id>0x006e</id>
+		<id>0x6e</id>
 		<category>Buildings\Walls\Stone Wall 2\Arch 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="6f">
-		<id>0x006f</id>
+		<id>0x6f</id>
 		<category>Buildings\Walls\Stone Wall 2\Arch 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="70">
-		<id>0x0070</id>
+		<id>0x70</id>
 		<category>Buildings\Walls\Stone Wall 2\Arch 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="71">
-		<id>0x0071</id>
+		<id>0x71</id>
 		<category>Buildings\Walls\Stone Wall 2\Arch 5</category>
-	<nodecay/> </item>	
-	
+		<nodecay/>
+	</item>
 
 	<item id="72">
-		<id>0x0072</id>
+		<id>0x72</id>
 		<category>Buildings\Walls\Stone Wall 2\Battlement 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="73">
-		<id>0x0073</id>
+		<id>0x73</id>
 		<category>Buildings\Walls\Stone Wall 2\Battlement 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="74">
-		<id>0x0074</id>
+		<id>0x74</id>
 		<category>Buildings\Walls\Stone Wall 2\Battlement 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="75">
-		<id>0x0075</id>
+		<id>0x75</id>
 		<category>Buildings\Walls\Stone Wall 2\Battlement 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="76">
-		<id>0x0076</id>
+		<id>0x76</id>
 		<category>Buildings\Walls\Stone Wall 2\Battlement 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="77">
-		<id>0x0077</id>
+		<id>0x77</id>
 		<category>Buildings\Walls\Stone Wall 2\Stone Column</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="78">
-		<id>0x0078</id>
+		<id>0x78</id>
 		<category>Buildings\Walls\Stone Wall 2\Edge 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="79">
-		<id>0x0079</id>
+		<id>0x79</id>
 		<category>Buildings\Walls\Stone Wall 2\Edge 2</category>
-	<nodecay/> </item>	
-	
+		<nodecay/>
+	</item>
+
 	<!-- Stone Wall 3 -->
 	<item id="7a">
-		<id>0x007a</id>
+		<id>0x7a</id>
 		<category>Buildings\Walls\Stone Wall 3\Arch 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="7b">
-		<id>0x007b</id>
+		<id>0x7b</id>
 		<category>Buildings\Walls\Stone Wall 3\Arch 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="7c">
-		<id>0x007c</id>
+		<id>0x7c</id>
 		<category>Buildings\Walls\Stone Wall 3\Arch 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="7d">
-		<id>0x007d</id>
+		<id>0x7d</id>
 		<category>Buildings\Walls\Stone Wall 3\Arch 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="7e">
-		<id>0x007e</id>
+		<id>0x7e</id>
 		<category>Buildings\Walls\Stone Wall 3\Arch 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="7f">
-		<id>0x007f</id>
+		<id>0x7f</id>
 		<category>Buildings\Walls\Stone Wall 3\Arch 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="80">
-		<id>0x0080</id>
+		<id>0x80</id>
 		<category>Buildings\Walls\Stone Wall 3\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="81">
-		<id>0x0081</id>
+		<id>0x81</id>
 		<category>Buildings\Walls\Stone Wall 3\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="82">
-		<id>0x0082</id>
+		<id>0x82</id>
 		<category>Buildings\Walls\Stone Wall 3\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="83">
-		<id>0x0083</id>
+		<id>0x83</id>
 		<category>Buildings\Walls\Stone Wall 3\Window 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="84">
-		<id>0x0084</id>
+		<id>0x84</id>
 		<category>Buildings\Walls\Stone Wall 3\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="85">
-		<id>0x0085</id>
+		<id>0x85</id>
 		<category>Buildings\Walls\Stone Wall 3\Window 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="86">
-		<id>0x0086</id>
+		<id>0x86</id>
 		<category>Buildings\Walls\Stone Wall 3\Arch 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="87">
-		<id>0x0087</id>
+		<id>0x87</id>
 		<category>Buildings\Walls\Stone Wall 3\Arch 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="88">
-		<id>0x0088</id>
+		<id>0x88</id>
 		<category>Buildings\Walls\Stone Wall 3\Arch 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="89">
-		<id>0x0089</id>
+		<id>0x89</id>
 		<category>Buildings\Walls\Stone Wall 3\Arch 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="8a">
-		<id>0x008a</id>
+		<id>0x8a</id>
 		<category>Buildings\Walls\Stone Wall 3\Arch 11</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="8b">
-		<id>0x008b</id>
+		<id>0x8b</id>
 		<category>Buildings\Walls\Stone Wall 3\Arch 12</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="8c">
-		<id>0x008c</id>
+		<id>0x8c</id>
 		<category>Buildings\Walls\Stone Wall 3\Arch 13</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="8d">
-		<id>0x008d</id>
+		<id>0x8d</id>
 		<category>Buildings\Walls\Stone Wall 3\Window 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="8e">
-		<id>0x008e</id>
+		<id>0x8e</id>
 		<category>Buildings\Walls\Stone Wall 3\Arch 14</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="8f">
-		<id>0x008f</id>
+		<id>0x8f</id>
 		<category>Buildings\Walls\Stone Wall 3\Window 4</category>
-	<nodecay/> </item>
-	
+		<nodecay/>
+	</item>
+
 	<item id="2c7">
-		<id>0x02c7</id>
+		<id>0x2c7</id>
 		<category>Buildings\Walls\Stone Wall 3\Battlement 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2c8">
-		<id>0x02c8</id>
+		<id>0x2c8</id>
 		<category>Buildings\Walls\Stone Wall 3\Battlement 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2c9">
-		<id>0x02c9</id>
+		<id>0x2c9</id>
 		<category>Buildings\Walls\Stone Wall 3\Battlement 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2ca">
-		<id>0x02ca</id>
+		<id>0x2ca</id>
 		<category>Buildings\Walls\Stone Wall 3\Battlement 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2cb">
-		<id>0x02cb</id>
+		<id>0x2cb</id>
 		<category>Buildings\Walls\Stone Wall 3\Battlement 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2cc">
-		<id>0x02cc</id>
+		<id>0x2cc</id>
 		<category>Buildings\Walls\Stone Wall 3\Battlement 11</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2cd">
-		<id>0x02cd</id>
+		<id>0x2cd</id>
 		<category>Buildings\Walls\Stone Wall 3\Battlement 12</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2ce">
-		<id>0x02ce</id>
+		<id>0x2ce</id>
 		<category>Buildings\Walls\Stone Wall 3\Small Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2cf">
-		<id>0x02cf</id>
+		<id>0x2cf</id>
 		<category>Buildings\Walls\Stone Wall 3\Small Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2d0">
-		<id>0x02d0</id>
+		<id>0x2d0</id>
 		<category>Buildings\Walls\Stone Wall 3\Small Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2d1">
-		<id>0x02d1</id>
+		<id>0x2d1</id>
 		<category>Buildings\Walls\Stone Wall 3\Small Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2d2">
-		<id>0x02d2</id>
+		<id>0x2d2</id>
 		<category>Buildings\Walls\Stone Wall 3\Small Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2d3">
-		<id>0x02d3</id>
+		<id>0x2d3</id>
 		<category>Buildings\Walls\Stone Wall 3\Small Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2d4">
-		<id>0x02d4</id>
+		<id>0x2d4</id>
 		<category>Buildings\Walls\Stone Wall 3\Small Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2d5">
-		<id>0x02d5</id>
+		<id>0x2d5</id>
 		<category>Buildings\Walls\Stone Wall 3\Small Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2d6">
-		<id>0x02d6</id>
+		<id>0x2d6</id>
 		<category>Buildings\Walls\Stone Wall 3\Tiny Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2d7">
-		<id>0x02d7</id>
+		<id>0x2d7</id>
 		<category>Buildings\Walls\Stone Wall 3\Tiny Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2d8">
-		<id>0x02d8</id>
+		<id>0x2d8</id>
 		<category>Buildings\Walls\Stone Wall 3\Tiny Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2d9">
-		<id>0x02d9</id>
+		<id>0x2d9</id>
 		<category>Buildings\Walls\Stone Wall 3\Tiny Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<!-- Log Wall -->
 	<item id="90">
-		<id>0x0090</id>
+		<id>0x90</id>
 		<category>Buildings\Walls\Log Wall\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="91">
-		<id>0x0091</id>
+		<id>0x91</id>
 		<category>Buildings\Walls\Log Wall\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="92">
-		<id>0x0092</id>
+		<id>0x92</id>
 		<category>Buildings\Walls\Log Wall\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="93">
-		<id>0x0093</id>
+		<id>0x93</id>
 		<category>Buildings\Walls\Log Wall\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="94">
-		<id>0x0094</id>
+		<id>0x94</id>
 		<category>Buildings\Walls\Log Wall\Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="95">
-		<id>0x0095</id>
+		<id>0x95</id>
 		<category>Buildings\Walls\Log Wall\Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="96">
-		<id>0x0096</id>
+		<id>0x96</id>
 		<category>Buildings\Walls\Log Wall\Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="97">
-		<id>0x0097</id>
+		<id>0x97</id>
 		<category>Buildings\Walls\Log Wall\Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="98">
-		<id>0x0098</id>
+		<id>0x98</id>
 		<category>Buildings\Walls\Log Wall\Window 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="99">
-		<id>0x0099</id>
+		<id>0x99</id>
 		<category>Buildings\Walls\Log Wall\Window 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="9a">
-		<id>0x009a</id>
+		<id>0x9a</id>
 		<category>Buildings\Walls\Log Wall\Small Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="9b">
-		<id>0x009b</id>
+		<id>0x9b</id>
 		<category>Buildings\Walls\Log Wall\Small Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="9c">
-		<id>0x009c</id>
+		<id>0x9c</id>
 		<category>Buildings\Walls\Log Wall\Small Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="9d">
-		<id>0x009d</id>
+		<id>0x9d</id>
 		<category>Buildings\Walls\Log Wall\Small Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="9e">
-		<id>0x009e</id>
+		<id>0x9e</id>
 		<category>Buildings\Walls\Log Wall\Small Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="9f">
-		<id>0x009f</id>
+		<id>0x9f</id>
 		<category>Buildings\Walls\Log Wall\Small Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="a0">
-		<id>0x00a0</id>
+		<id>0xa0</id>
 		<category>Buildings\Walls\Log Wall\Small Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="a1">
-		<id>0x00a1</id>
+		<id>0xa1</id>
 		<category>Buildings\Walls\Log Wall\Small Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="a2">
-		<id>0x00a2</id>
+		<id>0xa2</id>
 		<category>Buildings\Walls\Log Wall\Tiny Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="a3">
-		<id>0x00a3</id>
+		<id>0xa3</id>
 		<category>Buildings\Walls\Log Wall\Tiny Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="a4">
-		<id>0x00a4</id>
+		<id>0xa4</id>
 		<category>Buildings\Walls\Log Wall\Tiny Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="a5">
-		<id>0x00a5</id>
+		<id>0xa5</id>
 		<category>Buildings\Walls\Log Wall\Tiny Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="145">
-		<id>0x0145</id>
+		<id>0x145</id>
 		<category>Buildings\Walls\Log Wall\Post 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="146">
-		<id>0x0146</id>
+		<id>0x146</id>
 		<category>Buildings\Walls\Log Wall\Post 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="147">
-		<id>0x0147</id>
+		<id>0x147</id>
 		<category>Buildings\Walls\Log Wall\Post 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="148">
-		<id>0x0148</id>
+		<id>0x148</id>
 		<category>Buildings\Walls\Log Wall\Post 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21b1">
 		<id>0x21b1</id>
 		<category>Buildings\Walls\Log Wall\Tiny Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21b2">
 		<id>0x21b2</id>
 		<category>Buildings\Walls\Log Wall\Tiny Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21b3">
 		<id>0x21b3</id>
 		<category>Buildings\Walls\Log Wall\Tiny Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21b4">
 		<id>0x21b4</id>
 		<category>Buildings\Walls\Log Wall\Tiny Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21b5">
 		<id>0x21b5</id>
 		<category>Buildings\Walls\Log Wall\Tiny Wall 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21b6">
 		<id>0x21b6</id>
 		<category>Buildings\Walls\Log Wall\Tiny Wall 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21b7">
 		<id>0x21b7</id>
 		<category>Buildings\Walls\Log Wall\Tiny Wall 11</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21b8">
 		<id>0x21b8</id>
 		<category>Buildings\Walls\Log Wall\Tiny Wall 12</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21bd">
 		<id>0x21bd</id>
 		<category>Buildings\Walls\Log Wall\Tiny Wall 13</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21be">
 		<id>0x21be</id>
 		<category>Buildings\Walls\Log Wall\Small Wall 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21bf">
 		<id>0x21bf</id>
 		<category>Buildings\Walls\Log Wall\Small Wall 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21c0">
 		<id>0x21c0</id>
 		<category>Buildings\Walls\Log Wall\Small Wall 11</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21c1">
 		<id>0x21c1</id>
 		<category>Buildings\Walls\Log Wall\Small Wall 12</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21c2">
 		<id>0x21c2</id>
 		<category>Buildings\Walls\Log Wall\Small Wall 13</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21c3">
 		<id>0x21c3</id>
 		<category>Buildings\Walls\Log Wall\Small Wall 14</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21c4">
 		<id>0x21c4</id>
 		<category>Buildings\Walls\Log Wall\Small Wall 15</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21c5">
 		<id>0x21c5</id>
 		<category>Buildings\Walls\Log Wall\Wall 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21c6">
 		<id>0x21c6</id>
 		<category>Buildings\Walls\Log Wall\Wall 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21c7">
 		<id>0x21c7</id>
 		<category>Buildings\Walls\Log Wall\Wall 11</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21c8">
 		<id>0x21c8</id>
 		<category>Buildings\Walls\Log Wall\Wall 12</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21c9">
 		<id>0x21c9</id>
 		<category>Buildings\Walls\Log Wall\Wall 13</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21ca">
 		<id>0x21ca</id>
 		<category>Buildings\Walls\Log Wall\Wall 14</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21cb">
 		<id>0x21cb</id>
 		<category>Buildings\Walls\Log Wall\Wall 15</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21cc">
 		<id>0x21cc</id>
 		<category>Buildings\Walls\Log Wall\Wall 16</category>
-	<nodecay/> </item>
-	
+		<nodecay/>
+	</item>
+
 	<!-- Wooden Wall 2 -->
 	<item id="a6">
-		<id>0x00a6</id>
+		<id>0xa6</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="a7">
-		<id>0x00a7</id>
+		<id>0xa7</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="a8">
-		<id>0x00a8</id>
+		<id>0xa8</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="a9">
-		<id>0x00a9</id>
+		<id>0xa9</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="aa">
-		<id>0x00aa</id>
+		<id>0xaa</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="ab">
-		<id>0x00ab</id>
+		<id>0xab</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="ac">
-		<id>0x00ac</id>
+		<id>0xac</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="ad">
-		<id>0x00ad</id>
+		<id>0xad</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="ae">
-		<id>0x00ae</id>
+		<id>0xae</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall w. Bar 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="af">
-		<id>0x00af</id>
+		<id>0xaf</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall w. Bar 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="b0">
-		<id>0x00b0</id>
+		<id>0xb0</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall w. Bar 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="b1">
-		<id>0x00b1</id>
+		<id>0xb1</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall w. Bar 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="b2">
-		<id>0x00b2</id>
+		<id>0xb2</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall w. Bar 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="b3">
-		<id>0x00b3</id>
+		<id>0xb3</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall w. Bar 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="b4">
-		<id>0x00b4</id>
+		<id>0xb4</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall w. Bar 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="b5">
-		<id>0x00b5</id>
+		<id>0xb5</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall w. Bar 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="b6">
-		<id>0x00b6</id>
+		<id>0xb6</id>
 		<category>Buildings\Walls\Wooden Wall 2\Small Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="b7">
-		<id>0x00b7</id>
+		<id>0xb7</id>
 		<category>Buildings\Walls\Wooden Wall 2\Small Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="b8">
-		<id>0x00b8</id>
+		<id>0xb8</id>
 		<category>Buildings\Walls\Wooden Wall 2\Small Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="b9">
-		<id>0x00b9</id>
+		<id>0xb9</id>
 		<category>Buildings\Walls\Wooden Wall 2\Window 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="ba">
-		<id>0x00ba</id>
+		<id>0xba</id>
 		<category>Buildings\Walls\Wooden Wall 2\Window 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="bb">
-		<id>0x00bb</id>
+		<id>0xbb</id>
 		<category>Buildings\Walls\Wooden Wall 2\Window w. Bar 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="bc">
-		<id>0x00bc</id>
+		<id>0xbc</id>
 		<category>Buildings\Walls\Wooden Wall 2\Window w. Bar 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="bd">
-		<id>0x00bd</id>
+		<id>0xbd</id>
 		<category>Buildings\Walls\Wooden Wall 2\Tiny Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="be">
-		<id>0x00be</id>
+		<id>0xbe</id>
 		<category>Buildings\Walls\Wooden Wall 2\Tiny Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="bf">
-		<id>0x00bf</id>
+		<id>0xbf</id>
 		<category>Buildings\Walls\Wooden Wall 2\Tiny Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="c0">
-		<id>0x00c0</id>
+		<id>0xc0</id>
 		<category>Buildings\Walls\Wooden Wall 2\Tiny Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="c1">
-		<id>0x00c1</id>
+		<id>0xc1</id>
 		<category>Buildings\Walls\Wooden Wall 2\Edge 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="c2">
-		<id>0x00c2</id>
+		<id>0xc2</id>
 		<category>Buildings\Walls\Wooden Wall 2\Edge 2</category>
-	<nodecay/> </item>
-	
+		<nodecay/>
+	</item>
+
 	<item id="21cd">
 		<id>0x21cd</id>
 		<category>Buildings\Walls\Wooden Wall 2\Tiny Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21ce">
 		<id>0x21ce</id>
 		<category>Buildings\Walls\Wooden Wall 2\Tiny Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21cf">
 		<id>0x21cf</id>
 		<category>Buildings\Walls\Wooden Wall 2\Tiny Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21d0">
 		<id>0x21d0</id>
 		<category>Buildings\Walls\Wooden Wall 2\Tiny Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21d5">
 		<id>0x21d5</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21d6">
 		<id>0x21d6</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21d7">
 		<id>0x21d7</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall 11</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21d8">
 		<id>0x21d8</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall 12</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21d9">
 		<id>0x21d9</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall w. Bar 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21da">
 		<id>0x21da</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall w. Bar 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+		</item>
 
 	<item id="21db">
 		<id>0x21db</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall w. Bar 11</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21dc">
 		<id>0x21dc</id>
 		<category>Buildings\Walls\Wooden Wall 2\Wall w. Bar 12</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<!-- Stone Wall 4 -->
 	<item id="c5">
-		<id>0x00c5</id>
+		<id>0xc5</id>
 		<category>Buildings\Walls\Stone Wall 4\Column</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="c6">
-		<id>0x00c6</id>
+		<id>0xc6</id>
 		<category>Buildings\Walls\Stone Wall 4\Arch 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="c7">
-		<id>0x00c7</id>
+		<id>0xc7</id>
 		<category>Buildings\Walls\Stone Wall 4\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="c8">
-		<id>0x00c8</id>
+		<id>0xc8</id>
 		<category>Buildings\Walls\Stone Wall 4\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="c9">
-		<id>0x00c9</id>
+		<id>0xc9</id>
 		<category>Buildings\Walls\Stone Wall 4\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="ca">
-		<id>0x00ca</id>
+		<id>0xca</id>
 		<category>Buildings\Walls\Stone Wall 4\Arrow Loop 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="cb">
-		<id>0x00cb</id>
+		<id>0xcb</id>
 		<category>Buildings\Walls\Stone Wall 4\Arrow Loop 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="cc">
-		<id>0x00cc</id>
+		<id>0xcc</id>
 		<category>Buildings\Walls\Stone Wall 4\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="cd">
-		<id>0x00cd</id>
+		<id>0xcd</id>
 		<category>Buildings\Walls\Stone Wall 4\Arch 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="ce">
-		<id>0x00ce</id>
+		<id>0xce</id>
 		<category>Buildings\Walls\Stone Wall 4\Arch 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="cf">
-		<id>0x00cf</id>
+		<id>0xcf</id>
 		<category>Buildings\Walls\Stone Wall 4\Arch 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="d0">
-		<id>0x00d0</id>
+		<id>0xd0</id>
 		<category>Buildings\Walls\Stone Wall 4\Arch 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="d1">
-		<id>0x00d1</id>
+		<id>0xd1</id>
 		<category>Buildings\Walls\Stone Wall 4\Arch 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="d2">
-		<id>0x00d2</id>
+		<id>0xd2</id>
 		<category>Buildings\Walls\Stone Wall 4\Buttress 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="d3">
-		<id>0x00d3</id>
+		<id>0xd3</id>
 		<category>Buildings\Walls\Stone Wall 4\Buttress 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="d4">
-		<id>0x00d4</id>
+		<id>0xd4</id>
 		<category>Buildings\Walls\Stone Wall 4\Arch 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="d5">
-		<id>0x00d5</id>
+		<id>0xd5</id>
 		<category>Buildings\Walls\Stone Wall 4\Arch 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="d6">
-		<id>0x00d6</id>
+		<id>0xd6</id>
 		<category>Buildings\Walls\Stone Wall 4\Arch 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="d7">
-		<id>0x00d7</id>
+		<id>0xd7</id>
 		<category>Buildings\Walls\Stone Wall 4\Arch 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="d8">
-		<id>0x00d8</id>
+		<id>0xd8</id>
 		<category>Buildings\Walls\Stone Wall 4\Arch 11</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="d9">
-		<id>0x00d9</id>
+		<id>0xd9</id>
 		<category>Buildings\Walls\Stone Wall 4\Arch 12</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="da">
-		<id>0x00da</id>
+		<id>0xda</id>
 		<category>Buildings\Walls\Stone Wall 4\Arch 13</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="db">
-		<id>0x00db</id>
+		<id>0xdb</id>
 		<category>Buildings\Walls\Stone Wall 4\Pillar</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="dc">
-		<id>0x00dc</id>
+		<id>0xdc</id>
 		<category>Buildings\Walls\Stone Wall 4\Small Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="dd">
-		<id>0x00dd</id>
+		<id>0xdd</id>
 		<category>Buildings\Walls\Stone Wall 4\Small Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="de">
-		<id>0x00de</id>
+		<id>0xde</id>
 		<category>Buildings\Walls\Stone Wall 4\Small Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="df">
-		<id>0x00df</id>
+		<id>0xdf</id>
 		<category>Buildings\Walls\Stone Wall 4\Small Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="e0">
-		<id>0x00e0</id>
+		<id>0xe0</id>
 		<category>Buildings\Walls\Stone Wall 4\Arch 14</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="e1">
-		<id>0x00e1</id>
+		<id>0xe1</id>
 		<category>Buildings\Walls\Stone Wall 4\Arch 15</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="e2">
-		<id>0x00e2</id>
+		<id>0xe2</id>
 		<category>Buildings\Walls\Stone Wall 4\Arch 16</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="e3">
-		<id>0x00e3</id>
+		<id>0xe3</id>
 		<category>Buildings\Walls\Stone Wall 4\Arch 17</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="e4">
-		<id>0x00e4</id>
+		<id>0xe4</id>
 		<category>Buildings\Walls\Stone Wall 4\Arch 18</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="e5">
-		<id>0x00e5</id>
+		<id>0xe5</id>
 		<category>Buildings\Walls\Stone Wall 4\Arch 19</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="e6">
-		<id>0x00e6</id>
+		<id>0xe6</id>
 		<category>Buildings\Walls\Stone Wall 4\Small Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="e7">
-		<id>0x00e7</id>
+		<id>0xe7</id>
 		<category>Buildings\Walls\Stone Wall 4\Small Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1ecb">
 		<id>0x1ecb</id>
 		<category>Buildings\Walls\Stone Wall 4\Pylon</category>
-	<nodecay/> </item>
-	
+		<nodecay/>
+	</item>
+
 	<!-- Marble Wall 1 -->
 	<item id="f8">
-		<id>0x00f8</id>
+		<id>0xf8</id>
 		<category>Buildings\Walls\Marble Wall 1\Fancy\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="f9">
-		<id>0x00f9</id>
+		<id>0xf9</id>
 		<category>Buildings\Walls\Marble Wall 1\Fancy\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="fa">
-		<id>0x00fa</id>
+		<id>0xfa</id>
 		<category>Buildings\Walls\Marble Wall 1\Fancy\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="fb">
-		<id>0x00fb</id>
+		<id>0xfb</id>
 		<category>Buildings\Walls\Marble Wall 1\Fancy\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="fc">
-		<id>0x00fc</id>
+		<id>0xfc</id>
 		<category>Buildings\Walls\Marble Wall 1\Fancy\Window 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="fd">
-		<id>0x00fd</id>
+		<id>0xfd</id>
 		<category>Buildings\Walls\Marble Wall 1\Fancy\Window 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="fe">
-		<id>0x00fe</id>
+		<id>0xfe</id>
 		<category>Buildings\Walls\Marble Wall 1\With Bar\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="ff">
-		<id>0x00ff</id>
+		<id>0xff</id>
 		<category>Buildings\Walls\Marble Wall 1\With Bar\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="100">
-		<id>0x0100</id>
+		<id>0x100</id>
 		<category>Buildings\Walls\Marble Wall 1\With Bar\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="101">
-		<id>0x0101</id>
+		<id>0x101</id>
 		<category>Buildings\Walls\Marble Wall 1\With Bar\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="102">
-		<id>0x0102</id>
+		<id>0x102</id>
 		<category>Buildings\Walls\Marble Wall 1\With Bar\Window 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="103">
-		<id>0x0103</id>
+		<id>0x103</id>
 		<category>Buildings\Walls\Marble Wall 1\With Bar\Window 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="104">
-		<id>0x0104</id>
+		<id>0x104</id>
 		<category>Buildings\Walls\Marble Wall 1\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="105">
-		<id>0x0105</id>
+		<id>0x105</id>
 		<category>Buildings\Walls\Marble Wall 1\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="106">
-		<id>0x0106</id>
+		<id>0x106</id>
 		<category>Buildings\Walls\Marble Wall 1\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="107">
-		<id>0x0107</id>
+		<id>0x107</id>
 		<category>Buildings\Walls\Marble Wall 1\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="108">
-		<id>0x0108</id>
+		<id>0x108</id>
 		<category>Buildings\Walls\Marble Wall 1\Window 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="109">
-		<id>0x0109</id>
+		<id>0x109</id>
 		<category>Buildings\Walls\Marble Wall 1\Window 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="10a">
-		<id>0x010a</id>
+		<id>0x10a</id>
 		<category>Buildings\Walls\Marble Wall 1\Small Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="10b">
-		<id>0x010b</id>
+		<id>0x10b</id>
 		<category>Buildings\Walls\Marble Wall 1\Small Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="10c">
-		<id>0x010c</id>
+		<id>0x10c</id>
 		<category>Buildings\Walls\Marble Wall 1\Small Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="10d">
-		<id>0x010d</id>
+		<id>0x10d</id>
 		<category>Buildings\Walls\Marble Wall 1\Small Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="10e">
-		<id>0x010e</id>
+		<id>0x10e</id>
 		<category>Buildings\Walls\Marble Wall 1\Fancy\Tiny Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="10f">
-		<id>0x010f</id>
+		<id>0x10f</id>
 		<category>Buildings\Walls\Marble Wall 1\Fancy\Tiny Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="110">
-		<id>0x0110</id>
+		<id>0x110</id>
 		<category>Buildings\Walls\Marble Wall 1\Fancy\Tiny Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="111">
-		<id>0x0111</id>
+		<id>0x111</id>
 		<category>Buildings\Walls\Marble Wall 1\Fancy\Tiny Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="112">
-		<id>0x0112</id>
+		<id>0x112</id>
 		<category>Buildings\Walls\Marble Wall 1\Arch 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="113">
-		<id>0x0113</id>
+		<id>0x113</id>
 		<category>Buildings\Walls\Marble Wall 1\Arch 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="114">
-		<id>0x0114</id>
+		<id>0x114</id>
 		<category>Buildings\Walls\Marble Wall 1\Arch 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="115">
-		<id>0x0115</id>
+		<id>0x115</id>
 		<category>Buildings\Walls\Marble Wall 1\Arch 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="116">
-		<id>0x0116</id>
+		<id>0x116</id>
 		<category>Buildings\Walls\Marble Wall 1\Arch 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="117">
-		<id>0x0117</id>
+		<id>0x117</id>
 		<category>Buildings\Walls\Marble Wall 1\Tiny Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="118">
-		<id>0x0118</id>
+		<id>0x118</id>
 		<category>Buildings\Walls\Marble Wall 1\Tiny Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="119">
-		<id>0x0119</id>
+		<id>0x119</id>
 		<category>Buildings\Walls\Marble Wall 1\Tiny Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="11a">
-		<id>0x011a</id>
+		<id>0x11a</id>
 		<category>Buildings\Walls\Marble Wall 1\Tiny Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="11b">
-		<id>0x011b</id>
+		<id>0x11b</id>
 		<category>Buildings\Walls\Marble Wall 1\Fancy\Column 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="11c">
-		<id>0x011c</id>
+		<id>0x11c</id>
 		<category>Buildings\Walls\Marble Wall 1\Fancy\Column 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="11d">
-		<id>0x011d</id>
+		<id>0x11d</id>
 		<category>Buildings\Walls\Marble Wall 1\Fancy\Column 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="11e">
-		<id>0x011e</id>
+		<id>0x11e</id>
 		<category>Buildings\Walls\Marble Wall 1\Column 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="11f">
-		<id>0x011f</id>
+		<id>0x11f</id>
 		<category>Buildings\Walls\Marble Wall 1\Column 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="120">
-		<id>0x0120</id>
+		<id>0x120</id>
 		<category>Buildings\Walls\Marble Wall 1\Column 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="121">
-		<id>0x0121</id>
+		<id>0x121</id>
 		<category>Buildings\Walls\Marble Wall 1\Arch 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="122">
-		<id>0x0122</id>
+		<id>0x122</id>
 		<category>Buildings\Walls\Marble Wall 1\Arch 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="123">
-		<id>0x0123</id>
+		<id>0x123</id>
 		<category>Buildings\Walls\Marble Wall 1\Arch 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="124">
-		<id>0x0124</id>
+		<id>0x124</id>
 		<category>Buildings\Walls\Marble Wall 1\Arch 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="125">
-		<id>0x0125</id>
+		<id>0x125</id>
 		<category>Buildings\Walls\Marble Wall 1\Edge 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="126">
-		<id>0x0126</id>
+		<id>0x126</id>
 		<category>Buildings\Walls\Marble Wall 1\Edge 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="438">
-		<id>0x0438</id>
+		<id>0x438</id>
 		<category>Buildings\Walls\Marble Wall 1\Fancy\Arch 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="439">
-		<id>0x0439</id>
+		<id>0x439</id>
 		<category>Buildings\Walls\Marble Wall 1\Fancy\Arch 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="43a">
-		<id>0x043a</id>
+		<id>0x43a</id>
 		<category>Buildings\Walls\Marble Wall 1\Fancy\Arch 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="43b">
-		<id>0x043b</id>
+		<id>0x43b</id>
 		<category>Buildings\Walls\Marble Wall 1\Fancy\Arch 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="43c">
-		<id>0x043c</id>
+		<id>0x43c</id>
 		<category>Buildings\Walls\Marble Wall 1\Fancy\Arch 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="43d">
-		<id>0x043d</id>
+		<id>0x43d</id>
 		<category>Buildings\Walls\Marble Wall 1\With Bar\Arch 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="43e">
-		<id>0x043e</id>
+		<id>0x43e</id>
 		<category>Buildings\Walls\Marble Wall 1\With Bar\Arch 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="43f">
-		<id>0x043f</id>
+		<id>0x43f</id>
 		<category>Buildings\Walls\Marble Wall 1\With Bar\Arch 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="440">
-		<id>0x0440</id>
+		<id>0x440</id>
 		<category>Buildings\Walls\Marble Wall 1\With Bar\Arch 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="441">
-		<id>0x0441</id>
+		<id>0x441</id>
 		<category>Buildings\Walls\Marble Wall 1\With Bar\Arch 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="442">
-		<id>0x0442</id>
+		<id>0x442</id>
 		<category>Buildings\Walls\Marble Wall 1\With Bar\Tiny Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="443">
-		<id>0x0443</id>
+		<id>0x443</id>
 		<category>Buildings\Walls\Marble Wall 1\With Bar\Tiny Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="444">
-		<id>0x0444</id>
+		<id>0x444</id>
 		<category>Buildings\Walls\Marble Wall 1\With Bar\Tiny Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="445">
-		<id>0x0445</id>
+		<id>0x445</id>
 		<category>Buildings\Walls\Marble Wall 1\With Bar\Tiny Wall 4</category>
-	<nodecay/> </item>
-	
+		<nodecay/>
+	</item>
+
 	<!-- Plaster Wall 1 -->
 	<item id="127">
-		<id>0x0127</id>
+		<id>0x127</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="128">
-		<id>0x0128</id>
+		<id>0x128</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="129">
-		<id>0x0129</id>
+		<id>0x129</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="12a">
-		<id>0x012a</id>
+		<id>0x12a</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="12b">
-		<id>0x012b</id>
+		<id>0x12b</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="12c">
-		<id>0x012c</id>
+		<id>0x12c</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="12d">
-		<id>0x012d</id>
+		<id>0x12d</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="12e">
-		<id>0x012e</id>
+		<id>0x12e</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="12f">
-		<id>0x012f</id>
+		<id>0x12f</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wall 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="130">
-		<id>0x0130</id>
+		<id>0x130</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wall 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="131">
-		<id>0x0131</id>
+		<id>0x131</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wall 11</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="132">
-		<id>0x0132</id>
+		<id>0x132</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wall 12</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="133">
-		<id>0x0133</id>
+		<id>0x133</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wall 13</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="134">
-		<id>0x0134</id>
+		<id>0x134</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wall 14</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="135">
-		<id>0x0135</id>
+		<id>0x135</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wall 15</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="136">
-		<id>0x0136</id>
+		<id>0x136</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wall 16</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="137">
-		<id>0x0137</id>
+		<id>0x137</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wall 17</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="138">
-		<id>0x0138</id>
+		<id>0x138</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wall 18</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="139">
-		<id>0x0139</id>
+		<id>0x139</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wall 19</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="13a">
-		<id>0x013a</id>
+		<id>0x13a</id>
 		<category>Buildings\Walls\Plaster Wall 1\Window 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="13b">
-		<id>0x013b</id>
+		<id>0x13b</id>
 		<category>Buildings\Walls\Plaster Wall 1\Window 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="13c">
-		<id>0x013c</id>
+		<id>0x13c</id>
 		<category>Buildings\Walls\Plaster Wall 1\Arch 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="13d">
-		<id>0x013d</id>
+		<id>0x13d</id>
 		<category>Buildings\Walls\Plaster Wall 1\Arch 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="13e">
-		<id>0x013e</id>
+		<id>0x13e</id>
 		<category>Buildings\Walls\Plaster Wall 1\Arch 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="13f">
-		<id>0x013f</id>
+		<id>0x13f</id>
 		<category>Buildings\Walls\Plaster Wall 1\Arch 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="140">
-		<id>0x0140</id>
+		<id>0x140</id>
 		<category>Buildings\Walls\Plaster Wall 1\Arch 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="141">
-		<id>0x0141</id>
+		<id>0x141</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wooden Beam 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="142">
-		<id>0x0142</id>
+		<id>0x142</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wooden Beam 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="143">
-		<id>0x0143</id>
+		<id>0x143</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wooden Beam 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="144">
-		<id>0x0144</id>
+		<id>0x144</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wooden Beam 4</category>
-	<nodecay/> </item>
-	
+		<nodecay/>
+	</item>
+
 	<item id="149">
-		<id>0x0149</id>
+		<id>0x149</id>
 		<category>Buildings\Walls\Plaster Wall 1\Arch 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="14a">
-		<id>0x014a</id>
+		<id>0x14a</id>
 		<category>Buildings\Walls\Plaster Wall 1\Edge 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="14b">
-		<id>0x014b</id>
+		<id>0x14b</id>
 		<category>Buildings\Walls\Plaster Wall 1\Edge 2</category>
-	<nodecay/> </item>
-	
-	<!-- Plaster Wall \ Fancy -->
+		<nodecay/>
+	</item>
 
+	<!-- Plaster Wall \ Fancy -->
 	<item id="14c">
-		<id>0x014c</id>
+		<id>0x14c</id>
 		<category>Buildings\Walls\Plaster Wall 1\Fancy\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="14d">
-		<id>0x014d</id>
+		<id>0x14d</id>
 		<category>Buildings\Walls\Plaster Wall 1\Fancy\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="14e">
-		<id>0x014e</id>
+		<id>0x14e</id>
 		<category>Buildings\Walls\Plaster Wall 1\Fancy\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="14f">
-		<id>0x014f</id>
+		<id>0x14f</id>
 		<category>Buildings\Walls\Plaster Wall 1\Fancy\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="150">
-		<id>0x0150</id>
+		<id>0x150</id>
 		<category>Buildings\Walls\Plaster Wall 1\Fancy\Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="151">
-		<id>0x0151</id>
+		<id>0x151</id>
 		<category>Buildings\Walls\Plaster Wall 1\Fancy\Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="152">
-		<id>0x0152</id>
+		<id>0x152</id>
 		<category>Buildings\Walls\Plaster Wall 1\Fancy\Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="153">
-		<id>0x0153</id>
+		<id>0x153</id>
 		<category>Buildings\Walls\Plaster Wall 1\Fancy\Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="154">
-		<id>0x0154</id>
+		<id>0x154</id>
 		<category>Buildings\Walls\Plaster Wall 1\Fancy\Window 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="155">
-		<id>0x0155</id>
+		<id>0x155</id>
 		<category>Buildings\Walls\Plaster Wall 1\Fancy\Window 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="156">
-		<id>0x0156</id>
+		<id>0x156</id>
 		<category>Buildings\Walls\Plaster Wall 1\Fancy\Window 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="157">
-		<id>0x0157</id>
+		<id>0x157</id>
 		<category>Buildings\Walls\Plaster Wall 1\Fancy\Window 4</category>
-	<nodecay/> </item>	
+		<nodecay/>
+	</item>
 
 	<!-- Plaster Wall 1\Wrecked -->
 	<item id="37f">
-		<id>0x037f</id>
+		<id>0x37f</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="380">
-		<id>0x0380</id>
+		<id>0x380</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="381">
-		<id>0x0381</id>
+		<id>0x381</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="382">
-		<id>0x0382</id>
+		<id>0x382</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="383">
-		<id>0x0383</id>
+		<id>0x383</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="384">
-		<id>0x0384</id>
+		<id>0x384</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="385">
-		<id>0x0385</id>
+		<id>0x385</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="386">
-		<id>0x0386</id>
+		<id>0x386</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="387">
-		<id>0x0387</id>
+		<id>0x387</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="388">
-		<id>0x0388</id>
+		<id>0x388</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="389">
-		<id>0x0389</id>
+		<id>0x389</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 11</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="38a">
-		<id>0x038a</id>
+		<id>0x38a</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 12</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="38b">
-		<id>0x038b</id>
+		<id>0x38b</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 13</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="38c">
-		<id>0x038c</id>
+		<id>0x38c</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 14</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="38d">
-		<id>0x038d</id>
+		<id>0x38d</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 15</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="38e">
-		<id>0x038e</id>
+		<id>0x38e</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 16</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="38f">
-		<id>0x038f</id>
+		<id>0x38f</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 17</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="390">
-		<id>0x0390</id>
+		<id>0x390</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 18</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="391">
-		<id>0x0391</id>
+		<id>0x391</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 19</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="392">
-		<id>0x0392</id>
+		<id>0x392</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 20</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="393">
-		<id>0x0393</id>
+		<id>0x393</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 21</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="394">
-		<id>0x0394</id>
+		<id>0x394</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 22</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="395">
-		<id>0x0395</id>
+		<id>0x395</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 23</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="396">
-		<id>0x0396</id>
+		<id>0x396</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Wall 24</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="397">
-		<id>0x0397</id>
+		<id>0x397</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Archway 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="398">
-		<id>0x0398</id>
+		<id>0x398</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Archway 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="399">
-		<id>0x0399</id>
+		<id>0x399</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Archway 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="39a">
-		<id>0x039a</id>
+		<id>0x39a</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Archway 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="39b">
-		<id>0x039b</id>
+		<id>0x39b</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Archway 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="39c">
-		<id>0x039c</id>
+		<id>0x39c</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Archway 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="39d">
-		<id>0x039d</id>
+		<id>0x39d</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Archway 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="39e">
-		<id>0x039e</id>
+		<id>0x39e</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Archway 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="39f">
-		<id>0x039f</id>
+		<id>0x39f</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Archway 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3a0">
-		<id>0x03a0</id>
+		<id>0x3a0</id>
 		<category>Buildings\Walls\Plaster Wall 1\Wrecked\Archway 10</category>
-	<nodecay/> </item>	
+		<nodecay/>
+	</item>
 
 	<!-- Sandstone Wall 1 -->
 	<item id="158">
-		<id>0x0158</id>
+		<id>0x158</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Patterned\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="159">
-		<id>0x0159</id>
+		<id>0x159</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Patterned\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="15a">
-		<id>0x015a</id>
+		<id>0x15a</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Patterned\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="15b">
-		<id>0x015b</id>
+		<id>0x15b</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Patterned\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="15c">
-		<id>0x015c</id>
+		<id>0x15c</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Patterned\Window 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="15d">
-		<id>0x015d</id>
+		<id>0x15d</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Patterned\Window 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="15e">
-		<id>0x015e</id>
+		<id>0x15e</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="15f">
-		<id>0x015f</id>
+		<id>0x15f</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="160">
-		<id>0x0160</id>
+		<id>0x160</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="161">
-		<id>0x0161</id>
+		<id>0x161</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="162">
-		<id>0x0162</id>
+		<id>0x162</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Window 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="163">
-		<id>0x0163</id>
+		<id>0x163</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Window 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="164">
-		<id>0x0164</id>
+		<id>0x164</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Patterned\Small Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="165">
-		<id>0x0165</id>
+		<id>0x165</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Patterned\Small Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="166">
-		<id>0x0166</id>
+		<id>0x166</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Patterned\Small Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="167">
-		<id>0x0167</id>
+		<id>0x167</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Patterned\Small Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="168">
-		<id>0x0168</id>
+		<id>0x168</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Small Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="169">
-		<id>0x0169</id>
+		<id>0x169</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Small Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="16a">
-		<id>0x016a</id>
+		<id>0x16a</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Small Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="16b">
-		<id>0x016b</id>
+		<id>0x16b</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Small Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="16c">
-		<id>0x016c</id>
+		<id>0x16c</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Arch 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="16d">
-		<id>0x016d</id>
+		<id>0x16d</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Arch 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="16e">
-		<id>0x016e</id>
+		<id>0x16e</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Arch 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="16f">
-		<id>0x016f</id>
+		<id>0x16f</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Arch 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="170">
-		<id>0x0170</id>
+		<id>0x170</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Arch 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="171">
-		<id>0x0171</id>
+		<id>0x171</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Top 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="172">
-		<id>0x0172</id>
+		<id>0x172</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Top 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="173">
-		<id>0x0173</id>
+		<id>0x173</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Battlement 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="174">
-		<id>0x0174</id>
+		<id>0x174</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Smal Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="175">
-		<id>0x0175</id>
+		<id>0x175</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Pillar 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="176">
-		<id>0x0176</id>
-		<category>Buildings\Walls\Sandstone Wall 1\Pillar 2</category>		
-	<nodecay/> </item>
+		<id>0x176</id>
+		<category>Buildings\Walls\Sandstone Wall 1\Pillar 2</category>
+		<nodecay/>
+	</item>
 
 	<item id="177">
-		<id>0x0177</id>
+		<id>0x177</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Pillar 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="178">
-		<id>0x0178</id>
-		<category>Buildings\Walls\Sandstone Wall 1\Pillar 4</category>		
-	<nodecay/> </item>
+		<id>0x178</id>
+		<category>Buildings\Walls\Sandstone Wall 1\Pillar 4</category>
+		<nodecay/>
+	</item>
 
 	<item id="179">
-		<id>0x0179</id>
-		<category>Buildings\Walls\Sandstone Wall 1\Battlement 2</category>		
-	<nodecay/> </item>
+		<id>0x179</id>
+		<category>Buildings\Walls\Sandstone Wall 1\Battlement 2</category>
+		<nodecay/>
+	</item>
 
 	<item id="17a">
-		<id>0x017a</id>
+		<id>0x17a</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Battlement 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="17b">
-		<id>0x017b</id>
+		<id>0x17b</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Battlement 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="17c">
-		<id>0x017c</id>
+		<id>0x17c</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Battlement 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="17d">
-		<id>0x017d</id>
+		<id>0x17d</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Battlement 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="17e">
-		<id>0x017e</id>
+		<id>0x17e</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Edge 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="17f">
-		<id>0x017f</id>
+		<id>0x17f</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Edge 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="180">
-		<id>0x0180</id>
+		<id>0x180</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Edge 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="181">
-		<id>0x0181</id>
+		<id>0x181</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Edge 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="182">
-		<id>0x0182</id>
+		<id>0x182</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Small Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="183">
-		<id>0x0183</id>
+		<id>0x183</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Small Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="184">
-		<id>0x0184</id>
+		<id>0x184</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Small Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="185">
-		<id>0x0185</id>
+		<id>0x185</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Small Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="186">
-		<id>0x0186</id>
+		<id>0x186</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Edge 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="187">
-		<id>0x0187</id>
+		<id>0x187</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Edge 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="188">
-		<id>0x0188</id>
+		<id>0x188</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Edge 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="189">
-		<id>0x0189</id>
+		<id>0x189</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Edge 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="18a">
-		<id>0x018a</id>
+		<id>0x18a</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Patterned\Arch 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="18b">
-		<id>0x018b</id>
+		<id>0x18b</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Patterned\Arch 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="18c">
-		<id>0x018c</id>
+		<id>0x18c</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Patterned\Arch 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="18d">
-		<id>0x018d</id>
+		<id>0x18d</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Patterned\Arch 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="18e">
-		<id>0x018e</id>
+		<id>0x18e</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Patterned\Arch 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="18f">
-		<id>0x018f</id>
+		<id>0x18f</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Patterned\Arch 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="190">
-		<id>0x0190</id>
+		<id>0x190</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Arch 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="191">
-		<id>0x0191</id>
+		<id>0x191</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Arch 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="192">
-		<id>0x0192</id>
+		<id>0x192</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Arch 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="193">
-		<id>0x0193</id>
+		<id>0x193</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Arch 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="194">
-		<id>0x0194</id>
+		<id>0x194</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Column 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="195">
-		<id>0x0195</id>
+		<id>0x195</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Column 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="196">
-		<id>0x0196</id>
+		<id>0x196</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Column 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="197">
-		<id>0x0197</id>
+		<id>0x197</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Tiny Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="198">
-		<id>0x0198</id>
+		<id>0x198</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Tiny Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="199">
-		<id>0x0199</id>
+		<id>0x199</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Tiny Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="19a">
-		<id>0x019a</id>
+		<id>0x19a</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Tiny Wall 4</category>
-	<nodecay/> </item>
-	
+		<nodecay/>
+	</item>
+
 	<item id="1b1">
-		<id>0x01b1</id>
+		<id>0x1b1</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Tiny Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1b2">
-		<id>0x01b2</id>
+		<id>0x1b2</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Tiny Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1b3">
-		<id>0x01b3</id>
+		<id>0x1b3</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Tiny Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1b4">
-		<id>0x01b4</id>
+		<id>0x1b4</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Tiny Wall 8</category>
-	<nodecay/> </item>	
-	
+		<nodecay/>
+	</item>
+
 	<item id="1ca">
-		<id>0x01ca</id>
+		<id>0x1ca</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Small Wall 9</category>
-	<nodecay/> </item>
-	
+		<nodecay/>
+	</item>
+
 	<item id="1ec">
-		<id>0x01ec</id>
+		<id>0x1ec</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Tiny Wall 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1ed">
-		<id>0x01ed</id>
+		<id>0x1ed</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Tiny Wall 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1ee">
-		<id>0x01ee</id>
+		<id>0x1ee</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Tiny Wall 11</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1ef">
-		<id>0x01ef</id>
+		<id>0x1ef</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Tiny Wall 12</category>
-	<nodecay/> </item>
-	
+		<nodecay/>
+	</item>
+
 	<item id="1a4">
-		<id>0x01a4</id>
+		<id>0x1a4</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Battlement 7</category>
-	<nodecay/> </item>	
+		<nodecay/>
+	</item>
 
 	<!-- Sandstone Wall 1 / Fancy -->
 	<item id="24c">
-		<id>0x024c</id>
+		<id>0x24c</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Fancy\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="24d">
-		<id>0x024d</id>
+		<id>0x24d</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Fancy\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="24e">
-		<id>0x024e</id>
+		<id>0x24e</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Fancy\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="24f">
-		<id>0x024f</id>
+		<id>0x24f</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Fancy\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="250">
-		<id>0x0250</id>
+		<id>0x250</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Fancy\Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="251">
-		<id>0x0251</id>
+		<id>0x251</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Fancy\Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="252">
-		<id>0x0252</id>
+		<id>0x252</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Fancy\Window 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="253">
-		<id>0x0253</id>
+		<id>0x253</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Fancy\Window 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="254">
-		<id>0x0254</id>
+		<id>0x254</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Fancy\Window 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="255">
-		<id>0x0255</id>
+		<id>0x255</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Fancy\Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="256">
-		<id>0x0256</id>
+		<id>0x256</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Fancy\Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="257">
-		<id>0x0257</id>
+		<id>0x257</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Fancy\Wall 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="258">
-		<id>0x0258</id>
+		<id>0x258</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Fancy\Wall 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="259">
-		<id>0x0259</id>
+		<id>0x259</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Fancy\Wall 11</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="25a">
-		<id>0x025a</id>
+		<id>0x25a</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Fancy\Wall 12</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="25b">
-		<id>0x025b</id>
+		<id>0x25b</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Fancy\Wall 13</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1ecc">
 		<id>0x1ecc</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Pylon</category>
-	<nodecay/> </item>
-	
+		<nodecay/>
+	</item>
+
 	<!-- Rattan Wall -->
 	<item id="19b">
-		<id>0x019b</id>
+		<id>0x19b</id>
 		<category>Buildings\Walls\Rattan Wall\Post 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="19c">
-		<id>0x019c</id>
+		<id>0x19c</id>
 		<category>Buildings\Walls\Rattan Wall\Supports 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="19d">
-		<id>0x019d</id>
+		<id>0x19d</id>
 		<category>Buildings\Walls\Rattan Wall\Supports 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="19e">
-		<id>0x019e</id>
+		<id>0x19e</id>
 		<category>Buildings\Walls\Rattan Wall\Supports 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="19f">
-		<id>0x019f</id>
+		<id>0x19f</id>
 		<category>Buildings\Walls\Rattan Wall\Supports 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1a0">
-		<id>0x01a0</id>
+		<id>0x1a0</id>
 		<category>Buildings\Walls\Rattan Wall\Supports 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1a1">
-		<id>0x01a1</id>
+		<id>0x1a1</id>
 		<category>Buildings\Walls\Rattan Wall\Supports 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1a2">
-		<id>0x01a2</id>
+		<id>0x1a2</id>
 		<category>Buildings\Walls\Rattan Wall\Supports 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1a3">
-		<id>0x01a3</id>
+		<id>0x1a3</id>
 		<category>Buildings\Walls\Rattan Wall\Post 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1a5">
-		<id>0x01a5</id>
+		<id>0x1a5</id>
 		<category>Buildings\Walls\Rattan Wall\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1a6">
-		<id>0x01a6</id>
+		<id>0x1a6</id>
 		<category>Buildings\Walls\Rattan Wall\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1a7">
-		<id>0x01a7</id>
+		<id>0x1a7</id>
 		<category>Buildings\Walls\Rattan Wall\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1a8">
-		<id>0x01a8</id>
+		<id>0x1a8</id>
 		<category>Buildings\Walls\Rattan Wall\Post 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1a9">
-		<id>0x01a9</id>
+		<id>0x1a9</id>
 		<category>Buildings\Walls\Rattan Wall\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1aa">
-		<id>0x01aa</id>
+		<id>0x1aa</id>
 		<category>Buildings\Walls\Rattan Wall\Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1ab">
-		<id>0x01ab</id>
+		<id>0x1ab</id>
 		<category>Buildings\Walls\Rattan Wall\Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1ac">
-		<id>0x01ac</id>
+		<id>0x1ac</id>
 		<category>Buildings\Walls\Rattan Wall\Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1ad">
-		<id>0x01ad</id>
+		<id>0x1ad</id>
 		<category>Buildings\Walls\Rattan Wall\Window 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1ae">
-		<id>0x01ae</id>
+		<id>0x1ae</id>
 		<category>Buildings\Walls\Rattan Wall\Window 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1af">
-		<id>0x01af</id>
+		<id>0x1af</id>
 		<category>Buildings\Walls\Rattan Wall\Window 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1b0">
-		<id>0x01b0</id>
+		<id>0x1b0</id>
 		<category>Buildings\Walls\Rattan Wall\Window 4</category>
-	<nodecay/> </item>	
-	
+		<nodecay/>
+	</item>
+
 	<item id="215a">
 		<id>0x215a</id>
 		<category>Buildings\Walls\Rattan Wall\Small Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="215b">
 		<id>0x215b</id>
 		<category>Buildings\Walls\Rattan Wall\Small Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="215c">
 		<id>0x215c</id>
 		<category>Buildings\Walls\Rattan Wall\Small Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<!-- Hide Wall -->
 	<item id="1b5">
-		<id>0x01b5</id>
+		<id>0x1b5</id>
 		<category>Buildings\Walls\Hide Wall\Post 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1b6">
-		<id>0x01b6</id>
+		<id>0x1b6</id>
 		<category>Buildings\Walls\Hide Wall\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1b7">
-		<id>0x01b7</id>
+		<id>0x1b7</id>
 		<category>Buildings\Walls\Hide Wall\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1b8">
-		<id>0x01b8</id>
+		<id>0x1b8</id>
 		<category>Buildings\Walls\Hide Wall\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1b9">
-		<id>0x01b9</id>
+		<id>0x1b9</id>
 		<category>Buildings\Walls\Hide Wall\Post 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1ba">
-		<id>0x01ba</id>
+		<id>0x1ba</id>
 		<category>Buildings\Walls\Hide Wall\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1bb">
-		<id>0x01bb</id>
+		<id>0x1bb</id>
 		<category>Buildings\Walls\Hide Wall\Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1bc">
-		<id>0x01bc</id>
+		<id>0x1bc</id>
 		<category>Buildings\Walls\Hide Wall\Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1bd">
-		<id>0x01bd</id>
+		<id>0x1bd</id>
 		<category>Buildings\Walls\Hide Wall\Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1be">
-		<id>0x01be</id>
+		<id>0x1be</id>
 		<category>Buildings\Walls\Hide Wall\Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1bf">
-		<id>0x01bf</id>
+		<id>0x1bf</id>
 		<category>Buildings\Walls\Hide Wall\Wall 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1c0">
-		<id>0x01c0</id>
+		<id>0x1c0</id>
 		<category>Buildings\Walls\Hide Wall\Wall 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1c1">
-		<id>0x01c1</id>
+		<id>0x1c1</id>
 		<category>Buildings\Walls\Hide Wall\Wall 11</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1c2">
-		<id>0x01c2</id>
+		<id>0x1c2</id>
 		<category>Buildings\Walls\Hide Wall\Wall 12</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1c3">
-		<id>0x01c3</id>
+		<id>0x1c3</id>
 		<category>Buildings\Walls\Hide Wall\Wall 13</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1c4">
-		<id>0x01c4</id>
+		<id>0x1c4</id>
 		<category>Buildings\Walls\Hide Wall\Window 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1c5">
-		<id>0x01c5</id>
+		<id>0x1c5</id>
 		<category>Buildings\Walls\Hide Wall\Window 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1c6">
-		<id>0x01c6</id>
+		<id>0x1c6</id>
 		<category>Buildings\Walls\Hide Wall\Window 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1c7">
-		<id>0x01c7</id>
+		<id>0x1c7</id>
 		<category>Buildings\Walls\Hide Wall\Window 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1c8">
-		<id>0x01c8</id>
+		<id>0x1c8</id>
 		<category>Buildings\Walls\Hide Wall\Small Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1c9">
-		<id>0x01c9</id>
+		<id>0x1c9</id>
 		<category>Buildings\Walls\Hide Wall\Small Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1cb">
-		<id>0x01cb</id>
+		<id>0x1cb</id>
 		<category>Buildings\Walls\Hide Wall\Pole 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1cc">
-		<id>0x01cc</id>
+		<id>0x1cc</id>
 		<category>Buildings\Walls\Hide Wall\Pole 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1cd">
-		<id>0x01cd</id>
+		<id>0x1cd</id>
 		<category>Buildings\Walls\Hide Wall\Pole 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1ce">
-		<id>0x01ce</id>
+		<id>0x1ce</id>
 		<category>Buildings\Walls\Hide Wall\Pole 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<!-- Stone Wall 5 -->
 	<item id="1cf">
-		<id>0x01cf</id>
+		<id>0x1cf</id>
 		<category>Buildings\Walls\Stone Wall 5\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1d0">
-		<id>0x01d0</id>
+		<id>0x1d0</id>
 		<category>Buildings\Walls\Stone Wall 5\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1d1">
-		<id>0x01d1</id>
+		<id>0x1d1</id>
 		<category>Buildings\Walls\Stone Wall 5\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1d2">
-		<id>0x01d2</id>
+		<id>0x1d2</id>
 		<category>Buildings\Walls\Stone Wall 5\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1d3">
-		<id>0x01d3</id>
+		<id>0x1d3</id>
 		<category>Buildings\Walls\Stone Wall 5\Window 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1d4">
-		<id>0x01d4</id>
+		<id>0x1d4</id>
 		<category>Buildings\Walls\Stone Wall 5\Window 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1d5">
-		<id>0x01d5</id>
+		<id>0x1d5</id>
 		<category>Buildings\Walls\Stone Wall 5\Arch 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1d6">
-		<id>0x01d6</id>
+		<id>0x1d6</id>
 		<category>Buildings\Walls\Stone Wall 5\Arch 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1d7">
-		<id>0x01d7</id>
+		<id>0x1d7</id>
 		<category>Buildings\Walls\Stone Wall 5\Arch 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1d8">
-		<id>0x01d8</id>
+		<id>0x1d8</id>
 		<category>Buildings\Walls\Stone Wall 5\Arch 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1d9">
-		<id>0x01d9</id>
+		<id>0x1d9</id>
 		<category>Buildings\Walls\Stone Wall 5\Arch 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1da">
-		<id>0x01da</id>
+		<id>0x1da</id>
 		<category>Buildings\Walls\Stone Wall 5\Pillar</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1db">
-		<id>0x01db</id>
+		<id>0x1db</id>
 		<category>Buildings\Walls\Stone Wall 5\Arch 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1dc">
-		<id>0x01dc</id>
+		<id>0x1dc</id>
 		<category>Buildings\Walls\Stone Wall 5\Arch 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1dd">
-		<id>0x01dd</id>
+		<id>0x1dd</id>
 		<category>Buildings\Walls\Stone Wall 5\Arch 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1de">
-		<id>0x01de</id>
+		<id>0x1de</id>
 		<category>Buildings\Walls\Stone Wall 5\Arch 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1df">
-		<id>0x01df</id>
+		<id>0x1df</id>
 		<category>Buildings\Walls\Stone Wall 5\Arch 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1e0">
-		<id>0x01e0</id>
+		<id>0x1e0</id>
 		<category>Buildings\Walls\Stone Wall 5\Arch 11</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1e1">
-		<id>0x01e1</id>
+		<id>0x1e1</id>
 		<category>Buildings\Walls\Stone Wall 5\Arch 12</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1e2">
-		<id>0x01e2</id>
+		<id>0x1e2</id>
 		<category>Buildings\Walls\Stone Wall 5\Arch 13</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1e3">
-		<id>0x01e3</id>
+		<id>0x1e3</id>
 		<category>Buildings\Walls\Stone Wall 5\Arch 14</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1e4">
-		<id>0x01e4</id>
+		<id>0x1e4</id>
 		<category>Buildings\Walls\Stone Wall 5\Arch 15</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1e5">
-		<id>0x01e5</id>
+		<id>0x1e5</id>
 		<category>Buildings\Walls\Stone Wall 5\Arch 16</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1e6">
-		<id>0x01e6</id>
+		<id>0x1e6</id>
 		<category>Buildings\Walls\Stone Wall 5\Battlement 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1e7">
-		<id>0x01e7</id>
+		<id>0x1e7</id>
 		<category>Buildings\Walls\Stone Wall 5\Battlement 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1e8">
-		<id>0x01e8</id>
+		<id>0x1e8</id>
 		<category>Buildings\Walls\Stone Wall 5\Small Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1e9">
-		<id>0x01e9</id>
+		<id>0x1e9</id>
 		<category>Buildings\Walls\Stone Wall 5\Small Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1ea">
-		<id>0x01ea</id>
+		<id>0x1ea</id>
 		<category>Buildings\Walls\Stone Wall 5\Small Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1eb">
-		<id>0x01eb</id>
+		<id>0x1eb</id>
 		<category>Buildings\Walls\Stone Wall 5\Small Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<!-- Tent - Blue -->
 	<item id="1f0">
-		<id>0x01f0</id>
+		<id>0x1f0</id>
 		<category>Buildings\Walls\Tent - Blue\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1f1">
-		<id>0x01f1</id>
+		<id>0x1f1</id>
 		<category>Buildings\Walls\Tent - Blue\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1f2">
-		<id>0x01f2</id>
+		<id>0x1f2</id>
 		<category>Buildings\Walls\Tent - Blue\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1f3">
-		<id>0x01f3</id>
+		<id>0x1f3</id>
 		<category>Buildings\Walls\Tent - Blue\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1f4">
-		<id>0x01f4</id>
+		<id>0x1f4</id>
 		<category>Buildings\Walls\Tent - Blue\Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1f5">
-		<id>0x01f5</id>
+		<id>0x1f5</id>
 		<category>Buildings\Walls\Tent - Blue\Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1f6">
-		<id>0x01f6</id>
+		<id>0x1f6</id>
 		<category>Buildings\Walls\Tent - Blue\Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1f7">
-		<id>0x01f7</id>
+		<id>0x1f7</id>
 		<category>Buildings\Walls\Tent - Blue\Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1f8">
-		<id>0x01f8</id>
+		<id>0x1f8</id>
 		<category>Buildings\Walls\Tent - Blue\Wall 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1f9">
-		<id>0x01f9</id>
+		<id>0x1f9</id>
 		<category>Buildings\Walls\Tent - Blue\Wall 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<!-- Tent - Green -->
 	<item id="230">
-		<id>0x0230</id>
+		<id>0x230</id>
 		<category>Buildings\Walls\Tent - Green\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="231">
-		<id>0x0231</id>
+		<id>0x231</id>
 		<category>Buildings\Walls\Tent - Green\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="232">
-		<id>0x0232</id>
+		<id>0x232</id>
 		<category>Buildings\Walls\Tent - Green\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="233">
-		<id>0x0233</id>
+		<id>0x233</id>
 		<category>Buildings\Walls\Tent - Green\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="234">
-		<id>0x0234</id>
+		<id>0x234</id>
 		<category>Buildings\Walls\Tent - Green\Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="235">
-		<id>0x0235</id>
+		<id>0x235</id>
 		<category>Buildings\Walls\Tent - Green\Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="236">
-		<id>0x0236</id>
+		<id>0x236</id>
 		<category>Buildings\Walls\Tent - Green\Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="237">
-		<id>0x0237</id>
+		<id>0x237</id>
 		<category>Buildings\Walls\Tent - Green\Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="238">
-		<id>0x0238</id>
+		<id>0x238</id>
 		<category>Buildings\Walls\Tent - Green\Wall 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="239">
-		<id>0x0239</id>
+		<id>0x239</id>
 		<category>Buildings\Walls\Tent - Green\Wall 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<!-- Plaster Wall -->
 	<item id="1ff">
-		<id>0x01ff</id>
+		<id>0x1ff</id>
 		<category>Buildings\Walls\Plaster Wall 2\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="200">
-		<id>0x0200</id>
+		<id>0x200</id>
 		<category>Buildings\Walls\Plaster Wall 2\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="201">
-		<id>0x0201</id>
+		<id>0x201</id>
 		<category>Buildings\Walls\Plaster Wall 2\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="202">
-		<id>0x0202</id>
+		<id>0x202</id>
 		<category>Buildings\Walls\Plaster Wall 2\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="203">
-		<id>0x0203</id>
+		<id>0x203</id>
 		<category>Buildings\Walls\Plaster Wall 2\Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="204">
-		<id>0x0204</id>
+		<id>0x204</id>
 		<category>Buildings\Walls\Plaster Wall 2\Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="205">
-		<id>0x0205</id>
+		<id>0x205</id>
 		<category>Buildings\Walls\Plaster Wall 2\Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="206">
-		<id>0x0206</id>
+		<id>0x206</id>
 		<category>Buildings\Walls\Plaster Wall 2\Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="207">
-		<id>0x0207</id>
+		<id>0x207</id>
 		<category>Buildings\Walls\Plaster Wall 2\Window 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="208">
-		<id>0x0208</id>
+		<id>0x208</id>
 		<category>Buildings\Walls\Plaster Wall 2\Window 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="209">
-		<id>0x0209</id>
+		<id>0x209</id>
 		<category>Buildings\Walls\Plaster Wall 2\Window 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="20a">
-		<id>0x020a</id>
+		<id>0x20a</id>
 		<category>Buildings\Walls\Plaster Wall 2\Window 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="20b">
-		<id>0x020b</id>
+		<id>0x20b</id>
 		<category>Buildings\Walls\Plaster Wall 2\Small Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="20c">
-		<id>0x020c</id>
+		<id>0x20c</id>
 		<category>Buildings\Walls\Plaster Wall 2\Small Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<!-- Bamboo Wall -->
 	<item id="20f">
-		<id>0x020f</id>
+		<id>0x20f</id>
 		<category>Buildings\Walls\Bamboo Wall\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="210">
-		<id>0x0210</id>
+		<id>0x210</id>
 		<category>Buildings\Walls\Bamboo Wall\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="211">
-		<id>0x0211</id>
+		<id>0x211</id>
 		<category>Buildings\Walls\Bamboo Wall\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="212">
-		<id>0x0212</id>
+		<id>0x212</id>
 		<category>Buildings\Walls\Bamboo Wall\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="213">
-		<id>0x0213</id>
+		<id>0x213</id>
 		<category>Buildings\Walls\Bamboo Wall\Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="214">
-		<id>0x0214</id>
+		<id>0x214</id>
 		<category>Buildings\Walls\Bamboo Wall\Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="215">
-		<id>0x0215</id>
+		<id>0x215</id>
 		<category>Buildings\Walls\Bamboo Wall\Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="216">
-		<id>0x0216</id>
+		<id>0x216</id>
 		<category>Buildings\Walls\Bamboo Wall\Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="217">
-		<id>0x0217</id>
+		<id>0x217</id>
 		<category>Buildings\Walls\Bamboo Wall\Wall 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="218">
-		<id>0x0218</id>
+		<id>0x218</id>
 		<category>Buildings\Walls\Bamboo Wall\Wall 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="219">
-		<id>0x0219</id>
+		<id>0x219</id>
 		<category>Buildings\Walls\Bamboo Wall\Wall 11</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21a">
-		<id>0x021a</id>
+		<id>0x21a</id>
 		<category>Buildings\Walls\Bamboo Wall\Wall 12</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<!-- Palisade Wall -->
 	<item id="21d">
-		<id>0x021d</id>
+		<id>0x21d</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21e">
-		<id>0x021e</id>
+		<id>0x21e</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21f">
-		<id>0x021f</id>
+		<id>0x21f</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="220">
-		<id>0x0220</id>
+		<id>0x220</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="221">
-		<id>0x0221</id>
+		<id>0x221</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="222">
-		<id>0x0222</id>
+		<id>0x222</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="223">
-		<id>0x0223</id>
+		<id>0x223</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="226">
-		<id>0x0226</id>
+		<id>0x226</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="227">
-		<id>0x0227</id>
+		<id>0x227</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="228">
-		<id>0x0228</id>
+		<id>0x228</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="229">
-		<id>0x0229</id>
+		<id>0x229</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 11</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="22a">
-		<id>0x022a</id>
+		<id>0x22a</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 12</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="22b">
-		<id>0x022b</id>
+		<id>0x22b</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 13</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="22c">
-		<id>0x022c</id>
+		<id>0x22c</id>
 		<category>Buildings\Walls\Palisade Wall\Curtain 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="22d">
-		<id>0x022d</id>
+		<id>0x22d</id>
 		<category>Buildings\Walls\Palisade Wall\Curtain 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="22e">
-		<id>0x022e</id>
+		<id>0x22e</id>
 		<category>Buildings\Walls\Palisade Wall\Curtain 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="22f">
-		<id>0x022f</id>
+		<id>0x22f</id>
 		<category>Buildings\Walls\Palisade Wall\Curtain 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="421">
-		<id>0x0421</id>
+		<id>0x421</id>
 		<category>Buildings\Walls\Palisade Wall\Decorated Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="422">
-		<id>0x0422</id>
+		<id>0x422</id>
 		<category>Buildings\Walls\Palisade Wall\Decorated Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="423">
-		<id>0x0423</id>
+		<id>0x423</id>
 		<category>Buildings\Walls\Palisade Wall\Small Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="424">
-		<id>0x0424</id>
+		<id>0x424</id>
 		<category>Buildings\Walls\Palisade Wall\Small Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="425">
-		<id>0x0425</id>
+		<id>0x425</id>
 		<category>Buildings\Walls\Palisade Wall\Small Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="430">
-		<id>0x0430</id>
+		<id>0x430</id>
 		<category>Buildings\Walls\Palisade Wall\Decorated Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="431">
-		<id>0x0431</id>
+		<id>0x431</id>
 		<category>Buildings\Walls\Palisade Wall\Decorated Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="432">
-		<id>0x0432</id>
+		<id>0x432</id>
 		<category>Buildings\Walls\Palisade Wall\Curtain 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="433">
-		<id>0x0433</id>
+		<id>0x433</id>
 		<category>Buildings\Walls\Palisade Wall\Curtain 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="434">
-		<id>0x0434</id>
+		<id>0x434</id>
 		<category>Buildings\Walls\Palisade Wall\Curtain 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="435">
-		<id>0x0435</id>
+		<id>0x435</id>
 		<category>Buildings\Walls\Palisade Wall\Curtain 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2188">
 		<id>0x2188</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 14</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2189">
 		<id>0x2189</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 15</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="218a">
 		<id>0x218a</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 16</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="218b">
 		<id>0x218b</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 17</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="218c">
 		<id>0x218c</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 18</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="218d">
 		<id>0x218d</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 19</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="218e">
 		<id>0x218e</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 20</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="218f">
 		<id>0x218f</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 21</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2190">
 		<id>0x2190</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 22</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2191">
 		<id>0x2191</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 23</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2192">
 		<id>0x2192</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 24</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2193">
 		<id>0x2193</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 25</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2194">
 		<id>0x2194</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 26</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2195">
 		<id>0x2195</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 27</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2196">
 		<id>0x2196</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 28</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2197">
 		<id>0x2197</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 29</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21a5">
 		<id>0x21a5</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 30</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21a6">
 		<id>0x21a6</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 31</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21a7">
 		<id>0x21a7</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 32</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21a8">
 		<id>0x21a8</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 33</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21a9">
 		<id>0x21a9</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 34</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21aa">
 		<id>0x21aa</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 35</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21ab">
 		<id>0x21ab</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 36</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21ac">
 		<id>0x21ac</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 37</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21ad">
 		<id>0x21ad</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 38</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21ae">
 		<id>0x21ae</id>
 		<category>Buildings\Walls\Palisade Wall\Wall 39</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21af">
 		<id>0x21af</id>
 		<category>Buildings\Walls\Palisade Wall\Post 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21b0">
 		<id>0x21b0</id>
 		<category>Buildings\Walls\Palisade Wall\Post 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<!-- Dungeon Wall -->
 	<item id="241">
-		<id>0x0241</id>
+		<id>0x241</id>
 		<category>Buildings\Walls\Dungeon Wall\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="242">
-		<id>0x0242</id>
+		<id>0x242</id>
 		<category>Buildings\Walls\Dungeon Wall\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="243">
-		<id>0x0243</id>
+		<id>0x243</id>
 		<category>Buildings\Walls\Dungeon Wall\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="244">
-		<id>0x0244</id>
+		<id>0x244</id>
 		<category>Buildings\Walls\Dungeon Wall\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="245">
-		<id>0x0245</id>
+		<id>0x245</id>
 		<category>Buildings\Walls\Dungeon Wall\Arch 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="246">
-		<id>0x0246</id>
+		<id>0x246</id>
 		<category>Buildings\Walls\Dungeon Wall\Arch 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="247">
-		<id>0x0247</id>
+		<id>0x247</id>
 		<category>Buildings\Walls\Dungeon Wall\Arch 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="248">
-		<id>0x0248</id>
+		<id>0x248</id>
 		<category>Buildings\Walls\Dungeon Wall\Arch 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="249">
-		<id>0x0249</id>
+		<id>0x249</id>
 		<category>Buildings\Walls\Dungeon Wall\Arch 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="24a">
-		<id>0x024a</id>
+		<id>0x24a</id>
 		<category>Buildings\Walls\Dungeon Wall\Arch 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2f9">
-		<id>0x02f9</id>
+		<id>0x2f9</id>
 		<category>Buildings\Walls\Dungeon Wall\Small Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2fa">
-		<id>0x02fa</id>
+		<id>0x2fa</id>
 		<category>Buildings\Walls\Dungeon Wall\Small Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2fb">
-		<id>0x02fb</id>
+		<id>0x2fb</id>
 		<category>Buildings\Walls\Dungeon Wall\Small Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2fc">
-		<id>0x02fc</id>
+		<id>0x2fc</id>
 		<category>Buildings\Walls\Dungeon Wall\Small Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2fd">
-		<id>0x02fd</id>
+		<id>0x2fd</id>
 		<category>Buildings\Walls\Dungeon Wall\Smaller Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2fe">
-		<id>0x02fe</id>
+		<id>0x2fe</id>
 		<category>Buildings\Walls\Dungeon Wall\Smaller Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2ff">
-		<id>0x02ff</id>
+		<id>0x2ff</id>
 		<category>Buildings\Walls\Dungeon Wall\Smaller Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="300">
-		<id>0x0300</id>
+		<id>0x300</id>
 		<category>Buildings\Walls\Dungeon Wall\Smaller Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="1eca">
 		<id>0x1eca</id>
 		<category>Buildings\Walls\Dungeon Wall\Pylon</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21dd">
 		<id>0x21dd</id>
 		<category>Buildings\Walls\Dungeon Wall\Smaller Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21de">
 		<id>0x21de</id>
 		<category>Buildings\Walls\Dungeon Wall\Smaller Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21df">
 		<id>0x21df</id>
 		<category>Buildings\Walls\Dungeon Wall\Smaller Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21e0">
 		<id>0x21e0</id>
 		<category>Buildings\Walls\Dungeon Wall\Smaller Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21e1">
 		<id>0x21e1</id>
 		<category>Buildings\Walls\Dungeon Wall\Small Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21e2">
 		<id>0x21e2</id>
 		<category>Buildings\Walls\Dungeon Wall\Small Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21e3">
 		<id>0x21e3</id>
 		<category>Buildings\Walls\Dungeon Wall\Small Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21e4">
 		<id>0x21e4</id>
 		<category>Buildings\Walls\Dungeon Wall\Small Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21e5">
 		<id>0x21e5</id>
 		<category>Buildings\Walls\Dungeon Wall\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21e6">
 		<id>0x21e6</id>
 		<category>Buildings\Walls\Dungeon Wall\Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21e7">
 		<id>0x21e7</id>
 		<category>Buildings\Walls\Dungeon Wall\Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="21e8">
 		<id>0x21e8</id>
 		<category>Buildings\Walls\Dungeon Wall\Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<!-- Gray Tent -->
 	<item id="368">
-		<id>0x0368</id>
+		<id>0x368</id>
 		<category>Buildings\Walls\Tent - Light Gray\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="369">
-		<id>0x0369</id>
+		<id>0x369</id>
 		<category>Buildings\Walls\Tent - Light Gray\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="36a">
-		<id>0x036a</id>
+		<id>0x36a</id>
 		<category>Buildings\Walls\Tent - Light Gray\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="36b">
-		<id>0x036b</id>
+		<id>0x36b</id>
 		<category>Buildings\Walls\Tent - Light Gray\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="36c">
-		<id>0x036c</id>
+		<id>0x36c</id>
 		<category>Buildings\Walls\Tent - Light Gray\Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="36d">
-		<id>0x036d</id>
+		<id>0x36d</id>
 		<category>Buildings\Walls\Tent - Light Gray\Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="36e">
-		<id>0x036e</id>
+		<id>0x36e</id>
 		<category>Buildings\Walls\Tent - Light Gray\Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="36f">
-		<id>0x036f</id>
+		<id>0x36f</id>
 		<category>Buildings\Walls\Tent - Light Gray\Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="370">
-		<id>0x0370</id>
+		<id>0x370</id>
 		<category>Buildings\Walls\Tent - Light Gray\Wall 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="371">
-		<id>0x0371</id>
+		<id>0x371</id>
 		<category>Buildings\Walls\Tent - Light Gray\Wall 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="372">
-		<id>0x0372</id>
+		<id>0x372</id>
 		<category>Buildings\Walls\Tent - Light Gray\Patch 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="373">
-		<id>0x0373</id>
+		<id>0x373</id>
 		<category>Buildings\Walls\Tent - Light Gray\Patch 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="374">
-		<id>0x0374</id>
+		<id>0x374</id>
 		<category>Buildings\Walls\Tent - Light Gray\Patch 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="375">
-		<id>0x0375</id>
+		<id>0x375</id>
 		<category>Buildings\Walls\Tent - Light Gray\Patch 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="376">
-		<id>0x0376</id>
+		<id>0x376</id>
 		<category>Buildings\Walls\Tent - Light Gray\Patch 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="377">
-		<id>0x0377</id>
+		<id>0x377</id>
 		<category>Buildings\Walls\Tent - Light Gray\Patch 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="378">
-		<id>0x0378</id>
+		<id>0x378</id>
 		<category>Buildings\Walls\Tent - Light Gray\Dagges 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="379">
-		<id>0x0379</id>
+		<id>0x379</id>
 		<category>Buildings\Walls\Tent - Light Gray\Dagges 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="37a">
-		<id>0x037a</id>
+		<id>0x37a</id>
 		<category>Buildings\Walls\Tent - Light Gray\Dagges 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="37b">
-		<id>0x037b</id>
+		<id>0x37b</id>
 		<category>Buildings\Walls\Tent - Light Gray\Dagges 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="37c">
-		<id>0x037c</id>
+		<id>0x37c</id>
 		<category>Buildings\Walls\Tent - Light Gray\Dagges 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="37d">
-		<id>0x037d</id>
+		<id>0x37d</id>
 		<category>Buildings\Walls\Tent - Light Gray\Dagges 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<!-- Light Blue Tent Wall -->
 	<item id="2de">
-		<id>0x02de</id>
+		<id>0x2de</id>
 		<category>Buildings\Walls\Tent - Light Blue\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2df">
-		<id>0x02df</id>
+		<id>0x2df</id>
 		<category>Buildings\Walls\Tent - Light Blue\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2e0">
-		<id>0x02e0</id>
+		<id>0x2e0</id>
 		<category>Buildings\Walls\Tent - Light Blue\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2e1">
-		<id>0x02e1</id>
+		<id>0x2e1</id>
 		<category>Buildings\Walls\Tent - Light Blue\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2e2">
-		<id>0x02e2</id>
+		<id>0x2e2</id>
 		<category>Buildings\Walls\Tent - Light Blue\Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2e3">
-		<id>0x02e3</id>
+		<id>0x2e3</id>
 		<category>Buildings\Walls\Tent - Light Blue\Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2e4">
-		<id>0x02e4</id>
+		<id>0x2e4</id>
 		<category>Buildings\Walls\Tent - Light Blue\Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2e5">
-		<id>0x02e5</id>
+		<id>0x2e5</id>
 		<category>Buildings\Walls\Tent - Light Blue\Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2e6">
-		<id>0x02e6</id>
+		<id>0x2e6</id>
 		<category>Buildings\Walls\Tent - Light Blue\Wall 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2e7">
-		<id>0x02e7</id>
+		<id>0x2e7</id>
 		<category>Buildings\Walls\Tent - Light Blue\Wall 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2e8">
-		<id>0x02e8</id>
+		<id>0x2e8</id>
 		<category>Buildings\Walls\Tent - Light Blue\Wall 11</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2e9">
-		<id>0x02e9</id>
+		<id>0x2e9</id>
 		<category>Buildings\Walls\Tent - Light Blue\Wall 12</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2ea">
-		<id>0x02ea</id>
+		<id>0x2ea</id>
 		<category>Buildings\Walls\Tent - Light Blue\Wall 13</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2eb">
-		<id>0x02eb</id>
+		<id>0x2eb</id>
 		<category>Buildings\Walls\Tent - Light Blue\Wall 14</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2ec">
-		<id>0x02ec</id>
+		<id>0x2ec</id>
 		<category>Buildings\Walls\Tent - Light Blue\Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2ef">
-		<id>0x02ef</id>
+		<id>0x2ef</id>
 		<category>Buildings\Walls\Tent - Light Blue\Patch 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2f0">
-		<id>0x02f0</id>
+		<id>0x2f0</id>
 		<category>Buildings\Walls\Tent - Light Blue\Patch 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2f1">
-		<id>0x02f1</id>
+		<id>0x2f1</id>
 		<category>Buildings\Walls\Tent - Light Blue\Patch 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2f2">
-		<id>0x02f2</id>
+		<id>0x2f2</id>
 		<category>Buildings\Walls\Tent - Light Blue\Patch 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2f3">
-		<id>0x02f3</id>
+		<id>0x2f3</id>
 		<category>Buildings\Walls\Tent - Light Blue\Patch 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2f4">
-		<id>0x02f4</id>
+		<id>0x2f4</id>
 		<category>Buildings\Walls\Tent - Light Blue\Patch 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<!-- Marble Wall 2 -->
 	<item id="291">
-		<id>0x0291</id>
+		<id>0x291</id>
 		<category>Buildings\Walls\Marble Wall 2\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="292">
-		<id>0x0292</id>
+		<id>0x292</id>
 		<category>Buildings\Walls\Marble Wall 2\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="293">
-		<id>0x0293</id>
+		<id>0x293</id>
 		<category>Buildings\Walls\Marble Wall 2\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="294">
-		<id>0x0294</id>
+		<id>0x294</id>
 		<category>Buildings\Walls\Marble Wall 2\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="295">
-		<id>0x0295</id>
+		<id>0x295</id>
 		<category>Buildings\Walls\Marble Wall 2\Window 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="296">
-		<id>0x0296</id>
+		<id>0x296</id>
 		<category>Buildings\Walls\Marble Wall 2\Window 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="297">
-		<id>0x0297</id>
+		<id>0x297</id>
 		<category>Buildings\Walls\Marble Wall 2\With Bar\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="298">
-		<id>0x0298</id>
+		<id>0x298</id>
 		<category>Buildings\Walls\Marble Wall 2\With Bar\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="299">
-		<id>0x0299</id>
+		<id>0x299</id>
 		<category>Buildings\Walls\Marble Wall 2\With Bar\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="29a">
-		<id>0x029a</id>
+		<id>0x29a</id>
 		<category>Buildings\Walls\Marble Wall 2\With Bar\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="29b">
-		<id>0x029b</id>
+		<id>0x29b</id>
 		<category>Buildings\Walls\Marble Wall 2\With Bar\Window 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="29c">
-		<id>0x029c</id>
+		<id>0x29c</id>
 		<category>Buildings\Walls\Marble Wall 2\With Bar\Window 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="29d">
-		<id>0x029d</id>
+		<id>0x29d</id>
 		<category>Buildings\Walls\Marble Wall 2\Fancy\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="29e">
-		<id>0x029e</id>
+		<id>0x29e</id>
 		<category>Buildings\Walls\Marble Wall 2\Fancy\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="29f">
-		<id>0x029f</id>
+		<id>0x29f</id>
 		<category>Buildings\Walls\Marble Wall 2\Fancy\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2a0">
-		<id>0x02a0</id>
+		<id>0x2a0</id>
 		<category>Buildings\Walls\Marble Wall 2\Fancy\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2a1">
-		<id>0x02a1</id>
+		<id>0x2a1</id>
 		<category>Buildings\Walls\Marble Wall 2\Small Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2a2">
-		<id>0x02a2</id>
+		<id>0x2a2</id>
 		<category>Buildings\Walls\Marble Wall 2\Small Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2a3">
-		<id>0x02a3</id>
+		<id>0x2a3</id>
 		<category>Buildings\Walls\Marble Wall 2\Small Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2a4">
-		<id>0x02a4</id>
+		<id>0x2a4</id>
 		<category>Buildings\Walls\Marble Wall 2\Small Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2a5">
-		<id>0x02a5</id>
+		<id>0x2a5</id>
 		<category>Buildings\Walls\Marble Wall 2\Tiny Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2a6">
-		<id>0x02a6</id>
+		<id>0x2a6</id>
 		<category>Buildings\Walls\Marble Wall 2\Tiny Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2a7">
-		<id>0x02a7</id>
+		<id>0x2a7</id>
 		<category>Buildings\Walls\Marble Wall 2\Fancy\Column 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2a8">
-		<id>0x02a8</id>
+		<id>0x2a8</id>
 		<category>Buildings\Walls\Marble Wall 2\Fancy\Column 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2a9">
-		<id>0x02a9</id>
+		<id>0x2a9</id>
 		<category>Buildings\Walls\Marble Wall 2\Fancy\Column 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2aa">
-		<id>0x02aa</id>
+		<id>0x2aa</id>
 		<category>Buildings\Walls\Marble Wall 2\Column 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2ab">
-		<id>0x02ab</id>
+		<id>0x2ab</id>
 		<category>Buildings\Walls\Marble Wall 2\Column 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2ac">
-		<id>0x02ac</id>
+		<id>0x2ac</id>
 		<category>Buildings\Walls\Marble Wall 2\Column 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2ad">
-		<id>0x02ad</id>
+		<id>0x2ad</id>
 		<category>Buildings\Walls\Marble Wall 2\Fancy\Window 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2ae">
-		<id>0x02ae</id>
+		<id>0x2ae</id>
 		<category>Buildings\Walls\Marble Wall 2\Fancy\Window 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2b0">
-		<id>0x02b0</id>
+		<id>0x2b0</id>
 		<category>Buildings\Walls\Marble Wall 2\Arch 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2b1">
-		<id>0x02b1</id>
+		<id>0x2b1</id>
 		<category>Buildings\Walls\Marble Wall 2\Arch 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2b2">
-		<id>0x02b2</id>
+		<id>0x2b2</id>
 		<category>Buildings\Walls\Marble Wall 2\Arch 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2b3">
-		<id>0x02b3</id>
+		<id>0x2b3</id>
 		<category>Buildings\Walls\Marble Wall 2\Arch 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2b4">
-		<id>0x02b4</id>
+		<id>0x2b4</id>
 		<category>Buildings\Walls\Marble Wall 2\Arch 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2b5">
-		<id>0x02b5</id>
+		<id>0x2b5</id>
 		<category>Buildings\Walls\Marble Wall 2\Tiny Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2b6">
-		<id>0x02b6</id>
+		<id>0x2b6</id>
 		<category>Buildings\Walls\Marble Wall 2\Tiny Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2b7">
-		<id>0x02b7</id>
+		<id>0x2b7</id>
 		<category>Buildings\Walls\Marble Wall 2\Tiny Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2b8">
-		<id>0x02b8</id>
+		<id>0x2b8</id>
 		<category>Buildings\Walls\Marble Wall 2\Tiny Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2b9">
-		<id>0x02b9</id>
+		<id>0x2b9</id>
 		<category>Buildings\Walls\Marble Wall 2\Fancy\Tiny Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2ba">
-		<id>0x02ba</id>
+		<id>0x2ba</id>
 		<category>Buildings\Walls\Marble Wall 2\Fancy\Tiny Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2bb">
-		<id>0x02bb</id>
+		<id>0x2bb</id>
 		<category>Buildings\Walls\Marble Wall 2\Fancy\Tiny Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2bc">
-		<id>0x02bc</id>
+		<id>0x2bc</id>
 		<category>Buildings\Walls\Marble Wall 2\Fancy\Tiny Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2bd">
-		<id>0x02bd</id>
+		<id>0x2bd</id>
 		<category>Buildings\Walls\Marble Wall 2\Arch 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2be">
-		<id>0x02be</id>
+		<id>0x2be</id>
 		<category>Buildings\Walls\Marble Wall 2\Arch 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2bf">
-		<id>0x02bf</id>
+		<id>0x2bf</id>
 		<category>Buildings\Walls\Marble Wall 2\Arch 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2c0">
-		<id>0x02c0</id>
+		<id>0x2c0</id>
 		<category>Buildings\Walls\Marble Wall 2\Arch 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="446">
-		<id>0x0446</id>
+		<id>0x446</id>
 		<category>Buildings\Walls\Marble Wall 2\Fancy\Arch 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="447">
-		<id>0x0447</id>
+		<id>0x447</id>
 		<category>Buildings\Walls\Marble Wall 2\Fancy\Arch 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="448">
-		<id>0x0448</id>
+		<id>0x448</id>
 		<category>Buildings\Walls\Marble Wall 2\Fancy\Arch 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="449">
-		<id>0x0449</id>
+		<id>0x449</id>
 		<category>Buildings\Walls\Marble Wall 2\Fancy\Arch 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="44a">
-		<id>0x044a</id>
+		<id>0x44a</id>
 		<category>Buildings\Walls\Marble Wall 2\Fancy\Arch 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="44b">
-		<id>0x044b</id>
+		<id>0x44b</id>
 		<category>Buildings\Walls\Marble Wall 2\With Bar\Arch 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="44c">
-		<id>0x044c</id>
+		<id>0x44c</id>
 		<category>Buildings\Walls\Marble Wall 2\With Bar\Arch 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="44d">
-		<id>0x044d</id>
+		<id>0x44d</id>
 		<category>Buildings\Walls\Marble Wall 2\With Bar\Arch 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="44e">
-		<id>0x044e</id>
+		<id>0x44e</id>
 		<category>Buildings\Walls\Marble Wall 2\With Bar\Arch 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="44f">
-		<id>0x044f</id>
+		<id>0x44f</id>
 		<category>Buildings\Walls\Marble Wall 2\With Bar\Arch 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="450">
-		<id>0x0450</id>
+		<id>0x450</id>
 		<category>Buildings\Walls\Marble Wall 2\With Bar\Tiny Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="451">
-		<id>0x0451</id>
+		<id>0x451</id>
 		<category>Buildings\Walls\Marble Wall 2\With Bar\Tiny Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="452">
-		<id>0x0452</id>
+		<id>0x452</id>
 		<category>Buildings\Walls\Marble Wall 2\With Bar\Tiny Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="453">
-		<id>0x0453</id>
+		<id>0x453</id>
 		<category>Buildings\Walls\Marble Wall 2\With Bar\Tiny Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<!-- Cave -->
 	<item id="25c">
-		<id>0x025c</id>
+		<id>0x25c</id>
 		<category>Buildings\Walls\Cave Wall\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="25d">
-		<id>0x025d</id>
+		<id>0x25d</id>
 		<category>Buildings\Walls\Cave Wall\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="25e">
-		<id>0x025e</id>
+		<id>0x25e</id>
 		<category>Buildings\Walls\Cave Wall\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="25f">
-		<id>0x025f</id>
+		<id>0x25f</id>
 		<category>Buildings\Walls\Cave Wall\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="260">
-		<id>0x0260</id>
+		<id>0x260</id>
 		<category>Buildings\Walls\Cave Wall\Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="261">
-		<id>0x0261</id>
+		<id>0x261</id>
 		<category>Buildings\Walls\Cave Wall\Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="262">
-		<id>0x0262</id>
+		<id>0x262</id>
 		<category>Buildings\Walls\Cave Wall\Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="263">
-		<id>0x0263</id>
+		<id>0x263</id>
 		<category>Buildings\Walls\Cave Wall\Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="264">
-		<id>0x0264</id>
+		<id>0x264</id>
 		<category>Buildings\Walls\Cave Wall\Wall 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="265">
-		<id>0x0265</id>
+		<id>0x265</id>
 		<category>Buildings\Walls\Cave Wall\Wall 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="266">
-		<id>0x0266</id>
+		<id>0x266</id>
 		<category>Buildings\Walls\Cave Wall\Wall 11</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="267">
-		<id>0x0267</id>
+		<id>0x267</id>
 		<category>Buildings\Walls\Cave Wall\Wall 12</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="268">
-		<id>0x0268</id>
+		<id>0x268</id>
 		<category>Buildings\Walls\Cave Wall\Wall 13</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="269">
-		<id>0x0269</id>
+		<id>0x269</id>
 		<category>Buildings\Walls\Cave Wall\Wall 14</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="26a">
-		<id>0x026a</id>
+		<id>0x26a</id>
 		<category>Buildings\Walls\Cave Wall\Wall 15</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="26b">
-		<id>0x026b</id>
+		<id>0x26b</id>
 		<category>Buildings\Walls\Cave Wall\Wall 16</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="26c">
-		<id>0x026c</id>
+		<id>0x26c</id>
 		<category>Buildings\Walls\Cave Wall\Wall 17</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="26d">
-		<id>0x026d</id>
+		<id>0x26d</id>
 		<category>Buildings\Walls\Cave Wall\Wall 18</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="26e">
-		<id>0x026e</id>
+		<id>0x26e</id>
 		<category>Buildings\Walls\Cave Wall\Wall 19</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="26f">
-		<id>0x026f</id>
+		<id>0x26f</id>
 		<category>Buildings\Walls\Cave Wall\Wall 20</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="270">
-		<id>0x0270</id>
+		<id>0x270</id>
 		<category>Buildings\Walls\Cave Wall\Wall 21</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="271">
-		<id>0x0271</id>
+		<id>0x271</id>
 		<category>Buildings\Walls\Cave Wall\Wall 22</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="272">
-		<id>0x0272</id>
+		<id>0x272</id>
 		<category>Buildings\Walls\Cave Wall\Wall 23</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="273">
-		<id>0x0273</id>
+		<id>0x273</id>
 		<category>Buildings\Walls\Cave Wall\Wall 24</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="274">
-		<id>0x0274</id>
+		<id>0x274</id>
 		<category>Buildings\Walls\Cave Wall\Wall 25</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="275">
-		<id>0x0275</id>
+		<id>0x275</id>
 		<category>Buildings\Walls\Cave Wall\Wall 26</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="276">
-		<id>0x0276</id>
+		<id>0x276</id>
 		<category>Buildings\Walls\Cave Wall\Wall 27</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="27d">
-		<id>0x027d</id>
+		<id>0x27d</id>
 		<category>Buildings\Walls\Cave Wall\Wall 28</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="27e">
-		<id>0x027e</id>
+		<id>0x27e</id>
 		<category>Buildings\Walls\Cave Wall\Wall 29</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="27f">
-		<id>0x027f</id>
+		<id>0x27f</id>
 		<category>Buildings\Walls\Cave Wall\Wall 30</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="280">
-		<id>0x0280</id>
+		<id>0x280</id>
 		<category>Buildings\Walls\Cave Wall\Wall 31</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2166">
 		<id>0x2166</id>
 		<category>Buildings\Walls\Cave Wall\Entrance (W/E) (1/2)</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2167">
 		<id>0x2167</id>
 		<category>Buildings\Walls\Cave Wall\Entrance (W/E) (2/2)</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2168">
 		<id>0x2168</id>
 		<category>Buildings\Walls\Cave Wall\Entrance (N/S) (1/2)</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2169">
 		<id>0x2169</id>
 		<category>Buildings\Walls\Cave Wall\Entrance (N/S) (2/2)</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<!-- Ruined Stone Wall -->
 	<item id="277">
-		<id>0x0277</id>
+		<id>0x277</id>
 		<category>Buildings\Walls\Ruined Stone Wall\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="278">
-		<id>0x0278</id>
+		<id>0x278</id>
 		<category>Buildings\Walls\Ruined Stone Wall\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="279">
-		<id>0x0279</id>
+		<id>0x279</id>
 		<category>Buildings\Walls\Ruined Stone Wall\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="27a">
-		<id>0x027a</id>
+		<id>0x27a</id>
 		<category>Buildings\Walls\Ruined Stone Wall\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="27b">
-		<id>0x027b</id>
+		<id>0x27b</id>
 		<category>Buildings\Walls\Ruined Stone Wall\Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="27c">
-		<id>0x027c</id>
+		<id>0x27c</id>
 		<category>Buildings\Walls\Ruined Stone Wall\Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="281">
-		<id>0x0281</id>
+		<id>0x281</id>
 		<category>Buildings\Walls\Ruined Stone Wall\Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="282">
-		<id>0x0282</id>
+		<id>0x282</id>
 		<category>Buildings\Walls\Ruined Stone Wall\Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<!-- Ruined Sandstone Wall -->
 	<item id="3b7">
-		<id>0x03b7</id>
+		<id>0x3b7</id>
 		<category>Buildings\Walls\Ruined Sandstone Wall\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3b8">
-		<id>0x03b8</id>
+		<id>0x3b8</id>
 		<category>Buildings\Walls\Ruined Sandstone Wall\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3b9">
-		<id>0x03b9</id>
+		<id>0x3b9</id>
 		<category>Buildings\Walls\Ruined Sandstone Wall\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3ba">
-		<id>0x03ba</id>
+		<id>0x3ba</id>
 		<category>Buildings\Walls\Ruined Sandstone Wall\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3bb">
-		<id>0x03bb</id>
+		<id>0x3bb</id>
 		<category>Buildings\Walls\Ruined Sandstone Wall\Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3bc">
-		<id>0x03bc</id>
+		<id>0x3bc</id>
 		<category>Buildings\Walls\Ruined Sandstone Wall\Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3bd">
-		<id>0x03bd</id>
+		<id>0x3bd</id>
 		<category>Buildings\Walls\Ruined Sandstone Wall\Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3be">
-		<id>0x03be</id>
+		<id>0x3be</id>
 		<category>Buildings\Walls\Ruined Sandstone Wall\Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3bf">
-		<id>0x03bf</id>
+		<id>0x3bf</id>
 		<category>Buildings\Walls\Ruined Sandstone Wall\Wall 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3c0">
-		<id>0x03c0</id>
+		<id>0x3c0</id>
 		<category>Buildings\Walls\Ruined Sandstone Wall\Wall 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3c1">
-		<id>0x03c1</id>
+		<id>0x3c1</id>
 		<category>Buildings\Walls\Ruined Sandstone Wall\Wall 11</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3c2">
-		<id>0x03c2</id>
+		<id>0x3c2</id>
 		<category>Buildings\Walls\Ruined Sandstone Wall\Wall 12</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3c3">
-		<id>0x03c3</id>
+		<id>0x3c3</id>
 		<category>Buildings\Walls\Ruined Sandstone Wall\Wall 13</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3c4">
-		<id>0x03c4</id>
+		<id>0x3c4</id>
 		<category>Buildings\Walls\Ruined Sandstone Wall\Wall 14</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3c5">
-		<id>0x03c5</id>
+		<id>0x3c5</id>
 		<category>Buildings\Walls\Ruined Sandstone Wall\Wall 15</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3c6">
-		<id>0x03c6</id>
+		<id>0x3c6</id>
 		<category>Buildings\Walls\Ruined Sandstone Wall\Wall 16</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<!-- Sandstone Wall 2 -->
 	<item id="3c7">
-		<id>0x03c7</id>
+		<id>0x3c7</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3c8">
-		<id>0x03c8</id>
+		<id>0x3c8</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3c9">
-		<id>0x03c9</id>
+		<id>0x3c9</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3ca">
-		<id>0x03ca</id>
+		<id>0x3ca</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3cb">
-		<id>0x03cb</id>
+		<id>0x3cb</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3cc">
-		<id>0x03cc</id>
+		<id>0x3cc</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3cd">
-		<id>0x03cd</id>
+		<id>0x3cd</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3ce">
-		<id>0x03ce</id>
+		<id>0x3ce</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3cf">
-		<id>0x03cf</id>
+		<id>0x3cf</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+		</item>
 
 	<item id="3d0">
-		<id>0x03d0</id>
+		<id>0x3d0</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3d1">
-		<id>0x03d1</id>
+		<id>0x3d1</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 11</category>
-	<nodecay/> </item>
+		<nodecay/></item>
 
 	<item id="3d2">
-		<id>0x03d2</id>
+		<id>0x3d2</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 12</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3d3">
-		<id>0x03d3</id>
+		<id>0x3d3</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 13</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3d4">
-		<id>0x03d4</id>
+		<id>0x3d4</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 14</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3d5">
-		<id>0x03d5</id>
+		<id>0x3d5</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 15</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3d6">
-		<id>0x03d6</id>
+		<id>0x3d6</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 16</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3d7">
-		<id>0x03d7</id>
+		<id>0x3d7</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 17</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3d8">
-		<id>0x03d8</id>
+		<id>0x3d8</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 18</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3d9">
-		<id>0x03d9</id>
+		<id>0x3d9</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 19</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3da">
-		<id>0x03da</id>
+		<id>0x3da</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 20</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3db">
-		<id>0x03db</id>
+		<id>0x3db</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 21</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3dc">
-		<id>0x03dc</id>
+		<id>0x3dc</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 22</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3dd">
-		<id>0x03dd</id>
+		<id>0x3dd</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Window 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3de">
-		<id>0x03de</id>
+		<id>0x3de</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Window 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3df">
-		<id>0x03df</id>
+		<id>0x3df</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Window 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3e0">
-		<id>0x03e0</id>
+		<id>0x3e0</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 23</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3e1">
-		<id>0x03e1</id>
+		<id>0x3e1</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 24</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3e2">
-		<id>0x03e2</id>
+		<id>0x3e2</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Wall 25</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<!-- Round Jungle Wall -->
 	<item id="253f">
 		<id>0x253f</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 1</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2540">
 		<id>0x2540</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 2</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2541">
 		<id>0x2541</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 3</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2542">
 		<id>0x2542</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 4</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2543">
 		<id>0x2543</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 5</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2544">
 		<id>0x2544</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 6</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2545">
 		<id>0x2545</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 7</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2547">
 		<id>0x2547</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 8</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2548">
 		<id>0x2548</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 9</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2549">
 		<id>0x2549</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 10</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="254a">
 		<id>0x254a</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 11</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="254b">
 		<id>0x254b</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 12</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="254c">
 		<id>0x254c</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 13</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="254d">
 		<id>0x254d</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 14</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="254e">
 		<id>0x254e</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 15</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="254f">
 		<id>0x254f</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 16</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2550">
 		<id>0x2550</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 17</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2551">
 		<id>0x2551</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 18</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2552">
 		<id>0x2552</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 19</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="2553">
 		<id>0x2553</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 20</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3ef2">
 		<id>0x3ef2</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 21</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3ef3">
 		<id>0x3ef3</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 22</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3ef4">
 		<id>0x3ef4</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 23</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3ef5">
 		<id>0x3ef5</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 24</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3ef6">
 		<id>0x3ef6</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 25</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3ef7">
 		<id>0x3ef7</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 26</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3ef8">
 		<id>0x3ef8</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 27</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3ef9">
 		<id>0x3ef9</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 28</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3efa">
 		<id>0x3efa</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 29</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3efb">
 		<id>0x3efb</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 30</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3efc">
 		<id>0x3efc</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 31</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3efd">
 		<id>0x3efd</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 32</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3efe">
 		<id>0x3efe</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 33</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3eff">
 		<id>0x3eff</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 34</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3f00">
 		<id>0x3f00</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 35</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3f01">
 		<id>0x3f01</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 36</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3f02">
 		<id>0x3f02</id>
 		<category>Buildings\Walls\Round Jungle Wall\Wall 37</category>
-	<nodecay/> </item>
+		<nodecay/>
+	</item>
 
 	<item id="3f03">
 		<id>0x3f03</id>
@@ -4920,4 +5803,5 @@
 		<category>Buildings\Walls\Round Jungle Wall\Wall 41</category>
 		<nodecay/>
 	</item>
+
 </definitions>

@@ -9,272 +9,326 @@
 =================================================================
 -->
 <definitions>
+
 	<!-- Wooden Fence 1 -->
 	<item id="3b3">
-		<id>0x03b3</id> <nodecay/>
+		<id>0x3b3</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 1\Fence 1</category>
 	</item>
 
 	<item id="3b4">
-		<id>0x03b4</id> <nodecay/>
+		<id>0x3b4</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 1\Fence 2</category>
 	</item>
 
 	<item id="3b5">
-		<id>0x03b5</id> <nodecay/>
+		<id>0x3b5</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 1\Fence 3</category>
 	</item>
 
 	<item id="3b6">
-		<id>0x03b6</id> <nodecay/>
+		<id>0x3b6</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 1\Fence 4</category>
 	</item>
 
 	<item id="21d1">
-		<id>0x21d1</id> <nodecay/>
+		<id>0x21d1</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 1\Fence 5</category>
 	</item>
 
 	<item id="21d2">
-		<id>0x21d2</id> <nodecay/>
+		<id>0x21d2</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 1\Fence 6</category>
 	</item>
 
 	<item id="21d3">
-		<id>0x21d3</id> <nodecay/>
+		<id>0x21d3</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 1\Fence 7</category>
 	</item>
 
 	<item id="21d4">
-		<id>0x21d4</id> <nodecay/>
+		<id>0x21d4</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 1\Fence 8</category>
 	</item>
 
 	<!-- Rails -->
 	<item id="7d7">
-		<id>0x07d7</id> <nodecay/>
+		<id>0x7d7</id>
+		<nodecay/>
 		<category>Buildings\Fences\Rail\Stone Rail 1</category>
 	</item>
 
 	<item id="7d8">
-		<id>0x07d8</id> <nodecay/>
+		<id>0x7d8</id>
+		<nodecay/>
 		<category>Buildings\Fences\Rail\Stone Rail 2</category>
 	</item>
 
 	<item id="8eb">
-		<id>0x08eb</id> <nodecay/>
+		<id>0x8eb</id>
+		<nodecay/>
 		<category>Buildings\Fences\Rail\Stone Rail 2</category>
 	</item>
 
 	<item id="8ec">
-		<id>0x08ec</id> <nodecay/>
+		<id>0x8ec</id>
+		<nodecay/>
 		<category>Buildings\Fences\Rail\Stone Rail 3</category>
 	</item>
 
 	<item id="8ed">
-		<id>0x08ed</id> <nodecay/>
+		<id>0x8ed</id>
+		<nodecay/>
 		<category>Buildings\Fences\Rail\Stone Rail 4</category>
 	</item>
 
 	<item id="8ee">
-		<id>0x08ee</id> <nodecay/>
+		<id>0x8ee</id>
+		<nodecay/>
 		<category>Buildings\Fences\Rail\Stone Rail 5</category>
 	</item>
 
 	<item id="8ef">
-		<id>0x08ef</id> <nodecay/>
+		<id>0x8ef</id>
+		<nodecay/>
 		<category>Buildings\Fences\Rail\Stone Rail 6</category>
 	</item>
 
 	<item id="8f0">
-		<id>0x08f0</id> <nodecay/>
+		<id>0x8f0</id>
+		<nodecay/>
 		<category>Buildings\Fences\Rail\Stone Rail 7</category>
 	</item>
 
 	<item id="8f1">
-		<id>0x08f1</id> <nodecay/>
+		<id>0x8f1</id>
+		<nodecay/>
 		<category>Buildings\Fences\Rail\Stone Rail 8</category>
 	</item>
 
 	<item id="8f2">
-		<id>0x08f2</id> <nodecay/>
+		<id>0x8f2</id>
+		<nodecay/>
 		<category>Buildings\Fences\Rail\Stone Rail 9</category>
 	</item>
 
 	<item id="8f3">
-		<id>0x08f3</id> <nodecay/>
+		<id>0x8f3</id>
+		<nodecay/>
 		<category>Buildings\Fences\Rail\Sandstone Rail 1</category>
 	</item>
 
 	<item id="8f4">
-		<id>0x08f4</id> <nodecay/>
+		<id>0x8f4</id>
+		<nodecay/>
 		<category>Buildings\Fences\Rail\Sandstone Rail 2</category>
 	</item>
 
 	<item id="8f5">
-		<id>0x08f5</id> <nodecay/>
+		<id>0x8f5</id>
+		<nodecay/>
 		<category>Buildings\Fences\Rail\Sandstone Rail 3</category>
 	</item>
 
 	<item id="8f6">
-		<id>0x08f6</id> <nodecay/>
+		<id>0x8f6</id>
+		<nodecay/>
 		<category>Buildings\Fences\Rail\Sandstone Rail 4</category>
 	</item>
 
 	<item id="8f7">
-		<id>0x08f7</id> <nodecay/>
+		<id>0x8f7</id>
+		<nodecay/>
 		<category>Buildings\Fences\Rail\Stone Rail 10</category>
 	</item>
 
 	<item id="8f8">
-		<id>0x08f8</id> <nodecay/>
+		<id>0x8f8</id>
+		<nodecay/>
 		<category>Buildings\Fences\Rail\Stone Rail 11</category>
 	</item>
 
 	<item id="8f9">
-		<id>0x08f9</id> <nodecay/>
+		<id>0x8f9</id>
+		<nodecay/>
 		<category>Buildings\Fences\Rail\Stone Rail 12</category>
 	</item>
 
 	<item id="8fa">
-		<id>0x08fa</id> <nodecay/>
+		<id>0x8fa</id>
+		<nodecay/>
 		<category>Buildings\Fences\Rail\Stone Rail 13</category>
 	</item>
 
 	<item id="8fb">
-		<id>0x08fb</id> <nodecay/>
+		<id>0x8fb</id>
+		<nodecay/>
 		<category>Buildings\Fences\Rail\Rail 1</category>
 	</item>
 
 	<item id="8fc">
-		<id>0x08fc</id> <nodecay/>
+		<id>0x8fc</id>
+		<nodecay/>
 		<category>Buildings\Fences\Rail\Rail 2</category>
 	</item>
 
 	<!-- Iron Fence 1 -->
 	<item id="821">
-		<id>0x0821</id> <nodecay/>
+		<id>0x821</id>
+		<nodecay/>
 		<category>Buildings\Fences\Iron Fence 1\Fence 1</category>
 	</item>
 
 	<item id="822">
-		<id>0x0822</id> <nodecay/>
+		<id>0x822</id>
+		<nodecay/>
 		<category>Buildings\Fences\Iron Fence 1\Fence 2</category>
 	</item>
 
 	<item id="823">
-		<id>0x0823</id> <nodecay/>
+		<id>0x823</id>
+		<nodecay/>
 		<category>Buildings\Fences\Iron Fence 1\Fence 3</category>
 	</item>
 
 	<!-- Wooden Fence 2 -->
 	<item id="835">
-		<id>0x0835</id> <nodecay/>
+		<id>0x835</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 2\Fence 1</category>
 	</item>
 
 	<item id="836">
-		<id>0x0836</id> <nodecay/>
+		<id>0x836</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 2\Fence 2</category>
 	</item>
 
 	<item id="837">
-		<id>0x0837</id> <nodecay/>
+		<id>0x837</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 2\Fence 3</category>
 	</item>
 
 	<item id="838">
-		<id>0x0838</id> <nodecay/>
+		<id>0x838</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 2\Fence 4</category>
 	</item>
 
 	<!-- Iron Fence 2 -->
 	<item id="849">
-		<id>0x0849</id> <nodecay/>
+		<id>0x849</id>
+		<nodecay/>
 		<category>Buildings\Fences\Iron Fence 2\Fence 1</category>
 	</item>
 
 	<item id="84a">
-		<id>0x084a</id> <nodecay/>
+		<id>0x84a</id>
+		<nodecay/>
 		<category>Buildings\Fences\Iron Fence 2\Fence 2</category>
 	</item>
 
 	<item id="84b">
-		<id>0x084b</id> <nodecay/>
+		<id>0x84b</id>
+		<nodecay/>
 		<category>Buildings\Fences\Iron Fence 2\Fence 3</category>
 	</item>
 
 	<!-- Wooden Fence 2 -->
 	<item id="85c">
-		<id>0x085c</id> <nodecay/>
+		<id>0x85c</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 2\Fence 1</category>
 	</item>
 
 	<item id="85d">
-		<id>0x085d</id> <nodecay/>
+		<id>0x85d</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 2\Fence 2</category>
 	</item>
 
 	<item id="85e">
-		<id>0x085e</id> <nodecay/>
+		<id>0x85e</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 2\Fence 3</category>
 	</item>
 
 	<item id="85f">
-		<id>0x085f</id> <nodecay/>
+		<id>0x85f</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 2\Fence 4</category>
 	</item>
 
 	<item id="860">
-		<id>0x0860</id> <nodecay/>
+		<id>0x860</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 2\Fence 5</category>
 	</item>
 
 	<item id="861">
-		<id>0x0861</id> <nodecay/>
+		<id>0x861</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 2\Fence 6</category>
 	</item>
 
 	<!-- Wooden Fence 3 -->
 	<item id="862">
-		<id>0x0862</id> <nodecay/>
+		<id>0x862</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 3\Fence 1</category>
 	</item>
 
 	<item id="863">
-		<id>0x0863</id> <nodecay/>
+		<id>0x863</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 3\Fence 2</category>
 	</item>
 
 	<item id="864">
-		<id>0x0864</id> <nodecay/>
+		<id>0x864</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 3\Fence 3</category>
 	</item>
 
 	<item id="865">
-		<id>0x0865</id> <nodecay/>
+		<id>0x865</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 3\Fence 4</category>
 	</item>
 
 	<!-- Wooden Fence 4 -->
 	<item id="877">
-		<id>0x0877</id> <nodecay/>
+		<id>0x877</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 4\Fence 1</category>
 	</item>
 
 	<item id="878">
-		<id>0x0878</id> <nodecay/>
+		<id>0x878</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 4\Fence 2</category>
 	</item>
 
 	<!-- Wooden Fence 5 -->
 	<item id="88a">
-		<id>0x088a</id> <nodecay/>
+		<id>0x88a</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 5\Fence 1</category>
 	</item>
 
 	<item id="88b">
-		<id>0x088b</id> <nodecay/>
+		<id>0x88b</id>
+		<nodecay/>
 		<category>Buildings\Fences\Wooden Fence 5\Fence 2</category>
 	</item>
+
 </definitions>

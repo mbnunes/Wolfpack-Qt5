@@ -11,295 +11,347 @@
 <definitions>
 
 	<item id="9fb">
-		<id>0x9fb</id> <nodecay />
+		<id>0x9fb</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Wall Sconce (W/E) (Off)</category>
 	</item>
 
 	<item id="9fc">
-		<id>0x9fc</id> <nodecay />
+		<id>0x9fc</id>
+		<nodecay />
 		<category>Decoration\Lightsources\Wall Sconce (W/E) (Empty)</category>
 	</item>
 
 	<item id="9fd">
-		<id>0x9fd</id> <nodecay />
+		<id>0x9fd</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Wall Sconce (W/E) (On)</category>
 	</item>
 
 	<item id="a00">
-		<id>0xa00</id> <nodecay />
+		<id>0xa00</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Wall Sconce (N/S) (Off)</category>
 	</item>
 
 	<item id="a01">
-		<id>0xa01</id> <nodecay />
+		<id>0xa01</id>
+		<nodecay />
 		<category>Decoration\Lightsources\Wall Sconce (W/E) (Empty)</category>
 	</item>
 
 	<item id="a02">
-		<id>0xa02</id> <nodecay />
+		<id>0xa02</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Wall Sconce (W/E) (On)</category>
 	</item>
 
 	<item id="a05">
-		<id>0xa05</id> <nodecay />
+		<id>0xa05</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Wall Torch (W/E) (Off)</category>
 	</item>
 
 	<item id="a06">
-		<id>0xa06</id> <nodecay />
+		<id>0xa06</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Wall Torch (W/E) (Empty)</category>
 	</item>
 
 	<item id="a07">
-		<id>0xa07</id> <nodecay />
+		<id>0xa07</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Wall Torch (W/E) (On)</category>
 	</item>
 
 	<item id="a0a">
-		<id>0xa0a</id> <nodecay />
+		<id>0xa0a</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Wall Torch (N/S) (Off)</category>
 	</item>
 
 	<item id="a0b">
-		<id>0xa0b</id> <nodecay />
+		<id>0xa0b</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Wall Torch (N/S) (Empty)</category>
 	</item>
 
 	<item id="a0c">
-		<id>0xa0c</id> <nodecay />
+		<id>0xa0c</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Wall Torch (N/S) (On)</category>
 	</item>
 
 	<item id="a18">
-		<id>0xa18</id> <nodecay />
+		<id>0xa18</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Hanging Lantern 1 (Off)</category>
 	</item>
 
 	<item id="a15">
-		<id>0xa15</id> <nodecay />
+		<id>0xa15</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Hanging Lantern 1 (On)</category>
 	</item>
 
 	<item id="a1d">
-		<id>0xa1d</id> <nodecay />
+		<id>0xa1d</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Hanging Lantern 2 (Off)</category>
 	</item>
 
 	<item id="a1a">
-		<id>0xa1a</id> <nodecay />
+		<id>0xa1a</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Hanging Lantern 2 (On)</category>
 	</item>
 
 	<item id="a1f">
-		<id>0xa1f</id> <nodecay />
+		<id>0xa1f</id>
+		<nodecay />
 		<category>Decoration\Lightsources\Lantern Post (W/E)</category>
 	</item>
 
 	<item id="a20">
-		<id>0xa20</id> <nodecay />
+		<id>0xa20</id>
+		<nodecay />
 		<category>Decoration\Lightsources\Lantern Post (N/S)</category>
 	</item>
 
 	<item id="a25">
-		<id>0xa25</id> <nodecay />
+		<id>0xa25</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Lantern (Off)</category>
 	</item>
 
 	<item id="a22">
-		<id>0xa22</id> <nodecay />
+		<id>0xa22</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Lantern (On)</category>
 	</item>
 
 	<item id="a28">
-		<id>0xa28</id> <nodecay />
+		<id>0xa28</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Candle 1 (Off)</category>
 	</item>
 
 	<item id="a0f">
-		<id>0xa0f</id> <nodecay />
+		<id>0xa0f</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Candle 1 (On)</category>
 	</item>
 
 	<item id="a26">
-		<id>0xa26</id> <nodecay />
+		<id>0xa26</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Candle 2 (Off)</category>
 	</item>
 
 	<item id="b1a">
-		<id>0xb1a</id> <nodecay />
+		<id>0xb1a</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Candle 2 (On)</category>
 	</item>
 
 	<item id="a27">
-		<id>0xa27</id> <nodecay />
+		<id>0xa27</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Small Candlabra (Off)</category>
 	</item>
 
 	<item id="b1d">
-		<id>0xb1d</id> <nodecay />
+		<id>0xb1d</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Small Candlabra (On)</category>
 	</item>
 
 	<item id="a29">
-		<id>0xa29</id> <nodecay />
+		<id>0xa29</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Big Candlabra (Off)</category>
 	</item>
 
 	<item id="b26">
-		<id>0xb26</id> <nodecay />
+		<id>0xb26</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Big Candlabra (On)</category>
 	</item>
 
 	<item id="b21">
-		<id>0xb21</id> <nodecay />
+		<id>0xb21</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Lamp Post 1 (Off)</category>
 	</item>
 
 	<item id="b20">
-		<id>0xb20</id> <nodecay />
+		<id>0xb20</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Lamp Post 1 (On)</category>
 	</item>
 
 	<item id="b22">
-		<id>0xb22</id> <nodecay />
+		<id>0xb22</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Lamp Post 2 (Off)</category>
 	</item>
 
 	<item id="b23">
-		<id>0xb23</id> <nodecay />
+		<id>0xb23</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Lamp Post 2 (On)</category>
 	</item>
 
 	<item id="b24">
-		<id>0xb24</id> <nodecay />
+		<id>0xb24</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Lamp Post 3 (Off)</category>
 	</item>
 
 	<item id="b25">
-		<id>0xb25</id> <nodecay />
+		<id>0xb25</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Lamp Post 3 (On)</category>
 	</item>
 
 	<item id="e31">
-		<id>0x0e31</id> <nodecay />
+		<id>0xe31</id>
+		<nodecay />
 		<category>Decoration\Lightsources\Brazier 1</category>
 	</item>
 
 	<item id="19aa">
-		<id>0x19aa</id> <nodecay />
+		<id>0x19aa</id>
+		<nodecay />
 		<category>Decoration\Lightsources\Brazier 2</category>
 	</item>
 
 	<item id="19bb">
-		<id>0x19bb</id> <nodecay />
+		<id>0x19bb</id>
+		<nodecay />
 		<category>Decoration\Lightsources\Brazier 3</category>
 	</item>
 
 	<item id="1f2b">
-		<id>0x1f2b</id> <nodecay />
+		<id>0x1f2b</id>
+		<nodecay />
 		<category>Decoration\Lightsources\Brazier 4</category>
 	</item>
 
 	<item id="142c">
-		<id>0x142c</id> <nodecay />
+		<id>0x142c</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Candle 3 (On)</category>
 	</item>
 
 	<item id="142f">
-		<id>0x142f</id> <nodecay />
+		<id>0x142f</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Candle 3 (Off)</category>
 	</item>
 
 	<item id="1430">
-		<id>0x1430</id> <nodecay />
+		<id>0x1430</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Candle 4 (On)</category>
 	</item>
 
 	<item id="1433">
-		<id>0x1433</id> <nodecay />
+		<id>0x1433</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Candle 4 (Off)</category>
 	</item>
 
 	<item id="1434">
-		<id>0x1434</id> <nodecay />
+		<id>0x1434</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Candle 5 (On)</category>
 	</item>
 
 	<item id="1437">
-		<id>0x1437</id> <nodecay />
+		<id>0x1437</id>
+		<nodecay />
 		<events>lightsource</events>
 		<category>Decoration\Lightsources\Candle 5 (Off)</category>
 	</item>
 
 	<!-- Skull Candle -->
 	<item id="1853">
-		<id>0x1853</id> <nodecay />
+		<id>0x1853</id>
+		<nodecay />
 		<category>Decoration\Lightsources\Skullcandle (W/E) (Off)</category>
 	</item>
 
 	<item id="1854">
-		<id>0x1854</id> <nodecay />
+		<id>0x1854</id>
+		<nodecay />
 		<category>Decoration\Lightsources\Skullcandle (W/E) (On)</category>
 	</item>
 
 	<item id="1857">
-		<id>0x1857</id> <nodecay />
+		<id>0x1857</id>
+		<nodecay />
 		<category>Decoration\Lightsources\Skullcandle (N/S) (Off)</category>
 	</item>
 
 	<item id="1858">
-		<id>0x1858</id> <nodecay />
+		<id>0x1858</id>
+		<nodecay />
 		<category>Decoration\Lightsources\Skullcandle (N/S) (On)</category>
 	</item>
 
 	<!-- Torches -->
 	<item id="a12">
-		<id>0x0a12</id> <nodecay />
+		<id>0xa12</id>
+		<nodecay />
 		<category>Decoration\Lightsources\Torch (On)</category>
 	</item>
 
 	<item id="f64">
-		<id>0x0f64</id> <nodecay />
+		<id>0xf64</id>
+		<nodecay />
 		<category>Decoration\Lightsources\Torch (W/E) (Off)</category>
 	</item>
 
 	<item id="f6b">
-		<id>0x0f6b</id> <nodecay />
+		<id>0xf6b</id>
+		<nodecay />
 		<category>Decoration\Lightsources\Torch (N/S) (Off)</category>
 	</item>
+
 </definitions>

@@ -7,1107 +7,1320 @@
 =================================================================
 -->
 <definitions>
+
 	<!-- Chest of Drawers 1 -->
 	<item id="a2c">
-		<id>0x0a2c</id> <nodecay />
+		<id>0xa2c</id><nodecay />
 		<type>1</type>
 		<category>Decoration\Furniture\Chest of Drawers (N/S) 1</category>
 	</item>
 
 	<item id="a2d">
-		<id>0x0a2d</id> <nodecay />
+		<id>0xa2d</id><nodecay />
 		<category>Decoration\Furniture\Chest of Drawers (N/S) 2</category>
 	</item>
 
 	<item id="a2e">
-		<id>0x0a2e</id> <nodecay />
+		<id>0xa2e</id>
+		<nodecay />
 		<category>Decoration\Furniture\Chest of Drawers (N/S) 3</category>
 	</item>
 
 	<item id="a2f">
-		<id>0x0a2f</id> <nodecay />
+		<id>0xa2f</id>
+		<nodecay />
 		<category>Decoration\Furniture\Chest of Drawers (N/S) 4</category>
 	</item>
 
 	<item id="a30">
-		<id>0x0a30</id> <nodecay />
+		<id>0xa30</id>
+		<nodecay />
 		<type>1</type>
 		<category>Decoration\Furniture\Chest of Drawers (N/S) 5</category>
 	</item>
 
 	<item id="a31">
-		<id>0x0a31</id> <nodecay />
+		<id>0xa31</id>
+		<nodecay />
 		<category>Decoration\Furniture\Chest of Drawers (N/S) 6</category>
 	</item>
 
 	<item id="a32">
-		<id>0x0a32</id> <nodecay />
+		<id>0xa32</id>
+		<nodecay />
 		<category>Decoration\Furniture\Chest of Drawers (N/S) 7</category>
 	</item>
 
 	<item id="a33">
-		<id>0x0a33</id> <nodecay />
+		<id>0xa33</id>
+		<nodecay />
 		<category>Decoration\Furniture\Chest of Drawers (N/S) 8</category>
 	</item>
 
 	<item id="a34">
-		<id>0x0a34</id> <nodecay />
+		<id>0xa34</id>
+		<nodecay />
 		<type>1</type>
 		<category>Decoration\Furniture\Chest of Drawers (W/E) 1</category>
 	</item>
 
 	<item id="a35">
-		<id>0x0a35</id> <nodecay />
+		<id>0xa35</id>
+		<nodecay />
 		<category>Decoration\Furniture\Chest of Drawers (W/E) 2</category>
 	</item>
 
 	<item id="a36">
-		<id>0x0a36</id> <nodecay />
+		<id>0xa36</id>
+		<nodecay />
 		<category>Decoration\Furniture\Chest of Drawers (W/E) 3</category>
 	</item>
 
 	<item id="a37">
-		<id>0x0a37</id> <nodecay />
+		<id>0xa37</id>
+		<nodecay />
 		<category>Decoration\Furniture\Chest of Drawers (W/E) 4</category>
 	</item>
 
 	<item id="a38">
-		<id>0x0a38</id> <nodecay />
+		<id>0xa38</id>
+		<nodecay />
 		<type>1</type>
 		<category>Decoration\Furniture\Chest of Drawers (W/E) 5</category>
 	</item>
 
 	<item id="a39">
-		<id>0x0a39</id> <nodecay />
+		<id>0xa39</id>
+		<nodecay />
 		<category>Decoration\Furniture\Chest of Drawers (W/E) 6</category>
 	</item>
 
 	<item id="a3a">
-		<id>0x0a3a</id> <nodecay />
+		<id>0xa3a</id>
+		<nodecay />
 		<category>Decoration\Furniture\Chest of Drawers (W/E) 7</category>
 	</item>
 
 	<item id="a3b">
-		<id>0x0a3b</id> <nodecay />
+		<id>0xa3b</id>
+		<nodecay />
 		<category>Decoration\Furniture\Chest of Drawers (W/E) 8</category>
 	</item>
 
 	<item id="a3c">
-		<id>0x0a3c</id> <nodecay />
+		<id>0xa3c</id>
+		<nodecay />
 		<category>Decoration\Furniture\Dresser (N/S) 1</category>
 		<type>1</type>
 	</item>
 
 	<item id="a3d">
-		<id>0x0a3d</id> <nodecay />
+		<id>0xa3d</id>
+		<nodecay />
 		<type>1</type>
 		<category>Decoration\Furniture\Dresser (N/S) 2</category>
 	</item>
 
 	<item id="a3e">
-		<id>0x0a3e</id> <nodecay />
+		<id>0xa3e</id>
+		<nodecay />
 		<category>Decoration\Furniture\Dresser (N/S) 3</category>
 	</item>
 
 	<item id="a3f">
-		<id>0x0a3f</id> <nodecay />
+		<id>0xa3f</id>
+		<nodecay />
 		<category>Decoration\Furniture\Dresser (N/S) 4</category>
 	</item>
 
 	<item id="a40">
-		<id>0x0a40</id> <nodecay />
+		<id>0xa40</id>
+		<nodecay />
 		<category>Decoration\Furniture\Dresser (N/S) 5</category>
 	</item>
 
 	<item id="a41">
-		<id>0x0a41</id> <nodecay />
+		<id>0xa41</id>
+		<nodecay />
 		<category>Decoration\Furniture\Dresser (N/S) 6</category>
 	</item>
 
 	<item id="a42">
-		<id>0x0a42</id> <nodecay />
+		<id>0xa42</id>
+		<nodecay />
 		<category>Decoration\Furniture\Dresser (N/S) 7</category>
 	</item>
 
 	<item id="a43">
-		<id>0x0a43</id> <nodecay />
+		<id>0xa43</id>
+		<nodecay />
 		<category>Decoration\Furniture\Dresser (N/S) 8</category>
 	</item>
 
 	<item id="a44">
-		<id>0x0a44</id> <nodecay />
+		<id>0xa44</id>
+		<nodecay />
 		<type>1</type>
 		<category>Decoration\Furniture\Dresser (W/E) 1</category>
 	</item>
 
 	<item id="a45">
-		<id>0x0a45</id> <nodecay />
+		<id>0xa45</id>
+		<nodecay />
 		<type>1</type>
 		<category>Decoration\Furniture\Dresser (W/E) 2</category>
 	</item>
 
 	<item id="a46">
-		<id>0x0a46</id> <nodecay />
+		<id>0xa46</id>
+		<nodecay />
 		<category>Decoration\Furniture\Dresser (W/E) 3</category>
 	</item>
 
 	<item id="a47">
-		<id>0x0a47</id> <nodecay />
+		<id>0xa47</id>
+		<nodecay />
 		<category>Decoration\Furniture\Dresser (W/E) 4</category>
 	</item>
 
 	<item id="a48">
-		<id>0x0a48</id> <nodecay />
+		<id>0xa48</id>
+		<nodecay />
 		<category>Decoration\Furniture\Dresser (W/E) 5</category>
 	</item>
 
 	<item id="a49">
-		<id>0x0a49</id> <nodecay />
+		<id>0xa49</id>
+		<nodecay />
 		<category>Decoration\Furniture\Dresser (W/E) 6</category>
 	</item>
 
 	<item id="a4a">
-		<id>0x0a4a</id> <nodecay />
+		<id>0xa4a</id>
+		<nodecay />
 		<category>Decoration\Furniture\Dresser (W/E) 7</category>
 	</item>
 
 	<item id="a4b">
-		<id>0x0a4b</id> <nodecay />
+		<id>0xa4b</id>
+		<nodecay />
 		<category>Decoration\Furniture\Dresser (W/E) 8</category>
 	</item>
 
 	<item id="a4c">
-		<id>0x0a4c</id> <nodecay />
+		<id>0xa4c</id>
+		<nodecay />
 		<category>Decoration\Furniture\Armoire 1 (N/S) (Open)</category>
 	</item>
 
 	<item id="a4d">
-		<id>0x0a4d</id> <nodecay />
+		<id>0xa4d</id>
+		<nodecay />
 		<category>Decoration\Furniture\Armoire 1 (N/S) (Closed)</category>
 	</item>
 
 	<item id="a4e">
-		<id>0x0a4e</id> <nodecay />
+		<id>0xa4e</id>
+		<nodecay />
 		<category>Decoration\Furniture\Armoire 2 (N/S) (Open)</category>
 	</item>
 
 	<item id="a4f">
-		<id>0x0a4f</id> <nodecay />
+		<id>0xa4f</id>
+		<nodecay />
 		<category>Decoration\Furniture\Armoire 2 (N/S) (Closed)</category>
 	</item>
 
 	<item id="a50">
-		<id>0x0a50</id> <nodecay />
+		<id>0xa50</id>
+		<nodecay />
 		<category>Decoration\Furniture\Armoire 1 (W/E) (Open)</category>
 	</item>
 
 	<item id="a51">
-		<id>0x0a51</id> <nodecay />
+		<id>0xa51</id>
+		<nodecay />
 		<category>Decoration\Furniture\Armoire 1 (W/E) (Closed)</category>
 	</item>
 
 	<item id="a52">
-		<id>0x0a52</id> <nodecay />
+		<id>0xa52</id>
+		<nodecay />
 		<category>Decoration\Furniture\Armoire 2 (W/E) (Open)</category>
 	</item>
 
 	<item id="a53">
-		<id>0x0a53</id> <nodecay />
+		<id>0xa53</id>
+		<nodecay />
 		<category>Decoration\Furniture\Armoire 2 (W/E) (Closed)</category>
 	</item>
 
 	<!-- Decoration / Bedroom -->
 	<!-- Bedroll -->
 	<item id="a55">
-		<id>0x0a55</id> <nodecay />
+		<id>0xa55</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Bedroll\Bedroll 1 (W/E) (Open)</category>
 	</item>
 
 	<item id="a56">
-		<id>0x0a56</id> <nodecay />
+		<id>0xa56</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Bedroll\Bedroll 1 (N/S) (Open)</category>
 	</item>
 
 	<item id="a57">
-		<id>0x0a57</id> <nodecay />
+		<id>0xa57</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Bedroll\Bedroll 2</category>
 	</item>
 
 	<item id="1f24">
-		<id>0x1f24</id> <nodecay />
+		<id>0x1f24</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Bedroll\Bedroll 3</category>
 	</item>
 
 	<item id="1f25">
-		<id>0x1f25</id> <nodecay />
+		<id>0x1f25</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Bedroll\Bedroll 4</category>
 	</item>
 
 	<item id="1f26">
-		<id>0x1f26</id> <nodecay />
+		<id>0x1f26</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Bedroll\Bedroll 5</category>
 	</item>
 
 	<item id="1f27">
-		<id>0x1f27</id> <nodecay />
+		<id>0x1f27</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Bedroll\Bedroll 6</category>
 	</item>
 
 	<item id="a58">
-		<id>0x0a58</id> <nodecay />
+		<id>0xa58</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Bedroll\Bedroll 1 (W/E) (Closed)</category>
 	</item>
 
 	<item id="a59">
-		<id>0x0a59</id> <nodecay />
+		<id>0xa59</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Bedroll\Bedroll 1 (N/S) (Closed)</category>
 	</item>
 
 	<!-- Beige Bed -->
 	<item id="a5a">
-		<id>0x0a5a</id> <nodecay />
+		<id>0xa5a</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Beige Bed\Beige Bed (N/S) (1/2)</category>
 	</item>
 
 	<item id="a5b">
-		<id>0x0a5b</id> <nodecay />
+		<id>0xa5b</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Beige Bed\Beige Bed (N/S) (2/2)</category>
 	</item>
 
 	<!-- Gray Bed -->
 	<item id="a5c">
-		<id>0x0a5c</id> <nodecay />
+		<id>0xa5c</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Gray Bed\Gray Bed (N/S) (1/2)</category>
 	</item>
 
 	<item id="a5d">
-		<id>0x0a5d</id> <nodecay />
+		<id>0xa5d</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Gray Bed\Gray Bed (W/E) (2/2)</category>
 	</item>
 
 	<!-- White Bed -->
 	<item id="a5e">
-		<id>0x0a5e</id> <nodecay />
+		<id>0xa5e</id>
+		<nodecay />
 		<category>Decoration\Bedroom\White Bed\White Bed (N/S) (2/2)</category>
 	</item>
 
 	<item id="a5f">
-		<id>0x0a5f</id> <nodecay />
+		<id>0xa5f</id>
+		<nodecay />
 		<category>Decoration\Bedroom\White Bed\White Bed (N/S) (1/2)</category>
 	</item>
 
 	<item id="a60">
-		<id>0x0a60</id> <nodecay />
+		<id>0xa60</id>
+		<nodecay />
 		<category>Decoration\Bedroom\White Bed\White Bed (W/E) (2/2)</category>
 	</item>
 
 	<item id="a61">
-		<id>0x0a61</id> <nodecay />
+		<id>0xa61</id>
+		<nodecay />
 		<category>Decoration\Bedroom\White Bed\White Bed (W/E) (1/2)</category>
 	</item>
 
 	<!-- Gray Bed -->
 	<item id="a62">
-		<id>0x0a62</id> <nodecay />
+		<id>0xa62</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Gray Bed\Gray Bed (W/E) (1/2)</category>
 	</item>
 
 	<item id="a63">
-		<id>0x0a63</id> <nodecay />
+		<id>0xa63</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Gray Bed\Gray Bed (N/S) (2/2)</category>
 	</item>
 
 	<item id="a66">
-		<id>0x0a66</id> <nodecay />
+		<id>0xa66</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Gray Bed\Untidy Gray Bed (N/S) (2/2) (Pillow)</category>
 	</item>
 
 	<item id="a67">
-		<id>0x0a67</id> <nodecay />
+		<id>0xa67</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Gray Bed\Untidy Gray Bed (N/S) (2/2)</category>
 	</item>
 
 	<item id="a68">
-		<id>0x0a68</id> <nodecay />
+		<id>0xa68</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Gray Bed\Untidy Gray Bed (N/S) (1/2)</category>
 	</item>
 
 	<item id="a69">
-		<id>0x0a69</id> <nodecay />
+		<id>0xa69</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Gray Bed\Untidy Gray Bed (W/E) (2/2) (Pillow)</category>
 	</item>
 
 	<item id="a6a">
-		<id>0x0a6a</id> <nodecay />
+		<id>0xa6a</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Gray Bed\Untidy Gray Bed (W/E) (2/2)</category>
 	</item>
 
 	<item id="a6b">
-		<id>0x0a6b</id> <nodecay />
+		<id>0xa6b</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Gray Bed\Untidy Gray Bed (W/E) (1/2)</category>
 	</item>
 
 	<!-- Folded Blanket -->
 	<item id="a6c">
-		<id>0x0a6c</id> <nodecay />
+		<id>0xa6c</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Folded Blanket\Folded Blanket 1</category>
 	</item>
 
 	<item id="a6d">
-		<id>0x0a6d</id> <nodecay />
+		<id>0xa6d</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Folded Blanket\Folded Blanket 2</category>
 	</item>
 
 	<item id="a6e">
-		<id>0x0a6e</id> <nodecay />
+		<id>0xa6e</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Folded Blanket\Folded Blanket 3</category>
 	</item>
 
 	<item id="a6f">
-		<id>0x0a6f</id> <nodecay />
+		<id>0xa6f</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Folded Blanket\Folded Blanket 4</category>
 	</item>
 
 	<!-- Double Bed -->
 	<item id="a70">
-		<id>0x0a70</id> <nodecay />
+		<id>0xa70</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Empty Double Bed (W/E) (1/4)</category>
 	</item>
 
 	<item id="a71">
-		<id>0x0a71</id> <nodecay />
+		<id>0xa71</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Empty Double Bed (W/E) (2/4)</category>
 	</item>
 
 	<item id="a72">
-		<id>0x0a72</id> <nodecay />
+		<id>0xa72</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Empty Double Bed (W/E) (3/4)</category>
 	</item>
 
 	<item id="a73">
-		<id>0x0a73</id> <nodecay />
+		<id>0xa73</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Empty Double Bed (W/E) (4/4)</category>
 	</item>
 
 	<item id="a74">
-		<id>0x0a74</id> <nodecay />
+		<id>0xa74</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Empty Double Bed (N/S) (1/4)</category>
 	</item>
 
 	<item id="a75">
-		<id>0x0a75</id> <nodecay />
+		<id>0xa75</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Empty Double Bed (N/S) (2/4)</category>
 	</item>
 
 	<item id="a76">
-		<id>0x0a76</id> <nodecay />
+		<id>0xa76</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Empty Double Bed (N/S) (3/4)</category>
 	</item>
 
 	<item id="a77">
-		<id>0x0a77</id> <nodecay />
+		<id>0xa77</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Empty Double Bed (N/S) (4/4)</category>
 	</item>
 
 	<item id="11ce">
-		<id>0x11ce</id> <nodecay />
+		<id>0x11ce</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Walkable Double Bed (W/E) (1/4)</category>
 	</item>
 
 	<item id="11cf">
-		<id>0x11cf</id> <nodecay />
+		<id>0x11cf</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Walkable Double Bed (W/E) (2/4)</category>
 	</item>
 
 	<item id="11d0">
-		<id>0x11d0</id> <nodecay />
+		<id>0x11d0</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Walkable Double Bed (W/E) (3/4)</category>
 	</item>
 
 	<item id="11d1">
-		<id>0x11d1</id> <nodecay />
+		<id>0x11d1</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Walkable Double Bed (W/E) (4/4)</category>
 	</item>
 
 	<item id="11d2">
-		<id>0x11d2</id> <nodecay />
+		<id>0x11d2</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Walkable Double Bed (N/S) (1/4)</category>
 	</item>
 
 	<item id="11d3">
-		<id>0x11d3</id> <nodecay />
+		<id>0x11d3</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Walkable Double Bed (N/S) (2/4)</category>
 	</item>
 
 	<item id="11d4">
-		<id>0x11d4</id> <nodecay />
+		<id>0x11d4</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Walkable Double Bed (N/S) (3/4)</category>
 	</item>
 
 	<item id="11d5">
-		<id>0x11d5</id> <nodecay />
+		<id>0x11d5</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Walkable Double Bed (N/S) (4/4)</category>
 	</item>
 
 	<item id="a78">
-		<id>0x0a78</id> <nodecay />
+		<id>0xa78</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Double Bed (W/E) (1/4)</category>
 	</item>
 
 	<item id="a79">
-		<id>0x0a79</id> <nodecay />
+		<id>0xa79</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Double Bed (W/E) (2/4)</category>
 	</item>
 
 	<item id="a7a">
-		<id>0x0a7a</id> <nodecay />
+		<id>0xa7a</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Double Bed 1 (W/E) (3/4)</category>
 	</item>
 
 	<item id="a7b">
-		<id>0x0a7b</id> <nodecay />
+		<id>0xa7b</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Double Bed 1 (W/E) (4/4)</category>
 	</item>
 
 	<item id="a7c">
-		<id>0x0a7c</id> <nodecay />
+		<id>0xa7c</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Double Bed 2 (W/E) (3/4)</category>
 	</item>
 
 	<item id="a7d">
-		<id>0x0a7d</id> <nodecay />
+		<id>0xa7d</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Double Bed 2 (W/E) (4/4)</category>
 	</item>
 
 	<item id="a7e">
-		<id>0x0a7e</id> <nodecay />
+		<id>0xa7e</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Double Bed (N/S) (1/4)</category>
 	</item>
 
 	<item id="a7f">
-		<id>0x0a7f</id> <nodecay />
+		<id>0xa7f</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Double Bed (N/S) (2/4)</category>
 	</item>
 
 	<item id="a80">
-		<id>0x0a80</id> <nodecay />
+		<id>0xa80</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Double Bed 1 (N/S) (3/4)</category>
 	</item>
 
 	<item id="a81">
-		<id>0x0a81</id> <nodecay />
+		<id>0xa81</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Double Bed 1 (N/S) (4/4)</category>
 	</item>
 
 	<item id="a82">
-		<id>0x0a82</id> <nodecay />
+		<id>0xa82</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Double Bed 2 (N/S) (3/4)</category>
 	</item>
 
 	<item id="a83">
-		<id>0x0a83</id> <nodecay />
+		<id>0xa83</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Double Bed 2 (N/S) (4/4)</category>
 	</item>
 
 	<item id="a84">
-		<id>0x0a84</id> <nodecay />
+		<id>0xa84</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\White Double Bed (W/E) (1/4)</category>
 	</item>
 
 	<item id="a85">
-		<id>0x0a85</id> <nodecay />
+		<id>0xa85</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\White Double Bed (W/E) (2/4)</category>
 	</item>
 
 	<item id="a86">
-		<id>0x0a86</id> <nodecay />
+		<id>0xa86</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\White Double Bed (W/E) (3/4)</category>
 	</item>
 
 	<item id="a87">
-		<id>0x0a87</id> <nodecay />
+		<id>0xa87</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\White Double Bed (W/E) (4/4)</category>
 	</item>
 
 	<item id="a88">
-		<id>0x0a88</id> <nodecay />
+		<id>0xa88</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\White Double Bed (N/S) (1/4)</category>
 	</item>
 
 	<item id="a89">
-		<id>0x0a89</id> <nodecay />
+		<id>0xa89</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\White Double Bed (N/S) (2/4)</category>
 	</item>
 
 	<item id="a8a">
-		<id>0x0a8a</id> <nodecay />
+		<id>0xa8a</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\White Double Bed (N/S) (3/4)</category>
 	</item>
 
 	<item id="a8b">
-		<id>0x0a8b</id> <nodecay />
+		<id>0xa8b</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\White Double Bed (N/S) (4/4)</category>
 	</item>
 
 	<item id="a8c">
-		<id>0x0a8c</id> <nodecay />
+		<id>0xa8c</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Untidy Double Bed (W/E) (1/4)</category>
 	</item>
 
 	<item id="a8d">
-		<id>0x0a8d</id> <nodecay />
+		<id>0xa8d</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Untidy Double Bed (W/E) (2/4)</category>
 	</item>
 
 	<item id="a8e">
-		<id>0x0a8e</id> <nodecay />
+		<id>0xa8e</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Untidy Double Bed 1 (W/E) (3/4)</category>
 	</item>
 
 	<item id="a8f">
-		<id>0x0a8f</id> <nodecay />
+		<id>0xa8f</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Untidy Double Bed 1 (W/E) (4/4)</category>
 	</item>
 
 	<item id="a90">
-		<id>0x0a90</id> <nodecay />
+		<id>0xa90</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Untidy Double Bed 2 (W/E) (3/4)</category>
 	</item>
 
 	<item id="a91">
-		<id>0x0a91</id> <nodecay />
+		<id>0xa91</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Untidy Double Bed 2 (W/E) (4/4)</category>
 	</item>
 
 	<item id="db0">
-		<id>0x0db0</id> <nodecay />
+		<id>0xdb0</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Untidy Double Bed (N/S) (1/4)</category>
 	</item>
 
 	<item id="db1">
-		<id>0x0db1</id> <nodecay />
+		<id>0xdb1</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Untidy Double Bed (N/S) (2/4)</category>
 	</item>
 
 	<item id="db2">
-		<id>0x0db2</id> <nodecay />
+		<id>0xdb2</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Untidy Double Bed 1 (N/S) (3/4)</category>
 	</item>
 
 	<item id="db3">
-		<id>0x0db3</id> <nodecay />
+		<id>0xdb3</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Untidy Double Bed 1 (N/S) (4/4)</category>
 	</item>
 
 	<item id="db4">
-		<id>0x0db4</id> <nodecay />
+		<id>0xdb4</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Untidy Double Bed 2 (N/S) (3/4)</category>
 	</item>
 
 	<item id="db5">
-		<id>0x0db5</id> <nodecay />
+		<id>0xdb5</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Double Bed\Untidy Double Bed 2 (N/S) (4/4)</category>
 	</item>
 
 	<!-- Folded -->
 	<item id="a92">
-		<id>0x0a92</id> <nodecay />
+		<id>0xa92</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Folded\Folded Sheet 1</category>
 	</item>
 
 	<item id="a93">
-		<id>0x0a93</id> <nodecay />
+		<id>0xa93</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Folded\Folded Blanket 2</category>
 	</item>
 
 	<item id="a94">
-		<id>0x0a94</id> <nodecay />
+		<id>0xa94</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Folded\Folded Rich Sheet 1</category>
 	</item>
 
 	<item id="a95">
-		<id>0x0a95</id> <nodecay />
+		<id>0xa95</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Folded\Folded Rich Sheet 2</category>
 	</item>
 
 	<!-- Pillow -->
 	<item id="1397">
-		<id>0x1397</id> <nodecay />
+		<id>0x1397</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Pillow\Pillow 1</category>
 	</item>
 
 	<item id="13a4">
-		<id>0x13a4</id> <nodecay />
+		<id>0x13a4</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Pillow\Pillow 2</category>
 	</item>
 
 	<item id="13a5">
-		<id>0x13a5</id> <nodecay />
+		<id>0x13a5</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Pillow\Pillow 3</category>
 	</item>
 
 	<item id="13a6">
-		<id>0x13a6</id> <nodecay />
+		<id>0x13a6</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Pillow\Pillow 4</category>
 	</item>
 
 	<item id="13a7">
-		<id>0x13a7</id> <nodecay />
+		<id>0x13a7</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Pillow\Pillow 5</category>
 	</item>
 
 	<item id="13a8">
-		<id>0x13a8</id> <nodecay />
+		<id>0x13a8</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Pillow\Pillow 6</category>
 	</item>
 
 	<item id="13a9">
-		<id>0x13a9</id> <nodecay />
+		<id>0x13a9</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Pillow\Pillow 7</category>
 	</item>
 
 	<item id="13aa">
-		<id>0x13aa</id> <nodecay />
+		<id>0x13aa</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Pillow\Pillow 8</category>
 	</item>
 
 	<item id="13ab">
-		<id>0x13ab</id> <nodecay />
+		<id>0x13ab</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Pillow\Pillow 9</category>
 	</item>
 
 	<item id="13ac">
-		<id>0x13ac</id> <nodecay />
+		<id>0x13ac</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Pillow\Pillow 10</category>
 	</item>
 
 	<item id="13ad">
-		<id>0x13ad</id> <nodecay />
+		<id>0x13ad</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Pillow\Pillow 11</category>
 	</item>
 
 	<item id="13ae">
-		<id>0x13ae</id> <nodecay />
+		<id>0x13ae</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Pillow\Pillow 12</category>
 	</item>
 
 	<item id="163a">
-		<id>0x163a</id> <nodecay />
+		<id>0x163a</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Pillow\Pillow 13</category>
 	</item>
 
 	<item id="163b">
-		<id>0x163b</id> <nodecay />
+		<id>0x163b</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Pillow\Pillow 14</category>
 	</item>
 
 	<item id="163c">
-		<id>0x163c</id> <nodecay />
+		<id>0x163c</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Pillow\Pillow 15</category>
 	</item>
 
 	<!-- Misc -->
 	<item id="1914">
-		<id>0x1914</id> <nodecay />
+		<id>0x1914</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Misc\Towel</category>
 	</item>
 
 	<!-- Pillow -->
 	<item id="1915">
-		<id>0x1915</id> <nodecay />
+		<id>0x1915</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Pillow\Pillow 16</category>
 	</item>
 
 	<!-- Massage Table -->
 	<item id="1916">
-		<id>0x1916</id> <nodecay />
+		<id>0x1916</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Massage Table\Massage Table (1/2)</category>
 	</item>
 
 	<item id="1917">
-		<id>0x1917</id> <nodecay />
+		<id>0x1917</id>
+		<nodecay />
 		<category>Decoration\Bedroom\Massage Table\Massage Table (2/2)</category>
 	</item>
 
 	<!-- Bookcases -->
 	<item id="a97">
-		<id>0x0a97</id> <nodecay />
+		<id>0xa97</id>
+		<nodecay />
 		<category>Decoration\Bookcases\Bookcase 1 (N/S)</category>
 	</item>
 
 	<item id="a98">
-		<id>0x0a98</id> <nodecay />
+		<id>0xa98</id>
+		<nodecay />
 		<category>Decoration\Bookcases\Bookcase 2 (N/S)</category>
 	</item>
 
 	<item id="a99">
-		<id>0x0a99</id> <nodecay />
+		<id>0xa99</id>
+		<nodecay />
 		<category>Decoration\Bookcases\Bookcase 1 (W/E)</category>
 	</item>
 
 	<item id="a9a">
-		<id>0x0a9a</id> <nodecay />
+		<id>0xa9a</id>
+		<nodecay />
 		<category>Decoration\Bookcases\Bookcase 2 (W/E)</category>
 	</item>
 
 	<item id="a9b">
-		<id>0x0a9b</id> <nodecay />
+		<id>0xa9b</id>
+		<nodecay />
 		<category>Decoration\Bookcases\Bookcase 3 (N/S)</category>
 	</item>
 
 	<item id="a9c">
-		<id>0x0a9c</id> <nodecay />
+		<id>0xa9c</id>
+		<nodecay />
 		<category>Decoration\Bookcases\Bookcase 3 (W/E)</category>
 	</item>
 
 	<item id="a9d">
-		<id>0x0a9d</id> <nodecay />
+		<id>0xa9d</id>
+		<nodecay />
 		<category>Decoration\Bookcases\Empty Bookcase (N/S)</category>
 	</item>
 
 	<item id="a9e">
-		<id>0x0a9e</id> <nodecay />
+		<id>0xa9e</id>
+		<nodecay />
 		<category>Decoration\Bookcases\Empty Bookcase (W/E)</category>
 	</item>
 
 	<!-- Display Case -->
 	<item id="a9f">
-		<id>0x0a9f</id> <nodecay />
+		<id>0xa9f</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 5 Frame (5/8)</category>
 	</item>
 
 	<item id="aa0">
-		<id>0x0aa0</id> <nodecay />
+		<id>0xaa0</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 5 Frame (6/8)</category>
 	</item>
 
 	<item id="aa1">
-		<id>0x0aa1</id> <nodecay />
+		<id>0xaa1</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 5 Frame (7/8)</category>
 	</item>
 
 	<item id="aa2">
-		<id>0x0aa2</id> <nodecay />
+		<id>0xaa2</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 5 Frame (8/8)</category>
 	</item>
 
 	<item id="aa3">
-		<id>0x0aa3</id> <nodecay />
+		<id>0xaa3</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 5 Frame (1/8)</category>
 	</item>
 
 	<item id="aa4">
-		<id>0x0aa4</id> <nodecay />
+		<id>0xaa4</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 5 Frame (4/8)</category>
 	</item>
 
 	<item id="aa5">
-		<id>0x0aa5</id> <nodecay />
+		<id>0xaa5</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 5 Frame (3/8)</category>
 	</item>
 
 	<item id="afd">
-		<id>0x0afd</id> <nodecay />
+		<id>0xafd</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 1 Frame (1/3)</category>
 	</item>
 
 	<item id="afe">
-		<id>0x0afe</id> <nodecay />
+		<id>0xafe</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 1 Frame (2/3)</category>
 	</item>
 
 	<item id="aff">
-		<id>0x0aff</id> <nodecay />
+		<id>0xaff</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 1 Frame (3/3)</category>
 	</item>
 
 	<item id="b00">
-		<id>0x0b00</id> <nodecay />
+		<id>0xb00</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 1 (1/3)</category>
 	</item>
 
 	<item id="b01">
-		<id>0x0b01</id> <nodecay />
+		<id>0xb01</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 1 (2/3)</category>
 	</item>
 
 	<item id="b02">
-		<id>0x0b02</id> <nodecay />
+		<id>0xb02</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 1 (3/3)</category>
 	</item>
 
 	<item id="b03">
-		<id>0x0b03</id> <nodecay />
+		<id>0xb03</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 2 Frame (1/3)</category>
 	</item>
 
 	<item id="b04">
-		<id>0x0b04</id> <nodecay />
+		<id>0xb04</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 2 Frame (2/3)</category>
 	</item>
 
 	<item id="b05">
-		<id>0x0b05</id> <nodecay />
+		<id>0xb05</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 2 Frame (3/3)</category>
 	</item>
 
 	<item id="b06">
-		<id>0x0b06</id> <nodecay />
+		<id>0xb06</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 2 (1/3)</category>
 	</item>
 
 	<item id="b07">
-		<id>0x0b07</id> <nodecay />
+		<id>0xb07</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 2 (2/3)</category>
 	</item>
 
 	<item id="b08">
-		<id>0x0b08</id> <nodecay />
+		<id>0xb08</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 2 (3/3)</category>
 	</item>
 
 	<item id="b09">
-		<id>0x0b09</id> <nodecay />
+		<id>0xb09</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 3 (W/E)</category>
 	</item>
 
 	<item id="b0a">
-		<id>0x0b0a</id> <nodecay />
+		<id>0xb0a</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 3 (N/S)</category>
 	</item>
 
 	<item id="b0b">
-		<id>0x0b0b</id> <nodecay />
+		<id>0xb0b</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 3 (W/E) Frame</category>
 	</item>
 
 	<item id="b0c">
-		<id>0x0b0c</id> <nodecay />
+		<id>0xb0c</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 3 (N/S) Frame</category>
 	</item>
 
 	<item id="b0d">
-		<id>0x0b0d</id> <nodecay />
+		<id>0xb0d</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 4 (N/S)</category>
 	</item>
 
 	<item id="b0e">
-		<id>0x0b0e</id> <nodecay />
+		<id>0xb0e</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 4 (W/E)</category>
 	</item>
 
 	<item id="b0f">
-		<id>0x0b0f</id> <nodecay />
+		<id>0xb0f</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 5 (9/9)</category>
 	</item>
 
 	<item id="b10">
-		<id>0x0b10</id> <nodecay />
+		<id>0xb10</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 5 (1/9)</category>
 	</item>
 
 	<item id="b11">
-		<id>0x0b11</id> <nodecay />
+		<id>0xb11</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 5 (2/9)</category>
 	</item>
 
 	<item id="b12">
-		<id>0x0b12</id> <nodecay />
+		<id>0xb12</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 5 (3/9)</category>
 	</item>
 
 	<item id="b13">
-		<id>0x0b13</id> <nodecay />
+		<id>0xb13</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 5 (4/9)</category>
 	</item>
 
 	<item id="b14">
-		<id>0x0b14</id> <nodecay />
+		<id>0xb14</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 5 (5/9)</category>
 	</item>
 
 	<item id="b15">
-		<id>0x0b15</id> <nodecay />
+		<id>0xb15</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 5 (6/9)</category>
 	</item>
 
 	<item id="b16">
-		<id>0x0b16</id> <nodecay />
+		<id>0xb16</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 5 (7/9)</category>
 	</item>
 
 	<item id="b17">
-		<id>0x0b17</id> <nodecay />
+		<id>0xb17</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 5 (8/9)</category>
 	</item>
 
 	<item id="b18">
-		<id>0x0b18</id> <nodecay />
+		<id>0xb18</id>
+		<nodecay />
 		<category>Decoration\Display Case\Display Case 5 Frame (2/8)</category>
 	</item>
 
 	<!-- Tables -->
 	<!-- Nightstand freely adapted from sphere ;) -->
 	<item id="b34">
-		<id>0x0b34</id> <nodecay />
+		<id>0xb34</id>
+		<nodecay />
 		<buyprice>15</buyprice>
 		<sellprice>7</sellprice>
 		<category>Decoration\Tables\Nightstand\Nightstand (N/S) (1/2)</category>
 	</item>
 
 	<item id="b35">
-		<id>0x0b35</id> <nodecay />
+		<id>0xb35</id>
+		<nodecay />
 		<category>Decoration\Tables\Nightstand\Nightstand (W/E) (1/2)</category>
 	</item>
 
 	<item id="b37">
-		<id>0x0b37</id> <nodecay />
+		<id>0xb37</id>
+		<nodecay />
 		<category>Decoration\Tables\Nightstand\Nightstand (N/S) (2/2)</category>
 	</item>
 
 	<item id="b38">
-		<id>0x0b38</id> <nodecay />
+		<id>0xb38</id>
+		<nodecay />
 		<category>Decoration\Tables\Nightstand\Nightstand (W/E) (2/2)</category>
 	</item>
 
 	<!-- Counter -->
 	<item id="b3d">
-		<id>0x0b3d</id> <nodecay />
+		<id>0xb3d</id>
+		<nodecay />
 		<category>Decoration\Tables\Counter\Counter (N/S) (2/2)</category>
 	</item>
 
 	<item id="b3e">
-		<id>0x0b3e</id> <nodecay />
+		<id>0xb3e</id>
+		<nodecay />
 		<category>Decoration\Tables\Counter\Counter (W/E) (2/2)</category>
 	</item>
 
 	<item id="b3f">
-		<id>0x0b3f</id> <nodecay />
+		<id>0xb3f</id>
+		<nodecay />
 		<category>Decoration\Tables\Counter\Counter (N/S) (1/2)</category>
 	</item>
 
 	<item id="b40">
-		<id>0x0b40</id> <nodecay />
+		<id>0xb40</id>
+		<nodecay />
 		<category>Decoration\Tables\Counter\Counter (W/E) (1/2)</category>
 	</item>
 
 	<!-- Writing Table -->
 	<item id="b49">
-		<id>0x0b49</id> <nodecay />
+		<id>0xb49</id>
+		<nodecay />
 		<category>Decoration\Tables\Writing Table\Writing Table 1</category>
 	</item>
 
 	<item id="b4a">
-		<id>0x0b4a</id> <nodecay />
+		<id>0xb4a</id>
+		<nodecay />
 		<category>Decoration\Tables\Writing Table\Writing Table 2</category>
 	</item>
 
 	<item id="b4b">
-		<id>0x0b4b</id> <nodecay />
+		<id>0xb4b</id>
+		<nodecay />
 		<category>Decoration\Tables\Writing Table\Writing Table 3</category>
 	</item>
 
 	<item id="b4c">
-		<id>0x0b4c</id> <nodecay />
+		<id>0xb4c</id>
+		<nodecay />
 		<category>Decoration\Tables\Writing Table\Writing Table 4</category>
 	</item>
 
 	<!-- Sandstone Table -->
 	<item id="b6b">
-		<id>0x0b6b</id> <nodecay />
+		<id>0xb6b</id>
+		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 1 (W/E) (1/3)</category>
 	</item>
 
 	<item id="b6c">
-		<id>0x0b6c</id> <nodecay />
+		<id>0xb6c</id>
+		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 1 (W/E) (2/3)</category>
 	</item>
 
 	<item id="b6d">
-		<id>0x0b6d</id> <nodecay />
+		<id>0xb6d</id>
+		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 1 (W/E) (3/3)</category>
 	</item>
 
 	<!-- Wooden Table -->
 	<item id="b6e">
-		<id>0x0b6e</id> <nodecay />
+		<id>0xb6e</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 1 (W/E) (1/2)</category>
 	</item>
 
 	<item id="b6f">
-		<id>0x0b6f</id> <nodecay />
+		<id>0xb6f</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 1 (W/E) (2/2)</category>
 	</item>
 
 	<item id="b70">
-		<id>0x0b70</id> <nodecay />
+		<id>0xb70</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 2 (W/E) (1/5)</category>
 	</item>
 
 	<item id="b71">
-		<id>0x0b71</id> <nodecay />
+		<id>0xb71</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 2 (W/E) (2/5)</category>
 	</item>
 
 	<item id="b72">
-		<id>0x0b72</id> <nodecay />
+		<id>0xb72</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 2 (W/E) (3/5)</category>
 	</item>
 
 	<item id="b73">
-		<id>0x0b73</id> <nodecay />
+		<id>0xb73</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 2 (W/E) (4/5)</category>
 	</item>
 
 	<item id="b74">
-		<id>0x0b74</id> <nodecay />
+		<id>0xb74</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 2 (W/E) (5/5)</category>
 	</item>
 
 	<item id="b75">
-		<id>0x0b75</id> <nodecay />
+		<id>0xb75</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 3 (W/E) (1/2)</category>
 	</item>
 
 	<item id="b76">
-		<id>0x0b76</id> <nodecay />
+		<id>0xb76</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 3 (W/E) (2/2)</category>
 	</item>
 
 	<item id="b77">
-		<id>0x0b77</id> <nodecay />
+		<id>0xb77</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 4 (W/E) (1/5)</category>
 	</item>
 
 	<item id="b78">
-		<id>0x0b78</id> <nodecay />
+		<id>0xb78</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 4 (W/E) (2/5)</category>
 	</item>
 
 	<item id="b79">
-		<id>0x0b79</id> <nodecay />
+		<id>0xb79</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 4 (W/E) (3/5)</category>
 	</item>
 
 	<item id="b7a">
-		<id>0x0b7a</id> <nodecay />
+		<id>0xb7a</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 4 (W/E) (4/5)</category>
 	</item>
 
 	<item id="b7b">
-		<id>0x0b7b</id> <nodecay />
+		<id>0xb7b</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 4 (W/E) (5/5)</category>
 	</item>
 
 	<item id="b7c">
-		<id>0x0b7c</id> <nodecay />
+		<id>0xb7c</id>
+		<nodecay />
 		<buyprice>20</buyprice>
 		<sellprice>10</sellprice>
 		<category>Decoration\Tables\Wooden Table\Wooden Table 5 (W/E)</category>
 	</item>
 
 	<item id="b7d">
-		<id>0x0b7d</id> <nodecay />
+		<id>0xb7d</id>
+		<nodecay />
 		<buyprice>20</buyprice>
 		<sellprice>10</sellprice>
 		<category>Decoration\Tables\Wooden Table\Wooden Table 6 (W/E)</category>
@@ -1115,729 +1328,873 @@
 
 	<!-- Sandstone Table -->
 	<item id="b7e">
-		<id>0x0b7e</id> <nodecay />
+		<id>0xb7e</id>
+		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 1 (N/S) (1/3)</category>
 	</item>
 
 	<item id="b7f">
-		<id>0x0b7f</id> <nodecay />
+		<id>0xb7f</id>
+		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 1 (N/S) (2/3)</category>
 	</item>
 
 	<item id="b80">
-		<id>0x0b80</id> <nodecay />
+		<id>0xb80</id>
+		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 1 (N/S) (3/3)</category>
 	</item>
 
 	<!-- Wooden Table -->
 	<item id="b81">
-		<id>0x0b81</id> <nodecay />
+		<id>0xb81</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 1 (N/S) (1/2)</category>
 	</item>
 
 	<item id="b82">
-		<id>0x0b82</id> <nodecay />
+		<id>0xb82</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 1 (N/S) (2/2)</category>
 	</item>
 
 	<item id="b83">
-		<id>0x0b83</id> <nodecay />
+		<id>0xb83</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 2 (N/S) (1/5)</category>
 	</item>
 
 	<item id="b84">
-		<id>0x0b84</id> <nodecay />
+		<id>0xb84</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 2 (N/S) (2/5)</category>
 	</item>
 
 	<item id="b85">
-		<id>0x0b85</id> <nodecay />
+		<id>0xb85</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 2 (N/S) (3/5)</category>
 	</item>
 
 	<item id="b86">
-		<id>0x0b86</id> <nodecay />
+		<id>0xb86</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 2 (N/S) (4/5)</category>
 	</item>
 
 	<item id="b87">
-		<id>0x0b87</id> <nodecay />
+		<id>0xb87</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 2 (N/S) (5/5)</category>
 	</item>
 
 	<item id="b88">
-		<id>0x0b88</id> <nodecay />
+		<id>0xb88</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 3 (N/S) (1/2)</category>
 	</item>
 
 	<item id="b89">
-		<id>0x0b89</id> <nodecay />
+		<id>0xb89</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 3 (N/S) (2/2)</category>
 	</item>
 
 	<item id="b8a">
-		<id>0x0b8a</id> <nodecay />
+		<id>0xb8a</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 4 (N/S) (1/5)</category>
 	</item>
 
 	<item id="b8b">
-		<id>0x0b8b</id> <nodecay />
+		<id>0xb8b</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 4 (N/S) (2/5)</category>
 	</item>
 
 	<item id="b8c">
-		<id>0x0b8c</id> <nodecay />
+		<id>0xb8c</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 4 (N/S) (3/5)</category>
 	</item>
 
 	<item id="b8d">
-		<id>0x0b8d</id> <nodecay />
+		<id>0xb8d</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 4 (N/S) (4/5)</category>
 	</item>
 
 	<item id="b8e">
-		<id>0x0b8e</id> <nodecay />
+		<id>0xb8e</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 4 (N/S) (5/5)</category>
 	</item>
 
 	<item id="b8f">
-		<id>0x0b8f</id> <nodecay />
+		<id>0xb8f</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 5 (N/S)</category>
 	</item>
 
 	<item id="b90">
-		<id>0x0b90</id> <nodecay />
+		<id>0xb90</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 6 (N/S)</category>
 	</item>
 
 	<item id="118b">
-		<id>0x118b</id> <nodecay />
+		<id>0x118b</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 7</category>
 	</item>
 
 	<item id="118c">
-		<id>0x118c</id> <nodecay />
+		<id>0x118c</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 8</category>
 	</item>
 
 	<item id="118d">
-		<id>0x118d</id> <nodecay />
+		<id>0x118d</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 9</category>
 	</item>
 
 	<item id="118e">
-		<id>0x118e</id> <nodecay />
+		<id>0x118e</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 10</category>
 	</item>
 
 	<!-- Covered -->
 	<item id="118f">
-		<id>0x118f</id> <nodecay />
+		<id>0x118f</id>
+		<nodecay />
 		<category>Decoration\Tables\Covered\Covered Counter (W/E) (1/2)</category>
 	</item>
 
 	<item id="1190">
-		<id>0x1190</id> <nodecay />
+		<id>0x1190</id>
+		<nodecay />
 		<category>Decoration\Tables\Covered\Covered Counter (W/E) (2/2)</category>
 	</item>
 
 	<item id="1191">
-		<id>0x1191</id> <nodecay />
+		<id>0x1191</id>
+		<nodecay />
 		<category>Decoration\Tables\Covered\Covered Counter (N/S) (1/2)</category>
 	</item>
 
 	<item id="1192">
-		<id>0x1192</id> <nodecay />
+		<id>0x1192</id>
+		<nodecay />
 		<category>Decoration\Tables\Covered\Covered Counter (N/S) (2/2)</category>
 	</item>
 
 	<item id="1667">
-		<id>0x1667</id> <nodecay />
+		<id>0x1667</id>
+		<nodecay />
 		<category>Decoration\Tables\Covered\Covered Table (N/S) (1/3)</category>
 	</item>
 
 	<item id="1668">
-		<id>0x1668</id> <nodecay />
+		<id>0x1668</id>
+		<nodecay />
 		<category>Decoration\Tables\Covered\Covered Table (N/S) (2/3)</category>
 	</item>
 
 	<item id="1669">
-		<id>0x1669</id> <nodecay />
+		<id>0x1669</id>
+		<nodecay />
 		<category>Decoration\Tables\Covered\Covered Table (N/S) (3/3)</category>
 	</item>
 
 	<item id="166a">
-		<id>0x166a</id> <nodecay />
+		<id>0x166a</id>
+		<nodecay />
 		<category>Decoration\Tables\Covered\Covered Table (W/E) (1/3)</category>
 	</item>
 
 	<item id="166b">
-		<id>0x166b</id> <nodecay />
+		<id>0x166b</id>
+		<nodecay />
 		<category>Decoration\Tables\Covered\Covered Table (W/E) (2/3)</category>
 	</item>
 
 	<item id="166c">
-		<id>0x166c</id> <nodecay />
+		<id>0x166c</id>
+		<nodecay />
 		<category>Decoration\Tables\Covered\Covered Table (W/E) (3/3)</category>
 	</item>
 
 	<!-- Bamboo Table -->
 	<item id="11d6">
-		<id>0x11d6</id> <nodecay />
+		<id>0x11d6</id>
+		<nodecay />
 		<category>Decoration\Tables\Bamboo Table\Bamboo Table (N/S) (1/3)</category>
 	</item>
 
 	<item id="11d7">
-		<id>0x11d7</id> <nodecay />
+		<id>0x11d7</id>
+		<nodecay />
 		<category>Decoration\Tables\Bamboo Table\Bamboo Table (N/S) (2/3)</category>
 	</item>
 
 	<item id="11d8">
-		<id>0x11d8</id> <nodecay />
+		<id>0x11d8</id>
+		<nodecay />
 		<category>Decoration\Tables\Bamboo Table\Bamboo Table (N/S) (3/3)</category>
 	</item>
 
 	<item id="11d9">
-		<id>0x11d9</id> <nodecay />
+		<id>0x11d9</id>
+		<nodecay />
 		<category>Decoration\Tables\Bamboo Table\Bamboo Table (W/E) (1/3)</category>
 	</item>
 
 	<item id="11da">
-		<id>0x11da</id> <nodecay />
+		<id>0x11da</id>
+		<nodecay />
 		<category>Decoration\Tables\Bamboo Table\Bamboo Table (W/E) (2/3)</category>
 	</item>
 
 	<item id="11db">
-		<id>0x11db</id> <nodecay />
+		<id>0x11db</id>
+		<nodecay />
 		<category>Decoration\Tables\Bamboo Table\Bamboo Table (W/E) (3/3)</category>
 	</item>
 
 	<!-- Log Table -->
 	<item id="11dc">
-		<id>0x11dc</id> <nodecay />
+		<id>0x11dc</id>
+		<nodecay />
 		<category>Decoration\Tables\Log Table\Log Table (W/E) (1/3)</category>
 	</item>
 
 	<item id="11dd">
-		<id>0x11dd</id> <nodecay />
+		<id>0x11dd</id>
+		<nodecay />
 		<category>Decoration\Tables\Log Table\Log Table (W/E) (2/3)</category>
 	</item>
 
 	<item id="11de">
-		<id>0x11de</id> <nodecay />
+		<id>0x11de</id>
+		<nodecay />
 		<category>Decoration\Tables\Log Table\Log Table (W/E) (3/3)</category>
 	</item>
 
 	<item id="11df">
-		<id>0x11df</id> <nodecay />
+		<id>0x11df</id>
+		<nodecay />
 		<category>Decoration\Tables\Log Table\Log Table (N/S) (1/3)</category>
 	</item>
 
 	<item id="11e0">
-		<id>0x11e0</id> <nodecay />
+		<id>0x11e0</id>
+		<nodecay />
 		<category>Decoration\Tables\Log Table\Log Table (N/S) (2/3)</category>
 	</item>
 
 	<item id="11e1">
-		<id>0x11e1</id> <nodecay />
+		<id>0x11e1</id>
+		<nodecay />
 		<category>Decoration\Tables\Log Table\Log Table (N/S) (3/3)</category>
 	</item>
 
 	<!-- Stone Table -->
 	<item id="1201">
-		<id>0x1201</id> <nodecay />
+		<id>0x1201</id>
+		<nodecay />
 		<category>Decoration\Tables\Stone Table\Stone Table (N/S) (1/3)</category>
 	</item>
 
 	<item id="1202">
-		<id>0x1202</id> <nodecay />
+		<id>0x1202</id>
+		<nodecay />
 		<category>Decoration\Tables\Stone Table\Stone Table (N/S) (2/3)</category>
 	</item>
 
 	<item id="1203">
-		<id>0x1203</id> <nodecay />
+		<id>0x1203</id>
+		<nodecay />
 		<category>Decoration\Tables\Stone Table\Stone Table (N/S) (3/3)</category>
 	</item>
 
 	<item id="1204">
-		<id>0x1204</id> <nodecay />
+		<id>0x1204</id>
+		<nodecay />
 		<category>Decoration\Tables\Stone Table\Stone Table (W/E) (1/3)</category>
 	</item>
 
 	<item id="1205">
-		<id>0x1205</id> <nodecay />
+		<id>0x1205</id>
+		<nodecay />
 		<category>Decoration\Tables\Stone Table\Stone Table (W/E) (2/3)</category>
 	</item>
 
 	<item id="1206">
-		<id>0x1206</id> <nodecay />
+		<id>0x1206</id>
+		<nodecay />
 		<category>Decoration\Tables\Stone Table\Stone Table (W/E) (3/3)</category>
 	</item>
 
 	<!-- Wooden Tables -->
 	<item id="1da5">
-		<id>0x1da5</id> <nodecay />
+		<id>0x1da5</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 11 (W/E) (1/2)</category>
 	</item>
 
 	<item id="1da6">
-		<id>0x1da6</id> <nodecay />
+		<id>0x1da6</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 11 (W/E) (2/2)</category>
 	</item>
 
 	<item id="1da7">
-		<id>0x1da7</id> <nodecay />
+		<id>0x1da7</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 12 (W/E) (1/2)</category>
 	</item>
 
 	<item id="1da8">
-		<id>0x1da8</id> <nodecay />
+		<id>0x1da8</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 12 (W/E) (2/2)</category>
 	</item>
 
 	<item id="1da9">
-		<id>0x1da9</id> <nodecay />
+		<id>0x1da9</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 11 (N/S) (1/2)</category>
 	</item>
 
 	<item id="1daa">
-		<id>0x1daa</id> <nodecay />
+		<id>0x1daa</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 11 (N/S) (2/2)</category>
 	</item>
 
 	<item id="1dab">
-		<id>0x1dab</id> <nodecay />
+		<id>0x1dab</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 12 (N/S) (1/2)</category>
 	</item>
 
 	<item id="1dac">
-		<id>0x1dac</id> <nodecay />
+		<id>0x1dac</id>
+		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 12 (N/S) (2/2)</category>
 	</item>
 
 	<!-- Sandstone Table -->
 	<item id="1dbb">
-		<id>0x1dbb</id> <nodecay />
+		<id>0x1dbb</id>
+		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 2 (N/S) (1/3)</category>
 	</item>
 
 	<item id="1dbc">
-		<id>0x1dbc</id> <nodecay />
+		<id>0x1dbc</id>
+		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 2 (N/S) (3/3)</category>
 	</item>
 
 	<item id="1dbd">
-		<id>0x1dbd</id> <nodecay />
+		<id>0x1dbd</id>
+		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 2 (N/S) (2/3)</category>
 	</item>
 
 	<item id="1dbe">
-		<id>0x1dbe</id> <nodecay />
+		<id>0x1dbe</id>
+		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 2 (W/E) (1/3)</category>
 	</item>
 
 	<item id="1dbf">
-		<id>0x1dbf</id> <nodecay />
+		<id>0x1dbf</id>
+		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 2 (W/E) (3/3)</category>
 	</item>
 
 	<item id="1dc0">
-		<id>0x1dc0</id> <nodecay />
+		<id>0x1dc0</id>
+		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 2 (W/E) (2/3)</category>
 	</item>
 
 	<!-- Marble Table -->
 	<item id="1dc1">
-		<id>0x1dc1</id> <nodecay />
+		<id>0x1dc1</id>
+		<nodecay />
 		<category>Decoration\Tables\Marble Table\Marble Table (N/S) (1/3)</category>
 	</item>
 
 	<item id="1dc2">
-		<id>0x1dc2</id> <nodecay />
+		<id>0x1dc2</id>
+		<nodecay />
 		<category>Decoration\Tables\Marble Table\Marble Table (N/S) (3/3)</category>
 	</item>
 
 	<item id="1dc3">
-		<id>0x1dc3</id> <nodecay />
+		<id>0x1dc3</id>
+		<nodecay />
 		<category>Decoration\Tables\Marble Table\Marble Table (N/S) (2/3)</category>
 	</item>
 
 	<item id="1dc4">
-		<id>0x1dc4</id> <nodecay />
+		<id>0x1dc4</id>
+		<nodecay />
 		<category>Decoration\Tables\Marble Table\Marble Table (W/E) (1/3)</category>
 	</item>
 
 	<item id="1dc5">
-		<id>0x1dc5</id> <nodecay />
+		<id>0x1dc5</id>
+		<nodecay />
 		<category>Decoration\Tables\Marble Table\Marble Table (W/E) (3/3)</category>
 	</item>
 
 	<item id="1dc6">
-		<id>0x1dc6</id> <nodecay />
+		<id>0x1dc6</id>
+		<nodecay />
 		<category>Decoration\Tables\Marble Table\Marble Table (W/E) (2/3)</category>
 	</item>
 
 	<!-- Broken Furniture -->
 	<item id="c10">
-		<id>0x0c10</id> <nodecay />
+		<id>0xc10</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Broken Chair 1 (N/S)</category>
 	</item>
 
 	<item id="c11">
-		<id>0x0c11</id> <nodecay />
+		<id>0xc11</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Broken Chair 1 (W/E)</category>
 	</item>
 
 	<item id="c12">
-		<id>0x0c12</id> <nodecay />
+		<id>0xc12</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Broken Armoire (W/E)</category>
 	</item>
 
 	<item id="c13">
-		<id>0x0c13</id> <nodecay />
+		<id>0xc13</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Broken Armoire (N/S)</category>
 	</item>
 
 	<item id="c14">
-		<id>0x0c14</id> <nodecay />
+		<id>0xc14</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Ruined Bookcase (N/S)</category>
 	</item>
 
 	<item id="c15">
-		<id>0x0c15</id> <nodecay />
+		<id>0xc15</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Ruined Bookcase (W/E)</category>
 	</item>
 
 	<item id="c16">
-		<id>0x0c16</id> <nodecay />
+		<id>0xc16</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Damaged Books</category>
 	</item>
 
 	<item id="c17">
-		<id>0x0c17</id> <nodecay />
+		<id>0xc17</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Covered Chair (N/S)</category>
 	</item>
 
 	<item id="c18">
-		<id>0x0c18</id> <nodecay />
+		<id>0xc18</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Covered Chair (W/E)</category>
 	</item>
 
 	<item id="c19">
-		<id>0x0c19</id> <nodecay />
+		<id>0xc19</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Broken Chair 2 (N/S)</category>
 	</item>
 
 	<item id="c1a">
-		<id>0x0c1a</id> <nodecay />
+		<id>0xc1a</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Broken Chair 2 (W/E)</category>
 	</item>
 
 	<item id="c1b">
-		<id>0x0c1b</id> <nodecay />
+		<id>0xc1b</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Broken Chair 3 (N/S)</category>
 	</item>
 
 	<item id="c1c">
-		<id>0x0c1c</id> <nodecay />
+		<id>0xc1c</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Broken Chair 3 (W/E)</category>
 	</item>
 
 	<item id="c1d">
-		<id>0x0c1d</id> <nodecay />
+		<id>0xc1d</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Broken Chair 4 (W/E)</category>
 	</item>
 
 	<item id="c1e">
-		<id>0x0c1e</id> <nodecay />
+		<id>0xc1e</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Broken Chair 4 (N/S)</category>
 	</item>
 
 	<item id="c1f">
-		<id>0x0c1f</id> <nodecay />
+		<id>0xc1f</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Broken Clock</category>
 	</item>
 
 	<item id="c20">
-		<id>0x0c20</id> <nodecay />
+		<id>0xc20</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Broken Dresser (W/E) (1/2)</category>
 	</item>
 
 	<item id="c21">
-		<id>0x0c21</id> <nodecay />
+		<id>0xc21</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Broken Dresser (W/E) (2/2)</category>
 	</item>
 
 	<item id="c22">
-		<id>0x0c22</id> <nodecay />
+		<id>0xc22</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Broken Dresser (N/S) (1/2)</category>
 	</item>
 
 	<item id="c23">
-		<id>0x0c23</id> <nodecay />
+		<id>0xc23</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Broken Dresser (N/S) (2/2)</category>
 	</item>
 
 	<item id="c24">
-		<id>0x0c24</id> <nodecay />
+		<id>0xc24</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Broken Furniture (N/S)</category>
 	</item>
 
 	<item id="c25">
-		<id>0x0c25</id> <nodecay />
+		<id>0xc25</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Broken Furniture (W/E)</category>
 	</item>
 
 	<item id="c26">
-		<id>0x0c26</id> <nodecay />
+		<id>0xc26</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Ruined Bed 1 (W/E) (1/3)</category>
 	</item>
 
 	<item id="c27">
-		<id>0x0c27</id> <nodecay />
+		<id>0xc27</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Ruined Bed 1 (W/E) (2/3)</category>
 	</item>
 
 	<item id="c28">
-		<id>0x0c28</id> <nodecay />
+		<id>0xc28</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Ruined Bed 1 (W/E) (3/3)</category>
 	</item>
 
 	<item id="c29">
-		<id>0x0c29</id> <nodecay />
+		<id>0xc29</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Ruined Bed 1 (N/S) (1/3)</category>
 	</item>
 
 	<item id="c2a">
-		<id>0x0c2a</id> <nodecay />
+		<id>0xc2a</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Ruined Bed 1 (N/S) (2/3)</category>
 	</item>
 
 	<item id="c2b">
-		<id>0x0c2b</id> <nodecay />
+		<id>0xc2b</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Ruined Bed 1 (N/S) (3/3)</category>
 	</item>
 
 	<item id="1894">
-		<id>0x1894</id> <nodecay />
+		<id>0x1894</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Ruined Bed 2 (W/E) (1/4)</category>
 	</item>
 
 	<item id="1895">
-		<id>0x1895</id> <nodecay />
+		<id>0x1895</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Ruined Bed 2 (W/E) (2/4)</category>
 	</item>
 
 	<item id="1896">
-		<id>0x1896</id> <nodecay />
+		<id>0x1896</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Ruined Bed 2 (W/E) (3/4)</category>
 	</item>
 
 	<item id="1897">
-		<id>0x1897</id> <nodecay />
+		<id>0x1897</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Ruined Bed 2 (W/E) (4/4)</category>
 	</item>
 
 	<item id="1898">
-		<id>0x1898</id> <nodecay />
+		<id>0x1898</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Ruined Bed 2 (N/S) (1/4)</category>
 	</item>
 
 	<item id="1899">
-		<id>0x1899</id> <nodecay />
+		<id>0x1899</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Ruined Bed 2 (N/S) (2/4)</category>
 	</item>
 
 	<item id="189a">
-		<id>0x189a</id> <nodecay />
+		<id>0x189a</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Ruined Bed 2 (N/S) (3/4)</category>
 	</item>
 
 	<item id="189b">
-		<id>0x189b</id> <nodecay />
+		<id>0x189b</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Ruined Bed 2 (N/S) (4/4)</category>
 	</item>
 
 	<item id="c2c">
-		<id>0x0c2c</id> <nodecay />
+		<id>0xc2c</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Ruined Painting</category>
 	</item>
 
 	<item id="c2d">
-		<id>0x0c2d</id> <nodecay />
+		<id>0xc2d</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Debris 1</category>
 	</item>
 
 	<item id="c2e">
-		<id>0x0c2e</id> <nodecay />
+		<id>0xc2e</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Debris 2</category>
 	</item>
 
 	<item id="c2f">
-		<id>0x0c2f</id> <nodecay />
+		<id>0xc2f</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Debris 3</category>
 	</item>
 
 	<item id="c30">
-		<id>0x0c30</id> <nodecay />
+		<id>0xc30</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Debris 4</category>
 	</item>
 
 	<item id="c31">
-		<id>0x0c31</id> <nodecay />
+		<id>0xc31</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Sheets 1</category>
 	</item>
 
 	<item id="c32">
-		<id>0x0c32</id> <nodecay />
+		<id>0xc32</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Sheets 2</category>
 	</item>
 
 	<item id="c33">
-		<id>0x0c33</id> <nodecay />
+		<id>0xc33</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Sheets 3</category>
 	</item>
 
 	<item id="c34">
-		<id>0x0c34</id> <nodecay />
+		<id>0xc34</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Sheets 4</category>
 	</item>
 
 	<item id="c35">
-		<id>0x0c35</id> <nodecay />
+		<id>0xc35</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Sheets 5</category>
 	</item>
 
 	<item id="c36">
-		<id>0x0c36</id> <nodecay />
+		<id>0xc36</id>
+		<nodecay />
 		<category>Decoration\Broken Furniture\Sheets 6</category>
 	</item>
 
 	<!-- Peg Board -->
 	<item id="c39">
-		<id>0x0c39</id> <nodecay />
+		<id>0xc39</id>
+		<nodecay />
 		<category>Decoration\Peg Board\Peg Board (N/S)</category>
 	</item>
 
 	<item id="c3a">
-		<id>0x0c3a</id> <nodecay />
+		<id>0xc3a</id>
+		<nodecay />
 		<category>Decoration\Peg Board\Peg Board (W/E)</category>
 	</item>
 
 	<!-- Hanging Pole -->
 	<item id="10ac">
-		<id>0x10ac</id> <nodecay />
+		<id>0x10ac</id>
+		<nodecay />
 		<category>Decoration\Hanging Pole\Hanging Pole (W/E) (1/3)</category>
 	</item>
 
 	<item id="10ad">
-		<id>0x10ad</id> <nodecay />
+		<id>0x10ad</id>
+		<nodecay />
 		<category>Decoration\Hanging Pole\Hanging Pole (W/E) (2/3)</category>
 	</item>
 
 	<item id="10ae">
-		<id>0x10ae</id> <nodecay />
+		<id>0x10ae</id>
+		<nodecay />
 		<category>Decoration\Hanging Pole\Hanging Pole (W/E) (3/3)</category>
 	</item>
 
 	<item id="10af">
-		<id>0x10af</id> <nodecay />
+		<id>0x10af</id>
+		<nodecay />
 		<category>Decoration\Hanging Pole\Hanging Pole (N/S) (1/3)</category>
 	</item>
 
 	<item id="10b0">
-		<id>0x10b0</id> <nodecay />
+		<id>0x10b0</id>
+		<nodecay />
 		<category>Decoration\Hanging Pole\Hanging Pole (N/S) (2/3)</category>
 	</item>
 
 	<item id="10b1">
-		<id>0x10b1</id> <nodecay />
+		<id>0x10b1</id>
+		<nodecay />
 		<category>Decoration\Hanging Pole\Hanging Pole (N/S) (3/3)</category>
 	</item>
 
 	<!-- Bar -->
 	<item id="190e">
-		<id>0x190e</id> <nodecay />
+		<id>0x190e</id>
+		<nodecay />
 		<category>Decoration\Bar\Bar Door (N/S)</category>
 	</item>
 
 	<item id="190f">
-		<id>0x190f</id> <nodecay />
+		<id>0x190f</id>
+		<nodecay />
 		<category>Decoration\Bar\Bar Door (W/E)</category>
 	</item>
 
 	<item id="1910">
-		<id>0x1910</id> <nodecay />
+		<id>0x1910</id>
+		<nodecay />
 		<category>Decoration\Bar\Bar Corner 1</category>
 	</item>
 
 	<item id="1911">
-		<id>0x1911</id> <nodecay />
+		<id>0x1911</id>
+		<nodecay />
 		<category>Decoration\Bar\Bar Corner 2</category>
 	</item>
 
 	<item id="1912">
-		<id>0x1912</id> <nodecay />
+		<id>0x1912</id>
+		<nodecay />
 		<category>Decoration\Bar\Bar Corner 3</category>
 	</item>
 
 	<item id="1913">
-		<id>0x1913</id> <nodecay />
+		<id>0x1913</id>
+		<nodecay />
 		<category>Decoration\Bar\Bar Corner 4</category>
 	</item>
 
 	<item id="1918">
-		<id>0x1918</id> <nodecay />
+		<id>0x1918</id>
+		<nodecay />
 		<category>Decoration\Bar\Bar 1</category>
 	</item>
 
 	<item id="1919">
-		<id>0x1919</id> <nodecay />
+		<id>0x1919</id>
+		<nodecay />
 		<category>Decoration\Bar\Bar 2</category>
 	</item>
 
 	<item id="191a">
-		<id>0x191a</id> <nodecay />
+		<id>0x191a</id>
+		<nodecay />
 		<category>Decoration\Bar\Bar 3</category>
 	</item>
 
 	<item id="191b">
-		<id>0x191b</id> <nodecay />
+		<id>0x191b</id>
+		<nodecay />
 		<category>Decoration\Bar\Bar 4</category>
 	</item>
 
 	<item id="191c">
-		<id>0x191c</id> <nodecay />
+		<id>0x191c</id>
+		<nodecay />
 		<category>Decoration\Bar\Bar 5</category>
 	</item>
 
 	<item id="191d">
-		<id>0x191d</id> <nodecay />
+		<id>0x191d</id>
+		<nodecay />
 		<category>Decoration\Bar\Bar 6</category>
 	</item>
 
 	<item id="191e">
-		<id>0x191e</id> <nodecay />
+		<id>0x191e</id>
+		<nodecay />
 		<category>Decoration\Bar\Bar 7</category>
 	</item>
 
 	<item id="191f">
-		<id>0x191f</id> <nodecay />
+		<id>0x191f</id>
+		<nodecay />
 		<category>Decoration\Bar\Bar 8</category>
 	</item>
 
 	<item id="1941">
-		<id>0x1941</id> <nodecay />
+		<id>0x1941</id>
+		<nodecay />
 		<category>Decoration\Bar\Glass Mugs</category>
 	</item>
 
 	<item id="1942">
-		<id>0x1942</id> <nodecay />
+		<id>0x1942</id>
+		<nodecay />
 		<category>Decoration\Bar\Goblets</category>
 	</item>
 
 	<item id="1943">
-		<id>0x1943</id> <nodecay />
+		<id>0x1943</id>
+		<nodecay />
 		<category>Decoration\Bar\Tankards</category>
 	</item>
+
 </definitions>

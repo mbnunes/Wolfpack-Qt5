@@ -9,240 +9,289 @@
 =================================================================
 -->
 <definitions>
-        <!-- Decorative Weapons -->
-        <item id="155c">
-                <id>0x155c</id> <nodecay/>
-                <category>Decoration\Decorative Weapons\Bow and Arrows (N/S) 1</category>
-        </item>
 
-        <item id="155d">
-                <id>0x155d</id> <nodecay/>
-                <category>Decoration\Decorative Weapons\Bow and Arrows (N/S) 2</category>
-        </item>
+	<!-- Decorative Weapons -->
+	<item id="155c">
+		<id>0x155c</id>
+		<nodecay/>
+		<category>Decoration\Decorative Weapons\Bow and Arrows (N/S) 1</category>
+	</item>
 
-        <item id="155e">
-                <id>0x155e</id> <nodecay/>
-                <category>Decoration\Decorative Weapons\Bow and Arrows (W/E) 1</category>
-        </item>
+	<item id="155d">
+		<id>0x155d</id>
+		<nodecay/>
+		<category>Decoration\Decorative Weapons\Bow and Arrows (N/S) 2</category>
+	</item>
 
-        <item id="155f">
-                <id>0x155f</id> <nodecay/>
-                <category>Decoration\Decorative Weapons\Bow and Arrows (W/E) 2</category>
-        </item>
+	<item id="155e">
+		<id>0x155e</id>
+		<nodecay/>
+		<category>Decoration\Decorative Weapons\Bow and Arrows (W/E) 1</category>
+	</item>
 
-        <item id="1560">
-                <id>0x1560</id> <nodecay/>
-                <category>Decoration\Decorative Weapons\Axe (N/S) 1</category>
-        </item>
+	<item id="155f">
+		<id>0x155f</id>
+		<nodecay/>
+		<category>Decoration\Decorative Weapons\Bow and Arrows (W/E) 2</category>
+	</item>
 
-        <item id="1561">
-                <id>0x1561</id> <nodecay/>
-                <category>Decoration\Decorative Weapons\Axe (N/S) 2</category>
-        </item>
+	<item id="1560">
+		<id>0x1560</id>
+		<nodecay/>
+		<category>Decoration\Decorative Weapons\Axe (N/S) 1</category>
+	</item>
 
-        <item id="1562">
-                <id>0x1562</id> <nodecay/>
-                <category>Decoration\Decorative Weapons\Axe (W/E) 1</category>
-        </item>
+	<item id="1561">
+		<id>0x1561</id>
+		<nodecay/>
+		<category>Decoration\Decorative Weapons\Axe (N/S) 2</category>
+	</item>
 
-        <item id="1563">
-                <id>0x1563</id> <nodecay/>
-                <category>Decoration\Decorative Weapons\Axe (W/E) 2</category>
-        </item>
+	<item id="1562">
+		<id>0x1562</id>
+		<nodecay/>
+		<category>Decoration\Decorative Weapons\Axe (W/E) 1</category>
+	</item>
 
-        <item id="1564">
-                <id>0x1564</id> <nodecay/>
-                <category>Decoration\Decorative Weapons\Swords (N/S) (1/2)</category>
-        </item>
+	<item id="1563">
+		<id>0x1563</id>
+		<nodecay/>
+		<category>Decoration\Decorative Weapons\Axe (W/E) 2</category>
+	</item>
 
-        <item id="1565">
-                <id>0x1565</id> <nodecay/>
-                <category>Decoration\Decorative Weapons\Swords (N/S) (2/2)</category>
-        </item>
+	<item id="1564">
+		<id>0x1564</id>
+		<nodecay/>
+		<category>Decoration\Decorative Weapons\Swords (N/S) (1/2)</category>
+	</item>
 
-        <item id="1566">
-                <id>0x1566</id> <nodecay/>
-                <category>Decoration\Decorative Weapons\Swords (W/E) (1/2)</category>
-        </item>
+	<item id="1565">
+		<id>0x1565</id>
+		<nodecay/>
+		<category>Decoration\Decorative Weapons\Swords (N/S) (2/2)</category>
+	</item>
 
-        <item id="1567">
-                <id>0x1567</id> <nodecay/>
-                <category>Decoration\Decorative Weapons\Swords (W/E) (2/2)</category>
-        </item>
+	<item id="1566">
+		<id>0x1566</id>
+		<nodecay/>
+		<category>Decoration\Decorative Weapons\Swords (W/E) (1/2)</category>
+	</item>
 
-        <item id="1568">
-                <id>0x1568</id> <nodecay/>
-                <category>Decoration\Decorative Weapons\Axe and Spears (N/S) (1/2)</category>
-        </item>
+	<item id="1567">
+		<id>0x1567</id>
+		<nodecay/>
+		<category>Decoration\Decorative Weapons\Swords (W/E) (2/2)</category>
+	</item>
 
-        <item id="1569">
-                <id>0x1569</id> <nodecay/>
-                <category>Decoration\Decorative Weapons\Axe and Spears (N/S) (2/2)</category>
-        </item>
+	<item id="1568">
+		<id>0x1568</id>
+		<nodecay/>
+		<category>Decoration\Decorative Weapons\Axe and Spears (N/S) (1/2)</category>
+	</item>
 
-        <item id="156a">
-                <id>0x156a</id> <nodecay/>
-                <category>Decoration\Decorative Weapons\Axe and Spears (W/E) (1/2)</category>
-        </item>
+	<item id="1569">
+		<id>0x1569</id>
+		<nodecay/>
+		<category>Decoration\Decorative Weapons\Axe and Spears (N/S) (2/2)</category>
+	</item>
 
-        <item id="156b">
-                <id>0x156b</id> <nodecay/>
-                <category>Decoration\Decorative Weapons\Axe and Spears (W/E) (2/2)</category>
-        </item>
+	<item id="156a">
+		<id>0x156a</id>
+		<nodecay/>
+		<category>Decoration\Decorative Weapons\Axe and Spears (W/E) (1/2)</category>
+	</item>
 
-        <!-- Decorative Shields -->
-        <item id="156c">
-                <id>0x156c</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Round Shield (Silver and Gold) (N/S)</category>
-        </item>
+	<item id="156b">
+		<id>0x156b</id>
+		<nodecay/>
+		<category>Decoration\Decorative Weapons\Axe and Spears (W/E) (2/2)</category>
+	</item>
 
-        <item id="156d">
-                <id>0x156d</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Round Shield (Silver and Gold) (W/E)</category>
-        </item>
+	<!-- Decorative Shields -->
+	<item id="156c">
+		<id>0x156c</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Round Shield (Silver and Gold) (N/S)</category>
+	</item>
 
-        <item id="156e">
-                <id>0x156e</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Shield (Silver w. a Star) (N/S)</category>
-        </item>
+	<item id="156d">
+		<id>0x156d</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Round Shield (Silver and Gold) (W/E)</category>
+	</item>
 
-        <item id="156f">
-                <id>0x156f</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Shield (Silver w. a Star) (W/E)</category>
-        </item>
+	<item id="156e">
+		<id>0x156e</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Shield (Silver w. a Star) (N/S)</category>
+	</item>
 
-        <item id="1570">
-                <id>0x1570</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Shield (Gold w. a Star) (N/S)</category>
-        </item>
+	<item id="156f">
+		<id>0x156f</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Shield (Silver w. a Star) (W/E)</category>
+	</item>
 
-        <item id="1571">
-                <id>0x1571</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Shield (Gold w. a Star) (W/E)</category>
-        </item>
+	<item id="1570">
+		<id>0x1570</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Shield (Gold w. a Star) (N/S)</category>
+	</item>
 
-        <item id="1572">
-                <id>0x1572</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Oval Shield (Silver w. a Snake) (N/S)</category>
-        </item>
+	<item id="1571">
+		<id>0x1571</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Shield (Gold w. a Star) (W/E)</category>
+	</item>
 
-        <item id="1573">
-                <id>0x1573</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Oval Shield (Silver w. a Snake) (W/E)</category>
-        </item>
+	<item id="1572">
+		<id>0x1572</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Oval Shield (Silver w. a Snake) (N/S)</category>
+	</item>
 
-        <item id="1574">
-                <id>0x1574</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Oval Shield (Gold w. a Snake) (N/S)</category>
-        </item>
+	<item id="1573">
+		<id>0x1573</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Oval Shield (Silver w. a Snake) (W/E)</category>
+	</item>
 
-        <item id="1575">
-                <id>0x1575</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Oval Shield (Gold w. a Snake) (W/E)</category>
-        </item>
+	<item id="1574">
+		<id>0x1574</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Oval Shield (Gold w. a Snake) (N/S)</category>
+	</item>
 
-        <item id="1576">
-                <id>0x1576</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Shield (Silver w. a Snake) (N/S)</category>
-        </item>
+	<item id="1575">
+		<id>0x1575</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Oval Shield (Gold w. a Snake) (W/E)</category>
+	</item>
 
-        <item id="1577">
-                <id>0x1577</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Shield (Silver w. a Snake) (W/E)</category>
-        </item>
+	<item id="1576">
+		<id>0x1576</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Shield (Silver w. a Snake) (N/S)</category>
+	</item>
 
-        <item id="1578">
-                <id>0x1578</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Shield (Gold w. a Snake) (N/S)</category>
-        </item>
+	<item id="1577">
+		<id>0x1577</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Shield (Silver w. a Snake) (W/E)</category>
+	</item>
 
-        <item id="1579">
-                <id>0x1579</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Shield (Gold w. a Snake) (W/E)</category>
-        </item>
+	<item id="1578">
+		<id>0x1578</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Shield (Gold w. a Snake) (N/S)</category>
+	</item>
 
-        <item id="157a">
-                <id>0x157a</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Round Shield (Silver w. a Cross) (N/S)</category>
-        </item>
+	<item id="1579">
+		<id>0x1579</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Shield (Gold w. a Snake) (W/E)</category>
+	</item>
 
-        <item id="157b">
-                <id>0x157b</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Round Shield (Silver w. a Cross) (W/E)</category>
-        </item>
+	<item id="157a">
+		<id>0x157a</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Round Shield (Silver w. a Cross) (N/S)</category>
+	</item>
 
-        <item id="157c">
-                <id>0x157c</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Round Shield (Gold w. a Cross) (N/S)</category>
-        </item>
+	<item id="157b">
+		<id>0x157b</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Round Shield (Silver w. a Cross) (W/E)</category>
+	</item>
 
-        <item id="157d">
-                <id>0x157d</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Round Shield (Gold w. a Cross) (W/E)</category>
-        </item>
+	<item id="157c">
+		<id>0x157c</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Round Shield (Gold w. a Cross) (N/S)</category>
+	</item>
 
-        <item id="157e">
-                <id>0x157e</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Round Shield (Silver) (N/S)</category>
-        </item>
+	<item id="157d">
+		<id>0x157d</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Round Shield (Gold w. a Cross) (W/E)</category>
+	</item>
 
-        <item id="157f">
-                <id>0x157f</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Round Shield (Silver) (W/E)</category>
-        </item>
+	<item id="157e">
+		<id>0x157e</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Round Shield (Silver) (N/S)</category>
+	</item>
 
-        <item id="1580">
-                <id>0x1580</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Round Shield (Gold) (N/S)</category>
-        </item>
+	<item id="157f">
+		<id>0x157f</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Round Shield (Silver) (W/E)</category>
+	</item>
 
-        <item id="1581">
-                <id>0x1581</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Round Shield (Gold) (W/E)</category>
-        </item>
+	<item id="1580">
+		<id>0x1580</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Round Shield (Gold) (N/S)</category>
+	</item>
 
-        <item id="1582">
-                <id>0x1582</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Shield (Silver w. Sword) (N/S) 1</category>
-        </item>
+	<item id="1581">
+		<id>0x1581</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Round Shield (Gold) (W/E)</category>
+	</item>
 
-        <item id="1583">
-                <id>0x1583</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Shield (Silver w. Sword) (N/S) 2</category>
-        </item>
+	<item id="1582">
+		<id>0x1582</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Shield (Silver w. Sword) (N/S) 1</category>
+	</item>
 
-        <item id="1634">
-                <id>0x1634</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Shield (Silver w. Sword) (W/E) 1</category>
-        </item>
+	<item id="1583">
+		<id>0x1583</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Shield (Silver w. Sword) (N/S) 2</category>
+	</item>
 
-        <item id="1635">
-                <id>0x1635</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Shield (Silver w. Sword) (W/E) 2</category>
-        </item>
+	<item id="1634">
+		<id>0x1634</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Shield (Silver w. Sword) (W/E) 1</category>
+	</item>
 
-        <item id="1636">
-                <id>0x1636</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Shield (Gold w. Sword) (W/E) 1</category>
-        </item>
+	<item id="1635">
+		<id>0x1635</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Shield (Silver w. Sword) (W/E) 2</category>
+	</item>
 
-        <item id="1637">
-                <id>0x1637</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Shield (Gold w. Sword) (W/E) 2</category>
-        </item>
+	<item id="1636">
+		<id>0x1636</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Shield (Gold w. Sword) (W/E) 1</category>
+	</item>
 
-        <item id="1584">
-                <id>0x1584</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Shield (Gold w. Sword) (N/S) 1</category>
-        </item>
+	<item id="1637">
+		<id>0x1637</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Shield (Gold w. Sword) (W/E) 2</category>
+	</item>
 
-        <item id="1585">
-                <id>0x1585</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Shield (Gold w. Sword) (N/S) 2</category>
-        </item>
+	<item id="1584">
+		<id>0x1584</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Shield (Gold w. Sword) (N/S) 1</category>
+	</item>
 
-        <item id="1514">
-                <id>0x1514</id> <nodecay/>
-                <category>Decoration\Decorative Shields\Serpents Crest (W/E)</category>
-        </item>
+	<item id="1585">
+		<id>0x1585</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Shield (Gold w. Sword) (N/S) 2</category>
+	</item>
+
+	<item id="1514">
+		<id>0x1514</id>
+		<nodecay/>
+		<category>Decoration\Decorative Shields\Serpents Crest (W/E)</category>
+	</item>
+
 </definitions>
