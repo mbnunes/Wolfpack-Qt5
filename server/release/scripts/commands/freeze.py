@@ -26,6 +26,7 @@ def freeze( socket, command, arguments ):
 def response( char, args, target ):
 	if target.char:
 		target.char.frozen = booleantoggle( target.char.frozen )
+		target.char.resendtooltip()
 	else:
 		char.socket.sysmessage( 'That was not a valid object.', GRAY )
 
