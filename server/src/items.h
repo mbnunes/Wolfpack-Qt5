@@ -289,8 +289,8 @@ public:
 	P_ITEM createListItem( QString Section ); // Creates an Item from an item-list
 	void processScriptItemNode( P_ITEM madeItem, QDomElement &Node );
 	void processItemContainerNode( P_ITEM contItem, QDomElement &Node );
-	void applyItemSection( P_ITEM Item, QString &Section );
-	void applyItemSection( P_ITEM Item, QDomElement* Section );
+	void applyItemSection( P_ITEM Item, const QString& Section );
+	void applyItemSection( P_ITEM Item, const QDomElement& Section );
 
 	cAllItems() {}
 	void DeleItem(P_ITEM pi);

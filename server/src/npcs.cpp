@@ -442,7 +442,7 @@ void cCharStuff::applyNpcSection( P_CHAR Char, const QString &Section )
 				pBackpack->dye=1;
 
 				if( Tag.hasChildNodes() )
-					Items->applyItemSection(pBackpack, &Tag);
+					Items->applyItemSection(pBackpack, Tag);
 			}
 
 		//<carve>3</carve>

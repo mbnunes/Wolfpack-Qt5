@@ -1915,7 +1915,7 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 }
 
 // Applies a script-section to an item
-void cAllItems::applyItemSection( P_ITEM Item, QString &Section )
+void cAllItems::applyItemSection( P_ITEM Item, const QString &Section )
 {
 	QDomElement *ItemSection = DefManager->getSection( WPDT_ITEM, Section );
 
@@ -1925,16 +1925,16 @@ void cAllItems::applyItemSection( P_ITEM Item, QString &Section )
 		return;
 	}
 
-	this->applyItemSection( Item, ItemSection );
+	this->applyItemSection( Item, *ItemSection );
 }
 
 // Applies a script-section to an item
-void cAllItems::applyItemSection( P_ITEM Item, QDomElement *Section )
+void cAllItems::applyItemSection( P_ITEM Item, const QDomElement &Section )
 {
 	// at least do the following:
 	// name + id
 
-	QDomNodeList Tags = Section->childNodes();
+	QDomNodeList Tags = Section.childNodes();
 	
 	UI16 i, j;
 
@@ -2275,7 +2275,7 @@ void cAllItems::processItemContainerNode( P_ITEM contItem, QDomElement &Node )
 			nItem->Init( true );
 			cItemsManager::getInstance()->registerItem( nItem );
 
-			applyItemSection( nItem, &Node.childNodes().item( j ).toElement() );	
+			applyItemSection( nItem, Node.childNodes().item( j ).toElement() );	
 			nItem->setContSerial( contItem->serial );
 		}
 }

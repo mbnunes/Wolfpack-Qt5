@@ -1769,7 +1769,7 @@ void cSkills::ArmsLoreTarget(int s)
 		sysmessage(s, tr("You are not certain...") );
 	else
 	{
-		if( pi->maxhp==0)
+		if( pi->maxhp()==0)
 			sysmessage(s, tr("Sorry this is a old item and it doesn't have maximum hp") );
 		else
 		{

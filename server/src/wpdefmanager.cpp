@@ -254,7 +254,7 @@ QStringList WPDefManager::getSections( WPDEF_TYPE Type )
 	return SectionList;
 }
 
-const QString processNode( QDomElement &Node )
+const QString processNode( QDomElement Node )
 {
 	if( Node.nodeName() == "namelist" )
 	{

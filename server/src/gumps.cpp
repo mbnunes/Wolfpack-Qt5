@@ -1145,9 +1145,9 @@ void ttext(int line, SERIAL serial)
 		line--; if( line == 0 ) strcpy( (char*)script1, "Corpse");
 		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->corpse );
 		line--; if( line == 0 ) strcpy((char*) script1, "LoDamage" );
-		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->lodamage );
+		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->lodamage() );
 		line--; if( line == 0 ) strcpy( (char*)script1, "HiDamage" );
-		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->hidamage );
+		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->hidamage() );
 		line--; if( line == 0 ) strcpy( (char*)script1, "Defense");
 		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->def);
 		line--; if( line == 0 ) strcpy( (char*)script1, "Magic");
@@ -1155,9 +1155,9 @@ void ttext(int line, SERIAL serial)
 		line--; if( line == 0 ) strcpy( (char*)script1, "Visible");
 		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->visible);
 		line--; if( line == 0 ) strcpy( (char*)script1, "HitPoints" );
-		line--; if( line == 0 ) sprintf( (char*)script1, "%i", pj->hp );
+		line--; if( line == 0 ) sprintf( (char*)script1, "%i", pj->hp() );
 		line--; if( line == 0 ) strcpy( (char*)script1, "MaxHitPoints" );
-		line--; if( line == 0 ) sprintf((char*) script1, "%i", pj->maxhp );
+		line--; if( line == 0 ) sprintf((char*) script1, "%i", pj->maxhp() );
 		line--; if( line == 0 ) strcpy((char*) script1, "Speed" );
 		line--; if( line == 0 ) sprintf((char*) script1, "%i", pj->speed() );
 		line--; if( line == 0 ) strcpy( (char*)script1, "Rank");

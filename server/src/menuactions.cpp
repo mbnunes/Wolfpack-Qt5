@@ -34,6 +34,7 @@
 
 // Library Includes
 #include "qdom.h"
+#include "qstring.h"
 
 enum eItemState
 {

@@ -770,7 +770,7 @@ static bool DeedDroppedOnBroker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	P_CHAR pc_currchar = ps->getPlayer();
 	P_CHAR target = FindCharBySerial(pp->Tserial);
 	P_ITEM bankbox = pc_currchar->GetBankBox();
-	int value = pi->value/1.25;
+	int value = static_cast<int>(pi->value/1.25);
 	int total = value;
 	
 	if ((pi->morex >= 1 && pi->morex <= 14) || (pi->morex >= 16 && pi->morex <= 17) || (pi->morex >= 26 && pi->morex <= 32))
