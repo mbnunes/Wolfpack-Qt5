@@ -1690,7 +1690,7 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 			pc_p->removeItemBonus(pi);
 			if ((pi->trigon==1) && (pi->layer >0))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 			{
-				triggerwitem(DEREF_P_CHAR(pc_p), pi, 1); // trigger is fired when unequipped? sorry this needs checked
+				Trig->triggerwitem(DEREF_P_CHAR(pc_p), pi, 1); // trigger is fired when unequipped? sorry this needs checked
 			}
 						
 			pi->SetContSerial(-1);

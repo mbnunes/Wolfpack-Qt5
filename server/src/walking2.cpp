@@ -1189,14 +1189,14 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 								{
 									if (!mapitem->disabled)
 									{
-										triggerwitem(socket, mapitem, 1);  //When player steps on a trigger
+										Trig->triggerwitem(socket, mapitem, 1);  //When player steps on a trigger
 									}
 									else // see if disabled trigger can be re-enabled
 									{
 										if( ( mapitem->disabled != 0 ) && ( ( mapitem->disabled <= uiCurrentTime ) || (overflow)))
 										{
 											mapitem->disabled = 0;	// re-enable it
-											triggerwitem( socket, mapitem, 1 );
+											Trig->triggerwitem( socket, mapitem, 1 );
 										}
 									}
 								}

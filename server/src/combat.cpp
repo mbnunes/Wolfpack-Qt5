@@ -164,7 +164,7 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 			sysmessage(s1,"Your weapon has been destroyed");
 			if ((pWeapon->trigon==1) && (pWeapon->layer>0))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 			{
-				triggerwitem(s1, pWeapon, 1); // trigger is fired when item destroyed
+				Trig->triggerwitem(s1, pWeapon, 1); // trigger is fired when item destroyed
 			}				
 			Items->DeleItem(pWeapon);
 		}
@@ -282,7 +282,7 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 						sysmessage(s2,"Your shield has been destroyed");
 						if ((pShield->trigon==1) && (pShield->layer >0))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 						{
-							triggerwitem(s2, pShield, 1); // trigger is fired when item destroyed
+							Trig->triggerwitem(s2, pShield, 1); // trigger is fired when item destroyed
 						}	
 						Items->DeleItem(pShield);
 					}
@@ -1063,7 +1063,7 @@ int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power
 				//-Frazurbluu-  need to have tactics bonus removed also
 				if ((pj->trigon==1) && (pj->layer >0))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 				{
-					triggerwitem(k, pj, 1); // trigger is fired when item destroyed
+					Trig->triggerwitem(k, pj, 1); // trigger is fired when item destroyed
 				}
 				sysmessage(k,(char*)temp);
 				Items->DeleItem(pj);		 

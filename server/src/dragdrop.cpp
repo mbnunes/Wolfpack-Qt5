@@ -255,7 +255,7 @@ void get_item(P_CLIENT ps) // Client grabs an item
 		}
 		if ((px->trigon==1) && (px->layer != 0) && (px->layer != 15) && (px->layer < 19))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 		{
-			triggerwitem(s, pi, 1); // trigger is fired
+			Trig->triggerwitem(s, pi, 1); // trigger is fired
 		}	
 	}
 	if (pi != NULL)
@@ -535,7 +535,7 @@ void wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 		pc_currchar->in = (pc_currchar->in + pi->in2);
 		if (pi->trigtype==2) // -Frazurbluu- Trigger Type 2 is my new trigger type *-
 		{
-			triggerwitem(s, pi, 1); // trigger is fired
+			Trig->triggerwitem(s, pi, 1); // trigger is fired
 		}	
 		// AntiChrist -- for poisoned items
 		if (showlayer)	clConsole.send("Item equipped on layer %i.\n",pi->layer);

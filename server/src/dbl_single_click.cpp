@@ -255,7 +255,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			{
 				if (pi->disabled <= uiCurrentTime) // changed by Magius(CHE) §
 				{
-					triggerwitem(s, pi, 1); // if players uses trigger
+					Trig->triggerwitem(s, pi, 1); // if players uses trigger
 					return;
 				} 
 				else 
@@ -277,7 +277,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		// check this on trigger in the event that the .trigger property is not set on the item
 		// trigger code.  Check to see if item is envokable by id
 		
-		else if (checkenvoke(pi->id1, pi->id2))
+		else if (Trig->checkenvoke(pi->id1, pi->id2))
 		{
 			pc_currchar->envokeitem = pi->serial;
 			pc_currchar->envokeid1 = pi->id1;

@@ -659,7 +659,7 @@ void cSkills::Mine(int s)
 		{
 			pc->targtrig=resource.miningtrigger;
 			P_ITEM pi = FindItemBySerial(addmitem[s]);
-			triggerwitem(s, pi, 1);
+			Trig->triggerwitem(s, pi, 1);
 			// Currently Disabled.
 			return;
 		} else
@@ -813,7 +813,7 @@ void cSkills::TreeTarget(int s)
 		{
 			//pc->targtrig=resource.logtrigger;
 			P_ITEM pi = FindItemBySerial(addmitem[s]);
-			triggerwitem(s, pi, 0);	// routing to wtrigrs instead of triggers.scp Duke, 5.11.2000
+			Trig->triggerwitem(s, pi, 0);	// routing to wtrigrs instead of triggers.scp Duke, 5.11.2000
 			return;
 		} else
 		{//normal mining skill

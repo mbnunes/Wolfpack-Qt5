@@ -301,6 +301,7 @@ cMovement		*Movement;
 cWeather		*Weather;
 cHouseManager   *HouseManager;
 cSpeech	        *Speech;
+cTrigger	    *Trig;
 cRaces			Races;
 // Sky's AI
 cCharStuff::cDragonAI	*DragonAI;

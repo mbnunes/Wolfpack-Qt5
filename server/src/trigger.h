@@ -40,7 +40,7 @@
 #include <errno.h>
 
 //Forward class
-
+class cTrigger;
 
 
 //Wolfpack includes
@@ -48,6 +48,16 @@
 #include "wolfpack.h"
 #include "SndPkg.h"
 #include "debug.h"
+
+class cTrigger
+{
+public:
+	void triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype);
+    void triggernpc(UOXSOCKET ts, int ti, int ttype);
+	int  checkenvoke(char eid1, char eid2);
+};
+
+extern cTrigger	 *Trig;
 
 
 

@@ -1164,7 +1164,7 @@ void deathstuff(int i)
 		pc_player->removeItemBonus(pi_j);
 		if ((pi_j->trigon==1) && (pi_j->layer >0) && (pi_j->layer!=15) && (pi_j->layer<19))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
 		{
-			triggerwitem(z, pi_j, 1); // trigger is fired when item destroyed
+			Trig->triggerwitem(z, pi_j, 1); // trigger is fired when item destroyed
 		}
 		if ((pi_j->contserial== pc_player->serial) && (pi_j->layer!=0x0B) && (pi_j->layer!=0x10))
 		{//Let's check all items, except HAIRS and BEARD

@@ -428,7 +428,7 @@ bool TriggerSpeech(cChar* pc, char* comm, cChar* pPlayer, UOXSOCKET s)
 					}
 					else
 					{
-						triggernpc(s,DEREF_P_CHAR(pc),1);
+						Trig->triggernpc(s,DEREF_P_CHAR(pc),1);
 					}
 					return 1;
 				}
@@ -1176,7 +1176,7 @@ void cSpeech::talking(int s, string speech) // PC speech
 						pNpc->trigger = str2num(script2);
 						scpMark m=pScp->Suspend();
 						
-						triggernpc(s, DEREF_P_CHAR(pNpc), 1);
+						Trig->triggernpc(s, DEREF_P_CHAR(pNpc), 1);
 						
 						pScp->Resume(m);
 						strcpy((char*)script1, "DUMMY");
