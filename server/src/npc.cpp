@@ -343,12 +343,31 @@ void cNPC::talk( const QString &message, UI16 color, UINT8 type, bool autospam, 
 		// Send to all clients in range
 		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 		{
-				if( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
-				{
-					mSock->send( new cUOTxUnicodeSpeech( *textSpeech ) );
-				}
+			if( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
+			{
+				mSock->send( new cUOTxUnicodeSpeech( *textSpeech ) );
+			}
 		}
 		delete textSpeech;
+	}
+}
+
+void cNPC::talk( const UINT32 MsgID, UI16 color /*= 0xFFFF*/, cUOSocket* socket /*= 0*/ )
+{
+	if ( socket )
+	{
+		socket->clilocMessage( MsgID, 0, color, 3, this );
+	}
+	else
+	{
+		// Send to all clients in range
+		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+		{
+			if( mSock->player() && ( mSock->player()->dist( this ) < 18 ) )
+			{
+				mSock->clilocMessage( MsgID, 0, color, 3, this );
+			}
+		}
 	}
 }
 

@@ -1352,9 +1352,12 @@ void cItem::processContainerNode( const cElement *tag )
 
 			if( element->hasAttribute( "id" ) )
 			{
+				cItem* nItem = cItem::createFromScript( element->getAttribute("id") );
+				addItem( nItem, true, false );
 			}
 			else if( element->hasAttribute( "list" ) )
 			{
+				qWarning("cItem::processContainerNode <item list=\"myList\"/> not implemented!!!");
 			}
 			else
 			{

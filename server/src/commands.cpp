@@ -124,6 +124,7 @@ bool cCommands::dispatch( cUOSocket *socket, const QString &command, QStringList
 		}
 
 	socket->sysMessage( tr("Unknown Command") );
+	return false;
 }
 
 void cCommands::loadACLs( void )

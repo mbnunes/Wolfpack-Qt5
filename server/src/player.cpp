@@ -1063,6 +1063,11 @@ void cPlayer::giveGold( Q_UINT32 amount, bool inBank )
 	goldSound( amount, false );
 }
 
+/*!
+	Reduces the specified \a amount of gold from the user
+	and returns the amount reduced. If it was successfull, it will return
+	the same value passed on \a amount parameter.
+*/
 UINT32 cPlayer::takeGold( UINT32 amount, bool useBank )
 {
 	P_ITEM pPack = getBackpack();
@@ -1072,7 +1077,7 @@ UINT32 cPlayer::takeGold( UINT32 amount, bool useBank )
 	if( pPack )
 		dAmount = pPack->DeleteAmount( amount, 0xEED, 0 );
 
-	if( ( dAmount < amount ) && useBank )
+	if( ( dAmount > 0 ) && useBank )
 	{
 		P_ITEM pBank = getBankBox();
 
@@ -1082,7 +1087,7 @@ UINT32 cPlayer::takeGold( UINT32 amount, bool useBank )
 
 	goldSound( amount, false );
 
-	return dAmount;
+	return amount - dAmount;
 }
 
 void cPlayer::message( const QString &message, UI16 color )

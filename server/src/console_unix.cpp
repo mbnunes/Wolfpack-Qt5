@@ -153,67 +153,24 @@ void cConsole::stop()
 
 void cConsole::setConsoleTitle( const QString& data )
 {
-#if defined(Q_OS_WIN32)
-	SetConsoleTitle( data.latin1() );
-#endif
 }
 
 //=========================================================================================
 // Change the console Color
 void cConsole::ChangeColor( WPC_ColorKeys Color )
 {
-#if defined(Q_OS_UNIX)
-QString cb = "\e[0m";
-		switch( Color )
-		{
-		case WPC_GREEN: cb = "\e[1;32m";
-			break;
-		case WPC_RED:	cb = "\e[1;31m";
-			break;
-		case WPC_YELLOW:cb = "\e[1;33m";
-			break;
-		case WPC_NORMAL:cb = "\e[0m";
-			break;
-		case WPC_WHITE:	cb = "\e[1;37m";
-			break;
-		case WPC_BROWN: cb = "\e[0;33m";
-			break;
-		default: cb = "\e[0m";
-
-		}
-		send( cb );
-#elif defined(Q_OS_WIN32)
-		HANDLE ConsoleHandle = GetStdHandle( STD_OUTPUT_HANDLE );
-		UI16 ColorKey = FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE;
-
-		switch( Color )
-		{
-		case WPC_GREEN:
-			ColorKey = FOREGROUND_GREEN | FOREGROUND_INTENSITY;
-			break;
-
-		case WPC_RED:
-			ColorKey = FOREGROUND_RED | FOREGROUND_INTENSITY;
-			break;
-
-		case WPC_YELLOW:
-			ColorKey = FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_INTENSITY;
-			break;
-
-		case WPC_NORMAL:
-			ColorKey = FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE;
-			break;
-
-		case WPC_WHITE:
-			ColorKey = FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_INTENSITY;
-			break;
-
-		default:
-			break;
-		}
-
-		SetConsoleTextAttribute( ConsoleHandle, ColorKey );
-#endif
+	QString cb = "\e[0m";
+	switch( Color )
+	{
+	case WPC_GREEN: cb = "\e[1;32m";		break;
+	case WPC_RED:	cb = "\e[1;31m";		break;
+	case WPC_YELLOW:cb = "\e[1;33m";		break;
+	case WPC_NORMAL:cb = "\e[0m";			break;
+	case WPC_WHITE:	cb = "\e[1;37m";		break;
+	case WPC_BROWN: cb = "\e[0;33m";		break;
+	default: cb = "\e[0m";					break;
+	}
+	send( cb );
 }
 
 //========================================================================================

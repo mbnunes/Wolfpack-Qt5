@@ -612,6 +612,23 @@ void cConsole::send(const QString &sMessage)
 	// And ofcourse if not some control is currently capturing the input
 	if( !GetCapture() )
 		SendMessage( logWindow, WM_VSCROLL, SB_BOTTOM, 0 );
+
+	// Update linebuffer_, so that web console works as well.
+	if( sMessage.contains( "\n" ) )
+	{
+		incompleteLine_.append( sMessage ); // Split by \n
+		QStringList lines = QStringList::split( "\n", incompleteLine_, true );
+
+		// Insert all except the last element
+		for( int i = 0; i < lines.count() - 1; ++i )
+			linebuffer_.push_back( lines[i] );
+
+		incompleteLine_ = lines[ lines.count() - 1 ];
+	}
+	else
+	{
+		incompleteLine_.append( sMessage );
+	}
 }
 
 void cConsole::ChangeColor( WPC_ColorKeys color )

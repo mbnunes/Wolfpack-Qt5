@@ -42,6 +42,7 @@
 #include "typedefs.h"
 #include "basechar.h"
 #include "player.h"
+#include "npc.h"
 #include "world.h"
 #include "console.h"
 #include "network.h"
@@ -73,7 +74,7 @@ struct MatchItemAndSerial : public std::binary_function<P_ITEM, SERIAL, bool>
 void Trade::buyAction( cUOSocket *socket, cUORxBuy *packet )
 {
 	P_PLAYER pChar = socket->player();
-	P_CHAR pVendor = FindCharBySerial( packet->serial() );
+	P_NPC pVendor = dynamic_cast<P_NPC>( FindCharBySerial( packet->serial() ) );
 
 	cUOTxClearBuy clearBuy;
 	clearBuy.setSerial( pVendor->serial() );
@@ -177,13 +178,33 @@ void Trade::buyAction( cUOSocket *socket, cUORxBuy *packet )
 
 		totalValue += amount * pItem->buyprice();
 
-		items.insert( make_pair( pItem->serial(), amount ) );
+		if ( amount )
+			items.insert( make_pair( pItem->serial(), amount ) );
 	}
 
-	if( totalValue > totalGold )
+	bool fromBank = false;
+	if ( totalValue < 2000 )
 	{
-		pVendor->talk( tr( "Sorry but you do not possess enough gold." ) );
+		if ( pChar->CountGold() < totalValue )
+		{
+			pVendor->talk( 500192, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thou casnt afford that.
+			return;
+		}
+	}
+	else
+	{
+		if ( pChar->CountBankGold() < totalValue )
+		{
+			pVendor->talk( 500191, 0xFFFF, pChar->socket() ); //Begging thy pardon, but thy bank account lacks these funds.
+			return;
+		}
+		fromBank = true;
+	}
+
+	if ( !items.size() )
+	{
 		socket->send( &clearBuy );
+		pVendor->talk( 500190, 0xFFFF, pChar->socket() ); // Thou hast bought nothing!
 		return;
 	}
 
@@ -214,14 +235,19 @@ void Trade::buyAction( cUOSocket *socket, cUORxBuy *packet )
 			}
 		}
 				
-		socket->sysMessage( tr( "You put the %1 into your pack" ).arg( pItem->getName() ) );
+		//socket->sysMessage( tr( "You put the %1 into your pack" ).arg( pItem->getName() ) );
 	}
 
 	socket->send( &clearBuy );
-	pVendor->talk( tr( "Thank you %1, this makes %2 gold" ).arg( pChar->name() ).arg( totalValue ) );
 
-	if( pChar->takeGold( totalValue, true ) < totalValue )
+	if ( fromBank )
+		pVendor->talk( tr("The total of thy purchase is %1 gold, which has been withdrawn from your bank account.  My thanks for the patronage.").arg(totalValue), 0xFFFF, 0, false, pChar->socket() );
+	else
+		pVendor->talk( tr("The total of thy purchase is %1 gold.  My thanks for the patronage.").arg(totalValue), 0xFFFF, 0, false, pChar->socket() );
+
+	if( pChar->takeGold( totalValue, fromBank ) < totalValue )
 		Console::instance()->send( QString( "Player 0x%1 payed less than he should have to vendor 0x%2" ).arg( pChar->serial(), 8, 16 ).arg( pVendor->serial(), 8, 16 ) );
+	pChar->socket()->soundEffect( 0x32 );
 }
 
 void Trade::sellAction( cUOSocket *socket, cUORxSell *packet )
