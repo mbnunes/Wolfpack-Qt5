@@ -1,0 +1,49 @@
+<definitions>
+	<resource id="RESOURCE_LOG">
+		<name>log</name>
+		<amount min="15" max="20" />
+		<artid><getlist id="IDS_TREE" /></artid>
+		<skillid>44</skillid>
+		<refreshtime>180</refreshtime>
+		<stamina>1</stamina>
+		<charaction>0x0D</charaction>
+		<sound>0x013E</sound>
+		<item>
+			<amount min="1" max="10" />
+			<id>0x1BE0</id>
+			<color>0</color>
+			<skill min="0" max="600" />
+		</item>
+	</resource>
+	
+	<list id="IDS_TREE">
+		<item>0x0CD0</item>
+		<item>0x0CD3</item>
+		<item>0x0CD6</item>
+		<item>0x0CD8</item>
+		<item>0x0CDA</item>
+		<item>0x0CDD</item>
+		<item>0x0CE0</item>
+		<item>0x0CE3</item>
+		<item>0x0CE6</item>
+		<item>0x0CCA</item>
+		<item>0x0CCB</item>
+		<item>0x0CCC</item>
+		<item>0x0CCD</item>
+		<item>0x12B8</item>
+		<item>0x12B9</item>
+		<item>0x12BA</item>
+		<item>0x12BB</item>
+		<item>0x0D42</item>
+		<item>0x0D43</item>
+		<item>0x0D58</item>
+		<item>0x0D59</item>
+		<item>0x0D70</item>
+		<item>0x0D85</item>
+		<item>0x0D94</item>
+		<item>0x0D95</item>
+		<item>0x0D98</item>
+		<item>0x0DA4</item>
+		<item>0x0DA8</item>
+	</list>
+</definitions>

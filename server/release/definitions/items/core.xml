@@ -7,60 +7,21 @@
 =================================================================
 -->
 <definitions>
-	<!-- Bow -->
-	<item id="13b1">
-		<id>0x13b1</id>
-		<twohanded />
-		<decay />
-		<value>65</value>
-		<attack min="9" max="41" />
-		<durability>35</durability>		
-		<speed>20</speed>
-		<weight>3.0</weight>
-		<requires type="dex">50</requires>
-		<requires type="str">20</requires>
-	</item>
-
-	<!-- Arrow -->
-	<item id="f3f">
-		<id>0xf3f</id>
-		<weight>0.1</weight>
-	</item>
-
-	<!-- Bolt -->
-	<item id="1bfb">
-		<id>0x1bfb</id>
-		<weight>0.1</weight>
-	</item>
-
-	<!-- Archery butte -->
-	<item id="100a">
-		<id>0x100a</id>
-		<events>archery_butte</events>
+	<!-- pickaxe -->
+	<item id="0e85">
+		<id>0x0E85</id>
 	</item>
 	
-	<!-- Archery butte -->
-	<item id="100b">
-		<id>0x100b</id>
-		<events>archery_butte</events>
-	</item>	
-
-	<!-- Pickpocket dip -->
-	<item id="1ec0">
-		<id>0x1ec0</id>
-		<events>pickpocket_dip</events>
+	<item id="1bf2">
+		<id>0x1BF2</id>
 	</item>
-
-	<!-- Pickpocket dip -->
-	<item id="1ec3">
-		<id>0x1ec3</id>
-		<events>pickpocket_dip</events>
+	
+	<item id="1034">
+		<id>0x1034</id>
 	</item>
-
-	<!-- training dummy -->
-	<item id="1070">
-		<id>0x1070</id>
-		<events>training_dummy</events>
+	
+	<item id="1bd7">
+		<id>0x1BD7</id>
 	</item>
 
 	<!-- longsword -->
@@ -101,6 +62,7 @@
 		<requires type="str">15</requires>
 		<speed>15</speed>
 		<weight>4.0</weight>
+		<type>3</type>
 	</item>
 	
 	<!-- Gold -->

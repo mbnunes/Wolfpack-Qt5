@@ -1,0 +1,103 @@
+<definitions>
+	<resource id="RESOURCE_ORE">
+		<name>ore</name>
+		<amount min="30" max="40" />
+		<veinchance>5</veinchance>
+		<artid>0x053B-0x054F,0x0551-0x0553,0x056A</artid>
+		<skillid>45</skillid>
+		<refreshtime>120</refreshtime>
+		<stamina min="1" max="2" />
+		<charaction>0x0B</charaction>
+		<sound>0x0125</sound>
+		<item>
+			<name>Iron</name>
+			<amount min="1" max="5" />
+			<id>0x19BA</id>
+			<color>0</color>
+			<vein min="50" max="80" quota="630" />
+			<skill min="0" max="400" />
+			<quota>630</quota>
+		</item>
+		<item>
+			<name>Shadow</name>
+			<amount min="1" max="4" />
+			<id>0x19BA</id>
+			<color>0x0386</color>
+			<vein min="50" max="70" quota="126" />
+			<skill min="650" max="900" />
+			<quota>126</quota>
+		</item>
+		<item>
+			<name>Merkite</name>
+			<amount min="1" max="4" />
+			<id>0x19BA</id>
+			<color>0x02C3</color>
+			<vein min="37" max="65" quota="112" />
+			<skill min="700" max="910" />
+			<quota>112</quota>
+		</item>
+		<item>
+			<name>Copper</name>
+			<amount min="1" max="4" />
+			<id>0x19BA</id>
+			<color>0x046E</color>
+			<vein min="35" max="62" quota="98" />
+			<skill min="750" max="940" />
+			<quota>98</quota>
+		</item>
+		<item>
+			<name>Silver</name>
+			<amount min="1" max="3" />
+			<id>0x19BA</id>
+			<color>0x0961</color>
+			<vein min="30" max="57" quota="84" />
+			<skill min="790" max="955" />
+			<quota>84</quota>
+		</item>
+		<item>
+			<name>Bronze</name>
+			<amount min="1" max="3" />
+			<id>0x19BA</id>
+			<color>0x02E7</color>
+			<vein min="30" max="55" quota="70" />
+			<skill min="800" max="960" />
+			<quota>70</quota>
+		</item>
+		<item>
+			<name>Golden</name>
+			<amount min="1" max="2" />
+			<id>0x19BA</id>
+			<color>0x0466</color>
+			<vein min="30" max="52" quota="56" />
+			<skill min="850" max="965" />
+			<quota>56</quota>
+		</item>
+		<item>
+			<name>Agapite</name>
+			<amount min="1" max="2" />
+			<id>0x19BA</id>
+			<color>0x0150</color>
+			<vein min="30" max="50" quota="42" />
+			<skill min="900" max="975" />
+			<quota>42</quota>
+		</item>	
+		<item>
+			<name>Verite</name>
+			<amount min="1" max="2" />
+			<id>0x19BA</id>
+			<color>0x022F</color>
+			<vein min="30" max="47" quota="28" />
+			<skill min="950" max="985" />
+			<quota>28</quota>
+		</item>	
+		<item>
+			<name>Mythril</name>
+			<amount>1</amount>
+			<id>0x19BA</id>
+			<color>0x0191</color>
+			<vein min="30" max="45" quota="14" />
+			<skill min="990" max="999" />
+			<quota>14</quota>
+		</item>	
+	</resource>
+</definitions>
