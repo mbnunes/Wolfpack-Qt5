@@ -50,6 +50,14 @@
 // =============================
 // 0xFFFF: Packet not used
 // 0x0000: Packet has dynamic length
+/*!
+	\internal
+	Table of packet lengths, automatically generated from
+	Client Version: UO: LBR (Thrid Dawn) 3.0.8d
+
+	0xFFFF - Packet not used
+	0x0000 - Packet has dynamic length
+*/
 const Q_UINT16 packetLengths[256] =
 {
 0x0068, 0x0005, 0x0007, 0x0000, 0x0002, 0x0005, 0x0005, 0x0007, // 0x07
@@ -133,6 +141,11 @@ cAsyncNetIOPrivate::~cAsyncNetIOPrivate()
 	delete packets;
 }
 
+/*!
+	\internal
+    Reads \a maxlen bytes from the socket into \a data and returns the
+    number of bytes read. Returns -1 if an error occurred.
+*/
 Q_LONG cAsyncNetIOPrivate::readBlock( char *data, Q_ULONG maxlen )
 {
     if ( data == 0 && maxlen != 0 ) 
@@ -145,6 +158,11 @@ Q_LONG cAsyncNetIOPrivate::readBlock( char *data, Q_ULONG maxlen )
     return maxlen;
 }
 
+/*!
+	\internal
+    Writes \a len bytes to the socket from \a data and returns the
+    number of bytes written. Returns -1 if an error occurred.
+*/
 Q_LONG cAsyncNetIOPrivate::writeBlock( const char *data, Q_ULONG len )
 {
 	// Invalid Socket -> Disconnected
@@ -175,11 +193,24 @@ Q_LONG cAsyncNetIOPrivate::writeBlock( const char *data, Q_ULONG len )
     return len;
 }
 
+/*!
+	\internal
+    Writes \a data and returns the number of bytes written. 
+	Returns -1 if an error occurred.
+*/
 Q_LONG cAsyncNetIOPrivate::writeBlock( QByteArray data )
 {
 	return writeBlock( data.data(), data.size() );
 }
 
+/*!
+	\internal
+    Reads a single byte/character from the internal read buffer.
+    Returns the byte/character read, or -1 if there is nothing to be
+    read.
+
+    \sa ungetch()
+*/
 int cAsyncNetIOPrivate::getch()
 {
     if ( rsize > 0 ) 
@@ -191,6 +222,12 @@ int cAsyncNetIOPrivate::getch()
     return -1;
 }
 
+/*!
+    Prepends the character \a ch to the read buffer so that the next
+    read returns this character as the first character of the output.
+
+	\sa getch()
+*/
 int cAsyncNetIOPrivate::ungetch( int ch )
 {
     if ( rba.isEmpty() || rindex==0 ) {
@@ -209,6 +246,12 @@ int cAsyncNetIOPrivate::ungetch( int ch )
     return ch;
 }
 
+/*!
+  \internal
+  Removes from internal read buffer \a nbytes.
+  Returns true if successfull or false if there were not enought bytes in buffer to fullfill
+  the request.
+*/
 bool cAsyncNetIOPrivate::consumeWriteBuf( Q_ULONG nbytes )
 {
     if ( nbytes <= 0 || nbytes > wsize )
@@ -232,6 +275,12 @@ bool cAsyncNetIOPrivate::consumeWriteBuf( Q_ULONG nbytes )
     return false;
 }
 
+/*!
+	\internal
+	Reads and removes from internal read buffer \a nbytes and place then into \a sink.
+	Returns true if successfull or false if there were not enought bytes to fullfill
+	the request.
+*/
 bool cAsyncNetIOPrivate::consumeReadBuf( Q_ULONG nbytes, char *sink )
 {
     if ( nbytes <= 0 || nbytes > rsize )
