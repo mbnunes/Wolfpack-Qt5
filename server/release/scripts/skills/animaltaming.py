@@ -78,7 +78,7 @@ def response( char, args, target ):
 		return
 
 	# Invulnerable Characters cannot be examined
-	if target.char.priv & 0x04 or target.char.dead:
+	if target.char.invulnerable or target.char.dead:
 		socket.clilocmessage( 502675, "", 0x3b2, 3, totame )
 		return
 
@@ -148,25 +148,25 @@ def callback( char, args ):
 	
 	# tamer dead : 502796
 	if char.dead:
-		skills.animaltaming.removetags( totame )
+		removetags( totame )
 		char.socket.clilocmessage( 502796, "", 0x3b2, 3, totame )
 		return
 
 	# out of range : 502795
 	if char.distanceto( totame ) > TAMING_RANGE:
-		skills.animaltaming.removetags( totame )
+		removetags( totame )
 		char.socket.clilocmessage( 502795, "", 0x3b2, 3, totame )
 		return
 
 	# no los : 502800
 	if not char.canreach( totame, TAMING_RANGE ):
-		skills.animaltaming.removetags( totame )
+		removetags( totame )
 		char.socket.clilocmessage( 502800, "", 0x3b2, 3, totame )
 		return
 
 	# angry : 502794  -> let it attack the char ?
 	if totame.hastag( 'angry' ) and totame.gettag( 'angry' ) > 1:
-		skills.animaltaming.removetags( totame )
+		removetags( totame )
 		char.socket.clilocmessage( 502794, "", 0x3b2, 3, totame )
 		return
 
@@ -177,9 +177,9 @@ def callback( char, args ):
 		# if have-tamed, do not advance the skill - will be added
 		success = char.checkskill( TAMING, totame.totame, 1200 )
 		if success:
-			skills.animaltaming.removetags( totame )
+			removetags( totame )
 			# set owner
-			totame.tamed = true
+			totame.tamed = 1
 			totame.owner = char
 			# increase follower control slot - will be added
 			# set tamed number
@@ -192,9 +192,11 @@ def callback( char, args ):
 			# success msg : 502799
 			char.socket.clilocmessage( 502799, "", 0x3b2, 3, totame )
 		else:
-			skills.animaltaming.removetags( totame )
+			removetags( totame )
 			# fail msg : 502798
 			char.socket.clilocmessage( 502798, "", 0x3b2, 3, totame )
+			if totame.ai:
+				totame.ai.tameattempt()
 		return
 
 	num_try += 1
@@ -207,6 +209,12 @@ def callback( char, args ):
 			totame.settag( 'angry', m + 1 )
 		else:
 			totame.settag( 'angry', 1 )
+			
+		if totame.ai:
+			totame.ai.tameattempt()
+			
+		print totame.ai.state
+
 	char.socket.clilocmessage( msgID, "", 0x3b2, 3, totame )
 	char.addtimer( TAMING_DURATION, "skills.animaltaming.callback", [ havetamed, totame.serial, num_try ] )
 
