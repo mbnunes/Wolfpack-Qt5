@@ -12,21 +12,23 @@
 	<npc id="orc_mage" inherit="monster_base">
 		<name>orc mage</name>
 		<id>140</id>
-		<karma>-3000</karma>
-		<fame>3000</fame>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="116" max="150"/></str>
 		<dex><random min="91" max="115"/></dex>
-		<int><random min="601" max="725"/></int>
+		<int><random min="161" max="185"/></int>
+		<maxhitpoints><random min="70" max="90"/></maxhitpoints>
 		<!-- Skills -->
 		<evaluatingintel><random min="601" max="725"/></evaluatingintel>
 		<magery><random min="601" max="725"/></magery>
 		<magicresistance><random min="601" max="750"/></magicresistance>
 		<tactics><random min="501" max="650"/></tactics>
 		<wrestling><random min="401" max="500"/></wrestling>
+		<meditation>0</meditation>
 		<!-- Damage -->
-		<mindamage>4</mindamage>
-		<maxdamage>14</maxdamage>
+		<mindamage>8</mindamage>
+		<maxdamage>25</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="20,30" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />

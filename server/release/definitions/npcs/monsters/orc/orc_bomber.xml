@@ -12,20 +12,21 @@
 	<npc id="orc_bomber" inherit="monster_base">
 		<name>orc bomber</name>
 		<id>182</id>
-		<karma>-2500</karma>
-		<fame>2500</fame>
+		<karma><random list="KARMA_L2" /></karma>
+		<fame><random list="FAME_L2" /></fame>
 		<!-- Stats -->
 		<str><random min="147" max="215"/></str>
 		<dex><random min="91" max="115"/></dex>
 		<int><random min="61" max="85"/></int>
+		<maxhitpoints><random min="95" max="123"/></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="701" max="850"/></magicresistance>
 		<swordsmanship><random min="601" max="850"/></swordsmanship>
 		<tactics><random min="751" max="900"/></tactics>
 		<wrestling><random min="601" max="850"/></wrestling>
 		<!-- Damage -->
-		<mindamage>1</mindamage>
-		<maxdamage>18</maxdamage>
+		<mindamage>2</mindamage>
+		<maxdamage>17</maxdamage>
 		<tag name="dmg_fire" value="25" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="15,25" type="int" />

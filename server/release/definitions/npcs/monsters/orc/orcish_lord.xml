@@ -12,20 +12,21 @@
 	<npc id="orcish_lord" inherit="monster_base">
 		<name>orcish lord</name>
 		<id>138</id>
-		<karma>-2500</karma>
-		<fame>2500</fame>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="147" max="215"/></str>
 		<dex><random min="91" max="115"/></dex>
 		<int><random min="61" max="85"/></int>
+		<maxhitpoints><random min="95" max="123"/></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="701" max="850"/></magicresistance>
 		<swordsmanship><random min="601" max="850"/></swordsmanship>
 		<tactics><random min="751" max="900"/></tactics>
 		<wrestling><random min="601" max="850"/></wrestling>
 		<!-- Damage -->
-		<mindamage>4</mindamage>
-		<maxdamage>14</maxdamage>
+		<mindamage>8</mindamage>
+		<maxdamage>28</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="20,30" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />

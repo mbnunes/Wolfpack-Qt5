@@ -12,12 +12,13 @@
 	<npc id="ratman_archer" inherit="monster_base">
 		<name><random list="NAMES_RATMAN" /></name>
 		<id>142</id>
-		<karma>-6500</karma>
-		<fame>6500</fame>
+		<karma><random list="KARMA_L4" /></karma>
+		<fame><random list="FAME_L4" /></fame>
 		<!-- Stats -->
 		<str><random min="146" max="180"/></str>
 		<dex><random min="101" max="130"/></dex>
 		<int><random min="116" max="140"/></int>
+		<maxhitpoints><random min="88" max="108"/></maxhitpoints>
 		<!-- Skills -->
 		<anatomy><random min="602" max="1000"/></anatomy>
 		<magicresistance><random min="651" max="900"/></magicresistance>
@@ -25,8 +26,8 @@
 		<wrestling><random min="501" max="750"/></wrestling>
 		<archery><random min="801" max="900"/></archery>
 		<!-- Damage -->
-		<mindamage>4</mindamage>
-		<maxdamage>10</maxdamage>
+		<mindamage>36</mindamage>
+		<maxdamage>42</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="10,20" type="int" />
 		<tag name="res_energy" value="10,20" type="int" />

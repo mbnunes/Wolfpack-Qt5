@@ -12,19 +12,20 @@
 	<npc id="ratman" inherit="monster_base">
 		<name><random list="NAMES_RATMAN" /></name>
 		<id><radom list="NPCIDS_RATMAN" /></id>
-		<karma>-1500</karma>
-		<fame>1500</fame>
+		<karma><random list="KARMA_L2" /></karma>
+		<fame><random list="FAME_L2" /></fame>
 		<!-- Stats -->
 		<str><random min="96" max="120"/></str>
 		<dex><random min="81" max="100"/></dex>
 		<int><random min="36" max="60"/></int>
+		<maxhitpoints><random min="58" max="72" /></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="351" max="600"/></magicresistance>
 		<tactics><random min="501" max="750"/></tactics>
 		<wrestling><random min="501" max="750"/></wrestling>
 		<!-- Damage -->
-		<mindamage>4</mindamage>
-		<maxdamage>5</maxdamage>
+		<mindamage>7</mindamage>
+		<maxdamage>9</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="10,20" type="int" />
 		<tag name="res_energy" value="10,20" type="int" />
