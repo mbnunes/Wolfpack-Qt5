@@ -53,6 +53,7 @@ Wolfpack 12.9.12 Beta (CVS)
 	- Moved the mount item information from the core to the bodyinfo file.
 	- Overhauled the body sound system. Now allows for every sound to be overriden individually in the bodyinfo or
 	  in the base definition.
+	- The <include> tag is now context-sensitive (i.e. can be used within definition elements to include child elements).
 
 Wolfpack 12.9.11 Beta (26. September 2004)
 	- Fixed a crashbug related to NPC ai storing invalidated character pointers.
@@ -62,7 +63,7 @@ Wolfpack 12.9.11 Beta (26. September 2004)
 	- Added a bodytype property.
 	- The server will now only process one action per loop.
 	- Fixed bug #0000305. (Documentation fix)
-	- Fixed a memory leak in char.dispel. 
+	- Fixed a memory leak in char.dispel.
 	- Fixed bug #0000307. (Timers not being deleted with character)
 	- Added socket.removeobject() + socket.sendobject() methods.
 	- Fixed bug #0000273. (Felucca doesnt have the felucca desolation season)
@@ -93,7 +94,7 @@ Wolfpack 12.9.11 Beta (26. September 2004)
 	- Fixed crash under windows when the server terminates unexpectedly
 	- Console will show which unicode format was compiled in Python UCS2 or UCS4
 	- Fixed compile error on FreeBSD.
-	- Exposed the base definition class to python. 
+	- Exposed the base definition class to python.
 	- Added wolfpack.bodyinfo(id)
 	- Added/Changed wolfpack.itembase(def), wolfpack.charbase(def)
 	- Fixed a base definition bug related to property not loading the base definition.
