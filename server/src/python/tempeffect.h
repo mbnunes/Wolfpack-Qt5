@@ -183,7 +183,7 @@ public:
 					reportPythonError( sModule );
 					Py_DECREF( p_args );
 				}
-				Py_DECREF( pFunc );
+				Py_XDECREF( pFunc );
 			}
 			Py_XDECREF( pModule );
 		}
