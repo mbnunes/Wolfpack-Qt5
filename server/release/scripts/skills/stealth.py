@@ -33,19 +33,24 @@ def stealth( char, skill ):
 	if char.socket.hastag( 'skill_delay' ):
 		if wolfpack.time.currenttime() < char.socket.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
-			return 1
+			return True
 		else:
 			char.socket.deltag( 'skill_delay' )
 
 	# use hiding first
 	if not char.hidden:
 		char.socket.clilocmessage( 502725, "", 0x3b2, 3 )
-		return 1
+		return True
+
+	# Clean invisibility spell timer
+	char.dispel(None, 1, "invisibility_reveal")
 
 	# you can use stealth only when your hiding skill is over 80.0
-	if char.skill[ HIDING ] < MIN_HIDING:
-		char.socket.clilocmessage( 502726, "", 0x3b2, 3 )
-		return 1
+	# or if you got hidden by the invisibility spell
+	if not( char.hasscript('skills.stealth') ):
+		if char.skill[ HIDING ] < MIN_HIDING:
+			char.socket.clilocmessage( 502726, "", 0x3b2, 3 )
+			return True
 
 	# TODO :
 	# too much armor
@@ -60,12 +65,12 @@ def stealth( char, skill ):
 		char.addscript('skills.stealth') # Unhide on run
 	else:
 		char.socket.clilocmessage( 502731, "", 0x3b2, 3 )
-		char.hidden = 0
+		char.hidden = False
 		char.update()
 
 	char.socket.settag( 'skill_delay', int( wolfpack.time.currenttime() + STEALTH_DELAY ) )
 
-	return 1
+	return True
 
 def onLoad():
 	skills.register( STEALTH, stealth )

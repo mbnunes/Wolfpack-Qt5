@@ -83,6 +83,8 @@ Wolfpack 12.9.13 Beta (CVS)
   - Fixes for moongate.py
   - Guild button now opens guildstone menu by default.
   - Fixed resistances for dragon scale armors.
+  - Fixed bug #0000310. (Invis spell duration too brief, Players will now be able to use stealth 
+    if they are hidden by the invisibility spell, even if they don't have 80.0 Hiding )
  * Misc. Changes:
   - FAQ Updates.
  * Known Issues, Bugs, and Missing Features:

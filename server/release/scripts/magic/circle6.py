@@ -84,8 +84,15 @@ class Invisibility (CharEffectSpell):
 		target.hidden = 1
 		target.update()
 
+		# target is able to use stealth skill now
+		# even if he has not 80.0 Hiding
+		target.addscript( 'skills.stealth' )
+		
+		# Duration = Magery * 1.2 seconds
+		duration = int( char.skill[self.skill] * 120)
+		
 		# Add a removal timer
-		target.addtimer(5000, "magic.circle6.reveal_expire", [], 1, 0, "invisibility_reveal")
+		target.addtimer(duration, "magic.circle6.reveal_expire", [], 1, 0, "invisibility_reveal")
 
 		wolfpack.effect(0x376a, target.pos, 10, 15)
 		target.soundeffect(0x3c4)

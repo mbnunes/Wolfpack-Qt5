@@ -36,12 +36,18 @@ def hiding( char, skill ):
 			char.socket.clilocmessage(501238)
 			return False
 
+	# Remove the ability to use stealth, even if hiding < 80.0
+	# do this only if he isn't using stealth yet
+	if not( char.hidden ):
+		char.removescript( 'skills.stealth' )
+		char.stealthedsteps = 0
+		
 	success = char.checkskill( HIDING, 0, 1000 )
 
 	if success:
 		char.socket.clilocmessage(501240, "", 0x3b2, 3)
 		char.removefromview()
-		char.hidden = 1
+		char.hidden = True
 		char.update()
 		char.dispel( None, 1, "invisibility_reveal" )
 	else:
