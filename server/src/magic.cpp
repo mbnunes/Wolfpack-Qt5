@@ -1977,7 +1977,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							}
 						}
 						j=pc_defender->hp+(pc_currchar->skill[MAGERY]/30+RandomNum(1,12));
-						pc_defender->hp=min(pc_defender->st, j);
+						pc_defender->hp=min(pc_defender->st, static_cast<signed short>(j));
 						updatestats((pc_defender), 0);
 						break;
 						//////////// (30) LIGHTNING /////////////
