@@ -307,6 +307,7 @@ short cItem::GetContGumpType()
 
 bool cItem::AddItem(cItem* pItem, short xx, short yy)	// Add Item to container
 {
+	if (pItem == NULL) return false;
 	pItem->SetContSerial(this->serial);
 	if (xx!=-1)	// use the given position
 	{

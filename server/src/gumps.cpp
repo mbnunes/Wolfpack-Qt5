@@ -61,6 +61,8 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 		{
 			switch( button )
 			{
+			case 0:
+			case 1: break;
 			case 2:		entrygump( s, serial, type, button, 50, "Enter a new name for the item. (# = default name)" );	break;
 			case 3:		entrygump( s, serial, type, button, 4, "Enter the new ID number for the item in hex." );			break;
 			case 4:		entrygump( s, serial, type, button, 4, "Enter the new hue for the item in hex." );				break;
@@ -89,7 +91,7 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 			case 27:	entrygump( s, serial, type, button, 5, "Enter the new Good value for the item in decimal." );		break;
 			case 28:	entrygump( s, serial, type, button, 5, "Enter the new Made Skill value for the item in decimal." );	break;
 			case 29:	entrygump( s, serial, type, button, 50, "Enter the new Creator name for the item." );				break;
-			default:	clConsole.send( "Unknown button pressed %i", button );																		break;
+			default:	clConsole.send( "Unknown button pressed %i", button );	break;																	break;
 			}
 			break;
 		}
@@ -97,6 +99,8 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 		{
 			switch( button )
 			{
+			case 0:
+			case 1: break;
 			case 2:	 entrygump( s, serial, type, button, 50, "Enter a new Name for the character." );							break;
 			case 3:	 entrygump( s, serial, type, button, 50, "Enter a new Title for the character." );							break;
 			case 4:	 entrygump( s, serial, type, button, 4, "Enter a new X coordinate for the character in decimal." );			break;
