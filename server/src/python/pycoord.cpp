@@ -40,8 +40,8 @@ typedef struct {
 } wpCoord;
 
 // Forward Declarations
-PyObject *wpCoord_getAttr( wpCoord *self, char *name );
-int wpCoord_setAttr( wpCoord *self, char *name, PyObject *value );
+static PyObject *wpCoord_getAttr( wpCoord *self, char *name );
+static int wpCoord_setAttr( wpCoord *self, char *name, PyObject *value );
 
 /*!
 	The typedef for Wolfpack Python items

@@ -41,8 +41,8 @@ typedef struct {
 } wpTooltip;
 
 // Forward Declarations
-PyObject *wpTooltip_getAttr( wpTooltip *self, char *name );
-int wpTooltip_setAttr( wpTooltip *self, char *name, PyObject *value );
+static PyObject *wpTooltip_getAttr( wpTooltip *self, char *name );
+static int wpTooltip_setAttr( wpTooltip *self, char *name, PyObject *value );
 
 /*!
 	The typedef for Wolfpack Python items
@@ -59,8 +59,8 @@ static PyTypeObject wpTooltipType = {
     (setattrfunc)wpTooltip_setAttr,
 };
 
-PyObject *wpTooltip_add( wpTooltip *self, PyObject *args );
-PyObject *wpTooltip_send( wpTooltip *self, PyObject *args );
+static PyObject *wpTooltip_add( wpTooltip *self, PyObject *args );
+static PyObject *wpTooltip_send( wpTooltip *self, PyObject *args );
 
 static PyMethodDef wpTooltipMethods[] = 
 {

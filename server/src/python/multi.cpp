@@ -56,8 +56,8 @@ typedef struct {
 } wpMulti;
 
 // Forward Declarations
-PyObject *wpMulti_getAttr( wpMulti *self, char *name );
-int wpMulti_setAttr( wpMulti *self, char *name, PyObject *value );
+static PyObject *wpMulti_getAttr( wpMulti *self, char *name );
+static int wpMulti_setAttr( wpMulti *self, char *name, PyObject *value );
 int wpMulti_compare( PyObject *a, PyObject *b );
 
 /*!

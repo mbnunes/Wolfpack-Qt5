@@ -43,8 +43,7 @@ struct wpPacket
 	cUOPacket *packet;
 };
 
-PyObject *wpPacket_getattr( PyObject *self, char *name );
-PyMethodDef wpPacketMethods[];
+static PyObject *wpPacket_getattr( PyObject *self, char *name );
 
 // Object Destructor
 static void wpPacketDestructor( PyObject *obj )
@@ -65,12 +64,6 @@ static PyTypeObject wpPacketType =
 	0,
     wpPacket_getattr,
 };
-
-// Global Object-Getter
-static PyObject *wpPacket_getattr( PyObject *self, char *name )
-{
-	return Py_FindMethod( wpPacketMethods, self, name );
-}
 
 // Resize the packet
 static PyObject *wpPacket_resize( PyObject *self, PyObject *args )
@@ -179,7 +172,7 @@ static PyObject *wpPacket_send( PyObject *self, PyObject *args )
 }
 
 // List of Methods
-static PyMethodDef wpPacketMethods[] = 
+PyMethodDef wpPacketMethods[] = 
 {
 	{ "resize",		wpPacket_resize,			METH_VARARGS,	NULL },
 	{ "setbyte",	wpPacket_setbyte,			METH_VARARGS,	NULL },
@@ -190,6 +183,11 @@ static PyMethodDef wpPacketMethods[] =
 	{ "send",		wpPacket_send,				METH_VARARGS,	NULL },
 	{ NULL, NULL, 0, NULL }
 };
+
+static PyObject* wpPacket_getattr( PyObject* self, char* name )
+{
+	return Py_FindMethod( wpPacketMethods, self, name );
+}
 
 // Object Constructor
 PyObject *CreatePyPacket( unsigned char id, unsigned short size )

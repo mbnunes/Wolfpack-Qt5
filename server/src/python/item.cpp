@@ -69,8 +69,8 @@ static void FreeItemObject( PyObject *obj )
 }
 
 // Forward Declarations
-PyObject *wpItem_getAttr( wpItem *self, char *name );
-int wpItem_setAttr( wpItem *self, char *name, PyObject *value );
+static PyObject *wpItem_getAttr( wpItem *self, char *name );
+static int wpItem_setAttr( wpItem *self, char *name, PyObject *value );
 int wpItem_compare( PyObject *a, PyObject *b );
 
 /*!

@@ -43,8 +43,8 @@ typedef struct {
 } wpSocket;
 
 // Forward Declarations
-PyObject *wpSocket_getAttr( wpSocket *self, char *name );
-int wpSocket_setAttr( wpSocket *self, char *name, PyObject *value );
+static PyObject *wpSocket_getAttr( wpSocket *self, char *name );
+static int wpSocket_setAttr( wpSocket *self, char *name, PyObject *value );
 
 /*!
 	The typedef for Wolfpack Python chars

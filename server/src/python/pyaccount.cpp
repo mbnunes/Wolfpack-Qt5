@@ -47,8 +47,8 @@ typedef struct {
 } wpAccount;
 
 // Forward Declarations
-PyObject *wpAccount_getAttr( wpAccount *self, char *name );
-int wpAccount_setAttr( wpAccount *self, char *name, PyObject *value );
+static PyObject *wpAccount_getAttr( wpAccount *self, char *name );
+static int wpAccount_setAttr( wpAccount *self, char *name, PyObject *value );
 
 /*!
 	The typedef for Wolfpack Python items

@@ -45,8 +45,8 @@ typedef struct {
 } wpRegion;
 
 // Forward Declarations
-PyObject *wpRegion_getAttr( wpRegion *self, char *name );
-int wpRegion_setAttr( wpRegion *self, char *name, PyObject *value );
+static PyObject *wpRegion_getAttr( wpRegion *self, char *name );
+static int wpRegion_setAttr( wpRegion *self, char *name, PyObject *value );
 
 /*!
 	The typedef for Wolfpack Python items
