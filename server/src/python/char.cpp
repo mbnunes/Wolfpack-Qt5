@@ -143,7 +143,7 @@ static PyObject* wpChar_message( wpChar* self, PyObject* args )
 {
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 	
-	if( !player || player->socket() )
+	if( !player || !player->socket() )
 		return PyFalse;
 
 	if( checkArgStr( 0 ) )
@@ -173,9 +173,9 @@ static PyObject* wpChar_message( wpChar* self, PyObject* args )
 
 		// Cliloc Message
 		if( !affix.isNull() )
-			player->socket()->clilocMessageAffix( getArgInt( 0 ), clilocargs, affix, 0x37, 3, player, false, false );
+			player->socket()->clilocMessageAffix( getArgInt( 0 ), clilocargs, affix, 0x3b2, 3, player, false, false );
 		else
-			player->socket()->clilocMessage( getArgInt( 0 ), clilocargs, 0x37, 3, player );
+			player->socket()->clilocMessage( getArgInt( 0 ), clilocargs, 0x3b2, 3, player );
 	}
 	else
 	{

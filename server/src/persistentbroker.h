@@ -67,7 +67,7 @@ public:
 	void clearDeleteQueue();
 	void addToDeleteQueue( const QString &tables, const QString &conditions );
 	
-	QString& quoteString( QString &d )
+	QString quoteString( QString d )
 	{
 		if( sqlite )
 			return d.replace( QRegExp("'"), "''" );
