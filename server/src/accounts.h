@@ -101,7 +101,7 @@ public:
 	SERIAL GetInWorld( int );
 	void SetOnline( int, SERIAL );
 	void SetOffline( int acctnum );
-	void LoadAccounts( void );
+	void LoadAccounts( bool silent = true );
 	void SaveAccounts( void );
 	void CheckAccountFile(void);
 	int Count();

@@ -252,7 +252,6 @@ unsigned char npcinrange (UOXSOCKET s, P_CHAR pc, int distance)
 #if defined(__unix__)
 void signal_handler(int signal)
 {
-//	clConsole.send("In signal handler\n") ;
 	switch (signal)
 	{
 	case SIGHUP:
@@ -261,10 +260,12 @@ void signal_handler(int signal)
 		loadmetagm();
 		SrvParams->reload();
 		Network->LoadHosts_deny();
+		DefManager->reload();
+		ScriptManager->reload();
 		break ;
 		
 	case SIGUSR1:
-		Accounts->LoadAccounts();
+		Accounts->LoadAccounts( false );
 		break ;
 	case SIGUSR2:
 		cwmWorldState->savenewworld(SrvParams->worldSaveModule());
@@ -704,8 +705,6 @@ char *complete_title(P_CHAR pc) // generates the ENTIRE title plus criminal stuf
 
 void gcollect () // Remove items which were in deleted containers
 {
-	return; // Disabled
-
 	int removed = 0, rtotal = 0;
 	bool bdelete;
 	LogMessage( "Performing Garbage Collection..." );
@@ -2570,11 +2569,6 @@ void checkkey ()
 					showlayer=1;
 				}
 				break;
-			case 'I':
-			case 'i':
-				Admin->ReadIni();
-				clConsole.send("WOLFPACK: INI file reloaded.\n");
-				break;
 			case 'D':	// Disconnect account 0 (useful when client crashes)
 			case 'd':	
 				for (i=0;i<now;i++)
@@ -2618,21 +2612,21 @@ void checkkey ()
 				break;
 			case 'A': //reload the accounts file
 			case 'a':
-				clConsole.send("WOLFPACK: Reloading accounts file...");
-				Accounts->LoadAccounts();
-				clConsole.send("Done!\n");
+				Accounts->LoadAccounts( false );
 				break;
 			case 'r':
 			case 'R':
-				clConsole.send("WOLFPACK: Reloading Server.scp, Spawn.scp, and Regions.scp....");
+				clConsole.send( "Reloading definitions, scripts and wolfpack.xml\n" );
+
 				loadspawnregions();
 				loadregions();
 				loadmetagm();
-				SrvParams->reload();
-				clConsole.send(" Done!\n");
-				clConsole.send("WOLFPACK: Reloading IP Blocking rules...");
-				Network->LoadHosts_deny();
-				clConsole.send("Done\n");
+
+				SrvParams->reload(); // Reload wolfpack.xml
+				DefManager->reload(); //Reload Definitions
+				ScriptManager->reload(); // Reload Scripts
+
+				Network->LoadHosts_deny(); // This will be integrated into the normal definition system soon
 				break;
 			case '?':
 				clConsole.send("Console commands:\n");
@@ -2644,7 +2638,6 @@ void checkkey ()
 					clConsole.send("[enabled]\n");
 				else
 					clConsole.send("[disabled]\n");
-				clConsole.send("	I - Reload INI file.\n");
 				clConsole.send("	D - Disconnect Account 0\n");
 				clConsole.send("	1 - Sysmessage: Attention Players Server being brought down!\n");
 				clConsole.send("	2 - Broadcast Message 2\n");
@@ -2655,8 +2648,8 @@ void checkkey ()
 					clConsole.send( "[disabled]\n");
 				clConsole.send("	P - Preformance Dump\n");
 				clConsole.send("	W - Display logged in characters\n");
-				clConsole.send("	A - Reload accounts file\n");
-				clConsole.send("	R - Reload server, spawn, regions, and meta gm scripts.\n");
+				clConsole.send("	A - Reload accounts\n");
+				clConsole.send("	R - Reload scripts\n");
 				clConsole.send("	S - Toggle Secure mode ");
 				if (secure)
 					clConsole.send("[enabled]\n");
@@ -2867,7 +2860,7 @@ int main( int argc, char *argv[] )
 	
 	CIAO_IF_ERROR;
 
-	DefManager->Load();
+	DefManager->load();
 
 	startPython( argc, argv );
 	ScriptManager->load();
@@ -2920,7 +2913,7 @@ int main( int argc, char *argv[] )
 	loadskills();
 	clConsole.ProgressDone();
 
-	Accounts->LoadAccounts();
+	Accounts->LoadAccounts( false );
 
 	keeprun = Network->kr; //LB. for some technical reasons global varaibles CANT be changed in constructors in c++.
 	error = Network->faul; // i hope i can find a cleaner solution for that, but this works !!!
@@ -3109,15 +3102,14 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 
 	while (keeprun)
 	{
-		// Let other Python threads run
-	
 		// Uncomment by Dupois July 18, 2000! see note above about InitKbThread()
 		#if !defined(__unix__)
 		checkkey();
 		#endif
 
-		
+		// Python threading - start
 		_save = PyEval_SaveThread();
+
 		switch(SrvParams->niceLevel())
 		{
 			case 0: break;	// very unnice - hog all cpu time
@@ -3129,6 +3121,8 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 
 			default: Sleep(10); break;
 		}
+
+		// Python threading - end
 		PyEval_RestoreThread(_save);
 
 		if(loopTimeCount >= 1000)
@@ -3242,6 +3236,8 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 	
 	cwmWorldState->savenewworld( SrvParams->worldSaveModule() );
 	
+	DefManager->unload();
+
 	clConsole.PrepareProgress( "Saving Wolfpack.xml" );
 	SrvParams->flush();
 	clConsole.ProgressDone();

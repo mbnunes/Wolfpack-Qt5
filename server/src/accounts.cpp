@@ -98,9 +98,10 @@ int cAccount::Count()
 	return acctlist.size();
 }
 
-void cAccount::LoadAccounts( void )
+void cAccount::LoadAccounts( bool silent )
 {
-	clConsole.PrepareProgress( "Loading Accounts" );
+	if( !silent )
+		clConsole.PrepareProgress( "Loading Accounts" );
 
 	int b,c,ac, account,loopexit=0;
 	char accnumb[64]; 		
@@ -138,8 +139,11 @@ void cAccount::LoadAccounts( void )
 	while ( (strcmp((char*)script1, "EOF")) && (++loopexit < MAXLOOPS) );
 	closescript();	
 
-	clConsole.ProgressDone();
-	clConsole.send( "Loaded %i accounts\n\n", Count() );
+	if( !silent )
+	{
+		clConsole.ProgressDone();
+		clConsole.send( "Loaded %i accounts\n\n", Count() );
+	}
 }
 
 void cAccount::SaveAccounts( void )

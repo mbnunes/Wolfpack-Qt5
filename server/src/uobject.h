@@ -45,6 +45,7 @@
 
 // Library includes
 #include "qstring.h"
+#include "qstringlist.h"
 
 // Forward class declarations
 //class ISerialization;
@@ -55,13 +56,15 @@ class cUObject : public cSerializable
 {
 // Data Members
 public:
+	const std::vector< WPDefaultScript* > &getEvents( void );
 	void setEvents( std::vector< WPDefaultScript* > List );
-	std::vector< WPDefaultScript* > getEvents( void );
 	void clearEvents( void );
 	void addEvent( WPDefaultScript *Event );
 	void removeEvent( QString Name );
-
 	bool hasEvent( QString Name );
+
+	QString eventList( void ); // Returns the list of events
+	void recreateEvents( void ); // If the scripts are reloaded call that for each and every existing object
 
 	// Events
 	bool onUse( cUObject *Target );
@@ -75,7 +78,8 @@ public:
 	Coord_cl pos;
 // Methods
 protected:
-	std::vector< WPDefaultScript* > scriptChain;	
+	std::vector< WPDefaultScript* > scriptChain;
+	QStringList eventList_; // Important for recreating the scriptChain on reloading
 	void init();
 
 public:

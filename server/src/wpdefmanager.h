@@ -68,8 +68,9 @@ public:
 	WPDefManager() {};
 	virtual ~WPDefManager() {};
 
-	void Load( void );
-	void Unload( void );
+	void reload( void );
+	void load( void );
+	void unload( void );
 
 	QDomElement *getSection( WPDEF_TYPE Type, QString Section );
 	QStringList getSections( WPDEF_TYPE Type );

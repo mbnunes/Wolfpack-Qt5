@@ -226,24 +226,13 @@ void WPPythonScript::unload( void )
 	
 	PyObject_CallObject( method, NULL ); 
 	PyReportError();
-}
 
-// Assume we're reloaded
-void WPPythonScript::reload( void )
-{
-	if( codeModule == NULL )
-		return;
-
-	if( !PyObject_HasAttr( codeModule, PyString_FromString( "onReload" ) ) ) 
-		return;	
-
-	PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( "onReload" ) ); 
-	
-	if( ( method == NULL ) || ( !PyCallable_Check( method ) ) ) 
-		return; 
-	
-	PyObject_CallObject( method, NULL ); 
-	PyReportError();
+	// Invalidate ourself
+	if( codeModule != NULL )
+	{
+		PyObject_Del( codeModule );
+		codeModule = NULL;
+	}
 }
 
 // Find our module name

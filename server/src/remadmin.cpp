@@ -513,7 +513,7 @@ void racProcessInput(int s)
 		else if (inputbuffer == "reload")
 		{
 			racPrintf(s, "WOLFPACK: Reloading accounts file...");
-			Accounts->LoadAccounts();
+			Accounts->LoadAccounts( false );
 			racPrintf(s, "Done!\r\n");
 			racPrintf(s, "WOLFPACK: Reloading Server.scp, Spawn.scp, and Regions.scp....");
 			loadspawnregions();

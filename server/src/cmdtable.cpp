@@ -643,7 +643,7 @@ void command_letusin(UOXSOCKET s)
 
 void command_readaccounts(UOXSOCKET s)
 {
-	Accounts->LoadAccounts();
+	Accounts->LoadAccounts( false );
 	sysmessage(s,tr("Accounts reloaded...attention, if you changed exisiting(!) account numbers you should use the letusin command afterwards "));
 }
 

@@ -77,6 +77,59 @@ void WPScriptManager::remove( const QString& Name )
 	}
 }
 
+void WPScriptManager::reload( void )
+{
+	// First unload, then reload
+	unload();
+	reloadPython();
+	load();
+
+	// After reloading all scripts we *need* to recreate all script-pointers 
+	// assigned to scripted items and characters
+	// because all of them got invalidated while relaoding
+	clConsole.PrepareProgress( "Recreating assigned Script-pointers" );
+
+	AllItemsIterator iter_items;
+	
+	for( iter_items.Begin(); !iter_items.atEnd(); iter_items.Next() )
+	{
+		P_ITEM pi = iter_items.GetData();
+		
+		if( pi == NULL )
+			continue;
+
+		pi->recreateEvents();
+	}
+
+	AllCharsIterator iter_chars;
+	
+	for( iter_chars.Begin(); !iter_chars.atEnd(); iter_chars.Next() )
+	{
+		P_CHAR pc = iter_chars.GetData();
+		
+		if( pc == NULL )
+			continue;
+
+		pc->recreateEvents();
+	}
+
+	clConsole.ProgressDone();
+}
+
+// Unload all scripts
+void WPScriptManager::unload( void )
+{
+	WPScriptManager::iterator myIter;
+
+	for( myIter = Scripts.begin(); myIter != Scripts.end(); ++myIter )
+	{
+		myIter->second->unload();
+		delete myIter->second;
+	}
+
+	Scripts.clear();
+}
+
 void WPScriptManager::load( void )
 {
 	clConsole.PrepareProgress( "Loading Script Manager" );

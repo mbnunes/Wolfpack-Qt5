@@ -57,7 +57,6 @@ public:
 	// as it basically does nothing
 	virtual void load( const QDomElement &Data ) {};
 	virtual void unload( void ) {};
-	virtual void reload( void ) {};
 
 	// We need an identification value for the scripts
 	void setName( QString Value ) { Name = Value; };

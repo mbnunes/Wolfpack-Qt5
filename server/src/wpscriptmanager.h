@@ -61,6 +61,8 @@ public:
 	void remove( const QString& Name );
 
 	void load( void );
+	void reload( void );
+	void unload( void );
 };
 
 #endif // !defined(AFX_WPSCRIPTMANAGER_H__267F80C6_32E0_43C9_992F_9FAD5DECDC2C__INCLUDED_)

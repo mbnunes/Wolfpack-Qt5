@@ -50,7 +50,6 @@ public:
 
 	virtual void load( const QDomElement &Data );
 	virtual void unload( void );
-	virtual void reload( void );
 
 	// Normal Events
 	virtual bool onUse( P_CHAR User, P_ITEM Used );

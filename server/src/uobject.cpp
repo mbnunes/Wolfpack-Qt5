@@ -41,6 +41,7 @@
 #include "junk.h"
 #include "defines.h"
 #include "wpdefaultscript.h"
+#include "wpscriptmanager.h"
 
 // Debug includes and defines
 #undef  DBGFILE
@@ -95,6 +96,8 @@ void cUObject::moveTo( const Coord_cl& newpos )
  */
 void cUObject::Serialize(ISerialization &archive)
 {
+	QString events;
+
 	if (archive.isReading())
 	{
 		archive.read("name", name);
@@ -105,6 +108,9 @@ void cUObject::Serialize(ISerialization &archive)
 		archive.read("pos.z", pos.z);
 		archive.read("pos.map", pos.map);
 		archive.read("pos.plane", pos.plane);
+		archive.read("events", events );
+
+		eventList_ = QStringList::split( ",", events );
 	}
 	else if (archive.isWritting())
 	{
@@ -116,6 +122,9 @@ void cUObject::Serialize(ISerialization &archive)
 		archive.write("pos.z", pos.z);
 		archive.write("pos.map", pos.map);
 		archive.write("pos.plane", pos.plane);
+
+		events = eventList_.join( "," );
+		archive.write( "events", events );
 	}
 	cSerializable::Serialize( archive );
 }
@@ -129,6 +138,7 @@ inline string cUObject::objectID()
 void cUObject::setEvents( std::vector< WPDefaultScript* > List )
 {
 	scriptChain.clear();
+	eventList_.clear();
 
 	// "Reset" the events
 	if( List.size() == 0 )
@@ -137,18 +147,21 @@ void cUObject::setEvents( std::vector< WPDefaultScript* > List )
 	// Walk the List and add the events
 	for( UI08 i = 0; i < List.size(); i++ )
 		if( List[ i ] != NULL )
+		{
 			scriptChain.push_back( List[ i ] );
+			eventList_.push_back( List[ i ]->getName() );
+		}
 }
 
 // Gets a vector of all assigned events
-std::vector< WPDefaultScript* > cUObject::getEvents( void )
+const std::vector< WPDefaultScript* > &cUObject::getEvents( void )
 {
-	std::vector< WPDefaultScript* > List;
+	/*std::vector< WPDefaultScript* > List;
 
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
-		List.push_back( scriptChain[ i ] );
+		List.push_back( scriptChain[ i ] );*/
 
-	return List;
+	return scriptChain;
 }
 
 // Checks if the object has a specific event
@@ -169,6 +182,7 @@ void cUObject::addEvent( WPDefaultScript *Event )
 		return;
 
 	scriptChain.push_back( Event );
+	eventList_.push_back( Event->getName() );
 }
 
 void cUObject::removeEvent( QString Name )
@@ -180,6 +194,9 @@ void cUObject::removeEvent( QString Name )
 		if( (*myIterator)->getName() == Name )
 			scriptChain.erase( myIterator );
 	}
+ 
+	// I hope this works
+	eventList_.remove( Name );
 }
 
 /****************************
@@ -236,4 +253,30 @@ bool cUObject::onCollide( cUObject* Obstacle )
 	}
 
 	return false;
+}
+
+// Returns the list of events
+QString cUObject::eventList( void )
+{
+	return eventList_.join( "," );
+}
+
+// If the scripts are reloaded call that for each and every existing object
+void cUObject::recreateEvents( void )
+{
+	// Walk the eventList and recreate 
+	QStringList::const_iterator myIter;
+
+	scriptChain.clear();
+
+	for( myIter = eventList_.begin(); myIter != eventList_.end(); ++myIter )
+	{
+		WPDefaultScript *myScript = ScriptManager->find( *myIter );
+
+		// Script not found
+		if( myScript == NULL )
+			continue;
+
+		scriptChain.push_back( myScript );
+	}
 }

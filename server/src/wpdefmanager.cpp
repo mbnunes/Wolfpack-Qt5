@@ -124,8 +124,42 @@ bool WPDefManager::ImportSections( const QString& FileName )
 	return true;
 }
 
+// Clears nodes within the specified nodeMap
+void clearNodes( DefSections &nodeMap )
+{
+	DefSections::iterator myIter;
+
+	for( myIter = nodeMap.begin(); myIter != nodeMap.end(); ++myIter )
+	{
+		QDomElement node = myIter.data();
+		node.clear(); // Delete all subnodes - i'm unsure if this delets all data
+	}
+
+	nodeMap.clear(); // Delete it's contents
+}
+
+void WPDefManager::unload( void )
+{
+	// Clear all nodes inside our local tree
+	clearNodes( Items );
+	clearNodes( Scripts );
+	clearNodes( NPCs );
+	clearNodes( ItemLists );
+	clearNodes( Menus );
+	clearNodes( Resources );
+}
+
+void WPDefManager::reload( void )
+{
+	// First unload then reload
+	unload();
+
+	// Load them once again
+	load();
+}
+
 // Load the Definitions
-void WPDefManager::Load( void )
+void WPDefManager::load( void )
 {
 	clConsole.PrepareProgress( "Loading Definitions" );
 
