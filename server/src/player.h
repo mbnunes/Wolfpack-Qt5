@@ -71,8 +71,7 @@ public:
 	virtual void update( bool excludeself = false ); 
 	virtual void resend( bool clean = true, bool excludeself = false ); 
 	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
-	virtual UINT8 notority( P_CHAR pChar );
-	virtual bool kill();
+	virtual UINT8 notoriety( P_CHAR pChar );
 	virtual void showName( cUOSocket *socket );
 	virtual void fight(P_CHAR pOpponent);
 	virtual void soundEffect( UI16 soundId, bool hearAll = true );

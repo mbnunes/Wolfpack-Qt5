@@ -931,6 +931,13 @@ class cUOTxCharDeath: public cUOPacket
 {
 public:
 	cUOTxCharDeath(): cUOPacket( 0x2C, 2 ) {}
+	void setDead(bool data) {
+		if (data) {
+			(*this)[1] = 0;
+		} else {
+			(*this)[1] = 1;
+		}
+	}
 };
 
 // 0x3C ItemContent

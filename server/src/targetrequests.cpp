@@ -153,8 +153,10 @@ bool cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		pChar->setName("Character");
 		pChar->setBodyID( hex2dec( npc_ ).toULong() );
-		pChar->setOrgBodyID( pChar->bodyID() );
 	}
+
+	pChar->setOrgBodyID(pChar->bodyID());
+	pChar->setOrgSkin(pChar->skin());
 
 	// Send the char to it's surroundings
 	pChar->resend( false ); // It's new so no need to remove it first

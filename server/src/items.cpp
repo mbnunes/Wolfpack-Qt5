@@ -1402,15 +1402,15 @@ void cItem::showName( cUOSocket *socket )
 	}*/
 
 	// Show RepSys Settings of Victim when killed
-	if( corpse() && hasTag( "notority" ) )
+	if( corpse() && hasTag( "notoriety" ) )
 	{
-		int notority = getTag( "notority" ).toInt();
+		int notoriety = getTag( "notoriety" ).toInt();
 
-		if( notority == 1 )
+		if( notoriety == 1 )
 			socket->showSpeech( this, tr( "[Innocent]" ), 0x005A );
-		else if( notority == 2 )
+		else if( notoriety == 2 )
 			socket->showSpeech( this, tr( "[Criminal]" ), 0x03B2 );
-		else if( notority == 3 )
+		else if( notoriety == 3 )
 			socket->showSpeech( this, tr( "[Murderer]" ), 0x0026 );
 	}
 

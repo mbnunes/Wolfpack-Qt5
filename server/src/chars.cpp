@@ -129,6 +129,10 @@ P_NPC cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos )
 
 	pChar->applyDefinition( DefSection );
 
+	// OrgBody and OrgSkin are often not set in the scripts
+	pChar->setOrgBodyID(pChar->bodyID());
+	pChar->setOrgSkin(pChar->skin());
+
 	// Now we call onCreate
 	pChar->onCreate( section );
 

@@ -1184,7 +1184,7 @@ void cUOSocket::allowMove( Q_UINT8 sequence )
 {
 	cUOTxAcceptMove acceptMove;
 	acceptMove.setSequence(sequence);
-	acceptMove.setHighlight(_player->notority(_player));
+	acceptMove.setHighlight(_player->notoriety(_player));
 	send(&acceptMove);
 
 	_walkSequence = (sequence < 255) ? sequence : 0;
@@ -1231,7 +1231,7 @@ void cUOSocket::resendPlayer( bool quick )
 	// Resend our equipment
 	cUOTxDrawChar drawChar;
 	drawChar.fromChar( _player );
-	drawChar.setHighlight(_player->notority(_player));
+	drawChar.setHighlight(_player->notoriety(_player));
 	send( &drawChar );
 
 	cUOTxDrawPlayer drawPlayer;
@@ -1278,7 +1278,7 @@ void cUOSocket::updateChar( P_CHAR pChar )
 
 	cUOTxUpdatePlayer updatePlayer;
 	updatePlayer.fromChar( pChar );
-	updatePlayer.setHighlight( pChar->notority( _player ) );
+	updatePlayer.setHighlight( pChar->notoriety( _player ) );
 	send( &updatePlayer );
 }
 
@@ -1297,7 +1297,7 @@ void cUOSocket::sendChar( P_CHAR pChar )
 	// Then completely resend it
 	cUOTxDrawChar drawChar;
 	drawChar.fromChar( pChar );
-	drawChar.setHighlight( pChar->notority( _player ) );
+	drawChar.setHighlight( pChar->notoriety( _player ) );
 	pChar->sendTooltip( this );
 	send( &drawChar );
 }
@@ -1679,7 +1679,7 @@ void cUOSocket::updatePlayer()
 
 	cUOTxUpdatePlayer pUpdate;
 	pUpdate.fromChar( _player );
-	pUpdate.setHighlight( _player->notority( _player ) );
+	pUpdate.setHighlight( _player->notoriety( _player ) );
 	send( &pUpdate );
 }
 
@@ -2007,7 +2007,7 @@ void cUOSocket::resendWorld( bool clean )
 
 		cUOTxDrawChar drawChar;
 		drawChar.fromChar( pChar );
-		drawChar.setHighlight( pChar->notority( _player ) );
+		drawChar.setHighlight( pChar->notoriety( _player ) );
 		pChar->sendTooltip( this );
 		send( &drawChar );
 	}

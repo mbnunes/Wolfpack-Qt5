@@ -1488,6 +1488,24 @@ static PyObject* wpChar_updateflags( wpChar* self, PyObject* args )
 	return PyTrue;
 }
 
+static PyObject* wpChar_notoriety( wpChar* self, PyObject* args )
+{
+	if (self->pChar->free) {
+		return PyFalse;
+	}
+
+	P_CHAR target = 0;
+
+	if (!PyArg_ParseTuple( args, "|O&:char.notoriety([char])", PyConvertChar, &target))
+		return 0;
+
+	if (!target) {
+		target = self->pChar;
+	}
+
+	return PyInt_FromLong(self->pChar->notoriety(target));
+}
+
 /*!
 	Checks if a certain character is able to reach another object. 
 	The second parameter specifies the range the character needs to be in.
@@ -1710,6 +1728,7 @@ static PyMethodDef wpCharMethods[] =
 	{ "sound",			(getattrofunc)wpChar_sound,				METH_VARARGS, "Play a creature specific sound." },
 	{ "disturb",		(getattrofunc)wpChar_disturb,			METH_VARARGS, "Disturbs whatever this character is doing right now." },
 	{ "canreach",		(getattrofunc)wpChar_canreach,			METH_VARARGS, "Checks if this character can reach a certain object." },
+	{ "notoriety",		(getattrofunc)wpChar_notoriety,			METH_VARARGS, "Returns the notoriety of a character toward another character." },
 	{ "canpickup",		(getattrofunc)wpChar_canpickup,			METH_VARARGS, NULL },
 	{ "cansee",			(getattrofunc)wpChar_cansee,			METH_VARARGS, NULL },
 	{ "lightning",		(getattrofunc)wpChar_lightning,			METH_VARARGS, NULL },
@@ -2017,4 +2036,13 @@ int wpChar_compare( PyObject *a, PyObject *b )
 	P_CHAR pB = getWpChar( b );
 
 	return !( pA == pB );
+}
+int PyConvertChar( PyObject *object, P_CHAR* character) {
+	if (object->ob_type != &wpCharType) {
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	*character = ((wpChar*)object)->pChar;
+	return 1;
 }

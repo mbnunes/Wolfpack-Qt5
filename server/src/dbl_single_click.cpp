@@ -118,7 +118,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 		if( !pc_currchar->Owns( pi ) && !pc_currchar->isGM() && pc_currchar->isInnocent() )
 		{
 			// Innocent Corpse?
-			if( pi->hasTag( "notority" ) && pi->getTag( "notority" ).toInt() == 1 ) 
+			if( pi->hasTag( "notoriety" ) && pi->getTag( "notoriety" ).toInt() == 1 ) 
 			{
 				pc_currchar->makeCriminal();
 			}

@@ -162,8 +162,13 @@ void cUOTxUnicodeSpeech::setText( const QString &data )
 // Sets all data automatically
 void cUOTxConfirmLogin::fromChar( P_CHAR pChar )
 {
+	if (pChar->isDead()) {
+		setBody(pChar->gender() ? 0x193 : 0x192);
+	} else {
+		setBody(pChar->bodyID());
+	}
+
 	setSerial( pChar->serial() );
-	setBody( pChar->bodyID() );
 	setDirection( pChar->direction() );
 	setX( pChar->pos().x );
 	setY( pChar->pos().y );
@@ -253,12 +258,18 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 	setX( pChar->pos().x );
 	setY( pChar->pos().y );
 	setZ( pChar->pos().z );	
-	setBody(pChar->bodyID());
 
-	if (pChar->isHuman()) {
-		setHue(pChar->skin() | 0x8000);
+	if (pChar->isDead()) {
+		setBody(pChar->gender() ? 0x193 : 0x192);
+		setHue(0);
 	} else {
-		setHue(pChar->skin());
+		setBody(pChar->bodyID());
+
+		if (pChar->isHuman()) {
+			setHue(pChar->skin() | 0x8000);
+		} else {
+			setHue(pChar->skin());
+		}
 	}
 	
 	// If he's runningSteps we need to take that into account here
@@ -300,17 +311,24 @@ void cUOTxDrawChar::addEquipment( Q_UINT32 serial, Q_UINT16 model, Q_UINT8 layer
 void cUOTxDrawChar::fromChar( P_CHAR pChar )
 {
 	setSerial( pChar->serial() );
-	setModel( pChar->bodyID() );
+
+	if (pChar->isDead()) {
+		setModel(pChar->gender() ? 0x193 : 0x192);
+		setColor(0);
+	} else {
+		setModel(pChar->bodyID());
+
+		if (pChar->isHuman()) {
+			setColor(pChar->skin()|0x8000);
+		} else {
+			setColor( pChar->skin() );
+		}
+	}
+
 	setX( pChar->pos().x );
 	setY( pChar->pos().y );
 	setZ( pChar->pos().z );
 	setDirection( pChar->direction() );
-
-	if (pChar->isHuman()) {
-		setColor(pChar->skin()|0x8000);
-	} else {
-		setColor( pChar->skin() );
-	}
 
 	if( pChar->isAtWar() )
 		setFlag( 0x40 );
@@ -372,12 +390,17 @@ void cUOTxCharEquipment::fromItem( P_ITEM pItem )
 void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 {
 	setSerial( pChar->serial() );
-	setBody( pChar->bodyID() );
-	
-	if (pChar->isHuman()) {
-		setSkin(pChar->skin() | 0x8000);
+
+	if (pChar->isDead()) {
+		setBody(pChar->gender() ? 0x193 : 0x192);
 	} else {
-		setSkin(pChar->skin());
+		setBody(pChar->bodyID());
+
+		if (pChar->isHuman()) {
+			setSkin(pChar->skin() | 0x8000);
+		} else {
+			setSkin(pChar->skin());
+		}
 	}
 	
 	if( pChar->isAtWar() )

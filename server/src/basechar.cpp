@@ -31,6 +31,7 @@
 // wolfpack includes
 #include "basechar.h"
 #include "basedef.h"
+#include "corpse.h"
 #include "npc.h"
 #include "player.h"
 #include "globals.h"
@@ -509,9 +510,6 @@ void cBaseChar::setBeardStyle( UINT16 d)
 
 void cBaseChar::playDeathSound()
 {
-	if( !orgBodyID_ )
-		orgBodyID_ = bodyID_;
-
 	if( orgBodyID_ == 0x0191 )
 	{
 		switch( RandomNum(0, 3) )
@@ -521,9 +519,7 @@ void cBaseChar::playDeathSound()
 		case 2:		soundEffect( 0x0152 );	break;// Female Death
 		case 3:		soundEffect( 0x0153 );	break;// Female Death
 		}
-	}
-	else if( orgBodyID_ == 0x0190 )
-	{
+	} else if( orgBodyID_ == 0x0190 ) {
 		switch( RandomNum(0, 3) )
 		{
 		case 0:		soundEffect( 0x015A );	break;// Male Death
@@ -531,10 +527,8 @@ void cBaseChar::playDeathSound()
 		case 2:		soundEffect( 0x015C );	break;// Male Death
 		case 3:		soundEffect( 0x015D );	break;// Male Death
 		}
-	}
-	else
-	{
-		bark( Bark_Death );
+	} else {
+		bark(Bark_Death);
 	}
 }
 
@@ -1657,17 +1651,15 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 		Py_DECREF( args );
 	}
 
-	// Invulnerable Targets don't take any damage at all
-	if( isInvulnerable() )
-		amount = 0;
-
 	// The damage has been resisted or scripts have taken care of the damage otherwise
-	if( !amount )
+	// Invulnerable Targets don't take any damage at all
+	if (amount == 0 || isInvulnerable()) {
 		return 0;
+	}
 
 	// Would we die?
 	if( amount >= hitpoints_ ) {
-		kill();
+		kill(source);
 	} else {
 		hitpoints_ -= amount;
 		updateHealth();
@@ -1958,13 +1950,13 @@ QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 	return name;
 }
 
-bool cBaseChar::onDeath()
+bool cBaseChar::onDeath(cUObject *source, P_ITEM corpse)
 {
 	bool result = false;
 
 	if( scriptChain )
 	{
-		PyObject *args = Py_BuildValue( "O&", PyGetCharObject, this );
+		PyObject *args = Py_BuildValue( "(O&O&O&)", PyGetCharObject, this, PyGetObjectObject, source, PyGetItemObject, corpse );
 		result = cPythonScript::callChainedEventHandler( EVENT_DEATH, scriptChain, args );
 		Py_DECREF( args );
 	}
@@ -2059,6 +2051,227 @@ void cBaseChar::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
 	}
 }
 
-bool cBaseChar::kill() {
-	return false;
+bool cBaseChar::kill(cUObject *source) {
+	if (free || isDead()) {
+		return false;
+	}
+
+	changed(TOOLTIP);
+	changed_ = true;
+	setDead(true);
+	hitpoints_ = 0;
+	setPoisoned(0);
+	setPoison(0);
+
+	if (isPolymorphed()) {
+		setBodyID(orgBodyID_);
+		setSkin(orgSkin_);
+		setPolymorphed(false);
+	}
+
+	P_CHAR pKiller = dynamic_cast<P_CHAR>(source);
+	P_ITEM pTool = dynamic_cast<P_ITEM>(source);
+
+	// If we were killed by some sort of tool (explosion potions)
+	// the owner is responsible for the murder
+	if (pTool && pTool->owner()) {
+		pKiller = pTool->owner();
+	}
+
+	// Only trigger the reputation system if we can find someone responsible 
+	// for the murder
+	if (pKiller) {
+		// Only award karma and fame in unguarded areas
+		if (!pKiller->inGuardedArea()) {
+			pKiller->awardFame(fame_);
+			pKiller->awardKarma(this, 0 - karma_);
+		}
+		
+		P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pKiller);
+
+		// Only players can become criminal
+		if (pPlayer && isInnocent()) {
+			pPlayer->makeCriminal();
+			pPlayer->setKills(pPlayer->kills() + 1);
+			setMurdererSerial(pPlayer->serial());
+
+			// Report the number of slain people to the player
+			if (pPlayer->socket()) {
+				pPlayer->socket()->sysMessage(tr("You have killed %1 innocent people.").arg(pPlayer->kills()));
+			}
+
+			// The player became a murderer
+			if (pPlayer->kills() >= SrvParams->maxkills()) {
+				pPlayer->setMurdererTime(getNormalizedTime() + SrvParams->murderdecay() * MY_CLOCKS_PER_SEC);
+
+				if (pPlayer->socket()) {
+					pPlayer->socket()->clilocMessage(502134);
+				}			
+			}
+		}
+	}
+
+	// Fame is reduced by 10% upon death
+	fame_ *= 0.90;
+	
+
+	// Create the corpse
+	cCorpse *corpse = 0;
+	bool summoned = false;
+
+	P_ITEM backpack = getBackpack();
+	P_NPC npc = dynamic_cast<P_NPC>(this);
+	P_PLAYER player = dynamic_cast<P_PLAYER>(this);
+
+	if (player) {
+		player->unmount();
+	}
+
+	if (npc && npc->summoned()) {
+		summoned = true;
+	}
+
+	cCharBaseDef *basedef = BaseDefManager::instance()->getCharBaseDef(bodyID_);
+
+	// If we are a creature type with a corpse and if we are not summoned
+	// we create a corpse
+	if (!summoned && basedef && !basedef->noCorpse()) {
+		corpse = new cCorpse(true);
+		
+		const cElement *elem = DefManager->getDefinition(WPDT_ITEM, "2006");
+		if (elem) {
+			corpse->applyDefinition(elem);
+		}
+
+		corpse->setName(name_);
+		corpse->setColor(skin_);
+		corpse->setBodyId(bodyID_);
+		corpse->setTag("human", cVariant(isHuman() ? 1 : 0 ));
+		corpse->setTag("name", cVariant(name_));
+		
+		// Storing the player's notoriety
+		// So a singleclick on the corpse
+		// Will display the right color
+		if( isInnocent() )
+			corpse->setTag("notoriety", cVariant(1));
+		else if( isCriminal() )
+			corpse->setTag("notoriety", cVariant(2));
+		else if( isMurderer() )
+			corpse->setTag("notoriety", cVariant(3));
+
+		if (npc) {
+			corpse->setCarve(npc->carve());
+		}
+
+        corpse->setOwner(this);
+		corpse->moveTo(pos_);
+		corpse->setDirection(direction());
+
+		// stores the time and the murderer's name
+		if (pKiller) {
+			corpse->setMurderer(pKiller->name());
+			corpse->setMurderTime(uiCurrentTime);
+		}
+
+		// Move possible equipment to the corpse
+		for (unsigned char layer = SingleHandedWeapon; layer <= InnerLegs; ++layer) {
+			P_ITEM item = GetItemOnLayer(layer);
+
+			if (item) {
+				if (layer != Backpack && layer != Hair && layer != FacialHair) {
+					// Put into the backpack
+					if (item->newbie()) {
+						backpack->addItem(item);
+					} else {
+						corpse->addItem(item);
+						corpse->addEquipment(layer, item->serial());
+					}
+				} else if (layer == Hair) {
+					corpse->setHairStyle(item->id());
+					corpse->setHairColor(item->color());
+				} else if (layer == FacialHair) {
+					corpse->setBeardStyle(item->id());
+					corpse->setBeardColor(item->color());
+				}
+			}
+		}
+        
+		corpse->setDecayTime(uiCurrentTime + SrvParams->corpseDecayTime() * MY_CLOCKS_PER_SEC);		
+		corpse->update();
+	}
+
+	// Create Loot - Either on the corpse or on the ground
+	QPtrList<cItem> posessions = backpack->getContainment();
+
+	for (P_ITEM item = posessions.first(); item; item = posessions.next()) {
+		if (!item->newbie()) {
+			if (corpse) {
+				corpse->addItem(item);
+			} else {
+				item->moveTo(pos_);
+				item->update();
+			}
+		}
+	}
+
+	// Create Loot
+	if (npc && !npc->lootList().isEmpty()) {
+		
+	}
+
+	// Summoned monsters simply disappear
+	if (summoned) {
+		// Display a nice smoke puff where we disappear
+
+		onDeath(source, corpse);
+		cCharStuff::DeleteChar(this);
+		return true;
+	}
+
+	playDeathSound();
+
+	cUOTxDeathAction dAction;
+	dAction.setSerial(serial_);
+
+	if (corpse) {
+		dAction.setCorpse(corpse->serial());
+	}
+
+	cUOTxRemoveObject rObject;
+	rObject.setSerial(serial_);
+	
+	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() ) {
+		if (mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange())) {			
+			mSock->send(&dAction);
+			
+			if (mSock->player() != this) {
+				mSock->send(&rObject);
+			}
+		}
+	}
+
+	onDeath(source, corpse);
+
+	if (npc) {
+		cCharStuff::DeleteChar(this);
+	}
+
+	if (player) {
+		// Create a death shroud for the player
+		P_ITEM shroud = cItem::createFromScript("204e");
+		if (shroud) {
+			addItem(OuterTorso, shroud);
+			shroud->update();
+		}
+
+		if (player->socket()) {
+			player->socket()->resendPlayer(true);
+			
+			// Notify the player of his death
+			cUOTxCharDeath death;
+			player->socket()->send(&death);
+		}
+	}
+
+	return true;
 }

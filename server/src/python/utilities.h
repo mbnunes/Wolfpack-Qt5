@@ -90,6 +90,7 @@ PyObject *PyGetObjectObject( cUObject* );
 bool checkWpChar( PyObject *object );
 PyObject* PyGetCharObject( P_CHAR );
 P_CHAR getWpChar( PyObject* );
+int PyConvertChar( PyObject *object, P_CHAR* character);
 
 bool checkWpAccount( PyObject *object );
 PyObject* PyGetAccountObject( cAccount* );

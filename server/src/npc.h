@@ -93,8 +93,7 @@ public:
 	virtual void resend( bool clean = true, bool excludeself = false ); 
 	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
 			void talk( const UINT32 MsgID, const QString& params = 0, const QString& affix = 0, bool prepend = false, UI16 color = 0xFFFF, cUOSocket* socket = 0 );
-	virtual UINT8 notority( P_CHAR pChar = NULL );
-	virtual bool kill();
+	virtual UINT8 notoriety( P_CHAR pChar = NULL );
 	virtual void showName( cUOSocket *socket );
 	virtual void fight(P_CHAR pOpponent);
 	virtual void soundEffect( UI16 soundId, bool hearAll = true );
@@ -136,6 +135,7 @@ public:
 	UINT32			aiCheckTime() const;
 	UINT16			aiCheckInterval() const;
 	UINT8			criticalHealth() const;
+	bool			summoned() const;
 	// bit flag getters
 	bool			hasSpell( UINT8 spell ) const;
 	// advanced getters for data structures
@@ -166,6 +166,7 @@ public:
     void setTamingMinSkill(INT16 data);
 	void setOwner(P_PLAYER data, bool nochecks = false);
 	void setCarve(const QString &data);
+	void setSummoned(bool data);
 	void setSpawnregion(const QString &data);
 	void setStablemasterSerial(SERIAL data);
 	void setLootList(const QString &data);
@@ -174,6 +175,7 @@ public:
 	void setAICheckTime( UINT32 data );
 	void setAICheckInterval( UINT16 data );
 	void setCriticalHealth( UINT8 data );
+	
 	// bit flag setters
 	void setSpell( UINT8 spell, bool data );
 	// advanced setters for data structures
@@ -246,6 +248,7 @@ protected:
     // Additional property flags
     // 
     // Bits:
+	// 0x00000001 Creature is summoned
     UINT32 additionalFlags_;
 
 	// Owner of this NPC.
@@ -593,7 +596,20 @@ inline void cNPC::setWanderDestination(const Coord_cl &data)
 
 inline bool cNPC::isInnocent()
 {
-	return notority() == 1;
+	return notoriety() == 1;
+}
+
+inline bool cNPC::summoned() const {
+	return additionalFlags_ & 0x01 != 0;
+}
+
+inline void cNPC::setSummoned(bool data) {
+	if (data) {
+		additionalFlags_ &= ~0x01;
+	} else {
+		additionalFlags_ |= 0x01;
+	}
+	changed_ = true;
 }
 
 #endif /* CNPC_H_HEADER_INCLUDED */

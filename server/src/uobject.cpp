@@ -90,8 +90,9 @@ void cUObject::init()
 
 void cUObject::moveTo( const Coord_cl& newpos, bool noRemove )
 {
-	if( !noRemove )
+	if( !noRemove ) {
 		MapObjects::instance()->remove( this );
+	}
 
 	pos_ = newpos;
 

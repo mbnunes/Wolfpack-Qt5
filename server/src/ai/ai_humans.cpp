@@ -97,7 +97,7 @@ void Human_Vendor::onSpeechInput( P_PLAYER pTalker, const QString &comm )
 
 Human_Stablemaster::Human_Stablemaster( P_NPC npc ) : AbstractAI( npc ) 
 {
-	notorityOverride_ = 1;
+	notorietyOverride_ = 1;
 	m_actions.append( new Action_Wander( npc, this ) );
 	m_actions.append( new Action_FleeAttacker( npc, this ) );
 }
@@ -235,7 +235,7 @@ void Human_Guard_Called::registerInFactory()
 
 Human_Guard_Called::Human_Guard_Called( P_NPC npc ) : AbstractAI( npc )
 {
-	notorityOverride_ = 1;
+	notorietyOverride_ = 1;
 	m_actions.append( new Human_Guard_Called_Fight( npc, this ) );
 	m_actions.append( new Human_Guard_Called_TeleToTarget( npc, this ) );
 	m_actions.append( new Human_Guard_Called_Disappear( npc, this ) );
@@ -351,7 +351,7 @@ void Human_Guard::registerInFactory()
 
 Human_Guard::Human_Guard( P_NPC npc ) : AbstractAI( npc ), m_currentVictim( NULL )
 {
-	notorityOverride_ = 1;
+	notorietyOverride_ = 1;
 	m_actions.append( new Human_Guard_Wander( npc, this ) );
 	m_actions.append( new Human_Guard_MoveToTarget( npc, this ) );
 	m_actions.append( new Human_Guard_Fight( npc, this ) );

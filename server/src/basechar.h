@@ -75,7 +75,7 @@ public:
 	typedef QMap<ushort, cItem*> ItemContainer;
 	typedef QValueVector< cBaseChar* > CharContainer;
 	typedef QValueVector< cTempEffect* > EffectContainer;
-	enum enLayer { TradeWindow, SingleHandedWeapon, DualHandedWeapon, Shoes, Pants, Shirt, Hat, Gloves,
+	enum enLayer { TradeWindow = 0, SingleHandedWeapon, DualHandedWeapon, Shoes, Pants, Shirt, Hat, Gloves,
 	Ring, Neck = 0xA, Hair, Waist, InnerTorso, Bracelet, FacialHair = 0x10,  MiddleTorso, 
 	Earrings, Arms, Back, Backpack, OuterTorso, OuterLegs, InnerLegs, Mount, BuyRestockContainer,
 	BuyNoRestockContainer, SellContainer, BankBox, Dragging };
@@ -100,13 +100,14 @@ public:
 	virtual void update( bool excludeself = false ) = 0; 
 	virtual void resend( bool clean = true, bool excludeself = false ) = 0; 
 	// other methods
-	virtual uchar notority( P_CHAR pChar ) = 0; // Gets the notority towards another char
+	virtual uchar notoriety( P_CHAR pChar ) = 0; // Gets the notoriety towards another char
 
 	/*!
 		Kills the character.
 		\returns True if the character was really killed and false if nothing changed.
 	*/
-	virtual bool kill();
+	virtual bool kill(cUObject *source);
+
 	virtual void showName( cUOSocket *socket ) = 0;
 	virtual void fight(P_CHAR pOpponent) = 0;
 	virtual void soundEffect( UI16 soundId, bool hearAll = true ) = 0;
@@ -114,7 +115,7 @@ public:
 	virtual uint takeGold( uint amount, bool useBank = false ) = 0;
 	virtual void log( eLogLevel, const QString &string ) = 0;
 	virtual void log( const QString &string ) = 0;
-	unsigned int damage( eDamageType type, unsigned int amount, cUObject *source = 0 );
+	unsigned int damage(eDamageType type, unsigned int amount, cUObject *source = 0);
 	void createTooltip(cUOTxTooltipList &tooltip, cPlayer *player);
 	
 	// other public methods
@@ -173,7 +174,7 @@ public:
 	virtual bool onShowPaperdoll( P_CHAR pOrigin ); // The paperdoll of this character is requested, there is no vice-versa call
 	virtual bool onShowSkillGump(); //Show Skillgump
 	virtual bool onSkillUse( UI08 Skill ); // The character uses %Skill
-	virtual bool onDeath();
+	virtual bool onDeath(cUObject *source, P_ITEM corpse);
 	virtual bool onDropOnChar( P_ITEM pItem );
 	virtual QString onShowPaperdollName( P_CHAR pOrigin ); // only change the viewed name
 	virtual bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object

@@ -197,7 +197,7 @@ void cPlayer::update( bool excludeself )
 
 		if( pChar && pChar->socket() && pChar->inRange( this, pChar->visualRange() ) )
 		{
-			updatePlayer->setHighlight( notority( pChar ) );
+			updatePlayer->setHighlight( notoriety( pChar ) );
 			mSock->send( new cUOTxUpdatePlayer( *updatePlayer ) );
 		}
 	}
@@ -254,7 +254,7 @@ void cPlayer::resend( bool clean, bool excludeself )
 		if( ( isHidden() || ( isDead() && !isAtWar() ) ) && !pChar->isGMorCounselor() )
 			continue;
 
-		drawChar.setHighlight( notority( pChar ) );
+		drawChar.setHighlight( notoriety( pChar ) );
 
 		sendTooltip( mSock );
 		mSock->send( &drawChar );
@@ -347,7 +347,7 @@ void cPlayer::talk( const QString &message, UI16 color, UINT8 type, bool autospa
 	}
 }
 
-UINT8 cPlayer::notority( P_CHAR pChar ) // Gets the notority toward another char
+UINT8 cPlayer::notoriety( P_CHAR pChar ) // Gets the notoriety toward another char
 {
 	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red
 	UINT8 result;
@@ -386,274 +386,6 @@ UINT8 cPlayer::notority( P_CHAR pChar ) // Gets the notority toward another char
 	}
 
 	return result;
-}
-
-bool cPlayer::kill()
-{
-	changed( TOOLTIP );
-	changed_ = true;
-	int ele;
-
-	if (free || isDead() || isInvulnerable()) {
-		return false;
-	}
-
-	// Do this in the beginning
-	setDead(true);
-	hitpoints_ = 0;
-
-	if (isPolymorphed()) {
-		setBodyID(orgBodyID_);
-		setSkin(orgSkin_);
-		setPolymorphed(false);
-	}
-
-	setMurdererSerial( INVALID_SERIAL ); // Reset previous murderer serial # to zero
-
-	QString murderer( "" );
-
-	P_CHAR pAttacker = FindCharBySerial( attackerSerial_ );
-	if( pAttacker )
-	{
-		pAttacker->setCombatTarget(INVALID_SERIAL);
-		murderer = pAttacker->name();
-	}
-
-	// We do know our murderer here (or if there is none it's null)
-	// So here it's time to kall onKilled && onKill
-	// And give them a chance to return true
-	// But take care. You would need to create the corpse etc. etc.
-	// Which is *hard* work
-	// TODO: Call onKilled/onKill events
-
-	// Reputation system ( I dont like the idea of this loop )
-	cCharIterator iter_char;
-	P_CHAR pc_t;
-
-	for( pc_t = iter_char.first(); pc_t; pc_t = iter_char.next() )
-	{
-		if( ( pc_t->swingTarget() == serial() || pc_t->combatTarget() == serial() ) && !pc_t->free )
-		{
-/*			if( pc_t->npcaitype() == 4 )
-			{
-				pc_t->setSummonTimer( ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * 20 ) ) );
-				pc_t->setNpcWander(2);
-				pc_t->setNextMoveTime();
-				pc_t->talk( tr( "Thou have suffered thy punishment, scoundrel." ), -1, 0, true );
-			}*/
-
-			pc_t->setCombatTarget( INVALID_SERIAL );
-			pc_t->setNextHitTime(0);
-			pc_t->setSwingTarget( INVALID_SERIAL );
-
-			if( pc_t->attackerSerial() != INVALID_SERIAL )
-			{
-				P_CHAR pc_attacker = FindCharBySerial( pc_t->attackerSerial() );
-				pc_attacker->setAttackFirst( false );
-				pc_attacker->setAttackerSerial( INVALID_SERIAL );
-			}
-
-			pc_t->setAttackerSerial(INVALID_SERIAL);
-			pc_t->setAttackFirst( false );
-
-			if( ( pc_t->objectType() == enPlayer ) && !pc_t->inGuardedArea() )
-			{
-				P_PLAYER pp_t = dynamic_cast<P_PLAYER>(pc_t);
-				pp_t->awardKarma( this, ( 0 - ( karma_ ) ) );
-				pp_t->awardFame( fame_ );
-
-				if( isInnocent() && pp_t->attackFirst() )
-				{
-					setMurdererSerial( pp_t->serial() );
-					pp_t->kills_++;
-
-					// Notify the user of reputation changes
-					if( pp_t->socket() )
-					{
-						pp_t->socket()->sysMessage( tr( "You have killed %1 innocent people." ).arg( pp_t->kills_ ) );
-
-						if( pp_t->kills_ >= SrvParams->maxkills() )
-						{
-							pp_t->socket()->sysMessage( tr( "You are now a murderer!" ) );
-
-							// Set the Murder Decay Time
-							pp_t->setMurdererTime( getNormalizedTime() + SrvParams->murderdecay() * MY_CLOCKS_PER_SEC );
-						}
-					}
-				}
-			}
-
-			Log::instance()->print( LOG_NOTICE, QString( "%1 was killed by %2\n" ).arg( name() ).arg( pc_t->name() ) );
-
-			if( pc_t->objectType() == enNPC && pc_t->isAtWar() )
-			{
-				dynamic_cast<P_NPC>(pc_t)->toggleCombat();
-			}
-		}
-	}
-
-	// Now for the corpse
-	P_ITEM pi_backpack = getBackpack();
-
-	unmount();
-
-#pragma message(__FILE__ Reminder "Implement here tradewindow closing and disposal of it's cItem*")
-	// Close here the trade window... we still not sure how this will work, so I took out
-	//the old code
-	ele = 0;
-
-	// I would *NOT* do that but instead replace several *send* things
-	// We have ->dead already so there shouldn't be any checks regarding
-	// 0x192-0x193 to see if the char is dead or not
-	if( orgBodyID_ == 0x0191 )
-		setBodyID( 0x0193 );	// Male or Female
-	else
-		setBodyID( 0x0192 );
-
-	playDeathSound();
-
-	setSkin( 0x0000 ); // Undyed
-
-	// Reset poison
-	setPoisoned(0);
-	setPoison(0);
-
-	// Create our Corpse
-	cCorpse *corpse = new cCorpse( true );
-
-	const cElement *elem = DefManager->getDefinition( WPDT_ITEM, "2006" );
-
-	if( elem )
-		corpse->applyDefinition( elem );
-
-	corpse->setName( tr( "corpse of %1" ).arg( name() ) );
-	corpse->setColor( orgSkin() );
-
-	// Check for the player hair/beard
-	P_ITEM pHair = GetItemOnLayer( 11 );
-
-	if (pHair) {
-		corpse->setHairColor(pHair->color());
-		corpse->setHairStyle(pHair->id());
-	}
-
-	P_ITEM pBeard = GetItemOnLayer( 16 );
-
-	if (pBeard) {
-		corpse->setBeardColor( pBeard->color() );
-		corpse->setBeardStyle( pBeard->id() );
-	}
-
-	// Storing the player's notority
-	// So a singleclick on the corpse
-	// Will display the right color
-	if( isInnocent() )
-		corpse->setTag("notority", cVariant(1));
-	else if( isCriminal() )
-		corpse->setTag("notority", cVariant(2));
-	else if( isMurderer() )
-		corpse->setTag("notority", cVariant(3));
-
-    corpse->setOwner(this);
-
-	corpse->setBodyId( orgBodyID_ );
-	corpse->setTag("human", cVariant(isHuman() ? 1 : 0));
-	corpse->setTag("name", cVariant(name()));
-
-	corpse->moveTo(pos());
-
-	corpse->setDirection(direction());
-
-	// Set the ownerserial to the player's
-	corpse->SetOwnSerial(serial());
-
-	// stores the time and the murderer's name
-	corpse->setMurderer(murderer);
-	corpse->setMurderTime(uiCurrentTime);
-
-	std::vector<P_ITEM> equipment;
-	
-	// Check the Equipment and Unequip if neccesary
-	cBaseChar::ItemContainer::const_iterator iter;
-	for (iter = content_.begin(); iter != content_.end(); iter++) {
-		equipment.push_back(iter.data());
-	}
-
-	for( std::vector< P_ITEM >::iterator iit = equipment.begin(); iit != equipment.end(); ++iit )
-	{
-		P_ITEM pi_j = *iit;
-
-		// unequip trigger...
-		if( pi_j->layer() != 0x0B && pi_j->layer() != 0x10 )
-		{	// Let's check all items, except HAIRS and BEARD
-
-			if( pi_j->type() == 1 && pi_j->layer() != 0x1A && pi_j->layer() != 0x1B && pi_j->layer() != 0x1C && pi_j->layer() != 0x1D )
-			{   // if this is a pack but it's not a VendorContainer(like the buy container) or a bankbox
-				cItem::ContainerContent container = pi_j->content();
-				cItem::ContainerContent::const_iterator it2 = container.begin();
-				for ( ; it2 != container.end(); ++it2 ) {
-					P_ITEM pi_k = *it2;
-
-					// put the item in the corpse only of we're sure it's not a newbie item or a spellbook
-					if (!pi_k->newbie() && (pi_k->type() != 9)) {
-						corpse->addItem( pi_k );
-					}
-				}
-			}
-			// if it's a normal item but ( not newbie and not bank items )
-			else if ( !pi_j->newbie() && pi_j->layer() != 0x1D )
-			{
-				if( pi_j != pi_backpack )
-				{
-					pi_j->removeFromView();
-					corpse->addEquipment( pi_j->layer(), pi_j->serial() );
-					corpse->addItem( pi_j );
-				}
-			}
-			else if( ( pi_j != pi_backpack ) && ( pi_j->layer() != 0x1D ) )
-			{
-				// else if the item is newbie put it into char's backpack
-				pi_j->removeFromView();
-				pi_backpack->addItem( pi_j );
-			}
-
-			//if( ( pi_j->layer() == 0x15 ) && ( shop == 0 ) )
-			//	pi_j->setLayer( 0x1A );
-		}
-	}
-
-	corpse->update();
-
-	cUOTxDeathAction dAction;
-	dAction.setSerial(serial());
-	dAction.setCorpse(corpse->serial());
-
-	cUOTxRemoveObject rObject;
-	rObject.setSerial( serial() );
-
-	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange() ) && ( mSock != socket_ ) )
-		{
-			mSock->send( &dAction );
-			mSock->send( &rObject );
-		}
-
-	resend(false);
-
-	P_ITEM pItem = cItem::createFromScript("204e");
-	if (pItem) {
-		this->addItem(cBaseChar::OuterTorso, pItem);
-		pItem->update();
-	}
-
-	if(socket_) {
-		cUOTxCharDeath cDeath;
-		socket_->send(&cDeath);
-	}
-
-	// trigger the event now
-	onDeath();
-	return true;
 }
 
 void cPlayer::turnTo( cUObject *object )
@@ -877,7 +609,7 @@ void cPlayer::showName( cUOSocket *socket )
 	Q_UINT16 speechColor;
 
 	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red
-	switch( notority( socket->player() ) )
+	switch( notoriety( socket->player() ) )
 	{
 		case 0x01:	speechColor = 0x59;		break; //blue
 		case 0x02:	speechColor = 0x3F;		break; //green

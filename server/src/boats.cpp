@@ -542,7 +542,7 @@ void cBoat::turn( SI08 turn )
 					iter_sock.current()->resendPlayer();
 				else if( !( ( pc->isHidden() || ( pc->isDead() && !pc->isAtWar() ) ) && !iter_sock.current()->player()->isGMorCounselor() ) )
 				{
-					drawChar.setHighlight( pc->notority( iter_sock.current()->player() ) );
+					drawChar.setHighlight( pc->notoriety( iter_sock.current()->player() ) );
 					sendTooltip( iter_sock.current() );
 					iter_sock.current()->send( &drawChar );
 				}
@@ -770,7 +770,7 @@ bool cBoat::move( void )
 				}
 				if( !( ( pc->isHidden() || ( pc->isDead() && !pc->isAtWar() ) ) && !iter_sock.current()->player()->isGMorCounselor() ) )
 				{
-					drawChar.setHighlight( pc->notority( iter_sock.current()->player() ) );
+					drawChar.setHighlight( pc->notoriety( iter_sock.current()->player() ) );
 					sendTooltip( iter_sock.current() );
 					iter_sock.current()->send( &drawChar );
 				}

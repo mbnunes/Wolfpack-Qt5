@@ -129,7 +129,7 @@ void DragAndDrop::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 		// if the corpse is innocent and not in our guild
 		bool sameGuild = true;//( GuildCompare( pChar, outmostCont->owner() ) != 0 );
 
-		if( outmostCont->hasTag( "notority" ) && outmostCont->getTag( "notority" ).toInt() == 1 && 
+		if( outmostCont->hasTag( "notoriety" ) && outmostCont->getTag( "notoriety" ).toInt() == 1 && 
 			!pChar->Owns( outmostCont ) && !sameGuild )
 		{
 //			pChar->karma -= 5;
