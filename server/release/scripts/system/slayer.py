@@ -30,7 +30,6 @@ class SlayerGroup:
 		self.opposition = None # Opposing group
 		self.super = None # Super slayer for this group
 		self.entries = [] # Normal Slayer Entries for this group
-		self.foundon = [] # BaseIds this is found on
 
 	def addsuper(self, sup):
 		self.super = sup
@@ -50,7 +49,6 @@ reptilian = SlayerGroup()
 
 # HUMANOID SLAYER GROUP
 humanoid.opposition = undead
-humanoid.foundon = ['bone_knight', 'lich', 'lich_lord']
 humanoid.addsuper( SlayerEntry('repond', 1017388, ['orcs', 'ogres', 'trolls', 'giants'] ) )
 humanoid.add( SlayerEntry('ogretrashing', 1017387, ['ogres']) )
 humanoid.add( SlayerEntry('orcslaying', 1017385, ['orcs']) )
@@ -62,7 +60,6 @@ undead.addsuper( SlayerEntry('silver', 1017384, ['undeads']) ) # Only super slay
 
 # ELEMENTAL SLAYER GROUP
 elemental.opposition = abyss
-elemental.foundon = ['balron', 'daemon']
 elemental.addsuper( SlayerEntry('elementalban', 1017409, ['bloodelementals', 'earthelementals', 'poisonelementals', 'fireelementals', 'snowelementals', 'airelementals', 'waterelementals', 'oreelementals']) )
 elemental.add( SlayerEntry( 'blooddrinking', 1017407, ['bloodelementals'] ) )
 elemental.add( SlayerEntry( 'earthshatter', 1017406, ['earthelementals'] ) )
@@ -74,7 +71,6 @@ elemental.add( SlayerEntry( 'waterdissipation', 1017403, ['waterelementals'] ) )
 
 # ABYSS SLAYER GROUP
 abyss.opposition = elemental
-abyss.foundon = ['blood_elemental']
 abyss.addsuper( SlayerEntry('exorcism', 1017397, ['daemons', 'gargoyles', 'balron']) )
 abyss.add( SlayerEntry('daemondismissal', 1017394, ['daemons']) )
 abyss.add( SlayerEntry('gargoylesfoe', 1017395, ['gargoyles']) )
@@ -82,7 +78,6 @@ abyss.add( SlayerEntry('balrondamnation', 1017396, ['balron']) )
 
 # ARACHNID SLAYER GROUP
 arachnid.opposition = reptilian
-arachnid.foundon = ['ancient_wyrm', 'dragon', 'dragon_red', 'dragon_gray', 'ophidian_matriarch', 'shadow_wyrm']
 arachnid.addsuper( SlayerEntry('arachniddoom', 1017401, ['spiders', 'scorpions', 'tarathans', 'mephitis']) )
 arachnid.add( SlayerEntry('scorpionsbane', 1017400, ['scorpions']) )
 arachnid.add( SlayerEntry('spidersdeath', 1017399, ['spiders']) )
@@ -90,7 +85,6 @@ arachnid.add( SlayerEntry('terathan', 1017390, ['terathans']) )
 
 # REPTILIAN SLAYER GROUP
 reptilian.opposition = arachnid
-reptilian.foundon = [ 'terathan_avenger', 'terathan_matriarch' ]
 reptilian.addsuper( SlayerEntry( 'reptiliandeath', 1017393, ['dragons', 'lizards', 'ophidians', 'snakes'] ) )
 reptilian.add( SlayerEntry( 'dragonslaying', 1017389, ['dragons'] ) )
 reptilian.add( SlayerEntry( 'lizardmanslaughter', 1017392, ['lizards'] ) )
