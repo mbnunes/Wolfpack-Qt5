@@ -971,7 +971,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	}
 	for(i=0;i<now;i++)
 	{
-		if (online(currchar[i]) && currchar[i]->account==acctno[i])
+		if (online(currchar[i]) && currchar[i]->account()==acctno[i])
 		{
 
 			genericCheck(currchar[i], currenttime);
@@ -1003,10 +1003,10 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 								if (chardist(currchar[i], mapchar)<=24 && mapchar->isNpc()) //Morrolan tweak from 30 to 24 tiles
 									checkNPC(mapchar, currenttime);
 								else if (mapchar->isPlayer() &&
-									Accounts->GetInWorld(mapchar->account) == mapchar->serial && mapchar->logout>0 &&
+									Accounts->GetInWorld(mapchar->account()) == mapchar->serial && mapchar->logout>0 &&
 									(mapchar->logout<=currenttime || (overflow)))
 								{										
-									Accounts->SetOffline(mapchar->account);
+									Accounts->SetOffline(mapchar->account());
 									mapchar->logout = 0;
 									updatechar(mapchar);
 								}

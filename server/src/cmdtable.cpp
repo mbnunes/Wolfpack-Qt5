@@ -1280,7 +1280,7 @@ void command_wtrig(UOXSOCKET s)
 	if (tnum>1)
 	{
 		P_CHAR pc_currchar = currchar[s];
-		if(!(pc_currchar->unicode))
+		if(!pc_currchar->unicode())
 			strcpy(xtext[s], &tbuffer[15]);
 		else
 			strcpy(xtext[s], &tbuffer[20]);
@@ -2555,7 +2555,7 @@ void command_password(UOXSOCKET s)
 			sysmessage(s, tr("Passwords must start with a letter or a number\n"));
 			return;
 		}
-		if (Accounts->ChangePassword( pc_currchar->account, pwd )) 
+		if (Accounts->ChangePassword( pc_currchar->account(), pwd )) 
 			sysmessage(s, tr("Password changed to %1").arg((char*)pwd));
 		else 
 			sysmessage(s, tr("Some Error occured while changing password!"));

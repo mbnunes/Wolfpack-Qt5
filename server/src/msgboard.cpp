@@ -2060,7 +2060,7 @@ int MsgBoardPostQuest( int serial, int questType )
 					// NPC title
 				case 't':
 					{
-						strcpy( flagPos, FindCharBySerial( serial )->title.c_str() );
+						strcpy( flagPos, FindCharBySerial( serial )->title().latin1() );
 						strcat( (char*)temp, tempString );
 						break;
 					}
@@ -2256,7 +2256,7 @@ void MsgBoardQuestEscortArrive( P_CHAR pc_npc, int pcIndex )
 	}
 	
 	// Inform the PC of what he has just been given as payment
-	sprintf( (char*)temp, "You have just received %d gold coins from %s %s", servicePay, pc_npc->name.c_str(), pc_npc->title.c_str() );
+	sprintf( (char*)temp, "You have just received %d gold coins from %s %s", servicePay, pc_npc->name.c_str(), pc_npc->title().latin1() );
 	sysmessage( k, (char*)temp );
 	
 	// Take the NPC out of quest mode

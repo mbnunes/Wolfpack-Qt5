@@ -53,11 +53,8 @@ class cChar : public cUObject
 {
 // Public Data Members
 public:
-	cChar() ;
     enum enInputMode { enNone, enRenameRune, enPricing, enDescription, enNameDeed, enHouseSign, enPageGM, enPageCouns};
 	//  Chaos/Order Guild Stuff for Ripper
-	short					GuildType;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild
-	bool					GuildTraitor; // (true) This character converted, (false) Neve converted, or not an order/chaos guild member
 	RACE					race; // -Fraz- Race AddOn
 	// Skyfire's NPC advancments.
 	bool					may_levitate;
@@ -65,10 +62,6 @@ public:
 	unsigned char			pathnum;
 	path_st					path[PATHNUM];
 
-	string					orgname;//original name - for Incognito
-	string					title;
-	bool					unicode; // This is set to 1 if the player uses unicode speech, 0 if not
-	int						account; // changed to signed, lb
 	signed char				dispz;   // Z that the char is SHOWN at. Server needs other coordinates for real movement calculations.
 	// changed from unsigned to signed, LB
 	
@@ -261,9 +254,17 @@ public:
     // 2-6 = Sparkles
     int						gmMoveEff;
 
-	int VisRange ;
+	int VisRange;
 	// Protected Data Members	
 protected:
+	short					GuildType;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild
+	bool					GuildTraitor; // (true) This character converted, (false) Neve converted, or not an order/chaos guild member
+	QString					orgname_;//original name - for Incognito
+	QString					title_;
+	bool					unicode_; // This is set to 1 if the player uses unicode speech, 0 if not
+	int						account_; // changed to signed, lb
+
+	
 	unsigned char			priv;	// 1:GM clearance, 2:Broadcast, 4:Invulnerable, 8: single click serial numbers
 	// 10: Don't show skill titles, 20: GM Pagable, 40: Can snoop others packs, 80: Counselor clearance
 	void	day(unsigned long day) ; // set the day it was created
@@ -275,9 +276,29 @@ protected:
 
 	// Public Methods
 public:
+	cChar();
 	virtual ~cChar() {}
 	virtual void Serialize(ISerialization &archive);
 	virtual string objectID();
+
+	// Getters
+	short					guildType() const;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild
+	bool					guildTraitor() const; // (true) This character converted, (false) Neve converted, or not an order/chaos guild member
+	QString					orgname() const;	  //original name - for Incognito
+	QString					title() const;
+	bool					unicode() const; // This is set to 1 if the player uses unicode speech, 0 if not
+	int						account() const; // changed to signed, lb
+	
+	// Setters
+	void					setGuildType(short data);
+	void					setGuildTraitor(bool  data);
+	void					setOrgname(const QString& data);//original name - for Incognito
+	void					setTitle( const QString& data);
+	void					setUnicode( bool data); // This is set to 1 if the player uses unicode speech, 0 if not
+	void					setAccount( int data); // changed to signed, lb
+
+
+	
 	short effDex()				{return dx+tmpDex>0 ? dx+tmpDex : 0;}	// returns current effective Dexterity
 	short realDex()				{return dx;}	// returns the true Dexterity
 	short decDex()				{return dx2;}	// returns the 3 digits behind the decimal point
@@ -425,5 +446,20 @@ inline void cChar::setMurderer()		{flag = 0x01;}
 inline void cChar::setInnocent()		{flag = 0x04;}
 inline void cChar::setCriminal()		{flag=0x02;}
 
+// Getters
+inline short			cChar::guildType() const		{ return GuildType; }
+inline bool				cChar::guildTraitor() const		{ return GuildTraitor; }
+inline QString			cChar::orgname() const			{ return orgname_; }
+inline QString			cChar::title() const			{ return title_;   }
+inline bool				cChar::unicode() const			{ return unicode_; }
+inline int				cChar::account() const			{ return account_; }
+
+// Setters
+inline void	cChar::setGuildType(short data)				{ GuildType = data; }
+inline void cChar::setGuildTraitor(bool  data)			{ GuildTraitor = data; }
+inline void	cChar::setOrgname( const QString& data )	{ orgname_ = data; }
+inline void cChar::setTitle( const QString& data )		{ title_ = data;   }
+inline void cChar::setUnicode(bool data)				{ unicode_ = data; }
+inline void	cChar::setAccount(int data)					{ account_ = data; }
 
 #endif

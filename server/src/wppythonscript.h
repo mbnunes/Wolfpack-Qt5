@@ -46,7 +46,6 @@ public:
 		return "python";
 	};
 	
-	WPPythonScript() {};
 	virtual ~WPPythonScript() {};
 
 	virtual void load( const QDomElement &Data );

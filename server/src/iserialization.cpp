@@ -30,13 +30,7 @@
 //========================================================================================
 
 #include "iserialization.h"
-#include "coord.h"
 #include "uobject.h"
-
-// System Headers
-#include <string>
-
-
 
 /*!
  * Reads the entiere object out of the serialization stream.

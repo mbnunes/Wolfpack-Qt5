@@ -969,7 +969,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 
 			case 'T':
 			case 't':
-			if (!(strcmp("TITLE",(char*)script1))) pc_c->title = script2;
+			if (!(strcmp("TITLE",(char*)script1))) pc_c->setTitle( script2 );
 			else if ((!(strcmp("TOTAME", (char*)script1)))||(!(strcmp("TAMING", (char*)script1)))) pc_c->taming=str2num(script2);
 			else if (!(strcmp("TRIGGER",(char*)script1)))	pc_c->trigger=str2num(script2);
 			else if (!(strcmp("TRIGWORD",(char*)script1)))	pc_c->trigword = (char*)script2;

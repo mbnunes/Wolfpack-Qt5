@@ -1080,7 +1080,7 @@ void cSpeech::talking(int s, const QString& speech) // PC speech
 	int ucl = ( speech.length() * 2 ) + 2;
 	int tl = ucl + 48 ;
 
-	if (pc_currchar->unicode)
+	if (pc_currchar->unicode())
 	{
 		lang[0]=buffer[s][8];
 		lang[1]=buffer[s][9];

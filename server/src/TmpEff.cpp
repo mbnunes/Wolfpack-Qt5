@@ -64,7 +64,7 @@ static void reverseIncognito(P_CHAR pc)
 		
 		pc->skin = pc->xskin;	// SKIN COLOR
 		
-		pc->name = pc->orgname;	// NAME
+		pc->name = pc->orgname().latin1();	// NAME
 		
 		if(pc->hairserial>-1)//if hairs exist, restore hair style/color
 		{
@@ -783,7 +783,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 			}
 
 			// ------ NAME -----
-			pc_dest->orgname = pc_dest->name;
+			pc_dest->setOrgname( pc_dest->name.c_str() );
 
 			if(pc_dest->id2==0x90) 
 				setrandomname(pc_dest, "1");//get a name from male list

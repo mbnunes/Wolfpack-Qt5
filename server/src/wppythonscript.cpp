@@ -696,8 +696,8 @@ PyObject* Py_WPItem_delete( Py_WPItem* self, PyObject* args )
 PyObject *Py_WPCharGetAttr( Py_WPChar *self, char *name )
 {
 	getStrProperty( "name", Char->name.c_str() )
-	else getStrProperty( "orgname", Char->orgname.c_str() )
-	else getStrProperty( "title", Char->title.c_str() )
+	else getStrProperty( "orgname", Char->orgname().latin1() )
+	else getStrProperty( "title", Char->title().latin1() )
 	else getIntProperty( "serial", Char->serial )
 	else getIntProperty( "body", Char->id() )
 	else getIntProperty( "xbody", Char->xid )
@@ -736,8 +736,10 @@ PyObject *Py_WPCharGetAttr( Py_WPChar *self, char *name )
 int Py_WPCharSetAttr( Py_WPChar *self, char *name, PyObject *value )
 {
 	setStrProperty( "name", Char->name )
-	else setStrProperty( "orgname", Char->orgname )
-	else setStrProperty( "title", Char->title )
+	else if ( !strcmp( "orgname", name) )
+		self->Char->setOrgname( PyString_AS_STRING( value ) );
+	else if ( !strcmp( "title", name) )
+		self->Char->setTitle( PyString_AS_STRING( value ) );
 	else setIntProperty( "serial", Char->serial )
 	
 	else if( !strcmp( "body", name ) )

@@ -163,7 +163,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 					if ( pc->isNpc() && ( pc->npcaitype == 2 || pc->npcaitype == 1 ) )
 						continue;
 
-					if ( SrvParams->monsters_vs_animals() == 0 && ( pc->title.size() <= 0 && !pc->isHuman() ) )
+					if ( SrvParams->monsters_vs_animals() == 0 && ( pc->title().isEmpty() && !pc->isHuman() ) )
 						continue;
 
 					if ( SrvParams->monsters_vs_animals() == 1 && chance > SrvParams->animals_attack_chance() )

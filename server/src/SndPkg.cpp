@@ -1238,7 +1238,7 @@ void chardel (UOXSOCKET s) // Deletion of character
 		for (iterChars.Begin(); !iterChars.atEnd(); iterChars++)
 		{
 			P_CHAR pc = iterChars.GetData();
-			if ((pc->account==acctno[s] && !pc->free))
+			if ((pc->account() == acctno[s] && !pc->free))
 			{
 				if (j == buffer[s][0x22]) 
 					toDelete = pc;
@@ -1274,7 +1274,7 @@ void chardel (UOXSOCKET s) // Deletion of character
 			for (it.Begin(); !it.atEnd(); ++it)
 			{
 				P_CHAR pc = it.GetData();
-				if ( pc->account == acctno[s] && !pc->free)
+				if ( pc->account() == acctno[s] && !pc->free)
 				{
 					strcpy((char*)login04b, pc->name.c_str());
 					Xsend(s, login04b, 60);
@@ -1869,12 +1869,12 @@ void broadcast(int s) // GM Broadcast (Done if a GM yells something)
 	unsigned char nonuni[512];
 	P_CHAR pc_currchar = currchar[s];
 
-	if(pc_currchar->unicode)
+	if(pc_currchar->unicode())
 		for (i=13;i<(buffer[s][1]<<8)+buffer[s][2];i=i+2)
 		{
 			nonuni[(i-13)/2]=buffer[s][i];
 		}
-		if(!(pc_currchar->unicode))
+		if(!pc_currchar->unicode())
 		{
 			tl=44+strlen((char*)&buffer[s][8])+1;
 			talk[1]=tl>>8;

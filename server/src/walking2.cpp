@@ -2257,7 +2257,7 @@ int cMovement::validNPCMove( short int x, short int y, signed char z, P_CHAR pc_
 
                 if (mapitem->type==12)
                 {
-                    if (pc_s->isNpc() && (pc_s->title.size() > 0 || pc_s->npcaitype != 0))
+                    if (pc_s->isNpc() && (!pc_s->title().isEmpty() || pc_s->npcaitype != 0))
                     {
                         // clConsole.send("doors!!!\n");
                         dooruse(-1, mapitem);

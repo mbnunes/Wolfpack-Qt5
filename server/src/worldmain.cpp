@@ -923,7 +923,7 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 		else	// client crashing body --> delete if non player esle put onl”x a warning on server screen
 			// we dont want to delete that char, dont we ?
 		{
-			if (pc->account==-1)
+			if (pc->account() == -1)
 			{
 				Npcs->DeleteChar(pc);
 			} 
@@ -961,12 +961,12 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 
 		int max_x = cMapStuff::mapTileWidth(pc->pos) * 8;
 		int max_y = cMapStuff::mapTileHeight(pc->pos) * 8;
-		if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account ==-1) || ((pc->pos.x>max_x || pc->pos.y>max_y) && pc->account == -1))
+		if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account() ==-1) || ((pc->pos.x>max_x || pc->pos.y>max_y) && pc->account() == -1))
 		// if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account ==-1) || ((pc->pos.x>max_x || pc->pos.y>max_y || pc->pos.x<0 || pc->pos.y<0) && pc->account==-1))
 		{
 			Npcs->DeleteChar(pc); //character in an invalid location
 		}
-		if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account != -1) || (( pc->pos.x>max_x || pc->pos.y>max_y ) && pc->account !=-1))
+		if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account() != -1) || (( pc->pos.x>max_x || pc->pos.y>max_y ) && pc->account() !=-1))
 		// if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account !=-1) || ((pc->pos.x>max_x || pc->pos.y>max_y || pc->pos.x<0 || pc->pos.y<0) && pc->account!=-1))
 		{
 			Coord_cl pos(pc->pos);

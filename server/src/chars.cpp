@@ -80,12 +80,12 @@ void cChar::Init(bool ser)
 	this->multis=-1;//Multi serial
 	this->free = false;
 	this->name = "Mr. noname";
-	this->orgname = "Mr. noname";
+	this->setOrgname("Mr. noname");
 
 	this->antispamtimer=0;//LB - anti spam
 
-	this->unicode = false; // This is set to 1 if the player uses unicode speech, 0 if not
-	this->account=-1;
+	this->setUnicode(true); // This is set to 1 if the player uses unicode speech, 0 if not
+	this->setAccount(-1);
 	this->pos.x=100;
 	this->pos.y=100;
 	this->pos.z=this->dispz=0;
@@ -721,9 +721,9 @@ void cChar::Serialize(ISerialization &archive)
 {
 	if (archive.isReading())
 	{
-		archive.read("name",			orgname);
-		archive.read("title",			title);
-		archive.read("account",			account);
+		archive.read("name",			orgname_);
+		archive.read("title",			title_);
+		archive.read("account",			account_);
 		archive.read("creationday",		creationday);
 		archive.read("gmmoveeff",		gmMoveEff);
 		archive.read("guildtype",		GuildType);
@@ -847,19 +847,19 @@ void cChar::Serialize(ISerialization &archive)
 	{
 		if(incognito)
 		{//save original name
-			archive.write("name", orgname);
+			archive.write("name", orgname());
 		} 
 		else
 		{
 			archive.write("name", name);
 		}
 		
-		archive.write("title",			title);
-		archive.write("account",		account);
+		archive.write("title",			title());
+		archive.write("account",		account());
 		archive.write("creationday",	creationday);
 		archive.write("gmmoveeff",		gmMoveEff);
-		archive.write("guildtype",		GuildType);
-		archive.write("guildtraitor",	GuildTraitor);
+		archive.write("guildtype",		guildType());
+		archive.write("guildtraitor",	guildTraitor());
 		archive.write("dispz",			dispz);
 		archive.write("cell",			cell);
 		archive.write("dir",			dir);

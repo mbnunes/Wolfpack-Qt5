@@ -356,7 +356,7 @@ void cGump::Input(int s)
 	 switch( index )
 		{
 		case 2:		pc_j->name = (char*)text;					break;	// Name
-		case 3:		pc_j->title = (char*)text;					break;	// Title
+		case 3:		pc_j->setTitle( text );						break;	// Title
 		case 4:		k = str2num( text );	pc_j->pos.x = k;	break;	// X
 		case 5:		k = str2num( text );	pc_j->pos.y = k;	break;	// Y
 		case 6:		k = str2num( text ); 	pc_j->pos.z = k;	pc_j->dispz = k;	break;	// Z
@@ -645,7 +645,7 @@ void whomenu(int s, int type) //WhoList--By Homey-- Thx Zip and Taur helping me 
 	for(iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 	{
 		P_CHAR toCheck = iter_char.GetData();
-		if (toCheck->account!=-1 && !toCheck->free)
+		if (toCheck->account() != -1 && !toCheck->free)
 		{
 			if(k>0 && (!(k%10)))
 			{
@@ -712,7 +712,7 @@ void whomenu(int s, int type) //WhoList--By Homey-- Thx Zip and Taur helping me 
 	for(iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 	{
 		P_CHAR toCheck = iter_char.GetData();
-		if (toCheck->account!=-1 && !toCheck->free && !online(toCheck)) { 
+		if (toCheck->account() != -1 && !toCheck->free && !online(toCheck)) { 
 			sprintf(menuarray1[linecount1++], "Player: %s [offline]",toCheck->name.c_str());
 			whomenudata[x++]=toCheck->serial;
 			//clConsole.send("name: %s\n",chars[i].name);
@@ -802,7 +802,7 @@ void playermenu(int s, int type) //WhoList2 with offline players--By Ripper
 		k=0;
 		for(i=0;i<now;i++)
 		{
-			if ((currchar[i]->account!=-1 && !currchar[i]->free && online(currchar[i])))
+			if ((currchar[i]->account() != -1 && !currchar[i]->free && online(currchar[i])))
 			{
 			  if(k>0 && (!(k%10)))
 			  {
@@ -1178,7 +1178,7 @@ void ttext(int line, SERIAL serial)
 		line--; if( line == 0 ) strcpy( (char*)script1, "Name" );
 		line--; if( line == 0 ) strcpy( (char*)script1,  pc_j->name.c_str() );
 		line--; if( line == 0 ) strcpy( (char*)script1, "Title" );
-		line--; if( line == 0 ) strcpy((char*) script1,  pc_j->title.c_str() );
+		line--; if( line == 0 ) strcpy((char*) script1,  pc_j->title().latin1() );
 		line--; if( line == 0 ) strcpy( (char*)script1, "X" );
 		line--; if( line == 0 ) sprintf((char*) script1,"%i", pc_j->pos.x );
 		line--; if( line == 0 ) strcpy((char*) script1, "Y" );

@@ -34,6 +34,7 @@
 
 #include <string>
 
+#include "qstring.h"
 //#include "uobject.h"
 
 // Forward class declarations
@@ -98,6 +99,20 @@ public:
 	virtual void read(const char* Key, unsigned char &data) = 0;
 	virtual void read(const char* Key, signed   char &data) = 0;
 	virtual void read(const char* Key, bool          &data) = 0;
+
+	// I hate to polute it but, as a temp measure:
+	void read( const char* Key, QString &data )
+	{
+		std::string temp;
+		read( Key, temp );
+		data = temp.c_str();
+	}
+
+	void write(const char* Key, QString &data)
+	{
+		std::string temp(data.latin1());
+		write ( Key, temp );
+	}
 
 protected:
 	virtual void doneWritting() {};

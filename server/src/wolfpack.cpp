@@ -343,7 +343,7 @@ bool online(P_CHAR pc) // Is the player owning the character c online
 	UOXSOCKET k = calcSocketFromChar(pc); //LB crashfix
 	if (k == -1 || pc->isNpc())
 		return false;
-	if(pc != NULL && Accounts->GetInWorld(pc->account) == pc->serial)
+	if(pc != NULL && Accounts->GetInWorld(pc->account()) == pc->serial)
 		return true;//Instalog
 	else
 	{
@@ -649,45 +649,45 @@ char *complete_title(P_CHAR pc) // generates the ENTIRE title plus criminal stuf
 
 	if (pc->account==0 && pc->isGM()) // Ripper..special titles for admins :)
 	{
-		sprintf(tempstr, "%s %s %s", title[6].other, pc->name.c_str(), pc->title.c_str());
+		sprintf(tempstr, "%s %s %s", title[6].other, pc->name.c_str(), pc->title().latin1());
 	}
 	else if (pc->isGM() && pc->account!=0)
 	{//GM.
-		sprintf(tempstr, "%s %s", pc->name.c_str(), pc->title.c_str());
+		sprintf(tempstr, "%s %s", pc->name.c_str(), pc->title().latin1());
 	}
 	// ripper ..rep stuff
 	else if ((pc->crimflag>0) && (!(pc->dead) && (pc->kills<4)))
 	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[0].other, pc->name.c_str(), pc->title.c_str(), title1(pc), title2(pc));
+		sprintf(tempstr, "%s %s, %s%s %s", title[0].other, pc->name.c_str(), pc->title().latin1(), title1(pc), title2(pc));
 	}
 	else if ((pc->kills>=5) && (!(pc->dead) && (pc->kills<10)))
 	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[1].other, pc->name.c_str(), pc->title.c_str(), title1(pc), title2(pc));
+		sprintf(tempstr, "%s %s, %s%s %s", title[1].other, pc->name.c_str(), pc->title().latin1(), title1(pc), title2(pc));
 	}
 	else if ((pc->kills>=10) && (!(pc->dead) && (pc->kills<20)))
 	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[2].other, pc->name.c_str(), pc->title.c_str(), title1(pc), title2(pc));
+		sprintf(tempstr, "%s %s, %s%s %s", title[2].other, pc->name.c_str(), pc->title().latin1(), title1(pc), title2(pc));
 	}
 	else if ((pc->kills>=20) && (!(pc->dead) && (pc->kills<50)))
 	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[3].other, pc->name.c_str(), pc->title.c_str(), title1(pc), title2(pc));
+		sprintf(tempstr, "%s %s, %s%s %s", title[3].other, pc->name.c_str(), pc->title().latin1(), title1(pc), title2(pc));
 	}
 	else if ((pc->kills>=50) && (!(pc->dead) && (pc->kills<100)))
 	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[4].other, pc->name.c_str(), pc->title.c_str(), title1(pc), title2(pc));
+		sprintf(tempstr, "%s %s, %s%s %s", title[4].other, pc->name.c_str(), pc->title().latin1(), title1(pc), title2(pc));
 	}
 	else if ((pc->kills>=100) && (!(pc->dead)))
 	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[5].other, pc->name.c_str(), pc->title.c_str(), title1(pc), title2(pc));
+		sprintf(tempstr, "%s %s, %s%s %s", title[5].other, pc->name.c_str(), pc->title().latin1(), title1(pc), title2(pc));
 	} // end of rep stuff
 	else
 	{//Player.
 		sprintf(tempstr, "%s%s", title3(pc), pc->name.c_str());		//Repuation + Name
 		{//NoTownTitle
 			strcpy((char*)temp,tempstr);
-			if (pc->title.size()>0)
+			if (!pc->title().isEmpty())
 			{//Titled & Skill
-				sprintf(tempstr, "%s %s, %s %s", temp, pc->title.c_str(), title1(pc), title2(pc));
+				sprintf(tempstr, "%s %s, %s %s", temp, pc->title().latin1(), title1(pc), title2(pc));
 			}
 			else
 			{//Just skilled
@@ -1212,7 +1212,7 @@ void deathstuff(P_CHAR pc_player)
 	}
 	if (SrvParams->showDeathAnim())
 		deathaction(pc_player, pi_c);
-	if (pc_player->account!=-1) // LB
+	if (pc_player->account() != -1) // LB
 	{
 		
 		teleport(pc_player);
@@ -1754,12 +1754,12 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	pc->Init();
 
 	pc->name = (char*)buffer[s] + 10;
-	pc->account = acctno[s];
+	pc->setAccount(acctno[s]);
 
 	//	Code to support the new GuildType, and GuildTraitor members of the
 	//	character strcture.
-	pc->GuildType=-1;				//	Default to no guild
-	pc->GuildTraitor=false;	//	Also defauot to non trator, or no guild
+	pc->setGuildType(-1);				//	Default to no guild
+	pc->setGuildTraitor(false);	//	Also defauot to non trator, or no guild
 	pc->race=0; // Default human race
 	if (buffer[s][0x46]!='\x00')
 	{

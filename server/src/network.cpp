@@ -159,7 +159,7 @@ void cNetworkStuff::Disconnect (int s) // Force disconnection of player //Instal
 	if (SrvParams->serverLog()) savelog((char*)temp,"server.log");
 
 
-	if (perm[s] && (currchar[s]->account==acctno[s])&&(SrvParams->partMsg()))
+	if (perm[s] && (currchar[s]->account() == acctno[s])&&(SrvParams->partMsg()))
 		if (currchar[s]->isPlayer()) // bugfix lb, removes lamas that leave the realm :)
 		{
 			sprintf((char*)temp,"%s has left the realm",currchar[s]->name.c_str());
@@ -389,7 +389,7 @@ void cNetworkStuff::GoodAuth(int s)
 	for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 	{
 		P_CHAR toCheck = iter_char.GetData();
-		if ( toCheck->account == acctno[s] && !toCheck->free )			
+		if ( toCheck->account() == acctno[s] && !toCheck->free )			
 		{		
 			accounts_chars.push_back(toCheck);
 		}
@@ -495,7 +495,7 @@ void cNetworkStuff::charplay (int s) // After hitting "Play Character" button //
 		for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 		{
 			P_CHAR toCheck = iter_char.GetData();
-			if ((toCheck->account == acctno[s])&&(toCheck->isPlayer())&&(!toCheck->free))
+			if ((toCheck->account() == acctno[s])&&(toCheck->isPlayer())&&(!toCheck->free))
 			{
 				if (j==buffer[s][0x44]) {					
 					pc_selected = toCheck;
@@ -722,12 +722,12 @@ char cNetworkStuff::LogOut(int s)//Instalog
 
 	if (valid)//||region[pc_currchar->region].priv&0x17)
 	{
-		Accounts->SetOffline(pc_currchar->account);
+		Accounts->SetOffline(pc_currchar->account());
 		pc_currchar->logout = 0; // LB bugfix, was timeout
 	} else {
 		if (perm[s])
 		{
-			Accounts->SetOffline(pc_currchar->account);  // Allows next login.
+			Accounts->SetOffline(pc_currchar->account());  // Allows next login.
 		    pc_currchar->logout=uiCurrentTime+SrvParams->quittime()*MY_CLOCKS_PER_SEC;
 		}
 	}
@@ -1247,7 +1247,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 
 				case 0x03:// Speech
 					{
-						pc_currchar->unicode = false;
+						pc_currchar->setUnicode( false );
 						QString punt = (char*)&buffer[s][8];
 						//strcpy((char*)nonuni, (char*)&buffer[s][8]);
 						//Speech->talking(s, (char*)nonuni);
@@ -1261,7 +1261,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 
 				case 0xAD: // Unicode Speech			
 					{
-						pc_currchar->unicode = true;
+						pc_currchar->setUnicode(true);
 						// Check for command word versions of this packet														
 						
 						if ( (buffer[s][3]) >=0xc0 )

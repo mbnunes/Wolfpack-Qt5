@@ -394,7 +394,7 @@ void monstergate(P_CHAR pc_s, int x)
 	Script *pScp=pScpBase->Select(sect,custom_npc_script);
 	if (!pScp) return;
 	
-	pc_s->title[0] = 0;
+	pc_s->setTitle(QString::null);
 	
 	AllItemsIterator iterItem;
 	for(iterItem.Begin(); !iterItem.atEnd(); iterItem++)
@@ -459,7 +459,7 @@ void monstergate(P_CHAR pc_s, int x)
 				
 				strcpy((char*)script1, "DUMMY"); // To prevent accidental exit of loop.
 			}
-			if (!(strcmp("TITLE",(char*)script1))) pc_s->title = (char*)script2;
+			if (!(strcmp("TITLE",(char*)script1))) pc_s->setTitle((char*)script2);
 			if (!(strcmp("KARMA",(char*)script1))) pc_s->karma=str2num(script2);
 			if (!(strcmp("FAME",(char*)script1))) pc_s->fame=str2num(script2);
 			if (!(strcmp("ID",(char*)script1)))

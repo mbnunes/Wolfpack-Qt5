@@ -295,7 +295,7 @@ public:
 	cRemoveTarget(P_CLIENT pCli) : cWpObjTarget(pCli), cItemTarget(pCli), cCharTarget(pCli), cTarget(pCli) {}
 	void CharSpecific()
 	{
-		if (pc->account>-1 && pc->isPlayer()) // player check added by LB
+		if (pc->account() > -1 && pc->isPlayer()) // player check added by LB
 		{
 			sysmessage(s,"You cant delete players");
 			return;
@@ -3904,7 +3904,7 @@ void cTargets::ShowAccountCommentTarget(int s)
 	P_CHAR pc = FindCharBySerial(serial);
 	if(pc != NULL)
 	{
-		if(pc->account==-1)
+		if(pc->account()==-1)
 		{
 			sysmessage(s,"No account available for that character.");
 			return; //only if char has an account
@@ -3918,7 +3918,7 @@ void cTargets::ShowAccountCommentTarget(int s)
 			if (!(strcmp((char*)script1, "SECTION")))
 			{
 				j=str2num(script2);
-				if(j==pc->account) accountfound=1;//we are in the right section
+				if(j==pc->account()) accountfound=1;//we are in the right section
 			}
 
 			if (!(strcmp((char*)script1, "COMMENT")))
@@ -4212,7 +4212,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 44: Magic->Heal(s); break; // we need this for /heal command
 		case 45: Fishing->FishTarget(ps); break;
 		case 46: InfoTarget(s,pt); break;
-		case 47: if (Cready) pc->title = xtext[s]; break;//TitleTarget
+		case 47: if (Cready) pc->setTitle( xtext[s] ); break;//TitleTarget
 		case 48: Targ->ShowAccountCommentTarget(s); break;
 		case 49: Skills->CookOnFire(s,0x09,0x7B,"fish steaks"); break;
 		case 50: Skills->Smith(s); break;
