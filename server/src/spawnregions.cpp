@@ -184,7 +184,7 @@ void cSpawnRegion::processNode( const QDomElement &Tag )
 		this->minTime_ = Value.toInt();
 
 	// <maxtime>20</maxtime>
-	else if( TagName == "maxnpcamount" )
+	else if( TagName == "maxtime" )
 		this->maxTime_ = Value.toInt();
 
 	// <rectangle x1="0" x2="1000" y1="0" y2="500" z="5" />
@@ -248,7 +248,7 @@ void cSpawnRegion::reSpawn( void )
 			Coord_cl pos;
 			if( this->findValidSpot( pos ) )
 			{
-				QString NpcSect = this->npcSections_[ RandomNum( 0, this->npcSections_.size() ) ];
+				QString NpcSect = this->npcSections_[ RandomNum( 1, this->npcSections_.size() ) - 1 ];
 				P_CHAR pc = Npcs->createScriptNpc( -1, NULL, NpcSect, pos.x, pos.y, pos.z );
 				if( pc != NULL )
 				{
@@ -268,7 +268,7 @@ void cSpawnRegion::reSpawn( void )
 			Coord_cl pos;
 			if( this->findValidSpot( pos ) )
 			{
-				QString ItemSect = this->itemSections_[ RandomNum( 0, this->itemSections_.size() ) ];
+				QString ItemSect = this->itemSections_[ RandomNum( 1, this->itemSections_.size() ) - 1 ];
 				P_ITEM pi = Items->createScriptItem( ItemSect );
 				if( pi != NULL )
 				{
@@ -294,7 +294,7 @@ void cSpawnRegion::reSpawnToMax( void )
 		Coord_cl pos;
 		if( this->findValidSpot( pos ) )
 		{
-			QString NpcSect = this->npcSections_[ RandomNum( 0, this->npcSections_.size() ) ];
+			QString NpcSect = this->npcSections_[ RandomNum( 1, this->npcSections_.size() ) - 1 ];
 			P_CHAR pc = Npcs->createScriptNpc( -1, NULL, NpcSect, pos.x, pos.y, pos.z );
 			if( pc != NULL )
 			{
@@ -311,7 +311,7 @@ void cSpawnRegion::reSpawnToMax( void )
 		Coord_cl pos;
 		if( this->findValidSpot( pos ) )
 		{
-			QString ItemSect = this->itemSections_[ RandomNum( 0, this->itemSections_.size() ) ];
+			QString ItemSect = this->itemSections_[ RandomNum( 1, this->itemSections_.size() ) - 1 ];
 			P_ITEM pi = Items->createScriptItem( ItemSect );
 			if( pi != NULL )
 			{
