@@ -8,15 +8,15 @@ PROJECT         = wolfpack
 TARGET          = wolfpack
 TEMPLATE        = app
 CONFIG          = console debug thread
-INCLUDEPATH     = 
+INCLUDEPATH     = lib/ZThread/include lib/Python/include
 DEFINES         = REENTRANT ZTHREAD_STATIC NDEBUG
 win32:DEFINES  += WIN32 
 win32:OBJECTS_DIR = obj
 win32-msvc:DEFINES +=  _CONSOLE _MBCS
 win32:INCLUDEPATH += lib/Python/PC
-unix:INCLUDEPATH += 
+unix:INCLUDEPATH += lib/Python
 unix:CONFIG += qt
-unix:LIBS       = 
+unix:LIBS  = -Llib/ZThread/lib -Llib/Python -ldl -lZThread -lpython2.2 -lmysqlclient
 
 
 
