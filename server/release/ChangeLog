@@ -96,6 +96,7 @@ Wolfpack 12.9.13 Beta (CVS)
   - Fixed bug #0000310. (Invis spell duration too brief, Players will now be able to use stealth 
     if they are hidden by the invisibility spell, even if they don't have 80.0 Hiding )
   - Fixed bug #0000321. (Info Gump not setting boolean values to True if input is 1)
+  - Poisoning now accepts stacked potions.
  * Misc. Changes:
   - FAQ Updates.
  * Known Issues, Bugs, and Missing Features:
