@@ -111,7 +111,7 @@ public:
 	UINT16		minimum()		{ return min_; }
 	UINT16		maximum()		{ return max_; }
 
-	bool		skilledEnough( cChar* pChar );
+	bool		skilledEnough( P_CHAR pChar );
 	void		applySkillMod( float skillmod );
 private:
 	UINT8		skillid_;
@@ -169,9 +169,9 @@ public:
 	bool	hasEnough( cItem* pBackpack );
 	void	useResources( cItem* pBackpack );
 	// if any of foreach(skill) : skill < min => false
-	bool	skilledEnough( cChar* pChar );
+	bool	skilledEnough( P_CHAR pChar );
 	// calcRank checks the skill and may raise it! (==0) => failed, (>0) => success
-	UINT32	calcRank( cChar* pChar );
+	UINT32	calcRank( P_CHAR pChar );
 
 protected:
 	QPtrList< cMakeItem >		makeitems_;

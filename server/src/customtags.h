@@ -44,7 +44,7 @@
 
 // Forward Declarations
 class cItem;
-class cChar;
+class cBaseChar;
 class QString;
 class cVariant;
 class Coord_cl;
@@ -59,7 +59,7 @@ public:
 		Int,
 		Long,
 		Double,
-		Char,
+		BaseChar,
 		Item,
 		Coord
 	};
@@ -70,7 +70,7 @@ public:
 	cVariant( const cVariant& p );
     cVariant( const QString& );
 	cVariant( int );
-	cVariant( cChar* );
+	cVariant( cBaseChar* );
 	cVariant( cItem* );
 	cVariant( Coord_cl );
     cVariant( double );
@@ -93,7 +93,7 @@ public:
     const QString toString() const;
     int toInt( bool * ok=0 ) const;
     double toDouble( bool * ok=0 ) const;
-	cChar *toChar() const;
+	cBaseChar *toChar() const;
 	cItem *toItem() const;
 	Coord_cl toCoord() const;
 

@@ -218,10 +218,10 @@ class cCharInfoGump : public cGump
 {
 	Q_OBJECT
 protected:
-	cChar* char_;
+	cBaseChar* char_;
 
 public:
-	cCharInfoGump( cChar* char_ );
+	cCharInfoGump( cBaseChar* char_ );
 
 	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
 };

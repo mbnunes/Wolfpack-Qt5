@@ -84,7 +84,7 @@ public:
 	// other public methods
 	stError *setProperty( const QString &name, const cVariant &value );
 	stError *getProperty( const QString &name, cVariant &value ) const;
-	void turnTo( cUObject *object ); // override
+	void turnTo( const Coord_cl& data ); // override
 	P_NPC unmount();
 	void mount( P_NPC pMount );
 	bool isGM() const;
@@ -156,6 +156,7 @@ public:
 	void setShowSerials(bool data);
 	// advanced setters for data structures
 	// makemenus
+	void setLastSection( cMakeMenu* basemenu, cMakeSection* data );
 	void clearLastSelections( void );
 	// pets
 	void addPet( P_NPC pPet, bool noOwnerChange = false );	

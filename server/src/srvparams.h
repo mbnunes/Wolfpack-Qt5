@@ -162,6 +162,8 @@ protected:
 	QString loadModule_;
 	QString savePath_;
 	QString savePrefix_;
+	double npcMoveTime_;
+	double tamedNpcMoveTime_;
 
 
 	// Remote Admin
@@ -337,6 +339,8 @@ public:
 	int resetAttemptCount() const;
 	QString accountsArchiver() const;
 	bool addMenuByCategoryTag() const;
+	double npcMoveTime() const;
+	double tamedNpcMoveTime() const;
 
 	// Persistency Module
 	QString databaseHost() const;
@@ -433,6 +437,16 @@ private:
 };
 
 // inline members
+
+inline double cSrvParams::npcMoveTime() const
+{
+	return npcMoveTime_;
+}
+
+inline double cSrvParams::tamedNpcMoveTime() const
+{
+	return tamedNpcMoveTime_;
+}
 
 inline unsigned int cSrvParams::skillcap() const
 {

@@ -133,7 +133,7 @@ enum enCharTypes
 
 enum enWanderTypes
 {
-	enNone = 0,
+	enHalt = 0,
 	enFreely,
 	enRectangle,
 	enCircle,

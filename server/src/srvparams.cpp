@@ -152,6 +152,8 @@ void cSrvParams::readData()
 	secondsPerUOMinute_     = getNumber("Game Speed", "Seconds Per UO Minute", 5, true);
 	beggingTime_            = getNumber("Game Speed", "Begging Time", 120, true);
 	checkTammedTime_		= getDouble("Game Speed", "Tamed Check Time", 1.0, true);
+	npcMoveTime_			= getDouble("Game Speed", "NPC Move Time", 3.0, true );
+	tamedNpcMoveTime_		= getDouble("Game Speed", "Tamed NPC Move Time", 0.6, true );
     
 	// General Group
 	showSkillTitles_		= getBool("General", "ShowSkillTitles", true, true );

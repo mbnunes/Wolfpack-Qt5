@@ -216,6 +216,7 @@ public:
 	bool			isDead() const;
 	bool			isAtWar() const;
 	bool			isInvulnerable() const;
+	bool			attackFirst() const;
 	// advanced getters for data structures
 	// skills
 	UINT16			skillValue( UINT16 skill ) const;
@@ -297,6 +298,7 @@ public:
 	void setDead(bool data);
 	void setAtWar(bool data);
 	void setInvulnerable(bool data);
+	void setAttackFirst(bool data);
 	// advanced setters for data structures
 	// skills
 	void setSkillValue( UINT16 skill, UINT16 value );
@@ -359,6 +361,7 @@ protected:
     // 11 - dead, cOldChar::dead
     // 12 - war, cOldChar::war
 	// 13 - invulnerable, cOldChar::priv2 Bit 3
+	// 14 - attack first, cOldChar::attackfirst_
     UINT32 propertyFlags_;
 
     // Weight of the char, including worn items.
@@ -1212,6 +1215,11 @@ inline bool cBaseChar::isInvulnerable() const
 	return propertyFlags_ & 0x1000;
 }
 
+inline bool cBaseChar::attackFirst() const
+{
+	return propertyFlags_ & 0x2000;
+}
+
 inline void cBaseChar::setIncognito(bool data)
 {
 	if( data ) propertyFlags_ |= 0x0001; else propertyFlags_ &= ~0x0001; 
@@ -1287,6 +1295,12 @@ inline void cBaseChar::setAtWar(bool data)
 inline void cBaseChar::setInvulnerable(bool data)
 {
 	if( data ) propertyFlags_ |= 0x1000; else propertyFlags_ &= ~0x1000; 
+	changed( SAVE );
+}
+
+inline void cBaseChar::setAttackFirst(bool data)
+{
+	if( data ) propertyFlags_ |= 0x2000; else propertyFlags_ &= ~0x2000; 
 	changed( SAVE );
 }
 

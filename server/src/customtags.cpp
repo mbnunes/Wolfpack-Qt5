@@ -62,7 +62,7 @@ cVariant::Private::Private( Private* d )
 	case cVariant::Double:
 	    value.d = d->value.d;
 	    break;
-	case cVariant::Char:
+	case cVariant::BaseChar:
 		value.ptr = d->value.ptr;
 	case cVariant::Item:
 		value.ptr = d->value.ptr;
@@ -90,7 +90,7 @@ void cVariant::Private::clear()
 	case cVariant::Invalid:
 	case cVariant::Int:
 	case cVariant::Double:
-	case cVariant::Char:
+	case cVariant::BaseChar:
 	case cVariant::Item:
 		break;
 	case cVariant::Coord:
@@ -172,12 +172,12 @@ cVariant::cVariant( long int val )
 }
 
 /*!
-  Constructs a new variant with a cChar* value, \a val.
+  Constructs a new variant with a cBaseChar* value, \a val.
 */
-cVariant::cVariant( cChar *val )
+cVariant::cVariant( cBaseChar *val )
 {
     d = new Private;
-    d->typ = Char;
+    d->typ = BaseChar;
     d->value.ptr = val;
 }
 
@@ -266,7 +266,7 @@ static const char* const type_map[ntypes] =
     "String",
     "Int",
     "Double",
-	"Char",
+	"BaseChar",
 	"Item",
 	"Coord"
 };
@@ -330,7 +330,7 @@ const QString cVariant::toString() const
 	if ( d->typ == Double )
 		return QString::number( toDouble() );
 
-	if ( d->typ == Char )
+	if ( d->typ == BaseChar )
 	{
 		P_CHAR pChar = static_cast< P_CHAR >( d->value.ptr );
 		if( pChar )
@@ -385,7 +385,7 @@ int cVariant::toInt( bool * ok ) const
     if ( d->typ == Double )
 		return (int)d->value.d;
 
-	if ( d->typ == Char )
+	if ( d->typ == BaseChar )
 	{
 		P_CHAR pChar = static_cast< P_CHAR >( d->value.ptr );
 		return pChar ? pChar->serial() : INVALID_SERIAL;
@@ -426,7 +426,7 @@ double cVariant::toDouble( bool * ok ) const
 	if ( d->typ == Long )
 		return (double)d->value.d;
 
-	if ( d->typ == Char )
+	if ( d->typ == BaseChar )
 	{
 		P_CHAR pChar = static_cast< P_CHAR >( d->value.ptr );
 		return pChar ? (double)pChar->serial() : (double)INVALID_SERIAL;
@@ -447,9 +447,9 @@ double cVariant::toDouble( bool * ok ) const
 
   \sa toChar()
 */
-cChar *cVariant::toChar() const
+cBaseChar *cVariant::toChar() const
 {
-	if( d->typ == Char )
+	if( d->typ == BaseChar )
 		return (P_CHAR)d->value.ptr;
 
 	if( d->typ == String )
@@ -571,13 +571,13 @@ bool cVariant::canCast( Type t ) const
 {
     if ( d->typ == t )
 		return TRUE;
-    if ( t == Int && ( d->typ == Int || d->typ == Long || d->typ == Char || d->typ == Item || d->typ == String || d->typ == Double ) )
+    if ( t == Int && ( d->typ == Int || d->typ == Long || d->typ == BaseChar || d->typ == Item || d->typ == String || d->typ == Double ) )
 		return TRUE;
-    if ( t == Double && ( d->typ == Char || d->typ == Item || d->typ == Long || d->typ == String || d->typ == Int ) )
+    if ( t == Double && ( d->typ == BaseChar || d->typ == Item || d->typ == Long || d->typ == String || d->typ == Int ) )
 		return TRUE;
-    if ( t == String && ( d->typ == Char || d->typ == Item || d->typ == Long || d->typ == Int || d->typ == Double ) )
+    if ( t == String && ( d->typ == BaseChar || d->typ == Item || d->typ == Long || d->typ == Int || d->typ == Double ) )
 		return TRUE;
-	if ( t == Char && ( d->typ == Char || d->typ == Int || d->typ == Double || d->typ == String || d->typ == Long ) )
+	if ( t == Char && ( d->typ == BaseChar || d->typ == Int || d->typ == Double || d->typ == String || d->typ == Long ) )
 		return TRUE;
 	if ( t == Item && ( d->typ == Item || d->typ == Int || d->typ == Double || d->typ == String || d->typ == Long ) )
 		return TRUE;

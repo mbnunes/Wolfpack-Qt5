@@ -56,7 +56,7 @@ public:
 	struct stWanderType
 	{
 		// constructors
-		stWanderType() : type( enNone ) {}
+		stWanderType() : type( enHalt ) {}
 		stWanderType( enWanderTypes type_ ) : type( type_ ) {}
 		stWanderType( UINT16 x1_, UINT16 x2_, UINT16 y1_, UINT16 y2_ ) : 
 			x1( x1_ ), x2( x2_ ), y1( y1_ ), y2( y2_ ), type( enRectangle ) {}
@@ -106,6 +106,7 @@ public:
 	void callGuards();
 	void attackTarget( P_CHAR defender );
 	void toggleCombat();
+	void setNextMoveTime( void );
 
 	// getters
 	UINT32			additionalFlags() const;
@@ -123,13 +124,21 @@ public:
 	SERIAL			stablemasterSerial() const;
 	QString			lootList() const;
 	// bit flag getters
-	bool			attackFirst() const;
 	// advanced getters for data structures
 	// path finding
 	bool			hasPath( void );
 	Coord_cl		nextMove();
 	Coord_cl		pathDestination( void ) const;
 	float			pathHeuristic( const Coord_cl &source, const Coord_cl &destination );
+	// wander type
+	enWanderTypes	wanderType() const;
+	UINT16			wanderX1() const;
+	UINT16			wanderX2() const;
+	UINT16			wanderY1() const;
+	UINT16			wanderY2() const;
+	UINT16			wanderRadius() const;
+	SERIAL			wanderFollowTarget() const;
+	Coord_cl		wanderDestination() const;
 
 	// setters
     void setMaxDamage(UINT16 data);
@@ -148,7 +157,6 @@ public:
 	void setLootList(const QString &data);
     void setGuarding(P_PLAYER data);
 	// bit flag setters
-	void setAttackFirst(bool data);
 	// advanced setters for data structures
 	// path finding
 	void pushMove( const Coord_cl &move );
@@ -156,6 +164,15 @@ public:
 	void popMove( void );
 	void clearPath( void );
 	void findPath( const Coord_cl &goal, float sufficient_cost );
+	// wander type
+	void setWanderType(enWanderTypes data);
+	void setWanderX1(UINT16 data);
+	void setWanderX2(UINT16 data);
+	void setWanderY1(UINT16 data);
+	void setWanderY2(UINT16 data);
+	void setWanderRadius(UINT16 data);
+	void setWanderFollowTarget(SERIAL data);
+	void setWanderDestination(const Coord_cl &data);
 
 protected:
 	// interface implementation
@@ -205,7 +222,6 @@ protected:
     // Additional property flags
     // 
     // Bits:
-    // 01 - attack first, cOldChar::attackfirst_
     UINT32 additionalFlags_;
 
 	// Owner of this NPC.
@@ -331,28 +347,6 @@ inline P_PLAYER cNPC::owner() const
 	return owner_;
 }
 
-inline void cNPC::setOwner(P_PLAYER data)
-{
-	// We CANT be our own owner
-	if( data == this )
-		return;
-
-	if( owner_ )
-	{
-		owner_->removePet( this, true );
-		tamed_ = false;
-	}
-
-	owner_ = data;
-	changed( SAVE|TOOLTIP );
-
-	if( owner_ )
-	{
-		owner_->addPet( this, true );
-		tamed_ = true;
-	}
-}
-
 inline QString cNPC::carve() const
 {
 	return carve_;
@@ -397,35 +391,89 @@ inline void cNPC::setLootList(const QString &data)
 	changed( SAVE );
 }
 
-inline bool cNPC::attackFirst() const
-{
-	return additionalFlags_ & 0x0001;
-}
-
-inline void cNPC::setAttackFirst(bool data)
-{
-	if( data ) additionalFlags_ |= 0x0001; else additionalFlags_ &= ~0x0001; 
-	changed( SAVE );
-}
-
 inline enCharTypes cNPC::objectType()
 {
 	return enNPC;
 }
 
-inline void cNPC::setGuarding(P_NPC data)
+inline enWanderTypes cNPC::wanderType() const
 {
-	if( data == guarding_ )
-		return;
+	return wanderType_.type;
+}
 
-	if( guarding_ )
-		guarding_->removeGuard( this );
+inline UINT16 cNPC::wanderX1() const
+{
+	return wanderType_.x1;
+}
 
-	guarding_ = data;
-	changed( SAVE|TOOLTIP );
+inline UINT16 cNPC::wanderX2() const
+{
+	return wanderType_.x2;
+}
 
-	if( guarding_ )
-		guarding_->addGuard( this );		
+inline UINT16 cNPC::wanderY1() const
+{
+	return wanderType_.y1;
+}
+
+inline UINT16 cNPC::wanderY2() const
+{
+	return wanderType_.y2;
+}
+
+inline UINT16 cNPC::wanderRadius() const
+{
+	return wanderType_.radius;
+}
+
+inline SERIAL cNPC::wanderFollowTarget() const
+{
+	return wanderType_.object;
+}
+
+inline Coord_cl cNPC::wanderDestination() const
+{
+	return wanderType_.pos;
+}
+
+inline void cNPC::setWanderType(enWanderTypes data)
+{
+	wanderType_.type = data;
+}
+
+inline void cNPC::setWanderX1(UINT16 data)
+{
+	wanderType_.x1 = data;
+}
+
+inline void cNPC::setWanderX2(UINT16 data)
+{
+	wanderType_.x2 = data;
+}
+
+inline void cNPC::setWanderY1(UINT16 data)
+{
+	wanderType_.y1 = data;
+}
+
+inline void cNPC::setWanderY2(UINT16 data)
+{
+	wanderType_.y2 = data;
+}
+
+inline void cNPC::setWanderRadius(UINT16 data)
+{
+	wanderType_.radius = data;
+}
+
+inline void cNPC::setWanderFollowTarget(SERIAL data)
+{
+	wanderType_.object = data;
+}
+
+inline void cNPC::setWanderDestination(const Coord_cl &data)
+{
+	wanderType_.pos = data;
 }
 
 
