@@ -473,11 +473,11 @@ void cAllSpawnRegions::deSpawn( void )
 
 cSpawnRegion*	cAllSpawnRegions::region( QString regName )
 {
-	cSpawnRegion* Region = this->find( regName )->second;
-	if( Region == NULL )
-		return NULL;
-	else
-		return Region;
+	cSpawnRegion* Region = NULL;
+	if( this->find( regName ) != this->end() )
+		Region = this->find( regName )->second;
+	
+	return Region;
 }
 
 cSpawnRegion*	cAllSpawnRegions::region( UI16 posx, UI16 posy )

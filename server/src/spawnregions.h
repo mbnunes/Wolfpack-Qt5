@@ -58,6 +58,25 @@ public:
 	void	checkTimer( void );
 
 	bool	findValidSpot( Coord_cl &pos );
+
+	// Getters
+	UI16	npcs( void )		{ return npcSerials_.size(); }
+	UI16	items( void )		{ return itemSerials_.size(); }
+	UI16	maxNpcs( void )		{ return maxNpcAmt_; }
+	UI16	maxItems( void )	{ return maxItemAmt_; }
+
+	QStringList	rectangles( void )
+	{
+		QStringList rectList;
+		std::vector< rect_st >::iterator it = this->rectangles_.begin();
+		while( it != this->rectangles_.end() )
+		{
+			QString rect = QString( "%1,%2->%3,%4" ).arg( (*it).x1 ).arg( (*it).y1 ).arg( (*it).x2 ).arg( (*it).y2 );
+			rectList.push_back( rect );
+			it++;
+		}
+		return rectList;
+	}
 private:
 	virtual void processNode( const QDomElement &Tag );
 
@@ -98,6 +117,54 @@ public:
 	void	reSpawn( void );
 	void	reSpawnToMax( void );
 	void	deSpawn( void );
+
+	UI16	npcs( void )
+	{
+		UI16 numNpcs = 0;
+		std::map< QString, cSpawnRegion* >::iterator it = this->begin();
+		while( it != this->end() )
+		{
+			numNpcs += it->second->npcs();	
+			it++;
+		}
+		return numNpcs;
+	}
+
+	UI16	items( void )
+	{
+		UI16 numItems = 0;
+		std::map< QString, cSpawnRegion* >::iterator it = this->begin();
+		while( it != this->end() )
+		{
+			numItems += it->second->items();	
+			it++;
+		}
+		return numItems;
+	}
+
+	UI16	maxNpcs( void )
+	{
+		UI16 numNpcs = 0;
+		std::map< QString, cSpawnRegion* >::iterator it = this->begin();
+		while( it != this->end() )
+		{
+			numNpcs += it->second->maxNpcs();	
+			it++;
+		}
+		return numNpcs;
+	}
+
+	UI16	maxItems( void )
+	{
+		UI16 numItems = 0;
+		std::map< QString, cSpawnRegion* >::iterator it = this->begin();
+		while( it != this->end() )
+		{
+			numItems += it->second->maxItems();	
+			it++;
+		}
+		return numItems;
+	}
 
 	static cAllSpawnRegions *getInstance( void ) { return &instance; }
 };
