@@ -18,10 +18,7 @@
 			<name>Repair Item</name>
 			<model>0x13E3</model>
 			<description>Repair an item with this option</description>
-			<make name="repair">
-				<skillcheck skillid="7" min="350" max="525" />
-				<skillcheck skillid="4" min="180" max="500" />
-			</make>
+			<do name="repair" />
 		</action>
 	</menu>
 	
