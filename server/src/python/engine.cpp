@@ -26,14 +26,18 @@
  */
 
 #include "engine.h"
+#include "utilities.h"
 
 #include "../serverconfig.h"
 #include "../console.h"
-
 #include "../log.h"
 
 #include <qapplication.h>
 #include <qvaluevector.h>
+#include <qvaluelist.h>
+
+// Python Functions
+QValueList<PythonFunction*> PythonFunction::instances;
 
 class cCleanupHandlers
 {

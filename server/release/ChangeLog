@@ -21,6 +21,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Added an option to wolfpack.xml to use post 4.0.8 tooltip packets which are a lot faster.
   - Added wolfpack.definitionsiterator(type) for fast iteration of definitions of a certain type.
   - Fixed several major memory leaks.
+  - Fixed all crashes related to iterating over non existing maps.
  * Definition Changes:
   - Bench (0x1049) which was crafted was "unusable"
   - fixed bug #0000381 ("potion_keg" and "potionkeg")

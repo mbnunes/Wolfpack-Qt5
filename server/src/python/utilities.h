@@ -31,6 +31,7 @@
 #include "engine.h"
 #include "pyerrors.h"
 #include <qstring.h>
+#include <qvaluevector.h>
 
 #include "../typedefs.h"
 
@@ -187,26 +188,41 @@ class PythonFunction
 	PyObject* pModule;
 	PyObject* pFunc;
 	QString sModule;
+	QString sFunc;
+
+	static QValueList<PythonFunction*> instances; // list of all known instances
 public:
 	Q_EXPLICIT PythonFunction( PyObject* function ) : pModule( 0 ), pFunc( 0 )
 	{
-		pFunc = function;
-		Py_XINCREF( pFunc );
+		// No lambdas!
+		if ( function ) {
+			PyObject* module = PyObject_GetAttrString(function, "__module__");
+			PyObject* name = PyObject_GetAttrString(function, "__name__");
+
+			if (name && module) {
+				sModule = Python2QString(module);
+				sFunc = Python2QString(name);
+				pFunc = function;
+				Py_XINCREF( pFunc );
+			}
+		}
+
+		instances.push_back(this); // Add this to the static list of instances
 	}
 
 	Q_EXPLICIT PythonFunction( const QString& path ) : pModule( 0 ), pFunc( 0 )
 	{
 		int position = path.findRev( "." );
 		sModule = path.left( position );
-		QString sFunction = path.right( path.length() - ( position + 1 ) );
+		sFunc = path.right( path.length() - ( position + 1 ) );
 
 		// The Python string functions don't like null pointers
 		if (sModule.latin1()) {
 			pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
 	
-			if ( pModule && sFunction.latin1() )
+			if ( pModule && sFunc.latin1() )
 			{
-				pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunction.latin1() ) );
+				pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunc.latin1() ) );
 				if ( pFunc && !PyCallable_Check( pFunc ) )
 				{
 					cleanUp();
@@ -214,13 +230,43 @@ public:
 			}
 		}
 
+		instances.append(this); // Add this to the static list of instances
 	}
 
 	~PythonFunction()
 	{
 		cleanUp();
+		instances.remove(this); // Remove this from the static list of instances
 	}
 
+	// Recreate all pythonfunction instances
+	static void recreateAll() {
+		QValueList<PythonFunction*>::iterator it;
+		for (it = instances.begin(); it != instances.end(); ++it) {
+			(*it)->recreate();
+		}
+	}
+
+	// Refresh the function pointers based on our sFunc and sModule strings
+	void recreate() {
+		cleanUp();
+
+		// The Python string functions don't like null pointers
+		if (sModule.latin1()) {
+			pModule = PyImport_ImportModule( const_cast<char*>( sModule.latin1() ) );
+	
+			if ( pModule && sFunc.latin1() )
+			{
+				pFunc = PyObject_GetAttrString( pModule, const_cast<char*>( sFunc.latin1() ) );
+				if ( pFunc && !PyCallable_Check( pFunc ) )
+				{
+					cleanUp();
+				}
+			}
+		}
+	}
+
+	// NOTE: Returns a NEW reference
 	PyObject* function() const
 	{
 		Py_XINCREF( pFunc );

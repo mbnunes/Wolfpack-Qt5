@@ -99,6 +99,9 @@ void cScriptManager::reload()
 
 	CharBaseDefs::instance()->refreshScripts();
 	ItemBaseDefs::instance()->refreshScripts();
+
+	// Refresh the PythonFunction pointers
+	PythonFunction::recreateAll();
 }
 
 // Unload all scripts

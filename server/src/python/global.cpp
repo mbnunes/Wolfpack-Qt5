@@ -744,11 +744,6 @@ static PyObject* wpItems( PyObject* self, PyObject* args )
 
 	Coord pos( x, y, 0, map );
 
-	if (pos.isInternalMap()) {
-		PyErr_SetString(PyExc_RuntimeError, "You cannot iterate over the internal map.");
-		return 0;
-	}
-
 	MapItemsIterator iter;
 	if ( range > 0 )
 	{
@@ -794,11 +789,6 @@ static PyObject* wpChars( PyObject* self, PyObject* args )
 		return 0;
 
 	Coord pos(x, y, 0, map);
-
-	if (pos.isInternalMap()) {
-		PyErr_SetString(PyExc_RuntimeError, "You cannot iterate over the internal map.");
-		return 0;
-	}
 
 	MapCharsIterator iter = MapObjects::instance()->listCharsInCircle( pos, range, PyObject_IsTrue( offline ) != 0 );
 
@@ -1353,11 +1343,6 @@ static PyObject* wpCharRegion( PyObject* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "iiiib|O:wolfpack.charregion", &x1, &y1, &x2, &y2, &map, &offline ) )
 		return 0;
 
-	if (Coord(0, 0, 0, map).isInternalMap()) {
-		PyErr_SetString(PyExc_RuntimeError, "You cannot iterate over the internal map.");
-		return 0;
-	}
-
 	return PyGetCharRegionIterator( x1, y1, x2, y2, map, PyObject_IsTrue( offline ) != 0 );
 }
 
@@ -1381,11 +1366,6 @@ static PyObject* wpItemRegion( PyObject* self, PyObject* args )
 
 	if ( !PyArg_ParseTuple( args, "iiiib:wolfpack.itemregion", &x1, &y1, &x2, &y2, &map ) )
 		return 0;
-
-	if (Coord(0, 0, 0, map).isInternalMap()) {
-		PyErr_SetString(PyExc_RuntimeError, "You cannot iterate over the internal map.");
-		return 0;
-	}
 
 	return PyGetItemRegionIterator( x1, y1, x2, y2, map );
 }

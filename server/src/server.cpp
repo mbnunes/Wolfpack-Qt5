@@ -284,37 +284,12 @@ bool cServer::run( int argc, char** argv )
 
 	d->app = new QApplication( argc, argv, false );
 
-	// Set the default conversion codec (This is was OSI is using)
+	// Set the default conversion codec (This is what OSI is using)
 	// ISO-8859-15 (MIB: 111)
+#if defined(Q_OS_UNIX)
 	QTextCodec::setCodecForLocale( QTextCodec::codecForMib(111) );
 	QTextCodec::setCodecForCStrings( QTextCodec::codecForMib(111) );
-
-	/*	cItem *item1 = (cItem*)0;
-		cItem *item2 = (cItem*)1;
-		cItem *item3 = (cItem*)2;
-
-		ContainerContent content;
-		for (int i = 0; i < 18; ++i) {
-			content.add((cItem*)i);
-		}
-
-		content.remove((cItem*)16);
-		content.remove((cItem*)15);
-		content.remove((cItem*)16);
-		content.remove((cItem*)17);
-
-		Console::instance()->send(content.dump());
-
-		ContainerIterator it(content);
-		while (!it.atEnd()) {
-			Console::instance()->send(QString::number(reinterpret_cast<size_t>(*it)) + "\n");
-			if ((*it) == item3) {
-				content.remove(item3);
-			}
-			++it;
-		}
-
-		return false;*/
+#endif
 
 	// Load wolfpack.xml
 	Config::instance()->load();

@@ -870,11 +870,12 @@ stError* cNPC::setProperty( const QString& name, const cVariant& value )
 		/*
 					\property char.wandertype This integer is the type of wander algorithm used for this character. One of the following values is possible:
 					<code>0x00 Standing
-					0x01 Rectangle
-					0x02 Circle
-					0x03 FollowTarget
-					0x04 Destination
-					0x04 Inside Spawnregion only</code>
+					0x01 Free
+					0x02 Rectangle
+					0x03 Circle
+					0x04 FollowTarget
+					0x05 Destination
+					0x06 Inside Spawnregion only</code>
 					This property is exclusive to NPC objects.
 				*/
 	}

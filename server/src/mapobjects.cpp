@@ -634,70 +634,118 @@ inline IteratorState* initCircleIterator( IteratorState* it, UI16 x, UI16 y, UI1
 
 MapItemsIterator MapObjects::listItemsAtCoord( UI08 map, UI16 x, UI16 y )
 {
-	return MapItemsIterator( initPointIterator( mMaps[map]->items.reserveIterator(), x, y ) );
+	if (!validMap(map)) {
+		return MapItemsIterator();
+	} else {
+		return MapItemsIterator( initPointIterator( mMaps[map]->items.reserveIterator(), x, y ) );
+	}
 }
 
 MapItemsIterator MapObjects::listItemsInBlock( UI08 map, UI16 x, UI16 y )
 {
-	return MapItemsIterator( initCellIterator( mMaps[map]->items.reserveIterator(), x, y ) );
+	if (!validMap(map)) {
+		return MapItemsIterator();
+	} else {
+		return MapItemsIterator( initCellIterator( mMaps[map]->items.reserveIterator(), x, y ) );
+	}
 }
 
 MapItemsIterator MapObjects::listItemsInRect( UI08 map, UI16 x1, UI16 y1, UI16 x2, UI16 y2 )
 {
-	return MapItemsIterator( initRectIterator( mMaps[map]->items.reserveIterator(), x1, y1, x2, y2 ) );
+	if (!validMap(map)) {
+		return MapItemsIterator();
+	} else {
+		return MapItemsIterator( initRectIterator( mMaps[map]->items.reserveIterator(), x1, y1, x2, y2 ) );
+	}
 }
 
 MapItemsIterator MapObjects::listItemsInCircle( UI08 map, UI16 x, UI16 y, UI16 radius )
 {
-	return MapItemsIterator( initCircleIterator( mMaps[map]->items.reserveIterator(), x, y, radius ) );
+	if (!validMap(map)) {
+		return MapItemsIterator();
+	} else {
+		return MapItemsIterator( initCircleIterator( mMaps[map]->items.reserveIterator(), x, y, radius ) );
+	}
 }
 
 MapMultisIterator MapObjects::listMultisAtCoord( UI08 map, UI16 x, UI16 y )
 {
-	return MapMultisIterator( initPointIterator( mMaps[map]->multis.reserveIterator(), x, y ) );
+	if (!validMap(map)) {
+		return MapMultisIterator();
+	} else {
+		return MapMultisIterator( initPointIterator( mMaps[map]->multis.reserveIterator(), x, y ) );
+	}
 }
 
 MapMultisIterator MapObjects::listMultisInBlock( UI08 map, UI16 x, UI16 y )
 {
-	return MapMultisIterator( initCellIterator( mMaps[map]->multis.reserveIterator(), x, y ) );
+	if (!validMap(map)) {
+		return MapMultisIterator();
+	} else {
+		return MapMultisIterator( initCellIterator( mMaps[map]->multis.reserveIterator(), x, y ) );
+	}
 }
 
 MapMultisIterator MapObjects::listMultisInRect( UI08 map, UI16 x1, UI16 y1, UI16 x2, UI16 y2 )
 {
-	return MapMultisIterator( initRectIterator( mMaps[map]->multis.reserveIterator(), x1, y1, x2, y2 ) );
+	if (!validMap(map)) {
+		return MapMultisIterator();
+	} else {
+		return MapMultisIterator( initRectIterator( mMaps[map]->multis.reserveIterator(), x1, y1, x2, y2 ) );
+	}
 }
 
 MapMultisIterator MapObjects::listMultisInCircle( UI08 map, UI16 x, UI16 y, UI16 radius )
 {
-	return MapMultisIterator( initCircleIterator( mMaps[map]->multis.reserveIterator(), x, y, radius ) );
+	if (!validMap(map)) {
+		return MapMultisIterator();
+	} else {
+		return MapMultisIterator( initCircleIterator( mMaps[map]->multis.reserveIterator(), x, y, radius ) );
+	}
 }
 
 MapCharsIterator MapObjects::listCharsAtCoord( UI08 map, UI16 x, UI16 y, bool offline )
 {
-	GridSet *gridSet = mMaps[map];
-	MapObjectsGrid &grid = ( offline ? gridSet->offlineChars : gridSet->chars );
-	return MapCharsIterator( initPointIterator( grid.reserveIterator(), x, y ) );
+	if (!validMap(map)) {
+		return MapCharsIterator();
+	} else {
+		GridSet *gridSet = mMaps[map];
+		MapObjectsGrid &grid = ( offline ? gridSet->offlineChars : gridSet->chars );
+		return MapCharsIterator( initPointIterator( grid.reserveIterator(), x, y ) );
+	}
 }
 
 MapCharsIterator MapObjects::listCharsInBlock( UI08 map, UI16 x, UI16 y, bool offline )
 {
-	GridSet *gridSet = mMaps[map];
-	MapObjectsGrid &grid = ( offline ? gridSet->offlineChars : gridSet->chars );
-	return MapCharsIterator( initCellIterator( grid.reserveIterator(), x, y ) );
+	if (!validMap(map)) {
+		return MapCharsIterator();
+	} else {
+		GridSet *gridSet = mMaps[map];
+		MapObjectsGrid &grid = ( offline ? gridSet->offlineChars : gridSet->chars );
+		return MapCharsIterator( initCellIterator( grid.reserveIterator(), x, y ) );
+	}
 }
 
 MapCharsIterator MapObjects::listCharsInRect( UI08 map, UI16 x1, UI16 y1, UI16 x2, UI16 y2, bool offline )
 {
-	GridSet *gridSet = mMaps[map];
-	MapObjectsGrid &grid = ( offline ? gridSet->offlineChars : gridSet->chars );
-	return MapCharsIterator( initRectIterator( grid.reserveIterator(), x1, y1, x2, y2 ) );
+	if (!validMap(map)) {
+		return MapCharsIterator();
+	} else {
+		GridSet *gridSet = mMaps[map];
+		MapObjectsGrid &grid = ( offline ? gridSet->offlineChars : gridSet->chars );
+		return MapCharsIterator( initRectIterator( grid.reserveIterator(), x1, y1, x2, y2 ) );
+	}
 }
 
 MapCharsIterator MapObjects::listCharsInCircle( UI08 map, UI16 x, UI16 y, UI16 radius, bool offline )
 {
-	GridSet *gridSet = mMaps[map];
-	MapObjectsGrid &grid = ( offline ? gridSet->offlineChars : gridSet->chars );
-	return MapCharsIterator( initCircleIterator( grid.reserveIterator(), x, y, radius ) );
+	if (!validMap(map)) {
+		return MapCharsIterator();
+	} else {
+		GridSet *gridSet = mMaps[map];
+		MapObjectsGrid &grid = ( offline ? gridSet->offlineChars : gridSet->chars );
+		return MapCharsIterator( initCircleIterator( grid.reserveIterator(), x, y, radius ) );
+	}
 }
 
 
