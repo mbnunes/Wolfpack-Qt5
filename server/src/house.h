@@ -17,7 +17,7 @@ public:
 	};
 	void AddHome(int s, int i);
 	void HomeTarget(int s, int a1, int a2, int a3, int a4, char b1, char b2, char *txt);
-	bool HomeBuildSite(int x, int y, int z, int sx, int sy);
+	bool HomeBuildSite(int x, int y, int z, int sx, int sy) { return true;}
 	void RemoveHouse(int i);
 	void RemoveKeys(int serial);
 	int CheckDecayStatus();

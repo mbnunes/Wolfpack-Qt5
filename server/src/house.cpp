@@ -216,7 +216,7 @@ void cHouseManager::AddHome(int s, int i)
 		
 		if (ishouse(id1, id2)) // strict checking only for houses ! LB
 		{
-			if(false==HomeBuildSite(x,y,z,sx,sy))
+			if(!HomeBuildSite(x,y,z,sx,sy))
 			{
 				sysmessage(s,"Can not build a house at that location (CBS)!");
 				return;
