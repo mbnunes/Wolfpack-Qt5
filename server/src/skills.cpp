@@ -315,15 +315,15 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 			return;	//invalid script item
 		} 
 		// Starting Rank System Addon, Identify Item and Store the Creator Name- by Magius(CHE)
-		if (pi->name2 && (strcmp(pi->name2,"#"))) 
-			strcpy(pi->name,pi->name2); // Item identified! - }
+		if (pi->name2 != "#") 
+			pi->name = pi->name2; // Item identified! - }
 		if (SrvParms->rank_system==1) rank=CalcRank(s,skill);
 		else if (SrvParms->rank_system==0) rank=10;
 		ApplyRank(s, pi, rank);
 
 		if(!pc_currchar->isGM())		//AntiChrist - do this only if not a GM! bugfix - to avoid "a door mixed by GM..."
 		{
-			strcpy(pi->creator,pc_currchar->name); // Memorize Name of the creator
+			pi->creator = pc_currchar->name; // Memorize Name of the creator
 			if (pc_currchar->skill[skill]>950)
 				pi->madewith=skill+1; // Memorize Skill used
 			else
@@ -331,7 +331,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 		}
 		else
 		{
-			pi->creator[0]='\0';
+			pi->creator.erase();
 			pi->madewith=0;
 		}
 		// End Rank System Addon
@@ -370,13 +370,13 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 				{
 					char p1[50], p2[50], p3[50], p4[50];
 					unsigned int spaceleft=0;				// for space left in name field
-					if (pi->name[0]=='#')
+					if (pi->name == "#")
 					{
 						char tmp[100];
 						pi->getName(tmp);				// get the name from tile data
-						strcpy(pi->name,(char*)tmp);
+						pi->name = (char*)tmp;
 					}
-					spaceleft = sizeof(pi->name)-strlen(pi->name);
+					spaceleft = 50 - pi->name.size();
 					switch (modifier)
 					{
 					case 10: strcpy(p1, " of high quality"); strcpy(p2," of h.q."); strcpy(p3,"(hQ)"); break;
@@ -386,7 +386,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 					if (strlen(p1) < spaceleft) strcpy(p4, p1);
 					else if (strlen(p2) < spaceleft) strcpy(p4, p2);
 					else if (strlen(p3) < spaceleft) strcpy(p4, p3);
-					strcat(pi->name,p4);	// append name extension
+					pi->name += p4;	// append name extension
 
 					pi->hp += pi->hp / modifier;
 					pi->maxhp = pi->hp;
@@ -439,7 +439,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 			pik->more2 = pi->more2;		// to make it fit the lock
 			pik->more3 = pi->more3;
 			pik->more4 = pi->more4;
-			strcpy(pik->creator,pc_currchar->name);	// Store the creator
+			pik->creator = pc_currchar->name;	// Store the creator
 			pik->SetContSerial(pi->serial);			// Set the container
 			pik->SetRandPosInCont(pi);				// Put the damn thing in the container
 			RefreshItem(pik);							// Refresh it
@@ -843,7 +843,7 @@ static bool DoOnePotion(int s,short regid, int regamount, char* regname)
 	if (getamount(currchar[s], regid) >= regamount)
 	{
 		success=true;
-		sprintf((char*)temp, "*%s starts grinding some %s in the mortar.*", currchar[s]->name, regname);
+		sprintf((char*)temp, "*%s starts grinding some %s in the mortar.*", currchar[s]->name.c_str(), regname);
 		npcemoteall(currchar[s], (char*)temp,1); // LB, the 1 stops stupid alchemy spam
 		delequan(currchar[s],regid,regamount);
 	}
@@ -943,7 +943,7 @@ void cSkills::CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar)
 
 	if (success==0 && !pc->isGM()) // AC bugfix
 	{
-		sprintf((char*)temp, "*%s tosses the failed mixture from the mortar, unable to create a potion from it.*", pc->name);
+		sprintf((char*)temp, "*%s tosses the failed mixture from the mortar, unable to create a potion from it.*", pc->name.c_str());
 		npcemoteall(pc, (char*)temp,0);
 		return;
 	}
@@ -960,7 +960,7 @@ void cSkills::CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar)
 	{
 		// Dupois - Added pouring potion sfx Oct 09, 1998
 		soundeffect2(pc, 0x0240);	// Liquid sfx
-		sprintf((char*)temp, "*%s pours the completed potion into a bottle.*", pc->name);
+		sprintf((char*)temp, "*%s pours the completed potion into a bottle.*", pc->name.c_str());
 		npcemoteall(pc, (char*)temp,0);
 		delequan(pc, 0x0F0E, 1);
 		Skills->PotionToBottle(pc, pi_mortar);
@@ -987,7 +987,7 @@ void cSkills::BottleTarget(int s)
 		if(mortar == NULL) return;
 		if (mortar->type == 17) 
 		{
-			sprintf((char*)temp, "*%s pours the completed potion into a bottle.*", pc_currchar->name);
+			sprintf((char*)temp, "*%s pours the completed potion into a bottle.*", pc_currchar->name.c_str());
 			npcemoteall(pc_currchar, (char*)temp,0);
 			Skills->PotionToBottle(pc_currchar, mortar);
 		}
@@ -1039,7 +1039,7 @@ void cSkills::PotionToBottle(P_CHAR pc, P_ITEM pi_mortar)
 	if (pi_potion == NULL) 
 		return;
 	
-	sprintf(pi_potion->name,"%s potion",pn);
+	pi_potion->name = string(pn) + string(" potion");
 	pi_potion->type=19;
 	pi_potion->morex = pi_mortar->morex;
 	pi_potion->morey = pi_mortar->more1;
@@ -1050,7 +1050,7 @@ void cSkills::PotionToBottle(P_CHAR pc, P_ITEM pi_mortar)
 	// Addon for Storing creator NAME and SKILLUSED by Magius(CHE) §
 	if(!pc->isGM())
 	{
-		strcpy(pi_potion->creator,pc->name); // Magius(CHE) - Memorize Name of the creator
+		pi_potion->creator = pc->name; // Magius(CHE) - Memorize Name of the creator
 		if (pc->skill[ALCHEMY]>950) pi_potion->madewith=ALCHEMY+1; // Memorize Skill used - Magius(CHE)
 		else pi_potion->madewith=0-ALCHEMY-1; // Memorize Skill used - Magius(CHE)
 	} else {
@@ -1566,7 +1566,7 @@ void cSkills::RandomSteal(int s)
 		return;
 	}
 
-	sprintf((char*)temp, "You reach into %s's pack and try to take something...%s",pc_npc->name, item->name);
+	sprintf((char*)temp, "You reach into %s's pack and try to take something...%s",pc_npc->name.c_str(), item->name.c_str());
 	sysmessage(s, (char*)temp);
 	if (npcinrange(s, pc_npc, 1))
 	{
@@ -1608,14 +1608,14 @@ void cSkills::RandomSteal(int s)
 			if (pc_npc->isInnocent() && pc_currchar->attacker != pc_npc->serial && Guilds->Compare( pc_currchar, pc_npc )==0)//AntiChrist
 				criminal( pc_currchar );//Blue and not attacker and not guild
 			
-			if (item->name[0] != '#')
+			if (item->name != "#")
 			{
-				sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name,item->name);
-				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name,item->name,pc_npc->name);
+				sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name.c_str(),item->name.c_str());
+				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name.c_str(), item->name.c_str(), pc_npc->name.c_str());
 			} else {
 				Map->SeekTile(item->id(),&tile);
-				sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name, tile.name);
-				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name,tile.name,pc_npc->name);
+				sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name.c_str(), tile.name);
+				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name.c_str(),tile.name, pc_npc->name.c_str());
 			}
 			sysmessage(s,(char*)temp); // bugfix, LB
 			
@@ -1637,7 +1637,7 @@ void cSkills::Tracking(int s,int selection)
 	SetTimerSec(&pc_currchar->trackingtimer,(((tracking_data.basetimer*pc_currchar->skill[TRACKING])/1000)+1)); // tracking time in seconds ... gm tracker -> basetimer+1 seconds, 0 tracking -> 1 sec, new calc by LB
 	SetTimerSec(&pc_currchar->trackingdisplaytimer,tracking_data.redisplaytime);
 	P_CHAR pc_trackingTarget = FindCharBySerial(pc_currchar->trackingtarget);
-	sprintf((char*)temp,"You are now tracking %s.", pc_trackingTarget->name);
+	sprintf((char*)temp,"You are now tracking %s.", pc_trackingTarget->name.c_str());
 	sysmessage(s,(char*)temp);
 	Skills->Track(pc_currchar);
 }
@@ -1737,7 +1737,7 @@ void cSkills::CreateTrackingMenu(int s,int m)
 					strcpy((char*)temp,"right next to you");
 					break;
 				}//switch
-				sprintf(gmtext[MaxTrackingTargets], "%s %s",mapchar->name,temp);						
+				sprintf(gmtext[MaxTrackingTargets], "%s %s",mapchar->name.c_str(), temp);
 				gmid[MaxTrackingTargets]=creatures[mapchar->id()].icon; // placing correct icon, LB
 			}
 		}//if mapitem
@@ -1848,29 +1848,29 @@ void cSkills::Track(P_CHAR pc_i)
 	int direction=5;
 	if((pc_i->pos.y-direction)>=pc_trackingTarget->pos.y)  // North
 	{
-		sprintf((char*)temp,"%s is to the North",pc_trackingTarget->name);
+		sprintf((char*)temp,"%s is to the North",pc_trackingTarget->name.c_str());
 		if((pc_i->pos.x-direction)>pc_trackingTarget->pos.x)
-			sprintf((char*)temp,"%s is to the Northwest",pc_trackingTarget->name);
+			sprintf((char*)temp,"%s is to the Northwest",pc_trackingTarget->name.c_str());
 		if((pc_i->pos.x+direction)<pc_trackingTarget->pos.x)
-			sprintf((char*)temp,"%s is to the Northeast",pc_trackingTarget->name);
+			sprintf((char*)temp,"%s is to the Northeast",pc_trackingTarget->name.c_str());
 	}
 	else if((pc_i->pos.y+direction)<=pc_trackingTarget->pos.y)  // South
 	{
-		sprintf((char*)temp,"%s is to the South",pc_trackingTarget->name);
+		sprintf((char*)temp,"%s is to the South",pc_trackingTarget->name.c_str());
 		if((pc_i->pos.x-direction)>pc_trackingTarget->pos.x)
-			sprintf((char*)temp,"%s is to the Southwest",pc_trackingTarget->name);
+			sprintf((char*)temp,"%s is to the Southwest",pc_trackingTarget->name.c_str());
 		if((pc_i->pos.x+direction)<pc_trackingTarget->pos.x)
-			sprintf((char*)temp,"%s is to the Southeast",pc_trackingTarget->name);
+			sprintf((char*)temp,"%s is to the Southeast",pc_trackingTarget->name.c_str());
 	}
 	else if((pc_i->pos.x-direction)>=pc_trackingTarget->pos.x)  // West
 	{
-		sprintf((char*)temp,"%s is to the West",pc_trackingTarget->name);
+		sprintf((char*)temp,"%s is to the West",pc_trackingTarget->name.c_str());
 	}
 	else if((pc_i->pos.x+direction)<=pc_trackingTarget->pos.x)  // East
 	{
-		sprintf((char*)temp,"%s is to the East",pc_trackingTarget->name);
+		sprintf((char*)temp,"%s is to the East",pc_trackingTarget->name.c_str());
 	}
-	else sprintf((char*)temp,"%s is right next to you",pc_trackingTarget->name);
+	else sprintf((char*)temp,"%s is right next to you",pc_trackingTarget->name.c_str());
 	
 	char arrow[7];
 	arrow[0]='\xBA';
@@ -2230,7 +2230,7 @@ int cSkills::EngraveAction(int s, P_ITEM pi, int cir, int spl)
 		LogError("switch reached default");
 		return 0;
 	}
-	sprintf(pi->name2,"of %s with", spn);
+	pi->name2 = string("of ") + string (spn) + string(" with");
 	return 1;
 }
 
@@ -2523,7 +2523,7 @@ void cSkills::Persecute (UOXSOCKET s) //AntiChrist - persecute stuff
 			sysmessage(calcSocketFromChar(target),"A damned soul is disturbing your mind!");
 			SetSkillDelay(pc_currchar);
 
-			sprintf((char*)temp, "%s is persecuted by a ghost!!", target->name);
+			sprintf((char*)temp, "%s is persecuted by a ghost!!", target->name.c_str());
 					
 			// Dupois pointed out the for loop was changing i which would drive stuff nuts later
 				
@@ -2669,8 +2669,8 @@ int cSkills::GetAntiMagicalArmorDefence(P_CHAR pc)
 			if (pi != NULL)
 			if (pi->layer>1 && pi->layer < 25)
 			{
-				if (!(strstr(pi->name, "leather") || strstr(pi->name, "magic") ||
-					strstr(pi->name, "boot")|| strstr(pi->name, "mask")))
+				if (!(strstr(pi->name.c_str(), "leather") || strstr(pi->name.c_str(), "magic") ||
+					strstr(pi->name.c_str(), "boot")|| strstr(pi->name.c_str(), "mask")))
 					ar += pi->def;
 			}
 		}
@@ -2687,7 +2687,7 @@ void cSkills::Snooping(P_CHAR player, P_ITEM container)
 	{
 		UOXSOCKET owner_sock = calcSocketFromChar(pc_owner);
 		sysmessage(s, "You can't peek into that container or you'll be jailed.");// AntiChrist
-		sprintf((char*)temp, "%s is trying to snoop you!", player->name);
+		sprintf((char*)temp, "%s is trying to snoop you!", player->name.c_str());
 		sysmessage(owner_sock, (char*)temp);
 		return;
 	}
@@ -2703,7 +2703,7 @@ void cSkills::Snooping(P_CHAR player, P_ITEM container)
 			npctalk(s, player, "Art thou attempting to disturb my privacy?", 0);
 		else
 		{
-			sprintf((char*)temp, "You notice %s trying to peek into your pack!", player->name);
+			sprintf((char*)temp, "You notice %s trying to peek into your pack!", player->name.c_str());
 			UOXSOCKET owner_sock = calcSocketFromChar(pc_owner);
 			if (owner_sock != -1)
 				sysmessage(owner_sock, (char*)temp); 
@@ -2815,9 +2815,11 @@ void cSkills::Decipher(P_ITEM tmap, int s)
 				LogWarning("bad script item # 70025(Item Not found).");
 				return;	//invalid script item
 			} 
-			sprintf(nmap->name, "a deciphered lvl.%d treasure map", tmap->morez);	// Give it the correct name
+			char temp[256];
+			sprintf(temp, "a deciphered lvl.%d treasure map", tmap->morez);	// Give it the correct name
+			nmap->name = temp;
 			nmap->morez = tmap->morez;				// Give it the correct level
-			strcpy(nmap->creator, pc_currchar->name);	// Store the creator
+			nmap->creator = pc_currchar->name;	// Store the creator
 			Script *rscript=i_scripts[regions_script];	// Region script
 			if (!rscript->Open())
 			{

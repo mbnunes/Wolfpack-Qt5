@@ -220,7 +220,7 @@ void cNetworkStuff::Disconnect (int s) // Force disconnection of player //Instal
 	if (perm[s] && (currchar[s]->account==acctno[s])&&(SrvParms->partmsg)) 
 		if (currchar[s]->isPlayer()) // bugfix lb, removes lamas that leave the realm :)
 		{
-			sprintf((char*)temp,"%s has left the realm",currchar[s]->name);
+			sprintf((char*)temp,"%s has left the realm",currchar[s]->name.c_str());
 			sysbroadcast((char*)temp);//message upon leaving a server 
 		}
 
@@ -466,7 +466,7 @@ void cNetworkStuff::GoodAuth(int s)
 
 	for (i = 0; i < accounts_chars.size(); i++)
 	{
-		strcpy((char*)login04b, accounts_chars[i]->name);
+		strcpy((char*)login04b, accounts_chars[i]->name.c_str());
 		Xsend(s, login04b, 60);
 		j++;
 	}
@@ -677,8 +677,9 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 
 	if (SrvParms->joinmsg)
 	{
-		if (!(strcmp(pc_currchar->name,"pty Slot --"))) strcpy(pc_currchar->name,"A new Character");//AntiChrist
-		sprintf((char*)temp,"%s entered the realm",pc_currchar->name);//message upon entering a server
+		if (pc_currchar->name == "pty Slot --") 
+			pc_currchar->name = "A new Character";
+		sprintf((char*)temp,"%s entered the realm", pc_currchar->name.c_str());//message upon entering a server
 		sysbroadcast((char*)temp);//message upon entering a server
 	}
 
@@ -1260,7 +1261,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					{ 
 						sysmessage(s, "Access Denied!!!"); 
                         Disconnect(s); 
-						clConsole.send("%s tried connecting in with God Client but has no priviledges!\n", pc_currchar->name); 
+						clConsole.send("%s tried connecting in with God Client but has no priviledges!\n", pc_currchar->name.c_str()); 
                     } 
 					break;
 
@@ -1552,8 +1553,10 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 						serial=calcserial(buffer[s][1],buffer[s][2],buffer[s][3],buffer[s][4]);
 						if(serial==-1) return;
 						pc_target = FindCharBySerial( serial );
+						char temp[50];
 						if(pc_target != NULL)
-							strncpy(pc_target->name, (char*)&buffer[s][5], 50);
+							strncpy(temp, (char*)&buffer[s][5], 50);
+						pc_target->name = temp;
 					}
 					break;
 		
@@ -1645,7 +1648,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 						if( ( pc_currchar->murdererSer > 0 ) && SrvParms->bountysactive ) 
 						{
 							sprintf( (char*)temp, "To place a bounty on %s, use the command BOUNTY <Amount>.",
-						        FindCharBySerial(pc_currchar->murdererSer)->name );
+						        FindCharBySerial(pc_currchar->murdererSer)->name.c_str() );
 							sysmessage( s,(char*) temp );
 						}
 						sysmessage(s, "You are now a ghost.");

@@ -117,20 +117,20 @@ void cTrade::buyaction(int s)
 		{
 			if (pc_currchar->isGM())
 			{
-				sprintf((char*)temp, "Here you are, %s. Someone as special as thee will receive my wares for free of course.", pc_currchar->name);
+				sprintf((char*)temp, "Here you are, %s. Someone as special as thee will receive my wares for free of course.", pc_currchar->name.c_str());
 			}
 			else
 			{
 				if(useBank)
 				{
 					sprintf((char*)temp, "Here you are, %s. %d gold coin%s will be deducted from your bank account.  I thank thee for thy business.",
-					pc_currchar->name, goldtotal, (goldtotal==1) ? "" : "s");
+					pc_currchar->name.c_str(), goldtotal, (goldtotal==1) ? "" : "s");
 				    goldsfx(s, goldtotal);
 				}
 			    else
 				{
 				    sprintf((char*)temp, "Here you are, %s.  That will be %d gold coin%s.  I thank thee for thy business.",
-					pc_currchar->name, goldtotal, (goldtotal==1) ? "" : "s");
+					pc_currchar->name.c_str(), goldtotal, (goldtotal==1) ? "" : "s");
 				    goldsfx(s, goldtotal);	// Dupois, SFX for gold movement. Added Oct 08, 1998
 				}
 			}
@@ -279,7 +279,7 @@ static bool items_match(P_ITEM pi1, P_ITEM pi2)
 	if (pi1->id()==pi2->id() &&
 		pi1->type==pi2->type &&
 		!(pi1->id()==0x14F0 && (pi1->morex!=pi2->morex)) &&			// house deeds only differ by morex
-		!(IsShield(pi1->id()) && strcmp(pi1->name2,pi2->name2)) &&	// magic shields only differ by name2
+		!(IsShield(pi1->id()) && pi1->name2 == pi2->name2) &&	// magic shields only differ by name2
 		!(IsMetalArmour(pi1->id()) && pi1->color()!=pi2->color()) )	// color checking for armour
 		return true;
 	return false;
@@ -321,7 +321,7 @@ void cTrade::sellaction(int s)
 		if (maxsell>SrvParms->sellmaxitem)
 		{
 			char tmpmsg[256];
-			sprintf(tmpmsg,"Sorry %s but i can buy only %i items at time!",currchar[s]->name,SrvParms->sellmaxitem);
+			sprintf(tmpmsg,"Sorry %s but i can buy only %i items at time!",currchar[s]->name.c_str(),SrvParms->sellmaxitem);
 			npctalkall(pc_n, tmpmsg,0);
 			return;
 		}
@@ -411,13 +411,13 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 	if (pi_bps == NULL) //LB
 	{
 		sysmessage(s, "Time to buy a backpack!");
-		sysmessage(s2, "%s doesnt have a backpack!", pc_currchar->name);
+		sysmessage(s2, "%s doesnt have a backpack!", pc_currchar->name.c_str());
 		return 0;
 	}
 	if (pi_bpi == NULL)
 	{
 		sysmessage(s2, "Time to buy a backpack!");
-		sysmessage(s, "%s doesnt have a backpack!", pc_i->name);
+		sysmessage(s, "%s doesnt have a backpack!", pc_i->name.c_str());
 		return 0;
 	}
 
@@ -464,7 +464,7 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 	LongToCharPtr(pi_ps->serial,msg+8);
 	LongToCharPtr(pi_pi->serial,msg+12);
 	msg[16]=1;
-	strcpy((char*)&(msg[17]), pc_i->name);
+	strcpy((char*)&(msg[17]), pc_i->name.c_str());
 	Xsend(s, msg, 47);
 
 	if (s2 != INVALID_UOXSOCKET)
@@ -477,7 +477,7 @@ P_ITEM cTrade::tradestart(UOXSOCKET s, P_CHAR pc_i)
 		LongToCharPtr(pi_pi->serial,msg+8);
 		LongToCharPtr(pi_ps->serial,msg+12);
 		msg[16]=1;
-		strcpy((char*)&(msg[17]), pc_currchar->name);
+		strcpy((char*)&(msg[17]), pc_currchar->name.c_str());
 		Xsend(s2, msg, 47);
 	}
 	return pi_ps;

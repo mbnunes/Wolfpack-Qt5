@@ -82,9 +82,8 @@ void cChar::Init(bool ser)
 	}
 	this->multis=-1;//Multi serial
 	this->free = false;
-	strcpy(this->name,"Mr. noname");
-	strcpy(this->orgname,"Mr. noname");
-	this->title[0]=0x00;
+	this->name = "Mr. noname";
+	this->orgname = "Mr. noname";
 
 	this->antispamtimer=0;//LB - anti spam
 

@@ -655,7 +655,7 @@ void cMapStuff::SeekTile(int tilenum, tile_st *tile)
 	assert(tile);
 	if (tilenum>=0x4000)
 	{
-		strcpy((char *) tile->name, "multi");
+		strcpy((char*)tile->name, "multi");
 		tile->flag1=0;
 		tile->flag2=0;
 		tile->flag3=0;

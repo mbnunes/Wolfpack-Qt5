@@ -120,7 +120,7 @@ void updatehtml()//HTML
 		{
 			if(online(currchar[n])) //bugfix LB
 			{
-				fprintf(html, currchar[n]->name);
+				fprintf(html, currchar[n]->name.c_str());
 				n++;
 			}
 		}
@@ -132,7 +132,7 @@ void updatehtml()//HTML
 				if (online(currchar[n])) // bugfix, LB
 				{
 					a++;
-					fprintf(html,"%i) %s <BR>\n",a, currchar[n]->name); // bugfix lb
+					fprintf(html,"%i) %s <BR>\n",a, currchar[n]->name.c_str()); // bugfix lb
 				}
 			}
 		}

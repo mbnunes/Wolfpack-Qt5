@@ -226,8 +226,8 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 	// Get Temporany Name of the Item (Magius(CHE))
 	if (pi != NULL) // crashfix LB
 	{
-		if (pi->name[0] != '#')
-			strcpy(tempname, pi->name);
+		if (pi->name != "#")
+			strcpy(tempname, pi->name.c_str());
 		else
 		{
 			Map->SeekTile(pi->id(), &tile);
@@ -643,7 +643,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								talk[12] = 0;
 								talk[13] = pc_ts->fonttype;
 								Xsend(i, talk, 14);
-								Xsend(i, pc_ts->name, 30);
+								Xsend(i, (void*)pc_ts->name.c_str(), 30);
 								Xsend(i, sect, strlen(sect) + 1);
 							}
 						}
@@ -1287,8 +1287,8 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 										{
 											pi_needitem = pi;
 											// Get Temporany Name of the NEED Item - Magius(CHE) §
-											if (pi->name[0] != '#') // Get Temporany Name of the NEED Item - Magius(CHE) §
-												strcpy(tempname3, pi->name);
+											if (pi->name != "#") // Get Temporany Name of the NEED Item - Magius(CHE) §
+												strcpy(tempname3, pi->name.c_str());
 											else 
 											{
 												Map->SeekTile(pi->id(), &tile);
@@ -1463,11 +1463,11 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						{
 							if (pi_itemnum != NULL)
 							{
-								strcpy(pi_itemnum->name, (char*)script2);
+								pi_itemnum->name = (char*)script2;
 							}
 							if (npcnum!=NULL)
 							{
-								strcpy(npcnum->name, (char*)script2);
+								npcnum->name = (char*)script2;
 							}
 						}
 						else if (!(strcmp("NEWTRIG", (char*)script1)))  // Give the new item/npc a dynamic trigger number
@@ -1513,7 +1513,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 										talk[12] = 0;
 										talk[13] = pc_ts->fonttype;
 										Xsend(i, talk, 14);
-										Xsend(i, pc_ts->name, 30);
+										Xsend(i, (void*)pc_ts->name.c_str(), 30);
 										Xsend(i, sect, strlen(sect) + 1);
 									}
 								}
@@ -1542,7 +1542,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 										talk[12] = 0;
 										talk[13] = pc_ts->fonttype;
 										Xsend(i, talk, 14);
-										Xsend(i, pc_ts->name, 30);
+										Xsend(i, (void*)pc_ts->name.c_str(), 30);
 										Xsend(i, sect, strlen(sect) + 1);
 									}
 								}
@@ -1805,9 +1805,9 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								pi_evti = FindItemBySerial(pc_ts->envokeitem);
 								if (pi_evti!= NULL)// AntiChrist
 								{
-									if (pi_evti->name[0] != '#') // Get Temporany Name of the REQUIRED Item - Magius(CHE)
+									if (pi_evti->name != "#") // Get Temporany Name of the REQUIRED Item - Magius(CHE)
 									{
-										strcpy(tempname2, pi_evti->name);
+										strcpy(tempname2, pi_evti->name.c_str());
 									}
 									else
 									{
@@ -2281,7 +2281,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 								talk[12] = 0;
 								talk[13] = pc_ts->fonttype;
 								Xsend(i, talk, 14);
-								Xsend(i, pc_ts->name, 30);
+								Xsend(i, (void*)pc_ts->name.c_str(), 30);
 								Xsend(i, sect, strlen(sect) + 1);
 							}
 						}
@@ -2873,8 +2873,8 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							else 
 							{
 								// Get Temporany Name of the NEED Item - Magius(CHE) §
-								if (pi_needitem->name[0] != '#') // Get Temporany Name of the NEED Item - Magius(CHE) §
-									strcpy(tempname3, pi_needitem->name);
+								if (pi_needitem->name != "#") // Get Temporany Name of the NEED Item - Magius(CHE) §
+									strcpy(tempname3, pi_needitem->name.c_str());
 								else 
 								{
 									Map->SeekTile(pi_needitem->id(), &tile);
@@ -2892,11 +2892,11 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 						{
 							if (pi_itemnum != NULL)
 							{
-								strcpy(pi_itemnum->name, (char*)script2);
+								pi_itemnum->name = (char*)script2;
 							}
 							if (npcnum!=NULL)
 							{
-								strcpy(npcnum->name, (char*)script2);
+								npcnum->name = (char*)script2;
 							}
 						}
 						else if (!(strcmp("NEWTRIG", (char*)script1)))  // Give the new item/npc a dynamic trigger number
@@ -3004,8 +3004,8 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							else 
 							{
 								pi_evti = FindItemBySerial(pc_ts->envokeitem);
-								if (pi_evti->name[0] != '#') // Get Temporany Name of the REQUIRED Item - Magius(CHE)
-									sprintf(tempname2, "%s", pi_evti->name);
+								if (pi_evti->name != "#") // Get Temporany Name of the REQUIRED Item - Magius(CHE)
+									strcpy(tempname2, pi_evti->name.c_str());
 								else 
 								{
 									Map->SeekTile(pi_evti->id(), &tile);

@@ -47,7 +47,7 @@ public:
 	SERIAL multis;
 	bool free;
 
-	char name[50];
+	string name;
 	Coord_cl pos;
 // Methods
 protected:

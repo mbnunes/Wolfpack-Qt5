@@ -213,7 +213,7 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 				}
 				else
 				{
-					sprintf(temp,"%s has pricked you with a dagger and sampled your blood.",Player->name);
+					sprintf(temp,"%s has pricked you with a dagger and sampled your blood.",Player->name.c_str());
 					sysmessage(calcSocketFromChar(Victim),temp);
 					// flag criminal						
 				}
@@ -253,7 +253,7 @@ void MakeNecroReg(int nSocket, P_ITEM pMat, short id)
 
 	if( id>=0x1B11 && id<=0x1B1C ) // Make bone powder.
 	{
-		sprintf((char*)temp,"%s is grinding some bone into powder.", pc_currchar->name);
+		sprintf((char*)temp,"%s is grinding some bone into powder.", pc_currchar->name.c_str());
 		npcemoteall(pc_currchar, (char*)temp,1);
 		tempeffect(pc_currchar, pc_currchar, 9, 0, 0, 0);
 		tempeffect(pc_currchar, pc_currchar, 9, 0, 3, 0);

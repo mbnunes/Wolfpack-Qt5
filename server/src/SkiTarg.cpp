@@ -360,12 +360,14 @@ void cSkills::TasteIDTarget(int s)
 			
 			// Identify Item by Antichrist // Changed by MagiusCHE)
 			if (CheckSkill(pc_currchar, TASTEID, 250, 500))
-				if (pi->name2 && (strcmp(pi->name2,"#")))
-					strcpy(pi->name,pi->name2); // Item identified! -- by Magius(CHE)
+				if (pi->name2 == "#")
+					pi->name = pi->name2; // Item identified! -- by Magius(CHE)
 				
 				// ANTICHRIST -- FOR THE "#" BUG -- now you see the real name
-				if(pi->name[0]=='#') pi->getName(temp2);
-				else strcpy((char*)temp2, pi->name);
+				if(pi->name == "#") 
+					pi->getName(temp2);
+				else 
+					strcpy((char*)temp2, pi->name.c_str());
 				sprintf((char*)temp, "You found that this item appears to be called: %s", temp2);
 				sysmessage(s, (char*)temp);
 				
@@ -379,7 +381,7 @@ void cSkills::TasteIDTarget(int s)
 					// Show Creator by Magius(CHE)
 					if (CheckSkill(pc_currchar, TASTEID, 250, 500))
 					{
-						if (strlen(pi->creator)>0)
+						if (pi->creator.size()>0)
 						{
 							if (pi->madewith>0) sprintf((char*)temp2, "It is %s by %s",skill[pi->madewith-1].madeword,pi->creator); // Magius(CHE)
 							else if (pi->madewith<0) sprintf((char*)temp2, "It is %s by %s",skill[0-pi->madewith-1].madeword,pi->creator); // Magius(CHE)
@@ -690,7 +692,7 @@ void cSkills::Mine(int s)
 			sprintf(tmp,"%s Ore",pOre->name);
 			Items->SpawnItem(s, pc, 1, tmp, 1, 0x19, 0xB9, pOre->color>>8, pOre->color&0x00FF,1,1);
 
-			sysmessage(s,"You place some %c%s ore in your pack.",tolower(pOre->name[0]),pOre->name+1);
+			sysmessage(s,"You place some %s ore in your pack.", pOre->name);
 		}
 		}//end of normal mining skill
 	}//if buffer[][]=......
@@ -1076,13 +1078,13 @@ void cSkills::Wheel(int s, int mat)//Spinning wheel
 			
 			if (mat==YARN)
 			{
-				strcpy(pti->name,"#");
+				pti->name = "#";
 				pti->setId(0x0E1D);
 				pti->amount=pti->amount*3;
 			}
 			else if (mat==THREAD)
 			{
-				strcpy(pti->name,"#");
+				pti->name = "#";
 				pti->setId(0x0FA0);
 				pti->amount=pti->amount*3;
 			}
@@ -1132,7 +1134,7 @@ void cSkills::Loom(int s)
 				{
 					sysmessage(s,"You have made your cloth.");
 
-					strcpy(pti->name,"#");
+					pti->name = "#";
 					pti->setId(0x175D);
 					pti->priv |= 0x01;
 					pti->amount=static_cast<unsigned short> (pti->amount*0.25);
@@ -1141,7 +1143,7 @@ void cSkills::Loom(int s)
 				{
 					sysmessage(s,"You have made a bolt of cloth.");
 
-					strcpy(pti->name,"#");
+					pti->name = "#";
 					pti->setId(0x0F95);
 					pti->priv |= 1;
 					pti->amount=static_cast<unsigned short> (pti->amount*0.25);
@@ -1218,7 +1220,7 @@ void cSkills::MakeDough(int s)
 				const P_ITEM pti=FindItemBySerial(pc_currchar->tailitem);	// on error return
 				if ( pti == NULL)
 					return;
-				strcpy(pti->name,"#");
+				pti->name = "#";
 				
 				pti->setId(0x103D);
 				pti->priv |= 0x01;
@@ -1256,7 +1258,7 @@ void cSkills::MakePizza(int s)
 				const P_ITEM pti = FindItemBySerial(pc_currchar->tailitem);	// on error return
 				if ( pti == NULL )
 					return;
-				strcpy(pti->name,"#");
+				pti->name = "#";
 				
 				pti->setId(0x1083);
 				pti->priv |= 0x01;
@@ -1485,7 +1487,7 @@ void cSkills::ProvocationTarget2(UOXSOCKET s)
 		Victim2->fight(Victim1);
 		Victim2->resetAttackFirst();
 		
-		sprintf(temp, "* You see %s attacking %s *", Victim1->name, Victim2->name);
+		sprintf(temp, "* You see %s attacking %s *", Victim1->name.c_str(), Victim2->name.c_str());
 		unsigned int i;
 		for (i=0;i<now;i++)
 		{
@@ -1859,17 +1861,20 @@ void cSkills::ItemIdTarget(int s)
 
 			// Identify Item by Antichrist // Changed by MagiusCHE)
 			if (CheckSkill(pc_currchar, ITEMID, 250, 500))
-				if (pi->name2 && (strcmp(pi->name2,"#"))) strcpy(pi->name,pi->name2); // Item identified! -- by Magius(CHE)
+				if (pi->name2 == "#") 
+					pi->name = pi->name2; // Item identified! -- by Magius(CHE)
 
-			if(pi->name[0]=='#') pi->getName(temp2);
-			else strcpy((char*)temp2, pi->name);
+			if(pi->name == "#") 
+				pi->getName(temp2);
+			else 
+				strcpy((char*)temp2, pi->name.c_str());
 			sprintf((char*)temp, "You found that this item appears to be called: %s", temp2);
 			sysmessage(s,(char*) temp);
 
 			// Show Creator by Magius(CHE)
 			if (CheckSkill(pc_currchar, ITEMID, 250, 500))
 			{
-				if (strlen(pi->creator)>0)
+				if (pi->creator.size()>0)
 				{
 					if (pi->madewith>0) sprintf((char*)temp2, "It is %s by %s",skill[pi->madewith-1].madeword,pi->creator); // Magius(CHE)
 					else if (pi->madewith<0) sprintf((char*)temp2, "It is %s by %s",skill[0-pi->madewith-1].madeword,pi->creator); // Magius(CHE)
@@ -2058,15 +2063,15 @@ void cSkills::TameTarget(int s)
 				sysmessage( s, "That creature looks tame already." );
 				return;
 			}
-			sprintf((char*)temp, "*%s starts to tame %s*",pc_currchar->name,pc->name);
+			sprintf((char*)temp, "*%s starts to tame %s*",pc_currchar->name.c_str(),pc->name.c_str());
 			for(int a=0;a<3;a++)
 			{
 				switch(rand()%4)
 				{
 				case 0: npctalkall(pc_currchar, "I've always wanted a pet like you.",0); break;
 				case 1: npctalkall(pc_currchar, "Will you be my friend?",0); break;
-				case 2: sprintf((char*)temp, "Here %s.",pc->name); npctalkall(pc_currchar, (char*)temp,0); break;
-				case 3: sprintf((char*)temp, "Good %s.",pc->name); npctalkall(pc_currchar, (char*)temp,0); break;
+				case 2: sprintf((char*)temp, "Here %s.",pc->name.c_str()); npctalkall(pc_currchar, (char*)temp,0); break;
+				case 3: sprintf((char*)temp, "Good %s.",pc->name.c_str()); npctalkall(pc_currchar, (char*)temp,0); break;
 				default: 
 					LogError("switch reached default");
 				}
@@ -2178,15 +2183,15 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 				if (pc_npc->isInnocent() && pc_currchar->attacker != pc_npc->serial && Guilds->Compare(pc_currchar, pc_npc)==0)//AntiChrist
 					criminal(pc_currchar);//Blue and not attacker and not guild
 			
-				if (pi->name!="#")
+				if (pi->name != "#")
 				{
-					sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name,pi->name);
-					sprintf((char*)temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name,pi->name,pc_npc->name);
+					sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name.c_str(),pi->name.c_str());
+					sprintf((char*)temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name.c_str(),pi->name.c_str(),pc_npc->name.c_str());
 				} else
 				{
 					Map->SeekTile(pi->id(),&tile);
-					sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name,tile.name);
-					sprintf((char*)temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name,tile.name,pc_npc->name);
+					sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name.c_str(),tile.name);
+					sprintf((char*)temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name.c_str(),tile.name,pc_npc->name.c_str());
 				}
 				sysmessage(s,(char*)temp); //lb
 			}
@@ -2361,7 +2366,7 @@ void cSkills::ForensicsTarget(int s) //AntiChrist
 	
 	if(pc_currchar->isGM())
 	{
-		sprintf((char*)temp,"The %s is %i seconds old and the killer was %s.", pi->name, (curtim-pi->murdertime)/MY_CLOCKS_PER_SEC, pi->murderer);
+		sprintf((char*)temp,"The %s is %i seconds old and the killer was %s.", pi->name.c_str(), (curtim-pi->murdertime)/MY_CLOCKS_PER_SEC, pi->murderer);
 		sysmessage(s, (char*)temp);
 	}
 	else
@@ -2371,7 +2376,7 @@ void cSkills::ForensicsTarget(int s) //AntiChrist
 			if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)<=60) strcpy((char*)temp2,"few");
 			if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)>60) strcpy((char*)temp2,"many");
 			if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)>180) strcpy((char*)temp2,"many many");
-			sprintf((char*)temp,"The %s is %s seconds old.", pi->name, temp2);
+			sprintf((char*)temp,"The %s is %s seconds old.", pi->name.c_str(), temp2);
 			sysmessage(s,(char*)temp);
 			if (!Skills->CheckSkill(pc_currchar, FORENSICS, 500, 1000) || *(pi->murderer)=='\0') sysmessage(s,"You can't say who was the killer."); else
 			{

@@ -451,7 +451,7 @@ void command_bounty(UOXSOCKET s)
 			{
 				sprintf((char*) temp,
 					"You have placed a bounty of %d gold coins on %s.",
-					nAmount, FindCharBySerial(pc_cs->murdererSer)->name );
+					nAmount, FindCharBySerial(pc_cs->murdererSer)->name.c_str() );
 				sysmessage( s, (char*)temp );
 			}
 			else
@@ -693,7 +693,7 @@ void command_setpriv3(UOXSOCKET s)
 	switch(tnum) {
 	case 7:
 	case 8:
-		if (SrvParms->gm_log) { sprintf((char*)temp,"%s.log",pcc_cs->name); savelog("setpriv3 executed!\n",(char*)temp); }
+		if (SrvParms->gm_log) { sprintf((char*)temp,"%s.log", pcc_cs->name.c_str()); savelog("setpriv3 executed!\n",(char*)temp); }
 		priv3a[s]=hexnumber(1);
 		priv3b[s]=hexnumber(2);
 		priv3c[s]=hexnumber(3);
@@ -706,7 +706,7 @@ void command_setpriv3(UOXSOCKET s)
 		break;
 	case 2:
 		y=makenumber(1);
-		if (SrvParms->gm_log) { sprintf((char*)temp,"%s.log",pcc_cs->name); savelog("setpriv3 executed!\n",(char*)temp); }
+		if (SrvParms->gm_log) { sprintf((char*)temp,"%s.log",pcc_cs->name.c_str()); savelog("setpriv3 executed!\n",(char*)temp); }
 		//AntiChrist-this was metagm[y%255]-
 		if(y>255)
 		{
@@ -1872,7 +1872,7 @@ void command_respawn(UOXSOCKET s)
 {
 	P_CHAR pc_currchar = currchar[s];
 	
-	sprintf((char*)temp,"Respawn command called by %s.\n", pc_currchar->name);//AntiChrist
+	sprintf((char*)temp,"Respawn command called by %s.\n", pc_currchar->name.c_str());//AntiChrist
 	sysbroadcast("World is now respawning, expect some lag!");
 	LogMessage((char*)temp);
 	Respawn->Start();
@@ -1886,7 +1886,7 @@ void command_regspawnmax(UOXSOCKET s)
 	if (tnum==2)
 	{
 		P_CHAR pc_currchar = currchar[s];
-		sprintf((char*)temp,"MAX Region Respawn command called by %s.\n", pc_currchar->name);//AntiChrist
+		sprintf((char*)temp,"MAX Region Respawn command called by %s.\n", pc_currchar->name.c_str());//AntiChrist
 		LogMessage((char*)temp);
 		Commands->RegSpawnMax(s, makenumber(1));
 		return;
@@ -1900,7 +1900,7 @@ void command_regspawn(UOXSOCKET s)
 	if (tnum==3)
 	{
 		P_CHAR pc_currchar = currchar[s];
-		sprintf((char*)temp,"Specific Region Respawn command called by %s.\n", pc_currchar->name);//AntiChrist
+		sprintf((char*)temp,"Specific Region Respawn command called by %s.\n", pc_currchar->name.c_str());
 		LogMessage((char*)temp);
 		Commands->RegSpawnNum(s, makenumber(1), makenumber(2));
 		return;
@@ -2119,7 +2119,7 @@ void command_gy(UOXSOCKET s)
 		if (perm[i] && currchar[i]->isGM())
 		{
 			Xsend(i, talk, 14);
-			Xsend(i, pc_currchar->name, 30);
+			Xsend(i, (void*)pc_currchar->name.c_str(), 30);
 			Xsend(i, &xtext[s][0], strlen(&xtext[s][0])+1);   
 		}
 	}
@@ -2309,7 +2309,7 @@ void command_who(UOXSOCKET s)
 		if(perm[i]) //Keeps NPC's from appearing on the list
 		{
 			j++;
-			sprintf((char*)temp, "%i) %s [%x %x %x %x]", (j-1), currchar[i]->name, currchar[i]->ser1, currchar[i]->ser2, currchar[i]->ser3, currchar[i]->ser4);
+			sprintf((char*)temp, "%i) %s [%x %x %x %x]", (j-1), currchar[i]->name.c_str(), currchar[i]->ser1, currchar[i]->ser2, currchar[i]->ser3, currchar[i]->ser4);
 			sysmessage(s, (char*)temp);
 		}
 	}
@@ -2327,7 +2327,7 @@ void command_gms(UOXSOCKET s)
 		if(perm[i] && currchar[i]->isCounselor()) //Keeps NPC's from appearing on the list
 		{
 			j++;
-			sysmessage(s, currchar[i]->name);
+			sysmessage(s, (char*)currchar[i]->name.c_str());
 		}
 	}
 	sprintf((char*)temp, "Total Staff Online: %d\n", j);
@@ -2378,7 +2378,7 @@ void command_wipenpcs(UOXSOCKET s)
 				if (perm[i] && inrange1p(toCheck, currchar[i])) 
 					Xsend(i, removeitem, 5);
 			}
-			
+			iter_char--;
 			Npcs->DeleteChar(toCheck);
 			deleted++;
 		}
@@ -2388,7 +2388,7 @@ void command_wipenpcs(UOXSOCKET s)
 	if (SrvParms->gm_log) 
 	{ 
 		char temp2[1024];
-		sprintf((char*)temp,"%s.log",pc_currchar->name); 
+		sprintf((char*)temp,"%s.log",pc_currchar->name.c_str()); 
 		sprintf((char*)temp2,"npc wipe done, %i npcs deleted\n",deleted); 
 		savelog((char*)temp2,(char*)temp); 
 	}

@@ -181,7 +181,7 @@ void cGuilds::Menu(int s, int page)
 		{
 			if (pc->guildfealty == guilds[guildnumber].member[member])
 			{
-				strcpy(guildfealty, FindCharBySerial(guilds[guildnumber].member[member])->name);
+				strcpy(guildfealty, FindCharBySerial(guilds[guildnumber].member[member])->name.c_str());
 				break;
 			}
 		}
@@ -211,7 +211,7 @@ void cGuilds::Menu(int s, int page)
 
 		if (guildmaster<0) return;
 
-		lentext = sprintf(mygump[0], "%s (%s %s)", guilds[guildnumber].name, guildmaster->guildtitle, guildmaster->name);
+		lentext = sprintf(mygump[0], "%s (%s %s)", guilds[guildnumber].name, guildmaster->guildtitle, guildmaster->name.c_str());
 		strcpy(mygump[1],"Recruit someone into the guild.");
 		strcpy(mygump[2],"View the current roster.");
 		strcpy(mygump[3],"View the guild's charter.");
@@ -290,7 +290,7 @@ void cGuilds::Menu(int s, int page)
 			if (guilds[guildnumber].recruit[recruit]!=0)
 			{
 				counter++;
-				strcpy(mygump[counter], FindCharBySerial(guilds[guildnumber].recruit[recruit])->name);
+				strcpy(mygump[counter], FindCharBySerial(guilds[guildnumber].recruit[recruit])->name.c_str());
 			}
 		}
 		gmprefix[7]=8006>>8;
@@ -306,7 +306,7 @@ void cGuilds::Menu(int s, int page)
 			if (guilds[guildnumber].member[member]!=0)
 			{
 				counter++;
-				strcpy(mygump[counter], FindCharBySerial(guilds[guildnumber].member[member])->name);
+				strcpy(mygump[counter], FindCharBySerial(guilds[guildnumber].member[member])->name.c_str());
 			}
 		}
 		gmprefix[7]=8007>>8;
@@ -322,7 +322,7 @@ void cGuilds::Menu(int s, int page)
 			if (guilds[guildnumber].member[member]!=0)
 			{
 				counter++;
-				strcpy(mygump[counter], FindCharBySerial(guilds[guildnumber].member[member])->name);
+				strcpy(mygump[counter], FindCharBySerial(guilds[guildnumber].member[member])->name.c_str());
 			}
 		}
 		gmprefix[7]=8008>>8;
@@ -338,7 +338,7 @@ void cGuilds::Menu(int s, int page)
 			if (guilds[guildnumber].recruit[recruit]!=0)
 			{
 				counter++;
-				strcpy(mygump[counter], FindCharBySerial(guilds[guildnumber].recruit[recruit])->name);
+				strcpy(mygump[counter], FindCharBySerial(guilds[guildnumber].recruit[recruit])->name.c_str());
 			}
 		}
 		gmprefix[7]=8009>>8;
@@ -354,7 +354,7 @@ void cGuilds::Menu(int s, int page)
 			if (guilds[guildnumber].recruit[recruit]!=0)
 			{
 				counter++;
-				strcpy(mygump[counter], FindCharBySerial(guilds[guildnumber].recruit[recruit])->name);
+				strcpy(mygump[counter], FindCharBySerial(guilds[guildnumber].recruit[recruit])->name.c_str());
 			}
 		}
 		gmprefix[7]=8010>>8;
@@ -386,7 +386,7 @@ void cGuilds::Menu(int s, int page)
 			if (guilds[guildnumber].member[member]!=0)
 			{
 				counter++;
-				strcpy(mygump[counter], FindCharBySerial(guilds[guildnumber].member[member])->name);
+				strcpy(mygump[counter], FindCharBySerial(guilds[guildnumber].member[member])->name.c_str());
 			}
 		}
 		gmprefix[7]=8012>>8;
@@ -402,7 +402,7 @@ void cGuilds::Menu(int s, int page)
 			if (guilds[guildnumber].member[member]!=0)
 			{
 				counter++;
-				strcpy(mygump[counter], FindCharBySerial(guilds[guildnumber].member[member])->name);
+				strcpy(mygump[counter], FindCharBySerial(guilds[guildnumber].member[member])->name.c_str());
 			}
 		}
 		gmprefix[7]=8013>>8;
@@ -1127,7 +1127,8 @@ void cGuilds::ChangeName(int s, char *text)
 	if (!exists)
 	{
 		strcpy(guilds[guildnumber].name, (char*)text);
-		sprintf(pStone->name,"Guildstone for %s",guilds[guildnumber].name);
+		pStone->name = "Guildstone for ";
+		pStone->name += guilds[guildnumber].name;
 		sprintf(txt,"Your guild got renamed to %s",guilds[guildnumber].name);
 		Guilds->Broadcast(guildnumber,txt);
 	}
@@ -1726,7 +1727,7 @@ void cGuilds::CheckConsistancy(void )
 
 	    if (pc_a->guildnumber <0 || pc_a->guildnumber>=MAXGUILDS) // invalid guildnumber ?
 		{  
-		   sprintf((char*)temp,"player %s has invalid guild info. cancled his/her guild membership",pc_a->name);
+		   sprintf((char*)temp,"player %s has invalid guild info. cancled his/her guild membership",pc_a->name.c_str());
 		   LogWarning((char*)temp);
 		   pc_a->guildnumber=0;
 		   pc_a->guildfealty=0;
@@ -1739,7 +1740,7 @@ void cGuilds::CheckConsistancy(void )
 		{
            if (guilds[pc_a->guildnumber].free && pc_a->guildnumber!=0)
 		   {
-			  sprintf((char*)temp,"player %s belongs to a guild that is no more. canceled his/her guild membership",pc_a->name);
+			  sprintf((char*)temp,"player %s belongs to a guild that is no more. canceled his/her guild membership", pc_a->name.c_str());
 			  LogWarning((char*)temp);
 			  pc_a->guildnumber=0;
 		      pc_a->guildfealty=0;

@@ -77,6 +77,8 @@ bool doregionspawn(int r)//Regionspawns
 {
 	//clConsole.send("doregionspawn: %i start current: %i\n",r,spawnregion[r].current);
 
+	spawnregion_st debug = spawnregion[r];
+
 	if (spawnregion[r].current<=0) spawnregion[r].current=0;
 	if (spawnregion[r].current >= spawnregion[r].max || spawnregion[r].max == 0) return false;
 
@@ -577,11 +579,6 @@ void checkregion(P_CHAR pc_i)
 //
 void cRespawn::Continue()
 {
-	unsigned int i;
-	for( i = 1; i < spawnregion.size(); i++) //New -- Zippy region spawner
-	{
-		while (doregionspawn(i));	// spawn up to the max.
-	}
 
 	AllItemsIterator iterItems;
 	for (iterItems.Begin(); !iterItems.atEnd();iterItems++)
@@ -640,6 +637,12 @@ void cRespawn::Continue()
 			}
 		}
 	}
+	unsigned int i;
+	for( i = 1; i < spawnregion.size(); i++) //New -- Zippy region spawner
+	{
+		while (doregionspawn(i));	// spawn up to the max.
+	}
+
 	sysbroadcast("Respawn now complete.");
 	respawning = false;	// if we get here, the respawning has finished
 }

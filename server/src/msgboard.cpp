@@ -188,8 +188,8 @@ void MsgBoardOpen(int s)
 	
 	// If the name the item (Bulletin Board) has been defined, display it
 	// instead of the default "Bulletin Board" title.
-	if ( strcmp(pi_msgBoard->name, "#") )
-		strncpy( (char*)&msgBoardHeader[8], pi_msgBoard->name, 20);
+	if ( pi_msgBoard->name != "#" )
+		strncpy( (char*)&msgBoardHeader[8], pi_msgBoard->name.c_str(), 20);
 	
 	// Send Message Board header to client
 	Xsend(s, msgBoardHeader, (sizeof(msgBoardHeader)-1) );
@@ -1127,7 +1127,7 @@ int MsgBoardPost( int s, int msgType, int autoPost )
 	// Get the Authors info and create msgAuthor packet
 	// if this was a user posting, get the characters name, other wise leave it blank
 	if ( !autoPost )
-		strncpy( &msgAuthor[1], currchar[s]->name, (sizeof(msgAuthor)-1) );
+		strncpy( &msgAuthor[1], currchar[s]->name.c_str(), (sizeof(msgAuthor)-1) );
 	msgAuthor[0] = strlen(&msgAuthor[1]) + 1;  // get the length of the name + 1 for null
 	
 	newMsgSize += (msgAuthor[0]+1);   // Update the new total length of the message
@@ -2042,7 +2042,7 @@ int MsgBoardPostQuest( int serial, int questType )
 					// NPC Name
 				case 'n':
 					{
-						strcpy( flagPos, (FindCharBySerial( serial )->name) );
+						strcpy( flagPos, (FindCharBySerial( serial )->name.c_str()) );
 						strcat( (char*)temp, tempString );
 						break;
 					}
@@ -2059,7 +2059,7 @@ int MsgBoardPostQuest( int serial, int questType )
 					// NPC title
 				case 't':
 					{
-						strcpy( flagPos, FindCharBySerial( serial )->title );
+						strcpy( flagPos, FindCharBySerial( serial )->title.c_str() );
 						strcat( (char*)temp, tempString );
 						break;
 					}
@@ -2205,8 +2205,8 @@ void MsgBoardQuestEscortCreate( P_CHAR pc_npc )
 	// Post the message to the message board in the same REGION as the NPC
 	if ( !MsgBoardPostQuest(pc_npc->serial, ESCORTQUEST) )
 	{
-		clConsole.send( "WOLFPACK: MsgBoardQuestEscortCreate() Failed to add quest post for %s\n", pc_npc->name );
-		clConsole.send( "WOLFPACK: MsgBoardQuestEscortCreate() Deleting NPC %s\n", pc_npc->name );
+		clConsole.send( "WOLFPACK: MsgBoardQuestEscortCreate() Failed to add quest post for %s\n", pc_npc->name.c_str() );
+		clConsole.send( "WOLFPACK: MsgBoardQuestEscortCreate() Deleting NPC %s\n", pc_npc->name.c_str() );
 		Npcs->DeleteChar( pc_npc );
 		//deletechar( npcIndex );
 		return;
@@ -2214,7 +2214,7 @@ void MsgBoardQuestEscortCreate( P_CHAR pc_npc )
 	
 	// Debugging messages
 #ifdef DEBUG
-	clConsole.send("WOLFPACK: MsgBoardQuestEscortCreate() Escort quest for:\n       %s to be escorted to %s\n", pc_npc->name, region[pc_npc->questDestRegion].name );
+	clConsole.send("WOLFPACK: MsgBoardQuestEscortCreate() Escort quest for:\n       %s to be escorted to %s\n", pc_npc->name, region[pc_npc->questDestRegion].name.c_str() );
 #endif
 }
 
@@ -2241,7 +2241,7 @@ void MsgBoardQuestEscortArrive( P_CHAR pc_npc, int pcIndex )
 	// If they have no money, well, oops!
 	if ( servicePay == 0 )
 	{
-		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Alas, I seem to be a little short on gold. I have nothing to pay you with.", currchar[k]->name, region[pc_npc->questDestRegion].name );
+		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Alas, I seem to be a little short on gold. I have nothing to pay you with.", currchar[k]->name.c_str(), region[pc_npc->questDestRegion].name );
 		npctalk( k, pc_npc, (char*)temp, 0 );
 	}
 	else // Otherwise pay the poor sod for his time
@@ -2250,12 +2250,12 @@ void MsgBoardQuestEscortArrive( P_CHAR pc_npc, int pcIndex )
 		if ( servicePay < 75 ) servicePay += RandomNum(75, 100);
 		addgold( k, servicePay );
 		goldsfx( k, servicePay );
-		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Here is thy pay as promised.", currchar[k]->name, region[pc_npc->questDestRegion].name );
+		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Here is thy pay as promised.", currchar[k]->name.c_str(), region[pc_npc->questDestRegion].name );
 		npctalk( k, pc_npc, (char*)temp, 0 );
 	}
 	
 	// Inform the PC of what he has just been given as payment
-	sprintf( (char*)temp, "You have just received %d gold coins from %s %s", servicePay, pc_npc->name, pc_npc->title );
+	sprintf( (char*)temp, "You have just received %d gold coins from %s %s", servicePay, pc_npc->name.c_str(), pc_npc->title.c_str() );
 	sysmessage( k, (char*)temp );
 	
 	// Take the NPC out of quest mode

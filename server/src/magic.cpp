@@ -473,7 +473,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		return;
 	}
 
-	strcpy(pc_monster->name, monstername);
+	pc_monster->name = monstername;
 
 	pc_monster->id1=pc_monster->xid1=id1;
 	pc_monster->id2=pc_monster->xid2=id2;
@@ -1706,7 +1706,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							sysmessage(s,"Recall rune marked.");
 							//antichrist
 							calcreg=calcRegionFromXY(pc_currchar->pos.x, pc_currchar->pos.y);
-							sprintf(pi->name, "Rune to: %s.", region[calcreg].name);
+							pi->name = string("Rune to: ") + string(region[calcreg].name);
 							
 							cMagic::invisibleItemParticles(pc_currchar, curSpell, pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);						
 							
@@ -2212,7 +2212,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 									}
 									else
 									{
-										sprintf((char*)temp,"There seems to be something in the way between you and %s.", mapchar->name);
+										sprintf((char*)temp,"There seems to be something in the way between you and %s.", mapchar->name.c_str());
 										sysmessage(s, (char*)temp);
 									}
 								}
@@ -2244,7 +2244,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 									}
 									else
 									{
-										sprintf( (char*)temp, "There seems to be something in the way between you and %s.", mapchar->name );
+										sprintf( (char*)temp, "There seems to be something in the way between you and %s.", mapchar->name.c_str() );
 										sysmessage( s, (char*)temp );
 									}
 								}
@@ -2345,7 +2345,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 									}
 									else
 									{
-										sprintf((char*)temp,"Try as you might, but you cannot see %s well enough to cover.", mapchar->name);
+										sprintf((char*)temp,"Try as you might, but you cannot see %s well enough to cover.", mapchar->name.c_str());
 										sysmessage(s, (char*)temp);
 									}
 								}

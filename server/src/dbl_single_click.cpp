@@ -60,7 +60,7 @@ static bool Item_ToolWearOut(UOXSOCKET s, P_ITEM pi)
 {
 	if(Item_ToolWearOut(pi))	// has item been destroyed ??
 	{	 
-		sprintf((char*)temp,"Your %s has been destroyed",pi->name);
+		sprintf((char*)temp,"Your %s has been destroyed",pi->name.c_str());
 		sysmessage(s,(char*)temp);
 		return true;
 	}
@@ -750,7 +750,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					return;
 				}
 				else 
-					clConsole.send("Unhandled guild item type named: %s with ID of: %X", pi->name, pi->id());
+					clConsole.send("Unhandled guild item type named: %s with ID of: %X", pi->name.c_str(), pi->id());
 				return;
 				// End of guild stuff
 			case 203: // Open a gumpmenu - Crackerjack 8/9/99
@@ -820,7 +820,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 						pc_vendor->SetOwnSerial(pc_currchar->serial);
 						pc_vendor->tamed = false;
 						Items->DeleItem(pi);
-						sprintf((char*)temp, "Hello sir! My name is %s and i will be working for you.", pc_vendor->name);
+						sprintf((char*)temp, "Hello sir! My name is %s and i will be working for you.", pc_vendor->name.c_str());
 						npctalk(s, pc_vendor, (char*)temp, 1);
 						updatechar(pc_vendor);
 						teleport(pc_vendor);
@@ -1520,7 +1520,7 @@ void singleclick(UOXSOCKET s)
 		{
 			if (pc_j->npcaitype == 17)
 			{
-				if (strlen(pi->creator)>0 && pi->madewith>0)
+				if (pi->creator.size() > 0 && pi->madewith>0)
 					sprintf((char*)temp2, "%s %s by %s", pi->desc, skill[pi->madewith - 1].madeword, pi->creator); 
 				else
 					strcpy((char*)temp2, pi->desc); // LB bugfix
@@ -1543,21 +1543,21 @@ void singleclick(UOXSOCKET s)
 			sprintf((char*)temp, "%s : %i", itemname, pi->amount);
 		
 	// Add creator's mark (if any)			
-	if (strlen(pi->creator) > 0 && pi->madewith > 0)
+	if (pi->creator.size() > 0 && pi->madewith > 0)
 		sprintf((char*)temp, "%s %s by %s", temp, skill[pi->madewith - 1].madeword, pi->creator);
 	
 	if (pi->type == 15) // Fraz
 	{
-			if (!(strcmp(pi->name2,pi->name)))
-			{
+		if (pi->name2 == pi->name)
+		{
 			sprintf((char*)temp, "%s %i charge", temp, pi->morez);
 			if (pi->morez != 1)
 			strcat(temp, "s");
-			}
+		}
 	}
 	else if (pi->type == 404 || pi->type == 181)
 	{
-			if (!(strcmp(pi->name2,pi->name)))
+			if (pi->name2 == pi->name)
 			{
 			sprintf((char*)temp, "%s %i charge", temp, pi->morex);
 			if (pi->morex != 1)

@@ -255,14 +255,14 @@ public:
 	cRenameTarget(P_CLIENT pCli) : cWpObjTarget(pCli), cItemTarget(pCli), cCharTarget(pCli), cTarget(pCli) {}
 	void CharSpecific()
 	{
-		strcpy(pc->name,xtext[s]);
+		pc->name = xtext[s];
 	}
 	void ItemSpecific()
 	{
 		if(addx[s]==1) //rename2 //New -- Zippy
-			strcpy(pi->name2,xtext[s]);
+			pi->name2 = xtext[s];
 		else
-			strcpy(pi->name,xtext[s]);
+			pi->name = xtext[s];
 	}
 };
 
@@ -478,8 +478,8 @@ static void PrivTarget(int s, P_CHAR pc)
 {
 	if (SrvParms->gm_log)	//Logging
 	{
-		sprintf((char*)temp, "%s.gm_log", currchar[s]->name);
-		sprintf((char*)temp2, "%s as given %s Priv [%x][%x]\n", currchar[s]->name, pc->name, addid1[s],addid2[s]);
+		sprintf((char*)temp, "%s.gm_log", currchar[s]->name.c_str());
+		sprintf((char*)temp2, "%s as given %s Priv [%x][%x]\n", currchar[s]->name.c_str(), pc->name.c_str(), addid1[s],addid2[s]);
 		savelog((char*)temp2, (char*)temp);
 	}
 	pc->setPriv(addid1[s]);
@@ -602,7 +602,7 @@ void cTargets::IstatsTarget(int s)
 				(co&0x000000FF) );
 			sprintf((char*)temp, "Item [Dynamic] Ser [%x %x %x %x] ID [%x %x] Name [%s] Name2 [%s] Color [%x %x] Cont %s Layer [%x] Type [%d] Magic [%x] More [%x %x %x %x] Position [%i %i %i] Amount [%i] Priv [%x]",
 				pi->ser1,pi->ser2,pi->ser3,pi->ser4,pi->id1,pi->id2,
-				pi->name,pi->name2,pi->color1,pi->color2,
+				pi->name.c_str(),pi->name2.c_str(),pi->color1,pi->color2,
 				contstr,
 				pi->layer,pi->type,pi->magic,
 				pi->more1,pi->more2,pi->more3,pi->more4,
@@ -627,12 +627,12 @@ void cTargets::TargIdTarget(int s) // Fraz
 		{
 			if (pi && !pi->isLockedDown())
 			{
-				if (pi->name2 &&(strcmp(pi->name2, "#")))
-					strcpy(pi->name, pi->name2);
-				if (pi->name[0] == '#')
+				if (pi->name2 != "#")
+					pi->name = pi->name2;
+				if (pi->name == "#")
 					pi->getName(temp2);
 				else 
-					strcpy((char*)temp2, pi->name);
+					strcpy((char*)temp2, pi->name.c_str());
 				sprintf((char*)temp, "You found that this item appears to be called: %s", temp2);
 				sysmessage(s, (char*) temp);
 			}
@@ -662,7 +662,7 @@ static void CstatsTarget(P_CLIENT ps, P_CHAR pc)
 
 	sprintf((char*)temp, "Ser [%x %x %x %x] ID [%x %x] Name [%s] Skin [%x] Account [%x] Priv [%x %x] Position [%i %i %i] CTimeout [%i] Fame [%i] Karma [%i] Deaths [%i] Kills [%i] NPCAI [%x] NPCWANDER [%d] WEIGHT [%.2f]",
 		pc->ser1,pc->ser2,pc->ser3,pc->ser4,pc->id1,pc->id2,
-		pc->name,pc->skin,
+		pc->name.c_str(),pc->skin,
 		pc->account,pc->getPriv(),pc->priv2,
 		pc->pos.x,pc->pos.y,pc->pos.z, pc->timeout,
 		pc->fame,pc->karma,pc->deaths,pc->kills,
@@ -727,8 +727,8 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 	int i;	
 	if (SrvParms->gm_log)
 	{
-		sprintf((char*)temp, "%s.gm_log",currchar[s]->name);
-		sprintf((char*)temp2, "%s has made %s a GM.\n",currchar[s]->name,pc->name);
+		sprintf((char*)temp, "%s.gm_log",currchar[s]->name.c_str());
+		sprintf((char*)temp2, "%s has made %s a GM.\n",currchar[s]->name.c_str(),pc->name.c_str());
 		savelog((char*)temp2, (char*)temp);
 	}
 	UOXSOCKET targSocket = calcSocketFromChar(pc);
@@ -771,10 +771,10 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 	pc->mn2 = 100;
 	pc->setDex(100);
 	
-	if (strncmp(pc->name, "GM", 2))
+	if (strncmp(pc->name.c_str(), "GM", 2))
 	{
-		sprintf((char*)temp, "GM %s", pc->name);
-		strcpy(pc->name,(char*)temp);
+		sprintf((char*)temp, "GM %s", pc->name.c_str());
+		pc->name = (char*)temp;
 	}
 	MoveBelongingsToBp(pc, pc);
 }
@@ -786,8 +786,8 @@ static void CnsTarget(P_CLIENT ps, P_CHAR pc)
 	if (SrvParms->gm_log)
 	{
 		// logging
-		sprintf((char*)temp, "%s.gm_log",currchar[s]->name);
-		sprintf((char*)temp2, "%s has made %s a Counselor.\n",currchar[s]->name,pc->name);
+		sprintf((char*)temp, "%s.gm_log",currchar[s]->name.c_str());
+		sprintf((char*)temp2, "%s has made %s a Counselor.\n",currchar[s]->name.c_str(),pc->name.c_str());
 		savelog((char*)temp2, (char*)temp);
 	}
 	pc->id1=0x03;
@@ -798,10 +798,10 @@ static void CnsTarget(P_CLIENT ps, P_CHAR pc)
 	pc->xskin=0x8002;
 	pc->setPriv(0xB6);
 	pc->priv2='\x8D';
-	if (strncmp(pc->name, "Counselor", 9))
+	if (strncmp(pc->name.c_str(), "Counselor", 9))
 	{
-		sprintf((char*)temp, "Counselor %s", pc->name);
-		strcpy(pc->name,(char*)temp);
+		sprintf((char*)temp, "Counselor %s", pc->name.c_str());
+		pc->name  = (char*)temp;
 	}
 	for (int u=0;u<7;u++) // this overwrites all previous settigns !!!
 	{
@@ -1033,7 +1033,7 @@ static void AddNpcTarget(int s, PKGx6C *pp)
 	if ( pc == NULL )
 		return;
 	pc->Init();
-	strcpy(pc->name, "Dummy");
+	pc->name = "Dummy";
 	pc->id1=addid1[s];
 	pc->id2=addid2[s];
 	pc->xid1=addid1[s];
@@ -1343,7 +1343,7 @@ static void ExpPotionTarget(int s, PKGx6C *pp) //Throws the potion and places it
 
 static void Priv3Target(UOXSOCKET s, P_CHAR pc)
 {
-	clConsole.send("setpriv3target: %s\n", pc->name);
+	clConsole.send("setpriv3target: %s\n", pc->name.c_str());
 	pc->priv3[0]=priv3a[s];
 	pc->priv3[1]=priv3b[s];
 	pc->priv3[2]=priv3c[s];
@@ -1527,7 +1527,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		sysmessage(s,"You have lost some karma!");
 		criminal( pc_currchar );
 		//create the Head
-		sprintf((char*)temp,"the head of %s",pi3->name2);
+		sprintf((char*)temp,"the head of %s",pi3->name2.c_str());
 		P_ITEM pi = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA0,0,0,0,0);
 		if(pi == NULL) return;
 		pi->SetContSerial(pi3->serial);
@@ -1539,7 +1539,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		pi->setOwnSerialOnly(pi3->ownserial);
 
 		//create the Body
-		sprintf((char*)temp,"the heart of %s",pi3->name2);
+		sprintf((char*)temp,"the heart of %s",pi3->name2.c_str());
 		P_ITEM pi4 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1C,0xED,0,0,0,0);
 		if(pi4 == NULL) return;
 		pi4->SetContSerial(pi3->serial);
@@ -1548,7 +1548,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		pi4->setOwnSerialOnly(pi3->ownserial);	// see above
 
 		//create the Heart
-		sprintf((char*)temp,"the body of %s",pi3->name2);
+		sprintf((char*)temp,"the body of %s",pi3->name2.c_str());
 		P_ITEM pi5 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xAD,0,0,0,0);
 		if(pi5 == NULL) return;
 		pi5->SetContSerial(pi3->serial);
@@ -1557,7 +1557,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		pi5->setOwnSerialOnly(pi3->ownserial);	// see above
 
 		//create the Left Arm
-		sprintf((char*)temp,"the left arm of %s",pi3->name2);
+		sprintf((char*)temp,"the left arm of %s",pi3->name2.c_str());
 		P_ITEM pi6 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA1,0,0,0,0);
 		if(pi6==NULL) return;
 		pi6->SetContSerial(pi3->serial);
@@ -1566,7 +1566,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		pi6->setOwnSerialOnly(pi3->ownserial);	// see above
 
 		//create the Right Arm
-		sprintf((char*)temp,"the right arm of %s",pi3->name2);
+		sprintf((char*)temp,"the right arm of %s",pi3->name2.c_str());
 		P_ITEM pi7 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA2,0,0,0,0);
 		if(pi7==NULL) return;//AntiChrist to preview crashes
 		pi7->SetContSerial(pi3->serial);
@@ -1575,7 +1575,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		pi7->setOwnSerialOnly(pi3->ownserial);	// see above
 
 		//create the Left Leg
-		sprintf((char*)temp,"the left leg of %s",pi3->name2);
+		sprintf((char*)temp,"the left leg of %s",pi3->name2.c_str());
 		P_ITEM pi8 = Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA3,0,0,0,0);
 		if(pi8 == NULL) return;//AntiChrist to preview crashes
 		pi8->SetContSerial(pi3->serial);
@@ -1584,7 +1584,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 		pi8->setOwnSerialOnly(pi3->ownserial);	// see above
 
 		//create the Rigth Leg
-		sprintf((char*)temp,"the right leg of %s",pi3->name2);
+		sprintf((char*)temp,"the right leg of %s",pi3->name2.c_str());
 		P_ITEM pi9=Items->SpawnItem(s, pc_currchar,1,(char*)temp,0,0x1D,0xA4,0,0,0,0);
 		if(pi9==NULL) return;
 		
@@ -2018,7 +2018,7 @@ void cTargets::ReleaseTarget(int s, int c)
 			teleport(pc); 
 			soundeffect(c, 1, 0xfd); // Play sound effect for player 
 			sysmessage(c, "You are released.."); 
-			sysmessage(s, "Player %s released.", pc->name); 
+			sysmessage(s, "Player %s released.", pc->name.c_str()); 
 		} 
 	} 
 }
@@ -2129,7 +2129,7 @@ void cTargets::JailTarget(int s, int c)
 			jails[i].occupied = 1; 
 			sysmessage(prisoner, "You are jailed !"); 
 			sysmessage(prisoner, "You notice you just got something new at your backpack.."); 
-			sysmessage(s, "Player %s has been jailed in cell %i.", pc->name, i); 
+			sysmessage(s, "Player %s has been jailed in cell %i.", pc->name.c_str(), i); 
 			Items->SpawnItemBackpack2(prisoner, 50040, 0); // spawn crystall ball of justice to prisoner. 
 			// end blackwinds jail 
 			
@@ -2173,7 +2173,7 @@ void cTargets::TransferTarget(int s)
 	if ( pc1 == NULL || pc2 == NULL)
 		return;
 
-	sprintf(t,"* %s will now take %s as his master *",pc1->name,pc2->name);
+	sprintf(t,"* %s will now take %s as his master *",pc1->name.c_str(), pc2->name.c_str());
 	npctalkall(pc1, t, 0);
 
 	if (pc1->ownserial != -1) 
@@ -2605,17 +2605,17 @@ void cTargets::Priv3XTarget(int s) // crackerjack's addition, jul.24/99
 	P_CHAR pc = FindCharBySerial(serial);
 	if (pc != NULL)
 	{
-		clConsole.send("setpriv3target: %s\n", pc->name);
+		clConsole.send("setpriv3target: %s\n", pc->name.c_str());
 		struct cmdtable_s *pct = &command_table[addx[s]];
 		if(addy[s])
 		{
 			pc->priv3[pct->cmd_priv_m] |= (0-0xFFFFFFFF<<pct->cmd_priv_b);
-			sysmessage(s, "%s has been granted access to the %s command.",pc->name, pct->cmd_name);
+			sysmessage(s, "%s has been granted access to the %s command.",pc->name.c_str(), pct->cmd_name);
 		}
 		else
 		{
 			pc->priv3[pct->cmd_priv_m] -= (0-0xFFFFFFFF<<pct->cmd_priv_b);
-			sysmessage(s, "%s has been revoked access to the %s command.",pc->name, pct->cmd_name);
+			sysmessage(s, "%s has been revoked access to the %s command.",pc->name.c_str(), pct->cmd_name);
 		}
 	}
 }
@@ -2628,7 +2628,7 @@ void cTargets::ShowPriv3Target(int s) // crackerjack, jul 25/99
 	{
 		char priv_info[10248];
 		int i;
-		sprintf(priv_info, "%s can execute the following commands:\n", pc->name);
+		sprintf(priv_info, "%s can execute the following commands:\n", pc->name.c_str());
 		i=0; unsigned long loopexit=0;
 		while(command_table[i].cmd_name && (++loopexit < MAXLOOPS) )
 		{
@@ -2702,8 +2702,8 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 	pi3->more4=pHouse->ser4;
 	pi3->type=7;
 	
-	sysmessage(s, "You have transferred your house to %s.", pc->name);
-	sprintf((char*)temp, "%s has transferred a house to %s.", currchar[s]->name, pc->name);
+	sysmessage(s, "You have transferred your house to %s.", pc->name.c_str());
+	sprintf((char*)temp, "%s has transferred a house to %s.", currchar[s]->name.c_str(), pc->name.c_str());
 
 	int k;
 	for(k=0;k<now;k++)
@@ -2755,11 +2755,11 @@ void cTargets::HouseBanTarget(int s)
 		int r=House[h]->AddBan(pc);
 		if(r==1)
 		{
-			sysmessage(s, "%s has been banned from this house.", pc->name);
+			sysmessage(s, "%s has been banned from this house.", pc->name.c_str());
 		} 
 		else if(r==2)
 		{
-			sysmessage(s, "%s is already banned!.", pc->name);
+			sysmessage(s, "%s is already banned!.", pc->name.c_str());
 		} 
 		else
 			sysmessage(s, "House Error!");
@@ -2783,11 +2783,11 @@ void cTargets::HouseFriendTarget(int s) // crackerjack 8/12/99 - add somebody to
 		int r=House[h]->AddFriend(Friend);
 		if(r==1)
 		{
-			sysmessage(s, "%s has been made a Friend of the house.", Friend->name);
+			sysmessage(s, "%s has been made a Friend of the house.", Friend->name.c_str());
 		} 
 		else if(r==2)
 		{
-			sysmessage(s, "%s is already a Friend of the house!", Friend->name);
+			sysmessage(s, "%s is already a Friend of the house!", Friend->name.c_str());
 		} 
 		else 
 		{
@@ -2813,11 +2813,11 @@ void cTargets::HouseUnBanTarget(int s)
 		bool r=House[h]->RemoveBan(pc_banned);
 		if(true==r)
 		{
-			sysmessage(s,"%s has been UnBanned!",pc_banned->name);
+			sysmessage(s,"%s has been UnBanned!",pc_banned->name.c_str());
 		}
 		else if(false==r)
 		{
-			sysmessage(s,"%s was never banned!",pc_banned->name);
+			sysmessage(s,"%s was never banned!",pc_banned->name.c_str());
 		}
 		else
 		{
@@ -2844,11 +2844,11 @@ void cTargets::HouseUnFriendTarget(int s)
 		bool r=House[h]->RemoveFriend(pc_friend);
 		if(true==r)
 		{
-			sysmessage(s,"%s is no longer a Friend of this home!",pc_friend->name);
+			sysmessage(s,"%s is no longer a Friend of this home!",pc_friend->name.c_str());
 		}
 		else if(false==r)
 		{
-			sysmessage(s,"%s was never a Friend of this home!",pc_friend->name);
+			sysmessage(s,"%s was never a Friend of this home!",pc_friend->name.c_str());
 		}
 		else
 		{
@@ -3172,7 +3172,7 @@ void cTargets::MenuPrivTarg(int s)//LB's menu privs
 		i=addid1[s];
 		sprintf(temp,"Setting Menupriv number %i",i);
 		sysmessage(s,temp);
-		sprintf(temp,"Menupriv %i set by %s",i,currchar[s]->name);
+		sprintf(temp,"Menupriv %i set by %s",i,currchar[s]->name.c_str());
 		sysmessage(calcSocketFromChar(pc),temp);
 		pc->menupriv=i;
 	}
@@ -3192,11 +3192,11 @@ void cTargets::ShowSkillTarget(int s) // LB's showskills
 		z=addx[s];
 		if (z<0 || z>3) z=0;
 		if (z==2 || z==3)
-			sprintf(skill_info, "%s's skills:", pc->name);
+			sprintf(skill_info, "%s's skills:", pc->name.c_str());
 		else
-			sprintf(skill_info, "%s's baseskills:", pc->name);
+			sprintf(skill_info, "%s's baseskills:", pc->name.c_str());
 
-		b=strlen(pc->name)+11;
+		b=pc->name.size()+11;
 		if (b>23) b=23;
 
 		for (c=b;c<=26;c++)
@@ -3629,7 +3629,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 44: Magic->Heal(s); break; // we need this for /heal command
 		case 45: Fishing->FishTarget(ps); break;
 		case 46: InfoTarget(s,pt); break;
-		case 47: if (Cready) strcpy(pc->title,xtext[s]); break;//TitleTarget
+		case 47: if (Cready) pc->title = xtext[s]; break;//TitleTarget
 		case 48: Targ->ShowAccountCommentTarget(s); break;
 		case 49: Skills->CookOnFire(s,0x09,0x7B,"fish steaks"); break;
 		case 50: Skills->Smith(s); break;

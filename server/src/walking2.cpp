@@ -150,7 +150,7 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 	if ( ! isValidDirection(dir) )
 	{
 #if DEBUG_WALK_ERROR
-		printf("%s (cMovement::Walking) caught bad direction = %s %d 0x%x\n", DBGFILE, pc->name, dir, dir);
+		printf("%s (cMovement::Walking) caught bad direction = %s %d 0x%x\n", DBGFILE, pc->name.c_str(), dir, dir);
 #endif
 		pc->pathnum += PATHNUM;
 		return;
@@ -213,7 +213,7 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 		if ( ! CanCharMove(pc, pc->pos.x, pc->pos.y, myz, dir) )
 		{
 #if DEBUG_WALK
-			printf("%s (cMovement::Walking) Character Walk Failed for %s\n", DBGFILE, pc->name);
+			printf("%s (cMovement::Walking) Character Walk Failed for %s\n", DBGFILE, pc->name.c_str());
 			printf("%s (cMovement::Walking) sx (%d) sy (%d) sz (%d)\n", DBGFILE, pc->pos.x, pc->pos.y, pc->pos.z);
 			printf("%s (cMovement::Walking) dx (%d) dy (%d) dz (%d)\n", DBGFILE, myx, myy, myz);
 #endif
@@ -226,7 +226,7 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 		dispz = z = myz;
 
 #if DEBUG_WALK
-		printf("%s (cMovement::Walking) Character Walk Passed for %s\n", DBGFILE, pc->name);
+		printf("%s (cMovement::Walking) Character Walk Passed for %s\n", DBGFILE, pc->name.c_str());
 		printf("%s (cMovement::Walking) sx (%d) sy (%d) sz (%d)\n", DBGFILE, pc->pos.x, pc->pos.y, pc->pos.z);
 		printf("%s (cMovement::Walking) dx (%d) dy (%d) dz (%d)\n", DBGFILE, myx, myy, myz);
 #endif
@@ -355,7 +355,7 @@ bool cMovement::isFrozen(P_CHAR pc, UOXSOCKET socket, int sequence)
 			deny(socket, pc, sequence);  
 		}
 #if DEBUG_WALK
-		printf("%s (cMovement::isFrozen) casting char %s\n", DBGFILE, pc->name);
+		printf("%s (cMovement::isFrozen) casting char %s\n", DBGFILE, pc->name.c_str());
 #endif
 		return true;
 	}
@@ -367,7 +367,7 @@ bool cMovement::isFrozen(P_CHAR pc, UOXSOCKET socket, int sequence)
 			deny(socket, pc, sequence);  
 		}
 #if DEBUG_WALK
-		printf("%s (cMovement::isFrozen) frozen char %s\n", DBGFILE, pc->name);
+		printf("%s (cMovement::isFrozen) frozen char %s\n", DBGFILE, pc->name.c_str());
 #endif
 		return true;
 	} 
@@ -405,7 +405,7 @@ bool cMovement::isOverloaded(P_CHAR pc, UOXSOCKET socket, int sequence)
 				sysmessage(socket, "You are too fatigued to move, you are carrying %d stones.", pc->weight);
 				deny(socket, pc, sequence);
 #if DEBUG_WALK
-				printf("%s (cMovement::Walking) overloaded char %s\n", DBGFILE, pc->name);
+				printf("%s (cMovement::Walking) overloaded char %s\n", DBGFILE, pc->name.c_str());
 #endif
 				return true;
 			}
@@ -1064,14 +1064,14 @@ void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, 
 						{
 							if (mapchar->isHidden() && !mapchar->dead && !mapchar->isInvul() && !mapchar->isGM())
 							{
-								sprintf(temp, "Being perfectly rested, you shoved something invisible out of the way.", mapchar->name);
+								sprintf(temp, "Being perfectly rested, you shoved something invisible out of the way.", mapchar->name.c_str());
 								if (socket!=INVALID_UOXSOCKET) sysmessage(socket, temp);
 							    pc->stm = max(pc->stm-4, 0);
 								updatestats(pc, 2);  // arm code
 							}
 						    else if (!mapchar->isHidden() && !mapchar->dead && (!(mapchar->isInvul())) &&(!(mapchar->isGM()))) // ripper..GMs and ghosts dont get shoved.)
 							{
-								sprintf(temp, "Being perfectly rested, you shove %s out of the way.", mapchar->name);
+								sprintf(temp, "Being perfectly rested, you shove %s out of the way.", mapchar->name.c_str());
 								if (socket!=INVALID_UOXSOCKET) sysmessage(socket, temp);
 								pc->stm = max(pc->stm-4, 0);
 								updatestats(pc, 2);  // arm code
@@ -1132,7 +1132,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 				if (mapitem != NULL)
 				{
 #if DEBUG_WALKING
-				  //printf("Checking against Item %s, ID1:%d, ID2:%d\n", mapitem->name, mapitem->id1, mapitem->id2);
+				  //printf("Checking against Item %s, ID1:%d, ID2:%d\n", mapitem->name.c_str(), mapitem->id1, mapitem->id2);
 #endif
 					// split out the x,y,z check so we can use else ifs for faster item id checking
 					if ((mapitem->id1==0x39 && (mapitem->id2==0x96 || mapitem->id2==0x8C)))
@@ -1562,7 +1562,7 @@ printf("Character stuck!\n");
 		pc->path[i].x = newpath[i].x;
 		pc->path[i].y = newpath[i].y;
 #if DEBUG_PATHFIND
-		printf("PFDump: %s - %i) %ix, %iy\n",pc->name, i+1, pc->path[i].pos.x, pc->path[i].pos.y);
+		printf("PFDump: %s - %i) %ix, %iy\n",pc->name.c_str(), i+1, pc->path[i].pos.x, pc->path[i].pos.y);
 #endif
 	}
 
@@ -1580,7 +1580,7 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
     if (pc_i->isNpc() && (pc_i->npcmovetime<=currenttime||(overflow)))
     {
 #if DEBUG_NPCWALK
-		printf("ENTER (%s): %d AI %d WAR %d J\n", pc_i->name, pc_i->npcWander, pc_i->war, j);
+		printf("ENTER (%s): %d AI %d WAR %d J\n", pc_i->name.c_str(), pc_i->npcWander, pc_i->war, j);
 #endif
 		if (pc_i->war && pc_i->npcWander != 5)
         {
@@ -1821,7 +1821,7 @@ bool cMovement::CanCharWalk(P_CHAR pc, short int x, short int y, signed char &z)
 		}
 
 #if DEBUG_WALK
-		printf( "CheckWalkable calculate Z=%s %d\n", pc->name, nNewZ );
+		printf( "CheckWalkable calculate Z=%s %d\n", pc->name.c_str(), nNewZ );
 #endif
 
 		// now the new Z-cordinate of creature is known, 
@@ -2154,7 +2154,7 @@ int cMovement::validNPCMove( short int x, short int y, signed char z, P_CHAR pc_
                 
                 if (mapitem->type==12)
                 {
-                    if (pc_s->isNpc() && (strlen(pc_s->title) > 0 || pc_s->npcaitype != 0))
+                    if (pc_s->isNpc() && (pc_s->title.size() > 0 || pc_s->npcaitype != 0))
                     {                            
                         // clConsole.send("doors!!!\n");
                         dooruse(-1, mapitem);

@@ -223,7 +223,7 @@ void loadchar(int x) // Load a character from WSC
 			else if (!strcmp((char*)script1, "NPCWANDER"))		  pc->npcWander=str2num(script2);
 			else if (!strcmp((char*)script1, "NOTRAIN"))		  pc->cantrain=false;
 			else if (!strcmp((char*)script1, "NPCTYPE"))		  pc->npc_type=str2num(script2);
-			else if (!strcmp((char*)script1, "NAME"))			  strcpy(pc->name,(char*)script2);
+			else if (!strcmp((char*)script1, "NAME"))			  pc->name = (char*)script2;
 			else if (!strcmp((char*)script1, "NPCAITYPE"))		  pc->npcaitype=str2num(script2);
 		break;
 
@@ -330,7 +330,7 @@ void loadchar(int x) // Load a character from WSC
 
 		case 'T':
 		case 't':
-			if (!strcmp((char*)script1, "TITLE"))				  strcpy(pc->title,(char*)script2);
+			if (!strcmp((char*)script1, "TITLE"))				  pc->title = (char*)script2;
 			else if (!strcmp((char*)script1, "TAMING"))			  pc->taming=str2num(script2);
 			else if (!strcmp((char*)script1, "TRIGGER"))		  pc->trigger=str2num(script2);
 			else if (!strcmp((char*)script1, "TRIGWORD"))		  strcpy(pc->trigword,(char*)script2);
@@ -403,7 +403,7 @@ void loadchar(int x) // Load a character from WSC
 				if (c1!=0xf000)
 				{
 					pc->skin = pc->xskin = 0xF000;
-					clConsole.send("char/player: %s : %i correted problematic skin hue\n",pc->name,pc->serial);
+					clConsole.send("char/player: %s : %i correted problematic skin hue\n", pc->name.c_str(),pc->serial);
 				}
 			}
  } else	// client crashing body --> delete if non player esle put onl”x a warning on server screen
@@ -416,7 +416,7 @@ void loadchar(int x) // Load a character from WSC
 	{
 		pc->id1 = 0x01;
 		pc->id2 = 0x90;
-		clConsole.send("player: %s with bugged body-value detected, restored to male shape\n",pc->name);
+		clConsole.send("player: %s with bugged body-value detected, restored to male shape\n",pc->name.c_str());
 	}
  }
 
@@ -523,7 +523,7 @@ void loaditem (int x) // Load an item from WSC
 			}
 			else if (!(strcmp((char*)script1, "CORPSE"))) { pi->corpse=str2num(script2); }
 			else if (!(strcmp((char*)script1, "CARVE"))) { pi->carve=str2num(script2); }
-			else if (!(strcmp((char*)script1, "CREATOR")))	{ strcpy(pi->creator,(char*)script2); } // by Magius(CHE)
+			else if (!(strcmp((char*)script1, "CREATOR")))	{ pi->creator = (char*)script2; } // by Magius(CHE)
 			break;
 
 		case 'd':
@@ -576,7 +576,7 @@ void loaditem (int x) // Load an item from WSC
 					length=length/sizeof(st_multi);
 					if (length<=-1 || length>170000)
 					{
-						clConsole.send("\nbad item, serial: %i name: %s multi-l: %i\n",pi->serial,pi->name,length);
+						clConsole.send("\nbad item, serial: %i name: %s multi-l: %i\n",pi->serial,pi->name.c_str(),length);
 						clConsole.send("deleted\n");
 						bad=1;
 					}
@@ -617,8 +617,8 @@ void loaditem (int x) // Load an item from WSC
 		
 		case 'n':
 		case 'N':
-			if (!(strcmp((char*)script1, "NAME")))		{ strcpy(pi->name,(char*)script2); }
-			else if (!(strcmp((char*)script1, "NAME2")))	{ strcpy(pi->name2,(char*)script2); }
+			if (!(strcmp((char*)script1, "NAME")))			{ pi->name = (char*)script2; }
+			else if (!(strcmp((char*)script1, "NAME2")))	{ pi->name2 = (char*)script2; }
 			break;
 		
 		case 'o':
@@ -1121,10 +1121,10 @@ void CWorldMain::SaveChar( P_CHAR pc )
 			} 
 			else
 			{
-				fprintf(cWsc, "NAME %s\n", pc->name);
+				fprintf(cWsc, "NAME %s\n", pc->name.c_str());
 			}
 
-			fprintf(cWsc, "TITLE %s\n", pc->title);
+			fprintf(cWsc, "TITLE %s\n", pc->title.c_str());
 			fprintf(cWsc, "ACCOUNT %i\n", pc->account);
 			if (pc->creationday != pc_reference->creationday)
 				fprintf(cWsc, "CREATIONDAY %i\n", pc->creationday);
@@ -1521,11 +1521,11 @@ void CWorldMain::SaveItem( P_ITEM pi, P_ITEM pDefault)
 		save_txt("SECTION WORLDITEM");
 		save_txt("{");
 		save_int("SERIAL", pi->serial);
-		save_str("NAME", pi->name);
+		save_str("NAME", pi->name.c_str());
 		save_int("ID", pi->id());
 		
-		if (strcmp(pi->name2,pDefault->name2))			{save_str("NAME2",		pi->name2);}
-		if (strlen(pi->creator)>0)						{save_str("CREATOR",	pi->creator );} // by Magius(CHE)
+		if (pi->name2 != pDefault->name2)				{save_str("NAME2",		pi->name2.c_str());}
+		if (pi->creator.size()>0)						{save_str("CREATOR",	pi->creator.c_str() );} // by Magius(CHE)
 		if (pi->madewith	!= pDefault->madewith)		{save_int("SK_MADE",	pi->madewith );} // by Magius(CHE)
 		if (pi->pos.x		!= pDefault->pos.x)			{save_int("X",			pi->pos.x);}
 		if (pi->pos.y		!= pDefault->pos.y)			{save_int("Y",			pi->pos.y);}

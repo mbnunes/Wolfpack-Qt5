@@ -64,27 +64,35 @@ bool InputSpeech(char* comm, cChar* pPlayer, UOXSOCKET s)
 			pPlayer->inputitem = INVALID_SERIAL;
 			return true;
 		case cChar::enRenameRune:
-			sprintf(pTarget->name, "Rune to %s", comm);
+			pTarget->name = string("Rune to ") + string(comm);
 			sysmessage(s, "Rune renamed to: Rune to %s", comm);
 			pPlayer->inputmode = cChar::enNone;
 			pPlayer->inputitem = INVALID_SERIAL;
 			return true;
 		case cChar::enNameDeed: // eagle rename deed
-			strncpy(pPlayer->name, comm, 49);
-			sysmessage(s, "Your new name is: %s", comm);
-			pPlayer->inputmode = cChar::enNone;
-			pPlayer->inputitem = INVALID_SERIAL;
+			{
+				char temp[50] = {0,};
+				strncpy(temp, comm, 49);
+				pPlayer->name = temp;
+				sysmessage(s, "Your new name is: %s", comm);
+				pPlayer->inputmode = cChar::enNone;
+				pPlayer->inputitem = INVALID_SERIAL;
+			}
 			return true;
 		case cChar::enHouseSign: // house sign rename
-			strncpy(pTarget->name, comm, 49);
-			sysmessage(s, "Renamed to: %s", comm);
-			pPlayer->inputmode = cChar::enNone;
-			pPlayer->inputitem=INVALID_SERIAL;
+			{
+				char temp[50] = {0,};
+				strncpy(temp, comm, 49);
+				pTarget->name = temp;
+				sysmessage(s, "Renamed to: %s", comm);
+				pPlayer->inputmode = cChar::enNone;
+				pPlayer->inputitem=INVALID_SERIAL;
+			}
 			return true;
 		case cChar::enPageGM:
 			{
 				gmpages[pPlayer->playercallnum].reason = comm;
-				sprintf(temp, "GM Page from %s [%x]: %s",pPlayer->name, pPlayer->serial, comm);
+				sprintf(temp, "GM Page from %s [%x]: %s",pPlayer->name.c_str(), pPlayer->serial, comm);
 				int x = 0;
 				for (i = 0; i < now; i++)
 				{
@@ -104,7 +112,7 @@ bool InputSpeech(char* comm, cChar* pPlayer, UOXSOCKET s)
 		case cChar::enPageCouns:
 			{
 				counspages[pPlayer->playercallnum].reason = comm;
-				sprintf(temp, "Counselor Page from %s [%x]: %s", pPlayer->name, pPlayer->serial, comm);
+				sprintf(temp, "Counselor Page from %s [%x]: %s", pPlayer->name.c_str(), pPlayer->serial, comm);
 				int x = 0;
 				for (i = 0; i < now; i++)
 				{
@@ -153,7 +161,7 @@ bool StableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
 			if (pPlayer->Owns(p_pet) && p_pet->stablemaster_serial==0) //owner of the pet ? and not already stabled ?
 			{
 				char pntmp[150];
-				strcpy(pntmp, p_pet->name);
+				strcpy(pntmp, p_pet->name.c_str());
 				strupr(pntmp);
 				if (strstr( comm, pntmp)) //if petname is in
 				{
@@ -209,7 +217,7 @@ bool StableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
 
 	stablesp.insert(pMaster->serial, p_pet->serial);
 
-	sprintf(temp,"Your pet is now stabled, say retrieve or claim %s to claim your pet",p_pet->name);
+	sprintf(temp,"Your pet is now stabled, say retrieve or claim %s to claim your pet",p_pet->name.c_str());
 	npctalk(s,pMaster,temp,0);
 
 	return 1;
@@ -240,7 +248,7 @@ bool UnStableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
 			 if (pPlayer->Owns(p_pet) && p_pet->stablemaster_serial!=0) // already stabled and owned by claimer ?
 			 {
 				char search3[150];
-				strcpy(search3,p_pet->name);
+				strcpy(search3,p_pet->name.c_str());
 		        strupr(search3);
 		        if (strstr( comm, search3)) //if petname is in
 				{
@@ -379,7 +387,7 @@ bool QuestionSpeech(cChar* pc, char* comm, cChar* pPlayer, UOXSOCKET s)
 	
     if (strstr( comm, "NAME")) //Ripper...say name and a npc will tell you there name :).
 	{
-		sprintf(temp, "hello my name is %s.", pc->name);
+		sprintf(temp, "hello my name is %s.", pc->name.c_str());
 		npctalkall(pc,temp,0);
 		return 1;
 	}
@@ -489,7 +497,7 @@ bool EscortSpeech(cChar* pEscortee, char* comm, cChar* pPlayer, UOXSOCKET s)
 			{
 				// Send out a message saying we are already being escorted
 				P_CHAR pPlayer = FindCharBySerial(pEscortee->ftarg);
-				sprintf(temp, "I am already being escorted to %s by %s.", region[pEscortee->questDestRegion].name, pPlayer->name );
+				sprintf(temp, "I am already being escorted to %s by %s.", region[pEscortee->questDestRegion].name, pPlayer->name.c_str() );
 			}
 			npctalkall(pEscortee,temp, 0);
 			return 1;	// Return success ( we handled the message )
@@ -608,7 +616,7 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 		return 0;
 	
 	char petname[60];
-	strcpy(petname,pPet->name);
+	strcpy(petname,pPet->name.c_str());
 	strupr(petname);
 	if (!strstr( comm, petname))	//if petname is not in
 		return 0;
@@ -702,7 +710,7 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 		pPet->npcWander=2;
 		pPet->SetOwnSerial(-1);
 		pPet->tamed = false;
-		sprintf(temp, "*%s appears to have decided that it is better off without a master *", pPet->name);
+		sprintf(temp, "*%s appears to have decided that it is better off without a master *", pPet->name.c_str());
 		npctalkall(pPet,temp,0);
 		{
 			soundeffect2(pPet, 0x01FE);
@@ -767,7 +775,7 @@ bool VendorChkName(cChar* pVendor, char* comm)
 	else
 	{
 		char vntmp[90];
-		strcpy(vntmp,pVendor->name);
+		strcpy(vntmp,pVendor->name.c_str());
 		strupr(vntmp);
 		if (strstr( comm, vntmp))
 			return true;
@@ -822,7 +830,7 @@ bool PlayerVendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
 			pDeed->value = 2000;
 			RefreshItem( pDeed );
 			Npcs->DeleteChar( pVendor );
-			sysmessage(s, "Packed up vendor %s.", pVendor->name);
+			sysmessage(s, "Packed up vendor %s.", pVendor->name.c_str());
 			return true;
 		}
 	}
@@ -972,7 +980,7 @@ void cSpeech::talking(int s, string speech) // PC speech
 	// but 8 ... x DIFFER a lot for unicode and non unicode packets !!!
 
 //	memset(name, 0, 30); 
-	strncpy(name, pc_currchar->name, 50);
+	strncpy(name, pc_currchar->name.c_str(), 50);
 
 	char speech_type       = buffer[s][3]; 
 	UI16 speech_color	   = ShortFromCharPtr(&buffer[s][4]);
@@ -1061,8 +1069,8 @@ void cSpeech::talking(int s, string speech) // PC speech
 	if (SrvParms->speech_log) // Logging bugfixed by LB
 	{
 		char temp2[512];
-		sprintf(temp2, "%s.speech_log", pc_currchar->name);
-		sprintf((char*)temp, "%s [%x] [%i] said:\n%s\n", pc_currchar->name, pc_currchar->serial, pc_currchar->account, nonuni);
+		sprintf(temp2, "%s.speech_log", pc_currchar->name.c_str());
+		sprintf((char*)temp, "%s [%x] [%i] said:\n%s\n", pc_currchar->name.c_str(), pc_currchar->serial, pc_currchar->account, nonuni);
 		savelog((char*)temp, (char*)temp2);
 	}
 	

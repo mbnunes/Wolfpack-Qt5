@@ -51,7 +51,7 @@ cUObject::cUObject( cUObject &src )
 {
 	this->serial = src.serial;
 	this->multis = src.multis;
-	strncpy(this->name, src.name, 50);
+	this->name = src.name;
 	this->free = src.free;
 }
 
@@ -63,7 +63,6 @@ void cUObject::init()
 {
 	this->serial = INVALID_SERIAL;
 	this->multis = INVALID_SERIAL;
-	this->name[0] = 0;
 	this->free = false;
 }
 

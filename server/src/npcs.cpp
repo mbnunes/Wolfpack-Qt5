@@ -56,7 +56,7 @@ int addrandomcolor(P_CHAR pc_s, char *colorlist)
 		// LB: wtf should this do apart from crashing ? copying an error message in a chars name ??
 		// very weired! think it should look like this:
 
-		clConsole.send("Error Colorlist %s not found on character: %s\n",colorlist,pc_s->name);
+		clConsole.send("Error Colorlist %s not found on character: %s\n",colorlist,pc_s->name.c_str());
 
 		return 0;
 	}
@@ -81,7 +81,7 @@ int addrandomcolor(P_CHAR pc_s, char *colorlist)
 		{
 			closescript();
 			//sprintf(pc_s->name, "Error Colorlist %s Not Found(2)", colorlist);
-			clConsole.send("Error Colorlist %s not found on character: %s\n",colorlist,pc_s->name);
+			clConsole.send("Error Colorlist %s not found on character: %s\n",colorlist,pc_s->name.c_str());
 			return 0;
 		}
 		loopexit=0;
@@ -113,7 +113,7 @@ static int addrandomhaircolor(P_CHAR pc_s, char *colorlist)
 	if (!i_scripts[colors_script]->find(sect))
 	{
 		closescript();
-		clConsole.send("Error Colorlist %s not found on character: %s\n",colorlist,pc_s->name);
+		clConsole.send("Error Colorlist %s not found on character: %s\n",colorlist,pc_s->name.c_str());
 		return 0;
 	}
 	unsigned long loopexit=0;
@@ -136,7 +136,7 @@ static int addrandomhaircolor(P_CHAR pc_s, char *colorlist)
 		{
 			closescript();
 			//sprintf(pc_s->name, "Error Colorlist %s Not Found(2)", colorlist);
-			clConsole.send("Error Colorlist %s not found on character: %s\n",colorlist,pc_s->name);
+			clConsole.send("Error Colorlist %s not found on character: %s\n",colorlist,pc_s->name.c_str());
 			return 0;
 		}
 		loopexit=0;
@@ -168,7 +168,7 @@ void setrandomname(P_CHAR pc_s, char * namelist)
 	Script *pScp=pScpBase->Select(sect,custom_npc_script);
 	if (!pScp)
 	{
-		sprintf(pc_s->name, "Error Namelist %s Not Found", namelist);
+		pc_s->name = "Error Namelist";
 		return;
 	}
 
@@ -198,7 +198,7 @@ void setrandomname(P_CHAR pc_s, char * namelist)
 			{
 				if(j==i)
 				{
-					strcpy(pc_s->name,(char*)script1);
+					pc_s->name = (char*)script1;
 					break;
 				}
 				else j++;
@@ -737,7 +737,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 			case 'N':
 			case 'n':
 
-			if (!(strcmp("NAME",(char*)script1))) strcpy(pc_c->name, (char*)script2);
+			if (!(strcmp("NAME",(char*)script1))) pc_c->name = (char*)script2;
 			else if (!(strcmp("NAMELIST", (char*)script1))) {
 				scpMark m=pScp->Suspend();
 				setrandomname(pc_c,(char*)script2);
@@ -829,7 +829,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 						retitem->pos.x=50+(rand()%80);
 						retitem->pos.y=50+(rand()%80);
 						retitem->pos.z=9;
-						if (retitem->name2 && (strcmp(retitem->name2,"#"))) strcpy(retitem->name,retitem->name2); // Item identified! -- by Magius(CHE)					}
+						if (retitem->name2 != "#") retitem->name = retitem->name2; // Item identified! -- by Magius(CHE)					}
 					}
 					strcpy((char*)script1, "DUMMY"); // Prevents unexpected matchups...
 				} else
@@ -885,8 +885,8 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 						retitem->pos.x=50+(rand()%80);
 						retitem->pos.y=50+(rand()%80);
 						retitem->pos.z=9;
-						if (retitem->name2 && (strcmp(retitem->name2,"#"))) 
-							strcpy(retitem->name,retitem->name2); // Item identified! -- by Magius(CHE)					}
+						if (retitem->name2 != "#") 
+							retitem->name = retitem->name2; // Item identified! -- by Magius(CHE)					}
 					}
 					strcpy((char*)script1, "DUMMY"); // Prevents unexpected matchups...
 				} else
@@ -926,7 +926,8 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 						retitem->pos.x=50+(rand()%80);
 						retitem->pos.y=50+(rand()%80);
 						retitem->pos.z=9;
-						if (retitem->name2 && (strcmp(retitem->name2,"#"))) strcpy(retitem->name,retitem->name2); // Item identified! -- by Magius(CHE)					}
+						if (retitem->name2 != "#") 
+							retitem->name = retitem->name2; // Item identified! -- by Magius(CHE)					}
 					}
 					strcpy((char*)script1, "DUMMY"); // Prevents unexpected matchups...
 				} else
@@ -970,7 +971,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 
 			case 'T':
 			case 't':
-			if (!(strcmp("TITLE",(char*)script1))) strcpy(pc_c->title, script2);
+			if (!(strcmp("TITLE",(char*)script1))) pc_c->title = script2;
 			else if ((!(strcmp("TOTAME", (char*)script1)))||(!(strcmp("TAMING", (char*)script1)))) pc_c->taming=str2num(script2);
 			else if (!(strcmp("TRIGGER",(char*)script1)))	pc_c->trigger=str2num(script2);
 			else if (!(strcmp("TRIGWORD",(char*)script1)))	strcpy(pc_c->trigword,(char*)script2);

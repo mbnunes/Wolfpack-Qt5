@@ -60,7 +60,7 @@ public:
 		bool isBeeingDragged;	// true while the item hangs on the mouse cursor
 	} flags;
 	
-	char name2[50];
+	string name2;
 	SERIAL contserial;
 	signed char layer; // Layer if equipped on paperdoll
 	int itmhand; // ITEMHAND system - AntiChrist
@@ -137,7 +137,7 @@ public:
 	// RANK 1 ---> 1*10=10% this item has 90% of malus!
 	// RANK 10 --> 10*10=100% this item has no malus! RANK 10 is automatically setted if you select RANKSYSTEM 0.
 	// Vars: LODAMAGE,HIDAMAGE,ATT,DEF,HP,MAXHP
-	char creator[50]; // Store the name of the player made this item -- Magius(CHE)
+	string creator; // Store the name of the player made this item -- Magius(CHE)
 	int good; // Store type of GOODs to trade system! (Plz not set as UNSIGNED)  --- Magius(CHE)
 	int rndvaluerate; // Store the value calculated base on RANDOMVALUE in region.scp. ---- MAgius(CHE) (2)
 	int madewith; // Store the skills used to make this item -- Magius(CHE)

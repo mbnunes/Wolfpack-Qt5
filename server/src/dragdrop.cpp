@@ -593,8 +593,9 @@ static bool ItemDroppedOnPet(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 			impowncreate(s, pc_target, 1); //Lb, sends the green bar ! 
 		}
 		
-		if(pi->name[0]=='#') pi->getName(temp2);
-		sprintf((char*)temp,"* You see %s eating %s *",pc_target->name,temp2);
+		if(pi->name == "#") 
+			pi->getName(temp2);
+		sprintf((char*)temp,"* You see %s eating %s *",pc_target->name.c_str(),temp2);
 		pc_target->emotecolor1=0x00;
 		pc_target->emotecolor2=0x26;
 		npcemoteall(pc_target,(char*)temp,1);
@@ -619,7 +620,7 @@ static bool ItemDroppedOnGuard(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	P_CHAR pc_currchar = ps->getPlayer();
 	P_CHAR target = FindCharBySerial(pp->Tserial);
 	// Search for the key word "the head of"
-	if( strstr( pi->name, "the head of" ) )
+	if( strstr( pi->name.c_str(), "the head of" ) )
 	{
 		// This is a head of someone, see if the owner has a bounty on them
 		P_CHAR pCharIdx = FindCharBySerial( pi->ownserial );
@@ -636,7 +637,7 @@ static bool ItemDroppedOnGuard(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 				
 				// Now thank them for their hard work
 				sprintf((char*) temp, "Excellent work! You have brought us the head of %s. Here is your reward of %d gold coins.",
-					pCharIdx->name,
+					pCharIdx->name.c_str(),
 					pCharIdx->questBountyReward );
 				npctalk( s, target, (char*)temp, 0);
 				
@@ -664,11 +665,11 @@ static bool ItemDroppedOnBeggar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	P_CHAR target = FindCharBySerial(pp->Tserial);
 	if(pi->id()!=0x0EED)
 	{
-		sprintf((char*)temp,"Sorry %s i can only use gold",pc_currchar->name);
+		sprintf((char*)temp,"Sorry %s i can only use gold",pc_currchar->name.c_str());
 		npctalk(s,target,(char*)temp,0);
 		return false;
 	}
-	sprintf((char*)temp,"Thank you %s for the %i gold!",pc_currchar->name,pi->amount);
+	sprintf((char*)temp,"Thank you %s for the %i gold!",pc_currchar->name.c_str(), pi->amount);
 	npctalk(s,target,(char*)temp,0);
 	if(pi->amount<=100)
 	{
@@ -697,7 +698,7 @@ static bool ItemDroppedOnBanker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	{
 		 const P_ITEM pi_n = Items->SpawnItem(s, pc_currchar, value, "#", 1, 0x0E, 0xED, 0, 0, 0, 0);
 	     if(pi_n == NULL) return false;
-		 sprintf((char*)temp,"%s I have cashed your check and deposited %i gold.",pc_currchar->name, value);
+		 sprintf((char*)temp,"%s I have cashed your check and deposited %i gold.",pc_currchar->name.c_str(), value);
 		 npctalk(s,target,(char*)temp,0);
 		 bankbox->AddItem(pi_n);
 	     statwindow(s, pc_currchar);
@@ -705,7 +706,7 @@ static bool ItemDroppedOnBanker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	}
     else if (pi->id() == 0x0EED)
 	{
-		sprintf((char*)temp,"%s you have deposited %i gold.",pc_currchar->name, amt);
+		sprintf((char*)temp,"%s you have deposited %i gold.",pc_currchar->name.c_str(), amt);
 		npctalk(s,target,(char*)temp,0);
 		bankbox->AddItem(pi);
 	    statwindow(s, pc_currchar);
@@ -713,7 +714,7 @@ static bool ItemDroppedOnBanker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	}
     else
 	{
-		  sprintf((char*)temp,"Sorry %s i can only deposit gold",pc_currchar->name);
+		  sprintf((char*)temp,"Sorry %s i can only deposit gold",pc_currchar->name.c_str());
 		  npctalk(s,target,(char*)temp,0);
 		  Sndbounce5(s);
 		  if (ps->IsDragging())
@@ -1160,10 +1161,10 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 				return;
 			}
 			
-			if(pItem->name[0]=='#')
+			if(pItem->name == "#")
 				pItem->getName(temp2);
 			else
-				strcpy((char*)temp2,pItem->name);
+				strcpy((char*)temp2, pItem->name.c_str());
 
 			vector<SERIAL> vecContainer = contsp.getData(pCont->serial);
 			for (unsigned int i = 0; i < vecContainer.size(); i++) // antichrist , bugfix for inscribing scrolls
@@ -1171,10 +1172,10 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 				P_ITEM pi = FindItemBySerial(vecContainer[i]);
 				if (pi != NULL)
 				{
-					if(pi->name[0]=='#')
+					if(pi->name == "#")
 						pi->getName(temp);
 					else
-						strcpy((char*)temp, pi->name);
+						strcpy((char*)temp, pi->name.c_str());
 
 					if(!(strcmp((char*)temp,(char*)temp2)) || !(strcmp((char*)temp,"All-Spell Scroll")))
 					{

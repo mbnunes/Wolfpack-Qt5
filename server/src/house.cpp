@@ -224,9 +224,12 @@ void cHouseManager::AddHome(int s, int i)
 		}
 		
 		//Boats ->
-		if(id2>=18) sprintf((char*)temp,"%s's house",pc_currchar->name);//This will make the little deed item you see when you have showhs on say the person's name, thought it might be helpful for GMs.
-		else strcpy((char*)temp, "a mast");
-		if(norealmulti) strcpy((char*)temp, name);
+		if(id2>=18) 
+			sprintf((char*)temp,"%s's house", pc_currchar->name.c_str());//This will make the little deed item you see when you have showhs on say the person's name, thought it might be helpful for GMs.
+		else 
+			strcpy((char*)temp, "a mast");
+		if(norealmulti) 
+			strcpy((char*)temp, name);
 		//--^
 		
 		if (othername) strcpy((char*)temp,name);
@@ -428,14 +431,14 @@ void deedhouse(UOXSOCKET s, P_ITEM pHouse) // Ripper & AB
 		
 		P_ITEM pDeed = Items->SpawnItemBackpack2(s, pHouse->morex, 0);        // need to make before delete
 		if( pDeed == NULL ) return;
-		sprintf((char*)temp, "Demolishing House %s", pHouse->name);
+		sprintf((char*)temp, "Demolishing House %s", pHouse->name.c_str());
 		sysmessage( s, (char*)temp );
 		ser1 = pHouse->ser1;
 		ser2 = pHouse->ser2;
 		ser3 = pHouse->ser3;
 		ser4 = pHouse->ser4;
 		Items->DeleItem(pHouse);
-		sprintf((char*)temp, "Converted into a %s.", pDeed->name);
+		sprintf((char*)temp, "Converted into a %s.", pDeed->name.c_str());
 		sysmessage(s, (char*)temp); 
 		// door/sign delete
 		StartGrid=mapRegions->StartGrid(pc->pos.x, pc->pos.y);
@@ -458,12 +461,12 @@ void deedhouse(UOXSOCKET s, P_ITEM pHouse) // Ripper & AB
 						{
 							if( mapchar->npcaitype == 17 ) // player vendor in right place
 							{
-								sprintf( (char*)temp, "A vendor deed for %s", mapchar->name );
+								sprintf( (char*)temp, "A vendor deed for %s", mapchar->name.c_str() );
 								P_ITEM pPvDeed = Items->SpawnItem(pc, 1, (char*)temp, 0, 0x14F0, 0, 1);
 								pPvDeed->type = 217;
 								pPvDeed->value = 2000;
 								RefreshItem( pPvDeed );
-								sysmessage(s, "Packed up vendor %s.", mapchar->name);
+								sysmessage(s, "Packed up vendor %s.", mapchar->name.c_str());
 								Npcs->DeleteChar( mapchar );
 							}
 						}

@@ -283,7 +283,7 @@ void cGump::Input(int s)
 		}
 		switch( index )
 		{
-		case 2:		strcpy( pj->name, (char*)text );	break;	 // Name
+		case 2:		pj->name = (char*)text;						break;	 // Name
 		case 3:		k = hex2num( text );	
 					pj->setId(k);
 					break;	 // ID
@@ -325,7 +325,7 @@ void cGump::Input(int s)
 		case 26:	k = str2num( text );	pj->value = k;		break;	// Value
 		case 27:	k = str2num( text );	pj->good = k;		break;	// Good(for Adv.Trade system)
 		case 28:	k = str2num( text );	pj->madewith = k;	break;	// Made Skill
-		case 29:	strcpy( pj->creator, (char*)text );			break;	// Creator
+		case 29:	pj->creator =  (char*)text;					break;	// Creator
 		}
 	
 		RefreshItem(pj); //AntiChrist
@@ -343,8 +343,8 @@ void cGump::Input(int s)
 	 }
 	 switch( index )
 		{
-		case 2:		strcpy( pc_j->name, (char*)text );			break;	// Name
-		case 3:		strcpy( pc_j->title, (char*)text );			break;	// Title
+		case 2:		pc_j->name = (char*)text;					break;	// Name
+		case 3:		pc_j->title = (char*)text;					break;	// Title
 		case 4:		k = str2num( text );	pc_j->pos.x = k;	break;	// X
 		case 5:		k = str2num( text );	pc_j->pos.y = k;	break;	// Y
 		case 6:		k = str2num( text ); 	pc_j->pos.z = k;	pc_j->dispz = k;	break;	// Z
@@ -697,7 +697,7 @@ void whomenu(int s, int type) //WhoList--By Homey-- Thx Zip and Taur helping me 
 	{
 		if (online(currchar[i])) 
 		{
-			sprintf(menuarray1[linecount1++], "Player %s [online]",currchar[i]->name);
+			sprintf(menuarray1[linecount1++], "Player %s [online]",currchar[i]->name.c_str());
 			whomenudata[x++]=currchar[i]->serial;
 		}
 	}		
@@ -705,7 +705,7 @@ void whomenu(int s, int type) //WhoList--By Homey-- Thx Zip and Taur helping me 
 	{
 		P_CHAR toCheck = iter_char.GetData();
 		if (toCheck->account!=-1 && !toCheck->free && !online(toCheck)) { 
-			sprintf(menuarray1[linecount1++], "Player: %s [offline]",toCheck->name);
+			sprintf(menuarray1[linecount1++], "Player: %s [offline]",toCheck->name.c_str());
 			whomenudata[x++]=toCheck->serial;
 			//clConsole.send("name: %s\n",chars[i].name);
 		}
@@ -852,7 +852,7 @@ void playermenu(int s, int type) //WhoList2 with offline players--By Ripper
 		x=0;
 		for (i=0;i<now;i++)
 			if (online(currchar[i])) { 
-				sprintf(menuarray1[linecount1++], "Player %s [online]",currchar[i]->name);
+				sprintf(menuarray1[linecount1++], "Player %s [online]",currchar[i]->name.c_str());
 				whomenudata[x++]=currchar[i]->serial;
 			}	
 		
@@ -1105,7 +1105,7 @@ void ttext(int line, SERIAL serial)
 		if (pj == NULL)
 			return;
 		line--; if( line == 0 ) strcpy( (char*)script1, "Name");
-		line--; if( line == 0 ) strcpy( (char*)script1, pj->name );
+		line--; if( line == 0 ) strcpy( (char*)script1, pj->name.c_str() );
 		line--; if( line == 0 ) strcpy( (char*)script1, "ID");
 		line--; if( line == 0 ) sprintf( (char*)script1,"0x%x (%i)", pj->id(), pj->id());
 		line--; if( line == 0 ) strcpy( (char*)script1, "Hue");
@@ -1159,7 +1159,7 @@ void ttext(int line, SERIAL serial)
 		line--; if( line == 0 ) strcpy( (char*)script1, "Made Skill" );
 		line--; if( line == 0 ) sprintf( (char*)script1, "%i", pj->madewith );
 		line--; if( line == 0 ) strcpy((char*) script1, "Creator" );
-		line--; if( line == 0 ) strcpy((char*)script1, pj->creator );
+		line--; if( line == 0 ) strcpy((char*)script1, pj->creator.c_str() );
 
 	}
 	if( type == 2 )
@@ -1168,9 +1168,9 @@ void ttext(int line, SERIAL serial)
 		if (pc_j == NULL)
 			return;
 		line--; if( line == 0 ) strcpy( (char*)script1, "Name" );
-		line--; if( line == 0 ) strcpy( (char*)script1,  pc_j->name );
+		line--; if( line == 0 ) strcpy( (char*)script1,  pc_j->name.c_str() );
 		line--; if( line == 0 ) strcpy( (char*)script1, "Title" );
-		line--; if( line == 0 ) strcpy((char*) script1,  pc_j->title );
+		line--; if( line == 0 ) strcpy((char*) script1,  pc_j->title.c_str() );
 		line--; if( line == 0 ) strcpy( (char*)script1, "X" );
 		line--; if( line == 0 ) sprintf((char*) script1,"%i", pc_j->pos.x );
 		line--; if( line == 0 ) strcpy((char*) script1, "Y" );

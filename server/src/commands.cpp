@@ -572,7 +572,7 @@ void cCommands::CPage(int s, char *reason) // Help button (Calls Counselor Call 
 		if(strcmp(reason,"OTHER"))
 		{
 			pc_currchar->inputmode = cChar::enNone;
-			sprintf((char*)temp, "Counselor Page from %s [%x %x %x %x]: %s", pc_currchar->name, a1, a2, a3, a4, reason);
+			sprintf((char*)temp, "Counselor Page from %s [%x %x %x %x]: %s", pc_currchar->name.c_str(), a1, a2, a3, a4, reason);
 			for (i=0;i<now;i++)
 				if (currchar[i]->isCounselor() && perm[i])
 				{
@@ -638,7 +638,7 @@ void cCommands::GMPage(int s, char *reason)
 		{
 			pc_currchar->inputmode = cChar::enNone;
 			sprintf((char*)temp, "Page from %s [%x %x %x %x]: %s",
-				pc_currchar->name, a1, a2, a3, a4, reason);
+				pc_currchar->name.c_str(), a1, a2, a3, a4, reason);
 			for (i=0;i<now;i++) if (currchar[i]->isGM() && perm[i])
 			{
 				x=1;
@@ -869,7 +869,7 @@ void cCommands::WhoCommand(int s, int type,int buttonnum)
 	line=0;
 	
 	sprintf(menuarray1[linecount1++], "User %i selected (account %i)",buttonnum,pc_c->account);
-	sprintf(menuarray1[linecount1++], "Name: %s",pc_c->name);   
+	sprintf(menuarray1[linecount1++], "Name: %s",pc_c->name.c_str());   
 	sprintf(menuarray1[linecount1++], "Goto Character:");
 	sprintf(menuarray1[linecount1++], "Get Character:");
 	sprintf(menuarray1[linecount1++], "Jail Character:");
@@ -1057,7 +1057,7 @@ void cCommands::Wipe(int s)
 {
 	P_CHAR pc_currchar = currchar[s];
 	
-	clConsole.send("WOLFPACK: %s has initiated an item wipe\n",pc_currchar->name);
+	clConsole.send("WOLFPACK: %s has initiated an item wipe\n",pc_currchar->name.c_str());
 	
 	P_ITEM pi;
 	AllItemsIterator iterItems;
@@ -1147,7 +1147,7 @@ void cCommands::Possess(int s)
 		pc_currchar->npcWander = 0;
 		currchar[s] = pPos;
 		Network->startchar( s );
-		sprintf((char*)temp,"Welcome to %s's body!", pPos->name );
+		sprintf((char*)temp,"Welcome to %s's body!", pPos->name.c_str() );
 		sysmessage(s, (char*)temp);
 	}
 	else

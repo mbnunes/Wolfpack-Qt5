@@ -385,7 +385,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 					}
 				}
 
-				sprintf((char*)temp2,"%s %s",pc_attacker->name, temp);
+				sprintf((char*)temp2,"%s %s",pc_attacker->name.c_str(), temp);
 				if (pc_deffender->isPlayer() && s2!=-1) sysmessage(s2, (char*)temp2); //kolours -- hit display
 			}
 			x = CalcDef(pc_deffender,x);
@@ -891,7 +891,7 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 					
 					if (SrvParms->pvp_log)
 					{
-						sprintf((char*)temp,"%s was killed by %s!\n",pc_defender->name,pc_attacker->name);
+						sprintf((char*)temp,"%s was killed by %s!\n",pc_defender->name.c_str(), pc_attacker->name.c_str());
 						savelog((char*)temp,"PvP.log");
 					}
 					

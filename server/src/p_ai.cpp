@@ -73,7 +73,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 							continue;
 						if (pc->isInvul() || pc->isNpc() || pc->dead || !pc->isInnocent() || !onl)
 							continue;
-						sprintf((char*)temp, "Hello %s, Welcome to my shop, How may i help thee?.", pc->name);
+						sprintf((char*)temp, "Hello %s, Welcome to my shop, How may i help thee?.", pc->name.c_str());
 						npctalkall(pc_i, (char*)temp, 1);
 						pc_i->antispamtimer = uiCurrentTime + MY_CLOCKS_PER_SEC*30;
 					}
@@ -151,7 +151,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 							continue;
 						if (pc->isNpc() &&(pc->npcaitype == 2 || pc->npcaitype == 1 || (Races.CheckRelation(pc_i,pc)==1)))
 							continue;
-						if (server_data.monsters_vs_animals == 0 &&(strlen(pc->title) <= 0 && !pc->isHuman()))
+						if (server_data.monsters_vs_animals == 0 &&(pc->title.size() <= 0 && !pc->isHuman()))
 							continue;
 						if (server_data.monsters_vs_animals == 1 && chance > server_data.animals_attack_chance)
 							continue;
@@ -308,13 +308,13 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 							continue;
 						if ((pc->isPlayer() && pc->crimflag > 0) || (Races.CheckRelation(pc,pc_i)!=1))
 						{
-							sprintf((char*)temp, "You better watch your step %s, I am watching thee!!", pc->name);
+							sprintf((char*)temp, "You better watch your step %s, I am watching thee!!", pc->name.c_str());
 							npctalkall(pc_i, (char*)temp, 1);
 							pc_i->antispamtimer = uiCurrentTime + MY_CLOCKS_PER_SEC*30;
 						}
 						else if (pc->isPlayer() && pc->isInnocent() && !pc->dead)
 						{
-							sprintf((char*)temp, "%s is an upstanding citizen, I will protect thee in %s.", pc->name, region[pc->region].name);
+							sprintf((char*)temp, "%s is an upstanding citizen, I will protect thee in %s.", pc->name.c_str(), region[pc->region].name);
 							npctalkall(pc_i, (char*)temp, 1);
 							pc_i->antispamtimer = uiCurrentTime + MY_CLOCKS_PER_SEC*30;
 						}
@@ -647,7 +647,7 @@ void cCharStuff::cBankerAI::OpenBank(UOXSOCKET c)
 bool cCharStuff::cBankerAI::Balance(int c, P_CHAR pBanker)
 {
 	P_CHAR pc_currchar = currchar[c];
-	sprintf(temp, "%s's balance as of now is %i.", pc_currchar->name, pc_currchar->CountBankGold());
+	sprintf(temp, "%s's balance as of now is %i.", pc_currchar->name.c_str(), pc_currchar->CountBankGold());
 	npctalk(c, pBanker, temp, 1);
 	return true;
 }
@@ -674,12 +674,12 @@ bool cCharStuff::cBankerAI::Withdraw(int c, P_CHAR pBanker, char *comm)
 		addgold(c, goldcount);
 		goldsfx(c, goldcount);
 		DeleBankItem(pc_currchar, 0x0EED, 0, goldcount);
-		sprintf(temp, "%s here is your withdraw of %i.", pc_currchar->name, goldcount);
+		sprintf(temp, "%s here is your withdraw of %i.", pc_currchar->name.c_str(), goldcount);
 		npctalk(c, pBanker, temp, 1);
 		return true;
 	}
 	else
-		sprintf(temp, "%s you have insufficent funds!", pc_currchar->name);
+		sprintf(temp, "%s you have insufficent funds!", pc_currchar->name.c_str());
 	npctalk(c, pBanker, temp, 1);
 	return true;
 }
@@ -705,7 +705,7 @@ bool cCharStuff::cBankerAI::BankCheck(int c, P_CHAR pBanker, char *comm)
 		int goldcount = str2num(value2);
 		if (goldcount < 5000 || goldcount > 1000000)
 		{
-			sprintf(temp, "%s you can only get checks worth 5000gp to 1000000gp.", pc_currchar->name);
+			sprintf(temp, "%s you can only get checks worth 5000gp to 1000000gp.", pc_currchar->name.c_str());
 			npctalk(c, pBanker, temp, 1);
 			return false;
 		}
@@ -723,12 +723,12 @@ bool cCharStuff::cBankerAI::BankCheck(int c, P_CHAR pBanker, char *comm)
 			P_ITEM bankbox = pc_currchar->GetBankBox();
 			bankbox->AddItem(pi);
 			statwindow(c, pc_currchar);
-			sprintf(temp, "%s your check has been placed in your bankbox, it is worth %i.", pc_currchar->name, goldcount);
+			sprintf(temp, "%s your check has been placed in your bankbox, it is worth %i.", pc_currchar->name.c_str(), goldcount);
 			npctalk(c, pBanker, temp, 1);
 			return true;
 		}
 		else
-			sprintf(temp, "%s you have insufficent funds!", pc_currchar->name);
+			sprintf(temp, "%s you have insufficent funds!", pc_currchar->name.c_str());
 		npctalk(c, pBanker, temp, 1);
 		return true;
 	}

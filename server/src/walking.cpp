@@ -590,7 +590,7 @@ bool WalkHandleBlocking(UOXSOCKET s, CHARACTER c, int sequence, int dir, int old
 			break;
 		default:
 			clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, walking()\n"); //Morrolan
-			clConsole.send("Caused by character %s. dir: %i dir&0x0f: %i dir-passed : %i dp&0x0f : %i\n",pc->name,pc->dir,pc->dir&0x0f,dir,dir&0x0f);
+			clConsole.send("Caused by character %s. dir: %i dir&0x0f: %i dir-passed : %i dp&0x0f : %i\n",pc->name.c_str(),pc->dir,pc->dir&0x0f,dir,dir&0x0f);
 			// sysmessage(calcSocketFromChar(c), "Dont desparate, I'm working on that damned fu**** bug, Lord Binary");
 			// pc->dir=0;
 			// teleport(c);
@@ -828,7 +828,8 @@ bool WalkHandleCharsAtNewPos(UOXSOCKET s, CHARACTER c, int oldx, int oldy, int n
 							}
 							else if (!pc_i->isHidden() && !pc_i->dead && (!(pc_i->isInvul())) &&(!(pc_i->isGM()))) // ripper..GMs and ghosts dont get shoved.)
 							{
-								if (s!=-1) sysmessage(s,"Being perfectly rested, you shove %s out of the way.", pc_i->name);
+								if (s!=-1) 
+									sysmessage(s,"Being perfectly rested, you shove %s out of the way.", pc_i->name.c_str());
 									  
 								pc->stm=max(pc->stm-4, 0);
 								updatestats(c, 2);  // arm code

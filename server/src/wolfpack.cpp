@@ -639,11 +639,11 @@ char *complete_title(P_CHAR pc) // generates the ENTIRE title plus criminal stuf
 
 	if (pc->account==0 && pc->isGM()) // Ripper..special titles for admins :)
 	{
-		sprintf(tempstr, "%s %s %s", title[6].other, pc->name, pc->title);
+		sprintf(tempstr, "%s %s %s", title[6].other, pc->name.c_str(), pc->title.c_str());
 	}
 	else if (pc->isGM() && pc->account!=0)
 	{//GM.
-		sprintf(tempstr, "%s %s", pc->name, pc->title);
+		sprintf(tempstr, "%s %s", pc->name.c_str(), pc->title.c_str());
 	}
 	// ripper ..rep stuff
 	else if ((pc->crimflag>0) && (!(pc->dead) && (pc->kills<4)))
@@ -652,30 +652,30 @@ char *complete_title(P_CHAR pc) // generates the ENTIRE title plus criminal stuf
 	}
 	else if ((pc->kills>=5) && (!(pc->dead) && (pc->kills<10)))
 	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[1].other, pc->name, pc->title, title1(pc), title2(pc));
+		sprintf(tempstr, "%s %s, %s%s %s", title[1].other, pc->name.c_str(), pc->title.c_str(), title1(pc), title2(pc));
 	}
 	else if ((pc->kills>=10) && (!(pc->dead) && (pc->kills<20)))
 	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[2].other, pc->name, pc->title, title1(pc), title2(pc));
+		sprintf(tempstr, "%s %s, %s%s %s", title[2].other, pc->name.c_str(), pc->title.c_str(), title1(pc), title2(pc));
 	}
 	else if ((pc->kills>=20) && (!(pc->dead) && (pc->kills<50)))
 	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[3].other, pc->name, pc->title, title1(pc), title2(pc));
+		sprintf(tempstr, "%s %s, %s%s %s", title[3].other, pc->name.c_str(), pc->title.c_str(), title1(pc), title2(pc));
 	}
 	else if ((pc->kills>=50) && (!(pc->dead) && (pc->kills<100)))
 	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[4].other, pc->name, pc->title, title1(pc), title2(pc));
+		sprintf(tempstr, "%s %s, %s%s %s", title[4].other, pc->name.c_str(), pc->title.c_str(), title1(pc), title2(pc));
 	}
 	else if ((pc->kills>=100) && (!(pc->dead)))
 	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[5].other, pc->name, pc->title, title1(pc), title2(pc));
+		sprintf(tempstr, "%s %s, %s%s %s", title[5].other, pc->name.c_str(), pc->title.c_str(), title1(pc), title2(pc));
 	} // end of rep stuff
 	else
 	{//Player.
-		sprintf(tempstr, "%s%s", title3(pc), pc->name);		//Repuation + Name
+		sprintf(tempstr, "%s%s", title3(pc), pc->name.c_str());		//Repuation + Name
 		{//NoTownTitle
 			strcpy((char*)temp,tempstr);
-			if (strlen(pc->title)>0)
+			if (pc->title.size()>0)
 			{//Titled & Skill
 				sprintf(tempstr, "%s %s %s, %s %s", temp, Races[pc->race]->RaceName.c_str(), pc->title, title1(pc), title2(pc));
 			}
@@ -786,21 +786,21 @@ void item_char_test()
 		char tmp[150];
 		if (pi->serial==pi->contserial)
 		{
-			sprintf(tmp,"ALERT ! item %s [serial: %i] has dangerous container value, autocorrecting",pi->name,pi->serial);
+			sprintf(tmp,"ALERT ! item %s [serial: %i] has dangerous container value, autocorrecting",pi->name.c_str(),pi->serial);
 			LogWarning(tmp);
 			pi->SetContSerial(-1);
 		}
 
 		if (pi->serial==pi->GetOwnSerial())
 		{
-			sprintf(tmp,"ALERT ! item %s [serial: %i] has dangerous owner value",pi->name,pi->serial);
+			sprintf(tmp,"ALERT ! item %s [serial: %i] has dangerous owner value",pi->name.c_str(),pi->serial);
 			LogWarning(tmp);
 			pi->SetOwnSerial(-1);
 		}
 
 		if (pi->serial==pi->spawnserial)
 		{
-			clConsole.send("\nALERT ! item %s [serial: %i] has dangerous spawn value\n",pi->name,pi->serial);
+			clConsole.send("\nALERT ! item %s [serial: %i] has dangerous spawn value\n",pi->name.c_str(),pi->serial);
 			pi->SetSpawnSerial(-1);
 		}
 	}
@@ -941,7 +941,7 @@ void showcname (UOXSOCKET s, P_CHAR pc_i, char b) // Singleclick text for a char
 
 	if ((pc_currchar->canSeeSerials()) || b)
 	{
-		sprintf((char*)temp, "%s [%x %x %x %x]", pc_i->name, a1, a2, a3, a4);
+		sprintf((char*)temp, "%s [%x %x %x %x]", pc_i->name.c_str(), a1, a2, a3, a4);
 	}
 	else
 	{
@@ -952,17 +952,19 @@ void showcname (UOXSOCKET s, P_CHAR pc_i, char b) // Singleclick text for a char
 				sprintf((char*)temp, "[%x %x %x %x]",a1,a2,a3,a4);
 				itemmessage(s,(char*)temp, pc_i->serial);
 			}
-			if (!online(pc_i)) sprintf((char*)temp, "%s (%s)",title[8].other, pc_i->name);
-			else strcpy((char*)temp,pc_i->name);
+			if (!online(pc_i)) sprintf((char*)temp, "%s (%s)",title[8].other, pc_i->name.c_str());
+			else strcpy((char*)temp,pc_i->name.c_str());
 			if (!strcmp(title[8].other,"")) temp[0] = 0;
 		}
 		else
 		{
 			temp[0] = 0;
 			x=0;
+			char temp2[256] = {0,};
+			strcpy(temp2, pc_i->name.c_str());
 			do
 			{
-				c=pc_i->name[x];
+				c=temp2[x];
 				if ((c!=0))
 				{
 					if(c=='_')
@@ -1012,7 +1014,7 @@ void deathstuff(P_CHAR pc_player)
 	if (pc_player->attacker != INVALID_SERIAL)
 	{
 		P_CHAR pc_attacker = FindCharBySerial(pc_player->serial);
-		strcpy(murderername, pc_attacker->name); 
+		strcpy(murderername, pc_attacker->name.c_str()); 
 	}
 	else 
 		murderername[0]=0;
@@ -1072,7 +1074,7 @@ void deathstuff(P_CHAR pc_player)
 
 					if (SrvParms->pvp_log)
 					{
-						sprintf((char*)temp,"%s was killed by %s!\n",pc_player->name,pc_t->name);
+						sprintf((char*)temp,"%s was killed by %s!\n",pc_player->name.c_str(),pc_t->name.c_str());
 						savelog((char*)temp,"PvP.log");
 					}
 				}
@@ -1117,7 +1119,7 @@ void deathstuff(P_CHAR pc_player)
 	pc_player->poisoned = 0;
 	pc_player->poison = 0;	//AntiChrist
 	// Make the corpse
-	sprintf((char*)temp,"corpse of %s",pc_player->name);
+	sprintf((char*)temp,"corpse of %s",pc_player->name.c_str());
 	const P_ITEM pi_c = Items->SpawnItem(pc_player, 1, (char*)temp, 0, 0x2006, pc_player->xskin, 0);
 	if(pi_c==NULL) return;//AntiChrist to preview crashes
 	// Corpse highlighting.. Ripper
@@ -1134,7 +1136,7 @@ void deathstuff(P_CHAR pc_player)
 	ele=pi_c->amount=(pc_player->xid1<<8)+pc_player->xid2; // Amount == corpse type
 	pi_c->morey = ishuman(pc_player);//is human?? - AntiChrist
 	pi_c->carve=pc_player->carve;//store carve section - AntiChrist
-	strcpy(pi_c->name2,pc_player->name);
+	pi_c->name2 = pc_player->name;
 
 	pi_c->type=1;
 	pi_c->MoveTo(pc_player->pos.x,pc_player->pos.y,pc_player->pos.z);
@@ -1238,7 +1240,7 @@ void deathstuff(P_CHAR pc_player)
 		}
 		if ((pi_j->contserial == pc_player->serial)&& ((pi_j->layer==0x0B)||(pi_j->layer==0x10)))
 		{
-			strcpy(pi_j->name,"Hair/Beard");
+			pi_j->name = "Hair/Beard";
 			pi_j->pos.x=0x47;
 			pi_j->pos.y=0x93;
 			pi_j->pos.z=0;
@@ -1803,7 +1805,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 
 	pc->Init();
 
-	for (i=0;i<=strlen((char*)&buffer[s][10]);i++) pc->name[i]=buffer[s][10+i];
+	pc->name = (char*)buffer[s] + 10;
 	pc->account = acctno[s];
 
 	//	Code to support the new GuildType, and GuildTraitor members of the
@@ -1874,7 +1876,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 		if (ii==buffer[s][0x4a]) pc->baseskill[buffer[s][0x4a]]=buffer[s][0x4b]*10;
 		if (ii==buffer[s][0x4c]) pc->baseskill[buffer[s][0x4c]]=buffer[s][0x4d]*10;
 		if (ii==buffer[s][0x4e]) pc->baseskill[buffer[s][0x4e]]=buffer[s][0x4f]*10;
-		Skills->updateSkillLevel(pc, i);
+		Skills->updateSkillLevel(pc, ii);
 	}
 
 	if (validhair(buffer[s][0x52],buffer[s][0x53]))
@@ -2124,7 +2126,7 @@ int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn ne
 						break; 
 				} 
 				if ( pc_pet == NULL ) return -1;
-				strcpy(pc_pet->name, pi->name); 
+				pc_pet->name = pi->name; 
 				pc_pet->xid1 = pc_pet->id1; 
 				pc_pet->xid2 = pc_pet->id2; 
 				pc_pet->skin = pc_pet->xskin = pi->color(); 
@@ -2435,7 +2437,7 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 			sysmessage(s, "You are already on a mount."); 
 			return; 
 		}
-		strcpy((char*)temp, pc_mount->name); 
+		strcpy((char*)temp, pc_mount->name.c_str()); 
 		pc_currchar->onhorse = true; 
 		const P_ITEM pi = Items->SpawnItem(pc_currchar, 1, (char*)temp, 0, 0x0915, pc_mount->skin, 0); 
 		if(!pi) return;
@@ -2686,7 +2688,7 @@ void checkkey ()
 				{
 					if(perm[i]) //Keeps NPC's from appearing on the list
 					{
-						clConsole.send("%i) %s [%x]\n", j, currchar[i]->name, currchar[i]->serial);
+						clConsole.send("%i) %s [%x]\n", j, currchar[i]->name.c_str(), currchar[i]->serial);
 						j++;
 					}
 				}
@@ -3185,7 +3187,7 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 					&& perm[r]
 					)
 				{
-					clConsole.send("Player %s disconnected due to inactivity !\n", currchar[r]->name);
+					clConsole.send("Player %s disconnected due to inactivity !\n", currchar[r]->name.c_str());
 					//sysmessage(r,"you have been idle for too long and have been disconnected!");
 					char msg[3];
 					msg[0]=0x53;
@@ -3609,7 +3611,7 @@ void npcattacktarget(P_CHAR pc_target2, P_CHAR pc_target)
 		pc_target2->setNextMoveTime();
 	}
 	 
-	sprintf((char*)temp, "You see %s attacking %s!", pc_target2->name, pc_target->name);
+	sprintf((char*)temp, "You see %s attacking %s!", pc_target2->name.c_str(), pc_target->name.c_str());
 
 	for (i=0;i<now;i++)
 		{
@@ -3748,7 +3750,7 @@ void openbank(int s, P_CHAR pc_i)
 		}
 	} // end of !=-1
 
-	sprintf((char*)temp, "%s's bank box.", pc_i->name);
+	sprintf((char*)temp, "%s's bank box.", pc_i->name.c_str());
 	const P_ITEM pic = Items->SpawnItem(s, pc_i, 1, (char*)temp,0,0x09,0xAB,0,0,0,0);
 	if ( pic == NULL ) return;
 	pic->layer=0x1d;
@@ -3804,7 +3806,7 @@ void openspecialbank(int s, P_CHAR pc)
 		}
 	} // end of !=-1
 
-	sprintf((char*)temp, "%s's items bank box.", pc->name);
+	sprintf((char*)temp, "%s's items bank box.", pc->name.c_str());
 	const P_ITEM pic = Items->SpawnItem(s, pc,1,(char*)temp,0,0x09,0xAB,0,0,0,0);
 	if(pic == NULL) return;
 	pic->layer=0x1d;
@@ -5347,7 +5349,7 @@ void RefreshItem(P_ITEM pi)//Send this item to all online people in range
 
 	if (pi->contserial==pi->serial)
 	{
-		clConsole.send("\nALERT ! item %s [serial: %i] has dangerous container value, autocorrecting\n",pi->name,pi->serial);
+		clConsole.send("\nALERT ! item %s [serial: %i] has dangerous container value, autocorrecting\n",pi->name.c_str(),pi->serial);
 		pi->SetContSerial(-1);
 	}
 

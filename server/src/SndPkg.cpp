@@ -1315,7 +1315,7 @@ void chardel (UOXSOCKET s) // Deletion of character
 				P_CHAR pc = it.GetData();
 				if ( pc->account == acctno[s] && !pc->free)
 				{
-					strcpy((char*)login04b, pc->name);
+					strcpy((char*)login04b, pc->name.c_str());
 					Xsend(s, login04b, 60);
 					j++;
 				}
@@ -1734,7 +1734,7 @@ void statwindow(int s, P_CHAR pc) // Opens the status window
 	statstring[4]=pc->ser2;
 	statstring[5]=pc->ser3;
 	statstring[6]=pc->ser4;
-	strncpy((char*)&statstring[7],pc->name, 30); // can not be more than 30 at least no without changing packet lenght
+	strncpy((char*)&statstring[7],pc->name.c_str(), 30); // can not be more than 30 at least no without changing packet lenght
 
 	if (!ghost)
 	{
@@ -1962,7 +1962,7 @@ void broadcast(int s) // GM Broadcast (Done if a GM yells something)
 				if (perm[i])
 				{
 					Xsend(i, talk, 14);
-					Xsend(i, pc_currchar->name, 30);
+					Xsend(i, (void*)pc_currchar->name.c_str(), 30);
 					Xsend(i, &buffer[s][8], strlen((char*)&buffer[s][8])+1);
 				}
 			}
@@ -1990,7 +1990,7 @@ void broadcast(int s) // GM Broadcast (Done if a GM yells something)
 				if (perm[i])
 				{
 					Xsend(i, talk, 14);
-					Xsend(i, pc_currchar->name, 30);
+					Xsend(i, (void*)pc_currchar->name.c_str(), 30);
 					Xsend(i, &nonuni[0], strlen((char*)&nonuni[0])+1);
 				}
 			}
@@ -2014,7 +2014,7 @@ void itemtalk(int s, P_ITEM pi, char *txt) // Item "speech"
 	talk[12]=0;
 	talk[13]=3;
 	Xsend(s, talk, 14);
-	Xsend(s, pi->name, 30);
+	Xsend(s, (void*)pi->name.c_str(), 30);
 	Xsend(s, txt, strlen(txt)+1);
 }
 
@@ -2068,7 +2068,7 @@ void npctalk(int s, P_CHAR pc_npc, char *txt,char antispam) // NPC speech
 
 		ShortToCharPtr(pc_npc->saycolor, &talk[10]);
 		Xsend(s, talk, 14);
-		Xsend(s, pc_npc->name, 30);
+		Xsend(s, (void*)pc_npc->name.c_str(), 30);
 		Xsend(s, txt, strlen(txt)+1);
 	}
 }
@@ -2124,7 +2124,7 @@ void npctalk_runic(int s, P_CHAR pc_npc, char *txt,char antispam) // NPC speech
 		talk[13]=8;
 
 		Xsend(s, talk, 14);
-		Xsend(s, pc_npc->name, 30);
+		Xsend(s, (void*)pc_npc->name.c_str(), 30);
 		Xsend(s, txt, strlen(txt)+1);
 	}
 }
@@ -2164,7 +2164,7 @@ void npcemote(int s, P_CHAR pc_npc, char *txt, char antispam) // NPC speech
 		talk[12]=0;
 		talk[13]=pc_currchar->fonttype;
 		Xsend(s, talk, 14);
-		Xsend(s, pc_npc->name, 30);
+		Xsend(s, (void*)pc_npc->name.c_str(), 30);
 		Xsend(s, txt, strlen(txt)+1);
 	}
 }
@@ -3068,8 +3068,8 @@ int sellstuff(int s, P_CHAR pc)
 					P_ITEM pi_j = FindItemBySerial(vecContainer2[ci1]);
 					if (pi_j != NULL) // LB crashfix
 					{
-						sprintf(ciname,"'%s'",pi_j->name); // Added by Magius(CHE)
-						sprintf(cinam2,"'%s'",pi_q->name); // Added by Magius(CHE)
+						sprintf(ciname,"'%s'",pi_j->name.c_str()); // Added by Magius(CHE)
+						sprintf(cinam2,"'%s'",pi_q->name.c_str()); // Added by Magius(CHE)
 						strupr(ciname); // Added by Magius(CHE)
 						strupr(cinam2); // Added by Magius(CHE)
 
@@ -3263,7 +3263,7 @@ void tellmessage(int i, int s, char *txt)
 	int tl;
 	P_CHAR pc_currchar = currchar[s];
 
-	sprintf((char*)temp, "GM tells %s: %s", pc_currchar->name, txt);
+	sprintf((char*)temp, "GM tells %s: %s", pc_currchar->name.c_str(), txt);
 
 	tl=44+strlen((char*)temp)+1;
 	talk[1]=tl>>8;

@@ -448,7 +448,7 @@ void monstergate(P_CHAR pc_s, int x)
 		{
 			if (!(strcmp("NAME",(char*)script1)))
 			{
-				strcpy(pc_s->name,(char*)script2);
+				pc_s->name = (char*)script2;
 			}
 			if (!(strcmp("NAMELIST", (char*)script1)))
 			{
@@ -458,7 +458,7 @@ void monstergate(P_CHAR pc_s, int x)
 				
 				strcpy((char*)script1, "DUMMY"); // To prevent accidental exit of loop.
 			}
-			if (!(strcmp("TITLE",(char*)script1))) strcpy(pc_s->title,(char*)script2);
+			if (!(strcmp("TITLE",(char*)script1))) pc_s->title = (char*)script2;
 			if (!(strcmp("KARMA",(char*)script1))) pc_s->karma=str2num(script2);
 			if (!(strcmp("FAME",(char*)script1))) pc_s->fame=str2num(script2);
 			if (!(strcmp("ID",(char*)script1)))

@@ -83,7 +83,7 @@ void RcvAttack(P_CLIENT ps)
 		
 		if (pc_i->npcaitype==17)//PlayerVendors
 		{
-			sprintf((char*)temp, "%s cannot be harmed.",pc_i->name);
+			sprintf((char*)temp, "%s cannot be harmed.",pc_i->name.c_str());
 			sysmessage(s, (char*)temp);
 			return;
 		}
@@ -147,7 +147,7 @@ void RcvAttack(P_CLIENT ps)
 				pc_i->npcmovetime=(unsigned int)(uiCurrentTime+(double)((NPCSPEED*MY_CLOCKS_PER_SEC)/5)); //*16));
 			}
 			
-			sprintf((char*)temp, "You see %s attacking %s!", pc_currchar->name, pc_i->name);
+			sprintf((char*)temp, "You see %s attacking %s!", pc_currchar->name.c_str(), pc_i->name.c_str());
 			
 			for (j=0;j<now;j++)
 			{

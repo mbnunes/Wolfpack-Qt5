@@ -434,7 +434,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					pc->priv2=0;
 					teleport(pc);
 					
-					sprintf((char*)temp,"%s is auto-released from jail \n",pc->name);
+					sprintf((char*)temp,"%s is auto-released from jail \n",pc->name.c_str());
 					savelog((char*)temp,"server.log");
 					
 					sysmessage(s, "You are released.");
@@ -520,7 +520,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					if ( pc->poisontxt<=currenttime || (overflow))
 					{
 						pc->poisontxt=currenttime+(10*MY_CLOCKS_PER_SEC);
-						sprintf(t,"* %s looks a bit nauseous *", pc->name);
+						sprintf(t,"* %s looks a bit nauseous *", pc->name.c_str());
 						pc->emotecolor1=0x00;//buffer[s][4];
 						pc->emotecolor2=0x26;//buffer[s][5];
 						npcemoteall(pc,t,1);
@@ -535,7 +535,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					if ((pc->poisontxt<=currenttime)||(overflow))
 					{
 						pc->poisontxt=currenttime+(10*MY_CLOCKS_PER_SEC);
-						sprintf(t,"* %s looks disoriented and nauseous! *",pc->name);
+						sprintf(t,"* %s looks disoriented and nauseous! *",pc->name.c_str());
 						pc->emotecolor1=0x00;//buffer[s][4];
 						pc->emotecolor2=0x26;//buffer[s][5];
 						npcemoteall(pc,t,1);
@@ -550,7 +550,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					if ( pc->poisontxt <= currenttime ||(overflow))
 					{
 						pc->poisontxt = currenttime+(10*MY_CLOCKS_PER_SEC);
-						sprintf(t,"* %s is in severe pain! *", pc->name);
+						sprintf(t,"* %s is in severe pain! *", pc->name.c_str());
 						pc->emotecolor1=0x00;//buffer[s][4];
 						pc->emotecolor2=0x26;//buffer[s][5];
 						npcemoteall(pc,t,1);
@@ -568,7 +568,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					if ( pc->poisontxt <= currenttime || (overflow))
 					{
 						pc->poisontxt=currenttime+(10*MY_CLOCKS_PER_SEC);
-						sprintf(t,"* %s looks extremely weak and is wrecked in pain! *", pc->name);
+						sprintf(t,"* %s looks extremely weak and is wrecked in pain! *", pc->name.c_str());
 						pc->emotecolor1=0x00;//buffer[s][4];
 						pc->emotecolor2=0x26;//buffer[s][5];
 						npcemoteall(pc,t,1);
@@ -706,7 +706,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					if ((pc->poisontxt<=currenttime)||(overflow))
 					{
 						pc->poisontxt=currenttime+(10*MY_CLOCKS_PER_SEC);
-						sprintf(t,"* %s looks a bit nauseous *",pc->name);
+						sprintf(t,"* %s looks a bit nauseous *",pc->name.c_str());
 						pc->emotecolor1=0x00;//buffer[s][4];
 						pc->emotecolor2=0x26;//buffer[s][5];
 						npcemoteall(pc,t,1);
@@ -719,7 +719,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					if ((pc->poisontxt<=currenttime)||(overflow))
 					{
 						pc->poisontxt=currenttime+(10*MY_CLOCKS_PER_SEC);
-						sprintf(t,"* %s looks disoriented and nauseous! *",pc->name);
+						sprintf(t,"* %s looks disoriented and nauseous! *",pc->name.c_str());
 						pc->emotecolor1=0x00;//buffer[s][4];
 						pc->emotecolor2=0x26;//buffer[s][5];
 						npcemoteall(pc,t,1);
@@ -734,7 +734,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					if ((pc->poisontxt<=currenttime)||(overflow))
 					{
 						pc->poisontxt=currenttime+(10*MY_CLOCKS_PER_SEC);
-						sprintf(t,"* %s is in severe pain! *",pc->name);
+						sprintf(t,"* %s is in severe pain! *",pc->name.c_str());
 						pc->emotecolor1=0x00;//buffer[s][4];
 						pc->emotecolor2=0x26;//buffer[s][5];
 						npcemoteall(pc,t,1);
@@ -748,7 +748,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					if ((pc->poisontxt<=currenttime)||(overflow))
 					{
 						pc->poisontxt=currenttime+(10*MY_CLOCKS_PER_SEC);
-						sprintf(t,"* %s looks extremely weak and is wrecked in pain! *",pc->name);
+						sprintf(t,"* %s looks extremely weak and is wrecked in pain! *",pc->name.c_str());
 						pc->emotecolor1=0x00;//buffer[s][4];
 						pc->emotecolor2=0x26;//buffer[s][5];
 						npcemoteall(pc,t,1);
@@ -793,10 +793,10 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 			{
 			case 6:
 			case 5:	break;
-			case 4:	sprintf(t,"* %s looks a little hungry *",pc->name);			break;
-			case 3:	sprintf(t,"* %s looks fairly hungry *",pc->name);			break;
-			case 2:	sprintf(t,"* %s looks extremely hungry *",pc->name);		break;
-			case 1:	sprintf(t,"* %s looks weak from starvation *",pc->name);	break;
+			case 4:	sprintf(t,"* %s looks a little hungry *",pc->name.c_str());			break;
+			case 3:	sprintf(t,"* %s looks fairly hungry *",pc->name.c_str());			break;
+			case 2:	sprintf(t,"* %s looks extremely hungry *",pc->name.c_str());		break;
+			case 1:	sprintf(t,"* %s looks weak from starvation *",pc->name.c_str());	break;
 			case 0:
 				//maximum hunger - untame code - AntiChrist
 				//pet release code here
@@ -806,7 +806,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					pc->npcWander=2;
 					if(pc->ownserial!=-1) 
 						pc->SetOwnSerial(-1);
-					sprintf((char*)temp, "* %s appears to have decided that it is better off without a master *", pc->name);
+					sprintf((char*)temp, "* %s appears to have decided that it is better off without a master *", pc->name.c_str());
 					npctalkall(pc, (char*)temp,0);
 					{
 						soundeffect2(pc, 0x01FE);

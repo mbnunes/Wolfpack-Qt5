@@ -44,9 +44,9 @@
 // constructor
 cItem::cItem( cItem &src )
 {
-	strcpy(this->name, src.name);
-	strcpy(this->name2, src.name2); 
-	strcpy(this->creator, src.creator);
+	this->name = src.name;
+	this->name2 = src.name2; 
+	this->creator = src.creator;
 	this->incognito = src.incognito;
 	this->madewith = src.madewith;
 	this->rank = src.rank;
@@ -424,9 +424,9 @@ static int getname(P_ITEM pi, char* itemname)
 	int j, len, mode, used, ok, namLen;
 	if (pi == NULL)
 		return 1;
-	if (pi->name[0]!='#')
+	if (pi->name != "#")
 	{
-		strcpy((char*)itemname, pi->name);
+		strcpy((char*)itemname, pi->name.c_str());
 		return strlen((char*)itemname)+1;
 	}
 	Map->SeekTile(pi->id(), &tile);
@@ -526,9 +526,8 @@ void cItem::Init(char mkser)
 		this->SetSerial(INVALID_SERIAL);
 	}
 
-	strcpy(this->name,"#");
-	strcpy(this->name2,"#"); // Magius(CHE)
-	this->creator[0] = '\0';
+	this->name = "#";
+	this->name2 = "#";
 	this->incognito=false;//AntiChrist - incognito
 	this->madewith=0; // Added by Magius(CHE)
 	this->rank=0; // Magius(CHE)
@@ -744,7 +743,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 						pi->color1 = tmp >> 8;
 						pi->color2 = tmp%256;
 					}
-					else if (!strcmp("CREATOR", (char*)script1))		strcpy(pi->creator, (char*)script2); // by Magius(CHE)
+					else if (!strcmp("CREATOR", (char*)script1))		pi->creator = (char*)script2; // by Magius(CHE)
 					else if (!strcmp("COLORLIST", (char*)script1))
 					{
 						pos = ftell(scpfile);
@@ -866,9 +865,9 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 					if (!strcmp("NEWBIE", (char*)script1))
 						pi->priv = pi->priv | 0x02;
 					else if (!strcmp("NAME", (char*)script1))
-						strcpy(pi->name, (char*)script2);
+						pi->name = (char*)script2;
 					else if (!strcmp("NAME2", (char*)script1))
-						strcpy(pi->name2, (char*)script2);
+						pi->name2 = (char*)script2;
 					break;
 					
 				case 'O':
@@ -1209,7 +1208,7 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, char* cName, bool pileabl
 
 	pi->Init();
 	if(cName!=NULL)
-		strcpy(pi->name,cName);
+		pi->name = cName;
 	pi->setId(id);
 	pi->color1=color>>8;
 	pi->color2=color&0x00FF;
@@ -1288,7 +1287,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 					if (!(strcmp("AMOUNT",(char*)script1))) pi->amount = str2num(script2); // -Fraz- moved from Case C
 				case 'C':
 				case 'c':
- 					if (!(strcmp("CREATOR", (char*)script1))) strcpy(pi->creator, script2); // by Magius(CHE)
+ 					if (!(strcmp("CREATOR", (char*)script1))) pi->creator = script2; // by Magius(CHE)
 					else if (!(strcmp("COLOR",(char*)script1)))
 					{
 						tmp=hex2num(script2);
@@ -1362,9 +1361,9 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 				case 'n':
 				case 'O':
 				case 'o':
-					if (!(strcmp("NAME",(char*)script1))) strcpy(pi->name, script2);
-					else if (!(strcmp("NAME2",(char*)script1))) strcpy(pi->name2, script2);
-					else if (!(strcmp("NEWBIE",(char*)script1))) pi->priv=pi->priv|0x02;
+					if (!(strcmp("NAME",(char*)script1))) pi->name = script2;
+					else if (!(strcmp("NAME2",(char*)script1))) pi->name2 = script2;
+					else if (!(strcmp("NEWBIE",(char*)script1))) pi->priv |= 0x02;
 					else if (!(strcmp("OFFSPELL",(char*)script1))) pi->offspell=str2num(script2);
 
 				break;
@@ -1760,10 +1759,10 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 		pi = FindItemBySerial(vecContainer[ci]);
 		if(pi->st>pc_p->st)//if strength required > character's strength
 		{
-			if(pi->name[0]=='#')
+			if(pi->name == "#")
 				pi->getName(temp2);
 			else
-				strcpy((char*)temp2,pi->name);
+				strcpy((char*)temp2, pi->name.c_str());
 			
 			sprintf((char*)temp, "You are not strong enough to keep %s equipped!", temp2);
 			sysmessage(calcSocketFromChar(pc_p), (char*)temp);

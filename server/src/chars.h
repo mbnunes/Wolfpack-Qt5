@@ -76,8 +76,8 @@ public:
 	unsigned char			ser3;
 	unsigned char			ser4;
 
-	char			orgname[50];//original name - for Incognito
-	char			title[50];
+	string			orgname;//original name - for Incognito
+	string			title;
 	bool			unicode; // This is set to 1 if the player uses unicode speech, 0 if not
 	int				account; // changed to signed, lb
 	//	int				x;

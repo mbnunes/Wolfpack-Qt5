@@ -56,7 +56,7 @@ static void reverseIncognito(P_CHAR pc)
 		
 		pc->skin = pc->xskin;	// SKIN COLOR
 		
-		strcpy(pc->name,pc->orgname);	// NAME
+		pc->name = pc->orgname;	// NAME
 		
 		if(pc->hairserial>-1)//if hairs exist, restore hair style/color
 		{
@@ -322,7 +322,7 @@ void cTmpEff::Expire()
 		{
 			if (more2!=0)
 			{
-				sprintf((char*)temp, "*%s continues grinding.*", pc_s->name);
+				sprintf((char*)temp, "*%s continues grinding.*", pc_s->name.c_str());
 				npcemoteall(pc_s, (char*)temp,1);
 			}
 			soundeffect2(pc_s, 0x0242);
@@ -791,7 +791,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 		}
 
 		// ------ NAME -----
-		strcpy(pc_dest->orgname,pc_dest->name);
+		pc_dest->orgname = pc_dest->name;
 
 		if(pc_dest->id2==0x90) 
 			setrandomname(pc_dest, "1");//get a name from male list
