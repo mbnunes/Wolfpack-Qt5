@@ -570,15 +570,7 @@ PyObject* wpGuild_getmemberinfo( wpGuild* self, PyObject* args )
 	PyObject* result = PyDict_New();
 	PyDict_SetItemString( result, "showsign", PyInt_FromLong( info->showSign() ? 1 : 0 ) );
 	PyDict_SetItemString( result, "joined", PyInt_FromLong( info->joined() ) );
-
-	if ( info->guildTitle().isNull() )
-	{
-		PyDict_SetItemString( result, "guildtitle", PyUnicode_FromWideChar( L"", 0 ) );
-	}
-	else
-	{
-		PyDict_SetItemString( result, "guildtitle", PyUnicode_FromUnicode( ( Py_UNICODE * ) info->guildTitle().ucs2(), info->guildTitle().length() ) );
-	}
+	PyDict_SetItemString( result, "guildtitle", QString2Python(info->guildTitle()) );
 
 	return result;
 }
@@ -662,14 +654,7 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 	else if ( !strcmp( name, "name" ) )
 	{
 		const QString& value = self->guild->name();
-		if ( value == QString::null )
-		{
-			return PyUnicode_FromWideChar( L"", 0 );
-		}
-		else
-		{
-			return PyUnicode_FromUnicode( ( Py_UNICODE * ) value.ucs2(), value.length() );
-		}
+		return QString2Python(value);
 	}
 	/*
 		\property guild.abbreviation This is the abbreviation of this guilds name.
@@ -677,14 +662,7 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 	else if ( !strcmp( name, "abbreviation" ) )
 	{
 		const QString& value = self->guild->abbreviation();
-		if ( value == QString::null )
-		{
-			return PyUnicode_FromWideChar( L"", 0 );
-		}
-		else
-		{
-			return PyUnicode_FromUnicode( ( Py_UNICODE * ) value.ucs2(), value.length() );
-		}
+		return QString2Python(value);
 	}
 	/*
 		\property guild.charta This is the charta of this guild.
@@ -692,14 +670,7 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 	else if ( !strcmp( name, "charta" ) )
 	{
 		const QString& value = self->guild->charta();
-		if ( value == QString::null )
-		{
-			return PyUnicode_FromWideChar( L"", 0 );
-		}
-		else
-		{
-			return PyUnicode_FromUnicode( ( Py_UNICODE * ) value.ucs2(), value.length() );
-		}
+		return QString2Python(value);
 	}
 	/*
 		\property guild.website This is the URL of the website for this guild.
@@ -707,14 +678,7 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 	else if ( !strcmp( name, "website" ) )
 	{
 		const QString& value = self->guild->website();
-		if ( value == QString::null )
-		{
-			return PyUnicode_FromWideChar( L"", 0 );
-		}
-		else
-		{
-			return PyUnicode_FromUnicode( ( Py_UNICODE * ) value.ucs2(), value.length() );
-		}
+		return QString2Python(value);
 	}
 	/*
 		\property guild.alignment This integer value indicates the alignment of the guild.

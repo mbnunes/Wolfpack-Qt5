@@ -395,7 +395,7 @@ static PyObject* wpItem_gettag( wpItem* self, PyObject* args )
 	cVariant value = self->pItem->getTag( key );
 
 	if ( value.type() == cVariant::String )
-		return PyUnicode_FromUnicode( ( Py_UNICODE * ) value.toString().ucs2(), value.toString().length() );
+		return QString2Python(value.toString());
 	else if ( value.type() == cVariant::Int )
 		return PyInt_FromLong( value.asInt() );
 	else if ( value.type() == cVariant::Double )

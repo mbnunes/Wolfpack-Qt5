@@ -140,7 +140,13 @@ inline PyObject* QString2Python( const QString& string )
 	}
 	else
 	{
+#if defined(Py_UNICODE_WIDE)
+		QCString utf = string.utf8();
+		PyObject *obj = PyUnicode_DecodeUTF8( utf.data(), utf.length(), "" );
+		return obj;
+#else
 		return PyUnicode_FromUnicode( ( Py_UNICODE * ) string.ucs2(), string.length() );
+#endif
 	}
 }
 

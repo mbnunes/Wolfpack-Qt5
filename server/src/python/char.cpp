@@ -968,7 +968,7 @@ static PyObject* wpChar_gettag( wpChar* self, PyObject* args )
 	cVariant value = self->pChar->getTag( key );
 
 	if ( value.type() == cVariant::String )
-		return PyUnicode_FromUnicode( ( Py_UNICODE * ) value.toString().ucs2(), value.toString().length() );
+		return QString2Python(value.toString());
 	else if ( value.type() == cVariant::Int )
 		return PyInt_FromLong( value.asInt() );
 	else if ( value.type() == cVariant::Double )

@@ -263,7 +263,7 @@ static PyObject* wpDbResult_getstring( wpDbResult* self, PyObject* args )
 
 	QString value = self->result->getString( pos );
 
-	return PyUnicode_FromUnicode( ( Py_UNICODE * ) value.ucs2(), value.length() );
+	return QString2Python(value);
 }
 
 static PyMethodDef wpDbResultMethods[] =
