@@ -51,8 +51,7 @@ static void reverseIncognito(P_CHAR pc)
 
 	if(pc->incognito)//let's ensure it's under incognito effect!
 	{
-		pc->id1=pc->xid1;	// SEX
-		pc->id2=pc->xid2;
+		pc->setId(pc->xid);
 		
 		pc->skin = pc->xskin;	// SKIN COLOR
 		
@@ -229,8 +228,7 @@ void cTmpEff::Reverse()
 	case 18: //Polymorph spell by AntiChrist
 		if(pc_s->polymorph)
 		{
-			pc_s->id1=pc_s->xid1;
-			pc_s->id2=pc_s->xid2;
+			pc_s->setId(pc_s->xid);
 			pc_s->polymorph=false;
 			teleport(pc_s);
 		}
@@ -397,8 +395,7 @@ void cTmpEff::Expire()
 	case 18: //Polymorph spell by AntiChrist 9/99
 		if(pc_s->polymorph)//let's ensure it's under polymorph effect!
 		{
-			pc_s->id1=pc_s->xid1;
-			pc_s->id2=pc_s->xid2;
+			pc_s->setId(pc_s->xid);
 			pc_s->polymorph=false;
 			teleport(pc_s);
 		}
@@ -706,8 +703,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 			k = unmounthorse(calcSocketFromChar(pc_dest));
 		k=(more1<<8)+more2;
 
-		pc_dest->xid1=pc_dest->id1;//let's backup previous id
-		pc_dest->xid2=pc_dest->id2;
+		pc_dest->xid = pc_dest->id();//let's backup previous id
 
 		if (k>=0x000 && k<=0x3e1) // lord binary, body-values >0x3e crash the client
 		{
@@ -735,8 +731,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 		//polymorph effect to avoid problems
 		if(pc_dest->polymorph)
 		{
-			pc_dest->id1=pc_dest->xid1;
-			pc_dest->id2=pc_dest->xid2;
+			pc_dest->setId(pc_dest->xid);
 			pc_dest->polymorph=false;
 			teleport(pc_dest);
 		}
@@ -763,8 +758,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 		}
 		}
 		// ------ SEX ------
-		pc_dest->xid1=pc_dest->id1;
-		pc_dest->xid2=pc_dest->id2;
+		pc_dest->xid = pc_dest->id();
 		pc_dest->id1=0x01;
 		//if we already have a beard..can't turn to female
 		if(pc_dest->beardserial>-1)

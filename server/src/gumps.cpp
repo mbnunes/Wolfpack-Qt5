@@ -353,9 +353,9 @@ void cGump::Input(int s)
 			k = hex2num( text );
 			if (k>=0x000 && k<=0x3e1) // lord binary, body-values >0x3e crash the client			                       
 			{ 
-		       pc_j->xid1=pc_j->id1=k>>8; // allow only non crashing ones
-		       pc_j->xid2=pc_j->id2=k%256;
-		       c1 = pc_j->skin;						// transparency for mosnters allowed, not for palyers, 
+				pc_j->setId(k);
+				pc_j->xid = pc_j->id();
+				c1 = pc_j->skin;						// transparency for mosnters allowed, not for palyers, 
 		                                              // if polymorphing from monster to player we have to switch from transparent to semi-transparent
 		                                              // or we have that sit-down-client crash
                b=c1&0x4000; 

@@ -96,8 +96,8 @@ public:
 	char			dir; //&0F=Direction
 	unsigned char			id1; // Character body type
 	unsigned char			id2; // Character body type
-	unsigned char			xid1; // Backup of body type for ghosts
-	unsigned char			xid2; // Backup of body type for ghosts
+//	unsigned char			xid1; // Backup of body type for ghosts
+	unsigned short			xid; // Backup of body type for ghosts
 	bool			incognito;// AntiChrist - true if under incognito effect
 	bool			polymorph;// AntiChrist - true if under polymorph effect
 	//char			orgid1; // Backup of body type for Polymorph and incognito spell

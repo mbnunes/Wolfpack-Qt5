@@ -207,9 +207,9 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 	{
 		if (!pc_deffender->isInvul())
 		{
-			if (pc_deffender->xid2==0x91) soundeffect2(pc_deffender,0x014b);
-			if (pc_deffender->xid2==0x90) soundeffect2(pc_deffender,0x0156);
-			playmonstersound(pc_deffender, pc_deffender->id1, pc_deffender->id2, SND_DEFEND);
+			if (pc_deffender->xid==0x0191) soundeffect2(pc_deffender,0x014b);
+			else if (pc_deffender->xid==0x0190) soundeffect2(pc_deffender,0x0156);
+			playmonstersound(pc_deffender, pc_deffender->id(), SND_DEFEND);
 			//AntiChrist -- for poisoned weapons
 			if((pWeapon) && (pWeapon->poisoned>0))
 			{
@@ -248,8 +248,8 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 							if(pc_deffender->isPlayer())
 							{
 								sysmessage(s2,"You sceam in agony from being hit by the accursed metal!");
-								if (pc_deffender->xid2==0x91) soundeffect2(pc_deffender,0x0152);
-								else if (pc_deffender->xid2==0x90) soundeffect2(pc_deffender,0x0157);
+								if (pc_deffender->xid == 0x0191) soundeffect2(pc_deffender,0x0152);
+								else if (pc_deffender->xid==0x0190) soundeffect2(pc_deffender,0x0157);
 							}// can add a possible effect below here for npc's being hit
 					}
 							
@@ -694,7 +694,7 @@ void cCombat::DoCombatAnimations(P_CHAR pc_attacker, P_CHAR pc_defender, int fig
 			}
 		}
 		npcaction(pc_attacker,aa); 
-		playmonstersound(pc_attacker, pc_attacker->id1, pc_attacker->id2, SND_ATTACK);
+		playmonstersound(pc_attacker, pc_attacker->id(), SND_ATTACK);
 	}
 	else if (pc_attacker->onhorse)
 	{

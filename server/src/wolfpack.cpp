@@ -1000,14 +1000,12 @@ void deathstuff(P_CHAR pc_player)
 
 	if(pc_player->polymorph)
 	{
-		pc_player->id1=pc_player->xid1;
-		pc_player->id2=pc_player->xid2;
+		pc_player->setId(pc_player->xid);
 		pc_player->polymorph = false;
 		teleport(pc_player);
 	}
 
-	pc_player->xid1=pc_player->id1; // lb bugfix
-	pc_player->xid2=pc_player->id2;
+	pc_player->xid = pc_player->id(); // lb bugfix
 	pc_player->xskin = pc_player->skin;
 	pc_player->murdererSer = 0;	// Reset previous murderer serial # to zero
 
@@ -1103,13 +1101,13 @@ void deathstuff(P_CHAR pc_player)
 	}
 	ele=0;
 	if(pc_player->isPlayer()) pc_player->id1=0x01; // Character is a ghost
-	if (pc_player->xid2==0x91)
+	if (pc_player->xid==0x0191)
 	{
-		pc_player->id2=0x93;	// Male or Female
+		pc_player->setId(0x0193);	// Male or Female
 	}
 	else
 	{
-		pc_player->id2=0x92;
+		pc_player->setId(0x0192);
 	}
 
 	PlayDeathSound(pc_player);
@@ -1133,7 +1131,7 @@ void deathstuff(P_CHAR pc_player)
 
 //    if(pc_player->isNpc() || pc_player->isPlayer())
 
-	ele=pi_c->amount=(pc_player->xid1<<8)+pc_player->xid2; // Amount == corpse type
+	ele=pi_c->amount=pc_player->xid; // Amount == corpse type
 	pi_c->morey = ishuman(pc_player);//is human?? - AntiChrist
 	pi_c->carve=pc_player->carve;//store carve section - AntiChrist
 	pi_c->name2 = pc_player->name;
@@ -1154,7 +1152,7 @@ void deathstuff(P_CHAR pc_player)
 	}
 
 	//AntiChrist -- stores the time and the murderer's name
-	strcpy(pi_c->murderer, murderername);
+	pi_c->murderer = murderername;
 	pi_c->murdertime = uiCurrentTime;
 	// Put objects on corpse
 
@@ -1814,8 +1812,8 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	pc->race=0; // Default human race
 	if (buffer[s][0x46]!='\x00')
 	{
-		pc->id2=0x91;
-		pc->xid2=0x91;
+		pc->setId(0x0191);
+		pc->xid = 0x0191;
 	}
 	pc->skin = (buffer[s][0x50]|0x80 << 8) + buffer[s][0x51];
 	if ( pc->skin < 0x83EA || pc->skin>0x8422 )
@@ -1925,7 +1923,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	switch (RandomNum(0, 1))
 	{
 	case 0:
-		if ((pc->id2==(unsigned char)'\x90') && (pc->xid2==(unsigned char)'\x90'))
+		if ((pc->id() == (unsigned char)0x0190) && (pc->xid == (unsigned char)0x0190))
 		{
 			pi->setId(0x1539);
 			pi->layer=0x04; // pant
@@ -1936,7 +1934,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 		}
 		break;
 	case 1:
-		if ((pc->id2==(unsigned char)'\x90') && (pc->xid2==(unsigned char)'\x90'))
+		if ((pc->id()==(unsigned char)0x0190) && (pc->xid==(unsigned char)0x0190))
 		{
 			pi->setId(0x152E);
 			pi->layer=0x04;
@@ -2126,8 +2124,7 @@ int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn ne
 				} 
 				if ( pc_pet == NULL ) return -1;
 				pc_pet->name = pi->name; 
-				pc_pet->xid1 = pc_pet->id1; 
-				pc_pet->xid2 = pc_pet->id2; 
+				pc_pet->xid = pc_pet->id(); 
 				pc_pet->skin = pc_pet->xskin = pi->color(); 
 				pc_pet->dispz = pc_pet->pos.z = p_petowner->pos.z; 
 				pc_pet->dir = p_petowner->dir; 
@@ -2280,10 +2277,8 @@ void scriptcommand (int s, char *script1, char *script2) // Execute command from
 	if (!(strcmp("POLY", (char*)script1)))
 	{
 		tmp = hex2num(script2);
-		pc_currchar->id1=tmp>>8;
-		pc_currchar->xid1=tmp>>8;
-		pc_currchar->id2=tmp%256;
-		pc_currchar->xid2=tmp%256;
+		pc_currchar->setId(tmp);
+		pc_currchar->xid = tmp;
 		teleport(pc_currchar);
 		return;
 	}
@@ -3297,7 +3292,7 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 int ishuman(P_CHAR pc)
 {
 	// Check if the Player or Npc is human! -- by Magius(CHE)
-	if ((pc->xid1==0x01) && (pc->xid2==0x90 || pc->xid2==0x91)) return 1;
+	if (pc->xid==0x0190 || pc->xid==0x0191) return 1;
 	else return 0;
 }
 
@@ -3562,7 +3557,7 @@ void npcattacktarget(P_CHAR pc_target2, P_CHAR pc_target)
 	if (pc_target->dispz > (pc_target2->dispz +10)) return;//FRAZAI
 	if (pc_target->dispz < (pc_target2->dispz -10)) return;//FRAZAI
 	if (!(line_of_sight(-1,pc_target2->pos, pc_target->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING))) return; //From Leviathan - Morrolan
-	playmonstersound(pc_target, pc_target->id1, pc_target->id2, SND_STARTATTACK);
+	playmonstersound(pc_target, pc_target->id(), SND_STARTATTACK);
 	int i;
 	unsigned int cdist=0 ;
 
@@ -3981,13 +3976,13 @@ void goldsfx(int s, int goldtotal)
 	return;
 }
 
-void playmonstersound(P_CHAR monster, int id1, int id2, int sfx)
+void playmonstersound(P_CHAR monster, unsigned short id, int sfx)
 {
 	int basesound=0,x;
 	char sf; short offset;
 
 
-	x=(id1<<8)+id2;
+	x=id;
 	basesound=creatures[x].basesound;
 	sf=creatures[x].soundflag;
 	offset=sfx;

@@ -2379,7 +2379,7 @@ void cSkills::ForensicsTarget(int s) //AntiChrist
 			if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)>180) strcpy((char*)temp2,"many many");
 			sprintf((char*)temp,"The %s is %s seconds old.", pi->name.c_str(), temp2);
 			sysmessage(s,(char*)temp);
-			if (!Skills->CheckSkill(pc_currchar, FORENSICS, 500, 1000) || *(pi->murderer)=='\0') sysmessage(s,"You can't say who was the killer."); else
+			if (!Skills->CheckSkill(pc_currchar, FORENSICS, 500, 1000) || pi->murderer.empty()) sysmessage(s,"You can't say who was the killer."); else
 			{
 				sprintf((char*)temp,"The killer was %s.",pi->murderer);
 				sysmessage(s,(char*)temp);

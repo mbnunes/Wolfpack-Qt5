@@ -713,9 +713,8 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			pi->type = 102;
 			return; // case 101
 		case 102: //??
-			pc_currchar->id1 = pc_currchar->xid1; 
-			pc_currchar->id2 = pc_currchar->xid2; 
-			teleport((currchar[s]));
+			pc_currchar->setId(pc_currchar->xid); 
+			teleport(currchar[s]);
 			pi->type = 101;
 			return; // case 102
 		case 103: // Army enlistment
@@ -1522,7 +1521,7 @@ void singleclick(UOXSOCKET s)
 				if (pi->creator.size() > 0 && pi->madewith>0)
 					sprintf((char*)temp2, "%s %s by %s", pi->desc, skill[pi->madewith - 1].madeword, pi->creator.c_str()); 
 				else
-					strcpy((char*)temp2, pi->desc); // LB bugfix
+					strcpy((char*)temp2, pi->desc.c_str()); // LB bugfix
 				
 				sprintf((char*)temp, "%s at %igp", temp2, pi->value); // Changed by Magius(CHE)				
 				itemmessage(s, (char*)temp, serial);

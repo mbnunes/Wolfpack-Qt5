@@ -357,10 +357,8 @@ void advancementobjects(P_CHAR pc_s, int x, int allways)
 					if (!(strcmp("POLY",(char*)script1)))
 					{
 						x=hex2num(script2);
-						pc_s->id1=x>>8;
-						pc_s->xid1=x>>8;
-						pc_s->id2=x%256;
-						pc_s->xid2=x%256;
+						pc_s->setId(x);
+						pc_s->xid = x;
 						teleport(pc_s);
 					}
 
@@ -464,10 +462,8 @@ void monstergate(P_CHAR pc_s, int x)
 			if (!(strcmp("ID",(char*)script1)))
 			{
 				tmp=hex2num(script2);
-				pc_s->id1=tmp>>8;
-				pc_s->id2=tmp%256;
-				pc_s->xid1=pc_s->id1;
-				pc_s->xid2=pc_s->id2;
+				pc_s->setId(tmp);
+				pc_s->xid = pc_s->id();
 			}
 			if (!(strcmp("SKIN",(char*)script1)))
 			{
@@ -752,10 +748,8 @@ void polycolorgate(P_CHAR pc_s, int x)
 			if (!(strcmp("ID", (char*)script1))) 
 			{ 
 				tmp = hex2num(script2); 
-				pc_s->id1 = tmp >> 8; 
-				pc_s->id2 = tmp%256; 
-				pc_s->xid1 = pc_s->id1; 
-				pc_s->xid2 = pc_s->id2; 
+				pc_s->setId(tmp); 
+				pc_s->xid = tmp; 
 			} 
 			else if (!(strcmp("SKIN", (char*)script1))) 
 			{ 

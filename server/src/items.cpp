@@ -123,7 +123,7 @@ cItem::cItem( cItem &src )
 	this->disabledmsg = src.disabledmsg;
 	this->tuses=src.tuses;
 	this->poisoned=src.poisoned;
-	strcpy(this->murderer, src.murderer);
+	this->murderer=src.murderer;
  	this->murdertime=src.murdertime;
     this->glow=src.glow;
     this->glow_effect=src.glow_effect;
@@ -132,7 +132,7 @@ cItem::cItem( cItem &src )
 	this->time_unused=src.time_unused;
 	this->timeused_last=getNormalizedTime();
 	this->spawnregion=src.spawnregion;
-	strcpy(this->desc, src.desc);
+	this->desc = src.desc;
 }
 
 
@@ -607,7 +607,6 @@ void cItem::Init(char mkser)
 	this->disabledmsg = ""; //Item disabled message. -- by Magius(CHE) §
 	this->tuses=0;    //Number of uses for trigger
 	this->poisoned=0; //AntiChrist -- for poisoning skill
-	this->murderer[0]=0x00; //AntiChrist -- for corpse -- char's name who kille the char (forensic ev.)
  	this->murdertime=0; //AntiChrist -- for corpse -- when the people has been killed
     this->glow=0;
     this->glow_effect=0;
@@ -616,8 +615,6 @@ void cItem::Init(char mkser)
 	this->time_unused=0;
 	this->timeused_last=getNormalizedTime();
 	this->spawnregion=0;
-	
-	this->desc[0]=0x00;
 }
 
 // -- delete an item (Actually just mark it is free)

@@ -343,8 +343,7 @@ void loadchar(int x) // Load a character from WSC
 			else if (!strcmp((char*)script1, "XBODY"))
 			{
 				i=str2num(script2);
-				pc->xid1=i>>8;
-				pc->xid2=i%256;
+				pc->xid=i;
 			}
 			else if (!strcmp((char*)script1, "XSKIN"))			  pc->xskin = static_cast<UI16>(str2num(script2));
 		break;
@@ -534,7 +533,7 @@ void loaditem (int x) // Load an item from WSC
 			else if (!(strcmp((char*)script1, "DOORFLAG"))) { pi->doordir=str2num(script2); }
 			else if (!(strcmp((char*)script1, "DYEABLE"))) { pi->dye=str2num(script2); }
 			else if (!(strcmp((char*)script1, "DEF"))) { pi->def=str2num(script2); }
-			else if (!(strcmp((char*)script1, "DESC"))) { strcpy(pi->desc,(char*)script2); }
+			else if (!(strcmp((char*)script1, "DESC"))) { pi->desc = (char*)script2; }
 			else if (!(strcmp((char*)script1, "DX"))) { pi->dx=str2num(script2);}
 			else if (!(strcmp((char*)script1, "DX2"))) { pi->dx2=str2num(script2);}
 			else if (!(strcmp((char*)script1, "DECAYTIME"))) {si = str2num(script2);pi->decaytime = (si<0) ? 1 : si;}
@@ -1159,15 +1158,15 @@ void CWorldMain::SaveChar( P_CHAR pc )
 			//AntiChrist - incognito and polymorph spell special stuff - 12/99
 			if(pc->incognito || pc->polymorph)
 			{//if under incognito spell, don't save BODY but the original XBODY
-				if ((pc->xid1<<8)+pc->xid2)
-					fprintf(cWsc, "BODY %i\n", (pc->xid1<<8)+pc->xid2);
+				if (pc->xid)
+					fprintf(cWsc, "BODY %i\n", pc->xid);
 			} else
 			{//else backup body normally
 				if (pc->id() != pc_reference->id())
 					fprintf(cWsc, "BODY %i\n", pc->id());
 			}
-			if ((pc->xid1<<8)+pc->xid2)
-				fprintf(cWsc, "XBODY %i\n", (pc->xid1<<8)+pc->xid2);
+			if (pc->xid)
+				fprintf(cWsc, "XBODY %i\n", pc->xid);
 			//AntiChrist - incognito spell special stuff - 12/99
 			if(pc->incognito)
 			{//if under incognito spell, don't save SKIN but the original XSKIN
@@ -1589,7 +1588,7 @@ void CWorldMain::SaveItem( P_ITEM pi, P_ITEM pDefault)
 		if ((pi->glow_c1<<8) + pi->glow_c2)
 			{save_int("GLOWBC", (pi->glow_c1<<8) + pi->glow_c2);}
 		if (pi->glow_effect != pDefault->glow_effect)	{save_int("GLOWTYPE",	pi->glow_effect);}
-		if (strlen(pi->desc)>0)							{save_str("DESC",		pi->desc);}	// save out our vendor description
+		if (!pi->desc.empty())							{save_str("DESC",		pi->desc.c_str());}	// save out our vendor description
 		
 		save_txt("}\n");
 		save_sect();

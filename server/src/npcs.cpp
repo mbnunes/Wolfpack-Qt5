@@ -666,8 +666,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 				tmp=hex2num(script2);
 				pc_c->id1=tmp>>8;
 				pc_c->id2=tmp%256;
-				pc_c->xid1=pc_c->id1;
-				pc_c->xid2=pc_c->id2;
+				pc_c->xid = pc_c->id();
 			}
 			else if (!strcmp("ITEM",(char*)script1)) 
 			{

@@ -3557,7 +3557,7 @@ void PlayDeathSound( P_CHAR pc )
     if ( pc == NULL )
 		return;
 
-	if (pc->xid1==0x01 && pc->xid2==0x91)
+	if (pc->xid==0x0191)
 	{
 		switch(RandomNum(0, 3)) // AntiChrist - uses all the sound effects
 		{
@@ -3567,7 +3567,7 @@ void PlayDeathSound( P_CHAR pc )
 		case 3:		soundeffect2( pc, 0x0153 );	break;// Female Death
 		}
 	}
-	else if (pc->xid1==0x01 && pc->xid2==0x90)
+	else if (pc->xid==0x0190)
 	{
 		switch( RandomNum(0, 3) ) // AntiChrist - uses all the sound effects
 		{
@@ -3579,7 +3579,7 @@ void PlayDeathSound( P_CHAR pc )
 	}
 	else
 	{
-		playmonstersound(pc, pc->xid1, pc->xid2, SND_DIE);
+		playmonstersound(pc, pc->xid, SND_DIE);
 	}
 }
 

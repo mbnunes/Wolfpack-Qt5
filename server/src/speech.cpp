@@ -58,7 +58,7 @@ bool InputSpeech(char* comm, cChar* pPlayer, UOXSOCKET s)
 			sysmessage(s, "Enter a description for this item.");
 			return true;
 		case cChar::enDescription:// Describing an item
-			strcpy(pTarget->desc, comm);
+			pTarget->desc = comm;
 			sysmessage(s, "This item is now described as %s, ", comm);
 			pPlayer->inputmode = cChar::enNone;
 			pPlayer->inputitem = INVALID_SERIAL;
@@ -629,7 +629,7 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 		{
 			pPet->ftarg = currchar[s]->serial;
 			pPet->npcWander=1;
-			playmonstersound(pPet, pPet->id1, pPet->id2, SND_STARTATTACK);
+			playmonstersound(pPet, pPet->id(), SND_STARTATTACK);
 		}
 		else
 		{

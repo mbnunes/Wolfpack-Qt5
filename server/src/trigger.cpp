@@ -3045,8 +3045,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 								splitline();
 								pc_ts->id1 = hexnumber(0);
 								pc_ts->id2 = hexnumber(1);
-								pc_ts->xid1 = hexnumber(0);
-								pc_ts->xid2 = hexnumber(1);
+								pc_ts->xid = pc_ts->id();
 								for (j = 0; j < now; j++)
 									if (perm[j] && inrange1p(currchar[j], pc_ts))
 										updatechar(pc_ts);

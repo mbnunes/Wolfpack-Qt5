@@ -987,8 +987,8 @@ void command_poly(UOXSOCKET s)
 		if (k>=0x000 && k<=0x3e1) // lord binary, body-values >0x3e crash the client
 			
 		{ 
-			pc_currchar->xid1=pc_currchar->id1=k>>8; // allow only non crashing ones
-			pc_currchar->xid2=pc_currchar->id2=k%256;	 
+			pc_currchar->setId(k);
+			pc_currchar->xid = pc_currchar->id();
 			
 			c1 = pc_currchar->skin; // transparency for mosnters allowed, not for players, 
 			// if polymorphing from monster to player we have to switch from transparent to semi-transparent

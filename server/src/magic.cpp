@@ -474,12 +474,11 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 	}
 
 	pc_monster->name = monstername;
-
-	pc_monster->id1=pc_monster->xid1=id1;
-	pc_monster->id2=pc_monster->xid2=id2;
+	pc_monster->setId(id);
+	pc_monster->xid = id;
 	pc_monster->skin = pc_monster->xskin = color;
-	pc_monster->priv2=0x20;
-	pc_monster->npc=1;
+	pc_monster->priv2 = 0x20;
+	pc_monster->npc = 1;
 
 	if (id!=0x023E && !(id==0x000d && color1==0 && color2==0x75)) // don't own BS or EV.
 		pc_monster->SetOwnSerial(pc_currchar->serial); 

@@ -129,7 +129,7 @@ public:
 	string disabledmsg; //Item is disabled, so display this message. -- added by Magius(CHE) §
 	int tuses;    //Number of uses for trigger
 	unsigned int poisoned; //AntiChrist -- for poisoning skill
-	char murderer[50]; //AntiChrist -- for corpse -- char's name who kille the char (forensic ev.)
+	string murderer; //AntiChrist -- for corpse -- char's name who kille the char (forensic ev.)
 	long int murdertime; //AntiChrist -- for corpse -- when the people has been killed
 	int rank; //Magius(CHE) --- for rank system, this value is the LEVEL of the item from 1 to 10. Simply multiply the rank*10 and calculate the MALUS this item has from the original.
 	// for example: RANK 5 ---> 5*10=50% of malus
@@ -159,7 +159,7 @@ public:
 	char glow_c2;
 	char glow_effect; 
 	
-	char desc[100];
+	string desc;
 	
 	int carve; //AntiChrist - for new carve system
 	bool incognito; //AntiChrist - for items under incognito effect

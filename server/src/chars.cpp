@@ -99,8 +99,8 @@ void cChar::Init(bool ser)
 //	this->oldpos.z=0; // LB, experimental, change back to unsignbed if this give sproblems
 	this->race=0; // -Fraz- Race AddOn
 	this->dir=0; //&0F=Direction
-	this->id1=this->xid1=0x01; // Character body type
-	this->id2=this->xid2=0x90; // Character body type
+	this->xid = 0x0190;
+	this->setId(0x0190);
 	this->skin = this->xskin = 0x0000; // Skin color
 	this->keynumb=-1;  // for renaming keys 
 	this->setPriv(0);	// 1:GM clearance, 2:Broadcast, 4:Invulnerable, 8: single click serial numbers
@@ -297,7 +297,7 @@ void cChar::Init(bool ser)
 //
 unsigned long cChar::day()
 {
-	return creationday ;
+	return creationday;
 }
 ///////////////////////
 // Name:	cChar::day(unsigned long)

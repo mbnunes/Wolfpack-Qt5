@@ -410,8 +410,7 @@ void cTargets::IDtarget(int s)
 			return;
 		pc->id1=addx[s];
 		pc->id2=addy[s];
-		pc->xid1=addx[s];
-		pc->xid2=addy[s];
+		pc->xid = pc->id();
 		updatechar(pc);
 	}
 }
@@ -736,11 +735,9 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 		return;
 	unmounthorse(targSocket);	//AntiChrist bugfix
 	
-	pc->id1=0x03;
-	pc->id2='\xDB';
+	pc->setId(0x03DB);
 	pc->skin = 0x8021;
-	pc->xid1=0x03;
-	pc->xid2='\xDB';
+	pc->xid = 0x03DB;
 	pc->xskin = 0x8021;
 	pc->setPriv(0xF7);
 	pc->priv2 = (unsigned char) (0xD9);
@@ -790,11 +787,9 @@ static void CnsTarget(P_CLIENT ps, P_CHAR pc)
 		sprintf((char*)temp2, "%s has made %s a Counselor.\n",currchar[s]->name.c_str(),pc->name.c_str());
 		savelog((char*)temp2, (char*)temp);
 	}
-	pc->id1=0x03;
-	pc->id2='\xDB';
+	pc->setId(0x03DB);
 	pc->skin=0x8003;
-	pc->xid1=0x03;
-	pc->xid2='\xDB';
+	pc->xid=0x03DB;
 	pc->xskin=0x8002;
 	pc->setPriv(0xB6);
 	pc->priv2='\x8D';
@@ -1036,8 +1031,7 @@ static void AddNpcTarget(int s, PKGx6C *pp)
 	pc->name = "Dummy";
 	pc->id1=addid1[s];
 	pc->id2=addid2[s];
-	pc->xid1=addid1[s];
-	pc->xid2=addid2[s];
+	pc->xid = pc->id();
 	pc->skin = 0;
 	pc->xskin = 0;
 	pc->setPriv(0x10);
@@ -2464,8 +2458,7 @@ bool cTargets::NpcResurrectTarget(P_CHAR pc)
 	{//Shouldn' be a validNPCMove inside a door, might fix house break in. -- from zippy code
 		Fame(pc,0);
 		soundeffect2(pc, 0x0214);
-		pc->id1=pc->xid1;
-		pc->id2=pc->xid2;
+		pc->setId(pc->xid);
 		pc->skin = pc->xskin;
 		pc->dead=false;
 		pc->hp=pc->st;// /10;

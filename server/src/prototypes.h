@@ -166,7 +166,7 @@ void readFullLine ();
 
 void who(int s);
 void gms(int s);
-void playmonstersound(P_CHAR monster, int id1, int id2, int sfx);
+void playmonstersound(P_CHAR monster, unsigned short id, int sfx);
 void sellaction(int s);
 void addgold(UOXSOCKET s, int totgold);
 int calcValue(P_ITEM pi, int value);
