@@ -15,7 +15,7 @@
 from types import *
 
 class cGump:
-  def __init__(self, noclose=0, nomove=0, nodispose=0, x=50, y=50, callback="", args = [], type = 0, serial = 0):
+  def __init__(self, noclose=0, nomove=0, nodispose=0, x=50, y=50, callback=None, args=[], type=0, serial=0):
     self.layout = []
     self.texts = []
     self.args = args
