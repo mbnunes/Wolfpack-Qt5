@@ -411,7 +411,7 @@ static PyObject* wpSocket_sendgump(wpSocket* self, PyObject* args) {
 		if (PyString_Check(item)) {
 			gump->addRawLayout(PyString_AsString(item));
 		} else if (PyUnicode_Check(item)) {
-			gump->addRawLayout(QString::fromUcs2(PyUnicode_AS_UNICODE(item)));
+			gump->addRawLayout(QString::fromUcs2((ushort*)PyUnicode_AS_UNICODE(item)));
 		} else {
 			gump->addRawLayout("");
 		}
@@ -423,7 +423,7 @@ static PyObject* wpSocket_sendgump(wpSocket* self, PyObject* args) {
 		if (PyString_Check(item)) {
 			gump->addRawText(PyString_AsString(item));
 		} else if (PyUnicode_Check(item)) {
-			gump->addRawText(QString::fromUcs2(PyUnicode_AS_UNICODE(item)));
+			gump->addRawText(QString::fromUcs2((ushort*)PyUnicode_AS_UNICODE(item)));
 		} else {
 			gump->addRawText("");
 		}
