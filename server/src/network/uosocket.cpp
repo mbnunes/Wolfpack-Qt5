@@ -894,6 +894,8 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 		}
 	}
 
+	if ( skillid != 0xFF && skillid2 != 0xFF ) // give default stuff too.
+		pChar->giveNewbieItems( 0xFF );
 	pChar->giveNewbieItems( skillid );
 	pChar->giveNewbieItems( skillid2 );
 

@@ -7,7 +7,7 @@
 =================================================================
 -->
 <definitions>
-	<!--  default -->
+	<!--  default, will be called ONCE from within the code -->
 	<startitems id="default">
 		<!--Gold --><gold>1000</gold>
 		<!--Dagger --><item id="f51"></item>
@@ -18,7 +18,6 @@
 
 	<!--  Alchemy -->
 	<startitems id="alchemy">
-	        <inherit id="default" />
 	        <!--Robe --><equipment id="1f03"></equipment>
 		<!--Mortar & pestle --><item id="e9b"></item>
 		<!--Bottle --><item id="f0e"><amount>4</amount></item>
@@ -30,45 +29,38 @@
 
 	<!--  Anatomy -->
 	<startitems id="anatomy">
-	        <inherit id="default" />
 	        <!--Robe --><equipment id="1f03"></equipment>
 	        <!--Bandages --><item id="1f03"><amount>3</amount></item>
 	</startitems>
 
 	<!--  Animallore -->
 	<startitems id="animallore">
-	        <inherit id="default" />
 	        <!--Robe --><equipment id="1f03"></equipment>
 	        <!--Sheperd crook --><equipment id="e81"></equipment>
 	</startitems>
 
 	<!--  Itemid -->
 	<startitems id="itemid">
-	        <inherit id="default" />
 	        <!--Gnarled Staff --><equipment id="13f9"></equipment>
 	</startitems>
 
 	<!--  Armslore -->
 	<startitems id="armslore">
-	        <inherit id="default" />
 	</startitems>
 
 	<!--  Parrying -->
 	<startitems id="parrying">
-	        <inherit id="default" />
 	        <!--Wooden Shield --><equipment id="1b7a"></equipment>
 	</startitems>
 
 	<!--  Begging -->
 	<startitems id="begging">
-	        <inherit id="default" />
 	        <!--Gnarled Staff -->
 	        <equipment id="13f9" />
 	</startitems>
 
 	<!--  Blacksmithing -->
 	<startitems id="blacksmithing">
-	        <inherit id="default" />
 	        
 	        <!--Half Apron -->
 	        <equipment id="153b" />
@@ -85,7 +77,6 @@
 
 	<!--  Bowcraft -->
 	<startitems id="bowcraft">
-	        <inherit id="default" />
 	        <!--Boards --><item id="1bd7"><amount>14</amount></item>
 	        <!--Feathers --><item id="1bd1"><amount>5</amount></item>
 	        <!--Shafts --><item id="1bd4"><amount>5</amount></item>
@@ -93,20 +84,17 @@
 
 	<!--  Peacemaking -->
 	<startitems id="peacemaking">
-	        <inherit id="default" />
 	        <!--Random Instrument--><item list="INSTRUMENTS" />
 	</startitems>
 
 	<!--  Camping -->
 	<startitems id="camping">
-	        <inherit id="default" />
 	        <!--Bedroll --><item id="a58"></item>
 	        <!--Kindling --><item id="de1"><amount>5</amount></item>
 	</startitems>
 
 	<!--  Carpentry -->
 	<startitems id="carpentry">
-	        <inherit id="default" />
 	        <!--Half Apron --><equipment id="153b"></equipment>
 	        <!--Boards --><item id="1bd7"><amount>10</amount></item>
 
@@ -116,14 +104,12 @@
 
 	<!--  Cartography -->
 	<startitems id="cartography">
-	        <inherit id="default" />
 	        <!--Maps --><item id="14eb"><amount>4</amount></item>
 	        <!--Sextant --><item id="1057"></item>
 	</startitems>
 
 	<!--  Cooking -->
 	<startitems id="cooking">
-	        <inherit id="default" />
 	        <!--Kindling --><item id="de1"><amount>2</amount></item>
 	        <!--Raw Leg of Lamb --><item id="1609"></item>
 	        <!--Raw Chicken Leg --><item id="1607"></item>
@@ -134,76 +120,64 @@
 
 	<!--  Detecting Hidden -->
 	<startitems id="detectinghidden">
-	        <inherit id="default" />
 	        <!--Cloak --><equipment id="1515"></equipment>
 	</startitems>
 
 	<!--  Discordance -->
 	<startitems id="enticement">
-	        <inherit id="default" />
 	        <!--Random Instrument-->
 	        <item list="INSTRUMENTS" />
 	</startitems>
 
 	<!--  Evaluating Intelligence -->
 	<startitems id="evaluatingintel">
-	        <inherit id="default" />
 	</startitems>
 
 	<!--  Healing -->
 	<startitems id="healing">
-	        <inherit id="default" />
 	        <!--Bandages --><item id="1f03"><amount>50</amount></item>
 	        <!--Scissors --><item id="f9e"></item>
 	</startitems>
 
 	<!--  Fishing -->
 	<startitems id="fishing">
-	        <inherit id="default" />
 	        <!--Floppy Hat --><equipment id="1713"></equipment>
 	        <!--Fishing Pole --><equipment id="dbf"></equipment>
 	</startitems>
 
 	<!--  Forensics -->
 	<startitems id="forensics">
-	        <inherit id="default" />
 	</startitems>
 
 	<!--  Herding -->
 	<startitems id="herding">
-	        <inherit id="default" />
 	        <!--Sheperd crook --><equipment id="e81"></equipment>
 	</startitems>
 
 	<!--  Hiding -->
 	<startitems id="hiding">
-	        <inherit id="default" />
 	        <!--Cloak --><equipment id="1515"></equipment>
 	</startitems>
 
 	<!--  Provocation -->
 	<startitems id="provocation">
-	        <inherit id="default" />
 	        <!--Random Instrument-->
 	        <item list="INSTRUMENTS" />
 	</startitems>
 
 	<!--  Inscription -->
 	<startitems id="inscription">
-	        <inherit id="default" />
 	        <!--Book --><item id="ff1"></item>
 	        <!--Blank Scrolls --><item id="e34"><amount>2</amount></item>
 	</startitems>
 
 	<!--  Lockpicking -->
 	<startitems id="lockpicking">
-	        <inherit id="default" />
 	        <!--Lockpicks --><item id="14fb"><amount>20</amount></item>
 	</startitems>
 
 	<!--  Magery -->
 	<startitems id="magery">
-	        <inherit id="default" />
 	        <!--Spellbook --><equipment id="efa"></equipment>
 	        <!--Wizards Hat --><equipment id="1718"></equipment>
 	        <!--Robe --><equipment id="1f03"></equipment>
@@ -227,64 +201,53 @@
 
 	<!--  Magic Resistance -->
 	<startitems id="magicresistance">
-	        <inherit id="default" />
 	</startitems>
 
 	<!--  Tactics -->
 	<startitems id="tactics">
-	        <inherit id="default" />
 	        <!--Katana --><equipment id="13ff"></equipment>
 	</startitems>
 
 	<!--  Snooping -->
 	<startitems id="snooping">
-	        <inherit id="default" />
 	        <!--Lockpicks --><item id="14fb"><amount>20</amount></item>
 	</startitems>
 
 	<!--  Musicianship -->
 	<startitems id="musicianship">
-	        <inherit id="default" />
 	        <!--Random Instrument--><item list="INSTRUMENTS" />
 	</startitems>
 
 	<!--  Poisoning -->
 	<startitems id="poisoning">
-	        <inherit id="default" />
 	        <!--Poison Potion --><item id="f0a"><amount>2</amount></item>
 	</startitems>
 
 	<!--  Archery -->
 	<startitems id="archery">
-	        <inherit id="default" />
 	</startitems>
 
 	<!--  Spiritspeak -->
 	<startitems id="spiritspeak">
-	        <inherit id="default" />
 	        <!--Cloak --><equipment id="1515"></equipment>
 	</startitems>
 
 	<!--  Stealing -->
 	<startitems id="stealing">
-	        <inherit id="default" />
 	        <!--Lockpicks --><item id="14fb"><amount>20</amount></item>
 	</startitems>
 
 	<!--  Tailoring -->
 	<startitems id="tailoring">
-	        <inherit id="default" />
 	</startitems>
 
 	<!--  Taming -->
 	<startitems id="taming">
-	        <inherit id="default" />
 	        <!--Sheperd crook --><equipment id="e81"></equipment>
 	</startitems>
 
 	<!--  Tasteid -->
 	<startitems id="tasteid">
-	        <inherit id="default" />
 	        <!--Random Potion--><item list="POTIONS" />
 	        <!--Random Potion--><item list="POTIONS" />
 	        <!--Random Potion--><item list="POTIONS" />
@@ -292,55 +255,45 @@
 
 	<!--  Tinkering -->
 	<startitems id="tinkering">
-	        <inherit id="default" />
 	        <!--Tinker Tools --><item id="1ebc"></item>
 	</startitems>
 
 	<!--  Tracking -->
 	<startitems id="tracking">
-	        <inherit id="default" />
 	        <!--Boots --><equipment id="170b"></equipment>
 	        <!--Skinning Knife --><equipment id="ec4"></equipment>
 	</startitems>
 
 	<!--  Veterinary -->
 	<startitems id="veterinary">
-	        <inherit id="default" />
 	        <!--Bandages --><item id="1f03"><amount>5</amount></item>
 	        <!--Scissors --><item id="f9e"></item>
 	</startitems>
 
 	<!--  Swordsmanship -->
 	<startitems id="swordsmanship">
-	        <inherit id="default" />
 	        <!--Katana --><equipment id="13ff"></equipment>
 	</startitems>
 
 	<!--  Macefighting -->
 	<startitems id="macefighting">
-	        <inherit id="default" />
 	</startitems>
 
 	<!--  Fencing -->
 	<startitems id="fencing">
-	        <inherit id="default" />
 	</startitems>
 
 	<!--  Wrestling -->
 	<startitems id="wrestling">
-	        <inherit id="default" />
 	</startitems>
 
 	<!--  Lumberjacking -->
 	<startitems id="lumberjacking">
-	        <inherit id="default" />
 	        <!--Hatchet --><equipment id="f43"></equipment>
 	</startitems>
 
 	<!--  Mining -->
 	<startitems id="mining">
-	        <inherit id="default" />
-	        
 	        <!--Random Mining Tool-->
 	        <item list="MININGTOOLS" />
 	</startitems>
