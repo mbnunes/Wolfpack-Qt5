@@ -76,6 +76,8 @@ Wolfpack 12.9.13 Beta (CVS)
   - Applied the index.xml branches to colored armor.
   - Added lightsources to fire elementals, wisps and horde minions.
   - Added bones to bone_magi and body parts to horde minions, zombies and others.
+  - Added colored weapons. Note: Only the metalic weapons.
+  - Sorted out the samurai weapons by type and fixed properties.
  * Python Script Changes:
   - Fixed bug #0000369. (Equip possible although item.movable = 3)
   - Fixed bug #0000361. (Pets don't follow trough gate)
