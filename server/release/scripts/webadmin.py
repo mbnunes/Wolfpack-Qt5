@@ -90,7 +90,7 @@ class WebserverHandler( CGIHTTPRequestHandler ):
 
         """
         file = urllib.unquote(uri)
-        file.replace('\\', '/')
+        file.replace("\\", '/')
         words = file.split('/')
         words = filter(None, words)
 
@@ -126,6 +126,8 @@ class WebserverHandler( CGIHTTPRequestHandler ):
             script, rest = rest, ''
         scriptname = dir + '/' + script
         scriptfile = self.translate_path(scriptname)
+	scriptfile = os.path.normpath( scriptfile )
+
         if not os.path.exists(scriptfile):
             self.send_error(404, "No such CGI script (%s)" % `scriptname`)
             return
@@ -238,7 +240,7 @@ class WebserverThread(Thread):
 	print "Remote Admin running on port %u\n" % self.port
 
 	try:
-	    filepath = os.path.normpath(os.path.abspath('web\\'))
+	    filepath = os.path.normpath( os.path.abspath( 'web/' ) )
 	    self.httpd = Webserver( ( '', self.port ), filepath )
 	except:
 	    traceback.print_exc()
