@@ -4,6 +4,7 @@ Wolfpack 12.9.9 Beta (CVS)
 
 
 Wolfpack 12.9.8 Beta (4. August 2004)
+	- Save fixes
 	- Cleanups and general fixes.
 	- Gump Responses are now passed on as Unicode rather than in the
 		local codepage.
