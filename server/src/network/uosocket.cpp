@@ -128,6 +128,8 @@ void cUOSocket::recieve()
 		handleRequestLook( dynamic_cast< cUORxRequestLook* >( packet ) ); break;
 	case 0xBF:
 		handleMultiPurpose( dynamic_cast< cUORxMultiPurpose* >( packet ) ); break;
+	case 0xBD:
+		_version = dynamic_cast< cUORxSetVersion* >( packet )->version(); break;
 	default:
 		//cout << "Recieved packet: " << endl;
 		packet->print( &cout );

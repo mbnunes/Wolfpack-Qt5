@@ -45,11 +45,10 @@ class cUOPacket;
 #include "uotxpackets.h"
 #include "../typedefs.h"
 
-
 class cUOSocket
 {
 public:
-		enum eSocketState	{ Connecting = 0, LoggingIn, LoggedIn, InGame	};
+	enum eSocketState	{ Connecting = 0, LoggingIn, LoggedIn, InGame	};
 private:
 	QSocketDevice *_socket;
 	Q_UINT32 _rxBytes, _txBytes, _uniqueId;
@@ -58,7 +57,7 @@ private:
 	eSocketState _state;
 	Q_UINT8 lastPacket, _viewRange;
 	Q_UINT8 _walkSequence;
-	QString _lang;
+	QString _lang,_version;
 
 	bool authenticate( const QString &username, const QString &password );
 	void giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill = 0xFF );
@@ -77,6 +76,9 @@ public:
 
 	eSocketState state( void ) { return _state; }
 	void setState( eSocketState data ) { _state = data; }
+
+	QString version( void ) { return _version; }
+	QString lang( void ) { return _lang; }
 
 	P_CHAR player( void ) { return _player; }
 

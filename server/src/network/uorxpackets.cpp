@@ -75,6 +75,8 @@ cUOPacket *getUOPacket( const QByteArray &data )
 		return new cUORxRequestAttack( data );
 	case 0xBF:
 		return new cUORxMultiPurpose( data );
+	case 0xBD:
+		return new cUORxSetVersion( data );
 	default:
 		return new cUOPacket( data );
 	};	
