@@ -17,7 +17,8 @@
 		<name>studded sleeves</name>
 		<decay />
 		<nodye />
-		<requires type="str">25</requires>
+		<tag name="req_str" value="25" type="int" />
+		<events>equipment</events>
 		<defense>2</defense>
 		<durability><random min="35" max="45" /></durability>
 		<restock>10</restock>
@@ -33,7 +34,8 @@
 		<name>studded gloves</name>
 		<decay />
 		<nodye />
-		<requires type="str">25</requires>
+		<tag name="req_str" value="25" type="int" />
+		<events>equipment</events>
 		<defense>2</defense>
 		<durability><random min="35" max="45" /></durability>
 		<restock>10</restock>
@@ -49,7 +51,8 @@
 		<name>studded gorget</name>
 		<decay />
 		<nodye />
-		<requires type="str">25</requires>
+		<tag name="req_str" value="25" type="int" />
+		<events>equipment</events>
 		<defense>2</defense>
 		<durability><random min="35" max="45" /></durability>
 		<restock>10</restock>
@@ -65,7 +68,8 @@
 		<name>studded leggings</name>
 		<decay />
 		<nodye />
-		<requires type="str">30</requires>
+		<tag name="req_str" value="30" type="int" />
+		<events>equipment</events>
 		<defense>2</defense>
 		<durability><random min="35" max="45" /></durability>
 		<restock>10</restock>
@@ -81,7 +85,8 @@
 		<name>studded tunic</name>
 		<decay />
 		<nodye />
-		<requires type="str">35</requires>
+		<tag name="req_str" value="35" type="int" />
+		<events>equipment</events>
 		<defense>2</defense>
 		<durability><random min="35" max="45" /></durability>
 		<restock>10</restock>
@@ -99,7 +104,8 @@
 		<name>studded armor</name>
 		<decay />
 		<nodye />
-		<requires type="str">35</requires>
+		<tag name="req_str" value="35" type="int" />
+		<events>equipment</events>
 		<defense>2</defense>
 		<durability><random min="35" max="45" /></durability>
 		<restock>10</restock>
@@ -115,7 +121,8 @@
 		<name>studded bustier</name>
 		<decay />
 		<nodye />
-		<requires type="str">35</requires>
+		<tag name="req_str" value="35" type="int" />
+		<events>equipment</events>
 		<defense>2</defense>
 		<durability><random min="35" max="45" /></durability>
 		<restock>10</restock>

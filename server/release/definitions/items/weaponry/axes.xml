@@ -21,7 +21,8 @@
 		<durability><random min="30" max="62" /></durability>
 		<speed>31</speed>
 		<weight>8.0</weight>
-		<requires type="str">40</requires>
+		<tag name="req_str" value="40" type="int" />
+		<events>equipment</events>
 		<category>Weapons\Axes\Two Handed Axe</category>
 		<type>1002</type>
 	</item>
@@ -39,7 +40,8 @@
 		<durability><random min="30" max="64" /></durability>
 		<speed>29</speed>
 		<weight>6.0</weight>
-		<requires type="str">80</requires>
+		<tag name="req_str" value="80" type="int" />
+		<events>equipment</events>
 		<category>Weapons\Axes\Large Battle Axe</category>
 		<type>1002</type>
 	</item>
@@ -57,7 +59,8 @@
 		<durability><random min="30" max="68" /></durability>
 		<speed>33</speed>
 		<weight>3.0</weight>
-		<requires type="str">35</requires>
+		<tag name="req_str" value="35" type="int" />
+		<events>equipment</events>
 		<category>Weapons\Axes\War Axe</category>
 		<type>1004</type>
 	</item>
@@ -75,7 +78,8 @@
 		<durability><random min="30" max="46" /></durability>
 		<speed>41</speed>
 		<weight>4.0</weight>
-		<requires type="str">20</requires>
+		<tag name="req_str" value="20" type="int" />
+		<events>equipment</events>
 		<category>Weapons\Axes\Hatchet</category>
 		<type>1002</type>
 	</item>
@@ -93,7 +97,8 @@
 		<durability><random min="30" max="46" /></durability>
 		<speed>33</speed>
 		<weight>3.0</weight>
-		<requires type="str">40</requires>
+		<tag name="req_str" value="40" type="int" />
+		<events>equipment</events>
 		<category>Weapons\Axes\Large Battle Axe</category>
 		<type>1002</type>
 	</item>
@@ -111,7 +116,8 @@
 		<durability><random min="30" max="63" /></durability>
 		<speed>31</speed>
 		<weight>4.0</weight>
-		<requires type="str">35</requires>
+		<tag name="req_str" value="35" type="int" />
+		<events>equipment</events>
 		<type>1002</type>
 		<category>Weapons\Axes\Battle Axe</category>
 	</item>
@@ -129,7 +135,8 @@
 		<durability><random min="30" max="60" /></durability>
 		<speed>37</speed>
 		<weight>4.0</weight>
-		<requires type="str">35</requires>
+		<tag name="req_str" value="35" type="int" />
+		<events>equipment</events>
 		<type>1002</type>
 		<category>Weapons\Axes\Large Battle Axe</category>
 	</item>
@@ -147,7 +154,8 @@
 		<durability><random min="50" max="95" /></durability>
 		<speed>33</speed>
 		<weight>3.0</weight>
-		<requires type="str">45</requires>
+		<tag name="req_str" value="45" type="int" />
+		<events>equipment</events>
 		<type>1002</type>
 		<category>Weapons\Axes\Double Axe</category>
 	</item>

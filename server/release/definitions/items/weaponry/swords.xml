@@ -10,7 +10,7 @@
 
 	<item id="swords_base">
 		<type>1001</type>
-		<events>weapons_blades</events>
+		<events>equipment,weapons_blades</events>
 	</item>
 
 	<!-- Broad Sword -->
@@ -27,7 +27,7 @@
 		<durability><random min="50" max="77" /></durability>
 		<speed>33</speed>
 		<weight>6.0</weight>
-		<requires type="str">30</requires>
+		<tag name="req_str" value="30" type="int" />
 		<category>Weapons\Swords\Broadsword</category>
 	</item>
 
@@ -45,7 +45,7 @@
 		<durability><random min="30" max="67" /></durability>
 		<speed>30</speed>
 		<weight>7.0</weight>
-		<requires type="str">35</requires>
+		<tag name="req_str" value="35" type="int" />
 		<category>Weapons\Swords\Longsword 1</category>
 	</item>
 
@@ -63,7 +63,7 @@
 		<durability><random min="30" max="76" /></durability>
 		<speed>37</speed>
 		<weight>6.0</weight>
-		<requires type="str">25</requires>
+		<tag name="req_str" value="25" type="int" />
 		<category>Weapons\Swords\Scimitar</category>
 	</item>
 
@@ -81,7 +81,7 @@
 		<durability><random min="30" max="53" /></durability>
 		<speed>30</speed>
 		<weight>1.0</weight>
-		<requires type="str">35</requires>
+		<tag name="req_str" value="35" type="int" />
 		<category>Weapons\Swords\Longsword 2</category>
 	</item>
 
@@ -99,7 +99,7 @@
 		<durability><random min="30" max="56" /></durability>
 		<speed>28</speed>
 		<weight>6.0</weight>
-		<requires type="str">40</requires>
+		<tag name="req_str" value="40" type="int" />
 		<category>Weapons\Swords\Viking Sword (N/S)</category>
 	</item>
 
@@ -117,7 +117,7 @@
 		<durability><random min="30" max="55" /></durability>
 		<speed>46</speed>
 		<weight>6.0</weight>
-		<requires type="str">25</requires>
+		<tag name="req_str" value="25" type="int" />
 		<category>Weapons\Swords\Katana</category>
 	</item>
 
@@ -135,7 +135,7 @@
 		<durability><random min="30" max="60" /></durability>
 		<speed>25</speed>
 		<weight>16.0</weight>
-		<requires type="str">95</requires>
+		<tag name="req_str" value="95" type="int" />
 		<category>Weapons\Swords\Halberd</category>
 	</item>
 
@@ -153,7 +153,7 @@
 		<durability><random min="30" max="70" /></durability>
 		<speed>44</speed>
 		<weight>8.0</weight>
-		<requires type="str">25</requires>
+		<tag name="req_str" value="25" type="int" />
 		<category>Weapons\Swords\Cutlass</category>
 	</item>
 
@@ -171,7 +171,7 @@
 		<durability><random min="30" max="79" /></durability>
 		<speed>28</speed>
 		<weight>7.0</weight>
-		<requires type="str">45</requires>
+		<tag name="req_str" value="45" type="int" />
 		<category>Weapons\Swords\Bardiche</category>
 	</item>
 
@@ -189,7 +189,7 @@
 		<durability><random min="30" max="46" /></durability>
 		<speed>46</speed>
 		<weight>1.0</weight>
-		<requires type="str">10</requires>
+		<tag name="req_str" value="10" type="int" />
 		<category>Weapons\Swords\Cleaver</category>
 	</item>
 
@@ -207,7 +207,7 @@
 		<durability><random min="30" max="35" /></durability>
 		<speed>49</speed>
 		<weight>1.0</weight>
-		<requires type="str">5</requires>
+		<tag name="req_str" value="5" type="int" />
 		<category>Weapons\Swords\Skinning Knive</category>
 	</item>
 
@@ -225,7 +225,7 @@
 		<durability><random min="30" max="50" /></durability>
 		<speed>49</speed>
 		<weight>1.0</weight>
-		<requires type="str">5</requires>
+		<tag name="req_str" value="5" type="int" />
 		<category>Weapons\Swords\Butcher Knife</category>
 	</item>
 
@@ -243,7 +243,7 @@
 		<durability><random min="30" max="55" /></durability>
 		<speed>35</speed>
 		<weight>11.0</weight>
-		<requires type="str">50</requires>
+		<tag name="req_str" value="50" type="int" />
 		<category>Weapons\Swords\Pickaxe</category>
 		<category>Professions\Miner\Pickaxe (N/S)</category>
 	</item>
@@ -262,7 +262,7 @@
 		<durability><random min="30" max="53" /></durability>
 		<speed>36</speed>
 		<weight>5.0</weight>
-		<requires type="str">25</requires>
+		<tag name="req_str" value="25" type="int" />
 		<category>Weapons\Swords\Bone Harvester</category>
 	</item>
 
@@ -280,7 +280,7 @@
 		<durability><random min="30" max="75" /></durability>
 		<speed>47</speed>
 		<weight>8.0</weight>
-		<requires type="str">55</requires>
+		<tag name="req_str" value="55" type="int" />
 		<category>Weapons\Swords\Crescent Blade</category>
 	</item>
 
@@ -298,7 +298,7 @@
 		<durability><random min="30" max="89" /></durability>
 		<speed>32</speed>
 		<weight>10.0</weight>
-		<requires type="str">45</requires>
+		<tag name="req_str" value="45" type="int" />
 		<category>Weapons\Swords\Scythe</category>
 	</item>
 
@@ -316,7 +316,7 @@
 		<durability><random min="50" max="102" /></durability>
 		<speed>37</speed>
 		<weight>12.0</weight>
-		<requires type="str">40</requires>
+		<tag name="req_str" value="40" type="int" />
 		<category>Weapons\Swords\Bladed Staff</category>
 	</item>
 </definitions>

@@ -27,7 +27,8 @@
 		<durability><random min="30" max="39" /></durability>
 		<speed>39</speed>
 		<weight>6.0</weight>
-		<requires type="str">35</requires>
+		<tag name="req_str" value="35" type="int" />
+		<events>equipment</events>
 		<category>Weapons\Staves\Black Staff</category>
 	</item>
 	
@@ -44,7 +45,8 @@
 		<durability><random min="30" max="60" /></durability>
 		<speed>48</speed>
 		<weight>4.0</weight>
-		<requires type="str">30</requires>
+		<tag name="req_str" value="30" type="int" />
+		<events>equipment</events>
 		<category>Weapons\Staves\Quarter Staff</category>
 	</item>
 
@@ -61,7 +63,8 @@
 		<durability><random min="30" max="49" /></durability>
 		<speed>33</speed>
 		<weight>3.0</weight>
-		<requires type="str">20</requires>
+		<tag name="req_str" value="20" type="int" />
+		<events>equipment</events>
 		<category>Weapons\Staves\Grarled Staff</category>
 	</item>
 
@@ -78,7 +81,8 @@
 		<durability><random min="30" max="50" /></durability>
 		<speed>40</speed>
 		<weight>2.0</weight>
-		<requires type="str">20</requires>
+		<tag name="req_str" value="20" type="int" />
+		<events>equipment</events>
 		<category>Weapons\Staves\Crook</category>
 	</item>
 

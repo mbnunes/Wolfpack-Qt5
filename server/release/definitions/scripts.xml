@@ -28,7 +28,7 @@
 	<script>spellbook</script>
 	<script>environment</script>
 	<script>door</script>
-	<script>armor</script>
+	<script>equipment</script>
 	
 	<!-- Commands -->
 	<script>wolfpack.commands</script>

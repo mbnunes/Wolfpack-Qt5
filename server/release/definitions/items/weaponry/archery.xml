@@ -21,7 +21,8 @@
 		<durability><random min="30" max="50" /></durability>
 		<speed>25</speed>
 		<weight>7.0</weight>
-		<requires type="str">30</requires>
+		<tag name="req_str" value="30" type="int" />
+		<events>equipment</events>
 		<type>1006</type>
 		<category>Weapons\Bows\Bow</category>		
 	</item>
@@ -40,7 +41,8 @@
 		<durability><random min="30" max="51" /></durability>
 		<speed>24</speed>
 		<weight>7.0</weight>
-		<requires type="str">35</requires>
+		<tag name="req_str" value="35" type="int" />
+		<events>equipment</events>
 		<type>1007</type>
 		<category>Weapons\Bows\Crossbow</category>		
 	</item>
@@ -59,7 +61,8 @@
 		<durability><random min="30" max="55" /></durability>
 		<speed>22</speed>
 		<weight>9.0</weight>
-		<requires type="str">80</requires>
+		<tag name="req_str" value="80" type="int" />
+		<events>equipment</events>
 		<type>1007</type>
 		<category>Weapons\Bows\Heavy Crossbow</category>
 	</item>
@@ -78,7 +81,8 @@
 		<durability><random min="30" max="70" /></durability>
 		<speed>25</speed>
 		<weight>7.0</weight>
-		<requires type="str">45</requires>
+		<tag name="req_str" value="45" type="int" />
+		<events>equipment</events>
 		<type>1006</type>
 		<category>Weapons\Bows\Composite Bow</category>
 	</item>
@@ -97,7 +101,8 @@
 		<durability><random min="30" max="49" /></durability>
 		<speed>41</speed>
 		<weight>7.0</weight>
-		<requires type="str">30</requires>
+		<tag name="req_str" value="30" type="int" />
+		<events>equipment</events>
 		<type>1007</type>
 		<category>Weapons\Bows\Repeating Crossbow</category>
 	</item>

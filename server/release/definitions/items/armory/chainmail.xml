@@ -11,7 +11,8 @@
 		<name>chainmail coif</name>
 		<decay />
 		<nodye />
-		<requires type="str">60</requires>
+		<tag name="req_str" value="60" type="int" />
+		<events>equipment</events>
 		<defense>4</defense>
 		<durability><random min="45" max="60" /></durability>
 		<id>0x13BB</id>
@@ -28,7 +29,8 @@
 		<name>chainmail leggings</name>
 		<decay />
 		<nodye />
-		<requires type="str">60</requires>
+		<tag name="req_str" value="60" type="int" />
+		<events>equipment</events>
 		<defense>4</defense>
 		<durability><random min="45" max="60" /></durability>
 		<id>0x13BE</id>
@@ -45,7 +47,8 @@
 		<name>chainmail tunic</name>
 		<decay />
 		<nodye />
-		<requires type="str">60</requires>
+		<tag name="req_str" value="60" type="int" />
+		<events>equipment</events>
 		<defense>4</defense>
 		<durability><random min="45" max="60" /></durability>
 		<id>0x13bf</id>

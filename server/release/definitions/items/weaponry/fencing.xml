@@ -9,7 +9,7 @@
 <definitions>
 
 	<item id="fencing_base">
-		<events>weapons_blades</events>
+		<events>equipment,weapons_blades</events>
 		<type>1005</type>
 	</item>
 
@@ -27,7 +27,7 @@
 		<durability><random min="30" max="39" /></durability>
 		<speed>49</speed>
 		<weight>1.0</weight>
-		<requires type="str">10</requires>
+		<tag name="req_str" value="10" type="int" />
 		<category>Weapons\Fencing\Dagger</category>
 	</item>
 
@@ -45,7 +45,7 @@
 		<durability><random min="50" max="85" /></durability>
 		<speed>53</speed>
 		<weight>1.0</weight>
-		<requires type="str">10</requires>
+		<tag name="req_str" value="10" type="int" />
 		<category>Weapons\Fencing\Kryss</category>
 	</item>
 
@@ -63,7 +63,7 @@
 		<durability><random min="30" max="41" /></durability>
 		<speed>43</speed>
 		<weight>10.0</weight>
-		<requires type="str">50</requires>
+		<tag name="req_str" value="50" type="int" />
 		<category>Weapons\Fencing\Pitchfork</category>
 	</item>
 
@@ -81,7 +81,7 @@
 		<durability><random min="30" max="40" /></durability>
 		<speed>49</speed>
 		<weight>7.0</weight>
-		<requires type="str">50</requires>
+		<tag name="req_str" value="50" type="int" />
 		<category>Weapons\Fencing\Double Bladed Staff</category>
 	</item>
 
@@ -99,7 +99,7 @@
 		<durability><random min="50" max="81" /></durability>
 		<speed>24</speed>
 		<weight>12.0</weight>
-		<requires type="str">95</requires>
+		<tag name="req_str" value="95" type="int" />
 		<category>Weapons\Fencing\Lance</category>
 	</item>
 
@@ -117,7 +117,7 @@
 		<durability><random min="30" max="38" /></durability>
 		<speed>37</speed>
 		<weight>10.0</weight>
-		<requires type="str">50</requires>
+		<tag name="req_str" value="50" type="int" />
 		<category>Weapons\Fencing\Pike</category>
 	</item>
 
@@ -135,7 +135,7 @@
 		<durability><random min="30" max="40" /></durability>
 		<speed>55</speed>
 		<weight>4.0</weight>
-		<requires type="str">40</requires>
+		<tag name="req_str" value="40" type="int" />
 		<category>Weapons\Fencing\Short Spear</category>
 	</item>
 
@@ -153,7 +153,7 @@
 		<durability><random min="30" max="47" /></durability>
 		<speed>42</speed>
 		<weight>7.0</weight>
-		<requires type="str">50</requires>
+		<tag name="req_str" value="50" type="int" />
 		<category>Weapons\Fencing\Spear</category>
 	</item>
 
@@ -171,7 +171,7 @@
 		<durability><random min="30" max="39" /></durability>
 		<speed>43</speed>
 		<weight>1.0</weight>
-		<requires type="str">35</requires>
+		<tag name="req_str" value="35" type="int" />
 		<category>Weapons\Fencing\War Fork</category>
 	</item>
 

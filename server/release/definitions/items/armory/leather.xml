@@ -17,7 +17,8 @@
 		<name>leather sleeves</name>
 		<decay />
 		<nodye />
-		<requires type="str">20</requires>
+		<tag name="req_str" value="20" type="int" />
+		<events>equipment</events>
 		<defense>2</defense>
 		<durability><random min="30" max="40" /></durability>
 		<restock>10</restock>
@@ -33,7 +34,8 @@
 		<name>leather gloves</name>
 		<decay />
 		<nodye />
-		<requires type="str">20</requires>
+		<tag name="req_str" value="20" type="int" />
+		<events>equipment</events>
 		<defense>2</defense>
 		<durability><random min="30" max="40" /></durability>
 		<restock>10</restock>
@@ -49,7 +51,8 @@
 		<name>leather gorget</name>
 		<decay />
 		<nodye />
-		<requires type="str">20</requires>
+		<tag name="req_str" value="20" type="int" />
+		<events>equipment</events>
 		<defense>2</defense>
 		<durability><random min="30" max="40" /></durability>
 		<restock>10</restock>
@@ -65,7 +68,8 @@
 		<name>leather leggings</name>
 		<decay />
 		<nodye />
-		<requires type="str">20</requires>
+		<tag name="req_str" value="20" type="int" />
+		<events>equipment</events>
 		<defense>2</defense>
 		<durability><random min="30" max="40" /></durability>
 		<restock>10</restock>
@@ -81,7 +85,8 @@
 		<name>leather tunic</name>
 		<decay />
 		<nodye />
-		<requires type="str">25</requires>
+		<tag name="req_str" value="25" type="int" />
+		<events>equipment</events>
 		<defense>2</defense>
 		<durability><random min="30" max="40" /></durability>
 		<restock>10</restock>
@@ -98,7 +103,8 @@
 		<name>leather armor</name>
 		<decay />
 		<nodye />
-		<requires type="str">25</requires>
+		<tag name="req_str" value="25" type="int" />
+		<events>equipment</events>
 		<defense>2</defense>
 		<durability><random min="30" max="40" /></durability>
 		<restock>10</restock>
@@ -114,7 +120,8 @@
 		<name>leather skirt</name>
 		<decay />
 		<nodye />
-		<requires type="str">20</requires>
+		<tag name="req_str" value="20" type="int" />
+		<events>equipment</events>
 		<defense>2</defense>
 		<durability><random min="30" max="40" /></durability>
 		<restock>10</restock>
@@ -130,7 +137,8 @@
 		<name>leather bustier</name>
 		<decay />
 		<nodye />
-		<requires type="str">20</requires>
+		<tag name="req_str" value="20" type="int" />
+		<events>equipment</events>
 		<defense>2</defense>
 		<durability><random min="30" max="40" /></durability>
 		<restock>10</restock>
@@ -146,7 +154,8 @@
 		<name>leather cap</name>
 		<decay />
 		<nodye />
-		<requires type="str">20</requires>
+		<tag name="req_str" value="20" type="int" />
+		<events>equipment</events>
 		<defense>2</defense>
 		<durability><random min="30" max="40" /></durability>
 		<restock>10</restock>
@@ -162,7 +171,8 @@
 		<name>leather shorts</name>
 		<decay />
 		<nodye />
-		<requires type="str">20</requires>
+		<tag name="req_str" value="20" type="int" />
+		<events>equipment</events>
 		<defense>2</defense>
 		<durability><random min="30" max="40" /></durability>
 		<restock>10</restock>

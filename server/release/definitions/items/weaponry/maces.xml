@@ -27,7 +27,8 @@
 		<durability><random min="30" max="64" /></durability>
 		<speed>40</speed>
 		<weight>14.0</weight>
-		<requires type="str">45</requires>
+		<tag name="req_str" value="45" type="int" />
+		<events>equipment</events>
 		<category>Weapons\Maces\Mace</category>
 	</item>
 
@@ -45,7 +46,8 @@
 		<durability><random min="30" max="40" /></durability>
 		<speed>44</speed>
 		<weight>14.0</weight>
-		<requires type="str">40</requires>
+		<tag name="req_str" value="40" type="int" />
+		<events>equipment</events>
 		<category>Weapons\Maces\Mace</category>
 	</item>
 
@@ -63,7 +65,8 @@
 		<durability><random min="30" max="40" /></durability>
 		<speed>26</speed>
 		<weight>17.0</weight>
-		<requires type="str">80</requires>
+		<tag name="req_str" value="80" type="int" />
+		<events>equipment</events>
 		<category>Weapons\Maces\War Mace</category>
 	</item>
 
@@ -81,7 +84,8 @@
 		<durability><random min="30" max="59" /></durability>
 		<speed>28</speed>
 		<weight>10.0</weight>
-		<requires type="str">95</requires>
+		<tag name="req_str" value="95" type="int" />
+		<events>equipment</events>
 		<category>Weapons\Maces\War Hammer</category>
 	</item>
 
@@ -99,7 +103,8 @@
 		<durability><random min="30" max="58" /></durability>
 		<speed>32</speed>
 		<weight>14.0</weight>
-		<requires type="str">45</requires>
+		<tag name="req_str" value="45" type="int" />
+		<events>equipment</events>
 		<category>Weapons\Maces\Maul</category>
 	</item>
 
@@ -117,7 +122,8 @@
 		<durability><random min="30" max="35" /></durability>
 		<speed>28</speed>
 		<weight>9.0</weight>
-		<requires type="str">45</requires>
+		<tag name="req_str" value="45" type="int" />
+		<events>equipment</events>
 		<category>Weapons\Maces\Hammer Pick</category>
 	</item>
 
@@ -135,7 +141,8 @@
 		<durability><random min="50" max="98" /></durability>
 		<speed>30</speed>
 		<weight>7.0</weight>
-		<requires type="str">40</requires>
+		<tag name="req_str" value="40" type="int" />
+		<events>equipment</events>
 		<category>Weapons\Maces\Scepter</category>
 	</item>
 </definitions>

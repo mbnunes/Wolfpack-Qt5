@@ -8,19 +8,20 @@
 -->
 <definitions>
 
-	<!-- Bone ARms -->
+	<!-- Bone Arms -->
 	<item id="1453">
 		<id>0x1453</id>
 		<name>bone arms</name>
 		<decay />
 		<nodye />
-		<requires type="str">55</requires>
 		<defense>3</defense>
 		<durability><random min="25" max="30" /></durability>
 		<restock>10</restock>
 		<weight>2.0</weight>
 		<value>0</value>
 		<category>Armor\Bone\Bone Arms</category>
+		<tag name="req_str" value="55" type="int" />
+		<events>equipment</events>
 	</item>
 
 	<!-- Bone Armor, Body -->
@@ -29,7 +30,8 @@
 		<name>bone armor</name>
 		<decay />
 		<nodye />
-		<requires type="str">60</requires>
+		<tag name="req_str" value="60" type="int" />
+		<events>equipment</events>
 		<defense>3</defense>
 		<durability><random min="25" max="30" /></durability>
 		<restock>10</restock>
@@ -44,7 +46,8 @@
 		<name>bone gloves</name>
 		<decay />
 		<nodye />
-		<requires type="str">55</requires>
+		<tag name="req_str" value="55" type="int" />
+		<events>equipment</events>
 		<defense>3</defense>
 		<durability><random min="25" max="30" /></durability>
 		<restock>10</restock>
@@ -59,7 +62,8 @@
 		<name>bone helmet</name>
 		<decay />
 		<nodye />
-		<requires type="str">20</requires>
+		<tag name="req_str" value="20" type="int" />
+		<events>equipment</events>
 		<defense>3</defense>
 		<durability><random min="25" max="30" /></durability>
 		<restock>10</restock>
@@ -74,7 +78,8 @@
 		<name>bone leggings</name>
 		<decay />
 		<nodye />
-		<requires type="str">55</requires>
+		<tag name="req_str" value="55" type="int" />
+		<events>equipment</events>
 		<defense>3</defense>
 		<durability><random min="25" max="30" /></durability>
 		<restock>10</restock>
