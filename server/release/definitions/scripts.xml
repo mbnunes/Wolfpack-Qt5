@@ -177,7 +177,7 @@
 	<script>system.status</script>
 	<script>system.hunger</script>
 	<script>system.loot</script>
-	<script>system.macro_opendoor</script>
+	<script>system.clientmacros</script>
 	<script>system.makemenus</script>
 	<!-- These require testing -->
 	<!--
