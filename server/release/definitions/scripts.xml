@@ -43,10 +43,6 @@
 	<script id="tooltip"		type="python" module="tooltip" />
 
 	<!-- Skills -->
-	<script id="anatomy"		type="python" module="skills.anatomy" />
-	<script id="animallore"		type="python" module="skills.animallore" />
-	<script id="fishing"		type="python" module="skills.fishing" />
-	<script id="armslore"		type="python" module="skills.armslore" />
 	<script id="skills.anatomy"	type="python" module="skills.anatomy" />
 	<script id="skills.animallore"	type="python" module="skills.animallore" />
 	<script id="skills.fishing"	type="python" module="skills.fishing" />
