@@ -141,7 +141,7 @@ QString hex2dec( const QString& value )
 {
 	bool ok;
 	if( (value.left( 2 ) == "0x" || value.left( 2 ) == "0X") )
-		return QString::number(value.right( value.length()-2 ).toInt( &ok, 16 ));
+		return QString::number(value.right( value.length()-2 ).toUInt( &ok, 16 ));
 	else 
 		return value;
 }

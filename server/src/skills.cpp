@@ -64,7 +64,6 @@
 
 /*
 List of implemented skills:
-Anatomy
 Animal Lore
 Arms Lore
 
@@ -529,10 +528,6 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 	case ARMSLORE:
 		message = tr("What item do you wish to get information about?");
 		targetRequest = new cSkArmsLore;
-		break;
-	case ANATOMY:
-		message = tr("Whom shall I examine?");
-		targetRequest = new cSkAnatomy;
 		break;
 	case ITEMID:
 		message = tr("What do you wish to appraise and identify?");

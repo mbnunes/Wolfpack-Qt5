@@ -100,13 +100,6 @@ public:
 	bool responsed( cUOSocket *socket, cUORxTarget *target );
 };
 
-class cSkAnatomy: public cTargetRequest
-{
-	Q_OBJECT
-public:
-	bool responsed( cUOSocket *socket, cUORxTarget *target );
-};
-
 // This is the target-request for ArmsLore
 class cSkArmsLore: public cTargetRequest
 {

@@ -157,6 +157,7 @@ void cSrvParams::readData()
 	checkTammedTime_		= getDouble("Game Speed", "Tamed Check Time", 1.0, true);
     
 	// General Group
+	allowUnencryptedClients_ = getBool("General",	"Allow Unencrypted Clients", true, true );
 	showSkillTitles_		= getBool("General", "ShowSkillTitles", true, true );
 	skillcap_				= getNumber("General",	"SkillCap",			700, true);
 	statcap_				= getNumber("General",	"StatsCap",			300, true);

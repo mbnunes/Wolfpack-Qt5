@@ -31,11 +31,20 @@
 #include "asyncnetio.h"
 #include "uorxpackets.h"
 #include "uopacket.h"
+#include "../srvparams.h"
+#include "../globals.h"
 
 // Library Includes
 #include <qsocketdevice.h>
 #include <qptrlist.h>
 #include <qmap.h>
+
+#include <winsock.h>
+
+#undef CONST
+
+// Twofish
+#include "../encryption.h"
 
 /*!
 	\internal
@@ -87,6 +96,13 @@ const Q_UINT16 packetLengths[256] =
 
 using namespace ZThread;
 
+enum eEncryption
+{
+	E_NONE = 0,
+	E_LOGIN,
+	E_GAME
+};
+
 class cAsyncNetIOPrivate
 {
 private:
@@ -103,6 +119,7 @@ public:
 	bool			skippedUOHeader;		// Skip crypt key junk
 
 	LockedQueue<cUOPacket*, FastMutex>* packets; // Complete UOPackets
+	FastMutex cryptMutex;
 
 	int getch();
 	int ungetch( int ch );
@@ -111,6 +128,9 @@ public:
 	Q_LONG writeBlock( QByteArray data );
 	bool consumeWriteBuf( Q_ULONG nbytes );
 	bool consumeReadBuf( Q_ULONG nbytes, char *sink );
+
+	UINT32 seed;
+	cClientEncryption *encryption;
 };
 
 cAsyncNetIOPrivate::cAsyncNetIOPrivate() 
@@ -119,6 +139,9 @@ cAsyncNetIOPrivate::cAsyncNetIOPrivate()
     rba.setAutoDelete( TRUE );
     wba.setAutoDelete( TRUE );
 	packets = new ZThread::LockedQueue<cUOPacket*, ZThread::FastMutex>;
+	
+	// Encryption
+	encryption = 0;
 }
 
 cAsyncNetIOPrivate::~cAsyncNetIOPrivate()
@@ -128,6 +151,9 @@ cAsyncNetIOPrivate::~cAsyncNetIOPrivate()
 		delete packets->next();
 	}
 	delete packets;
+
+	if( encryption )
+		delete encryption;
 }
 
 /*!
@@ -369,27 +395,143 @@ void cAsyncNetIO::run() throw()
 			if( !d->socket->isValid() )
 				continue; // Let it in the queue until it's taken out by the closed-collector
 
-			int nread = d->socket->readBlock( buf, sizeof(buf));
-			if ( nread > 0 )
+			// Try to get the UO Header somehow
+			if( !d->skippedUOHeader )
 			{
-				QByteArray* a = new QByteArray(nread);
-				memcpy( a->data(), buf, nread );
-				d->rba.append(a);
-				d->rsize += nread;
+				int nread = d->socket->readBlock( buf, 4 - d->rsize );
+
+				if( nread > 0 )
+				{
+					QByteArray* a = new QByteArray(nread);
+					memcpy( a->data(), buf, nread );
+					d->rba.append(a);
+					d->rsize += nread;
+
+					if( d->rsize == 4 )
+					{
+						char temp[4];
+						d->consumeReadBuf( 4, temp );
+						d->skippedUOHeader = true;
+	
+						d->seed = ( ( temp[0] & 0xFF ) << 24 ) | ( ( temp[1] & 0xFF ) << 16 ) | ( ( temp[2] & 0xFF ) << 8 ) | ( ( temp[3] & 0xFF ) );
+					}
+				}
+				else if( nread == 0 )
+				{
+					d->socket->close();
+				}
 			}
-			if( d->skippedUOHeader )
+			else
 			{
+				int nread = d->socket->readBlock( buf, sizeof(buf));
+
+				if( nread > 0 )
+				{
+					// If we have an encryption object already
+					// then decrypt the buffer before storing it
+					if( d->encryption )
+						d->encryption->clientDecrypt( &buf[0], nread );
+
+					QByteArray* a = new QByteArray(nread);
+					memcpy( a->data(), buf, nread );
+					d->rba.append(a);
+					d->rsize += nread;
+					
+					// We need to use the read buffer as a temporary buffer
+					// for encrypted data if we didn't receive all we need
+					if( !d->encryption )
+					{
+						// Gameserver Encryption Detection
+						if( d->seed == 0xFFFFFFFF && d->rsize >= 65 )
+						{
+							// The 0x91 packet is 65 byte
+							nread = d->rsize;
+							d->consumeReadBuf( d->rsize, &buf[0] );
+
+							// This should be no encryption
+							if( buf[0] == '\x91' && buf[1] == '\xFF' && buf[2] == '\xFF' && buf[3] == '\xFF' && buf[4] == '\xFF' )
+							{
+								// Is no Encryption allowed?
+								if( !SrvParams->allowUnencryptedClients() )
+								{
+									// Send a communication problem message to this socket
+									d->writeBlock( "\x82\x04", 2 );
+									flushWriteBuffer( d );
+									d->socket->close();
+									continue;
+								}
+
+								d->encryption = new cNoEncryption;
+							}
+							else
+							{
+								cGameEncryption *crypt = new cGameEncryption;
+								crypt->init( 0xFFFFFFFF ); // Seed is fixed anyway
+								d->encryption = crypt;
+							}							
+						}
+						// LoginServer Encryption
+						else if( d->seed != 0xFFFFFFFF && d->rsize >= 62 )
+						{
+							// The 0x80 packet is 62 byte, but we want to have everything
+							nread = d->rsize;
+							d->consumeReadBuf( d->rsize, &buf[0] );
+
+							// Check if it could be *not* encrypted
+							if( buf[0] == '\x80' && buf[30] == '\x00' && buf[60] == '\x00' )
+							{
+								// Is no Encryption allowed?
+								if( !SrvParams->allowUnencryptedClients() )
+								{
+									// Send a communication problem message to this socket
+									d->writeBlock( "\x82\x04", 2 );
+									flushWriteBuffer( d );
+									d->socket->close();
+									continue;
+								}
+
+								d->encryption = new cNoEncryption;
+							}
+							else
+							{
+								cLoginEncryption *crypt = new cLoginEncryption;
+								if( !crypt->init( d->seed, &buf[0], nread ) )
+								{
+									delete crypt;
+
+									// Send a communication problem message to this socket
+									d->writeBlock( "\x82\x04", 2 );
+									flushWriteBuffer( d );
+									d->socket->close();
+									continue;
+								}
+
+								d->encryption = crypt;
+							}
+
+							// It gets a bit tricky now, try to decode it with all
+							// possible keys
+						}
+
+                        // If we found an encryption let's decrypt what we got in our buffer
+						if( d->encryption )
+						{
+							d->encryption->clientDecrypt( &buf[0], nread );
+
+							QByteArray* a = new QByteArray(nread);
+							memcpy( a->data(), buf, nread );
+							d->rba.append(a);
+							d->rsize += nread;
+						}
+					}					
+				}
+
 				if( nread == 0 )
 				{
 					d->socket->close();
 				}
+
 				buildUOPackets( d );
-			}
-			else if ( d->rsize >= 4 )
-			{
-				char temp[4];
-				d->consumeReadBuf( 4, temp );
-				d->skippedUOHeader = true;
 			}
 			
 			// Write data to socket
@@ -534,10 +676,20 @@ void cAsyncNetIO::flushWriteBuffer( cAsyncNetIOPrivate* d )
 				a = d->wba.next();
 				s = a ? a->size() : 0;
 			}
+
+			// Encrypt the outgoing buffer
+			if( d->encryption )
+				d->encryption->serverEncrypt( out.data(), i );
+
 			nwritten = d->socket->writeBlock( out.data(), i );
 		} else {
 			// Big block, write it immediately
 			i = a->size() - d->windex;
+			
+			// Encrypt the outgoing buffer
+			if( d->encryption )
+				d->encryption->serverEncrypt( a->data() + d->windex, i );
+
 			nwritten = d->socket->writeBlock( a->data() + d->windex, i );
 		}
 		if ( nwritten ) 
@@ -575,9 +727,14 @@ void cAsyncNetIO::sendPacket( QSocketDevice* socket, cUOPacket* packet, bool com
 	iterator it = buffers.find( socket );
 	it.data()->wmutex.acquire();
 	if( compress )
-		it.data()->writeBlock( packet->compressed() );
+	{
+		QByteArray data = packet->compressed();
+		it.data()->writeBlock( data );
+	}
 	else
+	{
 		it.data()->writeBlock( packet->uncompressed() );
+	}
 	it.data()->wmutex.release();
 }
 

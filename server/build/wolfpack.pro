@@ -48,6 +48,7 @@ HEADERS         = \
 		  definable.h \
 		  defines.h \
 		  dragdrop.h \
+		  encryption.h \
 		  globals.h \
 		  guildstones.h \
 		  gumps.h \
@@ -148,6 +149,7 @@ SOURCES         = \
 		  network.cpp \
 		  npcs.cpp \
 		  p_ai.cpp \
+		  encryption.cpp \
                   pfactory.cpp \
   		  persistentbroker.cpp \
 		  persistentobject.cpp \
@@ -179,6 +181,14 @@ SOURCES         = \
 		  wptargetrequests.cpp \
 		  newmagic.cpp \
 		  spellbook.cpp
+
+# Twofish Module
+HEADERS		+= twofish/aes.h \
+				twofish/debug.h \
+				twofish/platform.h \
+				twofish/table.h
+
+SOURCES		+=	twofish/twofish2.c
 
 # Network Module
 # THIS IS IMPORTANT FOR MOCING!

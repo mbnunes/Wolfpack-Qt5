@@ -67,6 +67,7 @@ protected:
 	QStringList clientsAllowed_;
 	
 	// loaded data
+	bool allowUnencryptedClients_;
 	unsigned int skillcap_;
 	bool showSkillTitles_;
 	unsigned int statcap_;
@@ -240,6 +241,7 @@ public:
 
 	// gets
 	bool showSkillTitles() const;
+	bool allowUnencryptedClients() const;
 	unsigned int skillcap() const;
 	unsigned int statcap() const;
 	QString commandPrefix() const;
@@ -474,6 +476,11 @@ inline unsigned short cSrvParams::objectDelay() const
 inline bool cSrvParams::partMsg() const
 {
 	return partMsg_;
+}
+
+inline bool cSrvParams::allowUnencryptedClients() const
+{
+	return allowUnencryptedClients_;
 }
 
 inline bool cSrvParams::serverLog() const

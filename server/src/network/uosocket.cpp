@@ -317,7 +317,7 @@ void cUOSocket::handleLoginRequest( cUORxLoginRequest *packet )
 	vector< ServerList_st > shards = SrvParams->serverList();
 	
 	for( Q_UINT8 i = 0; i < shards.size(); ++i )
-		shardList->addServer( i, shards[i].sServer, 0xFF, shards[i].uiTime, shards[i].ip );
+		shardList->addServer( i, shards[i].sServer, 0x00, shards[i].uiTime, shards[i].ip );
 	
 	send( shardList );
 	delete shardList;
@@ -391,13 +391,13 @@ void cUOSocket::handleSelectShard( cUORxSelectShard *packet )
 		disconnect();
 		return;
 	}
-	
-	_uniqueId = rand() % 0xFFFFFFFF;
-	
+
 	cUOTxRelayServer *relay = new cUOTxRelayServer;
 	relay->setServerIp( shards[ packet->shardId() ].ip );
 	relay->setServerPort( shards[ packet->shardId() ].uiPort );
-	relay->setAuthId( _uniqueId );
+	relay->setAuthId( 0xFFFFFFFF ); // This is NO AUTH ID !!!
+	// This is the thing it sends next time it connects to 
+	// know whether it's gameserver or loginserver encryption
 	send( relay );
 	delete relay;
 }

@@ -35,7 +35,7 @@
 				ObjectFile=".\Debug/"
 				ProgramDataBaseFileName="c:\wolfpack\"
 				BrowseInformation="1"
-				WarningLevel="4"
+				WarningLevel="1"
 				SuppressStartupBanner="TRUE"
 				Detect64BitPortabilityProblems="TRUE"
 				DebugInformationFormat="4"
@@ -48,7 +48,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386 /FIXED:NO"
-				AdditionalDependencies="ws2_32.lib ZThread.lib $(QTDIR)\lib\qt-mt311.lib libmysql.lib"
+				AdditionalDependencies="ws2_32.lib ZThread-2.2.10.lib qt-mt311.lib libmysql.lib"
 				ShowProgress="2"
 				OutputFile="C:\Wolfpack\Wolfpack.exe"
 				Version="12.9"
@@ -213,6 +213,9 @@
 				RelativePath=".\dragdrop.cpp">
 			</File>
 			<File
+				RelativePath="encryption.cpp">
+			</File>
+			<File
 				RelativePath=".\globals.cpp">
 			</File>
 			<File
@@ -337,6 +340,9 @@
 			</File>
 			<File
 				RelativePath=".\tracking.cpp">
+			</File>
+			<File
+				RelativePath="twofish\twofish2.c">
 			</File>
 			<File
 				RelativePath=".\uobject.cpp">
@@ -536,6 +542,9 @@
 			</File>
 			<File
 				RelativePath=".\dragdrop.h">
+			</File>
+			<File
+				RelativePath="encryption.h">
 			</File>
 			<File
 				RelativePath=".\factory.h">
