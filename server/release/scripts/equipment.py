@@ -336,6 +336,9 @@ def onUnequip(char, item, layer):
 
 # Try to equip an item after calling onWearItem for it
 def onUse(player, item):
+	if item.container == player:
+		return 0
+
 	tile = wolfpack.tiledata(item.id)
 	layer = tile['layer']
 
