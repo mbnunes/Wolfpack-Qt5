@@ -31,8 +31,15 @@
 #define __CORPSE_H__
 
 #include "items.h"
-#include "qstring.h"
 
+// Library Includes
+#include <qstring.h>
+
+
+// System Includes
+#include <map>
+
+// Forward declarations
 class cUOSocket;
 
 class cCorpse: public cItem
@@ -46,7 +53,7 @@ private:
 	UINT16 hairColor_; // Color of the hair
 	UINT16 beardStyle_; // Beardstyle
 	UINT16 beardColor_; // Color of the beard
-	map< UINT8, SERIAL > equipment_; // Serials of the old equipment
+	std::map< UINT8, SERIAL > equipment_; // Serials of the old equipment
 	// The meaning of this is that even if the items are inside of the corpse
 	// they're displayed as equipment
 public:

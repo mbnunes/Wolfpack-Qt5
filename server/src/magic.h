@@ -40,8 +40,6 @@
 #include "qdom.h"
 #include <map>
 
-using namespace std;
-
 // Information storage for spells
 struct stSpell
 {
@@ -151,7 +149,7 @@ class cMagic
 {
 // New interface
 protected:
-	map< UI08, cSpell* > loadedSpells; // Rename to "spells" later
+	std::map< UI08, cSpell* > loadedSpells; // Rename to "spells" later
 
 public:
 	void	load( void ); // Loads the magic system

@@ -78,7 +78,7 @@ bool cAddItemTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	Coord_cl newPos = socket->player()->pos;
 	newPos.x = target->x();
 	newPos.y = target->y();
-	newPos.z = target->z() + cTileCache::instance()->tileHeight( target->model() ); // Model Could be an NPC as well i dont like the idea...
+	newPos.z = target->z() + TileCache::instance()->tileHeight( target->model() ); // Model Could be an NPC as well i dont like the idea...
 	pItem->moveTo( newPos );
 
 	// Send the item to its surroundings
@@ -116,7 +116,7 @@ bool cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	Coord_cl newPos = socket->player()->pos;
 	newPos.x = target->x();
 	newPos.y = target->y();
-	newPos.z = target->z() + cTileCache::instance()->tileHeight( target->model() ); // Model Could be a NPC as well i dont like the idea...
+	newPos.z = target->z() + TileCache::instance()->tileHeight( target->model() ); // Model Could be a NPC as well i dont like the idea...
 	pChar->moveTo( newPos );
 
 	pChar->setRegion( cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y ) );

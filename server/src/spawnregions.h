@@ -99,7 +99,7 @@ private:
 	UI32					maxTime_;		// Maximum spawn time in sec
 	UI32					nextTime_;		// Next time for this region to spawn
 
-	vector< UI08 >			z_;				// Height, if not specified, z will be chosen
+	std::vector< UI08 >		z_;				// Height, if not specified, z will be chosen
 };
 
 class cAllSpawnRegions : public cAllBaseRegions, public std::map< QString, cSpawnRegion* >

@@ -950,7 +950,7 @@ public:
 		if( !target->model() && !target->serial() )
 		{
 			map_st mapTile = Map->seekMap( pos );
-			land_st lTile = cTileCache::instance()->getLand( mapTile.id );
+			land_st lTile = TileCache::instance()->getLand( mapTile.id );
 			
 			// Display a gump with this information
 			cGump* pGump = new cGump();
@@ -993,7 +993,7 @@ public:
 		// Static Tiles
 		else if( target->model() && !target->serial() )
 		{
-			tile_st sTile = cTileCache::instance()->getTile( target->model() );
+			tile_st sTile = TileCache::instance()->getTile( target->model() );
 
 			// Display a gump with this information
 			cGump* pGump = new cGump();

@@ -35,24 +35,8 @@
 
 
 #include <algorithm>
-/*
-template<class _T, class _P>
-struct maxKeyPred : binary_function<pair<_T, _P>, pair<_T, _P>, bool>
-{
-	bool operator()(pair<_T, _P> a, pair<_T, _P> b)
-	{
-		return a.first < b.first;
-	}
-};
-*/
 
-struct max_serialPred : binary_function<pair<SERIAL, cItem*>, pair<SERIAL, cItem*>, bool>
-{
-	bool operator()(pair<SERIAL,cItem*> a, pair<SERIAL,cItem*> b)
-	{
-		return a.first < b.first;
-	}
-};
+using namespace std;
 
 cItemsManager::~cItemsManager()
 {

@@ -54,6 +54,10 @@
 #include "persistentbroker.h"
 #include "dbdriver.h"
 
+// System Includes
+#include <math.h>
+#include <algorithm>
+
 #undef  DBGFILE
 #define DBGFILE "items.cpp"
 
@@ -169,7 +173,7 @@ void cItem::setOwner( P_CHAR nOwner )
 // Is the Item pileable?
 bool cItem::isPileable()
 {
-	tile_st tile = cTileCache::instance()->getTile( id_ );
+	tile_st tile = TileCache::instance()->getTile( id_ );
 	return tile.flag2&0x08;
 }
 
@@ -573,7 +577,7 @@ QString cItem::getName( bool shortName )
 	if( name_ != "#" )
 		return name_;
 
-	tile_st tile = cTileCache::instance()->getTile( id_ );
+	tile_st tile = TileCache::instance()->getTile( id_ );
 
 	QString itemname = tile.name;
 	
@@ -825,7 +829,7 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, const char* cName, bool p
 	if (pileable)
 	{
 		// make sure it's REALLY pileable ! (Duke)
-		tile_st tile = cTileCache::instance()->getTile( id );
+		tile_st tile = TileCache::instance()->getTile( id );
 		if( tile.flag2 & 0x08 )
 			pile = true;
 		else
@@ -1604,7 +1608,7 @@ void cItem::processNode( const QDomElement& Tag )
 
 		// In addition to the normal behaviour we retrieve the weight of the
 		// item here.
-		setWeight( cTileCache::instance()->getTile( id_ ).weight );
+		setWeight( TileCache::instance()->getTile( id_ ).weight );
 	}
 
 	// <content><item id="a" />...<item id="z" /></contains> (sereg)
@@ -1809,7 +1813,7 @@ void cItem::processModifierNode( const QDomElement &Tag )
 
 		// In addition to the normal behaviour we retrieve the weight of the
 		// item here.
-		setWeight( cTileCache::instance()->getTile( id_ ).weight );
+		setWeight( TileCache::instance()->getTile( id_ ).weight );
 	}
 }
 

@@ -37,6 +37,8 @@
 #include "classes.h"
 #include "territories.h"
 
+using namespace std;
+
 #undef  DBGFILE
 #define DBGFILE "p_ai.cpp"
 

@@ -42,8 +42,6 @@
 #include <map>
 #include <vector>
 
-using namespace std;
-
 // Forward class definition
 
 
@@ -57,13 +55,13 @@ public:
 	Container_cl();
 	~Container_cl();
 	bool insert(SERIAL serContainer, SERIAL serObject);
-	vector<SERIAL> getData(SERIAL serContainer);
+	std::vector<SERIAL> getData(SERIAL serContainer);
 	bool find(SERIAL serContainer, SERIAL serObject);
 	bool remove(SERIAL serContainer, SERIAL serObject);
 	
 private:
-	multimap<SERIAL, SERIAL> mapData;
-	multimap<SERIAL, SERIAL>::iterator iterData;
+	std::multimap<SERIAL, SERIAL> mapData;
+	std::multimap<SERIAL, SERIAL>::iterator iterData;
 };
 
 #endif // __STORAGE_H__

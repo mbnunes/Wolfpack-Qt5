@@ -51,6 +51,9 @@
 #include "multis.h"
 #include "network/uosocket.h"
 
+// System Includes
+#include <algorithm>
+
 #undef  DBGFILE
 #define DBGFILE "guildstones.cpp"
 

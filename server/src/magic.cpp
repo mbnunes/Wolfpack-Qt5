@@ -51,6 +51,8 @@
 #include "tilecache.h"
 #include "walking.h"
 
+using namespace std;
+
 #undef DBGFILE
 #define DBGFILE "magic.cpp"
 #define NOTUSED 0
@@ -557,7 +559,7 @@ bool cMagic::checkReagents( P_CHAR caster, cSpell *spell )
 
 short cMagic::calcSpellId( UI16 model )
 {
-	tile_st tile = cTileCache::instance()->getTile( model );
+	tile_st tile = TileCache::instance()->getTile( model );
 	
 	if( tile.unknown1 == 0 )
 		return -1;
@@ -2530,11 +2532,11 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 		else if( reqLocTarget( curSpell ) )
 		{
 			// field spells mostly go here
-			Coord_cl targetLocation((buffer[s][11]<<8)+buffer[s][12], (buffer[s][13]<<8)+buffer[s][14], buffer[s][16]+cTileCache::instance()->tileHeight((buffer[s][17]<<8)+buffer[s][18]), currchar[s]->pos.map); 
+			Coord_cl targetLocation((buffer[s][11]<<8)+buffer[s][12], (buffer[s][13]<<8)+buffer[s][14], buffer[s][16]+TileCache::instance()->tileHeight((buffer[s][17]<<8)+buffer[s][18]), currchar[s]->pos.map); 
 			int x=fx[0]=(buffer[s][11]<<8)+buffer[s][12];
 			int y=fy[0]=(buffer[s][13]<<8)+buffer[s][14];
 			//z=buffer[s][16];
-			int z=buffer[s][16]+cTileCache::instance()->tileHeight((buffer[s][17]<<8)+buffer[s][18]); // bugfix, LB
+			int z=buffer[s][16]+TileCache::instance()->tileHeight((buffer[s][17]<<8)+buffer[s][18]); // bugfix, LB
 			
 			defender=LongFromCharPtr(buffer[s]+7);
 			P_CHAR pc_i = FindCharBySerial( defender );
@@ -2600,7 +2602,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								sysmessage( s, "You can't teleport here!" );
 								return;
 							}
-							tile_st tile = cTileCache::instance()->getTile( ((buffer[s][0x11]<<8)+buffer[s][0x12]) );
+							tile_st tile = TileCache::instance()->getTile( ((buffer[s][0x11]<<8)+buffer[s][0x12]) );
 							if( (!strcmp((char *)tile.name, "water")) || (tile.flag1&0x80) )
 							{
 								sysmessage(s,"Give up wanabe Jesus !");

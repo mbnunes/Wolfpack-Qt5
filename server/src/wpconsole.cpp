@@ -41,6 +41,8 @@
 #include <windows.h>
 #endif
 
+using namespace std;
+
 // Method Implementations
 
 //========================================================================================

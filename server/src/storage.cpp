@@ -32,6 +32,8 @@
 #include "storage.h"
 #include "debug.h" 
 
+using namespace std;
+
 #undef  DBGFILE
 #define DBGFILE "storage.cpp"
 

@@ -52,6 +52,9 @@
 #include "network/uosocket.h"
 #include "classes.h"
 
+// System Includes
+#include <math.h>
+
 #undef DBGFILE
 #define DBGFILE "skills.cpp"
 #include "debug.h"
@@ -846,7 +849,7 @@ public:
 					} 
 					else
 					{
-						tile = cTileCache::instance()->getTile( pi->id() );
+						tile = TileCache::instance()->getTile( pi->id() );
 						sprintf((char*)temp, tr("You notice %1 trying to steal %2 from you!").arg(pc_currchar->name.latin1()).arg((char*)tile.name) );
 						sprintf((char*)temp2,tr("You notice %1 trying to steal %2 from %3!").arg(pc_currchar->name.latin1()).arg((char*)tile.name).arg(pc_npc->name.latin1()) );
 					}
@@ -2151,7 +2154,7 @@ void cSkills::RandomSteal(cUOSocket* socket, SERIAL victim)
 				sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name.latin1(),item->name().ascii());
 				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name.latin1(), item->name().ascii(), pc_npc->name.latin1());
 			} else {
-				tile = cTileCache::instance()->getTile( item->id() );
+				tile = TileCache::instance()->getTile( item->id() );
 				sprintf((char*)temp,"You notice %s trying to steal %s from you!",pc_currchar->name.latin1(), tile.name);
 				sprintf(temp2,"You notice %s trying to steal %s from %s!",pc_currchar->name.latin1(),tile.name, pc_npc->name.latin1());
 			}

@@ -44,6 +44,9 @@
 #include "network/uorxpackets.h"
 #include "network/uosocket.h"
 
+// System Includes
+#include <algorithm>
+
 #undef  DBGFILE
 #define DBGFILE "Trade.cpp"
 

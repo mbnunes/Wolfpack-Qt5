@@ -42,14 +42,13 @@
 #include <vector>
 #include <map>
 
-using namespace std ;
-
 // Third Party includes
 
 // Wolfpack Includes
 #include "wpconsole.h"
 #include "structs.h"
 #include "tileflags.h"
+#include "singleton.h"
 
 extern WPConsole_cl clConsole ;
 
@@ -103,10 +102,10 @@ class cTileCache
 {
 private:
 	QString path;
-	map< UINT16, tile_st > staticTiles;
+	std::map< UINT16, tile_st > staticTiles;
 	tile_st emptyStaticTile;
 
-	map< UINT16, land_st > landTiles;
+	std::map< UINT16, land_st > landTiles;
 	land_st emptyLandTile;
 public:
 	cTileCache() {}
@@ -120,12 +119,8 @@ public:
     bool load( const QString &nPath );
 	bool unload();
 	bool reload() { unload(); load( path ); return true; }
-
-	static cTileCache *instance()
-	{
-		static cTileCache instance;
-		return &instance;
-	}
 };
+
+typedef SingletonHolder<cTileCache> TileCache;
 
 #endif

@@ -42,9 +42,6 @@
 #include <cstdarg>
 #include <cstdio>
 
-using namespace std;
-
-
 // Third Party includes
 
 
@@ -75,21 +72,21 @@ public:
 	// Destructor
 	~WPConsole_cl();
 	void enabled(bool);
-	void setStreams(istream *in, ostream *out, ostream *error, ostream *log);
+	void setStreams(std::istream *in, std::ostream *out, std::ostream *error, std::ostream *log);
 
 	// Send a message to the console
 	void send(char* szMessage, ...);
-	void send(string sMessage);
+	void send(std::string sMessage);
 	void send(const QString &sMessage);
 
 
 	// Log a message
 	void log(char* szMessage, ...);
-	void log(string sMessage);
+	void log(std::string sMessage);
 
 	// Flag an error
 	void error(char* szMessage, ...);
-	void error(string sMessage);
+	void error(std::string sMessage);
 
         // Get input from the console
 	UI08 getkey(void);
@@ -107,10 +104,10 @@ public:
 
 private:
 
-	istream *inputstrm;
-	ostream *outputstrm;
-	ostream *errorstrm;
-	ostream *logstrm;
+	std::istream *inputstrm;
+	std::ostream *outputstrm;
+	std::ostream *errorstrm;
+	std::ostream *logstrm;
 	bool bEnabled;
 };
 //==========================================================================================

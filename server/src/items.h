@@ -244,7 +244,7 @@ public:
 	int value; // Price shopkeeper sells item at.
 	int restock; // Number up to which shopkeeper should restock this item
 	unsigned int disabled; //Item is disabled, cant trigger.
-	string disabledmsg; //Item is disabled, so display this message. -- added by Magius(CHE) §
+	QString disabledmsg; //Item is disabled, so display this message. -- added by Magius(CHE) §
 	unsigned int poisoned; //AntiChrist -- for poisoning skill
 	long int murdertime; //AntiChrist -- for corpse -- when the people has been killed
 	int rank; //Magius(CHE) --- for rank system, this value is the LEVEL of the item from 1 to 10. Simply multiply the rank*10 and calculate the MALUS this item has from the original.

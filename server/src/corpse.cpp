@@ -35,6 +35,8 @@
 #include "persistentbroker.h"
 
 #include <functional>
+#include <algorithm>
+#include <map>
 
 static cUObject* productCreator()
 {

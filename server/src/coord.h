@@ -35,29 +35,8 @@
 #include "platform.h"
 
 
-// System Includes
-#include <algorithm>
-#include <cmath>
-using namespace std;
-
-
-// Third Party includes
-
-
-
 //Forward class declaration
-
 class Coord_cl;
-
-//Wolfpack Includes
-
-#include "wpconsole.h"
-
-// Any specific structures
-
-
-// Externals we need
-extern WPConsole_cl clConsole;
 
 // typedefs
 

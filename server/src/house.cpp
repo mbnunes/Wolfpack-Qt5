@@ -142,14 +142,14 @@ bool cHouse::onValidPlace()
 		if( pos.z < mapz )
 			return false;
 
-		land_st mapTile = cTileCache::instance()->getLand( Map->seekMap( multipos ).id );
+		land_st mapTile = TileCache::instance()->getLand( Map->seekMap( multipos ).id );
 		if( mapTile.flag1 & 0x40 || mapTile.flag1 & 0x80 )
 			return false;
 		
 		StaticsIterator msi = Map->staticsIterator( multipos );
 		while( !msi.atEnd() )
 		{
-			tile = cTileCache::instance()->getTile( msi->itemid );
+			tile = TileCache::instance()->getTile( msi->itemid );
 			if( multi[j].z > msi->zoff && multi[j].z < (msi->zoff + tile.height) )
 				return false;
 			++msi;
@@ -161,7 +161,7 @@ bool cHouse::onValidPlace()
 			P_ITEM pi = ri.GetData();
 			if( pi && pi->multis != serial )
 			{
-				tile = cTileCache::instance()->getTile( pi->id() );
+				tile = TileCache::instance()->getTile( pi->id() );
 				if( multi[j].z > pi->pos.z && multi[j].z < ( pi->pos.z + tile.height ) )
 					return false;
 			}

@@ -51,6 +51,9 @@
 // Library Includes
 #include <qvaluevector.h>
 
+// System Includes
+#include <algorithm>
+
 #undef  DBGFILE
 #define DBGFILE "walking.cpp"
 
@@ -155,7 +158,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 	mapBlock.z = Map->mapElevation( pos );
 
 	map_st mapCell = Map->seekMap( pos );
-	land_st mapTile = cTileCache::instance()->getLand( mapCell.id );
+	land_st mapTile = TileCache::instance()->getLand( mapCell.id );
 
 	// If it's not impassable it's automatically walkable
 	if( !(mapTile.flag1 & 0x40) )
@@ -170,7 +173,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 	StaticsIterator staIter = Map->staticsIterator( pos, true );
 	for( ; !staIter.atEnd(); ++staIter )
 	{
-		tile_st tTile = cTileCache::instance()->getTile( staIter->itemid );
+		tile_st tTile = TileCache::instance()->getTile( staIter->itemid );
 
 		// Here is decided if the tile is needed
 		// It's uninteresting if it's NOT blocking
@@ -217,7 +220,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 			{
 				if ( multi[j].visible && ( pItem->pos.x + multi[j].x == pos.x) && ( pItem->pos.y + multi[j].y == pos.y ) )
 				{
-					tile_st tTile = cTileCache::instance()->getTile( multi[j].tile );
+					tile_st tTile = TileCache::instance()->getTile( multi[j].tile );
 					if( !( ( tTile.flag2 & 0x02 ) || ( tTile.flag1 & 0x40 ) || ( tTile.flag2 & 0x04 ) ) )
 						continue;
 
@@ -241,7 +244,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 		if( ( pItem->pos.x != pos.x ) || ( pItem->pos.y != pos.y ) || ( pItem->pos.map != pos.map ) )
 			continue;
 
-		tile_st tTile = cTileCache::instance()->getTile( pItem->id() );
+		tile_st tTile = TileCache::instance()->getTile( pItem->id() );
 
 		// Se above for what the flags mean
 		if( !( ( tTile.flag2 & 0x02 ) || ( tTile.flag1 & 0x40 ) || ( tTile.flag2 & 0x04 ) ) )
@@ -662,7 +665,7 @@ bool cMovement::CanNPCWalk(unitile_st xyb)
 {
 	unsigned short int blockid = xyb.id;
 
-	tile_st newTile = cTileCache::instance()->getTile( blockid );
+	tile_st newTile = TileCache::instance()->getTile( blockid );
 
 	// khpae : blocking tile !!
 	if (xyb.flag1 & 0x40) {
@@ -684,7 +687,7 @@ bool cMovement::CanPlayerWalk(unitile_st xyb)
 {
 	unsigned short int blockid = xyb.id;
 
-	tile_st newTile = cTileCache::instance()->getTile( blockid );
+	tile_st newTile = TileCache::instance()->getTile( blockid );
 
 	if (xyb.flag1 & 0x40 || xyb.flag2 & 0x06 || xyb.type == 0 ) 
 	{
@@ -700,7 +703,7 @@ bool cMovement::CanFishWalk(unitile_st xyb)
 {
 	unsigned short int blockid = xyb.id;
 	
-	if ( cTileCache::instance()->getTile(blockid).isWet() )
+	if ( TileCache::instance()->getTile(blockid).isWet() )
 		return true;
 
 	// Can they walk/swim on water tiles?
@@ -820,7 +823,7 @@ void cMovement::GetBlockingMap( const Coord_cl pos, unitile_st *xyblock, int &xy
 	signed char mapz = Map->mapElevation(pos);  //Map->AverageMapElevation(x, y, mapid);
 	if (mapz != illegal_z)
 	{
-		land_st land = cTileCache::instance()->getLand( mapid );
+		land_st land = TileCache::instance()->getLand( mapid );
 	
 		xyblock[xycount].type=0;
 		xyblock[xycount].basez = mapz;
@@ -840,7 +843,7 @@ void cMovement::GetBlockingStatics(const Coord_cl pos, unitile_st *xyblock, int 
 	StaticsIterator msi = Map->staticsIterator(pos);
  	while (!msi.atEnd())
 	{
-		tile_st tile = cTileCache::instance()->getTile( msi->itemid );
+		tile_st tile = TileCache::instance()->getTile( msi->itemid );
 		xyblock[xycount].type	= 2;
 		xyblock[xycount].basez	= msi->zoff;
 		xyblock[xycount].id		= msi->itemid;
@@ -867,7 +870,7 @@ void cMovement::GetBlockingDynamics(const Coord_cl position, unitile_st *xyblock
 			{
 				if ((mapitem->pos.x == position.x) && (mapitem->pos.y == position.y))
 				{
-					tile_st tile = cTileCache::instance()->getTile( mapitem->id() );
+					tile_st tile = TileCache::instance()->getTile( mapitem->id() );
 					xyblock[xycount].type=1;
 					xyblock[xycount].basez=mapitem->pos.z;
 					xyblock[xycount].id=mapitem->id();
@@ -893,7 +896,7 @@ void cMovement::GetBlockingDynamics(const Coord_cl position, unitile_st *xyblock
 				{
 					if (multi[j].visible && (mapitem->pos.x+multi[j].x == position.x) && (mapitem->pos.y+multi[j].y == position.y))
 					{
-						tile_st tile = cTileCache::instance()->getTile( multi[j].tile );
+						tile_st tile = TileCache::instance()->getTile( multi[j].tile );
 						xyblock[xycount].type = 2;
 						xyblock[xycount].basez = multi[j].z + mapitem->pos.z;
 						xyblock[xycount].id = multi[j].tile;
@@ -1706,7 +1709,7 @@ bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
     // if it does block, might as well INT16-circuit and return right away
     if ( dt >= 0 )
 	{
-		tile_st tile = cTileCache::instance()->getTile(dt);
+		tile_st tile = TileCache::instance()->getTile(dt);
 		if ( tile.isBlocking() || tile.isWet() )
 			return false;
 	}
@@ -1716,7 +1719,7 @@ bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
 	
 	while ( !msi.atEnd() )
 	{
-		tile_st tile = cTileCache::instance()->getTile( msi->itemid );
+		tile_st tile = TileCache::instance()->getTile( msi->itemid );
 		const INT32 elev = msi->zoff + cTileCache::tileHeight(tile);
 		if( (elev >= pos.z) && (msi->zoff <= pos.z ) )
 		{

@@ -33,6 +33,8 @@
 
 #include "tilecache.h"
 
+using namespace std;
+
 bool tile_st::isRoofOrFloorTile() const
 {
 	if (flag1 & 1)

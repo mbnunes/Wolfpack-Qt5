@@ -61,7 +61,7 @@ class cItem;
 
 class cUObject : public PersistentObject, public cDefinable
 {
-	friend cItem;
+//	friend cItem;
 	
 //	Q_OBJECT
 // Data Members
@@ -140,13 +140,13 @@ public:
 
 	void registerSqlQuery( const QString &type, const QString &query )
 	{
-		sql_queries.insert( make_pair( type, query ) );
+		sql_queries.insert( std::make_pair( type, query ) );
 		sql_keys.push_back( type );
 	}
 
-	QString findSqlQuery( const QString &type )
+	QString findSqlQuery( const QString &type ) const
 	{
-		map< QString, QString >::iterator iter = sql_queries.find( type );
+		std::map< QString, QString >::const_iterator iter = sql_queries.find( type );
 
 		if( iter == sql_queries.end() )
 			return QString::null;
@@ -154,7 +154,7 @@ public:
 			return iter->second;
 	}
 
-	QStringList objectTypes()
+	QStringList objectTypes() const
 	{
 		return sql_keys;
 	}

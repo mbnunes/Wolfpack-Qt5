@@ -633,7 +633,7 @@ bool cChar::canPickUp(cItem* pi)
 	if ( (pi->isOwnerMovable() || pi->isLockedDown()) && !this->Owns(pi) )	// owner movable or locked down ?
 		return false;
 
-	tile_st tile = cTileCache::instance()->getTile( pi->id() );
+	tile_st tile = TileCache::instance()->getTile( pi->id() );
 	if ( pi->isGMMovable() || (tile.weight == 255 && !pi->isAllMovable()))
 		return false;
 	return true;
@@ -1487,7 +1487,7 @@ void cChar::processNode( const QDomElement &Tag )
 			// Instead of deleting try to get a valid layer instead
 			if( !mLayer )
 			{
-				tile_st tInfo = cTileCache::instance()->getTile( nItem->id() );
+				tile_st tInfo = TileCache::instance()->getTile( nItem->id() );
 				if( tInfo.layer > 0 )
 					mLayer = tInfo.layer;
 			}
@@ -2809,7 +2809,7 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 					pItem->setLayer( 0 );
 					if( !mLayer )
 					{
-						tile_st tile = cTileCache::instance()->getTile( pItem->id() );
+						tile_st tile = TileCache::instance()->getTile( pItem->id() );
 						mLayer = tile.layer;
 					}
 

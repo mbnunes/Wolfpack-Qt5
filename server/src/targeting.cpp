@@ -147,13 +147,13 @@ static void AddTarget(int s, PKGx6C *pp)
 	}
 	bool pileable = false;
 	short id=(addid1[s]<<8)+addid2[s];
-	tile_st tile = cTileCache::instance()->getTile( id );
+	tile_st tile = TileCache::instance()->getTile( id );
 	if (tile.flag2&0x08) pileable=true;
 
 	P_ITEM pi = Items->SpawnItem(currchar[s], 1, "#", pileable, id, 0,0);
 	if(!pi) return;
 	pi->priv=0;	//Make them not decay
-	pi->MoveTo(pp->TxLoc,pp->TyLoc,pp->TzLoc+cTileCache::instance()->tileHeight(pp->model));
+	pi->MoveTo(pp->TxLoc,pp->TyLoc,pp->TzLoc+TileCache::instance()->tileHeight(pp->model));
 
 	pi->update();
 	addid1[s]=0;
@@ -357,7 +357,7 @@ static void AddNpcTarget(int s, PKGx6C *pp)
 	pc->setPriv(0x10);
 	pc->pos.x=pp->TxLoc;
 	pc->pos.y=pp->TyLoc;
-	pc->pos.z=pp->TzLoc+cTileCache::instance()->tileHeight(pp->model);
+	pc->pos.z=pp->TzLoc+TileCache::instance()->tileHeight(pp->model);
 	cMapObjects::getInstance()->add(pc); // add it to da regions ...
 	pc->isNpc();
 	updatechar(pc);
@@ -1812,7 +1812,7 @@ void cTargets::AddItem( UOXSOCKET s )
 
 	TargetX = ( buffer[s][11] << 8 ) + buffer[s][12];
 	TargetY = ( buffer[s][13] << 8 ) + buffer[s][14];
-	TargetZ = buffer[s][16] + cTileCache::instance()->tileHeight( ( buffer[s][17] << 8) + buffer[s][18] );
+	TargetZ = buffer[s][16] + TileCache::instance()->tileHeight( ( buffer[s][17] << 8) + buffer[s][18] );
 
 	P_ITEM Item = Items->createScriptItem( ItemID );
 

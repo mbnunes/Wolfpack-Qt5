@@ -50,6 +50,8 @@ II. make sure to hold the map up to date !
 
 #include "junk.h" // needed for objects Npcs and Items
 
+using namespace std;
+
 // cSpawnRegions
 
 void cSpawnRegion::init( void )

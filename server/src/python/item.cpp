@@ -527,7 +527,7 @@ PyObject *wpItem_getAttr( wpItem *self, char *name )
 	else getIntProperty( "restock", pItem->restock )
 	else getIntProperty( "value", pItem->value ) 
 	else getIntProperty( "disabled", pItem->disabled )
-	else getStrProperty( "disabledmsg", pItem->disabledmsg.c_str() ) 
+	else getStrProperty( "disabledmsg", pItem->disabledmsg.latin1() ) 
 	else getIntProperty( "poisoned", pItem->poisoned ) 
 	else getStrProperty( "murderer", pItem->murderer().latin1() ) 
 	else getIntProperty( "murdertime", pItem->murdertime ) 
@@ -723,7 +723,7 @@ int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
 			// Or put it on the right layer (chars)
 			if( pChar && self->pItem->layer() == 0 )
 			{
-				tile_st tInfo = cTileCache::instance()->getTile( self->pItem->id() );
+				tile_st tInfo = TileCache::instance()->getTile( self->pItem->id() );
 				if( tInfo.layer > 0 )
 					self->pItem->setLayer( tInfo.layer );
 			}

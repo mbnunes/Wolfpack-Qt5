@@ -48,6 +48,9 @@
 
 #include "debug.h"
 
+// System Includes
+#include <math.h>
+
 #undef  DBGFILE
 #define DBGFILE "gumps.cpp"
 

@@ -37,6 +37,9 @@
 #include "network/uotxpackets.h"
 #include "network/uosocket.h"
 
+// System Includes
+#include <math.h>
+
 #undef  DBGFILE
 #define DBGFILE "coord.cpp"
 
@@ -47,7 +50,7 @@ Coord_cl::Coord_cl(void)
 
 Coord_cl::Coord_cl(const Coord_cl& clCoord)
 {
-	(*this) = clCoord ;
+	(*this) = clCoord;
 }
 
 Coord_cl::Coord_cl(UI16 uiX, UI16 uiY, SI08 siZ, UI08 uiMap, UI08)

@@ -38,8 +38,6 @@
 //system includes
 #include <iostream>
 
-using namespace std ;
-
 //Forward class
 class cTarget ;
 class cCharTarget ;

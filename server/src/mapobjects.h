@@ -37,7 +37,7 @@
 
 // Library Includes
 #include <vector>
-#include "qmap.h"
+#include <qmap.h>
 
 // Forward class definition
 class cUObject;

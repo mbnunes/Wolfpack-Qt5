@@ -44,8 +44,6 @@
 
 #include <iostream>
 
-using namespace std ;
-
 // Forward Class Declaration
 class cBounty;
 

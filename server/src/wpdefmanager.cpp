@@ -34,11 +34,12 @@
 #include "prototypes.h"
 #include "basics.h"
 #include "inlines.h"
+#include "wpconsole.h"
 
 // Library Includes
-#include "qdom.h"
-#include "qfile.h"
-#include "qregexp.h"
+#include <qdom.h>
+#include <qfile.h>
+#include <qregexp.h>
 
 // Method for processing one node
 void WPDefManager::ProcessNode( QDomElement Node )

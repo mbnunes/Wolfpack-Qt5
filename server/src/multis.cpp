@@ -39,6 +39,12 @@
 #include "dbdriver.h"
 #include "persistentbroker.h"
 
+// System Includes
+#include <math.h>
+#include <algorithm>
+
+using namespace std;
+
 #undef DBGFILE
 #define DBGFILE "multis.cpp" 
 

@@ -250,7 +250,7 @@ signed char Maps::dynamicElevation(const Coord_cl& pos) const
 			}
 			if ( ( mapitem->pos.x == pos.x ) && ( mapitem->pos.y == pos.y ) && ( !mapitem->isMulti() ) )
 			{
-				INT8 ztemp = mapitem->pos.z + cTileCache::instance()->tileHeight( mapitem->id() );
+				INT8 ztemp = mapitem->pos.z + TileCache::instance()->tileHeight( mapitem->id() );
 				if ((ztemp <= pos.z + MaxZstep) && (ztemp > z))
 				{
 					z = ztemp;
@@ -270,7 +270,7 @@ signed char Maps::staticTop(const Coord_cl& pos)
 	StaticsIterator msi = this->staticsIterator(pos);
 	while ( !msi.atEnd() )
 	{
-		signed char tempTop = msi->zoff + cTileCache::instance()->tileHeight(msi->itemid);
+		signed char tempTop = msi->zoff + TileCache::instance()->tileHeight(msi->itemid);
 		if ((tempTop <= pos.z + MaxZstep) && (tempTop > top))
 		{
 			top = tempTop;

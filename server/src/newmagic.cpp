@@ -250,7 +250,7 @@ void cEndCasting::Expire()
 */
 INT8 cNewMagic::calcSpellId( UINT16 scroll )
 {
-	tile_st tile = cTileCache::instance()->getTile( scroll );
+	tile_st tile = TileCache::instance()->getTile( scroll );
 
 	if( tile.unknown1 == 0 )
 		return -1;

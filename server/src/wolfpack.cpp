@@ -1284,7 +1284,7 @@ int main( int argc, char *argv[] )
 
 	// Try to cache the tiledata.mul
 	clConsole.PrepareProgress("Loading tile cache");
-	if( !cTileCache::instance()->load( SrvParams->mulPath() ) )
+	if( !TileCache::instance()->load( SrvParams->mulPath() ) )
 	{
 		error = 1;
 		CIAO_IF_ERROR;

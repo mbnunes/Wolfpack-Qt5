@@ -45,9 +45,6 @@
 #endif
 
 //#include "netsys.h"			// Needed by fd_set
-using namespace std;
-
-
 // Third Party
 
 
@@ -56,7 +53,7 @@ using namespace std;
 class QDateTime;
 class WPScriptManager;
 class WPDefManager;
-
+class WPConsole_cl;
 //Wolfpack Includes
 
 #include "structs.h"

@@ -410,13 +410,13 @@ bool cBoat::isValidPlace( UI16 posx, UI16 posy, SI08 posz, UI08 boatdir )
 	for( j = 0; j < multi.size(); ++j )
 	{
 		map_st map = Map->seekMap( Coord_cl( multi[j].x + posx, multi[j].y + posy, pos.z, pos.map ) );
-		land_st land = cTileCache::instance()->getLand( map.id );
+		land_st land = TileCache::instance()->getLand( map.id );
 		StaticsIterator msi = Map->staticsIterator( Coord_cl( multi[j].x + posx, multi[j].y + posy, pos.z, pos.map ) );
 		mapblocks = !(land.flag1 & 0x80);
 
 		while( !msi.atEnd() )
 		{
-			tile_st tile = cTileCache::instance()->getTile( msi->itemid );
+			tile_st tile = TileCache::instance()->getTile( msi->itemid );
 			if( !(tile.flag1 & 0x80) && ( pos.z >= msi->zoff && pos.z <= (msi->zoff+70) ) )
 				return false;
 			if( mapblocks )

@@ -42,8 +42,6 @@
 // Library Include
 #include "qstring.h"
 
-using namespace std;
-
 ///// do not chang those
 
 #define WPV_RELEASE    0x01
@@ -128,14 +126,14 @@ struct wp_version_info
 
 	   unsigned int    vernumber;
 	   wpversion_32bit verstruct;
-	   string verstring; 
-	   string productstring;
-	   string betareleasestring;
+	   std::string verstring; 
+	   std::string productstring;
+	   std::string betareleasestring;
 	   QString clientsupportedstring;
-	   string timezonestring;
-	   string compiledbystring;
-	   string codersstring;
-	   string emailstring;
+	   std::string timezonestring;
+	   std::string compiledbystring;
+	   std::string codersstring;
+	   std::string emailstring;
 
 	   wp_version_info()
 	   {

@@ -39,6 +39,7 @@
 #include "multiscache.h"
 
 #include <set>
+#include <math.h>
 
 #undef  DBGFILE
 #define DBGFILE "LoS.cpp"
@@ -236,7 +237,7 @@ the line of sight.
 		tile_st tile;
 		while( !msi.atEnd() )
 		{
-			tile = cTileCache::instance()->getTile( msi->itemid );
+			tile = TileCache::instance()->getTile( msi->itemid );
 			if(	( (*pit).z >= msi->zoff && (*pit).z <= ( msi->zoff + tile.height ) ) )
 //				||	( tile.height <= 2 && abs( (*pit).z - msi->zoff ) <= abs( dz ) ) )
 				itemids.insert( msi->itemid );
@@ -252,7 +253,7 @@ the line of sight.
 			P_ITEM pi = rj.GetData();
 			if( pi && pi->id() < 0x4000 )
 			{
-				tile = cTileCache::instance()->getTile( pi->id() );
+				tile = TileCache::instance()->getTile( pi->id() );
 				if(	( (*pit).z >= pi->pos.z ) && ( (*pit).z <= ( pi->pos.z + tile.height ) ) && ( pi->visible == 0 ) )
 					itemids.insert( pi->id() );
 			}
@@ -272,7 +273,7 @@ the line of sight.
 				if( ( multi[j].visible ) && ( pi->pos.x + multi[j].x == (*pit).x ) &&
 					( pi->pos.y + multi[j].y == (*pit).y ) )			
 				{
-					tile = cTileCache::instance()->getTile( multi[j].tile );
+					tile = TileCache::instance()->getTile( multi[j].tile );
 					if( ( (*pit).z >= pi->pos.z + multi[j].z ) &&
 						( (*pit).z <= pi->pos.z + multi[j].z + tile.height ) )
 						itemids.insert( multi[j].tile );

@@ -50,8 +50,6 @@
 // Library includes
 #include "qstring.h"
 
-using namespace std;
-
 struct move_st
 {
 	int effect[18];
@@ -185,10 +183,10 @@ struct make_st
 
 struct gmpage_st
 {
-	string reason;
+	std::string reason;
 	SERIAL serial;
 	char timeofcall[9];
-	string name;
+	std::string name;
 	int handled;
 };
 

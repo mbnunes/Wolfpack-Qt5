@@ -249,7 +249,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 // That works for NPCs as well
 void equipItem( P_CHAR wearer, P_ITEM item )
 {
-	tile_st tile = cTileCache::instance()->getTile( item->id() );
+	tile_st tile = TileCache::instance()->getTile( item->id() );
 
 	// User cannot wear the item
 	if( tile.layer == 0 )
@@ -332,7 +332,7 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	}
 
 	// Get our tile-information
-	tile_st pTile = cTileCache::instance()->getTile( pItem->id() );
+	tile_st pTile = TileCache::instance()->getTile( pItem->id() );
 
 	// Is the item wearable ? ( layer == 0 | equip-flag not set )
 	// Multis are not wearable are they :o)

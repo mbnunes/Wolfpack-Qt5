@@ -42,9 +42,6 @@
 
 #include <iostream>
 
-using namespace std ;
-
-
 //forward class
 class cTrade;
 

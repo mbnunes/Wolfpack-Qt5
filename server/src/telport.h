@@ -40,8 +40,6 @@
 
 #include <iostream>
 
-using namespace std ;
-
 //Forward class
 
 

@@ -51,6 +51,10 @@
 #include "wpdefmanager.h"
 
 #include "debug.h"
+
+// System Includes
+#include <math.h>
+
 #undef  DBGFILE
 #define DBGFILE "combat.cpp"
 

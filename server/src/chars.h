@@ -820,8 +820,8 @@ namespace cCharStuff
 	{
 	public:
 		bool DoAI(int c, P_CHAR pBanker, const QString& comm);
-		bool Withdraw(int c, P_CHAR pBanker, const string& comm);
-		bool BankCheck(int c, P_CHAR pBanker, const string& comm);
+		bool Withdraw(int c, P_CHAR pBanker, const std::string& comm);
+		bool BankCheck(int c, P_CHAR pBanker, const std::string& comm);
 		bool Balance(int c, P_CHAR pBanker);
 		void OpenBank(UOXSOCKET c);
 	};

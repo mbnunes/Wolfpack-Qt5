@@ -40,6 +40,9 @@
 
 #include "debug.h"
 
+// System Includes
+#include <math.h>
+
 #undef  DBGFILE
 #define DBGFILE "makemenus.cpp"
 
@@ -1426,7 +1429,6 @@ cAllMakeMenus::~cAllMakeMenus()
 	}
 	menus_.clear();
 }
-
 
 void cAllMakeMenus::load()
 {

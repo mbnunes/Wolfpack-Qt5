@@ -42,6 +42,9 @@
 #include "skills.h"
 #include "srvparams.h"
 
+//System Includes
+#include <math.h>
+
 #undef DBGFILE
 #define DBGFILE "resources.cpp"
 
