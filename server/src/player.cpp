@@ -781,20 +781,19 @@ void cPlayer::applyStartItemDefinition( const cElement* element )
 		else
 		{
 			P_ITEM pItem = 0;
-			const QString& id = node->getAttribute( "id" );
 
-			if ( id != QString::null )
+			if ( node->hasAttribute( "id" ) && node->getAttribute( "id" ) != QString::null )
 			{
-				pItem = cItem::createFromScript( id );
+				pItem = cItem::createFromScript( node->getAttribute( "id" ) );
 			}
-			else
+			else if ( node->hasAttribute( "list" ) && node->getAttribute( "list" ) != QString::null )
 			{
-				const QString& list = node->getAttribute( "list" );
-
-				if ( list != QString::null )
-				{
-					pItem = cItem::createFromList( list );
-				}
+				pItem = cItem::createFromList( node->getAttribute( "list" ) );
+			}
+			else if ( node->hasAttribute( "randomlist" ) && node->getAttribute( "randomlist" ) != QString::null )
+			{
+				QStringList RandValues = QStringList::split( ",", node->getAttribute( "randomlist" ) );
+				pItem = cItem::createFromList( RandValues[RandomNum( 0, RandValues.size() - 1 )] );
 			}
 
 			if ( !pItem )

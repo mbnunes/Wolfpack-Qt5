@@ -824,9 +824,13 @@ void cItem::processNode( const cElement* Tag )
 		const cElement* section;
 
 		if ( Tag->hasAttribute( "id" ) )
+		{
 			section = Definitions::instance()->getDefinition( WPDT_ITEM, Tag->getAttribute( "id" ) );
+		}
 		else
+		{
 			section = Definitions::instance()->getDefinition( WPDT_ITEM, Value );
+		}
 
 		if ( section )
 			applyDefinition( section );
@@ -883,8 +887,11 @@ void cItem::processContainerNode( const cElement* tag )
 	/*
 	<contains>
 		<item list="myList" />
-		<item id="myItem1"><amount><random ... /></amount><color><colorlist><random...></colorlist></color></item>
-		...
+		<item randomlist="myList1,myList2" />
+		<item id="myItem1" />
+		<item list="myList"><amount></amount></item>
+		<item randomlist="myList1,myList2"><amount></amount></item>
+		<item id="myItem1"><amount></amount></item></item>
 	</contains>
 	*/
 	for ( unsigned int i = 0; i < tag->childCount(); ++i )
@@ -907,11 +914,32 @@ void cItem::processContainerNode( const cElement* tag )
 			}
 			else if ( element->hasAttribute( "list" ) )
 			{
-				Console::instance()->log( LOG_ERROR, tr( "cItem::processContainerNode <item list=\"myList\"/> not implemented!!!" ) );
+				cItem* nItem = cItem::createFromList( element->getAttribute( "list" ) );
+				if ( nItem )
+				{
+					addItem( nItem );
+					for ( unsigned int j = 0; j < element->childCount(); ++j )
+						nItem->processNode( element->getChild( j ) );
+					if ( this->layer() == cBaseChar::BuyRestockContainer )
+						nItem->setRestock( nItem->amount() );
+				}
+			}
+			else if ( element->hasAttribute( "randomlist" ) )
+			{
+				QStringList RandValues = QStringList::split( ",", element->getAttribute( "randomlist" ) );
+				cItem* nItem = cItem::createFromList( RandValues[RandomNum( 0, RandValues.size() - 1 )] );
+				if ( nItem )
+				{
+					addItem( nItem );
+					for ( unsigned int j = 0; j < element->childCount(); ++j )
+						nItem->processNode( element->getChild( j ) );
+					if ( this->layer() == cBaseChar::BuyRestockContainer )
+						nItem->setRestock( nItem->amount() );
+				}
 			}
 			else
 			{
-				Console::instance()->log( LOG_ERROR, tr( "Content element lacking id and list attribute in item definition '%1'." ).arg( element->getTopmostParent()->getAttribute( "id", "unknown" ) ) );
+				Console::instance()->log( LOG_ERROR, tr( "Content element lacking id, list, or randomlist attribute in item definition '%1'." ).arg( element->getTopmostParent()->getAttribute( "id", "unknown" ) ) );
 			}
 		}
 	}

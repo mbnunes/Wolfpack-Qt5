@@ -72,6 +72,8 @@ Wolfpack 12.9.13 Beta (SVN)
   - Updated SQLite to 2.8.15 and defaulted SQLite to encode data with UTF-8.
   - Added a new feature to random: <random randomlist="list1,list2" />
     This will select a random value from a random list.
+  - Added new features to container items (made list work as well):
+    <container><item list="list" /><item randomlist="list1,list2" /></container>
  * Definition Changes:
   - Added the mage AI to most creatures.
   - Adjusted carving sheep.
