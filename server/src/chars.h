@@ -58,6 +58,7 @@ public:
   int foodlocx;
   int foodlocy;
   int foodlocz;
+  bool may_levitate;
   //Skyfire - End NPC's home/work/food vars'
   unsigned char pathnum;
   path_st path[PATHNUM];

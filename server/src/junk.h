@@ -49,6 +49,7 @@ struct statcap_st
 #include "gumps.h"
 #include "network.h"
 #include "TmpEff.h"
+#include "walking2.h"
 extern cItemArray *ItemArray;
 extern cCharArray *CharArray;
 #include "books.h"
@@ -72,6 +73,7 @@ extern cNetworkStuff	*Network;
 extern cMagic			*Magic;
 extern cBooks           *Books;
 extern cAllTmpEff       *AllTmpEff;
+extern cMovement		*Movement;
 
 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-//
 #if !defined(MIN)

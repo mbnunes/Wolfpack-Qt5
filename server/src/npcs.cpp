@@ -1606,7 +1606,7 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 		   pc_c->pos.x=items[i].pos.x+xos;
 		   pc_c->pos.y=items[i].pos.y+yos;
 		   pc_c->dispz=pc_c->pos.z=items[i].pos.z;
-		   setserial(c,i,6);
+		   pc_c->SetSpawnSerial(items[i].serial);
 		} // end of if !triggerx
 		break;
 	case 2: // take position from Socket

@@ -1924,7 +1924,6 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	if(n==-1) return;//AntiChrist to preview crashes
 	const P_ITEM pi=MAKE_ITEMREF_LR(n);	// on error return
 	pi->SetContSerial(pc->serial);
-	setserial(n, DEREF_P_CHAR(pc), 4);
 	pi->layer=0x15;
 	pi->type=1;
 	pi->dye=1;
@@ -3353,7 +3352,7 @@ void npcact(int s)
 void npcToggleCombat(int s)
 {
 	chars[s].war=(!(chars[s].war));
-	walking2(s);
+	Movement->CombatWalk(s);
 }
 
 int calcSerFromChar(int i)
@@ -5657,6 +5656,7 @@ void StartClasses(void)
 	ItemArray=NULL;
 	CharArray=NULL;
 	Respawn=NULL;
+	Movement = NULL;
 
 	//ALLITEMThread=NULL;
 	//Weather=NULL;
@@ -5688,7 +5688,8 @@ void StartClasses(void)
 	ItemArray= new cItemArray;
 	CharArray= new cCharArray;
 	Respawn=new cRespawn;
-	AllTmpEff=new cAllTmpEff;
+	AllTmpEff = new cAllTmpEff;
+	Movement = new cMovement;
 
 	clConsole.send(" Done\n");
 }
@@ -5716,6 +5717,7 @@ void DeleteClasses(void)
 	delete ItemArray;
 	delete CharArray;
 	delete Respawn;
+	delete Movement;
 }
 
 // if we can find new effects they can be added here and will be active 

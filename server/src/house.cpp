@@ -216,7 +216,7 @@ void buildhouse(int s, int i)
 		{
 			for (l=-sy;l<sy;l++)
 			{
-				if ((!validNPCMove(x+k,y+l,z,currchar[s]))&&
+				if ( ( !Movement->CanCharWalk( currchar[s], x+k, y+l, z ) )&&
 					((chars[currchar[s]].pos.x!=x+k)&&(chars[currchar[s]].pos.y!=y+l)))
 					/*This will take the char making the house out of the space check, be careful 
 					you don't build a house on top of your self..... this had to be done So you 

@@ -34,6 +34,7 @@
 #include "wolfpack.h"
 #include "tilecache.h"
 #include "verinfo.h"
+#include "walking2.h"
 #if defined(__unix__)
 termios termstate ;
 #endif
@@ -43,7 +44,7 @@ wp_version_info wp_version;
 //	Instantiate our console object
 
 WPConsole_cl clConsole;
-TileCache_cl clTiledata ;
+TileCache_cl clTiledata;
 
 UI32 VersionRecordSize = 20L;
 UI32 MultiRecordSize = 12L;
@@ -306,6 +307,7 @@ cBooks          *Books;
 //cFile			*File;			- Currently Unused.
 cAccount		*Accounts;
 cAllTmpEff		*AllTmpEff;
+cMovement		*Movement;
 
 cItemArray *ItemArray;
 cCharArray *CharArray;
@@ -325,7 +327,7 @@ cCharWrap cwrap;
 /////////////////////////////////////////////
 // maximum too cause maxclient = maximum +1
 
-char noweather[MAXCLIENT+1]; //LB
+ char noweather[MAXCLIENT+1]; //LB
  unsigned char LSD[MAXCLIENT];
  unsigned char DRAGGED[MAXCLIENT];
  unsigned char EVILDRAGG[MAXCLIENT]; // we need this for UO3D clients to save dragging history , LB

@@ -1274,7 +1274,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					break;
 
 				case 0x02:// Walk				
-					walking(DEREF_P_CHAR(pc_currchar), buffer[s][1], buffer[s][2]);
+					Movement->Walking(DEREF_P_CHAR(pc_currchar), buffer[s][1], buffer[s][2]);
 					pc_currchar->disturbMed(s);
 					break;
 
@@ -1402,7 +1402,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					{
 						updatechar(DEREF_P_CHAR(pc_currchar));
 					}
-					walking2(DEREF_P_CHAR(pc_currchar));
+					Movement->CombatWalk(DEREF_P_CHAR(pc_currchar));
 					dosocketmidi(s);
 					pc_currchar->disturbMed(s);
 					break;

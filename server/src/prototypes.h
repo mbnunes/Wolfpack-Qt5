@@ -279,7 +279,6 @@ inline int calcserial(unsigned char a1,unsigned char a2,unsigned char a3,unsigne
 void setptr(lookuptr_st *ptr, int item);
 void removefromptr(lookuptr_st *ptr, int nItem);// - remove item from pointer array
 int findbyserial(lookuptr_st *ptr, int nSerial, int nType);// - find item in a pointer array
-void setserial(int nChild, int nParent, int nType);// - set serial#s and ptr arrays
 
 //void possess(int s); //Not done
 int line_of_sight(int s, Coord_cl&, Coord_cl&, int checkfor);
@@ -290,7 +289,7 @@ void    MsgBoardEvent(int nSerial);
 
 void doGmMoveEff(UOXSOCKET s); //gm movement effects
 // Guildstone related functions
-
+int chardirxyz(int a, int x, int y);	// direction from character a to char b
 
 
 void batchcheck(int s);

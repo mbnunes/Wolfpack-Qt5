@@ -291,7 +291,7 @@ void Writeslot(LPSTR lpszMessage);
 
 #define MY_CLOCKS_PER_SEC 1000
 #define INVALID_SERIAL -1
-
+#define INVALID_UOXSOCKET -1
 
 #endif
 ///////////////////////  End Defines

@@ -1271,16 +1271,12 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							if (itemnum>-1)
 							{
 								p = currchar[ts];
-								if (items[itemnum].ownserial!=-1)
-									removefromptr(&ownsp[items[itemnum].ownserial%HASHMAX], itemnum);
-								setserial(itemnum, p, 3);
+								items[itemnum].SetOwnSerial(chars[p].serial);
 							}
 							if (npcnum>-1)
 							{
 								p = currchar[ts];
-								if (chars[npcnum].ownserial!=-1)
-									removefromptr(&cownsp[chars[npcnum].ownserial%HASHMAX], npcnum);
-								setserial(npcnum, p, 5);
+								chars[npcnum].SetOwnSerial(chars[p].serial);
 								chars[npcnum].tamed = true;// AntiChrist FIX
 							}
 						}
@@ -1967,12 +1963,10 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 						}
 						else if (!(strcmp("SETOWNER", (char*)script1)))  // Set ownership of item
 						{
-							if (ti>-1)
+							if (pi != NULL)
 							{
 								p = currchar[ts];
-								if (pi->ownserial!=-1)
-									removefromptr(&ownsp[pi->ownserial%HASHMAX], ti);
-								setserial(ti, p, 3);
+								pi->SetOwnSerial(chars[p].serial);
 							}
 						}
 						else if (!(strcmp("SETTRG", (char*)script1)))  // Set items trigger to new trigger
@@ -2900,21 +2894,12 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 							if (itemnum>-1)
 							{// item
 								p = currchar[ts];
-								if (items[itemnum].ownserial!=-1)
-									removefromptr(&ownsp[items[itemnum].ownserial%HASHMAX], itemnum);
-								setserial(itemnum, p, 3);
+								items[itemnum].SetOwnSerial(chars[p].serial);
 							}
 							if (npcnum>-1)
 							{// char
 								p = currchar[ts];
-								if (chars[npcnum].ownserial!=-1)
-									removefromptr(&cownsp[chars[npcnum].ownserial%HASHMAX], npcnum);
-								setserial(npcnum, p, 5);
-								chars[npcnum].tamed = true;// AntiChrist
-														   /*chars[npcnum].own1 = chars[p].ser1;
-														   chars[npcnum].own2 = chars[p].ser2;
-														   chars[npcnum].own3 = chars[p].ser3;
-								chars[npcnum].own4 = chars[p].ser4; */
+								chars[npcnum].SetOwnSerial(chars[p].serial);
 							}
 						}
 						else if (!(strcmp("NEEDCOLOR", (char*)script1)))  // Set the color check on NEEDED item by Magius(CHE) §
@@ -3213,14 +3198,7 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 							if (ti>-1)
 							{
 								p = currchar[ts];
-								if (chars[ti].ownserial!=-1)
-									removefromptr(&cownsp[chars[ti].ownserial%HASHMAX], ti);
-								setserial(ti, p, 5);
-								chars[ti].tamed = true; // AntiChrist bugfix
-														/*chars[ti].own1 = chars[p].ser1;
-														chars[ti].own2 = chars[p].ser2;
-														chars[ti].own3 = chars[p].ser3;
-								chars[ti].own4 = chars[p].ser4; */
+								chars[ti].SetOwnSerial(chars[p].serial);
 							}
 						}
 						break;

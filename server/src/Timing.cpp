@@ -639,7 +639,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 	char t[120];
 
 	Npcs->CheckAI(currenttime, DEREF_P_CHAR(pc));//Lag fix
-	npcMovement2(currenttime, DEREF_P_CHAR(pc));//Lag fix
+	Movement->NpcMovement(currenttime, DEREF_P_CHAR(pc));//Lag fix
 	setcharflag(pc);
 	if (!pc->dead && pc->swingtarg==-1 )
 		Combat->DoCombat(DEREF_P_CHAR(pc),currenttime);

@@ -216,6 +216,7 @@ class cMapStuff
 //Variables
 private:
 	friend class MapStaticIterator;
+	friend class cMovement;
 
         // moved from global vars into here - fur 11/3/1999
         UOXFile *mapfile, *sidxfile, *statfile, *verfile, *tilefile, *multifile, *midxfile;

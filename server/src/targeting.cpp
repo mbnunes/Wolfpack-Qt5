@@ -707,7 +707,6 @@ static void MoveBelongingsToBp(P_CHAR pc, CHARACTER c)
 		pPack=MAKE_ITEMREF_LR(n);
 		if(n==-1) return;
 		pPack->SetContSerial(chars[c].serial);
-		setserial(n,c,4);
 		pPack->layer=0x15;
 		pPack->type=1;
 		pPack->dye=1;
