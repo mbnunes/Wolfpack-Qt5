@@ -195,13 +195,13 @@ void WPDefManager::load( void )
 		clConsole.send( QString("Item Sections:           %1\n").arg( Items.size() ) );
 		clConsole.send( QString("Npc Sections:            %1\n").arg( NPCs.size() ) );
 		clConsole.send( QString("Menu Sections:           %1\n").arg( Menus.size() ) );
-		clConsole.send( QString("ACL Sections:		      %1\n").arg( PrivLevels.size() ) );
+		clConsole.send( QString("ACL Sections:            %1\n").arg( PrivLevels.size() ) );
 		clConsole.send( QString("Spell Sections:          %1\n").arg( Spells.size() ) );
 		clConsole.send( QString("List Sections:           %1\n").arg( StringLists.size() ) );
 		clConsole.send( QString("Multi Sections:          %1\n").arg( Multis.size() ) );
 		clConsole.send( QString("Text Sections:           %1\n").arg( Texts.size() ) );
 		clConsole.send( QString("StartItem Sections:      %1\n").arg( StartItems.count() ) );
-		clConsole.send( QString("Locations:				  %1\n").arg( Locations.count() ) );
+		clConsole.send( QString("Locations:               %1\n").arg( Locations.count() ) );
 	}
 	else
 		clConsole.ProgressFail();

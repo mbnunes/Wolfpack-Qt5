@@ -36,6 +36,235 @@
 // V1.0 7'th dec 1999, "wrapped" everything in a class, added customable number of max-pages
 // V1.1 12-dec-1999 -> nasty bug fixed (item# used as "key" instead of serial#) and a few very small bugfixes
 
+// V2.0 20-jun-2002 rewritten - sereg
+
+#include "books.h"
+#include "network/uotxpackets.h"
+#include "network/uosocket.h"
+#include "wpdefmanager.h"
+
+#undef DBGFILE
+#define DBGFILE "books.cpp"
+
+void cBook::Serialize( ISerialization &archive )
+{
+	if( archive.isReading() )
+	{
+		archive.read( "book.title", title_ );
+		archive.read( "book.author", author_ );
+		UI32 i;
+		for( i = 0; i < content_.size(); i++ )
+		{
+			QString currPage = (char*)0;
+			archive.read( (char*)QString("book.content.page%1").arg(i).latin1(), currPage );
+			this->content_[i] = currPage;
+		}
+		archive.read( "book.readonly", readonly_ );
+		archive.read( "book.predefined", predefined_ );
+		archive.read( "book.section", section_ );
+	}
+	else
+	{
+		archive.write( "book.title", (char*)title_.latin1() );
+		archive.write( "book.author", (char*)author_.latin1() );
+		UI32 i;
+		for( i = 0; i < content_.size(); i++ )
+		{
+			archive.write( (char*)QString("book.content.page%1").arg(i).latin1(), this->content_[i] );
+		}
+		archive.write( "book.readonly", readonly_ );
+		archive.write( "book.predefined", predefined_ );
+		archive.write( "book.section", (char*)section_.latin1() );
+	}
+	cItem::Serialize( archive );
+}
+
+void cBook::processNode( const QDomElement &Tag )
+{
+	QString TagName = Tag.nodeName();
+	QString Value = this->getNodeValue( Tag );
+
+	//	<title>blabla</title>
+	if( TagName == "title" )
+	{
+		title_ = Value;
+		predefined_ = true;
+	}
+
+	//	<author>blabla</author>
+	else if( TagName == "author" )
+	{
+		author_ = Value;
+		predefined_ = true;
+	}
+
+	//	<content>
+	//		<page no="1">
+	//			sdjkjsdk
+	//			asdjkasdjk
+	//		</page>
+	//		<page>
+	//		...
+	//		</page>
+	//	</content>
+	else if( TagName == "content" )
+	{
+		QDomNode childNode = Tag.firstChild();
+		while( !childNode.isNull() )
+		{
+			if( childNode.isElement() )
+			{
+				QDomElement childTag = childNode.toElement();
+				Value = this->getNodeValue( childTag );
+				if( Tag.attributes().contains("no") )
+				{
+					this->content_[ Tag.attribute( "no" ).toShort() - 1 ] = Value;
+				}
+				else
+					this->content_.push_back( Value );
+			}
+			childNode = childNode.nextSibling();
+		}
+		predefined_ = true;
+	}
+
+	//	<readonly />
+	else if( TagName == "readonly" )
+		readonly_ = true;
+
+	else
+		cItem::processNode( Tag );
+}
+
+void cBook::refresh( void )
+{
+	QDomElement* DefSection = DefManager->getSection( WPDT_ITEM, section_ );
+	if( !DefSection->isNull() )
+	{
+		QDomNode childNode = DefSection->firstChild();
+		while( !childNode.isNull() )
+		{
+			if( childNode.isElement() )
+			{
+				QDomElement Tag = childNode.toElement();
+				QString TagName = Tag.nodeName();
+				QString Value = this->getNodeValue( Tag );
+
+				//	<title>blabla</title>
+				if( TagName == "title" )
+				{
+					title_ = Value;
+				}
+
+				//	<author>blabla</author>
+				else if( TagName == "author" )
+				{
+					author_ = Value;
+				}
+
+				//	<content>
+				//		<page no="1">
+				//			sdjkjsdk
+				//			asdjkasdjk
+				//		</page>
+				//		<page>
+				//		...
+				//		</page>
+				//	</content>
+				else if( TagName == "content" )
+				{
+					QDomNode chchildNode = Tag.firstChild();
+					while( !chchildNode.isNull() )
+					{
+						if( chchildNode.isElement() )
+						{
+							QDomElement chchildTag = chchildNode.toElement();
+							Value = this->getNodeValue( chchildTag );
+							if( Tag.attributes().contains("no") )
+							{
+								this->content_[ Tag.attribute( "no" ).toShort() - 1 ] = Value;
+							}
+							else
+								this->content_.push_back( Value );
+						}
+						chchildNode = chchildNode.nextSibling();
+					}
+				}
+			}
+			childNode = childNode.nextSibling();
+		}
+	}
+}
+
+void cBook::open( cUOSocket* socket )
+{
+	if( this->predefined_ )
+		this->refresh();
+
+	cUOTxBookTitle openBook;
+	openBook.setSerial( this->serial );
+	openBook.setWriteable( !this->readonly_ );
+	if( !this->readonly_ )
+		openBook.setFlag( 1 );
+	openBook.setPages( this->content_.size() );
+	openBook.setTitle( this->title_ );
+	openBook.setAuthor( this->author_ );
+
+	socket->send( &openBook );
+
+	// for writeable books we have to send the entire book...
+	if( !readonly_ )
+	{
+		std::vector< QStringList > lines;
+		UINT32 i, size = 9;
+		for( i = 0; i < content_.count(); i++ )
+		{
+#pragma note("does parsed text contain \n masks? probably we need another solutions (<br>'s?)")
+			QStringList tmpLines = QStringList::split( "\n", content_[i] );
+			size += 4;
+			QStringList::const_iterator it = tmpLines.begin();
+			while( it != tmpLines.end() )
+			{
+				size += (*it).length()+1; //null terminated lines!
+				it++;
+			}
+			lines[i] = tmpLines;
+		}
+
+		cUOTxBookPage readBook( size );
+		readBook.setBlockSize( (UINT16)size );
+		readBook.setSerial( this->serial );
+		readBook.setPages( this->content_.count() );
+
+		for( i = 0; i < content_.count(); i++ )
+		{
+			readBook.setPage( i+1, lines[i].size(), lines[i] );
+		}
+	}
+}
+
+void cBook::readPage( cUOSocket *socket, UINT32 page )
+{
+	if( this->predefined_ )
+		this->refresh();
+
+	UINT32 size = 13;
+	QStringList lines = QStringList::split( "\n", content_[page-1] );
+	QStringList::const_iterator it = lines.begin();
+	while( it != lines.end() )
+	{
+		size += (*it).length()+1; //null terminated lines!
+		it++;
+	}
+	cUOTxBookPage readBook( size );
+	readBook.setBlockSize( (UINT16)size );
+	readBook.setSerial( this->serial );
+	readBook.setPages( 1 );
+
+	readBook.setPage( page, lines.size(), lines );
+}
+
+/* V1.1
 #include "books.h"
 #include "network.h"
 #include "scriptc.h"
@@ -731,3 +960,4 @@ signed char cBooks::make_new_book_file(char *fileName, P_ITEM pBook)
 	return 0;
 }
 
+*/

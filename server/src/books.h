@@ -32,9 +32,106 @@
 #if !defined(__BOOKS_H__)
 #define __BOOKS_H__
 
+// Library includes
+#include "qdom.h"
+#include "qstring.h"
+
+// Wolfpack includes
+#include "items.h"
+
+// Forward Declarations
+class ISerialization;
+
+class cBook : public cItem
+{
+public:
+	cBook()
+	{
+		cItem::Init();
+		this->setType( 11 ); // book type
+		this->predefined_ = false;
+		this->readonly_ = false;
+
+		this->title_ = (char*)0;
+		this->author_ = (char*)0;
+		this->content_ = QStringList();
+
+		this->section_ = (char*)0;
+	}
+
+	virtual ~cBook() {;}
+
+	// abstract cSerializable
+	virtual QString objectID( void ) const { return "BOOK"; }
+	virtual void	Serialize( ISerialization &archive );
+
+	// abstract cDefinable
+	virtual void	processNode( const QDomElement &Tag );
+
+	// setters/getters
+	QString		title( void )			{ return title_; }
+	QString		author( void )			{ return author_; }
+	QStringList	content( void )			{ return content_; }
+
+	bool		predefined( void )		{ return predefined_; }
+	bool		readonly( void )		{ return readonly_; }
+
+	QString		section( void )		{ return section_; }
 
 
+	bool		setAuthor( QString data )
+	{
+		if( this->readonly_ )
+			this->author_ = data;
 
+		return this->readonly_ && !this->predefined_;
+	}
+
+	bool		setTitle( QString data )
+	{
+		if( this->readonly_ )
+			this->title_ = data;
+
+		return this->readonly_ && !this->predefined_;
+	}
+
+	bool		setContent( QStringList data )
+	{
+		if( this->readonly_ )
+			this->content_ = data;
+
+		return this->readonly_ && !this->predefined_;
+	}
+
+	void		setPredefined( bool data )
+	{
+		this->predefined_ = data;
+	}
+
+	void		setSection( QString data )
+	{
+		this->section_ = data;
+	}
+
+	// networking
+	void		open( cUOSocket* socket );
+	void		readPage( cUOSocket* socket, UINT32 page );
+
+	// methods for predefined books
+	void		refresh( void );
+
+private:
+	QString		title_;
+	QString		author_;
+	QStringList	content_;
+
+	bool		predefined_;
+	bool		readonly_;
+
+	QString		section_; // textsection for predefined books
+};
+
+/*
 // Book class by Lord Binary, 7'th december 1999
 
 // new books readonly -> morex  999
@@ -91,5 +188,6 @@ class cBooks
 		virtual ~cBooks() {};
         	
 };
+*/
 
 #endif

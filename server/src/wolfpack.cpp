@@ -5147,7 +5147,6 @@ void StartClasses(void)
 	Weight			= NULL;
 	Targ			= NULL;
 	Magic			= NULL;
-	Books			= NULL;
 	Movement		= NULL;
 	Weather			= NULL;
 	DragonAI		= NULL;
@@ -5169,7 +5168,6 @@ void StartClasses(void)
 	Weight			= new cWeight;
 	Targ			= new cTargets;
 	Magic			= new cMagic;
-	Books			= new cBooks;
 	Movement		= new cMovement;
 
 	//Weather = new cWeather;
@@ -5199,7 +5197,6 @@ void DeleteClasses()
 	delete Weight;
 	delete Targ;
 	delete Magic;
-	delete Books;
 	delete Movement;
 	delete DragonAI;
 	delete BankerAI;

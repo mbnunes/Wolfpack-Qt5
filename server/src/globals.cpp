@@ -258,7 +258,6 @@ cFishing        *Fishing;
 cWeight			*Weight;
 cTargets		*Targ;
 cMagic			*Magic;
-cBooks          *Books;
 cAccounts		*Accounts;
 cMovement		*Movement;
 cWeather		*Weather;

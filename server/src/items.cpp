@@ -849,10 +849,6 @@ void cAllItems::DeleItem(P_ITEM pi)
 		else
 			pi->setContSerial(INVALID_SERIAL);
 
-
-		if (pi->type()==11 && (pi->morex==666 || pi->morey==999)) Books->delete_bokfile(pi); 
-        // if a new book gets deleted also delete the corresponding bok file
-
 		// Also delete all items inside if it's a container.
 		vector<SERIAL> vecContainer = contsp.getData(pi->serial);
 		unsigned int i;
@@ -1441,7 +1437,24 @@ P_ITEM cAllItems::createScriptItem( QString Section )
 	QDomElement* DefSection = DefManager->getSection( WPDT_ITEM, Section );
 	
 	if( DefSection->isNull() ) // section not found 
+	{
 		clConsole.log( QString("Unable to create unscripted item: %1\n").arg(Section).latin1() );
+		return NULL;
+	}
+
+	//books:
+	if( DefSection->attributes().contains( "type" ) )
+	{
+		if( DefSection->attribute( "type" ) == "book" )
+		{
+			cBook* nBook = new cBook();
+			nBook->Init();
+			cItemsManager::getInstance()->registerItem( nBook );
+
+			nBook->applyDefinition( *DefSection );
+			nBook->setSection( Section );
+		}
+	}
 	else
 	{
 		nItem = MemItemFree();

@@ -48,6 +48,7 @@
 #include "mapstuff.h"
 #include "territories.h"
 #include "accounts.h"
+#include "books.h"
 
 #undef  DBGFILE
 #define DBGFILE "worldmain.cpp"
@@ -931,9 +932,18 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 		{
 			pi = new cItem;
 		} 
+#pragma note("needs a closer look if the dyncasted pointers work that way in the inheritance tree!")
 		else if ( objectID == "HOUSE" )
 		{
 			pi = dynamic_cast<P_ITEM>(new cHouse);
+		}
+		else if ( objectID == "BOAT" )
+		{
+			pi = dynamic_cast<P_ITEM>(new cBoat);
+		}
+		else if ( objectID == "BOOK" )
+		{
+			pi = dynamic_cast<P_ITEM>(new cBook);
 		}
 		else if ( objectID == "GUILDSTONE" )
 		{

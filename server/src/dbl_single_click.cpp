@@ -551,15 +551,15 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		Xsend(s, map2, 11);
 		return;// maps
 	case 11: // book (not spellbooks)
-		pc_currchar->objectdelay = 0;
-		if (pi->morex != 666 && pi->morex != 999)
-			Books->openbook_old(s, pi); 
-		else if (pi->morex == 666)
-			Books->openbook_new(s, pi, 1);
-		else 
-			Books->openbook_new(s, pi, 0);
+	{
+		cBook* pBook = dynamic_cast< cBook* >(pi);
+		if( pBook )
+		{
+			pc_currchar->objectdelay = 0;
+			pBook->open( socket );
+		}
 		return;// book
-		
+	}	
 	case 12: // door(unlocked)
 		pc_currchar->objectdelay = 0;
 		dooruse(s, pi);

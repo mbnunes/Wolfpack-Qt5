@@ -615,10 +615,29 @@ public:
 
 	void setSerial( UINT32 data ) { setInt( 1, data ); }
 	void setWriteable( bool data ) { rawPacket[5] = data ? 1 : 0; }
-	// New flag ?
+	void setFlag( UINT8 data ) { rawPacket[6] = data; }
 	void setPages( UINT16 data ) { setShort( 7, data ); }
 	void setTitle( const QString &title ) { setAsciiString( 9, title.latin1(), 60 ); }
 	void setAuthor( const QString &author ) { setAsciiString( 69, author.latin1(), 30 ); }
+};
+
+// 0x66 Book Page
+class cUOTxBookPage: public cUOPacket
+{
+public:
+	// the size of this packet is variable...
+	cUOTxBookPage( UINT32 size ): cUOPacket( 0x66, size ) 
+	{
+		currPageOffset = 0;
+	}
+
+	void setBlockSize( UINT16 data ) { setShort( 1, data ); }
+	void setSerial( UINT32 data ) { setInt( 3, data ); }
+	void setPages( UINT16 data ) { setShort( 7, data ); }
+
+	void setPage( UINT16 page, UINT16 numLines, const QStringList &lines );
+protected:
+	UINT16 currPageOffset;
 };
 
 // 0x6D Play Music
