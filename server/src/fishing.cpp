@@ -41,7 +41,7 @@ History: None
 #include "debug.h"
 #include "srvparams.h"
 #include "classes.h"
-#include "mapstuff.h"
+#include "maps.h"
 #include "network.h"
 #include "skills.h"
 

@@ -69,7 +69,7 @@ class CWorldMain;
 class cBoat;
 class cAccount;
 class cAllItems;
-class cMapStuff;
+class Maps;
 class cSkills;
 class cFishing;
 class cWeight;
@@ -80,13 +80,14 @@ class cSpeech;
 class cTrade;
 class cBounty;
 class cAccounts;
+class cMultisCache;
 
 //-=-=-=-=-=-=-Classes Definitions=-=-=-=-=-=//
 extern cSrvParams		*SrvParams;
 extern CWorldMain		*cwmWorldState;
 extern cAccounts		*Accounts;
 extern cAllItems		*Items;
-extern cMapStuff		*Map;
+extern Maps				*Map;
 extern cSkills			*Skills;
 extern cFishing			*Fishing;
 extern cWeight			*Weight;
@@ -96,6 +97,8 @@ extern cMovement		*Movement;
 extern cSpeech	        *Speech;
 extern cTrade	        *Trade;
 extern cBounty          *Bounty;
+extern cMultisCache		*MultisCache;
+
 // Skys AI 
 extern cCharStuff::cDragonAI	*DragonAI;
 extern cCharStuff::cBankerAI	*BankerAI;

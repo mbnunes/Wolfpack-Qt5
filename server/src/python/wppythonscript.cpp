@@ -33,7 +33,7 @@
 #include "../worldmain.h"
 #include "../globals.h"
 #include "../junk.h"
-#include "../mapstuff.h"
+#include "../maps.h"
 #include "../network.h"
 
 // Library Includes

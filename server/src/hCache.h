@@ -79,7 +79,6 @@ class UOXFile
   void get_st_multi(struct st_multi *, unsigned int = 1);
   void get_map_st(struct map_st *, unsigned int = 1);
   void get_st_multiidx(struct st_multiidx *, unsigned int = 1);
-  void get_staticrecord(struct staticrecord *, unsigned int = 1);
 };
 
 #endif

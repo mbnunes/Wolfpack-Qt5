@@ -45,7 +45,7 @@
 #include "wpdefaultscript.h"
 #include "network.h"
 #include "classes.h"
-#include "mapstuff.h"
+#include "maps.h"
 
 #include <string>
 

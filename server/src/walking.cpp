@@ -41,13 +41,18 @@
 #include "srvparams.h"
 #include "network.h"
 #include "classes.h"
-#include "mapstuff.h"
+#include "maps.h"
 #include "tilecache.h"
 #include "territories.h"
 #include "network/uosocket.h"
+#include "multiscache.h"
+#include "tilecache.h"
+
+// Library Includes
+#include <qvaluevector.h>
 
 #undef  DBGFILE
-#define DBGFILE "SrvParms.cpp"
+#define DBGFILE "walking.cpp"
 
 
 // DEFINES (Some of these should probably be moved to typedefs.h in the future)
@@ -144,29 +149,28 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 
 	// Process the map at that position
 	stBlockItem mapBlock;
-	INT32 mapId = 0;
-	mapBlock.z = Map->AverageMapElevation( pos, mapId );
+	mapBlock.z = Map->mapAverageElevation( pos );
 
 	// TODO: Calculate the REAL average Z Value of that Map Tile here! Otherwise clients will have minor walking problems.
-	mapBlock.z = Map->MapElevation( pos );
+	mapBlock.z = Map->mapElevation( pos );
 
-	map_st mapCell = Map->SeekMap( pos );
+	map_st mapCell = Map->seekMap( pos );
 	land_st mapTile = cTileCache::instance()->getLand( mapCell.id );
 
 	// If it's not impassable it's automatically walkable
 	if( !(mapTile.flag1 & 0x40) )
 		mapBlock.walkable = true;
 	else
-		mapBlock.walkable = checkWalkable( pChar, Map->SeekMap( pos ).id );
+		mapBlock.walkable = checkWalkable( pChar, Map->seekMap( pos ).id );
 
 	blockList.push_back( mapBlock );
 	push_heap( blockList.begin(), blockList.end(), compareTiles() );
 
     // Now for the static-items
-	MapStaticIterator staIter( pos );
-	for( staticrecord *sTile = staIter.First(); sTile; sTile = staIter.Next() )
+	StaticsIterator staIter = Map->staticsIterator( pos );
+	for( ; !staIter.atEnd(); ++staIter )
 	{
-		tile_st tTile = cTileCache::instance()->getTile( sTile->itemid );
+		tile_st tTile = cTileCache::instance()->getTile( staIter->itemid );
 
 		// Here is decided if the tile is needed
 		// It's uninteresting if it's NOT blocking
@@ -175,14 +179,14 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 			continue;
 
 		stBlockItem staticBlock;
-		staticBlock.z = sTile->zoff;
+		staticBlock.z = staIter->zoff;
 
 		// If we are a surface we can always walk here, otherwise check if
 		// we are special
 		if( ( tTile.flag2 & 0x02 ) && !( tTile.flag1 & 0x40 ) )
 			staticBlock.walkable = true;
 		else
-			staticBlock.walkable = checkWalkable( pChar, sTile->itemid );
+			staticBlock.walkable = checkWalkable( pChar, staIter->itemid );
 
 		// If we are a stair only the half height counts
 		if( tTile.flag2 & 0x04 )
@@ -204,29 +208,22 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 
 		if( pItem->id() >= 0x4000 )
 		{
-			SI32 length;
-			st_multi multi;
-			UOXFile *mfile;
-			Map->SeekMulti( pItem->id() - 0x4000, &mfile, &length );
-			length = length / sizeof( st_multi );
-			if (length == -1 || length >= 17000000) // Too big...
+			MultiDefinition* def = MultisCache->getMulti( pItem->id() - 0x4000 );
+			if ( !def )
+				continue;
+			QValueVector<multiItem_st> multi = def->getEntries();
+			unsigned int j;
+			for ( j = 0; j < multi.size(); ++j)
 			{
-				LogError( (char*)QString( "getBlockingItems( ... ) - Bad length in multi file. Avoiding stall.\n").latin1() );
-				length = 0;
-			}
-			register int j;
-			for ( j = 0; j < length; ++j)
-			{
-				mfile->get_st_multi( &multi );
-				if ( multi.visible && ( pItem->pos.x + multi.x == pos.x) && ( pItem->pos.y + multi.y == pos.y ) )
+				if ( multi[j].visible && ( pItem->pos.x + multi[j].x == pos.x) && ( pItem->pos.y + multi[j].y == pos.y ) )
 				{
-					tile_st tTile = cTileCache::instance()->getTile( multi.tile );
+					tile_st tTile = cTileCache::instance()->getTile( multi[j].tile );
 					if( !( ( tTile.flag2 & 0x02 ) || ( tTile.flag1 & 0x40 ) || ( tTile.flag2 & 0x04 ) ) )
 						continue;
 
 					stBlockItem blockItem;
 					blockItem.height = tTile.height;
-					blockItem.z = pItem->pos.z + multi.z;
+					blockItem.z = pItem->pos.z + multi[j].z;
 
 					if( ( tTile.flag2 & 0x02 ) && !( tTile.flag1 & 0x40 ) )
 						blockItem.walkable = true;
@@ -665,7 +662,7 @@ bool cMovement::CanNPCWalk(unitile_st xyb)
 	if (xyb.flag1 & 0x40) {
 		return false;
 	}
-	if ( Map->IsRoofOrFloorTile(&newTile) )
+	if ( newTile.isRoofOrFloorTile() )
 		return true;
 	
 	if ( xyb.type == 0 )
@@ -683,17 +680,11 @@ bool cMovement::CanPlayerWalk(unitile_st xyb)
 
 	tile_st newTile = cTileCache::instance()->getTile( blockid );
 
-   // khpae : blocking tile !!
-	if (xyb.flag1 & 0x40) {
+	if (xyb.flag1 & 0x40 || xyb.flag2 & 0x06 || xyb.type == 0 ) 
+	{
 		return false;
 	}
-	if ( Map->IsRoofOrFloorTile(&newTile) )
-		return true;
-	
-	if ( xyb.type == 0 )
-		return true;
-
-	if ( xyb.flag2 & 0x06 )
+	if ( newTile.isRoofOrFloorTile() )
 		return true;
 
 	return false;
@@ -703,7 +694,7 @@ bool cMovement::CanFishWalk(unitile_st xyb)
 {
 	unsigned short int blockid = xyb.id;
 	
-	if ( Map->IsTileWet(blockid) )
+	if ( cTileCache::instance()->getTile(blockid).isWet() )
 		return true;
 
 	// Can they walk/swim on water tiles?
@@ -820,7 +811,7 @@ void cMovement::checkStealth( P_CHAR pChar )
 void cMovement::GetBlockingMap( const Coord_cl pos, unitile_st *xyblock, int &xycount)
 {
 	int mapid = 0;
-	signed char mapz = Map->MapElevation(pos);  //Map->AverageMapElevation(x, y, mapid);
+	signed char mapz = Map->mapElevation(pos);  //Map->AverageMapElevation(x, y, mapid);
 	if (mapz != illegal_z)
 	{
 		land_st land = cTileCache::instance()->getLand( mapid );
@@ -840,22 +831,21 @@ void cMovement::GetBlockingMap( const Coord_cl pos, unitile_st *xyblock, int &xy
 
 void cMovement::GetBlockingStatics(const Coord_cl pos, unitile_st *xyblock, int &xycount)
 {
-	MapStaticIterator msi(pos);
-	staticrecord *stat;
- 	while (stat = msi.Next())
+	StaticsIterator msi = Map->staticsIterator(pos);
+ 	while (!msi.atEnd())
 	{
-		tile_st tile;
-		msi.GetTile(&tile);
-		xyblock[xycount].type=2;
-		xyblock[xycount].basez=stat->zoff;
-		xyblock[xycount].id=stat->itemid;
-		xyblock[xycount].flag1=tile.flag1;
-		xyblock[xycount].flag2=tile.flag2;
-		xyblock[xycount].flag3=tile.flag3;
-		xyblock[xycount].flag4=tile.flag4;
-		xyblock[xycount].height=tile.height;
-		xyblock[xycount].weight=255;
-		xycount++;
+		tile_st tile = cTileCache::instance()->getTile( msi->itemid );
+		xyblock[xycount].type	= 2;
+		xyblock[xycount].basez	= msi->zoff;
+		xyblock[xycount].id		= msi->itemid;
+		xyblock[xycount].flag1	= tile.flag1;
+		xyblock[xycount].flag2	= tile.flag2;
+		xyblock[xycount].flag3	= tile.flag3;
+		xyblock[xycount].flag4	= tile.flag4;
+		xyblock[xycount].height	= tile.height;
+		xyblock[xycount].weight = 255;
+		++xycount;
+		++msi;
 	}
 }
 
@@ -889,32 +879,25 @@ void cMovement::GetBlockingDynamics(const Coord_cl position, unitile_st *xyblock
 				(abs(mapitem->pos.y - position.y)<=BUILDRANGE)
 				)
 			{
-				UOXFile *mfile = NULL;
-				SI32 length = 0;		// should be SI32, not long
-				Map->SeekMulti(mapitem->id()-0x4000, &mfile, &length);
-				length=length/MultiRecordSize;
-				if (length == -1 || length>=17000000)//Too big... bug fix hopefully (Abaddon 13 Sept 1999)
+				MultiDefinition* def = MultisCache->getMulti( mapitem->id() - 0x4000 );
+				if ( !def )
+					continue;
+				QValueVector<multiItem_st> multi = def->getEntries();
+				for (int j = 0; j < multi.size(); ++j)
 				{
-					printf("walking() - Bad length in multi file. Avoiding stall.\n");
-					length = 0;
-				}
-				for (int j=0;j<length;j++)
-				{
-					st_multi multi;
-					mfile->get_st_multi(&multi);
-					if (multi.visible && (mapitem->pos.x+multi.x == position.x) && (mapitem->pos.y+multi.y == position.y))
+					if (multi[j].visible && (mapitem->pos.x+multi[j].x == position.x) && (mapitem->pos.y+multi[j].y == position.y))
 					{
-						tile_st tile = cTileCache::instance()->getTile( multi.tile );
-						xyblock[xycount].type=2;
-						xyblock[xycount].basez = multi.z + mapitem->pos.z;
-						xyblock[xycount].id=multi.tile;
-						xyblock[xycount].flag1=tile.flag1;
-						xyblock[xycount].flag2=tile.flag2;
-						xyblock[xycount].flag3=tile.flag3;
-						xyblock[xycount].flag4=tile.flag4;
-						xyblock[xycount].height=tile.height;
-						xyblock[xycount].weight=255;
-						xycount++;
+						tile_st tile = cTileCache::instance()->getTile( multi[j].tile );
+						xyblock[xycount].type = 2;
+						xyblock[xycount].basez = multi[j].z + mapitem->pos.z;
+						xyblock[xycount].id = multi[j].tile;
+						xyblock[xycount].flag1 = tile.flag1;
+						xyblock[xycount].flag2 = tile.flag2;
+						xyblock[xycount].flag3 = tile.flag3;
+						xyblock[xycount].flag4 = tile.flag4;
+						xyblock[xycount].height = tile.height;
+						xyblock[xycount].weight = 255;
+						++xycount;
 					}
 				}
 			}
@@ -1171,7 +1154,7 @@ void cMovement::HandleTeleporters(P_CHAR pc, UOXSOCKET socket, const Coord_cl& o
 /********* start of LB's no rain & snow in buildings stuff ***********/
 void cMovement::HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket)
 {
-	if (pc->isPlayer() && online(pc)) // check for being in buildings (for weather) only for PC's
+/*	if (pc->isPlayer() && online(pc)) // check for being in buildings (for weather) only for PC's
 	{
 		// ok, this is already a bug, because the new weather stuff doesn't use this global
 		// for the weather.
@@ -1181,7 +1164,7 @@ void cMovement::HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket)
 			bool i = Map->IsUnderRoof(pc->pos); // static check
 
 			// dynamics-check
-			int x = Map->DynamicElevation(pc->pos);
+			int x = Map->dynamicElevation(pc->pos);
 			if (x!=illegal_z)
 				x=illegal_z; // check for dynamic buildings
 			if (x==1)
@@ -1199,6 +1182,7 @@ void cMovement::HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket)
 //				weather(socket, 0); // if outside-inside changes resend weather ...
 		}
 	}
+*/
 }
 
 void cMovement::HandleGlowItems(P_CHAR pc, UOXSOCKET socket)
@@ -1560,7 +1544,7 @@ bool cMovement::checkBoundingBox(const Coord_cl pos, int fx1, int fy1, int fx2, 
 {
 	if (pos.x>=((fx1<fx2)?fx1:fx2) && pos.x<=((fx1<fx2)?fx2:fx1))
 		if (pos.y>=((fy1<fy2)?fy1:fy2) && pos.y<=((fy1<fy2)?fy2:fy1))
-			if (pos.z == -1 || abs(pos.z - Map->Height(pos))<=5)
+			if (pos.z == -1 || abs(pos.z - Map->height(pos))<=5)
 				return true;
 			return false;
 }
@@ -1568,7 +1552,7 @@ bool cMovement::checkBoundingBox(const Coord_cl pos, int fx1, int fy1, int fx2, 
 bool cMovement::checkBoundingCircle(const Coord_cl pos, int fx1, int fy1, int radius)
 {
 	if ( (pos.x-fx1)*(pos.x-fx1) + (pos.y-fy1)*(pos.y-fy1) <= radius * radius)
-		if (pos.z == -1 || abs(pos.z-Map->Height(pos))<=5)
+		if (pos.z == -1 || abs(pos.z-Map->height(pos))<=5)
 			return true;
 		return false;
 }
@@ -1673,4 +1657,85 @@ bool cMovement::checkObstacles( cUOSocket *socket, P_CHAR pChar, const Coord_cl 
 {
 	// TODO: insert code here
 	return true;
+}
+
+UINT16 DynTile( const Coord_cl &pos )
+{
+	RegionIterator4Items ri( pos );
+	for( ri.Begin(); !ri.atEnd(); ri++ )
+	{
+		P_ITEM mapitem = ri.GetData();
+		if( mapitem )
+		{
+			if( mapitem->isMulti() )
+			{
+				MultiDefinition* def = MultisCache->getMulti( mapitem->id() - 0x4000 );
+				if ( !def )
+					return 0;
+				QValueVector<multiItem_st> multi = def->getEntries();
+				for( UINT32 j = 0; j < multi.size(); ++j )
+				{
+					if( ( multi[j].visible && ( mapitem->pos.x + multi[j].x == pos.x ) && ( mapitem->pos.y + multi[j].y == pos.y )
+						&& ( abs( mapitem->pos.z + multi[j].z - pos.z ) <= 1 ) ) )
+					{
+						return multi[j].tile;
+					}
+				}
+			}
+			else if ( mapitem->pos == pos )
+				return mapitem->id();
+        }    
+		
+    }
+	return (UINT16)-1;
+}
+
+bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
+{
+	if( pos.x >= ( Map->mapTileWidth(pos.map) * 8 ) || pos.y >= ( Map->mapTileHeight(pos.map) * 8 ) )
+		return false;
+    const signed char elev = Map->height( pos );
+	Coord_cl target = pos;
+	target.z = elev;
+	if (illegal_z == elev)
+		return false;
+
+	// is it too great of a difference z-value wise?
+	if (pos.z != illegal_z)
+	{
+		// you can climb MaxZstep, but fall up to 15
+		if (elev - pos.z > MaxZstep)
+			return false;
+		else if (pos.z - elev > 15)
+			return false;
+	}
+
+    // get the tile id of any dynamic tiles at this spot
+	Coord_cl mPos = pos;
+	mPos.z = elev;
+    const INT32 dt = DynTile( mPos );
+	
+    // if there is a dynamic tile at this spot, check to see if its a blocker
+    // if it does block, might as well INT16-circuit and return right away
+    if ( dt >= 0 )
+	{
+		tile_st tile = cTileCache::instance()->getTile(dt);
+		if ( tile.isBlocking() || tile.isWet() )
+			return false;
+	}
+	
+    // if there's a static block here in our way, return false
+	StaticsIterator msi = Map->staticsIterator( pos );
+	
+	while ( !msi.atEnd() )
+	{
+		tile_st tile = cTileCache::instance()->getTile( msi->itemid );
+		const INT32 elev = msi->zoff + cTileCache::tileHeight(tile);
+		if( (elev >= pos.z) && (msi->zoff <= pos.z ) )
+		{
+			if (tile.isBlocking() || tile.isWet()) 
+				return false;
+		}
+	}
+    return true;
 }

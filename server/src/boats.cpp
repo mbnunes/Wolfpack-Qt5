@@ -34,10 +34,11 @@
 #include "network.h"
 #include "mapobjects.h"
 #include "tilecache.h"
-#include "mapstuff.h"
+#include "maps.h"
 #include "srvparams.h"
 #include "network/uosocket.h"
 #include "territories.h"
+#include "multiscache.h"
 
 #include "classes.h" // only for the illegal_z!
 
@@ -400,40 +401,28 @@ bool cBoat::isValidPlace( UI16 posx, UI16 posy, SI08 posz, UI08 boatdir )
 	UI32 multiid = this->multiids_[ boatdir / 2 ] - 0x4000;
 
 	int j;
-	SI32 length;
-	st_multi multi;
-	UOXFile *mfile;
-	Map->SeekMulti(multiid, &mfile, &length);
-	length=length/sizeof(st_multi);
-	if (length == -1 || length>=17000000)//Too big...
-	{
-		clConsole.log( QString( "cBoat::isValidPlace: Bad length in multi file. Avoiding stall." ).latin1() );
-		length = 0;
-	}
-
-	map_st map;
-	land_st land;
-	tile_st tile;
+	MultiDefinition* def = MultisCache->getMulti( multiid );
+	if ( !def )
+		return false;
+	QValueVector<multiItem_st> multi = def->getEntries();
 	bool mapblocks = false;
-	for( j = 0; j < length; ++j )
+	for( j = 0; j < multi.size(); ++j )
 	{
-		mfile->get_st_multi(&multi);
-		map = Map->SeekMap( Coord_cl( multi.x + posx, multi.y + posy, pos.z, pos.map ) );
-		land = cTileCache::instance()->getLand( map.id );
-		MapStaticIterator msi( Coord_cl( multi.x + posx, multi.y + posy, pos.z, pos.map ) );
+		map_st map = Map->seekMap( Coord_cl( multi[j].x + posx, multi[j].y + posy, pos.z, pos.map ) );
+		land_st land = cTileCache::instance()->getLand( map.id );
+		StaticsIterator msi = Map->staticsIterator( Coord_cl( multi[j].x + posx, multi[j].y + posy, pos.z, pos.map ) );
 		mapblocks = !(land.flag1 & 0x80);
 
-		staticrecord *stat = msi.Next();
-		while( stat != NULL )
+		while( !msi.atEnd() )
 		{
-			msi.GetTile( &tile );
-			if( !(tile.flag1 & 0x80) && ( pos.z >= stat->zoff && pos.z <= (stat->zoff+70) ) )
+			tile_st tile = cTileCache::instance()->getTile( msi->itemid );
+			if( !(tile.flag1 & 0x80) && ( pos.z >= msi->zoff && pos.z <= (msi->zoff+70) ) )
 				return false;
 			if( mapblocks )
 				mapblocks = false;
 /*			else if( strcmp( (char*)tile.name, "water" ) != 0 )
 				return true; ???????????? non-english users ?????*/
-			stat = msi.Next();
+			++msi;
 		}
 		if( mapblocks )
 			return false;
@@ -983,8 +972,8 @@ bool cBoat::leave( cUOSocket* socket, P_ITEM pplank )
 	{
 		for( y = y0; y <= y1; y++) 
 		{
-			sz = Map->StaticTop( Coord_cl( x, y, 0, 0) );
-			mz = Map->MapElevation( Coord_cl( x, y, 0, 0) );
+			sz = Map->staticTop( Coord_cl( x, y, 0, 0) );
+			mz = Map->mapElevation( Coord_cl( x, y, 0, 0) );
 			if( (sz == illegal_z) && (mz != -5) ) 
 			{
 				z = mz;

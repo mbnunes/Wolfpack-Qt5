@@ -44,7 +44,7 @@ II. make sure to hold the map up to date !
 #include "items.h"
 #include "itemsmgr.h"
 #include "defines.h"
-#include "mapstuff.h"
+#include "maps.h"
 #include "walking.h"
 #include "utilsys.h"
 
@@ -223,9 +223,9 @@ bool cSpawnRegion::findValidSpot( Coord_cl &pos )
 		if( this->z_[rndRectNum] != 255 )
 			pos.z = this->z_[rndRectNum];
 		else
-			pos.z = Map->Height( pos );
+			pos.z = Map->height( pos );
 
-		if( Map->CanMonsterMoveHere( pos ) )
+		if( Movement->canLandMonsterMoveHere( pos ) )
 			return true;
 		i++;
 	}

@@ -48,7 +48,7 @@
 #include "wpscriptmanager.h"
 #include "skills.h"
 #include "network.h"
-#include "mapstuff.h"
+#include "maps.h"
 #include "network/uosocket.h"
 #include "classes.h"
 

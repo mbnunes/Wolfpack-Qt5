@@ -208,7 +208,7 @@ unsigned int hungerdamagetimer=0; // For hunger damage
 cSrvParams		*SrvParams;
 CWorldMain		*cwmWorldState;
 cAllItems		*Items;
-cMapStuff		*Map;
+Maps			*Map;
 cSkills			*Skills;
 cFishing        *Fishing;
 cWeight			*Weight;
@@ -219,6 +219,7 @@ cMovement		*Movement;
 cSpeech	        *Speech;
 cTrade	        *Trade;
 cBounty         *Bounty;
+cMultisCache	*MultisCache;
 WPScriptManager	*ScriptManager;
 WPDefManager    *DefManager;
 

@@ -225,7 +225,7 @@ SOURCE=.\mapobjects.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\mapstuff.cpp
+SOURCE=.\maps.cpp
 # End Source File
 # Begin Source File
 
@@ -234,6 +234,10 @@ SOURCE=.\msgboard.cpp
 # Begin Source File
 
 SOURCE=.\multis.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\multiscache.cpp
 # End Source File
 # Begin Source File
 
@@ -537,6 +541,10 @@ SOURCE=.\mapobjects.h
 # End Source File
 # Begin Source File
 
+SOURCE=.\maps.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\msgboard.h
 # End Source File
 # Begin Source File
@@ -550,6 +558,10 @@ SOURCE=.\multicache.h
 # Begin Source File
 
 SOURCE=.\multis.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\multiscache.h
 # End Source File
 # Begin Source File
 

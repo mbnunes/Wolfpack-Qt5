@@ -32,8 +32,10 @@
 #ifndef __VERINFO_H
 #define __VERINFO_H
 
-//System Includes
+// Wolfpack Includes
+#include "platform.h"
 
+//System Includes
 #include <string>
 
 

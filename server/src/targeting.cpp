@@ -42,7 +42,7 @@
 #include "tilecache.h"
 #include "wpscriptmanager.h"
 #include "targetrequests.h"
-#include "mapstuff.h"
+#include "maps.h"
 #include "classes.h"
 #include "network/uosocket.h"
 #include "gumps.h"
@@ -153,7 +153,7 @@ static void AddTarget(int s, PKGx6C *pp)
 	P_ITEM pi = Items->SpawnItem(currchar[s], 1, "#", pileable, id, 0,0);
 	if(!pi) return;
 	pi->priv=0;	//Make them not decay
-	pi->MoveTo(pp->TxLoc,pp->TyLoc,pp->TzLoc+Map->TileHeight(pp->model));
+	pi->MoveTo(pp->TxLoc,pp->TyLoc,pp->TzLoc+cTileCache::instance()->tileHeight(pp->model));
 
 	pi->update();
 	addid1[s]=0;
@@ -400,7 +400,7 @@ static void AddNpcTarget(int s, PKGx6C *pp)
 	pc->setPriv(0x10);
 	pc->pos.x=pp->TxLoc;
 	pc->pos.y=pp->TyLoc;
-	pc->pos.z=pp->TzLoc+Map->TileHeight(pp->model);
+	pc->pos.z=pp->TzLoc+cTileCache::instance()->tileHeight(pp->model);
 	cMapObjects::getInstance()->add(pc); // add it to da regions ...
 	pc->isNpc();
 	updatechar(pc);
@@ -1326,7 +1326,7 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 
 void cTargets::HouseEjectTarget(int s) // crackerjack 8/11/99 - kick someone out of house
 {
-	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
+/*	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
 	if (!pc)
 		return;
 	int serial=calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
@@ -1353,6 +1353,7 @@ void cTargets::HouseEjectTarget(int s) // crackerjack 8/11/99 - kick someone out
 		else
 			sysmessage(s, "That is not inside the house.");
 	}
+*/
 }
 
 void cTargets::HouseBanTarget(int s) 
@@ -2056,7 +2057,7 @@ void cTargets::AddItem( UOXSOCKET s )
 
 	TargetX = ( buffer[s][11] << 8 ) + buffer[s][12];
 	TargetY = ( buffer[s][13] << 8 ) + buffer[s][14];
-	TargetZ = buffer[s][16] + Map->TileHeight( ( buffer[s][17] << 8) + buffer[s][18] );
+	TargetZ = buffer[s][16] + cTileCache::instance()->tileHeight( ( buffer[s][17] << 8) + buffer[s][18] );
 
 	P_ITEM Item = Items->createScriptItem( ItemID );
 

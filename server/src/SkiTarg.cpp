@@ -42,7 +42,7 @@
 #include "srvparams.h"
 #include "tilecache.h"
 #include "classes.h"
-#include "mapstuff.h"
+#include "maps.h"
 #include "network.h"
 #include "wpdefmanager.h"
 #include "makemenus.h"

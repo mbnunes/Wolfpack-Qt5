@@ -36,7 +36,7 @@
 #include "wpdefmanager.h"
 #include "chars.h"
 #include "network/uosocket.h"
-#include "mapstuff.h"
+#include "maps.h"
 #include "mapobjects.h"
 #include "itemsmgr.h"
 #include "skills.h"
@@ -1244,16 +1244,16 @@ bool cFindResource::responsed( cUOSocket *socket, cUORxTarget *target )
 	}
 	else if( target->model() )
 	{
-		MapStaticIterator msi(pos);
-		staticrecord *stat;
+		StaticsIterator msi = Map->staticsIterator(pos);
 		bool found = false;
-		while( stat = msi.Next() )
+		while( !msi.atEnd() )
 		{
-			if( stat->itemid == target->model() )
+			if( msi->itemid == target->model() )
 			{
 				found = true;
 				break;
 			}
+			++msi;
 		}
 		if( !found )
 			return true;
@@ -1265,7 +1265,7 @@ bool cFindResource::responsed( cUOSocket *socket, cUORxTarget *target )
 		cResource* pResource = it->second;
 		if( !target->model() && !target->serial() ) // map tile
 		{
-			map_st mapTile = Map->SeekMap( pos );
+			map_st mapTile = Map->seekMap( pos );
 			if( pResource->hasMapId( mapTile.id ) )
 				pResource->handleFindTarget( socket, pos, mapTile.id, 0 );
 			else
@@ -1342,16 +1342,16 @@ bool cConvertResource::responsed( cUOSocket *socket, cUORxTarget *target )
 	}
 	else if( target->model() )
 	{
-		MapStaticIterator msi(pos);
-		staticrecord *stat;
+		StaticsIterator msi = Map->staticsIterator(pos);
 		bool found = false;
-		while( stat = msi.Next() )
+		while( !msi.atEnd() )
 		{
-			if( stat->itemid == target->model() )
+			if( msi->itemid == target->model() )
 			{
 				found = true;
 				break;
 			}
+			++msi;
 		}
 		if( !found )
 			return true;
@@ -1363,7 +1363,7 @@ bool cConvertResource::responsed( cUOSocket *socket, cUORxTarget *target )
 		cResource* pResource = it->second;
 		if( !target->model() && !target->serial() ) // map tile
 		{
-			map_st mapTile = Map->SeekMap( pos );
+			map_st mapTile = Map->seekMap( pos );
 			if( pResource->hasMapId( mapTile.id ) )
 				pResource->handleConversionTarget( socket, pos, pi, mapTile.id, 0 );
 			else

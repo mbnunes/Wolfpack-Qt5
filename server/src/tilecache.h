@@ -71,7 +71,22 @@ struct tile_st
 	char unknown5;
 	char height;
 	char name[20];
+
+	bool isWet() const;
+	bool isBlocking() const;
+	bool isRoofOrFloorTile() const;
 };
+
+// Inline Methods
+inline bool tile_st::isWet() const
+{
+	return flag1 & 0x80;
+}
+
+inline bool tile_st::isBlocking() const
+{
+	return flag1 & 0x40;
+}
 
 struct land_st
 {
@@ -99,6 +114,8 @@ public:
 
 	land_st getLand( UINT16 tileId );
 	tile_st getTile( UINT16 tileId );
+	signed char tileHeight( ushort tileId );
+	static signed char tileHeight( const tile_st & );
 
     bool load( const QString &nPath );
 	bool unload();

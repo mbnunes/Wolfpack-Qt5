@@ -35,7 +35,7 @@
 #include "wolfpack.h"
 #include "mapobjects.h"
 #include "debug.h"
-#include "mapstuff.h"
+#include "maps.h"
 
 #undef  DBGFILE
 #define DBGFILE "mapobjects.cpp"

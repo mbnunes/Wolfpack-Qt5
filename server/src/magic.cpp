@@ -43,11 +43,13 @@
 #include "globals.h"
 #include "wpdefmanager.h"
 #include "classes.h"
-#include "mapstuff.h"
+#include "maps.h"
 #include "network.h"
 #include "TmpEff.h"
 #include "territories.h"
 #include "skills.h"
+#include "tilecache.h"
+#include "walking.h"
 
 #undef DBGFILE
 #define DBGFILE "magic.cpp"
@@ -2525,11 +2527,11 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 		else if( reqLocTarget( curSpell ) )
 		{
 			// field spells mostly go here
-			Coord_cl targetLocation((buffer[s][11]<<8)+buffer[s][12], (buffer[s][13]<<8)+buffer[s][14], buffer[s][16]+Map->TileHeight((buffer[s][17]<<8)+buffer[s][18]), currchar[s]->pos.map); 
+			Coord_cl targetLocation((buffer[s][11]<<8)+buffer[s][12], (buffer[s][13]<<8)+buffer[s][14], buffer[s][16]+cTileCache::instance()->tileHeight((buffer[s][17]<<8)+buffer[s][18]), currchar[s]->pos.map); 
 			int x=fx[0]=(buffer[s][11]<<8)+buffer[s][12];
 			int y=fy[0]=(buffer[s][13]<<8)+buffer[s][14];
 			//z=buffer[s][16];
-			int z=buffer[s][16]+Map->TileHeight((buffer[s][17]<<8)+buffer[s][18]); // bugfix, LB
+			int z=buffer[s][16]+cTileCache::instance()->tileHeight((buffer[s][17]<<8)+buffer[s][18]); // bugfix, LB
 			
 			defender=LongFromCharPtr(buffer[s]+7);
 			P_CHAR pc_i = FindCharBySerial( defender );
@@ -2601,7 +2603,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								sysmessage(s,"Give up wanabe Jesus !");
 								return;
 							}
-							if (!Map->CanMonsterMoveHere(targetLocation))
+							if (!Movement->canLandMonsterMoveHere(targetLocation))
 							{
 								 switch(RandomNum(0,4))
 								 {
@@ -3056,7 +3058,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								pi->priv |= 0x05;
 								pi->decaytime=uiCurrentTime+((pc_currchar->skill(MAGERY)/15)*MY_CLOCKS_PER_SEC);
 								pi->morex=pc_currchar->skill(MAGERY); // remember casters magery skill for damage, LB
-								pi->MoveTo(fx[j], fy[j], Map->Height( Coord_cl( fx[j], fy[j], z, pi->pos.map )));
+								pi->MoveTo(fx[j], fy[j], Map->height( Coord_cl( fx[j], fy[j], z, pi->pos.map )));
 								pi->dir=29;
 								pi->magic=2;
 								pi->update();

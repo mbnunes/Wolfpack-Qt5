@@ -93,18 +93,6 @@ struct versionrecord
 } /*PACK*/;
 #include "end_pack.h"
 
-#include "start_pack.h"
-struct staticrecord
-{
-	short int itemid;
-	// short int extra; // Unknown yet --Zippy unknown thus not used thus taking up mem.
-	unsigned char xoff;
-	unsigned char yoff;
-	signed char zoff;
-	unsigned char align;	// force word alignment by hand to avoid bus errors - fur
-} /*PACK*/;
-#include "end_pack.h"
-
 // XYZZY
 #include "start_pack.h"
 struct unitile_st
@@ -245,12 +233,6 @@ struct ServerList_st
 	UI32 ip;
 	QString sIP;
 	UI16 uiPort;
-};
-
-struct map_st
-{
-	short int id;
-	signed char z;
 };
 
 #endif

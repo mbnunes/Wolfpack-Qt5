@@ -46,7 +46,7 @@
 #include "iserialization.h"
 #include "wolfpack.h"
 #include "utilsys.h"
-#include "mapstuff.h"
+#include "maps.h"
 #include "territories.h"
 #include "accounts.h"
 #include "books.h"
@@ -199,8 +199,8 @@ void CWorldMain::loadnewworld(QString module) // Load world
 		if (pc->isPlayer() && pc->account() == 0) pc->setMenupriv(-1);
 
 
-		int max_x = cMapStuff::mapTileWidth(pc->pos) * 8;
-		int max_y = cMapStuff::mapTileHeight(pc->pos) * 8;
+		int max_x = Map->mapTileWidth(pc->pos.map) * 8;
+		int max_y = Map->mapTileHeight(pc->pos.map) * 8;
 		if( ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account() ==0) || ((pc->pos.x>max_x || pc->pos.y>max_y) && pc->account() == 0))
 			&& !( pc->pos.x == 0 && pc->pos.y == 0 && pc->pos.z == 0 ) ) // the last are mounted animals
 		// if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account ==-1) || ((pc->pos.x>max_x || pc->pos.y>max_y || pc->pos.x<0 || pc->pos.y<0) && pc->account==-1))
@@ -279,8 +279,8 @@ void CWorldMain::loadnewworld(QString module) // Load world
 		// Tauriel adding region pointers
 		if (pi->isInWorld())
 		{
-			int max_x = Map->mapTileWidth(pi->pos) * 8;
-			int max_y = Map->mapTileHeight(pi->pos) * 8;
+			int max_x = Map->mapTileWidth(pi->pos.map) * 8;
+			int max_y = Map->mapTileHeight(pi->pos.map) * 8;
 			if (pi->pos.x>max_x || pi->pos.y>max_y) 
 			{
 				Items->DeleItem(pi);	//these are invalid locations, delete them!

@@ -36,6 +36,7 @@
 
 #include "assert.h"
 #include "verinfo.h"
+#include "typedefs.h"
 
 // use this value whereever you need to return an illegal z value
 const signed char illegal_z = -128;	// reduced from -1280 to -128, to fit in with a valid signed char

@@ -46,7 +46,7 @@
 #include "srvparams.h"
 #include "wpdefmanager.h"
 #include "wpdefaultscript.h"
-#include "mapstuff.h"
+#include "maps.h"
 #include "network.h"
 #include "classes.h"
 #include "multis.h"
@@ -1454,12 +1454,14 @@ P_ITEM cAllItems::createScriptItem( UOXSOCKET s, QString Section, UI32 nSpawned 
 		}
 		else
 		{
-			short xx,yy;
+/*			short xx,yy;
 			signed char zz;
 			xx=(buffer[s][11]<<8)+buffer[s][12];
 			yy=(buffer[s][13]<<8)+buffer[s][14];
 			zz=buffer[s][16]+Map->TileHeight((buffer[s][17]<<8)+buffer[s][18]);
 			nItem->MoveTo(xx,yy,zz);
+			*/
+			qWarning("Warning: Disabled code branch called!");
 		}
 	}
 	else

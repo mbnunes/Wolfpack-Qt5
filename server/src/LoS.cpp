@@ -38,9 +38,10 @@
 #include "SndPkg.h"
 #include "debug.h"
 #include "mapobjects.h"
-#include "mapstuff.h"
+#include "maps.h"
 #include "tilecache.h"
 #include "itemid.h"
+#include "multiscache.h"
 
 #include <set>
 
@@ -208,11 +209,11 @@ the line of sight.
 	QValueList< Coord_cl >::iterator pit = collisions.begin();
 	while( pit != collisions.end() )
 	{
-		MapStaticIterator msi( *pit );
 		// Texture mapping  
-		map1 = Map->SeekMap( *pit );
-		map2 = Map->SeekMap( Coord_cl( (*pit).x + sgn_x, (*pit).y + sgn_y, (*pit).z, source.map ) );
+		map1 = Map->seekMap( *pit );
+		map2 = Map->seekMap( Coord_cl( (*pit).x + sgn_x, (*pit).y + sgn_y, (*pit).z, source.map ) );
 		
+		StaticsIterator msi = Map->staticsIterator( *pit );
 		if( (map1.id != 2) && (map2.id != 2) ) 
 		{
 			// Mountain walls
@@ -232,21 +233,20 @@ the line of sight.
 				( map1.id >= 1821 && map1.id <= 1824 ) ||
 				( map1.id >= 1851 && map1.id <= 1854 ) ||
 				( map1.id >= 1881 && map1.id <= 1884 ) ) &&
-				( msi.First() == NULL ) ) ) // make sure there is no static item!
+				( msi.atEnd() ) ) ) // make sure there is no static item!
 				return blocked;
 		}	 
 			
 		// Statics
 		tile_st tile;
-		staticrecord *stat = msi.First();
-		while( stat )
+		while( !msi.atEnd() )
 		{
-			msi.GetTile( &tile );
-			if(	( (*pit).z >= stat->zoff && (*pit).z <= ( stat->zoff + tile.height ) ) )
-//				||	( tile.height <= 2 && abs( (*pit).z - stat->zoff ) <= abs( dz ) ) )
-				itemids.insert( stat->itemid );
+			tile = cTileCache::instance()->getTile( msi->itemid );
+			if(	( (*pit).z >= msi->zoff && (*pit).z <= ( msi->zoff + tile.height ) ) )
+//				||	( tile.height <= 2 && abs( (*pit).z - msi->zoff ) <= abs( dz ) ) )
+				itemids.insert( msi->itemid );
 
-			stat = msi.Next();
+			++msi;
 		}
 			
 			
@@ -268,24 +268,19 @@ the line of sight.
 		P_ITEM pi;
 		while( pi = mit.current() )
 		{
-			st_multi multi;
-			UOXFile *mfile;
-			Map->SeekMulti( pi->id() - 0x4000, &mfile, &length );
-			if( length == -1 || length >= 17000000 )//Too big... bug fix hopefully (Abaddon 13 Sept 1999)
+			MultiDefinition* def = MultisCache->getMulti( pi->id() - 0x4000 );
+			if ( !def )
+				continue;
+			QValueVector<multiItem_st> multi = def->getEntries();
+			for( j = 0; j < multi.size(); ++j )
 			{
-				clConsole.send( tr("lineOfSight: Bad length in multi file. Avoiding stall") );
-				length = 0;
-			}
-			for( j = 0; j < length; j++ )
-			{
-				mfile->get_st_multi( &multi );
-				if( ( multi.visible ) && ( pi->pos.x + multi.x == (*pit).x ) &&
-					( pi->pos.y + multi.y == (*pit).y ) )			
+				if( ( multi[j].visible ) && ( pi->pos.x + multi[j].x == (*pit).x ) &&
+					( pi->pos.y + multi[j].y == (*pit).y ) )			
 				{
-					tile = cTileCache::instance()->getTile( multi.tile );
-					if( ( (*pit).z >= pi->pos.z + multi.z ) &&
-						( (*pit).z <= pi->pos.z + multi.z + tile.height ) )
-						itemids.insert( multi.tile );
+					tile = cTileCache::instance()->getTile( multi[j].tile );
+					if( ( (*pit).z >= pi->pos.z + multi[j].z ) &&
+						( (*pit).z <= pi->pos.z + multi[j].z + tile.height ) )
+						itemids.insert( multi[j].tile );
 				}
 			}
 			++mit;

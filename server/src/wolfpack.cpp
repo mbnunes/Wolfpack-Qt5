@@ -58,7 +58,6 @@
 #include "srvparams.h"
 #include "network.h"
 #include "classes.h"
-#include "mapstuff.h"
 #include "gumps.h"
 #include "spawnregions.h"
 #include "Timing.h"
@@ -68,7 +67,7 @@
 #include "skills.h"
 #include "resources.h"
 #include "contextmenu.h"
-
+#include "maps.h"
 #include "wpdefmanager.h"
 #include "wpscriptmanager.h"
 #include "wptargetrequests.h"
@@ -89,57 +88,6 @@
 #undef DBGFILE
 #define DBGFILE "wolfpack.cpp"
 #include "debug.h"
-
-void clearscreen( void )
-{
-
-	unsigned long int y;
-/*
-#ifndef __unix__
-	COORD xy;
-
-	xy.X=0;
-	xy.Y=0;
-	FillConsoleOutputAttribute(hco, (FOREGROUND_RED), csbi.dwSize.X*csbi.dwSize.Y, xy, &y); //( BACKGROUND_BLUE | BACKGROUND_GREEN | BACKGROUND_RED | BACKGROUND_INTENSITY)
-	FillConsoleOutputCharacter(hco, ' ', csbi.dwSize.X*csbi.dwSize.Y, xy, &y);
-	SetConsoleCursorPosition(hco, xy);
-#endif
-*/
-}
-
-void constart( void )
-{
-
-/*	#ifndef __unix__
-	hco=GetStdHandle(STD_OUTPUT_HANDLE);
-	GetConsoleScreenBufferInfo(hco, &csbi);
-	SetConsoleTextAttribute(hco, (FOREGROUND_RED) ); // black backround and white-text got boring, LB :)
-	clearscreen();
-	#else
-	//initscr(); cbreak(); noecho();nonl(); intrflush(stdscr,FALSE) ;scrollok(stdscr,TRUE);immedok(stdscr,TRUE); nodelay(stdscr,TRUE);
-	int status ;
-	status = fcntl(STDIN_FILENO,F_SETFL,O_NONBLOCK) ;
-	termios	trmStuff ;
-	if (tcgetattr(STDIN_FILENO,&termstate)!=0)
-	{
-		cout << "error getting console state" << endl ;
-		cout << strerror(errno) << endl ;
-	}
-	tcgetattr(STDIN_FILENO,&trmStuff) ;
-	//trmStuff.c_iflag = trmStuff.c_iflag | IGNCR  ;
-	trmStuff.c_lflag = trmStuff.c_lflag & (~ECHO) ;
-	trmStuff.c_lflag = trmStuff.c_lflag & (~ICANON) ;
-	if (tcsetattr(STDIN_FILENO,TCSANOW,&trmStuff) !=0 )
-	{
-		cout << "error setting terminal" << endl ;
-		cout << strerror(errno) << endl ;
-	}
-	
-	#endif
-	
-*/
-}
-
 
 ///////////
 // Name:	inVisRange
@@ -168,16 +116,6 @@ bool inrange1p (PC_CHAR pca, P_CHAR pcb) // Are characters a and b in visual ran
 	return inVisRange(pca->pos.x, pca->pos.y, pcb->pos.x, pcb->pos.y);
 }
 
-/*
-int inrange1p (CHARACTER a, CHARACTER b) // Are characters a and b in visual range
-{
-	if (a<0 || a>cmem || b<0 || b>cmem) return 0; //LB
-
-	if(a==b || inVisRange(chars[a].pos.x,chars[a].pos.y,chars[b].pos.x,chars[b].pos.y))
-		return 1;
-	return 0;
-}
-*/
 ///////////
 // Name:	inRange
 // Purpose:	checks if position 1 and 2 are in given range
@@ -274,12 +212,6 @@ void init_deamon()
 
 unsigned int dist(Coord_cl &a, Coord_cl &b) // Distance between position a and b
 {
-/*	int c;
-	int dx=abs(xa-xb);
-	int dy=abs(ya-yb);
-
-	c=(int)(hypot(dx, dy));               // hypot is POSIX standard, also works in Win32.
-*/
 	return a.distance(b);
 }
 
@@ -1464,8 +1396,6 @@ int main( int argc, char *argv[] )
 	startPython( argc, argv );
 	ScriptManager->load();
 
-	Map->Cache = 0;
-
 	clConsole.send( "\n" );
 
 	QTranslator translator(0); // must be valid thru app life.
@@ -1507,12 +1437,16 @@ int main( int argc, char *argv[] )
 	}
 
 
-	Map->Cache = SrvParams->cacheMulFiles();
+//	Map->Cache = SrvParams->cacheMulFiles();
 	cAllTerritories::getInstance()->load();
 
 	CIAO_IF_ERROR;
 
-	Map->Load();
+	// Hardcoded for now.
+	Map->registerMap(0, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
+	Map->registerMap(1, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
+	Map->registerMap(2, "map2.mul", 288, 200, "statics2.mul", "staidx2.mul");
+//	Map->registerMap(3, "map2.mul", 288, 200, "statics2.mul", "staidx2.mul");
 
 	if (keeprun==0) { cNetwork::instance()->shutdown(); DeleteClasses(); exit(-1); }
 		
@@ -4152,7 +4086,7 @@ void StartClasses(void)
 	cwmWorldState	= new CWorldMain;
 	Accounts		= new cAccounts;
 	Items			= new cAllItems;
-	Map				= new cMapStuff ( SrvParams->mulPath());
+	Map				= new Maps ( SrvParams->mulPath() );
 	Skills			= new cSkills;
 	Weight			= new cWeight;
 	Targ			= new cTargets;

@@ -45,6 +45,7 @@ public:
 	void Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence );
 	void CombatWalk( P_CHAR pc );
 	void NpcMovement( unsigned int currenttime, P_CHAR pc_i );
+	bool canLandMonsterMoveHere( const Coord_cl& ) const;
 private:
 	inline bool isValidDirection( Q_UINT8 dir );
 	inline bool isOverloaded( P_CHAR );

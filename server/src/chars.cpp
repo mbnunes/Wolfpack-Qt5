@@ -52,7 +52,7 @@
 #include "network.h"
 #include "network/uosocket.h"
 #include "network/uotxpackets.h" 
-#include "mapstuff.h"
+#include "maps.h"
 #include "skills.h"
 #include "wpdefmanager.h"
 #include "guildstones.h"

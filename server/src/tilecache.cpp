@@ -33,6 +33,29 @@
 
 #include "tilecache.h"
 
+bool tile_st::isRoofOrFloorTile() const
+{
+	if (flag1 & 1)
+		return true; // check the floor bit
+	
+	if (strstr("roof", (char *) name) || strstr("shingle", (char *) name)) 
+		return true;
+
+	if( strstr( "floor", (char *)name ) )
+		return true;
+	// now why would not want to check the z value of wooden boards first??
+	// this was after the if (.. >z), i'm moving this up inside of it
+	if (!strcmp((char *) name,"wooden boards"))
+		return true;
+	// i'll stick these back in. even if these were bogus tile names it can't hurt
+	if (!strcmp((char *) name, "wooden board") ||
+		!strcmp( (char *) name, "stone pavern") ||
+		!strcmp( (char *) name, "stone pavers"))
+		return true;
+
+	return false;
+}
+
 bool cTileCache::load( const QString &nPath )
 {
 	clConsole.PrepareProgress( "Preloading Tiledata.mul" );
@@ -179,4 +202,18 @@ tile_st cTileCache::getTile( UINT16 tileId )
 		return emptyStaticTile;
 	else
 		return staticTiles.find( tileId )->second;
+}
+
+signed char cTileCache::tileHeight( const tile_st & t )
+{
+	if (t.flag2 & 4) 
+		return (signed char)(t.height/2);	// hey, lets just RETURN half!
+	return (t.height);
+}
+
+signed char cTileCache::tileHeight( ushort tileId )
+{
+	tile_st tile = getTile( tileId );
+	// For Stairs+Ladders
+	return tileHeight(tile);
 }

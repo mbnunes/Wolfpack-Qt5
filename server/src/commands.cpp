@@ -34,7 +34,7 @@
 #include "skills.h"
 #include "commands.h"
 #include "gumps.h"
-#include "mapstuff.h"
+#include "maps.h"
 #include "wpscriptmanager.h"
 #include "network/uosocket.h"
 #include "spawnregions.h"
@@ -923,7 +923,7 @@ public:
 		// Map Target
 		if( !target->model() && !target->serial() )
 		{
-			map_st mapTile = Map->SeekMap( pos );
+			map_st mapTile = Map->seekMap( pos );
 			land_st lTile = cTileCache::instance()->getLand( mapTile.id );
 			
 			// Display a gump with this information

@@ -46,7 +46,7 @@
 #include "srvparams.h"
 #include "skills.h"
 #include "classes.h"
-#include "mapstuff.h"
+#include "maps.h"
 #include "network.h"
 #include "network/uosocket.h"
 #include "network/uorxpackets.h"

@@ -36,12 +36,13 @@
 #include "iserialization.h"
 #include "mapobjects.h"
 #include "srvparams.h"
-#include "mapstuff.h"
+#include "maps.h"
 #include "debug.h"
 #include "tilecache.h"
 #include "utilsys.h"
 #include "network.h"
 #include "network/uosocket.h"
+#include "multiscache.h"
 
 #include "customtags.h"
 #include "territories.h"
@@ -123,43 +124,35 @@ bool cHouse::onValidPlace()
 	if( Region != NULL && Region->isGuarded() && SrvParams->houseInTown() == 0 )
 		return false;
 
-	UI32 multiid = this->id() - 0x4000;
+	const UI32 multiid = this->id() - 0x4000;
 
 	int j;
-	SI32 length;
-	st_multi multi;
-	UOXFile *mfile;
-	Map->SeekMulti(multiid, &mfile, &length);
-	length=length/sizeof(st_multi);
-	if (length == -1 || length>=17000000)//Too big...
-	{
-		clConsole.log( tr( "cHouse::onValidPlace: Bad length in multi file. Avoiding stall.\n" ).latin1() );
-		length = 0;
-	}
+	MultiDefinition* def = MultisCache->getMulti( multiid );
+	if ( !def )
+		return false;
 
+	QValueVector<multiItem_st> multi = def->getEntries();
 	SI08 mapz = 0;
 	tile_st tile;
-	for( j = 0; j < length; j++ )
+	for( j = 0; j < multi.size(); j++ )
 	{
-		mfile->get_st_multi(&multi);
-		Coord_cl multipos = Coord_cl( multi.x + pos.x, multi.y + pos.y, pos.z, pos.map );
+		Coord_cl multipos = Coord_cl( multi[j].x + pos.x, multi[j].y + pos.y, pos.z, pos.map );
 
-		mapz = Map->MapElevation( multipos );
+		mapz = Map->mapElevation( multipos );
 		if( pos.z < mapz )
 			return false;
 
-		land_st mapTile = cTileCache::instance()->getLand( Map->SeekMap( multipos ).id );
+		land_st mapTile = cTileCache::instance()->getLand( Map->seekMap( multipos ).id );
 		if( mapTile.flag1 & 0x40 || mapTile.flag1 & 0x80 )
 			return false;
 		
-		MapStaticIterator msi( multipos );
-		staticrecord *stat = msi.Next();
-		while( stat != NULL )
+		StaticsIterator msi = Map->staticsIterator( multipos );
+		while( !msi.atEnd() )
 		{
-			msi.GetTile( &tile );
-			if( multi.z > stat->zoff && multi.z < (stat->zoff + tile.height) )
+			tile = cTileCache::instance()->getTile( msi->itemid );
+			if( multi[j].z > msi->zoff && multi[j].z < (msi->zoff + tile.height) )
 				return false;
-			stat = msi.Next();
+			++msi;
 		}
 		
 		RegionIterator4Items ri( multipos );
@@ -169,7 +162,7 @@ bool cHouse::onValidPlace()
 			if( pi && pi->multis != serial )
 			{
 				tile = cTileCache::instance()->getTile( pi->id() );
-				if( multi.z > pi->pos.z && multi.z < ( pi->pos.z + tile.height ) )
+				if( multi[j].z > pi->pos.z && multi[j].z < ( pi->pos.z + tile.height ) )
 					return false;
 			}
 		}
