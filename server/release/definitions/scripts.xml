@@ -133,6 +133,7 @@
 	<script>system.makemenus</script>
 	<script>system.mysql_optimize_db</script>
   <script>system.skillgain</script>
+  <script>system.hardwareinfo</script>
   <script>system.spawns</script>
   <script>system.trading</script>
   <script>system.uogstatus</script>
