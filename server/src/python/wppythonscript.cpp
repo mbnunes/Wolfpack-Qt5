@@ -274,6 +274,38 @@ bool WPPythonScript::onSkillUse( P_CHAR Character, UI08 Skill )
 	PyEvalMethod( "onSkillUse" )
 }
 
+bool WPPythonScript::onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id )
+{
+	PyHasMethod( "onContextEntry" )
+
+	PyObject *tuple = PyTuple_New( 3 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
+	
+	if( isItemSerial( pObject->serial ) )
+		PyTuple_SetItem( tuple, 1, PyGetItemObject( (P_ITEM)pObject ) );
+	else if( isCharSerial( pObject->serial ) )
+		PyTuple_SetItem( tuple, 1, PyGetCharObject( (P_CHAR)pObject ) );
+
+	PyTuple_SetItem( tuple, 2, PyInt_FromLong( id ) );
+
+	PyEvalMethod( "onContextEntry" )
+}
+
+bool WPPythonScript::onShowContextMenu( P_CHAR pChar, cUObject *pObject )
+{
+	PyHasMethod( "onShowContextMenu" )
+	
+	PyObject *tuple = PyTuple_New( 2 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
+	
+	if( isItemSerial( pObject->serial ) )
+		PyTuple_SetItem( tuple, 1, PyGetItemObject( (P_ITEM)pObject ) );
+	else if( isCharSerial( pObject->serial ) )
+		PyTuple_SetItem( tuple, 1, PyGetCharObject( (P_CHAR)pObject ) );
+
+	PyEvalMethod( "onShowContextMenu" )
+}
+
 //============ wolfpack.server
 /*PyObject* PyWPServer_shutdown( PyObject* self, PyObject* args )
 {

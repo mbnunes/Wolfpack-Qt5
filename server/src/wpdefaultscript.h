@@ -39,6 +39,8 @@
 #include "qstring.h"
 #include "qdom.h"
 
+class cUObject;
+
 class WPDefaultScript  
 {
 private:
@@ -95,6 +97,10 @@ public:
 	virtual bool onChat( P_CHAR Character ) { return false; }
 
 	virtual bool onSkillUse( P_CHAR Character, UI08 Skill ) { return false; }
+
+	virtual bool onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id ) { return false; }
+
+	virtual bool onShowContextMenu( P_CHAR pChar, cUObject *pObject ) { return false; }
 };
 
 #endif // !defined(AFX_WPDEFAULTSCRIPT_H__FDB3420A_822D_4D37_8D60_1ED584CC02DF__INCLUDED_)

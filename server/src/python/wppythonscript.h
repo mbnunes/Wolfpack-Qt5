@@ -73,6 +73,9 @@ public:
 	virtual bool onHelp( P_CHAR Character );
 	virtual bool onChat( P_CHAR Character );
 	virtual bool onSkillUse( P_CHAR Character, UI08 Skill );
+
+	virtual bool onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id );
+	virtual bool onShowContextMenu( P_CHAR pChar, cUObject *pObject );
 };
 
 #endif // __WPPYTHONSCRIPT_H__

@@ -3398,3 +3398,16 @@ void cChar::stopRepeatedAction()
 {
 	cTempEffects::getInstance()->dispel( this, "repeataction", false );
 }
+
+bool cChar::onShowContext( cUObject *object )
+{
+	if( scriptChain.empty() )
+		return false;
+ 
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onShowContextMenu( (P_CHAR)this, object ) )
+			return true;
+
+	return false;
+}
+
