@@ -160,38 +160,6 @@ def gainskill(char, skill, totalskill, totalcap):
 			if char.socket:
 				char.socket.updateskill(skill)
 
-	# It's not important that we actually gained the skill
-	# in order to gain stats by using it.
-	if lock == 0:
-		strchance = info[SKILL_STRCHANCE]
-		dexchance = info[SKILL_DEXCHANCE]
-		intchance = info[SKILL_INTCHANCE]
-		realstr = char.strength - char.strength2
-		realdex = char.dexterity - char.dexterity2
-		realint = char.intelligence - char.intelligence2
-
-		if (char.npc or char.strengthlock != 0) or realstr >= char.strengthcap:
-			strchance = 0.0
-		else:
-			strchance /= 33.3
-
-		if (char.npc or char.dexteritylock != 0) or realdex >= char.dexteritycap:
-			dexchance = 0.0
-		else:
-			dexchance /= 33.3
-
-		if (char.npc or char.intelligencelock != 0) or realint >= char.intelligencecap:
-			intchance = 0.0
-		else:
-			intchance /= 33.3
-
-		if strchance > random():
-			gainstat(char, 0)
-		elif dexchance > random():
-			gainstat(char, 1)
-		elif intchance > random():
-			gainstat(char, 2)
-
 #
 # Called when the character gains in a skill.
 #
@@ -271,6 +239,40 @@ def onSkillGain(char, skill, lower, higher, success):
 	# account.
 	if gainchance >= random() or value < 10.0:
 		gainskill(char, skill, totalskills, totalcap)
+
+	lock = char.skilllock[skill] # Lock value for the skill
+
+	# It's not important that we actually gained the skill
+	# in order to gain stats by using it.
+	if lock == 0:
+		strchance = info[SKILL_STRCHANCE]
+		dexchance = info[SKILL_DEXCHANCE]
+		intchance = info[SKILL_INTCHANCE]
+		realstr = char.strength - char.strength2
+		realdex = char.dexterity - char.dexterity2
+		realint = char.intelligence - char.intelligence2
+
+		if (char.npc or char.strengthlock != 0) or realstr >= char.strengthcap:
+			strchance = 0.0
+		else:
+			strchance /= 33.3
+
+		if (char.npc or char.dexteritylock != 0) or realdex >= char.dexteritycap:
+			dexchance = 0.0
+		else:
+			dexchance /= 33.3
+
+		if (char.npc or char.intelligencelock != 0) or realint >= char.intelligencecap:
+			intchance = 0.0
+		else:
+			intchance /= 33.3
+
+		if strchance > random():
+			gainstat(char, 0)
+		elif dexchance > random():
+			gainstat(char, 1)
+		elif intchance > random():
+			gainstat(char, 2)		
 
 #
 # Register our hook and load the skills.xml data.
