@@ -419,7 +419,7 @@ void deedhouse(UOXSOCKET s, int i) // Ripper & AB
 	if( i == -1 ) return;
 	P_CHAR pc = MAKE_CHARREF_LR(currchar[s]);
 	playerCont = packitem( DEREF_P_CHAR(pc) );
-	int mapitemptr,mapitem,mapchar,a,checkgrid,increment,StartGrid,getcell,ab;		
+	int a,checkgrid,increment,StartGrid,getcell,ab;		
 	if(pc->Owns(&items[i]) || pc->isGM())
 	{
 		Map->MultiArea(i, &x1,&y1,&x2,&y2);
@@ -445,9 +445,6 @@ void deedhouse(UOXSOCKET s, int i) // Ripper & AB
 		{       
 			for (a=0;a<3;a++)
 			{                                       
-				mapitemptr=-1;
-				mapitem=-1;
-				mapchar=-1;
 				loopexit=0;
 				vector<SERIAL> vecEntries = mapRegions->GetCellEntries(checkgrid+a);
 				for (unsigned int k = 0; k < vecEntries[k]; k++)
@@ -465,9 +462,8 @@ void deedhouse(UOXSOCKET s, int i) // Ripper & AB
 								pPvDeed->type = 217;
 								pPvDeed->value = 2000;
 								RefreshItem( pPvDeed );
-								sprintf((char*)temp, "Packed up vendor %s.", mapchar->name);
 								Npcs->DeleteChar( DEREF_P_CHAR(mapchar) );
-								sysmessage(s, (char*)temp);
+								sysmessage(s, "Packed up vendor %s.", mapchar->name);
 							}
 						}
 					}

@@ -1151,7 +1151,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 						{
 							if (!Magic->CheckResist(-1, DEREF_P_CHAR(pc), 4))
 							{                                               
-								Magic->MagicDamage(DEREF_P_CHAR(pc), mapitem->morex/300);
+								Magic->MagicDamage(pc, mapitem->morex/300);
 							}
 							soundeffect2(DEREF_P_CHAR(pc), 2, 8);
 						}

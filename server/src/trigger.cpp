@@ -165,7 +165,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 	int tl;
 	int p, j, c, r;
 	int itemnum=-1;
-	int needitem=-1;
+	P_ITEM pi_needitem = NULL;
 	int npcnum=-1;
 	int trig = 0;
 	int x1 = 0, y1 = 0, x2 = 0, y2 = 0, z2 = 0, dx, dy;
@@ -1179,15 +1179,15 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 								closescript();
 								return;
 							}
-							p = ti;
+							P_ITEM p = MAKE_ITEM_REF(ti);
 							if (!strcmp((char*)script2, "REQ"))
-								p = DEREF_P_ITEM(pi_evti);
+								p = pi_evti;
 							if (!strcmp((char*)script2, "NEED"))
-								p = needitem;
-							if (p>-1)
+								p = pi_needitem;
+							if (p != NULL)
 							{
-								memcolor1 = items[p].color1;
-								memcolor2 = items[p].color2;
+								memcolor1 = p->color1;
+								memcolor2 = p->color2;
 								coloring = 1;
 							}
 							else
@@ -1301,23 +1301,22 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							if (p!=-1)
 							{
 								serial = items[p].serial;
-								serhash = serial%HASHMAX;
 								vector<SERIAL> vecContainer = contsp.getData(serial);
 								for (ci = 0; ci < vecContainer.size(); ci++)
 								{
-									int i = calcItemFromSer(vecContainer[ci]);
-									if (i!=-1)
+									P_ITEM pi = FindItemBySerial(vecContainer[ci]);
+									if (pi != NULL)
 									{
-										sprintf(sect, "x%x%x", items[i].id1, items[i].id2);
+										sprintf(sect, "x%x%x", pi->id1, pi->id2);
 										if (strstr((char*)script2, sect))
 										{
-											needitem = i;
+											pi_needitem = pi;
 											// Get Temporany Name of the NEED Item - Magius(CHE) §
-											if (items[i].name[0] != '#') // Get Temporany Name of the NEED Item - Magius(CHE) §
-												strcpy(tempname3, items[i].name);
+											if (pi->name[0] != '#') // Get Temporany Name of the NEED Item - Magius(CHE) §
+												strcpy(tempname3, pi->name);
 											else 
 											{
-												Map->SeekTile(items[i].id(), &tile);
+												Map->SeekTile(pi->id(), &tile);
 												strcpy(tempname3, (char*)tile.name);
 											}
 											// End Get Temporany Name of the NEED Item - Magius(CHE) §
@@ -1327,7 +1326,7 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 								}
 							}
 							
-							if (needitem < 0)
+							if (pi_needitem != NULL)
 							{
 								if (strlen(fmsg))
 									sysmessage(ts, fmsg); // Added by Magius(CHE)
@@ -1344,9 +1343,9 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							clr1 = hexnumber(0);
 							clr2 = hexnumber(1);
 							j = makenumber(2);
-							if (needitem>-1)
+							if (pi_needitem != NULL)
 							{// AntiChrist
-								if (clr1 != items[needitem].color1 || clr2 != items[needitem].color2)
+								if (clr1 != pi_needitem->color1 || clr2 != pi_needitem->color2)
 								{
 									if (strlen(fmsg))
 										sysmessage(ts, fmsg);
@@ -1376,33 +1375,33 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							p = makenumber(1);
 							if (p <= 0)
 								p = 100;
-							if (needitem>-1)
+							if (pi_needitem != NULL)
 							{
-								c = items[needitem].hp;
-								if (items[needitem].maxhp>0)
+								c = pi_needitem->hp;
+								if (pi_needitem->maxhp>0)
 								{
 									if ((rand()%(100)) + 1 <= p)
 									{
-										if ((c >= items[needitem].maxhp) &&(j>0))
+										if ((c >= pi_needitem->maxhp) &&(j>0))
 										{
 											sprintf(tempstr, "Your %s is already totally repaired!", tempname3);
 											sysmessage(ts, tempstr);
 										}
-										items[needitem].hp += j;
-										if (items[needitem].hp >= items[needitem].maxhp)
-											items[needitem].hp = items[needitem].maxhp;
-										if (items[needitem].hp - c>0)
+										pi_needitem->hp += j;
+										if (pi_needitem->hp >= pi_needitem->maxhp)
+											pi_needitem->hp = pi_needitem->maxhp;
+										if (pi_needitem->hp - c>0)
 										{
 											if (strlen(cmsg))
 												sysmessage(ts, cmsg);
 											else 
 											{
-												total = (float) items[needitem].hp/items[needitem].maxhp; // Magius(CHE) §
+												total = (float) pi_needitem->hp/pi_needitem->maxhp; // Magius(CHE) §
 												sprintf(tempstr, "Your %s is now repaired! [%.1f%%]", tempname3, total*100);  // Magius(CHE) §
 												sysmessage(ts, tempstr);
 											}
 										}
-										else if (items[needitem].hp - c < 0)
+										else if (pi_needitem->hp - c < 0)
 										{
 											if (strlen(fmsg))
 												sysmessage(ts, fmsg);
@@ -1412,14 +1411,14 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 												sysmessage(ts, tempstr);
 											}
 										}
-										if (items[needitem].hp <= 0)
+										if (pi_needitem->hp <= 0)
 										{
 											sprintf(tempstr, "Your %s was too old and it has been destroyed!", tempname3);
 											sysmessage(ts, tempstr);
-											if (items[needitem].amount>1)
-												items[needitem].amount--;
+											if (pi_needitem->amount>1)
+												pi_needitem->amount--;
 											else 
-												Items->DeleItem(needitem);
+												Items->DeleItem(pi_needitem);
 										}
 									}
 								}
@@ -1438,15 +1437,15 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							p = makenumber(1);
 							if (p <= 0)
 								p = 100;
-							if (needitem>-1)
+							if (pi_needitem != NULL)
 							{
-								if (items[needitem].maxhp>0)
+								if (pi_needitem->maxhp>0)
 								{
 									if ((rand()%(100)) + 1 <= p)
 									{
-										items[needitem].maxhp += j;
-										if (items[needitem].hp >= items[needitem].maxhp)
-											items[needitem].hp = items[needitem].maxhp;
+										pi_needitem->maxhp += j;
+										if (pi_needitem->hp >= pi_needitem->maxhp)
+											pi_needitem->hp = pi_needitem->maxhp;
 										if (str2num(script2) >= 0)
 										{
 											if (strlen(cmsg))
@@ -1467,14 +1466,14 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 												sysmessage(ts, tempstr);
 											}
 										}
-										if (items[needitem].maxhp <= 0)
+										if (pi_needitem->maxhp <= 0)
 										{
 											sprintf(tempstr, "Your %s was too old and it has been destoryed!", tempname3);
 											sysmessage(ts, tempstr);
-											if (items[needitem].amount>1)
-												items[needitem].amount--;
+											if (pi_needitem->amount>1)
+												pi_needitem->amount--;
 											else 
-												Items->DeleItem(needitem);
+												Items->DeleItem(pi_needitem);
 										}
 									}
 								}
@@ -2078,24 +2077,24 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							if (p==-1)
 								p = 0;
 							
-							if (needitem < 0)
+							if (pi_needitem == NULL)
 							{
-								vector<SERIAL> vecContainer = contsp.getData(serial);
+								vector<SERIAL> vecContainer = contsp.getData(items[p].serial);
 								for (ci = 0; ci < vecContainer.size(); ci++)
 								{
-									int i = calcItemFromSer(vecContainer[ci]);
-									if (i!=-1)
+									P_ITEM pi = FindItemBySerial(vecContainer[ci]);
+									if (pi != NULL)
 									{
-										sprintf(sect, "x%x%x", items[i].id1, items[i].id2);
+										sprintf(sect, "x%x%x", pi->id1, pi->id2);
 										if (strstr((char*)script2, sect))
 										{
-											needitem = i;
+											pi_needitem = pi;
 											break;
 										}
 									}
 								}
 							}
-							if (needitem < 0)
+							if (pi_needitem == NULL)
 							{
 								sysmessage(ts, "It appears as though you have insufficient supplies to make that with.");
 								closescript();
@@ -2103,10 +2102,10 @@ void triggerwitem(UOXSOCKET const ts, int ti, int ttype)
 							}
 							else
 							{
-								if (items[needitem].amount>1)
-									items[needitem].amount--;
+								if (pi_needitem->amount>1)
+									pi_needitem->amount--;
 								else
-									Items->DeleItem(needitem);
+									Items->DeleItem(pi_needitem);
 							}
 						}
 					default:
@@ -2130,7 +2129,7 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 	unsigned int i;
 	int itemnum=-1;
 	int npcnum=-1;
-	int needitem=-1;
+	P_ITEM pi_needitem = NULL;
 	long int pos;
 	char fmsg[512];
 	
@@ -2821,7 +2820,7 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 						}
 						else if (!(strcmp("MEMCOLOR", (char*)script1)))  // Store the item color in memory by Magius(CHE) §
 						{
-							p=-1;
+							P_ITEM p = NULL;
 							if (!strcmp((char*)script2, "EMPTY"))
 							{
 								coloring=-1;
@@ -2829,13 +2828,13 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 								return;
 							}
 							else if (!strcmp((char*)script2, "REQ"))
-								p = DEREF_P_ITEM(pi_evti);
+								p = pi_evti;
 							else if (!strcmp((char*)script2, "NEED"))
-								p = needitem;
-							if (p>-1)
+								p = pi_needitem;
+							if (p != NULL)
 							{
-								memcolor1 = items[p].color1;
-								memcolor2 = items[p].color2;
+								memcolor1 = p->color1;
+								memcolor2 = p->color2;
 								coloring = 1;
 							}
 							else 
@@ -2907,12 +2906,12 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 							clr1 = hexnumber(0);
 							clr2 = hexnumber(1);
 							j = makenumber(2);
-							if (needitem==-1)
+							if (pi_needitem == NULL)
 							{
 								closescript();
 								return;
 							}
-							if (clr1 != items[needitem].color1 || clr2 != items[needitem].color2)
+							if (clr1 != pi_needitem->color1 || clr2 != pi_needitem->color2)
 							{
 								if (strlen(fmsg))
 									sysmessage(ts, fmsg);
@@ -2934,20 +2933,19 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 						else if (!(strcmp("NEED", (char*)script1)))  // The item here is required and will be removed
 						{
 							p = packitem(DEREF_P_CHAR(pc_ts));
-							for (i = 0; i < itemcount; i++)
+							vector<SERIAL> vecContainer = contsp.getData(items[p].serial);
+							unsigned int i;
+							for (i = 0; i < vecContainer.size(); i++)
 							{
-								if (p!=-1)
-									if (items[i].contserial == items[p].serial)
-									{
-										sprintf(sect, "x%x%x", items[i].id1, items[i].id2);
-										if (strstr((char*)script2, sect))
-										{
-											needitem = i;
-											break;
-										}
-									}
+								P_ITEM pi = FindItemBySerial(vecContainer[i]);
+								sprintf(sect, "x%x%x", pi->id1, pi->id2);
+								if (strstr((char*)script2, sect))
+								{
+									pi_needitem = pi;
+									break;
+								}
 							}
-							if (needitem < 0)
+							if (pi_needitem < 0)
 							{
 								if (strlen(fmsg))
 									sysmessage(ts, fmsg); // Added by Magius(CHE)
@@ -3210,36 +3208,36 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 					case 'U':
 						if (!(strcmp("USEUP", (char*)script1)))  // The item here is required and will be removed
 						{
-							p = packitem(DEREF_P_CHAR(pc_ts));
-							if (p!=-1) // lb
-								if (needitem < 0)
+							P_ITEM pPack = Packitem(pc_ts);
+							if (pPack != NULL) // lb
+								if (pi_needitem != NULL)
 								{
-									for (i = 0; i < itemcount; i++)
+									vector<SERIAL> vecContainer = contsp.getData(pPack->serial);
+									unsigned int i;
+									for (i = 0; i < vecContainer.size(); i++)
 									{
-										if (items[i].contserial == items[p].serial)
+										P_ITEM pi = FindItemBySerial(vecContainer[i]);
+										sprintf(sect, "x%x%x", pi->id1, pi->id2);
+										if (strstr((char*)script2, sect))
 										{
-											sprintf(sect, "x%x%x", items[i].id1, items[i].id2);
-											if (strstr((char*)script2, sect))
-											{
-												needitem = i;
-												break;
-											}
+											pi_needitem = pi;
+											break;
 										}
 									}
 								}
-								if (needitem < 0)
-								{
-									sysmessage(ts, "It appears as though you have insufficient supplies to make that with.");
-									closescript();
-									return;
-								}
-								else 
-								{
-									if (items[needitem].amount>1)
-										items[needitem].amount--;
-									else
-										Items->DeleItem(needitem);
-								}
+							if (pi_needitem == NULL)
+							{
+								sysmessage(ts, "It appears as though you have insufficient supplies to make that with.");
+								closescript();
+								return;
+							}
+							else 
+							{
+								if (pi_needitem->amount>1)
+									pi_needitem->amount--;
+								else
+									Items->DeleItem(pi_needitem);
+							}
 						}
 						break;
 					default:

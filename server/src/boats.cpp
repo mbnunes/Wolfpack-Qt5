@@ -920,7 +920,6 @@ void cBoat::Turn(ITEM b, int turn)//Turn the boat item, and send all the people/
     for (a = 0; a < vecEntries.size(); a++)
 	{
 		P_ITEM pi = FindItemBySerial(vecEntries[a]);
-//		c=imultisp[serial%HASHMAX].pointer[a];
 		if (pi != NULL)
 			TurnStuff(b,DEREF_P_ITEM(pi),turn,1);
 	}
@@ -930,7 +929,6 @@ void cBoat::Turn(ITEM b, int turn)//Turn the boat item, and send all the people/
 	for (a = 0; a < vecEntries.size(); a++)
 	{
 		P_CHAR pc = FindCharBySerial(vecEntries[a]);
-//		c=cmultisp[serial%HASHMAX].pointer[a];
 		if (pc != NULL)
 			TurnStuff(b, DEREF_P_CHAR(pc), turn, 0);
 	}

@@ -1910,7 +1910,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 					sysmessage(s,"He seems unaffected by your spell!");
 					return;
 				}
-				if( chardist( i, DEREF_P_CHAR(pc_currchar) ) > SrvParms->attack_distance )
+				if( chardist( DEREF_P_CHAR(pc_defender), DEREF_P_CHAR(pc_currchar) ) > SrvParms->attack_distance )
 				{
 					sysmessage( s, "You can't cast on someone that far away!" );
 					return;
@@ -1920,7 +1920,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 				{
 					if( aggressiveSpell( curSpell ) )
 					{
-						if ((pc_defender->isInnocent())&&(i != DEREF_P_CHAR(pc_currchar))&& !pc_currchar->Owns(&chars[i])&&(!Guilds->Compare(i,DEREF_P_CHAR(pc_currchar)))&&(!Races.CheckRelation(pc_currchar,pc_defender)) )
+						if ((pc_defender->isInnocent())&&(DEREF_P_CHAR(pc_defender) != DEREF_P_CHAR(pc_currchar))&& !pc_currchar->Owns(pc_defender)&&(!Guilds->Compare(DEREF_P_CHAR(pc_defender),DEREF_P_CHAR(pc_currchar)))&&(!Races.CheckRelation(pc_currchar,pc_defender)) )
 						{
 							criminal(DEREF_P_CHAR(pc_currchar));
 						}
@@ -1929,7 +1929,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							sysmessage(s," They are Invulnerable merchants!");
 							return;
 						}
-						npcattacktarget(i, DEREF_P_CHAR(pc_currchar));
+						npcattacktarget(DEREF_P_CHAR(pc_defender), DEREF_P_CHAR(pc_currchar));
 					}
 					if( spellReflectable( curSpell ) )
 					{
@@ -1938,18 +1938,18 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 					}
 										
 					playSound( DEREF_P_CHAR(pc_currchar), curSpell );
-					doMoveEffect( curSpell, i, DEREF_P_CHAR(pc_currchar) );
-					if (curSpell !=30 && curSpell !=58) doStaticEffect( i, curSpell ); // Lb, bugfix, was (DEREF_P_CHAR(pc_currchar) ...)																									
+					doMoveEffect( curSpell, DEREF_P_CHAR(pc_defender), DEREF_P_CHAR(pc_currchar) );
+					if (curSpell !=30 && curSpell !=58) doStaticEffect( DEREF_P_CHAR(pc_defender), curSpell ); // Lb, bugfix, was (DEREF_P_CHAR(pc_currchar) ...)																									
 				
 					switch( curSpell )
 					{
 						//////////// (1) CLUMSY /////////////////
 						case 1:
-							tempeffect( DEREF_P_CHAR(pc_currchar), i, 3, pc_currchar->skill[MAGERY]/100, 0, 0);
+							tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 3, pc_currchar->skill[MAGERY]/100, 0, 0);
 							break;
 						//////////// (3) FEEBLEMIND /////////////
 						case 3:
-							tempeffect( DEREF_P_CHAR(pc_currchar), i, 4, pc_currchar->skill[MAGERY]/100, 0, 0);
+							tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 4, pc_currchar->skill[MAGERY]/100, 0, 0);
 							break;
 						//////////// (4) HEAL ///////////////////
 						case 4:
@@ -1971,16 +1971,16 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							if (h>2) h+=rand()%3;
 
 							pc_defender->hp=pc_defender->hp+h;
-							updatestats(i, 0);
+							updatestats(DEREF_P_CHAR(pc_defender), 0);
 
 							break;
 						//////////// (5) MAGIC ARROW ////////////
 						case 5:
-							MagicDamage(i, (1+(rand()%1)+1)*(pc_currchar->skill[MAGERY]/2000+1));
+							MagicDamage(DEREF_P_CHAR(pc_defender), (1+(rand()%1)+1)*(pc_currchar->skill[MAGERY]/2000+1));
 							break;
 						//////////// (6) NIGHT SIGHT ////////////
 						case 6:
-							tempeffect( DEREF_P_CHAR(pc_currchar), i, 2, 0, 0, 0);
+							tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 2, 0, 0, 0);
 							break;
 						//////////// (7) REACTIVE ARMOR /////////
 						case 7:
@@ -1989,33 +1989,33 @@ void cMagic::NewCastSpell( UOXSOCKET s )
                                 sysmessage(s,"Spell fails due to the armor on target!");
                                 break;
 							}
-							tempeffect( DEREF_P_CHAR(pc_currchar), i, 15, pc_currchar->skill[MAGERY]/100, 0, 0 );
+							tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 15, pc_currchar->skill[MAGERY]/100, 0, 0 );
 							pc_defender->ra=1;
 							break;
 						//////////// (8) WEAKEN /////////////////
 						case 8:
-							tempeffect( DEREF_P_CHAR(pc_currchar), i, 5, pc_currchar->skill[MAGERY]/100, 0, 0);
+							tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 5, pc_currchar->skill[MAGERY]/100, 0, 0);
 							break;
 						//////////// (9) AGILITY ////////////////
 						case 9:
-							tempeffect( DEREF_P_CHAR(pc_currchar), i, 6, pc_currchar->skill[MAGERY]/100, 0, 0);
+							tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 6, pc_currchar->skill[MAGERY]/100, 0, 0);
 							break;
 						//////////// (10) CUNNING ///////////////
 						case 10:
-							tempeffect( DEREF_P_CHAR(pc_currchar), i, 7, pc_currchar->skill[MAGERY]/100, 0, 0);
+							tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 7, pc_currchar->skill[MAGERY]/100, 0, 0);
 							break;
 						//////////// (11) CURE //////////////////
 						case 11:
 							pc_defender->poisoned=0;
 							pc_defender->poisonwearofftime=uiCurrentTime;
-							impowncreate(s,i,1); // updating to blue bar
+							impowncreate(s,DEREF_P_CHAR(pc_defender),1); // updating to blue bar
 							break;
 						//////////// (12) HARM //////////////////
 						case 12:
-							if (CheckResist(DEREF_P_CHAR(pc_currchar), i, 2))
-								MagicDamage(i, pc_currchar->skill[MAGERY]/500+1);
+							if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 2))
+								MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/500+1);
 							else
-								MagicDamage(i, (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(249+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,2));
+								MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(249+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,2));
 							break;
 						//////////// (15) PROTECTION ////////////
 						case 15:
@@ -2024,39 +2024,39 @@ void cMagic::NewCastSpell( UOXSOCKET s )
                                 sysmessage(s,"Spell fails due to the armor on target!");
                                 break;
 							}
-							tempeffect( DEREF_P_CHAR(pc_currchar), i, 21, pc_currchar->skill[MAGERY]/100, 0, 0 );
+							tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 21, pc_currchar->skill[MAGERY]/100, 0, 0 );
 							break;
 						//////////// (16) STRENGTH //////////////
 						case 16:
-							tempeffect( DEREF_P_CHAR(pc_currchar), i, 8, pc_currchar->skill[MAGERY]/100, 0, 0);
+							tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 8, pc_currchar->skill[MAGERY]/100, 0, 0);
 							break;
 						//////////// (17) BLESS /////////////////
 						case 17:
 							j=pc_currchar->skill[MAGERY]/100;
-							tempeffect( DEREF_P_CHAR(pc_currchar), i, 11, j, j, j);
+							tempeffect( DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 11, j, j, j);
 							break;
 						//////////// (18) FIREBALL //////////////
 						case 18:
-							if (CheckResist(DEREF_P_CHAR(pc_currchar), i, 3))
-								MagicDamage(i, pc_currchar->skill[MAGERY]/280+1);
+							if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 3))
+								MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/280+1);
 							else
-								MagicDamage(i, (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(139+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,4));
+								MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(139+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,4));
 							break;
 						//////////// (20) POISON ////////////////
 						case 20:
-							if(CheckResist(DEREF_P_CHAR(pc_currchar), i, 1)) return;
+							if(CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 1)) return;
 							{
 								pc_defender->poisoned=2;
 								pc_defender->poisonwearofftime=uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); // LB
-								impowncreate( s, i, 1); //Lb, sends the green bar !
+								impowncreate( s, DEREF_P_CHAR(pc_defender), 1); //Lb, sends the green bar !
 							}
 							break;
 						//////////// (27) CURSE /////////////////
 						case 27:
-							if(!CheckResist(DEREF_P_CHAR(pc_currchar), i, 1))
+							if(!CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 1))
 							{
 								j=pc_currchar->skill[MAGERY]/100;
-								tempeffect(DEREF_P_CHAR(pc_currchar), i, 12, j, j, j);
+								tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 12, j, j, j);
 							}
 							break;
 						//////////// (29) GREATER HEAL //////////
@@ -2070,33 +2070,33 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							}
 							j=pc_defender->hp+(pc_currchar->skill[MAGERY]/30+RandomNum(1,12));
 							pc_defender->hp=min(pc_defender->st, j);
-							updatestats(i, 0);
+							updatestats(DEREF_P_CHAR(pc_defender), 0);
 							break;
 						//////////// (30) LIGHTNING /////////////
 						case 30:
-							bolteffect(i, true);
-							if (CheckResist(DEREF_P_CHAR(pc_currchar), i, 4))
-								MagicDamage(i, pc_currchar->skill[MAGERY]/180+RandomNum(1,2));
+							bolteffect(DEREF_P_CHAR(pc_defender), true);
+							if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 4))
+								MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/180+RandomNum(1,2));
 							else
-								MagicDamage(i, (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(89+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,5));
+								MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(89+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,5));
 							break;
 						//////////// (31) MANA DRAIN ////////////
 						case 31:
-							if(!CheckResist(DEREF_P_CHAR(pc_currchar), i, 4))
+							if(!CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 4))
 							{
 								pc_defender->mn-=pc_currchar->skill[MAGERY]/35;
 								if (pc_defender->mn<0) pc_defender->mn=0;
-								updatestats(i, 1);
+								updatestats(DEREF_P_CHAR(pc_defender), 1);
 							}
 							break;
 						//////////// (37) MIND BLAST ////////////
 						case 37:
 							if (pc_currchar->in>pc_defender->in)
 							{
-								if (CheckResist(DEREF_P_CHAR(pc_currchar), i, 5))
-									MagicDamage(i, (pc_currchar->in-pc_defender->in)/4);
+								if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 5))
+									MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->in-pc_defender->in)/4);
 								else
-									MagicDamage(i, (pc_currchar->in-pc_defender->in)/2);
+									MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->in-pc_defender->in)/2);
 							}
 							else
 							{
@@ -2109,53 +2109,53 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							break;
 						//////////// (38) PARALYZE //////////////
 						case 38:
-							if (!CheckResist(DEREF_P_CHAR(pc_currchar), i, 7))
-								tempeffect(DEREF_P_CHAR(pc_currchar), i, 1, 0, 0, 0);
+							if (!CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 7))
+								tempeffect(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 1, 0, 0, 0);
 							break;
 						//////////// (41) DISPEL ////////////////
 						case 41:
 							if (pc_defender->priv2&0x20)
 							{
-								//staticeffect(i, 0x37, 0x2A, 0x09, 0x06);
+								//staticeffect(DEREF_P_CHAR(pc_defender), 0x37, 0x2A, 0x09, 0x06);
 								tileeffect(pc_defender->pos.x,pc_defender->pos.y,pc_defender->pos.z, 0x37, 0x2A, 0x00, 0x00);
-								if (pc_defender->isNpc()) Npcs->DeleteChar(i);
-								else deathstuff(i);
+								if (pc_defender->isNpc()) Npcs->DeleteChar(DEREF_P_CHAR(pc_defender));
+								else deathstuff(DEREF_P_CHAR(pc_defender));
 							}
 							break;
 						//////////// (42) ENERGY BOLT ///////////
 						case 42:
-							if (CheckResist(DEREF_P_CHAR(pc_currchar), i, 6))
-								MagicDamage(i, pc_currchar->skill[MAGERY]/120);
+							if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 6))
+								MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/120);
 							else
-								MagicDamage(i, (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(34+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,10));						
+								MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(34+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,10));						
 													
 							break;
 						//////////// (43) EXPLOSION /////////////
 						case 43:
-							if (CheckResist(DEREF_P_CHAR(pc_currchar), i, 6))
-								MagicDamage(i, pc_currchar->skill[MAGERY]/120+RandomNum(1,5));
+							if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 6))
+								MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/120+RandomNum(1,5));
 							else
-								MagicDamage(i, (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(39+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,10));
+								MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(39+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,10));
 							break;
 						//////////// (44) INVISIBILITY //////////
 						case 44:						
                            
-							cMagic::invisibleItemParticles(i, curSpell, pc_defender->pos.x, pc_defender->pos.y, pc_defender->pos.z+12);
+							cMagic::invisibleItemParticles(DEREF_P_CHAR(pc_defender), curSpell, pc_defender->pos.x, pc_defender->pos.y, pc_defender->pos.z+12);
 
 							pc_defender->hidden=2;
-							updatechar(i);
+							updatechar(DEREF_P_CHAR(pc_defender));
 							pc_defender->invistimeout=uiCurrentTime+(SrvParms->invisibiliytimer*MY_CLOCKS_PER_SEC);
 							break;
 						//////////// (51) FLAMESTRIKE ///////////
 						case 51:
-							if (CheckResist(DEREF_P_CHAR(pc_currchar), i, 7))
-								MagicDamage(i, pc_currchar->skill[MAGERY]/80);
+							if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 7))
+								MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[MAGERY]/80);
 							else
-								MagicDamage(i, (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(34+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,25));
+								MagicDamage(DEREF_P_CHAR(pc_defender), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(34+1*(pc_defender->skill[MAGICRESISTANCE]/30))+RandomNum(1,25));
 							break;
 						//////////// (53) MANA VAMPIRE //////////
 						case 53:
-							if(!CheckResist(DEREF_P_CHAR(pc_currchar), i, 7))
+							if(!CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_defender), 7))
 							{
 								if (pc_defender->mn<40)
 								{
@@ -2167,17 +2167,17 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 									pc_defender->mn-=40;
 									pc_currchar->mn+=40;
 								}
-								updatestats(i, 1);
+								updatestats(DEREF_P_CHAR(pc_defender), 1);
 								updatestats(DEREF_P_CHAR(pc_currchar), 1);
 							}
 							break;
 						//////////// (59) RESURRECTION //////////
 						case 59:
-							if (pc_defender->dead && online(i))
+							if (pc_defender->dead && online(DEREF_P_CHAR(pc_defender)))
 							{
-								cMagic::doStaticEffect(i, curSpell);
-								b=Targ->NpcResurrectTarget(i);		
-								cMagic::invisibleItemParticles(i, curSpell, pc_defender->pos.x, pc_defender->pos.y, pc_defender->pos.z);
+								cMagic::doStaticEffect(DEREF_P_CHAR(pc_defender), curSpell);
+								b=Targ->NpcResurrectTarget(DEREF_P_CHAR(pc_defender));		
+								cMagic::invisibleItemParticles(DEREF_P_CHAR(pc_defender), curSpell, pc_defender->pos.x, pc_defender->pos.y, pc_defender->pos.z);
 								return;
 							}
 							else if (!pc_defender->dead) sysmessage(s,"That player isn't dead!");
@@ -2185,10 +2185,10 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							break;
 							//////////// (66) CANNON FIRING /////////
 						case 66:
-							if (CheckParry(i, 6))
-								MagicDamage(i, pc_currchar->skill[TACTICS]/50);
+							if (CheckParry(DEREF_P_CHAR(pc_defender), 6))
+								MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[TACTICS]/50);
 							else
-								MagicDamage(i, pc_currchar->skill[TACTICS]/25);
+								MagicDamage(DEREF_P_CHAR(pc_defender), pc_currchar->skill[TACTICS]/25);
 							break;
 						default:
 						clConsole.send("MAGIC-ERROR: Unknown CharacterTarget spell %i, magic.cpp\n", curSpell );
@@ -2684,11 +2684,11 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 										cMagic::doStaticEffect(DEREF_P_CHAR(mapchar), curSpell);
 										if (CheckResist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(mapchar), 7))
 										{
-											MagicDamage(DEREF_P_CHAR(mapchar), pc_currchar->skill[MAGERY]/80);
+											MagicDamage(mapchar, pc_currchar->skill[MAGERY]/80);
 										}
 										else
 										{
-											MagicDamage(DEREF_P_CHAR(mapchar), (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(39+1*(chars[i].skill[MAGICRESISTANCE]/30)));
+											MagicDamage(mapchar, (pc_currchar->skill[MAGERY]+1*(pc_currchar->skill[EVALUATINGINTEL]/3))/(39+1*(chars[i].skill[MAGICRESISTANCE]/30)));
 										}
 									}
 									else
@@ -4115,19 +4115,19 @@ void cMagic::Gate(UOXSOCKET s)
 			for (n=0;n<2;n++)
 			{
 				strcpy((char*)temp,"a blue moongate");
-				c=Items->SpawnItem(-1,s,1,"#",0,0x0f,0x6c,0,0,0,0);
-				if(c>-1)//AntiChrist - to prevent crashes
+				P_ITEM pi_c = MAKE_ITEM_REF(Items->SpawnItem(-1,s,1,"#",0,0x0f,0x6c,0,0,0,0));
+				if(pi_c != NULL)//AntiChrist - to prevent crashes
 				{
-					items[c].type=51+n;
-					items[c].pos.x=gatex[gatecount][n];
-					items[c].pos.y=gatey[gatecount][n];
-					items[c].pos.z=gatez[gatecount][n];
-					items[c].gatetime=(uiCurrentTime+(SrvParms->gatetimer*MY_CLOCKS_PER_SEC));
+					pi_c->type=51+n;
+					pi_c->pos.x=gatex[gatecount][n];
+					pi_c->pos.y=gatey[gatecount][n];
+					pi_c->pos.z=gatez[gatecount][n];
+					pi_c->gatetime=(uiCurrentTime+(SrvParms->gatetimer*MY_CLOCKS_PER_SEC));
 					//clConsole.send("GATETIME:%i UICURRENTTIME:%d GETCLOCK:%d\n",SrvParms->gatetimer,uiCurrentTime,getclock());
-					items[c].gatenumber=gatecount;
-					items[c].dir=1;
-					mapRegions->Add(&items[c]);	//add gate to list of items in the region
-					RefreshItem(c);//AntiChrist
+					pi_c->gatenumber=gatecount;
+					pi_c->dir=1;
+					mapRegions->Add(pi_c);	//add gate to list of items in the region
+					RefreshItem(pi_c);//AntiChrist
 				}
 				if (n==1)
 				{

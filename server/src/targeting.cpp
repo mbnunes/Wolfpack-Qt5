@@ -417,25 +417,28 @@ public:
 //public !!
 void cTargets::IDtarget(int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
+	SERIAL serial=LongFromCharPtr(buffer[s]+7);
 	int i=calcItemFromSer(serial);
-	if (i!=-1)
+	if (isItemSerial(serial))
 	{
-		P_ITEM pi=MAKE_ITEMREF_LR(i);
+		P_ITEM pi = FindItemBySerial(serial);
+		if (pi == NULL)
+			return;
 		pi->id1=addx[s];
 		pi->id2=addy[s];
-		RefreshItem(i);
+		RefreshItem(pi);
 		return;
 	}
-	i=calcCharFromSer(serial);
-	if (i!=-1)
+	else if (isCharSerial(serial))
 	{
-		P_CHAR pc = MAKE_CHARREF_LR(i);
+		P_CHAR pc = FindCharBySerial(serial);
+		if (pc == NULL)
+			return;
 		pc->id1=addx[s];
 		pc->id2=addy[s];
 		pc->xid1=addx[s];
 		pc->xid2=addy[s];
-		updatechar(i);
+		updatechar(DEREF_P_CHAR(pc));
 	}
 }
 
@@ -1538,7 +1541,7 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 		c=Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xA0,0,0,0,0);
 		P_ITEM pi=MAKE_ITEMREF_LR(c);
 		if(c==-1) return;
-		pi->SetContSerial(items[i].serial);
+		pi->SetContSerial(pi3->serial);
 		pi->layer=0x01;
 		pi->att=5;
 
@@ -1551,7 +1554,7 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 		c=Items->SpawnItem(s,cc,1,(char*)temp,0,0x1C,0xED,0,0,0,0);
 		P_ITEM pi4=MAKE_ITEMREF_LR(c);
 		if(c==-1) return;
-		pi4->SetContSerial(items[i].serial);
+		pi4->SetContSerial(pi3->serial);
 		pi4->layer=0x01;
 		pi4->att=5;
 		pi4->setOwnSerialOnly(pi3->ownserial);	// see above
@@ -1561,7 +1564,7 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 		c=Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xAD,0,0,0,0);
 		P_ITEM pi5=MAKE_ITEMREF_LR(c);
 		if(c==-1) return;
-		pi5->SetContSerial(items[i].serial);
+		pi5->SetContSerial(pi3->serial);
 		pi5->layer=0x01;
 		pi5->att=5;
 		pi5->setOwnSerialOnly(pi3->ownserial);	// see above
@@ -1571,7 +1574,7 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 		c=Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xA1,0,0,0,0);
 		P_ITEM pi6=MAKE_ITEMREF_LR(c);
 		if(c==-1) return;
-		pi6->SetContSerial(items[i].serial);
+		pi6->SetContSerial(pi3->serial);
 		pi6->layer=0x01;
 		pi6->att=5;
 		pi6->setOwnSerialOnly(pi3->ownserial);	// see above
@@ -1581,7 +1584,7 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 		c=Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xA2,0,0,0,0);
 		P_ITEM pi7=MAKE_ITEMREF_LR(c);
 		if(c==-1) return;//AntiChrist to preview crashes
-		pi7->SetContSerial(items[i].serial);
+		pi7->SetContSerial(pi3->serial);
 		pi7->layer=0x01;
 		pi7->att=5;
 		pi7->setOwnSerialOnly(pi3->ownserial);	// see above
@@ -1591,7 +1594,7 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 		c=Items->SpawnItem(s,cc,1,(char*)temp,0,0x1D,0xA3,0,0,0,0);
 		P_ITEM pi8=MAKE_ITEMREF_LR(c);
 		if(c==-1) return;//AntiChrist to preview crashes
-		pi8->SetContSerial(items[i].serial);
+		pi8->SetContSerial(pi3->serial);
 		pi8->layer=0x01;
 		pi8->att=5;
 		pi8->setOwnSerialOnly(pi3->ownserial);	// see above
@@ -1602,7 +1605,7 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 		P_ITEM pi9=MAKE_ITEMREF_LR(c);
 		if(c==-1) return;
 		
-		pi9->SetContSerial(items[i].serial);
+		pi9->SetContSerial(pi3->serial);
 		pi9->layer=0x01;
 		pi9->att=5;
 		pi9->setOwnSerialOnly(pi3->ownserial);	// see above
@@ -1633,7 +1636,7 @@ static void newCarveTarget(UOXSOCKET s, ITEM i)
 					n=Items->CreateScriptItem(s,storeval,0);
 					P_ITEM pi10=MAKE_ITEMREF_LR(n);
 					pi10->layer=0;
-					pi10->SetContSerial(items[i].serial);
+					pi10->SetContSerial(pi3->serial);
 					pi10->pos.x=20+(rand()%50);
 					pi10->pos.y=85+(rand()%75);
 					pi10->pos.z=9;
