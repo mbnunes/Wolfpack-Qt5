@@ -174,17 +174,18 @@ public:
 		// Serialize the py object
 		for( int i = 0; i < PyTuple_Size( args ); ++i )
 		{
-			if( PyInt_Check( PyTuple_GetItem( args, i ) ) )
-			{
-				saveInt( id, "pyarg_" + QString::number( i ), (int)PyInt_AsLong( PyTuple_GetItem( args, i ) ) );
-			}
-			else if( PyString_Check( PyTuple_GetItem( args, i ) ) )
-			{
-				saveString( id, "pyarg_" + QString::number( i ), PyString_AsString( PyTuple_GetItem( args, i ) ) );
-			}
-			else if( PyFloat_Check( PyTuple_GetItem( args, i ) ) )
-			{
-				saveFloat( id, "pyarg_" + QString::number( i ), PyFloat_AsDouble( PyTuple_GetItem( args, i ) ) );
+			PyObject *object = PyTuple_GetItem(args, i);
+			QString name = "pyarg_" + QString::number(i);
+			if (PyInt_Check(object)) {
+				saveInt(id, name, (int)PyInt_AsLong(object));
+			} else if(PyString_Check(object)) {
+				saveString(id, name, PyString_AsString(object));
+			} else if(PyFloat_Check(object)) {
+				saveFloat( id, name, PyFloat_AsDouble(object));
+			} else if (checkWpChar(object)) {
+				saveChar(id, name, getWpChar(object));
+			} else if (checkWpItem(object)) {
+				saveItem(id, name, getWpItem(object));
 			}
 		}
 
@@ -217,11 +218,16 @@ public:
 				continue;
 
 			if( type == "string" )
-				PyTuple_SetItem( args, id, PyString_FromString( value.latin1() ) );
+				PyTuple_SetItem(args, id, PyString_FromString(value.latin1()));
 			else if( type == "int" )
-				PyTuple_SetItem( args, id, PyInt_FromLong( value.toInt() ) );
+				PyTuple_SetItem(args, id, PyInt_FromLong(value.toInt()));
 			else if( type == "float" )
-				PyTuple_SetItem( args, id, PyFloat_FromDouble( value.toFloat() ) );
+				PyTuple_SetItem(args, id, PyFloat_FromDouble(value.toFloat()));
+			else if (type == "char") {
+				PyTuple_SetItem(args, id, PyGetCharObject(World::instance()->findChar(value.toInt())));
+			} else if (type == "item") {
+				PyTuple_SetItem(args, id, PyGetItemObject(World::instance()->findItem(value.toInt())));
+			}
 		}
 
 		res.free();

@@ -91,7 +91,7 @@ void cTempEffect::setExpiretime_ms(float milliseconds)
  */
 void cTempEffect::saveFloat( unsigned int id, QString key, double value )
 {
-	persistentBroker->executeQuery( QString( "INSERT INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( persistentBroker->quoteString( key ) ).arg( "float" ).arg( value ) );
+	persistentBroker->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( persistentBroker->quoteString( key ) ).arg( "float" ).arg( value ) );
 }
 
 /*
@@ -99,7 +99,7 @@ void cTempEffect::saveFloat( unsigned int id, QString key, double value )
  */
 void cTempEffect::saveInt( unsigned int id, QString key, int value )
 {
-	persistentBroker->executeQuery( QString( "INSERT INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( persistentBroker->quoteString( key ) ).arg( "int" ).arg( value ) );
+	persistentBroker->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( persistentBroker->quoteString( key ) ).arg( "int" ).arg( value ) );
 }
 
 /*
@@ -107,7 +107,45 @@ void cTempEffect::saveInt( unsigned int id, QString key, int value )
  */
 void cTempEffect::saveString( unsigned int id, QString key, const QString &value )
 {
-	persistentBroker->executeQuery( QString( "INSERT INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( persistentBroker->quoteString( key ) ).arg( "string" ).arg( persistentBroker->quoteString( value.utf8() ) ) );
+	persistentBroker->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( persistentBroker->quoteString( key ) ).arg( "string" ).arg( persistentBroker->quoteString( value.utf8() ) ) );
+}
+
+void cTempEffect::saveChar(unsigned int id, QString key, P_CHAR character ) {
+	unsigned int value = character->serial();
+	persistentBroker->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( persistentBroker->quoteString( key ) ).arg( "char" ).arg( value ) );
+}
+
+void cTempEffect::saveItem(unsigned int id, QString key, P_ITEM item ) {
+	unsigned int value = item->serial();
+	persistentBroker->executeQuery( QString( "REPLACE INTO effects_properties VALUES(%1,'%2','%3','%4');" ).arg( id ).arg( persistentBroker->quoteString( key ) ).arg( "item" ).arg( value ) );
+}
+
+bool cTempEffect::loadChar(unsigned int id, QString key, P_CHAR &character ) {
+	cDBResult result = persistentBroker->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'char'" ).arg( id ).arg( persistentBroker->quoteString( key ) ) );
+
+	character = 0;
+	if (!result.fetchrow()) {
+		result.free();
+		return false;
+	}
+
+	character = World::instance()->findChar(result.getString( 0 ).toInt());
+	result.free();
+	return true;
+}
+
+bool cTempEffect::loadItem(unsigned int id, QString key, P_ITEM &item ) {
+	cDBResult result = persistentBroker->query( QString( "SELECT value FROM effects_properties WHERE id = '%1' AND keyname = '%2' AND type = 'item'" ).arg( id ).arg( persistentBroker->quoteString( key ) ) );
+
+	item = 0;
+	if (!result.fetchrow()) {
+		result.free();
+		return false;
+	}
+
+	item = World::instance()->findItem(result.getString( 0 ).toInt());
+	result.free();
+	return true;
 }
 
 /*

@@ -82,9 +82,13 @@ public:
 	void saveFloat( unsigned int id, QString key, double value );
 	void saveInt( unsigned int id, QString key, int value );
 	void saveString( unsigned int id, QString key, const QString &value );
+	void saveChar(unsigned int id, QString key, P_CHAR character );
+	void saveItem(unsigned int id, QString key, P_ITEM item );
 	bool loadFloat( unsigned int id, QString key, double &value );
 	bool loadInt( unsigned int id, QString key, int &value );
 	bool loadString( unsigned int id, QString key, QString &value );
+	bool loadChar(unsigned int id, QString key, P_CHAR &character );
+	bool loadItem(unsigned int id, QString key, P_ITEM &item );
 	
 public:
 //	cTempEffect() { serializable = true; }
