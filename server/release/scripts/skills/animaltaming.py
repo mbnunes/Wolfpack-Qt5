@@ -70,7 +70,7 @@ def response( char, args, target ):
 	totame = target.char
 
 	# You can't reach that (too far away, no los, wrong map)
-	if char.distanceto( totame  > TAMING_RANGE ):
+	if char.distanceto( totame ) > TAMING_RANGE:
 		socket.clilocmessage( 502803, "", 0x3b2, 3, totame )
 		return
 	if not char.canreach( totame, TAMING_RANGE ):
