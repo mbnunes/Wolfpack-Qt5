@@ -9,6 +9,7 @@ def onShowTooltip(char, item, tooltip):
 
 def response(char, args, response):
   if response.button == 0:
+    char.socket.clilocmessage(1013009)
     return
 
   deed = wolfpack.finditem(args[0])
@@ -19,9 +20,13 @@ def response(char, args, response):
     oldhair = char.itemonlayer(LAYER_HAIR)
     oldcolor = 0
 
+    if not oldhair and response.button == 1:
+      char.socket.clilocmessage(1013010)
+      return
+
     if oldhair:
       oldcolor = oldhair.color
-      oldhair.delete()
+      oldhair.delete() 
 
     newhair = None
 
@@ -50,6 +55,9 @@ def response(char, args, response):
     deed.delete()
 
 def onUse(char, deed):
+  if char.id != 0x190 or char.id != 0x191:
+    char.socket.clilocmessage(1042298)
+    return 1
 
   if not deed.container == char.getbackpack():
     char.socket.clilocmessage(1042001)
