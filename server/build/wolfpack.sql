@@ -201,3 +201,9 @@ CREATE TABLE `guilds_canidates` (
 	`player` int(11) NOT NULL default '0',
 	PRIMARY KEY(`guild`,`player`)
 );
+
+CREATE TABLE `spawnregions` (
+	`spawnregion` varchar(64) NOT NULL,
+	`serial` int(11) NOT NULL default '0',
+	PRIMARY KEY (`spawnregion`, `serial`)
+);
