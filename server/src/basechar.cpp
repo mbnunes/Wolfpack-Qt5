@@ -820,8 +820,8 @@ void cBaseChar::resurrect()
 	setSkin( orgSkin_ );	
 	setDead( false );
 	hitpoints_ = QMAX( 1, ( Q_UINT16 ) ( 0.1 * maxHitpoints_ ) );
-	stamina_ = ( Q_UINT16 ) ( 0.1 * maxStamina_ );
-	mana_ = ( Q_UINT16 ) ( 0.1 * maxMana_ );
+	stamina_ = ( Q_UINT16 ) ( 0.5* maxStamina_ );
+	mana_ = ( Q_UINT16 ) ( 0.5 * maxMana_ );
 	fight( 0 );
 	P_ITEM backpack = getBackpack(); // Make sure he has a backpack
 

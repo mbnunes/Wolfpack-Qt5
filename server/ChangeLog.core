@@ -32,6 +32,7 @@ Wolfpack 12.9.11 Beta (CVS)
 	- Animals no longer flee from approaching players.
 	- Fixed several python reference count issues.
 	- Fixed a stamina loss bug on damage.
+	- Changed the amount of recovered mana and stamina from 10% to 50% on resurrection.
 
 Wolfpack 12.9.10 Beta (10. September 2004)
 	- Made the maximum number of controlled pets a dynamic property for players.
