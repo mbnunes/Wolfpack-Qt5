@@ -52,9 +52,9 @@
 	<location id="trammel njuhelm market" category="Trammel\Towns\Njuhelm\Market">3554,1187,0,1</location>
 	<location id="trammel njuhelm palace" category="Trammel\Towns\Njuhelm\Palace">3703,1282,20,1</location>
 
-	<!-- Occlo -->
-	<location id="trammel occlo" category="Trammel\Towns\Occlo\Bank">3686,2519,0,1</location>
-	<location id="trammel occlo smithy" category="Trammel\Towns\Occlo\Smithy">3642,2595,0,1</location>
+	<!-- Haven -->
+	<location id="trammel haven" category="Trammel\Towns\Haven\Bank">3686,2519,0,1</location>
+	<location id="trammel haven smithy" category="Trammel\Towns\Haven\Smithy">3642,2595,0,1</location>
 
 	<!-- Serpents Hold -->
 	<location id="trammel serpents hold" category="Trammel\Towns\Serpents Hold\Center">3021,3397,15,1</location>

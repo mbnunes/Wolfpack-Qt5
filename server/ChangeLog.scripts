@@ -6,6 +6,7 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Added the shopkeeper inventory for many vendors.
 		- Fixed bug #0000289 - Fixed/added weight values for many items.
 		- Fixed bug #0000288 - All monsters should have 2000 mintaming.
+		- Fixed bug part 2 of #0000283 - Occlo renamed to Haven in locations.
 	* Python Script Changes:
 		- Removed weight from the info menu.
 		- The info command now correctly resends the changed players.
