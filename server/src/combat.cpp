@@ -214,7 +214,7 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 			if (pc_deffender->xid2==0x90) soundeffect2(DEREF_P_CHAR(pc_deffender),0x01,0x56);
 			playmonstersound(DEREF_P_CHAR(pc_deffender), pc_deffender->id1, pc_deffender->id2, SND_DEFEND);
 			//AntiChrist -- for poisoned weapons
-			if(pWeapon->poisoned>0)
+			if((!pWeapon) && (pWeapon->poisoned>0))
 			{
 				pc_deffender->poisoned=pWeapon->poisoned;
 				pc_deffender->poisontime=uiCurrentTime+(MY_CLOCKS_PER_SEC*(40/pc_deffender->poisoned)); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
@@ -738,17 +738,7 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 
 	int d = pc_attacker->targ;
 	P_CHAR pc_defender = MAKE_CHAR_REF(d);
-	int racerela=0;
 	if ((d==-1) || (pc_defender->isPlayer() && !online(d) || pc_defender->isHidden()) && pc_attacker->war)
-	{
-		pc_attacker->war=0; // LB
-		pc_attacker->timeout=0;
-		pc_attacker->attacker = INVALID_SERIAL;
-		pc_attacker->resetAttackFirst();
-		return;
-	}
-	racerela=Races.CheckRelation(pc_attacker,pc_defender);
-	if(racerela == 1)
 	{
 		pc_attacker->war=0; // LB
 		pc_attacker->timeout=0;

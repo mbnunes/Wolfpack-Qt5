@@ -149,9 +149,9 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 							continue;
 						if (d>SrvParms->attack_distance)
 							continue;
-						if (onl &&(pc->isInvul() || pc->isHidden() || pc->dead))
+						if (onl &&(pc->isInvul() || pc->isHidden() || pc->dead || (Races.CheckRelation(pc_i,pc)==1)))
 							continue;
-						if (pc->isNpc() &&(pc->npcaitype == 2 || pc->npcaitype == 1))
+						if (pc->isNpc() &&(pc->npcaitype == 2 || pc->npcaitype == 1)&&(Races.CheckRelation(pc_i,pc)==1))
 							continue;
 						if (server_data.monsters_vs_animals == 0 &&(strlen(pc->title) > 0 || !onl))
 							continue;
@@ -307,7 +307,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 						d = chardist(i, DEREF_P_CHAR(pc));
 						if (i == DEREF_P_CHAR(pc) || d > 3 || pc->isInvul() || pc->dead || !onl)
 							continue;
-						if (pc->isPlayer() && pc->crimflag > 0)
+						if ((pc->isPlayer() && pc->crimflag > 0) || (Races.CheckRelation(pc,pc_i)!=1))
 						{
 							sprintf((char*)temp, "You better watch your step %s, I am watching thee!!", pc->name);
 							npctalkall(i, (char*)temp, 1);
@@ -434,6 +434,8 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 						d = chardist(i, DEREF_P_CHAR(pc));
 						if (d > 10 || pc->isInvul() || pc->dead || !onl)
 							continue;
+						if (Races.CheckRelation(pc,pc_i)==1)
+							continue;
 						npcattacktarget(i, DEREF_P_CHAR(pc));
 						return;
 					}
@@ -474,6 +476,8 @@ void cCharStuff::cDragonAI::DoAI(int i, int currenttime)
 				distance = chardist(i, DEREF_P_CHAR(pc));
 				if (!pc->npc && !online(DEREF_P_CHAR(pc)))	// no offline players (Duke)
 					continue;
+				if (Races.CheckRelation(pc,pc_i)==1)
+							continue;
 				if (!(pc->dead))
 				{
 					if (distance>4)
