@@ -26,6 +26,7 @@ Wolfpack 12.9.12 Beta (CVS)
 	  to convert your scripts.
 	- Guards now run towards their targets.
 	- Fixed bug #0000345.
+	- Python now allows effects and sounds on coords.
 
 Wolfpack 12.9.11 Beta (26. September 2004)
 	- Fixed a crashbug related to NPC ai storing invalidated character pointers.

@@ -449,10 +449,10 @@ void cAsyncNetIO::run() throw()
 						}
 					}
 				}
-				else if ( nread == 0 )
+				/*else if ( nread == 0 )
 				{
 					d->socket->close();
-				}
+				}*/
 			}
 			else
 			{

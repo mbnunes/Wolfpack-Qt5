@@ -30,6 +30,9 @@
 #include "../walking.h"
 #include "../items.h"
 #include "../basechar.h"
+#include "../player.h"
+#include "../network/uosocket.h"
+#include "../network/network.h"
 
 /*
 	\object coord
@@ -177,12 +180,71 @@ static PyObject* wpCoord_lineofsight( wpCoord* self, PyObject* args )
 	Py_RETURN_FALSE;
 }
 
+/*
+	\method coord.effect
+	\param id The art id of the effect to play.
+	\param speed The speed of the effect.
+	\param duration The duration of the effect.
+	\description Shows a graphical effect at the given position.
+*/
+static PyObject* wpCoord_effect( wpCoord* self, PyObject* args )
+{
+	unsigned short id, duration, speed;
+	if (!PyArg_ParseTuple(args, "hhh:coord.effect(id, speed, duration)", &id, &speed, &duration)) {
+		return 0;
+	}
+
+	cUOTxEffect effect;
+	effect.setType( ET_STAYSOURCEPOS );
+	effect.setId( id );
+	effect.setSourcePos( self->coord );
+	effect.setDuration( duration );
+	effect.setSpeed( speed );
+
+	cUOSocket* mSock;
+	for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+	{
+		if ( mSock->player() && mSock->player()->pos().distance( self->coord ) <= mSock->player()->visualRange() )
+			mSock->send( &effect );
+	}
+
+	Py_RETURN_NONE;
+}
+
+/*
+	\method coord.soundeffect
+	\param id The id of the sound.
+	\description Plays a soundeffect at the position.
+*/
+static PyObject* wpCoord_soundeffect( wpCoord* self, PyObject* args )
+{
+	unsigned short id;
+	if (!PyArg_ParseTuple(args, "h:coord.soundeffect(id)", &id)) {
+		return 0;
+	}
+
+	cUOTxSoundEffect effect;
+	effect.setSound(id);
+	effect.setCoord(self->coord);
+	
+	cUOSocket* mSock;
+	for ( mSock = Network::instance()->first(); mSock; mSock = Network::instance()->next() )
+	{
+		if ( mSock->player() && mSock->player()->pos().distance( self->coord ) <= mSock->player()->visualRange() )
+			mSock->send( &effect );
+	}
+
+	Py_RETURN_NONE;
+}
+
 static PyMethodDef wpCoordMethods[] =
 {
 { "distance",	( getattrofunc ) wpCoord_distance, METH_VARARGS, "Whats the distance between Point A and Point B" },
 { "direction", ( getattrofunc ) wpCoord_direction, METH_VARARGS, NULL },
 { "validspawnspot",	( getattrofunc ) wpCoord_validspawnspot, METH_VARARGS, NULL },
 { "lineofsight", ( getattrofunc ) wpCoord_lineofsight, METH_VARARGS, NULL },
+{ "effect", (getattrofunc) wpCoord_effect, METH_VARARGS, NULL },
+{ "soundeffect", (getattrofunc) wpCoord_soundeffect, METH_VARARGS, NULL },
 { 0, 0, 0, 0 }
 };
 
