@@ -149,6 +149,7 @@ LUMBERJACKING_MAX_DISTANCE = 1 # Makes sure we are next to the tree
 MINING_MAX_DISTANCE = 2
 MINING_REFILLTIME = [600000, 1200000] # 10 to 20 Minutes Refresh time for trees
 MINING_ORE = [10, 34]
+MINING_SAND = [5, 13]
 
 """
 	\constants wolfpack.consts Skill Constants

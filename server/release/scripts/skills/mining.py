@@ -10,9 +10,9 @@ import wolfpack.time
 import skills
 import random
 from wolfpack.consts import MINING, GRAY, MINING_REFILLTIME, MINING_ORE, \
-	MINING_MAX_DISTANCE, ANIM_ATTACK3, FELUCIA2XRESGAIN
+	MINING_MAX_DISTANCE, ANIM_ATTACK3, FELUCIA2XRESGAIN, MINING_SAND
 from wolfpack import console
-from wolfpack.utilities import ismountainorcave, tobackpack
+from wolfpack.utilities import ismountainorcave, issand, tobackpack
 
 
 #mining calling from pickaxe.py and shovel.py
@@ -43,10 +43,13 @@ ORES = {
 	'valorite': [990, 495, 1007080, 0x8ab, 2, '#1042852', '#1042691']
 }
 
-def mining( char, pos, tool ):
+def mining( char, pos, tool, sand = False ):
 	if not tool:
 		return False
-	char.addtimer( 1300, domining, [ tool.serial, pos ] )
+	if sand == True:
+		char.addtimer( 1300, dosandmining, [ tool.serial, pos ] )
+	else:
+		char.addtimer( 1300, domining, [ tool.serial, pos ] )
 	char.socket.settag( 'is_mining', ( wolfpack.time.currenttime() + miningdelay ) )
 	char.turnto( pos )
 	char.action( ANIM_ATTACK3 )
@@ -90,6 +93,14 @@ def createoregem(pos):
 	gem.update()
 	return gem
 
+def createsandgem(pos):
+	gem = wolfpack.additem('sand_gem')
+	gem.settag('resourcecount', random.randint(MINING_SAND[0], MINING_SAND[1])) # 6 - 13 ore
+	gem.moveto(pos)
+	gem.visible = 0
+	gem.update()
+	return gem
+
 def getvein(socket, pos):
 	# 8x8 resource grid
 	gem_x = (pos.x / 8) * 8
@@ -103,6 +114,20 @@ def getvein(socket, pos):
 	pos.x = gem_x
 	pos.y = gem_y
 	return createoregem(pos)
+
+def getsandvein(socket, pos):
+	# 8x8 resource grid
+	gem_x = (pos.x / 8) * 8
+	gem_y = (pos.y / 8) * 8
+
+	gems = wolfpack.items(gem_x, gem_y, pos.map, 0)
+	for gem in gems:
+		if gem.hastag('resource') and gem.gettag('resource') == 'sand':
+			return gem
+
+	pos.x = gem_x
+	pos.y = gem_y
+	return createsandgem(pos)
 
 #Response from mining tool
 def response( char, args, target ):
@@ -131,7 +156,9 @@ def response( char, args, target ):
 	elif target.model == 0:
 		map = wolfpack.map( target.pos.x, target.pos.y, target.pos.map )
 		if ismountainorcave( map['id'] ):
-			mining( char, target.pos, tool )
+			mining( char, target.pos, tool, sand = False )
+		elif issand( map['id'] ) and char.hastag('sandmining'):
+			mining( char, target.pos, tool, sand = True )
 		else:
 			# You can't mine there.
 			socket.clilocmessage( 501862, "", GRAY )
@@ -229,6 +256,78 @@ def domining(char, args):
 			socket.clilocmessage(1044038) # You have worn out your tool!
 
 	return True
+
+#Sound effect
+def dosandmining(char, args):
+	char.soundeffect( random.choice([0x125, 0x126]))
+	tool = wolfpack.finditem(args[0])
+	pos = args[1]
+	socket = char.socket
+	socket.deltag('is_mining')
+
+	if not tool:
+		return False
+
+	veingem = getsandvein(socket, pos)
+
+	if not veingem or not veingem.hastag('resourcecount'):
+		return False
+
+	# 9.04% chance to dig up sand
+	chance = random.random()
+	success = 0
+	if chance <= 0.0904:
+		success = 1
+	
+	resourcecount = veingem.gettag('resourcecount')
+
+	# Refill the resource gem.
+	if resourcecount == 0:
+		char.socket.clilocmessage(1044629)
+
+		if not veingem.hastag('resource_empty'):
+			duration = random.randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
+			veingem.addtimer( duration, respawnvein, [], True )
+			veingem.settag('resource_empty', 1)
+		return False
+
+	if success:
+		successsandmining(char, veingem)
+	else:
+		char.socket.clilocmessage(1044630)
+
+	# Remaining Tool Uses
+	if not tool.hastag('remaining_uses'):
+		tool.settag('remaining_uses', tool.health)
+	else:
+		remaining_uses = int(tool.gettag('remaining_uses'))
+		if remaining_uses > 1:
+			tool.settag('remaining_uses', remaining_uses - 1)
+			tool.resendtooltip()
+		else:
+			tool.delete()
+			socket.clilocmessage(1044038) # You have worn out your tool!
+
+	return True
+
+def successsandmining(char, gem):
+	sand = wolfpack.additem("sand")
+	if not tobackpack(sand, char):
+		sand.update()
+
+	# Resend weight
+	char.socket.resendstatus()
+
+	resourcecount = max( 1, int( gem.gettag('resourcecount') ) )
+	gem.settag('resourcecount', resourcecount - 1)
+
+	# Start respawning the sand
+	if not gem.hastag('resource_empty') and resourcecount <= 1:
+		delay = random.randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
+		gem.addtimer( delay, respawnvein, [], True )
+		gem.settag( 'resource_empty', 1 )
+	
+	char.socket.clilocmessage(1044631) # You carefully dig up sand of sufficient quality for glassblowing.
 
 def successmining(char, gem, resname, size):
 	if not char:
