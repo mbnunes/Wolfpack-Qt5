@@ -2,53 +2,11 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: DarkStorm                      |
-|   )).-' {{ ;'`   | Revised by:                                |
-|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+|   )).-' {{ ;'`   | Revised by: White Wolf                     |
+|  ( (  ;._ \\ ctr | Last Modification: 12/16/02                |
 =================================================================
 -->
 <definitions>
-	<!-- Banker -->
-	<npc id="banker_male">
-		<inherit>base_male</inherit>
-		<title>the Banker</title>
-		<events>speech_banker</events>
-
-		<swordsmanship><random min="150" max="380" /></swordsmanship>
-		<itemid><random min="500" max="700" /></itemid>
-		<tactics><random min="150" max="380" /></tactics>
-
-		<category>Vendors\Banker (Male)</category>
-	</npc>
-
-	<npc id="banker_female">
-		<inherit>base_female</inherit>
-		<title>the Banker</title>
-		<events>speech_banker</events>
-
-		<swordsmanship><random min="150" max="380" /></swordsmanship>
-		<itemid><random min="500" max="700" /></itemid>
-		<tactics><random min="150" max="380" /></tactics>
-
-		<category>Vendors\Banker (Female)</category>
-	</npc>
-
-	<!-- Barber (no real vendor) -->
-	<npc id="barber_male">
-		<inherit>base_male</inherit>
-		<title>the Barber</title>
-		<events>speech_barber</events>
-		
-		<fencing><random min="150" max="380" /></fencing>
-		<parrying><random min="450" max="680" /></parrying>
-		<swordsmanship><random min="150" max="380" /></swordsmanship>
-		<wrestling><random min="150" max="380" /></wrestling>
-		<macefighting><random min="150" max="380" /></macefighting>
-		<magicresistance><random min="450" max="680" /></magicresistance>
-		<tactics><random min="450" max="680" /></tactics>
-
-		<category>Vendors\Barber (Male)</category>
-	</npc>
-
 	<!-- A tanner vendor -->
 	<npc id="tanner">
 		<inherit>base_male</inherit>
@@ -59,6 +17,13 @@
 				<item inherit="170f"><amount>10</amount></item>
 			</restockable>
 		</shopkeeper>
+		<equipped>
+			<item inherit="153c" />
+			<item inherit="1efd" />
+			<item inheritlist="HAIR" />
+			<item inheritlist="PANTS" />
+			<item inheritlist="SHOES" />
+		</equipped>
 	</npc>	
 	
 	<!-- A blacksmith vendor -->
@@ -72,6 +37,14 @@
 				<item inherit="f43"><amount>10</amount></item>
 			</restockable>
 		</shopkeeper>
+		<equipped>
+			<item inherit="153d" />
+			<item inherit="140f" />
+			<item inherit="13e3" />
+			<item inheritlist="HAIR" />
+			<item inheritlist="PANTS" />
+			<item inheritlist="SHOES" />
+		</equipped>
 	</npc>
 	
 	<!-- A baker vendor -->
@@ -81,6 +54,265 @@
 		<stat type="str">78</stat>
 		<stat type="int">50</stat>
 		<stat type="dex">70</stat>
+		<shopkeeper>
+			<restockable>
+				<item inherit="13b8"><amount>10</amount></item>
+				<item inherit="f5e"><amount>10</amount></item>
+				<item inherit="f43"><amount>10</amount></item>
+			</restockable>
+		</shopkeeper>
+		<equipped>
+			<item inherit="153c" />
+			<item inherit="1efd" />
+			<item inheritlist="HAIR" />
+			<item inheritlist="PANTS" />
+			<item inheritlist="SHOES" />
+		</equipped>
+	</npc>
+
+	<!-- A provisioner vendor -->
+	<npc id="provisioner">
+		<inherit>base_male</inherit>
+		<title>the Provisioner</title>
+		<stat type="str">78</stat>
+		<stat type="int">50</stat>
+		<stat type="dex">70</stat>
+		<shopkeeper>
+			<restockable>
+
+			</restockable>
+		</shopkeeper>
+		<equipped>
+			<item inherit="153c" />
+			<item inherit="1efd" />
+			<item inheritlist="HAIR" />
+			<item inheritlist="PANTS" />
+			<item inheritlist="SHOES" />
+		</equipped>
+	</npc>
+
+	<!-- A jeweler vendor -->
+	<npc id="jeweler">
+		<inherit>base_male</inherit>
+		<title>the Jeweler</title>
+		<stat type="str">78</stat>
+		<stat type="int">50</stat>
+		<stat type="dex">70</stat>
+		<shopkeeper>
+			<restockable>
+
+			</restockable>
+		</shopkeeper>
+		<equipped>
+			<item inherit="153c" />
+			<item inherit="1efd" />
+			<item inheritlist="HAIR" />
+			<item inheritlist="PANTS" />
+			<item inheritlist="SHOES" />
+		</equipped>
+	</npc>
+
+	<!-- A armorer vendor -->
+	<npc id="armorer">
+		<inherit>base_male</inherit>
+		<title>the Armorer</title>
+		<stat type="str">78</stat>
+		<stat type="int">50</stat>
+		<stat type="dex">70</stat>
+		<shopkeeper>
+			<restockable>
+
+			</restockable>
+		</shopkeeper>
+		<equipped>
+			<item inherit="153c" />
+			<item inherit="1efd" />
+			<item inheritlist="HAIR" />
+			<item inheritlist="PANTS" />
+			<item inheritlist="SHOES" />
+		</equipped>
+	</npc>
+
+	<!-- A Tailor vendor -->
+	<npc id="tailor">
+		<inherit>base_male</inherit>
+		<title>the Tailor</title>
+		<stat type="str">78</stat>
+		<stat type="int">50</stat>
+		<stat type="dex">70</stat>
+		<shopkeeper>
+			<restockable>
+
+			</restockable>
+		</shopkeeper>
+		<equipped>
+			<item inherit="153c" />
+			<item inherit="1efd" />
+			<item inheritlist="HAIR" />
+			<item inheritlist="PANTS" />
+			<item inheritlist="SHOES" />
+		</equipped>
+	</npc>
+
+	<!-- A stable master vendor -->
+	<npc id="stable master">
+		<inherit>base_male</inherit>
+		<title>the Stable Master</title>
+		<stat type="str">78</stat>
+		<stat type="int">50</stat>
+		<stat type="dex">70</stat>
+		<shopkeeper>
+			<restockable>
+
+			</restockable>
+		</shopkeeper>
+		<equipped>
+			<item inherit="1517" />
+			<item inherit="1713" />
+			<item inheritlist="HAIR" />
+			<item inheritlist="PANTS" />
+			<item inheritlist="SHOES" />
+		</equipped>
+	</npc>
+
+	<!-- A weaver vendor -->
+	<npc id="weaver">
+		<inherit>base_male</inherit>
+		<title>the Weaver</title>
+		<stat type="str">78</stat>
+		<stat type="int">50</stat>
+		<stat type="dex">70</stat>
+		<shopkeeper>
+			<restockable>
+
+			</restockable>
+		</shopkeeper>
+	</npc>
+
+	<!-- A cook vendor -->
+	<npc id="cook">
+		<inherit>base_male</inherit>
+		<title>the Cook</title>
+		<stat type="str">78</stat>
+		<stat type="int">50</stat>
+		<stat type="dex">70</stat>
+		<shopkeeper>
+			<restockable>
+
+			</restockable>
+		</shopkeeper>
+	</npc>
+
+	<!-- A butcher vendor -->
+	<npc id="butcher">
+		<inherit>base_male</inherit>
+		<title>the butcher</title>
+		<stat type="str">78</stat>
+		<stat type="int">50</stat>
+		<stat type="dex">70</stat>
+		<shopkeeper>
+			<restockable>
+
+			</restockable>
+		</shopkeeper>
+	</npc>
+
+	<!-- A architect vendor -->
+	<npc id="architect">
+		<inherit>base_male</inherit>
+		<title>the Architect</title>
+		<stat type="str">78</stat>
+		<stat type="int">50</stat>
+		<stat type="dex">70</stat>
+		<shopkeeper>
+			<restockable>
+
+			</restockable>
+		</shopkeeper>
+	</npc>
+
+	<!-- A carpenter vendor -->
+	<npc id="carpenter">
+		<inherit>base_male</inherit>
+		<title>the Carpenter</title>
+		<stat type="str">78</stat>
+		<stat type="int">50</stat>
+		<stat type="dex">70</stat>
+		<shopkeeper>
+			<restockable>
+
+			</restockable>
+		</shopkeeper>
+	</npc>
+
+	<!-- A tinker vendor -->
+	<npc id="tinker">
+		<inherit>base_male</inherit>
+		<title>the Tinker</title>
+		<stat type="str">78</stat>
+		<stat type="int">50</stat>
+		<stat type="dex">70</stat>
+		<shopkeeper>
+			<restockable>
+
+			</restockable>
+		</shopkeeper>
+	</npc>
+
+	<!-- A mage vendor -->
+	<npc id="mage">
+		<inherit>base_male</inherit>
+		<title>the Mage</title>
+		<stat type="str">78</stat>
+		<stat type="int">50</stat>
+		<stat type="dex">70</stat>
+		<shopkeeper>
+			<restockable>
+
+			</restockable>
+		</shopkeeper>
+	</npc>
+
+	<!-- A alchemist vendor -->
+	<npc id="alchemist">
+		<inherit>base_male</inherit>
+		<title>the Alchemist</title>
+		<stat type="str">78</stat>
+		<stat type="int">50</stat>
+		<stat type="dex">70</stat>
+		<shopkeeper>
+			<restockable>
+
+			</restockable>
+		</shopkeeper>
+	</npc>
+
+	<!-- A herbalist vendor -->
+	<npc id="herbalist">
+		<inherit>base_male</inherit>
+		<title>the Herbalist</title>
+		<stat type="str">78</stat>
+		<stat type="int">50</stat>
+		<stat type="dex">70</stat>
+		<shopkeeper>
+			<restockable>
+
+			</restockable>
+		</shopkeeper>
+	</npc>
+
+	<!-- A banker vendor -->
+	<npc id="banker">
+		<inherit>base_male</inherit>
+		<title>the Banker</title>
+		<stat type="str">78</stat>
+		<stat type="int">50</stat>
+		<stat type="dex">70</stat>
+		<shopkeeper>
+			<restockable>
+
+			</restockable>
+		</shopkeeper>
 	</npc>
 	
 </definitions>
