@@ -46,14 +46,18 @@ private:
 	QSocketDevice *_socket;
 	Q_UINT32 _rxBytes, _txBytes;
 	void *player,*account;
+	bool _handshake;
 
 public:
 	cUOSocket( QSocketDevice *sDevice ): 
-		account(0), player(0), _rxBytes(0), _txBytes(0), _socket( sDevice ) {}
+		_handshake( true ), account(0), player(0), _rxBytes(0), _txBytes(0), _socket( sDevice ) {}
 	virtual ~cUOSocket( void ) { delete _socket; }
 
 	QSocketDevice *socket( void ) { return _socket; }
 	void setSocket( QSocketDevice *data ) { _socket = data; }
+
+	bool handshake( void ) { return _handshake; }
+	void setHandshake( bool data ) { _handshake = data; }
 
 	Q_UINT32 rxBytes( void ) { return _rxBytes; }
 	Q_UINT32 txBytes( void ) { return _txBytes; }

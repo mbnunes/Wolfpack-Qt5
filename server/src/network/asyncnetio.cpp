@@ -103,7 +103,7 @@ public:
     Q_ULONG			rsize, wsize;		// read/write total buf size
     Q_ULONG			rindex, windex;		// read/write index
 	FastMutex		wmutex;				// write mutex
-	bool			skipedUOHeader;		// Skip crypt key junk
+	bool			skippedUOHeader;		// Skip crypt key junk
 
 	LockedQueue<cUOPacket*, FastMutex>* packets; // Complete UOPackets
 
@@ -117,7 +117,7 @@ public:
 };
 
 cAsyncNetIOPrivate::cAsyncNetIOPrivate() 
-	: socket(0), rsize(0), wsize(0), rindex(0), windex(0), skipedUOHeader(false)
+	: socket(0), rsize(0), wsize(0), rindex(0), windex(0), skippedUOHeader(false)
 {
     rba.setAutoDelete( TRUE );
     wba.setAutoDelete( TRUE );
@@ -303,7 +303,7 @@ void cAsyncNetIO::run() throw()
 				d->rba.append(a);
 				d->rsize += nread;
 			}
-			if( d->skipedUOHeader )
+			if( d->skippedUOHeader )
 			{
 				buildUOPackets( d );
 			}
@@ -311,7 +311,7 @@ void cAsyncNetIO::run() throw()
 			{
 				char temp[4];
 				d->consumeReadBuf( 4, temp );
-				d->skipedUOHeader = true;
+				d->skippedUOHeader = true;
 			}
 
 			// Write all data in the buffer.
