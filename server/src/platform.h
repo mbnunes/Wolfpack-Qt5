@@ -87,6 +87,11 @@ enum enByteOrder
 #endif
 #endif
 
+#ifdef Q_OS_FREEBSD
+inline float ceilf(float _X)
+{return ((float)ceil((double)_X)); }
+#endif
+
 //========================================================================
 typedef unsigned long UI32;
 typedef unsigned short UI16;
