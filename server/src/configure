@@ -6,30 +6,45 @@
 #  ( (  ;._ \\ ctr # Last Modification: check cvs logs          #
 #################################################################
 
-# seq replacement (not all distributions include seq)
-#wp_seq()
-#{
-#	FIRST="$1";
-#	LAST="$2";
-#	while [ "$FIRST" -le "$LAST" ];
-#	do
-#		echo "$FIRST";
-#		FIRST="$(expr $FIRST + 1)";
-#	done;
-#}
+##### normalize_path [path]
+# strips off unneeded slashes
+normalize_path ()
+{
+	echo "$1"|sed -e 's/\/\/\+/\//g;s/\/\+$//;s/\/\.\//\//g';
+}
 
-# aszlig: weird, i thought i used seq!?
+##### regexp_exist [path/regexp]
+# check if a file exists which matches the regular expression
+# and return 0 upon existance of the file
+regexp_exist ()
+{
+	PATH_EXACT="$(normalize_path "$(dirname "$1")")";
+	FILE_REGEXP="$(basename "$1")";
 
-ask_path()
+	[ "$(ls -1 "$PATH_EXACT" 2> /dev/null|grep "^${FILE_REGEXP}$")" ] && return 0;
+
+	return 1;
+}
+
+##### ask_path [regexp]
+# asks the user to submit a new path
+# the regexp is to check the validity of the user's input
+ask_path ()
 {
 	echo "not found." >&2;
 	SUPPLIED_PATH="";
-	while ! [ -d "$SUPPLIED_PATH" ];
+
+	[ "$(echo "$1"|grep 'so$')" ] && LIB_OR_INC="library" || LIB_OR_INC="include";
+
+	while [ ! -d "$SUPPLIED_PATH" ] && ! regexp_exist "${SUPPLIED_PATH}/${1}";
 	do
 		echo -en "\nor just press enter to skip." >&2;
-		echo -en "\e[A\rPlease enter the correct include directory: " >&2;
+		echo -en "\e[A\rPlease enter the correct $LIB_OR_INC directory: " >&2;
 		read SUPPLIED_PATH;
-		if [ ! "$SUPPLIED_PATH" ]; then
+		echo >&2;
+
+		if [ ! "$SUPPLIED_PATH" ];
+		then
 			break;
 		fi
 	done;
@@ -37,51 +52,94 @@ ask_path()
 	echo "$SUPPLIED_PATH";
 }
 
-print_usage()
+##### print_usage
+# prints usage information
+print_usage ()
 {
 	cat <<-EOF
 	Usage: ${0} [options]
 	where options are:
-	        --enable-mysql    Enable MySQL support.
-	        --enable-debug    Enable debugging.
-	        --static          Static linking.
+
+	        --enable-mysql             Enable MySQL support.
+	           --mysql-includes=dir    The MySQL include directory.
+	           --mysql-libraries=dir   The MySQL library path.
+
+	        --python-includes=dir      Python include directory.
+	        --python-libraries=dir     Python library path.
+
+	        --qt-directory=dir         Base directory of Qt.
+
+	        --enable-debug             Enable debugging.
+	        --static                   Static linking.
+
 	EOF
 	exit 1;
 }
 
 while [ "$1" ];
 do
-	ITEM="$(echo "$1"|sed -e 's/^--\([^-]\+-\)\?//')";
+	if [ "$(echo "$1"|grep '^--[^=]\+=')" ];
+	then
+		ITEM="$(echo "$1"|sed -e 's/\([^-]*-\)\+\([^-]\+-[^=]\+=.\+\)$/\2/')";
+	else
+		ITEM="$(echo "$1"|sed -e 's/^--\([^-]\+-\)\?//')";
+	fi;
 
 	if [ "$ITEM" == "$1" ];
 	then
-		echo "Unknown option \"$1\"!";
-		print_usage;
+		echo "Unknown option \"$1\"!" >&2;
+		print_usage >&2;
+
 	elif [ "$1" == "--help" ];
 	then
 		print_usage;
 	fi;
 
+	if [ "$(echo "$ITEM"|grep '^[^-]\+-inc[^=]*=.\+$')" ];
+	then
+		CUR_INC="$(echo "$ITEM"|sed -e 's/^[^=]\+=\(.*\)$/\1/')";
+		CUR_INC="$(normalize_path "$CUR_INC")";
+		ITEM="$(echo "$ITEM"|sed -e 's/^\([^-]\+-\).*$/\1inc/')";
+
+	elif [ "$(echo "$ITEM"|grep '^[^-]\+-\(path\|dir\)[^=]*=.\+$')" ];
+	then
+		CUR_PATH="$(echo "$ITEM"|sed -e 's/^[^=]\+=\(.*\)$/\1/')";
+		CUR_PATH="$(normalize_path "$CUR_PATH")";
+		ITEM="$(echo "$ITEM"|sed -e 's/^\([^-]\+-\).*$/\1path/')";
+
+	elif [ "$(echo "$ITEM"|grep '^[^-]\+-lib[^=]*=.\+$')" ];
+	then
+		CUR_LIB="$(echo "$ITEM"|sed -e 's/^[^=]\+=\(.*\)$/\1/')";
+		CUR_LIB="$(normalize_path "$CUR_LIB")";
+		ITEM="$(echo "$ITEM"|sed -e 's/^\([^-]\+-\).*$/\1lib/')";
+	fi;
+
 	YES_NO="$(echo "$1"|grep -q '^--\(enable-\|[^-]*$\)' && echo 'y' || echo 'n')"
+
 	case "$ITEM" in
-		debug)	DEBUG="$YES_NO";;
-		mysql)	MYSQL="$YES_NO";;
-		static)	STATIC="$YES_NO";;
+		debug)		_DEBUG="$YES_NO";;
+		mysql)		_MYSQL="$YES_NO";;
+		mysql-inc)	_MYSQL_INC="$CUR_INC";;
+		mysql-lib)	_MYSQL_LIB="$CUR_LIB";;
+		python-inc)	_PYTHON_INC="$CUR_INC";;
+		python-lib)	_PYTHON_LIB="$CUR_LIB";;
+		qt-path)	_QT_PATH="$CUR_PATH";;
+		static)		_STATIC="$YES_NO";;
 		*)
-			echo "Unknown option \"$1\"!";
-			print_usage;
+			echo "Unknown option \"$1\"!" >&2;
+			print_usage >&2;
 			;;
 	esac;
 
 	shift;
 done;
 
-if [ "$STATIC" = "y" ];
+if [ "${_STATIC}" = "y" ];
 then
 	QMAKE_LFLAGS="-static";
 fi;
 
-if [ "$DEBUG" = "y" ];
+if [ "${_DEBUG}" = "y" ];
 then
 	echo "Debug: Yes";
 	DEFINES="_DEBUG";
@@ -89,24 +147,78 @@ then
 	CONFIG="warn_on";
 fi;
 
-if [ "$MYSQL" = "y" ];
+if [ "${_MYSQL}" = "y" ];
 then
 	# <mysql>
+	MYSQL_DISABLED="n";
+
 	echo -n "Searching for MySQL includes... ";
 
-	# backward compatibility for 3.xx.xx
-	MYSQL_INC="$(mysql_config --cflags|sed -e "s/^\([^-]*-I\)*['\"]\?\([^ '\"$]*\).*$/\2/")";
-	MYSQL_LIB="-L$(mysql_config --libs|sed -e "s/^\([^-]*-L\)*['\"]\?\([^ '\"$]*\).*$/\2/") -lmysqlclient";
-
-	if ! [ "$MYSQL_INC" ];
+	if [ "${_MYSQL_INC}" ];
 	then
-		ask_path;
-		MYSQL_INC="$SUPPLIED_PATH";
-		if [ ! "$MYSQL_INC" ]; then
-			echo "MySQL support disabled ";
-		fi
+		if ! regexp_exist "${_MYSQL_INC}/mysql\.h";
+		then
+			MYSQL_INC="$(ask_path 'mysql\.h')";
+			if [ ! "$MYSQL_INC" ];
+			then
+				echo "MySQL support disabled.";
+				MYSQL_DISABLED="y";
+			fi;
+		else
+			MYSQL_INC="${_MYSQL_INC}";
+			echo "( $MYSQL_INC )";
+		fi;
+		
 	else
-		echo " ( $MYSQL_INC, $MYSQL_LIB )";
+		MYSQL_INC="$(mysql_config --cflags|sed -e "s/^\([^-]*-I\)*['\"]\?\([^ '\"$]*\).*$/\2/")";
+
+		if ! [ "$MYSQL_INC" ];
+		then
+			MYSQL_INC="$(ask_path 'mysql\.h')";
+			if [ ! "$MYSQL_INC" ];
+			then
+				echo "MySQL support disabled.";
+				MYSQL_DISABLED="y";
+			fi;
+		else
+			[ "$MYSQL_DISABLED" != "y" ] && echo "( $MYSQL_INC )";
+		fi;
+	fi;
+
+	echo -n "Searching for MySQL libraries... ";
+	if [ "${_MYSQL_LIB}" ];
+	then
+		if ! regexp_exist "${_MYSQL_LIB}/libmysqlclient.*\.so";
+		then
+			MYSQL_LIB="$(ask_path 'mysql\.h')";
+			if [ ! "$MYSQL_LIB" ];
+			then
+				echo "MySQL support disabled.";
+				MYSQL_DISABLED="y";
+			fi;
+		else
+			MYSQL_LIB="${_MYSQL_LIB}";
+			echo "( $MYSQL_LIB )";
+		fi;
+	else
+		MYSQL_LIB="$(mysql_config --libs|sed -e "s/^\([^-]*-L\)*['\"]\?\([^ '\"$]*\).*$/\2/")";
+
+		if ! [ "$MYSQL_LIB" ] && [ "$MYSQL_DISABLED" != "y" ];
+		then
+			MYSQL_LIB="$(ask_path 'libmysqlclient.*\.so')";
+			if [ ! "$MYSQL_LIB" ];
+			then
+				echo "MySQL support disabled.";
+				MYSQL_DISABLED="y";
+			fi;
+		else
+			[ "$MYSQL_DISABLED" != "y" ] && echo "( $MYSQL_LIB )";
+		fi;
+	fi;
+
+	if [ "$MYSQL_DISABLED" != "y" ];
+	then
+		MYSQL_LIB="-L$MYSQL_LIB -lmysqlclient";
 		DEFINES="$DEFINES MYSQL_DRIVER";
 	fi;
 	# </mysql>
@@ -115,52 +227,74 @@ fi;
 # <python>
 echo -n "Searching for Python includes... ";
 
-for py_incpath in \
-		/usr/include/[Pp]ython*/Python.h \
-		/usr/local/include/[Pp]ython*/Python.h \
-		;
-do
-	if [ -e "$py_incpath" ];
-	then
-		py_pathes="$py_pathes\n$py_incpath";
-	fi;
-done;
-
-py_pathes="$(echo -e "$py_pathes")";
-
-[ "$py_pathes" ] && PYTHON_INC="$(echo "$py_pathes"|sort -nr|head -1|sed -e 's/^\(\([^\/]*\/\)*\).*$/\1/;s/\/\+$//')";
-
-if [ ! "$PYTHON_INC" ];
+if ! [ "${_PYTHON_INC}" ];
 then
-	PYTHON_INC="$(ask_path)";
+	for py_incpath in \
+			/usr/include/[Pp]ython*/Python.h \
+			/usr/local/include/[Pp]ython*/Python.h \
+			;
+	do
+		if [ -e "$py_incpath" ];
+		then
+			py_pathes="$py_pathes\n$py_incpath";
+		fi;
+	done;
+
+	py_pathes="$(echo -e "$py_pathes")";
+
+	[ "$py_pathes" ] && PYTHON_INC="$(echo "$py_pathes"|sort -nr|head -1|sed -e 's/^\(\([^\/]*\/\)*\).*$/\1/;s/\/\+$//')";
+
+	if [ ! "$PYTHON_INC" ];
+	then
+		PYTHON_INC="$(ask_path 'Python.h')";
+	else
+		echo "( $PYTHON_INC )";
+	fi;
 else
-	echo "( $PYTHON_INC )";
+	if ! regexp_exist "${_PYTHON_INC}/Python\.h";
+	then
+		PYTHON_INC="$(ask_path 'Python.h')";
+	else
+		PYTHON_INC="${_PYTHON_INC}";
+		echo "( $PYTHON_INC )";
+	fi;
 fi;
 
 echo -n "Searching for Python library.... ";
 
-for py_libpath in \
-		/usr/lib/libpython*.so \
-		/usr/lib/[Pp]ython*/libpython*.so \
-		/usr/lib/[Pp]ython*/config/libpython*.so \
-		/usr/local/lib/libpython*.so \
-		;
-do
-	if [ -e "$py_libpath" ];
-	then
-		py_libs="$py_libs\n$py_libpath";
-	fi;
-done;
-
-py_libs="$(echo -e "$py_libs")";
-
-[ "$py_libs" ] && PYTHON_LIB="$(echo "$py_libs"|sort -nr|head -1|sed -e 's/^\(\([^\/]*\/\)*\).*$/\1/;s/\/\+$//')";
-
-if [ ! "$PYTHON_LIB" ];
+if ! [ "${_PYTHON_LIB}" ];
 then
-	PYTHON_LIB="$(ask_path)";
+	for py_libpath in \
+			/usr/lib/libpython*.so \
+			/usr/lib/[Pp]ython*/libpython*.so \
+			/usr/lib/[Pp]ython*/config/libpython*.so \
+			/usr/local/lib/libpython*.so \
+			;
+	do
+		if [ -e "$py_libpath" ];
+		then
+			py_libs="$py_libs\n$py_libpath";
+		fi;
+	done;
+
+	py_libs="$(echo -e "$py_libs")";
+
+	[ "$py_libs" ] && PYTHON_LIB="$(echo "$py_libs"|sort -nr|head -1|sed -e 's/^\(\([^\/]*\/\)*\).*$/\1/;s/\/\+$//')";
+
+	if [ ! "$PYTHON_LIB" ];
+	then
+		PYTHON_LIB="$(ask_path 'libpython.*\.so')";
+	else
+		echo "( $PYTHON_LIB )";
+	fi;
 else
-	echo "( $PYTHON_LIB )";
+	if ! regexp_exist "${_PYTHON_LIB}/libpython.*\.so";
+	then
+		PYTHON_LIB="$(ask_path 'libpython.*\.so')";
+	else
+		PYTHON_LIB="${_PYTHON_LIB}";
+		echo "( $PYTHON_LIB )";
+	fi;
 fi;
 # </python>
 
@@ -170,13 +304,27 @@ do
 	PASSED_VARIABLES="$PASSED_VARIABLES $i+='$(eval "echo \$$i")'";
 done;
 
-echo -n "Creating Makefile using qmake... "
+echo -n "Creating Makefile using qmake... ";
 
 if [ -x "$QTDIR/bin/qmake" ];
 then
-	eval $QTDIR/bin/qmake -o Makefile $PASSED_VARIABLES wolfpack.pro > /dev/null 2>&1;
+	QMAKE_BIN="$QTDIR/bin/qmake";
 else
-	eval qmake -o Makefile $PASSED_VARIABLES wolfpack.pro > /dev/null 2>&1;
+	QMAKE_BIN="$(which qmake)";
+fi;
+
+if [ -x "$QMAKE_BIN" ];
+then
+	QMAKE_OUTPUT="$(eval "qmake -o Makefile $PASSED_VARIABLES wolfpack.pro" 2>&1)";
+	if [ "$?" -gt "0" ];
+	then
+		echo "failed:" >&2;
+		echo "$QMAKE_OUTPUT" >&2;
+		exit 1;
+	fi;
+else
+	echo "not found." >&2;
+	exit 1;
 fi;
 
 echo "done.";
