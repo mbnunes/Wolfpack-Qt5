@@ -1208,6 +1208,7 @@ void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
 	// Check if it's a command, then dispatch it to the command system
 	// if it's normal speech send it to the normal speech dispatcher
 	QString speech = packet->message();
+	std::vector< UINT16 > keywords = packet->keywords();
 	UINT16 color = packet->color();
 	UINT16 font = packet->font();
 	UINT16 type = packet->type() & 0x3f; // Pad out the Tokenized speech flag

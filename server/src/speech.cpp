@@ -908,7 +908,7 @@ void HouseSpeech( cUOSocket *socket, P_CHAR pPlayer, const QString& msg )
 //			what kind of npcs are standing around and then checking only those keywords
 //			that they might be interested in.
 //			This is especially usefull in crowded places.
-bool cSpeech::response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm )
+bool cSpeech::response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm, std::vector< UINT16 > &keywords )
 {
     if( !pPlayer->socket() || pPlayer->dead() )
 		return false;
@@ -936,8 +936,8 @@ bool cSpeech::response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm )
 			if( !script->handleSpeech() )
 				continue;
 
-			if( script->catchAllSpeech() || script->canHandleSpeech( comm, std::vector< UINT16 >() ) )
-				if( script->onSpeech( pNpc, pPlayer, comm, std::vector< UINT16 >() ) )
+			if( script->catchAllSpeech() || script->canHandleSpeech( comm, keywords ) )
+				if( script->onSpeech( pNpc, pPlayer, comm, keywords ) )
 					return true;
 		}
 
@@ -975,7 +975,7 @@ bool cSpeech::response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm )
 	return false;
 }
 
-void cSpeech::talking( P_CHAR pChar, const QString &speech, UINT16 color, UINT8 type ) // PC speech
+void cSpeech::talking( P_CHAR pChar, const QString &speech, std::vector< UINT16 > &keywords, UINT16 color, UINT8 type ) // PC speech
 {	
 	// handle things like renaming or describing an item
 	if( !pChar->socket() )
@@ -1026,7 +1026,7 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, UINT16 color, UINT8 
 		GuildResign(s);
 	}*/
 	
-	if( response( socket, pChar, speechUpr ) )
+	if( response( socket, pChar, speechUpr, keywords ) )
 		return;  // Vendor responded already
 	
 	// >> LEGACY

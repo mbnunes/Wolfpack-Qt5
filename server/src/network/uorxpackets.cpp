@@ -121,38 +121,8 @@ QString cUORxSpeechRequest::message()
 		// Sadly we are not finished yet
 		// The UO client encodes the UNICODE speech in a rather strange... format.
 		// So we need to iterate trough the speech
-		QString uSpeech;
-		const char *c_string = speech.latin1();
 
-		INT32 i = 0;
-		while( c_string[i] != 0 )
-		{
-			// We found one of the encoded unicode strings.
-			// The first byte is 0xC3 for encoded strings
-			// Then the "combined" short needs to be reduced
-			// by 0xC2C0
-			UINT8 one = c_string[i];
-			UINT8 two = c_string[i+1];
-
-			if( one == 0xC3 && two )
-			{
-				UINT16 cCode = one << 8;
-				cCode += two;
-
-				cCode -= 0xC2C0;
-				uSpeech.append( QChar( cCode ) );
-
-				++i; // Skip the second byte as well
-			}
-			else
-			{
-				uSpeech.append( c_string[i] );
-			}
-
-			++i;
-		}
-
-		return uSpeech;
+		return QString().fromUtf8( speech.data() );
 	}
 	else
 		return getUnicodeString( 12, getShort( 1 ) - 12 );
@@ -202,4 +172,49 @@ gumpChoice_st cUORxGumpResponse::choice()
 	}
 
 	return choice;
+}
+
+std::vector< UINT16 > cUORxSpeechRequest::keywords()
+{
+	std::vector< UINT16 > keywords;
+
+	// Packet Dump for a speech packet containing 
+	// Keywords: 0x0171 + 0x0172
+	// 12 bit per keyword
+	// 0000: ad 00 1a c0 02 b2 00 03 44 45 55 00 00 11 71 62 : ........DEU...qb
+	// 0010: 72 6f 77 73 65 20 62 75 79 00 -- -- -- -- -- -- : rowse buy.
+
+	UINT16 count = keywordCount();
+	UINT16 offset = 13; // Skip the count
+
+	for( UINT16 i = 0; i < count; ++i )
+	{
+		// Invalid Packet size
+		if( offset+2 > size() )
+			return keywords;
+
+		UINT16 value;
+
+		// The second, fourth, etc. keyword always 
+		// has the *first* 12 bits of a short
+		if( i % 2 != 0 )
+		{
+			value = getShort( offset ) >> 4;
+			offset++; // In the lower 4 bits still is information
+		}
+
+		// The first, third, etc. keyword always
+		// has the *last* 12 bits of a short
+		// Bitmask:
+		// 00001111 11111111 = 0x0FFF
+		else
+		{
+			value = getShort( offset ) & 0x0FFF;
+			offset += 2; // Our short doesn't have any information left
+		}
+
+		keywords.push_back( value );
+	}
+
+	return keywords;
 }

@@ -29,40 +29,26 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-// speech.h: interface for speech.cpp
-//
-//////////////////////////////////////////////////////////////////////
+#include "wpdefaultscript.h"
 
-#if !defined(__SPEECH_H__)
-#define __SPEECH_H__ 
-
-// Platform specifics
-#include "platform.h"
-
-
-// System includes
-#include <vector>
-#include <iostream>
-
-// Class Declaration
-class cSpeech;
-
-//Wolfpack Includes
-#include "wolfpack.h"
-#include "SndPkg.h"
-#include "debug.h"
-#include "speech.h"
-#include "utilsys.h"
-
-class cSpeech
+// A method for WPDefaultScript
+bool WPDefaultScript::canHandleSpeech( const QString &text, std::vector< UINT16 > keywords )
 {
-public:
-	bool response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm, std::vector< UINT16 > &keywords );
-    void talking( P_CHAR pChar, const QString &speech, std::vector< UINT16 > &keywords, UINT16 color, UINT8 type );
-};
+	// Check keywords first.
+	for( std::vector< UINT16 >::const_iterator iter1 = keywords.begin(); iter1 != keywords.end(); ++iter1 )
+		for( std::vector< UINT16 >::const_iterator iter2 = speechKeywords_.begin(); iter2 != speechKeywords_.end(); ++iter2 )
+		{
+			if( *iter1 == *iter2 )
+				return true;
+		}
 
-extern cSpeech	*Speech;
+	for( std::vector< QString >::const_iterator iter3 = speechWords_.begin(); iter3 != speechWords_.end(); ++iter3 )
+		if( text.contains( *iter3 ) )
+			return true;
 
+	for( std::vector< QRegExp >::const_iterator iter4 = speechRegexp_.begin(); iter4 != speechRegexp_.end(); ++iter4 )
+		if( text.contains( *iter4 ) )
+			return true;
 
-#endif
- 
+	return false;
+}

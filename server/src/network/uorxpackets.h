@@ -297,6 +297,7 @@ public:
 	UINT16 color() const	{ return getShort( 4 ); }
 	UINT16 font() const		{ return getShort( 6 ); }
 	UINT16 keywordCount() const	{ return getShort( 12 ) >> 4; }
+	std::vector< UINT16 > keywords();
 	QString language() const	{ return this->getAsciiString(12, 4); }
 	QString message();
 };
