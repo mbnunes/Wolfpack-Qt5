@@ -122,7 +122,7 @@ def checkMySQL(options):
 					"/usr/include/mysql/mysql.h", \
 					"/usr/local/include/mysql.h", \
 					"/usr/include/mysql.h" ]
-	elif sys.platform == "freebsd4" or sys.platform == " freebsd5":
+	elif sys.platform == "freebsd4" or sys.platform == "freebsd5":
 		MySQL_LIBSEARCHPATH = [ "/usr/local/lib/mysql/libmysqlclient*.so", \
 					"/usr/lib/mysql/libmysqlclient*.so", \
 					"/usr/local/lib/libmysqlclient*.so", \
