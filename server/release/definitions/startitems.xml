@@ -124,7 +124,7 @@
 	<!--  Detecting Hidden -->
 	<startitems id="detectinghidden">
 	        <inherit id="default" />
-	        <!--Cloak --><item id="1515"></item>
+	        <!--Cloak --><equipment id="1515"></equipment>
 	</startitems>
 
 	<!--  Discordance -->
@@ -166,7 +166,7 @@
 	<!--  Hiding -->
 	<startitems id="hiding">
 	        <inherit id="default" />
-	        <!--Cloak --><item id="1515"></item>
+	        <!--Cloak --><equipment id="1515"></equipment>
 	</startitems>
 
 	<!--  Provocation -->
