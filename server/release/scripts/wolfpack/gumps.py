@@ -9,6 +9,8 @@
 
 from types import *
 
+
+
 class cGump:
 	def __init__(self, noclose=0, nomove=0, nodispose=0, x=0, y=0, callback="", args = [], type = 0, serial = 0):
 		self.layout = []
@@ -36,14 +38,14 @@ class cGump:
 			raise TypeError( "You passed an invalid socket." )
 
 		# Dump the gump data
-		file = open( 'dump.txt', 'w' )
-		file.write( "--------\nLayout:\n" )
-		for line in self.layout:
-			file.write( line + "\n" )
-		file.write( "--------\nText:\n" )
-		for line in self.texts:
-			file.write( line + "\n" )
-		file.close()
+		#file = open( 'dump.txt', 'w' )
+		#file.write( "--------\nLayout:\n" )
+		#for line in self.layout:
+		#	file.write( line + "\n" )
+		#file.write( "--------\nText:\n" )
+		#for line in self.texts:
+		#	file.write( line + "\n" )
+		#file.close()
 
 		if( self.noclose == 1 ):
 			self.layout.insert( 0, '{ noclose }' )
