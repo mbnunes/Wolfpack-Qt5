@@ -7,6 +7,35 @@
 =================================================================
 -->
 <definitions>
+	<npc id="stablemaster_inventory">
+		<shopkeeper>
+			<restockable>
+				<!-- Horse (Gray) -->
+				<item id="shrink_horse_1">
+					<name>Horse</name>
+					<amount>10</amount>
+				</item>
+				
+				<!-- Horse (Gray/Brown) -->
+				<item id="shrink_horse_2">
+					<name>Horse</name>
+					<amount>10</amount>
+				</item>
+				
+				<!-- Horse (Light Brown) -->
+				<item id="shrink_horse_3">
+					<name>Horse</name>
+					<amount>10</amount>
+				</item>
+				
+				<!-- Horse (Brown) -->
+				<item id="shrink_horse_4">
+					<name>Horse</name>
+					<amount>10</amount>
+				</item>
+			</restockable>
+		</shopkeeper>
+	</npc>
 
 	<!-- Stablemaster (no real vendor) -->
 	<npc id="stablemaster_male">
@@ -15,7 +44,8 @@
 		<animallore><random min="640" max="1000"/></animallore>
 		<animaltaming><random min="900" max="1000"/></animaltaming>
 		<veterinary><random min="650" max="880"/></veterinary>
-		<category>Vendors\Stablemaster (Male)</category>
+		<category>Vendors\Stablemaster (Male)</category>		
+		<inherit>stablemaster_inventory</inherit>
 	</npc>
 	
 	<npc id="stablemaster_female">
@@ -25,6 +55,7 @@
 		<animaltaming><random min="900" max="1000"/></animaltaming>
 		<veterinary><random min="650" max="880"/></veterinary>
 		<category>Vendors\Stablemaster (Female)</category>
+		<inherit>stablemaster_inventory</inherit>
 	</npc>
 
 </definitions>

@@ -46,6 +46,7 @@ Wolfpack 12.9.9 Beta (CVS)
 		- Basescripts added to many scripts. Read only assigned scripts.
 			Format is: <basescripts></basescripts>
 		- Removed the last occurances of <inherit id="" />
+		- Fix for bug #0000258 (Stablemaster doesn't sell horses)
 	* Python Script Changes:
 		- Function Changes:
 			Old: addevent() hasevent() removeevent()

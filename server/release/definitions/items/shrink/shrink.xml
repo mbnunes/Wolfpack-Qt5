@@ -27,6 +27,7 @@
 		<basescripts>shrink</basescripts>
 		<name>shrink llama</name>
 		<weight>0.1</weight>
+		<tag name="npc_id" value="ridable_llama" />
 	</item>
 
 	<item id="shrink_sheep">
@@ -55,6 +56,8 @@
 		<basescripts>shrink</basescripts>
 		<name>shrink horse 1</name>
 		<weight>0.1</weight>
+		<tag name="npc_id" value="horse_1" />
+		<buyprice>602</buyprice>
 	</item>
 
 	<item id="shrink_horse_2">
@@ -62,6 +65,8 @@
 		<basescripts>shrink</basescripts>
 		<name>shrink horse 2</name>
 		<weight>0.1</weight>
+		<tag name="npc_id" value="horse_2" />
+		<buyprice>602</buyprice>
 	</item>
 
 	<item id="shrink_horse_3">
@@ -69,13 +74,17 @@
 		<basescripts>shrink</basescripts>
 		<name>shrink horse 3</name>
 		<weight>0.1</weight>
+		<tag name="npc_id" value="horse_3" />
+		<buyprice>602</buyprice>
 	</item>
 
 	<item id="shrink_horse_4">
 		<id>0x2124</id>
 		<basescripts>shrink</basescripts>
-		<name>shrink horse 4</name>
+		<name>shrink horse 4</name>	
 		<weight>0.1</weight>
+		<tag name="npc_id" value="horse_4" />
+		<buyprice>602</buyprice>
 	</item>
 
 	<item id="shrink_packhorse">
