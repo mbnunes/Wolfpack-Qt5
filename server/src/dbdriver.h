@@ -133,6 +133,7 @@ public:
 
 	bool exec( const QString& query );
 	cDBResult query( const QString& query );
+	int lastInsertId();
 };
 
 class cMySQLDriver : public cDBDriver

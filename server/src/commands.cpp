@@ -717,6 +717,77 @@ static void processItem(QMap<QCString, QString> &item, const cElement *node) {
 	}
 }
 
+typedef QMap< unsigned char, QMap<QCString, QString> > EquipmentContainer;
+
+/*
+	Recursive processing function to get neccesary information about npcs.
+*/
+static void processNpc(QMap<QCString, QString> &item, const cElement *node, EquipmentContainer &equipment) {
+	// If there is an inherit tag, inherit a parent item definition.
+	QString inherit = node->getAttribute("inherit");
+	if (inherit != QString::null) {
+		const cElement *parent = Definitions::instance()->getDefinition(WPDT_NPC, inherit);
+		if (parent) {
+			processNpc(item, parent, equipment);
+		}
+	}
+
+	int count = node->childCount();
+	int i;
+	for (i = 0; i < count; ++i) {
+		const cElement *child = node->getChild(i);
+		
+		// Inherit properties from another item definition
+		if (child->name() == "inherit") {
+			const cElement *parent = 0;
+
+			if (child->hasAttribute("id")) {
+				parent = Definitions::instance()->getDefinition(WPDT_NPC, child->getAttribute("id"));
+			} else {
+				parent = Definitions::instance()->getDefinition(WPDT_NPC, child->text());
+			}
+			 
+			if (parent) {
+				processNpc(item, parent, equipment);
+			}
+		} else if (child->name() == "id") {
+            item["bodyid"] = child->value();
+		} else if (child->name() == "skin") {
+			item["skin"] = child->value();
+		} else if (child->name() == "category") {
+			item["categoryname"] = child->text();
+		} else if (child->name() == "equipped") {
+			int j;
+			for (j = 0; j < child->childCount(); ++j) {
+				const cElement *subchild = child->getChild(j);
+
+				if (subchild->name() == "item") {					
+					QString id;
+					if (subchild->hasAttribute("id")) {
+						id = subchild->getAttribute("id");
+					} else if (subchild->hasAttribute("list")) {
+						id = Definitions::instance()->getRandomListEntry(subchild->getAttribute("list"));
+					}
+
+					const cElement *itemNode = Definitions::instance()->getDefinition(WPDT_ITEM, id);
+
+					if (itemNode) {
+						QMap<QCString, QString> item;
+						processItem(item, itemNode);
+						
+						unsigned int id = item["dispid"].toInt();
+						tile_st tile = TileCache::instance()->getTile(id);
+						if (tile.layer != 0 && tile.layer <= 0x19 && tile.animation != 0) {
+							item["anim"] = QString::number(tile.animation);
+							equipment.insert(tile.layer, item);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
 static void ensureCategory(QMap<QString, unsigned int> &categories, unsigned int &lastcategory, QString category) {
 	int pos = category.findRev('\\');
 	if (pos != -1) {
@@ -787,6 +858,30 @@ void commandExportDefinitions( cUOSocket *socket, const QString &command, const 
 			location varchar(255)\
 		);");
 
+		// Create Tables
+		driver.exec("CREATE TABLE npcs (\
+			id INTEGER PRIMARY KEY,\
+			name varchar(255) NULL,\
+			parent int NOT NULL,\
+			bodyid int,\
+			skin int,\
+			addid varchar(255)\
+		);");
+
+		driver.exec("CREATE TABLE npccategories (\
+			id INTEGER PRIMARY KEY,\
+			name varchar(255) NULL,\
+			parent int NOT NULL,\
+			type int\
+		);");
+
+		driver.exec("CREATE TABLE npcequipment (\
+			id int NOT NULL,\
+			artid int NOT NULL,\
+			layer int NOT NULL,\
+			color int NOT NULL\
+		);");
+
 		unsigned int lastcategory = 0;
 		QMap<QString, unsigned int> categories;
 		QMap<QString, unsigned int>::iterator categoriesIt;
@@ -828,13 +923,11 @@ void commandExportDefinitions( cUOSocket *socket, const QString &command, const 
 			}
 
 			// See if there has been a custom name definition
-			if (item["name"].isNull()) {
-				QString categoryname = item["categoryname"];
-				if (pos != -1) {
-					item["name"] = categoryname.right(categoryname.length() - (pos + 1));
-				} else {
-					item["name"] = categoryname;
-				}
+			QString categoryname = item["categoryname"];
+			if (pos != -1) {
+				item["name"] = categoryname.right(categoryname.length() - (pos + 1));
+			} else {
+				item["name"] = categoryname;
 			}
 
 			// Insert the item into the table.
@@ -930,6 +1023,97 @@ void commandExportDefinitions( cUOSocket *socket, const QString &command, const 
 			name = name.right(name.length() - (pos + 1));
 
 			QString sql = QString("INSERT INTO locationcategories VALUES(%1,'%2',%3,0);")
+				.arg(categoriesIt.data())
+				.arg(name.replace("'", "''"))
+				.arg(parent);
+			driver.exec(sql);
+		}
+
+		// Process NPCS
+		lastcategory = 0;
+		categories.clear();
+		sections = Definitions::instance()->getSections(WPDT_NPC);
+
+		EquipmentContainer equipment;
+
+		for (sectionIt = sections.begin(); sectionIt != sections.end(); ++sectionIt) {
+			const cElement *element = Definitions::instance()->getDefinition(WPDT_NPC, *sectionIt);
+
+			equipment.clear();
+			item.clear();
+			item.insert("name", QString::null);
+			item.insert("skin", "0");
+			item.insert("bodyid", "0");
+			item.insert("category", "0");
+			item.insert("categoryname", QString::null);
+
+			processNpc(item, element, equipment);
+
+			QString category = item["categoryname"];
+
+			if (category.isNull()) {
+				continue;
+			}
+
+			// Strip out the portion after the last slash 
+			int pos = category.findRev('\\');
+			if (pos != -1) {
+				category = category.left(pos);
+			}
+
+			// Create an id for the category
+			if (!categories.contains(category)) {
+				ensureCategory(categories, lastcategory, category);
+				item["category"] = QString::number(lastcategory);
+			} else {
+				item["category"] = QString::number(categories[category]);
+			}
+
+			QString categoryname = item["categoryname"];
+			if (pos != -1) {
+				item["name"] = categoryname.right(categoryname.length() - (pos + 1));
+			} else {
+				item["name"] = categoryname;
+			}
+
+			// Insert the item into the table.
+			QString section = *sectionIt;
+			QString sql = QString("INSERT INTO npcs VALUES(NULL,'%1',%2,%3,%4,'%5');")
+				.arg(item["name"].replace("'", "''"))
+				.arg(item["category"])
+				.arg(item["bodyid"])
+				.arg(item["skin"])
+				.arg(section.replace("'", "''"));
+			driver.exec(sql);
+
+			int lastInsertId = driver.lastInsertId();
+
+			EquipmentContainer::iterator eIt;
+			for (eIt = equipment.begin(); eIt != equipment.end(); ++eIt) {
+				QString sql = QString("INSERT INTO npcequipment VALUES(%1,%2,%3,%4);")
+					.arg(lastInsertId)
+					.arg(eIt.data()["anim"].toInt())
+					.arg(eIt.key())
+					.arg(eIt.data()["color"].toInt());
+				driver.exec(sql);
+			}
+		}
+
+		// Ensure that all categories are in the list
+		for (categoriesIt = categories.begin(); categoriesIt != categories.end(); ++categoriesIt) {
+			unsigned int parent = 0;
+			int pos = categoriesIt.key().findRev('\\');
+			if (pos != -1) {
+				QString parentName = categoriesIt.key().left(pos);
+				if (categories.contains(parentName)) {
+					parent = categories[parentName];
+				}
+			}
+
+			QString name = categoriesIt.key();
+			name = name.right(name.length() - (pos + 1));
+
+			QString sql = QString("INSERT INTO npccategories VALUES(%1,'%2',%3,0);")
 				.arg(categoriesIt.data())
 				.arg(name.replace("'", "''"))
 				.arg(parent);

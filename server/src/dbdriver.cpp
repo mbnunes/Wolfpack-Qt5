@@ -308,6 +308,10 @@ const char* cDBResult::className() const
   cSQLiteDriver member functions
  *****************************************************************************/
 
+int cSQLiteDriver::lastInsertId() {
+	return sqlite_last_insert_rowid( (sqlite*)connection );
+}
+
 bool cSQLiteDriver::open( int )
 {
 	char* error = NULL;
