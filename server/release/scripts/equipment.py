@@ -176,11 +176,6 @@ def onShowTooltip(viewer, object, tooltip):
 	lower = fromitem(object, LOWERREQS)
 	if lower:
 		tooltip.add(1060435, str(lower))
-	
-	if object.container == viewer:
-		lower = 0
-	
-	lower += fromchar(viewer, LOWERREQS)
 	lower /= 100.0
 
 	req_str = fromitem(object, REQSTR)
@@ -193,8 +188,7 @@ def onShowTooltip(viewer, object, tooltip):
 # Check for certain equipment requirements
 #
 def onWearItem(player, wearer, item, layer):
-	lower = fromchar(player, LOWERREQS) + fromitem(item, LOWERREQS)
-	lower /= 100.0
+	lower = fromitem(item, LOWERREQS) / 100.0
 
 	req_str = fromitem(item, REQSTR)
 	if lower:
@@ -247,13 +241,6 @@ def onWearItem(player, wearer, item, layer):
 def onEquip(char, item, layer):
 	changed = 0
 
-	# Resend all equipment with requirements
-	if fromitem(item, LOWERREQS):
-		for i in range(LAYER_RIGHTHAND, LAYER_MOUNT):
-			litem = char.itemonlayer(i)
-			if litem:
-				litem.resendtooltip()
-
 	# Bonus Strength
 	if item.hastag('boni_str'):
 		char.strength = char.strength + int(item.gettag('boni_str'))
@@ -296,13 +283,6 @@ def onEquip(char, item, layer):
 #
 def onUnequip(char, item, layer):
 	changed = 0
-
-	# Resend all equipment with requirements
-	if fromitem(item, LOWERREQS):
-		for i in range(LAYER_RIGHTHAND, LAYER_MOUNT):
-			litem = char.itemonlayer(i)
-			if litem:
-				litem.resendtooltip()
 
 	# Bonus Str
 	if item.hastag('boni_str'):
