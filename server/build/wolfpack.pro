@@ -13,7 +13,8 @@ DEFINES         = REENTRANT ZTHREAD_STATIC NDEBUG
 win32:DEFINES  += WIN32 
 win32:OBJECTS_DIR = obj
 win32-msvc:DEFINES +=  _CONSOLE _MBCS
-
+win32:INCLUDEPATH += lib/Python/PC
+unix:INCLUDEPATH += lib/Python
 
 unix:LIBS       = -Llib/ZThread/lib -Llib/wrl/lib -lZThread -lwrl
 
