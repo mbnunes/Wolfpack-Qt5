@@ -432,7 +432,7 @@ namespace Combat
 				if( pAmmo && RandomNum( 1, 3 ) == 1 ) // 1/3 chance
 				{
 					pAmmo->moveTo( pDefender->pos() );
-					pAmmo->priv = 1;
+					pAmmo->setPriv( 1 );
 					pAmmo->startDecay();
 					pAmmo->update();
 				}

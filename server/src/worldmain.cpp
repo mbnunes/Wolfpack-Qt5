@@ -357,7 +357,6 @@ bool CWorldMain::RemoveItemsFromCharBody( int charserial, int type1, int type2 )
 	int serial;
 	P_CHAR pc = FindCharBySerial(charserial);
 	if (pc == NULL) return false;
- 	serial = pc->serial();
  	bool foundMatch = false;
 	unsigned int ci;
 	cChar::ContainerContent container(pc->content());
@@ -369,7 +368,7 @@ bool CWorldMain::RemoveItemsFromCharBody( int charserial, int type1, int type2 )
 
  		if (pci != NULL)
  		{
-			if( ( pci->layer() == 0x01 || pci->layer() == 0x02 ) && ( pci->contserial == serial ) )
+			if( ( pci->layer() == 0x01 || pci->layer() == 0x02 ) && ( pci->container() == pc ) )
  			{
  				// in first hand, or second hand
  				if( ( pci->id() >> 8 ) == type1 && ( pci->id()&0x00FF ) == type2 )

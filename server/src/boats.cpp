@@ -49,8 +49,7 @@
 
 cBoat::cBoat() : cMulti()
 {
-	this->priv = 0;
-//	this->contserial = INVALID_SERIAL;
+	this->setPriv( 0 );
 	this->boatdir = 0;
 	this->autosail_ = 0;
 	this->moves_ = 0;
@@ -148,7 +147,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	else
 	{
 		pTiller->MoveTo( this->pos().x + itemoffsets[0][ TILLER ][X], this->pos().y + itemoffsets[0][ TILLER ][Y], this->pos().z );
-		pTiller->priv = 0;
+		pTiller->setPriv( 0 );
 		pTiller->setType( 117 );
 		pTiller->tags().set( "tiller", 1 );
 		pTiller->tags().set( "boatserial", this->serial() );
@@ -164,7 +163,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 		pPlankR->setType( 117 );
 		pPlankR->setType2( 2 );
 		pPlankR->MoveTo( this->pos().x + itemoffsets[0][ PORT_PLANK ][X], this->pos().y + itemoffsets[0][ PORT_PLANK ][Y], this->pos().z );
-		pPlankR->priv=0;//Nodecay
+		pPlankR->setPriv( 0 );
 		pPlankR->tags().set( "boatserial", this->serial() );
 		this->itemserials[ PORT_PLANK ] = pPlankR->serial();
 	}
@@ -177,7 +176,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 		pPlankL->setType( 117 );//Boat type
 		pPlankL->setType2( 3 );//Plank sub type
 		pPlankL->MoveTo( this->pos().x + itemoffsets[0][ STARB_PLANK ][X], this->pos().y + itemoffsets[0][ STARB_PLANK ][Y], this->pos().z );
-		pPlankL->priv=0;
+		pPlankL->setPriv( 0 );
 		pPlankL->tags().set( "boatserial", this->serial() );
 		this->itemserials[ STARB_PLANK ] = pPlankL->serial();
 	}
@@ -189,7 +188,7 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	{
 		pHold->setType( 1 );//Conatiner
 		pHold->MoveTo( this->pos().x + itemoffsets[0][ HOLD ][X], this->pos().y + itemoffsets[0][ HOLD ][Y], this->pos().z );
-		pHold->priv=0;
+		pHold->setPriv( 0 );
 		pHold->tags().set( "boatserial", this->serial() );
 		this->itemserials[ HOLD ] = pHold->serial();
 	}

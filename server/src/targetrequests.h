@@ -340,7 +340,7 @@ public:
 		pPoison->Init(true);
 		pPoison->setId(0x0F0E);
 		pPoison->moveTo(pc->pos());
-		pPoison->priv |= 0x01;
+		pPoison->startDecay();
 		pPoison->update();
 		return true;
 	}
@@ -402,10 +402,10 @@ public:
 					{
 						if (pi->creator().length()>0)
 						{
-							if (pi->madewith>0) 
-								socket->sysMessage( tr("It is %1 by %2").arg(skill[pi->madewith-1].madeword).arg(pi->creator()) ); // Magius(CHE)
-							else if (pi->madewith<0) 
-								socket->sysMessage( tr("It is %1 by %2").arg(skill[0-pi->madewith-1].madeword).arg(pi->creator()) ); // Magius(CHE)
+							if (pi->madewith()>0) 
+								socket->sysMessage( tr("It is %1 by %2").arg(skill[pi->madewith()-1].madeword).arg(pi->creator()) ); // Magius(CHE)
+							else if (pi->madewith()<0) 
+								socket->sysMessage( tr("It is %1 by %2").arg(skill[0-pi->madewith()-1].madeword).arg(pi->creator()) ); // Magius(CHE)
 							else 
 								socket->sysMessage( tr("It is made by %1").arg(pi->creator()) ); // Magius(CHE)
 						} else 

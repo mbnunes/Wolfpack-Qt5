@@ -353,7 +353,7 @@ void cMulti::createKeys( P_CHAR pc, const QString &name )
 	{
 		pKey->tags().set( "linkserial", this->serial() );
 		pKey->setType( 7 );
-		pKey->priv = 2;
+		pKey->setNewbie( true );
 		pKey->setName( name );
 		if( pBackpack )
 			pBackpack->addItem( pKey );
@@ -438,7 +438,7 @@ P_ITEM cMulti::findKey( P_CHAR pc )
 
 bool cMulti::authorized( P_CHAR pc )
 {
-	return ( pc->isGMorCounselor() || ownserial == pc->serial() || findKey( pc ) || isFriend( pc ) );
+	return ( pc->isGMorCounselor() || owner() == pc || findKey( pc ) || isFriend( pc ) );
 }
 
 

@@ -939,7 +939,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 	if( amount == 0 )
 	{
 		pResItem->setDecayTime(uiCurrentTime + refreshtime_ * MY_CLOCKS_PER_SEC);
-		pResItem->priv |= 0x01; // let the item decay
+		pResItem->startDecay();
 		pResItem->update();
 	}
 
@@ -1295,10 +1295,10 @@ cResourceItem::cResourceItem( const QString& resource, UINT32 amount, UINT32 vei
 	cItem::Init( false );
 	resource_ = resource;
 	if( SrvParams->resitemdecaytime() == 0 )
-		priv = 0; // nodecay
+		setPriv( 0 ); // nodecay
 	else
 	{
-		priv |= 0x01;
+		startDecay();
 		setDecayTime(uiCurrentTime + SrvParams->resitemdecaytime() * MY_CLOCKS_PER_SEC);
 	}
 	setMoreX(amount);
@@ -1307,7 +1307,7 @@ cResourceItem::cResourceItem( const QString& resource, UINT32 amount, UINT32 vei
 	this->amount_ = 1;
 	this->setName( tr("resitem: %1").arg(resource) );
 	this->setName2("#");
-	this->visible = 2; // gm visible
+	this->setVisible( 2 ); // gm visible
 }
 
 // class cAllResources

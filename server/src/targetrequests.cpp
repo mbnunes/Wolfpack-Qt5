@@ -101,7 +101,7 @@ bool cAddItemTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	if( nodecay )
 	{
 		pItem->setDecayTime( 0 );
-		pItem->priv &= 0xFE;
+		pItem->setWipe( false );
 	}
 
 	// Send the item to its surroundings
@@ -276,10 +276,10 @@ bool cSkItemID::responsed( cUOSocket *socket, cUORxTarget *target )
 				{
 					if (pi->creator().length()>0)
 					{
-						if (pi->madewith>0) 
-							socket->sysMessage( tr("It is %1 by %2").arg(skill[pi->madewith-1].madeword).arg(pi->creator()) ); // Magius(CHE)
-						else if (pi->madewith<0) 
-							socket->sysMessage( tr("It is %1 by %2").arg(skill[0-pi->madewith-1].madeword).arg(pi->creator()) ); // Magius(CHE)
+						if (pi->madewith()>0) 
+							socket->sysMessage( tr("It is %1 by %2").arg(skill[pi->madewith()-1].madeword).arg(pi->creator()) ); // Magius(CHE)
+						else if (pi->madewith()<0) 
+							socket->sysMessage( tr("It is %1 by %2").arg(skill[0-pi->madewith()-1].madeword).arg(pi->creator()) ); // Magius(CHE)
 						else 
 							socket->sysMessage( tr("It is made by %1").arg(pi->creator()) ); // Magius(CHE)
 					} else 

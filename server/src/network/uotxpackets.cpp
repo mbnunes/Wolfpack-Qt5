@@ -420,8 +420,11 @@ void cUOTxItemContent::addItem( P_ITEM pItem )
 {
 	if( !pItem )
 		return;
+	SERIAL contserial = -1;
+	if ( pItem->container() )
+		contserial = pItem->container()->serial();
 
-	addItem( pItem->serial(), pItem->id(), pItem->color(), pItem->pos().x, pItem->pos().y, pItem->amount(), pItem->contserial );
+	addItem( pItem->serial(), pItem->id(), pItem->color(), pItem->pos().x, pItem->pos().y, pItem->amount(), contserial );
 }
 
 void cUOTxItemContent::addItem( SERIAL serial, UINT16 id, UINT16 color, UINT16 x, UINT16 y, UINT16 amount, UINT32 container )

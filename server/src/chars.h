@@ -806,6 +806,9 @@ public:
 	stError *setProperty( const QString &name, const cVariant &value );
 	stError *getProperty( const QString &name, cVariant &value ) const;
 
+/////
+	void flagUnchanged() { changed_ = false; cUObject::flagUnchanged(); }
+
 	// Definition loading - sereg
 protected:
 	virtual void processNode( const QDomElement& Tag );

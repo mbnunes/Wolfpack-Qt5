@@ -170,7 +170,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 	{
 		// For each item we take out we loose carma
 		// if the corpse is innocent and not in our guild
-		bool sameGuild = ( GuildCompare( pChar, FindCharBySerial( outmostCont->ownserial ) ) != 0 );
+		bool sameGuild = ( GuildCompare( pChar, outmostCont->owner() ) != 0 );
 
 		if( ( outmostCont->more2() == 1 ) && !pChar->Owns( outmostCont ) && !sameGuild )
 		{
@@ -221,7 +221,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 			P_ITEM pContainer = dynamic_cast<P_ITEM>(pItem->container());
 			if ( pContainer )
 				pContainer->addItem( splitItem, false );
-			splitItem->SetOwnSerial( pItem->ownserial );
+			splitItem->SetOwnSerial( pItem->ownSerial() );
 			splitItem->SetSpawnSerial( pItem->spawnserial );
 
 			// He needs to see the new item
@@ -663,7 +663,7 @@ void cDragItems::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &
 	pItem->moveTo( pos );
 	pItem->update();
 
-	if( pItem->priv & 0x01 )
+	if( pItem->priv() & 0x01 )
 		pItem->startDecay();
 
 	// Multi handling

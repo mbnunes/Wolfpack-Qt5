@@ -755,7 +755,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pItem->setHp( pItem->maxhp() );
 	pChar->addItem( cChar::Shirt, pItem );	
 	pItem->setDye(1);
-	pItem->priv |= 0x02;
+	pItem->setNewbie( true );
 	ItemsManager::instance()->registerItem( pItem );
 
 	pItem = new cItem;
@@ -768,7 +768,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pItem->setHp( pItem->maxhp() );
 	pChar->addItem( cChar::Pants, pItem );
 	pItem->setDye(1);
-	pItem->priv |= 0x02;
+	pItem->setNewbie( true );
 	ItemsManager::instance()->registerItem( pItem );
 
 	// Hair & Beard
@@ -778,7 +778,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 		pItem->Init();
 
 		pItem->setDye(1);
-		pItem->priv |= 0x02;
+		pItem->setNewbie( true );
 		pItem->setId( packet->hairStyle() );
 		pItem->setColor( packet->hairColor() );
 		pChar->addItem( cChar::Hair, pItem );
@@ -791,7 +791,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 		pItem->Init();
 
 		pItem->setId( packet->beardStyle() );
-		pItem->priv |= 0x02;
+		pItem->setNewbie( true );
 		pItem->setColor( packet->beardColor() );
 		pChar->addItem( cChar::FacialHair, pItem );
 		ItemsManager::instance()->registerItem( pItem );

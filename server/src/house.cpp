@@ -58,7 +58,7 @@ using namespace std;
 
 void cHouse::processHouseItemNode( const QDomElement &Tag )
 {
-	P_CHAR pOwner = FindCharBySerial( ownserial );
+	P_CHAR pOwner = FindCharBySerial( ownSerial() );
 	P_ITEM nItem = new cItem;
 
 	if( !nItem )
@@ -71,7 +71,7 @@ void cHouse::processHouseItemNode( const QDomElement &Tag )
 	if( nItem->type() == 222 )
 		nItem->setName( name() );
 
-	nItem->SetOwnSerial( this->ownserial );
+	nItem->SetOwnSerial( this->ownSerial() );
 	addItem( nItem );
 	Coord_cl npos = this->pos();
 
@@ -211,7 +211,7 @@ void cHouse::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SER
 	this->setSerial( ItemsManager::instance()->getUnusedSerial() );
 //	ItemsManager::instance()->registerItem( this );
 	this->SetOwnSerial( senderserial );
-	this->priv = 0;
+	this->setPriv( 0 );
 	this->MoveTo( posx, posy, posz );
 
 	this->applyDefinition( Tag );

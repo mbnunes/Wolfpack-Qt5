@@ -671,7 +671,7 @@ bool cNewMagic::checkTarget( P_CHAR pCaster, stNewSpell *sInfo, cUORxTarget *tar
 	}
 
 	// Visibility check (Items)
-	if( pItem && ( ( pItem->visible == 1 && !socket->player()->Owns( pItem ) ) || pItem->visible == 2 ) && !socket->player()->isGM() )
+	if( pItem && ( ( pItem->visible() == 1 && !socket->player()->Owns( pItem ) ) || pItem->visible() == 2 ) && !socket->player()->isGM() )
 	{
 		socket->sysMessage( tr( "You can't see this item." ) );
 		return false;

@@ -184,6 +184,8 @@ public:
 	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL ) = 0;
 	virtual stError *setProperty( const QString &name, const cVariant &value );
 	virtual stError *getProperty( const QString &name, cVariant &value ) const;
+/////
+	virtual void flagUnchanged() { changed_ = false; }
 
 protected:
 	virtual void processNode( const QDomElement &Tag ) = 0;

@@ -585,7 +585,7 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 		addText( 50, 280, tr( "Layer:" ), 0x834 );
 		addInputField( 200, 280, 200, 16,  9, QString( "%1" ).arg( pItem->layer() ), 0x834 );
 		addText( 50, 300, tr( "Good:" ), 0x834 );
-		addInputField( 200, 300, 200, 16, 10, QString( "%1" ).arg( pItem->good ), 0x834 );
+		addInputField( 200, 300, 200, 16, 10, QString( "%1" ).arg( pItem->good() ), 0x834 );
 
 		addText( 310, 340, tr( "Page %1 of %2" ).arg( page_ ).arg( pages ), 0x834 );
 		// next page
@@ -649,13 +649,13 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 		addText( 50, 120, tr( "Dyable:" ), 0x834 );
 		addInputField( 200, 120, 200, 16, 21, QString( "%1" ).arg( pItem->dye() ), 0x834 );
 		addText( 50, 140, tr( "Decay:" ), 0x834 );
-		addInputField( 200, 140, 200, 16, 22, QString( "%1" ).arg( pItem->priv & 0x01 ? "true" : "false" ), 0x834 );
+		addInputField( 200, 140, 200, 16, 22, QString( "%1" ).arg( pItem->priv() & 0x01 ? "true" : "false" ), 0x834 );
 		addText( 50, 160, tr( "Dispellable/newbie:" ), 0x834 );
-		addInputField( 200, 160, 200, 16, 23, QString( "%1" ).arg( pItem->priv & 0x04 ? "true" : "false" ), 0x834 );
+		addInputField( 200, 160, 200, 16, 23, QString( "%1" ).arg( pItem->priv() & 0x04 ? "true" : "false" ), 0x834 );
 		addText( 50, 180, tr( "Movable:" ), 0x834 );
 		addInputField( 200, 180, 200, 16, 24, QString( "%1" ).arg( pItem->magic() ), 0x834 );
 		addText( 50, 200, tr( "Visible:" ), 0x834 );
-		addInputField( 200, 200, 200, 16, 25, QString( "%1" ).arg( pItem->visible ), 0x834 );
+		addInputField( 200, 200, 200, 16, 25, QString( "%1" ).arg( pItem->visible() ), 0x834 );
 		addText( 50, 220, tr( "Rank:" ), 0x834 );
 		addInputField( 200, 220, 200, 16, 26, QString( "%1" ).arg( pItem->rank() ), 0x834 );
 		addText( 50, 240, tr( "Price:" ), 0x834 );
@@ -694,7 +694,7 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 		addText( 50, 160, tr( "Creator:" ), 0x834 );
 		addInputField( 200, 160, 200, 16, 33, QString( "%1" ).arg( pItem->creator() ), 0x834 );
 		addText( 50, 180, tr( "Made with skill no.:" ), 0x834 );
-		addInputField( 200, 180, 200, 16, 34, QString( "%1" ).arg( pItem->madewith ), 0x834 );
+		addInputField( 200, 180, 200, 16, 34, QString( "%1" ).arg( pItem->madewith() ), 0x834 );
 		addText( 50, 200, tr( "Morex:" ), 0x834 );
 		addInputField( 200, 200, 200, 16, 35, QString( "%1" ).arg( pItem->morex() ), 0x834 );
 		addText( 50, 220, tr( "Morey:" ), 0x834 );
@@ -802,7 +802,7 @@ void cItemInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				//item_->setLayer( hex2dec( it->second ).toShort() );
 				break;
 			case 10:
-				item_->good = hex2dec( it->second ).toInt();
+				item_->setGood( hex2dec( it->second ).toInt() );
 				break;
 			case 11:
 				item_->setType( hex2dec( it->second ).toUInt() );
@@ -839,21 +839,21 @@ void cItemInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				break;
 			case 22:
 				if( it->second == "true" || hex2dec( it->second ).toUInt() )
-					item_->priv |= 0x01;
+					item_->setPriv( item_->priv() | 0x01 );
 				else
-					item_->priv &= 0xFE;
+					item_->setPriv( item_->priv() & 0xFE );
 				break;
 			case 23:
 				if( it->second == "true" || hex2dec( it->second ).toUInt() )
-					item_->priv |= 0x04;
+					item_->setPriv( item_->priv() | 0x04 );
 				else
-					item_->priv &= 0xFB;
+					item_->setPriv( item_->priv() & 0xFB );
 				break;
 			case 24:
 				item_->setMagic( hex2dec( it->second ).toUShort() );
 				break;
 			case 25:
-				item_->visible = hex2dec( it->second ).toUShort();
+				item_->setVisible( hex2dec( it->second ).toUShort() );
 				break;
 			case 26:
 				item_->setRank( hex2dec( it->second ).toInt() );
@@ -881,7 +881,7 @@ void cItemInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 					item_->setCreator( it->second );
 				break;
 			case 34:
-				item_->madewith = hex2dec( it->second ).toInt();
+				item_->setMadeWith( hex2dec( it->second ).toInt() );
 				break;
 			case 35:
 				item_->setMoreX( hex2dec( it->second ).toUInt() );

@@ -2159,7 +2159,7 @@ void cChar::makeShop( void )
 		if( pItem )
 		{
 			pItem->setType( 1 );
-			pItem->priv |= 0x02;
+			pItem->setPriv( pItem->priv() | 0x02 );
 			this->addItem( static_cast<cChar::enLayer>(layer), pItem );
 		}
 	}
@@ -2475,7 +2475,7 @@ void cChar::kill()
 	    else if( isMurderer() )
 			corpse->setMore2(3);
 
-        corpse->ownserial = serial();
+        corpse->setOwner( this );
 	}
 
 	corpse->setBodyId( xid_ );
@@ -3021,7 +3021,7 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 				if( pItem )
 				{
 					pItem->applyDefinition( node );
-					pItem->priv |= 0x02; // make it newbie
+					pItem->setNewbie( true ); // make it newbie
 
 					if( pItem->id() <= 1 )
 						Items->DeleItem( pItem );
@@ -3055,7 +3055,7 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 				if( pItem )
 				{
 					pItem->applyDefinition( node );
-					pItem->priv |= 0x02; // make it newbie
+					pItem->setNewbie( true ); // make it newbie
 
 					if( pItem->id() <= 1 )
 						Items->DeleItem( pItem );
@@ -3089,7 +3089,7 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 				if( pItem )
 				{
 					pItem->applyDefinition( node );
-					pItem->priv |= 0x02; // make it newbie
+					pItem->setNewbie( true ); // make it newbie
 
 					UINT16 mLayer = pItem->layer();
 					pItem->setLayer( 0 );
@@ -3601,7 +3601,6 @@ void cChar::addItem( cChar::enLayer layer, cItem* pi, bool handleWeight, bool no
 	if ( atLayer( layer ) != 0 )
 	{
 		clConsole.send( "WARNING: Trying to put an item on layer %i which is already occupied\n", layer );
-		pi->contserial = INVALID_SERIAL; // Important to keep consistency after load.
 		pi->container_ = 0;
 		return;
 	}
@@ -3611,7 +3610,6 @@ void cChar::addItem( cChar::enLayer layer, cItem* pi, bool handleWeight, bool no
 
 	content_.insert( (ushort)(layer), pi );
 	pi->setLayer( layer );
-	pi->contserial = this->serial();
 	pi->container_ = this;
 
 	if( handleWeight )
@@ -3623,7 +3621,6 @@ void cChar::removeItem( cChar::enLayer layer, bool handleWeight )
 	P_ITEM pi = atLayer(layer);
 	if ( pi )
 	{
-		pi->contserial = INVALID_SERIAL;
 		pi->container_ = 0;
 		pi->setLayer( 0 );
 		content_.remove((ushort)(layer));
@@ -3766,7 +3763,7 @@ bool cChar::Owns( P_ITEM pItem )
 	if( !pItem )
 		return false;
 
-	return ( pItem->ownserial == serial() );
+	return ( pItem->owner() == this );
 }
 
 P_ITEM cChar::getWeapon()

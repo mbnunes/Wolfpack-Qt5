@@ -47,6 +47,7 @@ class cItem : public cUObject
 {
 	Q_OBJECT
 	friend class cChar; // temporary
+	bool changed_;
 public:
 	typedef QValueVector<cItem*> ContainerContent;
 protected:
@@ -123,6 +124,12 @@ protected:
 	unsigned char dir_;
 	QString desc_;
 	QString creator_; // Store the name of the player made this item
+	SERIAL ownserial_;
+	uchar visible_; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
+	uchar priv_;
+	int good_; // Store type of GOODs to trade system! (Plz not set as UNSIGNED)  --- Magius(CHE)
+	int rndvaluerate_; // Store the value calculated base on RANDOMVALUE in region.scp. ---- MAgius(CHE) (2)
+	uchar madewith_; // Store the skills used to make this item -- Magius(CHE)
 
 
 //********************END ADDED FROM PUBLIC *************
@@ -150,16 +157,16 @@ public:
 	const QString	&name2()		const { return name2_; }		// The identified name of the item
 	const QString	&name()			const { return name_; }		// The identified name of the item
 	UI08			layer()			const { return layer_; }		// Layer if equipped on paperdoll
-	bool			twohanded()		const { return priv&0x20; }		// Is the weapon twohanded ?
+	bool			twohanded()		const { return priv_&0x20; }		// Is the weapon twohanded ?
 	const QString	&murderer()		const { return murderer_; }		// If it's a corpse, this holds the name of the murderer
 	UI32			type()			const { return type_; }			// Used for hardcoded behaviour
 	UI32			type2()			const { return type2_; }
 	UI08			offspell()		const { return offspell_; } 
-	bool			secured()		const { return priv&0x08; }		// Is the container secured (houses)
+	bool			secured()		const { return priv_&0x08; }		// Is the container secured (houses)
 	SI16			speed()			const { return speed_; }		// Weapon speed
 	SI16			lodamage()		const { return lodamage_; }		// Minimum damage weapon inflicts
 	SI16			hidamage()		const { return hidamage_; }		// Maximum damage weapon inflicts
-	bool			wipe()			const { return priv&0x10; }		// Should the item be wiped when affected by /WIPE
+	bool			wipe()			const { return priv_&0x10; }		// Should the item be wiped when affected by /WIPE
 	SI16			weight()		const { return weight_; }
 	SI16			stones()		const { return (SI16)( weight_ / 10 ); } // Weight transformed to UO Stones
 	SI16			hp()			const { return hp_; }			// Number of hitpoints an item has
@@ -169,9 +176,9 @@ public:
 	UI08			moreb2()		const { return moreb2_; }
 	UI08			moreb3()		const { return moreb3_; }
 	UI08			moreb4()		const { return moreb4_; }
-	bool			corpse()		const { return priv&0x40; }		// Is the item a corpse
-	bool			newbie()		const { return priv&0x02; }		// Is the Item Newbie
-	P_CHAR			owner();
+	bool			corpse()		const { return priv_&0x40; }		// Is the item a corpse
+	bool			newbie()		const { return priv_&0x02; }		// Is the Item Newbie
+	P_CHAR			owner() const;
 	INT32			totalweight()	const { return totalweight_; }
 	QString			carve()			const { return carve_; }
 	unsigned int	antispamtimer() const { return antispamtimer_;}
@@ -181,8 +188,6 @@ public:
 	INT32			buyprice()		const { return buyprice_; } // Price this item is being sold at by normal vendors
 	INT32			price()			const { return price_; } // Price this item is being sold at by player vendors
 
-//****************************ADDED GETTERS*************
-	
 	unsigned char	more1()			const { return more1_; }
 	unsigned char	more2()			const { return more2_; }
 	unsigned char	more3()			const { return more3_; }
@@ -213,46 +218,52 @@ public:
 	uchar			direction()		const { return dir_;  }
 	QString			description()	const { return desc_; }
 	QString			creator()		const { return creator_;}
+	uchar			visible()		const { return visible_;}
+	uchar			priv()			const { return priv_;	}
+	int				good()			const { return good_;	}
+	int				rndvaluerate()  const { return rndvaluerate_; }
+	int				madewith()		const { return madewith_;	}
+
 //***************************END ADDED GETTERS************
 
 
 	// Setters
-	void	setId( UI16 nValue ) { id_ = nValue; };
-	void	setColor( UI16 nValue ) { color_ = nValue; };
+	void	setId( UI16 nValue ) { id_ = nValue; changed_ = true;};
+	void	setColor( UI16 nValue ) { color_ = nValue; changed_ = true;};
 	void	setAmount( UI16 nValue );
-	void	setRestock( UI16 nValue ) { restock_ = nValue; }
-	void	setAmount2( UI16 nValue ) { amount2_ = nValue; }; //Used to track things like number of yards left in a roll of cloth
-	void	setName( const QString& nValue ) { name_ = nValue; };
-	void	setName2( const QString& nValue ) { name2_ = nValue; };
-	void	setLayer( SI08 nValue ) { layer_ = nValue; };
-	void	setTwohanded( bool nValue ) { nValue ? priv &= 0x20 : priv |= 0xDF; };
-	void	setMurderer( const QString& nValue ) { murderer_ = nValue; };
-	void	setType( UI32 nValue ) { type_ = nValue; };
-	void	setType2( UI32 nValue ) { type2_ = nValue; };	
-	void	setOffspell( UI08 nValue ) { offspell_ = nValue; };
-	void	setSecured( bool nValue ) { ( nValue ) ? priv &= 0x08 : priv |= 0xF7; };
-	void	setSpeed( SI16 nValue ) { speed_ = nValue; };
-	void	setHidamage( SI16 nValue ) { hidamage_ = nValue; };
-	void	setLodamage( SI16 nValue ) { lodamage_ = nValue; };
-	void	setWipe( bool nValue ) { ( nValue ) ? priv &= 0x10 : priv |= 0xEF; };
+	void	setRestock( UI16 nValue ) { restock_ = nValue; changed_ = true;}
+	void	setAmount2( UI16 nValue ) { amount2_ = nValue; changed_ = true;}; //Used to track things like number of yards left in a roll of cloth
+	void	setName( const QString& nValue ) { name_ = nValue; changed_ = true;};
+	void	setName2( const QString& nValue ) { name2_ = nValue; changed_ = true;};
+	void	setLayer( SI08 nValue ) { layer_ = nValue; changed_ = true;};
+	void	setTwohanded( bool nValue ) { nValue ? priv_ &= 0x20 : priv_ |= 0xDF; changed_ = true;};
+	void	setMurderer( const QString& nValue ) { murderer_ = nValue; changed_ = true;};
+	void	setType( UI32 nValue ) { type_ = nValue; changed_ = true;};
+	void	setType2( UI32 nValue ) { type2_ = nValue; changed_ = true;};	
+	void	setOffspell( UI08 nValue ) { offspell_ = nValue; changed_ = true;};
+	void	setSecured( bool nValue ) { ( nValue ) ? priv_ &= 0x08 : priv_ |= 0xF7; changed_ = true;};
+	void	setSpeed( SI16 nValue ) { speed_ = nValue; changed_ = true;};
+	void	setHidamage( SI16 nValue ) { hidamage_ = nValue; changed_ = true;};
+	void	setLodamage( SI16 nValue ) { lodamage_ = nValue; changed_ = true;};
+	void	setWipe( bool nValue ) { ( nValue ) ? priv_ &= 0x10 : priv_ |= 0xEF; changed_ = true;};
 	void	setWeight( SI16 nValue );
-	void	setHp( SI16 nValue ) { hp_ = nValue; };
-	void	setMaxhp( SI16 nValue ) { maxhp_ = nValue; };
-	void	setSpawnRegion( const QString& nValue ) { spawnregion_ = nValue; };
-	void	setMoreb1( UI08 nValue ) { moreb1_ = nValue; };
-	void	setMoreb2( UI08 nValue ) { moreb2_ = nValue; };
-	void	setMoreb3( UI08 nValue ) { moreb3_ = nValue; };
-	void	setMoreb4( UI08 nValue ) { moreb4_ = nValue; };
-	void	setCorpse( bool nValue ) { ( nValue ) ? priv |= 0x40 : priv &= 0xBF; }
-	void	setNewbie( bool nValue ) { ( nValue ) ? priv |= 0x02 : priv &= 0xFD; }
+	void	setHp( SI16 nValue ) { hp_ = nValue; changed_ = true;};
+	void	setMaxhp( SI16 nValue ) { maxhp_ = nValue; changed_ = true;};
+	void	setSpawnRegion( const QString& nValue ) { spawnregion_ = nValue; changed_ = true;};
+	void	setMoreb1( UI08 nValue ) { moreb1_ = nValue; changed_ = true;};
+	void	setMoreb2( UI08 nValue ) { moreb2_ = nValue; changed_ = true;};
+	void	setMoreb3( UI08 nValue ) { moreb3_ = nValue; changed_ = true;};
+	void	setMoreb4( UI08 nValue ) { moreb4_ = nValue; changed_ = true;};
+	void	setCorpse( bool nValue ) { ( nValue ) ? priv_ |= 0x40 : priv_ &= 0xBF; changed_ = true;}
+	void	setNewbie( bool nValue ) { ( nValue ) ? priv_ |= 0x02 : priv_ &= 0xFD; changed_ = true;}
 	void	setOwner( P_CHAR nOwner );
 	void	setTotalweight( INT32 data );
-	void	setCarve( const QString& data ) { carve_ = data; }
-	void	setAntispamtimer ( unsigned int data ) { antispamtimer_ = data;}
-	void	setAccuracy( UI16 data ) { accuracy_ = data; }
-	void	setDirection( uchar d )	 { dir_ = d;	}
-	void	setDescription( const QString& d ) { desc_ = d; }
-	void	setCreator( const QString& d )	{ creator_ = d;	}
+	void	setCarve( const QString& data ) { carve_ = data; changed_ = true;}
+	void	setAntispamtimer ( unsigned int data ) { antispamtimer_ = data; changed_ = true;}
+	void	setAccuracy( UI16 data ) { accuracy_ = data; changed_ = true;}
+	void	setDirection( uchar d )	 { dir_ = d; changed_ = true;}
+	void	setDescription( const QString& d ) { desc_ = d; changed_ = true;}
+	void	setCreator( const QString& d )	{ creator_ = d;	changed_ = true;}
 
 	cItem();
 	cItem( const cItem& src); // Copy constructor
@@ -265,42 +276,46 @@ public:
 	void	showName( cUOSocket *socket );
 	void	applyRank( UI08 rank );
 //*****************************************ADDED SETTERS ***************
-	void	setMore1( unsigned char data ) { more1_ = data; }
-	void	setMore2( unsigned char data ) { more2_ = data; }
-	void	setMore3( unsigned char data ) { more3_ = data; }
-	void	setMore4( unsigned char data ) { more4_ = data; }
-	void	setMoreX( unsigned int data ) { morex_ = data; }
-	void	setMoreY( unsigned int data ) { morey_ = data; }
-	void	setMoreZ( unsigned int data ) { morez_ = data; }
-	void	setDoorDir( unsigned char data ) { doordir_ = data; }
-	void	setDoorOpen( unsigned char data ) { dooropen_ = data; }
-	void	setDye( unsigned char data ) { dye_ = data; }
-	void	setAtt(	unsigned int data ) { att_ = data; }
-	void	setDef( unsigned int data ) { def_ = data; }
-	void	setSt( signed short data ) { st_ = data; }
-	void	setSt2( signed short data ) { st2_ = data; }
-	void	setDx( signed short data ) { dx_ = data; }
-	void	setDx2( signed short data ) { dx2_ = data; }
-	void	setIn( signed short data ) { in_ = data; }
-	void	setIn2( signed short data ) { in2_ = data; }
-	void	setMagic( unsigned char data ) { magic_ = data; }
-	void	setGateTime( unsigned int data ) { gatetime_ = data; }
-	void	setGateNumber( int data ) { gatenumber_ = data; }
-	void	setDecayTime( unsigned int data ) { decaytime_ = data; }
-	void	setPrice( INT32 data ) { price_ = data; }
-	void	setBuyprice( INT32 data ) { buyprice_ = data; }
-	void	setSellprice( INT32 data ) { sellprice_ = data; }
+	void	setMore1( unsigned char data ) { more1_ = data; changed_ = true;}
+	void	setMore2( unsigned char data ) { more2_ = data; changed_ = true;}
+	void	setMore3( unsigned char data ) { more3_ = data; changed_ = true;}
+	void	setMore4( unsigned char data ) { more4_ = data; changed_ = true;}
+	void	setMoreX( unsigned int data ) { morex_ = data; changed_ = true;}
+	void	setMoreY( unsigned int data ) { morey_ = data; changed_ = true;}
+	void	setMoreZ( unsigned int data ) { morez_ = data; changed_ = true;}
+	void	setDoorDir( unsigned char data ) { doordir_ = data; changed_ = true;}
+	void	setDoorOpen( unsigned char data ) { dooropen_ = data; changed_ = true;}
+	void	setDye( unsigned char data ) { dye_ = data; changed_ = true;}
+	void	setAtt(	unsigned int data ) { att_ = data; changed_ = true;}
+	void	setDef( unsigned int data ) { def_ = data; changed_ = true;}
+	void	setSt( signed short data ) { st_ = data; changed_ = true;}
+	void	setSt2( signed short data ) { st2_ = data; changed_ = true;}
+	void	setDx( signed short data ) { dx_ = data; changed_ = true;}
+	void	setDx2( signed short data ) { dx2_ = data; changed_ = true;}
+	void	setIn( signed short data ) { in_ = data; changed_ = true;}
+	void	setIn2( signed short data ) { in2_ = data; changed_ = true;}
+	void	setMagic( unsigned char data ) { magic_ = data; changed_ = true;}
+	void	setGateTime( unsigned int data ) { gatetime_ = data; changed_ = true;}
+	void	setGateNumber( int data ) { gatenumber_ = data; changed_ = true;}
+	void	setDecayTime( unsigned int data ) { decaytime_ = data; changed_ = true;}
+	void	setPrice( INT32 data ) { price_ = data; changed_ = true;}
+	void	setBuyprice( INT32 data ) { buyprice_ = data; changed_ = true;}
+	void	setSellprice( INT32 data ) { sellprice_ = data; changed_ = true;}
 
-	void	setDisabled(unsigned int data) { disabled_ = data; }
-	void	setDisabledMsg(QString data) { disabledmsg_ = data; }
-	void	setPoisoned(unsigned int data) { poisoned_ = data; }
-	void	setMurderTime(long int data) { murdertime_ = data; }
-	void	setRank(int data) { rank_ = data; } 
+	void	setDisabled(unsigned int data) { disabled_ = data; changed_ = true;}
+	void	setDisabledMsg(QString data) { disabledmsg_ = data; changed_ = true;}
+	void	setPoisoned(unsigned int data) { poisoned_ = data; changed_ = true;}
+	void	setMurderTime(long int data) { murdertime_ = data; changed_ = true;}
+	void	setRank(int data) { rank_ = data; changed_ = true;} 
+	void	setVisible( uchar d ) { visible_ = d; changed_ = true;}
+	void	setPriv( uchar d ) { priv_ = d; changed_ = true;}
+	void	setGood( int d ) { good_ = d;	changed_ = true;}
+	void	setRndValueRate( int d ) { rndvaluerate_ = d; changed_ = true;}
+	void	setMadeWith( int d )	{ madewith_ = d; changed_ = true;}
+	void	setContainer( cUObject* d ) { container_ = d; changed_ = true; }
+
 //*******************************************END ADDED SETTERS**********
-	SERIAL contserial;
 
-	SERIAL ownserial;
-	unsigned char visible; // 0=Normally Visible, 1=Owner & GM Visible, 2=GM Visible
 	SERIAL spawnserial;
 
 	// Bit | Hex | Description
@@ -313,11 +328,7 @@ public:
 	//   5 |  20 | Twohanded
 	//   6 |  40 | Corpse
 	//   7 |  80 | <unused>
-	UI08 priv;
 	
-	int good; // Store type of GOODs to trade system! (Plz not set as UNSIGNED)  --- Magius(CHE)
-	int rndvaluerate; // Store the value calculated base on RANDOMVALUE in region.scp. ---- MAgius(CHE) (2)
-	int madewith; // Store the skills used to make this item -- Magius(CHE)
 	// Note by Magius: Value range to -ALLSKILLS-1 to ALLSKILLS+1
 	//    To calculate skill used to made this item:
 	//       if is a positive value, substract 1 it.
@@ -345,7 +356,7 @@ public:
 	
 	void setOwnSerialOnly(long ownser);
 	void SetOwnSerial(long ownser);
-	long GetOwnSerial()			{return ownserial;}
+	long ownSerial() const			{return ownserial_;}
 	
 	void SetSpawnSerial(long spawnser);
 	void SetMultiSerial(long mulser);
@@ -368,13 +379,13 @@ public:
 	int  DeleteAmount(int amount, unsigned short _id, unsigned short _color = 0);
 	QString getName( bool shortName = false );
 	void startDecay();
-	void setAllMovable()		{this->magic_=1;} // set it all movable..
+	void setAllMovable()		{this->magic_=1; changed_ = true;} // set it all movable..
 	bool isAllMovable()         {return (magic_==1);}
-	void setGMMovable()		    {this->magic_=2;} // set it GM movable.
+	void setGMMovable()		    {this->magic_=2; changed_ = true;} // set it GM movable.
 	bool isGMMovable()          {return (magic_==2);}
-	void setOwnerMovable()		{this->magic_=3;} // set it owner movable.
+	void setOwnerMovable()		{this->magic_=3; changed_ = true;} // set it owner movable.
 	bool isOwnerMovable()       {return (magic_==3);}
-	void setLockedDown()        {this->magic_=4;} // set it locked down.
+	void setLockedDown()        {this->magic_=4; changed_ = true;} // set it locked down.
 	bool isLockedDown()			{return (magic_==4);}
 
 	// Public event wrappers added by darkstorm
@@ -391,6 +402,10 @@ public:
 
 	stError *setProperty( const QString &name, const cVariant &value );
 	stError *getProperty( const QString &name, cVariant &value ) const;
+
+////
+	void flagUnchanged() { changed_ = false; cUObject::flagUnchanged(); }
+
 protected:
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
 };
@@ -412,16 +427,6 @@ public:
 	cAllItems() {}
 	void DeleItem(P_ITEM pi);
 	char isFieldSpellItem(P_ITEM pi);
-//	P_ITEM  SpawnItem(UOXSOCKET nSocket,
-//				int nAmount, const char* cName, int nStackable,
-//				unsigned char cItemId1, unsigned char cItemId2,
-//				unsigned short cColorId, 
-//				int nPack, int nSend);
-//    P_ITEM  SpawnItem(UOXSOCKET nSocket, P_CHAR ch,
-//				int nAmount, const char* cName, int nStackable,
-//				unsigned char cItemId1, unsigned char cItemId2,
-//				unsigned short cColorId,
-//				int nPack, int nSend);
 	P_ITEM SpawnItem(P_CHAR pc_ch,int nAmount, const char* cName, bool pileable, short id, short color, bool bPack);
 	P_ITEM SpawnItemBank(P_CHAR pc_ch, QString nItem);
 	P_ITEM  SpawnItemBackpack2(UOXSOCKET s, QString nItem, int nDigging);

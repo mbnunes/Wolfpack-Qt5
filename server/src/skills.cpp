@@ -442,11 +442,11 @@ void cSkills::PotionToBottle(P_CHAR pc, P_ITEM pi_mortar)
 	if(!pc->isGM())
 	{
 		pi_potion->setCreator(pc->name()); // Magius(CHE) - Memorize Name of the creator
-		if (pc->skill(ALCHEMY)>950) pi_potion->madewith=ALCHEMY+1; // Memorize Skill used - Magius(CHE)
-		else pi_potion->madewith=0-ALCHEMY-1; // Memorize Skill used - Magius(CHE)
+		if (pc->skill(ALCHEMY)>950) pi_potion->setMadeWith(ALCHEMY+1); // Memorize Skill used - Magius(CHE)
+		else pi_potion->setMadeWith(0-ALCHEMY-1); // Memorize Skill used - Magius(CHE)
 	} else {
 		pi_potion->setCreator("");
-		pi_potion->madewith=0;
+		pi_potion->setMadeWith(0);
 	}
 	
 	pi_potion->update();

@@ -571,7 +571,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 							pj->setMoreX(pj->moreb1());
 							pj->setMoreY(pj->moreb2());
 							pj->setMoreZ(pj->moreb3());
-							pj->visible = 0;								
+							pj->setVisible( 0 );
 							pj->update();// AntiChrist
 						} 
 						else 
@@ -582,7 +582,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 							pj->setMoreX(0);
 							pj->setMoreY(0);
 							pj->setMoreZ(0);
-							pj->visible = 2;							
+							pj->setVisible( 2 );
 							pj->update();// AntiChrist
 						}
 					}
@@ -1097,7 +1097,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 						socket->sysMessage(tr("You create the sextant."));
 						P_ITEM pi_sextant = Items->SpawnItem(pc_currchar, 1, "a sextant", 0, 0x1057, 0, 1);
 						if (pi_sextant != NULL)
-							pi_sextant->priv |= 0x01;
+							pi_sextant->setPriv( pi_sextant->priv() | 0x01 );
 						pi->ReduceAmount(1);
 					}
 					else 

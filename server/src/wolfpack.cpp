@@ -384,13 +384,7 @@ static void item_char_test()
 	{
 		P_ITEM pi = iterItems.GetData();
 
-		if( pi->serial() == pi->contserial )
-		{
-			clConsole.send( QString( "ALERT ! item %1 [serial: %2] has dangerous container value, autocorrecting\n" ).arg( pi->name() ).arg( pi->serial() ) );
-			//pi->setContSerial( -1 );
-		}
-
-		if( pi->serial() == pi->GetOwnSerial() )
+		if( pi->serial() == pi->ownSerial() )
 		{
 			clConsole.send( QString( "ALERT ! item %1 [serial: %2] has dangerous owner value\n" ).arg( pi->name() ).arg( pi->serial() ) );
 			pi->SetOwnSerial( -1 );
@@ -1311,7 +1305,6 @@ int main( int argc, char *argv[] )
 
 	AllItemsIterator iter;
 	for( iter.Begin(); !iter.atEnd(); ++iter )
-	//for( iter = cwmWorldState->contmap.begin(); iter != cwmWorldState->contmap.end(); ++iter )
 	{
 		pi = iter.GetData();
 		SERIAL contserial = reinterpret_cast<SERIAL>(pi->container());
@@ -1323,7 +1316,7 @@ int main( int argc, char *argv[] )
 
 			if( pCont )
 			{
-				pCont->addItem( pi, false, true, true );
+				pCont->addItem( pi, false, false, true );
 			}
 			else
 			{
@@ -1338,7 +1331,7 @@ int main( int argc, char *argv[] )
 
 			if( pCont )
 			{
-				pCont->addItem( (cChar::enLayer)pi->layer(), pi, true, true );
+				pCont->addItem( (cChar::enLayer)pi->layer(), pi, false, true );
 			}
 			else
 			{
@@ -1381,6 +1374,7 @@ int main( int argc, char *argv[] )
 			if( pChar )
 				pChar->chgDex( pi->dx2() );
 		}
+		pi->flagUnchanged(); // We've just loaded, nothing changes.
 	}
 
 	// Post Process Characters
@@ -1445,6 +1439,7 @@ int main( int argc, char *argv[] )
 			// Now that we have our owner set correctly
 			// do the charflags
 			setcharflag( pChar );
+			pChar->flagUnchanged(); // We've just loaded, nothing changes
 		}
 	}
 
@@ -2019,9 +2014,9 @@ int calcValue(P_ITEM pi, int value)
 	// end addon
 
 	// Lines added for Trade System by Magius(CHE) (2)
-	if (pi->rndvaluerate<0) pi->rndvaluerate=0;
-	if (pi->rndvaluerate!=0 && SrvParams->trade_system()==1) {
-		value+=(int) (value*pi->rndvaluerate)/1000;
+	if (pi->rndvaluerate()<0) pi->setRndValueRate(0);
+	if (pi->rndvaluerate()!=0 && SrvParams->trade_system()==1) {
+		value+=(int) (value*pi->rndvaluerate())/1000;
 	}
 	if (value<1) value=1;
 	// end addon
@@ -2038,7 +2033,7 @@ int calcGoodValue(P_CHAR npcnum2, P_ITEM pi, int value,int goodtype)
 	if( pi == NULL || Region == NULL )
 		return value;
 
-	int good=pi->good;
+	int good=pi->good();
 
 	if (good<=-1 || good >255 ) return value;
 
@@ -2061,7 +2056,7 @@ void StoreItemRandomValue(P_ITEM pi,QString tmpreg)
 
 	if( pi == NULL )
 		return;
-	if (pi->good<0) return;
+	if (pi->good()<0) return;
 
 	if (tmpreg == "none" )
 	{
@@ -2076,7 +2071,7 @@ void StoreItemRandomValue(P_ITEM pi,QString tmpreg)
 		}
 		else
 		{
-			P_CHAR pc=FindCharBySerial(pio->contserial);
+			P_CHAR pc = dynamic_cast<P_CHAR>(pio->container());
 			if (!pc) return;
 			Region = cAllTerritories::getInstance()->region( pc->pos().x, pc->pos().y, pc->pos().map );
 			if( Region != NULL )
@@ -2085,17 +2080,17 @@ void StoreItemRandomValue(P_ITEM pi,QString tmpreg)
 		return;
 	}
 
-	if( pi->good<0 || pi->good>255 ) 
+	if( pi->good() < 0 || pi->good() > 255 ) 
 		return;
 
 	cTerritory* Region = cAllTerritories::getInstance()->region( tmpreg );
 
-	min=Region->tradesystem_[pi->good].rndmin;
-	max=Region->tradesystem_[pi->good].rndmax;
+	min=Region->tradesystem_[pi->good()].rndmin;
+	max=Region->tradesystem_[pi->good()].rndmax;
 
 	if (max!=0 || min!=0)
 	{
-		pi->rndvaluerate=(int) RandomNum(min,max);
+		pi->setRndValueRate( RandomNum(min,max) );
 	}
 }
 
