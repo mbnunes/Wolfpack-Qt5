@@ -120,6 +120,7 @@
 	<script>commands.tele</script>
 	<script>commands.testlos</script>
 	<script>commands.tile</script>
+	<script>commands.tilecolor</script>
 	<script>commands.travel</script>
 	<script>commands.turnitem</script>
 	<script>commands.where</script>
