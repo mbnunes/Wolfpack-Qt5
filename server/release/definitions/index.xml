@@ -23,6 +23,9 @@
 	<!-- Regions -->
 	<include file="definitions/regions/index.xml"/>
 
+	<!-- Teleports -->
+	<include file="definitions/teleports/index.xml"/>
+	
 	<!-- Items Base Index -->
 	<include file="definitions/items/index.xml"/>
 
