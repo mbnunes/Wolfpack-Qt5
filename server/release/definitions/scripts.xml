@@ -5,6 +5,9 @@
 	other scripts or eventlists).
 -->
 <definitions>
+	<!-- NPC -->
+	<script>npc.healer</script>
+
 	<script>training_dummy</script>
 	<script>pickpocket_dip</script>
 	<script>archery_butte</script>

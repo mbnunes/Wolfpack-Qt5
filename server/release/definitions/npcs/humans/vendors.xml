@@ -484,6 +484,7 @@
 	<!-- A Healer vendor -->
 	<npc id="healer_male">
 		<inherit>base_male</inherit>
+		<bindmenu>healer_menu</bindmenu>
 		<title>the Healer</title>
 		<ai>Human_Vendor</ai>
 		<shopkeeper>
@@ -526,6 +527,7 @@
 		<inherit>base_female</inherit>
 		<title>the Healer</title>
 		<ai>Human_Vendor</ai>
+		<bindmenu>healer_menu</bindmenu>
 		<shopkeeper>
 			<restockable>
 				<item inherit="e21">
