@@ -95,6 +95,21 @@ FLUIDS = {
 	'water': [5, 0],
 }
 
+def consumeUse(item):
+	quantity = 0
+	if item.hastag('quantity'):
+		quantity = int(item.gettag('quantity'))
+	
+	if quantity == 0:
+		if CONTAINERS.has_key(item.id):
+			cprops = CONTAINERS[item.id]
+			
+			if cprops[3]:
+				char.socket.clilocmessage(500837)
+				char.socket.attachtarget('beverage.refill_target', [item.serial])
+				return 1
+		return 0
+
 #
 # Use the item
 #
@@ -254,6 +269,43 @@ def intoxication_func(char, args):
 		char.settag('intoxication', intoxication)
 	else:
 		char.deltag('intoxication')
+
+#
+# Consume one unit of this beverage
+#
+def consume(item):
+	quantity = 0
+	if item.hastag('quantity'):
+		quantity = int(item.gettag('quantity'))
+
+	btype = ''
+	if item.hastag('fluid'):
+		btype = unicode(item.gettag('fluid'))
+
+	if not FLUIDS.has_key(btype):
+		return 1
+		
+	if not CONTAINERS.has_key(item.id):
+		return 0
+		
+	cprop = CONTAINERS[item.id]
+	fprop = FLUIDS[btype]
+	
+	quantity -= 1
+	
+	# Empty
+	if quantity <= 0:
+		if cprop[2] == 0:
+			item.delete()
+		else:
+			item.id = cprop[2]
+			item.update()
+			item.deltag('quantity')
+			item.deltag('fluid')
+			item.resendtooltip()
+	else:
+		item.settag('quantity', int(quantity))
+		item.resendtooltip()
 
 #
 # Take a nip of the nice fluid in the container

@@ -14,9 +14,6 @@ def onUse( char, potionkeg ):
 	if not char or not backpack:
 		return False
 
-	if not potionkeg.hasscript( 'potionkeg' ):
-		return False
-
 	if not potionkeg.hastag( 'kegfill' ):
 		kegfill = 0
 		potionkeg.settag( 'kegfill', kegfill )
