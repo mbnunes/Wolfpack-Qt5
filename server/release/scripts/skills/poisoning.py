@@ -12,6 +12,7 @@ import wolfpack
 import wolfpack.time
 import random
 from system import poison
+import potions
 
 POISONING_DELAY = 1000
 
@@ -86,10 +87,7 @@ def poisonit( char, args ):
 	strength = int( potion.gettag( 'potiontype' ) ) - 14
 
 	# consume the potion / add a blank bottle
-	potion.delete()
-	bottle = wolfpack.additem( 'f0e' )
-	if not tobackpack( bottle, char ):
-		bottle.update()
+	potions.consumePotion(char, potion, True)
 
 	if not char.checkskill( POISONING, MINSKILLS[strength], MAXSKILLS[strength] ):
 		char.socket.clilocmessage( 1010518 )
