@@ -380,12 +380,12 @@ void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
 			continue;
 
 		// Check for item collisions here.
-		if( ( pChar->pos().x == pItem->pos().x ) && ( pChar->pos().y == pItem->pos().y ) && ( pItem->pos().z >= pChar->pos().z ) && ( pItem->pos().z <= pChar->pos().z + 5 ) )
+		if( ( pChar->pos().x == pItem->pos().x ) && ( pChar->pos().y == pItem->pos().y ) && ( pItem->pos().z <= pChar->pos().z ) && ( pItem->pos().z >= pChar->pos().z - 15 ) )
 		{
 			if( handleItemCollision( pChar, pItem ) )
 				break;
 		}
-
+		
 		// If we are a connected player then send new items
 		if( player && player->socket() )
 		{
@@ -397,7 +397,7 @@ void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
 			{
 				pItem->update( player->socket() );
 			}
-		}
+		}		
 	}
 }
 
