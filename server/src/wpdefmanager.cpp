@@ -124,6 +124,7 @@ void WPDefManager::ProcessNode( const QDomElement& Node )
 	if( !Sections )
 		return;
 
+#if defined( _DEBUG )
 	if( Sections->find( NodeID ) != Sections->end() )
 	{
 		clConsole.ChangeColor( WPC_YELLOW );
@@ -131,6 +132,7 @@ void WPDefManager::ProcessNode( const QDomElement& Node )
 		clConsole.ChangeColor( WPC_NORMAL );
 		clConsole.send( QString( "Duplicate %1: %2\n" ).arg( NodeName ).arg( NodeID ) );
 	}
+#endif
 
     Sections->insert( NodeID, Node );
 }
