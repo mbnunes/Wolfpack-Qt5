@@ -428,6 +428,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 				}
 			}
 			break;
+		   case 30:// no idea?
 		   case 50:// EV/BS
 			if (!pc_i->war)
 			{
@@ -449,13 +450,9 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 				}
 			}
 			break;
-			// Case 60-70 is Skyfires new AI
 		case 96:
 		case 60: // Skyfire - Dragon AI
 			DragonAI->DoAI(pc_i, currenttime);
-			break;
-		case 97:
-		case 61:// Skyfire - Banker AI
 			break;
 		default:
 			clConsole.send("ERROR: cCharStuff::CheckAI-> Error npc (%8x) has invalid AI type %i\n", pc_i->serial, pc_i->npcaitype); // Morrolan
@@ -560,33 +557,18 @@ void cCharStuff::cDragonAI::DoneAI(P_CHAR pc_i, int currenttime)
 	return;
 }
 
-//bool cCharStuff::cBankerAI::DoAI(int c, P_CHAR pBanker, char *comm)
 bool cCharStuff::cBankerAI::DoAI(int c, P_CHAR pBanker, string& comm)
 {
 	P_CHAR pc_currchar = currchar[c];
-	//char search1[50], search2[50], search3[50], search4[50];
-	//char *response1 = 0;
-	//char *response2 = 0;
-	//char *response3 = 0;
-	//char *response4 = 0;
-	//strcpy(search1, "BANK");
+
 	string search1("BANK") ;
 	string search2("BALANCE");
 	string search3("WITHDRAW") ;
 	string search4("CHECK") ;
-    //strcpy(search2, "BALANCE");
-	//strcpy(search3, "WITHDRAW");
-	//strcpy(search4, "CHECK");
-    //response1 = (strstr(comm, search1));
-    //response2 = (strstr(comm, search2));
-	//response3 = (strstr(comm, search3));
-	//response4 = (strstr(comm, search4));
+
 	if (SrvParms->usespecialbank)
 	{
-		//strcpy(search1, SrvParms->specialbanktrigger);
 		search1 = SrvParms->specialbanktrigger ;
-		//response1 = (strstr(comm, search1));
-		//if (response1 &&(!(pc_currchar->dead)))
 		if ((comm.find(search1)!= string::npos) &&(!(pc_currchar->dead)))
 		{
 			openspecialbank(c, currchar[c]);
@@ -612,14 +594,12 @@ bool cCharStuff::cBankerAI::DoAI(int c, P_CHAR pBanker, string& comm)
 	return true;
 }
 
-//##ModelId=3C5D932B0087
 void cCharStuff::cBankerAI::OpenBank(UOXSOCKET c)
 {
 	openbank(c, currchar[c]);
 	return;
 }
 
-//##ModelId=3C5D932B006A
 bool cCharStuff::cBankerAI::Balance(int c, P_CHAR pBanker)
 {
 	P_CHAR pc_currchar = currchar[c];
@@ -628,8 +608,6 @@ bool cCharStuff::cBankerAI::Balance(int c, P_CHAR pBanker)
 	return true;
 }
 
-//##ModelId=3C5D932B002D
-//bool cCharStuff::cBankerAI::Withdraw(int c, P_CHAR pBanker, char *comm)
 bool cCharStuff::cBankerAI::Withdraw(int c, P_CHAR pBanker, string& comm)
 {
 	P_CHAR pc_currchar = currchar[c];
@@ -662,7 +640,6 @@ bool cCharStuff::cBankerAI::Withdraw(int c, P_CHAR pBanker, string& comm)
 	return true;
 }
 
-//##ModelId=3C5D932B004B
 bool cCharStuff::cBankerAI::BankCheck(int c, P_CHAR pBanker, string& comm)
 {
 	P_CHAR pc_currchar = currchar[c];

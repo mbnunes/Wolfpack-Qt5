@@ -263,6 +263,10 @@ SOURCE=.\p_ai.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\packlen.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\pointer.cpp
 # End Source File
 # Begin Source File
@@ -552,6 +556,10 @@ SOURCE=.\network.h
 # Begin Source File
 
 SOURCE=.\oem.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\packlen.h
 # End Source File
 # Begin Source File
 
