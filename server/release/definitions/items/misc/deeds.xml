@@ -232,6 +232,35 @@
 		<category>Misc\Deeds\Carpentry\Water Trough East Deed</category>
 	</item>
 
+	<!-- stone tables -->
+	<item id="stonetable_medium_e_deed" inherit="blank_deed">
+		<name>Medium Stone Table East Deed</name>
+		<basescripts>deeds.carpentry_deed</basescripts>
+		<tag name="carpentry_type" value="stonetable_medium_e" />
+		<category>Misc\Deeds\Masonry\Medium Stone Table East Deed</category>
+	</item>
+
+	<item id="stonetable_medium_s_deed" inherit="blank_deed">
+		<name>Medium Stone Table South Deed</name>
+		<basescripts>deeds.carpentry_deed</basescripts>
+		<tag name="carpentry_type" value="stonetable_medium_s" />
+		<category>Misc\Deeds\Masonry\Medium Stone Table South Deed</category>
+	</item>
+
+	<item id="stonetable_large_e_deed" inherit="blank_deed">
+		<name>Large Stone Table East Deed</name>
+		<basescripts>deeds.carpentry_deed</basescripts>
+		<tag name="carpentry_type" value="stonetable_large_e" />
+		<category>Misc\Deeds\Masonry\Large Stone Table East Deed</category>
+	</item>
+
+	<item id="stonetable_large_s_deed" inherit="blank_deed">
+		<name>Large Stone Table South Deed</name>
+		<basescripts>deeds.carpentry_deed</basescripts>
+		<tag name="carpentry_type" value="stonetable_large_s" />
+		<category>Misc\Deeds\Masonry\Large Stone Table South Deed</category>
+	</item>
+
 	<!-- Other Deeds -->
 	<!-- house deed -->
 	<item id="house" inherit="blank_deed">

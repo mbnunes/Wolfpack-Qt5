@@ -18,46 +18,44 @@
 		</masonry>
 		<masonry definition="b45" name="Large Vase">
 			<percentage value="95" />
-			<granite amount="1" />
+			<granite amount="3" />
 		</masonry>
-<!-- deeds?
-		<masonry definition="" name="Stone Chair">
+		<masonry definition="1218" name="Stone Chair">
 			<percentage value="90" />
-			<granite amount="1" />
+			<granite amount="4" />
 		</masonry>
-		<masonry definition="" name="Medium Stone Table">
+		<masonry definition="stonetable_medium_s_deed" name="Medium Stone Table">
 			<percentage value="70" />
-			<granite amount="1" />
+			<granite amount="6" />
 		</masonry>
-		<masonry definition="" name="Large Stone Table">
+		<masonry definition="stonetable_large_s_deed" name="Large Stone Table">
 			<percentage value="50" />
-			<granite amount="1" />
+			<granite amount="9" />
 		</masonry>
--->
 		<masonry definition="139a" name="Small Statue">
 			<percentage value="80" />
-			<granite amount="1" />
+			<granite amount="3" />
 		</masonry>
 		<masonry definition="139b" name="Small Statue">
 			<percentage value="80" />
-			<granite amount="1" />
+			<granite amount="3" />
 		</masonry>
 		<masonry definition="139c" name="Small Statue">
 			<percentage value="80" />
-			<granite amount="1" />
+			<granite amount="3" />
 		</masonry>
 		<masonry definition="139d" name="Pegasus Statue">
 			<percentage value="60" />
-			<granite amount="1" />
+			<granite amount="4" />
 		</masonry>
 <!--
 		<masonry definition="" name="Tower Sculpture">
 			<percentage value="36" />
-			<granite amount="1" />
+			<granite amount="3" />
 		</masonry>
 		<masonry definition="" name="Small Urn">
 			<percentage value="36" />
-			<granite amount="1" />
+			<granite amount="3" />
 		</masonry>
 -->
 	</menu>
