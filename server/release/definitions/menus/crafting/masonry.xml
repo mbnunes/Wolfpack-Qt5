@@ -9,6 +9,8 @@
 <definitions>
 	<menu id="MASONRY" name="Masonry">
 		<menu id="MASONRY_VASES" />
+		<menu id="MASONRY_FURNITURE" />
+		<menu id="MASONRY_STATUES" />
 	</menu>
 
 	<menu id="MASONRY_VASES" name="Vases">
@@ -20,6 +22,8 @@
 			<percentage value="95" />
 			<granite amount="3" />
 		</masonry>
+	</menu>
+	<menu id="MASONRY_FURNITURE" name="Furniture">
 		<masonry definition="1218" name="Stone Chair">
 			<percentage value="90" />
 			<granite amount="4" />
@@ -32,6 +36,8 @@
 			<percentage value="50" />
 			<granite amount="9" />
 		</masonry>
+	</menu>
+	<menu id="MASONRY_STATUES" name="Statues">
 		<masonry definition="139a" name="Small Statue">
 			<percentage value="80" />
 			<granite amount="3" />
@@ -48,6 +54,7 @@
 			<percentage value="60" />
 			<granite amount="4" />
 		</masonry>
+	</menu>
 <!--
 		<masonry definition="" name="Tower Sculpture">
 			<percentage value="36" />
@@ -57,7 +64,6 @@
 			<percentage value="36" />
 			<granite amount="3" />
 		</masonry>
--->
 	</menu>
-
+-->
 </definitions>

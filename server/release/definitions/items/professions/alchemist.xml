@@ -591,4 +591,15 @@
 		<weight>1.0</weight>
 	</item>
 
+	<!-- Blowpipe -->
+	<item id="blowpipe">
+		<name>#1044608</name>
+		<id>0xe89</id>
+		<color>0x3b9</color>
+		<tag name="remaining_uses" type="int" value="35" />
+		<category>Professions\Glassblower\Blowpipe</category>
+		<basescripts>equipment,skills.glassblowing</basescripts>
+		<weight>4.0</weight>
+	</item>
+
 </definitions>

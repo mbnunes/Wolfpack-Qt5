@@ -71,9 +71,10 @@
 	<script>yarn</script>
 
 	<!-- Special Books -->
+	<script>books.glassblowing</script>
 	<script>books.masonry</script>
-	<script>books.stonemining</script>
 	<script>books.sandmining</script>
+	<script>books.stonemining</script>
 
 	<!-- Potions -->
 	<script>potions</script>
@@ -245,6 +246,7 @@
 	<script>skills.detectinghidden</script>
 	<script>skills.evaluatingintel</script>
 	<script>skills.fishing</script>
+	<script>skills.glassblowing</script>
 	<script>skills.healing</script>
 	<script>skills.hiding</script>
 	<script>skills.inscription</script>
