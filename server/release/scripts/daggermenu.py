@@ -14,7 +14,6 @@ def onContextEntry( char, item, tag  ):
     if( tag == 4 ):
 	char.message( "'info " + str( item.serial )  )
     if( tag == 3 ):
-	char.message( "Delete option selected" )
 	sureGump( char, item, "daggermenu.sureCallback" )
     return 1
 
