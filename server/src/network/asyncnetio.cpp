@@ -439,7 +439,6 @@ void cAsyncNetIO::run() throw()
 
 						wpCopyIn( d->seed, temp );
 						d->seed = B_BENDIAN_TO_HOST_INT32( d->seed );
-						//d->seed = ( ( temp[0] & 0xFF ) << 24 ) | ( ( temp[1] & 0xFF ) << 16 ) | ( ( temp[2] & 0xFF ) << 8 ) | ( ( temp[3] & 0xFF ) );
 
 						// Only 0xFFFFFFFF seed allowed for !d->login
 						if ( !d->login && d->seed != 0xFFFFFFFF )
@@ -501,7 +500,7 @@ void cAsyncNetIO::run() throw()
 							else
 							{
 								cGameEncryption* crypt = new cGameEncryption;
-								crypt->init( 0xFFFFFFFF ); // Seed is fixed anyway
+								crypt->init( 0xFFFFFFFF );
 								d->encryption = crypt;
 							}
 						} // LoginServer Encryption

@@ -36,7 +36,7 @@
 #include "encryption.h"
 #include "../definitions.h"
 #include "../console.h"
-
+#include "../md5.h"
 #include "../log.h"
 #include "../basics.h"
 
@@ -140,8 +140,20 @@ void cGameEncryption::init( unsigned int seed )
 	for ( unsigned int i = 0; i < 256; ++i )
 		cipherTable[i] = i;
 
-	recvPos = 0x100;
 	sendPos = 0x00;
+	recvPos = 0;
+
+	// We need to fill the table initially to calculate the MD5 hash of it    
+	unsigned char tmpBuffer[0x100];
+	blockEncrypt( &ci, &ki, &cipherTable[0], 0x800, &tmpBuffer[0] );
+	memcpy( &cipherTable[0], &tmpBuffer[0], 0x100 );
+
+	// Create a MD5 hash of the twofish crypt data and use it as a 16-byte xor table
+	// for encrypting the server->client stream.
+	cMd5 md5;
+	md5.update(tmpBuffer, 0x100);
+	md5.finalize();
+	md5.rawDigest(xorData);
 }
 
 /*!
@@ -178,17 +190,7 @@ void cGameEncryption::clientDecrypt( char* buffer, unsigned int length )
 */
 void cGameEncryption::serverEncrypt( char* buffer, unsigned int length )
 {
-	static const Q_UINT8 xorData[0x10] =
-	{
-	// Seed: 7F000001
-	//0x05, 0x92, 0x66, 0x23, 0x67, 0x14, 0xE3, 0x62, 0xDC, 0x60, 0x8C, 0xD6, 0xFE, 0x7C, 0x25, 0x69
-
-	// Seed: FFFFFFFF
-	0xa9, 0xd5, 0x7d, 0xa4, 0x3e, 0x0c, 0x22, 0xda, 0xde, 0x15, 0xe9, 0x92, 0xdd, 0x99, 0x98, 0x4d
-	};
-
-	for ( unsigned int i = 0; i < length; ++i )
-	{
+	for ( unsigned int i = 0; i < length; ++i ) {
 		buffer[i] ^= xorData[sendPos++];
 		sendPos &= 0x0F; // Maximum Value is 0xF = 15, then 0xF + 1 = 0 again
 	}

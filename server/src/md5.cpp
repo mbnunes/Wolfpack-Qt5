@@ -268,6 +268,19 @@ void cMd5::finalize()
 	finalized = true;
 }
 
+void cMd5::rawDigest( unsigned char* digest )
+{
+	if ( !finalized )
+		return;	
+
+	unsigned char *buffer = ( unsigned char * )this->buffer;
+
+	// 16 byte a 2 characters
+	for ( unsigned int i = 0; i < 16; ++i ) {
+		digest[i] = buffer[i];
+	}
+}
+
 void cMd5::digest( char* digest )
 {
 	if ( !finalized )

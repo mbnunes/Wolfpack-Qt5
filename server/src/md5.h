@@ -80,6 +80,12 @@ public:
 	void digest( char* digest );
 
 	/*!
+	\brief Retrieve the binary digest for this hash.
+	\param digest A 16 byte array of unsigned chars that should contain the raw digest.
+	*/
+	void rawDigest( unsigned char* digest );
+
+	/*!
 	\brief This function creates a hash for the given message.
 	\param digest The target digest. Has to be at least 33 bytes long.
 	\param message A null terminated string containing the message.
