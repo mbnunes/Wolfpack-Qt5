@@ -2320,8 +2320,8 @@ void command_gmtransfer(UOXSOCKET s)
 void command_who(UOXSOCKET s)
 // Displays a list of users currently online.
 {
-
-	if(now==1) {
+	if(now==1) 
+	{
 		sysmessage(s,"There are no other users connected.");
 		return;
 	}

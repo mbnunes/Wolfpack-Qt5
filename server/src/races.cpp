@@ -57,8 +57,21 @@ void cRaces::LoadRaceFile()
 			case 'b':
 				if(!strcmp((char*)script1, "BEARDREQ"))
 					races[racecount].BeardReq = str2num(script2);
-				if(!strcmp((char*)script1, "BASEAR"))
+				else if(!strcmp((char*)script1, "BASEAR"))
 					races[racecount].BaseAR = str2num(script2);
+				else if(!strcmp((char*)script1, "BESTATTACKSKILL"))
+				{
+					if(!strcmp((char*)script2, "ARCHERY"))
+						races[racecount].BestFightSkill = ARCHERY;
+					else if(!strcmp((char*)script2, "SWORDSMANSHIP"))
+						races[racecount].BestFightSkill = SWORDSMANSHIP;
+					else if(!strcmp((char*)script2, "MACEFIGHTING"))
+						races[racecount].BestFightSkill = MACEFIGHTING;
+					else if(!strcmp((char*)script2, "FENCING"))
+						races[racecount].BestFightSkill = FENCING;
+					else
+						races[racecount].BestFightSkill = SWORDSMANSHIP;
+				}
 				break;
 			case 'C':
 			case 'c':
@@ -123,6 +136,12 @@ void cRaces::LoadRaceFile()
 					races[racecount].StrCap=str2num(script2);
 				else if(!strcmp((char*)script1, "SKINLIST"))
 					races[racecount].SkinList = script2;
+				else if(!strcmp((char*)script1, "STARTX"))
+					races[racecount].startpos.x=str2num(script2);
+				else if(!strcmp((char*)script1, "STARTY"))
+					races[racecount].startpos.y=str2num(script2);
+				else if(!strcmp((char*)script1, "STARTZ"))
+					races[racecount].startpos.z=str2num(script2);
 				break;
 			case 'V':
 			case 'v':
@@ -244,10 +263,19 @@ void cRaces::SetRace(P_CHAR pc, int race)
 
 	if(Races[race]->BaseAR>0)
 		pc->def+=Races[race]->BaseAR;
+	
+	if(Races[race]->startpos.x>0)
+		pc->pos.x=Races[race]->startpos.x;
 
+	if(Races[race]->startpos.y>0)
+		pc->pos.y=Races[race]->startpos.y;
+
+	if(Races[race]->startpos.z>0)
+		pc->pos.z=Races[race]->startpos.z;
 
 	updatechar(DEREF_P_CHAR(pc));
 	statwindow(so, DEREF_P_CHAR(pc));
+	teleport(DEREF_P_CHAR(pc));
 }
 
 int cRaces::RandomHairStyle()

@@ -320,30 +320,33 @@ void get_item(P_CLIENT ps) // Client grabs an item
 					}
 					
 					pi->amount = amount;
+					
 				}
 				
 				int amt = 0, wgt; bool tooheavy=false;				
 				wgt = (int)Weight->LockeddownWeight(pi, &amt, 0);
-				if (( (pc_currchar->weight+wgt) > (pc_currchar->st*WEIGHT_PER_STR)+30)) // LB -> added: drop item if too heavy
+				if(pi->contserial>0)
 				{
-		          float res=float( (pc_currchar->weight+wgt) - ((pc_currchar->st*WEIGHT_PER_STR)+30))*2;
-		          int diff = pc_currchar->st;
-				  diff -= (int)res;
-		          if (diff<=0 && !pc_currchar->isGM() )					   
-				  {
-				     tooheavy=true;						 						 
+					if (( (pc_currchar->weight+wgt) > (pc_currchar->st*WEIGHT_PER_STR)+30)) // LB -> added: drop item if too heavy
+					{
+					  float res=float( (pc_currchar->weight+wgt) - ((pc_currchar->st*WEIGHT_PER_STR)+30))*2;
+					  int diff = pc_currchar->st;
+					  diff -= (int)res;
+					  if (diff<=0 && !pc_currchar->isGM() )					   
+					  {
+						 tooheavy=true;						 						 
 
-				     bounce[1] = 0;
-			         Xsend(s, bounce, 2);
-					 if (ps->IsDragging()) // only restore item if it got dragged before !!!
-					 {
-					   ps->ResetDragging();
-					   item_bounce4(s, pi);
+						 bounce[1] = 0;
+						 Xsend(s, bounce, 2);
+						 if (ps->IsDragging()) // only restore item if it got dragged before !!!
+						 {
+						   ps->ResetDragging();
+						   item_bounce4(s, pi);
+						 }
+						 sysmessage(s, "you can't pick this up, this is too heavy");					 
+						 return;
 					 }
-					 
-				     sysmessage(s, "you can't pick this up, this is too heavy");					 
-					 return;
-				 }
+					}
 				}
 
                 if (!tooheavy) pc_currchar->weight+=wgt;				   

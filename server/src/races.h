@@ -55,9 +55,10 @@ public:
 		NoHair = false;
 		NoBeard = false;
 		BaseAR = 0;
-		StartX = 0;
-		StartY = 0;
-		StartZ = 0;
+		BestFightSkill=SWORDSMANSHIP; // defaults to swords
+		startpos.x=0;
+		startpos.y=0;
+		startpos.z=0;
 	}
 	bool IsPlayerRace;
 	string RaceName;
@@ -71,10 +72,9 @@ public:
 	int StrCap;
 	int DexCap;
 	int VisRange;
+	int BestFightSkill;
 	int BaseAR;
-	int StartX;
-	int StartY;
-	int StartZ;
+	Coord_cl startpos;
 	vector<int> CanUseSkill;
 	vector<int> CantUseItem;
 	vector<int> RacialAlly;

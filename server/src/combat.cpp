@@ -875,7 +875,7 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 				
 				if ((pc_attacker->isPlayer())&&(pc_defender->isPlayer()))//Player vs Player
 				{
-					if(pc_defender->isInnocent() && Guilds->Compare(a,d)==0 )
+					if(pc_defender->isInnocent() && Guilds->Compare(a,d)==0 && Races.CheckRelation(pc_attacker,pc_defender)!=2)
 					{
 						pc_attacker->kills++;
 						sprintf((char*)temp, "You have killed %i innocent people.", pc_attacker->kills);
@@ -943,6 +943,9 @@ int cCombat::CalcAtt(int p) // Calculate total attack powerer
 		}
 	}
 	if (total<1) total=1;
+	unsigned short fightskill=Skills->GetCombatSkill(DEREF_P_CHAR(pc_p));
+	if(fightskill==Races[pc_p->race]->BestFightSkill)
+		total+=5;
 	return total;
 }
 
