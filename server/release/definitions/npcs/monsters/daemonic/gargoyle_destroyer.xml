@@ -43,7 +43,7 @@
 		<!-- Missing: 1-7CS, MNS, Gargoyle Pickaxe -->
 		<lootpacks>lootpack_rich;lootpack_rich;scroll_medium;gems;gems;gems;gems</lootpacks>
 		<category>Monsters\Daemonic\Gargoyle Destroyer</category>
-		
+		<strproperty name="slayer_group" value="gargoyles" />
 		<intproperty name="carve_meat" value="1" />
 	</npc>
 

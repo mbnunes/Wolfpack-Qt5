@@ -49,6 +49,7 @@
 		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;gems;lootpack_filthy_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Champions\Semidar</category>
+		<strproperty name="slayer_group" value="daemons" />
 	</npc>
 
 </definitions>

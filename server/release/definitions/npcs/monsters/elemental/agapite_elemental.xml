@@ -36,6 +36,7 @@
 		<!-- Missing: 25 Agapite Ore, Level 1 Map -->
 		<lootpacks>lootpack_average;gems</lootpacks>
 		<category>Monsters\Elementals\Agapite Elemental</category>
+		<strproperty name="slayer_group" value="earthelementals" />
 	</npc>
 
 </definitions>

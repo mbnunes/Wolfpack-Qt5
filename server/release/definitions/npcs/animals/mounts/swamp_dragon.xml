@@ -42,7 +42,7 @@
 		<food>1</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Swamp Dragon (Random)</category>
-		
+		<strproperty name="slayer_group" value="dragons" />
 		<!-- Carve -->
 		<intproperty name="carve_scales" value="5" />
 		<strproperty name="carve_scales_type" value="green" />

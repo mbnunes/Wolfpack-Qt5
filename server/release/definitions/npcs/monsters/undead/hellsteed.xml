@@ -35,6 +35,7 @@
 		<!-- Misc. -->
 		<mintaming>1100</mintaming>
 		<category>Animals\Undead\Hellsteed</category>
+		<strproperty name="slayer_group" value="undeads" />
 	</npc>
 
 </definitions>

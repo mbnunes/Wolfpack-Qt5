@@ -40,6 +40,7 @@
 		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich</lootpacks>
 		<category>Monsters\Daemonic\Succubus</category>
 		<intproperty name="carve_meat" value="1" />
+		<strproperty name="slayer_group" value="daemons" />
 	</npc>
 
 	<npc id="succubus_2" inherit="succubus">

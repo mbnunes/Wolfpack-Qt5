@@ -39,6 +39,7 @@
 		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Impaler</category>
+		<strproperty name="slayer_group" value="daemons" />
 	</npc>
 
 </definitions>

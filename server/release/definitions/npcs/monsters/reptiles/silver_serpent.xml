@@ -39,7 +39,7 @@
 		<!-- Missing:  -->
 		<lootpacks>lootpack_average;gems</lootpacks>
 		<category>Monsters\Reptiles\Silver Serpent</category>
-		
+		<strproperty name="slayer_group" value="snakes" />
 		<intproperty name="carve_meat" value="1" />
 	</npc>
 

@@ -39,7 +39,7 @@
 		<!-- Missing: Level 1 Map -->
 		<lootpacks>lootpack_average;lootpack_meager</lootpacks>
 		<category>Monsters\Terathan\Terathan Warrior</category>
-		
+		<strproperty name="slayer_group" value="terathans" />
 		<intproperty name="carve_meat" value="4" />
 	</npc>
 

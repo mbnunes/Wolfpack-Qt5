@@ -37,6 +37,7 @@
 		<lootpacks>lootpack_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Daemonic\Moloch</category>
+		<strproperty name="slayer_group" value="daemons" />
 	</npc>
 
 </definitions>

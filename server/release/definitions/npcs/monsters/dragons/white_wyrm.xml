@@ -42,7 +42,7 @@
 		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich;lootpack_filthy_rich;lootpack_average</lootpacks>
 		<mintaming>963</mintaming>
 		<category>Monsters\Dragons\White Wyrm (Random)</category>
-		
+		<strproperty name="slayer_group" value="dragons" />
 		<!-- Carve -->
 		<intproperty name="carve_scales" value="9" />
 		<strproperty name="carve_scales_type" value="white" />

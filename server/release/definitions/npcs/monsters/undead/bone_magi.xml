@@ -41,6 +41,7 @@
 		<!-- Misc. -->
 		<desc>A dying mage who has chooses to perform the ceremony to become a lich and fails, will often become a Bone Magi. Still armed with a formidable repertoire of the dark arts, bone magi should not be underestimated. Burning with the power of the damned, the bone magi appears as the color of flame.</desc>
 		<category>Monsters\Undead\Bone Magi</category>
+		<strproperty name="slayer_group" value="undeads" />
 	</npc>
 
 </definitions>

@@ -41,6 +41,7 @@
 		<!-- Missing: 1-7CS, Potion, Reagent -->
 		<lootpacks>lootpack_average;lootpack_average</lootpacks>
 		<category>Monsters\Elementals\Ice Elemental</category>
+		<strproperty name="slayer_group" value="snowelementals" />
 	</npc>
 
 </definitions>

@@ -40,6 +40,7 @@
 		<!-- Missing: Potion, 3 Black Pearl, Level 2 Map -->
 		<lootpacks>lootpack_average;lootpack_average</lootpacks>
 		<category>Monsters\Elementals\Water Elemental</category>
+		<strproperty name="slayer_group" value="waterelementals" />
 	</npc>
 
 </definitions>

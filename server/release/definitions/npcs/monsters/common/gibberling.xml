@@ -41,6 +41,7 @@
 		<lootpacks>lootpack_meager</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Common\Gibberling</category>
+		<strproperty name="slayer_group" value="daemons" />
 	</npc>
 
 </definitions>

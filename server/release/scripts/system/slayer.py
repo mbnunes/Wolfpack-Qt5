@@ -16,8 +16,8 @@ class SlayerEntry:
 		if not npc.hasstrproperty('slayer_group'):
 			return False
 
-		slayer_group = npc.getstrproperty('slayer_group', '')		
-		
+		slayer_group = npc.getstrproperty('slayer_group', '')
+
 		if slayer_group in self.npcs:
 			return True
 		else:
@@ -115,7 +115,7 @@ def findEntry(id):
 def getRandom():
 	# Select random group
 	group = random.choice(GROUPS)
-	
+
 	# 10% chance for a super slayer
 	if 0.10 > random.random():
 		return group.super.id

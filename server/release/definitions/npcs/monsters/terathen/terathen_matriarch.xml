@@ -40,6 +40,7 @@
 		<!-- Missing: 1-7CS, MNS, 5 Spider Silk, Necromancy Reagent, Level 4 Map -->
 		<lootpacks>lootpack_rich;lootpack_average;gems</lootpacks>
 		<category>Monsters\Terathan\Terathan Matriarch</category>
+		<strproperty name="slayer_group" value="terathans" />
 	</npc>
 
 </definitions>

@@ -42,7 +42,7 @@
 		<lootpacks>lootpack_average</lootpacks>
 		<carve>carve_serpent_gaint</carve>
 		<category>Monsters\Reptiles\Gaint Serpent</category>
-		
+		<strproperty name="slayer_group" value="snakes" />
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="15" />
 		<strproperty name="carve_hides_type" value="spined" />

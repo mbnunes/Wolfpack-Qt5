@@ -39,6 +39,7 @@
 		<!-- Missing: 5 Spider Silk, Lesser Poison Potion -->
 		<lootpacks>lootpack_average</lootpacks>
 		<category>Monsters\Insects\Giant Black Widow</category>
+		<strproperty name="slayer_group" value="spiders" />
 	</npc>
 
 </definitions>

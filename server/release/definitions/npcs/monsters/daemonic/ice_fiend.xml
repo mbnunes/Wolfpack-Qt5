@@ -40,7 +40,7 @@
 		<!-- Missing: Jewel, 1-7CS, MNS, Level 4 Map -->
 		<lootpacks>lootpack_average;lootpack_filthy_rich</lootpacks>
 		<category>Monsters\Daemonic\Ice Fiend</category>
-		
+		<strproperty name="slayer_group" value="daemons" />
 		<intproperty name="carve_meat" value="1" />
 	</npc>
 

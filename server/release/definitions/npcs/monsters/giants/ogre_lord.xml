@@ -37,7 +37,7 @@
 		<!-- Missing: Potion, Club, Level 3 Map -->
 		<lootpacks>lootpack_rich;lootpack_rich</lootpacks>
 		<category>Monsters\Giants\Ogre Lord</category>
-		
+		<strproperty name="slayer_group" value="ogres" />
 		<intproperty name="carve_meat" value="1" />
 	</npc>
 

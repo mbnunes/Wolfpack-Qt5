@@ -37,6 +37,7 @@
 		<!-- Missing: 25 Bronze Ore, Level 1 Map -->
 		<lootpacks>lootpack_average;gems</lootpacks>
 		<category>Monsters\Elementals\Bronze Elemental</category>
+		<strproperty name="slayer_group" value="earthelementals" />
 	</npc>
 
 </definitions>

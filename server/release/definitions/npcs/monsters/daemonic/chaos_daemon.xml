@@ -39,6 +39,7 @@
 		<lootpacks>lootpack_average</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Daemonic\Chaos Daemon</category>
+		<strproperty name="slayer_group" value="daemons" />
 	</npc>
 
 </definitions>

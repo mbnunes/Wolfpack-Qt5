@@ -37,6 +37,7 @@
 		<!-- Missing: 5 Iron Ore, Mandrake Root, Fertile Dirt, Level 1 Map -->
 		<lootpacks>lootpack_average;lootpack_average;gems_poor</lootpacks>
 		<category>Monsters\Elementals\Earth Elemental</category>
+		<strproperty name="slayer_group" value="earthelementals" />
 	</npc>
 
 </definitions>

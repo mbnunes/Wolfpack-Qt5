@@ -38,6 +38,7 @@
 		<lootpacks>lootpack_average</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Flesh Golem</category>
+		<strproperty name="slayer_group" value="undeads" />
 	</npc>
 
 </definitions>

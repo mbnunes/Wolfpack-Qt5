@@ -39,7 +39,7 @@
 		<lootpacks>lootpack_average;scroll_medium;gems;gems;gems;gems</lootpacks>
 		<carve>carve_gargoyle</carve>
 		<category>Monsters\Daemonic\Gargoyle</category>
-		
+		<strproperty name="slayer_group" value="gargoyles" />
 		<intproperty name="carve_meat" value="1" />
 	</npc>
 

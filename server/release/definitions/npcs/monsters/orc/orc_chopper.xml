@@ -39,6 +39,7 @@
 		<!-- Missing: Log or Board -->
 		<lootpacks>lootpack_average</lootpacks>
 		<category>Monsters\Orcs\Orc Chopper</category>
+		<strproperty name="slayer_group" value="orcs" />
 	</npc>
 
 </definitions>

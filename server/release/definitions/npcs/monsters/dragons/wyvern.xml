@@ -39,7 +39,7 @@
 		<!-- Missing: 1-7CS, MNS, Lesser Poison Potion, Level 2 Map -->
 		<lootpacks>lootpack_average;lootpack_meager</lootpacks>
 		<category>Monsters\Dragons\Wyrvern</category>
-		
+		<strproperty name="slayer_group" value="dragons" />
 		<intproperty name="carve_hides" value="20" />
 		<strproperty name="carve_hides_type" value="horned" />
 		<intproperty name="carve_meat" value="10" />

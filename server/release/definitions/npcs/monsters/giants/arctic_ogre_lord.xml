@@ -37,6 +37,7 @@
 		<!-- Missing: Potion, Club, Level 3 Map -->
 		<lootpacks>lootpack_filthy_rich</lootpacks>
 		<category>Monsters\Giants\Arctic Ogre Lord</category>
+		<strproperty name="slayer_group" value="ogres" />
 	</npc>
 
 </definitions>

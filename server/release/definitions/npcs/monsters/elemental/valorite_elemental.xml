@@ -39,6 +39,7 @@
 		<!-- Missing: 25 Valorite Ore, Level 1 Map -->
 		<lootpacks>lootpack_filthy_rich;gems</lootpacks>
 		<category>Monsters\Elementals\Valorite Elemental</category>
+		<strproperty name="slayer_group" value="earthelementals" />
 	</npc>
 
 </definitions>

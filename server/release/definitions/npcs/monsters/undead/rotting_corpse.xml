@@ -43,6 +43,7 @@
 		<lootpacks>lootpack_filthy_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Undead\Rotting Corpse</category>
+		<strproperty name="slayer_group" value="undeads" />
 	</npc>
 
 </definitions>

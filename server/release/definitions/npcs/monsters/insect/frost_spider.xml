@@ -41,6 +41,7 @@
 		<lootpacks>lootpack_meager;lootpack_poor</lootpacks>
 		<mintaming>747</mintaming>
 		<category>Monsters\Insects\Frost Spider</category>
+		<strproperty name="slayer_group" value="spiders" />
 	</npc>
 
 </definitions>

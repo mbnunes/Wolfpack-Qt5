@@ -36,6 +36,7 @@
 		<!-- Missing: Jewel, Gargoyle Pickaxe, Level 1 Map -->
 		<lootpacks>lootpack_average</lootpacks>
 		<category>Monsters\Daemonic\Enslaved Gargoyle</category>
+		<strproperty name="slayer_group" value="gargoyles" />
 	</npc>
 
 </definitions>

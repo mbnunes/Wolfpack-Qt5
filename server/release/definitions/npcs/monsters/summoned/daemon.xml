@@ -40,6 +40,7 @@
 		<!-- Misc. -->
 		<controlslots>5</controlslots>
 		<category>Summoned\Daemon</category>
+		<strproperty name="slayer_group" value="daemons" />
 	</npc>
 
 </definitions>

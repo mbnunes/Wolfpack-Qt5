@@ -43,8 +43,9 @@
 		<!-- Missing: Reagents, Level 5 Map -->
 		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich</lootpacks>
 		<category>Monsters\Elementals\Blood Elemental</category>
+		<strproperty name="slayer_group" value="bloodelementals" />
 	</npc>
-	
+
 	<npc id="lesser_blood_elemental" inherit="blood_elemental">
 		<name>lesser blood elemental</name>
 		<inherit id="KARMA_L3" />
@@ -58,7 +59,7 @@
 		<magicresistance><random min="501" max="650"/></magicresistance>
 		<tactics><random min="701" max="800"/></tactics>
 		<wrestling><random min="701" max="800"/></wrestling>
-		
+
 		<!-- Damage -->
 		<mindamage>37</mindamage>
 		<maxdamage>41</maxdamage>

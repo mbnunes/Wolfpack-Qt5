@@ -40,6 +40,7 @@
 		<lootpacks>lootpack_average</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Gore Fiend</category>
+		<strproperty name="slayer_group" value="undeads" />
 	</npc>
 
 </definitions>

@@ -37,6 +37,7 @@
 		<lootpacks>lootpack_meager</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Undead\Shade</category>
+		<strproperty name="slayer_group" value="undeads" />
 	</npc>
 
 	<npc name="spectre" inherit="shade">

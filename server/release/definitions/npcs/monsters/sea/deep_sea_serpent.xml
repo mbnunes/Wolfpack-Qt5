@@ -39,11 +39,11 @@
 		<!-- Missing: Reagent, Level 1 Map (Fishing only), Special Fishing Net (Fishing only), MIB (Fishing only) -->
 		<lootpacks>lootpack_meager</lootpacks>
 		<category>Monsters\Sea Monsters\Deep Sea Serpent</category>
-		
+		<strproperty name="slayer_group" value="snakes" />
 		<!-- Carve -->
 		<intproperty name="carve_scales" value="8" />
 		<strproperty name="carve_scales_type" value="blue" />
-		<intproperty name="carve_meat" value="1" />		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

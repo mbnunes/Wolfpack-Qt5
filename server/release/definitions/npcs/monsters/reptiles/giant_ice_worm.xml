@@ -35,6 +35,7 @@
 		<tag name="res_physical" value="20,25" type="int" />
 		<tag name="res_poison" value="60,70" type="int" />
 		<!-- Misc. -->
+		<strproperty name="slayer_group" value="snakes" />
 		<mintaming>711</mintaming>
 		<category>Monsters\Reptiles\Giant Ice Worm</category>
 	</npc>

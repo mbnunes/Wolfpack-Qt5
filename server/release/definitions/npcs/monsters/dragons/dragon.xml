@@ -40,6 +40,7 @@
 		<controlslots>3</controlslots>
 		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich</lootpacks>
 		<mintaming>939</mintaming>
+		<strproperty name="slayer_group" value="dragons" />
 	</npc>
 
 	<!-- a dragon (gray) -->
@@ -47,7 +48,7 @@
 		<id>12</id>
 		<category>Monsters\Dragons\Dragon (Gray)</category>
 		<baseid>dragon_gray</baseid>
-		
+
 		<!-- Carve -->
 		<intproperty name="carve_scales" value="7" />
 		<strproperty name="carve_scales_type" value="yellow" />
@@ -61,7 +62,7 @@
 		<id>59</id>
 		<category>Monsters\Dragons\Dragon (Red)</category>
 		<baseid>dragon_red</baseid>
-		
+
 		<!-- Carve -->
 		<intproperty name="carve_scales" value="7" />
 		<strproperty name="carve_scales_type" value="red" />
@@ -69,15 +70,15 @@
 		<strproperty name="carve_hides_type" value="barbed" />
 		<intproperty name="carve_meat" value="19" />
 	</npc>
-	
+
 	<list id="dragon_ids">
 		<item>dragon_gray</item>
 		<item>dragon_red</item>
 	</list>
-	
+
 	<!-- random dragon -->
 	<npc id="dragon">
-		<id>12</id>		
+		<id>12</id>
 		<category>Monsters\Dragons\Dragon (Random)</category>
 		<inherit><random list="dragon_ids" /></inherit>
 	</npc>

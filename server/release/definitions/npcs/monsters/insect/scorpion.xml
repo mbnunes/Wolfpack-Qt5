@@ -43,7 +43,7 @@
 		<mintaming>471</mintaming>
 		<food>1</food>
 		<category>Monsters\Insects\Giant Scorpion</category>
-		
+		<strproperty name="slayer_group" value="scorpions" />
 		<intproperty name="carve_meat" value="1" />
 	</npc>
 

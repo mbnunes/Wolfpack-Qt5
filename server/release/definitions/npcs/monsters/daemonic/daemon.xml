@@ -44,7 +44,7 @@
 		<lootpacks>lootpack_rich;lootpack_average;scroll_medium;scroll_medium</lootpacks>
 		<carve>carve_demon</carve>
 		<category>Monsters\Daemonic\Daemon (Random)</category>
-		
+		<strproperty name="slayer_group" value="daemons" />
 		<intproperty name="carve_meat" value="1" />
 	</npc>
 

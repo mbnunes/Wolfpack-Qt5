@@ -37,6 +37,7 @@
 		<!-- Missing: 25 Verite Ore, Level 1 Map -->
 		<lootpacks>lootpack_rich;gems</lootpacks>
 		<category>Monsters\Elementals\Verite Elemental</category>
+		<strproperty name="slayer_group" value="earthelementals" />
 	</npc>
 
 </definitions>

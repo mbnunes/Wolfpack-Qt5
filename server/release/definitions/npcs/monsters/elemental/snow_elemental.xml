@@ -38,6 +38,7 @@
 		<!-- Missing: Iron Ore, Reagent, Level 2 Map -->
 		<lootpacks>lootpack_rich</lootpacks>
 		<category>Monsters\Elementals\Snow Elemental</category>
+		<strproperty name="slayer_group" value="snowelementals" />
 	</npc>
 
 </definitions>

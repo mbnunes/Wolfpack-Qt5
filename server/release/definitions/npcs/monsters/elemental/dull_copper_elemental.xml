@@ -36,6 +36,7 @@
 		<!-- Missing: 25 Dull Copper Ore -->
 		<lootpacks>lootpack_average;gems</lootpacks>
 		<category>Monsters\Elementals\Dull Copper Elemental</category>
+		<strproperty name="slayer_group" value="earthelementals" />
 	</npc>
 
 </definitions>

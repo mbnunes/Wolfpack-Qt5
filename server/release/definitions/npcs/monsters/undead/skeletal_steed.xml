@@ -44,6 +44,7 @@
 		<!--<lootpacks></lootpacks>-->
 		<!-- Misc. -->
 		<category>Monsters\Undead\Skeletal Steed</category>
+		<strproperty name="slayer_group" value="undeads" />
 	</npc>
 
 </definitions>

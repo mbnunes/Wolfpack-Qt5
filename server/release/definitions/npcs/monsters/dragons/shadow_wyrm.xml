@@ -41,7 +41,7 @@
 		<!-- Missing: -->
 		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich;lootpack_filthy_rich</lootpacks>
 		<category>Monsters\Dragons\Shadow Wyrm</category>
-		
+		<strproperty name="slayer_group" value="dragons" />
 		<!-- Carve -->
 		<intproperty name="carve_scales" value="10" />
 		<strproperty name="carve_scales_type" value="black" />

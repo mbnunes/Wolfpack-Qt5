@@ -38,6 +38,7 @@
 		<!-- Missing: 1-7CS, MNS, Potions, Reagents, Level 3 Map -->
 		<lootpacks>lootpack_rich</lootpacks>
 		<mintaming>843</mintaming>
+		<strproperty name="slayer_group" value="dragons" />
 	</npc>
 
 	<!-- a drake (gray) -->
@@ -45,7 +46,7 @@
 		<id>60</id>
 		<category>Monsters\Dragons\Drake (Gray)</category>
 		<baseid>drake_gray</baseid>
-		
+
 		<!-- Carve -->
 		<intproperty name="carve_scales" value="2" />
 		<strproperty name="carve_scales_type" value="yellow" />
@@ -59,7 +60,7 @@
 		<id>61</id>
 		<category>Monsters\Dragons\Drake (Red)</category>
 		<baseid>drake_red</baseid>
-		
+
 		<!-- Carve -->
 		<intproperty name="carve_scales" value="2" />
 		<strproperty name="carve_scales_type" value="red" />
@@ -67,15 +68,15 @@
 		<strproperty name="carve_hides_type" value="horned" />
 		<intproperty name="carve_meat" value="10" />
 	</npc>
-	
+
 	<list id="drake_ids">
 		<item>drake_gray</item>
 		<item>drake_red</item>
 	</list>
-	
+
 	<!-- random dragon -->
 	<npc id="drake">
-		<id>61</id>		
+		<id>61</id>
 		<category>Monsters\Dragons\Drake (Random)</category>
 		<inherit><random list="drake_ids" /></inherit>
 	</npc>

@@ -47,6 +47,7 @@
 		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Champions\Mephitis</category>
+		<strproperty name="slayer_group" value="spiders" />
 	</npc>
 
 </definitions>

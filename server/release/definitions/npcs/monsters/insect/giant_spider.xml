@@ -39,6 +39,7 @@
 		<mintaming>591</mintaming>
 		<category>Monsters\Insects\Giant Spider</category>
 		<!-- Priv -->
+		<strproperty name="slayer_group" value="spiders" />
 	</npc>
 
 </definitions>

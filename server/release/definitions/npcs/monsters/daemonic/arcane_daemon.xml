@@ -40,6 +40,7 @@
 		<lootpacks>lootpack_average</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Daemonic\Arcane Daemon</category>
+		<strproperty name="slayer_group" value="daemons" />
 	</npc>
 
 </definitions>

@@ -45,7 +45,7 @@
 		<lootpacks>lootpack_meager</lootpacks>
 		<carve>carve_imp</carve>
 		<category>Monsters\Daemonic\Imp</category>
-		
+		<strproperty name="slayer_group" value="daemons" />
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="6" />
 		<strproperty name="carve_hides_type" value="spined" />

@@ -38,6 +38,7 @@
 		<lootpacks>lootpack_average</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Ravager</category>
+		<strproperty name="slayer_group" value="daemons" />
 	</npc>
 
 </definitions>

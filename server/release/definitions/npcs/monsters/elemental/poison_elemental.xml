@@ -42,6 +42,7 @@
 		<!-- Missing: 1-7CS, MNS, Lesser Poison Potion, 4 Nightshade, Level 5 Map -->
 		<lootpacks>lootpack_filthy_rich;lootpack_rich;gems</lootpacks>
 		<category>Monsters\Elementals\Poison Elemental</category>
+		<strproperty name="slayer_group" value="poisonelementals" />
 	</npc>
 
 </definitions>

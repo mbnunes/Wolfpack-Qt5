@@ -40,6 +40,7 @@
 		<!-- Misc. -->
 		<controlslots>3</controlslots>
 		<category>Summoned\Revenant</category>
+		<strproperty name="slayer_group" value="undeads" />
 	</npc>
 
 </definitions>

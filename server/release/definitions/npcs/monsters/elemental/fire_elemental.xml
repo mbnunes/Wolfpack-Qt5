@@ -41,6 +41,7 @@
 		<!-- Missing: 3 Sulfurous Ash, Level 2 Map -->
 		<lootpacks>lootpack_average;lootpack_average;gems</lootpacks>
 		<category>Monsters\Elementals\Fire Elemental</category>
+		<strproperty name="slayer_group" value="fireelementals" />
 	</npc>
 
 </definitions>

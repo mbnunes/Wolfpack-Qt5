@@ -38,7 +38,7 @@
 		<lootpacks>lootpack_average</lootpacks>
 		<carve>carve_ogre</carve>
 		<category>Monsters\Giants\Ogre</category>
-		
+		<strproperty name="slayer_group" value="ogres" />
 		<intproperty name="carve_meat" value="2" />
 	</npc>
 

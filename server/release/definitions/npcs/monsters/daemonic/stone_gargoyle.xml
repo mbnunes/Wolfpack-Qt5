@@ -36,6 +36,7 @@
 		<!-- Missing: Jewel, Iron Ore, Gargoyle Pickaxe, Level 2 Map -->
 		<lootpacks>lootpack_average;lootpack_average</lootpacks>
 		<category>Monsters\Daemonic\Stone Gargoyle</category>
+		<strproperty name="slayer_group" value="gargoyles" />
 	</npc>
 
 </definitions>

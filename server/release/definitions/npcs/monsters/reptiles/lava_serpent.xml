@@ -38,7 +38,7 @@
 		<!-- Missing: 3 Sulfurous Ash, Bone -->
 		<lootpacks>lootpack_average</lootpacks>
 		<category>Monsters\Reptiles\Lava Serpent</category>
-		
+		<strproperty name="slayer_group" value="snakes" />
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="15" />
 		<strproperty name="carve_hides_type" value="spined" />

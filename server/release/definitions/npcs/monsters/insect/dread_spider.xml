@@ -41,6 +41,7 @@
 		<!-- Missing: 8 Spider Silk -->
 		<lootpacks>lootpack_filthy_rich</lootpacks>
 		<category>Monsters\Insects\Dread Spider</category>
+		<strproperty name="slayer_group" value="spiders" />
 	</npc>
 
 </definitions>

@@ -41,6 +41,7 @@
 		<!-- Missing: Lesser Explotion Potion, Bola Ball, Reagent -->
 		<lootpacks>lootpack_average;lootpack_average</lootpacks>
 		<category>Monsters\Orcs\Orc Bomber</category>
+		<strproperty name="slayer_group" value="orcs" />
 	</npc>
 
 </definitions>

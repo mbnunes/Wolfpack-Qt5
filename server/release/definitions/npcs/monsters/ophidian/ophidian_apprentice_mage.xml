@@ -40,7 +40,7 @@
 		<lootpacks>lootpack_average</lootpacks>
 		<carve>carve_ophidian_mage_medium</carve>
 		<category>Monsters\Ophidians\Ophidian Apprentice Mage</category>
-		
+		<strproperty name="slayer_group" value="ophidians" />
 		<intproperty name="carve_meat" value="1" />
 	</npc>
 

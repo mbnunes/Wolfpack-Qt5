@@ -40,7 +40,7 @@
 		<!-- Missing: Jewel, Level 4 Map -->
 		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich;lootpack_rich</lootpacks>
 		<category>Monsters\Dragons\Serpentine Dragon</category>
-		
+		<strproperty name="slayer_group" value="dragons" />
 		<!-- Carve -->
 		<intproperty name="carve_scales" value="6" />
 		<strproperty name="carve_scales_type" value="white,black" />

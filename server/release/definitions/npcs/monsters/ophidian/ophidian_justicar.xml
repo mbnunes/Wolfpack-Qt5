@@ -40,7 +40,7 @@
 		<!-- Missing: 1-7CS, MNS, Reagent -->
 		<lootpacks>lootpack_rich</lootpacks>
 		<category>Monsters\Ophidians\Ophidian Justicar</category>
-		
+		<strproperty name="slayer_group" value="ophidians" />
 		<intproperty name="carve_meat" value="1" />
 	</npc>
 

@@ -39,7 +39,7 @@
 		<!-- Missing: Potion, Weapon, Level 3 Map -->
 		<lootpacks>lootpack_rich;lootpack_rich;gems</lootpacks>
 		<category>Monsters\Ophidians\Ophidian Knight-Errant</category>
-		
+		<strproperty name="slayer_group" value="ophidians" />
 		<intproperty name="carve_meat" value="2" />
 	</npc>
 

@@ -42,6 +42,7 @@
 		<!-- Missing: Orcish Bow, Arrow, Clean Bandage, Food -->
 		<lootpacks>lootpack_average</lootpacks>
 		<category>Monsters\Orcs\Orc Scout</category>
+		<strproperty name="slayer_group" value="orcs" />
 	</npc>
 
 </definitions>

@@ -45,6 +45,7 @@
 		<!-- Misc. -->
 		<desc>In the deepest, darkest dungeons of Britannia lurks the lich lord, an abomination of all that is safe and true. Lich lords are created of the most powerful spell casters, stronger than their lesser lich counterparts, but no less ruthless.</desc>
 		<category>Monsters\Undead\Lich Lord</category>
+		<strproperty name="slayer_group" value="undeads" />
 	</npc>
 
 </definitions>

@@ -43,6 +43,7 @@
 		<!-- Missing: 1-7CS, MNS, Potion, Level 2 Map -->
 		<lootpacks>lootpack_average;lootpack_average;gems</lootpacks>
 		<category>Monsters\Elementals\Air Elemental</category>
+		<strproperty name="slayer_group" value="airelementals" />
 	</npc>
 
 </definitions>

@@ -43,6 +43,7 @@
 		<!-- Missing:  -->
 		<lootpacks>lootpack_ultra_rich</lootpacks>
 		<!-- Misc. -->
+		<strproperty name="slayer_group" value="undeads" />
 		<category>Monsters\Shadows\Darknight Creeper</category>
 	</npc>
 
