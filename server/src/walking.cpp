@@ -736,9 +736,18 @@ void cMovement::checkRunning( cUOSocket *socket, P_CHAR pChar, Q_UINT8 dir )
 	// Running automatically stops stealthing
 	if( pChar->stealthedSteps() != -1 ) 
 	{
-		pChar->setStealthedSteps( -1 );
-		pChar->setHidden( false );
-		pChar->resend( false );
+		// Simply update the statistics for us
+        bool update = pChar->isHidden();
+
+		pChar->setStealthedSteps(-1);
+		pChar->setHidden(false);
+		pChar->resend(false, true);
+
+		if (update && socket) {
+			cUOTxUpdatePlayer updatePlayer;
+			updatePlayer.fromChar(pChar);
+            socket->send(&updatePlayer);
+		}
 	}
 
 	// Don't regenerate stamina while running
@@ -769,27 +778,39 @@ void cMovement::checkStealth( P_CHAR pChar )
 			pChar->setStealthedSteps( pChar->stealthedSteps() + 1 );
 			if( pChar->stealthedSteps() > ( ( SrvParams->maxStealthSteps() * pChar->skillValue( STEALTH ) ) / 1000 ) )
 			{
-				if( pChar->objectType() == enPlayer )
-				{
+				pChar->setStealthedSteps(-1);
+				pChar->setHidden(false);
+				pChar->resend(false, true);
+
+				if (pChar->objectType() == enPlayer) {
 					P_PLAYER pp = dynamic_cast<P_PLAYER>(pChar);
-					if( pp->socket() )
+				
+					if (pp->socket()) {
 						pp->socket()->sysMessage( tr( "You have been revealed." ) );
+
+						cUOTxUpdatePlayer updatePlayer;
+						updatePlayer.fromChar(pChar);
+						pp->socket()->send(&updatePlayer);
+					}
 				}
-				pChar->setStealthedSteps( -1 );
-				pChar->setHidden( false );
-				pChar->resend( false, false );
 			}
 		}
 		else
 		{
-			if( pChar->objectType() == enPlayer )
-			{
+			pChar->setHidden(false);
+			pChar->resend(false, true);
+
+			if (pChar->objectType() == enPlayer) {
 				P_PLAYER pp = dynamic_cast<P_PLAYER>(pChar);
-				if( pp->socket() )
+			
+				if (pp->socket()) {
 					pp->socket()->sysMessage( tr( "You have been revealed." ) );
+
+					cUOTxUpdatePlayer updatePlayer;
+					updatePlayer.fromChar(pChar);
+					pp->socket()->send(&updatePlayer);
+				}
 			}
-			pChar->setHidden( false );
-			pChar->resend( false, false );
 		}
 	}
 }
