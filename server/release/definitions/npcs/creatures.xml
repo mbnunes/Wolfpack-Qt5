@@ -11,13 +11,6 @@
 		BASESOUND:
 			Offset of the sounds for the soundmode list below
 
-		SOUNDMODES:
-			0: normal, 5 sounds (attack-started, idle, attack, defence, dying, see WOLFPACK.h)
-			1: birds .. only one "bird-shape" and zillions of sounds ...
-			2: only 3 sounds - /> (attack,defence,dying)
-			3: only 4 sounds - />	(attack-started,attack,defnce,dying)
-			4: only 1 sound !!
-
 		FLAGS:
 			0x01: Creature can Fly
 			0x02: Anti-Blink (Creature is Missing Animation #4)
@@ -25,13 +18,6 @@
 
 		SHRINK:
 			Item id for the animal in shrinked form (numeric!)
-
-		TYPE:
-			4: Anything Else
-			3: NPC (?)
-			2: Animals / Pets (Including all Mounts)
-			1: Sea Creature
-			0: Monster
 	-->
 
 	<charbase id="0x1" basesound="0x1ab" shrink="0x20df" />

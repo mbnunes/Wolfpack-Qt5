@@ -107,10 +107,9 @@ def playswinganimation(char, target, weapon):
 	# Monsters
 	if char.id < 0x190:
 		action = random.randint(4, 6)
-		basedef = wolfpack.charbase(char.id)
 
 		# Anti Blink Bit
-		if basedef and basedef['flags'] & 0x02:
+		if char.antiblink:
 			action += 1
 
 		char.action(action)

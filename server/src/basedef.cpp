@@ -25,58 +25,104 @@
  * Wolfpack Homepage: http://wpdev.sf.net/
  */
 
+#include "console.h"
+#include "log.h"
 #include "basedef.h"
-
 #include "definitions.h"
 #include "basics.h"
-
 #include <string.h>
 
-cCharBaseDef *cBaseDefManager::getCharBaseDef( unsigned short id )
-{
-	if( id >= 0x400 )
-		return 0;
-
-	return chardefs[ id ];
+cCharBaseDef::cCharBaseDef(const QCString &id) {
+	id_ = id;
+	reset();
 }
 
-void cBaseDefManager::load()
-{
-	for( unsigned int i = 0; i < 0x400; ++i )
-	{
-		// Check for <basechar id="">
-		const cElement *element = Definitions::instance()->getDefinition( WPDT_CHARBASE, "0x" + QString::number( i, 16 ) );
+cCharBaseDef::~cCharBaseDef() {
+}
 
-		if( !element )
-		{
-			chardefs[i] = 0;
-			continue;
-		}
+void cCharBaseDef::reset() {
+	loaded = false;
+	basesound_ = 0;
+	soundmode_ = 0;
+	flags_ = 0;
+	figurine_ = 0;
+	minDamage_ = 0;
+	maxDamage_ = 0;
+	minTaming_ = 0;
+	controlSlots_ = 1;
+	criticalHealth_ = 0;
+}
 
-		chardefs[i] = new cCharBaseDef;
-		chardefs[i]->basesound_ = hex2dec( element->getAttribute( "basesound", "0" ) ).toUShort();
-		chardefs[i]->soundmode_ = hex2dec( element->getAttribute( "soundmode", "0" ) ).toUShort();
-		chardefs[i]->shrinked_ = hex2dec( element->getAttribute( "shrinked", "0" ) ).toUShort();
-		chardefs[i]->flags_ = hex2dec( element->getAttribute( "flags", "0" ) ).toUInt();
-		chardefs[i]->type_ = hex2dec( element->getAttribute( "type", "0" ) ).toUShort();
+void cCharBaseDef::processNode(const cElement *node) {
+	if (node->name() == "basesound") {
+		basesound_ = node->value().toInt();
+	} else if (node->name() == "soundmode") {
+		soundmode_ = node->value().toInt();
+	} else if (node->name() == "figurine") {
+		figurine_ = node->value().toInt();
+	} else if (node->name() == "mindamage") {
+		minDamage_ = node->value().toInt();
+	} else if (node->name() == "maxdamage") {
+		maxDamage_ = node->value().toInt();
+	} else if (node->name() == "mintaming") {
+		minTaming_ = node->value().toInt();
+	} else if (node->name() == "controlslots") {
+		controlSlots_ = node->value().toInt();
+	} else if (node->name() == "criticalhealth") {
+		criticalHealth_ = node->value().toInt();
+	} else if (node->name() == "carve") {
+		carve_ = node->text();
+	} else if (node->name() == "lootpacks") {
+		lootPacks_ = node->text();
+	} else if (node->name() == "canfly") {
+		flags_ |= 0x01;
+	} else if (node->name() == "antiblink") {
+		flags_ |= 0x02;
+	} else if (node->name() == "nocorpse") {
+		flags_ |= 0x04;
 	}
 }
 
-void cBaseDefManager::unload()
-{
-	unsigned short i = 0;
-	while( i < 0x400 )
-		delete chardefs[i++];
+// Load this definition from the scripts.
+void cCharBaseDef::load() {
+	if (!loaded) {
+		loaded = true;
+		const cElement *element = Definitions::instance()->getDefinition(WPDT_NPC, id_);
 
-	memset( &chardefs, 0, 0x400 * sizeof( cCharBaseDef* ) );
+		if (!element) {
+			Console::instance()->log(LOG_WARNING, QString("Missing npc definition '%1'.\n").arg(id_));
+			return;
+		}
+
+		applyDefinition(element);
+	}
 }
 
-cBaseDefManager::cBaseDefManager()
-{
-	memset( &chardefs, 0, 0x400 * sizeof( cCharBaseDef* ) );
+cCharBaseDef *cCharBaseDefs::get(const QCString &id) {
+	Iterator it = definitions.find(id);
+
+	if (it == definitions.end()) {
+		cCharBaseDef *def = new cCharBaseDef(id);
+		it = definitions.insert(id, def);
+	}
+
+	return it.data();
 }
 
-cBaseDefManager::~cBaseDefManager()
-{
-	unload();
+cCharBaseDefs::cCharBaseDefs() {
+}
+
+cCharBaseDefs::~cCharBaseDefs() {
+	Iterator it;
+	for (it = definitions.begin(); it != definitions.end(); ++it) {
+		delete it.data();
+	}
+	definitions.clear();
+}
+
+void cCharBaseDefs::reset() {
+	Iterator it;
+	for (it = definitions.begin(); it != definitions.end(); ++it) {
+		it.data()->reset();
+	}
 }

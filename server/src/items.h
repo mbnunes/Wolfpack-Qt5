@@ -227,7 +227,7 @@ public:
 
 	void createTooltip(cUOTxTooltipList &tooltip, cPlayer *player);
 	virtual stError *setProperty( const QString &name, const cVariant &value );
-	virtual stError *getProperty( const QString &name, cVariant &value ) const;
+	virtual stError *getProperty( const QString &name, cVariant &value );
 
 ////
 	virtual void flagUnchanged() { cItem::changed_ = false; cUObject::flagUnchanged(); }

@@ -860,6 +860,13 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pChar->setOrgSkin(packet->skinColor());
 
 	pChar->setBody((packet->gender() == 1) ? 0x191 : 0x190);
+
+	if (packet->gender() == 1) {
+		pChar->setBaseid("player_female");
+	} else {
+		pChar->setBaseid("player_male");
+	}
+
 	pChar->setOrgBody(pChar->body());
 
 	pChar->moveTo( startLocations[ packet->startTown() ].pos );

@@ -58,6 +58,7 @@
 cBaseChar::cBaseChar()
 {
 	fights_.setAutoDelete(false);
+	basedef_			= 0;
 	lastMovement_		= 0;
 	attackTarget_		= 0;
 	nextSwing_			= 0;
@@ -152,6 +153,7 @@ void cBaseChar::buildSqlString( QStringList &fields, QStringList &tables, QStrin
 	fields.push_back( "characters.guarding" );
 	fields.push_back( "characters.hitpointsbonus,characters.staminabonus,characters.manabonus");
 	fields.push_back( "characters.strcap,characters.dexcap,characters.intcap,characters.statcap" );
+	fields.push_back( "characters.baseid" );
 	tables.push_back( "characters" );
 	conditions.push_back( "uobjectmap.serial = characters.serial" );
 }
@@ -209,6 +211,7 @@ void cBaseChar::load( char **result, UINT16 &offset )
 	dexterityCap_ = atoi(result[offset++]);
 	intelligenceCap_ = atoi(result[offset++]);
 	statCap_ = atoi(result[offset++]);
+	basedef_ = CharBaseDefs::instance()->get(result[offset++]);
 
 	// Query the Skills for this character
 	QString sql = "SELECT skill,value,locktype,cap FROM skills WHERE serial = '" + QString::number( serial() ) + "'";
@@ -294,6 +297,7 @@ void cBaseChar::save()
 		addField( "dexcap", dexterityCap_ );
 		addField( "intcap", intelligenceCap_ );
 		addField( "statcap", statCap_ );
+		addStrField( "baseid", baseid() );
 		addCondition( "serial", serial() );
 		saveFields;
 	}
@@ -1713,13 +1717,23 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 		\property char.statcap The individual total stat cap for this character.
 	*/
 	else SET_INT_PROPERTY( "statcap", statCap_ )
+	/*
+		\property char.baseid The name of the definition this character was created from. 
+		This property is used to link the character to the definitions even after he 
+		was created.
+	*/
+	else if (name == "baseid") {
+		setBaseid(value.toString().latin1());
+		return 0;
+	}
 
 	return cUObject::setProperty( name, value );
 }
 
-stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
+stError *cBaseChar::getProperty( const QString &name, cVariant &value )
 {
 	GET_PROPERTY( "orgname", orgName_ )
+	else GET_PROPERTY( "baseid", baseid() )
 	else GET_PROPERTY( "lastmovement", (int)lastMovement_ )
 	else GET_PROPERTY( "title", title_ )
 	else GET_PROPERTY( "incognito", isIncognito() )
@@ -1784,6 +1798,109 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "hitpointsbonus", hitpointsBonus_ )
 	else GET_PROPERTY( "staminabonus", staminaBonus_ )
 	else GET_PROPERTY( "manabonus", manaBonus_ )
+	
+	// Base Properties
+
+	/*
+		\rproperty char.basesound The base sound id for this creature. Not used for humans.
+
+		This property is inherited from the definition referenced by the baseid property.
+	*/
+	else GET_PROPERTY("basesound", basesound())
+
+	/* \rproperty char.soundmode Which sounds are available for this creature. See basesound for the offset.
+	Possible values:
+	<code>0: normal, 5 sounds (attack-started, idle, attack, defence, dying)
+	1: birds .. only one "bird-shape" and zillions of sounds ...
+	2: only 3 sounds -> (attack,defence,dying)
+	3: only 4 sounds ->	(attack-started,attack,defense,dying)
+	4: only 1 sound</code>
+
+	This property is inherited from the definition referenced by the baseid property.
+	*/
+	else GET_PROPERTY("soundmode", soundmode())
+
+	/*
+		\rproperty char.canfly Indicates whether the creature can fly.
+
+		This property is inherited from the definition referenced by the baseid property.
+	*/
+	else GET_PROPERTY("canfly", isCanFly())
+
+	/*
+		\rproperty char.antiblink Indicates whether the creature has the anti blink bit set for animations.
+
+		This property is inherited from the definition referenced by the baseid property.
+	*/
+	else GET_PROPERTY("antiblink", isAntiBlink())
+
+	/*
+		\rproperty char.nocorpse Indicates whether the creature leaves a corpse or not.
+
+		This property is inherited from the definition referenced by the baseid property.
+	*/
+	else GET_PROPERTY("nocorpse", isNoCorpse())
+
+	/*
+		\rproperty figurine The itemid of the figurine thats created when the creature is shrunk.
+
+		This property is inherited from the definition referenced by the baseid property.
+	*/
+	else GET_PROPERTY("figurine", figurine())
+
+	/*
+		\rproperty char.mindamage The minimum damage this character type
+
+		This property is inherited from the definition referenced by the baseid property.
+	*/
+	else GET_PROPERTY("antiblink", isAntiBlink())
+
+	/*
+		\rproperty char.mindamage This is the minimum damage dealt by the creature when unarmed.
+
+		This property is inherited from the definition referenced by the baseid property.
+	*/
+	else GET_PROPERTY("mindamage", minDamage())
+
+	/*
+		\rproperty char.maxdamage This is the maximum damage dealt by the creature when unarmed.
+
+		This property is inherited from the definition referenced by the baseid property.
+	*/
+	else GET_PROPERTY("maxdamage", maxDamage())
+
+	/*
+		\rproperty char.mintaming This is the minimum taming skill required to tame this creature.
+		This has no meaning for player characters.	
+
+		This property is inherited from the definition referenced by the baseid property.
+	*/
+	else GET_PROPERTY("mintaming", minTaming())
+
+	/*
+		\rproperty char.carve This is the name of the list of items created when a dagger is
+		used on the corpse of this creature.
+
+		This property is inherited from the definition referenced by the baseid property.
+	*/
+	else GET_PROPERTY("carve", carve())
+
+	/*
+		\rproperty char.lootpacks This is a semicolon separated list of lootpacks that are created
+		in the corpse of this creature.
+		This has no meaning for player characters.
+
+		This property is inherited from the definition referenced by the baseid property.
+	*/
+	else GET_PROPERTY("lootpacks", lootPacks())
+
+	/*
+		\rproperty char.controlslots The amount of follower slots this npc will consume when owned
+		by a player.
+
+		This property is exclusive to npcs and is inherited from the definition referenced by the baseid property.
+	*/
+	else GET_PROPERTY("controlslots", controlSlots())
 
 	// skill.
 	else if( name.left( 6 ) == "skill." )
@@ -1982,10 +2099,8 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 	return amount;
 }
 
-void cBaseChar::bark( enBark type )
-{
-	if( body() == 0x190 || body() == 0x192 )
-	{
+void cBaseChar::bark(enBark type) {
+	if (body() == 0x190 || body() == 0x192) {
 		if( type == Bark_GetHit )
 		{
 			unsigned short sound = hex2dec( Definitions::instance()->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_MALE" ) ).toUShort();
@@ -2007,13 +2122,10 @@ void cBaseChar::bark( enBark type )
 			soundEffect( 0x14b );
 	}
 
-	cCharBaseDef *basedef = BaseDefManager::instance()->getCharBaseDef( body_ );
-
-	if( !basedef || !basedef->basesound() )	// Nothing known about this creature
+	if (!basesound())	// Nothing known about this creature
 		return;
 
-	switch( basedef->soundmode() )
-	{
+	switch (soundmode()) {
 	// Only Attack, Hit and Death sounds available (Falltrough!)
 	case 2:
 		if( type == Bark_GetHit )
@@ -2035,7 +2147,7 @@ void cBaseChar::bark( enBark type )
 		break;
 	}
 
-	soundEffect( basedef->basesound() + (unsigned char)type );
+	soundEffect( basesound() + (unsigned char)type );
 }
 
 void cBaseChar::goldSound( unsigned short amount, bool hearall )
@@ -2431,11 +2543,9 @@ bool cBaseChar::kill(cUObject *source) {
 	if (player)
 		player->unmount();
 
-	cCharBaseDef *basedef = BaseDefManager::instance()->getCharBaseDef(body_);
-
 	// If we are a creature type with a corpse and if we are not summoned
 	// we create a corpse
-	if (!summoned && basedef && !basedef->noCorpse()) {
+	if (!summoned && !isNoCorpse()) {
 		corpse = new cCorpse(true);
 
 		const cElement *elem = Definitions::instance()->getDefinition(WPDT_ITEM, "2006");

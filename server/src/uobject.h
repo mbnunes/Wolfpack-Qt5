@@ -166,7 +166,7 @@ public:
 
 	void processNode( const cElement *Tag );
 	stError *setProperty( const QString &name, const cVariant &value );
-	stError *getProperty( const QString &name, cVariant &value ) const;
+	stError *getProperty( const QString &name, cVariant &value );
 
 	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL ) = 0;
 	virtual void flagUnchanged() { changed_ = false; }

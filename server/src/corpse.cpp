@@ -255,7 +255,7 @@ stError *cCorpse::setProperty( const QString &name, const cVariant &value )
 	else return cItem::setProperty( name, value );
 }
 
-stError *cCorpse::getProperty( const QString &name, cVariant &value ) const
+stError *cCorpse::getProperty( const QString &name, cVariant &value )
 {
 	GET_PROPERTY( "bodyid", bodyId_ )
 	GET_PROPERTY( "hairstyle", hairStyle_ )

@@ -106,7 +106,7 @@ public:
 	virtual void update( cUOSocket *mSock = 0 );
 
 	virtual stError *setProperty( const QString &name, const cVariant &value );
-	virtual stError *getProperty( const QString &name, cVariant &value ) const;
+	virtual stError *getProperty( const QString &name, cVariant &value );
 	void createTooltip(cUOTxTooltipList &tooltip, cPlayer *player);
 };
 

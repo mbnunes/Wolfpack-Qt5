@@ -52,16 +52,13 @@
 #include "ai/ai.h"
 #include "inlines.h"
 #include "basics.h"
+#include "basedef.h"
 
-cNPC::cNPC()
-{
-	minDamage_ = 0;
-	maxDamage_ = 0;
+cNPC::cNPC() {
 	nextMsgTime_ = 0;
 	nextGuardCallTime_ = 0;
 	nextBeggingTime_ = 0;
 	nextMoveTime_ = 0;
-	tamingMinSkill_ = 0;
 	summonTime_ = 0;
 	additionalFlags_ = 0;
 	owner_ = NULL;
@@ -71,10 +68,6 @@ cNPC::cNPC()
 	ai_ = new Monster_Aggressive_L1( this );
 	aiCheckInterval_ = (UINT16)floor(Config::instance()->checkAITime() * MY_CLOCKS_PER_SEC);
 	aiCheckTime_ = Server::instance()->time() + aiCheckInterval_;
-	criticalHealth_ = 10; // 10% !
-	spellsLow_ = 0;
-	spellsHigh_ = 0;
-	controlSlots_ = 1;
 }
 
 cNPC::cNPC(const cNPC& right)
@@ -108,12 +101,11 @@ void cNPC::registerInFactory()
 void cNPC::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cBaseChar::buildSqlString( fields, tables, conditions );
-	fields.push_back( "npcs.mindamage,npcs.maxdamage,npcs.tamingminskill" );
 	fields.push_back( "npcs.summontime,npcs.additionalflags,npcs.owner" );
-	fields.push_back( "npcs.carve,npcs.spawnregion,npcs.stablemaster" );
-	fields.push_back( "npcs.lootlist,npcs.ai,npcs.wandertype" );
+	fields.push_back( "npcs.spawnregion,npcs.stablemaster" );
+	fields.push_back( "npcs.ai,npcs.wandertype" );
 	fields.push_back( "npcs.wanderx1,npcs.wanderx2,npcs.wandery1,npcs.wandery2" );
-	fields.push_back( "npcs.wanderradius,npcs.fleeat,npcs.spellslow,npcs.spellshigh,npcs.controlslots" );
+	fields.push_back( "npcs.wanderradius");
 	tables.push_back( "npcs" );
 	conditions.push_back( "uobjectmap.serial = npcs.serial" );
 }
@@ -125,19 +117,14 @@ void cNPC::load( char **result, UINT16 &offset )
 	cBaseChar::load( result, offset );
 	SERIAL ser;
 
-	minDamage_ = atoi( result[offset++] );
-	maxDamage_ = atoi( result[offset++] );
-	tamingMinSkill_ = atoi( result[offset++] );
 	summonTime_ = atoi( result[offset++] ) + Server::instance()->time();
 	if( summonTime_ )
 		summonTime_ += Server::instance()->time();
 	additionalFlags_ = atoi( result[offset++] );
 	ser = atoi( result[offset++] );
 	owner_ = dynamic_cast<P_PLAYER>(FindCharBySerial( ser ));
-	carve_ = result[offset++];
 	spawnregion_ = result[offset++];
 	stablemasterSerial_ = atoi( result[offset++] );
-	lootList_ = result[offset++];
 	setAI( result[offset++] );
 	setWanderType( (enWanderTypes)atoi( result[offset++] ) );
 	setWanderX1( atoi( result[offset++] ) );
@@ -145,10 +132,6 @@ void cNPC::load( char **result, UINT16 &offset )
 	setWanderY1( atoi( result[offset++] ) );
 	setWanderY2( atoi( result[offset++] ) );
 	setWanderRadius( atoi( result[offset++] ) );
-	setCriticalHealth( atoi( result[offset++] ) );
-	spellsLow_ = atoi( result[offset++] );
-	spellsHigh_ = atoi( result[offset++] );
-	controlSlots_ = atoi( result[offset++] );
 
 	npcRegisterAfterLoading( this );
 	changed_ = false;
@@ -171,16 +154,11 @@ void cNPC::save()
 		setTable( "npcs" );
 
 		addField( "serial", serial() );
-		addField( "mindamage", minDamage_);
-		addField( "maxdamage", maxDamage_);
-		addField( "tamingminskill", tamingMinSkill_);
 		addField( "summontime", summonTime_ ? summonTime_ - Server::instance()->time() : 0 );
 		addField( "additionalflags", additionalFlags_ );
 		addField( "owner", owner_ ? owner_->serial() : INVALID_SERIAL );
-		addStrField( "carve", carve_);
 		addStrField( "spawnregion", spawnregion_);
 		addField( "stablemaster", stablemasterSerial_ );
-		addStrField( "lootlist", lootList_);
 		addStrField( "ai", aiid_ );
 		addField( "wandertype", (UINT8)wanderType() );
 		addField( "wanderx1", wanderX1() );
@@ -188,10 +166,6 @@ void cNPC::save()
 		addField( "wandery1", wanderY1() );
 		addField( "wandery2", wanderY2() );
 		addField( "wanderradius", wanderRadius() );
-		addField( "fleeat", criticalHealth() );
-		addField( "spellslow", spellsLow_ );
-		addField( "spellshigh", spellsHigh_ );
-		addField( "controlslots", controlSlots_ );
 
 		addCondition( "serial", serial() );
 		saveFields;
@@ -576,22 +550,6 @@ void cNPC::processNode( const cElement *Tag )
 	QString TagName = Tag->name();
 	QString Value = Tag->value();
 
-	//<attack min=".." max= "" />
-	//<attack>10</attack>
-	if( TagName == "attack" )
-	{
-		if( Tag->hasAttribute("min") && Tag->hasAttribute("max") )
-		{
-			minDamage_ = hex2dec( Tag->getAttribute("min") ).toInt();
-			maxDamage_ = hex2dec( Tag->getAttribute("max") ).toInt();
-		}
-		else
-		{
-			minDamage_ = Value.toInt();
-			maxDamage_ = minDamage_;
-		}
-	}
-
 	//<npcwander type="rectangle" x1="-10" x2="12" y1="5" y2="7" />
 	//<......... type="rect" ... />
 	//<......... type="3" ... />
@@ -599,7 +557,7 @@ void cNPC::processNode( const cElement *Tag )
 	//<......... type="2" ... />
 	//<......... type="free" (or "1") />
 	//<......... type="none" (or "0") />
-	else if( TagName == "npcwander" )
+	if( TagName == "npcwander" )
 	{
 		if( Tag->hasAttribute("type") )
 		{
@@ -690,22 +648,10 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 	SET_INT_PROPERTY( "nextmsgtime", nextMsgTime_ )
 
 	/*
-		\property char.controlslots The amount of follower slots this npc will consume when owned
-		by a player.
-		This property is exclusive to player characters.
-	*/
-	else SET_INT_PROPERTY( "controlslots", controlSlots_ )
-
-	/*
 		\property char.nextguardcalltime This integer value is the next time the npc will call for a guard.
 		This property is exclusive to NPC objects.
 	*/
 	else SET_INT_PROPERTY( "nextguardcalltime", nextGuardCallTime_ )
-	/*
-		\property char.carve This string property is the id of the carve XML definition used for the corpse this NPC will leave behind.
-		This property is exclusive to NPC objects.
-	*/
-	else SET_STR_PROPERTY( "carve", carve_ )
 	/*
 		\property char.spawnregion This string property is the id of the spawnregion this NPC was spawned by.
 		This property is exclusive to NPC objects.
@@ -721,26 +667,6 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 		setStablemasterSerial(value.toInt());
 		return 0;
 	}
-
-	/*
-		\property char.lootlist This string is the id of the XML definition list for the loot in the corpse this NPC will leave behind.
-		This property is exclusive to NPC objects.
-	*/
-	else SET_STR_PROPERTY( "lootlist", lootList_ )
-
-	/*
-		\property char.maxdamage The maximum damage the natural weapon of this npc can deal.
-		This property is only used if the NPC doesn't use a weapon.
-		This property is exclusive to NPC objects.
-	*/
-	else SET_INT_PROPERTY( "maxdamage", maxDamage_ )
-
-	/*
-		\property char.mindamage The minimum damage the natural weapon of this npc can deal.
-		This property is only used if the NPC doesn't use a weapon.
-		This property is exclusive to NPC objects.
-	*/
-	else SET_INT_PROPERTY( "mindamage", minDamage_ )
 
 	/*
 		\property char.nextmovetime This integer is the time the npc will move next.
@@ -817,12 +743,6 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 		return 0;
 	}
 	/*
-		\property char.totame The required taming skill to tame this NPC.
-		Please note that this skill is the float value multiplied by 10 (100.0% = 1000).
-		This property is exclusive to NPC objects.
-	*/
-	else SET_INT_PROPERTY( "totame", tamingMinSkill_ )
-	/*
 		\property char.summontime The servertime when this summoned creature will disappear.
 		If this integer value is 0, the NPC will never disappear.
 		This property is exclusive to NPC objects.
@@ -860,32 +780,6 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 	{
 		setAI( value.toString() );
 		return 0;
-	}
-	else SET_INT_PROPERTY( "fleeat", criticalHealth_ )
-	/*
-		\property char.criticalhealth If the NPCs hitpoints fall below the percentage given in this integer property,
-		he flees from his attacker if its ai supports it.
-		This property is exclusive to NPC objects.
-	*/
-	else SET_INT_PROPERTY( "criticalhealth", criticalHealth_ )
-	/*
-		\property char.spellslow This integer bitfield indicates the spells of the first 4 circles this NPC is able to
-		cast without a spellbook.
-		This property is exclusive to NPC objects.
-	*/
-	else SET_INT_PROPERTY( "spellslow", spellsLow_ )
-	/*
-		\property char.spellshigh This integer bitfield indicates the spells of the last 4 circles this NPC is able to
-		cast without a spellbook.
-		This property is exclusive to NPC objects.
-	*/
-	else SET_INT_PROPERTY( "spellshigh", spellsHigh_ )
-	else if( name == "spell" )
-	{
-		UINT8 spell = name.right( name.length() - 6 ).toShort();
-
-		setSpell( spell, value.toInt() );
-		return 0;
 	// skillcap.
 	} else if( name.left( 9 ) == "skillcap." ) {
 		QString skill = name.right( name.length() - 9 );
@@ -908,20 +802,14 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 	return cBaseChar::setProperty( name, value );
 }
 
-stError *cNPC::getProperty( const QString &name, cVariant &value ) const
+stError *cNPC::getProperty( const QString &name, cVariant &value )
 {
 	GET_PROPERTY( "nextmsgtime", (int)nextMsgTime_ )
-	else GET_PROPERTY( "controlslots", (int)controlSlots_ )
 	else GET_PROPERTY( "antispamtimer", (int)nextMsgTime_ )
 	else GET_PROPERTY( "nextguardcalltime", (int)nextGuardCallTime_ )
 	else GET_PROPERTY( "antiguardstimer", (int)nextGuardCallTime_ )
-	else GET_PROPERTY( "carve", carve_ )
 	else GET_PROPERTY( "spawnregion", spawnregion_ )
 	else GET_PROPERTY( "stablemaster", stablemasterSerial_ )
-	else GET_PROPERTY( "lootlist", lootList_ )
-	else GET_PROPERTY( "loot", lootList_ )
-	else GET_PROPERTY( "maxdamage", maxDamage_ )
-	else GET_PROPERTY( "mindamage", minDamage_ )
 	else GET_PROPERTY( "npc", true )
 	else GET_PROPERTY( "nextmovetime", (int)nextMoveTime_ )
 	else GET_PROPERTY( "npcmovetime", (int)nextMoveTime_ )
@@ -936,23 +824,11 @@ stError *cNPC::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "fy2", wanderY2() )
 	else GET_PROPERTY( "wanderradius", wanderRadius() )
 	else GET_PROPERTY( "fz1", wanderRadius() )
-	else GET_PROPERTY( "totame", tamingMinSkill_ )
 	else GET_PROPERTY( "summontime", (int)summonTime_)
 	else GET_PROPERTY( "summontimer", (int)summonTime_)
 	else GET_PROPERTY( "owner", owner_ )
 	else GET_PROPERTY( "ai", aiid_ )
-	else GET_PROPERTY( "fleeat", criticalHealth_ )
-	else GET_PROPERTY( "criticalhealth", criticalHealth_ )
-	else GET_PROPERTY( "spellslow", (int)spellsLow_ )
-	else GET_PROPERTY( "spellshigh", (int)spellsHigh_ )
 	else GET_PROPERTY( "summoned", (int)(summoned() ? 1 : 0))
-	else if(name == "spell" )
-	{
-		UINT8 spell = name.right( name.length() - 6 ).toShort();
-
-		value = cVariant( hasSpell( spell ) );
-		return 0;
-	}
 
 	return cBaseChar::getProperty( name, value );
 }
@@ -1437,25 +1313,17 @@ cNPC *cNPC::createFromScript(const QString &section, const Coord_cl &pos) {
 
 	P_NPC pChar = new cNPC;
 	pChar->Init();
-
-	pChar->setMinDamage(1);
-	pChar->setMaxDamage(1);
-
+	pChar->basedef_ = CharBaseDefs::instance()->get(section.latin1());
 	pChar->moveTo( pos );
-
-	pChar->setRegion( Territories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map ) );
-
-	pChar->applyDefinition( DefSection );
+	pChar->applyDefinition(DefSection);
 
 	// OrgBody and OrgSkin are often not set in the scripts
 	pChar->setOrgBody(pChar->body());
 	pChar->setOrgSkin(pChar->skin());
 
 	// Now we call onCreate
-	pChar->onCreate( section );
-
-	pChar->resend( false );
-
+	pChar->onCreate(section);
+	pChar->resend(false);
 	return pChar;
 }
 

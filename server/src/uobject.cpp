@@ -720,7 +720,7 @@ stError *cUObject::setProperty( const QString &name, const cVariant &value )
 	return cPythonScriptable::setProperty(name, value);
 }
 
-stError *cUObject::getProperty( const QString &name, cVariant &value ) const
+stError *cUObject::getProperty( const QString &name, cVariant &value )
 {
 	GET_PROPERTY( "bindmenu", bindmenu_ )
 	else GET_PROPERTY( "serial", serial_ )

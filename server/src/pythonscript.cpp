@@ -731,7 +731,7 @@ stError *cPythonScriptable::setProperty(const QString &name, const cVariant &val
 	PROPERTY_ERROR(-1, QString( "Property not found: '%1'" ).arg(name))
 }
 
-stError *cPythonScriptable::getProperty(const QString &name, cVariant &value) const {
+stError *cPythonScriptable::getProperty(const QString &name, cVariant &value) {
 	GET_PROPERTY("classname", className());
 	PROPERTY_ERROR(-1, QString( "Property not found: '%1'" ).arg(name))
 }

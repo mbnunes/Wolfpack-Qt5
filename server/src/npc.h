@@ -111,33 +111,25 @@ public:
 
 	// other public methods
 	virtual stError *setProperty( const QString &name, const cVariant &value );
-	virtual stError *getProperty( const QString &name, cVariant &value ) const;
+	virtual stError *getProperty( const QString &name, cVariant &value );
 	void setNextMoveTime( void );
 	virtual void callGuards(); // overriding
 	void makeShop();
 
 	// getters
 	UINT32 additionalFlags() const;
-	UINT16 maxDamage() const;
-	UINT16 minDamage() const;
 	UINT32 nextBeggingTime() const;
 	UINT32 nextGuardCallTime() const;
 	UINT32 nextMoveTime() const;
 	UINT32 nextMsgTime() const;
 	UINT32 summonTime() const;
-	INT16 tamingMinSkill() const;
 	P_PLAYER owner() const;
-	QString carve() const;
 	QString spawnregion() const;
 	SERIAL stablemasterSerial() const;
-	QString lootList() const;
 	AbstractAI* ai() const;
 	UINT32 aiCheckTime() const;
 	UINT16 aiCheckInterval() const;
-	UINT8 criticalHealth() const;
 	bool summoned() const;
-	// bit flag getters
-	bool hasSpell( UINT8 spell ) const;
 	// advanced getters for data structures
 	// path finding
 	bool hasPath( void );
@@ -153,33 +145,23 @@ public:
 	UINT16 wanderRadius() const;
 	P_CHAR wanderFollowTarget() const;
 	Coord_cl wanderDestination() const;
-	unsigned char controlSlots() const;
 
 	// setters
-	void setControlSlots(unsigned char data);
-	void setMaxDamage(UINT16 data);
 	void setAdditionalFlags(UINT32 data);
-	void setMinDamage(UINT16 data);
 	void setNextBeggingTime(UINT32 data);
 	void setNextGuardCallTime(UINT32 data);
 	void setNextMoveTime(UINT32 data);
 	void setNextMsgTime(UINT32 data);
 	void setSummonTime(UINT32 data);
-	void setTamingMinSkill(INT16 data);
 	void setOwner(P_PLAYER data, bool nochecks = false);
-	void setCarve(const QString &data);
 	void setSummoned(bool data);
 	void setSpawnregion(const QString &data);
 	void setStablemasterSerial(SERIAL data);
-	void setLootList(const QString &data);
 	void setGuarding(P_PLAYER data);
 	void setAI( AbstractAI* ai );
 	void setAICheckTime( UINT32 data );
 	void setAICheckInterval( UINT16 data );
-	void setCriticalHealth( UINT8 data );
 
-	// bit flag setters
-	void setSpell( UINT8 spell, bool data );
 	// advanced setters for data structures
 	// AI
 	void setAI( const QString &data );
@@ -211,16 +193,6 @@ protected:
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
 	virtual void processNode( const cElement *Tag );
 
-	// other protected methods
-
-	// Minimum Damage when attacking without weapons.
-	// cOldChar::lodamage_
-	UINT16 minDamage_;
-
-	// Max Damage value when attacking without weapons.
-	// cOldChar::hidamage_
-	UINT16 maxDamage_;
-
 	// Time till NPC talks again.
 	// cOldChar::antispamtimer_
 	UINT32 nextMsgTime_;
@@ -244,9 +216,6 @@ protected:
 	// cOldChar::fx1_ ...
 	stWanderType wanderType_;
 
-	// skill needed to tame this npc
-	INT16 tamingMinSkill_;
-
 	// Time till summoned creature disappears.
 	// cOldChar::summontimer_
 	UINT32 summonTime_;
@@ -260,19 +229,11 @@ protected:
 	// Owner of this NPC.
 	P_PLAYER owner_;
 
-	// XML def. section which specifies the items that appear when the body
-	// of the NPC is carved.
-	QString carve_;
-
 	// Spawnregion which has spawned the NPC
 	QString spawnregion_;
 
 	// Serial of the stablemaster that stables the NPC.
 	SERIAL stablemasterSerial_;
-
-	// XML def. section which specifies the items that appear in the body
-	// of the NPC, when it's killed.
-	QString lootList_;
 
 	// A* calculated path which the NPC walks on.
 	std::deque< Coord_cl > path_;
@@ -288,16 +249,6 @@ protected:
 
 	// NPC AI check time intervall in msec
 	UINT16	aiCheckInterval_;
-
-	// percentage of maxhitpoints when hitpoints are restored
-	UINT8	criticalHealth_;
-
-	// 2 * 32 = 64 bit flags for spells the npc can cast
-	UINT32	spellsLow_;
-	UINT32	spellsHigh_;
-
-	// Amount of follower slots this creature is using
-	unsigned char controlSlots_;
 };
 
 inline UINT32 cNPC::additionalFlags() const
@@ -308,28 +259,6 @@ inline UINT32 cNPC::additionalFlags() const
 inline void cNPC::setAdditionalFlags(UINT32 data)
 {
 	additionalFlags_ = data;
-	changed_ = true;
-}
-
-inline UINT16 cNPC::maxDamage() const
-{
-	return maxDamage_;
-}
-
-inline void cNPC::setMaxDamage(UINT16 data)
-{
-	maxDamage_ = data;
-	changed_ = true;
-}
-
-inline UINT16 cNPC::minDamage() const
-{
-	return minDamage_;
-}
-
-inline void cNPC::setMinDamage(UINT16 data)
-{
-	minDamage_ = data;
 	changed_ = true;
 }
 
@@ -386,31 +315,9 @@ inline void cNPC::setSummonTime(UINT32 data)
 	changed_ = true;
 }
 
-inline INT16 cNPC::tamingMinSkill() const
-{
-	return tamingMinSkill_;
-}
-
-inline void cNPC::setTamingMinSkill(INT16 data)
-{
-	tamingMinSkill_ = data;
-	changed_ = true;
-}
-
 inline P_PLAYER cNPC::owner() const
 {
 	return owner_;
-}
-
-inline QString cNPC::carve() const
-{
-	return carve_;
-}
-
-inline void cNPC::setCarve(const QString &data)
-{
-	carve_ = data;
-	changed_ = true;
 }
 
 inline QString cNPC::spawnregion() const
@@ -427,17 +334,6 @@ inline void cNPC::setSpawnregion(const QString &data)
 inline SERIAL cNPC::stablemasterSerial() const
 {
 	return stablemasterSerial_;
-}
-
-inline QString cNPC::lootList() const
-{
-	return lootList_;
-}
-
-inline void cNPC::setLootList(const QString &data)
-{
-	lootList_ = data;
-	changed_ = true;
 }
 
 inline AbstractAI* cNPC::ai() const
@@ -469,46 +365,6 @@ inline UINT16 cNPC::aiCheckInterval() const
 inline void cNPC::setAICheckInterval( UINT16 data )
 {
 	aiCheckInterval_ = data;
-	changed_ = true;
-}
-
-inline bool cNPC::hasSpell( UINT8 spell ) const
-{
-	if( spell < 32 )
-		return spellsLow_ & ( 1 << spell );
-	else if( spell >= 32 && spell < 64 )
-		return spellsHigh_ & ( 1 << (spell-32) );
-	else
-		return false;
-}
-
-inline void cNPC::setSpell( UINT8 spell, bool data )
-{
-	if( data )
-	{
-		if( spell < 32 )
-			spellsLow_ |= ( 1 << spell );
-		else if( spell >= 32 && spell < 64 )
-			spellsHigh_ |= ( 1 << (spell-32) );
-	}
-	else
-	{
-		if( spell < 32 )
-			spellsLow_ &= ~( 1 << spell );
-		else if( spell >= 32 && spell < 64 )
-			spellsHigh_ &= ~( 1 << (spell-32) );
-	}
-	changed_ = true;
-}
-
-inline UINT8 cNPC::criticalHealth() const
-{
-	return criticalHealth_;
-}
-
-inline void cNPC::setCriticalHealth( UINT8 data )
-{
-	criticalHealth_ = data;
 	changed_ = true;
 }
 
@@ -613,15 +469,6 @@ inline void cNPC::setSummoned(bool data)
 		additionalFlags_ |= 0x01;
 	else
 		additionalFlags_ &= ~0x01;
-	changed_ = true;
-}
-
-inline unsigned char cNPC::controlSlots() const {
-	return controlSlots_;
-}
-
-inline void cNPC::setControlSlots(unsigned char data) {
-	controlSlots_ = data;
 	changed_ = true;
 }
 

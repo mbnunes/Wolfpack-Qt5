@@ -1144,7 +1144,7 @@ stError *cPlayer::setProperty( const QString &name, const cVariant &value )
 	return cBaseChar::setProperty( name, value );
 }
 
-stError *cPlayer::getProperty( const QString &name, cVariant &value ) const
+stError *cPlayer::getProperty( const QString &name, cVariant &value )
 {
 	GET_PROPERTY( "account", ( account_ != 0 ) ? account_->login() : QString( "" ) )
 	/*

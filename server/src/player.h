@@ -87,7 +87,7 @@ public:
 
 	// other public methods
 	virtual stError *setProperty( const QString &name, const cVariant &value );
-	virtual stError *getProperty( const QString &name, cVariant &value ) const;
+	virtual stError *getProperty( const QString &name, cVariant &value );
 	void turnTo( cUObject *object ); // override
 	void turnTo( const Coord_cl& data ); // override
 	P_NPC unmount();

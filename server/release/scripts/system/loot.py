@@ -393,7 +393,7 @@ def onDeath(char, killer, corpse):
 	if char.player:
 		return
 
-	lootlist = char.lootlist
+	lootlist = char.lootpacks
 
 	if len(lootlist) == 0:
 		return

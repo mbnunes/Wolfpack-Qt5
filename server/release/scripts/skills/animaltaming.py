@@ -85,7 +85,7 @@ def dotame(char, totame):
 		return
 
 	# skill is too low
-	if char.skill[ TAMING ] < totame.totame:
+	if char.skill[ TAMING ] < totame.mintaming:
 		socket.clilocmessage( 1042590, "", 0x3b2, 3, totame )
 		return
 
@@ -167,7 +167,7 @@ def callback( char, args ):
 	num_try = args[ 2 ]
 	if num_try > 3:
 		# if have-tamed, do not advance the skill - will be added
-		success = char.checkskill( TAMING, totame.totame, 1200 )
+		success = char.checkskill( TAMING, totame.mintaming, 1200 )
 		if success:
 			removetags( totame )
 			# set owner
@@ -179,8 +179,6 @@ def callback( char, args ):
 			if totame.hastag( 'num_tamed' ):
 				num_tamed = totame.gettag( 'num_tamed' ) + 1
 			totame.settag( 'num_tamed', num_tamed )
-			# increase required taming skill
-			totame.totame += TAME_UPS[ num_tamed ]
 			# remove "Tame" context menu
 
 			bindmenus = totame.bindmenu.split(",")

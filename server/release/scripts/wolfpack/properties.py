@@ -220,15 +220,22 @@ def getdamage(char):
 			mindamage = int(char.gettag('mindamage'))
 			maxdamage = int(char.gettag('maxdamage'))
 			return (mindamage, maxdamage)
-
+			
 		# Special treatment for fists.
 		if not weapon:
+			# Use the basedef values.
+			if char.maxdamage != 0:
+				return (char.mindamage, char.maxdamage)
+		
 			mindamage = char.strength / 28
 			maxdamage = mindamage + 7
 		else:
 			mindamage = fromitem(weapon, MINDAMAGE)
 			maxdamage = fromitem(weapon, MAXDAMAGE)
 	else:
+		if not weapon and char.maxdamage != 0:
+			return (char.mindamage, char.maxdamage)
+	
 		mindamage = fromitem(weapon, MINDAMAGE)
 		maxdamage = fromitem(weapon, MAXDAMAGE)
 

@@ -63,7 +63,7 @@ stError *cMulti::setProperty( const QString &name, const cVariant &value ) {
 	return cItem::setProperty(name, value);
 }
 
-stError *cMulti::getProperty( const QString &name, cVariant &value ) const {
+stError *cMulti::getProperty( const QString &name, cVariant &value ) {
 	return cItem::getProperty(name, value);
 }
 

@@ -230,7 +230,7 @@ public:
 		\returns If an error occured it returns a pointer to an error structure. The callee is responsible
 			for freeing this structure, otherwise a null pointer is returned.
 	*/
-	virtual stError *getProperty( const QString &name, cVariant &value ) const;
+	virtual stError *getProperty( const QString &name, cVariant &value );
 };
 
 #endif

@@ -1966,7 +1966,7 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	return cUObject::setProperty( name, value );
 }
 
-stError *cItem::getProperty( const QString &name, cVariant &value ) const
+stError *cItem::getProperty( const QString &name, cVariant &value )
 {
 	GET_PROPERTY( "id", id_ )
 	else GET_PROPERTY( "baseid", baseid_ )

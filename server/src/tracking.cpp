@@ -154,16 +154,14 @@ public:
 				startPage( ++pCount );
 
 				// Add a button on the new page
-				if( pCount > 1 )
-				{
+				if (pCount > 1) {
 					addPageButton( 365, 137, 0x26b5, 0x26b7, pCount-1 );
 				}
 			}
 
-			cCharBaseDef *def = BaseDefManager::instance()->getCharBaseDef( pChar->body() );
-
-			if( def && def->shrinked() != 0 )
-				addTilePic( (pAmount*100)+20, 20, def->shrinked() );
+			if (pChar->figurine() != 0) {
+				addTilePic((pAmount*100)+20, 20, pChar->figurine());
+			}
 
 			addButton( (pAmount*100)+20, 110, 0xFA5, 0xFA7, pChar->serial() );
 			addCroppedText( (pAmount*100)+20, 90, 100, 40, pChar->name() );

@@ -87,7 +87,6 @@ stCategory categories[] = {
 	{ "resource", WPDT_RESOURCE },
 	{ "contextmenu", WPDT_CONTEXTMENU },
 	{ "ai", WPDT_AI },
-	{ "charbase", WPDT_CHARBASE },
 	{ 0, WPDT_COUNT },
 };
 
@@ -287,7 +286,7 @@ void cDefinitions::unload() {
 	}
 
 	impl->imports.clear();
-	BaseDefManager::instance()->unload();
+	CharBaseDefs::instance()->reset();
 	listcache_.clear();
 	cComponent::unload();
 }
@@ -355,7 +354,6 @@ void cDefinitions::load(void) {
 
 	Skills::instance()->load();
 	Commands::instance()->loadACLs();
-	BaseDefManager::instance()->load();
 	KeyManager::instance()->load();
 
 	// Script NPC AI types

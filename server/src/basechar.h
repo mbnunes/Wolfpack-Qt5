@@ -37,6 +37,7 @@
 #include <qdatetime.h>
 
 // wolfpack includes
+#include "basedef.h"
 #include "typedefs.h"
 #include "uobject.h"
 #include "timers.h"
@@ -49,7 +50,6 @@
 class cFightInfo;
 class cMulti;
 class cUOTxTooltipList;
-
 
 // This class is the base interface for all char objects.
 class cBaseChar : public cUObject
@@ -216,7 +216,7 @@ public:
 	// other public methods
 	// Simple Property setting and getting for script engines.
 	stError *setProperty( const QString &name, const cVariant &value );
-	stError *getProperty( const QString &name, cVariant &value ) const;
+	stError *getProperty( const QString &name, cVariant &value );
 	void updateHealth( void );
 	void action(uchar id, uchar speed = 1, bool reverse = false); // Do an action
 	P_ITEM getWeapon() const;
@@ -230,6 +230,7 @@ public:
 	double getStaminaRate();
 	double getManaRate();
 	void resurrect();
+	
 	void turnTo( cUObject *object );
 	void turnTo( const Coord_cl &pos );
 	void wear( P_ITEM );
@@ -293,6 +294,14 @@ public:
 
 	inline void setNextSwing(unsigned int data) {
 		nextSwing_ = data;
+	}
+
+	inline QCString baseid() const {
+		return basedef_ ? basedef_->id() : 0;
+	}
+
+    inline void setBaseid(const QCString &id) {
+		basedef_ = CharBaseDefs::instance()->get(id);
 	}
 
 	void refreshMaximumValues();
@@ -443,11 +452,7 @@ public:
 	void setStrengthCap(unsigned char data);
 	void setDexterityCap(unsigned char data);
 	void setIntelligenceCap(unsigned char data);
-	unsigned char statCap_;
-	unsigned char strengthCap_;
-	unsigned char dexterityCap_;
-	unsigned char intelligenceCap_;
-
+	
 	// advanced setters for data structures
 	// skills
 	void setSkillValue( ushort skill, ushort value );
@@ -470,10 +475,71 @@ public:
 	QPtrList<cFightInfo> &fights() {
 		return fights_;
 	}
+
+	// Base Definition Getters
+	inline unsigned short basesound() {
+		return basedef_ ? basedef_->basesound() : 0;
+	}
+
+	inline unsigned char soundmode() {
+		return basedef_ ? basedef_->soundmode() : 0;
+	}
+
+	inline unsigned short figurine() {
+		return basedef_ ? basedef_->figurine() : 0;
+	}
+
+	inline unsigned short minDamage() {
+		return basedef_ ? basedef_->minDamage() : 0;
+	}
+
+	inline unsigned short maxDamage() {
+		return basedef_ ? basedef_->maxDamage() : 0;
+	}
+
+	inline short minTaming() {
+		return basedef_ ? basedef_->minTaming() : 0;
+	}
+
+	inline QCString carve() {
+		return basedef_ ? basedef_->carve() : 0;
+	}
+
+	inline QCString lootPacks() {
+		return basedef_ ? basedef_->lootPacks() : 0;
+	}
+
+	inline unsigned char controlSlots() {
+		return basedef_ ? basedef_->controlSlots() : 0;
+	}
+
+	inline unsigned char criticalHealth() {
+		return basedef_ ? basedef_->criticalHealth() : 0;
+	}
+
+	inline bool isCanFly() {
+		return basedef_ ? basedef_->canFly() : false;
+	}
+
+	inline bool isAntiBlink() {
+		return basedef_ ? basedef_->antiBlink() : false;
+	}
+
+	inline bool isNoCorpse() {
+		return basedef_ ? basedef_->noCorpse() : false;
+	}
 private:
 	bool changed_;
 
 protected:
+	unsigned char statCap_;
+	unsigned char strengthCap_;
+	unsigned char dexterityCap_;
+	unsigned char intelligenceCap_;
+
+	// other protected methods
+	cCharBaseDef *basedef_;
+
 	/*!
 		\brief The target we are currently attacking.
 	*/

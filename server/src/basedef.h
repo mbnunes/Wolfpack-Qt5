@@ -28,70 +28,134 @@
 #if !defined( __BASEDEF_H__ )
 #define __BASEDEF_H__
 
+#include "definable.h"
 #include "singleton.h"
+#include <qmap.h>
 
-/*
-	Class which contains information about characters that never changes.
- */
-class cCharBaseDef
-{
-friend class cBaseDefManager;
+class cElement;
 
+class cCharBaseDef : public cDefinable {
+friend class cCharBaseDefs;
 protected:
+	// Our id
+	QCString id_;
+
 	// Sounds
 	unsigned short basesound_;
 	unsigned char soundmode_;
-	unsigned short shrinked_;
 	unsigned int flags_;
 	unsigned char type_;
+	unsigned short figurine_;
+	unsigned short minDamage_;
+	unsigned short maxDamage_;
+	short minTaming_;
+	QCString carve_;
+	QCString lootPacks_;
+	unsigned char controlSlots_;
+	unsigned char criticalHealth_;
 
-public:
-	cCharBaseDef() {}
-	virtual ~cCharBaseDef() {}
+	// Misc Properties
+	bool loaded;
+	void load();
+	void reset();
+public:	
+	cCharBaseDef(const QCString &id);
+	~cCharBaseDef();
 
-	// Getters ONLY
-	// These are READONLY PROPERTIES!
-	unsigned short basesound() const { return basesound_; }
-	unsigned char soundmode() const { return soundmode_; }
-	unsigned short shrinked() const { return shrinked_; }
-	unsigned int flags() const { return flags_; }
-	unsigned char type() const { return type_; }
+	void processNode(const cElement *node);
 
-	inline bool canFly() const {
+	inline unsigned char controlSlots() {
+		load();
+		return controlSlots_;
+	}
+
+	inline unsigned char criticalHealth() {
+		load();
+		return criticalHealth_;
+	}
+
+	inline const QCString &id() const {
+		return id_;
+	}
+
+	inline unsigned short basesound() {
+		load();
+		return basesound_;
+	}
+
+	inline unsigned char soundmode() {
+		load();
+		return soundmode_;
+	}
+
+	inline unsigned short figurine() {
+		load();
+		return figurine_;
+	}
+
+	inline unsigned int flags() {
+		load();
+		return flags_;
+	}
+
+	inline bool canFly() {
+		load();
 		return (flags_ & 0x01) != 0;
 	}
 
-	inline bool antiBlink() const {
+	inline bool antiBlink() {
+		load();
 		return (flags_ & 0x02) != 0;
 	}
 
-	inline bool noCorpse() const {
+	inline bool noCorpse() {
+		load();
 		return (flags_ & 0x04) != 0;
 	}
-};
 
-class cBaseDefManager
-{
-protected:
-	cCharBaseDef *chardefs[0x400]; // 0x400 entries in anim.idx
-
-public:
-	cBaseDefManager();
-	virtual ~cBaseDefManager();
-
-	cCharBaseDef *getCharBaseDef( unsigned short id );
-
-	void load();
-
-	void reload()
-	{
-		unload();
+	inline unsigned short maxDamage() {
 		load();
+		return maxDamage_;
 	}
 
-	void unload();
+	inline unsigned short minDamage() {
+		load();
+		return minDamage_;
+	}
+
+	inline short minTaming() {
+		load();
+		return minTaming_;
+	}
+
+	inline const QCString &carve() {
+		load();
+		return carve_;
+	}
+
+	inline const QCString &lootPacks() {
+		load();
+		return lootPacks_;
+	}
 };
 
-typedef SingletonHolder< cBaseDefManager > BaseDefManager;
+class cCharBaseDefs {
+protected:
+	typedef QMap<QCString, cCharBaseDef*> Container;
+	typedef Container::iterator Iterator;
+	Container definitions;	
+public:
+	cCharBaseDefs();
+	~cCharBaseDefs();
+
+	// Get a base definition
+	// This is guaranteed to return a basedef. Even if uninitialized.
+	cCharBaseDef *get(const QCString &id);
+    
+	// When reset is called, all loaded basedefs are unflagged.
+	void reset();
+};
+
+typedef SingletonHolder<cCharBaseDefs> CharBaseDefs;
 
 #endif

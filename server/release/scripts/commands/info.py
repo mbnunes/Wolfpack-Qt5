@@ -427,25 +427,7 @@ def charinfo( socket, char ):
 		# 41
 		gump.addText( 113, 180, "Loot List:", 0x834 )
 		gump.addResizeGump( 280, 180, 0xBB8, 215, 20 )
-		gump.addInputField( 284, 180, 200, 16, 0x834, 41, char.lootlist)
-		#42
-		gump.addText( 113, 200, "Required Taming:", 0x834 )
-		gump.addResizeGump( 280, 200, 0xBB8, 215, 20 )
-		gump.addInputField( 284, 200, 200, 16, 0x834, 42, unicode( char.totame ) )
-		#43
-		gump.addText( 113, 220, "Min Damage:", 0x834 )
-		gump.addResizeGump( 280, 220, 0xBB8, 215, 20 )
-		if char.hastag('mindamage'):
-			gump.addInputField( 284, 220, 200, 16, 0x834, 43, unicode( char.gettag('mindamage') ) )
-		else:
-			gump.addInputField( 284, 220, 200, 16, 0x834, 43, '' )
-		# 44
-		gump.addText( 113, 240, "Max Damage:", 0x834 )
-		gump.addResizeGump( 280, 240, 0xBB8, 215, 20 )
-		if char.hastag('maxdamage'):
-			gump.addInputField( 284, 240, 200, 16, 0x834, 44, unicode( char.gettag('maxdamage') ) )
-		else:
-			gump.addInputField( 284, 240, 200, 16, 0x834, 44, '' )
+		gump.addInputField( 284, 180, 200, 16, 0x834, 41, char.lootpacks)
 		# 45
 		gump.addText( 113, 260, "Physical Damage:", 0x834 )
 		gump.addResizeGump( 280, 260, 0xBB8, 215, 20 )
@@ -655,8 +637,6 @@ def charinfo_response( player, args, choice ):
 		elif key == 41:
 			if not char.npc:
 				char.profile = textentries[ key ]
-			else:
-				char.lootlist = textentries[ key ]
 		elif key == 42:
 			if not char.npc:
 				if (textentries[ key ]) == '':
@@ -664,8 +644,6 @@ def charinfo_response( player, args, choice ):
 						char.deltag( 'guild' )
 				else:
 					char.settag( 'guild', int( hex2dec( textentries[ key ] ) ) )
-			else:
-				char.totame = int( textentries[ key ] )
 		elif key == 43:
 			if not char.npc:
 				if (textentries[ key ]) == '':

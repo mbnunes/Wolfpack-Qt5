@@ -41,8 +41,8 @@ def response( char, args, target ):
 
 	if not char.canreach( target.char, 13 ):
 		return # no msg sent when you fail los check on OSI, wonder why...
-
-	if target.char.totame >= 1100 and not target.char.tamed:
+	
+	if target.char.mintaming >= 1100 and not target.char.tamed:
 		if char.skill[ ANIMALLORE ] == 1000:
 			char.socket.clilocmessage( 0x10044B, "", 0x3b2, 3 ) # At your skill level, you can only lore tamed or tameable creatures.
 			return
@@ -51,7 +51,7 @@ def response( char, args, target ):
 			char.socket.clilocmessage( 0x10044A, "", 0x3b2, 3 ) # At your skill level, you can only lore tamed creatures
 			return
 
-	if target.char.totame < 1100 and not target.char.tamed:
+	if target.char.mintaming < 1100 and not target.char.tamed:
 		if char.skill[ ANIMALLORE ] < 1000:
 			char.socket.clilocmessage( 0x10044A, "", 0x3b2, 3 ) # At your skill level, you can only lore tamed creatures.
 			return
