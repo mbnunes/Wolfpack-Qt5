@@ -72,7 +72,7 @@ static PyTypeObject wpRegionType =
 	0,
 	0,
 	0, // Call
-	(reprfunc)wpRegion_str
+	(reprfunc)wpRegion_str,
 	0,
 };
 
