@@ -281,7 +281,7 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 		if (pc_vis != NULL)
 		{
 			int distance = chardist(pc_vis, pc);
-			if(distance<=Races[pc_vis->race]->VisRange)
+			if(distance<=pc_vis->VisRange)
 				SendWalkToOtherPlayers(pc_vis, dir, oldx, oldy,socket);
 		}
 	}
@@ -958,7 +958,8 @@ void cMovement::SendWalkToPlayer(P_CHAR pc, UOXSOCKET socket, short int sequence
 void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short int oldy,UOXSOCKET socket )
 {
 	// lets cache these vars in advance
-	const int visibleRange = Races[pc->race]->VisRange;//Races->getVisRange( pc->race );
+	//const int visibleRange = Races[pc->race]->VisRange;//Races->getVisRange( pc->race );
+	const int visibleRange =VISRANGE ;
 	const int newx=pc->pos.x;
 	const int newy=pc->pos.y;
 	if (socket ==-1)
@@ -982,9 +983,11 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short
 				)
 		*/
 				
-			if (
-			(abs(newx-currchar[i]->pos.x)==Races[pc->race]->VisRange) && (abs(newy-currchar[i]->pos.y)==Races[pc->race]->VisRange) &&
-			(abs(oldx-currchar[i]->pos.x)>Races[pc->race]->VisRange) && (abs(oldx-currchar[i]->pos.y) > Races[pc->race]->VisRange) )
+			//if (
+			//(abs(newx-currchar[i]->pos.x)==Races[pc->race]->VisRange) && (abs(newy-currchar[i]->pos.y)==Races[pc->race]->VisRange) &&
+			//(abs(oldx-currchar[i]->pos.x)>Races[pc->race]->VisRange) && (abs(oldx-currchar[i]->pos.y) > Races[pc->race]->VisRange) )
+			if (((abs(newx-currchar[i]->pos.x) == currchar[i]->VisRange) || (abs(newy-currchar[i]->pos.y) == currchar[i]->VisRange)) &&
+			(!((abs(oldx-currchar[i]->pos.x) <= currchar[i]->VisRange) || (abs(oldy-currchar[i]->pos.y) <= currchar[i]->VisRange))))
 			{
 				impowncreate(i, pc, 1);
 			}

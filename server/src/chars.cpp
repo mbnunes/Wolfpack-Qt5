@@ -64,6 +64,7 @@ void cChar::setSerial(SERIAL ser)
 
 void cChar::Init(bool ser)
 {
+	VisRange = VISRANGE ;
 	unsigned int i;
 
 	if (ser)

@@ -260,6 +260,7 @@ public:
     // 2-6 = Sparkles
     int						gmMoveEff;
 
+	int VisRange ;
 	// Protected Data Members	
 protected:
 	unsigned char			priv;	// 1:GM clearance, 2:Broadcast, 4:Invulnerable, 8: single click serial numbers
