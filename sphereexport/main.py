@@ -1,5 +1,6 @@
 
 from script import *
+from paths import *
 from config import *
 from sections import *
 from resources import *

@@ -1,11 +1,3 @@
-#
-# CONFIGURATION
-#
-
-SAVEDIRECTORY = 'D:\\sphere\\save\\'
-SPHERETABLES = 'D:\\sphere\\scripts\\spheretables.scp'
-SPHEREPATH = 'D:\\sphere\\'
-TILEDATA = 'C:\\Games\\Ultima Online\\Ancient Realms\\tiledata.mul'
 
 #
 # ORE TRANSLATION TABLE
@@ -14,49 +6,49 @@ TILEDATA = 'C:\\Games\\Ultima Online\\Ancient Realms\\tiledata.mul'
 #
 ORES = {
 	# These are converted to iron
-	'I_ORE_OLD_COPPER': ['#1042853', 'iron_ore_1', 'iron', 0],
-	'I_ORE_COPPER': ['#1042853', 'iron_ore_1', 'iron', 0],
-	'I_ORE_DULL_COPPER': ['#1042853', 'iron_ore_1', 'iron', 0],
-	'I_ORE_BRONZE': ['#1042853', 'iron_ore_1', 'iron', 0],
-	'I_ORE_RUSTY': ['#1042853', 'iron_ore_1', 'iron', 0],
-	'I_ORE_IRON': ['#1042853', 'iron_ore_1', 'iron', 0],
+	'I_ORE_OLD_COPPER': ['iron', 0],
+	'I_ORE_COPPER': ['iron', 0],
+	'I_ORE_DULL_COPPER': ['iron', 0],
+	'I_ORE_BRONZE': ['iron', 0],
+	'I_ORE_RUSTY': ['iron', 0],
+	'I_ORE_IRON': ['iron', 0],
 	
 	# These are converted to dull copper
-	'I_ORE_NEBEL': ['#1042845', 'dullcopper_ore_1', 'dullcopper', 0x973],
-	'I_ORE_SILVER': ['#1042845', 'dullcopper_ore_1', 'dullcopper', 0x973],
+	'I_ORE_NEBEL': ['dullcopper', 0x973],
+	'I_ORE_SILVER': ['dullcopper', 0x973],
 	
 	# These are converted to shadow iron
-	'I_ORE_SHADOW' : ['#1042846', 'shadowiron_ore_1', 'shadowiron', 0x966],
-	'I_ORE_ROSE' : ['#1042846', 'shadowiron_ore_1', 'shadowiron', 0x966],
-	'I_ORE_AGAPITE' : ['#1042846', 'shadowiron_ore_1', 'shadowiron', 0x966],
+	'I_ORE_SHADOW' : ['shadowiron', 0x966],
+	'I_ORE_ROSE' : ['shadowiron', 0x966],
+	'I_ORE_AGAPITE' : ['shadowiron', 0x966],
 	
 	# These are converted to copper
-	'I_ORE_VERITE': ['#1042847', 'copper_ore_1', 'copper', 0x96d],
-	'I_ORE_GOLD': ['#1042847', 'copper_ore_1', 'copper', 0x96d],
+	'I_ORE_VERITE': ['copper', 0x96d],
+	'I_ORE_GOLD': ['copper', 0x96d],
 	
 	# These are converted to bronze
-	'I_ORE_VULKAN': ['#1042848', 'bronze_ore_1', 'bronze', 0x972],
-	'I_ORE_VALORITE': ['#1042848', 'bronze_ore_1', 'bronze', 0x972],
+	'I_ORE_VULKAN': ['bronze', 0x972],
+	'I_ORE_VALORITE': ['bronze', 0x972],
 	
 	# These are converted to gold
-	'I_ORE_RUBIN': ['#1042849', 'gold_ore_1', 'gold', 0x8a5],
-	'I_ORE_SMARAGD': ['#1042849', 'gold_ore_1', 'gold', 0x8a5],
+	'I_ORE_RUBIN': ['gold', 0x8a5],
+	'I_ORE_SMARAGD': ['gold', 0x8a5],
 	
 	# These are converted to agapite
-	'I_ORE_BLOODROCK': ['#1042850', 'agapite_ore_1', 'agapite', 0x979],
-	'I_ORE_BLACKROCK': ['#1042850', 'agapite_ore_1', 'agapite', 0x979],
-	'I_ORE_MYTHERIL': ['#1042850', 'agapite_ore_1', 'agapite', 0x979],
-	'I_ORE_TALIUM': ['#1042850', 'agapite_ore_1', 'agapite', 0x979],
-	'I_ORE_MINDURIUM': ['#1042850', 'agapite_ore_1', 'agapite', 0x979],
-	'I_ORE_ETERIUM': ['#1042850', 'agapite_ore_1', 'agapite', 0x979],
+	'I_ORE_BLOODROCK': ['agapite', 0x979],
+	'I_ORE_BLACKROCK': ['agapite', 0x979],
+	'I_ORE_MYTHERIL': ['agapite', 0x979],
+	'I_ORE_TALIUM': ['agapite', 0x979],
+	'I_ORE_MINDURIUM': ['agapite', 0x979],
+	'I_ORE_ETERIUM': ['agapite', 0x979],
 	
 	# These are converted to verite 
-	'I_ORE_ENDURIUM': ['#1042851', 'verite_ore_1', 'verite', 0x89f],
-	'I_ORE_ARKANIUM': ['#1042851', 'verite_ore_1', 'verite', 0x89f],
+	'I_ORE_ENDURIUM': ['verite', 0x89f],
+	'I_ORE_ARKANIUM': ['verite', 0x89f],
 	
 	# These are converted to valorite
-	'I_ORE_TITANIUM': ['#1042852', 'valorite_ore_1', 'valorite', 0x8ab],
-	'I_ORE_TENEBRACUM': ['#1042852', 'valorite_ore_1', 'valorite', 0x8ab],
+	'I_ORE_TITANIUM': ['valorite', 0x8ab],
+	'I_ORE_TENEBRACUM': ['valorite', 0x8ab],
 }
 
 #
@@ -66,49 +58,49 @@ ORES = {
 #
 INGOTS = {
 	# These are converted to iron
-	'I_INGOT_OLD_COPPER': ['#1042692', 'iron_ingot', 'iron', 0],
-	'I_INGOT_COPPER': ['#1042692', 'iron_ingot', 'iron', 0],
-	'I_INGOT_DULL_COPPER': ['#1042692', 'iron_ingot', 'iron', 0],
-	'I_INGOT_BRONZE': ['#1042692', 'iron_ingot', 'iron', 0],
-	'I_INGOT_RUSTY': ['#1042692', 'iron_ingot', 'iron', 0],
-	'I_INGOT_IRON': ['#1042692', 'iron_ingot', 'iron', 0],
+	'I_INGOT_OLD_COPPER': ['iron', 0],
+	'I_INGOT_COPPER': ['iron', 0],
+	'I_INGOT_DULL_COPPER': ['iron', 0],
+	'I_INGOT_BRONZE': ['iron', 0],
+	'I_INGOT_RUSTY': ['iron', 0],
+	'I_INGOT_IRON': ['iron', 0],
 	
 	# These are converted to dull copper
-	'I_INGOT_NEBEL': ['#1042684', 'dullcopper_ingot', 'dullcopper', 0x973],
-	'I_INGOT_SILVER': ['#1042684', 'dullcopper_ingot', 'dullcopper', 0x973],
+	'I_INGOT_NEBEL': ['dullcopper', 0x973],
+	'I_INGOT_SILVER': ['dullcopper', 0x973],
 	
 	# These are converted to shadow iron
-	'I_INGOT_SHADOW' : ['#1042685', 'shadowiron_ingot', 'shadowiron', 0x966],
-	'I_INGOT_ROSE' : ['#1042685', 'shadowiron_ingot', 'shadowiron', 0x966],
-	'I_INGOT_AGAPITE' : ['#1042685', 'shadowiron_ingot', 'shadowiron', 0x966],
+	'I_INGOT_SHADOW' : ['shadowiron', 0x966],
+	'I_INGOT_ROSE' : ['shadowiron', 0x966],
+	'I_INGOT_AGAPITE' : ['shadowiron', 0x966],
 	
 	# These are converted to copper
-	'I_INGOT_VERITE': ['#1042686', 'copper_ingot', 'copper', 0x96d],
-	'I_INGOT_GOLD': ['#1042686', 'copper_ingot', 'copper', 0x96d],
+	'I_INGOT_VERITE': ['copper', 0x96d],
+	'I_INGOT_GOLD': ['copper', 0x96d],
 	
 	# These are converted to bronze
-	'I_INGOT_VULKAN': ['#1042687', 'bronze_ingot', 'bronze', 0x972],
-	'I_INGOT_VALORITE': ['#1042687', 'bronze_ingot', 'bronze', 0x972],
+	'I_INGOT_VULKAN': ['bronze', 0x972],
+	'I_INGOT_VALORITE': ['bronze', 0x972],
 	
 	# These are converted to gold
-	'I_INGOT_RUBIN': ['#1042688', 'gold_ingot', 'gold', 0x8a5],
-	'I_INGOT_SMARAGD': ['#1042688', 'gold_ingot', 'gold', 0x8a5],
+	'I_INGOT_RUBIN': ['gold', 0x8a5],
+	'I_INGOT_SMARAGD': ['gold', 0x8a5],
 	
 	# These are converted to agapite
-	'I_INGOT_BLOODROCK': ['#1042689', 'agapite_ingot', 'agapite', 0x979],
-	'I_INGOT_BLACKROCK': ['#1042689', 'agapite_ingot', 'agapite', 0x979],
-	'I_INGOT_MYTHERIL': ['#1042689', 'agapite_ingot', 'agapite', 0x979],
-	'I_INGOT_TALIUM': ['#1042689', 'agapite_ingot', 'agapite', 0x979],
-	'I_INGOT_MINDURIUM': ['#1042689', 'agapite_ingot', 'agapite', 0x979],
-	'I_INGOT_ETERIUM': ['#1042689', 'agapite_ingot', 'agapite', 0x979],
+	'I_INGOT_BLOODROCK': ['agapite', 0x979],
+	'I_INGOT_BLACKROCK': ['agapite', 0x979],
+	'I_INGOT_MYTHERIL': ['agapite', 0x979],
+	'I_INGOT_TALIUM': ['agapite', 0x979],
+	'I_INGOT_MINDURIUM': ['agapite', 0x979],
+	'I_INGOT_ETERIUM': ['agapite', 0x979],
 	
 	# These are converted to verite 
-	'I_INGOT_ENDURIUM': ['#1042690', 'verite_ingot', 'verite', 0x89f],
-	'I_INGOT_ARKANIUM': ['#1042690', 'verite_ingot', 'verite', 0x89f],
+	'I_INGOT_ENDURIUM': ['verite', 0x89f],
+	'I_INGOT_ARKANIUM': ['verite', 0x89f],
 	
 	# These are converted to valorite
-	'I_INGOT_TITANIUM': ['#1042691', 'valorite_ingot', 'valorite', 0x8ab],
-	'I_INGOT_TENEBRACUM': ['#1042691', 'valorite_ingot', 'valorite', 0x8ab],
+	'I_INGOT_TITANIUM': ['valorite', 0x8ab],
+	'I_INGOT_TENEBRACUM': ['valorite', 0x8ab],
 }
 
 #

@@ -1,7 +1,7 @@
 
 from sections import *
 import glob
-from config import SPHEREPATH
+from paths import SPHEREPATH
 from resources import *
 import random
 

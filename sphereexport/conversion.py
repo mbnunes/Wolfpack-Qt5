@@ -352,33 +352,29 @@ def convertitem(output, item):
 
 		if not ORES.has_key(item.baseid):
 			print "Unknown Ore: %s. Converting to iron." % item.baseid
-			name = '#1042853'
-			baseid = 'iron_ore_1' # Convert to the correct baseid
 			tags['resname'] = 'iron'
 			item.color = 0 # Convert to the correct color
 		else:
 			ore = ORES[item.baseid]
-			name = ore[0]
-			baseid = ore[1] # Convert to the correct baseid
-			tags['resname'] = ore[2]
-			item.color = ore[3] # Convert to the correct color
+			tags['resname'] = ore[0]
+			item.color = ore[1]
 			
 	elif item.type == T_INGOT:
 		# Resolve the correct wolfpack ore based on a 
 		# sphere2wolfpack translation table (config)
 		dispid = 0x1bf2
+		events.append('ingot')
+		
 		if not INGOTS.has_key(item.baseid):
 			print "Unknown Ingot: %s. Converting to iron." % item.baseid
-			name = '#1042692'
 			baseid = 'iron_ingot' # Convert to the correct baseid
 			tags['resname'] = 'iron'
 			item.color = 0 # Convert to the correct color
 		else:
 			ingot = INGOTS[item.baseid]
-			name = ingot[0]
-			baseid = ingot[1] # Convert to the correct baseid
-			tags['resname'] = ingot[2]
-			item.color = ingot[3] # Convert to the correct color			
+			tags['resname'] = ingot[0]
+			baseid = tags['resname'] + '_ingot'
+			item.color = ingot[1] # Convert to the correct color			
 		
 	# Teleporters	
 	elif item.type == T_TELEPAD:
