@@ -22,8 +22,8 @@ ids_clothes_14 = [ 0x1515, 0x1530, 0x1ffd, 0x1ffe ]
 ids_clothes_15 = [ 0x1718, 0x171c, 0x172e ]
 ids_clothes_16 = [ 0x1f03, 0x1f04 ]
 ids_clothes_24 = [ 0x1f9f, 0x1fa0 ]
-ids_bolts = [ 0x0f95, 0xf96, 0x0f97, 0xf98, 0x0f99, 0x0f9a, 0x0f9b, 0x0f9c ]
-ids_clothes = [ 0x1765, 0x1766, 0x1767, 0x1768 ]
+ids_bolts = [ 0xf95, 0xf96, 0xf97, 0xf98, 0xf99, 0xf9a, 0xf9b, 0xf9c ]
+ids_clothes = [ 0x1766, 0x1765, 0x1767, 0x1768 ]
 
 
 def onUse( char, item ):
@@ -71,8 +71,9 @@ def response( char, args, target ):
 
 	elif target.item.id in ids_clothes_2:
 		char.soundeffect( 0x248 )
-		item_new = wolfpack.additem( "ee9" )
+		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 2
+		item_new.color = target.item.color
 		target.item.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
@@ -80,8 +81,9 @@ def response( char, args, target ):
 
 	elif target.item.id in ids_clothes_4:
 		char.soundeffect( 0x248 )
-		item_new = wolfpack.additem( "ee9" )
+		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 4
+		item_new.color = target.item.color
 		target.item.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
@@ -89,8 +91,9 @@ def response( char, args, target ):
 
 	elif target.item.id in ids_clothes_6:
 		char.soundeffect( 0x248 )
-		item_new = wolfpack.additem( "ee9" )
+		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 6
+		item_new.color = target.item.color
 		target.item.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
@@ -98,8 +101,9 @@ def response( char, args, target ):
 
 	elif target.item.id in ids_clothes_8:
 		char.soundeffect( 0x248 )
-		item_new = wolfpack.additem( "ee9" )
+		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 8
+		item_new.color = target.item.color
 		target.item.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
@@ -107,8 +111,9 @@ def response( char, args, target ):
 
 	elif target.item.id in ids_clothes_10:
 		char.soundeffect( 0x248 )
-		item_new = wolfpack.additem( "ee9" )
+		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 10
+		item_new.color = target.item.color
 		target.item.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
@@ -116,8 +121,9 @@ def response( char, args, target ):
 
 	elif target.item.id in ids_clothes_11:
 		char.soundeffect( 0x248 )
-		item_new = wolfpack.additem( "ee9" )
+		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 11
+		item_new.color = target.item.color
 		target.item.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
@@ -125,8 +131,9 @@ def response( char, args, target ):
 
 	elif target.item.id in ids_clothes_12:
 		char.soundeffect( 0x248 )
-		item_new = wolfpack.additem( "ee9" )
+		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 12
+		item_new.color = target.item.color
 		target.item.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
@@ -134,8 +141,9 @@ def response( char, args, target ):
 
 	elif target.item.id in ids_clothes_13:
 		char.soundeffect( 0x248 )
-		item_new = wolfpack.additem( "ee9" )
+		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 13
+		item_new.color = target.item.color
 		target.item.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
@@ -143,8 +151,9 @@ def response( char, args, target ):
 
 	elif target.item.id in ids_clothes_14:
 		char.soundeffect( 0x248 )
-		item_new = wolfpack.additem( "ee9" )
+		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 14
+		item_new.color = target.item.color
 		target.item.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
@@ -152,8 +161,9 @@ def response( char, args, target ):
 
 	elif target.item.id in ids_clothes_15:
 		char.soundeffect( 0x248 )
-		item_new = wolfpack.additem( "ee9" )
+		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 15
+		item_new.color = target.item.color
 		target.item.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
@@ -161,8 +171,9 @@ def response( char, args, target ):
 
 	elif target.item.id in ids_clothes_16:
 		char.soundeffect( 0x248 )
-		item_new = wolfpack.additem( "ee9" )
+		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 16
+		item_new.color = target.item.color
 		target.item.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
@@ -170,8 +181,9 @@ def response( char, args, target ):
 
 	elif target.item.id in ids_clothes_24:
 		char.soundeffect( 0x248 )
-		item_new = wolfpack.additem( "ee9" )
+		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 24
+		item_new.color = target.item.color
 		target.item.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
@@ -179,24 +191,22 @@ def response( char, args, target ):
 
 	elif target.item.id in ids_bolts:
 		char.soundeffect( 0x248 )
-		item_new = wolfpack.additem( "1765" )
-		item_new.amount = ( target.item.amount * 5 )
+		item_new = wolfpack.additem( "1766" )
+		item_new.amount = 50
+		item_new.color = target.item.color
 		target.item.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
 
 	elif target.item.id in ids_clothes:
 		char.soundeffect( 0x248 )
-		if ( target.item.amount > 1 ):
-			target.item.amount = target.item.amount -1
-			item.update()
-		else:
-			target.item.delete()
-
-		item_new = wolfpack.additem( "ee9" )
-		item_new.amount = 10
+		item_new = wolfpack.additem( "e21" )
+		item_new.amount = target.item.amount
+		item_new.color = target.item.color
+		target.item.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
+			
 	else:
 		char.socket.clilocmessage( 0x7AAA8, "", 0x3b2, 3, char ) # Scissors can not be used on that to produce anything
 		return

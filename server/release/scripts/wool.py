@@ -46,7 +46,7 @@ def response( char, args, target ):
 		return OK
 	
 	if target.item.id in ids:
-
+		color = item.color
 		if ( item.amount > 1 ):
 			item.amount = item.amount -1
 			item.update()
@@ -69,7 +69,7 @@ def response( char, args, target ):
 
 		wheel = wolfpack.finditem( target.item.serial )
 		processtime = 5000 # 5 Seconds
-		wolfpack.addtimer( processtime, "wool.ProcessTimer", [char, wheel] )
+		wolfpack.addtimer( processtime, "wool.ProcessTimer", [char, wheel, color] )
 	
 	elif target.item.id in animids:
 		char.socket.sysmessage( 'This spinning wheel is currently in use.' )
@@ -82,10 +82,11 @@ def response( char, args, target ):
 def ProcessTimer( time, args ):
 	char = args[0]
 	wheel = args[1]
-	GetYarn( char, wheel )
+	color = args[2]
+	GetYarn( char, wheel, color )
 	return OK
 
-def GetYarn( char, wheel ):
+def GetYarn( char, wheel, color ):
 	# End the animations.
 	if wheel.id == animids[0]:
 		wheel.id = ids[0]
@@ -102,6 +103,7 @@ def GetYarn( char, wheel ):
 
 	item_new = wolfpack.additem( 'e1d' ) # Yarn balls
 	item_new.amount = 3
+	item_new.color = color
 	if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 		item_new.update()
 	char.socket.sysmessage( 'You put the yarn into your backpack.' )

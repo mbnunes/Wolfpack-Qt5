@@ -43,26 +43,37 @@ def response( char, args, target ):
 		return 1
 	
 	if target.item.id in ids:
+		color = item.color
 		if ( item.amount > 1 ):
 			item.amount = item.amount -1
 			item.update()
 		else:
 			item.delete()
-	
-		# action
-		# soundeffect
-		char.action( 0x10 )
-		char.soundeffect( 0x48 )
-	
+
+		# Make sure it has a tag, if not, set and default to 0 ammount.
 		if target.item.hastag( 'amount' ):
 			amount = int( target.item.gettag( 'amount' ) )
-			
-			if amount < 5:
-				target.item.settag( 'amount', amount + 1 )
-		
 		else:
-			target.item.settag( 'amount', 0 )
-			item_new = wolfpack.additem( "f9a" )
+			target.item.settag( 'amount', '0' )
+			amount = int( target.item.gettag( 'amount' ) )
+
+		amount += 1
+		
+		if amount < 5:
+			if amount == 1:
+				char.socket.sysmessage( 'You have just started the bolt of cloth.' )
+			elif amount == 2:
+				char.socket.sysmessage( 'The bolt of cloth could use quite a bit more.' )
+			elif amount == 3:
+				char.socket.sysmessage( 'The bolt of cloth could use a bit more.' )
+			elif amount == 4:
+				char.socket.sysmessage( 'The bolt of cloth is almost finished.' )
+			target.item.settag( 'amount', str(amount) )
+		
+		elif amount == 5:
+			target.item.settag( 'amount', '0' )
+			item_new = wolfpack.additem( "f9a" ) # Adds a bolt of cloth.
+			item_new.color = color
 			if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 				item_new.update()
 			char.socket.clilocmessage( 0x7A290 ) # You create some cloth and put it in your backpack.
