@@ -1377,6 +1377,9 @@ static PyObject* wpNewNpc( PyObject* /*self*/, PyObject* args )
 	if ( createSerial )
 		pNpc->Init( true );
 
+	// dirty code - TODO: REMOVE this when the new moveTo() mechanism is done
+	pNpc->moveTo( Coord(), true );
+
 	return PyGetCharObject( pNpc );
 }
 
@@ -1413,6 +1416,9 @@ static PyObject* wpNewPlayer( PyObject* /*self*/, PyObject* args )
 
 	if ( createSerial )
 		pPlayer->Init( true );
+
+	// dirty code - TODO: REMOVE this when the new moveTo() mechanism is done
+	pPlayer->moveTo( Coord(), true );
 
 	return PyGetCharObject( pPlayer );
 }

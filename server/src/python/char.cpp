@@ -339,7 +339,7 @@ static PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 		pos.map = PyInt_AsLong( PyTuple_GetItem( args, 3 ) );
 	}
 
-	self->pChar->moveTo( pos, true );
+	self->pChar->moveTo( pos );
 
 	Py_RETURN_NONE;
 }
