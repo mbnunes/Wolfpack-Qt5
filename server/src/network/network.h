@@ -52,9 +52,6 @@ public:
 	cNetwork();
 	~cNetwork();
 
-	void startup();
-	void shutdown();
-
 	void load();
 	void unload();
 	void reload();

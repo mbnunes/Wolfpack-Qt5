@@ -43,9 +43,6 @@
   \brief The cListener class provides an abstraction of the Acceptor
   Pattern.
 
-
-  cListener inherits ZThread::Thread, which is defined as in Zthread Library.
-
   You might use cListener for waitting new connections without pooling.
 
 */

@@ -264,10 +264,10 @@ int cAsyncNetIOPrivate::ungetch( int ch )
 }
 
 /*!
-  \internal
-  Removes from internal read buffer \a nbytes.
-  Returns true if successfull or false if there were not enought bytes in buffer to fullfill
-  the request.
+	\internal
+	Removes from internal read buffer \a nbytes.
+	Returns true if successful or false if there were not enough bytes in buffer to fulfill
+	the request.
 */
 bool cAsyncNetIOPrivate::consumeWriteBuf( Q_ULONG nbytes )
 {
@@ -303,7 +303,7 @@ bool cAsyncNetIOPrivate::consumeWriteBuf( Q_ULONG nbytes )
 /*!
 	\internal
 	Reads and removes from internal read buffer \a nbytes and place then into \a sink.
-	Returns true if successfull or false if there were not enought bytes to fullfill
+	Returns true if successful or false if there were not enough bytes to fulfill
 	the request.
 */
 bool cAsyncNetIOPrivate::consumeReadBuf( Q_ULONG nbytes, char* sink )

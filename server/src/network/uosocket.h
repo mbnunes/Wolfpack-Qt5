@@ -77,6 +77,11 @@ public:
 	};
 
 public:
+
+	cUOSocket( QSocketDevice* sDevice );
+	virtual ~cUOSocket( void );
+
+
 	/*!
 		\brief This static function registers a python function to handle
 		a specific type of packet.
@@ -127,9 +132,6 @@ public:
 		tooltipscache_->setBit( data, false );
 	}
 	void addTooltip( Q_UINT32 );
-
-	cUOSocket( QSocketDevice* sDevice );
-	virtual ~cUOSocket( void );
 
 	Q_UINT8 walkSequence( void ) const;
 	void setWalkSequence( Q_UINT8 data );
