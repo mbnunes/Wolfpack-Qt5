@@ -8,6 +8,7 @@
 import wolfpack
 from wolfpack.consts import *
 import random
+from combat.utilities import weaponskill
 
 # 0x1070 Facing South/North (Swinging: 0x1071)
 # 0x1074 Facing East/West   (Swinging: 0x1075)
@@ -40,7 +41,8 @@ def onUse( char, item ):
 	# Turn to the correct direction
 	char.turnto( item )
 
-	skill = char.combatskill() # Determine the combat skill used by the character
+ 	# Determine the combat skill used by the character
+	skill = weaponskill(char, char.getweapon())
 
 	# We can only train FENCING+MACEFIGHTING+SWORDSMANSHIP+WRESTLING
 	if( skill != FENCING and skill != MACEFIGHTING and skill != SWORDSMANSHIP and skill != WRESTLING ):

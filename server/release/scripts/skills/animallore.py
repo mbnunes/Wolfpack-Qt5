@@ -106,8 +106,8 @@ def sendGump( char, args, target ):
 
 	loreGump.addXmfHtmlGump( 147, 276, 160, 18, 0x2DCAB8, 0, 0, 200 ) # Miscellaneous
 
-	loreGump.addXmfHtmlGump( 153, 294, 160, 18, 0x1003ED, 0, 0, 16000229 ) # Armor Rating
-	loreGump.addHtmlGump( 320, 294, 35, 18, "<div align=right>%i</div>" %target.char.defense, 0, 0 )
+	#loreGump.addXmfHtmlGump( 153, 294, 160, 18, 0x1003ED, 0, 0, 16000229 ) # Armor Rating
+	#loreGump.addHtmlGump( 320, 294, 35, 18, "<div align=right>%i</div>" % target.char.defense, 0, 0 )
 	
 	#page 2
 	loreGump.startPage( 2 )
@@ -171,21 +171,20 @@ def sendGump( char, args, target ):
 
 	loreGump.addHtmlGump( 147, 108, 210, 18, "<div align=center><i>%s</i></center>" %target.char.name, 0, 0 )
 
-	loreGump.addGump( 128, 152, 2086 )
-	
-	loreGump.addXmfHtmlGump( 147, 150, 160, 18, 0x1003DB, 0, 0, 200 ) # Preferred Foods
-	if target.char.food == 1 or target.char.food == 8:
-		loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DC, 0, 0, 16000229 ) # Meat
-	elif target.char.food == 2 or target.char.food == 9:
-		loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003E0, 0, 0, 16000229 ) # Fish
-	elif target.char.food == 4 or target.char.food == 5:
-		loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DD, 0, 0, 16000229 ) # Fruits and Vegetables
-	elif target.char.food == 6 or target.char.food == 7:
-		loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DE, 0, 0, 16000229 ) # Grains and Hay
-	elif target.food == 13:
-		loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DF, 0, 0, 16000229 ) # Metal
-	else:
-		loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0xF6D6B, 0, 0, 16000229 ) # None
+	#loreGump.addGump( 128, 152, 2086 )	
+	#loreGump.addXmfHtmlGump( 147, 150, 160, 18, 0x1003DB, 0, 0, 200 ) # Preferred Foods
+	#if target.char.food == 1 or target.char.food == 8:
+	#	loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DC, 0, 0, 16000229 ) # Meat
+	#elif target.char.food == 2 or target.char.food == 9:
+	#	loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003E0, 0, 0, 16000229 ) # Fish
+	#elif target.char.food == 4 or target.char.food == 5:
+	#	loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DD, 0, 0, 16000229 ) # Fruits and Vegetables
+	#elif target.char.food == 6 or target.char.food == 7:
+	#	loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DE, 0, 0, 16000229 ) # Grains and Hay
+	#elif target.food == 13:
+	#	loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DF, 0, 0, 16000229 ) # Metal
+	#else:
+	#	loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0xF6D6B, 0, 0, 16000229 ) # None
 
 	loreGump.addGump( 128, 188, 2086 )
 

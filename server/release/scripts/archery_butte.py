@@ -8,6 +8,7 @@
 import wolfpack
 from wolfpack.consts import *
 from random import choice, randrange
+from combat.utilities import weaponskill
 
 # failure texts
 failureText = ( 
@@ -98,7 +99,7 @@ def onUse( char, item ):
 	# Only Bows or Crossbows (Check ammo-type too)
 	ammo = ammoType( char )
 	
-	if( ( char.combatskill() != ARCHERY ) or ( ammo == -1 ) ):
+	if( ( weaponskill(char, char.getweapon()) != ARCHERY ) or ( ammo == -1 ) ):
 		char.message( "You only can use crossbows and bows on this butte." )
 		return 1
 	
