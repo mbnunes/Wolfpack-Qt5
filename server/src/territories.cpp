@@ -330,7 +330,7 @@ void cTerritories::load()
 
 		if ( territory->rectangles().empty() )
 		{
-			Console::instance()->log(LOG_WARNING, "Region %1 lacks rectangle tag, ignoring region.\n").arg(territory->name()));
+			Console::instance()->log(LOG_WARNING, QString("Region %1 lacks rectangle tag, ignoring region.\n").arg(territory->name()));
 			delete territory;
 		}
 		else
