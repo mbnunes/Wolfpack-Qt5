@@ -34,6 +34,9 @@
 	<script id="webadmin"		type="python" module="webadmin" />
 	<script id="commands"		type="python" module="commands" />
 
+	<!-- Skills -->
+	<script id="anatomy"		type="python" module="skills.anatomy" />
+
 	<!-- Load *LAST* thats important -->
 	<script id="errorhandler"	type="python" module="errorhandler" />
 
