@@ -171,7 +171,7 @@ void  cUOPacket::setShort( unsigned int pos, unsigned short value )
 }
 
 // Leave as last method, please
-void cUOPacket::print( ostream& s )
+void cUOPacket::print( ostream* s )
 {
 #if defined (DEBUG_PACKETS)
 	s << "[unknown packet:" QString::number( rawPacket.at(0) ) << ", length: " << QString::number(rawPacket.size(), 16) << endl;
@@ -197,7 +197,7 @@ void cUOPacket::print( ostream& s )
 				line += line.sprintf("%c", isprint(rawPacket.at(actLine * 16 + actRow)) ? rawPacket.at(actLine * 16 + actRow) : '.');
 		}
 
-		s << line << endl;
+		(*s) << line << endl;
 	}
 #endif	
 }

@@ -56,7 +56,7 @@ public:
 
 	virtual void run() throw();
 
-	cUOPacket* readPacket( QSocketDevice* );
+	cUOPacket* recvPacket( QSocketDevice* );
 	void sendPacket(QSocketDevice*, cUOPacket*);
 
 private:

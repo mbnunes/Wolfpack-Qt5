@@ -87,6 +87,8 @@ const Q_UINT16 packetLengths[256] =
 // cAsyncNetIOPrivate
 // =========================================================================================
 
+using namespace ZThread;
+
 class cAsyncNetIOPrivate
 {
 public:
@@ -98,13 +100,16 @@ public:
     QHostAddress		addr;			// connection address
     Q_ULONG			rsize, wsize;		// read/write total buf size
     Q_ULONG			rindex, windex;		// read/write index
+	FastMutex		wmutex;				// write mutex
 
-	ZThread::LockedQueue<cUOPacket*, ZThread::FastMutex>* packets; // Complete UOPackets
+
+	LockedQueue<cUOPacket*, FastMutex>* packets; // Complete UOPackets
 
 	int getch();
 	int ungetch( int ch );
 	Q_LONG readBlock( char *data, Q_ULONG maxlen );
 	Q_LONG writeBlock( const char *data, Q_ULONG len );
+	Q_LONG writeBlock( QByteArray data );
 	bool consumeWriteBuf( Q_ULONG nbytes );
 	bool consumeReadBuf( Q_ULONG nbytes, char *sink );
 };
@@ -159,6 +164,11 @@ Q_LONG cAsyncNetIOPrivate::writeBlock( const char *data, Q_ULONG len )
     }
     wsize += len;
     return len;
+}
+
+Q_LONG cAsyncNetIOPrivate::writeBlock( QByteArray data )
+{
+	return writeBlock( data.data(), data.size() );
 }
 
 int cAsyncNetIOPrivate::getch()
@@ -306,6 +316,8 @@ void cAsyncNetIO::run() throw()
 			// Write all data in the buffer.
 			bool osBufferFull = false;
 			int consumed = 0;
+			// Before we continue, we should guarantee no one writes packets to the buffer.
+			d->wmutex.acquire();
 			while ( !osBufferFull && d->wsize > 0 )
 			{
 				QByteArray* a = d->wba.first();
@@ -347,6 +359,7 @@ void cAsyncNetIO::run() throw()
 				if ( nwritten < i )
 				    osBufferFull = TRUE;
 			}
+			d->wmutex.release(); // release this record
 		}
 		mapsMutex.release();		
 		if ( buffers.empty() )
@@ -413,12 +426,20 @@ void cAsyncNetIO::buildUOPackets( cAsyncNetIOPrivate* d )
 	}
 }
 
-cUOPacket* cAsyncNetIO::readPacket( QSocketDevice* socket )
+cUOPacket* cAsyncNetIO::recvPacket( QSocketDevice* socket )
 {
 	iterator it = buffers.find( socket );
 	if ( it.data()->packets->size() )
 		return it.data()->packets->next();
 	else
 		return 0;
+}
+
+void cAsyncNetIO::sendPacket( QSocketDevice* socket, cUOPacket* packet )
+{
+	iterator it = buffers.find( socket );
+	it.data()->wmutex.acquire();
+	it.data()->writeBlock( packet->compressed() );
+	it.data()->wmutex.release();
 }
 

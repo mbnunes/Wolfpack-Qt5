@@ -54,7 +54,7 @@ public:
 	void  setInt( unsigned int, unsigned int );
 	void  setShort( unsigned int, unsigned short );
 
-	virtual void print( ostream& );
+	virtual void print( ostream* );
 };
 
 #endif // __UOPACKET_H__
