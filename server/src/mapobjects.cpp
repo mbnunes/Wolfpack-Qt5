@@ -27,6 +27,7 @@
 
 // Wolfpack Includes
 #include "timing.h"
+#include "console.h"
 #include "inlines.h"
 #include "uobject.h"
 #include "mapobjects.h"
@@ -310,11 +311,12 @@ public:
 		return mGridHeight;
 	}
 
-	bool add( cUObject *object )
+	//! add() never fails, no need to return a bool. It doesn't validate the
+	//! object's position, as that can be more effectively done by the caller.
+	void add( cUObject *object )
 	{
 		const Coord &pos = object->pos();
 		cell( cellId( pos.x, pos.y ) ).add( object );
-		return true;
 	}
 
 	//! Returns true only if the item was removed by this method call.
@@ -543,7 +545,14 @@ void MapObjects::updateOnlineStatus( cPlayer *player, bool online )
 	GridSet *gridSet = mMaps[player->pos().map];
 	MapObjectsGrid *from = ( online ? &gridSet->offlineChars : &gridSet->chars );
 	MapObjectsGrid *to = ( online ? &gridSet->chars : &gridSet->offlineChars );
-	from->remove( player );
+
+	if( from->remove( player ) == false )
+	{
+		Console::instance()->log( LOG_ERROR, tr( "updateOnlineStatus() failed to remove the player 0x%1 from the %2 characters structure." )
+			.arg( player->serial(), 0, 16 ).arg( online ? "offline" : "online" ) );
+		return;
+	}
+
 	to->add( player );
 }
 
