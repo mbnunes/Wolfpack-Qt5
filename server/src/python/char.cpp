@@ -627,8 +627,12 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else if( !strcmp( name, "backpack" ) )
 		return PyGetItemObject( self->pChar->getBackpack() );
 
-	else pGetInt( "def", def )
-	else pGetInt( "war", war )
+//	else pGetInt( "def", def )
+	else if( !strcmp( name, "def" ) )
+		return PyInt_FromLong( self->pChar->def() );
+//	else pGetInt( "war", war )
+	else if( !strcmp( name, "war" ) )
+		return PyInt_FromLong( self->pChar->war() );
 	
 	// Target
 	else if( !strcmp( "target", name ) )

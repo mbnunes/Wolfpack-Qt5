@@ -15,10 +15,10 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 	if (pp != NULL)
 	{
 		P_CHAR ph = socket->player();	// points to the healer
-		if (!SrvParams->bandageInCombat() && (pp->war || ph->war))
+		if (!SrvParams->bandageInCombat() && (pp->war() || ph->war()))
 		{
 			P_CHAR pc_attacker = FindCharBySerial(ph->attacker); // Ripper...cant heal while in a fight
-			if ( (pc_attacker != NULL) && pc_attacker->war)
+			if ( (pc_attacker != NULL) && pc_attacker->war())
 			{
 				socket->sysMessage( tr("You can`t heal while in a fight!") );
 				return true;

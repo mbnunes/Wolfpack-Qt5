@@ -576,7 +576,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	{
 		P_CHAR pChar_vis = ri.GetData();
 
-		if( pChar_vis && ( pChar_vis != pChar ) && ( !pChar->dead() || pChar->war || pChar_vis->isGM() ) && ( !pChar->isHidden() || pChar_vis->isGM() ) )
+		if( pChar_vis && ( pChar_vis != pChar ) && ( !pChar->dead() || pChar->war() || pChar_vis->isGM() ) && ( !pChar->isHidden() || pChar_vis->isGM() ) )
 			sendWalkToOther( pChar_vis, pChar, oldpos );
 	}
 	
@@ -783,7 +783,7 @@ void cMovement::checkRunning( cUOSocket *socket, P_CHAR pChar, Q_UINT8 dir )
 		socket->updateStamina();
 	}
 
-	if( pChar->war && pChar->targ != INVALID_SERIAL )
+	if( pChar->war() && pChar->targ != INVALID_SERIAL )
 		pChar->timeout = uiCurrentTime + ( MY_CLOCKS_PER_SEC * 2 ); // 2 Second timeout
 }
 
@@ -1389,7 +1389,7 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 		return;
 
 	// If we are fighting and not fleeing move toward our target if neccesary
-	if( pc_i->war && pc_i->npcWander != 5 )
+	if( pc_i->war() && pc_i->npcWander != 5 )
     {
         P_CHAR pc_attacker = FindCharBySerial( pc_i->targ ); // This was wrong - we want to move towards our target not our attacker
 

@@ -1850,9 +1850,9 @@ void dolight(int s, char level)
 	{
 		light[1] = SrvParams->worldFixedLevel();
 	} 
-	else if (pc_currchar->fixedlight!=255)
+	else if (pc_currchar->fixedlight()!=255)
 	{
-		light[1]=pc_currchar->fixedlight;
+		light[1]=pc_currchar->fixedlight();
 	} 
 	else if (indungeon(currchar[s]))
 	{

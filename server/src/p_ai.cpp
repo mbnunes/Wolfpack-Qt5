@@ -86,7 +86,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 			}
 			break;
 		case 1: // good healers
-			if( !pc_i->war )
+			if( !pc_i->war() )
 			{
 				RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); !ri.atEnd(); ri++)
@@ -140,7 +140,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 			}
 			break;
 		case 2 : // Monsters, PK's - (stupid NPCs)
-			if (!pc_i->war)
+			if (!pc_i->war())
 			{
 				// Get the one with the least distance!
 				P_CHAR Victim = NULL;
@@ -210,7 +210,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 			}
 			break;
 		case 3 : // Evil Healers
-			if (!pc_i->war)
+			if (!pc_i->war())
 			{
 				RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); !ri.atEnd(); ri++)
@@ -249,7 +249,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 			}
 			break;
 		case 4 : // Teleporting Guards
-			if (!pc_i->war	// guard isnt busy 
+			if (!pc_i->war()	// guard isnt busy 
 				&& pc_i->inGuardedArea())	// this region is guarded
 			{	// this bracket just to keep compiler happy
 
@@ -307,7 +307,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 			}
 			break;
 		case 5: // npc beggars
-			if (!pc_i->war)
+			if (!pc_i->war())
 			{
 				RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); !ri.atEnd(); ri++)
@@ -340,7 +340,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 		case 8: 
 			break; // morrolan - old banker
 		case 9 : // in world guards, they dont teleport out...Ripper
-			if (!pc_i->war	// guard isnt busy 
+			if (!pc_i->war()	// guard isnt busy 
 				&& pc_i->inGuardedArea())	// this region is guarded
 			{	// this bracket just to keep compiler happy
 
@@ -419,7 +419,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 			}
 			break;
 		case 11 : // add NPCAI B in scripts to make them attack reds. (Ripper)
-			if (!pc_i->war)
+			if (!pc_i->war())
 			{
 				RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); !ri.atEnd(); ri++)
@@ -444,7 +444,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 		case 17: 
 			break; // Zippy Player Vendors.
 		case 18: // Ripper.. Escort speech.
-		if (!pc_i->war && pc_i->questType() == ESCORTQUEST)
+		if (!pc_i->war() && pc_i->questType() == ESCORTQUEST)
 		{
 			RegionIterator4Chars ri(pc_i->pos);
 			for (ri.Begin(); !ri.atEnd(); ri++)
@@ -499,7 +499,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 			break;
 		   case 30:// no idea?
 		   case 50:// EV/BS
-			if (!pc_i->war)
+			if (!pc_i->war())
 			{
 				RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); !ri.atEnd(); ri++)
@@ -535,7 +535,7 @@ void cCharStuff::cDragonAI::DoAI(P_CHAR pc_i, int currenttime)
 	int randvalue;
 	int distance;
 	if ( pc_i == NULL ) return;
-	if (pc_i->war)
+	if (pc_i->war())
 	{
 		pc_i->talk( tr("Who dares disturbe me?!?!"), -1, 0 );
 		RegionIterator4Chars ri(pc_i->pos);

@@ -741,7 +741,7 @@ public:
 		{
 			if (Skills->CheckSkill(pc_currchar, ANIMALLORE, 0, 1000))
 			{
-				pc->talk( tr("Attack [%1] Defense [%2] Taming [%3] Hit Points [%4]").arg(pc->att).arg(pc->def).arg(pc->taming/10).arg(pc->hp()) );
+				pc->talk( tr("Attack [%1] Defense [%2] Taming [%3] Hit Points [%4]").arg(pc->att()).arg(pc->def()).arg(pc->taming/10).arg(pc->hp()) );
 				return true;
 			}
 			else
@@ -1348,13 +1348,15 @@ void cSkills::PeaceMaking(cUOSocket* socket)
 		for (ri.Begin(); !ri.atEnd(); ri++)
 		{
 			P_CHAR mapchar = ri.GetData();
-			if( mapchar && mapchar->war )
+			if( mapchar && mapchar->war() )
 			{
 				j = calcSocketFromChar(mapchar);
 				if( mapchar->socket() )
 					mapchar->socket()->sysMessage( tr("You hear some lovely music, and forget about fighting.") );
-				if( mapchar->war ) 
+
+				if( mapchar->war() ) 
 					mapchar->toggleCombat();
+
 				mapchar->targ = INVALID_SERIAL;
 				mapchar->attacker = INVALID_SERIAL;
 				mapchar->resetAttackFirst();
@@ -2741,7 +2743,7 @@ void cSkills::Meditation( cUOSocket *socket )
 {
 	P_CHAR pc_currchar = socket->player();
 
-	if (pc_currchar->war)
+	if (pc_currchar->war())
 	{
 		socket->sysMessage( tr("Your mind is too busy with the war thoughts.") );
 		return;

@@ -84,11 +84,7 @@ public:
 	
 	
 	
-	unsigned char			fixedlight; // Fixed lighting level (For chars in dungeons, where they dont see the night)
-	unsigned char			speech; // For NPCs: Number of the assigned speech block
-	unsigned int			att; // Intrinsic attack (For monsters that cant carry weapons)
-	unsigned int			def; // Intrinsic defense
-	bool					war; // War Mode
+	
 	SERIAL					targ; // Current combat target
 	unsigned int			timeout; // Combat timeout (For hitting)
 	unsigned int			timeout2; // memory of last shot timeout
@@ -305,6 +301,12 @@ protected:
 	unsigned int			deaths_;
 	bool					dead_; // Is character dead
 	SERIAL					packitem_; // Serial of backpack
+
+	unsigned char			fixedlight_; // Fixed lighting level (For chars in dungeons, where they dont see the night)
+	unsigned char			speech_; // For NPCs: Number of the assigned speech block
+	unsigned int			att_; // Intrinsic attack (For monsters that cant carry weapons)
+	unsigned int			def_; // Intrinsic defense
+	bool					war_; // War Mode
 //END ADDED FROM PUBLIC ******************************************
 	QMap< cMakeMenu*, QPtrList< cMakeSection > >	lastselections_;
 
@@ -476,6 +478,12 @@ public:
 	unsigned int			deaths() const { return deaths_; }
 	bool					dead() const { return dead_; }
 	SERIAL					packitem() const { return packitem_; }
+
+	unsigned char			fixedlight() const { return fixedlight_; }
+	unsigned char			speech() const { return speech_; }
+	unsigned int			att() const { return att_; }
+	unsigned int			def() const { return def_; }
+	bool					war() const { return war_; }
 //END ADDED GETTERS***********************************************
 	QPtrList< cMakeSection > lastSelections( cMakeMenu* basemenu );
 
@@ -630,8 +638,13 @@ public:
 	void					setDeaths( unsigned int data ) { deaths_ = data; }
 	void					setDead( bool data ) { dead_ = data; }
 	void					setPackItem( SERIAL data ) { packitem_ = data; }
-	//END SETTERS********************************************************
 
+	void					setFixedLight( unsigned char data ) { fixedlight_ = data; }
+	void					setSpeech( unsigned char data ) { speech_ = data; }
+	void					setAtt( unsigned int data ) { att_ = data; }
+	void					setDef( unsigned int data ) { def_ = data; }
+	void					setWar( bool data ) { war_ = data; }
+	//END SETTERS********************************************************
 
 	void					clearLastSelections( void );
 

@@ -310,7 +310,7 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addText( 50, 200, tr( "Deaths:" ), 0x834 );
 		addInputField( 200, 200, 200, 16, 15, QString( "%1" ).arg( pChar->deaths() ), 0x834 );
 		addText( 50, 220, tr( "Defense:" ), 0x834 );
-		addInputField( 200, 220, 200, 16, 16, QString( "%1" ).arg( pChar->def ), 0x834 );
+		addInputField( 200, 220, 200, 16, 16, QString( "%1" ).arg( pChar->def() ), 0x834 );
 		addText( 50, 240, tr( "Dead:" ), 0x834 );
 		addInputField( 200, 240, 200, 16, 17, QString( "%1" ).arg( pChar->dead() ), 0x834 );
 		addText( 50, 260, tr( "Position (x,y,z,map):" ), 0x834 );
@@ -381,7 +381,7 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addText( 50, 140, tr( "Emote color:" ), 0x834 );
 		addInputField( 200, 140, 200, 16, 32, QString( "0x%1" ).arg( QString::number( pChar->emotecolor(), 16 ) ), 0x834 );
 		addText( 50, 160, tr( "Speech:" ), 0x834 );
-		addInputField( 200, 160, 200, 16, 33, QString( "%1" ).arg( pChar->speech ), 0x834 );
+		addInputField( 200, 160, 200, 16, 33, QString( "%1" ).arg( pChar->speech() ), 0x834 );
 		addText( 50, 180, tr( "Carve:" ), 0x834 );
 		addInputField( 200, 260, 200, 16, 34, QString( "%1" ).arg( pChar->carve() ), 0x834 );
 		addText( 50, 200, tr( "Loot:" ), 0x834 );
@@ -451,7 +451,7 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				char_->setDeaths( hex2dec( it->second ).toUInt() );
 				break;
 			case 16:
-				char_->def = hex2dec( it->second ).toUInt();
+				char_->setDef( hex2dec( it->second ).toUInt() );
 				break;
 			case 17:
 				char_->setDead( ( it->second == "true" || hex2dec( it->second ).toUInt() > 0 ) );
@@ -527,7 +527,7 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				char_->setEmoteColor( hex2dec( it->second ).toUShort() );
 				break;
 			case 33:
-				char_->speech = hex2dec( it->second ).toUShort();
+				char_->setSpeech( hex2dec( it->second ).toUShort() );
 				break;
 			case 34:
 				char_->setCarve( it->second );

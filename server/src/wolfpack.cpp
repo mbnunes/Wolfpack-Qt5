@@ -1332,6 +1332,8 @@ void callguards( P_CHAR pc_player )
 	}
 }
 
+
+
 void endScrn()
 {
 #ifdef __unix__
@@ -1963,6 +1965,7 @@ int ishuman(P_CHAR pc)
 	else return 0;
 }
 
+
 void setabovelight(unsigned char lightchar)
 {
 	int i;
@@ -2112,6 +2115,7 @@ char indungeon(P_CHAR pc)
 	}
 	return 0;
 }
+
 
 ////////////////////
 // Author : LB
@@ -3877,7 +3881,7 @@ void bgsound(P_CHAR pc)
 		P_CHAR pc = ri.GetData();
 		if (pc != NULL)
 		{
-			if((pc->isPlayer())&&(!(pc->dead()))&&(!(pc->war))&&(y<=10))
+			if((pc->isPlayer())&&(!(pc->dead()))&&(!(pc->war()))&&(y<=10))
 			{
 				if (!pc->free) // lb, bugfix !
 				{

@@ -1063,7 +1063,7 @@ void cUOSocket::setPlayer( P_CHAR pChar )
 
 	// Set the warmode status
 	cUOTxWarmode warmode;
-	warmode.setStatus( _player->war );
+	warmode.setStatus( _player->war() );
 	send( &warmode );
 
 	// Send our equipment
@@ -1180,7 +1180,7 @@ void cUOSocket::sendPaperdoll( P_CHAR pChar )
 void cUOSocket::handleChangeWarmode( cUORxChangeWarmode* packet )
 {
 	_player->targ = INVALID_SERIAL;
-	_player->war = packet->warmode();
+	_player->setWar( packet->warmode() );
 
 	cUOTxWarmode warmode;
 	warmode.setStatus( packet->warmode() ? 1 : 0 );
@@ -1203,7 +1203,7 @@ void cUOSocket::playMusic()
 	cTerritory* Region = _player->region;
 	UINT32 midi = 0;
 
-	if( _player->war )
+	if( _player->war() )
 		midi = DefManager->getRandomListEntry( "MIDI_COMBAT" ).toInt();
 
 	else if( Region )
@@ -1577,7 +1577,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 			criminal( _player );
 			pc_i->attackTarget( _player );
 		}
-		else if ((pc_i->isNpc() || pc_i->tamed()) && !pc_i->war && pc_i->npcaitype() != 4) // changed from 0x40 to 4, cauz 0x40 was removed LB
+		else if ((pc_i->isNpc() || pc_i->tamed()) && !pc_i->war() && pc_i->npcaitype() != 4) // changed from 0x40 to 4, cauz 0x40 was removed LB
 		{
 			pc_i->toggleCombat();
 			pc_i->setNextMoveTime();

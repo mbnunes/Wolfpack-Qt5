@@ -231,13 +231,13 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 	// ->running() is greater than zero in that case
 	setDirection( pChar->running() ? pChar->dir()|0x80 : pChar->dir() );
 
-	if( pChar->war )
+	if( pChar->war() )
 		setFlag( 0x40 );
 
 	if( pChar->hidden() )
 		setFlag( flag() | 0x80 );
 
-	if( pChar->dead() && !pChar->war )
+	if( pChar->dead() && !pChar->war() )
 		setFlag( flag() | 0x80 );
 
 	if( pChar->poisoned() )
@@ -254,13 +254,13 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 	setDirection( pChar->dir() );
 	setColor( pChar->skin() );
 
-	if( pChar->war )
+	if( pChar->war() )
 		setFlag( 0x40 );
 
 	if( pChar->hidden() )
 		setFlag( flag() | 0x80 );
 
-	if( pChar->dead() && !pChar->war )
+	if( pChar->dead() && !pChar->war() )
 		setFlag( flag() | 0x80 );
 
 	if( pChar->poisoned() )
@@ -308,13 +308,13 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	setBody( pChar->id() );
 	setSkin( pChar->skin() );
 	
-	if( pChar->war )
+	if( pChar->war() )
 		setFlag( 0x40 );
 
 	if( pChar->hidden() )
 		setFlag( flag() | 0x80 );
 
-	if( pChar->dead() && !pChar->war )
+	if( pChar->dead() && !pChar->war() )
 		setFlag( flag() | 0x80 );
 
 	if( pChar->poisoned() )
@@ -352,13 +352,13 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar )
 	setSerial( pChar->serial );
 	setName( pChar->name.c_str() );
 
-	if( pChar->war )
+	if( pChar->war() )
 		setFlag( 0x40 );
 
 	if( pChar->hidden() )
 		setFlag( flag() | 0x80 );
 
-	if( pChar->dead() && !pChar->war )
+	if( pChar->dead() && !pChar->war() )
 		setFlag( flag() | 0x80 );
 
 	if( pChar->poisoned() )

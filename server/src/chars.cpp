@@ -186,13 +186,13 @@ void cChar::Init(bool ser)
 	this->deaths_ = 0;
 	this->dead_ = false; // Is character dead
 	this->packitem_ = INVALID_SERIAL; // Only used during character creation
-	this->fixedlight=255; // Fixed lighting level (For chars in dungeons, where they dont see the night)
+	this->fixedlight_ = 255; // Fixed lighting level (For chars in dungeons, where they dont see the night)
 	// changed to -1, LB, bugfix
-	this->speech=0; // For NPCs: Number of the assigned speech block
+	this->speech_ = 0; // For NPCs: Number of the assigned speech block
 	this->setWeight( 0 );
-	this->att=0; // Intrinsic attack (For monsters that cant carry weapons)
-	this->def=0; // Intrinsic defense
-	this->war=false; // War Mode
+	this->att_ = 0; // Intrinsic attack (For monsters that cant carry weapons)
+	this->def_ = 0; // Intrinsic defense
+	this->war_ = false; // War Mode
 	this->targ=INVALID_SERIAL; // Current combat target
 	this->timeout=0; // Combat timeout (For hitting)
 	this->timeout2=0;
@@ -429,7 +429,7 @@ void cChar::setNextMoveTime(short tamediv)
 	// let's let them move once in a while ;)
 	if(this->tamed())
 		this->npcmovetime=(unsigned int)((uiCurrentTime+double(NPCSPEED*MY_CLOCKS_PER_SEC/5)));
-	else if(this->war)
+	else if(this->war_)
 		this->npcmovetime=(unsigned int)((uiCurrentTime+double(NPCSPEED*MY_CLOCKS_PER_SEC/5)));
 	else
 		this->npcmovetime=(unsigned int)((uiCurrentTime+double(NPCSPEED*MY_CLOCKS_PER_SEC)));
@@ -448,8 +448,10 @@ void cChar::fight(P_CHAR other)
 	this->attacker = other->serial;
 	if (this->isNpc())
 	{
-		if (!this->war)
+
+		if (!this->war_)
 			toggleCombat();
+
 		this->setNextMoveTime();
 	}
 }
@@ -817,8 +819,8 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("deaths",			deaths_);
 		archive.read("dead",			dead_);
 		archive.read("packitem",		packitem_);
-		archive.read("fixedlight",		fixedlight);
-		archive.read("speech",			speech);
+		archive.read("fixedlight",		fixedlight_);
+		archive.read("speech",			speech_);
 
 		archive.read("trigger",			trigger_);
 		archive.read("trigword",		trigword_);
@@ -833,11 +835,11 @@ void cChar::Serialize(ISerialization &archive)
 		}
 		archive.read("cantrain",		cantrain_);
 		
-		archive.read("att",				att);
-		archive.read("def",				def);
+		archive.read("att",				att_);
+		archive.read("def",				def_);
 		archive.read("lodamage",		lodamage_);
 		archive.read("hidamage",		hidamage_);
-		archive.read("war",				war);
+		archive.read("war",				war_);
 		archive.read("npcwander",		npcWander);
 		archive.read("oldnpcwander",	oldnpcWander);
 		archive.read("carve",			carve_);
@@ -961,8 +963,8 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("deaths",			deaths_);
 		archive.write("dead",			dead_);
 		archive.write("packitem",		packitem_);
-		archive.write("fixedlight",		fixedlight);
-		archive.write("speech",			speech);
+		archive.write("fixedlight",		fixedlight_);
+		archive.write("speech",			speech_);
 		archive.write("trigger",		trigger_);
 		archive.write("trigword",		trigword_);
 		archive.write("disablemsg",		disabledmsg_);
@@ -978,11 +980,11 @@ void cChar::Serialize(ISerialization &archive)
 		}
 		archive.write("cantrain", cantrain_);
 		
-		archive.write("att",			att);
-		archive.write("def",			def);
+		archive.write("att",			att_);
+		archive.write("def",			def_);
 		archive.write("lodamage",		lodamage_);
 		archive.write("hidamage",		hidamage_);
-		archive.write("war",			war);
+		archive.write("war",			war_);
 		archive.write("npcwander",		npcWander);
 		archive.write("oldnpcwander",	oldnpcWander);
 		archive.write("carve",			carve_);
@@ -1302,11 +1304,11 @@ void cChar::processNode( const QDomElement &Tag )
 
 	//<defense>10</defense>
 	else if( TagName == "defense" )
-		this->def = Value.toUInt();
+		this->def_ = Value.toUInt();
 
 	//<attack>10</attack>
 	else if( TagName == "attack" )
-		this->att = Value.toUInt();
+		this->att_ = Value.toUInt();
 
 	//<emotecolor>0x482</emotecolor>
 	else if( TagName == "emotecolor" )
@@ -1471,7 +1473,7 @@ void cChar::processNode( const QDomElement &Tag )
 
 	//<speech>13</speech>
 	else if( TagName == "speech" )
-		this->speech = Value.toUShort();
+		this->speech_ = Value.toUShort();
 
 	//<split>1</split>
 	else if( TagName == "split" )
@@ -1827,7 +1829,7 @@ void cChar::showName( cUOSocket *socket )
 		charName.append( tr(" [tamed]") );
 
 	// WarMode ?
-	if( war )
+	if( war_ )
 		charName.append( tr(" [war mode]") );
 
 	// Criminal ?
@@ -1932,7 +1934,7 @@ void cChar::resend( bool clean )
 		if( clean )
 			pChar->socket()->removeObject( this );
 
-		if( ( isHidden() || ( dead_ && !war ) ) && !pChar->isGMorCounselor() )
+		if( ( isHidden() || ( dead_ && !war_ ) ) && !pChar->isGMorCounselor() )
 			continue;
 
 		drawChar.setHighlight( notority( pChar ) );
@@ -2215,8 +2217,10 @@ void cChar::kill()
 				}
 			}
 
-			if( pc_t->isNpc() && pc_t->war )
+
+			if( pc_t->isNpc() && pc_t->war() )
 				pc_t->toggleCombat();
+
 		}
 	}
 
@@ -2499,7 +2503,7 @@ void cChar::resurrect()
 	mn_ = (UINT16)( 0.1 * in_ );
 	attacker = INVALID_SERIAL;
 	resetAttackFirst();
-	war = false;
+	war_ = false;
 
 	getBackpack(); // Make sure he has a backpack
 
@@ -2793,7 +2797,7 @@ void cChar::mount( P_CHAR pMount )
 		
 		pMount->removeFromView( true );
 		
-		pMount->war = false;
+		pMount->setWar( false );
 		pMount->attacker = INVALID_SERIAL;
 		
 		// set timer
@@ -3034,14 +3038,14 @@ void cChar::attackTarget( P_CHAR defender )
 
 	if( defender->isNpc() )
 	{
-		if( !( defender->war ) )
+		if( !( defender->war() ) )
 			defender->toggleCombat();
 		defender->setNextMoveTime();
 	}
 	
 	if( ( isNpc() ) && !( npcaitype() == 4 ) )
 	{
-		if ( !( war ) )
+		if ( !( war_ ) )
 			toggleCombat();
 
 		setNextMoveTime();
@@ -3068,7 +3072,7 @@ void cChar::attackTarget( P_CHAR defender )
 
 void cChar::toggleCombat()
 {
-	war = !war;
+	war_ = !war_;
 	Movement->CombatWalk( this );
 }
 

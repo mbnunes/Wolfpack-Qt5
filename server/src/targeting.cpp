@@ -1273,7 +1273,7 @@ void cTargets::SetSpeechTarget(int s)
 			sysmessage(s,"You can only change speech for npcs.");
 			return;
 		}
-		pc->speech=addx[s];
+		pc->setSpeech( addx[s] );
 	}
 }
 

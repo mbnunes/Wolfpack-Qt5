@@ -198,7 +198,8 @@ void cTmpEff::On(P_CHAR pc)
 	{
 //	case 1:	pc->priv2 |= 0x02;		break;
 	case 1: pc->setPriv2(pc->priv2() | 0x02); break;
-	case 2:	pc->fixedlight = SrvParams->worldBrightLevel();break;
+//	case 2:	pc->fixedlight = SrvParams->worldBrightLevel();break;
+	case 2: pc->setFixedLight( SrvParams->worldBrightLevel() );break;
 	case 3:	pc->chgDex(-1 * this->more1);	break;
 //	case 4:	pc->in-=this->more1;		break;
 	case 4: pc->setIn( (tempsignedshort = pc->in() ) - this->more1 ); break;
@@ -237,7 +238,7 @@ void cTmpEff::Off(P_CHAR pc)
 	{
 //	case 1:	pc->priv2 &= 0xFD;			break;
 	case 1: pc->setPriv2( pc->priv2() & 0xFD); break;
-	case 2:	pc->fixedlight='\xFF';		break;
+	case 2:	pc->setFixedLight('\xFF');		break;
 	case 3:	pc->chgDex(this->more1);	break;
 //	case 4:	pc->in+=this->more1;		break;
 	case 4: pc->setIn( ( tempsignedshort = pc->in() ) + this->more1 );		break;
@@ -275,7 +276,7 @@ void cTmpEff::Reverse()
 	{
 //	case 1:	pc_s->priv2 &= 0xFD;	break;
 	case 1: pc_s->setPriv2(pc_s->priv2() & 0xFD);	break;
-	case 2:	pc_s->fixedlight='\xFF';break;
+	case 2:	pc_s->setFixedLight('\xFF');break;
 	case 3:	pc_s->chgDex(more1);	break;
 //	case 4:	pc_s->in+=more1;		break;
 	case 4: pc_s->setIn( ( tempsignedshort = pc_s->in() ) + more1 );		break;
@@ -367,7 +368,7 @@ void cTmpEff::Expire()
 		}
 		break;
 	case 2:
-		pc_s->fixedlight='\xFF';
+		pc_s->setFixedLight('\xFF');
 		dolight(calcSocketFromChar(pc_s), SrvParams->worldBrightLevel());
 		break;
 	case 3:
@@ -784,7 +785,7 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		pTE->dispellable=1;
 		break;
 	case 2:	// night sight
-		pc_dest->fixedlight=SrvParams->worldBrightLevel();
+		pc_dest->setFixedLight( SrvParams->worldBrightLevel() );
 		dolight(calcSocketFromChar((pc_dest)), SrvParams->worldBrightLevel());
 		Magic->afterParticles(6, pc_dest); // shows particles for UO:3D clients, like On OSI servers
 

@@ -1393,7 +1393,7 @@ void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 				socket->sysMessage( tr("You are dead and cannot do that." ) );
 				return;
 			}
-			if( pTarget->war )
+			if( pTarget->war() )
 				socket->sysMessage( tr("Your pet is in battle right now!" ) );
 			else
 				pChar->mount( pTarget );

@@ -208,10 +208,10 @@ bool StableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QStr
     // set stablesp && pets stablemaster serial
 	// remove it from screen!
 	p_pet->removeFromView(); // Remove it from view of all sockets
-	p_pet->war = false;
+	p_pet->setWar(false);
 	p_pet->attacker = INVALID_SERIAL;
 
-	pPlayer->war = false;
+	pPlayer->setWar(false);
 	pPlayer->targ = INVALID_SERIAL;
 
 	cMapObjects::getInstance()->remove( p_pet );
@@ -674,8 +674,10 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 		pPlayer->setGuarded( false );
 		pPet->ftarg = INVALID_SERIAL;
 		pPet->targ = INVALID_SERIAL;
-		if (pPet->war) 
+
+		if (pPet->war()) 
 			pPet->toggleCombat();
+
 		pPet->npcWander=0;
 		bReturn = true;
 	}
@@ -1100,7 +1102,7 @@ void cSpeech::talking( P_CHAR pChar, const QString &speech, UINT16 color, UINT8 
 		}
 	}
 
-	if( pNpc && pNpc->speech )
+	if( pNpc && pNpc->speech() )
 	{
 /*		Script *pScp=i_scripts[speech_script];
 		if (!pScp->Open())

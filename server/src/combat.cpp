@@ -826,7 +826,7 @@ void cCombat::DoCombatAnimations( P_CHAR pc_attacker, P_CHAR pc_defender, int fi
 void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 {
 	// We are either not fighting or dont have a target
-	if( !pc_attacker || pc_attacker->free || !pc_attacker->war || ( pc_attacker->targ == INVALID_SERIAL ) )
+	if( !pc_attacker || pc_attacker->free || !pc_attacker->war() || ( pc_attacker->targ == INVALID_SERIAL ) )
 		return;
 
 	int x, bowtype=0; // spamanachecking,tmp;
@@ -838,7 +838,7 @@ void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 	// We are at war but our target's gone out of reach
 	if( !pc_defender || pc_defender->free || ( pc_defender->isPlayer() && !pc_defender->socket() ) || pc_defender->isHidden() )
 	{
-		pc_attacker->war = false;
+		pc_attacker->setWar( false );
 		pc_attacker->timeout = 0;
 		pc_attacker->attacker = INVALID_SERIAL;
 		pc_attacker->resetAttackFirst();
@@ -895,8 +895,10 @@ void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 					}
 					pc_attacker->attacker = INVALID_SERIAL;
 					pc_attacker->resetAttackFirst();
-					if (pc_attacker->isNpc() && pc_attacker->npcaitype()!=17 && !pc_attacker->dead() && pc_attacker->war)
+
+					if (pc_attacker->isNpc() && pc_attacker->npcaitype()!=17 && !pc_attacker->dead() && pc_attacker->war())
 						pc_attacker->toggleCombat();
+
 				}
 			}
 			else
@@ -1058,7 +1060,7 @@ int cCombat::CalcAtt( P_CHAR pc_p ) // Calculate total attack powerer
 	if( pc_p->isNpc() ) 
 	{
 		//Compatibility for use with older scripts
-		if((pc_p->lodamage==0)&&(pc_p->hidamage==0)) return(pc_p->att);
+		if((pc_p->lodamage==0)&&(pc_p->hidamage==0)) return(pc_p->att());
 		
 		//Code for new script commands
 		if(pc_p->lodamage==pc_p->hidamage) //Avoids divide by zero error
@@ -1103,7 +1105,7 @@ int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power
 { 
 	P_ITEM pj=NULL; 
 	P_ITEM pShield = pc->getShield(); 
-	unsigned int total=pc->def; 
+	unsigned int total=pc->def(); 
 	if (x==0) // -Fraz- added parrying skill bonuses
 	{ 
 		if (pShield)
