@@ -72,8 +72,13 @@ def wipeAllWorld( player, accept, state ):
 	player.socket.sysmessage( "%i items have been removed from world" % count )
 
 def wipeBoundingBox( socket, target1, target2 ):
+	x1 = min(target1.pos.x, target2.pos.x)
+	x2 = max(target1.pos.x, target2.pos.x)
+	y1 = min(target1.pos.y, target2.pos.y)
+	y2 = max(target1.pos.y, target2.pos.y)
+	
 	count = 0
-	iterator = wolfpack.itemregion( target1.pos.x, target1.pos.y, target2.pos.x, target2.pos.y, target2.pos.map )
+	iterator = wolfpack.itemregion( x1, y1, x2, x2, target2.pos.map )
 	item = iterator.first
 	while item:
 		item.delete()

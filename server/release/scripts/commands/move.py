@@ -89,24 +89,16 @@ def response( char, args, target ):
 		item.update()
 		return True
 	elif target.char:
-		if target.char.npc:
-			npc = target.char
-			pos = npc.pos
-			if type(newmap) == int:
-				newposition = "%i,%i,%i,%i" % ( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), newmap )
-			else:
-				newposition = "%i,%i,%i,%i" % ( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), pos.map )
-			npc.pos = newposition
-			npc.update()
-			return True
+		char = target.char
+		pos = char.pos
+		if type(newmap) == int:
+			newposition = wolfpack.coord( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), newmap )
 		else:
-			player = target.char
-			pos = player.pos
-			if type(newmap) == int:
-				newposition = "%i,%i,%i,%i" % ( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), newmap )
-			else:
-				newposition = "%i,%i,%i,%i" % ( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), pos.map )
-			player.pos = newposition
-			player.update()
-			return True
+			newposition = wolfpack.coord( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), pos.map )
+		char.removefromview()
+		char.moveto( newposition )
+		char.update()
+		if char.socket:
+			char.socket.resendworld()
+		return True
 	return True

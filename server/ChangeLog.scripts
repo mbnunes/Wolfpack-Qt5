@@ -50,6 +50,8 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Fixed bug #0000313. (Parrying bugs and misconceptions)
 		- Rewrote npc carving.
 		- Added a "static" command.
+		- Made .move work correctly on players again.
+		- Nuke also works from bottom right to top left now.
 	* Misc. Changes:
 		- Fixed configure.py for FreeBSD 5
 	* Known Issues, Bugs, and Missing Features:
