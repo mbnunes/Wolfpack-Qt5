@@ -577,8 +577,8 @@ def pages_gump(player, i=0):
 		if char.socket:
 			gump.addText( 55, 60 + offset, tr("Char: ") + char.name, 0x844 + 5 * pagetype )
 			gump.addText( 55, 80 + offset, tr("Account: ") + page.account, 0x844 + 5 * pagetype )
-			gump.addText( 275, 80 + offset, tr("Category: ") + page.category, 0x844 + 5 * pagetype )
-			gump.addText( 275, 60 + offset, tr("Time: ") + time.strftime(FORMAT_DATETIME, time.localtime(page.created)), 0x844 + 5 * pagetype )
+			gump.addText( 300, 80 + offset, tr("Category: ") + page.category, 0x844 + 5 * pagetype )
+			gump.addText( 300, 60 + offset, tr("Time: ") + time.strftime(FORMAT_DATETIME, time.localtime(page.created)), 0x844 + 5 * pagetype )
 		else:
 			gump.addText( 55, 60 + offset, tr("Char: ") + char.name, 2100 )
 			gump.addText( 55, 80 + offset, tr("Account: ") + page.account, 2100 )
