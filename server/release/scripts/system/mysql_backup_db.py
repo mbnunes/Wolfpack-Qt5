@@ -18,16 +18,16 @@
 
 import wolfpack
 import wolfpack.database
-from wolfpack.consts import *
+from wolfpack.consts import GRAY, LOG_MESSAGE
 from wolfpack.time import *
-from wolfpack.database import *
 import datetime
 import os
 
 # ONLY SET TO TRUE ONCE YOU ARE SETUP FOR THIS!
-enabled = FALSE
+enabled = False
 # MAKE SURE YOU SET THIS!
-backup_path = '/Path/To/Wolfpack/backups'
+backup_path = None
+#backup_path = '/Path/To/Wolfpack/backups'
 #backup_path = 'C:\Wolfpack\backups'
 
 database = wolfpack.database
@@ -36,7 +36,7 @@ log = wolfpack.console.log
 accountsdriver = database.driver( database.ACCOUNTS )
 worlddriver = database.driver( database.WORLD )
 
-time = 24 * 3600000 * 7 # Every Week
+time = int( 24 * 3600000 * 7 ) # Every Week
 
 """
 	\command backupdb
@@ -46,29 +46,40 @@ time = 24 * 3600000 * 7 # Every Week
 """
 
 def onLoad():
-	if enabled == TRUE:
+	if enabled and backup_path:
 		if accountsdriver == 'mysql' or worlddriver == 'mysql':
-			wolfpack.addtimer( time, "system.mysql_backup_db.timer", [] )
+			wolfpack.addtimer( time, "system.mysql_backup_db.timer", [ wolfpack.currenttime() ] )
 			wolfpack.registercommand( "backupdb", cmdbackupdb )
+			return True
+	else:
+		return False
 
 def cmdbackupdb( socket, command, arguments ):
-	if enabled == TRUE:
+	if enabled and backup_path:
 		if accountsdriver == 'mysql' or worlddriver == 'mysql':
 			socket.sysmessage( "Performing a database backup.", GRAY )
 			backup_db()
 			socket.sysmessage( "Done!", GRAY )
-			return
+			return True
+		else:
+			return False
+	else:
+		return False
 
 def timer( timer, args ):
-	if enabled == TRUE:
+	if enabled and backup_path and ( (args[0] + time) <= wolfpack.currenttime() ):
 		if accountsdriver == 'mysql' or worlddriver == 'mysql':
 			# Optimize and restart timer
 			optimize_db()
 			wolfpack.addtimer( time, "system.mysql_backup_db.timer", [] )
-			return
+			return True
+		else:
+			return False
+	else:
+		return False
 
 def backup_db():
-	if enabled == TRUE:
+	if enabled and backup_path:
 		accountsdir = "%s/%s_accounts" % ( backup_path, datetime.date.today() )
 		worlddir = "%s/%s_world" % ( backup_path, datetime.date.today() )
 		if accountsdriver == 'mysql' or worlddriver == 'mysql':
@@ -108,4 +119,6 @@ def backup_db():
 					log( LOG_MESSAGE, "World database saved to: %s" % (worlddir ) )
 			except:
 				log( LOG_MESSAGE, " Backup of the accounts/world database failed." )
-		return
+		return True
+	else:
+		return False
