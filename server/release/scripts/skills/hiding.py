@@ -28,7 +28,8 @@ def hiding( char, skill ):
 	success = char.checkskill( HIDING, 0, 1000 )
 
 	if success:
-		char.socket.clilocmessage( 501240, "", 0x3b2, 3 )
+		char.socket.clilocmessage(501240, "", 0x3b2, 3)
+		char.removefromview()
 		char.hidden = 1
 		char.update()
 	else:
