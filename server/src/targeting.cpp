@@ -413,7 +413,8 @@ void cTargets::IDtarget(int s)
 		if (pc == NULL)
 			return;
 		pc->setId( static_cast<ushort>(addx[s]<<8) + addy[s] );
-		pc->xid = pc->id();
+//		pc->xid = pc->id();
+		pc->setXid( pc->id());
 		updatechar( pc );
 	}
 }
@@ -489,7 +490,7 @@ static void PrivTarget(int s, P_CHAR pc)
 		savelog((char*)temp2, (char*)temp);
 	}
 	pc->setPriv(addid1[s]);
-	pc->priv2=addid2[s];
+	pc->setPriv2(addid2[s]);
 }
 
 static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
@@ -745,10 +746,10 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 	
 	pc->setId(0x03DB);
 	pc->setSkin(0x8021);
-	pc->xid = 0x03DB;
+	pc->setXid(0x03DB);
 	pc->setXSkin(0x8021);
 	pc->setPriv(0xF7);
-	pc->priv2 = (unsigned char) (0xD9);
+	pc->setPriv2((unsigned char) (0xD9));
 	
 	pc->setMenupriv(-1); // LB, disabling menupriv stuff for gms per default
 	
@@ -790,10 +791,10 @@ static void CnsTarget(P_CLIENT ps, P_CHAR pc)
 	}
 	pc->setId(0x03DB);
 	pc->setSkin(0x8003);
-	pc->xid=0x03DB;
+	pc->setXid(0x03DB);
 	pc->setXSkin(0x8002);
 	pc->setPriv(0xB6);
-	pc->priv2='\x8D';
+	pc->setPriv2('\x8D');
 	if (strncmp(pc->name.c_str(), "Counselor", 9))
 	{
 		sprintf((char*)temp, "Counselor %s", pc->name.c_str());
@@ -1024,7 +1025,7 @@ static void AddNpcTarget(int s, PKGx6C *pp)
 	pc->Init();
 	pc->name = "Dummy";
 	pc->setId(static_cast<ushort>(addid1[s] << 8)+addid2[s]);
-	pc->xid = pc->id();
+	pc->setXid(pc->id());
 	pc->setSkin(0);
 	pc->setXSkin(0);
 	pc->setPriv(0x10);
@@ -2597,7 +2598,7 @@ void cTargets::ReleaseTarget(int s, int c)
 			jails[pc->cell].occupied = false; 
 			pc->moveTo(jails[pc->cell].oldpos);
 			pc->cell = 0; 
-			pc->priv2 = 0; 
+			pc->setPriv2(0); 
 			pc->jailsecs = 0; 
 			pc->jailtimer = 0; 
 			teleport(pc);
@@ -2689,7 +2690,7 @@ void cTargets::JailTarget(int s, int c)
 			jails[i].oldpos = pc->pos;
 			pc->moveTo(jails[i].pos); 
 			pc->cell = i; 
-			pc->priv2 = 2; // freeze them  Ripper 
+			pc->setPriv2(2); // freeze them  Ripper 
 			
 			
 			// blackwinds jail
@@ -2830,7 +2831,8 @@ void cTargets::permHideTarget(int s)
 				sysmessage(s, "He is already hiding."); 
 			return; 
 		} 
-		pc->priv2 |= 8; 
+//		pc->priv2 |= 8; 
+		pc->setPriv2(pc->priv2() | 8);
 		// staticeffect(i, 0x37, 0x09, 0x09, 0x19); 
 		staticeffect3(pc->pos.x + 1, pc->pos.y + 1, pc->pos.z + 10, 0x37, 0x09, 0x09, 0x19, 0); 
 		pc->soundEffect( 0x0208 ); 
@@ -2861,7 +2863,8 @@ void cTargets::unHideTarget(int s)
 				sysmessage(s, "He is not hiding."); 
 			return; 
 		} 
-		pc->priv2 = pc->priv2&0xf7; // unhide - AntiChrist 
+//		pc->priv2 = pc->priv2&0xf7; // unhide - AntiChrist 
+		pc->setPriv2(pc->priv2()&0xf7);
 		// we cant use staticeffect cause the char is invis and 
 		// regular chars could see it. Instead we will use the staticeffect3 
 		// which takes the char coords. 
@@ -3022,7 +3025,7 @@ void cTargets::SetDirTarget(int s)
 		P_CHAR pc = FindCharBySerial(serial);
 		if (pc != NULL)
 		{
-			pc->dir=addx[s];
+			pc->setDir(addx[s]);
 			updatechar(pc);
 			return;
 		}
@@ -4050,8 +4053,10 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 31: ItemTarget(ps,pt); break;//ColorsTarget
 		case 32: Targ->DvatTarget(s); break;
 		case 33: AddNpcTarget(s,pt); break;
-		case 34: if (Cready) pc->priv2|=2; break;
-		case 35: if (Cready) pc->priv2&=0xfd; break; // unfreeze, AntiChris used LB bugfix
+//		case 34: if (Cready) pc->priv2|=2; break;
+		case 34: if (Cready) pc->setPriv2(pc->priv2() | 2); break;
+//		case 35: if (Cready) pc->priv2&=0xfd; break; // unfreeze, AntiChris used LB bugfix
+		case 35: if (Cready) pc->setPriv2(pc->priv2() & 0xfd);
 		case 36: Targ->AllSetTarget(s); break;
 		case 37: Skills->AnatomyTarget(s); break;
 		case 38: Magic->Recall(s); break;

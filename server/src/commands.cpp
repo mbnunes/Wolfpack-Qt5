@@ -435,7 +435,7 @@ public:
 			if( pItem )
 				pItem->dir = hex2dec( value ).toULong();
 			else if( pChar )
-				pChar->dir = hex2dec( value ).toULong();
+				pChar->setDir( hex2dec( value ).toULong() );
 		}
 
 		// Object position

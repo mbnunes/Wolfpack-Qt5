@@ -195,7 +195,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						pc_i->talk( tr("An Nox"), -1, 0 );
 						Magic->NPCCure(pc_i);
 					}
-					else if ( Victim && Victim->priv2&0x20 )
+					else if ( Victim && Victim->priv2()&0x20 )
 					{
 						pc_i->talk( tr("An Ort"), -1, 0 );
 						Magic->NPCDispel(pc_i, Victim);
@@ -590,7 +590,7 @@ void cCharStuff::cDragonAI::HarmMagic(P_CHAR pc_i, unsigned int currenttime, P_C
 			case 3:					Magic->LightningSpell(pc_i, pc);				break;
 			case 4:					Magic->ParalyzeSpell(pc_i, pc);					break;
 			case 5: 
-				if (pc->priv2&0x20)
+				if (pc->priv2()&0x20)
 				{
 					Magic->NPCDispel(pc_i, pc);
 				} 

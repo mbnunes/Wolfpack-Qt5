@@ -251,7 +251,9 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int cur
 
 		// ==== UNFREEZE
 		if( ( pc_defender->effDex() > 0 ) )
-			pc_defender->priv2 &= 0xFD;
+//			pc_defender->priv2 &= 0xFD;
+			pc_defender->setPriv2( pc_defender->priv2() & 0xFD );
+			
 
 		// ==== ENCHANTED ITEMS
 		if( ( fightskill != WRESTLING ) && los )

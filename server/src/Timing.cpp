@@ -347,7 +347,7 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 					pc->cell = 0;
 					pc->jailsecs = 0;
 					pc->jailtimer = 0;
-					pc->priv2 = 0;					
+					pc->setPriv2(0);					
 					
 					savelog( tr( "%1 [0x%2] is automatically released from jail." ).arg( pc->name.c_str() ).arg( pc->serial, 8, 16 ), "server.log" );
 					socket->sysMessage( tr( "You have been released." ) );

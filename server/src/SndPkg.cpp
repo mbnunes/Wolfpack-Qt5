@@ -556,10 +556,10 @@ void senditem(UOXSOCKET s, P_ITEM pi) // Send items (on ground)
 
 
 		if (pi->isAllMovable()) itmput[18] |= 0x20;
-		if (pc_currchar->priv2&1) itmput[18] |= 0x20;
+		if (pc_currchar->priv2()&1) itmput[18] |= 0x20;
 		if ((pi->isOwnerMovable() || pi->isLockedDown()) && pc_currchar->Owns(pi))
 			itmput[18] |= 0x20;
-		if (pc_currchar->priv2&4)
+		if (pc_currchar->priv2()&4)
 		{
 			if (pi->id()>=0x4000 && pi->id()<=0x40FF) // LB, 25-dec-1999 litle bugfix for treasure multis, ( == changed to >=)
 			{
@@ -638,10 +638,10 @@ void senditem_lsd(UOXSOCKET s, P_ITEM pi,char color1, char color2, int x, int y,
 
 		if (pi->isAllMovable()) itmput[18]+=0x20;
 
-		if (pc_currchar->priv2&1) itmput[18]+=0x20;
+		if (pc_currchar->priv2()&1) itmput[18]+=0x20;
 		if ((pi->isOwnerMovable() || pi->isLockedDown()) && pc_currchar->Owns(pi))
 			itmput[18]+=0x20;
-		if (pc_currchar->priv2&4)
+		if (pc_currchar->priv2()&4)
 		{
 			if (pi->id()>=0x4000 && pi->id()<=0x40FF)
 			{
@@ -711,7 +711,7 @@ void sendperson_lsd(UOXSOCKET s, P_CHAR pc, char color1, char color2)
 	oc[12]=pc->pos.y%256; // Character y position
 
 	oc[13]=pc->pos.z; // Character z position
-	oc[14]=pc->dir; // Character direction
+	oc[14]=pc->dir(); // Character direction
 	ShortToCharPtr(pc->skin(), &oc[15]);	// Character skin color
 	oc[17]=0; // Character flags
 
@@ -834,7 +834,7 @@ void sendperson_lsd(UOXSOCKET s, P_CHAR pc, char color1, char color2)
 		goxyz[12]=pc->pos.x%256;
 		goxyz[13]=pc->pos.y>>8;
 		goxyz[14]=pc->pos.y%256;
-		goxyz[17]=pc->dir|0x80;
+		goxyz[17]=pc->dir()|0x80;
 		goxyz[18]=pc->pos.z;
 		Xsend(s, goxyz, 19);
 		walksequence[s]=-1;
@@ -851,7 +851,7 @@ void sendperson_lsd(UOXSOCKET s, P_CHAR pc, char color1, char color2)
 	extmove[9]=pc->pos.y>>8;
 	extmove[10]=pc->pos.y%256;
 	extmove[11]=pc->pos.z;
-	extmove[12]=pc->dir|0x80;
+	extmove[12]=pc->dir()|0x80;
 
 	extmove[13]=cc1;
 	extmove[14]=cc2;
@@ -974,7 +974,7 @@ void teleport2( P_CHAR pc ) // used for /RESEND only - Morrolan, so people can f
 		goxyz[12]=pc->pos.x%256;
 		goxyz[13]=pc->pos.y>>8;
 		goxyz[14]=pc->pos.y%256;
-		goxyz[17]=pc->dir|0x80;
+		goxyz[17]=pc->dir()|0x80;
 		goxyz[18]=pc->dispz();
 		Xsend(k, goxyz, 19);
 		all_items(k);
@@ -1040,7 +1040,7 @@ void updatechar(P_CHAR pc) // If character status has been changed (Polymorph), 
 				goxyz[12]=pc->pos.x%256;
 				goxyz[13]=pc->pos.y>>8;
 				goxyz[14]=pc->pos.y%256;
-				goxyz[17]=pc->dir|0x80;
+				goxyz[17]=pc->dir()|0x80;
 				goxyz[18]=pc->pos.z;
 				Xsend(i, goxyz, 19);
 				walksequence[i]=-1;
@@ -1952,7 +1952,7 @@ void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 	oc[12]=pc->pos.y%256; // Character y position
 	if (z) oc[13]=pc->dispz(); // Character z position
 	else oc[13]=pc->pos.z;
-	oc[14]=pc->dir; // Character direction
+	oc[14]=pc->dir(); // Character direction
 	ShortToCharPtr(pc->skin(), &oc[15]); // Character skin color
 	oc[17]=0; // Character flags
 	if (pc->isHidden() || !(online(pc)||pc->isNpc())) oc[17]=oc[17]|0x80; // Show hidden state correctly
@@ -2631,7 +2631,7 @@ void PlayDeathSound( P_CHAR pc )
     if ( pc == NULL )
 		return;
 
-	if (pc->xid==0x0191)
+	if (pc->xid()==0x0191)
 	{
 		switch(RandomNum(0, 3)) // AntiChrist - uses all the sound effects
 		{
@@ -2641,7 +2641,7 @@ void PlayDeathSound( P_CHAR pc )
 		case 3:		pc->soundEffect( 0x0153 );	break;// Female Death
 		}
 	}
-	else if (pc->xid==0x0190)
+	else if (pc->xid()==0x0190)
 	{
 		switch( RandomNum(0, 3) ) // AntiChrist - uses all the sound effects
 		{
@@ -2653,7 +2653,7 @@ void PlayDeathSound( P_CHAR pc )
 	}
 	else
 	{
-		playmonstersound( pc, pc->xid, SND_DIE );
+		playmonstersound( pc, pc->xid(), SND_DIE );
 	}
 }
 

@@ -499,7 +499,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	dir = dir & 0x7F; // Remove the running flag
 
 	// This happens if we're moving
-	if( dir == pChar->dir )
+	if( dir == pChar->dir() )
 	{
 		// Note: Do NOT use the copy constructor as it'll create a reference
 		Coord_cl newCoord = calcCoordFromDir( dir, pChar->pos );
@@ -553,7 +553,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 
 	// do all of the following regardless of whether turning or moving i guess
 	// set the player direction to contain only the cardinal direction bits
-	pChar->dir = dir;
+	pChar->setDir(dir);
 	
 	if( socket )
 		socket->allowMove( sequence );
@@ -1444,20 +1444,20 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
         if( j < 8 || j > 32) 
 			dnpctime = 5;
         if( j > 7 && j < 33) // Let's move in the same direction lots of the time.  Looks nicer.
-            j = pc_i->dir;
+            j = pc_i->dir();
         randomNpcWalk( pc_i, j, 0 );
         break;
     case 3: // Wander freely, within a defined box
         if (j<8 || j>32) dnpctime=5;
         if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
-            j=pc_i->dir;
+            j=pc_i->dir();
 
         randomNpcWalk(pc_i,j,1);
         break;
     case 4: // Wander freely, within a defined circle
         if (j<8 || j>32) dnpctime=5;
         if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
-            j=pc_i->dir;
+            j=pc_i->dir();
         randomNpcWalk(pc_i,j,2);
         break;
     case 5: // Flee
@@ -1503,7 +1503,7 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 				j=rand()%40;
 				if (j<8 || j>32) dnpctime=5;
 				if (j>7 && j<33) // Let's move in the same direction lots of the time.  Looks nicer.
-					j=pc_i->dir;
+					j=pc_i->dir();
 				randomNpcWalk(pc_i,j,0);
 			}
 		}

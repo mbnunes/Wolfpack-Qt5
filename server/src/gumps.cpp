@@ -352,7 +352,7 @@ cCharInfoGump::cCharInfoGump( cChar* pChar )
 		addText( 50, 220, tr( "fz:" ), 0x834 );
 		addInputField( 200, 220, 200, 16, 26, QString( "%1" ).arg( pChar->fz1 ), 0x834 );
 		addText( 50, 240, tr( "Direction:" ), 0x834 );
-		addInputField( 200, 240, 200, 16, 27, QString( "%1" ).arg( pChar->dir ), 0x834 );
+		addInputField( 200, 240, 200, 16, 27, QString( "%1" ).arg( pChar->dir() ), 0x834 );
 		addText( 50, 260, tr( "Strength modifier:" ), 0x834 );
 		addInputField( 200, 260, 200, 16, 28, QString( "%1" ).arg( pChar->st2() ), 0x834 );
 		addText( 50, 280, tr( "Dexterity modifier:" ), 0x834 );
@@ -507,7 +507,7 @@ void cCharInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				char_->fz1 = hex2dec( it->second ).toInt();
 				break;
 			case 27:
-				char_->dir = hex2dec( it->second ).toUShort();
+				char_->setDir( hex2dec( it->second ).toUShort() );
 				break;
 			case 28:
 				char_->setSt2( hex2dec( it->second ).toShort() );

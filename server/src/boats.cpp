@@ -582,6 +582,7 @@ void cBoat::turn( SI08 turn )
 			cUOTxDrawChar* drawChar = new cUOTxDrawChar();
 			drawChar->fromChar( pc );
 
+
 			QPtrListIterator< cUOSocket > iter_sock( socketsinrange );
 			while( iter_sock.current() )
 			{
@@ -833,11 +834,13 @@ bool cBoat::move( void )
 		}
 	}
 
+
 	P_ITEM pi = NULL;
 	QPtrListIterator< cItem > cit( founditems );
 	while( pi = cit.current() )
 	{
 		pi->MoveTo( pi->pos.x + dx, pi->pos.y + dy, pi->pos.z );
+
 
 		QPtrListIterator< cUOSocket> iter_sock( socketsinrange );
 		while( iter_sock.current() )

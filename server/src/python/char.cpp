@@ -536,11 +536,11 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else pGetStr( "title", title().latin1() )
 
 	else pGetInt( "id", id() )
-	else pGetInt( "xid", xid )
+	else pGetInt( "xid", xid() )
     
 	else if ( !strcmp( name, "race" ) )
 		return PyInt_FromLong( self->pChar->race() );
-	else pGetInt( "dir", dir )
+	else pGetInt( "dir", dir() )
 
 	// Flags
 	else pGetInt( "allmove", canMoveAll() ? 1 : 0 )
@@ -548,10 +548,10 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else pGetInt( "iconmultis", viewHouseIcons() ? 1 : 0 )
 	else pGetInt( "permhidden", isHiddenPermanently() ? 1 : 0 )
 	else pGetInt( "hidden", hidden() )
-	else pGetInt( "nomana", priv2 & 0x10 ? 1 : 0 )
-	else pGetInt( "dispellable", priv2 & 0x20 ? 1 : 0 )
-	else pGetInt( "permmagicreflect", priv2 & 0x40 ? 1 : 0 )
-	else pGetInt( "noreags", priv2 & 0x80 ? 1 : 0 )
+	else pGetInt( "nomana", priv2() & 0x10 ? 1 : 0 )
+	else pGetInt( "dispellable", priv2() & 0x20 ? 1 : 0 )
+	else pGetInt( "permmagicreflect", priv2() & 0x40 ? 1 : 0 )
+	else pGetInt( "noreags", priv2() & 0x80 ? 1 : 0 )
 
 	else if( !strcmp( name, "fonttype" ) ) 
 		return PyInt_FromLong( self->pChar->fonttype() );
@@ -735,7 +735,9 @@ int wpChar_setAttr( wpChar *self, char *name, PyObject *value )
 	else if( !strcmp( "body", name ) )
 		self->pChar->setId( PyInt_AS_LONG( value ) );
 	
-	else setIntProperty( "xbody", pChar->xid )
+//	else setIntProperty( "xbody", pChar->xid() )
+	else if ( !strcmp("xbody", name ) )
+		self->pChar->setXid(PyInt_AS_LONG( value ) );		
 	else if ( !strcmp( "skin", name ) )
 		self->pChar->setSkin( PyInt_AS_LONG(value ) );
 	else if ( !strcmp( "xskin", name ) )
@@ -751,8 +753,12 @@ int wpChar_setAttr( wpChar *self, char *name, PyObject *value )
 		self->pChar->setDex( PyInt_AS_LONG( value ) );
 	
 	else setIntProperty( "int", pChar->in )
-	else setIntProperty( "direction", pChar->dir )
-	else setIntProperty( "flags2", pChar->priv2 )
+//	else setIntProperty( "direction", pChar->dir() )
+	else if( !strcmp("direction", name ) )
+		self->pChar->setDir( PyInt_AS_LONG( value ) );
+//	else setIntProperty( "flags2", pChar->priv2() )
+	else if( !strcmp("flags2", name ) )
+		self->pChar->setPriv2( PyInt_AS_LONG( value ) );
 	else setIntProperty( "hidamage", pChar->hidamage )
 	else setIntProperty( "lodamage", pChar->lodamage )
 	else setIntProperty( "objectdelay", pChar->objectdelay )

@@ -229,7 +229,7 @@ bool cMagic::checkStats( P_CHAR caster, cSpell *spell )
 	if( caster->isGM() )
 		return true;
 
-	if( ( caster->mn < spell->mana() ) && !( caster->priv2 & 0x10 ) )
+	if( ( caster->mn < spell->mana() ) && !( caster->priv2() & 0x10 ) )
 	{
 		sysmessage( calcSocketFromChar( caster ), "You have insufficient mana to cast that spell.");
 		return false;
@@ -450,7 +450,7 @@ bool cMagic::prepare( P_CHAR caster, UI08 spellId, UI08 sourceType, P_ITEM sourc
 			return false;
 
 	// If we're casting out of a spellbook we'll consume reagents
-	if( sourceType == 0 && !( caster->priv2 & 0x80 ) )
+	if( sourceType == 0 && !( caster->priv2() & 0x80 ) )
 		if( !checkReagents( caster, spell ) )
 			return false;
 
@@ -1026,10 +1026,10 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 
 	pc_monster->name = monstername;
 	pc_monster->setId(id);
-	pc_monster->xid = id;
+	pc_monster->setXid(id);
 	pc_monster->setSkin(color);
 	pc_monster->setXSkin(color);
-	pc_monster->priv2 = 0x20;
+	pc_monster->setPriv2(0x20);
 	pc_monster->npc = 1;
 
 	if (id!=0x023E && !(id==0x000d && color1==0 && color2==0x75)) // don't own BS or EV.
@@ -1140,7 +1140,7 @@ void cMagic::SbOpenContainer(UOXSOCKET s)
 char cMagic::CheckMana(P_CHAR pc, int num)
 {
 
-	if (pc->priv2&0x10)
+	if (pc->priv2()&0x10)
 		return 1;
 
 	if (pc->mn >= spells[num].mana)
@@ -1167,7 +1167,7 @@ char cMagic::SubtractMana4Spell(P_CHAR pc, int num)
 }
 char cMagic::SubtractMana(P_CHAR pc, int mana)
 {
-	if (pc->priv2&0x10)
+	if (pc->priv2()&0x10)
 		return 1;
 
 	if (pc->mn >= mana)
@@ -1187,9 +1187,10 @@ char cMagic::SubtractMana(P_CHAR pc, int mana)
 //
 bool cMagic::CheckMagicReflect(P_CHAR pc)
 {
-	if (pc->priv2&0x40)
+	if (pc->priv2()&0x40)
 	{
-		pc->priv2 &= 0xBF;
+//		pc->priv2 &= 0xBF;
+		pc->setPriv2(pc->priv2() & 0xBF);
 		staticeffect(pc, 0x37, 0x3A, 0, 15);
 		return true;
 	}
@@ -1198,9 +1199,10 @@ bool cMagic::CheckMagicReflect(P_CHAR pc)
 
 P_CHAR cMagic::CheckMagicReflect(P_CHAR &attacker, P_CHAR &defender)
 {
-	if (defender->priv2&0x40)
+	if (defender->priv2()&0x40)
 	{
-		defender->priv2 &= 0xBF;
+//		defender->priv2 &= 0xBF;
+		defender->setPriv2(defender->priv2() & 0xBF);
 		staticeffect(defender, 0x37, 0x3A, 0, 15);
 		return attacker;
 	}
@@ -1251,9 +1253,10 @@ void cMagic::MagicDamage(P_CHAR pc, int amount)
 	if( pc == NULL )
 		return;
 
-	if ( pc->priv2&0x02  &&  pc->effDex() > 0 )
+	if ( pc->priv2()&0x02  &&  pc->effDex() > 0 )
 	{
-		pc->priv2 &= 0xFD; // unfreeze
+//		pc->priv2 &= 0xFD; // unfreeze
+		pc->setPriv2(pc->priv2() & 0xFD);
 		UOXSOCKET s = calcSocketFromChar(pc);
 		if (s != -1) sysmessage(s, "You are no longer frozen.");
 	}
@@ -1285,9 +1288,10 @@ void cMagic::PoisonDamage(P_CHAR pc, int poison) // new functionality, lb !!!
 
 	UOXSOCKET s = calcSocketFromChar(pc);
 
-	if (pc->priv2&0x02)
+	if (pc->priv2()&0x02)
 	{
-		pc->priv2 &= 0xFD;
+//		pc->priv2 &= 0xFD;
+		pc->setPriv2(pc->priv2() & 0xFD);
 		if (s!=-1)
 			sysmessage(s, "You are no longer frozen.");
 	}
@@ -1639,7 +1643,7 @@ void cMagic::NPCDispel(P_CHAR pc_s, P_CHAR pc_i)
 	{
 		if ( pc_i == NULL)
 			return;
-		if (pc_i->priv2&0x20)
+		if (pc_i->priv2()&0x20)
 		{
 			SubtractMana(pc_s,20);
 			tileeffect(pc_i->pos.x,pc_i->pos.y,pc_i->pos.z, 0x37, 0x2A, 0x00, 0x00);
@@ -2418,7 +2422,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						break;
 						//////////// (41) DISPEL ////////////////
 					case 41:
-						if (pc_defender->priv2&0x20)
+						if (pc_defender->priv2()&0x20)
 						{
 							tileeffect(pc_defender->pos.x,pc_defender->pos.y,pc_defender->pos.z, 0x37, 0x2A, 0x00, 0x00);
 							if (pc_defender->isNpc())
@@ -2939,7 +2943,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							P_CHAR mapchar = ri.GetData();
 							if (mapchar != NULL)
 							{
-								if ((online(mapchar)||(mapchar->isNpc())) && (mapchar->priv2&0x20)&&
+								if ((online(mapchar)||(mapchar->isNpc())) && (mapchar->priv2()&0x20)&&
 									(mapchar->pos.x>=x1&&mapchar->pos.x<=x2)&&
 									(mapchar->pos.y>=y1&&mapchar->pos.y<=y2)/*&&
 									(mapchar->pos.z>=z1&&mapchar->pos.z<=z2)*/)
@@ -3217,7 +3221,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			break;
 			//////////// (36) MAGIC REFLECTION /////////
 		case 36:
-			pc_currchar->priv2=pc_currchar->priv2|0x40;
+//			pc_currchar->priv2=pc_currchar->priv2|0x40;
+			pc_currchar->setPriv2(pc_currchar->priv2()|0x40);
 			break;
 			//////////// (56) POLYMORPH /////////////////
 		case 56:
@@ -3449,7 +3454,7 @@ bool cMagic::requireTarget( unsigned char num )
 void cMagic::DelReagents( P_CHAR pc, int num )
 {
 	if (!pc) return;
-	if (pc->priv2&0x80) return;
+	if (pc->priv2()&0x80) return;
 	reag_st& R = spells[num].reagents;
 	delequan(pc, 0x0F7A, R.pearl);
 	delequan(pc, 0x0F7B, R.moss);
@@ -4442,5 +4447,6 @@ void cMagic::AfterSpellDelay(UOXSOCKET s, P_CHAR pc)
 	}
 	pc->setCasting(false);
 	pc->setSpelltime(0);
-	pc->priv2 &= 0xfd; // unfreeze, bugfix LB
+//	pc->priv2 &= 0xfd; // unfreeze, bugfix LB
+	pc->setPriv2(pc->priv2() & 0xfd);
 }

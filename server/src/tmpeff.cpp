@@ -71,7 +71,7 @@ static void reverseIncognito(P_CHAR pc)
 
 	if(pc->incognito())//let's ensure it's under incognito effect!
 	{
-		pc->setId(pc->xid);
+		pc->setId(pc->xid());
 		
 		pc->setSkin( pc->xskin() );	// SKIN COLOR
 		
@@ -196,7 +196,8 @@ void cTmpEff::On(P_CHAR pc)
 
 	switch(this->num)
 	{
-	case 1:	pc->priv2 |= 0x02;		break;
+//	case 1:	pc->priv2 |= 0x02;		break;
+	case 1: pc->setPriv2(pc->priv2() | 0x02); break;
 	case 2:	pc->fixedlight = SrvParams->worldBrightLevel();break;
 	case 3:	pc->chgDex(-1 * this->more1);	break;
 	case 4:	pc->in-=this->more1;		break;
@@ -230,7 +231,8 @@ void cTmpEff::Off(P_CHAR pc)
 
 	switch(this->num)
 	{
-	case 1:	pc->priv2 &= 0xFD;			break;
+//	case 1:	pc->priv2 &= 0xFD;			break;
+	case 1: pc->setPriv2( pc->priv2() & 0xFD); break;
 	case 2:	pc->fixedlight='\xFF';		break;
 	case 3:	pc->chgDex(this->more1);	break;
 	case 4:	pc->in+=this->more1;		break;
@@ -263,7 +265,8 @@ void cTmpEff::Reverse()
 
 	switch(num)
 	{
-	case 1:	pc_s->priv2 &= 0xFD;	break;
+//	case 1:	pc_s->priv2 &= 0xFD;	break;
+	case 1: pc_s->setPriv2(pc_s->priv2() & 0xFD);	break;
 	case 2:	pc_s->fixedlight='\xFF';break;
 	case 3:	pc_s->chgDex(more1);	break;
 	case 4:	pc_s->in+=more1;		break;
@@ -288,7 +291,7 @@ void cTmpEff::Reverse()
 	case 18: //Polymorph spell by AntiChrist
 		if(pc_s->polymorph())
 		{
-			pc_s->setId(pc_s->xid);
+			pc_s->setId(pc_s->xid());
 			pc_s->setPolymorph(false);
 			teleport(pc_s);
 		}
@@ -343,7 +346,8 @@ void cTmpEff::Expire()
 	case 1:
 		if( pc_s->isFrozen() )
 		{
-			pc_s->priv2 &= 0xFD;
+//			pc_s->priv2 &= 0xFD;
+			pc_s->setPriv2(pc_s->priv2() & 0xFD);
 			UOXSOCKET sk=calcSocketFromChar((pc_s));
 			if (sk!=-1) 
 				sysmessage(sk, tr("You are no longer frozen.").latin1());
@@ -454,7 +458,8 @@ void cTmpEff::Expire()
 	case 18: //Polymorph spell wearoff
 		if( pc_s->polymorph() )//let's ensure it's under polymorph effect!
 		{
-			pc_s->setId( pc_s->xid );
+			pc_s->setId( pc_s->xid() );
+		
 			pc_s->setPolymorph( false );
 			pc_s->resend( false );
 		}
@@ -754,7 +759,8 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 	switch (num)
 	{
 	case 1:
-		pc_dest->priv2 |= 0x02;
+//		pc_dest->priv2 |= 0x02;
+		pc_dest->setPriv2(pc_dest->priv2() | 0x02);
 		pTE->setExpiretime_s(pc_source->skill(MAGERY)/100);
 		pTE->more1=0;
 		pTE->more2=0;
@@ -931,7 +937,7 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 			k = unmounthorse(calcSocketFromChar(pc_dest));
 		k=(more1<<8)+more2;
 
-		pc_dest->xid = pc_dest->id();//let's backup previous id
+		pc_dest->setXid(pc_dest->id());//let's backup previous id
 
 		if (k>=0x000 && k<=0x3e1) // lord binary, body-values >0x3e crash the client
 		{
@@ -960,7 +966,7 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 			//polymorph effect to avoid problems
 			if(pc_dest->polymorph())
 			{
-				pc_dest->setId(pc_dest->xid);
+				pc_dest->setId(pc_dest->xid());
 				pc_dest->setPolymorph(false);
 				teleport(pc_dest);
 			}
@@ -984,7 +990,7 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 					pc_dest->setHairSerial(pi->serial);
 			}
 			// ------ SEX ------
-			pc_dest->xid = pc_dest->id();
+			pc_dest->setXid(pc_dest->id());
 
 			//if we already have a beard..can't turn to female
 			if(pc_dest->beardserial() != INVALID_SERIAL)
@@ -1189,7 +1195,8 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		break;
 
 	case 44: // special fencing paralyzation -Frazurbluu-
-		pc_dest->priv2 |= 0x02;
+//		pc_dest->priv2 |= 0x02;
+		pc_dest->setPriv2(pc_dest->priv2() | 0x02);
 		pTE->setExpiretime_s(5);
 		pTE->num=1;
 		pTE->more1=0;

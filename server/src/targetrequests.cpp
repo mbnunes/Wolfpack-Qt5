@@ -132,7 +132,7 @@ bool cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		pChar->name = "Character";
 		pChar->setId( hex2dec( npc_ ).toULong() );
-		pChar->xid = pChar->id();
+		pChar->setXid(pChar->id());
 	}
 
 	// Send the char to it's surroundings

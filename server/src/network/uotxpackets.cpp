@@ -165,7 +165,7 @@ void cUOTxConfirmLogin::fromChar( P_CHAR pChar )
 {
 	setSerial( pChar->serial );
 	setBody( pChar->id() );
-	setDirection( pChar->dir );
+	setDirection( pChar->dir() );
 	setX( pChar->pos.x );
 	setY( pChar->pos.y );
 	setZ( pChar->pos.z );
@@ -217,7 +217,7 @@ void cUOTxDenyMove::setCoord( Coord_cl coord )
 void cUOTxDenyMove::fromChar( P_CHAR pChar )
 {
 	setCoord( pChar->pos );
-	setDirection( pChar->dir );
+	setDirection( pChar->dir() );
 }
 
 void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
@@ -231,7 +231,7 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 	
 	// If he's running we need to take that into account here
 	// ->running() is greater than zero in that case
-	setDirection( pChar->running() ? pChar->dir|0x80 : pChar->dir );
+	setDirection( pChar->running() ? pChar->dir()|0x80 : pChar->dir() );
 
 	if( pChar->war )
 		setFlag( 0x40 );
@@ -253,7 +253,7 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 	setX( pChar->pos.x );
 	setY( pChar->pos.y );
 	setZ( pChar->pos.z );
-	setDirection( pChar->dir );
+	setDirection( pChar->dir() );
 	setColor( pChar->skin() );
 
 	if( pChar->war )
@@ -325,7 +325,7 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	setX( pChar->pos.x );
 	setY( pChar->pos.y );
 	setZ( pChar->pos.z );
-	setDirection( pChar->dir );
+	setDirection( pChar->dir() );
 	//void setFlags( Q_UINT8 data ) { rawPacket[ 10 ] = data; } // // 10 = 0=normal, 4=poison, 0x40=attack, 0x80=hidden CHARMODE_WAR
 }
 

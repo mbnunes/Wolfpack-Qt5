@@ -133,14 +133,14 @@ void cChar::Init(bool ser)
 //	this->oldpos.y=0; // fix for jail bug
 //	this->oldpos.z=0; // LB, experimental, change back to unsignbed if this give sproblems
 	this->race_=0; // -Fraz- Race AddOn
-	this->dir=0; //&0F=Direction
-	this->xid = 0x0190;
+	this->dir_=0; //&0F=Direction
+	this->xid_ = 0x0190;
 	this->setId(0x0190);
 	this->setSkin(0); // Skin color
 	this->setXSkin(0); // Skin color
 	this->setPriv(0);	// 1:GM clearance, 2:Broadcast, 4:Invulnerable, 8: single click serial numbers
 	// 10: Don't show skill titles, 20: GM Pagable, 40: Can snoop others packs, 80: Counselor clearance
-	this->priv2=0;	// 1:Allmove, 2: Frozen, 4: View houses as icons, 8: permanently hidden
+	this->priv2_=0;	// 1:Allmove, 2: Frozen, 4: View houses as icons, 8: permanently hidden
 	// 10: no need mana, 20: dispellable, 40: permanent magic reflect, 80: no need reagents
 	this->setFontType( 3 ); // Speech font to use
 	this->setSayColor( 0x1700 ); // Color for say messages
@@ -401,7 +401,7 @@ void cChar::disturbMed()
 void cChar::unhide()
 {
 	//if hidden but not permanently
-	if( isHidden() && !( priv2 & 8 ) )
+	if( isHidden() && !( priv2_ & 8 ) )
 	{
 		setStealth( -1 );
 		setHidden( 0 );
@@ -751,7 +751,7 @@ bool cChar::canPickUp(cItem* pi)
 		return false;
 	}
 
-	if (this->priv2&1)	// allmove
+	if (this->priv2_&1)	// allmove
 		return true;
 
 	if ( (pi->isOwnerMovable() || pi->isLockedDown()) && !this->Owns(pi) )	// owner movable or locked down ?
@@ -778,10 +778,10 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("guildtraitor",	GuildTraitor);
 		archive.read("dispz",			dispz_ );
 		archive.read("cell",			cell);
-		archive.read("dir",				dir);
+		archive.read("dir",				dir_);
 		archive.read("race",			race_ );
-		archive.read("body",			xid);	setId(xid);
-		archive.read("xbody",			xid);
+		archive.read("body",			xid_);	setId(xid_);
+		archive.read("xbody",			xid_);
 		archive.read("skin",			skin_);	
 		archive.read("xskin",           xskin_);
 		archive.read("priv",			priv);
@@ -790,7 +790,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("npctype",			npc_type_);
 		archive.read("time_unused",		time_unused_);
 		
-		archive.read("allmove",			priv2);
+		archive.read("allmove",			priv2_);
 		archive.read("font",			fonttype_);
 		archive.read("say",				saycolor_);
 		archive.read("emote",			emotecolor_);
@@ -905,18 +905,18 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("guildtraitor",	GuildTraitor);
 		archive.write("dispz",			dispz_);
 		archive.write("cell",			cell);
-		archive.write("dir",			dir);
+		archive.write("dir",			dir_);
 		archive.write("race",			race_);
 		//AntiChrist - incognito and polymorph spell special stuff - 12/99
 		if(incognito() || polymorph())
 		{//if under incognito spell, don't save BODY but the original XBODY
-			archive.write("body", xid);
+			archive.write("body", xid_);
 		} 
 		else
 		{//else backup body normally
 			archive.write("body", id());
 		}
-		archive.write("xbody", xid);
+		archive.write("xbody", xid_);
 		//AntiChrist - incognito spell special stuff - 12/99
 		if(incognito())
 		{//if under incognito spell, don't save SKIN but the original XSKIN
@@ -934,7 +934,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("npctype",		npc_type_);
 		archive.write("time_unused",	time_unused_);
 		
-		archive.write("allmove",		priv2);
+		archive.write("allmove",		priv2_);
 		archive.write("font",			fonttype_);
 		archive.write("say",			saycolor_);
 		archive.write("emote",			emotecolor_);
@@ -1220,23 +1220,23 @@ void cChar::processNode( const QDomElement &Tag )
 	else if( TagName == "direction" )
 	{
 		if( Value == "NE" )
-			this->dir = 1;
+			this->dir_ = 1;
 		else if( Value == "E" )
-			this->dir = 2;
+			this->dir_ = 2;
 		else if( Value == "SE" )
-			this->dir = 3;
+			this->dir_ = 3;
 		else if( Value == "S" )
-			this->dir = 4;
+			this->dir_ = 4;
 		else if( Value == "SW" )
-			this->dir = 5;
+			this->dir_ = 5;
 		else if( Value == "W" )
-			this->dir = 6;
+			this->dir_ = 6;
 		else if( Value == "NW" )
-			this->dir = 7;
+			this->dir_ = 7;
 		else if( Value == "N" )
-			this->dir = 0;
+			this->dir_ = 0;
 		else
-			this->dir = Value.toUShort();
+			this->dir_ = Value.toUShort();
 	}
 
 	//<stat type="str">100</stats>
@@ -1328,7 +1328,7 @@ void cChar::processNode( const QDomElement &Tag )
 	else if( TagName == "id" )
 	{
 		this->setId( Value.toInt() );
-		this->xid = this->id();
+		this->xid_ = this->id();
 	}
 
 	//<karma>-500</karma>
@@ -1404,7 +1404,7 @@ void cChar::processNode( const QDomElement &Tag )
 
 	//<priv2>0</priv2>
 	else if( TagName == "priv2" )
-		this->priv2 = Value.toUShort();
+		this->priv2_ = Value.toUShort();
 	//<poison>2</poison>
 	else if( TagName == "poison" )
 		this->setPoison( Value.toInt() );
@@ -2057,7 +2057,7 @@ void cChar::action( UINT8 id )
 	cUOTxAction action;
 	action.setAction( id );
 	action.setSerial( serial );
-	action.setDirection( dir );
+	action.setDirection( dir_ );
 	action.setRepeat( 1 );
 	action.setRepeatFlag( 0 );
 	action.setSpeed( 1 );
@@ -2117,12 +2117,12 @@ void cChar::kill()
 
 	if( polymorph() )
 	{
-		setId( xid );
+		setId( xid_ );
 		setPolymorph( false );
 		// Resending here is pointless as the character will be removed l8er anyway
 	}
 
-	xid = id(); // lb bugfix
+	xid_ = id(); // lb bugfix
 	setXSkin( skin() );
 	setMurdererSer( INVALID_SERIAL ); // Reset previous murderer serial # to zero
 
@@ -2234,7 +2234,7 @@ void cChar::kill()
 	// I would *NOT* do that but instead replace several *send* things
 	// We have ->dead already so there shouldn't be any checks regarding
 	// 0x192-0x193 to see if the char is dead or not
-	if( xid == 0x0191 )
+	if( xid_ == 0x0191 )
 		setId( 0x0193 );	// Male or Female
 	else
 		setId( 0x0192 );
@@ -2293,7 +2293,7 @@ void cChar::kill()
         corpse->ownserial = serial;
 	}
 
-	corpse->setBodyId( xid );
+	corpse->setBodyId( xid_ );
 	corpse->morey = ishuman( this ); //is human??
 	corpse->setCarve( carve() ); //store carve section
 	corpse->setName2( name.c_str() );
@@ -2301,7 +2301,7 @@ void cChar::kill()
 	corpse->moveTo( pos );
 
 	corpse->more1 = nType;
-	corpse->dir = dir;
+	corpse->dir = dir_;
 	corpse->startDecay();
 	
 	// If it was a player set the ownerserial to the player's
@@ -2484,7 +2484,7 @@ void cChar::resurrect()
 
 	Fame( this, 0 );
 	soundEffect( 0x0214 );
-	setId( xid );
+	setId( xid_ );
 	setSkin( xskin() );
 	dead = false;
 	hp = QMAX( 1, (UINT16)( 0.1 * st_ ) );
@@ -2540,9 +2540,9 @@ void cChar::turnTo( cUObject *object )
 	else 
 		return;
 
-	if( nDir != dir )
+	if( nDir != dir_ )
 	{
-		dir = nDir;
+		dir_ = nDir;
 		// TODO: we could try to use an update here because our direction
 		// changed for sure
 		resend( false );

@@ -145,12 +145,14 @@ void CWorldMain::loadnewworld(QString module) // Load world
 		for (zeta = 0;zeta<ALLSKILLS;zeta++) if (pc->lockSkill[zeta]!=0 && pc->lockSkill[zeta]!=1 && pc->lockSkill[zeta]!=2) pc->lockSkill[zeta]=0;
 
 		//AntiChrist bugfix for hiding
-		pc->priv2 &= 0xf7; // unhide - AntiChrist
+//		pc->priv2 &= 0xf7; // unhide - AntiChrist
+		pc->setPriv2(pc->priv2() & 0xf7);
 		pc->setHidden( 0 );
 		pc->setStealth( -1 );
 
 		//AntiChrist bugfix for magic reflect
-		pc->priv2 &= 0xBF;
+//		pc->priv2 &= 0xBF;
+		pc->setPriv2(pc->priv2() & 0xBF);
 		pc->SetSpawnSerial( pc->spawnSerial() );
 
 		cTerritory* Region = cAllTerritories::getInstance()->region( pc->pos.x, pc->pos.y );

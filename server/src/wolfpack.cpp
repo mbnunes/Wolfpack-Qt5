@@ -2146,7 +2146,7 @@ int main( int argc, char *argv[] )
 int ishuman(P_CHAR pc)
 {
 	// Check if the Player or Npc is human! -- by Magius(CHE)
-	if (pc->xid==0x0190 || pc->xid==0x0191) return 1;
+	if (pc->xid()==0x0190 || pc->xid()==0x0191) return 1;
 	else return 0;
 }
 
@@ -2259,7 +2259,7 @@ int fielddir(P_CHAR pc, int x, int y, int z)
 	case 5:
 	case 7:
 	case -1:
-		switch(pc->dir) //crashfix, LB
+		switch(pc->dir()) //crashfix, LB
 		{
 		case 0:
 		case 4:
@@ -4699,7 +4699,7 @@ void doGmMoveEff( UOXSOCKET s )
 		return;
 	
 	P_CHAR pc_currchar = currchar[s];
-	if (!(pc_currchar->priv2 & 0x08))
+	if (!(pc_currchar->priv2() & 0x08))
 	{
 		switch (pc_currchar->gmMoveEff)
 		{
@@ -4789,7 +4789,7 @@ int check_house_decay()
 bool autoFurnitureTurn( int s, P_ITEM pi ) // Auto turn furniture
 {
 	P_CHAR pc_currchar = currchar[s];
-	int CharDir = pc_currchar->dir;
+	int CharDir = pc_currchar->dir();
 	int id = pi->id();
 	char direction[8];
 

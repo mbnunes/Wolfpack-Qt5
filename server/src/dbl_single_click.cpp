@@ -625,7 +625,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			pi->setType( 102 );
 			return; // case 101
 		case 102: //??
-			pc_currchar->setId(pc_currchar->xid); 
+			pc_currchar->setId(pc_currchar->xid() ); 
 			teleport(pc_currchar);
 			pi->setType( 101 );
 			return; // case 102
@@ -715,7 +715,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 						pc_vendor->makeInvulnerable();
 						pc_vendor->setHidden( 0 );
 						pc_vendor->setStealth(-1);
-						pc_vendor->dir = pc_currchar->dir;
+						pc_vendor->setDir( pc_currchar->dir() );
 						pc_vendor->npcWander = 0;
 						pc_vendor->setInnocent();
 						pc_vendor->SetOwnSerial(pc_currchar->serial);

@@ -643,7 +643,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pChar->Init();
 	
 	pChar->setPriv( SrvParams->defaultpriv1() );
-	pChar->priv2 = SrvParams->defaultpriv2();
+	pChar->setPriv2( SrvParams->defaultpriv2() );
 
 	pChar->name = packet->name().latin1();
 	
@@ -651,10 +651,10 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pChar->setXSkin( packet->skinColor() );
 
 	pChar->moveTo( startLocations[ packet->startTown() ].pos );
-	pChar->dir = 4;
+	pChar->setDir(4);
 
 	pChar->setId( ( packet->gender() == 1 ) ? 0x191 : 0x190 );
-	pChar->xid = pChar->id();
+	pChar->setXid( pChar->id() );
 
 	pChar->setSt( packet->strength() );
 	pChar->hp = pChar->st();

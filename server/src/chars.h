@@ -72,15 +72,11 @@ public:
     enum enInputMode { enNone, enRenameRune, enPricing, enDescription, enNameDeed, enHouseSign, enPageGM, enPageCouns};
 	//  Chaos/Order Guild Stuff for Ripper
 	
-	unsigned char			dir; //&0F=Direction
-	unsigned short			xid; // Backup of body type for ghosts
-	unsigned char			priv2;	// 1:Allmove, 2: Frozen, 4: View houses as icons, 8: permanently hidden
-	// 10: no need mana, 20: dispellable, 40: permanent magic reflect, 80: no need reagents
-
-	bool	canMoveAll( void ) { return priv2&0x01; }
-	bool	isFrozen( void ) { return priv2&0x02; }	
-	bool	viewHouseIcons( void ) { return priv2&0x04; }	
-	bool	isHiddenPermanently( void ) { return priv2&0x08; }
+	
+	bool	canMoveAll( void ) { return priv2_&0x01; }
+	bool	isFrozen( void ) { return priv2_&0x02; }	
+	bool	viewHouseIcons( void ) { return priv2_&0x04; }	
+	bool	isHiddenPermanently( void ) { return priv2_&0x08; }
 
 	signed short			in; // Intelligence
 	signed short			in2; // Reserved for calculation
@@ -295,6 +291,11 @@ protected:
 	signed char				dispz_;   // Z that the char is SHOWN at. Server needs other coordinates for real movement calculations.
 	// changed from unsigned to signed, LB
 	
+	unsigned char			dir_; //&0F=Direction
+	unsigned short			xid_; // Backup of body type for ghosts
+	unsigned char			priv2_;	// 1:Allmove, 2: Frozen, 4: View houses as icons, 8: permanently hidden
+	// 10: no need mana, 20: dispellable, 40: permanent magic reflect, 80: no need reagents
+
 //END ADDED FROM PUBLIC ******************************************
 	std::map< cMakeMenu*, QPtrList< cMakeSection > >	lastselections_;
 
@@ -441,7 +442,10 @@ public:
 	unsigned short			pathX( int val ) const { return path_[val].x; }
 	unsigned short			pathY( int val ) const { return path_[val].y; }
 	signed char				dispz() const { return dispz_; }   
-	
+	unsigned char			dir() const { return dir_; }
+	unsigned short			xid() const { return xid_; }
+	unsigned char			priv2() const { return priv2_; }
+
 
 //END ADDED GETTERS***********************************************
 	QPtrList< cMakeSection > lastSelections( cMakeMenu* basemenu )
@@ -589,7 +593,10 @@ public:
 	void					setPathX( int p, unsigned short xValue ) { path_[p].x = xValue; }
 	void					setPathY( int p, unsigned short yValue ) { path_[p].y = yValue; }
 	void					setDispz( signed char data ) { dispz_ = data; }
-	
+	void					setDir( unsigned char data ) { dir_ = data; }
+	void					setXid( unsigned short data ) { xid_ = data; }
+	void					setPriv2( unsigned char data ) { priv2_ = data; }
+
 //END SETTERS********************************************************
 	void					setLastSection( cMakeMenu* basemenu, cMakeSection* data )
 	{
