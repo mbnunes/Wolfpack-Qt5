@@ -34,7 +34,7 @@
 
 
 #ifndef __unix__
- 
+
 #endif
 
 #include "wolfpack.h"
@@ -79,7 +79,7 @@ CONSOLE_SCREEN_BUFFER_INFO csbi;
 #define XP      0x6
 
 int GetWindowsVersion()
-{  
+{
 	
    OSVERSIONINFO winfo;
    winfo.dwOSVersionInfoSize=sizeof(OSVERSIONINFO);
@@ -206,8 +206,8 @@ int inrange2 (UOXSOCKET s, P_ITEM pi) // Is item i in visual range for player on
 	
 	P_CHAR pc_currchar = currchar[s];
 	int vr=Races[pc_currchar->race]->VisRange;
-	if (pi == NULL) // blackwind Crash fix 
-		return 0; 
+	if (pi == NULL) // blackwind Crash fix
+		return 0;
 
 	if (pi->id1==0x40 &&(pi->id2>=0x7C && pi->id2<=0x7F))	// a large house ??
 		vr=BUILDRANGE;
@@ -223,10 +223,10 @@ bool iteminrange (const UOXSOCKET s, const P_ITEM pi, const int distance)
 
 unsigned char npcinrange (UOXSOCKET s, P_CHAR pc, int distance)
 {
-	if (pc == NULL) 
+	if (pc == NULL)
 		return 0;
 	P_CHAR pc_currchar = currchar[s];
-	if (pc_currchar->isGM()) 
+	if (pc_currchar->isGM())
 		return 1;
 	return inRange(pc_currchar->pos.x,pc_currchar->pos.y, pc->pos.x, pc->pos.y, distance);
 }
@@ -273,7 +273,7 @@ void init_deamon()
 
 #if defined(__unix__)
 	
-/*	int i ;
+	int i ;
 	pid_t pid ;
 
 	if ((pid = fork() ) != 0)
@@ -293,21 +293,7 @@ void init_deamon()
 	{
 		close(i) ;
 	}
-	// Ok, we are a true deamon now, so we should setup our signal handler
-	// We can use SIGHUP, SIGINT, and SIGWINCH as we should never recive them
-	// So we will use SIGHUP to reload our scripts (kinda a standard for sighup to be reload)
-	// We will use a SIGUSR2 to be world save
-	// and SIGUSR1 for an Account reload
-	signal(SIGUSR2,&signal_handler) ;
-	signal(SIGHUP,&signal_handler) ;
-	signal(SIGUSR1,&signal_handler) ;
-	signal(SIGTERM,&signal_handler) ;
-// we have this here, because convient, but should be set regardless of deamon or not.
-// Keeps a disconnected socket from terminating the server.
-	*/
-#if !defined(__linux__)
-	signal(SIGPIPE,&signal_handler) ;
-#endif
+
 	
 #endif
 }
@@ -345,14 +331,14 @@ bool online(P_CHAR pc) // Is the player owning the character c online
 	int i;
 
 	UOXSOCKET k = calcSocketFromChar(pc); //LB crashfix
-	if (k == -1 || pc->isNpc()) 
+	if (k == -1 || pc->isNpc())
 		return false;
-	if(pc != NULL && Accounts->GetInWorld(pc->account) == pc->serial) 
+	if(pc != NULL && Accounts->GetInWorld(pc->account) == pc->serial)
 		return true;//Instalog
 	else
 	{
 		for (i=0;i<now;i++)
-			if ((currchar[i] == pc) && (perm[i])) 
+			if ((currchar[i] == pc) && (perm[i]))
 				return true;
 	}
 	return false;
@@ -363,7 +349,7 @@ int bestskill(P_CHAR pc_p) // Which skill is the highest for character p
 	int i,a=0,b=0;
 	if ( pc_p == NULL)
 		return 0;
-	for (i=0;i<TRUESKILLS;i++) 
+	for (i=0;i<TRUESKILLS;i++)
 		if (pc_p->baseskill[i]>b)
 		{
 			a=i;
@@ -713,7 +699,7 @@ void gcollect () // Remove items which were in deleted containers
 	for (iter_items.Begin(); !iter_items.atEnd(); ++iter_items)
 	{
 		P_ITEM pi = iter_items.GetData();
-		if (pi->free || pi->isInWorld()) 
+		if (pi->free || pi->isInWorld())
 			continue;
 		bdelete = true;
 		// find the container if theres one.
@@ -913,7 +899,7 @@ void wornitems(UOXSOCKET s, P_CHAR pc) // Send worn items of player j
 		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi != NULL && !pi->free)
 		{
-			if (pi->layer==0x19) 
+			if (pi->layer==0x19)
 				pc->onhorse = true;
 			wearIt(s,pi);
 		}
@@ -926,7 +912,7 @@ void all_items(int s) // Send ALL items to player
 	for (iterItems.Begin(); !iterItems.atEnd(); ++iterItems)
 	{
 		P_ITEM pi = iterItems.GetData();
-		if (!pi->free) 
+		if (!pi->free)
 			senditem(s, pi);
 	}
 }
@@ -1004,7 +990,7 @@ void deathstuff(P_CHAR pc_player)
 		return;
 
 
-	if (pc_player->dead || pc_player->npcaitype == 17 || pc_player->isInvul()) 
+	if (pc_player->dead || pc_player->npcaitype == 17 || pc_player->isInvul())
 		return;
 
 	if(pc_player->polymorph)
@@ -1021,9 +1007,9 @@ void deathstuff(P_CHAR pc_player)
 	if (pc_player->attacker != INVALID_SERIAL)
 	{
 		P_CHAR pc_attacker = FindCharBySerial(pc_player->serial);
-		strcpy(murderername, pc_attacker->name.c_str()); 
+		strcpy(murderername, pc_attacker->name.c_str());
 	}
-	else 
+	else
 		murderername[0]=0;
 
 	AllCharsIterator iter_char;
@@ -1086,14 +1072,14 @@ void deathstuff(P_CHAR pc_player)
 					}
 				}
 			}//if !npc
-			if (pc_t->isNpc() && pc_t->war) 
+			if (pc_t->isNpc() && pc_t->war)
 				npcToggleCombat(pc_t); // ripper
 		}
 	}
 
 	P_ITEM pi_backpack = Packitem(pc_player);
 	z=calcSocketFromChar(pc_player);
-	if (z != -1) 
+	if (z != -1)
 		unmounthorse(z);
 
 	unsigned int ci=0;
@@ -1217,7 +1203,7 @@ void deathstuff(P_CHAR pc_player)
 				LongToCharPtr(pc_player->serial, &clearmsg[3]);
 				clearmsg[7]=0x00;
 				for (l=0;l<now;l++)
-					if (perm[l] && inrange1p(pc_player, currchar[l])) 
+					if (perm[l] && inrange1p(pc_player, currchar[l]))
 						Xsend(l, clearmsg, 8);
 			}//else if it's a normal item but ( not newbie and not bank items )
 			else if ((!(pi_j->priv&0x02)) && pi_j->layer!=0x1D)
@@ -1255,12 +1241,12 @@ void deathstuff(P_CHAR pc_player)
 		strcpy((char*)temp,"a Death Shroud");
 		const P_ITEM pi_c = Items->SpawnItem(z, pc_player, 1, (char*)temp, 0, 0x20, 0x4E, 0, 0, 0);
 		if(pi_c == NULL) return;
-		pc_player->robe = pi_c->serial; 
+		pc_player->robe = pi_c->serial;
 		pi_c->SetContSerial(pc_player->serial);
 		pi_c->layer=0x16;
 		pi_c->def=1;
 	}
-	if (SrvParms->showdeathanim) 
+	if (SrvParms->showdeathanim)
 		deathaction(pc_player, pi_c);
 	if (pc_player->account!=-1) // LB
 	{
@@ -1278,10 +1264,10 @@ void deathstuff(P_CHAR pc_player)
 //		pi_c->color2=0;
 //		pi_c->amount = 1;
 //		pi_c->setId(0x09B2);
-//		pi_c->corpse=0; 
+//		pi_c->corpse=0;
 //	}
 	RefreshItem(pi_c);//AntiChrist
-	if (pc_player->isNpc()) 
+	if (pc_player->isNpc())
 		Npcs->DeleteChar(pc_player);
 	if(ele==65535) Items->DeleItem(pi_c);
 }
@@ -1421,7 +1407,7 @@ void explodeitem(int s, P_ITEM pi)
 	}
 	else
 	{
-		staticeffect2(pi, (unsigned char)0x36, (unsigned char)0xB0, (unsigned char)0x10, (unsigned char)0x80, (unsigned char)0x00); 
+		staticeffect2(pi, (unsigned char)0x36, (unsigned char)0xB0, (unsigned char)0x10, (unsigned char)0x80, (unsigned char)0x00);
 		soundeffect3(pi, 0x0207);
 	}
 
@@ -1735,7 +1721,7 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 			return;
 		if (SrvParms->housedecay_secs!=0)
 			ds = static_cast<float>((pHouse->time_unused)*100) / (SrvParms->housedecay_secs);
-		else 
+		else
 			ds = -1;	
 		if (ds >= 50) // sysmessage if decay status >=50%
 		{
@@ -1744,14 +1730,14 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 		pHouse->time_unused = 0;
 		pHouse->last_used = getNormalizedTime();
 	}
-	if (!changed && s != INVALID_UOXSOCKET) 
+	if (!changed && s != INVALID_UOXSOCKET)
 		sysmessage(s, "This doesnt seem to be a valid door type. Contact a GM.");
 }
 
 int validhair(int a, int b) // Is selected hair type valid
 {
 	
-	if( a != 0x20 ) 
+	if( a != 0x20 )
 		return 0;
 	switch( b )
 	{
@@ -1774,7 +1760,7 @@ int validhair(int a, int b) // Is selected hair type valid
 
 int validbeard(int a, int b) // Is selected beard type valid
 {
-	if( a != 0x20 ) 
+	if( a != 0x20 )
 		return 0;
 	switch( b )
 	{
@@ -2015,11 +2001,11 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	Network->startchar(s);
 }
 
-int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn new horse) 
-{ 
+int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn new horse)
+{
 	unsigned int ci = 0;
 	int ch;
-	P_ITEM pi; 
+	P_ITEM pi;
 	const P_CHAR p_petowner = currchar[s];
 
 	vector<SERIAL> vecContainer = contsp.getData(p_petowner->serial);
@@ -2041,46 +2027,46 @@ int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn ne
 			
 			vector<SERIAL> pets = stablesp.getData(stablemaster_serial);
 			unsigned int i;
-			for (i = 0; i < pets.size(); i++) 
-			{ 
+			for (i = 0; i < pets.size(); i++)
+			{
 				p_pet = FindCharBySerial(pets[i]);
-				if (p_pet != NULL) 
-				{ 
-					if ( p_petowner->Owns(p_pet) && p_pet->stablemaster_serial == stablemaster_serial) // already stabled and owned by claimer ? 
-					{ 
-						found = true; 
-						break; 
-					} 
-				} 
-			} 
+				if (p_pet != NULL)
+				{
+					if ( p_petowner->Owns(p_pet) && p_pet->stablemaster_serial == stablemaster_serial) // already stabled and owned by claimer ?
+					{
+						found = true;
+						break;
+					}
+				}
+			}
 			
-			if (found) 
+			if (found)
 			{
 				stablesp.remove(stablemaster_serial, p_pet->serial);
 				
-				p_pet->stablemaster_serial = INVALID_SERIAL; // actual unstabling 
-				p_pet->timeused_last = getNormalizedTime(); 
-				p_pet->time_unused = 0; 
-				p_pet->pos.x = p_petowner->pos.x; 
-				p_pet->pos.y = p_petowner->pos.y; 
+				p_pet->stablemaster_serial = INVALID_SERIAL; // actual unstabling
+				p_pet->timeused_last = getNormalizedTime();
+				p_pet->time_unused = 0;
+				p_pet->pos.x = p_petowner->pos.x;
+				p_pet->pos.y = p_petowner->pos.y;
 				p_pet->pos.z = p_petowner->pos.z;
 				p_pet->npcWander = 0;
 				
-				mapRegions->Remove(p_pet); 
-				mapRegions->Add(p_pet); 
+				mapRegions->Remove(p_pet);
+				mapRegions->Add(p_pet);
 				
-				for (ch = 0; ch < now; ch++) 
-				{ 
+				for (ch = 0; ch < now; ch++)
+				{
 					if (perm[ch])
-						impowncreate(ch, p_pet, 0); 
-				} 
-			} 
+						impowncreate(ch, p_pet, 0);
+				}
+			}
 			pi->pos = p_petowner->pos; // to satisfy iteminrange() call from DeleItem.
-			Items->DeleItem(pi); 
-			return 0; 
-		} 
-	} 
-	return -1; 
+			Items->DeleItem(pi);
+			return 0;
+		}
+	}
+	return -1;
 }
 
 void endmessage(int x) // If shutdown is initialized
@@ -2178,19 +2164,19 @@ void scriptcommand (int s, char *script1, char *script2) // Execute command from
 		int cc=0;
 		AllItemsIterator iterItems;
 		for (iterItems.Begin(); !iterItems.atEnd();iterItems++)
-		{ 
+		{
 			P_ITEM pi = iterItems.GetData();
-			if (!pi->free) 
-				total++; 
-			totaltotal++; 
+			if (!pi->free)
+				total++;
+			totaltotal++;
 		}
 		AllCharsIterator iter_char;
-		for (iter_char.Begin(); !iter_char.atEnd(); iter_char++) 
-		{ 
+		for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
+		{
 			P_CHAR pc = iter_char.GetData();
-			if (!pc->free) 
-				c++; 
-			cc++; 
+			if (!pc->free)
+				c++;
+			cc++;
 		}
 		sprintf(tstring, "Time up [%i:%i:%i] Connected players [%i out of %i accounts] Items [%i] Characters [%i]",
 			ho,mi,se,now,Accounts->Count(),total,c);
@@ -2350,34 +2336,34 @@ void callguards( P_CHAR pc_player )
 	}
 }
 
-void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give player a horse item 
-{ 
-	int j; 
+void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give player a horse item
+{
+	int j;
 	if ( pc_mount == NULL ) return;
 	P_CHAR pc_currchar = currchar[s];
 	
 	if (npcinrange(s, pc_mount, 2) == 0 && !pc_currchar->isGM())
-		return; 
-	if (pc_currchar->Owns(pc_mount) || pc_currchar->isGM()) 
-	{ 
-		if (pc_currchar->onhorse) 
-		{ 
-			sysmessage(s, "You are already on a mount."); 
-			return; 
+		return;
+	if (pc_currchar->Owns(pc_mount) || pc_currchar->isGM())
+	{
+		if (pc_currchar->onhorse)
+		{
+			sysmessage(s, "You are already on a mount.");
+			return;
 		}
-		strcpy((char*)temp, pc_mount->name.c_str()); 
-		pc_currchar->onhorse = true; 
-		const P_ITEM pi = Items->SpawnItem(pc_currchar, 1, (char*)temp, 0, 0x0915, pc_mount->skin, 0); 
+		strcpy((char*)temp, pc_mount->name.c_str());
+		pc_currchar->onhorse = true;
+		const P_ITEM pi = Items->SpawnItem(pc_currchar, 1, (char*)temp, 0, 0x0915, pc_mount->skin, 0);
 		if(!pi) return;
 		
-		switch (pc_mount->id2) 
+		switch (pc_mount->id2)
 		{
 			case 0xC8: pi->setId(0x3E9F); break; // Horse
-			case 0xE2: pi->setId(0x3EA0); break; // Horse 
-			case 0xE4: pi->setId(0x3EA1); break; // Horse 
+			case 0xE2: pi->setId(0x3EA0); break; // Horse
+			case 0xE4: pi->setId(0x3EA1); break; // Horse
 			case 0xCC: pi->setId(0x3EA2); break; // Horse
 			case 0xD2: pi->setId(0x3EA3); break; // Desert Ostard
-			case 0xDA: pi->setId(0x3EA4); break; // Frenzied Ostard 
+			case 0xDA: pi->setId(0x3EA4); break; // Frenzied Ostard
 			case 0xDB: pi->setId(0x3EA5); break; // Forest Ostard
 			case 0xDC: pi->setId(0x3EA6); break; // LLama
 			case 0x34: pi->setId(0x3E9F); break; // Brown Horse
@@ -2403,91 +2389,91 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 			case 0xBB: pi->setId(0x3EB8); break; // Ridgeback
 		}
 		
-		pi->SetContSerial(pc_currchar->serial); 
-		pi->layer = 0x19; 
-		pi->MoveTo(pc_mount->fx1, pc_mount->fy1, pc_mount->fz1); 
+		pi->SetContSerial(pc_currchar->serial);
+		pi->layer = 0x19;
+		pi->MoveTo(pc_mount->fx1, pc_mount->fy1, pc_mount->fz1);
 		
-		pi->moreb1 = pc_mount->npcWander; 
-		pi->att = pc_mount->fx2; 
-		pi->def = pc_mount->fy2; 
+		pi->moreb1 = pc_mount->npcWander;
+		pi->att = pc_mount->fx2;
+		pi->def = pc_mount->fy2;
 		
-		// AntiChrist bugfixes - 11/10/99 
-		pi->moreb2 = pc_mount->st; 
-		pi->moreb3 = pc_mount->realDex(); 
-		pi->moreb4 = pc_mount->in; 
-		pi->hp = pc_mount->hp; 
-		pi->lodamage = pc_mount->fame; 
-		pi->hidamage = pc_mount->karma; 
+		// AntiChrist bugfixes - 11/10/99
+		pi->moreb2 = pc_mount->st;
+		pi->moreb3 = pc_mount->realDex();
+		pi->moreb4 = pc_mount->in;
+		pi->hp = pc_mount->hp;
+		pi->lodamage = pc_mount->fame;
+		pi->hidamage = pc_mount->karma;
 		pi->poisoned = pc_mount->poisoned;
-		if (pc_mount->summontimer != 0) 
-			pi->decaytime = pc_mount->summontimer; 
+		if (pc_mount->summontimer != 0)
+			pi->decaytime = pc_mount->summontimer;
 		
-		wornitems(s, pc_currchar);// send update to current socket 
+		wornitems(s, pc_currchar);// send update to current socket
 		
-		for (j = 0; j < now; j++)// and to all inrange sockets (without re-sending to current socket) 
-		{ 
+		for (j = 0; j < now; j++)// and to all inrange sockets (without re-sending to current socket)
+		{
 			if (inrange1(s, j) && perm[j] &&(s != j))
-				wornitems(j, pc_currchar); 
-		} 
-		////////////////////////////////// 
-		// Gonna stable instead of delete a mount. 
-		// This will keep their original and earned 
-		// stats and will allow more roboust 
-		// mount code. 
-		// 
-		// 
-		// 
-		// Gonna stable instead of delete so 
-		// comment this out 
-		// Npcs->DeleteChar(x); 
-		int stablemaster_serial = pc_currchar->serial; 
+				wornitems(j, pc_currchar);
+		}
+		//////////////////////////////////
+		// Gonna stable instead of delete a mount.
+		// This will keep their original and earned
+		// stats and will allow more roboust
+		// mount code.
+		//
+		//
+		//
+		// Gonna stable instead of delete so
+		// comment this out
+		// Npcs->DeleteChar(x);
+		int stablemaster_serial = pc_currchar->serial;
 		
-		// if this is a gm lets tame the animal in the process 
+		// if this is a gm lets tame the animal in the process
 		if (pc_currchar->isGM())
-		{ 
-			pc_mount->SetOwnSerial( pc_currchar->serial ); 
-			pc_mount->npcaitype = 0; 
-		} 
+		{
+			pc_mount->SetOwnSerial( pc_currchar->serial );
+			pc_mount->npcaitype = 0;
+		}
 		
-		// set stablesp && pets stablemaster serial 
-		// remove it from screen! 
-		int xx = pc_mount->pos.x; 
-		int yy = pc_mount->pos.y; 
-		signed char zz = pc_mount->pos.z; 
-		int id1 = pc_mount->id1; 
-		int id2 = pc_mount->id2; 
-		pc_mount->id1 = 0; 
-		pc_mount->id2 = 0; 
+		// set stablesp && pets stablemaster serial
+		// remove it from screen!
+		int xx = pc_mount->pos.x;
+		int yy = pc_mount->pos.y;
+		signed char zz = pc_mount->pos.z;
+		int id1 = pc_mount->id1;
+		int id2 = pc_mount->id2;
+		pc_mount->id1 = 0;
+		pc_mount->id2 = 0;
 		pc_mount->pos = Coord_cl(0, 0, 0);
 		
-		for (int ch = 0; ch < now; ch++) 
-		{ 
+		for (int ch = 0; ch < now; ch++)
+		{
 			if (perm[ch])
-				impowncreate(ch, pc_mount, 0); 
-		} 
+				impowncreate(ch, pc_mount, 0);
+		}
 		
-		pc_mount->id1 = id1; 
-		pc_mount->id2 = id2; 
-		pc_mount->war = false; 
-		pc_mount->attacker = INVALID_SERIAL; 
+		pc_mount->id1 = id1;
+		pc_mount->id2 = id2;
+		pc_mount->war = false;
+		pc_mount->attacker = INVALID_SERIAL;
 		pc_mount->pos = Coord_cl(xx, yy, zz);
 		
-		mapRegions->Remove(pc_mount); 
+		mapRegions->Remove(pc_mount);
 		
-		pc_mount->stablemaster_serial = stablemaster_serial; // set stablemaster serial 
+		pc_mount->stablemaster_serial = stablemaster_serial; // set stablemaster serial
 		
-		// set timer 
-		pc_mount->time_unused = 0; 
-		pc_mount->timeused_last = getNormalizedTime(); 
+		// set timer
+		pc_mount->time_unused = 0;
+		pc_mount->timeused_last = getNormalizedTime();
 		
 		stablesp.insert(stablemaster_serial, pc_mount->serial);
-		// 
-		// 
-		// Aldur 
-		////////////////////////////////// 
-	} 
-	else 
-	 sysmessage(s, "You dont own that creature."); 
+		//
+		//
+		// Aldur
+		//////////////////////////////////
+	}
+	else
+	 sysmessage(s, "You dont own that creature.");
 }
 
 void endScrn()
@@ -2588,7 +2574,7 @@ void checkkey ()
 			case 'D':	// Disconnect account 0 (useful when client crashes)
 			case 'd':	
 				for (i=0;i<now;i++)
-					if (acctno[i]==0 && perm[i]) 
+					if (acctno[i]==0 && perm[i])
 					{
 						Network->Disconnect(i);
 						clConsole.send( "Account 0 disconnected\n");
@@ -2596,9 +2582,9 @@ void checkkey ()
 					break;
 			case 'H':
 			case 'h':				// Enable/Disable heartbeat
-				if (heartbeat) 
+				if (heartbeat)
 					clConsole.send("WOLFPACK: Heartbeat Disabled\n");
-				else 
+				else
 					clConsole.send("WOLFPACK: Heartbeat Enabled\n");
 				heartbeat = !heartbeat;
 				break;
@@ -2653,7 +2639,7 @@ void checkkey ()
 				clConsole.send("	L - Toggle layer Display");
 				if (showlayer)
 					clConsole.send("[enabled]\n");
-				else 
+				else
 					clConsole.send("[disabled]\n");
 				clConsole.send("	I - Reload INI file.\n");
 				clConsole.send("	D - Disconnect Account 0\n");
@@ -2708,20 +2694,60 @@ void start_glow(void)	// better to make an extra function cauze in loaditem it c
 	}
 }
 
+
+#if defined(__unix__)
+bool bDeamon = true ;
+#else
+bool bDeamon = false ;
+#endif
+void checkparm(string param)
+{
+	transform(param.begin(),param.end(),param.begin(),::toupper) ;
+	if (param == "--NO_DEAMON")
+		bDeamon = false ;
+	else if (param =="--DEAMON")
+		bDeamon = true ;
+	// Add what ever paramters you want
+}
+
 int main(int argc, char *argv[])
 {
 
 	keeprun = 1; // First of all, we want to run :)
-	#if defined(__unix__)
-	// Under unix we go to deamon mode
-	cout << "Going into deamon mode, returning local control to terminal" <<endl;
-	init_deamon();
-	// set up our console redirection
-	fstream fconsole;
-	fconsole.open("console.txt", ios::out);
-	clConsole.setStreams(NULL, (dynamic_cast<ostream*>(&fconsole)), NULL, NULL);
+	if (argc > 1)
+		for (int index=1; index < argc ; index++)
+		{
+			string param(argv[index]) ;
+			checkparm(param) ;
+		}
 	
-	#endif
+	if (bDeamon)
+	{
+		// Under unix we go to deamon mode
+		cout << "Going into deamon mode, returning local control to terminal" <<endl;
+		init_deamon();
+		// set up our console redirection
+		fstream fconsole;
+		fconsole.open("console.txt", ios::out);
+		clConsole.setStreams(NULL, (dynamic_cast<ostream*>(&fconsole)), NULL, NULL);
+	
+	}
+	#if defined(__unix__)
+	// We can use SIGHUP, SIGINT, and SIGWINCH as we should never recive them
+	// So we will use SIGHUP to reload our scripts (kinda a standard for sighup to be reload)
+	// We will use a SIGUSR2 to be world save
+	// and SIGUSR1 for an Account reload
+	signal(SIGUSR2,&signal_handler) ;
+	signal(SIGHUP,&signal_handler) ;
+	signal(SIGUSR1,&signal_handler) ;
+	signal(SIGTERM,&signal_handler) ;
+// we have this here, because convient, but should be set regardless of deamon or not.
+// Keeps a disconnected socket from terminating the server.
+	
+#if !defined(__linux__)
+	signal(SIGPIPE,&signal_handler) ;
+#endif
+#endif	
 	#define CIAO_IF_ERROR if (error==1) { Network->SockClose(); im_clearmenus(); DeleteClasses(); exit(-1); }
 
 	int i;
@@ -2737,7 +2763,7 @@ int main(int argc, char *argv[])
 
 	#ifndef __unix__ // If X-Wolf mandatory flag is set don't start if wolfpack hasn't been started by X-Wolf
 #if 0
-//	if (0) 
+//	if (0)
 
 	  int win = GetWindowsVersion();
 	  switch (win)
@@ -2769,7 +2795,7 @@ int main(int argc, char *argv[])
 	  }
 
 	  if (wp_version.verstruct.flags & WPV_REQXWOLF)
-	  {		  
+	  {		
 		    // link dynamicaly so that it starts on systems that don't have the isdebuggerpresent() system call (w95)
 		    bool detectable;
 		  	BOOL  (WINAPI *lpfIsDebuggerPresent)   (void  ) = NULL;
@@ -2788,17 +2814,17 @@ int main(int argc, char *argv[])
 			{
 			   clConsole.send("This is a Wolfpack version that needs to be started by X-Wolf\n");
 			   clConsole.send("But Wolfpack can't detect if it is started by X-Wolf or not\n");
-			  
+			
 			}
 
-			if (hInstLib!=NULL) FreeLibrary(hInstLib);		  
+			if (hInstLib!=NULL) FreeLibrary(hInstLib);		
 	  }
-	  
+	
 #endif
     #endif
 
 	//constart();
- 
+
 	clConsole.send("Starting WOLFPACK...\n");
 	openings = 0;
 	scpfilename[0] = 0;
@@ -2809,7 +2835,7 @@ int main(int argc, char *argv[])
 	#endif
 #if 1
 	#ifndef __unix__ // wip stuff is currently only for windows stuff
-	  BOOL w = WIP_Init(); 
+	  BOOL w = WIP_Init();
 	  // that's all :) no wip stuff in wp-core
 	  if (w==FALSE)
 	  {
@@ -3032,20 +3058,20 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 
 	CIAO_IF_ERROR;
 
-    if (MapTileHeight>300) 
-		clConsole.send("BRITANNIA MAP SERVER\n"); 
-	else 
+    if (MapTileHeight>300)
+		clConsole.send("BRITANNIA MAP SERVER\n");
+	else
 		clConsole.send("ILSHENAR MAP SERVER \n");
 
     // print allowed clients
-    const char * t;   
-    std::vector<std::string>::const_iterator vis; 
+    const char * t;
+    std::vector<std::string>::const_iterator vis;
 
     clConsole.send("\nAllowed clients\n");
-    for (vis=clientsAllowed.begin(); vis != clientsAllowed.end();  ++vis) 
+    for (vis=clientsAllowed.begin(); vis != clientsAllowed.end();  ++vis)
     {
       t = (*vis).c_str();  // a bit pervert to store c++ strings and operate with c strings, admitably
-	                       
+	
 	  strcpy(temp2,t);	
 	  strcpy(temp,t);strcat(temp,"\n");
 
@@ -3053,7 +3079,7 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 	  {
 		  sprintf(temp3,"%s : %s\n",temp2, wp_version.clientsupportedstring.c_str() );
 		  clConsole.send(temp3);
-		  break;		  
+		  break;		
 	  }	
 	  else if (!strcmp(temp2,"ALL") )
 	  {
@@ -3061,13 +3087,13 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 		  break;
 	  }
 
-	  clConsole.send(temp);	 
+	  clConsole.send(temp);	
     }
 
- 
+
 
     clConsole.send("\n");
-   
+
 	while (keeprun)
 	{
 
@@ -3094,7 +3120,7 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 		}
 		loopTimeCount++;
 
-		loopSecs = getNormalizedTime() ;  // Starting time 
+		loopSecs = getNormalizedTime() ;  // Starting time
 
 		if(networkTimeCount >= 1000)
 		{
@@ -3141,7 +3167,7 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 		Network->CheckMessage();
         if (SrvParms->EnableRA)
            racCheckInp();
-		tempTime = getNormalizedTime() - tempSecs ; 
+		tempTime = getNormalizedTime() - tempSecs ;
 		networkTime += tempTime;
 		networkTimeCount++;
 
@@ -3156,7 +3182,7 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 		checktimers();
 
 		uiCurrentTime=getNormalizedTime();//getNormalizedTime() only once
-		tempTime = getNormalizedTime() - tempSecs ; 
+		tempTime = getNormalizedTime() - tempSecs ;
 		timerTime += tempTime;
 		timerTimeCount++;
 
@@ -3170,13 +3196,13 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 
 		checkauto();
 
-		tempTime = getNormalizedTime() - tempSecs ; 
+		tempTime = getNormalizedTime() - tempSecs ;
 		autoTime += tempTime;
 		autoTimeCount++;
 
 		Network->ClearBuffers();
 
-		tempTime = getNormalizedTime() - loopSecs ; 
+		tempTime = getNormalizedTime() - loopSecs ;
 		loopTime += tempTime;
 	}
 
@@ -3333,9 +3359,9 @@ void telltime( UOXSOCKET s )
 	case 10: sprintf( tstring2, "%s ten o'clock", tstring );	break;
 	case 11: sprintf( tstring2, "%s eleven o'clock", tstring );	break;
 	case 12:
-		if( ampm ) 
+		if( ampm )
 			sprintf( tstring2, "%s midnight.", tstring );
-		else 
+		else
 			sprintf( tstring2, "%s noon.", tstring );
 		break;
 	}
@@ -3459,7 +3485,7 @@ int fielddir(P_CHAR pc, int x, int y, int z)
 
 char indungeon(P_CHAR pc)
 {
-	if (pc->pos.x<5119) 
+	if (pc->pos.x<5119)
 		return 0;
 
 	int x1 = (pc->pos.x-5119)>>8;
@@ -3532,17 +3558,17 @@ void npcattacktarget(P_CHAR pc_target2, P_CHAR pc_target)
 
 	if (pc_target->isNpc())
 	{
-		if (!(pc_target->war)) 
+		if (!(pc_target->war))
 			npcToggleCombat(pc_target);
 		pc_target->setNextMoveTime();
 	}
 	if ((pc_target2->isNpc())&&!(pc_target2->npcaitype==4)) // changed from 0x40 to 4, LB
 	{
-		if (!(pc_target2->war)) 
+		if (!(pc_target2->war))
 			npcToggleCombat(pc_target2);
 		pc_target2->setNextMoveTime();
 	}
-	 
+	
 	sprintf((char*)temp, "You see %s attacking %s!", pc_target2->name.c_str(), pc_target->name.c_str());
 
 	for (i=0;i<now;i++)
@@ -3558,7 +3584,7 @@ void npcattacktarget(P_CHAR pc_target2, P_CHAR pc_target)
 ////////////////////
 // Author : LB
 // purpose: converting x,y coords to sextant coords
-// input : x,y coords of object 
+// input : x,y coords of object
 // output: sextant: sextant cords as string (char *)
 // memory for output string sextant has to be reserved by callee !
 // if not -> crash (has to be >=36 bytes !)
@@ -3576,7 +3602,7 @@ void getSextantCords(signed int x, signed int y, bool t2a, char *sextant)
    {
 	   Cy = 3112.0;
 	   Cx = 5936.0;
-   } else 
+   } else
    {
 	  // center, LB's throne *g*
       Cx = 1323.0;
@@ -3597,7 +3623,7 @@ void getSextantCords(signed int x, signed int y, bool t2a, char *sextant)
 
    ////// now let's get minutes, hours & directions from it
    Hx = (signed int) Dx; // get hours (cut off digits after comma, no idea if there's a cleaner/better way)
-   
+
    Mx = Dx - Hx; // get minutes
    Mx = Mx * 60;
 
@@ -3621,14 +3647,14 @@ void getSextantCords(signed int x, signed int y, bool t2a, char *sextant)
    strcpy((char*)sextant, xHs);
    strcat((char*)sextant,"o ");
    strcat((char*)sextant, xMs);
-   strcat((char*)sextant,"' "); 
+   strcat((char*)sextant,"' ");
    if (xH>=0) strcat((char*)sextant,"E"); else strcat((char*)sextant,"W");
 
    strcat((char*)sextant, "  ");
    strcat((char*)sextant, yHs);
    strcat((char*)sextant,"o ");
    strcat((char*)sextant, yMs);
-   strcat((char*)sextant,"' "); 
+   strcat((char*)sextant,"' ");
    if (yH>=0) strcat((char*)sextant,"S"); else strcat((char*)sextant,"N");
 
 }
@@ -3769,7 +3795,7 @@ int getsubamount(int serial, short id)
 
 int getamount(P_CHAR pc, short id)
 {
-	if (pc == NULL) 
+	if (pc == NULL)
 		return 0;
 	P_ITEM pi=Packitem(pc);
 	if (pi==NULL)
@@ -3780,7 +3806,7 @@ int getamount(P_CHAR pc, short id)
 
 // not_deleted = output parameter, returns number of items that could NOT be deleted
 // somewhat dirty that it defaults to a global dummy variable, sorry for that.
-// but i couldnt find any other way to keep the old signature and old name. 
+// but i couldnt find any other way to keep the old signature and old name.
 // if theres a cleaner way, let me know, LB
 
 void delequan(P_CHAR pc, short id, int amount, int *not_deleted)
@@ -3789,11 +3815,11 @@ void delequan(P_CHAR pc, short id, int amount, int *not_deleted)
 		return;
 
 	P_ITEM pi=Packitem(pc);
-	if (pi == NULL) 
-	{ 
-		if (not_deleted != NULL) 
-			*not_deleted = amount; 
-		return; 
+	if (pi == NULL)
+	{
+		if (not_deleted != NULL)
+			*not_deleted = amount;
+		return;
 	}
 
 	int nd = pi->DeleteAmount(amount, id);
@@ -3949,7 +3975,7 @@ void playmonstersound(P_CHAR monster, unsigned short id, int sfx)
 			break;
 		}
 		basesound=basesound+offset;
-		if (offset!=-1) 
+		if (offset!=-1)
 			soundeffect2(monster, basesound);
 		return;
 	}
@@ -3968,7 +3994,7 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 	s = calcSocketFromChar(pc_p);
 	P_CHAR pc_currchar = currchar[s];
 
-	//blackwinds fix for potion delay 
+	//blackwinds fix for potion delay
 	// disabled for now, because both objectdelay AND skilldelay are set, so you can't do anything (Duke)
 	// delay should only be for another healing potion, but a good solution will need the new timers :(
 #if 0
@@ -3976,7 +4002,7 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 	{
        if (pc_p->skill[ALCHEMY]==1000)
 		   pc_p->skilldelay=uiCurrentTime + (MY_CLOCKS_PER_SEC*9);
-	   else 
+	   else
           pc_p->skilldelay=uiCurrentTime + (MY_CLOCKS_PER_SEC*14);
 #endif
 
@@ -4176,7 +4202,7 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 		return;
 	}
 	soundeffect2(pc_p, 0x0030);
-	if (pc_p->id1>=1 && pc_p->id2>90 && pc_p->onhorse==0) 
+	if (pc_p->id1>=1 && pc_p->id2>90 && pc_p->onhorse==0)
 		npcaction( pc_p, 0x22);
 	//empty bottle after drinking - Tauriel
 	if (pi->amount!=1)
@@ -5252,7 +5278,7 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 						pc->flag = pc_owner->flag;
 					}
 				}
-				else 
+				else
 					pc->setCriminal();
 				break;
 		}
@@ -5365,8 +5391,8 @@ void SetGlobalVars()
     server_data.hitpointrate = REGENRATE1 ;
     server_data.staminarate = REGENRATE2 ;
     server_data.manarate = REGENRATE3 ;
-    server_data.gatetimer = GATETIMER;    
-	        
+    server_data.gatetimer = GATETIMER;
+	
 }
 
 void BuildPointerArray()
@@ -5404,7 +5430,7 @@ void InitMultis()
 			if (pi_multi != NULL)
 				if (pi_multi != pi)
 					pi->SetMultiSerial(pi_multi->serial);
-				else 
+				else
 					pi->multis = INVALID_SERIAL;
 		}
 	}
@@ -5542,55 +5568,55 @@ void DeleteClasses(void)
 	//delete Weather;
 }
 
-// if we can find new effects they can be added here and will be active 
-// for 'go 'goiter 'goplace 'whilst and 'tell for gm's and counselors 
+// if we can find new effects they can be added here and will be active
+// for 'go 'goiter 'goplace 'whilst and 'tell for gm's and counselors
 
-////////////////////////////////// 
-// Function for the different gm movement effects 
-// 0 = none 
-// 1 = flamestrike 
-// 2 - 6 = different sparkles 
+//////////////////////////////////
+// Function for the different gm movement effects
+// 0 = none
+// 1 = flamestrike
+// 2 - 6 = different sparkles
 // Aldur
-// 
-// 
+//
+//
 
 void doGmMoveEff(UOXSOCKET s)
-{ 
+{
 	if (s == -1) // Just to make sure ;)
 		return;
 	
 	P_CHAR pc_currchar = currchar[s];
 	if (!(pc_currchar->priv2 & 0x08))
-	{ 
+	{
 		switch (pc_currchar->gmMoveEff)
 		{
 		case 1:
-			// flamestrike 
-			staticeffect3(pc_currchar->pos.x + 1, pc_currchar->pos.y + 1, pc_currchar->pos.z + 10, 0x37, 0x09, 0x09, 0x19, 0); 
-			soundeffect(s, 0x02, 0x08); 
+			// flamestrike
+			staticeffect3(pc_currchar->pos.x + 1, pc_currchar->pos.y + 1, pc_currchar->pos.z + 10, 0x37, 0x09, 0x09, 0x19, 0);
+			soundeffect(s, 0x02, 0x08);
 			break;
 		case 2:
-			// sparklie (fireworks wand style) 
-			staticeffect3(pc_currchar->pos.x + 1, pc_currchar->pos.y + 1, pc_currchar->pos.z + 10, 0x37, 0x3A, 0x09, 0x19, 0); 
+			// sparklie (fireworks wand style)
+			staticeffect3(pc_currchar->pos.x + 1, pc_currchar->pos.y + 1, pc_currchar->pos.z + 10, 0x37, 0x3A, 0x09, 0x19, 0);
 			break;
 		case 3:
-			// sparklie (fireworks wand style) 
-			staticeffect3(pc_currchar->pos.x + 1, pc_currchar->pos.y + 1, pc_currchar->pos.z + 10, 0x37, 0x4A, 0x09, 0x19, 0); 
+			// sparklie (fireworks wand style)
+			staticeffect3(pc_currchar->pos.x + 1, pc_currchar->pos.y + 1, pc_currchar->pos.z + 10, 0x37, 0x4A, 0x09, 0x19, 0);
 			break;
 		case 4:
-			// sparklie (fireworks wand style) 
-			staticeffect3(pc_currchar->pos.x + 1, pc_currchar->pos.y + 1, pc_currchar->pos.z + 10, 0x37, 0x5A, 0x09, 0x19, 0); 
+			// sparklie (fireworks wand style)
+			staticeffect3(pc_currchar->pos.x + 1, pc_currchar->pos.y + 1, pc_currchar->pos.z + 10, 0x37, 0x5A, 0x09, 0x19, 0);
 			break;
 		case 5:
-			// sparklie (fireworks wand style) 
-			staticeffect3(pc_currchar->pos.x + 1, pc_currchar->pos.y + 1, pc_currchar->pos.z + 10, 0x37, 0x6A, 0x09, 0x19, 0); 
+			// sparklie (fireworks wand style)
+			staticeffect3(pc_currchar->pos.x + 1, pc_currchar->pos.y + 1, pc_currchar->pos.z + 10, 0x37, 0x6A, 0x09, 0x19, 0);
 			break;
 		case 6:
-			// sparklie (fireworks wand style) 
-			staticeffect3(pc_currchar->pos.x + 1, pc_currchar->pos.y + 1, pc_currchar->pos.z + 10, 0x37, 0x7A, 0x09, 0x19, 0); 
+			// sparklie (fireworks wand style)
+			staticeffect3(pc_currchar->pos.x + 1, pc_currchar->pos.y + 1, pc_currchar->pos.z + 10, 0x37, 0x7A, 0x09, 0x19, 0);
 			break;
 		}
 	}
-	return; 
+	return;
 }
 
