@@ -31,6 +31,7 @@ def hiding( char, skill ):
 		char.removefromview()
 		char.hidden = 1
 		char.update()
+		char.dispel( None, 1, "invisibility_reveal" )
 	else:
 		char.socket.clilocmessage( 501237, "", 0x3b2, 4, char )
 
