@@ -948,9 +948,6 @@ void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection *packet )
 	pItem = FindItemBySerial( packet->serial() );
 	if ( pItem )
 	{
-		if ( !ContextMenus::instance()->MenuExist( pItem->bindmenu() ) )
-			return; // may be someone want to inject something ...
-
 		menu = ContextMenus::instance()->getMenu( pItem->bindmenu(), this->player()->account()->acl() );
 		if ( !menu ) 
 			return;
@@ -961,9 +958,6 @@ void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection *packet )
 		pChar = FindCharBySerial( packet->serial() );
 		if( !pChar )
 			return;
-		if ( !ContextMenus::instance()->MenuExist( pChar->bindmenu() ) )
-			return;
-
 		menu = ContextMenus::instance()->getMenu( pChar->bindmenu(), this->player()->account()->acl() );
 		if ( !menu ) 
 			return;
