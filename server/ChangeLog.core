@@ -17,6 +17,17 @@ Wolfpack 12.9.13 Beta (CVS)
 	- Fixed shop restock.
 	- Fixed bug #0000364. (Vendors not selling items they bought)
 	- Rewrote the vendor buy handler code.
+	- Improved the configure script:
+		Translations are disabled by default now.
+		Cleaner output.
+		Fixed a bug with MySQL lib reporting.
+	- The SectorMaps singleton has been renamed to MapObjects.
+	- The deprecated RegionIterators have been removed.
+	- The SectorIterators have also been replaced with a much faster iterator.
+	- The new iterators don't allocate/copy memory anymore. 
+	- The "range" lookup now looks for items within a real circle.
+	- Multis now have their own structure, and are now separate from items.
+	- Region calls now list online and offline chars in seperate lists.
 
 Wolfpack 12.9.12 Beta (18. October 2004)
 	- Fixed a unix console error
