@@ -1087,54 +1087,35 @@ static PyObject* wpChar_getbackpack( wpChar* self, PyObject* args )
 /*!
 	Shows a moving effect moving toward a given object or coordinate.
 */
-static PyObject* wpChar_movingeffect( wpChar* self, PyObject* args )
-{
-	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+static PyObject* wpChar_movingeffect(wpChar* self, PyObject* args) {
+	PyObject *target;
+	unsigned short id;
+	
+	// Optional Arguments	
+	unsigned char fixedDirection = 1;
+	unsigned char explodes = 0;
+	unsigned char speed = 10;
+	unsigned int hue = 0;
+	unsigned int renderMode = 0;
 
-	if( ( !checkArgObject( 1 ) && !checkArgCoord( 1 ) ) || !checkArgInt( 0 ) )
-	{
-		PyErr_BadArgument();
-		return NULL;
+	if (!PyArg_ParseTuple(args, 
+		"HO|BBBII:char.movingeffect(id, target, [fixedDirection], [explodes], [speed], [hue], [rendermode])", 
+		&id, &target, &fixedDirection, &explodes, &speed, &hue, &renderMode)) {
+		return 0;
 	}
-	
-	UINT16 id = getArgInt( 0 );
 
-	cUObject *object = getArgChar( 1 );
-	if( !object )
-		object = getArgItem( 1 );
-
-	Coord_cl pos;
-	
-	if( checkArgCoord( 1 ) )
-		pos = getArgCoord( 1 );
-
-	// Optional Arguments
-	bool fixedDirection = true;
-	bool explodes = false;
-	UINT8 speed = 10;
-	UINT16 hue = 0;
-	UINT16 renderMode = 0;
-
-	if( checkArgInt( 2 ) )
-		fixedDirection = getArgInt( 2 ) != 0;
-
-	if( checkArgInt( 3 ) )
-		explodes = getArgInt( 3 ) != 0;
-
-	if( checkArgInt( 4 ) )
-		speed = getArgInt( 4 );
-
-	if( checkArgInt( 5 ) )
-		hue = getArgInt( 5 );
-
-	if( checkArgInt( 6 ) )
-		renderMode = getArgInt( 6 );
-
-	if( object )
-		self->pChar->effect( id, (cUObject*)object, fixedDirection, explodes, speed, hue, renderMode );
-	else 
-		self->pChar->effect( id, (Coord_cl)pos, fixedDirection, explodes, speed, hue, renderMode );
+	// Coordinates or Object accepted
+	if (checkWpCoord(target)) {
+		Coord_cl coord = getWpCoord(target);
+		self->pChar->effect(id, coord, fixedDirection, explodes, speed, hue, renderMode);
+	} else if (checkWpChar(target)) {
+		self->pChar->effect(id, getWpChar(target), fixedDirection, explodes, speed, hue, renderMode);
+	} else if (checkWpItem(target)) {
+		self->pChar->effect(id, getWpItem(target), fixedDirection, explodes, speed, hue, renderMode);
+	} else {
+		PyErr_SetString(PyExc_TypeError, "First argument has to be an UO object or a position.");
+		return 0;
+	}
 
 	return PyTrue;
 }

@@ -567,6 +567,7 @@ void cUObject::effect( UINT16 id, cUObject *target, bool fixedDirection, bool ex
 	effect.setTargetPos( target->pos_ );
 	effect.setId( id );
 	effect.setSpeed( speed );
+	effect.setDuration(1);
 	effect.setExplodes( explodes );
 	effect.setFixedDirection( fixedDirection );
 	effect.setHue( hue );
@@ -596,6 +597,7 @@ void cUObject::effect( UINT16 id, const Coord_cl &target, bool fixedDirection, b
 	effect.setTargetPos( target );
 	effect.setId( id );
     effect.setSpeed( speed );
+	effect.setDuration(1);
 	effect.setExplodes( explodes );
 	effect.setFixedDirection( fixedDirection );
 	effect.setHue( hue );
