@@ -506,7 +506,15 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 	nChar->region = calcRegionFromXY(nChar->pos.x, nChar->pos.y);
 
 	nChar->applyDefinition( *DefSection );
-	nChar->MoveTo(posx,posy,posz);
+	mapRegions->Add( nChar );
+
+	cRegion::RegionIterator4Chars ri(nChar->pos);
+	for (ri.Begin(); !ri.atEnd(); ri++)
+	{
+		P_CHAR pc = ri.GetData();
+		if ( pc != NULL && calcSocketFromChar( pc ) != -1 && pc->dist( nChar ) <= VISRANGE )
+			impowncreate( s, nChar, 1 );
+	}
 
 	return nChar;
 }
