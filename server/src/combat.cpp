@@ -718,7 +718,7 @@ namespace Combat
 		// Only show it when damage has been dealt at all.
 		if( pDefender->id() >= 0x0190 && totaldamage > 0 )
 		{
-			if( !pDefender->onHorse() ) 
+			if( pDefender->atLayer( cChar::Mount ) ) 
 				pDefender->action( 0x14 );
 		}
 	}
@@ -1007,7 +1007,7 @@ namespace Combat
 			pAttacker->action( action );
 			playmonstersound( pAttacker, pAttacker->id(), SND_ATTACK );
 		}
-		else if (pAttacker->onHorse())
+		else if (pAttacker->atLayer(cChar::Mount))
 		{
 			doHorseCombatAnimation( pAttacker ); // determines weapon in hand and runs animation
 		}

@@ -419,9 +419,6 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	if( pWearer->socket() )
 		pWearer->socket()->sendStatWindow();
 
-	if( pTile.layer == 0x19 )
-		pWearer->setOnHorse( true );
-
 	// Apply the bonuses
 	pWearer->giveItemBonus( pItem );
 

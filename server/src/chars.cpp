@@ -231,7 +231,6 @@ void cChar::Init(bool ser)
 	this->setHidden(0); // 0 = not hidden, 1 = hidden, 2 = invisible spell
 	this->setInvisTimeout(0);
 	this->resetAttackFirst(); // 0 = defending, 1 = attacked first
-	this->setOnHorse(false); // On a horse?
 	this->setHunger(6);  // Level of hungerness, 6 = full, 0 = "empty"
 	this->setHungerTime(0); // Timer used for hunger, one point is dropped every 20 min
 	this->setTailItem( INVALID_SERIAL );
@@ -1331,9 +1330,6 @@ void cChar::processNode( const QDomElement &Tag )
 	else if( TagName == "ai" )
 		this->setNpcAIType( Value.toInt() );
 
-	//<onhorse />
-	else if( TagName == "onhorse" )
-		this->setOnHorse( true );
 	//<priv1>0</priv1>
 	else if( TagName == "priv1" )
 		this->setPriv( Value.toUShort() );
@@ -1966,7 +1962,7 @@ public:
 
 void cChar::action( UINT8 id )
 {
-	bool mounted = onHorse();
+	bool mounted = ( atLayer( Mount ) != 0 );
 
 	if( mounted && ( id == 0x10 || id == 0x11 ) )
 		id = 0x1b;
@@ -2497,7 +2493,6 @@ UINT32 cChar::takeGold( UINT32 amount, bool useBank )
 */
 void cChar::updateWornItems()
 {
-	this->setOnHorse( false );
 	P_ITEM pi;
 	ContainerContent container = this->content();
 	ContainerContent::const_iterator it  = container.begin();
@@ -2507,8 +2502,6 @@ void cChar::updateWornItems()
 		pi = *it;
 		if (pi != NULL && !pi->free)
 		{
-			if (pi->layer() == 0x19)
-				this->setOnHorse( true );
 			cUOTxCharEquipment packet;
 			packet.setWearer( this->serial );
 			packet.setSerial( pi->serial );
@@ -2526,7 +2519,6 @@ void cChar::updateWornItems()
 */
 void cChar::updateWornItems( cUOSocket* socket )
 {
-	this->setOnHorse( false );
 	ContainerContent container = this->content();
 	ContainerContent::const_iterator it  = container.begin();
 	ContainerContent::const_iterator end = container.end();
@@ -2535,8 +2527,6 @@ void cChar::updateWornItems( cUOSocket* socket )
 		cItem* pi = *it;
 		if (pi != NULL && !pi->free)
 		{
-			if (pi->layer() == 0x19)
-				this->setOnHorse( true );
 			cUOTxCharEquipment packet;
 			packet.setWearer( this->serial );
 			packet.setSerial( pi->serial );
@@ -2566,8 +2556,6 @@ P_CHAR cChar::unmount()
 	P_ITEM pi = atLayer(Mount);
 	if( pi && !pi->free)
 	{
-		setOnHorse( false );
-		
 		P_CHAR pMount = FindCharBySerial( pi->morex );
 		if( pMount )
 		{
@@ -2613,10 +2601,8 @@ void cChar::mount( P_CHAR pMount )
 
 	if( pMount->owner_ == this || isGM() )
 	{
-		if( onHorse() )
-			unmount();
+		unmount();
 
-		setOnHorse( true );
 		P_ITEM pMountItem = Items->SpawnItem( this, 1, pMount->name.latin1(), 0, 0x0915, pMount->skin(), 0 );
 		if( !pMountItem )
 			return;

@@ -759,7 +759,7 @@ void cMovement::checkRunning( cUOSocket *socket, P_CHAR pChar, Q_UINT8 dir )
 	
 	// If we're running on our feet, check for stamina loss
 	// Crap
-	if( !pChar->dead() && !pChar->onHorse() && pChar->running() > ( SrvParams->runningStamSteps() ) * 2 )
+	if( !pChar->dead() && !pChar->atLayer( cChar::Mount ) && pChar->running() > ( SrvParams->runningStamSteps() ) * 2 )
 	{
 		// The *2 it's because i noticed that a step(animation) correspond to 2 walking calls
 		// ^^ WTF?

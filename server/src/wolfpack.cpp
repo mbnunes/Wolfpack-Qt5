@@ -478,7 +478,6 @@ void savelog(const char *msg, char *logfile)
 
 void wornitems(UOXSOCKET s, P_CHAR pc) // Send worn items of player j
 {
-	pc->setOnHorse( false );
 	unsigned int ci=0;
 	P_ITEM pi;
 	cChar::ContainerContent container(pc->content());
@@ -489,8 +488,6 @@ void wornitems(UOXSOCKET s, P_CHAR pc) // Send worn items of player j
 		pi = *it;
 		if (pi != NULL && !pi->free)
 		{
-			if (pi->layer()==0x19)
-				pc->setOnHorse( true );
 			wearIt(s,pi);
 		}
 	}

@@ -509,25 +509,6 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 		pc->update(); // a simple status-update should be enough here
 		socket->sysMessage( tr( "The poison has worn off." ) );
 	}
-
-	// Horse checks ( Todo: move to DELEITEM + SETCONTSERIAL + SETLAYER )
-	if( pc->onHorse() )
-	{
-		P_ITEM pHorse = pc->GetItemOnLayer( 0x19 );
-		if( !pHorse )
-		{
-			pc->setOnHorse( false );	// turn it off, we aren't on one because there's no item!
-			return;
-		}
-		else
-		{
-			if( pHorse->decaytime != 0 && ( pHorse->decaytime <= uiCurrentTime  ) )
-			{
-				pc->setOnHorse( false );
-				Items->DeleItem( pHorse );
-			}
-		}
-	}
 }
 
 void checkNPC( P_CHAR pc, unsigned int currenttime )

@@ -143,7 +143,6 @@ protected:
 	unsigned char			hidden_; // 0 = not hidden, 1 = hidden, 2 = invisible spell
 	unsigned int			invistimeout_;
 	bool					attackfirst_; // 0 = defending, 1 = attacked first
-	bool					onhorse_; // On a horse?
 	int						hunger_;  // Level of hungerness, 6 = full, 0 = "empty"
 	unsigned int			hungertime_; // Timer used for hunger, one point is dropped every 20 min
 	SERIAL					tailitem_;
@@ -348,7 +347,6 @@ public:
 	unsigned char			hidden() const { return hidden_; } // 0 = not hidden, 1 = hidden, 2 = invisible spell
 	unsigned int			invistimeout() const { return invistimeout_;}
 	bool					attackfirst() const { return attackfirst_; }
-	bool					onHorse() const { return onhorse_; }
 	int						hunger() const { return hunger_; }
 	unsigned int			hungertime() const { return hungertime_;}
 	SERIAL					tailitem() const { return tailitem_; }
@@ -526,7 +524,6 @@ public:
 	void					setHidden ( unsigned char data ) { hidden_ = data;}
 	void					setInvisTimeout ( unsigned int data ) { invistimeout_ = data;}
 	void					setAttackFirst ( bool data ) { attackfirst_ = data;}
-	void					setOnHorse ( bool data ) { onhorse_ = data; }
 	void					setHunger ( int data ) { hunger_ = data; }
 	void					setHungerTime ( unsigned int data ) { hungertime_ = data;}
 	void					setTailItem ( SERIAL data ) { tailitem_ = data;}
