@@ -96,6 +96,7 @@ bool cDBDriver::open( int id )
 void cDBDriver::close()
 {
 	mysql_close( (MYSQL*)connection );
+	connection = 0;
 }
 
 /*!
