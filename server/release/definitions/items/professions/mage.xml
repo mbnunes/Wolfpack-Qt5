@@ -40,7 +40,6 @@
 		<onehanded />
 		<decay />
 		<newbie />
-		<type>1</type>
 		<buyprice>2500</buyprice>
 		<sellprice>1250</sellprice>
 		<category>Professions\Mage\Runebook </category>

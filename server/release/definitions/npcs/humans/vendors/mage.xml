@@ -131,6 +131,7 @@
 				<item id="e34"><amount>20</amount></item> <!-- Blank Scrolls -->
 			</restockable>
 			<sellable>
+				<item id="22c5" /> <!-- Runebook -->
 				<item id="efa"/>
 				<item id="1f14"/>
 				<item id="1f15"/>
