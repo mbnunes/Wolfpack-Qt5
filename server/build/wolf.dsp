@@ -282,10 +282,6 @@ SOURCE=.\srvparams_win.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\targetactions.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\targetrequests.cpp
 # End Source File
 # Begin Source File
