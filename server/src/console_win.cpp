@@ -23,6 +23,8 @@
 extern int main( int argc, char **argv );
 
 // Variables important for this GUI implementation
+#define CONTROL_LOGWINDOW 0x10
+
 HWND logWindow = 0;			// Log Window
 HWND inputWindow = 0;		// Input Textfield
 HWND mainWindow = 0;		// Main Window
@@ -37,7 +39,7 @@ static QString getErrorString()
 {
 	LPVOID lpMsgBuf;
 
-	if( !FormatMessage( FORMAT_MESSAGE_ALLOCATE_BUFFER|FORMAT_MESSAGE_FROM_SYSTEM|FORMAT_MESSAGE_IGNORE_INSERTS, 0, GetLastError(), MAKELANGID( LANG_NEUTRAL , SUBLANG_DEFAULT ), (LPTSTR)&lpMsgBuf, 0, 0 ) )
+	if( !FormatMessage( FORMAT_MESSAGE_ALLOCATE_BUFFER|FORMAT_MESSAGE_FROM_SYSTEM|FORMAT_MESSAGE_IGNORE_INSERTS, 0, GetLastError(), MAKELANGID( LANG_NEUTRAL, SUBLANG_DEFAULT ), (LPTSTR)&lpMsgBuf, 0, 0 ) )
 	   return QString( "Unknown Error" );
 
 	QString result( (char*)lpMsgBuf );
@@ -57,7 +59,7 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 	{
 	case WM_CREATE:
 		// Create Richedit Box
-		logWindow = CreateWindow( RICHEDIT_CLASS, 0, ES_LEFT | ES_MULTILINE | ES_AUTOVSCROLL | ES_AUTOHSCROLL | ES_READONLY | WS_CHILD | WS_VISIBLE | WS_VSCROLL, 0, 0, 10, 10, hwnd, 0, appInstance, 0 );
+		logWindow = CreateWindow( RICHEDIT_CLASS, 0, ES_LEFT|ES_MULTILINE|ES_AUTOVSCROLL|ES_AUTOHSCROLL|ES_READONLY|WS_CHILD|WS_VISIBLE|WS_VSCROLL, 0, 0, 10, 10, hwnd, (HMENU)CONTROL_LOGWINDOW, appInstance, 0 );
 
 		if( logWindow == 0 )
 		{
@@ -90,6 +92,7 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 
 		return 0;
 	
+	// Autosize our Window Elements
 	case WM_SIZE:
 		if( logWindow && inputWindow && wparam != SIZE_MINIMIZED && wparam != SIZE_MAXHIDE )
 		{
@@ -114,6 +117,41 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 		}
 
 		return 0;
+
+	case WM_ERASEBKGND:
+		return 1;
+
+	case WM_SETFOCUS:
+		SendMessage( inputWindow, WM_SETFOCUS, 0, 0 );
+		return 1;
+
+	case WM_NOTIFY:
+		if( wparam == CONTROL_LOGWINDOW )
+		{
+			NMHDR *notify = (NMHDR*)lparam;
+			
+			if( notify->code == EN_LINK )
+			{
+				ENLINK *link = (ENLINK*)notify;
+
+				if( link->msg == WM_LBUTTONDOWN )
+				{
+					char *string = new char[ ( link->chrg.cpMax - link->chrg.cpMin ) + 1 ];
+					
+					TEXTRANGE tr;
+					tr.chrg = link->chrg;
+					tr.lpstrText = string;
+
+					SendMessage( logWindow, EM_GETTEXTRANGE, 0, (LPARAM)&tr );
+
+					// String contains the link
+
+					delete [] string;
+
+					// Reset selection to the end
+				}				
+			}
+		}
 		
 	case WM_DESTROY:
 		keeprun = 0;
@@ -174,7 +212,7 @@ int WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int 
 	}
 
 	// Create the Window itself
-	mainWindow = CreateWindow( WOLFPACK_CLASS, "Wolfpack", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 500, 400, NULL, 0, hInstance, NULL );
+	mainWindow = CreateWindow( WOLFPACK_CLASS, "Wolfpack", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, NULL, 0, hInstance, NULL );
 
 	if( mainWindow == 0 )
 	{
@@ -218,7 +256,6 @@ void cConsole::stop()
 void cConsole::send(const QString &sMessage)
 {
 	// process \b properly
-
 	SendMessage( logWindow, EM_REPLACESEL, FALSE, (LPARAM)sMessage.latin1() );
 }
 
@@ -250,6 +287,7 @@ void cConsole::ChangeColor( WPC_ColorKeys color )
 	case WPC_WHITE:
 		cf.crTextColor = RGB( 0xFF,0xFF,0xFF );
 		break;
+
 	};
 
 	SendMessage( logWindow, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM)&cf );
