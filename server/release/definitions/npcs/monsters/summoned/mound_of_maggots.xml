@@ -12,6 +12,7 @@
 	<npc id="summoned_mound_of_maggots" inherit="mound_of_maggots">
 		<karma>0</karma>
 		<fame>0</fame>
+		<controlslots>1</controlslots>
 		<category>Summoned\Mound of Maggots</category>
 	</npc>
 

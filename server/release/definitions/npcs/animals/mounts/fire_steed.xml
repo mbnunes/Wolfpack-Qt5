@@ -37,6 +37,7 @@
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
 		<!-- Missing: Sulfurous Ash -->
+		<controlslots>2</controlslots>
 		<lootpacks>gems</lootpacks>
 		<totame>1060</totame>
 		<food>1</food>

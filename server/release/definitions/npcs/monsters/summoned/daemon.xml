@@ -38,6 +38,7 @@
 		<!-- Loot Packs -->
 		<!--<lootpacks></lootpacks>-->
 		<!-- Misc. -->
+		<controlslots>5</controlslots>
 		<category>Summoned\Daemon</category>
 	</npc>
 

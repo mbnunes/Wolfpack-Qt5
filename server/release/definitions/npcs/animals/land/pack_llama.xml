@@ -38,6 +38,7 @@
 		<magicresistance><random min="151" max="200" /></magicresistance>
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
+		<controlslots>2</controlslots>
 		<totame>291</totame>
 		<food>3</food>
 		<carve>carve_lama_pack</carve>

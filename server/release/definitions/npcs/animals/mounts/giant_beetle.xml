@@ -35,6 +35,7 @@
 		<magicresistance>800</magicresistance>
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
+		<controlslots>3</controlslots>
 		<totame>291</totame>
 		<food>1</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>

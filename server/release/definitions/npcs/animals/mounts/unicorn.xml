@@ -41,6 +41,7 @@
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
 		<!-- Missing: 1-7CS, LNS, Potion -->
+		<controlslots>2</controlslots>
 		<lootpacks>lootpack_rich</lootpacks>
 		<totame>951</totame>
 		<food>5</food>

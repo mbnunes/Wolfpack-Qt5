@@ -34,6 +34,7 @@
 		<!-- Defense -->
 		<tag name="res_physical" value="0,3" type="int" />
 		<!-- Misc. -->
+		<controlslots>1</controlslots>
 		<totame>0</totame>
 		<food>3</food>
 		<carve>carve_bird</carve>

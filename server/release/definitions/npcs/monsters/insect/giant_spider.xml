@@ -33,6 +33,7 @@
 		<!-- Misc. -->
 		<desc>Nearly the size of a man, the great spiders are nearly as clever as man as well. I do not know what may pass among them as language, but they lay their traps and defenses with great cunning. As well they might, for the silk of their webs is necessary for the casting of certain spells, and despite their formidable nature, they are earnestly sought for their silk.</desc>
 		<!-- Missing: 5 Spiders Silk -->
+		<controlslots>1</controlslots>
 		<lootpacks>lootpack_poor</lootpacks>
 		<carve>carve_spider_giant</carve>
 		<totame>591</totame>

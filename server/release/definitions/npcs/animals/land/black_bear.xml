@@ -35,6 +35,7 @@
 		<magicresistance><random min="201" max="400" /></magicresistance>
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
+		<controlslots>1</controlslots>
 		<totame>351</totame>
 		<food>1</food>
 		<carve>carve_black_bear</carve>

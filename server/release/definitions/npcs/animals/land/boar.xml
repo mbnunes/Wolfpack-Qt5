@@ -36,6 +36,7 @@
 		<magicresistance>90</magicresistance>
 		<anatomy>0</anatomy>
 		<!-- Misc -->
+		<controlslots>1</controlslots>
 		<totame>291</totame>
 		<food>5</food>
 		<carve>carve_boar</carve>
@@ -67,6 +68,7 @@
 		<magicresistance>50</magicresistance>
 		<anatomy>0</anatomy>
 		<!-- Misc -->
+		<controlslots>1</controlslots>
 		<totame>291</totame>
 		<food>5</food>
 		<carve>carve_boar</carve>

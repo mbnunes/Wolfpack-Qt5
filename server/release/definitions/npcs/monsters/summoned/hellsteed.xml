@@ -12,6 +12,7 @@
 	<npc id="summoned_hellsteed" inherit="hellsteed">
 		<karma>0</karma>
 		<fame>0</fame>
+		<controlslots>3</controlslots>
 		<category>Summoned\Hellsteed</category>
 	</npc>
 

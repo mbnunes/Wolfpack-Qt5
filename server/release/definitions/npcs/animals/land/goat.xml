@@ -33,6 +33,7 @@
 		<magicresistance>50</magicresistance>
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
+		<controlslots>1</controlslots>
 		<totame>111</totame>
 		<food>0</food>
 		<carve>carve_goat</carve>
@@ -67,6 +68,7 @@
 		<wrestling><random min="293" max="440" /></wrestling>
 		<tactics><random min="293" max="440" /></tactics>
 		<magicresistance><random min="251" max="300" /></magicresistance>
+		<controlslots>1</controlslots>
 		<totame>0</totame>
 		<food>1</food>
 		<carve>carve_goat</carve>

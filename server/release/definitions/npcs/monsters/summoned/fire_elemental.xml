@@ -35,6 +35,7 @@
 		<!-- Loot Packs -->
 		<!--<lootpacks></lootpacks>-->
 		<!-- Misc. -->
+		<controlslots>4</controlslots>
 		<category>Summoned\Fire Elemental</category>
 	</npc>
 

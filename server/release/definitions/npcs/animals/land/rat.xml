@@ -36,6 +36,7 @@
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
 		<!-- Missing:  -->
+		<controlslots>1</controlslots>
 		<lootpacks>lootpack_poor</lootpacks>
 		<totame>0</totame>
 		<food>1</food>

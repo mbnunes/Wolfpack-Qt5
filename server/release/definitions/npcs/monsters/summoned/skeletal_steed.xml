@@ -12,6 +12,7 @@
 	<npc id="summoned_skeletal_steed" inherit="skeletal_steed">
 		<karma>0</karma>
 		<fame>0</fame>
+		<controlslots>3</controlslots>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Summoned\Skeletal Steed</category>
 	</npc>

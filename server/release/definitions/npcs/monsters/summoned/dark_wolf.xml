@@ -45,6 +45,7 @@
 		<!-- Loot Packs -->
 		<!--<lootpacks></lootpacks>-->
 		<!-- Misc. -->
+		<controlslots>1</controlslots>
 		<category>Summoned\Dark Wolf</category>
 	</npc>
 

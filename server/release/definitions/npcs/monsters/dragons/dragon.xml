@@ -38,6 +38,7 @@
 		<!-- Misc. -->
 		<desc>Dragons are a wise and ancient race. They are terrible indeed in their anger, but they are neither cruel nor rapacious in their own nature. Any who says otherwise speaks not the truth. It is true that dragons, like all other sapient peoples, have the power to choose, and that some, succumbing to malice or madness, have descended in wrath on helpless humans, and been put down in consequence. When a man dies beneath a dragon's claws, however, it is far more often the case that he has succumbed to his own greed, and gone foolishly seeking to rob the dragon of his fabled hoard.</desc>
 		<!-- Missing: Jewel, Level 4 Map -->
+		<controlslots>3</controlslots>
 		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich</lootpacks>
 		<totame>939</totame>
 		<category>Monsters\Dragons\Dragon (Random)</category>

@@ -35,6 +35,7 @@
 		<magicresistance><random min="451" max="600" /></magicresistance>
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
+		<controlslots>1</controlslots>
 		<totame>0</totame>
 		<food>5</food>
 		<carve>carve_gorilla</carve>

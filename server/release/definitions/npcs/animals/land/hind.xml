@@ -34,6 +34,7 @@
 		<magicresistance>150</magicresistance>
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
+		<controlslots>1</controlslots>
 		<totame>231</totame>
 		<food>6</food>
 		<carve>carve_deer</carve>

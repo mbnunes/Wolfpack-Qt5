@@ -38,6 +38,7 @@
 		<!-- Loot Packs -->
 		<!--<lootpacks></lootpacks>-->
 		<!-- Misc. -->
+		<controlslots>3</controlslots>
 		<category>Summoned\Revenant</category>
 	</npc>
 

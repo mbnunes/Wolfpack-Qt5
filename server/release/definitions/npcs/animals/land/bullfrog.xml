@@ -34,6 +34,7 @@
 		<magicresistance><random min="251" max="400" /></magicresistance>
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
+		<controlslots>1</controlslots>
 		<totame>231</totame>
 		<food>0</food>
 		<carve>carve_bullfrog</carve>

@@ -39,6 +39,7 @@
 		<meditation>0</meditation>
 		<!-- Misc. -->
 		<!-- Missing: 1-7CS, LNS, Potion, 3 Sulfurous Ash -->
+		<controlslots>2</controlslots>
 		<lootpacks>lootpack_rich</lootpacks>
 		<totame>951</totame>
 		<food>1</food>

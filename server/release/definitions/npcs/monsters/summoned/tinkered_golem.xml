@@ -22,6 +22,7 @@
 		<magicresist><random min="1501" max="1900" /></magicresist>
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
+		<controlslots>4</controlslots>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Summoned\Golem (Tinkered)</category>
 	</npc>

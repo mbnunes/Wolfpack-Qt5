@@ -36,6 +36,7 @@
 		<!-- Loot Packs -->
 		<!--<lootpacks></lootpacks>-->
 		<!-- Misc. -->
+		<controlslots>1</controlslots>
 		<category>Summoned\Death Adder</category>
 	</npc>
 

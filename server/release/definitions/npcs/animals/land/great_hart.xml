@@ -33,6 +33,7 @@
 		<tactics><random min="298" max="475" /></tactics>
 		<magicresistance><random min="268" max="445" /></magicresistance>
 		<!-- Misc. -->
+		<controlslots>1</controlslots>
 		<totame>591</totame>
 		<food>0</food>
 		<carve>carve_hart_great</carve>

@@ -37,6 +37,7 @@
 		<poisoning><random min="501" max="700" /></poisoning>
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
+		<controlslots>1</controlslots>
 		<totame>591</totame>
 		<food>0</food>
 		<carve>carve_snake</carve>

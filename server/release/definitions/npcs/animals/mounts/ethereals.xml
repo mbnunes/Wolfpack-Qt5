@@ -37,6 +37,7 @@
 		<tactics>1000</tactics>
 		<magicresistance>1000</magicresistance>
 		<!-- Misc. -->
+		<controlslots>1</controlslots>
 		<food>0</food>
 		<totame>0</totame>
 		<bindmenu>tame_menu,pet_menu</bindmenu>

@@ -33,6 +33,7 @@
 		<magicresistance>55</magicresistance>
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
+		<controlslots>1</controlslots>
 		<totame>111</totame>
 		<food>6</food>
 		<carve>carve_cow</carve>
