@@ -74,6 +74,7 @@ public:
 	{
 		rawPacket[0] = (Q_UINT8)0xA8;
 		rawPacket[3] = (Q_UINT8)0xFF;
+		setShort( 1, 6 ); // Packet Size
 	}
 
 	void addServer( Q_UINT16 serverIndex, QString serverName, Q_UINT8 serverFull = 0, Q_INT8 serverTimeZone = 0, Q_UINT32 serverIp = 0 );

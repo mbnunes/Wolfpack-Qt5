@@ -40,6 +40,7 @@ void cUOTxShardList::addServer( Q_UINT16 serverIndex, QString serverName, Q_UINT
 
 	Q_INT32 offset = rawPacket.count();
 	rawPacket.resize( rawPacket.count() + 40 ); // 40 byte per server
+	setShort( 1, rawPacket.count() );
 	setShort( offset, serverIndex );
 
 	if( serverName.length() > 31 ) 
