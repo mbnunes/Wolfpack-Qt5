@@ -3,54 +3,33 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: Kosh                           |
-|   )).-' {{ ;'`   | Revised by: sereg                          |
-|  ( (  ;._ \\ ctr | Last Modification: Enhanced                |
+|   )).-' {{ ;'`   | Revised by: sereg, Dreoth                  |
+|  ( (  ;._ \\ ctr | Last Modification: Fixes for AoS Support   |
 =================================================================
 -->
 <definitions>
+
 	<!-- a cyclops -->
 	<npc id="cyclops">
 		<name>a cyclopian warrior</name>
 		<id>0x04c</id>
-		<category>Monsters\giants\cyclopian warrior </category>
+		<category>Monsters\Giants\Cyclopian Warrior </category>
 		<inherit id="monster_base"/>
-		<karma>
-			<random min="-2500" max="-4999"/>
-		</karma>
-		<fame>
-			<random min="2500" max="4999"/>
-		</fame>
-		<defense>
-			<random min="48" max="48"/>
-		</defense>
-		<lodamage>8</lodamage>
-		<hidamage>28</hidamage>
-		<gold>
-			<random min="450" max="650"/>
-		</gold>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="45" max="50"/></defense>
+		<lodamage>21</lodamage>
+		<hidamage>63</hidamage>
+		<gold><random min="250" max="350"/></gold>
 		<!-- Stats -->
-		<str>
-			<random min="339" max="381"/>
-		</str>
-		<dex>
-			<random min="100" max="115"/>
-		</dex>
-		<int>
-			<random min="32" max="52"/>
-		</int>
+		<str><random min="336" max="385"/></str>
+		<dex><random min="96" max="115"/></dex>
+		<int><random min="31" max="55"/></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="838" max="910"/>
-		</wrestling>
-		<tactics>
-			<random min="816" max="979"/>
-		</tactics>
-		<magicresistance>
-			<random min="776" max="1021"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
+		<wrestling><random min="801" max="900"/></wrestling>
+		<tactics><random min="801" max="1000"/></tactics>
+		<magicresistance><random min="603" max="1050"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
 		<carve>carve_cyclops</carve>
 		<!-- Priv -->
 	</npc>
@@ -59,192 +38,96 @@
 	<npc id="ettin">
 		<name>an ettin</name>
 		<id>0x011</id>
-		<category>Monsters\giants\ettin </category>
+		<category>Monsters\Giants\Ettin </category>
 		<inherit id="monster_base"/>
-		<karma>
-			<random min="-2500" max="-4999"/>
-		</karma>
-		<fame>
-			<random min="2500" max="4999"/>
-		</fame>
-		<defense>
-			<random min="38" max="38"/>
-		</defense>
-		<lodamage>4</lodamage>
-		<hidamage>15</hidamage>
-		<gold>
-			<random min="50" max="150"/>
-		</gold>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="35" max="40" /></defense>
+		<lodamage>13</lodamage>
+		<hidamage>35</hidamage>
+		<gold><random min="100" max="150"/></gold>
 		<!-- Stats -->
-		<str>
-			<random min="136" max="163"/>
-		</str>
-		<dex>
-			<random min="56" max="74"/>
-		</dex>
-		<int>
-			<random min="31" max="54"/>
-		</int>
+		<str><random min="136" max="165"/></str>
+		<dex><random min="56" max="75"/></dex>
+		<int><random min="31" max="55"/></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="555" max="633"/>
-		</wrestling>
-		<tactics>
-			<random min="507" max="678"/>
-		</tactics>
-		<magicresistance>
-			<random min="423" max="529"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
+		<wrestling><random min="501" max="600"/></wrestling>
+		<tactics><random min="501" max="700"/></tactics>
+		<magicresistance><random min="401" max="550"/></magicresistance>
 		<carve>carve_ettin</carve>
 		<!-- Priv -->
 	</npc>
+
 	<!-- a etitan-->
 	<npc id="titan">
 		<name>a titan</name>
 		<id>0x04a</id>
-		<category>Monsters\giants\titan </category>
+		<category>Monsters\Giants\Titan </category>
 		<inherit id="monster_base"/>
-		<karma>
-			<random min="-10000" max="-20000"/>
-		</karma>
-		<fame>
-			<random min="10000" max="20000"/>
-		</fame>
-		<defense>
-			<random min="40" max="40"/>
-		</defense>
-		<lodamage>6</lodamage>
-		<hidamage>24</hidamage>
-		<gold>
-			<random min="500" max="800"/>
-		</gold>
+		<karma><random min="-10000" max="-20000"/></karma>
+		<fame><random min="10000" max="20000"/></fame>
+		<defense><random min="35" max="45"/></defense>
+		<lodamage>41</lodamage>
+		<hidamage>50</hidamage>
+		<gold><random min="300" max="450"/></gold>
 		<!-- Stats -->
-		<str>
-			<random min="553" max="583"/>
-		</str>
-		<dex>
-			<random min="126" max="142"/>
-		</dex>
-		<int>
-			<random min="285" max="302"/>
-		</int>
+		<str><random min="556" max="585"/></str>
+		<dex><random min="126" max="145"/></dex>
+		<int><random min="281" max="305"/></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="478" max="542"/>
-		</wrestling>
-		<tactics>
-			<random min="663" max="788"/>
-		</tactics>
-		<magicresistance>
-			<random min="924" max="1042"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<magery>
-			<random min="875" max="963"/>
-		</magery>
-		<evaluatingint>
-			<random min="658" max="744"/>
-		</evaluatingint>
-		<meditation>
-			<random min="0" max="0"/>
-		</meditation>
+		<wrestling><random min="401" max="500"/></wrestling>
+		<tactics><random min="601" max="800"/></tactics>
+		<magicresistance><random min="802" max="1100"/></magicresistance>
+		<magery><random min="851" max="1000"/></magery>
+		<evaluatingint><random min="851" max="1000"/></evaluatingint>
 		<carve>carve_titan</carve>
 		<!-- Priv -->
 	</npc>
+
 	<!-- a ogre -->
 	<npc id="ogre">
 		<name>a ogre</name>
 		<id>0x001</id>
-		<category>Monsters\giants\ogre </category>
+		<category>Monsters\Giants\Ogre </category>
 		<inherit id="monster_base"/>
-		<karma>
-			<random min="-2500" max="-4999"/>
-		</karma>
-		<fame>
-			<random min="2500" max="4999"/>
-		</fame>
-		<defense>
-			<random min="32" max="32"/>
-		</defense>
-		<lodamage>5</lodamage>
-		<hidamage>18</hidamage>
-		<gold>
-			<random min="50" max="150"/>
-		</gold>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="30" max="35"/></defense>
+		<lodamage>18</lodamage>
+		<hidamage>22</hidamage>
+		<gold><random min="60" max="90"/></gold>
 		<!-- Stats -->
-		<str>
-			<random min="148" max="194"/>
-		</str>
-		<dex>
-			<random min="48" max="60"/>
-		</dex>
-		<int>
-			<random min="49" max="65"/>
-		</int>
+		<str><random min="166" max="195"/></str>
+		<dex><random min="46" max="65"/></dex>
+		<int><random min="46" max="70"/></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="741" max="813"/>
-		</wrestling>
-		<tactics>
-			<random min="605" max="691"/>
-		</tactics>
-		<magicresistance>
-			<random min="563" max="698"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-<carve>carve_ogr</carve>
+		<wrestling><random min="701" max="800"/></wrestling>
+		<tactics><random min="601" max="700"/></tactics>
+		<magicresistance><random min="551" max="700"/></magicresistance>
+		<carve>carve_ogr</carve>
 		<!-- Priv -->
 	</npc>
+
 	<!-- a troll -->
 	<npc id="troll">
 		<name>a troll</name>
 		<id>0x036</id>
-		<category>Monsters\giants\troll </category>
+		<category>Monsters\Giants\Troll </category>
 		<inherit id="monster_base"/>
-		<karma>
-			<random min="-2500" max="-4999"/>
-		</karma>
-		<fame>
-			<random min="2500" max="4999"/>
-		</fame>
-		<defense>
-			<random min="40" max="40"/>
-		</defense>
-		<lodamage>8</lodamage>
-		<hidamage>18</hidamage>
-		<gold>
-			<random min="50" max="200"/>
-		</gold>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="35" max="45"/></defense>
+		<lodamage>16</lodamage>
+		<hidamage>28</hidamage>
+		<gold><random min="50" max="100"/></gold>
 		<!-- Stats -->
-		<str>
-			<random min="177" max="204"/>
-		</str>
-		<dex>
-			<random min="50" max="64"/>
-		</dex>
-		<int>
-			<random min="47" max="63"/>
-		</int>
+		<str><random min="176" max="205"/></str>
+		<dex><random min="46" max="65"/></dex>
+		<int><random min="46" max="70"/></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="603" max="713"/>
-		</wrestling>
-		<tactics>
-			<random min="501" max="688"/>
-		</tactics>
-		<magicresistance>
-			<random min="451" max="538"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
+		<wrestling><random min="501" max="700"/></wrestling>
+		<tactics><random min="501" max="700"/></tactics>
+		<magicresistance><random min="451" max="600"/></magicresistance>
 		<carve>carve_troll</carve>
 		<!-- Priv -->
 	</npc>
@@ -253,140 +136,142 @@
 	<npc id="arctic_ogre_lord">
 		<name>an arctic ogre lord</name>
 		<id>0x87</id>
-		<category>Monsters\giants\Arctic Ogre Lord </category>
+		<category>Monsters\Giants\Arctic Ogre Lord </category>
 		<inherit id="monster_base"/>
 		<karma><random min="-10000" max="-15000"/></karma>
 		<fame><random min="10000" max="15000"/></fame>
-		<defense><random min="50" max="50"/></defense>
-		<lodamage>15</lodamage>
-		<hidamage>35</hidamage>
+		<defense><random min="45" max="55"/></defense>
+		<lodamage>82</lodamage>
+		<hidamage>111</hidamage>
+		<gold><random min="450" max="600"/></gold>
 		<!-- Stats -->
-		<str><random min="858" max="914"/></str>
-		<dex><random min="67" max="75"/></dex>
-		<int><random min="52" max="59"/></int>
+		<str><random min="767" max="945"/></str>
+		<dex><random min="66" max="75"/></dex>
+		<int><random min="46" max="70"/></int>
 		<!-- Skills -->
-		<wrestling><random min="931" max="982"/></wrestling>
-		<tactics><random min="939" max="970"/></tactics>
-		<magicresistance><random min="1263" max="1354"/></magicresistance>
-		<anatomy><random min="0" max="0"/></anatomy>
+		<wrestling><random min="901" max="1000"/></wrestling>
+		<tactics><random min="901" max="1000"/></tactics>
+		<magicresistance><random min="1251" max="1400"/></magicresistance>
 		<carve></carve>
-		</npc>
+	</npc>
 
 	<!-- bogthing -->
 	<npc id="bog_thing">
 		<name>a bog thing</name>
 		<id>0x30c</id>
-		<category>Monsters\giants\Bog Thing </category>
+		<category>Monsters\Giants\Bog Thing </category>
 		<inherit id="monster_base"/>
 		<karma><random min="-2500" max="-4999"/></karma>
 		<fame><random min="2500" max="4999"/></fame>
-		<defense><random min="28" max="28"/></defense>
-		<lodamage>8</lodamage>
-		<hidamage>17</hidamage>
+		<defense><random min="30" max="40"/></defense>
+		<lodamage>40</lodamage>
+		<hidamage>95</hidamage>
+		<gold><random min="50" max="100"/></gold>
 		<!-- Stats -->
-		<str><random min="808" max="845"/></str>
-		<dex><random min="47" max="57"/></dex>
-		<int><random min="37" max="49"/></int>
+		<str><random min="801" max="900"/></str>
+		<dex><random min="46" max="65"/></dex>
+		<int><random min="36" max="50"/></int>
 		<!-- Skills -->
-		<wrestling><random min="712" max="806"/></wrestling>
-		<tactics><random min="739" max="798"/></tactics>
-		<magicresistance><random min="905" max="940"/></magicresistance>
-		<anatomy><random min="0" max="0"/></anatomy>
+		<wrestling><random min="651" max="800"/></wrestling>
+		<tactics><random min="701" max="850"/></tactics>
+		<magicresistance><random min="901" max="950"/></magicresistance>
 		<carve></carve>
-		</npc>
+	</npc>
 
 	<!-- bogling -->
 	<npc id="bogling">
 		<name>a bogling</name>
 		<id>0x30b</id>
-		<category>Monsters\giants\bogling </category>
+		<category>Monsters\Giants\bogling </category>
 		<inherit id="monster_base"/>
 		<karma><random min="-10000" max="-15000"/></karma>
 		<fame><random min="10000" max="15000"/></fame>
-		<defense><random min="20" max="20"/></defense>
-		<lodamage>5</lodamage>
-		<hidamage>8</hidamage>
+		<defense><random min="20" max="25"/></defense>
+		<lodamage>8</lodamage>
+		<hidamage>12</hidamage>
+		<gold><random min="25" max="50"/></gold>
 		<!-- Stats -->
 		<str><random min="96" max="120"/></str>
-		<dex><random min="94" max="115"/></dex>
-		<int><random min="21" max="1944"/></int>
+		<dex><random min="91" max="115"/></dex>
+		<int><random min="21" max="45"/></int>
 		<!-- Skills -->
-		<wrestling><random min="601" max="730"/></wrestling>
-		<tactics><random min="564" max="771"/></tactics>
-		<magicresistance><random min="766" max="983"/></magicresistance>
-		<anatomy><random min="0" max="0"/></anatomy>
+		<wrestling><random min="551" max="750"/></wrestling>
+		<tactics><random min="551" max="800"/></tactics>
+		<magicresistance><random min="751" max="1000"/></magicresistance>
 		<carve></carve>
-		</npc>
+	</npc>
 
-        <!-- ethereal warrior -->
-        <npc id="ethereal_warrior">
-                <name>an ethereal warrior</name>
-                <id>0x7B</id>
-                <category>Monsters\giants\Ethereal Warrior</category>
-                <skin>0</skin>
-                <inherit id="animal_base" />
-                <karma><random min="5000" max="9999" /></karma>
-                <fame><random min="5000" max="9999" /></fame>
-                <defense><random min="102" max="120" /></defense>
-                <lodamage>11</lodamage>
-                <hidamage>22</hidamage>
-                <!-- Stats -->
-                <str><random min="614" max="760" /></str>
-                <dex><random min="186" max="240" /></dex>
-                <int><random min="370" max="443" /></int>
-                <!-- Skills -->
-                <wrestling><random min="980" max="998" /></wrestling>
-                <tactics><random min="910" max="987" /></tactics>
-                <magicresistance><random min="906" max="989" /></magicresistance>
-		<anatomy><random min="504" max="747" /></anatomy>
-		<magery><random min="992" max="100" /></magery>
-		<evaluatingintel><random min="919" max="1000" /></evaluatingintel>
-		<meditation><random min="924" max="999" /></meditation>
-                <carve></carve>
-        </npc>
+			<!-- ethereal warrior -->
+			<npc id="ethereal_warrior">
+					<name>an ethereal warrior</name>
+					<id>0x7B</id>
+					<category>Monsters\Giants\Ethereal Warrior</category>
+					<skin>0</skin>
+					<inherit id="animal_base" />
+					<karma><random min="5000" max="9999" /></karma>
+					<fame><random min="5000" max="9999" /></fame>
+					<defense><random min="80" max="90" /></defense>
+					<lodamage>47</lodamage>
+					<hidamage>74</hidamage>
+					<gold><random min="550" max="650"/></gold>
+					<!-- Stats -->
+					<str><random min="586" max="785" /></str>
+					<dex><random min="177" max="255" /></dex>
+					<int><random min="351" max="450" /></int>
+					<!-- Skills -->
+					<wrestling><random min="976" max="1000" /></wrestling>
+					<tactics><random min="901" max="1000" /></tactics>
+					<magicresistance><random min="901" max="1000" /></magicresistance>
+					<anatomy><random min="501" max="750" /></anatomy>
+					<magery><random min="991" max="1000" /></magery>
+					<evaluatingintel><random min="901" max="1000" /></evaluatingintel>
+					<meditation><random min="901" max="1000" /></meditation>
+					<carve></carve>
+			</npc>
 
-        <!-- frost troll -->
-        <npc id="frost_troll">
-                <name>an frost troll</name>
-                <id>0x37</id>
-                <category>Monsters\giants\Frost Troll</category>
-                <skin>0</skin>
-                <inherit id="monster_base" />
-                <karma><random min="-2500" max="-4999" /></karma>
-                <fame><random min="2500" max="4999" /></fame>
-                <defense>50</defense>
-                <lodamage>7</lodamage>
-                <hidamage>19</hidamage>
-                <!-- Stats -->
-                <str><random min="233" max="258" /></str>
-                <dex><random min="72" max="85" /></dex>
-                <int><random min="46" max="70" /></int>
-                <!-- Skills -->
-                <wrestling><random min="825" max="958" /></wrestling>
-                <tactics><random min="821" max="997" /></tactics>
-                <magicresistance><random min="665" max="793" /></magicresistance>
-        </npc>
+			<!-- frost troll -->
+			<npc id="frost_troll">
+					<name>an frost troll</name>
+					<id>0x37</id>
+					<category>Monsters\Giants\Frost Troll</category>
+					<skin>0</skin>
+					<inherit id="monster_base" />
+					<karma><random min="-2500" max="-4999" /></karma>
+					<fame><random min="2500" max="4999" /></fame>
+					<defense><random min="45" max="55" /></defense>
+					<lodamage>34</lodamage>
+					<hidamage>49</hidamage>
+					<gold><random min="50" max="100"/></gold>
+					<!-- Stats -->
+					<str><random min="227" max="265" /></str>
+					<dex><random min="66" max="85" /></dex>
+					<int><random min="46" max="70" /></int>
+					<!-- Skills -->
+					<wrestling><random min="801" max="1000" /></wrestling>
+					<tactics><random min="801" max="1000" /></tactics>
+					<magicresistance><random min="651" max="800" /></magicresistance>
+			</npc>
 
-        <!-- Ogre Lord -->
-        <npc id="ogre_lord">
-                <name>an ogre lord</name>
-                <id>0x53</id>
-                <category>Monsters\giants\Ogre Lord</category>
-                <skin>0</skin>
-                <inherit id="monster_base" />
-                <karma><random min="-10000" max="-15000" /></karma>
-                <fame><random min="10000" max="15000" /></fame>
-                <defense><random min="50" max="50" /></defense>
-                <lodamage>20</lodamage>
-                <hidamage>45</hidamage>
-                <!-- Stats -->
-                <str><random min="819" max="934" /></str>
-                <dex><random min="66" max="75" /></dex>
-                <int><random min="49" max="70" /></int>
-                <!-- Skills -->
-                <wrestling><random min="912" max="968" /></wrestling>
-                <tactics><random min="911" max="999" /></tactics>
-                <magicresistance><random min="1267" max="1400" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-        </npc>
+			<!-- Ogre Lord -->
+			<npc id="ogre_lord">
+					<name>an ogre lord</name>
+					<id>0x53</id>
+					<category>Monsters\Giants\Ogre Lord</category>
+					<skin>0</skin>
+					<inherit id="monster_base" />
+					<karma><random min="-10000" max="-15000" /></karma>
+					<fame><random min="10000" max="15000" /></fame>
+					<defense><random min="45" max="55" /></defense>
+					<lodamage>84</lodamage>
+					<hidamage>111</hidamage>
+					<gold><random min="600" max="750"/></gold>
+					<!-- Stats -->
+					<str><random min="767" max="945" /></str>
+					<dex><random min="66" max="75" /></dex>
+					<int><random min="46" max="70" /></int>
+					<!-- Skills -->
+					<wrestling><random min="901" max="1000" /></wrestling>
+					<tactics><random min="901" max="1000" /></tactics>
+					<magicresistance><random min="1251" max="1400" /></magicresistance>
+			</npc>
 </definitions>

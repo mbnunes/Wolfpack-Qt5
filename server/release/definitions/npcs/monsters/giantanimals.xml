@@ -3,51 +3,31 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: Kosh                           |
-|   )).-' {{ ;'`   | Revised by: sereg                          |
-|  ( (  ;._ \\ ctr | Last Modification: Enhanced                |
+|   )).-' {{ ;'`   | Revised by: sereg, Dreoth                  |
+|  ( (  ;._ \\ ctr | Last Modification: Fixes for AoS Support   |
 =================================================================
 -->
 <definitions>
+
 	<!-- a rat (giant) -->
 	<npc id="rat_giant">
 		<name>a giant rat</name>
 		<id>0x0d7</id>
-		<category>Monsters\giantanimals\ret giant </category>
+		<category>Monsters\Giant Animals\Giant Rat </category>
 		<inherit id="monster_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1249"/>
-		</fame>
-		<defense>
-			<random min="18" max="18"/>
-		</defense>
-		<lodamage>2</lodamage>
-		<hidamage>8</hidamage>
+		<karma><random min="-0" max="-624"/></karma>
+		<fame><random min="0" max="1249"/></fame>
+		<defense><random min="15" max="20"/></defense>
+		<lodamage>5</lodamage>
+		<hidamage>11</hidamage>
 		<!-- Stats -->
-		<str>
-			<random min="32" max="70"/>
-		</str>
-		<dex>
-			<random min="46" max="65"/>
-		</dex>
-		<int>
-			<random min="16" max="29"/>
-		</int>
+		<str><random min="32" max="74"/></str>
+		<dex><random min="46" max="65"/></dex>
+		<int><random min="16" max="30"/></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="370" max="428"/>
-		</wrestling>
-		<tactics>
-			<random min="270" max="439"/>
-		</tactics>
-		<magicresistance>
-			<random min="251" max="300"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
+		<wrestling><random min="293" max="440"/></wrestling>
+		<tactics><random min="293" max="440"/></tactics>
+		<magicresistance><random min="251" max="300"/></magicresistance>
 		<carve>carve_ret_giant</carve>
 		<totame>291</totame>
 		<food>1</food>
@@ -58,48 +38,23 @@
 	<npc id="spider_gaint">
 		<name>a giant spider</name>
 		<id>0x01c</id>
-		<category>Monsters\giantanimals\spider gaint </category>
+		<category>Monsters\Giant Animals\Giant Spider</category>
 		<inherit id="monster_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1249"/>
-		</fame>
-		<defense>
-			<random min="16" max="16"/>
-		</defense>
-		<lodamage>2</lodamage>
-		<hidamage>14</hidamage>
-		<gold>
-			<random min="0" max="50"/>
-		</gold>
+		<karma><random min="-0" max="-624"/></karma>
+		<fame><random min="0" max="1249"/></fame>
+		<defense><random min="15" max="20"/></defense>
+		<lodamage>7</lodamage>
+		<hidamage>19</hidamage>
+		<gold><random min="0" max="25"/></gold>
 		<!-- Stats -->
-		<str>
-			<random min="76" max="100"/>
-		</str>
-		<dex>
-			<random min="76" max="94"/>
-		</dex>
-		<int>
-			<random min="36" max="59"/>
-		</int>
+		<str><random min="76" max="100"/></str>
+		<dex><random min="76" max="95"/></dex>
+		<int><random min="36" max="60"/></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="538" max="671"/>
-		</wrestling>
-		<tactics>
-			<random min="368" max="499"/>
-		</tactics>
-		<magicresistance>
-			<random min="252" max="398"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<poisoning>
-			<random min="604" max="792"/>
-		</poisoning>
+		<wrestling><random min="501" max="650"/></wrestling>
+		<tactics><random min="351" max="500"/></tactics>
+		<magicresistance><random min="251" max="400"/></magicresistance>
+		<poisoning><random min="601" max="800"/></poisoning>
 		<carve>carve_spider_gaint</carve>
 		<totame>591</totame>
 		<food>1</food>
@@ -110,48 +65,23 @@
 	<npc id="scorpion">
 		<name>a scorpion</name>
 		<id>0x030</id>
-		<category>Monsters\giantanimals\scorpion </category>
+		<category>Monsters\Giant Animals\Scorpion</category>
 		<inherit id="monster_base"/>
-		<karma>
-			<random min="-1250" max="-2499"/>
-		</karma>
-		<fame>
-			<random min="1250" max="2499"/>
-		</fame>
-		<defense>
-			<random min="28" max="28"/>
-		</defense>
-		<lodamage>3</lodamage>
-		<hidamage>12</hidamage>
-		<gold>
-			<random min="0" max="50"/>
-		</gold>
+		<karma><random min="-1250" max="-2499"/></karma>
+		<fame><random min="1250" max="2499"/></fame>
+		<defense><random min="20" max="25"/></defense>
+		<lodamage>8</lodamage>
+		<hidamage>17</hidamage>
+		<gold><random min="25" max="50"/></gold>
 		<!-- Stats -->
-		<str>
-			<random min="82" max="108"/>
-		</str>
-		<dex>
-			<random min="78" max="94"/>
-		</dex>
-		<int>
-			<random min="17" max="29"/>
-		</int>
+		<str><random min="73" max="115"/></str>
+		<dex><random min="76" max="95"/></dex>
+		<int><random min="16" max="30"/></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="576" max="660"/>
-		</wrestling>
-		<tactics>
-			<random min="624" max="735"/>
-		</tactics>
-		<magicresistance>
-			<random min="301" max="349"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<poisoning>
-			<random min="834" max="991"/>
-		</poisoning>
+		<wrestling>	<random min="503" max="650"/></wrestling>
+		<tactics><random min="603" max="750"/></tactics>
+		<magicresistance><random min="301" max="350"/></magicresistance>
+		<poisoning><random min="801" max="1000"/></poisoning>
 		<carve>carve_scorpion_gaint</carve>
 		<totame>471</totame>
 		<food>1</food>
@@ -162,48 +92,23 @@
 	<npc id="serpent_gaint">
 		<name>a giant serpent</name>
 		<id>0x015</id>
-		<category>Monsters\giantanimals\serpent gaint </category>
+		<category>Monsters\Giant Animals\serpent gaint </category>
 		<inherit id="monster_base"/>
-		<karma>
-			<random min="-1250" max="-2499"/>
-		</karma>
-		<fame>
-			<random min="1250" max="2499"/>
-		</fame>
-		<defense>
-			<random min="32" max="32"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="1250" max="2499"/>
-		</gold>
+		<karma><random min="-1250" max="-2499"/></karma>
+		<fame><random min="1250" max="2499"/></fame>
+		<defense><random min="30" max="35"/></defense>
+		<lodamage>19</lodamage>
+		<hidamage>35</hidamage>
+		<gold><random min="1250" max="2499"/></gold>
 		<!-- Stats -->
-		<str>
-			<random min="188" max="215"/>
-		</str>
-		<dex>
-			<random min="56" max="79"/>
-		</dex>
-		<int>
-			<random min="69" max="85"/>
-		</int>
+		<str><random min="186" max="215"/></str>
+		<dex><random min="56" max="80"/></dex>
+		<int><random min="66" max="85"/></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="652" max="810"/>
-		</wrestling>
-		<tactics>
-			<random min="653" max="700"/>
-		</tactics>
-		<magicresistance>
-			<random min="255" max="400"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<poisoning>
-			<random min="784" max="997"/>
-		</poisoning>
+		<wrestling><random min="601" max="800"/></wrestling>
+		<tactics><random min="651" max="700"/></tactics>
+		<magicresistance><random min="251" max="400"/></magicresistance>
+		<poisoning><random min="701" max="1000"/></poisoning>
 		<carve>carve_serpent_gaint</carve>
 		<!-- Priv -->
 	</npc>
@@ -212,42 +117,21 @@
 	<npc id="gaint_toad">
 		<name>a gaint toad</name>
 		<id>0x050</id>
-		<category>Monsters\giantanimals\gaint toad </category>
+		<category>Monsters\Giant Animals\gaint toad </category>
 		<inherit id="monster_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1259"/>
-		</fame>
-		<defense>
-			<random min="24" max="24"/>
-		</defense>
-		<lodamage>2</lodamage>
-		<hidamage>8</hidamage>
+		<karma><random min="-0" max="-624"/></karma>
+		<fame><random min="0" max="1259"/></fame>
+		<defense><random min="20" max="25"/></defense>
+		<lodamage>11</lodamage>
+		<hidamage>27</hidamage>
 		<!-- Stats -->
-		<str>
-			<random min="79" max="99"/>
-		</str>
-		<dex>
-			<random min="10" max="23"/>
-		</dex>
-		<int>
-			<random min="10" max="25"/>
-		</int>
+		<str><random min="79" max="99"/></str>
+		<dex><random min="10" max="23"/></dex>
+		<int><random min="10" max="25"/></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="445" max="610"/>
-		</wrestling>
-		<tactics>
-			<random min="413" max="583"/>
-		</tactics>
-		<magicresistance>
-			<random min="262" max="394"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
+		<wrestling><random min="401" max="600"/></wrestling>
+		<tactics><random min="401" max="600"/></tactics>
+		<magicresistance><random min="251" max="400"/></magicresistance>
 		<carve>carve_gaint_toad</carve>
 		<totame>771</totame>
 		<food>1</food>
@@ -258,201 +142,200 @@
 	<npc id="giant_ice_serpent">
 		<name>a giant ice serpent</name>
 		<id>0x59</id>
-		<category>Monsters\giantanimals\Giant Ice Serpent</category>
+		<category>Monsters\Giant Animals\Giant Ice Serpent</category>
 		<skin>0</skin>
 		<inherit id="monster_base" />
 		<karma><random min="-2500" max="-4999" /></karma>
 		<fame><random min="2500" max="4999" /></fame>
-		<defense>32</defense>
-		<lodamage>4</lodamage>
-		<hidamage>12</hidamage>
-		<str><random min="222" max="244" /></str>
-		<dex><random min="26" max="49" /></dex>
-		<int><random min="67" max="84" /></int>
-		<wrestling><random min="697" max="809" /></wrestling>
-		<tactics><random min="753" max="805" /></tactics>
-		<magicresistance><random min="258" max="388" /></magicresistance>
-		<anatomy><random min="355" max="417" /></anatomy>
+		<defense><random min="30" max="35" /></defense>
+		<lodamage>17</lodamage>
+		<hidamage>41</hidamage>
+		<str><random min="216" max="245" /></str>
+		<dex><random min="26" max="50" /></dex>
+		<int><random min="66" max="85" /></int>
+		<wrestling><random min="601" max="800" /></wrestling>
+		<tactics><random min="751" max="800" /></tactics>
+		<magicresistance><random min="251" max="400" /></magicresistance>
+		<anatomy><random min="275" max="500" /></anatomy>
 	</npc>
 
-	<!-- Giant Ice Serpent -->
+	<!-- Giant Ice Worm -->
 	<npc id="giant_ice_worm">
 		<name>a giant ice worm</name>
 		<id>0x59</id>
-		<category>Monsters\giantanimals\Giant Ice Worm</category>
+		<category>Monsters\Giant Animals\Giant Ice Worm</category>
 		<skin>0</skin>
 		<inherit id="monster_base" />
 		<karma><random min="-2500" max="-4999" /></karma>
 		<fame><random min="2500" max="4999" /></fame>
-		<defense>32</defense>
-		<lodamage>4</lodamage>
-		<hidamage>12</hidamage>
-		<str><random min="218" max="234" /></str>
-		<dex><random min="77" max="92" /></dex>
-		<int><random min="66" max="77" /></int>
-		<wrestling><random min="689" max="792" /></wrestling>
-		<tactics><random min="752" max="793" /></tactics>
-		<magicresistance><random min="459" max="594" /></magicresistance>
-		<poisoning><random min="835" max="890" /></poisoning>
+		<defense><random min="30" max="35" /></defense>
+		<lodamage>15</lodamage>
+		<hidamage>35</hidamage>
+		<str><random min="216" max="245" /></str>
+		<dex><random min="76" max="100" /></dex>
+		<int><random min="66" max="85" /></int>
+		<wrestling><random min="601" max="800" /></wrestling>
+		<tactics><random min="751" max="800" /></tactics>
+		<magicresistance><random min="451" max="600" /></magicresistance>
+		<poisoning><random min="751" max="950" /></poisoning>
+		<totame>711</totame>
 	</npc>
 
 	<!-- Lava Serpent -->
 	<npc id="lava_serpent">
 		<name>a lava serpent</name>
 		<id>0x5A</id>
-		<category>Monsters\giantanimals\Lava Serpent</category>
+		<category>Monsters\Giant Animals\Lava Serpent</category>
 		<skin>0</skin>
 		<inherit id="monster_base" />
 		<karma><random min="-1250" max="-2499" /></karma>
 		<fame><random min="1250" max="2499" /></fame>
-		<defense>40</defense>
-		<lodamage>6</lodamage>
-		<hidamage>13</hidamage>
-		<str><random min="395" max="412" /></str>
-		<dex><random min="59" max="79" /></dex>
-		<int><random min="67" max="85" /></int>
-		<wrestling><random min="644" max="777" /></wrestling>
-		<tactics><random min="651" max="694" /></tactics>
-		<magicresistance><random min="314" max="571" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
+		<defense><random min="35" max="45" /></defense>
+		<lodamage>33</lodamage>
+		<hidamage>56</hidamage>
+		<str><random min="386" max="415" /></str>
+		<dex><random min="56" max="80" /></dex>
+		<int><random min="66" max="85" /></int>
+		<wrestling><random min="601" max="800" /></wrestling>
+		<tactics><random min="651" max="700" /></tactics>
+		<magicresistance><random min="253" max="700" /></magicresistance>
 	</npc>
 
 	<!-- silver Serpent -->
 	<npc id="silver_serpent">
 		<name>a silver serpent</name>
 		<id>0x5B</id>
-		<category>Monsters\giantanimals\Silver Serpent</category>
+		<category>Monsters\Giant Animals\Silver Serpent</category>
 		<skin>0</skin>
 		<inherit id="monster_base" />
 		<karma><random min="-5000" max="-9999" /></karma>
 		<fame><random min="5000" max="9999" /></fame>
-		<defense>40</defense>
-		<lodamage>4</lodamage>
-		<hidamage>12</hidamage>
-		<str><random min="196" max="335" /></str>
-		<dex><random min="172" max="280" /></dex>
-		<int><random min="21" max="37" /></int>
-		<wrestling><random min="878" max="982" /></wrestling>
-		<tactics><random min="840" max="944" /></tactics>
-		<magicresistance><random min="956" max="981" /></magicresistance>
-		<poisoning><random min="950" max="997" /></poisoning>
+		<defense><random min="35" max="45" /></defense>
+		<lodamage>11</lodamage>
+		<hidamage>53</hidamage>
+		<str><random min="161" max="360" /></str>
+		<dex><random min="151" max="300" /></dex>
+		<int><random min="21" max="40" /></int>
+		<wrestling><random min="851" max="1000" /></wrestling>
+		<tactics><random min="801" max="950" /></tactics>
+		<magicresistance><random min="951" max="1000" /></magicresistance>
+		<poisoning><random min="901" max="1000" /></poisoning>
 	</npc>
 
-        <!-- dread spider -->
-        <npc id="dread_spider">
-                <name>a dread spider</name>
-                <id>0xB</id>
-                <category>Monsters\giantanimals\Dread Spider</category>
-                <skin>0</skin>
-                <inherit id="monster_base" />
-                <karma><random min="0" max="-624" /></karma>
-                <fame><random min="0" max="1249" /></fame>
-                <defense>36</defense>
-                <lodamage>9</lodamage>
-                <hidamage>21</hidamage>
-                <!-- Stats -->
-                <str><random min="198" max="210" /></str>
-                <dex><random min="126" max="144" /></dex>
-                <int><random min="302" max="309" /></int>
-                <!-- Skills -->
-                <wrestling><random min="717" max="759" /></wrestling>
-                <tactics><random min="585" max="693" /></tactics>
-                <magicresistance><random min="452" max="559" /></magicresistance>
-		<magery><random min="730" max="824" /></magery>
-                <carve></carve>
-        </npc>
+	<!-- dread spider -->
+	<npc id="dread_spider">
+		<name>a dread spider</name>
+		<id>0xB</id>
+		<category>Monsters\Giant Animals\Dread Spider</category>
+		<skin>0</skin>
+		<inherit id="monster_base" />
+		<karma><random min="0" max="-624" /></karma>
+		<fame><random min="0" max="1249" /></fame>
+		<defense><random min="40" max="50" /></defense>
+		<lodamage>13</lodamage>
+		<hidamage>33</hidamage>
+		<!-- Stats -->
+		<str><random min="196" max="220" /></str>
+		<dex><random min="126" max="145" /></dex>
+		<int><random min="286" max="310" /></int>
+		<!-- Skills -->
+		<wrestling><random min="601" max="750" /></wrestling>
+		<tactics><random min="551" max="700" /></tactics>
+		<magicresistance><random min="451" max="600" /></magicresistance>
+		<magery><random min="651" max="800" /></magery>
+		<evaluatingint><random min="651" max="800"/></evaluatingint>
+		<carve></carve>
+	</npc>
 
-        <!-- frost spider -->
-        <npc id="frost_spider">
-                <name>a frost</name>
-                <id>0x14</id>
-                <category>Monsters\giantanimals\Frost Spider</category>
-                <skin>0</skin>
-                <inherit id="animal_base" />
-                <karma><random min="-0" max="-624" /></karma>
-                <fame><random min="0" max="1249" /></fame>
-                <defense>28</defense>
-                <lodamage>2</lodamage>
-                <hidamage>14</hidamage>
-                <!-- Stats -->
-                <str><random min="76" max="100" /></str>
-                <dex><random min="126" max="145" /></dex>
-                <int><random min="36" max="60" /></int>
-                <!-- Skills -->
-                <wrestling><random min="551" max="682" /></wrestling>
-                <tactics><random min="362" max="493" /></tactics>
-                <magicresistance><random min="253" max="399" /></magicresistance>
-		<totame>747</totame>
-		<food>1</food>
-        </npc>
+			<!-- frost spider -->
+			<npc id="frost_spider">
+					<name>a frost</name>
+					<id>0x14</id>
+					<category>Monsters\Giant Animals\Frost Spider</category>
+					<skin>0</skin>
+					<inherit id="animal_base" />
+					<karma><random min="-0" max="-624" /></karma>
+					<fame><random min="0" max="1249" /></fame>
+					<defense><random min="25" max="30" /></defense>
+					<lodamage>9</lodamage>
+					<hidamage>28</hidamage>
+					<!-- Stats -->
+					<str><random min="76" max="100" /></str>
+					<dex><random min="126" max="145" /></dex>
+					<int><random min="36" max="60" /></int>
+					<!-- Skills -->
+					<wrestling><random min="501" max="650" /></wrestling>
+					<tactics><random min="351" max="500" /></tactics>
+					<magicresistance><random min="251" max="400" /></magicresistance>
+					<totame>747</totame>
+					<food>1</food>
+			</npc>
 
-        <!-- giant black widow -->
-        <npc id="giant_black_widow">
-                <name>a giant black widown</name>
-                <id>0x9d</id>
-                <category>Monsters\giantanimals\Giant Black Widow</category>
-                <skin>0</skin>
-                <inherit id="monster_base" />
-                <karma><random min="-0" max="-624" /></karma>
-                <fame><random min="0" max="1249" /></fame>
-                <defense><random min="24" max="24" /></defense>
-                <lodamage>2</lodamage>
-                <hidamage>12</hidamage>
-                <!-- Stats -->
-                <str><random min="77" max="88" /></str>
-                <dex><random min="96" max="115" /></dex>
-                <int><random min="37" max="60" /></int>
-                <!-- Skills -->
-                <wrestling><random min="741" max="858" /></wrestling>
-                <tactics><random min="659" max="765" /></tactics>
-                <magicresistance><random min="456" max="596" /></magicresistance>
-		<anatomy><random min="410" max="654" /></anatomy>
-		<poisoning><random min="612" max="792" /></poisoning>
-        </npc>
+			<!-- giant black widow -->
+			<npc id="giant_black_widow">
+					<name>a giant black widown</name>
+					<id>0x9d</id>
+					<category>Monsters\Giant Animals\Giant Black Widow</category>
+					<skin>0</skin>
+					<inherit id="monster_base" />
+					<karma><random min="-0" max="-624" /></karma>
+					<fame><random min="0" max="1249" /></fame>
+					<defense><random min="20" max="30" /></defense>
+					<lodamage>11</lodamage>
+					<hidamage>35</hidamage>
+					<!-- Stats -->
+					<str><random min="76" max="100" /></str>
+					<dex><random min="96" max="115" /></dex>
+					<int><random min="36" max="60" /></int>
+					<!-- Skills -->
+					<wrestling><random min="701" max="850" /></wrestling>
+					<tactics><random min="651" max="800" /></tactics>
+					<magicresistance><random min="451" max="600" /></magicresistance>
+					<anatomy><random min="303" max="750" /></anatomy>
+					<poisoning><random min="601" max="800" /></poisoning>
+			</npc>
 
-        <!-- plague beast -->
-        <npc id="plague_beast">
-                <name>a plague beast</name>
-                <id>0x307</id>
-                <category>Monsters\giantanimals\Plague Beast</category>
-                <skin>0</skin>
-                <inherit id="monster_base" />
-                <karma><random min="-5000" max="-9999" /></karma>
-                <fame><random min="5000" max="9999" /></fame>
-                <defense><random min="30" max="30" /></defense>
-                <lodamage>20</lodamage>
-                <hidamage>40</hidamage>
-                <!-- Stats -->
-                <str><random min="518" max="666" /></str>
-                <dex><random min="80" max="80" /></dex>
-                <int><random min="16" max="20" /></int>
-                <!-- Skills -->
-                <wrestling><random min="1000" max="1000" /></wrestling>
-                <tactics><random min="1000" max="1000" /></tactics>
-                <magicresistance><random min="350" max="350" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-        </npc>
+			<!-- plague beast -->
+			<npc id="plague_beast">
+					<name>a plague beast</name>
+					<id>0x307</id>
+					<category>Monsters\Giant Animals\Plague Beast</category>
+					<skin>0</skin>
+					<inherit id="monster_base" />
+					<karma><random min="-5000" max="-9999" /></karma>
+					<fame><random min="5000" max="9999" /></fame>
+					<defense><random min="45" max="55" /></defense>
+					<lodamage>56</lodamage>
+					<hidamage>75</hidamage>
+					<!-- Stats -->
+					<str><random min="302" max="500" /></str>
+					<dex>80</dex>
+					<int><random min="16" max="20" /></int>
+					<!-- Skills -->
+					<wrestling>1000</wrestling>
+					<tactics>1000</tactics>
+					<magicresistance>350</magicresistance>
+			</npc>
 
-        <!-- plague beast lord -->
-        <npc id="plague_beast_lord">
-                <name>a plague beast lord</name>
-                <id>0x307</id>
-                <category>Monsters\giantanimals\Plague Beast Lord</category>
-                <skin>0</skin>
-                <inherit id="monster_base" />
-                <karma><random min="-10000" max="-15000" /></karma>
-                <fame><random min="10000" max="15000" /></fame>
-                <defense><random min="50" max="50" /></defense>
-                <lodamage>20</lodamage>
-                <hidamage>40</hidamage>
-                <!-- Stats -->
-                <str><random min="3000" max="3000" /></str>
-                <dex><random min="100" max="100" /></dex>
-                <int><random min="30" max="30" /></int>
-                <!-- Skills -->
-                <wrestling><random min="1000" max="1000" /></wrestling>
-                <tactics><random min="1000" max="1000" /></tactics>
-                <magicresistance><random min="0" max="0" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-        </npc>
+			<!-- plague beast lord -->
+			<npc id="plague_beast_lord">
+					<name>a plague beast lord</name>
+					<id>0x307</id>
+					<category>Monsters\Giant Animals\Plague Beast Lord</category>
+					<skin>0</skin>
+					<inherit id="monster_base" />
+					<karma><random min="-10000" max="-15000" /></karma>
+					<fame><random min="10000" max="15000" /></fame>
+					<defense><random min="45" max="55" /></defense>
+					<lodamage>66</lodamage>
+					<hidamage>78</hidamage>
+					<!-- Stats -->
+					<str>500</str>
+					<dex>100</dex>
+					<int>30</int>
+					<!-- Skills -->
+					<wrestling>1000</wrestling>
+					<tactics>1000</tactics>
+			</npc>
+
 </definitions>
