@@ -72,7 +72,7 @@ public:
 	virtual bool send(cUOPacket *packet);
 	virtual enCharTypes objectType();
 	virtual void update( bool excludeself = false ); 
-	virtual void resend( bool clean = true, bool excludeself = false ); 
+	virtual void resend(bool clean = true); 
 	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
 	virtual UINT8 notoriety( P_CHAR pChar );
 	virtual void showName( cUOSocket *socket );	
@@ -185,6 +185,7 @@ public:
 	void removePet( P_NPC pPet, bool noOwnerChange = false );
 	bool canSeeChar(P_CHAR character);
 	bool canSeeItem(P_ITEM item);
+	virtual void moveTo(const Coord_cl &pos, bool noremove = false);
 
 	// cPythonScriptable inherited methods
 	PyObject *getPyObject();

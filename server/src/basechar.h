@@ -99,7 +99,7 @@ public:
 	virtual enCharTypes objectType() = 0;
 	// network related methods
 	virtual void update( bool excludeself = false ) = 0; 
-	virtual void resend( bool clean = true, bool excludeself = false ) = 0; 
+	virtual void resend(bool clean = true) = 0; 
 	// other methods
 	virtual uchar notoriety( P_CHAR pChar ) = 0; // Gets the notoriety towards another char
 

@@ -716,13 +716,7 @@ void cMovement::checkRunning( cUOSocket *socket, P_CHAR pChar, Q_UINT8 dir )
 
 		pChar->setStealthedSteps(-1);
 		pChar->setHidden(false);
-		pChar->resend(false, true);
-
-		if (update && socket) {
-			cUOTxUpdatePlayer updatePlayer;
-			updatePlayer.fromChar(pChar);
-            socket->send(&updatePlayer);
-		}
+		pChar->resend(false);
 	}
 
 	// Don't regenerate stamina while running
@@ -752,37 +746,15 @@ void cMovement::checkStealth( P_CHAR pChar )
 			{
 				pChar->setStealthedSteps(-1);
 				pChar->setHidden(false);
-				pChar->resend(false, true);
-
-				if (pChar->objectType() == enPlayer) {
-					P_PLAYER pp = dynamic_cast<P_PLAYER>(pChar);
-				
-					if (pp->socket()) {
-						pp->socket()->sysMessage( tr( "You have been revealed." ) );
-
-						cUOTxUpdatePlayer updatePlayer;
-						updatePlayer.fromChar(pChar);
-						pp->socket()->send(&updatePlayer);
-					}
-				}
+				pChar->resend(false);
+				pChar->sysmessage( tr( "You have been revealed." ) );
 			}
 		}
 		else
 		{
 			pChar->setHidden(false);
-			pChar->resend(false, true);
-
-			if (pChar->objectType() == enPlayer) {
-				P_PLAYER pp = dynamic_cast<P_PLAYER>(pChar);
-			
-				if (pp->socket()) {
-					pp->socket()->sysMessage( tr( "You have been revealed." ) );
-
-					cUOTxUpdatePlayer updatePlayer;
-					updatePlayer.fromChar(pChar);
-					pp->socket()->send(&updatePlayer);
-				}
-			}
+			pChar->resend(false);
+			pChar->sysmessage( tr( "You have been revealed." ) );
 		}
 	}
 }

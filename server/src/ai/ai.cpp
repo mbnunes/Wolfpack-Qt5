@@ -42,6 +42,9 @@
 #include "../items.h"
 #include "../console.h"
 #include "../world.h"
+#include "../network/uosocket.h"
+#include "../chars.h"
+#include "../targetrequests.h"
 
 // library includes
 #include <math.h>
@@ -742,4 +745,60 @@ static AbstractAI* productCreator_NB() {
 
 void Normal_Base::registerInFactory() {
 	AIFactory::instance()->registerType("Normal_Base", productCreator_NB);
+}
+
+// All ai controlled creatures can be controlled by a gm
+// or by their owner if tamed
+void AbstractAI::onSpeechInput( P_PLAYER pTalker, const QString &comm ) {
+	if (!pTalker->isGM() && (!m_npc->isTamed() || m_npc->owner() != pTalker)) {
+		return;
+	}
+
+	// too far away to hear us
+	if (pTalker->dist(m_npc) > 7) {
+		return;
+	}
+	
+	if (comm.contains(" FOLLOW")) {
+		if (comm.contains(" ME")) {
+			m_npc->setWanderFollowTarget(pTalker);
+			m_npc->setWanderType(enFollowTarget);
+			m_npc->bark(cBaseChar::Bark_Attacking);
+		} else {
+			pTalker->socket()->attachTarget(new cFollowTarget(m_npc));
+		}
+	} else if ((comm.contains(" KILL")) || (comm.contains(" ATTACK"))) {
+		if (m_npc->inGuardedArea()) {
+			pTalker->message(tr("You can't have pets attack in town!"));
+		}
+	} else if ((comm.contains(" FETCH")) || (comm.contains(" GET"))) {
+		//pPlayer->setGuarded(false);
+		// >> LEGACY
+		//addx[s]=pPet->serial();
+		//target(s, 0, 1, 0, 124, "Click on the object to fetch.");
+	} else if (comm.contains(" COME")) {
+		m_npc->setWanderDestination(pTalker->pos());
+		m_npc->setWanderType(enDestination);
+		m_npc->bark(cBaseChar::Bark_Attacking);
+	} else if (comm.contains(" GUARD")) {
+	} else if ((comm.contains(" STOP")) || (comm.contains(" STAY"))) {
+		m_npc->fight(0);
+		m_npc->setWanderType( enHalt );
+		m_npc->bark(cBaseChar::Bark_Attacking);
+	} else if (comm.contains(" TRANSFER")) {
+	} else if (comm.contains(" RELEASE")) {
+		// Has it been summoned ? Let's dispel it
+		if (m_npc->summoned()) {
+			m_npc->setSummonTime(uiCurrentTime);
+		}
+
+		m_npc->setWanderType(enFreely);
+		m_npc->setOwner(0);
+		m_npc->setTamed(false);
+		m_npc->bark(cBaseChar::Bark_Attacking);
+		if (SrvParams->tamedDisappear()) {
+			m_npc->soundEffect(0x01Fe);
+			cCharStuff::DeleteChar(m_npc);
+		}
+	}
 }

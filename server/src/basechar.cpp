@@ -2623,12 +2623,10 @@ bool cBaseChar::kill(cUObject *source) {
 			shroud->update();
 		}
 
-		player->resend(false, true);
+		player->resend(false);
 
 		if (player->socket()) 
-		{
-			player->socket()->updatePlayer();
-			
+		{	
 			// Notify the player of his death
 			cUOTxCharDeath death;
 			player->socket()->send(&death);
@@ -3137,7 +3135,7 @@ double cBaseChar::getManaRate() {
 }
 
 // Light and Region checks
-void cBaseChar::moveTo(const Coord_cl &pos, bool noremove) {	
+void cBaseChar::moveTo(const Coord_cl &pos, bool noremove) {
 	cUObject::moveTo(pos, noremove);
 	AllTerritories::instance()->check(this);
 }

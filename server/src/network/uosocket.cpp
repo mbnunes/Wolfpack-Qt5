@@ -45,6 +45,7 @@
 #include "../territories.h"
 #include "../sectors.h"
 #include "../structs.h"
+#include "../maps.h"
 #include "../speech.h"
 #include "../commands.h"
 #include "../srvparams.h"
@@ -600,31 +601,47 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	// d) Set the Game Time
 
 	// We're now playing this char
-	pChar->setHidden(0); // Unhide us (logged out)
+	pChar->setLogoutTime(0);
 	setPlayer(pChar);
-	pChar->account()->setInUse( true );
+	pChar->account()->setInUse(true);
 
 	// This needs to be sent once
 	cUOTxConfirmLogin confirmLogin;
-	confirmLogin.fromChar( pChar );
-	confirmLogin.setUnknown3( 0x007f0000 );
-	confirmLogin.setUnknown4( 0x00000007 );
-	confirmLogin.setUnknown5( "\x60\x00\x00\x00\x00\x00\x00" );
-	send( &confirmLogin );
+	confirmLogin.fromChar(pChar);
+	confirmLogin.setUnknown3(0x007f0000);
+	confirmLogin.setUnknown4(0x00000007);
+	confirmLogin.setUnknown5("\x60\x00\x00\x00\x00\x00\x00");
+	send(&confirmLogin);
 
 	// Which map are we on
 	cUOTxChangeMap changeMap;
-	changeMap.setMap( pChar->pos().map );
-	send( &changeMap );
+	changeMap.setMap(pChar->pos().map);
+	send(&changeMap);
 
 	// Send the default season
 	cUOTxChangeSeason season;
-	season.setSeason( ST_SPRING );
-	send( &season );
+	season.setSeason(ST_SPRING);
+	send(&season);
+
+	updatePlayer();
+    
+	cUOTxChangeServer changeserver;
+	changeserver.setX(pChar->pos().x);
+	changeserver.setY(pChar->pos().y);
+	changeserver.setZ(pChar->pos().z);
+	changeserver.setWidth(Map->mapTileWidth(pChar->pos().map) * 8);
+	changeserver.setHeight(Map->mapTileHeight(pChar->pos().map) * 8);
+	send(&changeserver);
+
+	cUOTxDrawChar drawchar;
+	drawchar.fromChar(pChar);
+	drawchar.setHighlight(pChar->notoriety(pChar));
+	send(&drawchar);
 
 	// Send us our player and send the rest to us as well.
-	pChar->resend();
-	resendWorld( false );
+	pChar->moveTo(pChar->pos());
+	pChar->resend(false);
+	resendWorld(false);
 
 	cUOTxWarmode warmode;
 	warmode.setStatus( pChar->isAtWar() );
@@ -638,9 +655,7 @@ void cUOSocket::playChar( P_PLAYER pChar )
 //	send( &unknown );
 
 	unknown.setOption(3);
-//	send( &unknown );
-
-	pChar->setLogoutTime(0);
+//	send( &unknown );	
 
 	// Reset combat information
 	pChar->setAttackTarget(0);
@@ -651,20 +666,16 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	// Reset the party
 	cUOTxPartyRemoveMember updateparty;
 	updateparty.setSerial(_player->serial());
-	send(&updateparty);
-
-	pChar->moveTo(pChar->pos());
+	send(&updateparty);	
 
 	// Start the game / Resend
 	cUOTxStartGame startGame;
-	send( &startGame );
+	send(&startGame);
 
 	// Send the gametime
 	cUOTxGameTime gameTime;
 	gameTime.setTime(0, 0, 0);
 	send( &gameTime );
-
-	pChar->sendTooltip(this);
 
 	// Request a viewrange from the client
 	cUOTxUpdateRange updateRange;
@@ -1369,27 +1380,59 @@ void cUOSocket::handleWalkRequest( cUORxWalkRequest* packet )
 	Movement::instance()->Walking( _player, packet->direction(), packet->key());
 }
 
-void cUOSocket::resendPlayer( bool quick )
+void cUOSocket::resendPlayer(bool quick)
 {
-	if( !_player )
-		return;
+	P_CHAR pChar = _player;
 
-	if( !quick )
-	{
-		// Make sure we switch client when this changes
-		cUOTxChangeMap changeMap; 
-		changeMap.setMap( _player->pos().map );
-		send( &changeMap );
+	// Which map are we on
+	cUOTxChangeMap changeMap;
+	changeMap.setMap(pChar->pos().map);
+	send(&changeMap);
 
-		resendWorld( false );
+	// Send the default season
+	cUOTxChangeSeason season;
+	season.setSeason(ST_SPRING);
+	send(&season);
+
+	updatePlayer();
+    
+	cUOTxChangeServer changeserver;
+	changeserver.setX(pChar->pos().x);
+	changeserver.setY(pChar->pos().y);
+	changeserver.setZ(pChar->pos().z);
+	changeserver.setWidth(Map->mapTileWidth(pChar->pos().map) * 8);
+	changeserver.setHeight(Map->mapTileHeight(pChar->pos().map) * 8);
+	send(&changeserver);
+
+	cUOTxDrawChar drawchar;
+	drawchar.fromChar(pChar);
+	drawchar.setHighlight(pChar->notoriety(pChar));
+	send(&drawchar);
+
+	// Send us our player and send the rest to us as well.
+	pChar->moveTo(pChar->pos());
+	pChar->resend(false);
+	resendWorld(false);
+	pChar->resendTooltip();
+
+	cUOTxWarmode warmode;
+	warmode.setStatus( pChar->isAtWar() );
+	send( &warmode );
+/*	if (!quick) {
+		cUOTxChangeMap changemap;
+		changemap.setMap(pos_.map);
+		socket_->send(&changemap);
+        
+		cUOTxChangeServer changeserver;
+		changeserver.setX(pos_.x);
+		changeserver.setY(pos_.y);
+		changeserver.setZ(pos_.z);
+		changeserver.setWidth(Map->mapTileWidth(pos_.map) * 8);
+		changeserver.setHeight(Map->mapTileHeight(pos_.map) * 8);
+		socket_->send(&changeserver);
 	}
 
-    // Reset the walking sequence
-	_walkSequence = 0;
-
-	cUOTxDrawPlayer drawPlayer;
-	drawPlayer.fromChar(_player);
-	send(&drawPlayer);
+	updatePlayer();
 
 	// Send the equipment Tooltips
 	cBaseChar::ItemContainer content = _player->content();
@@ -1402,19 +1445,16 @@ void cUOSocket::resendPlayer( bool quick )
 			pItem->sendTooltip(this);
 		}
 	}
-
+	
 	updateLightLevel();
 
 	// Set the warmode status
 	if (!quick) {
 		cUOTxWarmode warmode;
-		warmode.setStatus( _player->isAtWar() );
-		send( &warmode );
-	
-		// Start the game!
-		cUOTxStartGame startGame;
-		send( &startGame );
-	}
+		warmode.setStatus(_player->isAtWar());
+		send(&warmode);
+		resendWorld(false);
+	}*/
 }
 
 void cUOSocket::updateChar( P_CHAR pChar )

@@ -90,7 +90,7 @@ public:
 
 	virtual enCharTypes objectType();
 	virtual void update( bool excludeself = false ); 
-	virtual void resend( bool clean = true, bool excludeself = false ); 
+	virtual void resend( bool clean = true); 
 	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL );
 			void talk( const UINT32 MsgID, const QString& params = 0, const QString& affix = 0, bool prepend = false, UI16 color = 0xFFFF, cUOSocket* socket = 0 );
 	virtual UINT8 notoriety( P_CHAR pChar = NULL );

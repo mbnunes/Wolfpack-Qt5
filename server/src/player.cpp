@@ -39,6 +39,7 @@
 #include "network/uosocket.h"
 #include "network/uotxpackets.h"
 #include "basics.h"
+#include "maps.h"
 #include "srvparams.h"
 #include "world.h"
 #include "wpdefmanager.h"
@@ -218,21 +219,21 @@ void cPlayer::update(bool excludeself) {
 }
 
 // Resend the char to all sockets in range
-void cPlayer::resend( bool clean, bool excludeself )
+void cPlayer::resend(bool clean)
 {
-	if (socket_ && !excludeself) {
-		socket_->resendPlayer();
-	}
-
 	cUOTxRemoveObject remove;
 	remove.setSerial(serial());
 
-	cUOTxDrawChar drawChar;
-	drawChar.fromChar(this);
-
 	for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
 		// Don't send such a packet to ourself
-		if (socket != socket_ && socket->canSee(this)) {
+		if (socket->canSee(this)) {
+			if (socket == socket_) {
+				socket_->updatePlayer();
+			}
+
+			if (socket != socket_ || clean) {
+				cUOTxDrawChar drawChar;
+				drawChar.fromChar(this);
 				drawChar.setHighlight(notoriety(socket->player()));
 				socket->send(&drawChar);
 				sendTooltip(socket);
@@ -241,6 +242,7 @@ void cPlayer::resend( bool clean, bool excludeself )
 				for (ItemContainer::const_iterator it = content_.begin(); it != content_.end(); ++it) {
 					it.data()->sendTooltip(socket);
 				}
+			}
 		} else if (socket != socket_ && clean) {
 			socket->send(&remove);
 		}
@@ -1604,4 +1606,13 @@ unsigned char cPlayer::controlslots() const {
 		}
 	}
 	return controlslots;
+}
+
+void cPlayer::moveTo(const Coord_cl &pos, bool noremove) {
+	Coord_cl oldpos = pos_;
+	cBaseChar::moveTo(pos, noremove);
+
+	if (socket_ && oldpos.map != pos_.map) {
+		socket_->resendPlayer(false);
+	}
 }

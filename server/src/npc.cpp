@@ -264,7 +264,7 @@ void cNPC::update( bool excludeself )
 }
 
 // Resend the char to all sockets in range
-void cNPC::resend( bool clean, bool excludeself )
+void cNPC::resend( bool clean)
 {
 	// We are stabled and therefore we arent visible to others
 	if( stablemasterSerial() != INVALID_SERIAL )
@@ -273,11 +273,10 @@ void cNPC::resend( bool clean, bool excludeself )
 	cUOTxRemoveObject remove;
 	remove.setSerial(serial_);
 
-	cUOTxDrawChar drawChar;
-	drawChar.fromChar(this);
-
 	for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
 		if (socket->canSee(this)) {
+			cUOTxDrawChar drawChar;
+			drawChar.fromChar(this);
 			drawChar.setHighlight(notoriety(socket->player()));
 			sendTooltip(socket);
 			socket->send(&drawChar);

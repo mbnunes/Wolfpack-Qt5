@@ -128,21 +128,18 @@ PyObject* PyGetCharObject( P_CHAR pChar )
 	\description Resend the character.
 	\param clean Defaults to 0.
 	If true, the character will be removed from all connected sockets before resending him.
-	\param excludeself Defaults to 0.
-	If true, the player won't receive an update packet for himself.
 */
 static PyObject* wpChar_update(wpChar* self, PyObject* args)
 {
 	Q_UNUSED(args);
 	unsigned char clean = 0;
-	unsigned char excludeself = 0;
 
-	if (!PyArg_ParseTuple(args, "|BB:char.update(clean, excludeself)", &clean, &excludeself))
+	if (!PyArg_ParseTuple(args, "|B:char.update(clean)", &clean))
 	{
 		return 0;
 	}
 
-	self->pChar->resend(clean != 0, excludeself != 0);
+	self->pChar->resend(clean != 0);
 
 	Py_INCREF(Py_None);
 	return Py_None;

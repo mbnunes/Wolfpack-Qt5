@@ -304,8 +304,6 @@ void commandResend( cUOSocket *socket, const QString &command, const QStringList
 	Q_UNUSED(args);
 	Q_UNUSED(command);
 	socket->resendPlayer(false);
-	socket->resendWorld();
-	socket->player()->resendTooltip();
 }
 
 /*
@@ -1221,7 +1219,7 @@ void commandInvis( cUOSocket *socket, const QString &command, const QStringList 
 		socket->sysMessage( tr( "Invisible is now '1'." ) );
 	}
 
-	socket->player()->resend( false, false );
+	socket->player()->resend(false);
 }
 /*
 	\command pagenotify

@@ -458,7 +458,7 @@ public:
 	}
 	void setX(unsigned short data)		{ setShort(1, data); }
 	void setY(unsigned short data)		{ setShort(3, data); }
-	void setZ(unsigned short data)		{ setShort(5, data); }
+	void setZ(short data)		{ setShort(5, data); }
 	void setBoundX(unsigned short data)	{ setShort(8, data); }
 	void setBoundY(unsigned short data)	{ setShort(10,data); } 
 	void setWidth(unsigned short data)	{ setShort(12,data); }
