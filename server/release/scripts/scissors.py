@@ -8,6 +8,7 @@
 # Scissors
 import wolfpack
 import wolfpack.utilities
+from wolfpack.consts import *
 
 ids_rawleather = [ 0x1078, 0x1079 ]
 ids_clothes_2 = [ 0x153f, 0x1540, 0x1543, 0x1544 ]
