@@ -70,7 +70,7 @@ cConsole::cConsole()
 {
 	bEnabled = true;
 	// do nothing at the moment
-	setStreams( &cin, &cout, &cerr, &cout );
+	setStreams( &cin, &cout );
 }
 
 //========================================================================================
@@ -85,46 +85,10 @@ void cConsole::enabled(bool bState)
 	bEnabled = bState;
 }
 
-void cConsole::setStreams(istream *in, ostream *out, ostream *error, ostream *log)
+void cConsole::setStreams(istream *in, ostream *out)
 {
 	inputstrm  = in;
 	outputstrm = out;
-	errorstrm  = error;
-	logstrm    = log;
-}
-
-//========================================================================================
-// Send a message to the console
-void cConsole::send(const QString &sMessage)
-{
-	if( outputstrm != NULL )
-	{
-		(*outputstrm) << sMessage.latin1();
-		flush( *outputstrm );
-	}
-
-	if( sMessage.contains( "\n" ) )
-	{
-#if defined(Q_OS_UNIX) && 0 
-		sMessage.replace("\e[0m", "");
-	  	sMessage.replace("\e[1;32m", "");
-		sMessage.replace("\e[1;31m", "");
-		sMessage.replace("\e[1;33m", "");
-		sMessage.replace("\e[1;37m", "");
-#endif
-		incompleteLine_.append( sMessage ); // Split by \n
-		QStringList lines = QStringList::split( "\n", incompleteLine_, true );
-
-		// Insert all except the last element
-		for( int i = 0; i < lines.count()-1; ++i )
-			linebuffer_.push_back( lines[i] );
-
-		incompleteLine_ = lines[ lines.count() - 1 ];
-	}
-	else
-	{
-		incompleteLine_.append( sMessage );
-	}
 }
 
 //========================================================================================
@@ -137,14 +101,6 @@ void cConsole::log( UINT8 logLevel, const QString &message )
 		msg = msg.left( msg.length() - 1 );
 
 	Log::instance()->print( (eLogLevel)logLevel, msg + "\n" );
-}
-
-//========================================================================================
-// Send a message to the console
-void cConsole::error(const QString& sMessage)
-{
-	if (errorstrm != NULL)
-		(*errorstrm) << sMessage.latin1();
 }
 
 //=========================================================================================
@@ -210,68 +166,6 @@ void cConsole::ProgressSkip( void )
 	send( "]\n" );
 }
 
-//=========================================================================================
-// Change the console Color
-void cConsole::ChangeColor( WPC_ColorKeys Color )
-{
-#if defined(Q_OS_UNIX)
-QString cb = "\e[0m";
-		switch( Color )
-		{
-		case WPC_GREEN: cb = "\e[1;32m";
-			break;
-		case WPC_RED:	cb = "\e[1;31m";
-			break;
-		case WPC_YELLOW:cb = "\e[1;33m";
-			break;
-		case WPC_NORMAL:cb = "\e[0m";
-			break;
-		case WPC_WHITE:	cb = "\e[1;37m";
-			break;
-		default: cb = "\e[0m";
-
-		}
-		send( cb );
-#elif defined(Q_OS_WIN32)
-		HANDLE ConsoleHandle = GetStdHandle( STD_OUTPUT_HANDLE );
-		UI16 ColorKey = FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE;
-
-		switch( Color )
-		{
-		case WPC_GREEN:
-			ColorKey = FOREGROUND_GREEN | FOREGROUND_INTENSITY;
-			break;
-
-		case WPC_RED:
-			ColorKey = FOREGROUND_RED | FOREGROUND_INTENSITY;
-			break;
-
-		case WPC_YELLOW:
-			ColorKey = FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_INTENSITY;
-			break;
-
-		case WPC_NORMAL:
-			ColorKey = FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_BLUE;
-			break;
-
-		case WPC_WHITE:
-			ColorKey = FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_RED | FOREGROUND_INTENSITY;
-			break;
-
-		default:
-			break;
-		}
-
-		SetConsoleTextAttribute( ConsoleHandle, ColorKey );
-#endif
-}
-
-void cConsole::setConsoleTitle( const QString& data )
-{
-#if defined(Q_OS_WIN32)
-	SetConsoleTitle( data.latin1() );
-#endif
-}
 
 bool cConsole::handleCommand( const QString &command, bool silentFail )
 {
@@ -351,50 +245,4 @@ bool cConsole::handleCommand( const QString &command, bool silentFail )
 	}
 
 	return true;
-}
-
-class cConsoleThread : public QThread
-{
-protected:
-	virtual void run()
-	{
-		try
-		{
-			while( serverState < SHUTDOWN )
-			{
-				char c = getch();
-				
-				if( c > 0 && serverState == RUNNING )
-				{
-					Console::instance()->send( QChar( c ) );			
-				}
-				else
-				{	
-					Sleep( 100 );
-				}
-			}
-		}
-		catch( ... )
-		{
-		}
-	}
-};
-
-cConsoleThread *thread = 0;
-
-void cConsole::start()
-{
-	thread = new cConsoleThread;
-	thread->start();
-}
-
-void cConsole::poll()
-{
-	// Normally we would check if there is a command in the command queue and execute it
-}
-
-void cConsole::stop()
-{
-	thread->wait();
-	delete thread;
 }

@@ -71,17 +71,13 @@ public:
 	virtual ~cConsole();
 
 	void enabled(bool);
-	void setStreams( std::istream *in, std::ostream *out, std::ostream *error, std::ostream *log );
+	void setStreams( std::istream *in, std::ostream *out );
 
 	// Send a message to the console
-	void send(const QString &sMessage);
-
+	virtual void send(const QString &sMessage);
 
 	// Log a message
 	void log( UINT8 logLevel, const QString &message );
-
-	// Flag an error
-	void error(const QString&);
 
         // Get input from the console
 	UI08 getkey(void);
@@ -94,21 +90,19 @@ public:
 	void ProgressFail( void );
 	void ProgressSkip( void );
 
-	void ChangeColor( WPC_ColorKeys Color );
-	void setConsoleTitle( const QString& data );
+	virtual void ChangeColor( WPC_ColorKeys Color );
+	virtual void setConsoleTitle( const QString& data );
 
 	QStringList linebuffer() const { return linebuffer_; }
 
 	bool handleCommand( const QString &command, bool silentFail = false );
-	void start();
-	void poll();
-	void stop();
+	virtual void start();
+	virtual void poll();
+	virtual void stop();
 private:
 
 	std::istream *inputstrm;
 	std::ostream *outputstrm;
-	std::ostream *errorstrm;
-	std::ostream *logstrm;
 	bool bEnabled;
 };
 

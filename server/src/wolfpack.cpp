@@ -228,7 +228,7 @@ static void parseParameter( const QString &param )
 			exit(0);
 		}
 		else
-			Console::instance()->error( QString("The specified python script [%1] doesn't exist.").arg(param) );
+			Console::instance()->send( QString("The specified python script [%1] doesn't exist.").arg(param) );
 
 	}
 }
@@ -328,8 +328,6 @@ int main( int argc, char *argv[] )
 	// Print a seperator somehow
 	/*Console::instance()->send( QString::number( sizeof( cUObject ) ) );
 	return 0;*/
-
-	Console::instance()->start(); // Startup Console
 
 	Console::instance()->send( QString( "\n%1 %2 %3 \n\n" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() ) );
 
@@ -544,6 +542,8 @@ int main( int argc, char *argv[] )
 	ScriptManager->onServerStart();
 
 	serverState = RUNNING;
+
+	Console::instance()->start(); // Startup Console
 
 	QWaitCondition niceLevel;
 	// This is our main loop
