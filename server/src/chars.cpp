@@ -4474,14 +4474,14 @@ UINT16 cChar::skillCap( UINT16 skill ) const
 	QMap< UINT16, stSkillValue >::const_iterator skValue = skills.find( skill );
 
 	if( skValue == skills.end() )
-		return 0;
+		return 1000;
 
 	return (*skValue).cap;
 }
 
 UINT8 cChar::skillLock( UINT16 skill ) const
 {
-	return 0;	QMap< UINT16, stSkillValue >::const_iterator skValue = skills.find( skill );
+	QMap< UINT16, stSkillValue >::const_iterator skValue = skills.find( skill );
 
 	if( skValue == skills.end() )
 		return 0;
