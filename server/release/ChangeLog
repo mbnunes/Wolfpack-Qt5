@@ -54,6 +54,7 @@ Wolfpack 12.9.13 Beta (CVS)
   - Made shrink potions craftable.
   - Changed the color of shrink potions.
   - Added Tokuno includes for regions and spawnregions.
+  - Removed the "Pink Spawn" from decoration.
  * Python Script Changes:
   - Fixed bug #0000369. (Equip possible although item.movable = 3)
   - Fixed bug #0000361. (Pets don't follow trough gate)
