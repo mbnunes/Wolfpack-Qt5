@@ -499,7 +499,7 @@ def createpack(char, killer, corpse, pack):
 # Create Loot
 #
 def onDeath(char, killer, corpse):
-	if char.player:
+	if char.player or char.summoned:
 		return
 
 	lootlist = char.lootpacks

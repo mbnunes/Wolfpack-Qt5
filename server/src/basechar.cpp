@@ -2842,6 +2842,17 @@ bool cBaseChar::kill( cUObject* source )
 		corpse->update();
 	}
 
+	// Summoned monsters simply disappear
+	if ( summoned )
+	{
+		soundEffect( 0x1fe );
+		pos_.effect( 0x3735, 10, 30 );
+
+		onDeath( source, 0 );
+		remove();
+		return true;
+	}
+
 	// Create Loot - Either on the corpse or on the ground
 	cItem::ContainerContent content = backpack->content();
 	cItem::ContainerContent::iterator it;
@@ -2859,17 +2870,6 @@ bool cBaseChar::kill( cUObject* source )
 				item->update();
 			}
 		}
-	}
-
-	// Summoned monsters simply disappear
-	if ( summoned )
-	{
-		soundEffect( 0x1fe );
-		pos_.effect( 0x3735, 10, 30 );
-
-		onDeath( source, 0 );
-		remove();
-		return true;
 	}
 
 	playDeathSound();
