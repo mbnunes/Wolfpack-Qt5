@@ -28,6 +28,10 @@ Wolfpack 12.9.10 Beta (CVS)
 		- Fixed gatetravel spell.
 		- Tele and other spells no longer show a smoke puff if you're invisible.
 		- Rewrote properties.fromitem
+		- Fixed mining.
+		- The heal command now resends the healthbar.
+		- Fixed another trading issue.
+		- Fixed bug #0000278 (Weapon not being unequipped)
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
