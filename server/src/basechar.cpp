@@ -742,7 +742,7 @@ void cBaseChar::setSerial( const SERIAL ser )
 
 void cBaseChar::MoveTo(short newx, short newy, signed char newz)
 {
-	// Avoid crash if go to 0,0
+	// Avoid crash if go to 0,0 ??
 	if (newx < 1 || newy < 1)
 		return;
 	cUObject::moveTo( Coord_cl(newx, newy, newz, pos().map) );

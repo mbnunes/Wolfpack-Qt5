@@ -43,6 +43,7 @@
 #include "network/uosocket.h"
 #include "network/uotxpackets.h"
 #include "wpdefmanager.h"
+#include "maps.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"
 #include "basechar.h"
@@ -86,6 +87,11 @@ void cUObject::init()
 
 void cUObject::moveTo( const Coord_cl& newpos, bool noRemove )
 {
+	// See if the map is valid
+	if (!Map->hasMap(newpos.map)) {
+		return;
+	}
+
 	if( !noRemove ) {
 		MapObjects::instance()->remove( this );
 	}
