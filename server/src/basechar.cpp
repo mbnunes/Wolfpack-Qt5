@@ -1890,7 +1890,10 @@ void cBaseChar::callGuards()
 
 unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject *source )
 {
-	setFrozen(false);
+	if (isFrozen()) {
+		setFrozen(false);
+		resendTooltip();
+	}
 
 	//
 	// First of all, call onDamage with the damage-type, amount and source
