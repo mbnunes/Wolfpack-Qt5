@@ -99,6 +99,8 @@
 
 	<item id="12b3">
 		<id>0x12b3</id>
+		<basescripts>equipment,skills.masonry</basescripts>
+		<tag name="remaining_uses" type="int" value="50" />
 		<category>Professions\Artist\Mallet and Chisel</category>
 	</item>
 

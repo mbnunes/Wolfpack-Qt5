@@ -49,6 +49,7 @@
 	<script>lightsource</script>
 	<script>lock</script>
 	<script>lockpick</script>
+	<script>masonry_book</script>
 	<script>moongate</script>
 	<script>ore</script>
 	<script>pickaxe</script>
@@ -244,6 +245,7 @@
 	<script>skills.inscription</script>
 	<script>skills.itemid</script>
 	<script>skills.lumberjacking</script>
+	<script>skills.masonry</script>
 	<script>skills.mining</script>
 	<script>skills.musicianship</script>
 	<script>skills.peacemaking</script>

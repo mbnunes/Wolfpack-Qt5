@@ -559,5 +559,54 @@
 		<id>0xf3a</id>
 		<category>Professions\Miner\Tools\Shovel (N/S)</category>
 	</item>
+	
+	<!-- Granite -->
+	<item id="granite">
+		<id>0x1779</id>
+		<name>#1044607</name>
+		<weight>10.0</weight>
+		<color>0x0</color>
+		<category>Professions\Miner\Granite\Granite</category>
+	</item>
+
+	<item id="dullcopper_granite" inherit="granite">
+		<color>0x973</color>
+		<category>Professions\Miner\Granite\Dull Copper Granite</category>
+	</item>
+
+	<item id="shadowiron_granite" inherit="granite">
+		<color>0x966</color>
+		<category>Professions\Miner\Granite\Shadow Iron Granite</category>
+	</item>
+
+	<item id="copper_granite" inherit="granite">
+		<color>0x96d</color>
+		<category>Professions\Miner\Granite\Copper Granite</category>
+	</item>
+
+	<item id="bronze_granite" inherit="granite">
+		<color>0x972</color>
+		<category>Professions\Miner\Granite\Bronze Granite</category>
+	</item>
+
+	<item id="gold_granite" inherit="granite">
+		<color>0x8a5</color>
+		<category>Professions\Miner\Granite\Gold Granite</category>
+	</item>
+
+	<item id="agapite_granite" inherit="granite">
+		<color>0x979</color>
+		<category>Professions\Miner\Granite\Agapite Granite</category>
+	</item>
+
+	<item id="verite_granite" inherit="granite">
+		<color>0x89f</color>
+		<category>Professions\Miner\Granite\Verite Granite</category>
+	</item>
+
+	<item id="valorite_granite" inherit="granite">
+		<color>0x8ab</color>
+		<category>Professions\Miner\Granite\Valorite Granite</category>
+	</item>
 
 </definitions>

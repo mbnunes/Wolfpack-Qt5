@@ -1,0 +1,10 @@
+
+<definitions>
+	<item id="masonry_book">
+		<id>0xfbe</id>
+		<name>Making Valuables With Stonecrafting</name>
+		<weight>1.0</weight>
+		<category>Equipment\Books\Special\Masonry Book</category>
+		<basescripts>masonry_book</basescripts>
+	</item>
+</definitions>
