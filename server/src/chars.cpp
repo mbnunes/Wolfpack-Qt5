@@ -2497,19 +2497,21 @@ void cChar::resurrect()
 
 	getBackpack(); // Make sure he has a backpack
 
-	// Delete what the user wears on layer 0x16
+	// Delete what the user wears on layer 0x16 (Should be death shroud)
 	P_ITEM pRobe = GetItemOnLayer( 0x16 );
 
 	if( pRobe )
 		Items->DeleItem( pRobe );
 
-#pragma note( "A robe has to be present as 1f03 in the scripts" )
 	pRobe = Items->createScriptItem( "1f03" );
 
 	if( !pRobe ) 
 		return;
 
 	pRobe->setContSerial( serial );
+	pRobe->setColor( 0 );
+	pRobe->setHp( 1 );
+	pRobe->setMaxhp( 1 );
 	pRobe->setLayer( 0x16 );
 	pRobe->update();
 

@@ -464,7 +464,7 @@ public:
 			socket->sysMessage( tr("You are not certain..") );
 			return true;
 		}
-		if ((pc->in == 0)) 
+		if( !pc->in() )
 			socket->sysMessage( tr("It looks smarter than a rock, but dumber than a piece of wood.") );
 		else
 		{
@@ -591,7 +591,7 @@ public:
 			return true;
 		}
 		
-		if(pc->isHuman() && (pc->in != 0)) //Used on human
+		if(pc->isHuman() && (pc->in() != 0)) //Used on human
 		{
 			if (pc->begging_timer()>=uiCurrentTime)
 			{
@@ -2677,7 +2677,7 @@ void cSkills::Meditation( cUOSocket *socket )
 		pc_currchar->setMed( false );
 		return;
 	}
-	else if ((pc_currchar->mn) == (pc_currchar->in))
+	else if ( pc_currchar->mn() == pc_currchar->in() )
 	{
 		socket->sysMessage( tr("You are at peace."));
 		pc_currchar->setMed( false );

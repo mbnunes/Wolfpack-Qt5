@@ -958,7 +958,7 @@ void cTargets::SellStuffTarget(int s)
 void cTargets::ReleaseTarget(int s, int c) 
 { 
 
-	P_CHAR pc_i = NULL;
+	/*P_CHAR pc_i = NULL;
 	if (c == INVALID_SERIAL) 
 	{ 
 		SERIAL serial = LongFromCharPtr(buffer[s] + 7); 
@@ -971,7 +971,7 @@ void cTargets::ReleaseTarget(int s, int c)
 	if (pc_i != NULL) 
 	{ 
 		P_CHAR pc = pc_i;
-		if (pc->cell == 0) 
+		if( pc->cell == 0 ) 
 		{ 
 			sysmessage(s, "That player is not in jail!"); 
 		} 
@@ -988,7 +988,7 @@ void cTargets::ReleaseTarget(int s, int c)
 			sysmessage(calcSocketFromChar(pc), "You are released.."); 
 			sysmessage(s, "Player %s released.", pc->name.c_str());
 		} 
-	} 
+	} */
 }
 
 void cTargets::GmOpenTarget( int s )

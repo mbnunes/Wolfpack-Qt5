@@ -66,55 +66,68 @@ void WPDefManager::ProcessNode( QDomElement Node )
 
 	QString NodeID = Node.attribute("id");
 
+	DefSections &Sections = Items; // Defaults to Items
+
 	// IF's for all kind of nodes
 	// <item id="xx">
 	// <script id="xx">
 	// <npc id="xx">
 	if( NodeName == "item" )
-		Items.insert( NodeID, Node );
+		Sections = Items;
 	else if( NodeName == "script" )
-		Scripts.insert( NodeID, Node );
+		Sections = Scripts;
 	else if( NodeName == "npc" )
-		NPCs.insert( NodeID, Node );
+		Sections = NPCs;
 	else if( NodeName == "menu" )
-		Menus.insert( NodeID, Node );
+		Sections = Menus;
 	else if( NodeName == "spell" )
-		Spells.insert( NodeID, Node );
+		Sections = Spells;
 	else if( NodeName == "list" )
-		StringLists.insert( NodeID, Node );
+		Sections = StringLists;
 	else if( NodeName == "acl" )
-		PrivLevels.insert( NodeID, Node );
+		Sections = PrivLevels;
 	else if( NodeName == "spawnregion" )
-		SpawnRegions.insert( NodeID, Node );
+		Sections = SpawnRegions;
 	else if( NodeName == "region" )
-		Regions.insert( NodeID, Node );
+		Sections = Regions;
 	else if( NodeName == "multi" )
-		Multis.insert( NodeID, Node );
+		Sections = Multis;
 	else if( NodeName == "text" )
-		Texts.insert( NodeID, Node );
+		Sections = Texts;
 	else if( NodeName == "startitems" )
-		StartItems.insert( NodeID, Node );
+		Sections = StartItems;
 	else if( NodeName == "location" )
-		Locations.insert( NodeID, Node );
+		Sections = Locations;
 	else if( NodeName == "skill" )
-		Skills.insert( NodeID, Node );
+		Sections = Skills;
 	else if( NodeName == "action" )
-		Actions.insert( NodeID, Node );
+		Sections = Actions;
 	else if( NodeName == "make" )
-		MakeSections.insert( NodeID, Node );
+		Sections = MakeSections;
 	else if( NodeName == "makeitem" )
-		MakeItems.insert( NodeID, Node );
+		Sections = MakeItems;
 	else if( NodeName == "useitem" )
-		UseItems.insert( NodeID, Node );
+		Sections = UseItems;
 	else if( NodeName == "skillcheck" )
-		SkillChecks.insert( NodeID, Node );
+		Sections = SkillChecks;
 	else if( NodeName == "define" )
-		Defines.insert( NodeID, Node );
+		Sections = Defines;
 	else if( NodeName == "resource" )
-		Resources.insert( NodeID, Node );
+		Sections = Resources;
  	else if( NodeName == "contextmenu" )	
- 		ContextMenus.insert( NodeID, Node );
+ 		Sections = ContextMenus;
+	else
+		return;
 
+	if( Sections.find( NodeID ) != Sections.end() )
+	{
+		clConsole.ChangeColor( WPC_YELLOW );
+		clConsole.send( "Warning: " );
+		clConsole.ChangeColor( WPC_NORMAL );
+		clConsole.send( tr( "Duplicate %1: %2\n" ).arg( NodeName ).arg( NodeID ) );
+	}
+
+    Sections.insert( NodeID, Node );
 }
 
 // Recursive Function for Importing Script Sections

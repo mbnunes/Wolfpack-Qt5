@@ -381,7 +381,7 @@ bool cMagic::prepare( P_CHAR caster, UI08 spellId, UI08 sourceType, P_ITEM sourc
 	cSpell *spell = loadedSpells.find( spellId )->second;
 
 	// Casting in jail is not allowed
-	if( caster->cell != 0 && !caster->isGM() )
+	if( caster->cell() != 0 && !caster->isGM() )
 	{
 		sysmessage( calcSocketFromChar( caster ), "You may not cast spells while you are in jail." );
 		return false;
@@ -3265,7 +3265,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 						if (pc->isPlayer() && online(pc))
 						{
 							if(rand()%2) npcaction(pc, 0x15); else npcaction(pc, 0x16);
-							if((pc->isNpc() || online(pc)) && pc->hp==0)
+							if((pc->isNpc() || online(pc)) && pc->hp() == 0)
 							{
 								pc->kill();
 							}

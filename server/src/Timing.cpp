@@ -354,28 +354,19 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 			
 			if( pc )
 			{
-				if( pc->cell == 0 )
-				{			
-					socket->sysMessage( tr( "You're not in jail already ? Please report to a GM. This has been logged." ) );
-					pc->setJailTimer(0);
-					savelog( tr( "%1 [0x%2] caused bug in jail system." ).arg( pc->name.c_str() ).arg( pc->serial, 8, 16 ), "server.log" );
-				}
-				else
-				{
-					jails[ pc->cell() ].occupied = false;
+				jails[ pc->cell() ].occupied = false;
 
-					pc->removeFromView( false );
-					pc->moveTo( jails[ pc->cell() ].oldpos );
-					pc->resend( false );
+				pc->removeFromView( false );
+				pc->moveTo( jails[ pc->cell() ].oldpos );
+				pc->resend( false );
 					
-					pc->setCell(0);
-					pc->setJailSecs(0);
-					pc->setJailTimer(0);
-					pc->setPriv2(0);					
+				pc->setCell(0);
+				pc->setJailSecs(0);
+				pc->setJailTimer(0);
+				pc->setPriv2(0);					
 					
-					savelog( tr( "%1 [0x%2] is automatically released from jail." ).arg( pc->name.c_str() ).arg( pc->serial, 8, 16 ), "server.log" );
-					socket->sysMessage( tr( "You have been released." ) );
-				}
+				savelog( tr( "%1 [0x%2] is automatically released from jail." ).arg( pc->name.c_str() ).arg( pc->serial, 8, 16 ), "server.log" );
+				socket->sysMessage( tr( "You have been released." ) );
 			}		
 		}
 	}	

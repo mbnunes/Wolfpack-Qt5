@@ -2759,7 +2759,7 @@ void MsgBoardMaintenance( void )
 								if (pc_z != NULL)
 								{
 									if ( (pc_z->serial             == postObjectSN) &&
-										   (pc_z->npc                == 0           ) &&
+										   (pc_z->npc()                == 0           ) &&
 										   (pc_z->questBountyReward()  >  0           ) )
 									{
 				                    // Check that if this is a BOUNTYQUEST that should be removed first!
@@ -2851,7 +2851,7 @@ void MsgBoardMaintenance( void )
 										if (pc_z != NULL)
 										{
 											if ( (pc_z->serial           == postObjectSN) &&
-										       (pc_z->npc                == 0           ) &&
+										       (pc_z->npc()                == 0           ) &&
 										       (pc_z->questBountyReward()  >  0           ) )
 											{
 												pc_z->setQuestBountyPostSerial(newPostSN);
