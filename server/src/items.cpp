@@ -1968,6 +1968,48 @@ void cItem::sendTooltip(cUOSocket* mSock)
 	// There is a list of statically overridden items in the client (@50A1C0 for 4.0.0o)
 	unsigned short id = this->id();
 
+	// There are several items the client doesnt bother to show tooltips for
+	// These checks make sure we don't waste bandwith sending the client 
+	// unneccesary tooltips. (Client 4.0.2b @ 412309)
+
+	if (id >= 0x3e02 && id <= 0x3e0b) {
+		return; // Poison field
+	} else if (id >= 0x3914 && id <= 0x3929) {
+		return;
+	} else if (id >= 0x3e27 && id <= 0x3e3a) { 
+		return; // Fire field
+	} else if (id >= 0x398c && id <= 0x399f) {
+		return;
+	} else if (id == 0xFAC || id == 0xFB1 || id == 0x1647) {
+		return; // Fire pit, Forge, Light Source
+	} else if (id == 0x19bb || id == 0x1f2b) {
+		return; // Brazier, Brazier
+	} else if (id >= 0x9fb && id <= 0xa29) {
+		return; // Wall Candles, Torches
+	} else if (id >= 0xb1a && id <= 0xb28) {
+		return; // More Candles
+	} else if (id >= 0xde1 && id <= 0xdea) {
+		return; // Kindlings
+	} else if (id >= 0x1849 && id <= 0x1850) {
+		return; // Heating Stands
+	} else if (id >= 0x1853 && id <= 0x185a) {
+		return; // Skull Candle
+	} else if (id >= 0x197a && id <= 0x19a9) {
+		return; // Forge
+	} else if (id >= 0x19ab && id <= 0x19b6) {
+		return; // Flame
+	} else if (id >= 0x1ecd && id <= 0x1ed2) {
+		return; // Glowing Light
+	} else if (id == 0x1fd4 || id == 0xf6c) {
+		return; // Black Gate, Blue Gate
+	} else if (id >= 0xe2d && id <= 0xe33) {
+		return; // Crystal Ball, Brazier
+	} else if (id >= 0xe5c && id <= 0xe6a) {
+		return; // Runes
+	} else if (id >= 0x12ee && id <= 0x134d) {
+		return; // Lava
+	}
+
 	// Mostly Signs (not movable but still have tooltips shown)
 	if(	( id >= 0xba3 && id <= 0xc0e ) ||	// House Signs
 		( id >= 0x1297 && id <= 0x129e ) ||	// Road Signs

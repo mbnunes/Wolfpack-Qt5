@@ -2353,6 +2353,12 @@ bool cBaseChar::canSeeChar(P_CHAR character)
 		// Check distance
 		if (pos_.distance(character->pos()) > VISRANGE) 
 			return false;
+
+		// Check if the target is a npc and currently stabled
+		P_NPC npc = dynamic_cast<P_NPC>(character);
+		if (npc && npc->stablemasterSerial() != INVALID_SERIAL) {
+			return false;
+		}
 	}
 
 	return true;

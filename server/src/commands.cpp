@@ -938,31 +938,6 @@ void commandMove( cUOSocket *socket, const QString &command, const QStringList &
 	socket->attachTarget( new cMoveTarget( x, y, z ) );
 }
 
-void commandTile( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
-{
-	Q_UNUSED(command);
-	if( args.count() < 2 )
-	{
-		socket->sysMessage( "Usage: tile <z> <id>[,<idn>]" );
-		return;
-	}
-
-	INT8 z = args[0].toInt();
-	QStringList ids = QStringList::split( ",", args[1] );
-
-	// Check if the given ids are valid
-	for( QStringList::iterator iter = ids.begin(); iter != ids.end(); ++iter )
-	{
-		if( !DefManager->getDefinition( WPDT_ITEM, (*iter) ) )
-		{
-			socket->sysMessage( tr( "Item definition '%1' was not found." ).arg( *iter ) );
-			return;
-		}
-	}
-
-	socket->sysMessage( tr( "Please select the first corner." ) );
-	socket->attachTarget( new cTileTarget( z, ids ) );
-}
 
 void commandAllShow( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
 {
@@ -1433,7 +1408,6 @@ stCommand cCommands::commands[] =
 	{ "SPAWNREGION", commandSpawnRegion },
 	{ "TAGS", commandTags },
 	{ "TELE", commandTele },
-	{ "TILE", commandTile },
 	{ "WHO", commandWho },
 	{ NULL, NULL }
 };

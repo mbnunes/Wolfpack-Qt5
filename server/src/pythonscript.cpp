@@ -87,6 +87,7 @@ static char *eventNames[] =
 	"onDelete",
 	"onSwing",
 	"onShowStatus",
+	"onChangeRegion",
 	0
 };
 

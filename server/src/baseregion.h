@@ -182,8 +182,8 @@ protected:
 public:
 	// Only getters, no setters
 	cBaseRegion *parent() const { return parent_; }
-	QValueVector< cBaseRegion* > children() const { return subregions_; }
-	QValueVector< rect_st > rectangles() const { return rectangles_; }
+	QValueVector< cBaseRegion* > &children() { return subregions_; }
+	QValueVector< rect_st > &rectangles() { return rectangles_; }
 };
 
 class cAllBaseRegions

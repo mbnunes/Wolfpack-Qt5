@@ -332,6 +332,11 @@ void cPlayer::talk( const QString &message, UI16 color, UINT8 type, bool autospa
 
 UINT8 cPlayer::notoriety( P_CHAR pChar ) // Gets the notoriety toward another char
 {
+	// Player is incognito
+	if (isIncognito()) {
+		return 0x03;
+	}
+
 	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red, 0x07 Yellow
 	UINT8 result;
 
@@ -385,14 +390,15 @@ void cPlayer::turnTo( const Coord_cl &pos )
 P_NPC cPlayer::unmount()
 {
 	P_ITEM pi = atLayer(Mount);
-	if( pi && !pi->free )
-	{
+	if (pi && !pi->free) {
 		P_NPC pMount = dynamic_cast<P_NPC>( FindCharBySerial( pi->getTag( "pet" ).toInt() ) );
-		if (pMount) {
+		if (pMount && !pMount->free) {
 			pMount->setWanderType(enHalt);
 			pMount->setStablemasterSerial(INVALID_SERIAL);
 			pMount->moveTo(pos());
+			pMount->setDirection(dir_);
 			pMount->resend(false);
+			pMount->bark(Bark_Idle);
 		}
 		pi->remove();
 		resend(false);
@@ -462,8 +468,7 @@ void cPlayer::mount( P_NPC pMount )
 		}
 
 		this->addItem( cBaseChar::Mount, pMountItem );
-
-		pMountItem->setTag( "pet", cVariant( pMount->serial() ) );
+		pMountItem->setTag("pet", cVariant(pMount->serial()));
 		pMountItem->update();
 
 		// if this is a gm lets tame the animal in the process
@@ -472,10 +477,11 @@ void cPlayer::mount( P_NPC pMount )
 		}
 
 		// remove it from screen!
-		pMount->removeFromView( true );
+		pMount->bark(Bark_Idle);
+		pMount->removeFromView(false);
 		pMount->fight(0);
-		MapObjects::instance()->remove(pMount);
 		pMount->setStablemasterSerial(serial_);
+		MapObjects::instance()->remove(pMount);		
 	}
 	else
 		socket->sysMessage( tr("You dont own that creature.") );
@@ -1337,7 +1343,7 @@ bool cPlayer::canSeeChar(P_CHAR character) {
 		bool privileged = isGM();
 
 		P_PLAYER player = dynamic_cast<P_PLAYER>(character);
-		if (player) {
+		if (privileged && player) {
 			// Disconnected players are invisible unless allShow is active for the current account
 			if (!player->socket() && (!account_ || !account_->isAllShow())) {
 				return false;
@@ -1372,6 +1378,12 @@ bool cPlayer::canSeeChar(P_CHAR character) {
 					return false;
 				}
 			}
+		}
+
+		// Check if the target is a npc and currently stabled
+		P_NPC npc = dynamic_cast<P_NPC>(character);
+		if (npc && npc->stablemasterSerial() != INVALID_SERIAL) {
+			return false;
 		}
 	}
 

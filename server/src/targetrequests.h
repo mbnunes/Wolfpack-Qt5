@@ -607,19 +607,6 @@ public:
 	}
 };
 
-class cTileTarget: public cTargetRequest
-{
-	
-private:
-	INT16 x1, y1;
-	INT8 z;
-	QStringList ids;
-public:
-	cTileTarget( INT8 _z, const QStringList &_ids ): x1( -1 ), y1( -1 ), z( _z ), ids( _ids ) {}
-
-	bool responsed( cUOSocket *socket, cUORxTarget *target );
-};
-
 class cRestockTarget: public cTargetRequest
 {
 	

@@ -342,6 +342,7 @@ void cUObject::recreateEvents() {
 		scriptChain = 0;
 	} else {
 		QStringList events = QStringList::split(",", eventList_);
+		QString newevents;
 		scriptChain = new cPythonScript*[events.size() + 1];
 		unsigned int count = 0;
 
@@ -352,9 +353,16 @@ void cUObject::recreateEvents() {
 				Console::instance()->log(LOG_ERROR, QString("Unknown event '%1' for object 0x%2").arg(*it).arg(serial_, 0, 16));
 			} else {
 				scriptChain[++count] = script;
+				if (newevents.length() == 0) {
+					newevents.append(script->name());
+				} else {
+					newevents.append(",");
+					newevents.append(script->name());
+				}
 			}
 		}
 
+		eventList_ = newevents;
 		scriptChain[0] = reinterpret_cast<cPythonScript*>(count);
 	}
 }
@@ -484,9 +492,13 @@ void cUObject::removeFromView( bool clean )
 		}
 	}
 
-	for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
-		if( clean || ( socket->player() && ( socket->player()->pos().distance( mPos ) <= socket->player()->visualRange() ) ) )
-			socket->removeObject( this );
+	cUOTxRemoveObject remove;
+	remove.setSerial(serial_);
+	for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
+		if (socket->player() != this && (clean || socket->canSee(this))) {
+			socket->send(&remove);
+		}
+	}
 }
 
 // Checks if the specified object is in range

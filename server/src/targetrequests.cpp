@@ -385,64 +385,6 @@ bool cAddEventTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	return true;
 }
 
-bool cTileTarget::responsed( cUOSocket *socket, cUORxTarget *target )
-{
-	if( !socket->player() )
-		return true;
-	
-	// Set the first corner and readd ourself
-	if( x1 == -1 || y1 == -1 )
-	{
-		x1 = target->x();
-		y1 = target->y();
-		socket->sysMessage( tr( "Please select the second corner." ) );
-		return false;
-	}
-	else
-	{
-		INT16 x2;
-		if( target->x() < x1 )
-		{
-			x2 = x1;
-			x1 = target->x();
-		}
-		else
-			x2 = target->x();
-		
-		INT16 y2;
-		if( target->y() < y1 )
-		{
-			y2 = y1;
-			y1 = target->y();
-		}
-		else
-			y2 = target->y();
-		
-		socket->sysMessage( tr( "Tiling from %1,%2 to %3,%4" ).arg( x1 ).arg( y1 ).arg( x2 ).arg( y2 ) );
-		UINT16 dCount = 0;
-		
-		for( UINT16 x = x1; x <= x2; ++x )
-			for( UINT16 y = y1; y <= y2; ++y )
-			{
-				// Select a Random Tile from the list
-				QString id = ids[ RandomNum( 0, ids.count()-1 ) ];
-				P_ITEM pItem = cItem::createFromScript( id );
-				
-				if( pItem )
-				{
-					Coord_cl position( x, y, z, socket->player()->pos().map );
-					pItem->setPos( position );
-					MapObjects::instance()->add( pItem );
-					pItem->update();
-					++dCount;
-				}
-			}
-			
-			socket->sysMessage( tr( "Created %1 items." ).arg( dCount ) );
-			return true;
-	}		
-}
-
 bool cSetMultiOwnerTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 {
 	cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( multi_ ) );

@@ -334,6 +334,22 @@ int main( int argc, char **argv )
 	try
 	{
 #endif
+		// Load some MUL Data
+		Console::instance()->send( "Loading muls...\n" );
+		TileCache::instance()->load( SrvParams->mulPath() );
+		MultiCache::instance()->load( SrvParams->mulPath() );
+
+		Map->registerMap(0, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
+		Map->registerMap(1, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
+		Map->registerMap(2, "map2.mul", 288, 200, "statics2.mul", "staidx2.mul");
+		Map->registerMap(3, "map3.mul", 320, 256, "statics3.mul", "staidx3.mul");
+
+		// For each map we register, register a GridMap as well
+		MapObjects::instance()->addMap( 0, 6144, 4096 );
+		MapObjects::instance()->addMap( 1, 6144, 4096 );
+		MapObjects::instance()->addMap( 2, 2304, 1600 );
+		MapObjects::instance()->addMap( 3, 2560, 2048 );
+
 		Console::instance()->send( "Loading skills...\n" );
 		Skills->load();
 
@@ -357,22 +373,6 @@ int main( int argc, char **argv )
 
 		Console::instance()->send( "Loading contextmenus...\n" );
 		ContextMenus::instance()->reload();
-
-		// Load some MUL Data
-		Console::instance()->send( "Loading muls...\n" );
-		TileCache::instance()->load( SrvParams->mulPath() );
-		MultiCache::instance()->load( SrvParams->mulPath() );
-
-		Map->registerMap(0, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
-		Map->registerMap(1, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
-		Map->registerMap(2, "map2.mul", 288, 200, "statics2.mul", "staidx2.mul");
-		Map->registerMap(3, "map3.mul", 320, 256, "statics3.mul", "staidx3.mul");
-
-		// For each map we register, register a GridMap as well
-		MapObjects::instance()->addMap( 0, 6144, 4096 );
-		MapObjects::instance()->addMap( 1, 6144, 4096 );
-		MapObjects::instance()->addMap( 2, 2304, 1600 );
-		MapObjects::instance()->addMap( 3, 2560, 2048 );
 
 		Console::instance()->send( "\n" );
 #if !defined(_DEBUG)

@@ -503,9 +503,6 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		pChar->moveTo( newCoord );
 		pChar->setLastMovement(uiCurrentTime);
 		AllTerritories::instance()->check( pChar );
-
-		handleItems( pChar, oldpos );
-		HandleTeleporters( pChar, oldpos );
 	}
 
 	// do all of the following regardless of whether turning or moving i guess
@@ -518,6 +515,12 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	RegionIterator4Chars ri( pChar->pos() );
 	for( ri.Begin(); !ri.atEnd(); ri++ ) {
 		P_CHAR observer = ri.GetData();
+		
+		if (observer == pChar)
+		{
+			continue;
+		}
+
 		unsigned int distance = observer->pos().distance(oldpos);
 
 		// If we are a player, send us new characters
@@ -537,6 +540,12 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 				otherplayer->socket()->updateChar(pChar); // Previously we were already known
 			}
 		}
+	}
+
+	// If we really moved handle teleporters and new items
+	if (dir == pChar->direction()) {
+		handleItems( pChar, oldpos );
+		HandleTeleporters( pChar, oldpos );
 	}
 }
 

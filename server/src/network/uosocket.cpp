@@ -1818,10 +1818,15 @@ void cUOSocket::removeObject( cUObject *object )
 void cUOSocket::updatePlayer()
 {
 	if( _player ) {
-		cUOTxUpdatePlayer pUpdate;
+		/*cUOTxUpdatePlayer pUpdate;
 		pUpdate.fromChar(_player);
 		pUpdate.setHighlight(_player->notoriety(_player));
-		send(&pUpdate);
+		send(&pUpdate);*/
+
+		cUOTxDrawPlayer playerupdate;
+		playerupdate.fromChar(_player);
+		playerupdate.setFlag(_player->notoriety(_player));
+		send(&playerupdate);
 	}
 }
 
@@ -1970,36 +1975,31 @@ void cUOSocket::resendWorld( bool clean )
 	for( itIterator.Begin(); !itIterator.atEnd(); itIterator++ )
 	{
 		P_ITEM pItem = itIterator.GetData();
-		pItem->update( this );
+		pItem->update(this);
 	}
 
 	RegionIterator4Chars chIterator( _player->pos(), _player->visualRange() );
 	for( chIterator.Begin(); !chIterator.atEnd(); chIterator++ )
 	{
 		P_CHAR pChar = chIterator.GetData();
-		if( !pChar || pChar == _player )
+		if (pChar == _player)
 			continue;
 
-		if( clean )
+		if (clean)
 		{
 			cUOTxRemoveObject rObject;
-			rObject.setSerial( pChar->serial() );
-			send( &rObject );
+			rObject.setSerial(pChar->serial());
+			send(&rObject);
 		}
 		
 		// Hidden
-		if( pChar->isHidden() && !_player->isGMorCounselor() )
-			continue;
-
-		// Logged out
-		if( pChar->objectType() == enPlayer && !dynamic_cast<P_PLAYER>(pChar)->socket() && !_player->account()->isAllShow() )
-			continue;
-
-		cUOTxDrawChar drawChar;
-		drawChar.fromChar( pChar );
-		drawChar.setHighlight( pChar->notoriety( _player ) );
-		pChar->sendTooltip( this );
-		send( &drawChar );
+		if (_player->canSee(pChar)) {
+			cUOTxDrawChar drawChar;
+			drawChar.fromChar(pChar);
+			drawChar.setHighlight(pChar->notoriety(_player));			
+			send(&drawChar);
+			pChar->sendTooltip(this);
+		}
 	}
 }
 

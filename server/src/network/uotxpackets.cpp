@@ -327,18 +327,15 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 	setY( pChar->pos().y );
 	setZ( pChar->pos().z );
 	setDirection( pChar->direction() );
+	setFlag(0);
 
-	if( pChar->isAtWar() )
+	if( pChar->isAtWar() && !pChar->isDead() )
 		setFlag( 0x40 );
 
-	/*if (pChar->isInvulnerable()) {
-		setFlag(flag() | 0x08);
-	}*/
-
-	if( pChar->isHidden() || ( pChar->objectType() == enPlayer && !dynamic_cast<P_PLAYER>(pChar)->socket() ) )
+	if (pChar->isHidden() || (pChar->objectType() == enPlayer && !dynamic_cast<P_PLAYER>(pChar)->socket()))
 		setFlag( flag() | 0x80 );
 
-	if( pChar->isDead() && !pChar->isAtWar() )
+	if (pChar->isDead() && !pChar->isAtWar())
 		setFlag( flag() | 0x80 );
 
 	if( pChar->poisoned() )

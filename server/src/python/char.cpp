@@ -120,13 +120,18 @@ PyObject* PyGetCharObject( P_CHAR pChar )
 /*!
 	Resends the character.
 */
-static PyObject* wpChar_update( wpChar* self, PyObject* args )
+static PyObject* wpChar_update(wpChar* self, PyObject* args)
 {
 	Q_UNUSED(args);
-	if( !self->pChar || self->pChar->free )
-		return PyFalse;
+	unsigned char clean = 0;
+	unsigned char excludeself = 0;
 
-	self->pChar->resend( false );
+	if (!PyArg_ParseTuple(args, "|BB:char.update(clean, excludeself)", &clean, &excludeself))
+	{
+		return 0;
+	}
+
+	self->pChar->resend(clean != 0, excludeself != 0);
 
 	return PyTrue;
 }

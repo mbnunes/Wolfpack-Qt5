@@ -35,6 +35,8 @@
 #include "singleton.h"
 
 #include <map>
+#include <qmap.h>
+#include <qptrlist.h>
 
 #include <qobject.h>
 
@@ -49,13 +51,8 @@ struct good_st
 class cTerritory : public cBaseRegion
 {
 public:
-	cTerritory( const cElement *Tag, cBaseRegion *parent )
-	{
-		this->init();
-		this->name_ = Tag->getAttribute( "id" );
-		this->applyDefinition( Tag );
-		this->parent_ = parent;
-	}
+	cTerritory( const cElement *Tag, cBaseRegion *parent );
+	cTerritory();
 
 	void	init( void );
 
@@ -118,39 +115,23 @@ public:
 	std::map< UI32, good_st >		tradesystem_;
 };
 
-class cAllTerritories : public cAllBaseRegions
+class cAllTerritories
 {
+private:
+	QMap<uint, QPtrList<cTerritory> > topregions;
+
 public:
 
-	void		load( void );
-	void		check( P_CHAR pc );
+	void reload();
+	void load( void );
+	void check( P_CHAR pc );
 
-	cTerritory* region( const QString& regName ) const
-	{
-		QMap<uint, cBaseRegion*>::const_iterator it( topregions.begin() );
-		for ( ; it != topregions.end(); ++it )
-		{
-			cTerritory* result = dynamic_cast< cTerritory* >(it.data()->region( regName ));
-			if ( result )
-				return result;
-		}
-		return 0;
+	cTerritory* region( const QString& regName );
+	cTerritory* region( UI16 posx, UI16 posy, UI08 map );
+
+	inline cTerritory* region(const Coord_cl& pos) {
+		return region(pos.x, pos.y, pos.map);
 	}
-
-	cTerritory* region( UI16 posx, UI16 posy, UI08 map )
-	{
-		QMap<uint, cBaseRegion*>::const_iterator it( topregions.find(map) );
-		if ( it != topregions.end() )
-			return dynamic_cast< cTerritory* >(it.data()->region( posx, posy, map ));
-		else
-			return 0;
-	}
-
-	cTerritory* region( const Coord_cl& pos )
-	{
-		return region( pos.x, pos.y, pos.map );
-	}
-
 };
 
 typedef SingletonHolder<cAllTerritories> AllTerritories;

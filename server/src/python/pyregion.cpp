@@ -105,11 +105,11 @@ static PyObject *wpRegion_getAttr( wpRegion *self, char *name )
 		return tuple;
 	}
 	else if( !strcmp( name, "name" ) )
-		return PyString_FromString( self->pRegion->name().latin1() );
+		return QString2Python(self->pRegion->name());
 	else if( !strcmp( name, "midilist" ) )
-		return PyString_FromString( self->pRegion->midilist().latin1() );
+		return QString2Python(self->pRegion->midilist());
 	else if( !strcmp( name, "guardowner" ) )
-		return PyString_FromString( self->pRegion->guardOwner().latin1() );
+		return QString2Python(self->pRegion->guardOwner());
 	else if( !strcmp( name, "rainchance" ) )
 		return PyInt_FromLong( self->pRegion->rainChance() );
 	else if( !strcmp( name, "snowchance" ) )

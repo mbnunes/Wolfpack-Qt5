@@ -358,19 +358,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 				}
 				return;// deeds
 			
-			case 0x0E24: // empty vial
-				{
-				P_ITEM pBackpack = pc_currchar->getBackpack();
-				if (pBackpack != NULL)
-					if (pi->container() == pBackpack)
-					{
-//							addmitem[s] = pi->serial(); // save the vials number, LB
-//							target(s, 0, 1, 0, 186, "What do you want to fill the vial with?");
-					}
-					else 
-						socket->sysMessage(tr("The vial is not in your pack"));
-					return;
-				}
 			case 0x0FA0:
 			case 0x0FA1: // thread to Bolt
 			case 0x0E1D:
@@ -379,14 +366,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 //					pc_currchar->setTailItem(  pi->serial() );
 //					target(s, 0, 1, 0, 165, "Select loom to make your cloth");
 				return;
-			case 0x1BD1:
-			case 0x1BD2:
-			case 0x1BD3:
-			case 0x1BD4:
-			case 0x1BD5:
-			case 0x1BD6:	// make shafts
-//					itemmake[s].Mat1id = pi->id();
-//					target(s, 0, 1, 0, 172, "What would you like to use this with?"); 
 				return;
 			case 0x0E73: // cannon ball
 //					target(s, 0, 1, 0, 170, "Select cannon to load."); 
@@ -406,56 +385,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 //					pc_currchar->setTailItem( pi->serial() );
 //					target(s, 0, 1, 0, 164, "Select your spin wheel to spin wool.");      
 				return;
-			case 0x0F9D: // sewing kit for tailoring
-//					target(s, 0, 1, 0, 167, "Select material to use.");
-				return;
-			case 0x1508: // magic statue?
-				if( pc_currchar->checkSkill( ITEMID, 0, 10))
-				{
-					pi->setId(0x1509);
-					pi->setType( 45 );
-					pi->update();// AntiChrist
-				}
-				else
-				{
-					socket->sysMessage(tr("You failed to use this statue."));
-				}
-				return;
-			case 0x1509:
-				if( pc_currchar->checkSkill( ITEMID, 0, 10))
-				{
-					pi->setId(0x1508);
-					pi->setType( 45 );
-					pi->update();// AntiChrist
-				}
-				else
-				{
-					socket->sysMessage(tr("You failed to use this statue."));
-				}
-				return;
-
-			//case 0x0DBF:
-			//case 0x0DC0:// fishing
-//					target(s, 0, 1, 0, 45, "Fish where?");
-			//	return;
-			//case 0x0E9B: // Mortar for Alchemy
-			//	if (pi->type() == 17)
-			//	{
-			//		addid1[s] = static_cast<unsigned char>((pi->serial()&0xFF000000)>>24);
-		//			addid2[s] = static_cast<unsigned char>((pi->serial()&0x00FF0000)>>16);
-		//			addid3[s] = static_cast<unsigned char>((pi->serial()&0x0000FF00)>>8);
-		//			addid4[s] = static_cast<unsigned char>((pi->serial()&0x000000FF));
-//						target(s, 0, 1, 0, 109, "Where is an empty bottle for your potion?");
-		//		}
-		//		else
-		//		{
-		///			addid1[s] = static_cast<unsigned char>((pi->serial()&0xFF000000)>>24);
-		//			addid2[s] = static_cast<unsigned char>((pi->serial()&0x00FF0000)>>16);
-		//			addid3[s] = static_cast<unsigned char>((pi->serial()&0x0000FF00)>>8);
-		//			addid4[s] = static_cast<unsigned char>((pi->serial()&0x000000FF));
-//						target(s, 0, 1, 0, 108, "What do you wish to grind with your mortar and pestle?");
-		//		}
-		//		return; // alchemy
 			default:
 				break;
 		}

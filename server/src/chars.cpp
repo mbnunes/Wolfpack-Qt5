@@ -68,8 +68,20 @@ void cCharStuff::DeleteChar( P_CHAR pc_k ) // Delete character
 
 	P_NPC pn_k = dynamic_cast<P_NPC>(pc_k);
 
-	if( pn_k )
-	{
+	if(pn_k) {
+		// If a player is mounted on us, unmount him.
+		if (pn_k->stablemasterSerial() != INVALID_SERIAL) {
+			P_PLAYER player = dynamic_cast<P_PLAYER>(World::instance()->findChar(pn_k->stablemasterSerial()));
+
+			if (player) {
+				P_ITEM mount = player->atLayer(cBaseChar::Mount);
+
+				if (mount && mount->getTag("pet").toInt() == pn_k->serial()) {
+					mount->remove();
+				}
+			}
+		}
+
 		pn_k->setOwner( 0 );
 	}
 

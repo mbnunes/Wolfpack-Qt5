@@ -268,7 +268,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 	else if( sgn_x == 0 ) // if we are on the same x-level, just push every x/y coordinate in y-direction from src to trg into the array
 		for( i = 0; i <= (sgn_y * m); ++i )
 		{
-			collisions.push_back( Coord_cl( x, y + (sgn_y * i), map ) );
+			collisions.push_back( Coord_cl( x, y + (sgn_y * i), 0, map ) );
 		}
 	else if ( sgn_y == 0 ) // if we are on the same y-level, just push every x/y coordinate in x-direction from src to trg into the array
 		for( i = 0; i <= (sgn_x * n); ++i )
@@ -808,6 +808,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 		}
 		else
 		{
+			//Console::instance()->send( QString( "xdiff:%1,ydiff:%2\n" ).arg( (double)target.x - (double)x ).arg( (double)target.y - (double)y ) );
 			dz_up = ( ( (double)targetheight + (double)target.z ) - (double)z ) / sqrt( ((double)target.x - (double)x)*((double)target.x - (double)x) + ((double)target.y - (double)y)*((double)target.y - (double)y) );
 			dz_down = ( (double)target.z - ( (double)z - (double)15 ) ) / sqrt( ((double)target.x - (double)x)*((double)target.x - (double)x) + ((double)target.y - (double)y)*((double)target.y - (double)y) );
 			gradient = (double)m / (double)n;
@@ -856,6 +857,50 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 				{
 					zmin = target.z+1;
 					zmax = z;
+				}
+				targetpos = true;
+				if( (dz_up >= 0) && (dz_down >= 0) )
+				{
+					if( zmin < target.z )
+					{
+						zmax = target.z -1;
+					}
+					else
+					{
+						//we ignore this coordinate
+						++pit;
+						continue;
+					}
+				}
+				else if( (dz_up <= 0) && (dz_down <= 0) )
+				{
+					if( zmax > target.z + targetheight+1 )
+					{
+						zmin = target.z + targetheight + 2;
+					}
+					else
+					{
+						++pit;
+						continue;
+					}
+				}
+				else 
+				{
+					//we may have to split the test into two if we would do it exactly
+					//but i think we can throw away the test from down in this case
+					if( zmax > target.z + targetheight+1 )
+					{
+						zmin = target.z + targetheight + 2;
+					}
+					else if( zmin < target.z )
+					{
+						zmax = target.z -1;
+					}
+					else
+					{
+						++pit;
+						continue;
+					}
 				}
 			}
 			else if( sgn_x == 0 )
@@ -914,9 +959,9 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 					}
 					else if( (dz_up <= 0) && (dz_down <= 0) )
 					{
-						if( zmax > target.z + targetheight )
+						if( zmax > target.z + targetheight+1 )
 						{
-							zmin = target.z + targetheight + 1;
+							zmin = target.z + targetheight + 2;
 						}
 						else
 						{
@@ -928,9 +973,9 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 					{
 						//we may have to split the test into two if we would do it exactly
 						//but i think we can throw away the test from down in this case
-						if( zmax > target.z + targetheight )
+						if( zmax > target.z + targetheight+1 )
 						{
-							zmin = target.z + targetheight + 1;
+							zmin = target.z + targetheight + 2;
 						}
 						else if( zmin < target.z )
 						{
@@ -995,9 +1040,9 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 					}
 					else if( (dz_up <= 0) && (dz_down <= 0) )
 					{
-						if( zmax > target.z + targetheight )
+						if( zmax > target.z + targetheight+1 )
 						{
-							zmin = target.z + targetheight + 1;
+							zmin = target.z + targetheight + 2;
 						}
 						else
 						{
@@ -1009,9 +1054,9 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 					{
 						//we may have to split the test into two if we would do it exactly
 						//but i think we can throw away the test from down in this case
-						if( zmax > target.z + targetheight )
+						if( zmax > target.z + targetheight+1 )
 						{
-							zmin = target.z + targetheight + 1;
+							zmin = target.z + targetheight + 2;
 						}
 						else if( zmin < target.z )
 						{
@@ -1157,9 +1202,9 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 					}
 					else if( (dz_up <= 0) && (dz_down <= 0) )
 					{
-						if( zmax > target.z + targetheight )
+						if( zmax > target.z + targetheight+1)
 						{
-							zmin = target.z + targetheight + 1;
+							zmin = target.z + targetheight + 2;
 						}
 						else
 						{
@@ -1171,9 +1216,9 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 					{
 						//we may have to split the test into two if we would do it exactly
 						//but i think we can throw away the test from down in this case
-						if( zmax > target.z + targetheight )
+						if( zmax > target.z + targetheight+1 )
 						{
-							zmin = target.z + targetheight + 1;
+							zmin = target.z + targetheight + 2;
 						}
 						else if( zmin < target.z )
 						{
@@ -1241,7 +1286,7 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 			while( !msi.atEnd() )
 			{
 				tile = TileCache::instance()->getTile( msi->itemid );
-				//Console::instance()->send( QString( "tilepos:%1,zmax:%2,zmin:%3\n" ).arg( msi->zoff ).arg( zmax ).arg( zmin ) );
+				//Console::instance()->send( QString( "statictilepos:%1,zmax:%2,zmin:%3\n" ).arg( msi->zoff ).arg( zmax ).arg( zmin ) );
 				//if it is in our way
 				if(	( zmax >= msi->zoff ) && ( zmin <= ( msi->zoff + tile.height ) ) )
 				{
@@ -1259,13 +1304,16 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, UI16 targetheight, bool touc
 			
 			//Console::instance()->send( QString( "after statics\n" ) );
 			// Items
+			//Console::instance()->send( QString( "Items at: %1,%2,%3,%4\n" ).arg( (*pit).x ).arg( (*pit).y ).arg( (*pit).z ).arg( (*pit).map ) );
 			RegionIterator4Items rj( (*pit), 0 );
 			for( rj.Begin(); !rj.atEnd(); rj++ )
 			{
+				//Console::instance()->send( QString( "foritem\n" ) );
 				P_ITEM pi = rj.GetData();
 				if( pi && pi->id() < 0x4000 )
 				{
 					tile = TileCache::instance()->getTile( pi->id() );
+					//Console::instance()->send( QString( "itemtilepos:%1,zmax:%2,zmin:%3\n" ).arg( pi->pos().z ).arg( zmax ).arg( zmin ) );
 					if(	( zmax >= pi->pos().z ) && ( zmin <= ( pi->pos().z + tile.height ) ) && ( pi->visible() == 0 ) )
 					{
 						if( tile.isBlocking() || tile.isRoofOrFloorTile() )

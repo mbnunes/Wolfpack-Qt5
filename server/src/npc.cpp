@@ -201,7 +201,9 @@ bool cNPC::del()
 
 static void npcRegisterAfterLoading( P_NPC pc )
 {
-	MapObjects::instance()->add(pc);
+	if (pc->stablemasterSerial() == INVALID_SERIAL) {
+		MapObjects::instance()->add(pc);
+	}
 }
 
 void cNPC::setOwner(P_PLAYER data, bool nochecks)
@@ -361,6 +363,10 @@ void cNPC::talk( const UINT32 MsgID, const QString& params /*= 0*/, const QStrin
 
 UINT8 cNPC::notoriety( P_CHAR pChar ) // Gets the notoriety toward another char
 {
+	if (isIncognito()) {
+		return 0x03;
+	}
+
 	/*
 		Hard to tell because the ai-types are now string based
 		0 = invalid/across server line

@@ -134,4 +134,26 @@ AbstractAI* getWpAI( PyObject* );
 #define checkArgMulti( id ) ( PyTuple_Size( args ) > id && checkWpMulti( PyTuple_GetItem( args, id ) ) )
 #define getArgMulti( id ) getWpMulti( PyTuple_GetItem( args, id ) )
 
+inline PyObject* QString2Python(const QString &string) {
+	if (string.isEmpty()) {
+		return PyUnicode_FromWideChar(L"", 0);
+	} else {
+		return PyUnicode_FromUnicode((Py_UNICODE*)string.ucs2(), string.length());
+	}
+}
+
+inline QString Python2QString(PyObject *object) {
+	if (PyUnicode_Check(object)) {
+		return QString::fromUcs2((ushort*)PyUnicode_AS_UNICODE(object));
+	} else if (PyString_Check(object)) {
+		return QString::fromLocal8Bit(PyString_AsString(object));
+	} else if (PyInt_Check(object)) {
+		return QString::number(PyInt_AsLong(object));
+	} else if (PyFloat_Check(object)) {
+		return QString::number(PyFloat_AsDouble(object));
+	} else {
+		return QString::null;
+	}
+}
+
 #endif

@@ -41,10 +41,29 @@
 #include "basechar.h"
 #include "player.h"
 #include "inlines.h"
+#include "maps.h"
 
 #include "globals.h" // needed for object SrvParams
+#include "pythonscript.h"
 
 // cTerritories
+
+cTerritory::cTerritory(const cElement *Tag, cBaseRegion *parent) {
+	this->init();
+	if (Tag->hasAttribute("id")) {
+		this->name_ = Tag->getAttribute("id");
+	} else if (Tag->hasAttribute("name")) {
+		this->name_ = Tag->getAttribute("name");
+	}
+	this->applyDefinition( Tag );
+	this->parent_ = parent;
+}
+
+cTerritory::cTerritory() {
+	this->init();
+	this->name_ = QString::null;
+	this->parent_ = 0;
+}
 
 void cTerritory::init( void )
 {
@@ -199,10 +218,10 @@ void cTerritory::processNode( const cElement *Tag )
 	// <region id="Cove Market Place">
 	//		...region nodes...
 	// </region>
-	else if( TagName == "region" && Tag->hasAttribute( "id" ) )
+	else if (TagName == "region")
 	{
-		cTerritory* toinsert_ = new cTerritory( Tag, this );
-		this->subregions_.push_back( toinsert_ );
+		cTerritory* toinsert_ = new cTerritory(Tag, this);
+		this->subregions_.push_back(toinsert_);
 	}
 	else if ( TagName == "teleport" )
 	{
@@ -276,26 +295,39 @@ bool cTerritory::findTeleporterSpot( Coord_cl& d ) const
 
 void cAllTerritories::load( void )
 {
-//	UI32 starttime = getNormalizedTime();
-	QStringList DefSections = DefManager->getSections( WPDT_REGION );
+	// Make sure that there is one top level region for each map
+	// Insert it at the beginning (last overrides first).
+	for (unsigned char i = 0; i <= 3; ++i) {
+		if (Map->hasMap(i)) {	
+			cTerritory *territory = new cTerritory();
+			cBaseRegion::rect_st rect;
+			rect.map = i;
+			rect.x1 = 0;
+			rect.y1 = 0;
+			rect.x2 = Map->mapTileWidth(i) * 8;
+			rect.y2 = Map->mapTileHeight(i) * 8;			
+			territory->rectangles().append(rect);
+			topregions[i].append(territory);
+		}
+	}
 
-	if( DefSections.isEmpty() )
-		throw wpException( "You need to define at least one region." );
+	const QValueVector<cElement*> &elements = DefManager->getDefinitions(WPDT_REGION);
 	
-	QStringList::const_iterator it( DefSections.begin() );
-	while( it != DefSections.end() )
-	{
-		const cElement* DefSection = DefManager->getDefinition( WPDT_REGION, *it );
-		cTerritory* territory = new cTerritory( DefSection, 0 );
+	QValueVector<cElement*>::const_iterator it(elements.begin());
+	while (it != elements.end()) {
+		cTerritory* territory = new cTerritory(*it, 0);
 
-		if ( territory->rectangles().empty() )
-		{
+		if (territory->rectangles().empty()) {
 			Console::instance()->send( tr("Warning: Top level region %1 lacks rectangle tag, ignoring region").arg(territory->name()) );
 			delete territory;
-		}
-		else
-		{
-			topregions.insert( territory->rectangles()[0].map, territory );
+		} else {
+			unsigned char map = territory->rectangles()[0].map;
+			
+			if (!topregions.contains(map)) {
+				topregions[map].setAutoDelete(true);
+			}
+
+			topregions[map].append(territory);
 		}
 		++it;
 	}
@@ -318,43 +350,82 @@ void cAllTerritories::check( P_CHAR pc )
 		return;
 	}
 
-	if( currRegion != lastRegion )
+	if (currRegion != lastRegion)
 	{
-		if( socket )
-		{
-			if( lastRegion )
-				socket->sysMessage( tr( "You have left %1." ).arg( lastRegion->name() ), 0x37 );
+		pc->setRegion(currRegion);
 
-			if( currRegion )
-				socket->sysMessage( tr( "You have entered %1." ).arg( currRegion->name() ), 0x37 );
+		if (socket) {
+			socket->playMusic();
+		}
 
-			if( (currRegion->isGuarded() && !lastRegion->isGuarded()) ||
-				(!currRegion->isGuarded() && lastRegion->isGuarded()) ||
-				(currRegion->isGuarded() && ( currRegion->guardOwner() != lastRegion->guardOwner() )) )
+		PyObject *args = Py_BuildValue("(NNN)", PyGetCharObject(pc), PyGetRegionObject(lastRegion), PyGetRegionObject(currRegion));
+		if (!cPythonScript::callChainedEventHandler(EVENT_CHANGEREGION, pc->getEvents(), args) && socket) {
+			if (lastRegion && !lastRegion->name().isEmpty())
+				socket->sysMessage(tr("You have left %1.").arg(lastRegion->name()));
+
+			if (currRegion && !currRegion->name().isEmpty())
+				socket->sysMessage(tr("You have entered %1.").arg(currRegion->name()));
+
+			if( (currRegion->isGuarded() != lastRegion->isGuarded()) ||
+				(currRegion->isGuarded() && (currRegion->guardOwner() != lastRegion->guardOwner())))
 			{
-				if( currRegion->isGuarded() )
+				if (currRegion->isGuarded())
 				{
-					if( currRegion->guardOwner().isEmpty() )
-						socket->clilocMessage( 500112 ); // You are now under the protection of the town guards
+					if(currRegion->guardOwner().isEmpty())
+						socket->clilocMessage(500112); // You are now under the protection of the town guards
 					else
-						socket->sysMessage( tr( "You are now under the protection of %1 guards." ).arg( currRegion->guardOwner() ), 0x37 );
+						socket->sysMessage(currRegion->guardOwner());
 				}
 				else
 				{
-					if( lastRegion->guardOwner().isEmpty() )
-						socket->clilocMessage( 500113 ); // You have left the protection of the town guards.
+					if(lastRegion->guardOwner().isEmpty())
+						socket->clilocMessage(500113); // You have left the protection of the town guards.
 					else
-						socket->sysMessage( tr( "You are no longer under the protection of %1 guards." ).arg( lastRegion->guardOwner() ), 0x37 );
+						socket->sysMessage(lastRegion->guardOwner());
 				}
 			}
 		}
-
-		pc->setRegion( currRegion );
-
-		if( socket )
-			socket->playMusic();
+		Py_DECREF(args);
 	}
 }
 
+cTerritory* cAllTerritories::region( const QString& regName )
+{
+	cTerritory *result = 0;
+	QMap<uint, QPtrList<cTerritory> >::iterator it( topregions.begin() );
+	for ( ; it != topregions.end(); ++it )
+	{
+		// search all topregions of that map
+		for (cTerritory *region = it.data().first(); region; region = it.data().next()) {
+			region = dynamic_cast<cTerritory*>(region->region(regName));
+			if (region) {
+				result = region;
+			}
+		}
+	}
+	return result;
+}
 
+cTerritory* cAllTerritories::region( UI16 posx, UI16 posy, UI08 map )
+{
+	QMap<uint, QPtrList<cTerritory> >::iterator it(topregions.find(map));
+	cTerritory *result = 0;
 
+	if (it != topregions.end()) {
+		// search all topregions of that map
+		for (cTerritory *region = it.data().first(); region; region = it.data().next()) {
+			region = dynamic_cast<cTerritory*>(region->region(posx, posy, map));
+			if (region) {
+				result = region;
+			}
+		}
+	}
+
+	return result;
+}
+
+void cAllTerritories::reload()
+{
+	topregions.clear();
+	this->load();
+}
