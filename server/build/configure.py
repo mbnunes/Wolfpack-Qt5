@@ -81,7 +81,7 @@ def checkQt():
 
 	sys.stdout.write( "Checking QTDIR enviroment variable..." )
 	if ( os.environ.has_key("QTDIR") and os.path.exists( os.environ["QTDIR"] ) ):
-		sys.stdout.write( "ok\n" )
+		sys.stdout.write( green("ok\n") )
 	else:
 		sys.stdout.write( red("failed") + "\n" )
 		sys.stdout.write( "You must properly setup QTDIR" )
@@ -197,7 +197,9 @@ def checkPython(options):
 	elif sys.platform == "darwin":
 		PYTHONINCSEARCHPATH = [ "/System/Library/Frameworks/Python.framework/Versions/Current/Headers/Python.h" ]
 		PYTHONLIBSEARCHPATH = [ ]
-		PYTHONLIBSTATICSEARCHPATH = []
+		PYTHONLIBSTATICSEARCHPATH = ["/System/Library/Frameworks/Python.framework/Versions/Current/Python", \ 
+					  "/System/Library/Frameworks/Python.framework/Versions/Current/lib/[Pp]ython*/config/libpython*.a", \
+					  "/usr/local/lib/[Pp]ython*/config/libpython*.a"]
 	else:
 		sys.stdout.write(red("ERROR")+": Unknown platform %s to checkPython()\n" % sys.platform )
 		sys.exit()
@@ -214,7 +216,7 @@ def checkPython(options):
 
 	sys.stdout.write( "Checking Python version... " )
 	if sys.hexversion >= 0x020300F0:
-		sys.stdout.write("ok\n")
+		sys.stdout.write(green("ok\n"))
 	else:
 		sys.stdout.write( red("failed") + "\n" )
 		sys.stdout.write( bold("Wolfpack requires Python version greater than 2.3.0 ") )
@@ -223,7 +225,7 @@ def checkPython(options):
 
 	sys.stdout.write( "Checking CPU byte order... %s\n" % sys.byteorder )
 	if sys.byteorder != 'little':
-		sys.stdout.write("\nError: Wolfpack currently only supports little endian systems\n" )
+		sys.stdout.write(red("Warning:") + " Wolfpack support for big endian systems is completely experimental and unlikey to work\n" )
 		sys.exit();
 
 	sys.stdout.write( "Searching for Python library... " )
