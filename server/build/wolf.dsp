@@ -826,10 +826,6 @@ InputName=makemenus
 # End Source File
 # Begin Source File
 
-SOURCE=.\mapobjects.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\maps.h
 # End Source File
 # Begin Source File

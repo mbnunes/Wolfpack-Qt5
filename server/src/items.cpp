@@ -727,7 +727,13 @@ void cItem::decay( unsigned int currenttime )
 	// Locked Down Items, NoDecay Items and Items in Containers can never decay
 	// And ofcourse items in multis cannot
 	if( container() || nodecay() || isLockedDown() || multis() != INVALID_SERIAL )
+	{
+		// So it doesnt instantly decay when we drop it on ground
+		if( decaytime() > 0 )
+			setDecayTime( 0 );
+
 		return;
+	}
 
 	// Start decaying
 	if( !decaytime() )
