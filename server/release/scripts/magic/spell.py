@@ -48,7 +48,7 @@ class Spell:
 	resistable = 0
 
 	# We affect another character
-	def affectchar( self, char, mode, target ):
+	def affectchar(self, char, mode, target):
 		return 1
 	
 	def register( self, id ):
@@ -71,24 +71,24 @@ class Spell:
 		if mode == MODE_BOOK:
 			# Check for Mana
 			if char.mana < self.mana:
-				char.message( 502625 )
+				char.socket.sysmessage(502625)
 				return 0
 
 			# Check for Reagents	
 			if len( self.reagents ) > 0:
-				items = countReagents( char.getbackpack(), self.reagents.copy() )
+				items = countReagents(char.getbackpack(), self.reagents.copy())
 	
 				for item in items.keys():
-					if items[ item ] > 0:
-						char.message( 502630 )
+					if items[item] > 0:
+						char.socket.sysmessage(502630)
 						return 0
 	
 		return 1
 
 	def consumerequirements( self, char, mode ):
 		# Check Basic Requirements before proceeding (Includes Death of Caster etc.)
-		if not self.checkrequirements( char, mode ):
-			fizzle( char )
+		if not self.checkrequirements(char, mode):
+			fizzle(char)
 			return 0
 	
 		# Consume Mana
@@ -102,13 +102,14 @@ class Spell:
 				consumeReagents( char.getbackpack(), self.reagents.copy() )
 				
 		# Check Skill
-		# Inspired by RunUO :)
-		minskill = max( 0, ( 100 / 7 ) - 20 )
-		maxskill = min( 120, ( 100 / 7 ) + 20 )
+		minskill = max(0, int((1000 / 7) * self.circle - 200))
+		maxskill = min(1200, int((1000 / 7) * self.circle + 200))
 		
-		if not char.checkskill( MAGERY, int( minskill ), int( maxskill ) ):			
-			fizzle( char )
-			char.message( 502632 )
+		char.message('Min: %u, Max: %u' % (minskill, maxskill))
+		
+		if not char.checkskill(MAGERY, minskill, maxskill):
+			char.message(502632)
+			fizzle(char)			
 			return 0
 			
 		return 1
@@ -119,7 +120,8 @@ class Spell:
 		
 	def scaledamage( self, char, target, damage ):
 		if self.checkresist( char, target ):
-			target.message( 501783 )
+			if target.socket:
+				target.socket.sysmessage( 501783 )
 			damage *= 0.75	
 	
 		if not target.socket:
@@ -150,16 +152,16 @@ class CharEffectSpell ( Spell ):
 	def effect( self, char, target ):
 		raise Exception, "CharEffectSpell with unimplemented effect method: " + str( self.__clas__.__name__ )
 
-	def target( self, char, mode, targettype, target ):
-		if not self.consumerequirements( char, mode ):
+	def target(self, char, mode, targettype, target):
+		if not self.consumerequirements(char, mode):
 			return	
 	
-		if not self.affectchar( char, mode, target ):
+		if not self.affectchar(char, mode, target):
 			return
 
-		char.turnto( target )
+		char.turnto(target)
 		
-		if self.checkreflect( char, mode, targettype, target ):
+		if self.checkreflect(char, mode, targettype, target):
 			target = char
 	
 		self.effect( char, target )

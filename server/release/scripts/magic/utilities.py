@@ -153,13 +153,14 @@ def statmodifier(char, target, stat, curse):
 	# And readd a new one (remove the old ones silently)
 	char.dispel(char, 0, "magic_statmodifier", ["silent"])
 
+	amount1 = amount
+	amount2 = amount
+	amount3 = amount
+
 	if stat == 0 or stat == 3:
 		# Adjust amount
 		if target.strength + amount < 1:
 			amount1 = -(target.strength - 1)
-		else:
-			amount1 = amount
-	
 		target.strength2 += amount	
 		target.strength += amount
 		target.hitpoints = min(target.hitpoints, target.maxhitpoints)
@@ -167,18 +168,12 @@ def statmodifier(char, target, stat, curse):
 	if stat == 1 or stat == 3:
 		if target.dexterity + amount < 1:
 			amount2 = -(target.dexterity - 1)
-		else:
-			amount2 = amount
-
 		target.dexterity2 += amount
 		target.dexterity += amount
 		target.stamina = min(target.stamina, target.maxstamina)
 	if stat == 2 or stat == 3:
 		if target.intelligence + amount < 1:
 			amount3 = -(target.intelligence - 1)
-		else:
-			amount3 = amount
-
 		target.intelligence2 += amount
 		target.intelligence += amount
 		target.mana = min(target.mana, target.maxmana)
@@ -197,4 +192,3 @@ def field_expire(object, args):
 		item = wolfpack.finditem(serial)
 		if item:
 			item.delete()
-
