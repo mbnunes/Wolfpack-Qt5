@@ -284,7 +284,7 @@ void cTargets::IstatsTarget(int s)
 				pi->name().ascii(),pi->name2().ascii(),pi->color(),
 				contstr,
 				pi->layer(),pi->type(),pi->magic,
-				pi->more1,pi->more2,pi->more3,pi->more4,
+				pi->more1(),pi->more2(),pi->more3(),pi->more4(),
 				pi->pos.x,pi->pos.y,pi->pos.z,pi->amount(), pi->priv);
 			sysmessage(s, (char*)temp);
 			sprintf((char*)temp,"STR [%d] HP/MAX [%d/%d] Damage [%d-%d] Defence [%d] Rank [%d] SecureIt [%d] MoreXYZ [%i %i %i] Poisoned [%i] Weight [%d] Owner [%x] Creator [%s] MadeValue [%i] Value [%i] Decaytime[%i] Decay [%i] GoodType[%i] RandomValueRate[%i]",
