@@ -343,7 +343,8 @@ def callback( char, args, target ):
 		charges = item.gettag( "charges" )
 		if( charges < 1 ):
 			# "There are no charges left on that item."
-			char.socket.clilocmessage( 502412 )
+			#char.socket.clilocmessage( 502412 )
+			wolfpack.addtimer( 0, "magic.runebook.recall1", [ char.serial, runes[ runenum ] ] )
 			return False
 		else:
 			# recall to the rune
