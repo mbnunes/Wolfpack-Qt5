@@ -323,7 +323,7 @@ void cMovement::Walking(P_CHAR pc, UI08 dir, int sequence)
 	
 	// again, don't know if we need to check when turning or not
 	if( !amTurning )
-			cAllTerritories::getInstance()->Check(pc); // doesn't change physical coords, so no point in making a change
+			cAllTerritories::getInstance()->check(pc); // doesn't change physical coords, so no point in making a change
 	//if (socket==-1) printf("checkregion called for %s region#: %i region-name:%s \n",pc->name,pc->region,region[pc->region].name);
 
 }

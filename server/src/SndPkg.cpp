@@ -1445,7 +1445,7 @@ void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 		}
 		if (perm[k]) dolight(k, SrvParams->worldCurrentLevel());
 	}
-	cAllTerritories::getInstance()->Check(pc);
+	cAllTerritories::getInstance()->check(pc);
 }
 
 void teleport2(P_CHAR pc) // used for /RESEND only - Morrolan, so people can find their corpses
@@ -1508,7 +1508,7 @@ void teleport2(P_CHAR pc) // used for /RESEND only - Morrolan, so people can fin
 		if (perm[k]) 
 			dolight(k, SrvParams->worldCurrentLevel());
 	}
-	cAllTerritories::getInstance()->Check(pc);
+	cAllTerritories::getInstance()->check(pc);
 }
 
 

@@ -2907,7 +2907,7 @@ int main( int argc, char *argv[] )
 	CIAO_IF_ERROR;
 
 	Map->Cache = SrvParams->cacheMulFiles();
-	cAllTerritories::getInstance()->Load();
+	cAllTerritories::getInstance()->load();
 
 	CIAO_IF_ERROR;
 
@@ -2928,7 +2928,7 @@ int main( int argc, char *argv[] )
 	cwmWorldState->loadnewworld(SrvParams->worldSaveModule());
 	CIAO_IF_ERROR; // LB prevents file corruption
 
-	cAllSpawnRegions::getInstance()->Load();
+	cAllSpawnRegions::getInstance()->load();
 
 	// this loop is for things that have to be done after *all* items and chars have been loaded (Duke)
 	P_ITEM pi;

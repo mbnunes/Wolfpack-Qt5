@@ -597,7 +597,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	sysmessage(s, 0x37, tr(QString("Current developers: %1").arg(wp_version.codersstring.c_str())) );
 
 	pc_currchar->region=255;
-	cAllTerritories::getInstance()->Check(pc_currchar);
+	cAllTerritories::getInstance()->check(pc_currchar);
 	//Tauriel set packitem at login
 	serial=pc_currchar->serial;
 
