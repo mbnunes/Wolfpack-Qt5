@@ -59,7 +59,7 @@
 */
 
 static int  systemWordSize = 0;
-static bool systemBigEndian;
+static bool systemBigEndian = false;
 
 /*!
   Constructs a packet that is a deep copy of \a d interpreted as
@@ -108,6 +108,7 @@ void cUOPacket::init()
 */
 cUOPacket::cUOPacket( Q_UINT8 packetId, Q_UINT32 size ) : rawPacket( size ), haveCompressed(false)
 {
+	init();
 	rawPacket.fill( (char)0 );
 	rawPacket[0] = packetId;
 }
@@ -237,8 +238,8 @@ void cUOPacket::compress( void )
 
 	while(len--)
 	{
-		nrBits = bitTable[*pIn][0];
-		value  = bitTable[*pIn++][1];
+		nrBits = bitTable[*pIn].size;
+		value  = bitTable[*pIn++].code;
 
 		while(nrBits--)
 		{
@@ -249,8 +250,8 @@ void cUOPacket::compress( void )
 		}
 	}
 
-	nrBits = bitTable[256][0];
-	value  = bitTable[256][1];
+	nrBits = bitTable[256].size;
+	value  = bitTable[256].code;
 
 	while(nrBits--)
 	{
