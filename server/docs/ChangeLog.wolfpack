@@ -48,7 +48,8 @@ Wolfpack 12.9.7 Beta (CVS)
 			- SQLite database optimization added.
 			- Script system.debugging created to set different debugging options.
 	* Misc. Changes:
-		- FAQ.html added in the xmlscripts package.
+		- FAQ.html included in the documentaiton.
+		- ChangeLog.wolfpack included in the documentaiton.
 	* Known Issues, Bugs, and Missing Features.
 		- Spawn regions are incomplete.
 		- Town/World regions are incomplete.
