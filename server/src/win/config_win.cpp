@@ -191,8 +191,10 @@ std::vector<ServerList_st>& cConfig::serverList()
 						}
 
 						// Fall back to localhost
-						if ( !server.sIP )
-							server.sIP = 0x7F000001;
+						if ( !server.ip ) {
+							server.ip = 0x7F000001;
+							server.sIP = "127.0.0.1";
+						}
 					}
 					serverList_.push_back( server );
 				}

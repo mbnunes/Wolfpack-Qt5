@@ -437,8 +437,15 @@ void cUOSocket::handleLoginRequest( cUORxLoginRequest* packet )
 
 	vector<ServerList_st> shards = Config::instance()->serverList();
 
-	for ( Q_UINT8 i = 0; i < shards.size(); ++i )
-		shardList.addServer( i, shards[i].sServer, 0x00, shards[i].uiTime, shards[i].ip );
+	for ( Q_UINT8 i = 0; i < shards.size(); ++i ) {
+		ServerList_st server = shards[i];
+		// we are connecting from the same ip, send 127.0.0.1 as the ip
+		if (server.sIP == ip().latin1()) {
+			shardList.addServer( i, server.sServer, 0x00, server.uiTime, 0x7F000001 );
+		} else {
+			shardList.addServer( i, server.sServer, 0x00, server.uiTime, server.ip );
+		}
+	}
 
 	send( &shardList );
 }
