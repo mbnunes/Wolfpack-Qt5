@@ -3095,7 +3095,7 @@ int main(int argc, char *argv[])
 	item_char_test(); //LB
 	Guilds->CheckConsistancy(); // LB
 
-	//Weatherc->InitWeathThread();
+	Weather->InitWeathThread();
 	//Network->InitConnThread();
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -5649,14 +5649,9 @@ void StartClasses(void)
 	CharArray=NULL;
 	Respawn=NULL;
 	Movement = NULL;
-
-	//ALLITEMThread=NULL;
-	//Weather=NULL;
-
-//	File=NULL;
-//	for(y=0;y<MAXACCT;y++)
-//		Account[y]=NULL;
-//	AccountBase=NULL;
+	Weather=NULL;
+	DragonAI=NULL;
+	BankerAI=NULL;
 
 	// Classes nulled now, lets get them set up :)
 	cwmWorldState=new CWorldMain;
@@ -5682,7 +5677,10 @@ void StartClasses(void)
 	Respawn=new cRespawn;
 	AllTmpEff = new cAllTmpEff;
 	Movement = new cMovement;
-
+	Weather=new cWeather;
+	// Sky's AI Stuff
+	DragonAI=new cCharStuff::cDragonAI;
+	BankerAI=new cCharStuff::cBankerAI;
 	clConsole.send(" Done\n");
 }
 
@@ -5710,6 +5708,9 @@ void DeleteClasses(void)
 	delete CharArray;
 	delete Respawn;
 	delete Movement;
+	delete Weather;
+	delete DragonAI;
+	delete BankerAI;
 }
 
 // if we can find new effects they can be added here and will be active 

@@ -411,59 +411,10 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) //Lag Fix -- Zippy
 		// Case 60-70 is Skyfires new AI
 	case 96:
 	case 60: //Skyfire - Dragon AI
-		if (pc_i->war)
-		{
-			cRegion::RegionIterator4Chars ri(pc_i->pos);
-			for (ri.Begin(); ri.GetData() != ri.End(); ri++)
-			{
-				P_CHAR pc = ri.GetData();
-				if (pc != NULL)
-				{
-					onl = online(DEREF_P_CHAR(pc));
-					d = chardist(i, DEREF_P_CHAR(pc));
-					if (pc->isNpc() || pc->dead || !onl)
-						continue;
-						if (d > 4 && pc_i->attacker == pc->serial)
-						{
-							if (Combat->GetBowType(DEREF_P_CHAR(pc))!=0)
-							{
-								pc_i->pos.x=pc->pos.x;
-								pc_i->pos.y=pc->pos.y;
-								pc_i->pos.z=pc->pos.z;
-								pc_i->dir=pc->dir;
-								teleport(i);
-								npctalkall(i,"Foolish Mortal!",0);
-							}
-						}
-						else
-						{
-							switch(RandomNum(0, 4))
-							{
-							case 0:	Magic->NPCEBoltTarget(i,DEREF_P_CHAR(pc));			break;
-							case 1:	Magic->NPCFlameStrikeTarget(i,DEREF_P_CHAR(pc));	break;
-							case 2:	Magic->ParalyzeSpell(i,DEREF_P_CHAR(pc));			break;
-							case 3:	Magic->NPCLightningTarget(i,DEREF_P_CHAR(pc));		break;
-							case 4:	Magic->ParalyzeSpell(i,DEREF_P_CHAR(pc));			break;
-							}
-						}
-					}
-					if (pc_i->hp<(pc_i->st/2))
-						Magic->NPCHeal(i);
-					if (pc_i->poisoned)
-						Magic->NPCCure(i);
-					if (pc->priv2&0x20)
-						Magic->NPCDispel(i,DEREF_P_CHAR(pc));
-					npcattacktarget(i, DEREF_P_CHAR(pc));
-					return;
-			}
-		}
-		else
-		{
-			if (pc_i->hp<(pc_i->st/2))
-				Magic->NPCHeal(i);
-			if (pc_i->poisoned)
-				Magic->NPCCure(i);
-		}
+		DragonAI->DoAI(i,currenttime);
+		break;
+	case 97:
+	case 61://Skyfire - Banker AI
 		break;
 	default:
 		clConsole.send("ERROR: cCharStuff::CheckAI-> Error npc %i (%x %x %x %x) has invalid AI type %i\n",i,pc_i->ser1,pc_i->ser2,pc_i->ser3,pc_i->ser4,pc_i->npcaitype); //Morrolan
@@ -473,3 +424,177 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) //Lag Fix -- Zippy
 
 
 
+void cCharStuff::cDragonAI::DoAI(int i,int currenttime)
+{
+	int randvalue;
+	int distance;
+	P_CHAR pc_i = MAKE_CHARREF_LR(i);
+	if (pc_i->war)
+	{
+		npctalkall(i,"Who dares disturbe me?!?!",1);
+		int loopexit=0;
+		cRegion::RegionIterator4Chars ri(pc_i->pos);
+		for (ri.Begin(); ri.GetData() != ri.End(); ri++)
+		{
+			P_CHAR pc = ri.GetData();
+			if (pc != NULL)
+			{
+				distance=chardist(i, DEREF_P_CHAR(pc));
+				if (!pc->npc && !online(DEREF_P_CHAR(pc)))	// no offline players (Duke)
+					continue;
+				if (!(pc->dead))
+				{
+					if (distance>4)
+					{
+						randvalue=RandomNum(0,4);
+						switch(randvalue)
+						{
+							case 1:	Breath(i,currenttime);		break;
+							case 3:	HarmMagic(i,currenttime,pc);	break;
+							case 4:	HealMagic(i,currenttime);	break;
+						}
+					}
+					else
+						HarmMagic(i,currenttime,pc);
+				}
+				HealMagic(i,currenttime);
+			}
+		}
+	}
+	else
+		HealMagic(i,currenttime);
+	return;
+}
+
+void cCharStuff::cDragonAI::Breath(int i,int currenttime)
+{
+	P_CHAR pc_i = MAKE_CHARREF_LR(i);
+	Magic->PFireballTarget(i,pc_i->targ,20);
+	DoneAI(i,currenttime);
+	return; 
+}
+
+void cCharStuff::cDragonAI::HarmMagic(int i,int currenttime,P_CHAR pc)
+{
+	P_CHAR pc_i = MAKE_CHARREF_LR(i);
+	if(currenttime>=pc_i->spatimer)
+	{
+		switch(RandomNum(0, 5))
+		{
+			case 0:	Magic->NPCEBoltTarget(i,DEREF_P_CHAR(pc));			break;
+			case 1:	Magic->NPCFlameStrikeTarget(i,DEREF_P_CHAR(pc));	break;
+			case 2:	Magic->ParalyzeSpell(i,DEREF_P_CHAR(pc));			break;
+			case 3:	Magic->NPCLightningTarget(i,DEREF_P_CHAR(pc));		break;
+			case 4:	Magic->ParalyzeSpell(i,DEREF_P_CHAR(pc));			break;
+			case 5: if (pc->priv2&0x20) { Magic->NPCDispel(i,DEREF_P_CHAR(pc)); } break;
+		}
+	}
+	DoneAI(i,currenttime);
+	return;
+}
+
+void cCharStuff::cDragonAI::HealMagic(int i,int currenttime)
+{
+	P_CHAR pc_i = MAKE_CHARREF_LR(i);
+	if(currenttime>=pc_i->spatimer)
+	{
+		if (pc_i->poisoned)
+		{
+			Magic->NPCCure(i);
+		}
+		else if (pc_i->hp<(pc_i->st/2))
+		{
+			Magic->NPCHeal(i);
+		}
+		if(pc_i->targ>=1)
+			npcattacktarget(i, pc_i->targ);
+	}
+	DoneAI(i,currenttime);
+}
+void cCharStuff::cDragonAI::DoneAI(int i,int currenttime)
+{
+	P_CHAR pc_i = MAKE_CHARREF_LR(i);
+	pc_i->spatimer=currenttime+(pc_i->spadelay*MY_CLOCKS_PER_SEC); 
+	return;
+}
+
+bool cCharStuff::cBankerAI::DoAI(int c,int i,char *comm)
+{
+	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[c],false);
+	char search1[50], search2[50], search3[50];
+	char *response1=0;
+	char *response2=0;
+	char *response3=0;
+	strcpy(search1,"BANK");
+    strcpy(search2,"BALANCE");
+	strcpy(search3,"WITHDRAW");
+    response1=(strstr( comm, search1));
+    response2=(strstr( comm, search2));
+	response3=(strstr( comm, search3));
+	if(SrvParms->usespecialbank)
+	{
+		strcpy(search1, SrvParms->specialbanktrigger);
+		response1=(strstr( comm, search1));
+		if (response1 && (!(pc_currchar->dead)))
+		{
+			openspecialbank(c, currchar[c]);
+		}
+	}
+    else if (response1 && (!(pc_currchar->dead)))
+	{
+		OpenBank(c);
+		return true;
+	}
+    else if (response2 && (!(pc_currchar->dead)))
+	{
+		return Balance(c,i);
+	}
+	else if (response3 && (!(pc_currchar->dead)))
+	{
+		return Withdraw(c,i,comm);
+	}
+	return true;
+}
+
+void cCharStuff::cBankerAI::OpenBank(int c)
+{
+	openbank(c, currchar[c]);
+	return;
+}
+
+bool cCharStuff::cBankerAI::Balance(int c, int i)
+{
+	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[c],false);
+	sprintf(temp, "%s's balance as of now is %i.", pc_currchar->name, pc_currchar->CountBankGold());
+	npctalkall(i, temp, 1);
+	return true;
+}
+
+bool cCharStuff::cBankerAI::Withdraw(int c, int i, char *comm)
+{
+	P_CHAR pc_currchar = MAKE_CHARREF_LRV(currchar[c],false);
+	int a=0;
+	char value1[50]={' '};
+	char value2[50]={' '};
+	value1[0]=0;
+	value2[0]=0;
+	while(comm[a]!=0 && comm[a]!=' ' && a<50 )
+	{
+		a++;
+	}
+	strncpy(value1, temp, a);
+	value1[a]=0;
+	if (value1[0]!='[' && comm[a]!=0) strcpy(value2, comm+a+1);
+	if(pc_currchar->CountBankGold()>=str2num(value2))
+	{
+		int goldcount=str2num(value2);
+		addgold(currchar[c], goldcount);
+		goldsfx(currchar[c], goldcount);
+		DeleBankItem( c, 0x0EED, 0, goldcount );
+		npctalkall(i,"The money has been added to your pack.",1);
+		return true;
+	}
+	else
+		npctalkall(i,"You have insufficent funds!",1);
+	return true;
+}

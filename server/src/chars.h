@@ -419,6 +419,29 @@ public:
 	void Split(int k);
 	void CheckAI(unsigned int currenttime, int i);
 	int AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1);
+	// Sky's AI Stuff
+	class cDragonAI
+	{
+	public:
+		void DoAI(int i,int currenttime);
+		void HarmMagic(int i,int currenttime,P_CHAR pc);
+		void HealMagic(int i,int currenttime);
+		void Claw(int i,int currenttime);
+		void Bite(int i,int currenttime);
+		void Breath(int i,int currenttime);
+		void DoneAI(int i,int currenttime);
+	};
+
+	class cBankerAI
+	{
+	public:
+		bool DoAI(int c,int i,char *comm);
+		void MakeCheck(int c,int i);
+		void CashCheck(int c,int i);
+		bool Withdraw(int c,int i, char *comm);
+		bool Balance(int c, int i);
+		void OpenBank(int c);
+	};
 };
 
 class AllCharsIterator

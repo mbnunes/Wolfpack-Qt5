@@ -308,7 +308,11 @@ cBooks          *Books;
 cAccount		*Accounts;
 cAllTmpEff		*AllTmpEff;
 cMovement		*Movement;
+cWeather		*Weather;
 
+// Sky's AI
+cCharStuff::cDragonAI	*DragonAI;
+cCharStuff::cBankerAI	*BankerAI;	
 cItemArray *ItemArray;
 cCharArray *CharArray;
 

@@ -347,47 +347,51 @@ void loadregions()//New -- Zippy spawn regions
 				{
 					if (str2num(script2)) region[i].priv|=0x08;
 				}
-				else if (!(strcmp("SNOWCHANCE", (char*)script1)))
+				else if (!(strcmp("SNOWCHANCE", script1)))
 				{
-					gettokennum((char*)script2, 0);
+					gettokennum(script2, 0);
 					rnd1=str2num(gettokenstr);
-					gettokennum((char*)script2, 1);
+					gettokennum(script2, 1);
 					rnd2=str2num(gettokenstr);
 					rnd3=RandomNum(rnd1,rnd2);
-
-					region[i].snowchance=str2num(script2);
+					Weather->SnowChance[i]=rnd3;
 				}
-				else if (!(strcmp("RAINCHANCE", (char*)script1)))
+				else if (!(strcmp("RAINCHANCE", script1)))
 				{
-					gettokennum((char*)script2, 0);
+					gettokennum(script2, 0);
 					rnd1=str2num(gettokenstr);
-					gettokennum((char*)script2, 1);
+					gettokennum(script2, 1);
 					rnd2=str2num(gettokenstr);
 					rnd3=RandomNum(rnd1,rnd2);
-
-					region[i].rainchance=str2num(script2);
+					Weather->RainChance[i]=rnd3;
 				}
-				else if(!(strcmp("WEATHDURATION",(char*)script1)))
+				else if(!(strcmp("WEATHDURATION",script1)))
 				{
-					gettokennum((char*)script2, 0);
+					gettokennum(script2, 0);
 					rnd1=str2num(gettokenstr);
-					gettokennum((char*)script2, 1);
+					gettokennum(script2, 1);
 					rnd2=str2num(gettokenstr);
 					rnd3=RandomNum(rnd1,rnd2);
+					Weather->Duration[i]=rnd3*CLOCKS_PER_SEC;
 				}
-				else if(!(strcmp("WEATHSTART",(char*)script1)))
+				else if(!(strcmp("WEATHSTART",script1)))
 				{
 					if(str2num(script2)>0)
 					{
-						gettokennum((char*)script2, 0);
+						gettokennum(script2, 0);
 						rnd1=str2num(gettokenstr);
-						gettokennum((char*)script2, 1);
+						gettokennum(script2, 1);
 						rnd2=str2num(gettokenstr);
 						rnd3=RandomNum(rnd1,rnd2);
+						Weather->Check[i]=rnd3;
+						Weather->StartTime[i]=uiCurrentTime+(rnd3*CLOCKS_PER_SEC);
+						Weather->CurrentRegions++;
 					}
 					else
 					{
-
+						Weather->Check[i]=0;
+						Weather->StartTime[i]=0;
+						Weather->CurrentRegions++;
 					}
 				}
 				else if (!(strcmp("GOOD", (char*)script1))) // Magius(CHE)

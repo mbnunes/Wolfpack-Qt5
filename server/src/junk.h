@@ -75,7 +75,10 @@ extern cMagic			*Magic;
 extern cBooks           *Books;
 extern cAllTmpEff       *AllTmpEff;
 extern cMovement		*Movement;
-
+// Skys AI 
+extern cCharStuff::cDragonAI	*DragonAI;
+extern cCharStuff::cBankerAI	*BankerAI;
+// END
 //-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-//
 #if !defined(MIN)
 #define MIN(arga, argb) (arga<argb?arga:argb)
