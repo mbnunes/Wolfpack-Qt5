@@ -74,7 +74,7 @@ public:
 	typedef QValueVector<cTimer*> TimerContainer;
 	enum enLayer
 	{
-		TradeWindow					= 0,
+		TradeWindow = 0,
 		SingleHandedWeapon,
 		DualHandedWeapon,
 		Shoes,
@@ -83,12 +83,12 @@ public:
 		Hat,
 		Gloves,
 		Ring,
-		Neck						= 0xA,
+		Neck = 0xA,
 		Hair,
 		Waist,
 		InnerTorso,
 		Bracelet,
-		FacialHair					= 0x10,
+		FacialHair = 0x10,
 		MiddleTorso,
 		Earrings,
 		Arms,
@@ -107,7 +107,7 @@ public:
 
 	enum enBark
 	{
-		Bark_Attacking		= 0,
+		Bark_Attacking = 0,
 		Bark_Idle,
 		Bark_Hit,
 		Bark_GetHit,
@@ -142,9 +142,9 @@ public:
 	*/
 	enum TimingEvents
 	{
-		EventCombat		= 0x01,
-		EventLight		= 0x02,
-		EventTime		= 0x04,
+		EventCombat = 0x01,
+		EventLight = 0x02,
+		EventTime = 0x04,
 	};
 
 	/*!
@@ -172,7 +172,7 @@ public:
 	*/
 	enum FightStatus
 	{
-		FightDenied			= 0x00,
+		FightDenied = 0x00,
 		FightStarted,
 		FightContinued
 	};
@@ -705,7 +705,7 @@ protected:
 
 	// current hitpoints of the char.
 	// cOldChar::hp_
-	short hitpoints_;
+	ushort hitpoints_;
 
 	// Intelligence of the char.
 	// cOldChar::in_

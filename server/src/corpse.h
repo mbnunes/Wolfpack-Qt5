@@ -33,7 +33,6 @@
 // Library Includes
 #include <qstring.h>
 
-
 // System Includes
 #include <map>
 
@@ -54,7 +53,7 @@ protected:
 	UINT16 beardColor_; // Color of the beard
 	unsigned char direction_; // Direction the corpse is facing.
 	uint murdertime_; // When the people has been killed
-	SERIAL murderer_; // Who was the murderer	
+	SERIAL murderer_; // Who was the murderer
 	QCString charbaseid_;
 
 	std::map<UINT8, SERIAL> equipment_; // Serials of the old equipment
@@ -88,7 +87,7 @@ public:
 	const QCString &charBaseid() const;
 	SERIAL murderer() const;
 	unsigned int murderTime() const;
-    
+
 	void addEquipment( UINT8 layer, SERIAL serial );
 	SERIAL getEquipment( UINT8 layer );
 
@@ -190,7 +189,7 @@ inline UINT16 cCorpse::beardColor() const
 	return beardColor_;
 }
 
-inline const QCString &cCorpse::charBaseid() const 
+inline const QCString &cCorpse::charBaseid() const
 {
 	return charbaseid_;
 }

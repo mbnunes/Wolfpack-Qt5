@@ -25,7 +25,6 @@
  * Wolfpack Homepage: http://wpdev.sf.net/
  */
 
-
 #include "accounts.h"
 #include "skills.h"
 #include "commands.h"
@@ -1396,35 +1395,35 @@ void commandDoorGenerator( cUOSocket* socket, const QString& command, const QStr
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
-	{ "ACCOUNT", commandAccount }, 
-	{ "ADDEVENT", commandAddEvent }, 
+	{ "ACCOUNT", commandAccount },
+	{ "ADDEVENT", commandAddEvent },
 	{ "ALLMOVE", commandAllMove },
-	{ "ALLSHOW", commandAllShow }, 
-	{ "ALLSKILLS", commandAllSkills }, 
-	{ "BROADCAST", commandBroadcast }, 
-	{ "DOORGEN", commandDoorGenerator }, 
-	{ "FIX", commandFix }, 
-	{ "GMTALK", commandGmtalk }, 
-	{ "INVIS", commandInvis }, 
-	{ "KILL", commandKill }, 
-	{ "MOVE", commandMove }, 
-	{ "PAGES", commandPages }, 
-	{ "PAGENOTIFY", commandPageNotify }, 
-	{ "PASSWORD", commandPassword }, 
-	{ "RELOAD", commandReload }, 
-	{ "REMOVE", commandRemove }, 
-	{ "REMOVEEVENT", commandRemoveEvent }, 
-	{ "RESEND", commandResend }, 
-	{ "RESTOCK", commandRestock }, 
-	{ "RESURRECT", commandResurrect }, 
-	{ "SAVE", commandSave }, 
+	{ "ALLSHOW", commandAllShow },
+	{ "ALLSKILLS", commandAllSkills },
+	{ "BROADCAST", commandBroadcast },
+	{ "DOORGEN", commandDoorGenerator },
+	{ "FIX", commandFix },
+	{ "GMTALK", commandGmtalk },
+	{ "INVIS", commandInvis },
+	{ "KILL", commandKill },
+	{ "MOVE", commandMove },
+	{ "PAGES", commandPages },
+	{ "PAGENOTIFY", commandPageNotify },
+	{ "PASSWORD", commandPassword },
+	{ "RELOAD", commandReload },
+	{ "REMOVE", commandRemove },
+	{ "REMOVEEVENT", commandRemoveEvent },
+	{ "RESEND", commandResend },
+	{ "RESTOCK", commandRestock },
+	{ "RESURRECT", commandResurrect },
+	{ "SAVE", commandSave },
 	{ "SERVERTIME", commandServerTime },
-	{ "SET", commandSet }, 
-	{ "SHOW", commandShow }, 
-	{ "SHUTDOWN", commandShutDown }, 
-	{ "STAFF", commandStaff }, 
-	{ "SPAWNREGION", commandSpawnRegion }, 
+	{ "SET", commandSet },
+	{ "SHOW", commandShow },
+	{ "SHUTDOWN", commandShutDown },
+	{ "STAFF", commandStaff },
+	{ "SPAWNREGION", commandSpawnRegion },
 	{ "TELE", commandTele },
-	{ "WHO", commandWho }, 
+	{ "WHO", commandWho },
 	{ NULL, NULL }
 };

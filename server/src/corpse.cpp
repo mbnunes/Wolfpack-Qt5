@@ -294,7 +294,7 @@ stError* cCorpse::setProperty( const QString& name, const cVariant& value )
 		\property corpse.murderer The character who killed this creature. May be None if the
 		character has been deleted or the owner of this corpse accidently died.
 	*/
-	else if (name == "murderer") 
+	else if (name == "murderer")
 	{
 		P_CHAR pChar = value.toChar();
 		if (pChar) {
@@ -302,9 +302,9 @@ stError* cCorpse::setProperty( const QString& name, const cVariant& value )
 		} else {
 			murderer_ = INVALID_SERIAL;
 		}
-	}		
+	}
 	/*
-		\property corpse.murdertime The time when the murder was comitted in seconds 
+		\property corpse.murdertime The time when the murder was comitted in seconds
 		since the epoch (UNIX timestamp).
 	*/
 	else

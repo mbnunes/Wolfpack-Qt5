@@ -1817,8 +1817,8 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 	else
 		SET_INT_PROPERTY( "statcap", statCap_ )
 		/*
-		\property char.baseid The name of the definition this character was created from. 
-		This property is used to link the character to the definitions even after he 
+		\property char.baseid The name of the definition this character was created from.
+		This property is used to link the character to the definitions even after he
 		was created.
 		*/
 	else if ( name == "baseid" )
@@ -2047,7 +2047,7 @@ stError* cBaseChar::getProperty( const QString& name, cVariant& value )
 
 		/*
 		\rproperty char.mintaming This is the minimum taming skill required to tame this creature.
-		This has no meaning for player characters.	
+		This has no meaning for player characters.
 
 		This property is inherited from the definition referenced by the baseid property.
 		*/
@@ -2518,12 +2518,12 @@ bool cBaseChar::onShowSkillGump()
 	bool result = false;
 
 	if ( scriptChain )
-	{	
+	{
 		PyObject* args = Py_BuildValue( "(N)", getPyObject() );
 		result = cPythonScript::callChainedEventHandler( EVENT_SHOWSKILLGUMP, scriptChain, args );
 		Py_DECREF( args );
 	}
-	
+
 	return result;
 }
 
@@ -2793,7 +2793,7 @@ bool cBaseChar::kill( cUObject* source )
 
 		// stores the time and the murderer's name
 		if ( pKiller ) {
-			corpse->setMurderer( pKiller->serial() );			
+			corpse->setMurderer( pKiller->serial() );
 		}
 
 		// Move possible equipment to the corpse

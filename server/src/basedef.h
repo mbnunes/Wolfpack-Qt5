@@ -60,7 +60,7 @@ protected:
 	bool loaded;
 	void load();
 	void reset();
-public:	
+public:
 	cCharBaseDef( const QCString& id );
 	~cCharBaseDef();
 
@@ -167,7 +167,7 @@ class cCharBaseDefs
 protected:
 	typedef QMap<QCString, cCharBaseDef*> Container;
 	typedef Container::iterator Iterator;
-	Container definitions;	
+	Container definitions;
 public:
 	cCharBaseDefs();
 	~cCharBaseDefs();

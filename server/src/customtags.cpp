@@ -82,7 +82,6 @@
 
 */
 
-
 /*!
   Constructs an invalid variant.
 */
