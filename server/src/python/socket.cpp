@@ -209,8 +209,8 @@ PyObject* wpSocket_attachtarget( wpSocket* self, PyObject* args )
 	PyObject *targetargs = 0;
 
 	// If Second argument is present, it has to be a tuple
-	if( PyTuple_Size( args ) > 1 && PyTuple_Check( PyTuple_GetItem( args, 1 ) ) )
-		targetargs = PyTuple_GetItem( args, 1 );
+	if( PyTuple_Size( args ) > 1 && PyList_Check( PyTuple_GetItem( args, 1 ) ) )
+		targetargs = PyList_AsTuple( PyTuple_GetItem( args, 1 ) );
 
 	if( !targetargs )
 		targetargs = PyTuple_New( 0 );
