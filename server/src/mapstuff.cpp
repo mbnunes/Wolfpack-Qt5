@@ -76,7 +76,10 @@ Cache(0), StaticBlocks(0), mapfile(NULL), sidxfile(NULL), statfile(NULL), verfil
 	// unknown bytes to save memory
 	
 	MapCache = new QIntCache<map_st>( 100, 521); // should be a prime number
+	MapCache->setAutoDelete( true );
 	// http://www.utm.edu/research/primes/lists/small/1000.txt contains a prime table.
+
+//	memset(tilecache, 0x00, sizeof(tilecache));
 
 	memset(StaticCache, 0x00, sizeof(StaticCache));
 	QString basePath = mulPath;

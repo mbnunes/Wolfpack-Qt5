@@ -58,10 +58,10 @@ int cCombat::GetBowType(P_CHAR pc)
 	unsigned int ci=0;
 	P_ITEM pi;
 	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
-	for ( ci = 0; ci < vecContainer.size(); ci++)
+	for ( ; ci < vecContainer.size(); ++ci)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
-		if( pi->layer() == 1 || pi->layer() == 2 )
+		if (pi && ( pi->layer() == 1 || pi->layer() == 2 ) )
 		{
 			switch( pi->id() )
 			{

@@ -71,6 +71,7 @@ protected:
 	cCharsManager(cCharsManager& _it) {} // Unallow copy constructor
 	cCharsManager& operator=(cCharsManager& _it) { return *this; } // Unallow Assignment
 public:
+	~cCharsManager();
 	void registerChar( cChar* ) throw(wp_exceptions::wpbad_ptr);
 	void unregisterChar( cChar* ) throw (wp_exceptions::wpbad_ptr);
 	SERIAL getUnusedSerial() const;

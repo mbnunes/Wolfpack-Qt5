@@ -192,7 +192,7 @@ int inrange2 (UOXSOCKET s, P_ITEM pi) // Is item i in visual range for player on
 	
 	P_CHAR pc_currchar = currchar[s];
 	int vr=VISRANGE;
-	if (pi == NULL) // blackwind Crash fix
+	if ( !(pi && pc_currchar) )
 		return 0;
 	
 	// Large building ( stupid check )
@@ -472,9 +472,9 @@ char *title1(P_CHAR pc) // Paperdoll title for character p (1)
 	else if (x>=400) titlenum=2;
 	else if (x>=300) titlenum=1;
     if(pc->isNpc())
-    strcpy(prowesstitle," ");
+	    strcpy(prowesstitle," ");
     else
-	strcpy(prowesstitle,title[titlenum].prowess);
+		strcpy(prowesstitle,title[titlenum].prowess);
 	return prowesstitle;
 }
 
@@ -487,7 +487,7 @@ char *title2(P_CHAR pc) // Paperdoll title for character p (2)
     if(pc->isNpc())
     strcpy(skilltitle," ");
     else
-	strcpy(skilltitle,title[titlenum].skill);
+	strcpy(skilltitle, title[titlenum].skill);
 
 	return skilltitle;
 }
@@ -906,10 +906,10 @@ void deathstuff(P_CHAR pc_player)
 	unsigned int ci=0;
 	P_ITEM pi_j;
 	vector<SERIAL> vecContainer(contsp.getData(pc_player->serial));
-	for ( ci = 0; ci < vecContainer.size(); ci++)
+	for ( ci = 0; ci < vecContainer.size(); ++ci)
 	{
 		pi_j = FindItemBySerial(vecContainer[ci]);
-		if (pi_j->type()==1 && pi_j->pos.x==26 && pi_j->pos.y==0 &&
+		if (pi_j && pi_j->type()==1 && pi_j->pos.x==26 && pi_j->pos.y==0 &&
 			pi_j->pos.z==0 && pi_j->id()==0x1E5E )
 		{
 			endtrade(pi_j->serial);
@@ -2466,7 +2466,11 @@ int main( int argc, char *argv[] )
 	clConsole.PrepareProgress( "Saving Wolfpack.xml" );
 	SrvParams->flush();
 	clConsole.ProgressDone();
-
+	clConsole.send("\n");
+	clConsole.send("Deleting Classes...");
+	DeleteClasses();
+	// Notice, from this point down no global class is valid!!
+	clConsole.send("Done!\n");
 	if (NewErrorsLogged())
 		clConsole.send("New ERRORS have been logged. Please send the error*.log and critical*.log files to the dev team !\n");
 	if (NewWarningsLogged())

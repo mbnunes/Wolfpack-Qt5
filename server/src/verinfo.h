@@ -141,7 +141,7 @@ struct wp_version_info
 
 		   verstruct.major_version  = 12;
 		   verstruct.sub_version    = 8;
-		   verstruct.subsub_version = 2; // no subsub
+		   verstruct.subsub_version = 6; // no subsub
 
 		   verstruct.flags    = WPV_RELEASE;
 		   verstruct.derivate = WOLF;

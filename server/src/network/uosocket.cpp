@@ -233,7 +233,7 @@ void cUOSocket::handleLoginRequest( cUORxLoginRequest *packet )
 	vector< ServerList_st > shards = SrvParams->serverList();
 	
 	for( Q_UINT8 i = 0; i < shards.size(); ++i )
-		shardList->addServer( i, shards[i].sServer, shards[i].uiFull, shards[i].uiTime, shards[i].sIP );
+		shardList->addServer( i, shards[i].sServer, shards[i].uiFull, shards[i].uiTime, shards[i].ip );
 	
 	send( shardList );
 	delete shardList;
@@ -279,7 +279,7 @@ void cUOSocket::handleSelectShard( cUORxSelectShard *packet )
 	_uniqueId = rand() % 0xFFFFFFFF;
 	
 	cUOTxRelayServer *relay = new cUOTxRelayServer;
-	relay->setServerIp( shards[ packet->shardId() ].sIP );
+	relay->setServerIp( shards[ packet->shardId() ].ip );
 	relay->setServerPort( shards[ packet->shardId() ].uiPort );
 	relay->setAuthId( _uniqueId );
 	send( relay );

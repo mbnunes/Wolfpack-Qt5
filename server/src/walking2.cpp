@@ -516,6 +516,10 @@ bool cMovement::CanNPCWalk(unitile_st xyb)
 
 	tile_st newTile = cTileCache::instance()->getTile( blockid );
 
+	// khpae : blocking tile !!
+	if (xyb.flag1 & 0x40) {
+		return false;
+	}
 	if ( Map->IsRoofOrFloorTile(&newTile) )
 		return true;
 	
@@ -534,6 +538,10 @@ bool cMovement::CanPlayerWalk(unitile_st xyb)
 
 	tile_st newTile = cTileCache::instance()->getTile( blockid );
 
+   // khpae : blocking tile !!
+	if (xyb.flag1 & 0x40) {
+		return false;
+	}
 	if ( Map->IsRoofOrFloorTile(&newTile) )
 		return true;
 	

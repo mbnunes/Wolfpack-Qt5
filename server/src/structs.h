@@ -39,6 +39,8 @@
 #include <string>
 #include <map>
 
+// Library Headers
+#include "qstring.h"
 
 // Wolfpack Headers
 #include "defines.h"
@@ -240,7 +242,8 @@ struct ServerList_st
 	QString sServer;
 	UI08 uiFull;
 	UI08 uiTime;
-	Q_UINT32 sIP;
+	UI32 ip;
+	QString sIP;
 	UI16 uiPort;
 };
 

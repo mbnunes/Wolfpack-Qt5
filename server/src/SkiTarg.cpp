@@ -1644,9 +1644,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 			{
 				int reschance = static_cast<int>((ph->baseSkill(HEALING)+ph->baseSkill(ANATOMY))*0.17);
 				int rescheck=RandomNum(1,100);
-				CheckSkill((ph),HEALING,800,1000);
-				CheckSkill((ph),ANATOMY,800,1000);
-				if(reschance<=rescheck)
+				if (CheckSkill((ph),HEALING,800,1000) && CheckSkill((ph),ANATOMY,800,1000) && reschance<=rescheck)
 					sysmessage(s, tr("You failed to resurrect the ghost") );
 				else
 				{
@@ -1660,29 +1658,55 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 		
 		if (pp->poisoned()>0)
 		{
-			if (ph->skill(HEALING)<600 || ph->skill(ANATOMY)<600)
+			if ( pp->isHuman() )
 			{
-				sysmessage(s, tr("You are not skilled enough to cure poison.") );
-				sysmessage(s, tr("The poison in your target's system counters the bandage's effect.") );
+				if (ph->skill(HEALING)<600 || ph->skill(ANATOMY)<600)
+				{
+					sysmessage(s, tr("You are not skilled enough to cure poison.") );
+					sysmessage(s, tr("The poison in your target's system counters the bandage's effect.") );
+				}
+				else
+				{
+					int curechance = static_cast<int>((ph->baseSkill(HEALING)+ph->baseSkill(ANATOMY))*0.67);
+					int curecheck=RandomNum(1,100);
+					CheckSkill((ph),HEALING,600,1000);
+					CheckSkill((ph),ANATOMY,600,1000);
+					if(curechance<=curecheck)
+					{
+						pp->setPoisoned(0);
+						sysmessage(s, tr("Because of your skill, you were able to counter the poison.") );
+					}
+					else
+						sysmessage(s, tr("You fail to counter the poison") );
+					pib->ReduceAmount(1);
+				}
+				return;
 			}
 			else
 			{
-				int curechance = static_cast<int>((ph->baseSkill(HEALING)+ph->baseSkill(ANATOMY))*0.67);
-				int curecheck=RandomNum(1,100);
-				CheckSkill((ph),HEALING,600,1000);
-				CheckSkill((ph),ANATOMY,600,1000);
-				if(curechance<=curecheck)
+		        if (ph->baseSkill(VETERINARY)<=600 || ph->baseSkill(ANIMALLORE)<=600)
 				{
-					pp->setPoisoned(0);
-					sysmessage(s, tr("Because of your skill, you were able to counter the poison.") );
+					sysmessage(s, tr("You are not skilled enough to cure poison."));
+					sysmessage(s, tr("The poison in your target's system counters the bandage's effect."));
 				}
 				else
-					sysmessage(s, tr("You fail to counter the poison") );
-				pib->ReduceAmount(1);
+				{
+					if (CheckSkill(ph,VETERINARY,600,1000) &&
+						CheckSkill(ph,ANIMALLORE,600,1000))
+					{
+						pp->setPoisoned(0);
+						sysmessage(s, tr("Because of your skill, you were able to counter the poison."));
+					}
+					else
+					{
+						sysmessage(s, tr("You fail to counter the poison"));
+          				pib->ReduceAmount(1);
+        			}
+				}
 			}
 			return;
 		}
-		
+
 		if(pp->hp == pp->st)
 		{
 			sysmessage(s, tr("That being is not damaged") );
@@ -1718,11 +1742,10 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 			{
 				int healmin = (((ph->skill(HEALING)/5)+(ph->skill(VETERINARY)/5))+3); //OSI's formula for min amount healed (Skyfire)
 				int healmax = (((ph->skill(HEALING)/5)+(ph->skill(VETERINARY)/2))+10); //OSI's formula for max amount healed (Skyfire)
-				int j=RandomNum(healmin,healmax);
-				if(j>(pp->st-pp->hp))
-					j=(pp->st-pp->hp);
-				pp->hp=j;
-				updatestats(ph, 0);
+				int j = RandomNum(healmin, healmax);
+				// khpae
+				pp->hp = (pp->st > (pp->hp + j)) ? (pp->hp + j) : pp->st;
+				updatestats(pp, 0);
 				sysmessage(s, tr("You apply the bandages and the creature looks a bit healthier.") );
 			}
 		}

@@ -68,6 +68,7 @@ public:
 
 	QString eventList( void ); // Returns the list of events
 	void recreateEvents( void ); // If the scripts are reloaded call that for each and every existing object
+	bool inRange( cUObject *object, UINT32 range );
 
 	// Events
 	bool onUse( cUObject *Target );
@@ -79,8 +80,6 @@ public:
 
 	std::string name;
 	Coord_cl pos;
-	bool inRange( cUObject *object, UINT32 range );
-
 	cCustomTags tags;
 // Methods
 protected:

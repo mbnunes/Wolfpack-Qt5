@@ -51,6 +51,14 @@ struct max_serialPred : binary_function<pair<SERIAL, cItem*>, pair<SERIAL, cItem
 	}
 };
 
+cItemsManager::~cItemsManager()
+{
+	iterator it = begin();
+	for (; it != end(); ++it )
+		delete it->second;
+}
+
+
 /*!
  * Registers an item into the ItemsManager Instance and enable lookups by serial.
  *

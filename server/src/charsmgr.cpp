@@ -56,6 +56,13 @@ struct max_serialPred : binary_function<pair<SERIAL, cChar*>, pair<SERIAL, cChar
 };
 */
 
+cCharsManager::~cCharsManager()
+{
+	iterator it = begin();
+	for (; it != end(); ++it )
+		delete it->second;
+}
+
 /*!
  * Registers a character into the CharsManager Instance and enable lookups by serial.
  *

@@ -71,6 +71,7 @@ protected:
 	cItemsManager(cItemsManager& _it) {} // Unallow copy constructor
 	cItemsManager& operator=(cItemsManager& _it) { return *this; } // Unallow Assignment
 public:
+	~cItemsManager();
 	void registerItem( cItem* ) throw(wp_exceptions::wpbad_ptr);
 	void unregisterItem( cItem* ) throw (wp_exceptions::wpbad_ptr);
 	void deleteItem ( cItem * ) throw (wp_exceptions::wpbad_ptr);

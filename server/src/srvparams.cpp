@@ -45,6 +45,8 @@
 
 const char preferencesFileVersion[] = "1.0";
 
+Q_INT32 resolveName( const QString& );
+
 cSrvParams::cSrvParams( const QString& filename, const QString& format, const QString& version )  : Preferences(filename, format, version)
 {
 	// Load data into binary format
@@ -268,6 +270,8 @@ std::vector<ServerList_st>& cSrvParams::serverList()
 					QHostAddress host;
 					host.setAddress( strList2[0] );
 					server.sIP = host.ip4Addr();
+					server.ip = resolveName( server.sIP );
+
 					bool ok = false;
 					server.uiPort = strList2[1].toUShort(&ok);
 					if ( !ok )
@@ -435,5 +439,29 @@ bool cSrvParams::isClientAllowed( const QString& data )
 unsigned char& cSrvParams::worldCurrentLevel()
 {
 	return worldCurrentLevel_;
+}
+
+Q_INT32 resolveName( const QString& data )
+{
+	if ( data.isEmpty() )
+		return INADDR_NONE;
+//	we do a dns lookup on this
+
+	Q_INT32 uiValue = inet_addr(data.latin1()) ;
+	if (uiValue == INADDR_NONE)
+	{
+		hostent* ptrHost = gethostbyname(data.latin1());
+ 		if(ptrHost != 0)
+		{
+	        char** ptrPtr = ptrHost->h_addr_list;
+                //We only use the first one
+            if(*ptrPtr != NULL)
+            {
+            //      I can think of no other way
+	            memcpy(&uiValue,*ptrPtr,sizeof(in_addr)) ;
+		    }
+		}
+	}
+	return uiValue;
 }
 

@@ -207,7 +207,7 @@ void updatehtml()//HTML
 		{
 			//ip=inet_addr(serv[str2num(script2)-1][1]);
 			vector<ServerList_st>::iterator it = SrvParams->serverList().begin();
-			QHostAddress host( (*(it + str2num(script2) - 1)).sIP );
+			QHostAddress host( (*(it + str2num(script2) - 1)).ip );
 
 			fprintf(html, host.toString());
 		}
