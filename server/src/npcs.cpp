@@ -1829,9 +1829,9 @@ void cChar::setNextMoveTime(short tamediv)
 //	if ( && this->tamed) return;	// MUST be nonzero
 	// let's let them move once in a while ;)
 	if(this->tamed)
-		this->npcmovetime=(unsigned int)((uiCurrentTime+double(NPCSPEED*MY_CLOCKS_PER_SEC/2)));
+		this->npcmovetime=(unsigned int)((uiCurrentTime+double(NPCSPEED*MY_CLOCKS_PER_SEC/5)));
 	else if(this->war)
-		this->npcmovetime=(unsigned int)((uiCurrentTime+double(NPCSPEED*MY_CLOCKS_PER_SEC/2)));
+		this->npcmovetime=(unsigned int)((uiCurrentTime+double(NPCSPEED*MY_CLOCKS_PER_SEC/5)));
 	else
 		this->npcmovetime=(unsigned int)((uiCurrentTime+double(NPCSPEED*MY_CLOCKS_PER_SEC)));
 }

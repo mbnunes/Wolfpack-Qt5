@@ -259,13 +259,6 @@ void get_item(P_CLIENT ps) // Client grabs an item
 		{
 			triggerwitem(s, DEREF_P_ITEM(pi), 1); // trigger is fired
 		}	
-			// AntiChrist -- for poisoned items
-		if (items[x].poisoned)
-		{
-			chars[npc].poison -= items[x].poisoned;
-			if (chars[npc].poison < 0)
-				chars[npc].poison = 0;
-		}
 	}
 	if (pi != NULL)
 	{
@@ -533,11 +526,6 @@ void wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 			triggerwitem(s, DEREF_P_ITEM(pi), 1); // trigger is fired
 		}	
 		// AntiChrist -- for poisoned items
-		if(pi->poisoned)
-		{
-			if(pc_currchar->poisoned< (pi->poisoned))
-				pc_currchar->poisoned=pi->poisoned;
-		}
 		if (showlayer)	clConsole.send("Item equipped on layer %i.\n",pi->layer);
 		
 		SndRemoveitem(pi->serial);

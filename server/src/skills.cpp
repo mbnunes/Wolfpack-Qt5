@@ -1096,11 +1096,6 @@ char cSkills::CheckSkill(int c, unsigned short int sk, int low, int high)
 	}
 	if (pc->isGM())
 		return 1;
-	if(false == Races[pc->race]->CheckSkillUse(sk)) // RACE skill check!
-	{
-		sysmessage(s,"Your race can not use this skill!");
-		return 0;
-	}
 	if(high>1200) high=1200;
 
 	int charrange=pc->skill[sk]-low;	// how far is the player's skill above the required minimum ?

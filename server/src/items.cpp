@@ -1868,9 +1868,7 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 			{
 				triggerwitem(DEREF_P_CHAR(pc_p), DEREF_P_ITEM(pi), 1); // trigger is fired when unequipped? sorry this needs checked
 			}
-			if(pc_p->poison && pi->poisoned) pc_p->poison-=pi->poisoned;
-			if(pc_p->poison<0) pc_p->poison=0;
-			
+						
 			pi->SetContSerial(-1);
 			pi->MoveTo(pc_p->pos.x,pc_p->pos.y,pc_p->pos.z);
 			

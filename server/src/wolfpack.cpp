@@ -1059,7 +1059,7 @@ void deathstuff(int i)
 				//murder count \/
 				if ((pc_player->isPlayer())&&(pc_t->isPlayer()))//Player vs Player
 				{
-					if(pc_player->isInnocent() && Guilds->Compare(DEREF_P_CHAR(pc_t),DEREF_P_CHAR(pc_player))==0 && pc_t->attackfirst == 1)
+					if(pc_player->isInnocent() && (RaceManager->CheckRelation(pc_t,pc_player)==1) && Guilds->Compare(DEREF_P_CHAR(pc_t),DEREF_P_CHAR(pc_player))==0 && pc_t->attackfirst == 1)
 					{
 						// Ask the victim if they want to place a bounty on the murderer (need gump to be added to
 						// BountyAskViction() routine to make this a little nicer ) - no time right now
@@ -1726,7 +1726,7 @@ void dooruse(UOXSOCKET s, ITEM item)
 	{
 		// house refreshment when a house owner or friend of a houe opens the house door
 		int h=-1, hf=-1;
-		int ds=0;
+		float ds=0;
 		P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 
 		h=HouseManager->GetHouseNum(pc_currchar);

@@ -214,9 +214,14 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 			if (pc_deffender->xid2==0x90) soundeffect2(DEREF_P_CHAR(pc_deffender),0x01,0x56);
 			playmonstersound(DEREF_P_CHAR(pc_deffender), pc_deffender->id1, pc_deffender->id2, SND_DEFEND);
 			//AntiChrist -- for poisoned weapons
+			if(pWeapon->poisoned>0)
+			{
+				pc_deffender->poisoned=pWeapon->poisoned;
+				pc_deffender->poisontime=uiCurrentTime+(MY_CLOCKS_PER_SEC*(40/pc_deffender->poisoned)); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
+				pc_deffender->poisonwearofftime=pc_deffender->poisontime+(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); //wear off starts after poison takes effect - AntiChrist
+			}
 			CheckPoisoning(s2, pc_attacker, pc_deffender);	// attacker poisons defender
-			if (fightskill!=ARCHERY)	// only for melee (Duke,21.4.01)
-				CheckPoisoning(s1, pc_deffender, pc_attacker); // and vice versa
+			CheckPoisoning(s1, pc_deffender, pc_attacker); // and vice versa
 
 			if ((pc_deffender->effDex()>0)) pc_deffender->priv2&=0xFD;	// unfreeze
 
@@ -733,8 +738,17 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 
 	int d = pc_attacker->targ;
 	P_CHAR pc_defender = MAKE_CHAR_REF(d);
-
-	if (d==-1 || (pc_defender->isPlayer() && !online(d) || pc_defender->isHidden()) && pc_attacker->war)
+	int racerela=0;
+	if ((d==-1) || (pc_defender->isPlayer() && !online(d) || pc_defender->isHidden()) && pc_attacker->war)
+	{
+		pc_attacker->war=0; // LB
+		pc_attacker->timeout=0;
+		pc_attacker->attacker = INVALID_SERIAL;
+		pc_attacker->resetAttackFirst();
+		return;
+	}
+	racerela=RaceManager->CheckRelation(pc_attacker,pc_defender);
+	if(racerela == 1)
 	{
 		pc_attacker->war=0; // LB
 		pc_attacker->timeout=0;
@@ -949,9 +963,9 @@ int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power
 	unsigned int total=pc->def; 
 	if (x==0) // -Fraz- added parrying skill bonuses
 	{ 
-		if (pShield) 
-			total+=1+(((pc->skill[PARRYING]/10) * pShield->def) / 200); // -Fraz- These values may need tweaked to OSI
-	} 
+		if (pShield)
+			total+=(((pc->skill[PARRYING]*pShield->def)/200)+1); // Updated to OSI standars (Skyfire)
+	} 		//Displayed AR = ((Parrying Skill * Base AR of Shield) ÷ 200) + 1
 	if (pc->skill[PARRYING]==1000) 
 		total+=5; // gm parry bonus. 
 	if (ishuman(DEREF_P_CHAR(pc))) // Added by Magius(CHE) 
@@ -1221,7 +1235,7 @@ void cCombat::SpawnGuard(CHARACTER s, CHARACTER i, int x, int y, signed char z)
 		pc_guard->targ = s;
 		pc_guard->npcWander = 2;  // set wander mode Tauriel
 		npcToggleCombat(DEREF_P_CHAR(pc_guard));
-		pc_guard->npcmovetime =(unsigned int)(getNormalizedTime() +(double)(NPCSPEED*MY_CLOCKS_PER_SEC));
+		pc_guard->npcmovetime =(unsigned int)(getNormalizedTime() +(double)((NPCSPEED*MY_CLOCKS_PER_SEC)/5));
 		pc_guard->summontimer =(getNormalizedTime() +(MY_CLOCKS_PER_SEC*25));    
 		
 		soundeffect2(DEREF_P_CHAR(pc_guard), 0x01, 0xFE);  // Tauriel 1-9-99 changed to stop crashing used to call soundeffect (expeted socket)

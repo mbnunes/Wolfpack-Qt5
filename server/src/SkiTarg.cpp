@@ -1609,7 +1609,6 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 //
 void cSkills::HealingSkillTarget(UOXSOCKET s)
 {
-	int j;
 	P_ITEM pib = MAKE_ITEMREF_LR(addx[s]);	// item index of bandage
 	
 	P_CHAR pp = FindCharBySerPtr(buffer[s]+7); // pointer to patient
@@ -1625,7 +1624,7 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 				return;
 			}
 		}
-		if(!(npcinrange(s,DEREF_P_CHAR(ph),1)))
+		if(ph->pos.distance(pp->pos)>5)
 		{
 			sysmessage(s,"You are not close enough to apply the bandages.");
 			return;
@@ -1640,12 +1639,15 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 		
 		if (pp->dead)
 		{
-			if (ph->baseskill[HEALING] < 800 || ph->baseskill[ANATOMY]<800)
+			if (ph->skill[HEALING] < 800 || ph->skill[ANATOMY] < 800)
 				sysmessage(s,"You are not skilled enough to resurrect");
 			else
 			{
-				if(!Skills->CheckSkill(DEREF_P_CHAR(ph),HEALING,800,1000) || 
-					!Skills->CheckSkill(DEREF_P_CHAR(ph),ANATOMY,800,1000))
+				int reschance=((ph->baseskill[HEALING]+ph->baseskill[ANATOMY])*0.17);
+				int rescheck=RandomNum(1,100);
+				CheckSkill(DEREF_P_CHAR(ph),HEALING,800,1000);
+				CheckSkill(DEREF_P_CHAR(ph),ANATOMY,800,1000);
+				if(reschance<=rescheck)
 					sysmessage(s,"You failed to resurrect the ghost");
 				else
 				{
@@ -1659,15 +1661,18 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 		
 		if (pp->poisoned>0)
 		{
-			if (ph->baseskill[HEALING]<=600 || ph->baseskill[ANATOMY]<=600)
+			if (ph->skill[HEALING]<600 || ph->skill[ANATOMY]<600)
 			{
 				sysmessage(s,"You are not skilled enough to cure poison.");
 				sysmessage(s,"The poison in your target's system counters the bandage's effect.");
 			}
 			else
 			{
-				if (CheckSkill(DEREF_P_CHAR(ph),HEALING,600,1000) &&
-					CheckSkill(DEREF_P_CHAR(ph),ANATOMY,600,1000))
+				int curechance=((ph->baseskill[HEALING]+ph->baseskill[ANATOMY])*0.67);
+				int curecheck=RandomNum(1,100);
+				CheckSkill(DEREF_P_CHAR(ph),HEALING,600,1000);
+				CheckSkill(DEREF_P_CHAR(ph),ANATOMY,600,1000);
+				if(curechance<=curecheck)
 				{
 					pp->poisoned=0;
 					sysmessage(s,"Because of your skill, you were able to counter the poison.");
@@ -1694,16 +1699,16 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 			}
 			else
 			{
-				j=ph->skill[HEALING]/100*2 + 1 + rand()%2;		// a GM healer gives 42-44,
-				j+=ph->skill[ANATOMY]/100*2 + 1 + rand()%2;		// a 20.0 healer 10-12. Ok ?
-				//pp->hp = min(pp->st, j+pp->hp);
-				//updatestats(i, 0);
-				//sysmessage(s,"You apply the bandages and the patient looks a bit healthier.");
-				int iMore1 = min(pp->st, j+pp->hp)-pp->hp;
+				int healmin = (((ph->skill[HEALING]/5)+(ph->skill[ANATOMY]/5))+3); //OSI's formula for min amount healed (Skyfire)
+				int healmax = (((ph->skill[HEALING]/5)+(ph->skill[ANATOMY]/2))+10); //OSI's formula for max amount healed (Skyfire)
+				int j=RandomNum(healmin,healmax);
+				//int iMore1 = min(pp->st, j+pp->hp)-pp->hp;
+				if(j>(pp->st-pp->hp))
+					j=(pp->st-pp->hp);
 				if(pp->serial==ph->serial)
-					tempeffect(DEREF_P_CHAR(ph),DEREF_P_CHAR(ph),35,iMore1/2,0,10,0);//allow a delay
+					tempeffect(DEREF_P_CHAR(ph),DEREF_P_CHAR(ph),35,j,0,15,0);//allow a delay
 				else 
-					tempeffect(DEREF_P_CHAR(ph),DEREF_P_CHAR(ph),35,iMore1/2,0,4,0);// added suggestion by Ramases //-Fraz- must be checked
+					tempeffect(DEREF_P_CHAR(ph),DEREF_P_CHAR(ph),35,j,0,5,0);// added suggestion by Ramases //-Fraz- must be checked
 			}
 		}
 		else //Bandages used on a non-human
@@ -1712,8 +1717,12 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 				sysmessage(s,"You are not skilled enough to heal that creature.");
 			else
 			{
-				j=((3*ph->skill[VETERINARY])/100) + rand()%6;
-				pp->hp=min(pp->st, j+pp->hp);
+				int healmin = (((ph->skill[HEALING]/5)+(ph->skill[VETERINARY]/5))+3); //OSI's formula for min amount healed (Skyfire)
+				int healmax = (((ph->skill[HEALING]/5)+(ph->skill[VETERINARY]/2))+10); //OSI's formula for max amount healed (Skyfire)
+				int j=RandomNum(healmin,healmax);
+				if(j>(pp->st-pp->hp))
+					j=(pp->st-pp->hp);
+				pp->hp=j;
 				updatestats(DEREF_P_CHAR(ph), 0);
 				sysmessage(s,"You apply the bandages and the creature looks a bit healthier.");
 			}
@@ -1933,7 +1942,7 @@ void cSkills::Evaluate_int_Target(UOXSOCKET s)
 		return;
 	}
 	if ((pc->in == 0)) 
-		sysmessage(s, "That does not appear to be a living being.");
+		sysmessage(s, "It looks smarter than a rock, but dumber than a piece of wood.");
 	else
 	{
 		strcpy((char*)temp,"That person looks ");
@@ -1943,10 +1952,11 @@ void cSkills::Evaluate_int_Target(UOXSOCKET s)
 		else if (pc->in <= 40)	strcat(temp, "about average.");
 		else if (pc->in <= 50)	strcat(temp, "moderately intelligent.");
 		else if (pc->in <= 60)	strcat(temp, "very intelligent.");
-		else if (pc->in <= 70)	strcat(temp, "extraordinarily intelligent.");
-		else if (pc->in <= 80)	strcat(temp, "like a formidable intellect, well beyond the ordinary.");
-		else if (pc->in <= 90)	strcat(temp, "like a definite genius.");
-		else if (pc->in > 90)	strcat(temp, "superhumanly intelligent in a manner you cannot comprehend.");
+		else if (pc->in <= 70)	strcat(temp, "Extremely intelligent.");
+		else if (pc->in <= 80)	strcat(temp, "extraordinarily intelligent.");
+		else if (pc->in <= 90)	strcat(temp, "like a formidable intellect, well beyond the ordinary.");
+		else if (pc->in <= 99)	strcat(temp, "like a definite genius.");
+		else if (pc->in >=100)  strcat(temp, "superhumanly intelligent in a manner you cannot comprehend.");
 		sysmessage(s, (char*)temp);
 	}
 }
@@ -1982,27 +1992,29 @@ void cSkills::AnatomyTarget(int s)
 	else
 	{
 		char *ps1,*ps2;
-		if		(pc->st <= 10)	ps1="rather feeble";
-		else if (pc->st <= 20)	ps1="somewhat weak";
-		else if (pc->st <= 30)	ps1="to be of normal strength";
-		else if (pc->st <= 40)	ps1="somewhat strong";
-		else if (pc->st <= 50)	ps1="very strong";
-		else if (pc->st <= 60)	ps1="extremely strong"; 
-		else if (pc->st <= 70)	ps1="extraordinarily strong";
-		else if (pc->st <= 80)	ps1="as strong as an ox";
-		else if (pc->st <= 90)	ps1="like one of the strongest people you have ever seen";
-		else if (pc->st > 90)	ps1="superhumanly strong";
+		if		(pc->st <= 10)	ps1="like they would have trouble lifting small objects ";
+		else if (pc->st <= 20)	ps1="Rather Feeble";
+		else if (pc->st <= 30)	ps1="Somewhat weak";
+		else if (pc->st <= 40)	ps1="To be of normal strength";
+		else if (pc->st <= 50)	ps1="Somewhat strong";
+		else if (pc->st <= 60)	ps1="Very strong"; 
+		else if (pc->st <= 70)	ps1="Extremely strong";
+		else if (pc->st <= 80)	ps1="Extraordinarily strong";
+		else if (pc->st <= 90)	ps1="Strong as an ox";
+		else if (pc->st <= 99)	ps1="One of the strongest people you have ever seen";
+		else if (pc->st >=100)  ps1="Superhumanly strong";
 
-		if		(dx <= 10)	ps2="very clumsy";
-		else if (dx <= 20)	ps2="somewhat uncoordinated";
-		else if (dx <= 30)	ps2="moderately dexterous";
-		else if (dx <= 40)	ps2="somewhat agile";
-		else if (dx <= 50)	ps2="very agile";
-		else if (dx <= 60)	ps2="extremely agile";
-		else if (dx <= 70)	ps2="extraordinarily agile";
-		else if (dx <= 80)	ps2="like they move like quicksilver";
-		else if (dx <= 90)	ps2="like one of the fastest people you have ever seen";
-		else if (dx > 90) 	ps2="superhumanly agile";
+		if		(dx <= 10)	ps2="like they barely manage to stay standing";
+		else if (dx <= 20)	ps2="Very clumsy";
+		else if (dx <= 30)	ps2="Somewhat uncoordinated";
+		else if (dx <= 40)	ps2="Moderately dextrous";
+		else if (dx <= 50)	ps2="Somewhat agile";
+		else if (dx <= 60)	ps2="Very agile";
+		else if (dx <= 70)	ps2="Extremely agile";
+		else if (dx <= 80)	ps2="Extraordinarily agile";
+		else if (dx <= 90)	ps2="Moves like quicksilver";
+		else if (dx <= 99) 	ps2="One of the fastest people you have ever seen";
+		else if (dx >=100)  ps2="Superhumanly agile";
 		sprintf((char*)temp,"That person looks %s and %s.", ps1, ps2); 
 		sysmessage(s, (char*)temp);
 	}
@@ -2206,7 +2218,7 @@ void cSkills::BeggingTarget(int s)
 	P_CHAR pc = FindCharBySerial( serial );
 	if (pc != NULL)
 	{
-		if(chardist(DEREF_P_CHAR(pc),DEREF_P_CHAR(pc_currchar))>=begging_data.range)
+		if(chardist(DEREF_P_CHAR(pc),DEREF_P_CHAR(pc_currchar))>=5)
 		{
 			sysmessage(s,"You are not close enough to beg.");
 			return;
@@ -2277,10 +2289,10 @@ void cSkills::BeggingTarget(int s)
 								
 				if (gold<=0)
 				{				
-					npctalk(s,DEREF_P_CHAR(pc),"Sorry, I'm poor myself",1);
+					npctalk(s,DEREF_P_CHAR(pc),"Thou dost not look trustworthy... no gold for thee today! ",1);
 					return;
 				}
-				npctalkall(DEREF_P_CHAR(pc),"Ohh thou lookest so poor, Here is some gold I hope this will assist thee.",0); // zippy
+				npctalkall(DEREF_P_CHAR(pc),"I feel sorry for thee... here have a gold coin .",0);
 				addgold(s,realgold);
 				sysmessage(s,"Some gold is placed in your pack.");
 			}

@@ -1673,9 +1673,9 @@ void npcMovement2(unsigned int currenttime, int i)//Lag fix
 
 		//AntiChrist
 		if(pc_i->npcWander==1)
-			pc_i->npcmovetime=(unsigned int)(currenttime+double(NPCSPEED*MY_CLOCKS_PER_SEC*(dnpctime)/4)); //reset move timer
+			pc_i->npcmovetime=(unsigned int)(currenttime+double((NPCSPEED*MY_CLOCKS_PER_SEC)/5)); //reset move timer
 		else
-			pc_i->npcmovetime=(unsigned int)(currenttime+double(NPCSPEED*MY_CLOCKS_PER_SEC*(dnpctime))); //reset move timer
+			pc_i->npcmovetime=(unsigned int)(currenttime+double((NPCSPEED*MY_CLOCKS_PER_SEC)/5)); //reset move timer
 	}
 }
 
