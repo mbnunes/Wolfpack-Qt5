@@ -1568,6 +1568,8 @@ char cAllItems::isFieldSpellItem(int i) //LB
 	if (id==0x3915 || id==0x3920) a=2; // poison field
 	if (id==0x3979 || id==0x3967) a=3; // paralyse field
 	if (id==0x3956 || id==0x3946) a=4; // energy field;
+	if (id==0x0080) a=5;                // wall of stone
+	if (id>=0x122a && id <=0x122e) a=6; // blood
 	
 	return a;
 }
