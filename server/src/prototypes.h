@@ -36,13 +36,7 @@ class QString;
 class cUOSocket;
 
 void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey );
-
-void goldsfx( cUOSocket *socket, UINT16 amount, bool hearall );
-
-void playmonstersound(P_CHAR monster, unsigned short id, int sfx);
 void reloadScripts();
-
-void setcharflag(P_CHAR pc);
 
 #endif
 

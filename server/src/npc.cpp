@@ -830,7 +830,7 @@ void cNPC::attackTarget( P_CHAR defender )
 	if( this == defender || !defender || isDead() || defender->isDead() ) 
 		return;
 
-	playmonstersound( this, bodyID_, SND_STARTATTACK );
+	bark( Bark_Attacking );
 	unsigned int cdist=0 ;
 
 	P_CHAR target = FindCharBySerial( defender->combatTarget() );

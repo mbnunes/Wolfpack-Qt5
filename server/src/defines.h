@@ -92,14 +92,6 @@ extern long int oldtime, newtime;
 #define TILEDATA_TILES 0x68800
 //////////////////
 
-
-// List of monster sounds
-#define SND_STARTATTACK 0
-#define SND_IDLE 1
-#define SND_ATTACK 2
-#define SND_DEFEND 3
-#define SND_DIE 4
-
 // List of skill numbers (For later implementation)
 #define ALCHEMY 0
 #define ANATOMY 1

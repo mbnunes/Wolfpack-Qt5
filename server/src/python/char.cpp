@@ -256,7 +256,12 @@ static PyObject* wpChar_sound( wpChar* self, PyObject* args )
 		return NULL;
 	}
 
-	playmonstersound( self->pChar, self->pChar->bodyID(), getArgInt( 0 ) );
+	unsigned char arg = getArgInt( 0 );
+
+	if( arg > cBaseChar::Bark_Death )
+		return PyFalse;
+
+	self->pChar->bark( (cBaseChar::enBark)arg );
 	return PyTrue;
 }
 

@@ -29,47 +29,40 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-#include "world.h"
-#include "verinfo.h"
-#include "speech.h"
-#include "territories.h"
-#include "basics.h"
-#include "TmpEff.h"
-#include "combat.h"
-#include "sectors.h"
-#include "srvparams.h"
-#include "network.h"
-#include "exceptions.h"
-#include "gumps.h"
-#include "commands.h"
-#include "spawnregions.h"
-#include "Timing.h"
-#include "tilecache.h"
 #include "accounts.h"
-#include "makemenus.h"
-#include "skills.h"
-#include "resources.h"
+#include "ai.h"
+#include "basedef.h"
+#include "basics.h"
+#include "boats.h"
+#include "commands.h"
+#include "console.h"
 #include "contextmenu.h"
-#include "maps.h"
-#include "wpdefmanager.h"
-#include "log.h"
-#include "scriptmanager.h"
-#include "wptargetrequests.h"
-#include "python/engine.h"
-#include "persistentbroker.h"
 #include "corpse.h"
 #include "house.h"
-#include "boats.h"
+#include "inlines.h"
+#include "log.h"
+#include "makemenus.h"
+#include "maps.h"
 #include "multiscache.h"
-#include "Trade.h"
-#include "network/uotxpackets.h"
-#include "basechar.h"
-#include "player.h"
+#include "network.h"
 #include "npc.h"
-#include "ai.h"
+#include "persistentbroker.h"
+#include "player.h"
+#include "resources.h"
+#include "scriptmanager.h"
 #include "sectors.h"
-#include "basedef.h"
-#include "console.h"
+#include "skills.h"
+#include "spawnregions.h"
+#include "srvparams.h"
+#include "territories.h"
+#include "tilecache.h"
+#include "Timing.h"
+#include "verinfo.h"
+#include "world.h"
+#include "wpdefmanager.h"
+
+#include "python/engine.h"
+#include "python/utilities.h"
 
 // Library Includes
 #include <qapplication.h>
@@ -80,8 +73,6 @@
 #include <qfile.h>
 #include <qmutex.h>
 #include <qthread.h>
-
-#include "python/utilities.h"
 
 using namespace std;
 
@@ -591,161 +582,4 @@ int main( int argc, char *argv[] )
 	Console::instance()->stop(); // Stop the Console
 
 	return 0;
-}
-
-void goldsfx( cUOSocket *socket, UINT16 amount, bool hearall )
-{
-	if( !socket || !socket->player() )
-		return;
-
-	UINT16 sEffect = 0x37;
-
-	if( amount == 1 )
-		sEffect = 0x35;
-	else if( amount > 1 && amount < 6 )
-		sEffect = 0x36;
-
-	if( !hearall )
-		socket->soundEffect( sEffect );
-	else
-	{
-		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-			if( mSock->inRange( socket ) )
-				mSock->soundEffect( sEffect );
-	}
-}
-
-void playmonstersound(P_CHAR monster, unsigned short id, int sfx)
-{
-	int basesound=0,x;
-	char sf; short offset;
-
-	cCharBaseDef *basedef = BaseDefManager::instance()->getCharBaseDef( id );		
-
-	if( !basedef )	// Nothing known about this creature
-		return;
-
-	x=id;
-	basesound=basedef->basesound();
-	sf=basedef->soundmode();
-	offset=sfx;
-
-	if (basesound != 0)
-	{
-		switch(sf)
-		{
-		case 0: break; // in normal case the offset is correct
-		case 1: break; // birds sounds will be implmented later
-
-		case 2:	// only start-attack, attack & dýing sounds available
-			if (sfx==1 || sfx==3) offset=-1; // idle, defend ? play nothing
-			else if (sfx==2) offset=1; // correct offset
-			else if (sfx==4) offset=2;
-			break;
-		case 3: // only start-attack, attack, defense & dying
-			if (sfx==1) offset=-1; // idle -> play nothing
-			else if (sfx==2) offset=1; // otherwise correct offsets
-			else if (sfx==3) offset=2;
-			else if (sfx==4) offset=3;
-			break;
-		case 4: // only a single sound
-		
-			if (sfx!=0) offset=-1; else offset=0;
-		
-			break;
-		}
-		basesound += offset;
-		if (offset!=-1)
-			monster->soundEffect( basesound );
-		return;
-	}
-}
-
-/*!
-	Update the flagging of this character based
-	on his reputation.
-*/
-void setcharflag( P_CHAR pc )
-{
-	//First, let's see their karma.
-	if( pc->karma() <= -200 )
-	{
-		pc->setMurdererTime( uiCurrentTime + SrvParams->murderdecay() * MY_CLOCKS_PER_SEC );
-	}
-
-	if( pc->objectType() == enPlayer )
-	{
-		P_PLAYER pp = dynamic_cast<P_PLAYER>(pc);
-		if (pp->isGMorCounselor())
-		{
-			pp->setMurdererTime( 0 );
-			pp->setCriminalTime( 0 );
-			return;
-		}
-		else if (pc->kills() >= (unsigned) SrvParams->maxkills())
-		{
-			pp->setMurdererTime( uiCurrentTime + SrvParams->murderdecay() * MY_CLOCKS_PER_SEC );
-			return;
-		}	
-		else if (pc->criminalTime() == 0)
-		{
-			pp->setMurdererTime( 0 );
-			return;
-		}
-		else if (pc->criminalTime() > 0)
-		{
-			pp->makeCriminal();
-			return;
-		}		
-		else
-		{
-			pp->makeCriminal();
-		}
-	}
-	else
-	{
-/*		switch (pc->npcaitype())
-		{
-			case 2: // bad npcs
-			case 3: // bad healers
-			case 50: // EV & BS
-				pc->setMurderer();
-				break;
-			case 1: // good healers
-			case 4: // teleport guard
-			case 5: // beggars
-			case 6: // chaos guard
-			case 7: // order guard
-			case 8: // banker
-			case 9: // town guard
-			case 11: // good npcs
-			case 17: // player vendor
-			case 18: // escort npcs
-			case 19: // real estate brokers
-				pc->setInnocent();
-				break;
-			default:
-				if (pc->isHuman())
-				{
-					pc->setMurdererTime( 0 );
-					pc->setCriminalTime( 0 );
-					return;
-				}
-				if (SrvParams->animals_guarded() == 1 && pc->npcaitype() == 0 && !pc->isHuman() && !pc->tamed())
-				{
-					if (pc->inGuardedArea())	// in a guarded region, with guarded animals, animals == blue
-						pc->setMurdererTime( 0 );
-						pc->setCriminalTime( 0 );
-					else				// if the region's not guarded, they're gray
-						pc->criminal();
-				}
-				else if( pc->owner() && !pc->isHuman() )
-				{
-						pc->setFlag( pc->owner()->flag() );
-				}
-				else
-					pc->criminal();
-				break;
-		}*/
-	}
 }

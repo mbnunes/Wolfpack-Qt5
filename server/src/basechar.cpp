@@ -30,6 +30,7 @@
 
 // wolfpack includes
 #include "basechar.h"
+#include "basedef.h"
 #include "player.h"
 #include "globals.h"
 #include "world.h"
@@ -531,7 +532,7 @@ void cBaseChar::playDeathSound()
 	}
 	else
 	{
-		playmonstersound( this, orgBodyID_, SND_DIE );
+		bark( Bark_Death );
 	}
 }
 
@@ -1964,4 +1965,51 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 	}
 
 	return amount;
+}
+
+void cBaseChar::bark( enBark type )
+{
+	cCharBaseDef *basedef = BaseDefManager::instance()->getCharBaseDef( bodyID_ );
+
+	if( !basedef || !basedef->basesound() )	// Nothing known about this creature
+		return;
+
+	switch( basedef->soundmode() )
+	{
+	// Only Attack, Hit and Death sounds available (Falltrough!)
+	case 2:
+		if( type == Bark_GetHit )
+			return;
+		
+	// Only Attack, Hit, GetHit and Death
+	case 3:
+		if( type == Bark_Idle )
+			return;
+
+		break;
+
+	// Only the first sound is available
+	case 4:
+		if( type != Bark_Attacking )
+			return;
+
+	default:
+		break;
+	}
+
+	soundEffect( basedef->basesound() + (unsigned char)type );
+}
+
+void cBaseChar::goldSound( unsigned short amount, bool hearall )
+{
+	unsigned short sound;
+
+	if( amount == 1 )
+		sound = 0x35;
+	else if( amount > 1 && amount < 6 )
+		sound = 0x36;
+	else
+		sound = 0x37;
+
+	soundEffect( sound, hearall );
 }

@@ -467,7 +467,7 @@ void cDragItems::dropItem( cUOSocket *socket, cUORxDropItem *packet )
 
 	// Handle the sound-effect
 	if( pItem->id() == 0xEED )
-		goldsfx( socket, pItem->amount(), true );
+		pChar->goldSound( pItem->amount() );
 
 	// Update our weight.
 	if( weight != pChar->weight() )

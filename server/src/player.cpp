@@ -469,10 +469,13 @@ void cPlayer::kill()
 						pp_t->socket()->sysMessage( tr( "You have killed %1 innocent people." ).arg( pp_t->kills_ ) );
 
 						if( pp_t->kills_ >= SrvParams->maxkills() )
+						{
 							pp_t->socket()->sysMessage( tr( "You are now a murderer!" ) );
+							
+							// Set the Murder Decay Time
+							pp_t->setMurdererTime( getNormalizedTime() + SrvParams->murderdecay() * MY_CLOCKS_PER_SEC );
+						}
 					}
-
-					setcharflag( pp_t );
 				}
 			}
 
@@ -1062,8 +1065,7 @@ void cPlayer::giveGold( Q_UINT32 amount, bool inBank )
 		total -= pile->amount();
 	}
 
-	if( socket_ )
-		goldsfx( socket_, amount, false );
+	goldSound( amount, false );
 }
 
 UINT32 cPlayer::takeGold( UINT32 amount, bool useBank )
@@ -1083,8 +1085,7 @@ UINT32 cPlayer::takeGold( UINT32 amount, bool useBank )
 			dAmount += pBank->DeleteAmount( (amount-dAmount), 0xEED, 0 );
 	}
 
-	if( socket_ )
-		goldsfx( socket_, dAmount, false );
+	goldSound( amount, false );
 
 	return dAmount;
 }

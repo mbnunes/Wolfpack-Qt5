@@ -418,9 +418,6 @@ void cWorld::load()
 		cTerritory *region = AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
 		pChar->setRegion( region );
 
-		// Now that we have our owner set correctly
-		// do the charflags
-		setcharflag( pChar );
 		pChar->flagUnchanged(); // We've just loaded, nothing changes
 	}
 

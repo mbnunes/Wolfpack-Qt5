@@ -77,7 +77,7 @@ void AnimalAI::onSpeechInput( P_PLAYER pTalker, const QString &comm )
 
 			m_npc->setWanderFollowTarget( pTalker );
 			m_npc->setWanderType( enFollowTarget );
-			playmonstersound( m_npc, m_npc->bodyID(), SND_STARTATTACK );
+			m_npc->bark( cBaseChar::Bark_Attacking );
 		}
 		else
 		{

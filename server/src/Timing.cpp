@@ -319,59 +319,6 @@ void checkPC( P_PLAYER pc, unsigned int currenttime )
 			pc->setMurdererTime( ( SrvParams->murderdecay() * MY_CLOCKS_PER_SEC ) + currenttime );
 	}
 
-	setcharflag( pc );
-
-/* still needed !?
-	if( pc->isPlayer() && pc->casting() )//PC casting a spell
-	{
-		pc->setNextact( pc->nextact() - 1 );
-		if( pc->spelltime() <= currenttime  )//Spell is complete target it
-		{
-			// TODO: Reactivate when spellcasting is redone
-			//Magic->AfterSpellDelay( s, pc );
-		}
-		else if( pc->nextact() <= 0 )//redo the spell action
-		{
-			pc->setNextact( 75 );
-			pc->action( pc->spellaction() );
-		}
-	}
-*/
-/*
-	// Reset spirit-speak
-	if( pc->spiritspeaktimer() > 0 && pc->spiritspeaktimer() <= uiCurrentTime )
-		pc->setSpiritSpeakTimer(0);
-*/
-	
-#pragma message("TODO: jail reimplementation with python")
-/*
-	// Jail stuff
-	if( pc->cell() > 0 )
-	{
-		if( ( pc->jailtimer() > 0 ) && ( pc->jailtimer() <= uiCurrentTime ) )
-		{
-			socket->sysMessage( tr( "Your jail time is over!" ) );
-			
-			if( pc )
-			{
-				jails[ pc->cell() ].occupied = false;
-
-				pc->removeFromView( false );
-				pc->moveTo( jails[ pc->cell() ].oldpos );
-				pc->resend( false );
-					
-				pc->setCell(0);
-				pc->setJailSecs(0);
-				pc->setJailTimer(0);
-				pc->setPriv2(0);					
-					
-				savelog( tr( "%1 [0x%2] is automatically released from jail." ).arg( pc->name() ).arg( pc->serial(), 8, 16 ), "server.log" );
-				socket->sysMessage( tr( "You have been released." ) );
-			}		
-		}
-	}
-*/
-
 	if( SrvParams->hungerRate() > 1 && ( pc->hungerTime() <= currenttime  ) )
 	{
 		if( !pc->isGMorCounselor() && pc->hunger() ) 
@@ -421,8 +368,6 @@ void checkNPC( P_NPC pc, unsigned int currenttime )
 		if( pc->ai() )
 			pc->ai()->check();
 	}
-
-    setcharflag( pc );
 
 	// We are at war and want to prepare a new swing
 	if( !pc->isDead() && pc->swingTarget() == -1 && pc->isAtWar() )

@@ -188,7 +188,7 @@ namespace Combat
 				pChar->soundEffect( 0x156 );
 		}
 		else	
-			playmonstersound( pChar, pChar->bodyID(), SND_DEFEND );
+			pChar->bark( cBaseChar::Bark_GetHit );
 	}
 
 	/*!
@@ -1107,7 +1107,7 @@ namespace Combat
 			}
 
 			pAttacker->action( action );
-			playmonstersound( pAttacker, pAttacker->bodyID(), SND_ATTACK );
+			pAttacker->bark( cBaseChar::Bark_Hit );
 		}
 		else if (pAttacker->atLayer(cBaseChar::Mount))
 		{
