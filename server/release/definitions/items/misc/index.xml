@@ -11,6 +11,7 @@
 -->
 <definitions>
 	<include file="definitions/items/misc/animations.xml"/>
+	<include file="definitions/items/misc/ankhs.xml"/>
 	<include file="definitions/items/misc/figurines.xml"/>
 	<include file="definitions/items/misc/holiday.xml"/>
 	<include file="definitions/items/misc/misc.xml"/>
