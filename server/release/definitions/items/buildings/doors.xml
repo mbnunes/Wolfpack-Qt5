@@ -7,11 +7,406 @@
 =================================================================
 -->
 <definitions>
-	<!-- door -->
-	<item id="6c5">
-		<name>door</name>
-		<id>0x6c5</id>
-		<type>12</type> <!-- Door type -->
+	<!-- Metal Door 1-->
+	<item id="675">
+		<id>0x675</id>
+		<type>12</type>
+		<category>Buildings\Doors\Metal Door 1\Metal Door (S/SW)</category>
 	</item>
 
+	<item id="677">
+		<id>0x677</id>
+		<type>12</type>
+		<category>Buildings\Doors\Metal Door 1\Metal Door (S/SE)</category>
+	</item>
+
+	<item id="679">
+		<id>0x679</id>
+		<type>12</type>
+		<category>Buildings\Doors\Metal Door 1\Metal Door (S/NW)</category>
+	</item>
+
+	<item id="67B">
+		<id>0x67B</id>
+		<type>12</type>
+		<category>Buildings\Doors\Metal Door 1\Metal Door (S/NE)</category>
+	</item>
+
+	<item id="67D">
+		<id>0x67D</id>
+		<type>12</type>
+		<category>Buildings\Doors\Metal Door 1\Metal Door (W/SE)</category>
+	</item>
+
+	<item id="67F">
+		<id>0x67F</id>
+		<type>12</type>
+		<category>Buildings\Doors\Metal Door 1\Metal Door (W/NE)</category>
+	</item>
+
+	<item id="681">
+		<id>0x681</id>
+		<type>12</type>
+		<category>Buildings\Doors\Metal Door 1\Metal Door (W/SW)</category>
+	</item>
+
+	<item id="683">
+		<id>0x683</id>
+		<type>12</type>
+		<category>Buildings\Doors\Metal Door 1\Metal Door (W/NW)</category>
+	</item>
+		
+	<!-- Barred Metal Door -->
+	<item id="685">
+		<id>0x685</id>
+		<type>12</type>
+		<category>Buildings\Doors\Barred Metal Door\Barred Metal Door (S/SW)</category>
+	</item>
+
+	<item id="687">
+		<id>0x687</id>
+		<type>12</type>
+		<category>Buildings\Doors\Barred Metal Door\Barred Metal Door (S/SE)</category>
+	</item>
+
+	<item id="689">
+		<id>0x689</id>
+		<type>12</type>
+		<category>Buildings\Doors\Barred Metal Door\Barred Metal Door (S/NW)</category>
+	</item>
+
+	<item id="68b">
+		<id>0x68b</id>
+		<type>12</type>
+		<category>Buildings\Doors\Barred Metal Door\Barred Metal Door (S/NE)</category>
+	</item>
+
+	<item id="68d">
+		<id>0x68d</id>
+		<type>12</type>
+		<category>Buildings\Doors\Barred Metal Door\Barred Metal Door (W/SE)</category>
+	</item>
+
+	<item id="68f">
+		<id>0x68f</id>
+		<type>12</type>
+		<category>Buildings\Doors\Barred Metal Door\Barred Metal Door (W/NE)</category>
+	</item>
+
+	<item id="691">
+		<id>0x691</id>
+		<type>12</type>
+		<category>Buildings\Doors\Barred Metal Door\Barred Metal Door (W/SW)</category>
+	</item>
+
+	<item id="693">
+		<id>0x693</id>
+		<type>12</type>
+		<category>Buildings\Doors\Barred Metal Door\Barred Metal Door (W/NW)</category>
+	</item>
+
+	<!-- Rattan Door -->
+	<item id="695">
+		<id>0x695</id>
+		<type>12</type>
+		<category>Buildings\Doors\Rattan Door\Rattan Door (S/SW)</category>
+	</item>
+
+	<item id="697">
+		<id>0x697</id>
+		<type>12</type>
+		<category>Buildings\Doors\Rattan Door\Rattan Door (S/SE)</category>
+	</item>
+
+	<item id="699">
+		<id>0x699</id>
+		<type>12</type>
+		<category>Buildings\Doors\Rattan Door\Rattan Door (S/NW)</category>
+	</item>
+
+	<item id="69b">
+		<id>0x69b</id>
+		<type>12</type>
+		<category>Buildings\Doors\Rattan Door\Rattan Door (S/NE)</category>
+	</item>
+
+	<item id="69d">
+		<id>0x69d</id>
+		<type>12</type>
+		<category>Buildings\Doors\Rattan Door\Rattan Door (W/SE)</category>
+	</item>
+
+	<item id="69f">
+		<id>0x69f</id>
+		<type>12</type>
+		<category>Buildings\Doors\Rattan Door\Rattan Door (W/NE)</category>
+	</item>
+
+	<item id="6a1">
+		<id>0x6a1</id>
+		<type>12</type>
+		<category>Buildings\Doors\Rattan Door\Rattan Door (W/SW)</category>
+	</item>
+
+	<item id="6a3">
+		<id>0x6a3</id>
+		<type>12</type>
+		<category>Buildings\Doors\Rattan Door\Rattan Door (W/NW)</category>
+	</item>
+
+	<!-- Wooden Door 1 -->
+	<item id="6a5">
+		<id>0x6a5</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (S/SW)</category>
+	</item>
+
+	<item id="6a7">
+		<id>0x6a7</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (S/SE)</category>
+	</item>
+
+	<item id="6a9">
+		<id>0x6a9</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (S/NW)</category>
+	</item>
+
+	<item id="6ab">
+		<id>0x6ab</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (S/NE)</category>
+	</item>
+
+	<item id="6ad">
+		<id>0x6ad</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (W/SE)</category>
+	</item>
+
+	<item id="6af">
+		<id>0x6af</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (W/NE)</category>
+	</item>
+
+	<item id="6b1">
+		<id>0x6b1</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (W/SW)</category>
+	</item>
+
+	<item id="6b3">
+		<id>0x6b3</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 1\Wooden Door 1 (W/NW)</category>
+	</item>
+
+	<!-- Wooden Door 2 -->
+	<item id="6b5">
+		<id>0x6b5</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (S/SW)</category>
+	</item>
+
+	<item id="6b7">
+		<id>0x6b7</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (S/SE)</category>
+	</item>
+
+	<item id="6b9">
+		<id>0x6b9</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (S/NW)</category>
+	</item>
+
+	<item id="6bb">
+		<id>0x6bb</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (S/NE)</category>
+	</item>
+
+	<item id="6bd">
+		<id>0x6bd</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (W/SE)</category>
+	</item>
+
+	<item id="6bf">
+		<id>0x6bf</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (W/NE)</category>
+	</item>
+
+	<item id="6c1">
+		<id>0x6c1</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (W/SW)</category>
+	</item>
+
+	<item id="6c3">
+		<id>0x6c3</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 2\Wooden Door 2 (W/NW)</category>
+	</item>
+
+	<!-- Metal Door 2 -->
+	<item id="6c5">
+		<id>0x6c5</id>
+		<type>12</type>
+		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (S/SW)</category>
+	</item>
+
+	<item id="6c7">
+		<id>0x6c7</id>
+		<type>12</type>
+		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (S/SE)</category>
+	</item>
+
+	<item id="6c9">
+		<id>0x6c9</id>
+		<type>12</type>
+		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (S/NW)</category>
+	</item>
+
+	<item id="6cb">
+		<id>0x6cb</id>
+		<type>12</type>
+		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (S/NE)</category>
+	</item>
+
+	<item id="6cd">
+		<id>0x6cd</id>
+		<type>12</type>
+		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (W/SE)</category>
+	</item>
+
+	<item id="6cf">
+		<id>0x6cf</id>
+		<type>12</type>
+		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (W/NE)</category>
+	</item>
+
+	<item id="6d1">
+		<id>0x6d1</id>
+		<type>12</type>
+		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (W/SW)</category>
+	</item>
+
+	<item id="6d3">
+		<id>0x6d3</id>
+		<type>12</type>
+		<category>Buildings\Doors\Metal Door 2\Metal Door 2 (W/NW)</category>
+	</item>
+
+	<!-- Wooden Door 3 -->
+	<item id="6d5">
+		<id>0x6d5</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (S/SW)</category>
+	</item>
+
+	<item id="6d7">
+		<id>0x6d7</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (S/SE)</category>
+	</item>
+
+	<item id="6d9">
+		<id>0x6d9</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (S/NW)</category>
+	</item>
+
+	<item id="6db">
+		<id>0x6db</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (S/NE)</category>
+	</item>
+
+	<item id="6dd">
+		<id>0x6dd</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (W/SE)</category>
+	</item>
+
+	<item id="6df">
+		<id>0x6df</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (W/NE)</category>
+	</item>
+
+	<item id="6e1">
+		<id>0x6e1</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (W/SW)</category>
+	</item>
+
+	<item id="6e3">
+		<id>0x6e3</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 3\Wooden Door 3 (W/NW)</category>
+	</item>
+
+	<!-- Wooden Door 4 -->
+	<item id="6e5">
+		<id>0x6e5</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (S/SW)</category>
+	</item>
+
+	<item id="6e7">
+		<id>0x6e7</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (S/SE)</category>
+	</item>
+
+	<item id="6e9">
+		<id>0x6e9</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (S/NW)</category>
+	</item>
+
+	<item id="6eb">
+		<id>0x6eb</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (S/NE)</category>
+	</item>
+
+	<item id="6ed">
+		<id>0x6ed</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (W/SE)</category>
+	</item>
+
+	<item id="6ef">
+		<id>0x6ef</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (W/NE)</category>
+	</item>
+
+	<item id="6f1">
+		<id>0x6f1</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (W/SW)</category>
+	</item>
+
+	<item id="6f3">
+		<id>0x6f3</id>
+		<type>12</type>
+		<category>Buildings\Doors\Wooden Door 4\Wooden Door 4 (W/NW)</category>
+	</item>
+
+	<!-- Portcullis -->
+	<item id="6f5">
+		<id>0x6f5</id>
+		<category>Buildings\Doors\Portcullis (N/S)</category>
+	</item>
+
+	<item id="6f6">
+		<id>0x6f6</id>
+		<category>Buildings\Doors\Portcullis (W/E)</category>
+	</item>
 </definitions>
