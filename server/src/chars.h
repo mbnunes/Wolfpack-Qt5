@@ -63,26 +63,8 @@ class cChar : public cUObject
 {
 // Public Data Members
 public:
-	UINT8 notority( P_CHAR pChar ); // Gets the notority toward another char
-	void kill();
-	void resurrect();
-	void turnTo( cUObject *object );
-	P_CHAR unmount();
-	void mount( P_CHAR pMount );
-
     enum enInputMode { enNone, enRenameRune, enPricing, enDescription, enNameDeed, enHouseSign, enPageGM, enPageCouns};
 	//  Chaos/Order Guild Stuff for Ripper
-	
-	
-	bool	canMoveAll( void ) { return priv2_&0x01; }
-	bool	isFrozen( void ) { return priv2_&0x02; }	
-	bool	viewHouseIcons( void ) { return priv2_&0x04; }	
-	bool	isHiddenPermanently( void ) { return priv2_&0x08; }
-
-	
-	
-	
-	
 	
 	
 	
@@ -684,6 +666,16 @@ public:
 
 	void					clearLastSelections( void );
 
+	UINT8 notority( P_CHAR pChar ); // Gets the notority toward another char
+	void kill();
+	void resurrect();
+	void turnTo( cUObject *object );
+	P_CHAR unmount();
+	void mount( P_CHAR pMount );
+	bool	canMoveAll( void ) { return priv2_&0x01; }
+	bool	isFrozen( void ) { return priv2_&0x02; }	
+	bool	viewHouseIcons( void ) { return priv2_&0x04; }	
+	bool	isHiddenPermanently( void ) { return priv2_&0x08; }
 	void wear( P_ITEM );
 	void updateWornItems();
 	void updateWornItems( cUOSocket* );
