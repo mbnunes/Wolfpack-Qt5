@@ -11,10 +11,4 @@
 -->
 <definitions>
 
-	<region name="tokuno_teleports">
-		<!-- The World -->
-		<!--<rectangle x1="1" y1="1" x2="2560" y2="2048" map="4" />-->
-		<!-- Teleports -->
-	</region>
-
 </definitions>
