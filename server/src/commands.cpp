@@ -300,231 +300,6 @@ void commandRemove( cUOSocket* socket, const QString& command, const QStringList
 }
 
 /*
-	\command account
-	\usage - <code>account create username password</code>
-	- <code>account remove username</code>
-	- <code>account set username key value</code>
-	- <code>account show username key</code>
-	Use the create subcommand to create a new account with the given username and password.
-	To remove an account along with all player characters on that account, use the remove
-	subcommand and pass the username to it.
-	To change properties of a given account, use the set subcommand and pass the username,
-	the property key and the new property value to it. See the notes for a list of valid property keys.
-	To view properties of an account, use the show subcommand and pass the property key to it.
-
-	\notes The following properties can be set for accounts:
-	<i>password</i>
-	The account password.
-
-	<i>acl</i>
-	The name of the access control list.
-
-	<i>block</i>
-	Block status of the account.
-
-	In addition to the writeable properties, the following properties can be shown:
-
-	<i>loginattempts</i>
-	How many failed login attempts have been made since the last successful login.
-
-	<i>lastlogin</i>
-	When was the last successful login made.
-
-	<i>chars</i>
-	Prints a list of player characters on this account.
-
-	Valid values for the block property are either on, off or for how long the account should be blocked.
-
-	If you have enabled MD5 passwords, you can only view the hashed password when showing the password property.
-*/
-void commandAccount( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
-{
-	Q_UNUSED( command );
-	// Account Create User Pass
-	// Account Remove User
-	// Account Set User Pass
-	// Account Show User Pass
-	if ( args.count() == 0 )
-	{
-		socket->sysMessage( tr( "Usage: account <create|remove|set|show>" ) );
-		return;
-	}
-
-	QString subCommand = args[0].lower();
-
-	// Create Accounts
-	if ( subCommand == "create" )
-	{
-		// Create a new account
-		if ( args.count() < 3 )
-		{
-			socket->sysMessage( tr( "Usage: account create <username> <password>" ) );
-		}
-		else if ( Accounts::instance()->getRecord( args[1].left( 30 ) ) )
-		{
-			socket->sysMessage( tr( "Account '%1' already exists" ).arg( args[1].left( 30 ) ) );
-		}
-		else
-		{
-			Accounts::instance()->createAccount( args[1].left( 30 ), args[2].left( 30 ) );
-			socket->sysMessage( tr( "Account '%1' with password '%2' has been created" ).arg( args[1].left( 30 ) ).arg( args[2].left( 30 ) ) );
-		}
-	}
-
-	// Remove an Account and all associated characters
-	else if ( subCommand == "remove" )
-	{
-		if ( args.count() < 2 )
-		{
-			socket->sysMessage( tr( "Usage: account remove <username>" ) );
-		}
-		else if ( !Accounts::instance()->getRecord( args[1].left( 30 ) ) )
-		{
-			socket->sysMessage( tr( "Account '%1' does not exist" ).arg( args[1].left( 30 ) ) );
-		}
-		else
-		{
-			cAccount* account = Accounts::instance()->getRecord( args[1].left( 30 ) );
-			QValueVector<P_PLAYER> characters = account->caracterList();
-			Accounts::instance()->remove( account );
-			UINT32 i = 0;
-			for ( ; i < characters.size(); ++i )
-				if ( characters[i] )
-					characters[i]->remove();
-
-			socket->sysMessage( tr( "Account '%1' and %2 characters have been removed" ).arg( args[1].left( 30 ) ).arg( i + 1 ) );
-		}
-	}
-
-	// Set properties of accounts
-	else if ( subCommand == "set" )
-	{
-		if ( args.count() < 4 )
-		{
-			socket->sysMessage( tr( "Usage: account set <username> <key> <value>" ) );
-		}
-		else if ( !Accounts::instance()->getRecord( args[1].left( 30 ) ) )
-		{
-			socket->sysMessage( tr( "Account '%1' does not exist" ).arg( args[1].left( 30 ) ) );
-		}
-		else
-		{
-			cAccount* account = Accounts::instance()->getRecord( args[1].left( 30 ) );
-			QString key = args[2];
-			QString value = args[3];
-
-			if ( key == "password" )
-			{
-				account->setPassword( value.left( 30 ) ); // Maximum of 30 Chars allowed
-				socket->sysMessage( tr( "The password of account '%1' has been set to '%2'" ).arg( account->login() ).arg( value.left( 30 ) ) );
-			}
-			else if ( key == "block" )
-			{
-				if ( value.lower() == "on" )
-				{
-					account->setBlocked( true );
-					socket->sysMessage( tr( "Account '%1' has been blocked" ).arg( account->login() ) );
-				}
-				else if ( value.lower() == "off" )
-				{
-					account->setBlocked( false );
-					socket->sysMessage( tr( "Account '%1' has been unblocked" ).arg( account->login() ) );
-				}
-				else
-				{
-					bool ok = false;
-					UINT32 blockTime = hex2dec( value ).toUInt( &ok );
-
-					if ( ok )
-					{
-						account->block( blockTime );
-						socket->sysMessage( tr( "Account '%1' will be blocked for %2 seconds" ).arg( account->login() ).arg( blockTime ) );
-					}
-					else
-					{
-						socket->sysMessage( tr( "Usage: account set <username> block <on|off>" ) );
-					}
-				}
-			}
-			else if ( key == "acl" )
-			{
-				if ( !Commands::instance()->getACL( value.latin1() ) )
-				{
-					socket->sysMessage( tr( "You tried to specify an unknown acl '%1'" ).arg( value ) );
-				}
-				else
-				{
-					account->setAcl( value );
-					account->refreshAcl();
-				}
-			}
-			else
-			{
-				socket->sysMessage( tr( "Unknown field '%1' for account '%2'" ).arg( args[2] ).arg( account->login() ) );
-			}
-		}
-	}
-	// Show properties of accounts
-	else if ( subCommand == "show" )
-	{
-		if ( args.count() < 3 )
-		{
-			socket->sysMessage( tr( "Usage: account show <username> <key>" ) );
-		}
-		else if ( !Accounts::instance()->getRecord( args[1].left( 30 ) ) )
-		{
-			socket->sysMessage( tr( "Account '%1' does not exist" ).arg( args[1].left( 30 ) ) );
-		}
-		else
-		{
-			cAccount* account = Accounts::instance()->getRecord( args[1].left( 30 ) );
-			QString key = args[2];
-
-			if ( key == "password" )
-			{
-				socket->sysMessage( tr( "The password of account '%1' is '%2'" ).arg( account->login() ).arg( account->password() ) );
-			}
-			else if ( key == "block" )
-			{
-				if ( account->isBlocked() )
-					socket->sysMessage( tr( "Account '%1' is currently blocked" ).arg( account->login() ) );
-				else if ( account->secsToUnblock() )
-					socket->sysMessage( tr( "Account '%1' will be unblocked in %2 seconds" ).arg( account->login() ).arg( account->secsToUnblock() ) );
-				else
-					socket->sysMessage( tr( "Account '%1' is currently not blocked" ).arg( account->login() ) );
-			}
-			else if ( key == "loginattempts" )
-			{
-				socket->sysMessage( tr( "There were %1 unsuccesul login attempts for account '%2'" ).arg( account->loginAttempts() ).arg( account->login() ) );
-			}
-			else if ( key == "lastlogin" )
-			{
-				socket->sysMessage( tr( "The last login of account '%1' was on %2" ).arg( account->login() ).arg( account->lastLogin().toString( Qt::ISODate ) ) );
-			}
-			else if ( key == "acl" )
-			{
-				socket->sysMessage( tr( "The acl of account '%1' is %2" ).arg( account->login() ).arg( account->acl() ) );
-			}
-			else if ( key == "chars" )
-			{
-				QStringList sCharList;
-				QValueVector<P_PLAYER> pCharList = account->caracterList();
-
-				for ( UINT32 i = 0; i < pCharList.size(); ++i )
-					if ( pCharList[i] )
-						sCharList.push_back( QString( "0x%1" ).arg( pCharList[i]->serial(), 8, 16 ) );
-
-				socket->sysMessage( tr( "Account '%1' has the following characters: %2" ).arg( account->login() ).arg( sCharList.join( ", " ) ) );
-			}
-			else
-			{
-				socket->sysMessage( tr( "Unknown field '%1' for account '%2'" ).arg( args[2] ).arg( account->login() ) );
-			}
-		}
-	}
-}
-
-/*
 	\command tele
 	\description Transports you directly to the targetted location.
 */
@@ -1332,25 +1107,24 @@ void commandDoorGenerator( cUOSocket* socket, const QString& command, const QStr
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
-	{ "ACCOUNT", commandAccount }, 
 	{ "ALLMOVE", commandAllMove },
-	{ "ALLSHOW", commandAllShow }, 
-	{ "ALLSKILLS", commandAllSkills }, 
-	{ "BROADCAST", commandBroadcast }, 
-	{ "DOORGEN", commandDoorGenerator }, 
-	{ "FIX", commandFix }, 
-	{ "GMTALK", commandGmtalk }, 
-	{ "INVIS", commandInvis }, 
-	{ "KILL", commandKill }, 
-	{ "MOVE", commandMove }, 
-	{ "PAGES", commandPages }, 
-	{ "PAGENOTIFY", commandPageNotify }, 
-	{ "PASSWORD", commandPassword }, 
-	{ "RELOAD", commandReload }, 
-	{ "REMOVE", commandRemove }, 
-	{ "RESEND", commandResend }, 
-	{ "RESTOCK", commandRestock }, 
-	{ "SAVE", commandSave }, 
+	{ "ALLSHOW", commandAllShow },
+	{ "ALLSKILLS", commandAllSkills },
+	{ "BROADCAST", commandBroadcast },
+	{ "DOORGEN", commandDoorGenerator },
+	{ "FIX", commandFix },
+	{ "GMTALK", commandGmtalk },
+	{ "INVIS", commandInvis },
+	{ "KILL", commandKill },
+	{ "MOVE", commandMove },
+	{ "PAGES", commandPages },
+	{ "PAGENOTIFY", commandPageNotify },
+	{ "PASSWORD", commandPassword },
+	{ "RELOAD", commandReload },
+	{ "REMOVE", commandRemove },
+	{ "RESEND", commandResend },
+	{ "RESTOCK", commandRestock },
+	{ "SAVE", commandSave },
 	{ "SERVERTIME", commandServerTime },
 	{ "SET", commandSet },
 	{ "SHOW", commandShow },
