@@ -26,10 +26,11 @@ def timer(char, args):
 		return
 
 	# Move the gm
-	char.removefromview()
-	char.moveto(target.pos)
-	char.update()
-	socket.resendworld()
+	if char.pos != target.pos:
+		char.removefromview()
+		char.moveto(target.pos)
+		char.update()
+		socket.resendworld()
 	
 	char.addtimer(1500, 'commands.follow.timer', [], False, False, 'FOLLOW_TIMER')
 
