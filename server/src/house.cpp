@@ -367,6 +367,13 @@ void cHouse::registerInFactory()
 
 void cHouse::sendCH( cUOSocket* socket )
 {
+	cUOTxSendItem deed;
+
+	deed.setSerial( serial() );
+	deed.setId( 0x01 );
+	deed.setAmount( 1 );
+	deed.setCoord( pos() );
+
 	cUOTxCustomHouse customhouse;
 	customhouse.setSerial( this->serial() );
 	customhouse.setCompression( 0 );	
@@ -375,5 +382,6 @@ void cHouse::sendCH( cUOSocket* socket )
 	for( UINT32 i = 0; i < chtiles_.count(); i++ )
 		customhouse.addTile( chtiles_[i].model(), chtiles_[i].pos() );
 	
+	socket->send( &deed );
 	socket->send( &customhouse );
 }

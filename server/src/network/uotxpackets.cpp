@@ -592,15 +592,14 @@ void cUOTxTooltipList::addLine( UINT32 id, QString params )
 	setInt( size() - 4, 0 );
 }
 
-void cUOTxCustomHouse::addTile( UINT16 id, UINT8 x, UINT8 y, UINT8 z )
+void cUOTxCustomHouse::addTile( UINT16 id, short x, short y, short z )
 {
-	UINT32 sz = size();
-	resize( sz + 5 );
+	UINT32 sz = size() + 5;
+	resize( sz );
 	// Increase counters
 	setShort( 1, sz );					// total len
 	setShort( 13, getShort( 13 ) + 1 );	// tiles count
 	setShort( 15, sz - 0x11 );			// tiles data len
-
 	setShort( sz - 5, id );
 	(*this)[sz - 3] = x;
 	(*this)[sz - 2] = y;
