@@ -161,6 +161,7 @@
 	<!-- Summoned -->
 	<include file="definitions/npcs/monsters/summoned/blade_spirit.xml"/>
 	<include file="definitions/npcs/monsters/summoned/tinkered_golem.xml"/>
+	<include file="definitions/npcs/monsters/summoned/energy_vortex.xml" />
 
 	<!-- Terathen -->
 	<include file="definitions/npcs/monsters/terathen/terathen_avenger.xml"/>

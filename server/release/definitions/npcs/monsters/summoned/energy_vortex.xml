@@ -1,0 +1,34 @@
+
+<definitions>
+
+	<!-- Energy Vortex -->
+	<npc id="energy_vortex">
+		<name>an energy vortex</name>
+		<wandertype>1</wandertype>
+		<ai>Monster_Berserk</ai>
+		<id>0xA4</id>
+		<karma>0</karma>
+		<fame>0</fame>
+		<!-- Stats -->
+		<str>250</str>
+		<dex>150</dex>
+		<int>100</int>
+		<!-- Skills -->
+		<magicresistance>700</magicresistance>
+		<tactics>900</tactics>
+		<wrestling>900</wrestling>
+		<!-- Damage -->
+		<tag name="mindamage" value="20" type="int" />
+		<tag name="maxdamage" value="28" type="int" />
+		<tag name="dmg_energy" value="100" type="int" />
+		<!-- Resists -->
+		<tag name="res_cold" value="30,40" type="int" />
+		<tag name="res_energy" value="20,30" type="int" />
+		<tag name="res_fire" value="40,50" type="int" />
+		<tag name="res_physical" value="30,40" type="int" />
+		<tag name="res_poison" value="100" type="int" />
+		<!-- Misc. -->
+		<category>Monsters\Summoned\Energy Vortex</category>
+	</npc>
+
+</definitions>
