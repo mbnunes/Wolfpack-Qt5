@@ -137,11 +137,10 @@ void CheckPoisoning( cUOSocket *socket, P_CHAR pc_attacker, P_CHAR pc_defender)
 			pc_defender->setPoisoned(pc_attacker->poison());
 			pc_defender->setPoisontime(uiCurrentTime+(MY_CLOCKS_PER_SEC*(40/pc_defender->poisoned()))); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
 			pc_defender->setPoisonwearofftime(pc_defender->poisontime()+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer())); //wear off starts after poison takes effect - AntiChrist
+			pc_defender->resend( false );
+
 			if( socket )
-			{
-				socket->updatePlayer();
 				socket->sysMessage( tr("You have been poisoned!" ) );
-			}
 		}
 	}
 }
@@ -765,12 +764,7 @@ static void SetWeaponTimeout( P_CHAR Attacker, P_ITEM Weapon )
 void cCombat::DoCombatAnimations( P_CHAR pc_attacker, P_CHAR pc_defender, int fightskill, int bowtype, int los )
 {
 	// Check that pc_attacker is facing the right direction
-	UINT8 dir = 7-chardir( pc_defender, pc_attacker );
-	if( dir != pc_attacker->dir )
-	{
-		pc_attacker->dir = dir;
-		pc_attacker->resend( false );
-	}
+	pc_attacker->turnTo( pc_defender );
 
 	UINT16 id = pc_attacker->id();
 
@@ -845,23 +839,7 @@ void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 		pc_attacker->resetAttackFirst();
 
 		// Send a warmode update
-		cUOTxUpdatePlayer updatePlayer;
-		updatePlayer.fromChar( pc_attacker );
-
-		RegionIterator4Chars cIter( pc_attacker->pos );
-		for( cIter.Begin(); !cIter.atEnd(); cIter++ )
-		{
-			P_CHAR pChar = cIter.GetData();
-			if( pChar && pChar->socket() && pChar->inRange( pc_attacker, pChar->VisRange ) )
-			{
-				// Check if pChar can see pc_attacker
-				if( ( pChar == pc_attacker ) || !pc_attacker->isHidden() || ( pc_attacker->isHidden() && pChar->isGM() ) )
-				{
-					updatePlayer.setHighlight( pc_attacker->notority( pChar ) );
-					pChar->socket()->send( &updatePlayer );
-				}
-			}
-		}
+		pc_attacker->resend( false );
 		
 		// Update the little button on the paperdoll
 		if( pc_attacker->socket() )
@@ -1441,7 +1419,7 @@ void cCombat::SpawnGuard( P_CHAR pc_offender, P_CHAR pc_caller, const Coord_cl &
 		pc_guard->soundEffect( 0x1FE );
 		staticeffect( pc_guard, 0x37, 0x2A, 0x09, 0x06 );
 
-		pc_guard->update(); // Update warmode status to other players
+		pc_guard->resend( false ); // Update warmode status to other players
 
 		// 50% talk chance
 		switch( RandomNum( 0, 4 ) )

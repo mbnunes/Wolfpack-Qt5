@@ -35,6 +35,7 @@
 #include "worldmain.h"
 #include "progress.h"
 #include "charsmgr.h"
+#include "corpse.h"
 #include "itemsmgr.h"
 #include "TmpEff.h"
 #include "guildstones.h"
@@ -225,6 +226,8 @@ void CWorldMain::loadnewworld(QString module) // Load world
 	clConsole.send(" Done.\n");
 	archive->close();
 
+	SERIAL newCont;
+
 	// Load Items
 	archive->prepareReading( "items" ); // Load Items
 	clConsole.send( "Loading Items %i...\n", archive->size() );
@@ -237,7 +240,6 @@ void CWorldMain::loadnewworld(QString module) // Load world
 		{
 			pi = new cItem;
 		} 
-#pragma note("needs a closer look if the dyncasted pointers work that way in the inheritance tree!")
 		else if ( objectID == "HOUSE" )
 		{
 			pi = dynamic_cast<P_ITEM>(new cHouse);
@@ -254,18 +256,24 @@ void CWorldMain::loadnewworld(QString module) // Load world
 		{
 			pi = dynamic_cast<P_ITEM>(new cGuildStone);
 		}
+		else if( objectID == "CORPSE" )
+		{
+			pi = dynamic_cast<P_ITEM>(new cCorpse);
+		}
 		else // somethine went wrong and we have a NULL pointer.
 			continue; 
-		pi->Init(false);
+
+		pi->Init( false );
 		archive->readObject( pi );
 		cItemsManager::getInstance()->registerItem( pi );
-		if ( objectID == "GUILDSTONE" ) // register as guild as well
+		if( objectID == "GUILDSTONE" ) // register as guild as well
 			guilds.push_back(pi->serial);
 		pi->timeused_last = getNormalizedTime();
+
 		// Set the outside indices
-		pi->SetSpawnSerial(pi->spawnserial);
-		pi->setContSerial(pi->contserial);
-		pi->SetOwnSerial(pi->ownserial);
+		pi->SetSpawnSerial( pi->spawnserial );
+		pi->setContSerial( pi->contserial );
+		pi->SetOwnSerial( pi->ownserial );
 
 		if( pi->maxhp() == 0) 
 			pi->setMaxhp( pi->hp() );

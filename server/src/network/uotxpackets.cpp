@@ -411,8 +411,34 @@ void cUOTxCorpseEquipment::addItem( UINT8 layer, UINT32 serial )
 {
 	INT32 offset = rawPacket.count()-1;
 	rawPacket.resize( rawPacket.size() + 5 );
+	setShort( 1, rawPacket.size() );
 
 	rawPacket[ offset ] = layer;
 	setInt( offset+1, serial );
 	rawPacket[ offset + 5 ] = 0;
+}
+
+void cUOTxItemContent::addItem( P_ITEM pItem )
+{
+	if( !pItem )
+		return;
+
+	addItem( pItem->serial, pItem->id(), pItem->color(), pItem->pos.x, pItem->pos.y, pItem->amount(), pItem->contserial );
+}
+
+void cUOTxItemContent::addItem( SERIAL serial, UINT16 id, UINT16 color, UINT16 x, UINT16 y, UINT16 amount, UINT32 container )
+{
+	INT32 offset = rawPacket.size();
+	rawPacket.resize( rawPacket.size() + 19 );
+	setShort( 3, getShort( 3 ) + 1 );
+	setShort( 1, rawPacket.size() );
+
+	setInt( offset, serial );	
+	setShort( offset+4, id );
+	rawPacket[ offset+6] = 0;
+	setShort( offset+7, amount );
+	setShort( offset+9, x );
+	setShort( offset+11, y );
+	setInt( offset+13, container );
+	setShort( offset+17, color );
 }

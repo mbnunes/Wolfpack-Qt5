@@ -305,6 +305,122 @@ bool mayWalk( P_CHAR pChar, Coord_cl &pos )
 }
 
 /*!
+	This is called when a character
+	collides with an item and this
+	checks for special effects the item could have
+*/
+void handleItemCollision( P_CHAR pChar, P_ITEM pItem )
+{
+	Coord_cl dPos = pChar->pos;
+
+	// Decide what to do on type first.
+	switch( pItem->type() )
+	{
+	// Gate
+	case 51:
+	case 52:
+		dPos.x = pItem->morex;
+		dPos.y = pItem->morey;
+		dPos.z = pItem->morez;
+
+		// Soundeffect before teleport
+		pChar->soundEffect( 0x1FE );
+
+		// Teleport us
+		pChar->removeFromView( false );
+		pChar->moveTo( dPos );
+		pChar->resend( false );
+
+		// And soundeffect after
+		pChar->soundEffect( 0x1FE );
+		staticeffect( pChar, 0x37, 0x2A, 0x09, 0x06 );
+
+		// Teleport pets
+		RegionIterator4Chars iter( pChar->pos );
+		for( iter.Begin(); !iter.atEnd(); iter++ )
+		{
+			P_CHAR pPet = iter.GetData();
+			if( pPet->isNpc() && ( pPet->ftarg == pChar->serial ) )
+			{
+				if( pPet->inRange( pItem, 4 ) )
+				{
+					pPet->removeFromView( false );
+					pPet->moveTo( dPos );
+					pPet->resend( false );
+				}
+			}
+		}
+		return;
+	};
+
+	switch( pItem->id() )
+	{
+	// Fire Field
+	case 0x3996:
+	case 0x398c:
+		if( !Magic->CheckResist( NULL, pChar, 4 ) )
+			Magic->MagicDamage( pChar, pItem->morex/3000 );
+		pChar->soundEffect( 0x208 );
+		return;
+
+	//Poison field
+	case 0x3915:
+	case 0x3920:
+		if( !Magic->CheckResist( NULL, pChar, 5 ) )
+			Magic->PoisonDamage( pChar, 1 );
+		pChar->soundEffect( 0x208 );
+		return;
+
+	// Para field
+	case 0x3979:
+	case 0x3967:
+		if( !Magic->CheckResist( NULL, pChar, 6 ) )
+			tempeffect( pChar, pChar, 1, 0, 0, 0 );
+		pChar->soundEffect( 0x204 );
+		return;
+	};
+}
+
+/*!
+	Sends items which came in range and
+	handles collisions with teleporters
+	or damaging items.
+*/
+void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
+{
+	cUOSocket *socket = pChar->socket();
+
+	teleporters( pChar );
+
+	RegionIterator4Items iter( pChar->pos );
+	for( iter.Begin(); !iter.atEnd(); iter++ )
+	{
+		// Check if the item got newly in range
+		P_ITEM pItem = iter.GetData();
+
+		if( !pItem )
+			continue;
+
+		// Check for item collisions here.
+		if( ( pChar->pos.x == pItem->pos.x ) && ( pChar->pos.y == pItem->pos.y ) && ( pItem->pos.z > pChar->pos.z ) && ( pItem->pos.z <= pChar->pos.z + 5 ) )
+		{
+			handleItemCollision( pChar, pItem );
+		}
+
+		// If we are a connected player then send new items
+		if( socket )
+		{
+			UINT32 oldDist = oldpos.distance( pItem->pos );
+			UINT32 newDist = pChar->pos.distance( pItem->pos );
+
+			// Was out of range before and now is in range
+			if( oldDist > pChar->VisRange && newDist <= pChar->VisRange )
+				pItem->update( socket );
+		}
+	}
+}
+
+/*!
 	This handles if a character actually tries to walk (NPC & Player)
 */
 void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
@@ -390,7 +506,8 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		// We moved so let's update our location
 		pChar->moveTo( newCoord );
 		cAllTerritories::getInstance()->check( pChar );
-		
+
+		handleItems( pChar, oldpos );
 		/*HandleTeleporters(pChar, socket, oldpos);
 		HandleWeatherChanges(pChar, socket);
 		HandleItemCollision(pChar, socket, amTurning);*/
@@ -419,11 +536,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	/*
 		
 	// i'm afraid i don't know what this does really, do you need to do it when turning??
-	HandleGlowItems(pChar, socket);
-	
-	// would have already collided, right??
-	if (!amTurning && pChar->isPlayer())
-		Magic->GateCollision(pChar);*/
+	HandleGlowItems(pChar, socket);*/
 }
 
 // Thyme 07/28/00
@@ -1006,18 +1119,8 @@ void cMovement::handleItemCollision( P_CHAR pChar )
 }
 
 void cMovement::HandleTeleporters(P_CHAR pc, UOXSOCKET socket, const Coord_cl& oldpos)
-// PARAM WARNING: unreferenced paramater socket
-{
-	// now this is one wacky optimization. if we haven't moved don't do this
-	// well, we wouldn't be in Walking() if we weren't trying to move!
-	if ((pc->pos.x != oldpos.x) || (pc->pos.y != oldpos.y))
-	{
-//		if ( pc->isPlayer())
-//			objTeleporters( pc );   // ripper
-		teleporters( pc );
-	}
+{	
 }
-
 
 /********* start of LB's no rain & snow in buildings stuff ***********/
 void cMovement::HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket)

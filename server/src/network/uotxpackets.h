@@ -849,7 +849,9 @@ public:
 class cUOTxCorpseEquipment: public cUOPacket
 {
 public:
-	cUOTxCorpseEquipment(): cUOPacket( 0x89, 4 ) { setShort( 1, 4 ); }
+	cUOTxCorpseEquipment(): cUOPacket( 0x89, 8 ) { setShort( 1, 8 ); }
+
+	void setSerial( UINT32 data ) { setInt( 3, data ); }
 	void addItem( UINT8 layer, UINT32 serial );
 };
 
@@ -858,6 +860,15 @@ class cUOTxCharDeath: public cUOPacket
 {
 public:
 	cUOTxCharDeath(): cUOPacket( 0x2C, 2 ) {}
+};
+
+// 0x3C ItemContent
+class cUOTxItemContent: public cUOPacket
+{
+public:
+	cUOTxItemContent(): cUOPacket( 0x3C, 5 ) { setShort( 1, 5 ); }
+	void addItem( P_ITEM pItem );
+	void addItem( SERIAL serial, UINT16 id, UINT16 color, UINT16 x, UINT16 y, UINT16 amount, UINT32 container );
 };
 
 #endif

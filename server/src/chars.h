@@ -62,6 +62,7 @@ public:
 	UINT8 notority( P_CHAR pChar ); // Gets the notority toward another char
 	void kill();
 	void resurrect();
+	void turnTo( cUObject *object );
 
     enum enInputMode { enNone, enRenameRune, enPricing, enDescription, enNameDeed, enHouseSign, enPageGM, enPageCouns};
 	//  Chaos/Order Guild Stuff for Ripper

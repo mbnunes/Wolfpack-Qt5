@@ -42,6 +42,7 @@
 #include "debug.h"
 #include "tilecache.h"
 #include "TmpEff.h"
+#include "corpse.h"
 #include "globals.h"
 #include "wolfpack.h"
 #include "iserialization.h"
@@ -1690,12 +1691,19 @@ void cChar::emote( const QString &emote, UI16 color )
 	if( color == 0xFFFF )
 		color = emotecolor;
 
-	cUnicodeSpeech textSpeech( this, emote, color, 3, "ENU", SP_EMOTE );
+	cUOTxUnicodeSpeech textSpeech;
+	textSpeech.setSource( serial );
+	textSpeech.setModel( id() );
+	textSpeech.setFont( 3 ); // Default Font
+	textSpeech.setType( cUOTxUnicodeSpeech::Emote );
+	textSpeech.setLanguage( "ENU" );
+	textSpeech.setName( name.c_str() );
+	textSpeech.setColor( color );
+	textSpeech.setText( emote );
 	
-	// Send to all clients in range
-	for( UOXSOCKET s = 0; s < now; s++ )
-		if( perm[ s ] && inrange1p( this, currchar[ s ] ) )
-			textSpeech.send( s );
+	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->VisRange ) )
+			mSock->send( &textSpeech );
 }
 
 void cChar::message( const QString &message, UI16 color )
@@ -1870,7 +1878,7 @@ void cChar::resend( bool clean )
 	{
 		P_CHAR pChar = ri.GetData();
 
-		if( !pChar || !pChar->socket() || pChar == this )
+		if( !pChar || !pChar->socket() )
 			continue;
 
 		if( pChar->pos.distance( pos ) > pChar->VisRange )
@@ -2198,16 +2206,36 @@ void cChar::kill()
 	// Reset poison
 	setPoisoned(0);
 	setPoison(0);
-		
-#pragma note( "A corpse has to be present with the script-id 2006 in the defs" )
-	// Create our Corpse
-	P_ITEM pi_c = Items->createScriptItem( "2006" );
-	
-	if( !pi_c )
-		return;
 
-	pi_c->setName( tr( "corpse of %1" ).arg( name.c_str() ) );
-	pi_c->setColor( skin() );
+	// Create our Corpse
+	cCorpse *corpse = new cCorpse;
+	corpse->Init( true );
+	cItemsManager::getInstance()->registerItem( corpse );
+
+	QDomElement *elem = DefManager->getSection( WPDT_ITEM, "2006" );
+	
+	if( elem && !elem->isNull() )
+		corpse->applyDefinition( (*elem) );
+
+	corpse->setName( tr( "corpse of %1" ).arg( name.c_str() ) );
+	corpse->setColor( xskin() );
+
+	// Check for the player hair/beard
+	P_ITEM pHair = GetItemOnLayer( 11 );
+	
+	if( pHair )
+	{
+		corpse->setHairColor( pHair->color() );
+		corpse->setHairStyle( pHair->id() );
+	}
+
+	P_ITEM pBeard = GetItemOnLayer( 16 );
+	
+	if( pBeard )
+	{
+		corpse->setBeardColor( pBeard->color() );
+		corpse->setBeardStyle( pBeard->id() );
+	}
 
 	// Storing the player's notority
 	// So a singleclick on the corpse
@@ -2215,37 +2243,37 @@ void cChar::kill()
 	if( isPlayer() )
 	{
 	    if( isInnocent() )
-			pi_c->more2 = 1;
+			corpse->more2 = 1;
 	    else if( isCriminal() )
-			pi_c->more2 = 2;
+			corpse->more2 = 2;
 	    else if( isMurderer() )
-			pi_c->more2 = 3;
+			corpse->more2 = 3;
 
-        pi_c->ownserial = serial;
+        corpse->ownserial = serial;
 	}
 
-	pi_c->setAmount( xid );
-	pi_c->morey = ishuman( this ); //is human??
-	pi_c->setCarve( carve() ); //store carve section
-	pi_c->setName2( name.c_str() );
+	corpse->setBodyId( xid );
+	corpse->morey = ishuman( this ); //is human??
+	corpse->setCarve( carve() ); //store carve section
+	corpse->setName2( name.c_str() );
 
-	pi_c->moveTo( pos );
+	corpse->moveTo( pos );
 
-	pi_c->more1 = nType;
-	pi_c->dir = dir;
-	pi_c->startDecay();
+	corpse->more1 = nType;
+	corpse->dir = dir;
+	corpse->startDecay();
 	
 	// If it was a player set the ownerserial to the player's
 	if( isPlayer() )
 	{
-		pi_c->SetOwnSerial(serial);
+		corpse->SetOwnSerial(serial);
 		// This is.... stupid...
-		pi_c->more4 = char( SrvParams->playercorpsedecaymultiplier()&0xff ); // how many times longer for the player's corpse to decay
+		corpse->more4 = char( SrvParams->playercorpsedecaymultiplier()&0xff ); // how many times longer for the player's corpse to decay
 	}
 
 	// stores the time and the murderer's name
-	pi_c->setMurderer( murderer );
-	pi_c->murdertime = uiCurrentTime;
+	corpse->setMurderer( murderer );
+	corpse->murdertime = uiCurrentTime;
 
 	// create loot
 	if( isNpc() )
@@ -2257,7 +2285,7 @@ void cChar::kill()
 		{
 			P_ITEM pi_loot = Items->createScriptItem( (*it) );
 			if( pi_loot )
-				pi_loot->setContSerial( pi_c->serial );
+				pi_loot->setContSerial( corpse->serial );
 
 			it++;
 		}
@@ -2275,7 +2303,6 @@ void cChar::kill()
 		removeItemBonus( pi_j );
 
 		// unequip trigger...
-
 		if( ( pi_j->contserial == serial ) && ( pi_j->layer() != 0x0B ) && ( pi_j->layer() != 0x10 ) )
 		{	// Let's check all items, except HAIRS and BEARD
 			// Ripper...so order/chaos shields disappear when on corpse backpack.
@@ -2300,13 +2327,13 @@ void cChar::kill()
 					// put the item in the corpse only of we're sure it's not a newbie item or a spellbook
 					if( !pi_k->newbie() && ( pi_k->type() != 9 ) )
 					{
-						pi_c->AddItem( pi_k );
+						corpse->AddItem( pi_k );
 						
 						// Ripper...so order/chaos shields disappear when on corpse backpack.
 						if( pi_k->id() == 0x1BC3 || pi_k->id() == 0x1BC4 )
 						{
 							soundEffect( 0x01FE );
-							staticeffect(this, 0x37, 0x2A, 0x09, 0x06);
+							staticeffect( this, 0x37, 0x2A, 0x09, 0x06 );
 							Items->DeleItem( pi_k );
 						}
 					}
@@ -2324,51 +2351,44 @@ void cChar::kill()
 			{
 				if( pi_j != pi_backpack )
 				{
-					pi_c->AddItem( pi_j );
+					corpse->addEquipment( pi_j->layer(), pi_j->serial );
+					corpse->AddItem( pi_j );					
 				}
 			}
 			else if( ( pi_j != pi_backpack ) && ( pi_j->layer() != 0x1D ) )
 			{	
-					// else if the item is newbie put it into char's backpack
-					pi_backpack->AddItem( pi_j );
+				// else if the item is newbie put it into char's backpack
+				pi_backpack->AddItem( pi_j );
 			}
 
 			//if( ( pi_j->layer() == 0x15 ) && ( shop == 0 ) ) 
 			//	pi_j->setLayer( 0x1A );
-			pi_j->removeFromView( false );
-			pi_j->update();
 		}
-	}
-
-	pi_c->update();
+	}	
 
 	cUOTxDeathAction dAction;
 	dAction.setSerial( serial );
-	dAction.setCorpse( pi_c->serial );
+	dAction.setCorpse( corpse->serial );
 
 	cUOTxRemoveObject rObject;
-	rObject.setSerial( serial );
 
 	cUOTxClearBuy rShop;
 	rShop.setSerial( serial );
 
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->VisRange ) )
+		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->VisRange ) && ( mSock != socket_ ) )
 		{
 			if( SrvParams->showDeathAnim() )
 				mSock->send( &dAction );
 
+			rObject.setSerial( serial );
+			mSock->send( &rObject );
+
 			if( resetShop )
 				mSock->send( &rShop );
 		}
-
-	resend( true );
-
-	if( socket_ )
-	{
-		cUOTxCharDeath cDeath;
-		socket_->send( &cDeath );
-	}
+	
+	corpse->update();
 
 	if( isPlayer() )
 	{
@@ -2383,15 +2403,23 @@ void cChar::kill()
 		}
 	}
 
+	resend( true );
+
+	if( socket_ )
+	{
+		cUOTxCharDeath cDeath;
+		socket_->send( &cDeath );
+	}
+
 //	if ((ele==13)||(ele==15)||(ele==16)||(ele==574))//-Frazurbluu, we're gonna remove this strange little function :)
 // it becomes OSI exact with it removed! -Fraz- I DO NEED TO CHECK ENERGY VORTEXS!!!!!!!!!!!!!!!!!!!!!!
 //	{		// *** This looks very strange to me! Turning the shroud into a backpack ??? Duke 9.8.2k ***
-//		strcpy(pi_c->name,"a backpack");
-//		pi_c->color1=0;
-//		pi_c->color2=0;
-//		pi_c->amount = 1;
-//		pi_c->setId(0x09B2);
-//		pi_c->corpse=0;
+//		strcpy(corpse->name,"a backpack");
+//		corpse->color1=0;
+//		corpse->color2=0;
+//		corpse->amount = 1;
+//		corpse->setId(0x09B2);
+//		corpse->corpse=0;
 //	}
 
 	// St00pid -> spawned chars shoudl become invis so they keep their stats
@@ -2401,7 +2429,7 @@ void cChar::kill()
 
 	// Wtf ?? Summoned Creatures -> should be flag
 	// if( ele == 65535 )
-	//	Items->DeleItem( pi_c );
+	//	Items->DeleItem( corpse );
 }
 
 // Formerly NpcResurrectTarget
@@ -2444,4 +2472,38 @@ void cChar::resurrect()
 	pRobe->update();
 
 	resend( false );
+}
+
+void cChar::turnTo( cUObject *object )
+{
+	INT16 xdif = (INT16)( object->pos.x - pos.x );
+	INT16 ydif = (INT16)( object->pos.y - pos.y );
+	UINT8 nDir;
+
+	if( xdif == 0 && ydif < 0 ) 
+		nDir = 0;
+	else if( xdif > 0 && ydif < 0 ) 
+		nDir = 1;
+	else if( xdif > 0 && ydif ==0 ) 
+		nDir = 2;
+	else if( xdif > 0 && ydif > 0 ) 
+		nDir = 3;
+	else if( xdif ==0 && ydif > 0 ) 
+		nDir = 4;
+	else if( xdif < 0 && ydif > 0 ) 
+		nDir = 5;
+	else if( xdif < 0 && ydif ==0 ) 
+		nDir = 6;
+	else if( xdif < 0 && ydif < 0 ) 
+		nDir = 7;
+	else 
+		return;
+
+	if( nDir != dir )
+	{
+		dir = nDir;
+		// TODO: we could try to use an update here because our direction
+		// changed for sure
+		resend( false );
+	}
 }

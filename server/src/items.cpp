@@ -583,7 +583,6 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("st",			st);
 		archive.read("time_unused",	time_unused);
 		archive.read("weight",		weight_);
-		totalweight_ = weight_; // We assume here that setContSerial hasn't been called yet
 		archive.read("hp",			hp_);
 		archive.read("maxhp",		maxhp_);
 		archive.read("rank",		rank);
@@ -1979,7 +1978,7 @@ void cItem::showName( cUOSocket *socket )
 }
 
 // This either sends a ground-item or a backpack item
-void cItem::update()
+void cItem::update( cUOSocket *mSock )
 {
 	// Items on Ground
 	if( isInWorld() )
@@ -1992,22 +1991,22 @@ void cItem::update()
 		sendItem.setCoord( pos );
 		sendItem.setDirection( dir );
 
-		for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
+		if( mSock )
 		{
-			P_CHAR pChar = socket->player();
+			P_CHAR pChar = mSock->player();
 
 			// Only send to sockets in range
 			if( !pChar || ( pChar->pos.distance( pos ) > pChar->VisRange ) )
-				continue;
+				return;
 
 			// Completely invisible
 			if( ( visible == 2 ) && !pChar->isGM() )
-				continue;
+				return;
 
 			// Visible to owners and GMs only
 			else if( ( visible == 1 ) && !pChar->Owns( this ) && !pChar->isGM() )
-				continue;
-            
+				return;
+	        
 			if( isAllMovable() )
 				sendItem.setFlags( 0x20 );
 			else if( pChar->canMoveAll() )
@@ -2020,7 +2019,40 @@ void cItem::update()
 
 			// TODO: Insert code for view-multi-as-icon & view-lightsource-as-candle
 
-			socket->send( &sendItem );
+			mSock->send( &sendItem );
+		}
+		else
+		{
+			for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+			{
+				P_CHAR pChar = mSock->player();
+	
+				// Only send to sockets in range
+				if( !pChar || ( pChar->pos.distance( pos ) > pChar->VisRange ) )
+					continue;
+	
+				// Completely invisible
+				if( ( visible == 2 ) && !pChar->isGM() )
+					continue;
+	
+				// Visible to owners and GMs only
+				else if( ( visible == 1 ) && !pChar->Owns( this ) && !pChar->isGM() )
+					continue;
+	            
+				if( isAllMovable() )
+					sendItem.setFlags( 0x20 );
+				else if( pChar->canMoveAll() )
+					sendItem.setFlags( 0x20 );
+				else if( ( isOwnerMovable() || isLockedDown() ) && pChar->Owns( this ) )
+					sendItem.setFlags( 0x20 );
+	
+				if( ( visible > 0 ) && !pChar->Owns( this ) )
+					sendItem.setFlags( sendItem.flags() | 0x80 );
+	
+				// TODO: Insert code for view-multi-as-icon & view-lightsource-as-candle
+	
+				mSock->send( &sendItem );
+			}
 		}
 	}
 	// equipped items
@@ -2142,4 +2174,3 @@ void cItem::setTotalweight( INT32 data )
 			pItem->setTotalweight( pItem->totalweight() + totalweight_ );
 	}
 }
-

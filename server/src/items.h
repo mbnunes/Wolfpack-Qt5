@@ -77,7 +77,7 @@ protected:
 	void	processNode( const QDomElement &Tag );
 public:
 	void	processContainerNode( const QDomElement &Tag );
-	virtual void update();
+	virtual void update( cUOSocket *mSock = NULL );
 	P_ITEM	dupe();
 	void	soundEffect( UINT16 sound );
 

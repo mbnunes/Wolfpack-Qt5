@@ -264,13 +264,14 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 		if (pc_currchar->hidden() == 1 && !pc_currchar->Owns(pi) && !pc_currchar->isGM())
 		{
 			pc_currchar->setHidden( 0 );
-			updatechar(pc_currchar);
+			pc_currchar->resend( false );
 		}
-		if (!pc_currchar->Owns(pi) && !pc_currchar->isGM() && pc_currchar->isInnocent())
+
+		if( !pc_currchar->Owns(pi) && !pc_currchar->isGM() && pc_currchar->isInnocent() )
 		{
-			if (pi->more2==1)
+			if( pi->more2 == 1 )
 			{
-				criminal(pc_currchar);
+				criminal( pc_currchar );
 			}
 		}
 	}
@@ -410,6 +411,14 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			if ( ( contser == INVALID_SERIAL && pc_currchar->inRange( pi, 2 ) ) ||  // Backpack in world - free access to everyone
 				pc_currchar->Wears( pi ) )	// primary pack
 			{
+				if( pi->corpse() )
+				{
+					if( pc_currchar->isHuman() )
+						pc_currchar->action( 0x20 );
+
+					pc_currchar->emote( tr( "*%1 loots the body of %2*" ).arg( pc_currchar->name.c_str() ).arg( pi->name2() ), 0x26 );
+				}
+
 				pc_currchar->objectdelay = 0;
 				socket->sendContainer( pi );
 				return;

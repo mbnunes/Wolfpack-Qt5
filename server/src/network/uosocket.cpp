@@ -39,6 +39,7 @@
 #include "../chars.h"
 
 // Wolfpack Includes
+#include "../corpse.h"
 #include "../accounts.h"
 #include "../globals.h"
 #include "../junk.h"
@@ -1225,6 +1226,8 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 	send( &dContainer );
 
 	// Add all items to the container
+	cUOTxItemContent itemContent;
+
 	vector< SERIAL > content = contsp.getData( pCont->serial );
 	for( UINT32 i = 0; i < content.size(); ++i )
 	{
@@ -1233,11 +1236,28 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 		if( !pItem )
 			continue;
 
-		// Send Container item
-		cUOTxAddContainerItem addCItem;
-		addCItem.fromItem( pItem );
-		send( &addCItem );
+		itemContent.addItem( pItem );
 	}
+
+	if( pCont->objectID() == "CORPSE" )
+	{
+		cCorpse *pCorpse = dynamic_cast< cCorpse* >( pCont );
+
+		if( !pCorpse )
+			return;
+
+		if( pCorpse->hairStyle() )
+		{
+			itemContent.addItem( 0x4FFFFFFE, pCorpse->hairStyle(), pCorpse->hairColor(), 0, 0, 1, pCorpse->serial );
+		}
+
+		if( pCorpse->beardStyle() )
+		{			
+			itemContent.addItem( 0x4FFFFFFF, pCorpse->beardStyle(), pCorpse->beardColor(), 0, 0, 1, pCorpse->serial );
+		}
+	}
+
+	send( &itemContent );
 }
 
 void cUOSocket::removeObject( cUObject *object )
@@ -1512,41 +1532,7 @@ void cUOSocket::resendWorld( bool clean )
 	for( itIterator.Begin(); !itIterator.atEnd(); itIterator++ )
 	{
 		P_ITEM pItem = itIterator.GetData();
-
-		if( !pItem || !_player->inRange( pItem, _player->VisRange ) )
-			continue;
-
-		if( clean )
-		{
-			rObject.setSerial( pItem->serial );
-			send( &rObject );
-		}
-
-		if( ( pItem->visible == 2 ) && !_player->isGM() )
-			continue;
-
-		// Visible to owners and GMs only
-		else if( ( pItem->visible == 1 ) && !_player->Owns( pItem ) && !_player->isGM() )
-			continue;
-
-		if( pItem->isAllMovable() )
-			sendItem.setFlags( 0x20 );
-		else if( _player->canMoveAll() )
-			sendItem.setFlags( 0x20 );
-		else if( ( pItem->isOwnerMovable() || pItem->isLockedDown() ) && _player->Owns( pItem ) )
-			sendItem.setFlags( 0x20 );
-
-		if( ( pItem->visible > 0 ) && !_player->Owns( pItem ) )
-			sendItem.setFlags( sendItem.flags() | 0x80 );
-
-		sendItem.setSerial( pItem->serial );
-		sendItem.setId( pItem->id() );
-		sendItem.setAmount( pItem->amount() );
-		sendItem.setColor( pItem->color() );
-		sendItem.setCoord( pItem->pos );
-		sendItem.setDirection( pItem->dir );
-
-		send( &sendItem );
+		pItem->update( this );
 	}
 
 	RegionIterator4Chars chIterator( _player->pos );
