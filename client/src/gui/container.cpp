@@ -356,9 +356,9 @@ cControl *cContainer::getControl(int x, int y) {
 				}
 			} while(it != controls.begin());
 		}
-		if (!result) {
-			result = this;
-		}
+		//if (!result) {
+		//	result = this;
+		//}
 	}
 	return result;
 }
