@@ -189,7 +189,7 @@ def checkPython( options, lookForHeaders, lookForLib ):
 	PYTHONINCSEARCHPATH = []
 	# Attept to find the system's configuration
 	PYTHONINCSEARCHPATH = [ distutils.sysconfig.get_python_inc() + os.path.sep + "Python.h" ]
-	
+
 	if distutils.sysconfig.get_config_vars().has_key("DESTSHARED"):
 		PYTHONLIBSEARCHPATH = [ distutils.sysconfig.get_config_vars()["DESTSHARED"] + os.path.sep + "libpython*" ]
 
@@ -200,6 +200,14 @@ def checkPython( options, lookForHeaders, lookForLib ):
 	# Linux and BSD Search Paths
 	elif sys.platform == "linux2" or sys.platform == "freebsd4" or sys.platform == "freebsd5":
 		PYTHONLIBSEARCHPATH += [ \
+			# Python 2.4 - Look for this first
+			"/usr/local/lib/libpython2.4*.so", \
+			"/usr/local/lib/[Pp]ython*/libpython2.4*.so", \
+			"/usr/local/lib/[Pp]ython*/config/libpython2.4*.so", \
+			"/usr/lib/libpython2.4*.so", \
+			"/usr/lib/[Pp]ython*/libpython2.4*.so", \
+			"/usr/lib/[Pp]ython*/config/libpython2.4*.so", \
+			# Python 2.3
 			"/usr/local/lib/libpython2.3*.so", \
 			"/usr/local/lib/[Pp]ython*/libpython2.3*.so", \
 			"/usr/local/lib/[Pp]ython*/config/libpython2.3*.so", \
@@ -207,16 +215,28 @@ def checkPython( options, lookForHeaders, lookForLib ):
 			"/usr/lib/[Pp]ython*/libpython2.3*.so", \
 			"/usr/lib/[Pp]ython*/config/libpython2.3*.so" ]
 		PYTHONLIBSTATICSEARCHPATH += [ \
-			"/usr/local/lib/libpython2.3*.a", \
-			"/usr/local/lib/[Pp]ython2.3*/libpython2.3*.a", \
-			"/usr/local/lib/[Pp]ython2.3*/config/libpython2.3*.a", \
+			# Python 2.4
+			"/usr/local/lib/libpython2.4*.a", \
+			"/usr/local/lib/[Pp]ython2.4*/libpython2.4*.a", \
+			"/usr/local/lib/[Pp]ython2.4*/config/libpython2.4*.a", \
+			"/usr/lib/libpython2.4*.a", \
+			"/usr/lib/[Pp]ython2.4*/libpython2.4*.a", \
+			"/usr/lib/[Pp]ython2.4*/config/libpython2.4*.a", \
+			# Python 2.3
+			"/usr/local/lib/libpython2.3]*.a", \
+			"/usr/local/lib/[Pp]ython2.3]*/libpython2.3*.a", \
+			"/usr/local/lib/[Pp]ython2.3]*/config/libpython2.3*.a", \
 			"/usr/lib/libpython2.3*.a", \
 			"/usr/lib/[Pp]ython2.3*/libpython2.3*.a", \
 			"/usr/lib/[Pp]ython2.3*/config/libpython2.3*.a" ]
 		PYTHONINCSEARCHPATH += [ \
 			"/usr/local/include/Python.h", \
-			"/usr/local/include/[Pp]ython2.3*/Python.h", \
 			"/usr/include/Python.h", \
+			# Python 2.4
+			"/usr/local/include/[Pp]ython2.4*/Python.h", \
+			"/usr/include/[Pp]ython2.4*/Python.h" \
+			# Python 2.3
+			"/usr/local/include/[Pp]ython2.3*/Python.h", \
 			"/usr/include/[Pp]ython2.3*/Python.h" ]
 	# MacOSX Search Paths
 	elif sys.platform == "darwin":
@@ -239,7 +259,7 @@ def checkPython( options, lookForHeaders, lookForLib ):
 
 	# if it was overiden...
 	if options.py_incpath:
-		PYTHONINCSEARCHPATH = None 
+		PYTHONINCSEARCHPATH = None
 		PYTHONINCSEARCHPATH = [ options.py_incpath ]
 	if options.py_libpath:
 		PYTHONLIBSEARCHPATH = None
@@ -318,7 +338,7 @@ def main():
 	#sys.stdout.write( "Running Wolfpack Configuration:         " )
 	#sys.stdout.write( red( " ( (  ;._ \\\\     " ) + "\n" )
 	#sys.stdout.write( headerbuffer + green( "****************\n" ) )
-	
+
 	# Check QT Settings
 	checkQt()
 	# Check Python Settings
@@ -330,7 +350,7 @@ def main():
 		sys.stdout.write("Checking MySQL Configuration:\n")
 		checkMySQL(options)
 		sys.stdout.write("\n")
-	
+
 
 	if not options.enable_translation:
 		DEFINES += "QT_NO_TRANSLATION "
@@ -388,7 +408,7 @@ def main():
 		os.spawnv(os.P_WAIT, qt_qmake, [qt_qmake, "wolfpack.pro", "-t vcapp"])
 	sys.stdout.write(bold(green("Done\n")))
 	sys.stdout.write(bold("Configure finished. Please run 'make' now.\n"))
-	sys.stdout.write("To reconfigure, run /usr/bin/gmake confclean and configure.py\n") 
+	sys.stdout.write("To reconfigure, run /usr/bin/gmake confclean and configure.py\n")
 	sys.stdout.write("\n")
 
 if __name__ == "__main__":
