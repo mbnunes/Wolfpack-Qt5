@@ -104,7 +104,6 @@ HEADERS         = \
                   skills.h \
 		  stream.h \
 		  structs.h \
-		  targeting.h \
                   targetrequests.h \
                   territories.h \
                   tracking.h \
@@ -183,7 +182,6 @@ SOURCES         = \
                   srvparams.cpp \
 		  storage.cpp \
 		  targetactions.cpp \
-		  targeting.cpp \
 		  targetrequests.cpp \
                   territories.cpp \
                   tracking.cpp \
