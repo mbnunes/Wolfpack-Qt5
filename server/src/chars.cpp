@@ -715,12 +715,12 @@ void cChar::buildSqlString( QStringList &fields, QStringList &tables, QStringLis
 	cUObject::buildSqlString( fields, tables, conditions );
 	fields.push_back( "characters.name,characters.title,characters.account,characters.creationday" );
 	fields.push_back( "characters.dir,characters.body,characters.xbody,characters.skin" );
-	fields.push_back( "characters.xskin,characters.priv,characters.stablemaster,characters.npctype" );
+	fields.push_back( "characters.xskin,characters.priv,characters.stablemaster" );
 	fields.push_back( "characters.allmove,characters.say" );
 	fields.push_back( "characters.emote,characters.strength,characters.strength2,characters.dexterity" );
 	fields.push_back( "characters.dexterity2,characters.intelligence,characters.intelligence2" );
 	fields.push_back( "characters.hitpoints,characters.spawnregion,characters.stamina" );
-	fields.push_back( "characters.mana,characters.npc,characters.holdgold,characters.shop" );
+	fields.push_back( "characters.mana,characters.npc,characters.shop" );
 	fields.push_back( "characters.owner,characters.karma,characters.fame" );
 	fields.push_back( "characters.kills,characters.deaths,characters.dead,characters.fixedlight" );
 	fields.push_back( "characters.cantrain,characters.def" );
