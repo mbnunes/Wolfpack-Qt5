@@ -272,6 +272,19 @@ bool cSkillCheck::skilledEnough( cChar* pChar )
 	return ( pChar->skill( skillid() ) >= min() );
 }
 
+void cSkillCheck::applySkillMod( float skillmod )
+{
+	min_ = (UINT16)ceil( float(min_) * skillmod );
+	max_ = (UINT16)ceil( float(max_) * skillmod );
+
+	if( min_ > max_ )
+	{
+		UINT16 temp = max_;
+		max_ = min_;
+		min_ = temp;
+	}
+}
+
 cMakeSection::cMakeSection( const QDomElement &Tag, cMakeAction* baseaction )
 {
 	baseaction_ = baseaction;
@@ -308,7 +321,7 @@ void cMakeSection::processNode( const QDomElement &Tag )
 		skillchecks_.append( pSkillCheck );
 	}
 
-	else if( TagName == "name" && ( type == cMakeAction::CUSTOM_SECTIONS || type == cMakeAction::NPC_SECTION ) )
+	else if( TagName == "name" && ( type == cMakeAction::CUSTOM_SECTIONS || type == cMakeAction::NPC_SECTION || type == cMakeAction::RESOURCE_SECTIONS ) )
 		name_ = Value;
 
 	else if( TagName == "makenpc" && type == cMakeAction::NPC_SECTION )
@@ -560,6 +573,26 @@ void cMakeSection::setMakeItemAmounts( UINT16 amount )
 	}
 }
 
+void cMakeSection::addMakeItemSectionPrefixes( QString prefix )
+{
+	QPtrListIterator< cMakeItem > it( makeitems_ );
+	while( it.current() )
+	{
+		it.current()->setSection( QString( "%1_%2" ).arg( prefix.upper() ).arg( it.current()->section() ) );
+		++it;
+	}
+}
+
+void cMakeSection::applySkillMod( float skillmod )
+{
+	QPtrListIterator< cSkillCheck > it( skillchecks_ );
+	while( it.current() )
+	{
+		it.current()->applySkillMod( skillmod );
+		++it;
+	}
+}
+
 cMakeAction::cMakeAction( const QDomElement &Tag, cMakeMenu* basemenu )
 {
 	basemenu_ = basemenu;
@@ -639,6 +672,7 @@ void cMakeAction::processNode( const QDomElement &Tag )
 						cResource::resourcespec_st item = (*it);
 						QString name;
 						UINT16 amount = 1;
+						QValueVector< UINT16 > id;
 						QDomNode childNode = Tag.firstChild();
 						while( !childNode.isNull() )
 						{
@@ -646,18 +680,60 @@ void cMakeAction::processNode( const QDomElement &Tag )
 							{
 								QDomElement childTag = childNode.toElement(); 
 								if( childTag.nodeName() == "useitem" )
-									amount = hex2dec( childTag.attribute( "amount" ) ).toUShort();
+								{
+									if( childTag.hasAttribute( "amount" ) )
+										amount = hex2dec( childTag.attribute( "amount" ) ).toUShort();
+
+									if( childTag.hasAttribute( "itemid" ) )
+									{
+										QString idstr = childTag.attribute( "itemid" );
+										QStringList ids;
+										ids.push_back( idstr );
+										if( idstr.contains(",") )
+										{
+											ids = QStringList::split( ",", idstr );
+										}
+	
+										QStringList::const_iterator it = ids.begin();
+										while( it != ids.end() )
+										{
+											if( (*it).contains("-") )
+											{
+												QStringList idspan = QStringList::split( "-", idstr );
+												UINT16 min = hex2dec(idspan[0]).toUShort();
+												UINT16 max = hex2dec(idspan[1]).toUShort();
+												while( min <= max )
+												{
+													id.push_back( min );
+													++min;
+												}
+											}
+											else
+												id.push_back( hex2dec( (*it) ).toUShort() );
+
+											++it;
+										}
+									}
+								}
 							}
 							childNode = childNode.nextSibling();
 						}
 
-						if( item.name.isNull() )
+						cMakeSection* pMakeSection = new cMakeSection( Tag, this );
+						if( pMakeSection->name().isEmpty() )
 							name = pResource->name();
 						else
-							name = QString("%1 %2").arg( item.name ).arg( pResource->name() );
+							name = pMakeSection->name();
+						
+						if( !item.name.isNull() )
+							name = QString("%1 %2").arg( item.name ).arg( name );
 
-						cUseItem* pUseItem = new cUseItem( name, item.ids, item.colors, amount );
-						cMakeSection* pMakeSection = new cMakeSection( Tag, this );
+						if( id.empty() )
+							id = item.ids;
+
+						amount = (UINT16)ceil( (float)amount * item.makeuseamountmod );
+
+						cUseItem* pUseItem = new cUseItem( name, id, item.colors, amount );
 						if( pMakeSection )
 						{
 							if( !pUseItem )
@@ -666,6 +742,9 @@ void cMakeAction::processNode( const QDomElement &Tag )
 							{
 								pMakeSection->setName( item.name );
 								pMakeSection->appendUseItem( pUseItem );
+								pMakeSection->addMakeItemSectionPrefixes( item.name );
+								pMakeSection->applySkillMod( item.makeskillmod );
+								makesections_.push_back( pMakeSection );
 							}
 						}
 						else
@@ -938,27 +1017,35 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 	addHtmlGump( 50, 389, 80, 18, htmlmask.arg( tr("BACK") ) );
 
 	UINT32 page = 1;
-	UINT32 button = 1;
-	std::vector< cMakeSection* > sections = action->makesections();
-	std::vector< cMakeSection* >::iterator next = sections.begin();
-	next++;
-	std::vector< cMakeSection* >::iterator it = sections.begin();
+	std::vector< cMakeSection* > makesections = action->makesections();
+	std::vector< cMakeSection* > sections;
+	std::vector< UINT32 > offsets;
+	std::vector< cMakeSection* >::iterator it = makesections.begin();
 	cItem* pBackpack = NULL;
 	if( pChar )
 		 pBackpack = FindItemBySerial( pChar->packitem );
+	UINT32 i = 1;
+
+	while( it != makesections.end() )
+	{
+		if( pChar && pBackpack && (*it)->hasEnough( pBackpack ) && (*it)->skilledEnough( pChar ) )
+		{
+			sections.push_back( (*it) );
+			offsets.push_back( i );
+		}
+		++i;
+		++it;
+	}
+	it = sections.begin();
+	std::vector< UINT32 >::iterator button = offsets.begin();
+	std::vector< cMakeSection* >::iterator next = sections.begin();
+	next++;
 
 	while( it != sections.end() )
 	{
 		QString content;
-		startPage( page );
 
-		if( !pChar || !pBackpack || !(*it)->hasEnough( pBackpack ) || !(*it)->skilledEnough( pChar ) )
-		{
-			it++;
-			next++;
-			button++;
-			continue;
-		}
+		startPage( page );
 
 		addHtmlGump( 245, 39, 270, 20, htmlmask.arg( QString("%1 %2").arg(action->name()).arg((*it)->name()) ) );
 
@@ -976,7 +1063,7 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 			addHtmlGump( 170, 389, 200, 18, htmlmask.arg( content.upper() ) );
 		}
 
-		addButton( 375, 387, 4005, 4007, button );
+		addButton( 375, 387, 4005, 4007, (*button) );
 		addHtmlGump( 410, 389, 95, 18, htmlmask.arg( tr("MAKE NOW") ) );
 
 		content = "";
@@ -1002,19 +1089,20 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 		addHtmlGump( 170, 217, 345, 76, content, false, (useitems.count() > 4) );
 
 
-		page++;
-		button++;
-		it++;
-		next++;
+		++page;
+		++button;
+		++it;
+		++next;
 	}
 	// not enough resources or not skilled enough
 	if( page == 1 )
 	{
+		startPage( page );
 		addHtmlGump( 245, 39, 270, 20, htmlmask.arg( QString("%1").arg(action->name()) ) );
-		if( sections.size() > 0 )
+		if( makesections.size() > 0 )
 		{
 			QString content = "";
-			QPtrList< cSkillCheck > skillchecks = sections[0]->skillchecks();
+			QPtrList< cSkillCheck > skillchecks = makesections[0]->skillchecks();
 			QPtrListIterator< cSkillCheck > sit( skillchecks );
 			while( sit.current() )
 			{
@@ -1029,7 +1117,7 @@ cMakeMenuGump::cMakeMenuGump( cMakeAction* action, cUOSocket* socket )
 			addHtmlGump( 170, 132, 345, 76, content, false, (skillchecks.count() > 4) );
 
 			content = "";
-			QPtrList< cUseItem > useitems = sections[0]->useitems();
+			QPtrList< cUseItem > useitems = makesections[0]->useitems();
 			QPtrListIterator< cUseItem > uit( useitems );
 			while( uit.current() )
 			{

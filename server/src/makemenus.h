@@ -67,6 +67,7 @@ public:
 
 	// Setters
 	void			setAmount( UINT16 amount ) { amount_ = amount; }
+	void			setSection( QString data ) { section_ = data; }
 
 private:
 	QString			name_;
@@ -113,6 +114,7 @@ public:
 	UINT16		max()		{ return max_; }
 
 	bool		skilledEnough( cChar* pChar );
+	void		applySkillMod( float skillmod );
 private:
 	UINT8		skillid_;
 	UINT16		min_;
@@ -169,6 +171,8 @@ public:
 
 	// action type specific methods
 	void	setMakeItemAmounts( UINT16 amount );
+	void	addMakeItemSectionPrefixes( QString prefix );
+	void	applySkillMod( float skillmod );
 private:
 	QPtrList< cMakeItem >		makeitems_;
 	QPtrList< cUseItem >		useitems_;

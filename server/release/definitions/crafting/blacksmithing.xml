@@ -103,13 +103,13 @@
 				<skillcheck skillid="4" min="180" max="500" />
 			</make>
 		</action>
-		<action>
+		<action type="resource">
 			<name>Viking sword</name>
 			<model>0x13B9</model>
 			<description>Craft a viking sword with this option.</description>
 			<make resource="RESOURCE_INGOT">
 				<useitem amount="6" />
-				<makeitem section="WEAPONS_IRON_SWORDS_viking" amount="1" name="iron viking sword" />
+				<makeitem section="WEAPONS_SWORDS_viking" amount="1" name="iron viking sword" />
 				<skillcheck skillid="7" min="400" max="850" />
 				<skillcheck skillid="4" min="200" max="500" />
 			</make>

@@ -7,12 +7,17 @@
 		<stamina min="1" max="2" />
 		<charaction>0x0B</charaction>
 		<sound>0x0125</sound>
+		<failmsg>You failed smelting the ore!</failmsg>
+		<succmsg>You succeeded in smelting</succmsg>
+		<emptymsg>You can't smelt this here</emptymsg>
 		<item>
 			<name>Iron</name>
 			<id>0x1BF2</id>
 			<color>0x0961</color>
 			<conversion srccolors="0" srcids="0x19BA" rate="2" />
 			<skill min="0" max="400" />
+			<modifier type="useamount">1.0</modifier>
+			<modifier type="skill">1.0</modifier>
 			<quota>630</quota>
 		</item>
 		<item>
@@ -21,6 +26,8 @@
 			<color>0x0386</color>
 			<conversion srccolors="0x0386" srcids="0x19BA" rate="1.9" />
 			<skill min="650" max="900" />
+			<modifier type="useamount">1.2</modifier>
+			<modifier type="skill">1.1</modifier>
 			<quota>126</quota>
 		</item>
 		<item>
@@ -29,6 +36,8 @@
 			<color>0x02C3</color>
 			<conversion srccolors="0x02C3" srcids="0x19BA" rate="1.7" />
 			<skill min="700" max="910" />
+			<modifier type="useamount">1.4</modifier>
+			<modifier type="skill">1.2</modifier>
 			<quota>112</quota>
 		</item>
 		<item>
@@ -37,6 +46,8 @@
 			<color>0x046E</color>
 			<conversion srccolors="0x046E" srcids="0x19BA" rate="1.5" />
 			<skill min="750" max="940" />
+			<modifier type="useamount">1.6</modifier>
+			<modifier type="skill">1.3</modifier>
 			<quota>98</quota>
 		</item>
 		<item>
@@ -45,6 +56,8 @@
 			<color>0</color>
 			<conversion srccolors="0x0961" srcids="0x19BA" rate="1.3" />
 			<skill min="790" max="955" />
+			<modifier type="useamount">1.8</modifier>
+			<modifier type="skill">1.5</modifier>
 			<quota>84</quota>
 		</item>
 		<item>
@@ -53,6 +66,8 @@
 			<color>0x02E7</color>
 			<conversion srccolors="0x02E7" srcids="0x19BA" rate="1.0" />
 			<skill min="800" max="960" />
+			<modifier type="useamount">1.9</modifier>
+			<modifier type="skill">1.6</modifier>
 			<quota>70</quota>
 		</item>
 		<item>
@@ -60,6 +75,8 @@
 			<id>0x1BF2</id>
 			<color>0x0466</color>
 			<conversion srccolors="0x0466" srcids="0x19BA" rate="0.8" />
+			<modifier type="useamount">2.1</modifier>
+			<modifier type="skill">1.7</modifier>
 			<skill min="850" max="965" />
 			<quota>56</quota>
 		</item>
@@ -68,6 +85,8 @@
 			<id>0x1BF2</id>
 			<color>0x0150</color>
 			<conversion srccolors="0x0150" srcids="0x19BA" rate="0.7" />
+			<modifier type="useamount">2.3</modifier>
+			<modifier type="skill">1.75</modifier>
 			<skill min="900" max="975" />
 			<quota>42</quota>
 		</item>	
@@ -77,6 +96,8 @@
 			<color>0x022F</color>
 			<conversion srccolors="0x022F" srcids="0x19BA" rate="0.5" />
 			<skill min="950" max="985" />
+			<modifier type="useamount">2.5</modifier>
+			<modifier type="skill">1.8</modifier>
 			<quota>28</quota>
 		</item>	
 		<item>
@@ -85,6 +106,8 @@
 			<color>0x0191</color>
 			<conversion srccolors="0x0191" srcids="0x19BA" rate="0.3" />
 			<skill min="990" max="999" />
+			<modifier type="useamount">2.7</modifier>
+			<modifier type="skill">1.9</modifier>
 			<quota>14</quota>
 		</item>	
 	</resource>

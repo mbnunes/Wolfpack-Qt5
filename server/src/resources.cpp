@@ -57,6 +57,11 @@ cResource::cResource( const QDomElement &Tag ) : amountmin_( 0 ), amountmax_( 0 
 	deletesource_ = false;
 	charaction_ = 0;
 	sound_ = 0;
+	staminamax_ = 0;
+	staminamin_ = 0;
+	failmsg_ = "";
+	succmsg_ = "";
+	emptymsg_ = "";
 	applyDefinition( Tag );
 }
 
@@ -103,6 +108,17 @@ void cResource::processNode( const QDomElement &Tag )
 	else if( TagName == "item" )
 	{
 		resourcespec_st item;
+		item.conversion.rate = 0;
+		item.makeskillmod = 1.0f;
+		item.makeuseamountmod = 1.0f;
+		item.maxamount_per_attempt = 1;
+		item.minamount_per_attempt = 1;
+		item.name = (char*)0;
+		item.quota = 0;
+		item.vein_maxamount = 0;
+		item.vein_minamount = 0;
+		item.vein_quota = 0;
+
 		QDomNode childNode = Tag.firstChild();
 		while( !childNode.isNull() )
 		{
@@ -360,8 +376,96 @@ void cResource::processNode( const QDomElement &Tag )
 					item.quota = chValue.toUInt() + totalquota_;
 					totalquota_ = item.quota;
 				}
-			}
+
+				else if( chTagName == "conversion" )
+				{
+					if( childTag.hasAttribute("srccolors") )
+					{
+						Value = childTag.attribute("srccolors");
+	
+						QStringList idstr;
+						if( Value.contains( "," ) )
+						{
+							idstr = QStringList::split( ",", Value );
+						}
+						else
+							idstr.push_back( Value );
+
+						QStringList::const_iterator it = idstr.begin();
+						while( it != idstr.end() )
+						{
+							if( (*it).contains( "-" ) )
+							{
+								QStringList ids = QStringList::split( "-", (*it) );
+								UINT16 minid = hex2dec(ids[0]).toUShort();
+								UINT16 maxid = hex2dec(ids[1]).toUShort();
+								while( minid <= maxid )
+								{
+									item.conversion.sourcecolors.push_back( minid );
+									sourcecolors_.insert( minid );
+									++minid;
+								}
+							}
+							else
+							{
+								item.conversion.sourcecolors.push_back( hex2dec((*it)).toUShort() );
+								sourcecolors_.insert( hex2dec((*it)).toUShort() );
+							}
+							++it;
+						}
+					}
+					
+					if( childTag.hasAttribute("srcids") )
+					{
+						Value = childTag.attribute("srcids");
+	
+						QStringList idstr;
+						if( Value.contains( "," ) )
+						{
+							idstr = QStringList::split( ",", Value );
+						}
+						else
+							idstr.push_back( Value );
+
+						QStringList::const_iterator it = idstr.begin();
+						while( it != idstr.end() )
+						{
+							if( (*it).contains( "-" ) )
+							{
+								QStringList ids = QStringList::split( "-", (*it) );
+								UINT16 minid = hex2dec(ids[0]).toUShort();
+								UINT16 maxid = hex2dec(ids[1]).toUShort();
+								while( minid <= maxid )
+								{
+									item.conversion.sourceids.push_back( minid );
+									sourceids_.insert( minid );
+									++minid;
+								}
+							}
+							else
+							{
+								item.conversion.sourceids.push_back( hex2dec((*it)).toUShort() );
+								sourceids_.insert( hex2dec((*it)).toUShort() );
+							}
+							++it;
+						}
+					}
+
+					if( childTag.hasAttribute( "rate" ) )
+						item.conversion.rate = childTag.attribute( "rate" ).toFloat();
+				}
 			
+				// <modifier type="useamount">1.3</modifier>
+				// <modifier type="skill">1.4</modifier>
+				else if( chTagName == "modifier" )
+				{
+					if( childTag.attribute("type") == "useamount" )
+						item.makeuseamountmod = chValue.toFloat();
+					else if( childTag.attribute("type") == "skill" )
+						item.makeskillmod = chValue.toFloat();
+				}
+			}
+
 			childNode = childNode.nextSibling();
 		}
 
@@ -515,6 +619,18 @@ void cResource::processNode( const QDomElement &Tag )
 	// <sound>0x01</sound>
 	else if( TagName == "sound" )
 		sound_ = Value.toUShort();
+
+	// <failmsg>text</failmsg>
+	else if( TagName == "failmsg" )
+		failmsg_ = Value;
+
+	// <succmsg>text</succmsg>
+	else if( TagName == "succmsg" )
+		succmsg_ = Value;
+
+	// <emptymsg>text</emptymsg>
+	else if( TagName == "emptymsg" )
+		emptymsg_ = Value;
 }
 
 bool cResource::hasArtId( UINT16 id )
@@ -541,7 +657,7 @@ bool cResource::hasMapId( UINT16 id )
 	return false;
 }
 
-void cResource::handleTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid, UINT16 artid )
+void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid, UINT16 artid )
 {
 	P_CHAR pc = socket->player();
 	if( !socket || !pc )
@@ -617,7 +733,7 @@ void cResource::handleTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid, UIN
 	{
 		pc->action( charaction_ );
 		pc->soundEffect( sound_, true );
-		socket->sysMessage( "You cannot find anything here!" );
+		socket->sysMessage( failmsg_ );
 		return;
 	}
 
@@ -681,7 +797,7 @@ void cResource::handleTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid, UIN
 	{
 		pc->action( charaction_ );
 		pc->soundEffect( sound_, true );
-		socket->sysMessage( tr( "It seems as if no resources were left!" ) );
+		socket->sysMessage( emptymsg_ );
 		return;
 	}
 	vein = pResItem->morey;
@@ -730,7 +846,7 @@ void cResource::handleTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid, UIN
 	{
 		pc->action( charaction_ );
 		pc->soundEffect( sound_, true );
-		socket->sysMessage( tr("You failed to find anything!") );
+		socket->sysMessage( failmsg_ );
 		return;
 	}
 
@@ -752,7 +868,7 @@ void cResource::handleTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid, UIN
 	{
 		pc->action( charaction_ );
 		pc->soundEffect( sound_, true );
-		socket->sysMessage( tr("You were not able to find anything!") );
+		socket->sysMessage( failmsg_ );
 		return;
 	}
 	
@@ -766,9 +882,9 @@ void cResource::handleTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid, UIN
 	}
 
 	if( !item.name.isNull() || !item.name.isEmpty() )
-		socket->sysMessage( tr("You have found %1 %2 %3%4 !").arg( spawnamount ).arg( item.name ).arg( name_ ).arg( spawnamount > 1 ? tr("s") : QString("") ) );
+		socket->sysMessage( tr("%5 %1 %2 %3%4 !").arg( spawnamount ).arg( item.name ).arg( name_ ).arg( spawnamount > 1 ? tr("s") : QString("") ).arg( succmsg_ ) );
 	else
-		socket->sysMessage( tr("You have found %1 %2%3 !").arg( spawnamount ).arg( name_ ).arg( spawnamount > 1 ? tr("s") : QString("") ) );
+		socket->sysMessage( tr("%4 %1 %2%3 !").arg( spawnamount ).arg( name_ ).arg( spawnamount > 1 ? tr("s") : QString("") ).arg( succmsg_ ) );
 
 	pc->action( charaction_ );
 	pc->soundEffect( sound_, true );
@@ -794,6 +910,210 @@ void cResource::handleTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid, UIN
 	}
 }
 
+void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* pSource, UINT16 mapid, UINT16 artid )
+{
+	P_CHAR pc = socket->player();
+	if( !socket || !pc || !pSource )
+		return;
+
+	std::set< UINT16 >::iterator sit = sourceids_.find( pSource->id() );
+	if( sit == sourceids_.end() )
+	{
+		socket->sysMessage( emptymsg_ );
+		return;
+	}
+	else
+	{
+		sit = sourcecolors_.find( pSource->color() );
+		if( sit == sourcecolors_.end() )
+		{
+			socket->sysMessage( emptymsg_ );
+			return;
+		}
+	}
+
+	resourcespec_st item;
+	QValueVector< resourcespec_st > possible_resspecs;
+	QValueVector< resourcespec_st >::iterator it;
+	QValueVector< UINT16 >::iterator vit;
+
+	it = resourcespecs_.begin();
+	// this one checks which items can be found on the artid/mapid
+	while( it != resourcespecs_.end() )
+	{
+		bool isValidSpot = false;
+		if( (*it).conversion.sourceids.size() == 0 || (*it).conversion.sourcecolors.size() == 0 )
+		{
+			++it;
+			continue;
+		}
+		else if( (*it).artids.size() == 0 && (*it).mapids.size() == 0 )
+		{
+			isValidSpot = true;
+		}
+		else if( artid > 0 )
+		{
+			if( (*it).artids.size() == 0 )
+				isValidSpot = true;
+			else
+			{
+				vit = (*it).artids.begin();
+				while( vit != (*it).artids.end() )
+				{
+					if( (*vit) == artid )
+					{
+						isValidSpot = true;
+						break;
+					}
+					++vit;
+				}
+			}
+		}
+		else if( mapid > 0 )
+		{
+			if( (*it).mapids.size() == 0 )
+				isValidSpot = true;
+			else
+			{
+				vit = (*it).mapids.begin();
+				while( vit != (*it).mapids.end() )
+				{
+					if( (*vit) == mapid )
+					{
+						isValidSpot = true;
+						break;
+					}
+					++vit;
+				}
+			}
+		}
+
+		if( isValidSpot )
+		{
+			bool isValidId = false;
+			vit = (*it).conversion.sourceids.begin();
+			while( vit != (*it).conversion.sourceids.end() )
+			{
+				if( (*vit) == pSource->id() )
+				{
+					isValidId = true;
+					break;
+				}
+				++vit;
+			}
+			if( isValidId )
+			{
+				vit = (*it).conversion.sourcecolors.begin();
+				while( vit != (*it).conversion.sourcecolors.end() )
+				{
+					if( (*vit) == pSource->color() )
+					{
+						possible_resspecs.push_back( (*it) );
+						break;
+					}
+					++vit;
+				}
+			}
+		}
+		++it;
+	}
+
+	if( possible_resspecs.size() == 0 )
+	{
+		socket->sysMessage( emptymsg_ );
+		return;
+	}
+
+	item.conversion.rate = 0;
+	if( totalquota_ > 0 )
+	{
+		UINT32 quota = RandomNum( 1, totalquota_ );
+		it = possible_resspecs.begin();
+		while( it != possible_resspecs.end() )
+		{
+			if( quota <= (*it).quota )
+			{
+				item = (*it);
+				break;
+			}
+			++it;
+		}
+	}
+
+	if( item.conversion.rate == 0 )
+	{
+		item = possible_resspecs[ RandomNum( 0, possible_resspecs.size()-1 ) ];
+	}
+
+	UINT32 spawnamount = (UINT32)ceil((float)pSource->amount() * item.conversion.rate);
+
+	if( staminamax_ > staminamin_ )
+		pc->stm -= RandomNum( staminamin_, staminamax_ );
+	else
+		pc->stm -= staminamin_;
+	if( pc->stm < 0 )
+		pc->stm = 0;
+
+	if( !Skills->CheckSkill( pc, skillid_, item.minskill, item.maxskill ) )
+	{
+		pc->action( charaction_ );
+		pc->soundEffect( sound_, true );
+		UINT16 delamount = RandomNum( 1, pSource->amount() );
+		if( delamount == pSource->amount() )
+			Items->DeleItem( pSource );
+		else
+			pSource->setAmount( pSource->amount() - delamount );
+		socket->sysMessage( failmsg_ );
+		return;
+	}
+
+	if( pc->skill( skillid_ ) < item.minskill )
+		spawnamount = 0;
+	else if( pc->skill( skillid_ ) < item.maxskill && item.maxskill > item.minskill )
+	{
+		spawnamount = (UINT16)( ceil( (double)(pc->skill( skillid_ )-item.minskill) / (double)(item.maxskill - item.minskill) * (double)spawnamount) );
+		if( spawnamount == 0 )
+		{
+			spawnamount = 1;
+		}
+	}
+
+	if( spawnamount == 0 )
+	{
+		pc->action( charaction_ );
+		pc->soundEffect( sound_, true );
+		Items->DeleItem( pSource );
+		socket->sysMessage( failmsg_ );
+		return;
+	}
+	
+	Items->DeleItem( pSource );
+	
+	if( !item.name.isNull() || !item.name.isEmpty() )
+		socket->sysMessage( tr("%5 %1 %2 %3%4 !").arg( spawnamount ).arg( item.name ).arg( name_ ).arg( spawnamount > 1 ? tr("s") : QString("") ).arg( succmsg_ ) );
+	else
+		socket->sysMessage( tr("%4 %1 %2%3 !").arg( spawnamount ).arg( name_ ).arg( spawnamount > 1 ? tr("s") : QString("") ).arg( succmsg_ ) );
+
+	P_ITEM pi;
+	while( spawnamount > 0 )
+	{
+		UINT16 id = item.ids[ RandomNum( 0, item.ids.size()-1 ) ];
+		UINT16 color = item.colors[ RandomNum( 0, item.colors.size()-1 ) ];
+		if( !item.name.isNull() )
+			pi = Items->SpawnItem( pc, 1, (char*)QString("%1 %2").arg( item.name ).arg( name_ ).latin1(), true, id, color, true );
+		else
+			pi = Items->SpawnItem( pc, 1, (char*)QString("%1").arg( name_ ).latin1(), true, id, color, true );
+
+/*		if( pi )
+		{
+			pi->pos = pc->pos;
+			mapRegions->Add( pi );
+			pi->update();
+		}*/
+			
+		spawnamount -= 1;
+	}
+}
 
 // class cResourceItem
 
@@ -897,9 +1217,31 @@ bool cFindResource::responsed( cUOSocket *socket, cUORxTarget *target )
 		return false;
 	}
 	
-	// TODO: Check if there IS what we have targetted at the given position
+	// Check if there IS what we have targetted at the given position
 	// If not we eiter have wrong statics clientside or a 
 	// cheater.
+	if( target->serial() )
+	{
+		P_ITEM pTarget = FindItemBySerial( target->serial() );
+		if( !pTarget || pTarget->pos != pos )
+			return true;
+	}
+	else if( target->model() )
+	{
+		MapStaticIterator msi(pos);
+		staticrecord *stat;
+		bool found = false;
+		while( stat = msi.Next() )
+		{
+			if( stat->itemid == target->model() )
+			{
+				found = true;
+				break;
+			}
+		}
+		if( !found )
+			return true;
+	}
 
 	cAllResources::iterator it = cAllResources::getInstance()->find( resourcename_ );
 	if( it != cAllResources::getInstance()->end() )
@@ -909,7 +1251,7 @@ bool cFindResource::responsed( cUOSocket *socket, cUORxTarget *target )
 		{
 			map_st mapTile = Map->SeekMap( pos );
 			if( pResource->hasMapId( mapTile.id ) )
-				pResource->handleTarget( socket, pos, mapTile.id, 0 );
+				pResource->handleFindTarget( socket, pos, mapTile.id, 0 );
 			else
 				socket->sysMessage( tr("You cannot find anything here!") );
 
@@ -920,7 +1262,7 @@ bool cFindResource::responsed( cUOSocket *socket, cUORxTarget *target )
 		{
 			if( pResource->hasArtId( target->model() ) )
 			{
-				pResource->handleTarget( socket, pos, 0, target->model() );
+				pResource->handleFindTarget( socket, pos, 0, target->model() );
 				if( pResource->deleteSource() && target->serial() )
 				{
 					P_ITEM pi = FindItemBySerial( target->serial() );
@@ -930,6 +1272,98 @@ bool cFindResource::responsed( cUOSocket *socket, cUORxTarget *target )
 			}
 			else
 				socket->sysMessage( tr("You cannot find anything here!") );
+
+			pc->skilldelay = uiCurrentTime + SrvParams->skillDelay() * MY_CLOCKS_PER_SEC;
+			return true;
+		}
+		return false;
+	}
+	else
+	{
+		clConsole.send( tr("ERROR: Resource definition %1 not found!").arg( resourcename_ ) );
+		return true;
+	}
+}
+
+
+// class cConvertResource
+
+bool cConvertResource::responsed( cUOSocket *socket, cUORxTarget *target )
+{
+	if( target->x() == 0xFFFF || target->y() == 0xFFFF || target->z() == 0xFF || !socket->player() )
+		return true;
+
+	P_ITEM pi = FindItemBySerial( sourceserial_ );
+	if( !pi )
+		return true;
+
+	P_CHAR pc = socket->player();
+	Coord_cl pos = pc->pos;
+	pos.x = target->x();
+	pos.y = target->y();
+	pos.z = target->z();
+
+	if( pc->skilldelay > uiCurrentTime && !pc->isGM() )
+	{
+		socket->sysMessage( tr( "You must wait a few moments before using another skill." ) );
+		return true;
+	}
+	
+	if( ( pc->pos.distance( pos ) > 4 ) ) //|| !lineOfSight( pChar->pos, pos, DOORS|ROOFING_SLANTED|WALLS_CHIMNEYS ) )
+	{
+		socket->sysMessage( tr( "You can't reach this" ) );
+		return false;
+	}
+	
+	// Check if there IS what we have targetted at the given position
+	// If not we eiter have wrong statics clientside or a 
+	// cheater.
+	if( target->serial() )
+	{
+		P_ITEM pTarget = FindItemBySerial( target->serial() );
+		if( !pTarget || pTarget->pos != pos )
+			return true;
+	}
+	else if( target->model() )
+	{
+		MapStaticIterator msi(pos);
+		staticrecord *stat;
+		bool found = false;
+		while( stat = msi.Next() )
+		{
+			if( stat->itemid == target->model() )
+			{
+				found = true;
+				break;
+			}
+		}
+		if( !found )
+			return true;
+	}
+
+	cAllResources::iterator it = cAllResources::getInstance()->find( resourcename_ );
+	if( it != cAllResources::getInstance()->end() )
+	{
+		cResource* pResource = it->second;
+		if( !target->model() && !target->serial() ) // map tile
+		{
+			map_st mapTile = Map->SeekMap( pos );
+			if( pResource->hasMapId( mapTile.id ) )
+				pResource->handleConversionTarget( socket, pos, pi, mapTile.id, 0 );
+			else
+				socket->sysMessage( tr("You cannot use this here!") );
+
+			pc->skilldelay = uiCurrentTime + SrvParams->skillDelay() * MY_CLOCKS_PER_SEC;
+			return true;
+		}
+		else if( target->model() )
+		{
+			if( pResource->hasArtId( target->model() ) )
+			{
+				pResource->handleConversionTarget( socket, pos, pi, 0, target->model() );
+			}
+			else
+				socket->sysMessage( tr("You cannot use this here!") );
 
 			pc->skilldelay = uiCurrentTime + SrvParams->skillDelay() * MY_CLOCKS_PER_SEC;
 			return true;

@@ -1137,8 +1137,8 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 				case 0x19B9:
 				case 0x19BA:
 				case 0x19B8: // smelt ore
-					pc_currchar->setSmeltItem( pi->serial );
-					target(s, 0, 1, 0, 52, "Select forge to smelt ore on.");// smelting  for all ore changed by Myth 11/12/98
+					socket->sysMessage( "Where do you want to smelt the ore?" );
+					socket->attachTarget( new cConvertResource( QString("RESOURCE_INGOT"), pi ) );
 					return;
 				case 0x1E5E:
 				case 0x1E5F: // Message board opening

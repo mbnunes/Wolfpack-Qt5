@@ -3,7 +3,7 @@ Microsoft Developer Studio Workspace File, Format Version 6.00
 
 ###############################################################################
 
-Project: "ZTHREAD_2_2_9_static"=.\lib\ZThread\ZTHREAD_static.dsp - Package Owner=<4>
+Project: "ZTHREAD_2_2_9_static"=..\lib\ZThread\ZTHREAD_static.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -15,7 +15,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "moc"=.\lib\wrl\src\moc\moc.dsp - Package Owner=<4>
+Project: "moc"=..\lib\wrl\src\moc\moc.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -27,7 +27,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "pythoncore"=.\lib\Python\PCbuild\pythoncore.dsp - Package Owner=<4>
+Project: "pythoncore"=..\lib\Python\PCbuild\pythoncore.dsp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -48,10 +48,10 @@ Package=<5>
 Package=<4>
 {{{
     Begin Project Dependency
-    Project_Dep_Name wrl
+    Project_Dep_Name pythoncore
     End Project Dependency
     Begin Project Dependency
-    Project_Dep_Name pythoncore
+    Project_Dep_Name wrl
     End Project Dependency
     Begin Project Dependency
     Project_Dep_Name ZTHREAD_2_2_9_static
@@ -60,7 +60,7 @@ Package=<4>
 
 ###############################################################################
 
-Project: "wrl"=.\lib\wrl\src\wrl.dsp - Package Owner=<4>
+Project: "wrl"=..\lib\wrl\src\wrl.dsp - Package Owner=<4>
 
 Package=<5>
 {{{

@@ -36,17 +36,26 @@
 #include "iserialization.h"
 #include "items.h"
 #include "wptargetrequests.h"
+#include "typedefs.h"
 
 // Library includes
 #include "qvaluevector.h"
 #include "qstring.h"
 #include "qstringlist.h"
+#include <set>
 
 class cResource : public cDefinable
 {
 public:
 	cResource( const QDomElement &Tag );
 	~cResource();
+
+	struct convertspec_st
+	{
+		QValueVector< UINT16 > sourcecolors;
+		QValueVector< UINT16 > sourceids;
+		float rate;
+	};
 
 	struct resourcespec_st
 	{
@@ -63,6 +72,9 @@ public:
 		UINT16 minskill;
 		UINT16 maxskill;
 		UINT32 quota;
+		convertspec_st conversion;
+		float makeuseamountmod;
+		float makeskillmod;
 	};
 
 	// implements cDefinable
@@ -76,7 +88,8 @@ public:
 	bool	hasArtId( UINT16 id );
 	bool	hasMapId( UINT16 id );
 
-	void	handleTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid, UINT16 artid );
+	void	handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid, UINT16 artid );
+	void	handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* pSource, UINT16 mapid, UINT16 artid );
 
 private:
 	UINT32	amountmin_;
@@ -93,10 +106,15 @@ private:
 	UINT32	staminamax_;
 	UINT8	charaction_;
 	UINT16	sound_;
+	QString failmsg_;
+	QString succmsg_;
+	QString emptymsg_;
 
 	QValueVector< resourcespec_st > resourcespecs_;
 	QValueVector< UINT16 > mapids_;
 	QValueVector< UINT16 > artids_;
+	std::set< UINT16 > sourceids_;
+	std::set< UINT16 > sourcecolors_;
 };
 
 class cResourceItem : public cItem
@@ -140,6 +158,17 @@ public:
 
 private:
 	QString resourcename_;
+};
+
+class cConvertResource : public cTargetRequest
+{
+public:
+	cConvertResource( QString resname, cItem* pi ) : resourcename_( resname ), sourceserial_( pi->serial ) {}
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target );
+
+private:
+	QString resourcename_;
+	SERIAL	sourceserial_;
 };
 
 #endif
