@@ -227,6 +227,25 @@ class TailorItemAction(CraftItemAction):
 		player.soundeffect(0x248)
 
 #
+# The user has to have Samurai Empire installed
+#
+class SeTailorItemAction(TailorItemAction):
+	def __init__(self, parent, title, itemid, definition):
+		TailorItemAction.__init__(self, parent, title, itemid, definition)
+
+	def visible(self, char, arguments):
+		if char.socket and char.socket.flags & 0x10 == 0:
+			return False
+		else:
+			return TailorItemAction.visible(self, char, arguments)
+			
+	def checkmaterial(self, player, arguments, silent = 0):
+		if player.socket and player.socket.flags & 0x10 == 0:
+			return False
+		else:
+			return TailorItemAction.checkmaterial(self, player, arguments, silent)
+
+#
 # The Tailor menu.
 #
 class TailoringMenu(MakeMenu):
@@ -295,7 +314,7 @@ def loadMenu(id, parent = None):
 				loadMenu(child.getattribute('id'), menu)
 
 		# Craft an item
-		elif child.name == 'tailor':
+		elif child.name in ['tailor', 'setailor']:
 			if not child.hasattribute('definition') or not child.hasattribute('name'):
 				console.log(LOG_ERROR, "Tailor action without definition or name in menu %s.\n" % menu.id)
 			else:
@@ -310,9 +329,14 @@ def loadMenu(id, parent = None):
 							itemchild = item.findchild('id')
 							if itemchild:
 								itemid = itemchild.value
+						else:
+							console.log(LOG_ERROR, "Tailor action with invalid definition %s in menu %s.\n" % (itemdef, menu.id))
 					else:
 						itemid = hex2dec(child.getattribute('itemid', '0'))
-					action = TailorItemAction(menu, name, int(itemid), itemdef)
+					if child.name == 'setailor':
+						action = SeTailorItemAction(menu, name, int(itemid), itemdef)
+					else:
+						action = TailorItemAction(menu, name, int(itemid), itemdef)
 				except:
 					console.log(LOG_ERROR, "Tailor action with invalid item id in menu %s.\n" % menu.id)
 

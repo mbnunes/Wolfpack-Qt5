@@ -72,6 +72,17 @@
 			<tailoring min="100" max="350" />
 			<cloth amount="5" />
 		</tailor>
+		
+		<!-- Samurai Empire -->
+		<setailor definition="278f" name="Cloth Ninja Hood">
+			<tailoring min="800" max="1050" />
+			<cloth amount="13" />
+		</setailor>
+		
+		<setailor definition="2798" name="Kasa">
+			<tailoring min="600" max="850" />
+			<cloth amount="12" />
+		</setailor>
 	</menu>
 
 	<menu id="TAILORING_SHIRTS" name="Shirts">
@@ -127,6 +138,37 @@
 			<tailoring min="260" max="510" />
 			<cloth amount="16" />
 		</tailor>
+		
+		<!-- Samurai Empire -->
+		<setailor definition="2794" name="Cloth Ninja Jacket">
+			<tailoring min="750" max="1000" />
+			<cloth amount="12" />
+		</setailor>
+		
+		<setailor definition="2799" name="Kamishimo">
+			<tailoring min="750" max="1000" />
+			<cloth amount="15" />
+		</setailor>
+		
+		<setailor definition="279c" name="Hakama Shita">
+			<tailoring min="400" max="650" />
+			<cloth amount="14" />
+		</setailor>
+
+		<setailor definition="2782" name="Male Kimono">
+			<tailoring min="500" max="750" />
+			<cloth amount="16" />
+		</setailor>
+		
+		<setailor definition="2783" name="Female Kimono">
+			<tailoring min="500" max="750" />
+			<cloth amount="16" />
+		</setailor>
+		
+		<setailor definition="27a1" name="Jin Baori">
+			<tailoring min="300" max="550" />
+			<cloth amount="12" />
+		</setailor>
 	</menu>
 
 	<menu id="TAILORING_PANTS" name="Pants">
@@ -150,6 +192,16 @@
 			<tailoring min="350" max="600" />
 			<cloth amount="12" />
 		</tailor>
+		
+		<setailor definition="279a" name="Hakama">
+			<tailoring min="500" max="750" />
+			<cloth amount="16" />
+		</setailor>
+
+		<setailor definition="279b" name="Tattsuke Hakama">
+			<tailoring min="500" max="750" />
+			<cloth amount="16" />
+		</setailor>				
 	</menu>
 
 	<menu id="TAILORING_MISC" name="Misc">
@@ -166,6 +218,41 @@
 			<cloth amount="10" />
 		</tailor>
 		<!-- Oil Cloth -->
+		
+		<setailor definition="27a0" name="Obi">
+			<tailoring min="200" max="450" />
+			<cloth amount="6" />
+		</setailor>
+		
+		<!-- <setailor definition="" name="Goza Mat East Deed">
+			<tailoring min="550" max="800" />
+			<cloth amount="25" />
+		</setailor>
+		
+		<setailor definition="" name="Goza Mat South Deed">
+			<tailoring min="550" max="800" />
+			<cloth amount="25" />
+		</setailor>
+		
+		<setailor definition="" name="Square Goza Mat East Deed">
+			<tailoring min="550" max="800" />
+			<cloth amount="25" />
+		</setailor>
+
+		<setailor definition="" name="Square Goza Mat South Deed">
+			<tailoring min="550" max="800" />
+			<cloth amount="25" />
+		</setailor>
+		
+		<setailor definition="" name="Brocade Square Goza Mat East Deed">
+			<tailoring min="550" max="800" />
+			<cloth amount="25" />
+		</setailor>
+		
+		<setailor definition="" name="Brocade Square Goza Mat South Deed">
+			<tailoring min="550" max="800" />
+			<cloth amount="25" />
+		</setailor> -->
 	</menu>
 
 	<menu id="TAILORING_FOOTWEAR" name="Footwear">
@@ -189,6 +276,15 @@
 			<tailoring min="414" max="664" />
 			<leather amount="10" />
 		</tailor>
+		
+		<setailor definition="2797" name="Ninja Tabi">
+			<tailoring min="700" max="950" />
+			<cloth amount="10" />
+		</setailor>		
+		<setailor definition="2796" name="Samurai Tabi">
+			<tailoring min="200" max="450" />
+			<cloth amount="6" />
+		</setailor>				
 	</menu>
 
 	<menu id="TAILORING_LEATHERARMOR" name="Leather Armor">
@@ -216,6 +312,56 @@
 			<tailoring min="705" max="955" />
 			<leather amount="12" />
 		</tailor>
+		
+		<setailor definition="2776" name="Leather Jingasa">
+			<tailoring min="450" max="700" />
+			<leather amount="4" />
+		</setailor>
+		
+		<setailor definition="277a" name="Leather Mempo">
+			<tailoring min="800" max="1050" />
+			<leather amount="8" />
+		</setailor>
+		
+		<setailor definition="277b" name="Leather Do">
+			<tailoring min="750" max="1000" />
+			<leather amount="12" />
+		</setailor>
+		
+		<setailor definition="277e" name="Leather Hiro Sode">
+			<tailoring min="550" max="800" />
+			<leather amount="5" />
+		</setailor>
+		
+		<setailor definition="2786" name="Leather Suneate">
+			<tailoring min="680" max="930" />
+			<leather amount="12" />
+		</setailor>		
+		
+		<setailor definition="278a" name="Leather Haidate">
+			<tailoring min="680" max="930" />
+			<leather amount="12" />
+		</setailor>				
+		
+		<setailor definition="2791" name="Leather Ninja Pants">
+			<tailoring min="800" max="1050" />
+			<leather amount="13" />
+		</setailor>				
+		
+		<setailor definition="2793" name="Leather Ninja Jacket">
+			<tailoring min="850" max="1100" />
+			<leather amount="13" />
+		</setailor>				
+		
+		<setailor definition="2792" name="Leather Ninja Mitts">
+			<tailoring min="650" max="900" />
+			<leather amount="12" />
+		</setailor>						
+		
+		<setailor definition="278e" name="Leather Ninja Hood">
+			<tailoring min="900" max="1150" />
+			<leather amount="14" />
+		</setailor>								
 	</menu>
 
 	<menu id="TAILORING_STUDDEDARMOR" name="Studded Armor">
@@ -239,6 +385,31 @@
 			<tailoring min="940" max="1190" />
 			<leather amount="14" />
 		</tailor>
+		
+		<setailor definition="13db" name="Studded Mempo">
+			<tailoring min="800" max="1050" />
+			<leather amount="8" />
+		</setailor>		
+		
+		<setailor definition="13db" name="Studded Do">
+			<tailoring min="950" max="1200" />
+			<leather amount="14" />
+		</setailor>		
+		
+		<setailor definition="13db" name="Studded Hiro Sode">
+			<tailoring min="850" max="1100" />
+			<leather amount="8" />
+		</setailor>		
+		
+		<setailor definition="13db" name="Studded Suneate">
+			<tailoring min="920" max="1170" />
+			<leather amount="14" />
+		</setailor>		
+		
+		<setailor definition="13db" name="Studded Haidate">
+			<tailoring min="920" max="1170" />
+			<leather amount="14" />
+		</setailor>								
 	</menu>
 
 	<menu id="TAILORING_FEMALEARMOR" name="Female Armor">

@@ -380,12 +380,40 @@
 		<weight>3.0</weight>
 		<basescripts>equipment</basescripts>
 	</item>
-
+	
 	<!-- Boots w/e -->
 	<item id="170c" inherit="170b">
 		<baseid>170b</baseid>
 		<category>Clothes\Footwear\Boots (W/E)</category>
 		<id>0x170c</id>
+	</item>
+
+	<!-- Samurai Tabi -->
+	<item id="2796">
+		<category>Clothes\Footwear\Samurai Tabi (W/E)</category>
+		<id>0x2796</id>
+		<dye />
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+	</item>
+
+	<item id="27e1" inherit="2796">
+		<category>Clothes\Footwear\Samurai Tabi (N/S)</category>
+		<id>0x27e1</id>
+	</item>
+	
+	<!-- Ninja Tabi -->
+	<item id="2797">
+		<category>Clothes\Footwear\Ninja Tabi (W/E)</category>
+		<id>0x2797</id>
+		<dye />
+		<weight>2.0</weight>
+		<basescripts>equipment</basescripts>
+	</item>
+	
+	<item id="27e2" inherit="2797">
+		<id>0x27e2</id>
+		<category>Clothes\Footwear\Ninja Tabi (N/S)</category>
 	</item>
 
 	<!-- Sandals n/s -->
