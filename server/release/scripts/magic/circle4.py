@@ -7,6 +7,15 @@ from wolfpack.utilities import tobackpack, energydamage, mayAreaBenefit
 from system import poison
 from combat.specialmoves import ismortallywounded
 
+def curse_remove(char, args, removeTimer = False):
+	if removeTimer:
+		char.dispel(None, True, 'CURSE_TIMER')
+	
+	# Remove Curse Flag
+	char.propertyflags &= ~ 0x80000
+	if char.socket:
+		char.socket.resendstatus()
+
 class Curse (CharEffectSpell):
 	def __init__(self):
 		CharEffectSpell.__init__(self, 4)
@@ -16,7 +25,16 @@ class Curse (CharEffectSpell):
 		self.reflectable = 1
 
 	def effect(self, char, target, mode, args, item):
+		curse_remove(char, [], True) # Remove old curse flag
+		target.propertyflags |= 0x80000
+		
+		duration = (char.skill[EVALUATINGINTEL] / 50 + 1) * 6000
+		target.addtimer(duration, curse_remove, [], True, False, 'CURSE_TIMER')
+		
+		# Handle the stat modifier later on because it will
+		# resend the status for the resistances
 		statmodifier(char, target, 3, 1)
+		
 		target.effect(0x373a, 10, 15)
 		target.soundeffect(0x1ea)
 

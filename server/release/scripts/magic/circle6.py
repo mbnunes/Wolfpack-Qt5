@@ -4,7 +4,7 @@ from magic.spell import CharEffectSpell, Spell, DelayedDamageSpell
 from magic.utilities import *
 import random
 import wolfpack
-from wolfpack.utilities import tobackpack, energydamage
+from wolfpack.utilities import tobackpack, energydamage, mayAreaHarm
 from wolfpack import time
 import math
 
@@ -156,25 +156,13 @@ class MassCurse (Spell):
 
 		char.turnto(target)
 
-		if char.player:
-			party = char.party
-			guild = char.guild
-		else:
-			party = None
-			guild = None
-
 		# Enumerate chars
 		chars = wolfpack.chars(target.x, target.y, char.pos.map, 3)
 		for target in chars:
 			if target == char:
 				continue
 
-			# We also ignore people from the same guild or party.
-			# Or targets who are innocent.
-			if (guild and target.guild == guild) or (party and target.party == party):
-				continue
-
-			if target.invulnerable or target.notoriety(char) == 1:
+			if not mayAreaHarm(char, target):
 				continue
 
 			target.effect(0x374a, 10, 15)

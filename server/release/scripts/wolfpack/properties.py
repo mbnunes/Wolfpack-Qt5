@@ -284,6 +284,10 @@ def fromchar(char, property):
 			
 		if value > 70:
 			value = 70 # Cap
+			
+		# If Value > 60 && property != RESISTANCE_PHYSICAL && char.propertyflags & CURSE_FLAG
+		if value > 60 and property != RESISTANCE_PHYSICAL and char.propertyflags & 0x80000:
+			value = 60
 
 	# Lower Mana Cost capped at 40%
 	if property == LOWERMANACOST and value > 40:
