@@ -87,20 +87,20 @@ static bool parseParameter( const QString &param )
 			PyObject *pName, *pModule, *pDict, *pFunc;
 			PyObject *pArgs, *pValue;
 			int i;
-			
+
 			pName = PyString_FromString( param.left(param.length() - 3).latin1() );
 			/* Error checking of pName left out */
-			
+
 			pModule = PyImport_Import(pName);
 			Py_DECREF(pName);
-			
+
 			if (pModule != NULL) {
 				pDict = PyModule_GetDict(pModule);
 				/* pDict is a borrowed reference */
-				
+
 				pFunc = PyDict_GetItemString(pDict, "main");
 				/* pFun: Borrowed reference */
-				
+
 				if (pFunc && PyCallable_Check(pFunc)) {
 					pArgs = PyTuple_New(0);
 					pValue = PyObject_CallObject(pFunc, pArgs);
@@ -261,7 +261,7 @@ int main( int argc, char **argv )
 
 	Console::instance()->send("Compiled for Python " PY_VERSION " (Using: ");
 	Console::instance()->send(pythonBuild + ")\n\n");
-	
+
 	QString consoleTitle = QString("%1 %2 %3").arg(productString(), productBeta(), productVersion());
 	Console::instance()->setConsoleTitle( consoleTitle );
 
@@ -309,7 +309,7 @@ int main( int argc, char **argv )
 	Console::instance()->send( "\n" );
 
 /*	Console::instance()->send( "SIZEOF(cItem):" + QString::number( sizeof( cItem ) ) );
-	
+
 	Sleep( 5000 );
 
 	for( int x = 0; x < 400000; ++x )
@@ -334,7 +334,7 @@ int main( int argc, char **argv )
 
 		Console::instance()->send( "Loading accounts...\n" );
 		Accounts::instance()->load();
-		
+
 		Console::instance()->send( "Loading ip blocking rules...\n" );
 		cNetwork::instance()->load();
 
@@ -357,7 +357,7 @@ int main( int argc, char **argv )
 		Console::instance()->send( "Loading muls...\n" );
 		TileCache::instance()->load( SrvParams->mulPath() );
 		MultiCache::instance()->load( SrvParams->mulPath() );
-		
+
 		Map->registerMap(0, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
 		Map->registerMap(1, "map0.mul", 768, 512, "statics0.mul", "staidx0.mul");
 		Map->registerMap(2, "map2.mul", 288, 200, "statics2.mul", "staidx2.mul");
@@ -393,7 +393,7 @@ int main( int argc, char **argv )
 		Check for valid database driers.
 	*/
 	if( !persistentBroker->openDriver( SrvParams->databaseDriver() ) )
-	{		
+	{
 		Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml").arg( SrvParams->databaseDriver() ) );
 		return 1;
 	}
@@ -464,7 +464,7 @@ int main( int argc, char **argv )
 	if( SrvParams->enableLogin() )
 	{
         Console::instance()->send( QString( "LoginServer running on port %1\n" ).arg( SrvParams->loginPort() ) );
-		if ( SrvParams->serverList().size() > 1 )
+		if ( SrvParams->serverList().size() < 1 )
 			Console::instance()->log( LOG_WARNING, "LoginServer enabled but there no Game server entries found\n Check your wolfpack.xml settings" );
 	}
 
@@ -480,7 +480,7 @@ int main( int argc, char **argv )
 	Console::instance()->start(); // Startup Console
 
 	QWaitCondition niceLevel;
-	
+
 	unsigned char cycles = 0;
 	lockDataMutex();
 
@@ -515,7 +515,7 @@ int main( int argc, char **argv )
 
 			// Unlock the main mutex to give the gui time for processing data
 			unlockDataMutex();
-			lockDataMutex();			
+			lockDataMutex();
 		}
 
 		// Perform Threadsafe Actions
@@ -555,7 +555,7 @@ int main( int argc, char **argv )
 		}
 
 		// See if we should release our data lock for a while.
-		
+
 
 		Console::instance()->poll();
 		cNetwork::instance()->poll();
