@@ -72,7 +72,7 @@ class EnergyVortex(Spell):
 		if not self.consumerequirements(char, mode):
 			return
 
-		ev = wolfpack.addnpc('energy_vortex', target)
+		ev = wolfpack.addnpc('summoned_energy_vortex', target)
 		ev.summontime = wolfpack.time.servertime() + 120000
 		ev.summoned = 1
 		ev.soundeffect(0x212)
@@ -132,14 +132,14 @@ class SummonAirElement(SummonElementBase):
 	def __init__(self):
 		SummonElementBase.__init__(self)
 		self.mantra = 'Kal Vas Xen Hur'
-		self.elementid = 'air_elemental'
+		self.elementid = 'summoned_air_elemental'
 		self.casttime = 6000
 
 class SummonEarthElement(SummonElementBase):
 	def __init__(self):
 		SummonElementBase.__init__(self)
 		self.mantra = 'Kal Vas Xen Ylem'
-		self.elementid = 'earth_elemental'
+		self.elementid = 'summoned_earth_elemental'
 		self.casttime = 6000
 
 class SummonFireElement(SummonElementBase):
@@ -147,14 +147,14 @@ class SummonFireElement(SummonElementBase):
 		SummonElementBase.__init__(self)
 		self.mantra = 'Kal Vas Xen Flam'
 		self.reagents = {REAGENT_BLOODMOSS: 1, REAGENT_MANDRAKE: 1, REAGENT_SPIDERSILK: 1, REAGENT_SULFURASH: 1}
-		self.elementid = 'fire_elemental'
+		self.elementid = 'summoned_fire_elemental'
 		self.casttime = 6000
 
 class SummonWaterElement(SummonElementBase):
 	def __init__(self):
 		SummonElementBase.__init__(self)
 		self.mantra = 'Kal Vas Xen An Flam'
-		self.elementid = 'water_elemental'
+		self.elementid = 'summoned_water_elemental'
 		self.casttime = 6000
 
 class SummonDaemon(SummonElementBase):
@@ -162,6 +162,6 @@ class SummonDaemon(SummonElementBase):
 		SummonElementBase.__init__(self)
 		self.mantra = 'Kal Vas Xen Corp'
 		self.reagents = {REAGENT_BLOODMOSS: 1, REAGENT_MANDRAKE: 1, REAGENT_SPIDERSILK: 1, REAGENT_SULFURASH: 1}
-		self.elementid = 'daemon'
+		self.elementid = 'summoned_daemon'
 		self.casttime = 6000
 		self.controlslots = 5

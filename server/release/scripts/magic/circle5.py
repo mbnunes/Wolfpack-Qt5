@@ -30,7 +30,7 @@ class BladeSpirits (Spell):
 		if not self.consumerequirements(char, mode):
 			return
 
-		spirits = wolfpack.addnpc('blade_spirit', target)
+		spirits = wolfpack.addnpc('summoned_blade_spirit', target)
 		spirits.controlslots = 1
 		spirits.owner = char
 		spirits.summontime = wolfpack.time.servertime() + 120000
