@@ -615,9 +615,7 @@ def throwobject(char, object, pos, sendobject=0, movable=1, speed=10, fixeddir=0
 	# This will make the object leave the character's pack and land at the target location.
 	if sendobject > 0:
 		if movable:
-			object.magic = 0
-		else:
-			object.magic = 2
+			object.magic = movable
 
 		object.container = 0
 		object.moveto(pos)

@@ -65,7 +65,9 @@ def onUse( char, item ):
 			# Explosion Potion
 			if potiontype in [ 11, 12, 13 ]:
 				# char, potion, counter value
-				potionexplosion( [ char.serial, item.serial, 4, item.amount ] )
+				if not item.hastag('exploding'):
+					potionexplosion( [ char.serial, item.serial, 4, item.amount ] )
+					item.settag('exploding', 'true')
 				socket.sysmessage( 'Please select a target...', RED )
 				socket.attachtarget( "potions.targetexplosionpotion", [ item ] )
 
@@ -104,17 +106,36 @@ def onUse( char, item ):
 def targetexplosionpotion(char, args, target):
 	socket = char.socket
 	potion = args[0]
+	check = 10
 	if not potion:
-		return OOPS
+		return 0
 	if target.char:
+		if target.char.invulnerable:
+			return 0
+		if target.char.dead:
+			return 0
+		if not char.cansee(target.char):
+			return 0
+		if char.distanceto(target.char) > check:
+			return 0
+		if not char.canreach(target.char, check):
+			return 0
 		pos = target.char.pos
 	elif target.item:
+		if not char.cansee(target.item):
+			return 0
+		if char.distanceto(target.item) > check:
+			return 0
+		if not char.canreach(target.item, check):
+			return 0
 		item = target.item.getoutmostitem()
 		if item.container:
 			pos = item.container.pos
 		else:
 			pos = item.pos
 	else:
+		if not char.canreach(target.pos, check):
+			return 0
 		pos = target.pos
 
 	if char.distanceto(pos) > 15:
@@ -124,7 +145,6 @@ def targetexplosionpotion(char, args, target):
 	throwobject(char, potion, pos, 1, 3, 5)
 	# char, potion, counter value
 	#potionexplosion( [ char.serial, potion.serial, 4, potion.amount ] )
-	potion.settag('exploding', 'true')
 	return
 
 # Explosion Potion Function
@@ -160,6 +180,47 @@ def potioncountdown( time, args ):
 				counter -= 1
 			potionexplosion([char.serial, potion.serial, counter, bonus])
 		return
+
+# Checks line of sight for characters with blasts.
+def charpotionloscheck( args ):
+	char = wolfpack.findchar(args[0])
+	potion = wolfpack.finditem(args[1])
+	check = args[2]
+	if char.invulnerable:
+		return 0
+	if char.dead:
+		return 0
+	if not char.cansee(potion):
+		return 0
+	if char.distanceto(potion) > check:
+		return 0
+	if not char.canreach(potion, check):
+		return 0
+	return 1
+
+def itempotionloscheck( args ):
+	potion1 = wolfpack.finditem(args[0])
+	potion2 = wolfpack.finditem(args[1])
+	check = args[2]
+	if potion1.distanceto(potion2) > check:
+		return 0
+	return 1
+
+def charcharloscheck( args ):
+	char1 = wolfpack.findchar(args[0])
+	char2 = wolfpack.findchar(args[1])
+	check = args[2]
+	if char2.invulnerable:
+		return 0
+	if char2.dead:
+		return 0
+	if not char1.cansee(char2):
+		return 0
+	if char1.distanceto(char2) > check:
+		return 0
+	if not char1.canreach(char2, check):
+		return 0
+	return 1
 
 # Explosion Potion Function
 def potionregion( args ):
@@ -206,24 +267,36 @@ def potionregion( args ):
 		# Character Bombing
 		target = damageregion.first
 		while target:
-			target.effect(0x36BD, 20, 10)
-			potiondamage(char, target, potion, bonus)
-			target = damageregion.next
+			if charpotionloscheck( [ target.serial, potion.serial, outradius ] ):
+				target.effect(0x36BD, 20, 10)
+				potiondamage(char, target, potion, bonus)
+				target = damageregion.next
+			else:
+				target = damageregion.next
 
 		# Chain Reaction Bombing
 		chainregion = wolfpack.itemregion( x1, y1, x2, y2, potion.pos.map )
 		chainbomb= chainregion.first
 		while chainbomb:
 			if chainbomb.baseid in [ 'potion_greaterexplosion', 'potion_explosion', 'potion_lesserexplosion', 'f0d' ]:
-				if not chainbomb.hastag('exploding'):
-					chainbomb.settag('exploding', 'true')
-					wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 0, chainbomb.amount] )
-					chainbomb = chainregion.next
+				if itempotionloscheck( [potion.serial, chainbomb.serial, outradius] ):
+					if not chainbomb.hastag('exploding'):
+						chainbomb.settag('exploding', 'true')
+						wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 0, chainbomb.amount] )
+						chainbomb = chainregion.next
+					else:
+						chainbomb = chainregion.next
 				else:
 					chainbomb = chainregion.next
+			# Potion Kegs
 			elif chainbomb.hastag('kegfill') and chainbomb.hastag('potiontype'):
-				if chainbomb.gettag('potiontype') in [11, 12, 13] and chainbomb.gettag('kegfill') >= 1:
-					wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 11, chainbomb.gettag('kegfill') ] )
+				if itempotionloscheck( [potion.serial, chainbomb.serial, outradius] ):
+					if chainbomb.gettag('potiontype') in [11, 12, 13] and chainbomb.gettag('kegfill') >= 1:
+						wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 11, chainbomb.gettag('kegfill') ] )
+						chainbomb = chainregion.next
+					else:
+						chainbomb = chainregion.next
+				else:
 					chainbomb = chainregion.next
 			else:
 				chainbomb = chainregion.next
@@ -238,22 +311,38 @@ def potionregion( args ):
 		# Area Bombing
 		target = damageregion.first
 		while target:
-			target.effect(0x36BD, 20, 10)
-			potiondamage(char, target, potion, bonus)
-			target = damageregion.next
+			if charcharloscheck( [ char.serial, target.serial, outradius ] ):
+				target.effect(0x36BD, 20, 10)
+				potiondamage(char, target, potion, bonus)
+				target = damageregion.next
+			else:
+				target = damageregion.next
 
 		# Chain Reaction Bombing
 		chainregion = wolfpack.itemregion( x1, y1, x2, y2, char.pos.map )
 		chainbomb = chainregion.first
 		while chainbomb:
 			if chainbomb.baseid in [ 'potion_greaterexplosion', 'potion_explosion', 'potion_lesserexplosion', 'f0d' ]:
-				if not chainbomb.hastag('exploding'):
-					chainbomb.settag('exploding', 'true')
-					wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 0] )
+				if itempotionloscheck( [potion.serial, chainbomb.serial, outradius] ):
+					if not chainbomb.hastag('exploding'):
+						chainbomb.settag('exploding', 'true')
+						wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 0] )
+						chainbomb = chainregion.next
+					elif chainbomb.hastag('kegfill') and chanbomb.hastag('potiontype'):
+						if chainbomb.gettag('potiontype') in [11, 12, 13] and chainbomb.gettag('kegfill') >= 1:
+							wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 11, chainbomb.gettag('kegfill') ] )
+							chainbomb = chainregion.next
+					else:
+						chainbomb = chainregion.next
+				else:
 					chainbomb = chainregion.next
-				elif chainbomb.hastag('kegfill') and chanbomb.hastag('potiontype'):
+			# Potion Kegs
+			elif chainbomb.hastag('kegfill') and chainbomb.hastag('potiontype'):
+				if itempotionloscheck( [potion.serial, chainbomb.serial, outradius] ):
 					if chainbomb.gettag('potiontype') in [11, 12, 13] and chainbomb.gettag('kegfill') >= 1:
 						wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char.serial, chainbomb.serial, 11, chainbomb.gettag('kegfill') ] )
+						chainbomb = chainregion.next
+					else:
 						chainbomb = chainregion.next
 				else:
 					chainbomb = chainregion.next
