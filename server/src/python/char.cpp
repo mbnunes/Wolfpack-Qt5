@@ -648,6 +648,12 @@ static PyObject* wpChar_damage( wpChar* self, PyObject* args )
 	return PyInt_FromLong( self->pChar->damage( (eDamageType)type, amount, pSource ) );
 }
 
+/*
+	\method char.emote
+	\description Show an emote above the characters head. The emote will be
+	visible for everyone in range. The *...* will be automatically put in place.
+	\param text The text for the emote.
+*/
 static PyObject* wpChar_emote( wpChar* self, PyObject* args )
 {
 	if( !self->pChar || self->pChar->free )
@@ -660,11 +666,34 @@ static PyObject* wpChar_emote( wpChar* self, PyObject* args )
 
 	QString message = QString( "*%1*" ).arg(getArgStr(0));
 	self->pChar->emote(message);
-	return PyTrue;
+	
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	The character says something.
+/*
+	\method char.say
+	\description Let the character say a text visible for everyone in range.
+	\param text The text the character should say.
+	\param color Defaults to the normal speech color of the character.
+	The color for the text.
+*/
+/*
+	\method char.say
+	\description Let the character say a localized text message.
+	\param clilocid The id of the localizd message the character should say.
+	\param params Defaults to an empty string.
+	The parameters that should be parsed into the localized message.
+	\param affix Defaults to an empty string.
+	Text that should be appended or prepended (see the prepend parameter) to the
+	localized message.
+	\param prepend Defaults to false.
+	If this boolean parameter is set to true, the affix is prepended rather than
+	appended.
+	\param color Defaults to the characters speech color.
+	The color of the message.
+	\param socket Defaults to None.
+	If a socket object is given here, the message will only be seen by the given socket.
 */
 static PyObject* wpChar_say( wpChar* self, PyObject* args, PyObject *keywds )
 {
@@ -691,7 +720,6 @@ static PyObject* wpChar_say( wpChar* self, PyObject* args, PyObject *keywds )
 			return 0;		
 
 		npc->talk( id, clilocargs, affix, prepend, color, socket );
-		return PyTrue;
 	}
 	else
 	{
@@ -701,16 +729,20 @@ static PyObject* wpChar_say( wpChar* self, PyObject* args, PyObject *keywds )
 			color = getArgInt( 1 );
 
 		self->pChar->talk( getArgStr( 0 ), color );
-		return PyTrue;
+
 	}
-	return PyFalse;
+	
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Takes at least one argument (item-id)
-	Optionally the color
-	It returns the amount of a resource
-	available
+/*
+	\method char.countresource
+	\description Counts a certain type of item in the characters backpack.
+	\param itemid The display id of the items to count.
+	\param color Defaults to 0.
+	The color of the items to count.
+	\return The amount of items found.
 */
 static PyObject* wpChar_countresource( wpChar* self, PyObject* args )
 {
@@ -738,6 +770,10 @@ static PyObject* wpChar_countresource( wpChar* self, PyObject* args )
 	return PyInt_FromLong( avail );
 }
 
+/*
+	\method char.isitem
+	\return False.
+*/
 static PyObject* wpChar_isitem( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
@@ -745,6 +781,10 @@ static PyObject* wpChar_isitem( wpChar* self, PyObject* args )
 	return PyFalse;
 }
 
+/*
+	\method char.ischar
+	\return True.
+*/
 static PyObject* wpChar_ischar( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
@@ -752,8 +792,12 @@ static PyObject* wpChar_ischar( wpChar* self, PyObject* args )
 	return PyTrue;
 }
 
-/*!
-	Returns the custom tag passed
+/*
+	\method char.gettag
+	\description Get a custom tag attached to the character.
+	\return None if there is no such tag, the tag value otherwise.
+	Possible return types are: unicode (string), float, integer.
+	\param name The name of the tag.
 */
 static PyObject* wpChar_gettag( wpChar* self, PyObject* args )
 {
@@ -779,12 +823,16 @@ static PyObject* wpChar_gettag( wpChar* self, PyObject* args )
 	else if( value.type() == cVariant::Double )
 		return PyFloat_FromDouble( value.asDouble() );		
 
-	Py_INCREF( Py_None );
+	Py_INCREF(Py_None);
 	return Py_None;
 }
 
-/*!
-	Sets a custom tag
+/*
+	\method char.settag
+	\description Set a custom tag on the object.
+	\param name The name of the tag.
+	\param value The value of the tag. Possible value types
+	are string, unicode, float and integer.
 */
 static PyObject* wpChar_settag( wpChar* self, PyObject* args )
 {
@@ -807,11 +855,15 @@ static PyObject* wpChar_settag( wpChar* self, PyObject* args )
 		self->pChar->setTag(key, cVariant((double)PyFloat_AsDouble(object)));
 	}
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Checks if a certain tag exists
+/*
+	\method char.hastag
+	\description Check if the character has a certain custom tag attached to it.
+	\return True if the tag is present. False otherwise.
+	\param name The name of the tag.
 */
 static PyObject* wpChar_hastag( wpChar* self, PyObject* args )
 {
@@ -829,8 +881,10 @@ static PyObject* wpChar_hastag( wpChar* self, PyObject* args )
 	return self->pChar->getTag( key ).isValid() ? PyTrue : PyFalse;
 }
 
-/*!
-	Deletes a given tag
+/*
+	\method char.deltag
+	\description Deletes a tag attached to the character.
+	\param name The name of the tag.
 */
 static PyObject* wpChar_deltag( wpChar* self, PyObject* args )
 {
@@ -846,33 +900,17 @@ static PyObject* wpChar_deltag( wpChar* self, PyObject* args )
 	QString key = getArgStr( 0 );
 	self->pChar->removeTag( key );
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
- * Sends MakeMenu defined as xml file to this character
- */
-static PyObject* wpChar_sendmakemenu( wpChar* self, PyObject* args )
-{
-	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
-	if( !self->pChar || self->pChar->free || !player )
-		return PyFalse;
-	if( !player->socket() )
-		return PyFalse;
-	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
-	{
-		PyErr_BadArgument();
-		return NULL;
-	}
-
-	QString menuName = getArgStr( 0 );
-	MakeMenus::instance()->callMakeMenu( player->socket(), menuName );
-	
-	return PyTrue;
-}
-
-/*!
-	Adds a follower
+/*
+	\method char.addfollower
+	\description Add a follower to this characters follower list.
+	This method only has an effect for players.
+	Please note that setting the owner of a npc automatically adds the npc to the
+	owners follower list.
+	\param pet The pet you want to add to this characters follower list.
 */
 static PyObject* wpChar_addfollower( wpChar* self, PyObject* args )
 {
@@ -880,27 +918,30 @@ static PyObject* wpChar_addfollower( wpChar* self, PyObject* args )
 		return PyFalse;
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
-	if ( !player )
+	if (!player)
 		return PyFalse;
 
-	if( !checkArgChar( 0 ) )
-	{
+	if (!checkArgChar(0)) {
 		PyErr_BadArgument();
 		return NULL;
 	}
 
 	P_NPC pPet = dynamic_cast<P_NPC>( getArgChar( 0 ) );
 	
-	if( pPet )
-	{
+	if (pPet) {
 		player->addPet( pPet );
-		return PyTrue;
 	}
-	return PyFalse;
+	
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Removes a follower
+/*
+	\method char.removefollower
+	\description Remove a follower from this players follower list.
+	Please note that setting the owner of a npc automatically removes the npc from the
+	previous owners follower list.
+	\param pet The pet you want to remove from this characters follower list.
 */
 static PyObject* wpChar_removefollower( wpChar* self, PyObject* args )
 {
@@ -909,27 +950,32 @@ static PyObject* wpChar_removefollower( wpChar* self, PyObject* args )
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 
-	if ( !player )
+	if (!player)
 		return PyFalse;
 
-	if( !checkArgChar( 0 ) )
-	{
+	if (!checkArgChar(0)) {
 		PyErr_BadArgument();
 		return NULL;
 	}
   
 	P_NPC pPet = dynamic_cast<P_NPC>( getArgChar( 0 ) );
 	
-	if( pPet )
-	{
-		player->removePet( pPet );
-		return PyTrue;
+	if (pPet) {
+		player->removePet(pPet);
 	}
-	return PyFalse;
+	
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Checks if the Char has a follower
+/*
+	\method char.hasfollower
+	\description Checks if a certain pet is in the follower list of this
+	character. 
+	Please note that the pet is automatically in the follower list of this
+	character if it's owned by him.
+	\param pet The pet you want to check for.
+	\return True if the pet is in the characters follower list. False otherwise.
 */
 static PyObject* wpChar_hasfollower( wpChar* self, PyObject* args )
 {
@@ -958,8 +1004,10 @@ static PyObject* wpChar_hasfollower( wpChar* self, PyObject* args )
 	return PyFalse;
 }
 
-/*!
-	Resends the healthbar to the environment.
+/*
+	\method char.updatehealth
+	\description Update the healthbar of this character. The update will also be sent to 
+	anyone in range and the partymembers of the character.
 */
 static PyObject* wpChar_updatehealth( wpChar* self, PyObject* args )
 {
@@ -968,11 +1016,15 @@ static PyObject* wpChar_updatehealth( wpChar* self, PyObject* args )
 		return PyFalse;
 
 	self->pChar->updateHealth();
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Resends the mana to this character.
+/*
+	\method char.updatemana
+	\description Update the minimum and maximum mana of this character. 
+	This function only has an effect for connected players. The change will 
+	also be visible to party members of the player.
 */
 static PyObject* wpChar_updatemana( wpChar* self, PyObject* args )
 {
@@ -982,19 +1034,19 @@ static PyObject* wpChar_updatemana( wpChar* self, PyObject* args )
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 
-	if ( !player )
-		return PyFalse;
-
-	if( !player->socket() )
-		return PyFalse;
+	if (player && player->socket()) {
+		player->socket()->updateMana();
+	}
 	
-	player->socket()->updateMana();
-
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Resends the Stamina to this character.
+/*
+	\method char.updatestamina
+	\description Update the minimum and maximum stamina of this character. 
+	This function only has an effect for connected players. The change will 
+	also be visible to party members of the player.
 */
 static PyObject* wpChar_updatestamina( wpChar* self, PyObject* args )
 {
@@ -1004,19 +1056,17 @@ static PyObject* wpChar_updatestamina( wpChar* self, PyObject* args )
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 
-	if ( !player )
-		return PyFalse;
+	if (player && player->socket()) {	
+		player->socket()->updateStamina();
+	}
 
-	if( !player->socket() )
-		return PyFalse;
-	
-	player->socket()->updateStamina();
-
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Resends all stats to this character.
+/*
+	\method char.updatestats
+	\description Resend the status information to this player.
 */
 static PyObject* wpChar_updatestats( wpChar* self, PyObject* args )
 {
@@ -1026,20 +1076,19 @@ static PyObject* wpChar_updatestats( wpChar* self, PyObject* args )
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 
-	if ( !player )
-		return PyFalse;
+	if (player && player->socket()) {	
+		player->socket()->sendStatWindow();
+	}
 
-	if( !player->socket() )
-		return PyFalse;
-	
-	player->socket()->sendStatWindow();
-
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
 
-/*!
-	What weapon is the character currently wearing?
+/*
+	\method char.getweapon
+	\description Get the weapon the character has currently equipped.
+	\return None if the character has no weapon equipped. The item object for the weapon otherwise.
 */
 static PyObject* wpChar_getweapon( wpChar* self, PyObject* args )
 {
@@ -1050,8 +1099,12 @@ static PyObject* wpChar_getweapon( wpChar* self, PyObject* args )
 	return PyGetItemObject( self->pChar->getWeapon() ); 
 }
 
-/*!
-	Turns towards a specific object.
+/*
+	\method char.turnto
+	\description Let the character turn toward another object or coordinate.
+	\param target What the character should turn toward to. This may either be another character, an item or a 
+	coordinate object. If the character should turn toward equipped or contained items, he will turn to the wearer 
+	or outmost container.
 */
 static PyObject* wpChar_turnto( wpChar* self, PyObject* args )
 {
@@ -1062,7 +1115,8 @@ static PyObject* wpChar_turnto( wpChar* self, PyObject* args )
 	{
 		Coord_cl pos = getArgCoord( 0 );
 		self->pChar->turnTo( pos );
-		return PyTrue;
+		Py_INCREF(Py_None);
+		return Py_None;
 	}
 
 	if( !checkArgObject( 0 ) )
@@ -1090,11 +1144,16 @@ static PyObject* wpChar_turnto( wpChar* self, PyObject* args )
 	if( object && object != self->pChar )
 		self->pChar->turnTo( object );
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Mounts this character on a specific mount.
+/*
+	\method char.mount
+	\description Forces the character to mount a mountable npc.
+	This method only works for players as the mounter and npcs 
+	as the mounted object.
+	\param pet The pet the player should be mounted on.
 */
 static PyObject* wpChar_mount( wpChar* self, PyObject* args )
 {
@@ -1109,21 +1168,26 @@ static PyObject* wpChar_mount( wpChar* self, PyObject* args )
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 
-	if ( !player )
-		return PyFalse;
+	if (!player) {
+		Py_INCREF(Py_None);
+		return Py_None;
+	}
 
 	P_NPC pChar = dynamic_cast<P_NPC>( getArgChar( 0 ) );
 
-	if( pChar )
-	{
-		player->mount( pChar );
-		return PyTrue;
+	if (pChar) {
+		player->mount(pChar);
 	}
-	return PyFalse;
+
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Unmounts this character and returns the old mount.
+/*
+	\method char.unmount
+	\description Forces the character to unmount a mounted npc.
+	This method only works for players.
+	\return The previously mounted npc or None.
 */
 static PyObject* wpChar_unmount( wpChar* self, PyObject* args )
 {
@@ -1132,14 +1196,18 @@ static PyObject* wpChar_unmount( wpChar* self, PyObject* args )
 		return PyFalse;
 	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
 
-	if ( !player )
-		return PyFalse;
+	if (!player) {
+		Py_INCREF(Py_None);
+		return Py_None;
+	}
 
-	return PyGetCharObject( player->unmount() );
+	return PyGetCharObject(player->unmount());
 }
 
-/*!
-	Equips a given item on this character.
+/*
+	\method char.equip
+	\description Forces the character to equip a given item.
+	\param item The item that should be equipped.
 */
 static PyObject* wpChar_equip( wpChar* self, PyObject* args )
 {
@@ -1157,11 +1225,16 @@ static PyObject* wpChar_equip( wpChar* self, PyObject* args )
 	if( pItem )
 		self->pChar->wear( pItem );
 
-	return PyTrue;
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
-/*!
-	Gets or Autocreates a bankbox for the character.
+/*
+	\method char.getbankbox
+	\description Get the bankbox of the character and autocreate it if
+	neccesary.
+	\return The bankbox item object. If this method returns None, 
+	something went <b>really</b> wrong.
 */
 static PyObject* wpChar_getbankbox( wpChar* self, PyObject* args )
 {
@@ -1177,8 +1250,12 @@ static PyObject* wpChar_getbankbox( wpChar* self, PyObject* args )
 	return PyGetItemObject( player->getBankBox() );
 }
 
-/*!
-	Gets or Autocreates a backpack for the character.
+/*
+	\method char.getbackpack
+	\description Get the backpack of the character and autocreate it if
+	neccesary.
+	\return The backpack item object. If this method returns None, 
+	something went <b>really</b> wrong.
 */
 static PyObject* wpChar_getbackpack( wpChar* self, PyObject* args )
 {
@@ -1917,9 +1994,6 @@ static PyMethodDef wpCharMethods[] =
 	{ "settag",			(getattrofunc)wpChar_settag,			METH_VARARGS, "Sets a tag assigned to a specific char." },
 	{ "hastag",			(getattrofunc)wpChar_hastag,			METH_VARARGS, "Checks if a certain char has the specified tag." },
 	{ "deltag",			(getattrofunc)wpChar_deltag,			METH_VARARGS, "Deletes the specified tag." },
-
-	// Crafting Menu
-	{ "sendmakemenu",	(getattrofunc)wpChar_sendmakemenu,		METH_VARARGS, "Sends MakeMenu to this character." },
 
 	// Reputation System
 	{ "iscriminal",		(getattrofunc)wpChar_iscriminal,		METH_VARARGS, "Is this character criminal.." },
