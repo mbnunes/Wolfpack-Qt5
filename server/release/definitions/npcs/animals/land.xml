@@ -570,8 +570,8 @@
                 <wrestling>69</wrestling>
                 <tactics>50</tactics>
                 <magicresistance>50</magicresistance>
-                <parrying><random min="370" max="380" />
-		<totame>111</totame>
+                <parrying><random min="370" max="380" /></parrying>
+				<totame>111</totame>
                 <food>6</food>
                 <carve>carve_pig</carve>
         </npc>
