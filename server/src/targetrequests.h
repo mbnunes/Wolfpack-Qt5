@@ -296,9 +296,9 @@ public:
 class cMoveTarget : public cTargetRequest
 {
 private:
-	INT16 x, y, z;
+	Q_INT16 x, y, z;
 public:
-	cMoveTarget( INT16 _x, INT16 _y, INT8 _z ) : x( _x ), y( _y ), z( _z )
+	cMoveTarget( Q_INT16 _x, Q_INT16 _y, INT8 _z ) : x( _x ), y( _y ), z( _z )
 	{
 	}
 
