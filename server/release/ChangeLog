@@ -59,7 +59,8 @@ Wolfpack 12.9.14 Beta (SVN)
   - Implemented correct logging of changes on the info gump.
   - Fixed bug #0000382 (pets stayed after released) 
   - Added playervendors from Ancient-Realms.org
-  - Added value checking to commands.go to make sure it's a valid destination.
+  - Added isValidPosition to wolfpack.utilities to check if a coord is valid.
+  - Applied isValidPosition to moongates and go menu.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
