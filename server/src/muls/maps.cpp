@@ -459,9 +459,9 @@ signed char cMaps::mapAverageElevation( const Coord_cl& p, int* top /* = 0 */, i
 	return ILLEGAL_Z;
 }
 
-bool cMaps::canFit( int x, int y, int z, int map, int height ) const
+bool cMaps::canFit( int x, int y, int z, uint map ) const
 {
-	if ( x < 0 || y < 0 || x >= mapTileWidth( map ) * 8 || y >= mapTileHeight( map ) * 8 )
+	if ( x < 0 || y < 0 || x >= ( int ) mapTileWidth( map ) * 8 || y >= ( int ) mapTileHeight( map ) * 8 )
 		return false;
 
 	map_st map1 = seekMap( map, x, y );

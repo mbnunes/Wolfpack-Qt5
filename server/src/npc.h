@@ -105,7 +105,7 @@ public:
 	virtual void soundEffect( UI16 soundId, bool hearAll = true );
 	virtual bool inWorld();
 	virtual void giveGold( Q_UINT32 amount, bool inBank = false );
-	virtual UINT32 takeGold( UINT32 amount, bool useBank = false );
+	virtual UINT32 takeGold( UINT32 amount, bool inBank = false );
 	virtual void applyDefinition( const cElement* );
 	virtual void flagUnchanged()
 	{

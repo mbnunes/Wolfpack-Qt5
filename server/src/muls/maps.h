@@ -129,7 +129,7 @@ public:
 	uint mapTileWidth( uint ) const;
 	uint mapTileHeight( uint ) const;
 	signed char staticTop( const Coord_cl& pos ) const;
-	bool canFit( int x, int y, int z, int map, int height ) const;
+	bool canFit( int x, int y, int z, uint map ) const;
 	StaticsIterator staticsIterator( uint id, ushort x, ushort y, bool exact = true ) const throw( wpException );
 	StaticsIterator staticsIterator( const Coord_cl&, bool exact = true ) const throw( wpException );
 };

@@ -251,29 +251,6 @@ public:
 	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice );
 };
 
-class cWhoMenuGump : public cGump
-{
-private:
-	UINT32 page_;
-	std::vector<cUOSocket*> sockets_;
-
-public:
-	cWhoMenuGump( UINT32 page );
-
-	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice );
-};
-
-class cSocketInfoGump : public cGump
-{
-private:
-	cUOSocket* socket_;
-
-public:
-	cSocketInfoGump( cUOSocket* socket_ );
-
-	virtual void handleResponse( cUOSocket* socket, const gumpChoice_st& choice );
-};
-
 class cPagesGump : public cGump
 {
 private:

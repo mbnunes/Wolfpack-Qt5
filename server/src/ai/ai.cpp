@@ -588,7 +588,7 @@ void Action_Wander::execute()
 					movePath( pTarget->pos() );
 				}
 				if ( pTarget->dist( m_npc ) > 3 )
-					m_npc->setAICheckTime( Server::instance()->time() + ( float ) m_npc->aiCheckInterval() * 0.0005f * MY_CLOCKS_PER_SEC );
+					m_npc->setAICheckTime( ( uint )( Server::instance()->time() + ( float ) m_npc->aiCheckInterval() * 0.0005f * MY_CLOCKS_PER_SEC ) );
 			}
 			else
 			{

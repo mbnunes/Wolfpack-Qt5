@@ -789,7 +789,7 @@ void commandDoorGenerator( cUOSocket* socket, const QString& command, const QStr
 				return 0;
 			if ( x == 1383 && y >= 1642 && y <= 1643 )
 				return 0;
-			if ( !Maps::instance()->canFit( x, y, z, map, 16 ) )
+			if ( !Maps::instance()->canFit( x, y, z, map ) )
 				return 0;
 			cItem* door = cItem::createFromScript( QString::number( 0x6A5 + 2 * int( facing ), 16 ) );
 			door->moveTo( Coord_cl( x, y, z, map ), true );
@@ -886,6 +886,7 @@ void commandDoorGenerator( cUOSocket* socket, const QString& command, const QStr
 	{
 	{  250,  750,  775, 1330 }, {  525, 2095,  925, 2430 }, { 1025, 2155, 1265, 2310 }, { 1635, 2430, 1705, 2508 }, { 1775, 2605, 2165, 2975 }, { 1055, 3520, 1570, 4075 }, { 2860, 3310, 3120, 3630 }, { 2470, 1855, 3950, 3045 }, { 3425,  990, 3900, 1455 }, { 4175,  735, 4840, 1600 }, { 2375,  330, 3100, 1045 }, { 2100, 1090, 2310, 1450 }, { 1495, 1400, 1550, 1475 }, { 1085, 1520, 1415, 1910 }, { 1410, 1500, 1745, 1795 }, { 5120, 2300, 6143, 4095 }
 	};
+	/*
 	int IlshRegions[][4] =
 	{
 	{ 0, 0, 288 * 8, 200 * 8 }
@@ -894,6 +895,7 @@ void commandDoorGenerator( cUOSocket* socket, const QString& command, const QStr
 	{
 	{ 0, 0, 320 * 8, 256 * 8 }
 	};
+	*/
 
 	socket->sysMessage( "Generating doors, please wait ( Slow )" );
 	int count = 0;

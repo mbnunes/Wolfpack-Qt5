@@ -266,11 +266,11 @@ void cNPC::setNextMoveTime()
 
 	if ( isTamed() )
 	{
-		interval = Config::instance()->tamedNpcMoveTime() * MY_CLOCKS_PER_SEC;
+		interval = ( unsigned int ) Config::instance()->tamedNpcMoveTime() * MY_CLOCKS_PER_SEC;
 	}
 	else
 	{
-		interval = Config::instance()->npcMoveTime() * MY_CLOCKS_PER_SEC;
+		interval = ( unsigned int ) Config::instance()->npcMoveTime() * MY_CLOCKS_PER_SEC;
 	}
 
 	// Wander slowly if wandering freely.
@@ -610,8 +610,9 @@ void cNPC::giveGold( Q_UINT32 amount, bool inBank )
 	}
 }
 
-UINT32 cNPC::takeGold( UINT32 amount, bool useBank )
+UINT32 cNPC::takeGold( UINT32 amount, bool inBank )
 {
+	Q_UNUSED( inBank );
 	P_ITEM pPack = getBackpack();
 
 	UINT32 dAmount = 0;
@@ -1430,7 +1431,7 @@ void cNPC::remove()
 		{
 			P_ITEM mount = player->atLayer( cBaseChar::Mount );
 
-			if ( mount && mount->getTag( "pet" ).toInt() == serial_ )
+			if ( mount && ( unsigned int ) mount->getTag( "pet" ).toInt() == serial_ )
 			{
 				mount->remove();
 			}

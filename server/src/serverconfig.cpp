@@ -62,7 +62,7 @@ Q_INT32 resolveName( const QString& data )
 
 	// we do a dns lookup on this
 
-	Q_INT32 uiValue = inet_addr( ( char* ) data.latin1() ) ;
+	Q_UINT32 uiValue = inet_addr( ( char* ) data.latin1() ) ;
 	if ( uiValue == INADDR_NONE )
 	{
 		hostent* ptrHost = gethostbyname( ( char* ) data.latin1() );
@@ -356,9 +356,9 @@ struct stGroupDoc
 
 static stGroupDoc group_doc[] =
 {
-{"AI", "This group configures the NPC AI."}, 
-{"Accounts", "This group configures the account management."}, 
-{"Database", "This group configures access to the worldsave database."}, 
+{"AI", "This group configures the NPC AI."},
+{"Accounts", "This group configures the account management."},
+{"Database", "This group configures access to the worldsave database."},
 {0, 0}
 };
 
@@ -390,7 +390,7 @@ static stEntryDoc entry_doc[] =
 {
 {"Accounts", "Auto Create", "If active login attempts with non-existing login names will create a new account automatically\n"
 "This is very usefull for new shards without account policy\n"},
-{"Accounts", "Database Driver", "Possible values are: sqlite, mysql"}, 
+{"Accounts", "Database Driver", "Possible values are: sqlite, mysql"},
 {"Accounts", "Maximum Number of Characters", "Should not be more than 6, due to client restrictions"},
 {"Accounts", "Use MD5 Hashed Passwords", "This will store hashed passwords, increasing password security."},
 {"Accounts", "Automatically Hash Loaded Passwords", "If active, will convert older plain text passwords into MD5 hash"},

@@ -119,7 +119,7 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString& message
 					if ( !( *it )->hasTag( "player" ) || !( *it )->hasTag( "pet" ) )
 						continue;
 
-					if ( ( *it ) && ( *it )->getTag( "player" ).toInt() == pTalker->serial() )
+					if ( ( *it ) && ( uint )( *it )->getTag( "player" ).toInt() == pTalker->serial() )
 						stableitems.push_back( ( *it ) );
 					++it;
 				}
@@ -230,9 +230,9 @@ void Human_Guard_Called_Fight::execute()
 	switch ( RandomNum( 0, 20 ) )
 	{
 	case 0:
-		m_npc->talk( tr( "Thou shalt regret thine actions, swine!" ), -1, 0, true );	break;
+		m_npc->talk( tr( "Thou shalt regret thine actions, swine!" ), 0xFFFF, 0, true );	break;
 	case 1:
-		m_npc->talk( tr( "Death to all Evil!" ), -1, 0, true );						break;
+		m_npc->talk( tr( "Death to all Evil!" ), 0xFFFF, 0, true );						break;
 	}
 
 	m_npc->setSummonTime( Server::instance()->time() + MY_CLOCKS_PER_SEC * Config::instance()->guardDispelTime() );
@@ -380,9 +380,9 @@ void Human_Guard_Fight::execute()
 	switch ( RandomNum( 0, 20 ) )
 	{
 	case 0:
-		m_npc->talk( tr( "Thou shalt regret thine actions, swine!" ), -1, 0, true );	break;
+		m_npc->talk( tr( "Thou shalt regret thine actions, swine!" ), 0xFFFF, 0, true );	break;
 	case 1:
-		m_npc->talk( tr( "Death to all Evil!" ), -1, 0, true );						break;
+		m_npc->talk( tr( "Death to all Evil!" ), 0xFFFF, 0, true );						break;
 	}
 }
 

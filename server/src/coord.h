@@ -53,7 +53,7 @@ public:
 	Coord_cl operator+( const Coord_cl& src ) const;
 	Coord_cl operator-( const Coord_cl& src ) const;
 	unsigned int distance( const Coord_cl& src ) const;
-	unsigned char direction( const Coord_cl& dest ) const;
+	unsigned int direction( const Coord_cl& dest ) const;
 	bool lineOfSight( const Coord_cl& target, bool touch = false );
 	bool lineOfSight( const Coord_cl& target, UI16 targethight, bool touch = false );
 	static UI32 distance( const Coord_cl& a, const Coord_cl& b );

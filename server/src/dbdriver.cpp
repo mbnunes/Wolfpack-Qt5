@@ -189,12 +189,12 @@ static PyObject* wpDbResult_getAttr( wpDbResult* self, char* name );
 PyTypeObject wpDbResultType =
 {
 PyObject_HEAD_INIT( NULL )
-0, 
-"dbresult", 
-sizeof( wpDbResultType ), 
-0, 
-wpDeallocDbResult, 
-0, 
+0,
+"dbresult",
+sizeof( wpDbResultType ),
+0,
+wpDeallocDbResult,
+0,
 ( getattrfunc ) wpDbResult_getAttr,
 0,
 };

@@ -2203,10 +2203,10 @@ UINT8 cBaseChar::skillLock( UINT16 skill ) const
 	return skills_[skill].lock;
 }
 
-void cBaseChar::setStamina( INT16 data, bool notify /* = true */ )
+void cBaseChar::setStamina( INT16 data, bool notify )
 {
 	stamina_ = data;
-	changed_ = true;
+	changed_ = notify;
 }
 
 void cBaseChar::callGuards()
@@ -2797,7 +2797,7 @@ bool cBaseChar::kill( cUObject* source )
 	}
 
 	// Fame is reduced by 10% upon death
-	fame_ = (int)( (float)fame_ * 0.90 );
+	fame_ = ( int ) ( ( float ) fame_ * 0.90 );
 
 	// Create the corpse
 	cCorpse* corpse = 0;
@@ -3330,11 +3330,11 @@ double cBaseChar::getStaminaRate()
 {
 	if ( !isDead() )
 	{
-		double chance = ( double ) stamina() / maxStamina();
+		double chance = ( double ) stamina() / ( double ) maxStamina();
 		double value = sqrt( skillValue( FOCUS ) * 0.0005 );
 		chance *= ( 1.0 - value );
 		chance += value;
-		checkSkill( FOCUS, floor( ( 1.0 - chance ) * 1200 ), 1200 );
+		checkSkill( FOCUS, ( int ) floor( ( 1.0 - chance ) * 1200 ), 1200 );
 	}
 
 	int points = 0;
@@ -3358,7 +3358,7 @@ double cBaseChar::getManaRate()
 		double value = sqrt( skillValue( FOCUS ) * 0.0005 );
 		chance *= ( 1.0 - value );
 		chance += value;
-		checkSkill( FOCUS, floor( ( 1.0 - chance ) * 1200 ), 1200 );
+		checkSkill( FOCUS, ( int ) floor( ( 1.0 - chance ) * 1200 ), 1200 );
 	}
 
 	double medPoints = QMIN( 13.0, ( intelligence() + skillValue( MEDITATION ) * 0.03 ) * ( skillValue( MEDITATION ) < 1000 ? 0.025 : 0.0275 ) );

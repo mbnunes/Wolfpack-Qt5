@@ -305,7 +305,7 @@ void cTimers::dispel( P_CHAR pc_dest, P_CHAR pSource, const QString& type, bool 
 	{
 		cTimer* effect = *it;
 
-		if ( ( !onlyDispellable || effect->dispellable ) && effect->getDest() == pc_dest->serial() && effect->objectID() == type )
+		if ( ( !onlyDispellable || effect->dispellable ) && ( uint )effect->getDest() == ( uint )pc_dest->serial() && effect->objectID() == type )
 		{
 			pc_dest->removeTimer( effect );
 			effect->Dispel( pSource, silent );
@@ -347,7 +347,7 @@ void cTimers::dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent )
 	QPtrList<cTimer> eraselist;
 	std::vector<cTimer*>::iterator i = teffects.begin();
 	for ( i = teffects.begin(); i != teffects.end(); i++ )
-		if ( ( *i ) != NULL && ( *i )->dispellable && ( *i )->getDest() == pc_dest->serial() )
+		if ( ( *i ) != NULL && ( *i )->dispellable && ( uint )( *i )->getDest() == ( uint )pc_dest->serial() )
 		{
 			if ( isCharSerial( ( *i )->getDest() ) )
 			{
@@ -464,7 +464,7 @@ void cDelayedHideChar::Expire()
 	pc->resend( true );
 }
 
-cDelayedOnCreateCall::cDelayedOnCreateCall( cUObject* obj, const QString& definition ) : 
+cDelayedOnCreateCall::cDelayedOnCreateCall( cUObject* obj, const QString& definition ) :
 	obj_(obj), def_(definition)
 {
 	setSerializable( false );

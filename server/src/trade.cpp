@@ -314,7 +314,7 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 			if ( !( *it ) )
 				continue;
 
-			if ( ( *it )->id() == pItem->id() && ( *it )->color() == pItem->color() && 
+			if ( ( *it )->id() == pItem->id() && ( *it )->color() == pItem->color() &&
 				//					(*it)->amount() >= pItem->amount() &&
 				( *it )->eventList() == pItem->eventList() )
 			{

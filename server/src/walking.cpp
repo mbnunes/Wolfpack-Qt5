@@ -615,7 +615,7 @@ bool cMovement::verifySequence( cUOSocket* socket, Q_UINT8 sequence ) throw()
 void cMovement::checkRunning( cUOSocket* socket, P_CHAR pChar, Q_UINT8 dir )
 {
 	// Don't regenerate stamina while running
-	pChar->setRegenStaminaTime( Server::instance()->time() + floor( pChar->getStaminaRate() * 1000 ) );
+	pChar->setRegenStaminaTime( ( uint )( Server::instance()->time() + floor( pChar->getStaminaRate() * 1000 ) ) );
 	pChar->setRunningSteps( pChar->runningSteps() + 1 );
 
 	// If we're running on our feet, check for stamina loss

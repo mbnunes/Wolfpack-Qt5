@@ -240,7 +240,7 @@ public:
 	virtual void showName( cUOSocket* socket ) = 0;
 	virtual void soundEffect( UI16 soundId, bool hearAll = true ) = 0;
 	virtual void giveGold( Q_UINT32 amount, bool inBank = false ) = 0;
-	virtual uint takeGold( uint amount, bool useBank = false ) = 0;
+	virtual uint takeGold( uint amount, bool inBank = false ) = 0;
 	virtual void log( eLogLevel, const QString& string ) = 0;
 	virtual void log( const QString& string ) = 0;
 	unsigned int damage( eDamageType type, unsigned int amount, cUObject* source = 0 );

@@ -444,7 +444,7 @@ void DragAndDrop::dropItem( cUOSocket* socket, cUORxDropItem* packet )
 		return;
 
 	// Get the data
-	SERIAL contId = packet->cont();
+	//SERIAL contId = packet->cont();
 
 	Coord_cl dropPos = pChar->pos(); // plane
 	dropPos.x = packet->x();

@@ -183,7 +183,7 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 			sawOkItem = true; // We have items that could be stolen (just in case we reach the end of our list)
 
 			// We have the chance of 1/chance that we reached our desired item
-			if ( RandomNum( 1, chance ) == chance )
+			if ( RandomNum( 1, ( int )chance ) == ( int )chance )
 			{
 				pToSteal = pItem;
 				break;
@@ -196,7 +196,7 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 	socket->sysMessage( tr( "You reach into %1's backpack and try to steal something..." ).arg( pVictim->name() ) );
 
 	// The success of our Theft depends on the weight of the stolen item
-	bool success = pChar->checkSkill( STEALING, 0, pToSteal->weight() );
+	bool success = pChar->checkSkill( STEALING, 0, ( long int )pToSteal->weight() );
 	bool caught = false;
 
 	if ( success )
@@ -227,7 +227,7 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 		if ( pVictim->objectType() == enNPC && pVictim->isInnocent() && pVictim->isHuman() )
 		{
 			P_NPC pn = dynamic_cast<P_NPC>( pVictim );
-			pVictim->talk( tr( "Guards! A thief is amoung us!" ), -1, 0x09 );
+			pVictim->talk( tr( "Guards! A thief is amoung us!" ), 0xFFFF, 0x09 );
 			if ( pVictim->region() && pVictim->region()->isGuarded() )
 				pn->callGuards();
 		}

@@ -678,7 +678,7 @@ QString cElement::value() const
 				QString max = childTag->getAttribute( "max" );
 
 				if ( min.contains( "." ) || max.contains( "." ) )
-					Value += QString::number( RandomNum( min.toFloat(), max.toFloat() ) );
+					Value += QString::number( RandomNum( ( int ) min.toFloat(), ( int ) max.toFloat() ) );
 				else
 					Value += QString::number( RandomNum( min.toInt(), max.toInt() ) );
 			}
@@ -705,7 +705,7 @@ QString cElement::value() const
 					QString max = parts[1];
 
 					if ( max.contains( "." ) || min.contains( "." ) )
-						Value += QString::number( RandomNum( min.toFloat(), max.toFloat() ) );
+						Value += QString::number( RandomNum( ( int ) min.toFloat(), ( int ) max.toFloat() ) );
 					else
 						Value += QString::number( RandomNum( min.toInt(), max.toInt() ) );
 				}

@@ -80,7 +80,7 @@ private:
 		\params command The command to execute.
 		\params silent Should the command fail silently.
 	*/
-	bool handleCommand( const QString& command, bool silent = false );
+	bool handleCommand( const QString& command );
 
 public:
 

@@ -208,7 +208,7 @@ void cUOTxMapDiffs::addEntry( unsigned int mappatches, unsigned int staticpatche
 	resize( size + 8 );
 	setShort( 1, size + 8 );
 	setInt( size, staticpatches );
-	setInt( size + 4, mappatches );	
+	setInt( size + 4, mappatches );
 	setInt( 5, num + 1 );
 }
 
@@ -365,7 +365,7 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 	// Add our equipment - This does not seem to work !?
 	bool layers[0x20] =
 	{
-	0, 
+	0,
 	};
 
 	cBaseChar::ItemContainer container( pChar->content() );

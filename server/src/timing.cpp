@@ -61,8 +61,8 @@ cTiming::cTiming()
 
 	lastWorldsave_ = 0;
 	nextSpawnRegionCheck = time + Config::instance()->spawnRegionCheckTime() * MY_CLOCKS_PER_SEC;
-	nextTamedCheck = time + Config::instance()->checkTamedTime() * MY_CLOCKS_PER_SEC;
-	nextNpcCheck = time + Config::instance()->checkNPCTime() * MY_CLOCKS_PER_SEC;
+	nextTamedCheck = ( uint )( time + Config::instance()->checkTamedTime() * MY_CLOCKS_PER_SEC );
+	nextNpcCheck = ( uint )( time + Config::instance()->checkNPCTime() * MY_CLOCKS_PER_SEC );
 	nextItemCheck = time + 10000; // Every 10 seconds
 	nextShopRestock = time + 20 * 60 * MY_CLOCKS_PER_SEC; // Every 20 minutes
 	nextHungerCheck = time + Config::instance()->hungerDamageRate();
@@ -72,7 +72,7 @@ cTiming::cTiming()
 
 inline int froundf( double f )
 {
-	int i = floor( f );
+	int i = ( int )floor( f );
 	if ( f - i >= 0.50 )
 	{
 		++i;
@@ -275,10 +275,10 @@ void cTiming::poll()
 		}
 
 		if ( nextTamedCheck <= time )
-			nextTamedCheck = time + Config::instance()->checkTamedTime() * MY_CLOCKS_PER_SEC;
+			nextTamedCheck = ( uint )( time + Config::instance()->checkTamedTime() * MY_CLOCKS_PER_SEC );
 
 		if ( nextNpcCheck <= time )
-			nextNpcCheck = time + Config::instance()->checkNPCTime() * MY_CLOCKS_PER_SEC;
+			nextNpcCheck = ( uint )( time + Config::instance()->checkNPCTime() * MY_CLOCKS_PER_SEC );
 	}
 
 	// Check the Timers
@@ -305,7 +305,7 @@ void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
 			{
 				character->setHitpoints( character->hitpoints() + 1 );
 				character->updateHealth();
-				character->setRegenHitpointsTime( Server::instance()->time() + floor( character->getHitpointRate() * 1000 ) );
+				character->setRegenHitpointsTime( ( uint )( Server::instance()->time() + floor( character->getHitpointRate() * 1000 ) ) );
 			}
 		}
 	}
@@ -315,7 +315,7 @@ void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
 		if ( character->stamina() < character->maxStamina() )
 		{
 			character->setStamina( character->stamina() + 1 );
-			character->setRegenStaminaTime( Server::instance()->time() + floor( character->getStaminaRate() * 1000 ) );
+			character->setRegenStaminaTime( ( uint )( Server::instance()->time() + floor( character->getStaminaRate() * 1000 ) ) );
 
 			P_PLAYER player = dynamic_cast<P_PLAYER>( character );
 			if ( player && player->socket() )
@@ -330,7 +330,7 @@ void cTiming::checkRegeneration( P_CHAR character, unsigned int time )
 		if ( character->mana() < character->maxMana() )
 		{
 			character->setMana( character->mana() + 1 );
-			character->setRegenManaTime( Server::instance()->time() + floor( character->getManaRate() * 1000 ) );
+			character->setRegenManaTime( ( uint )( Server::instance()->time() + floor( character->getManaRate() * 1000 ) ) );
 
 			P_PLAYER player = dynamic_cast<P_PLAYER>( character );
 			if ( player )
@@ -417,7 +417,7 @@ void cTiming::checkNpc( P_NPC npc, unsigned int time )
 	// Give the AI time to process events
 	if ( npc->ai() && npc->aiCheckTime() <= time )
 	{
-		npc->setAICheckTime( time + Config::instance()->checkAITime() * MY_CLOCKS_PER_SEC );
+		npc->setAICheckTime( ( uint )( time + Config::instance()->checkAITime() * MY_CLOCKS_PER_SEC ) );
 		npc->ai()->check();
 	}
 

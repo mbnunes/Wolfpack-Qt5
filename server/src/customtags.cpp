@@ -389,7 +389,7 @@ int cVariant::toInt( bool* ok ) const
 		return value.i;
 
 	if ( typ == Long )
-		return value.d;
+		return ( int ) value.d;
 
 	if ( typ == Double )
 		return ( int ) value.d;
@@ -468,10 +468,10 @@ cBaseChar* cVariant::toChar() const
 		return FindCharBySerial( value.i );
 
 	if ( typ == Long )
-		return FindCharBySerial( value.d );
+		return FindCharBySerial( ( unsigned int ) value.d );
 
 	if ( typ == Double )
-		return FindCharBySerial( floor( value.d ) );
+		return FindCharBySerial( ( unsigned int ) floor( value.d ) );
 
 	return 0;
 }
@@ -492,10 +492,10 @@ cItem* cVariant::toItem() const
 		return FindItemBySerial( value.i );
 
 	if ( typ == Long )
-		return FindItemBySerial( value.d );
+		return FindItemBySerial( ( unsigned int ) value.d );
 
 	if ( typ == Double )
-		return FindItemBySerial( floor( value.d ) );
+		return FindItemBySerial( ( unsigned int ) floor( value.d ) );
 
 	return 0;
 }
@@ -751,7 +751,7 @@ void cVariant::serialize( cBufferedReader& reader, unsigned int version )
 		( ( Coord_cl * ) ( value.ptr ) )->x = reader.readShort();
 		( ( Coord_cl * ) ( value.ptr ) )->y = reader.readShort();
 		( ( Coord_cl * ) ( value.ptr ) )->z = reader.readByte();
-		( ( Coord_cl * ) ( value.ptr ) )->map = reader.readByte();			
+		( ( Coord_cl * ) ( value.ptr ) )->map = reader.readByte();
 		reader.readShort();
 		break;
 	}

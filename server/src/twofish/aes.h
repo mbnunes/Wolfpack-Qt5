@@ -10,7 +10,7 @@
 	This sample is to assist implementers developing to the
 Cryptographic API Profile for AES Candidate Algorithm Submissions.
 Please consult this document as a cross-reference.
-	
+
 	ANY CHANGES, WHERE APPROPRIATE, TO INFORMATION PROVIDED IN THIS FILE
 MUST BE DOCUMENTED. CHANGES ARE ONLY APPROPRIATE WHERE SPECIFIED WITH
 THE STRING "CHANGE POSSIBLE". FUNCTION CALLS AND THEIR PARAMETERS
@@ -170,7 +170,7 @@ string into the binary key32, and calls reKey().  To initialize the
 keyInstance state, use a 'dummy' call to makeKey(); i.e., set the
 keyMaterial parameter to NULL.  Then use reKey() for all key changes.
 Similarly, cipherInit takes an IV string in ASCII hex, so a dummy setup
-call with a null IV string will skip the ASCII parse.  
+call with a null IV string will skip the ASCII parse.
 
 Note that CFB mode is not well tested nor defined by AES, so using the
 Twofish MODE_CFB it not recommended.  If you wish to implement a CFB mode,
@@ -240,11 +240,11 @@ int TestTwofish( int mode, int keySize ) /* keySize must be 128, 192, or 256 */
 		memcpy( ci.iv32, iv, sizeof( ci.iv32 ) );
 
 	if ( blockDecrypt( &ci, &ki, cipherText, byteCnt * 8, decryptOut ) != byteCnt * 8 )
-		return 1;				
+		return 1;
 
 	/* make sure the decrypt output matches original plaintext */
 	if ( memcmp( plainText, decryptOut, byteCnt ) )
-		return 1;		
+		return 1;
 
 	return 0;					/* tests passed! */
 }

@@ -40,7 +40,7 @@
 
 void daemonize()
 {
-	int pid, fd, status;
+	int pid, fd;
 
 	pid = fork();
 
@@ -106,7 +106,7 @@ void cGetopts::parse_options( int argc, char** argv )
 {
 	unsigned int i;
 
-	for ( i = 1; i < argc; i++ )
+	for ( i = 1; i < ( uint ) argc; i++ )
 	{
 		if ( argv[i][0] == '-' )
 		{

@@ -105,7 +105,7 @@ cUOSocket::cUOSocket( QSocketDevice* sDevice ) : _walkSequence( 0 ), lastPacket(
 // Initialize all packet handlers to zero
 PyObject* cUOSocket::handlers[255] =
 {
-0, 
+0,
 };
 
 void cUOSocket::registerPacketHandler( unsigned char packet, PyObject* handler )
@@ -2402,7 +2402,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		sendStats.setStrength( _player->strength() );
 		sendStats.setDexterity( _player->dexterity() );
 		sendStats.setIntelligence( _player->intelligence() );
-		sendStats.setWeight( _player->weight() );
+		sendStats.setWeight( ( short unsigned int ) _player->weight() );
 		sendStats.setGold( _player->countBankGold() + _player->countGold() );
 		sendStats.setSex( _player->gender() );
 		sendStats.setPets( _player->controlslots() );

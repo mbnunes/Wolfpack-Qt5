@@ -103,7 +103,7 @@ void cConsole::sendSkip()
 	changeColor( WPC_NORMAL );
 }
 
-bool cConsole::handleCommand( const QString& command, bool silentFail )
+bool cConsole::handleCommand( const QString& command )
 {
 	cUOSocket* mSock;
 	int i;

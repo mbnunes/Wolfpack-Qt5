@@ -140,9 +140,9 @@ void Coord_cl::effect( UINT16 id, UINT8 speed, UINT8 duration, UINT16 hue, UINT1
 }
 
 // Calculates the direction from one location to another
-unsigned char Coord_cl::direction( const Coord_cl& dest ) const
+unsigned int Coord_cl::direction( const Coord_cl& dest ) const
 {
-	unsigned char dir;
+	unsigned int dir;
 	short xdif, ydif;
 
 	xdif = dest.x - x;
@@ -165,7 +165,7 @@ unsigned char Coord_cl::direction( const Coord_cl& dest ) const
 	else if ( ( xdif < 0 ) && ( ydif < 0 ) )
 		dir = 7;
 	else
-		dir = -1;
+		dir = 8;
 
 	return dir;
 }
@@ -876,8 +876,8 @@ bool Coord_cl::lineOfSight( const Coord_cl& target, UI16 targetheight, bool touc
 				//Console::instance()->send( QString( "ty:%2,cy:%3\n" ).arg( target.y ).arg( (*pit).y ) );
 				//Console::instance()->send( QString( "z1_up:%1,z2_up:%2,z1_down:%3,z2_down:%4\n" ).arg( z1_up ).arg( z2_up ).arg( z1_down ).arg( z2_down ) );
 
-				zmax = QMAX( ceil( z1_up ), ceil( z2_up ) );
-				zmin = QMIN( floor( z1_down ), floor( z2_down ) );
+				zmax = ( signed char ) QMAX( ceil( z1_up ), ceil( z2_up ) );
+				zmin = ( signed char ) QMIN( floor( z1_down ), floor( z2_down ) );
 
 				//Console::instance()->send( QString( "y:zmin:%1,zmax:%2\n" ).arg( zmin ).arg( zmax ) );
 
@@ -963,8 +963,8 @@ bool Coord_cl::lineOfSight( const Coord_cl& target, UI16 targetheight, bool touc
 				//Console::instance()->send( QString( "tx:%2,cx:%3\n" ).arg( target.x ).arg( (*pit).x ) );
 				//Console::instance()->send( QString( "z1_up:%1,z2_up:%2,z1_down:%3,z2_down:%4\n" ).arg( z1_up ).arg( z2_up ).arg( z1_down ).arg( z2_down ) );
 
-				zmax = QMAX( ceil( z1_up ), ceil( z2_up ) );
-				zmin = QMIN( floor( z1_down ), floor( z2_down ) );
+				zmax = ( signed char ) QMAX( ceil( z1_up ), ceil( z2_up ) );
+				zmin = ( signed char ) QMIN( floor( z1_down ), floor( z2_down ) );
 
 				if ( dz_up > 0 )
 				{
@@ -1115,13 +1115,13 @@ bool Coord_cl::lineOfSight( const Coord_cl& target, UI16 targetheight, bool touc
 
 				if ( z2_up == -300 )
 				{
-					zmin = floor( z1_down );
-					zmax = ceil( z1_up );
+					zmin = ( signed char ) floor( z1_down );
+					zmax = ( signed char ) ceil( z1_up );
 				}
 				else
 				{
-					zmin = QMIN( floor( z1_down ), floor( z2_down ) );
-					zmax = QMAX( ceil( z1_up ), ceil( z2_up ) );
+					zmin = ( signed char ) QMIN( floor( z1_down ), floor( z2_down ) );
+					zmax = ( signed char ) QMAX( ceil( z1_up ), ceil( z2_up ) );
 				}
 
 				//Console::instance()->send( QString( "zmin:%1,zmax:%2\n" ).arg( zmin ).arg( zmax ) );
