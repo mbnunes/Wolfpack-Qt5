@@ -1485,9 +1485,15 @@ void cChar::processNode( const QDomElement &Tag )
 		}
 	}
 
-	else if( TagName == "inherit" && Tag.attributes().contains( "id" ) )
+	else if( TagName == "inherit" )
 	{
-		QDomElement* DefSection = DefManager->getSection( WPDT_NPC, Tag.attribute( "id" ) );
+		QString inheritID;
+		if( Tag.attributes().contains( "id" ) )
+			inheritID = Tag.attribute( "id" );
+		else
+			inheritID = Value;
+
+		QDomElement* DefSection = DefManager->getSection( WPDT_NPC, inheritID );
 		if( !DefSection->isNull() )
 			this->applyDefinition( *DefSection );
 	}

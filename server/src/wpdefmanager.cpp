@@ -268,8 +268,14 @@ QStringList WPDefManager::getSections( WPDEF_TYPE Type )
 
 QString	WPDefManager::getRandomListEntry( QString ListSection )
 {
-	QStringList list = this->getList( ListSection );
-	return list[ RandomNum( 0, list.size()-1 ) ];
+	QDomElement* DefSection = this->getSection( WPDT_LIST, ListSection );
+
+	if( !DefSection->isNull() )
+	{
+		return DefSection->childNodes().item( RandomNum( 0, DefSection->childNodes().count()-1 ) ).nodeName();
+	}
+	else
+		return "";
 }
 
 QStringList	WPDefManager::getList( QString ListSection )
