@@ -1325,13 +1325,58 @@ bool cItem::onSingleClick( P_CHAR Viewer )
 	if( scriptChain.empty() )
 		return false;
  
-	// If we got ANY events process them in order
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onSingleClick( this, Viewer ) )
 			return true;
 
 	return false;
+}
 
+bool cItem::onDropOnItem( P_ITEM pItem )
+{
+	if( scriptChain.empty() )
+		return false;
+ 
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+	{
+		// we are the item being dragged
+		if( layer_ == 0x1E )
+		{
+			if( scriptChain[ i ]->onDropOnItem( pItem, this ) )
+				return true;
+		}
+		else
+		{
+			if( scriptChain[ i ]->onDropOnItem( this, pItem ) )
+				return true;
+		}
+	}
+
+	return false;
+}
+
+bool cItem::onDropOnGround( const Coord_cl &pos )
+{
+	if( scriptChain.empty() )
+		return false;
+ 
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onDropOnGround( this, pos ) )
+			return true;
+
+	return false;
+}
+
+bool cItem::onPickup( P_CHAR pChar )
+{
+	if( scriptChain.empty() )
+		return false;
+ 
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onPickup( pChar, this ) )
+			return true;
+
+	return false;
 }
 
 bool cItem::onDropOnChar( P_CHAR pChar )

@@ -12,23 +12,18 @@ from wolfpack.consts import *
 import wolfpack
 
 def onLoad():
-	setCatchAll( 'speech_pets', 0 ) # We don't want to catch all speech but only the pet commands
+	# We only want to fetch the commands registered below
+	setCatchAll( 'speech_pets', 0 ) 
 
 	# Register some keywords
 	addKeyword( 'speech_pets', 0x155 ) # "*come"
 	addKeyword( 'speech_pets', 0x156 ) # "*drop"
-	#addKeyword( 'speech_pets', 0x157 ) # "*fetch"
-	#addKeyword( 'speech_pets', 0x158 ) # "*get"
-	#addKeyword( 'speech_pets', 0x159 ) # "*bring"
 	addKeyword( 'speech_pets', 0x15A ) # "*follow"
 	addKeyword( 'speech_pets', 0x15B ) # "*friend"
 	addKeyword( 'speech_pets', 0x15C ) # "*guard"
 	addKeyword( 'speech_pets', 0x15D ) # "*kill"
 	addKeyword( 'speech_pets', 0x15E ) # "*attack"
-	#addKeyword( 'speech_pets', 0x15F ) # "*patrol"
-	#addKeyword( 'speech_pets', 0x160 ) # "*report"
 	addKeyword( 'speech_pets', 0x161 ) # "*stop"
-	#addKeyword( 'speech_pets', 0x162 ) # "*hire"
 	addKeyword( 'speech_pets', 0x163 ) # "*follow me"
 	addKeyword( 'speech_pets', 0x164 ) # "all come"
 	addKeyword( 'speech_pets', 0x165 ) # "all follow"
@@ -36,13 +31,21 @@ def onLoad():
 	addKeyword( 'speech_pets', 0x167 ) # "all stop"
 	addKeyword( 'speech_pets', 0x168 ) # "all kill"
 	addKeyword( 'speech_pets', 0x169 ) # "all attack"
-	#addKeyword( 'speech_pets', 0x16A ) # "all report"
 	addKeyword( 'speech_pets', 0x16B ) # "all guard me"
 	addKeyword( 'speech_pets', 0x16C ) # "all follow me"
 	addKeyword( 'speech_pets', 0x16D ) # "*release"
 	addKeyword( 'speech_pets', 0x16E ) # "*transfer"
 	addKeyword( 'speech_pets', 0x16F ) # "*stay"
 	addKeyword( 'speech_pets', 0x170 ) # "all stay"
+
+	# We're missing a good state-ai therefore these are disabled for now
+	#addKeyword( 'speech_pets', 0x157 ) # "*fetch"
+	#addKeyword( 'speech_pets', 0x158 ) # "*get"
+	#addKeyword( 'speech_pets', 0x159 ) # "*bring"
+	#addKeyword( 'speech_pets', 0x15F ) # "*patrol"
+	#addKeyword( 'speech_pets', 0x160 ) # "*report"
+	#addKeyword( 'speech_pets', 0x162 ) # "*hire"
+	#addKeyword( 'speech_pets', 0x16A ) # "all report"
 
 def onSpeech( pet, char, text, keywords ):
 	if not char.socket:

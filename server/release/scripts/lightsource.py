@@ -68,17 +68,18 @@ ids = {
 	}
 
 def onUse( char, item ):
-	if item.container and item.container.isitem():
-		char.socket.showspeech( item, "You can't light this in a container." )
-		return 1
-
 	# Relatively stupid function
 	if ids.has_key( item.id ):
 		# Change the id
-		item.id = ids[ item.id ]
-		item.update()
+		newid = ids[ item.id ]
 
-		char.soundeffect( 0x4bb )
+		if item.container and item.container.isitem() and newid in burning:
+			char.socket.showspeech( item, "You can't light this in a container." )
+			return 1
+
+		item.id = newid
+		item.update()
+		char.soundeffect( 0x226 )
 
 	# This is no Light Source
 	else:
@@ -94,10 +95,9 @@ def onDropOnItem( container, item ):
 	if item.id in burning and ids.has_key( item.id ):
 		item.id = ids[ item.id ]
 		item.update()
-		dropper.soundeffect( 0x4bb, 0 )
+		dropper.soundeffect( 0x226, 0 )
 
 	return 0
-
 
 def onDropOnChar( char, item ):
 
@@ -107,6 +107,6 @@ def onDropOnChar( char, item ):
 	if item.id in burning and ids.has_key( item.id ):
 		item.id = ids[ item.id ]
 		item.update()
-		dropper.soundeffect( 0x4bb, 0 )
+		dropper.soundeffect( 0x226, 0 )
 
 	return 0

@@ -1,0 +1,152 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Light sources (equipable and not equipable)                   |
+=================================================================
+-->
+<definitions>
+
+	<item id="9fb">
+		<id>0x9fb</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="9fd">
+		<id>0x9fd</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="a00">
+		<id>0xa00</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="a02">
+		<id>0xa02</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="a05">
+		<id>0xa05</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="a07">
+		<id>0xa07</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="a0a">
+		<id>0xa0a</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="a0c">
+		<id>0xa0c</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="a18">
+		<id>0xa18</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="a15">
+		<id>0xa15</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="a1d">
+		<id>0xa1d</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="a1a">
+		<id>0xa1a</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="a25">
+		<id>0xa25</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="a22">
+		<id>0xa22</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="a28">
+		<id>0xa28</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="a0f">
+		<id>0xa0f</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="a26">
+		<id>0xa26</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="b1a">
+		<id>0xb1a</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="a27">
+		<id>0xa27</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="b1d">
+		<id>0xb1d</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="a29">
+		<id>0xa29</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="b26">
+		<id>0xb26</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="b21">
+		<id>0xb21</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="b20">
+		<id>0xb20</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="b22">
+		<id>0xb22</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="b23">
+		<id>0xb23</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="b24">
+		<id>0xb24</id>
+		<events>lightsource</events>
+	</item>
+
+	<item id="b25">
+		<id>0xb25</id>
+		<events>lightsource</events>
+	</item>
+</definitions>

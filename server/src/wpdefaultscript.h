@@ -34,6 +34,7 @@
 
 #include "typedefs.h"
 #include "platform.h"
+#include "coord.h"
 
 // Library Includes
 #include "qstring.h"
@@ -43,7 +44,6 @@
 #include <vector>
 
 class cUObject;
-class Coord_cl;
 class cUORxTarget;
 
 class WPDefaultScript  
@@ -110,8 +110,11 @@ public:
 	virtual bool onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id ) { return false; }
 	virtual bool onShowContextMenu( P_CHAR pChar, cUObject *pObject ) { return false; }
 
-	// Drop Events
+	// Drop/Pickup Events
 	virtual bool onDropOnChar( P_CHAR pChar, P_ITEM pItem ) { return false; }
+	virtual bool onDropOnItem( P_ITEM pCont, P_ITEM pItem ) { return false; }
+	virtual bool onDropOnGround( P_ITEM pItem, const Coord_cl &pos ) { return false; }
+	virtual bool onPickup( P_CHAR pChar, P_ITEM pItem ) { return false; }
 
 	// Speech Event
 	virtual bool onSpeech( cUObject *listener, P_CHAR talker, const QString &text, std::vector< UINT16 > keywords ) { return false; }

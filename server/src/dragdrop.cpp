@@ -108,6 +108,12 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 		return;
 	}
 
+	if( pItem->onPickup( pChar ) )
+		return;
+
+	if( pChar->onPickup( pItem ) )
+		return;
+
 	// Do we really want to let him break his meditation
 	// When he picks up an item ?
 	// Maybe a meditation check here ?!?
@@ -641,6 +647,15 @@ void cDragItems::dropOnGround( cUOSocket *socket, P_ITEM pItem, const Coord_cl &
 	if( !pChar->canPickUp( pItem ) )
 	{
 		socket->bounceItem( pItem, BR_CANNOT_PICK_THAT_UP );
+		return;
+	}
+
+	if( pItem->onDropOnGround( pos ) )
+	{
+		// We're still dragging something
+		if( socket->dragging() )
+			socket->bounceItem( socket->dragging(), BR_NO_REASON );
+
 		return;
 	}
 

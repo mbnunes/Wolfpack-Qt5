@@ -75,7 +75,12 @@ public:
 	bool onShowContextMenu( P_CHAR pChar, cUObject *pObject );
 
 	bool onSpeech( cUObject *listener, P_CHAR talker, const QString &text, std::vector< UINT16 > keywords );
+
+	// Drop/Pickup events
 	bool onDropOnChar( P_CHAR pChar, P_ITEM pItem );
+	bool onDropOnItem( P_ITEM pCont, P_ITEM pItem );
+	bool onDropOnGround( P_ITEM pItem, const Coord_cl &pos );
+	bool onPickup( P_CHAR pChar, P_ITEM pItem );
 
 	// Magic System (This should be reduced eventually. It's a bit much)
 	// But as soon as the flag-system is introduced for python-script 

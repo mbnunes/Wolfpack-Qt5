@@ -956,6 +956,18 @@ bool cChar::del()
 
 //========== WRAPPER EVENTS
 
+bool cChar::onPickup( P_ITEM pItem )
+{
+	if( scriptChain.empty() )
+		return false;
+ 
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onPickup( this, pItem ) )
+			return true;
+
+	return false;
+}
+
 // Shows the name of a character to someone else
 bool cChar::onSingleClick( P_CHAR Viewer ) 
 {

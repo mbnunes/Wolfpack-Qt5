@@ -406,3 +406,36 @@ bool WPPythonScript::onDropOnChar( P_CHAR pChar, P_ITEM pItem )
 
 	PyEvalMethod( "onDropOnChar" )
 }
+
+bool WPPythonScript::onDropOnItem( P_ITEM pCont, P_ITEM pItem )
+{
+	PyHasMethod( "onDropOnItem" )
+	
+	PyObject *tuple = PyTuple_New( 2 );
+	PyTuple_SetItem( tuple, 0, PyGetItemObject( pCont ) );
+	PyTuple_SetItem( tuple, 1, PyGetItemObject( pItem ) );
+
+	PyEvalMethod( "onDropOnItem" )
+}
+
+bool WPPythonScript::onDropOnGround( P_ITEM pItem, const Coord_cl &pos )
+{
+	PyHasMethod( "onDropOnGround" )
+	
+	PyObject *tuple = PyTuple_New( 2 );
+	PyTuple_SetItem( tuple, 0, PyGetItemObject( pItem ) );
+	PyTuple_SetItem( tuple, 1, PyGetCoordObject( pos ) );
+
+	PyEvalMethod( "onDropOnGround" )
+}
+
+bool WPPythonScript::onPickup( P_CHAR pChar, P_ITEM pItem )
+{
+	PyHasMethod( "onPickup" )
+	
+	PyObject *tuple = PyTuple_New( 2 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
+	PyTuple_SetItem( tuple, 1, PyGetItemObject( pItem ) );
+
+	PyEvalMethod( "onPickup" )
+}
