@@ -1465,7 +1465,7 @@ void cSkills::ProvocationTarget2(UOXSOCKET s)
 			sprintf((char*)temp, "* You see %s attacking %s *", pc_target->name, pc_target2->name);
 			for (i=0;i<now;i++)
 			{
-				if (inrange1p(currchar[i], target)&&perm[i])
+				if (inrange1p(currchar[i], DEREF_P_CHAR(pc_target))&&perm[i])
 				{
 					itemmessage(i, (char*)temp, pc_target->serial);
 				}
@@ -1484,7 +1484,7 @@ void cSkills::ProvocationTarget2(UOXSOCKET s)
 			sprintf((char*)temp, "* You see %s attacking %s *", pc_target->name, pc_target2->name);
 			for (i=0;i<now;i++)
 			{
-				if (inrange1p(currchar[i], target)&&perm[i])
+				if (inrange1p(currchar[i], DEREF_P_CHAR(pc_target))&&perm[i])
 				{
 					itemmessage(i, (char*)temp, pc_target->serial);
 				}

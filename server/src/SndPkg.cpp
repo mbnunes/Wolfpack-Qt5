@@ -2345,7 +2345,7 @@ void movingeffect(int source, int dest, unsigned char eff1, unsigned char eff2, 
 	 {
 	   for (j=0;j<now;j++)
 	   {
-		 if ( (inrange1p(currchar[j],source))&&(inrange1p(currchar[j],dest))&&(perm[j]))
+		 if ( (inrange1p(currchar[j],DEREF_P_CHAR(pc_source)))&&(inrange1p(currchar[j],DEREF_P_CHAR(pc_dest)))&&(perm[j]))
 		 {
 			Xsend(j, effect, 28);
 		 }
@@ -2357,7 +2357,7 @@ void movingeffect(int source, int dest, unsigned char eff1, unsigned char eff2, 
 		// UO3D effect -> let's check which client can see it
 	   for (j=0;j<now;j++)
 	   {
-		 if ( (inrange1p(currchar[j],source))&&(inrange1p(currchar[j],dest))&&(perm[j]))
+		 if ( (inrange1p(currchar[j],DEREF_P_CHAR(pc_source)))&&(inrange1p(currchar[j],DEREF_P_CHAR(pc_dest)))&&(perm[j]))
 		 {
 			 if (clientDimension[j]==2 && !skip_old) // 2D client, send old style'd 
 			 {
@@ -2366,7 +2366,7 @@ void movingeffect(int source, int dest, unsigned char eff1, unsigned char eff2, 
 			 } else if (clientDimension[j]==3) // 3d client, send 3d-Particles	
 			 {
 
-				movingeffectUO3D(source, dest, str);			
+				movingeffectUO3D(DEREF_P_CHAR(pc_source), DEREF_P_CHAR(pc_dest), str);			
 				Xsend(j, particleSystem, 49);
 			 }
 			 else if (clientDimension[j] != 2 && clientDimension[j] !=3 ) { sprintf(temp, "Invalid Client Dimension: %i\n",clientDimension[j]); LogError(temp); }
