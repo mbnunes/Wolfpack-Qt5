@@ -203,7 +203,8 @@ cChar::cChar( const P_CHAR mob )
 	this->squelched_ = mob->squelched();
 	this->mutetime_ = mob->mutetime();
 	this->med_ = mob->med();
-	for( int i=0; i<( ALLSKILLS + 1 ); i++)
+	int i;
+	for( i=0; i<( ALLSKILLS + 1 ); i++)
 	{
 		this->baseSkill_[ i ] = mob->baseSkill( i );
 		this->skill_[ i ] = mob->skill( i );
@@ -222,7 +223,7 @@ cChar::cChar( const P_CHAR mob )
 	this->st2_ = mob->st2();
 	this->may_levitate_ = mob->may_levitate();
 	this->pathnum_ = mob->pathnum();
-	for( int i=0; i<PATHNUM; i++)
+	for( i=0; i<PATHNUM; i++)
 	{
 		this->path_[ i ].x = mob->path( i ).x;
 		this->path_[ i ].y = mob->path( i ).y;
@@ -285,7 +286,7 @@ cChar::cChar( const P_CHAR mob )
 	this->spatimer_ = mob->spatimer();
 	this->taming_ = mob->taming();
 	this->summontimer_ = mob->summontimer();
-	for( int i=0; i<( ALLSKILLS+1 ); i++)
+	for( i=0; i<( ALLSKILLS+1 ); i++)
 	{
 		this->lockSkill_[ i ] = mob->lockSkill( i );
 	}
