@@ -233,24 +233,34 @@
 
 	<!-- Pile of Wool -->
 	<item id="df8">
-		<id>0x0df8</id>
+		<id>0xdf8</id>
 		<category>Professions\Tailorer\Pile of Wool 1</category>
+		<events>wool</events>
+	</item>
+
+	<item id="101f">
+		<id>0x101f</id>
+		<category>Professions\Tailorer\Pile of Wool 2</category>
+		<events>wool</events>
 	</item>
 
 	<!-- Ball of Yarn -->
 	<item id="e1d">
-		<id>0x0e1d</id>
+		<id>0xe1d</id>
 		<category>Professions\Tailorer\Ball of Yarn 1</category>
+		<events>yarn</events>
 	</item>
 
 	<item id="e1e">
-		<id>0x0e1e</id>
+		<id>0xe1e</id>
 		<category>Professions\Tailorer\Ball of Yarn 2</category>
+		<events>yarn</events>
 	</item>
 
 	<item id="e1f">
-		<id>0x0e1f</id>
+		<id>0xe1f</id>
 		<category>Professions\Tailorer\Ball of Yarn 3</category>
+		<events>yarn</events>
 	</item>
 
 	<!-- Bolt of Cloth -->
@@ -313,13 +323,15 @@
 	</item>
 
 	<item id="fa0">
-		<id>0x0fa0</id>
+		<id>0xfa0</id>
 		<category>Professions\Tailorer\Spool of Thread (N/S)</category>
+		<events>yarn</events>
 	</item>
 
 	<item id="fa1">
-		<id>0x0fa1</id>
+		<id>0xfa1</id>
 		<category>Professions\Tailorer\Spool of Thread (W/E)</category>
+		<events>yarn</events>
 	</item>
 
 	<item id="fa9">
@@ -328,7 +340,7 @@
 	</item>
 
 	<item id="fab">
-		<id>0x0fab</id>
+		<id>0xfab</id>
 		<category>Professions\Tailorer\Dying Tub</category>
 		<events>environment</events>
 	</item>
@@ -371,11 +383,6 @@
 	<item id="10a5">
 		<id>0x10a5</id>
 		<category>Professions\Tailorer\Spinning Wheel (E/W) (Animated)</category>
-	</item>
-
-	<item id="101f">
-		<id>0x101f</id>
-		<category>Professions\Tailorer\Pile of Wool 2</category>
 	</item>
 
 	<item id="105f">
