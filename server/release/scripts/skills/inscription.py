@@ -261,10 +261,10 @@ class InsItemAction(CraftItemAction):
 			if not self.checkmaterial(player, args):
 				self.parent.send(player, args)
 				return False
-			player.mana = player.mana - self.mana
 			self.consumematerial(player, args, 0)
 			success = self.checkskills( player, args, 1)
 			if success:
+				player.mana = player.mana - self.mana
 				item = wolfpack.additem(self.definition)
 				if not item:
 					console.log(LOG_ERROR, "Unknown item definition used in action %u of menu %s.\n" % (self.parent.subactions.index(self), self.parent.id))
