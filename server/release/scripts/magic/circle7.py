@@ -358,7 +358,7 @@ class Polymorph (Spell):
 			return 0
 		return Spell.checkrequirements(self, char, mode, args, target, item)
 
-	def cast(self, char, mode, args):
+	def cast(self, char, mode, args=[], target=None, item=None):
 		if char.polymorph:
 			if char.socket:
 				char.socket.clilocmessage(1005559)
