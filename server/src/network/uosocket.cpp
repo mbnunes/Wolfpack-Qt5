@@ -206,6 +206,9 @@ void cUOSocket::recieve()
 	if( packetId == 0x91 )
 		_state = LoggedIn;
 
+	if( _player )
+		_player->setClientIdleTime( uiCurrentTime + 120 * MY_CLOCKS_PER_SEC );
+
 	// Relay it to the handler functions
 	switch( packetId )
 	{

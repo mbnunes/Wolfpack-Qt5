@@ -65,7 +65,9 @@ void tuple_decref( PyObject *object );
 #define getIntProperty( identifier, property ) if( !strcmp( name, identifier ) ) return PyInt_FromLong( self->property );
 #define getStrProperty( identifier, property ) if( !strcmp( name, identifier ) ) return PyString_FromString( self->property );
 
-// If an error occured, report it
+/*!
+	This function checks if there has been an error and tries to print it out.
+  */
 inline void PyReportError( void )
 {
 	if( PyErr_Occurred() )

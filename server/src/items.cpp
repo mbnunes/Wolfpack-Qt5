@@ -1686,6 +1686,12 @@ void cItem::processModifierNode( const QDomElement &Tag )
 	// <name>magic %1</name>
 	if( TagName == "name" )
 	{
+		// Bad: # = iron #
+		if( name_ == "#" )
+		{
+			name_ = getName( true );
+		}
+
 		// This prevents double naming issues (magic magic item)
 		// magic %1 | magic item
 		// This is rather tough i'd say, we have to check whether we already

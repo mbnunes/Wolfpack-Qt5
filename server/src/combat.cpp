@@ -307,8 +307,6 @@ namespace Combat
 	*/
 	void hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 	{
-		UINT16 oldAttHp = pAttacker->hp();
-		UINT16 oldHp = pDefender->hp();
 		UINT16 oldStm = pDefender->stm();
 
 		// Get the weapon the attacker is wearing.
@@ -724,17 +722,31 @@ namespace Combat
 			SI32 reflectdamage = (SI32)floor( (float)damage * (float)pDefender->skill( MAGERY ) / 2000.0f );
 			damage -= reflectdamage;
 
-			pAttacker->setHp( QMAX( 0, pAttacker->hp() - reflectdamage ) );
-			if( pAttacker->hp() <= 0 )
-				pAttacker->kill();
+			if( reflectdamage > 0 )
+			{
+				pAttacker->setHp( QMAX( 0, pAttacker->hp() - reflectdamage ) );
+				pAttacker->updateHealth();
+
+				if( pAttacker->hp() <= 0 )
+					pAttacker->kill();
+			}
 
 			pDefender->effect( 0x374A, 10, 15 ); // RA effect (update!)
 		}
 
 		// Finally deal the damage
 		damage = QMAX( 0, damage );
-		pDefender->setHp( pDefender->hp() - damage );
-		pAttacker->message( QString( "You deal %1 points of damage" ).arg( damage ) );
+		if( damage > 0 )
+		{
+			pDefender->setHp( pDefender->hp() - damage );
+			
+			if( pAttacker->socket() )
+				pAttacker->socket()->showSpeech( pDefender, QString::number( damage ), 0x1F, 6 );
+
+			// If we die anyway dont update our health
+			if( pDefender->hp() > 0 )
+				pDefender->updateHealth();
+		}
 
 		// Create blood below the defender if severe
 		// damage has been dealt
@@ -787,14 +799,8 @@ namespace Combat
 
 		// Resend the health bar of our defender to all surrounding characters
 		// ONLY if the hp really changed!
-		if( pDefender->hp() != oldHp )
-			pDefender->updateHealth();
-
 		if( pDefender->stm() != oldStm && pDefender->socket() )
 			pDefender->socket()->sendStatWindow();
-
-		if( pAttacker->hp() != oldAttHp )
-			pAttacker->updateHealth();
 
 		// Get Hit sound + Animation
 		playGetHitSoundEffect( pDefender );

@@ -370,7 +370,7 @@ const QString cVariant::toString() const
 int cVariant::toInt( bool * ok ) const
 {
     if( d->typ == String )
-		return ((QString*)d->value.ptr)->toInt( ok );
+		return hex2dec( *( (QString*)d->value.ptr ) ).toInt( ok );
     
 	if ( ok )
 		*ok = canCast( Int );
