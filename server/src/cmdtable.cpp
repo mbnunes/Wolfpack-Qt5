@@ -684,12 +684,12 @@ void command_setpriv3(UOXSOCKET s)
 // <A HREF="http://stud4.tuwien.ac.at/%7Ee9425109/uox3_1.htm">
 // Lord Binary's UOX Site</A>.</P>
 {
-	int y, z;
-	unsigned int i;
+	int z;
+	unsigned int i, y;
 	unsigned long loopexit=0;
 	
     PC_CHAR pcc_cs = currchar[s];
-    if (pcc_cs) return;
+    if (!pcc_cs) return;
 	
 	switch(tnum) {
 	case 7:
@@ -1635,7 +1635,7 @@ void command_set(UOXSOCKET s)
 // (text, d) Set STR/DEX/INT/Skills on yourself arguments are skill & amount.
 {
 	int i;
-	if (tnum==3)
+	if (tnum == 3)
 	{
 		i=0;
 		script1[0]=0;
@@ -1645,12 +1645,52 @@ void command_set(UOXSOCKET s)
 		
 		for (i=0;i<SKILLS;i++)
 		{
-			if (!(strcmp(skillname[i], (char*)script1))) { /*clConsole.send("%s\n",skillname[i]);*/addx[s]=i;}
+			if (!(strcmp(skillname[i], (char*)script1))) { addx[s]=i; }
 		}
 		if (addx[s]!=-1)
 		{
-			addy[s]=makenumber(2);
+			addy[s] = makenumber(2);
+#if !defined(TESTCENTER)
 			target(s, 0, 1, 0, 36, "Select character to modify.");
+#else
+			P_CHAR pc = currchar[s];
+			if(pc != NULL)
+			{
+				register unsigned int j;
+
+				switch ( addx[s] )
+				{
+				case FAME:	pc->fame = addy[s];		return;
+				case KARMA: pc->karma = addy[s];	return;
+				case ALLSKILLS:
+					for ( j = 0; j < TRUESKILLS; ++j )
+						pc->baseskill[j] = addy[s];
+					break;
+				case STR:
+					pc->str = addy[s];
+					statwindow(s, pc);
+					break;
+				case INT:
+					pc->in = addy[s];
+					statwindow(s, pc);
+					break;
+				case DEX:
+					pc->setDex( addy[s] );
+					statwindow(s, pc);
+					break;
+				case default: // one of the skills.
+					pc->baseskill[addx[s]] = addy[s];
+					Skills->updateSkillLevel( pc, addx[s] );
+					updateskill(s, addx[s]);
+					return; // only one skill gets changed.
+				}
+				for (j = 0; j < TRUESKILLS; ++j)
+				{
+					Skills->updateSkillLevel(pc, j);
+					updateskill(s, j);
+				}
+			}
+#endif
 		}
 	}
 	return;

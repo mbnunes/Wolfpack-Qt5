@@ -781,9 +781,11 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 	
 	for (i = 0; i < 7; i++) // this overwrites all previous settings !
 	{
-		pc->priv3[i]=metagm[3][i]; // gm defaults
 		//pc->menupriv=1;
-		if (pc->account==0) pc->priv3[i]=0xffffffff;
+		if (pc->account == 0) 
+			pc->priv3[i]=0xffffffff;
+		else
+			pc->priv3[i]=metagm[0][i]; // gm defaults is 0
 		pc->menupriv=-1; // LB, disabling menupriv stuff for gms per default
 	}
 	

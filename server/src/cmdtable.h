@@ -49,10 +49,10 @@
 
 /* Types of commands */
 #define CMD_ITEMMENU	1	/* Open item menu specified in cmd_extra */
-#define CMD_TARGET	2	/* Call target struct specified in cmd_extra */
-#define	CMD_FUNC	3	/* Call function specified in cmd_extra
-					must be of type GMFUNC */
-#define CMD_TARGETX	4	/* target with addx[] argument */
+#define CMD_TARGET		2	/* Call target struct specified in cmd_extra */
+#define	CMD_FUNC		3	/* Call function specified in cmd_extra
+							   must be of type GMFUNC */
+#define CMD_TARGETX	4		/* target with addx[] argument */
 #define CMD_TARGETXY	5	/* target with addx & y [] arguments */
 #define CMD_TARGETXYZ	6	/* target with addx & y & z [] arguments */
 #define CMD_TARGETHX	7	/* target with hex addx[] argument */

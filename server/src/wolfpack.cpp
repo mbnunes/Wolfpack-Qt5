@@ -1822,6 +1822,14 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 		pc->priv3[6]=0xFFFFFFFF;
 		pc->menupriv=-1; // lb, menu priv
 	}
+	else
+	{
+		unsigned int i;
+		for (i = 0; i < 7; ++i) // this overwrites all previous settings !
+			pc->priv3[i] = metagm[2][i]; // player defaults is 2
+	}
+
+	}
 
 	pc->MoveTo(str2num(start[buffer[s][0x5B]][2]), str2num(start[buffer[s][0x5B]][3]), str2num(start[buffer[s][0x5B]][4]));
 
