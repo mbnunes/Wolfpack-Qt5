@@ -2179,7 +2179,7 @@ void cUOSocket::handleTarget( cUORxTarget* packet )
 		return;
 
 	// Check if there really was a response or if it just was canceled
-	if ( !packet->serial() && ( ( packet->x() == 0xFFFF ) || ( packet->y() == 0xFFFF ) || ( ( Q_UINT8 ) packet->z() == 0xFF ) ) )
+	if ( !packet->serial() && ( ( packet->x() == 0xFFFF ) || ( packet->y() == 0xFFFF ) ) )
 		targetRequest->canceled( this );
 	else
 	{

@@ -24,6 +24,7 @@ Wolfpack 12.9.11 Beta (CVS)
 	- Fixed negative z values for spawnregion xml files.
 	- Improved NPC walking.
 	- Fixed bug #0000317. (Server not refusing to load even when accounts db corrupt)
+	- Fixed bug #0000187. (Land and Static targets on height -1 were broken)
 
 Wolfpack 12.9.10 Beta (10. September 2004)
 	- Made the maximum number of controlled pets a dynamic property for players.
