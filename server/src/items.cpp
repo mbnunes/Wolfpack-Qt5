@@ -1782,41 +1782,6 @@ void cItem::processNode( const QDomElement& Tag )
 			applyDefinition( *DefSection );
 	}
 
-	// <tag type="string"> also type="value"
-	//	    <key>multisection</key>
-	//		<value>smallboat</value>
-	// </tag>
-	else if( TagName == "tag" )
-	{
-		QString tkey = (char*)0;
-		QString tvalue = (char*)0;
-		QDomNode childNode = Tag.firstChild();
-		while( !childNode.isNull() )
-		{
-			if( childNode.isElement() )
-			{
-				QDomElement childTag = childNode.toElement();
-				QString childValue = this->getNodeValue( childTag );
-				QString childName = childNode.nodeName();
-				
-				if( childName == "key" )
-					tkey = childValue;	
-
-				else if( childName == "value" )
-					tvalue = childValue;
-			}
-			childNode = childNode.nextSibling();
-		}
-
-		if( !tkey.isNull() && !tvalue.isNull() )
-		{
-			if( Tag.attribute( "type" ) == "value" )
-				this->tags.set( tkey, cVariant( tvalue.toInt() ) );
-			else
-				this->tags.set( tkey, cVariant( tvalue ) );
-		}
-	}
-
 	else
 		cUObject::processNode( Tag );
 }

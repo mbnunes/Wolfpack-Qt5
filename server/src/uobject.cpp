@@ -285,13 +285,42 @@ void cUObject::recreateEvents( void )
 void cUObject::processNode( const QDomElement &Tag )
 {
 	QString TagName = Tag.nodeName();
-	QString Value;
-	QDomNodeList ChildTags;
+	QString Value = this->getNodeValue( Tag );
 
-	if( Tag.hasChildNodes() )
-		Value = this->getNodeValue( Tag );
+	// <tag type="string"> also type="value"
+	//	    <key>multisection</key>
+	//		<value>smallboat</value>
+	// </tag>
+	if( TagName == "tag" )
+	{
+		QString tkey = (char*)0;
+		QString tvalue = (char*)0;
+		QDomNode childNode = Tag.firstChild();
+		while( !childNode.isNull() )
+		{
+			if( childNode.isElement() )
+			{
+				QDomElement childTag = childNode.toElement();
+				QString childValue = this->getNodeValue( childTag );
+				QString childName = childNode.nodeName();
+				
+				if( childName == "key" )
+					tkey = childValue;	
 
-	// nothing in here because the getters and setters are not finished!
+				else if( childName == "value" )
+					tvalue = childValue;
+			}
+			childNode = childNode.nextSibling();
+		}
+
+		if( !tkey.isNull() && !tvalue.isNull() )
+		{
+			if( Tag.attribute( "type" ) == "value" )
+				this->tags.set( tkey, cVariant( tvalue.toInt() ) );
+			else
+				this->tags.set( tkey, cVariant( tvalue ) );
+		}
+	}
 }
 
 // Remove it from all in-range sockets
