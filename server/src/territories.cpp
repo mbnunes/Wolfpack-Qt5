@@ -263,9 +263,11 @@ void cAllTerritories::load( void )
 void cAllTerritories::check( P_CHAR pc )
 {
 	UOXSOCKET s = calcSocketFromChar( pc );
-	UI32 j;
 	cTerritory* currRegion = this->region( pc->pos.x, pc->pos.y );
 	cTerritory* lastRegion = this->region( pc->region );
+
+	if( !currRegion || !lastRegion )
+		return;
 
 	if( currRegion != lastRegion )
 	{
@@ -281,10 +283,10 @@ void cAllTerritories::check( P_CHAR pc )
 				sprintf((char*)temp, "You have entered %s.", currRegion->name().latin1() );
 				sysmessage(s, 0x37, (char*)temp);
 			}
-			j=strcmp( currRegion->guardOwner(), lastRegion->guardOwner());
+
 			if( (currRegion->isGuarded() && !lastRegion->isGuarded()) ||
 				(!currRegion->isGuarded() && lastRegion->isGuarded()) ||
-				(currRegion->isGuarded() && j) )
+				(currRegion->isGuarded() && ( currRegion->guardOwner() != lastRegion->guardOwner() )) )
 			{
 				if( currRegion->isGuarded() )
 				{

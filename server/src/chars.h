@@ -567,6 +567,10 @@ public:
 	bool canPickUp(cItem* pi);
 	unsigned int dist(cChar* pc);
 	unsigned int dist(cItem* pi);
+	void soundEffect( UI16 soundId, bool hearAll = true );
+	void talk( const QString &message, UI16 color = 0xFFFF );
+	void emote( const QString &emote, UI16 color = 0xFFFF );
+	void message( const QString &message, UI16 color = 0x3B2 );
 
 	// Wrapper events! - darkstorm
 	bool onShowCharName( P_CHAR Viewer ); // Shows the name of a character to someone else

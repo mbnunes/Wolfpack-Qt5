@@ -142,7 +142,7 @@ void cSrvParams::readData()
 	bountysexpire_          = getNumber("General",  "Bounty Expire", 0, true);
 	quittime_               = getNumber("General",  "Char Time Out", 300, true);
 	errors_to_console_      = getNumber("General",  "Errors To Console", 0, true);
-	showCVCS_               = getNumber("General",  "Show CVCS", 1, true);
+	showCVCS_               = getNumber("General",  "Show CVCS", 0, true);
 	cacheMulFiles_			= getBool  ("General",  "Cache Mul Files", true, true);
 	specialBankTrigger_     = getString("General",  "Special Bank Trigger", "WARE", true).upper();
 	useSpecialBank_			= getBool  ("General",  "Special Bank", false, true);

@@ -369,19 +369,6 @@ bool cMovement::isValidDirection(UI08 dir)
 
 bool cMovement::isFrozen(P_CHAR pc, UOXSOCKET socket, int sequence)
 {
-
-	if ( pc->casting() )
-	{
-		if ( socket != INVALID_UOXSOCKET )
-		{
-			sysmessage(socket, "You cannot move while casting.");
-			deny(socket, pc, sequence);
-		}
-#if DEBUG_WALK
-		printf("%s (cMovement::isFrozen) casting char %s\n", DBGFILE, pc->name.c_str());
-#endif
-		return true;
-	}
 	if ( pc->priv2 & P_C_PRIV2_FROZEN )
 	{
 		if (socket != INVALID_UOXSOCKET)

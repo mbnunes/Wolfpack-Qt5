@@ -136,6 +136,9 @@ public:
 	bool			prepare( P_CHAR character, UI08 source );
 	void			cast( P_CHAR character, UI08 source );
 
+	// Spell Effects
+	
+
 	cSpell( void );
 };
 
@@ -167,6 +170,8 @@ public:
 	
 	void	openSpellBook( P_CHAR mage, P_ITEM spellbook );
 	P_ITEM	findSpellBook( P_CHAR mage );
+	bool	hasSpell( P_CHAR mage, UI08 spellId );
+	bool	hasSpell( P_ITEM spellbook, UI08 spellId );
 
 	SI16	calcSpellId( UI16 model );
 

@@ -996,9 +996,6 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 		else if( objectID == "ScriptEff" )
 			pTE = new cScriptEffect;
 
-		else if( objectID == "TimedAction" )
-			pTE = new cTimedAction;
-
 		else		
 			continue; // an error occured..
 
@@ -1422,7 +1419,7 @@ void CWorldMain::SaveChar( P_CHAR pc )
 static void decay1(P_ITEM pi, P_ITEM pItem)
 {
 	long serial;
-	if (pi->corpse==1)
+	if( pi->corpse() == 1 )
 	{
 		serial=pi->serial;
 		unsigned int ci;
@@ -1459,30 +1456,6 @@ static void decay1(P_ITEM pi, P_ITEM pItem)
 			}
 		}
 	}
-}
-
-////////////
-// name:	swapDragInfo
-// pupose:	exchange current and OLD Position of an item
-// history:	by Duke, 17.10.01
-//
-void swapDragInfo(P_ITEM pi)
-{
-	Coord_cl tmpPos;
-	int tmpSer;
-	signed char tmpLayer;
-
-	tmpPos=pi->pos;
-	tmpSer=pi->contserial;
-	tmpLayer=pi->layer();
-
-	pi->pos = pi->oldpos;
-	pi->contserial=pi->oldcontserial;
-	pi->setLayer( pi->oldlayer );
-
-	pi->oldpos = tmpPos;
-	pi->oldcontserial=tmpSer;
-	pi->oldlayer=tmpLayer;
 }
 
 void CWorldMain::SaveItem( P_ITEM pi, P_ITEM pDefault)

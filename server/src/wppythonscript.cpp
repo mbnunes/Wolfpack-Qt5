@@ -746,7 +746,7 @@ PyObject *Py_WPItemGetAttr( Py_WPItem *self, char *name )
 	else getIntProperty( "z", Item->pos.z )
 	else getIntProperty( "plane", Item->pos.plane )
 	else getIntProperty( "layer", Item->layer() )
-	else getIntProperty( "itemhand", Item->itemhand() )
+	else getIntProperty( "twohanded", Item->twohanded() ? 1 : 0 )
 	else getIntProperty( "type", Item->type() )
 	else getIntProperty( "type2", Item->type2() )
 	
@@ -769,11 +769,6 @@ PyObject *Py_WPItemGetAttr( Py_WPItem *self, char *name )
 		return (PyObject*)returnVal;
 	}
 
-	else getIntProperty( "oldx", Item->oldpos.x )
-	else getIntProperty( "oldy", Item->oldpos.y )
-	else getIntProperty( "oldz", Item->oldpos.z )
-	else getIntProperty( "oldplane", Item->oldpos.plane )
-	else getIntProperty( "oldlayer", Item->oldlayer )
 	else getIntProperty( "weight", Item->weight() )
 	else getIntProperty( "racehate", Item->racehate() )
 	else getIntProperty( "more1", Item->more1 )
@@ -791,7 +786,7 @@ PyObject *Py_WPItemGetAttr( Py_WPItem *self, char *name )
 	else getIntProperty( "dooropen", Item->dooropen )
 	// PILEABLE
 	else getIntProperty( "dye", Item->dye )
-	else getIntProperty( "corpse", Item->corpse )
+	else getIntProperty( "corpse", Item->corpse() )
 	else getIntProperty( "defense", Item->def )
 	else getIntProperty( "lodamage", Item->lodamage() )
 	else getIntProperty( "hidamage", Item->hidamage() )
@@ -865,8 +860,8 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 	else if( !strcmp( name, "layer" ) )
 		self->Item->setLayer( PyInt_AS_LONG( value ) );
 	
-	else if( !strcmp( name, "itemhand" ) )
-		self->Item->setItemhand( PyInt_AS_LONG( value ) );
+	else if( !strcmp( name, "twohanded" ) )
+		self->Item->setTwohanded( ( PyInt_AS_LONG( value ) != 0 ) ? true : false );
 
 	else if( !strcmp( name, "type" ) )
 		self->Item->setType( PyInt_AS_LONG( value ) );
@@ -899,11 +894,6 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 		self->Item->setMoreb1( PyInt_AS_LONG( value ) );
 
 	// CONTAINER!!
-	else setIntProperty( "oldx", Item->oldpos.x )
-	else setIntProperty( "oldy", Item->oldpos.y )
-	else setIntProperty( "oldz", Item->oldpos.z )
-	else setIntProperty( "oldplane", Item->oldpos.plane )
-	else setIntProperty( "oldlayer", Item->oldlayer )
 	else setIntProperty( "more1", Item->more1 )
 	else setIntProperty( "more2", Item->more2 )
 	else setIntProperty( "more3", Item->more3 )
@@ -915,7 +905,6 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 	else setIntProperty( "dooropen", Item->dooropen )
 	// PILEABLE
 	else setIntProperty( "dye", Item->dye )
-	else setIntProperty( "corpse", Item->corpse )
 	else setIntProperty( "defense", Item->def )
 	else setIntProperty( "str", Item->st )
 	else setIntProperty( "dex", Item->dx )
@@ -926,6 +915,9 @@ int Py_WPItemSetAttr( Py_WPItem *self, char *name, PyObject *value )
 
 	else if( !strcmp( name, "speed" ) )
 		self->Item->setSpeed( PyInt_AS_LONG( value ) );
+
+	else if( !strcmp( name, "corpse" ) )
+		self->Item->setCorpse( ( PyInt_AS_LONG( value ) == 0 ) ? false : true );
 
 	else if( !strcmp( name, "lodamage" ) )
 		self->Item->setLodamage( PyInt_AS_LONG( value ) );

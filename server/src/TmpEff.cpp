@@ -1190,44 +1190,31 @@ unsigned char tempeffect2(P_CHAR source, P_ITEM piDest, int num, unsigned char m
 	return cTempEffects::getInstance()->Add(source, piDest, num, more1, more2, more3);
 }
 
-// cTimedAction Methods
-cTimedAction::cTimedAction( P_CHAR nChar, UI08 nAction, UI32 nDuration )
+// cTimedSpellAction
+cTimedSpellAction::cTimedSpellAction( SERIAL serial, UI08 nAction )
 {
-	objectid = "TimedAction";
-	character = nChar->serial;
-	action = nAction;
-	duration = nDuration;
-}
+	if( !isCharSerial( serial ) )
+	{
+		character = INVALID_SERIAL;
+		return;
+	}
 
-cTimedAction::cTimedAction( SERIAL serial, UI08 nAction, UI32 nDuration )
-{
-	objectid = "TimedAction";
+	// Display the animation once
+	P_CHAR pc = FindCharBySerial( serial );
+	impaction( calcSocketFromChar( pc ), nAction );
+
+	// Save our data
 	character = serial;
 	action = nAction;
-	duration = nDuration;
+	serializable = false;
+	expiretime = uiCurrentTime + 750;
 }
 
-void cTimedAction::Serialize( ISerialization &archive )
+// Insert a new action if there are more than 75 ticks left
+void cTimedSpellAction::Expire()
 {
-	if( archive.isReading() )
-	{
-		archive.read( "serial",			character );
-		archive.read( "action",			action );
-		archive.read( "duration",		duration );
-	}
-	else if( archive.isWritting() )
-	{
-		archive.write( "serial",		character );
-		archive.write( "action",		action );
-		archive.write( "duration",		duration );
-	}
-	cTempEffect::Serialize(archive);
-}
-
-// Show the action and create a new action
-// With length - anim-length (thats a mysterium !!)
-void cTimedAction::Expire()
-{
+	if( character != INVALID_SERIAL )
+		cTempEffects::getInstance()->Insert( new cTimedSpellAction( character, action ) );
 }
 
 // Singleton

@@ -52,5 +52,8 @@ using namespace std ;
 #include "utilsys.h"
 #include "debug.h"
 
+void checkauto();	// Check automatic/timer controlled stuff (Like fighting and regeneration)
+void checktimers();	// Check shutdown timers
+
 #endif
 

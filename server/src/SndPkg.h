@@ -47,6 +47,7 @@ using namespace std;
 
 // Forward class Declaration
 class QString;
+class cUObject;
 
 // Wolfpack includes 
 #include "defines.h"
@@ -79,6 +80,47 @@ public:
 	cPDrawContainer( UI16 gumpId, SERIAL serial );
 };
 
+// Bounces an item
+class cBounceItem: public cPacket 
+{
+private:
+	bool denyMove; // true: 0, false: 5
+public:
+	cBounceItem( bool denyMove = false );
+};
+
+// Sends worn items
+class cWornItems: public cPacket
+{
+public:
+	cWornItems( SERIAL playerId, SERIAL itemId, UI08 layer, UI16 model, UI16 color );
+};
+
+// Sends a sound-effect
+class cSoundEffect: public cPacket
+{
+public:
+	cSoundEffect( UI16 soundId, const Coord_cl &pos, UI08 mode = 1 );
+};
+
+// Speech
+enum eTextType
+{
+	SP_REGULAR = 0x00,
+	SP_BROADCAST = 0x01,
+	SP_EMOTE = 0x02,
+	SP_SYSTEM = 0x06,
+	SP_WHISPER = 0x08,
+	SP_YELL = 0x09
+};
+
+class cUnicodeSpeech: public cVariablePacket
+{
+public:
+	cUnicodeSpeech( cUObject *origin, const QString &message, UI16 color, UI16 font, const QString &lang, eTextType type = SP_REGULAR );
+};
+
+// Sends contained items
 class cPContainerItems: public cVariablePacket
 {
 public:

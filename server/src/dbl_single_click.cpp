@@ -269,7 +269,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 	itype = pi->type();
 
 	// Criminal for looting an innocent corpse & unhidden if not owner..Ripper
-	if (pi->corpse==1)
+	if( pi->corpse() )
 	{
 		if (pc_currchar->hidden() == 1 && !pc_currchar->Owns(pi) && !pc_currchar->isGM())
 		{
@@ -1588,7 +1588,7 @@ void singleclick(UOXSOCKET s)
 	
 	// From now on, we will build the message into temp, and let itemname with just the name info
 	// Add amount info.
-	if (!pi->pileable() || pi->amount() == 1)
+	if (!pi->isPileable() || pi->amount() == 1)
 		strncpy((char*)temp, itemname, 100);
 	else 
 		if (itemname[strlen(itemname) - 1] != 's') // avoid iron ingotss : x
@@ -1619,13 +1619,13 @@ void singleclick(UOXSOCKET s)
 			}
 	}	
 	// Corpse highlighting...Ripper
-	if (pi->corpse==1)
+	if( pi->corpse() == 1 )
 	{
-		if(pi->more2==1)
+		if( pi->more2 == 1 )
 		    itemmessage(s,"[Innocent]",serial, 0x005A);
-		else if(pi->more2==2)
+		else if( pi->more2 == 2 )
 			itemmessage(s,"[Criminal]",serial, 0x03B2);
-		else if(pi->more2==3)
+		else if( pi->more2 == 3 )
 			itemmessage(s,"[Murderer]",serial, 0x0026);
 	}  // end highlighting
 	// Let's handle secure/locked down stuff.

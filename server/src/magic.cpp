@@ -430,7 +430,7 @@ bool cMagic::prepare( P_CHAR caster, UI08 spellId, UI08 sourceType, P_ITEM sourc
 			if( ( ( item->layer() == 1 ) && ( item->type() == 9 ) ) || ( item->layer() == 2 ) )
 			{
 				// Allowed are: 
-				// Gnarled Staffs (0x13F9), 
+				// Gnarled staffs (0x13F9), 
 				// Black Staffs and Wands (0x0DF0 - 0x0DF5), 
 				// Quarter Staffs ( 0xE89+0xE8A ),
 				// Order+Chaos Shields
@@ -465,18 +465,17 @@ bool cMagic::prepare( P_CHAR caster, UI08 spellId, UI08 sourceType, P_ITEM sourc
 	// Display the mantra *only* if we're not casting from a wand
 	if( sourceType != 2 )
 		speakMantra( caster, spell );
-	// Here once was a imp-action but what has that to do with mantras ?
 	
-	caster->setSpell( spellId ); // Remember our current spell-id - should rather be a pointer to a cSpell
-	caster->setCasting( true ); // we're casting ! :o)
+	//caster->setSpell( spellId ); // Remember our current spell-id - should rather be a pointer to a cSpell
+	//caster->setCasting( true ); // we're casting ! :o)
 	
 	// "Enduring" animation
-	caster->setSpellaction( spell->action() );
-	caster->setNextact( 75 );
+	//caster->setSpellaction( spell->action() );
+	//caster->setNextact( 75 );
 
 	// Measure the delay until our targetting cursor is shown
 	// Spellbooks have the full delay, i'll half it for scrolls
-	caster->setSpelltime( 0 );
+	//caster->setSpelltime( 0 );
 
 	if( !caster->isGM() )
 	{
@@ -485,9 +484,7 @@ bool cMagic::prepare( P_CHAR caster, UI08 spellId, UI08 sourceType, P_ITEM sourc
 		if( sourceType == 1 )
 			delay /= 2;
 
-		caster->setSpelltime( uiCurrentTime + delay );
-
-		caster->priv2 |= 2; // Freezed while casting
+		//caster->setSpelltime( uiCurrentTime + delay );
 	}
 
 	// If we're using a wand don't display effects
@@ -496,8 +493,7 @@ bool cMagic::prepare( P_CHAR caster, UI08 spellId, UI08 sourceType, P_ITEM sourc
 
 	// Start our casting action
 	// AllTmpEff->Insert( new cTimedAction( caster, spell->action(), spell->delay() ) );
-
-	impaction( calcSocketFromChar( caster ), spell->action() );
+	cTempEffects::getInstance()->Insert( new cTimedSpellAction( caster->serial, spell->action() ) );
 	cMagic::preParticles( spellId, caster );
 
 	return spell->prepare( caster, sourceType );
@@ -566,6 +562,35 @@ short cMagic::calcSpellId( UI16 model )
 		return -1;
 	else
 		return tile.unknown1;
+}
+
+bool cMagic::hasSpell( P_CHAR mage, UI08 spellId )
+{
+	return hasSpell( findSpellBook( mage ), spellId );
+}
+
+bool cMagic::hasSpell( P_ITEM spellbook, UI08 spellId )
+{
+	// No spellbook no spells!
+	if( spellbook == NULL )
+		return false;
+
+	// If a certain attribute of the spellbook is set i think 
+	// we should always tell the server: "yes we got the spell"
+
+	// Check for the spell-Scroll
+	vector< SERIAL > content = contsp.getData( spellbook->serial );
+	vector< SERIAL >::iterator myIter;
+	
+	for( myIter = content.begin(); myIter != content.end(); ++myIter )
+	{
+		P_ITEM scroll = FindItemBySerial( (*myIter) );
+
+		if( calcSpellId( scroll->id() ) == spellId )
+			return true;
+	}
+
+	return false;
 }
 
 ///////////////////

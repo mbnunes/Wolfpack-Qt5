@@ -63,6 +63,7 @@
 #include "mapstuff.h"
 #include "gumps.h"
 #include "spawnregions.h"
+#include "Timing.h"
 
 // new-style includes
 #include "wpdefmanager.h"
@@ -1126,7 +1127,7 @@ void deathstuff(P_CHAR pc_player)
 
 	pi_c->more1=nType;
 	pi_c->dir=pc_player->dir;
-	pi_c->corpse=1;
+	pi_c->setCorpse( 1 );
 	pi_c->startDecay();
 	
 	//JustMichael -- If it was a player set the ownerserial to the player's
@@ -1973,7 +1974,6 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	pi->setSpeed( 50 );
 	pi->setLodamage( 3 );
 	pi->setHidamage( 15 );
-	pi->setItemhand( 1 );
 	pi->priv |= 0x02; // Mark as a newbie item
 	}
 
@@ -4201,7 +4201,6 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 		{
 			pi->setId(0x183d);
 		}
-		pi->setPileable( true );
 		pi->moveTo(pc_p->pos);
 		pi->priv|=0x01;
 	}
@@ -5923,28 +5922,27 @@ void RefreshItem(P_ITEM pi)//Send this item to all online people in range
 	unsigned int a;
 	signed int aa ;
 
-	if(pi == NULL) return; //just to be on the right side
+	if( pi == NULL ) return; //just to be on the right side
 
-	if (pi->contserial==pi->serial)
+	if( pi->contserial == pi->serial )
 	{
-		clConsole.send("\nALERT ! item %s [serial: %i] has dangerous container value, autocorrecting\n", pi->name().ascii(), pi->serial);
-		pi->setContSerial(-1);
+		clConsole.send( "ALERT ! item %s [serial: %i] has dangerous container value, autocorrecting\n", pi->name().ascii(), pi->serial);
+		pi->setContSerial( -1 );
 	}
 
-	//first check: let's check if it's on the ground....
-	if(pi->isInWorld())
+	// first check: let's check if it's on the ground....
+	if( pi->isInWorld() )
 	{//yeah, it's on ground!
-		for(a=0;a<(unsigned)now;a++)//send this item to all the sockets in range
+		for( a=0; a < (unsigned)now; a++ )//send this item to all the sockets in range
 		{
-			if(perm[a] && iteminrange(a,  pi, VISRANGE))
-				senditem(a, pi);
+			if( perm[a] && iteminrange( a,  pi, VISRANGE ) )
+				senditem( a, pi );
 		}
 		return;
 	}
 
 	//if not, let's check if it's on a char or in a pack
-
-	if (isCharSerial(pi->contserial))//container is a player...it means it's equipped on a character!
+	if( isCharSerial( pi->contserial ) )//container is a player...it means it's equipped on a character!
 	{
 		LongToCharPtr(pi->serial,wearitem+1);
 		ShortToCharPtr(pi->id(),wearitem+5);
@@ -5959,7 +5957,7 @@ void RefreshItem(P_ITEM pi)//Send this item to all online people in range
 		}
 		return;
 	}
-	else//container is an item...it means we have to use sendbpitem()!!
+	else //container is an item...it means we have to use sendbpitem()!!
 	{
 		for(aa=0;aa<now;aa++)//send this item to all the sockets in range
 		{
@@ -5980,7 +5978,7 @@ void SetGlobalVars()
 
 	for (i=0; i>ALLSKILLS; i++) { strcpy(title[i].other, "old titles.scp error"); }
 	completetitle = new char[1024];
-	for (i=0;i<(MAXCLIENT);i++) { LSD[i]=0; DRAGGED[i]=0; EVILDRAGG[i]=0; clientDimension[i]=2; noweather[i]=1; } // LB	
+	for (i=0;i<(MAXCLIENT);i++) { LSD[i]=0; clientDimension[i]=2; noweather[i]=1; } // LB	
 	//for (i=0;i<cmem;i++) talkingto[i]=0; // cmem isnt set here !
 	
 	save_counter=0;

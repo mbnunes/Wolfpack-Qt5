@@ -52,7 +52,6 @@ private:
 	QString		name2_;
 	QString		name_;
 	SI08		layer_;
-	UI08		itemhand_;
 	QString		murderer_;
 	SI16		lodamage_; 
 	SI16		hidamage_; 
@@ -76,35 +75,36 @@ private:
 	void	processNode( const QDomElement &Tag );
 public:
 	void	processContainerNode( const QDomElement &Tag );
+
 	// Getters
-	UI16			id()			const { return id_; };		 // The graphical id of the item
-	UI16			color()			const { return color_; };	 // The Color of the item
-	UI16			amount()		const { return amount_; };	 // Amount of items in pile
-	UI16			amount2()		const { return amount2_; };  // Used to track things like number of yards left in a roll of cloth
-	const QString	&name2()		const { return name2_; };	 // The identified name of the item
-	const QString	&name()			const { return name_; };	 // Returns the item's name
-	UI08			layer()			const { return layer_; };	 // Layer if equipped on paperdoll
-	UI08			itemhand()		const { return itemhand_; }; // ITEMHAND system - AntiChrist
-	const QString	&murderer()		const { return murderer_; }; // If it's a corpse, this holds the name of the murderer
-	UI32			type()			const { return type_; };	 // Used for hardcoded behaviour
-	UI32			type2()			const { return type2_; };
-	UI08			offspell()		const { return offspell_; }; 
-	bool			secured()		const { return priv&0x08; }; // Is the container secured (houses)
-	SI16			speed()			const { return speed_; };	 // Weapon speed
-	SI16			lodamage()		const { return lodamage_; }; // Minimum damage weapon inflicts
-	SI16			hidamage()		const { return hidamage_; }; // Maximum damage weapon inflicts
-	bool			wipe()			const { return priv&0x10; }; // Should the item be wiped when affected by /WIPE
-	bool			pileable()		const { return priv&0x20; }; // Can Item be piled
-	SI16			racehate()		const { return racehate_; }; // Race ID this weapon does double damage to
-	SI16			weight()		const { return weight_; };
-	SI16			hp()			const { return hp_; };		 // Number of hitpoints an item has
-	SI16			maxhp()			const { return maxhp_; };	 // Maximum number of hitpoints an item has
-	SI32			smelt()			const { return smelt_; };	 // For item smelting
-	QString			spawnregion()	const { return spawnregion_; };
-	UI08			moreb1()		const { return moreb1_; };
-	UI08			moreb2()		const { return moreb2_; };
-	UI08			moreb3()		const { return moreb3_; };
-	UI08			moreb4()		const { return moreb4_; };
+	UI16			id()			const { return id_; }			// The graphical id of the item
+	UI16			color()			const { return color_; }		// The Color of the item
+	UI16			amount()		const { return amount_; }		// Amount of items in pile
+	UI16			amount2()		const { return amount2_; }		// Used to track things like number of yards left in a roll of cloth
+	const QString	&name2()		const { return name2_; }		// The identified name of the item
+	const QString	&name()			const { return name_; }			// Returns the item's name
+	UI08			layer()			const { return layer_; }		// Layer if equipped on paperdoll
+	bool			twohanded()		const { return priv&0x20; }		// Is the weapon twohanded ?
+	const QString	&murderer()		const { return murderer_; }		// If it's a corpse, this holds the name of the murderer
+	UI32			type()			const { return type_; }			// Used for hardcoded behaviour
+	UI32			type2()			const { return type2_; }
+	UI08			offspell()		const { return offspell_; } 
+	bool			secured()		const { return priv&0x08; }		// Is the container secured (houses)
+	SI16			speed()			const { return speed_; }		// Weapon speed
+	SI16			lodamage()		const { return lodamage_; }		// Minimum damage weapon inflicts
+	SI16			hidamage()		const { return hidamage_; }		// Maximum damage weapon inflicts
+	bool			wipe()			const { return priv&0x10; }		// Should the item be wiped when affected by /WIPE
+	SI16			racehate()		const { return racehate_; }		// Race ID this weapon does double damage to
+	SI16			weight()		const { return weight_; }
+	SI16			hp()			const { return hp_; }			// Number of hitpoints an item has
+	SI16			maxhp()			const { return maxhp_; }		// Maximum number of hitpoints an item has
+	SI32			smelt()			const { return smelt_; }		// For item smelting
+	QString			spawnregion()	const { return spawnregion_; }
+	UI08			moreb1()		const { return moreb1_; }
+	UI08			moreb2()		const { return moreb2_; }
+	UI08			moreb3()		const { return moreb3_; }
+	UI08			moreb4()		const { return moreb4_; }
+	bool			corpse()		const { return priv&0x40; }		// Is the item a corpse
 
 	// Setters
 	void	setId( UI16 nValue ) { id_ = nValue; };
@@ -114,7 +114,7 @@ public:
 	void	setName2( const QString nValue ) { name2_ = nValue; };
 	void	setName( const QString nValue ) { name_ = nValue; };
 	void	setLayer( SI08 nValue ) { layer_ = nValue; };
-	void	setItemhand( UI08 nValue ) { itemhand_ = nValue; };
+	void	setTwohanded( bool nValue ) { nValue ? priv &= 0x20 : priv |= 0xDF; };
 	void	setMurderer( const QString nValue ) { murderer_ = nValue; };
 	void	setType( UI32 nValue ) { type_ = nValue; };
 	void	setType2( UI32 nValue ) { type2_ = nValue; };	
@@ -125,7 +125,6 @@ public:
 	void	setHidamage( SI16 nValue ) { hidamage_ = nValue; };
 	void	setLodamage( SI16 nValue ) { lodamage_ = nValue; };
 	void	setWipe( bool nValue ) { ( nValue ) ? priv &= 0x10 : priv |= 0xEF; };
-	void	setPileable( bool nValue ) { ( nValue ) ? priv &= 0x20 : priv |= 0xDF; };
 	void	setRacehate( SI16 nValue ) { racehate_ = nValue; };
 	void	setWeight( SI16 nValue ) { weight_ = nValue; };
 	void	setHp( SI16 nValue ) { hp_ = nValue; };
@@ -136,18 +135,18 @@ public:
 	void	setMoreb2( UI08 nValue ) { moreb2_ = nValue; };
 	void	setMoreb3( UI08 nValue ) { moreb3_ = nValue; };
 	void	setMoreb4( UI08 nValue ) { moreb4_ = nValue; };
+	void	setCorpse( bool nValue ) { ( nValue ) ? priv &= 0x40 : priv |= 0xBF; }
 
-	cItem() {};
+	cItem() { tags = NULL; };
 	cItem( cItem& src); // Copy constructor
 	virtual ~cItem() {}
 	virtual void Serialize( ISerialization &archive );
 	virtual string objectID();
 	
+	P_ITEM	getCorpse( void ); // Get the corpse this item is in
+	void	toBackpack( P_CHAR pChar );
+
 	SERIAL contserial;
-	
-	Coord_cl oldpos; //Old position - used for bouncing bugfix - AntiChrist
-	SERIAL oldcontserial; //Old contserial - used for bouncing bugfix - Antichrist
-	signed char oldlayer; // Old layer - used for bouncing bugfix - AntiChrist
 
 	unsigned char more1; // For various stuff
 	unsigned char more2;
@@ -159,7 +158,6 @@ public:
 	unsigned char doordir; // Reserved for doors
 	unsigned char dooropen;
 	unsigned char dye; // Reserved: Can item be dyed by dye kit
-	unsigned char corpse; // Is item a corpse
 	unsigned int att; // Item attack
 	unsigned int def; // Item defense
 	signed short st; // The strength needed to equip the item
@@ -179,14 +177,16 @@ public:
 	unsigned char dir;
 	//char dir; // Direction, or light source type.
 
-	// Bit | Description
+	// Bit | Hex | Description
 	//===================
-	//   0 | Decay
-	//   1 | Newbie
-	//   2 | Dispellable
-	//   3 | Secured (Chests)
-	//   4 | Wipeable (/WIPE affects the item)
-	//   5 | Pileable
+	//   0 |  01 | Decay
+	//   1 |  02 | Newbie
+	//   2 |  04 | Dispellable
+	//   3 |  08 | Secured (Chests)
+	//   4 |  10 | Wipeable (/WIPE affects the item)
+	//   5 |  20 | Twohanded
+	//   6 |  40 | Corpse
+	//   7 |  80 | <unused>
 	UI08 priv;
 	
 	int value; // Price shopkeeper sells item at.
@@ -241,6 +241,7 @@ public:
 	void SetSerial(long ser);
 	bool isInWorld()			{ return (contserial == INVALID_SERIAL); }
 	bool isMulti()				{ return ( id_ >= 0x4000 ); }
+	bool isPileable();
 	
 	void setOwnSerialOnly(long ownser);
 	void SetOwnSerial(long ownser);

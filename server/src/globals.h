@@ -200,8 +200,6 @@ extern unsigned long initialservermill ;
 extern char firstpacket[MAXCLIENT+1];
 extern char noweather[MAXCLIENT+1]; //LB
 extern unsigned char LSD[MAXCLIENT];
-extern unsigned char DRAGGED[MAXCLIENT];
-extern unsigned char EVILDRAGG[MAXCLIENT];
 
 extern int newclient[MAXCLIENT];
 extern unsigned char  buffer[MAXCLIENT][MAXBUFFER_REAL];
@@ -349,7 +347,6 @@ extern unsigned char gump3[3];
 extern unsigned char dyevat[10];
 extern unsigned char updscroll[11];
 extern unsigned char spc[2];
-extern unsigned char bounce[3];
 extern unsigned char extmove[18];
 extern unsigned char particleSystem[49];
 

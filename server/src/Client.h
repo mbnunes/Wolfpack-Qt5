@@ -33,33 +33,29 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#if !defined(AFX_CLIENT_H__34C6E2C3_782D_4442_A4CC_8EC2B7DDD228__INCLUDED_)
-#define AFX_CLIENT_H__34C6E2C3_782D_4442_A4CC_8EC2B7DDD228__INCLUDED_
-
-#if _MSC_VER >= 1000
-#pragma once
-#endif // _MSC_VER >= 1000
+#ifndef __CLIENT_H__
+#define __CLIENT_H__
 
 #include "typedefs.h"
-
-// Forward Class declaration
-class cChar;
 
 class cClient  
 {
 protected:
-	int		socket;
-//	bool	dragging;
+	UOXSOCKET socket_;
 public:
-	explicit cClient(int s);
-	~cClient();
-	UOXSOCKET GetSocket();
-	cChar* getPlayer();
-	bool IsDragging();
-	void SetDragging();
-	void ResetDragging();
+	explicit cClient( UOXSOCKET nSocket );
+	~cClient() {}
+
+	UOXSOCKET socket() { return socket_; }
+	P_CHAR player() { return currchar[ socket_ ]; }
+
+	P_ITEM dragging( void );
+
+	// Functions for the Client
+	void sysMessage( UI16 color, const QString &text );
+	void sysMessage( const QString &text );
 };
 
 typedef cClient* P_CLIENT;
 
-#endif // !defined(AFX_CLIENT_H__34C6E2C3_782D_4442_A4CC_8EC2B7DDD228__INCLUDED_)
+#endif

@@ -91,7 +91,7 @@ void IDefReader::processScriptItemNode( P_ITEM madeItem, QDomElement &Node )
 			if( Value.toInt() < 1 )
 				Value = QString("1");
 
-			if( madeItem->pileable() )
+			if( madeItem->isPileable() )
 				madeItem->setAmount( Value.toInt() );
 			else
 				for( i = 1; i < Value.toInt(); i++ ) //dupe it n-1 times

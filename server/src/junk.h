@@ -85,7 +85,6 @@ class cBooks;
 class cMovement;
 class cSpeech;
 class cTrigger;
-class cDragdrop;
 class cTrade;
 class cBounty;
 class cRegion;
@@ -111,7 +110,6 @@ extern cBooks           *Books;
 extern cMovement		*Movement;
 extern cSpeech	        *Speech;
 extern cTrigger	        *Trig;
-extern cDragdrop        *Drag;
 extern cTrade	        *Trade;
 extern cBounty          *Bounty;
 extern cRegion			*mapRegions; //setup map regions Tauriel
@@ -139,8 +137,6 @@ void usepotion(P_CHAR pc_p, P_ITEM pi);
 unsigned char tempeffect(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3,short dur=-1);
 unsigned char tempeffect2(P_CHAR source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3);
 
-void checkauto();	// Check automatic/timer controlled stuff (Like fighting and regeneration)
-void checktimers();	// Check shutdown timers
 #include "basics.h"
 
 void setcharflag(P_CHAR pc);

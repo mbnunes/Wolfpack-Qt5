@@ -33,23 +33,35 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-#if !defined(AFX_DRAGDROP_H__AB350791_EF80_4406_ADE8_FF309B0849AD__INCLUDED_)
-#define AFX_DRAGDROP_H__AB350791_EF80_4406_ADE8_FF309B0849AD__INCLUDED_
+#ifndef __DRAGDROP_H__
+#define __DRAGDROP_H__
 
 #include "client.h"
 
-class cDragdrop;
+class cDragItems
+{
+public:
+	void	grabItem( P_CLIENT client );
+	void	equipItem( P_CLIENT client );
+	void	dropItem( P_CLIENT client );
+
+	// Sub-drop Functions
+	void	dropOnItem( P_CLIENT client, P_ITEM pItem, P_ITEM pCont, const Coord_cl &dropPos );
+	void	dropOnChar( P_CLIENT client, P_ITEM pItem, P_CHAR pOtherChar );
+	void	dropOnGround( P_CLIENT client, P_ITEM pItem, const Coord_cl &pos );
+
+	// Drop-on-char subfunctions
+	void	dropOnPet( P_CLIENT client, P_ITEM pItem, P_CHAR pPet );
+
+	void	bounceItem( P_CLIENT client, P_ITEM pi, bool denyMove = false );
+
+	static cDragItems *getInstance( void )
+	{
+		static cDragItems instance;
+		return &instance;
+	}
+};
 
 void equipItem( P_CHAR wearer, P_ITEM item );
 
-class cDragdrop
-{
-public:
-	void get_item(P_CLIENT ps);			// Client grabs an item
-    void wear_item(P_CLIENT ps);			// Item is dropped on paperdoll
-    void drop_item(P_CLIENT ps);	// Item is dropped on ground, char or item
-};
-
-extern cDragdrop    *Drag;
-
-#endif // !defined(AFX_DRAGDROP_H__AB350791_EF80_4406_ADE8_FF309B0849AD__INCLUDED_)
+#endif

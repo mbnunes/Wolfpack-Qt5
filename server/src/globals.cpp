@@ -110,7 +110,6 @@ unsigned char gump3[3]="\x00\x00";
 unsigned char dyevat[10]="\x95\x40\x01\x02\x03\x00\x00\x0F\xAB";
 unsigned char updscroll[11]="\xA6\x01\x02\x02\x00\x00\x00\x00\x01\x02";
 unsigned char spc[2]="\x20";
-unsigned char bounce[3]="\x27\x00";
 unsigned char extmove[18]="\x77\x01\x02\x03\x04\x01\x90\x01\x02\x01\x02\x0A\x00\xED\x00\x00\x00";
 unsigned char particleSystem[49];             
 time_t	oldtime, newtime;
@@ -280,7 +279,6 @@ cMovement		*Movement;
 cWeather		*Weather;
 cSpeech	        *Speech;
 cTrigger	    *Trig;
-cDragdrop       *Drag;
 cTrade	        *Trade;
 cBounty         *Bounty;
 WPScriptManager	*ScriptManager;
@@ -298,8 +296,6 @@ cCharStuff::cBankerAI	*BankerAI;
 
  char noweather[MAXCLIENT+1]; //LB
  unsigned char LSD[MAXCLIENT];
- unsigned char DRAGGED[MAXCLIENT];
- unsigned char EVILDRAGG[MAXCLIENT]; // we need this for UO3D clients to save dragging history , LB
 
 char firstpacket[MAXCLIENT+1];
 

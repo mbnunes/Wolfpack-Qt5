@@ -84,7 +84,6 @@ void cCombat::ItemCastSpell(UOXSOCKET s, P_CHAR pc, P_ITEM pi)//S=Socket c=Char 
 	unsigned short int tempmana=pc_currchar->mn;//Save their mana so we can give it back.
 	unsigned short int tempmage=pc_currchar->skill(MAGERY);//Easier than writing new functions for all these spells
 
-
 	if(pi->type() != 15 || pi->morez<=0 ) return;
 	
 	switch(spellnum)
@@ -421,8 +420,8 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 			if (pc_attacker->isPlayer())//Zippy
 				ItemCastSpell(s1, pc_deffender,pWeapon);
 
-			//AntiChrist - 26/10/99
-			//when hitten and damage >1, defender fails if casting a spell!
+			// AntiChrist - 26/10/99
+			// when hitten and damage >1, defender fails if casting a spell!
 			// Thats not really good, better make a check versus int+magic
 			if(damage>1 && pc_deffender->isPlayer())//only if damage>1 and against a player
 			{

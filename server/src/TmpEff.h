@@ -99,18 +99,14 @@ public:
 	virtual void Serialize(ISerialization &archive);
 };
 
-class cTimedAction : public cTempEffect
+class cTimedSpellAction : public cTempEffect
 {
 private:
 	SERIAL character;
 	UI08 action;
-	unsigned int duration;
 public:
-	cTimedAction() { objectid= "TimedAction"; }
-	cTimedAction( P_CHAR nChar, UI08 nAction, UI32 nDuration );
-	cTimedAction( SERIAL serial, UI08 nAction, UI32 nDuration );
-
-	virtual void Serialize( ISerialization &archive );
+	// Do that as long as we're casting
+	cTimedSpellAction( SERIAL serial, UI08 nAction );
 	void Expire();
 };
 

@@ -97,7 +97,6 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 			if(npi == NULL) return;// crash check
 			npi->setWeight( 10 );
 			npi->setAmount( amt1 );
-			npi->setPileable( true );
 			RefreshItem(npi);
 			Items->DeleItem(pi_bolts);
 			Weight->NewCalc(pc_currchar);
@@ -364,7 +363,7 @@ void cSkills::TasteIDTarget(int s)
 		}
 		else
 		{
-			if(pi->corpse)
+			if( pi->corpse() )
 			{
 				sysmessage(s, tr("You have to use your forensics evalutation skill to know more on this corpse.") );
 				return;
@@ -1570,7 +1569,6 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			if(pi_c == NULL) return;
 			// need to set amount and weight and pileable, note: cannot set pilable while spawning item -Fraz-
 			pi_c->setWeight( 10 );
-			pi_c->setPileable( true );
 			pi_c->att=9;
 			pi_c->setAmount( amt );
 			RefreshItem(pi_c);
@@ -1589,7 +1587,6 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			P_ITEM pi_c = Items->SpawnItem(s,pc_currchar,1,"cut cloth",0,0x17,0x66,col1,1,1);
 			if(pi_c == NULL) return;
 			pi_c->setWeight( 10 );
-			pi_c->setPileable( true );
 			pi_c->setAmount( amt );
 			RefreshItem(pi_c);
 			Items->DeleItem(pi);
@@ -1604,7 +1601,6 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 			P_ITEM pi_c = Items->SpawnItem(s,pc_currchar,1,"leather piece",0,0x10,0x67,col1,1,1);
 			if(pi_c == NULL) return;
 			pi_c->setWeight( 100 );
-			pi_c->setPileable( true );
 			pi_c->setAmount( amt );
 			RefreshItem(pi_c);
 			Items->DeleItem(pi);
@@ -1752,10 +1748,10 @@ void cSkills::ArmsLoreTarget(int s)
 	char p2[100];
 	P_CHAR pc_currchar = currchar[s];
 	
-	const PC_ITEM pi=FindItemBySerPtr(buffer[s]+7);
+	P_ITEM pi = FindItemBySerPtr(buffer[s]+7);
 	if (!pi) return;
 
-	if ( (pi->def == 0 || pi->pileable() )
+	if ( (pi->def == 0 || pi->isPileable() )
 		&& ((pi->lodamage() == 0 && pi->hidamage() == 0) && (pi->rank<1 || pi->rank>9)))
 	{
 		sysmessage(s, tr("That does not appear to be a weapon.") );
@@ -1865,7 +1861,7 @@ void cSkills::ItemIdTarget(int s)
 		}
 		else
 		{
-			if(pi->corpse)
+			if( pi->corpse() )
 			{
 				sysmessage(s, tr("You have to use your forensics evalutation skill to know more on this corpse.") );
 				return;
@@ -2377,9 +2373,9 @@ void cSkills::ForensicsTarget(int s) //AntiChrist
 	const PC_ITEM pi=FindItemBySerPtr(buffer[s]+7);
 	P_CHAR pc_currchar = currchar[s];
 
-	if (!pi || !(pi->corpse))
+	if( !pi || !pi->corpse() )
 	{
-		sysmessage(s, tr("That does not appear to be a corpse.") );
+		sysmessage( s, tr( "That does not appear to be a corpse." ) );
 		return;
 	}
 	
@@ -2457,7 +2453,6 @@ void cSkills::PoisoningTarget(int s) //AntiChrist
 		pPoi->Init(0);
 		pPoi->SetSerial(kser);
 		pPoi->setId(0x0F0E);
-		pPoi->setPileable( true );
 		pPoi->moveTo(pc->pos);
 		pPoi->priv|=0x01;
 		RefreshItem(pPoi);

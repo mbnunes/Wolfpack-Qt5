@@ -68,7 +68,7 @@ protected:
 	SERIAL serial;
 	void makeSerial()		{serial=LongFromCharPtr(buffer[s]+7);}
 public:
-	cTarget(P_CLIENT pCli)	{s=pCli->GetSocket();}
+	cTarget(P_CLIENT pCli)	{s=pCli->socket();}
 	virtual void process() = 0;
 };
 
@@ -670,7 +670,7 @@ void cTargets::TargIdTarget(int s) // Fraz
 }
 static void CstatsTarget(P_CLIENT ps, P_CHAR pc)
 {
-	UOXSOCKET s = ps->GetSocket();
+	UOXSOCKET s = ps->socket();
 
 	sprintf((char*)temp, "Ser [%8x] ID [%2x] Name [%s] Skin [%x] Account [%x] Priv [%x %x] Position [%i %i %i] CTimeout [%i] Fame [%i] Karma [%i] Deaths [%i] Kills [%i] NPCAI [%x] NPCWANDER [%d] WEIGHT [%.2f]",
 		pc->serial,pc->id(),
@@ -734,7 +734,7 @@ static void MoveBelongingsToBp(P_CHAR pc, P_CHAR pc_c)
 
 static void GMTarget(P_CLIENT ps, P_CHAR pc)
 {
-	UOXSOCKET s = ps->GetSocket();
+	UOXSOCKET s = ps->socket();
 
 	int i;	
 	if (SrvParams->gmLog())
@@ -789,7 +789,7 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 
 static void CnsTarget(P_CLIENT ps, P_CHAR pc)
 {
-	UOXSOCKET s = ps->GetSocket();
+	UOXSOCKET s = ps->socket();
 
 	if (SrvParams->gmLog())
 	{
@@ -949,7 +949,7 @@ void cTargets::VisibleTarget (int s)
 //
 static void ContainerEmptyTarget1(P_CLIENT ps, P_ITEM pi)
 {
-	UOXSOCKET s = ps->GetSocket();
+	UOXSOCKET s = ps->socket();
 	if (isItemSerial(pi->serial) && pi->type() == 1)
 	{
 		addx[s]=pi->serial;
@@ -960,7 +960,7 @@ static void ContainerEmptyTarget1(P_CLIENT ps, P_ITEM pi)
 }
 static void ContainerEmptyTarget2(P_CLIENT ps, P_ITEM pNewCont)
 {
-	UOXSOCKET s = ps->GetSocket();
+	UOXSOCKET s = ps->socket();
 	if( pNewCont->type() == 1 )
 	{
 		P_ITEM pi;	// item to move from old container
@@ -978,7 +978,7 @@ static void ContainerEmptyTarget2(P_CLIENT ps, P_ITEM pNewCont)
 
 static void OwnerTarget(P_CLIENT ps, P_CHAR pc)
 {
-	UOXSOCKET s = ps->GetSocket();
+	UOXSOCKET s = ps->socket();
 	
 	int addser=calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
 	pc->SetOwnSerial(addser);
@@ -994,7 +994,7 @@ static void OwnerTarget(P_CLIENT ps, P_CHAR pc)
 
 static void OwnerTarget(P_CLIENT ps, P_ITEM pi)
 {
-	UOXSOCKET s = ps->GetSocket();
+	UOXSOCKET s = ps->socket();
 	
 	int os=calcserial(addid1[s],addid2[s],addid3[s],addid4[s]);
 	pi->SetOwnSerial(os);
@@ -1242,7 +1242,7 @@ void cTargets::TweakTarget(int s)//Lag fix -- Zippy
 
 static void SetInvulFlag(P_CLIENT ps, P_CHAR pc)
 {
-	if (addx[ps->GetSocket()]==1)
+	if (addx[ps->socket()]==1)
 		pc->makeInvulnerable();
 	else
 		pc->makeVulnerable();
@@ -1692,7 +1692,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 static void CorpseTarget(const P_CLIENT pC)
 {
 	int n = 0;
-	UOXSOCKET s = pC->GetSocket();
+	UOXSOCKET s = pC->socket();
 	
 	int serial = LongFromCharPtr(buffer[s] + 7);
 	P_ITEM pi = FindItemBySerial(serial);
@@ -2438,7 +2438,7 @@ static void CorpseTarget(const P_CLIENT pC)
 
 static void BladeTarget(P_CLIENT pC, PKGx6C *pp)
 {
-	UOXSOCKET s = pC->GetSocket();
+	UOXSOCKET s = pC->socket();
 	short id=pp->model;
 
 	if (isCharSerial(pp->Tserial))
@@ -2459,7 +2459,7 @@ static void BladeTarget(P_CLIENT pC, PKGx6C *pp)
 		else
 			amt=4; 
 		soundeffect(s,0x00,0x50);
-		P_ITEM pi = Items->SpawnItem(pC->getPlayer(), amt, "#", 1, 0x097A, 0, 1);
+		P_ITEM pi = Items->SpawnItem(pC->player(), amt, "#", 1, 0x097A, 0, 1);
 		if(!pi)
 			return;
 		RefreshItem(pi);
@@ -2471,11 +2471,11 @@ static void BladeTarget(P_CLIENT pC, PKGx6C *pp)
 
 void cTargets::SwordTarget(const P_CLIENT pC, PKGx6C *pp)
 {
-	UOXSOCKET s = pC->GetSocket();
+	UOXSOCKET s = pC->socket();
 
 	if (IsTree(pp->model))
 	{
-		P_CHAR pc = pC->getPlayer();
+		P_CHAR pc = pC->player();
 		if (!pc->onHorse()) action(s,0x0D);
 		else action(s,0x1d);
 		soundeffect(s,0x01,0x3E);
@@ -2495,7 +2495,7 @@ void cTargets::SwordTarget(const P_CLIENT pC, PKGx6C *pp)
 static void AxeTarget(P_CLIENT pC, PKGx6C *pp)
 {
 	if (IsTree(pp->model))
-		Skills->TreeTarget(pC->GetSocket());
+		Skills->TreeTarget(pC->socket());
 	else
 		BladeTarget(pC,pp);
 }
@@ -3461,7 +3461,6 @@ void cTargets::HouseLockdown( UOXSOCKET s ) // Abaddon
 				return;
 			}
 			pi->setLockedDown();	// LOCKED DOWN!
-			DRAGGED[s]=0;
 			pi->setOwnSerialOnly(currchar[s]->serial);
 			RefreshItem(pi);
 			return;
@@ -3509,7 +3508,6 @@ void cTargets::HouseSecureDown( UOXSOCKET s ) // Ripper
 		{
 		    pi->setLockedDown();	// LOCKED DOWN!
 			pi->setSecured( true );
-			DRAGGED[s]=0;
 			pi->setOwnSerialOnly(currchar[s]->serial);
 			RefreshItem(pi);
 			return;
@@ -3904,7 +3902,7 @@ void cTargets::SetFood(int s)
 
 static void ItemTarget(P_CLIENT ps, PKGx6C *pt)
 {
-	UOXSOCKET s=ps->GetSocket();
+	UOXSOCKET s=ps->socket();
 	P_ITEM pi=FindItemBySerial(pt->Tserial);
 	if (pi==NULL) return;
 	switch(pt->Tnum)
@@ -4041,7 +4039,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 //		return; // do nothing if user cancels, avoids CRASH! - Morrolan
 // Duke: Nonsens !! this also happens when you target the backpack on the paperdoll !
 
-	UOXSOCKET s=ps->GetSocket();
+	UOXSOCKET s=ps->socket();
 	targetok[s]=0;
 
 	PKGx6C tbuf, *pt=&tbuf;

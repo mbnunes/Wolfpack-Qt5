@@ -397,8 +397,8 @@ void itemmessage(UOXSOCKET s, char *txt, int serial, short color)
 		(pi->id()==0x1BF2 && color == 0x0000))
 		color = 0x03B2;
 	    else
-			if(!(pi->corpse == 1))
-		color = 0x0481;
+			if( !pi->corpse() )
+			color = 0x0481;
 
 		if ( clientDimension[s]==3 && color==0) { talk[10]=0; talk[11]=0x37; }
 
@@ -3498,4 +3498,121 @@ void cPContainerItems::addItem( SERIAL serial, UI16 model, UI16 amount, UI16 x, 
 	UI16 itemCount = ( data[ 3 ] << 8 ) | ( data[ 4 ] ) + 1;
 	data[ 3 ] = static_cast< UI08 >( itemCount >> 8 );
 	data[ 4 ] = static_cast< UI08 >( itemCount );
+}
+
+cBounceItem::cBounceItem( bool denyMove )
+{
+	data.resize( 2 );
+	data[ 0 ] = 0x27;
+	data[ 1 ] = denyMove ? 0 : 5;
+}
+
+cWornItems::cWornItems( SERIAL playerId, SERIAL itemId, UI08 layer, UI16 model, UI16 color )
+{
+	data.resize( 15 );
+	data[ 0 ] = 0x2E;
+
+	data[ 1 ] = static_cast< UI08 >( itemId >> 24 );
+	data[ 2 ] = static_cast< UI08 >( itemId >> 16 );
+	data[ 3 ] = static_cast< UI08 >( itemId >> 8 );
+	data[ 4 ] = static_cast< UI08 >( itemId );
+
+	data[ 5 ] = static_cast< UI08 >( model >> 8 );
+	data[ 6 ] = static_cast< UI08 >( model );
+
+	data[ 8 ] = layer;
+
+	data[ 9 ] = static_cast< UI08 >( playerId >> 24 );
+	data[ 10 ] = static_cast< UI08 >( playerId >> 16 );
+	data[ 11 ] = static_cast< UI08 >( playerId >> 8 );
+	data[ 12 ] = static_cast< UI08 >( playerId );
+
+	data[ 13 ] = static_cast< UI08 >( color >> 8 );
+	data[ 14 ] = static_cast< UI08 >( color );
+}
+
+cSoundEffect::cSoundEffect( UI16 soundId, const Coord_cl &pos, UI08 mode )
+{
+	data.resize( 12 );
+	data[ 0 ] = 0x54;
+	data[ 1 ] = mode;
+
+	data[ 2 ] = static_cast< UI08 >( soundId >> 8 );
+	data[ 3 ] = static_cast< UI08 >( soundId );
+
+	data[ 4 ] = 0;
+	data[ 5 ] = 0;
+
+	// x + y + z
+	data[ 6 ] = static_cast< UI08 >( pos.x >> 8 );
+	data[ 7 ] = static_cast< UI08 >( pos.x );
+
+	data[ 8 ] = static_cast< UI08 >( pos.y >> 8 );
+	data[ 9 ] = static_cast< UI08 >( pos.y );
+
+	data[ 10 ] = static_cast< UI08 >( pos.z >> 8 );
+	data[ 11 ] = static_cast< UI08 >( pos.z );
+}
+
+cUnicodeSpeech::cUnicodeSpeech( cUObject *origin, const QString &message, UI16 color, UI16 font, const QString &lang, eTextType type )
+{
+		data.resize( 48 + ( ( message.length() + 1 ) * 2 ) + 1 );
+		data.fill( (char)0x00 );
+
+		data[ 0 ] = 0xAE;
+		data[ 9 ] = type;
+		data[ 10 ] = static_cast< UI08 >( color >> 8 );
+		data[ 11 ] = static_cast< UI08 >( color );
+
+		data[ 12 ] = static_cast< UI08 >( font >> 8 );
+		data[ 13 ] = static_cast< UI08 >( font );
+		
+		// 14-17 -> Language
+		data[ 14 ] = 'D';
+		data[ 15 ] = 'E';
+		data[ 16 ] = 'U';
+		data[ 17 ] = 0;
+
+		if( !origin )
+		{
+			LongToCharPtr( INVALID_SERIAL, (UI08*)&data.data()[3] );
+			ShortToCharPtr( 0xFFFF, (UI08*)&data.data()[7] );
+			strcpy( &data.data()[18], "System" );
+		}
+		else
+		{
+			LongToCharPtr( origin->serial, (UI08*)&data.data()[3] );
+
+			// Model ID
+			if( isCharSerial( origin->serial ) )
+			{
+				P_CHAR pChar = static_cast< P_CHAR >( origin );
+				ShortToCharPtr( pChar->id(), (UI08*)&data.data()[7] );
+				QString name = pChar->name.c_str();
+
+				if( name.length() > 29 )
+					name = name.left( 29 );
+
+				strcpy( &data.data()[18], name.latin1() );
+			}
+			else if( isItemSerial( origin->serial ) )
+			{
+				P_ITEM pItem = static_cast< P_ITEM >( origin );
+				ShortToCharPtr( pItem->id(), (UI08*)&data.data()[7] );
+				QString name = pItem->getName();
+				
+				if( name.length() > 29 )
+					name = name.left( 29 );
+
+				strcpy( &data.data()[18], name.latin1() );
+			}
+			else
+			{
+				ShortToCharPtr( 0xFFFF, (UI08*)&data.data()[7] );
+				data[18] = 0x00;
+			}			
+		}
+
+		// Copy the message
+		memcpy( &data.data()[49], message.unicode(), message.length()*2 );
 }

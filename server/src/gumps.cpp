@@ -75,7 +75,7 @@ void cGump::Button(int s, int button, SERIAL serial, char type)
 			case 6:		entrygump( s, serial, type, button, 4, "Enter the new Y coordinate for the item in decimal." );	break;
 			case 7:		entrygump( s, serial, type, button, 4, "Enter the new Z coordinate for the item in decimal." );	break;
 			case 8:		entrygump( s, serial, type, button, 4, "Enter the new type for the item in decimal." );			break;
-			case 9:		entrygump( s, serial, type, button, 4, "Enter the new itemhand for the item in decimal." );		break;//Xuri
+			case 9:		entrygump( s, serial, type, button, 4, "Enter 1 for a twohanded and 0 for a singlehanded weapon." ); break;//Xuri
 			case 10:	entrygump( s, serial, type, button, 4, "Enter the new layer for the item in decimal." );			break;
 			case 11:	entrygump( s, serial, type, button, 4, "Enter the new amount for the item in decimal." );			break;
 			case 12:	entrygump( s, serial, type, button, 8, "Enter the new More for the item in hex." );				break;
@@ -309,7 +309,7 @@ void cGump::Input(int s)
 		case 6:		k = str2num( text );	pj->pos.y = k;		break;	// Y
 		case 7:		k = str2num( text );	pj->pos.z = k;		break;	// Z
 		case 8:		k = str2num( text );	pj->setType( k );		break;	 // Type
-		case 9:		k = str2num( text );	pj->setItemhand( k );	break;	// Itemhand - added by Xuri
+		case 9:		k = str2num( text );	pj->setTwohanded( ( k != 0 ) ? true : false );	break;	// Twohanded
 		case 10:	k = str2num( text );	pj->setLayer( k );		break;	// Layer
 		case 11:	k = str2num( text );	pj->setAmount( k );		break;	// Amount
 		case 12:	k = hex2num( text );	// More
@@ -324,9 +324,8 @@ void cGump::Input(int s)
 					pj->setMoreb3( (unsigned char)(k>>8) );
 					pj->setMoreb4( (unsigned char)(k%256) );
 					break;
-		case 14: 	k = str2num( text );	pj->setPileable(k);	break;	// Pileable
 		case 15:	k = str2num( text );	pj->dye = k;		break;	// Dye
-		case 16:	k = str2num( text );	pj->corpse = k;		break;	// Corpse
+		case 16:	k = str2num( text );	pj->setCorpse( ( k == 1 ) ? true : false );		break;	// Corpse
 		case 17:	k = str2num( text );	pj->setLodamage(k); break;	// LoDamage
 		case 18:	k = str2num( text );	pj->setHidamage(k);	break;	// HiDamage
 		case 19:	k = str2num( text );	pj->def = k;		break;	// Def
@@ -1130,8 +1129,8 @@ void ttext(int line, SERIAL serial)
 		line--; if( line == 0 ) sprintf( (char*)script1,"%i (0x%x)", pj->pos.z, pj->pos.z);
 		line--; if( line == 0 ) strcpy( (char*)script1, "Type");
 		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->type());
-		line--; if( line == 0 ) strcpy( (char*)script1,  "ItemHand" );
-		line--; if( line == 0 ) sprintf( (char*)script1, "%i", pj->itemhand() );
+		line--; if( line == 0 ) strcpy( (char*)script1,  "TwoHanded" );
+		line--; if( line == 0 ) sprintf( (char*)script1, "%i", pj->twohanded() ? 1 : 0 );
 		line--; if( line == 0 ) strcpy( (char*)script1, "Layer");
 		line--; if( line == 0 ) sprintf( (char*)script1,"%i (0x%x)", pj->layer(), pj->layer());
 		line--; if( line == 0 ) strcpy( (char*)script1, "Amount");
@@ -1141,11 +1140,11 @@ void ttext(int line, SERIAL serial)
 		line--; if( line == 0 ) strcpy( (char*)script1, "MoreB");
 		line--; if( line == 0 ) sprintf( (char*)script1,"0x%x", (pj->moreb1()<<24)+(pj->moreb2()<<16)+(pj->moreb3()<<8)+pj->moreb4());
 		line--; if( line == 0 ) strcpy( (char*)script1, "Stackable");
-		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->pileable() ? 1 : 0 );
+		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->isPileable() ? 1 : 0 );
 		line--; if( line == 0 ) strcpy( (char*)script1, "Dyeable");
 		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->dye );
 		line--; if( line == 0 ) strcpy( (char*)script1, "Corpse");
-		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->corpse );
+		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->corpse() ? 1 : 0 );
 		line--; if( line == 0 ) strcpy((char*) script1, "LoDamage" );
 		line--; if( line == 0 ) sprintf( (char*)script1,"%i", pj->lodamage() );
 		line--; if( line == 0 ) strcpy( (char*)script1, "HiDamage" );

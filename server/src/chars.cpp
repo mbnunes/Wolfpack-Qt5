@@ -430,6 +430,7 @@ void cChar::fight(P_CHAR other)
 cChar::cChar()
 {
 	VisRange = VISRANGE ;
+	tags = NULL;
 }
 ///////////////////////
 // Name:	CountItems
@@ -1540,4 +1541,59 @@ void cChar::processNode( const QDomElement &Tag )
 
 	else
 		cUObject::processNode( Tag );
+}
+
+void cChar::soundEffect( UI16 soundId, bool hearAll )
+{
+	cSoundEffect pSoundEffect( soundId, pos );
+
+	if( !hearAll )
+	{
+		if( !online( this ) )
+			return;
+		
+		pSoundEffect.send( calcSocketFromChar( this ) );
+	}
+	else 
+	{
+		// Send the sound to all sockets in range
+		for( UOXSOCKET s = 0; s < now; s++ )
+			if( perm[ s ] && inrange1p( this, currchar[ s ] ) )
+				pSoundEffect.send( s );
+	}
+}
+
+void cChar::talk( const QString &message, UI16 color )
+{
+	if( color == 0xFFFF )
+		color = saycolor;
+
+	cUnicodeSpeech textSpeech( this, message, color, 3, "ENU", SP_REGULAR );
+	
+	// Send to all clients in range
+	for( UOXSOCKET s; s < now; s++ )
+		if( perm[ s ] && inrange1p( this, currchar[ s ] ) )
+			textSpeech.send( s );
+}
+
+void cChar::emote( const QString &emote, UI16 color )
+{
+	if( color == 0xFFFF )
+		color = emotecolor;
+
+	cUnicodeSpeech textSpeech( this, emote, color, 3, "ENU", SP_EMOTE );
+	
+	// Send to all clients in range
+	for( UOXSOCKET s; s < now; s++ )
+		if( perm[ s ] && inrange1p( this, currchar[ s ] ) )
+			textSpeech.send( s );
+}
+
+void cChar::message( const QString &message, UI16 color )
+{
+	if( !online( this ) )
+		return;
+
+	cUnicodeSpeech textSpeech( this, message, color, 3, "ENU", SP_REGULAR );
+	textSpeech.send( calcSocketFromChar( this ) );
 }

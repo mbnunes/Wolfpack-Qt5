@@ -207,8 +207,6 @@ void cNetworkStuff::Disconnect (int s) // Force disconnection of player //Instal
 		usedfree[j]=usedfree[j+1];
 		itemmake[j]=itemmake[j+1];
 		walksequence[j]=walksequence[j+1];
-        DRAGGED[j]=DRAGGED[j+1];
-		EVILDRAGG[j]=EVILDRAGG[j+1];
 		LSD[j]=LSD[j+1];
 		noweather[j]=noweather[j+1];
 		firstpacket[j]=firstpacket[j+1];
@@ -592,10 +590,10 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	/// you can change 0x37 to your liking, but not to 0
 	/////////////////////////////////////////////////////////////////////
 
-	sysmessage(s, 0x37, tr(QString("Welcome to %1 !").arg(SrvParams->serverList()[0].sServer.c_str())));
+	/*sysmessage(s, 0x37, tr(QString("Welcome to %1 !").arg(SrvParams->serverList()[0].sServer.c_str())));
 	sysmessage(s, 0x37, tr(QString("Running on %1 %2 %3 ").arg(wp_version.productstring.c_str()).arg(wp_version.betareleasestring.c_str()).arg(wp_version.verstring.c_str())) );
-	sysmessage(s, 0x37, tr(QString("Current developers: %1").arg(wp_version.codersstring.c_str())) );
-
+	sysmessage(s, 0x37, tr(QString("Current developers: %1").arg(wp_version.codersstring.c_str())) );*/
+	
 	pc_currchar->region=255;
 	cAllTerritories::getInstance()->check(pc_currchar);
 	//Tauriel set packitem at login
@@ -632,7 +630,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 
 	updates(s);
 
-	if (SrvParams->showCVCS() || pc_currchar->isGM())
+	if( SrvParams->showCVCS() )
 	{
 		QString message;
 		if (SrvParams->clientsAllowed().contains("ALL"))
@@ -908,8 +906,6 @@ void cNetworkStuff::CheckConn() // Check for connection requests
 	
 				noweather[now]=1;
 				LSD[now]=0;
-				DRAGGED[now]=0;
-				EVILDRAGG[now]=0;
 
 				clientDimension[now]=2;
 			
@@ -1345,15 +1341,15 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					break;
 
 				case 0x13:// Equip Item
-					Drag->wear_item(ps);
+					cDragItems::getInstance()->equipItem( ps );
 					break;
 
 				case 0x07:// Get Item		
-					Drag->get_item(ps);
+					cDragItems::getInstance()->grabItem( ps );
 					break;
 
 				case 0x08:// Drop Item
-					Drag->drop_item(ps);
+					cDragItems::getInstance()->dropItem( ps );
 					break;
 
 				case 0x72:// Combat Mode			

@@ -229,7 +229,7 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 		cItem* Corpse = FindItemBySerial(serial);
 		if (!Corpse)
 			return;
-		if (!Corpse->corpse)
+		if( !Corpse->corpse() )
 			sysmessage(nSocket,"That is not a person or a corpse!");
 		else
 		{
@@ -242,7 +242,7 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 				Corpse->more2++;
 			}
 			else
-				sysmessage(nSocket,"You examine the corpse but, decide any further blood samples would be to contaminated.");
+				sysmessage(nSocket,"You examine the corpse but, decide any further blood samples would be too contaminated.");
 		}
 	}
 }

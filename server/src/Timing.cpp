@@ -389,15 +389,15 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 
 	if ( pc->isPlayer() && pc->casting() )//PC casting a spell
 	{
-		pc->setNextact(pc->nextact()-1);
-		if (pc->spelltime()<=currenttime||overflow)//Spell is complete target it.
+		pc->setNextact( pc->nextact() - 1 );
+		if( pc->spelltime() <= currenttime || overflow )//Spell is complete target it
 		{
 			Magic->AfterSpellDelay( s, pc );
 		}
-		else if (pc->nextact()<=0)//redo the spell action
+		else if( pc->nextact() <= 0 )//redo the spell action
 		{
-			pc->setNextact(75);
-			impaction(s, pc->spellaction());
+			pc->setNextact( 75 );
+			impaction( s, pc->spellaction() );
 		}
 	}
 

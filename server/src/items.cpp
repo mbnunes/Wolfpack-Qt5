@@ -52,6 +52,63 @@
 #undef  DBGFILE
 #define DBGFILE "items.cpp"
 
+// Is the Item pileable?
+bool cItem::isPileable()
+{
+	tile_st tile;
+	Map->SeekTile( id_, &tile );
+
+	return tile.flag2&0x08;
+}
+
+void cItem::toBackpack( P_CHAR pChar )
+{
+	P_ITEM pPack = Packitem( pChar );
+	P_CHAR curOwner = GetPackOwner( this, 64 );
+
+	if( curOwner && curOwner != pChar )
+		curOwner->weight -= getWeight();
+	
+	setLayer( 0 );
+	
+	// Pack it to the ground
+	if( !pPack )
+	{
+		setContSerial( INVALID_SERIAL );
+		moveTo( pChar->pos );
+		RefreshItem( this );
+		return;
+	}
+	// Or to the backpack
+	else
+	{
+		setContSerial( pPack->serial );
+		
+		// Place it at a random position in our backpack
+		pos.x = 50 + ( rand() % 80 );
+		pos.y = 50 + ( rand() % 80 );
+		pos.z = 9;
+		RefreshItem( this );
+	}
+	
+	// Recalc the weight( just to be sure )
+	if( pChar != curOwner )
+		pChar->weight += getWeight();
+}
+
+// Gets the corpse an item is in
+P_ITEM cItem::getCorpse( void )
+{
+	if( isCharSerial( contserial ) || isInWorld() )
+		return NULL;
+
+	P_ITEM Cont = GetOutmostCont( this );
+
+	if( !Cont || !Cont->corpse() )
+		return NULL;
+
+	return Cont;
+}
 
 // constructor
 cItem::cItem( cItem &src )
@@ -71,9 +128,7 @@ cItem::cItem( cItem &src )
 	this->pos = src.pos;
 	this->color_ = src.color_;
 	this->setContSerial(src.contserial);
-	this->oldcontserial=INVALID_SERIAL;
-	this->layer_ = this->oldlayer = src.layer_;
-	this->itemhand_ = src.itemhand_;
+	this->layer_ = src.layer_;
 	this->type_ = src.type_;
 	this->type2_ = src.type2_;
 	this->offspell_ = src.offspell_;
@@ -94,7 +149,6 @@ cItem::cItem( cItem &src )
 	this->doordir = src.doordir;
 	this->dooropen = src.dooropen;
 	this->dye = src.dye;
-	this->corpse = src.corpse;
 	this->carve = src.carve;
 	this->att = src.att;
 	this->def = src.def;
@@ -138,6 +192,8 @@ cItem::cItem( cItem &src )
 	this->timeused_last=getNormalizedTime();
 	this->setSpawnRegion( src.spawnregion() );
 	this->desc = src.desc;
+
+#pragma note( "Copy tags here" )
 }
 
 inline string cItem::objectID()
@@ -328,7 +384,7 @@ bool cItem::AddItem(cItem* pItem, short xx, short yy)	// Add Item to container
 
 bool cItem::PileItem(cItem* pItem)	// pile two items
 {
-	if (!(this->pileable() && pItem->pileable() &&
+	if (!(isPileable() && pItem->isPileable() &&
 		this->serial!=pItem->serial &&
 		this->id()==pItem->id() &&
 		this->color() == pItem->color() ))
@@ -438,7 +494,6 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("color",		color_);
 		archive.read("cont",		contserial);
 		archive.read("layer",		layer_);
-		archive.read("itemhand",	itemhand_);
 		archive.read("type",		type_ );
 		archive.read("type2",		type2_);
 		archive.read("offspell",	offspell_);
@@ -459,7 +514,6 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("decaytime",	decaytime);
 		if ( decaytime > 0 )
 			decaytime += uiCurrentTime;
-		archive.read("corpse",		corpse);
 		archive.read("att",			att);
 		archive.read("def",			def);
 		archive.read("hidamage",	hidamage_);
@@ -528,7 +582,6 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("color",		color());
 		archive.write("cont",		contserial);
 		archive.write("layer",		layer_);
-		archive.write("itemhand",	itemhand_);
 		archive.write("type",		type_);
 		archive.write("type2",		type2_);
 		archive.write("offspell",	offspell_);
@@ -547,7 +600,6 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("doordir",	doordir);
 		archive.write("dye",		dye);
 		archive.write("decaytime",	decaytime > 0 ? decaytime - uiCurrentTime : 0);
-		archive.write("corpse",		corpse);
 		archive.write("att",		att);
 		archive.write("def",		def);
 		archive.write("hidamage",	hidamage_);
@@ -660,6 +712,9 @@ int cItem::getName(char* itemname)
 
 QString cItem::getName(void)
 {
+	if( name_ != "#" )
+		return name_;
+
 	char itemname[256] = {0,};
 	cItem::getName(itemname);
 	return QString(itemname);
@@ -707,8 +762,6 @@ void cItem::SetSerial(long ser)
 // -- Initialize an Item in the items array
 void cItem::Init(bool mkser)
 {
-//	if (nItem==itemcount) itemcount++;
-
 	if (mkser)		// give it a NEW serial #
 	{
 		this->SetSerial(cItemsManager::getInstance()->getUnusedSerial());
@@ -730,12 +783,10 @@ void cItem::Init(bool mkser)
 	this->free = false;
 	this->setId(0x0001); // Item visuals as stored in the client
 	// this->name2[0]=0x00; Removed by Magius(CHE)
-	this->pos = this->oldpos = Coord_cl(100, 100, 0);
+	this->pos = Coord_cl(100, 100, 0);
 	this->color_ = 0x00; // Hue
 	this->contserial = INVALID_SERIAL; // Container that this item is found in
-	this->oldcontserial=INVALID_SERIAL;
-	this->layer_ = this->oldlayer = 0; // Layer if equipped on paperdoll
-	this->itemhand_ = 0; // Layer if equipped on paperdoll
+	this->layer_ = 0; // Layer if equipped on paperdoll
 	this->type_=0; // For things that do special things on doubleclicking
 	this->type2_=0;
 	this->offspell_ = 0;
@@ -756,7 +807,6 @@ void cItem::Init(bool mkser)
 	this->doordir=0; // Reserved for doors
 	this->dooropen=0;
 	this->dye=0; // Reserved: Can item be dyed by dye kit
-	this->corpse=0; // Is item a corpse
 	this->carve=-1;//AntiChrist-for new carving system
 	this->att=0; // Item attack
 	this->def=0; // Item defense
@@ -1035,7 +1085,6 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, char* cName, bool pileabl
 	pi->setId(id);
 	pi->setColor( color );
 	pi->setAmount( nAmount );
-	pi->setPileable( pile );
 	pi->att=5;
 	pi->priv |= 0x01;
 	if (IsCutCloth(pi->id())) pi->dye=1;// -Fraz- fix for cut cloth not dying
@@ -1158,7 +1207,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 
 				if (!Items->isFieldSpellItem(pi)) // Gives fieldspells a chance to decay in multis, LB
 				{
-				  if (pi->multis<1 && !pi->corpse)
+				  if (pi->multis<1 && !pi->corpse())
 				  {
 					// JustMichael -- Added a check to see if item is in a house
 					pi_multi = findmulti(pi->pos);
@@ -1172,7 +1221,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 						}
 					}
 				} 
-				  else if (pi->multis>0 && !pi->corpse) 
+				  else if (pi->multis>0 && !pi->corpse()) 
 				{					
 					  pi->startDecay();
 					  return;
@@ -1182,7 +1231,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 
 				//JustMichael--Keep player's corpse as long as it has more than 1 item on it
 				//up to playercorpsedecaymultiplier times the decay rate
-				if (pi->corpse == 1 && pi->GetOwnSerial()!=-1)
+				if (pi->corpse() && pi->GetOwnSerial()!=-1)
 				{
 					preservebody=0;
 					serial=pi->serial;
@@ -1205,7 +1254,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 						return;
 					}
 				}
-				if( (pi->type() == 1 && pi->corpse != 1 ) || (pi->GetOwnSerial() != -1 && pi->corpse) || (!SrvParams->lootdecayswithcorpse() && pi->corpse ))
+				if( (pi->type() == 1 && !pi->corpse() ) || (pi->GetOwnSerial() != -1 && pi->corpse() ) || (!SrvParams->lootdecayswithcorpse() && pi->corpse() ))
 				{
 					serial=pi->serial;
 					vector<SERIAL> vecContainer = contsp.getData(serial);
@@ -1677,14 +1726,6 @@ void cItem::processNode( const QDomElement& Tag )
 	else if( TagName == "nodecay" )
 		this->priv &= 0xFE;
 
-	// <pile />
-	// <nopile />
-	else if( TagName == "pile" )
-		this->setPileable( true );
-
-	else if( TagName == "nopile" )
-		this->setPileable( false );
-
 	// <dispellable />
 	// <notdispellable />
 	else if( TagName == "dispellable" )
@@ -1699,9 +1740,13 @@ void cItem::processNode( const QDomElement& Tag )
 	else if( TagName == "notnewbie" )
 		this->priv &= 0xFB;
 
-	// <itemhand>2</itemhand>
-	else if( TagName == "itemhand" )
-		this->setItemhand( Value.toInt() );
+	// <twohanded />
+	else if( TagName == "twohanded" )
+		this->setTwohanded( true );
+
+	// <singlehanded />
+	else if( TagName == "singlehanded" )
+		this->setTwohanded( false );
 
 	// <racehate>2</racehate>
 	else if( TagName == "racehate" )

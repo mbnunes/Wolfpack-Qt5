@@ -171,8 +171,8 @@ void cFishing::FishTarget(P_CLIENT ps)
 {
 	// fixes an exploit with fishing, LB
 	int px,py,cx,cy;
-	UOXSOCKET s=ps->GetSocket();
-	P_CHAR pPlayer=ps->getPlayer();
+	UOXSOCKET s=ps->socket();
+	P_CHAR pPlayer=ps->player();
 	if (!pPlayer) return;
 
 	px=((buffer[s][0x0b]<<8)+(buffer[s][0x0c]%256));

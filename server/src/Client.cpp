@@ -35,7 +35,10 @@
 
 #include "globals.h"
 #include "Client.h"
-//#include "SndPkg.h"
+#include "junk.h"
+#include "chars.h"
+#include "SndPkg.h"
+#include "items.h"
 #include "debug.h"
 
 #undef  DBGFILE
@@ -44,22 +47,45 @@
 // Construction/Destruction
 //////////////////////////////////////////////////////////////////////
 
-cClient::cClient(UOXSOCKET so)
+cClient::cClient( UOXSOCKET nSocket )
 {
-	if (so < 0 || so > MAXCLIENT)
+	if( nSocket < 0 || nSocket > MAXCLIENT )
 	{
 		char tmp[50];
-		sprintf(tmp,"Bad socket # <%d>",so);
+		sprintf( tmp, "Bad socket # <%d>", nSocket );
 		LogCritical(tmp);
 	}
 	else
-		socket=so;
+		socket_ = nSocket;
 }
 
-cClient::~cClient(){}
+void cClient::sysMessage( UI16 color, const QString &text )
+{
+	sysmessage( socket_, color, text );
+}
 
-UOXSOCKET	cClient::GetSocket()	{return socket;}
-P_CHAR		cClient::getPlayer()	{return currchar[socket];}
-bool		cClient::IsDragging()	{return (DRAGGED[socket]>0);}
-void		cClient::SetDragging()	{DRAGGED[socket]=1;}
-void		cClient::ResetDragging(){DRAGGED[socket]=0;}
+void cClient::sysMessage( const QString &text )
+{
+	sysmessage( socket_, text );
+}
+
+// Returns the item dragged by the current character
+P_ITEM cClient::dragging( void )
+{
+	P_CHAR pChar = player();
+
+	if( !pChar )
+		return NULL;
+
+	vector< SERIAL > equipment = contsp.getData( pChar->serial );
+
+	for( UI32 i = 0; i < equipment.size(); i++ )
+	{
+		P_ITEM pItem = FindItemBySerial( equipment[ i ] );
+
+		if( pItem && ( pItem->layer() == 0x1E ) )
+			return pItem;
+	}
+
+	return NULL;
+}
