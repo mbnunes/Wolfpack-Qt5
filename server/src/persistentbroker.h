@@ -57,7 +57,7 @@ public:
 
 inline QString __escapeReservedCharacters( const QString& d )
 {
-	return QString(d).replace("'", "\\'");
+	return QString(d).replace( QRegExp("'"), "\\'" );
 }
 
 #define savePersistentIntValue(field, value) \
