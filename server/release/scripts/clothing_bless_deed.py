@@ -20,7 +20,6 @@ def onShowToolTip( sender, target, tooltip ):
 
 def onUse( char, item ):
 
-	#char.socket.clilocmessage( 0x7A31A, "", 0x3b2, 3 )
 	char.socket.clilocmessage( 0xF55DA, "", 0x3b2, 3 )
 	char.socket.attachtarget( "clothing_bless_deed.response", [item] )
 
