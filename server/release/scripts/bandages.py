@@ -132,7 +132,6 @@ def endheal(char, arguments):
 	
 	if socket.hastag('bandage_slipped'):
 		slipped = int(socket.gettag('bandage_slipped')) # How many times the fingers slipped
-		socket.sysmessage( "hastag" )
 	else:
 		slipped = 0
 	socket.deltag('bandage_slipped')
