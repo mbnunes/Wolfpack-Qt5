@@ -40,11 +40,16 @@
 
 import wolfpack
 import wolfpack.accounts
+import wolfpack.settings
 import string
 from wolfpack.consts import *
+from wolfpack.utilities import hex2dec
 
-usage1 = "Usage: account [save,reload]"
-usage2 = "Usage: account [create,remove,set,show] username [(key,pass), value]"
+usage0 = "Account Command Usage:"
+usage1 = "- account create username password"
+usage2 = "- account remove username"
+usage3 = "- account set username key value"
+usage4 = "- account show username key"
 
 # Loads the command
 def onLoad():
@@ -55,68 +60,87 @@ def onLoad():
 def commandAccount( socket, cmd, args ):
 	char = socket.player
 	args = args.strip()
-	# Command with arguments
-	if len( args ) > 0:
-		args = args.split( ' ' )
-		# Error Check
-		if len( args ) >= 5:
-			return False
-		# One Argument
-		if len( args ) == 1:
-			( action ) = args
-			action = action.lower()
-			# Reload Accounts
-			if action == 'reload':
-				char.log( LOG_MESSAGE, "0x%x reloaded accounts." % char.serial )
-				wolfpack.accounts.reload()
-				return True
-			# Save Accounts
-			elif action == 'save':
-				char.log( LOG_MESSAGE, "0x%x saved accounts." % char.serial )
-				wolfpack.accounts.save()
-				return True
+	if len(args) == 0:
+		socket.sysmessage( usage0 )
+		socket.sysmessage( usage1 )
+		socket.sysmessage( usage2 )
+		socket.sysmessage( usage3 )
+		socket.sysmessage( usage4 )
+		return False
+	elif len( args ) > 0:
+		# Command with arguments
+		try:
+			args = args.split( ' ' )
+			# Error Check
+			if len( args ) >= 5:
+				return False
+			# One Argument
+			if len( args ) == 1:
+				action = args[0]
+				action = action.lower()
+				# Reload Accounts
+				if action == 'reload':
+					char.log( LOG_MESSAGE, "0x%x reloaded accounts.\n" % char.serial )
+					wolfpack.accounts.reload()
+					return True
+				# Save Accounts
+				elif action == 'save':
+					char.log( LOG_MESSAGE, "0x%x saved accounts.\n" % char.serial )
+					wolfpack.accounts.save()
+					return True
+				else:
+					return False
+			# Two Arguments
+			elif len( args ) == 2:
+				( action, username ) = args
+				action = action.lower()
+				username = username.lower()
+				# Remove Accounts
+				if action == 'remove':
+					accountRemove( socket, username )
+					return True
+				else:
+					return False
+			# Three Arguments
+			elif len( args ) == 3:
+				( action, username, key ) = args
+				action = action.lower()
+				username = username.lower()
+				if len( action ) == 0 or len( username ) == 0 or len( key ) == 0:
+					return False
+				# Create Accounts
+				if action == 'create':
+					accountCreate( socket, username, key )
+					return True
+				# Show Accounts
+				elif action == 'show':
+					accountShow( socket, username, key )
+					return True
+				else:
+					return False
+			# Four Arguments
+			elif len( args ) == 4:
+				( action, username, key, value ) = args
+				action = action.lower()
+				username = username.lower()
+				key = key.lower()
+				if len( action ) == 0 or len( username ) == 0 or len( key ) == 0 or len( value ) == 0:
+					return False
+				# Set Accounts
+				if action.lower() == 'set':
+					accountSet( socket, username, key, value )
+					return True
+				else:
+					return False
+			# Error
 			else:
 				return False
-		# Two Arguments
-		elif len( args ) == 2:
-			( action, username ) = args
-			action = action.lower()
-			username = username.lower()
-			# Remove Accounts
-			if action == 'remove':
-				accountRemove( socket, username )
-				return True
-		# Three Arguments
-		elif len( args ) == 3:
-			( action, username, key ) = args
-			action = action.lower()
-			username = username.lower()
-			# Create Accounts
-			if action == 'create':
-				accountCreate( socket, username, key )
-				return True
-			# Show Accounts
-			elif action == 'show':
-				accountShow( socket, username, key )
-				return True
-			else:
-				return False
-		# Four Arguments
-		elif len( args ) == 4:
-			( action, username, key, value ) = args
-			action = action.lower()
-			username = username.lower()
-			key = key.lower()
-			# Set Accounts
-			if action.lower() == 'set':
-				accountSet( socket, username, key, value )
-				return True
-			else:
-				return False
-		# Error
-		else:
+		except:
+			socket.sysmessage( usage0 )
 			socket.sysmessage( usage1 )
 			socket.sysmessage( usage2 )
+			socket.sysmessage( usage3 )
+			socket.sysmessage( usage4 )
 			return False
 
 # Removes an account
@@ -152,22 +176,22 @@ def accountRemove( socket, username ):
 def accountCreate( socket, username, password ):
 	char = socket.player
 	characcount = wolfpack.accounts.find( char.account.name )
+	account = wolfpack.accounts.find( username )
 	# Usernames and passwords are limited to 16 characters in length
 	if len( username ) > 16 or len( password ) > 16:
 		if len( username ) > 16:
 			socket.sysmessage( "Error: Username exceeds the 16 character limit!" )
 		if len( password ) > 16:
 			socket.sysmessage( "Error: Password exceeds the 16 character limit!" )
-		return True
+		return False
 	elif len( username ) == 0 or len( password ) == 0:
 		if len( username ) == 0:
 			socket.sysmessage( "Error: Username is NULL!" )
 		if len( password ) == 0:
 			socket.sysmessage( "Error: Password is NULL!" )
-		return True
+		return False
 	# Check if the account exists
 	else:
-		account = wolfpack.accounts.find( username )
 		if account:
 			socket.sysmessage( "Error: Account %s exists!" % username )
 			return False
@@ -187,6 +211,7 @@ def accountCreate( socket, username, password ):
 def accountShow( socket, username, key ):
 	char = socket.player
 	characcount = wolfpack.accounts.find( char.account.name )
+	account = wolfpack.accounts.find( username )
 	# Usernames are limited to 16 characters in length
 	if len( username ) > 16 or len( username ) == 0:
 		if len( username ) > 16:
@@ -196,41 +221,49 @@ def accountShow( socket, username, key ):
 		return False
 	# Find the account
 	else:
-		account = wolfpack.accounts.find( username )
 		if account:
 			# Rank Checking
-			if account.rank >= characcount.rank:
+			if account.rank >= characcount.rank and account.name != characcount.name:
 				socket.sysmessage( "Error: Your account rank does not permit this!" )
 				return False
 			if key == 'acl':
 				socket.sysmessage( "%s.acl = %s" % ( account.name, account.acl ) )
+				char.log( LOG_MESSAGE, "0x%x requested %s.acl.\n" % ( char.serial, account.name ) )
 				return True
 			elif key == 'characters':
 				socket.sysmessage( "%s.characters = %s" % ( account.name, account.characters ) )
+				char.log( LOG_MESSAGE, "0x%x requested %s.characters.\n" % ( char.serial, account.name ) )
 				return True
 			elif key == 'flags':
 				socket.sysmessage( "%s.flags = %s" % ( account.name, account.flags ) )
+				char.log( LOG_MESSAGE, "0x%x requested %s.flags.\n" % ( char.serial, account.name ) )
 				return True
 			elif key == 'inuse':
 				socket.sysmessage( "%s.inuse = %s" % ( account.name, account.inuse ) )
+				char.log( LOG_MESSAGE, "0x%x requested %s.inuse.\n" % ( char.serial, account.name ) )
 				return True
 			elif key == 'lastlogin':
 				socket.sysmessage( "%s.lastlogin = %s" % ( account.name, account.lastlogin ) )
+				char.log( LOG_MESSAGE, "0x%x requested %s.lastlogin.\n" % ( char.serial, account.name ) )
 				return True
 			elif key == 'multigems':
 				socket.sysmessage( "%s.multigems = %s" % ( account.name, account.multigems ) )
+				char.log( LOG_MESSAGE, "0x%x requested %s.multigems.\n" % ( char.serial, account.name ) )
 				return True
 			elif key == 'name':
 				socket.sysmessage( "%s.name = %s" % ( account.name, account.name ) )
+				char.log( LOG_MESSAGE, "0x%x requested %s.name.\n" % ( char.serial, account.name ) )
 				return True
-			elif key == 'password':
+			elif key == 'password' and ( account.name == characcount.name or characcount.rank == 100 ):
 				socket.sysmessage( "%s.password = %s" % ( account.name, account.password ) )
+				char.log( LOG_MESSAGE, "0x%x requested %s.password.\n" % ( char.serial, account.name ) )
 				return True
 			elif key == 'rank':
 				socket.sysmessage( "%s.rank = %i" % ( account.name, account.rank ) )
+				char.log( LOG_MESSAGE, "0x%x requested %s.rank.\n" % ( char.serial, account.name ) )
 				return True
 			else:
-				socket.sysmessage( "Unknown account key!" )
+				socket.sysmessage( "Error: Unknown account key!" )
 				return True
 		# Failure to find the account
 		else:
@@ -241,6 +274,7 @@ def accountShow( socket, username, key ):
 def accountSet( socket, username, key, value ):
 	char = socket.player
 	characcount = wolfpack.accounts.find( char.account.name )
+	account = wolfpack.accounts.find( username )
 	# Usernames are limited to 16 characters in length
 	if len( username ) > 16 or len( username ) == 0:
 		if len( username ) > 16:
@@ -250,13 +284,69 @@ def accountSet( socket, username, key, value ):
 		return False
 	# Find the account
 	else:
-		account = wolfpack.accounts.find( username )
 		if account:
-			if account.rank >= characcount.rank:
+			if account.rank >= characcount.rank and account.name != characcount.name:
 				socket.sysmessage( "Error: Your account rank does not permit this!" )
 				return False
 			else:
-				return True
+				# ACL
+				if key == 'acl':
+					if value in wolfpack.accounts.acls():
+						oldvalue = account.acl
+						socket.sysmessage( "Previous: %s.acl = %s" % ( account.name, account.acl ) )
+						account.acl == value
+						socket.sysmessage( "Changed: %s.acl = %s" % ( account.name, account.acl ) )
+						char.log( LOG_MESSAGE, "0x%x modified %s.acl.\n" % ( char.serial, account.name ) )
+						char.log( LOG_MESSAGE, "%s.acl = %s :: %s.flags = %s\n" % ( account.name, oldvalue, account.name, value  ) )
+						return True
+					else:
+						socket.sysmessage( "Error: %s is not a valid account.acl!" % value )
+						return False
+				# Flags
+				elif key == 'flags':
+					oldvalue = account.flags
+					socket.sysmessage( "Previous: %s.flags = %s" % ( account.name, account.flags ) )
+					account.flags = hex2dec(value)
+					socket.sysmessage( "Changed: %s.acl = %s" % ( account.name, account.flags ) )
+					char.log( LOG_MESSAGE, "0x%x modified %s.flags.\n" % ( char.serial, account.name ) )
+					char.log( LOG_MESSAGE, "%s.flags = 0x%x :: %s.flags = 0x%x\n" % ( account.name, oldvalue, account.name, value  ) )
+					return True
+				# MultiGems
+				elif key == 'multigems':
+					if value.lower() == "true" or value.lower() == "false" or value == 1 or value == 0:
+						oldvalue = value
+						socket.sysmessage( "Previous: %s.acl = %s" % ( account.name, account.acl ) )
+						account.multigems == value
+						socket.sysmessage( "Changed: %s.acl = %s" % ( account.name, account.acl ) )
+						char.log( LOG_MESSAGE, "0x%x modified %s.multigems.\n" % ( char.serial, account.name ) )
+						char.log( LOG_MESSAGE, "%s.multigems = %s :: %s.multigems = %s\n" % ( account.name, oldvalue, account.name, value  ) )
+						return True
+					else:
+						socket.sysmessage( "Error: The account.multigems property must be boolean!" )
+						return False
+				# Password
+				elif key == 'password':
+					if len( key ) > 16 or len( key ) == 0:
+						if len( key ) > 16:
+							socket.sysmessage( "Error: Password exceeds the 16 character limit!" )
+						if len( key ) == 0:
+							socket.sysmessage( "Error: Password is NULL!" )
+						return False
+					else:
+						oldvalue = key
+						account.password = key
+						socket.sysmessage( "Changed: %s.password" % ( account.name, account.password ) )
+						char.log( LOG_MESSAGE, "0x%x modified %s.password.\n" % ( char.serial, account.name ) )
+						return True
+				# READ ONLY VALUES
+				elif key == 'name' or key == 'lastlogin' or key == 'inuse' or key == 'characters' or key == 'rank':
+					char.log( LOG_MESSAGE, "0x%x attempted modification of read only value %s.%s.\n" % ( char.serial, account.name, key ) )
+					socket.sysmessage( "Error: The account.%s property is read only!" % key )
+					return False
+				# Unknown
+				else:
+					socket.sysmessage( "Error: Unknown account property given!" )
+					return False
 		# Failure to find the account
 		else:
 			socket.sysmessage( "Error: Account %s could not be located!" % username )
