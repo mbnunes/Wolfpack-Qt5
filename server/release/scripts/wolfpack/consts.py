@@ -775,3 +775,14 @@ WPDT_AI = 22
 """
 	\end
 """
+
+"""
+	\constants wolfpack.consts Locale Consts
+	These constants represent the different locale values that can be used with
+	wolfpack.locales.syslocalemsg( locale, msgnumber )
+"""
+LOCALE_EN = 0
+LOCALE_DE = 1
+# Define your system locale here.
+SYSLOCALE = LOCALE_EN
+
