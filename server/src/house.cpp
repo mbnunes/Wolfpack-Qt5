@@ -392,3 +392,4 @@ void cHouse::sendCH( cUOSocket* socket )
 	socket->send( &deed );
 	socket->send( &customhouse );
 }
+
