@@ -35,7 +35,6 @@
 #include "tilecache.h"
 #include "mapobjects.h"
 #include "multiscache.h"
-#include "exceptions.h"
 
 // Library Includes
 #include <qstring.h>

@@ -33,6 +33,7 @@
 #if !defined(__MAPS_H__)
 #define __MAPS_H__
 
+#include "exceptions.h"
 #include <qglobal.h>
 #include <qstring.h>
 #include <qmap.h>

@@ -655,7 +655,7 @@ QStringList commandQueue;
 class cConsoleThread: public ZThread::Thread
 {
 public:
-	~cConsoleThread() {
+	~cConsoleThread() throw() {
 		join(); // wait for it to stop
 	}
 
@@ -1413,7 +1413,7 @@ int main( int argc, char *argv[] )
 
 		loopTime += tempTime;
 		
-		qApp->processOneEvent();
+		qApp->processEvents( 40 );
 	}
 
 	consoleThread.cancel();
