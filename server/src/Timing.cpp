@@ -141,21 +141,26 @@ void cTiming::poll() {
 	}
 
 	// Check all other characters
-	if (nextTamedCheck <= time || nextNpcCheck <= time) {
+	if (nextTamedCheck <= time || nextNpcCheck <= time) 
+	{
 		cCharIterator chariter;
 		for (P_CHAR character = chariter.first(); character; character = chariter.next()) {
 			P_NPC npc = dynamic_cast<P_NPC>(character);
 
-			if (npc) {
+			if (npc) 
+			{
 				npc->poll(time, events);
-
-				if ((npc->isTamed() && nextTamedCheck <= time) || (!npc->isTamed() && nextNpcCheck <= time)) {
+				
+				if ((npc->isTamed() && nextTamedCheck <= time) || (!npc->isTamed() && nextNpcCheck <= time)) 
+				{
 					checkRegeneration(npc, time);
 					
 					// Check if we are anywhere near a player
 					// all other npcs are accounted as inactive
-					for (QValueVector<Coord_cl>::const_iterator it = positions.begin(); it != positions.end(); ++it) {
-						if ((*it).distance(npc->pos()) <= 24) {							
+					for (QValueVector<Coord_cl>::const_iterator it = positions.begin(); it != positions.end(); ++it) 
+					{
+						if ((*it).distance(npc->pos()) <= 24) 
+						{							
 							checkNpc(npc, time);
 							break;
 						}
@@ -165,8 +170,10 @@ void cTiming::poll() {
 			}
 
 			P_PLAYER player = dynamic_cast<P_PLAYER>(character);
-			if (player) {
-				if (!player->socket() && player->logoutTime() && player->logoutTime() >= time) {
+			if (player) 
+			{
+				if (!player->socket() && player->logoutTime() && player->logoutTime() >= time) 
+				{
 					player->setLogoutTime(0);
 					player->removeFromView(false);
 					player->resend(false);
@@ -175,29 +182,32 @@ void cTiming::poll() {
 			}
 		}
 
-		if (nextTamedCheck <= time) {
+		if (nextTamedCheck <= time) 
 			nextTamedCheck = time + SrvParams->checkTamedTime() * MY_CLOCKS_PER_SEC;
-		}
 
-		if (nextNpcCheck <= time) {
+		if (nextNpcCheck <= time) 
 			nextNpcCheck = time + SrvParams->checkNPCTime() * MY_CLOCKS_PER_SEC;
-		}
 	}
 
 	// Change all worlditems
-	if (nextItemCheck <= time) {
+	if (nextItemCheck <= time) 
+	{
 		cItemIterator itemiter;
-		for (P_ITEM item = itemiter.first(); item; item = itemiter.next()) {
+		for (P_ITEM item = itemiter.first(); item; item = itemiter.next()) 
+		{
 			item->decay(time);
 
-			switch(item->type()) {
+			switch(item->type()) 
+			{
 				// Move Boats
 				case 117:
 				{
 					bool ok = false;
-					if (item->getTag( "tiller" ).isValid() && item->getTag("gatetime").toInt(&ok) <= time && ok) {
+					if (item->getTag( "tiller" ).isValid() && item->getTag("gatetime").toInt(&ok) <= time && ok) 
+					{
 						cBoat* pBoat = dynamic_cast<cBoat*>(FindItemBySerial(item->getTag("boatserial").toInt()));
-						if (pBoat) {
+						if (pBoat) 
+						{
 							pBoat->move();
 							item->setTag("gatetime", time + SrvParams->boatSpeed() * MY_CLOCKS_PER_SEC);
 						}
@@ -213,19 +223,18 @@ void cTiming::poll() {
 	// Check the TempEffects
 	TempEffects::instance()->check();
 
-	if (nextHungerCheck <= time) {
+	if (nextHungerCheck <= time) 
 		nextHungerCheck = time + SrvParams->hungerDamageRate() * MY_CLOCKS_PER_SEC;
-	}
 
 	if ( nextUOTimeTick <= time )
-	{
 		uoTime = uoTime.addSecs(1);
-	}
 }
 
-void cTiming::checkRegeneration(P_CHAR character, unsigned int time) {
+void cTiming::checkRegeneration(P_CHAR character, unsigned int time) 
+{
 	// Dead characters dont regenerate
-	if (character->isDead()) {
+	if (character->isDead()) 
+	{
 		return;
 	}
 
@@ -233,72 +242,80 @@ void cTiming::checkRegeneration(P_CHAR character, unsigned int time) {
 	unsigned int oldStamina = character->stamina();
 	unsigned int oldMana = character->mana();
 
-	if (character->regenHitpointsTime() <= time) {
+	if (character->regenHitpointsTime() <= time) 
+	{
 		// If it's not disabled hunger affects our health regeneration
-		if (character->hitpoints() < character->maxHitpoints()) {
-			if (character->hunger() > 3 || SrvParams->hungerRate() == 0) {
-				if (character->skillValue(HEALING) < 500) {
+		if (character->hitpoints() < character->maxHitpoints()) 
+		{
+			if (character->hunger() > 3 || SrvParams->hungerRate() == 0) 
+			{
+				if (character->skillValue(HEALING) < 500) 
 					character->setHitpoints(character->hitpoints() + 1);
-				} else if (character->skillValue(HEALING) < 800) {
+				else if (character->skillValue(HEALING) < 800) 
 					character->setHitpoints(character->hitpoints() + 2);
-				} else {
+				else
 					character->setHitpoints(character->hitpoints() + 3);
-				}
 				character->updateHealth();
 			}
 		}
 
 		int rate = SrvParams->hitpointrate();
 
-		if (character->hasTag("regenhits")) {
+		if (character->hasTag("regenhits")) 
+		{
             unsigned char regenbonus = (unsigned char)character->getTag("regenhits").toInt();
 
             rate -= regenbonus;
-			if (rate < 1) {
+			if (rate < 1) 
 				rate = 1;
-			}
 		}
 
 		character->setRegenHitpointsTime(time + rate * MY_CLOCKS_PER_SEC);
 	}
 
-	if (character->regenStaminaTime() <= time) {
+	if (character->regenStaminaTime() <= time) 
+	{
 		int rate = SrvParams->staminarate();
 
-		if (character->hasTag("regenstam")) {
+		if (character->hasTag("regenstam")) 
+		{
             unsigned char regenbonus = (unsigned char)character->getTag("regenstam").toInt();
 
             rate -= regenbonus;
-			if (rate < 1) {
+			if (rate < 1) 
 				rate = 1;
-			}
 		}
 
-		if (character->stamina() < character->maxStamina()) {
+		if (character->stamina() < character->maxStamina()) 
 			character->setStamina(character->stamina() + 1);
-		}
 
 		character->setRegenStaminaTime(time + rate * MY_CLOCKS_PER_SEC);
 	}
 
 	// OSI Style Mana regeneration by blackwind
 	// if (character->in>character->mn)  this leads to the 'mana not subtracted' bug (Duke)
-	if (character->regenManaTime() <= time) {
+	if (character->regenManaTime() <= time) 
+	{
 		unsigned int interval = SrvParams->manarate() * MY_CLOCKS_PER_SEC;
-		for (unsigned short c = 0; c < character->maxMana() + 1 ; ++c) {
-			if (character->regenManaTime() + (c * interval) <= time) {
-				if (character->mana() >= character->maxMana()) {
-					if (character->isMeditating()) {
+		for (unsigned short c = 0; c < character->maxMana() + 1 ; ++c) 
+		{
+			if (character->regenManaTime() + (c * interval) <= time) 
+			{
+				if (character->mana() >= character->maxMana()) 
+				{
+					if (character->isMeditating()) 
+					{
 						P_PLAYER player = dynamic_cast<P_PLAYER>(character);
 
-						if (player->socket()) {
+						if (player->socket()) 
 							player->socket()->clilocMessage(501846);
-						}
 						character->setMeditating(false);
 					}
 					character->setMana(character->maxMana());
 					break;
-				} else {
+				} 
+				else
+				{
 					character->setMana(character->mana() + 1);
 				}
 			}
@@ -308,41 +325,46 @@ void cTiming::checkRegeneration(P_CHAR character, unsigned int time) {
 	}
 }
 
-void cTiming::checkPlayer(P_PLAYER player, unsigned int time) {
+void cTiming::checkPlayer(P_PLAYER player, unsigned int time) 
+{
 	cUOSocket *socket = player->socket();
 
 	// Criminal Flagging
-	if (player->criminalTime() > 0 && player->criminalTime() <= time) {
+	if (player->criminalTime() > 0 && player->criminalTime() <= time) 
+	{
 		socket->sysMessage(tr("You are no longer criminal."));
 		player->setCriminalTime(0);
 	}
 
     // Murder Decay
-	if (player->murdererTime() > 0 && player->murdererTime() < time) {
+	if (player->murdererTime() > 0 && player->murdererTime() < time) 
+	{
 		if (player->kills() > 0)
 			player->setKills(player->kills() - 1);
 
-		if ( player->kills() <= SrvParams->maxkills() && SrvParams->maxkills() > 0 ) {
+		if ( player->kills() <= SrvParams->maxkills() && SrvParams->maxkills() > 0 ) 
 			socket->sysMessage( tr( "You are no longer a murderer." ) );
-		} else {
+		else
 			player->setMurdererTime(time + SrvParams->murderdecay() * MY_CLOCKS_PER_SEC);
-		}
 	}
 
 	// All food related things are disabled for gms
-	if (player->isGMorCounselor()) {
+	if (player->isGMorCounselor()) 
+	{
 		// Decrease food level
-		if (SrvParams->hungerRate() > 1 && (player->hungerTime() <= time )) {
-			if (player->hunger()) { 
+		if (SrvParams->hungerRate() > 1 && (player->hungerTime() <= time )) 
+		{
+			if (player->hunger()) 
 				player->setHunger(player->hunger() - 1);
-			}
 	
 			player->setHungerTime(time + SrvParams->hungerRate() * MY_CLOCKS_PER_SEC);
 		}
 	
 		// Damage if we are starving
-		if (SrvParams->hungerDamage() && nextHungerCheck <= time) {
-			if (player->hitpoints() > 0 && player->hunger() < 2 && !player->isDead()) {
+		if (SrvParams->hungerDamage() && nextHungerCheck <= time) 
+		{
+			if (player->hitpoints() > 0 && player->hunger() < 2 && !player->isDead()) 
+			{
 				socket->sysMessage(tr("You are starving."));
 				player->damage(DAMAGE_HUNGER, SrvParams->hungerDamage());
 			}
@@ -350,37 +372,45 @@ void cTiming::checkPlayer(P_PLAYER player, unsigned int time) {
 	}
 }
 
-void cTiming::checkNpc(P_NPC npc, unsigned int time) {
+void cTiming::checkNpc(P_NPC npc, unsigned int time) 
+{
 	// Remove summoned npcs
-	if (npc->summonTime() && npc->summonTime() <= time) {
+	if (npc->summonTime() && npc->summonTime() <= time) 
+	{
 		npc->kill(0);
 		return;
 	}
 
 	// We are stabled and don't receive events
-	if (npc->stablemasterSerial() != INVALID_SERIAL) {
+	if (npc->stablemasterSerial() != INVALID_SERIAL) 
+	{
 		return;
 	}
 
 	// Give the AI time to process events
-	if (npc->aiCheckTime() <= time) {
+	if (npc->aiCheckTime() <= time) 
+	{
 		npc->setAICheckTime(uiCurrentTime + npc->aiCheckInterval());
 
-		if (npc->ai()) {
+		if (npc->ai()) 
+		{
 			npc->ai()->check();
 		}
 	}
 
 	// Hunger for npcs
 	// This only applies to tamed creatures
-	if (npc->isTamed() && SrvParams->hungerRate() && npc->hungerTime() <= time) {
-		if (npc->hunger()) {
+	if (npc->isTamed() && SrvParams->hungerRate() && npc->hungerTime() <= time) 
+	{
+		if (npc->hunger()) 
+		{
 			npc->setHunger(npc->hunger() - 1);
 		}
 
 		npc->setHungerTime(time + SrvParams->hungerRate() * MY_CLOCKS_PER_SEC);
 
-		switch(npc->hunger()) {
+		switch(npc->hunger()) 
+		{
 		case 4:
 			npc->emote( tr("*%1 looks a little hungry*").arg(npc->name()), 0x26);
 			break;
@@ -397,14 +427,14 @@ void cTiming::checkNpc(P_NPC npc, unsigned int time) {
 			npc->setWanderType(enFreely);
 			npc->setTamed(false);
 
-			if (npc->owner()) {
-				npc->setOwner(NULL);
-			}
+			if (npc->owner()) 
+				npc->setOwner(0);
 	
 			npc->bark(cBaseChar::Bark_Attacking);
 			npc->talk(1043255, npc->name(), 0, false, 0x26);
 
-			if (SrvParams->tamedDisappear() == 1) {
+			if (SrvParams->tamedDisappear() == 1) 
+			{
 				npc->soundEffect(0x1FE);
 				cCharStuff::DeleteChar(npc);
 			}

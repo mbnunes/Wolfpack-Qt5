@@ -1980,55 +1980,57 @@ P_ITEM cItem::createFromId( unsigned short id )
 	return pItem;
 }
 
-void cItem::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
+void cItem::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) 
+{
 	cUObject::createTooltip(tooltip, player);
 
 	// Add the object name.
-	if (amount_ > 1) {
-		if (name_.isEmpty()) {
+	if (amount_ > 1) 
+	{
+		if (name_.isEmpty()) 
 			tooltip.addLine(1050039, QString("%1\t#%2").arg(amount_).arg(1020000 + id_));
-		} else {
+		else 
 			tooltip.addLine(1050039, QString("%1\t%2").arg(amount_).arg(name_));
-		}
-	} else {
-		if (name_.isEmpty()) {
+	} 
+	else 
+	{
+		if (name_.isEmpty()) 
 			tooltip.addLine(1042971, QString("#%2").arg(1020000 + id_));
-		} else {
+		else 
 			tooltip.addLine(1042971, name_);
-		}
 	}
 
 	// For containers (hardcoded type), add count of items and total weight.
-	if (type_ == 1) {
+	if (type_ == 1)
+	{
 		unsigned int count = content_.size();
 		unsigned int weight = (unsigned int)floor(totalweight_);
 
 		// static items weight doesnt count
-		if (weight_ == 255) {
+		if (weight_ == 255) 
 			weight -= 255;
-		}
 
 		tooltip.addLine(1050044, QString("%1\t%2").arg(count).arg(weight));
 	}
 
 	// Newbie Items
-	if (newbie()) {
+	if (newbie()) 
 		tooltip.addLine(1038021, "");
-	}
 
 	// Invisible to others
-	if (player->isGM() && visible() > 0) {
+	if (player->isGM() && visible() > 0) 
 		tooltip.addLine(3000507, "");
-	}     
 
 	onShowTooltip(player, &tooltip);
 }
 
 // Python implementation
-PyObject *cItem::getPyObject() {
+PyObject *cItem::getPyObject() 
+{
 	return PyGetItemObject(this);
 }
 
-const char *cItem::className() const {
+const char *cItem::className() const 
+{
 	return "item";
 }

@@ -3,8 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//	Copyright 1997, 98 by Marcus Rating (Cironian)
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -63,14 +62,12 @@
 
 using namespace std;
 
-//========================================================================================
 // Constructor
 cConsole::cConsole()
 {
 	bEnabled = true;
 }
 
-//========================================================================================
 // Destuctor
 cConsole::~cConsole()
 {
@@ -82,7 +79,6 @@ void cConsole::enabled(bool bState)
 	bEnabled = bState;
 }
 
-//========================================================================================
 void cConsole::log( UINT8 logLevel, const QString &message, bool timestamp )
 {
 	// Legacy Code
@@ -94,7 +90,6 @@ void cConsole::log( UINT8 logLevel, const QString &message, bool timestamp )
 	Log::instance()->print( (eLogLevel)logLevel, msg + "\n", timestamp );
 }
 
-//=========================================================================================
 // Get input from the console
 UI08 cConsole::getkey(void)
 {
@@ -106,7 +101,6 @@ UI08 cConsole::getkey(void)
 	return key;
 }
 
-//=========================================================================================
 // Prepare a "progess" line
 void cConsole::PrepareProgress( const QString &sMessage )
 {
@@ -124,7 +118,6 @@ void cConsole::PrepareProgress( const QString &sMessage )
 	send( " [____]" );
 }
 
-//=========================================================================================
 // Print Progress Done
 void cConsole::ProgressDone( void )
 {
@@ -135,7 +128,6 @@ void cConsole::ProgressDone( void )
 	send( "]\n" );
 }
 
-//=========================================================================================
 // Print "Fail"
 void cConsole::ProgressFail( void )
 {
@@ -146,7 +138,6 @@ void cConsole::ProgressFail( void )
 	send( "]\n" );
 }
 
-//=========================================================================================
 // Print "Skip" (maps etc.)
 void cConsole::ProgressSkip( void )
 {

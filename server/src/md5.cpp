@@ -56,13 +56,14 @@ void cMd5::reset() {
 	bits[1] = 0;
 }
 
-inline void byteReverse(unsigned char *buffer, unsigned int longs) {
+inline void byteReverse(unsigned char *buffer, unsigned int longs) 
+{
     unsigned int temp;
     do
 	{
-	temp = (unsigned int)((unsigned int)buffer[3] << 8 | buffer[2]) << 16 | ((unsigned int)buffer[1] << 8 | buffer[0]);
-	*(unsigned int*)buffer = temp;
-	buffer += 4;
+		temp = (unsigned int)((unsigned int)buffer[3] << 8 | buffer[2]) << 16 | ((unsigned int)buffer[1] << 8 | buffer[0]);
+		*(unsigned int*)buffer = temp;
+		buffer += 4;
     }
 	while(--longs);
 }
@@ -74,7 +75,8 @@ inline void byteReverse(unsigned char *buffer, unsigned int longs) {
 #define F4(x, y, z) (y ^ (x | ~z))
 #define MD5STEP(f, w, x, y, z, data, s) (w += f(x, y, z) + data,  w = w<<s | w>>(32-s),  w += x)
 
-void cMd5::update() {
+void cMd5::update() 
+{
     register unsigned int a, b, c, d;
 	unsigned int *ptrInput = (unsigned int*)input;
 
@@ -157,7 +159,8 @@ void cMd5::update() {
     buffer[3] += d;
 }
 
-void cMd5::update(unsigned char *data, unsigned int length) {
+void cMd5::update(unsigned char *data, unsigned int length) 
+{
 	if(finalized)
 		return;
 		// throw std::exception("cMd5::update() although finalized flag is set.");
@@ -214,7 +217,8 @@ void cMd5::update(unsigned char *data, unsigned int length) {
 	memcpy(input, data, length);
 }
 
-void cMd5::finalize() {
+void cMd5::finalize() 
+{
 	if(finalized)
 		return;
 		//throw std::exception("cMd5::finalize() although finalized flag is set.");
@@ -262,7 +266,8 @@ void cMd5::finalize() {
 	finalized = true;
 }
 
-void cMd5::digest(char *digest) {
+void cMd5::digest(char *digest) 
+{
 	if(!finalized)
 		return;
 		// throw std::exception("Call to cMd5::digest() without finalized flag being set.");

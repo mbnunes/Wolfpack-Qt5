@@ -3,7 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -904,10 +904,10 @@ bool cSkills::advanceStats(P_PLAYER pChar, UINT16 skill) const {
 						if (pChar->dexterityLock() == 1 && pChar->dexterity() > 1) {
 							pChar->setDexterity(pChar->dexterity() - 1);
 
-							pChar->setMaxStamina(std::max(1, pChar->maxStamina() - 1));
+							pChar->setMaxStamina(QMAX(1, pChar->maxStamina() - 1));
 						} else if (pChar->intelligenceLock() == 1 && pChar->intelligence() > 1) {
 							pChar->setIntelligence(pChar->intelligence() - 1);
-							pChar->setMaxMana(std::max(1, pChar->maxMana() - 1));
+							pChar->setMaxMana(QMAX(1, pChar->maxMana() - 1));
 						} else {
 							return false;
 						}
@@ -932,10 +932,10 @@ bool cSkills::advanceStats(P_PLAYER pChar, UINT16 skill) const {
 						// See if we can lower another stat to advance in this stat.
 						if (pChar->strengthLock() == 1 && pChar->strength() > 1) {
 							pChar->setStrength(pChar->strength() - 1);
-							pChar->setMaxHitpoints(std::max(pChar->maxHitpoints() - 1, 1));
+							pChar->setMaxHitpoints(QMAX(pChar->maxHitpoints() - 1, 1));
 						} else if (pChar->intelligenceLock() == 1 && pChar->intelligence() > 1) {
 							pChar->setIntelligence(pChar->intelligence() - 1);
-							pChar->setMaxMana(std::max(pChar->maxMana() - 1, 1));
+							pChar->setMaxMana(QMAX(pChar->maxMana() - 1, 1));
 						} else {
 							return false;
 						}
@@ -948,7 +948,9 @@ bool cSkills::advanceStats(P_PLAYER pChar, UINT16 skill) const {
 				break;
 			}
 		}
-	} else if (choice - ( strChance + dexChance ) < intChance) {
+	} 
+	else if (choice - ( strChance + dexChance ) < intChance) 
+	{
 		// Raise Int
 		for( INT32 i = advIntelligence.size() - 1; i >= 0 ; --i )
 		{
@@ -958,13 +960,18 @@ bool cSkills::advanceStats(P_PLAYER pChar, UINT16 skill) const {
 				{
 					if (statSum >= SrvParams->statcap()) {
 						// See if we can lower another stat to advance in this stat.
-						if (pChar->dexterityLock() == 1 && pChar->dexterity() > 1) {
+						if (pChar->dexterityLock() == 1 && pChar->dexterity() > 1) 
+						{
 							pChar->setDexterity(pChar->dexterity() - 1);
-							pChar->setMaxStamina(std::max(pChar->maxStamina() - 1, 1));
-						} else if (pChar->strengthLock() == 1 && pChar->strength() > 1) {
+							pChar->setMaxStamina(QMAX(pChar->maxStamina() - 1, 1));
+						}
+						else if (pChar->strengthLock() == 1 && pChar->strength() > 1) 
+						{
 							pChar->setStrength(pChar->strength() - 1);
-							pChar->setMaxHitpoints(std::max(pChar->maxHitpoints() - 1, 1));
-						} else {
+							pChar->setMaxHitpoints(QMAX(pChar->maxHitpoints() - 1, 1));
+						}
+						else 
+						{
 							return false;
 						}
 					}

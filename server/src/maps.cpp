@@ -64,7 +64,8 @@ public:
 	QMap<unsigned int, unsigned int> staticpatches;
 
 #pragma pack (1)
-	struct mapblock {
+	struct mapblock 
+	{
 		unsigned int header;
 		map_st cells[64];
 	};
@@ -119,40 +120,45 @@ void MapsPrivate::loadDiffs(const QString& basepath, unsigned int id) {
 	mapdifdata.open(IO_ReadOnly);
 
 	// Try to read a list of ids
-	if (mapdifdata.isOpen() && mapdiflist.open(IO_ReadOnly)) {
-		QDataStream listinput(&mapdiflist);
-		listinput.setByteOrder(QDataStream::LittleEndian);
+	if (mapdifdata.isOpen() && mapdiflist.open( IO_ReadOnly ) ) 
+	{
+		QDataStream listinput( &mapdiflist );
+		listinput.setByteOrder( QDataStream::LittleEndian );
 		unsigned int offset = 0;
-		while (!listinput.atEnd()) {
+		while ( !listinput.atEnd() ) 
+		{
 			unsigned int id;
 			listinput >> id;
-			mappatches.insert(id, offset);
-			offset += sizeof(mapblock);
+			mappatches.insert( id, offset );
+			offset += sizeof( mapblock );
 		}
 		mapdiflist.close();
 	}
 
-	QFile stadiflist(basepath + QString("stadifl%1.mul").arg(id));
-	stadifdata.setName(basepath + QString("stadif%1.mul").arg(id));
-	stadifdata.open(IO_ReadOnly);
+	QFile stadiflist( basepath + QString("stadifl%1.mul").arg( id ) );
+	stadifdata.setName( basepath + QString("stadif%1.mul").arg( id ) );
+	stadifdata.open( IO_ReadOnly );
 	stadifindex.setName(basepath + QString("stadifi%1.mul").arg(id));
 	stadifindex.open(IO_ReadOnly);
 
-	if (stadifdata.isOpen() && stadifindex.isOpen() && stadiflist.open(IO_ReadOnly)) {
-		QDataStream listinput(&stadiflist);
-		listinput.setByteOrder(QDataStream::LittleEndian);
+	if (stadifdata.isOpen() && stadifindex.isOpen() && stadiflist.open( IO_ReadOnly ) ) 
+	{
+		QDataStream listinput( &stadiflist );
+		listinput.setByteOrder( QDataStream::LittleEndian );
 		unsigned int offset = 0;
-		while (!listinput.atEnd()) {
+		while ( !listinput.atEnd() ) 
+		{
 			unsigned int id;
 			listinput >> id;
-			staticpatches.insert(id, offset);
+			staticpatches.insert( id, offset );
 			offset += 12; // Size of a static index record
 		}
 		stadiflist.close();
 	}
 }
 
-map_st MapsPrivate::seekMap(ushort x, ushort y) {
+map_st MapsPrivate::seekMap(ushort x, ushort y) 
+{
 	// The blockid our cell is in
 	unsigned int blockid = x / 8 * height + y / 8;
 
@@ -160,15 +166,19 @@ map_st MapsPrivate::seekMap(ushort x, ushort y) {
     mapblock* result = mapCache.find(blockid);
 	bool borrowed = true;
 	
-	if (!result) {
+	if (!result) 
+	{
 		result = new mapblock;
 		
 		// See if the block has been patched
-		if (mappatches.contains(blockid)) {
+		if (mappatches.contains(blockid)) 
+		{
 			unsigned int offset = mappatches[blockid];
 			mapdifdata.at(offset);
 			mapdifdata.readBlock((char*)result, sizeof(mapblock));
-		} else {
+		} 
+		else
+		{
 			mapfile.at(blockid * sizeof(mapblock));
 			mapfile.readBlock((char*)result, sizeof(mapblock));
 		}
@@ -181,9 +191,8 @@ map_st MapsPrivate::seekMap(ushort x, ushort y) {
 	x %= 8;
 	map_st cell = result->cells[y * 8 + x];
 	
-	if (!borrowed) {
+	if (!borrowed)
 		delete result;
-	}
 
 	return cell;
 }
@@ -228,7 +237,8 @@ Maps::~Maps()
 */
 bool Maps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint mapheight, const QString& staticsfile, const QString& staticsidx )
 {
-	try {
+	try 
+	{
 		QDir baseFolder( basePath );
 		QStringList files = baseFolder.entryList();
 		QString staticsIdxName, mapFileName, staticsFileName;
@@ -248,7 +258,9 @@ bool Maps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint map
 		p->loadDiffs(basePath, id);
 		d.insert( id, p );
 		return true;
-	} catch ( wpFileNotFoundException& e ) {
+	}
+	catch ( wpFileNotFoundException& e ) 
+	{
 		qWarning( e.error() );
 		return false;
 	}
@@ -410,18 +422,18 @@ bool Maps::canFit( int x, int y, int z, int map, int height ) const
 	return true;
 }
 
-unsigned int Maps::mapPatches(unsigned int id) {
-	if (d.find(id) == d.end()) {
+unsigned int Maps::mapPatches(unsigned int id) 
+{
+	if (d.find(id) == d.end()) 
 		throw wpException(QString("[Maps::mapPatches line %1] map id(%2) not registered!").arg(__LINE__).arg(id) );
-	}
 
 	return d.find(id).data()->mappatches.size();
 }
 
-unsigned int Maps::staticPatches(unsigned int id) {
-	if (d.find(id) == d.end()) {
+unsigned int Maps::staticPatches(unsigned int id) 
+{
+	if (d.find(id) == d.end())
 		throw wpException(QString("[Maps::staticPatches line %1] map id(%2) not registered!").arg(__LINE__).arg(id) );
-	}
 
 	return d.find(id).data()->staticpatches.size();
 }
@@ -560,7 +572,8 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 	if ( !p )
 	{ // Well, unfortunally we will be forced to read the file :(
 #pragma pack (1)
-		struct {
+		struct 
+		{
 			Q_UINT32 offset;
 			Q_UINT32 blocklength;
 		} indexStructure;
@@ -570,7 +583,8 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 		staticStream.setByteOrder( QDataStream::LittleEndian );
 
 		// See if this particular block is patched.
-		if (mapRecord->staticpatches.contains(indexPos / 12)) {
+		if (mapRecord->staticpatches.contains(indexPos / 12)) 
+		{
 			indexPos = mapRecord->staticpatches[indexPos / 12];		
 
 			mapRecord->stadifindex.at(indexPos);
@@ -581,7 +595,9 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 
 			mapRecord->stadifdata.at(indexStructure.offset);
 			staticStream.setDevice(&mapRecord->stadifdata);
-		} else {
+		}
+		else
+		{
 			mapRecord->idxfile.at(indexPos);
 			mapRecord->idxfile.readBlock((char*)&indexStructure, sizeof(indexStructure));
 

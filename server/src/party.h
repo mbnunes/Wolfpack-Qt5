@@ -39,7 +39,8 @@
 /*!
 	\brief This class encapsulates a party.
 */
-class cParty : public cPythonScriptable {
+class cParty : public cPythonScriptable 
+{
 protected:
 	P_PLAYER leader_;
 	QPtrList<cPlayer> members_;

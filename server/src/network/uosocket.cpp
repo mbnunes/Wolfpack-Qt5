@@ -3,7 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -114,7 +114,8 @@ cUOSocket::cUOSocket( QSocketDevice *sDevice ):
 // Initialize all packet handlers to zero
 PyObject *cUOSocket::handlers[255] = { 0, };
 
-void cUOSocket::registerPacketHandler(unsigned char packet, PyObject *handler) {
+void cUOSocket::registerPacketHandler(unsigned char packet, PyObject *handler) 
+{
 
 	if (handlers[packet])
 		Py_DECREF(handlers[packet]);

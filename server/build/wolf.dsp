@@ -77,7 +77,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib ole32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt323.lib shell32.lib /nologo /version:12.9 /subsystem:windows /incremental:no /debug /machine:I386 /out:"..\wolfpack.exe" /pdbtype:sept /fixed:no
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib ole32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt331.lib shell32.lib /nologo /version:12.9 /subsystem:windows /incremental:no /debug /machine:I386 /out:"..\wolfpack.exe" /pdbtype:sept /fixed:no
 # SUBTRACT LINK32 /pdb:none /map
 
 !ENDIF 
@@ -147,14 +147,6 @@ SOURCE=.\win\console_win.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\getopts.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\win\getopts_win.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\contextmenu.cpp
 # End Source File
 # Begin Source File
@@ -191,6 +183,14 @@ SOURCE=.\encryption.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\getopts.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\win\getopts_win.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\globals.cpp
 # End Source File
 # Begin Source File
@@ -215,10 +215,6 @@ SOURCE=.\items.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\md5.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\log.cpp
 # End Source File
 # Begin Source File
@@ -228,6 +224,10 @@ SOURCE=.\makemenus.cpp
 # Begin Source File
 
 SOURCE=.\maps.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\md5.cpp
 # End Source File
 # Begin Source File
 
@@ -393,17 +393,8 @@ SOURCE=.\boats.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\books.h
-# PROP Ignore_Default_Tool 1
-# End Source File
-# Begin Source File
-
 SOURCE=.\chars.h
 # PROP Ignore_Default_Tool 1
-# End Source File
-# Begin Source File
-
-SOURCE=.\classes.h
 # End Source File
 # Begin Source File
 
@@ -417,10 +408,6 @@ SOURCE=.\commands.h
 # Begin Source File
 
 SOURCE=.\console.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\getopts.h
 # End Source File
 # Begin Source File
 
@@ -471,6 +458,10 @@ SOURCE=.\exceptions.h
 # Begin Source File
 
 SOURCE=.\factory.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\getopts.h
 # End Source File
 # Begin Source File
 
@@ -612,23 +603,7 @@ SOURCE=.\srvparams.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\storage.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\stream.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\structs.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\targetactions.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\targeting.h
 # End Source File
 # Begin Source File
 
@@ -664,10 +639,6 @@ SOURCE=.\tracking.h
 # Begin Source File
 
 SOURCE=.\Trade.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\twofish\twofish.h
 # End Source File
 # Begin Source File
 
