@@ -235,7 +235,7 @@ void cChar::Init(bool ser)
 	this->cantrain=true;
 	// Begin of Guild Related Character information (DasRaetsel)
 	this->guildtoggle=0;		// Toggle for Guildtitle								(DasRaetsel)
-	this->guildtitle[0]='\x00';	// Title Guildmaster granted player						(DasRaetsel)
+	this->guildtitle="";	// Title Guildmaster granted player						(DasRaetsel)
 	this->guildfealty=-1;		// Serial of player you are loyal to (default=yourself)	(DasRaetsel)
 	this->guildnumber=0;		// Number of guild player is in (0=no guild)			(DasRaetsel)
 	this->GuildTraitor=false; 
