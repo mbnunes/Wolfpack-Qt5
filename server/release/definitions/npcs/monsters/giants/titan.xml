@@ -11,7 +11,7 @@
 	<!-- a titan-->
 	<npc id="titan" inherit="monster_base">
 		<name>titan</name>
-		<id>27</id>
+		<id>76</id>
 		<karma><random list="KARMA_L5" /></karma>
 		<fame><random list="FAME_L5" /></fame>
 		<!-- Stats -->
