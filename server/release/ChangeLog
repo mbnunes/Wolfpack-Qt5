@@ -51,6 +51,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Remoteadmin port can now be set via wolfpack.xml
   - Fixed a bug related to gaining skills with skillbonus juwelry equipped.
   - Added Leather Dyes.
+  - Added a bankself command.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
