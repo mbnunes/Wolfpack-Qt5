@@ -36,6 +36,7 @@
 #include <qsocketdevice.h>
 #include <qobject.h>
 #include <qmap.h>
+#include <qbitarray.h>
 #include <vector>
 
 // Forward Declarations
@@ -78,6 +79,7 @@ private:
 	QString _lang,_version;
 	cCustomTags tags_;
 	QString _ip; // IP used to connect 
+	QBitArray *tooltipscache_;
 
 	QMap< SERIAL, cGump* > gumps;
 
@@ -87,6 +89,11 @@ private:
 public:
 	cCustomTags tags() const	{ return tags_;		}
 	cCustomTags& tags()			{ return tags_;		}
+
+	QBitArray* toolTips() const { return tooltipscache_; }
+	bool haveTooltip( UINT32 data ) const { return tooltipscache_->testBit( data ); }
+	void delTooltip( UINT32 data ) { tooltipscache_->setBit( data, false ); }
+	void addTooltip( UINT32 );
 
 	cUOSocket( QSocketDevice *sDevice );
 	virtual ~cUOSocket( void );
@@ -142,6 +149,7 @@ public:
 	void handleCastSpell( cUORxCastSpell *packet );
 	void handleContextMenuRequest( cUORxContextMenuRequest *packet );
  	void handleContextMenuSelection( cUORxContextMenuSelection *packet ); 
+ 	void handleToolTip( cUORxRequestToolTip *packet ); 
 	void handleWalkRequest( cUORxWalkRequest* packet );
 	void handleSetLanguage( cUORxSetLanguage* packet );
 	void handleSpeechRequest( cUORxSpeechRequest* packet );

@@ -775,6 +775,7 @@ public:
 	virtual bool onSkillUse( UI08 Skill ); // The character uses %Skill
 	virtual bool onCollideChar( P_CHAR Obstacle ); // This is called for the walking character first, then for the character walked on
 	virtual bool onShowContext( cUObject *object ); // Shows a context menu for a specific item
+	virtual bool onShowTooltip( P_CHAR sender ); // Shows a tool tip for specific object
 	bool onDropOnChar( P_ITEM pItem );
 	bool onPickup( P_ITEM pItem );
 

@@ -1332,6 +1332,17 @@ bool cItem::onDropOnChar( P_CHAR pChar )
 	return false;
 }
 
+bool cItem::onShowTooltip( P_CHAR sender )
+{
+
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onShowToolTip( sender, this ) )
+			return true;
+
+	return false;
+}
+
+
 void cItem::processNode( const QDomElement& Tag )
 {
 	changed_ = true;
@@ -2010,7 +2021,8 @@ void cItem::update( cUOSocket *mSock )
 				sendItem->setFlags( sendItem->flags() | 0x80 );
 
 			// TODO: Insert code for view-multi-as-icon & view-lightsource-as-candle
-
+		
+			sendTooltip( mSock );
 			mSock->send( sendItem );
 		}
 		else
@@ -2044,7 +2056,8 @@ void cItem::update( cUOSocket *mSock )
 					sockSendItem.setFlags( sockSendItem.flags() | 0x80 );
 	
 				// TODO: Insert code for view-multi-as-icon & view-lightsource-as-candle
-	
+				
+				sendTooltip( mSock );
 				mSock->send( &sockSendItem );
 			}
 			delete sendItem;

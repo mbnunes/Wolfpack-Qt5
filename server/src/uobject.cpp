@@ -56,7 +56,7 @@
 #define DBGFILE "uobject.cpp"
 
 cUObject::cUObject() :
-	serial_( INVALID_SERIAL ), multis_( INVALID_SERIAL ), free( false ), bindmenu_( QString::null ), changed_(true)
+	serial_( INVALID_SERIAL ), multis_( INVALID_SERIAL ), free( false ), bindmenu_( QString::null ), changed_(true), tooltip_( 0xFFFFFFFF )
 {
 }
 
@@ -71,6 +71,7 @@ cUObject::cUObject( cUObject &src )
 	this->name_ = src.name_;
 	this->free = src.free;
 	this->changed_ = true;
+	tooltip_ = src.tooltip_;
 }
 
 void cUObject::init()
@@ -663,3 +664,30 @@ stError *cUObject::getProperty( const QString &name, cVariant &value ) const
 
 	PROPERTY_ERROR( -1, QString( "Property not found: '%1'" ).arg( name ) )
 }
+
+void cUObject::sendTooltip( cUOSocket* mSock )
+{
+
+	UINT32 tt = getTooltip();
+	
+	if( tt == 0xFFFFFFFF )
+	{
+		tt = ItemsManager::instance()->getUnusedTooltip(); 
+		setTooltip( tt );
+	}
+
+
+	cUOTxAttachTooltip* tooltip = new cUOTxAttachTooltip;
+
+	tooltip->setId( tt );
+	tooltip->setSerial( serial() );
+
+	if( mSock->toolTips() == NULL || tt >= mSock->toolTips()->size() || !mSock->haveTooltip( tt ))
+	{
+		mSock->addTooltip( tt );
+		mSock->send( tooltip );
+	}
+
+	delete( tooltip );
+}
+

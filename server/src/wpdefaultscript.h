@@ -111,6 +111,7 @@ public:
 	virtual bool onSkillUse( P_CHAR Character, UI08 Skill ) { Q_UNUSED(Character); Q_UNUSED(Skill); return false; }
 	virtual bool onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id ) { Q_UNUSED(pChar); Q_UNUSED(pObject); Q_UNUSED(id); return false; }
 	virtual bool onShowContextMenu( P_CHAR pChar, cUObject *pObject ) { Q_UNUSED(pChar); Q_UNUSED(pObject); return false; }
+	virtual bool onShowToolTip( P_CHAR pChar, cUObject *pObject ) { Q_UNUSED(pChar); Q_UNUSED(pObject); return false; }
 	virtual bool onShowPaperdoll( P_CHAR pChar, P_CHAR pOrigin ) { Q_UNUSED( pChar ); Q_UNUSED( pOrigin ); return false; }
 
 	// Drop/Pickup Events

@@ -116,6 +116,7 @@ class cUObject : public PersistentObject, public cDefinable
 // Data Members
 private:
 	QString bindmenu_;
+	UINT32 tooltip_;
 	QString name_;
 	Coord_cl pos_;
 	SERIAL serial_;
@@ -172,6 +173,7 @@ public:
 	SERIAL multis() const		{ return multis_;	}
 	cCustomTags tags() const	{ return tags_;		}
 	cCustomTags& tags()			{ return tags_;		}
+	UINT32 getTooltip() const		{ return tooltip_; }
 
 	void setBindmenu( const QString& d )	{ bindmenu_ = d; changed_ = true;	}
 	void setName( const QString& d )		{ name_ = d; changed_ = true;		}	
@@ -179,6 +181,8 @@ public:
 	void setMultis( const SERIAL d )		{ multis_ = d; changed_ = true;		}
 	void setTags( const cCustomTags& d )	{ tags_ = d; changed_ = true;		}
 	virtual void setSerial( SERIAL d )		{ serial_ = d; changed_ = true;	}
+	void setTooltip( const UINT32 d )		{ tooltip_ = d; }
+	void sendTooltip( cUOSocket* mSock );
 
 	bool isItem() { return (serial_ != INVALID_SERIAL && serial_ > 0 && serial_ >= 0x40000000); }
 	bool isChar() { return (serial_ != INVALID_SERIAL && serial_ > 0 && serial_ <  0x40000000); }

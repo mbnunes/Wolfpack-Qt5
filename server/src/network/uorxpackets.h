@@ -237,7 +237,8 @@ public:
 		contextMenuRequest = 0x13,
 		contextMenuSelection = 0x15,
 		setLanguage = 0x0B,
-		castSpell = 0x1c
+		castSpell = 0x1c,
+		toolTip = 0x10
 	};
 
 	cUORxMultiPurpose( const QByteArray &data ): cUOPacket( data ) {}
@@ -281,11 +282,12 @@ public:
 };
 
 //0xBF 0x10 Server tooltip question
+
 class cUORxRequestToolTip: public cUORxMultiPurpose
 {
 public:
 	cUORxRequestToolTip( const QByteArray &data ): cUORxMultiPurpose( data ) {}
-	Q_UINT32 object( void ) const { return this->getInt( 5 ); }
+	UINT32 serial( void ) const { return getInt( 5 ); }
 };
 
 // 0xBD Set Version

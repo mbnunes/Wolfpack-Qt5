@@ -74,6 +74,8 @@ public:
 	bool onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id );
 	bool onShowContextMenu( P_CHAR pChar, cUObject *pObject );
 
+	bool onShowToolTip( P_CHAR pChar, cUObject *pObject );
+
 	bool onSpeech( cUObject *listener, P_CHAR talker, const QString &text, const QValueVector< UINT16 >& keywords );
 
 	// Drop/Pickup events

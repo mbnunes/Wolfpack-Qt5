@@ -2104,6 +2104,7 @@ void cChar::resend( bool clean, bool excludeself )
 
 		drawChar.setHighlight( notority( pChar ) );
 		
+		sendTooltip( mSock );
 		mSock->send( &drawChar );
 	}
 }
@@ -3735,6 +3736,16 @@ bool cChar::onShowContext( cUObject *object )
 {
 	for( UI08 i = 0; i < scriptChain.size(); i++ )
 		if( scriptChain[ i ]->onShowContextMenu( (P_CHAR)this, object ) )
+			return true;
+
+	return false;
+}
+
+bool cChar::onShowTooltip( P_CHAR sender )
+{
+
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onShowToolTip( sender, this  ) )
 			return true;
 
 	return false;

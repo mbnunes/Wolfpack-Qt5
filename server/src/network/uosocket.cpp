@@ -60,6 +60,7 @@
 #include "../targetrequests.h"
 #include "../dragdrop.h"
 #include "../Trade.h"
+#include "../uobject.h"
 
 
 //#include <conio.h>
@@ -91,7 +92,8 @@ using namespace std;
 */
 cUOSocket::cUOSocket( QSocketDevice *sDevice ): 
 		_walkSequence( 0xFF ), lastPacket( 0xFF ), _state( LoggingIn ), _lang( "ENU" ),
-		targetRequest(0), _account(0), _player(0), _rxBytes(0), _txBytes(0), _socket( sDevice )
+		targetRequest(0), _account(0), _player(0), _rxBytes(0), _txBytes(0), _socket( sDevice ), 
+		tooltipscache_(0)
 {
 	_socket->resetStatus();
 	_ip = _socket->peerAddress().toString();
@@ -104,6 +106,7 @@ cUOSocket::~cUOSocket(void)
 {
 	delete _socket;
 	delete targetRequest;
+	delete tooltipscache_;
 
 	QMap< SERIAL, cGump* >::iterator it( gumps.begin() );
 	while( it != gumps.end() )
@@ -950,14 +953,17 @@ void cUOSocket::handleMultiPurpose( cUORxMultiPurpose *packet )
 		handleSetLanguage( dynamic_cast< cUORxSetLanguage* >( packet ) ); break; 
 	case cUORxMultiPurpose::contextMenuRequest: 
 		handleContextMenuRequest( dynamic_cast< cUORxContextMenuRequest* >( packet ) ); break; 
-		break;
 	case cUORxMultiPurpose::contextMenuSelection: 
 		handleContextMenuSelection( dynamic_cast< cUORxContextMenuSelection* >( packet ) ); break; 
 	case cUORxMultiPurpose::castSpell:
 		handleCastSpell( dynamic_cast< cUORxCastSpell* >( packet ) ); break;
+	case cUORxMultiPurpose::toolTip:
+		handleToolTip( dynamic_cast< cUORxRequestToolTip* >( packet ) ); break;
 	default:
-		return;
+		{		
 		packet->print( &cout ); // Dump the packet 
+		return;
+		}
 	}; 
 } 
 
@@ -994,7 +1000,42 @@ void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection *packet )
 		menu->onContextEntry( this->player(), pChar, Tag );
 	}
 } 
+void cUOSocket::handleToolTip( cUORxRequestToolTip *packet )
+{
 
+	P_CHAR pChar;
+	P_ITEM pItem;
+	cUOTxTooltipList tooltips;
+	bool result;
+	
+	pItem = FindItemBySerial( packet->serial() );
+	if( pItem )
+	{
+		if( !pItem->onShowTooltip( this->player() ) ) // just for test if object haven't tooltip
+		{
+			tooltips.setSerial( pItem->serial() );
+			tooltips.setId( pItem->getTooltip() );
+			tooltips.addLine( 0x1005bd, " \t" + pItem->name() + "\t " );
+			this->send( &tooltips );
+		}
+	}
+	else
+	{
+		pChar = FindCharBySerial( packet->serial() );
+		if( !pChar ) 
+			return;
+
+		if( !pChar->onShowTooltip( this->player() ) )
+		{
+			tooltips.setSerial( pChar->serial() );
+			tooltips.setId( pChar->getTooltip() );
+			tooltips.addLine( 0x1005bd, " \t" + pChar->name() + "\t " );
+			this->send( &tooltips );
+		}
+	}
+
+
+}
 // Show a context menu
 /*!
   This method handles cUORxContextMenuRequest packet types.
@@ -1187,6 +1228,7 @@ void cUOSocket::sendChar( P_CHAR pChar )
 	cUOTxDrawChar drawChar;
 	drawChar.fromChar( pChar );
 	drawChar.setHighlight( pChar->notority( _player ) );
+	pChar->sendTooltip( this );
 	send( &drawChar );
 }
 
@@ -1892,6 +1934,7 @@ void cUOSocket::resendWorld( bool clean )
 		cUOTxDrawChar drawChar;
 		drawChar.fromChar( pChar );
 		drawChar.setHighlight( pChar->notority( _player ) );
+		pChar->sendTooltip( this );
 		send( &drawChar );
 	}
 }
@@ -2414,4 +2457,15 @@ void cUOSocket::closeGump( UINT32 type, UINT32 returnCode )
 	closegump.setButton( returnCode );
 	closegump.setType( type );
 	send( &closegump );
+}
+
+void cUOSocket::addTooltip( UINT32 data )
+{
+	if( tooltipscache_ == NULL )
+		tooltipscache_ = new QBitArray;
+
+	if( data >= tooltipscache_->size() )
+		tooltipscache_->resize( data+2 );
+
+	tooltipscache_->setBit( data );
 }

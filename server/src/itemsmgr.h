@@ -75,14 +75,17 @@ protected:
 	// Data members
 	std::list<cItem*> deletedItems;
 	SERIAL lastUsedSerial;
+	UINT32 lastTooltip;
 
 public:
-	cItemsManager() : lastUsedSerial(0) {}
+	cItemsManager() : lastUsedSerial(0), lastTooltip(0) {}
 	~cItemsManager();
 	void registerItem( cItem* ) throw(wp_exceptions::wpbad_ptr);
 	void unregisterItem( cItem* ) throw (wp_exceptions::wpbad_ptr);
 	void deleteItem ( cItem * ) throw (wp_exceptions::wpbad_ptr);
 	void purge();
+	UINT32 getUnusedTooltip() { return ++lastTooltip; }
+	
 	SERIAL getUnusedSerial() const;
 };
 

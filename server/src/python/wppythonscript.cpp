@@ -293,6 +293,22 @@ bool WPPythonScript::onShowContextMenu( P_CHAR pChar, cUObject *pObject )
 	PyEvalMethod( "onShowContextMenu" )
 }
 
+bool WPPythonScript::onShowToolTip( P_CHAR pChar, cUObject *pObject )
+{
+	PyHasMethod( "onShowToolTip" )
+	
+	PyObject *tuple = PyTuple_New( 2 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( pChar ) );
+
+	if( isItemSerial( pObject->serial() ) )
+		PyTuple_SetItem( tuple, 1, PyGetItemObject( (P_ITEM)pObject ) );
+	else if( isCharSerial( pObject->serial() ) )
+		PyTuple_SetItem( tuple, 1, PyGetCharObject( (P_CHAR)pObject ) );
+
+	PyEvalMethod( "onShowToolTip" )
+}
+
+
 bool WPPythonScript::onBeginCast( P_CHAR pMage, UINT8 spell, UINT8 type )
 {
 	PyHasMethod( "onBeginCast" )

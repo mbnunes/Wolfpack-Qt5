@@ -184,6 +184,7 @@ void cCorpse::update( cUOSocket *mSock )
 
 	if( mSock )
 	{
+		sendTooltip( mSock );
 		mSock->send( &sendItem );
 		mSock->send( &corpseEquip );
 		mSock->send( &corpseContent );

@@ -345,6 +345,7 @@ public:
 	bool onDropOnItem( P_ITEM pItem );
 	bool onDropOnGround( const Coord_cl &pos );
 	bool onPickup( P_CHAR pChar );
+	bool onShowTooltip( P_CHAR sender ); // Shows a tool tip for specific object
 	
 	QPtrList< cItem > getContainment() const;
 
