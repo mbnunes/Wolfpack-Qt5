@@ -256,6 +256,8 @@ void cUOSocket::recieve()
 		handleBookPage( dynamic_cast< cUORxBookPage* >( packet ) ); break;
 	case 0x6c:
 		handleTarget( dynamic_cast< cUORxTarget* >( packet ) ); break;
+	case 0x6F:
+ 		handleSecureTrading( dynamic_cast< cUORxSecureTrading* >( packet ) ); break;
 	case 0x72:
 		handleChangeWarmode( dynamic_cast< cUORxChangeWarmode* >( packet ) ); break;
 	case 0x73:
@@ -2163,6 +2165,12 @@ bool cUOSocket::inRange( cUOSocket* socket ) const
 	if ( !socket || !socket->player() || !_player )
 		return false;
 	return ( socket->player()->dist( _player ) < socket->player()->visualRange() );
+}
+
+void cUOSocket::handleSecureTrading( cUORxSecureTrading *packet )
+{
+//	Trade::trademsg( this, packet );
+	this->player()->onTrade( packet->type(), packet->buttonstate(), packet->itemserial() );
 }
 
 void cUOSocket::handleBookPage( cUORxBookPage* packet )

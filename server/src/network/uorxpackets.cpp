@@ -64,6 +64,7 @@ cUOPacket *getUORxPacket( const QByteArray &data )
 	case 0x5D:		return new cUORxPlayCharacter( data );
 	case 0x66:		return new cUORxBookPage( data );
 	case 0x6C:		return new cUORxTarget( data );
+	case 0x6F:		return new cUORxSecureTrading( data );
 	case 0x72:		return new cUORxChangeWarmode( data );
 	case 0x73:		return new cUORxPing( data );
 	case 0x75:		return new cUORxRename( data );

@@ -113,6 +113,8 @@ public:
 	virtual bool onCastSpell( unsigned int spell );
 	bool onUse( P_ITEM pItem );
 	bool onPickup( P_ITEM pItem );
+	bool onTrade( unsigned int type, unsigned int buttonstate, SERIAL itemserial );
+	bool onTradeStart( P_PLAYER partner );
 
 	// getters
     cAccount*			account() const;

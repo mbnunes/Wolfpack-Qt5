@@ -526,8 +526,10 @@ void DragAndDrop::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar
 	// Open a secure trading window
 	if( pOtherChar->objectType() == enPlayer && dynamic_cast<P_PLAYER>(pOtherChar)->socket() )
 	{
+		dynamic_cast<P_PLAYER>(pChar)->onTradeStart( dynamic_cast<P_PLAYER>(pOtherChar) );
 		// Check if we're already trading, 
 		// if not create a new window
+		/*
 		P_ITEM tradeWindow = pChar->atLayer( cBaseChar::TradeWindow );
 
 		//if( !tradeWindow )
@@ -540,7 +542,9 @@ void DragAndDrop::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar
 		pItem->setPos( Coord_cl(rand() % 60, rand() % 60, 9) );
 		pItem->removeFromView( false );
 		pItem->update();
+		*/
 		return;
+
 	}
 
 	// Dropping based on AI Type

@@ -434,6 +434,16 @@ public:
 	ushort model() const		{ return getShort( 17 ); }
 };
 
+// 0x6F Secure Trading
+class cUORxSecureTrading : public cUOPacket
+{
+public:
+	cUORxSecureTrading( const QByteArray &data ): cUOPacket( data ) {}
+	uchar type() const			{ return (*this)[3]; }
+	uint itemserial() const			{ return getInt( 4 ); }
+	uchar buttonstate() const		{ return (*this)[11]; }
+};
+
 // 0x22 ResyncWalk
 class cUORxResyncWalk: public cUOPacket
 {
@@ -485,6 +495,7 @@ public:
 
 	QStringList lines();
 };
+
 
 // 0xB1 Gump Response
 class cUORxGumpResponse : public cUOPacket

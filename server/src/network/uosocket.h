@@ -131,6 +131,7 @@ public:
 	void send( cGump	 *gump );
 
 	// Handler
+	void handleSecureTrading( cUORxSecureTrading* packet );
 	void handleLoginRequest( cUORxLoginRequest *packet );
 	void handleHardwareInfo( cUORxHardwareInfo *packet );
 	void handleSelectShard( cUORxSelectShard *packet );

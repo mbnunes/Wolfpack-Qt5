@@ -1269,6 +1269,45 @@ void cPlayer::removePet( P_NPC pPet, bool noOwnerChange )
 	}
 }
 
+bool cPlayer::onTradeStart( P_PLAYER partner )
+{
+	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_TRADESTART );
+	bool result = false;
+	
+	if( scriptChain || global )
+	{
+		PyObject *args = Py_BuildValue( "(O&O&)", PyGetCharObject, this, PyGetCharObject, partner );
+
+		result = cPythonScript::callChainedEventHandler( EVENT_TRADESTART, scriptChain, args );
+
+		if( !result && global )
+			result = global->callEventHandler( EVENT_TRADESTART, args );
+
+		Py_DECREF( args );
+	}
+
+	return result;
+}
+
+bool cPlayer::onTrade( unsigned int type, unsigned int buttonstate, SERIAL itemserial )
+{
+	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_TRADE );
+	bool result = false;
+	
+	if( scriptChain || global )
+	{
+		PyObject *args = Py_BuildValue( "(O&iii)", PyGetCharObject, this, type, buttonstate, itemserial );
+
+		result = cPythonScript::callChainedEventHandler( EVENT_TRADE, scriptChain, args );
+
+		if( !result && global )
+			result = global->callEventHandler( EVENT_TRADE, args );
+
+		Py_DECREF( args );
+	}
+
+	return result;
+}
 bool cPlayer::onPickup( P_ITEM pItem )
 {
 	bool result = false;

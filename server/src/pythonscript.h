@@ -80,7 +80,9 @@ enum ePythonEvent
 	EVENT_BOOKUPDATEPAGE,
 	EVENT_DAMAGE,
 	EVENT_CASTSPELL,
-	EVENT_COUNT
+	EVENT_TRADE,
+	EVENT_TRADESTART,
+	EVENT_COUNT,
 };
 
 // Keep this in Synch with the Enum above
@@ -122,6 +124,8 @@ static char *eventNames[] =
 	"onBookUpdatePage",
 	"onDamage",
 	"onCastSpell",
+	"onTrade",
+	"onTradeStart",
 	0
 };
 
