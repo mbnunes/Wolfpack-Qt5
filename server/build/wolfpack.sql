@@ -3,24 +3,12 @@
 # http://www.phpmyadmin.net/ (download page)
 #
 # Servidor: localhost
-# Tempo de Generação: Out 26, 2002 at 03:43 PM
+# Tempo de Generação: Out 22, 2002 at 03:42 PM
 # Versão do Servidor: 4.00.01
 # Versão do PHP: 4.2.2
 # Banco de Dados : `wolfpack`
 # --------------------------------------------------------
 
-#
-# Estrutura da tabela `bookpages`
-#
-
-CREATE TABLE bookpages (
-  serial int(11) NOT NULL default '0',
-  page tinyint(3) unsigned NOT NULL default '0',
-  text varchar(255) binary NOT NULL default '',
-  KEY page (page),
-  KEY serial (serial)
-) TYPE=MyISAM;
-# --------------------------------------------------------
 
 #
 # Estrutura da tabela `books`
@@ -77,7 +65,7 @@ CREATE TABLE characters (
   npc tinyint(1) NOT NULL default '0',
   holdgold int(10) unsigned NOT NULL default '0',
   shop tinyint(1) NOT NULL default '0',
-  own int(11) NOT NULL default '0',
+  own int(11) NOT NULL default '-1',
   robe int(11) NOT NULL default '0',
   karma int(11) NOT NULL default '0',
   fame int(11) NOT NULL default '0',
@@ -101,7 +89,7 @@ CREATE TABLE characters (
   fz1 int(11) NOT NULL default '0',
   fx2 int(11) NOT NULL default '0',
   fy2 int(11) NOT NULL default '0',
-  spawn int(11) NOT NULL default '0',
+  spawn int(11) NOT NULL default '-1',
   hidden tinyint(3) unsigned NOT NULL default '0',
   hunger int(11) NOT NULL default '0',
   npcaitype int(11) NOT NULL default '0',
@@ -151,8 +139,8 @@ CREATE TABLE items (
   creator varchar(255) binary default NULL,
   sk_name tinyint(3) unsigned NOT NULL default '0',
   color smallint(5) unsigned NOT NULL default '0',
-  cont int(11) NOT NULL default '0',
-  layer int(11) NOT NULL default '0',
+  cont int(11) NOT NULL default '-1',
+  layer tinyint(3) NOT NULL default '0',
   type int(11) NOT NULL default '0',
   type2 int(11) NOT NULL default '0',
   offspell int(11) NOT NULL default '0',
@@ -191,7 +179,7 @@ CREATE TABLE items (
   magic int(11) NOT NULL default '0',
   owner int(11) NOT NULL default '-1',
   visible int(11) NOT NULL default '0',
-  spawn int(11) NOT NULL default '0',
+  spawn int(11) NOT NULL default '-1',
   dir int(11) NOT NULL default '0',
   priv int(11) NOT NULL default '0',
   value int(11) NOT NULL default '0',
@@ -254,4 +242,124 @@ CREATE TABLE uobjectmap (
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM;
+
+CREATE TABLE spellbooks (
+  serial int(11) NOT NULL default '0',
+  spells1 int(11) UNSIGNED NOT NULL default '0',
+  spells2 int(11) UNSIGNED NOT NULL default '0',
+  PRIMARY KEY  (serial),
+  UNIQUE KEY serial (serial)
+) TYPE=MyISAM COMMENT='class cSpellBook';
+
+CREATE TABLE multis_bans (
+  serial int(11) NOT NULL default '0',
+  ban int(11) NOT NULL default '-1',
+  KEY  (serial)
+) TYPE=MyISAM COMMENT='Bans of cMulti';
+
+CREATE TABLE multis_friends (
+  serial int(11) NOT NULL default '0',
+  friend int(11) NOT NULL default '-1',
+  KEY  (serial)
+) TYPE=MyISAM COMMENT='Friends of cMulti';
+
+CREATE TABLE multis (
+  serial int(11) NOT NULL default '0',
+  coowner int(11) NOT NULL default '-1',
+  deedsection varchar(255) NOT NULL default '',
+  PRIMARY KEY  (serial),
+  UNIQUE KEY serial (serial)
+) TYPE=MyISAM COMMENT='class cMulti';
+
+CREATE TABLE boats_itemoffsets (
+  serial int(11) NOT NULL default '0',
+  a tinyint(1) UNSIGNED NOT NULL default '0',
+  b tinyint(1) UNSIGNED NOT NULL default '0',
+  c tinyint(1) UNSIGNED NOT NULL default '0',
+  offset smallint(6) default '0',
+  KEY (serial)
+) TYPE=MyISAM COMMENT='Itemoffsets of cBoat Components';
+
+CREATE TABLE boats_itemids (
+  serial int(11) NOT NULL default '0',
+  a tinyint(1) UNSIGNED NOT NULL default '0',
+  b tinyint(1) UNSIGNED NOT NULL default '0',
+  id smallint(6) unsigned default '0',
+  KEY (serial)
+) TYPE=MyISAM COMMENT='ItemIDs of cBoat Components';
+
+CREATE TABLE boats (
+  serial int(11) NOT NULL default '0',
+  autosail tinyint(1) UNSIGNED NOT NULL default '0',
+  boatdir tinyint(1) UNSIGNED NOT NULL default '0',
+  itemserial1 int(11) NOT NULL default '-1',
+  itemserial2 int(11) NOT NULL default '-1',
+  itemserial3 int(11) NOT NULL default '-1',
+  itemserial4 int(11) NOT NULL default '-1',
+  multi1 smallint(6) unsigned default '0',
+  multi2 smallint(6) unsigned default '0',
+  multi3 smallint(6) unsigned default '0',
+  multi4 smallint(6) unsigned default '0',
+  multi5 smallint(6) unsigned default '0',
+  multi6 smallint(6) unsigned default '0',
+  multi7 smallint(6) unsigned default '0',
+  multi8 smallint(6) unsigned default '0',
+  PRIMARY KEY  (serial),
+  UNIQUE KEY serial (serial)
+) TYPE=MyISAM COMMENT='class cBoat';
+
+CREATE TABLE houses (
+  serial int(11) NOT NULL default '0',
+  nokey tinyint(1) NOT NULL default '0',
+  charpos_x smallint(6) NOT NULL default '0',
+  charpos_y smallint(6) NOT NULL default '0',
+  charpos_z smallint(6) NOT NULL default '0',
+  PRIMARY KEY  (serial),
+  UNIQUE KEY serial (serial)
+) TYPE=MyISAM COMMENT='class cHouse';
+
+CREATE TABLE guildstones_war (
+  serial int(11) NOT NULL default '0',
+  enemy int(11) NOT NULL default '-1'
+) TYPE=MyISAM COMMENT='Other guildstones this guild is at war with.';
+
+CREATE TABLE guildstones_recruits (
+  serial int(11) NOT NULL default '0',
+  recruit int(11) NOT NULL default '-1'
+) TYPE=MyISAM COMMENT='Recruitees of this guild.';
+
+CREATE TABLE guildstones_members (
+  serial int(11) NOT NULL default '0',
+  member int(11) NOT NULL default '-1'
+) TYPE=MyISAM COMMENT='Members in this guild.';
+
+CREATE TABLE guildstones (
+  serial int(11) NOT NULL default '0',
+  guildname varchar(255) NOT NULL default '',
+  abbreviation varchar(255) NOT NULL default '',
+  guildtype tinyint(1) NOT NULL default '0',
+  charter longtext NOT NULL default '',
+  webpage varchar(255) NOT NULL default 'http://www.wpdev.org',
+  master int(11) NOT NULL default '-1',
+  priv int(11) NOT NULL default '-1',
+  PRIMARY KEY  (serial),
+  UNIQUE KEY serial (serial)
+) TYPE=MyISAM COMMENT='class cGuildStone';
+
+CREATE TABLE corpses_equipment (
+  serial int(11) NOT NULL default '0',
+  item int(11) NOT NULL default '-1',
+  layer tinyint(3) UNSIGNED NOT NULL default '0'
+) TYPE=MyISAM COMMENT='Equipment of corpses.';
+
+CREATE TABLE corpses (
+  serial int(11) NOT NULL default '0',
+  bodyid smallint(6) UNSIGNED NOT NULL default '0',
+  hairstyle smallint(6) UNSIGNED NOT NULL default '0',  
+  haircolor smallint(6) UNSIGNED NOT NULL default '0',
+  beardstyle smallint(6) UNSIGNED NOT NULL default '0',
+  beardcolor smallint(6) UNSIGNED NOT NULL default '0',
+  PRIMARY KEY  (serial),
+  UNIQUE KEY serial (serial)
+) TYPE=MyISAM COMMENT='class cCorpse';
 
