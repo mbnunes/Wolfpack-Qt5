@@ -72,10 +72,10 @@ def showWhoGump(player, page):
 		gump.addButton( 240, 320, 0x0FC, 0x0FC, 2 ) # Previous Page
 		
 	offset = 22
-	for item in wholist[:10]:
-		gump.addButton( 20, 40 + offset, 0xFA5, 0xFA7, 2 + player.serial )
-		gump.addText( 54, 40 + offset, tr("%s [%s]") % ( player.name, player.account.name ), 0x834 )
-		gump.addText( 257, 40 + offset, unicode(player.socket.address), 0x834 )
+	for char in wholist[:10]:
+		gump.addButton( 20, 40 + offset, 0xFA5, 0xFA7, 2 + char.serial )
+		gump.addText( 54, 40 + offset, tr("%s [%s]") % ( char.name, char.account.name ), 0x834 )
+		gump.addText( 257, 40 + offset, unicode(char.socket.address), 0x834 )
 		offset += 24
 	
 	gump.setArgs( [ page ] )
