@@ -398,25 +398,6 @@ bool QuestionSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pChar, const QStr
 	return false;
 }
 
-// arghl
-bool TriggerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pChar, const QString& comm )
-{
-	if( pPlayer->dist( pChar ) < 5 )
-		return false;
-
-//	if( !pPlayer->trigger() || pPlayer->trigword().isEmpty() || !comm.contains( pChar->trigword(), false )  )
-//		return false;
-
-	if( pChar->disabled() > 0 && pChar->disabled() > uiCurrentTime )
-	{
-		pChar->talk( tr( "I'm a little busy now! Leave me be!" ) );
-		return false;
-	}
-
-//	Trig->triggernpc( calcSocketFromChar( pPlayer ), pChar, 1 ); // LEGACY
-	return true;
-}
-
 bool EscortSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pEscortee, const QString& comm )
 {
 	// not close enough / not an escortee
@@ -927,13 +908,6 @@ void HouseSpeech( cUOSocket *socket, P_CHAR pPlayer, const QString& msg )
 //			This is especially usefull in crowded places.
 bool cSpeech::response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm )
 {
-    // What the heck is that. It's a COMMAND and then we can use 'remove anyway !!
-	/*if ((comm.contains("#EMPTY")) && online(currchar[s]) && !pPlayer->dead && pPlayer->isGM())
-	{ // restricted to GMs for now. It's too powerful (Duke, 5.6.2001)
-		target(s, 0, 1, 0, 71, "Select container to empty:");
-		return 1;
-	}*/
-
     if( !pPlayer->socket() || pPlayer->dead() )
 		return false;
 
@@ -966,9 +940,6 @@ bool cSpeech::response( cUOSocket *socket, P_CHAR pPlayer, const QString& comm )
 			return true;
 		
 		if( QuestionSpeech( socket, pPlayer, pNpc, comm ) )
-			return true;
-		
-		if( TriggerSpeech( socket, pPlayer, pNpc, comm ) )
 			return true;
 		
 		if( EscortSpeech( socket, pPlayer, pNpc, comm ) )

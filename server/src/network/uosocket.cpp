@@ -819,7 +819,6 @@ void cUOSocket::sysMessage( const QString &message, Q_UINT16 color, UINT16 font 
 	speech.setSource( 0xFFFFFFFF );
 	speech.setModel( 0xFFFF );
 	speech.setFont( font );
-	speech.setLanguage( "ENU" ); // Standard server language >> Change later
 	speech.setColor( color );
 	speech.setType( cUOTxUnicodeSpeech::System );
 	speech.setName( "System" );
@@ -2078,23 +2077,25 @@ void cUOSocket::handleGumpResponse( cUORxGumpResponse* packet )
 
 void cUOSocket::sendVendorCont( P_ITEM pItem )
 {
+	// Only allowed for pItem's contained by a character
 	cUOTxItemContent itemContent;
 	cUOTxVendorBuy vendorBuy;
 	vendorBuy.setSerial( pItem->serial );
 
-	cChar::ContainerContent container = _player->content();
-	cChar::ContainerContent::const_iterator it(container.begin());
-	cChar::ContainerContent::const_iterator end(container.end());
+	cItem::ContainerContent container = pItem->content();
+	cItem::ContainerContent::const_iterator it( container.begin() );
+	cItem::ContainerContent::const_iterator end( container.end() );
 	for( Q_INT32 i = 0; it != end; ++it, ++i )
 	{
 		P_ITEM mItem = *it;
 
 		if( mItem )
 		{
-			if( mItem->restock <= 0 )
+			// For Layer 0x1A restock is the amount currently in stock
+			if( pItem->layer() == 0x1A && mItem->restock <= 0 )
 				continue;
 
-			itemContent.addItem( mItem->serial, mItem->id(), mItem->color(), i, i, mItem->restock, pItem->serial );
+			itemContent.addItem( mItem->serial, mItem->id(), mItem->color(), i, i, ( pItem->layer() == 0x1A ) ? mItem->restock : mItem->amount(), pItem->serial );
 			vendorBuy.addItem( mItem->value, mItem->getName() );
 		}
 	}
@@ -2105,9 +2106,9 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 
 void cUOSocket::sendBuyWindow( P_CHAR pVendor )
 {
-	P_ITEM pBought = pVendor->GetItemOnLayer( 0x1C );
-	P_ITEM pStock = pVendor->GetItemOnLayer( 0x1A );
-
+	P_ITEM pBought = pVendor->atLayer( cChar::BuyNoRestockContainer );
+	P_ITEM pStock = pVendor->atLayer( cChar::BuyRestockContainer );
+	
 	if( pBought )
 		sendVendorCont( pBought );
 
@@ -2117,6 +2118,7 @@ void cUOSocket::sendBuyWindow( P_CHAR pVendor )
 	cUOTxDrawContainer drawContainer;
 	drawContainer.setSerial( pVendor->serial );
 	drawContainer.setGump( 0x30 );
+
 	send( &drawContainer );
 }
 

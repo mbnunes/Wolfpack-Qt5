@@ -238,16 +238,17 @@ void cNewMagic::unload()
 
 cEndCasting::cEndCasting( P_CHAR _mage, UINT8 _spell, UINT8 _type, UINT32 _delay )
 {
-	mage = _mage->serial;
+	destSer = _mage->serial;
 	spell = _spell;
 	type = _type;
 	serializable = false;
 	expiretime = uiCurrentTime + _delay;
+	objectid = "endcasting";
 }
 
 void cEndCasting::Expire()
 {
-	P_CHAR pMage = FindCharBySerial( mage );
+	P_CHAR pMage = FindCharBySerial( destSer );
 	
 	if( !pMage )
 		return;
@@ -317,10 +318,22 @@ void cNewMagic::disturb( P_CHAR pMage, bool fizzle, INT16 chance )
 
 	// Stop the repeating animation and the endspell thing
 	//pMage->stopRepeatedAction();
-	TempEffects::instance()->dispel( pMage, 0, "endcasting" ); // just to be sure...
+
+	cChar::Effects effects = pMage->effects();
+	for( INT32 i = 0; i < effects.size(); ++i )
+	{
+		if( effects[i]->objectID() == "endcasting" )
+		{
+			// We found our effect
+			TempEffects::instance()->teffects.erase( effects[i] );
+			pMage->removeEffect( effects[i] );
+			break;
+		}
+	}
 	
 	if( fizzle )
 	{
+		pMage->effect( 0x3735, 1, 30 );
 		pMage->soundEffect( 0x005C );
 
 		if( pMage->socket() )
@@ -513,6 +526,9 @@ void cNewMagic::castSpell( P_CHAR pMage, UINT8 spell )
 		return;
 	}
 
+	if( pMage->casting() )
+		disturb( pMage, true );
+
 	// Check for required mana and required reagents, if not present: cancel casting
 	if( !checkMana( pMage, spell ) || !checkReagents( pMage, spell ) )
 		return;
@@ -525,7 +541,7 @@ void cNewMagic::castSpell( P_CHAR pMage, UINT8 spell )
 
 	// Say the mantra
 	// Type 0x0A : Spell
-	pMage->talk( sInfo->mantra, pMage->saycolor(), 0x0A, false );
+	pMage->talk( sInfo->mantra, pMage->saycolor() );
 
 	// This is a very interesting move of OSI 
 	// They send all action-packets the character has to perform in a row. 
@@ -591,20 +607,36 @@ bool cNewMagic::checkTarget( P_CHAR pCaster, stNewSpell *sInfo, cUORxTarget *tar
 		pos.z = target->z();
 	}
 
-	// Distance check (VisRange + 5 for macros)
-	if( pos.distance( socket->player()->pos ) > ( socket->player()->VisRange() + 5 ) )
-	{
-		socket->sysMessage( tr( "You can't see the target." ) );
-		return false;
-	}
 
-	// Line of Sight check
-	if( !lineOfSight( pos, socket->player()->pos, WALLS_CHIMNEYS|TREES_BUSHES|ROOFING_SLANTED|LAVA_WATER|DOORS ) )
+	if( pItem && !pItem->isInWorld() )
 	{
-		socket->sysMessage( tr( "You can't see the target." ) );
-		return false;
+		P_CHAR pOut = pItem->getOutmostChar();
+		
+		if( pOut == socket->player() )
+			return true;
+		else
+		{
+			socket->sysMessage( tr( "You can't reach this." ) );
+			return false;
+		}
 	}
-
+	else
+	{
+		// Distance check (VisRange + 5 for macros)
+		if( pos.distance( socket->player()->pos ) > ( socket->player()->VisRange() + 5 ) )
+		{
+			socket->sysMessage( tr( "You can't see the target." ) );
+			return false;
+		}
+	
+		// Line of Sight check
+		if( !lineOfSight( pos, socket->player()->pos, WALLS_CHIMNEYS|TREES_BUSHES|ROOFING_SLANTED|LAVA_WATER|DOORS ) )
+		{
+			socket->sysMessage( tr( "You can't see the target." ) );
+			return false;
+		}
+	}
+	
 	// Visibility check (Chars)
 	if( pChar && pChar->isHidden() && !socket->player()->isGM() )
 	{

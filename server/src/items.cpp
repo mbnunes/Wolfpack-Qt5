@@ -2179,7 +2179,7 @@ void cItem::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 			return;
 	}
 
-	QString lang( "ENU" );
+	QString lang;
 
 	if( socket )
 		lang = socket->lang();

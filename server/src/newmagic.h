@@ -111,7 +111,6 @@ enum eCastType
 class cEndCasting: public cTempEffect
 {
 private:
-	SERIAL mage;
 	UINT8 spell;
 	UINT8 type;
 public:	

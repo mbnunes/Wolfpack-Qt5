@@ -494,9 +494,11 @@ void cUObject::effect( UINT16 id, UINT8 speed, UINT8 duration, UINT16 hue, UINT1
 	effect.setType( ET_STAYSOURCESER );
 	effect.setSource( serial );
 	effect.setSourcePos( pos );
+	effect.setTargetPos( pos );
 	effect.setId( id );
     effect.setSpeed( speed );
 	effect.setDuration( duration );
+	effect.setFixedDirection( true );
 	effect.setHue( hue );
 	effect.setRenderMode( renderMode );
 

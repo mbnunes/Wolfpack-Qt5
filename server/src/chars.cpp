@@ -88,7 +88,7 @@ unsigned int cChar::dist(cItem* pi)		{	return pos.distance(pi->pos);		}
 QString cChar::objectID() const			{	return "cChar";						}
 
 cChar::cChar():
-	socket_(0), account_(0), owner_(0)
+	socket_(0), account_(0), owner_(0), guildstone_( INVALID_SERIAL )
 {
 	VisRange_ = VISRANGE;
 	Init( false );
@@ -277,7 +277,6 @@ void cChar::Init(bool ser)
 	this->setGuildtoggle(false);		// Toggle for Guildtitle								(DasRaetsel)
 	this->setGuildtitle(QString::null);	// Title Guildmaster granted player						(DasRaetsel)
 	this->setGuildfealty(INVALID_SERIAL);		// Serial of player you are loyal to (default=yourself)	(DasRaetsel)
-	this->setGuildstone(INVALID_SERIAL);		// GuildStone Serial of guild player is in (INVALID_SERIAL=no guild)			(DasRaetsel)
 	this->GuildTraitor=false; 
 	//this->flag=0x04; //1=red 2=grey 4=Blue 8=green 10=Orange
 	this->setCriminal(); //flags = 0x2; 1=red 2=grey 4=Blue 8=green 10=Orange // grey as default - AntiChrist
@@ -671,7 +670,7 @@ void cChar::buildSqlString( QStringList &fields, QStringList &tables, QStringLis
 	fields.push_back( "characters.oldnpcwander,characters.carve,characters.fx1,characters.fy1,characters.fz1" );
 	fields.push_back( "characters.fx2,characters.fy2,characters.spawn,characters.hidden,characters.hunger" );
 	fields.push_back( "characters.npcaitype,characters.spattack,characters.spadelay,characters.taming" );
-	fields.push_back( "characters.summontimer,characters.advobj,characters.poison,characters.poisoned" );
+	fields.push_back( "characters.summontimer,characters.poison,characters.poisoned" );
 	fields.push_back( "characters.fleeat,characters.reattackat,characters.split,characters.splitchance" );
 	fields.push_back( "characters.guildtoggle,characters.guildstone,characters.guildtitle,characters.guildfealty" );
 	fields.push_back( "characters.murderrate,characters.menupriv,characters.questtype,characters.questdestregion" );
@@ -1409,9 +1408,10 @@ void cChar::processNode( const QDomElement &Tag )
 			P_ITEM contItem = this->GetItemOnLayer( contlayer );
 			if( contItem != NULL )
 				contItem->processContainerNode( currNode );
-
 			childNode = childNode.nextSibling();
 		}
+		
+		restock();
 	}
 		
 	//<spattack>3</spattack>
@@ -1584,18 +1584,18 @@ void cChar::soundEffect( UI16 soundId, bool hearAll )
 
 void cChar::talk( const QString &message, UI16 color, UINT8 type, bool autospam, cUOSocket* socket )
 {
-	if( autospam )
+	/*if( autospam )
 	{
 		if( antispamtimer() < uiCurrentTime )
 			setAntispamtimer( uiCurrentTime + MY_CLOCKS_PER_SEC*10 );
 		else 
 			return;
-	}
+	}*/
 
 	if( color == 0xFFFF )
 		color = saycolor_;
 
-	QString lang( "ENU" );
+	QString lang;
 
 	if( this->socket() )
 		lang = socket_->lang();
@@ -1795,30 +1795,17 @@ void cChar::showName( cUOSocket *socket )
 		}
 	}
 	
-	Q_UINT8 gStatus = GuildCompare( this, socket->player() );
 	Q_UINT16 speechColor;
 
-	if( !gStatus )
-	{
-		if( isGMorCounselor() )
-			speechColor = 0x35;
-		else switch( flag() )
-		{
-			case 0x01:	speechColor = 0x26; break; //red
-			case 0x04:	speechColor = 0x5A; break; //blue
-			case 0x08:	speechColor = 0x4A; break; //green
-			case 0x10:	speechColor = 0x30; break; //orange
-			default:	speechColor = 0x3B2; break; //grey
-		}
+	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red
+	switch( notority( socket->player() ) )
+	{		
+		case 0x01:	speechColor = 0x5A; break; //blue
+		case 0x02:	speechColor = 0x43; break; //green
+		case 0x03:	speechColor = 0x3B2; break; //grey
+		case 0x05:	speechColor = 0x30; break; //orange
+		case 0x06:	speechColor = 0x26; break; //red		
 	}
-
-	// Same Guild or Allied Guild
-	else if( gStatus == 1 )
-		speechColor = 0x43;
-
-	// Enemy Guild
-	else if( gStatus == 2 )
-		speechColor = 0x30;
 
 	// Show it to the socket
 	socket->showSpeech( this, charName, speechColor, 3, cUOTxUnicodeSpeech::System );
@@ -2038,6 +2025,7 @@ void cChar::action( UINT8 id )
 
 UINT8 cChar::notority( P_CHAR pChar ) // Gets the notority toward another char
 {
+	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red
 	UINT8 result;
 
 	// Check for Guild status + Highlight
@@ -2048,23 +2036,45 @@ UINT8 cChar::notority( P_CHAR pChar ) // Gets the notority toward another char
 
 	if( pChar->kills() > SrvParams->maxkills() )
 		result = 0x06; // 6 = Red -> Murderer
+	
 	else if( guildStatus == 1 )
 		result = 0x02; // 2 = Green -> Same Guild
+	
 	else if( guildStatus == 2 )
 		result = 0x05; // 5 = Orange -> Enemy Guild
-	else switch( flag() )
-	{	//1=blue 2=green 5=orange 6=Red 7=Transparent(Like skin 66 77a)
-		case 0x01: result = 0x06; break; // If a bad, show as red.
-		case 0x04: result = 0x01; break; // If a good, show as blue.
-		case 0x08: result = 0x02; break; // green (guilds)
-		case 0x10: result = 0x05; break; // orange (guilds)
-		default:   
-			if( npcaitype() > 0 || !isNpc() )
-				return 0x01; // 1 = Blue -> Innocent
-			else
-				return 0x03; // grey
-	}
 
+	// Only players have accounts
+	else if( account() )
+	{
+		if( crimflag() )
+			result = 0x03;
+		else if( karma_ < -2000 ) 
+			result = 0x06;
+		else if( karma_ < 0 )
+			result = 0x03;
+		else
+			result = 0x01;
+	}
+	// Monsters, Human NPCs, Animals
+	else
+	{
+		// Monsters are always bad
+		if( npcaitype_ == 4 )
+			return 0x01;
+		
+		else if( isHuman() )
+		{
+			if( karma_ >= 0 )
+				result = 0x01;
+			else
+				result = 0x06;
+		}
+		
+		// Everything else
+		else
+			result = 0x03;
+	}
+	
 	return result;
 }
 
@@ -3496,4 +3506,34 @@ void cChar::removeEffect( cTempEffect *effect )
 		}
 		++iter;
 	}	
+}
+
+void cChar::restock()
+{
+	P_ITEM pStock = atLayer( BuyRestockContainer );
+
+	if( pStock )
+	{
+		cItem::ContainerContent container(pStock->content());
+		cItem::ContainerContent::const_iterator it (container.begin());
+		cItem::ContainerContent::const_iterator end(container.end());
+		for (; it != end; ++it )
+		{
+			P_ITEM pItem = *it;
+			if( pItem )
+			{
+				if( pItem->restock < pItem->amount() )
+				{
+					UINT16 restock = QMAX( ( pItem->amount() - pItem->restock ) / 2, 1 );
+					pItem->restock += restock;
+				}
+
+				if( SrvParams->trade_system() )
+				{					
+					if( region_ )
+						StoreItemRandomValue( pItem, region_->name() );
+				}
+			}
+		}
+	}
 }

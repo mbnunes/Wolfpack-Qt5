@@ -7,6 +7,11 @@
 # Utility functions used in Python scripts                      #
 #===============================================================#
 
+# Shows Fizzle Animation + Sound
+def fizzle( char ):
+	char.effect( 0x3735, 1, 30 )
+	char.soundeffect( 0x5c )
+
 # STAT MODIFIER (Bless, Curse, etc.)
 
 def statmodifier_dispel( char, args, source, dispelargs ):

@@ -50,6 +50,7 @@
 #include "mapobjects.h"
 #include "resources.h"
 #include "contextmenu.h"
+#include "newmagic.h"
 #include "spellbook.h"
 
 // System Includes
@@ -405,8 +406,10 @@ public:
 		}
 
 		// Object name
-        if( key == "name" )
-			pObject->name = value.latin1();
+        if( key == "name" && pItem )
+			pItem->setName( value );
+		else if( key == "name" && pChar )
+			pChar->name = value;
 
 		// Object color
 		else if( ( key == "color" ) || ( key == "skin" ) )
@@ -1277,6 +1280,12 @@ public:
 		else if( key == "mana" && pChar )
 			result = QString( "%1" ).arg( pChar->mn() );
 
+		else if( key == "restock" && pItem )
+			result = QString::number( pItem->restock );
+
+		else if( key == "value" && pItem )
+			result = QString::number( pItem->value );
+
 		else if( key.left( 4 ) == "tag." )
 		{
 			QString tagName = key.right( key.length() - 4 );
@@ -1819,6 +1828,12 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		Accounts::instance()->reload();
 		socket->sysMessage( tr("Accounts reloaded") );
 	}
+	if( subCommand == "python" )
+	{
+		clConsole.send( "Reloading python scripts\n" );
+		ScriptManager->reload();
+		NewMagic->load();
+	}
 	if( subCommand == "scripts" )
 	{
 		clConsole.send( "Reloading definitions, scripts and wolfpack.xml\n" );
@@ -1834,6 +1849,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		cCommands::instance()->loadACLs();
 
 		ScriptManager->reload(); // Reload Scripts
+		NewMagic->load();
 
 		// Update the Regions
 		for( iter.Begin(); !iter.atEnd(); iter++ )
@@ -1865,6 +1881,7 @@ void commandReload( cUOSocket *socket, const QString &command, QStringList &args
 		cCommands::instance()->loadACLs();
 
 		ScriptManager->reload(); // Reload Scripts
+		NewMagic->load();
 
 		// Update the Regions
 		for( iter.Begin(); !iter.atEnd(); iter++ )
@@ -2411,6 +2428,33 @@ void commandShowSerials( cUOSocket *socket, const QString &command, QStringList 
 		socket->sysMessage( tr( "ShowSerials = '0'" ) );	
 }
 
+class cRestockTarget: public cTargetRequest
+{
+public:
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		P_CHAR pChar = FindCharBySerial( target->serial() );
+
+		if( pChar )
+		{
+			pChar->restock();
+			socket->sysMessage( tr( "This vendor's inventar has been restocked." ) );
+		}
+		else
+		{
+			socket->sysMessage( tr( "Please target a valid vendor." ) );
+		}
+
+		return true;
+	}
+};
+
+void commandRestock( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	socket->sysMessage( tr( "Please select the vendor you want to restock." ) );
+	socket->attachTarget( new cRestockTarget );
+}
+
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
@@ -2437,6 +2481,7 @@ stCommand cCommands::commands[] =
 	{ "REMOVEEVENT",	commandRemoveEvent },
 	{ "REMOVESPELL",	commandRemoveSpell },
 	{ "RESEND",			commandResend },
+	{ "RESTOCK",		commandRestock },
 	{ "RESURRECT",		commandResurrect },
 	{ "SAVE",			commandSave },
 	{ "SET",			commandSet },

@@ -78,7 +78,7 @@ public:
 	enum enLayer { TradeWindow, SingleHandedWeapon, DualHandedWeapon, Shoes, Pants, Shirt, Hat, Gloves,
 	Ring, Neck = 0xA, Hair, Waist, InnerTorso, Bracelet, FacialHair = 0x10,  MiddleTorso, 
 	Earrings, Arms, Back, Backpack, OuterTorso, OuterLegs, InnerLegs, Mount, BuyRestockContainer,
-	ByNoRestockContainer, SellContainer, BankBox, Dragging };
+	BuyNoRestockContainer, SellContainer, BankBox, Dragging };
 
 
 	// Protected Data Members	
@@ -293,6 +293,7 @@ public:
 	void resend( bool clean = true ); // this is called when the char is being created or anything like that
 	void makeShop( void );
 	void updateHealth( void );
+	void restock(); // Restocks this Vendor
 	void action( UINT8 id ); // Do an action
 	P_ITEM getWeapon();
 	QString fullName( void );

@@ -162,6 +162,7 @@ void signal_handler(int signal)
                 ContextMenus::instance()->reload();
                 cCommands::instance()->loadACLs();
                 ScriptManager->reload();
+				NewMagic->load();
 
 				// Update the Regions
 				for( iter.Begin(); !iter.atEnd(); iter++ )
@@ -1125,6 +1126,7 @@ void interpretCommand( const QString &command )
 				ContextMenus::instance()->reload();
 				cCommands::instance()->loadACLs();
 				ScriptManager->reload(); // Reload Scripts
+				NewMagic->load();
 
 				// Update the Regions
 				for( iter.Begin(); !iter.atEnd(); iter++ )

@@ -292,13 +292,23 @@ PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
 	return PyTrue;
 }
 
+/*!
+	Attachs a target request to the socket.
+*/
+PyObject* wpSocket_resendworld( wpSocket* self, PyObject* args )
+{
+	self->pSock->resendWorld( false );
+	return PyTrue;
+}
+
 static PyMethodDef wpSocketMethods[] = 
 {
     { "sysmessage",			(getattrofunc)wpSocket_sysmessage, METH_VARARGS, "Sends a system message to the char." },
 	{ "showspeech",			(getattrofunc)wpSocket_showspeech, METH_VARARGS, "Sends raw speech to the socket." },
 	{ "disconnect",			(getattrofunc)wpSocket_disconnect, METH_VARARGS, "Disconnects the socket." },
 	{ "attachtarget",		(getattrofunc)wpSocket_attachtarget,  METH_VARARGS, "Adds a target request to the socket" },
-	{ "sendgump",			(getattrofunc)wpSocket_sendgump,  METH_VARARGS, "INTERNAL! Sends a gump to this socket." },
+	{ "sendgump",			(getattrofunc)wpSocket_sendgump,	METH_VARARGS, "INTERNAL! Sends a gump to this socket." },
+	{ "resendworld",		(getattrofunc)wpSocket_resendworld,  METH_VARARGS, "Sends the surrounding world to this socket." },
     { NULL, NULL, 0, NULL }
 };
 

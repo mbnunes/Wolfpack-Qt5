@@ -955,8 +955,8 @@ PyObject* wpChar_effect( wpChar* self, PyObject* args )
 	UINT16 id = getArgInt( 0 );
 
 	// Optional Arguments
-	UINT8 duration = 5;
-	UINT8 speed = 10;
+	UINT8 speed = 5;
+	UINT8 duration = 10;
 	UINT16 hue = 0;
 	UINT16 renderMode = 0;
 	
@@ -964,7 +964,7 @@ PyObject* wpChar_effect( wpChar* self, PyObject* args )
 		speed = getArgInt( 1 );
 
 	if( checkArgInt( 2 ) )
-		speed = getArgInt( 2 );
+		duration = getArgInt( 2 );
 
 	if( checkArgInt( 3 ) )
 		hue = getArgInt( 3 );

@@ -67,34 +67,7 @@ void restockNPC( UINT32 currenttime, P_CHAR pc_i )
 {
 	if( SrvParams->shopRestock() && ( shoprestocktime <= currenttime ) )
 	{
-		P_ITEM pStock = pc_i->GetItemOnLayer( 0x1A );
-
-		if( pStock )
-		{
-			cItem::ContainerContent container(pStock->content());
-			cItem::ContainerContent::const_iterator it (container.begin());
-			cItem::ContainerContent::const_iterator end(container.end());
-			for (; it != end; ++it )
-			{
-				P_ITEM pItem = *it;
-				if( pItem )
-				{
-					if( pItem->restock < pItem->amount() )
-					{
-						UINT16 restock = QMAX( ( pItem->amount() - pItem->restock ) / 2, 1 );
-						pItem->restock += restock;
-					}
-
-					if( SrvParams->trade_system() )
-					{
-						cTerritory* Region = cAllTerritories::getInstance()->region( pc_i->pos.x, pc_i->pos.y );
-						
-						if( Region != NULL )
-							StoreItemRandomValue( pItem, Region->name() );
-					}
-				}
-			}
-		}
+		pc_i->restock();
 	}
 }
 
