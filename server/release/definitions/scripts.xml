@@ -67,16 +67,6 @@
 
 	<!-- Potions -->
 	<script>potions</script>
-	<script>potions.agility</script>
-	<script>potions.cure</script>
-	<script>potions.explosion</script>
-	<script>potions.heal</script>
-	<script>potions.mana</script>
-	<script>potions.nightsight</script>
-	<script>potions.poison</script>
-	<script>potions.refresh</script>
-	<script>potions.strength</script>
-	
 
 	<!-- Deeds -->
 	<script>deeds.carpentry_deed</script>
@@ -209,12 +199,12 @@
 
 	-->
 	<script>system.pages</script>
-	<script>system.players</script>	
+	<script>system.players</script>
 	<script>system.poison</script>
 	<script>system.regionchange</script>
 	<script>system.skillgain</script>
 	<script>system.spawns</script>
-	<script>system.trading</script>	
+	<script>system.trading</script>
 	<script>system.uogstatus</script>
 	<script>system.webadmin</script>
 
