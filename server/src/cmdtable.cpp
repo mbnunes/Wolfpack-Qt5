@@ -1150,7 +1150,6 @@ void command_wipe(UOXSOCKET s)
 	}
 	
 	return;
-	
 }
 
 void command_iwipe(UOXSOCKET s)

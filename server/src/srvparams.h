@@ -101,6 +101,8 @@ protected:
 	unsigned int default_jail_time_;
 	unsigned char showCVCS_;
 	unsigned int spiritspeaktimer_;
+	unsigned int spawnRegionCheckTime_;
+	bool cacheMulFiles_;
 
 	// Remote Admin
 	unsigned int ra_port_;
@@ -240,6 +242,8 @@ public:
 	unsigned int default_jail_time() const;
 	unsigned char showCVCS() const;
 	unsigned int spiritspeaktimer() const;
+	bool cacheMulFiles() const;
+	unsigned int spawnRegionCheckTime() const;
 
 	// Remote Admin
 	unsigned int ra_port() const;
@@ -889,6 +893,16 @@ inline unsigned int cSrvParams::randomtime() const
 inline unsigned int cSrvParams::spiritspeaktimer() const
 {
 	return spiritspeaktimer_;
+}
+
+inline bool cSrvParams::cacheMulFiles() const
+{
+	return cacheMulFiles_;
+}
+
+inline unsigned int cSrvParams::spawnRegionCheckTime() const
+{
+	return spawnRegionCheckTime_;
 }
 
 #endif __SRVPARAMS_H___

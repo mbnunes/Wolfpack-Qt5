@@ -352,10 +352,6 @@ SOURCE=.\Trade.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\translate.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\trigger.cpp
 # End Source File
 # Begin Source File

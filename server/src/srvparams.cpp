@@ -46,6 +46,7 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	housedecay_secs_	    = getNumber("Game Speed", "House Decay-Sec.", 604800, true);
 	default_jail_time_	    = getNumber("Game Speed", "Default Jail Time", 86400, true);
 	spiritspeaktimer_	    = getNumber("Game Speed", "Spirit Speak Timer", 60, true);
+	spawnRegionCheckTime_   = getNumber("Game Speed", "SpawnRegion Check Time", 300, true);
     
 	// General Group
 	skillcap_				= getNumber("General",	"SkillCap",			700, true);
@@ -94,6 +95,7 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	quittime_               = getNumber("General",  "Char Time Out", 300, true);
 	errors_to_console_      = getNumber("General",  "Errors To Console", 0, true);
 	showCVCS_               = getNumber("General",  "Show CVCS", 1, true);
+	cacheMulFiles_			= getBool  ("General",  "Cache Mul Files", true, true);
 
 	// Combat
 	combatHitMessage_		= getBool("Combat", "Hit Message", true, true );

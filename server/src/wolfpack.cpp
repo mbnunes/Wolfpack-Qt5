@@ -2924,6 +2924,7 @@ int main(int argc, char *argv[])
 
 	CIAO_IF_ERROR;
 
+	Map->Cache = SrvParams->cacheMulFiles();
 	loadserverdefaults();
 	loadserverscript();
 	loadspawnregions();

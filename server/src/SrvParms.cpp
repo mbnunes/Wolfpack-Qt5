@@ -102,26 +102,11 @@ void loadserverdefaults(void)
 
 	cwmWorldState->SetLoopSaveAmt(-1);
 		
-	speed.srtime=30;
-	
 	begging_data.range=3;
 	begging_data.timer=300;
 	strcpy(begging_data.text[0],"Could thou spare a few coins?");
 	strcpy(begging_data.text[1],"Hey buddy can you spare some gold?");
 	strcpy(begging_data.text[2],"I have a family to feed, think of the children.");
-}
-
-void loadspeed()//Lag Fix -- Zippy -- NEW FUNCTION
-{
-	unsigned long loopexit=0;
-	do
-	{
-		readw2();
-		
-		if(!(strcmp((char*)script1,"CHECK_SPAWNREGIONS"))) speed.srtime=str2num(script2);
-		else if(!(strcmp((char*)script1,"CACHE_MUL"))) Map->Cache = atoi((char*)script2);	
-	}
-	while (  (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
 }
 
 void loadserver()
@@ -210,7 +195,6 @@ void loadserverscript(char *fn) // Load a server script
 		{
 			if(!(strcmp((char*)script2, "SERVER"))) loadserver();
 			else if(!(strcmp((char*)script2, "CLIENTS_ALLOWED"))) loadclientsallowed();
-			else if(!(strcmp((char*)script2, "SPEED"))) loadspeed(); // Zippy
 			else if(!(strcmp((char*)script2, "BEGGING"))) loadbegging();
 			else if(!(strcmp((char*)script2, "TIME_LIGHT"))) loadtime_light();
 			// added by Magius(CHE)
@@ -260,13 +244,6 @@ void saveserverscript(void)
 	fprintf(file, "MSGRETENTION %i\n",server_data.msgretention);              // Dupois - Added Dec 20, 1999 for msgboard.cpp
 	
 	fprintf(file, "LOOPSAVE %i\n",cwmWorldState->LoopSaveAmt());
-	fprintf(file, "}\n\n");
-	
-
-	fprintf(file, "SECTION SPEED\n"); //Lag Fix -- Zippy
-	fprintf(file, "{\n");
-	fprintf(file, "CHECK_SPAWNREGIONS %i\n",speed.srtime);
-	fprintf(file, "CACHE_MUL %i\n",Map->Cache);
 	fprintf(file, "}\n\n");
 	
 	fprintf(file, "SECTION BEGGING\n");

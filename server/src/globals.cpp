@@ -239,7 +239,6 @@ int global_lis=1;
 unsigned long int serverstarttime;
 
 begging_st begging_data; // was = {BEGGINGRANGE,"Could thou spare a few coins?","Hey buddy can you spare some gold?","I have a family to feed, think of the children."};
-speed_st speed;
 server_st server_data ;
 int triggerx;
 int triggery;

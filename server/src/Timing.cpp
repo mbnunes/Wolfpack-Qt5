@@ -874,7 +874,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	}
 
 
-	if(checkspawnregions<=currenttime && speed.srtime != -1)//Regionspawns
+	if(checkspawnregions<=currenttime && SrvParams->spawnRegionCheckTime() != -1)//Regionspawns
 	{
 		for(i=1;i<spawnregion.size();i++)
 		{
@@ -885,7 +885,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 				if (doregionspawn(i)) break;
 			}
 		}
-		checkspawnregions=uiCurrentTime+speed.srtime*MY_CLOCKS_PER_SEC;//Don't check them TOO often (Keep down the lag)
+		checkspawnregions=uiCurrentTime+SrvParams->spawnRegionCheckTime()*MY_CLOCKS_PER_SEC;//Don't check them TOO often (Keep down the lag)
 	}
 
 	if(SrvParams->html()>0 && (htmltime<=currenttime || overflow))

@@ -249,11 +249,6 @@ struct begging_st
 	char text[3][256];
 };
 
-struct speed_st // Lag Fix
-{
-	unsigned int srtime;
-};
-
 struct title_st // For custom titles
 {
 	char fame[50];

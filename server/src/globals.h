@@ -173,7 +173,6 @@ extern unsigned int respawntime;
 extern unsigned int gatedesttime;
 
 extern begging_st begging_data;
-extern speed_st speed;//Lag Fix -- Zippy
 extern server_st server_data;
 extern int triggerx;
 extern int triggery;
