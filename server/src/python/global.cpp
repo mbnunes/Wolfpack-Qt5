@@ -1663,8 +1663,8 @@ static PyMethodDef wpGlobal[] =
 {
 	{ "callevent",			wpCallEvent,					METH_VARARGS, "Call an event in a script and return the result." },
 	{ "hasevent",			wpHasEvent,						METH_VARARGS, "If the given script has the given event. Return true." },
-	{ "callnamedevent",		wpCallEvent,					METH_VARARGS, "Call an event in a script and return the result." },
-	{ "hasnamedevent",		wpHasEvent,						METH_VARARGS, "If the given script has the given event. Return true." },
+	{ "callnamedevent",		wpCallNamedEvent,				METH_VARARGS, "Call an event in a script and return the result." },
+	{ "hasnamedevent",		wpHasNamedEvent,				METH_VARARGS, "If the given script has the given event. Return true." },
 	{ "getdefinition",		wpGetDefinition,				METH_VARARGS, "Gets a certain definition by it's id." },
 	{ "getdefinitions",		wpGetDefinitions,				METH_VARARGS, "Gets all definitions by type." },
 	{ "packet",				wpPacket,						METH_VARARGS, NULL },
@@ -2169,6 +2169,7 @@ static PyObject* wpExecute( PyObject* self, PyObject* args )
 
 static PyObject* wpDriver( PyObject* self, PyObject* args )
 {
+	Q_UNUSED(self);
 	Q_UNUSED( args );
 	unsigned int database;
 

@@ -56,14 +56,14 @@ public:
 	/*!
 		The target request timed out after the given timeout.
 	*/
-	virtual void timedout( cUOSocket* socket )
+	virtual void timedout( cUOSocket* )
 	{
 	}
 
 	/*!
 		The target request has been canceled by the client.
 	*/
-	virtual void canceled( cUOSocket* socket )
+	virtual void canceled( cUOSocket* )
 	{
 	}
 

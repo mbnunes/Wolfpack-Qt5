@@ -79,7 +79,7 @@ public:
 		return dispelFunc_;
 	}
 
-	void Dispel( P_CHAR pSource, bool silent )
+	void Dispel( P_CHAR pSource, bool /*silent*/ )
 	{
 		// We will ignore silent here.
 		Dispel( pSource, PyList_New( 0 ) );

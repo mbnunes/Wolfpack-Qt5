@@ -607,7 +607,7 @@ public:
 	{
 	}
 
-	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
+	virtual bool responsed( cUOSocket*, cUORxTarget* target )
 	{
 		if ( m_npc )
 		{

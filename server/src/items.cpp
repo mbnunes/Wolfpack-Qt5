@@ -478,7 +478,7 @@ void cItem::SetRandPosInCont( cItem* pCont )
   and return the sum of items found by the given pair of ID (model number) and
   color.
 */
-static int ContainerCountItems( const int serial, short id, short color )
+static int ContainerCountItems( SERIAL serial, short id, short color )
 {
 	int total = 0;
 	P_ITEM container = FindItemBySerial( serial );

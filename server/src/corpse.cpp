@@ -322,8 +322,8 @@ stError* cCorpse::setProperty( const QString& name, const cVariant& value )
 	*/
 	else
 		SET_STR_PROPERTY( "charbaseid", charbaseid_ )
-	else
-		return cItem::setProperty( name, value );
+
+	return cItem::setProperty( name, value );
 }
 
 stError* cCorpse::getProperty( const QString& name, cVariant& value )

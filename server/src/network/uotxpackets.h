@@ -2364,7 +2364,7 @@ public:
 		( *this )[9] = 5; // start, 4 - finish
 		setShort( 10, 0 );
 		setInt( 12, 0xFF );
-		( *this )[16] = 0xFF;
+		( *this )[16] = static_cast<uchar>(0xFF);
 	}
 	void setSerial( unsigned int data )
 	{

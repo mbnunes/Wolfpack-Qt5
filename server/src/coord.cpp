@@ -779,7 +779,6 @@ bool Coord_cl::lineOfSight( const Coord_cl& target, UI16 targetheight, bool touc
 		}
 
 		map_st map1, map2;
-		SI32 j;
 
 		bool posHigherThanMap;
 		map1 = Maps::instance()->seekMap( ( *this ) );
