@@ -111,7 +111,11 @@ PACKS = {
 	'gold_super_boss': [
 		[1.0, 'eed', '10d100+1000', 1] # 1010 - 2000
 	],
+	
 	# Scroll Packs
+	'scroll_medium': [
+		[1.0, SCROLLS_C4 + SCROLLS_C5 + SCROLLS_C6 + SCROLLS_C7, 1, 1] # 1 Scroll of Circle 4 - 7	
+	],
 
 	# Gem Packs
 	'gems': [
