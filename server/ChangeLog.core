@@ -4,29 +4,32 @@ Wolfpack 12.9.9 Beta (CVS)
 
 
 Wolfpack 12.9.8 Beta (4. August 2004)
-	- Gump Responses are now passed on as Unicode rather than in
-		the local codepage.
+	- Cleanups and general fixes.
+	- Gump Responses are now passed on as Unicode rather than in the
+		local codepage.
 	- Floating point tags are now saved correctly.
-	- Removed commands: tags, addevent, removeevent, account, resurrect, password,
-		tele, invis, kill, fix, resend, allskills, remove, move, who.
-	- Region Updates/Fixes:
-			Added flags: noentermessage and noguardmessage
-			Fixed guardowner messages
-	- Removed <gold></gold> support:
-			Item baseid 'eed' should be used instead.
+	- Removed commands: tags, addevent, removeevent, account,
+		resurrect, password, tele, invis, kill, fix, resend,
+		allskills, remove, move, who
+	- Region Updates/Fixes.
+		Added flags: noentermessage and noguardmessage
+		Fixed guardowner messages
+	- Removed <gold></gold> support.
+		Item baseid 'eed' should be used instead.
 	- Documentation Updates
 	- More warning fixes
 	- Added Py_RETURN_NONE/TRUE/FALSE as in Python 2.4
 	- Added status on MySQL/SQLite modules.
 	- New Python getProperty method.
-	- Fixed a possible bug with the Python interface:
-		( possibly source of crashing bugs )
+	- Fixed a possible bug with the Python interface
+		( Possibly source of crashing bugs )
 	- Property item.magic is now item.movable
-	- New Config Option: Speedhack Countermeasure
+	- (Configurable) Speedhack Countermeasure
 		(See Anti Speed Hack settings in the General group)
-	- New Windows Release builds should now include MySQL support by default.
 	- Added some additional checking to wolfpack.pro
-	- Began binary save feature (Incomplete)
+	- Began binary save feature. (Incomplete)
+	- Fixes for mul and diff files.
+		Haven should now work.
 
 Wolfpack 12.9.7 Beta (4. July 2004)
 	- Region/Spawn Region Updates:
