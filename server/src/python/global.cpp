@@ -691,13 +691,11 @@ static PyObject* wpHasMap( PyObject* self, PyObject* args )
 static PyObject *wpTiledata( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
-	if( !checkArgInt( 0 ) )
-	{
-		PyErr_BadArgument();
+	uint tileid = 0;
+	if ( !PyArg_ParseTuple( args, "i:wolfpack.tiledata", &tileid ) )
 		return 0;
-	}
 
-	tile_st tile = TileCache::instance()->getTile( getArgInt( 0 ) );
+	tile_st tile = TileCache::instance()->getTile( tileid );
 
 	PyObject *dict = PyDict_New();
 	PyDict_SetItemString( dict, "name", PyString_FromString( tile.name ) );
