@@ -433,12 +433,12 @@ void loadcustomtitle() // for custom titles
 		if (script1[0]!='}')
 		{
 			if ( !strcmp((char*)script1, "NONE") ) ;
-			else strcpy(title[titlecount].fame, script1);
+			else strcpy(title[titlecount].fame,(char*)script1);
 
 			if (titlecount==23)
 			{
 				title[titlecount].fame[0] = '\0';
-				strcpy(title[++titlecount].fame, script1);
+				strcpy(title[++titlecount].fame, (char*)script1);
 			}
 
 			titlecount++;
