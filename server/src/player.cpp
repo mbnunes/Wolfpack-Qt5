@@ -595,7 +595,12 @@ void cPlayer::showName( cUOSocket* socket )
 
 	if ( !isIncognito() && guild_ && !guild_->abbreviation().isEmpty() )
 	{
-		affix.append( QString( " [%1]" ).arg( guild_->abbreviation() ) );
+		cGuild::MemberInfo* info = guild_->getMemberInfo( this );
+
+                if ( info && info->showSign() )
+                {
+			affix.append( QString( "[%1]" ).arg( guild_->abbreviation() ) );
+		}
 	}
 
 	// Append serial for GMs
@@ -1649,7 +1654,7 @@ void cPlayer::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 	{
 		cGuild::MemberInfo* info = guild_->getMemberInfo( this );
 
-		if ( info )
+		if ( info && info->showSign() )
 		{
 			if ( !info->guildTitle().isEmpty() )
 			{
