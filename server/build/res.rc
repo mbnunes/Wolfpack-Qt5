@@ -55,6 +55,11 @@ BEGIN
         MENUITEM "&Save World",                 ID_SERVER_SAVEWORLD
         MENUITEM "&List Users",                 ID_SERVER_LISTUSERS
     END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "Wolfpack &Homepage",          ID_HELP_WOLFPACKHOMEPAGE
+        MENUITEM "&About",                      ID_HELP_ABOUT
+    END
 END
 
 

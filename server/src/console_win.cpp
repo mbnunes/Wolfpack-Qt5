@@ -145,6 +145,14 @@ bool handleMenuSelect( unsigned int id )
 
 			break;
 
+		case ID_HELP_ABOUT:
+			MessageBox(mainWindow, "???", "Credits", MB_OK|MB_ICONINFORMATION);
+			break;
+
+		case ID_HELP_WOLFPACKHOMEPAGE:
+			ShellExecute(mainWindow, "open", "http://www.wpdev.org", 0, 0, SW_NORMAL);
+			break;
+
 		case ID_RELOAD_ACCOUNTS:
 			queueAction( RELOAD_ACCOUNTS );
 			break;
