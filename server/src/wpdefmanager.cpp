@@ -259,8 +259,7 @@ const QString processNode( QDomElement &Node )
 		QString selectedName = Node.text();
 		return selectedName;
 	}
-
-	if( Node.nodeName() == "random" )
+	else if( Node.nodeName() == "random" )
 	{
 		if( Node.attributes().contains("min") && Node.attributes().contains("max") )
 			return QString("%1").arg( RandomNum( Node.attributeNode("min").nodeValue().toInt(), Node.attributeNode("max").nodeValue().toInt() ) );
@@ -273,6 +272,22 @@ const QString processNode( QDomElement &Node )
 			return QString("%1").arg(rollDice(Node.attributeNode("dice").nodeValue()));
 		else
 			return QString("0");
+	}
+	else if( Node.nodeName() == "colorlist" )
+	{
+		QString Value = QString();
+		if( Node.hasChildNodes() ) //random i.e.
+			for( int i = 0; i < Node.childNodes().count(); i++ )
+			{
+				if( Node.childNodes().item( i ).isText() )
+					Value += Node.childNodes().item( i ).toText().data();
+				else if( Node.childNodes().item( i ).isElement() )
+					Value += processNode( Node.childNodes().item( i ).toElement() );
+			}
+		else
+			Value = QString("%1").arg(addrandomcolor( NULL, (char*)Node.nodeValue().latin1() ));
+
+		return Value;
 	}
 
 	if( !Node.hasChildNodes() )

@@ -2185,13 +2185,64 @@ void cAllItems::applyItemSection( P_ITEM Item, const QString &Section )
 	}
 }
 
-void cAllItems::processItemContainerNode( P_ITEM contItem, const QDomElement &Node )
+void cAllItems::processScriptItemNode( P_ITEM madeItem, QDomElement &Node )
+{
+	for( UI16 k = 0; k < Node.childNodes().count(); k++ )
+	{
+		QDomElement currChild = Node.childNodes().item( k ).toElement();
+		if( currChild.nodeName() == "amount" )
+		{
+			QString Value = QString();
+			UI16 i = 0;
+			if( currChild.hasChildNodes() ) // <random> i.e.
+				for( i = 0; i < currChild.childNodes().count(); i++ )
+				{
+					if( currChild.childNodes().item( i ).isText() )
+						Value += currChild.childNodes().item( i ).toText().data();
+					else if( currChild.childNodes().item( i ).isElement() )
+						Value += processNode( currChild.childNodes().item( i ).toElement() );
+				}
+			else
+				Value = currChild.nodeValue();
+
+			if( Value.toInt() < 1 )
+				Value = QString("1");
+
+			if( madeItem->pileable() )
+				madeItem->setAmount( Value.toInt() );
+			else
+				for( i = 1; i < Value.toInt(); i++ ) //dupe it n-1 times
+					Commands->DupeItem(-1, madeItem, 1);
+		}
+		else if( currChild.nodeName() == "color" ) //process <color> tags
+		{
+			QString Value = QString();
+			if( currChild.hasChildNodes() ) // colorlist or random i.e.
+				for( UI16 i = 0; i < currChild.childNodes().count(); i++ )
+				{
+					if( currChild.childNodes().item( i ).isText() )
+						Value += currChild.childNodes().item( i ).toText().data();
+					else if( currChild.childNodes().item( i ).isElement() )
+						Value += processNode( currChild.childNodes().item( i ).toElement() );
+				}
+			else
+				Value = currChild.nodeValue();
+			
+			if( Value.toInt() < 0 )
+				Value = QString("0");
+
+			madeItem->setColor( Value.toInt() );
+		}
+	}
+}
+
+void cAllItems::processItemContainerNode( P_ITEM contItem, QDomElement &Node )
 {
 	//item container can be scripted like this:
 	/*
 	<contains>
 		<item id="item1" />
-		<item id="item2"><amount><random ... /></amount></item>
+		<item id="item2"><amount><random ... /></amount><color><colorlist><random...></colorlist></color></item>
 		...
 	</contains>
 	*/
@@ -2208,37 +2259,7 @@ void cAllItems::processItemContainerNode( P_ITEM contItem, const QDomElement &No
 				nItem->setContSerial( contItem->serial );
 			}
 			if( Node.childNodes().item( j ).toElement().hasChildNodes() )
-			{
-				for( UI16 k = 0; k < Node.childNodes().item( j ).toElement().childNodes().count(); k++ )
-				{
-					QDomElement currChild = Node.childNodes().item( j ).toElement().childNodes().item( k ).toElement();
-					if( currChild.nodeName() == "amount" )
-					{
-						QString Value = QString();
-						UI16 i = 0;
-						if( currChild.hasChildNodes() ) // <random> i.e.
-							for( i = 0; i < currChild.childNodes().count(); i++ )
-							{
-								if( currChild.childNodes().item( i ).isText() )
-									Value += currChild.childNodes().item( i ).toText().data();
-								else if( currChild.childNodes().item( i ).isElement() )
-									Value += processNode( currChild.childNodes().item( i ).toElement() );
-							}
-						else
-							Value = currChild.nodeValue();
-
-						if( Value.toInt() < 1 )
-							Value = QString("1");
-
-						if( nItem->pileable() )
-							nItem->setAmount( Value.toInt() );
-						else
-							for( i = 1; i < Value.toInt(); i++ ) //dupe it n-1 times
-								Commands->DupeItem(-1, nItem, 1);
-					}
-					
-				}
-			}
+				processScriptItemNode(nItem, Node.childNodes().item( j ).toElement());
 		}
 }
 

@@ -65,8 +65,8 @@ unsigned short addrandomcolor(P_CHAR pc_s, char *colorlist)
 		//sprintf(pc_s->name, "Error Colorlist %s Not Found(1)", colorlist);
 		// LB: wtf should this do apart from crashing ? copying an error message in a chars name ??
 		// very weired! think it should look like this:
-
-		clConsole.send("Error Colorlist %s not found on character: %s\n",colorlist,pc_s->name.c_str());
+		if( pc_s != NULL )
+			clConsole.send("Error Colorlist %s not found on character: %s\n",colorlist,pc_s->name.c_str());
 
 		return 0;
 	}
@@ -91,7 +91,8 @@ unsigned short addrandomcolor(P_CHAR pc_s, char *colorlist)
 		{
 			closescript();
 			//sprintf(pc_s->name, "Error Colorlist %s Not Found(2)", colorlist);
-			clConsole.send("Error Colorlist %s not found on character: %s\n",colorlist,pc_s->name.c_str());
+			if( pc_s != NULL )
+				clConsole.send("Error Colorlist %s not found on character: %s\n",colorlist,pc_s->name.c_str());
 			return 0;
 		}
 		loopexit=0;
@@ -442,12 +443,12 @@ void cCharStuff::applyNpcSection( P_CHAR Char, const QString &Section )
 
 				if( Tag.hasChildNodes() )
 				{
+					Items->processScriptItemNode( pBackpack, Tag ); //colorlist
+
 					for( j = 0; j < Tag.childNodes().count(); j++ )
 					{
 						QDomElement currNode = Tag.childNodes().item( j ).toElement();
-						if( currNode.nodeName() == "color" )
-							pBackpack->setColor( currNode.nodeValue().toInt() );
-						else if( currNode.nodeName() == "contains" )
+						if( currNode.nodeName() == "contains" )
 							Items->processItemContainerNode( pBackpack, currNode );
 					}
 				}
@@ -771,6 +772,9 @@ void cCharStuff::applyNpcSection( P_CHAR Char, const QString &Section )
 					}
 					else
 						nItem->setContSerial( Char->serial );
+
+					if( currChild.hasChildNodes() )  // color
+						Items->processScriptItemNode( nItem, currChild );
 				}
 			}
 		}

@@ -274,7 +274,8 @@ public:
 	// Added by DarkStorm
 	P_ITEM createScriptItem( QString Section ); // Creates an item from an item-section
 	P_ITEM createListItem( QString Section ); // Creates an Item from an item-list
-	void processItemContainerNode( P_ITEM contItem, const QDomElement &Node );
+	void processScriptItemNode( P_ITEM madeItem, QDomElement &Node );
+	void processItemContainerNode( P_ITEM contItem, QDomElement &Node );
 
 	cAllItems() {}
 	void DeleItem(P_ITEM pi);
