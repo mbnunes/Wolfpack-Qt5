@@ -64,7 +64,6 @@ cItem::cItem( cItem &src )
 
 	this->multis = src.multis;
 	this->free = false;
-	this->flags.isBeeingDragged = src.flags.isBeeingDragged;
 	this->setId(src.id());
 	this->pos = src.pos;
 	this->color_ = src.color_;
@@ -691,7 +690,6 @@ void cItem::Init(bool mkser)
 
 	this->multis=INVALID_SERIAL;//Multi serial
 	this->free = false;
-	this->flags.isBeeingDragged=0;
 	this->setId(0x0001); // Item visuals as stored in the client
 	// this->name2[0]=0x00; Removed by Magius(CHE)
 	this->pos = this->oldpos = Coord_cl(100, 100, 0);
