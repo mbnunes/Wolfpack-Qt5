@@ -351,26 +351,16 @@ int main( int argc, char *argv[] )
 	DefManager->load();
 	Console::instance()->send( "\n" );
 
-	Console::instance()->send( "SIZEOF(cItem):" + QString::number( sizeof( cItem ) ) );
+/*	Console::instance()->send( "SIZEOF(cItem):" + QString::number( sizeof( cItem ) ) );
+	
+	Sleep( 5000 );
 
-	int x;
-
-	QString id = "e75";
-
-	for( x = 0; x < 100000; ++x )
+	for( int x = 0; x < 400000; ++x )
 	{
-		//cItem *it = new cItem();
-		//it->Init( true );
-		//cItem *it = cItem::createFromScript( "e75" );
-		P_ITEM nItem = new cItem;
-		nItem->Init( true );
-		/*nItem->base =*/ ItemBases::instance()->getItemBase( id );
-		const cElement* section = DefManager->getDefinition( WPDT_ITEM, id );
-		nItem->applyDefinition( section );
-		nItem->onCreate( id );
+		cItem *it = cItem::createFromScript( "e75" );
 	}
 
-	return 1;
+	return 1;*/
 
 	// Scriptmanager can't be in the try{} block because it sometimes throws firstchance exceptions
 	// we don't like
