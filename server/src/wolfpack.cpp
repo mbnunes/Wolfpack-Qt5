@@ -2722,7 +2722,7 @@ void checkparm(string param)
 
 int main(int argc, char *argv[])
 {
-       bDeamon = false ;
+    bDeamon = false ;
 	keeprun = 1; // First of all, we want to run :)
 	if (argc > 1)
 		for (int index=1; index < argc ; index++)
@@ -3107,7 +3107,7 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 	while (keeprun)
 	{
 
-	// Uncomment by Dupois July 18, 2000! see note above about InitKbThread()
+		// Uncomment by Dupois July 18, 2000! see note above about InitKbThread()
 		#if !defined(__unix__)
 		checkkey();
 		#endif
@@ -3128,9 +3128,9 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 			loopTimeCount = 0;
 			loopTime = 0;
 		}
-		loopTimeCount++;
+		++loopTimeCount;
 
-		loopSecs = getNormalizedTime() ;  // Starting time
+		loopSecs = getNormalizedTime();  // Starting time
 
 		if(networkTimeCount >= 1000)
 		{
@@ -3138,7 +3138,7 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 			networkTime = 0;
 		}
 
-		tempSecs = getNormalizedTime() ;
+		tempSecs = getNormalizedTime();
 
 		if(Respawn->AreWeRespawning())	// pseudo-respawn-thread (Duke)
 			Respawn->Continue();
@@ -3179,7 +3179,7 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
            racCheckInp();
 		tempTime = getNormalizedTime() - tempSecs ;
 		networkTime += tempTime;
-		networkTimeCount++;
+		++networkTimeCount;
 
 		if(timerTimeCount >= 1000)
 		{
@@ -3191,10 +3191,10 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 
 		checktimers();
 
-		uiCurrentTime=getNormalizedTime();//getNormalizedTime() only once
-		tempTime = getNormalizedTime() - tempSecs ;
+		uiCurrentTime = getNormalizedTime();//getNormalizedTime() only once
+		tempTime = getNormalizedTime() - tempSecs;
 		timerTime += tempTime;
-		timerTimeCount++;
+		++timerTimeCount;
 
 		if(autoTimeCount >= 1000)
 		{
@@ -3206,13 +3206,13 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 
 		checkauto();
 
-		tempTime = getNormalizedTime() - tempSecs ;
+		tempTime = getNormalizedTime() - tempSecs;
 		autoTime += tempTime;
-		autoTimeCount++;
+		++autoTimeCount;
 
 		Network->ClearBuffers();
 
-		tempTime = getNormalizedTime() - loopSecs ;
+		tempTime = getNormalizedTime() - loopSecs;
 		loopTime += tempTime;
 	}
 
@@ -3234,9 +3234,11 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 	clConsole.send(" Done.\n");
 	if ( !cwmWorldState->Saving() )
 	{
-		do {
+		do 
+		{
 			cwmWorldState->savenewworld(1);
-		} while ( cwmWorldState->Saving() );
+		} 
+		while ( cwmWorldState->Saving() );
 	}
 	clConsole.send("Saving Server.scp...\n");
 	//saveserverscript(1);

@@ -61,7 +61,6 @@ void saveserverscript(void);
 
 struct server_st
 {
-	unsigned int packetsendstyle; // LB .. defines the way packets are send
 	unsigned int eclipsemode;
 	unsigned int eclipsetimer;
 	unsigned int snoopdelay;

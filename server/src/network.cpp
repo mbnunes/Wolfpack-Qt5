@@ -136,36 +136,8 @@ void cNetworkStuff::ClearBuffers() // Sends ALL buffered data
 void cNetworkStuff::xSend(int s, void *point, int length, int test) // Buffering send function
 {
 
-	switch(server_data.packetsendstyle)
-	{
-	    case PSS_UOX3:
-		{
-			cNetworkStuff::SendUOX3(s, point, length, test);
-		}
-		break;
-
-		case PSS_OSI:
-		{
-			cNetworkStuff::SendOSI(s, point, length, test);
-
-		}
-		break;
-
-		case PSS_SMARTWOLF:
-		{
-			cNetworkStuff::SendSMARTWOLF(s, point, length, test);
-
-		}
-		break;
-
-		default:
-		{
-		   cNetworkStuff::SendUOX3(s, point, length, test);
-
-		}
-
-	}
-
+	cNetworkStuff::SendUOX3(s, point, length, test);
+//	cNetworkStuff::SendOSI(s, point, length, test);
 }
 
 
@@ -237,7 +209,6 @@ void cNetworkStuff::Disconnect (int s) // Force disconnection of player //Instal
 		clientDimension[j]=clientDimension[j+1];
 
 		int MB = MAXBUFFER_REAL;	
-	    if (server_data.packetsendstyle==PSS_UOX3) MB = MAXBUFFER_ASYNCH;
 
 		memcpy(&buffer[j], &buffer[j+1], MB);       // probably not nec.
 		memcpy(&outbuffer[j], &outbuffer[j+1], MB); // very important

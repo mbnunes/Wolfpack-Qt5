@@ -91,7 +91,6 @@ void loadserverdefaults(void)
 	server_data.usespecialbank=0;	//AntiChrist - 1= Special Bank enabled
 
 	// Should we check character age for delete?
-	server_data.packetsendstyle=PSS_UOX3;
 	server_data.snoopdelay=7;
 	server_data.hitpointrate=REGENRATE1;
 	server_data.staminarate=REGENRATE2;
@@ -359,14 +358,6 @@ void loadserver()
 		else if(!(strcmp((char*)script1,"DEFAULT_JAIL_TIME"))) server_data.default_jail_time=str2num(script2);// blackwind 
 		else if(!(strcmp((char*)script1,"BADNPCSRED"))) server_data.BadNpcsRed=str2num(script2); //Ripper
 		else if(!(strcmp((char*)script1,"SLOTAMOUNT"))) server_data.slotamount=str2num(script2); //Ripper
-		else if(!(strcmp((char*)script1,"PACKETSENDSTYLE:"))) 
-		{
-			if ( (!strcmp ( script2, "UOX3") ) )           server_data.packetsendstyle = PSS_UOX3;
-			else if ( (!strcmp ( script2, "OSI") ) )       server_data.packetsendstyle = PSS_OSI;
-			else if ( (!strcmp ( script2, "SMARTWOLF") ) ) server_data.packetsendstyle = PSS_SMARTWOLF;
-			else server_data.packetsendstyle = PSS_UOX3;
-		}
-
 	}
 	while ( (strcmp((char*)script1, "}")) && (++loopexit < MAXLOOPS) );
 }
@@ -532,33 +523,6 @@ void saveserverscript(void)
 	
 	fprintf(file, "SECTION SERVER\n");
 	fprintf(file, "{\n");
-
-	switch(server_data.packetsendstyle)
-	{
-	    case PSS_UOX3:
-		{
-		  fprintf(file, "PACKETSENDSTYLE: UOX3\n");
-		}
-		break;
-
-		case PSS_OSI:
-		{
-		  fprintf(file, "PACKETSENDSTYLE: OSI\n");
-		}
-		break;
-
-		case PSS_SMARTWOLF:
-		{
-			fprintf(file, "PACKETSENDSTYLE: SMARTWOLF\n");
-		}
-		break;
-
-		default:
-		{
-		  fprintf(file, "PACKETSENDSTYLE: UOX3\n");
-		}
-		break;
-	}
 
 	fprintf(file, "USESPECIALBANK %i\n",server_data.usespecialbank);	//AntiChrist - specialbank
 	fprintf(file, "SPECIALBANKTRIGGER %s\n",server_data.specialbanktrigger);

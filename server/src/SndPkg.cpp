@@ -1405,7 +1405,8 @@ void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 		goxyz[13]=pc->pos.y>>8;
 		goxyz[14]=pc->pos.y%256;
 		goxyz[17]=pc->dir|0x80;
-		goxyz[18]=pc->dispz;
+		//goxyz[18]=pc->dispz;
+		goxyz[18]=pc->pos.z;
 		Xsend(k, goxyz, 19);
 		Weight->NewCalc(pc);	// Ison 2-20-99
 		statwindow(k, pc);	// Ison 2-20-99
