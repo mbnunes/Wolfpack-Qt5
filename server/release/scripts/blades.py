@@ -22,7 +22,7 @@ fish = [ 0x9cc, 0x9cd, 0x9ce, 0x9cf ]
 
 def onUse( char, item ):
 	char.socket.clilocmessage( 0xF69A6 ) # What do you want to use this on?
-	char.socket.attachtarget( "weapons.blades.response", [ item.serial ] )
+	char.socket.attachtarget( "blades.response", [ item.serial ] )
 	return 1
 
 def response( char, args, target ):
