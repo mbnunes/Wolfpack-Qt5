@@ -94,6 +94,7 @@ void cConfig::readData()
 
 	// Account Group
 	autoAccountCreate_ = getBool( "Accounts", "Auto Create", false, true );
+	autoAccountACL_ = getString( "Accounts", "Auto Create ACL", "player", true );
 	accountsDriver_ = getString( "Accounts", "Database Driver", "sqlite", true );
 	accountsHost_ = getString( "Accounts", "Database Host", "", true );
 	accountsName_ = getString( "Accounts", "Database Name", "accounts.db", true );

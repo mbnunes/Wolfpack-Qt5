@@ -1,5 +1,4 @@
 
-
 import sys
 sys.path[:0] = ['../python-lib/']
 import Pmw
@@ -135,7 +134,7 @@ class XMLConfig:
 			dom.appendChild(all)
 			file = open(self.xmlname,'w')
 			file.write("<!DOCTYPE preferences>\n")
-			file.write(dom.toprettyxml())
+			file.write( dom.toprettyxml( encoding='utf-8',newl='\n',indent='\t' ) )
 			file.flush()
 			file.close()
 

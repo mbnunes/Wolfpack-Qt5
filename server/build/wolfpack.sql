@@ -212,4 +212,4 @@ CREATE TABLE `uobjectmap` (
 	PRIMARY KEY  (`serial`)
 );
 
-INSERT INTO `settings` VALUES('db_version', '8');
+INSERT INTO `settings` VALUES('db_version', '9');

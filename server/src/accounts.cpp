@@ -544,10 +544,19 @@ cAccount* cAccounts::createAccount( const QString& login, const QString& passwor
 	d->setPassword( password );
 	accounts.insert( d->login(), d );
 	if ( accounts.count() == 1 ) // first account, it must be admin!
+	{
 		d->setAcl( "admin" );
-	d->refreshAcl();
-	save(); //make sure to save it.
-	return d;
+		d->refreshAcl();
+		save(); // Make sure to save it.
+		reload(); // Reloads
+		return d;
+	}
+	else
+	{
+		d->refreshAcl();
+		save(); // Make sure to save it.
+		return d;
+	}
 }
 
 /*!

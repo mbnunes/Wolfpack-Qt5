@@ -95,6 +95,7 @@ protected:
 	bool saveSpawns_;
 	bool dontStackSpawnedObjects_;
 	bool autoAccountCreate_;
+	QString autoAccountACL_;
 	float checkNPCTime_;
 	float checkFollowTime_;
 	float checkTamedTime_;

@@ -325,9 +325,9 @@ void Preferences::writeData()
 
 		if ( commentText != QString::null )
 		{
-			root.appendChild( doc.createTextNode( "\n\n  " ) );
-			root.appendChild( doc.createComment( "\n  " + commentText.replace( "\n", "\n  " ) + "\n  " ) );
-			root.appendChild( doc.createTextNode( "\n  " ) );
+			root.appendChild( doc.createTextNode( "\n\n\t" ) );
+			root.appendChild( doc.createComment( "\n\t" + commentText.replace( "\n", "\n\t" ) + "\n\t" ) );
+			root.appendChild( doc.createTextNode( "\n\t" ) );
 		}
 
 		// create a group element
@@ -340,9 +340,9 @@ void Preferences::writeData()
 
 			if ( commentText != QString::null )
 			{
-				group.appendChild( doc.createTextNode( "\n\n	" ) );
-				group.appendChild( doc.createComment( " " + commentText.replace( "\n", "\n	  " ) + " " ) );
-				group.appendChild( doc.createTextNode( "\n	" ) );
+				group.appendChild( doc.createTextNode( "\n\n\t" ) );
+				group.appendChild( doc.createComment( "\t" + commentText.replace( "\n", "\n\t" ) + "\t" ) );
+				group.appendChild( doc.createTextNode( "\n\t" ) );
 			}
 
 			option = doc.createElement( "option" );

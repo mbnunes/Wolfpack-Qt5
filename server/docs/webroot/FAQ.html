@@ -50,13 +50,13 @@
 				<li><a href="./FAQ.html#23">How do I manage my definition (*.xml) files?</a></li>
 				<li><a href="./FAQ.html#24">How do I manage my script (*.py) files?</a></li>
 				<li><a href="./FAQ.html#25">What is SVN? What happened to CVS?</a></li>
-				<!--
-				<li><a href="./FAQ.html#26"></a></li>
+				<li><a href="./FAQ.html#26">Where do I enable/disable/change options?</a></li>
+<!--
 				<li><a href="./FAQ.html#27"></a></li>
 				<li><a href="./FAQ.html#28"></a></li>
 				<li><a href="./FAQ.html#29"></a></li>
 				<li><a href="./FAQ.html#30"></a></li>
-				-->
+-->
 			</ul>
 			<!-- End Table of Contents -->
 		</div>
@@ -542,12 +542,29 @@
 					</div>
 					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
 				</li>
-				<!--
-				<li><a name="26" class="question"></a><br />
+				<li><a name="26" class="question">Where do I enable/disable/change options?</a><br />
 					<div class="answer">
+						<p>
+							Most options can be found in the wolfpack.xml file.<br />
+							Examples:
+							<div class="bash">
+								&#060;group name="LoginServer"&#062;<br />
+									&#160;&#160;&#060;option key="Shard 1" value="Building=127.0.0.1,2592" /&#062;<br />
+								&#060;/group&#062;<br />
+								&#060;group name="Network"&#062;<br />
+									&#160;&#160;&#060;option key="Allow Stat Request" value="true" /&#062;<br />
+									&#160;&#160;&#060;option key="Allow Unencrypted Clients" value="false" /&#062;<br />
+									&#160;&#160;&#060;option key="Enable Gameserver" value="true" /&#062;<br />
+									&#160;&#160;&#060;option key="Enable Loginserver" value="true" /&#062;<br />
+									&#160;&#160;&#060;option key="Gameserver Port" value="2592" /&#062;<br />
+									&#160;&#160;&#060;option key="Loginserver Port" value="2593" /&#062;<br />
+								&#060;/group&#062;<br />
+							</div>
+						</p>
 					</div>
 					<a href="./FAQ.html#top" style="font-size:9pt;">Return To Questions</a><br /><br />
 				</li>
+				<!--
 				<li><a name="27" class="question"></a><br />
 					<div class="answer">
 					</div>
