@@ -94,6 +94,9 @@ void cScriptManager::reload()
 
 	for ( pChar = iter_chars.first(); pChar; pChar = iter_chars.next() )
 		pChar->unfreezeScriptChain();
+
+	CharBaseDefs::instance()->refreshScripts();
+	ItemBaseDefs::instance()->refreshScripts();
 }
 
 // Unload all scripts
