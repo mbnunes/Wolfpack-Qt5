@@ -66,7 +66,7 @@ private:
 public:
 	// Command processing system
 	void process( cUOSocket *socket, const QString &command );
-	void dispatch( cUOSocket *socket, const QString &command, QStringList &arguments );
+	bool dispatch( cUOSocket *socket, const QString &command, QStringList &arguments );
 
 	QMap< QString, cAcl* >::const_iterator aclbegin() const { return _acls.begin(); }
 	QMap< QString, cAcl* >::const_iterator aclend() const { return _acls.end(); }

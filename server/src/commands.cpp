@@ -84,16 +84,16 @@ void cCommands::process( cUOSocket *socket, const QString &command )
 	}
 
 	// Dispatch the command
-	socket->log( QString( "Used command '%1'.\n" ).arg( command ) );
-	dispatch( socket, pCommand, pArgs );
+	if ( dispatch( socket, pCommand, pArgs ) )
+		socket->log( QString( "Used command '%1'.\n" ).arg( command ) );
 }
 
 // Selects the right command Stub
-void cCommands::dispatch( cUOSocket *socket, const QString &command, QStringList &arguments )
+bool cCommands::dispatch( cUOSocket *socket, const QString &command, QStringList &arguments )
 {
 	// Just in case we have been called directly
 	if( !socket || !socket->player() )
-		return;
+		return false;
 
 	// Check for custom commands
 	PyObject *function = ScriptManager::instance()->getCommandHook( command.latin1() );
@@ -113,14 +113,14 @@ void cCommands::dispatch( cUOSocket *socket, const QString &command, QStringList
 
 		Py_DECREF( args );
 
-		return;
+		return true;
 	}	
 
 	for( UINT32 index = 0; commands[index].command; ++index )
 		if( command == commands[index].name )
 		{
 			(commands[index].command)( socket, command, arguments );
-			return;
+			return true;
 		}
 
 	socket->sysMessage( tr("Unknown Command") );
