@@ -627,7 +627,7 @@ void cBoat::turn( SI08 turn )
 	cUOSocket* mSock;
 	cUOTxPause uoResume;
 	uoResume.resume();
-	while( mSock = iter_sock.current() )
+	while( ( mSock = iter_sock.current() ) )
 	{
 		pPortplank->update( mSock );
 		pStarplank->update( mSock );

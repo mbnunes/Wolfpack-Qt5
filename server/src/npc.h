@@ -65,9 +65,9 @@ public:
 		stWanderType() : type( enHalt ) {}
 		stWanderType( enWanderTypes type_ ) : type( type_ ) {}
 		stWanderType( UINT16 x1_, UINT16 x2_, UINT16 y1_, UINT16 y2_ ) : 
-			x1( x1_ ), x2( x2_ ), y1( y1_ ), y2( y2_ ), type( enRectangle ) {}
+			type( enRectangle ), x1( x1_ ), x2( x2_ ), y1( y1_ ), y2( y2_ ) {}
 		stWanderType( UINT16 x_, UINT16 y_, UINT16 radius_ ) : 
-			x1( x_ ), y1( y_ ), radius( radius_ ), type( enCircle ) {}
+			type( enCircle ), x1( x_ ), y1( y_ ), radius( radius_ ) {}
 		
 		// attributes
 		enWanderTypes type;

@@ -132,7 +132,7 @@ inline bool cVariant::isValid() const
 class cCustomTags
 {
 public:
-	cCustomTags(): changed( false ), tags_( 0 ) {}
+	cCustomTags(): tags_( 0 ), changed( false ) {}
 	cCustomTags( const cCustomTags& );
 	virtual ~cCustomTags();
 

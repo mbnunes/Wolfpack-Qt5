@@ -88,18 +88,7 @@ namespace Combat
 			}
 
 		default:
-			switch( RandomNum( 0, 2 ) )
-			{
-			case 0:
-				id = 0x238;
-				break;
-			case 1:
-				id = 0x239;
-				break;
-			case 2:
-				id = 0x23a;
-				break;
-			}
+			id = RandomNum( 0x238, 0x23a );
 			break;
 		}
 

@@ -47,7 +47,7 @@
 
 #define MaxZstep 5
 
-#define ILLEGAL_Z	128
+#define ILLEGAL_Z	127
 
 #define VISRANGE 18 // Visibility for normal items
 #define BUILDRANGE 31 // Visibility for castles and keeps

@@ -929,7 +929,7 @@ bool cBaseChar::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
 
 	// To avoid division by zero
 	if( min == max )
-		max += 0.1;
+		max += 1;
 
 	// +100 means: *allways* a minimum of 10% for success
 	float chance = ( ( (float) charrange * 890.0f ) / (float)( max - min ) ) + 100.0f;
@@ -1636,8 +1636,7 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 	//
 	if( scriptChain )
 	{
-		PyObject *args;
-
+		PyObject *args = 0;
 		if( dynamic_cast< P_CHAR >( source ) != 0 )
 			args = Py_BuildValue( "O&iiO&", PyGetCharObject, this, (unsigned int)type, amount, PyGetCharObject, source );
 		else if( dynamic_cast< P_ITEM >( source ) )

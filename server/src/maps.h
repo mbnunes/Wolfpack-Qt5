@@ -72,7 +72,7 @@ public:
 private:
 	QValueVector<staticrecord> staticArray;
 	uint baseX, baseY;
-	int pos;
+	uint pos;
 
 private:
 	void inc();

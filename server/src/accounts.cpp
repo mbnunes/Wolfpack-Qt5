@@ -56,8 +56,7 @@ const char *createSql = "CREATE TABLE `accounts` (\
   cAccount member functions
  *****************************************************************************/
 
-cAccount::cAccount()
-: acl_(0), inUse_(false), flags_(0)
+cAccount::cAccount() : acl_(0), flags_(0), attempts_(0), inUse_(false)
 {
 }
 

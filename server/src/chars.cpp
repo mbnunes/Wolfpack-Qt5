@@ -60,7 +60,6 @@ void cCharStuff::DeleteChar( P_CHAR pc_k ) // Delete character
 	if( !pc_k )
 		return;
 
-	P_PLAYER pp_k = dynamic_cast<P_PLAYER>(pc_k);
 	P_NPC pn_k = dynamic_cast<P_NPC>(pc_k);
 
 	if( pn_k )
@@ -95,6 +94,11 @@ void cCharStuff::DeleteChar( P_CHAR pc_k ) // Delete character
 
 	pc_k->removeFromView( false ); // Remove the character from all in-range sockets view
 	MapObjects::instance()->remove( pc_k ); // taking it out of mapregions BEFORE x,y changed
+
+	P_PLAYER pp_k = dynamic_cast<P_PLAYER>(pc_k);
+	if ( pp_k )
+		if ( pp_k->account() )
+			pp_k->account()->removeCharacter( pp_k );
 	
 	World::instance()->deleteObject( pc_k );
 }

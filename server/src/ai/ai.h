@@ -55,7 +55,7 @@ protected:
 	AbstractAction() : m_npc( NULL ),m_ai( NULL ) {}
 public:
 	AbstractAction( P_NPC npc, AbstractAI* ai ) : m_npc( npc ), m_ai( ai ) {}
-	~AbstractAction() {}
+	virtual ~AbstractAction() {}
 
 	// executes the action
 	virtual void	execute() = 0;
