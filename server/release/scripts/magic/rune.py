@@ -16,7 +16,7 @@ def isrune( item ):
 	if not item:
 		return 0
 
-	if item.hastag( 'charges' ) and item.hastag( 'marked' ):
+	if item.hastag( 'location' ) and item.hastag( 'marked' ):
 		return 1
 	else:
 		return 0
@@ -77,6 +77,7 @@ def rename_callback( char, args, response ):
 		return
 
 	item.name = response.text[1]
+	item.update()
 
 def onShowTooltip(viewer, object, tooltip):
 	marked = 0
