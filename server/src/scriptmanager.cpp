@@ -28,7 +28,6 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-#include "qapplication.h"
 #include "scriptmanager.h"
 #include "wpdefmanager.h"
 #include "basechar.h"
@@ -42,6 +41,7 @@
 // Library Includes
 #include <qstring.h>
 #include <qregexp.h>
+#include <qapplication.h>
 
 using namespace std;
 
