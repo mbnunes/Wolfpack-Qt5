@@ -330,7 +330,6 @@ CMDTABLE_S command_table[] = {
 	{"HIDE",	4,	13,	CMD_TARGET,	(CMD_DEFINE)&target_hide},
 	{"UNHIDE",	4,	14,	CMD_TARGET,	(CMD_DEFINE)&target_unhide},
 	{"RELOADSERVER",	4,	15,	CMD_FUNC,	(CMD_DEFINE)&command_reloadserver},
-	{"LOADDEFAULTS",	4,	16,	CMD_FUNC,	(CMD_DEFINE)&command_loaddefaults},
 	{"CQ",		4,	17,	CMD_FUNC,	(CMD_DEFINE)&command_cq},
 	{"WIPENPCS",	4,	18,	CMD_FUNC,	(CMD_DEFINE)&command_wipenpcs},
 	{"CNEXT",	4,	19,	CMD_FUNC,	(CMD_DEFINE)&command_cnext},
@@ -392,7 +391,6 @@ CMDTABLE_S command_table[] = {
 	{"DELID",		2,	35,	CMD_FUNC,	(CMD_DEFINE)&command_delid},
 	{"DELTYPE",		2,	36,	CMD_FUNC,	(CMD_DEFINE)&command_deltype},
 	{"SETSEASON",	2,	13,	CMD_FUNC,	(CMD_DEFINE)&command_setseason},
-	{"ECLIPSE",     1,  10, CMD_FUNC,   (CMD_DEFINE)&command_eclipse}, 
 	{"SYSM",        5,  8,  CMD_FUNC,   (CMD_DEFINE)&command_sysm},
 	{"SETHOME",		0, 14, CMD_TARGETXYZ,	(CMD_DEFINE)&target_sethome},
 	{"SETWORK",		0, 14, CMD_TARGETXYZ,	(CMD_DEFINE)&target_setwork},
@@ -1050,7 +1048,7 @@ void command_setseason(UOXSOCKET s)
 	if(tnum==2)
 	{
 		setseason[1]=hexnumber(1);
-		season=(int)setseason[1];
+		SrvParams->setSeason( setseason[1] );
 		for (i=0;i<now;i++) if (perm[i]) Xsend(i,setseason,3);
 	}
 	else
@@ -1253,7 +1251,7 @@ void command_save(UOXSOCKET s)
 		cwmWorldState->savenewworld( Commands->GetAllParams().c_str() );
 	else
 		cwmWorldState->savenewworld();
-	saveserverscript();
+	SrvParams->flush();
 	return;
 }
 
@@ -1418,9 +1416,9 @@ void command_light(UOXSOCKET s)
 {
 	if (tnum==2)
 	{
-		worldfixedlevel=hexnumber(1);
-		if (worldfixedlevel!=255) setabovelight(worldfixedlevel);
-		else setabovelight(worldcurlevel);
+		SrvParams->setWorldFixedLevel(hexnumber(1));
+		if (SrvParams->worldFixedLevel() != 255) setabovelight(SrvParams->worldFixedLevel());
+		else setabovelight(SrvParams->worldCurrentLevel());
 	}
 	return;
 }
@@ -1794,7 +1792,7 @@ void command_brightlight(UOXSOCKET s)
 {
 	if (tnum==2)
 	{
-		worldbrightlevel=hexnumber(1);
+		SrvParams->setWorldBrightLevel( hexnumber(1) );
 		sysmessage(s, tr("World bright light level set."));
 	}
 	return;
@@ -1806,7 +1804,7 @@ void command_darklight(UOXSOCKET s)
 {
 	if (tnum==2)
 	{
-		worlddarklevel=hexnumber(1);
+		SrvParams->setWorldDarkLevel(hexnumber(1));
 		sysmessage(s, tr("World dark light level set."));
 	}
 	return;
@@ -1818,7 +1816,7 @@ void command_dungeonlight(UOXSOCKET s)
 {
 	if (tnum==2)
 	{
-		dungeonlightlevel=min(hexnumber(1), 27);
+		SrvParams->setDungeonLightLevel( min(hexnumber(1), 27) );
 		sysmessage(s, tr("Dungeon light level set."));
 	}
 	return;
@@ -1934,15 +1932,8 @@ void command_regspawn(UOXSOCKET s)
 void command_reloadserver(UOXSOCKET s)
 // Reloads the SERVER.SCP file.
 {
-	loadserverscript();
-	sysmessage(s, tr("Server.scp reloaded."));
-	return;
-}
-
-void command_loaddefaults(UOXSOCKET s)
-// Loads the server defaults.
-{
-	loadserverdefaults();
+	SrvParams->reload();
+	sysmessage(s, tr("wolfpack.xml reloaded."));
 	return;
 }
 
@@ -2506,12 +2497,6 @@ void command_sysm(UOXSOCKET s)
 	strcpy(xtext[s], Commands->GetAllParams().c_str()); 
 	sysbroadcast(xtext[s]); 
 } 
-
-void command_eclipse(UOXSOCKET s) 
-{ 
-	SrvParms->eclipsetimer = (unsigned int)((double) uiCurrentTime +(ECLIPSETIMER*MY_CLOCKS_PER_SEC));
-	sysmessage(s, tr("Eclipse ! Earth fades !! ")); 
-}
 
 void command_jail(UOXSOCKET s) 
 // (d) Jails the target with given secs. 

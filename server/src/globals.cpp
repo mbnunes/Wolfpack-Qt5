@@ -137,19 +137,10 @@ int gatecount=0;
 QDateTime uoTime;
 int secondsperuominute=5; //Number of seconds for a WOLFPACK minute.
 int uotickcount=1;
-int moon1update=0;
-int moon2update=0;
 int hbu=0;       // heartbeat update var
 int openings=0;
 unsigned long initialserversec ;
 unsigned long initialservermill ;
-unsigned char moon1=0;
-unsigned char moon2=0;
-unsigned char dungeonlightlevel=0x15;
-unsigned char worldfixedlevel=255;
-unsigned char worldcurlevel=0;
-unsigned char worldbrightlevel=0x01; //used to be 0x05
-unsigned char worlddarklevel=0x010; //used to be 0x1a - too dark
 int goldamount;
 int defaultpriv1;
 int defaultpriv2;
@@ -225,7 +216,6 @@ int shoprestockrate=5;
 unsigned int respawntime=0;
 unsigned int gatedesttime=0;
 
-unsigned char season=0;
 //int *spawnedguards;
 // Profiling
 int networkTime = 0;
@@ -241,8 +231,6 @@ int global_lis=1;
 
 unsigned long int serverstarttime;
 
-begging_st begging_data; // was = {BEGGINGRANGE,"Could thou spare a few coins?","Hey buddy can you spare some gold?","I have a family to feed, think of the children."};
-server_st server_data ;
 int triggerx;
 int triggery;
 signed char triggerz;

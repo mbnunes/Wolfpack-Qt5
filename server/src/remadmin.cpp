@@ -466,7 +466,7 @@ void racProcessInput(int s)
 				clConsole.send("Saving worldfile...");
 				racPrintf(s, "Saving worldfile...");
 				cwmWorldState->savenewworld();
-				saveserverscript();
+				SrvParams->flush();
 				clConsole.send("Done!\n");
 				racPrintf(s, "[DONE]\r\n");
 			}	
@@ -520,7 +520,7 @@ void racProcessInput(int s)
 			loadregions();
 			loadmetagm();
 			loadmenuprivs();
-			loadserverscript();
+			SrvParams->reload();
 			racPrintf(s, " Done!\r\n");
 			racPrintf(s, "WOLFPACK: Reloading IP Blocking rules...");
 			Network->LoadHosts_deny();

@@ -59,7 +59,6 @@ class QDateTime;
 //Wolfpack Includes
 
 #include "structs.h"
-#include "SrvParms.h"	// server_data struct
 #include "verinfo.h"
 #include "storage.h"
 
@@ -85,16 +84,7 @@ extern int gatecount;
 //Time variables
 extern QDateTime uoTime;
 extern int uotickcount;
-extern int moon1update;
-extern int moon2update;
 extern int hbu;       // heartbeat update var
-extern unsigned char moon1;
-extern unsigned char moon2;
-extern unsigned char dungeonlightlevel;
-extern unsigned char worldfixedlevel;
-extern unsigned char worldcurlevel;
-extern unsigned char worldbrightlevel;
-extern unsigned char worlddarklevel;
 
 extern int goldamount;
 
@@ -127,8 +117,6 @@ extern FILE *scpfile, *lstfile, *wscfile, *mapfile, *sidxfile, *statfile, *verfi
 extern unsigned char xcounter;
 extern unsigned char ycounter;        //x&y counter used for placing deleted items and chars
 extern int secure; // Secure mode
-
-extern unsigned char season;
 
 extern int xycount;
 
@@ -171,8 +159,6 @@ extern int shoprestockrate;
 extern unsigned int respawntime;
 extern unsigned int gatedesttime;
 
-extern begging_st begging_data;
-extern server_st server_data;
 extern int triggerx;
 extern int triggery;
 extern signed char triggerz;

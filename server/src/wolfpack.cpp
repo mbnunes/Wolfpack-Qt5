@@ -253,7 +253,7 @@ void signal_handler(int signal)
 		loadregions();
 		loadmetagm();
 		loadmenuprivs();
-		loadserverscript();
+		SrvParams->reload();
 		Network->LoadHosts_deny();
 		break ;
 		
@@ -262,7 +262,7 @@ void signal_handler(int signal)
 		break ;
 	case SIGUSR2:
 		cwmWorldState->savenewworld();
-		saveserverscript();
+		SrvParams->flush();
 		break ;
 	case SIGTERM:
 		keeprun = 0 ;
@@ -2217,9 +2217,11 @@ void scriptcommand (int s, char *script1, char *script2) // Execute command from
 	}
 	if (!(strcmp("LIGHT", (char*)script1)))
 	{
-		worldfixedlevel=hex2num(script2);
-		if (worldfixedlevel!=255) setabovelight(worldfixedlevel);
-		else setabovelight(worldcurlevel);
+		SrvParams->setWorldFixedLevel( hex2num(script2) );
+		if (SrvParams->worldFixedLevel() != 255) 
+			setabovelight(SrvParams->worldFixedLevel());
+		else 
+			setabovelight(SrvParams->worldCurrentLevel());
 		return;
 	}
 
@@ -2568,8 +2570,7 @@ void checkkey ()
 				{
 					clConsole.send( "Saving worldfile...");
 					cwmWorldState->savenewworld();
-					//saveserverscript(1);
-					saveserverscript();
+					SrvParams->flush();
 					clConsole.send( "Done!\n");
 				}
 				break;
@@ -2645,7 +2646,7 @@ void checkkey ()
 				loadregions();
 				loadmetagm();
 				loadmenuprivs();
-				loadserverscript();
+				SrvParams->reload();
 				clConsole.send(" Done!\n");
 				clConsole.send("WOLFPACK: Reloading IP Blocking rules...");
 				Network->LoadHosts_deny();
@@ -2930,8 +2931,6 @@ int main(int argc, char *argv[])
 	CIAO_IF_ERROR;
 
 	Map->Cache = SrvParams->cacheMulFiles();
-	loadserverdefaults();
-	loadserverscript();
 	loadspawnregions();
 	loadregions();
 
@@ -3245,8 +3244,8 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 		} 
 		while ( cwmWorldState->Saving() );
 	}
-	clConsole.send("Saving Server.scp...\n");
-	saveserverscript();
+	clConsole.send("Saving Wolfpack.xml...\n");
+	SrvParams->flush();
 	clConsole.send("\n");
 	clConsole.send("Deleting Classes...");
 	DeleteClasses();
@@ -3294,12 +3293,12 @@ void npcToggleCombat(P_CHAR pc)
 void setabovelight(unsigned char lightchar)
 {
 	int i;
-	if (lightchar != worldcurlevel)
+	if (lightchar != SrvParams->worldCurrentLevel())
 	{
-		worldcurlevel=lightchar;
+		SrvParams->worldCurrentLevel() = lightchar;
 		for (i=0;i<now;i++)
 		{
-			if (perm[i]) dolight(i, worldcurlevel);
+			if (perm[i]) dolight(i, SrvParams->worldCurrentLevel());
 		}
 	}
 }
@@ -3308,24 +3307,22 @@ void doworldlight(void)
 {
 	char c='\xFF';
 	int i=-1;
-	if ( uoTime.time().hour() <= 3 && uoTime.time().hour() >= 10 ) i=worlddarklevel;
-	else i = worldbrightlevel;
+	if ( uoTime.time().hour() <= 3 && uoTime.time().hour() >= 10 ) i = SrvParams->worldDarkLevel();
+	else i = SrvParams->worldBrightLevel();
 	if (i == -1)
 	{
-		i=(((60*(uoTime.time().hour() - 4)) + uoTime.time().minute()) * (worlddarklevel-worldbrightlevel)) / 360;
+		i=(((60*(uoTime.time().hour() - 4)) + uoTime.time().minute()) * (SrvParams->worldDarkLevel()-SrvParams->worldBrightLevel())) / 360;
 		if (uoTime.time().hour() < 12)
 		{
-			i += worldbrightlevel;
+			i += SrvParams->worldBrightLevel();
 		} else {
-			i=worlddarklevel-i;
+			i= SrvParams->worldDarkLevel() - i;
 		}
 	}
 	if (wtype) i += 2;
-	if (moon1+moon2<4) i++;
-	if (moon1+moon2<10) i++;
 	c=i;
-	if (c!=worldcurlevel)
-		worldcurlevel=c;
+	if (c!= SrvParams->worldCurrentLevel())
+		SrvParams->worldCurrentLevel() = c;
 }
 
 void telltime( UOXSOCKET s )

@@ -1276,7 +1276,7 @@ void cCombat::SpawnGuard(P_CHAR pc_offender, P_CHAR pc_caller, int x, int y, sig
 		pc_guard->targ = pc_offender->serial;
 		pc_guard->npcWander = 2;  // set wander mode Tauriel
 		npcToggleCombat(pc_guard);
-		pc_guard->npcmovetime =(unsigned int)(getNormalizedTime() +(double)((NPCSPEED*MY_CLOCKS_PER_SEC)/5));
+		pc_guard->setNextMoveTime();
 		pc_guard->summontimer =(getNormalizedTime() +(MY_CLOCKS_PER_SEC*25));    
 		
 		soundeffect2(pc_guard, 0x01FE);  // Tauriel 1-9-99 changed to stop crashing used to call soundeffect (expeted socket)

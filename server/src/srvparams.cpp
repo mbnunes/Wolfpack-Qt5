@@ -1,3 +1,33 @@
+//==================================================================================
+//
+//      Wolfpack Emu (WP)
+//	UO Server Emulation Program
+//
+//	Copyright 1997, 98 by Marcus Rating (Cironian)
+//  Copyright 2001 by holders identified in authors.txt
+//	This program is free software; you can redistribute it and/or modify
+//	it under the terms of the GNU General Public License as published by
+//	the Free Software Foundation; either version 2 of the License, or
+//	(at your option) any later version.
+//
+//	This program is distributed in the hope that it will be useful,
+//	but WITHOUT ANY WARRANTY; without even the implied warranty of
+//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+//	GNU General Public License for more details.
+//
+//	You should have received a copy of the GNU General Public License
+//	along with this program; if not, write to the Free Software
+//	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+//	* In addition to that license, if you are running this program or modified
+//	* versions of it on a public system you HAVE TO make the complete source of
+//	* the version used by you available or provide people with a location to
+//	* download it.
+//
+//
+//
+//	Wolfpack Homepage: http://wpdev.sf.net/
+//========================================================================================
 
 #include "srvparams.h"
 #include "globals.h"
@@ -15,7 +45,12 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 {
 	// Load data into binary format
 	// If value not found, create key.
+	readData();
+	flush(); // if any key created, save it.
+}
 
+void cSrvParams::readData()
+{
 	// Account Group
 	autoAccountCreate_		= getBool("Accounts",	"Auto Create",		false, true);
 	autoAccountReload_		= getNumber("Accounts",	"Auto Reload",		10, true);
@@ -51,6 +86,7 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	spawnRegionCheckTime_   = getNumber("Game Speed", "SpawnRegion Check Time", 300, true);
 	decayTime_				= getNumber("Game Speed", "Decay Time", 300, true);
 	secondsPerUOMinute_     = getNumber("Game Speed", "Seconds Per UO Minute", 5, true);
+	beggingTime_            = getNumber("Game Speed", "Begging Time", 120, true);
     
 	// General Group
 	skillcap_				= getNumber("General",	"SkillCap",			700, true);
@@ -102,6 +138,7 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	cacheMulFiles_			= getBool  ("General",  "Cache Mul Files", true, true);
 	specialBankTrigger_     = getString("General",  "Special Bank Trigger", "WARE", true).upper();
 	useSpecialBank_			= getBool  ("General",  "Special Bank", false, true);
+	beggingRange_           = getNumber("General",  "Begging Range", 3, true);
 	clientsAllowed_			= QStringList::split(",", getString("General", "Allowed Clients", "SERVER_DEFAULT", true));
 	uoTime.fromString( QString::number(FIRST_YEAR) + "-" + getString("General", "Initial Date/Time", "01-18T24:00:00", true), Qt::ISODate);
 
@@ -163,8 +200,17 @@ cSrvParams::cSrvParams( const QString& filename, const QString& format, const QS
 	msgboardPostRemove_     = getNumber("MessageBoard", "Post Remove", 0, true);
 	msgboardRetention_      = getNumber("MessageBoard", "Retention", 30, true);
 
+	// Light
+	worldBrightLevel_       = getNumber("Light", "World Bright Level", 1, true);
+	worldFixedLevel_		= getNumber("Light", "World Fixed Level", 0, true);
+	worldDarkLevel_			= getNumber("Light", "World Dark Level", 18, true);
+	dungeonLightLevel_		= getNumber("Light", "Dungeon Level", 18, true);
+}
 
-	flush(); // if any key created, save it.
+void cSrvParams::reload()
+{
+	Preferences::reload();
+	readData();
 }
 
 std::vector<ServerList_st>& cSrvParams::serverList()
@@ -258,8 +304,38 @@ void cSrvParams::setDefaultServerList()
 void cSrvParams::setSecondsPerUOMinute( unsigned int data )
 {
 	secondsPerUOMinute_ = data;
+	setNumber("Game Speed", "Seconds Per UO Minute", secondsPerUOMinute_);
 	flush();
 }
+
+void cSrvParams::setWorldBrightLevel( unsigned char data )
+{
+	worldBrightLevel_ = data;
+	setNumber("Light", "World Bright Level", data);
+	flush();
+}
+
+void cSrvParams::setWorldFixedLevel( unsigned char data )
+{
+	worldFixedLevel_ = data;
+	setNumber("Light", "World Fixed Level", data);
+	flush();
+}
+
+void cSrvParams::setWorldDarkLevel( unsigned char data )
+{
+	worldDarkLevel_ = data;
+	setNumber("Light", "World Dark Level", data);
+	flush();
+}
+
+void cSrvParams::setDungeonLightLevel( unsigned char data )
+{
+	dungeonLightLevel_ = data;
+	setNumber("Light", "Dungeon Level", data);
+	flush();
+}
+
 
 bool cSrvParams::isClientAllowed( const QString& data )
 {
@@ -271,3 +347,9 @@ bool cSrvParams::isClientAllowed( const QString& data )
 		return true;
 	return false;
 }
+
+unsigned char& cSrvParams::worldCurrentLevel()
+{
+	return worldCurrentLevel_;
+}
+

@@ -36,6 +36,7 @@
 // Remarks:	not necessarily ALL those functions
 //
 #include "sregions.h"
+#include "srvparams.h"
 
 #undef  DBGFILE
 #define DBGFILE "sregions.cpp"
@@ -570,7 +571,8 @@ void checkregion(P_CHAR pc_i)
 		}
 		pc_i->region=calcreg;
 		if (s!=-1) dosocketmidi(s);
-		if (indungeon(pc_i)) dolight(s,dungeonlightlevel);
+		if (indungeon(pc_i)) 
+			dolight( s, SrvParams->dungeonLightLevel() );
 	}
 }
 

@@ -401,6 +401,8 @@ void cChar::unhide()
 // history:	by Duke, 20.3.2001
 // Purpose:	sets the move timer. tamediv can shorten the time for tamed npcs
 
+const double NPCSPEED = .3;
+
 void cChar::setNextMoveTime(short tamediv)
 {
 //	if ( && this->tamed) return;	// MUST be nonzero

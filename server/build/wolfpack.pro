@@ -31,7 +31,6 @@ win32-borland:LIBS = ws2_32.lib lib/ZThread/lib/ZThread.lib lib/wrl/lib/wrl.lib
 
 HEADERS         = Client.h \
 		  SndPkg.h \
-		  SrvParms.h \
 		  Timing.h \
 		  TmpEff.h \
 		  Trade.h \
@@ -110,7 +109,6 @@ SOURCES         = Client.cpp \
 		  LoS.cpp \
 		  SkiTarg.cpp \
 		  SndPkg.cpp \
-		  SrvParms.cpp \
 		  Timing.cpp \
 		  TmpEff.cpp \
 		  Trade.cpp \

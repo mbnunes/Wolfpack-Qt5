@@ -1458,7 +1458,7 @@ void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 				}
 			}
 		}
-		if (perm[k]) dolight(k, worldcurlevel);
+		if (perm[k]) dolight(k, SrvParams->worldCurrentLevel());
 	}
 	checkregion(pc);
 }
@@ -1521,7 +1521,7 @@ void teleport2(P_CHAR pc) // used for /RESEND only - Morrolan, so people can fin
 			}
 		}
 		if (perm[k]) 
-			dolight(k, worldcurlevel);
+			dolight(k, SrvParams->worldCurrentLevel());
 	}
 	checkregion(pc);
 }
@@ -2602,26 +2602,22 @@ void dolight(int s, char level)
 	P_CHAR pc_currchar = currchar[s];
 
 	light[1]=level;
-	
-	if (worldfixedlevel!=255)
+	if (SrvParams->worldFixedLevel() != 255)
 	{
-		light[1]=worldfixedlevel;
-	} else {
-		if (pc_currchar->fixedlight!=255)
-		{
-			light[1]=pc_currchar->fixedlight;
-		} else {
-			if (indungeon(currchar[s]))
-			{
-				light[1]=dungeonlightlevel;
-			}
-			else
-			{
-				light[1]=level;
-			}
-		}
+		light[1] = SrvParams->worldFixedLevel();
+	} 
+	else if (pc_currchar->fixedlight!=255)
+	{
+		light[1]=pc_currchar->fixedlight;
+	} 
+	else if (indungeon(currchar[s]))
+	{
+		light[1]= SrvParams->dungeonLightLevel();
 	}
-
+	else
+	{
+		light[1]=level;
+	}
 	Xsend(s, light, 2);
 }
 

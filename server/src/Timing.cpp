@@ -938,10 +938,6 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	{
 		uoTime.addSecs(1);
 		uotickcount = currenttime + SrvParams->secondsPerUOMinute()*MY_CLOCKS_PER_SEC;
-		if (uoTime.time().minute()%8==0)
-			moon1=(moon1+1)%8;
-		if (uoTime.time().minute()%3==0)
-			moon2=(moon2+1)%8;
 	}
 
 	if(lighttime<=currenttime || (overflow))
@@ -950,7 +946,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		int i;
 		for (i = 0; i < now; i++) 
 			if (online(currchar[i])) 
-				dolight(i,worldcurlevel); // bandwidth fix, LB
+				dolight(i, SrvParams->worldCurrentLevel()); // bandwidth fix, LB
 		lighttime=currenttime+30*MY_CLOCKS_PER_SEC;
 	}
 	static unsigned int itemlooptime = 0;
@@ -1088,21 +1084,22 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		Accounts->CheckAccountFile();
 
 	// Do Eclipse stuff.. /blackwind 
-	if (SrvParms->eclipsetimer>0) 
+/*	if (SrvParms->eclipsetimer>0) 
 	{ 
 		if (SrvParms->eclipsetimer <= uiCurrentTime) 
 		{ 
 			SrvParms->eclipsetimer = (unsigned int)((double) uiCurrentTime +(ECLIPSETIMER*MY_CLOCKS_PER_SEC)); 
 			if (SrvParms->eclipsemode)
-				worldfixedlevel--;
+				SrvParams->worldCurrentLevel()--;
 			else 
-				worldfixedlevel++; 
-			setabovelight(worldfixedlevel); 
-			if ((worldfixedlevel>20) ||(worldfixedlevel < 1)) 
+				SrvParams->worldCurrentLevel()++; 
+			setabovelight(SrvParams->worldFixedLevel()); 
+			if ((SrvParams->worldFixedLevel()>20) ||(SrvParams->worldFixedLevel() < 1)) 
 			{ 
 				SrvParms->eclipsetimer = 0; 
 				server_data.eclipsemode=!server_data.eclipsemode; 
 			} 
 		} 
 	} // end eclipse / blackwind..
+*/
 }

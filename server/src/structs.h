@@ -242,13 +242,6 @@ struct jail_st
 	bool occupied;
 };
 
-struct begging_st
-{
-	int timer;
-	unsigned int range;
-	char text[3][256];
-};
-
 struct title_st // For custom titles
 {
 	char fame[50];

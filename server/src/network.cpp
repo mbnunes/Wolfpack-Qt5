@@ -617,7 +617,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 		}
 	}
 
-	setseason[1] = season;
+	setseason[1] = SrvParams->season();
 	Xsend(s,setseason,3);
 
 	if (SrvParams->joinMsg())

@@ -2242,12 +2242,18 @@ void cSkills::BeggingTarget(int s)
 				return;
 			}
 
-			npctalkall(pc_currchar, begging_data.text[rand()%3],0); // npcemoteall?
-			if (!Skills->CheckSkill(pc_currchar,BEGGING, 0, 1000))
+			switch ( RandomNum(0, 2))
+			{
+			case 0:		npctalkall(pc_currchar, (char*)tr("Could thou spare a few coins?").latin1(),0); break;
+			case 1:		npctalkall(pc_currchar, (char*)tr("Hey buddy can you spare some gold?").latin1(),0); break;
+			case 2:		npctalkall(pc_currchar, (char*)tr("I have a family to feed, think of the children.").latin1(),0); break;
+			}
+
+			if (!Skills->CheckSkill(pc_currchar, BEGGING, 0, 1000))
 				sysmessage(s, tr("They seem to ignore your begging plees.") );
 			else
 			{
-				SetTimerSec(&pc->begging_timer,begging_data.timer); 
+				SetTimerSec(&pc->begging_timer, SrvParams->beggingTime()); 
 				x=pc->skill[BEGGING]/50;
 
 				if (x<1) x=1; 

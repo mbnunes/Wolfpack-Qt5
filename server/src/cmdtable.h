@@ -201,7 +201,6 @@ CMD_HANDLER(command_regspawnall);
 CMD_HANDLER(command_regspawnmax);
 CMD_HANDLER(command_regspawn);
 CMD_HANDLER(command_reloadserver);
-CMD_HANDLER(command_loaddefaults);
 CMD_HANDLER(command_cq);
 /* CMD_HANDLER(command_wipenpcs); */
 CMD_HANDLER(command_cnext);
@@ -247,7 +246,6 @@ CMD_HANDLER(command_setmurder);
 CMD_HANDLER(command_delid); // Ripper
 CMD_HANDLER(command_deltype); // Ripper
 CMD_HANDLER(command_jail);
-CMD_HANDLER(command_eclipse);
 CMD_HANDLER(command_sysm);
 CMD_HANDLER(command_password);
 CMD_HANDLER(command_debug);

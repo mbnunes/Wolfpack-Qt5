@@ -1014,7 +1014,7 @@ void CWorldMain::savenewworld(QString module)
 	cItemsSaver ItemsThread(module);
 	ItemsThread.start();
 
-	saveserverscript();
+	SrvParams->flush();
 	if (SrvParams->serverLog()) savelog("Server data save\n","server.log");
 
 	ISerialization* archive = cPluginFactory::serializationArchiver( module );

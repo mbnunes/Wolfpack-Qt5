@@ -1,3 +1,33 @@
+//==================================================================================
+//
+//      Wolfpack Emu (WP)
+//	UO Server Emulation Program
+//
+//	Copyright 1997, 98 by Marcus Rating (Cironian)
+//  Copyright 2001 by holders identified in authors.txt
+//	This program is free software; you can redistribute it and/or modify
+//	it under the terms of the GNU General Public License as published by
+//	the Free Software Foundation; either version 2 of the License, or
+//	(at your option) any later version.
+//
+//	This program is distributed in the hope that it will be useful,
+//	but WITHOUT ANY WARRANTY; without even the implied warranty of
+//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+//	GNU General Public License for more details.
+//
+//	You should have received a copy of the GNU General Public License
+//	along with this program; if not, write to the Free Software
+//	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+//	* In addition to that license, if you are running this program or modified
+//	* versions of it on a public system you HAVE TO make the complete source of
+//	* the version used by you available or provide people with a location to
+//	* download it.
+//
+//
+//
+//	Wolfpack Homepage: http://wpdev.sf.net/
+//========================================================================================
 
 #if !defined (__SRVPARAMS_H__)
 #define __SRVPARAMS_H__
@@ -111,6 +141,9 @@ protected:
 	bool cacheMulFiles_;
 	bool useSpecialBank_;
 	QString specialBankTrigger_;
+	unsigned int beggingRange_;
+	unsigned int beggingTime_;
+	unsigned char season_;
 
 	// Remote Admin
 	unsigned int ra_port_;
@@ -179,8 +212,18 @@ protected:
 	int  msgboardPostRemove_;
 	int  msgboardRetention_;
 
+	// Light
+	unsigned char worldBrightLevel_;
+	unsigned char worldFixedLevel_;
+	unsigned char worldDarkLevel_;
+	unsigned char dungeonLightLevel_;
+	unsigned char worldCurrentLevel_;
+
 public:
     cSrvParams( const QString& filename, const QString& format, const QString& version );
+
+	virtual void reload();
+	
 	std::vector<ServerList_st>& serverList(); // read-only
 	std::vector<StartLocation_st>& startLocation();
 
@@ -264,6 +307,11 @@ public:
 	QString specialBankTrigger() const;
 	bool isClientAllowed( const QString& );
 	const QStringList& clientsAllowed() const;
+	unsigned int beggingRange() const;
+	unsigned int beggingTime() const;
+	unsigned char season() const;
+	void setSeason( unsigned char );
+
 
 	// Remote Admin
 	unsigned int ra_port() const;
@@ -332,10 +380,22 @@ public:
 	int  msgboardPostRemove() const;
 	int  msgboardRetention() const;
 
+	// Light
+	unsigned char worldBrightLevel() const;
+	unsigned char worldFixedLevel() const;
+	unsigned char worldDarkLevel() const;
+	unsigned char dungeonLightLevel() const;
+	unsigned char& worldCurrentLevel();
+
+	void setWorldBrightLevel( unsigned char );
+	void setWorldFixedLevel( unsigned char );
+	void setWorldDarkLevel( unsigned char );
+	void setDungeonLightLevel( unsigned char );
 
 private:
 	void setDefaultStartLocation();
 	void setDefaultServerList();
+	void readData();
 };
 
 // inline members
@@ -972,6 +1032,45 @@ inline const QStringList& cSrvParams::clientsAllowed() const
 	return clientsAllowed_;
 }
 
+inline unsigned int cSrvParams::beggingRange() const
+{
+	return beggingRange_;
+}
+
+inline unsigned int cSrvParams::beggingTime() const
+{
+	return beggingTime_;
+}
+
+inline unsigned char cSrvParams::worldBrightLevel() const
+{
+	return worldBrightLevel_;
+}
+
+inline unsigned char cSrvParams::worldFixedLevel() const
+{
+	return worldFixedLevel_;
+}
+
+inline unsigned char cSrvParams::worldDarkLevel() const
+{
+	return worldDarkLevel_;
+}
+
+inline unsigned char cSrvParams::dungeonLightLevel() const
+{
+	return dungeonLightLevel_;
+}
+
+inline unsigned char cSrvParams::season() const
+{
+	return season_;
+}
+
+inline void cSrvParams::setSeason( unsigned char data)
+{
+	season_ = data;
+}
 
 #endif //__SRVPARAMS_H___
 

@@ -41,6 +41,7 @@
 #include "items.h"
 #include "globals.h"
 #include "debug.h"
+#include "srvparams.h"
 #include "wolfpack.h"
 
 
@@ -159,7 +160,7 @@ void cTmpEff::On(P_CHAR pc)
 	switch(this->num)
 	{
 	case 1:	pc->priv2 |= 0x02;		break;
-	case 2:	pc->fixedlight=worldbrightlevel;break;
+	case 2:	pc->fixedlight = SrvParams->worldBrightLevel();break;
 	case 3:	pc->chgDex(-1 * this->more1);	break;
 	case 4:	pc->in-=this->more1;		break;
 	case 5:	pc->st-=this->more1;		break;
@@ -293,7 +294,7 @@ void cTmpEff::Expire()
 		break;
 	case 2:
 		pc_s->fixedlight='\xFF';
-		dolight(calcSocketFromChar(pc_s), worldbrightlevel);
+		dolight(calcSocketFromChar(pc_s), SrvParams->worldBrightLevel());
 		break;
 	case 3:
 		pc_s->chgDex(more1);
@@ -557,8 +558,8 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 		pTE->dispellable=1;
 		break;
 	case 2:	// night sight
-		pc_dest->fixedlight=worldbrightlevel;
-		dolight(calcSocketFromChar((pc_dest)), worldbrightlevel);
+		pc_dest->fixedlight=SrvParams->worldBrightLevel();
+		dolight(calcSocketFromChar((pc_dest)), SrvParams->worldBrightLevel());
 		Magic->afterParticles(6, pc_dest); // shows particles for UO:3D clients, like On OSI servers
 
 		if(dur > 0)		// if a duration is given (potions), use that (Duke, 30.12.2000)

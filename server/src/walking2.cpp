@@ -1790,8 +1790,7 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
                 //printf("ERROR: Fallout of switch statement without default [%i]. walking.cpp, npcMovement2()\n",chars[i].npcWander); //Morrolan
 			} // break; //Morrolan unnecessary ?
 		}
-		pc_i->npcmovetime=(unsigned int)(currenttime+double((NPCSPEED*MY_CLOCKS_PER_SEC)/5)); //reset move timer
-        //pc_i->npcmovetime=(unsigned int)(currenttime+double(NPCSPEED*CLOCKS_PER_SEC*(1+dnpctime))); //reset move timer
+		pc_i->setNextMoveTime();
     }
 }
 

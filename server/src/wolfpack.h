@@ -73,7 +73,6 @@ using namespace std;
 #include "msgboard.h" // Bulletin Boards
 #include "hCache.h"   // MUL Cache stuff.
 //#include "hFile.h"  // New File IO stuff //Currently unused
-#include "SrvParms.h" // Bounty System
 #include "accounts.h" // Account System.
 #include "cweather.h" // Weather System
 #include "house.h"    // Housing System
