@@ -290,8 +290,6 @@ public:
 };
 
 
-int	ContainerCountItems(const int serial, short id, short color=-1);
-
 //forward declaration
 class cHouseItem;
 class QDomElement;

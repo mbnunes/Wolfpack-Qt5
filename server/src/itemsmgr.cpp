@@ -30,6 +30,9 @@
 //========================================================================================
 
 #include "itemsmgr.h"
+#include "basics.h"
+#include "items.h"
+
 
 #include <algorithm>
 /*
@@ -128,11 +131,7 @@ void cItemsManager::deleteItem(cItem* pi) throw(wp_exceptions::wpbad_ptr)
 }
 
 /*!
- * Free memory of items queued for delete.
- *
- * @param none
- *
- * @return void  : none
+  Free memory of items queued for delete.
  */
 void cItemsManager::purge()
 {
@@ -143,3 +142,27 @@ void cItemsManager::purge()
 	}
 	deletedItems.clear();
 }
+
+/////////////////////
+// Name:	FindItemBySerial
+// Purpose:	creates an item pointer from the given serial, returns NULL if not found
+// History:	by Duke, 5.11.2000
+//
+P_ITEM FindItemBySerial(int serial)
+{
+	if (!isItemSerial(serial))
+		return NULL;
+	cItemsManager::iterator iterItems = cItemsManager::getInstance()->find( serial );
+	if (iterItems == cItemsManager::getInstance()->end()) 
+		return NULL;
+	else 
+		return iterItems->second;
+}
+
+P_ITEM FindItemBySerPtr(unsigned char *p)
+{
+	int serial=LongFromCharPtr(p);
+	if(serial == INVALID_SERIAL) return NULL;
+	return FindItemBySerial(serial);
+}
+

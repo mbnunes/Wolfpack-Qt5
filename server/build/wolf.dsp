@@ -259,10 +259,6 @@ SOURCE=.\pfactory.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\pointer.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\regions.cpp
 # End Source File
 # Begin Source File

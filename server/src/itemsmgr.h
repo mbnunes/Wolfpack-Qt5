@@ -35,9 +35,9 @@
 #include "platform.h"
 
 // Wolfpack specific
-//#include "wolfpack.h"
-#include "items.h"
 #include "exceptions.h"
+#include "defines.h"
+#include "typedefs.h"
 
 // Forward declarations
 class cItem;
@@ -132,5 +132,11 @@ inline const AllItemsIterator AllItemsIterator::operator--(int)
 	--iterItems;							// increment
 	return returnValue;						// return what was fetched
 }
+
+inline bool isItemSerial(long ser) 
+{
+	return (ser != INVALID_SERIAL && ser >= 0 && ser >= 0x40000000);
+}
+
 
 #endif // __ITEMSMGR_H__

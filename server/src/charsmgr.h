@@ -35,10 +35,9 @@
 #include "platform.h"
 
 // Wolfpack specific
-//#include "wolfpack.h"
-//#include "chars.h"
 #include "exceptions.h"
 #include "typedefs.h"
+#include "defines.h"
 
 // System Includes
 #include <map>
@@ -140,5 +139,11 @@ inline const AllCharsIterator AllCharsIterator::operator--(int)
 	--iterChars;
 	return returnValue;
 }
+
+inline bool isCharSerial(long ser) 
+{
+	return (ser != INVALID_SERIAL && ser >= 0 && ser <  0x40000000);
+}
+
 
 #endif // __CHARSMGR_H__

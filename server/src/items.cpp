@@ -514,6 +514,36 @@ void cItem::SetRandPosInCont(cItem* pCont)
 	}
 }
 
+/*!
+  \internal
+  This function will search the given container and subcontainers by serial
+  and return the sum of items found by the given pair of ID (model number) and
+  color.
+*/
+static int ContainerCountItems(const int serial, short id, short color)
+{
+	unsigned int ci=0; 
+	int total=0;
+	P_ITEM pi;
+	vector<SERIAL> vecContainer = contsp.getData(serial);
+	for ( ci = 0; ci < vecContainer.size(); ci++)
+	{
+		pi = FindItemBySerial(vecContainer[ci]);
+		if (!pi || pi->free)			// just to be sure ;-)
+			continue;
+		if( pi->type() == 1 )		// a subcontainer ?
+		{
+			total += ContainerCountItems(pi->serial, id, color);
+			continue;
+		}
+		if (pi->id()==id &&
+			(color==-1 || pi->color() == color))
+			total += pi->amount();
+	}
+	return total;
+}
+
+
 int cItem::CountItems(short ID, short col)
 {
 	return ContainerCountItems(serial, ID, col);

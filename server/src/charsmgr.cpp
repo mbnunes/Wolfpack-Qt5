@@ -31,6 +31,7 @@
 
 #include "charsmgr.h"
 #include "chars.h"
+#include "basics.h"
 
 #include <algorithm>
 
@@ -153,3 +154,29 @@ void cCharsManager::purge()
 	}
 	deletedChars.clear();
 }
+
+/////////////////////
+// Name:	FindCharBySerial
+// Purpose:	creates an chars pointer from the given serial, returns NULL if not found
+// History:	by Duke, 11.11.2000
+//			added BySerPtr Duke, 24.2.2001
+// NOTE: Eventually we should check if the char has been freed
+P_CHAR FindCharBySerial(int serial)
+{
+	if (!isCharSerial(serial))
+		return NULL;
+	cCharsManager::iterator iterChars = cCharsManager::getInstance()->find( serial );
+	if ( iterChars == cCharsManager::getInstance()->end())
+		return NULL;
+	else 
+		return iterChars->second;
+}
+
+P_CHAR FindCharBySerPtr(unsigned char *p)
+{
+	int serial = LongFromCharPtr(p);
+	if (serial == INVALID_SERIAL) return NULL;
+	return FindCharBySerial(serial);
+}
+
+
