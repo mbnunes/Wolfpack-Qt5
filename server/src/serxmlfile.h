@@ -94,8 +94,8 @@ public:
 	serXmlFile() : _version(0), _count(0), file(0), source(0), reader(0), document(0) {}
 	virtual ~serXmlFile();
 
-	virtual void prepareReading(std::string ident, int bLevel = 0);
-	virtual void prepareWritting(std::string ident);
+	virtual void prepareReading( const QString &ident, int bLevel = 0);
+	virtual void prepareWritting( const QString &ident);
 	virtual void close();	
 
 	virtual unsigned int getVersion();
@@ -105,7 +105,7 @@ public:
 	// Write Methods
 	virtual void writeObjectID( const QString& data );
 
-	virtual void write(const char* Key, std::string &data);
+	virtual void write(const char* Key, const QString &data);
 	virtual void write(const char* Key, unsigned int data);
 	virtual void write(const char* Key, signed int data);
 	virtual void write(const char* Key, signed short data);
@@ -120,7 +120,7 @@ public:
 	// Read Methods
 	virtual void readObjectID(QString &data);
 
-	virtual void read(const char* Key, std::string    &data);
+	virtual void read(const char* Key, QString &data);
 	virtual void read(const char* Key, unsigned int   &data);
 	virtual void read(const char* Key, signed   int   &data);
 	virtual void read(const char* Key, unsigned short &data);

@@ -36,9 +36,6 @@
 #include "platform.h"
 #include "inlines.h"
 
-//system includes 
-#include <iostream>
-
 // Wolfpack includes
 #include "itemid.h"
 

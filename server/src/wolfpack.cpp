@@ -33,7 +33,7 @@
 #include "verinfo.h"
 #include "speech.h"
 #include "territories.h"
-
+#include "basics.h"
 #include "TmpEff.h"
 #include "combat.h"
 #include "sectors.h"
@@ -80,7 +80,6 @@
 #include <qfile.h>
 #include <qmutex.h>
 #include <qthread.h>
-#include <fstream>
 
 #include "python/utilities.h"
 
@@ -319,7 +318,7 @@ int main( int argc, char *argv[] )
 	serverState = STARTUP;
 
 	Console::instance()->setAttributes( true, false, true, 60, 140, 70, 12, FONT_NOSERIF );
-	Console::instance()->send( QString( "\n%1 %2 %3\n\n" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() ) );
+	Console::instance()->send( QString( "\n%1 %2 %3\n\n" ).arg( wp_version.productstring.latin1() ).arg( wp_version.betareleasestring.latin1() ).arg( wp_version.verstring.latin1() ) );
 
 	Console::instance()->send( "Copyright (C) 1997, 98 Marcus Rating (Cironian)\n");
 	Console::instance()->send( "Copyright (C) 2000-2003 Wolfpack Development Team\n");
@@ -328,7 +327,7 @@ int main( int argc, char *argv[] )
 	Console::instance()->send( "Compiled on " __DATE__ " " __TIME__ "\n" );
 	Console::instance()->send( "\n" );
 	
-	QString consoleTitle = QString( "%1 %2 %3" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() );
+	QString consoleTitle = QString( "%1 %2 %3" ).arg( wp_version.productstring.latin1() ).arg( wp_version.betareleasestring.latin1() ).arg( wp_version.verstring.latin1() );
 	Console::instance()->setConsoleTitle( consoleTitle );
 
 	// Startup normal Classes
@@ -527,6 +526,7 @@ int main( int argc, char *argv[] )
 	Console::instance()->start(); // Startup Console
 
 	QWaitCondition niceLevel;
+
 	// This is our main loop
 	while( keeprun )
 	{		

@@ -36,7 +36,6 @@
 #include "accounts.h"
 #include "network/uosocket.h"
 #include "network/uotxpackets.h"
-#include "utilsys.h"
 #include "iserialization.h"
 #include "items.h"
 #include "tilecache.h"

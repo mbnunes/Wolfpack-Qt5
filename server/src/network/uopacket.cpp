@@ -34,7 +34,6 @@
 #include <qstring.h>
 
 #include <ctype.h>
-#include <iostream>
 
 /*****************************************************************************
   cUOPacket member functions
@@ -556,19 +555,6 @@ cUOPacket& cUOPacket::operator=( cUOPacket& p )
 	00f0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 : ................
 	0100: 00 00 -- -- -- -- -- -- -- -- -- -- -- -- -- -- : ..
   \endverbatim
-*/
-void cUOPacket::print( std::ostream* s )
-{
-	if ( s )
-		(*s) << dump( rawPacket ).data() << std::endl;
-}
-
-
-/*!
-  This is a debug method. It will dump a numerical hexa and ascii representation of the packet
-  at \a data as well as a right table of offsets and return that as a QString.
-  This method behaves just like print method.
-  \sa print()
 */
 QCString cUOPacket::dump( const QByteArray &data )
 {

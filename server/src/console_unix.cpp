@@ -35,8 +35,6 @@
 #include "console.h"
 #include "globals.h"
 
-#include <iostream>
-
 using namespace std;
 
 class cConsoleThread : public QThread
@@ -155,11 +153,8 @@ QString cb = "\e[0m";
 // Send a message to the console
 void cConsole::send(const QString &sMessage)
 {
-	if( outputstrm != NULL )
-	{
-		(*outputstrm) << sMessage.latin1();
-		flush( *outputstrm );
-	}
+	fprintf( stdout, sMessage.latin1() );
+	fflush( stdout );
 
 	if( sMessage.contains( "\n" ) )
 	{

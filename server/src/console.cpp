@@ -47,8 +47,6 @@
 #include <qglobal.h>
 #include <qthread.h>
 
-#include <iostream>
-
 #if defined(Q_OS_WIN32) 
 # include <windows.h>
 # include <conio.h>
@@ -69,8 +67,6 @@ using namespace std;
 cConsole::cConsole()
 {
 	bEnabled = true;
-	// do nothing at the moment
-	setStreams( &cin, &cout );
 }
 
 //========================================================================================
@@ -83,12 +79,6 @@ cConsole::~cConsole()
 void cConsole::enabled(bool bState)
 {
 	bEnabled = bState;
-}
-
-void cConsole::setStreams(istream *in, ostream *out)
-{
-	inputstrm  = in;
-	outputstrm = out;
 }
 
 //========================================================================================

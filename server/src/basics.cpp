@@ -29,12 +29,6 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-////////////////////////
-// name:	basics.cpp
-// purpose:	implementation of basic functions (that don't need wolfpack definitions)
-//
-//
-
 // Wolfpack Includes
 #include "basics.h"
 #include "coord.h"
@@ -45,6 +39,12 @@
 
 #include <math.h>
 #include <stdlib.h>
+
+#if defined( Q_OS_WIN32 )
+#include <windows.h>
+#else
+#include <sys/time.h>
+#endif
 
 /*!
   Returns a random number between \a nLowNum
@@ -144,4 +144,43 @@ QString hex2dec( const QString& value )
 		return QString::number(value.right( value.length()-2 ).toUInt( &ok, 16 ));
 	else 
 		return value;
+}
+
+#if defined( Q_OS_WIN32 )
+
+// Windows Version
+// Return time in ms since system startup
+static unsigned int getPlatformTime()
+{
+	return GetTickCount(); 
+}
+
+#else
+
+// Linux Version
+// Return time in ms since system startup
+static unsigned int getPlatformTime()
+{
+	timeval tTime;
+	timezone tZone;
+
+	// Error handling wouldn't have much sense here.
+	gettimeofday( &tTime, &tZone );
+
+	return ( tTime.tv_sec * 1000 ) + (unsigned int)( tTime.tv_usec / 1000 );
+}
+
+#endif
+
+unsigned int getNormalizedTime()
+{
+	static unsigned int startTime = 0;
+
+	if( !startTime )
+	{
+		startTime = getPlatformTime();
+		return 0;
+	}
+	
+	return getPlatformTime() - startTime;
 }

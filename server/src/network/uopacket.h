@@ -74,8 +74,6 @@ public:
 	void	 setAsciiString( uint, const char*, uint );
 	static	 QCString dump( const QByteArray& );
 
-	virtual void print( std::ostream* );
-
 	// Operators
 	char& operator []( uint );
 	char  operator []( uint ) const;

@@ -29,6 +29,15 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
+// Library Includes
+#include <qdom.h>
+#include <qxml.h>
+#include <qfile.h>
+#include <qptrstack.h>
+#include <qregexp.h>
+#include <qstringlist.h>
+#include <qvaluevector.h>
+
 #include "wpdefmanager.h"
 #include "globals.h"
 #include "prototypes.h"
@@ -40,14 +49,7 @@
 #include "basedef.h"
 #include "log.h"
 
-// Library Includes
-#include <qdom.h>
-#include <qxml.h>
-#include <qfile.h>
-#include <qptrstack.h>
-#include <qregexp.h>
-#include <qstringlist.h>
-#include <qvaluevector.h>
+#include <stdlib.h>
 
 struct stCategory
 {
@@ -413,7 +415,7 @@ void cElement::freeAttributes()
 			delete attributes[i];
 
 		attrCount_ = 0;
-		free( attributes );
+		delete [] attributes;
 		attributes = 0;
 	}
 }
@@ -426,7 +428,7 @@ void cElement::freeChildren()
 			delete children[i];
 
 		childCount_ = 0;
-		free( children );
+		delete [] children;
 		children = 0;
 	}
 }
@@ -456,9 +458,9 @@ void cElement::copyAttributes( const QXmlAttributes &attributes )
 	freeAttributes();
 	attrCount_ = attributes.count();
 
-	if( attrCount_> 0 )
+	if( attrCount_ > 0 )
 	{
-		this->attributes = (stAttribute**)malloc( sizeof( stAttribute* ) * attrCount_ );
+		this->attributes = new stAttribute*[ attrCount_ ];
 	
 		for( unsigned int i = 0; i < attrCount_; ++i )
 		{
@@ -474,13 +476,19 @@ void cElement::addChild( cElement *element )
 	if( children == 0 )
 	{
 		childCount_ = 1;
-		children = (cElement**)malloc( sizeof( cElement* ) );
+		children = new cElement*[ 1 ];
 		children[0] = element;
 	}
 	else
 	{
-		children = (cElement**)realloc( children, sizeof( cElement* ) * ( childCount_ + 1 ) );
-		children[childCount_++] = element;
+		cElement **newChildren = new cElement* [ childCount_ + 1 ];
+
+		// Copy over the old list
+		memcpy( newChildren, children, childCount_ * sizeof( cElement* ) );
+		newChildren[ childCount_++ ] = element;
+
+		delete [] children;
+		children = newChildren;
 	}
 }
 
@@ -493,14 +501,14 @@ void cElement::removeChild( cElement *element )
 			// Found the element we want to delete
 			unsigned int offset = 0;
 			
-			cElement **newChildren = (cElement**)malloc( ( childCount_ - 1 ) * sizeof( cElement* ) );
+			cElement **newChildren = new cElement* [ childCount_ - 1 ];
 
 			for( unsigned int j = 0; j < childCount_; ++j )
 				if( children[j] != element )
 					newChildren[offset++] = children[j];
 
 			childCount_--;
-			free( children );
+			delete [] children;
 			children = newChildren;
 			return;
 		}

@@ -82,7 +82,6 @@ public:
 	virtual ~cConsole();
 
 	void enabled(bool);
-	void setStreams( std::istream *in, std::ostream *out );
 
 	// Send a message to the console
 	virtual void send(const QString &sMessage);
@@ -112,9 +111,6 @@ public:
 
 	void setAttributes( bool bold, bool italic, bool underlined, unsigned char r, unsigned char g, unsigned char b, unsigned char size, eFontType font );
 private:
-
-	std::istream *inputstrm;
-	std::ostream *outputstrm;
 	bool bEnabled;
 	bool handleCommand( const QString &command, bool silentFail = false );
 };

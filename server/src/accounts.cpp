@@ -50,44 +50,6 @@ cAccount::cAccount()
 {
 }
 
-/*void cAccount::Serialize( ISerialization& archive )
-{
-	if ( archive.isReading() )
-	{
-		archive.read("login", login_);
-		archive.read("password", password_);
-		archive.read("flags", flags_);
-		archive.read("acl", aclName_);
-		QString temp;
-		archive.read("lastlogin", temp);
-		if( !temp.isNull() && !temp.isEmpty() && temp != "0" )
-			lastLogin_ = QDateTime::fromString( temp, Qt::ISODate );
-
-		archive.read("blockuntil", temp);
-		if( !temp.isNull() && !temp.isEmpty() && temp != "0" )
-			blockUntil = QDateTime::fromString( temp, Qt::ISODate );
-
-		refreshAcl(); // Reload our ACL
-	}
-	else // Writting
-	{
-		archive.write( "login", login_ );
-		archive.write( "password", password_ );
-		archive.write( "flags", flags_ );
-		archive.write( "acl", aclName_ );
-
-		if( lastLogin_.isValid() )
-			archive.write( "lastlogin", lastLogin_.toString( Qt::ISODate ) );
-		else
-			archive.write( "lastlogin", QString( "0" ) );
-		if( blockUntil.isValid() )
-			archive.write( "blockuntil", blockUntil.toString( Qt::ISODate ) );
-		else
-			archive.write( "blockuntil", QString( "0" ) );
-	}
-	cSerializable::Serialize( archive );
-}*/
-
 bool cAccount::isBlocked() const
 {
 	if ( (blockUntil.isValid() && blockUntil < QDateTime::currentDateTime()) || flags_&0x00000001 )
@@ -338,7 +300,7 @@ void cAccounts::save()
 	
 			QString sql( "INSERT INTO accounts VALUES( '%1', '%2', %3, '%4', %5, %6 );" );
 
-			sql = sql.arg( account->login_ ).arg( account->password_ ).arg( account->flags_ ).arg( account->aclName_ ).arg( !account->lastLogin_.isNull() ? account->lastLogin_.toTime_t() : 0 ).arg( !account->blockUntil.isNull() ? account->blockUntil.toTime_t() : 0 );
+			sql = sql.arg( account->login_.lower() ).arg( account->password_ ).arg( account->flags_ ).arg( account->aclName_ ).arg( !account->lastLogin_.isNull() ? account->lastLogin_.toTime_t() : 0 ).arg( !account->blockUntil.isNull() ? account->blockUntil.toTime_t() : 0 );
 
 			persistentBroker->executeQuery( sql );
 		}
@@ -382,7 +344,7 @@ void cAccounts::load()
 		while( result.fetchrow() )
 		{
 			cAccount *account = new cAccount;
-			account->login_ = result.getString( 0 );
+			account->login_ = result.getString( 0 ).lower();
 			account->password_ = result.getString( 1 );
 			account->flags_ = result.getInt( 2 );
 			account->aclName_ = result.getString( 3 );

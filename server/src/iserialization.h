@@ -84,8 +84,8 @@ public:
 	ISerialization() : _state(enClosed) {}
 	virtual ~ISerialization(){}
 
-	virtual void prepareReading(std::string ident, int bLevel = 0 ) { Q_UNUSED(bLevel); _state = enReading; }
-	virtual void prepareWritting(std::string ident) { _state = enWritting; }
+	virtual void prepareReading( const QString &ident, int bLevel = 0 ) { Q_UNUSED(bLevel); _state = enReading; }
+	virtual void prepareWritting( const QString &ident ) { _state = enWritting; }
 
 	virtual bool isReading() { return (_state == enReading);	}
 	virtual bool isWritting(){ return (_state == enWritting);	}
@@ -101,7 +101,7 @@ public:
 
 	// Write Methods
 	virtual void writeObjectID( const QString& ) = 0;
-	virtual void write(const char* Key, std::string &data) = 0;
+	virtual void write(const char* Key, const QString &data) = 0;
 	virtual void write(const char* Key, unsigned int data) = 0;
 	virtual void write(const char* Key, signed int data) = 0;
 	virtual void write(const char* Key, signed short data) = 0;
@@ -114,7 +114,7 @@ public:
 	// Read Methods
 	virtual void readObjectID(QString &data) = 0;
 
-	virtual void read(const char* Key, std::string   &data) = 0;
+	virtual void read(const char* Key, QString &data) = 0;
 	virtual void read(const char* Key, unsigned int  &data) = 0;
 	virtual void read(const char* Key, signed   int  &data) = 0;
 	virtual void read(const char* Key, signed short  &data) = 0;
@@ -123,26 +123,6 @@ public:
 	virtual void read(const char* Key, signed   char &data) = 0;
 	virtual void read(const char* Key, bool          &data) = 0;
 	virtual void read(const char* Key, double		 &data) = 0;
-
-	// I hate to polute it but, as a temp measure:
-	virtual void read( const char* Key, QString &data )
-	{
-		std::string temp;
-		read( Key, temp );
-		data = temp.c_str();
-	}
-
-	virtual void write(const char* Key, const QString &data)
-	{
-		std::string temp;
-
-		if( data.isNull() )
-			temp = "";
-		else
-			temp = data.latin1();
-
-		write( Key, temp );
-	}
 
 protected:
 	virtual void done() {};

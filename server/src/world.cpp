@@ -38,13 +38,13 @@
 #include "progress.h"
 #include "iserialization.h"
 #include "persistentbroker.h"
-#include "utilsys.h" // What the heck do we need this file for ?!
 #include "accounts.h"
 #include "inlines.h"
 #include "basechar.h"
 #include "player.h"
 #include "npc.h"
 #include "log.h"
+#include "basics.h"
 #include <sqlite.h>
 
 // Postprocessing stuff, can be deleted later on

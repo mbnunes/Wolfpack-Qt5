@@ -30,6 +30,7 @@
 
 #include "engine.h"
 
+#include "../basics.h"
 #include "../globals.h"
 #include "../network/uosocket.h"
 #include "../network/uotxpackets.h"
@@ -57,7 +58,6 @@
 #include "../player.h"
 #include "../npc.h"
 #include "../targetrequests.h"
-#include "../utilsys.h"
 #include "../basedef.h"
 
 #include "pypacket.h"
@@ -847,7 +847,7 @@ static PyObject* wpServerVersion( PyObject* self, PyObject* args )
 	Q_UNUSED(self);
 	Q_UNUSED(args);
 	wp_version_info wpversioninfo;
-	return PyString_FromString( QString("%1 %2 %3").arg( wpversioninfo.productstring.c_str() ).arg( wpversioninfo.betareleasestring.c_str() ).arg( wpversioninfo.verstring.c_str() ).latin1() );
+	return PyString_FromString( QString("%1 %2 %3").arg( wpversioninfo.productstring ).arg( wpversioninfo.betareleasestring ).arg( wpversioninfo.verstring ).latin1() );
 }
 
 /*!

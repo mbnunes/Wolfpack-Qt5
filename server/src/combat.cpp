@@ -35,7 +35,6 @@
 // Wolfpack Includes
 
 #include "itemid.h"
-#include "utilsys.h"
 #include "sectors.h"
 #include "combat.h"
 #include "srvparams.h"

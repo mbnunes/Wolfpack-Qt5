@@ -34,7 +34,7 @@
 
 #include "Timing.h"
 
-#include "walking.h"
+#include "basics.h"
 #include "TmpEff.h"
 #include "combat.h"
 #include "sectors.h"
@@ -53,12 +53,13 @@
 #include "chars.h"
 #include "ai.h"
 #include "inlines.h"
+#include "walking.h"
 #include "world.h"
-#include "utilsys.h"
 
 // Library Includes
 #include <qdatetime.h>
 #include <math.h>
+#include <time.h>
 
 using namespace std;
 

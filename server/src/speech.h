@@ -41,14 +41,12 @@
 
 // System includes
 #include <vector>
-#include <iostream>
 
 // QT
 #include <qvaluevector.h>
 
 //Wolfpack Includes
 #include "speech.h"
-#include "utilsys.h"
 #include "typedefs.h"
 
 bool VendorChkName( P_CHAR pVendor, const QString& comm );

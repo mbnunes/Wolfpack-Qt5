@@ -126,14 +126,14 @@ struct wp_version_info
 
 	   unsigned int    vernumber;
 	   wpversion_32bit verstruct;
-	   std::string verstring; 
-	   std::string productstring;
-	   std::string betareleasestring;
+	   QString verstring;
+	   QString productstring;
+	   QString betareleasestring;
 	   QString clientsupportedstring;
-	   std::string timezonestring;
-	   std::string compiledbystring;
-	   std::string codersstring;
-	   std::string emailstring;
+	   QString timezonestring;
+	   QString compiledbystring;
+	   QString codersstring;
+	   QString emailstring;
 
 	   wp_version_info()
 	   {
@@ -146,16 +146,11 @@ struct wp_version_info
 		   verstruct.flags    = WPV_RELEASE;
 		   verstruct.derivate = WOLF;
 		  
-           vernumber = to_32bitver(verstruct);		   
+           vernumber = to_32bitver(verstruct);
 		  
-		   /// code for auto generation of verstring, productstring and betareleasestring coming soon (LB) ...
-		   verstring = "12.9.3";  // Wolfpack version 
+		   verstring = "12.9.4";  // Wolfpack version 
 		   productstring = "Wolfpack"; // selfexplainatory, isnt't it :)
 		   betareleasestring = "Beta"; // release status
-
-		   //////////////////////////////////////////////////
-
-		   clientsupportedstring = "3.0.8z";
 
 		   // SUPPORTED_CLIENT is part of the client version control system.
            // this is NOT necassairily the lastest client.

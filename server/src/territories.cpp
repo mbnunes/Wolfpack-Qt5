@@ -33,7 +33,6 @@
 #include "globals.h"
 #include "network/uosocket.h"
 #include "defines.h"
-#include "utilsys.h"
 #include "srvparams.h"
 #include "network.h"
 #include "basics.h"

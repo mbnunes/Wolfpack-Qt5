@@ -66,8 +66,6 @@
 #include "../log.h"
 #include "../ai.h"
 
-//#include <conio.h>
-#include <iostream>
 #include <stdlib.h>
 #include <qhostaddress.h>
 
@@ -970,10 +968,7 @@ void cUOSocket::handleMultiPurpose( cUORxMultiPurpose *packet )
 	case cUORxMultiPurpose::customHouseRequest:
 		handleCustomHouseRequest( dynamic_cast< cUORxCustomHouseRequest* >( packet ) ); break;
 	default:
-		{		
-		packet->print( &cout ); // Dump the packet 
-		return;
-		}
+		Console::instance()->log( LOG_WARNING, packet->dump( packet->uncompressed() ) );	
 	}; 
 } 
 

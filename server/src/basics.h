@@ -82,4 +82,6 @@ QString hex2dec( const QString& value );
 
 float RandomFloatNum(float nLowNum, float nHighNum);
 
+unsigned int getNormalizedTime();
+
 #endif 

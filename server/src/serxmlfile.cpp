@@ -143,20 +143,20 @@ unsigned int serXmlFile::size()
 	return _count;
 }
 
-void serXmlFile::prepareReading(std::string ident, int bLevel)
+void serXmlFile::prepareReading( const QString &ident, int bLevel)
 {
 	// do not recurse forever
 	if ( bLevel >= backuplevel )
 		return; // nothing more can be done.
 
-	QString fileName( QString( "%1%2" ).arg( SrvParams->getString( "General", "SavePath", "./", true ) ).arg( ident.c_str() ) );
+	QString fileName( QString( "%1%2" ).arg( SrvParams->getString( "General", "SavePath", "./", true ) ).arg( ident ) );
 
 	if ( bLevel != 0 )
 		fileName += QString("-%1").arg(bLevel);
 	fileName.append(".xml");
 	if ( !QFile::exists(fileName) )
 	{
-		prepareReading( ident.c_str(), ++bLevel );
+		prepareReading( ident, ++bLevel );
 		return;
 	}
 	
@@ -185,33 +185,33 @@ void serXmlFile::prepareReading(std::string ident, int bLevel)
 	{
 		file->close();
 		document = NULL;
-		prepareReading( ident.c_str(), ++bLevel );
+		prepareReading( ident, ++bLevel );
 	}
 	node = root;
 	ISerialization::prepareReading(ident);
 }
 
-void serXmlFile::prepareWritting(std::string ident)
+void serXmlFile::prepareWritting(const QString &ident)
 {
-	QString fileName( QString( "%1%2" ).arg( SrvParams->getString( "General", "SavePath", "./", true ) ).arg( ident.c_str() ) );
+	QString fileName( QString( "%1%2" ).arg( SrvParams->getString( "General", "SavePath", "./", true ) ).arg( ident ) );
 
 	// perform backups
 	unsigned int i;
-	QFile::remove( ident.c_str() + QString("-%1.%2").arg(backuplevel).arg("xml"));
+	QFile::remove( ident + QString("-%1.%2").arg(backuplevel).arg("xml"));
 	for ( i = backuplevel - 1; i > 0; --i )
 	{
-		QString from = ident.c_str() + QString("-%1.%2").arg(i).arg("xml");
-		QString to   = ident.c_str() + QString("-%1.%2").arg(i + 1).arg("xml");
+		QString from = ident + QString("-%1.%2").arg(i).arg("xml");
+		QString to   = ident + QString("-%1.%2").arg(i + 1).arg("xml");
 		rename( from.latin1(), to.latin1() );
 	}
-	rename ( ident.c_str() + QString(".bin"), ident.c_str() + QString("-1%1").arg(".xml"));
+	rename ( ident + QString(".bin"), ident + QString("-1%1").arg(".xml"));
 	fileName.append(".xml");
 	file = new QFile(fileName);
 	if ( !file->open(IO_WriteOnly) )
 		return;
 	_count = 0;
 	
-	document = new QDomDocument(ident.c_str());
+	document = new QDomDocument(ident );
 	root = document->createElement(document->doctype().name());
 	root.setAttribute( "version", _version );
 	root.setAttribute( "count", _count);
@@ -267,10 +267,10 @@ void serXmlFile::writeObjectID( const QString &data )
 	node.setAttribute("value", data);
 }
 
-void serXmlFile::write(const char* Key, std::string &data)
+void serXmlFile::write(const char* Key, const QString &data)
 {
 	QDomElement newNode = document->createElement(Key);
-	newNode.setAttribute( "value", data.c_str() );
+	newNode.setAttribute( "value", data );
 	node.appendChild( newNode );
 }
 
@@ -371,7 +371,7 @@ void serXmlFile::readObjectID(QString &data)
 	}
 }
 
-void serXmlFile::read(const char* Key, std::string& data)
+void serXmlFile::read(const char* Key, QString& data)
 {
 	QDomNodeList nodeList = node.elementsByTagName( Key );
 	if ( nodeList.count() > 0 )

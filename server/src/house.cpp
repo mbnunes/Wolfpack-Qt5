@@ -37,7 +37,6 @@
 #include "srvparams.h"
 #include "maps.h"
 #include "tilecache.h"
-#include "utilsys.h"
 #include "network.h"
 #include "network/uosocket.h"
 #include "multiscache.h"

@@ -42,7 +42,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /MD /GR /GX /O2 /Ob0 /I "lib/Python/PC" /I "sqlite" /I "lib/Python/include" /I "lib\ZThread\include" /I "$(QTDIR)\include" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "ZTHREAD_SHARED" /D "QT_DLL" /D "QT_THREAD_SUPPORT" /Fr /FD /c
+# ADD CPP /nologo /MT /GR /GX /O2 /Ob0 /I "lib/Python/PC" /I "sqlite" /I "lib/Python/include" /I "lib\ZThread\include" /I "$(QTDIR)\include" /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /D "QT_DLL" /D "QT_THREAD_SUPPORT" /Fr /FD /c
 # SUBTRACT CPP /YX
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG"
@@ -51,8 +51,8 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib advapi32.lib ws2_32.lib $(QTDIR)\lib\qt-mt312.lib libmysql.lib /nologo /subsystem:windows /map /machine:I386 /nodefaultlib:"libcmt MSVCRTD" /out:"..\wolfpack.exe" /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib" /libpath:"flatstore\Release" /opt:ref /opt:nowin98
-# SUBTRACT LINK32 /pdb:none /debug
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib advapi32.lib wsock32.lib $(QTDIR)\lib\qt-mt320.lib python22.lib /nologo /subsystem:windows /map /machine:I386 /out:"..\wolfpack.exe" /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib" /libpath:"flatstore\Release" /opt:ref /opt:nowin98
+# SUBTRACT LINK32 /pdb:none
 
 !ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
 
@@ -335,10 +335,6 @@ SOURCE=.\twofish\TWOFISH2.C
 # Begin Source File
 
 SOURCE=.\uobject.cpp
-# End Source File
-# Begin Source File
-
-SOURCE=.\utilsys.cpp
 # End Source File
 # Begin Source File
 
@@ -991,10 +987,6 @@ SOURCE=.\typedefs.h
 
 SOURCE=.\uobject.h
 # PROP Ignore_Default_Tool 1
-# End Source File
-# Begin Source File
-
-SOURCE=.\utilsys.h
 # End Source File
 # Begin Source File
 
