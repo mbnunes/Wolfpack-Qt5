@@ -31,7 +31,11 @@
 
 #include "uopacket.h"
 
+// Library Includes
+#include "qstring.h"
+
 #include <ostream.h>
+#include <ctype.h>
 
 cUOPacket::cUOPacket( QByteArray d )
 {
@@ -173,31 +177,32 @@ void  cUOPacket::setShort( unsigned int pos, unsigned short value )
 // Leave as last method, please
 void cUOPacket::print( ostream* s )
 {
-#if defined (DEBUG_PACKETS)
-	s << "[unknown packet:" QString::number( rawPacket.at(0) ) << ", length: " << QString::number(rawPacket.size(), 16) << endl;
-	length = rawPacket.size();
-	for(int actLine = 0; actLine < (length / 16) + 1; actLine++)
+	if ( s )
 	{
-		QString line;
-		line += line.sprintf("%04x: ", actLine * 16);
-
-		for(int actRow = 0; actRow < 16; actRow++)
+		(*s) << "[unknown packet:" << QString::number( rawPacket.at(0) ).latin1() << ", length: " << QString::number(rawPacket.size(), 16).latin1() << endl;
+		int length = rawPacket.size();
+		for(int actLine = 0; actLine < (length / 16) + 1; actLine++)
 		{
-			if(actLine * 16 + actRow < length) 
-				line += line.sprintf("%02x ", (unsigned int)(rawPacket.at(actLine * 16 + actRow)));
-			else 
-				line.append("-- ");
+			QString line;
+			line += QString("%1: ").arg(actLine * 16, 4, 16);
+			
+			for(int actRow = 0; actRow < 16; actRow++)
+			{
+				if(actLine * 16 + actRow < length) 
+					line += QString("%1 ").arg((ushort)(rawPacket.at(actLine * 16 + actRow)), 2, 16);
+				else 
+					line += "-- ";
+			}
+			
+			line += ": ";
+			
+			for(actRow = 0; actRow < 16; actRow++)
+			{
+				if(actLine * 16 + actRow < length) 
+					line += isprint(rawPacket.at(actLine * 16 + actRow)) ? rawPacket.at(actLine * 16 + actRow) : '.';
+			}
+			
+			(*s) << line << endl;
 		}
-
-		line += ": ";
-
-		for(actRow = 0; actRow < 16; actRow++)
-		{
-			if(actLine * 16 + actRow < length) 
-				line += line.sprintf("%c", isprint(rawPacket.at(actLine * 16 + actRow)) ? rawPacket.at(actLine * 16 + actRow) : '.');
-		}
-
-		(*s) << line << endl;
 	}
-#endif	
 }
