@@ -47,6 +47,7 @@
 		<veterinary><random min="650" max="880"/></veterinary>
 		<category>Vendors\Stablemaster (Male)</category>		
 		<inherit>stablemaster_inventory</inherit>
+		<bindmenu>paperdoll_menu,stabler_menu,vendor_menu,train_menu</bindmenu>
 	</npc>
 	
 	<npc id="stablemaster_female">
@@ -58,6 +59,7 @@
 		<veterinary><random min="650" max="880"/></veterinary>
 		<category>Vendors\Stablemaster (Female)</category>
 		<inherit>stablemaster_inventory</inherit>
+		<bindmenu>paperdoll_menu,stabler_menu,vendor_menu,train_menu</bindmenu>
 	</npc>
 
 </definitions>
