@@ -366,5 +366,21 @@
 		<tag name="kegfill" value="100" type="int" />
 		<color>0x21</color>
 	</item>
+	
+	<!-- Shrink -->
+	<item id="potion_shrink" inherit="potion_base">
+		<id>0xf0b</id>
+		<name>a Shrink Potion</name>
+		<category>Equipment\Potions\Shrink</category>
+		<tag name="potiontype" value="25" type="int" />
+		<!-- Pricing information -->
+	</item>
+
+	<item id="potion_keg_shrink" inherit="potion_keg_empty">
+		<name>A keg of Shrink potions</name>
+		<tag name="potiontype" value="25" type="int" />
+		<tag name="kegfill" value="100" type="int" />
+		<color>0x21</color>
+	</item>
 
 </definitions>
