@@ -138,30 +138,35 @@
 		<id>0x3915</id>
 		<nodecay />
 		<category>Animations\Field of Poison (N/S) 1</category>
+		<direction>30</direction>
 	</item>
 
 	<item id="3e02">
 		<id>0x3e02</id>
 		<nodecay />
 		<category>Animations\Field of Poison (N/S) 2</category>
+		<direction>30</direction>
 	</item>
 
 	<item id="3920">
 		<id>0x3920</id>
 		<nodecay />
 		<category>Animations\Field of Poison (W/E)</category>
+		<direction>30</direction>
 	</item>
 
 	<item id="3946">
 		<id>0x3946</id>
 		<nodecay />
 		<category>Animations\Field of Energy (N/S)</category>
+		<direction>30</direction>
 	</item>
 
 	<item id="3956">
 		<id>0x3956</id>
 		<nodecay />
 		<category>Animations\Field of Energy (W/E)</category>
+		<direction>30</direction>
 	</item>
 
 	<item id="3967">
@@ -180,18 +185,21 @@
 		<id>0x398c</id>
 		<nodecay />
 		<category>Animations\Field of Fire (N/S) 1</category>
+		<direction>30</direction>
 	</item>
 
 	<item id="3e27">
 		<id>0x3e27</id>
 		<category>Animations\Field of Fire (N/S) 2</category>
 		<nodecay />
+		<direction>30</direction>
 	</item>
 
 	<item id="3996">
 		<id>0x3996</id>
 		<category>Animations\Field of Fire (W/E)</category>
 		<nodecay />
+		<direction>30</direction>
 	</item>
 
 	<item id="1153">
@@ -204,6 +212,7 @@
 		<id>0x19ab</id>
 		<category>Animations\Fire</category>
 		<nodecay />
+		<direction>29</direction>
 	</item>
 
 	<item id="1ec6">

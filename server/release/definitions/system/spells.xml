@@ -37,7 +37,6 @@
 		<script>spell_clumsy</script>
 	</spell>
 
-
 	<!-- Create Food -->
 	<spell id="2">
 		<name>Create Food</name>
@@ -60,8 +59,6 @@
 		</targets-->
 		<script>spell_createfood</script>
 	</spell>
-
-
 
 	<!-- Feeblemind -->
 	<spell id="3">
@@ -89,8 +86,6 @@
 		<script>spell_feeblemind</script>
 	</spell>
 
-
-
 	<!-- Heal -->
 	<spell id="4">
 		<mana>4</mana>
@@ -114,8 +109,6 @@
 		</reagents>
 		<script>spell_heal</script>
 	</spell>
-
-
 
 	<!-- Magic Arrow -->
 	<spell id="5">
@@ -144,8 +137,6 @@
 		<script>spell_magicarrow</script>
 	</spell>
 
-
-
 	<!-- Night Sight -->
 	<spell id="6">
 		<mana>4</mana>
@@ -167,8 +158,6 @@
 		</targets>
 		<script>spell_nightsight</script>
 	</spell>
-
-
 
 	<!--  Reactive Armor -->
 	<spell id="7">
@@ -192,8 +181,6 @@
 		</targets>
 		<script>spell_reactivearmor</script>
 	</spell>
-
-
 
 	<!-- Weaken -->
 	<spell id="8">
@@ -221,11 +208,8 @@
 		<script>spell_weaken</script>
 	</spell>
 
-
-
 	<!-- Circle 2 -->
-
-<!-- // Agility -->
+	<!-- // Agility -->
 	<spell id="9">
 		<name>Agility</name>
 		<circle>2</circle>
@@ -247,9 +231,7 @@
 		<script>spell_agility</script>
 	</spell>
 
-
-
-<!-- // Cunning -->
+	<!-- // Cunning -->
 	<spell id="10">
 		<name>Cunning</name>
 		<circle>2</circle>
@@ -273,9 +255,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Cure -->
+	<!-- // Cure -->
 	<spell id="11">
 		<name>Cure</name>
 		<circle>2</circle>
@@ -297,9 +277,7 @@
 		<script>spell_cure</script>
 	</spell>
 
-
-
-<!-- // Harm -->
+	<!-- // Harm -->
 	<spell id="12">
 		<name>Harm</name>
 		<circle>2</circle>
@@ -323,9 +301,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Magic Trap -->
+	<!-- // Magic Trap -->
 	<spell id="13">
 		<name>Magic Trap</name>
 		<circle>2</circle>
@@ -349,9 +325,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Magic Untrap -->
+	<!-- // Magic Untrap -->
 	<spell id="14">
 		<name>Magic Untrap</name>
 		<circle>2</circle>
@@ -374,9 +348,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Protection -->
+	<!-- // Protection -->
 	<spell id="15">
 		<name>Protection</name>
 		<circle>2</circle>
@@ -399,9 +371,7 @@
 		<script>spell_protection</script>
 	</spell>
 
-
-
-<!-- // Strength -->
+	<!-- // Strength -->
 	<spell id="16">
 		<name>Strength</name>
 		<circle>2</circle>
@@ -423,11 +393,8 @@
 		<script>spell_strength</script>
 	</spell>
 
-
-
 	<!-- Circle 3 -->
-
-<!-- // Bless -->
+	<!-- // Bless -->
 	<spell id="17">
 		<name>Bless</name>
 		<circle>3</circle>
@@ -449,9 +416,7 @@
 		<script>spell_bless</script>
 	</spell>
 
-
-
-<!-- // Fireball -->
+	<!-- // Fireball -->
 	<spell id="18">
 		<name>Fireball</name>
 		<circle>3</circle>
@@ -475,9 +440,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Magic Lock -->
+	<!-- // Magic Lock -->
 	<spell id="19">
 		<name>Magic Lock</name>
 		<circle>3</circle>
@@ -501,9 +464,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Poison -->
+	<!-- // Poison -->
 	<spell id="20">
 		<name>Poison</name>
 		<circle>3</circle>
@@ -526,9 +487,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Telekinesis -->
+	<!-- // Telekinesis -->
 	<spell id="21">
 		<name>Telekinesis</name>
 		<disabled />
@@ -552,9 +511,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Teleport -->
+	<!-- // Teleport -->
 	<spell id="22">
 		<name>Teleport</name>
 		<circle>3</circle>
@@ -576,9 +533,7 @@
 		<script>spell_teleport</script>
 	</spell>
 
-
-
-<!-- // Unlock -->
+	<!-- // Unlock -->
 	<spell id="23">
 		<name>Unlock</name>
 		<circle>3</circle>
@@ -601,9 +556,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Wall of Stone -->
+	<!-- // Wall of Stone -->
 	<spell id="24">
 		<name>Wall of Stone</name>
 		<circle>3</circle>
@@ -626,11 +579,8 @@
 		<agressive />
 	</spell>
 
-
-
 	<!-- Circle 4 -->
-
-<!-- // Arch Cure -->
+	<!-- // Arch Cure -->
 	<spell id="25">
 		<name>Arch Cure</name>
 		<circle>4</circle>
@@ -653,9 +603,7 @@
 		<script>spell_archcure</script>
 	</spell>
 
-
-
-<!-- // Arch Protection -->
+	<!-- // Arch Protection -->
 	<spell id="26">
 		<name>Arch Protection</name>
 		<circle>4</circle>
@@ -678,9 +626,7 @@
 		<script>spell_archprotection</script>
 	</spell>
 
-
-
-<!-- // Curse -->
+	<!-- // Curse -->
 	<spell id="27">
 		<name>Curse</name>
 		<circle>4</circle>
@@ -705,9 +651,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Fire Field -->
+	<!-- // Fire Field -->
 	<spell id="28">
 		<name>Fire Field</name>
 		<circle>4</circle>
@@ -731,9 +675,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Greater Heal -->
+	<!-- // Greater Heal -->
 	<spell id="29">
 		<name>Greater Heal</name>
 		<circle>4</circle>
@@ -757,9 +699,7 @@
 		<script>spell_greaterheal</script>
 	</spell>
 
-
-
-<!-- // Lightning -->
+	<!-- // Lightning -->
 	<spell id="30">
 		<name>Lightning</name>
 		<circle>4</circle>
@@ -784,9 +724,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Mana Drain -->
+	<!-- // Mana Drain -->
 	<spell id="31">
 		<name>Mana Drain</name>
 		<circle>4</circle>
@@ -810,8 +748,6 @@
 		<script>spell_manadrain</script>
 		<agressive />
 	</spell>
-
-
 
 	<!-- Recall -->
 	<spell id="32">
@@ -837,11 +773,8 @@
 		<script>spell_recall</script>
 	</spell>
 
-
-
 	<!-- Circle 5 -->
-
-<!-- // Blade Spirits -->
+	<!-- // Blade Spirits -->
 	<spell id="33">
 		<name>Blade Spirits</name>
 		<circle>5</circle>
@@ -865,9 +798,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Dispel Field -->
+	<!-- // Dispel Field -->
 	<spell id="34">
 		<name>Dispel Field</name>
 		<circle>5</circle>
@@ -892,9 +823,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Incognito -->
+	<!-- // Incognito -->
 	<spell id="35">
 		<name>Incognito</name>
 		<circle>5</circle>
@@ -914,9 +843,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Magic Reflection -->
+	<!-- // Magic Reflection -->
 	<spell id="36">
 		<name>Magic Reflection</name>
 		<circle>5</circle>
@@ -938,9 +865,7 @@
 		<script>spell_magicreflect</script>
 	</spell>
 
-
-
-<!-- // Mind Blast -->
+	<!-- // Mind Blast -->
 	<spell id="37">
 		<name>Mind Blast</name>
 		<circle>5</circle>
@@ -966,9 +891,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Paralyze -->
+	<!-- // Paralyze -->
 	<spell id="38">
 		<name>Paralyze</name>
 		<circle>5</circle>
@@ -993,9 +916,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Poison Field -->
+	<!-- // Poison Field -->
 	<spell id="39">
 		<name>Poison Field</name>
 		<circle>5</circle>
@@ -1019,9 +940,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Summon Creature -->
+	<!-- // Summon Creature -->
 	<spell id="40">
 		<name>Summon Creature</name>
 		<circle>5</circle>
@@ -1043,11 +962,8 @@
 		<script>spell_summoncreature</script>
 	</spell>
 
-
-
 	<!-- Circle 6 -->
-
-<!-- // Dispel -->
+	<!-- // Dispel -->
 	<spell id="41">
 		<name>Dispel</name>
 		<circle>6</circle>
@@ -1071,9 +987,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Energy Bolt -->
+	<!-- // Energy Bolt -->
 	<spell id="42">
 		<name>Energy Bolt</name>
 		<circle>6</circle>
@@ -1097,9 +1011,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Explosion -->
+	<!-- // Explosion -->
 	<spell id="43">
 		<name>Explosion</name>
 		<circle>6</circle>
@@ -1124,9 +1036,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Invisibility -->
+	<!-- // Invisibility -->
 	<spell id="44">
 		<name>Invisibility</name>
 		<circle>6</circle>
@@ -1147,8 +1057,6 @@
 		</targets>
 		<script>spell_invisibility</script>
 	</spell>
-
-
 
 	<!-- Mark -->
 	<spell id="45">
@@ -1174,9 +1082,7 @@
 		<script>spell_mark</script>
 	</spell>
 
-
-
-<!-- // Mass Curse -->
+	<!-- // Mass Curse -->
 	<spell id="46">
 		<name>Mass Curse</name>
 		<circle>6</circle>
@@ -1201,9 +1107,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Paralyze Field -->
+	<!-- // Paralyze Field -->
 	<spell id="47">
 		<name>Paralyze Field</name>
 		<circle>6</circle>
@@ -1227,9 +1131,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Reveal -->
+	<!-- // Reveal -->
 	<spell id="48">
 		<name>Reveal</name>
 		<circle>6</circle>
@@ -1251,11 +1153,8 @@
 		<script>spell_reveal</script>
 	</spell>
 
-
-
 	<!-- Circle 7 -->
-
-<!-- // Chain Lightning -->
+	<!-- // Chain Lightning -->
 	<spell id="49">
 		<name>Chain Lightning</name>
 		<circle>7</circle>
@@ -1280,9 +1179,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Energy Field -->
+	<!-- // Energy Field -->
 	<spell id="50">
 		<name>Energy Field</name>
 		<circle>7</circle>
@@ -1307,9 +1204,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Flamestrike -->
+	<!-- // Flamestrike -->
 	<spell id="51">
 		<name>Flamestrike</name>
 		<circle>7</circle>
@@ -1333,9 +1228,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Gate Travel -->
+	<!-- // Gate Travel -->
 	<spell id="52">
 		<name>Gate Travel</name>
 		<circle>7</circle>
@@ -1358,9 +1251,7 @@
 		<script>spell_gatetravel</script>
 	</spell>
 
-
-
-<!-- // Mana Vampire -->
+	<!-- // Mana Vampire -->
 	<spell id="53">
 		<name>Mana Vampire</name>
 		<circle>7</circle>
@@ -1386,9 +1277,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Mass Dispel -->
+	<!-- // Mass Dispel -->
 	<spell id="54">
 		<name>Mass Dispel</name>
 		<circle>7</circle>
@@ -1414,9 +1303,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Meteor Swarm -->
+	<!-- // Meteor Swarm -->
 	<spell id="55">
 		<name>Meteor Swarm</name>
 		<circle>7</circle>
@@ -1443,9 +1330,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Polymorph -->
+	<!-- // Polymorph -->
 	<spell id="56">
 		<name>Polymorph</name>
 		<circle>7</circle>
@@ -1464,11 +1349,8 @@
 		<script>spell_polymorph</script>
 	</spell>
 
-
-
 	<!-- Circle 8 -->
-
-<!-- // Earthquake -->
+	<!-- // Earthquake -->
 	<spell id="57">
 		<name>Earthquake</name>
 		<circle>8</circle>
@@ -1489,9 +1371,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Energy Vortex -->
+	<!-- // Energy Vortex -->
 	<spell id="58">
 		<name>Energy Vortex</name>
 		<circle>8</circle>
@@ -1516,9 +1396,7 @@
 		<agressive />
 	</spell>
 
-
-
-<!-- // Resurrection -->
+	<!-- // Resurrection -->
 	<spell id="59">
 		<name>Resurrection</name>
 		<circle>8</circle>
@@ -1541,9 +1419,7 @@
 		<script>spell_resurrection</script>
 	</spell>
 
-
-
-<!-- // Summon Air Elemental -->
+	<!-- // Summon Air Elemental -->
 	<spell id="60">
 		<name>Summon Air Elemental</name>
 		<circle>8</circle>
@@ -1565,9 +1441,7 @@
 		<script>spell_airelemental</script>
 	</spell>
 
-
-
-<!-- // Summon Daemon -->
+	<!-- // Summon Daemon -->
 	<spell id="61">
 		<name>Summon Deamon</name>
 		<circle>8</circle>
@@ -1590,9 +1464,7 @@
 		<script>spell_summondaemon</script>
 	</spell>
 
-
-
-<!-- // Summon Earth Elemental -->
+	<!-- // Summon Earth Elemental -->
 	<spell id="62">
 		<name>Summon Earth Elemental</name>
 		<circle>8</circle>
@@ -1614,9 +1486,7 @@
 		<script>spell_earthelemental</script>
 	</spell>
 
-
-
-<!-- // Summon Fire Elemental -->
+	<!-- // Summon Fire Elemental -->
 	<spell id="63">
 		<name>Summon Fire Elemental</name>
 		<circle>8</circle>
@@ -1639,9 +1509,7 @@
 		<script>spell_fireelemental</script>
 	</spell>
 
-
-
-<!-- // Summon Water Elemental -->
+	<!-- // Summon Water Elemental -->
 	<spell id="64">
 		<name>Summon Water Elemental</name>
 		<circle>8</circle>
@@ -1663,9 +1531,7 @@
 		<script>spell_waterelemental</script>
 	</spell>
 
-
-
-<!-- // Summon Hero (Dupre The Hero) -->
+	<!-- // Summon Hero (Dupre The Hero) -->
 	<spell id="65">
 		<name>Summon Hero</name>
 		<circle>8</circle>
@@ -1681,7 +1547,7 @@
 		<agressive />
 	</spell>
 
-<!-- // Cannon Firing (why this is in SPELLs, I have NO idea) -->
+	<!-- // Cannon Firing (why this is in SPELLs, I have NO idea) -->
 	<spell id="66">
 		<name>Cannon Firing</name>
 		<circle>8</circle>
@@ -1698,7 +1564,7 @@
 		<agressive />
 	</spell>
 
-<!-- // Summon Demon Beast -->
+	<!-- // Summon Demon Beast -->
 	<spell id="67">
 		<name>Summon Demon Beast</name>
 		<circle>8</circle>

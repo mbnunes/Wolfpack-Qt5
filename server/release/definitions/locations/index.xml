@@ -7,8 +7,10 @@
 =================================================================
 -->
 <definitions>
+	<!--
 	<include file="definitions/locations/felluca.xml"/>
 	<include file="definitions/locations/trammel.xml"/>
 	<include file="definitions/locations/ilshenar.xml"/>
 	<include file="definitions/locations/malas.xml"/>
+	-->
 </definitions>

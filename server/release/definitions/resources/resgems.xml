@@ -18,7 +18,7 @@
 		<name>Ore gem</name>
 		<category>Resources\Resource Ore</category>
 	</item>
-	
+
 	<item id="wood_gem" inherit="gem">
 		<tag name="resource" value="wood" type="string" />
 		<name>Wood gem</name>

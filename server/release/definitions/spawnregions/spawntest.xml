@@ -7,6 +7,7 @@
 =================================================================
 -->
 <definitions>
+
 	<spawnregion id="spawntest">
 		<maxnpcamount>2</maxnpcamount>
 		<mintime>2</mintime><maxtime>10</maxtime>
@@ -14,6 +15,7 @@
 			<npc>base_male</npc>
 		</npcs>
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="1427" x2="1429" y1="1628" y2="1690" />
+		<rectangle x1="1427" x2="1429" y1="1628" y2="1690" map="0" />
 	</spawnregion>
+
 </definitions>
