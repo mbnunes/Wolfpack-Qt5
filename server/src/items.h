@@ -173,15 +173,6 @@ public:
 
 //----------------------[ ADVANCED PROPERTIES GETTERS ]------------------
 
-	short	regen( ushort id )		const { return regen_[ id ]; }			// Regeneration value
-	short	bonus( ushort id )		const { return statsbonus_[ id ]; }		// Stats bonuses
-	short	damage( ushort id )		const { return damage_[ id ]; }			// Damage modifiers %
-	short	enh( ushort id )		const { return enhancement_[ id ]; }	// Misc enhancements %
-	short	hit( ushort id )		const { return hit_[ id ]; }			// Attack and defence modifiers %
-	short	req( ushort id )		const { return requirements_[ id ]; }   // Reagent, Mana and other requirements %
-	short	resist( ushort id )		const { return resist_[ id ]; }			// Resisting damage %
-	short	reflect( ushort id )	const { return reflect_[ id ]; }		// Reflecting damage %
-	
 	short	charge_count()			const { return charge_count_; }
 	short	charge_spell()			const { return charge_spell_; }
 
@@ -266,16 +257,6 @@ public:
 //*******************************************END ADDED SETTERS**********
 
 //----------------------[ ADVANCED PROPERTIES SETTERS ]------------------
-
-	void	setRegen( ushort id, short data ){ regen_.replace( id, data ); }		// Regeneration value
-	void	setBonus( ushort id, short data ){ statsbonus_.replace( id, data ); }	// Stats bonuses
-	void	setDamage( ushort id, short data ){ damage_.replace( id, data ); }		// Damage modifiers %
-	void	setEnh( ushort id, short data ){ enhancement_.replace( id, data ); }		// Misc enhancements %
-	void	setHit( ushort id, short data ){ hit_.replace( id, data ); }				// Attack and defence modifiers %
-	void	setReq( ushort id, short data ){ requirements_.replace( id, data ); }	// Reagent, Mana and other requirements %
-	void	setResist( ushort id, short data ){ resist_.replace( id, data ); }		// Resisting damage %
-	void	setReflect( ushort id, short data ){ reflect_.replace( id, data ); }		// Reflecting damage %
-
 	void 	setChargeCount( short data ) { charge_count_ = data; }
 	void	setChargeSpell( short data ) { charge_spell_ = data; }
 
@@ -449,44 +430,6 @@ protected:
 	ushort		drb_current_;   //Durability current
 	ushort		uses_base_;		//Uses base
 	ushort		uses_current_;	//Uses current
-
-	// Regenerations
-	// Mana, Stamina, Hit points
-	QMap< ushort, short > regen_;
-
-	// Stats bonuses 
-	// Dexterity, Intelligence, Strength, Hit points, Mana, Stamina
-	QMap< ushort, short > statsbonus_;
-
-	// Damage increase % 
-	// Increase, Physical, Cold, Fire, Poison, Energy, Spell
-	QMap< ushort, short > damage_;
-
-	// Enhancements %
-	// Defence chance, Gold increase, Swing speed increase
-	// Enhance potions, Self repair, Faster casting, Faster cast recovery
-	QMap< ushort, short > enhancement_;
-	
-	// Hit modifiers %
-	// Chance increase,	Cold,			Dispel,			Energy, 
-	// Fire,			Fireball,		Harm,			Life leech,
-	// Lighting,		Lower attack,	Lower defence,	Magic arrow, 
-	// Mana leech,		Physical area,	Poison area,	Stamina leech
-	QMap< ushort, short > hit_;
-	
-	// Lower requirements for resources and stats consumption %
-	// Low mana cost, Low reagent cost, Low requirements (global)
-	QMap< ushort, short > requirements_;
-	
-	// Resisting %
-	// Cold resist, Energy resist, Fire resist
-	// Physical resist, Poison resist
-	QMap< ushort, short > resist_;
-
-	// Reflect %
-	// Reflect physical
-	QMap< ushort, short > reflect_;
-
 };
 
 #endif

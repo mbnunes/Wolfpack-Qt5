@@ -656,14 +656,22 @@ bool cVariant::operator!=( const cVariant &v ) const
 
 cCustomTags::cCustomTags( const cCustomTags& d )
 {
-	tags_ = d.tags_;
+	if( d.tags_ )
+		tags_ = d.tags_;
+	else
+		tags_ = new QMap< QString, cVariant >( *d.tags_ );
+
 	changed = true;
 }
 
 cCustomTags& cCustomTags::operator=( const cCustomTags& tags)
 {
 	changed = true;
-	tags_ = tags.tags_;
+	if( tags.tags_ )
+		tags_ = new QMap< QString, cVariant >( *tags.tags_ );
+	else
+		tags_ = 0;
+
 	return *this;
 }
 
@@ -679,10 +687,15 @@ void cCustomTags::save( SERIAL key )
 
 	persistentBroker->executeQuery( QString( "DELETE FROM tags WHERE serial = '%1'" ).arg( key ) );
 
-	QMap< QString, cVariant >::const_iterator it( tags_.begin() );
-	if ( tags_.count() > 6 )
-		persistentBroker->lockTable("tags");
-	for( ; it != tags_.end(); ++it )
+	if( !tags_ )
+	{
+		changed = false;
+		return;
+	}
+
+	QMap< QString, cVariant >::const_iterator it( tags_->begin() );
+
+	for( ; it != tags_->end(); ++it )
 	{
 		// Erase invalid tags.
 		if( !it.data().isValid() )
@@ -697,15 +710,14 @@ void cCustomTags::save( SERIAL key )
 
 		persistentBroker->executeQuery( QString( "INSERT INTO tags SET serial = '%1', type = '%2', value = '%3', name = '%4'" ).arg( key ).arg( type ).arg( persistentBroker->quoteString( value ) ).arg( persistentBroker->quoteString( name ) ) );
 	}
-	if ( tags_.count() > 6 )
-		persistentBroker->unlockTable("tags");
 
 	changed = false;
 }
 
 void cCustomTags::load( SERIAL key )
 {
-	tags_.clear();
+	if( tags_ )
+		tags_->clear();
 
 	cDBResult result = persistentBroker->query( QString( "SELECT serial,name,type,value FROM tags WHERE serial = '%1'" ).arg( key ) );
 
@@ -715,12 +727,15 @@ void cCustomTags::load( SERIAL key )
 		QString type = result.getString( 2 );
 		QString value = result.getString( 3 );
 
+		if( !tags_ )
+			tags_ = new QMap< QString, cVariant >;
+
 		if( type == "String" )
-			tags_.insert( name, cVariant( value ) );
+			tags_->insert( name, cVariant( value ) );
 		else if( type == "Int" )
-			tags_.insert( name, cVariant( value.toInt() ) );
+			tags_->insert( name, cVariant( value.toInt() ) );
 		else if( type == "Double" )
-			tags_.insert( name, cVariant( value.toDouble() ) );
+			tags_->insert( name, cVariant( value.toDouble() ) );
 	}
 
 	result.free();
@@ -729,23 +744,29 @@ void cCustomTags::load( SERIAL key )
 }
 
 cVariant cCustomTags::get( const QString& key ) 
-{ 
-	QMap< QString, cVariant >::iterator it = tags_.find( key );
-	if( it != tags_.end() )
-		return it.data();
-	else
-		return cVariant();
+{
+	if( tags_ )
+	{
+		QMap< QString, cVariant >::iterator it = tags_->find( key );
+		if( it != tags_->end() )
+			return it.data();
+	}
+
+	return cVariant();
 }
 
 void cCustomTags::set( const QString& key, const cVariant& value ) 
 {
-	QMap< QString, cVariant >::iterator iter = tags_.find( key );
+	if( !tags_ )
+		tags_ = new QMap< QString, cVariant >;
+
+	QMap< QString, cVariant >::iterator iter = tags_->find( key );
 	
-	if( iter != tags_.end() )
+	if( iter != tags_->end() )
 	{
 		if( !value.isValid() )
 		{
-			tags_.erase( iter );
+			tags_->erase( iter );
 			changed = true;
 		}
 		else if( iter.data() != value )
@@ -756,29 +777,50 @@ void cCustomTags::set( const QString& key, const cVariant& value )
 	}
 	else
 	{
-		tags_.insert( key, value ); 
+		tags_->insert( key, value ); 
 		changed = true;
 	}
 }
 
 void cCustomTags::remove( const QString& key )
 {
-	QMap< QString, cVariant >::iterator iter( tags_.find( key ) );
-	
-	if( iter != tags_.end() )
+	if( tags_ )
 	{
-		tags_.erase( iter );
-		changed = true;
+		QMap< QString, cVariant >::iterator iter( tags_->find( key ) );
+		
+		if( iter != tags_->end() )
+		{
+			tags_->erase( iter );
+			changed = true;
+		}
+
+		if( tags_->count() == 0 )
+			delete tags_;
 	}
 }
 
 QStringList cCustomTags::getKeys( void )
 {
-	return tags_.keys();
+	if( tags_ )
+	{
+		return tags_->keys();
+	}
+	
+	return QStringList();
 }
 
 QValueList< cVariant > cCustomTags::getValues( void )
 {
-	return tags_.values();
+	if( tags_ )
+	{
+		return tags_->values();
+	}
+
+	return QValueList< cVariant >();
 }
 
+cCustomTags::~cCustomTags()
+{
+	if( tags_ )
+		delete tags_;
+}

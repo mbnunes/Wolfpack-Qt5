@@ -619,88 +619,6 @@ static PyObject* wpItem_additem( wpItem* self, PyObject* args )
 	return PyTrue;
 }
 
-static PyObject* wpItem_getadv( wpItem* self, PyObject* args )
-{
-	if( !self->pItem || self->pItem->free )
-		return PyFalse;
-
-	if( !checkArgInt( 0 ) || !checkArgInt( 1 ))
-	{
-		PyErr_BadArgument();
-		return 0;
-	}
-	ushort list = getArgInt( 0 ); //Which list ? 
-								  //REGEN | BONUS | DAMAGE | ENH | HIT | REQ | RESIST | REFLECT
-
-	ushort id = getArgInt( 1 );   //Which property ?
-
-								  //...
- 	switch( list )
-	{
-	case REGEN:
-		return PyInt_FromLong( self->pItem->regen( id ) ); break;
-	case BONUS:
-		return PyInt_FromLong( self->pItem->bonus( id ) ); break;
-	case DAMAGE:
-		return PyInt_FromLong( self->pItem->damage( id ) ); break;
-	case ENH:
-		return PyInt_FromLong( self->pItem->enh( id ) ); break;
-	case HIT:
-		return PyInt_FromLong( self->pItem->hit( id ) ); break;
-	case REQ:
-		return PyInt_FromLong( self->pItem->req( id ) ); break;
-	case RESIST: 
-		return PyInt_FromLong( self->pItem->resist( id ) ); break;
-	case REFLECT:
-		return PyInt_FromLong( self->pItem->reflect( id ) ); break;
-	default:
-		return PyFalse;
-	}
-}
-
-static PyObject* wpItem_setadv( wpItem* self, PyObject* args )
-{
-	if( !self->pItem || self->pItem->free )
-		return PyFalse;
-
-	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ))
-	{
-		PyErr_BadArgument();
-		return 0;
-	}
-	ushort list = getArgInt( 0 ); //Which list ? 
-								  //REGEN | BONUS | DAMAGE | ENH | HIT | REQ | RESIST | REFLECT
-
-	ushort id = getArgInt( 1 );   //Which property ?
-								  //...
-
-	ushort data = getArgInt( 2 ); //Value to write
-
-	switch( list )
-	{
-	case REGEN:
-		self->pItem->setRegen( id, data ); break;
-	case BONUS:
-		self->pItem->setBonus( id, data ); break;
-	case DAMAGE:
-		self->pItem->setDamage( id, data ); break;
-	case ENH:
-		self->pItem->setEnh( id, data ); break;
-	case HIT:
-		self->pItem->setHit( id, data ); break;
-	case REQ:
-		self->pItem->setReq( id, data ); break;
-	case RESIST: 
-		self->pItem->setResist( id, data ); break;
-	case REFLECT:
-		self->pItem->setReflect( id, data ); break;
-	default:
-		return PyFalse;
-	}
-
-	return PyTrue;
-}
-
 // If we are in a multi, return the multi object for it
 // otherwise pynone
 static PyObject* wpItem_multi( wpItem* self, PyObject* args )
@@ -730,8 +648,6 @@ static PyMethodDef wpItemMethods[] =
 	{ "getoutmostchar",		(getattrofunc)wpItem_getoutmostchar, METH_VARARGS, "Get the outmost character." },
 	{ "getoutmostitem",		(getattrofunc)wpItem_getoutmostitem, METH_VARARGS, "Get the outmost item." },
 	{ "getname",			(getattrofunc)wpItem_getname, METH_VARARGS, "Get item name." },
-	{ "getadv",				(getattrofunc)wpItem_getadv, METH_VARARGS,"Get advanced modifiers." },
-	{ "setadv",				(getattrofunc)wpItem_setadv, METH_VARARGS,"Set advanced modifiers." },
 	{ "multi",				(getattrofunc)wpItem_multi,	METH_VARARGS, NULL },
 
 	// Effects

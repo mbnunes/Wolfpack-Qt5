@@ -143,8 +143,9 @@ inline bool cVariant::isValid() const
 class cCustomTags
 {
 public:
-	cCustomTags(): changed( false ) {}
+	cCustomTags(): changed( false ), tags_( 0 ) {}
 	cCustomTags( const cCustomTags& );
+	virtual ~cCustomTags();
 
 	void del( SERIAL key );
 	void save( SERIAL key );
@@ -154,7 +155,7 @@ public:
 	void		set( const QString& key, const cVariant& value );
 	void		remove( const QString& key );
 
-	UI32		size( void ) { return this->tags_.size(); }
+	UI32		size( void ) { return tags_ ? this->tags_->size() : 0; }
 
 	QStringList getKeys( void );
 
@@ -174,7 +175,7 @@ public:
 
 
 private:
-	QMap< QString, cVariant > tags_;
+	QMap< QString, cVariant > *tags_;
 	bool changed;
 };
 
