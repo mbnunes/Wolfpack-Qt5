@@ -1672,7 +1672,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
    //Now find real 'skill' based on 'baseskill' (stat modifiers)
    for(z=0;z<TRUESKILLS;z++)
    {
-	   Skills->updateSkillLevel(DEREF_P_CHAR(pc_c),z);
+	   Skills->updateSkillLevel(pc_c, z);
    }
    
    updatechar(pc_c);
@@ -1859,7 +1859,7 @@ void cChar::fight(P_CHAR other)
 	if (this->isNpc())
 	{
 		if (!this->war)
-			npcToggleCombat(DEREF_P_CHAR(this));
+			npcToggleCombat(this);
 		this->setNextMoveTime();
 	}
 }

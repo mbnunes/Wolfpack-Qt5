@@ -838,7 +838,7 @@ void cTargets::GhostTarget(int s)
 			pc->attacker=pc_currchar->serial; //AntiChrist -- for forensics ev
 			bolteffect(DEREF_P_CHAR(pc), true);
 			soundeffect2(pc, 0x0029);
-			deathstuff(DEREF_P_CHAR(pc));
+			deathstuff(pc);
 		}
 		else
 			sysmessage(s,"That player is already dead.");
@@ -1060,7 +1060,7 @@ void cTargets::AllSetTarget(int s)
 		if (addx[s]<TRUESKILLS)
 		{
 			pc->baseskill[addx[s]]=addy[s];
-			Skills->updateSkillLevel(DEREF_P_CHAR(pc), addx[s]);
+			Skills->updateSkillLevel(pc, addx[s]);
 			if (k!=-1) updateskill(k, addx[s]);
 		}
 		else if (addx[s]==ALLSKILLS)
@@ -1068,7 +1068,7 @@ void cTargets::AllSetTarget(int s)
 			for (j=0;j<TRUESKILLS;j++)
 			{
 				pc->baseskill[j]=addy[s];
-				Skills->updateSkillLevel(DEREF_P_CHAR(pc), j);
+				Skills->updateSkillLevel(pc, j);
 				if (k!=-1) updateskill(k,j);
 			}
 		}
@@ -1077,7 +1077,7 @@ void cTargets::AllSetTarget(int s)
 			pc->st=addy[s];
 			for (j=0;j<TRUESKILLS;j++)
 			{
-				Skills->updateSkillLevel(DEREF_P_CHAR(pc),j);
+				Skills->updateSkillLevel(pc,j);
 				if (k!=-1) updateskill(k,j);
 			}
 			if (k!=-1) 
@@ -1088,7 +1088,7 @@ void cTargets::AllSetTarget(int s)
 			pc->setDex(addy[s]);
 			for (j=0;j<TRUESKILLS;j++)
 			{
-				Skills->updateSkillLevel(DEREF_P_CHAR(pc),j);
+				Skills->updateSkillLevel(pc,j);
 				if (k!=-1) updateskill(k,j);
 			}
 			if (k!=-1) 
@@ -1099,7 +1099,7 @@ void cTargets::AllSetTarget(int s)
 			pc->in=addy[s];
 			for (j=0;j<TRUESKILLS;j++)
 			{
-				Skills->updateSkillLevel(DEREF_P_CHAR(pc),j);
+				Skills->updateSkillLevel(pc,j);
 				if (k!=-1) updateskill(k,j);
 			}
 			if (k!=-1) 

@@ -326,7 +326,7 @@ void cTmpEff::Expire()
 				sprintf((char*)temp, "*%s continues grinding.*", pc_s->name);
 				npcemoteall(pc_s, (char*)temp,1);
 			}
-			soundeffect2(DEREF_P_CHAR(pc_s), 0x02, 0x42);
+			soundeffect2(pc_s, 0x0242);
 		}
 		break;
 	case 10:
@@ -999,11 +999,12 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 	return 1;
 }
 
-bool cAllTmpEff::Add(int source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3)
+bool cAllTmpEff::Add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3)
 {
 	if (teffectcount>(cmem*5)) return 0;
 
-	P_CHAR pc_source = MAKE_CHARREF_LRV(source, 0);
+	if (pc_source == NULL)
+		return 0;
 
 	cTmpEff *pTE=new cTmpEff;
 	pTE->Init();
@@ -1074,7 +1075,7 @@ unsigned char tempeffect(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned cha
 	return AllTmpEff->Add(pc_source, pc_dest, num, more1, more2, more3, dur);
 }
 
-unsigned char tempeffect2(int source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3)
+unsigned char tempeffect2(P_CHAR source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3)
 {
 	return AllTmpEff->Add(source, piDest, num, more1, more2, more3);
 }

@@ -108,7 +108,7 @@ void BuildPointerArray();
 void InitMultis();
 void InitServerSettings();
 void DeleteClasses();
-void npcToggleCombat(int s);
+void npcToggleCombat(P_CHAR pc);
 int chardir(int a, int b);
 int checkBoundingBox(int xPos, int yPos, int fx1, int fy1, int fz1, int fx2, int fy2);
 int checkBoundingCircle(int xPos, int yPos, int fx1, int fy1, int fz1, int radius);
@@ -123,7 +123,7 @@ void enlist(int s, int listnum); // For enlisting in army
 
 // Day and Night related prototypes
 void doworldlight(void);
-char indungeon(int s);
+char indungeon(P_CHAR pc);
 void setabovelight(unsigned char);
 
 void tweakmenu(UOXSOCKET, SERIAL);
@@ -167,7 +167,7 @@ void readFullLine ();
 
 void who(int s);
 void gms(int s);
-void playmonstersound(int monster, int id1, int id2, int sfx);
+void playmonstersound(P_CHAR monster, int id1, int id2, int sfx);
 void sellaction(int s);
 void addgold(UOXSOCKET s, int totgold);
 int calcValue(P_ITEM pi, int value);
@@ -193,7 +193,7 @@ void read1 ();
 void read2 ();
 bool inVisRange(int x1, int y1, int x2, int y2);
 int inrange1(UOXSOCKET a, UOXSOCKET b);
-void deathstuff(int i);
+void deathstuff(P_CHAR pc_player);
 bool online(P_CHAR pc);
 void loadserverscript(void);
 void loadremote_admin();

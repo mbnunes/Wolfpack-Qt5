@@ -2503,7 +2503,7 @@ void cSkills::LockPick(int s)
 						{
 							reag_st regs = {0,};
 							regs.ash = regs.moss = 1;
-							Magic->DelReagents(DEREF_P_CHAR(pc_currchar), regs);
+							Magic->DelReagents(pc_currchar, regs);
 						}
 
 					}

@@ -209,7 +209,7 @@ public:
 	void PoisoningTarget(int s);
 	int Inscribe(int s, long snum);
 	int EngraveAction(int s, P_ITEM pi, int cir, int spl);
-	void updateSkillLevel(int c, int s);
+	void updateSkillLevel(P_CHAR pc, int s);
 	void LockPick(int s);
 	void TDummy(int s);
 	void Tinkering(int s);
@@ -273,7 +273,7 @@ public:
 	void playSound( int source, int num );
 //	void NewDelReagents( CHARACTER s, reag_st reags );
 	
-	void DelReagents( CHARACTER s, reag_st reags );
+	void DelReagents( P_CHAR pc, reag_st reags );
 
 	void NewCastSpell( UOXSOCKET s );
 	void SbOpenContainer(int s);

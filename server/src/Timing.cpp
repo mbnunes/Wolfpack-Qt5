@@ -292,7 +292,7 @@ void genericCheck(int i, unsigned int currenttime)// Char mapRegions
 			}
 	}
 	if (pc->hp <= 0 && !pc->dead)
-		deathstuff(DEREF_P_CHAR(pc));
+		deathstuff(pc);
 }
 
 void checkPC(int i, unsigned int currenttime)//Char mapRegions
@@ -507,7 +507,7 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 			if(pc->hp<=0)
 			{
 				sysmessage(s,"You have died of starvation");
-				deathstuff(DEREF_P_CHAR(pc));
+				deathstuff(pc);
 			}
 		}
 	}
@@ -595,7 +595,7 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 				}
 				if (pc->hp<1)
 				{
-					deathstuff(DEREF_P_CHAR(pc));
+					deathstuff(pc);
 					sysmessage(s, "The poison has killed you.");
 				}
 			} // end switch
@@ -772,7 +772,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 				}
 				if (pc->hp<1)
 				{
-					deathstuff(DEREF_P_CHAR(pc));
+					deathstuff(pc);
 				}
 			} // end switch
 		} // end if poison-wear off-timer
@@ -816,7 +816,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					sprintf((char*)temp, "* %s appears to have decided that it is better off without a master *", pc->name);
 					npctalkall(pc, (char*)temp,0);
 					{
-						soundeffect2(DEREF_P_CHAR(pc), 0x01, 0xFE);
+						soundeffect2(pc, 0x01FE);
 						if(SrvParms->tamed_disappear==1)
 						Npcs->DeleteChar(DEREF_P_CHAR(pc));
 					}

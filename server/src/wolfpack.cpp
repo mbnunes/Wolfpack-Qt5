@@ -986,14 +986,15 @@ void showcname (int s, int i, char b) // Singleclick text for a character
 // History:	by UnKnown (Touched tabstops by Tauriel Dec 28, 1998)
 // Purpose:	creates a corpse, moves items to it, take out of war mode, does animation and sound, etc.
 //
-void deathstuff(int i)
+void deathstuff(P_CHAR pc_player)
 {
 	int z, l, q, ele;
 	char murderername[50]; //AntiChrist
 	char clearmsg[8];
 	int nType=0;
 
-	P_CHAR pc_player = MAKE_CHARREF_LR(i);
+	if ( pc_player == NULL )
+		return;
 
 
 	if (pc_player->dead || pc_player->npcaitype == 17 || pc_player->isInvul()) 
@@ -1081,7 +1082,7 @@ void deathstuff(int i)
 				}
 			}//if !npc
 			if (pc_t->isNpc() && pc_t->war) 
-				npcToggleCombat(DEREF_P_CHAR(pc_t)); // ripper
+				npcToggleCombat(pc_t); // ripper
 		}
 	}
 
@@ -1113,7 +1114,7 @@ void deathstuff(int i)
 		pc_player->id2=0x92;
 	}
 
-	PlayDeathSound(DEREF_P_CHAR(pc_player));
+	PlayDeathSound(pc_player);
 	pc_player->skin = 0x0000; // Undyed
 	pc_player->dead = true;	// Dead
 	pc_player->hp = 0;		// With no hp left
@@ -1457,7 +1458,7 @@ void explodeitem(int s, P_ITEM pi)
 				updatestats(pc, 0);
 				if (pc->hp<=0)
 				{
-					deathstuff(DEREF_P_CHAR(pc));
+					deathstuff(pc);
 				}
 				else
 				{
@@ -1497,7 +1498,7 @@ void explodeitem(int s, P_ITEM pi)
 							{
 								//chain=1; // maximum: one additional trigerred per check ..
 								if (rand()%2==1) chain=1; // LB - more aggressive - :)
-								tempeffect2(DEREF_P_CHAR(pc_currchar), piMap, 17, 0, 1, 0); // trigger ...
+								tempeffect2(pc_currchar, piMap, 17, 0, 1, 0); // trigger ...
 							}
 						}
 					}
@@ -1875,7 +1876,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 		if (ii==buffer[s][0x4a]) pc->baseskill[buffer[s][0x4a]]=buffer[s][0x4b]*10;
 		if (ii==buffer[s][0x4c]) pc->baseskill[buffer[s][0x4c]]=buffer[s][0x4d]*10;
 		if (ii==buffer[s][0x4e]) pc->baseskill[buffer[s][0x4e]]=buffer[s][0x4f]*10;
-		Skills->updateSkillLevel(DEREF_P_CHAR(pc), i);
+		Skills->updateSkillLevel(pc, i);
 	}
 
 	if (validhair(buffer[s][0x52],buffer[s][0x53]))
@@ -3313,9 +3314,8 @@ void npcact(int s)
 	}
 }
 
-void npcToggleCombat(int s)
+void npcToggleCombat(P_CHAR pc)
 {
-	P_CHAR pc = MAKE_CHAR_REF(s);
 	pc->war = !pc->war;
 	Movement->CombatWalk(pc);
 }
@@ -3528,13 +3528,13 @@ int fielddir(CHARACTER s, int x, int y, int z)
 	return 1;
 }
 
-char indungeon(int s)
+char indungeon(P_CHAR pc)
 {
-	if (chars[s].pos.x<5119) 
+	if (pc->pos.x<5119) 
 		return 0;
 
-	int x1 = (chars[s].pos.x-5119)>>8;
-	int y1 = (chars[s].pos.y>>8);
+	int x1 = (pc->pos.x-5119)>>8;
+	int y1 = (pc->pos.y>>8);
 
 	switch (y1)
 	{
@@ -3566,7 +3566,7 @@ void npcattacktarget(P_CHAR pc_target2, P_CHAR pc_target)
 	if (pc_target->dispz > (pc_target2->dispz +10)) return;//FRAZAI
 	if (pc_target->dispz < (pc_target2->dispz -10)) return;//FRAZAI
 	if (!(line_of_sight(-1,pc_target2->pos, pc_target->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING))) return; //From Leviathan - Morrolan
-	playmonstersound(DEREF_P_CHAR(pc_target), pc_target->id1, pc_target->id2, SND_STARTATTACK);
+	playmonstersound(pc_target, pc_target->id1, pc_target->id2, SND_STARTATTACK);
 	int i;
 	unsigned int cdist=0 ;
 
@@ -3604,12 +3604,13 @@ void npcattacktarget(P_CHAR pc_target2, P_CHAR pc_target)
 	if (pc_target->isNpc())
 	{
 		if (!(pc_target->war)) 
-			npcToggleCombat(DEREF_P_CHAR(pc_target));
+			npcToggleCombat(pc_target);
 		pc_target->setNextMoveTime();
 	}
 	if ((pc_target2->isNpc())&&!(pc_target2->npcaitype==4)) // changed from 0x40 to 4, LB
 	{
-		if (!(pc_target2->war)) npcToggleCombat(DEREF_P_CHAR(pc_target2));
+		if (!(pc_target2->war)) 
+			npcToggleCombat(pc_target2);
 		pc_target2->setNextMoveTime();
 	}
 	 
@@ -3986,7 +3987,7 @@ void goldsfx(int s, int goldtotal)
 	return;
 }
 
-void playmonstersound(int monster, int id1, int id2, int sfx)
+void playmonstersound(P_CHAR monster, int id1, int id2, int sfx)
 {
 	int basesound=0,x;
 	char sf; short offset;
@@ -4023,7 +4024,7 @@ void playmonstersound(int monster, int id1, int id2, int sfx)
 		}
 		basesound=basesound+offset;
 		if (offset!=-1) 
-			soundeffect2(monster, basesound>>8, basesound%256);
+			soundeffect2(monster, basesound);
 		return;
 	}
 }
@@ -4131,7 +4132,7 @@ void usepotion(int p, P_ITEM pi)//Reprogrammed by AntiChrist
 		tempeffect(currchar[s], currchar[s], 16, 0, 1, 3);
 		tempeffect(currchar[s], currchar[s], 16, 0, 2, 2);
 		tempeffect(currchar[s], currchar[s], 16, 0, 3, 1);
-		tempeffect2(DEREF_P_CHAR(currchar[s]), pi, 17, 0, 4, 0);
+		tempeffect2(currchar[s], pi, 17, 0, 4, 0);
 		target(s,0,1,0,207,"*throw*");
 		return; // lb bugfix, break is wronh here because it would delete bottle
 

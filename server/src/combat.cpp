@@ -93,7 +93,7 @@ void cCombat::ItemCastSpell(UOXSOCKET s, P_CHAR pc, P_ITEM pi)//S=Socket c=Char 
 	case 51: Magic->FlameStrikeSpell(pc_currchar,pc); break;
 	default:
 		staticeffect(pc_currchar, 0x37, 0x35, 0, 30);
-		soundeffect2(DEREF_P_CHAR(pc_currchar), 0x00, 0x5C);
+		soundeffect2(pc_currchar, 0x005C);
 		break;
 	}
 	pc_currchar->mn+=tempmana;
@@ -207,9 +207,9 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 	{
 		if (!pc_deffender->isInvul())
 		{
-			if (pc_deffender->xid2==0x91) soundeffect2(DEREF_P_CHAR(pc_deffender),0x01,0x4b);
-			if (pc_deffender->xid2==0x90) soundeffect2(DEREF_P_CHAR(pc_deffender),0x01,0x56);
-			playmonstersound(DEREF_P_CHAR(pc_deffender), pc_deffender->id1, pc_deffender->id2, SND_DEFEND);
+			if (pc_deffender->xid2==0x91) soundeffect2(pc_deffender,0x014b);
+			if (pc_deffender->xid2==0x90) soundeffect2(pc_deffender,0x0156);
+			playmonstersound(pc_deffender, pc_deffender->id1, pc_deffender->id2, SND_DEFEND);
 			//AntiChrist -- for poisoned weapons
 			if((pWeapon) && (pWeapon->poisoned>0))
 			{
@@ -248,8 +248,8 @@ void cCombat::CombatHit(int a, int d, unsigned int currenttime, short los)
 							if(pc_deffender->isPlayer())
 							{
 								sysmessage(s2,"You sceam in agony from being hit by the accursed metal!");
-								if (pc_deffender->xid2==0x91) soundeffect2(DEREF_P_CHAR(pc_deffender),0x01,0x52);
-								else if (pc_deffender->xid2==0x90) soundeffect2(DEREF_P_CHAR(pc_deffender),0x01,0x57);
+								if (pc_deffender->xid2==0x91) soundeffect2(pc_deffender,0x0152);
+								else if (pc_deffender->xid2==0x90) soundeffect2(pc_deffender,0x0157);
 							}// can add a possible effect below here for npc's being hit
 					}
 							
@@ -694,7 +694,7 @@ void cCombat::DoCombatAnimations(P_CHAR pc_attacker, P_CHAR pc_defender, int fig
 			}
 		}
 		npcaction(a,aa); 
-		playmonstersound(a, pc_attacker->id1, pc_attacker->id2, SND_ATTACK);
+		playmonstersound(pc_attacker, pc_attacker->id1, pc_attacker->id2, SND_ATTACK);
 	}
 	else if (pc_attacker->onhorse)
 	{
@@ -761,8 +761,8 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 				{
 					pc_attacker->MoveTo(pc_defender->pos.x,pc_defender->pos.y,pc_defender->pos.z);
 					
-					teleport((pc_attacker));
-					soundeffect2(DEREF_P_CHAR(pc_attacker), 0x01, 0xFE); // crashfix, LB
+					teleport(pc_attacker);
+					soundeffect2(pc_attacker, 0x01FE); // crashfix, LB
 					staticeffect(pc_attacker, 0x37, 0x2A, 0x09, 0x06);
 					npctalkall(pc_attacker,"Halt, scoundrel!",1);
 				}
@@ -779,7 +779,7 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 					pc_attacker->attacker=INVALID_SERIAL;
 					pc_attacker->resetAttackFirst();
 					if (pc_attacker->isNpc() && pc_attacker->npcaitype!=17 && !pc_attacker->dead && pc_attacker->war)
-						npcToggleCombat(DEREF_P_CHAR(pc_attacker)); // ripper
+						npcToggleCombat(pc_attacker); // ripper
 				}
 			}
 			else
@@ -867,13 +867,13 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 				{
 					npcaction(DEREF_P_CHAR(pc_defender), 0x15);
 					
-					PlayDeathSound(DEREF_P_CHAR(pc_defender));
+					PlayDeathSound(pc_defender);
 					
 					Npcs->DeleteChar(DEREF_P_CHAR(pc_defender));//Guards, don't give body
 				}
 				else
 				{
-					deathstuff(DEREF_P_CHAR(pc_defender));
+					deathstuff(pc_defender);
 				}
 				//murder count \/
 				
@@ -896,7 +896,7 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 					}
 					
 				}
-				npcToggleCombat(DEREF_P_CHAR(pc_attacker));
+				npcToggleCombat(pc_attacker);
 				return; // LB
 			}
 		}
@@ -1233,11 +1233,11 @@ void cCombat::SpawnGuard(P_CHAR pc_offender, P_CHAR pc_caller, int x, int y, sig
 		pc_guard->attacker = pc_offender->serial;
 		pc_guard->targ = pc_offender->serial;
 		pc_guard->npcWander = 2;  // set wander mode Tauriel
-		npcToggleCombat(DEREF_P_CHAR(pc_guard));
+		npcToggleCombat(pc_guard);
 		pc_guard->npcmovetime =(unsigned int)(getNormalizedTime() +(double)((NPCSPEED*MY_CLOCKS_PER_SEC)/5));
 		pc_guard->summontimer =(getNormalizedTime() +(MY_CLOCKS_PER_SEC*25));    
 		
-		soundeffect2(DEREF_P_CHAR(pc_guard), 0x01, 0xFE);  // Tauriel 1-9-99 changed to stop crashing used to call soundeffect (expeted socket)
+		soundeffect2(pc_guard, 0x01FE);  // Tauriel 1-9-99 changed to stop crashing used to call soundeffect (expeted socket)
 		staticeffect(pc_guard, 0x37, 0x2A, 0x09, 0x06);
 		
 		updatechar(pc_guard);
@@ -1264,20 +1264,18 @@ void cCombat::ItemSpell(cChar* Attacker, cChar* Defender)
 		{
 			if (pi->offspell && (pi->att||pi->hidamage) && pi->type == 15)
 			{
-				int attaker = DEREF_P_CHAR(Attacker);
-				int defender = DEREF_P_CHAR(Defender);
 				switch(pi->offspell)
 				{
-				case 1:	Magic->ClumsySpell(Attacker,Defender, false);		break;
-				case 2:	Magic->FeebleMindSpell(Attacker, Defender, false);	break;
+				case 1:	Magic->ClumsySpell(Attacker,Defender, false);			break;
+				case 2:	Magic->FeebleMindSpell(Attacker, Defender, false);		break;
 				case 3:	Magic->MagicArrow(Attacker,Defender, false);			break;
-				case 4:	Magic->WeakenSpell(Attacker,Defender, false);		break;
-				case 5:	Magic->HarmSpell(Attacker,Defender, false);			break;
-				case 6:	Magic->FireballSpell(Attacker,Defender, false);		break;
+				case 4:	Magic->WeakenSpell(Attacker,Defender, false);			break;
+				case 5:	Magic->HarmSpell(Attacker,Defender, false);				break;
+				case 6:	Magic->FireballSpell(Attacker,Defender, false);			break;
 				case 8:	Magic->CurseSpell(Attacker,Defender, false);			break;
 				case 9:	Magic->LightningSpell(Attacker,Defender, false);		break;
 				case 11:Magic->MindBlastSpell(Attacker,Defender, false);		break;
-				case 12:Magic->ParalyzeSpell(Attacker,Defender, false);		break;
+				case 12:Magic->ParalyzeSpell(Attacker,Defender, false);			break;
 				case 14:Magic->ExplosionSpell(Attacker,Defender, false);		break;
 				case 15:Magic->FlameStrikeSpell(Attacker, Defender, false);		break;
 				default:

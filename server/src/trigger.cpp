@@ -392,7 +392,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						if (i > baseskill)
 						{
 							Skills->AdvanceSkill(currchar[ts], skill, 0);
-							Skills->updateSkillLevel(DEREF_P_CHAR(currchar[ts]), skill);
+							Skills->updateSkillLevel(currchar[ts], skill);
 							updateskill(ts, skill);
 							if (strlen(fmsg))
 								sysmessage(ts, fmsg); // by Magius(CHE) §
@@ -729,7 +729,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							j = str2num(script2);
 							if ((j < 0) &&(pc_ts->hp < abs(j)) &&(!(pc_ts->isInvul())))
 							{
-								deathstuff(DEREF_P_CHAR(currchar[ts]));
+								deathstuff(currchar[ts]);
 								closescript();
 								return;
 							}
@@ -1834,14 +1834,14 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 									if (pc_ts->baseskill[p]>1000)
 										pc_ts->baseskill[p] = 1000;
 									Skills->AdvanceStats(DEREF_P_CHAR(currchar[ts]), p);
-									Skills->updateSkillLevel(DEREF_P_CHAR(currchar[ts]), p);
+									Skills->updateSkillLevel(currchar[ts], p);
 									updateskill(ts, p);
 								}
 							}
 							else 
 							{
 								Skills->AdvanceSkill(currchar[ts], p, 1);
-								Skills->updateSkillLevel(DEREF_P_CHAR(currchar[ts]), p);
+								Skills->updateSkillLevel(currchar[ts], p);
 								updateskill(ts, p);
 							}
 						}
@@ -1943,7 +1943,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								if ((p>-1) && (p<49))
 								{
 									pc_ts->baseskill[p] -= j;
-									Skills->updateSkillLevel(DEREF_P_CHAR(currchar[ts]), p);
+									Skills->updateSkillLevel(currchar[ts], p);
 									updateskill(ts, p);
 									pi->trigon=0;
 								}
@@ -1976,7 +1976,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								if ((p>-1) && (p<49))
 								{
 									pc_ts->baseskill[p] += j;
-									Skills->updateSkillLevel(DEREF_P_CHAR(currchar[ts]), p);
+									Skills->updateSkillLevel(currchar[ts], p);
 									updateskill(ts, p);
 									pi->trigon=1;
 								}
@@ -2155,7 +2155,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 						if (i > baseskill)
 						{
 							Skills->AdvanceSkill(pc_ts, skill, 0);
-							Skills->updateSkillLevel(DEREF_P_CHAR(pc_ts), skill);
+							Skills->updateSkillLevel(pc_ts, skill);
 							updateskill(ts, skill);
 							if (strlen(fmsg))
 								sysmessage(ts, fmsg); // by Magius(CHE) §
@@ -2395,7 +2395,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							
 							if ((j < 0) &&(pc_ts->hp < abs(j)) &&(!(pc_ts->isInvul())))
 							{
-								deathstuff(DEREF_P_CHAR(pc_ts));
+								deathstuff(pc_ts);
 								closescript();
 								return;
 							}

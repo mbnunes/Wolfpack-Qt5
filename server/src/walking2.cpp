@@ -1270,7 +1270,7 @@ void cMovement::HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket)
 		// for the weather.
 		if (wtype!=0) // check only neccasairy if it rains or snows ...
 		{
-			int inDungeon = indungeon(DEREF_P_CHAR(pc)); // dung-check
+			int inDungeon = indungeon(pc); // dung-check
 			bool i = Map->IsUnderRoof(pc->pos.x, pc->pos.y, pc->pos.z); // static check
 			// dynamics-check
 			int x = Map->DynamicElevation(pc->pos.x, pc->pos.y, pc->pos.z);

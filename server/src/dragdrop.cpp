@@ -758,7 +758,7 @@ static bool ItemDroppedOnTrainer(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 			Items->DeleItem(pi);
 		}
 		pc_currchar->baseskill[sk]+=delta;
-		Skills->updateSkillLevel(DEREF_P_CHAR(pc_currchar), sk);
+		Skills->updateSkillLevel(pc_currchar, sk);
 		updateskill(s,sk);
 
 		pc_currchar->trainer=-1;

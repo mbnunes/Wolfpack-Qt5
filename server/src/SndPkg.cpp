@@ -1271,12 +1271,12 @@ void sendperson_lsd(UOXSOCKET s, CHARACTER c, char color1, char color2)
 
 void chardel (UOXSOCKET s) // Deletion of character
 {
-	int k, tlen;
+	int tlen;
 	unsigned int j,i;
 	if (acctno[s]!=-1)
 	{
 		j=0;
-		k=-1;
+		P_CHAR toDelete = NULL;
 		AllCharsIterator iterChars;
 		for (iterChars.Begin(); !iterChars.atEnd(); iterChars++)
 		{
@@ -1284,17 +1284,17 @@ void chardel (UOXSOCKET s) // Deletion of character
 			if ((pc->account==acctno[s] && !pc->free))
 			{
 				if (j == buffer[s][0x22]) 
-					k = DEREF_P_CHAR(pc);
+					toDelete = pc;
 				j++;
 			}
 		}
-		if (k!=-1)
+		if (toDelete != NULL)
 		{
 			if (!SrvParms->checkcharage)
-				Npcs->DeleteChar(k);
+				Npcs->DeleteChar(DEREF_P_CHAR(toDelete));
 			else
-				if ((chars[k].creationday+7) < getPlatformDay())
-					Npcs->DeleteChar(k);
+				if ((toDelete->creationday+7) < getPlatformDay())
+					Npcs->DeleteChar(DEREF_P_CHAR(toDelete));
 				else
 				{
 					unsigned char delete_error[2] = {0x85, 0x03};
@@ -1312,11 +1312,13 @@ void chardel (UOXSOCKET s) // Deletion of character
 
 			Xsend(s, login04a, 4);
 			j=0;
-			for (i=0;i<charcount;i++)
+			AllCharsIterator it;
+			for (it.Begin(); !it.atEnd(); it++)
 			{
-				if ( chars[i].account==acctno[s] && !chars[i].free)
+				P_CHAR pc = it.GetData();
+				if ( pc->account == acctno[s] && !pc->free)
 				{
-					strcpy((char*)login04b, chars[i].name);
+					strcpy((char*)login04b, pc->name);
 					Xsend(s, login04b, 60);
 					j++;
 				}
@@ -1657,7 +1659,7 @@ void skillwindow(int s) // Opens the skills list, updated for client 1.26.2b by 
 	Xsend(s, skillstart, 4);
 	for (i=0;i<TRUESKILLS;i++)
 	{
-		Skills->updateSkillLevel(DEREF_P_CHAR(pc_currchar), i);
+		Skills->updateSkillLevel(pc_currchar, i);
 		skillmid[1]=i+1;
 		skillmid[2]=pc_currchar->skill[i]>>8;
 		skillmid[3]=pc_currchar->skill[i]%256;
@@ -2039,7 +2041,7 @@ void itemtalk(int s, P_ITEM pi, char *txt) // Item "speech"
 
 void npctalk(int s, cChar* pNpc, char *txt,char antispam) // NPC speech
 {
-	npctalk(s,DEREF_P_CHAR(pNpc),txt,antispam);
+	npctalk(s, DEREF_P_CHAR(pNpc),txt,antispam);
 }
 
 void npctalk(int s, int npc, char *txt,char antispam) // NPC speech
@@ -2106,7 +2108,7 @@ void npctalkall(P_CHAR npc, char *txt,char antispam) // NPC speech to all in ran
 
 	for (i=0;i<now;i++)
 		if (inrange1p(npc, currchar[i])&&perm[i])
-			npctalk(i, DEREF_P_CHAR(npc), txt,antispam);
+			npctalk(i, npc, txt,antispam);
 }
 
 void npctalk_runic(int s, int npc, char *txt,char antispam) // NPC speech
@@ -2762,7 +2764,7 @@ void dolight(int s, char level)
 		{
 			light[1]=pc_currchar->fixedlight;
 		} else {
-			if (indungeon(DEREF_P_CHAR(currchar[s])))
+			if (indungeon(currchar[s]))
 			{
 				light[1]=dungeonlightlevel;
 			}
@@ -3576,33 +3578,34 @@ void bolteffectUO3D(P_CHAR player)
 	Magic->doStaticEffect(player, 30);
 }
 
-void PlayDeathSound( CHARACTER i )
+void PlayDeathSound( P_CHAR pc )
 {
-    P_CHAR pc = MAKE_CHARREF_LR(i);
+    if ( pc == NULL )
+		return;
 
 	if (pc->xid1==0x01 && pc->xid2==0x91)
 	{
 		switch(RandomNum(0, 3)) // AntiChrist - uses all the sound effects
 		{
-		case 0:		soundeffect2( i, 0x01, 0x50 );	break;// Female Death
-		case 1:		soundeffect2( i, 0x01, 0x51 );	break;// Female Death
-		case 2:		soundeffect2( i, 0x01, 0x52 );	break;// Female Death
-		case 3:		soundeffect2( i, 0x01, 0x53 );	break;// Female Death
+		case 0:		soundeffect2( pc, 0x0150 );	break;// Female Death
+		case 1:		soundeffect2( pc, 0x0151 );	break;// Female Death
+		case 2:		soundeffect2( pc, 0x0152 );	break;// Female Death
+		case 3:		soundeffect2( pc, 0x0153 );	break;// Female Death
 		}
 	}
 	else if (pc->xid1==0x01 && pc->xid2==0x90)
 	{
 		switch( RandomNum(0, 3) ) // AntiChrist - uses all the sound effects
 		{
-		case 0:		soundeffect2( i, 0x01, 0x5A );	break;// Male Death
-		case 1:		soundeffect2( i, 0x01, 0x5B );	break;// Male Death
-		case 2:		soundeffect2( i, 0x01, 0x5C );	break;// Male Death
-		case 3:		soundeffect2( i, 0x01, 0x5D );	break;// Male Death
+		case 0:		soundeffect2( pc, 0x015A );	break;// Male Death
+		case 1:		soundeffect2( pc, 0x015B );	break;// Male Death
+		case 2:		soundeffect2( pc, 0x015C );	break;// Male Death
+		case 3:		soundeffect2( pc, 0x015D );	break;// Male Death
 		}
 	}
 	else
 	{
-		playmonstersound(i, pc->xid1, pc->xid2, SND_DIE);
+		playmonstersound(pc, pc->xid1, pc->xid2, SND_DIE);
 	}
 }
 

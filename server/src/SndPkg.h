@@ -132,6 +132,6 @@ void playmidi(int s, char num1, char num2);
 void sendtradestatus(P_ITEM cont1, P_ITEM cont2);
 void endtrade(int b1, int b2, int b3, int b4);
 void tellmessage(int i, int s, char *txt);
-void PlayDeathSound( CHARACTER i );
+void PlayDeathSound( P_CHAR pc );
 
 #endif

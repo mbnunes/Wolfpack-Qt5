@@ -710,7 +710,7 @@ void monstergate(int s, int x)
  //Now find real 'skill' based on 'baseskill' (stat modifiers)
  for(z=0;z<TRUESKILLS;z++)
  {
-	 Skills->updateSkillLevel(s,z);
+	 Skills->updateSkillLevel(pc_s,z);
  }
  updatechar(pc_s);
  staticeffect(pc_s, 0x37, 0x3A, 0, 15);
@@ -833,7 +833,7 @@ void objTeleporters(int s)
 										pc_s->hp = 0;
 									updatestats(pc_s, 0);
 									if (pc_s->hp <= 0)
-										deathstuff(DEREF_P_CHAR(pc_s));
+										deathstuff(pc_s);
 								}
 								// monster gates
 								if (pmi->type == 82)

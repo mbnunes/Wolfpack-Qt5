@@ -707,7 +707,7 @@ void cMagic::MagicDamage(P_CHAR pc, int amount)
 		updatestats((pc), 0);
 		if (pc->hp <= 0)
 		{
-			deathstuff(DEREF_P_CHAR(pc));
+			deathstuff(pc);
 		}
 	}
 }
@@ -956,7 +956,8 @@ void cMagic::SpellFail(UOXSOCKET s)
 {
 	P_CHAR pc_currchar = currchar[s];
 	//Use Reagents on failure ( if casting from spellbook )
-	if (currentSpellType[s]==0) DelReagents( DEREF_P_CHAR(pc_currchar), spells[pc_currchar->spell].reagents );
+	if (currentSpellType[s]==0) 
+		DelReagents( pc_currchar, spells[pc_currchar->spell].reagents );
 
 	//npcaction(cc, 128); // whaaaaaaaaaaaaaat ?
 	//orders the PG to move a step on, but the pg doesn't really move
@@ -1082,7 +1083,7 @@ void cMagic::NPCDispel(P_CHAR pc_s, P_CHAR pc_i)
 			tileeffect(pc_i->pos.x,pc_i->pos.y,pc_i->pos.z, 0x37, 0x2A, 0x00, 0x00);
 			if (pc_i->isNpc()) 
 				Npcs->DeleteChar(DEREF_P_CHAR(pc_i));
-			else deathstuff(DEREF_P_CHAR(pc_i));
+			else deathstuff(pc_i);
 		}
 	}
 }
@@ -1696,7 +1697,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 	}
 	if (currentSpellType[s]!=2) SubtractMana(pc_currchar, spells[curSpell].mana);
 	
-	if (currentSpellType[s]==0) DelReagents(DEREF_P_CHAR(pc_currchar), spells[curSpell].reagents );
+	if (currentSpellType[s]==0) DelReagents(pc_currchar, spells[curSpell].reagents );
 	
 	if( requireTarget( curSpell ) )					// target spells if true
 	{
@@ -2043,7 +2044,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							//staticeffect(DEREF_P_CHAR(pc_defender), 0x37, 0x2A, 0x09, 0x06);
 							tileeffect(pc_defender->pos.x,pc_defender->pos.y,pc_defender->pos.z, 0x37, 0x2A, 0x00, 0x00);
 							if (pc_defender->isNpc()) Npcs->DeleteChar(DEREF_P_CHAR(pc_defender));
-							else deathstuff(DEREF_P_CHAR(pc_defender));
+							else deathstuff(pc_defender);
 						}
 						break;
 						//////////// (42) ENERGY BOLT ///////////
@@ -2561,7 +2562,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 											if (mapchar->isNpc()) npcattacktarget(mapchar, pc_currchar);
 											return;
 										}
-										if (mapchar->isNpc()) deathstuff(DEREF_P_CHAR(mapchar)); // LB !!!!
+										if (mapchar->isNpc()) deathstuff(mapchar); // LB !!!!
 										soundeffect2(mapchar, 0x0204);
 										doStaticEffect(mapchar, curSpell);
 									}
@@ -2874,13 +2875,13 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 									if(rand()%2) npcaction(DEREF_P_CHAR(pc), 0x15); else npcaction(DEREF_P_CHAR(pc), 0x16);
 									if((pc->isNpc() || online(pc)) && pc->hp==0)
 									{
-										deathstuff(DEREF_P_CHAR(pc));                              
+										deathstuff(pc);                              
 									}
 								}	
 								else
 								{ 
 									if (pc->hp<=0) 
-										deathstuff(DEREF_P_CHAR(pc)); 
+										deathstuff(pc); 
 									else
 									{ 
 										if (pc->isNpc())
@@ -3049,9 +3050,8 @@ bool cMagic::requireTarget( unsigned char num )
 	return false;
 }
 
-void cMagic::DelReagents( CHARACTER s, reag_st reags )
+void cMagic::DelReagents( P_CHAR pc, reag_st reags )
 {
-	P_CHAR pc = MAKE_CHAR_REF(s);
 	if (pc->priv2&0x80) return;
 	delequan(pc, 0x0F7A, reags.pearl);
 	delequan(pc, 0x0F7B, reags.moss);

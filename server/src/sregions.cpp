@@ -572,7 +572,7 @@ void checkregion(P_CHAR pc_i)
 		}
 		pc_i->region=calcreg;
 		if (s!=-1) dosocketmidi(s);
-		if (indungeon(DEREF_P_CHAR(pc_i))) dolight(s,dungeonlightlevel);
+		if (indungeon(pc_i)) dolight(s,dungeonlightlevel);
 	}
 }
 

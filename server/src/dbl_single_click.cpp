@@ -536,9 +536,9 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		{
 			switch (RandomNum(0, 2))
 			{
-			case 0: soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x3A);		break;
-			case 1: soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x3B);		break;
-			case 2: soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x3C);		break;
+			case 0: soundeffect2(currchar[s], 0x003A);		break;
+			case 1: soundeffect2(currchar[s], 0x003B);		break;
+			case 2: soundeffect2(currchar[s], 0x003C);		break;
 			}// switch(foodsnd)
 			
 			switch (pc_currchar->hunger)
@@ -556,7 +556,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			if ((pi->poisoned) &&(pc_currchar->poisoned < pi->poisoned)) 
 			{
 				sysmessage(s, "You have been poisoned!");
-				soundeffect2(DEREF_P_CHAR(currchar[s]), 0x02, 0x46); // poison sound - SpaceDog
+				soundeffect2(currchar[s], 0x0246); // poison sound - SpaceDog
 				pc_currchar->poisoned = pi->poisoned;
 				pc_currchar->poisontime = uiCurrentTime +(MY_CLOCKS_PER_SEC*(40/pc_currchar->poisoned)); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
 				pc_currchar->poisonwearofftime = pc_currchar->poisontime +(MY_CLOCKS_PER_SEC*SrvParms->poisontimer); // wear off starts after poison takes effect - AntiChrist
@@ -730,8 +730,8 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		case 105:  // For drinking
 			switch (RandomNum(0, 1))
 			{
-			case 0: soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x31);		break;
-			case 1: soundeffect2(DEREF_P_CHAR(currchar[s]), 0x00, 0x30);		break; 
+			case 0: soundeffect2(currchar[s], 0x31);		break;
+			case 1: soundeffect2(currchar[s], 0x30);		break; 
 			}// switch(drinksnd)
 			
 			pi->ReduceAmount(1);	// Remove a drink

@@ -614,7 +614,7 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 	if (!strstr( comm, petname))	//if petname is not in
 		return 0;
 	
-	int k=DEREF_P_CHAR(pPet);
+	//int k=DEREF_P_CHAR(pPet);
 	
 	if (strstr( comm, " FOLLOW"))
 	{
@@ -623,7 +623,7 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 		{
 			pPet->ftarg = currchar[s]->serial;
 			pPet->npcWander=1;
-			playmonstersound(k, pPet->id1, pPet->id2, SND_STARTATTACK);
+			playmonstersound(pPet, pPet->id1, pPet->id2, SND_STARTATTACK);
 		}
 		else
 		{
@@ -679,7 +679,8 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 		pPlayer->guarded = false;
 		pPet->ftarg = INVALID_SERIAL;
 		pPet->targ = INVALID_SERIAL;
-		if (pPet->war) npcToggleCombat(k);
+		if (pPet->war) 
+			npcToggleCombat(pPet);
 		pPet->npcWander=0;
 		return 1;
 	}
@@ -708,7 +709,7 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 		{
 			soundeffect2(pPet, 0x01FE);
 			if(SrvParms->tamed_disappear==1)
-				Npcs->DeleteChar(k) ;
+				Npcs->DeleteChar(DEREF_P_CHAR(pPet)) ;
 		}
 		return 1;
 	}

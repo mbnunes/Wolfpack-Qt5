@@ -515,8 +515,8 @@ void cCommands::KillAll(int s, int percent, const char* sysmsg)
 			if(rand()%100+1<=percent)
 			{
 				bolteffect(DEREF_P_CHAR(pc), true);
-				soundeffect2(DEREF_P_CHAR(pc), 0x00, 0x29);
-				deathstuff(DEREF_P_CHAR(pc));
+				soundeffect2(pc, 0x0029);
+				deathstuff(pc);
 			}
 		}
 	}

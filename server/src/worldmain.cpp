@@ -300,7 +300,7 @@ void loadchar(int x) // Load a character from WSC
 				(script1[3]=='L')&&(script1[4]=='L'))
 			{
 				pc->baseskill[j=str2num(&script1[5])]=str2num(script2);
-				Skills->updateSkillLevel(DEREF_P_CHAR(pc), j);
+				Skills->updateSkillLevel(pc, j);
 			}
 			else if (!strcmp((char*)script1, "SKIN"))			  pc->skin = static_cast<UI16>(str2num(script2));
 			else if (!strcmp((char*)script1, "SPATTACK"))		  pc->spattack=str2num(script2);

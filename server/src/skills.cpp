@@ -766,7 +766,7 @@ void cSkills::PeaceMaking(int s)
 						if (perm[j]) 
 							sysmessage(j, "You hear some lovely music, and forget about fighting.");
 					if (mapchar->war) 
-						npcToggleCombat(DEREF_P_CHAR(mapchar));
+						npcToggleCombat(mapchar);
 					mapchar->targ = INVALID_SERIAL;
 					mapchar->attacker = INVALID_SERIAL;
 					mapchar->resetAttackFirst();
@@ -898,7 +898,7 @@ void cSkills::DoPotion(int s, int type, int sub, P_ITEM mortar)
 		tempeffect(pc_currchar, pc_currchar, 9, 0, 3, 0);
 		tempeffect(pc_currchar, pc_currchar, 9, 0, 6, 0);
 		tempeffect(pc_currchar, pc_currchar, 9, 0, 9, 0);
-		tempeffect2(DEREF_P_CHAR(pc_currchar), mortar, 10, type, sub, 0);	// this will indirectly call CreatePotion()
+		tempeffect2(pc_currchar, mortar, 10, type, sub, 0);	// this will indirectly call CreatePotion()
 	}
 }
 
@@ -1109,7 +1109,7 @@ char cSkills::CheckSkill(P_CHAR pc, unsigned short int sk, int low, int high)
 		{
 			if(Skills->AdvanceSkill(pc, sk, skillused))
 			{
-				Skills->updateSkillLevel(DEREF_P_CHAR(pc), sk); 
+				Skills->updateSkillLevel(pc, sk); 
 				if(pc->isPlayer() && online(pc)) updateskill(s, sk);
 			}
 		}
@@ -1204,7 +1204,7 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 				{ 
 					if (d==1 && pc->baseskill[dsk]==0) d=0; // should never happen ...
 						pc->baseskill[dsk]-=d;
-					Skills->updateSkillLevel(DEREF_P_CHAR(pc), dsk); 		// we HAVE to correct the skill-value
+					Skills->updateSkillLevel(pc, dsk); 		// we HAVE to correct the skill-value
 					updateskill(calcSocketFromChar(pc), dsk); // and send changed skill values packet so that client can re-draw correctly			
 				}
 			// this is very important cauz this is ONLY done for the calling skill value automatically .
@@ -1216,7 +1216,7 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 				if (pc->baseskill[dsk]>=1) 
 				{
 					pc->baseskill[dsk]--;
-					Skills->updateSkillLevel(DEREF_P_CHAR(pc), dsk); 	
+					Skills->updateSkillLevel(pc, dsk); 	
 					updateskill(calcSocketFromChar(pc), dsk); 				
 				}
 
@@ -1225,7 +1225,7 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 				if (pc->baseskill[dsk]>=1) 
 				{
 					pc->baseskill[dsk]--;
-					Skills->updateSkillLevel(DEREF_P_CHAR(pc), dsk); 	
+					Skills->updateSkillLevel(pc, dsk); 	
 					updateskill(calcSocketFromChar(pc), dsk); 			
 				}
 			}
@@ -1322,7 +1322,7 @@ void cSkills::AdvanceStats(CHARACTER s, int sk)
 		statwindow(so, pc);				// update client's status window
 		for (i=0; i<ALLSKILLS; i++)
 		{
-			updateSkillLevel(DEREF_P_CHAR(pc), i);		// update client's skill window
+			updateSkillLevel(pc, i);		// update client's skill window
 		}
 		if (atCap && !isGM)
 		{
@@ -1988,7 +1988,7 @@ void TellScroll( char *menu_name, int s, long snum )
 		itemmake[s].minskill=(cir-1)*100;	//set range values based on scroll level
 		itemmake[s].maxskill=(cir+2)*100;
 
-		Magic->DelReagents(DEREF_P_CHAR(pc_currchar), spells[num].reagents);
+		Magic->DelReagents(pc_currchar, spells[num].reagents);
 		
 		Skills->MakeMenuTarget(s,snum,INSCRIPTION); //put it in your pack
 	}
@@ -2106,7 +2106,7 @@ int cSkills::EngraveAction(int s, P_ITEM pi, int cir, int spl)
 	int num=(8*(cir-1))+spl;
 	if (pi == NULL)
 		return -1;
-	Magic->DelReagents(DEREF_P_CHAR(currchar[s]), spells[num].reagents);
+	Magic->DelReagents(currchar[s], spells[num].reagents);
 		
 	switch(cir*10 + spl)
 	{
@@ -2234,16 +2234,15 @@ int cSkills::EngraveAction(int s, P_ITEM pi, int cir, int spl)
 }
 
 // Calculate the skill of this character based on the characters baseskill and stats
-void cSkills::updateSkillLevel(int c, int s)
+void cSkills::updateSkillLevel(P_CHAR pc, int s)
 {
-	int temp = (((skill[s].st * chars[c].st) / 100 +
-		(skill[s].dx * chars[c].effDex()) / 100 +
-		(skill[s].in * chars[c].in) / 100)
-		*(1000-chars[c].baseskill[s]))/1000+chars[c].baseskill[s];
+	int temp = (((skill[s].st * pc->st) / 100 +
+		(skill[s].dx * pc->effDex()) / 100 +
+		(skill[s].in * pc->in) / 100)
+		*(1000-pc->baseskill[s]))/1000+pc->baseskill[s];
 	
 		
-	chars[c].skill[s] = max(static_cast<unsigned int>(chars[c].baseskill[s]), static_cast<unsigned int>(temp));
-	
+	pc->skill[s] = max(static_cast<unsigned int>(pc->baseskill[s]), static_cast<unsigned int>(temp));
 }
 
 void cSkills::TDummy(int s)

@@ -139,7 +139,7 @@ void RcvAttack(P_CLIENT ps)
 			}
 			else if ((pc_i->isNpc() || pc_i->tamed) && !pc_i->war && pc_i->npcaitype!=4) // changed from 0x40 to 4, cauz 0x40 was removed LB
 			{
-				npcToggleCombat(DEREF_P_CHAR(pc_i));
+				npcToggleCombat(pc_i);
 				pc_i->npcmovetime=(unsigned int)(uiCurrentTime+(double)((NPCSPEED*MY_CLOCKS_PER_SEC)/5)); //*16));
 			}
 			else
