@@ -39,15 +39,15 @@ def checkdyes(char, item, wearout = 0):
 # Process the target response from the client
 #
 def target(player, arguments, target):
-	# Needs to in our belongings
-	if target.item.getoutmostchar() != player:
-		player.socket.clilocmessage(500364)
-		return
-	
 	# Check the target
 	if not target.item or target.item.baseid not in ['fab', 'leatherdye', 'specialdye', 'runedye']:
 		player.socket.clilocmessage(500857)
 		return
+		
+	# Needs to in our belongings
+	if target.item.getoutmostchar() != player:
+		player.socket.clilocmessage(500364)
+		return		
 
 	# Wear out the tools
 	dyes = wolfpack.finditem(arguments[0])

@@ -58,7 +58,7 @@ def stroke(player, arguments):
 			blood.update()
 
 	# There are still strokes left	
-	if count > 1 and not player.dead and player.map != 0xff:
+	if count > 1 and not player.dead and player.pos.map != 0xff:
 		player.addtimer(TIMERINTERVAL, stroke, [source, count - 1], False, False, TIMERID)
 	else:
 		end(player)
