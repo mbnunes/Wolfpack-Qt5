@@ -76,63 +76,6 @@
 
 using namespace std;
 
-//================================================================================
-//
-// signal handlers
-#if defined( Q_OS_UNIX )
-
-#include <signal.h>
-
-void signal_handler(int signal)
-{
-	cCharIterator iter;
-
-	switch (signal)
-	{
-	case SIGHUP:
-		{
-                SrvParams->reload();
-                cNetwork::instance()->reload();
-
-				QStringList oldAISections = DefManager->getSections( WPDT_AI );
-				DefManager->reload(); //Reload Definitions
-				AIFactory::instance()->checkScriptAI( oldAISections, DefManager->getSections( WPDT_AI ) );
-
-				Accounts::instance()->reload();
-                SpawnRegions::instance()->reload();
-                AllTerritories::instance()->reload();
-                Resources::instance()->reload();
-                MakeMenus::instance()->reload();
-                ScriptManager::instance()->reload();
-				ContextMenus::instance()->reload();
-				Skills->reload();
-
-				// Update the Regions
-				for( P_CHAR pChar = iter.first(); pChar; pChar = iter.next() )
-				{
-					cTerritory *region = AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
-					pChar->setRegion( region );
-				}
-		}
-		break ;
-		
-	case SIGUSR1:
-		Accounts::instance()->reload();
-		break ;
-	case SIGUSR2:
-		World::instance()->save();
-		SrvParams->flush();
-		break ;
-	case SIGTERM:
-		keeprun = 0 ;
-		break;
-	default:
-		break;
-	}
-}
-	
-#endif
-
 static bool parseParameter( const QString &param )
 {
 	// Add what ever paramters you want
@@ -277,15 +220,6 @@ int main( int argc, char *argv[] )
 	QApplication app( argc, argv, false ); // we need one instance
 	QTranslator translator( 0 ); // must be valid thru app life.
 
-	// Unix Signal Handling
-#if defined( Q_OS_UNIX )	
-	signal( SIGHUP,  &signal_handler ); // Reload Scripts
-	signal( SIGUSR1, &signal_handler ); // Save World
-	signal( SIGUSR2, &signal_handler ); // Reload Accounts
-	signal( SIGTERM, &signal_handler ); // Terminate Server
-	signal( SIGPIPE, SIG_IGN );			// Ignore SIGPIPE
-#endif
-
 	serverState = STARTUP;
 
 	Console::instance()->setAttributes( true, false, true, 60, 140, 70, 12, FONT_NOSERIF );
@@ -314,19 +248,15 @@ int main( int argc, char *argv[] )
 	}
 
 	// Startup Translator
-	try
+	QString languageFile = SrvParams->getString( "General", "Language File", "", true );
+	if ( !languageFile.isEmpty() )
 	{
-		QString languageFile = SrvParams->getString( "General", "Language File", "", true );
-		if ( !languageFile.isEmpty() )
+		if ( !translator.load( languageFile, "." ) )
 		{
-			translator.load( languageFile, "." );
-			qApp->installTranslator( &translator );
+			Console::instance()->log( LOG_ERROR, "Couldn't load translator.\n" );
+			return 1;
 		}
-	}
-	catch( ... )
-	{
-		Console::instance()->log( LOG_ERROR, "Couldn't load translator.\n" );
-		return 1;
+		qApp->installTranslator( &translator );
 	}
 
 	// Try to start up python

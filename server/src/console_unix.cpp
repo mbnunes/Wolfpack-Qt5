@@ -3,8 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//	Copyright 1997, 98 by Marcus Rating (Cironian)
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -34,6 +33,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <termios.h>
+#include <signal.h>
 
 // Qt Includes
 #include <qthread.h>
@@ -76,6 +76,23 @@ void setNonBlockingIo()
 	atexit( resetNonBlockingIo );
 }
 
+void signal_handler(int signal)
+{
+	cCharIterator iter;
+
+	switch (signal)
+	{
+	case SIGHUP:	queueAction( RELOAD_SCRIPTS );		break;
+	case SIGUSR1:	queueAction( RELOAD_ACCOUNTS );		break;
+	case SIGUSR2:	queueAction( SAVE_WORLD );			break;
+	case SIGTERM:
+		keeprun = 0 ;
+		break;
+	default:
+		break;
+	}
+}
+
 class cConsoleThread : public QThread
 {
 protected:
@@ -84,6 +101,12 @@ protected:
 		try
 		{
 			setNonBlockingIo();
+			
+			signal( SIGHUP,  &signal_handler ); // Reload Scripts
+			signal( SIGUSR1, &signal_handler ); // Save World
+			signal( SIGUSR2, &signal_handler ); // Reload Accounts
+			signal( SIGTERM, &signal_handler ); // Terminate Server
+			signal( SIGPIPE, SIG_IGN );			// Ignore SIGPIPE
 
 			while( serverState < SHUTDOWN )
 			{
