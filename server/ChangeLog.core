@@ -8,6 +8,8 @@ Wolfpack 12.9.11 Beta (CVS)
 	- Added a bodytype property.
 	- The server will now only process one action per loop.
 	- Fixed bug #0000305. (Documentation fix)
+	- Fixed a memory leak in char.dispel. 
+	- Fixed bug #0000307. (Timers not being deleted with character)
 
 Wolfpack 12.9.10 Beta (10. September 2004)
 	- Made the maximum number of controlled pets a dynamic property for players.

@@ -1596,6 +1596,7 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 				effects[i]->Dispel( pSource, false );
 				self->pChar->removeTimer( effects[i] );
 				Timers::instance()->erase( effects[i] );
+				delete effects[i];
 			}
 			// We are dispelling everything and this is a python effect
 			else if ( ( force || effects[i]->dispellable ) && dispelid.isNull() && effects[i]->objectID() == "cPythonEffect" )
@@ -1607,6 +1608,7 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 					pEffect->Dispel( pSource, dispelargs );
 					self->pChar->removeTimer( effects[i] );
 					Timers::instance()->erase( effects[i] );
+					delete effects[i];
 				}
 			}
 			// We are dispelling specific python effects
@@ -1618,6 +1620,7 @@ static PyObject* wpChar_dispel( wpChar* self, PyObject* args )
 					pEffect->Dispel( pSource, dispelargs );
 					self->pChar->removeTimer( effects[i] );
 					Timers::instance()->erase( effects[i] );
+					delete effects[i];
 				}
 			}
 		}

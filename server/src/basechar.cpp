@@ -3406,6 +3406,15 @@ void cBaseChar::remove()
 		Py_DECREF( args );
 	}
 
+	// Kill all timers
+	TimerContainer::iterator iter = timers_.begin();
+	while ( iter != timers_.end() ) {
+		Timers::instance()->erase( *iter );
+		delete *iter;
+		++iter;
+	}
+	timers_.clear();
+
 	removeFromView( false );
 
 	free = true;
