@@ -9,6 +9,7 @@
 <definitions>
 	<!-- Male Base -->
 	<npc id="base_male">
+		<id>0x190</id>
 		<name><random list="NAMES_MALE" /></name>
 		<skin><random list="SKINS_HUMAN" /></skin>
 
@@ -16,12 +17,37 @@
  
 		<!-- The Equipment of a standard human -->
 		<equipped>
-			<item inherit="e75" />
-			<item inheritlist="HAIR" />
-			<item inherit="1efd" />
-			<item inheritlist="PANTS" />
-			<item inheritlist="SHOES" />
+			<item inherit="e75" /> <!-- Backpack -->
+			<item inheritlist="HAIR" /> <!-- Random Hair -->
+			<item inherit="1efd" /> <!-- Fancy Shirts -->
+			<item inheritlist="PANTS" /> <!-- Random Pants -->
+			<item inheritlist="SHOES" /> <!-- Random Shoes -->
 		</equipped>
+
+		<str><random min="71" max="85" /></str>
+		<dex><random min="66" max="80" /></dex>
+		<int><random min="66" max="80" /></int>
 	</npc>
-	
+
+	<!-- Female Base -->
+	<npc id="base_female">
+		<id>0x191</id>
+		<name><random list="NAMES_FEMALE" /></name>
+		<skin><random list="SKINS_HUMAN" /></skin>
+
+		<direction><random min="0" max="7" /></direction> <!-- Facing a random direction -->
+ 
+		<!-- The Equipment of a standard human -->
+		<equipped>
+			<item inherit="e75" /> 				<!-- Backpack -->
+			<item inheritlist="HAIR_FEMALE" /> 	<!-- Random Hair -->
+			<item inherit="1efd" /> 			<!-- Fancy Shirts -->
+			<item inheritlist="PANTS" /> 		<!-- Random Pants -->
+			<item inheritlist="SHOES" /> 		<!-- Random Shoes -->
+		</equipped>
+
+		<str><random min="71" max="85" /></str>
+		<dex><random min="66" max="80" /></dex>
+		<int><random min="66" max="80" /></int>
+	</npc>	
 </definitions>

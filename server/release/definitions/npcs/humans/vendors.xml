@@ -7,20 +7,31 @@
 =================================================================
 -->
 <definitions>
-	<!-- A banker -->
-	<npc id="banker">
+	<!-- Banker -->
+	<npc id="banker_male">
 		<inherit>base_male</inherit>
 		<title>the Banker</title>
-		
-		<ai>8</ai>
+		<events>speech_banker</events>
+
+		<swordsmanship><random min="150" max="380" /></swordsmanship>
+		<itemid><random min="500" max="700" /></itemid>
+		<tactics><random min="150" max="380" /></tactics>
+
+		<category>Vendors\Banker (Male)</category>
 	</npc>
-	
-	<!-- A test (for making new NPC. easy and quickly write :) )-->
-	<npc id="test">
-		<inherit>base_male</inherit>
-		<title>the TEST</title>
-	</npc>	
-	
+
+	<npc id="banker_female">
+		<inherit>base_female</inherit>
+		<title>the Banker</title>
+		<events>speech_banker</events>
+
+		<swordsmanship><random min="150" max="380" /></swordsmanship>
+		<itemid><random min="500" max="700" /></itemid>
+		<tactics><random min="150" max="380" /></tactics>
+
+		<category>Vendors\Banker (Female)</category>
+	</npc>
+
 	<!-- A tanner vendor -->
 	<npc id="tanner">
 		<inherit>base_male</inherit>

@@ -27,6 +27,18 @@
 		<item>203d</item>
 	</list>
 
+	<!-- Female only hair -->
+	<list id="HAIR_FEMALE">
+		<item>203b</item>
+		<item>203c</item>
+		<item>203d</item>
+		<item>2045</item>
+		<item>2046</item>
+		<item>2047</item>
+		<item>2048</item>
+		<item>204a</item>
+	</list>
+
 	<!-- IDs of Potions -->
 	<list id="POTIONS">
 		<item>f06</item>
