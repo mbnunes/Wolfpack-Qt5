@@ -8,6 +8,8 @@ Wolfpack 12.9.10 Beta (CVS)
 	 - The victim selection code for monsters is now standardized and more
 	   sophisticated than before.
 	- Stablemasters now respond to stabling requests.  No charge yet!
+	- Fixed a bug where an error message for missing python gump
+	  callbacks led to a crash.
 
 Wolfpack 12.9.9 Beta (4. September 2004)
 	- Allowed viewing and setting account properties via .set and .show.

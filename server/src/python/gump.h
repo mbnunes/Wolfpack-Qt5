@@ -164,7 +164,7 @@ public:
 			}
 			else
 			{
-				Console::instance()->log( LOG_ERROR, QString( "Couldn't find code module %s for a gump callback." ).arg( sModule ) );
+				Console::instance()->log( LOG_ERROR, QString( "Couldn't find code module %1 for a gump callback." ).arg( sModule ) );
 			}
 		}
 
