@@ -14,12 +14,12 @@ import wolfpack
 # item is a recall rune
 def isrune( item ):
 	if not item:
-		return 0
-
-	if item.hastag( 'location' ) and item.hastag( 'marked' ):
-		return 1
+		return False
 	else:
-		return 0
+		if item.hastag( 'location' ) and item.hastag( 'marked' ):
+			return True
+		else:
+			return False
 
 def onUse( char, item ):
 	# We are only handling runes

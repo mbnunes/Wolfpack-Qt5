@@ -48,7 +48,7 @@ def onDropOnItem( book, item ):
 	# rune serials
 	runes = [ -1 ] * 16
 	for i in range( 0, 16 ):
-		runes[ i ] = book.gettag( "rune %i" % i )
+		runes[ i ] = int( book.gettag( "rune %i" % i ) )
 	i = 0
 	while( runes[ i ] > -1 and i < 16 ):
 		i = i + 1
@@ -58,7 +58,7 @@ def onDropOnItem( book, item ):
 		# "This runebook is full."
 		#char.socket.clilocmessage( 502401 )
 		return 0
-	book.settag( "rune %i" % i, item.serial )
+	book.settag( "rune %i" % i, int( item.serial ) )
 	# insert rune - is runebook a container ?
 	return 1
 
@@ -96,8 +96,7 @@ def sendGump( char, item ):
 	char.socket.closegump( 0x87654322 )
 	char.soundeffect( 0x55 )
 
-	# noclose, nomove gump
-	runebook = cGump( 1, 1, 0, 100, 120 )
+	runebook = cGump( 0, 0, 0, 100, 120 )
 
 	runebook.startPage( 0 )
 	runebook.addGump( 100, 10, 2200 )
@@ -144,16 +143,16 @@ def sendGump( char, item ):
 	runes = [ -1 ] * 16
 	for i in range( 0, 16 ):
 		if not item.hastag( "rune %i" % i ):
-			item.settag( "rune %i" % i, runes[ i ] )
+			item.settag( "rune %i" % i, int( runes[ i ] ) )
 		else:
-			runes[ i ] = item.gettag( "rune %i" % i )
+			runes[ i ] = int( item.gettag( "rune %i" % i ) )
 	runenum = 0
 	while( runes[ runenum ] > -1 ):
 		runenum = runenum + 1
 	runenames = [ "Empty" ] * 16
 	for i in range( 0, runenum ):
-		rune = wolfpack.finditem( runes[ i ] )
-		if rune and rune.isrune():
+		rune = wolfpack.finditem( int( runes[ i ] ) )
+		if rune and isrune( rune ):
 			runenames[ i ] = rune.name
 
 	# blue button and rune name
@@ -280,14 +279,11 @@ def callback( char, args, target ):
 			char.socket.clilocmessage( 502412 )
 		else:
 			# recall to the rune
-			# char action / power word
-			charges = charges - 1
-			item.settag( "charges", charges )
-			char.say( "Kal Ort Por",5 )
-			wolfpack.addtimer( 2000, "magic.runebook.recall0", [ char.serial, runes[ runenum ] ] )
+			char.say( "Kal Ort Por", 5 )
+			wolfpack.addtimer( 2000, "magic.runebook.recall0", [ char.serial, runes[ runenum ], runebook.serial, charges ] )
 	# set default button : 101 - 116
 	elif( button > 100 and button < 117 ):
-		item.settag( "default", runenum )
+		item.settag( "default", int( runenum ) )
 	# drop button : 201 - 216
 	elif( button > 200 and button < 217 ):
 		# will be added
@@ -306,32 +302,48 @@ def callback( char, args, target ):
 	else:
 		char.socket.sysmessage( "script error 4. contact GM" )
 
-	return 1
+	return True
 
 # recall using charges
 def recall0( self, args ):
 	if( len( args ) < 2 ):
-		return 1
+		return False
 	char = wolfpack.findchar( args[ 0 ] )
 	rune = wolfpack.finditem( args[ 1 ] )
+	runebook = wolfpack.finditem( args[ 2 ] )
+	charges = args[ 3 ]
 	if not char:
-		return 1
+		return False
 	if not rune:
 		char.socket.sysmessage( "runebook script error." )
-		return 1
-	x = rune.gettag( "target_x" )
-	y = rune.gettag( "target_y" )
-	z = rune.gettag( "target_z" )
-	map = rune.gettag( "target_map" )
-	# check the spot if anything blocks or is valid location
-	char.soundeffect( 0x1fd )
+		return False
+	location = rune.gettag('location')
+	location = location.split(",")
+	location = wolfpack.coord(int(location[0]), int(location[1]), int(location[2]), int(location[3]))
+
+	region = None
+	region = wolfpack.region(location.x, location.y, location.map)
+
+	if not location.validspawnspot():
+		char.message(501942)
+		fizzle(char)
+		return
+
+	if region and region.norecallin:
+		char.message(1019004)
+		fizzle(char)
+		return False
+
+	char.soundeffect(0x1fc)
 	char.removefromview()
-	# AoS : now we can recall between the worlds
-	char.moveto( x, y, z, map )
+	char.moveto(location)
 	char.update()
-	char.soundeffect( 0x1fd )
-	char.resendworld()
-	return 1
+	char.socket.resendworld()
+	char.soundeffect(0x1fc)
+	# Remove Runebook Charges
+	charges = charges - 1
+	runebook.settag( "charges", int( charges ) )
+	return True
 
 # recall spell to the selected rune
 def recall1( self, args ):
