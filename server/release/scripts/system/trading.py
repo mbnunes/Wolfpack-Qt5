@@ -126,7 +126,7 @@ def onTradeStart( player1, player2, firstitem ):
 		partner = wolfpack.findchar(int(player2.gettag('trade_partner')))
 		if partner and partner != player1:
 			player1.socket.sysmessage('Your trading partner is currently busy.')
-			if not wolfpack.utilities.tobackpack(firstitem, player1):
+			if not tobackpack(firstitem, player1):
 				firstitem.update()
 			return False
 			
@@ -134,7 +134,7 @@ def onTradeStart( player1, player2, firstitem ):
 		partner = wolfpack.findchar(int(player1.gettag('trade_partner')))
 		if partner and partner != player2:
 			player1.socket.sysmessage('You are trading with someone else right now.')
-			if not wolfpack.utilities.tobackpack(firstitem, player1):
+			if not tobackpack(firstitem, player1):
 				firstitem.update()
 			return False
 	
@@ -165,7 +165,7 @@ def onTradeStart( player1, player2, firstitem ):
 
 	# Unable to create trade containers
 	if not box1 or not box2:
-		if not wolfpack.utilities.tobackpack(firstitem, player1):
+		if not tobackpack(firstitem, player1):
 			firstitem.update()
 		return False
 
