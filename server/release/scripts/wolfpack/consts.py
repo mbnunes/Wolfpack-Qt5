@@ -791,3 +791,9 @@ LOCALE_DE = 1
 # Define your system locale here.
 SYSLOCALE = LOCALE_EN
 
+# Constants for body types
+BODY_UNKNOWN  = 0
+BODY_MONSTER = 1
+BODY_SEA = 2
+BODY_ANIMAL = 3
+BODY_HUMAN = 4

@@ -194,9 +194,11 @@ def export( char, args, choice ):
 				output.write( "}%s%s" % ( newline, newline ) )
 
 			else: # Text
-				output.write( "%s 0x%x %i %i %i %i 0x%x%s" % ( item.baseid, item.id, item.pos.x, item.pos.y, item.pos.z, item.pos.map, item.color, newline ) )
+				# Who the hell changed this?
+				# This format is for static exchange, no need for baseids or maps damnit!
+				# output.write( "%s 0x%x %i %i %i %i 0x%x%s" % ( item.baseid, item.id, item.pos.x, item.pos.y, item.pos.z, item.pos.map, item.color, newline ) )
 				# Older Format, no baseid/map saved
-				#output.write( "0x%x %i %i %i 0x%x%s" % ( item.id, item.pos.x, item.pos.y, item.pos.z, item.color, newline ) )
+				output.write( "0x%x %i %i %i 0x%x%s" % ( item.id, item.pos.x, item.pos.y, item.pos.z, item.color, newline ) )
 
 			if item.amount > 1:
 				warnings += 'Item %s has an amount of %i. This information will be lost when made static.<br><br>' % ( hex( item.serial ), item.amount )

@@ -140,7 +140,7 @@ class Spell:
 			char.say(self.mantra)
 
 		# Precasting
-		char.addscript('magic')
+		char.addscript('magic')		
 		char.action(self.castaction)
 		
 		if item:
