@@ -32,6 +32,7 @@
 #define __PERSISTENTBROKER_H__
 
 #include <qsqldatabase.h>
+#include <typeinfo>
 
 class PersistentObject;
 
@@ -85,6 +86,7 @@ inline QString __escapeReservedCharacters( const QString& d )
 	cursor.setMode( QSqlCursor::ReadOnly ); \
 	cursor.select( QString("%1='%2'").arg(keyfield).arg(keyvalue) ); \
 	if ( cursor.first() ) 
+
 #define endLoadSqlStatement(keyvalue) \
 	else \
 		qWarning(QString("Error trying to load persistent object %1, key %2").arg(typeid(this).name()).arg(keyvalue));
