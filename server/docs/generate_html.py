@@ -77,9 +77,20 @@ def quote(text):
 version = getVersion()
 generated = time.strftime("%d.%m.%Y %H:%M")
 
-print generated
-# print "INSERT INTO documentation_settings VALUES('generated', %u);" % int(time.time())
-# print "INSERT INTO documentation_settings VALUES('version', '%s');" % (quote(getVersion()))
+# Generate index page
+template = open('templates/index.html')
+text = template.read()
+template.close()
+
+text = text.replace('{GENERATED}', generated)
+text = text.replace('{VERSION}', version)
+text = text.replace('{COMMANDS}', str(len(commands)))
+text = text.replace('{OBJECTS}', str(len(objects)))
+text = text.replace('{EVENTS}', str(len(events)))
+
+output = open('output/index.html', "wt")
+output.write(text)
+output.close()
 
 def namesort(a, b):
 	return cmp(a['name'], b['name'])
