@@ -173,8 +173,8 @@ void cNetwork::load()
 	{
 		d->loginServer_ = new cListener( Config::instance()->loginPort() );
 		d->loginServer_->start();
-		Console::instance()->send( tr( "LoginServer running on port %1\n" ).arg( Config::instance()->loginPort() ) );
-		QValueVector<ServerList_st>& serverList = Config::instance()->serverList();
+		Console::instance()->send( tr( "\nLoginServer running on port %1\n" ).arg( Config::instance()->loginPort() ) );
+		QValueVector<ServerList_st> serverList = Config::instance()->serverList();
 		if ( serverList.size() < 1 )
 			Console::instance()->log( LOG_WARNING, tr( "LoginServer enabled but there no Game server entries found\n Check your wolfpack.xml settings\n" ) );
 		else
@@ -188,7 +188,7 @@ void cNetwork::load()
 	{
 		d->gameServer_ = new cListener( Config::instance()->gamePort() );
 		d->gameServer_->start();
-		Console::instance()->send( tr( "GameServer running on port %1\n" ).arg( Config::instance()->gamePort() ) );
+		Console::instance()->send( tr( "\nGameServer running on port %1\n" ).arg( Config::instance()->gamePort() ) );
 	}
 
 	d->netIo_->start();
