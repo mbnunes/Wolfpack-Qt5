@@ -117,8 +117,7 @@ HEADERS         = \
 		  world.h \
 		  wpdefmanager.h \
 		  wptargetrequests.h \
-		  corpse.h \
-		  spellbook.h
+		  corpse.h
 		  
 SOURCES         = \
 		accounts.cpp \
@@ -193,8 +192,7 @@ SOURCES         = \
 		walking.cpp \
 		world.cpp \
 		wpdefmanager.cpp \
-		wptargetrequests.cpp \
-		spellbook.cpp
+		wptargetrequests.cpp
 
 # Twofish Module
 SOURCES		+= twofish/twofish2.c
@@ -223,9 +221,10 @@ SOURCES		+= python/char.cpp \
 	  	   python/multi.cpp \
 		   python/pyaccount.cpp \
 		   python/pycoord.cpp \
-		   python/pyregion.cpp \
+		   python/pypacket.cpp \
+		   python/pyregion.cpp \		   
 		   python/pytooltip.cpp \	
-		   python/socket.cpp \
+		   python/socket.cpp \		   
 
 HEADERS		+= python/content.h
 

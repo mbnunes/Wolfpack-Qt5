@@ -667,3 +667,14 @@ int wpSocket_setAttr( wpSocket *self, char *name, PyObject *value )
 	return 0;
 }
 
+int PyConvertSocket( PyObject *object, cUOSocket** sock )
+{
+	if( object->ob_type != &wpSocketType )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	*sock = ( (wpSocket*)object )->pSock;
+	return 1;
+}

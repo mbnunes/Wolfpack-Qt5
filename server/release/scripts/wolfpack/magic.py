@@ -4,7 +4,7 @@
 #   )).-' {{ ;'`   | Revised by:                                #
 #  ( (  ;._ \\ ctr | Last Modification: Created                 #
 #===============================================================#
-# Main Magig Script						#
+# Main Magic Script												#
 #===============================================================#
 
 from wolfpack.consts import *

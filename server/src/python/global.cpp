@@ -59,6 +59,7 @@
 #include "../targetrequests.h"
 #include "../utilsys.h"
 
+#include "pypacket.h"
 #include "regioniterator.h"
 #include "utilities.h"
 #include "tempeffect.h"
@@ -919,7 +920,6 @@ static PyObject* wpCharBlock( PyObject* self, PyObject* args )
 	if( !PyArg_ParseTuple( args, "iib:wolfpack.charblock", &xBlock, &yBlock, &map ) )
 		return 0;
 
-
 	return PyGetCharRegionIterator( xBlock, yBlock, map );
 }
 
@@ -1007,14 +1007,22 @@ static PyObject* wpNewPlayer( PyObject *self, PyObject *args )
 	return PyGetCharObject( pPlayer );
 }
 
-
-/*!
-	Returns the number of milliseconds since the server has started
-*/
 static PyObject* wpTickcount( PyObject* self )
 {
 	Q_UNUSED(self);
 	return PyInt_FromLong( getNormalizedTime() );
+}
+
+static PyObject* wpPacket( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+
+	unsigned int id, size;
+
+	if( !PyArg_ParseTuple( args, "ii:wolfpack.packet", &id, &size ) )
+		return 0;
+
+	return CreatePyPacket( (unsigned char)id, (unsigned short)size );
 }
 
 /*!
@@ -1023,6 +1031,7 @@ static PyObject* wpTickcount( PyObject* self )
 */
 static PyMethodDef wpGlobal[] = 
 {
+	{ "packet",				wpPacket,						METH_VARARGS, NULL },
 	{ "charblock",			wpCharBlock,					METH_VARARGS, NULL },
 	{ "itemblock",			wpItemBlock,					METH_VARARGS, NULL },
 	{ "charregion",			wpCharRegion,					METH_VARARGS, NULL },

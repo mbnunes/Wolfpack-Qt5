@@ -51,7 +51,6 @@
 #include "mapobjects.h"
 #include "resources.h"
 #include "contextmenu.h"
-#include "spellbook.h"
 #include "pythonscript.h"
 
 // System Includes
@@ -987,49 +986,6 @@ void commandMakeMenu( cUOSocket *socket, const QString &command, QStringList &ar
 	MakeMenus::instance()->callMakeMenu( socket, args[0] );
 }
 
-void commandAddSpell( cUOSocket *socket, const QString &command, QStringList &args ) throw()
-{
-	Q_UNUSED(command);
-	bool ok = false;
-	UINT8 spell = 0;
-
-	if( args.count() > 0 )
-		spell = args[0].toUInt( &ok );
-
-	// Get the spellid
-	if( !ok )
-	{
-		socket->sysMessage( tr( "Usage: addspell <spell-id>" ) );
-		return;
-	}
-	
-
-	socket->sysMessage( tr( "Please select the spellbook you want to add this spell to." ) );
-	socket->attachTarget( new cModifySpellbook( spell, false ) );
-}
-
-void commandRemoveSpell( cUOSocket *socket, const QString &command, QStringList &args ) throw()
-{
-	Q_UNUSED(command);
-	bool ok = false;
-	UINT8 spell = 0;
-
-	if( args.count() > 0 )
-		spell = args[0].toUInt( &ok );
-
-	// Get the spellid
-	if( !ok )
-	{
-		socket->sysMessage( tr( "Usage: removespell <spell-id>" ) );
-		return;
-	}
-	
-
-	socket->sysMessage( tr( "Please select the spellbook you want to remove this spell from." ) );
-	socket->attachTarget( new cModifySpellbook( spell, true ) );
-}
-
-
 void commandAddEvent( cUOSocket *socket, const QString &command, QStringList &args ) throw()
 {
 	Q_UNUSED(command);
@@ -1319,7 +1275,6 @@ stCommand cCommands::commands[] =
 	{ "ADDEVENT",		commandAddEvent },
 	{ "ADDITEM",		commandAddItem },
 	{ "ADDNPC",			commandAddNpc },
-	{ "ADDSPELL",		commandAddSpell },
 	{ "ALLMOVE",		commandAllMove },
 	{ "ALLSHOW",		commandAllShow },
 	{ "ALLSKILLS",		commandAllSkills },
@@ -1339,7 +1294,6 @@ stCommand cCommands::commands[] =
 	{ "RELOAD",			commandReload },
 	{ "REMOVE",			commandRemove },
 	{ "REMOVEEVENT",	commandRemoveEvent },
-	{ "REMOVESPELL",	commandRemoveSpell },
 	{ "RESEND",			commandResend },
 	{ "RESTOCK",		commandRestock },
 	{ "RESURRECT",		commandResurrect },

@@ -49,8 +49,7 @@ protected:
 	bool noswap;
 	void init();
 	void compress();
-	void assign( cUOPacket& );
-	void resize( uint );
+	void assign( cUOPacket& );	
 	void setRawData( uint, const char*, uint );
 
 public:
@@ -61,9 +60,10 @@ public:
 	virtual ~cUOPacket() {}
 	uint	size() const;
 	uint    count() const;
-
+	
 	virtual  QByteArray compressed();
 	virtual  QByteArray uncompressed() { return rawPacket; }
+	void	 resize( uint );
 	int		 getInt( uint ) const;
 	short	 getShort( uint) const;
 	QCString getAsciiString( uint, uint = 0 ) const;

@@ -85,6 +85,7 @@ PyObject *PyGetTooltipObject( cUOTxTooltipList* );
 bool checkWpSocket( PyObject *object );
 PyObject *PyGetSocketObject( cUOSocket* );
 cUOSocket *getWpSocket( PyObject* object );
+int PyConvertSocket( PyObject *object, cUOSocket** sock );
 
 bool checkWpCoord( PyObject *object );
 int PyConvertCoord( PyObject *object, Coord_cl* pos );

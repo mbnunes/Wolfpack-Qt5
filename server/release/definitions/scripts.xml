@@ -24,6 +24,8 @@
 	<script>clothing_bless_deed</script>
 	<script>item_bless_deed</script>
 	<script>carpentry_deed</script>
+	<script>scroll</script>
+	<script>spellbook</script>
 	
 	<!-- Commands -->
 	<script>wolfpack.commands</script>

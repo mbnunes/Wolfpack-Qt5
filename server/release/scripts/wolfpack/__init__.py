@@ -166,4 +166,6 @@ def newplayer( createserial = 0 ):
 
 def tickcount():
 	return _wolfpack.tickcount()
-	
+
+def packet( id, size ):
+	return _wolfpack.packet( id, size )

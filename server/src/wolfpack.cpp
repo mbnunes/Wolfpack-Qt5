@@ -59,7 +59,6 @@
 #include "scriptmanager.h"
 #include "wptargetrequests.h"
 #include "python/engine.h"
-#include "spellbook.h"
 #include "persistentbroker.h"
 #include "corpse.h"
 #include "house.h"
@@ -958,7 +957,6 @@ int main( int argc, char *argv[] )
 	cNPC::registerInFactory();
 	cItem::registerInFactory();
 	cBook::registerInFactory();
-	cSpellBook::registerInFactory();
 	cCorpse::registerInFactory();
 	cBoat::registerInFactory();
 	cHouse::registerInFactory();

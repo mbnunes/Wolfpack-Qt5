@@ -688,19 +688,6 @@ public:
 	}
 };
 
-class cModifySpellbook: public cTargetRequest
-{
-	Q_OBJECT
-private:
-	UINT8 spell;
-	bool deleteMode;
-public:
-	cModifySpellbook( UINT8 _spell, bool _deleteMode = false ) : spell(_spell), deleteMode(_deleteMode) {}
-
-	bool responsed( cUOSocket *socket, cUORxTarget *target );
-	virtual void canceled( cUOSocket *socket ) { Q_UNUSED(socket); }
-};
-
 class cAddEventTarget: public cTargetRequest
 {
 	Q_OBJECT

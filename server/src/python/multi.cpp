@@ -36,7 +36,6 @@
 #include "../wolfpack.h"
 #include "../scriptmanager.h"
 #include "../itemid.h"
-#include "../spellbook.h"
 #include "../multis.h"
 #include "../player.h"
 #include "../basechar.h"

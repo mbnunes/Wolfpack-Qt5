@@ -50,7 +50,6 @@
 #include "maps.h"
 #include "network.h"
 #include "multis.h"
-#include "spellbook.h"
 #include "persistentbroker.h"
 #include "dbdriver.h"
 #include "world.h"
@@ -316,8 +315,6 @@ short cItem::GetContGumpType()
 	case 0x0e7f: return 4;
 	case 0x0e80: return 1;
 	case 0x0e83: return 4;
-	
-	case 0x0EFA: return 4;	// spellbook. Position shouldn't matter, but as it can be opened like a backpack...(Duke)
 		
 	case 0x2006: return 5;	// a corpse/coffin
 	default: return -1;
@@ -1133,13 +1130,6 @@ P_ITEM cAllItems::createScriptItem( const QString& Section )
 		nBook->setSection( Section );
 
 		nItem = nBook;
-	}
-	else if( type == "spellbook" )
-	{
-		cSpellBook *spellBook = new cSpellBook();
-		spellBook->Init( true );
-		spellBook->applyDefinition( DefSection );
-		nItem = spellBook;
 	}
 	else
 	{

@@ -44,7 +44,6 @@
 #include "network/uosocket.h"
 #include "network/uorxpackets.h"
 #include "network/uotxpackets.h"
-#include "spellbook.h"
 #include "multis.h"
 #include "dragdrop.h"
 #include "player.h"
@@ -713,6 +712,9 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	
 	if( pItem->onDropOnItem( pCont ) )
 	{
+		if( pItem->free )
+			return;
+
 		if( socket->dragging() )
 			socket->bounceItem( socket->dragging(), BR_NO_REASON );
 
@@ -720,6 +722,9 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 	}
 	else if( pCont->onDropOnItem( pItem ) )
 	{
+		if( pItem->free )
+			return;
+
 		if( socket->dragging() )
 			socket->bounceItem( socket->dragging(), BR_NO_REASON );
 
@@ -782,41 +787,6 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 		Items->DeleItem( pItem );
 		socket->sysMessage( tr( "As you let go of the item it disappears." ) );
 		return;
-	}
-
-	// Spell Book
-	cSpellBook *pBook = dynamic_cast< cSpellBook* >( pCont );
-	if( pBook )
- 	{
-		SI08 spellId = calcSpellId( pItem );
-
-		if( pItem->type() != 1105 || spellId < 0 )
-		{
-			socket->sysMessage( tr( "You can only put scrolls into a spellbook" ) );
-			socket->bounceItem( pItem, BR_NO_REASON );
-			return;
-		}		
-
-		if( pBook->hasSpell( spellId ) )
-		{
-			socket->sysMessage( tr( "That spellbook already contains this spell" ) );
-			socket->bounceItem( pItem, BR_NO_REASON );
-			return;
-		}
-
-		if( pItem->amount() > 1 )
-		{
-			socket->sysMessage( tr( "You can only put 1 scroll into a spellbook at a time" ) );
-			socket->bounceItem( pItem, BR_NO_REASON );
-			return;
-		}
-		else
-		{	
-			pBook->addSpell( spellId );
-			Items->DeleItem( pItem );
-			pBook->update( socket );
-			return;
-		}
 	}
 
 	// We drop something on the belongings of one of our playervendors

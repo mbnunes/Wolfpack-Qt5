@@ -43,7 +43,6 @@
 #include "combat.h"
 #include "scriptmanager.h"
 #include "pythonscript.h"
-#include "spellbook.h"
 #include "books.h"
 #include "house.h"
 #include "boats.h"
@@ -1055,54 +1054,6 @@ bool cRemoveTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	}
 	else
 		socket->sysMessage( "You need to select either an item or a character" );
-	return true;
-}
-
-bool cModifySpellbook::responsed( cUOSocket *socket, cUORxTarget *target )
-{
-	if( !socket->player() )
-		return true;
-	
-	// Check if we really targetted a spellbook
-	if( isItemSerial( target->serial() ) )
-	{
-		P_ITEM pItem = FindItemBySerial( target->serial() );
-		
-		if( pItem )
-		{
-			cSpellBook *pBook = dynamic_cast< cSpellBook* >( pItem );
-			
-			if( pBook )
-			{
-				if( spell >= 64 )
-				{
-					socket->sysMessage( tr( "The spell id you specified is invalid." ) );
-				}
-				else
-				{
-					if( deleteMode )
-					{
-						pBook->removeSpell( spell );
-						pBook->update( socket );
-						socket->sysMessage( tr( "You removed spell %1 from this spellbook." ).arg( spell ) );
-					}
-					else
-					{
-						pBook->addSpell( spell );
-						socket->sysMessage( tr( "You added spell %1 to this spellbook." ).arg( spell ) );
-					}
-					pBook->update( socket );
-				}
-			}
-			else
-				socket->sysMessage( tr( "This is not a valid spellbook." ) );
-		}
-		else
-			socket->sysMessage( tr( "This is not a valid spellbook." ) );
-	}
-	else
-		socket->sysMessage( tr( "This is not a valid spellbook." ) );
-	
 	return true;
 }
 
