@@ -49,7 +49,10 @@ public:
 		stNewSpell *sInfo = NewMagic->findSpell( spell );
 
 		if( !sInfo || !NewMagic->checkTarget( socket->player(), sInfo, target ) )
+		{
+			NewMagic->disturb( socket->player(), false, -1 );
 			return true;
+		}
 
 		// The Target is correct, let us do our spellcheck now and consume mana + reagents.
 		if( !NewMagic->useMana( socket->player(), spell ) || !NewMagic->useReagents( socket->player(), spell ) )
@@ -268,11 +271,15 @@ UINT16 cNewMagic::calcScrollId( UINT8 spell )
 */
 void cNewMagic::disturb( P_CHAR pMage, bool fizzle, INT16 chance )
 {
+	if( !pMage->casting() )
+		return;
+
 	pMage->setCasting( false );
+	pMage->setPriv2( pMage->priv2() & 0xEF ); // Unfreeze, NOTE: This could lead into problems with a normal "wanted" freeze
 
 	// Stop the repeating animation and the endspell thing
 	pMage->stopRepeatedAction();
-	cTempEffects::getInstance()->dispel( pMage, "endcasting" );
+	cTempEffects::getInstance()->dispel( pMage, "endcasting" ); // just to be sure...
 	
 	if( fizzle )
 	{
