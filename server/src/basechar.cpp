@@ -122,9 +122,9 @@ cBaseChar::cBaseChar()
 	intelligenceCap_	= 125;
 	statCap_			= SrvParams->statcap();
 	skills_.resize(ALLSKILLS);
-	regenHitpointsTime_	= uiCurrentTime + floor(getHitpointRate() * 1000);
-	regenStaminaTime_	= uiCurrentTime + floor(getStaminaRate() * 1000);
-	regenManaTime_		= uiCurrentTime + floor(getManaRate() * 1000);
+	regenHitpointsTime_	= 0;
+	regenStaminaTime_	= 0;
+	regenManaTime_		= 0;
 }
 
 cBaseChar::cBaseChar(const cBaseChar& right)
