@@ -35,11 +35,11 @@
 		<karma>0</karma>
 		<fame>450</fame>
 		<!-- Damage -->
-		<tag name="mindamage" value="13" />
-		<tag name="maxdamage" value="23" />
-		<tag name="dmg_physical" value="100" />
+		<tag name="mindamage" value="13" type="int" />
+		<tag name="maxdamage" value="23" type="int" />
+		<tag name="dmg_physical" value="100" type="int" />
 		<!-- Defense -->
-		<tag name="res_physical" value="15,20" />
+		<tag name="res_physical" value="15,20" type="int" />
 		<!-- Stats -->
 		<str><random min="94" max="170" /></str>
 		<dex><random min="56" max="75" /></dex>
@@ -61,11 +61,11 @@
 		<karma>-1500</karma>
 		<fame>1500</fame>
 		<!-- Damage -->
-		<tag name="mindamage" value="25" />
-		<tag name="maxdamage" value="35" />
-		<tag name="dmg_physical" value="100" />
+		<tag name="mindamage" value="25" type="int" />
+		<tag name="maxdamage" value="35" type="int" />
+		<tag name="dmg_physical" value="100" type="int" />
 		<!-- Defense -->
-		<tag name="res_physical" value="25,30" />
+		<tag name="res_physical" value="25,30" type="int" />
 		<!-- Stats -->
 		<str><random min="94" max="170" /></str>
 		<dex><random min="96" max="115" /></dex>
