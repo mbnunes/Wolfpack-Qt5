@@ -271,8 +271,9 @@ bool cSkStealing::responsed( cUOSocket *socket, cUORxTarget *target )
 				
 				pc_currchar->isCriminal();
 				
-				if (pc_npc->isInnocent() && pc_currchar->attackerSerial() != pc_npc->serial() /*&& GuildCompare(pc_currchar, pc_npc)==0*/ )//AntiChrist
-					pc_currchar->isCriminal();//Blue and not attacker and not guild
+				if (pc_npc->notoriety(pc_currchar) == 0x01) {
+					pc_currchar->makeCriminal();
+				}
 				
 				if( !pi->name().isNull() )
 				{

@@ -1495,22 +1495,13 @@ void cUOSocket::sendPaperdoll( P_CHAR pChar )
 */
 void cUOSocket::handleChangeWarmode( cUORxChangeWarmode* packet )
 {
-	bool update = false;
-
-	if( packet->warmode() != _player->isAtWar() )
-		update = true;
-
-	_player->setAtWar( packet->warmode() );
-
-	// Stop fighting
-	if( !_player->isAtWar() )
-	{
-		_player->setCombatTarget( INVALID_SERIAL );
-		_player->setSwingTarget( INVALID_SERIAL );
-		_player->setNextHitTime( 0 );
+	// Warmode didn't change
+	if (packet->warmode() == _player->isAtWar()) {
+		return;
 	}
 
-	_player->onWarModeToggle( packet->warmode() );
+	_player->setAtWar(packet->warmode());
+	_player->onWarModeToggle(packet->warmode());
 
 	cUOTxWarmode warmode;
 	warmode.setStatus( packet->warmode() ? 1 : 0 );
@@ -1520,18 +1511,19 @@ void cUOSocket::handleChangeWarmode( cUORxChangeWarmode* packet )
 	_player->disturbMed();
 
 	// Something changed
-	if( update )
+	if( _player->isDead() && _player->isAtWar() ) 
+		_player->resend( false );
+	else if( _player->isDead() && !_player->isAtWar() )
 	{
-		if( _player->isDead() && _player->isAtWar() ) 
-			_player->resend( false );
-		else if( _player->isDead() && !_player->isAtWar() )
-		{
-			_player->removeFromView( false );
-			_player->resend( false );
-		}			
-		else
-			_player->update( true );
-	}
+		_player->removeFromView( false );
+		_player->resend( false );
+	}			
+	else
+		_player->update( true );
+
+	// Always stop fighting. If we changed warmode,
+	// we cannot fight anyone
+	_player->fight(0);
 }
 
 void cUOSocket::playMusic()
@@ -1874,160 +1866,8 @@ void cUOSocket::handleTarget( cUORxTarget *packet )
   This method handles cUORxRequestAttack packet types.
   \sa cUORxRequestAttack
 */
-void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
-{
-	// If we dont set any serial the attack is rejected
-	cUOTxAttackResponse attack;
-	attack.setSerial(INVALID_SERIAL);
-
-	P_CHAR pc_i = FindCharBySerial( packet->serial() );
-	if (!pc_i || pc_i->isInvulnerable()) {
-		send(&attack);
-		return;
-	}
-	
-/*
-	// No Fighting in jail
-	if( _player->cell() > 0 )
-	{
-		sysMessage( tr( "There is no fighting in the jail cells!" ) );
-		send( &attack );
-		return;
-	}
-*/
-
-	// Player is isDead
-	if( _player->isDead() )
-	{
-		if( SrvParams->persecute() )
-		{
-			_player->setCombatTarget( pc_i->serial() );
-			if( _player->combatTarget() != INVALID_SERIAL ) 
-				Skills->Persecute( this );
-		} 
-		else
-			clilocMessage( 0x7A4D5, "", 0x3b2 ); // You can't do that when you're isDead.
-
-		send( &attack );
-		return;
-	}
-
-	// Attacking ghosts is not possible
-	if( pc_i->isDead() || pc_i->hitpoints() <= 0 )
-	{
-		sysMessage( tr( "That person is already isDead!" ) );
-		send( &attack );
-		return;
-	}
-
-	_player->setCombatTarget( pc_i->serial() );
-	_player->unhide();
-	_player->disturbMed();
-
-	// Accept the attack
-	attack.setSerial( pc_i->serial() );
-	send( &attack );
-
-	// NPC already has a target 
-	// (And so is already fighting and should've been attacked by someone else)
-	if( pc_i->combatTarget() != INVALID_SERIAL )
-	{
-		pc_i->setAttackerSerial( _player->serial() );
-		pc_i->setAttackFirst( false );
-	}
-
-	_player->setAttackFirst( true );
-	_player->setAttackerSerial(pc_i->serial());
-	_player->turnTo( pc_i );
-
-	// The person being attacked is guarded by pets ?
-	cBaseChar::CharContainer guards = pc_i->guardedby();
-	for( cBaseChar::CharContainer::iterator iter = guards.begin(); iter != guards.end(); ++iter )
-	{
-		P_NPC pPet = dynamic_cast<P_NPC>(*iter);
-		if( pPet->combatTarget() == INVALID_SERIAL && pPet->inRange( _player, SrvParams->attack_distance() ) ) // is it on screen?
-		{
-			pPet->fight( pc_i );
-
-			// Show the You see XXX attacking YYY messages
-			QString message = tr( "*You see %1 attacking %2*" ).arg( pPet->name() ).arg( pc_i->name() );
-			for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-				if( mSock->player() && mSock->player() != pc_i && mSock->player()->inRange( pPet, mSock->player()->visualRange() ) )
-					mSock->showSpeech( pPet, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
-			
-			if( pc_i->objectType() == enPlayer )
-			{
-				P_PLAYER pp = dynamic_cast<P_PLAYER>(pc_i);
-				if( pp->socket() )
-					pp->socket()->showSpeech( pPet, tr( "*You see %1 attacking you*" ).arg( pPet->name() ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
-			}
-		}
-	}
-
-	if( pc_i->inGuardedArea() && SrvParams->guardsActive() )
-	{
-		if( pc_i->objectType() == enPlayer && pc_i->isInnocent() /*&& GuildCompare( _player, pc_i ) == 0*/ ) //REPSYS
-		{
-			_player->makeCriminal();
-			Combat::spawnGuard( _player, pc_i, _player->pos() );
-		}
-		else if( pc_i->objectType() == enNPC && pc_i->isInnocent() && !pc_i->isHuman() )//&& pc_i->npcaitype() != 4 )
-		{
-			_player->makeCriminal();
-			Combat::spawnGuard( _player, pc_i, _player->pos() );
-		}
-		else if( pc_i->objectType() == enNPC && pc_i->isInnocent() && pc_i->isHuman() )//&& pc_i->npcaitype() != 4 )
-		{
-			pc_i->talk( tr("Help! Guards! I've been attacked!") );
-			_player->makeCriminal();
-			pc_i->callGuards();
-		}
-		else if ((pc_i->objectType() == enNPC || pc_i->isTamed()) && !pc_i->isAtWar() )//&& pc_i->npcaitype() != 4) // changed from 0x40 to 4, cauz 0x40 was removed LB
-		{
-			P_NPC pn = dynamic_cast<P_NPC>(pc_i);
-			pn->toggleCombat();
-			pn->setNextMoveTime();
-		}
-		else if( pc_i->objectType() == enNPC )
-		{
-			dynamic_cast<P_NPC>(pc_i)->setNextMoveTime();
-		}
-	}
-	else // not a guarded area
-	{
-		if( pc_i->isInnocent() )
-		{
-			if( pc_i->objectType() == enPlayer /*&& GuildCompare( _player, pc_i ) == 0*/ )
-			{
-				_player->makeCriminal();
-			}
-			else if( pc_i->objectType() == enNPC )
-			{
-				_player->makeCriminal();
-
-				if( pc_i->combatTarget() == INVALID_SERIAL )
-					pc_i->fight( _player );
-
-				if( !pc_i->isTamed() && pc_i->isHuman() )
-					pc_i->talk( tr( "Help! Guards! Tis a murder being commited!" ) );
-			}
-		}
-	}
-
-	// Send the "You see %1 attacking %2" string to all surrounding sockets
-	// Except the one being attacked
-	QString message = tr( "*You see %1 attacking %2*" ).arg(_player->name()).arg(pc_i->name());
-	for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
-		if( s->player() && s != this && s->player()->inRange( _player, s->player()->visualRange() ) && s->player() != pc_i )
-			s->showSpeech( _player, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
-
-	// Send an extra message to the victim
-	if( pc_i->objectType() == enPlayer )
-	{
-		P_PLAYER pp = dynamic_cast<P_PLAYER>(pc_i);
-		if( pp->socket() )
-			pp->socket()->showSpeech( _player, tr( "*You see %1 attacking you*" ).arg( _player->name() ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
-	}
+void cUOSocket::handleRequestAttack(cUORxRequestAttack* packet) {
+	_player->fight(World::instance()->findChar(packet->serial()));
 }
 
 void cUOSocket::soundEffect( UINT16 soundId, cUObject *source )

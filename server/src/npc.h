@@ -112,8 +112,6 @@ public:
 	// other public methods
 	virtual stError *setProperty( const QString &name, const cVariant &value );
 	virtual stError *getProperty( const QString &name, cVariant &value ) const;
-	void attackTarget( P_CHAR defender );
-	void toggleCombat();
 	void setNextMoveTime( void );
 	virtual void callGuards(); // overriding
 	void makeShop();

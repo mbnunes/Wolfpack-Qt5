@@ -106,7 +106,6 @@ cBaseChar::cBaseChar()
     skin_				= 0;
     region_				= NULL;
     saycolor_			= 0x1700;
-	attackerSerial_		= INVALID_SERIAL;
     combatTarget_		= INVALID_SERIAL;
     swingTarget_		= INVALID_SERIAL;
     murdererSerial_		= INVALID_SERIAL;
@@ -201,8 +200,6 @@ void cBaseChar::load( char **result, UINT16 &offset )
 	nutriment_ = atoi( result[offset++] );
 	gender_ = atoi( result[offset++] );
 	propertyFlags_ = atoi( result[offset++] );
-	attackerSerial_ = atoi( result[offset++] );
-	combatTarget_ = atoi( result[offset++] );
 	murdererSerial_ = atoi( result[offset++] );
 	ser = atoi( result[offset++] );
 	guarding_ = dynamic_cast<P_PLAYER>(FindCharBySerial( ser ));
@@ -285,8 +282,6 @@ void cBaseChar::save()
 		addField( "nutriment", nutriment_);
 		addField( "gender", gender_ );
 		addField( "propertyflags", propertyFlags_ );
-		addField( "attacker", attackerSerial_ );
-		addField( "combattarget", combatTarget_ );
 		addField( "murderer", murdererSerial_ );
 		addField( "guarding", guarding_ ? guarding_->serial() : INVALID_SERIAL );
 		addCondition( "serial", serial() );
@@ -424,12 +419,12 @@ P_ITEM cBaseChar::getWeapon() const
 {
 	// Check if we have something on our right hand
 	P_ITEM rightHand = rightHandItem();
-	if( Combat::weaponSkill( rightHand ) != WRESTLING )
+	if( Combat::instance()->weaponSkill( rightHand ) != WRESTLING )
 		return rightHand;
 
 	// Check for two-handed weapons
 	P_ITEM leftHand = leftHandItem();
-	if( Combat::weaponSkill( leftHand ) != WRESTLING )
+	if( Combat::instance()->weaponSkill( leftHand ) != WRESTLING )
 		return leftHand;
 
 	return NULL;
@@ -551,8 +546,7 @@ void cBaseChar::resurrect()
 	hitpoints_ = QMAX( 1, (UINT16)( 0.1 * maxHitpoints_ ) );
 	stamina_ = (UINT16)( 0.1 * maxStamina_ );
 	mana_ = (UINT16)( 0.1 * maxMana_ );
-	attackerSerial_ = INVALID_SERIAL;
-	setAtWar( false );
+	fight(0);
 	getBackpack(); // Make sure he has a backpack
 
 	// Delete what the user wears on layer 0x16 (Should be death shroud)
@@ -601,10 +595,8 @@ void cBaseChar::turnTo( const Coord_cl &pos )
 	else
 		return;
 
-	if( nDir != direction() )
-	{
-		changed_ = true;
-		setDirection( nDir );
+	if (nDir != direction()) {
+		setDirection(nDir);
 		update();
 	}
 }
@@ -1407,18 +1399,12 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "regenhealth", regenHitpointsTime_ )
 	else SET_INT_PROPERTY( "regenstamina", regenStaminaTime_ )
 	else SET_INT_PROPERTY( "regenmana", regenManaTime_ )
-	else SET_INT_PROPERTY( "attacker", attackerSerial_ )
 	else SET_INT_PROPERTY( "skilldelay", skillDelay_ )
 	else SET_INT_PROPERTY( "nutriment", nutriment_ )
 	else SET_INT_PROPERTY( "food", nutriment_ )
 	else SET_INT_PROPERTY( "sex", gender_ )
 	else SET_INT_PROPERTY( "gender", gender_ )
 	else SET_INT_PROPERTY( "id", bodyID_ )
-	else if( name == "attackfirst" )
-	{
-		setAttackFirst( value.toInt() );
-		return 0;
-	}
 	else if( name == "invulnerable" )
 	{
 		setInvulnerable( value.toInt() );
@@ -1499,7 +1485,6 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "regenhealth", (int)regenHitpointsTime_ )
 	else GET_PROPERTY( "regenstamina", (int)regenStaminaTime_ )
 	else GET_PROPERTY( "regenmana", (int)regenManaTime_ )
-	else GET_PROPERTY( "attacker", FindCharBySerial( attackerSerial_ ) )
 	else GET_PROPERTY( "region", ( region_ != 0 ) ? region_->name() : QString( "" ) )
 	else GET_PROPERTY( "skilldelay", (int)skillDelay_ )
 	else GET_PROPERTY( "nutriment", (int)nutriment_ )
@@ -1507,7 +1492,6 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "gender", gender_ )
 	else GET_PROPERTY( "sex", gender_ )
 	else GET_PROPERTY( "id", bodyID_ )
-	else GET_PROPERTY( "attackfirst", attackFirst() )
 	else GET_PROPERTY( "invulnerable", isInvulnerable() )
 	else GET_PROPERTY( "invisible", isInvisible() )
 	else GET_PROPERTY( "frozen", isFrozen() )
@@ -1618,7 +1602,7 @@ void cBaseChar::callGuards()
 		{
 			if( !pc->isDead() && !pc->isInnocent() && inRange( pc, 14 ) )
 			{
-				Combat::spawnGuard( pc, pc, pc->pos() );
+				Combat::instance()->spawnGuard( pc, pc, pc->pos() );
 			}
 		}
 	}
@@ -1709,8 +1693,8 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 	} else {
 		hitpoints_ -= amount;
 		updateHealth();
-		Combat::playGetHitSoundEffect(this);
-		Combat::playGetHitAnimation(this);
+		Combat::instance()->playGetHitSoundEffect(this);
+		Combat::instance()->playGetHitAnimation(this);
 	}
 
 	return amount;
@@ -2436,4 +2420,18 @@ bool cBaseChar::canSeeItem(P_ITEM item, bool lineOfSight) {
 	}
 
 	return true;
+}
+
+cFightInfo *cBaseChar::findFight(P_CHAR enemy) {
+	if (enemy) {
+		for (cFightInfo *fight = fights_.first(); fight; fight = fights_.next()) {
+			// We are only searching the fights we participate in, thats why we only
+			// have to check for our enemy
+			if (fight->attacker() == enemy || fight->victim() == enemy) {
+				return fight;
+			}
+		}
+	}
+
+	return 0;
 }

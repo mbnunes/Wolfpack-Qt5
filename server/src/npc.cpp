@@ -500,10 +500,71 @@ void cNPC::showName( cUOSocket *socket )
 	socket->showSpeech( this, charName, speechColor, 3, cUOTxUnicodeSpeech::System );
 }
 
-void cNPC::fight(P_CHAR other)
-{
+void cNPC::fight(P_CHAR enemy) {
+	// Ghosts can't fight
+	if (isDead()) {
+		return;
+	}
+
+	if (enemy) {
+		// Invisible or hidden creatures cannot be fought
+		if (!canSeeChar(enemy)) {
+			enemy = 0;
+		} else if (enemy->isDead()) {
+			enemy = 0;
+		} else if (enemy->isInvulnerable()) {
+			enemy = 0;
+		}
+	}
+	
+	// If we are fighting someone and our target is null,
+	// stop fighting.
+	if (!enemy) {
+		// Update only if neccesary
+		if (swingTarget() != INVALID_SERIAL || combatTarget() != INVALID_SERIAL) {
+			setSwingTarget(INVALID_SERIAL);
+			setCombatTarget(INVALID_SERIAL);
+			setNextHitTime(0);
+		}
+		return;
+	}
+
+	// If there already is an ongoing fight with our target,
+	// simply return. Otherwise create the structure and fill it.
+	cFightInfo *fight = findFight(enemy);
+	
+	if (fight) {
+		// There certainly is a reason to renew this fight
+		fight->refresh();
+	} else {
+		// Check if it is legitimate to attack the enemy
+		bool legitimate = enemy->notoriety(this) != 0x01;
+		fight = new cFightInfo(this, enemy, legitimate);
+	}
+
+	// Display a message to the victim if our target changed to him
+	if (combatTarget() != enemy->serial()) {
+        P_PLAYER player = dynamic_cast<P_PLAYER>(enemy);
+		if (player && player->socket()) {
+			player->socket()->showSpeech(this, tr("*You see %1 attacking you.*").arg(name()), 0x26, 3, cUOTxUnicodeSpeech::Emote);
+		}
+	}
+
+	// Take care of the details
+	setCombatTarget(enemy->serial());
+	unhide();
+
+	// Turn to our enemy
+	turnTo(enemy);
+
+	// See if we need to change our warmode status
+	if (!isAtWar()) {
+		setAtWar(true);
+		update();
+	}
+
 	// I am already fighting this character.
-	if( isAtWar() && combatTarget_ == other->serial() )
+/*	if( isAtWar() && combatTarget_ == other->serial() )
 		return;
 
 	// Store the current Warmode
@@ -517,7 +578,89 @@ void cNPC::fight(P_CHAR other)
 	if( !isAtWar() )
 		toggleCombat();
 
-	this->setNextMoveTime();
+	this->setNextMoveTime();*/
+/*	if( this == defender || !defender || isDead() || defender->isDead() )
+		return;
+
+	bark( Bark_Attacking );
+	unsigned int cdist=0 ;
+
+	P_CHAR target = FindCharBySerial( defender->combatTarget() );
+	if( target )
+		cdist = defender->dist( target );
+	else
+		cdist = 30;
+
+	if( cdist > defender->dist( this ) )
+	{
+		defender->setAttackerSerial(serial());
+		defender->setAttackFirst( true );
+	}
+
+	target = FindCharBySerial( combatTarget_ );
+	if( target )
+		cdist = this->dist( target );
+	else
+		cdist = 30;
+
+	if( ( cdist > defender->dist( this ) ) &&
+		( target ) )
+	{
+		combatTarget_ = defender->serial();
+		attackerSerial_ = defender->serial();
+		setAttackFirst( false );
+	}
+
+	unhide();
+
+	P_NPC pNPC = dynamic_cast<P_NPC>(defender);
+	if( pNPC )
+	{
+		if( !( pNPC->isAtWar() ) )
+			pNPC->toggleCombat();
+		pNPC->setNextMoveTime();
+	}
+
+	// Check if the defender has pets defending him
+	CharContainer guards = defender->guardedby();
+
+	for( CharContainer::const_iterator iter = guards.begin(); iter != guards.end(); ++iter )
+	{
+		P_NPC pPet = dynamic_cast<P_NPC>(*iter);
+
+		if( pPet && pPet->combatTarget() == INVALID_SERIAL && pPet->inRange( this, SrvParams->attack_distance() ) ) // is it on screen?
+		{
+			pPet->fight( this );
+
+			// Show the You see XXX attacking YYY messages
+			QString message = tr( "*You see %1 attacking %2*" ).arg( pPet->name() ).arg( name() );
+			for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+				if( mSock->player() && mSock->player()->inRange( pPet, mSock->player()->visualRange() ) )
+					mSock->showSpeech( pPet, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
+		}
+	}
+
+	// Send a message to the defender
+	if( defender->objectType() == enPlayer )
+	{
+		P_PLAYER pc = dynamic_cast<P_PLAYER>(defender);
+		if( pc && pc->socket() )
+		{
+			QString message = tr( "You see %1 attacking you!" ).arg( name() );
+			pc->socket()->showSpeech( this, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
+		}
+	}
+
+	QString emote = tr( "You see %1 attacking %2" ).arg( name() ).arg( defender->name() );
+
+	cUOSocket *mSock = 0;
+	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+	{
+		if( mSock->player() && mSock->player()->serial() != serial() && mSock->player() != defender && mSock->player()->inRange( this, mSock->player()->visualRange() ) )
+		{
+			mSock->showSpeech( this, emote, 0x26, 3, cUOTxUnicodeSpeech::Emote );
+		}
+	}*/
 }
 
 void cNPC::soundEffect( UI16 soundId, bool hearAll )
@@ -564,106 +707,6 @@ UINT32 cNPC::takeGold( UINT32 amount, bool useBank )
 		dAmount = pPack->DeleteAmount( amount, 0xEED, 0 );
 
 	return dAmount;
-}
-
-void cNPC::attackTarget( P_CHAR defender )
-{
-	if( this == defender || !defender || isDead() || defender->isDead() )
-		return;
-
-	bark( Bark_Attacking );
-	unsigned int cdist=0 ;
-
-	P_CHAR target = FindCharBySerial( defender->combatTarget() );
-	if( target )
-		cdist = defender->dist( target );
-	else
-		cdist = 30;
-
-	if( cdist > defender->dist( this ) )
-	{
-		defender->setAttackerSerial(serial());
-		defender->setAttackFirst( true );
-	}
-
-	target = FindCharBySerial( combatTarget_ );
-	if( target )
-		cdist = this->dist( target );
-	else
-		cdist = 30;
-
-	if( ( cdist > defender->dist( this ) ) &&
-		( target ) )
-	{
-		combatTarget_ = defender->serial();
-		attackerSerial_ = defender->serial();
-		setAttackFirst( false );
-	}
-
-	unhide();
-
-	P_NPC pNPC = dynamic_cast<P_NPC>(defender);
-	if( pNPC )
-	{
-		if( !( pNPC->isAtWar() ) )
-			pNPC->toggleCombat();
-		pNPC->setNextMoveTime();
-	}
-
-/*	if( npcaitype_ != 4 )
-	{
-		if ( !war_ )
-			toggleCombat();
-
-		setNextMoveTime();
-	}*/
-
-	// Check if the defender has pets defending him
-	CharContainer guards = defender->guardedby();
-
-	for( CharContainer::const_iterator iter = guards.begin(); iter != guards.end(); ++iter )
-	{
-		P_NPC pPet = dynamic_cast<P_NPC>(*iter);
-
-		if( pPet && pPet->combatTarget() == INVALID_SERIAL && pPet->inRange( this, SrvParams->attack_distance() ) ) // is it on screen?
-		{
-			pPet->fight( this );
-
-			// Show the You see XXX attacking YYY messages
-			QString message = tr( "*You see %1 attacking %2*" ).arg( pPet->name() ).arg( name() );
-			for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-				if( mSock->player() && mSock->player()->inRange( pPet, mSock->player()->visualRange() ) )
-					mSock->showSpeech( pPet, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
-		}
-	}
-
-	// Send a message to the defender
-	if( defender->objectType() == enPlayer )
-	{
-		P_PLAYER pc = dynamic_cast<P_PLAYER>(defender);
-		if( pc && pc->socket() )
-		{
-			QString message = tr( "You see %1 attacking you!" ).arg( name() );
-			pc->socket()->showSpeech( this, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
-		}
-	}
-
-	QString emote = tr( "You see %1 attacking %2" ).arg( name() ).arg( defender->name() );
-
-	cUOSocket *mSock = 0;
-	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-	{
-		if( mSock->player() && mSock->player()->serial() != serial() && mSock->player() != defender && mSock->player()->inRange( this, mSock->player()->visualRange() ) )
-		{
-			mSock->showSpeech( this, emote, 0x26, 3, cUOTxUnicodeSpeech::Emote );
-		}
-	}
-}
-
-void cNPC::toggleCombat()
-{
-	setAtWar( !isAtWar() );
-	update();
 }
 
 void cNPC::processNode( const cElement *Tag )

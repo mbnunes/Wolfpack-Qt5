@@ -45,6 +45,7 @@
 #include "wpdefmanager.h"
 #include "corpse.h"
 #include "sectors.h"
+#include "combat.h"
 #include "tilecache.h"
 #include "guilds.h"
 #include "skills.h"
@@ -201,7 +202,8 @@ void cPlayer::update(bool excludeself) {
 	}
 
 	if (!excludeself && socket_) {
-		socket_->updatePlayer();
+		//socket_->updatePlayer();
+		socket_->resendPlayer();
 	}
 }
 
@@ -502,8 +504,7 @@ void cPlayer::mount( P_NPC pMount )
 		MapObjects::instance()->remove( pMount );
 		pMount->setPos( Coord_cl( 0, 0, 0 ) );
 
-		pMount->setAtWar( false );
-		pMount->setAttackerSerial(INVALID_SERIAL);
+		pMount->fight(0);
 	}
 	else
 		socket->sysMessage( tr("You dont own that creature.") );
@@ -584,27 +585,201 @@ void cPlayer::showName( cUOSocket *socket )
 /*!
 	Make someone criminal.
 */
-void cPlayer::makeCriminal()
-{
-	if( isGMorCounselor() )
-		return;
+void cPlayer::makeCriminal() {
+	if (!isGMorCounselor()) {
+		// Murderers dont become criminal, they already are!
+		if (!this->isMurderer()) {
+			// Notify us if we're not already a criminal
+			if (socket_ && !isCriminal()) {
+				socket_->clilocMessage(500167);
+			}
 
-	//not grey, not red
-	if( !this->isCriminal() && !this->isMurderer() )
-	{
-		 this->setCriminalTime((SrvParams->crimtime()*MY_CLOCKS_PER_SEC)+uiCurrentTime);
-
-		 if( socket_ )
-			 socket_->clilocMessage(500167);
-
-		 changed_ = true;
+			setCriminalTime(uiCurrentTime + SrvParams->crimtime() * MY_CLOCKS_PER_SEC);
+			changed_ = true;
+		}
 	}
 }
 
-void cPlayer::fight(P_CHAR other)
-{
+void cPlayer::fight(P_CHAR enemy) {
+	// We can fight noone while we are not logged in or dead
+	if (!socket_) {
+		return;
+	}
+
+	// Ghosts can't fight
+	if (isDead()) {
+		socket_->clilocMessage(500949);
+		return;
+	}
+
+	// If we dont set any serial the attack is rejected
+	cUOTxAttackResponse attack;
+	attack.setSerial(INVALID_SERIAL);
+
+	if (enemy) {
+		// Invisible or hidden creatures cannot be fought
+		if (!canSeeChar(enemy)) {
+			socket_->clilocMessage(500950);
+			enemy = 0;
+		} else if (enemy->isDead()) {
+			socket_->sysMessage("You cannot fight dead creatures.");
+			enemy = 0;
+		} else if (enemy->isInvulnerable()) {
+			socket_->clilocMessage(1061621);
+			enemy = 0;
+		}
+	}
+	
+	// If we are fighting someone and our target is null,
+	// stop fighting.
+	if (!enemy) {
+		// Update only if neccesary
+		if (swingTarget() != INVALID_SERIAL || combatTarget() != INVALID_SERIAL) {
+			setSwingTarget(INVALID_SERIAL);
+			setCombatTarget(INVALID_SERIAL);
+			setNextHitTime(0);
+			socket_->send(&attack);
+		}
+		return;
+	}
+
+	// If there already is an ongoing fight with our target,
+	// simply return. Otherwise create the structure and fill it.
+	cFightInfo *fight = findFight(enemy);
+	
+	if (fight) {
+		// There certainly is a reason to renew this fight
+		fight->refresh();
+	} else {
+		// Check if it is legitimate to attack the enemy
+		bool legitimate = enemy->notoriety(this) != 0x01;
+		fight = new cFightInfo(this, enemy, legitimate);
+		
+		if (!legitimate) {
+			makeCriminal();
+		}
+	}
+
+	// Display a message to the victim if our target changed to him
+	if (combatTarget() != enemy->serial()) {
+        P_PLAYER player = dynamic_cast<P_PLAYER>(enemy);
+		if (player && player->socket()) {
+			player->socket()->showSpeech(this, tr("*You see %1 attacking you.*").arg(name()), 0x26, 3, cUOTxUnicodeSpeech::Emote);
+		}
+	}
+
+	// Take care of the details
+	setCombatTarget(enemy->serial());
+	unhide();
+	disturbMed();
+
+	// Accept the attack
+	attack.setSerial(enemy->serial());
+	socket_->send(&attack);
+
+	// Turn to our enemy
+	turnTo(enemy);
+
+	// See if we need to change our warmode status
+	if (!isAtWar()) {
+		cUOTxWarmode warmode;
+		warmode.setStatus(1);
+		socket_->send(&warmode);
+		setAtWar(true);
+		update();
+	}
+
+/*
+	// The person being attacked is guarded by pets ?
+	cBaseChar::CharContainer guards = pc_i->guardedby();
+	for( cBaseChar::CharContainer::iterator iter = guards.begin(); iter != guards.end(); ++iter )
+	{
+		P_NPC pPet = dynamic_cast<P_NPC>(*iter);
+		if( pPet->combatTarget() == INVALID_SERIAL && pPet->inRange( _player, SrvParams->attack_distance() ) ) // is it on screen?
+		{
+			pPet->fight( pc_i );
+
+			// Show the You see XXX attacking YYY messages
+			QString message = tr( "*You see %1 attacking %2*" ).arg( pPet->name() ).arg( pc_i->name() );
+			for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+				if( mSock->player() && mSock->player() != pc_i && mSock->player()->inRange( pPet, mSock->player()->visualRange() ) )
+					mSock->showSpeech( pPet, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
+			
+			if( pc_i->objectType() == enPlayer )
+			{
+				P_PLAYER pp = dynamic_cast<P_PLAYER>(pc_i);
+				if( pp->socket() )
+					pp->socket()->showSpeech( pPet, tr( "*You see %1 attacking you*" ).arg( pPet->name() ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
+			}
+		}
+	}
+
+	if( pc_i->inGuardedArea() && SrvParams->guardsActive() )
+	{
+		if( pc_i->objectType() == enPlayer && pc_i->isInnocent() ) //REPSYS
+		{
+			_player->makeCriminal();
+			Combat::instance()->spawnGuard( _player, pc_i, _player->pos() );
+		}
+		else if( pc_i->objectType() == enNPC && pc_i->isInnocent() && !pc_i->isHuman() )//&& pc_i->npcaitype() != 4 )
+		{
+			_player->makeCriminal();
+			Combat::instance()->spawnGuard( _player, pc_i, _player->pos() );
+		}
+		else if( pc_i->objectType() == enNPC && pc_i->isInnocent() && pc_i->isHuman() )//&& pc_i->npcaitype() != 4 )
+		{
+			pc_i->talk( tr("Help! Guards! I've been attacked!") );
+			_player->makeCriminal();
+			pc_i->callGuards();
+		}
+		else if ((pc_i->objectType() == enNPC || pc_i->isTamed()) && !pc_i->isAtWar() )//&& pc_i->npcaitype() != 4) // changed from 0x40 to 4, cauz 0x40 was removed LB
+		{
+			P_NPC pn = dynamic_cast<P_NPC>(pc_i);
+			pn->setNextMoveTime();
+		}
+		else if( pc_i->objectType() == enNPC )
+		{
+			dynamic_cast<P_NPC>(pc_i)->setNextMoveTime();
+		}
+	}
+	else // not a guarded area
+	{
+		if( pc_i->isInnocent() )
+		{
+			if( pc_i->objectType() == enPlayer )
+			{
+				_player->makeCriminal();
+			}
+			else if( pc_i->objectType() == enNPC )
+			{
+				_player->makeCriminal();
+
+				if( pc_i->combatTarget() == INVALID_SERIAL )
+					pc_i->fight( _player );
+
+				if( !pc_i->isTamed() && pc_i->isHuman() )
+					pc_i->talk( tr( "Help! Guards! Tis a murder being commited!" ) );
+			}
+		}
+	}
+
+	// Send the "You see %1 attacking %2" string to all surrounding sockets
+	// Except the one being attacked
+	QString message = tr( "*You see %1 attacking %2*" ).arg(_player->name()).arg(pc_i->name());
+	for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
+		if( s->player() && s != this && s->player()->inRange( _player, s->player()->visualRange() ) && s->player() != pc_i )
+			s->showSpeech( _player, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
+
+	// Send an extra message to the victim
+	if( pc_i->objectType() == enPlayer )
+	{
+		P_PLAYER pp = dynamic_cast<P_PLAYER>(pc_i);
+		if( pp->socket() )
+			pp->socket()->showSpeech( _player, tr( "*You see %1 attacking you*" ).arg( _player->name() ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
+	}*/
+
 	// I am already fighting this character.
-	if( isAtWar() && combatTarget() == other->serial() )
+/*	if( isAtWar() && combatTarget() == other->serial() )
 		return;
 
 	// Store the current Warmode
@@ -629,9 +804,10 @@ void cPlayer::fight(P_CHAR other)
 		socket_->send( &attack );
 
 		// Resend the Character (a changed warmode results in not walking but really just updating)
-		if( oldwar != isAtWar() )
+		if (oldwar != isAtWar()) {
 			update( true );
-	}
+		}
+	}*/
 }
 
 void cPlayer::disturbMed()

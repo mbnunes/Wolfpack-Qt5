@@ -100,7 +100,6 @@ protected:
 	unsigned int hungerDamageRate_;
 	unsigned char hungerDamage_;
 	float boatSpeed_;
-	int persecute_;
 	unsigned int tamedDisappear_;
 	unsigned int houseInTown_;
 	unsigned int shopRestock_;
@@ -208,7 +207,6 @@ public:
 	unsigned int hungerDamageRate() const;
 	unsigned char hungerDamage() const;
 	float boatSpeed() const;
-	int persecute() const;
 	unsigned int tamedDisappear() const;
 	unsigned int houseInTown() const;
 	unsigned int shopRestock() const;
@@ -453,11 +451,6 @@ inline unsigned char cSrvParams::hungerDamage() const
 inline float cSrvParams::boatSpeed() const
 {
 	return boatSpeed_;
-}
-
-inline int cSrvParams::persecute() const
-{
-	return persecute_;
 }
 
 inline unsigned int cSrvParams::tamedDisappear() const

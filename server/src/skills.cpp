@@ -60,35 +60,39 @@ void cSkills::Hide( cUOSocket *socket )
 { 
 	P_PLAYER pChar = socket->player();
 
-	if( !pChar )
-		return;
-
-	P_CHAR aChar = FindCharBySerial( pChar->attackerSerial() );
-	if( aChar && aChar->inRange( pChar, pChar->visualRange() ) )
-	{
-		pChar->message( tr( "You cannot hide while fighting." ) );
+	if (!pChar || pChar->isHidden()) {
 		return; 
 	}
+
+	// See if anyone is in fight with us
+	QPtrList<cFightInfo> fights = pChar->fights();
+
+	for (cFightInfo *info = fights.first(); info; info = fights.next()) {
+		P_CHAR enemy = info->attacker();
+
+		if (enemy == pChar) {
+			enemy = info->victim();
+		}
+
+		if (pChar->canSeeChar(enemy)) {
+			socket->clilocMessage(501238);
+			return;
+		}
+	}
 	
-	if( pChar->isHidden() ) 
-	{ 
-		pChar->message( tr( "You are already hidden." ) );
+	if (!pChar->checkSkill(HIDING, 0, 1000)) { 
+		socket->clilocMessage(501237);
 		return; 
 	} 
 	
-	if( !pChar->checkSkill( HIDING, 0, 1000 ) ) 
-	{ 
-		pChar->message( "You are unable to hide here." );
-		return; 
-	} 
-	
-	pChar->message( tr( "You have hidden yourself well." ) );
-	pChar->setHidden( 1 );
+	socket->clilocMessage(501240);
+	pChar->setHidden(true);
 	pChar->resend(); // Remove + Resend (GMs etc.)
 	
 	// Resend us to ourself
-	if( pChar->socket() )
+	if (pChar->socket()) {
 		pChar->socket()->updatePlayer();
+	}
 }
 
 void cSkills::Stealth( cUOSocket *socket )
@@ -144,20 +148,13 @@ void cSkills::PeaceMaking(cUOSocket* socket)
 			P_CHAR mapchar = ri.GetData();
 			if( mapchar && mapchar->isAtWar() )
 			{
-				if( mapchar->objectType() == enPlayer )
-				{
+				if (mapchar->objectType() == enPlayer) {
 					P_PLAYER pp = dynamic_cast<P_PLAYER>(mapchar);
 					if( pp->socket() )
 						pp->socket()->sysMessage( tr("You hear some lovely music, and forget about fighting.") );
 				}
-				else
-				{
-					dynamic_cast<P_NPC>(mapchar)->toggleCombat();
-				}
 
-				mapchar->setCombatTarget( INVALID_SERIAL );
-				mapchar->setAttackerSerial(INVALID_SERIAL);
-				mapchar->setAttackFirst(false);
+				mapchar->fight(0);
 			}
 		}
 	} 
@@ -466,12 +463,12 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 				pn->callGuards();
 		}
 		
-		if( pVictim->isInnocent() && pChar->attackerSerial() != pVictim->serial() /*&& GuildCompare( pChar, pVictim ) == 0*/)
-			pChar->makeCriminal(); // Blue and not attacker and not guild
+		if (pVictim->notoriety(pChar) == 0x01) {
+			pChar->makeCriminal();
+		}
 
 		// Our Victim always notices it.
-		if( pVictim->objectType() == enPlayer )
-		{
+		if (pVictim->objectType() == enPlayer) {
 			P_PLAYER pp = dynamic_cast<P_PLAYER>(pVictim);
 			if( pp->socket() )
 				pp->socket()->showSpeech( pChar, tr( "You notice %1 trying to steal %2 from you." ).arg( pChar->name() ).arg( pToSteal->getName( true ) ) );

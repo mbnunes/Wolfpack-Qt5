@@ -70,7 +70,7 @@ cTiming::cTiming() {
 	nextNpcCheck = time + SrvParams->checkNPCTime() * MY_CLOCKS_PER_SEC;
 	nextItemCheck = time + SrvParams->checkItemTime() * MY_CLOCKS_PER_SEC;
 	nextShopRestock = time + 20 * 60 * MY_CLOCKS_PER_SEC; // Every 20 minutes
-	nextLightCheck = time + MY_CLOCKS_PER_SEC * 30; // Every 30 seconds
+	nextLightCheck = time + 30 * MY_CLOCKS_PER_SEC; // Every 30 seconds
 	nextHungerCheck = time + SrvParams->hungerDamageRate();
 }
 
@@ -338,12 +338,12 @@ void cTiming::checkPlayer(P_PLAYER player, unsigned int time) {
 	// We are not swinging 
 	// So set up a swing target and start swinging
 	if (!player->isDead() && player->swingTarget() == INVALID_SERIAL) {
-		Combat::combat(player);
+		Combat::instance()->combat(player);
 	}
 
 	// We are swinging and completed swinging
 	else if (!player->isDead() && (player->swingTarget() >= 0 && player->nextHitTime() <= time)) {
-		Combat::checkandhit(player);
+		Combat::instance()->checkandhit(player);
 	}
 
 	// Criminal Flagging
@@ -402,11 +402,11 @@ void cTiming::checkNpc(P_NPC npc, unsigned int time) {
 
 	// We are at war and want to prepare a new swing
 	if (!npc->isDead() && npc->swingTarget() == INVALID_SERIAL && npc->isAtWar()) {
-		Combat::combat(npc);
+		Combat::instance()->combat(npc);
 	
 	// We completed the swing
 	} else if (!npc->isDead() && npc->swingTarget() != INVALID_SERIAL && npc->nextHitTime() <= time) {
-		Combat::checkandhit(npc);
+		Combat::instance()->checkandhit(npc);
 	}
 
 	// Remove summoned npcs

@@ -450,7 +450,7 @@ static PyObject* wpChar_combatskill( wpChar* self, PyObject* args )
 	if( !pi )
 		pi = self->pChar->leftHandItem();
 
-	return PyInt_FromLong( Combat::weaponSkill( pi ) );
+	return PyInt_FromLong( Combat::instance()->weaponSkill( pi ) );
 }
 
 /*!

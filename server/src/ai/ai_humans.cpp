@@ -388,10 +388,12 @@ void Human_Guard_Fight::execute()
 		case 1:		m_npc->talk( tr( "Death to all Evil!" ), -1, 0, true );						break;
 	}
 
-	if( !m_npc->isAtWar() )
-		m_npc->toggleCombat();
-
-	// Fighting is handled within combat..
+	Human_Guard *guard = dynamic_cast<Human_Guard*>(m_ai);
+	
+	// Make sure the guard is fighting our current victim
+	if (guard) {
+		m_npc->fight(guard->currentVictim());
+	}
 }
 
 float Human_Guard_Fight::preCondition()
@@ -415,11 +417,13 @@ float Human_Guard_Fight::postCondition()
 
 void Human_Guard_MoveToTarget::execute()
 {
-	if( !m_npc->isAtWar() )
-		m_npc->toggleCombat();
-
 	Human_Guard* pAI = dynamic_cast< Human_Guard* >(m_ai);
 	P_CHAR pTarget = ( pAI ? pAI->currentVictim() : NULL );
+
+
+	// Make sure we are attacking the target
+	// If there is no target, stop.
+	m_npc->fight(pTarget);
 
 	if( !pTarget )
 		return;

@@ -50,6 +50,7 @@
 // include for ceilf()
 #include <math.h>
 
+class cFightInfo;
 class cMulti;
 class cUOTxTooltipList;
 
@@ -62,46 +63,6 @@ public:
 	{
         return "cBaseChar";
 	}
-
-	/*!
-		\brief This structure contains information about an ongoing fight.
-	*/
-	struct FightInfo {
-		/*!
-			\brief A pointer to the character who attacked first.
-		*/
-		P_CHAR attacker;
-
-		/*!
-			\brief A pointer to the character who was attacked.
-		*/
-		P_CHAR victim;
-
-		/*!
-			\brief Specifies whether attacking the victim was not a crime.
-			If this value is true, no kill is awarded to the winner of this fight.
-		*/
-		bool legitimate;
-		
-		/*!
-			\brief The amount of damage the attacker dealt in this fight.
-			This value is used for looting rights.
-		*/
-        unsigned int attackerDamage;
-
-		/*!
-			\brief The amount of damage the victim dealt in this fight.
-			This value is used for looting rights.
-		*/
-		unsigned int victimDamage;
-
-		/*!
-			\brief The servertime the last action in this fight was taken.
-			This value is used to time out the fight after no action was taken
-			for a while.
-		*/
-		unsigned int lastaction;
-	};
 
 	// con-/destructors
     cBaseChar();
@@ -147,10 +108,17 @@ public:
 	virtual bool canSeeItem(P_ITEM item, bool lineOfSight = false);
 
 	/*!
-		Kills the character.
+		\brief Kills the character.
 		\returns True if the character was really killed and false if nothing changed.
 	*/
 	virtual bool kill(cUObject *source);
+
+	/*!
+		\brief This method tries to find an ongoing fight between this character and another.
+		\param enemy The other character who participates in the fight.
+		\returns A pointer to a fight object if found, a null pointer otherwise.
+	*/
+	cFightInfo *findFight(P_CHAR enemy);
 
 	virtual void showName( cUOSocket *socket ) = 0;
 	virtual void fight(P_CHAR pOpponent) = 0;
@@ -227,7 +195,6 @@ public:
 	virtual bool onStatGain( unsigned char stat );
 
 	// getters
-    SERIAL			attackerSerial() const;
     ushort			bodyArmor() const;
     ushort			bodyID() const;
     SERIAL			combatTarget() const;
@@ -293,7 +260,6 @@ public:
 	bool			isDead() const;
 	bool			isAtWar() const;
 	bool			isInvulnerable() const;
-	bool			attackFirst() const;
 	// advanced getters for data structures
 	// skills
 	ushort			skillValue( ushort skill ) const;
@@ -307,7 +273,6 @@ public:
 	ItemContainer	content() const;
 
 	// setters
-    void setAttackerSerial(SERIAL data);
 	void setBodyArmor(ushort data);
     void setBodyID(ushort data);
     void setCombatTarget(SERIAL data);
@@ -373,7 +338,6 @@ public:
 	void setDead(bool data);
 	void setAtWar(bool data);
 	void setInvulnerable(bool data);
-	void setAttackFirst(bool data);
 	// advanced setters for data structures
 	// skills
 	void setSkillValue( ushort skill, ushort value );
@@ -392,7 +356,7 @@ public:
 	/*!
 		Return a reference to the list of ongoing fights.
 	*/
-	QPtrList<FightInfo> &fights() {
+	QPtrList<cFightInfo> &fights() {
 		return fights_;
 	}
 private:
@@ -402,7 +366,7 @@ protected:
 	/*!
 		\brief Collection of information about ongoing fights.
 	*/
-	QPtrList<FightInfo> fights_;
+	QPtrList<cFightInfo> fights_;
 
 	// type definitions
 	struct stSkillValue
@@ -427,7 +391,6 @@ protected:
 
     // The gender of the character. cOldChar::sex_
     bool gender_;
-
     
     // The original skin color hue of the char. Is needed after applying
     // magical/temporal effects which change skin color.
@@ -450,7 +413,6 @@ protected:
     // 11 - dead, cOldChar::dead
     // 12 - war, cOldChar::war
 	// 13 - invulnerable, cOldChar::priv2 Bit 3
-	// 14 - attack first, cOldChar::attackfirst_
     uint propertyFlags_;
 
     // Weight of the char, including worn items.
@@ -597,10 +559,6 @@ protected:
 
     // Color hue the char speeks with.
     ushort saycolor_;
-
-    // Serial of the char, which attacked this character.
-    // cOldChar::attacker_
-    SERIAL attackerSerial_;
 
     // Serial of the char, which the character is currently fighting with.
     // cOldChar::targ_
@@ -1080,17 +1038,6 @@ inline void cBaseChar::setWeight(float data)
 	changed_ = true;
 }
 
-inline SERIAL cBaseChar::attackerSerial() const
-{
-    return attackerSerial_;
-}
-
-inline void cBaseChar::setAttackerSerial(SERIAL data)
-{
-    attackerSerial_ = data;
-	changed_ = true;
-}
-
 inline SERIAL cBaseChar::combatTarget() const
 {
     return combatTarget_;
@@ -1275,11 +1222,6 @@ inline bool cBaseChar::isInvulnerable() const
 	return propertyFlags_ & 0x1000;
 }
 
-inline bool cBaseChar::attackFirst() const
-{
-	return propertyFlags_ & 0x2000;
-}
-
 inline void cBaseChar::setIncognito(bool data)
 {
 	if( data ) propertyFlags_ |= 0x0001; else propertyFlags_ &= ~0x0001; 
@@ -1355,12 +1297,6 @@ inline void cBaseChar::setAtWar(bool data)
 inline void cBaseChar::setInvulnerable(bool data)
 {
 	if( data ) propertyFlags_ |= 0x1000; else propertyFlags_ &= ~0x1000; 
-	changed_ = true;
-}
-
-inline void cBaseChar::setAttackFirst(bool data)
-{
-	if( data ) propertyFlags_ |= 0x2000; else propertyFlags_ &= ~0x2000; 
 	changed_ = true;
 }
 

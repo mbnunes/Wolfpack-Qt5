@@ -244,10 +244,13 @@ float Monster_Aggr_MoveToTarget::postCondition()
 
 void Monster_Aggr_MoveToTarget::execute()
 {
-	if( !m_npc->isAtWar() )
-		m_npc->toggleCombat();
-
 	Monster_Aggressive* pAI = dynamic_cast< Monster_Aggressive* >( m_ai );
+
+	// Even if the victim is zero, thats correct.
+	if (pAI) {
+		m_npc->fight(pAI->currentVictim());
+	}
+
 	if( !pAI || !pAI->currentVictim() )
 		return;
 
@@ -270,7 +273,8 @@ float Monster_Aggr_Fight::preCondition()
 	 */
 
 	Monster_Aggressive* pAI = dynamic_cast< Monster_Aggressive* >( m_ai );
-	if( !pAI || !pAI->currentVictim() || pAI->currentVictim()->isDead() )
+
+	if (!pAI || !pAI->currentVictim() || pAI->currentVictim()->isDead())
 		return 0.0f;
 	
 	UINT8 range = 1;
@@ -312,10 +316,8 @@ float Monster_Aggr_Fight::postCondition()
 
 void Monster_Aggr_Fight::execute()
 {
-	if( !m_npc->isAtWar() )
-		m_npc->toggleCombat();
-
-	// the execution of combat is handled somewhere else ;)
-	// nothing to do
+	Monster_Aggressive* pAI = dynamic_cast< Monster_Aggressive* >( m_ai );
+	if (pAI) {
+		m_npc->fight(pAI->currentVictim());
+	}
 }
-

@@ -405,7 +405,7 @@ float Action_Wander::preCondition()
 	 * - We are following a char and aren't in follow range yet.
 	 */
 
-	if( m_npc->attackerSerial() != INVALID_SERIAL )
+	if( m_npc->combatTarget() != INVALID_SERIAL )
 		return 0.0f;
 
 	if( m_npc->wanderType() == enHalt )
@@ -453,8 +453,7 @@ float Action_Wander::postCondition()
 
 void Action_Wander::execute()
 {
-	if( m_npc->isAtWar() )
-		m_npc->toggleCombat();
+	m_npc->fight(0);
 
 	switch( m_npc->wanderType() )
 	{
@@ -641,7 +640,7 @@ float Action_FleeAttacker::preCondition()
 	 *	      increases to flee.
 	 */
 
-	P_CHAR pAttacker = World::instance()->findChar( m_npc->attackerSerial() );
+	P_CHAR pAttacker = World::instance()->findChar( m_npc->combatTarget() );
 	if( !pAttacker || pAttacker->isDead() || !m_npc->inRange( pAttacker, SrvParams->pathfindFleeRadius() ) )
 		return 0.0f;
 
@@ -667,7 +666,7 @@ float Action_FleeAttacker::postCondition()
 	 *        the higher is the chance to end the flee action.
 	 */
 
-	P_CHAR pAttacker = World::instance()->findChar( m_npc->attackerSerial() );
+	P_CHAR pAttacker = World::instance()->findChar( m_npc->combatTarget() );
 	if( !pAttacker || pAttacker->isDead() || !m_npc->inRange( pAttacker, SrvParams->pathfindFleeRadius() ) )
 		return 1.0f;
 
@@ -689,7 +688,7 @@ float Action_Defend::preCondition()
 	 *	      increases to flee.
 	 */
 
-	P_CHAR pAttacker = World::instance()->findChar( m_npc->attackerSerial() );
+	P_CHAR pAttacker = World::instance()->findChar( m_npc->combatTarget() );
 	if( !pAttacker || pAttacker->isDead() )
 		return 0.0f;
 
@@ -720,7 +719,7 @@ float Action_Defend::postCondition()
 	 *        the higher is the chance to end the defend action.
 	 */
 
-	P_CHAR pAttacker = World::instance()->findChar( m_npc->attackerSerial() );
+	P_CHAR pAttacker = World::instance()->findChar( m_npc->combatTarget() );
 	if( !pAttacker || pAttacker->isDead() )
 		return 1.0f;
 

@@ -159,7 +159,6 @@ void cSrvParams::readData()
 	invisTimer_             = getDouble("General",  "InvisTimer", 60, true);
 	poisonTimer_		    = getNumber("General",  "PoisonTimer", 180, true);
 	hungerDamage_			= getNumber("General",  "Hunger Damage", 0, true);
-	persecute_              = getNumber("General",  "Persecution", 1, true);
 	tamedDisappear_         = getNumber("General",  "Tamed Disappear", 0, true);
 	houseInTown_            = getNumber("General",  "House In Town", 0, true);
 	shopRestock_            = getNumber("General",  "Shop Restock", 1, true);
