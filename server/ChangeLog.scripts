@@ -50,6 +50,9 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Added two new skill numbers for bushido and ninjitsu.
 		- Added template weaponinfo for new samurai weapons.
 		- Fixed incognito bug.
+		- Fixed a bug in the remove command (Players without accounts caused errors)
+		- Fixed foreign characters for the page system.
+		- Fixed bandages for logged out chars.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.

@@ -6,6 +6,7 @@ import commands.who
 import wolfpack.sockets
 import time
 from urllib import quote, unquote
+from wolfpack import console
 
 pages = None
 
@@ -29,25 +30,25 @@ class Page:
 	def __init__(self, char):
 		if type(char) == str:
 			values = char.split(';')
-			self.account = unquote( values[0] )
+			self.account = unquote( values[0] ).decode('utf-8')
 			self.serial = int(values[1])
-			self.name = unquote(values[2])
+			self.name = unquote(values[2]).decode('utf-8')
 			(x, y, z, m) = values[3].split(',')
 			self.pos = wolfpack.coord(int(x), int(y), int(z), int(m))
-			self.category = unquote(values[4])
+			self.category = unquote(values[4]).decode('utf-8')
 			self.message = ['', '', '', '']
-			self.message[0] = unicode(unquote(values[5]))
-			self.message[1] = unicode(unquote(values[6]))
-			self.message[2] = unicode(unquote(values[7]))
-			self.message[3] = unicode(unquote(values[8]))
-			self.created = float(values[9])		
+			self.message[0] = unquote(values[5]).decode('utf-8')
+			self.message[1] = unquote(values[6]).decode('utf-8')
+			self.message[2] = unquote(values[7]).decode('utf-8')
+			self.message[3] = unquote(values[8]).decode('utf-8')
+			self.created = float(values[9])
 		else:
 			self.account = char.account.name
 			self.serial = char.serial
 			self.name = char.name
 			self.pos = char.pos
 			self.category = ''
-			self.message = ['', '', '', '']
+			self.message = [u'', u'', u'', u'']
 			self.created = 0
 
 		self.assigned = None
@@ -70,15 +71,15 @@ class Page:
 	"""
 	def tostring(self):
 		values = []
-		values.append( quote( self.account ) )
+		values.append( quote( self.account.encode('utf-8') ) )
 		values.append( str( self.serial ) )
-		values.append( quote( self.name ) )		
+		values.append( quote( self.name.encode('utf-8') ) )		
 		values.append( '%d,%d,%d,%d' % ( self.pos.x, self.pos.y, self.pos.z, self.pos.map ) )
-		values.append( quote( self.category ) )
-		values.append( quote( self.message[0] ) )
-		values.append( quote( self.message[1] ) )
-		values.append( quote( self.message[2] ) )
-		values.append( quote( self.message[3] ) )
+		values.append( quote( self.category.encode('utf-8') ) )
+		values.append( quote( self.message[0].encode('utf-8') ) )
+		values.append( quote( self.message[1].encode('utf-8') ) )
+		values.append( quote( self.message[2].encode('utf-8') ) )
+		values.append( quote( self.message[3].encode('utf-8') ) )
 		values.append( str( self.created ) )
 		return ";".join(values)
 		

@@ -201,12 +201,13 @@ def bandage_response( char, args, target ):
 	char.socket.settag( 'using_bandages', 1 )
 
 def bandage_timer( char, args ):
+	if not char.socket:
+		return 	# Character disconnected
+	
 	char.socket.deltag( 'using_bandages' )
-
 	resurrect = args[0]
 	success = args[1]
 	baseid = args[3]
-
 
 	if resurrect == 1:
 		# Corpse Target		
