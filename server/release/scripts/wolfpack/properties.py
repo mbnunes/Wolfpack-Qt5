@@ -103,7 +103,6 @@ PROPERTIES = {
 	SWING: ['swing', [0xa, 0x9, 0x1f] ],
 	REFLECTPHYSICAL: ['reflectphysical', 0, 1],
 	DURABILITYBONUS: ['durabilitybonus', 0, 0],
-	WEIGHTBONUS: ['weightbonus', 0, 0],
 	SLAYER: ['slayer', '', 0],
 }
 
