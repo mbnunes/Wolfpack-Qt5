@@ -1117,6 +1117,7 @@ public:
 		CHLevel				= 0x12, //Select house level
 		AbilitySelect		= 0x19, //Ability select
 		CHRevert			= 0x1A, //Revert (nadip)
+		GuildButton			= 0x28, //Guild Button
 	};
 
 	cUORxAosMultiPurpose( const QByteArray& data ) : cUOPacket( data )

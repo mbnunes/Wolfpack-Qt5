@@ -162,7 +162,7 @@ cUOPacket* cUORxAosMultiPurpose::packet( const QByteArray& data )
 		{
 			//qWarning("Unknown cUORxAosMultiPurpose subcommand");
 			//qWarning( cUOPacket::dump( data ) );
-			return new cUOPacket( data );
+			return new cUORxAosMultiPurpose( data );
 		}
 	}
 }

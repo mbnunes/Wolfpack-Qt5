@@ -620,6 +620,13 @@ container that is being snooped into.
 */
 "onDisconnect",
 
+/*
+\event onGuildButton
+\param player The player who pressed the button.
+\condition Triggered when a player presses the guild button on his client.
+*/
+"onGuildButton",
+
 0
 };
 

@@ -1344,6 +1344,13 @@ void cUOSocket::handleAosMultiPurpose( cUORxAosMultiPurpose* packet )
 		handleCHLevel( dynamic_cast<cUORxCHLevel*>( packet ) ); break;
 	case cUORxAosMultiPurpose::CHRevert:
 		handleCHRevert( packet ); break;
+	case cUORxAosMultiPurpose::GuildButton:
+		{
+			PyObject *args = Py_BuildValue("(N)", _player->getPyObject());
+			_player->callEventHandler(EVENT_GUILDBUTTON, args);
+			Py_DECREF(args);
+		}
+		break;
 		/*		case cUORxAosMultiPurpose::AbilitySelect:
 							handleAbilitySelect( dynamic_cast< */
 	default:
