@@ -18,7 +18,7 @@
 		<strchance>0</strchance>
 		<dexchance>0.5</dexchance>
 		<intchance>0.5</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>ALCHEMY</defname>
 		<name>Alchemy</name>
 		<title>Alchemist</title>
@@ -29,7 +29,7 @@
 		<strchance>0.15</strchance>
 		<dexchance>0.15</dexchance>
 		<intchance>0.7</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>ANATOMY</defname>
 		<name>Anatomy</name>
 		<title>Healer</title>
@@ -40,7 +40,7 @@
 		<strchance>0</strchance>
 		<dexchance>0</dexchance>
 		<intchance>1.0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>ANIMALLORE</defname>
 		<name>Animal Lore</name>
 		<title>Ranger</title>
@@ -51,7 +51,7 @@
 		<strchance>0</strchance>
 		<dexchance>0</dexchance>
 		<intchance>1.0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>ITEMIDENTIFICATION</defname>
 		<name>Item Identification</name>
 		<title>Merchant</title>
@@ -62,7 +62,7 @@
 		<strchance>0.75</strchance>
 		<dexchance>0.15</dexchance>
 		<intchance>0.1</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>ARMSLORE</defname>
 		<name>Arms Lore</name>
 		<title>Warrior</title>
@@ -73,7 +73,7 @@
 		<strchance>0.75</strchance>
 		<dexchance>0.25</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>PARRYING</defname>
 		<name>Parrying</name>
 		<title>Warrior</title>
@@ -84,7 +84,7 @@
 		<strchance>0</strchance>
 		<dexchance>0</dexchance>
 		<intchance>0</intchance>
-		<gainchance>0</gainchance>
+		<gainfactor>0</gainfactor>
 		<defname>BEGGING</defname>
 		<name>Begging</name>
 		<title>Beggar</title>
@@ -95,7 +95,7 @@
 		<strchance>1.0</strchance>
 		<dexchance>0</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>BLACKSMITHING</defname>
 		<name>Blacksmithing</name>
 		<title>Blacksmith</title>
@@ -106,7 +106,7 @@
 		<strchance>0.6</strchance>
 		<dexchance>1.6</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>BOWCRAFTING</defname>
 		<name>Bowcrafting</name>
 		<title>Bowyer</title>
@@ -117,7 +117,7 @@
 		<strchance>0</strchance>
 		<dexchance>0</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>PEACEMAKING</defname>
 		<name>Peacemaking</name>
 		<title>Bard</title>
@@ -128,7 +128,7 @@
 		<strchance>2</strchance>
 		<dexchance>1.5</dexchance>
 		<intchance>1.5</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>CAMPING</defname>
 		<name>Camping</name>
 		<title>Ranger</title>
@@ -149,7 +149,7 @@
 		<strchance>0</strchance>
 		<dexchance>0.75</dexchance>
 		<intchance>0.75</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>CARTOGRAPHY</defname>
 		<name>Cartography</name>
 		<title>Cartographer</title>
@@ -160,7 +160,7 @@
 		<strchance>0</strchance>
 		<dexchance>2</dexchance>
 		<intchance>3</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>COOKING</defname>
 		<name>Cooking</name>
 		<title>Chef</title>
@@ -171,7 +171,7 @@
 		<strchance>0</strchance>
 		<dexchance>0.4</dexchance>
 		<intchance>0.6</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>DETECTHIDDEN</defname>
 		<name>Detect Hidden</name>
 		<title>Scout</title>
@@ -182,7 +182,7 @@
 		<strchance>0</strchance>
 		<dexchance>0.25</dexchance>
 		<intchance>0.25</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>DISCORDANCE</defname>
 		<name>Discordance</name>
 		<title>Bard</title>
@@ -193,7 +193,7 @@
 		<strchance>0</strchance>
 		<dexchance>0</dexchance>
 		<intchance>1</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>EVALUATINGINTELLIGENCE</defname>
 		<name>Evaluating Inteligence</name>
 		<title>Scholar</title>
@@ -204,7 +204,7 @@
 		<strchance>0.6</strchance>
 		<dexchance>0.6</dexchance>
 		<intchance>0.8</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>HEALING</defname>
 		<name>Healing</name>
 		<title>Healer</title>
@@ -215,7 +215,7 @@
 		<strchance>0.5</strchance>
 		<dexchance>0.5</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>FISHING</defname>
 		<name>Fishing</name>
 		<title>Fisherman</title>
@@ -226,7 +226,7 @@
 		<strchance>0</strchance>
 		<dexchance>0.2</dexchance>
 		<intchance>0.8</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>FORENSICS</defname>
 		<name>Forensics</name>
 		<title>Detective</title>
@@ -237,7 +237,7 @@
 		<strchance>1.625</strchance>
 		<dexchance>0.625</dexchance>
 		<intchance>0.25</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>HERDING</defname>
 		<name>Herding</name>
 		<title>Sheperd</title>
@@ -248,7 +248,7 @@
 		<strchance>0</strchance>
 		<dexchance>0.8</dexchance>
 		<intchance>0.2</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>HIDING</defname>
 		<name>Hiding</name>
 		<title>Rogue</title>
@@ -259,7 +259,7 @@
 		<strchance>0</strchance>
 		<dexchance>0.45</dexchance>
 		<intchance>0.55</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>PROVOCATION</defname>
 		<name>Provocation</name>
 		<title>Bard</title>
@@ -270,7 +270,7 @@
 		<strchance>0</strchance>
 		<dexchance>0.2</dexchance>
 		<intchance>0.8</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>INSCRIPTION</defname>
 		<name>Inscription</name>
 		<title>Scribe</title>
@@ -281,7 +281,7 @@
 		<strchance>0</strchance>
 		<dexchance>2</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>LOCKPICKING</defname>
 		<name>Lockpicking</name>
 		<title>Rogue</title>
@@ -292,7 +292,7 @@
 		<strchance>0</strchance>
 		<dexchance>0</dexchance>
 		<intchance>1.5</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>MAGERY</defname>
 		<name>Magery</name>
 		<title>Mage</title>
@@ -313,7 +313,7 @@
 		<strchance>0</strchance>
 		<dexchance>0</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>TACTICS</defname>
 		<name>Tactics</name>
 		<title>Warrior</title>
@@ -324,7 +324,7 @@
 		<strchance>0</strchance>
 		<dexchance>2.5</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>SNOOPING</defname>
 		<name>Snooping</name>
 		<title>Pickpocket</title>
@@ -335,7 +335,7 @@
 		<strchance>0</strchance>
 		<dexchance>0.8</dexchance>
 		<intchance>0.2</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>MUSICIANSHIP</defname>
 		<name>Musicianship</name>
 		<title>Bard</title>
@@ -346,7 +346,7 @@
 		<strchance>0</strchance>
 		<dexchance>0.4</dexchance>
 		<intchance>1.6</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>POISONING</defname>
 		<name>Poisoning</name>
 		<title>Assassin</title>
@@ -357,7 +357,7 @@
 		<strchance>0.25</strchance>
 		<dexchance>0.75</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>ARCHERY</defname>
 		<name>Archery</name>
 		<title>Archer</title>
@@ -368,7 +368,7 @@
 		<strchance>0</strchance>
 		<dexchance>0</dexchance>
 		<intchance>1</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>SPIRITSPEAK</defname>
 		<name>Spirit Speak</name>
 		<title>Medium</title>
@@ -379,7 +379,7 @@
 		<strchance>0</strchance>
 		<dexchance>1</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>STEALING</defname>
 		<name>Stealing</name>
 		<title>Rogue</title>
@@ -390,7 +390,7 @@
 		<strchance>0.38</strchance>
 		<dexchance>1.62</dexchance>
 		<intchance>0.5</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>TAILORING</defname>
 		<name>Tailoring</name>
 		<title>Tailor</title>
@@ -401,7 +401,7 @@
 		<strchance>1.4</strchance>
 		<dexchance>0.2</dexchance>
 		<intchance>0.4</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>ANIMALTAMING</defname>
 		<name>Animal Taming</name>
 		<title>Animal Tamer</title>
@@ -412,7 +412,7 @@
 		<strchance>0.2</strchance>
 		<dexchance>0</dexchance>
 		<intchance>0.8</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>TASTEIDENTIFICATION</defname>
 		<name>Taste Identification</name>
 		<title>Chef</title>
@@ -423,7 +423,7 @@
 		<strchance>0.5</strchance>
 		<dexchance>0.2</dexchance>
 		<intchance>0.3</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>TINKERING</defname>
 		<name>Tinkering</name>
 		<title>Tinker</title>
@@ -434,7 +434,7 @@
 		<strchance>0</strchance>
 		<dexchance>1.25</dexchance>
 		<intchance>1.25</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>TRACKING</defname>
 		<name>Tracking</name>
 		<title>Ranger</title>
@@ -445,7 +445,7 @@
 		<strchance>0.8</strchance>
 		<dexchance>0.4</dexchance>
 		<intchance>0.8</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>VETERINARY</defname>
 		<name>Veterinary</name>
 		<title>Veterinarian</title>
@@ -456,7 +456,7 @@
 		<strchance>0.75</strchance>
 		<dexchance>0.25</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>SWORDSMANSHIP</defname>
 		<name>Swordsmanship</name>
 		<title>Swordsman</title>
@@ -467,7 +467,7 @@
 		<strchance>0.9</strchance>
 		<dexchance>0.1</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>MACEFIGHTING</defname>
 		<name>Mace Fighting</name>
 		<title>Armsman</title>
@@ -478,7 +478,7 @@
 		<strchance>0.45</strchance>
 		<dexchance>0.55</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>FENCING</defname>
 		<name>Fencing</name>
 		<title>Fencer</title>
@@ -489,7 +489,7 @@
 		<strchance>0.9</strchance>
 		<dexchance>0.1</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>WRESTLING</defname>
 		<name>Wrestling</name>
 		<title>Wrestler</title>
@@ -500,7 +500,7 @@
 		<strchance>2</strchance>
 		<dexchance>0</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>LUMBERJACKING</defname>
 		<name>Lumberjacking</name>
 		<title>Lumberjack</title>
@@ -511,7 +511,7 @@
 		<strchance>2</strchance>
 		<dexchance>0</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>MINING</defname>
 		<name>Mining</name>
 		<title>Miner</title>
@@ -522,7 +522,7 @@
 		<strchance>0</strchance>
 		<dexchance>0</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>MEDITATION</defname>
 		<name>Meditation</name>
 		<title>Stoic</title>
@@ -533,7 +533,7 @@
 		<strchance>0</strchance>
 		<dexchance>0</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>STEALTH</defname>
 		<name>Stealth</name>
 		<title>Rogue</title>
@@ -544,7 +544,7 @@
 		<strchance>0</strchance>
 		<dexchance>0</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>REMOVETRAPS</defname>
 		<name>Remove Traps</name>
 		<title>Rogue</title>
@@ -555,7 +555,7 @@
 		<strchance>0</strchance>
 		<dexchance>0</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>NECROMANCY</defname>
 		<name>Necromancy</name>
 		<title>Necromancer</title>
@@ -566,7 +566,7 @@
 		<strchance>0</strchance>
 		<dexchance>0</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>FOCUS</defname>
 		<name>Focus</name>
 		<title>Stoic</title>
@@ -577,7 +577,7 @@
 		<strchance>0</strchance>
 		<dexchance>0</dexchance>
 		<intchance>0</intchance>
-		<gainchance>1</gainchance>
+		<gainfactor>1</gainfactor>
 		<defname>CHIVALRY</defname>
 		<name>Chivalry</name>
 		<title>Paladin</title>
