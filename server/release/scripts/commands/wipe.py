@@ -13,9 +13,19 @@
 	\usage - <code>nuke</code>
 	\usage - <code>nuke all</code>
 	If you don't specify any parameters, you will
-	be able to select a region to nuke. If you 
+	be able to select a region to nuke. If you
 	use wipe all, the whole world will be nuked.
 	\notes There is also <b>WIPE</b> which is an alias for this command.
+"""
+"""
+	\command wipe
+	\description Remove items in a certain area.
+	\usage - <code>wipe</code>
+	\usage - <code>wipe all</code>
+	If you don't specify any parameters, you will
+	be able to select a region to wipe. If you
+	use wipe all, the whole world will be wiped.
+	\notes There is also <b>NUKE</b> which is an alias for this command.
 """
 
 import wolfpack
@@ -43,7 +53,7 @@ def nuke( socket, command, argstring ):
 	else:
 		socket.sysmessage("Select the area to remove")
 		getBoundingBox( socket, wipeBoundingBox )
-	
+
 	return 1
 
 def wipeAllWorld( player, accept, state ):
