@@ -42,7 +42,7 @@ def onSpeech( listener, speaker, text, keywords ):
 
 			# Invalid Withdraw Amount
 			if not amount:
-				listener.say( "How much do you want to withdraw?" )
+				listener.say( "How much do you want to withdraw?",5 )
 
 			# Withraw
 			else:
@@ -54,11 +54,11 @@ def onSpeech( listener, speaker, text, keywords ):
 					gold = bank.countresource( 0xEED, 0x0 )
 
 				if amount > gold:
-					listener.say( "You don't have enough money in your bank box." )
+					listener.say( "You don't have enough money in your bank box.",5 )
 
 				else:
 					# We have enough money, so let's withdraw it
-					listener.say( "Here are your %i gold." % amount )
+					listener.say( "Here are your %i gold." % amount,5 )
 					bank.useresource( amount, 0xEED, 0x0 )
 					backpack = speaker.getbackpack()
 
@@ -79,9 +79,9 @@ def onSpeech( listener, speaker, text, keywords ):
 			if bank:
 				amount = bank.countresource( 0xEED, 0x0 )
 				if not amount: 
-					listener.say( "Alas you don't have any money in your bank." )
+					listener.say( "Alas you don't have any money in your bank.",5 )
 				else:
-					listener.say( "You have %i gold in your bank." % amount )
+					listener.say( "You have %i gold in your bank." % amount,5 )
 			break
 
 		# bank
@@ -89,7 +89,7 @@ def onSpeech( listener, speaker, text, keywords ):
 			bank = speaker.getbankbox()
 			
 			if bank:
-				listener.say( "Here is your bank box, %s." % speaker.name )
+				listener.say( "Here is your bank box, %s." % speaker.name,5 )
 				speaker.socket.sendcontainer( bank )
 
 			break
@@ -104,7 +104,7 @@ def onSpeech( listener, speaker, text, keywords ):
 
 			# Invalid Withdraw Amount
 			if amount < 5000:
-				listener.say( "A check at least needs to have 5000 gold value." )
+				listener.say( "A check at least needs to have 5000 gold value.",5 )
 
 			# Withraw
 			else:
@@ -116,11 +116,11 @@ def onSpeech( listener, speaker, text, keywords ):
 					gold = bank.countresource( 0xEED, 0x0 )
 
 				if amount > gold:
-					listener.say( "You don't have enough money in your bank box." )
+					listener.say( "You don't have enough money in your bank box.",5 )
 
 				else:
 					# We have enough money, so let's withdraw it
-					listener.say( "I've put a check for %i gold in your bank." % amount )
+					listener.say( "I've put a check for %i gold in your bank." % amount,5 )
 					bank.useresource( amount, 0xEED, 0x0 )
 					check = wolfpack.additem( "bank_check" )
 					check.settag( 'value', amount )
@@ -138,7 +138,7 @@ def onDropOnChar( char, item ):
 	bankbox = dropper.getbankbox()
 
 	if bankbox:
-		char.say( "I've put the item into your bankbox." )
+		char.say( "I've put the item into your bankbox.",5 )
 		item.container = bankbox
 		item.update()
 		return 1

@@ -258,11 +258,11 @@ def gump_callback( char, args, response ):
 	if not vendor:
 		return
 	if vendor.distanceto( char ) > 5:
-		vendor.say( "I can't sell this from over there!" )
+		vendor.say( "I can't sell this from over there!",5 )
 		char.socket.sysmessage( "You can't reach the vendor." )
 		return
 	if response.button == 0:
-		vendor.say( "Bey!" )
+		vendor.say( "Bey!",5 )
 		
 		return
 
@@ -274,7 +274,7 @@ def gump_callback( char, args, response ):
 		return
 
 	if not prices.has_key( id ):
-		vendor.say( "I can't sell this!" )
+		vendor.say( "I can't sell this!",5 )
 		return
 
 	id_npc = idnpc[ id ]
@@ -283,15 +283,15 @@ def gump_callback( char, args, response ):
 
 	if ( button == 0x0000 ):  	#shrink
 		if not shrinks.has_key( id ):
-			vendor.say( "They not SHRINKABLE..." )
+			vendor.say( "They not SHRINKABLE...",5 )
 			return
 		count = prices[ id ] + prices_shrinks
 		if char.countresource( 0xeed, 0 ) < count:
-			vendor.say( "You don't have enoug gold!" )
+			vendor.say( "You don't have enoug gold!",5 )
 			return
 		char.useresource( count, 0xeed, 0 )
 		char.soundeffect( 0x37, 0 )
-		vendor.say( "That is %i gold." % count )
+		vendor.say( "That is %i gold." % count,5 )
 		item = wolfpack.additem( "%s" % id_shrink )
 		if not item:
 			console.send ( "Invalid defintion: %s\n Vendor error: %s)\n" % ( id_shrink, vendor) )
@@ -308,16 +308,16 @@ def gump_callback( char, args, response ):
 	elif ( button == 0x0001 ):  	#tamed
 
 		if not tamed.has_key( id ):
-			vendor.say( "They not TAMEABLE..." )
+			vendor.say( "They not TAMEABLE...",5 )
 			return
 
 		count = prices[ id ]
 		if char.countresource( 0xeed, 0 ) < count:
-			vendor.say( "You don't have enoug gold!" )
+			vendor.say( "You don't have enoug gold!",5 )
 			return
 		char.useresource( count, 0xeed, 0 )
 		char.soundeffect( 0x37, 0 )
-		vendor.say( "That is %i gold." % count )
+		vendor.say( "That is %i gold." % count,5 )
 		pos = char.pos
 		npc = wolfpack.addnpc( id_npc, pos )
 		if not npc:
@@ -331,16 +331,16 @@ def gump_callback( char, args, response ):
 	elif ( button == 0x0002 ):  	#rideable
 
 		if ( rideables.has_key( id ) != 1 ):
-			vendor.say( "They not RIDEABLE..." )
+			vendor.say( "They not RIDEABLE...",5 )
 			return
 
 		count = prices[ id ]
 		if char.countresource( 0xeed, 0 ) < count:
-			vendor.say( "You don't have enoug gold!" )
+			vendor.say( "You don't have enoug gold!",5 )
 			return
  		char.useresource( count, 0xeed, 0 )
 		char.soundeffect( 0x37, 0 )
-		vendor.say( "That is %i gold." % count )
+		vendor.say( "That is %i gold." % count,5 )
 		pos = char.pos
 		npcmount = wolfpack.addnpc( id_npc, pos )
 		if not npcmount:

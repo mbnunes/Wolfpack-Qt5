@@ -49,7 +49,7 @@ def onSpeech( listener, speaker, text, keywords ):
 		return 0
 
 	if speaker.id != 0x190 and speaker.id != 0x191:
-		listener.say( "I can't cat your hair!" )
+		listener.say( "I can't cat your hair!",5 )
 		return 1
 
 	# We only have one keyword
@@ -352,25 +352,25 @@ def gump_callback( char, args, response ):
 		return
 
 	if vendor.distanceto( char ) > 5:
-		vendor.say( "I can't cut your hair from over there!" )
+		vendor.say( "I can't cut your hair from over there!",5 )
 		char.socket.sysmessage( "You can't reach the vendor." )
 		return
 
 	id = response.button & 0x3FFF
 	
 	if not prices.has_key( id ):
-		vendor.say( "I can't cut your hair like this!" )
+		vendor.say( "I can't cut your hair like this!",5 )
 		return
 
 	price = prices[ id ]
 
 	if char.countresource( 0xeed, 0 ) < price:
-		vendor.say( "You don't have enoug gold!" )
+		vendor.say( "You don't have enoug gold!",5 )
 		return
 
 	char.useresource( price, 0xeed, 0 )
 	char.soundeffect( 0x37, 0 )
-	vendor.say( "That is %i gold." % price )
+	vendor.say( "That is %i gold." % price,5 )
 
 	color = 0
 
