@@ -49,6 +49,7 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Fixed bug #0000322. (Carpentry menu details page has a broken exceptional chance)
 		- Fixed bug #0000313. (Parrying bugs and misconceptions)
 		- Rewrote npc carving.
+		- Added a "static" command.
 	* Misc. Changes:
 		- Fixed configure.py for FreeBSD 5
 	* Known Issues, Bugs, and Missing Features:
