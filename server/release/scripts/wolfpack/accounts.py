@@ -6,3 +6,6 @@ def find( name ):
 
 def list():
 	return _wolfpack.accounts.list()
+
+def acls():
+	return _wolfpack.accounts.acls()
