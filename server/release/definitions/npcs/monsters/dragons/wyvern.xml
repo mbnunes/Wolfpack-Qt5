@@ -10,11 +10,10 @@
 
 	<!-- wyvern -->
 	<npc id="wyvern" inherit="monster_base">
-		<name>a wyvern</name>
-		<id>0x3e</id>
+		<name>wyvern</name>
+		<id>62</id>
 		<karma>-4000</karma>
 		<fame>4000</fame>
-		<gold><random min="100" max="130"/></gold>
 		<!-- Stats -->
 		<str><random min="202" max="240"/></str>
 		<dex><random min="153" max="172"/></dex>
@@ -25,8 +24,8 @@
 		<magicresistance><random min="651" max="800" /></magicresistance>
 		<poisoning><random min="601" max="800" /></poisoning>
 		<!-- Damage -->
-		<tag name="mindamage" value="8" type="int" />
-		<tag name="maxdamage" value="19" type="int" />
+		<mindamage>8</mindamage>
+		<maxdamage>19</maxdamage>
 		<tag name="dmg_poison" value="50" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="20,30" type="int" />

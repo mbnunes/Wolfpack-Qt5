@@ -10,11 +10,10 @@
 
 	<!-- serpentine dragon -->
 	<npc id="serpentine_dragon" inherit="monster_base">
-		<name>a serpentine dragon</name>
-		<id>0xac</id>
+		<name>serpentine dragon</name>
+		<id>172</id>
 		<karma>15000</karma>
 		<fame>15000</fame>
-		<gold><random min="700" max="900"/></gold>
 		<!-- Stats -->
 		<str><random min="111" max="140"/></str>
 		<dex><random min="201" max="220"/></dex>
@@ -27,8 +26,8 @@
 		<tactics><random min="501" max="600"/></tactics>
 		<wrestling><random min="301" max="1000"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="5" type="int" />
-		<tag name="maxdamage" value="12" type="int" />
+		<mindamage>5</mindamage>
+		<maxdamage>12</maxdamage>
 		<tag name="dmg_poison" value="25" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="25,35" type="int" />

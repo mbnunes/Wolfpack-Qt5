@@ -10,11 +10,10 @@
 
 	<!-- shadow wyrm -->
 	<npc id="shadow_wyrm" inherit="monster_base">
-		<name>a shadow wyrm</name>
-		<id>0x6a</id>
+		<name>shadow wyrm</name>
+		<id>106</id>
 		<karma>-22500</karma>
 		<fame>22500</fame>
-		<gold><random min="800" max="1100"/></gold>
 		<!-- Stats -->
 		<str><random min="898" max="1030"/></str>
 		<dex><random min="68" max="200"/></dex>
@@ -27,8 +26,8 @@
 		<tactics><random min="976" max="1000"/></tactics>
 		<wrestling><random min="976" max="1000"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="29" type="int" />
-		<tag name="maxdamage" value="35" type="int" />
+		<mindamage>29</mindamage>
+		<maxdamage>35</maxdamage>
 		<tag name="dmg_cold" value="25" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="45,55" type="int" />

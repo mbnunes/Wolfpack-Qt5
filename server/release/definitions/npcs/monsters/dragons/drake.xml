@@ -10,11 +10,10 @@
 
 	<!-- a drake (gray) -->
 	<npc id="drake_gray" inherit="monster_base">
-		<name>a drake</name>
-		<id>0x3c</id>
+		<name>drake</name>
+		<id>60</id>
 		<karma>-5500</karma>
 		<fame>5500</fame>
-		<gold><random min="180" max="220"/></gold>
 		<!-- Stats -->
 		<str><random min="401" max="430"/></str>
 		<dex><random min="133" max="152"/></dex>
@@ -24,8 +23,8 @@
 		<tactics><random min="651" max="900"/></tactics>
 		<wrestling><random min="651" max="800"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="11" type="int" />
-		<tag name="maxdamage" value="17" type="int" />
+		<mindamage>11</mindamage>
+		<maxdamage>17</maxdamage>
 		<tag name="dmg_fire" value="20" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="40,50" type="int" />
@@ -40,10 +39,8 @@
 	</npc>
 
 	<!-- a drake (red) -->
-	<npc id="drake_red">
-		<inherit id="drake_gray" />
-		<name>a drake</name>
-		<id>0x3d</id>
+	<npc id="drake_red" inherit="drake_gray">
+		<id>61</id>
 		<category>Monsters\Dragons\Drake (Red)</category>
 		<carve>carve_drake_red</carve>
 	</npc>

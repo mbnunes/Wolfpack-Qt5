@@ -10,11 +10,10 @@
 
 	<!-- white wyrm hazy white -->
 	<npc id="white_wyrm_1" inherit="monster_base">
-		<name>a white wyrm</name>
-		<id>0x31</id>
+		<name>white wyrm</name>
+		<id>49</id>
 		<karma>-18000</karma>
 		<fame>18000</fame>
-		<gold><random min="550" max="750"/></gold>
 		<!-- Stats -->
 		<str><random min="721" max="760"/></str>
 		<dex><random min="101" max="130"/></dex>
@@ -26,8 +25,8 @@
 		<tactics><random min="976" max="1000"/></tactics>
 		<wrestling><random min="901" max="1000"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="17" type="int" />
-		<tag name="maxdamage" value="25" type="int" />
+		<mindamage>17</mindamage>
+		<maxdamage>25</maxdamage>
 		<tag name="dmg_cold" value="50" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="80,90" type="int" />
@@ -44,7 +43,7 @@
 	<!-- white wyrm (Pure) -->
 	<npc id="white_wyrm_2">
 		<inherit id="white_wyrm_1" />
-		<id>0xb4</id>
+		<id>180</id>
 		<category>Monsters\Dragons\White Wyrm (Pure)</category>
 	</npc>
 

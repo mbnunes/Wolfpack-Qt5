@@ -10,11 +10,10 @@
 
 	<!-- an ancient wyrm -->
 	<npc id="ancient_wyrm" inherit="monster_base">
-		<name>an ancient wyrm</name>
-		<id>0x69</id>
+		<name>ancient wyrm</name>
+		<id>105</id>
 		<karma>-22500</karma>
 		<fame>22500</fame>
-		<gold><random min="700" max="1100"/></gold>
 		<!-- Stats -->
 		<str><random min="1096" max="1185"/></str>
 		<dex><random min="86" max="175"/></dex>
@@ -27,8 +26,8 @@
 		<tactics><random min="976" max="1000"/></tactics>
 		<wrestling><random min="976" max="1000"/></wrestling>
 		<!-- Damage -->
-		<tag name="mindamage" value="29" type="int" />
-		<tag name="maxdamage" value="35" type="int" />
+		<mindamage>29</mindamage>
+		<maxdamage>35</maxdamage>
 		<tag name="dmg_fire" value="25" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="70,80" type="int" />
@@ -37,7 +36,7 @@
 		<tag name="res_physical" value="65,75" type="int" />
 		<tag name="res_poison" value="60,70" type="int" />
 		<!-- Misc. -->
-		<desc>The eldest of the Draconian race are rarely seen by any other than drake eyes. Ancient in origin, the wizened Elder is said to long forthe days when the reptile was the guardian of the land now known as Britannia. Patience is not a virtue of the Elder Wyrm, and disturbing one may lead to a quick death. Death, of course, being the quickest way for these ancient ones to be rid of the intruder and get back to their studies.</desc>
+		<desc>The eldest of the Draconian race are rarely seen by any other than drake eyes. Ancient in origin, the wizened Elder is said to long for the days when the reptile was the guardian of the land now known as Britannia. Patience is not a virtue of the Elder Wyrm, and disturbing one may lead to a quick death. Death, of course, being the quickest way for these ancient ones to be rid of the intruder and get back to their studies.</desc>
 		<category>Monsters\Dragons\Ancient Wyrm</category>
 	</npc>
 
