@@ -365,12 +365,12 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	}
 
 	// Required Strength
-	if( pItem->st() > pWearer->strength() )
+	if( pItem->strengthReq() > pWearer->strength() )
 	{
 		if( pWearer == pChar )
 			socket->sysMessage( tr( "You cannot wear that item, you seem not strong enough" ) );
 		else
-			socket->sysMessage( tr( "This person can't wear that item, it seems not strong enough" ) );
+			socket->sysMessage( tr( "This person can't wear that item, seems not strong enough" ) );
 
 		socket->bounceItem( pItem, BR_NO_REASON );
 		return;
@@ -382,7 +382,7 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 		if( pWearer == pChar )
 			socket->sysMessage( tr( "You cannot wear that item, you seem not agile enough" ) );
 		else
-			socket->sysMessage( tr( "This person can't wear that item, it seems not agile enough" ) );
+			socket->sysMessage( tr( "This person can't wear that item, seems not agile enough" ) );
 
 		socket->bounceItem( pItem, BR_NO_REASON );
 		return;
@@ -394,7 +394,7 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 		if( pWearer == pChar )
 			socket->sysMessage( tr( "You cannot wear that item, you seem not smart enough" ) );
 		else
-			socket->sysMessage( tr( "This person can't wear that item, it seems not smart enough" ) );
+			socket->sysMessage( tr( "This person can't wear that item, seems not smart enough" ) );
 
 		socket->bounceItem( pItem, BR_NO_REASON );
 		return;

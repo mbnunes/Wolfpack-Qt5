@@ -60,7 +60,6 @@ class cItem : public cUObject
 	Q_PROPERTY ( ushort		accuracy	READ accuracy		WRITE setAccuracy		)
 	Q_PROPERTY ( int		sellprice	READ sellprice		WRITE setSellprice		)
 	Q_PROPERTY ( int		buyprice	READ buyprice		WRITE setBuyprice		)
-	Q_PROPERTY ( int		price		READ price			WRITE setPrice			)
 	Q_PROPERTY ( uchar		moreb1		READ moreb1			WRITE setMoreb1			)
 	Q_PROPERTY ( uchar		moreb2		READ moreb2			WRITE setMoreb2			)
 	Q_PROPERTY ( uchar		moreb3		READ moreb3			WRITE setMoreb3			)
@@ -77,12 +76,12 @@ class cItem : public cUObject
 	Q_PROPERTY ( uchar		dye			READ dye			WRITE setDye			)
 	Q_PROPERTY ( uint		att			READ att			WRITE setAtt			)
 	Q_PROPERTY ( uint		def			READ def			WRITE setDef			)
-	Q_PROPERTY ( short		st			READ st				WRITE setSt				)
+	Q_PROPERTY ( short		StrengthReq	READ strengthReq	WRITE setStrengthReq	)
 	Q_PROPERTY ( short		strengthMod	READ strengthMod	WRITE setStrengthMod	)
-	Q_PROPERTY ( short		dx			READ dexterityReq	WRITE setDexterityReq	)
-	Q_PROPERTY ( short		dx2			READ dexterityMod	WRITE setDexterityMod	)
-	Q_PROPERTY ( short		in			READ intelligenceMod	WRITE setIntelligenceMod	)
-	Q_PROPERTY ( short		in2			READ intelligenceReq	WRITE setIntelligenceReq	)
+	Q_PROPERTY ( short		dexterityReq READ dexterityReq	WRITE setDexterityReq	)
+	Q_PROPERTY ( short		dexterityMod READ dexterityMod	WRITE setDexterityMod	)
+	Q_PROPERTY ( short		intelligenceMod READ intelligenceMod	WRITE setIntelligenceMod	)
+	Q_PROPERTY ( short		intelligenceReq	READ intelligenceReq	WRITE setIntelligenceReq	)
 	Q_PROPERTY ( uchar		magic		READ magic			WRITE setMagic			)
 	Q_PROPERTY ( uint		gatetime	READ gatetime		WRITE setGateTime		)
 	Q_PROPERTY ( int		gatenumber	READ gatenumber		WRITE setGateNumber		)
@@ -124,7 +123,6 @@ public:
 	ushort			color()			const { return color_; }		// The Color of the item
 	ushort			amount()		const { return amount_; }		// Amount of items in pile
 	ushort			restock()		const { return restock_; }		// Amount of items a vendor will respawn this item to.
-	ushort			amount2()		const { return amount2_; }		// Used to track things like number of yards left in a roll of cloth
 	const QString	&name2()		const { return name2_; }		// The identified name of the item
 	uchar			layer()			const { return layer_; }		// Layer if equipped on paperdoll
 	bool			twohanded()		const { return priv_&0x20; }		// Is the weapon twohanded ?
@@ -156,7 +154,6 @@ public:
 	cUObject		*container()    const { return container_; }
 	int				sellprice()		const { return sellprice_; } // Price this item is being bought at by normal vendors
 	int				buyprice()		const { return buyprice_; } // Price this item is being sold at by normal vendors
-	int				price()			const { return price_; } // Price this item is being sold at by player vendors
 
 	uchar			more1()			const { return more1_; }
 	uchar			more2()			const { return more2_; }
@@ -170,7 +167,7 @@ public:
 	uchar			dye()			const { return dye_; }
 	uint			att()			const { return att_; }
 	uint			def()			const { return def_; }
-	short			st()			const { return st_; }
+	short			strengthReq()	const { return st_; }
 	short			strengthMod()	const { return st2_; }
 	short			dexterityReq()	const { return dx_; }
 	short			dexterityMod()	const { return dx2_; }
@@ -222,7 +219,6 @@ public:
 	void	setColor( ushort nValue ) { color_ = nValue; changed( SAVE );};
 	void	setAmount( ushort nValue );
 	void	setRestock( ushort nValue ) { restock_ = nValue; changed( SAVE );}
-	void	setAmount2( ushort nValue ) { amount2_ = nValue; changed( SAVE+TOOLTIP );}; //Used to track things like number of yards left in a roll of cloth
 	void	setName2( const QString& nValue ) { name2_ = nValue; changed( SAVE+TOOLTIP );};
 	void	setLayer( uchar nValue ) { layer_ = nValue; changed( SAVE );};
 	void	setTwohanded( bool nValue ) { nValue ? priv_ &= 0x20 : priv_ |= 0xDF; changed( SAVE+TOOLTIP );};
@@ -276,7 +272,7 @@ public:
 	void	setDye( uchar data ) { dye_ = data; changed( SAVE );}
 	void	setAtt(	uint data ) { att_ = data; changed( SAVE );}
 	void	setDef( uint data ) { def_ = data; changed( SAVE+TOOLTIP );}
-	void	setSt( short data ) { st_ = data; changed( SAVE+TOOLTIP );}
+	void	setStrengthReq( short data ) { st_ = data; changed( SAVE+TOOLTIP );}
 	void	setStrengthMod( short data ) { st2_ = data; changed( SAVE+TOOLTIP );}
 	void	setDexterityReq( short data ) { dx_ = data; changed( SAVE+TOOLTIP );}
 	void	setDexterityMod( short data ) { dx2_ = data; changed( SAVE+TOOLTIP );}
@@ -286,7 +282,6 @@ public:
 	void	setGateTime( uint data ) { gatetime_ = data; changed( SAVE );}
 	void	setGateNumber( int data ) { gatenumber_ = data; changed( SAVE );}
 	void	setDecayTime( uint data ) { decaytime_ = data; changed( SAVE );}
-	void	setPrice( int data ) { price_ = data; changed( SAVE+TOOLTIP );}
 	void	setBuyprice( int data ) { buyprice_ = data; changed( SAVE+TOOLTIP );}
 	void	setSellprice( int data ) { sellprice_ = data; changed( SAVE+TOOLTIP );}
 
@@ -413,7 +408,6 @@ protected:
 	ushort		color_;
 	ushort		amount_; 
 	ushort		restock_;
-	ushort		amount2_; 
 	QString		name2_;
 	uchar		layer_;
 	QString		murderer_;
@@ -433,7 +427,6 @@ protected:
 	ushort		accuracy_;	// for weapons, could be used for certain tools too.
 	int			sellprice_;
 	int			buyprice_;
-	int			price_; // This price is only used for player vendor items
 
 	// More values
 	uchar		moreb1_;

@@ -201,8 +201,8 @@ void cItem::save( FlatStore::OutputFile *output, bool first ) throw()
 	if( lodamage() )
 		output->chunkData( ITEM_LODAMAGE, (short)lodamage() );
 
-	if( st() )
-		output->chunkData( ITEM_STRENGTH, (short)st() );
+	if( strengthReq() )
+		output->chunkData( ITEM_STRENGTH, (short)strengthReq() );
 	
 	if( time_unused )
 		output->chunkData( ITEM_TIMEUNUSED, (unsigned int)time_unused );

@@ -71,7 +71,7 @@ using namespace std;
 // constructor
 cItem::cItem(): container_(0), totalweight_(0), incognito(false),
 rndvaluerate_(0), dooropen_(0),gatetime_(0),gatenumber_(-1),murdertime_(0),
-timeused_last(0), sellprice_( 0 ), buyprice_( 0 ), price_( 0 ), restock_( 1 ), antispamtimer_( 0 )
+timeused_last(0), sellprice_( 0 ), buyprice_( 0 ), restock_( 1 ), antispamtimer_( 0 )
 {
 	Init( false );
 };
@@ -110,7 +110,6 @@ cItem::cItem( const cItem &src )
 	this->morey_ = src.morey_;;
 	this->morez_ = src.morez_;
 	this->amount_ = src.amount_;
-	this->amount2_ = src.amount2_;
 	this->doordir_ = src.doordir_;
 	this->dooropen_ = src.dooropen_;
 	this->dye_ = src.dye_;
@@ -675,7 +674,6 @@ void cItem::Init( bool createSerial )
 	this->morey_=0;
 	this->morez_=0;
 	this->amount_ = 1; // Amount of items in pile
-	this->amount2_ = 0; //Used to track things like number of yards left in a roll of cloth
 	this->doordir_=0; // Reserved for doors
 	this->dooropen_=0;
 	this->dye_=0; // Reserved: Can item be dyed by dye kit
@@ -1404,8 +1402,8 @@ void cItem::processNode( const QDomElement& Tag )
 		this->sellprice_ = Value.toInt();
 
 	// <price>10</price>
-	else if( TagName == "price" )
-		this->price_ = Value.toInt();
+//	else if( TagName == "price" )
+//		this->price_ = Value.toInt();   --> this was supposed to be player vendor price, the player defines it! :)
 
 	// <carve></carve> For corpses and item spawners
 	else if( TagName == "carve" )
@@ -2403,7 +2401,6 @@ void cItem::load( char **result, UINT16 &offset )
 	priv_ = atoi( result[offset++] );
 	sellprice_ = atoi( result[offset++] );
 	buyprice_ = atoi( result[offset++] );
-	price_ = atoi( result[offset++] );
 	restock_ = atoi( result[offset++] );
 	disabled_ = atoi( result[offset++] );
 	spawnregion_ = result[offset++];
@@ -2422,7 +2419,7 @@ void cItem::load( char **result, UINT16 &offset )
 void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
 	cUObject::buildSqlString( fields, tables, conditions );
-	fields.push_back( "items.id,items.name,items.name2,items.creator,items.sk_name,items.color,items.cont,items.layer,items.type,items.type2,items.offspell,items.more1,items.more2,items.more3,items.more4,items.moreb1,items.moreb2,items.moreb3,items.moreb4,items.morex,items.morey,items.morez,items.amount,items.doordir,items.dye,items.decaytime,items.att,items.def,items.hidamage,items.lodamage,items.st,items.time_unused,items.weight,items.hp,items.maxhp,items.rank,items.st2,items.dx,items.dx2,items.intelligence,items.intelligence2,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.dir,items.priv,items.sellprice,items.buyprice,items.price,items.restock,items.disabled,items.spawnregion,items.good,items.description,items.carve,items.accuracy" ); // for now! later on we should specify each field
+	fields.push_back( "items.id,items.name,items.name2,items.creator,items.sk_name,items.color,items.cont,items.layer,items.type,items.type2,items.offspell,items.more1,items.more2,items.more3,items.more4,items.moreb1,items.moreb2,items.moreb3,items.moreb4,items.morex,items.morey,items.morez,items.amount,items.doordir,items.dye,items.decaytime,items.att,items.def,items.hidamage,items.lodamage,items.st,items.time_unused,items.weight,items.hp,items.maxhp,items.rank,items.st2,items.dx,items.dx2,items.intelligence,items.intelligence2,items.speed,items.poisoned,items.magic,items.owner,items.visible,items.spawn,items.dir,items.priv,items.sellprice,items.buyprice,items.restock,items.disabled,items.spawnregion,items.good,items.description,items.carve,items.accuracy" ); // for now! later on we should specify each field
 	tables.push_back( "items" );
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
@@ -2612,7 +2609,6 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 		return 0;
 	}
 
-	else SET_INT_PROPERTY( "amount2", amount2_ )
 	else SET_STR_PROPERTY( "name2", name2_ )
 	else SET_STR_PROPERTY( "name", name_ )
 	else SET_INT_PROPERTY( "layer", layer_ )
@@ -2765,8 +2761,7 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "spawn", spawnserial )
 	else SET_INT_PROPERTY( "direction", dir_ )
 	else SET_INT_PROPERTY( "sellprice", sellprice_ )
-	else SET_INT_PROPERTY( "buyprice", price_ )
-	else SET_INT_PROPERTY( "price", price_ )
+	else SET_INT_PROPERTY( "buyprice", buyprice_ )
 	else SET_INT_PROPERTY( "restock", restock_ )
 	else SET_INT_PROPERTY( "disabled", disabled_ )
 	else SET_INT_PROPERTY( "poisoned", poisoned_ )
@@ -2849,7 +2844,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "id", id_ )
 	else GET_PROPERTY( "color", color_ )
 	else GET_PROPERTY( "amount", amount_ )
-	else GET_PROPERTY( "amount2", amount2_ )
 	else GET_PROPERTY( "name2", name2_ )
 	else GET_PROPERTY( "name", name_ )
 	else GET_PROPERTY( "layer", layer_ )
@@ -2919,7 +2913,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "direction", dir_ )
 	else GET_PROPERTY( "buyprice", buyprice_ )
 	else GET_PROPERTY( "sellprice", sellprice_ )
-	else GET_PROPERTY( "price", price_ )
 	else GET_PROPERTY( "restock", restock_ )
 	else GET_PROPERTY( "disabled", (int)disabled_ )
 	else GET_PROPERTY( "poisoned", (int)poisoned_ )
