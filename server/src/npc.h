@@ -605,9 +605,9 @@ inline bool cNPC::summoned() const {
 
 inline void cNPC::setSummoned(bool data) {
 	if (data) {
-		additionalFlags_ &= ~0x01;
-	} else {
 		additionalFlags_ |= 0x01;
+	} else {		
+		additionalFlags_ &= ~0x01;
 	}
 	changed_ = true;
 }

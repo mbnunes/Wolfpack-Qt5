@@ -238,20 +238,15 @@ void cNPC::setNextMoveTime()
 // Update flags etc.
 void cNPC::update( bool excludeself )
 {
-	cUOTxUpdatePlayer* updatePlayer = new cUOTxUpdatePlayer();
-	updatePlayer->fromChar( this );
+	cUOTxUpdatePlayer update;
+	update.fromChar(this);
 
-	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-	{
-		P_PLAYER pChar = mSock->player();
-
-		if( pChar && pChar->socket() && pChar->inRange( this, pChar->visualRange() ) )
-		{
-			updatePlayer->setHighlight( notoriety( pChar ) );
-			mSock->send( new cUOTxUpdatePlayer( *updatePlayer ) );
+	for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
+		if (socket->canSee(this)) {
+			update.setHighlight(notoriety(socket->player()));
+			socket->send(&update);
 		}
 	}
-	delete updatePlayer;
 }
 
 // Resend the char to all sockets in range
@@ -261,39 +256,23 @@ void cNPC::resend( bool clean, bool excludeself )
 	if( stablemasterSerial() != INVALID_SERIAL )
 		return;
 
-	cUOTxRemoveObject rObject;
-	rObject.setSerial( serial() );
+	cUOTxRemoveObject remove;
+	remove.setSerial(serial_);
 
 	cUOTxDrawChar drawChar;
-	drawChar.fromChar( this );
+	drawChar.fromChar(this);
 
-	cUOSocket *mSock;
-
-	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-	{
-		P_PLAYER pChar = mSock->player();
-
-		if( !pChar )
-			continue;
-
-		if( pChar->dist( this ) > pChar->visualRange() )
-			continue;
-
-		if( clean )
-			mSock->send( &rObject );
-
-		// We are hidden (or dead and not visible)
-		if( ( isHidden() || ( isDead() && !isAtWar() ) ) && !pChar->isGMorCounselor() )
-			continue;
-
-		drawChar.setHighlight( notoriety( pChar ) );
-
-		sendTooltip( mSock );
-		mSock->send( &drawChar );
-
-		for( ItemContainer::const_iterator it = content_.begin(); it != content_.end(); ++it )
-		{
-			it.data()->sendTooltip( mSock );
+	for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
+		if (socket->canSee(this)) {
+			drawChar.setHighlight(notoriety(socket->player()));
+			sendTooltip(socket);
+			socket->send(&drawChar);
+			
+			for (ItemContainer::const_iterator it = content_.begin(); it != content_.end(); ++it) {
+				it.data()->sendTooltip(socket);
+			}
+		} else if (clean) {
+			socket->send(&remove);
 		}
 	}
 }
@@ -428,7 +407,7 @@ UINT8 cNPC::notoriety( P_CHAR pChar ) // Gets the notoriety toward another char
 
 		if( isHuman() )
 		{
-			if( karma_ > 0 )
+			if( karma_ >= 0 )
 				result = 0x01;
 			else
 				result = 0x06;
@@ -437,10 +416,7 @@ UINT8 cNPC::notoriety( P_CHAR pChar ) // Gets the notoriety toward another char
 		// Everything else
 		else
 		{
-			if( karma_ >= 0 )
-				return 0x03;
-			else
-				return 0x01;
+			return 3;
 		}
 	}
 
@@ -841,7 +817,8 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "nextmovetime", nextMoveTime_ )
 	else SET_INT_PROPERTY( "npcmovetime", nextMoveTime_ )
 	else if (name == "summoned") {
-		setSummoned(value.toInt() != 0);
+		setSummoned(value.toInt() == 1);
+		return 0;
 	} else if( name == "wandertype" )
 	{
 		setWanderType( (enWanderTypes)value.toInt() );

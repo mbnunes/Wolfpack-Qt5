@@ -2070,17 +2070,21 @@ bool cBaseChar::kill(cUObject *source) {
 	}
 
 	P_CHAR pKiller = dynamic_cast<P_CHAR>(source);
-	P_ITEM pTool = dynamic_cast<P_ITEM>(source);
 
-	// If we were killed by some sort of tool (explosion potions)
-	// the owner is responsible for the murder
-	if (pTool && pTool->owner()) {
-		pKiller = pTool->owner();
+	// Were we killed by some sort of item?
+	if (source && !pKiller) {
+		P_ITEM pTool = dynamic_cast<P_ITEM>(source);
+
+		// If we were killed by some sort of tool (explosion potions)
+		// the owner is responsible for the murder
+		if (pTool && pTool->owner()) {
+			pKiller = pTool->owner();
+		}
 	}
 
 	// Only trigger the reputation system if we can find someone responsible 
 	// for the murder
-	if (pKiller) {
+	if (pKiller && pKiller == this) {
 		// Only award karma and fame in unguarded areas
 		if (!pKiller->inGuardedArea()) {
 			pKiller->awardFame(fame_);
@@ -2113,24 +2117,19 @@ bool cBaseChar::kill(cUObject *source) {
 
 	// Fame is reduced by 10% upon death
 	fame_ *= 0.90;
-	
 
 	// Create the corpse
 	cCorpse *corpse = 0;
-	bool summoned = false;
-
 	P_ITEM backpack = getBackpack();
 	P_NPC npc = dynamic_cast<P_NPC>(this);
 	P_PLAYER player = dynamic_cast<P_PLAYER>(this);
 
+	bool summoned = npc && npc->summoned();
+
 	if (player) {
 		player->unmount();
 	}
-
-	if (npc && npc->summoned()) {
-		summoned = true;
-	}
-
+	
 	cCharBaseDef *basedef = BaseDefManager::instance()->getCharBaseDef(bodyID_);
 
 	// If we are a creature type with a corpse and if we are not summoned
@@ -2214,16 +2213,31 @@ bool cBaseChar::kill(cUObject *source) {
 		}
 	}
 
-	// Create Loot
+	// Create Loot for NPcs
 	if (npc && !npc->lootList().isEmpty()) {
-		
+		QStringList lootlist = DefManager->getList(npc->lootList());
+
+		QStringList::const_iterator it;
+		for (it = lootlist.begin(); it != lootlist.end(); ++it) {
+			P_ITEM loot = cItem::createFromScript(*it);
+
+			if (loot) {
+				if (corpse) {
+					corpse->addItem(loot);
+				} else {
+					loot->moveTo(pos_);
+					loot->update();
+				}
+			}
+		}
 	}
 
 	// Summoned monsters simply disappear
-	if (summoned) {
-		// Display a nice smoke puff where we disappear
+	if (summoned) {		
+		soundEffect(0x1fe);
+		pos_.effect(0x3735, 10, 30);
 
-		onDeath(source, corpse);
+		onDeath(source, 0);
 		cCharStuff::DeleteChar(this);
 		return true;
 	}
@@ -2241,10 +2255,9 @@ bool cBaseChar::kill(cUObject *source) {
 	rObject.setSerial(serial_);
 	
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() ) {
-		if (mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange())) {			
-			mSock->send(&dAction);
-			
+		if (mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange())) {
 			if (mSock->player() != this) {
+				mSock->send(&dAction);
 				mSock->send(&rObject);
 			}
 		}
@@ -2270,6 +2283,74 @@ bool cBaseChar::kill(cUObject *source) {
 			// Notify the player of his death
 			cUOTxCharDeath death;
 			player->socket()->send(&death);
+		}
+	}
+
+	return true;
+}
+
+bool cBaseChar::canSee(cUObject *object, bool lineOfSight) {
+	P_ITEM item = dynamic_cast<P_ITEM>(object);
+
+	if (item) {
+		return canSee(item, lineOfSight);
+	}
+
+	P_CHAR character = dynamic_cast<P_CHAR>(object);
+
+	if (character) {
+		return canSee(character, lineOfSight);
+	}
+
+	return false;
+}
+
+bool cBaseChar::canSeeChar(P_CHAR character, bool lineOfSight) {
+	if (!character || character->free) {
+		return false;
+	}
+
+	if (character->isInvisible() || character->isHidden()) {
+		return false;
+	}
+
+	if (character->isDead()) {
+		// Only NPCs with spiritspeak >= 1000 can see dead people
+		// or if the AI overrides it
+		if (!character->isAtWar() && skillValue(SPIRITSPEAK) < 1000) {
+			return false;
+		}
+	}
+
+	// Check distance
+	if (pos_.distance(character->pos()) > VISRANGE) {
+		return false;
+	}
+
+	return true;
+}
+
+bool cBaseChar::canSeeItem(P_ITEM item, bool lineOfSight) {
+	if (!item) {
+		return false;
+	}
+
+	if (item->visible() == 2) {
+		return false;
+	} else if (item->visible() == 1 && item->owner() != this) {
+		return false;
+	}
+
+	// Check for container
+	if (item->container()) {
+		return canSee(item->container(), lineOfSight);
+	} else {
+		if (pos_.distance(item->pos()) > VISRANGE) {
+			return false;
+		}
+
+		if (lineOfSight && !pos_.lineOfSight(item->pos())) {
+			return false;
 		}
 	}
 

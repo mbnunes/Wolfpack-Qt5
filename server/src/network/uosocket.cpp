@@ -1273,33 +1273,25 @@ void cUOSocket::resendPlayer( bool quick )
 
 void cUOSocket::updateChar( P_CHAR pChar )
 {
-	if( !_player )
-		return;
-
-	cUOTxUpdatePlayer updatePlayer;
-	updatePlayer.fromChar( pChar );
-	updatePlayer.setHighlight( pChar->notoriety( _player ) );
-	send( &updatePlayer );
+	if (canSee(pChar)) {
+		cUOTxUpdatePlayer updatePlayer;
+		updatePlayer.fromChar( pChar );
+		updatePlayer.setHighlight( pChar->notoriety( _player ) );
+		send( &updatePlayer );
+	}
 }
 
 // Sends a foreign char including equipment
 void cUOSocket::sendChar( P_CHAR pChar )
 {
-	if( !_player || !_player->account() )
-		return;
-
-	if( pChar->objectType() == enPlayer && !dynamic_cast<P_PLAYER>(pChar)->socket() && !_player->account()->isAllShow() )
-		return;
-
-	if( ( pChar->isHidden() || ( pChar->isDead() && !pChar->isAtWar() ) ) && !_player->isGMorCounselor() )
-		return;
-	
-	// Then completely resend it
-	cUOTxDrawChar drawChar;
-	drawChar.fromChar( pChar );
-	drawChar.setHighlight( pChar->notoriety( _player ) );
-	pChar->sendTooltip( this );
-	send( &drawChar );
+	if (canSee(pChar)) {
+		// Then completely resend it
+		cUOTxDrawChar drawChar;
+		drawChar.fromChar( pChar );
+		drawChar.setHighlight( pChar->notoriety( _player ) );
+		pChar->sendTooltip( this );
+		send( &drawChar );
+	}
 }
 
 /*!
@@ -1674,13 +1666,12 @@ void cUOSocket::removeObject( cUObject *object )
 // if flags etc. have changed
 void cUOSocket::updatePlayer()
 {
-	if( !_player )
-		return;
-
-	cUOTxUpdatePlayer pUpdate;
-	pUpdate.fromChar( _player );
-	pUpdate.setHighlight( _player->notoriety( _player ) );
-	send( &pUpdate );
+	if( _player ) {
+		cUOTxUpdatePlayer pUpdate;
+		pUpdate.fromChar(_player);
+		pUpdate.setHighlight(_player->notoriety(_player));
+		send(&pUpdate);
+	}
 }
 
 // Do periodic stuff for this socket
@@ -2601,4 +2592,36 @@ void cUOSocket::log( const QString &message )
 void cUOSocket::log( eLogLevel loglevel, const QString &message )
 {
 	Log::instance()->print( loglevel, this, message );
+}
+
+bool cUOSocket::canSee(cUOSocket *socket, bool lineOfSight) {
+	if (!socket || !socket->player() || !_player) {
+		return false;
+	} else {
+		return _player->canSee(socket->player(), lineOfSight);
+	}
+}
+
+bool cUOSocket::canSee(P_ITEM item, bool lineOfSight) {
+	if (!item || !_player) {
+		return false;
+	} else {
+		return _player->canSeeItem(item, lineOfSight);
+	}
+}
+
+bool cUOSocket::canSee(P_CHAR character, bool lineOfSight) {
+	if (!character || !_player) {
+		return false;
+	} else {
+		return _player->canSeeChar(character, lineOfSight);
+	}
+}
+
+bool cUOSocket::canSee(cUObject *object, bool lineOfSight) {
+	if (!object || !_player) {
+		return false;
+	} else {
+		return _player->canSee(object, lineOfSight);
+	}
 }

@@ -102,6 +102,10 @@ public:
 	// other methods
 	virtual uchar notoriety( P_CHAR pChar ) = 0; // Gets the notoriety towards another char
 
+	bool canSee(cUObject *object, bool lineOfSight = false);
+	virtual bool canSeeChar(P_CHAR character, bool lineOfSight = false);
+	virtual bool canSeeItem(P_ITEM item, bool lineOfSight = false);
+
 	/*!
 		Kills the character.
 		\returns True if the character was really killed and false if nothing changed.

@@ -1592,57 +1592,19 @@ static PyObject* wpChar_cansee( wpChar *self, PyObject *args )
 	PyObject *object = 0;
 	unsigned int touch = 1;
 
-	if( !PyArg_ParseTuple( args, "O|i:char.cansee( [char,item,pos], [touch] )", &object, &touch ) )
+	if( !PyArg_ParseTuple( args, "O|i:char.cansee( [char,item,pos], [lineofsight] )", &object, &touch ) )
 		return 0;
 
-	Coord_cl &pos = Coord_cl::null;
+	bool result = false;
 
 	// Item
-	if( checkWpItem( object ) )
-	{
-		P_ITEM pItem = getWpItem( object );
-
-		// Invisibility Check
-		if( ( ( pItem->visible() == 1 && pItem->owner() != self->pChar ) || pItem->visible() == 2 ) )
-		{
-			P_PLAYER pPlayer = dynamic_cast< P_PLAYER >( self->pChar );
-			if( !pPlayer || !pPlayer->isGM() )
-				return PyFalse;
-		}
-
-		pos = pItem->pos();
-	}
+	if (checkWpItem(object)) {
+		result = self->pChar->canSee(getWpItem(object), touch != 0);
 
 	// Char
-	else if( checkWpChar( object ) )
-	{
-		P_CHAR pChar = getWpChar( object );
-
-		if( pChar->isHidden() || pChar->isInvisible() )
-		{
-			P_PLAYER pPlayer = dynamic_cast< P_PLAYER >( self->pChar );
-			if( !pPlayer || !pPlayer->isGM() )
-				return PyFalse;
-		}
-
-		pos = pChar->pos();
+	} else if (checkWpChar(object)) {
+		result = self->pChar->canSee(getWpChar(object), touch != 0);
 	}
-
-	// Position
-	else if( checkWpCoord( object ) )
-	{
-		pos = getWpCoord( object );
-	}
-	else
-	{
-		PyErr_SetString( PyExc_RuntimeError, "Incompatible Object for char.cansee()." );
-		return 0;
-	}
-
-	if( pos == Coord_cl::null )
-		return PyFalse;
-
-	bool result = self->pChar->pos().lineOfSight( pos, touch != 0 );
 
 	return result ? PyTrue : PyFalse;
 }
@@ -1728,9 +1690,9 @@ static PyMethodDef wpCharMethods[] =
 	{ "sound",			(getattrofunc)wpChar_sound,				METH_VARARGS, "Play a creature specific sound." },
 	{ "disturb",		(getattrofunc)wpChar_disturb,			METH_VARARGS, "Disturbs whatever this character is doing right now." },
 	{ "canreach",		(getattrofunc)wpChar_canreach,			METH_VARARGS, "Checks if this character can reach a certain object." },
+	{ "cansee",			(getattrofunc)wpChar_cansee,			METH_VARARGS, "Checks if the character can see a specific object." },
 	{ "notoriety",		(getattrofunc)wpChar_notoriety,			METH_VARARGS, "Returns the notoriety of a character toward another character." },
 	{ "canpickup",		(getattrofunc)wpChar_canpickup,			METH_VARARGS, NULL },
-	{ "cansee",			(getattrofunc)wpChar_cansee,			METH_VARARGS, NULL },
 	{ "lightning",		(getattrofunc)wpChar_lightning,			METH_VARARGS, NULL },
 	{ "additem",		(getattrofunc)wpChar_additem,			METH_VARARGS, "Creating item on specified layer."},
 	{ "isdead",			(getattrofunc)wpChar_isdead,			METH_VARARGS, "Checks if the character is alive or not."},

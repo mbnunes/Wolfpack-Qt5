@@ -186,83 +186,52 @@ static void playerRegisterAfterLoading( P_PLAYER pc )
 }
 
 // Update flags etc.
-void cPlayer::update( bool excludeself )
-{
-	cUOTxUpdatePlayer* updatePlayer = new cUOTxUpdatePlayer();
-	updatePlayer->fromChar( this );
+void cPlayer::update(bool excludeself) {
+	cUOTxUpdatePlayer update;
+	update.fromChar(this);
 
-	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-	{
-		P_PLAYER pChar = mSock->player();
-
-		if( pChar && pChar->socket() && pChar->inRange( this, pChar->visualRange() ) )
-		{
-			updatePlayer->setHighlight( notoriety( pChar ) );
-			mSock->send( new cUOTxUpdatePlayer( *updatePlayer ) );
+	for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
+		if (socket != socket_ && socket->canSee(this)) {
+			update.setHighlight(notoriety(socket->player()));
+			socket->send(&update);
 		}
 	}
 
-	delete updatePlayer;
-
-	if( !excludeself && socket_ )
-	{
-		cUOTxDrawPlayer drawPlayer;
-		drawPlayer.fromChar( this );
-		socket_->send( &drawPlayer );
+	if (!excludeself && socket_) {
+		socket_->updatePlayer();
 	}
 }
 
 // Resend the char to all sockets in range
 void cPlayer::resend( bool clean, bool excludeself )
 {
-	if( socket_ && !excludeself )
+	if (socket_ && !excludeself) {
 		socket_->resendPlayer();
+	}
 
-	cUOTxRemoveObject rObject;
-	rObject.setSerial( serial() );
+	cUOTxRemoveObject remove;
+	remove.setSerial(serial());
 
 	cUOTxDrawChar drawChar;
-	drawChar.fromChar( this );
+	drawChar.fromChar(this);
 
-	cUOSocket *mSock;
-
-	for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-	{
+	for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
 		// Don't send such a packet to ourself
-		if( mSock == socket_ )
-		{
-			sendTooltip( mSock );
-			continue;
-		}
-
-		P_PLAYER pChar = mSock->player();
-
-		if( !pChar || !pChar->account() )
-			continue;
-
-		if( pChar->dist( this ) > pChar->visualRange() )
-			continue;
-
-		if( clean )
-			mSock->send( &rObject );
-
-		// We are logged out and the object can't see us.
-		if( !socket_  && !pChar->account()->isAllShow() )
-			continue;
-
-		// We are hidden (or dead and not visible)
-		if( ( isHidden() || ( isDead() && !isAtWar() ) ) && !pChar->isGMorCounselor() )
-			continue;
-
-		drawChar.setHighlight( notoriety( pChar ) );
-
-		sendTooltip( mSock );
-		mSock->send( &drawChar );
-
-		// Send equipment of other players as well
-		for( ItemContainer::const_iterator it = content_.begin(); it != content_.end(); ++it )
-		{
-			it.data()->sendTooltip( mSock );
+		if (socket == socket_) {
+			sendTooltip(socket);
+		} else {
+			if (socket->canSee(this)) {
+				drawChar.setHighlight(notoriety(socket->player()));
+				socket->send(&drawChar);
+				sendTooltip(socket);
+	            
+				// Send equipment tooltips to other players as well
+				for (ItemContainer::const_iterator it = content_.begin(); it != content_.end(); ++it) {
+					it.data()->sendTooltip(socket);
+				}
+			} else if (clean) {
+				socket->send(&remove);
+			}
 		}
 	}
 }
@@ -1452,4 +1421,87 @@ void cPlayer::log( eLogLevel loglevel, const QString &string )
 void cPlayer::log( const QString &string )
 {
 	log( LOG_NOTICE, string );
+}
+
+bool cPlayer::canSeeChar(P_CHAR character, bool lineOfSight) {
+	if (!character || character->free) {
+		return false;
+	}
+
+	// Check distance
+	if (pos_.distance(character->pos()) > visualRange()) {
+		return false;
+	}
+
+	// By default we are mor privileged than our target if we are a gm
+	bool privileged = isGM();
+
+	P_PLAYER player = dynamic_cast<P_PLAYER>(character);
+	if (player) {
+		// Disconnected players are invisible unless allShow is active for the current account
+		if (!player->socket() && (!account_ || !account_->isAllShow())) {
+			return false;
+		}
+
+		// Determine if we are more privileged than the target
+		if (player->account()) {
+			if (!account_ || player->account()->rank() > account_->rank()) {
+				privileged = false;
+			}
+		}
+	}
+
+	// Hidden and invisible characters are invisible unless we are more privileged than them
+	if (character->isInvisible() || character->isHidden()) {
+		if (!privileged) {
+			return false;
+		}
+	}
+
+	// Dead characters are invisible unless we have more than 100.0% spirit speak 
+	// or are privileged...
+	if (character->isDead()) {
+		// Only NPCs with spiritspeak >= 1000 can see dead people
+		// or if the AI overrides it
+		if (!character->isAtWar() && skillValue(SPIRITSPEAK) < 1000) {
+			if (!privileged) {
+				return false;
+			}
+		}
+	}
+
+	return true;
+}
+
+bool cPlayer::canSeeItem(P_ITEM item, bool lineOfSight) {
+	if (!item) {
+		return false;
+	}
+
+	if (item->visible() == 2) {
+		if (!isGM()) {
+			return false;
+		}
+	} else if (item->visible() == 1 && item->owner() != this) {
+		if (!isGM()) {
+			return false;
+		}
+	}
+
+	// Check for container
+	if (item->container()) {
+		return cBaseChar::canSee(item->container(), lineOfSight);
+	} else {
+		if (pos_.distance(item->pos()) > VISRANGE) {
+				return false;
+		}
+
+		if (lineOfSight && !pos_.lineOfSight(item->pos())) {
+			if (!isGM()) {
+				return false;
+			}
+		}
+	}
+
+	return true;
 }
