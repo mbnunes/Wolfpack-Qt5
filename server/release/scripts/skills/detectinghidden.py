@@ -44,7 +44,7 @@ def response( char, args, target ):
 	if not char:
 		return
 
-	if skills.skilltable[ DETECTHIDDEN ][ skills.UNHIDE ] and char.hidden:
+	if skills.skilltable[ DETECTINGHIDDEN ][ skills.UNHIDE ] and char.hidden:
 		char.removefromview()
 		char.hidden = False
 		char.update()
