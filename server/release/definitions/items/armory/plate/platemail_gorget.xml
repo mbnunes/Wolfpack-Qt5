@@ -6,16 +6,6 @@
 |  ( (  ;._ \\ ctr | Last Modification:                               |
 =================================================================
 -->
-<!--
-Age of Shadows Values:
-
-Physical: 5
-Fire: 3
-Cold: 2
-Poison: 3
-Energy: 2
-req_str: 45
--->
 <definitions>
 
 	<!-- Plate Gorget -->
@@ -28,6 +18,13 @@ req_str: 45
 		<durability><random min="60" max="100" /></durability>
 		<tag name="req_str" value="30" type="int" />
 		<tag name="boni_dex" value="-1" type="int" />
+		<tag name="aos_req_str" value="45" type="int" />
+		<tag name="aos_boni_dex" value="0" type="int" />
+		<tag name="res_physical" value="5" type="int" />
+		<tag name="res_fire" value="3" type="int" />
+		<tag name="res_cold" value="2" type="int" />
+		<tag name="res_poison" value="3" type="int" />
+		<tag name="res_energy" value="2" type="int" />
 		<restock>10</restock>
 		<smelt>8</smelt>
 		<weight>2.0</weight>
