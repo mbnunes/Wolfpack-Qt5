@@ -140,4 +140,9 @@
 		<item>female_teleguard</item>
 	</list>
 
+	<list id="SHEEP_LIST">
+		<item>sheep_sheered</item>
+		<item>sheep_unsheered</item>
+	</list>
+
 </definitions>

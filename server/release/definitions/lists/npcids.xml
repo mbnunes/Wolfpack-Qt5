@@ -134,4 +134,10 @@
 		<item>55</item>
 	</list>
 
+	<!-- Sheep IDs -->
+	<list id="NPCIDS_SHEEP">
+		<item>223</item>
+		<item>207</item>
+	</list>
+
 </definitions>
