@@ -563,6 +563,8 @@ void cSpawnRegion::spawnSingleNPC()
 		// file
 		if (countPoints() == 1) {
 			pChar->setWanderType( enHalt ); // Most likely a vendor spawn with only one point
+			pChar->setWanderX1( pos.x );
+			pChar->setWanderY1( pos.y );
 		} else {
 			pChar->setWanderType( enWanderSpawnregion );
 			pChar->setWanderX1( pos.x );
