@@ -3,7 +3,7 @@ import wolfpack
 from wolfpack import tr
 import random
 from wolfpack.gumps import cGump
-from wolfpack.consts import TINKERING
+from wolfpack.consts import *
 
 def gump_response(char, args, response):
 	if len(args) < 1 or response.button != 1:
@@ -23,13 +23,18 @@ def gump_response(char, args, response):
 	# Rekey
 	if char.gm:
 		new_lock = response.text[2]
+		old_lock = ''
+		if key.hastag('lock'):
+			old_lock = str(key.gettag('lock'))
 
-		if len(new_lock) != 0:
-			key.settag('lock', new_lock)
-			char.socket.sysmessage(tr('This key now unlocks: ') + new_lock)
-		else:
-			key.deltag('lock')
-			char.socket.sysmessage(tr('You erase the lock information from the key.'))
+		if old_lock != new_lock:
+			char.log(LOG_TRACE, tr("Changing lock of key 0x%x from '%s' to '%s'.\n") % (key.serial, old_lock, new_lock))
+			if len(new_lock) != 0:
+				key.settag('lock', new_lock)
+				char.socket.sysmessage(tr('This key now unlocks: ') + new_lock)								
+			else:
+				key.deltag('lock')
+				char.socket.sysmessage(tr('You erase the lock information from the key.'))
 
 	key.resendtooltip()
 
@@ -48,13 +53,13 @@ def rename_key(char, key):
 	gump.addBackground(id=0x2436, width=width, height=220)
 
 	if char.gm:
-		text = '<basefont color="#FECECE"><h3>Manage Key</h3><br><basefont color="#FEFEFE">This dialog will help you to manage or rename this key.'
+		text = tr('<basefont color="#FECECE"><h3>Manage Key</h3><br><basefont color="#FEFEFE">This dialog will help you to manage or rename this key.')
 	else:
-		text = '<basefont color="#FECECE"><h3>Manage Key</h3><br><basefont color="#FEFEFE">This dialog will help you to rename this key.'
+		text = tr('<basefont color="#FECECE"><h3>Manage Key</h3><br><basefont color="#FEFEFE">This dialog will help you to rename this key.')
 
 	gump.addHtmlGump(x=20, y=20, width=410, height=90, html=text)
 
-	gump.addText(x=20, y=65, text='The name of this key:', hue=0x835)
+	gump.addText(x=20, y=65, text=tr('The name of this key:'), hue=0x835)
 	gump.addResizeGump(x=20, y=88, id=0xBB8, width=200, height=25)
 	gump.addInputField(x=25, y=90, width=190, height=20, hue=0x834, id=1, starttext=key.name)
 
@@ -64,15 +69,15 @@ def rename_key(char, key):
 		if key.hastag('lock'):
 			lock = str(key.gettag('lock'))
 
-		gump.addText(x=235, y=65, text='The lock id of this key:', hue=0x835)
+		gump.addText(x=235, y=65, text=tr('The lock id of this key:'), hue=0x835)
 		gump.addResizeGump(x=235, y=88, id=0xBB8, width=160, height=25)
 		gump.addInputField(x=240, y=90, width=150, height=20, hue=0x834, id=2, starttext=lock)
 
 
-	gump.addText(x=50, y=130, text='Modify key', hue=0x835)
+	gump.addText(x=50, y=130, text=tr('Modify key'), hue=0x835)
 	gump.addButton(x=20, y=130, up=0x26af, down=0x26b1, returncode=1)
 
-	gump.addText(x=50, y=170, text='Cancel', hue=0x835)
+	gump.addText(x=50, y=170, text=tr('Cancel'), hue=0x835)
 	gump.addButton(x=20, y=170, up=0x26af, down=0x26b1, returncode=0)
 
 	gump.send(char)
