@@ -141,26 +141,47 @@ static PyObject* wpChar_removefromview( wpChar* self, PyObject* args )
 */
 static PyObject* wpChar_message( wpChar* self, PyObject* args )
 {
-	P_PLAYER player = dynamic_cast<P_PLAYER>(self->pChar);
-	if( !self->pChar || self->pChar->free || !player )
+	P_PLAYER player = dynamic_cast<P_PLAYER>( self->pChar );
+	
+	if( !player || player->socket() )
 		return PyFalse;
 
-	if( ( PyTuple_Size( args ) < 1 ) || !PyString_Check( PyTuple_GetItem( args, 0 ) ) )
+	if( checkArgStr( 0 ) )
+	{
+		QString message = getArgStr( 0 );
+
+		if( ( player->bodyID() == 0x3DB ) && message.startsWith( SrvParams->commandPrefix() ) )
+			cCommands::instance()->process( player->socket(), message.right( message.length()-1 ) );
+		else if( message.startsWith( SrvParams->commandPrefix() ) )
+			cCommands::instance()->process( player->socket(), message.right( message.length()-1 ) );
+		else if( PyTuple_Size( args ) == 2 && PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
+			player->message( message, PyInt_AsLong( PyTuple_GetItem( args, 1 ) ) );
+		else
+			player->message( message );
+	}
+	else if( checkArgInt( 0 ) )
+	{
+		// Affix?
+		QString clilocargs = QString::null;
+		QString affix = QString::null;
+
+		if( checkArgStr( 1 ) )
+			clilocargs = getArgStr( 1 );
+
+		if( checkArgStr( 2 ) )
+			affix = getArgStr( 2 );
+
+		// Cliloc Message
+		if( !affix.isNull() )
+			player->socket()->clilocMessageAffix( getArgInt( 0 ), clilocargs, affix, 0x37, 3, player, false, false );
+		else
+			player->socket()->clilocMessage( getArgInt( 0 ), clilocargs, 0x37, 3, player );
+	}
+	else
 	{
 		PyErr_BadArgument();
 		return NULL;
 	}
-
-	QString message = PyString_AsString( PyTuple_GetItem( args, 0 ) );
-
-	if( ( player->bodyID() == 0x3DB ) && message.startsWith( SrvParams->commandPrefix() ) )
-		cCommands::instance()->process( player->socket(), message.right( message.length()-1 ) );
-	else if( message.startsWith( SrvParams->commandPrefix() ) )
-		cCommands::instance()->process( player->socket(), message.right( message.length()-1 ) );
-	else if( PyTuple_Size( args ) == 2 && PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
-		player->message( message, PyInt_AsLong( PyTuple_GetItem( args, 1 ) ) );
-	else
-		player->message( message );
 
 	return PyTrue;
 }
@@ -1479,7 +1500,7 @@ static PyObject* wpChar_canreach( wpChar* self, PyObject* args )
 	if( self->pChar->pos().distance( pos ) > range )
 		return PyFalse;
 
-	if( !lineOfSight( self->pChar->pos(), pos, TREES_BUSHES|DOORS|ROOFING_SLANTED|FLOORS_FLAT_ROOFING|LAVA_WATER ) )
+	if( !lineOfSight( self->pChar->pos(), pos, WALLS_CHIMNEYS|DOORS|FLOORS_FLAT_ROOFING ) )
 		return PyFalse;
 
 	return PyTrue;

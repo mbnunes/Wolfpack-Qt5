@@ -630,7 +630,8 @@ void cItem::decay( unsigned int currenttime )
 {
 	// Locked Down Items, NoDecay Items and Items in Containers can never decay
 	// And ofcourse items in multis cannot
-	if( container() || nodecay() || isLockedDown() || multis() != INVALID_SERIAL )
+	// Static/Nevermovable items can't decay too
+	if( container() || nodecay() || isLockedDown() || multis() != INVALID_SERIAL || magic_ >= 2 )
 		return;
 
 	// Start decaying
@@ -2390,8 +2391,13 @@ void cItem::sendTooltip( cUOSocket* mSock )
 	// Don't send the tooltip if we're a supposed-to-be-static item
 	tile_st tile = TileCache::instance()->getTile( id_ );
 
+	// If the item is not movable for the client, the item should not have a tooltip
+	// Exceptions are noted above and containers
 	if( tile.weight == 255 && !isAllMovable() )
-		return;
+	{
+		if( tile.flag3 & 0x20 == 0 )
+			return;
+	}
 
 	cUObject::sendTooltip( mSock );
 }
