@@ -403,7 +403,7 @@ void cConsole::send(const QString &sMessage)
 	unsigned int textLength = sMessage.length();
 
 	// Check for the caret
-	SendMessage( logWindow, EM_SETSEL, ctrlLength, ctrlLength );
+	PostMessage( logWindow, EM_SETSEL, ctrlLength, ctrlLength );
 
 	// Delete lines from the beginning if we exceed the maximum limit.
 	if( ctrlLength + textLength > logLimit )
@@ -415,12 +415,12 @@ void cConsole::send(const QString &sMessage)
 		{
 			char buffer[1024] = { 0, };
 			((short*)buffer)[0] = 1024;
-			textcount += SendMessage( logWindow, EM_GETLINE, linecount++, (WPARAM)buffer );
+			textcount += PostMessage( logWindow, EM_GETLINE, linecount++, (WPARAM)buffer );
 		}
 		while( textcount < ( ctrlLength + textLength ) - logLimit );
 
-		SendMessage( logWindow, EM_SETSEL, 0, textcount );
-		SendMessage( logWindow, EM_REPLACESEL, FALSE, (LPARAM)"" );
+		PostMessage( logWindow, EM_SETSEL, 0, textcount );
+		PostMessage( logWindow, EM_REPLACESEL, FALSE, (LPARAM)"" );
 	}
 
 	// Place the Caret at the End of the Text
@@ -436,24 +436,24 @@ void cConsole::send(const QString &sMessage)
 		else
 		{
 			CHARRANGE range;
-			SendMessage( logWindow, EM_EXGETSEL, 0, (LPARAM)&range );
+			PostMessage( logWindow, EM_EXGETSEL, 0, (LPARAM)&range );
 			range.cpMin -= 1;
-			SendMessage( logWindow, EM_EXSETSEL, 0, (LPARAM)&range );
-			SendMessage( logWindow, EM_REPLACESEL, FALSE, 0 );
+			PostMessage( logWindow, EM_EXSETSEL, 0, (LPARAM)&range );
+			PostMessage( logWindow, EM_REPLACESEL, FALSE, 0 );
 			send( sMessage.left( sMessage.length() - 1 ) );
 			return;
 		}
 	}
 
 	unsigned int tLength = GetWindowTextLength( logWindow );
-	SendMessage( logWindow, EM_SETSEL, tLength, tLength );
+	PostMessage( logWindow, EM_SETSEL, tLength, tLength );
 
 	// Now it will get right, even if the user had selected sth.
-	SendMessage( logWindow, EM_REPLACESEL, FALSE, (LPARAM)sMessage.latin1() );
+	PostMessage( logWindow, EM_REPLACESEL, FALSE, (LPARAM)sMessage.latin1() );
 
 	// And ofcourse if not some control is currently capturing the input
 	if( !GetCapture() )
-		SendMessage( logWindow, WM_VSCROLL, SB_BOTTOM, 0 );
+		PostMessage( logWindow, WM_VSCROLL, SB_BOTTOM, 0 );
 }
 
 void cConsole::ChangeColor( WPC_ColorKeys color )
@@ -487,7 +487,7 @@ void cConsole::ChangeColor( WPC_ColorKeys color )
 
 	};
 
-	SendMessage( logWindow, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM)&cf );
+	PostMessage( logWindow, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM)&cf );
 }
 
 void cConsole::setConsoleTitle( const QString& data )
@@ -502,7 +502,7 @@ void cConsole::setAttributes( bool bold, bool italic, bool underlined, unsigned 
 	ZeroMemory( &cf, sizeof( CHARFORMAT ) );
 	cf.cbSize = sizeof( CHARFORMAT );
 
-	SendMessage( logWindow, EM_GETCHARFORMAT, SCF_SELECTION, (WPARAM)&cf );
+	PostMessage( logWindow, EM_GETCHARFORMAT, SCF_SELECTION, (WPARAM)&cf );
 
 	if( bold )
 	{
@@ -548,6 +548,6 @@ void cConsole::setAttributes( bool bold, bool italic, bool underlined, unsigned 
 		break;
 	}
 
-	SendMessage( logWindow, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM)&cf );
+	PostMessage( logWindow, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM)&cf );
 }
 
