@@ -16,7 +16,7 @@
 //	GNU General Public License for more details.
 //
 //	You should have received a copy of the GNU General Public License
-//	along with this program; if not, write to the Free Software
+//	ag with this program; if not, write to the Free Software
 //	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 //
 //	* In addition to that license, if you are running this program or modified
@@ -321,7 +321,10 @@ cVariant::Type cVariant::nameToType( const char* name )
 const QString cVariant::toString() const
 {
     if ( d->typ == Int )
-		return QString::number( toInt() );
+		return QString::number( d->value.i );
+
+	if ( d->typ == Long )
+		return QString::number( d->value.d );
     
 	if ( d->typ == Double )
 		return QString::number( toDouble() );
@@ -375,6 +378,9 @@ int cVariant::toInt( bool * ok ) const
     if( d->typ == Int )
 		return d->value.i;
 
+	if( d->typ == Long )
+		return d->value.d;
+
     if ( d->typ == Double )
 		return (int)d->value.d;
 
@@ -416,6 +422,9 @@ double cVariant::toDouble( bool * ok ) const
     if ( d->typ == Int )
 		return (double)d->value.i;
 
+	if ( d->typ == Long )
+		return (double)d->value.d;
+
 	if ( d->typ == Char )
 	{
 		P_CHAR pChar = static_cast< P_CHAR >( d->value.ptr );
@@ -448,6 +457,9 @@ cChar *cVariant::toChar() const
 	if( d->typ == Int )
 		return FindCharBySerial( d->value.i );
 
+	if( d->typ == Long )
+		return FindCharBySerial( d->value.d );
+
 	if( d->typ == Double )
 		return FindCharBySerial( floor( d->value.d ) );
 
@@ -469,6 +481,9 @@ cItem *cVariant::toItem() const
 	if( d->typ == Int )
 		return FindItemBySerial( d->value.i );
 
+	if( d->typ == Long )
+		return FindItemBySerial( d->value.d );
+
 	if( d->typ == Double )
 		return FindItemBySerial( floor( d->value.d ) );
 
@@ -476,7 +491,7 @@ cItem *cVariant::toItem() const
 }
 
 /*!
-  Returns the variant as an Item if the variant has type()
+  Returns the variant as a Coordinate if the variant has type()
   String; or NULL otherwise.
 */
 Coord_cl cVariant::toCoord() const
@@ -555,15 +570,15 @@ bool cVariant::canCast( Type t ) const
 {
     if ( d->typ == t )
 		return TRUE;
-    if ( t == Int && ( d->typ == String || d->typ == Double ) )
+    if ( t == Int && ( d->typ == Int || d->typ == Long || d->typ == Char || d->typ == Item || d->typ == String || d->typ == Double ) )
 		return TRUE;
-    if ( t == Double && ( d->typ == String || d->typ == Int ) )
+    if ( t == Double && ( d->typ == Char || d->typ == Item || d->typ == Long || d->typ == String || d->typ == Int ) )
 		return TRUE;
-    if ( t == String && ( d->typ == Int || d->typ == Double ) )
+    if ( t == String && ( d->typ == Char || d->typ == Item || d->typ == Long || d->typ == Int || d->typ == Double ) )
 		return TRUE;
-	if ( t == Char && ( d->typ == Char || d->typ == Int || d->typ == Double || d->typ == String ) )
+	if ( t == Char && ( d->typ == Char || d->typ == Int || d->typ == Double || d->typ == String || d->typ == Long ) )
 		return TRUE;
-	if ( t == Item && ( d->typ == Item || d->typ == Int || d->typ == Double || d->typ == String ) )
+	if ( t == Item && ( d->typ == Item || d->typ == Int || d->typ == Double || d->typ == String || d->typ == Long ) )
 		return TRUE;
 	if ( t == Coord && ( d->typ == String || d->typ == Coord ) )
 		return TRUE;

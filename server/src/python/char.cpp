@@ -45,6 +45,7 @@
 #include "../srvparams.h"
 #include "../walking.h"
 #include "../commands.h"
+#include "../wpscriptmanager.h"
 
 /*!
 	Struct for WP Python Chars
@@ -1386,136 +1387,19 @@ static PyMethodDef wpCharMethods[] =
 // Getters & Setters
 PyObject *wpChar_getAttr( wpChar *self, char *name )
 {
-	pGetStr( "name", name )
-	else pGetStr( "orgname", orgname().latin1() )
-	else pGetStr( "title", title().latin1() )
-
-	else pGetInt( "id", id() )
-	else pGetInt( "xid", xid() )
-
-	else pGetInt( "skin", skin() )
-	else pGetInt( "xskin", xskin() )
-    
-	else pGetInt( "dir", dir() )
-	else pGetInt( "tamed", tamed() ? 1 : 0 )
-	else pGetInt( "gm", isGM() ? 1 : 0 )
-
-	// Flags
-	else pGetInt( "allmove", canMoveAll() ? 1 : 0 )
-	else pGetInt( "frozen", isFrozen() ? 1 : 0 )
-	else pGetInt( "iconmultis", viewHouseIcons() ? 1 : 0 )
-	else pGetInt( "permhidden", isHiddenPermanently() ? 1 : 0 )
-	else pGetInt( "hidden", hidden() )
-	else pGetInt( "nomana", priv2() & 0x10 ? 1 : 0 )
-	else pGetInt( "dispellable", priv2() & 0x20 ? 1 : 0 )
-	else pGetInt( "permmagicreflect", priv2() & 0x40 ? 1 : 0 )
-	else pGetInt( "noreags", priv2() & 0x80 ? 1 : 0 )
-
-	else if( !strcmp( name, "fonttype" ) ) 
-		return PyInt_FromLong( self->pChar->fonttype() );
-	else if( !strcmp( name, "saycolor" ) ) 
-		return PyInt_FromLong( self->pChar->saycolor() );
-	else if( !strcmp( name, "emotecolor" ) ) 
-		return PyInt_FromLong( self->pChar->emotecolor() );
-	else if( !strcmp( name, "strength" ) ) 
-		return PyInt_FromLong( self->pChar->st() );
-	else pGetInt( "dexterity", effDex() )
-	else if( !strcmp( name, "intelligence" ) )
-		return PyInt_FromLong( self->pChar->in() );
-	else if ( !strcmp( name, "strength2" ) )
-		return PyInt_FromLong( self->pChar->st2() );
-	else pGetInt( "dex2", decDex() )
-	else if( !strcmp( name, "intelligence2" ) )
-		return PyInt_FromLong( self->pChar->in2() );
-	else if ( !strcmp( name, "health" ) )
-		return PyInt_FromLong( self->pChar->hp() );
-	else if ( !strcmp( name, "stamina" ) )
-		return PyInt_FromLong( self->pChar->stm() );
-	else if ( !strcmp( name, "mana" ) )
-		return PyInt_FromLong( self->pChar->mn() );
-	else if ( !strcmp( name, "hidamage" ) )
-		return PyInt_FromLong(self->pChar->hidamage() );
-	else if ( !strcmp( name, "lodamage" ) )
-		return PyInt_FromLong( self->pChar->lodamage() );
-	else if ( !strcmp( name, "npc" ) )
-		return PyInt_FromLong( self->pChar->npc() );
-	else if ( !strcmp( name, "shop" ) )
-		return PyInt_FromLong( self->pChar->shop() );
-	else if ( !strcmp( name, "cell" ) )
-		return PyInt_FromLong( self->pChar->cell() );
-	else if( !strcmp( name, "owner" ) )
-		return PyGetCharObject( self->pChar->owner() );
-	else if( !strcmp( name, "karma" ) )
-		return PyInt_FromLong( self->pChar->karma() );
-	else if( !strcmp( name, "fame" ) )
-		return PyInt_FromLong( self->pChar->fame() );
-	else if( !strcmp( name, "kills" ) )
-		return PyInt_FromLong( self->pChar->kills() );
-	else if( !strcmp( name, "deaths" ) )
-		return PyInt_FromLong( self->pChar->deaths() );
-	else if( !strcmp( name, "dead" ) )
-		return PyInt_FromLong( self->pChar->dead() );
-	else if( !strcmp( name, "backpack" ) )
-		return PyGetItemObject( self->pChar->getBackpack() );
-
-	else if( !strcmp( name, "def" ) )
-		return PyInt_FromLong( self->pChar->def() );
-	else if( !strcmp( name, "war" ) )
-		return PyInt_FromLong( self->pChar->war() );
+	// Python specific stuff
+	pGetInt( "gm", isGM() ? 1 : 0 )
 	
-	// Target
-	else if( !strcmp( "target", name ) )
-		return PyGetCharObject( FindCharBySerial( self->pChar->targ() ) );
-
-	else if( !strcmp( "npcwander", name ) )
-		return PyInt_FromLong( self->pChar->npcWander() );
-	else if( !strcmp( "oldnpcwander", name ) )
-		return PyInt_FromLong( self->pChar->oldnpcWander() );
-	
-	// Region object
 	else if( !strcmp( "region", name ) )
 		return PyGetRegionObject( self->pChar->region() );
 
-	else if( !strcmp( "skilldelay", name ) )
-		return PyInt_FromLong( self->pChar->skilldelay() );
-	else if( !strcmp( "objectdelay", name ) )
-		return PyInt_FromLong( self->pChar->objectdelay() );
-	else if( !strcmp( "taming", name ) )
-		return PyInt_FromLong( self->pChar->taming() );
-	else if( !strcmp( "summontimer", name ) )
-		return PyInt_FromLong( self->pChar->summontimer() );
-	else if( !strcmp( "visrange", name ) )
-		return PyInt_FromLong( self->pChar->VisRange() );
-	
-	else if( !strcmp( "trackingtarget", name ) )
-	{
-		if( isItemSerial( self->pChar->trackingTarget() ) )
-			return PyGetItemObject( FindItemBySerial( self->pChar->trackingTarget() ) );
-		else if( isCharSerial( self->pChar->trackingTarget() ) )
-			return PyGetCharObject( FindCharBySerial( self->pChar->trackingTarget() ) );
-	}
-
-	// Account object
-	else if( !strcmp( "account", name ) )
+/*	else if( !strcmp( "account", name ) )
 	{
 		return Py_None;
-	}
-
-	else pGetInt( "incognito", incognito() )
-	else pGetInt( "polymorph", polymorph() )
-	else pGetInt( "haircolor", haircolor() )
-	else pGetInt( "hairstyle", hairstyle() )
-	else pGetInt( "beardcolor", beardcolor() )
-	else pGetInt( "beardstyle", beardstyle() )
-	
-	else if( !strcmp( "guarding", name ) )
-		return PyGetCharObject( self->pChar->guarding() );
+	}*/
 
 	else if( !strcmp( "socket", name ) )
 		return PyGetSocketObject( self->pChar->socket() );
-
-	else if( !strcmp( "pos", name ) )
-		return PyGetCoordObject( self->pChar->pos );
 
 	else if( !strcmp( "baseskill", name ) )
 	{
@@ -1533,17 +1417,6 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		return (PyObject*)( skills );
 	}
 
-	else pGetInt( "direction", dir() )
-	else pGetInt( "serial", serial )
-
-	else pGetStr( "profile", profile() )
-
-	else if( !strcmp( "following", name ) )
-		return PyGetCharObject( FindCharBySerial( self->pChar->ftarg() ) );
-
-	else if( !strcmp( "destination", name ) )
-		return PyGetCoordObject( self->pChar->ptarg() );
-
 	else if( !strcmp( "followers", name ) )
 	{
 		cChar::Followers followers = self->pChar->followers();
@@ -1554,7 +1427,6 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 
 		return rVal;
 	}
-
 	else if( !strcmp( "guards", name ) )
 	{
 		cChar::Followers guards = self->pChar->guardedby();
@@ -1565,10 +1437,6 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 
 		return rVal;
 	}
-
-	else if( !strcmp( name, "guildstone" ) )
-		return PyGetItemObject( FindItemBySerial( self->pChar->guildstone() ) );
-
 	else if( !strcmp( "events", name ) )
 	{
 		QStringList events = QStringList::split( ",", self->pChar->eventList() );
@@ -1577,6 +1445,49 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 			PyList_SetItem( list, i, PyString_FromString( events[i].latin1() ) );
 		return list;
 	}
+	else
+	{
+		cVariant result;
+		stError *error = self->pChar->getProperty( name, result );
+
+		if( !error )
+		{
+			PyObject *obj = 0;
+
+			switch( result.type() )
+			{
+			case cVariant::Char:
+				obj = PyGetCharObject( result.toChar() );
+				break;
+			case cVariant::Item:
+				obj = PyGetItemObject( result.toItem() );
+				break;
+			case cVariant::Long:
+			case cVariant::Int:
+				obj = PyInt_FromLong( result.toInt() );
+				break;
+			case cVariant::String:
+				obj = PyString_FromString( result.toString() );
+				break;
+			case cVariant::Double:
+				obj = PyFloat_FromDouble( result.toDouble() );
+				break;
+			case cVariant::Coord:
+				obj = PyGetCoordObject( result.toCoord() );
+				break;
+			}
+
+			if( !obj )
+			{
+				PyErr_Format( PyExc_ValueError, "Unsupported Property Type: %s", result.typeName() );
+				return 0;
+			}
+
+			return obj;
+		}
+		else
+			delete error;
+	}
 
 	// If no property is found search for a method
 	return Py_FindMethod( wpCharMethods, (PyObject*)self, name );
@@ -1584,72 +1495,61 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 
 int wpChar_setAttr( wpChar *self, char *name, PyObject *value )
 {
-	setStrProperty( "name", pChar->name )
-	else if( !strcmp( "following", name ) )
+	// Special Python things.
+	if( !strcmp( "events", name ) )
 	{
-		P_CHAR pChar = getWpChar( value );
-		self->pChar->setFtarg( pChar ? pChar->serial : INVALID_SERIAL );
-	}
+		if( !PyList_Check( value ) )
+		{
+			PyErr_BadArgument();
+			return -1;
+		}
 
-	else if( !strcmp( "target", name ) )
+		self->pChar->clearEvents();
+		int i;
+		for( i = 0; i < PyList_Size( value ); ++i )
+		{
+			if( !PyString_Check( PyList_GetItem( value, i ) ) )
+				continue;
+
+			WPDefaultScript *script = ScriptManager->find( PyString_AsString( PyList_GetItem( value, i ) ) );
+			if( script )
+				self->pChar->addEvent( script );
+		}
+	}
+	else
 	{
-		P_CHAR pChar = getWpChar( value );
-		self->pChar->setTarg( pChar ? pChar->serial : INVALID_SERIAL );
-	}
+		cVariant val;
+		if( PyString_Check( value ) )
+			val = cVariant( PyString_AsString( value ) );
+		else if( PyInt_Check( value ) )
+			val = cVariant( PyInt_AsLong( value ) );
+		else if( checkWpItem( value ) )
+			val = cVariant( getWpItem( value ) );
+		else if( checkWpChar( value ) )
+			val = cVariant( getWpChar( value ) );
+		else if( checkWpCoord( value ) )
+			val = cVariant( getWpCoord( value ) );
+		else if( PyFloat_Check( value ) )
+			val = cVariant( PyFloat_AsDouble( value ) );
 
-	else if( !strcmp( "npcwander", name ) )
-		self->pChar->setNpcWander( PyInt_AsLong( value ) );
-	else if( !strcmp( "guarding", name ) )
-		self->pChar->setGuarding( getWpChar( value ) );
-	else if ( !strcmp( "owner", name ) )
-		self->pChar->setOwner( getWpChar( value ) );
-	else if ( !strcmp( "tamed", name ) )
-		self->pChar->setTamed( PyObject_IsTrue( value ) );
-	else if ( !strcmp( "destination", name ) )
-		self->pChar->setPtarg( getWpCoord( value ) );
-	else if ( !strcmp( "orgname", name) )
-		self->pChar->setOrgname( PyString_AS_STRING( value ) );
-	else if ( !strcmp( "title", name) )
-		self->pChar->setTitle( PyString_AS_STRING( value ) );
-	else setIntProperty( "serial", pChar->serial )
-	else if( !strcmp( "body", name ) )
-		self->pChar->setId( PyInt_AS_LONG( value ) );
-	else if ( !strcmp("xbody", name ) )
-		self->pChar->setXid(PyInt_AS_LONG( value ) );		
-	else if ( !strcmp( "skin", name ) )
-		self->pChar->setSkin( PyInt_AS_LONG(value ) );
-	else if ( !strcmp( "xskin", name ) )
-		self->pChar->setXSkin( PyInt_AS_LONG(value ) );
-	else if ( !strcmp( "health", name ) )
-		self->pChar->setHp( PyInt_AS_LONG( value ) );
-	else if ( !strcmp( "stamina", name ) )
-		self->pChar->setStm( PyInt_AS_LONG( value ) );
-	else if ( !strcmp( "mana", name ) )
-		self->pChar->setMn( PyInt_AS_LONG( value ) );
-	else if ( !strcmp( "strength", name ) )
-		self->pChar->setSt( PyInt_AS_LONG( value ) );
-	else if ( !strcmp( "dexterity", name ) )
-		self->pChar->setDex( PyInt_AS_LONG( value ) );
-	else if ( !strcmp( "intelligence", name ) )
-		self->pChar->setIn( PyInt_AS_LONG( value ) );
-	else if( !strcmp("direction", name ) )
-		self->pChar->setDir( PyInt_AS_LONG( value ) );
-	else if( !strcmp("flags2", name ) )
-		self->pChar->setPriv2( PyInt_AS_LONG( value ) );
-	else if( !strcmp("hidamage", name ) )
-		self->pChar->setHiDamage( PyInt_AS_LONG( value ) );
-	else if( !strcmp("lodamage", name ) )
-		self->pChar->setLoDamage( PyInt_AS_LONG( value ) );
-	else if( !strcmp("objectdelay", name ) )
-		self->pChar->setObjectDelay( PyInt_AS_LONG( value ) );
-	else if( !strcmp( name, "pos" ) && checkWpCoord( value ) )
-		self->pChar->moveTo( getWpCoord( value ) );
-	else if( !strcmp( name, "karma" ) )
-		self->pChar->setKarma( PyInt_AS_LONG( value ) );
-	else if( !strcmp( name, "fame" ) )
-		self->pChar->setFame( PyInt_AS_LONG( value ) );
-	else if( !strcmp( name, "war" ) )
-		self->pChar->setWar( PyObject_IsTrue( value ) );
+		if( !val.isValid() )
+		{
+			if( value->ob_type )
+				PyErr_Format( PyExc_TypeError, "Unsupported object type: %s", value->ob_type->tp_name );
+			else
+				PyErr_Format( PyExc_TypeError, "Unknown object type" );
+			return 0;
+		}
+
+		stError *error = self->pChar->setProperty( name, val );
+
+		if( error )
+		{
+			PyErr_Format( PyExc_TypeError, "Error while setting attribute '%s': %s", name, error->text.latin1() );
+			delete error;
+			return 0;
+		}
+	}
 
 	return 0;
 }

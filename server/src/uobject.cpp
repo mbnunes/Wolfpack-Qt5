@@ -533,6 +533,7 @@ stError *cUObject::setProperty( const QString &name, const cVariant &value )
 		if( !parseCoordinates( value.toString(), pos ) )
 			PROPERTY_ERROR( -3, QString( "Invalid coordinate value: '%1'" ).arg( value.toString() ) )
 		moveTo( pos );
+		return 0;
 	}
 
 	// Trying to set new Eventlist
@@ -548,6 +549,7 @@ stError *cUObject::setProperty( const QString &name, const cVariant &value )
 			else
 				PROPERTY_ERROR( -3, QString( "Script not found: '%1'" ).arg( *it ) )
 		}
+		return 0;
 	}
 
 	PROPERTY_ERROR( -1, QString( "Property not found: '%1'" ).arg( name ) )

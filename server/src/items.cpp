@@ -2790,7 +2790,7 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	}
 
 	else SET_INT_PROPERTY( "spawn", spawnserial )
-	else SET_INT_PROPERTY( "dir", dir )
+	else SET_INT_PROPERTY( "direction", dir )
 	else SET_INT_PROPERTY( "sellprice", sellprice_ )
 	else SET_INT_PROPERTY( "buyprice", price_ )
 	else SET_INT_PROPERTY( "price", price_ )
@@ -2943,7 +2943,7 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "ownervisible", visible == 1 ? 1 : 0 )
 	else GET_PROPERTY( "spawn", FindItemBySerial( spawnserial ) )
 
-	else GET_PROPERTY( "dir", dir )
+	else GET_PROPERTY( "direction", dir )
 	else GET_PROPERTY( "buyprice", buyprice_ )
 	else GET_PROPERTY( "sellprice", sellprice_ )
 	else GET_PROPERTY( "price", price_ )

@@ -33,6 +33,7 @@
 #include "../tilecache.h"
 #include "../prototypes.h"
 #include "../junk.h"
+#include "../wpscriptmanager.h"
 
 extern cAllItems *Items;
 
@@ -51,6 +52,7 @@ typedef struct {
 // Forward Declarations
 PyObject *wpItem_getAttr( wpItem *self, char *name );
 int wpItem_setAttr( wpItem *self, char *name, PyObject *value );
+int wpItem_compare( PyObject *a, PyObject *b );
 
 /*!
 	The typedef for Wolfpack Python items
@@ -65,6 +67,7 @@ static PyTypeObject wpItemType = {
     0,								
     (getattrfunc)wpItem_getAttr,
     (setattrfunc)wpItem_setAttr,
+	wpItem_compare
 };
 
 inline PyObject* PyGetItemObject( P_ITEM item )
@@ -565,23 +568,8 @@ static PyMethodDef wpItemMethods[] =
 
 PyObject *wpItem_getAttr( wpItem *self, char *name )
 {
-	getStrProperty( "name", pItem->getName().latin1() )
-	else getIntProperty( "id", pItem->id() )
-	else getStrProperty( "name2", pItem->name2().ascii() )
-	else getIntProperty( "color", pItem->color() )
-	else getIntProperty( "amount", pItem->amount() )
-	else getIntProperty( "amount2", pItem->amount2() )
-	else getIntProperty( "serial", pItem->serial )
-	else getIntProperty( "layer", pItem->layer() )
-	else getIntProperty( "twohanded", pItem->twohanded() ? 1 : 0 )
-	else getIntProperty( "type", pItem->type() )
-	else getIntProperty( "type2", pItem->type2() )
-
-	else if( !strcmp( "pos", name ) )
-		return PyGetCoordObject( self->pItem->pos );
-
-	// What we contain
-	else if( !strcmp( "content", name ) )
+	// Special Python things
+	if( !strcmp( "content", name ) )
 	{		
 		cItem::ContainerContent content = self->pItem->content();
 		PyObject *list = PyList_New( content.size() );
@@ -589,82 +577,6 @@ PyObject *wpItem_getAttr( wpItem *self, char *name )
 			PyList_SetItem( list, i, PyGetItemObject( content[i] ) );		
 		return list;
 	}
-
-	// What we're contained in
-	else if( !strcmp( "container", name ) )
-	{
-		if( isItemSerial( self->pItem->contserial ) )
-			return PyGetItemObject( FindItemBySerial( self->pItem->contserial ) );
-		else if( isCharSerial( self->pItem->contserial ) )
-			return PyGetCharObject( FindCharBySerial( self->pItem->contserial ) );
-		else
-			return Py_None;
-	}
-
-	// What we contain
-	else if( !strcmp( "content", name ) )
-	{
-		//Py_WPContent *returnVal = PyObject_New( Py_WPContent, &Py_WPContentType );
-		//returnVal->pItem = self->Item; // Never forget that
-		//return (PyObject*)returnVal;
-		return Py_None;
-	}
-
-	else getIntProperty( "weight", pItem->weight() )
-	else getIntProperty( "totalweight", pItem->totalweight() )
-	else getIntProperty( "more1", pItem->more1() )
-	else getIntProperty( "more2", pItem->more2() )
-	else getIntProperty( "more3", pItem->more3() )
-	else getIntProperty( "more4", pItem->more4() )
-	else getIntProperty( "moreb1", pItem->moreb1() )
-	else getIntProperty( "moreb2", pItem->moreb2() )
-	else getIntProperty( "moreb3", pItem->moreb3() )
-	else getIntProperty( "moreb4", pItem->moreb4() )
-	else getIntProperty( "morex", pItem->morex() )
-	else getIntProperty( "morey", pItem->morey() )
-	else getIntProperty( "morez", pItem->morez() )
-	else getIntProperty( "doordir", pItem->doordir() )
-	else getIntProperty( "dooropen", pItem->dooropen() )
-	else getIntProperty( "dye", pItem->dye() )
-	else getIntProperty( "corpse", pItem->corpse() )
-	else getIntProperty( "defense", pItem->def() )
-	else getIntProperty( "lodamage", pItem->lodamage() )
-	else getIntProperty( "hidamage", pItem->hidamage() )
-	else getIntProperty( "hp", pItem->hp() )
-	else getIntProperty( "maxhp", pItem->maxhp() )
-	else getIntProperty( "str", pItem->st() )
-	else getIntProperty( "dex", pItem->dx() )
-	else getIntProperty( "int", pItem->in() )
-	else getIntProperty( "str2", pItem->st2() )
-	else getIntProperty( "dex2", pItem->dx2() )
-	else getIntProperty( "int2", pItem->in2() )
-	else getIntProperty( "speed", pItem->speed() )
-	else getIntProperty( "secured", pItem->secured() ? 1 : 0 )
-	else getIntProperty( "moveable", pItem->magic() )
-	else getIntProperty( "gatetime", pItem->gatetime() )
-	else getIntProperty( "gatenumber", pItem->gatenumber() )
-	else getIntProperty( "decaytime", pItem->decaytime() )
-	
-	else if( !strcmp( name, "decay" ) )
-		return PyInt_FromLong( (self->pItem->priv&0x01) ? 1 : 0 );
-
-	// ownserial
-	else getIntProperty( "visible", pItem->visible )
-	// spanserial
-	else getIntProperty( "dir", pItem->dir ) // lightsource type
-	else getIntProperty( "priv", pItem->priv ) 
-	else getIntProperty( "disabled", pItem->disabled() )
-	else getStrProperty( "disabledmsg", pItem->disabledmsg().latin1() ) 
-	else getIntProperty( "poisoned", pItem->poisoned() ) 
-	else getStrProperty( "murderer", pItem->murderer().latin1() ) 
-	else getIntProperty( "murdertime", pItem->murdertime() ) 
-	else getIntProperty( "rank", pItem->rank() ) 
-	else getStrProperty( "creator", pItem->creator.latin1() ) 
-	else getIntProperty( "good", pItem->good ) 
-	else getIntProperty( "madewith", pItem->madewith ) 
-	else getStrProperty( "desc", pItem->desc.latin1() ) 
-	else getStrProperty( "spawnregion", pItem->spawnregion().latin1() )
-	
 	else if( !strcmp( "events", name ) )
 	{
 		QStringList events = QStringList::split( ",", self->pItem->eventList() );
@@ -673,206 +585,109 @@ PyObject *wpItem_getAttr( wpItem *self, char *name )
 			PyList_SetItem( list, i, PyString_FromString( events[i].latin1() ) );
 		return list;
 	}
+	else
+	{
+		cVariant result;
+		stError *error = self->pItem->getProperty( name, result );
 
-	// If no property is found search for a method
+		if( !error )
+		{
+			PyObject *obj = 0;
+
+			switch( result.type() )
+			{
+			case cVariant::Char:
+				obj = PyGetCharObject( result.toChar() );
+				break;
+			case cVariant::Item:
+				obj = PyGetItemObject( result.toItem() );
+				break;
+			case cVariant::Long:
+			case cVariant::Int:
+				obj = PyInt_FromLong( result.toInt() );
+				break;
+			case cVariant::String:
+				obj = PyString_FromString( result.toString() );
+				break;
+			case cVariant::Double:
+				obj = PyFloat_FromDouble( result.toDouble() );
+				break;
+			case cVariant::Coord:
+				obj = PyGetCoordObject( result.toCoord() );
+				break;
+			}
+
+			if( !obj )
+			{
+				PyErr_Format( PyExc_ValueError, "Unsupported Property Type: %s", result.typeName() );
+				return 0;
+			}
+
+			return obj;
+		}
+		else
+			delete error;
+	}	
+	
 	return Py_FindMethod( wpItemMethods, (PyObject*)self, name );
 }
 
 int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
 {
-	if( !strcmp( name, "id" ) )
-		self->pItem->setId( PyInt_AS_LONG( value ) );
-
-	//else setStrProperty( "name", pItem->name )
-	else if( !strcmp( "name", name ) )
-		self->pItem->setName( PyString_AS_STRING( value ) ); 
-
-	else if( !strcmp( "name2", name ) )
-		self->pItem->setName2( PyString_AS_STRING( value ) );
-	
-	else if( !strcmp( "color", name ) )
-		self->pItem->setColor( PyInt_AS_LONG( value ) );
-
-	else if( !strcmp( "amount", name ) )
-		self->pItem->setAmount( PyInt_AS_LONG( value ) );
-
-	else if( !strcmp( "amount2", name ) )
-		self->pItem->setAmount2( PyInt_AS_LONG( value ) );
-
-	else setIntProperty( "serial", pItem->serial )
-
-	else if( !strcmp( name, "twohanded" ) )
-		self->pItem->setTwohanded( ( PyInt_AS_LONG( value ) != 0 ) ? true : false );
-
-	else if( !strcmp( name, "type" ) )
-		self->pItem->setType( PyInt_AS_LONG( value ) );
-
-	else if( !strcmp( name, "hp" ) )
-		self->pItem->setHp( PyInt_AS_LONG( value ) );
-
-	else if( !strcmp( name, "maxhp" ) )
-		self->pItem->setMaxhp( PyInt_AS_LONG( value ) );
-
-	else if( !strcmp( name, "type2" ) )
-		self->pItem->setType2( PyInt_AS_LONG( value ) );
-
-	else if( !strcmp( name, "weight" ) )
-		self->pItem->setWeight( PyInt_AS_LONG( value ) );
-
-	else if( !strcmp( name, "moreb1" ) )
-		self->pItem->setMoreb1( PyInt_AS_LONG( value ) );
-
-	else if( !strcmp( name, "moreb2" ) )
-		self->pItem->setMoreb1( PyInt_AS_LONG( value ) );
-
-	else if( !strcmp( name, "moreb3" ) )
-		self->pItem->setMoreb1( PyInt_AS_LONG( value ) );
-
-	else if( !strcmp( name, "moreb4" ) )
-		self->pItem->setMoreb1( PyInt_AS_LONG( value ) );
-
-	else if( !strcmp( name, "decay" ) )
-		if( PyObject_IsTrue( value ) )
-		{
-			self->pItem->priv |= 0x01;
-			self->pItem->startDecay();
-		}
-		else
-		{
-			self->pItem->priv &= 0xFE;
-			self->pItem->setDecayTime(0);
-		}
-
-	// CONTAINER!!
-//	else setIntProperty( "more1", pItem->more1() )
-	else if( !strcmp( name, "more1" ) )
-		self->pItem->setMore1( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "more2", pItem->more2() )
-	else if( !strcmp( name, "more2" ) )
-		self->pItem->setMore2( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "more3", pItem->more3() )
-	else if( !strcmp( name, "more3" ) )
-		self->pItem->setMore3( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "more4", pItem->more4() )
-	else if( !strcmp( name, "more4" ) )
-		self->pItem->setMore4( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "morex", pItem->morex() )
-	else if( !strcmp( name, "morex" ) )
-		self->pItem->setMoreX( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "morey", pItem->morey() )
-	else if( !strcmp( name, "morey" ) )
-		self->pItem->setMoreY( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "morez", pItem->morez() )
-	else if( !strcmp( name, "morez" ) )
-		self->pItem->setMoreZ( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "doordir", pItem->doordir )
-	else if( !strcmp( name, "doordir" ) )
-		self->pItem->setDoorDir( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "dooropen", pItem->dooropen )
-	else if( !strcmp( name, "dooropen" ) )
-		self->pItem->setDoorOpen( PyInt_AS_LONG( value ) );
-	// PILEABLE
-//	else setIntProperty( "dye", pItem->dye )
-	else if( !strcmp( name, "dye" ) )
-		self->pItem->setDye( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "defense", pItem->def )
-	else if( !strcmp( name, "defense" ) )
-		self->pItem->setDef( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "str", pItem->st )
-	else if( !strcmp( name, "str" ) )
-		self->pItem->setSt( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "dex", pItem->dx )
-	else if( !strcmp( name, "dex" ) )
-		self->pItem->setDx( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "int", pItem->in )
-	else if( !strcmp( name, "int" ) )
-		self->pItem->setIn( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "str2", pItem->st2 )
-	else if( !strcmp( name, "str2" ) )
-		self->pItem->setSt2( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "dex2", pItem->dx2 )
-	else if( !strcmp( name, "dex2" ) )
-		self->pItem->setDx2( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "int2", pItem->in2 )
-	else if( !strcmp( name, "int2" ) )
-		self->pItem->setIn2( PyInt_AS_LONG( value ) );
-
-	else if( !strcmp( name, "speed" ) )
-		self->pItem->setSpeed( PyInt_AS_LONG( value ) );
-
-	else if( !strcmp( name, "corpse" ) )
-		self->pItem->setCorpse( ( PyInt_AS_LONG( value ) == 0 ) ? false : true );
-
-	else if( !strcmp( name, "lodamage" ) )
-		self->pItem->setLodamage( PyInt_AS_LONG( value ) );
-
-	else if( !strcmp( name, "hidamage" ) )
-		self->pItem->setHidamage( PyInt_AS_LONG( value ) );
-
-	else if( !strcmp( name, "secured" ) )
-		self->pItem->setSecured( ( PyInt_AS_LONG( value ) == 1 ) ? true : false );
-
-//	else setIntProperty( "moveable", pItem->magic )
-	else if( !strcmp( name, "moveable" ) )
-		self->pItem->setMagic( PyInt_AS_LONG( value ) );
-//	else if( !strcmp( name, "moveable ) )
-//	else setIntProperty( "gatetime", pItem->gatetime )
-	else if( !strcmp( name, "gatetime" ) )
-		self->pItem->setGateTime( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "gatenumber", pItem->gatenumber )
-	else if( !strcmp( name, "gatenumber" ) )
-		self->pItem->setGateNumber( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "decaytime", pItem->decaytime )
-	else if( !strcmp( name, "decaytime" ) )
-		self->pItem->setDecayTime( PyInt_AS_LONG( value ) );
-	// ownserial
-	else setIntProperty( "visible", pItem->visible )
-	// spanserial
-	else setIntProperty( "dir", pItem->dir ) // lightsource type
-	else setIntProperty( "priv", pItem->priv ) 
-//	else setIntProperty( "disabled", pItem->disabled() )
-	else if( !strcmp( name, "disabled" ) )
-		self->pItem->setDisabled( PyInt_AS_LONG( value ) );
-	else setStrProperty( "disabledmsg", pItem->disabledmsg() ) 
-//	else setIntProperty( "poisoned", pItem->poisoned() ) 
-	else if( !strcmp( name, "poisoned" ) )
-		self->pItem->setPoisoned( PyInt_AS_LONG( value ) );
-
-	else if( !strcmp( name, "murderer" ) )
-		self->pItem->setMurderer( PyString_AS_STRING( value ) );
-
-//	else setIntProperty( "murdertime", pItem->murdertime() ) 
-	else if( !strcmp( name, "murdertime" ) )
-		self->pItem->setMurderTime( PyInt_AS_LONG( value ) );
-//	else setIntProperty( "rank", pItem->rank() ) 
-	else if( !strcmp( name, "rank" ) )
-		self->pItem->setRank( PyInt_AS_LONG( value ) );
-	else setStrProperty( "creator", pItem->creator ) 
-	else setIntProperty( "good", pItem->good ) 
-	else setIntProperty( "madewith", pItem->madewith ) 
-	else setStrProperty( "desc", pItem->desc ) 
-
-	else if( !strcmp( name, "spawnregion" ) )
-		self->pItem->setSpawnRegion( PyString_AS_STRING( value ) );
-	
-	// Moving the item into a container
-	else if( !strcmp( name, "container" ) )
+	// Special Python things.
+	if( !strcmp( "events", name ) )
 	{
-		P_CHAR pChar = getWpChar( value );
-		P_ITEM pItem = getWpItem( value );
-		
-		if( pItem )
-			pItem->addItem( self->pItem );
-		else if( pChar )
+		if( !PyList_Check( value ) )
 		{
-			// Get a valid layer
-			tile_st tInfo = TileCache::instance()->getTile( self->pItem->id() );
-			if( tInfo.layer != 0 )
-				pChar->addItem( (cChar::enLayer)tInfo.layer, self->pItem );
+			PyErr_BadArgument();
+			return -1;
 		}
-		// Are we intentionally moving us into an invalid container?
-		else if( !PyObject_IsTrue( value ) )
-			self->pItem->removeFromCont();
+
+		self->pItem->clearEvents();
+		int i;
+		for( i = 0; i < PyList_Size( value ); ++i )
+		{
+			if( !PyString_Check( PyList_GetItem( value, i ) ) )
+				continue;
+
+			WPDefaultScript *script = ScriptManager->find( PyString_AsString( PyList_GetItem( value, i ) ) );
+			if( script )
+				self->pItem->addEvent( script );
+		}
+	}
+	else
+	{
+		cVariant val;
+		if( PyString_Check( value ) )
+			val = cVariant( PyString_AsString( value ) );
+		else if( PyInt_Check( value ) )
+			val = cVariant( PyInt_AsLong( value ) );
+		else if( checkWpItem( value ) )
+			val = cVariant( getWpItem( value ) );
+		else if( checkWpChar( value ) )
+			val = cVariant( getWpChar( value ) );
+		else if( checkWpCoord( value ) )
+			val = cVariant( getWpCoord( value ) );
+		else if( PyFloat_Check( value ) )
+			val = cVariant( PyFloat_AsDouble( value ) );
+
+		if( !val.isValid() )
+		{
+			if( value->ob_type )
+				PyErr_Format( PyExc_TypeError, "Unsupported object type: %s", value->ob_type->tp_name );
+			else
+				PyErr_Format( PyExc_TypeError, "Unknown object type" );
+			return 0;
+		}
+
+		stError *error = self->pItem->setProperty( name, val );
+
+		if( error )
+		{
+			PyErr_Format( PyExc_TypeError, "Error while setting attribute '%s': %s", name, error->text.latin1() );
+			delete error;
+			return 0;
+		}
 	}
 
 	return 0;
@@ -893,4 +708,16 @@ bool checkWpItem( PyObject *pObj )
 		return false;
 	else
 		return true;
+}
+
+int wpItem_compare( PyObject *a, PyObject *b )
+{
+	// Both have to be characters
+	if( a->ob_type != &wpItemType || b->ob_type != &wpItemType ) 
+		return -1;
+
+	P_ITEM pA = getWpItem( a );
+	P_ITEM pB = getWpItem( b );
+
+	return !( pA == pB );
 }
