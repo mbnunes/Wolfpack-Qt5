@@ -980,11 +980,13 @@ class cConsoleThread: public ZThread::Thread
 public:
 	virtual void run() throw()
 	{
+		#if !defined(__unix__)
 		// Check for a new key constantly and put it into the command-queue
 		char key = 0;
 
 		try
 		{
+			
 			while( keeprun )
 			{
 				key = getch();
@@ -995,12 +997,13 @@ public:
 					commandQueue.push_back( QString( "%1" ).arg( key ) );
 					commandMutex.release();
 				}
-			}
+			}			
 		}
 		catch( ... )
 		{
 			commandMutex.release();
 		}
+		#endif
 	}
 };
 
@@ -1599,6 +1602,7 @@ int main( int argc, char *argv[] )
 
 		// It's more likely that we have a new key-press now
 		// Checking every 25 loops should be enough.
+		#if !defined( __unix__ )
 		if( !bDeamon && loopTimeCount % 25 == 0 )
 		{
 			commandMutex.acquire();
@@ -1610,6 +1614,7 @@ int main( int argc, char *argv[] )
 			}
 			commandMutex.release();
 		}
+		#endif
 
 		if( loopTimeCount >= 1000 )
 		{
