@@ -80,17 +80,17 @@
 		<events>environment</events>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>
-	
+
 	<!-- Tamberine -->
 	<item id="e9d">
 		<id>0xe9d</id>
 		<decay/>
 		<value>25</value>
-		<category>Professions\Musician\Tamberine</category>
+		<category>Professions\Musician\Tambourine</category>
 		<events>environment</events>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>
-	
+
 	<!-- Tamberine with Ribbon -->
 	<item id="e9e">
 		<id>0xe9e</id>
@@ -98,11 +98,11 @@
 		<buyprice>60</buyprice>
 		<sellprice>30</sellprice>
 		<value>25</value>
-		<category>Professions\Musician\Tamberine with Ribbon</category>
+		<category>Professions\Musician\Fancy Tambourine</category>
 		<events>environment</events>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>
-	
+
 	<!-- Standing Harp -->
 	<item id="eb1">
 		<id>0xeb1</id>
@@ -114,7 +114,7 @@
 		<events>environment</events>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>
-	
+
 	<!-- Harp -->
 	<item id="eb2">
 		<id>0xeb2</id>
@@ -126,7 +126,7 @@
 		<events>environment</events>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>
-	
+
 	<!-- Lute -->
 	<item id="eb3">
 		<id>0xeb3</id>
@@ -138,7 +138,7 @@
 		<events>environment</events>
 		<tag name="remaining_uses" type="int" value="35" />
 	</item>
-	
+
 	<!-- Lute -->
 	<item id="eb4">
 		<id>0xeb4</id>

@@ -9,6 +9,12 @@
 <definitions>
 
 	<!-- house deed -->
+	<item id="blank_deed">
+		<id>0x14ef</id>
+		<category>Misc\Deeds\Blank Deed</category>
+	</item>
+
+	<!-- house deed -->
 	<item id="house">
 		<id>0x14ef</id>
 		<events>multideed</events>

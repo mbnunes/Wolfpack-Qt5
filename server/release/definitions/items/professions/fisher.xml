@@ -166,7 +166,7 @@
 
 	<!-- Fishing Pole -->
 	<item id="dbf">
-		<id>0x0dbf</id>
+		<id>0xdbf</id>
 		<decay />
 		<value>120</value>
 		<category>Professions\Fisher\Fishing Pole (N/S)</category>
@@ -176,7 +176,7 @@
 
 	<item id="dc0">
 		<inherit id="dbf" />
-		<id>0x0dc0</id>
+		<id>0xdc0</id>
 		<category>Professions\Fisher\Fishing Pole (W/E)</category>
 		<tag name="remaining_uses" type="int" value="50" />
 		<events>skills.fishing</events>
