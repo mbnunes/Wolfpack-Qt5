@@ -1620,15 +1620,17 @@ void cUOSocket::handleTarget( cUORxTarget *packet )
 		targetRequest->canceled( this );
 	else
 	{
-		if ( targetRequest->responsed( this, packet ) )
+		// Save the target in a temporary variable
+		cTargetRequest *request = targetRequest;
+		targetRequest = 0;
+
+		if ( request->responsed( this, packet ) )
 		{
-			delete targetRequest;
-			targetRequest = 0;
+			delete request;			
 		}
 		else
-			attachTarget( targetRequest ); // Resend target.
+			attachTarget( request ); // Resend target.
 	}
-
 }
 
 /*!
@@ -1942,18 +1944,8 @@ void cUOSocket::updateHealth( P_CHAR pChar )
 
 	cUOTxUpdateHealth update;
 	update.setSerial( pChar->serial() );
-	
-	//if( pChar == _player )
-	//{
-		update.setMaximum( pChar->st() );
-		update.setCurrent( pChar->hp() );
-	//}
-	//else
-	//{
-	//	update.setMaximum( 100 );
-	//	UINT16 current = ( pChar->hp() / pChar->st() ) * 100;
-	//	update.setCurrent( current );
-	//}
+	update.setMaximum( pChar->st() );
+	update.setCurrent( pChar->hp() );
 
 	send( &update );
 }
@@ -1995,13 +1987,9 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		sendStats.setGold( pChar->CountBankGold() + pChar->CountGold() );
 		sendStats.setArmor( pChar->calcDefense( ALLBODYPARTS ) );
 		sendStats.setSex( true );
-		
-	//	if( sendStats[2] == 0x46 )
-	//	{
-			sendStats.setPets( _player->followers().size() );
-			sendStats.setMaxPets( 0xFF );
-			sendStats.setStatCap( SrvParams->statcap() );
-	//	}
+		sendStats.setPets( _player->followers().size() );
+		sendStats.setMaxPets( 0xFF );
+		sendStats.setStatCap( SrvParams->statcap() );
 	}
 
 	send( &sendStats );

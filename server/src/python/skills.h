@@ -32,6 +32,8 @@ class cChar;
 typedef cChar* P_CHAR;
 
 #include "../defines.h"
+#include "../skills.h"
+#include "../globals.h"
 #include "../chars.h"
 #include "utilities.h"
 
@@ -61,16 +63,22 @@ PyObject *wpSkills_get( wpSkills *self, int skill )
 PyObject *wpSkills_set( wpSkills *self, int skill, PyObject *pValue )
 {
 	if( !self->pChar || self->pChar->free || skill >= ALLSKILLS || !PyInt_Check( pValue ) )
-		return PyFalse;
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
 
 	UINT16 value = PyInt_AsLong( pValue );
 
 	if( self->base )
+	{
 		self->pChar->setBaseSkill( skill, value );
+		Skills->updateSkillLevel( self->pChar, skill );
+	}
 	else
 		self->pChar->setSkill( skill, value );
 
-	return PyTrue;
+	return 0;
 }
 
 static PySequenceMethods wpSkillsSequence = {
