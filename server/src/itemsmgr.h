@@ -45,10 +45,10 @@
 // Singleton Class to manage Items.
 class cItemsManager : public std::map<SERIAL, cItem*>
 {
-private:
+protected:
 	cItemsManager() {} // Unallow anyone to instantiate.
 	cItemsManager(cItemsManager& _it) {} // Unallow copy constructor
-	operator=(cItemsManager& _it) {} // Unallow Assignment
+	cItemsManager& operator=(cItemsManager& _it) { return *this; } // Unallow Assignment
 public:
 	void registerItem( cItem* ) throw(wp_exceptions::bad_ptr);
 	void unregisterItem( cItem* ) throw (wp_exceptions::bad_ptr);
