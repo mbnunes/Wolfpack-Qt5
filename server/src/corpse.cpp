@@ -29,6 +29,7 @@
 #include "corpse.h"
 #include "network/network.h"
 #include "network/uotxpackets.h"
+#include "basics.h"
 #include "dbdriver.h"
 #include "network/uosocket.h"
 #include "persistentbroker.h"
@@ -38,7 +39,6 @@
 
 #include <functional>
 #include <algorithm>
-#include <map>
 
 using namespace std;
 
@@ -53,8 +53,10 @@ void cCorpse::registerInFactory()
 	buildSqlString( fields, tables, conditions ); // Build our SQL string
 	QString sqlString = QString( "SELECT %1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cCorpse' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
 	UObjectFactory::instance()->registerType( "cCorpse", productCreator );
-	UObjectFactory::instance()->registerSqlQuery( "cCorpse", sqlString );
+	classid = UObjectFactory::instance()->registerSqlQuery( "cCorpse", sqlString );
 }
+
+unsigned char cCorpse::classid;
 
 void cCorpse::buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions )
 {
@@ -63,6 +65,51 @@ void cCorpse::buildSqlString( QStringList& fields, QStringList& tables, QStringL
 	fields.push_back( "corpses.direction,corpses.charbaseid,corpses.murderer,corpses.murdertime" );
 	tables.push_back( "corpses" );
 	conditions.push_back( "uobjectmap.serial = corpses.serial" );
+}
+
+void cCorpse::load(cBufferedReader &reader, unsigned int version) {
+	cItem::load(reader, version);
+	bodyId_ = reader.readShort();
+	hairStyle_ = reader.readShort();
+	hairColor_ = reader.readShort();
+	beardStyle_ = reader.readShort();
+	beardColor_ = reader.readShort();
+	direction_ = reader.readByte();
+	charbaseid_ = reader.readAscii();
+	murderer_ = reader.readInt();
+	murdertime_ = reader.readInt();
+
+	// Write a serial for every possible layer (fixed block size)
+	unsigned char layer;
+	for (layer = cBaseChar::SingleHandedWeapon; layer <= cBaseChar::Mount; ++layer) {
+		SERIAL serial = reader.readInt();
+		if (serial != INVALID_SERIAL) {
+			equipment_.insert(layer, serial);
+		}
+	}
+}
+
+void cCorpse::save(cBufferedWriter &writer, unsigned int version) {
+	cItem::save(writer, version);
+	writer.writeShort(bodyId_);
+	writer.writeShort(hairStyle_);
+	writer.writeShort(hairColor_);
+	writer.writeShort(beardStyle_);
+	writer.writeShort(beardColor_);
+	writer.writeByte(direction_);
+	writer.writeAscii(charbaseid_);
+	writer.writeInt(murderer_);
+	writer.writeInt(murdertime_);
+
+	// Write a serial for every possible layer (fixed block size)
+	unsigned char layer;
+	for (layer = cBaseChar::SingleHandedWeapon; layer <= cBaseChar::Mount; ++layer) {
+		if (equipment_.contains(layer)) {
+			writer.writeInt(equipment_[layer]);
+		} else {
+			writer.writeInt(INVALID_SERIAL);
+		}
+	}
 }
 
 void cCorpse::load( char** result, UINT16& offset )
@@ -88,7 +135,7 @@ void cCorpse::load( char** result, UINT16& offset )
 
 	// Fetch row-by-row
 	while ( res.fetchrow() )
-		equipment_.insert( make_pair( res.getInt( 0 ), res.getInt( 1 ) ) );
+		equipment_.insert( res.getInt( 0 ), res.getInt( 1 ) );
 
 	res.free();
 }
@@ -118,8 +165,8 @@ void cCorpse::save()
 		PersistentBroker::instance()->executeQuery( QString( "DELETE FROM corpses_equipment WHERE serial = '%1'" ).arg( serial() ) );
 	}
 
-	for ( map<UINT8, SERIAL>::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
-		PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO corpses_equipment VALUES(%1,%2,%3)" ).arg( serial() ).arg( it->first ).arg( it->second ) );
+	for ( QMap<UINT8, SERIAL>::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
+		PersistentBroker::instance()->executeQuery( QString( "REPLACE INTO corpses_equipment VALUES(%1,%2,%3)" ).arg( serial() ).arg( it.key() ).arg( it.data() ) );
 
 	cItem::save();
 }
@@ -159,13 +206,13 @@ void cCorpse::update( cUOSocket* mSock )
 
 	corpseEquip.setSerial( serial() );
 
-	for ( map<UINT8, SERIAL>::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
+	for ( QMap<UINT8, SERIAL>::iterator it = equipment_.begin(); it != equipment_.end(); ++it )
 	{
-		P_ITEM pItem = World::instance()->findItem( it->second );
+		P_ITEM pItem = World::instance()->findItem( it.data() );
 
 		if ( pItem && pItem->container() == this )
 		{
-			corpseEquip.addItem( it->first, it->second );
+			corpseEquip.addItem( it.key(), it.data() );
 			corpseContent.addItem( pItem );
 		}
 	}
@@ -241,7 +288,7 @@ void cCorpse::addEquipment( UINT8 layer, SERIAL serial )
 		return;
 	}
 
-	equipment_.insert( make_pair( layer, serial ) );
+	equipment_.insert(layer, serial);
 }
 
 cCorpse::cCorpse( bool init )

@@ -34,7 +34,7 @@
 #include <qstring.h>
 
 // System Includes
-#include <map>
+#include <qmap.h>
 
 // Forward declarations
 class cUOSocket;
@@ -44,6 +44,7 @@ class cCorpse : public cItem
 private:
 	static void buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions );
 	bool changed_;
+	static unsigned char classid;
 
 protected:
 	UINT16 bodyId_; // Body id of the corpse
@@ -56,10 +57,14 @@ protected:
 	SERIAL murderer_; // Who was the murderer
 	QCString charbaseid_;
 
-	std::map<UINT8, SERIAL> equipment_; // Serials of the old equipment
+	QMap<UINT8, SERIAL> equipment_; // Serials of the old equipment
 	// The meaning of this is that even if the items are inside of the corpse
 	// they're displayed as equipment
 public:
+	unsigned char getClassid() {
+		return cCorpse::classid;
+	}
+
 	cCorpse(bool init = false);
 	void setBodyId(UINT16 data);
 	void setHairStyle(UINT16 data);
@@ -106,6 +111,8 @@ public:
 	void load( char**, UINT16& );
 	void save();
 	bool del();
+	void load(cBufferedReader &reader, unsigned int version);
+	void save(cBufferedWriter &reader, unsigned int version);
 
 	// abstract cDefinable
 	virtual void processNode( const cElement* Tag );

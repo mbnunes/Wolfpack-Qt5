@@ -344,6 +344,7 @@ void cTimers::dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent )
 		}
 	}
 
+	QPtrList<cTimer> eraselist;
 	std::vector<cTimer*>::iterator i = teffects.begin();
 	for ( i = teffects.begin(); i != teffects.end(); i++ )
 		if ( ( *i ) != NULL && ( *i )->dispellable && ( *i )->getDest() == pc_dest->serial() )
@@ -356,10 +357,13 @@ void cTimers::dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent )
 			}
 
 			( *i )->Dispel( pSource, silent );
-			teffects.erase( i );
+			eraselist.append(*i);
 		}
 
-	std::make_heap( teffects.begin(), teffects.end(), cTimers::ComparePredicate() );
+	for ( cTimer*effect = eraselist.first(); effect; effect = eraselist.next() )
+	{
+		erase( effect );
+	}
 }
 
 void cTimers::load()

@@ -160,6 +160,133 @@ void cBaseChar::buildSqlString( QStringList& fields, QStringList& tables, QStrin
 
 static void characterRegisterAfterLoading( P_CHAR pc );
 
+void cBaseChar::load(cBufferedReader &reader, unsigned int version) {
+	cUObject::load(reader, version);
+
+	orgName_ = reader.readUtf8();
+	title_ = reader.readUtf8();
+	creationDate_ = QDateTime::fromString(reader.readUtf8(), Qt::ISODate);
+	body_ = reader.readShort();
+	orgBody_ = reader.readShort();
+	skin_ = reader.readShort();
+	orgSkin_ = reader.readShort();
+	saycolor_ = reader.readShort();
+	emoteColor_ = reader.readShort();
+	strength_ = reader.readShort();
+	strengthMod_ = reader.readShort();
+	dexterity_ = reader.readShort();
+	dexterityMod_ = reader.readShort();
+	intelligence_ = reader.readShort();
+	intelligenceMod_ = reader.readShort();
+	maxHitpoints_ = reader.readShort();
+	hitpoints_ = reader.readShort();
+	maxStamina_ = reader.readShort();
+	stamina_ = reader.readShort();
+	maxMana_ = reader.readShort();
+	mana_ = reader.readShort();
+	karma_ = reader.readShort();
+	fame_ = reader.readShort();
+	kills_ = reader.readShort();
+	deaths_ = reader.readShort();
+	hunger_ = reader.readByte();
+	poison_ = reader.readByte();
+	murdererTime_ = reader.readInt();
+	if (murdererTime_) {
+		murdererTime_ += Server::instance()->time();
+	}
+	criminalTime_ = reader.readInt();
+	if (criminalTime_) {
+		criminalTime_ += Server::instance()->time();
+	}
+	gender_ = reader.readByte();
+	propertyFlags_ = reader.readInt();
+	murdererSerial_ = reader.readInt();
+	guarding_ = reinterpret_cast<P_CHAR>(reader.readInt()); // PostProcess
+	hitpointsBonus_ = reader.readShort();
+	staminaBonus_ = reader.readShort();
+	manaBonus_ = reader.readShort();
+	strengthCap_ = reader.readByte();
+	dexterityCap_ = reader.readByte();
+	intelligenceCap_ = reader.readByte();
+	statCap_ = reader.readByte();
+	basedef_ = CharBaseDefs::instance()->get( reader.readAscii() );
+	direction_ = reader.readByte();
+
+	// Load Skills
+	unsigned int count = ALLSKILLS;
+	for (unsigned int s = 0; s < count; ++s) {
+		// Read value, cap, lock
+		setSkillValue(s, reader.readShort());
+		setSkillCap(s, reader.readShort());
+		setSkillLock(s, reader.readByte());
+	}
+}
+
+void cBaseChar::postload(unsigned int version) {
+	// Resolve the guarding_ value.
+	SERIAL guarding = (SERIAL)guarding_;
+	guarding_ = 0;
+	setGuarding(World::instance()->findChar(guarding));
+	
+
+}
+
+void cBaseChar::save(cBufferedWriter &writer, unsigned int version) {
+	cUObject::save(writer, version);
+
+	writer.writeUtf8(orgName_);
+	writer.writeUtf8(title_);
+	writer.writeUtf8(creationDate_.toString(Qt::ISODate));
+	writer.writeShort(body_);
+	writer.writeShort(orgBody_);
+	writer.writeShort(skin_);
+	writer.writeShort(orgSkin_);
+	writer.writeShort(saycolor_);
+	writer.writeShort(emoteColor_);
+	writer.writeShort(strength_);
+	writer.writeShort(strengthMod_);
+	writer.writeShort(dexterity_);
+	writer.writeShort(dexterityMod_);
+	writer.writeShort(intelligence_);
+	writer.writeShort(intelligenceMod_);
+	writer.writeShort(maxHitpoints_);
+	writer.writeShort(hitpoints_);
+	writer.writeShort(maxStamina_);
+	writer.writeShort(stamina_);
+	writer.writeShort(maxMana_);
+	writer.writeShort(mana_);
+	writer.writeShort(karma_);
+	writer.writeShort(fame_);
+	writer.writeShort(kills_);
+	writer.writeShort(deaths_);
+	writer.writeByte(hunger_);
+	writer.writeByte(poison_);
+	writer.writeInt(murdererTime_ ? murdererTime_ - Server::instance()->time() : 0);
+	writer.writeInt(criminalTime_ ? criminalTime_ - Server::instance()->time() : 0);
+	writer.writeByte(gender_);
+	writer.writeInt(propertyFlags_);
+	writer.writeInt(murdererSerial_);
+	writer.writeInt(guarding_ ? guarding_->serial() : INVALID_SERIAL);
+	writer.writeShort(hitpointsBonus_);
+	writer.writeShort(staminaBonus_);
+	writer.writeShort(manaBonus_);
+	writer.writeByte(strengthCap_);
+	writer.writeByte(dexterityCap_);
+	writer.writeByte(intelligenceCap_);
+	writer.writeByte(statCap_);
+	writer.writeAscii(baseid());
+	writer.writeByte(direction_);
+
+	// Load Skills
+	unsigned int count = ALLSKILLS;
+	for (unsigned int s = 0; s < count; ++s) {
+		// Read value, cap, lock
+		writer.writeShort(skillValue(s));
+		writer.writeShort(skillCap(s));
+		writer.writeByte(skillLock(s));
+	}
+}
+
 void cBaseChar::load( char** result, UINT16& offset )
 {
 	cUObject::load( result, offset );
@@ -249,6 +376,16 @@ void cBaseChar::load( char** result, UINT16& offset )
 
 	characterRegisterAfterLoading( this );
 	changed_ = false;
+}
+
+void cBaseChar::save(cBufferedWriter &writer) {
+	cUObject::save(writer);
+
+	// Save equipment
+	ItemContainer::iterator it = content_.begin();
+	for (; it != content_.end(); ++it) {
+		it.data()->save(writer);
+	}
 }
 
 void cBaseChar::save()
@@ -3291,4 +3428,10 @@ void cBaseChar::remove()
 
 	MapObjects::instance()->remove( this );
 	cUObject::remove();
+}
+
+void cBaseChar::load(cBufferedReader &reader) {
+	load(reader, reader.version());
+	World::instance()->registerObject(this);
+	SectorMaps::instance()->add(this);
 }

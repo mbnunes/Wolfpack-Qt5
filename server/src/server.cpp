@@ -317,7 +317,7 @@ bool cServer::run( int argc, char** argv )
 	}
 
 	// Open the Worldsave and Account Database drivers.
-	if ( !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
+	if ( Config::instance()->databaseDriver() != "binary" && !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
 	{
 		Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
 		return 1;

@@ -694,6 +694,9 @@
 				RelativePath=".\python\pyregion.cpp">
 			</File>
 			<File
+				RelativePath=".\python\pyspawnregion.cpp">
+			</File>
+			<File
 				RelativePath=".\python\pytooltip.cpp">
 			</File>
 			<File

@@ -74,6 +74,9 @@ public:
 	void load( char**, UINT16& );
 	void save();
 	bool del();
+	void load(cBufferedReader &reader, unsigned int version);
+	void save(cBufferedWriter &writer, unsigned int version);
+	void load(cBufferedReader &reader);
 
 	virtual bool send( cUOPacket* packet );
 	virtual enCharTypes objectType();
@@ -199,8 +202,13 @@ public:
 	PyObject* getPyObject();
 	const char* className() const;
 
+	unsigned char getClassid() {
+		return cPlayer::classid;
+	}
+
 private:
 	bool changed_;
+	static unsigned char classid;
 
 protected:
 	// interface implementation

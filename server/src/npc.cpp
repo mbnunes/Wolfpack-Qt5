@@ -95,8 +95,10 @@ void cNPC::registerInFactory()
 	buildSqlString( fields, tables, conditions ); // Build our SQL string
 	QString sqlString = QString( "SELECT %1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cNPC' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
 	UObjectFactory::instance()->registerType( "cNPC", productCreator );
-	UObjectFactory::instance()->registerSqlQuery( "cNPC", sqlString );
+	classid = UObjectFactory::instance()->registerSqlQuery( "cNPC", sqlString );
 }
+
+unsigned char cNPC::classid;
 
 void cNPC::buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions )
 {
@@ -111,6 +113,56 @@ void cNPC::buildSqlString( QStringList& fields, QStringList& tables, QStringList
 }
 
 static void npcRegisterAfterLoading( P_NPC pc );
+
+void cNPC::postload(unsigned int version) {
+	cBaseChar::postload(version);
+
+	SERIAL owner = (SERIAL)owner_;
+	owner_ = 0;
+	setOwner(dynamic_cast<P_PLAYER>(World::instance()->findChar(owner)));
+}
+
+void cNPC::load(cBufferedReader &reader) {
+	load(reader, reader.version());
+
+	World::instance()->registerObject(this);
+	SectorMaps::instance()->add(this);
+}
+
+void cNPC::load(cBufferedReader &reader, unsigned int version) {
+	cBaseChar::load(reader, version);
+
+	summonTime_ = reader.readInt();
+	if (summonTime_) {
+		summonTime_ += Server::instance()->time();
+	}
+	additionalFlags_ = reader.readInt();
+	owner_ = reinterpret_cast<P_PLAYER>(reader.readInt());
+	stablemasterSerial_ = reader.readInt();
+	setAI(reader.readAscii().data());
+	setWanderType((enWanderTypes)reader.readByte());
+	setWanderX1(reader.readShort());
+	setWanderY1(reader.readShort());
+	setWanderX2(reader.readShort());
+	setWanderY2(reader.readShort());
+	setWanderRadius(reader.readShort());
+}
+
+void cNPC::save(cBufferedWriter &writer, unsigned int version) {
+	cBaseChar::save(writer, version);
+
+	writer.writeInt(summonTime_ ? summonTime_ - Server::instance()->time() : 0);
+	writer.writeInt(additionalFlags_);
+	writer.writeInt(owner_ ? owner_->serial() : INVALID_SERIAL);
+	writer.writeInt(stablemasterSerial_);
+	writer.writeAscii(aiid_.latin1());
+	writer.writeByte((unsigned char)wanderType());
+	writer.writeShort(wanderX1());
+	writer.writeShort(wanderY1());
+	writer.writeShort(wanderX2());
+	writer.writeShort(wanderY2());
+	writer.writeShort(wanderRadius());
+}
 
 void cNPC::load( char** result, UINT16& offset )
 {

@@ -158,8 +158,10 @@ void cMulti::registerInFactory()
 	cItem::buildSqlString( fields, tables, conditions ); // Build our SQL string
 	QString sqlString = QString( "SELECT %1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cMulti' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
 	UObjectFactory::instance()->registerType( "cMulti", productCreator );
-	UObjectFactory::instance()->registerSqlQuery( "cMulti", sqlString );
+	classid = UObjectFactory::instance()->registerSqlQuery( "cMulti", sqlString );
 }
+
+unsigned char cMulti::classid;
 
 cMulti* cMulti::find( const Coord_cl& pos )
 {
@@ -184,4 +186,14 @@ cMulti* cMulti::find( const Coord_cl& pos )
 
 	delete iter;
 	return multi;
+}
+
+void cMulti::save(cBufferedWriter &writer) {
+	cItem::save(writer);
+
+	// Save objects within this multi *after* the multi
+	cUObject* object;
+	for (object = objects.first(); object; object = objects.next()) {
+		object->save(writer);
+	}
 }

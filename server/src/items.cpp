@@ -533,6 +533,57 @@ int cItem::DeleteAmount( int amount, unsigned short _id, unsigned short _color )
 	return rest;
 }
 
+void cItem::save(cBufferedWriter &writer, unsigned int version) {
+	cUObject::save(writer, version);
+
+	writer.writeShort(id_);
+	writer.writeShort(color_);
+	writer.writeInt(container_ ? container_->serial() : INVALID_SERIAL);
+	writer.writeByte(layer_);
+	writer.writeShort(amount_);
+	writer.writeShort(hp_);
+	writer.writeShort(maxhp_);
+	writer.writeByte(magic_);
+	writer.writeInt(ownserial_);
+	writer.writeByte(visible_);
+	writer.writeByte(priv_);
+	writer.writeAscii(baseid());
+}
+
+void cItem::postload(unsigned int version) {
+}
+
+void cItem::load(cBufferedReader &reader, unsigned int version) {
+	cUObject::load(reader, version);
+
+	id_ = reader.readShort();
+	color_ = reader.readShort();
+	// Here we assume that containers are always before us in the save
+	cUObject *container = World::instance()->findObject(reader.readInt());
+	layer_ = reader.readByte();
+	amount_ = reader.readShort();
+	hp_ = reader.readShort();
+	maxhp_ = reader.readShort();
+	magic_ = reader.readByte();
+	ownserial_ = reader.readInt();
+	visible_ = reader.readByte();
+	priv_ = reader.readByte();
+	basedef_ = ItemBaseDefs::instance()->get(reader.readAscii());
+
+	// Add to container and handle weight
+	if (container) {
+		P_ITEM iContainer = dynamic_cast<P_ITEM>(container);
+		if (iContainer) {
+			iContainer->addItem(this, false, true, true);
+		} else {
+			P_CHAR cContainer = dynamic_cast<P_CHAR>(container);
+			if (cContainer) {
+				cContainer->addItem((cBaseChar::enLayer)layer(), this, true, true);
+			}
+		}
+	}
+}
+
 void cItem::save()
 {
 	if ( changed_ )
@@ -1457,8 +1508,10 @@ void cItem::registerInFactory()
 	buildSqlString( fields, tables, conditions ); // Build our SQL string
 	QString sqlString = QString( "SELECT %1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cItem' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
 	UObjectFactory::instance()->registerType( "cItem", productCreator );
-	UObjectFactory::instance()->registerSqlQuery( "cItem", sqlString );
+	classid = UObjectFactory::instance()->registerSqlQuery( "cItem", sqlString );
 }
+
+unsigned char cItem::classid;
 
 void cItem::load( char** result, UINT16& offset )
 {
@@ -2350,3 +2403,22 @@ unsigned int cItem::decayDelay() {
 	return Config::instance()->itemDecayTime() * MY_CLOCKS_PER_SEC;
 }
 
+void cItem::save(cBufferedWriter &writer) {
+	cUObject::save(writer);
+
+	// Save container content
+	ContainerContent::iterator it = content_.begin();
+	for (; it != content_.end(); ++it) {
+		(*it)->save(writer);
+	}
+}
+
+void cItem::load(cBufferedReader &reader) {
+	load(reader, reader.version());
+
+	World::instance()->registerObject(this);
+
+	if (!container_) {
+		SectorMaps::instance()->add(this);
+	}
+}

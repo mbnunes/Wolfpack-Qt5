@@ -118,6 +118,11 @@ public:
 	void load( char**, ushort& );
 	void save();
 	bool del();
+	void load(cBufferedReader &reader);
+	void load(cBufferedReader &reader, unsigned int version);
+	void save(cBufferedWriter &writer, unsigned int version);
+	void save(cBufferedWriter &writer);
+	void postload(unsigned int version);
 
 	// interface methods
 	// object type specific methods
@@ -353,7 +358,7 @@ public:
 	bool gender() const;
 	P_CHAR guarding() const;
 	short hitpoints() const;
-	int hunger() const;
+	unsigned char hunger() const;
 	uint hungerTime() const;
 	short intelligence() const;
 	short intelligenceMod() const;
@@ -432,7 +437,7 @@ public:
 	void setGender( bool data );
 	void setGuarding( P_CHAR data );
 	void setHitpoints( short data );
-	void setHunger( int data );
+	void setHunger( unsigned char data );
 	void setHungerTime( uint data );
 	void setIntelligence( short data );
 	void setIntelligenceMod( short data );
@@ -735,7 +740,7 @@ protected:
 
 	// The hunger value of the char. 6 means not hungry, 0 means starving.
 	// cOldChar::hunger_
-	int hunger_;
+	unsigned char hunger_;
 
 	// Server clocks when next hunger check will be made.
 	// cOldChar::hungertime_
@@ -983,12 +988,12 @@ inline void cBaseChar::setHitpoints( short data )
 	changed_ = true;
 }
 
-inline int cBaseChar::hunger() const
+inline unsigned char cBaseChar::hunger() const
 {
 	return hunger_;
 }
 
-inline void cBaseChar::setHunger( int data )
+inline void cBaseChar::setHunger( unsigned char data )
 {
 	hunger_ = data;
 	changed_ = true;

@@ -80,6 +80,7 @@ typedef std::map<SERIAL, P_CHAR> CharMap;
 // Don't forget to change the version number before changing tableInfo!
 //
 // ONCE AGAIN, DON'T FORGET TO INCREASE THIS VALUE
+#define DATABASE_VERSION 6
 #define WP_DATABASE_VERSION "6"
 
 // This is used for autocreating the tables
@@ -387,264 +388,346 @@ void cWorld::unload()
 	cComponent::unload();
 }
 
+/*
+	Load a tag from the worldsave
+	The type byte has already been read.
+	What remains is:
+	8-bit value type
+	32-bit serial
+	32-bit value1
+	32-bit value2 (only used for doubles)
+*/
+void cWorld::loadTag(cBufferedReader &reader, unsigned int version) {
+	cUObject *object = findObject(reader.readInt());
+	QString name = reader.readUtf8();
+	cVariant variant;
+	variant.serialize(reader, version);
+
+	if (object) {
+		object->setTag(name, variant);
+	}
+}
+
 void cWorld::load()
 {
-	if ( !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
-	{
-		Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
-		return;
-	}
+	if (Config::instance()->databaseDriver() == "binary") {
+		QString filename = "world.bin";
 
-	if ( !PersistentBroker::instance()->connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword() ) )
-	{
-		throw QString( "Unable to open the world database." );
-	}
+		if (QFile::exists(filename)) {
+			cBufferedReader reader("WOLFPACK", DATABASE_VERSION);
+			reader.open(filename);
 
-	QString objectID;
-	register unsigned int i = 0;
+			Console::instance()->log(LOG_MESSAGE, QString("Loading %1 objects from %2.\n").arg(reader.objectCount()).arg(filename));
+			Console::instance()->send("0%");
+		
+			unsigned char type;
+			const QMap<unsigned char, QCString> &typemap = reader.typemap();
+			const QMap<unsigned char, QString> &server_typemap = UObjectFactory::instance()->getTypemap();
+			unsigned int loaded = 0;
+			unsigned int count = reader.objectCount();
+			unsigned int lastpercent = 0;
+			unsigned int percent = 0;
+			unsigned int loadStart = getNormalizedTime();
 
-	while ( tableInfo[i].name )
-	{
-		if ( !PersistentBroker::instance()->tableExists( tableInfo[i].name ) )
-		{
-			PersistentBroker::instance()->executeQuery( tableInfo[i].create );
+			do {
+				type = reader.readByte();
 
-			// create default settings
-			if ( !strcmp( tableInfo[i].name, "settings" ) )
-			{
-				setOption( "db_version", WP_DATABASE_VERSION, false );
-			}
-		}
+				if (typemap.contains(type)) {
+					if (!server_typemap.contains(type)) {
+						// Get the size for this block from the worldfile
+						// and skip the entire block
+						Console::instance()->log(LOG_WARNING, QString("Skipping unknown object type %1.").arg(typemap[type]));
+					} else {
+						cUObject *object = UObjectFactory::instance()->createObject(typemap[type]);
+						try {
+							object->load(reader);
+						} catch(wpException e) {
+							
+						}
+					}
 
-		++i;
-	}
+					loaded += 100;
+                    percent = loaded / count;
+					if (percent != lastpercent) {
+						unsigned int revert = QString::number(lastpercent).length() + 1;
+						for (unsigned int i = 0; i < revert; ++i) {
+							Console::instance()->send("\b");
+						}
 
-	QStringList types = UObjectFactory::instance()->objectTypes();
-
-	for ( uint j = 0; j < types.count(); ++j )
-	{
-		QString type = types[j];
-
-		cDBResult res = PersistentBroker::instance()->query( QString( "SELECT COUNT(*) FROM uobjectmap WHERE type = '%1'" ).arg( type ) );
-
-		// Find out how many objects of this type are available
-		if ( !res.isValid() )
-			throw PersistentBroker::instance()->lastError();
-
-		res.fetchrow();
-		UINT32 count = res.getInt( 0 );
-		res.free();
-
-		if ( count == 0 )
-			continue; // Move on...
-
-		Console::instance()->send( "\n" + tr( "Loading " ) + QString::number( count ) + tr( " objects of type " ) + type );
-
-		res = PersistentBroker::instance()->query( UObjectFactory::instance()->findSqlQuery( type ) );
-
-		// Error Checking
-		if ( !res.isValid() )
-			throw PersistentBroker::instance()->lastError();
-
-		//UINT32 sTime = getNormalizedTime();
-		cUObject* object;
-		progress_display progress( count );
-
-		// Fetch row-by-row
-		PersistentBroker::instance()->driver()->setActiveConnection( CONN_SECOND );
-		while ( res.fetchrow() )
-		{
-			unsigned short offset = 0;
-			char** row = res.data();
-
-			// do something with data
-			object = UObjectFactory::instance()->createObject( type );
-			object->load( row, offset );
-
-			++progress;
-		}
-
-		while ( progress.count() < progress.expected_count() )
-			++progress;
-
-		res.free();
-		PersistentBroker::instance()->driver()->setActiveConnection();
-	}
-
-	// Load Temporary Effects
-	Timers::instance()->load();
-
-	// It's not possible to use cItemIterator during postprocessing because it skips lingering items
-	ItemMap::iterator iter;
-	QPtrList<cItem> deleteItems;
-
-	for ( iter = p->items.begin(); iter != p->items.end(); ++iter )
-	{
-		P_ITEM pi = iter->second;
-		SERIAL contserial = reinterpret_cast<SERIAL>( pi->container() );
-
-		SERIAL multiserial = ( SERIAL ) ( pi->multi() );
-		cMulti* multi = dynamic_cast<cMulti*>( findItem( multiserial ) );
-		pi->setMulti( multi );
-		if ( multi )
-		{
-			multi->addObject( pi );
-		}
-
-		if ( !contserial )
-		{
-			pi->setUnprocessed( false ); // This is for safety reasons
-			int max_x = Maps::instance()->mapTileWidth( pi->pos().map ) * 8;
-			int max_y = Maps::instance()->mapTileHeight( pi->pos().map ) * 8;
-			if ( pi->pos().x > max_x || pi->pos().y > max_y )
-			{
-				Console::instance()->log( LOG_ERROR, QString( "Item with invalid position %1,%2,%3,%4.\n" ).arg( pi->pos().x ).arg( pi->pos().y ).arg( pi->pos().z ).arg( pi->pos().map ) );
-				deleteItems.append( pi );
-				continue;
-			}
-			else
-			{
-				MapObjects::instance()->add( pi );
-			}
-		}
-		else
-		{
-			// 1. Handle the Container Value
-			if ( isItemSerial( contserial ) )
-			{
-				P_ITEM pCont = FindItemBySerial( contserial );
-
-				if ( pCont )
-				{
-					pCont->addItem( pi, false, true, true );
+						lastpercent = percent;
+						Console::instance()->send(QString::number(percent) + "%");
+					}
+				// Special Type for Tags
+				} else if (type == 0xFE) {
+					loadTag(reader, reader.version());					
+				} else if (type != 0xFF) {
+					throw wpException(QString("Invalid worldfile, unknown and unskippable type %1.").arg(type));
 				}
-				else
+			} while (type != 0xFF);
+			reader.close();
+
+			unsigned int duration = getNormalizedTime() - loadStart;
+
+			Console::instance()->send("\b\b\b\b"); // 100%
+			Console::instance()->log(LOG_MESSAGE, QString("The world loaded in %1 ms.\n").arg(duration));
+		}
+	} else {
+		if ( !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
+		{
+			Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
+			return;
+		}
+
+		if ( !PersistentBroker::instance()->connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword() ) )
+		{
+			throw QString( "Unable to open the world database." );
+		}
+
+		QString objectID;
+		register unsigned int i = 0;
+
+		while ( tableInfo[i].name )
+		{
+			if ( !PersistentBroker::instance()->tableExists( tableInfo[i].name ) )
+			{
+				PersistentBroker::instance()->executeQuery( tableInfo[i].create );
+
+				// create default settings
+				if ( !strcmp( tableInfo[i].name, "settings" ) )
 				{
-					Console::instance()->log( LOG_ERROR, QString( "Item with invalid container [0x%1].\n" ).arg( contserial, 0, 16 ) );
-					deleteItems.append( pi ); // Queue this item up for deletion
-					continue; // Skip further processing
+					setOption( "db_version", WP_DATABASE_VERSION, false );
 				}
 			}
-			else if ( isCharSerial( contserial ) )
+
+			++i;
+		}
+
+		QStringList types = UObjectFactory::instance()->objectTypes();
+
+		for ( uint j = 0; j < types.count(); ++j )
+		{
+			QString type = types[j];
+
+			cDBResult res = PersistentBroker::instance()->query( QString( "SELECT COUNT(*) FROM uobjectmap WHERE type = '%1'" ).arg( type ) );
+
+			// Find out how many objects of this type are available
+			if ( !res.isValid() )
+				throw PersistentBroker::instance()->lastError();
+
+			res.fetchrow();
+			UINT32 count = res.getInt( 0 );
+			res.free();
+
+			if ( count == 0 )
+				continue; // Move on...
+
+			Console::instance()->send( "\n" + tr( "Loading " ) + QString::number( count ) + tr( " objects of type " ) + type );
+
+			res = PersistentBroker::instance()->query( UObjectFactory::instance()->findSqlQuery( type ) );
+
+			// Error Checking
+			if ( !res.isValid() )
+				throw PersistentBroker::instance()->lastError();
+
+			//UINT32 sTime = getNormalizedTime();
+			cUObject* object;
+			progress_display progress( count );
+
+			// Fetch row-by-row
+			PersistentBroker::instance()->driver()->setActiveConnection( CONN_SECOND );
+			while ( res.fetchrow() )
 			{
-				P_CHAR pCont = FindCharBySerial( contserial );
+				unsigned short offset = 0;
+				char** row = res.data();
 
-				if ( pCont )
-				{
-					pCont->addItem( ( cBaseChar::enLayer ) pi->layer(), pi, true, true );
-				}
+				// do something with data
+				object = UObjectFactory::instance()->createObject( type );
+				object->load( row, offset );
 
-				if ( !pCont || pi->container() != pCont )
+				++progress;
+			}
+
+			while ( progress.count() < progress.expected_count() )
+				++progress;
+
+			res.free();
+			PersistentBroker::instance()->driver()->setActiveConnection();
+		}
+
+		// Load Temporary Effects
+		Timers::instance()->load();
+
+		// It's not possible to use cItemIterator during postprocessing because it skips lingering items
+		ItemMap::iterator iter;
+		QPtrList<cItem> deleteItems;
+
+		for ( iter = p->items.begin(); iter != p->items.end(); ++iter )
+		{
+			P_ITEM pi = iter->second;
+			SERIAL contserial = reinterpret_cast<SERIAL>( pi->container() );
+
+			SERIAL multiserial = ( SERIAL ) ( pi->multi() );
+			cMulti* multi = dynamic_cast<cMulti*>( findItem( multiserial ) );
+			pi->setMulti( multi );
+			if ( multi )
+			{
+				multi->addObject( pi );
+			}
+
+			if ( !contserial )
+			{
+				pi->setUnprocessed( false ); // This is for safety reasons
+				int max_x = Maps::instance()->mapTileWidth( pi->pos().map ) * 8;
+				int max_y = Maps::instance()->mapTileHeight( pi->pos().map ) * 8;
+				if ( pi->pos().x > max_x || pi->pos().y > max_y )
 				{
-					Console::instance()->log( LOG_ERROR, QString( "Item with invalid wearer [%1].\n" ).arg( contserial ) );
+					Console::instance()->log( LOG_ERROR, QString( "Item with invalid position %1,%2,%3,%4.\n" ).arg( pi->pos().x ).arg( pi->pos().y ).arg( pi->pos().z ).arg( pi->pos().map ) );
 					deleteItems.append( pi );
 					continue;
 				}
-			}
-
-			pi->setUnprocessed( false );
-		}
-
-		pi->flagUnchanged(); // We've just loaded, nothing changes.
-	}
-
-	// Post Process Characters
-	cCharIterator charIter;
-	P_CHAR pChar;
-	for ( pChar = charIter.first(); pChar; pChar = charIter.next() )
-	{
-		P_NPC pNPC = dynamic_cast<P_NPC>( pChar );
-
-		// Find Owner
-		if ( pNPC && pNPC->owner() )
-		{
-			SERIAL owner = pNPC->owner()->serial();
-
-			P_PLAYER pOwner = dynamic_cast<P_PLAYER>( FindCharBySerial( owner ) );
-			if ( pOwner )
-			{
-				pNPC->setOwner( pOwner );
-				pOwner->addPet( pNPC, true );
+				else
+				{
+					MapObjects::instance()->add( pi );
+				}
 			}
 			else
 			{
-				Console::instance()->send( QString( "The owner of Serial 0x%1 is invalid: %2" ).arg( pNPC->serial(), 0, 16 ).arg( owner, 0, 16 ) );
-				pNPC->setOwner( NULL );
+				// 1. Handle the Container Value
+				if ( isItemSerial( contserial ) )
+				{
+					P_ITEM pCont = FindItemBySerial( contserial );
+
+					if ( pCont )
+					{
+						pCont->addItem( pi, false, true, true );
+					}
+					else
+					{
+						Console::instance()->log( LOG_ERROR, QString( "Item with invalid container [0x%1].\n" ).arg( contserial, 0, 16 ) );
+						deleteItems.append( pi ); // Queue this item up for deletion
+						continue; // Skip further processing
+					}
+				}
+				else if ( isCharSerial( contserial ) )
+				{
+					P_CHAR pCont = FindCharBySerial( contserial );
+
+					if ( pCont )
+					{
+						pCont->addItem( ( cBaseChar::enLayer ) pi->layer(), pi, true, true );
+					}
+
+					if ( !pCont || pi->container() != pCont )
+					{
+						Console::instance()->log( LOG_ERROR, QString( "Item with invalid wearer [%1].\n" ).arg( contserial ) );
+						deleteItems.append( pi );
+						continue;
+					}
+				}
+
+				pi->setUnprocessed( false );
 			}
+
+			pi->flagUnchanged(); // We've just loaded, nothing changes.
 		}
 
-		// Find Guarding
-		if ( pChar->guarding() )
+		// Post Process Characters
+		cCharIterator charIter;
+		P_CHAR pChar;
+		for ( pChar = charIter.first(); pChar; pChar = charIter.next() )
 		{
-			SERIAL guarding = ( SERIAL ) pChar->guarding();
+			P_NPC pNPC = dynamic_cast<P_NPC>( pChar );
 
-			P_CHAR pGuarding = FindCharBySerial( guarding );
-			if ( pGuarding )
+			// Find Owner
+			if ( pNPC && pNPC->owner() )
 			{
-				pChar->setGuarding( pGuarding );
-				pGuarding->addGuard( pChar, true );
+				SERIAL owner = pNPC->owner()->serial();
+
+				P_PLAYER pOwner = dynamic_cast<P_PLAYER>( FindCharBySerial( owner ) );
+				if ( pOwner )
+				{
+					pNPC->setOwner( pOwner );
+					pOwner->addPet( pNPC, true );
+				}
+				else
+				{
+					Console::instance()->send( QString( "The owner of Serial 0x%1 is invalid: %2" ).arg( pNPC->serial(), 0, 16 ).arg( owner, 0, 16 ) );
+					pNPC->setOwner( NULL );
+				}
 			}
-			else
+
+			// Find Guarding
+			if ( pChar->guarding() )
 			{
-				Console::instance()->send( tr( "The guard target of Serial 0x%1 is invalid: %2" ).arg( pChar->serial(), 16 ).arg( guarding, 16 ) );
-				pChar->setGuarding( 0 );
+				SERIAL guarding = ( SERIAL ) pChar->guarding();
+
+				P_CHAR pGuarding = FindCharBySerial( guarding );
+				if ( pGuarding )
+				{
+					pChar->setGuarding( pGuarding );
+					pGuarding->addGuard( pChar, true );
+				}
+				else
+				{
+					Console::instance()->send( tr( "The guard target of Serial 0x%1 is invalid: %2" ).arg( pChar->serial(), 16 ).arg( guarding, 16 ) );
+					pChar->setGuarding( 0 );
+				}
+			}
+
+			cTerritory* region = Territories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
+			pChar->setRegion( region );
+
+			SERIAL multiserial = ( SERIAL ) ( pChar->multi() );
+			cMulti* multi = dynamic_cast<cMulti*>( findItem( multiserial ) );
+			pChar->setMulti( multi );
+			if ( multi )
+			{
+				multi->addObject( pChar );
+			}
+
+			pChar->flagUnchanged(); // We've just loaded, nothing changes
+		}
+
+		if ( deleteItems.count() > 0 )
+		{
+			// Do we have to delete items?
+			for ( P_ITEM pItem = deleteItems.first(); pItem; pItem = deleteItems.next() )
+				quickdelete( pItem );
+
+			Console::instance()->send( QString::number( deleteItems.count() ) + " deleted due to invalid container or position.\n" );
+			deleteItems.clear();
+		}
+
+		// Load SpawnRegion information
+		cDBResult result = PersistentBroker::instance()->query("SELECT spawnregion,serial FROM spawnregions;");
+
+		while (result.fetchrow())
+		{
+			QString spawnregion = result.getString(0);
+			SERIAL serial = result.getInt(1);
+
+			cSpawnRegion *region = SpawnRegions::instance()->region(spawnregion);
+			cUObject *object = findObject(serial);
+			if (object && region)
+			{
+				object->setSpawnregion(region);
 			}
 		}
 
-		cTerritory* region = Territories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
-		pChar->setRegion( region );
+		result.free();
 
-		SERIAL multiserial = ( SERIAL ) ( pChar->multi() );
-		cMulti* multi = dynamic_cast<cMulti*>( findItem( multiserial ) );
-		pChar->setMulti( multi );
-		if ( multi )
-		{
-			multi->addObject( pChar );
-		}
+		// Load Guilds
+		Guilds::instance()->load();
 
-		pChar->flagUnchanged(); // We've just loaded, nothing changes
+		// load server time from db
+		QString db_time;
+		QString default_time = Config::instance()->getString( "General", "UO Time", "", true );
+		getOption( "worldtime", db_time, default_time, false );
+		UoTime::instance()->setMinutes( db_time.toInt() );
+
+		PersistentBroker::instance()->disconnect();
+		Console::instance()->send( "Finished loading the world.\n" );
 	}
-
-	if ( deleteItems.count() > 0 )
-	{
-		// Do we have to delete items?
-		for ( P_ITEM pItem = deleteItems.first(); pItem; pItem = deleteItems.next() )
-			quickdelete( pItem );
-
-		Console::instance()->send( QString::number( deleteItems.count() ) + " deleted due to invalid container or position.\n" );
-		deleteItems.clear();
-	}
-
-	// Load SpawnRegion information
-	cDBResult result = PersistentBroker::instance()->query("SELECT spawnregion,serial FROM spawnregions;");
-
-	while (result.fetchrow())
-	{
-		QString spawnregion = result.getString(0);
-		SERIAL serial = result.getInt(1);
-
-		cSpawnRegion *region = SpawnRegions::instance()->region(spawnregion);
-		cUObject *object = findObject(serial);
-		if (object && region)
-		{
-			object->setSpawnregion(region);
-		}
-	}
-
-	result.free();
-
-	// Load Guilds
-	Guilds::instance()->load();
-
-	// load server time from db
-	QString db_time;
-	QString default_time = Config::instance()->getString( "General", "UO Time", "", true );
-	getOption( "worldtime", db_time, default_time, false );
-	UoTime::instance()->setMinutes( db_time.toInt() );
-
-	PersistentBroker::instance()->disconnect();
-
-	Console::instance()->send( "Finished loading the world.\n" );
 
 	cComponent::load();
 }
@@ -681,87 +764,114 @@ void cWorld::save()
 		}
 	}
 
-	if ( !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
-	{
-		Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
-		return;
-	}
+	try {
+		unsigned int startTime = getNormalizedTime();
 
-	try
-	{
-		PersistentBroker::instance()->connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword() );
-	}
-	catch ( QString& e )
-	{
-		Console::instance()->log( LOG_ERROR, QString( "Couldn't open the database: %1\n" ).arg( e ) );
-		return;
-	}
+		if (Config::instance()->databaseDriver() == "binary") {
+			// Save in binary format
+			cItemIterator itemIterator;
+			P_ITEM item;
+			cBufferedWriter writer("WOLFPACK", DATABASE_VERSION);
+			writer.open("world.bin");
+			const QMap<unsigned char, QString> &typemap = UObjectFactory::instance()->getTypemap();
 
-	unsigned int i = 0;
-
-	while ( tableInfo[i].name )
-	{
-		if ( !PersistentBroker::instance()->tableExists( tableInfo[i].name ) )
-		{
-			PersistentBroker::instance()->executeQuery( tableInfo[i].create );
-		}
-
-		++i;
-	}
-
-	unsigned int startTime = getNormalizedTime();
-
-	// Try to Benchmark
-	Config::instance()->flush();
-
-	// Flush old items
-	PersistentBroker::instance()->flushDeleteQueue();
-
-	p->purgePendingObjects();
-
-	PersistentBroker::instance()->startTransaction();
-
-	try
-	{
-		PersistentBroker::instance()->executeQuery("DELETE FROM spawnregions;");
-
-		cItemIterator iItems;
-		for ( P_ITEM pItem = iItems.first(); pItem; pItem = iItems.next() )
-		{
-			PersistentBroker::instance()->saveObject( pItem );
-
-			if (pItem->spawnregion())
-			{
-				QString name = PersistentBroker::instance()->quoteString(pItem->spawnregion()->name());
-				QString query = QString("INSERT INTO spawnregions VALUES('%1',%2);").arg(name).arg(pItem->serial());
-				PersistentBroker::instance()->executeQuery(query);
+			for (item = itemIterator.first(); item; item = itemIterator.next()) {
+				if (!item->container() && !item->multi()) {
+					item->save(writer);
+				}
 			}
-		}
 
-		cCharIterator iChars;
-		for ( P_CHAR pChar = iChars.first(); pChar; pChar = iChars.next() )
-		{
-			PersistentBroker::instance()->saveObject( pChar );
-
-			if (pChar->spawnregion())
-			{
-				QString name = PersistentBroker::instance()->quoteString(pChar->spawnregion()->name());
-				QString query = QString("INSERT INTO spawnregions VALUES('%1',%2);").arg(name).arg(pChar->serial());
-				PersistentBroker::instance()->executeQuery(query);
+			cCharIterator charIterator;
+			P_CHAR character;
+			for (character = charIterator.first(); character; character = charIterator.next()) {
+				if (!character->multi()) {
+					character->save(writer);
+				}
 			}
+
+			writer.writeByte(0xFF); // Terminator Type
+			writer.close();
+		} else {
+			if ( !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
+			{
+				Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
+				return;
+			}
+
+			try
+			{
+				PersistentBroker::instance()->connect( Config::instance()->databaseHost(), Config::instance()->databaseName(), Config::instance()->databaseUsername(), Config::instance()->databasePassword() );
+			}
+			catch ( QString& e )
+			{
+				Console::instance()->log( LOG_ERROR, QString( "Couldn't open the database: %1\n" ).arg( e ) );
+				return;
+			}
+
+			unsigned int i = 0;
+
+			while ( tableInfo[i].name )
+			{
+				if ( !PersistentBroker::instance()->tableExists( tableInfo[i].name ) )
+				{
+					PersistentBroker::instance()->executeQuery( tableInfo[i].create );
+				}
+
+				++i;
+			}
+
+			// Try to Benchmark
+			Config::instance()->flush();
+
+			// Flush old items
+			PersistentBroker::instance()->flushDeleteQueue();
+
+			p->purgePendingObjects();
+
+			PersistentBroker::instance()->startTransaction();
+
+			PersistentBroker::instance()->executeQuery("DELETE FROM spawnregions;");
+
+			cItemIterator iItems;
+			for ( P_ITEM pItem = iItems.first(); pItem; pItem = iItems.next() )
+			{
+				PersistentBroker::instance()->saveObject( pItem );
+
+				if (pItem->spawnregion())
+				{
+					QString name = PersistentBroker::instance()->quoteString(pItem->spawnregion()->name());
+					QString query = QString("INSERT INTO spawnregions VALUES('%1',%2);").arg(name).arg(pItem->serial());
+					PersistentBroker::instance()->executeQuery(query);
+				}
+			}
+
+			cCharIterator iChars;
+			for ( P_CHAR pChar = iChars.first(); pChar; pChar = iChars.next() )
+			{
+				PersistentBroker::instance()->saveObject( pChar );
+
+				if (pChar->spawnregion())
+				{
+					QString name = PersistentBroker::instance()->quoteString(pChar->spawnregion()->name());
+					QString query = QString("INSERT INTO spawnregions VALUES('%1',%2);").arg(name).arg(pChar->serial());
+					PersistentBroker::instance()->executeQuery(query);
+				}
+			}
+
+			Timers::instance()->save();
+
+			Guilds::instance()->save();
+
+			PersistentBroker::instance()->commitTransaction();
+
+			// Save the Current Time
+			setOption( "worldtime", QString::number( UoTime::instance()->getMinutes() ), false );
+
+            // Save the accounts
+			Accounts::instance()->save();
+
+			PersistentBroker::instance()->disconnect();
 		}
-
-		Timers::instance()->save();
-
-		Guilds::instance()->save();
-
-		PersistentBroker::instance()->commitTransaction();
-
-		// Save the Current Time
-		setOption( "worldtime", QString::number( UoTime::instance()->getMinutes() ), false );
-
-		// Save the accounts
-		Accounts::instance()->save();
 
 		Server::instance()->refreshTime();
 
@@ -792,8 +902,6 @@ void cWorld::save()
 			socket->send( &close );
 		}
 	}
-
-	PersistentBroker::instance()->disconnect();
 }
 
 /*
@@ -906,7 +1014,7 @@ void cWorld::registerObject( SERIAL serial, cUObject* object )
 
 		if ( it != p->items.end() )
 		{
-			Console::instance()->log( LOG_ERROR, QString( "Trying to register an item with the Serial 0x%1 which is already in use." ).arg( serial, 16 ) );
+			Console::instance()->log( LOG_ERROR, QString( "Trying to register an item with the Serial 0x%1 which is already in use." ).arg( serial, 0, 16 ) );
 			return;
 		}
 
@@ -915,7 +1023,7 @@ void cWorld::registerObject( SERIAL serial, cUObject* object )
 
 		if ( !pItem )
 		{
-			Console::instance()->log( LOG_ERROR, QString( "Trying to register an object with an item serial (0x%1) which is no item." ).arg( serial, 16 ) );
+			Console::instance()->log( LOG_ERROR, QString( "Trying to register an object with an item serial (0x%1) which is no item." ).arg( serial, 0, 16 ) );
 			return;
 		}
 
@@ -931,7 +1039,7 @@ void cWorld::registerObject( SERIAL serial, cUObject* object )
 
 		if ( it != p->chars.end() )
 		{
-			Console::instance()->log( LOG_ERROR, QString( "Trying to register a character with the Serial 0x%1 which is already in use." ).arg( QString::number( serial, 16 ) ) );
+			Console::instance()->log( LOG_ERROR, QString( "Trying to register a character with the Serial 0x%1 which is already in use." ).arg( QString::number( serial, 0, 16 ) ) );
 			return;
 		}
 
@@ -940,7 +1048,7 @@ void cWorld::registerObject( SERIAL serial, cUObject* object )
 
 		if ( !pChar )
 		{
-			Console::instance()->log( LOG_ERROR, QString( "Trying to register an object with a character serial (0x%1) which is no character." ).arg( QString::number( serial, 16 ) ) );
+			Console::instance()->log( LOG_ERROR, QString( "Trying to register an object with a character serial (0x%1) which is no character." ).arg( QString::number( serial, 0, 16 ) ) );
 			return;
 		}
 
@@ -958,7 +1066,7 @@ void cWorld::registerObject( SERIAL serial, cUObject* object )
 	}
 	else
 	{
-		Console::instance()->log( LOG_ERROR, QString( "Tried to register an object with an invalid Serial (0x%1) in the World." ).arg( QString::number( serial, 16 ) ) );
+		Console::instance()->log( LOG_ERROR, QString( "Tried to register an object with an invalid Serial (0x%1) in the World." ).arg( QString::number( serial, 0, 16 ) ) );
 		return;
 	}
 }
@@ -1017,7 +1125,7 @@ void cWorld::unregisterObject( SERIAL serial )
 	}
 	else
 	{
-		Console::instance()->log( LOG_ERROR, QString( "Trying to unregister an object with an invalid serial (0x%08x)." ).arg( serial ) );
+		Console::instance()->log( LOG_ERROR, QString( "Trying to unregister an object with an invalid serial (0x%1)." ).arg( serial, 0, 16 ) );
 		return;
 	}
 }

@@ -35,6 +35,9 @@
 
 class cMulti : public cItem
 {
+private:
+	static unsigned char classid;
+
 protected:
 	// Objects in the Multi.
 	// Items that are in the Multi
@@ -42,6 +45,10 @@ protected:
 	QPtrList<cUObject> objects;
 
 public:
+	unsigned char getClassid() {
+		return cMulti::classid;
+	}
+
 	const char* objectID() const
 	{
 		return "cMulti";
@@ -54,6 +61,7 @@ public:
 	void load( char **, UINT16& );
 	void save();
 	bool del();*/
+	void save(cBufferedWriter &writer);
 
 	// Find at certain position
 	static cMulti* find( const Coord_cl& pos );

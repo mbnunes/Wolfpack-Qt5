@@ -95,8 +95,10 @@ void cPlayer::registerInFactory()
 	buildSqlString( fields, tables, conditions ); // Build our SQL string
 	QString sqlString = QString( "SELECT %1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cPlayer' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
 	UObjectFactory::instance()->registerType( "cPlayer", productCreator );
-	UObjectFactory::instance()->registerSqlQuery( "cPlayer", sqlString );
+	classid = UObjectFactory::instance()->registerSqlQuery( "cPlayer", sqlString );
 }
+
+unsigned char cPlayer::classid;
 
 void cPlayer::buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions )
 {
@@ -109,6 +111,37 @@ void cPlayer::buildSqlString( QStringList& fields, QStringList& tables, QStringL
 }
 
 static void playerRegisterAfterLoading( P_PLAYER pc );
+
+void cPlayer::load(cBufferedReader &reader) {
+	load(reader, reader.version());
+
+	World::instance()->registerObject(this);
+	SectorMaps::instance()->add(this);
+}
+
+void cPlayer::load(cBufferedReader &reader, unsigned int version) {
+	cBaseChar::load(reader, version);
+	setAccount(Accounts::instance()->getRecord(reader.readUtf8()));
+	additionalFlags_ = reader.readInt();
+	visualRange_ = reader.readByte();
+	profile_ = reader.readUtf8();
+	fixedLightLevel_ = reader.readByte();
+	strengthLock_ = reader.readByte();
+	dexterityLock_ = reader.readByte();
+	intelligenceLock_ = reader.readByte();
+}
+
+void cPlayer::save(cBufferedWriter &writer, unsigned int version) {
+	cBaseChar::save(writer, version);
+	writer.writeUtf8(account_ ? account_->login() : QString::null);
+	writer.writeInt(additionalFlags_);
+	writer.writeByte(visualRange_);
+	writer.writeUtf8(profile_);
+	writer.writeByte(fixedLightLevel_);
+	writer.writeByte(strengthLock_);
+	writer.writeByte(dexterityLock_);
+	writer.writeByte(intelligenceLock_);
+}
 
 void cPlayer::load( char** result, UINT16& offset )
 {

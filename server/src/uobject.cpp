@@ -151,8 +151,7 @@ unsigned int cUObject::dist( cUObject* d ) const
 /*!
 	Performs persistency layer loads.
 */
-void cUObject::load( char** result, UINT16& offset )
-{
+void cUObject::load(char** result, UINT16& offset) {
 	name_ = ( result[offset] == 0 ) ? QString::null : QString::fromUtf8( result[offset] );
 	offset++;
 	serial_ = atoi( result[offset++] );
@@ -220,6 +219,28 @@ void cUObject::save()
 
 	PersistentObject::save();
 	flagUnchanged(); // This is the botton of the chain, now go up and flag everyone unchanged.
+}
+
+void cUObject::save(cBufferedWriter &writer, unsigned int version) {
+	writer.writeUtf8(name_);
+	writer.writeInt(serial_);
+	writer.writeInt(multi_ ? multi_->serial() : INVALID_SERIAL);
+	writer.writeShort(pos_.x);
+	writer.writeShort(pos_.y);
+	writer.writeByte(pos_.z);
+	writer.writeByte(pos_.map);
+	writer.writeUtf8(eventList());
+}
+
+void cUObject::load(cBufferedReader &reader, unsigned int version) {
+	name_ = reader.readUtf8();
+	serial_ = reader.readInt();
+	setMulti(dynamic_cast<cMulti*>(World::instance()->findItem(reader.readInt())));
+	pos_.x = reader.readShort();
+	pos_.y = reader.readShort();
+	pos_.z = reader.readByte();
+	pos_.map = reader.readByte();
+	setEventList(reader.readUtf8());
 }
 
 /*!
@@ -1036,4 +1057,17 @@ void cUObject::setEventList( const QString& eventlist )
 			scriptChain[i++] = script;
 		}
 	}
+}
+
+void cUObject::save(cBufferedWriter &writer) {
+	writer.setObjectCount(writer.objectCount() + 1);
+	writer.writeByte(getClassid());
+	
+	unsigned int length = writer.position();
+	save(writer, writer.version());
+	length = writer.position() - length;
+	writer.setSkipSize(getClassid(), length);
+
+	// Save tags for this object
+	tags_.save(serial_, writer);
 }

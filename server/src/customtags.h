@@ -44,6 +44,8 @@ class cBaseChar;
 class QString;
 class cVariant;
 class Coord_cl;
+class cBufferedReader;
+class cBufferedWriter;
 
 class cVariant
 {
@@ -75,6 +77,9 @@ public:
 	cVariant( const Coord_cl& );
 	cVariant( double );
 	cVariant( long int );
+
+	void serialize(cBufferedWriter &writer, unsigned int version);
+	void serialize(cBufferedReader &reader, unsigned int version);
 
 	Type type() const;
 	const char* typeName() const;
@@ -154,6 +159,8 @@ public:
 
 	QValueList<cVariant> getValues();
 
+	void save(SERIAL serial, cBufferedWriter &writer);
+
 	bool getChanged() const
 	{
 		return changed;
@@ -167,7 +174,6 @@ public:
 	cCustomTags& operator=( const cCustomTags& );
 	bool operator==( const cCustomTags& ) const;
 	bool operator!=( const cCustomTags& ) const;
-
 private:
 	QMap<QString, cVariant>* tags_;
 	bool changed : 1;

@@ -36,6 +36,8 @@
 #include <qvaluevector.h>
 #include "server.h"
 
+class cBufferedReader;
+
 class cCharIterator
 {
 private:
@@ -74,6 +76,7 @@ private:
 	unsigned int lastTooltip;
 	SERIAL _lastCharSerial, _lastItemSerial;
 	unsigned int _playerCount, _npcCount;
+	void loadTag(cBufferedReader &reader, unsigned int version);
 
 public:
 	// Constructor/Destructor
