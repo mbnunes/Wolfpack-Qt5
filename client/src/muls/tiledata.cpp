@@ -9,8 +9,6 @@
 
 cTileInfo::cTileInfo() {
 	refcount = 1;
-	memset(items, 0, sizeof(items));
-	memset(land, 0, sizeof(land));
 }
 
 cTileInfo::~cTileInfo() {
@@ -78,14 +76,23 @@ void cTiledata::load() {
 
 void cTiledata::unload() {
 	for (int i = 0; i < 0x4000; ++i) {
-		land[i]->decref();
-		items[i]->decref();
+		if (land[i]) {
+			land[i]->decref();
+		}
+		if (items[i]) {
+			items[i]->decref();
+		}
 	}
 }
 
 void cTiledata::reload() {
 	unload();
 	load();
+}
+
+cTiledata::cTiledata() {
+	memset(items, 0, sizeof(items));
+	memset(land, 0, sizeof(land));
 }
 
 cTiledata *Tiledata = 0;
