@@ -10,9 +10,84 @@
 	<npc id="mage_inventory">
 		<shopkeeper>
 			<restockable>
+				<!-- Scrolls -->
+				<item id="1f2d"><amount>20</amount></item>
+				<item id="1f2e"><amount>20</amount></item>
+				<item id="1f2f"><amount>20</amount></item>
+				<item id="1f30"><amount>20</amount></item>
+				<item id="1f31"><amount>20</amount></item>
+				<item id="1f32"><amount>20</amount></item>
+				<item id="1f33"><amount>20</amount></item>
+				<item id="1f34"><amount>20</amount></item>
+				<item id="1f35"><amount>20</amount></item>
+				<item id="1f36"><amount>20</amount></item>
+				<item id="1f37"><amount>20</amount></item>
+				<item id="1f38"><amount>20</amount></item>
+				<item id="1f39"><amount>20</amount></item>
+				<item id="1f3a"><amount>20</amount></item>
+				<item id="1f3b"><amount>20</amount></item>
+				<item id="1f3c"><amount>20</amount></item>
+				<item id="1f3d"><amount>20</amount></item>
+				<item id="1f3e"><amount>20</amount></item>
+				<item id="1f3f"><amount>20</amount></item>
+				<item id="1f40"><amount>20</amount></item>
+				<item id="1f41"><amount>20</amount></item>
+				<item id="1f42"><amount>20</amount></item>
+				<item id="1f43"><amount>20</amount></item>
+				<item id="1f44"><amount>20</amount></item>
+				<item id="1f45"><amount>20</amount></item>
+				<item id="1f46"><amount>20</amount></item>
+				<item id="1f47"><amount>20</amount></item>
+				<item id="1f48"><amount>20</amount></item>
+				<item id="1f49"><amount>20</amount></item>
+				<item id="1f4a"><amount>20</amount></item>
+				<item id="1f4b"><amount>20</amount></item>
+				<item id="1f4c"><amount>20</amount></item>
+				<item id="1f4d"><amount>20</amount></item>
+				<item id="1f4e"><amount>20</amount></item>
+				<item id="1f4f"><amount>20</amount></item>
+				<item id="1f50"><amount>20</amount></item>
+				<item id="1f51"><amount>20</amount></item>
+				<item id="1f52"><amount>20</amount></item>
+				<item id="1f53"><amount>20</amount></item>
+				<item id="1f54"><amount>20</amount></item>
+				<item id="1f55"><amount>20</amount></item>
+				<item id="1f56"><amount>20</amount></item>
+				<item id="1f57"><amount>20</amount></item>
+				<item id="1f58"><amount>20</amount></item>
+				<item id="1f59"><amount>20</amount></item>
+				<item id="1f5a"><amount>20</amount></item>
+				<item id="1f5b"><amount>20</amount></item>
+				<item id="1f5c"><amount>20</amount></item>
+				<item id="1f5d"><amount>20</amount></item>
+				<item id="1f5e"><amount>20</amount></item>
+				<item id="1f5f"><amount>20</amount></item>
+				<item id="1f60"><amount>20</amount></item>
+				<item id="1f61"><amount>20</amount></item>
+				<item id="1f62"><amount>20</amount></item>
+				<item id="1f63"><amount>20</amount></item>
+				<item id="1f64"><amount>20</amount></item>
+				<item id="1f65"><amount>20</amount></item>
+				<item id="1f66"><amount>20</amount></item>
+				<item id="1f67"><amount>20</amount></item>
+				<item id="1f68"><amount>20</amount></item>
+				<item id="1f69"><amount>20</amount></item>
+				<item id="1f6a"><amount>20</amount></item>
+				<item id="1f6b"><amount>20</amount></item>
+				<item id="1f6c"><amount>20</amount></item>
+				<item id="1f6d"><amount>20</amount></item>
+				<item id="1f6e"><amount>20</amount></item>
+				<item id="1f6f"><amount>20</amount></item>
+				<item id="1f70"><amount>20</amount></item>
+				<item id="1f71"><amount>20</amount></item>
+				<item id="1f72"><amount>20</amount></item>
+			
+				<!-- Spellbook -->
 				<item id="efa">
 					<amount>10</amount>
 				</item>
+				
+				<!-- Runes -->
 				<item id="1f14">
 					<amount>10</amount>
 				</item>
@@ -25,42 +100,8 @@
 				<item id="1f17">
 					<amount>10</amount>
 				</item>
-				<item id="1f2e">
-					<amount>10</amount>
-				</item>
-				<item id="1f2f">
-					<amount>10</amount>
-				</item>
-				<item id="1f30">
-					<amount>10</amount>
-				</item>
-				<item id="1f31">
-					<amount>10</amount>
-				</item>
-				<item id="1f32">
-					<amount>10</amount>
-				</item>
-				<item id="1f33">
-					<amount>10</amount>
-				</item>
-				<item id="1f2d">
-					<amount>10</amount>
-				</item>
-				<item id="1f34">
-					<amount>10</amount>
-				</item>
-				<item id="1f35">
-					<amount>10</amount>
-				</item>
-				<item id="1f36">
-					<amount>10</amount>
-				</item>
-				<item id="1f37">
-					<amount>10</amount>
-				</item>
-				<item id="1f38">
-					<amount>10</amount>
-				</item>
+				
+				<!-- Reagents -->
 				<item id="f7a">
 					<amount>999</amount>
 				</item>
@@ -88,6 +129,7 @@
 				<item id="e34">
 					<amount>10</amount>
 				</item>
+				
 				<item id="scribes_pen"><amount>10</amount></item> <!-- Blank Scrolls -->
 				<item id="e34"><amount>20</amount></item> <!-- Blank Scrolls -->
 			</restockable>
@@ -97,18 +139,6 @@
 				<item id="1f15"/>
 				<item id="1f16"/>
 				<item id="1f17"/>
-				<item id="1f2e"/>
-				<item id="1f2f"/>
-				<item id="1f30"/>
-				<item id="1f31"/>
-				<item id="1f32"/>
-				<item id="1f33"/>
-				<item id="1f2d"/>
-				<item id="1f34"/>
-				<item id="1f35"/>
-				<item id="1f36"/>
-				<item id="1f37"/>
-				<item id="1f38"/>
 				<item id="f7a"/>
 				<item id="f7b"/>
 				<item id="f84"/>
@@ -118,6 +148,77 @@
 				<item id="f8c"/>
 				<item id="f8d"/>
 				<item id="e34"/>
+				<!-- Scrolls -->
+				<item id="1f2d"/>
+				<item id="1f2e"/>
+				<item id="1f2f"/>
+				<item id="1f30"/>
+				<item id="1f31"/>
+				<item id="1f32"/>
+				<item id="1f33"/>
+				<item id="1f34"/>
+				<item id="1f35"/>
+				<item id="1f36"/>
+				<item id="1f37"/>
+				<item id="1f38"/>
+				<item id="1f39"/>
+				<item id="1f3a"/>
+				<item id="1f3b"/>
+				<item id="1f3c"/>
+				<item id="1f3d"/>
+				<item id="1f3e"/>
+				<item id="1f3f"/>
+				<item id="1f40"/>
+				<item id="1f41"/>
+				<item id="1f42"/>
+				<item id="1f43"/>
+				<item id="1f44"/>
+				<item id="1f45"/>
+				<item id="1f46"/>
+				<item id="1f47"/>
+				<item id="1f48"/>
+				<item id="1f49"/>
+				<item id="1f4a"/>
+				<item id="1f4b"/>
+				<item id="1f4c"/>
+				<item id="1f4d"/>
+				<item id="1f4e"/>
+				<item id="1f4f"/>
+				<item id="1f50"/>
+				<item id="1f51"/>
+				<item id="1f52"/>
+				<item id="1f53"/>
+				<item id="1f54"/>
+				<item id="1f55"/>
+				<item id="1f56"/>
+				<item id="1f57"/>
+				<item id="1f58"/>
+				<item id="1f59"/>
+				<item id="1f5a"/>
+				<item id="1f5b"/>
+				<item id="1f5c"/>
+				<item id="1f5d"/>
+				<item id="1f5e"/>
+				<item id="1f5f"/>
+				<item id="1f60"/>
+				<item id="1f61"/>
+				<item id="1f62"/>
+				<item id="1f63"/>
+				<item id="1f64"/>
+				<item id="1f65"/>
+				<item id="1f66"/>
+				<item id="1f67"/>
+				<item id="1f68"/>
+				<item id="1f69"/>
+				<item id="1f6a"/>
+				<item id="1f6b"/>
+				<item id="1f6c"/>
+				<item id="1f6d"/>
+				<item id="1f6e"/>
+				<item id="1f6f"/>
+				<item id="1f70"/>
+				<item id="1f71"/>
+				<item id="1f72"/>
 			</sellable>
 		</shopkeeper>
 	</npc>
