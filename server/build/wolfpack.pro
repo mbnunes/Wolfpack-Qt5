@@ -8,16 +8,16 @@ PROJECT = Wolfpack Emu
 
 INCLUDEPATH = ./ZThread/include
 win32:OBJECTS_DIR = obj
-win32-msvc:DEFINES  = WIN32 NDEBUG _CONSOLE _MBCS ZTHREAD_STATIC
+win32-msvc:DEFINES  = WIN32 NDEBUG _CONSOLE _MBCS ZTHREAD_STATIC REENTRANT
 win32-g++:DEFINES = WIN32 ZTHREAD_STATIC
 
-unix:TMAKE_CXXFLAGS = -funsigned-char -I/usr/local/include 
-unix:LIBS= -LZThread/lib/ -lZThread 
+#unix:TMAKE_CXXFLAGS = -funsigned-char -I/usr/local/include 
+unix:LIBS= -LZThread/lib/ -lZThread -lpthread
 #unix:LIBS= -L/usr/local/lib/ -L/usr/local/lib/pth -lZThread -lpthread 
 
-unix:DEFINES   = ZTHREAD_STATIC
-unix:TMAKE_CXXFLAGS = -funsigned-char
-unix:LIBS= -LZThread/lib/ -lZThread 
+unix:DEFINES   = ZTHREAD_STATIC  _POSIX NDEBUG REENTRANT
+unix:TMAKE_CXXFLAGS = -IZthread/include -funsigned-char
+#unix:LIBS= -LZThread/lib/ -lZThread 
 
 win32-g++:TMAKE_CXXFLAGS = -funsigned-char
 win32-g++:LIBS= -LZThread/lib/ -lwsock32 -lZThread
@@ -122,7 +122,6 @@ SOURCES         = Client.cpp \
 		  boats.cpp \
 		  books.cpp \
 		  bounty.cpp \
-		  cFile.cpp \
 		  cache.cpp \
                   chars.cpp \
                   charsmgr.cpp \

@@ -220,7 +220,7 @@ void cRegion::RegionIterator4Chars::Begin(void)
 {
 	currentCell = cell;
 	Coord_cl lastmapPos( cMapStuff::mapTileWidth(position)*8, cMapStuff::mapTileHeight(position)*8, position.z, position.map, position.plane );
-	endCell = max ( cell + 2 * cRegion::GetColSize() + 2, cRegion::GetCell(lastmapPos)); // Find out where we stop.
+	endCell = max ( cell + 2 * cRegion::GetColSize() + 2, static_cast<long unsigned int>(cRegion::GetCell(lastmapPos))); // Find out where we stop.
 	currentIndex = 0;
 	vecEntries = mapRegions->GetCellEntries(currentCell, enCharsOnly);
 	while ( vecEntries.empty() && !atEnd() ) // make sure we start with something at least.
@@ -289,7 +289,7 @@ void cRegion::RegionIterator4Items::Begin(void)
 {
 	currentCell = cell;
 	Coord_cl lastmapPos( cMapStuff::mapTileWidth(position)*8, cMapStuff::mapTileHeight(position)*8, position.z, position.map, position.plane );
-	endCell = max ( cell + 2 * cRegion::GetColSize() + 2, cRegion::GetCell(lastmapPos)); // Find out where we stop.
+	endCell = max ( cell + 2 * cRegion::GetColSize() + 2, static_cast<long unsigned int>(cRegion::GetCell(lastmapPos))); // Find out where we stop.
 	currentIndex = 0;
 	vecEntries = mapRegions->GetCellEntries(currentCell, enItemsOnly);
 	while ( vecEntries.empty() && !atEnd() ) // make sure we start with something at least.
