@@ -7,13 +7,10 @@ class cHouseManager
 public:
 	cHouseManager()
 	{
-		printf("House Manager succesfully started!\n");
 		HouseFile=NULL;
-		printf("exiting construcctor \n");	
 	};
 	~cHouseManager()
 	{
-		printf("House Manager succesfully shutdown!\n");
 		HouseFile=NULL;
 	};
 	void AddHome(int s, int i);

@@ -224,7 +224,7 @@ unsigned char npcinrange (UOXSOCKET s, P_CHAR pc, int distance)
 #if defined(__unix__)
 void signal_handler(int signal)
 {
-	clConsole.send("In signal handler\n") ;
+//	clConsole.send("In signal handler\n") ;
 	switch (signal)
 	{
 	case SIGHUP:
@@ -288,6 +288,11 @@ void init_deamon()
 	signal(SIGHUP,&signal_handler) ;
 	signal(SIGUSR1,&signal_handler) ;
 	signal(SIGTERM,&signal_handler) ;
+// we have this here, because convient, but should be set regardless of deamon or not.
+// Keeps a disconnected socket from terminating the server.
+#if !defined(__linux__)
+	signal(SIGPIPE,&signal_handler) ;
+#endif
 	
 #endif
 */

@@ -45,6 +45,8 @@
 #include <sys/errno.h>
 #include <sys/time.h>
 #include <sys/select.h>
+#include <signal.h>
+#include <cstdio>
 // NETWORK DEFINES
 #define closesocket(s)  close(s) 
 //doesnt have the new gethostbyname2
@@ -59,6 +61,7 @@
 #define INET_ADDR 0
 
 #define WSAECONNRESET EPIPE
+void signal_handler(int) ;
 
 #elif defined(WIN32)
 
