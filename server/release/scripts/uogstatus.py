@@ -40,15 +40,15 @@ statusRequest = [
 #
 def handleStatus(socket, packet):
     statusPacket = 1
-    for i in range( 0, packet.size ):
-        if (packet.getbyte(i) != statusRequest[i]):
+    for i in range(0, packet.size):
+        if packet.getbyte(i) != statusRequest[i]:
             statusPacket = 0
             break
 
     if statusPacket:
-        status = 'olfpack, Clients=%i, Items=%i, Chars=%i, Version=%s' % (wolfpack.sockets.count(), wolfpack.itemcount(), wolfpack.charcount(), wolfpack.serverversion())
+        status = 'olfpack, Clients=%i, Items=%i, Chars=%i, Version="%s"' % (wolfpack.sockets.count(), wolfpack.itemcount(), wolfpack.charcount(), wolfpack.serverversion())
 
-        packet = wolfpack.packet(87, len(status) + 1)
+        packet = wolfpack.packet(87, len(status) + 2)
         packet.setascii(1, status)
         packet.send(socket)
         socket.log(LOG_MESSAGE, "Sent status information.\n")
