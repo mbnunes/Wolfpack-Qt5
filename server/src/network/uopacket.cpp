@@ -335,7 +335,6 @@ int cUOPacket::getInt( uint pos ) const
 	if ( rawPacket.size() < pos + 3 )
 	{
 		qWarning( "Warning: cUOPacket::getInt() called with params out of bounds" );
-		return QString(); //#better return empty ?
 	}
 #endif
 	int value;
