@@ -852,23 +852,50 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	
 	pChar->setAccount( _account );
 
-	UI08 skillid = 0xFF;
+	uchar skillid = 0xFF;
+	uchar skillid2 = 0xFF;
+
 	if( packet->skillValue1() > packet->skillValue2() )
 	{
 		if( packet->skillValue1() > packet->skillValue3() )
+		{
 			skillid = packet->skillId1();
+			if ( packet->skillValue2() > packet->skillValue3() )
+				skillid2 = packet->skillId2();
+			else
+				skillid2 = packet->skillId3();
+		}
 		else
+		{
 			skillid = packet->skillId3();
+			if ( packet->skillValue2() > packet->skillValue1() )
+				skillid2 = packet->skillId2();
+			else
+				skillid2 = packet->skillId1();
+		}
 	}
 	else
 	{
 		if( packet->skillValue2() > packet->skillValue3() )
+		{
 			skillid = packet->skillId2();
+			if ( packet->skillValue1() > packet->skillValue3() )
+				skillid2 = packet->skillId1();
+			else
+				skillid2 = packet->skillId3();
+		}
 		else
+		{
 			skillid = packet->skillId3();
+			if ( packet->skillValue1() > packet->skillValue2() )
+				skillid2 = packet->skillId1();
+			else
+				skillid2 = packet->skillId2();
+		}
 	}
 
 	pChar->giveNewbieItems( skillid );
+	pChar->giveNewbieItems( skillid2 );
 
 	// Start the game with the newly created char -- OR RELAY HIM !!
     playChar( pChar );

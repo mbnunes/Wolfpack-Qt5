@@ -618,6 +618,21 @@ static PyObject* wpItem_additem( wpItem* self, PyObject* args )
 	return PyTrue;
 }
 
+/*!
+	Amount of items inside this container
+*/
+static PyObject* wpItem_countItem( wpItem* self, PyObject* args )
+{
+	if( !self->pItem || self->pItem->free )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	return PyInt_FromLong( self->pItem->content().size() );
+
+}
+
 // If we are in a multi, return the multi object for it
 // otherwise pynone
 static PyObject* wpItem_multi( wpItem* self, PyObject* args )
@@ -663,9 +678,18 @@ static PyObject* wpItem_dupe( wpItem *self, PyObject *args )
 	return Py_None;
 }
 
+static PyObject* wpItem_isblessed( wpItem *self, PyObject *args )
+{
+	if (self->pItem->free) {
+		return 0;
+	}
+	return self->pItem->newbie() ? PyTrue : PyFalse;
+}
+
 static PyMethodDef wpItemMethods[] = 
 {
 	{ "additem",			(getattrofunc)wpItem_additem, METH_VARARGS, "Adds an item to this container." },
+	{ "countitem",			(getattrofunc)wpItem_countItem, METH_VARARGS, "Counts how many items are inside this container." },
     { "update",				(getattrofunc)wpItem_update, METH_VARARGS, "Sends the item to all clients in range." },
 	{ "removefromview",		(getattrofunc)wpItem_removefromview, METH_VARARGS, "Removes the item from the view of all in-range clients." },
 	{ "delete",				(getattrofunc)wpItem_delete, METH_VARARGS, "Deletes the item and the underlying reference." },
@@ -696,6 +720,7 @@ static PyMethodDef wpItemMethods[] =
 	// Is*? Functions
 	{ "isitem",				(getattrofunc)wpItem_isitem, METH_VARARGS, "Is this an item." },
 	{ "ischar",				(getattrofunc)wpItem_ischar, METH_VARARGS, "Is this a char." },
+	{ "isblessed",			(getattrofunc)wpItem_isblessed, METH_VARARGS, "Is this item blessed(newbie) "},
     { NULL, NULL, 0, NULL }
 };
 

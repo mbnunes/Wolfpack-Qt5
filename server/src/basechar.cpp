@@ -1062,7 +1062,14 @@ void cBaseChar::processNode( const cElement *Tag )
 					if( !mLayer )
 						pItem->remove();
 					else
+					{
+						// Check if there is sth there already.
+						// Could happen due to inherit.
+						P_ITEM existing = atLayer(static_cast<cBaseChar::enLayer>(mLayer));
+						if ( existing )
+							existing->remove();
 						addItem( static_cast<cBaseChar::enLayer>(mLayer), pItem );
+					}
 				}
 				else
 				{

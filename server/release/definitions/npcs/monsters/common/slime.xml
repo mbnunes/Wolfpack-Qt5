@@ -22,7 +22,7 @@
 		<hidamage>5</hidamage>
 		<!-- Resists -->
 		<defense><random min="5" max="10"/></defense>
-		<tag name="physicalresist" value=5,10"" />
+		<tag name="physicalresist" value="5,10" />
 		<tag name="poisonresist" value="10,20" />
 		<!-- Misc. -->
 		<desc>Slimes are creatures of pure instinct, lacking even the intelligence of a fish or tiny vermin. They live by dissolving anything that comes into contact with them, living or dead. Gold is one of the few things their acids cannot touch, and they are often found in its presence. Perhaps over the centuries they have come to dimly recognize that gold will lure their prey to them.</desc>

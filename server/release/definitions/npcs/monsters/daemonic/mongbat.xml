@@ -23,7 +23,7 @@
 		<hidamage>2</hidamage>
 		<!-- Resists -->
 		<defense><random min="5" max="10" /></defense>
-		<tag name="physicalresist" value=5,10"" />
+		<tag name="physicalresist" value="5,10" />
 		<!-- Misc. -->
 		<desc>Like the harpies and the headless, the mongbat is a bestial perversionof the human form, being shaped like a bat with a monkey's head.Mongbats are cowardly creatures, of no great threat individually, butthey are masters of the underground ambush, attacking in flocks fromout of the concealing dark.</desc>
 		<carve>carve_mong_bat</carve>

@@ -12,6 +12,9 @@
 	<npc id="fisherman_male">
 		<inherit>vendor_male</inherit>
 		<title>the Fisherman</title>
+		<equipped>
+			<item id="dbf" /> <!-- Fishing Pole -->
+		</equipped>
 		<shopkeeper>
 			<restockable>
 				<item id="97a"><amount>20</amount></item>
@@ -32,6 +35,9 @@
 	<npc id="fisherlady_female">
 		<inherit>vendor_female</inherit>
 		<title>the Fisherlady</title>
+		<equipped>
+			<item id="dbf" /> <!-- Fishing Pole -->
+		</equipped>
 		<shopkeeper>
 			<restockable>
 				<item id="97a"><amount>20</amount></item>

@@ -12,6 +12,13 @@
 	<npc id="armorer_male">
 		<inherit>vendor_male</inherit>
 		<title>the Armorer</title>
+		<!-- The Equipment -->
+		<equipped>
+			<item id="153b" > <!-- Half Apron -->
+				<color><random min="1701" max="1755" /></color>
+			</item>
+			<item id="140d" /> <!-- Bascinet -->
+		</equipped>
 		<shopkeeper>
 			<restockable>
 				<item id="13bb">
@@ -114,6 +121,12 @@
 	<npc id="armorer_female">
 		<inherit>vendor_female</inherit>
 		<title>the Armorer</title>
+		<equipped>
+			<item id="153b" > <!-- Half Apron -->
+				<color><random min="1701" max="1755" /></color>
+			</item>
+			<item id="140d" /> <!-- Bascinet -->
+		</equipped>
 		<shopkeeper>
 			<restockable>
 				<item id="13bb">

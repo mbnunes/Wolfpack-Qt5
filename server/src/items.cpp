@@ -943,7 +943,7 @@ void cItem::processNode( const cElement *Tag )
 		setWeight( TileCache::instance()->getTile( id_ ).weight );
 	}
 
-	// <content><item id="a" />...<item id="z" /></contains> (sereg)
+	// <content><item id="a" />...<item id="z" /></content> (sereg)
 	else if( TagName == "content" && Tag->childCount() > 0 )
 		this->processContainerNode( Tag );
 
@@ -1678,7 +1678,7 @@ P_CHAR cItem::getOutmostChar()
 // If we change the amount, the weight changes as well
 void cItem::setAmount( UI16 nValue )
 {
-	setTotalweight( totalweight_ + ceilf( ( nValue - amount_ ) * weight_ * 100 ) / 100 );
+	setTotalweight( totalweight_ + ( nValue - amount_ ) * weight_  );
 	amount_ = nValue;	
 	changed( TOOLTIP );
 	flagChanged();

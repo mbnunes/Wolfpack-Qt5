@@ -12,6 +12,9 @@
 	<npc id="cook_male">
 		<inherit>vendor_male</inherit>
 		<title>the Cook</title>
+		<equipped>
+			<item id="153b" /> <!-- Half Apron -->
+		</equipped>
 		<shopkeeper>
 			<restockable>
 				<item id="97e"><amount>20</amount></item>
@@ -50,6 +53,9 @@
 	<npc id="cook_female">
 		<inherit>vendor_female</inherit>
 		<title>the Cook</title>
+		<equipped>
+			<item id="153b" /> <!-- Half Apron -->
+		</equipped>
 		<shopkeeper>
 			<restockable>
 				<item id="97e"><amount>20</amount></item>

@@ -210,14 +210,19 @@
 	        <!--Random 1-4 Circle Scrolls--><item list="1_THRU_4_CIRCLE" />
 	        <!--Random 1-4 Circle Scrolls--><item list="1_THRU_4_CIRCLE" />
 	        <!--Random 1-4 Circle Scrolls--><item list="1_THRU_4_CIRCLE" />
-	        <!--Black Pearl --><item id="f7a"><amount>30</amount></item>
-	        <!--Bloodmoss --><item id="f7b"><amount>30</amount></item>
-	        <!--Garlic --><item id="f84"><amount>30</amount></item>
-	        <!--Gensing --><item id="f85"><amount>30</amount></item>
-	        <!--Mandrake Root --><item id="f86"><amount>30</amount></item>
-	        <!--Nightshade --><item id="f88"><amount>30</amount></item>
-	        <!--Sulfurous Ash --><item id="f8c"><amount>30</amount></item>
-	        <!--Spider Silk --><item id="f8d"><amount>30</amount></item>
+		  <!--Bag-->
+		  <item id="e76">
+			<content>
+		        <!--Black Pearl --><item id="f7a"><amount>50</amount></item>
+		        <!--Bloodmoss --><item id="f7b"><amount>50</amount></item>
+	      	  <!--Garlic --><item id="f84"><amount>50</amount></item>
+		        <!--Gensing --><item id="f85"><amount>50</amount></item>
+		        <!--Mandrake Root --><item id="f86"><amount>50</amount></item>
+	      	  <!--Nightshade --><item id="f88"><amount>50</amount></item>
+		        <!--Sulfurous Ash --><item id="f8c"><amount>50</amount></item>
+		        <!--Spider Silk --><item id="f8d"><amount>50</amount></item>
+			</content>
+		  </item>
 	</startitems>
 
 	<!--  Magic Resistance -->

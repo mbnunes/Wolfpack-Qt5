@@ -12,6 +12,12 @@
 	<npc id="alchemist_male">
 		<inherit>vendor_male</inherit>
 		<title>the Alchemist</title>
+		<!-- The Equipment -->
+		<equipped>
+			<item id="1f03" > <!-- Robe -->
+				<color><random min="1201" max="1255" /></color>
+			</item>
+		</equipped>
 		<shopkeeper>
 			<restockable>
 				<item id="e24">
@@ -258,6 +264,12 @@
 	<npc id="alchemist_female">
 		<inherit>vendor_female</inherit>
 		<title>the Alchemist</title>
+		<!-- The Equipment -->
+		<equipped>
+			<item id="1f03" > <!-- Robe -->
+				<color><random min="1201" max="1255" /></color>
+			</item>
+		</equipped>
 		<shopkeeper>
 			<restockable>
 				<item id="e24">

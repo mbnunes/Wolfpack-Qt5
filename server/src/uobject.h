@@ -164,8 +164,8 @@ public:
 
 	virtual void sendTooltip( cUOSocket* mSock );
 
-	bool isItem() { return (serial_ != INVALID_SERIAL && serial_ > 0 && serial_ >= 0x40000000); }
-	bool isChar() { return (serial_ != INVALID_SERIAL && serial_ > 0 && serial_ <  0x40000000); }
+	bool isItem() const { return (serial_ != INVALID_SERIAL && serial_ > 0 && serial_ >= 0x40000000); }
+	bool isChar() const { return (serial_ != INVALID_SERIAL && serial_ > 0 && serial_ <  0x40000000); }
 
 	void processNode( const cElement *Tag );
 	stError *setProperty( const QString &name, const cVariant &value );

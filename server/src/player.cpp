@@ -757,7 +757,6 @@ void cPlayer::applyStartItemDefinition( const cElement *element )
 			else
 			{
 				pItem->applyDefinition( node );
-				pItem->setNewbie( true );
 
 				if( node->name() == "item"  )
 				{
@@ -780,6 +779,11 @@ void cPlayer::applyStartItemDefinition( const cElement *element )
 
 					if( layer )
 					{
+						// Check if there is sth there already.
+						// Could happen due to inherit.
+						P_ITEM existing = atLayer(static_cast<cBaseChar::enLayer>(layer));
+						if ( existing )
+							existing->remove();
 						addItem( static_cast<cBaseChar::enLayer>( layer ), pItem );
 					}
 					else

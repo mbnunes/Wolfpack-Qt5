@@ -52,7 +52,10 @@ def onShowTooltip( sender, target, tooltip ):
            
     elif isweapon( target ):
       weapon( target, tooltip )
-                   
+
+    elif target.type == 1:
+      container( target, tooltip )
+                  
     else:
       if target.name == '#' or target.name == '':
         labelname = '#' + str(0xf9060 + target.id)
@@ -68,7 +71,7 @@ def onShowTooltip( sender, target, tooltip ):
           tooltip.add(3000507, "")
       
       modifiers( target, tooltip )
-      
+
       # If the character is a gm and the targetted item has a lock, display the lock id
       if sender.gm and 'lock' in target.events:
         lock = 'None'
@@ -134,8 +137,9 @@ def armor( target, tooltip ):
   tooltip.add( 1060639, str( target.health ) + "\t" + str( target.maxhealth ) )           #Durability
 
 def container( target, tooltip ):
-  tooltip.add( 1050045, " \tBag\t " )
-  tooltip.add( 1050044, "1000\t10000" )     #$count items, $weight stones
+  name = target.getname()
+  tooltip.add( 1050045, " \t" + name + "\t " )
+  tooltip.add( 1050044, "%i\t%i" % ( target.countitem(), target.totalweight )  )     #$count items, $weight stones
 
 def shield( target, tooltip ):
   name = target.getname()
@@ -159,17 +163,16 @@ def weapon( target, tooltip ):
     tooltip.add( 1061824, "" ) # One-handed
   if ( target.type ) == 1001 or ( target.type ) == 1002:
     tooltip.add( 1061172, "" ) # Weapon Skill: Swordsmanship
-  if ( target.type ) == 1003 or ( target.type ) == 1004:
+  elif ( target.type ) == 1003 or ( target.type ) == 1004:
     tooltip.add( 1061173, "" ) # Weapon Skill: Mace Fighting
-  if ( target.type ) == 1005:
+  elif ( target.type ) == 1005:
     tooltip.add( 1061174, "" ) #Weapon Skill: Fencing
-  if ( target.type ) == 1006 or ( target.type ) == 1007:
+  elif ( target.type ) == 1006 or ( target.type ) == 1007:
     tooltip.add( 1061175, "" ) # Weapon Skill: Archery
   tooltip.add( 1060639, str( target.health ) + "\t" + str( target.maxhealth ))
 
 def modifiers( target, tooltip ):
   modifiers = {
-    "blessed"   : [1038021,0],
     "req_str"   : [1061170,1],
     "aos_req_str"   : [1061170,1],
     "boni_dex"  : [1060409,1],
@@ -190,6 +193,8 @@ def modifiers( target, tooltip ):
     "dmg_energy"  : [1060407,1],
     "remaining_uses" : [1060584,1],
   }
+  if target.isblessed():
+      tooltip.add(1038021, "")
 
   for tagname in modifiers.keys():
     if target.hastag( tagname ):

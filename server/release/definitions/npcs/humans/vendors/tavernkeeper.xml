@@ -12,6 +12,11 @@
 	<npc id="tavernkeeper_male">
 		<inherit>vendor_male</inherit>
 		<title>the Tavernkeeper</title>
+		<equipped>
+			<item id="153b" > <!-- Half Apron -->
+				<color><random list="COLORS_MISC" /></color>
+			</item>
+		</equipped>
 		<shopkeeper>
 			<restockable>
 			</restockable>
@@ -24,6 +29,11 @@
 	<npc id="tavernkeeper_female">
 		<inherit>vendor_female</inherit>
 		<title>the Tavernkeeper</title>
+		<equipped>
+			<item id="153b" > <!-- Half Apron -->
+				<color><random list="COLORS_MISC" /></color>
+			</item>
+		</equipped>
 		<shopkeeper>
 			<restockable>
 			</restockable>

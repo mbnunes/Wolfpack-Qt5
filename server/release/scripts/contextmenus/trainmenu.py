@@ -46,8 +46,8 @@ def onContextEntry( char, target, tag  ):
 	if ( pointsToLearn < 0 ): # Player knows more than me
 		return 1
 
-	target.say( 1019077, "", " " + str( pointsToLearn*10 ), 0 ) # I will teach thee all I know, if paid the amount in full.  The price is:
-	target.say( 1043108 ) #For less I shall teach thee less.
+	target.say( 1019077, args = "", affix = " " + str( pointsToLearn*10 ), prepend = 0, socket = char.socket ) # I will teach thee all I know, if paid the amount in full.  The price is:
+	target.say( 1043108, socket = char.socket ) #For less I shall teach thee less.
 	char.settag("npctrainer", str( target.serial ) )
 	char.settag("trainningskill", str( skill ) )
 	return 1

@@ -160,8 +160,7 @@ void DragAndDrop::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 		// We only have to split if we're not taking it all
 		if( pickedAmount != pItem->amount() )
 		{
-			P_ITEM splitItem = new cItem( *pItem ); // Create a new item to pick that up
-			splitItem->setSerial( World::instance()->findItemSerial() );
+			P_ITEM splitItem = pItem->dupe(); // Create a new item to pick that up
 			splitItem->setAmount( pItem->amount() - pickedAmount );
 
 			// Add tags to the splitted item

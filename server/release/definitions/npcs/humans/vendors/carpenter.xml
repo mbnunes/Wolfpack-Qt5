@@ -12,6 +12,9 @@
 	<npc id="carpenter_male">
 		<inherit>vendor_male</inherit>
 		<title>the Carpenter</title>
+		<equipped>
+			<item id="153b" /> <!-- Half Apron -->
+		</equipped>
 		<shopkeeper>
 			<restockable>
 				<item id="e7d"><amount>20</amount></item>
@@ -80,6 +83,9 @@
 	<npc id="carpenter_female">
 		<inherit>vendor_female</inherit>
 		<title>the Carpenter</title>
+		<equipped>
+			<item id="153b" /> <!-- Half Apron -->
+		</equipped>
 		<shopkeeper>
 			<restockable>
 				<item id="e7d"><amount>20</amount></item>

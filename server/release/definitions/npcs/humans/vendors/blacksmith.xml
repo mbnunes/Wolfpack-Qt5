@@ -12,6 +12,11 @@
 	<npc id="blacksmith_male">
 		<inherit>vendor_male</inherit>
 		<title>the Blacksmith</title>
+		<equipped>
+			<item id="153d" /> <!-- Full Apron -->
+			<item id="140d" /> <!-- Bascinet -->
+			<item id="13e3" /> <!-- Smith's Hammer -->
+		</equipped>
 		<shopkeeper>
 			<restockable>
 				<item id="fbb">
@@ -155,6 +160,11 @@
 	<npc id="blacksmith_female">
 		<inherit>vendor_female</inherit>
 		<title>the Blacksmith</title>
+		<equipped>
+			<item id="153d" /> <!-- Full Apron -->
+			<item id="140d" /> <!-- Bascinet -->
+			<item id="13e3" /> <!-- Smith's Hammer -->
+		</equipped>
 		<shopkeeper>
 			<restockable>
 				<item id="fbb">

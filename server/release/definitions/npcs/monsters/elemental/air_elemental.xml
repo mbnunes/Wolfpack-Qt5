@@ -26,7 +26,7 @@
 		<tag name="energydamage" value="40" />
 		<tag name="physicaldamage" value="20" />
 		<!-- Resists -->
-		<defense><random min="35" max="45" /><defense>
+		<defense><random min="35" max="45" /></defense>
 		<tag name="coldresist" value="10,20" />
 		<tag name="energyresist" value="25,35" />
 		<tag name="fireresist" value="15,25" />

@@ -12,6 +12,10 @@
 	<npc id="bowyer_male">
 		<inherit>vendor_male</inherit>
 		<title>the Bowyer</title>
+		<equipped>
+			<item id="13b1" /> <!-- Bow -->
+			<item id="13c7" /> <!-- Leather Gorget -->
+		</equipped>
 		<shopkeeper>
 			<restockable>
 				<item id="1022"><amount>20</amount></item>
@@ -28,6 +32,10 @@
 	<npc id="bowyer_female">
 		<inherit>vendor_female</inherit>
 		<title>the Bowyer</title>
+		<equipped>
+			<item id="13b1" /> <!-- Bow -->
+			<item id="13c7" /> <!-- Leather Gorget -->
+		</equipped>
 		<shopkeeper>
 			<restockable>
 				<item id="1022"><amount>20</amount></item>

@@ -12,6 +12,12 @@
 	<npc id="mage_male">
 		<inherit>vendor_male</inherit>
 		<title>the Mage</title>
+		<!-- The Equipment -->
+		<equipped>
+			<item id="1f03" > <!-- Robe -->
+				<color><random min="1301" max="1355" /></color>
+			</item>
+		</equipped>
 		<shopkeeper>
 			<restockable>
 				<item id="efa">
@@ -134,6 +140,11 @@
 	<npc id="mage_female">
 		<inherit>vendor_female</inherit>
 		<title>the Mage</title>
+		<equipped>
+			<item id="1f03" > <!-- Robe -->
+				<color><random min="1301" max="1355" /></color>
+			</item>
+		</equipped>
 		<shopkeeper>
 			<restockable>
 				<item id="efa">

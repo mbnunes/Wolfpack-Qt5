@@ -12,6 +12,9 @@
 	<npc id="shipwright_male">
 		<inherit>vendor_male</inherit>
 		<title>the Shipwright</title>
+		<equipped>
+			<item id="13e3" /> <!-- Smith's Hammer -->
+		</equipped>
 		<shopkeeper>
 			<restockable>
 			</restockable>
@@ -26,6 +29,9 @@
 	<npc id="shipwright_female">
 		<inherit>vendor_female</inherit>
 		<title>the Shipwright</title>
+		<equipped>
+			<item id="13e3" /> <!-- Smith's Hammer -->
+		</equipped>
 		<shopkeeper>
 			<restockable>
 			</restockable>

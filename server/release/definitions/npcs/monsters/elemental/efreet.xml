@@ -26,10 +26,10 @@
 		<tag name="firedamage" value="50" />
 		<!-- Resists -->
 		<defense><random min="50" max="60" /></defense>
-		<tag name="energyresist" value="" /><random min="40" max="50"/></energyresist>
-		<tag name="fireresist" value="" /><random min="60" max="70"/></fireresist>
-		<tag name="physicalresist" value="" /><random min="50" max="60"/></physicalresist>
-		<tag name="poisonresist" value="" /><random min="30" max="40"/></poisonresist>
+		<energyresist><random min="40" max="50"/></energyresist>
+		<fireresist><random min="60" max="70"/></fireresist>
+		<physicalresist><random min="50" max="60"/></physicalresist>
+		<poisonresist><random min="30" max="40"/></poisonresist>
 		<!-- Misc. -->
 		<desc>Legends say that the Efreet will grant a wish to those who retrieve them from their home of flames. This is the truth only if the wish is a wish for death. The Efreet has a heart of flame and a countenance to match. An Efreet will attack with flame and magic, and few can stand against them. There is an ancient tome that tells of an Efreet Overlord who leads an army of the Efreeti. If the overlord exists still, none have seen him and returned.</desc>
 		<category>Monsters\Elementals\Efreet</category>
