@@ -116,7 +116,8 @@ def potionregion( args ):
 	while chainbomb:
 		if chainbomb.baseid in [ 'potion_greaterexplosion', 'potion_explosion', 'potion_lesserexplosion', 'f0d' ]:
 			if not chainbomb.hastag('exploding'):
-				wolfpack.addtimer(1000, "potions.potioncountdown", [char, chainbomb, 1] )
+				chainbomb.settag('exploding', 'true')
+				wolfpack.addtimer(randint(1000, 2250), "potions.potioncountdown", [char, chainbomb, 1] )
 				chainbomb = chainregion.next
 			else:
 				chainbomb = chainregion.next
