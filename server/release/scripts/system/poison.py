@@ -80,17 +80,17 @@ def cure(char):
 #
 def poison(char, level):
 	if not POISONS.has_key(level):
-		return
+		return False
 
 	# Level is smaller than old poison
 	if level <= char.poison:
-		return
+		return False
 
 	# Check for poison immunity
 	poison_immunity = char.getintproperty('poison_immunity', -1)
 	
 	if poison_immunity != -1 and level <= poison_immunity:
-		return # Do nothing. We're immune to that kind of poison
+		return False # Do nothing. We're immune to that kind of poison
 
 	# Delete current poison
 	char.dispel(None, 1, "poison_timer", [])
@@ -103,6 +103,7 @@ def poison(char, level):
 		char.poison = level
 
 	char.addtimer(poison[4], "system.poison.stroke", [0], 0, 0, "poison_timer")
+	return True
 
 #
 # Reattach the poison timer

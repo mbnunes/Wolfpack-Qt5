@@ -4,7 +4,7 @@ from wolfpack.utilities import *
 from wolfpack.consts import *
 import wolfpack.weaponinfo
 import wolfpack.armorinfo
-from wolfpack import properties
+from wolfpack import properties, tr
 from combat.utilities import weaponskill
 from math import ceil
 import system.slayer
@@ -191,6 +191,29 @@ def onShowTooltip(viewer, object, tooltip):
 
 	# Weapon specific properties
 	if weapon:
+		# Leeching
+		leech = properties.fromitem(object, LIFELEECH)
+		if leech:
+			tooltip.add(1060422, str(leech))
+		leech = properties.fromitem(object, STAMINALEECH)
+		if leech:
+			tooltip.add(1060430, str(leech))
+		leech = properties.fromitem(object, MANALEECH)
+		if leech:
+			tooltip.add(1060427, str(leech))						
+	
+		# Splash 
+		for (effect, cliloc) in {SPLASHPHYSICAL: 1060428, SPLASHFIRE: 1060419, SPLASHCOLD: 1060416, SPLASHPOISON: 1060429, SPLASHENERGY: 1060418}.items():
+			effect = properties.fromitem(object, effect)
+			if effect > 0:
+				tooltip.add(cliloc, str(effect))
+	
+		# Hit Effects
+		for (effect, cliloc) in {HITMAGICARROW: 1060426, HITHARM: 1060421, HITFIREBALL: 1060420, HITLIGHTNING: 1060423, HITDISPEL: 1060417}.items():
+			effect = properties.fromitem(object, effect)
+			if effect > 0:
+				tooltip.add(cliloc, str(effect))
+
 		# Slayer
 		slayer = properties.fromitem(object, SLAYER)
 		if slayer != '':
@@ -364,6 +387,17 @@ def onShowTooltip(viewer, object, tooltip):
 # Check for certain equipment requirements
 #
 def onWearItem(player, wearer, item, layer):
+	if wearer.socket and wearer.socket.hastag('block_equip'):
+		expire = int(wearer.socket.gettag('block_equip'))
+		if expire < wolfpack.currenttime():
+			wearer.socket.deltag('block_equip')
+		else:
+			if player == wearer:
+				player.socket.sysmessage(tr('You cannot equip another so soon after being disarmed.'))
+			else:
+				player.socket.sysmessage(tr('They cannot equip another so soon after being disarmed.'))
+			return True
+	
 	lower = properties.fromitem(item, LOWERREQS) / 100.0
 
 	req_str = item.getintproperty( 'req_strength', 0 )

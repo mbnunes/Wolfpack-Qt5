@@ -39,6 +39,7 @@
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Desert Ostard</category>
 		<intproperty name="carve_meat" value="3" />
+		<basescript>npc.mount</basescript>
 	</npc>
 
 	<!-- Forest Ostards -->
@@ -72,6 +73,7 @@
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Forest Ostard</category>
 		<intproperty name="carve_meat" value="3" />
+		<basescript>npc.mount</basescript>
 	</npc>
 
 	<!-- Frenzied Ostard -->
@@ -107,6 +109,7 @@
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Frenzied Ostard</category>
 		<intproperty name="carve_meat" value="3" />
+		<basescript>npc.mount</basescript>
 	</npc>
 
 </definitions>

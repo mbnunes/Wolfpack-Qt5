@@ -42,6 +42,7 @@
 		<food>1</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Fire Steed</category>
+		<basescript>npc.mount</basescript>
 	</npc>
 
 </definitions>

@@ -627,6 +627,14 @@ container that is being snooped into.
 */
 "onGuildButton",
 
+/*
+\event onSelectAbility
+\param player The player who is trying to use the ability.
+\param ability The id of the weapon ability that is being activated.
+\condition Triggered when a player tries to use the primary or secondary ability of his weapon.
+*/
+"onSelectAbility",
+
 0
 };
 

@@ -5,6 +5,7 @@ import random
 import wolfpack
 from wolfpack.utilities import tobackpack, energydamage
 from system import poison
+from combat.specialmoves import ismortallywounded
 
 class Curse (CharEffectSpell):
 	def __init__(self):
@@ -26,12 +27,13 @@ class GreaterHeal (CharEffectSpell):
 		self.mantra = 'In Vas Mani'
 
 	def affectchar(self, char, mode, target, args=[]):
-		if target.poison != -1:
+		if target.poison != -1 or ismortallywounded(target):
 			if target == char:
 				char.message(1005000)
 			else:
 				char.message(1010398)
 			return 0
+			
 		return 1
 
 	def effect(self, char, target, mode, args, item):

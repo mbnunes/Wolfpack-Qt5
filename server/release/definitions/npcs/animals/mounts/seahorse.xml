@@ -41,6 +41,7 @@
 		<food>2</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Seahorse</category>
+		<basescript>npc.mount</basescript>
 	</npc>
 
 </definitions>

@@ -1,6 +1,6 @@
 
 import wolfpack
-from wolfpack import tr
+from wolfpack import tr, properties
 from wolfpack.consts import *
 from wolfpack.utilities import *
 from potions.consts import *
@@ -203,6 +203,7 @@ def potiondamage( cserial, target, iserial, dmgbonus, potiontype ):
 		damage = randint( POTION_GREATEREXPLOSION_RANGE[0], POTION_GREATEREXPLOSION_RANGE[1] )
 	else:
 		damage = randint( POTION_LESSEREXPLOSION_RANGE[0], POTION_GREATEREXPLOSION_RANGE[1] )
+
 	# Bonuses
 	if char.skill[ALCHEMY] == 1200:
 		bonus = 10
@@ -218,9 +219,15 @@ def potiondamage( cserial, target, iserial, dmgbonus, potiontype ):
 		damage *= dmgbonus
 	damage += bonus
 
+	# Apply Enhancepotions Bonus
+	enhancepotions = properties.fromchar(char, ENHANCEPOTIONS)
+	if enhancepotions > 0:
+		damage += (enhancepotions * damage) / 100
+
 	if not item.container:
-		if char.distanceto( item ) > 1:
-			damage = ( damage / char.distanceto( item ) )
+		if target.distanceto( item ) > 1:
+			damage = ( damage / target.distanceto( item ) )
+
 	# Flamestrike effect
 	if damage >= ( target.maxhitpoints / 2 ):
 		target.effect(0x3709, 10, 30)

@@ -5,6 +5,7 @@ from wolfpack.consts import *
 import combat.aos
 from wolfpack import properties
 from system.debugging import DEBUG_COMBAT_INFO
+from combat.specialmoves import getability
 
 #
 # This function is used to initialize the basic combat
@@ -51,14 +52,16 @@ def onSwing(attacker, defender, time):
 		try:
 			# Ranged weapons need shooting first
 			if weapon and (weapon.type == 1007 or weapon.type == 1006):
+				ability = getability(attacker)				
+				
 				# We have to be standing for >= 1000 ms, otherwise try again later
-				if attacker.lastmovement + 1000 > wolfpack.time.currenttime():
+				if (not ability or not ability.movingshot) and attacker.lastmovement + 1000 > wolfpack.time.currenttime():
 					attacker.nextswing = attacker.lastmovement + 1000
 					return
 
 				# See if we can fire the weapon.
 				# if not, wait until the next normal swing.
-				if combat.aos.fireweapon(attacker, defender, weapon):					
+				if combat.aos.fireweapon(attacker, defender, weapon):
 					combat.utilities.sendswing(attacker, defender) # Send Swing
 					
 					if combat.aos.checkhit(attacker, defender, time):

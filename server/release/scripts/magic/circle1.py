@@ -7,6 +7,7 @@ import wolfpack
 from wolfpack.utilities import tobackpack, energydamage
 from wolfpack import time
 import math
+from combat.specialmoves import ismortallywounded
 
 class Clumsy (CharEffectSpell):
 	def __init__(self):
@@ -85,7 +86,7 @@ class Heal (CharEffectSpell):
 		self.mantra = 'In Mani'
 
 	def affectchar(self, char, mode, target, args=[]):
-		if target.poison != -1:
+		if target.poison != -1 or ismortallywounded(target):
 			if target == char:
 				char.message(1005000)
 			else:

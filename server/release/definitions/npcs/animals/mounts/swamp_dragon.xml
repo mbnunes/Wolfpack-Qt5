@@ -48,6 +48,7 @@
 		<strproperty name="carve_scales_type" value="green" />
 		<intproperty name="carve_hides" value="20" />
 		<intproperty name="carve_meat" value="19" />
+		<basescript>npc.mount</basescript>
 	</npc>
 
 	<!-- Swamp Dragon -->

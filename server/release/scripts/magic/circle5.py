@@ -253,7 +253,8 @@ class Paralyze (CharEffectSpell):
 		duration = int((2 + max(0, (char.skill[self.damageskill] / 100.0 - target.skill[MAGICRESISTANCE] / 100.0))) * 1000)
 		if not target.player:
 			duration *= 3
-		target.addtimer(duration, "magic.circle5.paralyze_expire", [], 1)
+		target.dispel(None, True, "PARALYZE_EXPIRE")
+		target.addtimer(duration, "magic.circle5.paralyze_expire", [], True, False, "PARALYZE_EXPIRE")
 
 class PoisonField(Spell):
 	def __init__(self):

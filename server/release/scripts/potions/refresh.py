@@ -1,6 +1,7 @@
 
 import wolfpack
-from wolfpack.consts import ANIM_FIDGET3, SOUND_DRINK1, MAGERY, ALCHEMY
+from wolfpack import properties
+from wolfpack.consts import *
 from potions import *
 from potions.utilities import consumePotion, canUsePotion
 
@@ -12,7 +13,14 @@ def potion( char, potion, refreshtype ):
 
 	# refresh potion
 	if refreshtype == 18:
-		char.stamina += ( char.maxstamina / 4 )
+		amount = char.maxstamina / 4
+		
+		# Apply Enhancepotions Bonus
+		enhancepotions = properties.fromchar(char, ENHANCEPOTIONS)
+		if enhancepotions > 0:
+			amount += (enhancepotions * amount) / 100
+							
+		char.stamina = min(char.maxstamina, char.stamina + amount)
 		char.updatestamina()
 	# total refresh potion
 	elif refreshtype == 19:

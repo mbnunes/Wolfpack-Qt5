@@ -40,6 +40,7 @@
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="10" />
 		<intproperty name="carve_meat" value="3" />
+		<basescript>npc.mount</basescript>
 	</npc>
 
 	<!-- Gray Horses -->

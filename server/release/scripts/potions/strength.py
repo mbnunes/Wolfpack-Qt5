@@ -2,8 +2,8 @@
 import wolfpack
 import time
 import random
-from wolfpack.consts import ANIM_FIDGET3, SOUND_DRINK1, SOUND_STRENGTH_UP, \
-	MAGERY, ALCHEMY, STRENGTH_TIME
+from wolfpack.consts import *
+from wolfpack import properties
 from potions.consts import *
 from potions.utilities import consumePotion, canUsePotion
 
@@ -24,6 +24,11 @@ def potion( char, potion, strengthtype ):
 	# Oops!
 	else:
 		return False
+
+	# Apply Enhancepotions Bonus
+	enhancepotions = properties.fromchar(char, ENHANCEPOTIONS)
+	if enhancepotions > 0:
+		bonus += (enhancepotions * bonus) / 100
 
 	if char.hastag( "str_pot_timer" ):
 		# Compare

@@ -14,6 +14,7 @@
 		<ai>Animal_Wild</ai>
 		<id>117</id>
 		<category>Animals\Mounts\Silver Steed (Weak)</category>
+		<basescript>npc.mount</basescript>
 	</npc>
 
 </definitions>

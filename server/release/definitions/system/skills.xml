@@ -585,19 +585,8 @@
 		<title>Paladin</title>
 	</skill>
 
-	<!-- Ninjitu -->
-	<skill id="52">
-		<strchance>0</strchance>
-		<dexchance>0</dexchance>
-		<intchance>0</intchance>
-		<gainchance>1</gainchance>
-		<defname>NINJITSU</defname>
-		<name>Ninjitsu</name>
-		<title>Ninja</title>
-	</skill>
-
 	<!-- Bushido -->
-	<skill id="53">
+	<skill id="52">
 		<strchance>0</strchance>
 		<dexchance>0</dexchance>
 		<intchance>0</intchance>
@@ -605,6 +594,17 @@
 		<defname>BUSHIDO</defname>
 		<name>Bushido</name>
 		<title>Samurai</title>
+	</skill>
+
+	<!-- Ninjitu -->
+	<skill id="53">
+		<strchance>0</strchance>
+		<dexchance>0</dexchance>
+		<intchance>0</intchance>
+		<gainchance>1</gainchance>
+		<defname>NINJITSU</defname>
+		<name>Ninjitsu</name>
+		<title>Ninja</title>
 	</skill>
 
 	<!--

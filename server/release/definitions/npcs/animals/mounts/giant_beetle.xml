@@ -39,6 +39,7 @@
 		<food>1</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Giant Beetle</category>
+		<basescript>npc.mount</basescript>
 	</npc>
 
 </definitions>

@@ -49,6 +49,7 @@
 		<strproperty name="carve_hides_type" value="barbed" />
 		<intproperty name="carve_meat" value="5" />
 		<inherit id="speed_fast" />
+		<basescript>npc.mount</basescript>
 	</npc>
 
 	<!-- Nightmares 1 -->

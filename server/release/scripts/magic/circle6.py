@@ -13,7 +13,6 @@ class Dispel (CharEffectSpell):
 		CharEffectSpell.__init__(self, 6)
 		self.reagents = {REAGENT_GARLIC: 1, REAGENT_MANDRAKE: 1, REAGENT_SULFURASH: 1}
 		self.mantra = 'An Ort'
-		self.casttime = 2750
 		self.harmful = 1
 
 	def affectchar(self, char, mode, target, args=[]):
@@ -29,13 +28,16 @@ class Dispel (CharEffectSpell):
 		return 1
 
 	def effect(self, char, target, mode, args, item):
-		# Show an effect at the position
-		if self.checkresist(char, target):
-			target.effect(0x3779, 10, 20)
-		else:
-			wolfpack.effect(0x3728, target.pos, 8, 20)
+		dispelChance = 50.0 + (100 * ((char.magery / 10.0 - target.getintproperty('dispeldifficulty', 0)) / (target.getintproperty('dispelfocus', 1) * 2))) / 100.0
+
+		if dispelChance > random.randint(0, 99):
+			target.pos.effect(0x3728, 8, 20)
 			target.soundeffect(0x201)
-			target.delete()
+			target.delete()		
+		else:
+			target.effect(0x3779, 10, 20)
+			if char.socket:
+				char.socket.clilocmessage(1010084) # The creature resisted the attempt to dispel it!
 
 class EnergyBolt (DelayedDamageSpell):
 	def __init__(self):
@@ -45,7 +47,6 @@ class EnergyBolt (DelayedDamageSpell):
 		self.sound = 0x20a
 		self.missile = [ 0x379f, 0, 1, 7, 0 ]
 		self.reflectable = 1
-		self.casttime = 2750
 
 	def damage(self, char, target):
 		damage = self.scaledamage(char, target, 38, 1, 5)
@@ -58,7 +59,6 @@ class Explosion (DelayedDamageSpell):
 		self.mantra = 'Vas Ort Flam'
 		self.reflectable = 1
 		self.delay = 3000
-		self.casttime = 2750
 
 	def damage(self, char, target):
 		target.soundeffect(0x307)

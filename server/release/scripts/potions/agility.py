@@ -2,10 +2,10 @@
 import wolfpack
 import time
 import random
-from wolfpack.consts import ANIM_FIDGET3, SOUND_DRINK1, SOUND_AGILITY_UP, \
-	MAGERY, ALCHEMY, AGILITY_TIME
+from wolfpack.consts import *
 from potions.consts import *
 from potions.utilities import consumePotion, canUsePotion
+from wolfpack import properties
 
 # Agility Potion
 def potion( char, potion, agilitytype ):
@@ -24,6 +24,11 @@ def potion( char, potion, agilitytype ):
 	# Oops!
 	else:
 		return False
+
+	# Apply Enhancepotions Bonus
+	enhancepotions = properties.fromchar(char, ENHANCEPOTIONS)
+	if enhancepotions > 0:
+		bonus += (enhancepotions * bonus) / 100
 
 	if char.hastag( "dex_pot_timer" ):
 		# Compare

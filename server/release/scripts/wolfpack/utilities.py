@@ -534,11 +534,13 @@ def consumeresources(container, baseid, amount):
 	The energy fraction of the damage. This is an integer value ranging from 0 to 100.
 	\param noreflect Defaults to 0. If this parameter is 1, no physical damage will be reflected back to
 	the source.
+	\param ignorephysical Defaults to False. If this parameter is true, the physical resistance of the target
+	will be ignored.
 	\param damagetype Defaults to DAMAGE_MAGICAL. This is the damagetype passed on to the internal damage function.
 	You can ignore this most of the time.
 	\description Deal damage to a target and take the targets energy resistances into account.
 """
-def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, energy=0, noreflect=0, damagetype=DAMAGE_MAGICAL):
+def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, energy=0, noreflect=0, damagetype=DAMAGE_MAGICAL, ignorephysical = False):
 	if not target:
 		raise RuntimeError, "Invalid arguments for energydamage."
 
@@ -552,6 +554,10 @@ def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, e
 	if physical > 0:
 		physical = amount * (physical / 100.0)
 		resistance = properties.fromchar(target, RESISTANCE_PHYSICAL) / 100.0
+		
+		if ignorephysical:
+			resistance = 0 # Zero resistance
+		
 		damage = max(0, physical - (physical * resistance))
 
 		if source and not noreflect and damage > 0:
@@ -584,8 +590,8 @@ def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, e
 		damage += max(0, energy - (energy * resistance))
 
 	damage = max(1, damage)
-	target.damage(damagetype, damage, source)
-
+	return target.damage(damagetype, damage, source)
+	
 """
 	\function wolfpack.utilities.createlockandkey
 	\param container The container you want to make lockable.

@@ -1417,8 +1417,13 @@ void cUOSocket::handleAosMultiPurpose( cUORxAosMultiPurpose* packet )
 				Py_DECREF( args );
 			}
 			break;
-			/*		case cUORxAosMultiPurpose::AbilitySelect:
-									handleAbilitySelect( dynamic_cast< */
+		case cUORxAosMultiPurpose::AbilitySelect:
+			{
+				PyObject *args = Py_BuildValue( "(Ni)", _player->getPyObject(), packet->getInt(10) );
+				_player->callEventHandler( EVENT_SELECTABILITY, args );
+				Py_DECREF( args );
+			}
+			break;
 		default:
 			Console::instance()->log( LOG_WARNING, packet->dump( packet->uncompressed() ) );
 			break;

@@ -1,11 +1,10 @@
 
 import wolfpack
-from wolfpack import tr
+from wolfpack import tr, properties
 import time
 import random
-from wolfpack.consts import ANIM_FIDGET3, MAGERY, ALCHEMY, HEAL_POT_DELAY, \
-	POTION_LESSERHEAL_RANGE, POTION_HEAL_RANGE, POTION_GREATERHEAL_RANGE, \
-	SOUND_DRINK1
+from combat.specialmoves import ismortallywounded
+from wolfpack.consts import *
 from potions.consts import *
 from potions.utilities import consumePotion, canUsePotion
 
@@ -15,10 +14,11 @@ def potion( char, potion, healtype ):
 	if not canUsePotion( char, potion ):
 		return False
 
-	if char.poison > -1:
+	if char.poison > -1 or ismortallywounded(char):
 		# You can not heal yourself in your current state.
 		socket.clilocmessage(1005000)
 		return False
+
 	if char.hitpoints >= char.maxhitpoints:
 		socket.clilocmessage(1049547)
 		if char.hitpoints > char.maxhitpoints:
@@ -49,6 +49,11 @@ def potion( char, potion, healtype ):
 	# Greater Heal
 	elif healtype == 3:
 		amount = random.randint( POTION_GREATERHEAL_RANGE[0], POTION_GREATERHEAL_RANGE[1] )
+
+	# Apply Enhancepotions Bonus
+	enhancepotions = properties.fromchar(char, ENHANCEPOTIONS)
+	if enhancepotions > 0:
+		amount += (enhancepotions * amount) / 100
 
 	char.hitpoints = min( char.hitpoints + amount, char.maxhitpoints ) # We don't heal over our maximum health
 

@@ -44,6 +44,7 @@
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="12" />
 		<intproperty name="carve_meat" value="1" />
+		<basescript>npc.mount</basescript>
 	</npc>
 
 </definitions>

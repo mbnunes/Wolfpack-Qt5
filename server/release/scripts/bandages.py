@@ -2,8 +2,10 @@
 import wolfpack
 import random
 import system.poison
+import system.bleeding
 import wolfpack.utilities
 from wolfpack.consts import *
+from combat.specialmoves import ismortallywounded
 
 def onUse( char, item ):
 	if not char.canreach(item, 2):
@@ -74,7 +76,14 @@ def startheal(char, target):
 		socket.clilocmessage(500951) # Undeads cannot be healed
 		return False
 		
-	elif target.poison == -1 and target.hitpoints >= target.maxhitpoints:
+	elif ismortallywounded(target):
+		if char == target:
+			socket.clilocmessage(1005000)
+		else:
+			socket.clilocmessage(1010398)
+		return False		
+		
+	elif target.poison == -1 and target.hitpoints >= target.maxhitpoints and not system.bleeding.isbleeding(target):
 		socket.clilocmessage(500955) # Already at full health
 		return False
 
@@ -149,6 +158,8 @@ def endheal(char, arguments):
 		resurrectTarget(char, target, primary, secondary, slipped) # Resurrection attempt
 	elif target.poison != -1:
 		cureTarget(char, target, primary, secondary, slipped) # Cure attempt
+	elif system.bleeding.isbleeding(target):
+		system.bleeding.end(target)
 	else:
 		healTarget(char, target, primary, secondary, slipped) # Heal attempt
 

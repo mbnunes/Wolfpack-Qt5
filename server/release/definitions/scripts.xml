@@ -78,6 +78,8 @@
 
 	<!-- Combat -->
 	<script>combat</script>
+	<script>combat.specialmoves</script>
+	<script>combat.hiteffects</script>
 
 	<!-- Guilds -->
 	<script>guilds</script>
@@ -167,6 +169,7 @@
 	<!-- NPC -->
 	<script>npc.healer</script>
 	<script>npc.poison</script>
+	<script>npc.mount</script>
 
 	<!-- Context menu scripts -->
 	<script>contextmenus.bankermenu</script>

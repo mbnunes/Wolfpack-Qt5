@@ -8,7 +8,7 @@
 -->
 <definitions>
 
-	<npc id="war_horse" inherit="animal_base">
+	<npc id="war_horse" inherit="animal_base">		
 		<name>war horse</name>
 		<id><random list="NPCIDS_WARHORSE" /></id>
 		<ai>Animal_Wild</ai>
@@ -36,6 +36,7 @@
 		<food>5</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\War Horses\Warhorse (Random)</category>
+		<basescript>npc.mount</basescript>
 	</npc>
 
 	<!-- Britannian Warhorse -->

@@ -1131,7 +1131,7 @@ class MakeMenu:
 			return
 
 		# Try to find the craft action for the item
-		action = self.findcraftitem(item.baseid)
+		action = self.topmostmenu().findcraftitem(item.baseid)
 
 		if not action or action.submaterial1 == 0:
 			player.socket.clilocmessage(1061011)

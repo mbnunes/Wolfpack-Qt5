@@ -104,6 +104,25 @@ PROPERTIES = {
 	REFLECTPHYSICAL: ['reflectphysical', 0, 1],
 	DURABILITYBONUS: ['durabilitybonus', 0, 0],
 	SLAYER: ['slayer', '', 0],
+	
+	# % Leeching
+	LIFELEECH: ['lifeleech', 0, 0],
+	STAMINALEECH: ['staminaleech', 0, 0],
+	MANALEECH: ['manaleech', 0, 0],
+	
+	# Splash Damage
+	SPLASHPHYSICAL: ['splashphysical', 0, 0],
+	SPLASHCOLD: ['splashcold', 0, 0],
+	SPLASHFIRE: ['splashfire', 0, 0],
+	SPLASHENERGY: ['splashenergy', 0, 0],
+	SPLASHPOISON: ['splashpoison', 0, 0],
+	
+	# Hit Spell Effects
+	HITMAGICARROW: ['hitmagicarrow', 0, 0],
+	HITHARM: ['hitharm', 0, 0],
+	HITFIREBALL : ['hitfireball', 0, 0],
+	HITLIGHTNING: ['hitlightning', 0, 0],
+	HITDISPEL: ['hitdispel', 0, 0],
 }
 
 #
@@ -605,23 +624,23 @@ def applyJuwelRandom(item, props, minintensity, maxintensity, luckchance):
 # List of allowed properties
 WEAPON_PROPERTIES = {
 	# PROPERT KEY, min value, max value, factor, accumulate
-	#SPLASH_PHYSICAL: [2, 50, 2, False],
-	#SPLASH_FIRE: [2, 50, 2, False],
-	#SPLASH_COLD: [2, 50, 2, False],
-	#SPLASH_POISON: [2, 50, 2, False],
-	#SPLASH_ENERGY: [2, 50, 2, False],
+	SPLASHPHYSICAL: [2, 50, 2, False],
+	SPLASHFIRE: [2, 50, 2, False],
+	SPLASHCOLD: [2, 50, 2, False],
+	SPLASHPOISON: [2, 50, 2, False],
+	SPLASHENERGY: [2, 50, 2, False],
 
-	#HIT_MAGICARROW: [2, 50, 2, False],
-	#HIT_HARM: [2, 50, 2, False],
-	#HIT_FIREBALL: [2, 50, 2, False],
-	#HIT_LIGHTNING: [2, 50, 2, False],
-
-	#HIT_DISPEL: [2, 50, 2, False],
-	#HIT_LEECHHITS: [2, 50, 2, False],
-	#HIT_LEECHSTAMINA: [2, 50, 2, False],
-	#HIT_LEECHMANA: [2, 50, 2, False],
+	HITMAGICARROW: [2, 50, 2, False],
+	HITHARM: [2, 50, 2, False],
+	HITFIREBALL: [2, 50, 2, False],
+	HITLIGHTNING: [2, 50, 2, False],
+	HITDISPEL: [2, 50, 2, False],
 	#HIT_LOWERATTACK: [2, 50, 2, False],
 	#HIT_LOWERDEFEND: [2, 50, 2, False],
+	
+	LIFELEECH: [2, 50, 2, False],
+	STAMINALEECH: [2, 50, 2, False],
+	MANALEECH: [2, 50, 2, False],	
 
 	BESTSKILL: [1, 1, 1, False],
 	#MAGEWEAPON: [29, 20, 1, False],
