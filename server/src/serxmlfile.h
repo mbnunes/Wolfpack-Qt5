@@ -86,6 +86,7 @@ public:
 	virtual void write(const char* Key, unsigned char data);
 	virtual void write(const char* Key, signed char data);
 	virtual void write(const char* Key, bool data);
+	virtual void write(const char* Key, double data);
 
 	virtual void doneWritting();
 
@@ -100,6 +101,7 @@ public:
 	virtual void read(const char* Key, unsigned char  &data);
 	virtual void read(const char* Key, signed   char  &data);
 	virtual void read(const char* Key, bool           &data);
+	virtual void read(const char* Key, double		  &data);
 };
 
 #endif // __SERXMLFILE_H__

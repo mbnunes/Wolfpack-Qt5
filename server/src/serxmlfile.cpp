@@ -244,6 +244,13 @@ void serXmlFile::write(const char* Key, bool data)
 	node.appendChild( newNode );
 }
 
+void serXmlFile::write(const char* Key, double data)
+{
+	QDomElement newNode = document->createElement(Key);
+	newNode.setAttribute( "value", QString::number(data) );
+	node.appendChild( newNode );
+}
+
 void serXmlFile::doneWritting()
 {
 //	root.appendChild( node );
@@ -341,4 +348,15 @@ void serXmlFile::read(const char* Key, bool &data)
 		data = nodeList.item( 0 ).toElement().attribute("value") == "true" ? true : false;
 		node.removeChild( nodeList.item(0) ); // Free up the memory
 	}
+}
+
+void serXmlFile::read(const char* Key, double &data)
+{
+	QDomNodeList nodeList = node.elementsByTagName( Key );
+	if ( nodeList.count() > 0 )
+	{
+		data = nodeList.item( 0 ).toElement().attribute("value").toDouble();
+		node.removeChild( nodeList.item(0) ); // Free up the memory
+	}
+
 }

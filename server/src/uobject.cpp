@@ -110,8 +110,9 @@ void cUObject::Serialize(ISerialization &archive)
 		archive.read("pos.map", pos.map);
 		archive.read("pos.plane", pos.plane);
 		archive.read("events", events );
-
 		eventList_ = QStringList::split( ",", events );
+
+		tags.load( archive );
 	}
 	else if (archive.isWritting())
 	{
@@ -126,6 +127,8 @@ void cUObject::Serialize(ISerialization &archive)
 
 		events = eventList_.join( "," );
 		archive.write( "events", events );
+
+		tags.save( archive );
 
 	}
 	cSerializable::Serialize( archive );

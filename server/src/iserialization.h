@@ -96,6 +96,7 @@ public:
 	virtual void write(const char* Key, unsigned char data) = 0;
 	virtual void write(const char* Key, signed char data) = 0;
 	virtual void write(const char* Key, bool data) = 0;
+	virtual void write(const char* Key, double data) = 0;
 
 	// Read Methods
 	virtual void readObjectID(std::string &data) = 0;
@@ -108,6 +109,7 @@ public:
 	virtual void read(const char* Key, unsigned char &data) = 0;
 	virtual void read(const char* Key, signed   char &data) = 0;
 	virtual void read(const char* Key, bool          &data) = 0;
+	virtual void read(const char* Key, double		 &data) = 0;
 
 	// I hate to polute it but, as a temp measure:
 	void read( const char* Key, QString &data )

@@ -37,14 +37,13 @@
 //#include "WPDefaultScript.h"
 #include "uobject.h"
 #include "defines.h"
-#include "customtags.h"
 
 // Forward Class declarations
 class ISerialization;
 
 class cItem : public cUObject
 {
-private:
+protected:
 	UI16		id_;
 	UI16		color_;
 	UI16		amount_; 
@@ -137,7 +136,7 @@ public:
 	void	setMoreb4( UI08 nValue ) { moreb4_ = nValue; };
 	void	setCorpse( bool nValue ) { ( nValue ) ? priv &= 0x40 : priv |= 0xBF; }
 
-	cItem() { tags = NULL; };
+	cItem() {;};
 	cItem( cItem& src); // Copy constructor
 	virtual ~cItem() {}
 	virtual void Serialize( ISerialization &archive );
@@ -235,8 +234,6 @@ public:
 	unsigned int time_unused;     // LB -> used for house decay and possibly for more in future, gets saved
 	unsigned int timeused_last; // helper attribute for time_unused, doesnt get saved
 	
-	cCustomTags* tags;
-	
 	void Init(bool mkser = true);
 	void SetSerial(long ser);
 	bool isInWorld()			{ return (contserial == INVALID_SERIAL); }
@@ -282,12 +279,12 @@ public:
 int	ContainerCountItems(const int serial, short id, short color=-1);
 
 //forward declaration
+class cHouseItem;
 class QDomElement;
 
 class cAllItems
 {
 private:
-	cItem* CreateScriptRandomItem(int s, char *sItemList);
 	unsigned char PackType(unsigned char id1, unsigned char id2);
 	
 public:

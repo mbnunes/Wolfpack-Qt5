@@ -413,377 +413,241 @@ cVariant::Type cVariant::nameToType( const char* name )
 
 void cVariant::load( ISerialization& s )
 {
-/*    Q_UINT32 u;
+    Q_UINT32 u;
     s.read("type", u);
     Type t = (Type)u;
 
-    switch( t ) {
+	switch( t ) 
+	{
     case Invalid:
-	d->typ = t;
-	break;
-#ifndef QT_NO_TEMPLATE_VARIANT
+		d->typ = t;
+		break;
     case Map:
 	{
-	    QMap<QString,cVariant>* x = new QMap<QString,cVariant>;
-	    s >> *x;
+		QMap<QString,cVariant>* x = new QMap<QString,cVariant>;
+		int uiSize = 0;
+		s.read( "qmap.size", uiSize );
+		for( int i = 0; i < uiSize; i++ )
+		{
+			QString key;
+			cVariant val;
+			s.read( "qmap.key", key );
+			val.load( s );
+			x->insert( key, val );
+		}
 	    d->value.ptr = x;
 	}
 	break;
     case List:
 	{
 	    QValueList<cVariant>* x = new QValueList<cVariant>;
-	    s >> *x;
-	    d->value.ptr = x;
-	}
-	break;
-#endif
-    case Cursor:
-	{
-#ifndef QT_NO_CURSOR
-	    QCursor* x = new QCursor;
-	    s >> *x;
-	    d->value.ptr = x;
-#endif
-	}
-	break;
-    case Bitmap:
-	{
-	    QBitmap* x = new QBitmap;
-#ifndef QT_NO_IMAGEIO
-	    s >> *x;
-#endif
-	    d->value.ptr = x;
-	}
-	break;
-    case Region:
-	{
-	    QRegion* x = new QRegion;
-	    s >> *x;
-	    d->value.ptr = x;
-	}
-	break;
-    case PointArray:
-	{
-	    QPointArray* x = new QPointArray;
-	    s >> *x;
+		int uiSize = 0;
+		s.read( "qvaluelist.size", uiSize );
+		for( int i = 0; i < uiSize; i++ )
+		{
+			cVariant val;
+			val.load(s);
+			x->push_back( val );
+		}
 	    d->value.ptr = x;
 	}
 	break;
     case String:
 	{
 	    QString* x = new QString;
-	    s >> *x;
+		s.read( "value", *x );
 	    d->value.ptr = x;
 	}
 	break;
     case CString:
 	{
-	    QCString* x = new QCString;
-	    s >> *x;
+		QString val = QString();
+		s.read( "value", val );
+	    QCString* x = new QCString( (char*)val.latin1() );
 	    d->value.ptr = x;
 	}
 	break;
-#ifndef QT_NO_STRINGLIST
     case StringList:
 	{
 	    QStringList* x = new QStringList;
-	    s >> *x;
-	    d->value.ptr = x;
+		int uiSize = 0;
+		s.read( "qstringlist.size", uiSize );
+		for( int i = 0; i < uiSize; i++ )
+		{
+			QString val = QString();
+			s.read( "qstringlist.val", val );
+			x->push_back( val );
+		}
+		d->value.ptr = x;
 	}
 	break;
-#endif // QT_NO_STRINGLIST
-    case Font:
-	{
-	    QFont* x = new QFont;
-	    s >> *x;
-	    d->value.ptr = x;
-	}
-	break;
-    case Pixmap:
-	{
-	    QPixmap* x = new QPixmap;
-#ifndef QT_NO_IMAGEIO
-	    s >> *x;
-#endif
-	    d->value.ptr = x;
-	}
-	break;
-    case Image:
-	{
-	    QImage* x = new QImage;
-#ifndef QT_NO_IMAGEIO
-	    s >> *x;
-#endif
-	    d->value.ptr = x;
-	}
-	break;
-    case Brush:
-	{
-	    QBrush* x = new QBrush;
-	    s >> *x;
-	    d->value.ptr = x;
-	}
-	break;
-    case Rect:
-	{
-	    QRect* x = new QRect;
-	    s >> *x;
-	    d->value.ptr = x;
-	}
-	break;
-    case Point:
-	{
-	    QPoint* x = new QPoint;
-	    s >> *x;
-	    d->value.ptr = x;
-	}
-	break;
-    case Size:
-	{
-	    QSize* x = new QSize;
-	    s >> *x;
-	    d->value.ptr = x;
-	}
-	break;
-    case Color:
-	{
-	    QColor* x = new QColor;
-	    s >> *x;
-	    d->value.ptr = x;
-	}
-	break;
-#ifndef QT_NO_PALETTE
-    case Palette:
-	{
-	    QPalette* x = new QPalette;
-	    s >> *x;
-	    d->value.ptr = x;
-	}
-	break;
-    case ColorGroup:
-	{
-	    QColorGroup* x = new QColorGroup;
-	    s >> *x;
-	    d->value.ptr = x;
-	}
-	break;
-#endif
-#ifndef QT_NO_ICONSET
-    case IconSet:
-	{
-	    QPixmap* x = new QPixmap;
-	    s >> *x;
-	    d->value.ptr = x;
-	}
-	break;
-#endif
     case Int:
 	{
 	    int x;
-	    s >> x;
+		s.read( "value", x );
 	    d->value.i = x;
 	}
 	break;
     case UInt:
 	{
 	    uint x;
-	    s >> x;
+		s.read( "value", x );
 	    d->value.u = x;
 	}
 	break;
     case Bool:
 	{
 	    Q_INT8 x;
-	    s >> x;
+		s.read( "value", x );
 	    d->value.b = x;
 	}
 	break;
     case Double:
 	{
 	    double x;
-	    s >> x;
+		s.read( "value", x );
 	    d->value.d = x;
-	}
-	break;
-    case SizePolicy:
-	{
-	    int h,v;
-	    Q_INT8 hfw;
-	    s >> h >> v >> hfw;
-	    d->value.ptr = new QSizePolicy( (QSizePolicy::SizeType)h,
-					    (QSizePolicy::SizeType)v,
-					    (bool) hfw);
-	}
-	break;
-    case Date:
-	{
-	    QDate* x = new QDate;
-	    s >> *x;
-	    d->value.ptr = x;
-	}
-	break;
-    case Time:
-	{
-	    QTime* x = new QTime;
-	    s >> *x;
-	    d->value.ptr = x;
-	}
-	break;
-    case DateTime:
-	{
-	    QDateTime* x = new QDateTime;
-	    s >> *x;
-	    d->value.ptr = x;
 	}
 	break;
     case ByteArray:
 	{
-	    QByteArray* x = new QByteArray;
-	    s >> *x;
+		QByteArray* x = new QByteArray;
+		int uiSize = 0;
+		s.read( "qbytearray.size", uiSize );
+		for( int i = 0; i < uiSize; i++ )
+		{
+			unsigned char val;
+			s.read( "qbytearray.val", val );
+			x[i] = val;
+		}
 	    d->value.ptr = x;
 	}
 	break;
     case BitArray:
 	{
 	    QBitArray* x = new QBitArray;
-	    s >> *x;
+		int uiSize = 0;
+		s.read( "qbitarray.size", uiSize );
+		for( int i = 0; i < uiSize; i++ )
+		{
+			bool val;
+			s.read( "qbitarray.val", val );
+			x[i] = val;
+		}
 	    d->value.ptr = x;
 	}
 	break;
-#ifndef QT_NO_ACCEL
-    case KeySequence:
-	QKeySequence* x = new QKeySequence;
- 	s >> *x;
-	d->value.ptr = x;
-	break;
-#endif // QT_NO_ACCEL
     }
     d->typ = t;
-	*/
 }
 
 void cVariant::save( ISerialization& s ) const
 {
-/*    s << (Q_UINT32)type();
+    Q_UINT32 u = d->typ;
+	s.write("type", u );
 
-    switch( d->typ ) {
-    case Cursor:
-	s << *((QCursor*)d->value.ptr);
-	break;
-    case Bitmap:
-#ifndef QT_NO_IMAGEIO
-	s << *((QBitmap*)d->value.ptr);
-#endif
-	break;
-    case PointArray:
-	s << *((QPointArray*)d->value.ptr);
-	break;
-    case Region:
-	s << *((QRegion*)d->value.ptr);
-	break;
-#ifndef QT_NO_TEMPLATE_VARIANT
-    case List:
-	s << *((QValueList<cVariant>*)d->value.ptr);
-	break;
-    case Map:
-	s << *((QMap<QString,cVariant>*)d->value.ptr);
-	break;
-#endif
-    case String:
-	s << *((QString*)d->value.ptr);
-	break;
-    case CString:
-	s << *((QCString*)d->value.ptr);
-	break;
-#ifndef QT_NO_STRINGLIST
-    case StringList:
-	s << *((QStringList*)d->value.ptr);
-	break;
-#endif
-    case Font:
-	s << *((QFont*)d->value.ptr);
-	break;
-    case Pixmap:
-#ifndef QT_NO_IMAGEIO
-	s << *((QPixmap*)d->value.ptr);
-#endif
-	break;
-    case Image:
-#ifndef QT_NO_IMAGEIO
-	s << *((QImage*)d->value.ptr);
-#endif
-	break;
-    case Brush:
-	s << *((QBrush*)d->value.ptr);
-	break;
-    case Point:
-	s << *((QPoint*)d->value.ptr);
-	break;
-    case Rect:
-	s << *((QRect*)d->value.ptr);
-	break;
-    case Size:
-	s << *((QSize*)d->value.ptr);
-	break;
-    case Color:
-	s << *((QColor*)d->value.ptr);
-	break;
-#ifndef QT_NO_PALETTE
-    case Palette:
-	s << *((QPalette*)d->value.ptr);
-	break;
-    case ColorGroup:
-	s << *((QColorGroup*)d->value.ptr);
-	break;
-#endif
-#ifndef QT_NO_ICONSET
-    case IconSet:
-	//### add stream operator to iconset
-	s << ((QIconSet*)d->value.ptr)->pixmap();
-	break;
-#endif
-    case Int:
-	s << d->value.i;
-	break;
-    case UInt:
-	s << d->value.u;
-	break;
-    case Bool:
-	s << (Q_INT8)d->value.b;
-	break;
-    case Double:
-	s << d->value.d;
-	break;
-    case SizePolicy:
+    switch( d->typ ) 
 	{
-	    QSizePolicy p = toSizePolicy();
-	    s << (int) p.horData() << (int) p.verData()
-	      << (Q_INT8) p.hasHeightForWidth();
+    case List:
+	{
+		int uiSize = this->toList().size();
+		s.write( "qvaluelist.size", uiSize );
+		for( int i = 0; i < uiSize; i++ )
+			(*(this->toList().at( i ))).save(s);
 	}
 	break;
-    case Date:
-	s << *((QDate*)d->value.ptr);
+    case Map:
+	{
+		int uiSize = this->toMap().size();
+		s.write( "qmap.size", uiSize );
+		QMap< QString, cVariant >::const_iterator it = this->toMap().begin();
+		while( it != this->toMap().end() )
+		{
+			QString key = it.key();
+			s.write( "qmap.key", key );
+			(*it).save(s);
+			it++;
+		}
+	}
 	break;
-    case Time:
-	s << *((QTime*)d->value.ptr);
+    case String:
+	{
+		QString val = this->toString();
+		s.write( "value", val );
+	}
 	break;
-    case DateTime:
-	s << *((QDateTime*)d->value.ptr);
+    case CString:
+	{
+		QString val = this->toString();
+		s.write( "value", (char*)val.latin1() );
+	}
+	break;
+    case StringList:
+	{
+		int uiSize = this->toStringList().size();
+		s.write( "qstringlist.size", uiSize );
+		QStringList::const_iterator it = this->toStringList().begin();
+		while( it != this->toStringList().end() )
+		{
+			QString val = (*it);
+			s.write( "qstringlist.val", val );
+			it++;
+		}
+	}
+	break;
+    case Int:
+	{
+		int val = this->toInt();
+		s.write( "value", val );
+	}
+	break;
+    case UInt:
+	{
+		unsigned int val = this->toUInt();
+		s.write( "value", val );
+	}
+	break;
+    case Bool:
+	{
+		bool val = this->toBool();
+		s.write( "value", val );
+	}
+	break;
+    case Double:
+	{
+		double val = this->toDouble();
+		s.write( "value", val );
+	}
 	break;
     case ByteArray:
-	s << *((QByteArray*)d->value.ptr);
+	{
+		int uiSize = this->toByteArray().size();
+		s.write( "qbytearray.size", uiSize );
+		for( int i = 0; i < uiSize; i++ )
+		{
+			unsigned char val = this->toByteArray().at( i );
+			s.write( "qbytearray.val", val );
+		}
+	}
 	break;
     case BitArray:
-	s << *((QBitArray*)d->value.ptr);
-	break;
-    case KeySequence:
-	s << *((QKeySequence*)d->value.ptr);
+	{
+		int uiSize = this->toBitArray().size();
+		s.write( "qbitarray.size", uiSize );
+		for( int i = 0; i < uiSize; i++ )
+		{
+			bool val = this->toBitArray().at( i );
+			s.write( "qbitarray.val", val );
+		}
+	}
 	break;
     case Invalid:
-	s << QString(); // ### looks wrong.
+	{
+		QString val = QString();
+		s.write( "value", val );
+	}
 	break;
     }
-	*/
 }
 
 /*! \fn Type cVariant::type() const

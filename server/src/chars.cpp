@@ -288,9 +288,6 @@ void cChar::Init(bool ser)
 	for (i = 0; i < ALLSKILLS; i++) 
 		this->lockSkill[i]=0;
 
-	if( this->tags != NULL )
-		delete this->tags;
-	this->tags = new cCustomTags();
 }
 
 ///////////////////////
@@ -430,7 +427,6 @@ void cChar::fight(P_CHAR other)
 cChar::cChar()
 {
 	VisRange = VISRANGE ;
-	tags = NULL;
 }
 ///////////////////////
 // Name:	CountItems
@@ -817,26 +813,6 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("gmrestrict",		gmrestrict_);
 		SetOwnSerial(ownserial);
 		SetSpawnSerial(spawnserial_);
-	
-/*		unsigned int tagSize = 0, i = 0;
-		QString tagKey;
-		QString tmpValue;
-		cVariant tagValue;
-		archive.read("tags.size", tagSize);
-		while( i < tagSize )
-		{
-			archive.read("tags.key", tagKey);
-			archive.read("tags.value", tmpValue);
-			
-			if( tagKey.left( 2 ) == "i|" && tmpValue.toUInt() > 0 )
-				tagValue = tmpValue.toInt();
-			else 
-				tagValue = tmpValue;
-
-			tagKey = tagKey.remove(0, 2);
-			this->tags->set( tagKey, tagValue );
-			i++;
-		}*/
 	}
 	else if ( archive.isWritting())
 	{
@@ -975,31 +951,6 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("jailtimer",		jailtimer/MY_CLOCKS_PER_SEC); 
 		archive.write("jailsecs",		jailsecs); 
 		archive.write("gmrestrict",		gmrestrict_);
-
-/*		unsigned int tagSize = this->tags->size(), i = 0;
-		QStringList tagKeys = this->tags->getKeys();
-		std::vector< cVariant > tagValues = this->tags->getValues();
-		QString tagKey, tmpKey;
-		cVariant tagValue;
-		archive.write( "tags.size", tagSize );
-		while( i < tagKeys.size() )
-		{
-			tagKey = tagKeys[i];
-			tagValue = tagValues[i];
-			if( !tagValue.isNull() )
-			{	
-				tmpKey = "";
-				if( tagValue.isValue() )
-					tmpKey = QString("i|%1").arg( tagKey );
-				else
-					tmpKey = QString("s|%1").arg( tagKey );
-				
-				archive.write( "tags.key", tmpKey );
-				archive.write( "tags.value", tagValue.asString() );
-			}
-			i++;
-		}
-		*/
 	}
 	cUObject::Serialize(archive);
 }

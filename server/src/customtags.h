@@ -35,6 +35,7 @@
 #include "platform.h"
 #include "typedefs.h"
 #include "defines.h"
+#include "iserialization.h"
 
 // Library include
 #include <map>
@@ -272,6 +273,36 @@ public:
 			it++;
 		}
 		return values_;
+	}
+
+	void	load( ISerialization &archive )
+	{
+		int uiSize = 0;
+		archive.read( "tags.size", uiSize );
+		for( int i = 0; i < uiSize; i++ )
+		{
+			QString key;
+			cVariant val;
+			archive.read( "tags.key", key );
+			val.load( archive );
+			std::pair< QString, cVariant > toInsert( key, val );
+			this->tags_.insert( toInsert );
+		}
+	}
+
+	void	save( ISerialization &archive )
+	{
+		int uiSize = tags_.size();
+		archive.write( "tags.size", uiSize );
+		std::map< QString, cVariant >::iterator it = this->tags_.begin();
+		while( it != this->tags_.end() )
+		{
+			QString key = it->first;
+			cVariant val = it->second;
+			archive.write( "tags.key", key );
+			val.save( archive );
+			it++;
+		}
 	}
 
 private:

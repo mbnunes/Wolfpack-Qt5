@@ -48,6 +48,7 @@
 #include "mapstuff.h"
 #include "network.h"
 #include "classes.h"
+#include "scriptc.h"
 
 #undef  DBGFILE
 #define DBGFILE "items.cpp"
@@ -193,7 +194,7 @@ cItem::cItem( cItem &src )
 	this->setSpawnRegion( src.spawnregion() );
 	this->desc = src.desc;
 
-#pragma note( "Copy tags here" )
+	this->tags = src.tags;
 }
 
 inline string cItem::objectID()
@@ -552,26 +553,6 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("glow_color",	glow_color);
 		archive.read("glowtype",	glow_effect);
 		archive.read("desc",		desc);
-
-		unsigned int tagSize = 0, i = 0;
-		QString tagKey;
-		QString tmpValue;
-		cVariant tagValue;
-		archive.read("tags.size", tagSize);
-		while( i < tagSize )
-		{
-			archive.read("tags.key", tagKey);
-			archive.read("tags.value", tmpValue);
-			
-			if( tagKey.left( 2 ) == "i|" && tmpValue.toUInt() > 0 )
-				tagValue = tmpValue.toInt();
-			else 
-				tagValue = tmpValue;
-
-			tagKey = tagKey.remove(0, 2);
-			this->tags->set( tagKey, tagValue );
-			i++;
-		}
 	}
 	else if ( archive.isWritting())
 	{
@@ -638,31 +619,6 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("glow_color",	glow_color);
 		archive.write("glowtype",	glow_effect);
 		archive.write("desc",		desc);
-/*
-		unsigned int tagSize = this->tags->size(), i = 0;
-		QStringList tagKeys = this->tags->getKeys();
-		std::vector< cVariant > tagValues = this->tags->getValues();
-		QString tagKey, tmpKey;
-		cVariant tagValue;
-		archive.write( "tags.size", tagSize );
-		while( i < tagKeys.size() )
-		{
-			tagKey = tagKeys[i];
-			tagValue = tagValues[i];
-			if( !tagValue.isNull() )
-			{	
-				tmpKey = "";
-				if( tagValue.isValue() )
-					tmpKey = QString("i|%1").arg( tagKey );
-				else
-					tmpKey = QString("s|%1").arg( tagKey );
-				
-				archive.write( "tags.key", tmpKey );
-				archive.write( "tags.value", tagValue.asString() );
-			}
-			i++;
-		}
-		*/
 	}
 	cUObject::Serialize(archive);
 }
@@ -848,9 +804,6 @@ void cItem::Init(bool mkser)
 	this->time_unused=0;
 	this->timeused_last=getNormalizedTime();
 	this->spawnregion_="";
-	if( this->tags != NULL )
-		delete tags;
-	this->tags = new cCustomTags();
 }
 
 // -- delete an item (Actually just mark it is free)
@@ -902,55 +855,11 @@ void cAllItems::DeleItem(P_ITEM pi)
 				DeleItem(pContent);
 		}
 
-		delete pi->tags; // delete tags!
-
 		// Queue for later delete.
 		cItemsManager::getInstance()->deleteItem(pi);
 	}
 }
 
-cItem* cAllItems::CreateScriptRandomItem(int s, char * sItemList)
-{
-	int i=0, loopexit=0, iList[512], k;  //-- no more than 512 items in a single item list (changed by Magius(CHE))
-	char sect[512];
-	openscript("items.scp");
-	sprintf(sect, "ITEMLIST %s", sItemList);
-	if (!i_scripts[items_script]->find(sect)) // -- Valid itemlist?
-	{
-		closescript();
-		if (n_scripts[custom_item_script][0]!=0)
-		{
-			openscript(n_scripts[custom_item_script]);
-			if (!i_scripts[custom_item_script]->find(sect))
-			{
-				closescript(); //AntiChrist
-				return NULL;
-			}
-		} else return NULL;
-	}
-
-	do  // -- count items storing item #'s in iList[]
-	{
-		read1();
-		if (script1[0]!='}')
-		{
-			iList[i]=str2num(script1);
-			i++;
-		}
-	}
-	while ( (script1[0]!='}') && (++loopexit < MAXLOOPS) );
-	closescript();
-
-
-	if (i!=0) i=rand()%(i);
-		k=iList[i];   // -- Get random Item #
-
-	if (k!=0)
-	{
-		return createScriptItem(s, QString("%1").arg(k), 1);  // -- Create Item
-	}
-	return NULL;
-}
 ////////////////
 //o---------------------------------------------------------------------------o
 //| Function:   SpawnItem (2 interfaces)

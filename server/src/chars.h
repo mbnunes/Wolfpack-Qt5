@@ -43,7 +43,6 @@
 #include "structs.h"
 #include "defines.h"
 #include "uobject.h"
-#include "customtags.h"
 
 #undef  DBGFILE
 #define DBGFILE "chars.h"
@@ -149,8 +148,7 @@ public:
     // 2-6 = Sparkles
     int						gmMoveEff;
 
-	int VisRange;
-	cCustomTags* tags;
+	int						VisRange;
 	// Protected Data Members	
 protected:
 	short					GuildType;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild

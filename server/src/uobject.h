@@ -37,6 +37,7 @@
 #include "coord.h"
 #include "iserialization.h"
 #include "definable.h"
+#include "customtags.h"
 //#include "WPDefaultScript.h"
 
 // System includes
@@ -78,6 +79,8 @@ public:
 
 	std::string name;
 	Coord_cl pos;
+
+	cCustomTags tags;
 // Methods
 protected:
 	virtual void processNode( const QDomElement &Tag ) = 0;

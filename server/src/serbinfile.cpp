@@ -39,6 +39,7 @@
 // Library Includes
 #include "qfile.h"
 #include "qstring.h"
+#include "qmap.h"
 
 using namespace std;
 
@@ -177,6 +178,11 @@ void serBinFile::write(const char* Key, bool data)
 	file.write((char*)&data, 1);
 }
 
+void serBinFile::write(const char* Key, double data)
+{
+	file.write((char*)&data, 1);
+}
+
 void serBinFile::doneWritting()
 {
 
@@ -237,6 +243,11 @@ void serBinFile::read(const char* Key, signed   char &data)
 }
 
 void serBinFile::read(const char* Key, bool &data)
+{
+	file.read((char*)&data, 1);
+}
+
+void serBinFile::read(const char* Key, double &data)
 {
 	file.read((char*)&data, 1);
 }
