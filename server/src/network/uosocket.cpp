@@ -2688,9 +2688,10 @@ void cUOSocket::sendSellWindow( P_NPC pVendor, P_CHAR pSeller )
 				pit = packcont.begin();
 				while ( pit != packcont.end() )
 				{
-					if ( *pit && ( *pit )->id() == mItem->id() && ( *pit )->color() == mItem->color() && ( *pit )->baseid() == mItem->baseid() )
+					if ( *pit && ( *pit )->baseid() == mItem->baseid() && ( *pit )->scriptList() == mItem->scriptList() )
 					{
-						itemContent.addItem( ( *pit )->serial(), ( *pit )->id(), ( *pit )->color(), ( *pit )->amount(), mItem->sellprice(), ( *pit )->getName() );
+						unsigned int sellprice = mItem->getSellPrice(pVendor);
+						itemContent.addItem( ( *pit )->serial(), ( *pit )->id(), ( *pit )->color(), ( *pit )->amount(), sellprice, ( *pit )->getName() );
 						items.append( ( *pit ) );
 					}
 					++pit;

@@ -2341,3 +2341,47 @@ Coord_cl cItem::getOutmostPos() {
 	}
 	return pos_;
 }
+
+unsigned int cItem::getSellPrice(P_CHAR pVendor) {
+	unsigned int sellprice = this->sellprice();
+	bool fromItem = false;
+	bool itemCanHandle = canHandleEvent(EVENT_GETSELLPRICE);
+	bool npcCanHandle = pVendor->canHandleEvent(EVENT_GETSELLPRICE);
+	PyObject *args = 0;
+
+	if (itemCanHandle || npcCanHandle) {
+		args = Py_BuildValue("(NN)", getPyObject(), pVendor->getPyObject());
+	}
+
+	if (itemCanHandle) {
+		PyObject *result = callEvent(EVENT_GETSELLPRICE, args);
+		if (result) {
+			if (PyInt_CheckExact(result)) {
+				sellprice = PyInt_AsLong(result);
+				fromItem = true;
+			} else if (PyLong_CheckExact(result)) {
+				sellprice = PyLong_AsLong(result);
+				fromItem = true;
+			}
+		}
+		Py_XDECREF(result);
+	}
+
+	if (npcCanHandle && !fromItem) {
+		PyObject *result = pVendor->callEvent(EVENT_GETSELLPRICE, args);
+		if (result) {
+			if (PyInt_CheckExact(result)) {
+				sellprice = PyInt_AsLong(result);
+				fromItem = true;
+			} else if (PyLong_CheckExact(result)) {
+				sellprice = PyLong_AsLong(result);
+				fromItem = true;
+			}
+		}
+		Py_XDECREF(result);
+	}
+
+	Py_XDECREF(args);
+
+	return sellprice;
+}

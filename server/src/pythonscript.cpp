@@ -518,6 +518,17 @@ is requested.
 */
 "onUpdateDatabase",
 
+/*
+\event onGetSellPrice
+\param item The item being checked.
+\param vendor The vendor buying the item. This could be None.
+\return None if your event does not know the price. An integer
+value otherwise.
+\condition This event is triggered to get the sellprice for an item.
+It's triggered for the item, then for the npc and then for the global hook.
+*/
+"onGetSellPrice",
+
 0
 };
 

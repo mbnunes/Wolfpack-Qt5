@@ -314,6 +314,7 @@ public:
 	bool wearOut(); // The item wears out and true is returned if it's destroyed
 	void toBackpack( P_CHAR pChar );
 	void showName( cUOSocket* socket );
+	unsigned int getSellPrice(P_CHAR vendor);
 
 	void setMagic( uchar data )
 	{

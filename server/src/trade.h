@@ -38,15 +38,8 @@ class cUORxSell;
 
 namespace Trade
 {
-P_ITEM startTrade( P_CHAR pPlayer, P_CHAR pChar );
-
 void buyAction( cUOSocket* socket, cUORxBuy* packet );
 void sellAction( cUOSocket* socket, cUORxSell* packet );
-
-P_ITEM tradestart( cUOSocket* s, P_CHAR pc_i );
-void clearalltrades();
-void trademsg( int s );
-void dotrade( P_ITEM cont1, P_ITEM cont2 );
 };
 
 #endif

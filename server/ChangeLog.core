@@ -45,6 +45,8 @@ Wolfpack 12.9.11 Beta (CVS)
 	- Fixed a base definition bug related to property not loading the base definition.
 	- Fixed a bug with multis that would be put into themselves if moved.
 	- Fixed a crashbug related to vendors.
+	- Added the ability to dynamically determine the sell value of an item using the
+	  onGetSellPrice event.
 
 Wolfpack 12.9.10 Beta (10. September 2004)
 	- Made the maximum number of controlled pets a dynamic property for players.
