@@ -254,22 +254,42 @@ def opendoor( char, item ):
 			#	if multi.owner == char or char in multi.friends:
 			#		char.message( 'You refresh the house' )
 
-			return 1
+			return True
 
 		# Return to the original state
 		elif door[1] == item.id:
-			# Change the door id and update the clients around it
-			item.id = door[0]
-			item.moveto( pos.x - door[2], pos.y - door[3], pos.z )
-			if item.hastag('opened'):
-				item.deltag( 'opened' )
-			item.update()
-			# Soundeffect (close)
-			char.soundeffect( door[5] )
+			blocked = 0
+			chars = None
+			chars = wolfpack.chars( item.pos.x - door[2], item.pos.y - door[3], item.pos.map, 0 )
+			if chars:
+				for bchar in chars:
+					if bchar.pos.z == item.pos.z:
+						blocked = 1
+						break
+					elif bchar.pos.z < item.pos.z and bchar.pos.z >= ( item.pos.z - 5):
+						blocked = 1
+						break
+					elif bchar.pos.z > item.pos.z and bchar.pos.z <= ( item.pos.z + 5):
+						blocked = 1
+						break
 
-			return 1
+			if blocked == 1:
+				char.socket.sysmessage( "There is someone blocking the door!" )
+				return False
+			else:
+				pos = item.pos
+				# Change the door id and update the clients around it
+				item.id = door[0]
+				item.moveto( pos.x - door[2], pos.y - door[3], pos.z )
+				if item.hastag('opened'):
+					item.deltag( 'opened' )
+				item.update()
+				# Soundeffect (close)
+				char.soundeffect( door[5] )
 
-	return 0
+			return True
+
+	return False
 
 def autoclose( item, args ):
 	if not item or not item.hastag( 'opencount' ):
@@ -292,13 +312,16 @@ def autoclose( item, args ):
 	for door in doors:
 		if door[1] == item.id:
 			chars = wolfpack.chars( item.pos.x - door[2], item.pos.y - door[3], item.pos.map, 0 )
-	for char in chars:
-		if char.pos.z == item.pos.z:
+	for bchar in chars:
+		if bchar.pos.z == item.pos.z:
 			blocked = 1
-		elif char.pos.z < item.pos.z and char.pos.z >= ( item.pos.z - 5):
+			break
+		elif bchar.pos.z < item.pos.z and bchar.pos.z >= ( item.pos.z - 5):
 			blocked = 1
-		elif char.pos.z > item.pos.z and char.pos.z <= ( item.pos.z + 5):
+			break
+		elif bchar.pos.z > item.pos.z and bchar.pos.z <= ( item.pos.z + 5):
 			blocked = 1
+			break
 
 	if blocked == 1:
 		item.addtimer(CLOSEDOOR_DELAY, "door.autoclose", [ int(item.gettag('opencount')) ], 1)
@@ -307,7 +330,6 @@ def autoclose( item, args ):
 		for door in doors:
 			if door[1] == item.id:
 				pos = item.pos
-
 				# Change the door id and update the clients around it
 				item.id = door[0]
 				item.moveto( pos.x - door[2], pos.y - door[3], pos.z )
