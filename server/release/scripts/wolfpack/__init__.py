@@ -78,3 +78,11 @@ def list( id ):
 		raise TypeError, "id needs to be a string"
 
 	return _wolfpack.list( id )
+
+# Register a global hook
+def registerglobal( object, event, script ):
+	return _wolfpack.registerglobal( object, event, script )
+
+# Register this script to fetch a specific command
+def registercommand( command, script ):
+	return _wolfpack.registercommand( command, script )
