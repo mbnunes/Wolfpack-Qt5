@@ -48,6 +48,7 @@
 #include "skills.h"
 #include "world.h"
 #include "skills.h"
+#include "srvparams.h"
 #include "basechar.h"
 #include "network.h"
 
@@ -316,11 +317,12 @@ void WPDefManager::reload( void )
 // Load the Definitions
 void WPDefManager::load( void )
 {
+	unsigned int i = 0;
+
 	Console::instance()->PrepareProgress( "Loading Definitions" );
 
-	ImportSections( "definitions.xml" );
+	impl->imports = QStringList::split( ";", SrvParams->getString( "General", "Definitions", "definitions.xml", true ) );
 
-	unsigned int i = 0;
 	while( i < impl->imports.size() )
 	{
 		ImportSections( impl->imports[i] );
