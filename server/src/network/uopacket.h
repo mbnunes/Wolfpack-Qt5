@@ -58,7 +58,7 @@ protected:
 	void setRawData( uint, const char*, uint );
 
 public:
-	cUOPacket( QByteArray );
+	cUOPacket( const QByteArray& );
 	cUOPacket( Q_UINT32 );
 	cUOPacket( cUOPacket& );
 	cUOPacket( Q_UINT8, Q_UINT32 );

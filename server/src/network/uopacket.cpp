@@ -65,7 +65,7 @@ static bool systemBigEndian = false;
   Constructs a packet that is a deep copy of \a d interpreted as
   raw data.
 */
-cUOPacket::cUOPacket( QByteArray d ) : haveCompressed(false)
+cUOPacket::cUOPacket( const QByteArray& d ) : haveCompressed(false)
 {
 	init();
 	rawPacket = d.copy();
@@ -90,18 +90,6 @@ cUOPacket::cUOPacket( Q_UINT32 size ) : rawPacket( size ), haveCompressed(false)
 }
 
 /*!
-	\internal
-	Internal initialize function. Should be called from all constructors.
-*/
-void cUOPacket::init()
-{
-	haveCompressed = false;
-	if ( systemWordSize == 0 )			// get system features
-		qSysInfo( &systemWordSize, &systemBigEndian );
-	noswap = !systemBigEndian;
-}
-
-/*!
   Constructs a packet of type \a packetId, of size \a size and filled
   with 0's in all positions except for the first byte which contains
   the packet type.
@@ -111,6 +99,18 @@ cUOPacket::cUOPacket( Q_UINT8 packetId, Q_UINT32 size ) : rawPacket( size ), hav
 	init();
 	rawPacket.fill( (char)0 );
 	rawPacket[0] = packetId;
+}
+
+/*!
+	\internal
+	Internal initialize function. Should be called from all constructors.
+*/
+void cUOPacket::init()
+{
+	haveCompressed = false;
+	if ( systemWordSize == 0 )			// get system features
+		qSysInfo( &systemWordSize, &systemBigEndian );
+	noswap = !systemBigEndian;
 }
 
 /*!
@@ -310,7 +310,6 @@ void cUOPacket::compress( void )
 	}
 #endif
 	compressedBuffer.duplicate( temp.data(), actByte);
-//	cout << cUOPacket::dump( compressedBuffer ).latin1();
 }
 
 /*!
@@ -332,20 +331,27 @@ QByteArray cUOPacket::compressed()
 */
 int cUOPacket::getInt( uint pos ) const
 {
+#if defined(_DEBUG)
+	if ( rawPacket.size() < pos + 3 )
+	{
+		qWarning( "Warning: cUOPacket::getInt() called with params out of bounds" );
+		return QString(); //#better return empty ?
+	}
+#endif
 	int value;
 	if (noswap)
 	{
-		value = rawPacket.at(pos+3) & 0x000000FF;
+		value  = rawPacket.at(pos+3) & 0x000000FF;
 		value |= rawPacket.at(pos+2) << 8;
 		value |= rawPacket.at(pos+1) << 16;
 		value |= rawPacket.at(pos)   << 24;
 	}
 	else
 	{
-		value = rawPacket.at(pos) & 0x000000FF;
+		value  = rawPacket.at(pos) & 0x000000FF;
 		value |= rawPacket.at(pos+1) << 8;
 		value |= rawPacket.at(pos+2) << 16;
-		value |= rawPacket.at(pos+3)   << 24;
+		value |= rawPacket.at(pos+3) << 24;
 	}
 	return value;
 }
@@ -355,15 +361,21 @@ int cUOPacket::getInt( uint pos ) const
 */
 short cUOPacket::getShort( uint pos ) const
 {
+#if defined(_DEBUG)
+	if ( rawPacket.size() < pos + 1 )
+	{
+		qWarning( "Warning: cUOPacket::getShort() called with params out of bounds" );
+	}
+#endif
 	short value;
 	if ( noswap )
 	{
-		value = (Q_INT16)(rawPacket.at(pos+1)) & 0x00FF;
+		value  =  (Q_INT16)(rawPacket.at(pos+1)) & 0x00FF;
 		value |= ((Q_INT16)(rawPacket.at(pos)) << 8) & 0xFF00;
 	}
 	else
 	{
-		value = (Q_INT16)(rawPacket.at(pos)) & 0x00FF;
+		value  =  (Q_INT16)(rawPacket.at(pos)) & 0x00FF;
 		value |= ((Q_INT16)(rawPacket.at(pos+1)) << 8) & 0xFF00;
 	}
 	return value;
@@ -377,8 +389,13 @@ short cUOPacket::getShort( uint pos ) const
 QString cUOPacket::getUnicodeString( uint pos, uint fieldLength ) const
 {
 	QString result;
+#if defined(_DEBUG)
 	if ( pos + fieldLength > rawPacket.size() )
+	{
 		qWarning("cUOPacket::getUnicodeString() - field size is bigger than packet");
+		return result;
+	}
+#endif
 	for ( uint i = pos; i < pos + fieldLength; i += 2 )
 	{
 		QChar ch(getShort(i) );
@@ -398,11 +415,13 @@ QString cUOPacket::getUnicodeString( uint pos, uint fieldLength ) const
 */
 QString cUOPacket::getAsciiString( uint pos, uint fieldLength ) const
 {
+#if defined(_DEBUG)
 	if ( rawPacket.size() < fieldLength + pos )
 	{
-		qWarning(QString("Warning: cUOPacket::getAsciiString() called with params out of bounds"));
+		qWarning( "Warning: cUOPacket::getAsciiString() called with params out of bounds" );
 		return QString(); //#better return empty ?
 	}
+#endif
 	if ( fieldLength )
 	{
 		char* buffer = new char[fieldLength+1];

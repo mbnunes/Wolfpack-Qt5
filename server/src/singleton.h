@@ -92,7 +92,7 @@ public:
 
 // Singleton Holder Data
 template<typename T,class L>
-typename SingletonHolder<T, L>::ptrInstanceType SingletonHolder<T,L>::ptrInstance;
+typename SingletonHolder<T, L>::ptrInstanceType SingletonHolder<T,L>::ptrInstance = 0;
 template<typename T,class L>
 bool SingletonHolder<T,L>::destroyed_ = false;
 
