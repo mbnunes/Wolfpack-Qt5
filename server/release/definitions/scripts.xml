@@ -81,7 +81,7 @@
 	<script>commands.account</script>
 	<script>commands.action</script>
 	<script>commands.add</script>
-	<script>commands.addtree</script>
+	<script>commands.adddecor</script>
 	<script>commands.bank</script>
 	<script>commands.cast</script>
 	<script>commands.decoration</script>
