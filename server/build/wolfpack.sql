@@ -133,6 +133,7 @@ CREATE TABLE characters (
   food int(10) unsigned NOT NULL default '0',
   say smallint(5) unsigned default NULL,
   mana smallint(6) default NULL,
+  profile longtext NULL,
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM COMMENT='cChar';
