@@ -487,7 +487,7 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	ShowWindow( mainWindow, SW_NORMAL );
 
 	cGuiThread guiThread( lpCmdLine );
-	guiThread.start();
+	guiThread.start( QThread::LowPriority );
 
 	MSG msg;
 
