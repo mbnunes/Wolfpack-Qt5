@@ -4,7 +4,7 @@
 	is automatically the script-name used internally (for
 	other scripts or eventlists).
 -->
-<definitions>	
+<definitions>
 	<script>npc.healer</script>
 	<script>training_dummy</script>
 	<script>pickpocket_dip</script>
@@ -58,19 +58,20 @@
 
 	<!-- Commands -->
 	<script>wolfpack.commands</script>
-  <script>wolfpack.commands.edit</script>
-  <script>wolfpack.commands.skillinfo</script>
-  <script>wolfpack.commands.tags</script>
-  <script>wolfpack.commands.tile</script>
+	<script>wolfpack.commands.edit</script>
+	<script>wolfpack.commands.skillinfo</script>
+	<script>wolfpack.commands.tags</script>
+	<script>wolfpack.commands.tile</script>
 	<script>wolfpack.commands.action</script>
-  <script>wolfpack.commands.add</script>
+	<script>wolfpack.commands.add</script>
+	<script>wolfpack.commands.addtree</script>
 	<script>wolfpack.commands.bank</script>
 	<script>wolfpack.commands.cast</script>
 	<script>wolfpack.commands.decoration</script>
 	<script>wolfpack.commands.dupe</script>
 	<script>wolfpack.commands.dye</script>
 	<script>wolfpack.commands.export</script>
-  <script>wolfpack.commands.go</script>
+	<script>wolfpack.commands.go</script>
 	<script>wolfpack.commands.import</script>
 	<script>wolfpack.commands.info</script>
 	<script>wolfpack.commands.where</script>
@@ -136,17 +137,17 @@
 	<!-- System Scripts -->
 	<script>system.makemenus</script>
 	<script>system.mysql_optimize_db</script>
-  <script>system.skillgain</script>
-  <script>system.hardwareinfo</script>
-  <script>system.spawns</script>
-  <script>system.trading</script>
-  <script>system.uogstatus</script>
-  <script>system.webadmin</script>
+	<script>system.skillgain</script>
+	<script>system.hardwareinfo</script>
+	<script>system.spawns</script>
+	<script>system.trading</script>
+	<script>system.uogstatus</script>
+	<script>system.webadmin</script>
 
 	<!-- Tools -->
 	<script>tools.pickaxe</script>
 
-	<!-- Skills -->  
+	<!-- Skills -->
 	<script>skills</script>
 	<script>skills.anatomy</script>
 	<script>skills.animallore</script>
@@ -170,6 +171,6 @@
 	<script>skills.provocation</script>
 	<script>skills.mining</script>
 	<script>skills.lumberjacking</script>
-  <script>skills.tailoring</script>
+	<script>skills.tailoring</script>
 
 </definitions>
