@@ -12,14 +12,12 @@
 		<name>small test house</name>
 		<deedsection>house_small</deedsection>
 		<movechar x="0" y="0" z="5" />
-		<item> <!-- door -->
-			<inherit id="6c5" />
+		<item id="6c5"> <!-- door -->
 			<type>13</type> <!-- locked door -->
 			<lock />
 			<position x="0" y="3" z="5" />
 		</item>
-		<item> <!-- wooden sign -->
-			<inherit id="bd0" />
+		<item id="bd0"> <!-- wooden sign -->
 			<type>222</type> <!-- brings up owner gump on dbl click -->
 			<lock />
 			<position x="2" y="4" z="5" />
