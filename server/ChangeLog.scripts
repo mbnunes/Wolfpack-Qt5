@@ -1,13 +1,13 @@
 Wolfpack 13.0.0 ChangeLog
 
-Wolfpack 12.9.9 Beta (N/A)
+Wolfpack 12.9.9 Beta (CVS)
 	* Core Changes:
 	* Definition Changes:
 	* Python Script Changes:
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 
-Wolfpack 12.9.8 Beta (CVS)
+Wolfpack 12.9.8 Beta (19. August 2004)
 	* Core Changes:
 		- Save fixes
 		- Cleanups and general fixes.
@@ -33,7 +33,8 @@ Wolfpack 12.9.8 Beta (CVS)
 		- (Configurable) Speedhack Countermeasure
 			(See Anti Speed Hack settings in the General group)
 		- Added some additional checking to wolfpack.pro
-		- Began binary save feature. (Incomplete)
+		- Binary save driver. Use "binary" as your database save driver.
+		  No support for accounts (and none planned).
 		- Fixes for mul and diff files.
 			Haven should now work.
 		- Database Change:
