@@ -189,31 +189,37 @@
         <item id="c4f">
                 <id>0xC4F</id>
                 <category>Vegetation\Plants\Cotton 1</category>
+                <events>environment</events>
         </item>
 
         <item id="c50">
                 <id>0xC50</id>
                 <category>Vegetation\Plants\Cotton 2</category>
+                <events>environment</events>
         </item>
 
         <item id="c51">
                 <id>0xC51</id>
                 <category>Vegetation\Plants\Cotton 3</category>
+                <events>environment</events>
         </item>
 
         <item id="c52">
                 <id>0xC52</id>
                 <category>Vegetation\Plants\Cotton 4</category>
+                <events>environment</events>
         </item>
 
         <item id="c53">
                 <id>0xC53</id>
                 <category>Vegetation\Plants\Cotton 5</category>
+                <events>environment</events>
         </item>
 
         <item id="c54">
                 <id>0xC54</id>
                 <category>Vegetation\Plants\Cotton 6</category>
+                <events>environment</events>
         </item>
 
         <item id="c55">

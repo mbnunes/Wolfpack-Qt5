@@ -26,6 +26,7 @@
 	<script>carpentry_deed</script>
 	<script>scroll</script>
 	<script>spellbook</script>
+	<script>environment</script>
 	
 	<!-- Commands -->
 	<script>wolfpack.commands</script>
