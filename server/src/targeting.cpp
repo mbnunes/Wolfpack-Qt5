@@ -911,12 +911,12 @@ int cTargets::AddMenuTarget(int s, int x, int addmitem) //Tauriel 11-22-98 updat
 int cTargets::NpcMenuTarget(int s)
 {
 	if (buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return -1;
-	return Npcs->AddRespawnNPC(s,addmitem[s],0);
+	return Npcs->AddNPC(s, NULL, addmitem[s]);
 }
 
 void cTargets::VisibleTarget (int s)
 {
-	int serial=LongFromCharPtr(buffer[s]+7);
+	SERIAL serial = LongFromCharPtr(buffer[s]+7);
 
 	if(isItemSerial(serial))//item
 	{

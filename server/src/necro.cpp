@@ -94,7 +94,7 @@ int SpawnRandomMonster(int nCharID, char* cScript, char* cList, char* cNpcID)
   		i=rand()%(i);
 		if(item[i]!=-1)
 		{
-			Npcs->AddRespawnNPC(nCharID,item[i],0);
+			Npcs->AddNPC(nCharID, NULL, item[i]);
 			return item[i];
 		}
 	}

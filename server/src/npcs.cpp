@@ -109,7 +109,7 @@ static int addrandomhaircolor(int s, char *colorlist)
 {
 	P_CHAR pc_s = MAKE_CHAR_REF(s);
 	char sect[512];
-	int i,j,haircolor;
+	int i,j,haircolor = 0x044e;
 	i=0; j=0;
 	openscript("colors.scp");
 	sprintf(sect, "RANDOMCOLOR %s", colorlist);
@@ -893,38 +893,38 @@ int cCharStuff::AddRandomNPC(int s, char * npclist, int spawnpoint)
 //| Remarks    : This function was created from the former AddRespawnNPC() and
 //|				 AddNPCxyz() that were 95% identical
 //o---------------------------------------------------------------------------o
+/*
 int cCharStuff::AddRespawnNPC(int s, int npcNum, int type)
 {
 	if (type == 1)
 		return AddNPC(-1, s, npcNum, 0,0,0);	// 's' is an item index
 	else
-		return AddNPC(s, -1, npcNum, 0,0,0);	// 's' is a socket
-}
+		return AddNPC(s, NULL, npcNum, 0,0,0);	// 's' is a socket
+}*/
 int cCharStuff::AddNPCxyz(int s, int npcNum, int type, int x1, int y1, signed char z1) //Morrolan - replacement for old Npcs->AddNPCxyz(), fixes a LOT of problems.
 {
 	if (type == 0)
-		return AddNPC(s, -1, npcNum, x1,y1,z1);	// 's' maybe(!) is a socket
+		return AddNPC(s, NULL, npcNum, x1,y1,z1);	// 's' maybe(!) is a socket
 	if (type == 1)
 		clConsole.send("ERROR: type == 1 not supported!\n");
 	return -1;
 }
 
-int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
+int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed char z1)
 {
 	int tmp, z,c, lovalue, hivalue;
 	int k=0, xos=0, yos=0, lb;
 	char sect[512];
-	int haircolor; //(we need this to remember the haircolor)
-	haircolor=-1;
+	int haircolor = -1; //(we need this to remember the haircolor)
 	short postype;				// determines how xyz of the new NPC are set, see below
 	short fx1,fx2,fy1,fy2,fz1;	// temp. hold the rectangle or circle for npcwander from script
 	fx1=fx2=fy1=fy2=fz1=0;
 
 	if (x1 > 0 && y1 > 0)
  		postype = 3;	// take position from parms
-	else if ( s > -1 && i == -1)
+	else if ( s > -1 && pi_i == NULL)
 		postype = 2;	// take position from socket's buffer
-	else if ( s == -1 && i > -1)
+	else if ( s == -1 && pi_i != NULL)
 		postype = 1;	// take position from items[i]
 	else
 	{
@@ -1580,7 +1580,6 @@ int cCharStuff::AddNPC(int s, int i, int npcNum, int x1, int y1, signed char z1)
 	   y) If the place chosen is not a valid position (the NPC can't walk there) then a new 
 	   place will be chosen, if a valid place cannot be found in a certain # of tries (50), 
 		   the NPC will be placed directly on the spawner and the server op will be warned. */
-		   P_ITEM pi_i = MAKE_ITEM_REF(i);
 		   if ((pi_i->type==69 || pi_i->type==125)&& pi_i->isInWorld())
 		   {
 			   if (pi_i->more3==0) pi_i->more3=10;

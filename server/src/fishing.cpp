@@ -99,7 +99,7 @@ int SpawnFishingMonster(UOXSOCKET s, char* cScript, char* cList, char* cNpcID)
   		i=rand()%(i);
 		if(item[i]!=-1)
 		{
-			Npcs->AddRespawnNPC(s,item[i],0);
+			Npcs->AddNPC(s, NULL, item[i], 0);
 			return item[i];
 		}
 	}

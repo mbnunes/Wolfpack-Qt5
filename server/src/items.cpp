@@ -1750,7 +1750,7 @@ void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 					}
 					if ((pi->gatetime<=currenttime || (overflow)) && pi->morex!=0)
 					{
-						Npcs->AddRespawnNPC(DEREF_P_ITEM(pi),pi->morex,1);//If you are trying to spawn NPCs you must call an
+						Npcs->AddNPC(INVALID_SOCKET, pi, pi->morex);//If you are trying to spawn NPCs you must call an
 						pi->gatetime=0;					//NPC spawn not an item spawn. Fixed 9-3-99 Just Michael
 					}
 				}

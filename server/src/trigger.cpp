@@ -1223,7 +1223,7 @@ void triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							}
 							pos = ftell(scpfile);
 							closescript();
-							Npcs->AddRespawnNPC(DEREF_P_ITEM(pi), uiNpcNum, 1);
+							Npcs->AddNPC(INVALID_SOCKET, pi, uiNpcNum);
 							// Npcs->AddRespawnNPC(ts,str2num(script2),1);
 							npcnum = triggerx;
 							
@@ -2794,9 +2794,9 @@ void triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(CHE) §
 							
 							pos = ftell(scpfile);
 							closescript();
-							Npcs->AddRespawnNPC(ti, uiNpcNum, 1);
+							Npcs->AddNPC(INVALID_SOCKET, NULL, uiNpcNum, triggerx, triggery, triggerz);
 							npcnum = triggerx;
-							
+#pragma note("get a x coord and interpret as a char[]? This can't be right...")
 							if (uiTimer>0)
 							{// if we have a timer
 								chars[npcnum].summontimer = uiCurrentTime +(uiTimer*MY_CLOCKS_PER_SEC);
