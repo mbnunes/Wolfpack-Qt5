@@ -18,7 +18,10 @@ def onShowTooltip( sender, target, tooltip ):
   if target.isitem():
     name = target.getname()
 
-    if isarmor ( target ):
+    if target.id == 0x2006 and len(target.name) > 0:
+      tooltip.add(1046414, target.name)
+
+    elif isarmor ( target ):
     	armor( target, tooltip )
     
     elif ishat( target ):
@@ -32,16 +35,14 @@ def onShowTooltip( sender, target, tooltip ):
                    
     else:
       if target.name == '#' or target.name == '':
-      	if target.amount > 1:
-      		tooltip.add( 1050045, " \t#" + str( 0xF9060 + target.id ) + "\t`s: " + str( target.amount ) )
-      	else:			
-      		tooltip.add( 0xF9060 + target.id, '' )
-      	
+        labelname = '#' + str(0xf9060 + target.id)
       else:
-      	if target.amount > 1:
-      		tooltip.add( 1050045, " \t" + name + "\t: " + str( target.amount ) )
-      	else:
-      		tooltip.add( 1050045, " \t" + name + "\t " )
+        labelname = target.name
+
+      if target.amount > 1:
+        tooltip.add(1050039, str(target.amount) + "\t" + labelname)
+      else:
+        tooltip.add(1050039, " \t" + labelname)
 
       if target.visible == 0 and sender.gm:
           tooltip.add(3000507, "")

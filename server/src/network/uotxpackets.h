@@ -1274,6 +1274,9 @@ public:
 		setShort( 3, 1 );
 	}
 
+	void setUnknown1( ushort data ) { setShort( 3, data ); }
+	void setUnknown2( uchar data ) { (*this)[9] = data; }
+	void setUnknown3( uchar data ) { (*this)[10] = data; }
 	void setSerial( uint data ) { setInt( 5, data ); }
 	void setId( uint data )     { setInt( 11, data ); }
 

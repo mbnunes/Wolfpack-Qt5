@@ -2321,12 +2321,20 @@ void cItem::createTooltip(cUOTxTooltipList &tooltip, cPlayer *player) {
 	if (!onShowTooltip(player, &tooltip)) {
 		if (name_.isNull() || name_.isEmpty()) {
 			if (amount_ > 1) {
-				tooltip.addLine(0x1005bd, " \t#" + QString::number( 0xF9060 + id_ ) + "\t: " + QString::number(amount_));
+				//tooltip.addLine(0x1005bd, " \t#" + QString::number( 0xF9060 + id_ ) + "\t: " + QString::number(amount_));
+				tooltip.addLine(1050039, QString::number(amount_) + "\t#" + QString::number(0xf9060 + id_));
 			} else {
-				tooltip.addLine(0xF9060 + id_, "");
+				//tooltip.addLine(0xF9060 + id_, "");
+				tooltip.addLine(1050039, " \t#" + QString::number(0xf9060 + id_));
 			}
 		}
 		else
-			tooltip.addLine( 0x1005bd, " \t" + name_ + "\t " );
+			if (amount_ > 1) {
+				//tooltip.addLine(0x1005bd, " \t#" + QString::number( 0xF9060 + id_ ) + "\t: " + QString::number(amount_));
+				tooltip.addLine(1050039, QString::number(amount_) + "\t" + name_);
+			} else {
+				//tooltip.addLine(0xF9060 + id_, "");
+				tooltip.addLine(1050039, " \t" + name_);
+			}
 	}
 }
