@@ -2356,16 +2356,11 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject*
 				if (basedef_->hasStrProperty("bloodcolor")) {
 					QStringList bloodColors = QStringList::split(",", basedef_->getStrProperty("bloodcolor"));
 					if (bloodColors.count() == 2) {
-						bool ok;
-						int from = bloodColors[0].toInt(&ok);
-						if (ok) {
-							int to = bloodColors[1].toInt(&ok);
-							if (ok) {
-								if (to < from) {
-									std::swap(to, from);
-									bloodColor = RandomNum(from, to);
-								}
-							}
+						bool ok1, ok2;
+						int from = bloodColors[0].toInt(&ok1);
+						int to = bloodColors[1].toInt(&ok2);
+						if (ok1 && ok2) {
+							bloodColor = RandomNum(from, to);
 						}
 					}
 				}
