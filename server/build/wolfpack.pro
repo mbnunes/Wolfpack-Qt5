@@ -170,7 +170,6 @@ SOURCES         = Client.cpp \
 		  storage.cpp \
 		  targeting.cpp \
 		  telport.cpp \
-		  translate.cpp \
 		  trigger.cpp \
 		  uobject.cpp \
 		  utilsys.cpp \
