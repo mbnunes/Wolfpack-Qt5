@@ -1868,7 +1868,7 @@ void cItem::showName( cUOSocket *socket )
 		itemname.append( tr( ": %1" ).arg( amount_ ) );
 
 	// Show serials
-	if( socket->player() && socket->player()->getPriv() & 8 )
+	if( socket->player() && socket->player()->account() && socket->player()->account()->isShowSerials() )
 		itemname.append( tr( " [%1]" ).arg( serial, 8, 16 ) );
 
 	// Pages
@@ -1964,7 +1964,7 @@ void cItem::update( cUOSocket *mSock )
 			P_CHAR pChar = mSock->player();
 
 			// Only send to sockets in range
-			if( !pChar || ( pChar->pos.distance( pos ) > pChar->VisRange() ) )
+			if( !pChar || !pChar->account() || ( pChar->pos.distance( pos ) > pChar->VisRange() ) )
 				return;
 
 			// Completely invisible
@@ -1977,8 +1977,10 @@ void cItem::update( cUOSocket *mSock )
 	        
 			if( isAllMovable() )
 				sendItem->setFlags( 0x20 );
-			else if( pChar->canMoveAll() )
+
+			else if( pChar->account()->isAllMove() )
 				sendItem->setFlags( 0x20 );
+
 			else if( isOwnerMovable() && pChar->Owns( this ) )
 				sendItem->setFlags( 0x20 );
 
@@ -1996,7 +1998,7 @@ void cItem::update( cUOSocket *mSock )
 				P_CHAR pChar = mSock->player();
 	
 				// Only send to sockets in range
-				if( !pChar || ( pChar->pos.distance( pos ) > pChar->VisRange() ) )
+				if( !pChar || !pChar->account() || ( pChar->pos.distance( pos ) > pChar->VisRange() ) )
 					continue;
 	
 				// Completely invisible
@@ -2011,8 +2013,8 @@ void cItem::update( cUOSocket *mSock )
 	            
 				if( isAllMovable() )
 					sockSendItem.setFlags( 0x20 );
-				else if( pChar->canMoveAll() )
-					sockSendItem.setFlags( 0x20 );
+				else if( pChar->account()->isAllMove() )
+					sendItem->setFlags( 0x20 );
 				else if( ( isOwnerMovable() || isLockedDown() ) && pChar->Owns( this ) )
 					sockSendItem.setFlags( 0x20 );
 	

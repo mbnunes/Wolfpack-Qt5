@@ -44,8 +44,8 @@ AccountRecord::AccountRecord()
 {
 	aclName_ = QString();
 	acl_ = 0; // Null it out
-	blocked_ = false;
 	inUse_ = false;
+	flags_ = 0;
 }
 
 void AccountRecord::Serialize( ISerialization& archive )
@@ -54,7 +54,7 @@ void AccountRecord::Serialize( ISerialization& archive )
 	{
 		archive.read("login", login_);
 		archive.read("password", password_);
-		archive.read("blocked", blocked_);
+		archive.read("flags", flags_);
 		archive.read("acl", aclName_);
 		QString temp;
 		archive.read("lastlogin", temp);
@@ -65,7 +65,7 @@ void AccountRecord::Serialize( ISerialization& archive )
 	{
 		archive.write( "login", login_ );
 		archive.write( "password", password_ );
-		archive.write( "blocked", blocked_ );
+		archive.write( "flags", flags_ );
 		archive.write( "acl", aclName_ );
 		QString temp = lastLogin_.toString( Qt::ISODate );
 		archive.write( "lastlogin", temp );
@@ -75,7 +75,7 @@ void AccountRecord::Serialize( ISerialization& archive )
 
 bool AccountRecord::isBlocked() const
 {
-	if ( (blockUntil.isValid() && blockUntil < QDateTime::currentDateTime()) || blocked_ )
+	if ( (blockUntil.isValid() && blockUntil < QDateTime::currentDateTime()) || flags_&0x00000001 )
 		return true;
 	else
 		return false;
@@ -83,7 +83,7 @@ bool AccountRecord::isBlocked() const
 
 uint AccountRecord::secsToUnblock() const
 {
-	if ( blocked_ )
+	if ( isBlocked() )
 		return ~0;
 	else if ( blockUntil.isValid() && blockUntil < QDateTime::currentDateTime() )
 		return QDateTime::currentDateTime().secsTo( blockUntil );
@@ -321,4 +321,51 @@ void cAccounts::remove( AccountRecord *record )
 void AccountRecord::refreshAcl()
 {
 	acl_ = cCommands::instance()->getACL( aclName_ ); 
+}
+
+bool AccountRecord::isAllMove() const
+{
+	return flags_&0x00000002;
+}
+
+bool AccountRecord::isAllShow() const
+{
+	return flags_&0x00000004;
+}
+
+bool AccountRecord::isShowSerials() const
+{
+	return flags_&0x00000008;
+}
+
+void AccountRecord::setBlocked( bool data )
+{
+	if( data )
+		flags_ |= 0x00000001;
+	else
+		flags_ &= ~0x00000001;
+}
+
+void AccountRecord::setAllMove( bool data )
+{
+	if( data )
+		flags_ |= 0x00000002;
+	else
+		flags_ &= ~0x00000002;
+}
+
+void AccountRecord::setAllShow( bool data )
+{
+	if( data )
+		flags_ |= 0x00000004;
+	else
+		flags_ &= ~0x00000004;
+}
+
+void AccountRecord::setShowSerials( bool data )
+{
+	if( data )
+		flags_ |= 0x00000008;
+	else
+		flags_ &= ~0x00000008;
 }

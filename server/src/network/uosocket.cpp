@@ -1054,9 +1054,12 @@ void cUOSocket::updateChar( P_CHAR pChar )
 // Sends a foreign char including equipment
 void cUOSocket::sendChar( P_CHAR pChar )
 {
-	if( !_player )
+	if( !_player || !_player->account() )
 		return;
 
+	if( ( pChar->isHidden() || ( pChar->dead() && !pChar->war() ) ) && !_player->account()->isAllShow() )
+		return;
+	
 	// Then completely resend it
 	cUOTxDrawChar drawChar;
 	drawChar.fromChar( pChar );

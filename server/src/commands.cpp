@@ -766,12 +766,12 @@ void commandAccount( cUOSocket *socket, const QString &command, QStringList &arg
 			{
 				if( value.lower() == "on" )
 				{
-					account->block();
+					account->setBlocked( true );
 					socket->sysMessage( tr( "Account '%1' has been blocked" ).arg( account->login() ) );
 				}
 				else if( value.lower() == "off" )
 				{
-					account->unBlock();
+					account->setBlocked( false );
 					socket->sysMessage( tr( "Account '%1' has been unblocked" ).arg( account->login() ) );
 				}
 				else
@@ -2310,41 +2310,103 @@ void commandTile( cUOSocket *socket, const QString &command, QStringList &args )
 	socket->attachTarget( new cTileTarget( z, ids ) );
 }
 
+void commandAllShow( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	if( !socket->player() || !socket->player()->account() )
+		return;
+
+	// Switch
+	if( !args.count() )
+		socket->player()->account()->setAllShow( !socket->player()->account()->isAllShow() );
+	// Set
+	else 
+		socket->player()->account()->setAllShow( args[0].toInt() != 0 );
+
+	if( socket->player()->account()->isAllShow() )
+		socket->sysMessage( tr( "AllShow = '1'" ) );
+	else
+		socket->sysMessage( tr( "AllShow = '0'" ) );	
+
+	socket->resendWorld( true );
+}
+
+void commandAllMove( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	if( !socket->player() || !socket->player()->account() )
+		return;
+
+	// Switch
+	if( !args.count() )
+		socket->player()->account()->setAllMove( !socket->player()->account()->isAllMove() );
+	// Set
+	else 
+		socket->player()->account()->setAllMove( args[0].toInt() != 0 );
+
+	if( socket->player()->account()->isAllMove() )
+		socket->sysMessage( tr( "AllMove = '1'" ) );
+	else
+		socket->sysMessage( tr( "AllMove = '0'" ) );
+
+	// Resend the world to us
+	socket->resendWorld( true );
+}
+
+void commandShowSerials( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	if( !socket->player() || !socket->player()->account() )
+		return;
+
+	// Switch
+	if( !args.count() )
+		socket->player()->account()->setShowSerials( !socket->player()->account()->isShowSerials() );
+	// Set
+	else 
+		socket->player()->account()->setShowSerials( args[0].toInt() != 0 );
+
+	if( socket->player()->account()->isShowSerials() )
+		socket->sysMessage( tr( "ShowSerials = '1'" ) );
+	else
+		socket->sysMessage( tr( "ShowSerials = '0'" ) );	
+}
+
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
 	{ "ACCOUNT",		commandAccount },
 	{ "ACTION",			commandAction },
 	{ "ADD",			commandAdd },
+	{ "ADDEVENT",		commandAddEvent },
 	{ "ADDITEM",		commandAddItem },
 	{ "ADDNPC",			commandAddNpc },
+	{ "ADDSPELL",		commandAddSpell },
+	{ "ALLMOVE",		commandAllMove },
+	{ "ALLSHOW",		commandAllShow },	
 	{ "BANK",			commandBank },
 	{ "FIX",			commandFix },
 	{ "GO",				commandGo },
 	{ "INFO",			commandInfo },
 	{ "KILL",			commandKill },
 	{ "MAKEMENU",		commandMakeMenu },
+	{ "MOVE",			commandMove },
+	{ "NUKE",			commandNuke },
 	{ "PAGES",			commandPages },
 	{ "RELOAD",			commandReload },
 	{ "REMOVE",			commandRemove },
+	{ "REMOVEEVENT",	commandRemoveEvent },
+	{ "REMOVESPELL",	commandRemoveSpell },
 	{ "RESEND",			commandResend },
 	{ "RESURRECT",		commandResurrect },
 	{ "SAVE",			commandSave },
 	{ "SET",			commandSet },
 	{ "SHOW",			commandShow },
+	{ "SHOWSERIALS",	commandShowSerials },
 	{ "SHUTDOWN",		commandShutDown },
 	{ "SPAWNREGION",	commandSpawnRegion },
 	{ "TAGS",			commandTags },
 	{ "TELE",			commandTele },
+	{ "TILE",			commandTile },	
 	{ "WHERE",			commandWhere },
 	{ "WHO",			commandWho },
-	{ "ADDSPELL",		commandAddSpell },
-	{ "REMOVESPELL",	commandRemoveSpell },
-	{ "ADDEVENT",		commandAddEvent },
-	{ "REMOVEEVENT",	commandRemoveEvent },
-	{ "MOVE",			commandMove },
-	{ "NUKE",			commandNuke },
-	{ "TILE",			commandTile },
 	{ NULL, NULL }
 };
 

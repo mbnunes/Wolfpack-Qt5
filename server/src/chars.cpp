@@ -1865,7 +1865,7 @@ void cChar::resend( bool clean )
 	{
 		P_CHAR pChar = ri.GetData();
 
-		if( !pChar || !pChar->socket() )
+		if( !pChar || !pChar->socket() || !pChar->account() )
 			continue;
 
 		if( pChar->pos.distance( pos ) > pChar->VisRange() )
@@ -1875,7 +1875,7 @@ void cChar::resend( bool clean )
 		if( clean )
 			pChar->socket()->removeObject( this );
 
-		if( ( isHidden() || ( dead_ && !war_ ) ) && !pChar->isGMorCounselor() )
+		if( ( isHidden() || ( dead_ && !war_ ) ) && !pChar->account()->isAllShow() )
 			continue;
 
 		drawChar.setHighlight( notority( pChar ) );

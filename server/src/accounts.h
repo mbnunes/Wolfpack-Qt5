@@ -64,7 +64,13 @@ private:
 	QValueVector<cChar*> characters_;
 	QDateTime lastLogin_;
 	QDateTime blockUntil;
-	bool blocked_;
+
+	// Flags for this Account
+	// 0x00000001 blocked
+	// 0x00000002 allmove
+	// 0x00000004 allshow
+	// 0x00000008 showserials
+	UINT32 flags_;
 	int attempts_;
 	bool inUse_;
 
@@ -81,24 +87,33 @@ public:
 	bool addCharacter( cChar* );
 	bool removeCharacter( cChar* );
 	bool inUse() const;
-	
-	bool isBlocked() const;
 	void resetLoginAttempts() { attempts_ = 0; };
 	void loginAttemped() { ++attempts_; }
 	int loginAttempts() { return attempts_; }
 	void block( int seconds );
 	uint secsToUnblock() const;
-	void block();
-	void unBlock();
 	void setAcl( const QString &nAcl );
 	QString acl() const;
 	QDateTime lastLogin() const;
 	void setLastLogin( const QDateTime& );
 	void refreshAcl();
 	void setInUse( bool data );
+	void setFlags( UINT32 data );
+	UINT32 flags() const;
 		
 	void Serialize( ISerialization& );
 	QString	objectID( void ) const;
+
+	// Flag Setters/Getters
+	bool isBlocked() const;
+	bool isAllMove() const;
+	bool isAllShow() const;
+	bool isShowSerials() const;
+
+	void setBlocked( bool data );
+	void setAllMove( bool data );
+	void setAllShow( bool data );
+	void setShowSerials( bool data );
 };
 
 
@@ -168,20 +183,14 @@ inline void AccountRecord::block( int seconds )
 	blockUntil = QDateTime::currentDateTime().addSecs( seconds );
 }
 
-inline void AccountRecord::block()
-{
-	blocked_ = true;
-}
-
-inline void AccountRecord::unBlock()
-{
-	blocked_ = false;
-	blockUntil = QDateTime::currentDateTime(); // Unblock now.
-}
-
 inline QDateTime AccountRecord::lastLogin() const
 {
 	return lastLogin_;
+}
+
+inline UINT32 AccountRecord::flags() const
+{
+	return flags_;
 }
 
 inline void AccountRecord::setLastLogin( const QDateTime& d )
@@ -197,6 +206,11 @@ inline bool AccountRecord::inUse() const
 inline void AccountRecord::setInUse( bool data )
 {
 	inUse_ = data;
+}
+
+inline void AccountRecord::setFlags( UINT32 data )
+{
+	flags_ = data;
 }
 
 typedef SingletonHolder<cAccounts> Accounts;
