@@ -740,6 +740,16 @@ void cWorld::load()
 			pChar->flagUnchanged(); // We've just loaded, nothing changes
 		}
 	
+		// post process all loaded objects
+		// Note from DarkStorm: I THINK it's important to do this before
+		// the deletion of objects, otherwise you might have items in this
+		// list that are already deleted.
+		QPtrList<PersistentObject>::const_iterator cit(objects.begin());
+		
+		while (cit != objects.end()) {
+			(*cit)->postload(0);
+			++cit;
+		}
 
 		if ( deleteItems.count() > 0 )
 		{
@@ -779,14 +789,6 @@ void cWorld::load()
 		UoTime::instance()->setMinutes( db_time.toInt() );
 
 		PersistentBroker::instance()->disconnect();
-
-		// post process all loaded objects
-		QPtrList<PersistentObject>::const_iterator cit(objects.begin());
-		
-		while (cit != objects.end()) {
-			(*cit)->postload(0);
-			++cit;
-		}
 	}
 	
 
