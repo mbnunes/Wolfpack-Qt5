@@ -13,31 +13,43 @@
 	<item id="f65">
 		<id>0xf65</id>
 		<category>Professions\Artist\Canvas 1</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xf65;0xf67;0xf69</flip>
 	</item>
 
 	<item id="f66">
 		<id>0xf66</id>
 		<category>Professions\Artist\Canvas 2</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xf66;0xf68;0xf6a</flip>
 	</item>
 
 	<item id="f67">
 		<id>0xf67</id>
 		<category>Professions\Artist\Canvas 3</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xf65;0xf67;0xf69</flip>
 	</item>
 
 	<item id="f68">
 		<id>0xf68</id>
 		<category>Professions\Artist\Canvas 4</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xf66;0xf68;0xf6a</flip>
 	</item>
 
 	<item id="f69">
 		<id>0xf69</id>
 		<category>Professions\Artist\Canvas 5</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xf65;0xf67;0xf69</flip>
 	</item>
 
 	<item id="f6a">
 		<id>0xf6a</id>
 		<category>Professions\Artist\Canvas 6</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xf66;0xf68;0xf6a</flip>
 	</item>
 
 	<item id="f71">

@@ -5,6 +5,7 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Made leather armors and hats auto mage armors.
 		- Fixed a category error with some champions.
 		- Fixed prices for jewels.
+		- Added data for item flipping for carpentry items.
 	* Python Script Changes:
 		- Fixed BONUS* properties.
 		- Fixed other property issues.
@@ -22,6 +23,7 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Fixed bug #0000330. (carpentry deeds broken)
 		- Fixed statgain.
 		- Fixed cutting up leather.
+		- Fixed bug #0000325. (furniture not showing exceptional mark)
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.

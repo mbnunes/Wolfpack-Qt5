@@ -115,6 +115,7 @@
 	<item id="1db8">
 		<id>0x1db8</id>
 		<category>Professions\Carpenter\Barrel Lid</category>
+		<basescripts>furniture</basescripts>
 	</item>
 
 	<item id="1e6e">
@@ -225,24 +226,32 @@
 	<item id="1eb1">
 		<id>0x1eb1</id>
 		<category>Professions\Carpenter\Barrel Staves 1</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1eb1;0x1eb2;0x1eb3;0x1eb4</flip>
 		<weight>1.0</weight>
 	</item>
 
 	<item id="1eb2">
 		<id>0x1eb2</id>
 		<category>Professions\Carpenter\Barrel Staves 2</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1eb1;0x1eb2;0x1eb3;0x1eb4</flip>
 		<weight>1.0</weight>
 	</item>
 
 	<item id="1eb3">
 		<id>0x1eb3</id>
 		<category>Professions\Carpenter\Barrel Staves 3</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1eb1;0x1eb2;0x1eb3;0x1eb4</flip>
 		<weight>1.0</weight>
 	</item>
 
 	<item id="1eb4">
 		<id>0x1eb4</id>
 		<category>Professions\Carpenter\Barrel Staves 4</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1eb1;0x1eb2;0x1eb3;0x1eb4</flip>
 		<weight>1.0</weight>
 	</item>
 

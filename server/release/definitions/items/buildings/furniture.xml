@@ -14,6 +14,8 @@
 		<nodecay />
 		<type>1</type>
 		<category>Decoration\Furniture\Chest of Drawers (N/S) 1</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xa2c;0xa34</flip>
 	</item>
 
 	<item id="a2d">
@@ -39,6 +41,8 @@
 		<nodecay />
 		<type>1</type>
 		<category>Decoration\Furniture\Chest of Drawers (N/S) 5</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xa30;0xa38</flip>
 	</item>
 
 	<item id="a31">
@@ -64,6 +68,8 @@
 		<nodecay />
 		<type>1</type>
 		<category>Decoration\Furniture\Chest of Drawers (W/E) 1</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xa2c;0xa34</flip>
 	</item>
 
 	<item id="a35">
@@ -89,6 +95,8 @@
 		<nodecay />
 		<type>1</type>
 		<category>Decoration\Furniture\Chest of Drawers (W/E) 5</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xa30;0xa38</flip>
 	</item>
 
 	<item id="a39">
@@ -214,6 +222,8 @@
 		<nodecay />
 		<category>Decoration\Furniture\Armoire 1 (N/S) (Open)</category>
 		<type>1</type>
+		<basescripts>furniture</basescripts>
+		<flip>0xa4c;0xa4d;0xa50;0xa51</flip>
 	</item>
 
 	<item id="a4d">
@@ -221,6 +231,8 @@
 		<nodecay />
 		<category>Decoration\Furniture\Armoire 1 (N/S) (Closed)</category>
 		<type>1</type>
+		<basescripts>furniture</basescripts>
+		<flip>0xa4c;0xa4d;0xa50;0xa51</flip>
 	</item>
 
 	<item id="a4e">
@@ -228,6 +240,8 @@
 		<nodecay />
 		<category>Decoration\Furniture\Armoire 2 (N/S) (Open)</category>
 		<type>1</type>
+		<basescripts>furniture</basescripts>
+		<flip>0xa4e;0xa4f;0xa52;0xa53</flip>
 	</item>
 
 	<item id="a4f">
@@ -235,6 +249,8 @@
 		<nodecay />
 		<category>Decoration\Furniture\Armoire 2 (N/S) (Closed)</category>
 		<type>1</type>
+		<basescripts>furniture</basescripts>
+		<flip>0xa4e;0xa4f;0xa52;0xa53</flip>
 	</item>
 
 	<item id="a50">
@@ -242,6 +258,8 @@
 		<nodecay />
 		<category>Decoration\Furniture\Armoire 1 (W/E) (Open)</category>
 		<type>1</type>
+		<basescripts>furniture</basescripts>
+		<flip>0xa4c;0xa4d;0xa50;0xa51</flip>
 	</item>
 
 	<item id="a51">
@@ -249,6 +267,8 @@
 		<nodecay />
 		<category>Decoration\Furniture\Armoire 1 (W/E) (Closed)</category>
 		<type>1</type>
+		<basescripts>furniture</basescripts>
+		<flip>0xa4c;0xa4d;0xa50;0xa51</flip>
 	</item>
 
 	<item id="a52">
@@ -256,6 +276,8 @@
 		<nodecay />
 		<category>Decoration\Furniture\Armoire 2 (W/E) (Open)</category>
 		<type>1</type>
+		<basescripts>furniture</basescripts>
+		<flip>0xa4e;0xa4f;0xa52;0xa53</flip>
 	</item>
 
 	<item id="a53">
@@ -263,6 +285,8 @@
 		<nodecay />
 		<category>Decoration\Furniture\Armoire 2 (W/E) (Closed)</category>
 		<type>1</type>
+		<basescripts>furniture</basescripts>
+		<flip>0xa4e;0xa4f;0xa52;0xa53</flip>
 	</item>
 
 	<!-- Decoration / Bedroom -->
@@ -271,18 +295,21 @@
 		<id>0xa55</id>
 		<nodecay />
 		<category>Decoration\Bedroom\Bedroll\Bedroll 1 (W/E) (Open)</category>
+		<flip>0xa55;0xa56</flip>
 	</item>
 
 	<item id="a56">
 		<id>0xa56</id>
 		<nodecay />
 		<category>Decoration\Bedroom\Bedroll\Bedroll 1 (N/S) (Open)</category>
+		<flip>0xa55;0xa56</flip>
 	</item>
 
 	<item id="a57">
 		<id>0xa57</id>
 		<nodecay />
 		<category>Decoration\Bedroom\Bedroll\Bedroll 2</category>
+		<flip>0xa57;0xa58;0xa59</flip>
 	</item>
 
 	<item id="1f24">
@@ -313,12 +340,14 @@
 		<id>0xa58</id>
 		<nodecay />
 		<category>Decoration\Bedroom\Bedroll\Bedroll 1 (W/E) (Closed)</category>
+		<flip>0xa57;0xa58;0xa59</flip>
 	</item>
 
 	<item id="a59">
 		<id>0xa59</id>
 		<nodecay />
 		<category>Decoration\Bedroom\Bedroll\Bedroll 1 (N/S) (Closed)</category>
+		<flip>0xa57;0xa58;0xa59</flip>
 	</item>
 
 	<!-- Beige Bed -->
@@ -870,12 +899,16 @@
 		<id>0x1916</id>
 		<nodecay />
 		<category>Decoration\Bedroom\Massage Table\Massage Table (1/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1916;0x1917</flip>
 	</item>
 
 	<item id="1917">
 		<id>0x1917</id>
 		<nodecay />
 		<category>Decoration\Bedroom\Massage Table\Massage Table (2/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1916;0x1917</flip>
 	</item>
 
 	<!-- Bookcases -->
@@ -884,6 +917,8 @@
 		<type>1</type>
 		<nodecay />
 		<category>Decoration\Bookcases\Bookcase 1 (N/S)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xa97;0xa98;0xa99;0xa9a;0xa9b;0xa9c</flip>
 	</item>
 
 	<item id="a98">
@@ -891,6 +926,8 @@
 		<type>1</type>
 		<nodecay />
 		<category>Decoration\Bookcases\Bookcase 2 (N/S)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xa97;0xa98;0xa99;0xa9a;0xa9b;0xa9c</flip>
 	</item>
 
 	<item id="a99">
@@ -898,6 +935,8 @@
 		<type>1</type>
 		<nodecay />
 		<category>Decoration\Bookcases\Bookcase 1 (W/E)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xa97;0xa98;0xa99;0xa9a;0xa9b;0xa9c</flip>
 	</item>
 
 	<item id="a9a">
@@ -905,6 +944,8 @@
 		<type>1</type>
 		<nodecay />
 		<category>Decoration\Bookcases\Bookcase 2 (W/E)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xa97;0xa98;0xa99;0xa9a;0xa9b;0xa9c</flip>
 	</item>
 
 	<item id="a9b">
@@ -912,6 +953,8 @@
 		<type>1</type>
 		<nodecay />
 		<category>Decoration\Bookcases\Bookcase 3 (N/S)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xa97;0xa98;0xa99;0xa9a;0xa9b;0xa9c</flip>
 	</item>
 
 	<item id="a9c">
@@ -919,6 +962,8 @@
 		<type>1</type>
 		<nodecay />
 		<category>Decoration\Bookcases\Bookcase 3 (W/E)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xa97;0xa98;0xa99;0xa9a;0xa9b;0xa9c</flip>
 	</item>
 
 	<item id="a9d">
@@ -926,6 +971,8 @@
 		<type>1</type>
 		<nodecay />
 		<category>Decoration\Bookcases\Empty Bookcase (N/S)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xa9d;0xa9e</flip>
 	</item>
 
 	<item id="a9e">
@@ -933,6 +980,8 @@
 		<type>1</type>
 		<nodecay />
 		<category>Decoration\Bookcases\Empty Bookcase (W/E)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xa9d;0xa9e</flip>
 	</item>
 
 	<!-- Display Case -->
@@ -1154,24 +1203,32 @@
 		<buyprice>15</buyprice>
 		<sellprice>7</sellprice>
 		<category>Decoration\Tables\Nightstand\Nightstand (N/S) (1/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb34;0xb35;0xb37;0xb38</flip>
 	</item>
 
 	<item id="b35">
 		<id>0xb35</id>
 		<nodecay />
 		<category>Decoration\Tables\Nightstand\Nightstand (W/E) (1/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb34;0xb35;0xb37;0xb38</flip>
 	</item>
 
 	<item id="b37">
 		<id>0xb37</id>
 		<nodecay />
 		<category>Decoration\Tables\Nightstand\Nightstand (N/S) (2/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb34;0xb35;0xb37;0xb38</flip>
 	</item>
 
 	<item id="b38">
 		<id>0xb38</id>
 		<nodecay />
 		<category>Decoration\Tables\Nightstand\Nightstand (W/E) (2/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb34;0xb35;0xb37;0xb38</flip>
 	</item>
 
 	<!-- Counter -->
@@ -1179,49 +1236,67 @@
 		<id>0xb3d</id>
 		<nodecay />
 		<category>Decoration\Tables\Counter\Counter (N/S) (2/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb3d;0xb3e;0xb3f;0xb40</flip>
 	</item>
 
 	<item id="b3e">
 		<id>0xb3e</id>
 		<nodecay />
 		<category>Decoration\Tables\Counter\Counter (W/E) (2/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb3d;0xb3e;0xb3f;0xb40</flip>
 	</item>
 
 	<item id="b3f">
 		<id>0xb3f</id>
 		<nodecay />
 		<category>Decoration\Tables\Counter\Counter (N/S) (1/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb3d;0xb3e;0xb3f;0xb40</flip>
 	</item>
 
 	<item id="b40">
 		<id>0xb40</id>
 		<nodecay />
 		<category>Decoration\Tables\Counter\Counter (W/E) (1/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb3d;0xb3e;0xb3f;0xb40</flip>
 	</item>
 
 	<!-- Writing Table -->
 	<item id="b49">
 		<id>0xb49</id>
 		<nodecay />
+		<buyprice>15</buyprice>
+		<sellprice>7</sellprice>
 		<category>Decoration\Tables\Writing Table\Writing Table 1</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb49;0xb4a;0xb4b;0xb4c</flip>
 	</item>
 
 	<item id="b4a">
 		<id>0xb4a</id>
 		<nodecay />
 		<category>Decoration\Tables\Writing Table\Writing Table 2</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb49;0xb4a;0xb4b;0xb4c</flip>
 	</item>
 
 	<item id="b4b">
 		<id>0xb4b</id>
 		<nodecay />
 		<category>Decoration\Tables\Writing Table\Writing Table 3</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb49;0xb4a;0xb4b;0xb4c</flip>
 	</item>
 
 	<item id="b4c">
 		<id>0xb4c</id>
 		<nodecay />
 		<category>Decoration\Tables\Writing Table\Writing Table 4</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb49;0xb4a;0xb4b;0xb4c</flip>
 	</item>
 
 	<!-- Sandstone Table -->
@@ -1229,18 +1304,24 @@
 		<id>0xb6b</id>
 		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 1 (W/E) (1/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb6b;0xb6c;0xb6d;0xb7e;0xb7f;0xb80</flip>
 	</item>
 
 	<item id="b6c">
 		<id>0xb6c</id>
 		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 1 (W/E) (2/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb6b;0xb6c;0xb6d;0xb7e;0xb7f;0xb80</flip>
 	</item>
 
 	<item id="b6d">
 		<id>0xb6d</id>
 		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 1 (W/E) (3/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb6b;0xb6c;0xb6d;0xb7e;0xb7f;0xb80</flip>
 	</item>
 
 	<!-- Wooden Table -->
@@ -1248,84 +1329,112 @@
 		<id>0xb6e</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 1 (W/E) (1/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb6e;0xb6f;0xb81;0xb82</flip>
 	</item>
 
 	<item id="b6f">
 		<id>0xb6f</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 1 (W/E) (2/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb6e;0xb6f;0xb81;0xb82</flip>
 	</item>
 
 	<item id="b70">
 		<id>0xb70</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 2 (W/E) (1/5)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb70;0xb71;0xb72;0xb73;0xb74;0xb83;0xb84;0xb85;0xb86;0xb87</flip>
 	</item>
 
 	<item id="b71">
 		<id>0xb71</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 2 (W/E) (2/5)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb70;0xb71;0xb72;0xb73;0xb74;0xb83;0xb84;0xb85;0xb86;0xb87</flip>
 	</item>
 
 	<item id="b72">
 		<id>0xb72</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 2 (W/E) (3/5)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb70;0xb71;0xb72;0xb73;0xb74;0xb83;0xb84;0xb85;0xb86;0xb87</flip>
 	</item>
 
 	<item id="b73">
 		<id>0xb73</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 2 (W/E) (4/5)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb70;0xb71;0xb72;0xb73;0xb74;0xb83;0xb84;0xb85;0xb86;0xb87</flip>
 	</item>
 
 	<item id="b74">
 		<id>0xb74</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 2 (W/E) (5/5)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb70;0xb71;0xb72;0xb73;0xb74;0xb83;0xb84;0xb85;0xb86;0xb87</flip>
 	</item>
 
 	<item id="b75">
 		<id>0xb75</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 3 (W/E) (1/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb75;0xb76;0xb88;0xb89</flip>
 	</item>
 
 	<item id="b76">
 		<id>0xb76</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 3 (W/E) (2/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb75;0xb76;0xb88;0xb89</flip>
 	</item>
 
 	<item id="b77">
 		<id>0xb77</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 4 (W/E) (1/5)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb77;0xb78;0xb79;0xb7a;0xb7b;0xb8a;0xb8b;0xb8c;0xb8d;0xb8e</flip>
 	</item>
 
 	<item id="b78">
 		<id>0xb78</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 4 (W/E) (2/5)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb77;0xb78;0xb79;0xb7a;0xb7b;0xb8a;0xb8b;0xb8c;0xb8d;0xb8e</flip>
 	</item>
 
 	<item id="b79">
 		<id>0xb79</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 4 (W/E) (3/5)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb77;0xb78;0xb79;0xb7a;0xb7b;0xb8a;0xb8b;0xb8c;0xb8d;0xb8e</flip>
 	</item>
 
 	<item id="b7a">
 		<id>0xb7a</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 4 (W/E) (4/5)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb77;0xb78;0xb79;0xb7a;0xb7b;0xb8a;0xb8b;0xb8c;0xb8d;0xb8e</flip>
 	</item>
 
 	<item id="b7b">
 		<id>0xb7b</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 4 (W/E) (5/5)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb77;0xb78;0xb79;0xb7a;0xb7b;0xb8a;0xb8b;0xb8c;0xb8d;0xb8e</flip>
 	</item>
 
 	<item id="b7c">
@@ -1334,6 +1443,8 @@
 		<buyprice>20</buyprice>
 		<sellprice>10</sellprice>
 		<category>Decoration\Tables\Wooden Table\Wooden Table 5 (W/E)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb7c;0xb8f</flip>
 	</item>
 
 	<item id="b7d">
@@ -1342,6 +1453,8 @@
 		<buyprice>20</buyprice>
 		<sellprice>10</sellprice>
 		<category>Decoration\Tables\Wooden Table\Wooden Table 6 (W/E)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb7d;0xb90</flip>
 	</item>
 
 	<!-- Sandstone Table -->
@@ -1349,18 +1462,24 @@
 		<id>0xb7e</id>
 		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 1 (N/S) (1/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb6b;0xb6c;0xb6d;0xb7e;0xb7f;0xb80</flip>
 	</item>
 
 	<item id="b7f">
 		<id>0xb7f</id>
 		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 1 (N/S) (2/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb6b;0xb6c;0xb6d;0xb7e;0xb7f;0xb80</flip>
 	</item>
 
 	<item id="b80">
 		<id>0xb80</id>
 		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 1 (N/S) (3/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb6b;0xb6c;0xb6d;0xb7e;0xb7f;0xb80</flip>
 	</item>
 
 	<!-- Wooden Table -->
@@ -1368,96 +1487,128 @@
 		<id>0xb81</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 1 (N/S) (1/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb6e;0xb6f;0xb81;0xb82</flip>
 	</item>
 
 	<item id="b82">
 		<id>0xb82</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 1 (N/S) (2/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb6e;0xb6f;0xb81;0xb82</flip>
 	</item>
 
 	<item id="b83">
 		<id>0xb83</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 2 (N/S) (1/5)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb70;0xb71;0xb72;0xb73;0xb74;0xb83;0xb84;0xb85;0xb86;0xb87</flip>
 	</item>
 
 	<item id="b84">
 		<id>0xb84</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 2 (N/S) (2/5)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb70;0xb71;0xb72;0xb73;0xb74;0xb83;0xb84;0xb85;0xb86;0xb87</flip>
 	</item>
 
 	<item id="b85">
 		<id>0xb85</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 2 (N/S) (3/5)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb70;0xb71;0xb72;0xb73;0xb74;0xb83;0xb84;0xb85;0xb86;0xb87</flip>
 	</item>
 
 	<item id="b86">
 		<id>0xb86</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 2 (N/S) (4/5)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb70;0xb71;0xb72;0xb73;0xb74;0xb83;0xb84;0xb85;0xb86;0xb87</flip>
 	</item>
 
 	<item id="b87">
 		<id>0xb87</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 2 (N/S) (5/5)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb70;0xb71;0xb72;0xb73;0xb74;0xb83;0xb84;0xb85;0xb86;0xb87</flip>
 	</item>
 
 	<item id="b88">
 		<id>0xb88</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 3 (N/S) (1/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb75;0xb76;0xb88;0xb89</flip>
 	</item>
 
 	<item id="b89">
 		<id>0xb89</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 3 (N/S) (2/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb75;0xb76;0xb88;0xb89</flip>
 	</item>
 
 	<item id="b8a">
 		<id>0xb8a</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 4 (N/S) (1/5)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb77;0xb78;0xb79;0xb7a;0xb7b;0xb8a;0xb8b;0xb8c;0xb8d;0xb8e</flip>
 	</item>
 
 	<item id="b8b">
 		<id>0xb8b</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 4 (N/S) (2/5)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb77;0xb78;0xb79;0xb7a;0xb7b;0xb8a;0xb8b;0xb8c;0xb8d;0xb8e</flip>
 	</item>
 
 	<item id="b8c">
 		<id>0xb8c</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 4 (N/S) (3/5)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb77;0xb78;0xb79;0xb7a;0xb7b;0xb8a;0xb8b;0xb8c;0xb8d;0xb8e</flip>
 	</item>
 
 	<item id="b8d">
 		<id>0xb8d</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 4 (N/S) (4/5)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb77;0xb78;0xb79;0xb7a;0xb7b;0xb8a;0xb8b;0xb8c;0xb8d;0xb8e</flip>
 	</item>
 
 	<item id="b8e">
 		<id>0xb8e</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 4 (N/S) (5/5)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb77;0xb78;0xb79;0xb7a;0xb7b;0xb8a;0xb8b;0xb8c;0xb8d;0xb8e</flip>
 	</item>
 
 	<item id="b8f">
 		<id>0xb8f</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 5 (N/S)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb7c;0xb8f</flip>
 	</item>
 
 	<item id="b90">
 		<id>0xb90</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 6 (N/S)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xb7d;0xb90</flip>
 	</item>
 
 	<item id="118b">
@@ -1489,60 +1640,80 @@
 		<id>0x118f</id>
 		<nodecay />
 		<category>Decoration\Tables\Covered\Covered Counter (W/E) (1/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x118f;0x1190;0x1191;0x1192</flip>
 	</item>
 
 	<item id="1190">
 		<id>0x1190</id>
 		<nodecay />
 		<category>Decoration\Tables\Covered\Covered Counter (W/E) (2/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x118f;0x1190;0x1191;0x1192</flip>
 	</item>
 
 	<item id="1191">
 		<id>0x1191</id>
 		<nodecay />
 		<category>Decoration\Tables\Covered\Covered Counter (N/S) (1/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x118f;0x1190;0x1191;0x1192</flip>
 	</item>
 
 	<item id="1192">
 		<id>0x1192</id>
 		<nodecay />
 		<category>Decoration\Tables\Covered\Covered Counter (N/S) (2/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x118f;0x1190;0x1191;0x1192</flip>
 	</item>
 
 	<item id="1667">
 		<id>0x1667</id>
 		<nodecay />
 		<category>Decoration\Tables\Covered\Covered Table (N/S) (1/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1667;0x1668;1669;0x166a;0x166b;0x166c</flip>
 	</item>
 
 	<item id="1668">
 		<id>0x1668</id>
 		<nodecay />
 		<category>Decoration\Tables\Covered\Covered Table (N/S) (2/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1667;0x1668;1669;0x166a;0x166b;0x166c</flip>
 	</item>
 
 	<item id="1669">
 		<id>0x1669</id>
 		<nodecay />
 		<category>Decoration\Tables\Covered\Covered Table (N/S) (3/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1667;0x1668;1669;0x166a;0x166b;0x166c</flip>
 	</item>
 
 	<item id="166a">
 		<id>0x166a</id>
 		<nodecay />
 		<category>Decoration\Tables\Covered\Covered Table (W/E) (1/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1667;0x1668;1669;0x166a;0x166b;0x166c</flip>
 	</item>
 
 	<item id="166b">
 		<id>0x166b</id>
 		<nodecay />
 		<category>Decoration\Tables\Covered\Covered Table (W/E) (2/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1667;0x1668;1669;0x166a;0x166b;0x166c</flip>
 	</item>
 
 	<item id="166c">
 		<id>0x166c</id>
 		<nodecay />
 		<category>Decoration\Tables\Covered\Covered Table (W/E) (3/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1667;0x1668;1669;0x166a;0x166b;0x166c</flip>
 	</item>
 
 	<!-- Bamboo Table -->
@@ -1550,36 +1721,48 @@
 		<id>0x11d6</id>
 		<nodecay />
 		<category>Decoration\Tables\Bamboo Table\Bamboo Table (N/S) (1/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x11d6;0x11d7;0x11d8;0x11d9;0x11da;0x11db</flip>
 	</item>
 
 	<item id="11d7">
 		<id>0x11d7</id>
 		<nodecay />
 		<category>Decoration\Tables\Bamboo Table\Bamboo Table (N/S) (2/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x11d6;0x11d7;0x11d8;0x11d9;0x11da;0x11db</flip>
 	</item>
 
 	<item id="11d8">
 		<id>0x11d8</id>
 		<nodecay />
 		<category>Decoration\Tables\Bamboo Table\Bamboo Table (N/S) (3/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x11d6;0x11d7;0x11d8;0x11d9;0x11da;0x11db</flip>
 	</item>
 
 	<item id="11d9">
 		<id>0x11d9</id>
 		<nodecay />
 		<category>Decoration\Tables\Bamboo Table\Bamboo Table (W/E) (1/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x11d6;0x11d7;0x11d8;0x11d9;0x11da;0x11db</flip>
 	</item>
 
 	<item id="11da">
 		<id>0x11da</id>
 		<nodecay />
 		<category>Decoration\Tables\Bamboo Table\Bamboo Table (W/E) (2/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x11d6;0x11d7;0x11d8;0x11d9;0x11da;0x11db</flip>
 	</item>
 
 	<item id="11db">
 		<id>0x11db</id>
 		<nodecay />
 		<category>Decoration\Tables\Bamboo Table\Bamboo Table (W/E) (3/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x11d6;0x11d7;0x11d8;0x11d9;0x11da;0x11db</flip>
 	</item>
 
 	<!-- Log Table -->
@@ -1587,36 +1770,48 @@
 		<id>0x11dc</id>
 		<nodecay />
 		<category>Decoration\Tables\Log Table\Log Table (W/E) (1/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x11dc;0x11dd;0x11de;0x11df;0x11e0;0x11e1</flip>
 	</item>
 
 	<item id="11dd">
 		<id>0x11dd</id>
 		<nodecay />
 		<category>Decoration\Tables\Log Table\Log Table (W/E) (2/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x11dc;0x11dd;0x11de;0x11df;0x11e0;0x11e1</flip>
 	</item>
 
 	<item id="11de">
 		<id>0x11de</id>
 		<nodecay />
 		<category>Decoration\Tables\Log Table\Log Table (W/E) (3/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x11dc;0x11dd;0x11de;0x11df;0x11e0;0x11e1</flip>
 	</item>
 
 	<item id="11df">
 		<id>0x11df</id>
 		<nodecay />
 		<category>Decoration\Tables\Log Table\Log Table (N/S) (1/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x11dc;0x11dd;0x11de;0x11df;0x11e0;0x11e1</flip>
 	</item>
 
 	<item id="11e0">
 		<id>0x11e0</id>
 		<nodecay />
 		<category>Decoration\Tables\Log Table\Log Table (N/S) (2/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x11dc;0x11dd;0x11de;0x11df;0x11e0;0x11e1</flip>
 	</item>
 
 	<item id="11e1">
 		<id>0x11e1</id>
 		<nodecay />
 		<category>Decoration\Tables\Log Table\Log Table (N/S) (3/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x11dc;0x11dd;0x11de;0x11df;0x11e0;0x11e1</flip>
 	</item>
 
 	<!-- Stone Table -->
@@ -1624,36 +1819,48 @@
 		<id>0x1201</id>
 		<nodecay />
 		<category>Decoration\Tables\Stone Table\Stone Table (N/S) (1/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1201;0x1202;0x1203;0x1204;0x1205;0x1206</flip>
 	</item>
 
 	<item id="1202">
 		<id>0x1202</id>
 		<nodecay />
 		<category>Decoration\Tables\Stone Table\Stone Table (N/S) (2/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1201;0x1202;0x1203;0x1204;0x1205;0x1206</flip>
 	</item>
 
 	<item id="1203">
 		<id>0x1203</id>
 		<nodecay />
 		<category>Decoration\Tables\Stone Table\Stone Table (N/S) (3/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1201;0x1202;0x1203;0x1204;0x1205;0x1206</flip>
 	</item>
 
 	<item id="1204">
 		<id>0x1204</id>
 		<nodecay />
 		<category>Decoration\Tables\Stone Table\Stone Table (W/E) (1/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1201;0x1202;0x1203;0x1204;0x1205;0x1206</flip>
 	</item>
 
 	<item id="1205">
 		<id>0x1205</id>
 		<nodecay />
 		<category>Decoration\Tables\Stone Table\Stone Table (W/E) (2/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1201;0x1202;0x1203;0x1204;0x1205;0x1206</flip>
 	</item>
 
 	<item id="1206">
 		<id>0x1206</id>
 		<nodecay />
 		<category>Decoration\Tables\Stone Table\Stone Table (W/E) (3/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1201;0x1202;0x1203;0x1204;0x1205;0x1206</flip>
 	</item>
 
 	<!-- Wooden Tables -->
@@ -1661,48 +1868,64 @@
 		<id>0x1da5</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 11 (W/E) (1/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1da5;0x1da6;0x1da9;0x1daa</flip>
 	</item>
 
 	<item id="1da6">
 		<id>0x1da6</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 11 (W/E) (2/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1da5;0x1da6;0x1da9;0x1daa</flip>
 	</item>
 
 	<item id="1da7">
 		<id>0x1da7</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 12 (W/E) (1/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1da7;0x1da8;0x1dab;0x1dac</flip>
 	</item>
 
 	<item id="1da8">
 		<id>0x1da8</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 12 (W/E) (2/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1da7;0x1da8;0x1dab;0x1dac</flip>
 	</item>
 
 	<item id="1da9">
 		<id>0x1da9</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 11 (N/S) (1/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1da5;0x1da6;0x1da9;0x1daa</flip>
 	</item>
 
 	<item id="1daa">
 		<id>0x1daa</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 11 (N/S) (2/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1da5;0x1da6;0x1da9;0x1daa</flip>
 	</item>
 
 	<item id="1dab">
 		<id>0x1dab</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 12 (N/S) (1/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1da7;0x1da8;0x1dab;0x1dac</flip>
 	</item>
 
 	<item id="1dac">
 		<id>0x1dac</id>
 		<nodecay />
 		<category>Decoration\Tables\Wooden Table\Wooden Table 12 (N/S) (2/2)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1da7;0x1da8;0x1dab;0x1dac</flip>
 	</item>
 
 	<!-- Sandstone Table -->
@@ -1710,36 +1933,48 @@
 		<id>0x1dbb</id>
 		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 2 (N/S) (1/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1dbb;0x1dbc;0x1dbd;0x1dbe;0x1dbf;0x1dc0</flip>
 	</item>
 
 	<item id="1dbc">
 		<id>0x1dbc</id>
 		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 2 (N/S) (3/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1dbb;0x1dbc;0x1dbd;0x1dbe;0x1dbf;0x1dc0</flip>
 	</item>
 
 	<item id="1dbd">
 		<id>0x1dbd</id>
 		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 2 (N/S) (2/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1dbb;0x1dbc;0x1dbd;0x1dbe;0x1dbf;0x1dc0</flip>
 	</item>
 
 	<item id="1dbe">
 		<id>0x1dbe</id>
 		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 2 (W/E) (1/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1dbb;0x1dbc;0x1dbd;0x1dbe;0x1dbf;0x1dc0</flip>
 	</item>
 
 	<item id="1dbf">
 		<id>0x1dbf</id>
 		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 2 (W/E) (3/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1dbb;0x1dbc;0x1dbd;0x1dbe;0x1dbf;0x1dc0</flip>
 	</item>
 
 	<item id="1dc0">
 		<id>0x1dc0</id>
 		<nodecay />
 		<category>Decoration\Tables\Sandstone Table\Sandstone Table 2 (W/E) (2/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1dbb;0x1dbc;0x1dbd;0x1dbe;0x1dbf;0x1dc0</flip>
 	</item>
 
 	<!-- Marble Table -->
@@ -1747,36 +1982,48 @@
 		<id>0x1dc1</id>
 		<nodecay />
 		<category>Decoration\Tables\Marble Table\Marble Table (N/S) (1/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1dc1;0x1dc2;0x1dc3;0x1dc4;0x1dc5;0x1dc6</flip>
 	</item>
 
 	<item id="1dc2">
 		<id>0x1dc2</id>
 		<nodecay />
 		<category>Decoration\Tables\Marble Table\Marble Table (N/S) (3/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1dc1;0x1dc2;0x1dc3;0x1dc4;0x1dc5;0x1dc6</flip>
 	</item>
 
 	<item id="1dc3">
 		<id>0x1dc3</id>
 		<nodecay />
 		<category>Decoration\Tables\Marble Table\Marble Table (N/S) (2/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1dc1;0x1dc2;0x1dc3;0x1dc4;0x1dc5;0x1dc6</flip>
 	</item>
 
 	<item id="1dc4">
 		<id>0x1dc4</id>
 		<nodecay />
 		<category>Decoration\Tables\Marble Table\Marble Table (W/E) (1/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1dc1;0x1dc2;0x1dc3;0x1dc4;0x1dc5;0x1dc6</flip>
 	</item>
 
 	<item id="1dc5">
 		<id>0x1dc5</id>
 		<nodecay />
 		<category>Decoration\Tables\Marble Table\Marble Table (W/E) (3/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1dc1;0x1dc2;0x1dc3;0x1dc4;0x1dc5;0x1dc6</flip>
 	</item>
 
 	<item id="1dc6">
 		<id>0x1dc6</id>
 		<nodecay />
 		<category>Decoration\Tables\Marble Table\Marble Table (W/E) (2/3)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1dc1;0x1dc2;0x1dc3;0x1dc4;0x1dc5;0x1dc6</flip>
 	</item>
 
 	<!-- Broken Furniture -->
@@ -2117,102 +2364,136 @@
 		<id>0x190e</id>
 		<nodecay />
 		<category>Decoration\Bar\Bar Door (N/S)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x190e;0x190f</flip>
 	</item>
 
 	<item id="190f">
 		<id>0x190f</id>
 		<nodecay />
 		<category>Decoration\Bar\Bar Door (W/E)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x190e;0x190f</flip>
 	</item>
 
 	<item id="1910">
 		<id>0x1910</id>
 		<nodecay />
 		<category>Decoration\Bar\Bar Corner 1</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1910;0x1911;0x1912;0x1913</flip>
 	</item>
 
 	<item id="1911">
 		<id>0x1911</id>
 		<nodecay />
 		<category>Decoration\Bar\Bar Corner 2</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1910;0x1911;0x1912;0x1913</flip>
 	</item>
 
 	<item id="1912">
 		<id>0x1912</id>
 		<nodecay />
 		<category>Decoration\Bar\Bar Corner 3</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1910;0x1911;0x1912;0x1913</flip>
 	</item>
 
 	<item id="1913">
 		<id>0x1913</id>
 		<nodecay />
 		<category>Decoration\Bar\Bar Corner 4</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1910;0x1911;0x1912;0x1913</flip>
 	</item>
 
 	<item id="1918">
 		<id>0x1918</id>
 		<nodecay />
 		<category>Decoration\Bar\Bar 1</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1918;0x1919;0x191a;0x191b;0x191c;0x191d;0x191e;0x191f</flip>
 	</item>
 
 	<item id="1919">
 		<id>0x1919</id>
 		<nodecay />
 		<category>Decoration\Bar\Bar 2</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1918;0x1919;0x191a;0x191b;0x191c;0x191d;0x191e;0x191f</flip>
 	</item>
 
 	<item id="191a">
 		<id>0x191a</id>
 		<nodecay />
 		<category>Decoration\Bar\Bar 3</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1918;0x1919;0x191a;0x191b;0x191c;0x191d;0x191e;0x191f</flip>
 	</item>
 
 	<item id="191b">
 		<id>0x191b</id>
 		<nodecay />
 		<category>Decoration\Bar\Bar 4</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1918;0x1919;0x191a;0x191b;0x191c;0x191d;0x191e;0x191f</flip>
 	</item>
 
 	<item id="191c">
 		<id>0x191c</id>
 		<nodecay />
 		<category>Decoration\Bar\Bar 5</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1918;0x1919;0x191a;0x191b;0x191c;0x191d;0x191e;0x191f</flip>
 	</item>
 
 	<item id="191d">
 		<id>0x191d</id>
 		<nodecay />
 		<category>Decoration\Bar\Bar 6</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1918;0x1919;0x191a;0x191b;0x191c;0x191d;0x191e;0x191f</flip>
 	</item>
 
 	<item id="191e">
 		<id>0x191e</id>
 		<nodecay />
 		<category>Decoration\Bar\Bar 7</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1918;0x1919;0x191a;0x191b;0x191c;0x191d;0x191e;0x191f</flip>
 	</item>
 
 	<item id="191f">
 		<id>0x191f</id>
 		<nodecay />
 		<category>Decoration\Bar\Bar 8</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1918;0x1919;0x191a;0x191b;0x191c;0x191d;0x191e;0x191f</flip>
 	</item>
 
 	<item id="1941">
 		<id>0x1941</id>
 		<nodecay />
 		<category>Decoration\Bar\Glass Mugs</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1918;0x1919;0x191a;0x191b;0x191c;0x191d;0x191e;0x191f</flip>
 	</item>
 
 	<item id="1942">
 		<id>0x1942</id>
 		<nodecay />
 		<category>Decoration\Bar\Goblets</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1918;0x1919;0x191a;0x191b;0x191c;0x191d;0x191e;0x191f</flip>
 	</item>
 
 	<item id="1943">
 		<id>0x1943</id>
 		<nodecay />
 		<category>Decoration\Bar\Tankards</category>
+		<basescripts>furniture</basescripts>
+		<flip>0x1918;0x1919;0x191a;0x191b;0x191c;0x191d;0x191e;0x191f</flip>
 	</item>
 
 </definitions>

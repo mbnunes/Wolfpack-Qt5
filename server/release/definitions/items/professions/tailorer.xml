@@ -28,11 +28,15 @@
 	<item id="ec6">
 		<id>0xec6</id>
 		<category>Professions\Tailorer\Decoration\Dress Form (N/S)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xec6;0xec7</flip>
 	</item>
 
 	<item id="ec7">
 		<id>0xec7</id>
 		<category>Professions\Tailorer\Decoration\Dress Form (W/E)</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xec6;0xec7</flip>
 	</item>
 
 	<item id="1069">

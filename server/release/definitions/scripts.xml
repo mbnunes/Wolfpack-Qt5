@@ -27,6 +27,7 @@
 	<script>environment</script>
 	<script>equipment</script>
 	<script>figurine</script>
+	<script>furniture</script>
 	<script>food</script>
 	<script>gate</script>
 	<script>guillotine</script>

@@ -18,6 +18,8 @@
 	<item id="eb6">
 		<id>0xeb6</id>
 		<category>Professions\Musician\Music Stand 2</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xe7d;0xeb8</flip>
 	</item>
 
 	<item id="eb7">
@@ -28,6 +30,8 @@
 	<item id="eb8">
 		<id>0xeb8</id>
 		<category>Professions\Musician\Music Stand 4</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xe7d;0xeb8</flip>
 	</item>
 
 	<item id="eb9">
@@ -43,11 +47,15 @@
 	<item id="ebb">
 		<id>0xebb</id>
 		<category>Professions\Musician\Music Stand 7</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xebb;0xebc</flip>
 	</item>
 
 	<item id="ebc">
 		<id>0xebc</id>
 		<category>Professions\Musician\Music Stand 8</category>
+		<basescripts>furniture</basescripts>
+		<flip>0xebb;0xebc</flip>
 	</item>
 
 	<item id="ebd">

@@ -110,7 +110,7 @@
 			<carpentry min="736" max="1236" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="19" name="Boards" />
 		</craft>
-		<craft definition="b34" name="Smal Table">
+		<craft definition="b34" name="Small Table">
 			<carpentry min="421" max="921" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="17" name="Boards" />
 		</craft>
