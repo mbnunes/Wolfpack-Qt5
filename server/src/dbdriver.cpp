@@ -154,7 +154,7 @@ QString cDBResult::getString( UINT32 offset ) const
 	if( !_row )
 		throw QString( "Trying to access a non valid result!" );
 
-	return _row[offset];
+	return QString::fromUtf8(_row[offset]);
 }
 
 /*****************************************************************************

@@ -229,10 +229,15 @@ void commandGo( cUOSocket *socket, const QString &command, const QStringList &ar
 		QString argument = args.join(" ");
 		if( parseCoordinates( argument, newPos ) )
 		{
+			if (!SectorMaps::instance()->validMap(newPos.map)) {
+				socket->sysMessage("You specified an invalid map.");
+				return;
+			}
+
 			// This is a bandwith saving method
 			// Before we're moving the character anywhere we remove it
 			// only from the sockets in range and then resend it to only the new sockets in range
-			
+
 			pChar->removeFromView( false );
 			pChar->moveTo( newPos );
 			pChar->resend( false, true );
@@ -246,6 +251,11 @@ void commandGo( cUOSocket *socket, const QString &command, const QStringList &ar
 
 		if( node && parseCoordinates( node->text(), newPos ) )
 		{
+			if (!SectorMaps::instance()->validMap(newPos.map)) {
+				socket->sysMessage("You specified an invalid map.");
+				return;
+			}
+
 			pChar->removeFromView( false );
 			pChar->moveTo( newPos );
 			pChar->resend( false, true );
@@ -582,6 +592,7 @@ void commandSave( cUOSocket *socket, const QString &command, const QStringList &
 	Q_UNUSED(args);
 	Q_UNUSED(socket);
 	Q_UNUSED(command);
+
 	World::instance()->save();
 }
 
@@ -1159,7 +1170,7 @@ void commandBroadcast( cUOSocket *socket, const QString &command, const QStringL
 {
 	Q_UNUSED(socket);
 	Q_UNUSED(command);
-	cNetwork::instance()->broadcast( args.join( " " ).latin1() );
+	cNetwork::instance()->broadcast(args.join( " " ));
 }
 
 void commandInvis( cUOSocket *socket, const QString &command, const QStringList &args ) throw()
@@ -1497,43 +1508,43 @@ void commandDoorGenerator( cUOSocket* socket, const QString &command, const QStr
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
-	{ "ACCOUNT",		commandAccount },
-	{ "ADD",			commandAdd },
-	{ "ADDEVENT",		commandAddEvent },
-	{ "ADDITEM",		commandAddItem },
-	{ "ADDNPC",			commandAddNpc },
-	{ "ALLMOVE",		commandAllMove },
-	{ "ALLSHOW",		commandAllShow },
-	{ "ALLSKILLS",		commandAllSkills },
-	{ "BROADCAST",		commandBroadcast },
-	{ "DOORGEN",		commandDoorGenerator },
-	{ "FIX",			commandFix },
-	{ "GO",				commandGo },
-	{ "GMTALK",			commandGmtalk },
-	{ "INVIS",			commandInvis },
-	{ "KILL",			commandKill },
-	{ "MAKEMENU",		commandMakeMenu },
-	{ "MOVE",			commandMove },
-	{ "PAGES",			commandPages },
-	{ "PAGENOTIFY",		commandPageNotify },
-	{ "PASSWORD",		commandPassword },
-	{ "RELOAD",			commandReload },
-	{ "REMOVE",			commandRemove },
-	{ "REMOVEEVENT",	commandRemoveEvent },
-	{ "RESEND",			commandResend },
-	{ "RESTOCK",		commandRestock },
-	{ "RESURRECT",		commandResurrect },
-	{ "SAVE",			commandSave },
-	{ "SERVERTIME",		commandServerTime },
-	{ "SET",			commandSet },
-	{ "SHOW",			commandShow },
-	{ "SHOWSERIALS",	commandShowSerials },
-	{ "SHUTDOWN",		commandShutDown },
-	{ "STAFF",			commandStaff },
-	{ "SPAWNREGION",	commandSpawnRegion },
-	{ "TAGS",			commandTags },
-	{ "TELE",			commandTele },
-	{ "TILE",			commandTile },	
-	{ "WHO",			commandWho },
+	{ "ACCOUNT", commandAccount },
+	{ "ADD", commandAdd },
+	{ "ADDEVENT", commandAddEvent },
+	{ "ADDITEM", commandAddItem },
+	{ "ADDNPC", commandAddNpc },
+	{ "ALLMOVE", commandAllMove },
+	{ "ALLSHOW", commandAllShow },
+	{ "ALLSKILLS", commandAllSkills },
+	{ "BROADCAST", commandBroadcast },
+	{ "DOORGEN", commandDoorGenerator },
+	{ "FIX", commandFix },
+	{ "GO", commandGo },
+	{ "GMTALK", commandGmtalk },
+	{ "INVIS", commandInvis },
+	{ "KILL", commandKill },
+	{ "MAKEMENU", commandMakeMenu },
+	{ "MOVE", commandMove },
+	{ "PAGES", commandPages },
+	{ "PAGENOTIFY", commandPageNotify },
+	{ "PASSWORD", commandPassword },
+	{ "RELOAD", commandReload },
+	{ "REMOVE", commandRemove },
+	{ "REMOVEEVENT", commandRemoveEvent },
+	{ "RESEND", commandResend },
+	{ "RESTOCK", commandRestock },
+	{ "RESURRECT", commandResurrect },
+	{ "SAVE", commandSave },
+	{ "SERVERTIME", commandServerTime },
+	{ "SET", commandSet },
+	{ "SHOW", commandShow },
+	{ "SHOWSERIALS", commandShowSerials },
+	{ "SHUTDOWN", commandShutDown },
+	{ "STAFF", commandStaff },
+	{ "SPAWNREGION", commandSpawnRegion },
+	{ "TAGS", commandTags },
+	{ "TELE", commandTele },
+	{ "TILE", commandTile },	
+	{ "WHO", commandWho },
 	{ NULL, NULL }
 };

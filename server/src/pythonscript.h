@@ -84,6 +84,7 @@ enum ePythonEvent
 	EVENT_TRADE,
 	EVENT_TRADESTART,
 	EVENT_BULLETINBOARD,
+	EVENT_DELETE,
 	EVENT_COUNT,
 };
 
@@ -106,7 +107,7 @@ public:
 	void setName( const QString &value ) { name_ = value; }
 	QString name() const { return name_; }
 	
-	bool load( const cElement *element );
+	bool load(const QString &name);
 	void unload( void );
 	bool isLoaded() const;
 

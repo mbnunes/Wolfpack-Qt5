@@ -373,9 +373,6 @@ static PyObject* wpSocket_customize( wpSocket* self, PyObject* args )
 static PyObject* wpSocket_sendgump(wpSocket* self, PyObject* args) {
 	// Parameters:
 	// x, y, nomove, noclose, nodispose, serial, type, layout, text, callback, args
-	if( PyTuple_Size( args ) != 11 )
-		return PyFalse;
-
 	int x, y;
 	bool nomove, noclose, nodispose;
 	unsigned int serial, type;
@@ -560,25 +557,21 @@ static PyObject* wpSocket_sendpaperdoll( wpSocket* self, PyObject* args )
 */
 static PyObject* wpSocket_gettag( wpSocket* self, PyObject* args )
 {
-	if( !self->pSock )
-	{
-		Py_INCREF( Py_None );
-		return Py_None;
-	}
-
 	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
 	{
 		PyErr_BadArgument();
 		return NULL;
 	}
 
-	QString key = getArgStr( 0 );
-	cVariant value = self->pSock->tags().get( key );
+	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
+	cVariant value = self->pSock->tags().get(key);
 
 	if( value.type() == cVariant::String )
-		return PyString_FromString( value.asString().latin1() );
+		return PyUnicode_FromWideChar((Py_UNICODE*)value.toString().ucs2(), value.toString().length());
 	else if( value.type() == cVariant::Int )
 		return PyInt_FromLong( value.asInt() );
+	else if( value.type() == cVariant::Double )
+		return PyFloat_FromDouble( value.asDouble() );
 
 	Py_INCREF( Py_None );
 	return Py_None;
@@ -589,23 +582,21 @@ static PyObject* wpSocket_gettag( wpSocket* self, PyObject* args )
 */
 static PyObject* wpSocket_settag( wpSocket* self, PyObject* args )
 {
-	if( !self->pSock )
-		return PyFalse;
+	char *key;
+	PyObject *object;
 
-	if( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) || ( !checkArgStr( 1 ) && !checkArgInt( 1 )  ) )
-	{
-		PyErr_BadArgument();
-		return NULL;
+	if (!PyArg_ParseTuple( args, "sO:char.settag( name, value )", &key, &object ))
+		return 0;
+
+	if (PyString_Check(object)) {
+		self->pSock->tags().set(key, cVariant(PyString_AsString(object)));
+	} else if (PyUnicode_Check(object)) {
+		self->pSock->tags().set(key, cVariant(QString::fromUcs2((ushort*)PyUnicode_AsUnicode(object))));
+	} else if (PyInt_Check(object)) {
+		self->pSock->tags().set(key, cVariant((int)PyInt_AsLong(object)));
+	} else if (PyFloat_Check(object)) {
+		self->pSock->tags().set(key, cVariant((double)PyFloat_AsDouble(object)));
 	}
-
-	QString key = getArgStr( 0 );
-
-	self->pSock->tags().remove( key );
-
-	if( checkArgStr( 1 ) )
-		self->pSock->tags().set( key, cVariant( getArgStr( 1 ) ) );
-	else if( checkArgInt( 1 ) )
-		self->pSock->tags().set( key, cVariant( (int)getArgInt( 1 ) ) );
 
 	return PyTrue;
 }

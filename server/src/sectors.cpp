@@ -522,6 +522,14 @@ cCharSectorIterator *cSectorMaps::findChars( unsigned char map, unsigned int x1,
 	return static_cast< cCharSectorIterator* >( findObjects( MT_CHARS, it->second, x1, y1, x2, y2 ) );
 }
 
+bool cSectorMaps::validMap(unsigned char map) {
+	if (charmaps.find(map) != charmaps.end() && itemmaps.find(map) != itemmaps.end()) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 /*
  * Old Region Iterators
  */

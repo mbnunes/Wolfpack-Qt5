@@ -68,6 +68,9 @@ static void FreeItemObject( PyObject *obj )
 static PyObject *wpItem_getAttr( wpItem *self, char *name );
 static int wpItem_setAttr( wpItem *self, char *name, PyObject *value );
 int wpItem_compare( PyObject *a, PyObject *b );
+long wpItem_hash(wpItem *self) {
+	return self->pItem->serial();
+}
 
 /*!
 	The typedef for Wolfpack Python items
@@ -83,7 +86,12 @@ static PyTypeObject wpItemType = {
     0,								
     (getattrfunc)wpItem_getAttr,
     (setattrfunc)wpItem_setAttr,
-	wpItem_compare
+	wpItem_compare,
+	0,
+	0,
+	0,
+	0,
+	(hashfunc)wpItem_hash
 };
 
 PyObject* PyGetItemObject( P_ITEM item )
@@ -644,6 +652,16 @@ static PyObject* wpItem_resendtooltip( wpItem *self, PyObject *args )
 	return PyTrue;
 }
 
+static PyObject* wpItem_dupe( wpItem *self, PyObject *args )
+{
+	if (!self->pItem->free) {
+		P_ITEM item = self->pItem->dupe();
+		return item->getPyObject();
+	}
+
+	return Py_None;
+}
+
 static PyMethodDef wpItemMethods[] = 
 {
 	{ "additem",			(getattrofunc)wpItem_additem, METH_VARARGS, "Adds an item to this container." },
@@ -663,6 +681,7 @@ static PyMethodDef wpItemMethods[] =
 	{ "multi",				(getattrofunc)wpItem_multi,	METH_VARARGS, 0 },
 	{ "lightning",			(getattrofunc)wpItem_lightning, METH_VARARGS, 0 },
 	{ "resendtooltip",		(getattrofunc)wpItem_resendtooltip, METH_VARARGS, 0 },
+	{ "dupe",				(getattrofunc)wpItem_dupe, METH_VARARGS, 0 },
 
 	// Effects
 	{ "movingeffect",		(getattrofunc)wpItem_movingeffect, METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },
@@ -691,8 +710,20 @@ static PyObject *wpItem_getAttr( wpItem *self, char *name )
 		for( INT32 i = 0; i < content.size(); ++i )
 			PyList_SetItem( list, i, PyGetItemObject( content[i] ) );		
 		return list;
-	}
-	else if( !strcmp( "events", name ) )
+	} else if (!strcmp("tags", name)) {
+		// Return a list with the keynames
+		PyObject *list = PyList_New(0);
+
+		QStringList tags = self->pItem->getTags();
+		for (QStringList::iterator it = tags.begin(); it != tags.end(); ++it) {
+			QString name = *it;
+			if (!name.isEmpty()) {
+				PyList_Append(list, PyString_FromString(name.latin1()));
+			}
+		}
+
+		return list;
+	} else if( !strcmp( "events", name ) )
 	{
 		QStringList events = QStringList::split( ",", self->pItem->eventList() );
 		PyObject *list = PyList_New( events.count() );

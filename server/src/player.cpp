@@ -33,6 +33,7 @@
 #include "dbdriver.h"
 #include "globals.h"
 #include "chars.h"
+#include "guilds.h"
 #include "console.h"
 #include "network.h"
 #include "network/uosocket.h"
@@ -45,6 +46,7 @@
 #include "corpse.h"
 #include "sectors.h"
 #include "tilecache.h"
+#include "guilds.h"
 #include "skills.h"
 #include "pythonscript.h"
 #include "log.h"
@@ -66,6 +68,7 @@ cPlayer::cPlayer()
 	profile_			= (char*)0;
 	fixedLightLevel_	= 0xFF;
 	party_				= 0;
+	guild_				= 0;
 }
 
 
@@ -326,20 +329,23 @@ UINT8 cPlayer::notoriety( P_CHAR pChar ) // Gets the notoriety toward another ch
 		return 7;
 	}
 
-	// Check for Guild status + Highlight
-//	UINT8 guildStatus = GuildCompare( this, pChar );
+	// Guilds override kills
+	if (guild_ && pChar != this) {
+		P_PLAYER player = dynamic_cast<P_PLAYER>(pChar);
 
-	if( pChar->kills() > SrvParams->maxkills() )
-	{
+		if (player && player->guild_) {
+			// Same Guild => Green
+			if (player->guild_ == guild_) {
+				return 0x02;
+			}
+			// TODO: Enemy Guilds, Allied Guilds
+		}
+	}
+
+	if (pChar->kills() > SrvParams->maxkills()) {
 		result = 0x06; // 6 = Red -> Murderer
 
-//	else if( guildStatus == 1 )
-//		result = 0x02; // 2 = Green -> Same Guild
-
-//	else if( guildStatus == 2 )
-//		result = 0x05; // 5 = Orange -> Enemy Guild
-
-	} else if( account_ ) {
+	} else if(account_) {
 		if( isCriminal() )
 			result = 0x03;
 		else if( karma_ < -2000 )
@@ -348,9 +354,7 @@ UINT8 cPlayer::notoriety( P_CHAR pChar ) // Gets the notoriety toward another ch
 			result = 0x03;
 		else
 			result = 0x01;
-	}
-	else
-	{
+	} else {
 		// Everything else
 		result = 0x03;
 	}
@@ -523,8 +527,9 @@ bool cPlayer::isGMorCounselor() const
 
 void cPlayer::showName( cUOSocket *socket )
 {
-	if( !socket->player() )
+	if( !socket->player() ) {
 		return;
+	}
 
 	QString charName = name();
 
@@ -532,25 +537,31 @@ void cPlayer::showName( cUOSocket *socket )
 	if( fame_ == 10000 )
 		charName.prepend( gender_ ? tr( "Lady " ) : tr( "Lord " ) );
 
+	QString affix = "";
+
+	if (guild_ && !guild_->abbreviation().isEmpty()) {
+		affix.append(QString(" [%1]").arg(guild_->abbreviation()));
+	}
+
 	// Are we squelched ?
 	if( isMuted() )
-		charName.append( tr(" [muted]" ) );
+		affix.append( tr(" [muted]" ) );
 
 	// Append serial for GMs
 	if( socket->player()->showSerials() )
-		charName.append( QString( " [0x%1]" ).arg( serial(), 4, 16 ) );
+		affix.append( QString( "[0x%1]" ).arg( serial(), 4, 16 ) );
 
 	// Append offline flag
 	if( !socket_ )
-		charName.append( tr(" [offline]") );
+		affix.append( tr(" [offline]") );
 
 	// Guarded
 	if( guardedby_.size() > 0 )
-		charName.append( tr(" [guarded]") );
+		affix.append( tr(" [guarded]") );
 
 	// Guarding
 	if( isTamed() && guarding_ )
-		charName.append( tr(" [guarding]") );
+		affix.append( tr(" [guarding]") );
 
 	Q_UINT16 speechColor;
 
@@ -570,7 +581,9 @@ void cPlayer::showName( cUOSocket *socket )
 	}
 
 	// Show it to the socket
-	socket->showSpeech( this, charName, speechColor, 3, cUOTxUnicodeSpeech::System );
+	// socket->showSpeech( this, charName, speechColor, 3, cUOTxUnicodeSpeech::System );
+	// Names are presented in ASCII speech, Guild titles are not
+	socket->clilocMessage(1050045, " \t" + charName + "\t " + affix, speechColor, 3, this, true);
 }
 
 /*!
@@ -1482,7 +1495,7 @@ bool cPlayer::canSeeItem(P_ITEM item, bool lineOfSight) {
 			return canSeeChar(character, lineOfSight);
 		}		
 	} else {
-		if (pos_.distance(item->pos()) > VISRANGE) {
+		if (pos_.distance(item->pos()) > visualRange()) {
 				return false;
 		}
 

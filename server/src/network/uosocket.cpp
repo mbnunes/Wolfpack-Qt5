@@ -166,6 +166,18 @@ void cUOSocket::send( cGump *gump )
 	gumps.insert( gump->serial(), gump );
 
 	QString layout = gump->layout().join( "" );
+	if (gump->noClose()) {
+		layout.prepend("{noclose}");
+	}
+
+	if (gump->noMove()) {
+		layout.prepend("{nomove}");
+	}
+
+	if (gump->noDispose()) {
+		layout.prepend("{nodispose}");
+	}
+
 	Q_UINT32 gumpsize = 24 + layout.length();
 	QStringList text = gump->text();
 	QStringList::const_iterator it = text.begin();
@@ -483,6 +495,11 @@ void cUOSocket::sendCharList()
 
 	charList.compile();
 	send( &charList );
+
+	// Ask the client for a viewrange
+	cUOPacket packet(0xc8, 2);
+	packet[1] = VISRANGE;
+	send(&packet);
 }
 
 /*!
@@ -530,17 +547,15 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter *packet )
 		return;
 	}
 
-	if( _account->inUse() )
-	{
+	if (_account->inUse()) {
 		cUOTxDenyLogin denyLogin;
 		denyLogin.setReason( DL_INUSE );
 		send( &denyLogin );
 		return;
 	}
 
-	_account->setInUse( true );
-	playChar( characters.at(packet->slot()) );
-
+	_account->setInUse(true);
+	playChar(characters.at(packet->slot()));
 	_player->onLogin();
 }
 
@@ -624,6 +639,11 @@ void cUOSocket::playChar( P_PLAYER pChar )
 	send( &gameTime );
 
 	pChar->sendTooltip( this );
+
+	// Request a viewrange from the client
+	cUOPacket packet(0xc8, 2);
+	packet[1] = pChar->visualRange();
+	send(&packet);
 }
 
 /*!
@@ -929,11 +949,16 @@ void cUOSocket::handleQuery( cUORxQuery *packet )
 */
 void cUOSocket::handleUpdateRange( cUORxUpdateRange *packet )
 {
-	if( packet->range() > 20 )
+	if( packet->range() > 18 || packet->range() < 5 )
 		return; // Na..
 
-	//if( _player )
-	//	_player->visualRange = packet->range();
+	if (_player) {
+		_player->setVisualRange(packet->range());			
+	}
+
+	cUOPacket update(0xc8, 2);
+	update[1] = _player->visualRange();
+	send(&update);
 }
 
 /*!
@@ -2483,18 +2508,28 @@ void cUOSocket::handleSell( cUORxSell* packet )
 /*
 thanks to codex
 */
-void cUOSocket::clilocMessage( const UINT32 MsgID, const QString &params, const Q_UINT16 color, const Q_UINT16 font, cUObject *object )
+void cUOSocket::clilocMessage( const UINT32 MsgID, const QString &params, const Q_UINT16 color, const Q_UINT16 font, cUObject *object, bool system )
 {
 	cUOTxClilocMsg msg;
 
 	if( object != 0 )
 	{
 		msg.setSerial( object->serial() );
-		msg.setType( cUOTxClilocMsg::OnObject );
-		if( object->isChar() )
+
+		if (!system) {
+			msg.setType( cUOTxClilocMsg::OnObject );
+		} else {
+			msg.setType( cUOTxClilocMsg::LowerLeft );
+		}
+		if (object->isChar()) {
+			P_CHAR pchar = dynamic_cast<P_CHAR>(object);
+			if (pchar) {
+				msg.setBody(pchar->bodyID());
+			}
 			msg.setName( object->name() );
-		else
+		} else {
 			msg.setName( "Item" );
+		}
 	}
 	else
 	{

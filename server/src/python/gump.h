@@ -33,6 +33,7 @@
 
 #include "utilities.h"
 #include "../gumps.h"
+#include "../console.h"
 
 /*!
 	Response object. 
@@ -133,19 +134,19 @@ public:
 
 			PyObject *pModule = PyImport_ImportModule( const_cast< char* >( sModule.latin1() ) );
 
-			if( pModule )
-			{
-				PyObject *pFunc = PyObject_GetAttrString( pModule, const_cast< char* >( sFunction.latin1() ) );
-				if( pFunc && PyCallable_Check( pFunc ) )
-				{
+			if (pModule) {
+				PyObject *pFunc = PyObject_GetAttrString(pModule, const_cast<char*>(sFunction.latin1()));
+				if (pFunc && PyCallable_Check(pFunc)) {
 					// Create our Argument list
 					PyObject *p_args = PyTuple_New( 3 );
-					PyTuple_SetItem( p_args, 0, PyGetCharObject( socket->player() ) );
-					PyTuple_SetItem( p_args, 1, args );
-					PyTuple_SetItem( p_args, 2, PyGetGumpResponse( choice ) );
-					PyEval_CallObject( pFunc, p_args );
-					reportPythonError( sModule );
+					PyTuple_SetItem(p_args, 0, PyGetCharObject(socket->player()));
+					PyTuple_SetItem(p_args, 1, args);
+					PyTuple_SetItem(p_args, 2, PyGetGumpResponse(choice));
+					PyEval_CallObject(pFunc, p_args);
+					reportPythonError(sModule);
 				}
+			} else {
+				Console::instance()->log(LOG_ERROR, QString("Couldn't find code module %s for a gump callback.").arg(sModule));
 			}
 		}
 

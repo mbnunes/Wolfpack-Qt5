@@ -235,6 +235,9 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 				}
 			}
 			continue;
+		} else if (pChar->isDead()) {
+			// Doors can be passed by ghosts
+			tile_st tile = TileCache::instance()->getTile(pItem->id());
 		}
 
 		// They need to be at the same x,y,plane coords
@@ -387,7 +390,7 @@ void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
 			UI32 newDist = pChar->pos().distance( pItem->pos() );
 
 			// Was out of range before and now is in range
-			if( ( oldDist >= player->visualRange() ) && ( newDist <= player->visualRange() ) )
+			if( ( oldDist >= player->visualRange() ) && ( newDist < player->visualRange() ) )
 			{
 				pItem->update( player->socket() );
 			}
@@ -511,20 +514,20 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	RegionIterator4Chars ri( pChar->pos() );
 	for( ri.Begin(); !ri.atEnd(); ri++ ) {
 		P_CHAR observer = ri.GetData();
+		unsigned int distance = observer->pos().distance(oldpos);
 
 		// If we are a player, send us new characters
 		if (player && player->socket()) {
-			if (observer->pos().distance(player->pos()) <= player->visualRange() && 
-				observer->pos().distance(oldpos) > player->visualRange()) {
-					player->socket()->sendChar(observer);
-				}
+			if (distance > player->visualRange()) {
+				player->socket()->sendChar(observer); // We were previously out of range.
+			}
 		}
 
 		// Send our movement to the observer
 		P_PLAYER otherplayer = dynamic_cast<P_PLAYER>(observer);
 
-		if (otherplayer && otherplayer->socket() && otherplayer->canSee(pChar)) {            
-			if (otherplayer->pos().distance(oldpos) > otherplayer->visualRange()) {
+		if (otherplayer && otherplayer->socket()) {            
+			if (distance > otherplayer->visualRange()) {
 				otherplayer->socket()->sendChar(pChar); // Previously we were out of range 
 			} else {
 				otherplayer->socket()->updateChar(pChar); // Previously we were already known

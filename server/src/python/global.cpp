@@ -35,6 +35,7 @@
 #include "../network/uosocket.h"
 #include "../network/uotxpackets.h"
 #include "../console.h"
+#include "../guilds.h"
 #include "../TmpEff.h"
 #include "../sectors.h"
 #include "../territories.h"
@@ -407,6 +408,41 @@ static PyObject* wpFinditem( PyObject* self, PyObject* args )
 }
 
 /*!
+	Returns a list of guilds.
+*/
+static PyObject *wpGuilds(PyObject *self, PyObject *args) {
+	PyObject *list = PyList_New(0);
+
+	for (cGuilds::iterator it = Guilds::instance()->begin(); it != Guilds::instance()->end(); ++it) {
+		PyList_Append(list, it.data()->getPyObject());
+	}
+
+	return list;
+}
+
+/*!
+	Returns the guild registered under the given serial.
+*/
+static PyObject* wpFindguild( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);	
+
+	SERIAL serial;
+
+	if ( !PyArg_ParseTuple( args, "i:wolfpack.findguild(serial)", &serial ) )
+		return 0;
+
+	cGuild *guild = Guilds::instance()->findGuild(serial);
+
+	if (guild) {
+		return guild->getPyObject();
+	} else {
+		Py_INCREF(Py_None);
+		return Py_None;
+	}
+}
+
+/*!
 	Creates a char object based on the 
 	passed serial
 */
@@ -414,7 +450,7 @@ static PyObject* wpFindchar( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 	SERIAL serial = INVALID_SERIAL;
-	if ( !PyArg_ParseTuple( args, "i:wolfpack.finditem", &serial ) )
+	if ( !PyArg_ParseTuple( args, "i:wolfpack.findchar", &serial ) )
 		return 0;
 
 	return PyGetCharObject( FindCharBySerial( serial ) );
@@ -1072,6 +1108,12 @@ static PyObject* wpNewNpc( PyObject *self, PyObject *args )
 	return PyGetCharObject( pNpc );
 }
 
+static PyObject *wpNewguild(PyObject *self, PyObject *args) {
+	cGuild *guild = new cGuild(true);
+	Guilds::instance()->registerGuild(guild);
+	return guild->getPyObject();
+}
+
 static PyObject* wpNewPlayer( PyObject *self, PyObject *args )
 {
 	char createSerial = 1;
@@ -1165,12 +1207,15 @@ static PyMethodDef wpGlobal[] =
 	{ "newplayer",			wpNewPlayer,					METH_VARARGS, "Creates an entirely new player." },
 	{ "addnpc",				wpAddnpc,						METH_VARARGS, "Adds a npc with the specified script-section" },
 	{ "finditem",			wpFinditem,						METH_VARARGS, "Tries to find an item based on it's serial" },
+	{ "guilds",				wpGuilds,						METH_VARARGS, 0},
+	{ "findguild",			wpFindguild,					METH_VARARGS, 0},
 	{ "findchar",			wpFindchar,						METH_VARARGS, "Tries to find a char based on it's serial" },
 	{ "findmulti",			wpFindmulti,					METH_VARARGS, "Tries to find a multi based on it's position" },
 	{ "addtimer",			wpAddtimer,						METH_VARARGS, "Adds a timed effect" },
 	{ "effect",				wpEffect,						METH_VARARGS, "Shows a graphical effect." },
 	{ "region",				wpRegion,						METH_VARARGS, "Gets the region at a specific position" },
 	{ "currenttime",		wpCurrenttime,					METH_NOARGS, "Time in ms since server-start" },
+	{ "newguild",			wpNewguild,						METH_VARARGS, 0},
 	{ "statics",			wpStatics,						METH_VARARGS, "Returns a list of static-item at a given position" },
 	{ "map",				wpMap,							METH_VARARGS, "Returns a dictionary with information about a given map tile" },
 	{ "hasmap",				wpHasMap,						METH_VARARGS, "Returns true if the map specified is present"	},

@@ -62,7 +62,7 @@ class cGump
 {
 protected:
 	SERIAL serial_, type_;
-	Q_INT32 x_,y_;
+	int x_,y_;
 	QStringList layout_, text_;
 	bool noMove_, noClose_, noDispose_;
 public:
@@ -71,8 +71,8 @@ public:
 
 	SERIAL serial( void ) const;
 	SERIAL type( void )	const;
-	Q_UINT32 x( void ) const;
-	Q_UINT32 y( void ) const;
+	int x( void ) const;
+	int y( void ) const;
 	QStringList layout( void ) const;
 	QStringList text( void ) const;
 	bool noMove( void )	const;
@@ -81,8 +81,8 @@ public:
 
 	void setType( SERIAL data );
 	void setSerial( SERIAL data );
-	void setX( Q_UINT32 data );
-	void setY( Q_UINT32 data );
+	void setX( int data );
+	void setY( int data );
 	void setTimeOut( Q_UINT32 data );
 	void setNoMove( bool data );
 	void setNoClose( bool data );
@@ -142,12 +142,12 @@ inline SERIAL cGump::type( void ) const
 	return type_; 
 }
 
-inline Q_UINT32 cGump::x( void ) const 
+inline int cGump::x( void ) const 
 { 
 	return x_;
 }
 
-inline Q_UINT32 cGump::y( void ) const
+inline int cGump::y( void ) const
 { 
 	return y_; 
 }
@@ -187,12 +187,12 @@ inline void cGump::setSerial( SERIAL data )
 	serial_ = data; 
 }
 
-inline void cGump::setX( Q_UINT32 data ) 
+inline void cGump::setX( int data ) 
 { 
 	x_ = data; 
 }
 
-inline void cGump::setY( Q_UINT32 data ) 
+inline void cGump::setY( int data ) 
 { 
 	y_ = data; 
 }

@@ -233,6 +233,10 @@ void PersistentBroker::rollbackTransaction()
 
 bool PersistentBroker::tableExists( const QString &table )
 {
+	if (!d->connection) {
+		throw QString("Trying to query an existing table without a database connection.");
+	}
+
 	return d->connection->tableExists( table );
 }
 

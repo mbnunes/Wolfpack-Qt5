@@ -62,10 +62,10 @@ class cUObject : public PersistentObject, public cDefinable, public cPythonScrip
 {
 private:
 	uchar changed_:1;
-	cCustomTags tags_;
 
 protected:
 	QString bindmenu_;
+	cCustomTags tags_;
 	uint tooltip_;
 	QString name_;
 	Coord_cl pos_;
@@ -140,7 +140,7 @@ public:
 // Methods
 public:
 	cUObject();
-	cUObject( cUObject& ); // Copy constructor
+	cUObject( const cUObject& ); // Copy constructor
 	virtual ~cUObject() {};
 
 	void moveTo( const Coord_cl&, bool noRemove = false );

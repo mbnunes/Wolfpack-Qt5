@@ -186,11 +186,6 @@ bool Coord_cl::lineOfSight( const Coord_cl &target, bool touch )
 	if( z == target.z )
 		sgn_z = 0;
 
-	UI32 distance = this->distance( target );
-
-	if( distance > 18 )
-		return false;
-
 	QValueList< Coord_cl > collisions;
 
 	double dz_x = ( sgn_x == 0 ) ? ( (double)target.z - (double)z ) : ( ( (double)target.z - (double)z ) / ( (double)target.x - (double)x ) );

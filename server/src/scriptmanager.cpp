@@ -42,6 +42,8 @@
 #include <qstring.h>
 #include <qregexp.h>
 #include <qapplication.h>
+#include <qfileinfo.h>
+#include <qdir.h>
 
 using namespace std;
 
@@ -108,15 +110,13 @@ void cScriptManager::unload()
 
 	scripts.clear();
 
-	for( unsigned int i = 0; i < EVENT_COUNT; ++i )
-	{
+	for (unsigned int i = 0; i < EVENT_COUNT; ++i) {
 		hooks[i] = 0;
 	}
 
 	QMap< QCString, PyObject* >::iterator itc;
 
-	for( itc = commandhooks.begin(); itc != commandhooks.end(); ++itc )
-	{
+	for (itc = commandhooks.begin(); itc != commandhooks.end(); ++itc) {
 		Py_XDECREF( itc.data() );
 	}
 
@@ -130,28 +130,27 @@ void cScriptManager::load()
 	// Each Section is a Script identifier
 	const QValueVector< cElement* > &sections = DefManager->getDefinitions( WPDT_SCRIPT );
 
+	unsigned int loaded = 0;
 	unsigned int i;
-
-	for( i = 0; i < sections.size(); ++i )
-	{
+	
+	for (i = 0; i < sections.size(); ++i) {
 		const cElement *element = sections[i];
 		
-		if( scripts.contains( element->text().latin1() ) )
-		{
+		if (scripts.contains(element->text().latin1())) {
 			Console::instance()->ProgressFail();
-			Console::instance()->PrepareProgress( "Continuing..." );
-			Console::instance()->log( LOG_WARNING, QString( "Duplicate Script: %1" ).arg( element->text().utf8() ) );
-			continue;			
+			Console::instance()->PrepareProgress("Continuing...");
+			Console::instance()->log(LOG_WARNING, QString("Duplicate Script: %1").arg(element->text().utf8()));
+			continue;
 		}
 
-		
 		cPythonScript *script = new cPythonScript;
-		scripts.replace( element->text().utf8(), script );
-		script->load( element );
+		scripts.replace(element->text().utf8(), script);
+		script->load(element->text());
+		++loaded;
 	}
 
 	Console::instance()->ProgressDone();
-	Console::instance()->send( QString( "%1 Script(s) loaded\n" ).arg( i ) );
+	Console::instance()->send(QString("%1 Script(s) loaded\n").arg(loaded));
 }
 
 void cScriptManager::onServerStart()

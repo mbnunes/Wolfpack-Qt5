@@ -107,6 +107,7 @@ public:
 	void addMap( unsigned char map, unsigned int width, unsigned int height );
 	void add( cUObject *object );
 	void remove( cUObject *object );
+	bool validMap(unsigned char map);
 
 	// Find Methods
 	// These methods help in finding items on the map, either in a specific block

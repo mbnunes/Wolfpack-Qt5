@@ -37,6 +37,7 @@
 #include "basechar.h"
 #include "items.h"
 #include "party.h"
+#include "guilds.h"
 #include "player.h"
 #include "npc.h"
 #include "globals.h"
@@ -60,6 +61,11 @@ void cCharStuff::DeleteChar( P_CHAR pc_k ) // Delete character
 {
 	if( !pc_k )
 		return;
+
+	// Call the onDelete event.
+	PyObject *args = Py_BuildValue("(O&)", PyGetCharObject, pc_k);
+	cPythonScript::callChainedEventHandler(EVENT_DELETE, pc_k->getEvents(), args);
+	Py_DECREF(args);
 
 	P_NPC pn_k = dynamic_cast<P_NPC>(pc_k);
 
@@ -106,6 +112,10 @@ void cCharStuff::DeleteChar( P_CHAR pc_k ) // Delete character
 			pp_k->party()->removeMember(pp_k);
 		} else {
 			TempEffects::instance()->dispel(pp_k, 0, "cancelpartyinvitation", false, false);
+		}
+
+		if (pp_k->guild()) {
+			pp_k->guild()->removeMember(pp_k);
 		}
 	}
 	

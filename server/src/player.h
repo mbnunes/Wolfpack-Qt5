@@ -41,6 +41,8 @@
 #include "makemenus.h"
 #include "accounts.h"
 
+class cGuild;
+
 // Class for player characters. Implements cBaseChar.
 class cPlayer : public cBaseChar
 {
@@ -140,6 +142,7 @@ public:
 	// pets
 	CharContainer				pets() const;
 	cParty*						party() const;
+	cGuild*						guild() const;
 
 	// setters
     void setAccount(cAccount* data, bool moveFromAccToAcc = true);
@@ -160,6 +163,7 @@ public:
 	void setMayBroadcast(bool data);
 	void setShowSerials(bool data);
 	void setParty(cParty *data);
+	void setGuild(cGuild *data);
 
 	virtual void setStamina( INT16 data, bool notify = true );
 
@@ -184,6 +188,9 @@ protected:
 	// interface implementation
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
 	virtual void processNode( const cElement *Tag );
+
+	// Reference to a guild this character is in
+	cGuild *guild_;
 
 	// other protected methods
 	void applyStartItemDefinition( const cElement *Tag );
@@ -244,7 +251,6 @@ protected:
     // Fixed light level. is used in dungeons or for nightsight spell.
     // cOldChar:fixedlight_
     UINT8 fixedLightLevel_;
-
 };
 
 inline cAccount* cPlayer::account() const
@@ -438,6 +444,14 @@ inline cParty *cPlayer::party() const {
 
 inline void cPlayer::setParty(cParty *data) {
 	party_ = data;
+}
+
+inline void cPlayer::setGuild(cGuild *data) {
+	guild_ = data;
+}
+
+inline cGuild *cPlayer::guild() const {
+	return guild_;
 }
 
 #endif /* CPLAYER_H_HEADER_INCLUDED */

@@ -46,6 +46,7 @@
 #include "log.h"
 #include "multis.h"
 #include "persistentbroker.h"
+#include "guilds.h"
 #include "dbdriver.h"
 #include "world.h"
 #include "sectors.h"
@@ -77,31 +78,27 @@ buyprice_( 0 ), restock_( 1 ), baseid_(QString::null)
 	Init( false );
 };
 
-cItem::cItem( const cItem &src )
-{
-	//cUObject properties setting
-	this->bindmenu_ = src.bindmenu();
-	this->dir_ = src.direction();
-	this->eventList_ = src.eventList_;
+cItem::cItem( const cItem &src ) {
+	// Copy Events
+	scriptChain = 0;
+	eventList_ = src.eventList_;
+	recreateEvents();
+	this->multis_ = src.multis_;
 	this->name_ = src.name_;
-	this->setMultis( src.multis() );
-	this->setPos(src.pos());
-	this->tooltip_ = src.tooltip_;
-
+	this->pos_  = src.pos_;
+	this->tags_ = src.tags_;
 	//cItem properties setting
+	this->serial_ = INVALID_SERIAL; // IMPORTANT
 	this->amount_ = src.amount_;
 	this->buyprice_ = src.buyprice_;
 	this->changed( TOOLTIP );
 	this->color_ = src.color_;
-	this->container_ = src.container_;
 	this->decaytime_ = src.decaytime_;
 	this->def_ = src.def_;
 	this->flagChanged();
 	this->free = false;
 	this->hidamage_=src.hidamage_;
 	this->hp_ = src.hp_;
-	this->isPersistent = src.isPersistent;
-	this->layer_ = src.layer_;
 	this->lodamage_=src.lodamage_;
 	this->magic_ = src.magic_;
 	this->maxhp_ = src.maxhp_;
@@ -112,16 +109,12 @@ cItem::cItem( const cItem &src )
 	this->setOwnSerialOnly(src.ownSerial());
 	this->spawnregion_=src.spawnregion_;
 	this->speed_=src.speed_;
-	this->totalweight_ = src.totalweight_;
 	this->type2_ = src.type2_;
 	this->type_ = src.type_;
 	this->visible_=src.visible_;
 	this->weight_ = src.weight_;
 	this->baseid_ = src.baseid_;
-	this->setTotalweight( ceilf( amount_ * weight_ * 100 ) / 100 );
-
-	this->recreateEvents();
-
+	this->totalweight_ = ceilf( amount_ * weight_ * 100 ) / 100;
 }
 
 P_CHAR cItem::owner( void ) const
@@ -540,44 +533,56 @@ void cItem::Init( bool createSerial )
 }
 
 /*!
-	This Function is used for removing items
+	\brief Removes this item from the game world.
 */
 void cItem::remove()
 {
 	// Already Deleted
-	if( free )
+	if (free) {
 		return;
-
-	// Remove it from view
-	removeFromView( false );
-
+	}
+	
+	removeFromView(false); // Remove it from all clients in range
+	
 	// Update Top Objects
-	setSpawnRegion( QString::null );
-	SetOwnSerial( -1 );
+	setSpawnRegion(QString::null);
+	SetOwnSerial(-1);
 
-	// - remove from cMapObjects if a world item
-	if( container() && !container()->free )
-		removeFromCont();
-	else
-		MapObjects::instance()->remove( this );
-
-	// Recurse into all subitems
-	cItem::ContainerContent container( content() );
-	cItem::ContainerContent::const_iterator it ( container.begin() );
-	cItem::ContainerContent::const_iterator end( container.end() );
-	for ( ; it != end; ++it )
-		(*it)->remove();
-
-	if( multis() != INVALID_SERIAL )
-	{
-		cMulti *pMulti = dynamic_cast< cMulti* >( FindItemBySerial( multis() ) );
-
-		if( pMulti )
-			pMulti->removeItem( this );
+	// Check if this item is registered as a guildstone and remove it
+	// from the container if neccesary.
+	for (cGuilds::iterator it = Guilds::instance()->begin(); it != Guilds::instance()->end(); ++it) {
+		cGuild *guild = it.data();
+		if (guild->guildstone() == this) {
+			guild->setGuildstone(0);
+		}
 	}
 
-	// Queue for later deletion
-	World::instance()->deleteObject( this );
+	// Remove from the sector map if its a world item
+	// Otherwise check if there is a top container
+	if (container() && !container()->free) {
+		removeFromCont();
+	} else {
+		SectorMaps::instance()->remove(this);
+	}
+
+	// Create a copy of the content so we don't accidently change our working copy
+	ContainerContent container(content()); 
+	ContainerContent::const_iterator it;
+	for (it = container.begin(); it != container.end(); ++it) {
+		(*it)->remove();
+	}
+
+	// Remove us from a multi container
+	if (multis() != INVALID_SERIAL) {
+		cMulti *pMulti = dynamic_cast<cMulti*>(World::instance()->findItem(multis()));
+
+		if (pMulti) {
+			pMulti->removeItem(this);
+		}
+	}
+
+	// Queue up for deletion from worldfile
+	World::instance()->deleteObject(this);
 }
 
 void cItem::startDecay()
@@ -1519,19 +1524,24 @@ void cItem::update(cUOSocket *singlesocket)
 
 P_ITEM cItem::dupe()
 {
-	if( corpse() )
-		return NULL;
+	P_ITEM nItem = new cItem(*this);
+	nItem->setSerial(World::instance()->findItemSerial());
 
-	P_ITEM nItem = new cItem( (*this) );
-	nItem->setSerial( World::instance()->findItemSerial() );
+	if (container_) {
+		P_CHAR pchar = dynamic_cast<P_CHAR>(container_);
 
-	// We wont dupe items on chars without proper handling
-	P_CHAR pWearer = dynamic_cast<P_CHAR>( nItem->container() );
-	if( pWearer )
-	{
-		nItem->setLayer( 0 );
-		nItem->setContainer( 0 );
-		nItem->moveTo( pWearer->pos() );
+		if (pchar) {
+			nItem->container_ = 0;
+			nItem->moveTo(pchar->pos(), true);
+		} else {
+			P_ITEM item = dynamic_cast<P_ITEM>(container_);
+	
+			if (item) {
+				item->addItem(nItem, false, true, true);
+			}
+		}
+	} else {
+		nItem->moveTo(pos_);
 	}
 
 	return nItem;

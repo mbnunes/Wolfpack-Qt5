@@ -70,7 +70,7 @@
 			IntermediateDirectory="Release"
 			ConfigurationType="1"
 			CharacterSet="2"
-			WholeProgramOptimization="TRUE">
+			WholeProgramOptimization="FALSE">
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalOptions="/GR"
@@ -112,7 +112,7 @@
 				OptimizeForWindows98="1"
 				SetChecksum="TRUE"
 				SupportUnloadOfDelayLoadedDLL="FALSE"
-				MergeSections=".data=.text"
+				MergeSections=""
 				TargetMachine="1"
 				FixedBaseAddress="2"/>
 			<Tool
@@ -265,6 +265,12 @@
 			</File>
 			<File
 				RelativePath=".\globals.h">
+			</File>
+			<File
+				RelativePath=".\guilds.cpp">
+			</File>
+			<File
+				RelativePath=".\guilds.h">
 			</File>
 			<File
 				RelativePath=".\gumps.cpp">

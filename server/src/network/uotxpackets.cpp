@@ -41,13 +41,13 @@
 // Library Includes
 #include <qstringlist.h>
 
-void cUOTxShardList::addServer( Q_UINT16 serverIndex, QString serverName, Q_UINT8 serverFull, Q_INT8 serverTimeZone, Q_UINT32 serverIp )
+void cUOTxShardList::addServer( unsigned short serverIndex, QString serverName, unsigned char serverFull, char serverTimeZone, unsigned int serverIp )
 {
 	// Increase the server-count
 	// Offset: 4
 	setShort( 4, getShort( 4 ) + 1 );
 
-	Q_INT32 offset = count();
+	int offset = count();
 	resize( count() + 40 ); // 40 byte per server
 	setShort( 1, count() );
 	setShort( offset, serverIndex );
@@ -71,7 +71,7 @@ void cUOTxCharTownList::addCharacter( QString name )
 	characters.push_back( name );
 }
 
-void cUOTxCharTownList::addTown( Q_UINT8 index, const QString &name, const QString &area )
+void cUOTxCharTownList::addTown( unsigned char index, const QString &name, const QString &area )
 {
 	stTown town;
 	town.town = ( name.length() > 30 ) ? name.left( 30 ) : name;
@@ -83,11 +83,11 @@ void cUOTxCharTownList::addTown( Q_UINT8 index, const QString &name, const QStri
 void cUOTxCharTownList::compile( void )
 {
 	resize( 309 + ( towns.size() * 63 ) );
-	(*this)[ 0 ] = (Q_UINT8)0xA9;
+	(*this)[ 0 ] = (unsigned char)0xA9;
 
 	(*this)[ 3 ] = characters.size(); // Char Count
 
-	for( Q_UINT8 c = 0; c < 5; ++c )
+	for( unsigned char c = 0; c < 5; ++c )
 		if( c < characters.size() )
 		{
 			setAsciiString( 4 + ( c * 60 ), characters[ c ].left( 29 ).latin1(), 30 );
@@ -97,10 +97,10 @@ void cUOTxCharTownList::compile( void )
 			(*this)[ 4 + ( c * 60 ) ] = 0x00; // "Pad-out" the char
 
 	// Town Count
-	Q_INT32 offset = 304;
+	int offset = 304;
 	(*this)[ offset++ ] = towns.size();
 
-	for( Q_UINT8 t = 0; t < towns.size(); ++t )
+	for( unsigned char t = 0; t < towns.size(); ++t )
 	{
 		(*this)[ offset ] = towns[ t ].index;
 		setAsciiString( offset + 1, towns[ t ].town.left( 29 ).latin1(), 30 );
@@ -117,9 +117,9 @@ void cUOTxCharTownList::compile( void )
 	setShort( 1, count() );
 }
 
-void cUOTxUpdateCharList::setCharacter( Q_UINT8 index, QString name )
+void cUOTxUpdateCharList::setCharacter( unsigned char index, QString name )
 {
-	Q_INT32 offset = 4 + ( index * 60 );
+	int offset = 4 + ( index * 60 );
 	++(*this)[ 3 ];
 
 	if( name.length() > 29 )
@@ -128,10 +128,10 @@ void cUOTxUpdateCharList::setCharacter( Q_UINT8 index, QString name )
 	setAsciiString(offset, name.latin1(), 30 );
 }
 
-void cUOTxSendSkills::addSkill( Q_UINT16 skillId, Q_UINT16 skill, Q_UINT16 realSkill, eStatus status, UINT16 cap )
+void cUOTxSendSkills::addSkill( unsigned short skillId, unsigned short skill, unsigned short realSkill, eStatus status, unsigned short cap )
 {
 	// Overwrite the last 2 bytes (terminator) and readd them later
-	Q_INT32 offset = count() - 2;
+	int offset = count() - 2;
 	resize( count() + 9 );
 	setShort( 1, count() );
 
@@ -149,7 +149,7 @@ void cUOTxUnicodeSpeech::setText( const QString &data )
 	resize( 50 + (data.length()*2) );
 	setShort( 1, count() );
 
-	Q_INT32 offset = 48; // Pad right by one - remeber to copy one byte less
+	int offset = 48; // Pad right by one - remeber to copy one byte less
 	(*this)[ offset ] = 0x00;
 	QString tmpData = data; // get around the const
 	setUnicodeString( offset , tmpData, (tmpData.length()*2) );
@@ -182,7 +182,7 @@ void cUOTxSendSkills::fromChar( P_CHAR pChar )
 
 	(*this)[3] = 0x02;
 
-	for( UINT8 i = 0; i < ALLSKILLS; ++i )
+	for( unsigned char i = 0; i < ALLSKILLS; ++i )
 	{
 		eStatus status;
 
@@ -202,10 +202,10 @@ void cUOTxSendSkills::fromChar( P_CHAR pChar )
 	}
 }
 
-void cUOTxMapDiffs::addEntry( UINT32 mappatches, UINT32 staticpatches )
+void cUOTxMapDiffs::addEntry( unsigned int mappatches, unsigned int staticpatches )
 {
-	UINT16 size = count();
-	UINT32 num = getInt( 5 );
+	unsigned short size = count();
+	unsigned int num = getInt( 5 );
 
 	resize( size + 8 );
 	setShort( 1, size + 8 );
@@ -214,9 +214,9 @@ void cUOTxMapDiffs::addEntry( UINT32 mappatches, UINT32 staticpatches )
 	setInt( 5, num + 1 );	
 }
 
-void cUOTxContextMenu::addEntry ( Q_UINT16 RetVal, Q_UINT16 msgID, Q_UINT16 flags, Q_UINT16 color ) 
+void cUOTxContextMenu::addEntry ( unsigned short RetVal, unsigned short msgID, unsigned short flags, unsigned short color ) 
 { 
-	Q_UINT32 size = count(); 
+	unsigned int size = count(); 
 	
 	++(*this)[ 11 ]; 
 	
@@ -294,10 +294,10 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 }
 
 
-void cUOTxDrawChar::addEquipment( Q_UINT32 serial, Q_UINT16 model, Q_UINT8 layer, Q_UINT16 color )
+void cUOTxDrawChar::addEquipment( unsigned int serial, unsigned short model, unsigned char layer, unsigned short color )
 {
 	// Overwrite the last 4 bytes (terminator) and readd them later
-	Q_INT32 offset = count() - 4;
+	int offset = count() - 4;
 	resize( count() + 9 );
 	setShort( 1, count() );
 
@@ -423,12 +423,12 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	setY( pChar->pos().y );
 	setZ( pChar->pos().z );
 	setDirection( pChar->direction() );
-	//void setFlags( Q_UINT8 data ) { rawPacket[ 10 ] = data; } // // 10 = 0=normal, 4=poison, 9 = invul,0x40=attack, 0x80=hidden CHARMODE_WAR
+	//void setFlags( unsigned char data ) { rawPacket[ 10 ] = data; } // // 10 = 0=normal, 4=poison, 9 = invul,0x40=attack, 0x80=hidden CHARMODE_WAR
 }
 
 void cUOTxTipWindow::setMessage( const QCString& m )
 {
-	ushort length = m.length();
+	unsigned short length = m.length();
 	resize( length + 11 );
 	setShort(1, length + 11 );
 	setShort(8, length );
@@ -527,20 +527,20 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 		setFlag( flag() | 0x04 );
 }
 
-void cUOTxBookPage::setPage( UINT16 page, UINT16 numLines, const QStringList &lines )
+void cUOTxBookPage::setPage( unsigned short page, unsigned short numLines, const QStringList &lines )
 {
 	setShort(  9 + currPageOffset, page );
 
 	if( numLines == 0 )
 	{
-		setShort( 11 + currPageOffset, (UINT16)-1 ); // -1 if no lines!
+		setShort( 11 + currPageOffset, (unsigned short)-1 ); // -1 if no lines!
 		currPageOffset += 4;
 	}
 	else
 	{
 		setShort( 11 + currPageOffset, numLines );
 		
-		UINT32 currLineOffset = 0;
+		unsigned int currLineOffset = 0;
 		QStringList::const_iterator it = lines.begin();
 		while( it != lines.end() )
 		{
@@ -552,9 +552,9 @@ void cUOTxBookPage::setPage( UINT16 page, UINT16 numLines, const QStringList &li
 	}
 }
 
-void cUOTxCorpseEquipment::addItem( UINT8 layer, UINT32 serial )
+void cUOTxCorpseEquipment::addItem( unsigned char layer, unsigned int serial )
 {
-	INT32 offset = count()-1;
+	int offset = count()-1;
 	resize( size() + 5 );
 	setShort( 1, size() );
 
@@ -574,9 +574,9 @@ void cUOTxItemContent::addItem( P_ITEM pItem )
 	addItem( pItem->serial(), pItem->id(), pItem->color(), pItem->pos().x, pItem->pos().y, pItem->amount(), contserial );
 }
 
-void cUOTxItemContent::addItem( SERIAL serial, UINT16 id, UINT16 color, UINT16 x, UINT16 y, UINT16 amount, UINT32 container )
+void cUOTxItemContent::addItem( SERIAL serial, unsigned short id, unsigned short color, unsigned short x, unsigned short y, unsigned short amount, unsigned int container )
 {
-	INT32 offset = size();
+	int offset = size();
 	resize( size() + 19 );
 	setShort( 3, getShort( 3 ) + 1 );
 	setShort( 1, size() );
@@ -591,9 +591,9 @@ void cUOTxItemContent::addItem( SERIAL serial, UINT16 id, UINT16 color, UINT16 x
 	setShort( offset+17, color );
 }
 
-void cUOTxVendorBuy::addItem( UINT32 price, const QString &description )
+void cUOTxVendorBuy::addItem( unsigned int price, const QString &description )
 {
-	INT32 offset = size();
+	int offset = size();
 	resize( size() + 5 + description.length() + 1 ); // Null terminate it for gods-sake
 	setShort( 1, size() );
 	
@@ -615,7 +615,7 @@ void cUOTxGumpDialog::setContent( const QString& layout, const QStringList& text
 
 	setShort( 22 + layout.length(), text.count() );
 
-	Q_UINT32 offset = 22 + layout.length() + 2;
+	unsigned int offset = 22 + layout.length() + 2;
 	QStringList::const_iterator it = text.begin();
 	while( it != text.end() )
 	{
@@ -639,7 +639,7 @@ void cUOTxTrade::setName( const QString &name )
 void cUOTxProfile::setInfo( const QString& title, const QString& staticText, const QString& dynamicText )
 {
 	// Reset to the correct size
-	UINT16 size = 13 + title.length() + ( staticText.length() * 2 ) + ( dynamicText.length() * 2 );
+	unsigned short size = 13 + title.length() + ( staticText.length() * 2 ) + ( dynamicText.length() * 2 );
 	setShort( 1, size );
 	resize( size );
 
@@ -667,10 +667,10 @@ void cUOTxSoundEffect::setCoord( const Coord_cl &coord )
 	setShort( 10, coord.z );
 }
 
-void cUOTxItemTarget::addItem( UINT16 id, INT16 deltaX, INT16 deltaY, INT16 deltaZ, UINT16 hue )
+void cUOTxItemTarget::addItem( unsigned short id, short deltaX, short deltaY, short deltaZ, unsigned short hue )
 {
 	// Add 10 Bytes
-	INT32 offset = size();
+	int offset = size();
 	resize( offset + 10 );
 	setShort( offset, id );
 	setShort( offset+2, deltaX );
@@ -679,10 +679,10 @@ void cUOTxItemTarget::addItem( UINT16 id, INT16 deltaX, INT16 deltaY, INT16 delt
 	setShort( offset+8, hue );
 }
 
-void cUOTxTooltipList::addLine( UINT32 id, const QString& params )
+void cUOTxTooltipList::addLine( unsigned int id, const QString& params )
 {
 	// 4 + 2 + length * 2
-	UINT32 offset = size() - 4;
+	unsigned int offset = size() - 4;
 	resize( size() + ( 4 + 2 + params.length() * 2 ) );
 	setShort( 1, size() );
 
@@ -696,9 +696,9 @@ void cUOTxTooltipList::addLine( UINT32 id, const QString& params )
 	setInt( size() - 4, 0 );
 }
 
-void cUOTxCustomHouse::addTile( UINT16 id, short x, short y, short z )
+void cUOTxCustomHouse::addTile( unsigned short id, short x, short y, short z )
 {
-	UINT32 sz = size() + 5;
+	unsigned int sz = size() + 5;
 	resize( sz );
 	// Increase counters
 	setShort( 1, sz );					// total len
@@ -710,11 +710,11 @@ void cUOTxCustomHouse::addTile( UINT16 id, short x, short y, short z )
 	(*this)[sz - 1] = z;
 }
 
-void cUOTxSellList::addItem( UINT32 serial, UINT16 id, UINT16 hue, 
-							UINT16 amount, UINT16 value, const QString &name )
+void cUOTxSellList::addItem( unsigned int serial, unsigned short id, unsigned short hue, 
+							unsigned short amount, unsigned short value, const QString &name )
 {
-	UINT32 offset = size();
-	UINT32 sz = size() + name.length() + 1 + 14; // null terminated ascii string
+	unsigned int offset = size();
+	unsigned int sz = size() + name.length() + 1 + 14; // null terminated ascii string
 	resize( sz );
 	setShort( 1, sz );
 
@@ -747,4 +747,21 @@ void cUOTxPartyTellMember::setText(const QString &message) {
 	setShort(1, size());
 	setUnicodeString(10, message, message.length()*2, false);
 	setShort(size()-2, 0); // Null termination
+}
+
+void cUOTxAsciiSpeech::setMessage(const QString &data) {
+    resize(45 + data.length());
+	setShort(1, 45 + data.length());
+	setAsciiString(44, data.latin1(), data.length() + 1);
+	(*this)[44 + data.length()] = 0; // Null Termination		
+}
+
+void cUOTxClilocMsg::setParams(const QString &data) {
+	if (data.length() > 0) {
+		resize(PacketLen + data.length() * 2);
+		QString tmpData = data; // go around the const stuff.
+		setUnicodeString(48, tmpData, data.length() * 2, true);
+		setShort(1, PacketLen + data.length() * 2);
+		setShort(48 + data.length() * 2, 0);
+	}
 }

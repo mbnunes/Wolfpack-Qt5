@@ -84,6 +84,7 @@ static char *eventNames[] =
 	"onTrade",
 	"onTradeStart",
 	"onBulletinBoard",
+	"onDelete",
 	0
 };
 
@@ -120,10 +121,8 @@ void cPythonScript::unload( void )
 }
 
 // Find our module name
-bool cPythonScript::load( const cElement *element )
+bool cPythonScript::load(const QString &name)
 {
-	QString name = element->text();
-
 	if( name.isEmpty() )
 		return false;
 
@@ -334,7 +333,7 @@ stError *cPythonScriptable::getProperty(const QString &name, cVariant &value) co
 }
 
 bool cPythonScriptable::implements(const QString &name) const {
-	if (name == className()) {
+	if (name == cPythonScriptable::className()) {
 		return true;
 	} else {
 		return false;

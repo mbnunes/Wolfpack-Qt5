@@ -67,19 +67,14 @@ cUObject::cUObject() :
 {
 }
 
-cUObject::cUObject( cUObject &src )
-{
+cUObject::cUObject( const cUObject &src ) {
 	// Copy Events
+	scriptChain = 0;
 	eventList_ = src.eventList_;
 	recreateEvents();
-
-	this->serial_ = src.serial_;
 	this->multis_ = src.multis_;
 	this->name_ = src.name_;
 	this->pos_  = src.pos_;
-	this->free = src.free;
-	this->changed( TOOLTIP );
-	this->tooltip_ = src.tooltip_;
 	this->tags_ = src.tags_;
 	changed_ = true;
 }

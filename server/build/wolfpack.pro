@@ -82,6 +82,7 @@ HEADERS         = \
 			encryption.h \
 			exceptions.h \
 			globals.h \
+      guilds.h \
 			gumps.h \
 			house.h \
 			inlines.h \
@@ -141,6 +142,7 @@ SOURCES         = \
 		dragdrop.cpp \
 		globals.cpp \
 		gumps.cpp \
+    guilds.cpp \
 		house.cpp \
 		itemid.cpp \
 		items.cpp \

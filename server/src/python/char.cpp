@@ -40,6 +40,7 @@
 #include "../scriptmanager.h"
 #include "../makemenus.h"
 #include "../npc.h"
+#include "../guilds.h"
 #include "../basechar.h"
 #include "../player.h"
 #include "../singleton.h"
@@ -74,6 +75,10 @@ PyObject *wpChar_getAttr( wpChar *self, char *name );
 int wpChar_setAttr( wpChar *self, char *name, PyObject *value );
 int wpChar_compare( PyObject*, PyObject* );
 
+long wpChar_hash(wpChar *self) {
+	return self->pChar->serial();
+}
+
 /*!
 	The typedef for Wolfpack Python chars
 */
@@ -84,11 +89,16 @@ static PyTypeObject wpCharType = {
     sizeof(wpCharType),
     0,
 //	FreeCharObject,
-	wpDealloc,    
+	wpDealloc,
 	0,
     (getattrfunc)wpChar_getAttr,
     (setattrfunc)wpChar_setAttr,
 	wpChar_compare,
+	0,
+	0,
+	0,
+	0,
+	(hashfunc)wpChar_hash
 };
 
 PyObject* PyGetCharObject( P_CHAR pChar )
@@ -1608,6 +1618,11 @@ static PyObject* wpChar_cansee( wpChar *self, PyObject *args )
 	// Char
 	} else if (checkWpChar(object)) {
 		result = self->pChar->canSee(getWpChar(object), touch != 0);
+	} else if (checkWpCoord(object)) {
+		result = getWpCoord(object).lineOfSight(self->pChar->pos(), touch != 0);
+	} else {
+		PyErr_SetString(PyExc_RuntimeError, "Argument types required: char, item or coordinate.");
+		return 0;
 	}
 
 	return result ? PyTrue : PyFalse;
@@ -1805,11 +1820,33 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 			return PyFalse;
 
 		return player->isGM() ? PyTrue : PyFalse;
+	} else if (!strcmp("tags", name)) {
+		// Return a list with the keynames
+		PyObject *list = PyList_New(0);
+
+		QStringList tags = self->pChar->getTags();
+		for (QStringList::iterator it = tags.begin(); it != tags.end(); ++it) {
+			QString name = *it;
+			if (!name.isEmpty()) {
+				PyList_Append(list, PyString_FromString(name.latin1()));
+			}
+		}
+
+		return list;
 	} else if (!strcmp("party", name)) {
 		P_PLAYER player = dynamic_cast<P_PLAYER>(self->pChar);
 
 		if (player && player->party()) {
 			return player->party()->getPyObject();
+		}
+
+		Py_INCREF(Py_None);
+		return Py_None;
+	} else if (!strcmp("guild", name)) {
+		P_PLAYER player = dynamic_cast<P_PLAYER>(self->pChar);
+
+		if (player && player->guild()) {
+			return player->guild()->getPyObject();
 		}
 
 		Py_INCREF(Py_None);
@@ -2055,12 +2092,29 @@ int wpChar_compare( PyObject *a, PyObject *b )
 
 	return !( pA == pB );
 }
-int PyConvertChar( PyObject *object, P_CHAR* character) {
+
+int PyConvertChar(PyObject *object, P_CHAR* character) {
 	if (object->ob_type != &wpCharType) {
 		PyErr_BadArgument();
 		return 0;
 	}
 
 	*character = ((wpChar*)object)->pChar;
+	return 1;
+}
+
+int PyConvertPlayer(PyObject *object, P_PLAYER* player) {
+	if (object->ob_type != &wpCharType) {
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	P_PLAYER temp = dynamic_cast<P_PLAYER>(((wpChar*)object)->pChar);
+
+	if (!temp) {
+		return 0;
+	}
+    
+	*player = temp;
 	return 1;
 }

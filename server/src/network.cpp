@@ -187,16 +187,8 @@ void cNetwork::unload( void )
 //	hosts_deny.clear();
 }
 
-void cNetwork::broadcast( const QString &message, UINT16 color, UINT16 font )
-{
-	lock();
-
-	cUOSocket *mSock = uoSockets.first();
-	while( mSock )
-	{
-		mSock->sysMessage( message, color, font );
-		mSock = uoSockets.next();
+void cNetwork::broadcast(const QString &message, UINT16 color, UINT16 font) {
+	for (cUOSocket *socket = uoSockets.first(); socket; socket = uoSockets.next()) {
+		socket->sysMessage(message, color, font);
 	}
-
-	unlock();
 }

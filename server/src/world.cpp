@@ -38,7 +38,9 @@
 #include "persistentbroker.h"
 #include "accounts.h"
 #include "inlines.h"
+#include "guilds.h"
 #include "basechar.h"
+#include "network.h"
 #include "player.h"
 #include "npc.h"
 #include "log.h"
@@ -86,6 +88,34 @@ struct {
 	const char *create;
 } tableInfo[] =
 {
+	{ "guilds", "CREATE TABLE guilds ( \
+	serial int(11) NOT NULL default '0', \
+	name varchar(255) NOT NULL default '', \
+	abbreviation varchar(255) NOT NULL default '', \
+	charta LONGTEXT NOT NULL, \
+	website varchar(255) NOT NULL default '', \
+	alignment int(2) NOT NULL default '0', \
+	leader int(11) NOT NULL default '-1', \
+	founded int(11) NOT NULL default '0', \
+	guildstone int(11) NOT NULL default '-1', \
+	PRIMARY KEY(serial) \
+	);" },
+
+	{ "guilds_members",	"CREATE TABLE guilds_members ( \
+	guild int(11) NOT NULL default '0', \
+	player int(11) NOT NULL default '0', \
+	showsign int(1) NOT NULL default '0', \
+	guildtitle varchar(255) NOT NULL default '', \
+	joined int(11) NOT NULL default '0', \
+	PRIMARY KEY(guild,player) \
+	);"},
+
+	{ "guilds_canidates", "CREATE TABLE guilds_canidates ( \
+	guild int(11) NOT NULL default '0', \
+	player int(11) NOT NULL default '0', \
+	PRIMARY KEY(guild,player) \
+	);"},
+
 	{ "settings", "CREATE TABLE settings ( \
 	option varchar(255) NOT NULL default '', \
 	value varchar(255) NOT NULL default '', \
@@ -445,7 +475,9 @@ void cWorld::load()
 		return;
 	}
 
-	persistentBroker->connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() );
+	if (!persistentBroker->connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword())) {
+		throw QString("Unable to open the world database.");
+	}
 
 	QString objectID;
 	register unsigned int i = 0;
@@ -459,7 +491,7 @@ void cWorld::load()
 			// create default settings
 			if( !strcmp( tableInfo[i].name, "settings" ) )
 			{
-				setOption( "db_version", WP_DATABASE_VERSION );
+				setOption("db_version", WP_DATABASE_VERSION, false);
 			}
 		}
 
@@ -669,6 +701,9 @@ void cWorld::load()
 		deleteItems.clear();
 	}
 
+	// Load Guilds
+	Guilds::instance()->load();
+
 	// load server time from db
 	Console::instance()->PrepareProgress( "Setting Worldtime" );
 	QString db_time;
@@ -690,6 +725,31 @@ void cWorld::load()
 void cWorld::save()
 {
 	Console::instance()->send( "Saving World..." );
+
+	// Send a nice status gump to all sockets if enabled
+	bool fancy = SrvParams->getBool("General", "Fancy Worldsave Status", true, true);
+	if (fancy) {
+		// Create a fancy gump as promised
+        cGump gump;
+		gump.setNoClose(true);
+		gump.setNoDispose(true);
+		gump.setNoMove(true);
+		gump.setX(-10);
+		gump.setY(-10);
+		gump.setType(0x98FA2C10);
+		
+		gump.addResizeGump(0, 0, 9200, 291, 90);
+		gump.addCheckertrans(0, 0, 291, 90);
+		gump.addText(47, 19, tr("WORLDSAVE IN PROGRESS"), 2122);
+		gump.addText(47, 37, tr("Saving %1 items.").arg(itemCount()), 2100);
+		gump.addText(47, 55, tr("Saving %1 characters.").arg(charCount()), 2100);
+		gump.addTilePic(3, 25, 4167);
+
+		// Send it to all connected ingame sockets
+		for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
+			socket->send(new cGump(gump));
+		}
+	}
 
 	if( !persistentBroker->openDriver( SrvParams->databaseDriver() ) )
 	{
@@ -743,10 +803,24 @@ void cWorld::save()
 
 		TempEffects::instance()->save();
 
+		Guilds::instance()->save();
+
 		persistentBroker->commitTransaction();
-	}
-	catch( QString &e )
-	{
+
+		// Save the Current Time
+		setOption( "worldtime", QString::number( uoTime.toTime_t() ), false );
+
+		// Save the accounts
+		Accounts::instance()->save();
+
+		uiCurrentTime = getNormalizedTime();
+
+		Console::instance()->ChangeColor( WPC_GREEN );
+		Console::instance()->send( " Done" );
+		Console::instance()->ChangeColor( WPC_NORMAL );
+
+		Console::instance()->send( QString( " [%1ms]\n" ).arg( uiCurrentTime - startTime ) );
+	} catch(QString &e) {
 		persistentBroker->rollbackTransaction();
 
 		Console::instance()->ChangeColor( WPC_RED );
@@ -754,25 +828,16 @@ void cWorld::save()
 		Console::instance()->ChangeColor( WPC_NORMAL );
 
 		Console::instance()->log( LOG_ERROR, "Saving failed: " + e );
-
-		persistentBroker->disconnect();
-
-		return;
 	}
 
-	// Save the Current Time
-	setOption( "worldtime", QString::number( uoTime.toTime_t() ) );
+	if (fancy) {
+		cUOTxCloseGump close;
+		close.setType(0x98FA2C10);
 
-	// Save the accounts
-	Accounts::instance()->save();
-
-	uiCurrentTime = getNormalizedTime();
-
-	Console::instance()->ChangeColor( WPC_GREEN );
-	Console::instance()->send( " Done" );
-	Console::instance()->ChangeColor( WPC_NORMAL );
-
-	Console::instance()->send( QString( " [%1ms]\n" ).arg( uiCurrentTime - startTime ) );
+		for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
+			socket->send(&close);
+		}
+	}
 
 	persistentBroker->disconnect();
 }
@@ -817,22 +882,26 @@ void cWorld::getOption( const QString name, QString &value, const QString fallba
 /*
  * Sets a value in the settings table.
  */
-void cWorld::setOption( const QString name, const QString value )
+void cWorld::setOption( const QString name, const QString value, bool newconnection )
 {
-	if( !persistentBroker->openDriver( SrvParams->databaseDriver() ) )
-	{
-		Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml").arg( SrvParams->databaseDriver() ) );
-		return;
-	}
-
-	try
-	{
-		persistentBroker->connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() );
-	}
-	catch( QString &e )
-	{
-		Console::instance()->log( LOG_ERROR, QString( "Couldn't open the database: %1\n" ).arg( e ) );
-		return;
+	if (newconnection) {
+		if( !persistentBroker->openDriver( SrvParams->databaseDriver() ) )
+		{
+			Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml").arg( SrvParams->databaseDriver() ) );
+			return;
+		}
+	
+		try
+		{
+			if (!persistentBroker->driver()) {
+				persistentBroker->connect( SrvParams->databaseHost(), SrvParams->databaseName(), SrvParams->databaseUsername(), SrvParams->databasePassword() );
+			}
+		}
+		catch( QString &e )
+		{
+			Console::instance()->log( LOG_ERROR, QString( "Couldn't open the database: %1\n" ).arg( e ) );
+			return;
+		}
 	}
 
 	// check if the option already exists
@@ -843,7 +912,10 @@ void cWorld::setOption( const QString name, const QString value )
 	sql = sql.arg( persistentBroker->quoteString( name ) ).arg( persistentBroker->quoteString( value ) );
 
 	persistentBroker->executeQuery( sql );
-	persistentBroker->disconnect();
+
+	if (newconnection) {
+		persistentBroker->disconnect();
+	}
 }
 
 void cWorld::registerObject( cUObject *object )
