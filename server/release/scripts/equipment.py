@@ -82,6 +82,10 @@ def modifiers(object, tooltip):
 
 	if properties.fromitem(object, MAGEARMOR):
 		tooltip.add(1060437, "")
+		
+	selfrepair = properties.fromitem(object, SELFREPAIR)
+	if selfrepair != 0:
+		tooltip.add(1060450, str(selfrepair))
 
 #
 # Equipment has a lot of additional effects.
@@ -247,9 +251,10 @@ def onShowTooltip(viewer, object, tooltip):
 		if energy:
 			tooltip.add(1060407, str(energy))
 
+	if weapon or shield:
 		# Spell Channeling
 		spellchanneling = properties.fromitem(object, SPELLCHANNELING)
-		if spellchanneling != 0:
+		if spellchanneling:
 			tooltip.add(1060482, "")
 
 	physical = properties.fromitem(object, RESISTANCE_PHYSICAL)

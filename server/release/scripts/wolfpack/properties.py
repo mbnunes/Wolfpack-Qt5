@@ -77,6 +77,7 @@ PROPERTIES = {
 	
 	# Misc
 	LUCK: ['luck', 0, 1],
+	SELFREPAIR: ['selfrepair', 0, 0],
 
 	# Requirements
 	REQSTR: ['req_strength', 0, 0],
@@ -387,7 +388,7 @@ def scaleValue( minimum, maximum, propmin, propmax, scale, luckchance ):
 ARMOR_PROPERTIES = {
 	# PROPERT KEY, min value, max value, factor, accumulate
 	LOWERREQS: [10, 100, 10, True],
-	#[SELFREPAIR, 1, 5, 1, False],
+	SELFREPAIR: [1, 5, 1, False],
 	DURABILITYBONUS: [10, 100, 10, True],
 	MAGEARMOR: [1, 1, 1, False],
 	REGENHITPOINTS: [1, 2, 1, False],
@@ -444,6 +445,54 @@ def applyArmorRandom(item, props, minintensity, maxintensity, luckchance):
 
 	item.resendtooltip()
 
+# List of allowed properties
+SHIELD_PROPERTIES = {
+	# PROPERT KEY, min value, max value, factor, accumulate
+	SPELLCHANNELING: [1, 1, 1, False],
+	DEFENSEBONUS: [1, 15, 1, True],
+	HITBONUS: [1, 15, 1, True],
+	CASTSPEEDBONUS: [1, 1, True],
+	LOWERREQS: [10, 100, 10, True],
+	SELFREPAIR: [1, 5, 1, False],
+	DURABILITYBONUS: [10, 100, 10, True],
+}
+
+#
+#  Apply a random shield property
+#
+def applyShieldRandom(item, props, minintensity, maxintensity, luckchance):
+	properties = SHIELD_PROPERTIES.keys()
+
+	# Select unique properties
+	for i in range(0, props):
+		property = random.choice(properties)
+		properties.remove(property)
+		
+		if not PROPERTIES.has_key(property):
+			continue
+
+		# Scale the value for the property
+		info = SHIELD_PROPERTIES[property]
+		value = scaleValue(minintensity, maxintensity, info[0], info[1], info[2], luckchance)
+
+		# Some special handling for special boni
+		if property == DURABILITYBONUS:
+			bonus = int(ceil(item.maxhealth * (value / 100.0)))
+			item.maxhealth = max(1, item.maxhealth + bonus)
+			item.health = item.maxhealth
+
+		# Set cast speed to -1
+		elif property == SPELLCHANNELING:
+			item.settag(PROPERTIES[CASTSPEEDBONUS][0], -1)
+
+		# Resistances are cummulative
+		if info[3]:
+			value += fromitem(item, property)		
+		
+		item.settag(PROPERTIES[property][0], value)	
+
+	item.resendtooltip()
+
 #
 # Apply random properties to the given items.
 #
@@ -471,7 +520,6 @@ def applyRandom(item, maxprops, minintensity, maxintensity, luck=0 ):
 
 # List of random armors for magic
 # item generation
-
 def testarmor(container):
 	DEF_ARMOR = DEF_LEATHER + DEF_STUDDED + DEF_CHAINMAIL + DEF_RINGMAIL + DEF_BONEMAIL + DEF_PLATEMAIL + DEF_HELMS + DEF_SHIELDS
 	id = random.choice(DEF_ARMOR)
