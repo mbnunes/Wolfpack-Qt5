@@ -334,6 +334,29 @@ PyObject* wpSocket_attachmultitarget( wpSocket* self, PyObject* args )
 }
 
 /*!
+	Begins CH customization
+*/
+PyObject* wpSocket_customize( wpSocket* self, PyObject* args )
+{
+	Q_UNUSED(args);
+	if( !self->pSock )
+		return PyFalse;
+
+	if( !checkArgItem( 0 ) )
+	{
+		PyErr_BadArgument();
+		return NULL;
+	}
+	P_ITEM signpost = getArgItem( 0 );
+
+	cUOTxStartCustomHouse custom;
+	custom.setSerial( signpost->morex() ); // Morex of signpost contain serial of house
+	self->pSock->send( &custom );
+	return PyTrue;
+}
+
+
+/*!
 	Sends a gump to the socket. This function is used internally only.
 */
 PyObject* wpSocket_sendgump( wpSocket* self, PyObject* args )
@@ -622,6 +645,8 @@ static PyMethodDef wpSocketMethods[] =
 	{ "hastag",				(getattrofunc)wpSocket_hastag,	METH_VARARGS,	"Checks if a socket has a specific tag." },
 	{ "deltag",				(getattrofunc)wpSocket_deltag,	METH_VARARGS,	"Delete specific tag." },
 	{ "resendstatus",		(getattrofunc)wpSocket_resendstatus, METH_VARARGS,	"Resends the status windows to this client." },
+	{ "resendstatus",		(getattrofunc)wpSocket_resendstatus, METH_VARARGS,	"Resends the status windows to this client." },
+	{ "customize",		(getattrofunc)wpSocket_customize, METH_VARARGS,	"Begin house customization." },
     { NULL, NULL, 0, NULL }
 };
 

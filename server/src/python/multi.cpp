@@ -117,7 +117,13 @@ PyObject* wpMulti_sendcustomhouse( wpMulti* self, PyObject* args )
 	}
 	P_CHAR player = getArgChar( 0 );
 
-	self->pMulti->sendCH( player->socket() );
+//	self->pMulti->sendCH( player->socket() );
+	cUOTxAskCustomHouse askch;
+
+	askch.setSerial( self->pMulti->serial() );
+	askch.setId( self->pMulti->revision() );
+
+	player->socket()->send( &askch );
 
 	return PyTrue;
 }
