@@ -660,7 +660,7 @@ bool cCharStuff::cBankerAI::Withdraw(int c, P_CHAR pBanker, string& comm)
 	int value=0 ;
 	if ((beginoffset=comm.find_first_of("0123456789")) != string::npos)
 	{
-		if ((endoffset=comm.find(" ",beginoffset))== string::npos)
+		if ((endoffset=comm.find_first_not_of("0123456789",beginoffset))== string::npos)
 			endoffset = comm.length();
 		value2= comm.substr(beginoffset,endoffset-beginoffset) ;
 		value = str2num(value2) ;
@@ -693,7 +693,7 @@ bool cCharStuff::cBankerAI::BankCheck(int c, P_CHAR pBanker, string& comm)
 	string value2;
 	if ((beginoffset=comm.find_first_of("0123456789")) != string::npos)
 	{
-		if ((endoffset=comm.find(" ",beginoffset))== string::npos)
+		if ((endoffset=comm.find_first_not_of("0123456789",beginoffset))== string::npos)
 			endoffset = comm.length();
 		value2= comm.substr(beginoffset,endoffset-beginoffset) ;
 		value = str2num(value2) ;
