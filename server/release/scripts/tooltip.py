@@ -16,38 +16,54 @@ def onLoad():
    wolfpack.registerglobal( HOOK_ITEM, EVENT_SHOWTOOLTIP, "tooltip" )
 
 def onShowToolTip( sender, target, tooltip ):  
-   if( target.isitem() ):
-      name = target.getname()
-      if( target.amount > 1 ):
-         multiitem( target, tooltip )
-         
-      elif isarmor ( target ):
-         armor( target, tooltip )
 
-      elif ishat( target ):
-         hat ( target, tooltip )
+	if target.isitem():
+		name = target.getname()
+            
+		if isarmor ( target ):
+			armor( target, tooltip )
+	
+		elif ishat( target ):
+			hat( target, tooltip )
+	
+		elif isshield( target ):
+			shield( target, tooltip )
+	         
+		elif isweapon( target ):
+			weapon( target, tooltip )
+	                 
+		else:
+	#	   if target.name == '' or target.name == '#':
+   	#params = str( target.amount ) + "\t" + '#' + str( 0xF9060 + target.id )
+   	#print params
+   	#tooltip.add( 1050039, params )
+   #else:
+   	#tooltip.add( 1050039, str( target.amount ) + "\t" + target.getname() ) #$amount $name
+		
+			if target.name == '#' or target.name == '':
+				if target.amount > 1:
+					tooltip.add( 1050045, " \t#" + str( 0xF9060 + target.id ) + "\t: " + str( target.amount ) )
+				else:			
+					tooltip.add( 0xF9060 + target.id, '' )
+				
+			else:
+				if target.amount > 1:
+					tooltip.add( 1050045, " \t" + name + "\t: " + str( target.amount ) )
+				else:
+					tooltip.add( 1050045, " \t" + name + "\t " )
+	
+			if target.hastag( "blessed" ):
+				tooltip.add( 1038021, "" ) # Blessed
+		
+			if isspellbook( target ):
+				tooltip.add( 1042886, str( target.spellscount() ) )
+	else:
+		name = target.name
+		tooltip.add( 1050045, " \t" + name + "\t " )
 
-      elif isshield( target ):
-         shield( target, tooltip )
-         
-      elif isweapon( target ):
-         weapon( target, tooltip )
-         
-      elif isspellbook( target ):
-         spellbook( target, tooltip )
-         
-      else:
-         tooltip.add( 1050045, " \t" + name + "\t " )
-         if (target.hastag( "blessed")):
-            tooltip.add( 1038021, "" ) # Blessed
-   else:
-      name = target.name
-      tooltip.add( 1050045, " \t" + name + "\t " )
-	 
+	tooltip.send( sender )
 
-   tooltip.send( sender )
-
-   return 1
+	return 1
 
 def armor( target, tooltip ):
    name = target.getname()
@@ -61,9 +77,6 @@ def armor( target, tooltip ):
    tooltip.add( 1060446, "3" )                #Energy Resist
    tooltip.add( 1061170, str( target.strength ) )               #Strength Requirement
    tooltip.add( 1060639, str( target.health ) + "\t" + str( target.maxhealth ) )           #Durability
-    
-def multiitem( target, tooltip ):
-   tooltip.add( 1050039, str( target.amount ) + "\t" + target.getname() ) #$amount $name
 
 def container( target, tooltip ):
    tooltip.add( 1050045, "Bag" )
@@ -112,10 +125,3 @@ def weapon( target, tooltip ):
    if ( target.type ) == 1006 or ( target.type ) == 1007:
       tooltip.add( 1061175, "" ) # Weapon Skill: Archery
    tooltip.add( 1060639, str( target.health ) + "\t" + str( target.maxhealth ))
-   
-def spellbook( target, tooltip ):
-   name = target.getname()
-   tooltip.add( 1050045, " \t" + name + "\t " )
-   if (target.hastag( "blessed" )):
-      tooltip.add( 1038021, "" ) # Blessed
-   tooltip.add( 1042886, str( target.spellscount() ))
