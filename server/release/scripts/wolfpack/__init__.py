@@ -180,4 +180,5 @@ charcount = _wolfpack.charcount
 itemcount = _wolfpack.itemcount
 getdefinition = _wolfpack.getdefinition
 getdefinitions = _wolfpack.getdefinitions
-
+lock = _wolfpack.lock
+unlock = _wolfpack.unlock
