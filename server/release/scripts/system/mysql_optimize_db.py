@@ -44,25 +44,29 @@ def onLoad():
 	if accountsdriver in supporteddrivers or worlddriver in supporteddrivers:
 		wolfpack.addtimer( time, "system.mysql_optimize_db.timer", [] )
 		wolfpack.registercommand( "optimizedb", cmdoptimizedb )
+	return
+
+def onUnload():
+	return
 
 def cmdoptimizedb( socket, command, arguments ):
 	if accountsdriver in supporteddrivers or worlddriver in supporteddrivers:
 		socket.sysmessage( "Optimizing the database.", GRAY )
 		optimize_db()
 		socket.sysmessage( "Done!", GRAY )
-		return
+	return
 
 def timer( timer, args ):
 	if accountsdriver in supporteddrivers or worlddriver in supporteddrivers:
 		# Optimize and restart timer
 		optimize_db()
 		wolfpack.addtimer( time, "system.mysql_optimize_db.timer", [] )
-		return
+	return
 
 def optimize_db():
+	# MySQL
 	if accountsdriver == mysql or worlddriver == mysql:
 		try:
-			# What are we optimizing
 			if accountsdriver == mysql and worlddriver == mysql:
 				log( LOG_MESSAGE, "MySQL: Optimizing accounts and world databases..." )
 			elif accountsdriver == mysql or worlddriver == mysql:
@@ -83,6 +87,7 @@ def optimize_db():
 				log( LOG_MESSAGE, "MySQL: Optimized world database!" )
 		except:
 			log( LOG_MESSAGE, " MySQL: Performing world/accounts optimize failed." )
+	# SQLite
 	if accountsdriver == sqlite or worlddriver == sqlite:
 		try:
 			if accountsdriver == sqlite and worlddriver == sqlite:
@@ -106,4 +111,3 @@ def optimize_db():
 		except:
 			log( LOG_MESSAGE, "SQLite: Performing world/accounts optimize failed." )
 	return
-
