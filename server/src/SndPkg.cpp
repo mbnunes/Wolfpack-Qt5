@@ -724,8 +724,6 @@ void backpack2(int s, int a1, int a2, int a3, int a4) // Send corpse stuff
 
 void sendbpitem(UOXSOCKET s, P_ITEM pi) // Update single item in backpack
 {
-	int x,c;
-
 	unsigned char display3[2]="\x25";
 	if (pi == NULL)
 		return;
@@ -770,29 +768,20 @@ void sendbpitem(UOXSOCKET s, P_ITEM pi) // Update single item in backpack
 	// we need to find the topmost container that the item is in
 	// be it a character or another container.
 
-	c = -1;
-	x = -1;
-//	serial=pi->contserial;
-//	count=0;
 	P_ITEM pio=GetOutmostCont(pi);
 	if (!pio)
 	{
 		char ttt[222];
 		sprintf(ttt,"item <%i> id <%x> has a bad contserial <%i>",pi->serial,pi->id(),pi->contserial);
 		LogCritical(ttt);
-	}
-	else
-	{
-		P_CHAR pc=FindCharBySerial(pio->contserial);
-		if (pc)
-			c=DEREF_P_CHAR(pc);
-		else
-			x=DEREF_P_ITEM(pio);
+		return;
 	}
 
-	if (((c!=-1)&&(inrange1p(currchar[s],c)))|| // if item is in a character's
+	P_CHAR pc = FindCharBySerial(pio->contserial);
+
+	if (((pc != NULL)&&(inrange1p(currchar[s],DEREF_P_CHAR(pc))))|| // if item is in a character's
 		//pack (or subcontainer) and player is in range
-		((c==-1)&&(inrange2(s,pio))))	// or item is in container on ground and
+		((pc == NULL)&&(inrange2(s,pio))))	// or item is in container on ground and
 		// container is in range
 	{
 		Xsend(s, display3, 1);
@@ -2965,13 +2954,11 @@ void sendshopinfo(int s, int c, P_ITEM pi)
 	m1t=5;
 	m2t=8;
 	serial=pi->serial;
-	serhash=serial%HASHMAX;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	for (ci = 0; ci < vecContainer.size(); ci++)
 	{
 		P_ITEM pi_j = FindItemBySerial(vecContainer[ci]);
-		j=DEREF_P_ITEM(pi_j);
-		if (j!=-1)
+		if (pi_j != NULL)
 			if ((pi_j->contserial==serial) &&
 				(m2[7]!=255) && (pi_j->amount!=0) ) // 255 items max per shop container
 			{
@@ -2982,18 +2969,18 @@ void sendshopinfo(int s, int c, P_ITEM pi)
 				m1[m1t+6]=0;			//Always zero
 				m1[m1t+7]=pi_j->amount>>8;//Amount for sale
 				m1[m1t+8]=pi_j->amount%256;//Amount for sale
-				m1[m1t+9]=j>>8;//pi_j->x/256; //Item x position
-				m1[m1t+10]=j%256;//pi_j->x%256;//Item x position
-				m1[m1t+11]=j>>8;//pi_j->y/256;//Item y position
-				m1[m1t+12]=j%256;//pi_j->y%256;//Item y position
+				m1[m1t+9]=pi_j->pos.x>>8; //Item x position
+				m1[m1t+10]=pi_j->pos.x%256;//Item x position
+				m1[m1t+11]=pi_j->pos.y>>8;//Item y position
+				m1[m1t+12]=pi_j->pos.y%256;//Item y position
 				LongToCharPtr(pi->serial,m1+m1t+13); //Container serial number
 				m1[m1t+17]=pi_j->color1;//Item color
 				m1[m1t+18]=pi_j->color2;//Item color
 				m1[4]++; // Increase item count.
 				m1t=m1t+19;
 				value=pi_j->value;
-				value=calcValue(j, value);
-				if (SrvParms->trade_system==1) value=calcGoodValue(c,j,value,0); // by Magius(CHE)
+				value=calcValue(DEREF_P_ITEM(pi_j), value);
+				if (SrvParms->trade_system==1) value=calcGoodValue(c,DEREF_P_ITEM(pi_j),value,0); // by Magius(CHE)
 				m2[m2t+0]=value>>24;// Item value/price
 				m2[m2t+1]=value>>16;//Item value/price
 				m2[m2t+2]=value>>8; // Item value/price

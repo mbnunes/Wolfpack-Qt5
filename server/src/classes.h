@@ -141,8 +141,8 @@ private:
 	void Hide(int s);
 	void Stealth(int s);
 	void PeaceMaking(int s);
-	void PlayInstrumentWell(int s, int i);
-	void PlayInstrumentPoor(int s, int i);
+	void PlayInstrumentWell(int s, P_ITEM pi);
+	void PlayInstrumentPoor(int s, P_ITEM pi);
 	int GetInstrument(int s);
 	void RandomSteal(int s);	
 	void TellScroll(char *menu_name, int player, long item_param);

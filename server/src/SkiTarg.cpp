@@ -1329,8 +1329,8 @@ void cSkills::ProvocationTarget1(UOXSOCKET s)
 
 	P_CHAR pc = MAKE_CHARREF_LR(c);
 
-	int inst = GetInstrument(s);
-	if (inst==-1) 
+	P_ITEM inst = MAKE_ITEM_REF(GetInstrument(s));
+	if (inst == NULL) 
 	{
 		sysmessage(s, "You do not have an instrument to play on!");
 		return;
@@ -1372,8 +1372,8 @@ void cSkills::EnticementTarget1(UOXSOCKET s)
 
 	P_CHAR pc = MAKE_CHARREF_LR(c);
 
-	ITEM inst = Skills->GetInstrument(s);
-	if (inst==-1) 
+	P_ITEM inst = MAKE_ITEM_REF(GetInstrument(s));
+	if (inst == NULL) 
 	{
 		sysmessage(s, "You do not have an instrument to play on!");
 		return;
@@ -1413,8 +1413,8 @@ void cSkills::EnticementTarget2(UOXSOCKET s)
 	if( ftarg == -1 ) return;
 	P_CHAR pc = MAKE_CHARREF_LR(ftarg);
 	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
-	ITEM inst = Skills->GetInstrument(s);
-	if (inst==-1) 
+	P_ITEM inst = MAKE_ITEM_REF(GetInstrument(s));
+	if (inst == NULL) 
 	{
 		sysmessage(s, "You do not have an instrument to play on!");
 		return;
@@ -1459,8 +1459,8 @@ void cSkills::ProvocationTarget2(UOXSOCKET s)
 		return;
 	}
 
-	int inst = GetInstrument(s);
-	if (inst==-1) 
+	P_ITEM inst = MAKE_ITEM_REF(GetInstrument(s));
+	if (inst == NULL) 
 	{
 		sysmessage(s, "You do not have an instrument to play on!");
 		return;
@@ -2258,7 +2258,6 @@ void cSkills::BeggingTarget(int s)
 					for (ci = 0; ci < vecContainer.size(); ci++)
 					{
 						P_ITEM pi_j =  FindItemBySerial(vecContainer[ci]);
-//						j = DEREF_P_ITEM(pi_j);
 						if (pi_j != NULL)
 						{
 							if (pi_j->id()==0x0EED )
@@ -2419,15 +2418,14 @@ void cSkills::PoisoningTarget(int s) //AntiChrist
 		}
 		
 		//empty bottle after poisoning
-		int poison=DEREF_P_ITEM(pPoi);
-		P_ITEM pi_poison = MAKE_ITEMREF_LR(poison);
+		P_ITEM pi_poison = pPoi;
 		if (!pPoi->isInWorld()) 
 			contsp.remove(pPoi->contserial, pi_poison->serial);
 		unsigned char k1 = pPoi->ser1;
 		unsigned char k2 = pPoi->ser2;
 		unsigned char k3 = pPoi->ser3;
 		unsigned char k4 = pPoi->ser4;
-		int kser=pPoi->serial;
+		int kser = pPoi->serial;
 
 		pPoi->Init(0);
 		pPoi->ser1=k1;

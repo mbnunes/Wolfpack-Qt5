@@ -752,7 +752,7 @@ void cSkills::PeaceMaking(int s)
 	res2=Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), MUSICIANSHIP, 0, 1000);
 	if (res1 && res2)
 	{
-		Skills->PlayInstrumentWell(s, DEREF_P_ITEM(p_inst));
+		Skills->PlayInstrumentWell(s, p_inst);
 		sysmessage(s, "You play your hypnotic music, stopping the battle.");
 		
 		//Char mapRegions
@@ -779,14 +779,14 @@ void cSkills::PeaceMaking(int s)
 	} 
 	else 
 	{
-		Skills->PlayInstrumentPoor(s, DEREF_P_ITEM(p_inst));
+		Skills->PlayInstrumentPoor(s, p_inst);
 		sysmessage(s, "You attempt to calm everyone, but fail.");
 	}
 }
 
-void cSkills::PlayInstrumentWell(int s, int i)
+void cSkills::PlayInstrumentWell(int s, P_ITEM pi)
 {
-	switch(items[i].id())
+	switch(pi->id())
 	{
 	case 0x0E9C:	soundeffect2(currchar[s], 0x00, 0x38);	break;
 	case 0x0E9D:
@@ -800,9 +800,9 @@ void cSkills::PlayInstrumentWell(int s, int i)
 	}
 }
 
-void cSkills::PlayInstrumentPoor(int s, int i)
+void cSkills::PlayInstrumentPoor(int s, P_ITEM pi)
 {
-	switch(items[i].id())
+	switch(pi->id())
 	{
 	case 0x0E9C:	soundeffect2(currchar[s], 0x00, 0x39);	break;
 	case 0x0E9D:
