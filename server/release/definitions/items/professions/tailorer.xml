@@ -302,9 +302,11 @@
 	<item id="f9e">
 		<id>0x0f9e</id>
 		<category>Professions\Tailorer\Scissors (N/S)</category>
+		<events>scissors</events>
 	</item>
 
 	<item id="f9f">
+		<inherit id="f9e" />
 		<id>0x0f9f</id>
 		<category>Professions\Tailorer\Scissors (W/E)</category>
 	</item>
