@@ -28,6 +28,8 @@ public:
 	cKeyManager();
 	unsigned int size() { return keys.size(); }
 	stLoginKey *key( unsigned int id ) { if( id >= size() ) return 0; return &keys[id]; }
+
+	void load();
 };
 
 typedef SingletonHolder<cKeyManager> KeyManager;

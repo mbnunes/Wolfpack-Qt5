@@ -36,6 +36,7 @@
 #include "inlines.h"
 #include "wpconsole.h"
 #include "commands.h"
+#include "encryption.h"
 
 // Library Includes
 #include <qdom.h>
@@ -265,6 +266,9 @@ void WPDefManager::reload( void )
 
 	// Load them once again
 	load();
+
+	// Reload the Encryption Key Manager
+	KeyManager::instance()->load();
 }
 
 // Load the Definitions

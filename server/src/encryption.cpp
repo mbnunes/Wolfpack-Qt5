@@ -171,10 +171,20 @@ void cGameEncryption::serverEncrypt( char *buffer, unsigned int length )
 }
 
 /*!
-	Loads the key manager.
+	KeyManager constructor
 */
 cKeyManager::cKeyManager()
 {
+	load();
+}
+
+/*!
+	Load the encryption keys.
+*/
+void cKeyManager::load()
+{
+	keys.clear();
+
 	QStringList list = DefManager->getList( "ENCRYPTION" );
 
 	QStringList::const_iterator it;
@@ -211,3 +221,4 @@ cKeyManager::cKeyManager()
 		keys.push_back( key );
 	}
 }
+
