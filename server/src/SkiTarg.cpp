@@ -61,7 +61,6 @@ bool CheckInPack(UOXSOCKET s, PC_ITEM pi)
 	return true;
 }
 
-//##ModelId=3C5D93020237
 void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 {
 	const P_ITEM pi_bolts = FindItemBySerPtr(buffer[s]+7);
@@ -127,7 +126,6 @@ void cSkills::Tailoring(int s)// -Frazurbluu- rewrite of tailoring 7/2001
 	}
 }
 
-//##ModelId=3C5D9302029B
 void cSkills::Fletching(int s)
 {
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
@@ -150,7 +148,6 @@ void cSkills::Fletching(int s)
 	sysmessage(s,"You cannot use that for fletching.");
 }
 
-//##ModelId=3C5D930202AF
 void cSkills::BowCraft(int s)
 {
 	P_CHAR pc_currchar = currchar[s];
@@ -185,8 +182,7 @@ void cSkills::BowCraft(int s)
 //			
 //			If logs are targetted, Makemenu 19 is called to produce boards
 //			If boards, MM 20 is called for furniture etc.
-//
-//##ModelId=3C5D930202C3
+
 void cSkills::Carpentry(int s)
 {
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
@@ -304,7 +300,7 @@ static void AnvilTarget2(int s,				// socket #
 // Remarks:		the ingottype var is problematic in a multiplayer environment!!
 //
 extern int ingottype;
-//##ModelId=3C5D930202D7
+
 void cSkills::Smith(int s)
 {
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
@@ -337,7 +333,6 @@ void cSkills::Smith(int s)
 	sysmessage(s,"You cannot use that material for blacksmithing");
 }
 
-//##ModelId=3C5D930200CF
 void cSkills::TasteIDTarget(int s)
 {
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
@@ -399,16 +394,11 @@ void cSkills::TasteIDTarget(int s)
 	}
 }
 
-//##ModelId=3C5D9331034D
 struct Ore
 {
-	//##ModelId=3C5D9331037F
 	short color;
-	//##ModelId=3C5D93310393
 	short minskill;	// minimum skill to handle that ore
-	//##ModelId=3C5D933103A7
 	short quota;	// relative(!) chance to mine that ore (quota/sum of all quotas)
-	//##ModelId=3C5D933103C5
 	char *name;
 };
 const struct Ore OreTable[] =	// MUST be sorted by minskill
@@ -488,7 +478,6 @@ static bool TryToMine(	int s,					// current char's socket #
 #define max_res_x 610 // max-resource cells x
 #define max_res_y 410 // max-resource cells y
 
-//##ModelId=3C5D93020331
 void cSkills::Mine(int s)
 {
 	int x,y,px,py,cx,cy,randnum1;	
@@ -708,7 +697,6 @@ void cSkills::Mine(int s)
 	}//if buffer[][]=......
 }
 
-//##ModelId=3C5D930203D2
 void cSkills::TreeTarget(int s)
 {
 	int lumber=0;
@@ -840,7 +828,6 @@ void cSkills::TreeTarget(int s)
 	}
 }
 
-//##ModelId=3C5D93020345
 void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 {
 	int	nAmount, nFame, nItemID;
@@ -1026,8 +1013,7 @@ static void SmeltOre2(	int s,					// current char's socket #
 //				then executes the smelting function with the appropriate
 //				minskill and ingot type
 // Remarks:		NOTE: ingot color is different from ore color for gold, silver & copper!
-//
-//##ModelId=3C5D93020363
+
 void cSkills::SmeltOre(int s)
 {
 	P_CHAR pc_currchar = currchar[s];
@@ -1067,7 +1053,6 @@ void cSkills::SmeltOre(int s)
 	statwindow(s, pc_currchar);		// Ison 2-20-99
 }
 
-//##ModelId=3C5D93020377
 void cSkills::Wheel(int s, int mat)//Spinning wheel
 {
 	int tailme=0;
@@ -1112,7 +1097,6 @@ void cSkills::Wheel(int s, int mat)//Spinning wheel
 	if(!tailme) sysmessage(s,"You cant tailor here.");
 }
 
-//##ModelId=3C5D9302038B
 void cSkills::Loom(int s)
 {
 	int tailme=0;
@@ -1176,8 +1160,7 @@ void cSkills::Loom(int s)
 // Name:	CookOnFire
 // By:		Ripper & Duke, 07/20/00
 // Purpose: so you can use raw meat on fire
-//
-//##ModelId=3C5D9302039F
+
 void cSkills::CookOnFire(int s, short id1, short id2, char* matname)
 {
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
@@ -1214,7 +1197,6 @@ void cSkills::CookOnFire(int s, short id1, short id2, char* matname)
 	} 
 }
 
-//##ModelId=3C5D930201A1
 void cSkills::MakeDough(int s)
 {
 	bool tailme = false;
@@ -1252,7 +1234,6 @@ void cSkills::MakeDough(int s)
 	if(!tailme) sysmessage(s, "You cant mix here.");
 }
 
-//##ModelId=3C5D930201B5
 void cSkills::MakePizza(int s)
 {
 	int tailme=0;
@@ -1299,7 +1280,6 @@ void cSkills::MakePizza(int s)
 * hiders as easily as low skilled hiders.
 */
 
-//##ModelId=3C5D930203E6
 void cSkills::DetectHidden(UOXSOCKET s)
 {
 	if (buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return;
@@ -1347,7 +1327,6 @@ void cSkills::DetectHidden(UOXSOCKET s)
 	}
 }
 
-//##ModelId=3C5D93030012
 void cSkills::ProvocationTarget1(UOXSOCKET s)
 {
 	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
@@ -1389,7 +1368,6 @@ void cSkills::ProvocationTarget1(UOXSOCKET s)
 	}
 }
 
-//##ModelId=3C5D9303003A
 void cSkills::EnticementTarget1(UOXSOCKET s)
 {
 	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
@@ -1430,7 +1408,6 @@ void cSkills::EnticementTarget1(UOXSOCKET s)
 	}
 }
 
-//##ModelId=3C5D9303004E
 void cSkills::EnticementTarget2(UOXSOCKET s)
 {
 	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
@@ -1460,7 +1437,6 @@ void cSkills::EnticementTarget2(UOXSOCKET s)
 	}
 }
 
-//##ModelId=3C5D93030026
 void cSkills::ProvocationTarget2(UOXSOCKET s)
 {
 	cChar* Victim2 = FindCharBySerPtr(buffer[s]+7);
@@ -1470,7 +1446,6 @@ void cSkills::ProvocationTarget2(UOXSOCKET s)
 	P_CHAR Player = currchar[s];
 
 	P_CHAR Victim1 = FindCharBySerial(calcserial(addid1[s], addid2[s], addid3[s], addid4[s]));
-	//P_CHAR Victim1 = MAKE_CHARREF_LR(target);
 
 	if (Victim2->inGuardedArea())
 	{
@@ -1532,8 +1507,7 @@ void cSkills::ProvocationTarget2(UOXSOCKET s)
 // history: unknown, revamped by Duke,21.04.2000
 // Purpose:	checks for valid reg and brings up gumpmenu to select potion
 //			This is called after the user dblclicked a mortar and targeted a reg
-//
-//##ModelId=3C5D93030058
+
 void cSkills::AlchemyTarget(int s)
 {
 	const P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
@@ -1561,7 +1535,6 @@ void cSkills::AlchemyTarget(int s)
 	}
 }
 
-//##ModelId=3C5D93030102
 void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to current OSI
 {
 	const P_ITEM pi = FindItemBySerPtr(buffer[s]+7);
@@ -1630,8 +1603,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 ////////////////////////
 // name:	HealingSkillTarget
 // history: unknown, revamped by Duke, 4.06.2000
-//
-//##ModelId=3C5D93030120
+
 void cSkills::HealingSkillTarget(UOXSOCKET s)
 {
 	P_ITEM pib = FindItemBySerial(addmitem[s]);	// item index of bandage
@@ -1757,7 +1729,6 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 	}
 }
 
-//##ModelId=3C5D9303015C
 void cSkills::ArmsLoreTarget(int s)
 {
 	int total;
@@ -1867,7 +1838,6 @@ void cSkills::ArmsLoreTarget(int s)
 	}
 }
 
-//##ModelId=3C5D93040352
 void cSkills::ItemIdTarget(int s)
 {
 	P_CHAR pc_currchar = currchar[s];
@@ -1950,8 +1920,7 @@ void cSkills::ItemIdTarget(int s)
 // Name:	Evaluate_int_Target
 // history:	unknown, revamped by Duke, 2.10.2000
 // Purpose:	implements the 'evaluate intelligence' skill
-//
-//##ModelId=3C5D9304037A
+
 void cSkills::Evaluate_int_Target(UOXSOCKET s)
 {
 
@@ -2003,8 +1972,7 @@ void cSkills::Evaluate_int_Target(UOXSOCKET s)
 // Name:	AnatomyTarget
 // history:	unknown, revamped by Duke, 2.10.2000
 // Purpose:	implements the 'evaluate anatomy' skill
-//
-//##ModelId=3C5D9304038E
+
 void cSkills::AnatomyTarget(int s)
 {
 	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
@@ -2060,14 +2028,12 @@ void cSkills::AnatomyTarget(int s)
 }
 
 //taken from 6904t2(5/10/99) - AntiChrist
-//##ModelId=3C5D930403A2
 void cSkills::TameTarget(int s)
 {
 	int tamed=0;
 	
 	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
 	if ( pc == NULL ) return;
-//	P_CHAR pc = MAKE_CHARREF_LR(i);
 	P_CHAR pc_currchar = currchar[s];
 
 	if(line_of_sight(-1, pc_currchar->pos, pc->pos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING)==0)
@@ -2133,7 +2099,6 @@ void cSkills::TameTarget(int s)
 		if (tamed==0) sysmessage(s,"You can't tame that!");
 }
 
-//##ModelId=3C5D93050000
 void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 {
 	int i, skill;
@@ -2239,7 +2204,6 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 	} else sysmessage(s, "You are too far away to steal that item.");
 }
 
-//##ModelId=3C5D9305005B
 void cSkills::BeggingTarget(int s)
 {
 	int gold,x,y,realgold;
@@ -2346,7 +2310,6 @@ void cSkills::BeggingTarget(int s)
 	}
 }
 
-//##ModelId=3C5D9305006F
 void cSkills::AnimalLoreTarget(int s)
 {
 	P_CHAR pc = FindCharBySerPtr(buffer[s] + 7);
@@ -2386,7 +2349,6 @@ void cSkills::AnimalLoreTarget(int s)
 	}
 }
 
-//##ModelId=3C5D93050083
 void cSkills::ForensicsTarget(int s) //AntiChrist
 {
 	int curtim=uiCurrentTime;
@@ -2422,10 +2384,8 @@ void cSkills::ForensicsTarget(int s) //AntiChrist
 	}
 }
 
-//##ModelId=3C5D93050097
 void cSkills::PoisoningTarget(int s) //AntiChrist
 {
-//	CHARACTER cc=currchar[s];
 	P_CHAR pc = currchar[s];
 
 	P_ITEM pPoi=FindItemBySerial(pc->poisonserial);
@@ -2488,7 +2448,6 @@ void cSkills::PoisoningTarget(int s) //AntiChrist
 	pc->poisonserial=0;
 }
 
-//##ModelId=3C5D9305000B
 void cSkills::PickPocketTarget(int s) // PickPocket dip`s..Ripper
 {
 	P_CHAR pc_currchar = currchar[s];
@@ -2506,7 +2465,6 @@ void cSkills::PickPocketTarget(int s) // PickPocket dip`s..Ripper
 	}
 }
 
-//##ModelId=3C5D93050155
 void cSkills::LockPick(int s)
 {
 	int success;
@@ -2594,7 +2552,6 @@ void cSkills::LockPick(int s)
 	}
 }
 
-//##ModelId=3C5D93050191
 void cSkills::Tinkering(int s)
 {
 	P_CHAR pc_currchar = currchar[s];
@@ -2642,25 +2599,17 @@ void cSkills::Tinkering(int s)
 //
 //			It's a base class for three derived classes that handle the
 //			old interfaces
-//
-//##ModelId=3C5D9333024B
+
 class cTinkerCombine	// Combining tinkering items
 {
 protected:
-	//##ModelId=3C5D93330274
 	char* failtext;
-	//##ModelId=3C5D933302B0
 	unsigned char badsnd1;
-	//##ModelId=3C5D933302D8
 	unsigned char badsnd2;
-	//##ModelId=3C5D93330300
 	short itembits;
-	//##ModelId=3C5D9333031E
 	short minskill;
-	//##ModelId=3C5D9333033C
 	short id2;
 public:
-	//##ModelId=3C5D93330350
 	cTinkerCombine(short badsnd=0x51, char *failmsg="You break one of the parts.")
 	{
 		badsnd1 = static_cast<unsigned char>(badsnd>>8);
@@ -2674,21 +2623,13 @@ public:
 	virtual void delonsuccess(SOCK s)	{deletematerial(s, itemmake[s].needs);}
 	virtual void failure(SOCK s)		{delonfail(s);playbad(s);failmsg(s);}
 	*/
-	//##ModelId=3C5D93330364
 	virtual void failmsg(int s)			{sysmessage(s,failtext);}
-	//##ModelId=3C5D93330382
 	virtual void playbad(int s)			{soundeffect(s,badsnd1,badsnd2);}
-	//##ModelId=3C5D9333038D
 	virtual void playgood(int s)		{soundeffect(s,0,0x2A);}
-	//##ModelId=3C5D933303A1
 	virtual void checkPartID(short id)	{;}
-	//##ModelId=3C5D933303B5
 	virtual bool decide()				{return (itembits == 3) ? true : false;}
-	//##ModelId=3C5D933303C8
 	virtual void createIt(int s)		{;}
-	//##ModelId=3C5D933303DC
 	static cTinkerCombine* factory(short combinetype);
-	//##ModelId=3C5D93340008
 	virtual void DoIt(int s)
 	{
 		P_ITEM piClick = FindItemBySerial( calcserial(addid1[s], addid2[s], addid3[s], addid4[s]) );
@@ -2748,46 +2689,37 @@ public:
 	}
 };
 
-//##ModelId=3C5D933401D5
 class cTinkCreateAwG : public cTinkerCombine
 {
 public:
-	//##ModelId=3C5D933401FD
 	cTinkCreateAwG() : cTinkerCombine() {}
-	//##ModelId=3C5D93340207
 	virtual void checkPartID(short id)
 	{
 		if (id==0x105B || id==0x105C) itembits |= 0x01; // axles
 		if (id==0x1053 || id==0x1054) itembits |= 0x02; // gears
 	}
-	//##ModelId=3C5D93340225
 	virtual void createIt(int s)
 	{
 		Items->SpawnItem(s, currchar[s],1,"an axle with gears",1,0x10,0x51,0,1,1);
 	}
 };
 
-//##ModelId=3C5D933500F0
 class cTinkCreateParts : public cTinkerCombine
 {
 public:
-	//##ModelId=3C5D93350118
 	cTinkCreateParts() : cTinkerCombine() {}
-	//##ModelId=3C5D93350122
 	virtual void checkPartID(short id)
 	{
 		if (id==0x1051 || id==0x1052) itembits |= 0x01; // axles with gears
 		if (id==0x1055 || id==0x1056) itembits |= 0x02; // hinge
 		if (id==0x105D || id==0x105E) itembits |= 0x04; // springs
 	}
-	//##ModelId=3C5D93350186
 	virtual bool decide()
 	{
 		if (itembits == 3) {id2=0x59; minskill=300; return true;}	// sextant parts
 		if (itembits == 5) {id2=0x4F; minskill=400; return true;}	// clock parts
 		return false;
 	}
-	//##ModelId=3C5D933501A4
 	virtual void createIt(int s)
 	{
 		 char sztemp[15] ;
@@ -2803,21 +2735,16 @@ public:
 	}
 };
 
-//##ModelId=3C5D9336003D
 class cTinkCreateClock : public cTinkerCombine
 {
 public:
-	//##ModelId=3C5D93360065
 	cTinkCreateClock() : cTinkerCombine() {}
-	//##ModelId=3C5D9336006F
 	virtual void checkPartID(short id)
 	{
 		if (id==0x104D || id==0x104E) itembits |= 0x01; // clock frame
 		if (id==0x104F || id==0x1050) itembits |= 0x02; // clock parts
 	}
-	//##ModelId=3C5D93360083
 	virtual bool decide()   {minskill=600; return cTinkerCombine::decide();}
-	//##ModelId=3C5D93360097
 	virtual void createIt(int s)
 	{
 		Items->SpawnItem(s,currchar[s],1,"clock",0,0x10,0x4B,0,1,1);
@@ -2828,7 +2755,6 @@ public:
 #define cTC_Parts	22
 #define cTC_Clock	33
 
-//##ModelId=3C5D933303DC
 cTinkerCombine* cTinkerCombine::factory(short combinetype)
 {
 	switch (combinetype)
@@ -2841,31 +2767,26 @@ cTinkerCombine* cTinkerCombine::factory(short combinetype)
 	return NULL ;
 }
 
-//##ModelId=3C5D9302016F
 void cSkills::TinkerAxel(int s)
 {
 	cTinkerCombine *ptc = cTinkerCombine::factory(cTC_AwG);
 	ptc->DoIt(s);
 }
 
-//##ModelId=3C5D93020179
 void cSkills::TinkerAwg(int s)
 {
 	cTinkerCombine *ptc = cTinkerCombine::factory(cTC_Parts);
 	ptc->DoIt(s);
 }
 
-//##ModelId=3C5D9302018D
 void cSkills::TinkerClock(int s)
 {
 	cTinkerCombine *ptc = cTinkerCombine::factory(cTC_Clock);
 	ptc->DoIt(s);
 }
 
-//##ModelId=3C5D930200B0
 void cSkills::RepairTarget(UOXSOCKET s)
 { // Ripper..Repair items.
-//	CHARACTER cc=currchar[s];
 	P_CHAR pc = currchar[s];
 
 	short smithing=pc->baseskill[BLACKSMITHING];
@@ -2923,13 +2844,11 @@ void cSkills::RepairTarget(UOXSOCKET s)
 //			revamped by Duke, 30.11.2001
 // Purpose: Smelting items.
 //			Only items crafted by a (player-)Blacksmith can be smelted
-//
-//##ModelId=3C5D930200C4
+
 void cSkills::SmeltItemTarget(UOXSOCKET s)
 {
 	unsigned short int sk=MINING;
 
-//	CHARACTER cc=currchar[s];
 	P_CHAR pc = currchar[s];
 
 	cItem* pi=FindItemBySerPtr(buffer[s]+7);
