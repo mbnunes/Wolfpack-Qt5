@@ -85,11 +85,11 @@ def checkhit(attacker, defender, time):
 
 	# Calculate the hit chance
 	bonus = 0 # Get the weapon "accuracy" status
-	bonus += 0 # Get the attackers AttackChance bonus
+	bonus += properties.fromchar(attacker, HITBONUS) # Get the attackers AttackChance bonus
 	attackChance = (attackerValue + 20.0) * (100 + bonus)
 
 	# Calculate the defense chance
-	bonus = 0 # Get the defenders defend chance
+	bonus = properties.fromchar(defender, DEFENSEBONUS) # Get the defenders defend chance
 	defendChance = (defenderValue + 20.0) * (100 + bonus)
 
 	# Give a minimum chance of 2%
