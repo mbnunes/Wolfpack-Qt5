@@ -16,7 +16,6 @@ def modifiers(object, tooltip):
 		"boni_str": 1060485,
 		"remaining_uses": 1060584,
 		"aos_boni_damage": 1060401,
-		"aos_boni_durability": 1060410,
 		"regenhitpoints": 1060444,
 		"regenstamina": 1060443,
 		"regenmana": 1060440,
@@ -100,6 +99,10 @@ def onShowTooltip(viewer, object, tooltip):
 	# Only Armors and Weapons have durability
 	if weapon or armor or shield:
 		tooltip.add(1060639, "%u\t%u" % (object.health, object.maxhealth))
+		
+		durabilitybonus = properties.fromitem(object, DURABILITYBONUS)
+		if durabilitybonus:
+			tooltip.add(1060410, str(durabilitybonus))		
 	
 	# Weapon specific properties
 	if weapon:

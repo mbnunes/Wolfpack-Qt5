@@ -547,7 +547,7 @@ def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, e
 			if reflect > 0:				
 				energydamage(source, target, reflect, physical=100, noreflect=1)
 				#target.effect(0x22c6, 10, 16)
-				target.movingeffect(0x22c6, source, 0, 0, 14)
+				#target.movingeffect(0x22c6, source, 0, 0, 14)
 
 	if fire > 0:
 		fire = amount * (fire / 100.0)
