@@ -120,9 +120,9 @@ def onDropOnItem( container, item ):
 
 	# Turn off the lightsource
 	if item.id in burning and ids.has_key( item.id ):
-		item.id = ids[ item.id ]
-		if not wolfpack.utilities.tocontainer(item, container):
-			item.update()
+		item.id = ids[item.id]
+		#if not wolfpack.utilities.tocontainer(item, container):
+		#	item.update()
 		dropper.soundeffect(0x226)
 
 	return True
