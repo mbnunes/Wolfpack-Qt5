@@ -705,9 +705,9 @@ void cWorld::loadSQL( QPtrList<PersistentObject> &objects )
 		for ( iter = p->items.begin(); iter != p->items.end(); ++iter )
 		{
 			P_ITEM pi = iter->second;
-			SERIAL contserial = reinterpret_cast<SERIAL>( pi->container() );
+			size_t contserial = reinterpret_cast<size_t>( pi->container() );
 
-			SERIAL multiserial = ( SERIAL ) ( pi->multi() );
+			size_t multiserial = reinterpret_cast<size_t>( pi->multi() );
 			cMulti* multi = dynamic_cast<cMulti*>( findItem( multiserial ) );
 			pi->setMulti( multi );
 			if ( multi )
@@ -779,7 +779,7 @@ void cWorld::loadSQL( QPtrList<PersistentObject> &objects )
 			// this needs to move to postprocessing
 			if ( pChar->guarding() )
 			{
-				SERIAL guarding = ( SERIAL ) pChar->guarding();
+				size_t guarding = reinterpret_cast<size_t>( pChar->guarding() );
 
 				P_CHAR pGuarding = FindCharBySerial( guarding );
 				if ( pGuarding )
@@ -797,7 +797,7 @@ void cWorld::loadSQL( QPtrList<PersistentObject> &objects )
 			cTerritory* region = Territories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map );
 			pChar->setRegion( region );
 
-			SERIAL multiserial = ( SERIAL ) ( pChar->multi() );
+			size_t multiserial = reinterpret_cast<size_t>( pChar->multi() );
 			cMulti* multi = dynamic_cast<cMulti*>( findItem( multiserial ) );
 			pChar->setMulti( multi );
 			if ( multi )

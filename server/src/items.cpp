@@ -937,6 +937,9 @@ void cItem::update( cUOSocket* singlesocket )
 	if ( free )
 		return;
 
+	if ( !singlesocket && Network::instance()->count() == 0 )
+		return; // no one to receive updates.
+
 	// Items on Ground
 	if ( !container_ )
 	{

@@ -90,6 +90,33 @@ inline char cUOPacket::operator[]( unsigned int index ) const
 	return rawPacket.at( index );
 }
 
+//#define WP_CPU_REQUIRES_DATA_ALIGNMENT
+/* This template safely copies a value in from an untyped byte buffer to a typed value. 
+* (Make sure WP_CPU_REQUIRES_DATA_ALIGNMENT is defined if you are on a CPU
+* that doesn't like non-word-aligned data reads and writes)
+*/
+template<typename T> inline void wpCopyIn(T & dest, const void * source) 
+{
+#ifdef WP_CPU_REQUIRES_DATA_ALIGNMENT
+	memcpy(&dest, source, sizeof(dest));
+#else
+	dest = *((const T*)source);
+#endif
+}
+
+/** This template safely copies a value in from a typed value to an untyped byte buffer.
+* (Make sure WP_CPU_REQUIRES_DATA_ALIGNMENT is defined if you are on a CPU
+*  that doesn't like non-word-aligned data reads and writes)
+*/
+template<typename T> inline void wpCopyOut(void * dest, const T & source) 
+{
+#ifdef WP_CPU_REQUIRES_DATA_ALIGNMENT
+	memcpy(dest, &source, sizeof(source));
+#else
+	*((T*)dest) = source;
+#endif
+}
+
 
 #endif // __UOPACKET_H__
 

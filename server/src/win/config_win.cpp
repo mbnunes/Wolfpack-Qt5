@@ -49,10 +49,7 @@ static QString getUOPath()
 	// Search for T3D preferably
 	const char* Registry3d = "Software\\Origin Worlds Online\\Ultima Online Third Dawn\\1.0";
 	const char* Registry2d = "Software\\Origin Worlds Online\\Ultima Online\\1.0";
-	unsigned char exePath[MAX_PATH] =
-	{
-		0,
-	};
+	unsigned char exePath[MAX_PATH] = {0,};
 	unsigned long pathLen;
 
 	HKEY tempKey;
