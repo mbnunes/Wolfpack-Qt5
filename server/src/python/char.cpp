@@ -683,7 +683,7 @@ PyObject* wpChar_addfollower( wpChar* self, PyObject* args )
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
-	if( !checkArgStr( 0 ) )
+	if( !checkArgChar( 0 ) )
 	{
 		PyErr_BadArgument();
 		return NULL;
@@ -727,7 +727,7 @@ PyObject* wpChar_hasfollower( wpChar* self, PyObject* args )
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
-	if( !checkArgStr( 0 ) )
+	if( !checkArgChar( 0 ) )
 	{
 		PyErr_BadArgument();
 		return NULL;
