@@ -48,7 +48,8 @@ enum WPDEF_TYPE
 	WPDT_LIST,
 	WPDT_MENU,
 	WPDT_SPELL,
-	WPDT_PRIVLEVEL
+	WPDT_PRIVLEVEL,
+	WPDT_SPAWNREGION
 };
 
 class WPDefManager  
@@ -62,6 +63,7 @@ private:
 	DefSections Menus;
 	DefSections Spells;
 	DefSections PrivLevels;
+	DefSections SpawnRegions;
 
 	bool ImportSections( const QString& FileName );
 	void ProcessNode( QDomElement Node );

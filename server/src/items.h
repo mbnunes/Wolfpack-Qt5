@@ -44,26 +44,27 @@ class ISerialization;
 class cItem : public cUObject
 {
 private:
-	UI16 id_;
-	UI16 color_;
-	UI16 amount_; 
-	UI16 amount2_; 
-	QString name2_;
-	QString name_;
-	SI08 layer_;
-	UI08 itemhand_;
-	QString murderer_;
-	SI16 lodamage_; 
-	SI16 hidamage_; 
-	UI16 type_;
-	UI16 type2_;
-	UI08 offspell_; // Whats that for ?!
-	SI16 speed_;
-	SI16 racehate_; 
-	SI16 weight_;
-	SI16 hp_;
-	SI16 maxhp_;
-	SI08 smelt_;
+	UI16		id_;
+	UI16		color_;
+	UI16		amount_; 
+	UI16		amount2_; 
+	QString		name2_;
+	QString		name_;
+	SI08		layer_;
+	UI08		itemhand_;
+	QString		murderer_;
+	SI16		lodamage_; 
+	SI16		hidamage_; 
+	UI16		type_;
+	UI16		type2_;
+	UI08		offspell_; // Whats that for ?!
+	SI16		speed_;
+	SI16		racehate_; 
+	SI16		weight_;
+	SI16		hp_;
+	SI16		maxhp_;
+	SI08		smelt_;
+	QString		spawnregion_;
 
 	// More values
 	UI08 moreb1_;
@@ -75,33 +76,34 @@ private:
 public:
 	void	processContainerNode( const QDomElement &Tag );
 	// Getters
-	UI16			id()		const { return id_; };		 // The graphical id of the item
-	UI16			color()		const { return color_; };	 // The Color of the item
-	UI16			amount()	const { return amount_; };	 // Amount of items in pile
-	UI16			amount2()	const { return amount2_; };  // Used to track things like number of yards left in a roll of cloth
-	const QString	&name2()	const { return name2_; };	 // The identified name of the item
-	const QString	&name()		const { return name_; };	 // Returns the item's name
-	UI08			layer()		const { return layer_; };	 // Layer if equipped on paperdoll
-	UI08			itemhand()	const { return itemhand_; }; // ITEMHAND system - AntiChrist
-	const QString	&murderer() const { return murderer_; }; // If it's a corpse, this holds the name of the murderer
-	UI32			type()		const { return type_; };	 // Used for hardcoded behaviour
-	UI32			type2()		const { return type2_; };
-	UI08			offspell()	const { return offspell_; }; 
-	bool			secured()	const { return priv&0x08; }; // Is the container secured (houses)
-	SI16			speed()		const { return speed_; };	 // Weapon speed
-	SI16			lodamage()	const { return lodamage_; }; // Minimum damage weapon inflicts
-	SI16			hidamage()	const { return hidamage_; }; // Maximum damage weapon inflicts
-	bool			wipe()		const { return priv&0x10; }; // Should the item be wiped when affected by /WIPE
-	bool			pileable()	const { return priv&0x20; }; // Can Item be piled
-	SI16			racehate()	const { return racehate_; }; // Race ID this weapon does double damage to
-	SI16			weight()	const { return weight_; };
-	SI16			hp()		const { return hp_; };		 // Number of hitpoints an item has
-	SI16			maxhp()		const { return maxhp_; };	 // Maximum number of hitpoints an item has
-	SI32			smelt()		const { return smelt_; };	 // For item smelting
-	UI08			moreb1()	const { return moreb1_; };
-	UI08			moreb2()	const { return moreb2_; };
-	UI08			moreb3()	const { return moreb3_; };
-	UI08			moreb4()	const { return moreb4_; };
+	UI16			id()			const { return id_; };		 // The graphical id of the item
+	UI16			color()			const { return color_; };	 // The Color of the item
+	UI16			amount()		const { return amount_; };	 // Amount of items in pile
+	UI16			amount2()		const { return amount2_; };  // Used to track things like number of yards left in a roll of cloth
+	const QString	&name2()		const { return name2_; };	 // The identified name of the item
+	const QString	&name()			const { return name_; };	 // Returns the item's name
+	UI08			layer()			const { return layer_; };	 // Layer if equipped on paperdoll
+	UI08			itemhand()		const { return itemhand_; }; // ITEMHAND system - AntiChrist
+	const QString	&murderer()		const { return murderer_; }; // If it's a corpse, this holds the name of the murderer
+	UI32			type()			const { return type_; };	 // Used for hardcoded behaviour
+	UI32			type2()			const { return type2_; };
+	UI08			offspell()		const { return offspell_; }; 
+	bool			secured()		const { return priv&0x08; }; // Is the container secured (houses)
+	SI16			speed()			const { return speed_; };	 // Weapon speed
+	SI16			lodamage()		const { return lodamage_; }; // Minimum damage weapon inflicts
+	SI16			hidamage()		const { return hidamage_; }; // Maximum damage weapon inflicts
+	bool			wipe()			const { return priv&0x10; }; // Should the item be wiped when affected by /WIPE
+	bool			pileable()		const { return priv&0x20; }; // Can Item be piled
+	SI16			racehate()		const { return racehate_; }; // Race ID this weapon does double damage to
+	SI16			weight()		const { return weight_; };
+	SI16			hp()			const { return hp_; };		 // Number of hitpoints an item has
+	SI16			maxhp()			const { return maxhp_; };	 // Maximum number of hitpoints an item has
+	SI32			smelt()			const { return smelt_; };	 // For item smelting
+	QString			spawnregion()	const { return spawnregion_; };
+	UI08			moreb1()		const { return moreb1_; };
+	UI08			moreb2()		const { return moreb2_; };
+	UI08			moreb3()		const { return moreb3_; };
+	UI08			moreb4()		const { return moreb4_; };
 
 	// Setters
 	void	setId( UI16 nValue ) { id_ = nValue; };
@@ -128,6 +130,7 @@ public:
 	void	setHp( SI16 nValue ) { hp_ = nValue; };
 	void	setMaxhp( SI16 nValue ) { maxhp_ = nValue; };
 	void	setSmelt( SI32 nValue ) { smelt_ = nValue; };
+	void	setSpawnRegion( QString nValue ) { spawnregion_ = nValue; };
 	void	setMoreb1( UI08 nValue ) { moreb1_ = nValue; };
 	void	setMoreb2( UI08 nValue ) { moreb2_ = nValue; };
 	void	setMoreb3( UI08 nValue ) { moreb3_ = nValue; };
@@ -230,7 +233,6 @@ public:
 
 	unsigned int time_unused;     // LB -> used for house decay and possibly for more in future, gets saved
 	unsigned int timeused_last; // helper attribute for time_unused, doesnt get saved
-	int spawnregion;
 	
 	
 	void Init(bool mkser = true);

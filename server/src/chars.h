@@ -199,7 +199,7 @@ protected:
 	SERIAL					murdererSer_;            // Serial number of last person that murdered this char
 	Coord_cl				prevPos_;
 	unsigned char			commandLevel_;             // 0 = player, 1 = counselor, 2 = GM
-	unsigned int			spawnregion_; 
+	QString					spawnregion_; 
 	SERIAL					stablemaster_serial_; 
 	unsigned char			npc_type_;		// currently only used for stabling, (type==1 -> stablemaster)
 	// can be used for other npc types too of course
@@ -324,7 +324,7 @@ public:
 	SERIAL					murdererSer() const {return murdererSer_;}
 	Coord_cl				prevPos() const { return prevPos_; }
 	unsigned char			commandLevel() const { return commandLevel_;}             // 0 = player, 1 = counselor, 2 = GM
-	unsigned int			spawnregion() const {return spawnregion_;} 
+	QString					spawnregion() const {return spawnregion_;} 
 	SERIAL					stablemaster_serial() const {return stablemaster_serial_;} 
 	unsigned char			npc_type() const {return npc_type_;}
 	unsigned int			time_unused() const { return time_unused_;}
@@ -432,7 +432,7 @@ public:
 	void					setMurdererSer( SERIAL data ) { murdererSer_ = data;}
 	void					setPrevPos( const Coord_cl& data ) { prevPos_ = data; }
 	void					setCommandLevel( unsigned char data ) { commandLevel_ = data;	}
-	void					setSpawnregion ( unsigned int data ) { spawnregion_ = data;	}
+	void					setSpawnregion ( QString data ) { spawnregion_ = data;	}
 	void					setStablemaster_serial (SERIAL data ) { stablemaster_serial_ = data; }  
 	void					setNpc_type( unsigned char data ) { npc_type_ = data; }
 	void					setTime_unused ( unsigned int data ) { time_unused_ = data; }

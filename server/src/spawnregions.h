@@ -48,26 +48,46 @@ class cSpawnRegion : public cDefinable
 {
 public:
 	cSpawnRegion() {;}
+	cSpawnRegion( const QDomElement &Tag );
 	~cSpawnRegion() {;}
+
+	void	Add( UI32 serial );
 
 	void	reSpawn( void );
 	void	deSpawn( void );
 
+	void	checkTimer( void );
 private:
 	virtual void processNode( const QDomElement &Tag );
 
 private:
-	std::vector< UI32 > npcSerials;
-	std::vector< UI32 > itemSerials;
+	std::vector< UI32 >		npcSerials_;	// serials of chars spawned by this area
+	std::vector< UI32 >		itemSerials_;	// serials of items spawned by this area
+
+	QStringList				npcSections_;	// list of npc's sections
+	QStringList				itemSections_;	// list of item's sections
+	
+	UI16					maxNpcAmt_;		// Max amount of characters to spawn
+	UI16					maxItemAmt_;	// Max amount of items to spawn
+	
+	UI32					minTime_;		// Minimum spawn time in sec
+	UI32					maxTime_;		// Maximum spawn time in sec
+	UI32					nextTime_;		// Next time for this region to spawn
+	
+	UI16					x1_;			// Top left X
+	UI16					x2_;			// Bottom right x
+	UI16					y1_;			// Top left y
+	UI16					y2_;			// Bottom right y
 };
 
 class cAllSpawnRegions : public std::map< QString, cSpawnRegion* >
 {
 public:
 	cAllSpawnRegions() {;}
-	~cAllSpawnRegions() {;}
+	~cAllSpawnRegions();
 
 	void	Load( void );
+	void	Check( void );
 
 	void	reSpawn( void );
 	void	deSpawn( void );
