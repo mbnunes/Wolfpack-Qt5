@@ -1,0 +1,78 @@
+Wolfpack ChangeLog
+
+Wolfpack 12.9.8 Beta (CVS)
+	- Gump Responses are now passed on as Unicode rather than in
+		the local codepage.
+	- Floating point tags are now saved correctly.
+	- Removed commands: tags, addevent, removeevent, account, resurrect, password,
+		tele, invis, kill, fix, resend, allskills, remove, move, who.
+	- Region Updates/Fixes:
+			Added flags: noentermessage and noguardmessage
+			Fixed guardowner messages
+	- Removed <gold></gold> support:
+			Item baseid 'eed' should be used instead.
+	- Documentation Updates
+	- More warning fixes
+	- Added Py_RETURN_NONE/TRUE/FALSE as in Python 2.4
+	- Added status on MySQL/SQLite modules.
+	- New Python getProperty method.
+	- Fixed a possible bug with the Python interface:
+		( possibly source of crashing bugs )
+	- Property item.magic is now item.movable
+	- New Config Option: Speedhack Countermeasure
+		(See Anti Speed Hack settings in the General group)
+	- New Windows Release builds should now include MySQL support by default.
+
+Wolfpack 12.9.7 Beta (4. July 2004)
+	- Region/Spawn Region Updates:
+		Fixed bugs that caused segfaults.
+		Added wandering controls to keep spawns in their regions.
+	- Database Changes:
+		NPC baseids are now saved.
+		Spawnregions save spawned NPCs.
+		Multi tables removed, being redone.
+		Item.type and other properties are no longer saved, uses base definitions.
+		Removed the `spawnregion` field from the `items`,`npcs` database tables.
+	- Code Changes:
+		Major cleanups and structure changes, much cleaner and more sane.
+		Numerous compile warning cleanups.
+		Support for Client 4.0.3a.
+		Support for 6th character slot.
+		Support for the new All Names macro. (CTRL + SHIFT).
+
+Wolfpack 12.9.6 Beta (18. May 2004)
+	- Numerous crash fixes.
+	- Python memory improvements.
+	- NPC related crash fixes.
+	- Worldsave error improvements.
+
+Wolfpack 12.9.5 Beta (8. May 2004)
+	- Several core fixes regarding the "update player" network protocol and
+		problems that arose from it.
+	- Included a scaled night/day system with real dawn and sunset.
+	- Finally made the ingame time progress.
+	- Fixed several issues with NPC Ai and NPCs not attacking players.
+	- Fixed an issue with corpses where equipment information wasn't stored
+		correctly.
+	- Raising from corpse should now be possible (if the player is standing on the
+		corpse, he gets raised with all of his old equipment which is still on the
+		corpse and a "stand up" animation is played). Much like sphere.
+	- New "Monster_Berserk" AI for Blade Spirits.
+	- New line of sight code from Varan Dar (not perfect yet)
+	- New changes to the Windows GUI
+	- Players no longer should see other logged out characters. Visibility to
+		other players got a major rewrite and should function a lot better now.
+	- Made sure that the bankbox can now be used.
+	- Support for UOGateway Status requests.
+	- Small console output changes (linux + windows).
+	- Fixes for Python Unicode support:
+		Foreign languages are now better supported
+	- Regions support has been improved. It's not required to have a single
+		topregion anymore and region changes are processed whenever the character
+		position is changed automatically.
+	- The .tags command is now declared deprecated except for the ".tags info"
+		subcommand. Please use the python versions now: .deltag, .settag, .gettag.
+	- If wolfpack is daemonized on Linux it won't try to read from stdin anymore.
+	- SQLite has been updated.
+	- Fixed a drag and drop problem (bouncing).
+	- NPC kills no longer crash the server
