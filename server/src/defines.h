@@ -281,7 +281,7 @@ void Writeslot(LPSTR lpszMessage);
 
 // DasRaetsels' stuff down, don't touch ;)
 
-#define DEFAULTWEBPAGE "http://www.wpdev.com/"  //this URL doesn't exist, changed to www.wpdev.com ;)
+#define DEFAULTWEBPAGE "http://wpdev.sf.net/"  //this URL doesn't exist, changed to wpdev.sf.net ;)
 
 #define MY_CLOCKS_PER_SEC 1000
 #define INVALID_SERIAL -1

@@ -93,7 +93,7 @@ void cGuilds::StonePlacement(int s)
 		}
 
 
-		guilds[guildnumber].free = 0;
+		guilds[guildnumber].free = false;
 		guilds[guildnumber].members = 1;
 		guilds[guildnumber].member[1] = pc->serial;
 		guilds[guildnumber].type = 0;
@@ -416,7 +416,7 @@ void cGuilds::Menu(int s, int page)
 		counter=1;
 		for (guild=1;guild<MAXGUILDS;guild++)
 		{
-			if ((guilds[guild].free==0)&&(guildnumber!=guild))
+			if ( !guilds[guild].free && guildnumber != guild )
 			{
 				dummy=0;
 				for (war=1;war<MAXGUILDWARS;war++)
@@ -452,7 +452,7 @@ void cGuilds::Menu(int s, int page)
 		counter=1;
 		for (guild=1;guild<MAXGUILDS;guild++)
 		{
-			if (guilds[guild].free==0)
+			if (!guilds[guild].free)
 			{
 				for (war=1;war<MAXGUILDWARS;war++)
 				{
@@ -545,11 +545,11 @@ void cGuilds::EraseGuild(int guildnumber)
 	int counter;
 	
 	memset(&guilds[guildnumber], 0, sizeof(guild_st));
-	guilds[guildnumber].free=1;
+	guilds[guildnumber].free = true;
 	Items->DeleItem(stone);
 	for (counter=1;counter<MAXGUILDS;counter++)
 	{
-		if (guilds[counter].free==0)
+		if (!guilds[counter].free)
 		{
 			for (war=1;war<MAXGUILDWARS;war++)
 			{
@@ -1051,7 +1051,7 @@ void cGuilds::GumpChoice(int s,int main,int sub)
 		for (guild=1;guild<MAXGUILDS;guild++)
 		{
 			if ((strcmp(guilds[guildnumber].name,guilds[guild].name))&&
-				(guilds[guild].free!=1))
+				(!guilds[guild].free))
 			{
 				counter++;
 				if (sub==counter)
@@ -1357,7 +1357,7 @@ int cGuilds::SearchSlot(int guildnumber, int type)
 	{
 	case 1:												// guildslots
 		for (counter=1; counter<MAXGUILDS; counter++)
-			if (guilds[counter].free==1) return counter;
+			if (guilds[counter].free) return counter;
 	    if (guildnumber<0 || guildnumber>=MAXGUILDS) return -1;
 		break;
 	case 2:												// memberslots
@@ -1424,7 +1424,7 @@ cGuilds::cGuilds(void)
 
 	for (guildnumber=1;guildnumber<MAXGUILDS;guildnumber++)
 	{
-		guilds[guildnumber].free=1;
+		guilds[guildnumber].free = true;
 		guilds[guildnumber].name[0] = 0;
 		guilds[guildnumber].abbreviation[0] = 0;
 		guilds[guildnumber].type=0;
@@ -1534,7 +1534,7 @@ void cGuilds::Read(int guildnumber)
 		else if (!strcmp(script1, "MEMBER")) { if (member<MAXGUILDMEMBERS) { guilds[guildnumber].member[member]=str2num(script2);member++;} }
 		else if (!strcmp(script1, "WARS")) guilds[guildnumber].wars = str2num(script2);
 		else if (!strcmp(script1, "WAR")) { if (war<MAXGUILDWARS) { guilds[guildnumber].war[war]=str2num(script2);war++;} }
-		guilds[guildnumber].free=0;
+		guilds[guildnumber].free = false;
 	}
 	while ( (strcmp((char*)script1,"}")) && (++loopexit < MAXLOOPS) );
 }
@@ -1550,7 +1550,7 @@ void cGuilds::Write(FILE *wscfile)
 
 	for (guildnumber=1;guildnumber<MAXGUILDS;guildnumber++)
 	{
-		if (guilds[guildnumber].free==0)
+		if (!guilds[guildnumber].free)
 		{
 			fprintf(wscfile,"SECTION GUILD %i\n", guildnumber);
 			fprintf(wscfile,"{\n");
@@ -1648,7 +1648,7 @@ void cGuilds::CheckConsistancy(void )
    for (guildnumber=1; guildnumber<MAXGUILDS; guildnumber++)
    {
 
-	   if (guilds[guildnumber].free==0)
+	   if (!guilds[guildnumber].free)
 	   {
 
 	     // is the guildmaster still alive ?
@@ -1736,7 +1736,7 @@ void cGuilds::CheckConsistancy(void )
 		{
            if (guilds[pc_a->guildnumber].free && pc_a->guildnumber!=0)
 		   {
-			  sprintf((char*)temp,"player %s belongs to a guild that is no more. cancled his/her guild membership",pc_a->name);
+			  sprintf((char*)temp,"player %s belongs to a guild that is no more. canceled his/her guild membership",pc_a->name);
 			  LogWarning((char*)temp);
 			  pc_a->guildnumber=0;
 		      pc_a->guildfealty=0;

@@ -26,7 +26,7 @@
 //
 //
 //
-//	Wolfpack Homepage: http://www.wpdev.com/
+//	Wolfpack Homepage: http://wpdev.sf.com/
 //========================================================================================
 
 #if !defined (__GUILDSTONES_H__)
@@ -34,6 +34,9 @@
 
 // System Includes
 #include <cstdio>
+
+// Wolfpack Includes
+#include "typedefs.h"
 
 #define	MAXGUILDS 100
 #define	MAXGUILDMEMBERS 30
@@ -45,14 +48,14 @@
 
 struct guild_st
 {
-	unsigned char	free;					// Guild slot used?
+	bool	free;							// Guild slot used?
 	char	name[41];						// Name of the guild
 	char	abbreviation[4];				// Abbreviation of the guild
 	int		type;							// Type of guild (0=standard/1=chaos/2=order)
 	char	charter[51];					// Charter of guild
 	char	webpage[51];					// Web url of guild
-	int		stone;							// The serial of the guildstone
-	int		master;							// The serial of the guildmaster
+	SERIAL	stone;							// The serial of the guildstone
+	SERIAL	master;							// The serial of the guildmaster
 	int		recruits;						// Amount of recruits
 	int		recruit[MAXGUILDRECRUITS + 1];	// Serials of candidates
 	int		members;						// Amount of members
