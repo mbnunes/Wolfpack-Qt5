@@ -38,6 +38,7 @@ HEADERS		= CharWrap.h \
 		  defines.h \
 		  dragdrop.h \
 		  globals.h \
+		  guildstones.h \
 		  gumps.h \
 		  hCache.h \
 		  hFile.h \

@@ -146,43 +146,6 @@ public:
 	int cmd_offset;
 };
 
-class cGuilds
-{
-private:
-	void EraseMember(int c);
-	void EraseGuild(int guildnumber);
-	void ToggleAbbreviation(int s);
-	int SearchSlot(int guildnumber, int type);
-	void ChangeName(int s, char *text);
-	void ChangeAbbreviation(int s, char *text);
-	void ChangeTitle(int s, char *text);
-	void ChangeCharter(int s, char *text);
-	void ChangeWebpage(int s, char *text);
-	int CheckValidPlace(int s);
-	void Broadcast(int guildnumber, char *text);
-	void CalcMaster(int guildnumber);
-	void SetType(int guildnumber, int type);
-public:
-	guild_st guilds[MAXGUILDS]; //lb, moved from WOLFPACK.h cauz global variabels cant be changed in constuctors ...
-	cGuilds();
-	virtual ~cGuilds();
-	int	GetType(int guildnumber);
-	void StonePlacement(int s);
-	void Menu(int s, int page);
-	void Resign(int s);
-	void Recruit(int s);
-	void TargetWar(int s);
-	void StoneMove(int s);
-	int Compare(int player1, int player2);
-	void GumpInput(int s, int type, int index, char *text);
-	void GumpChoice(int s, int main, int sub);
-	int SearchByStone(int s);
-	void Title(int s, int player2);
-	void Read(int guildnumber);
-	void Write(FILE *wscfile);
-	void CheckConsistancy(void);
-};
-
 class MapStaticIterator
 {
 private:

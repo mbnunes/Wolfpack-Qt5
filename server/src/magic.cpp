@@ -254,22 +254,23 @@ void cMagic::SpellBook(UOXSOCKET s,ITEM si)
 char cMagic::GateCollision(PLAYER s)
 {
 	unsigned int n;
-	extern cRegion *mapRegions;
+//	extern cRegion *mapRegions;
+	P_CHAR pc_player = MAKE_CHAR_REF(s);
 
 	// Check to make sure that this isn't a NPC (they shouldn't go throught gates)
-	if( chars[s].isNpc() )
+	if( pc_player->isNpc() )
 	return 0;
 
 	// Now check whether the PC (player character) has moved or simply turned
 	// If they have only turned, then ignore checking for a gate collision since it would
 	// have happened the previous time
-	if( ( chars[s].pos.x == chars[s].prevX ) &&
-		( chars[s].pos.y == chars[s].prevY ) &&
-		( chars[s].pos.z == chars[s].prevZ )	)
+	if( ( pc_player->pos.x == pc_player->prevX ) &&
+		( pc_player->pos.y == pc_player->prevY ) &&
+		( pc_player->pos.z == pc_player->prevZ )	)
 	return 0;
 
 	// - Tauriel's region stuff 3/6/99
-	int getcell = mapRegions->GetCell(chars[s].pos.x,chars[s].pos.y);
+	int getcell = mapRegions->GetCell(pc_player->pos.x,pc_player->pos.y);
 
 	vector<SERIAL> vecEntries = mapRegions->GetCellEntries(getcell);
 	for (unsigned int k = 0; k < vecEntries.size(); k++)
@@ -285,15 +286,15 @@ char cMagic::GateCollision(PLAYER s)
 			{
 				if (mapitem->type==51) n=1;
 				else n=0;
-				if ((chars[s].pos.x==mapitem->pos.x)&&
-					(chars[s].pos.y==mapitem->pos.y)&&
-					(chars[s].pos.z>=mapitem->pos.z))
+				if ((pc_player->pos.x==mapitem->pos.x)&&
+					(pc_player->pos.y==mapitem->pos.y)&&
+					(pc_player->pos.z>=mapitem->pos.z))
 				{
 			// Dupois - Check for any NPC's that are following this player
 			//			There has to be a better way than this...
 			//			Think about it some more and change this.
 			// If this is a player character
-					if ( chars[s].isPlayer() )
+					if ( pc_player->isPlayer() )
 					{
 						// Look for an NPC
 						for ( unsigned int index = 0; index < charcount; index++ )
@@ -312,7 +313,7 @@ char cMagic::GateCollision(PLAYER s)
 						}
 					}
 					// Set the characters destination
-					chars[s].MoveTo(gatex[mapitem->gatenumber][n], gatey[mapitem->gatenumber][n], gatez[mapitem->gatenumber][n]);
+					pc_player->MoveTo(gatex[mapitem->gatenumber][n], gatey[mapitem->gatenumber][n], gatez[mapitem->gatenumber][n]);
 					teleport(s);
 					soundeffect( calcSocketFromChar( s ), 0x01, 0xFE );
 					staticeffect( s, 0x37, 0x2A, 0x09, 0x06 );
@@ -323,9 +324,9 @@ char cMagic::GateCollision(PLAYER s)
 
 	// Since the character has moved a step update the prevXYZ values
 	// to prevent the "bounce back" effect of the GateCollision check
-	chars[s].prevX = chars[s].pos.x;
-	chars[s].prevY = chars[s].pos.y;
-	chars[s].prevZ = chars[s].pos.z;
+	pc_player->prevX = pc_player->pos.x;
+	pc_player->prevY = pc_player->pos.y;
+	pc_player->prevZ = pc_player->pos.z;
 
 	return(1);
 }

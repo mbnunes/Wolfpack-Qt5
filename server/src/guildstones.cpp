@@ -40,6 +40,7 @@
 // removed all cases of guild[-1]
 // and loads of stupid other things/bugs
 
+#include "guildstones.h"
 #include "wolfpack.h"
 #include "SndPkg.h"
 #include "debug.h"

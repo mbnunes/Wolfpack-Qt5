@@ -716,7 +716,8 @@ void cAllItems::DeleItem(int i)
 
 		for (j=0;j<now;j++)
 		{
-			if (perm[j]) Xsend(j, removeitem, 5);
+			if (perm[j]) 
+				Xsend(j, removeitem, 5);
 		}
 
 		if (pi->glow>0) 

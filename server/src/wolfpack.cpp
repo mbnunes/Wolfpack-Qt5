@@ -1212,7 +1212,8 @@ void deathstuff(int i)
 				clearmsg[6]=pc_player->ser4;
 				clearmsg[7]=0x00;
 				for (l=0;l<now;l++)
-					if (perm[l] && inrange1p(DEREF_P_CHAR(pc_player), currchar[l])) Xsend(l, clearmsg, 8);
+					if (perm[l] && inrange1p(DEREF_P_CHAR(pc_player), currchar[l])) 
+						Xsend(l, clearmsg, 8);
 			}//else if it's a normal item but ( not newbie and not bank items )
 			else if ((!(pi_j->priv&0x02)) && pi_j->layer!=0x1D)
 			{
@@ -1276,7 +1277,7 @@ void deathstuff(int i)
 //	}
 	RefreshItem(DEREF_P_ITEM(pi_c));//AntiChrist
 	if (pc_player->isNpc()) Npcs->DeleteChar(DEREF_P_CHAR(pc_player));
-	if(ele==65535) Items->DeleItem(DEREF_P_ITEM(pi_c));
+	if(ele==65535) Items->DeleItem(pi_c);
 }
 
 int GetBankCount( CHARACTER p, unsigned short itemid, unsigned short color )

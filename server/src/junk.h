@@ -46,6 +46,7 @@ struct statcap_st
 #include "items.h"
 #include "chars.h"
 #include "classes.h"
+#include "guildstones.h"
 #include "gumps.h"
 #include "network.h"
 #include "TmpEff.h"

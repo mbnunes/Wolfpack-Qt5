@@ -353,29 +353,6 @@ struct tele_locations_st
 	Coord_cl destination, origem;
 };
 
-
-// New structure for basic guild related infos (DasRaetsel)
-struct guild_st
-{
-	unsigned char	free;							// Guild slot used?
-	char	name[41];						// Name of the guild
-	char	abbreviation[4];				// Abbreviation of the guild
-	int		type;							// Type of guild (0=standard/1=chaos/2=order)
-	char	charter[51];					// Charter of guild
-	char	webpage[51];					// Web url of guild
-	int		stone;							// The serial of the guildstone
-	int		master;							// The serial of the guildmaster
-	int		recruits;						// Amount of recruits
-	int		recruit[MAXGUILDRECRUITS + 1];	// Serials of candidates
-	int		members;						// Amount of members
-	int		member[MAXGUILDMEMBERS + 1];		// Serials of all the members
-	int		wars;							// Amount of wars
-	int		war[MAXGUILDWARS + 1];			// Numbers of Guilds we have declared war to
-	int		priv;							// Some dummy to remember some values
-};
-// extern	guild_st guilds[MAXGUILDS];
-// End of new structure for guilds
-
 struct ServerList_st
 {
 	UI16 uiIndex;

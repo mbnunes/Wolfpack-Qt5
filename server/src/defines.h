@@ -281,12 +281,6 @@ void Writeslot(LPSTR lpszMessage);
 
 // DasRaetsels' stuff down, don't touch ;)
 
-#define	MAXGUILDS 100
-#define	MAXGUILDMEMBERS 30
-#define	MAXGUILDRECRUITS 30
-#define	MAXGUILDWARS 10
-#define MAXMEMRECWAR 30 // max of max guildmembers, max recruits and max war
-#define DEFAULTCHARTER "WOLFPACK Guildstone"
 #define DEFAULTWEBPAGE "http://www.wpdev.com/"  //this URL doesn't exist, changed to www.wpdev.com ;)
 
 #define MY_CLOCKS_PER_SEC 1000
