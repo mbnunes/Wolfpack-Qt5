@@ -501,12 +501,12 @@
                 <carve>carve_panther</carve>
         </npc>
 
-        <!-- boar -->
-        <npc id="boar">
-                <inherit id="boar" />
-                <name>a boar</name>
+        <!-- Pig -->
+        <npc id="pig">
+                <inherit id="pig" />
+                <name>a pig</name>
                 <id>0xCB</id>
-                <category>Animals\Land\Boar</category>
+                <category>Animals\Land\Pig</category>
                 <skin>0</skin>
                 <inherit id="animal_base" />
                 <karma><random min="0" max="-624" /></karma>
