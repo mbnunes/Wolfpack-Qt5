@@ -387,13 +387,12 @@ bool cBoat::isValidPlace( UI16 posx, UI16 posy, SI08 posz, UI08 boatdir )
 {
 	UI32 multiid = this->multiids_[ boatdir / 2 ] - 0x4000;
 
-	int j;
 	MultiDefinition* def = MultiCache::instance()->getMulti( multiid );
 	if ( !def )
 		return false;
 	QValueVector<multiItem_st> multi = def->getEntries();
 	bool mapblocks = false;
-	for( j = 0; j < multi.size(); ++j )
+	for( uint j = 0; j < multi.size(); ++j )
 	{
 		map_st map = Map->seekMap( Coord_cl( multi[j].x + posx, multi[j].y + posy, pos().z, pos().map ) );
 		land_st land = TileCache::instance()->getLand( map.id );

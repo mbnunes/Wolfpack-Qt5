@@ -73,6 +73,7 @@ void sqliteVdbeTrace(Vdbe *p, FILE *trace){
 */
 int sqliteVdbeAddOp(Vdbe *p, int op, int p1, int p2){
   int i;
+  VdbeOp *pOp;
 
   i = p->nOp;
   p->nOp++;
@@ -89,19 +90,49 @@ int sqliteVdbeAddOp(Vdbe *p, int op, int p1, int p2){
     p->aOp = aNew;
     memset(&p->aOp[oldSize], 0, (p->nOpAlloc-oldSize)*sizeof(Op));
   }
-  p->aOp[i].opcode = op;
-  p->aOp[i].p1 = p1;
+  pOp = &p->aOp[i];
+  pOp->opcode = op;
+  pOp->p1 = p1;
   if( p2<0 && (-1-p2)<p->nLabel && p->aLabel[-1-p2]>=0 ){
     p2 = p->aLabel[-1-p2];
   }
-  p->aOp[i].p2 = p2;
-  p->aOp[i].p3 = 0;
-  p->aOp[i].p3type = P3_NOTUSED;
+  pOp->p2 = p2;
+  pOp->p3 = 0;
+  pOp->p3type = P3_NOTUSED;
 #ifndef NDEBUG
   if( sqlite_vdbe_addop_trace ) sqliteVdbePrintOp(0, i, &p->aOp[i]);
 #endif
   return i;
 }
+
+/*
+** Add an opcode that includes the p3 value.
+*/
+int sqliteVdbeOp3(Vdbe *p, int op, int p1, int p2, const char *zP3, int p3type){
+  int addr = sqliteVdbeAddOp(p, op, p1, p2);
+  sqliteVdbeChangeP3(p, addr, zP3, p3type);
+  return addr;
+}
+
+/*
+** Add multiple opcodes.  The list is terminated by an opcode of 0.
+*/
+int sqliteVdbeCode(Vdbe *p, ...){
+  int addr;
+  va_list ap;
+  int opcode, p1, p2;
+  va_start(ap, p);
+  addr = p->nOp;
+  while( (opcode = va_arg(ap,int))!=0 ){
+    p1 = va_arg(ap,int);
+    p2 = va_arg(ap,int);
+    sqliteVdbeAddOp(p, opcode, p1, p2);
+  }
+  va_end(ap);
+  return addr;
+}
+
+
 
 /*
 ** Create a new symbolic label for an instruction that has yet to be
@@ -167,7 +198,7 @@ int sqliteVdbeCurrentAddr(Vdbe *p){
 ** Add a whole list of operations to the operation stack.  Return the
 ** address of the first operation added.
 */
-int sqliteVdbeAddOpList(Vdbe *p, int nOp, VdbeOp const *aOp){
+int sqliteVdbeAddOpList(Vdbe *p, int nOp, VdbeOpList const *aOp){
   int addr;
   assert( p->magic==VDBE_MAGIC_INIT );
   if( p->nOp + nOp >= p->nOpAlloc ){
@@ -185,11 +216,15 @@ int sqliteVdbeAddOpList(Vdbe *p, int nOp, VdbeOp const *aOp){
   addr = p->nOp;
   if( nOp>0 ){
     int i;
-    for(i=0; i<nOp; i++){
-      int p2 = aOp[i].p2;
-      p->aOp[i+addr] = aOp[i];
-      if( p2<0 ) p->aOp[i+addr].p2 = addr + ADDR(p2);
-      p->aOp[i+addr].p3type = aOp[i].p3 ? P3_STATIC : P3_NOTUSED;
+    VdbeOpList const *pIn = aOp;
+    for(i=0; i<nOp; i++, pIn++){
+      int p2 = pIn->p2;
+      VdbeOp *pOut = &p->aOp[i+addr];
+      pOut->opcode = pIn->opcode;
+      pOut->p1 = pIn->p1;
+      pOut->p2 = p2<0 ? addr + ADDR(p2) : p2;
+      pOut->p3 = pIn->p3;
+      pOut->p3type = pIn->p3 ? P3_STATIC : P3_NOTUSED;
 #ifndef NDEBUG
       if( sqlite_vdbe_addop_trace ){
         sqliteVdbePrintOp(0, i+addr, &p->aOp[i+addr]);
@@ -500,6 +535,7 @@ int sqliteVdbeList(
 ){
   sqlite *db = p->db;
   int i;
+  int rc = SQLITE_OK;
   static char *azColumnNames[] = {
      "addr", "opcode", "p1",  "p2",  "p3", 
      "int",  "text",   "int", "int", "text",
@@ -511,18 +547,20 @@ int sqliteVdbeList(
   p->azColName = azColumnNames;
   p->azResColumn = p->zArgv;
   for(i=0; i<5; i++) p->zArgv[i] = p->aStack[i].zShort;
-  p->rc = SQLITE_OK;
-  for(i=p->pc; p->rc==SQLITE_OK && i<p->nOp; i++){
-    if( db->flags & SQLITE_Interrupt ){
-      db->flags &= ~SQLITE_Interrupt;
-      if( db->magic!=SQLITE_MAGIC_BUSY ){
-        p->rc = SQLITE_MISUSE;
-      }else{
-        p->rc = SQLITE_INTERRUPT;
-      }
-      sqliteSetString(&p->zErrMsg, sqlite_error_string(p->rc), (char*)0);
-      break;
+  i = p->pc;
+  if( i>=p->nOp ){
+    p->rc = SQLITE_OK;
+    rc = SQLITE_DONE;
+  }else if( db->flags & SQLITE_Interrupt ){
+    db->flags &= ~SQLITE_Interrupt;
+    if( db->magic!=SQLITE_MAGIC_BUSY ){
+      p->rc = SQLITE_MISUSE;
+    }else{
+      p->rc = SQLITE_INTERRUPT;
     }
+    rc = SQLITE_ERROR;
+    sqliteSetString(&p->zErrMsg, sqlite_error_string(p->rc), (char*)0);
+  }else{
     sprintf(p->zArgv[0],"%d",i);
     sprintf(p->zArgv[2],"%d", p->aOp[i].p1);
     sprintf(p->zArgv[3],"%d", p->aOp[i].p2);
@@ -533,24 +571,13 @@ int sqliteVdbeList(
       p->zArgv[4] = p->aOp[i].p3;
     }
     p->zArgv[1] = sqliteOpcodeNames[p->aOp[i].opcode];
-    if( p->xCallback==0 ){
-      p->pc = i+1;
-      p->azResColumn = p->zArgv;
-      p->nResColumn = 5;
-      return SQLITE_ROW;
-    }
-    if( sqliteSafetyOff(db) ){
-      p->rc = SQLITE_MISUSE;
-      break;
-    }
-    if( p->xCallback(p->pCbArg, 5, p->zArgv, p->azColName) ){
-      p->rc = SQLITE_ABORT;
-    }
-    if( sqliteSafetyOn(db) ){
-      p->rc = SQLITE_MISUSE;
-    }
+    p->pc = i+1;
+    p->azResColumn = p->zArgv;
+    p->nResColumn = 5;
+    p->rc = SQLITE_OK;
+    rc = SQLITE_ROW;
   }
-  return p->rc==SQLITE_OK ? SQLITE_DONE : SQLITE_ERROR;
+  return rc;
 }
 
 /*
@@ -558,20 +585,10 @@ int sqliteVdbeList(
 ** as allocating stack space and initializing the program counter.
 ** After the VDBE has be prepped, it can be executed by one or more
 ** calls to sqliteVdbeExec().  
-**
-** The behavior of sqliteVdbeExec() is influenced by the parameters to
-** this routine.  If xCallback is NULL, then sqliteVdbeExec() will return
-** with SQLITE_ROW whenever there is a row of the result set ready
-** to be delivered.  p->azResColumn will point to the row and 
-** p->nResColumn gives the number of columns in the row.  If xCallback
-** is not NULL, then the xCallback() routine is invoked to process each
-** row in the result set.
 */
 void sqliteVdbeMakeReady(
   Vdbe *p,                       /* The VDBE */
   int nVar,                      /* Number of '?' see in the SQL statement */
-  sqlite_callback xCallback,     /* Result callback */
-  void *pCallbackArg,            /* 1st argument to xCallback() */
   int isExplain                  /* True if the EXPLAIN keywords is present */
 ){
   int n;
@@ -621,8 +638,6 @@ void sqliteVdbeMakeReady(
   p->returnDepth = 0;
   p->errorAction = OE_Abort;
   p->undoTransOnError = 0;
-  p->xCallback = xCallback;
-  p->pCbArg = pCallbackArg;
   p->popStack =  0;
   p->explain |= isExplain;
   p->magic = VDBE_MAGIC_RUN;
@@ -679,6 +694,9 @@ void sqliteVdbeAggReset(Agg *pAgg){
         (*pAgg->apFunc[i]->xFinalize)(&ctx);
         if( pMem->z!=0 && pMem->z!=pMem->zShort ){
           sqliteFree(pMem->z);
+        }
+        if( ctx.s.flags & MEM_Dyn ){
+          sqliteFree(ctx.s.z);
         }
       }else if( pMem->flags & MEM_Dyn ){
         sqliteFree(pMem->z);
@@ -800,6 +818,8 @@ static void Cleanup(Vdbe *p){
     p->keylistStackDepth = 0;
     p->keylistStack = 0;
   }
+  sqliteFree(p->contextStack);
+  p->contextStack = 0;
   sqliteFree(p->zErrMsg);
   p->zErrMsg = 0;
 }
@@ -826,6 +846,8 @@ int sqliteVdbeReset(Vdbe *p, char **pzErrMsg){
       sqliteFree(p->zErrMsg);
     }
     p->zErrMsg = 0;
+  }else if( p->rc ){
+    sqliteSetString(pzErrMsg, sqlite_error_string(p->rc), (char*)0);
   }
   Cleanup(p);
   if( p->rc!=SQLITE_OK ){
@@ -908,6 +930,9 @@ int sqliteVdbeFinalize(Vdbe *p, char **pzErrMsg){
   sqliteVdbeDelete(p);
   if( db->want_to_close && db->pVdbe==0 ){
     sqlite_close(db);
+  }
+  if( rc==SQLITE_SCHEMA ){
+    sqliteResetInternalSchema(db, 0);
   }
   return rc;
 }

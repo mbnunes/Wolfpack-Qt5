@@ -574,7 +574,7 @@ static PyObject *wpMulti_getAttr( wpMulti *self, char *name )
 	{
 		QStringList events = QStringList::split( ",", self->pMulti->eventList() );
 		PyObject *list = PyList_New( events.count() );
-		for( INT32 i = 0; i < events.count(); ++i )
+		for( uint i = 0; i < events.count(); ++i )
 			PyList_SetItem( list, i, PyString_FromString( events[i].latin1() ) );
 		return list;
 	}

@@ -459,7 +459,9 @@ PyObject *wpGuild_getmemberinfo(wpGuild *self, PyObject *args) {
 	return result;
 }
 
-PyObject *wpGuild_delete(wpGuild *self, PyObject *args) {
+PyObject *wpGuild_delete(wpGuild *self, PyObject *args)
+{
+	Q_UNUSED(args);
 	Guilds::instance()->unregisterGuild(self->guild);
 	delete self->guild;
 	self->guild = 0;

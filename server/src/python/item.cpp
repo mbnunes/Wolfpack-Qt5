@@ -623,6 +623,7 @@ static PyObject* wpItem_additem( wpItem* self, PyObject* args )
 */
 static PyObject* wpItem_countItem( wpItem* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( !self->pItem || self->pItem->free )
 	{
 		PyErr_BadArgument();
@@ -637,6 +638,7 @@ static PyObject* wpItem_countItem( wpItem* self, PyObject* args )
 // otherwise pynone
 static PyObject* wpItem_multi( wpItem* self, PyObject* args )
 {
+	Q_UNUSED(args);
 	if( self->pItem->free )
 	{
 		Py_INCREF( Py_None );
@@ -648,6 +650,7 @@ static PyObject* wpItem_multi( wpItem* self, PyObject* args )
 
 static PyObject* wpItem_lightning( wpItem *self, PyObject *args )
 {
+	Q_UNUSED(args);
 	unsigned short hue = 0;
 	
 	if( !PyArg_ParseTuple( args, "|h:item.lightning( [hue] )", &hue ) )
@@ -660,16 +663,18 @@ static PyObject* wpItem_lightning( wpItem *self, PyObject *args )
 
 static PyObject* wpItem_resendtooltip( wpItem *self, PyObject *args )
 {
-	if (!self->pItem->free) {
+	Q_UNUSED(args);
+	if (!self->pItem->free)
 		self->pItem->resendTooltip();
-	}
 
 	return PyTrue;
 }
 
 static PyObject* wpItem_dupe( wpItem *self, PyObject *args )
 {
-	if (!self->pItem->free) {
+	Q_UNUSED(args);
+	if (!self->pItem->free) 
+	{
 		P_ITEM item = self->pItem->dupe();
 		return item->getPyObject();
 	}
@@ -782,7 +787,7 @@ static PyObject *wpItem_getAttr( wpItem *self, char *name )
 	{	
 		cItem::ContainerContent content = self->pItem->content();
 		PyObject *list = PyList_New( content.size() );
-		for( INT32 i = 0; i < content.size(); ++i )
+		for( uint i = 0; i < content.size(); ++i )
 			PyList_SetItem( list, i, PyGetItemObject( content[i] ) );		
 		return list;
 	} else if (!strcmp("tags", name)) {
@@ -802,7 +807,7 @@ static PyObject *wpItem_getAttr( wpItem *self, char *name )
 	{
 		QStringList events = QStringList::split( ",", self->pItem->eventList() );
 		PyObject *list = PyList_New( events.count() );
-		for( INT32 i = 0; i < events.count(); ++i )
+		for( uint i = 0; i < events.count(); ++i )
 			PyList_SetItem( list, i, PyString_FromString( events[i].latin1() ) );
 		return list;
 	}

@@ -12,7 +12,7 @@
 ** This module contains C code that generates VDBE code used to process
 ** the WHERE clause of SQL statements.
 **
-** $Id: where.c,v 1.3 2004/02/24 16:47:25 thiagocorrea Exp $
+** $Id: where.c,v 1.4 2004/03/19 16:36:20 thiagocorrea Exp $
 */
 #include "sqliteInt.h"
 
@@ -380,11 +380,8 @@ WhereInfo *sqliteWhereBegin(
   memset(aExpr, 0, sizeof(aExpr));
   nExpr = exprSplit(ARRAYSIZE(aExpr), aExpr, pWhere);
   if( nExpr==ARRAYSIZE(aExpr) ){
-    char zBuf[50];
-    sprintf(zBuf, "%d", (int)ARRAYSIZE(aExpr)-1);
-    sqliteSetString(&pParse->zErrMsg, "WHERE clause too complex - no more "
-       "than ", zBuf, " terms allowed", (char*)0);
-    pParse->nErr++;
+    sqliteErrorMsg(pParse, "WHERE clause too complex - no more "
+       "than %d terms allowed", (int)ARRAYSIZE(aExpr)-1);
     return 0;
   }
   
@@ -672,18 +669,17 @@ WhereInfo *sqliteWhereBegin(
   */
   for(i=0; i<pTabList->nSrc; i++){
     Table *pTab;
+    Index *pIx;
 
     pTab = pTabList->a[i].pTab;
     if( pTab->isTransient || pTab->pSelect ) continue;
     sqliteVdbeAddOp(v, OP_Integer, pTab->iDb, 0);
-    sqliteVdbeAddOp(v, OP_OpenRead, pTabList->a[i].iCursor, pTab->tnum);
-    sqliteVdbeChangeP3(v, -1, pTab->zName, P3_STATIC);
+    sqliteVdbeOp3(v, OP_OpenRead, pTabList->a[i].iCursor, pTab->tnum,
+                     pTab->zName, P3_STATIC);
     sqliteCodeVerifySchema(pParse, pTab->iDb);
-    if( pWInfo->a[i].pIdx!=0 ){
-      sqliteVdbeAddOp(v, OP_Integer, pWInfo->a[i].pIdx->iDb, 0);
-      sqliteVdbeAddOp(v, OP_OpenRead,
-                      pWInfo->a[i].iCur, pWInfo->a[i].pIdx->tnum);
-      sqliteVdbeChangeP3(v, -1, pWInfo->a[i].pIdx->zName, P3_STATIC);
+    if( (pIx = pWInfo->a[i].pIdx)!=0 ){
+      sqliteVdbeAddOp(v, OP_Integer, pIx->iDb, 0);
+      sqliteVdbeOp3(v, OP_OpenRead, pWInfo->a[i].iCur, pIx->tnum, pIx->zName,0);
     }
   }
 

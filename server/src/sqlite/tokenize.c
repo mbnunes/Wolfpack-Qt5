@@ -15,7 +15,7 @@
 ** individual tokens and sends those tokens one-by-one over to the
 ** parser for analysis.
 **
-** $Id: tokenize.c,v 1.5 2004/02/26 00:36:45 dreoth Exp $
+** $Id: tokenize.c,v 1.6 2004/03/19 16:36:20 thiagocorrea Exp $
 */
 #include "sqliteInt.h"
 #include "os.h"
@@ -149,7 +149,7 @@ static u8 aiHashTable[KEY_HASH_SIZE];
 
 /*
 ** This function looks up an identifier to determine if it is a
-** keyword.  If it is a keyword, the token code of that keyword is
+** keyword.  If it is a keyword, the token code of that keyword is 
 ** returned.  If the input is not a keyword, TK_ID is returned.
 */
 int sqliteKeywordCode(const char *z, int n){
@@ -212,14 +212,14 @@ static const char isIdChar[] = {
 
 
 /*
-** Return the length of the token that begins at z[0].
+** Return the length of the token that begins at z[0]. 
 ** Store the token type in *tokenType before returning.
 */
 static int sqliteGetToken(const unsigned char *z, int *tokenType){
   int i;
   switch( *z ){
-    case ' ': case '\t': case '\n': case '\f': case '\r': case '`': {
-      for(i=1; isspace(z[i]) || z[i] == '`'; i++){}
+    case ' ': case '\t': case '\n': case '\f': case '\r': {
+      for(i=1; isspace(z[i]); i++){}
       *tokenType = TK_SPACE;
       return i;
     }
@@ -356,7 +356,7 @@ static int sqliteGetToken(const unsigned char *z, int *tokenType){
         *tokenType = TK_FLOAT;
       }
       if( (z[i]=='e' || z[i]=='E') &&
-           ( isdigit(z[i+1])
+           ( isdigit(z[i+1]) 
             || ((z[i+1]=='+' || z[i+1]=='-') && isdigit(z[i+2]))
            )
       ){
@@ -391,7 +391,7 @@ static int sqliteGetToken(const unsigned char *z, int *tokenType){
 /*
 ** Run the parser on the given SQL string.  The parser structure is
 ** passed in.  An SQLITE_ status code is returned.  If an error occurs
-** and pzErrMsg!=NULL then an error message might be written into
+** and pzErrMsg!=NULL then an error message might be written into 
 ** memory obtained from malloc() and *pzErrMsg made to point to that
 ** error message.  Or maybe not.
 */
@@ -433,7 +433,7 @@ int sqliteRunParser(Parse *pParse, const char *zSql, char **pzErrMsg){
         break;
       }
       case TK_ILLEGAL: {
-        sqliteSetNString(pzErrMsg, "unrecognized token: \"", -1,
+        sqliteSetNString(pzErrMsg, "unrecognized token: \"", -1, 
            pParse->sLastToken.z, pParse->sLastToken.n, "\"", 1, 0);
         nErr++;
         goto abort_parse;
@@ -474,7 +474,7 @@ abort_parse:
     pParse->zErrMsg = 0;
     if( !nErr ) nErr++;
   }
-  if( pParse->pVdbe && (pParse->useCallback || pParse->nErr>0) ){
+  if( pParse->pVdbe && pParse->nErr>0 ){
     sqliteVdbeDelete(pParse->pVdbe);
     pParse->pVdbe = 0;
   }
@@ -518,7 +518,7 @@ abort_parse:
 **                 returns 1 if it ends in the START state and 0 if it ends
 **                 in any other state.
 **
-**   (1) EXPLAIN   The keyword EXPLAIN has been seen at the beginning of
+**   (1) EXPLAIN   The keyword EXPLAIN has been seen at the beginning of 
 **                 a statement.
 **
 **   (2) CREATE    The keyword CREATE has been seen at the beginning of a

@@ -87,29 +87,32 @@ static bool parseParameter( const QString &param )
 			PyObject *pName, *pModule, *pDict, *pFunc;
 			PyObject *pArgs, *pValue;
 			int i;
-
 			pName = PyString_FromString( param.left(param.length() - 3).latin1() );
 			/* Error checking of pName left out */
 
 			pModule = PyImport_Import(pName);
 			Py_DECREF(pName);
 
-			if (pModule != NULL) {
+			if (pModule != NULL) 
+			{
 				pDict = PyModule_GetDict(pModule);
 				/* pDict is a borrowed reference */
 
 				pFunc = PyDict_GetItemString(pDict, "main");
 				/* pFun: Borrowed reference */
 
-				if (pFunc && PyCallable_Check(pFunc)) {
+				if (pFunc && PyCallable_Check(pFunc)) 
+				{
 					pArgs = PyTuple_New(0);
 					pValue = PyObject_CallObject(pFunc, pArgs);
 					Py_DECREF(pArgs);
-					if (pValue != NULL) {
+					if (pValue != NULL) 
+					{
 						printf("Result of call: %ld\n", PyInt_AsLong(pValue));
 						Py_DECREF(pValue);
 					}
-					else {
+					else
+					{
 						Py_DECREF(pModule);
 						PyErr_Print();
 						fprintf(stderr,"Call failed\n");
@@ -117,13 +120,15 @@ static bool parseParameter( const QString &param )
 					}
 					/* pDict and pFunc are borrowed and must not be Py_DECREF-ed */
 				}
-				else {
+				else
+				{
 					if (PyErr_Occurred())
 						PyErr_Print();
 				}
 				Py_DECREF(pModule);
 			}
-			else {
+			else
+			{
 				PyErr_Print();
 				fprintf(stderr, "Failed to load \"%s\"\n", param.latin1());
 			}

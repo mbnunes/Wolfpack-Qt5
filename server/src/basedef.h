@@ -61,15 +61,15 @@ public:
 	unsigned char type() const { return type_; }
 
 	inline bool canFly() const {
-		return flags_ & 0x01 != 0;
+		return (flags_ & 0x01) != 0;
 	}
 
 	inline bool antiBlink() const {
-		return flags_ & 0x02 != 0;
+		return (flags_ & 0x02) != 0;
 	}
 
 	inline bool noCorpse() const {
-		return flags_ & 0x04 != 0;
+		return (flags_ & 0x04) != 0;
 	}
 };
 

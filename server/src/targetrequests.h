@@ -171,6 +171,8 @@ public:
 
 	bool poisonItem( cUOSocket* socket, cUORxTarget* target )
 	{
+		Q_UNUSED(socket);
+		Q_UNUSED(target);
 		return true;
 	}
 

@@ -288,7 +288,7 @@ void Trade::sellAction( cUOSocket *socket, cUORxSell *packet )
 	}
 
 	// Get our total gold at once
-	UINT32 totalGold = pChar->CountBankGold() + pChar->CountGold();
+	//UINT32 totalGold = pChar->CountBankGold() + pChar->CountGold();
 
 	P_ITEM pPurchase = pVendor->GetItemOnLayer( 0x1C );
 	if( !pPurchase )

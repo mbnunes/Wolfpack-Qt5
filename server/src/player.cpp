@@ -1209,7 +1209,7 @@ void cPlayer::awardFame( short amount )
 	if( !nChange || !socket() )
 		return;
 
-	uint message;
+	uint message = 1019051;
 
 	if( nChange <= 25 )
 	{
@@ -1278,7 +1278,7 @@ void cPlayer::awardKarma( P_CHAR pKilled, short amount )
 	if( !nChange || !socket() )
 		return;
 
-	UINT32 message;
+	UINT32 message = 0xF8CB3;
 
 	if( nChange <= 25 )
 	{

@@ -181,20 +181,23 @@ PyTypeObject wpDbResultType = {
     (getattrfunc)wpDbResult_getAttr
 };
 
-static PyObject *wpDbResult_free(wpDbResult *self, PyObject *args) {
+static PyObject *wpDbResult_free(wpDbResult *self, PyObject *args)
+{
+	Q_UNUSED(args);
 	self->result->free();
 	Py_INCREF(Py_None);
 	return Py_None;
 }
 
-static PyObject *wpDbResult_fetchrow(wpDbResult *self, PyObject *args) {
+static PyObject *wpDbResult_fetchrow(wpDbResult *self, PyObject *args) 
+{
+	Q_UNUSED(args);
 	bool result = self->result->fetchrow();
 
-	if (result) {
+	if (result) 
 		return PyTrue;
-	} else {
+	else
 		return PyFalse;
-	}
 }
 
 static PyObject *wpDbResult_getint(wpDbResult *self, PyObject *args) {

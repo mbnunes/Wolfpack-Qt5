@@ -700,7 +700,7 @@ void cConsole::send(const QString &sMessage)
 		QStringList lines = QStringList::split( "\n", incompleteLine_, true );
 
 		// Insert all except the last element
-		for( int i = 0; i < lines.count() - 1; ++i )
+		for( uint i = 0; i < lines.count() - 1; ++i )
 			linebuffer_.push_back( lines[i] );
 
 		incompleteLine_ = lines[ lines.count() - 1 ];

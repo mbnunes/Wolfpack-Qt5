@@ -69,7 +69,7 @@ static PyObject *wpContent_get( wpContent *self, int id )
 		if ( id >= container.size() || id < 0 )
 			goto error;
 		cBaseChar::ItemContainer::const_iterator it(container.begin());
-		for ( uint i = 0; i < id && it != container.end(); ++i )	// Ask Correa before trying 
+		for ( int i = 0; i < id && it != container.end(); ++i )	    // Ask Correa before trying 
 			++it;													// to 'optimize' this, there 
 																	// isn't much standard complient options here
 		if ( it != container.end() )
@@ -87,7 +87,7 @@ static PyObject *wpContent_get( wpContent *self, int id )
 		if ( id >= container.size() || id < 0 )
 			goto error;
 		cItem::ContainerContent::const_iterator it(container.begin());
-		for ( uint i = 0; i < id && it != container.end(); ++i )	// Ask Correa before trying 
+		for ( int i = 0; i < id && it != container.end(); ++i )	    // Ask Correa before trying 
 			++it;													// to 'optimize' this, there 
 																	// isn't much standard complient options here
 		if ( it != container.end() )

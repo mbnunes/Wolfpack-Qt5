@@ -18,7 +18,7 @@
 ** file simultaneously, or one process from reading the database while
 ** another is writing.
 **
-** @(#) $Id: pager.c,v 1.3 2004/02/24 16:47:25 thiagocorrea Exp $
+** @(#) $Id: pager.c,v 1.4 2004/03/19 16:36:19 thiagocorrea Exp $
 */
 #include "os.h"         /* Must be first to enable large file support */
 #include "sqliteInt.h"
@@ -117,6 +117,16 @@ struct PgHdr {
   /* Pager.nExtra bytes of local data follow the page data */
 };
 
+
+/*
+** A macro used for invoking the codec if there is one
+*/
+#ifdef SQLITE_HAS_CODEC
+# define CODEC(P,D,N,X) if( P->xCodec ){ P->xCodec(P->pCodecArg,D,N,X); }
+#else
+# define CODEC(P,D,N,X)
+#endif
+
 /*
 ** Convert a pointer to a PgHdr into a pointer to its data
 ** and back again.
@@ -158,6 +168,8 @@ struct Pager {
   int nRef;                   /* Number of in-memory pages with PgHdr.nRef>0 */
   int mxPage;                 /* Maximum number of pages to hold in cache */
   int nHit, nMiss, nOvfl;     /* Cache hits, missing, and LRU overflows */
+  void (*xCodec)(void*,void*,Pgno,int); /* Routine for en/decoding data */
+  void *pCodecArg;            /* First argument to xCodec() */
   u8 journalOpen;             /* True if journal file descriptors is valid */
   u8 journalStarted;          /* True if header of journal is synced */
   u8 useJournal;              /* Use a rollback journal on this file */
@@ -201,8 +213,8 @@ struct Pager {
 */
 typedef struct PageRecord PageRecord;
 struct PageRecord {
-  Pgno pgno;                     /* The page number */
-  char aData[SQLITE_PAGE_SIZE];  /* Original data for page pgno */
+  Pgno pgno;                      /* The page number */
+  char aData[SQLITE_PAGE_SIZE];   /* Original data for page pgno */
 };
 
 /*
@@ -560,6 +572,7 @@ static int pager_playback_one_page(Pager *pPager, OsFile *jfd, int format){
     memset(PGHDR_TO_EXTRA(pPg), 0, pPager->nExtra);
     pPg->dirty = 0;
     pPg->needSync = 0;
+    CODEC(pPager, PGHDR_TO_DATA(pPg), pPg->pgno, 3);
   }
   return rc;
 }
@@ -719,6 +732,8 @@ static int pager_playback(Pager *pPager, int useJournalSize){
       if( (int)pPg->pgno <= pPager->origDbSize ){
         sqliteOsSeek(&pPager->fd, SQLITE_PAGE_SIZE*(off_t)(pPg->pgno-1));
         rc = sqliteOsRead(&pPager->fd, zBuf, SQLITE_PAGE_SIZE);
+        TRACE2("REFETCH %d\n", pPg->pgno);
+        CODEC(pPager, zBuf, pPg->pgno, 2);
         if( rc ) break;
       }else{
         memset(zBuf, 0, SQLITE_PAGE_SIZE);
@@ -826,6 +841,7 @@ end_ckpt_playback:
 void sqlitepager_set_cachesize(Pager *pPager, int mxPage){
   if( mxPage>=0 ){
     pPager->noSync = pPager->tempFile;
+    if( pPager->noSync==0 ) pPager->needSync = 0;
   }else{
     pPager->noSync = 1;
     mxPage = -mxPage;
@@ -864,6 +880,7 @@ void sqlitepager_set_cachesize(Pager *pPager, int mxPage){
 void sqlitepager_set_safety_level(Pager *pPager, int level){
   pPager->noSync =  level==1 || pPager->tempFile;
   pPager->fullSync = level==3 && !pPager->tempFile;
+  if( pPager->noSync==0 ) pPager->needSync = 0;
 }
 
 /*
@@ -1165,7 +1182,8 @@ static int syncJournal(Pager *pPager){
   if( pPager->needSync ){
     if( !pPager->tempFile ){
       assert( pPager->journalOpen );
-      assert( !pPager->noSync );
+      /* assert( !pPager->noSync ); // noSync might be set if synchronous
+      ** was turned off after the transaction was started.  Ticket #615 */
 #ifndef NDEBUG
       {
         /* Make sure the pPager->nRec counter we are keeping agrees
@@ -1239,7 +1257,10 @@ static int pager_write_pagelist(PgHdr *pList){
   while( pList ){
     assert( pList->dirty );
     sqliteOsSeek(&pPager->fd, (pList->pgno-1)*(off_t)SQLITE_PAGE_SIZE);
+    CODEC(pPager, PGHDR_TO_DATA(pList), pList->pgno, 6);
+    TRACE2("STORE %d\n", pList->pgno);
     rc = sqliteOsWrite(&pPager->fd, PGHDR_TO_DATA(pList), SQLITE_PAGE_SIZE);
+    CODEC(pPager, PGHDR_TO_DATA(pList), pList->pgno, 0);
     if( rc ) return rc;
     pList->dirty = 0;
     pList = pList->pDirty;
@@ -1500,6 +1521,8 @@ int sqlitepager_get(Pager *pPager, Pgno pgno, void **ppPage){
       int rc;
       sqliteOsSeek(&pPager->fd, (pgno-1)*(off_t)SQLITE_PAGE_SIZE);
       rc = sqliteOsRead(&pPager->fd, PGHDR_TO_DATA(pPg), SQLITE_PAGE_SIZE);
+      TRACE2("FETCH %d\n", pPg->pgno);
+      CODEC(pPager, PGHDR_TO_DATA(pPg), pPg->pgno, 3);
       if( rc!=SQLITE_OK ){
         off_t fileSize;
         if( sqliteOsFileSize(&pPager->fd,&fileSize)!=SQLITE_OK
@@ -1644,7 +1667,7 @@ static int pager_open_journal(Pager *pPager){
       rc = write32bits(&pPager->jfd, pPager->noSync ? 0xffffffff : 0);
     }
     if( rc==SQLITE_OK ){
-      pPager->cksumInit = (u32)sqliteRandomInteger();
+      sqliteRandomness(sizeof(pPager->cksumInit), &pPager->cksumInit);
       rc = write32bits(&pPager->jfd, pPager->cksumInit);
     }
   }else if( journal_format==JOURNAL_FORMAT_2 ){
@@ -1787,7 +1810,10 @@ int sqlitepager_write(void *pData){
         szPg = SQLITE_PAGE_SIZE+4;
       }
       store32bits(pPg->pgno, pPg, -4);
+      CODEC(pPager, pData, pPg->pgno, 7);
       rc = sqliteOsWrite(&pPager->jfd, &((char*)pData)[-4], szPg);
+      TRACE3("JOURNAL %d %d\n", pPg->pgno, pPg->needSync);
+      CODEC(pPager, pData, pPg->pgno, 0);
       if( journal_format>=JOURNAL_FORMAT_3 ){
         *(u32*)PGHDR_TO_EXTRA(pPg) = saved;
       }
@@ -1805,7 +1831,6 @@ int sqlitepager_write(void *pData){
         pPager->aInCkpt[pPg->pgno/8] |= 1<<(pPg->pgno&7);
         page_add_to_ckpt_list(pPg);
       }
-      TRACE3("JOURNAL %d %d\n", pPg->pgno, pPg->needSync);
     }else{
       pPg->needSync = !pPager->journalStarted && !pPager->noSync;
       TRACE3("APPEND %d %d\n", pPg->pgno, pPg->needSync);
@@ -1823,7 +1848,10 @@ int sqlitepager_write(void *pData){
   if( pPager->ckptInUse && !pPg->inCkpt && (int)pPg->pgno<=pPager->ckptSize ){
     assert( pPg->inJournal || (int)pPg->pgno>pPager->origDbSize );
     store32bits(pPg->pgno, pPg, -4);
+    CODEC(pPager, pData, pPg->pgno, 7);
     rc = sqliteOsWrite(&pPager->cpfd, &((char*)pData)[-4], SQLITE_PAGE_SIZE+4);
+    TRACE2("CKPT-JOURNAL %d\n", pPg->pgno);
+    CODEC(pPager, pData, pPg->pgno, 0);
     if( rc!=SQLITE_OK ){
       sqlitepager_rollback(pPager);
       pPager->errMask |= PAGER_ERR_FULL;
@@ -2163,6 +2191,18 @@ int sqlitepager_ckpt_rollback(Pager *pPager){
 */
 const char *sqlitepager_filename(Pager *pPager){
   return pPager->zFilename;
+}
+
+/*
+** Set the codec for this pager
+*/
+void sqlitepager_set_codec(
+  Pager *pPager,
+  void (*xCodec)(void*,void*,Pgno,int),
+  void *pCodecArg
+){
+  pPager->xCodec = xCodec;
+  pPager->pCodecArg = pCodecArg;
 }
 
 #ifdef SQLITE_TEST

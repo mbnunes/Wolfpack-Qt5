@@ -208,6 +208,19 @@ struct Keylist {
 };
 
 /*
+** A Context stores the last insert rowid, the last statement change count,
+** and the current statement change count (i.e. changes since last statement).
+** Elements of Context structure type make up the ContextStack, which is
+** updated by the ContextPush and ContextPop opcodes (used by triggers)
+*/
+typedef struct Context Context;
+struct Context {
+  int lastRowid;    /* Last insert rowid (from db->lastRowid) */
+  int lsChange;     /* Last statement change count (from db->lsChange) */
+  int csChange;     /* Current statement change count (from db->csChange) */
+};
+
+/*
 ** An instance of the virtual machine.  This structure contains the complete
 ** state of the virtual machine.
 **
@@ -250,6 +263,8 @@ struct Vdbe {
   Keylist *pList;         /* A list of ROWIDs */
   int keylistStackDepth;  /* The size of the "keylist" stack */
   Keylist **keylistStack; /* The stack used by opcodes ListPush & ListPop */
+  int contextStackDepth;  /* The size of the "context" stack */
+  Context *contextStack;  /* Stack used by opcodes ContextPush & ContextPop*/
   int pc;                 /* The program counter */
   int rc;                 /* Value to return */
   unsigned uniqueCnt;     /* Used by OP_MakeRecord when P2!=0 */
@@ -259,9 +274,7 @@ struct Vdbe {
   int returnStack[100];   /* Return address stack for OP_Gosub & OP_Return */
   int returnDepth;        /* Next unused element in returnStack[] */
   int nResColumn;         /* Number of columns in one row of the result set */
-  char **azResColumn;                        /* Values for one row of result */ 
-  int (*xCallback)(void*,int,char**,char**); /* Callback for SELECT results */
-  void *pCbArg;                              /* First argument to xCallback() */
+  char **azResColumn;     /* Values for one row of result */ 
   int popStack;           /* Pop the stack this much on entry to VdbeExec() */
   char *zErrMsg;          /* Error message written here */
   u8 explain;             /* True if EXPLAIN present on SQL command */

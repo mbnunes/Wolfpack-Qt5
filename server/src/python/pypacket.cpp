@@ -210,6 +210,7 @@ static PyObject *wpPacket_send( PyObject *self, PyObject *args )
 // Return a Packet Dump
 static PyObject *wpPacket_dump( PyObject *self, PyObject *args )
 {
+	Q_UNUSED( args );
 	QCString dump = cUOPacket::dump( ( (wpPacket*)self )->packet->uncompressed() );
 
 	return PyString_FromString( dump.data() );

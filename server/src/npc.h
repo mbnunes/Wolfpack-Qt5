@@ -604,16 +604,17 @@ inline bool cNPC::isInnocent()
 	return notoriety() == 1;
 }
 
-inline bool cNPC::summoned() const {
-	return additionalFlags_ & 0x01 != 0;
+inline bool cNPC::summoned() const 
+{
+	return ( additionalFlags_ & 0x01 ) != 0;
 }
 
-inline void cNPC::setSummoned(bool data) {
-	if (data) {
+inline void cNPC::setSummoned(bool data) 
+{
+	if (data)
 		additionalFlags_ |= 0x01;
-	} else {		
+	else		
 		additionalFlags_ &= ~0x01;
-	}
 	changed_ = true;
 }
 

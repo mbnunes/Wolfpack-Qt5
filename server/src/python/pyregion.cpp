@@ -80,7 +80,7 @@ static PyObject *wpRegion_getAttr( wpRegion *self, char *name )
 	{
 		QValueVector< cBaseRegion* > children = self->pRegion->children();
 		PyObject *tuple = PyTuple_New( children.size() );
-		for( INT32 i = 0; i < children.size(); ++i )
+		for( uint i = 0; i < children.size(); ++i )
 		{
 			cTerritory *pRegion = dynamic_cast< cTerritory* >( children[i] );
 			PyTuple_SetItem( tuple, i, PyGetRegionObject( pRegion ) );
@@ -92,7 +92,7 @@ static PyObject *wpRegion_getAttr( wpRegion *self, char *name )
 	{
 		QValueVector< cBaseRegion::rect_st > rectangles = self->pRegion->rectangles();
 		PyObject *tuple = PyTuple_New( rectangles.size() );
-		for( INT32 i = 0; i < rectangles.size(); ++i )
+		for( uint i = 0; i < rectangles.size(); ++i )
 		{
 			PyObject *subtuple = PyTuple_New( 4 );
 			PyTuple_SetItem( subtuple, 0, PyInt_FromLong( rectangles[i].x1 ) );

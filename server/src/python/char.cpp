@@ -1615,6 +1615,7 @@ static PyObject* wpChar_lightning( wpChar *self, PyObject *args )
 
 static PyObject* wpChar_resendtooltip( wpChar *self, PyObject *args )
 {
+	Q_UNUSED(args);
 	if( self->pChar->free )
 		return PyFalse;
 

@@ -12,7 +12,7 @@
 ** This file contains routines used for analyzing expressions and
 ** for generating VDBE code that evaluates expressions in SQLite.
 **
-** $Id: expr.c,v 1.3 2004/02/24 16:47:25 thiagocorrea Exp $
+** $Id: expr.c,v 1.4 2004/03/19 16:36:19 thiagocorrea Exp $
 */
 #include "sqliteInt.h"
 #include <ctype.h>
@@ -148,16 +148,16 @@ void sqliteTokenCopy(Token *pTo, Token *pFrom){
 }
 ExprList *sqliteExprListDup(ExprList *p){
   ExprList *pNew;
+  struct ExprList_item *pItem;
   int i;
   if( p==0 ) return 0;
   pNew = sqliteMalloc( sizeof(*pNew) );
   if( pNew==0 ) return 0;
   pNew->nExpr = pNew->nAlloc = p->nExpr;
-  pNew->a = sqliteMalloc( p->nExpr*sizeof(p->a[0]) );
-  if( pNew->a==0 ) return 0;
-  for(i=0; i<p->nExpr; i++){
+  pNew->a = pItem = sqliteMalloc( p->nExpr*sizeof(p->a[0]) );
+  for(i=0; pItem && i<p->nExpr; i++, pItem++){
     Expr *pNewExpr, *pOldExpr;
-    pNew->a[i].pExpr = pNewExpr = sqliteExprDup(pOldExpr = p->a[i].pExpr);
+    pItem->pExpr = pNewExpr = sqliteExprDup(pOldExpr = p->a[i].pExpr);
     if( pOldExpr->span.z!=0 && pNewExpr ){
       /* Always make a copy of the span for top-level expressions in the
       ** expression list.  The logic in SELECT processing that determines
@@ -166,10 +166,10 @@ ExprList *sqliteExprListDup(ExprList *p){
     }
     assert( pNewExpr==0 || pNewExpr->span.z!=0 
             || pOldExpr->span.z==0 || sqlite_malloc_failed );
-    pNew->a[i].zName = sqliteStrDup(p->a[i].zName);
-    pNew->a[i].sortOrder = p->a[i].sortOrder;
-    pNew->a[i].isAgg = p->a[i].isAgg;
-    pNew->a[i].done = 0;
+    pItem->zName = sqliteStrDup(p->a[i].zName);
+    pItem->sortOrder = p->a[i].sortOrder;
+    pItem->isAgg = p->a[i].isAgg;
+    pItem->done = 0;
   }
   return pNew;
 }
@@ -415,7 +415,7 @@ static int lookupName(
   int i, j;            /* Loop counters */
   int cnt = 0;         /* Number of matching column names */
   int cntTab = 0;      /* Number of matching table names */
-  sqlite *db;          /* The database */
+  sqlite *db = pParse->db;  /* The database */
 
   assert( pColumnToken && pColumnToken->z ); /* The Z in X.Y.Z cannot be NULL */
   if( pDbToken && pDbToken->z ){
@@ -717,9 +717,10 @@ int sqliteExprResolveIds(
             case TK_FLOAT:
             case TK_INTEGER:
             case TK_STRING: {
-              int addr = sqliteVdbeAddOp(v, OP_SetInsert, iSet, 0);
+              int addr;
               assert( pE2->token.z );
-              sqliteVdbeChangeP3(v, addr, pE2->token.z, pE2->token.n);
+              addr = sqliteVdbeOp3(v, OP_SetInsert, iSet, 0,
+                                  pE2->token.z, pE2->token.n);
               sqliteVdbeDequoteP3(v, addr);
               break;
             }
@@ -822,7 +823,6 @@ int sqliteExprCheck(Parse *pParse, Expr *pExpr, int allowAgg, int *pIsAgg){
     case TK_FUNCTION: {
       int n = pExpr->pList ? pExpr->pList->nExpr : 0;  /* Number of arguments */
       int no_such_func = 0;       /* True if no such function exists */
-      int is_type_of = 0;         /* True if is the special TypeOf() function */
       int wrong_num_args = 0;     /* True if wrong number of arguments */
       int is_agg = 0;             /* True if is an aggregate function */
       int i;
@@ -835,11 +835,7 @@ int sqliteExprCheck(Parse *pParse, Expr *pExpr, int allowAgg, int *pIsAgg){
       if( pDef==0 ){
         pDef = sqliteFindFunction(pParse->db, zId, nId, -1, 0);
         if( pDef==0 ){
-          if( n==1 && nId==6 && sqliteStrNICmp(zId, "typeof", 6)==0 ){
-            is_type_of = 1;
-          }else {
-            no_such_func = 1;
-          }
+          no_such_func = 1;
         }else{
           wrong_num_args = 1;
         }
@@ -847,38 +843,27 @@ int sqliteExprCheck(Parse *pParse, Expr *pExpr, int allowAgg, int *pIsAgg){
         is_agg = pDef->xFunc==0;
       }
       if( is_agg && !allowAgg ){
-        sqliteSetNString(&pParse->zErrMsg, "misuse of aggregate function ", -1,
-           zId, nId, "()", 2, 0);
-        pParse->nErr++;
+        sqliteErrorMsg(pParse, "misuse of aggregate function %.*s()", nId, zId);
         nErr++;
         is_agg = 0;
       }else if( no_such_func ){
-        sqliteSetNString(&pParse->zErrMsg, "no such function: ", -1, zId,nId,0);
-        pParse->nErr++;
+        sqliteErrorMsg(pParse, "no such function: %.*s", nId, zId);
         nErr++;
       }else if( wrong_num_args ){
-        sqliteSetNString(&pParse->zErrMsg, 
-           "wrong number of arguments to function ", -1, zId, nId, "()", 2, 0);
-        pParse->nErr++;
+        sqliteErrorMsg(pParse,"wrong number of arguments to function %.*s()",
+             nId, zId);
         nErr++;
       }
-      if( is_agg ) pExpr->op = TK_AGG_FUNCTION;
-      if( is_agg && pIsAgg ) *pIsAgg = 1;
+      if( is_agg ){
+        pExpr->op = TK_AGG_FUNCTION;
+        if( pIsAgg ) *pIsAgg = 1;
+      }
       for(i=0; nErr==0 && i<n; i++){
         nErr = sqliteExprCheck(pParse, pExpr->pList->a[i].pExpr,
                                allowAgg && !is_agg, pIsAgg);
       }
       if( pDef==0 ){
-        if( is_type_of ){
-          pExpr->op = TK_STRING;
-          if( sqliteExprType(pExpr->pList->a[0].pExpr)==SQLITE_SO_NUM ){
-            pExpr->token.z = "numeric";
-            pExpr->token.n = 7;
-          }else{
-            pExpr->token.z = "text";
-            pExpr->token.n = 4;
-          }
-        }
+        /* Already reported an error */
       }else if( pDef->dataType>=0 ){
         if( pDef->dataType<n ){
           pExpr->dataType = 
@@ -1156,7 +1141,6 @@ void sqliteExprCode(Parse *pParse, Expr *pExpr){
     case TK_GLOB:
     case TK_LIKE:
     case TK_FUNCTION: {
-      int i;
       ExprList *pList = pExpr->pList;
       int nExpr = pList ? pList->nExpr : 0;
       FuncDef *pDef;
@@ -1165,11 +1149,8 @@ void sqliteExprCode(Parse *pParse, Expr *pExpr){
       getFunctionName(pExpr, &zId, &nId);
       pDef = sqliteFindFunction(pParse->db, zId, nId, nExpr, 0);
       assert( pDef!=0 );
-      for(i=0; i<nExpr; i++){
-        sqliteExprCode(pParse, pList->a[i].pExpr);
-      }
-      sqliteVdbeAddOp(v, OP_Function, nExpr, 0);
-      sqliteVdbeChangeP3(v, -1, (char*)pDef, P3_POINTER);
+      nExpr = sqliteExprCodeExprList(pParse, pList, pDef->includeTypes);
+      sqliteVdbeOp3(v, OP_Function, nExpr, 0, (char*)pDef, P3_POINTER);
       break;
     }
     case TK_SELECT: {
@@ -1259,19 +1240,47 @@ void sqliteExprCode(Parse *pParse, Expr *pExpr){
       if( pExpr->iColumn == OE_Rollback ||
 	  pExpr->iColumn == OE_Abort ||
 	  pExpr->iColumn == OE_Fail ){
-	  char * msg = sqliteStrNDup(pExpr->token.z, pExpr->token.n);
-	  sqliteVdbeAddOp(v, OP_Halt, SQLITE_CONSTRAINT, pExpr->iColumn);
-	  sqliteDequote(msg);
-	  sqliteVdbeChangeP3(v, -1, msg, 0);
-	  sqliteFree(msg);
+	  sqliteVdbeOp3(v, OP_Halt, SQLITE_CONSTRAINT, pExpr->iColumn,
+                           pExpr->token.z, pExpr->token.n);
+	  sqliteVdbeDequoteP3(v, -1);
       } else {
 	  assert( pExpr->iColumn == OE_Ignore );
-	  sqliteVdbeAddOp(v, OP_Goto, 0, pParse->trigStack->ignoreJump);
-	  sqliteVdbeChangeP3(v, -1, "(IGNORE jump)", 0);
+	  sqliteVdbeOp3(v, OP_Goto, 0, pParse->trigStack->ignoreJump,
+                           "(IGNORE jump)", 0);
       }
     }
     break;
   }
+}
+
+/*
+** Generate code that pushes the value of every element of the given
+** expression list onto the stack.  If the includeTypes flag is true,
+** then also push a string that is the datatype of each element onto
+** the stack after the value.
+**
+** Return the number of elements pushed onto the stack.
+*/
+int sqliteExprCodeExprList(
+  Parse *pParse,     /* Parsing context */
+  ExprList *pList,   /* The expression list to be coded */
+  int includeTypes   /* TRUE to put datatypes on the stack too */
+){
+  struct ExprList_item *pItem;
+  int i, n;
+  Vdbe *v;
+  if( pList==0 ) return 0;
+  v = sqliteGetVdbe(pParse);
+  n = pList->nExpr;
+  for(pItem=pList->a, i=0; i<n; i++, pItem++){
+    sqliteExprCode(pParse, pItem->pExpr);
+    if( includeTypes ){
+      sqliteVdbeOp3(v, OP_String, 0, 0, 
+         sqliteExprType(pItem->pExpr)==SQLITE_SO_NUM ? "numeric" : "text",
+         P3_STATIC);
+    }
+  }
+  return includeTypes ? n*2 : n;
 }
 
 /*

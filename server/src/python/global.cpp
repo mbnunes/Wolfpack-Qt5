@@ -415,12 +415,13 @@ static PyObject* wpFinditem( PyObject* self, PyObject* args )
 /*!
 	Returns a list of guilds.
 */
-static PyObject *wpGuilds(PyObject *self, PyObject *args) {
+static PyObject *wpGuilds(PyObject *self, PyObject *args)
+{
+	Q_UNUSED(args);
 	PyObject *list = PyList_New(0);
 
-	for (cGuilds::iterator it = Guilds::instance()->begin(); it != Guilds::instance()->end(); ++it) {
+	for (cGuilds::iterator it = Guilds::instance()->begin(); it != Guilds::instance()->end(); ++it)
 		PyList_Append(list, it.data()->getPyObject());
-	}
 
 	return list;
 }
@@ -1133,7 +1134,9 @@ static PyObject* wpNewNpc( PyObject *self, PyObject *args )
 	return PyGetCharObject( pNpc );
 }
 
-static PyObject *wpNewguild(PyObject *self, PyObject *args) {
+static PyObject *wpNewguild(PyObject *self, PyObject *args) 
+{
+	Q_UNUSED(args);
 	cGuild *guild = new cGuild(true);
 	Guilds::instance()->registerGuild(guild);
 	return guild->getPyObject();
@@ -1261,12 +1264,13 @@ static PyObject *wpGetDefinitions(PyObject *self, PyObject *args) {
 
 	PyObject *result = PyTuple_New(elements.size() + sections.size());
 	
-	int i = 0;
+	uint i = 0;
 	for (; i < elements.size(); ++i) {
 		PyTuple_SetItem(result, i, elements[i]->getPyObject());
 	}
 
-	for (int j = 0; j < sections.size(); ++j) {
+	for ( uint j = 0; j < sections.size(); ++j ) 
+	{
 		cElement *element = const_cast<cElement*>(DefManager->getDefinition((eDefCategory)type, sections[j]));
 		PyTuple_SetItem(result, i++, element->getPyObject());
 	}
@@ -1757,28 +1761,32 @@ static PyObject *wpExecute(PyObject *self, PyObject *args) {
 	return PyTrue;
 }
 
-static PyObject *wpDriver(PyObject *self, PyObject *args) {
+static PyObject *wpDriver(PyObject *self, PyObject *args) 
+{
+	Q_UNUSED(args);
 	unsigned int database;
 
-	if (!PyArg_ParseTuple(args, "I:wolfpack.database.driver(database)", &database)) {
+	if (!PyArg_ParseTuple(args, "I:wolfpack.database.driver(database)", &database))
 		return 0;
-	}
 
 	QString driver = "unknown";
 
-	if (database == 1) {
+	if (database == 1)
 		driver = SrvParams->accountsDriver();
-	} else if (database == 2) {
+	else if (database == 2) 
 		driver = SrvParams->databaseDriver();
-	}
 
 	return PyString_FromString(driver.latin1());
 }
 
-static PyObject *wpClose(PyObject *self, PyObject *args) {
-	try {
+static PyObject *wpClose(PyObject *self, PyObject *args) 
+{
+	try 
+	{
 		persistentBroker->disconnect();
-	} catch (...) {
+	}
+	catch (...) 
+	{
 		PyErr_SetString(PyExc_RuntimeError, "Error while disconnecting from the database.");
 		return 0;
 	}

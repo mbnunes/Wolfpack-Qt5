@@ -12,7 +12,7 @@
 ** This header file defines the interface that the SQLite library
 ** presents to client programs.
 **
-** @(#) $Id: sqlite.h,v 1.3 2004/02/24 16:47:25 thiagocorrea Exp $
+** @(#) $Id: sqlite.h,v 1.4 2004/03/19 16:36:19 thiagocorrea Exp $
 */
 #ifndef _SQLITE_H_
 #define _SQLITE_H_
@@ -28,7 +28,7 @@ extern "C" {
 /*
 ** The version of the SQLite library.
 */
-#define SQLITE_VERSION         "2.8.12"
+#define SQLITE_VERSION         "2.8.13"
 
 /*
 ** The version string is also compiled into the library so that a program
@@ -167,6 +167,7 @@ int sqlite_exec(
 #define SQLITE_AUTH        23   /* Authorization denied */
 #define SQLITE_FORMAT      24   /* Auxiliary database format error */
 #define SQLITE_RANGE       25   /* 2nd parameter to sqlite_bind out of range */
+#define SQLITE_NOTADB      26   /* File opened that is not a database file */
 #define SQLITE_ROW         100  /* sqlite_step() has another row ready */
 #define SQLITE_DONE        101  /* sqlite_step() has finished executing */
 
@@ -202,6 +203,32 @@ int sqlite_last_insert_rowid(sqlite*);
 ** "DELETE FROM table WHERE 1" instead.
 */
 int sqlite_changes(sqlite*);
+
+/*
+** This function returns the number of database rows that were changed
+** by the last INSERT, UPDATE, or DELETE statment executed by sqlite_exec(),
+** or by the last VM to run to completion. The change count is not updated
+** by SQL statements other than INSERT, UPDATE or DELETE.
+**
+** Changes are counted, even if they are later undone by a ROLLBACK or
+** ABORT. Changes associated with trigger programs that execute as a
+** result of the INSERT, UPDATE, or DELETE statement are not counted.
+**
+** If a callback invokes sqlite_exec() recursively, then the changes
+** in the inner, recursive call are counted together with the changes
+** in the outer call.
+**
+** SQLite implements the command "DELETE FROM table" without a WHERE clause
+** by dropping and recreating the table.  (This is much faster than going
+** through and deleting individual elements form the table.)  Because of
+** this optimization, the change count for "DELETE FROM table" will be
+** zero regardless of the number of elements that were originally in the
+** table. To get an accurate count of the number of rows deleted, use
+** "DELETE FROM table WHERE 1" instead.
+**
+******* THIS IS AN EXPERIMENTAL API AND IS SUBJECT TO CHANGE ******
+*/
+int sqlite_last_statement_changes(sqlite*);
 
 /* If the parameter to this routine is one of the return value constants
 ** defined above, then this routine returns a constant text string which
@@ -439,13 +466,12 @@ int sqlite_create_aggregate(
 ** Use the following routine to define the datatype returned by a
 ** user-defined function.  The second argument can be one of the
 ** constants SQLITE_NUMERIC, SQLITE_TEXT, or SQLITE_ARGS or it
-** can be an integer greater than or equal to zero.  The datatype
-** will be numeric or text (the only two types supported) if the
-** argument is SQLITE_NUMERIC or SQLITE_TEXT.  If the argument is
-** SQLITE_ARGS, then the datatype is numeric if any argument to the
-** function is numeric and is text otherwise.  If the second argument
-** is an integer, then the datatype of the result is the same as the
-** parameter to the function that corresponds to that integer.
+** can be an integer greater than or equal to zero.  When the datatype
+** parameter is non-negative, the type of the result will be the
+** same as the datatype-th argument.  If datatype==SQLITE_NUMERIC
+** then the result is always numeric.  If datatype==SQLITE_TEXT then
+** the result is always text.  If datatype==SQLITE_ARGS then the result
+** is numeric if any argument is numeric and is text otherwise.
 */
 int sqlite_function_type(
   sqlite *db,               /* The database there the function is registered */
@@ -784,6 +810,7 @@ sqlite *sqlite_open_encrypted(
   const char *zFilename,   /* Name of the encrypted database */
   const void *pKey,        /* Pointer to the key */
   int nKey,                /* Number of bytes in the key */
+  int *pErrcode,           /* Write error code here */
   char **pzErrmsg          /* Write error message here */
 );
 

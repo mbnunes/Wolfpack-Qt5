@@ -43,7 +43,7 @@
 ** in this file for details.  If in doubt, do not deviate from existing
 ** commenting and indentation practices when changing or adding code.
 **
-** $Id: vdbe.c,v 1.3 2004/02/24 16:47:25 thiagocorrea Exp $
+** $Id: vdbe.c,v 1.4 2004/03/19 16:36:20 thiagocorrea Exp $
 */
 #include "sqliteInt.h"
 #include "os.h"
@@ -119,6 +119,7 @@ int sqlite_step(
   }
   db = p->db;
   if( sqliteSafetyOn(db) ){
+    p->rc = SQLITE_MISUSE;
     return SQLITE_MISUSE;
   }
   if( p->explain ){
@@ -334,7 +335,7 @@ static void hardIntegerify(Mem *pStack){
 #define Realify(P) if(((P)->flags&MEM_Real)==0){ hardRealify(P); }
 static void hardRealify(Mem *pStack){
   if( pStack->flags & MEM_Str ){
-    pStack->r = sqliteAtoF(pStack->z);
+    pStack->r = sqliteAtoF(pStack->z, 0);
   }else if( pStack->flags & MEM_Int ){
     pStack->r = pStack->i;
   }else{
@@ -509,6 +510,7 @@ int sqliteVdbeExec(
     popStack(&pTos, p->popStack);
     p->popStack = 0;
   }
+  CHECK_FOR_INTERRUPT;
   for(pc=p->pc; rc==SQLITE_OK; pc++){
     assert( pc>=0 && pc<p->nOp );
     assert( pTos<=&p->aStack[pc] );
@@ -835,15 +837,21 @@ case OP_Push: {
 }
 
 
-/* Opcode: ColumnName P1 * P3
+/* Opcode: ColumnName P1 P2 P3
 **
 ** P3 becomes the P1-th column name (first is 0).  An array of pointers
 ** to all column names is passed as the 4th parameter to the callback.
+** If P2==1 then this is the last column in the result set and thus the
+** number of columns in the result set will be P1.  There must be at least
+** one OP_ColumnName with a P2==1 before invoking OP_Callback and the
+** number of columns specified in OP_Callback must one more than the P1
+** value of the OP_ColumnName that has P2==1.
 */
 case OP_ColumnName: {
   assert( pOp->p1>=0 && pOp->p1<p->nOp );
   p->azColName[pOp->p1] = pOp->p3;
   p->nCallback = 0;
+  if( pOp->p2 ) p->nResColumn = pOp->p1+1;
   break;
 }
 
@@ -869,54 +877,13 @@ case OP_Callback: {
     }
   }
   azArgv[i] = 0;
-  if( p->xCallback==0 ){
-    p->azResColumn = azArgv;
-    p->nResColumn = pOp->p1;
-    p->popStack = pOp->p1;
-    p->pc = pc + 1;
-    p->pTos = pTos;
-    return SQLITE_ROW;
-  }
-  if( sqliteSafetyOff(db) ) goto abort_due_to_misuse; 
-  if( p->xCallback(p->pCbArg, pOp->p1, azArgv, p->azColName)!=0 ){
-    rc = SQLITE_ABORT;
-  }
-  if( sqliteSafetyOn(db) ) goto abort_due_to_misuse;
   p->nCallback++;
-  popStack(&pTos, pOp->p1);
-  assert( pTos>=&p->aStack[-1] );
-  if( sqlite_malloc_failed ) goto no_mem;
-  break;
-}
-
-/* Opcode: NullCallback P1 * *
-**
-** Invoke the callback function once with the 2nd argument (the
-** number of columns) equal to P1 and with the 4th argument (the
-** names of the columns) set according to prior OP_ColumnName
-** instructions.  This is all like the regular
-** OP_Callback or OP_SortCallback opcodes.  But the 3rd argument
-** which normally contains a pointer to an array of pointers to
-** data is NULL.
-**
-** The callback is only invoked if there have been no prior calls
-** to OP_Callback or OP_SortCallback.
-**
-** This opcode is used to report the number and names of columns
-** in cases where the result set is empty.
-*/
-case OP_NullCallback: {
-  if( p->nCallback==0 && p->xCallback!=0 ){
-    if( sqliteSafetyOff(db) ) goto abort_due_to_misuse; 
-    if( p->xCallback(p->pCbArg, pOp->p1, 0, p->azColName)!=0 ){
-      rc = SQLITE_ABORT;
-    }
-    if( sqliteSafetyOn(db) ) goto abort_due_to_misuse;
-    p->nCallback++;
-    if( sqlite_malloc_failed ) goto no_mem;
-  }
-  p->nResColumn = pOp->p1;
-  break;
+  p->azResColumn = azArgv;
+  assert( p->nResColumn==pOp->p1 );
+  p->popStack = pOp->p1;
+  p->pc = pc + 1;
+  p->pTos = pTos;
+  return SQLITE_ROW;
 }
 
 /* Opcode: Concat P1 P2 P3
@@ -1212,8 +1179,9 @@ case OP_ShiftRight: {
   assert( (pTos->flags & MEM_Dyn)==0 );
   assert( (pNos->flags & MEM_Dyn)==0 );
   pTos--;
+  Release(pTos);
   pTos->i = a;
-  assert( pTos->flags==MEM_Int );
+  pTos->flags = MEM_Int;
   break;
 }
 
@@ -1733,8 +1701,9 @@ case OP_Not: {
   assert( pTos>=p->aStack );
   if( pTos->flags & MEM_Null ) break;  /* Do nothing to NULLs */
   Integerify(pTos);
-  assert( pTos->flags==MEM_Int );
+  Release(pTos);
   pTos->i = !pTos->i;
+  pTos->flags = MEM_Int;
   break;
 }
 
@@ -1748,8 +1717,9 @@ case OP_BitNot: {
   assert( pTos>=p->aStack );
   if( pTos->flags & MEM_Null ) break;  /* Do nothing to NULLs */
   Integerify(pTos);
-  assert( pTos->flags==MEM_Int );
+  Release(pTos);
   pTos->i = ~pTos->i;
+  pTos->flags = MEM_Int;
   break;
 }
 
@@ -2072,7 +2042,7 @@ case OP_MakeKey: {
       if( (flags & (MEM_Real|MEM_Int))==MEM_Int ){
         pRec->r = pRec->i;
       }else if( (flags & (MEM_Real|MEM_Int))==0 ){
-        pRec->r = sqliteAtoF(pRec->z);
+        pRec->r = sqliteAtoF(pRec->z, 0);
       }
       Release(pRec);
       z = pRec->zShort;
@@ -2332,7 +2302,7 @@ case OP_SetCookie: {
     aMeta[1+pOp->p2] = pTos->i;
     rc = sqliteBtreeUpdateMeta(db->aDb[pOp->p1].pBt, aMeta);
   }
-  assert( pTos->flags==MEM_Int );
+  Release(pTos);
   pTos--;
   break;
 }
@@ -2893,10 +2863,12 @@ case OP_NewRecno: {
       cnt = 0;
       do{
         if( v==0 || cnt>2 ){
-          v = sqliteRandomInteger();
+          sqliteRandomness(sizeof(v), &v);
           if( cnt<5 ) v &= 0xffffff;
         }else{
-          v += sqliteRandomByte() + 1;
+          unsigned char r;
+          sqliteRandomness(1, &r);
+          v += r + 1;
         }
         if( v==0 ) continue;
         x = intToKey(v);
@@ -2926,9 +2898,12 @@ case OP_NewRecno: {
 ** stack.  The key is the next value down on the stack.  The key must
 ** be an integer.  The stack is popped twice by this instruction.
 **
-** If P2==1 then the row change count is incremented.  If P2==0 the
-** row change count is unmodified.  The rowid is stored for subsequent
-** return by the sqlite_last_insert_rowid() function if P2 is 1.
+** If the OPFLAG_NCHANGE flag of P2 is set, then the row change count is
+** incremented (otherwise not).  If the OPFLAG_CSCHANGE flag is set,
+** then the current statement change count is incremented (otherwise not).
+** If the OPFLAG_LASTROWID flag of P2 is set, then rowid is
+** stored for subsequent return by the sqlite_last_insert_rowid() function
+** (otherwise it's unmodified).
 */
 /* Opcode: PutStrKey P1 * *
 **
@@ -2959,13 +2934,18 @@ case OP_PutStrKey: {
       nKey = sizeof(int);
       iKey = intToKey(pNos->i);
       zKey = (char*)&iKey;
-      if( pOp->p2 ){
-        db->nChange++;
-        db->lastRowid = pNos->i;
-      }
+      if( pOp->p2 & OPFLAG_NCHANGE ) db->nChange++;
+      if( pOp->p2 & OPFLAG_LASTROWID ) db->lastRowid = pNos->i;
+      if( pOp->p2 & OPFLAG_CSCHANGE ) db->csChange++;
       if( pC->nextRowidValid && pTos->i>=pC->nextRowid ){
         pC->nextRowidValid = 0;
       }
+    }
+    if( pTos->flags & MEM_Null ){
+      pTos->z = 0;
+      pTos->n = 0;
+    }else{
+      assert( pTos->flags & MEM_Str );
     }
     if( pC->pseudoTable ){
       /* PutStrKey does not work for pseudo-tables.
@@ -3005,8 +2985,9 @@ case OP_PutStrKey: {
 ** the next Next instruction will be a no-op.  Hence it is OK to delete
 ** a record from within an Next loop.
 **
-** The row change counter is incremented if P2==1 and is unmodified
-** if P2==0.
+** If the OPFLAG_NCHANGE flag of P2 is set, then the row change count is
+** incremented (otherwise not).  If OPFLAG_CSCHANGE flag is set,
+** then the current statement change count is incremented (otherwise not).
 **
 ** If P1 is a pseudo-table, then this instruction is a no-op.
 */
@@ -3020,7 +3001,19 @@ case OP_Delete: {
     rc = sqliteBtreeDelete(pC->pCursor);
     pC->nextRowidValid = 0;
   }
-  if( pOp->p2 ) db->nChange++;
+  if( pOp->p2 & OPFLAG_NCHANGE ) db->nChange++;
+  if( pOp->p2 & OPFLAG_CSCHANGE ) db->csChange++;
+  break;
+}
+
+/* Opcode: SetCounts * * *
+**
+** Called at end of statement.  Updates lsChange (last statement change count)
+** and resets csChange (current statement change count) to 0.
+*/
+case OP_SetCounts: {
+  db->lsChange=db->csChange;
+  db->csChange=0;
   break;
 }
 
@@ -3777,18 +3770,28 @@ case OP_ListWrite: {
   }
   Integerify(pTos);
   pKeylist->aKey[pKeylist->nUsed++] = pTos->i;
-  assert( pTos->flags==MEM_Int );
+  Release(pTos);
   pTos--;
   break;
 }
 
 /* Opcode: ListRewind * * *
 **
-** Rewind the temporary buffer back to the beginning.  This is 
-** now a no-op.
+** Rewind the temporary buffer back to the beginning.
 */
 case OP_ListRewind: {
-  /* This is now a no-op */
+  /* What this opcode codes, really, is reverse the order of the
+  ** linked list of Keylist structures so that they are read out
+  ** in the same order that they were read in. */
+  Keylist *pRev, *pTop;
+  pRev = 0;
+  while( p->pList ){
+    pTop = p->pList;
+    p->pList = pTop->pNext;
+    pTop->pNext = pRev;
+    pRev = pTop;
+  }
+  p->pList = pRev;
   break;
 }
 
@@ -3861,6 +3864,43 @@ case OP_ListPop: {
   if( p->keylistStackDepth == 0 ){
     sqliteFree(p->keylistStack);
     p->keylistStack = 0;
+  }
+  break;
+}
+
+/* Opcode: ContextPush * * * 
+**
+** Save the current Vdbe context such that it can be restored by a ContextPop
+** opcode. The context stores the last insert row id, the last statement change
+** count, and the current statement change count.
+*/
+case OP_ContextPush: {
+  p->contextStackDepth++;
+  assert(p->contextStackDepth > 0);
+  p->contextStack = sqliteRealloc(p->contextStack, 
+          sizeof(Context) * p->contextStackDepth);
+  if( p->contextStack==0 ) goto no_mem;
+  p->contextStack[p->contextStackDepth - 1].lastRowid = p->db->lastRowid;
+  p->contextStack[p->contextStackDepth - 1].lsChange = p->db->lsChange;
+  p->contextStack[p->contextStackDepth - 1].csChange = p->db->csChange;
+  break;
+}
+
+/* Opcode: ContextPop * * * 
+**
+** Restore the Vdbe context to the state it was in when contextPush was last
+** executed. The context stores the last insert row id, the last statement
+** change count, and the current statement change count.
+*/
+case OP_ContextPop: {
+  assert(p->contextStackDepth > 0);
+  p->contextStackDepth--;
+  p->db->lastRowid = p->contextStack[p->contextStackDepth].lastRowid;
+  p->db->lsChange = p->contextStack[p->contextStackDepth].lsChange;
+  p->db->csChange = p->contextStack[p->contextStackDepth].csChange;
+  if( p->contextStackDepth == 0 ){
+    sqliteFree(p->contextStack);
+    p->contextStack = 0;
   }
   break;
 }
@@ -4065,25 +4105,13 @@ case OP_SortNext: {
 case OP_SortCallback: {
   assert( pTos>=p->aStack );
   assert( pTos->flags & MEM_Str );
-  if( p->xCallback==0 ){
-    p->pc = pc+1;
-    p->azResColumn = (char**)pTos->z;
-    p->nResColumn = pOp->p1;
-    p->popStack = 1;
-    p->pTos = pTos;
-    return SQLITE_ROW;
-  }else{
-    if( sqliteSafetyOff(db) ) goto abort_due_to_misuse;
-    if( p->xCallback(p->pCbArg, pOp->p1, (char**)pTos->z, p->azColName)!=0){
-      rc = SQLITE_ABORT;
-    }
-    if( sqliteSafetyOn(db) ) goto abort_due_to_misuse;
-    p->nCallback++;
-  }
-  Release(pTos);
-  pTos--;
-  if( sqlite_malloc_failed ) goto no_mem;
-  break;
+  p->nCallback++;
+  p->pc = pc+1;
+  p->azResColumn = (char**)pTos->z;
+  assert( p->nResColumn==pOp->p1 );
+  p->popStack = 1;
+  p->pTos = pTos;
+  return SQLITE_ROW;
 }
 
 /* Opcode: SortReset * * *
@@ -4836,6 +4864,7 @@ abort_due_to_misuse:
   */
 abort_due_to_error:
   if( p->zErrMsg==0 ){
+    if( sqlite_malloc_failed ) rc = SQLITE_NOMEM;
     sqliteSetString(&p->zErrMsg, sqlite_error_string(rc), (char*)0);
   }
   goto vdbe_halt;

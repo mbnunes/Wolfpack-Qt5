@@ -127,7 +127,7 @@ void cMulti::save()
 	}
 
 	// Friends + Bans
-	INT32 i;
+	uint i;
 	for ( i = 0; i < bans_.size(); ++i )
 		persistentBroker->executeQuery( QString( "REPLACE INTO multis_bans VALUES(%1,%2)" ).arg( serial() ).arg( bans_[i] ) );
 
