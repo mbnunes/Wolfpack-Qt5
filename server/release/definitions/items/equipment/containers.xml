@@ -199,20 +199,24 @@
 	<item id="e7f">
 		<id>0x0e7f</id>
 		<category>Equipment\Containers\Keg</category>
+		<type>1</type>
 	</item>
 
 	<item id="e83">
 		<id>0x0e83</id>
 		<category>Equipment\Containers\Empty Tub</category>
+		<type>1</type>
 	</item>
 
 	<item id="fae">
 		<id>0x0fae</id>
 		<category>Equipment\Containers\Barrel 2</category>
+		<type>1</type>
 	</item>
 
 	<item id="154d">
 		<id>0x154d</id>
 		<category>Equipment\Containers\Barrel 3</category>
+		<type>1</type>
 	</item>
 </definitions>

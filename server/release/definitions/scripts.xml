@@ -30,6 +30,7 @@
 
 	<!-- System Scripts -->
 	<script id="webadmin"		type="python" module="webadmin" />
+	<script id="commands"		type="python" module="commands" />
 
 	<!-- Load *LAST* thats important -->
 	<script id="errorhandler"	type="python" module="errorhandler" />
