@@ -71,17 +71,10 @@
 		<item>121</item>
 	</list>
 
-	<!-- Balron IDs -->
-	<list id="NPCIDS_BALRON">
-		<item>38</item>
-		<item>40</item>
-	</list>
-
 	<!-- Daemon IDs -->
 	<list id="NPCIDS_DAEMON">
 		<item>9</item>
 		<item>10</item>
-		<item>102</item>
 	</list>
 
 	<!-- Dragon IDs -->
@@ -120,6 +113,25 @@
 		<item>42</item>
 		<item>44</item>
 		<item>45</item>
+	</list>
+
+	<!-- Hell Hound IDs -->
+	<list id="NPCIDS_HELLHOUND">
+		<item>97</item>
+		<item>98</item>
+	</list>
+
+	<!-- Ettin IDs -->
+	<list id="NPCIDS_ETTIN">
+		<item>2</item>
+		<item>18</item>
+	</list>
+
+	<!-- Troll IDs -->
+	<list id="NPCIDS_TROLL">
+		<item>53</item>
+		<item>54</item>
+		<item>55</item>
 	</list>
 
 </definitions>
