@@ -2187,13 +2187,58 @@ void cAllItems::applyItemSection( P_ITEM Item, const QString &Section )
 
 void cAllItems::processItemContainerNode( P_ITEM contItem, const QDomElement &Node )
 {
+	//item container can be scripted like this:
+	/*
+	<contains>
+		<item id="item1" />
+		<item id="item2"><amount><random ... /></amount></item>
+		...
+	</contains>
+	*/
 	for( UI16 j = 0; j < Node.childNodes().count(); j++ )
-		if( Node.childNodes().item( j ).toElement().nodeName() == "item" && 
-			Node.childNodes().item( j ).toElement().attributes().contains("id") )
+		if( Node.childNodes().item( j ).toElement().nodeName() == "item" )
 		{
-			QString ItemID = Node.childNodes().item( j ).toElement().attributeNode("id").nodeValue();
-			P_ITEM nItem = this->createScriptItem( ItemID );
-			nItem->setContSerial( contItem->serial );
+			P_ITEM nItem;
+			if(	Node.childNodes().item( j ).toElement().attributes().contains("id") )
+			{
+				QString ItemID = Node.childNodes().item( j ).toElement().attributeNode("id").nodeValue();
+				nItem = this->createScriptItem( ItemID );
+				if( nItem == NULL )
+					continue;
+				nItem->setContSerial( contItem->serial );
+			}
+			if( Node.childNodes().item( j ).toElement().hasChildNodes() )
+			{
+				for( UI16 k = 0; k < Node.childNodes().item( j ).toElement().childNodes().count(); k++ )
+				{
+					QDomElement currChild = Node.childNodes().item( j ).toElement().childNodes().item( k ).toElement();
+					if( currChild.nodeName() == "amount" )
+					{
+						QString Value = QString();
+						UI16 i = 0;
+						if( currChild.hasChildNodes() ) // <random> i.e.
+							for( i = 0; i < currChild.childNodes().count(); i++ )
+							{
+								if( currChild.childNodes().item( i ).isText() )
+									Value += currChild.childNodes().item( i ).toText().data();
+								else if( currChild.childNodes().item( i ).isElement() )
+									Value += processNode( currChild.childNodes().item( i ).toElement() );
+							}
+						else
+							Value = currChild.nodeValue();
+
+						if( Value.toInt() < 1 )
+							Value = QString("1");
+
+						if( nItem->pileable() )
+							nItem->setAmount( Value.toInt() );
+						else
+							for( i = 1; i < Value.toInt(); i++ ) //dupe it n-1 times
+								Commands->DupeItem(-1, nItem, 1);
+					}
+					
+				}
+			}
 		}
 }
 

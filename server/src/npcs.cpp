@@ -732,12 +732,12 @@ void cCharStuff::applyNpcSection( P_CHAR Char, const QString &Section )
 			Char->setTrigger( Value.toInt() );
 
 		//<trigword>abc</trigword>
-		else if( TagName = "trigword" )
+		else if( TagName == "trigword" )
 			Char->setTrigword( Value );
 
 		//<skill type="alchemy">100</skill>
 		//<skill type="1">100</skill>
-		else if( TagName = "skill" && Tag.attributes().contains("type") )
+		else if( TagName == "skill" && Tag.attributes().contains("type") )
 		{
 			if( Tag.attributeNode("type").nodeValue().toInt() > 0 &&
 				Tag.attributeNode("type").nodeValue().toInt() <= ALLSKILLS )
@@ -746,6 +746,33 @@ void cCharStuff::applyNpcSection( P_CHAR Char, const QString &Section )
 				for( j = 0; j < ALLSKILLS; j++ )
 					if( Tag.attributeNode("type").nodeValue() == QString(skillname[j]) )
 						Char->baseskill[j] = Value.toInt();
+		}
+
+		//<equipped>
+		//	<item id="a" />
+		//	<item id="b" />
+		//	...
+		//</epuipped>
+		else if( TagName == "equipped" && Tag.hasChildNodes() )
+		{
+			for( j = 0; j < Tag.childNodes().count(); j++ )
+			{
+				QDomElement currChild = Tag.childNodes().item( j ).toElement();
+				if( currChild.nodeName() == "item" && currChild.attributes().contains("id") )
+				{
+					P_ITEM nItem = Items->createScriptItem( currChild.attributeNode("id").nodeValue() );
+					if( nItem == NULL )
+						continue;
+					else if( nItem->layer() == 0 )
+					{
+						clConsole.send((char*)QString("Warning: Bad NPC Script %1: item to equip has no layer.\n").arg( Section ).latin1());
+						Items->DeleItem( nItem );
+						continue;
+					}
+					else
+						nItem->setContSerial( Char->serial );
+				}
+			}
 		}
 	}
 }

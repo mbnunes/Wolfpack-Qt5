@@ -925,9 +925,15 @@ void cCommands::MakePlace(int s, int i) // Decode a teleport location number int
 void cCommands::DupeItem(int s, P_ITEM pi_target, int amount)
 {
 	P_CHAR pc_currchar = currchar[s];
-	if (pi_target->corpse) 
+	if (pi_target->corpse || pi_target == NULL) 
 		return;
-	P_ITEM pPack = Packitem(pc_currchar);
+
+	P_ITEM pPack = NULL;
+	if( s != -1 && pc_currchar != NULL )
+		pPack = Packitem( pc_currchar );
+	else
+		pPack = FindItemBySerial(pi_target->contserial);
+
 	if(pPack == NULL) 
 		return;//AntiChrist
 
