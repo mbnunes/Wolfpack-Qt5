@@ -41,6 +41,8 @@
 		<tag name="res_poison" value="45,55" type="int" />
 		<!-- Misc. -->
 		<desc>Whatever Fate granted the Imp wings was clearly not gifted with foresight. The Imp is quite capable of causing enough mischief on the ground; being airborne only doubles the threat. Gifted with small magic and a temperament for causing trouble, these annoying beasts prey upon all who cross their path. It is rumored that Imps will steal from the strange (you) and give to the familiar (themselves). *Ware your health and holdings should you cross the path of the Imp.</desc>
+		<!-- Missing: 1-7CS, LNS, Reagents -->
+		<lootpacks>lootpack_meager</lootpacks>
 		<carve>carve_imp</carve>
 		<category>Monsters\Daemonic\Imp</category>
 	</npc>

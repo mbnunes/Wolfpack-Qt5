@@ -39,6 +39,8 @@
 		<tag name="res_physical" value="65,80" type="int" />
 		<tag name="res_poison" value="100" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: 1-7 Scroll, Medium Necro Scroll -->
+		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich</lootpacks>
 		<carve>carve_demon_with_sword</carve>
 		<category>Monsters\Daemonic\Balron</category>
 	</npc>

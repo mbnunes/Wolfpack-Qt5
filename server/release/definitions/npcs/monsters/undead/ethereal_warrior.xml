@@ -10,7 +10,7 @@
 
 	<!-- ethereal warrior -->
 	<npc id="ethereal_warrior" inherit="undead_base">
-		<name>an ethereal warrior</name>
+		<name>ethereal warrior</name>
 		<id>123</id>
 		<karma><random list="KARMA_L4" /></karma>
 		<fame><random list="FAME_L4" /></fame>
@@ -31,6 +31,8 @@
 		<maxdamage>74</maxdamage>
 		<!-- Resists -->
 		<tag name="res_physical" value="80,90" type="int" />
+		<!-- Missing:  -->
+		<lootpacks>lootpack_rich;lootpack_rich;lootpack_rich;gems</lootpacks>
 		<category>Monsters\Undead\Ethereal Warrior</category>
 	</npc>
 

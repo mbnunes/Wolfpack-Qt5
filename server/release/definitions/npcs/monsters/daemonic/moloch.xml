@@ -34,7 +34,7 @@
 		<tag name="res_poison" value="20,30" type="int" />
 		<tag name="res_energy" value="20,30" type="int" />
 		<!-- Loot Packs -->
-		<!--<lootpacks></lootpacks>-->
+		<lootpacks>lootpack_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Daemonic\Moloch</category>
 	</npc>

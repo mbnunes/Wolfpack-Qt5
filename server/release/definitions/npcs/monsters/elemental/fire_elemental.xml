@@ -38,6 +38,8 @@
 		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Misc. -->
 		<desc>Perhaps the most destructive elemental of them all, for its very touch burns with a consuming flame. Fortunately, fire elementals can not long survive in the cool climes of our world, and are therefore seldom found outside of the burning lava pits of great volcanoes.</desc>
+		<!-- Missing: 3 Sulfurous Ash, Level 2 Map -->
+		<lootpacks>lootpack_average;lootpack_average;gems</lootpacks>
 		<category>Monsters\Elementals\Fire Elemental</category>
 	</npc>
 

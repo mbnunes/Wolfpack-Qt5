@@ -33,6 +33,8 @@
 		<tag name="res_physical" value="30,40" type="int" />
 		<tag name="res_poison" value="10,20" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: 25 Shadow Ore, Level 1 Map -->
+		<lootpacks>lootpack_average;gems</lootpacks>
 		<category>Monsters\Elementals\Shadow Iron Elemental</category>
 	</npc>
 

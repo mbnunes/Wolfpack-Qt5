@@ -11,6 +11,7 @@
 	<!-- Semidar -->
 	<npc id="semidar" inherit="monster_base">
 		<name>Semidar</name>
+		<title>the Succubus</title>
 		<id></id>
 		<karma>-25000</karma>
 		<fame>25000</fame>
@@ -40,7 +41,8 @@
 		<tag name="res_poison" value="20,30" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />
 		<!-- Loot Packs -->
-		<!--<lootpacks></lootpacks>-->
+		<!-- Missing: Skull of Pain -->
+		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;gems;lootpack_filthy_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\AoS\</category>
 	</npc>

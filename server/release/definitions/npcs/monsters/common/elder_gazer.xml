@@ -38,6 +38,8 @@
 		<tag name="res_poison" value="40,50" type="int" />
 		<!-- Misc. -->
 		<desc>If the glare of a gazer inspires fear, the countenance of the Elder Gazer is the abandonment of hope. It is rumored that Elder Gazers are feared even by their own kind, as the cruelty of the Elder Gazer is unrivaled. Unlike humans, gazers do not become infirm with age, but rather more avaricious and powerful. Hardened and horrible, Elder Gazers crave only more wealth.</desc>
+		<!-- Missing:  -->
+		<lootpacks>lootpack_filthy_rich;lootpack_rich;gems</lootpacks>
 		<category>Monsters\Common\Elder Gazer</category>
 	</npc>
 

@@ -38,6 +38,8 @@
 		<tag name="res_physical" value="40,50" type="int" />
 		<tag name="res_poison" value="90,100" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: 8 Spider Silk -->
+		<lootpacks>lootpack_filthy_rich</lootpacks>
 		<category>Monsters\Insects\Dread Spider</category>
 	</npc>
 

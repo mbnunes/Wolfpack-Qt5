@@ -35,6 +35,8 @@
 		<magicresistance>40</magicresistance>
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
+		<!-- Missing:  -->
+		<lootpacks>lootpack_poor</lootpacks>
 		<totame>0</totame>
 		<food>1</food>
 		<carve>carve_rat</carve>

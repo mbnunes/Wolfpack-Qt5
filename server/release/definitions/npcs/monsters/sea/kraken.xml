@@ -36,6 +36,8 @@
 		<tag name="res_poison" value="20,30" type="int" />
 		<!-- Misc. -->
 		<desc>In the swirling torrents and waves of the embroiled deep waters of Britannia, a darkening of the water oft heralds the arrival of the Kraken. The Kraken is related to the Sea Serpent, but the similarity ends with the visual aspect, for the Kraken is a master of the elements. Able to hurl lightning and fire, the Kraken will call down the full fury of nature upon the fairer of its demesne. If the sea is an unforgiving mistress, then surely the Kraken is the whip with which she metes out her punishment. Should your lookout scream the warning cry of the Kraken, turn thy ship with all haste and make for the nearest port.</desc>
+		<!-- Missing: Rope, Level 4 Map, MIB (only via a special fishing net) -->
+		<lootpacks>lootpack_rich</lootpacks>
 		<category>Monsters\Sea Monsters\Kraken</category>
 	</npc>
 

@@ -40,6 +40,8 @@
 		<evaluatingintel><random min="801" max="900" /></evaluatingintel>
 		<meditation><random min="901" max="1000" /></meditation>
 		<!-- Misc. -->
+		<!-- Missing: 1-7CS, LNS, Potion -->
+		<lootpacks>lootpack_rich</lootpacks>
 		<totame>951</totame>
 		<food>5</food>
 		<category>Animals\Mounts\Kirin</category>

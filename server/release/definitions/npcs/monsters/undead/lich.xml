@@ -38,8 +38,8 @@
 		<tag name="res_fire" value="20,30" type="int" />
 		<tag name="res_physical" value="40,60" type="int" />
 		<tag name="res_poison" value="55,65" type="int" />
-		<!-- Loot Packs -->
-		<lootpacks>gold_rich;necroregs_high;necroregs_high;necroregs_high</lootpacks>
+		<!-- Missing: 1-7CS, MNS, Necromancy Reagent, Level 3 Map -->
+		<lootpacks>lootpack_rich;lootpack_average</lootpacks>
 		<!-- Misc. -->
 		<desc>The rarest and most feared of the undead, and rightfully so, the lich is the corpse of a mighty spell caster kept animate through the force of his undying spirit. The lich retains, in death, all the Magical potency it held in life, without any of the moderating influence of human feeling. The lich is, perhaps, the only monster more feared than the daemon.</desc>
 		<category>Monsters\Undead\Lich</category>

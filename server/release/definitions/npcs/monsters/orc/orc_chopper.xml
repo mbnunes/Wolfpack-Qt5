@@ -34,6 +34,8 @@
 		<tag name="res_physical" value="25,35" type="int" />
 		<tag name="res_poison" value="15,20" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: Log or Board -->
+		<lootpacks>lootpack_average</lootpacks>
 		<category>Monsters\Orcs\Orc Chopper</category>
 	</npc>
 

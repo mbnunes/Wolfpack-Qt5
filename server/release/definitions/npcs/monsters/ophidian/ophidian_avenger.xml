@@ -34,6 +34,8 @@
 		<tag name="res_physical" value="35,40" type="int" />
 		<tag name="res_poison" value="90,100" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: Potion, Weapon, Level 3 Map -->
+		<lootpacks>lootpack_rich;lootpack_rich;gems</lootpacks>
 		<category>Monsters\Ophidians\Ophidian Avenger</category>
 	</npc>
 

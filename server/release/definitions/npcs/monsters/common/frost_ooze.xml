@@ -35,6 +35,8 @@
 		<tag name="res_poison" value="20,30" type="int" />
 		<!-- Misc. -->
 		<desc>The name of the Frost Ooze is somewhat misleading. The frost ooze has developed in the frozen wastes and is actually a unique form of fungus. Due to the lack of available material needed for the fungus to propagate, the fungus developed the unique ability to move. The frost ooze absorbs moisture from the air. It secretes this moisture in the form of an ooze tendril that freezes itself to the ground. With this attachment, it drags its center forward. Though motivation is slow, the ooze can consume almost anything it touches.</desc>
+		<!-- Missing:  -->
+		<lootpacks>gems</lootpacks>
 		<category>Monsters\Common\Frost Ooze</category>
 	</npc>
 

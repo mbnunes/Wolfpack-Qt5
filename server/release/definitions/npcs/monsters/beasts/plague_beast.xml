@@ -35,6 +35,8 @@
 		<tag name="res_physical" value="45,55" type="int" />
 		<tag name="res_poison" value="65,75" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: Healthy Gland -->
+		<lootpacks>lootpack_filthy_rich;gems;armor_platemail_high</lootpacks>
 		<category>Monsters\Beasts\Plague Beast</category>
 	</npc>
 

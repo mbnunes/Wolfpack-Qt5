@@ -34,6 +34,8 @@
 		<tag name="res_physical" value="20,35" type="int" />
 		<tag name="res_poison" value="20,35" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: 3 or 13 Zoogi Fungus, Picnic Basket, Bracelet of Binding -->
+		<lootpacks>gold_rich;gems</lootpacks>
 		<category>Monsters\Solen\Black Solen Warrior</category>
 	</npc>
 

@@ -38,6 +38,8 @@
 		<tag name="dmg_poison" value="25,35" type="int" />
 		<!-- Misc. -->
 		<desc>For aeons the phoenix has been a symbol of hope. Looking much like the majestic eagle, the phoenix has wings of flame. Those foolish enough to hope to kill a phoenix for the feathers will find the phoenix is noeasy target. Talons of the phoenix are harder than steel and can rend even plate armor. Few can best the phoenix in one-on-one battle.</desc>
+		<!-- Missing: Accessory -->
+		<lootpacks>lootpack_filthy_rich;lootpack_rich</lootpacks>
 		<category>Monsters\Common\Phoenix</category>
 	</npc>
 

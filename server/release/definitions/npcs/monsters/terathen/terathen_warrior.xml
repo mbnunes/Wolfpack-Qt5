@@ -36,6 +36,8 @@
 		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Misc. -->
 		<desc>The warrior caste of the community, plans and carries out assaults on their enemies. Though martially trained, the warrior is better able towin a battle through strategy. Terathan warriors never waver in battle, and are certain to fight to the death.</desc>
+		<!-- Missing: Level 1 Map -->
+		<lootpacks>lootpack_average;lootpack_meager</lootpacks>
 		<category>Monsters\Terathan\Terathan Warrior</category>
 	</npc>
 

@@ -34,6 +34,8 @@
 		<tag name="res_poison" value="25,35" type="int" />
 		<!-- Misc. -->
 		<desc>The red skin of the lava lizard should serve as a warning to all who pass nearby. Any creature who bathes in the fiery liquid form of the earth herself is a hearty beast worthy of a wide berth. Lava lizards share the fearsome jaws of their cousin, the crocodile, though their teeth are black and harder than obsidian. Those lava lizards found above ground are most likely mothers guarding a nest. Although smaller than their male counterparts, the female lava lizards are prone to attack with higher frequency and greater ferocity. It is best to avoid the lairs of a lava lizard, for there is little to gain from them, but much to lose.</desc>
+		<!-- Missing: 4-14 Sulfurous Ash -->
+		<lootpacks>lootpack_meager</lootpacks>
 		<carve>carve_lava_lizard</carve>
 		<totame>807</totame>
 		<category>Monsters\Reptiles\lava lizard</category>

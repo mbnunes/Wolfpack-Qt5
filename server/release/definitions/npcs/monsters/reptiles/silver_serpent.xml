@@ -36,6 +36,8 @@
 		<tag name="res_cold" value="5,10" type="int" />
 		<tag name="res_energy" value="5,10" type="int" />
 		<!-- Misc. -->
+		<!-- Missing:  -->
+		<lootpacks>lootpack_average;gems</lootpacks>
 		<category>Monsters\Reptiles\Silver Serpent</category>
 	</npc>
 

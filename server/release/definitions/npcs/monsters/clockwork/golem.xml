@@ -35,6 +35,8 @@
 		<tag name="res_poison" value="10,25" type="int" />
 		<!-- Misc. -->
 		<desc>Built from metal, these hulking brutes are the resulting abomination of a marriage between machination and magic. Initially created forsinister purposes, these iron men are formidable foes, able to deliver stunning blows that can render their victims immobile. Their hard, metallic exterior protects them from most magic spells, andprovides a stalwart barrier against weapons. They are not invincible, but they are certainly a challenge to defeat. Only the hardiest of adventurers should even attempt to cross a golems path.</desc>
+		<!-- Missing: 13-21 Iron Ingot, Arcane Gem, Clockwork Assembly, Power Crystal -->
+		<!--<lootpacks></lootpacks>-->
 		<category>Monsters\Clockwork\Golem</category>
 	</npc>
 

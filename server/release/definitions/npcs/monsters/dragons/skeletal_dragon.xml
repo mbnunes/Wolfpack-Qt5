@@ -38,7 +38,8 @@
 		<tag name="res_poison" value="70,80" type="int" />
 		<tag name="res_energy" value="40,60" type="int" />
 		<!-- Loot Packs -->
-		<lootpacks>gold_superrich;gems_medium</lootpacks>
+		<!-- Missing: Jewel, Level 5 Map -->
+		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich;lootpack_filthy_rich;lootpack_filthy_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Dragons\Skeletal Dragon</category>
 	</npc>

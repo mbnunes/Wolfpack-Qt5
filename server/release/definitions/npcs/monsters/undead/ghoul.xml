@@ -33,8 +33,8 @@
 		<tag name="dmg_cold" value="50" type="int" />
 		<!-- Resist Properties -->
 		<tag name="res_physical" value="25,30" type="int" />
-		<!-- Loot / Carve -->
-		<lootpacks>gold_meager</lootpacks>
+		<!-- Missing: Weapon -->
+		<lootpacks>lootpack_meager</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Undead\Ghoul</category>
 	</npc>
@@ -43,4 +43,5 @@
 		<name>bogle</name>
 		<category>Monsters\Undead\Bogle</category>
 	</npc>
+
 </definitions>

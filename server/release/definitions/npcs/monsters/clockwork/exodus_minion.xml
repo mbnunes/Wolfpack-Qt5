@@ -34,6 +34,8 @@
 		<tag name="res_physical" value="60,70" type="int" />
 		<tag name="res_poison" value="15,25" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: Arcane Gem, Clockwork Assembly, 2 Power Crystal -->
+		<lootpacks>lootpack_rich;lootpack_average</lootpacks>
 		<category>Monsters\Clockwork\Exodus Minion</category>
 	</npc>
 

@@ -35,7 +35,8 @@
 		<tag name="res_poison" value="60" type="int" />
 		<tag name="res_energy" value="100" type="int" />
 		<!-- Loot Packs -->
-		<!--<lootpacks></lootpacks>-->
+		<!-- Missing:  -->
+		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Impaler</category>
 	</npc>

@@ -35,7 +35,9 @@
 		<tag name="res_fire" value="60,80" type="int" />
 		<tag name="res_physical" value="80,90" type="int" />
 		<tag name="res_poison" value="100" type="int" />
-		<!-- -->
+		<!-- Misc. -->
+		<!-- Missing: Jewel, 1-7CS, MNS, Level 5 Map -->
+		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich</lootpacks>
 		<category>Monsters\Daemonic\Succubus</category>
 	</npc>
 

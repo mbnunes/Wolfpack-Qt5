@@ -34,6 +34,8 @@
 		<tag name="res_fire" value="85,95" type="int" />
 		<tag name="res_energy" value="25,40" type="int" />
 		<!-- Misc. -->
+		<!-- Missing:  -->
+		<lootpacks>lootpack_average</lootpacks>
 		<category>Monsters\Daemonic\Hellcat (Large)</category>
 	</npc>
 

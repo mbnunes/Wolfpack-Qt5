@@ -34,6 +34,8 @@
 		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Misc. -->
 		<desc>Stone Harpy is a misnomer. Harpies living in excess of a century willdevelop a very tough outer layer of skin. Almost chitinous, this skinacts as a primary defense of the older harpies. Though movement isdecreased, their armor and hardened talons make them more dangerous. The feathers covering a stone harpy, are hard as steel and areexcellent for fletching.</desc>
+		<!-- Missing:  -->
+		<lootpacks>lootpack_average;lootpack_average;gems</lootpacks>
 		<category>Monsters\Daemonic\Stone Harpy</category>
 	</npc>
 

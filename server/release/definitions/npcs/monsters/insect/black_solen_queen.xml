@@ -34,6 +34,8 @@
 		<tag name="res_physical" value="30,40" type="int" />
 		<tag name="res_poison" value="35,40" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: 5 or 25 Zoogi fungus, Picnic Basket, Crystal Ball of Pet Summoning -->
+		<lootpacks>gold_rich;gems</lootpacks>
 		<category>Monsters\Solen\Black Solen Queen</category>
 	</npc>
 

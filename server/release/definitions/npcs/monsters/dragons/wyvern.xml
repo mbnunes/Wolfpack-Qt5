@@ -36,6 +36,8 @@
 		<tag name="res_poison" value="90,100" type="int" />
 		<!-- Misc. -->
 		<desc>The dragon scorpion, as it is known to humans, is more than a scorpion, but less than a dragon. Lacking the spells and fearsome fire hurling abilities of the dragon, a wyvern retains the power of flight and adds a scorpion sting. Their poison can kill a hearty person inminutes.</desc>
+		<!-- Missing: 1-7CS, MNS, Lesser Poison Potion, Level 2 Map -->
+		<lootpacks>lootpack_average;lootpack_meager</lootpacks>
 		<category>Monsters\Dragons\Wyrvern</category>
 	</npc>
 

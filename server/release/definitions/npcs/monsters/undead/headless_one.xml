@@ -27,10 +27,10 @@
 		<maxdamage>12</maxdamage>
 		<!-- Resist Properties -->
 		<tag name="res_physical" value="15,20" type="int" />
-		<!-- Loot / Carve -->
-		<lootpacks>gold_poor</lootpacks>
-		<carve>carve_headless</carve>
 		<!-- Misc. -->
+		<!-- Missing: Body Parts -->
+		<lootpacks>lootpack_poor</lootpacks>
+		<carve>carve_headless</carve>
 		<category>Monsters\Undead\Headless One</category>
 		<desc>The Headless are so called for they have the appearance of a hairy man with no head. Therefore many believe them to be spectres, but oncloser examination they are revealed as corporeal creatures with their sensory apparatus in their chest cavities. Despite their lust for gold and their appearance of deformed humanity, most suspect they are no more than clever beasts.</desc>
 	</npc>

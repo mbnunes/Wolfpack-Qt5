@@ -35,6 +35,8 @@
 		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Misc. -->
 		<desc>It is believed that the Ophidians are a magically created race. Theyare thought to be part snake and part human. This merging has created a race filled with loathing and inner turmoil. It is believed that they were aware of how they were created and by whom. This secret is guarded very closely by the Ophidians and is the cause of their war with the Terrathans. The Terrathans believe the secret of Ophidian origin will help them determine their own. The Ophidians hold thatthere is no relation.</desc>
+		<!-- Missing: Level 1 Map -->
+		<lootpacks>lootpack_average;lootpack_meager;gems</lootpacks>
 		<carve>carve_ophidian_warrior_medium</carve>
 		<category>Monsters\Ophidians\Ophidian Warrior</category>
 	</npc>

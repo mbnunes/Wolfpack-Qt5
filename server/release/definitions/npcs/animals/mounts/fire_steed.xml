@@ -36,6 +36,8 @@
 		<magicresistance><random min="1000" max="1200" /></magicresistance>
 		<anatomy>0</anatomy>
 		<!-- Misc. -->
+		<!-- Missing: Sulfurous Ash -->
+		<lootpacks>gems</lootpacks>
 		<totame>1060</totame>
 		<food>1</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>

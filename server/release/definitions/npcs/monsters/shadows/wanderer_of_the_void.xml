@@ -39,7 +39,8 @@
 		<tag name="res_poison" value="40,50" type="int" />
 		<tag name="res_energy" value="50,75" type="int" />
 		<!-- Loot Packs -->
-		<!--<lootpacks></lootpacks>-->
+		<!-- Missing: -->
+		<lootpacks>lootpack_filthy_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Wanderer of the Void</category>
 	</npc>

@@ -39,7 +39,7 @@
 		<tag name="res_poison" value="100" type="int" />
 		<tag name="res_energy" value="55,70" type="int" />
 		<!-- Loot Packs -->
-		<!--<lootpacks></lootpacks>-->
+		<lootpacks>lootpack_average</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Elementals\Crystal Elemental</category>
 	</npc>

@@ -34,6 +34,8 @@
 		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Misc. -->
 		<desc>Perhaps the greatest of all Britannia's creatures, the sea serpent can enwrap and crush a warship whole. Despite these serpents' terrible size, they are actively hunted for their scales, which are needed in the performance of certain Magical spells.</desc>
+		<!-- Missing: Reagent, Level 2 Map, Level 1 Map (Fishing only), Special Fishing Net (Fishing only), MIB (Fishing only) -->
+		<lootpacks>lootpack_meager</lootpacks>
 		<category>Monsters\Sea Monsters\Sea Serpent</category>
 	</npc>
 

@@ -35,6 +35,8 @@
 		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Misc. -->
 		<desc>Though once common, lava serpents are now rare. They make their homes in lakes of lava, occasionally venturing to land for a quick meal. It is believed that the lava serpent was the progenitor of the dragon. Dragons are not fond of this theory, and have been known to kill at the mention of such blasphemy.</desc>
+		<!-- Missing: 3 Sulfurous Ash, Bone -->
+		<lootpacks>lootpack_average</lootpacks>
 		<category>Monsters\Reptiles\Lava Serpent</category>
 	</npc>
 

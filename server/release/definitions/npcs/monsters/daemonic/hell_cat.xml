@@ -35,6 +35,8 @@
 		<tag name="res_energy" value="15,20" type="int" />
 		<!-- Misc. -->
 		<desc>These cats hail from another plane. Why they were brought to ours is a mystery. The hellcat does not make a good pet, as they are likely to immolate at inopportune times. Balls of yarn are nothing more than a waiting fuse.</desc>
+		<!-- Missing:  -->
+		<lootpacks>lootpack_meager</lootpacks>
 		<carve>carve_hellcat</carve>
 		<category>Monsters\Daemonic\Hellcat (Small)</category>
 	</npc>

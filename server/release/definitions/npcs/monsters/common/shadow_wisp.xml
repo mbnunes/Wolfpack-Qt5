@@ -36,6 +36,8 @@
 		<tag name="res_poison" value="5,10" type="int" />
 		<tag name="res_energy" value="15,20" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: Bone or Body Parts -->
+		<!--<lootpacks></lootpacks>-->
 		<category>Monsters\Common\Shadow Wisp</category>
 	</npc>
 

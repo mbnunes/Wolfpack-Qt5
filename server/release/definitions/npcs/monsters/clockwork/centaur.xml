@@ -35,6 +35,8 @@
 		<tag name="res_physical" value="45,55" type="int" />
 		<tag name="res_poison" value="45,55" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: 60 Arrow -->
+		<lootpacks>lootpack_rich;lootpack_average;gems</lootpacks>
 		<category>Animals\Clockwork\Centaur</category>
 		<totame>1100</totame>
 	</npc>

@@ -33,6 +33,8 @@
 		<tag name="res_poison" value="10,20" type="int" />
 		<!-- Misc. -->
 		<desc>These reptilian creatures are savage, but very Intelligent - perhaps equal in intellect to humanity, though without the moderating influences of civilization. They love gold, and will play the brigandon parties that are insufficiently protected.</desc>
+		<!-- Missing: Weapon -->
+		<lootpacks>lootpack_meager</lootpacks>
 		<carve>carve_lizard_man_medium</carve>
 		<category>Monsters\Lizardmen\Lizardman (Random)</category>
 	</npc>

@@ -28,6 +28,8 @@
 		<!-- Resists -->
 		<tag name="res_physical" value="10,20" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: -->
+		<lootpacks>lootpack_poor</lootpacks>
 		<category>Monsters\Daemonic\Mongbat (Strong)</category>
 	</npc>
 

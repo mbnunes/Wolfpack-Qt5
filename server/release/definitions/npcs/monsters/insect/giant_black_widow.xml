@@ -36,6 +36,8 @@
 		<tag name="res_physical" value="20,30" type="int" />
 		<tag name="res_poison" value="50,60" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: 5 Spider Silk, Lesser Poison Potion -->
+		<lootpacks>lootpack_average</lootpacks>
 		<category>Monsters\Insects\Giant Black Widow</category>
 	</npc>
 

@@ -33,6 +33,8 @@
 		<tag name="res_physical" value="45,55" type="int" />
 		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: Jewel, Iron Ore, Gargoyle Pickaxe, Level 2 Map -->
+		<lootpacks>lootpack_average;lootpack_average</lootpacks>
 		<category>Monsters\Daemonic\Stone Gargoyle</category>
 	</npc>
 

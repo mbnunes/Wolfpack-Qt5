@@ -36,7 +36,8 @@
 		<tag name="res_poison" value="60,70" type="int" />
 		<tag name="res_energy" value="40,50" type="int" />
 		<!-- Loot Packs -->
-		<!--<lootpacks></lootpacks>-->
+		<!-- Missing:  -->
+		<lootpacks>lootpack_poor</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Common\Vampire Bat</category>
 	</npc>

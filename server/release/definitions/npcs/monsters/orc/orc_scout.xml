@@ -37,6 +37,8 @@
 		<tag name="res_poison" value="15,20" type="int" />
 		<!-- Misc. -->
 		<desc>Orc scouts are clever in battle. They can not only hide from their foes, when they feel their life is in danger, but they can detect hidden foes as well. The orc scout uses the common scout weapon of an orc bow, and their arrows cause large damage to those they hunt.</desc>
+		<!-- Missing: Orcish Bow, Arrow, Clean Bandage, Food -->
+		<lootpacks>lootpack_average</lootpacks>
 		<category>Monsters\Orcs\Orc Scout</category>
 	</npc>
 

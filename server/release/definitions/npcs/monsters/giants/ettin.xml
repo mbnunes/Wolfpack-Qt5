@@ -35,6 +35,8 @@
 		<!-- Misc. -->
 		<desc>Ettins are the largest of Britannia's humanoid races by far, but their great size is less remarkable than their two heads. It is said that the heads of an Ettin often quarrel together, but this may be a fancy. Ettins live together in family groups, and are most numerous along the Serpent Spine mountains. They are stupid and vicious creatures, buthave some degree of reason and speak a debased dialect of Britannian. Ettins are common brigands, who slay travelers for their gold, which they love dearly and hoard whenever they may. (Some of the wilder tribes hew gold directly from the ground in crude mines.) They are most notorious for their cowardly habit of hurling boulders of greatsize down on travelers in the high mountain passes.</desc>
 		<carve>carve_ettin</carve>
+		<!-- Missing: Potion, Food -->
+		<lootpacks>lootpack_average;lootpack_meager</lootpacks>
 		<category>Monsters\Giants\Ettin (Random)</category>
 	</npc>
 

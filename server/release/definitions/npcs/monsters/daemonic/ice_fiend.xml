@@ -37,6 +37,8 @@
 		<tag name="res_poison" value="20,30" type="int" />
 		<!-- Misc. -->
 		<desc>Some say hell is a sulfurous inferno, and others hold it is a barren wasteland of ice under an ever-biting blizzard. The Ice Fiend is a good support for the latter. No hatred, anger, madness, joy, love, or emotion of any kind shows on their faces. The Ice Fiend wields the whip of frost in battle with only a grim look of lost hope on their face.</desc>
+		<!-- Missing: Jewel, 1-7CS, MNS, Level 4 Map -->
+		<lootpacks>lootpack_average;lootpack_filthy_rich</lootpacks>
 		<category>Monsters\Daemonic\Ice Fiend</category>
 	</npc>
 

@@ -38,6 +38,8 @@
 		<tag name="res_poison" value="20,30" type="int" />
 		<!-- Misc. -->
 		<desc>The motives and desires of elementals are their own. What is known of the Ice Elemental is that they desire the return of the Ice. Working toward one sinister purpose, the Elementals composed of permafrost desire a time when glaciers cover the world. Make no mistake; these demons of cold are an invading force.</desc>
+		<!-- Missing: 1-7CS, Potion, Reagent -->
+		<lootpacks>lootpack_average;lootpack_average</lootpacks>
 		<category>Monsters\Elementals\Ice Elemental</category>
 	</npc>
 

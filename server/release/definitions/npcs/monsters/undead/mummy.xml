@@ -35,8 +35,8 @@
 		<tag name="res_fire" value="10,20" type="int" />
 		<tag name="res_physical" value="45,55" type="int" />
 		<tag name="res_poison" value="20,30" type="int" />
-		<!-- Loot / Carve -->
-		<lootpacks>mummy_pack</lootpacks>
+		<!-- Missing: Reagent, Potion, Clean Bandage, Level 1 Map -->
+		<lootpacks>lootpack_rich;gems</lootpacks>
 		<!-- Misc. -->
 		<desc>Scholars often disagree concerning how mummification came to bepracticed in our land. Some say it was reserved for royalty so the filth of the world would no longer touch their mortal form. The bandages enshrouding the cadavers of the ancient ruler would prevent contamination and decay of their pristine flesh. Others claim mummification was reserved for the worst of criminals. The wrappings were used to prevent their dark souls from fleeing their wretched bodies and reaching the outer planes. If the latter is the case, and I believe it to be, I feel the next world would have been a far better place for them. As it is now, they walk the land freely killing all that is living, perhaps on a gruesome quest for a pair of scissors...</desc>
 		<category>Monsters\Undead\Mummy</category>

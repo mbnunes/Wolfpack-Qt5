@@ -36,6 +36,8 @@
 		<tag name="res_poison" value="60,70" type="int" />
 		<!-- Misc. -->
 		<desc>The Ice Serpent is a terrifying beast. Their bite injects a poison into the recipient that slowly drains them of all warmth. This warmth is magically transferred to the Ice Serpent. In this way, the cold-blooded serpents have been able to survive the frozen tundra. Itis rumored that Ice Fiends have been known to adopt Ice Serpents aspets.</desc>
+		<!-- Missing: Body Parts, Armor, Glacial Staff -->
+		<lootpacks>lootpack_meager</lootpacks>
 		<category>Monsters\Reptiles\Giant Ice Serpent</category>
 	</npc>
 

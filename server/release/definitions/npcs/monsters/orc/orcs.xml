@@ -33,6 +33,8 @@
 		<tag name="res_poison" value="10,20" type="int" />
 		<!-- Misc. -->
 		<desc>Orcs are the oldest and fiercest foes of humanity, but these days havebeen largely driven into Underground refuges. They have a face somewhat like a pig and a muscular, man-like body. It has long been said that they eat the flesh of man, but I believe they harass man for his gold, not for his meat. They are a cruel and rapacious lot, and the surface is better for their absence, but there are those who say that we may expect a great resurgence of orcish aggression in the near future.</desc>
+		<!-- Missing: Bola Ball, Misc -->
+		<lootpacks>lootpack_meager</lootpacks>
 		<carve>carve_orc</carve>
 		<category>Monsters\Orcs\Orc (Random)</category>
 	</npc>

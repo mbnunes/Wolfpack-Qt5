@@ -35,6 +35,8 @@
 		<tag name="res_physical" value="45,55" type="int" />
 		<tag name="res_poison" value="25,35" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: Arcane Gem, CLockwork Assembly, Power Crystal -->
+		<lootpacks>lootpack_rich</lootpacks>
 		<category>Monsters\Clockwork\Exodus Overseer</category>
 	</npc>
 

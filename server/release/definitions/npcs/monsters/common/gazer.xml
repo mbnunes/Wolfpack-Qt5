@@ -37,6 +37,8 @@
 		<tag name="res_poison" value="10,20" type="int" />
 		<!-- Misc. -->
 		<desc>These unnatural beasts have the appearance of a floating, decapitated head sprouting myriad writhing tentacles, each with a staring eye at the end. Certain adventurers claim to have eaten the meat of the gazer with no ill effects, although the very thought to most is repugnant.</desc>
+		<!-- Missing: Potion, 4 Nightshade, Level 1 Map -->
+		<lootpacks>lootpack_average</lootpacks>
 		<category>Monsters\Common\Gazer</category>
 	</npc>
 

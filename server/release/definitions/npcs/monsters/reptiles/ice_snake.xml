@@ -33,6 +33,8 @@
 		<tag name="res_physical" value="20,25" type="int" />
 		<tag name="res_cold" value="75,90" type="int" />
 		<!-- Misc. -->
+		<!-- Missing:  -->
+		<lootpacks>lootpack_meager</lootpacks>
 		<category>Monsters\Reptiles\Ice Snake</category>
 	</npc>
 

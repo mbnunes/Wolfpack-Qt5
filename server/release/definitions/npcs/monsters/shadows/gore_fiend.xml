@@ -36,7 +36,8 @@
 		<tag name="res_poison" value="5,15" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />
 		<!-- Loot Packs -->
-		<!--<lootpacks></lootpacks>-->
+		<!-- Missing: -->
+		<lootpacks>lootpack_average</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Gore Fiend</category>
 	</npc>

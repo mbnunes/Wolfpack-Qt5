@@ -31,6 +31,8 @@
 		<tag name="res_physical" value="20,25" type="int" />
 		<tag name="res_fire" value="75,90" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: Sulfurous Ash -->
+		<lootpacks>lootpack_poor</lootpacks>
 		<category>Monsters\Reptiles\Lava Snake</category>
 	</npc>
 

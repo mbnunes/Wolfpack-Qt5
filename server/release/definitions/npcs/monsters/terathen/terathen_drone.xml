@@ -36,6 +36,8 @@
 		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Misc. -->
 		<desc>The workers of the Terathan community. Drones perform the dual role of builder and shock trooper. In times of peace, drones are used to gather materials for temples and homes. Working together, these drones can build an entire community in months. In times of war, drones attack the front lines of any opposing enemy force. Using muscles built from years of labor, drones should not have their fighting ability underestimated.</desc>
+		<!-- Missing: Weapon, 2 Spider Silk -->
+		<lootpacks>lootpack_meager</lootpacks>
 		<category>Monsters\Terathan\Terathan Drone</category>
 	</npc>
 

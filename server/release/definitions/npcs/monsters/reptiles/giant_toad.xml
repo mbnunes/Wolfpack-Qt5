@@ -34,6 +34,8 @@
 		<!-- Misc. -->
 		<desc>These toads are nine feet in length and they are very aggressive. Able to secrete a lethal poison, these toads can kill a healthy adult. Normally they do not attack such a large opponent, but they will defend if attacked.</desc>
 		<carve>carve_giant_toad</carve>
+		<!-- Missing:  -->
+		<lootpacks>lootpack_poor</lootpacks>
 		<totame>771</totame>
 		<category>Monsters\Reptiles\giant Toad</category>
 	</npc>

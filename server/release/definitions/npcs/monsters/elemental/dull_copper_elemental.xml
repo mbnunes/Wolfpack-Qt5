@@ -33,6 +33,8 @@
 		<tag name="res_physical" value="30,40" type="int" />
 		<tag name="res_poison" value="20,30" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: 25 Dull Copper Ore -->
+		<lootpacks>lootpack_average;gems</lootpacks>
 		<category>Monsters\Elementals\Dull Copper Elemental</category>
 	</npc>
 

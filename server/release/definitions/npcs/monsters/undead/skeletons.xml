@@ -32,7 +32,7 @@
 		<tag name="res_physical" value="15,20" type="int" />
 		<tag name="res_poison" value="25,35" type="int" />
 		<!-- Loot Packs -->
-		<lootpacks>gold_poor;armor_bonemail_med</lootpacks>
+		<lootpacks>lootpack_poor;armor_bonemail_med</lootpacks>
 		<!-- Misc. -->
 		<desc>The animated bones of the dead are terrible to behold, but truth to tell they are not formidable warriors, being able to overcome awell-trained fighter only in large groups. Like ghouls, they appear to ingest meat in some supernatural fashion. The bones of a formerly animated skeleton are desired for certain dark magicks.</desc>
 	</npc>

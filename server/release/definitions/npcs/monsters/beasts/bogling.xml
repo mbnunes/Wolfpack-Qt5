@@ -32,6 +32,8 @@
 		<tag name="res_physical" value="20,25" type="int" />
 		<tag name="res_poison" value="15,25" type="int" />
 		<!-- Misc -->
+		<!-- Missing: Plain Seed, 4 Log -->
+		<lootpacks>lootpack_meager</lootpacks>
 		<category>Monsters\Beasts\Bogling</category>
 	</npc>
 

@@ -34,6 +34,8 @@
 		<tag name="res_physical" value="30,40" type="int" />
 		<tag name="res_poison" value="35,40" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: Zoogi Fungus, Picnic Basket, Bracelet of Binding -->
+		<lootpacks>gold_rich;gems</lootpacks>
 		<category>Monsters\Solen\Red Solen Infiltrator (Queen)</category>
 	</npc>
 

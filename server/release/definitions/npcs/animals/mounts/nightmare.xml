@@ -38,6 +38,8 @@
 		<anatomy>0</anatomy>
 		<meditation>0</meditation>
 		<!-- Misc. -->
+		<!-- Missing: 1-7CS, LNS, Potion, 3 Sulfurous Ash -->
+		<lootpacks>lootpack_rich</lootpacks>
 		<totame>951</totame>
 		<food>1</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>

@@ -40,7 +40,8 @@
 		<tag name="res_poison" value="60,70" type="int" />
 		<tag name="res_energy" value="40,50" type="int" />
 		<!-- Loot Packs -->
-		<!--<lootpacks></lootpacks>-->
+		<!-- Missing: Necromancy Reagents -->
+		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Devourer of Souls</category>
 	</npc>

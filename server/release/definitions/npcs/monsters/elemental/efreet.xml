@@ -38,6 +38,8 @@
 		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Misc. -->
 		<desc>Legends say that the Efreet will grant a wish to those who retrieve them from their home of flames. This is the truth only if the wish is a wish for death. The Efreet has a heart of flame and a countenance to match. An Efreet will attack with flame and magic, and few can stand against them. There is an ancient tome that tells of an Efreet Overlord who leads an army of the Efreeti. If the overlord exists still, none have seen him and returned.</desc>
+		<!-- Missing: Daemon Bone Armor, Level 5 Map -->
+		<lootpacks>lootpack_rich;lootpack_average;gems</lootpacks>
 		<category>Monsters\Elementals\Efreet</category>
 	</npc>
 

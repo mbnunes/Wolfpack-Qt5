@@ -33,6 +33,8 @@
 		<tag name="res_physical" value="30,35" type="int" />
 		<tag name="res_poison" value="5,10" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: Orc Helm -->
+		<lootpacks>lootpack_meager;lootpack_meager</lootpacks>
 		<carve>carve_orc</carve>
 		<category>Monsters\Orcs\Orc Captain</category>
 	</npc>

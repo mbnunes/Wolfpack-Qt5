@@ -35,6 +35,8 @@
 		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Misc. -->
 		<desc>As Marshall to the orc horde, these leaders are vicious killers who crave only battle. They hurl their armies and their very selves at anything that approaches. Skulls of the orcish lord are prime trophies for veteran warriors, probably because they are so hard won.</desc>
+		<!-- Missing: Bola Ball, Evil Orc Helm -->
+		<lootpacks>lootpack_average;lootpack_meager</lootpacks>
 		<category>Monsters\Orcs\Orcish Lord</category>
 	</npc>
 

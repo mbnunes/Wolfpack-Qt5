@@ -34,6 +34,8 @@
 		<tag name="res_poison" value="15,25" type="int" />
 		<!-- Misc. -->
 		<desc>These brutes are akin to orcs, but larger. They are fiercely stupid, but do possess some faculty of reason. Like all the intelligent races, they have a great greed for gold. Ogres are bullies, but also cowards, and will run if a fight turns against them.</desc>
+		<!-- Missing: Potion, Club -->
+		<lootpacks>lootpack_average</lootpacks>
 		<carve>carve_ogre</carve>
 		<category>Monsters\Giants\Ogre</category>
 	</npc>

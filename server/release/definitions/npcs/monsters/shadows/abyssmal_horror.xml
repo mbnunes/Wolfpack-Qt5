@@ -41,7 +41,8 @@
 		<tag name="res_poison" value="60,65" type="int" />
 		<tag name="res_energy" value="77,80" type="int" />
 		<!-- Loot Packs -->
-		<!--<lootpacks></lootpacks>-->
+		<!-- Missing:  -->
+		<lootpacks>lootpack_ultra_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Abyssmal Horror</category>
 	</npc>

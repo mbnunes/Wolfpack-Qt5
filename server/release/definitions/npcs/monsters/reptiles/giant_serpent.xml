@@ -38,6 +38,8 @@
 		<tag name="res_poison" value="70,90" type="int" />
 		<!-- Misc. -->
 		<desc>These serpents are unnaturally large, easily able to devour a grownman whole. They are found in the deepest forests and jungles, where they wait in hiding for their prey to walk by. They produce a sweet meat with a flavor not unlike chicken, but they are most earnestly hunted for their scales, which are sought by mages and alchemists for their useful properties in the brewing of thaumaturgical substances.</desc>
+		<!-- Missing: Body Parts -->
+		<lootpacks>lootpack_average</lootpacks>
 		<carve>carve_serpent_gaint</carve>
 		<category>Monsters\Reptiles\Gaint Serpent</category>
 	</npc>

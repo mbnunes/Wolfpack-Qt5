@@ -36,6 +36,8 @@
 		<tag name="res_poison" value="60,80" type="int" />
 		<!-- Misc. -->
 		<desc>A faint gurgling of the murk is the only warning before the swift attack of a swamp tentacle. The tentacles of the swamp will attack even full-grown lizardmen. Thus, many of the lizardman rituals of sacrifice revolve around swamp tentacles. It is said that the touch ofthe swamp tentacle is excruciatingly painful and death will follow, though not soon.</desc>
+		<!-- Missing: Reagent -->
+		<lootpacks>lootpack_average</lootpacks>
 		<category>Monsters\Common\Swamp Tentacle</category>
 	</npc>
 

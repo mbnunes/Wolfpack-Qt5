@@ -38,6 +38,8 @@
 		<!-- Misc. -->
 		<desc>These are the most horrid of all the giant vermin, for the venom in their great stingers is potent enough to slay a strong man with a single strike. Gold is often found in their nests, but this seems to be more due to the scavenger's love for shiny objects than to any sentience.</desc>
 		<carve>carve_scorpion_gaint</carve>
+		<!-- Missing: Lesser Poison Potion -->
+		<lootpacks>lootpack_meager</lootpacks>
 		<totame>471</totame>
 		<food>1</food>
 		<category>Monsters\Insects\Giant Scorpion</category>

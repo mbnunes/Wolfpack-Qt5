@@ -33,7 +33,8 @@
 		<tag name="res_poison" value="30,35" type="int" />
 		<tag name="res_energy" value="20,30" type="int" />
 		<!-- Loot Packs -->
-		<!--<lootpacks></lootpacks>-->
+		<!-- Missing: 23-34 Log -->
+		<lootpacks>lootpack_average;lootpack_average</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Elementals\Treefellow</category>
 	</npc>

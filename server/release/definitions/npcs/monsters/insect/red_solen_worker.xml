@@ -33,6 +33,8 @@
 		<tag name="res_physical" value="25,30" type="int" />
 		<tag name="res_poison" value="10,20" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: Zoogi Fungus, Picnic Basket, Bracelet of Binding -->
+		<lootpacks>gold_average;gems</lootpacks>
 		<category>Monsters\Solen\Red Solen Worker</category>
 	</npc>
 

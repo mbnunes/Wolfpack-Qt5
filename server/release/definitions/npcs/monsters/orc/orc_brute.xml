@@ -35,6 +35,8 @@
 		<tag name="res_poison" value="25,35" type="int" />
 		<!-- Misc. -->
 		<desc>Orc Brutes are much larger and stronger than any of the other orc types, and have almost as little respect for their smaller kin as they do for humans. Orc brutes are a fearsome foe, as they deal massive blows, and have no qualms about lobbing smaller orc relatives at you in battle.</desc>
+		<!-- Missing: Bola Ball, Mask of Orcish Kin, 10 Ingot, 25 Shadow Ore -->
+		<lootpacks>lootpack_filthy_rich</lootpacks>
 		<category>Monsters\Orcs\Orc Brute</category>
 	</npc>
 

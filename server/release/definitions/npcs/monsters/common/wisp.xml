@@ -38,6 +38,8 @@
 		<tag name="res_poison" value="5,10" type="int" />
 		<!-- Misc. -->
 		<desc>Wisps have no corporeal bodies, yet I am assured by the wise that they are not spirits, but are somehow formed of living light. I am also told that they are wise creatures, perhaps wiser than humans. Certainly it lies beyond my wisdom to comprehend the nature of such alien creatures. They seem curious about the affairs of humans, but I have never known a wisp to harm anyone who did not first threaten it somehow.</desc>
+		<!-- Missing:  -->
+		<lootpacks>lootpack_rich;lootpack_average</lootpacks>
 		<category>Monsters\Common\Wisp</category>
 	</npc>
 

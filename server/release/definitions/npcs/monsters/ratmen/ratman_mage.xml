@@ -36,6 +36,8 @@
 		<tag name="res_physical" value="40,45" type="int" />
 		<tag name="res_poison" value="10,20" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: 1-7CS, LNS, Reagent, Statue -->
+		<lootpacks>lootpack_rich</lootpacks>
 		<category>Monsters\Ratmen\Ratman Mage</category>
 	</npc>
 

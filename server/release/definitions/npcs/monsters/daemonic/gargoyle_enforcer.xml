@@ -40,6 +40,8 @@
 		<tag name="res_poison" value="25,35" type="int" />
 		<tag name="res_energy" value="15,25" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: Jewel, 1-7CS, MNS, Gargoyle Pickaxe -->
+		<lootpacks>lootpack_rich</lootpacks>
 		<category>Monsters\Daemonic\Gargoyle Enforcer</category>
 	</npc>
 

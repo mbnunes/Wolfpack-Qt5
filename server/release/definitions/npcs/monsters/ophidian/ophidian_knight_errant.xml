@@ -36,6 +36,8 @@
 		<tag name="res_poison" value="90,100" type="int" />
 		<!-- Misc. -->
 		<desc>The Ophidian knight is the royal protector. Wielding magic weapons, Ophidian knights defend their territory with frightening skill. The most important thing to remember is that the Ophidian knight is charged with guarding the secret of the Ophidian race.</desc>
+		<!-- Missing: Potion, Weapon, Level 3 Map -->
+		<lootpacks>lootpack_rich;lootpack_rich;gems</lootpacks>
 		<category>Monsters\Ophidians\Ophidian Knight-Errant</category>
 	</npc>
 

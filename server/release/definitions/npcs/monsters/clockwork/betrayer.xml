@@ -37,6 +37,8 @@
 		<tag name="res_physical" value="60,70" type="int" />
 		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: Power Crystal, Book -->
+		<lootpacks>lootpack_rich;gems</lootpacks>
 		<category>Monsters\Clockwork\Betrayer</category>
 	</npc>
 

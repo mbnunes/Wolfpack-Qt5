@@ -35,8 +35,8 @@
 		<tag name="res_fire" value="20,30" type="int" />
 		<tag name="res_physical" value="35,45" type="int" />
 		<tag name="res_poison" value="20,30" type="int" />
-		<!-- Loot Packs -->
-		<lootpacks>gold_good;armor_platemail_med;weapons_med_swords</lootpacks>
+		<!-- Missing: Weapon, Armor -->
+		<lootpacks>lootpack_average;lootpack_meager</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Undead\Bone Knight</category>
 		<desc>Knights who failed to hold to their tenets are doomed to roam the afterlife as Bone Knights. First seen in the new lands, these knights rise in legions to battle the army of the living. Utterly devoid of fear there is no chance a bone knight will ever break off the attack. These knights are the best sword fighters and tacticians doing battle for the ever-growing numbers of undead.</desc>

@@ -35,6 +35,8 @@
 		<tag name="res_poison" value="25,35" type="int" />
 		<!-- Misc. -->
 		<desc>Those who have returned from Ice Island warn of the blizzard stalker. It is not known if the snow elemental shares the same goal as the ice elemental, but certainly there are just as terrible in their wrath. Snow elementals can call upon the full fury of nature to bring about the end of any that should cross them.</desc>
+		<!-- Missing: Iron Ore, Reagent, Level 2 Map -->
+		<lootpacks>lootpack_rich</lootpacks>
 		<category>Monsters\Elementals\Snow Elemental</category>
 	</npc>
 

@@ -39,6 +39,8 @@
 		<tag name="res_poison" value="100" type="int" />
 		<!-- Misc. -->
 		<desc>Poison Elementals are the result of corruption of Air Elementals by horrific magic. It is believed that air elementals that disobey an evil summoner are sometimes punished in this fashion. If such is the case, poison elementals hate their very existence, as it is anabomination of everything they were as an air elemental. Those unlucky enough to see a poison elemental should immediately turn tail lest they become an outlet for the revenge of the cursed elemental.</desc>
+		<!-- Missing: 1-7CS, MNS, Lesser Poison Potion, 4 Nightshade, Level 5 Map -->
+		<lootpacks>lootpack_filthy_rich;lootpack_rich;gems</lootpacks>
 		<category>Monsters\Elementals\Poison Elemental</category>
 	</npc>
 

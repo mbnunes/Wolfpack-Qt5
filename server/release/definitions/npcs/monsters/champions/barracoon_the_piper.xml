@@ -39,7 +39,8 @@
 		<tag name="res_poison" value="40,50" type="int" />
 		<tag name="res_energy" value="40,50" type="int" />
 		<!-- Loot Packs -->
-		<!--<lootpacks></lootpacks>-->
+		<!-- Missing: Skull of Greed -->
+		<lootpacks>lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_ultra_rich;lootpack_filthy_rich;gems</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Champions\</category>
 	</npc>

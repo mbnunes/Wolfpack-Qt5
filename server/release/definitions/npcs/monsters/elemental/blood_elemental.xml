@@ -40,6 +40,8 @@
 		<tag name="res_poison" value="50,60" type="int" />
 		<!-- Misc -->
 		<desc>Formed from the blood of the dead, blood elementals are strong magic-users, and an aggressive and formidable foe. You have blood, and they want it.</desc>
+		<!-- Missing: Reagents, Level 5 Map -->
+		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich</lootpacks>
 		<category>Monsters\Elementals\Blood Elemental</category>
 	</npc>
 

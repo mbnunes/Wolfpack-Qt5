@@ -34,6 +34,8 @@
 		<tag name="res_poison" value="20,30" type="int" />
 		<!-- Misc. -->
 		<desc>These foul beasts have the head of a woman and the body of a bird. Despite their human features, it is not believed they are intelligent. They attack in small flocks from the air, wheeling above their prey and rending them with claws and beaks. They love gold like a raven or magpie loves all shiny things. There are those who seek to fletch their arrows with the harpy's feather, thinking it will convey virtue on the shafts, but those who have made a study of such things assure that this is merely a false and extremely dangerous conceit.</desc>
+		<!-- Missing:  -->
+		<lootpacks>lootpack_meager;lootpack_meager</lootpacks>
 		<category>Monsters\Daemonic\Harpy</category>
 	</npc>
 

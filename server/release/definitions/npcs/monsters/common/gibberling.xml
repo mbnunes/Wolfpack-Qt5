@@ -37,7 +37,8 @@
 		<tag name="res_poison" value="10,20" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />
 		<!-- Loot Packs -->
-		<!--<lootpacks></lootpacks>-->
+		<!-- Missing: -->
+		<lootpacks>lootpack_meager</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Common\Gibberling</category>
 	</npc>

@@ -35,7 +35,8 @@
 		<tag name="res_poison" value="20,30" type="int" />
 		<tag name="res_energy" value="20,30" type="int" />
 		<!-- Loot Packs -->
-		<!--<lootpacks></lootpacks>-->
+		<!-- Missing:  -->
+		<lootpacks>lootpack_average</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Daemonic\Chaos Daemon</category>
 	</npc>

@@ -36,6 +36,8 @@
 		<tag name="res_poison" value="15,20" type="int" />
 		<!-- Misc. -->
 		<desc>These industrious orcs have mastered the fine art of tinkering, and have shown themselves to be both clever and aggressive. Watch carefully when near an orc bomber, for they give little warning before hurling powerful explosives into the midst of unwary adventurers.</desc>
+		<!-- Missing: Lesser Explotion Potion, Bola Ball, Reagent -->
+		<lootpacks>lootpack_average;lootpack_average</lootpacks>
 		<category>Monsters\Orcs\Orc Bomber</category>
 	</npc>
 

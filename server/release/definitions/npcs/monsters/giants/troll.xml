@@ -34,6 +34,8 @@
 		<tag name="res_poison" value="5,15" type="int" />
 		<!-- Misc. -->
 		<desc>These creatures are perhaps the least human of all the humanoid races of the land. They are treacherously clever, but utterly devoid of civilized impulse. It is said that they can heal themselves from wounds at an unnatural rate.</desc>
+		<!-- Missing: Level 1 Map -->
+		<lootpacks>lootpack_average</lootpacks>
 		<carve>carve_troll</carve>
 		<category>Monsters\Giants\Troll (Random)</category>
 	</npc>

@@ -33,6 +33,8 @@
 		<tag name="res_physical" value="60,75" type="int" />
 		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Misc. -->
+		<!-- Missing: 25 Golden Ore, Level 1 Map -->
+		<lootpacks>lootpack_average;gems</lootpacks>
 		<category>Monsters\Elementals\Gold Elemental</category>
 	</npc>
 

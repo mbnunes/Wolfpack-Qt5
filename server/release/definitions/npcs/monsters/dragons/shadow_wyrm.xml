@@ -38,6 +38,8 @@
 		<tag name="res_poison" value="20,30" type="int" />
 		<!-- Misc. -->
 		<desc>Much like the other members of its species, the Shadow Wyrm is an extraordinarily intelligent creature with an incredible fighting ability and a wicked arsenal of magic spells at its disposal. Many believe that these mighty draconic creatures once practiced a dark and evil magic in Britannia, but were banished to the realm of shadows for their misdeeds. Banished, but not defeated, they remain forever bound to the world in shadow-form.</desc>
+		<!-- Missing: -->
+		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich;lootpack_filthy_rich</lootpacks>
 		<category>Monsters\Dragons\Shadow Wyrm</category>
 	</npc>
 

@@ -31,6 +31,8 @@
 		<tag name="res_poison" value="25,35" type="int" />
 		<!-- Misc. -->
 		<desc>Giant rats are, as their name implies, simply vermin increased to the size of a panther. They tend to congregate in the foulest, most eldritch regions of the dungeons they inhabit.</desc>
+		<!-- Missing:  -->
+		<lootpacks>lootpack_poor</lootpacks>
 		<carve>carve_ret_giant</carve>
 		<totame>291</totame>
 		<category>Monsters\Common\Giant Rat</category>
