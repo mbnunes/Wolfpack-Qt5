@@ -476,8 +476,8 @@ static char* eventNames[] =
 	item. It is only called for the item.
 	\return Return behaviour is the same as for onUse.
 	*/
-	"onTelekinesis", 
-	
+	"onTelekinesis",
+
 	/*
 	\event onContextCheckVisible
 	\param player The player who is requesting the contextmenu entry.
@@ -499,7 +499,7 @@ static char* eventNames[] =
 	is requested.
 	*/
 	"onContextCheckEnabled",
-	
+
 	0
 };
 
@@ -518,6 +518,11 @@ cPythonScript::~cPythonScript()
 		unload();
 }
 
+/*
+	\event onUnload
+	\return None
+	\condition Triggered when the script is unloaded.
+*/
 void cPythonScript::unload( void )
 {
 	loaded = false;
@@ -538,6 +543,11 @@ void cPythonScript::unload( void )
 	codeModule = 0;
 }
 
+/*
+	\event onLoad
+	\return None
+	\condition Triggered when the script is loaded.
+*/
 // Find our module name
 bool cPythonScript::load( const QString& name )
 {
