@@ -40,7 +40,6 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 {
 	int d, onl;
 	unsigned int chance;
-	// unsigned int StartGrid, getcell, increment, a, checkgrid;
 	if ( pc_i == NULL )
 		return;
 	
@@ -219,25 +218,37 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 		case 4 : // Guards
 			if (!pc_i->war && pc_i->inGuardedArea())	// this region is guarded
 			{
+				P_CHAR Victim=NULL;
+			    int closest=999;
 				cRegion::RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
 					if (pc != NULL)
 					{
-						onl = online(pc);
-						d = chardist( pc_i, pc );
-						if (d > 10 || pc->isInvul() || pc->dead || !onl || pc->isHidden())
-							continue;
-						if(pc->isCriminal() || pc->isMurderer())
+						if (!pc->npc && !online(pc))
+					       continue;					// logged out player
+				        if (pc_i->isSameAs(pc))
+					       continue;					// the guard himself
+				        if (!(pc->npcaitype==2 || /*pc->isCriminal() ||*/ pc->isMurderer()))
+					       continue;
+				        d = pc_i->dist(pc);
+				        if (d > SrvParms->attack_distance || pc->isInvul() || pc->dead)
+					       continue;
+				        if ( closest > d)
 						{
-							npcattacktarget(pc_i, pc);
-							npctalkall(pc_i, "Thou shalt regret thine actions, swine!", 1); // ANTISPAM !!! LB
+					       closest = d;
+					       Victim = pc;
 						}
+					}
+			        if (Victim)
+					{
+				       npcattacktarget(pc_i, Victim);
+				       npctalkall(pc_i, "Thou shalt regret thine actions, swine!",1); // ANTISPAM !!! LB
 					}
 				}
 			}
-			break;
+		break;
 		case 5: // npc beggars
 			if (!pc_i->war)
 			{

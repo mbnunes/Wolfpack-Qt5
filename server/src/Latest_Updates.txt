@@ -86,4 +86,9 @@ item type 187 and it will be a slotmachine. On singleclick it will show " 5 gold
 if amount is set to 5gp. else it shows whatever the slotamount is set to. NOTE:
 Right now it will also showthe items real name.(Ripper)
 70) Changed: bank checks on singleclick now show "value : #" instead of "# gold". (Ripper)
-71) Fixed: Logic error at criminal(). (
+71) Fixed: Logic error at criminal().
+72) Fixed: npcAI 4 guards was fubar (Duke/Ripper)
+73) Fixed: broken pipe error on free BSD (punt)
+74) Fixed: guards acting outside guarded regions (Pokey & Duke/Ripper)
+75) Fixed: can't target stabled/mounted pets with LastTarget macro anymore (Duke/Ripper)
+76) Fixed: losing fame when cutting up human corpses (Pokey & Duke/Ripper)

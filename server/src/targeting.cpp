@@ -1523,9 +1523,8 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 
 	if(pi3->morey)	//if it's a human corpse
 	{
-		pc_currchar->fame-=100; // Ripper..lose fame and karma and criminal.
-		pc_currchar->karma-=100;
-		sysmessage(s,"You lost some fame and karma!");
+		pc_currchar->karma-=100; // Ripper..lose karma and criminal.
+		sysmessage(s,"You have lost some karma!");
 		criminal( pc_currchar );
 		//create the Head
 		sprintf((char*)temp,"the head of %s",pi3->name2);
@@ -3548,7 +3547,11 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		{
 			pc=FindCharBySerial(pt->Tserial);
 			if (pc!=NULL)
+			{
 				Cready=true;
+			    if (pc->stablemaster_serial)
+					return;		// can't target stabled/mounted pets
+			}
 		}
 
 		switch(pt->Tnum)

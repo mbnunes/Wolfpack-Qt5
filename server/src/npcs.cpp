@@ -1167,3 +1167,16 @@ void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat
 	updatechar(pc_c);
 }
 
+////////////
+// Name:	inGuardedArea
+// history:	by Duke, 13.1.2002
+// Purpose:	checks if the char is in a guarded region
+// Remark:	the recalculation of the region is necessary because it is not maintained properly :(
+//			I think it is better to do this only when needed
+//
+bool cChar::inGuardedArea()
+{
+	this->region=calcRegionFromXY(this->pos.x, this->pos.y);	// make sure it is set correctly
+	return ::region[this->region].priv&1;
+}
+

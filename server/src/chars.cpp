@@ -51,7 +51,6 @@ bool cChar::Owns(P_ITEM pi)			{	return (serial==pi->ownserial);		}
 bool cChar::Wears(P_ITEM pi)		{	return (serial == pi->contserial);	}
 unsigned int cChar::dist(cChar* pc)	{	return pos.distance(pc->pos);		}
 unsigned int cChar::dist(cItem* pi)	{	return pos.distance(pi->pos);		}
-bool cChar::inGuardedArea()			{	return ::region[this->region].priv&1;}
 
 
 void cChar::setSerial(SERIAL ser)

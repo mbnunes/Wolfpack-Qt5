@@ -643,8 +643,7 @@ static bool ItemDroppedOnGuard(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 				// Delete the Bounty from the bulletin board
 				Bounty->BountyDelete( pCharIdx->serial );
 				
-				// Adjust their karma and fame back to what it was before the beheading!
-				pc_currchar->fame   += 100;
+				// Adjust their karma and back to what it was before the beheading!
 				pc_currchar->karma  += 100;
 			}
 			else
