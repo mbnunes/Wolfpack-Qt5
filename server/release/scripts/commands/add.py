@@ -16,6 +16,18 @@ def addnpc(player, arguments, target):
   npc.update()
 
 #
+# Target response for adding a multi
+#
+def addmulti(player, arguments, target):
+  if target.item and target.item.container:
+    player.socket.sysmessage("You can't add the multi there.")
+    return
+
+  multi = wolfpack.addmulti(str(arguments[0]))
+  multi.moveto(target.pos)
+  multi.update()  
+
+#
 # Target response for adding an item
 #
 def additem(player, arguments, target):
@@ -46,8 +58,11 @@ def add(socket, command, arguments):
     elif wolfpack.getdefinition(WPDT_NPC, arguments):
       socket.sysmessage("Where do you want to spawn the npc '%s'?" % arguments)
       socket.attachtarget("commands.add.addnpc", [arguments])
+    elif wolfpack.getdefinition(WPDT_MULTI, arguments):
+      socket.sysmessage("Where do you want to place the multi '%s'?" % arguments)
+      socket.attachtarget("commands.add.addmulti", [arguments])
     else:
-      socket.sysmessage('No Item or NPC definition by that name found.')
+      socket.sysmessage('No Item, NPC or Multi definition by that name found.')
     return
 
   menu = findmenu('ADDMENU')

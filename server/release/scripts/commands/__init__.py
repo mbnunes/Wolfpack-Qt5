@@ -98,6 +98,22 @@ def nightsight(socket, command, arguments):
 		player.settag('nightsight', 255)
 		player.lightbonus = 255
 	socket.updatelightlevel()
+	
+"""
+	\command multigems
+	\description Toggle the multigems flag for the current account. 
+	If this flag is on, multis will be sent as worldgems instead 
+	of the real multi object.
+"""
+def multigems(socket, command, arguments):
+	socket.account.multigems = not socket.account.multigems
+	
+	if socket.account.multigems:
+		socket.sysmessage("'multigems' is now on.")
+	else:
+		socket.sysmessage("'multigems' is now off.")
+		
+	socket.resendworld()
 
 def onLoad():
 	wolfpack.registercommand("resendtooltip", resendtooltip)
@@ -107,7 +123,8 @@ def onLoad():
 	wolfpack.registercommand("nudgeup", nudgeup)
 	wolfpack.registercommand("nudgedown", nudgedown)
 	wolfpack.registercommand("nightsight", nightsight)
-
+	wolfpack.registercommand("multigems", multigems)
+	
 """
 	\command nightsight
 	\description Toggle gamemaster nightsight.

@@ -530,7 +530,9 @@ def energydamage(target, source, amount, physical=0, fire=0, cold=0, poison=0, e
 	if not target:
 		raise RuntimeError, "Invalid arguments for energydamage."
 
-	if amount == 0 or physical + fire + cold + poison + energy == 0:
+	amount = max(1, amount)
+
+	if physical + fire + cold + poison + energy == 0:
 		raise RuntimeError, "Invalid arguments for energydamage."
 
 	damage = 0

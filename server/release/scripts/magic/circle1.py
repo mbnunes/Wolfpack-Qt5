@@ -133,7 +133,7 @@ class NightSight (CharEffectSpell):
 			target.lightbonus = max(0, target.lightbonus - bonus)
 
 		# With 100% magery you gain a 18 light level bonus
-		bonus = min(18, floor(18 * (char.skill[MAGERY] / 1000.0)))
+		bonus = min(18, math.floor(18 * (char.skill[MAGERY] / 1000.0)))
 
 		target.events = ['magic.nightsight'] + target.events
 		target.settag("nightsight", bonus)

@@ -363,13 +363,12 @@ def isclosing():
 #	return _wolfpack.spell( id )
 
 """
-	\function wolfpack.multi
-	\param id
-	\return Multi
-	\description Creates a multi object by given type CUSTOMHOUSE, HOUSE, BOAT.
+	\function wolfpack.addmulti
+	\param def The definition id.
+	\return Item or None
+	\description Creates a multi from a given definition id.
 """
-def multi( id ):
-	return _wolfpack.multi( id )
+addmulti = _wolfpack.addmulti
 
 """
 	\function wolfpack.newnpc

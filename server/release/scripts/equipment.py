@@ -7,13 +7,6 @@ from combat.utilities import weaponskill
 from math import ceil
 
 #
-# Table for miscellaneous resource prefixes
-#
-#RESNAME2PREFIX = {
-#	'sapphire':
-#}
-
-#
 # Show certain modifiers stored in tags.
 #
 def modifiers(object, tooltip):

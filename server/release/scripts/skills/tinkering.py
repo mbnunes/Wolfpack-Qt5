@@ -16,6 +16,18 @@ from wolfpack.properties import itemcheck, fromitem
 import random
 from skills import blacksmithing
 
+GEMS = [
+		['Star Sapphire', 0, 0, ['f0f', 'f1b', 'f21'], 0x0, 'starsapphire'],
+		['Emerald', 0, 0, ['f10', 'f2f'], 0, 'emerald'],
+		['Sapphire', 0, 0, ['f11', 'f12', 'f19', 'f1f'], 0, 'sapphire'],
+		['Ruby', 0, 0, ['f13', 'f14', 'f1a', 'f1c', 'f1d', 'f2a', 'f2b'], 0, 'ruby'],
+		['Bronze',			0, 0, ['bronze_ingot'], 0x972, 'bronze'],
+		['Gold',				0, 0, ['gold_ingot'], 0x8a5, 'gold'],
+		['Agapite',		 	0, 0, ['agapite_ingot'], 0x979, 'agapite'],
+		['Verite',			0, 0, ['verite_ingot'], 0x89f, 'verite'],
+		['Valorite',		0, 0, ['valorite_ingot'], 0x8ab, 'valorite'],
+]
+
 #
 # Check if the character is using the right tool
 #
@@ -146,8 +158,10 @@ class TinkeringMenu(MakeMenu):
 		self.allowmark = 1
 		#self.allowrepair = 1
 		self.submaterials1 = blacksmithing.METALS
+		self.submaterials2 = GEMS
 		self.submaterial1missing = 1044037
 		self.submaterial1noskill = 1044268
+		self.submaterial2missing = 1044240
 		self.gumptype = 0x41afb410 # This should be unique
 
 	#
@@ -224,6 +238,9 @@ def loadMenu(id, parent = None):
 					# How much of the primary resource should be consumed
 					if subchild.name == 'ingots':
 						action.submaterial1 = hex2dec(subchild.getattribute('amount', '0'))
+						
+					elif subchild.name == 'gems':
+						action.submaterial2 = hex2dec(subchild.getattribute('amount', '0'))
 	
 					# Standard material
 					elif subchild.name == 'logs':

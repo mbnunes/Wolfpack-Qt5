@@ -40,6 +40,7 @@ minutes = _wolfpack.time.minutes
 	\description Return the current servertime in miliseconds since start of the gameserver.
 """
 servertime = _wolfpack.currenttime
+currenttime = _wolfpack.currenttime
 
 """
 	\function wolfpack.time.currentdatetime
