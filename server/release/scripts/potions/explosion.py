@@ -5,9 +5,10 @@ from wolfpack.consts import *
 from wolfpack.utilities import *
 from potions.consts import *
 from potions.utilities import *
+from potionkeg import isPotionkeg
 
 explosions = [ 0x36b0, 0x36bd, 0x36cb ]
-explodables = [ 'potion_greaterexplosion', 'potion_explosion', 'potion_lesserexplosion', 'f0d' ]
+explodables = [ 'potion_greaterexplosion', 'potion_explosion', 'potion_lesserexplosion', 'f0d', 'potion_keg' ]
 
 # Explosion Potion Function
 def potion( cserial, iserial, clicked=False, counter=4, bonus=0 ):
@@ -19,12 +20,13 @@ def potion( cserial, iserial, clicked=False, counter=4, bonus=0 ):
 	if not item.baseid in explodables:
 		return False
 
-	if clicked == False:
+	if not clicked:
 		if not item.hastag( 'exploding' ):
 			item.settag( 'exploding', cserial )
 		potion( cserial, iserial, True, counter, bonus )
 		return True
-	elif clicked == True:
+	# Triggered
+	if clicked:
 		if counter > 0:
 			item.addtimer( 1000, "potions.explosion.potioncountdown", [cserial, counter, bonus] )
 		else:
@@ -63,15 +65,10 @@ def potionregion( cserial, iserial, bonus=0 ):
 	kegfill = 0
 	iskeg = False
 
-	if item.hasintproperty( 'potiontype' ):
-		potiontype = item.getintproperty( 'potiontype' )
+	potiontype = getPotionType( item )
 
 	if not potiontype in [ 11, 12, 13 ]:
 		potiontype = 11
-
-	if item.hastag( 'kegfill' ):
-		iskeg = True
-		kegfill = item.gettag( 'kegfill' )
 
 	if potiontype == 11:
 		outradius = 1
@@ -83,7 +80,8 @@ def potionregion( cserial, iserial, bonus=0 ):
 		outradius = 1
 
 	# Potion Keg Radius Override!
-	if iskeg == True:
+	if isPotionkeg( item ):
+		kegfill = int( item.gettag( 'kegfill' ) )
 		if potiontype in [11, 12, 13] and kegfill >= 1:
 			if kegfill == 100:
 				outradius = 13
@@ -168,20 +166,22 @@ def chainpotiontimer( cserial, iserial, bserial, outradius ):
 	if not item or not bomb:
 		return False
 
+	if bomb.hastag( 'exploding' ):
+		return False
+
 	# Doing error checks first, makes it faster
 	if not checkLoS( item, bomb, outradius ):
 		return False
-	if not bomb.hasintproperty('potiontype'):
-		return False
-	if not bomb.getintproperty('potiontype') in [11, 12, 13]:
-		return False
-	if bomb.hastag( 'exploding' ):
+
+	potiontype = getPotionType( bomb )
+
+	if not potiontype in [11, 12, 13]:
 		return False
 
 	bomb.settag( 'exploding', cserial )
 
-	if bomb.hastag( 'kegfill' ) and int( bomb.gettag( 'kegfill' ) ) >= 1:
-		bomb.addtimer( randint( 1000, 2250 ), "potions.explosion.potioncountdown", [ char.serial, 0, int( bomb.gettag( 'kegfill' ) ) ] )
+	if isPotionkeg( bomb ) and int( bomb.gettag( 'kegfill' ) ) >= 1:
+		bomb.addtimer( randint( 1000, 2250 ), "potions.explosion.potioncountdown", [ char.serial, 10, int( bomb.gettag( 'kegfill' ) ) ] )
 	else:
 		bomb.addtimer( randint( 1000, 2250 ), "potions.explosion.potioncountdown", [ char.serial, 0, bomb.amount ] )
 	return True
@@ -193,7 +193,6 @@ def potiondamage( cserial, target, iserial, dmgbonus, potiontype ):
 
 	if not item or not char:
 		return False
-
 
 	# Damage Range
 	if potiontype == 11:

@@ -3,7 +3,23 @@ import wolfpack
 import time
 from random import randint, random
 from wolfpack.utilities import hex2dec, throwobject, energydamage, checkLoS
+from potions.consts import *
 from wolfpack.consts import *
+
+def getPotionType( potion ):
+	potiontype = None
+
+	if potion.hasintproperty( 'potiontype' ):
+		potiontype = potion.getintproperty( 'potiontype' )
+	if potion.hastag( 'potiontype' ):
+		potiontype = int( potion.gettag( 'potiontype' ) )
+
+	if not potiontype in POTIONS:
+		return None
+	else:
+		return potiontype
+
+	return None
 
 # You have to have one hand free for using a potion
 # This is not valid for explosion potions

@@ -165,16 +165,14 @@ def onDropOnItem( keg, potion ):
 					socket.clilocmessage( 502236 )
 					return True
 			else:
-				if potion.hastag( 'potiontype' ):
-					kegtype = potion.gettag( 'potiontype' )
-				elif potion.hasintproperty( 'potiontype' ):
-					kegtype = potion.getintproperty( 'potiontype' )
-				keg.settag( 'potiontype', kegtype )
-				keg.settag( 'kegfill', 1 )
-				keg.name = POTIONS[ kegtype ][ KEG_NAME ]
-				char.soundeffect( 0x240 )
-				consumePotion( char, potion )
-				keg.update()
+				kegtype = getPotionType( potion )
+				if kegtype:
+					keg.settag( 'potiontype', kegtype )
+					keg.settag( 'kegfill', 1 )
+					keg.name = POTIONS[ kegtype ][ KEG_NAME ]
+					char.soundeffect( 0x240 )
+					consumePotion( char, potion )
+					keg.update()
 				return True
 	return True
 
