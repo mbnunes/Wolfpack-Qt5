@@ -43,7 +43,7 @@ def cmdWho( socket, command, argstring ):
 	# Notes, 10 per page
 	# Pages to create, (( socketcount / 10) + 1 )
 	# Player list increases by 22 pixels
-	maxpages = (worldsocketcount + 9) / 10)
+	maxpages = (worldsocketcount + 9) / 10
 	page = 0
 	serialcount = 0
 	while page <= maxpages:
