@@ -2782,6 +2782,30 @@
 		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 26</category>
 	</item>
 
+	<item id="2a2b">
+		<id>0x2a2b</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 27</category>
+	</item>
+
+	<item id="2a2c">
+		<id>0x28a2c</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 28</category>
+	</item>
+
+	<item id="2a2d">
+		<id>0x2a2d</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 29</category>
+	</item>
+
+	<item id="2a2e">
+		<id>0x2a2e</id>
+		<nodecay />
+		<category>Buildings\Roofs\Samurai\Gray Stone\Stone 30</category>
+	</item>
+
 	<item id="28c6">
 		<id>0x28c6</id>
 		<nodecay />

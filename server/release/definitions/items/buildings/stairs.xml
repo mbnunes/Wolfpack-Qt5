@@ -1492,4 +1492,62 @@
 		<category>Buildings\Stairs\Dungeon Ramp\Dungeon Ramp (S/N)</category>
 	</item>
 
+	<!-- Samurai Empire -->
+
+	<item id="24ec">
+		<id>0x24ec</id>
+		<nodecay />
+		<type>1</type>
+		<category>Buildings\Stairs\Samurai\Stair Cabinent\01</category>
+	</item>
+
+	<item id="24ed">
+		<id>0x24ed</id>
+		<nodecay />
+		<type>1</type>
+		<category>Buildings\Stairs\Samurai\Stair Cabinent\02</category>
+	</item>
+
+	<item id="24ee">
+		<id>0x24ee</id>
+		<nodecay />
+		<type>1</type>
+		<category>Buildings\Stairs\Samurai\Stair Cabinent\03</category>
+	</item>
+
+	<item id="24ef">
+		<id>0x24ef</id>
+		<nodecay />
+		<type>1</type>
+		<category>Buildings\Stairs\Samurai\Stair Cabinent\04</category>
+	</item>
+
+	<item id="24f0">
+		<id>0x24f0</id>
+		<nodecay />
+		<type>1</type>
+		<category>Buildings\Stairs\Samurai\Stair Cabinent\05</category>
+	</item>
+
+	<item id="24f1">
+		<id>0x24f1</id>
+		<nodecay />
+		<type>1</type>
+		<category>Buildings\Stairs\Samurai\Stair Cabinent\06</category>
+	</item>
+
+	<item id="24f2">
+		<id>0x2f42</id>
+		<nodecay />
+		<type>1</type>
+		<category>Buildings\Stairs\Samurai\Stair Cabinent\07</category>
+	</item>
+
+	<item id="24f3">
+		<id>0x24f3</id>
+		<nodecay />
+		<type>1</type>
+		<category>Buildings\Stairs\Samurai\Stair Cabinent\08</category>
+	</item>
+
 </definitions>

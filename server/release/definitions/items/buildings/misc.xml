@@ -2006,4 +2006,88 @@
 		<category>Buildings\Samurai\Pond\Pond 08</category>
 	</item>
 
+	<item id="24ad">
+		<id>0x24ad</id>
+		<nodecay />
+		<category>Buildings\Samurai\Gate\01</category>
+	</item>
+
+	<item id="24ae">
+		<id>0x24ae</id>
+		<nodecay />
+		<category>Buildings\Samurai\Gate\02</category>
+	</item>
+
+	<item id="24af">
+		<id>0x24af</id>
+		<nodecay />
+		<category>Buildings\Samurai\Gate\03</category>
+	</item>
+
+	<item id="24b0">
+		<id>0x24b0</id>
+		<nodecay />
+		<category>Buildings\Samurai\Gate\04</category>
+	</item>
+
+	<item id="24b1">
+		<id>0x24b1</id>
+		<nodecay />
+		<category>Buildings\Samurai\Gate\05</category>
+	</item>
+
+	<item id="24b2">
+		<id>0x24b2</id>
+		<nodecay />
+		<category>Buildings\Samurai\Gate\06</category>
+	</item>
+
+	<item id="24b3">
+		<id>0x24b3</id>
+		<nodecay />
+		<category>Buildings\Samurai\Gate\07</category>
+	</item>
+
+	<item id="24b4">
+		<id>0x24b4</id>
+		<nodecay />
+		<category>Buildings\Samurai\Gate\08</category>
+	</item>
+
+	<item id="24b5">
+		<id>0x24b5</id>
+		<nodecay />
+		<category>Buildings\Samurai\Gate\09</category>
+	</item>
+
+	<item id="24b6">
+		<id>0x24b6</id>
+		<nodecay />
+		<category>Buildings\Samurai\Gate\10</category>
+	</item>
+
+	<item id="24b7">
+		<id>0x24b7</id>
+		<nodecay />
+		<category>Buildings\Samurai\Gate\11</category>
+	</item>
+
+	<item id="24b8">
+		<id>0x24b8</id>
+		<nodecay />
+		<category>Buildings\Samurai\Gate\12</category>
+	</item>
+
+	<item id="24b9">
+		<id>0x24b9</id>
+		<nodecay />
+		<category>Buildings\Samurai\Gate\13</category>
+	</item>
+
+	<item id="24ba">
+		<id>0x24ba</id>
+		<nodecay />
+		<category>Buildings\Samurai\Gate\14</category>
+	</item>
+
 </definitions>

@@ -13,27 +13,27 @@
 		<id>0xe</id>
 		<category>Buildings\Walls\Wooden Wall 1\Window 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="f">
 		<id>0xf</id>
 		<category>Buildings\Walls\Wooden Wall 1\Window 2</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="22">
 		<id>0x22</id>
 		<category>Buildings\Walls\Stone Wall 1\Window 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="23">
 		<id>0x23</id>
 		<category>Buildings\Walls\Stone Wall 1\Window 2</category>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 		<nodecay/>
 	</item>
 
@@ -41,42 +41,42 @@
 		<id>0x3b</id>
 		<category>Buildings\Walls\Brick Wall\Window 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="3c">
 		<id>0x3c</id>
 		<category>Buildings\Walls\Brick Wall\Window 2</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="5d">
 		<id>0x5d</id>
 		<category>Buildings\Walls\Stone Wall 2\Window 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="5e">
 		<id>0x5e</id>
 		<category>Buildings\Walls\Stone Wall 2\Window 2</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="83">
 		<id>0x83</id>
 		<category>Buildings\Walls\Stone Wall 3\Window 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="85">
 		<id>0x85</id>
 		<category>Buildings\Walls\Stone Wall 3\Window 2</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="8d">
@@ -90,343 +90,940 @@
 		<id>0x8f</id>
 		<category>Buildings\Walls\Stone Wall 3\Window 4</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="98">
 		<id>0x98</id>
 		<category>Buildings\Walls\Log Wall\Window 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="99">
 		<id>0x99</id>
 		<category>Buildings\Walls\Log Wall\Window 2</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="b9">
 		<id>0xb9</id>
 		<category>Buildings\Walls\Wooden Wall 2\Window 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="ba">
 		<id>0xba</id>
 		<category>Buildings\Walls\Wooden Wall 2\Window 2</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="bb">
 		<id>0xbb</id>
 		<category>Buildings\Walls\Wooden Wall 2\Window w. Bar 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="bc">
 		<id>0xbc</id>
 		<category>Buildings\Walls\Wooden Wall 2\Window w. Bar 2</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="fc">
 		<id>0xfc</id>
 		<category>Buildings\Walls\Marble Wall 1\Fancy\Window 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="fd">
 		<id>0xfd</id>
 		<category>Buildings\Walls\Marble Wall 1\Fancy\Window 2</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="102">
 		<id>0x102</id>
 		<category>Buildings\Walls\Marble Wall 1\With Bar\Window 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="103">
 		<id>0x103</id>
 		<category>Buildings\Walls\Marble Wall 1\With Bar\Window 2</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="108">
 		<id>0x108</id>
 		<category>Buildings\Walls\Marble Wall 1\Window 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="109">
 		<id>0x109</id>
 		<category>Buildings\Walls\Marble Wall 1\Window 2</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="13a">
 		<id>0x13a</id>
 		<category>Buildings\Walls\Plaster Wall 1\Window 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="13b">
 		<id>0x13b</id>
 		<category>Buildings\Walls\Plaster Wall 1\Window 2</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="154">
 		<id>0x154</id>
 		<category>Buildings\Walls\Plaster Wall 1\Fancy\Window 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="155">
 		<id>0x155</id>
 		<category>Buildings\Walls\Plaster Wall 1\Fancy\Window 2</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="156">
 		<id>0x156</id>
 		<category>Buildings\Walls\Plaster Wall 1\Fancy\Window 3</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="157">
 		<id>0x157</id>
 		<category>Buildings\Walls\Plaster Wall 1\Fancy\Window 4</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="15c">
 		<id>0x15c</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Patterned\Window 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="15d">
 		<id>0x15d</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Patterned\Window 2</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="162">
 		<id>0x162</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Window 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="163">
 		<id>0x163</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Window 2</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="252">
 		<id>0x252</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Fancy\Window 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="253">
 		<id>0x253</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Fancy\Window 2</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="254">
 		<id>0x254</id>
 		<category>Buildings\Walls\Sandstone Wall 1\Fancy\Window 3</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="1ad">
 		<id>0x1ad</id>
 		<category>Buildings\Walls\Rattan Wall\Window 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="1ae">
 		<id>0x1ae</id>
 		<category>Buildings\Walls\Rattan Wall\Window 2</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="1af">
 		<id>0x1af</id>
 		<category>Buildings\Walls\Rattan Wall\Window 3</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="1b0">
 		<id>0x1b0</id>
 		<category>Buildings\Walls\Rattan Wall\Window 4</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="1c4">
 		<id>0x1c4</id>
 		<category>Buildings\Walls\Hide Wall\Window 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="1c5">
 		<id>0x1c5</id>
 		<category>Buildings\Walls\Hide Wall\Window 2</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="1c6">
 		<id>0x1c6</id>
 		<category>Buildings\Walls\Hide Wall\Window 3</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="1c7">
 		<id>0x1c7</id>
 		<category>Buildings\Walls\Hide Wall\Window 4</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="1d3">
 		<id>0x1d3</id>
 		<category>Buildings\Walls\Stone Wall 5\Window 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="1d4">
 		<id>0x1d4</id>
 		<category>Buildings\Walls\Stone Wall 5\Window 2</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="207">
 		<id>0x207</id>
 		<category>Buildings\Walls\Plaster Wall 2\Window 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="208">
 		<id>0x208</id>
 		<category>Buildings\Walls\Plaster Wall 2\Window 2</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="209">
 		<id>0x209</id>
 		<category>Buildings\Walls\Plaster Wall 2\Window 3</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="20a">
 		<id>0x20a</id>
 		<category>Buildings\Walls\Plaster Wall 2\Window 4</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="295">
 		<id>0x295</id>
 		<category>Buildings\Walls\Marble Wall 2\Window 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="296">
 		<id>0x296</id>
 		<category>Buildings\Walls\Marble Wall 2\Window 2</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="29b">
 		<id>0x29b</id>
 		<category>Buildings\Walls\Marble Wall 2\With Bar\Window 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="29c">
 		<id>0x29c</id>
 		<category>Buildings\Walls\Marble Wall 2\With Bar\Window 2</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="2ad">
 		<id>0x2ad</id>
 		<category>Buildings\Walls\Marble Wall 2\Fancy\Window 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="2ae">
 		<id>0x2ae</id>
 		<category>Buildings\Walls\Marble Wall 2\Fancy\Window 2</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="3dd">
 		<id>0x3dd</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Window 1</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="3de">
 		<id>0x3de</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Window 2</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
 	</item>
 
 	<item id="3df">
 		<id>0x3df</id>
 		<category>Buildings\Walls\Sandstone Wall 2\Window 3</category>
 		<nodecay/>
-		<lightsource>0</lightsource>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<!-- Samurai Empire -->
+
+	<item id="24f4">
+		<id>0x24f4</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 01\01</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="24f5">
+		<id>0x24f5</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 01\02</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="24f6">
+		<id>0x24f6</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 01\03</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="24f7">
+		<id>0x24f7</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 01\04</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="24f8">
+		<id>0x24f8</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 01\05</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="24f9">
+		<id>0x24f9</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 01\06</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="24fa">
+		<id>0x24fa</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 01\07</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="24fb">
+		<id>0x24fb</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 01\08</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="24fc">
+		<id>0x24fc</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 01\09</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="24fd">
+		<id>0x24fd</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 01\10</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="24fe">
+		<id>0x24fe</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 01\11</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="24ff">
+		<id>0x24ff</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 01\12</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2500">
+		<id>0x2500</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 02\01</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2501">
+		<id>0x2501</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 02\02</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2502">
+		<id>0x2502</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 02\03</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2503">
+		<id>0x2503</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 02\04</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2504">
+		<id>0x2504</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 02\05</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2505">
+		<id>0x2505</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 02\06</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2506">
+		<id>0x2506</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 02\07</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2507">
+		<id>0x2507</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 02\08</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2508">
+		<id>0x2508</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 02\09</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2509">
+		<id>0x2509</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 02\10</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="250a">
+		<id>0x250a</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 02\11</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="250b">
+		<id>0x250b</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 02\12</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="250c">
+		<id>0x250c</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 03\01</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="250d">
+		<id>0x250d</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 03\02</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="250e">
+		<id>0x250e</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 03\03</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="250f">
+		<id>0x250f</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 03\04</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2510">
+		<id>0x2510</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 03\05</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2511">
+		<id>0x2511</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 03\06</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2512">
+		<id>0x2512</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 03\07</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2513">
+		<id>0x2513</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 03\08</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2514">
+		<id>0x2514</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 03\09</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2515">
+		<id>0x2515</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 03\10</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2516">
+		<id>0x2516</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 03\11</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2517">
+		<id>0x2517</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 03\12</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2518">
+		<id>0x2518</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 04\01</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2519">
+		<id>0x2519</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 04\02</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="251a">
+		<id>0x251a</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 04\03</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="251b">
+		<id>0x251b</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 04\04</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="251c">
+		<id>0x251c</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 04\05</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="251d">
+		<id>0x251d</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 04\06</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="251e">
+		<id>0x251e</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 04\07</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="251f">
+		<id>0x251f</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 04\08</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2520">
+		<id>0x2520</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 04\09</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2521">
+		<id>0x2521</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 04\10</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2522">
+		<id>0x2522</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 04\11</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2523">
+		<id>0x2523</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 04\12</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2524">
+		<id>0x2524</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 05\01</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2525">
+		<id>0x2525</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 05\02</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2526">
+		<id>0x2526</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 05\03</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2527">
+		<id>0x2527</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 05\04</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2528">
+		<id>0x2528</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 05\05</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2529">
+		<id>0x2529</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 05\06</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="252a">
+		<id>0x252a</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 05\07</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="252b">
+		<id>0x252b</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 05\08</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="252c">
+		<id>0x252c</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 05\09</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="252d">
+		<id>0x252d</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 05\10</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="252e">
+		<id>0x252e</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 05\11</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="252f">
+		<id>0x252f</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 06\01</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2530">
+		<id>0x2530</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 06\02</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2531">
+		<id>0x2531</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 06\04</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2532">
+		<id>0x2532</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 06\04</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2533">
+		<id>0x2533</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 06\05</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2534">
+		<id>0x2534</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 06\05</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2535">
+		<id>0x2535</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 06\07</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2536">
+		<id>0x2536</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 06\08</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2537">
+		<id>0x2537</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 06\09</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2538">
+		<id>0x2538</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 06\10</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="2539">
+		<id>0x2539</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 06\11</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="253a">
+		<id>0x253a</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 06\12</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="253b">
+		<id>0x253b</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 06\13</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="253c">
+		<id>0x253c</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 07\01</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="253d">
+		<id>0x253d</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 07\02</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="253e">
+		<id>0x253e</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 07\03</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="26d0">
+		<id>0x26d0</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 07\04</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="26d1">
+		<id>0x26d1</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 07\05</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="26d2">
+		<id>0x26d2</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 07\06</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="26d3">
+		<id>0x26d3</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 07\08</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="26d4">
+		<id>0x26d4</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 07\09</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="26d5">
+		<id>0x26d5</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 07\10</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="26d6">
+		<id>0x26d6</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 07\11</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="26d7">
+		<id>0x26d7</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 07\12</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="26d8">
+		<id>0x26d8</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 07\13</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
+	</item>
+
+	<item id="26d9">
+		<id>0x26d9</id>
+		<category>Buildings\Walls\Samurai\Window Shudders 07\14</category>
+		<nodecay/>
+		<lightsource>0x0</lightsource>
 	</item>
 
 </definitions>
