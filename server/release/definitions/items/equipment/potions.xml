@@ -9,6 +9,12 @@
 =================================================================
 -->
 <definitions>
+
+	<item id="potion_base">
+		<weight>0.5</weight>
+		<events>potions</events>
+	</item>
+
 	<!-- Empty Potion Keg -->
 	<item id="potion_keg_empty">
 		<name>#1041641</name>
@@ -18,17 +24,17 @@
 		<movable>1</movable>
 		<events>potionkeg</events>
 	</item>
+
 	<!-- Empty Potion Keg, second direction -->
 	<item id="potion_keg_empty2" inherit="potion_keg">
 		<id>0x1ad7</id>
+		<events>potionkeg</events>
 	</item>
 
 	<!-- Nightsight -->
-	<item id="potion_nightsight">
+	<item id="potion_nightsight" inherit="potion_base">
 		<id>0xf06</id>
 		<name>#1044542</name>
-		<weight>0.5</weight>
-		<events>potions</events>
 		<category>Equipment\Potions\Nightsight</category>
 		<tag name="potiontype" value="0" type="int" />
 		<!-- Pricing information -->
@@ -44,11 +50,9 @@
 	</item>
 
 	<!-- Lesser Heal -->
-	<item id="potion_lesserheal">
+	<item id="potion_lesserheal" inherit="potion_base">
 		<id>0xf0c</id>
 		<name>#1044543</name>
-		<weight>0.5</weight>
-		<events>potions</events>
 		<category>Equipment\Potions\Heal (lesser)</category>
 		<tag name="potiontype" value="1" type="int" />
 		<!-- Pricing information -->
@@ -64,11 +68,9 @@
 	</item>
 
 	<!-- Heal -->
-	<item id="potion_heal">
+	<item id="potion_heal" inherit="potion_base">
 		<id>0xf0c</id>
 		<name>#1044544</name>
-		<weight>0.5</weight>
-		<events>potions</events>
 		<category>Equipment\Potions\Heal</category>
 		<tag name="potiontype" value="2" type="int" />
 		<!-- Pricing information -->
@@ -82,11 +84,9 @@
 	</item>
 
 	<!-- Greater Heal -->
-	<item id="potion_greaterheal">
+	<item id="potion_greaterheal" inherit="potion_base">
 		<id>0xf0c</id>
 		<name>#1044545</name>
-		<weight>0.5</weight>
-		<events>potions</events>
 		<category>Equipment\Potions\Heal (greater)</category>
 		<tag name="potiontype" value="3" type="int" />
 		<!-- Pricing information -->
@@ -100,11 +100,9 @@
 	</item>
 
 	<!-- Lesser Cure -->
-	<item id="potion_lessercure">
+	<item id="potion_lessercure" inherit="potion_base">
 		<id>0xf07</id>
 		<name>#1044552</name>
-		<weight>0.5</weight>
-		<events>potions</events>
 		<category>Equipment\Potions\Cure (lesser)</category>
 		<tag name="potiontype" value="4" type="int" />
 		<!-- Pricing information -->
@@ -118,11 +116,9 @@
 	</item>
 
 	<!-- Cure -->
-	<item id="potion_cure">
+	<item id="potion_cure" inherit="potion_base">
 		<id>0xf07</id>
 		<name>#1044553</name>
-		<weight>0.5</weight>
-		<events>potions</events>
 		<category>Equipment\Potions\Cure</category>
 		<tag name="potiontype" value="5" type="int" />
 		<!-- Pricing information -->
@@ -136,11 +132,9 @@
 	</item>
 
 	<!-- Greater Cure -->
-	<item id="potion_greatercure">
+	<item id="potion_greatercure" inherit="potion_base">
 		<id>0xf07</id>
 		<name>#1044554</name>
-		<weight>0.5</weight>
-		<events>potions</events>
 		<category>Equipment\Potions\Cure (greater)</category>
 		<tag name="potiontype" value="6" type="int" />
 		<!-- Pricing information -->
@@ -154,11 +148,9 @@
 	</item>
 
 	<!-- Agility -->
-	<item id="potion_agility">
+	<item id="potion_agility" inherit="potion_base">
 		<id>0xf08</id>
 		<name>#1044540</name>
-		<weight>0.5</weight>
-		<events>potions</events>
 		<category>Equipment\Potions\Agility</category>
 		<tag name="potiontype" value="7" type="int" />
 		<!-- Pricing information -->
@@ -172,11 +164,9 @@
 	</item>
 
 	<!-- Greater Agility -->
-	<item id="potion_greateragility">
+	<item id="potion_greateragility" inherit="potion_base">
 		<id>0xf08</id>
 		<name>#1044541</name>
-		<weight>0.5</weight>
-		<events>potions</events>
 		<category>Equipment\Potions\Agility (greater)</category>
 		<tag name="potiontype" value="8" type="int" />
 		<!-- Pricing information -->
@@ -190,11 +180,9 @@
 	</item>
 
 	<!-- Strength -->
-	<item id="potion_strength">
+	<item id="potion_strength" inherit="potion_base">
 		<id>0xf09</id>
 		<name>#1044546</name>
-		<weight>0.5</weight>
-		<events>potions</events>
 		<category>Equipment\Potions\Strength</category>
 		<tag name="potiontype" value="9" type="int" />
 		<!-- Pricing information -->
@@ -208,11 +196,9 @@
 	</item>
 
 	<!-- Greater Strength -->
-	<item id="potion_greaterstrength">
+	<item id="potion_greaterstrength" inherit="potion_base">
 		<id>0xf09</id>
 		<name>#1044547</name>
-		<weight>0.5</weight>
-		<events>potions</events>
 		<category>Equipment\Potions\Strength (greater)</category>
 		<tag name="potiontype" value="10" type="int" />
 		<!-- Pricing information -->
@@ -226,11 +212,9 @@
 	</item>
 
 	<!-- Lesser Explosion -->
-	<item id="potion_lesserexplosion">
+	<item id="potion_lesserexplosion" inherit="potion_base">
 		<id>0xf0d</id>
 		<name>#1044555</name>
-		<weight>0.5</weight>
-		<events>potions</events>
 		<category>Equipment\Potions\Explosion (lesser)</category>
 		<tag name="potiontype" value="11" type="int" />
 		<!-- Pricing information -->
@@ -244,11 +228,9 @@
 	</item>
 
 	<!-- Explosion -->
-	<item id="potion_explosion">
+	<item id="potion_explosion" inherit="potion_base">
 		<id>0xf0d</id>
 		<name>#1044556</name>
-		<weight>0.5</weight>
-		<events>potions</events>
 		<category>Equipment\Potions\Explosion</category>
 		<tag name="potiontype" value="12" type="int" />
 		<!-- Pricing information -->
@@ -262,11 +244,9 @@
 	</item>
 
 	<!-- Greater Explosion -->
-	<item id="potion_greaterexplosion">
+	<item id="potion_greaterexplosion" inherit="potion_base">
 		<id>0xf0d</id>
 		<name>#1044557</name>
-		<weight>0.5</weight>
-		<events>potions</events>
 		<category>Equipment\Potions\Explosion (greater)</category>
 		<tag name="potiontype" value="13" type="int" />
 		<!-- Pricing information -->
@@ -280,11 +260,9 @@
 	</item>
 
 	<!-- Lesser Poison -->
-	<item id="potion_lesserpoison">
+	<item id="potion_lesserpoison" inherit="potion_base">
 		<id>0xf0a</id>
 		<name>#1044548</name>
-		<weight>0.5</weight>
-		<events>potions</events>
 		<category>Equipment\Potions\Poison (lesser)</category>
 		<tag name="potiontype" value="14" type="int" />
 		<!-- Pricing information -->
@@ -300,11 +278,9 @@
 	</item>
 
 	<!-- Poison -->
-	<item id="potion_poison">
+	<item id="potion_poison" inherit="potion_base">
 		<id>0xf0a</id>
 		<name>#1044549</name>
-		<weight>0.5</weight>
-		<events>potions</events>
 		<category>Equipment\Potions\Poison</category>
 		<tag name="potiontype" value="15" type="int" />
 		<!-- Pricing information -->
@@ -318,11 +294,9 @@
 	</item>
 
 	<!-- Greater Poison -->
-	<item id="potion_greaterpoison">
+	<item id="potion_greaterpoison" inherit="potion_base">
 		<id>0xf0a</id>
 		<name>#1044550</name>
-		<weight>0.5</weight>
-		<events>potions</events>
 		<category>Equipment\Potions\Poison (greater)</category>
 		<tag name="potiontype" value="16" type="int" />
 		<!-- Pricing information -->
@@ -336,11 +310,9 @@
 	</item>
 
 	<!-- Deadly Poison -->
-	<item id="potion_deadlypoison">
+	<item id="potion_deadlypoison" inherit="potion_base">
 		<id>0xf0a</id>
 		<name>#1044551</name>
-		<weight>0.5</weight>
-		<events>potions</events>
 		<category>Equipment\Potions\Poison (deadly)</category>
 		<tag name="potiontype" value="17" type="int" />
 		<!-- Pricing information -->
@@ -354,11 +326,9 @@
 	</item>
 
 	<!-- Refresh -->
-	<item id="potion_refresh">
+	<item id="potion_refresh" inherit="potion_base">
 		<id>0xf0b</id>
 		<name>#1044538</name>
-		<weight>0.5</weight>
-		<events>potions</events>
 		<category>Equipment\Potions\Refresh</category>
 		<tag name="potiontype" value="18" type="int" />
 		<!-- Pricing information -->
@@ -372,11 +342,9 @@
 	</item>
 
 	<!-- Total Refresh -->
-	<item id="potion_totalrefresh">
+	<item id="potion_totalrefresh" inherit="potion_base">
 		<id>0xf0b</id>
 		<name>#1044539</name>
-		<weight>0.5</weight>
-		<events>potions</events>
 		<category>Equipment\Potions\Total Refresh</category>
 		<tag name="potiontype" value="19" type="int" />
 		<!-- Pricing information -->
