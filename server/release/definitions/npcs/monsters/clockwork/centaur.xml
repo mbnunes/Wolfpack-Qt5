@@ -39,6 +39,11 @@
 		<lootpacks>lootpack_rich;lootpack_average;gems</lootpacks>
 		<category>Animals\Clockwork\Centaur</category>
 		<mintaming>1100</mintaming>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="8" />
+		<strproperty name="carve_hides_type" value="spined" />
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

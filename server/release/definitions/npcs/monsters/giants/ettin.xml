@@ -38,6 +38,8 @@
 		<!-- Missing: Potion, Food -->
 		<lootpacks>lootpack_average;lootpack_meager</lootpacks>
 		<category>Monsters\Giants\Ettin (Random)</category>
+		
+		<intproperty name="carve_meat" value="4" />
 	</npc>
 
 	<npc id="ettin_1" inherit="ettin">

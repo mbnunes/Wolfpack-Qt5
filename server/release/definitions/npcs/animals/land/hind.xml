@@ -40,6 +40,10 @@
 		<carve>carve_deer</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Forest\Hind</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="8" />
+		<intproperty name="carve_meat" value="5" />
 	</npc>
 
 </definitions>

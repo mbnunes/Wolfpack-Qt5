@@ -42,6 +42,10 @@
 		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich;lootpack_filthy_rich;lootpack_filthy_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Dragons\Skeletal Dragon</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="20" />
+		<strproperty name="carve_hides_type" value="barbed" />
 	</npc>
 
 </definitions>

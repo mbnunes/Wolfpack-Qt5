@@ -43,6 +43,8 @@
 		<!-- Missing: 1-7CS, MNS, Gargoyle Pickaxe -->
 		<lootpacks>lootpack_rich</lootpacks>
 		<category>Monsters\Daemonic\Gargoyle Destroyer</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

@@ -37,6 +37,8 @@
 		<!-- Missing: Potion, Weapon, Level 3 Map -->
 		<lootpacks>lootpack_rich;lootpack_rich;gems</lootpacks>
 		<category>Monsters\Ophidians\Ophidian Avenger</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

@@ -40,6 +40,7 @@
 		<carve>carve_cat</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Feline\Cat</category>
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

@@ -40,6 +40,8 @@
 		<!-- Missing: Power Crystal, Book -->
 		<lootpacks>lootpack_rich;gems</lootpacks>
 		<category>Monsters\Clockwork\Betrayer</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

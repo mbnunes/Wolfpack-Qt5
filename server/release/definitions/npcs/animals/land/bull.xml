@@ -40,6 +40,10 @@
 		<carve>carve_bull_black</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Bull (Random)</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="15" />
+		<intproperty name="carve_meat" value="10" />
 	</npc>
 
 	<!-- Bull (black & white) -->

@@ -1716,58 +1716,90 @@ static PyObject* wpSetOption( PyObject* /*self*/, PyObject* args )
 }
 
 /*
-	\function wolfpack.charbase
-	\param baseid A string containing the character id.
+	\function wolfpack.bodyinfo
+	\param bodyid The id of the character body to get the information for.
+	This is a numeric value.
 	\return A dictionary with the following keys:<code>
 	- basesound
 	- soundmode
 	- flags
 	- figurine
-	- mindamage
-	- maxdamage
-	- mintaming
-	- carve
-	- lootpacks
-	- bindmenu
-	- controlslots
-	- criticalhealth
+	- type
+	- body
 	</code>
-	\description Retrieve information about a given character baseid.
+	\description Retrieve information about a given character body.
 */
-static PyObject* wpCharBase( PyObject* /*self*/, PyObject* args )
+static PyObject* wpBodyInfo( PyObject* /*self*/, PyObject* args )
 {
-	char *baseid;
-	if ( !PyArg_ParseTuple( args, "s:wolfpack.charbase(baseid)", &baseid ) )
+	unsigned short body;
+	if ( !PyArg_ParseTuple( args, "H:wolfpack.bodyinfo(body)", &body ) )
 	{
 		return 0;
 	}
 
-	cCharBaseDef *basedef = CharBaseDefs::instance()->get( baseid );
-
-	if ( !basedef )
-	{
-		return PyErr_Format( PyExc_RuntimeError, "An error occured while retrieving the character basedefinition %s.", baseid );
-	}
+	const stBodyInfo &info = CharBaseDefs::instance()->getBodyInfo(body);
 
 	PyObject *dict = PyDict_New();
-	PyDict_SetItemString( dict, "basesound", PyInt_FromLong( basedef->basesound() ) );
-	PyDict_SetItemString( dict, "soundmode", PyInt_FromLong( basedef->soundmode() ) );
-	PyDict_SetItemString( dict, "figurine", PyInt_FromLong( basedef->figurine() ) );
-	PyDict_SetItemString( dict, "mindamage", PyInt_FromLong( basedef->minDamage() ) );
-	PyDict_SetItemString( dict, "maxdamage", PyInt_FromLong( basedef->maxDamage() ) );
-	PyDict_SetItemString( dict, "mintaming", PyInt_FromLong( basedef->minTaming() ) );
-	PyDict_SetItemString( dict, "carve", QString2Python( basedef->carve() ) );
-	PyDict_SetItemString( dict, "lootpacks", QString2Python( basedef->lootPacks() ) );
-	PyDict_SetItemString( dict, "bindmenu", QString2Python( basedef->bindmenu() ) );
-	PyDict_SetItemString( dict, "controlslots", PyInt_FromLong( basedef->controlSlots() ) );
-	PyDict_SetItemString( dict, "criticalhealth", PyInt_FromLong( basedef->criticalHealth() ) );
+	PyDict_SetItemString( dict, "basesound", PyInt_FromLong( info.basesound ) );
+	PyDict_SetItemString( dict, "body", PyInt_FromLong( info.body ) );
+	PyDict_SetItemString( dict, "figurine", PyInt_FromLong( info.figurine ) );
+	PyDict_SetItemString( dict, "flags", PyInt_FromLong( info.flags ) );
+	PyDict_SetItemString( dict, "soundmode", PyInt_FromLong( info.soundmode ) );
+	PyDict_SetItemString( dict, "type", PyInt_FromLong( info.type ) );
 	return dict;
+}
+
+/*
+	\function wolfpack.charbase
+	\param id The definition id.
+	\return A <object id="basedef">basedef</object> object.
+	\description Get a <object id="basedef">basedef</object> object for a given npc definition id.
+*/
+static PyObject *wpCharBase(PyObject*, PyObject *args) {
+	char *id;
+	if ( !PyArg_ParseTuple( args, "s:wolfpack.charbase(id)", &id ) )
+	{
+		return 0;
+	}
+
+	cCharBaseDef *basedef = CharBaseDefs::instance()->get(id);
+
+	if (!basedef) {
+		Py_RETURN_NONE;
+	} else {
+		return basedef->getPyObject();
+	}
+}
+
+/*
+	\function wolfpack.itembase
+	\param id The definition id.
+	\return A <object id="basedef">basedef</object> object.
+	\description Get a <object id="basedef">basedef</object> object for a given item definition id.
+*/
+static PyObject *wpItemBase(PyObject*, PyObject *args) {
+	char *id;
+	if ( !PyArg_ParseTuple( args, "s:wolfpack.itembase(id)", &id ) )
+	{
+		return 0;
+	}
+
+	cItemBaseDef *basedef = ItemBaseDefs::instance()->get(id);
+
+	if (!basedef) {
+		Py_RETURN_NONE;
+	} else {
+		return basedef->getPyObject();
+	}
 }
 
 static PyMethodDef wpGlobal[] =
 {
 { "npccount",			wpNpcCount,						METH_VARARGS, 0 },
+{ "charbase",			wpCharBase,						METH_VARARGS, 0 },
+{ "itembase",			wpItemBase,						METH_VARARGS, 0 },
 { "playercount",		wpPlayerCount,					METH_VARARGS, 0 },
+{ "bodyinfo",			wpBodyInfo,						METH_VARARGS, 0 },
 { "charbase",			wpCharBase,						METH_VARARGS, 0 },
 { "getoption",			wpGetOption,					METH_VARARGS, "Reads a string value from the database." },
 { "setoption",			wpSetOption,					METH_VARARGS, "Sets a string value and a key to the database." },

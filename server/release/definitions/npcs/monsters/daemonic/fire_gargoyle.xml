@@ -41,6 +41,8 @@
 		<!-- Missing: Jewel, Level 1 Map -->
 		<lootpacks>lootpack_rich</lootpacks>
 		<category>Monsters\Daemonic\Fire Gargoyle</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

@@ -38,6 +38,8 @@
 		<!-- Misc. -->S
 		<carve>carve_dolphin</carve>
 		<category>Animals\Sea\Dolphin</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

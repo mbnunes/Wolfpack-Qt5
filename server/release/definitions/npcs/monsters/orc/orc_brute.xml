@@ -40,6 +40,8 @@
 		<!-- Missing: Bola Ball, Mask of Orcish Kin, 10 Ingot, 25 Shadow Ore -->
 		<lootpacks>lootpack_filthy_rich</lootpacks>
 		<category>Monsters\Orcs\Orc Brute</category>
+		
+		<intproperty name="carve_meat" value="2" />
 	</npc>
 
 </definitions>

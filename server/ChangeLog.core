@@ -39,6 +39,10 @@ Wolfpack 12.9.11 Beta (CVS)
 	- Fixed crash under windows when the server terminates unexpectedly
 	- Console will show which unicode format was compiled in Python UCS2 or UCS4
 	- Fixed compile error on FreeBSD.
+	- Exposed the base definition class to python. 
+	- Added wolfpack.bodyinfo(id)
+	- Added/Changed wolfpack.itembase(def), wolfpack.charbase(def)
+	- Fixed a base definition bug related to property not loading the base definition.
 
 Wolfpack 12.9.10 Beta (10. September 2004)
 	- Made the maximum number of controlled pets a dynamic property for players.

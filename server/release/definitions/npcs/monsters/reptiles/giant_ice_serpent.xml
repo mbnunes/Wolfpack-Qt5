@@ -39,6 +39,11 @@
 		<!-- Missing: Body Parts, Armor, Glacial Staff -->
 		<lootpacks>lootpack_meager</lootpacks>
 		<category>Monsters\Reptiles\Giant Ice Serpent</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="15" />
+		<strproperty name="carve_hides_type" value="spined" />
+		<intproperty name="carve_meat" value="4" />
 	</npc>
 
 </definitions>

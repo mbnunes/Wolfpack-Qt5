@@ -42,6 +42,13 @@
 		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich;lootpack_filthy_rich;lootpack_average</lootpacks>
 		<mintaming>963</mintaming>
 		<category>Monsters\Dragons\White Wyrm (Random)</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_scales" value="9" />
+		<strproperty name="carve_scales_type" value="white" />
+		<intproperty name="carve_hides" value="20" />
+		<strproperty name="carve_hides_type" value="barbed" />
+		<intproperty name="carve_meat" value="19" />
 	</npc>
 
 	<!-- white wyrm (Plain) -->

@@ -46,6 +46,11 @@
 		<mintaming>951</mintaming>
 		<food>5</food>
 		<category>Animals\Mounts\Kirin</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="10" />
+		<strproperty name="carve_hides_type" value="horned" />
+		<intproperty name="carve_meat" value="3" />
 	</npc>
 
 </definitions>

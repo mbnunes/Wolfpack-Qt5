@@ -42,6 +42,11 @@
 		<carve>carve_eagle</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Birds\Eagle</category>
+				
+		<!-- Carve -->
+		<intproperty name="carve_feathers" value="36" />
+		<intproperty name="carve_meat" value="1" />
+		<strproperty name="carve_meat_type" value="bird" />
 	</npc>
 
 </definitions>

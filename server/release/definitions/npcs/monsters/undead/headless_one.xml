@@ -38,5 +38,7 @@
 		<carve>carve_headless</carve>
 		<category>Monsters\Undead\Headless One</category>
 		<desc>The Headless are so called for they have the appearance of a hairy man with no head. Therefore many believe them to be spectres, but oncloser examination they are revealed as corporeal creatures with their sensory apparatus in their chest cavities. Despite their lust for gold and their appearance of deformed humanity, most suspect they are no more than clever beasts.</desc>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 </definitions>

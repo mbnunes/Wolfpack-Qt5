@@ -36,6 +36,8 @@
 		<lootpacks>lootpack_poor</lootpacks>
 		<carve>carve_mong_bat</carve>
 		<category>Monsters\Daemonic\Mongbat</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

@@ -37,6 +37,10 @@
 		<!-- Missing:  -->
 		<lootpacks>lootpack_average;lootpack_average;gems</lootpacks>
 		<category>Monsters\Daemonic\Stone Harpy</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_feathers" value="50" />
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

@@ -37,6 +37,10 @@
 		<!-- Missing:  -->
 		<lootpacks>lootpack_average</lootpacks>
 		<category>Monsters\Daemonic\Hellcat (Large)</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="10" />
+		<intproperty name="carve_hides_type" value="spined" />
 	</npc>
 
 </definitions>

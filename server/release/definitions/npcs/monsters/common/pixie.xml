@@ -42,6 +42,11 @@
 		<!-- Missing:  -->
 		<lootpacks>lootpack_rich;lootpack_average</lootpacks>
 		<category>Monsters\Common\Pixie</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="5" />
+		<strproperty name="carve_hides_type" value="spined" />
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

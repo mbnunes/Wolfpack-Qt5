@@ -10,9 +10,8 @@
 
 
 	<!-- a dragon, random -->
-	<npc id="dragon" inherit="monster_base">
+	<npc id="dragon_base" inherit="monster_base">
 		<name>dragon</name>
-		<id><random list="NPCIDS_DRAGON" /></id>
 		<inherit id="KARMA_L5" />
 		<inherit id="FAME_L5" />
 		<!-- Stats -->
@@ -41,21 +40,46 @@
 		<controlslots>3</controlslots>
 		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich</lootpacks>
 		<mintaming>939</mintaming>
-		<category>Monsters\Dragons\Dragon (Random)</category>
 	</npc>
 
 	<!-- a dragon (gray) -->
-	<npc id="dragon_gray" inherit="dragon">
+	<npc id="dragon_gray" inherit="dragon_base">
 		<id>12</id>
 		<category>Monsters\Dragons\Dragon (Gray)</category>
-		<carve>carve_dragon_gray</carve>
+		<baseid>dragon_gray</baseid>
+		
+		<!-- Carve -->
+		<intproperty name="carve_scales" value="7" />
+		<strproperty name="carve_scales_type" value="yellow" />
+		<intproperty name="carve_hides" value="20" />
+		<strproperty name="carve_hides_type" value="barbed" />
+		<intproperty name="carve_meat" value="19" />
 	</npc>
 
 	<!-- a dragon (red) -->
-	<npc id="dragon_red" inherit="dragon">
+	<npc id="dragon_red" inherit="dragon_base">
 		<id>59</id>
 		<category>Monsters\Dragons\Dragon (Red)</category>
-		<carve>carve_dragon_red</carve>
+		<baseid>dragon_red</baseid>
+		
+		<!-- Carve -->
+		<intproperty name="carve_scales" value="7" />
+		<strproperty name="carve_scales_type" value="red" />
+		<intproperty name="carve_hides" value="20" />
+		<strproperty name="carve_hides_type" value="barbed" />
+		<intproperty name="carve_meat" value="19" />
+	</npc>
+	
+	<list id="dragon_ids">
+		<item>dragon_gray</item>
+		<item>dragon_red</item>
+	</list>
+	
+	<!-- random dragon -->
+	<npc id="dragon">
+		<id>12</id>		
+		<category>Monsters\Dragons\Dragon (Random)</category>
+		<inherit><random list="dragon_ids" /></inherit>
 	</npc>
 
 </definitions>

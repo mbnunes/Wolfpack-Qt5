@@ -45,6 +45,11 @@
 		<food>1</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Nightmare (Random)</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="10" />
+		<strproperty name="carve_hides_type" value="barbed" />
+		<intproperty name="carve_meat" value="5" />
 	</npc>
 
 	<!-- Nightmares 1 -->

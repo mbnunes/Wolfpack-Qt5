@@ -43,6 +43,8 @@
 		<carve>carve_snake</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Snake</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

@@ -41,6 +41,8 @@
 		<lootpacks>lootpack_rich;lootpack_average</lootpacks>
 		<carve>carve_ophidian_queen_medium</carve>
 		<category>Monsters\Ophidians\Ophidian Matriarch</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

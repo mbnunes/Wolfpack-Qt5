@@ -39,6 +39,8 @@
 		<lootpacks>lootpack_average</lootpacks>
 		<carve>carve_gargoyle</carve>
 		<category>Monsters\Daemonic\Gargoyle</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

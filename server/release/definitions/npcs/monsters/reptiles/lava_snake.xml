@@ -34,6 +34,8 @@
 		<!-- Missing: Sulfurous Ash -->
 		<lootpacks>lootpack_poor</lootpacks>
 		<category>Monsters\Reptiles\Lava Snake</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

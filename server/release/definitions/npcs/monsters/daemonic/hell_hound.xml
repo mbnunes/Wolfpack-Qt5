@@ -39,6 +39,8 @@
 		<lootpacks>lootpack_average;lootpack_meager</lootpacks>
 		<carve>carve_hell_hound</carve>
 		<category>Monsters\Daemonic\Hell Hound</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 	<npc id="hell_hound_1" inherit="hell_hound">

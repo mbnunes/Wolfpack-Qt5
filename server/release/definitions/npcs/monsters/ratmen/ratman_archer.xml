@@ -40,6 +40,10 @@
 		<!-- Missing: Bow, 50 Arrow -->
 		<lootpacks>lootpack_rich</lootpacks>
 		<category>Monsters\Ratmen\Ratman Archer</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="8" />
+		<strproperty name="carve_hides_type" value="spined" />
 	</npc>
 
 </definitions>

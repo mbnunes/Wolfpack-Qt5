@@ -43,6 +43,10 @@
 		<carve>carve_walrus</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Walrus</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="12" />		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

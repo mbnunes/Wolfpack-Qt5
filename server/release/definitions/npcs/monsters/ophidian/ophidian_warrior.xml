@@ -39,6 +39,8 @@
 		<lootpacks>lootpack_average;lootpack_meager;gems</lootpacks>
 		<carve>carve_ophidian_warrior_medium</carve>
 		<category>Monsters\Ophidians\Ophidian Warrior</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

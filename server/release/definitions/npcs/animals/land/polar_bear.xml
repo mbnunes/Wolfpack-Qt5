@@ -42,6 +42,10 @@
 		<carve>carve_bear_polar</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Bears\Polar Bear</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="16" />
+		<intproperty name="carve_meat" value="2" />
 	</npc>
 
 </definitions>

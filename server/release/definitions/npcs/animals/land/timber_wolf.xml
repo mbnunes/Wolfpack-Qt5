@@ -43,6 +43,10 @@
 		<carve>carve_wolf</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Canine\Timber Wolf</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="5" />
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

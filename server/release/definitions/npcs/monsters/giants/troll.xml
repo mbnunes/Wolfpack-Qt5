@@ -38,6 +38,8 @@
 		<lootpacks>lootpack_average</lootpacks>
 		<carve>carve_troll</carve>
 		<category>Monsters\Giants\Troll (Random)</category>
+		
+		<intproperty name="carve_meat" value="2" />
 	</npc>
 
 	<npc id="troll_1" inherit="troll">

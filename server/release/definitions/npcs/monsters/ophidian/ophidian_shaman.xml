@@ -39,6 +39,8 @@
 		<!-- Missing: 1-7CS, LNS, Reagent, Potion, Level 2 Map -->
 		<lootpacks>lootpack_average</lootpacks>
 		<category>Monsters\Ophidians\Ophidian Shaman</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

@@ -38,6 +38,8 @@
 		<lootpacks>lootpack_rich;lootpack_rich</lootpacks>
 		<carve>carve_cyclops</carve>
 		<category>Monsters\Giants\Cyclopian Warrior</category>
+		
+		<intproperty name="carve_meat" value="4" />
 	</npc>
 
 </definitions>

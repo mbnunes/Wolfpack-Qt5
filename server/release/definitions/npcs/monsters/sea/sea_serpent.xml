@@ -37,6 +37,12 @@
 		<!-- Missing: Reagent, Level 2 Map, Level 1 Map (Fishing only), Special Fishing Net (Fishing only), MIB (Fishing only) -->
 		<lootpacks>lootpack_meager</lootpacks>
 		<category>Monsters\Sea Monsters\Sea Serpent</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_scales" value="8" />
+		<strproperty name="carve_scales_type" value="blue" />
+		<intproperty name="carve_hides" value="10" />
+		<strproperty name="carve_hides_type" value="horned" />
 	</npc>
 
 </definitions>

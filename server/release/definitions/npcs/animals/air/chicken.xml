@@ -38,6 +38,11 @@
 		<controlslots>1</controlslots>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Birds\Chicken</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_feathers" value="25" />
+		<intproperty name="carve_meat" value="1" />
+		<strproperty name="carve_meat_type" value="bird" />
 	</npc>
 
 	<!-- Super Chicken -->

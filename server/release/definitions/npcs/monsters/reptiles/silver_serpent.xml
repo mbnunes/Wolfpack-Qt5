@@ -39,6 +39,8 @@
 		<!-- Missing:  -->
 		<lootpacks>lootpack_average;gems</lootpacks>
 		<category>Monsters\Reptiles\Silver Serpent</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

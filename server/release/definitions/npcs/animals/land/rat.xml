@@ -43,6 +43,8 @@
 		<carve>carve_rat</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Rats\Rat</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

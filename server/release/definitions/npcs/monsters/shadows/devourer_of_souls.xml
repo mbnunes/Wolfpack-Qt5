@@ -44,6 +44,8 @@
 		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Shadows\Devourer of Souls</category>
+		
+		<intproperty name="carve_meat" value="3" />
 	</npc>
 
 </definitions>

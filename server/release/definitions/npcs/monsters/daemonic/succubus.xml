@@ -39,6 +39,7 @@
 		<!-- Missing: Jewel, 1-7CS, MNS, Level 5 Map -->
 		<lootpacks>lootpack_filthy_rich;lootpack_filthy_rich</lootpacks>
 		<category>Monsters\Daemonic\Succubus</category>
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 	<npc id="succubus_2" inherit="succubus">

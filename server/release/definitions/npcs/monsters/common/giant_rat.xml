@@ -36,6 +36,10 @@
 		<carve>carve_ret_giant</carve>
 		<mintaming>291</mintaming>
 		<category>Monsters\Common\Giant Rat</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="6" />
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

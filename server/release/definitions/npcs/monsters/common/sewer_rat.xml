@@ -33,6 +33,8 @@
 		<tag name="res_physical" value="5,10" type="int" />
 		<!-- Misc. -->
 		<category>Monsters\Common\Sewer Rat</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

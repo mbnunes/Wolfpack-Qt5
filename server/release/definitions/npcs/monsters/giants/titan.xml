@@ -41,6 +41,8 @@
 		<lootpacks>lootpack_filthy_rich;gems</lootpacks>
 		<carve>carve_titan</carve>
 		<category>Monsters\Giants\Titan</category>
+		
+		<intproperty name="carve_meat" value="4" />
 	</npc>
 
 </definitions>

@@ -39,6 +39,10 @@
 		<carve>carve_goat</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Goat</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="8" />
+		<intproperty name="carve_meat" value="2" />
 	</npc>
 
 	<!-- Mountain Goat -->
@@ -74,6 +78,10 @@
 		<carve>carve_goat</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Mountain Goat</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="12" />
+		<intproperty name="carve_meat" value="2" />
 	</npc>
 
 </definitions>

@@ -42,6 +42,11 @@
 		<carve>carve_aligator</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Alligator</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="12" />
+		<strproperty name="carve_hides_type" value="spined" />
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

@@ -41,6 +41,11 @@
 		<!-- Missing: 1-7CS, LNS, Reagent, Statue -->
 		<lootpacks>lootpack_rich</lootpacks>
 		<category>Monsters\Ratmen\Ratman Mage</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="8" />
+		<strproperty name="carve_hides_type" value="spined" />
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

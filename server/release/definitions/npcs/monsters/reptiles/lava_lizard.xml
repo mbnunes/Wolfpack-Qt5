@@ -39,6 +39,10 @@
 		<carve>carve_lava_lizard</carve>
 		<mintaming>807</mintaming>
 		<category>Monsters\Reptiles\lava lizard</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="12" />
+		<strproperty name="carve_hides_type" value="spined" />
 	</npc>
 
 </definitions>

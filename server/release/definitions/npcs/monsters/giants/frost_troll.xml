@@ -37,6 +37,8 @@
 		<!-- Missing: Weapon, Level 1 Map -->
 		<lootpacks>lootpack_average;gems</lootpacks>
 		<category>Monsters\Giants\Frost Troll</category>
+		
+		<intproperty name="carve_meat" value="2" />
 	</npc>
 
 </definitions>

@@ -40,6 +40,8 @@
 		<!-- Misc. -->
 		<desc>An orcish mage is an abomination to those who study the arcane. Like all things orcish, they leave a taint on all things they touch. Orcs obey no rules but their own, and as such force magic to obey their whims. The energies released by the orcish mage are almost always offensive in nature. It should be the sworn duty of all mages to seek out and eradicate the orcish mage.</desc>
 		<category>Monsters\Orcs\Orc Mage</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

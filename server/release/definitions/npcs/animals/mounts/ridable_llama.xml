@@ -42,6 +42,10 @@
 		<food>5</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Llama</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="12" />
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

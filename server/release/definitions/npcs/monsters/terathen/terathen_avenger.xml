@@ -42,6 +42,8 @@
 		<!-- Missing: Armor, Level 3 Map -->
 		<lootpacks>lootpack_rich;lootpack_rich;</lootpacks>
 		<category>Monsters\Terathan\Terathan Avenger</category>
+		
+		<intproperty name="carve_meat" value="2" />
 	</npc>
 
 </definitions>

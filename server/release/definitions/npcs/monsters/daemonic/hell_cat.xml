@@ -39,6 +39,10 @@
 		<lootpacks>lootpack_meager</lootpacks>
 		<carve>carve_hellcat</carve>
 		<category>Monsters\Daemonic\Hellcat (Small)</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="10" />
+		<intproperty name="carve_hides_type" value="spined" />
 	</npc>
 
 </definitions>

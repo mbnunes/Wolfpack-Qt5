@@ -41,6 +41,11 @@
 		<!-- Missing: Accessory -->
 		<lootpacks>lootpack_filthy_rich;lootpack_rich</lootpacks>
 		<category>Monsters\Common\Phoenix</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_feathers" value="36" />
+		<intproperty name="carve_meat" value="1" />
+		<strproperty name="carve_meat_type" value="bird" />
 	</npc>
 
 </definitions>

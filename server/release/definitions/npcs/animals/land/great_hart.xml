@@ -39,6 +39,10 @@
 		<carve>carve_hart_great</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Great Hart</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="15" />
+		<intproperty name="carve_meat" value="6" />
 	</npc>
 
 </definitions>

@@ -40,6 +40,8 @@
 		<!-- Missing: Potion, 4 Nightshade, Level 1 Map -->
 		<lootpacks>lootpack_average</lootpacks>
 		<category>Monsters\Common\Gazer</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

@@ -37,7 +37,11 @@
 		<!-- Missing:  -->
 		<lootpacks>lootpack_poor</lootpacks>
 		<mintaming>771</mintaming>
-		<category>Monsters\Reptiles\giant Toad</category>
+		<category>Monsters\Reptiles\Giant Toad</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="12" />
+		<intproperty name="carve_hides_type" value="spined" />		
 	</npc>
 
 </definitions>

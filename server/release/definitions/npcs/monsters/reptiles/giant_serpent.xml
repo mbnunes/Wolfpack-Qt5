@@ -42,6 +42,11 @@
 		<lootpacks>lootpack_average</lootpacks>
 		<carve>carve_serpent_gaint</carve>
 		<category>Monsters\Reptiles\Gaint Serpent</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="15" />
+		<strproperty name="carve_hides_type" value="spined" />
+		<intproperty name="carve_meat" value="4" />
 	</npc>
 
 </definitions>

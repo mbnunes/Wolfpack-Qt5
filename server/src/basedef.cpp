@@ -492,3 +492,192 @@ void cItemBaseDefs::refreshScripts()
 		it.data()->refreshScripts();
 	}
 }
+
+// Python Interface
+const char* cBaseDef::className() const {
+	return "basedef";
+}
+
+bool cBaseDef::implements( const QString& name ) const {
+	if (name == "basedef") {
+		return true;
+	} else {
+		return cPythonScriptable::implements(name);
+	}
+}
+
+/*
+	\object basedef
+	\description This object type reprsents the base definitions of items and characters.
+*/
+struct wpBasedef
+{
+	PyObject_HEAD;
+	cBaseDef* basedef;
+};
+
+static PyObject* wpBasedef_getAttr( wpBasedef* self, char* name );
+static int wpBasedef_compare( PyObject* a, PyObject* b );
+
+PyTypeObject wpBasedefType =
+{
+PyObject_HEAD_INIT( NULL )
+0, 
+"basedef", 
+sizeof( wpBasedefType ), 
+0, 
+wpDealloc, 
+0, 
+( getattrfunc ) wpBasedef_getAttr, 
+0, 
+wpBasedef_compare,
+0,
+};
+
+/*
+	\method basedef.getintproperty
+	\description Get an integer property from this definition.
+	\param name The name of the property. This name is not case sensitive.
+	\param default The default value that is returned if this property doesnt
+	exist. Defaults to 0.
+	\return The property value or the given default value.
+*/
+PyObject *wpBasedef_getintproperty(wpBasedef *self, PyObject *args) {
+	unsigned int def = 0;
+	PyObject *pyname;
+
+	if (!PyArg_ParseTuple(args, "O|i:basedef.getintproperty(name, def)", &pyname, &def)) {
+		return 0;
+	}
+
+	QString name = Python2QString(pyname);
+	return PyInt_FromLong( self->basedef->getIntProperty( name, def ) );
+}
+
+/*
+	\method basedef.getstrproperty
+	\description Get a string property from this definition.
+	\param name The name of the property. This name is not case sensitive.
+	\param default The default value that is returned if this property doesnt
+	exist. Defaults to an empty string.
+	\return The property value or the given default value.
+*/
+static PyObject* wpBasedef_getstrproperty( wpBasedef* self, PyObject* args )
+{
+	PyObject *pydef = 0;
+	PyObject *pyname;
+
+	if (!PyArg_ParseTuple(args, "O|O:basedef.getstrproperty(name, def)", &pyname, &pydef)) {
+		return 0;
+	}
+
+	QString name = Python2QString(pyname);
+	QString def = Python2QString(pydef);
+
+	return QString2Python( self->basedef->getStrProperty( name, def ) );
+}
+
+/*
+	\method basedef.hasstrproperty
+	\description Checks if this definition has a string property with the given name.
+	\param name The name of the property. This name is not case sensitive.
+	\return True if the definition has the property, False otherwise.
+*/
+static PyObject* wpBasedef_hasstrproperty( wpBasedef* self, PyObject* args )
+{
+	PyObject *pyname;
+
+	if (!PyArg_ParseTuple(args, "O:char.hasstrproperty(name)", &pyname)) {
+		return 0;
+	}
+
+	QString name = Python2QString(pyname);
+
+	if (self->basedef->hasStrProperty(name)) {
+		Py_RETURN_TRUE;
+	} else {
+		Py_RETURN_FALSE;
+	}
+}
+
+/*
+	\method basedef.hasintproperty
+	\description Checks if this definition has an integer property with the given name.
+	\param name The name of the property. This name is not case sensitive.
+	\return True if the definition has the property, False otherwise.
+*/
+static PyObject* wpBasedef_hasintproperty( wpBasedef* self, PyObject* args )
+{
+	PyObject *pyname;
+
+	if (!PyArg_ParseTuple(args, "O:basedef.hasintproperty(name)", &pyname)) {
+		return 0;
+	}
+
+	QString name = Python2QString(pyname);
+
+	if (self->basedef->hasIntProperty(name)) {
+		Py_RETURN_TRUE;
+	} else {
+		Py_RETURN_FALSE;
+	}
+}
+
+static PyMethodDef wpBasedefMethods[] = {
+	{"getintproperty", ( getattrofunc ) wpBasedef_getintproperty, METH_VARARGS, 0},
+	{"getstrproperty", ( getattrofunc ) wpBasedef_getstrproperty, METH_VARARGS, 0},
+	{"hasintproperty", ( getattrofunc ) wpBasedef_hasintproperty, METH_VARARGS, 0},
+	{"hasstrproperty", ( getattrofunc ) wpBasedef_hasstrproperty, METH_VARARGS, 0},
+	{0, 0, 0, 0}
+};
+
+PyObject* cBaseDef::getPyObject() {
+	wpBasedef * returnVal = PyObject_New( wpBasedef, &wpBasedefType );
+	returnVal->basedef = this;
+	return ( PyObject * ) returnVal;
+}
+
+static PyObject* wpBasedef_getAttr( wpBasedef* self, char* name ) {
+	PyObject *result = self->basedef->getProperty( name );
+
+	if (result) {
+		return result;
+	}
+	
+	return Py_FindMethod( wpBasedefMethods, (PyObject*) self, name );
+}
+
+static int wpBasedef_compare( PyObject* a, PyObject* b )
+{
+	if ( a->ob_type != &wpBasedefType || b->ob_type != &wpBasedefType )
+		return -1;
+
+	return !( ( ( wpBasedef * ) a )->basedef == ( ( wpBasedef * ) b )->basedef );
+}
+
+PyObject* cBaseDef::getProperty( const QString& name ) {
+	PY_PROPERTY("id", id()) // \rproperty basedef.id The definition id of this base definition.
+	PY_PROPERTY("basescripts", baseScriptList()) // \rproperty basedef.basescripts The names of all basescripts assigned to this base definition.
+	PY_PROPERTY("bindmenu", bindmenu()) // \rproperty basedef.bindmenu The id of the context menu assigned to this base definition.
+	return cPythonScriptable::getProperty(name);
+}
+
+PyObject *cCharBaseDef::getProperty( const QString& name ) {
+	PY_PROPERTY("controlslots", controlSlots()) // \rproperty basedef.controlslots The amount of controlslots consumed by this npc.
+	PY_PROPERTY("criticalhealth", criticalHealth()) // \rproperty basedef.criticalhealth The percentage of health this NPC will start fleeing at.
+	PY_PROPERTY("mindamage", minDamage()) // \rproperty basedef.mindamage The mindamage for this npc.
+	PY_PROPERTY("mintaming", minTaming()) // \rproperty basedef.mintaming The minimum taming skill required for this npc.
+	PY_PROPERTY("lootpacks", lootPacks()) // \rproperty basedef.lootpacks The lootpacks for this npc.
+	return cBaseDef::getProperty(name);
+}
+
+PyObject *cItemBaseDef::getProperty( const QString& name ) {
+	PY_PROPERTY("decaydelay", decaydelay()) // \rproperty basedef.decaydelay The delay until this item will decay when its dropped to ground.
+	PY_PROPERTY("weight", weight()) // \rproperty basedef.weight The weight of this item.
+	PY_PROPERTY("sellprice", sellprice()) // \rproperty basedef.sellprice The sellprice of this item.
+	PY_PROPERTY("buyprice", buyprice()) // \rproperty basedef.buyprice The buyprice for this item.
+	PY_PROPERTY("type", type()) // \rproperty basedef.type The type of this item.
+	PY_PROPERTY("lightsource", lightsource()) // \rproperty.lightsource The lightmap id for this item.
+	PY_PROPERTY("watersource", isWaterSource()) // \rproperty.watersource Indicates whether this item is a source of water.
+	return cBaseDef::getProperty(name);
+}

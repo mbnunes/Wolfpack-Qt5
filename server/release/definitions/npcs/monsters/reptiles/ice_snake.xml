@@ -36,6 +36,8 @@
 		<!-- Missing:  -->
 		<lootpacks>lootpack_meager</lootpacks>
 		<category>Monsters\Reptiles\Ice Snake</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

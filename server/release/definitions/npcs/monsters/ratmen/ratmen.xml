@@ -41,6 +41,10 @@
 		<!-- Missing: Weapon, Misc -->
 		<lootpacks>lootpack_meager</lootpacks>
 		<category>Monsters\Ratmen\Ratman (Random)</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="8" />
+		<strproperty name="carve_hides_type" value="spined" />
 	</npc>
 
 	<!-- a ratman -->

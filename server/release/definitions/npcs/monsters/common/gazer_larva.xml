@@ -34,6 +34,8 @@
 		<lootpacks>gold_meager</lootpacks>
 		<!-- Misc. -->
 		<category>Monsters\Common\Gazer Larva</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

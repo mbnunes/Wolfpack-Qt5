@@ -39,6 +39,10 @@
 		<carve>carve_cow</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Cow (Random)</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="12" />
+		<intproperty name="carve_meat" value="8" />
 	</npc>
 
 	<!-- Cow (black & white) -->

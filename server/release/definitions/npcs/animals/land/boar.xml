@@ -42,6 +42,8 @@
 		<carve>carve_boar</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Boar</category>
+		
+		<intproperty name="carve_meat" value="2" />
 	</npc>
 
 	<npc id="pig" inherit="animal_base">
@@ -74,6 +76,8 @@
 		<carve>carve_boar</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Land\Pig</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

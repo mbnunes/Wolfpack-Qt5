@@ -31,6 +31,10 @@
 		<!-- Missing: -->
 		<lootpacks>lootpack_poor</lootpacks>
 		<category>Monsters\Daemonic\Mongbat (Strong)</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="6" />
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

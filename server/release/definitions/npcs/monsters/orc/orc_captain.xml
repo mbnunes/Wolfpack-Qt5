@@ -39,6 +39,8 @@
 		<lootpacks>lootpack_meager;lootpack_meager</lootpacks>
 		<carve>carve_orc</carve>
 		<category>Monsters\Orcs\Orc Captain</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

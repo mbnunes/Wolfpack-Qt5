@@ -38,6 +38,8 @@
 		<!-- Missing: Level 1 Map -->
 		<lootpacks>lootpack_average;lootpack_meager</lootpacks>
 		<category>Monsters\Ophidians\Ophidian Enforcer</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

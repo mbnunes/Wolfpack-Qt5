@@ -37,9 +37,13 @@
 		<controlslots>1</controlslots>
 		<mintaming>0</mintaming>
 		<food>3</food>
-		<carve>carve_bird</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Birds\Random Bird</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_feathers" value="25" />
+		<intproperty name="carve_meat" value="1" />
+		<strproperty name="carve_meat_type" value="bird" />
 	</npc>
 
 </definitions>

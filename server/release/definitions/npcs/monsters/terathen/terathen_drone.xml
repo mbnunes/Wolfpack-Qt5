@@ -39,6 +39,8 @@
 		<!-- Missing: Weapon, 2 Spider Silk -->
 		<lootpacks>lootpack_meager</lootpacks>
 		<category>Monsters\Terathan\Terathan Drone</category>
+		
+		<intproperty name="carve_meat" value="4" />
 	</npc>
 
 </definitions>

@@ -41,6 +41,10 @@
 		<carve>carve_black_bear</carve>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Bears\Black Bear</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="12" />
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>

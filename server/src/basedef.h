@@ -30,6 +30,7 @@
 
 #include "definable.h"
 #include "singleton.h"
+#include "pythonscript.h"
 #include <qmap.h>
 #include <qptrlist.h>
 #include <qcstring.h>
@@ -38,7 +39,7 @@
 class cElement;
 class cPythonScript;
 
-class cBaseDef : public cDefinable {
+class cBaseDef : public cDefinable, public cPythonScriptable {
 protected:
 	// Our id
 	QCString id_;
@@ -58,6 +59,7 @@ public:
 	void processNode( const cElement* node );
 
 	inline unsigned int getIntProperty(const QString &name, unsigned int def = 0) {
+		load();
 		QMap<QString, unsigned int>::const_iterator it = intproperties.find(name);
 		if (it == intproperties.end()) {
 			return def;
@@ -67,10 +69,12 @@ public:
 	}
 
 	inline bool hasIntProperty(const QString &name) {
+		load();
 		return intproperties.contains(name);
 	}
 
 	inline const QString &getStrProperty(const QString &name, const QString &def = QString::null) {
+		load();
 		QMap<QString, QString>::const_iterator it = properties.find(name);
 		if (it == properties.end()) {
 			return def;
@@ -80,6 +84,7 @@ public:
 	}
 
 	inline bool hasStrProperty(const QString &name) {
+		load();
 		return properties.contains(name);
 	}
 
@@ -105,6 +110,12 @@ public:
 		load();
 		return bindmenu_;
 	}
+
+	// Python Scriptable
+	const char* className() const;
+	PyObject* getPyObject();
+	bool implements(const QString& name) const;
+	PyObject *getProperty( const QString& name );
 };
 
 class cCharBaseDef : public cBaseDef
@@ -192,6 +203,8 @@ public:
 		load();
 		return lootPacks_;
 	}
+
+	PyObject *getProperty( const QString& name );
 };
 
 #define BODY_UNKNOWN 0
@@ -322,6 +335,8 @@ public:
 		load();
 		return ( flags_ & 0x01 ) != 0;
 	}
+
+	PyObject *getProperty( const QString& name );
 };
 
 class cItemBaseDefs

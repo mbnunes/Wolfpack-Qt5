@@ -37,6 +37,11 @@
 		<!-- Missing:  -->
 		<lootpacks>lootpack_meager;lootpack_meager</lootpacks>
 		<category>Monsters\Daemonic\Harpy</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_feathers" value="50" />
+		<intproperty name="carve_meat" value="4" />
+		<strproperty name="carve_meat_type" value="bird" />
 	</npc>
 
 </definitions>

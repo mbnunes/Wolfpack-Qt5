@@ -39,6 +39,11 @@
 		<lootpacks>lootpack_meager</lootpacks>
 		<carve>carve_lizard_man_medium</carve>
 		<category>Monsters\Lizardmen\Lizardman (Random)</category>
+		
+		<!-- Carve -->
+		<intproperty name="carve_hides" value="12" />
+		<strproperty name="carve_hides_type" value="spined" />
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 	<!-- a lizard man 1-->

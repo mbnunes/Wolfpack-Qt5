@@ -40,6 +40,8 @@
 		<!-- Missing: Bola Ball, Evil Orc Helm -->
 		<lootpacks>lootpack_average;lootpack_meager</lootpacks>
 		<category>Monsters\Orcs\Orcish Lord</category>
+		
+		<intproperty name="carve_meat" value="1" />
 	</npc>
 
 </definitions>
