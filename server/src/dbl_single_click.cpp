@@ -76,7 +76,9 @@ static bool Item_ToolWearOut(UOXSOCKET s, P_ITEM pi)
 void slotmachine(UOXSOCKET s, ITEM x)
 {
 	int cc=currchar[s];
-	if(chars[cc].dead)		// no ghosts playing :)
+	const P_ITEM pi=MAKE_ITEMREF_LR(x);	// on error return
+	P_CHAR pc_currchar = MAKE_CHARREF_LR(cc);
+	if(pc_currchar->dead)		// no ghosts playing :)
 	{
 		sysmessage(s,"ghosts cant do that!");
 		return;
@@ -86,7 +88,7 @@ void slotmachine(UOXSOCKET s, ITEM x)
 		sysmessage(s,"you need to be closer to play!");
 		return;
 	}
-	if(chars[cc].CountGold() < 5)	// check his gold to see if less than 5gp.
+	if(pc_currchar->CountGold() < 5)	// check his gold to see if less than 5gp.
 	{
 		sysmessage(s,"you dont have enough gold to play!");
 		return;
@@ -111,7 +113,7 @@ void slotmachine(UOXSOCKET s, ITEM x)
 		sysmessage(s,"Three red 7`s, you are a winner!!");soundeffect(s, 0x00, 0x38); break;
 	case 7: Items->SpawnItemBackpack2(s,2007,1);
 		sysmessage(s,"Jackpot, you are a winner!!");soundeffect(s, 0x00, 0x38); break;
-	default : itemmessage(s,"Sorry,not a winner,please insert coins.",items[x].serial); break;
+	default : itemmessage(s,"Sorry,not a winner,please insert coins.",pi->serial); break;
 	}
 	soundeffect(s, 0x00, 0x57);	// my stupid spin sound hehe.
 }
@@ -225,8 +227,9 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 	else if ((IsSpellScroll(pi->id())) && (pi->magic != 4))
 	{
 		k = packitem(DEREF_P_CHAR(pc_currchar));
-		if (k!=-1)
-			if ((pi->contserial == items[k].serial))
+		const P_ITEM pi_k = MAKE_ITEMREF_LR(k);	// on error return
+		if (pi_k != NULL)
+			if ((pi->contserial == pi_k->serial))
 			{
 				currentSpellType[s] = 1;							// a scroll spell, so cut mana req
 				short spn = Magic->SpellNumFromScrollID(pi->id());	// avoid reactive armor glitch
@@ -440,7 +443,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 	case 9: // spellbook
 		pc_currchar->objectdelay = 0;
 		k = packitem(currchar[s]);
-		if (k!=-1) // morrolan
+		if (k != -1)
 			if ((pi->contserial == items[k].serial) || pc_currchar->Wears(pi) &&(pi->layer == 1))
 			{
 				Magic->SpellBook(s, DEREF_P_ITEM(pi));
@@ -565,7 +568,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		return; // case 14 (food)
 	case 15: // -Fraz- Modified and tuned up, Wands must now be equipped or in pack
 		k = packitem(currchar[s]);
-		if (k!=-1)
+		if (k != -1)
 		{
 			if ((pi->contserial == items[k].serial) || pc_currchar->Wears(pi) &&(pi->layer == 1))
 			{
@@ -770,15 +773,17 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					if (!ishouse(pi_multi))
 						return; // LB
 					p = packitem(currchar[s]);
-					if (p>-1)
+					const P_ITEM pi_p=MAKE_ITEMREF_LR(p);	// on error return
+					if (pi_p != NULL)
 					{
 						los = 0;
-						vector<SERIAL> vecContainer = contsp.getData(items[p].serial);
+						vector<SERIAL> vecContainer = contsp.getData(pi_p->serial);
 						for (j = 0; j < vecContainer.size(); j++)
 						{
 							i = calcItemFromSer(vecContainer[j]);
-							if (i!=-1 && p!=-1) // lb
-								if (items[i].type == 7 && calcserial(items[i].more1, items[i].more2, items[i].more3, items[i].more4) == pi_multi->serial)
+							const P_ITEM pi_i=MAKE_ITEMREF_LR(i);	// on error return
+							if ((pi_i != NULL) && (pi_p != NULL)) // lb
+								if (pi_i->type == 7 && calcserial(pi_i->more1, pi_i->more2, pi_i->more3, pi_i->more4) == pi_multi->serial)
 								{
 									los = 1;
 									break;
@@ -1497,9 +1502,10 @@ void singleclick(UOXSOCKET s)
 	if (!pi->isInWorld() && isItemSerial(pi->contserial))
 	{
 		j = GetPackOwner(calcItemFromSer(pi->contserial));
-		if (j!=-1)
+		P_CHAR pc_j = MAKE_CHARREF_LR(j);
+		if (pc_j != NULL)
 		{
-			if (chars[j].npcaitype == 17)
+			if (pc_j->npcaitype == 17)
 			{
 				if (strlen(pi->creator)>0 && pi->madewith>0)
 					sprintf((char*)temp2, "%s %s by %s", pi->desc, skill[pi->madewith - 1].madeword, pi->creator); 
@@ -1588,6 +1594,7 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 	int keyboard, y;
 	unsigned char pdoll[256]="\x88\x00\x05\xA8\x90\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
 	int cc=currchar[s];
+	P_CHAR pc_currchar = MAKE_CHARREF_LR(cc);
 	keyboard=buffer[s][1]&0x80;
 	
 	CHARACTER x = calcCharFromSer( target_serial );
@@ -1607,16 +1614,15 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 		(target->id2==(unsigned char)'\xDA')||
 		(target->id2==(unsigned char)'\xDB')))
 	{//if mount
-		if (chardist(cc, x)<2 || chars[cc].isGM())
+		if (chardist(cc, x)<2 || pc_currchar->isGM())
 		{
 			//AntiChrist - cannot ride animals under polymorph effect
-			//if (chars[cc].id1!=chars[cc].orgid1 || chars[cc].id2!=chars[cc].orgid2) {
-			if (chars[cc].polymorph)
+			if (pc_currchar->polymorph)
 			{
 				sysmessage(s, "You cannot ride anything under polymorph effect.");
 				return;
 			}
-			if (chars[cc].dead)
+			if (pc_currchar->dead)
 			{
 				sysmessage(s,"You are dead and cannot do that.");
 				return;
@@ -1633,7 +1639,7 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 	{//if monster
 		if (target->id1==0x01&&(target->id2==0x23||target->id2==0x24))
 		{//if packhorse or packlhama added by JustMichael 8/31/99
-			if (chars[cc].Owns(target))
+			if (pc_currchar->Owns(target))
 			{
 				y=packitem(x);
 				if (y!=-1)
@@ -1666,7 +1672,7 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 			if (y!=-1) backpack(s, items[y].serial); // rippers bugfix for vendor bags not opening !!!
 			return;
 		}
-		if (chars[cc].serial==target->serial)
+		if (pc_currchar->serial==target->serial)
 		{//dbl-click self
 			if ((!keyboard)&&(unmounthorse(s)==0)) return; //on horse
 			//if not on horse, treat ourselves as any other char
