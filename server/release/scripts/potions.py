@@ -9,34 +9,41 @@ AGILITY_TIME = 120000  # 2 minutes
 STRENGTH_TIME = 120000  # 2 minutes
 INTELLIGENCE_TIME = 120000 # 2 minutes
 
-# potion [ return_bottle, aggressive, target ]
+# potion [ return_bottle, aggressive, target, name ]
 potions = \
 {
-	0:		[ 1, 0, 0 ], # nightsight
-	1:		[ 1, 0, 0 ], # lesser heal
-	2:		[ 1, 0, 0 ], # heal
-	3:		[ 1, 0, 0 ], # greater heal
-	4:		[ 1, 0, 0 ], # lesser cure
-	5:		[ 1, 0, 0 ], # cure
-	6:		[ 1, 0, 0 ], # greater cure
-	7:		[ 1, 0, 0 ], # agility
-	8:		[ 1, 0, 0 ], # greater agility
-	9:		[ 1, 0, 0 ], # strength
-	10:	[ 1, 0, 0 ], # greater strength
-	11:	[ 0, 1, 1 ], # lesser explosion
-	12:	[ 0, 1, 1 ], # explosion
-	13:	[ 0, 1, 1 ], # greater explosion
-	14:	[ 1, 0, 0 ], # lesser poison
-	15:	[ 1, 0, 0 ], # poison
-	16:	[ 1, 0, 0 ], # greater poison
-	17:	[ 1, 0, 0 ], # deadly poison
-	18:	[ 1, 0, 0 ], # refresh
-	19:	[ 1, 0, 0 ] # total refresh
+	0:		[ 1, 0, 0, 1044542 ], # nightsight
+	1:		[ 1, 0, 0, 1044543 ], # lesser heal
+	2:		[ 1, 0, 0, 1044544 ], # heal
+	3:		[ 1, 0, 0, 1044545 ], # greater heal
+	4:		[ 1, 0, 0, 1044552 ], # lesser cure
+	5:		[ 1, 0, 0, 1044553 ], # cure
+	6:		[ 1, 0, 0, 1044554 ], # greater cure
+	7:		[ 1, 0, 0, 1044540 ], # agility
+	8:		[ 1, 0, 0, 1044541 ], # greater agility
+	9:		[ 1, 0, 0, 1044546 ], # strength
+	10:	[ 1, 0, 0, 1044547 ], # greater strength
+	11:	[ 0, 1, 1, 1044555 ], # lesser explosion
+	12:	[ 0, 1, 1, 1044556 ], # explosion
+	13:	[ 0, 1, 1, 1044557 ], # greater explosion
+	14:	[ 1, 0, 0, 1044548 ], # lesser poison
+	15:	[ 1, 0, 0, 1044549 ], # poison
+	16:	[ 1, 0, 0, 1044550 ], # greater poison
+	17:	[ 1, 0, 0, 1044551 ], # deadly poison
+	18:	[ 1, 0, 0, 1044538 ], # refresh
+	19:	[ 1, 0, 0, 1044539 ], # total refresh
+	20:	[ 1, 0, 0, 'Intellegence' ], # intelligence
+	21:	[ 1, 0, 0, 'Greater Intellegence' ], # greater intelligence
+	22:	[ 1, 0, 0, 'Lesser Mana' ], # lesser mana
+	23:	[ 1, 0, 0, 'Mana' ], # mana
+	24:	[ 1, 0, 0, 'Greater Mana' ] # greater mana
+
 }
 
 POT_RETURN_BOTTLE = 0
 POT_AGGRESSIVE = 1
 POT_TARGET = 2
+POT_NAME = 3
 
 # Use the potion
 def onUse( char, item ):
@@ -146,7 +153,10 @@ def potiondamage( char, target, potion ):
 		bonus = randint(6,7)
 	else:
 		bonus = randint(0,5)
-	energydamage(target, char, (damage + bonus), fire=100)
+	if potion.amount > 1:
+		damage = damage * potion.amount
+	damage += bonus
+	energydamage(target, char, damage, fire=100)
 	return
 
 # Check what kind of potion we use, drink or throw
@@ -289,15 +299,15 @@ def healPotion( char, potion, healtype ):
 	amount = 0
 
 	# Lesser Heal
-	if healtype == "lesser_heal":
+	if healtype == 1:
 		amount = randint( POTION_LESSERHEAL_RANGE[0], POTION_LESSERHEAL_RANGE[1] )
 
 	# Heal
-	elif healtype == "heal":
+	elif healtype == 2:
 		amount = randint( POTION_HEAL_RANGE[0], POTION_HEAL_RANGE[1] )
 
 	# Greater Heal
-	elif healtype == "greater_heal":
+	elif healtype == 3:
 		amount = randint( POTION_GREATERHEAL_RANGE[0], POTION_GREATERHEAL_RANGE[1] )
 
 	char.hitpoints = min( char.hitpoints + amount, char.maxhitpoints ) # We don't heal over our maximum health
@@ -318,7 +328,7 @@ def effectdextimer( time, args ):
 	effecttype = args[1]
 	bonus = args[2]
 
-	if effecttype == 'agility' or effecttype == 'greater_agility':
+	if effecttype == 6 or effecttype == 7:
 		if not char.hastag( 'agility_effect' ):
 			return OOPS
 		char.dexterity = char.dexterity - bonus
@@ -334,7 +344,7 @@ def effectstrtimer( time, args ):
 	effecttype = args[1]
 	bonus = args[2]
 
-	if effecttype == 'strength' or effecttype == 'greater_strength':
+	if effecttype == 8 or effecttype == 9:
 		if not char.hastag( 'strength_effect' ):
 			return OOPS
 		char.strength = char.strength - bonus
@@ -344,12 +354,12 @@ def effectstrtimer( time, args ):
 		char.updatestats()
 	return OK
 
-# Intelligence Effect Timer
+# Intelligence Effect Timer, Not needed
 def effectinttimer( time, args ):
 	char = args[0]
 	effecttype = args[1]
 	bonus = args[2]
-	if effecttype == 'intelligence' or effecttype == 'greater_intelligence':
+	if effecttype == 20 or effecttype == 21:
 		if not char.hastag( 'intelligence_effect' ):
 			return OOPS
 		char.intelligence = char.intelligence - bonus
@@ -367,11 +377,11 @@ def agilityPotion( char, potion, agilitytype ):
 	bonus = 0
 
 	# Agility
-	if agilitytype == 'agility':
+	if agilitytype == 6:
 		bonus = 10
 
 	# Greater Agility
-	elif agilitytype == 'greater_agility':
+	elif agilitytype == 7:
 		bonus = 20
 
 	else:
@@ -399,11 +409,11 @@ def strengthPotion( char, potion, strengthtype ):
 	bonus = 0
 
 	# Agility
-	if strengthtype == 'strength':
+	if strengthtype == 8:
 		bonus = 10
 
 	# Greater Agility
-	elif strengthtype == 'greater_strength':
+	elif strengthtype == 9:
 		bonus = 20
 
 	else:
@@ -427,6 +437,37 @@ def strengthPotion( char, potion, strengthtype ):
 def poisonPotion( char, potion, poisontype ):
 	char.socket.sysmessage( "You shouldn't drink that..." )
 	return OK
+
+# Potion Kegs
+def onDropOnItem(target, potion):
+ 	# check for potionkeg event on object
+ 	if not 'potionkeg' in target.events:
+		# This isn't a potion keg
+		return OOPS
+	if not potion.hastag('potiontype'):
+		# 502232	The keg is not designed to hold that type of object.
+		return OOPS
+
+	if target.hastag('kegfill') and target.hastag('potiontype'):
+		if potion.gettag('potiontype') == target.gettag('potiontype'):
+			kegfill = target.gettag('kegfill')
+			if kegfill < 100:
+				kegfill += 1
+				target.settag('kegfill', kegfill)
+				potion.delete()
+			else:
+				# 502233	The keg will not hold any more!
+				return OOPS
+		else:
+			# 502236	You decide that it would be a bad idea to mix different types of potions.
+			return OOPS
+	else:
+		target.settag( 'potiontype', potion.gettag('potiontype') )
+		target.settag( 'kegfill', 1 )
+
+		return
+ 	return
+
 
 # INVIS POTION
 # ID: 0x7A9A3 (0)

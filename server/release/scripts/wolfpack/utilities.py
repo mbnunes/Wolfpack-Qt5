@@ -647,7 +647,7 @@ def throwobject( char, object, target, sendobject=0, movable=1, speed=10, fixedd
 class ObjectWrapper:
 	def __init__(self, wrapped):
 		self.serial = wrapped.serial
-		
+
 	def get(self):
 		if self.serial > 0 and self.serial < 0x40000000:
 			char = wolfpack.findchar(self.serial)
