@@ -375,7 +375,7 @@ def parseWsc( file, map ):
 				newitem = wolfpack.additem( "%s" % baseid ) # Generate a new serial for us
 			else:
 				baseid = lstrip( str( hex( id ) ), "0x" )
-				
+
 				# Multi ?
 				if id >= 0x4000:
 					newitem = wolfpack.addmulti( "%s" % baseid ) # Generate a new serial for us
@@ -401,7 +401,7 @@ def parseWsc( file, map ):
 			count += 1
 
 		elif line[:17] == 'SECTION WORLDCHAR':
-			warning += "Found character in import file. Importing characters is not allowed.<br>"
+			warnings += "Found character in import file. Importing characters is not allowed.<br>"
 
 	return ( count, warnings )
 
