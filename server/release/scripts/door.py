@@ -349,7 +349,7 @@ def onUse(char, item, norange=0):
 	if not char.cansee( item ):
 		char.socket.sysmessage( "You cannot see the door from here." )
 		return True
-	elif not char.canreach(item, 2):
+	elif not norange and not char.canreach(item, 2):
 		char.socket.sysmessage( "You cannot reach the handle from here." )
 		return True
 
