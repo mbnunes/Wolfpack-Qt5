@@ -1,0 +1,74 @@
+
+<definitions>
+
+	<!-- Bone Armor -->
+	<include file="definitions/items/armory/bone/bone_armor.xml"/>
+	<include file="definitions/items/armory/bone/bone_arms.xml"/>
+	<include file="definitions/items/armory/bone/bone_gloves.xml"/>
+	<include file="definitions/items/armory/bone/bone_helm.xml"/>
+	<include file="definitions/items/armory/bone/bone_leggings.xml"/>
+
+	<!-- Chainmail Armor -->
+	<include file="definitions/items/armory/chain/chain_coif.xml"/>
+	<include file="definitions/items/armory/chain/chain_leggings.xml"/>
+	<include file="definitions/items/armory/chain/chain_tunic.xml"/>
+
+	<!-- Helmets -->
+	<include file="definitions/items/armory/helmets/bascinet.xml"/>
+	<include file="definitions/items/armory/helmets/close_helmet.xml"/>
+	<include file="definitions/items/armory/helmets/helmet.xml"/>
+	<include file="definitions/items/armory/helmets/nose_helm.xml"/>
+	<include file="definitions/items/armory/helmets/orc_helm.xml"/>
+
+	<!-- Leather Armor -->
+	<include file="definitions/items/armory/leather/leather_armor.xml"/>
+	<include file="definitions/items/armory/leather/leather_bustier.xml"/>
+	<include file="definitions/items/armory/leather/leather_cap.xml"/>
+	<include file="definitions/items/armory/leather/leather_gloves.xml"/>
+	<include file="definitions/items/armory/leather/leather_gorget.xml"/>
+	<include file="definitions/items/armory/leather/leather_leggings.xml"/>
+	<include file="definitions/items/armory/leather/leather_shorts.xml"/>
+	<include file="definitions/items/armory/leather/leather_skirt.xml"/>
+	<include file="definitions/items/armory/leather/leather_sleeves.xml"/>
+	<include file="definitions/items/armory/leather/leather_tunic.xml"/>
+
+	<!-- Magic  Armor-->
+
+	<!-- Platemail Armor -->
+	<include file="definitions/items/armory/plate/female_plate_armor.xml"/>
+	<include file="definitions/items/armory/plate/plate_helm.xml"/>
+	<include file="definitions/items/armory/plate/platemail.xml"/>
+	<include file="definitions/items/armory/plate/platemail_arms.xml"/>
+	<include file="definitions/items/armory/plate/platemail_gloves.xml"/>
+	<include file="definitions/items/armory/plate/platemail_gorget.xml"/>
+	<include file="definitions/items/armory/plate/platemail_legs.xml"/>
+
+	<!-- Ringmail Armor -->
+	<include file="definitions/items/armory/ring/ringmail_gloves.xml"/>
+	<include file="definitions/items/armory/ring/ringmail_leggings.xml"/>
+	<include file="definitions/items/armory/ring/ringmail_sleeves.xml"/>
+	<include file="definitions/items/armory/ring/ringmail_tunic.xml"/>
+
+	<!-- Shields -->
+	<include file="definitions/items/armory/shields/bronze_shield.xml"/>
+	<include file="definitions/items/armory/shields/buckler.xml"/>
+	<include file="definitions/items/armory/shields/chaos_shield.xml"/>
+	<include file="definitions/items/armory/shields/heater_shield.xml"/>
+	<include file="definitions/items/armory/shields/metal_kite_shield.xml"/>
+	<include file="definitions/items/armory/shields/metal_shield.xml"/>
+	<include file="definitions/items/armory/shields/order_shield.xml"/>
+	<include file="definitions/items/armory/shields/wooden_kite_shield.xml"/>
+	<include file="definitions/items/armory/shields/wooden_shield.xml"/>
+
+	<!-- Studded Leather -->
+	<include file="definitions/items/armory/studded/studded_armor.xml"/>
+	<include file="definitions/items/armory/studded/studded_bustier.xml"/>
+	<include file="definitions/items/armory/studded/studded_gloves.xml"/>
+	<include file="definitions/items/armory/studded/studded_gorget.xml"/>
+	<include file="definitions/items/armory/studded/studded_leggings.xml"/>
+	<include file="definitions/items/armory/studded/studded_sleeves.xml"/>
+	<include file="definitions/items/armory/studded/studded_tunic.xml"/>
+
+	<include file="definitions/items/armory/colored.xml"/>
+
+</definitions>
