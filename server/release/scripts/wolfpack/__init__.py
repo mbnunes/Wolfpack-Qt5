@@ -111,3 +111,11 @@ def coord( x, y, z, map ):
 def effect( id, pos, speed, duration ):
 	_wolfpack.effect( id, pos, speed, duration )
 
+# Returns uptime of server in seconds
+def serveruptime():
+	return _wolfpack.serveruptime()
+	
+# Returns the server version
+def serverversion():
+	return _wolfpack.serverversion()
+
