@@ -574,7 +574,7 @@ def charinfo_response( player, args, choice ):
 		elif key == 12:
 			char.direction = int( textentries[ key ] )
 		elif key == 13:
-            char.invulnerable = str2bool( textentries[ key ] )
+			char.invulnerable = str2bool( textentries[ key ] )
 		elif key == 14:
 			char.strength = int( textentries[ key ] )
 		elif key == 15:
