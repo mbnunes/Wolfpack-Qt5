@@ -215,7 +215,6 @@ class WebserverHandler( CGIHTTPRequestHandler ):
 				sys.stdin = save_stdin
 				sys.stdout = save_stdout
 				sys.stderr = save_stderr
-				raise
 		except SystemExit, sts:
 			if WEBADMIN_LOGGING == 1:
 				self.log_error("CGI script exit status %s", str(sts))
