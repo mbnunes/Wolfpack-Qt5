@@ -238,25 +238,6 @@ void cUOSocket::recieve()
 
 	unsigned char packetId = (*packet)[0];
 
-	if (handlers[packetId]) 
-	{
-		PyObject *args = Py_BuildValue("(NN)", PyGetSocketObject(this), CreatePyPacket(packet));
-		PyObject *result = PyObject_CallObject(handlers[packetId], args);
-		Py_DECREF(args);
-
-		bool handled = result && PyObject_IsTrue(result);
-		Py_XDECREF(result);
-		reportPythonError();
-
-		// Override the internal packet handler.
-		if (handled) 
-		{
-			_lastActivity = getNormalizedTime();
-			delete packet;
-			return;
-		}
-	}
-
 	// Disconnect harmful clients
 	if ((_account == 0) && (packetId != 0x80) && (packetId != 0x91))
 	{
@@ -272,8 +253,25 @@ void cUOSocket::recieve()
 	}
 
 	// Switch to encrypted mode if one of the advanced packets is recieved
-	if( packetId == 0x91 )
+	if (packetId == 0x91)
 		_state = LoggedIn;
+
+	if (handlers[packetId]) {
+		PyObject *args = Py_BuildValue("(NN)", PyGetSocketObject(this), CreatePyPacket(packet));
+		PyObject *result = PyObject_CallObject(handlers[packetId], args);
+		Py_DECREF(args);
+
+		bool handled = result && PyObject_IsTrue(result);
+		Py_XDECREF(result);
+		reportPythonError();
+
+		// Override the internal packet handler.
+		if (handled) {
+			_lastActivity = getNormalizedTime();
+			delete packet;
+			return;
+		}
+	}
 
 	// Relay it to the handler functions
 	switch( packetId )
