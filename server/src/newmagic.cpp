@@ -13,11 +13,53 @@
 #include "wpdefmanager.h"
 #include "tilecache.h"
 
-class cSpellTarget;
-class cEndCasting;
+class cSpellTarget : public cTargetRequest
+{
+private:
+	UINT8 spell;
+	UINT8 type;
+public:
+	cSpellTarget( P_CHAR pMage, UINT8 _spell, UINT8 _type )
+	{
+		spell = _spell;
+		type = _type;
 
-// TARGET EDURES 30 sec (precasting)
-// INVALID TARGET -> fizzle
+		// We will just use the Mage for the sysmessage
+		stNewSpell *sInfo = NewMagic->findSpell( spell );
+
+		if( sInfo )
+			pMage->socket()->sysMessage( sInfo->target );
+		
+		timeout_ = uiCurrentTime + ( 30 * MY_CLOCKS_PER_SEC );
+	}
+
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		// Target information:
+		socket->sysMessage( "Target information:" );
+		socket->sysMessage( QString( "SERIAL: %1" ).arg( target->serial() ) );
+		socket->sysMessage( QString( "Pos: %1,%2,%3" ).arg( target->x() ).arg( target->y() ).arg( target->z() ) );
+		socket->sysMessage( QString( "Model: %1" ).arg( target->model() ) );
+
+		return true;
+	}
+
+	virtual void timedout( cUOSocket *socket )
+	{
+		P_CHAR pChar = socket->player();
+
+		// After the target timed out we cancel our spell
+		if( pChar )
+		{
+			if( timeout_ > uiCurrentTime )
+				socket->sysMessage( tr( "You loose your concentration after waiting for too long." ) );
+			else
+				socket->sysMessage( tr( "You cancel the spell." ) );
+
+			NewMagic->disturb( pChar, false, -1 );
+		}
+	}
+};
 
 /*!
 	Returns the spell struct with the specified id
@@ -100,6 +142,29 @@ void cNewMagic::unload()
 {
 }
 
+cEndCasting::cEndCasting( P_CHAR _mage, UINT8 _spell, UINT8 _type )
+{
+	mage = _mage->serial;
+	spell = _spell;
+	type = _type;
+}
+
+void cEndCasting::Expire()
+{
+	P_CHAR pMage = FindCharBySerial( mage );
+	
+	if( !pMage )
+		return;
+
+	pMage->stopRepeatedAction();
+
+	if( !pMage->socket() )
+		return;
+
+	// Show a target cursor
+	pMage->socket()->attachTarget( new cSpellTarget( pMage, spell, type ) );
+}
+
 /*!
 	Calculates the Spell ID for a given Scroll Item id
 */
@@ -150,219 +215,16 @@ UINT16 cNewMagic::calcScrollId( UINT8 spell )
 }
 
 /*!
-	This class is used to loop the casting animation 
-	while the spell delay is not over. The class 
-	basically repeats the animation for the 
-	passed destination serial and then readds itself 
-	with the same parameters. The duration is used 
-	to determine how long the tempeffect should 
-	wait until it reanimates the object.
-*/
-class cAnimationRepeat: public cTempEffect
-{
-private:
-	UINT32 anim,duration;
-	SERIAL target;
-public:
-	/*!
-		Constructs this class and sets the id of \a _anim 
-		and the \a _duration of one animation cycle.
-	*/
-	cAnimationRepeat( SERIAL _dest, UINT8 _anim, UINT32 _duration, SERIAL _target = INVALID_SERIAL )
-	{
-		anim = _anim;
-		duration = _duration;
-		destSer = _dest;
-		target = _target;
-		serializable = false;
-		dispellable = false;
-		objectid = "animationrepeat";
-		expiretime = uiCurrentTime + _duration; // + AnimationDuration
-	}
-
-	/*!
-		Animates the object identified by \a source and 
-        readds the TempEffect.
-	*/
-	virtual void Expire()
-	{
-		P_CHAR pChar = FindCharBySerial( destSer );
-
-		if( pChar )
-		{
-			if( isItemSerial( target ) )
-			{
-				P_ITEM pItem = FindItemBySerial( target );
-				if( pItem )
-					pChar->turnTo( pItem );
-			}
-			else if( isCharSerial( target ) )
-			{
-				P_CHAR pTarget = FindCharBySerial( target );
-				if( pTarget )
-					pChar->turnTo( pTarget );
-			}
-
-			pChar->action( anim );
-			cTempEffects::getInstance()->insert( new cAnimationRepeat( destSer, anim, duration, target ) );
-		}
-	}
-};
-
-/*!
-	This TempEffect is used to end the casting procedure 
-	after a given delay. It removes all instances of 
-	\sa cAnimationRepeat assigned to the affected character.
-*/
-class cEndCasting: public cTempEffect
-{
-private:
-	UINT8 spell;
-	UINT16 model;
-	SERIAL target;
-	Coord_cl pos;
-public:
-	/*!
-		Constructor of this class. 
-		\a dest is the affected character, \a delay is the amount 
-		of time to wait. \a _spell is the id of the spell being 
-		casted.
-	*/
-	cEndCasting( SERIAL dest, UINT32 delay, UINT8 _spell, Coord_cl _pos, UINT16 _model, SERIAL _target )
-	{
-		dispellable = false;
-        serializable = false;
-		objectid = "endcasting";
-		destSer = dest;
-		spell = _spell;
-		model = _model;
-		target = _target;
-		pos = _pos;
-		expiretime = uiCurrentTime + delay;
-	}
-
-	virtual void Expire();
-};
-
-/*!
-	Generic Targetting class for spells
-*/
-class cSpellTarget: public cTargetRequest
-{
-private:
-	UINT8 spell;
-public:
-	/*!
-		Constructs the target request
-	*/
-	cSpellTarget( UINT8 _spell )
-	{
-		spell = _spell;
-	};
-
-	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
-	{
-		if( !socket->player() )
-			return true;
-
-		stNewSpell *sInfo = NewMagic->findSpell( spell );
-
-		if( !sInfo )
-		{
-			// Precasting means that we already casted and so we have to fizzle
-			if( SrvParams->precasting() )
-				NewMagic->failSpell( socket->player() );
-			return true;
-		}
-
-		Coord_cl pos = socket->player()->pos;
-		pos.x = target->x();
-		pos.y = target->y();
-		pos.z = target->z();
-
-		// Is our targetted creature correct?
-		if( NewMagic->checkTarget( socket->player(), sInfo, target ) )
-		{
-			// We are precasting, now it's time for the spelleffect
-			if( SrvParams->precasting() )
-			{
-				if( !socket->player()->casting() )
-				{
-					socket->sysMessage( tr( "You don't have a spell ready." ) );
-					return true;
-				}
-
-				/*if( sStub )
-					sStub->stub( socket->player(), pos, target->model(), target->serial() );*/
-			}
-			// We are not precasting, so let us now begin casting
-			else
-			{
-				if( !NewMagic->useMana( socket->player(), spell ) || !NewMagic->useReagents( socket->player(), spell ) )
-					return true;
-
-				socket->player()->action( sInfo->action ); // Directed Cast
-
-				if( !NewMagic->checkSkill( socket->player(), spell ) )
-					return true;
-
-				// Only repeat the animation if walking disturbs casting
-				if( SrvParams->walkDisturbsCast() )
-					cTempEffects::getInstance()->insert( new cAnimationRepeat( socket->player()->serial, sInfo->action, sInfo->actiondelay ) );
-
-				cTempEffects::getInstance()->insert( new cEndCasting( socket->player()->serial, sInfo->delay, spell, pos, target->model(), target->serial() ) );
-			}
-		}
-		// Wrong target?? If Precasting -> Fizzle Spell
-		else if( SrvParams->precasting() )
-			NewMagic->failSpell( socket->player() );
-
-		return true;
-	}
-};
-
-/*!
-	End the repetition of the animation and continue with 
-	the casting.
-*/
-void cEndCasting::Expire()
-{
-	P_CHAR pChar = FindCharBySerial( destSer );
-	pChar->setCasting( false );
-
-	if( !pChar || !pChar->socket() )
-		return;
-
-	// Remove all repeating animations
-	cTempEffects::getInstance()->dispel( pChar, "animationrepeat" );
-		
-	// If precasting we now show the target request and start the timeout (fizzle!) 
-	// Tempeffect
-	if( SrvParams->precasting() )
-	{
-		pChar->socket()->attachTarget( new cSpellTarget( spell ) );
-	}
-	// If we are not precasting continue casting with the spelleffect
-	else
-	{
-		/*stSpellStub *sStub = NewMagic->findSpellStub( spell );
-		if( !sStub )
-			return;
-		sStub->stub( pChar, pos, model, target );*/
-	}
-}
-
-/*!
 	This ends the casting of a specified character.
 	If the second parameter is not false, it 
 	displays the fizzle animation and the fizzle sound.
 */
-void cNewMagic::failSpell( P_CHAR pMage, bool fizzle )
+void cNewMagic::disturb( P_CHAR pMage, bool fizzle, INT16 chance )
 {
 	pMage->setCasting( false );
 
 	// Stop the repeating animation and the endspell thing
-	cTempEffects::getInstance()->dispel( pMage, "animationrepeat" );
+	pMage->stopRepeatedAction();
 	cTempEffects::getInstance()->dispel( pMage, "endcasting" );
 	
 	if( fizzle )
@@ -466,7 +328,7 @@ bool cNewMagic::checkSkill( P_CHAR pMage, UINT8 spell, bool scroll )
 	// Do the skill check
 	if( !pMage->checkSkill( MAGERY, lowSkill, highSkill ) )
 	{
-		failSpell( pMage );
+		disturb( pMage, true, -1 );
 		return false;
 	}
 
@@ -502,7 +364,7 @@ void cNewMagic::castSpell( P_CHAR pMage, UINT8 spell )
 	// This will repeat the animation until
 	// We are done casting or until we are being
 	// disturbed.
-	pMage->startRepeatedAction( 0xE9, 1000 );
+	pMage->startRepeatedAction( 0xE9, 1250 ); // Repeat every 1250 ms
 
 	// Now we have to do the following: 
 	// We show the target cursor after a given amount of time (set in the scripts)
@@ -510,11 +372,10 @@ void cNewMagic::castSpell( P_CHAR pMage, UINT8 spell )
 	// And the ID of our Spell.
 
 	// This is the place where we start casting
-	/*pMage->setCasting( true );
+	pMage->setCasting( true );
 
 	// Only repeat the animation if walking disturbs casting
-	cTempEffects::getInstance()->insert( new cAnimationRepeat( pMage->serial, sInfo->action, sInfo->actiondelay ) );
-	cTempEffects::getInstance()->insert( new cEndCasting( pMage->serial, sInfo->delay, spell, pMage->pos, pMage->id(), pMage->serial ) );*/
+	cTempEffects::getInstance()->insert( new cEndCasting( pMage, spell, CT_BOOK ) );
 }
 
 void cNewMagic::useWand( P_CHAR pMage, P_ITEM pWand )

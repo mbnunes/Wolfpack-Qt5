@@ -86,6 +86,26 @@ struct stSpellStub
 
 class cUORxTarget;
 
+enum eCastType 
+{
+	CT_BOOK,
+	CT_SCROLL,
+	CT_WAND,
+	CT_INNATE
+};
+
+// Precasting only for now
+class cEndCasting: public cTempEffect
+{
+private:
+	SERIAL mage;
+	UINT8 spell;
+	UINT8 type;
+public:	
+	cEndCasting( P_CHAR _mage, UINT8 _spell, UINT8 _type );
+	virtual void Expire();
+};
+
 class cNewMagic
 {
 private:
@@ -107,7 +127,7 @@ public:
 	stSpellStub *findSpellStub( UINT8 id );
 	stNewSpell	*findSpell( UINT8 id );
 
-    void failSpell( P_CHAR pMage, bool fizzle = true );
+    void disturb( P_CHAR pMage, bool fizzle = true, INT16 chance = -1 );
 	
 	bool useMana( P_CHAR pMage, UINT8 spell );
 	bool checkMana( P_CHAR pMage, UINT8 spell );
