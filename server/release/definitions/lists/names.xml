@@ -7,11 +7,13 @@
 =================================================================
 -->
 <definitions>
-	<list id="NAMES_BARLON">
+
+	<list id="NAMES_BALRON">
 		<item>Lord of the Abyss</item>
 		<item>Slayer</item>
 		<item>the Collector of Souls</item>
 	</list>
+
 	<list id="NAMES_BIRDS">
 		<item>a chickadee</item>
 		<item>a crossbill</item>
@@ -35,6 +37,7 @@
 		<item>a woodpecker</item>
 		<item>a wren</item>
 	</list>
+
 	<list id="NAMES_DAEMON">
 		<item>a beastly daemon</item>
 		<item>a cacodaemon</item>
@@ -278,6 +281,7 @@
 		<item>Zejron</item>
 		<item>Zunrek</item>
 	</list>
+
 	<list id="NAMES_MALE">
 		<item>Aaron</item>
 		<item>Abbott</item>
@@ -1255,303 +1259,6 @@
 		<item>Zio</item>
 		<item>Zion</item>
 		<item>Ziven</item>
-	</list>
-	<list id="NAMES_GARGOYLE">
-		<item>a blistering gargoyle</item>
-		<item>a burning gargoyle</item>
-		<item>a fiery gargoyle</item>
-		<item>a flaming gargoyle</item>
-		<item>a scalding gargoyle</item>
-		<item>a scorching gargoyle</item>
-		<item>a searing gargoyle</item>
-		<item>a smoldering gargoyle</item>
-		<item>a sweltering gargoyle</item>
-	</list>
-	<list id="NAMES_LIZARDMAN">
-		<item>Aissssaiss</item>
-		<item>Aisyths</item>
-		<item>Alasthsiyss</item>
-		<item>Alessitsl</item>
-		<item>Alsiths</item>
-		<item>Alssi</item>
-		<item>Alsyth</item>
-		<item>Asahlysy</item>
-		<item>Asathsaisss</item>
-		<item>Asaysth</item>
-		<item>Asiashy</item>
-		<item>Asistsais</item>
-		<item>Asitssis</item>
-		<item>Asiyss</item>
-		<item>Astha</item>
-		<item>Asthcieth</item>
-		<item>Astysah</item>
-		<item>Athcesth</item>
-		<item>Athys</item>
-		<item>Athysthes</item>
-		<item>Atslah</item>
-		<item>Aysthyss</item>
-		<item>Cesthaysth</item>
-		<item>Cetys</item>
-		<item>Ciethlish</item>
-		<item>Citsy</item>
-		<item>Cythshi</item>
-		<item>Cytsi</item>
-		<item>Ekthsisthh</item>
-		<item>Essith</item>
-		<item>Estha</item>
-		<item>Etys</item>
-		<item>Halasth</item>
-		<item>Haless</item>
-		<item>Halsasah</item>
-		<item>Hasits</item>
-		<item>Hekths</item>
-		<item>Hiiths</item>
-		<item>Hiitsl</item>
-		<item>Hissalsthy</item>
-		<item>Hissis</item>
-		<item>Hlyiss</item>
-		<item>Hlylylyshi</item>
-		<item>Hlyshilyly</item>
-		<item>Hlysylyiss</item>
-		<item>Hlythilsyth</item>
-		<item>Hsysylh</item>
-		<item>Hthessthil</item>
-		<item>Hthissy</item>
-		<item>Htisthh</item>
-		<item>Htsiathys</item>
-		<item>Hyisass</item>
-		<item>Hysil</item>
-		<item>Hysslssi</item>
-		<item>Hysyiss</item>
-		<item>Iasia</item>
-		<item>Icythhlysy</item>
-		<item>Iithsissh</item>
-		<item>Iitsliss</item>
-		<item>Ilshy</item>
-		<item>Ilsyth</item>
-		<item>Isalraaat</item>
-		<item>Isassthys</item>
-		<item>Isathys</item>
-		<item>Isiss</item>
-		<item>Isissil</item>
-		<item>Isshi</item>
-		<item>Isshlshy</item>
-		<item>Isstha</item>
-		<item>Issthas</item>
-		<item>Issthyl</item>
-		<item>Issysh</item>
-		<item>Issyt</item>
-		<item>Isthhtis</item>
-		<item>Istis</item>
-		<item>Istththh</item>
-		<item>Isyts</item>
-		<item>Ithstsesh</item>
-		<item>Ithsy</item>
-		<item>Iththis</item>
-		<item>Itsesh</item>
-		<item>Itshas</item>
-		<item>Itsltlish</item>
-		<item>Itsthil</item>
-		<item>Itsylh</item>
-		<item>Iyssysil</item>
-		<item>Kthystshas</item>
-		<item>Kthythes</item>
-		<item>Lasath</item>
-		<item>Lastha</item>
-		<item>Lasthtsthih</item>
-		<item>Lesstslah</item>
-		<item>Lestha</item>
-		<item>Lilhals</item>
-		<item>Lilsyth</item>
-		<item>Lishaless</item>
-		<item>Lishath</item>
-		<item>Lissysh</item>
-		<item>Lissyt</item>
-		<item>Lithekths</item>
-		<item>Litsylh</item>
-		<item>Llithlish</item>
-		<item>Lshyshas</item>
-		<item>Lssissi</item>
-		<item>Lsthyssy</item>
-		<item>Lsyth</item>
-		<item>Lsythstha</item>
-		<item>Lyissisis</item>
-		<item>Lylsthy</item>
-		<item>Lylyisass</item>
-		<item>Lyshiisal</item>
-		<item>Lyssthih</item>
-		<item>Lyssthy</item>
-		<item>Lysyiitsl</item>
-		<item>Lythiiiths</item>
-		<item>Lytsthih</item>
-		<item>Saisalasths</item>
-		<item>Saishtsi</item>
-		<item>Saisssmyss</item>
-		<item>Salsesh</item>
-		<item>Salssi</item>
-		<item>Sasisthasth</item>
-		<item>Sasss</item>
-		<item>Sasth</item>
-		<item>Sath</item>
-		<item>Sathsthih</item>
-		<item>Sathys</item>
-		<item>Satslah</item>
-		<item>Saysth</item>
-		<item>Scesthhals</item>
-		<item>Seshsthyl</item>
-		<item>Sessith</item>
-		<item>Shasits</item>
-		<item>Shassthy</item>
-		<item>Shisis</item>
-		<item>Shitha</item>
-		<item>Shysil</item>
-		<item>Shythis</item>
-		<item>Siasia</item>
-		<item>Siaththh</item>
-		<item>Sicyth</item>
-		<item>Silshy</item>
-		<item>Silthyl</item>
-		<item>Sisal</item>
-		<item>Sisshi</item>
-		<item>Sisshlythi</item>
-		<item>Sistlilh</item>
-		<item>Sithtththh</item>
-		<item>Sitsesh</item>
-		<item>Sitshas</item>
-		<item>Sitstsi</item>
-		<item>Siyss</item>
-		<item>Slahyisass</item>
-		<item>Slasath</item>
-		<item>Slishless</item>
-		<item>Ssaisss</item>
-		<item>Ssasist</item>
-		<item>Sshiscesth</item>
-		<item>Ssisal</item>
-		<item>Ssithsiss</item>
-		<item>Ssiyth</item>
-		<item>Sssaisss</item>
-		<item>Ssssshi</item>
-		<item>Ssthasssthas</item>
-		<item>Ssthihssthy</item>
-		<item>Ssthssss</item>
-		<item>Ssthyl</item>
-		<item>Ssthyssths</item>
-		<item>Ssyraaath</item>
-		<item>Ssysah</item>
-		<item>Ssyshstha</item>
-		<item>Ssyssith</item>
-		<item>Ssytsth</item>
-		<item>Stasah</item>
-		<item>Sthasth</item>
-		<item>Sthasthas</item>
-		<item>Sthasthih</item>
-		<item>Sthihaisss</item>
-		<item>Sthihasits</item>
-		<item>Sthilsthy</item>
-		<item>Sthlyly</item>
-		<item>Sthlyshi</item>
-		<item>Sthlysy</item>
-		<item>Sthlythi</item>
-		<item>Sthmissa</item>
-		<item>Sthmyss</item>
-		<item>Sthsasist</item>
-		<item>Sthyasia</item>
-		<item>Sthycyth</item>
-		<item>Sthyltasah</item>
-		<item>Sthyss</item>
-		<item>Stissh</item>
-		<item>Stththh</item>
-		<item>Stysah</item>
-		<item>Sycieth</item>
-		<item>Sylhsths</item>
-		<item>Syllith</item>
-		<item>Syraaat</item>
-		<item>Syshsyts</item>
-		<item>Syslish</item>
-		<item>Syththil</item>
-		<item>Sythysth</item>
-		<item>Sytlilh</item>
-		<item>Sytlish</item>
-		<item>Sytsyth</item>
-		<item>Sytsyts</item>
-		<item>Syys</item>
-		<item>Tasahasath</item>
-		<item>Thalasths</item>
-		<item>Thaless</item>
-		<item>Thals</item>
-		<item>Thatsylh</item>
-		<item>Thays</item>
-		<item>Thekths</item>
-		<item>Theshthis</item>
-		<item>Thiiths</item>
-		<item>Thiitsl</item>
-		<item>Thilhlyshi</item>
-		<item>Thishthes</item>
-		<item>Thlyiss</item>
-		<item>Thlyly</item>
-		<item>Thlyshi</item>
-		<item>Thlysy</item>
-		<item>Thlythi</item>
-		<item>Thmissa</item>
-		<item>Thmyss</item>
-		<item>Thsais</item>
-		<item>Thslish</item>
-		<item>Ththes</item>
-		<item>Ththhllith</item>
-		<item>Ththis</item>
-		<item>Thtisthh</item>
-		<item>Thyisass</item>
-		<item>Thylmissav</item>
-		<item>Thys</item>
-		<item>Thysslah</item>
-		<item>Tisiss</item>
-		<item>Tissyth</item>
-		<item>Tisthhhsy</item>
-		<item>Tlilhlasth</item>
-		<item>Tlishkths</item>
-		<item>Tseshsath</item>
-		<item>Tshassasisth</item>
-		<item>Tsicyth</item>
-		<item>Tsitys</item>
-		<item>Tslahsits</item>
-		<item>Tsthihssthih</item>
-		<item>Tsthil</item>
-		<item>Tsycieth</item>
-		<item>Tsylhssyt</item>
-		<item>Tsytysah</item>
-		<item>Tththhsyt</item>
-		<item>Tysahyraaath</item>
-		<item>Tyscesth</item>
-		<item>Tysycieth</item>
-		<item>Yciethhlyly</item>
-		<item>Yisasshmyss</item>
-		<item>Yisstisthh</item>
-		<item>Yllith</item>
-		<item>Ylsthy</item>
-		<item>Yraaathlythi</item>
-		<item>Ysahlith</item>
-		<item>Ysasth</item>
-		<item>Ysath</item>
-		<item>Yscesth</item>
-		<item>Yshmissa</item>
-		<item>Yshtsi</item>
-		<item>Ysilsia</item>
-		<item>Yslish</item>
-		<item>Yssasisth</item>
-		<item>Ysssal</item>
-		<item>Yssthih</item>
-		<item>Yssths</item>
-		<item>Yssthy</item>
-		<item>Ystasah</item>
-		<item>Ysthsith</item>
-		<item>Ystsy</item>
-		<item>Ythals</item>
-		<item>Ythssysh</item>
-		<item>Ytlilh</item>
-		<item>Ytlish</item>
-		<item>Ytsais</item>
-		<item>Ytssysh</item>
-		<item>Ytsthih</item>
 	</list>
 	<list id="NAMES_FEMALE">
 		<item>Aba</item>
@@ -3118,6 +2825,306 @@
 		<item>Zuza</item>
 		<item>Zuzanny</item>
 	</list>
+
+	<list id="NAMES_GARGOYLE">
+		<item>a blistering gargoyle</item>
+		<item>a burning gargoyle</item>
+		<item>a fiery gargoyle</item>
+		<item>a flaming gargoyle</item>
+		<item>a scalding gargoyle</item>
+		<item>a scorching gargoyle</item>
+		<item>a searing gargoyle</item>
+		<item>a smoldering gargoyle</item>
+		<item>a sweltering gargoyle</item>
+	</list>
+
+	<list id="NAMES_LIZARDMAN">
+		<item>Aissssaiss</item>
+		<item>Aisyths</item>
+		<item>Alasthsiyss</item>
+		<item>Alessitsl</item>
+		<item>Alsiths</item>
+		<item>Alssi</item>
+		<item>Alsyth</item>
+		<item>Asahlysy</item>
+		<item>Asathsaisss</item>
+		<item>Asaysth</item>
+		<item>Asiashy</item>
+		<item>Asistsais</item>
+		<item>Asitssis</item>
+		<item>Asiyss</item>
+		<item>Astha</item>
+		<item>Asthcieth</item>
+		<item>Astysah</item>
+		<item>Athcesth</item>
+		<item>Athys</item>
+		<item>Athysthes</item>
+		<item>Atslah</item>
+		<item>Aysthyss</item>
+		<item>Cesthaysth</item>
+		<item>Cetys</item>
+		<item>Ciethlish</item>
+		<item>Citsy</item>
+		<item>Cythshi</item>
+		<item>Cytsi</item>
+		<item>Ekthsisthh</item>
+		<item>Essith</item>
+		<item>Estha</item>
+		<item>Etys</item>
+		<item>Halasth</item>
+		<item>Haless</item>
+		<item>Halsasah</item>
+		<item>Hasits</item>
+		<item>Hekths</item>
+		<item>Hiiths</item>
+		<item>Hiitsl</item>
+		<item>Hissalsthy</item>
+		<item>Hissis</item>
+		<item>Hlyiss</item>
+		<item>Hlylylyshi</item>
+		<item>Hlyshilyly</item>
+		<item>Hlysylyiss</item>
+		<item>Hlythilsyth</item>
+		<item>Hsysylh</item>
+		<item>Hthessthil</item>
+		<item>Hthissy</item>
+		<item>Htisthh</item>
+		<item>Htsiathys</item>
+		<item>Hyisass</item>
+		<item>Hysil</item>
+		<item>Hysslssi</item>
+		<item>Hysyiss</item>
+		<item>Iasia</item>
+		<item>Icythhlysy</item>
+		<item>Iithsissh</item>
+		<item>Iitsliss</item>
+		<item>Ilshy</item>
+		<item>Ilsyth</item>
+		<item>Isalraaat</item>
+		<item>Isassthys</item>
+		<item>Isathys</item>
+		<item>Isiss</item>
+		<item>Isissil</item>
+		<item>Isshi</item>
+		<item>Isshlshy</item>
+		<item>Isstha</item>
+		<item>Issthas</item>
+		<item>Issthyl</item>
+		<item>Issysh</item>
+		<item>Issyt</item>
+		<item>Isthhtis</item>
+		<item>Istis</item>
+		<item>Istththh</item>
+		<item>Isyts</item>
+		<item>Ithstsesh</item>
+		<item>Ithsy</item>
+		<item>Iththis</item>
+		<item>Itsesh</item>
+		<item>Itshas</item>
+		<item>Itsltlish</item>
+		<item>Itsthil</item>
+		<item>Itsylh</item>
+		<item>Iyssysil</item>
+		<item>Kthystshas</item>
+		<item>Kthythes</item>
+		<item>Lasath</item>
+		<item>Lastha</item>
+		<item>Lasthtsthih</item>
+		<item>Lesstslah</item>
+		<item>Lestha</item>
+		<item>Lilhals</item>
+		<item>Lilsyth</item>
+		<item>Lishaless</item>
+		<item>Lishath</item>
+		<item>Lissysh</item>
+		<item>Lissyt</item>
+		<item>Lithekths</item>
+		<item>Litsylh</item>
+		<item>Llithlish</item>
+		<item>Lshyshas</item>
+		<item>Lssissi</item>
+		<item>Lsthyssy</item>
+		<item>Lsyth</item>
+		<item>Lsythstha</item>
+		<item>Lyissisis</item>
+		<item>Lylsthy</item>
+		<item>Lylyisass</item>
+		<item>Lyshiisal</item>
+		<item>Lyssthih</item>
+		<item>Lyssthy</item>
+		<item>Lysyiitsl</item>
+		<item>Lythiiiths</item>
+		<item>Lytsthih</item>
+		<item>Saisalasths</item>
+		<item>Saishtsi</item>
+		<item>Saisssmyss</item>
+		<item>Salsesh</item>
+		<item>Salssi</item>
+		<item>Sasisthasth</item>
+		<item>Sasss</item>
+		<item>Sasth</item>
+		<item>Sath</item>
+		<item>Sathsthih</item>
+		<item>Sathys</item>
+		<item>Satslah</item>
+		<item>Saysth</item>
+		<item>Scesthhals</item>
+		<item>Seshsthyl</item>
+		<item>Sessith</item>
+		<item>Shasits</item>
+		<item>Shassthy</item>
+		<item>Shisis</item>
+		<item>Shitha</item>
+		<item>Shysil</item>
+		<item>Shythis</item>
+		<item>Siasia</item>
+		<item>Siaththh</item>
+		<item>Sicyth</item>
+		<item>Silshy</item>
+		<item>Silthyl</item>
+		<item>Sisal</item>
+		<item>Sisshi</item>
+		<item>Sisshlythi</item>
+		<item>Sistlilh</item>
+		<item>Sithtththh</item>
+		<item>Sitsesh</item>
+		<item>Sitshas</item>
+		<item>Sitstsi</item>
+		<item>Siyss</item>
+		<item>Slahyisass</item>
+		<item>Slasath</item>
+		<item>Slishless</item>
+		<item>Ssaisss</item>
+		<item>Ssasist</item>
+		<item>Sshiscesth</item>
+		<item>Ssisal</item>
+		<item>Ssithsiss</item>
+		<item>Ssiyth</item>
+		<item>Sssaisss</item>
+		<item>Ssssshi</item>
+		<item>Ssthasssthas</item>
+		<item>Ssthihssthy</item>
+		<item>Ssthssss</item>
+		<item>Ssthyl</item>
+		<item>Ssthyssths</item>
+		<item>Ssyraaath</item>
+		<item>Ssysah</item>
+		<item>Ssyshstha</item>
+		<item>Ssyssith</item>
+		<item>Ssytsth</item>
+		<item>Stasah</item>
+		<item>Sthasth</item>
+		<item>Sthasthas</item>
+		<item>Sthasthih</item>
+		<item>Sthihaisss</item>
+		<item>Sthihasits</item>
+		<item>Sthilsthy</item>
+		<item>Sthlyly</item>
+		<item>Sthlyshi</item>
+		<item>Sthlysy</item>
+		<item>Sthlythi</item>
+		<item>Sthmissa</item>
+		<item>Sthmyss</item>
+		<item>Sthsasist</item>
+		<item>Sthyasia</item>
+		<item>Sthycyth</item>
+		<item>Sthyltasah</item>
+		<item>Sthyss</item>
+		<item>Stissh</item>
+		<item>Stththh</item>
+		<item>Stysah</item>
+		<item>Sycieth</item>
+		<item>Sylhsths</item>
+		<item>Syllith</item>
+		<item>Syraaat</item>
+		<item>Syshsyts</item>
+		<item>Syslish</item>
+		<item>Syththil</item>
+		<item>Sythysth</item>
+		<item>Sytlilh</item>
+		<item>Sytlish</item>
+		<item>Sytsyth</item>
+		<item>Sytsyts</item>
+		<item>Syys</item>
+		<item>Tasahasath</item>
+		<item>Thalasths</item>
+		<item>Thaless</item>
+		<item>Thals</item>
+		<item>Thatsylh</item>
+		<item>Thays</item>
+		<item>Thekths</item>
+		<item>Theshthis</item>
+		<item>Thiiths</item>
+		<item>Thiitsl</item>
+		<item>Thilhlyshi</item>
+		<item>Thishthes</item>
+		<item>Thlyiss</item>
+		<item>Thlyly</item>
+		<item>Thlyshi</item>
+		<item>Thlysy</item>
+		<item>Thlythi</item>
+		<item>Thmissa</item>
+		<item>Thmyss</item>
+		<item>Thsais</item>
+		<item>Thslish</item>
+		<item>Ththes</item>
+		<item>Ththhllith</item>
+		<item>Ththis</item>
+		<item>Thtisthh</item>
+		<item>Thyisass</item>
+		<item>Thylmissav</item>
+		<item>Thys</item>
+		<item>Thysslah</item>
+		<item>Tisiss</item>
+		<item>Tissyth</item>
+		<item>Tisthhhsy</item>
+		<item>Tlilhlasth</item>
+		<item>Tlishkths</item>
+		<item>Tseshsath</item>
+		<item>Tshassasisth</item>
+		<item>Tsicyth</item>
+		<item>Tsitys</item>
+		<item>Tslahsits</item>
+		<item>Tsthihssthih</item>
+		<item>Tsthil</item>
+		<item>Tsycieth</item>
+		<item>Tsylhssyt</item>
+		<item>Tsytysah</item>
+		<item>Tththhsyt</item>
+		<item>Tysahyraaath</item>
+		<item>Tyscesth</item>
+		<item>Tysycieth</item>
+		<item>Yciethhlyly</item>
+		<item>Yisasshmyss</item>
+		<item>Yisstisthh</item>
+		<item>Yllith</item>
+		<item>Ylsthy</item>
+		<item>Yraaathlythi</item>
+		<item>Ysahlith</item>
+		<item>Ysasth</item>
+		<item>Ysath</item>
+		<item>Yscesth</item>
+		<item>Yshmissa</item>
+		<item>Yshtsi</item>
+		<item>Ysilsia</item>
+		<item>Yslish</item>
+		<item>Yssasisth</item>
+		<item>Ysssal</item>
+		<item>Yssthih</item>
+		<item>Yssths</item>
+		<item>Yssthy</item>
+		<item>Ystasah</item>
+		<item>Ysthsith</item>
+		<item>Ystsy</item>
+		<item>Ythals</item>
+		<item>Ythssysh</item>
+		<item>Ytlilh</item>
+		<item>Ytlish</item>
+		<item>Ytsais</item>
+		<item>Ytssysh</item>
+		<item>Ytsthih</item>
+	</list>
+
 	<list id="NAMES_PIRATE_FEMALE">
 		<item>Aruj Barbarossa</item>
 		<item>Bartholomew Portugues</item>
@@ -3137,6 +3144,7 @@
 		<item>Roche Brasiliano</item>
 		<item>Thomas Cavendish</item>
 	</list>
+
 	<list id="NAMES_PIRATE_MALE">
 		<item>Ann Bonny</item>
 		<item>Mary Read</item>
@@ -3165,6 +3173,7 @@
 		<item>Zanne</item>
 		<item>Zut</item>
 	</list>
+
 	<list id="NAMES_RATMAN">
 		<item>Ccketakiki</item>
 		<item>Chachak</item>
@@ -3372,6 +3381,7 @@
 		<item>Wikchichoki</item>
 		<item>Wochickeki</item>
 	</list>
+
 	<list id="NAMES_SAVAGE">
 		<item>Adrok</item>
 		<item>Aicee</item>
@@ -3396,6 +3406,7 @@
 		<item>Sinthe</item>
 		<item>Yar</item>
 	</list>
+
 	<list id="NAMES_SHADE">
 		<item>a shade</item>
 		<item>a spectre</item>
@@ -3436,4 +3447,5 @@
 		<item>Nyctinus</item>
 		<item>Myrsinus</item>
 	</list>
+
 </definitions>
