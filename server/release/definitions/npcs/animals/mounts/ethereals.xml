@@ -10,6 +10,7 @@
 
 	<npc id="ETHEREAL_STATS" inherit="animal_base">
 		<ai>Animal_Wild</ai>
+		<color>0x4001</color>
 		<karma>0</karma>
 		<fame>0</fame>
 		<!-- Stats -->
