@@ -82,15 +82,6 @@ enum enByteOrder{ littleEndian, bigEndian };
 #define OBSOLETESTREAM
 #endif
 #endif
-// Determine os we are one
-#if defined(__unix__)
-#define _POSIX
-#else
-#if !defined(WIN32)
-#define WIN32
-#endif
-#endif
-
 
 //========================================================================
 typedef unsigned long	UI32;

@@ -42,10 +42,6 @@
 #include <map>
 #include <list>
 
-#if defined(__unix__)
-#include <termios.h>
-#endif
-
 // Forward Class Declaration
 class QDateTime;
 class WPDefManager;

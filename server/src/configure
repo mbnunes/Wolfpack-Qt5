@@ -17,6 +17,9 @@ ask_path()
 		echo -en "\nor just press enter to skip.";
 		echo -en "\e[A\rPlease enter the correct include directory: ";
 		read SUPPLIED_PATH;
+		if [ "$SUPPLIED_PATH" = "" ]; then
+			break;
+		fi
 	done;
 }
 
@@ -29,6 +32,9 @@ if ! [ "$MYSQLINC" ];
 then
 	ask_path;
 	MYSQLINC="$SUPPLIED_PATH";
+	if ! [ "$MYSQLINC" ]; then
+		echo "MySQL support disabled ";
+	fi
 else
 	echo "$MYSQLINC";
 fi;
