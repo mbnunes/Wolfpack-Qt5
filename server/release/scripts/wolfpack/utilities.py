@@ -105,16 +105,19 @@ def statmodifier( char, time, mStr = 0, mDex = 0, mInt = 0 ):
 	# Save the values in a tempeffect to remove them later
 	char.addtimer( time, "wolfpack.utilities.statmodifier_expire", [ mStr, mDex, mInt ], 1, 1, "statmodifier", "wolfpack.utilities.statmodifier_dispel" )
 
-def hex2dec( value ):
+def hex2dec(value, default = 0):
 	if type( value ) is IntType:
 		return value
 
-	value = value.lower()
-
-	if not value.startswith( "0x" ):
-		return int( value )
-	else:
-		return int( value.replace( "0x", "" ), 16 )
+	try:
+		value = value.lower()
+	
+		if not value.startswith( "0x" ):
+			return int( value )
+		else:
+			return int( value.replace( "0x", "" ), 16 )
+	except:
+		return default
 
 def evenorodd( value ):
 	if value % 2 == 0:

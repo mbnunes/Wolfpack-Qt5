@@ -22,7 +22,7 @@ WEAPON_INFORMATION = {
 
 	# 1002: Axe Weapons (Swordsmanship + Lumberjacking)
 	1002: {
-		ONEHANDED_SWING: [0x0C, 0x0D],
+		ONEHANDED_SWING: [0xC, 0xD],
 		TWOHANDED_SWING: [0xC, 0xD],
 		SKILL: SWORDSMANSHIP,
 	},
@@ -135,22 +135,9 @@ def playmisssound(attacker, defender):
   attacker.soundeffect(random.choice(sounds))
 
 #
-# Plays the hit sound for a given attacker and
-# defender
+# Play hurt sound
 #
-def playhitsound(attacker, defender):
-  weapon = attacker.getweapon()
-
-  # Play a special sound for monsters
-  if not weapon and attacker.id < 0x190:
-    attacker.sound(SND_ATTACK)
-  else:
-    sounds = combat.properties.fromitem(weapon, MISSSOUND)
-
-    # Only play a sound if there are any
-    if len(sounds) != 0:
-      attacker.soundeffect(random.choice(sounds))
-
+def playhurtsound(defender):
   if defender.id == 0x190:
     # Play a random soundeffect for a human male defender
     sounds = wolfpack.list('SOUNDS_COMBAT_HIT_HUMAN_MALE')
@@ -174,5 +161,19 @@ def playhitsound(attacker, defender):
     # A standard monster defend sound
     defender.sound(SND_DEFEND)
 
+#
+# Plays the hit sound for a given attacker and
+# defender
+#
+def playhitsound(attacker, defender):
+  weapon = attacker.getweapon()
 
+  # Play a special sound for monsters
+  if not weapon and attacker.id < 0x190:
+    attacker.sound(SND_ATTACK)
+  else:
+    sounds = combat.properties.fromitem(weapon, MISSSOUND)
 
+    # Only play a sound if there are any
+    if len(sounds) != 0:
+      attacker.soundeffect(random.choice(sounds))

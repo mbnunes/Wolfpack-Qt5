@@ -39,6 +39,8 @@
 	<script>ore</script>
 	<script>lockpick</script>
 	<script>bulletinboard</script>
+	<script>food</script>
+	<script>shrine</script>
 
 	<!-- Combat -->
 	<script>combat</script>

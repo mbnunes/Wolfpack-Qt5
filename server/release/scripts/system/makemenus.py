@@ -81,7 +81,7 @@ class MakeAction:
       historyname = 'makehistory'
     identifier = '%s:%u' % (self.parent.id, self.index)
     if player.hastag(historyname):
-      history = str(player.gettag(historyname)).split(';')
+      history = unicode(player.gettag(historyname)).split(';')
       if identifier in history:
         history.remove(identifier)
 

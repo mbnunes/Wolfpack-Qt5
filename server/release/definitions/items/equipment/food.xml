@@ -39,7 +39,7 @@ Food subtypes:
 		<category>Equipment\Food\Stew</category>
 		<note>Use in conjunction with <ref id="item:974">cauldron n/s</ref> and <ref id="item:975">cauldron w/e</ref></note>
 		<id>0x0970</id>
-		<type>14</type> <!-- You can eat stew out of the cauldrons -->
+		<events>food</events> <!-- You can eat stew out of the cauldrons -->
 	</item>
 
 	<!-- Cauldron n/s -->
@@ -60,9 +60,9 @@ Food subtypes:
 	<item id="976">
 		<category>Equipment\Food\Slab of Bacon (N/S)</category>
 		<id>0x0976</id>
-		<type>14</type>
+		<events>food</events>
 		<weight>1</weight>
-		<type2>8</type2>
+		
 	</item>
 
 	<!-- Slab of Bacon w/e -->
@@ -76,8 +76,8 @@ Food subtypes:
 	<item id="978">
 		<category>Equipment\Food\Slice of Bacon (N/S)</category>
 		<id>0x0978</id>
-		<type>14</type>
-		<type2>8</type2>
+		<events>food</events>
+		
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<weight>1</weight>
@@ -112,38 +112,38 @@ Food subtypes:
 	<item id="97b">
 		<category>Equipment\Food\Fish Steak</category>
 		<id>0x097b</id>
-		<type>14</type>
+		<events>food</events>
 		<weight>0.1</weight>
-		<type2>9</type2>
+		
 	</item>
 
 	<!-- Wedge of Cheese (small) -->
 	<item id="97c">
 		<category>Equipment\Food\Wedge of Cheese (small)</category>
 		<id>0x097c</id>
-		<type>14</type>
+		<events>food</events>
 		<weight>0.1</weight>
-		<type2>14</type2>
+		
 	</item>
 
 	<!-- Wedge of Cheese (big) -->
 	<item id="97d">
 		<category>Equipment\Food\Wedge of Cheese (big)</category>
 		<id>0x097d</id>
-		<type>14</type>
+		<events>food</events>
 		<weight>0.1</weight>
-		<type2>14</type2>
+		
 	</item>
 
 	<!-- Wheel of Cheese -->
 	<item id="97e">
 		<category>Equipment\Food\Wheel of Cheese</category>
 		<id>0x097e</id>
-		<type>14</type>
+		<events>food</events>
 		<buyprice>25</buyprice>
 		<sellprice>12</sellprice>
 		<weight>0.1</weight>
-		<type2>14</type2>
+		
 	</item>
 
 	<!-- Frypan -->
@@ -156,11 +156,11 @@ Food subtypes:
 	<item id="98c">
 		<category>Equipment\Food\French Bread</category>
 		<id>0x098c</id>
-		<type>14</type>
+		<events>food</events>
 		<buyprice>6</buyprice>
 		<sellprice>3</sellprice>
 		<weight>2</weight>
-		<type2>10</type2>
+		
 	</item>
 
 	<!-- Jugs of Cider (3) -->
@@ -209,9 +209,9 @@ Food subtypes:
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<weight>11</weight>
-		<type>14</type>
+		<events>food</events>
 		<weight>1</weight>
-		<type2>5</type2>
+		
 	</item>
 
 	<!-- Ceramic Mug 1 -->
@@ -391,9 +391,9 @@ Food subtypes:
 		<id>0x09b5</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
-		<type>14</type>
+		<events>food</events>
 		<weight>1</weight>
-		<type2>3</type2>
+		
 	</item>
 
 	<!-- Fried Eggs -->
@@ -402,9 +402,9 @@ Food subtypes:
 		<id>0x09b6</id>
 		<buyprice>8</buyprice>
 		<sellprice>4</sellprice>
-		<type>14</type>
+		<events>food</events>
 		<weight>1</weight>
-		<type2>14</type2>
+		
 	</item>
 
 	<!-- Cooked bird w/e -->
@@ -414,9 +414,9 @@ Food subtypes:
 		<buyprice>24</buyprice>
 		<sellprice>12</sellprice>
 		<weight>1</weight>
-		<type>14</type>
+		<events>food</events>
 		<weight>0.1</weight>
-		<type2>8</type2>
+		
 	</item>
 
 	<!-- Cooked bird n/s -->
@@ -452,9 +452,9 @@ Food subtypes:
 		<id>0x09bb</id>
 		<buyprice>128</buyprice>
 		<sellprice>64</sellprice>
-		<type>14</type>
+		<events>food</events>
 		<weight>4.5</weight>
-		<type2>8</type2>
+		
 	</item>
 
 	<!-- Roast pig n/s -->
@@ -488,9 +488,9 @@ Food subtypes:
 		<id>0x09c0</id>
 		<buyprice>17</buyprice>
 		<sellprice>8</sellprice>
-		<type>14</type>
+		<events>food</events>
 		<weight>1</weight>
-		<type2>8</type2>
+		
 	</item>
 
 	<!-- Sausage n/s -->
@@ -562,9 +562,9 @@ Food subtypes:
 		<id>0x09c9</id>
 		<buyprice>20</buyprice>
 		<sellprice>10</sellprice>
-		<type>14</type>
+		<events>food</events>
 		<weight>0.1</weight>
-		<type2>8</type2>
+		
 	</item>
 
 	<!-- Ceramic mug 4 -->
@@ -613,9 +613,8 @@ Food subtypes:
 		<id>0x09d0</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
-		<type>14</type>
+		<events>food</events>
 		<weight>1</weight>
-		<type2>5</type2>
 	</item>
 
 	<!-- Grape bunch -->
@@ -624,9 +623,8 @@ Food subtypes:
 		<id>0x09d1</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
-		<type>14</type>
 		<weight>1</weight>
-		<type2>5</type2>
+    <events>food</events>
 	</item>
 
 	<!-- Peach -->
@@ -635,9 +633,9 @@ Food subtypes:
 		<id>0x09d2</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
-		<type>14</type>
+		<events>food</events>
 		<weight>1</weight>
-		<type2>5</type2>
+		
 	</item>
 
 	<!-- Ham n/s -->
@@ -779,9 +777,9 @@ Food subtypes:
 		<id>0x09e9</id>
 		<buyprice>11</buyprice>
 		<sellprice>5</sellprice>
-		<type>14</type>
+		<events>food</events>
 		<weight>1</weight>
-		<type2>10</type2>
+		
 	</item>
 
 	<!-- Muffin -->
@@ -790,9 +788,9 @@ Food subtypes:
 		<id>0x09ea</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
-		<type>14</type>
+		<events>food</events>
 		<weight>1</weight>
-		<type2>10</type2>
+		
 	</item>
 
 	<!-- Muffins -->
@@ -808,9 +806,9 @@ Food subtypes:
 		<id>0x09ec</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
-		<type>14</type>
+		<events>food</events>
 		<weight>2</weight>
-		<type2>14</type2>
+		
 	</item>
 
 	<!-- Kettle -->
@@ -860,9 +858,9 @@ Food subtypes:
 	<item id="9f2">
 		<category>Equipment\Food\Cut of Rips</category>
 		<id>0x09f2</id>
-		<type>14</type>
+		<events>food</events>
 		<weight>0.1</weight>
-		<type2>8</type2>
+		
 	</item>
 
 	<!-- Pan -->
@@ -936,9 +934,9 @@ Food subtypes:
 		<category>Equipment\Food\Watermelon 1</category>
 		<buyprice>8</buyprice>
 		<sellprice>4</sellprice>
-		<type>14</type>
+		<events>food</events>
 		<weight>5</weight>
-		<type2>5</type2>
+		
 	</item>
 
 	<!-- Watermelon -->
@@ -954,9 +952,9 @@ Food subtypes:
 		<id>0x0c61</id>
 		<buyprice>7</buyprice>
 		<sellprice>3</sellprice>
-		<type>14</type>
+		<events>food</events>
 		<weight>1</weight>
-		<type2>13</type2>
+		
 	</item>
 
 	<item id="c62">
@@ -989,9 +987,9 @@ Food subtypes:
 		<id>0x0c64</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
-		<type>14</type>
+		<events>food</events>
 		<weight>1</weight>
-		<type2>13</type2>
+		
 	</item>
 
 	<item id="c65">
@@ -1017,10 +1015,10 @@ Food subtypes:
 		<id>0x0c6a</id>
 		<buyprice>13</buyprice>
 		<sellprice>6</sellprice>
-		<type>14</type>
+		<events>food</events>
 		<weight>1</weight>
 		<category>Equipment\Food\Pumpkin 1</category>
-		<type2>13</type2>
+		
 	</item>
 
 	<item id="c6b">
@@ -1041,9 +1039,9 @@ Food subtypes:
 		<id>0x0c6d</id>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
-		<type>14</type>
+		<events>food</events>
 		<weight>1</weight>
-		<type2>13</type2>
+		
 	</item>
 
 	<item id="c6e">
@@ -1055,10 +1053,10 @@ Food subtypes:
 	<!-- Lettuce -->
 	<item id="c70">
 		<id>0x0c70</id>
-		<type>14</type>
+		<events>food</events>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Head of Lettuce 1</category>
-		<type2>13</type2>
+		
 	</item>
 
 	<item id="c71">
@@ -1071,11 +1069,11 @@ Food subtypes:
 	<item id="c72">
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
-		<type>14</type>
+		<events>food</events>
 		<weight>1</weight>
 		<id>0x0c72</id>
 		<category>Equipment\Food\Squash 1</category>
-		<type2>13</type2>
+		
 	</item>
 
 	<item id="c73">
@@ -1088,11 +1086,11 @@ Food subtypes:
 	<item id="c74">
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
-		<type>14</type>
+		<events>food</events>
 		<weight>1</weight>
 		<id>0x0c74</id>
 		<category>Equipment\Food\Honeydew Melon 1</category>
-		<type2>13</type2>
+		
 	</item>
 
 	<item id="c75">
@@ -1105,11 +1103,11 @@ Food subtypes:
 	<item id="c77">
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
-		<type>14</type>
+		<events>food</events>
 		<weight>1</weight>
 		<id>0x0c77</id>
 		<category>Equipment\Food\Carrots 1</category>
-		<type2>13</type2>
+		
 	</item>
 
 	<item id="c78">
@@ -1122,11 +1120,11 @@ Food subtypes:
 	<item id="c79">
 		<buyprice>7</buyprice>
 		<sellprice>3</sellprice>
-		<type>14</type>
+		<events>food</events>
 		<weight>1</weight>
 		<id>0x0c79</id>
 		<category>Equipment\Food\Canteloupe 1</category>
-		<type2>13</type2>
+		
 	</item>
 
 	<item id="c7a">
@@ -1139,11 +1137,11 @@ Food subtypes:
 	<item id="c7b">
 		<buyprice>6</buyprice>
 		<sellprice>3</sellprice>
-		<type>14</type>
+		<events>food</events>
 		<weight>0.1</weight>
 		<id>0x0c7b</id>
 		<category>Equipment\Food\Head of Cabbage 1</category>
-		<type2>13</type2>
+		
 	</item>
 
 	<item id="c7c">
@@ -1156,11 +1154,11 @@ Food subtypes:
 	<item id="c7f">
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
-		<type>14</type>
+		<events>food</events>
 		<weight>0.1</weight>
 		<id>0x0c7f</id>
 		<category>Equipment\Food\Ear of Corn 1</category>
-		<type2>7</type2>
+		
 	</item>
 
 	<item id="c80">
@@ -1277,13 +1275,13 @@ Food subtypes:
 
 	<!-- Bread -->
 	<item id="103b">
-		<type>14</type>
+		<events>food</events>
 		<buyprice>7</buyprice>
 		<sellprice>3</sellprice>
 		<weight>1</weight>
 		<id>0x103b</id>
 		<category>Equipment\Food\Bread 1</category>
-		<type2>10</type2>
+		
 	</item>
 
 	<item id="103c">
@@ -1321,20 +1319,20 @@ Food subtypes:
 
 	<item id="1040">
 		<id>0x1040</id>
-		<type>14</type>
+		<events>food</events>
 		<buyprice>9</buyprice>
 		<sellprice>4</sellprice>
 		<weight>1</weight>
 		<category>Equipment\Food\Pizza</category>
-		<type2>10</type2>
+		
 	</item>
 
 	<item id="1041">
 		<id>0x1041</id>
-		<type>14</type>
+		<events>food</events>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Baked Pie</category>
-		<type2>10</type2>
+		
 	</item>
 
 	<item id="1042">
@@ -1363,7 +1361,7 @@ Food subtypes:
 
 	<item id="15f8">
 		<id>0x15f8</id>
-		<type>14</type>
+		<events>food</events>
 		<weight>0.1</weight>
 		<category>Decoration\Kitchen\Wooden Bowl</category>
 	</item>
@@ -1465,30 +1463,30 @@ Food subtypes:
 
 	<item id="1606">
 		<id>0x1606</id>
-		<type>14</type>
+		<events>food</events>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<weight>1</weight>
 		<category>Equipment\Food\Tomato Soup</category>
-		<type2>14</type2>
+		
 	</item>
 
 	<item id="1608">
 		<id>0x1608</id>
-		<type>14</type>
+		<events>food</events>
 		<buyprice>6</buyprice>
 		<sellprice>3</sellprice>
 		<weight>1</weight>
 		<category>Equipment\Food\Chicken Leg</category>
-		<type2>8</type2>
+		
 	</item>
 
 	<item id="160a">
 		<id>0x160a</id>
-		<type>14</type>
+		<events>food</events>
 		<weight>2</weight>
 		<category>Equipment\Food\Leg of Lamb</category>
-		<type2>8</type2>
+		
 	</item>
 
 	<item id="160b">
@@ -1505,12 +1503,12 @@ Food subtypes:
 
 	<item id="171d">
 		<id>0x171d</id>
-		<type>14</type>
+		<events>food</events>
 		<buyprice>2</buyprice>
 		<sellprice>1</sellprice>
 		<weight>1</weight>
 		<category>Equipment\Food\Banana 1 (N/S)</category>
-		<type2>5</type2>
+		
 	</item>
 
 	<item id="171e">
@@ -1545,10 +1543,10 @@ Food subtypes:
 
 	<item id="1723">
 		<id>0x1723</id>
-		<type>14</type>
+		<events>food</events>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Coconut 1 (W/E)</category>
-		<type2>5</type2>
+		
 	</item>
 
 	<item id="1724">
@@ -1571,66 +1569,66 @@ Food subtypes:
 
 	<item id="1727">
 		<id>0x1727</id>
-		<type>14</type>
+		<events>food</events>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Bunch of Dates</category>
-		<type2>5</type2>
+		
 	</item>
 
 	<item id="1728">
 		<id>0x1728</id>
 		<category>Equipment\Food\Lemon</category>
-		<type>14</type>
+		<events>food</events>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<weight>0.1</weight>
-		<type2>5</type2>
+		
 	</item>
 
 	<item id="1729">
 		<id>0x1729</id>
-		<type>14</type>
+		<events>food</events>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Lemons</category>
-		<type2>5</type2>
+		
 	</item>
 
 	<item id="172a">
 		<id>0x172a</id>
-		<type>14</type>
+		<events>food</events>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Lime</category>
-		<type2>5</type2>
+		
 	</item>
 
 	<item id="172b">
 		<id>0x172b</id>
-		<type>14</type>
+		<events>food</events>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Limes</category>
-		<type2>5</type2>
+		
 	</item>
 
 	<item id="172c">
 		<id>0x172c</id>
-		<type>14</type>
+		<events>food</events>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Peach 2</category>
-		<type2>5</type2>
+		
 	</item>
 
 	<item id="172d">
 		<id>0x172d</id>
-		<type>14</type>
+		<events>food</events>
 		<buyprice>3</buyprice>
 		<sellprice>1</sellprice>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Pear 2</category>
-		<type2>5</type2>
+		
 	</item>
 
 	<item id="1871">
@@ -1655,42 +1653,42 @@ Food subtypes:
 
 	<item id="1ad3">
 		<id>0x1ad3</id>
-		<type>14</type>
+		<events>food</events>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Donuts</category>
-		<type2>10</type2>
+		
 	</item>
 
 	<item id="1e1c">
 		<id>0x1e1c</id>
-		<type>14</type>
+		<events>food</events>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Cooked Fish 1</category>
-		<type2>8</type2>
+		
 	</item>
 
 	<item id="1e1d">
 		<id>0x1e1d</id>
-		<type>14</type>
+		<events>food</events>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Cooked Fish 2</category>
-		<type2>8</type2>
+		
 	</item>
 
 	<item id="1e1e">
 		<id>0x1e1e</id>
-		<type>14</type>
+		<events>food</events>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Cooked Fish 3</category>
-		<type2>8</type2>
+		
 	</item>
 
 	<item id="1e1f">
 		<id>0x1e1f</id>
-		<type>14</type>
+		<events>food</events>
 		<weight>0.1</weight>
 		<category>Equipment\Food\Sliced Ham</category>
-		<type2>8</type2>
+		
 	</item>
 
 	<item id="1eb0">

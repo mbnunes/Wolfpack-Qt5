@@ -279,7 +279,6 @@ def absorbdamage(defender, damage):
 #
 def hit(attacker, defender, weapon, time):
   combat.utilities.playhitsound(attacker, defender)
-  combat.utilities.playhurtanimation(defender)
 
   (mindamage, maxdamage) = combat.properties.getdamage(attacker)
 

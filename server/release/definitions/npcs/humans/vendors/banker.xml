@@ -24,8 +24,6 @@
 			<restockable>
 				<item id="commodity_deed"><amount>20</amount></item>
 			</restockable>
-			<sellable>
-			</sellable>
 		</shopkeeper>
 		<category>Vendors\Banker (Male)</category>
 		<invulnerable />
@@ -46,8 +44,6 @@
 			<restockable>
 				<item id="commodity_deed"><amount>20</amount></item>
 			</restockable>
-			<sellable>
-			</sellable>
 		</shopkeeper>
 		<category>Vendors\Banker (Female)</category>
 		<invulnerable />
