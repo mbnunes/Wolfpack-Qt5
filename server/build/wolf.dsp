@@ -117,10 +117,6 @@ SOURCE=.\bounty.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\cache.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\chars.cpp
 # End Source File
 # Begin Source File
@@ -494,10 +490,6 @@ SOURCE=.\guildstones.h
 # Begin Source File
 
 SOURCE=.\gumps.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\hCache.h
 # End Source File
 # Begin Source File
 
