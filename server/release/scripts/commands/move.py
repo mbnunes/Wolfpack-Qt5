@@ -30,8 +30,8 @@ def commandMove( socket, cmd, args ):
 			try:
 				i = int(i)
 			except:
-				socket.sysmessage( "'%s' ist keine Zahl." % i )
-			return True
+				socket.sysmessage( "'%s' must be a number." % i )
+				return True
 			
 		if len( args ) >= 1 and len( args ) <= 4:
 			if len( args ) == 4:
