@@ -14,7 +14,7 @@ def potion( player, arguments, target ):
 		player.socket.sysmessage( tr( 'The shrink potion has to be in your backpack to use it.' ) )
 		return False
 
-	if not canUsePotion( char, potion ):
+	if not canUsePotion( player, potion ):
 		return False
 
 	if not target.char:
