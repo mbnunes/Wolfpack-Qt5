@@ -55,7 +55,7 @@
 #include "skills.h"
 #include "wpdefmanager.h"
 #include "guildstones.h"
-#include "network/asyncnetio.h"
+//#include "network/asyncnetio.h"
 #include "walking.h"
 #include "persistentbroker.h"
 #include "territories.h"
