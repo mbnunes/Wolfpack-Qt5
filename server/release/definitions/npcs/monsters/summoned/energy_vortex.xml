@@ -9,7 +9,7 @@
 <definitions>
 
 	<!-- Energy Vortex -->
-	<npc id="energy_vortex">
+	<npc id="summoned_energy_vortex">
 		<name>energy vortex</name>
 		<wandertype>1</wandertype>
 		<ai>Monster_Berserk</ai>
