@@ -40,12 +40,14 @@
 	&nbsp;&nbsp;# Access item properties here
 	&nbsp;&nbsp;item = iterator.next</code>
 */
-typedef struct {
+typedef struct
+{
 	PyObject_HEAD;
 	cItemIterator* iter;
 } wpItemIterator;
 
-static void wpItemIteratorDealloc( PyObject* self) {
+static void wpItemIteratorDealloc( PyObject* self )
+{
 	delete ( ( wpItemIterator * ) self )->iter;
 	PyObject_Del( self );
 }
@@ -70,19 +72,19 @@ static PyObject* wpItemIterator_getAttr( wpItemIterator* self, char* name )
 
 static PyTypeObject wpItemIteratorType =
 {
-	PyObject_HEAD_INIT( NULL )
-	0,
-	"wpItemIterator",
-	sizeof( wpItemIteratorType ),
-	0,
-	wpItemIteratorDealloc,
-	0,
-	( getattrfunc ) wpItemIterator_getAttr,
-	0,
-	0,
-	0,
-	0,
-	0,
+PyObject_HEAD_INIT( NULL )
+0,
+"wpItemIterator",
+sizeof( wpItemIteratorType ),
+0,
+wpItemIteratorDealloc,
+0,
+( getattrfunc ) wpItemIterator_getAttr,
+0,
+0,
+0,
+0,
+0,
 
 };
 
@@ -142,19 +144,19 @@ static PyObject* wpCharIterator_getAttr( wpCharIterator* self, char* name )
 
 static PyTypeObject wpCharIteratorType =
 {
-	PyObject_HEAD_INIT( NULL )
-	0,
-	"wpCharIterator",
-	sizeof( wpCharIteratorType ),
-	0,
-	wpCharIteratorDealloc,
-	0,
-	( getattrfunc ) wpCharIterator_getAttr,
-	0,
-	0,
-	0,
-	0,
-	0,
+PyObject_HEAD_INIT( NULL )
+0,
+"wpCharIterator",
+sizeof( wpCharIteratorType ),
+0,
+wpCharIteratorDealloc,
+0,
+( getattrfunc ) wpCharIterator_getAttr,
+0,
+0,
+0,
+0,
+0,
 
 };
 

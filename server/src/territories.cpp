@@ -82,8 +82,8 @@ void cTerritory::init( void )
 
 void cTerritory::processNode( const cElement* Tag )
 {
-	QString TagName(Tag->name());
-	QString Value(Tag->value());
+	QString TagName( Tag->name() );
+	QString Value( Tag->value() );
 
 	//<guards>
 	//  <npc mult="2">npcsection</npc> (mult inserts 2 same sections into the list so the probability rises!
@@ -108,7 +108,7 @@ void cTerritory::processNode( const cElement* Tag )
 			else if ( childNode->name() == "list" && childNode->hasAttribute( "id" ) )
 			{
 				QStringList NpcList = Definitions::instance()->getList( childNode->getAttribute( "id" ) );
-				QStringList::const_iterator it(NpcList.begin());
+				QStringList::const_iterator it( NpcList.begin() );
 				for ( ; it != NpcList.end(); ++it )
 					this->guardSections_.push_back( *it );
 			}
@@ -125,7 +125,6 @@ void cTerritory::processNode( const cElement* Tag )
 	// <midilist>MIDI_COMBAT</midilist>
 	else if ( TagName == "midilist" )
 		this->midilist_ = Value;
-
 	else if ( TagName == "flags" )
 	{
 		flags_ = 0;
@@ -335,7 +334,7 @@ void cTerritories::load()
 
 		if ( territory->rectangles().empty() )
 		{
-			Console::instance()->log(LOG_WARNING, QString("Region %1 lacks rectangle tag, ignoring region.\n").arg(territory->name()));
+			Console::instance()->log( LOG_WARNING, QString( "Region %1 lacks rectangle tag, ignoring region.\n" ).arg( territory->name() ) );
 			delete territory;
 		}
 		else
@@ -422,8 +421,8 @@ void cTerritories::check( P_CHAR pc )
 			if ( currRegion->isGuarded() == lastRegion->isGuarded() )
 			{
 				/* Only show if you haven't gotten a message before.
-					Or, only show if the guard owner changes.
-				 */
+							Or, only show if the guard owner changes.
+						 */
 				if ( ( !currRegion->isNoGuardMessage() && !lastRegion->isNoGuardMessage() ) && ( currRegion->guardOwner() != lastRegion->guardOwner() ) )
 				{
 					if ( currRegion->guardOwner().isEmpty() )

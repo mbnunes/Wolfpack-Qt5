@@ -120,8 +120,8 @@ struct stBlockItem
 // the tile we're walking on is impassable
 bool checkWalkable( P_CHAR pChar, UINT16 tileId )
 {
-	Q_UNUSED(pChar);
-	Q_UNUSED(tileId);
+	Q_UNUSED( pChar );
+	Q_UNUSED( tileId );
 	return false;
 }
 

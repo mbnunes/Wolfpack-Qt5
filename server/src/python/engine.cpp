@@ -165,7 +165,6 @@ void reloadPython()
 	}
 	Py_DECREF( mList );
 	Py_DECREF( modules );
-
 }
 
 void reportPythonError( const QString& moduleName )
@@ -173,9 +172,7 @@ void reportPythonError( const QString& moduleName )
 	// Print the Error
 	if ( PyErr_Occurred() )
 	{
-		PyObject* exception,
-		* value,
-		* traceback;
+		PyObject* exception,* value,* traceback;
 
 		PyErr_Fetch( &exception, &value, &traceback );
 		PyErr_NormalizeException( &exception, &value, &traceback );

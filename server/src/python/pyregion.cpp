@@ -47,8 +47,9 @@ typedef struct
 static PyObject* wpRegion_getAttr( wpRegion* self, char* name );
 static int wpRegion_setAttr( wpRegion* self, char* name, PyObject* value );
 
-static PyObject *wpRegion_str(wpRegion *self) {
-	return QString2Python(self->pRegion->name());
+static PyObject* wpRegion_str( wpRegion* self )
+{
+	return QString2Python( self->pRegion->name() );
 }
 
 /*!
@@ -56,29 +57,29 @@ static PyObject *wpRegion_str(wpRegion *self) {
 */
 static PyTypeObject wpRegionType =
 {
-	PyObject_HEAD_INIT( NULL )
-	0,
-	"wpregion",
-	sizeof( wpRegionType ),
-	0,
-	wpDealloc,
-	0,
-	( getattrfunc ) wpRegion_getAttr,
-	( setattrfunc ) wpRegion_setAttr,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0, // Call
-	(reprfunc)wpRegion_str,
-	0,
+PyObject_HEAD_INIT( NULL )
+0,
+"wpregion",
+sizeof( wpRegionType ),
+0,
+wpDealloc,
+0,
+( getattrfunc ) wpRegion_getAttr,
+( setattrfunc ) wpRegion_setAttr,
+0,
+0,
+0,
+0,
+0,
+0,
+0, // Call
+( reprfunc ) wpRegion_str,
+0,
 };
 
 static PyMethodDef wpRegionMethods[] =
 {
-	{ NULL, NULL, 0, NULL }
+{ NULL, NULL, 0, NULL }
 };
 
 static PyObject* wpRegion_getAttr( wpRegion* self, char* name )

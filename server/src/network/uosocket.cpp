@@ -105,7 +105,7 @@ cUOSocket::cUOSocket( QSocketDevice* sDevice ) : _walkSequence( 0 ), lastPacket(
 // Initialize all packet handlers to zero
 PyObject* cUOSocket::handlers[255] =
 {
-	0,
+0, 
 };
 
 void cUOSocket::registerPacketHandler( unsigned char packet, PyObject* handler )
@@ -261,13 +261,18 @@ void cUOSocket::recieve()
 	}
 
 	// This is always checked before anything else
-	if (packetId == 0x02 && Config::instance()->antiSpeedHack()) {
-		if (_player && !_player->isGM()) {
+	if ( packetId == 0x02 && Config::instance()->antiSpeedHack() )
+	{
+		if ( _player && !_player->isGM() )
+		{
 			// There are two different delays for mounted and unmounted players
 			unsigned int delay;
-			if (!_player->atLayer(cBaseChar::Mount)) {
+			if ( !_player->atLayer( cBaseChar::Mount ) )
+			{
 				delay = Config::instance()->antiSpeedHackDelay();
-			} else {
+			}
+			else
+			{
 				delay = Config::instance()->antiSpeedHackDelayMounted();
 			}
 
@@ -275,9 +280,10 @@ void cUOSocket::recieve()
 			// requeue the walk request until we can fullfil it.
 			//unsigned int time = getNormalizedTime();
 			unsigned int time = Server::instance()->time();
-			if (_player->lastMovement() + delay > time) {
+			if ( _player->lastMovement() + delay > time )
+			{
 				//sysMessage(QString("Delayed Walk Request, Last WalkRequest was %1 ms ago.").arg(time - _player->lastMovement()));
-				Network::instance()->netIo()->pushfrontPacket(_socket, packet);
+				Network::instance()->netIo()->pushfrontPacket( _socket, packet );
 				return;
 			}
 		}
@@ -359,7 +365,7 @@ void cUOSocket::recieve()
 	case 0x91:
 		handleServerAttach( dynamic_cast<cUORxServerAttach*>( packet ) ); break;
 	case 0x98:
-		handleAllNames(dynamic_cast<cUORxAllNames*>(packet)); break;
+		handleAllNames( dynamic_cast<cUORxAllNames*>( packet ) ); break;
 	case 0x9B:
 		handleHelpRequest( dynamic_cast<cUORxHelpRequest*>( packet ) ); break;
 	case 0x9F:
@@ -443,7 +449,7 @@ void cUOSocket::handleLoginRequest( cUORxLoginRequest* packet )
 */
 void cUOSocket::handleHardwareInfo( cUORxHardwareInfo* packet )
 {
-	Q_UNUSED(packet);
+	Q_UNUSED( packet );
 	// Do something with the retrieved hardware information here
 	// > Hardware Log ??
 	//QString hardwareMsg = QString( "Hardware: %1 Processors [Type: %2], %2 MB RAM, %3 MB Harddrive" ).arg( packet->processorCount() ).arg( packet->processorType() ).arg( packet->memoryInMb() ).arg( packet->largestPartitionInMb() );
@@ -547,7 +553,8 @@ void cUOSocket::sendCharList()
 	cUOTxClientFeatures clientFeatures;
 	clientFeatures.setLbr( true );
 	clientFeatures.setT2a( true );
-	clientFeatures.setShort( 1, 0xFFFF ); // AoS TEST
+	//clientFeatures.setShort( 1, 0xFFFF ); // AoS TEST
+	clientFeatures.setShort(1, 0x1F);
 	send( &clientFeatures );
 
 	cUOTxCharTownList charList;
@@ -567,11 +574,11 @@ void cUOSocket::sendCharList()
 
 	charList.compile();
 	send( &charList );
-#pragma fixme("Warning: Ugly ugly ugly! Fix me!")
+
 	// Ask the client for a viewrange
-	cUOPacket packet( 0xc8, 2 );
-	packet[1] = VISRANGE;
-	send( &packet );
+	cUOTxUpdateRange range;
+	range.setRange(VISRANGE);
+	send( &range );
 }
 
 /*!
@@ -658,11 +665,11 @@ void cUOSocket::playChar( P_PLAYER pChar )
 
 	// Enable Sta+Map Diffs
 	cUOTxMapDiffs diffs;
-	diffs.addEntry(Maps::instance()->mapPatches(0), Maps::instance()->staticPatches(0));
-	diffs.addEntry(Maps::instance()->mapPatches(1), Maps::instance()->staticPatches(1));
-	diffs.addEntry(Maps::instance()->mapPatches(2), Maps::instance()->staticPatches(2));
-	diffs.addEntry(Maps::instance()->mapPatches(3), Maps::instance()->staticPatches(3));
-	send(&diffs);
+	diffs.addEntry( Maps::instance()->mapPatches( 0 ), Maps::instance()->staticPatches( 0 ) );
+	diffs.addEntry( Maps::instance()->mapPatches( 1 ), Maps::instance()->staticPatches( 1 ) );
+	diffs.addEntry( Maps::instance()->mapPatches( 2 ), Maps::instance()->staticPatches( 2 ) );
+	diffs.addEntry( Maps::instance()->mapPatches( 3 ), Maps::instance()->staticPatches( 3 ) );
+	send( &diffs );
 
 	// Which map are we on
 	cUOTxChangeMap changeMap;
@@ -828,10 +835,10 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 	QValueVector<P_PLAYER> characters = _account->caracterList();
 
 	// If we have more than 6 characters
-	const uint maxChars = QMIN(6, Config::instance()->maxCharsPerAccount() );
+	const uint maxChars = QMIN( 6, Config::instance()->maxCharsPerAccount() );
 	if ( characters.size() >= maxChars )
 	{
-		cancelCreate( tr( "You already have more than %1 characters" ).arg(maxChars) )
+		cancelCreate( tr( "You already have more than %1 characters" ).arg( maxChars ) )
 	}
 
 	// Check the stats
@@ -907,7 +914,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 
 	if ( playerDefinition )
 		pChar->applyDefinition( playerDefinition );
-	
+
 	pChar->setName( packet->name() );
 
 	pChar->setSkin( packet->skinColor() );
@@ -1243,7 +1250,7 @@ void cUOSocket::handleAosMultiPurpose( cUORxAosMultiPurpose* packet )
 	case cUORxAosMultiPurpose::CHRevert:
 		handleCHRevert( packet ); break;
 		/*		case cUORxAosMultiPurpose::AbilitySelect:
-					handleAbilitySelect( dynamic_cast< */
+							handleAbilitySelect( dynamic_cast< */
 	default:
 		Console::instance()->log( LOG_WARNING, packet->dump( packet->uncompressed() ) );
 	};
@@ -1252,47 +1259,47 @@ void cUOSocket::handleAosMultiPurpose( cUORxAosMultiPurpose* packet )
 
 void cUOSocket::handleCHBackup( cUORxAosMultiPurpose* packet )
 {
-	Q_UNUSED(packet);
+	Q_UNUSED( packet );
 }
 
 void cUOSocket::handleCHRestore( cUORxAosMultiPurpose* packet )
 {
-	Q_UNUSED(packet);
+	Q_UNUSED( packet );
 }
 
 void cUOSocket::handleCHCommit( cUORxAosMultiPurpose* packet )
 {
-	Q_UNUSED(packet);
+	Q_UNUSED( packet );
 }
 
 void cUOSocket::handleCHDelete( cUORxCHDelete* packet )
 {
-	Q_UNUSED(packet);
+	Q_UNUSED( packet );
 }
 
 void cUOSocket::handleCHAddElement( cUORxCHAddElement* packet )
 {
-	Q_UNUSED(packet);
+	Q_UNUSED( packet );
 }
 
 void cUOSocket::handleCHClose( cUORxAosMultiPurpose* packet )
 {
-	Q_UNUSED(packet);
+	Q_UNUSED( packet );
 }
 
 void cUOSocket::handleCHStairs( cUORxCHStairs* packet )
 {
-	Q_UNUSED(packet);
+	Q_UNUSED( packet );
 }
 
 void cUOSocket::handleCHSync( cUORxAosMultiPurpose* packet )
 {
-	Q_UNUSED(packet);
+	Q_UNUSED( packet );
 }
 
 void cUOSocket::handleCHClear( cUORxAosMultiPurpose* packet )
 {
-	Q_UNUSED(packet);
+	Q_UNUSED( packet );
 }
 
 void cUOSocket::handleCHLevel( cUORxCHLevel* packet )
@@ -1302,7 +1309,7 @@ void cUOSocket::handleCHLevel( cUORxCHLevel* packet )
 
 void cUOSocket::handleCHRevert( cUORxAosMultiPurpose* packet )
 {
-	Q_UNUSED(packet);
+	Q_UNUSED( packet );
 }
 
 void cUOSocket::handleCastSpell( cUORxCastSpell* packet )
@@ -1530,7 +1537,6 @@ void cUOSocket::resendPlayer( bool quick )
 			cUOTxChangeMap changemap;
 			changemap.setMap(pos_.map);
 			socket_->send(&changemap);
-
 			cUOTxChangeServer changeserver;
 			changeserver.setX(pos_.x);
 			changeserver.setY(pos_.y);
@@ -1539,13 +1545,10 @@ void cUOSocket::resendPlayer( bool quick )
 			changeserver.setHeight(Maps::instance()->mapTileHeight(pos_.map) * 8);
 			socket_->send(&changeserver);
 		}
-
 		updatePlayer();
-
 		// Send the equipment Tooltips
 		cBaseChar::ItemContainer content = _player->content();
 		cBaseChar::ItemContainer::const_iterator it;
-
 		for (it = content.begin(); it != content.end(); it++) {
 			P_ITEM pItem = it.data();
 			if (pItem->layer() <= 0x19) {
@@ -1553,9 +1556,7 @@ void cUOSocket::resendPlayer( bool quick )
 				pItem->sendTooltip(this);
 			}
 		}
-
 		updateLightLevel();
-
 		// Set the warmode status
 		if (!quick) {
 			cUOTxWarmode warmode;
@@ -1988,7 +1989,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 		++count;
 	}
 
-	if ( pCont->objectID() == QString("cCorpse") )
+	if ( pCont->objectID() == QString( "cCorpse" ) )
 	{
 		cCorpse* pCorpse = dynamic_cast<cCorpse*>( pCont );
 
@@ -2579,10 +2580,10 @@ void cUOSocket::sendVendorCont( P_ITEM pItem )
 
 			// change how the name is displayed
 			/*QString name = mItem->getName(true);
-					name[0] = name[0].upper();
-					for ( uint j = 1; j < name.length() - 1; ++j )
-						if ( name.at(j).isSpace() )
-							name.at(j+1) = name.at(j+1).upper();*/
+									name[0] = name[0].upper();
+									for ( uint j = 1; j < name.length() - 1; ++j )
+										if ( name.at(j).isSpace() )
+											name.at(j+1) = name.at(j+1).upper();*/
 
 			items.append( mItem );
 			++i;
@@ -3229,14 +3230,16 @@ bool cUOSocket::useItem( P_ITEM item )
 	return false;
 }
 
-void cUOSocket::handleAllNames(cUORxAllNames *packet) {
-	cUObject *object = World::instance()->findObject(packet->serial());
+void cUOSocket::handleAllNames( cUORxAllNames* packet )
+{
+	cUObject* object = World::instance()->findObject( packet->serial() );
 
 	// Send a packet back with the name of the requested object
-	if (object) {
+	if ( object )
+	{
 		cUOTxAllNames allnames;
-		allnames.setSerial(object->serial());
-		allnames.setName(object->name());
-		send(&allnames);
+		allnames.setSerial( object->serial() );
+		allnames.setName( object->name() );
+		send( &allnames );
 	}
 }

@@ -155,7 +155,7 @@ public:
 		return lootPacks_;
 	}
 
-	inline const QCString &bindmenu()
+	inline const QCString& bindmenu()
 	{
 		load();
 		return bindmenu_;

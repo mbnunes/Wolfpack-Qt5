@@ -453,34 +453,34 @@ bool Coord_cl::lineOfSight( const Coord_cl& target, UI16 targetheight, bool touc
 					}
 
 					/*another try, but i think its needed for all positions, not only start and end...
-								//target
-								if( (*pit).y == target.y )
-								{
-									if( dz > 0 )
-									{
-										zmax = QMIN( zmax, i );
-										//Console::instance()->send( QString( "TargetY, zmax:%1, i:%2\n" ).arg( zmax ).arg( i ) );
-									}
-									else
-									{
-										zmin = QMAX( zmin, i+1 );
-										//Console::instance()->send( QString( "TargetY, zmin:%1, i:%2\n" ).arg( zmin ).arg( i ) );
-									}
-								}
-								//source
-								if( (*pit).y == y )
-								{
-									if( dz > 0 )
-									{
-										zmin = QMAX( zmin, z );
-										//Console::instance()->send( QString( "SourceY, zmin:%1, i:%2\n" ).arg( zmax ).arg( i ) );
-									}
-									else
-									{
-										zmax = QMIN( zmax, z );
-										//Console::instance()->send( QString( "SourceY, zmax:%1, i:%2\n" ).arg( zmax ).arg( i ) );
-									}
-								}*/
+											//target
+											if( (*pit).y == target.y )
+											{
+												if( dz > 0 )
+												{
+													zmax = QMIN( zmax, i );
+													//Console::instance()->send( QString( "TargetY, zmax:%1, i:%2\n" ).arg( zmax ).arg( i ) );
+												}
+												else
+												{
+													zmin = QMAX( zmin, i+1 );
+													//Console::instance()->send( QString( "TargetY, zmin:%1, i:%2\n" ).arg( zmin ).arg( i ) );
+												}
+											}
+											//source
+											if( (*pit).y == y )
+											{
+												if( dz > 0 )
+												{
+													zmin = QMAX( zmin, z );
+													//Console::instance()->send( QString( "SourceY, zmin:%1, i:%2\n" ).arg( zmax ).arg( i ) );
+												}
+												else
+												{
+													zmax = QMIN( zmax, z );
+													//Console::instance()->send( QString( "SourceY, zmax:%1, i:%2\n" ).arg( zmax ).arg( i ) );
+												}
+											}*/
 					if ( dz > 0 )
 					{
 						zmax = QMIN( zmax, i );
@@ -623,18 +623,18 @@ bool Coord_cl::lineOfSight( const Coord_cl& target, UI16 targetheight, bool touc
 				}
 
 				/*SI08 zmin = (SI08)floor( i - dz*sqrt( ((double)target.x - (double)(*pit).x)*((double)target.x - (double)(*pit).x) + ((double)target.y - (double)(*pit).y)*((double)target.y - (double)(*pit).y) ) );
-						SI08 zmax;
-						//Console::instance()->send( QString( "zmin:%1,dz:%2\n" ).arg( zmin ).arg( dz ) );
-						if( dz > 0 )
-						{
-							zmin = QMAX( (SI08)floor( zmin - dz/2 ), z+1 );
-							zmax = QMIN( zmin + dz + 1, target.z+targetheight+1 );	//to prevent floor-mistakes
-						}
-						else
-						{
-							zmin = QMIN( (SI08)floor( zmin + dz/2 ), target.z+1 );
-							zmax = QMAX( zmin - dz + 1, z );	//to prevent floor-mistakes
-						}*/
+								SI08 zmax;
+								//Console::instance()->send( QString( "zmin:%1,dz:%2\n" ).arg( zmin ).arg( dz ) );
+								if( dz > 0 )
+								{
+									zmin = QMAX( (SI08)floor( zmin - dz/2 ), z+1 );
+									zmax = QMIN( zmin + dz + 1, target.z+targetheight+1 );	//to prevent floor-mistakes
+								}
+								else
+								{
+									zmin = QMIN( (SI08)floor( zmin + dz/2 ), target.z+1 );
+									zmax = QMAX( zmin - dz + 1, z );	//to prevent floor-mistakes
+								}*/
 
 				// Texture mapping
 				map1 = Maps::instance()->seekMap( *pit );
@@ -656,8 +656,8 @@ bool Coord_cl::lineOfSight( const Coord_cl& target, UI16 targetheight, bool touc
 					//vice verse
 					//in this case, both dont cut our line, but the mapconnection between them
 					//should do
-					if ( ( ( map1.z < map2.z ) && ( map1.z < zmin ) && ( map2.z > zmax + dz ) ) || 						// 1) lineofsight collides with a map "wall"
-						( ( map1.z > map2.z ) && ( map1.z > zmin ) && ( map2.z < zmax - dz ) ) || ( ( ( map1.id >= 431 && map1.id <= 432 ) || 	// 3) lineofsight cuts a mountain
+					if ( ( ( map1.z < map2.z ) && ( map1.z < zmin ) && ( map2.z > zmax + dz ) ) ||  						// 1) lineofsight collides with a map "wall"
+						( ( map1.z > map2.z ) && ( map1.z > zmin ) && ( map2.z < zmax - dz ) ) || ( ( ( map1.id >= 431 && map1.id <= 432 ) ||  	// 3) lineofsight cuts a mountain
 						( map1.id >= 467 && map1.id <= 475 ) || ( map1.id >= 543 && map1.id <= 560 ) || ( map1.id >= 1754 && map1.id <= 1757 ) || ( map1.id >= 1787 && map1.id <= 1789 ) || ( map1.id >= 1821 && map1.id <= 1824 ) || ( map1.id >= 1851 && map1.id <= 1854 ) || ( map1.id >= 1881 && map1.id <= 1884 ) ) && ( posHigherThanMap ) && ( msi.atEnd() ) ) ) // mountains cut only if we are not beneath them
 					{
 						//Console::instance()->send( QString( "map1:%1,map2:%2\n" ).arg( map1.z ).arg( map2.z ) );
@@ -1217,7 +1217,7 @@ bool Coord_cl::lineOfSight( const Coord_cl& target, UI16 targetheight, bool touc
 				//in this case, both dont cut our line, but the mapconnection between them
 				//should do
 				land_st tile = TileCache::instance()->getLand( map1.id );
-				if ( ( ( map1.z < map2.z ) && ( map1.z < zmin ) && ( map2.z > zmax + dz_down ) && !targetpos ) || 						// 1) lineofsight collides with a map "wall"
+				if ( ( ( map1.z < map2.z ) && ( map1.z < zmin ) && ( map2.z > zmax + dz_down ) && !targetpos ) ||  						// 1) lineofsight collides with a map "wall"
 					( ( map1.z > map2.z ) && ( map1.z > zmin ) && ( map2.z < zmin + dz_down ) && !targetpos ) || ( tile.isBlocking() && posHigherThanMap && msi.atEnd() && rj.atEnd() ) )
 				{
 					//Console::instance()->send( QString( "map1:%1,map2:%2,map1id:%3\n" ).arg( map1.z ).arg( map2.z ).arg( map1.id ) );

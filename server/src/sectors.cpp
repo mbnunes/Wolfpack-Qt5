@@ -187,7 +187,7 @@ bool cSectorMap::removeItem( cUObject* object )
 			}
 
 			/*memcpy( newData, grid[block]->data, sizeof( cUObject* ) * i );
-					memcpy( newData + ( i * sizeof( cUObject* ) ), grid[block]->data + sizeof( cUObject* ) * ( i + 1 ), QMAX( 0, sizeof( cUObject* ) * ( grid[block]->count - ( i + 1 ) ) ) );*/
+							memcpy( newData + ( i * sizeof( cUObject* ) ), grid[block]->data + sizeof( cUObject* ) * ( i + 1 ), QMAX( 0, sizeof( cUObject* ) * ( grid[block]->count - ( i + 1 ) ) ) );*/
 
 			free( grid[block]->data );
 			grid[block]->data = newData;
@@ -375,7 +375,7 @@ void cSectorMaps::add( cUObject* object )
 
 			it->second->addItem( ( cUObject * ) pItem );
 
-			Timing::instance()->addDecayItem(pItem);
+			Timing::instance()->addDecayItem( pItem );
 		}
 	}
 	else if ( isCharSerial( object->serial() ) )
@@ -434,7 +434,7 @@ void cSectorMaps::remove( cUObject* object )
 				throw QString( "Couldn't find a map with the id %1." ).arg( pos.map );
 
 			it->second->removeItem( ( cUObject * ) pItem );
-			Timing::instance()->removeDecayItem(pItem);
+			Timing::instance()->removeDecayItem( pItem );
 		}
 	}
 	else if ( isCharSerial( object->serial() ) )
@@ -544,12 +544,12 @@ cSectorIterator* cSectorMaps::findObjects( MapType type, cSectorMap* sector, uin
 // Object specific find methods
 cItemSectorIterator* cSectorMaps::findItems( const Coord_cl& center, unsigned char distance )
 {
-	return findItems( center.map, QMAX(( int ) center.x - ( int ) distance, 0), QMAX(( int ) center.y - ( int ) distance, 0), ( int ) center.x + distance, ( int ) center.y + distance );
+	return findItems( center.map, QMAX( ( int ) center.x - ( int ) distance, 0 ), QMAX( ( int ) center.y - ( int ) distance, 0 ), ( int ) center.x + distance, ( int ) center.y + distance );
 }
 
 cCharSectorIterator* cSectorMaps::findChars( const Coord_cl& center, unsigned char distance )
 {
-	return findChars( center.map, QMAX(( int ) center.x - distance, 0), QMAX(( int ) center.y - distance, 0), center.x + distance, center.y + distance );
+	return findChars( center.map, QMAX( ( int ) center.x - distance, 0 ), QMAX( ( int ) center.y - distance, 0 ), center.x + distance, center.y + distance );
 }
 
 cItemSectorIterator* cSectorMaps::findItems( unsigned char map, uint x, uint y )

@@ -90,10 +90,10 @@ public:
 	void load( char**, UINT16& );
 	void save();
 	bool del();
-	void load(cBufferedReader &reader, unsigned int version);
-	void save(cBufferedWriter &writer, unsigned int version);
-	void postload(unsigned int version);
-	void load(cBufferedReader &reader);
+	void load( cBufferedReader& reader, unsigned int version );
+	void save( cBufferedWriter& writer, unsigned int version );
+	void postload( unsigned int version );
+	void load( cBufferedReader& reader );
 
 	virtual enCharTypes objectType();
 	virtual void update( bool excludeself = false );
@@ -124,7 +124,7 @@ public:
 
 	// other public methods
 	virtual stError* setProperty( const QString& name, const cVariant& value );
-	PyObject *getProperty(const QString &name);
+	PyObject* getProperty( const QString& name );
 	void setNextMoveTime( void );
 	virtual void callGuards(); // overriding
 	void makeShop();
@@ -196,7 +196,8 @@ public:
 	PyObject* getPyObject();
 	const char* className() const;
 
-	unsigned char getClassid() {
+	unsigned char getClassid()
+	{
 		return cNPC::classid;
 	}
 

@@ -40,14 +40,14 @@
 
 // DB AutoCreation
 const char* createSql = "CREATE TABLE accounts (\
-	login varchar(16) NOT NULL default '',\
-	password varchar(32) NOT NULL default '',\
-	flags int NOT NULL default '0',\
-	acl varchar(255) NOT NULL default 'player',\
-	lastlogin int NOT NULL default '',\
-	blockuntil int NOT NULL default '',\
-	PRIMARY KEY (login)\
-	);";
+login varchar(16) NOT NULL default '',\
+password varchar(32) NOT NULL default '',\
+flags int NOT NULL default '0',\
+acl varchar(255) NOT NULL default 'player',\
+lastlogin int NOT NULL default '',\
+blockuntil int NOT NULL default '',\
+PRIMARY KEY (login)\
+);";
 
 /*****************************************************************************
   cAccount member functions
@@ -80,7 +80,7 @@ bool cAccount::isBlocked() const
 uint cAccount::secsToUnblock() const
 {
 	if ( isBlocked() )
-		return static_cast<uint>(~0);
+		return static_cast<uint>( ~0 );
 	else if ( blockUntil.isValid() && blockUntil < QDateTime::currentDateTime() )
 		return QDateTime::currentDateTime().secsTo( blockUntil );
 	return 0;

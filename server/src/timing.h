@@ -52,7 +52,7 @@ protected:
 	void checkRegeneration( P_CHAR character, unsigned int time );
 	void checkPlayer( P_PLAYER player, unsigned int time );
 	void checkNpc( P_NPC npc, unsigned int time );
-	
+
 	typedef QPair<unsigned int, SERIAL> DecayPair;
 	typedef QValueList<DecayPair> DecayContainer;
 	typedef DecayContainer::iterator DecayIterator;
@@ -84,9 +84,9 @@ public:
 	}
 
 	// Let an item decay
-	void addDecayItem(P_ITEM item);
-	void removeDecayItem(P_ITEM item);
-	void removeDecaySerial(SERIAL item);
+	void addDecayItem( P_ITEM item );
+	void removeDecayItem( P_ITEM item );
+	void removeDecaySerial( SERIAL item );
 };
 
 typedef SingletonHolder<cTiming> Timing;

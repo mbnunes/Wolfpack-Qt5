@@ -65,10 +65,10 @@
 
 #include "sqlite/sqlite.h"
 #if defined(MYSQL_DRIVER)
-	#if defined(Q_OS_WIN32)
-		#include <winsock.h>
-	#endif
-	#include <mysql.h>
+#if defined(Q_OS_WIN32)
+#include <winsock.h>
+#endif
+#include <mysql.h>
 #endif
 
 cComponent::cComponent()
@@ -430,11 +430,11 @@ void cServer::setupConsole()
 	Console::instance()->send( pythonBuild + ")\n" );
 	Console::instance()->send( "Compiled with SQLite " SQLITE_VERSION "\n" );
 #if defined (MYSQL_DRIVER)
-	Console::instance()->send( QString("Compiled for MySQL " MYSQL_SERVER_VERSION " (Using: %1)\n").arg(mysql_get_client_info()));
+	Console::instance()->send( QString( "Compiled for MySQL " MYSQL_SERVER_VERSION " (Using: %1)\n" ).arg( mysql_get_client_info() ) );
 #else
 	Console::instance()->send( "MySQL Support: disabled\n" );
 #endif
-	Console::instance()->send("\n");
+	Console::instance()->send( "\n" );
 	QString consoleTitle = QString( "%1 %2 %3" ).arg( productString(), productBeta(), productVersion() );
 	Console::instance()->setConsoleTitle( consoleTitle );
 }
@@ -462,8 +462,8 @@ void cServer::load()
 
 	// Script NPC AI types
 	QStringList aiSections = Definitions::instance()->getSections( WPDT_AI );
-	QStringList::const_iterator aiit(aiSections.begin());
-	for ( ;aiit != aiSections.end(); ++aiit )
+	QStringList::const_iterator aiit( aiSections.begin() );
+	for ( ; aiit != aiSections.end(); ++aiit )
 	{
 		ScriptAI::registerInFactory( *aiit );
 	}

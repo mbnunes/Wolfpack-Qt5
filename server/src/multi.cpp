@@ -70,9 +70,9 @@ stError* cMulti::setProperty( const QString& name, const cVariant& value )
 	return cItem::setProperty( name, value );
 }
 
-PyObject* cMulti::getProperty(const QString& name)
+PyObject* cMulti::getProperty( const QString& name )
 {
-	return cItem::getProperty(name);
+	return cItem::getProperty( name );
 }
 
 void cMulti::moveTo( const Coord_cl& pos, bool noRemove )
@@ -188,12 +188,14 @@ cMulti* cMulti::find( const Coord_cl& pos )
 	return multi;
 }
 
-void cMulti::save(cBufferedWriter &writer) {
-	cItem::save(writer);
+void cMulti::save( cBufferedWriter& writer )
+{
+	cItem::save( writer );
 
 	// Save objects within this multi *after* the multi
 	cUObject* object;
-	for (object = objects.first(); object; object = objects.next()) {
-		object->save(writer);
+	for ( object = objects.first(); object; object = objects.next() )
+	{
+		object->save( writer );
 	}
 }

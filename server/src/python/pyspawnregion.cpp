@@ -49,16 +49,16 @@ static int wpSpawnRegion_setAttr( wpSpawnRegion* self, char* name, PyObject* val
 */
 static PyTypeObject wpSpawnRegionType =
 {
-	PyObject_HEAD_INIT( NULL )
-		0,
-		"wpspawnregion",
-		sizeof( wpSpawnRegionType ),
-		0,
-		wpDealloc,
-		0,
-		( getattrfunc ) wpSpawnRegion_getAttr,
-		( setattrfunc ) wpSpawnRegion_setAttr,
-		0,
+PyObject_HEAD_INIT( NULL )
+0,
+"wpspawnregion",
+sizeof( wpSpawnRegionType ),
+0,
+wpDealloc,
+0,
+( getattrfunc ) wpSpawnRegion_getAttr,
+( setattrfunc ) wpSpawnRegion_setAttr,
+0,
 };
 
 /*
@@ -76,7 +76,7 @@ static PyObject* wpSpawnRegion_remove( wpSpawnRegion* self, PyObject* args )
 	}
 
 	QPtrList<cUObject> objects;
-	if ( isItemSerial(serial) )
+	if ( isItemSerial( serial ) )
 	{
 		objects = self->pRegion->spawnedItems(); // Copy
 	}
@@ -86,7 +86,7 @@ static PyObject* wpSpawnRegion_remove( wpSpawnRegion* self, PyObject* args )
 	}
 
 	cUObject *object;
-	for (object = objects.first(); object; object = objects.next()) 
+	for ( object = objects.first(); object; object = objects.next() )
 	{
 		if ( object->serial() == serial )
 			object->remove();
@@ -111,9 +111,9 @@ static PyObject* wpSpawnRegion_spawn( wpSpawnRegion* self, PyObject* args )
 
 static PyMethodDef wpSpawnRegionMethods[] =
 {
-	{ "remove",				( getattrofunc ) wpSpawnRegion_remove,	METH_VARARGS, NULL },
-	{ "spawn",				( getattrofunc ) wpSpawnRegion_spawn,	METH_VARARGS, NULL },
-	{ NULL, NULL, 0, NULL }
+{ "remove",				( getattrofunc ) wpSpawnRegion_remove,	METH_VARARGS, NULL },
+{ "spawn",				( getattrofunc ) wpSpawnRegion_spawn,	METH_VARARGS, NULL },
+{ NULL, NULL, 0, NULL }
 };
 
 static PyObject* wpSpawnRegion_getAttr( wpSpawnRegion* self, char* name )
@@ -188,7 +188,7 @@ static PyObject* wpSpawnRegion_getAttr( wpSpawnRegion* self, char* name )
 		PyObject* list = PyList_New( objects.count() );
 		cUObject *object;
 
-		for (object = objects.first(); object; object = objects.next() )
+		for ( object = objects.first(); object; object = objects.next() )
 			PyList_Append( list, PyInt_FromLong( object->serial() ) );
 		return list;
 	}
@@ -201,7 +201,7 @@ static PyObject* wpSpawnRegion_getAttr( wpSpawnRegion* self, char* name )
 		PyObject* list = PyList_New( objects.count() );
 		cUObject *object;
 
-		for (object = objects.first(); object; object = objects.next() )
+		for ( object = objects.first(); object; object = objects.next() )
 			PyList_Append( list, PyInt_FromLong( object->serial() ) );
 		return list;
 	}

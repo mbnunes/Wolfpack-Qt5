@@ -65,30 +65,30 @@ struct stCategory
 
 stCategory categories[] =
 {
-	{ "item", WPDT_ITEM },
-	{ "script", WPDT_SCRIPT },
-	{ "npc", WPDT_NPC },
-	{ "list", WPDT_LIST },
-	{ "menu", WPDT_MENU },
-	{ "spell", WPDT_SPELL },
-	{ "acl", WPDT_PRIVLEVEL },
-	{ "spawnregion", WPDT_SPAWNREGION },
-	{ "region", WPDT_REGION },
-	{ "multi", WPDT_MULTI },
-	{ "text", WPDT_TEXT },
-	{ "startitems", WPDT_STARTITEMS },
-	{ "location", WPDT_LOCATION },
-	{ "skill", WPDT_SKILL },
-	{ "action", WPDT_ACTION },
-	{ "make", WPDT_MAKESECTION },
-	{ "makeitem", WPDT_MAKEITEM },
-	{ "useitem", WPDT_USEITEM },
-	{ "skillcheck", WPDT_SKILLCHECK },
-	{ "define", WPDT_DEFINE },
-	{ "resource", WPDT_RESOURCE },
-	{ "contextmenu", WPDT_CONTEXTMENU },
-	{ "ai", WPDT_AI },
-	{ 0, WPDT_COUNT },
+{ "item", WPDT_ITEM },
+{ "script", WPDT_SCRIPT },
+{ "npc", WPDT_NPC },
+{ "list", WPDT_LIST },
+{ "menu", WPDT_MENU },
+{ "spell", WPDT_SPELL },
+{ "acl", WPDT_PRIVLEVEL },
+{ "spawnregion", WPDT_SPAWNREGION },
+{ "region", WPDT_REGION },
+{ "multi", WPDT_MULTI },
+{ "text", WPDT_TEXT },
+{ "startitems", WPDT_STARTITEMS },
+{ "location", WPDT_LOCATION },
+{ "skill", WPDT_SKILL },
+{ "action", WPDT_ACTION },
+{ "make", WPDT_MAKESECTION },
+{ "makeitem", WPDT_MAKEITEM },
+{ "useitem", WPDT_USEITEM },
+{ "skillcheck", WPDT_SKILLCHECK },
+{ "define", WPDT_DEFINE },
+{ "resource", WPDT_RESOURCE },
+{ "contextmenu", WPDT_CONTEXTMENU },
+{ "ai", WPDT_AI },
+{ 0, WPDT_COUNT },
 };
 
 class cDefManagerPrivate
@@ -728,15 +728,15 @@ static PyObject* wpElement_getAttr( wpElement* self, char* name );
 
 PyTypeObject wpElementType =
 {
-	PyObject_HEAD_INIT( NULL )
-	0,
-	"element",
-	sizeof( wpElementType ),
-	0,
-	wpDealloc,
-	0,
-	( getattrfunc ) wpElement_getAttr,
-	0,
+PyObject_HEAD_INIT( NULL )
+0,
+"element",
+sizeof( wpElementType ),
+0,
+wpDealloc,
+0,
+( getattrfunc ) wpElement_getAttr,
+0,
 };
 
 static PyObject* wpElement_hasattribute( wpElement* self, PyObject* args )
@@ -827,7 +827,7 @@ static PyObject* wpElement_getchild( wpElement* self, PyObject* args )
 
 static PyMethodDef methods[] =
 {
-	{"hasattribute", ( getattrofunc ) wpElement_hasattribute, METH_VARARGS, 0}, {"getattribute", ( getattrofunc ) wpElement_getattribute, METH_VARARGS, 0}, {"findchild", ( getattrofunc ) wpElement_findchild, METH_VARARGS, 0}, {"getchild", ( getattrofunc ) wpElement_getchild, METH_VARARGS, 0}, {0, 0, 0, 0}
+{"hasattribute", ( getattrofunc ) wpElement_hasattribute, METH_VARARGS, 0}, {"getattribute", ( getattrofunc ) wpElement_getattribute, METH_VARARGS, 0}, {"findchild", ( getattrofunc ) wpElement_findchild, METH_VARARGS, 0}, {"getchild", ( getattrofunc ) wpElement_getchild, METH_VARARGS, 0}, {0, 0, 0, 0}
 };
 
 static PyObject* wpElement_getAttr( wpElement* self, char* name )

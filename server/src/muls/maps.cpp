@@ -48,7 +48,8 @@
 #include <math.h>
 
 #pragma pack (1)
-struct stIndexRecord {
+struct stIndexRecord
+{
 	unsigned int offset;
 	unsigned int blocklength;
 	unsigned int extra;
@@ -146,14 +147,16 @@ void MapsPrivate::loadDiffs( const QString& basepath, unsigned int id )
 	QFile stadiflist( basepath + QString( "stadifl%1.mul" ).arg( id ) );
 	QFile stadifindex( basepath + QString( "stadifi%1.mul" ).arg( id ) );
 
-	if (stadifindex.open(IO_ReadOnly) && stadiflist.open(IO_ReadOnly)) {
-		QDataStream listinput(&stadiflist);
-		QDataStream indexinput(&stadifindex);
-		listinput.setByteOrder(QDataStream::LittleEndian);
-		indexinput.setByteOrder(QDataStream::LittleEndian);
+	if ( stadifindex.open( IO_ReadOnly ) && stadiflist.open( IO_ReadOnly ) )
+	{
+		QDataStream listinput( &stadiflist );
+		QDataStream indexinput( &stadifindex );
+		listinput.setByteOrder( QDataStream::LittleEndian );
+		indexinput.setByteOrder( QDataStream::LittleEndian );
 
 		stIndexRecord record;
-		while (!listinput.atEnd()) {
+		while ( !listinput.atEnd() )
+		{
 			unsigned int id;
 			listinput >> id;
 
@@ -161,17 +164,20 @@ void MapsPrivate::loadDiffs( const QString& basepath, unsigned int id )
 			indexinput >> record.blocklength;
 			indexinput >> record.extra;
 
-			if (!staticpatches.contains(id)) {
-                staticpatches.insert( id, record );
+			if ( !staticpatches.contains( id ) )
+			{
+				staticpatches.insert( id, record );
 			}
 		}
 	}
 
-	if (stadiflist.isOpen()) {
+	if ( stadiflist.isOpen() )
+	{
 		stadiflist.close();
 	}
 
-	if (stadifindex.isOpen()) {
+	if ( stadifindex.isOpen() )
+	{
 		stadifindex.close();
 	}
 }
@@ -624,69 +630,69 @@ void StaticsIterator::load( MapsPrivate* mapRecord, ushort x, ushort y, bool exa
 
 #if !defined(_DEBUG)
 	if ( !p )
-#else
-	if ( true )
-#endif
-	{
-		QDataStream staticStream;
-		staticStream.setByteOrder( QDataStream::LittleEndian );
-		unsigned int blockLength;
-
-		// See if this particular block is patched.
-		if ( mapRecord->staticpatches.contains( indexPos / 12 ) )
+		#else
+		if ( true )
+				#endif
 		{
-			const stIndexRecord& index = mapRecord->staticpatches[indexPos / 12];
+			QDataStream staticStream;
+			staticStream.setByteOrder( QDataStream::LittleEndian );
+			unsigned int blockLength;
 
-			if ( index.offset == 0xFFFFFFFF )
-				return; // No statics for this block
+			// See if this particular block is patched.
+			if ( mapRecord->staticpatches.contains( indexPos / 12 ) )
+			{
+				const stIndexRecord& index = mapRecord->staticpatches[indexPos / 12];
 
-			mapRecord->stadifdata.at( index.offset );
-			staticStream.setDevice( &mapRecord->stadifdata );
-			blockLength = index.blocklength;
+				if ( index.offset == 0xFFFFFFFF )
+					return; // No statics for this block
+
+				mapRecord->stadifdata.at( index.offset );
+				staticStream.setDevice( &mapRecord->stadifdata );
+				blockLength = index.blocklength;
+			}
+			else
+			{
+				stIndexRecord indexStructure;
+				mapRecord->idxfile.at( indexPos );
+				mapRecord->idxfile.readBlock( ( char * ) &indexStructure, sizeof( indexStructure ) );
+
+				if ( indexStructure.offset == 0xFFFFFFFF )
+					return; // No statics for this block
+
+				mapRecord->staticsfile.at( indexStructure.offset );
+				staticStream.setDevice( &mapRecord->staticsfile );
+				blockLength = indexStructure.blocklength;
+			}
+
+			const uint remainX = x % 8;
+			const uint remainY = y % 8;
+			for ( Q_UINT32 i = 0; i < blockLength / 7; ++i )
+			{
+				staticrecord r;
+				staticStream >> r.itemid;
+				staticStream >> r.xoff;
+				staticStream >> r.yoff;
+				staticStream >> r.zoff;
+				Q_UINT16 unknown;
+				staticStream >> unknown;
+				if ( exact )
+				{
+					if ( r.xoff == remainX && r.yoff == remainY )
+						staticArray.push_back( r );
+				}
+				else
+					staticArray.push_back( r );
+			}
+
+			// update cache;
+			QValueVector<staticrecord>* temp = new QValueVector<staticrecord>( staticArray );
+			if ( !mapRecord->staticsCache.insert( cachePos, temp ) )
+				delete temp;
 		}
 		else
 		{
-			stIndexRecord indexStructure;
-			mapRecord->idxfile.at( indexPos );
-			mapRecord->idxfile.readBlock( ( char * ) &indexStructure, sizeof( indexStructure ) );
-
-			if ( indexStructure.offset == 0xFFFFFFFF )
-				return; // No statics for this block
-
-			mapRecord->staticsfile.at( indexStructure.offset );
-			staticStream.setDevice( &mapRecord->staticsfile );
-			blockLength = indexStructure.blocklength;
+			staticArray = *p;
 		}
-
-		const uint remainX = x % 8;
-		const uint remainY = y % 8;
-		for ( Q_UINT32 i = 0; i < blockLength / 7; ++i )
-		{
-			staticrecord r;
-			staticStream >> r.itemid;
-			staticStream >> r.xoff;
-			staticStream >> r.yoff;
-			staticStream >> r.zoff;
-			Q_UINT16 unknown;
-			staticStream >> unknown;
-			if ( exact )
-			{
-				if ( r.xoff == remainX && r.yoff == remainY )
-					staticArray.push_back( r );
-			}
-			else
-				staticArray.push_back( r );
-		}
-
-		// update cache;
-		QValueVector<staticrecord>* temp = new QValueVector<staticrecord>( staticArray );
-		if ( !mapRecord->staticsCache.insert( cachePos, temp ) )
-			delete temp;
-	}
-	else
-	{
-		staticArray = *p;
-	}
 }
 
 void StaticsIterator::inc()

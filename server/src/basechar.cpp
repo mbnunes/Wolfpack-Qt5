@@ -160,12 +160,13 @@ void cBaseChar::buildSqlString( QStringList& fields, QStringList& tables, QStrin
 
 static void characterRegisterAfterLoading( P_CHAR pc );
 
-void cBaseChar::load(cBufferedReader &reader, unsigned int version) {
-	cUObject::load(reader, version);
+void cBaseChar::load( cBufferedReader& reader, unsigned int version )
+{
+	cUObject::load( reader, version );
 
 	orgName_ = reader.readUtf8();
 	title_ = reader.readUtf8();
-	creationDate_ = QDateTime::fromString(reader.readUtf8(), Qt::ISODate);
+	creationDate_ = QDateTime::fromString( reader.readUtf8(), Qt::ISODate );
 	body_ = reader.readShort();
 	orgBody_ = reader.readShort();
 	skin_ = reader.readShort();
@@ -191,17 +192,19 @@ void cBaseChar::load(cBufferedReader &reader, unsigned int version) {
 	hunger_ = reader.readByte();
 	poison_ = reader.readByte();
 	murdererTime_ = reader.readInt();
-	if (murdererTime_) {
+	if ( murdererTime_ )
+	{
 		murdererTime_ += Server::instance()->time();
 	}
 	criminalTime_ = reader.readInt();
-	if (criminalTime_) {
+	if ( criminalTime_ )
+	{
 		criminalTime_ += Server::instance()->time();
 	}
 	gender_ = reader.readByte();
 	propertyFlags_ = reader.readInt();
 	murdererSerial_ = reader.readInt();
-	guarding_ = reinterpret_cast<P_CHAR>(reader.readInt()); // PostProcess
+	guarding_ = reinterpret_cast<P_CHAR>( reader.readInt() ); // PostProcess
 	hitpointsBonus_ = reader.readShort();
 	staminaBonus_ = reader.readShort();
 	manaBonus_ = reader.readShort();
@@ -214,76 +217,78 @@ void cBaseChar::load(cBufferedReader &reader, unsigned int version) {
 
 	// Load Skills
 	unsigned int count = ALLSKILLS;
-	for (unsigned int s = 0; s < count; ++s) {
+	for ( unsigned int s = 0; s < count; ++s )
+	{
 		// Read value, cap, lock
-		setSkillValue(s, reader.readShort());
-		setSkillCap(s, reader.readShort());
-		setSkillLock(s, reader.readByte());
+		setSkillValue( s, reader.readShort() );
+		setSkillCap( s, reader.readShort() );
+		setSkillLock( s, reader.readByte() );
 	}
 }
 
-void cBaseChar::postload(unsigned int version) {
+void cBaseChar::postload( unsigned int version )
+{
 	// Resolve the guarding_ value.
-	SERIAL guarding = (SERIAL)guarding_;
+	SERIAL guarding = ( SERIAL ) guarding_;
 	guarding_ = 0;
-	setGuarding(World::instance()->findChar(guarding));
-	
-
+	setGuarding( World::instance()->findChar( guarding ) );
 }
 
-void cBaseChar::save(cBufferedWriter &writer, unsigned int version) {
-	cUObject::save(writer, version);
+void cBaseChar::save( cBufferedWriter& writer, unsigned int version )
+{
+	cUObject::save( writer, version );
 
-	writer.writeUtf8(orgName_);
-	writer.writeUtf8(title_);
-	writer.writeUtf8(creationDate_.toString(Qt::ISODate));
-	writer.writeShort(body_);
-	writer.writeShort(orgBody_);
-	writer.writeShort(skin_);
-	writer.writeShort(orgSkin_);
-	writer.writeShort(saycolor_);
-	writer.writeShort(emoteColor_);
-	writer.writeShort(strength_);
-	writer.writeShort(strengthMod_);
-	writer.writeShort(dexterity_);
-	writer.writeShort(dexterityMod_);
-	writer.writeShort(intelligence_);
-	writer.writeShort(intelligenceMod_);
-	writer.writeShort(maxHitpoints_);
-	writer.writeShort(hitpoints_);
-	writer.writeShort(maxStamina_);
-	writer.writeShort(stamina_);
-	writer.writeShort(maxMana_);
-	writer.writeShort(mana_);
-	writer.writeShort(karma_);
-	writer.writeShort(fame_);
-	writer.writeShort(kills_);
-	writer.writeShort(deaths_);
-	writer.writeByte(hunger_);
-	writer.writeByte(poison_);
-	writer.writeInt(murdererTime_ ? murdererTime_ - Server::instance()->time() : 0);
-	writer.writeInt(criminalTime_ ? criminalTime_ - Server::instance()->time() : 0);
-	writer.writeByte(gender_);
-	writer.writeInt(propertyFlags_);
-	writer.writeInt(murdererSerial_);
-	writer.writeInt(guarding_ ? guarding_->serial() : INVALID_SERIAL);
-	writer.writeShort(hitpointsBonus_);
-	writer.writeShort(staminaBonus_);
-	writer.writeShort(manaBonus_);
-	writer.writeByte(strengthCap_);
-	writer.writeByte(dexterityCap_);
-	writer.writeByte(intelligenceCap_);
-	writer.writeByte(statCap_);
-	writer.writeAscii(baseid());
-	writer.writeByte(direction_);
+	writer.writeUtf8( orgName_ );
+	writer.writeUtf8( title_ );
+	writer.writeUtf8( creationDate_.toString( Qt::ISODate ) );
+	writer.writeShort( body_ );
+	writer.writeShort( orgBody_ );
+	writer.writeShort( skin_ );
+	writer.writeShort( orgSkin_ );
+	writer.writeShort( saycolor_ );
+	writer.writeShort( emoteColor_ );
+	writer.writeShort( strength_ );
+	writer.writeShort( strengthMod_ );
+	writer.writeShort( dexterity_ );
+	writer.writeShort( dexterityMod_ );
+	writer.writeShort( intelligence_ );
+	writer.writeShort( intelligenceMod_ );
+	writer.writeShort( maxHitpoints_ );
+	writer.writeShort( hitpoints_ );
+	writer.writeShort( maxStamina_ );
+	writer.writeShort( stamina_ );
+	writer.writeShort( maxMana_ );
+	writer.writeShort( mana_ );
+	writer.writeShort( karma_ );
+	writer.writeShort( fame_ );
+	writer.writeShort( kills_ );
+	writer.writeShort( deaths_ );
+	writer.writeByte( hunger_ );
+	writer.writeByte( poison_ );
+	writer.writeInt( murdererTime_ ? murdererTime_ - Server::instance()->time() : 0 );
+	writer.writeInt( criminalTime_ ? criminalTime_ - Server::instance()->time() : 0 );
+	writer.writeByte( gender_ );
+	writer.writeInt( propertyFlags_ );
+	writer.writeInt( murdererSerial_ );
+	writer.writeInt( guarding_ ? guarding_->serial() : INVALID_SERIAL );
+	writer.writeShort( hitpointsBonus_ );
+	writer.writeShort( staminaBonus_ );
+	writer.writeShort( manaBonus_ );
+	writer.writeByte( strengthCap_ );
+	writer.writeByte( dexterityCap_ );
+	writer.writeByte( intelligenceCap_ );
+	writer.writeByte( statCap_ );
+	writer.writeAscii( baseid() );
+	writer.writeByte( direction_ );
 
 	// Load Skills
 	unsigned int count = ALLSKILLS;
-	for (unsigned int s = 0; s < count; ++s) {
+	for ( unsigned int s = 0; s < count; ++s )
+	{
 		// Read value, cap, lock
-		writer.writeShort(skillValue(s));
-		writer.writeShort(skillCap(s));
-		writer.writeByte(skillLock(s));
+		writer.writeShort( skillValue( s ) );
+		writer.writeShort( skillCap( s ) );
+		writer.writeByte( skillLock( s ) );
 	}
 }
 
@@ -378,13 +383,15 @@ void cBaseChar::load( char** result, UINT16& offset )
 	changed_ = false;
 }
 
-void cBaseChar::save(cBufferedWriter &writer) {
-	cUObject::save(writer);
+void cBaseChar::save( cBufferedWriter& writer )
+{
+	cUObject::save( writer );
 
 	// Save equipment
 	ItemContainer::iterator it = content_.begin();
-	for (; it != content_.end(); ++it) {
-		it.data()->save(writer);
+	for ( ; it != content_.end(); ++it )
+	{
+		it.data()->save( writer );
 	}
 }
 
@@ -1207,7 +1214,8 @@ void cBaseChar::removeTimer( cTimer* timer )
 	}
 }
 
-void cBaseChar::processNode(const cElement* Tag) {
+void cBaseChar::processNode( const cElement* Tag )
+{
 	changed_ = true;
 	QString TagName = Tag->name();
 	QString Value = Tag->value();
@@ -1578,7 +1586,7 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 	else
 		SET_INT_PROPERTY( "skin", skin_ )
 
-	// \property char.direction This is the direction this character is facing.
+		// \property char.direction This is the direction this character is facing.
 	else
 		SET_INT_PROPERTY( "direction", direction_ )
 
@@ -1741,43 +1749,43 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 		setStrength( value.toInt() );
 		return 0;
 		/*
-			\property char.dexterity This integer property is the dexterity of this character.
-		*/
+				\property char.dexterity This integer property is the dexterity of this character.
+			*/
 	}
 	else if ( name == "dexterity" )
 	{
 		setDexterity( value.toInt() );
 		return 0;
 		/*
-			\property char.intelligence This integer property is the intelligence of this character.
-		*/
+				\property char.intelligence This integer property is the intelligence of this character.
+			*/
 	}
 	else if ( name == "intelligence" )
 	{
 		setIntelligence( value.toInt() );
 		return 0;
 		/*
-			\property char.strength2 This integer property contains a modification value applied to strength. This is used to
-			determine the real strength of the character if needed.
-		*/
+				\property char.strength2 This integer property contains a modification value applied to strength. This is used to
+				determine the real strength of the character if needed.
+			*/
 	}
 	else if ( name == "strength2" )
 	{
 		setStrengthMod( value.toInt() );
 		return 0;
 		/*
-			\property char.dexterity2 This integer property contains a modification value applied to dexterity. This is used to
-			determine the real dexterity of the character if needed.
-		*/
+				\property char.dexterity2 This integer property contains a modification value applied to dexterity. This is used to
+				determine the real dexterity of the character if needed.
+			*/
 	}
 	else if ( name == "dexterity2" )
 	{
 		setDexterityMod( value.toInt() );
 		return 0;
 		/*
-			\property char.intelligence2 This integer property contains a modification value applied to intelligence. This is used to
-			determine the real intelligence of the character if needed.
-		*/
+				\property char.intelligence2 This integer property contains a modification value applied to intelligence. This is used to
+				determine the real intelligence of the character if needed.
+			*/
 	}
 	else if ( name == "intelligence2" )
 	{
@@ -1887,24 +1895,24 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 		setHitpointsBonus( value.toInt() );
 		return 0;
 		/*
-			\property char.staminabonus The integer bonus awarded to the maximum stamina of this character.
-		*/
+				\property char.staminabonus The integer bonus awarded to the maximum stamina of this character.
+			*/
 	}
 	else if ( name == "staminabonus" )
 	{
 		setStaminaBonus( value.toInt() );
 		return 0;
 		/*
-			\property char.manabonus The integer bonus awarded to the maximum mana of this character.
-		*/
+				\property char.manabonus The integer bonus awarded to the maximum mana of this character.
+			*/
 	}
 	else if ( name == "manabonus" )
 	{
 		setManaBonus( value.toInt() );
 		return 0;
 		/*
-			\property char.invulnerable Indicates whether the character is invulnerable or not.
-		*/
+				\property char.invulnerable Indicates whether the character is invulnerable or not.
+			*/
 	}
 	else if ( name == "invulnerable" )
 	{
@@ -1961,11 +1969,12 @@ stError* cBaseChar::setProperty( const QString& name, const cVariant& value )
 	return cUObject::setProperty( name, value );
 }
 
-PyObject *cBaseChar::getProperty(const QString &name) {
+PyObject* cBaseChar::getProperty( const QString& name )
+{
 	PY_PROPERTY( "orgname", orgName_ )
 	PY_PROPERTY( "direction", direction_ )
 	PY_PROPERTY( "baseid", baseid() )
-	PY_PROPERTY( "lastmovement",  lastMovement_ )
+	PY_PROPERTY( "lastmovement", lastMovement_ )
 	PY_PROPERTY( "title", title_ )
 	PY_PROPERTY( "incognito", isIncognito() )
 	PY_PROPERTY( "polymorph", isPolymorphed() )
@@ -1973,19 +1982,19 @@ PyObject *cBaseChar::getProperty(const QString &name) {
 	PY_PROPERTY( "orgskin", orgSkin_ )
 	PY_PROPERTY( "creationdate", creationDate_.toString() )
 	PY_PROPERTY( "stealthedsteps", stealthedSteps_ )
-	PY_PROPERTY( "runningsteps",  runningSteps_ )
+	PY_PROPERTY( "runningsteps", runningSteps_ )
 	PY_PROPERTY( "tamed", isTamed() )
 	PY_PROPERTY( "guarding", guarding_ )
 	PY_PROPERTY( "murderer", FindCharBySerial( murdererSerial_ ) )
 	PY_PROPERTY( "casting", isCasting() )
 	PY_PROPERTY( "hidden", isHidden() )
 	PY_PROPERTY( "hunger", hunger_ )
-	PY_PROPERTY( "hungertime",  hungerTime_ )
+	PY_PROPERTY( "hungertime", hungerTime_ )
 	PY_PROPERTY( "poison", poison_ )
 	PY_PROPERTY( "flag", flag_ )
-	PY_PROPERTY( "propertyflags",  propertyFlags_ )
-	PY_PROPERTY( "murderertime",  murdererTime_ )
-	PY_PROPERTY( "criminaltime",  criminalTime_ )
+	PY_PROPERTY( "propertyflags", propertyFlags_ )
+	PY_PROPERTY( "murderertime", murdererTime_ )
+	PY_PROPERTY( "criminaltime", criminalTime_ )
 	PY_PROPERTY( "meditating", isMeditating() )
 	PY_PROPERTY( "weight", weight_ )
 	PY_PROPERTY( "saycolor", saycolor_ )
@@ -2010,17 +2019,17 @@ PyObject *cBaseChar::getProperty(const QString &name) {
 	PY_PROPERTY( "mana", mana_ )
 	PY_PROPERTY( "karma", karma_ )
 	PY_PROPERTY( "fame", fame_ )
-	PY_PROPERTY( "kills",  kills_ )
-	PY_PROPERTY( "deaths",  deaths_ )
+	PY_PROPERTY( "kills", kills_ )
+	PY_PROPERTY( "deaths", deaths_ )
 	PY_PROPERTY( "dead", isDead() )
 	PY_PROPERTY( "war", isAtWar() )
 	PY_PROPERTY( "attacktarget", attackTarget_ )
-	PY_PROPERTY( "nextswing",  nextSwing_ )
-	PY_PROPERTY( "regenhealth",  regenHitpointsTime_ )
-	PY_PROPERTY( "regenstamina",  regenStaminaTime_ )
-	PY_PROPERTY( "regenmana",  regenManaTime_ )
+	PY_PROPERTY( "nextswing", nextSwing_ )
+	PY_PROPERTY( "regenhealth", regenHitpointsTime_ )
+	PY_PROPERTY( "regenstamina", regenStaminaTime_ )
+	PY_PROPERTY( "regenmana", regenManaTime_ )
 	PY_PROPERTY( "region", region_ )
-	PY_PROPERTY( "skilldelay",  skillDelay_ )
+	PY_PROPERTY( "skilldelay", skillDelay_ )
 	PY_PROPERTY( "gender", gender_ )
 	PY_PROPERTY( "id", body_ )
 	PY_PROPERTY( "invulnerable", isInvulnerable() )
@@ -2131,30 +2140,38 @@ PyObject *cBaseChar::getProperty(const QString &name) {
 	*/
 	PY_PROPERTY( "controlslots", controlSlots() )
 
-	if (name.left(6) == "skill.") {
+	if ( name.left( 6 ) == "skill." )
+	{
 		QString skill = name.right( name.length() - 6 );
 		INT16 skillId = Skills::instance()->findSkillByDef( skill );
 
-		if (skillId != -1) {
-			return createPyObject(skillValue(skillId));
+		if ( skillId != -1 )
+		{
+			return createPyObject( skillValue( skillId ) );
 		}
 		// skillcap.
-	} else if (name.left(9) == "skillcap.") {
+	}
+	else if ( name.left( 9 ) == "skillcap." )
+	{
 		QString skill = name.right( name.length() - 9 );
 		INT16 skillId = Skills::instance()->findSkillByDef( skill );
 
-		if (skillId != -1) {
-			return createPyObject(skillCap(skillId));
+		if ( skillId != -1 )
+		{
+			return createPyObject( skillCap( skillId ) );
 		}
-	} else {
+	}
+	else
+	{
 		// See if there's a skill by that name
 		INT16 skillId = Skills::instance()->findSkillByDef( name );
 
-		if (skillId != -1) {
-			return createPyObject(skillValue(skillId));
+		if ( skillId != -1 )
+		{
+			return createPyObject( skillValue( skillId ) );
 		}
 	}
-	return cUObject::getProperty(name);
+	return cUObject::getProperty( name );
 }
 
 void cBaseChar::setSkillValue( UINT16 skill, UINT16 value )
@@ -2820,14 +2837,15 @@ bool cBaseChar::kill( cUObject* source )
 		// So a singleclick on the corpse
 		// Will display the right color
 		corpse->setTag( "notoriety", cVariant( notoriety( this ) ) );
-		corpse->setCharBaseid(baseid());
+		corpse->setCharBaseid( baseid() );
 		corpse->setOwner( this );
 		corpse->moveTo( pos_, true );
 		corpse->setDirection( direction() );
 		corpse->setMurderTime( QDateTime::currentDateTime().toTime_t() );
 
 		// stores the time and the murderer's name
-		if ( pKiller ) {
+		if ( pKiller )
+		{
 			corpse->setMurderer( pKiller->serial() );
 		}
 
@@ -3176,34 +3194,34 @@ cBaseChar::FightStatus cBaseChar::fight( P_CHAR enemy )
 
 bool cBaseChar::sysmessage( const QString& message, unsigned short color, unsigned short font )
 {
-	Q_UNUSED(message);
-	Q_UNUSED(color);
-	Q_UNUSED(font);
+	Q_UNUSED( message );
+	Q_UNUSED( color );
+	Q_UNUSED( font );
 	return false;
 }
 
 bool cBaseChar::sysmessage( unsigned int message, const QString& params, unsigned short color, unsigned short font )
 {
-	Q_UNUSED(message);
-	Q_UNUSED(params);
-	Q_UNUSED(color);
-	Q_UNUSED(font);
+	Q_UNUSED( message );
+	Q_UNUSED( params );
+	Q_UNUSED( color );
+	Q_UNUSED( font );
 	return false;
 }
 
 bool cBaseChar::message( const QString& message, unsigned short color, cUObject* source, unsigned short font, unsigned char mode )
 {
-	Q_UNUSED(message);
-	Q_UNUSED(color);
-	Q_UNUSED(source);
-	Q_UNUSED(font);
-	Q_UNUSED(mode);
+	Q_UNUSED( message );
+	Q_UNUSED( color );
+	Q_UNUSED( source );
+	Q_UNUSED( font );
+	Q_UNUSED( mode );
 	return false;
 }
 
 bool cBaseChar::send( cUOPacket* packet )
 {
-	Q_UNUSED(packet);
+	Q_UNUSED( packet );
 	return false;
 }
 
@@ -3430,8 +3448,9 @@ void cBaseChar::remove()
 	cUObject::remove();
 }
 
-void cBaseChar::load(cBufferedReader &reader) {
-	load(reader, reader.version());
-	World::instance()->registerObject(this);
-	SectorMaps::instance()->add(this);
+void cBaseChar::load( cBufferedReader& reader )
+{
+	load( reader, reader.version() );
+	World::instance()->registerObject( this );
+	SectorMaps::instance()->add( this );
 }

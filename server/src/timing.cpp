@@ -92,24 +92,31 @@ void cTiming::poll()
 	}
 
 	// Check for decay items
-	if (nextItemCheck <= time) {
+	if ( nextItemCheck <= time )
+	{
 		QValueVector<SERIAL> toRemove;
 		DecayIterator it = decayitems.begin();
 
-		while (it != decayitems.end()) {
-			if ((*it).first <= time) {
-				toRemove.append((*it).second);
+		while ( it != decayitems.end() )
+		{
+			if ( ( *it ).first <= time )
+			{
+				toRemove.append( ( *it ).second );
 			}
 			++it;
 		}
 
 		QValueVector<SERIAL>::iterator sit;
-		for (sit = toRemove.begin(); sit != toRemove.end(); ++sit) {
-			P_ITEM item = FindItemBySerial(*sit);
-			if (item && item->isInWorld() && !item->nodecay()) {
+		for ( sit = toRemove.begin(); sit != toRemove.end(); ++sit )
+		{
+			P_ITEM item = FindItemBySerial( *sit );
+			if ( item && item->isInWorld() && !item->nodecay() )
+			{
 				item->remove(); // Auto removes from the decaylist
-			} else {
-				removeDecaySerial(*sit);
+			}
+			else
+			{
+				removeDecaySerial( *sit );
 			}
 		}
 
@@ -461,31 +468,39 @@ void cTiming::checkNpc( P_NPC npc, unsigned int time )
 	}
 }
 
-void cTiming::addDecayItem(P_ITEM item) {
+void cTiming::addDecayItem( P_ITEM item )
+{
 	unsigned int delay = item->decayDelay();
 
-	if (delay) {
-		DecayPair pair(Server::instance()->time() + delay, item->serial());
-		decayitems.append(pair);
+	if ( delay )
+	{
+		DecayPair pair( Server::instance()->time() + delay, item->serial() );
+		decayitems.append( pair );
 	}
 }
 
-void cTiming::removeDecayItem(P_ITEM item) {
+void cTiming::removeDecayItem( P_ITEM item )
+{
 	DecayIterator it;
 	register SERIAL serial = item->serial();
-	for (it = decayitems.begin(); it != decayitems.end(); ++it) {
-		if ((*it).second == serial) {
-			decayitems.remove(it);
+	for ( it = decayitems.begin(); it != decayitems.end(); ++it )
+	{
+		if ( ( *it ).second == serial )
+		{
+			decayitems.remove( it );
 			return;
 		}
 	}
 }
 
-void cTiming::removeDecaySerial(SERIAL serial) {
+void cTiming::removeDecaySerial( SERIAL serial )
+{
 	DecayIterator it;
-	for (it = decayitems.begin(); it != decayitems.end(); ++it) {
-		if ((*it).second == serial) {
-			decayitems.remove(it);
+	for ( it = decayitems.begin(); it != decayitems.end(); ++it )
+	{
+		if ( ( *it ).second == serial )
+		{
+			decayitems.remove( it );
 			return;
 		}
 	}

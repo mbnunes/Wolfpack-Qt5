@@ -196,7 +196,7 @@ void cMultiCache::load()
 		QDataStream multiStream( &multiFile );
 		multiStream.setByteOrder( QDataStream::LittleEndian );
 
-		for (int i = 0; i < indexData.length / 12; ++i )
+		for ( int i = 0; i < indexData.length / 12; ++i )
 		{
 			multiItem_st item;
 			multiStream >> item.tile;

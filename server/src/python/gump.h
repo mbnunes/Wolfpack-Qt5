@@ -66,7 +66,7 @@ PyObject* wpGumpResponse_getAttr( wpGumpResponse* self, char* name )
 		std::map<unsigned short, QString>::iterator iter = textentries.begin();
 		for ( ; iter != textentries.end(); ++iter )
 		{
-			PyDict_SetItem(dict, PyInt_FromLong(iter->first), QString2Python(iter->second));
+			PyDict_SetItem( dict, PyInt_FromLong( iter->first ), QString2Python( iter->second ) );
 		}
 
 		return dict;
@@ -93,19 +93,19 @@ PyObject* wpGumpResponse_getAttr( wpGumpResponse* self, char* name )
 
 static PyTypeObject wpGumpResponseType =
 {
-	PyObject_HEAD_INIT( &PyType_Type )
-	0,
-	"wpGumpResponse",
-	sizeof( wpGumpResponseType ),
-	0,
-	wpDealloc,
-	0,
-	( getattrfunc ) wpGumpResponse_getAttr,
-	0,
-	0,
-	0,
-	0,
-	0,
+PyObject_HEAD_INIT( &PyType_Type )
+0,
+"wpGumpResponse",
+sizeof( wpGumpResponseType ),
+0,
+wpDealloc,
+0,
+( getattrfunc ) wpGumpResponse_getAttr,
+0,
+0,
+0,
+0,
+0,
 };
 
 PyObject* PyGetGumpResponse( const gumpChoice_st& response )

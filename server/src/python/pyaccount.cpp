@@ -48,8 +48,9 @@ typedef struct
 	cAccount* account;
 } wpAccount;
 
-static PyObject *wpAccount_str(wpAccount *self) {
-	return QString2Python(self->account->login());
+static PyObject* wpAccount_str( wpAccount* self )
+{
+	return QString2Python( self->account->login() );
 }
 
 // Forward Declarations
@@ -61,23 +62,23 @@ static int wpAccount_setAttr( wpAccount* self, char* name, PyObject* value );
 */
 static PyTypeObject wpAccountType =
 {
-	PyObject_HEAD_INIT( &wpAccountType )
-	0,
-	"wpaccount",
-	sizeof( wpAccountType ),
-	0,
-	wpDealloc,
-	0,
-	( getattrfunc ) wpAccount_getAttr,
-	( setattrfunc ) wpAccount_setAttr,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0, // Call
-	(reprfunc)wpAccount_str
+PyObject_HEAD_INIT( &wpAccountType )
+0,
+"wpaccount",
+sizeof( wpAccountType ),
+0,
+wpDealloc,
+0,
+( getattrfunc ) wpAccount_getAttr,
+( setattrfunc ) wpAccount_setAttr,
+0,
+0,
+0,
+0,
+0,
+0,
+0, // Call
+( reprfunc ) wpAccount_str
 };
 
 /*
@@ -226,14 +227,14 @@ static PyObject* wpAccount_checkpassword( wpAccount* self, PyObject* args )
 
 static PyMethodDef wpAccountMethods[] =
 {
-	{ "authorized", ( getattrofunc ) wpAccount_authorized, METH_VARARGS, "Checks if the account is authorized to perform a given action." },
-	{ "delete", ( getattrofunc ) wpAccount_delete, METH_VARARGS, "Delete this account." },
-	{ "block", ( getattrofunc ) wpAccount_block, METH_VARARGS, "Shortcut for blocking the account." },
-	{ "unblock", ( getattrofunc ) wpAccount_unblock, METH_VARARGS, "Shortcut for unblocking the account." },
-	{ "addcharacter", ( getattrofunc ) wpAccount_addcharacter, METH_VARARGS, "Adds a character to this account." },
-	{ "removecharacter", ( getattrofunc ) wpAccount_removecharacter, METH_VARARGS, "Removes a character from this account." },
-	{ "checkpassword", ( getattrofunc ) wpAccount_checkpassword, METH_VARARGS, "Checks the password and regards md5 hashes." },
-	{ NULL, NULL, 0, NULL }
+{ "authorized", ( getattrofunc ) wpAccount_authorized, METH_VARARGS, "Checks if the account is authorized to perform a given action." },
+{ "delete", ( getattrofunc ) wpAccount_delete, METH_VARARGS, "Delete this account." },
+{ "block", ( getattrofunc ) wpAccount_block, METH_VARARGS, "Shortcut for blocking the account." },
+{ "unblock", ( getattrofunc ) wpAccount_unblock, METH_VARARGS, "Shortcut for unblocking the account." },
+{ "addcharacter", ( getattrofunc ) wpAccount_addcharacter, METH_VARARGS, "Adds a character to this account." },
+{ "removecharacter", ( getattrofunc ) wpAccount_removecharacter, METH_VARARGS, "Removes a character from this account." },
+{ "checkpassword", ( getattrofunc ) wpAccount_checkpassword, METH_VARARGS, "Checks the password and regards md5 hashes." },
+{ NULL, NULL, 0, NULL }
 };
 
 static PyObject* wpAccount_getAttr( wpAccount* self, char* name )

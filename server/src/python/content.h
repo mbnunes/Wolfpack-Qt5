@@ -63,13 +63,13 @@ static PyObject* wpContent_get( wpContent* self, int id )
 		if ( !pc )
 			goto error;
 		cBaseChar::ItemContainer container = pc->content();
-		if ( id < 0 || static_cast<uint>(id) >= container.size() )
+		if ( id < 0 || static_cast<uint>( id ) >= container.size() )
 			goto error;
 		cBaseChar::ItemContainer::const_iterator it( container.begin() );
 		/*
-		 * Ask Correa before trying to `optimize` this,
-		 * there isn't much standard complient options here.
-		 */
+			 * Ask Correa before trying to `optimize` this,
+			 * there isn't much standard complient options here.
+			 */
 		for ( int i = 0; i < id && it != container.end(); ++i )
 			++it;
 
@@ -84,13 +84,13 @@ static PyObject* wpContent_get( wpContent* self, int id )
 		if ( !pi )
 			goto error;
 		cItem::ContainerContent container = pi->content();
-		if ( id < 0 || static_cast<uint>(id) >= container.size() )
+		if ( id < 0 || static_cast<uint>( id ) >= container.size() )
 			goto error;
 		cItem::ContainerContent::const_iterator it( container.begin() );
 		/*
-		 * Ask Correa before trying to `optimize` this,
-		 * there isn't much standard complient options here.
-		 */
+			 * Ask Correa before trying to `optimize` this,
+			 * there isn't much standard complient options here.
+			 */
 		for ( int i = 0; i < id && it != container.end(); ++i )
 			++it;
 
@@ -105,31 +105,30 @@ static PyObject* wpContent_get( wpContent* self, int id )
 
 static PySequenceMethods wpContentSequence =
 {
-	( inquiry ) wpContent_length,
-	0,
-	0,
-	( intargfunc ) wpContent_get,
-	0,
-	0,
+( inquiry ) wpContent_length,
+0,
+0,
+( intargfunc ) wpContent_get,
+0,
+0,
 
 };
 
 static PyTypeObject wpContentType =
 {
-	PyObject_HEAD_INIT( NULL )
-	0,
-	"wpContent",
-	sizeof( wpContentType ),
-	0,
-	wpDealloc,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0,
-	& wpContentSequence,
-	0,
+PyObject_HEAD_INIT( NULL )
+0,
+"wpContent",
+sizeof( wpContentType ),
+0,
+wpDealloc,
+0,
+0,
+0,
+0,
+0,
+0,& wpContentSequence,
+0,
 };
 
 #endif

@@ -2364,7 +2364,7 @@ public:
 		( *this )[9] = 5; // start, 4 - finish
 		setShort( 10, 0 );
 		setInt( 12, 0xFF );
-		( *this )[16] = static_cast<uchar>(0xFF);
+		( *this )[16] = static_cast<uchar>( 0xFF );
 	}
 	void setSerial( unsigned int data )
 	{
@@ -2465,18 +2465,22 @@ public:
 };
 
 // 0x98 AllNames
-class cUOTxAllNames : public cUOPacket {
+class cUOTxAllNames : public cUOPacket
+{
 public:
-	cUOTxAllNames() : cUOPacket(0x98, 37) {
-		setShort(1, 37);
+	cUOTxAllNames() : cUOPacket( 0x98, 37 )
+	{
+		setShort( 1, 37 );
 	}
 
-	void setSerial(unsigned int data) {
-		setInt(3, data);
+	void setSerial( unsigned int data )
+	{
+		setInt( 3, data );
 	}
 
-	void setName(const QString &name) {
-		setAsciiString(7, name.latin1(), 29);
+	void setName( const QString& name )
+	{
+		setAsciiString( 7, name.latin1(), 29 );
 	}
 };
 

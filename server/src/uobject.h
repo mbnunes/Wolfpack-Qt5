@@ -117,7 +117,7 @@ public:
 	bool isScriptChainFrozen();
 	void setEventList( const QString& events );
 	QString eventList() const;
-	inline cPythonScript** getEvents() 
+	inline cPythonScript** getEvents()
 	{
 		return scriptChain;
 	}
@@ -128,13 +128,13 @@ public:
 	bool del();
 
 	// Wrapper
-	virtual void load(cBufferedReader &reader) = 0;
-	virtual void save(cBufferedWriter &reader);
-    
+	virtual void load( cBufferedReader& reader ) = 0;
+	virtual void save( cBufferedWriter& reader );
+
 	// "Real" ones
-	virtual void load(cBufferedReader &reader, unsigned int version);
-	virtual void save(cBufferedWriter &reader, unsigned int version);
-	virtual void postload(unsigned int version) = 0;
+	virtual void load( cBufferedReader& reader, unsigned int version );
+	virtual void save( cBufferedWriter& reader, unsigned int version );
+	virtual void postload( unsigned int version ) = 0;
 
 	// Utility Methods
 	void effect( UINT16 id, UINT8 speed = 10, UINT8 duration = 5, UINT16 hue = 0, UINT16 renderMode = 0 ); // Moving with this character
@@ -158,7 +158,7 @@ public:
 		changed_ = false;
 	}
 	void resendTooltip();
-	unsigned char direction(cUObject*);
+	unsigned char direction( cUObject* );
 	virtual void remove();
 	virtual void moveTo( const Coord_cl&, bool noRemove = false );
 	unsigned int dist( cUObject* d ) const;
@@ -208,17 +208,17 @@ public:
 	{
 		name_ = d; changed_ = true; changed( TOOLTIP );
 	}
-	
+
 	void setPos( const Coord_cl& d )
 	{
 		pos_ = d;	changed_ = true;
 	}
-	
+
 	virtual void setSerial( SERIAL d )
 	{
 		serial_ = d; changed_ = true;
 	}
-	
+
 	void setTooltip( const UINT32 d )
 	{
 		tooltip_ = d;
@@ -227,32 +227,35 @@ public:
 	{
 		multi_ = multi; changed_ = true;
 	}
-	
+
 	void setSpawnregion( cSpawnRegion* spawnregion );
-    
+
 	// Definable Methods
 	void processNode( const cElement* Tag );
 	stError* setProperty( const QString& name, const cVariant& value );
-	PyObject* getProperty(const QString& name);
+	PyObject* getProperty( const QString& name );
 };
 #pragma pack()
 
 class cUObjectFactory : public Factory<cUObject, QString>
 {
 public:
-	cUObjectFactory() {
+	cUObjectFactory()
+	{
 		lastid = 0;
 	}
 
-	unsigned int registerSqlQuery( const QString& type, const QString& query ) {
+	unsigned int registerSqlQuery( const QString& type, const QString& query )
+	{
 		sql_queries.insert( std::make_pair( type, query ) );
 		sql_keys.push_back( type );
 
-		if (lastid + 1 < lastid) {
-			throw wpException("Only 256 types can be registered with the UObject factory.");
+		if ( lastid + 1 < lastid )
+		{
+			throw wpException( "Only 256 types can be registered with the UObject factory." );
 		}
 
-		typemap.insert(lastid, type);
+		typemap.insert( lastid, type );
 		return lastid++;
 	}
 
@@ -271,7 +274,8 @@ public:
 		return sql_keys;
 	}
 
-	const QMap<unsigned char, QString> &getTypemap() {
+	const QMap<unsigned char, QString>& getTypemap()
+	{
 		return typemap;
 	}
 

@@ -41,51 +41,56 @@ typedef struct
 } wpCoord;
 
 // Return a string representation for a coord object.
-static PyObject *wpCoord_str(wpCoord *object) {
+static PyObject* wpCoord_str( wpCoord* object )
+{
 	const Coord_cl &pos = object->coord;
-	return PyString_FromFormat("%i,%i,%i,%i", pos.x, pos.y, (int)pos.z, pos.map);
+	return PyString_FromFormat( "%i,%i,%i,%i", pos.x, pos.y, ( int ) pos.z, pos.map );
 }
 
 
 // Forward Declarations
 static PyObject* wpCoord_getAttr( wpCoord* self, char* name );
 static int wpCoord_setAttr( wpCoord* self, char* name, PyObject* value );
-static int wpCoord_compare(PyObject *a, PyObject *b);
+static int wpCoord_compare( PyObject* a, PyObject* b );
 
 /*!
 	The typedef for Wolfpack Python items
 */
 PyTypeObject wpCoordType = {
-	PyObject_HEAD_INIT( NULL )
-	0,
-	"WPCoord",
-	sizeof( wpCoordType ),
-	0,
-	wpDealloc,
-	0,
-	( getattrfunc ) wpCoord_getAttr,
-	( setattrfunc ) wpCoord_setAttr,
-	(cmpfunc)wpCoord_compare,
-	0,
-	0,
-	0,
-	0,
-	0,
-	0, // Call
-	(reprfunc)wpCoord_str
+PyObject_HEAD_INIT( NULL )
+0,
+"WPCoord",
+sizeof( wpCoordType ),
+0,
+wpDealloc,
+0,
+( getattrfunc ) wpCoord_getAttr,
+( setattrfunc ) wpCoord_setAttr,
+( cmpfunc ) wpCoord_compare,
+0,
+0,
+0,
+0,
+0,
+0, // Call
+( reprfunc ) wpCoord_str
 };
 
-static int wpCoord_compare(PyObject *a, PyObject *b) {
+static int wpCoord_compare( PyObject* a, PyObject* b )
+{
 	// Both have to be coordinates
-	if (a->ob_type != &wpCoordType || b->ob_type != &wpCoordType)
+	if ( a->ob_type != &wpCoordType || b->ob_type != &wpCoordType )
 		return -1;
 
-	const Coord_cl &posa = ((wpCoord*)a)->coord;
-	const Coord_cl &posb = ((wpCoord*)b)->coord;
-	
-	if (posa.x != posb.x || posa.y != posb.y || posa.z != posb.z || posa.map != posb.map) {
+	const Coord_cl &posa = ( ( wpCoord* ) a )->coord;
+	const Coord_cl &posb = ( ( wpCoord* ) b )->coord;
+
+	if ( posa.x != posb.x || posa.y != posb.y || posa.z != posb.z || posa.map != posb.map )
+	{
 		return -1;
-	} else {
+	}
+	else
+	{
 		return 0;
 	}
 }
@@ -168,16 +173,16 @@ static PyObject* wpCoord_lineofsight( wpCoord* self, PyObject* args )
 		return 0;
 	if ( self->coord.lineOfSight( pos, targetheight, touch ) )
 		return Py_True;
-    return Py_False;
+	return Py_False;
 }
 
 static PyMethodDef wpCoordMethods[] =
 {
-	{ "distance",	( getattrofunc ) wpCoord_distance, METH_VARARGS, "Whats the distance between Point A and Point B" },
-	{ "direction", ( getattrofunc ) wpCoord_direction, METH_VARARGS, NULL },
-	{ "validspawnspot",	( getattrofunc ) wpCoord_validspawnspot, METH_VARARGS, NULL },
-	{ "lineofsight", ( getattrofunc ) wpCoord_lineofsight, METH_VARARGS, NULL },
-	{ 0, 0, 0, 0 }
+{ "distance",	( getattrofunc ) wpCoord_distance, METH_VARARGS, "Whats the distance between Point A and Point B" },
+{ "direction", ( getattrofunc ) wpCoord_direction, METH_VARARGS, NULL },
+{ "validspawnspot",	( getattrofunc ) wpCoord_validspawnspot, METH_VARARGS, NULL },
+{ "lineofsight", ( getattrofunc ) wpCoord_lineofsight, METH_VARARGS, NULL },
+{ 0, 0, 0, 0 }
 };
 
 static PyObject* wpCoord_getAttr( wpCoord* self, char* name )

@@ -54,9 +54,7 @@
 
 // Library Includes
 
-cUObject::cUObject() : serial_( INVALID_SERIAL ), multi_( 0 ), free( false ), 
-changed_( true ), tooltip_( 0xFFFFFFFF ), name_( QString::null ), scriptChain( 0 ), 
-spawnregion_(0)
+cUObject::cUObject() : serial_( INVALID_SERIAL ), multi_( 0 ), free( false ), changed_( true ), tooltip_( 0xFFFFFFFF ), name_( QString::null ), scriptChain( 0 ), spawnregion_( 0 )
 {
 }
 
@@ -107,7 +105,8 @@ void cUObject::init()
 void cUObject::moveTo( const Coord_cl& newpos, bool noRemove )
 {
 	// See if the map is valid
-	if (!Maps::instance()->hasMap(newpos.map)) {
+	if ( !Maps::instance()->hasMap( newpos.map ) )
+	{
 		return;
 	}
 
@@ -144,14 +143,15 @@ void cUObject::moveTo( const Coord_cl& newpos, bool noRemove )
 unsigned int cUObject::dist( cUObject* d ) const
 {
 	if ( !d )
-		return static_cast<uint>(~0);
+		return static_cast<uint>( ~0 );
 	return pos_.distance( d->pos_ );
 }
 
 /*!
 	Performs persistency layer loads.
 */
-void cUObject::load(char** result, UINT16& offset) {
+void cUObject::load( char** result, UINT16& offset )
+{
 	name_ = ( result[offset] == 0 ) ? QString::null : QString::fromUtf8( result[offset] );
 	offset++;
 	serial_ = atoi( result[offset++] );
@@ -221,26 +221,28 @@ void cUObject::save()
 	flagUnchanged(); // This is the botton of the chain, now go up and flag everyone unchanged.
 }
 
-void cUObject::save(cBufferedWriter &writer, unsigned int version) {
-	writer.writeUtf8(name_);
-	writer.writeInt(serial_);
-	writer.writeInt(multi_ ? multi_->serial() : INVALID_SERIAL);
-	writer.writeShort(pos_.x);
-	writer.writeShort(pos_.y);
-	writer.writeByte(pos_.z);
-	writer.writeByte(pos_.map);
-	writer.writeUtf8(eventList());
+void cUObject::save( cBufferedWriter& writer, unsigned int version )
+{
+	writer.writeUtf8( name_ );
+	writer.writeInt( serial_ );
+	writer.writeInt( multi_ ? multi_->serial() : INVALID_SERIAL );
+	writer.writeShort( pos_.x );
+	writer.writeShort( pos_.y );
+	writer.writeByte( pos_.z );
+	writer.writeByte( pos_.map );
+	writer.writeUtf8( eventList() );
 }
 
-void cUObject::load(cBufferedReader &reader, unsigned int version) {
+void cUObject::load( cBufferedReader& reader, unsigned int version )
+{
 	name_ = reader.readUtf8();
 	serial_ = reader.readInt();
-	setMulti(dynamic_cast<cMulti*>(World::instance()->findItem(reader.readInt())));
+	setMulti( dynamic_cast<cMulti*>( World::instance()->findItem( reader.readInt() ) ) );
 	pos_.x = reader.readShort();
 	pos_.y = reader.readShort();
 	pos_.z = reader.readByte();
 	pos_.map = reader.readByte();
-	setEventList(reader.readUtf8());
+	setEventList( reader.readUtf8() );
 }
 
 /*!
@@ -428,8 +430,8 @@ void cUObject::removeEvent( const QString& name )
 
 void cUObject::processNode( const cElement* Tag )
 {
-	QString TagName(Tag->name());
-	QString Value(Tag->value());
+	QString TagName( Tag->name() );
+	QString Value( Tag->value() );
 
 	if ( TagName == "name" )
 	{
@@ -698,7 +700,7 @@ stError* cUObject::setProperty( const QString& name, const cVariant& value )
 	// \rproperty object.serial This integer property contains the serial for this object.
 	SET_INT_PROPERTY( "serial", serial_ )
 
-		// \property object.free This boolean property indicates that the object has been freed and is awaiting deletion.
+	// \property object.free This boolean property indicates that the object has been freed and is awaiting deletion.
 	else
 		SET_BOOL_PROPERTY( "free", free )
 		// \property object.name This string property contains the name of the object.
@@ -719,7 +721,7 @@ stError* cUObject::setProperty( const QString& name, const cVariant& value )
 	{
 		clearEvents();
 		QStringList list = QStringList::split( ",", value.toString() );
-		for ( QStringList::const_iterator it(list.begin()); it != list.end(); ++it )
+		for ( QStringList::const_iterator it( list.begin() ); it != list.end(); ++it )
 		{
 			cPythonScript* script = ScriptManager::instance()->find( ( *it ).latin1() );
 			if ( script )
@@ -733,16 +735,17 @@ stError* cUObject::setProperty( const QString& name, const cVariant& value )
 	return cPythonScriptable::setProperty( name, value );
 }
 
-PyObject* cUObject::getProperty(const QString& name) {
+PyObject* cUObject::getProperty( const QString& name )
+{
 	/*
 		\rproperty object.bindmenu This string property contains a comma separated list of context menu ids for this object.
-	
+
 		This property is inherited by the baseid property of this object.
 	*/
 	PY_PROPERTY( "bindmenu", bindmenu() )
 	/*
-		\rproperty object.spawnregion The name of the spawnregion this object was spawned in. This is an empty string 
-		if the object wasn't spawned or removed from the spawnregion.
+	\rproperty object.spawnregion The name of the spawnregion this object was spawned in. This is an empty string 
+	if the object wasn't spawned or removed from the spawnregion.
 	*/
 	PY_PROPERTY( "spawnregion", spawnregion_ ? spawnregion_->name() : QString() )
 	PY_PROPERTY( "serial", serial_ )
@@ -753,7 +756,7 @@ PyObject* cUObject::getProperty(const QString& name) {
 	// \rproperty object.multi This item property contains the multi this object is contained in.
 	PY_PROPERTY( "multi", multi_ )
 
-	return cPythonScriptable::getProperty(name);
+	return cPythonScriptable::getProperty( name );
 }
 
 void cUObject::sendTooltip( cUOSocket* mSock )
@@ -815,16 +818,16 @@ unsigned char cUObject::direction( cUObject* d )
 
 void cUObject::setSpawnregion( cSpawnRegion* spawnregion )
 {
-	if (spawnregion_ && spawnregion_ != spawnregion)
+	if ( spawnregion_ && spawnregion_ != spawnregion )
 	{
-		spawnregion_->remove(this);
+		spawnregion_->remove( this );
 	}
 
 	spawnregion_ = spawnregion;
 
-	if (spawnregion)
+	if ( spawnregion )
 	{
-		spawnregion->add(this);
+		spawnregion->add( this );
 	}
 }
 
@@ -943,10 +946,10 @@ void cUObject::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 
 void cUObject::remove()
 {
-	setSpawnregion(0); // Remove from a spawnregion if applicable
+	setSpawnregion( 0 ); // Remove from a spawnregion if applicable
 
 	// Queue up for deletion from worldfile
-	World::instance()->deleteObject(this);
+	World::instance()->deleteObject( this );
 }
 
 void cUObject::freezeScriptChain()
@@ -1059,15 +1062,16 @@ void cUObject::setEventList( const QString& eventlist )
 	}
 }
 
-void cUObject::save(cBufferedWriter &writer) {
-	writer.setObjectCount(writer.objectCount() + 1);
-	writer.writeByte(getClassid());
-	
+void cUObject::save( cBufferedWriter& writer )
+{
+	writer.setObjectCount( writer.objectCount() + 1 );
+	writer.writeByte( getClassid() );
+
 	unsigned int length = writer.position();
-	save(writer, writer.version());
+	save( writer, writer.version() );
 	length = writer.position() - length;
-	writer.setSkipSize(getClassid(), length);
+	writer.setSkipSize( getClassid(), length );
 
 	// Save tags for this object
-	tags_.save(serial_, writer);
+	tags_.save( serial_, writer );
 }

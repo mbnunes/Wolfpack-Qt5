@@ -76,7 +76,7 @@ private:
 	unsigned int lastTooltip;
 	SERIAL _lastCharSerial, _lastItemSerial;
 	unsigned int _playerCount, _npcCount;
-	void loadTag(cBufferedReader &reader, unsigned int version);
+	void loadTag( cBufferedReader& reader, unsigned int version );
 
 public:
 	// Constructor/Destructor
@@ -111,7 +111,7 @@ public:
 	{
 		return _lastCharSerial + 1;
 	}
-	
+
 	SERIAL findItemSerial() const
 	{
 		return _lastItemSerial + 1;
@@ -126,11 +126,13 @@ public:
 		return _itemCount;
 	}
 
-	unsigned int npcCount() const {
+	unsigned int npcCount() const
+	{
 		return _npcCount;
 	}
 
-	unsigned int playerCount() const {
+	unsigned int playerCount() const
+	{
 		return _playerCount;
 	}
 

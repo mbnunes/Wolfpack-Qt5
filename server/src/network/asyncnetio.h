@@ -60,7 +60,7 @@ public:
 	Q_ULONG bytesAvailable( QSocketDevice* ) const;
 
 	cUOPacket* recvPacket( QSocketDevice* );
-	void pushfrontPacket( QSocketDevice*, cUOPacket *packet );
+	void pushfrontPacket( QSocketDevice*, cUOPacket* packet );
 	void sendPacket( QSocketDevice*, cUOPacket*, bool );
 
 	void flush( QSocketDevice* );

@@ -51,10 +51,10 @@
 
 #include "../sqlite/sqlite.h"
 #if defined(MYSQL_DRIVER)
-	#if defined(Q_OS_WIN32)
-		#include <winsock.h>
-	#endif
-	#include <mysql.h>
+#if defined(Q_OS_WIN32)
+#include <winsock.h>
+#endif
+#include <mysql.h>
 #endif
 
 #if !defined(CFM_WEIGHT)
@@ -225,17 +225,17 @@ LRESULT CALLBACK AboutDialog( HWND hwnd, unsigned int msg, WPARAM wparam, LPARAM
 			QString pythonBuild = Py_GetVersion();
 			pythonBuild = pythonBuild.left( pythonBuild.find( ' ' ) );
 
-			#if defined(Py_ENABLE_SHARED)
+#if defined(Py_ENABLE_SHARED)
 			credits += QString( "Python: %1 Shared (Compiled: %2)\n" ).arg( pythonBuild ).arg( PY_VERSION );
-			#else
+#else
 			credits += QString( "Python: %1 Static (Compiled: %2)\n" ).arg( pythonBuild ).arg( PY_VERSION );
-			#endif
+#endif
 			credits += "Compiled with SQLite " SQLITE_VERSION "\n";
-			#if defined (MYSQL_DRIVER)
-			credits += QString("Compiled for MySQL " MYSQL_SERVER_VERSION " (Using: %1)\n").arg(mysql_get_client_info());
-			#else
+#if defined (MYSQL_DRIVER)
+			credits += QString( "Compiled for MySQL " MYSQL_SERVER_VERSION " (Using: %1)\n" ).arg( mysql_get_client_info() );
+#else
 			credits += "MySQL Support: disabled\n";
-			#endif
+#endif
 
 			cr.cpMin = GetWindowTextLength( richtext );
 			cr.cpMax = cr.cpMin;
@@ -520,12 +520,12 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 			else if ( notify->code == EN_MSGFILTER )
 			{
 				/*MSGFILTER *msg = (MSGFILTER*)notify;
-						// Append to the Input Control
-						if( msg->msg == WM_CHAR )
-						{
-							SendMessage( inputWindow, WM_SETFOCUS, 0, 0 );
-							SendMessage( inputWindow, WM_CHAR, msg->wParam, msg->lParam );
-						}*/
+										// Append to the Input Control
+										if( msg->msg == WM_CHAR )
+										{
+											SendMessage( inputWindow, WM_SETFOCUS, 0, 0 );
+											SendMessage( inputWindow, WM_CHAR, msg->wParam, msg->lParam );
+										}*/
 			}
 		}
 		return 0;
@@ -578,20 +578,20 @@ protected:
 	{
 		QMemArray<pchar> argv( 8 );
 		/*
-				Since Windows programs don't get passed the command name as the
-				first argument, we need to fetch it explicitly.
-			*/
+						Since Windows programs don't get passed the command name as the
+						first argument, we need to fetch it explicitly.
+					*/
 		static char appFileName[256];
 		GetModuleFileNameA( 0, appFileName, sizeof( appFileName ) );
 		int argc = 1;
 		argv[0] = appFileName;
 
 		/*
-				Parse the Windows command line string.  If an argument begins with a
-				double quote, then spaces are considered part of the argument until the
-				next double quote.  The argument terminates at the second quote. Note
-				that this is different from the usual Unix semantics.
-			*/
+						Parse the Windows command line string.  If an argument begins with a
+						double quote, then spaces are considered part of the argument until the
+						next double quote.  The argument terminates at the second quote. Note
+						that this is different from the usual Unix semantics.
+					*/
 
 		char* p = cmdLine;
 		char* p_end = p + strlen( p );
@@ -660,23 +660,19 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 		GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &coninfo);
 		coninfo.dwSize.Y = 500;
 		SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE), coninfo.dwSize);
-
 		int hConHandle;
 		long lStdHandle;
 		FILE *fp;
-
 		lStdHandle = (long)GetStdHandle(STD_OUTPUT_HANDLE);
 		hConHandle = _open_osfhandle(lStdHandle, _O_TEXT);
 		fp = _fdopen( hConHandle, "w" );
 		*stdout = *fp;
 		setvbuf( stdout, NULL, _IONBF, 0 );
-
 		lStdHandle = (long)GetStdHandle(STD_ERROR_HANDLE);
 		hConHandle = _open_osfhandle(lStdHandle, _O_TEXT);
 		fp = _fdopen( hConHandle, "w" );
 		*stderr = *fp;
 		setvbuf( stderr, NULL, _IONBF, 0 );
-
 		QString consoleTitle = QString("%1 %2 %3 - Debug Console").arg(productString()).arg(productBeta()).arg(productVersion());
 		SetConsoleTitle(consoleTitle.latin1());*/
 #endif
@@ -777,7 +773,7 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 			{
 				char command[512] =
 				{
-					0, 
+				0, 
 				};
 				GetWindowText( inputWindow, command, 512 );
 				SetWindowText( inputWindow, "" );
@@ -886,7 +882,7 @@ void cConsole::send( const QString& sMessage )
 		{
 			char buffer[1024] =
 			{
-				0, 
+			0, 
 			};
 			( ( short * ) buffer )[0] = 1024;
 			textcount += SendMessage( logWindow, EM_GETLINE, linecount++, ( WPARAM ) buffer );	// We have to wait here.

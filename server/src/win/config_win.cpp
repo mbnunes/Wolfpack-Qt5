@@ -176,7 +176,7 @@ std::vector<ServerList_st>& cConfig::serverList()
 									Q_UINT8 part1 = ( ip & 0xFF000000 ) >> 24;
 									Q_UINT8 part2 = ( ip & 0x00FF0000 ) >> 16;
 
-									if ( ( part1 == 127 ) ||  //this one is class A too.
+									if ( ( part1 == 127 ) ||	//this one is class A too.
 										( part1 == 10 ) || ( ( part1 == 192 ) && ( part2 == 168 ) ) || ( ( part1 == 172 ) && ( part2 >= 16 ) && ( part2 <= 31 ) ) || ( ( part1 == 169 ) && ( part2 == 254 ) ) // DHCP Space Stuff
 									   )
 									{

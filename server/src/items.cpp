@@ -477,17 +477,10 @@ void cItem::SetRandPosInCont( cItem* pCont )
 	setPos( position );
 }
 
-/*!
-  \internal
-  This function will search the given container and subcontainers by serial
-  and return the sum of items found by the given pair of ID (model number) and
-  color.
-*/
-static int ContainerCountItems( SERIAL serial, short id, short color )
+int cItem::CountItems( short id, short color ) const
 {
 	int total = 0;
-	P_ITEM container = FindItemBySerial( serial );
-	QPtrList<cItem> content = container->getContainment();
+	QPtrList<cItem> content = getContainment();
 
 	for ( P_ITEM pi = content.first(); pi; pi = content.next() )
 	{
@@ -496,23 +489,13 @@ static int ContainerCountItems( SERIAL serial, short id, short color )
 		if ( pi->id() == id && ( color == -1 || pi->color() == color ) )
 			total += pi->amount();
 	}
-
 	return total;
 }
 
-
-int cItem::CountItems( short ID, short col ) const
-{
-	return ContainerCountItems( serial(), ID, col );
-}
-
-/*
- * Name: DeleteAmount
- * History: DeleQuan() by Duke, 16.11.2000
- * 		moved to cItem (Duke,27.3.2001)
- * Purpose: recurses through the container given by serial and deletes items of
- * 		the given id and color(if given) until the given amount is reached
- */
+/*!
+	Recurses through the container given by serial and deletes items of
+	the given id and color(if given) until the given amount is reached
+*/
 int cItem::DeleteAmount( int amount, unsigned short _id, unsigned short _color )
 {
 	int rest = amount;
@@ -533,33 +516,36 @@ int cItem::DeleteAmount( int amount, unsigned short _id, unsigned short _color )
 	return rest;
 }
 
-void cItem::save(cBufferedWriter &writer, unsigned int version) {
-	cUObject::save(writer, version);
+void cItem::save( cBufferedWriter& writer, unsigned int version )
+{
+	cUObject::save( writer, version );
 
-	writer.writeShort(id_);
-	writer.writeShort(color_);
-	writer.writeInt(container_ ? container_->serial() : INVALID_SERIAL);
-	writer.writeByte(layer_);
-	writer.writeShort(amount_);
-	writer.writeShort(hp_);
-	writer.writeShort(maxhp_);
-	writer.writeByte(magic_);
-	writer.writeInt(ownserial_);
-	writer.writeByte(visible_);
-	writer.writeByte(priv_);
-	writer.writeAscii(baseid());
+	writer.writeShort( id_ );
+	writer.writeShort( color_ );
+	writer.writeInt( container_ ? container_->serial() : INVALID_SERIAL );
+	writer.writeByte( layer_ );
+	writer.writeShort( amount_ );
+	writer.writeShort( hp_ );
+	writer.writeShort( maxhp_ );
+	writer.writeByte( magic_ );
+	writer.writeInt( ownserial_ );
+	writer.writeByte( visible_ );
+	writer.writeByte( priv_ );
+	writer.writeAscii( baseid() );
 }
 
-void cItem::postload(unsigned int version) {
+void cItem::postload( unsigned int version )
+{
 }
 
-void cItem::load(cBufferedReader &reader, unsigned int version) {
-	cUObject::load(reader, version);
+void cItem::load( cBufferedReader& reader, unsigned int version )
+{
+	cUObject::load( reader, version );
 
 	id_ = reader.readShort();
 	color_ = reader.readShort();
 	// Here we assume that containers are always before us in the save
-	cUObject *container = World::instance()->findObject(reader.readInt());
+	cUObject* container = World::instance()->findObject( reader.readInt() );
 	layer_ = reader.readByte();
 	amount_ = reader.readShort();
 	hp_ = reader.readShort();
@@ -568,17 +554,22 @@ void cItem::load(cBufferedReader &reader, unsigned int version) {
 	ownserial_ = reader.readInt();
 	visible_ = reader.readByte();
 	priv_ = reader.readByte();
-	basedef_ = ItemBaseDefs::instance()->get(reader.readAscii());
+	basedef_ = ItemBaseDefs::instance()->get( reader.readAscii() );
 
 	// Add to container and handle weight
-	if (container) {
-		P_ITEM iContainer = dynamic_cast<P_ITEM>(container);
-		if (iContainer) {
-			iContainer->addItem(this, false, true, true);
-		} else {
-			P_CHAR cContainer = dynamic_cast<P_CHAR>(container);
-			if (cContainer) {
-				cContainer->addItem((cBaseChar::enLayer)layer(), this, true, true);
+	if ( container )
+	{
+		P_ITEM iContainer = dynamic_cast<P_ITEM>( container );
+		if ( iContainer )
+		{
+			iContainer->addItem( this, false, true, true );
+		}
+		else
+		{
+			P_CHAR cContainer = dynamic_cast<P_CHAR>( container );
+			if ( cContainer )
+			{
+				cContainer->addItem( ( cBaseChar::enLayer ) layer(), this, true, true );
 			}
 		}
 	}
@@ -698,7 +689,7 @@ void cItem::Init( bool createSerial )
 }
 
 /*!
-	\brief Removes this item from the game world.
+	Removes this item from the game world.
 */
 void cItem::remove()
 {
@@ -719,7 +710,7 @@ void cItem::remove()
 	removeFromView( false ); // Remove it from all clients in range
 	free = true;
 
-	SetOwnSerial(-1);
+	SetOwnSerial( -1 );
 
 	// Check if this item is registered as a guildstone and remove it from the guild
 	for ( cGuilds::iterator it = Guilds::instance()->begin(); it != Guilds::instance()->end(); ++it )
@@ -1030,9 +1021,9 @@ void cItem::processModifierNode( const cElement* Tag )
 		else
 		{
 			/*int offset = Value.find( "%1" );
-					QString left = Value.left( offset );
-					QString right = Value.right( Value.length() - ( offset + 2 ) );
-					name_ = left + name_ + right;*/
+									QString left = Value.left( offset );
+									QString right = Value.right( Value.length() - ( offset + 2 ) );
+									name_ = left + name_ + right;*/
 			name_ = Value.arg( name_ );
 		}
 	}
@@ -1339,7 +1330,7 @@ void cItem::setTotalweight( float data )
 
 void cItem::talk( const QString& message, UI16 color, UINT8 type, bool autospam, cUOSocket* socket )
 {
-	Q_UNUSED(autospam);
+	Q_UNUSED( autospam );
 	if ( color == 0xFFFF )
 	{
 		color = 0x3b2;
@@ -1887,7 +1878,7 @@ stError* cItem::setProperty( const QString& name, const cVariant& value )
 			MapObjects::instance()->add( this );
 		}
 	}
-		/*
+	/*
 		\property item.visible The visibile level of the object.
 		Values:
 		<code>0 - Everyone
@@ -1921,7 +1912,7 @@ stError* cItem::setProperty( const QString& name, const cVariant& value )
 		return 0;
 	}
 
-		/*
+	/*
 		\property item.movable The movable permission for the object.
 		Values:
 		<code>0 - Tiledata default
@@ -1959,9 +1950,9 @@ stError* cItem::setProperty( const QString& name, const cVariant& value )
 	else if ( name == "newbie" )
 	{
 		if ( value.toInt() )
-			setNewbie(true);
+			setNewbie( true );
 		else
-			setNewbie(false);
+			setNewbie( false );
 		return 0;
 	}
 	/*
@@ -2040,7 +2031,8 @@ stError* cItem::setProperty( const QString& name, const cVariant& value )
 	return cUObject::setProperty( name, value );
 }
 
-PyObject* cItem::getProperty(const QString& name) {
+PyObject* cItem::getProperty( const QString& name )
+{
 	PY_PROPERTY( "id", id_ )
 	/*
 	\rproperty item.lightsource For lightsources this is the type of the light.
@@ -2053,7 +2045,7 @@ PyObject* cItem::getProperty(const QString& name) {
 
 	This is 0 if the item won't decay.
 	*/
-	PY_PROPERTY( "decaydelay", (int)decayDelay() )
+	PY_PROPERTY( "decaydelay", ( int ) decayDelay() )
 
 	PY_PROPERTY( "baseid", baseid() )
 	PY_PROPERTY( "color", color_ )
@@ -2112,11 +2104,11 @@ PyObject* cItem::getProperty(const QString& name) {
 	PY_PROPERTY( "ownervisible", visible_ == 1 ? 1 : 0 )
 	PY_PROPERTY( "movable", magic_ )
 	/*
-		\rproperty item.watersource This property indicates that this type of item is a source of
-		water. If there is a "quantity" tag for the item, it should be used, otherwise the source
-		is indepletable.
+	\rproperty item.watersource This property indicates that this type of item is a source of
+	water. If there is a "quantity" tag for the item, it should be used, otherwise the source
+	is indepletable.
 
-		This property is inherited from the base id of this item.
+	This property is inherited from the base id of this item.
 	*/
 	PY_PROPERTY( "watersource", isWaterSource() )
 
@@ -2129,11 +2121,11 @@ void cItem::sendTooltip( cUOSocket* mSock )
 	unsigned short id = this->id();
 
 	// Mostly Signs (not movable but still have tooltips shown)
-	if ( ( id >= 0xba3 && id <= 0xc0e ) ||  // House Signs
-		( id >= 0x1297 && id <= 0x129e ) ||  // Road Signs
-		( id >= 0x3e4a && id <= 0x3e55 ) ||  // Tillermen
-		( id >= 0xed4 && id <= 0xede ) ||  // Graves and Guildstones
-		( id >= 0x1165 && id <= 0x1184 ) ||  // More Gravestones
+	if ( ( id >= 0xba3 && id <= 0xc0e ) ||    // House Signs
+		( id >= 0x1297 && id <= 0x129e ) ||    // Road Signs
+		( id >= 0x3e4a && id <= 0x3e55 ) ||    // Tillermen
+		( id >= 0xed4 && id <= 0xede ) ||    // Graves and Guildstones
+		( id >= 0x1165 && id <= 0x1184 ) ||    // More Gravestones
 		( id == 0x2006 ) || !name_.isEmpty() // Non Default Name
 	   )
 	{
@@ -2391,34 +2383,41 @@ unsigned short cItem::restock()
 	}
 }
 
-unsigned int cItem::decayDelay() {
-	if (container_ || nodecay() || multi_) {
+unsigned int cItem::decayDelay()
+{
+	if ( container_ || nodecay() || multi_ )
+	{
 		return 0;
 	}
 
-	if (basedef_ && basedef_->decaydelay() != 0) {
+	if ( basedef_ && basedef_->decaydelay() != 0 )
+	{
 		return basedef_->decaydelay() * MY_CLOCKS_PER_SEC;
 	}
 
 	return Config::instance()->itemDecayTime() * MY_CLOCKS_PER_SEC;
 }
 
-void cItem::save(cBufferedWriter &writer) {
-	cUObject::save(writer);
+void cItem::save( cBufferedWriter& writer )
+{
+	cUObject::save( writer );
 
 	// Save container content
 	ContainerContent::iterator it = content_.begin();
-	for (; it != content_.end(); ++it) {
-		(*it)->save(writer);
+	for ( ; it != content_.end(); ++it )
+	{
+		( *it )->save( writer );
 	}
 }
 
-void cItem::load(cBufferedReader &reader) {
-	load(reader, reader.version());
+void cItem::load( cBufferedReader& reader )
+{
+	load( reader, reader.version() );
 
-	World::instance()->registerObject(this);
+	World::instance()->registerObject( this );
 
-	if (!container_) {
-		SectorMaps::instance()->add(this);
+	if ( !container_ )
+	{
+		SectorMaps::instance()->add( this );
 	}
 }

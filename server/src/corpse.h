@@ -61,21 +61,22 @@ protected:
 	// The meaning of this is that even if the items are inside of the corpse
 	// they're displayed as equipment
 public:
-	unsigned char getClassid() {
+	unsigned char getClassid()
+	{
 		return cCorpse::classid;
 	}
 
-	cCorpse(bool init = false);
-	void setBodyId(UINT16 data);
-	void setHairStyle(UINT16 data);
-	void setHairColor(UINT16 data);
-	void setBeardStyle(UINT16 data);
-	void setBeardColor(UINT16 data);
-	void setMurderer(SERIAL data);
-	void setMurderTime(uint data);
+	cCorpse( bool init = false );
+	void setBodyId( UINT16 data );
+	void setHairStyle( UINT16 data );
+	void setHairColor( UINT16 data );
+	void setBeardStyle( UINT16 data );
+	void setBeardColor( UINT16 data );
+	void setMurderer( SERIAL data );
+	void setMurderTime( uint data );
 
-	void setDirection(unsigned char data);
-	void setCharBaseid(const QCString &data);
+	void setDirection( unsigned char data );
+	void setCharBaseid( const QCString& data );
 	bool corpse() const
 	{
 		return true;
@@ -89,7 +90,7 @@ public:
 	UINT16 beardStyle() const;
 	UINT16 beardColor() const;
 	unsigned char direction() const;
-	const QCString &charBaseid() const;
+	const QCString& charBaseid() const;
 	SERIAL murderer() const;
 	unsigned int murderTime() const;
 
@@ -111,8 +112,8 @@ public:
 	void load( char**, UINT16& );
 	void save();
 	bool del();
-	void load(cBufferedReader &reader, unsigned int version);
-	void save(cBufferedWriter &reader, unsigned int version);
+	void load( cBufferedReader& reader, unsigned int version );
+	void save( cBufferedWriter& reader, unsigned int version );
 
 	// abstract cDefinable
 	virtual void processNode( const cElement* Tag );
@@ -121,7 +122,7 @@ public:
 	virtual void update( cUOSocket* mSock = 0 );
 
 	virtual stError* setProperty( const QString& name, const cVariant& value );
-	PyObject* getProperty(const QString& name);
+	PyObject* getProperty( const QString& name );
 	void createTooltip( cUOTxTooltipList& tooltip, cPlayer* player );
 };
 
@@ -161,12 +162,12 @@ inline void cCorpse::setMurderTime( uint data )
 	murdertime_ = data; changed_ = true;
 }
 
-inline void cCorpse::setDirection(unsigned char data)
+inline void cCorpse::setDirection( unsigned char data )
 {
 	direction_ = data;
 }
 
-inline void cCorpse::setCharBaseid(const QCString &baseid)
+inline void cCorpse::setCharBaseid( const QCString& baseid )
 {
 	charbaseid_ = baseid;
 }
@@ -196,7 +197,7 @@ inline UINT16 cCorpse::beardColor() const
 	return beardColor_;
 }
 
-inline const QCString &cCorpse::charBaseid() const
+inline const QCString& cCorpse::charBaseid() const
 {
 	return charbaseid_;
 }

@@ -1228,21 +1228,21 @@ public:
 };
 
 // 0x98 AllNames
-class cUORxAllNames : public cUOPacket 
+class cUORxAllNames : public cUOPacket
 {
 public:
-	cUORxAllNames(const QByteArray &data) : cUOPacket( data ) 
+	cUORxAllNames( const QByteArray& data ) : cUOPacket( data )
 	{
 	}
 
-	unsigned int serial() 
+	unsigned int serial()
 	{
-		return getInt(3);
+		return getInt( 3 );
 	}
 
-	const QString name() 
+	const QString name()
 	{
-		return getAsciiString(7);
+		return getAsciiString( 7 );
 	}
 };
 

@@ -357,7 +357,7 @@ void cTimers::dispel( P_CHAR pc_dest, P_CHAR pSource, bool silent )
 			}
 
 			( *i )->Dispel( pSource, silent );
-			eraselist.append(*i);
+			eraselist.append( *i );
 		}
 
 	for ( cTimer*effect = eraselist.first(); effect; effect = eraselist.next() )

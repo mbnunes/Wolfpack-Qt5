@@ -42,15 +42,15 @@ public:
 		this->init();
 		this->name_ = Tag->getAttribute( "id" );
 		this->applyDefinition( Tag );
-		npcs_.setAutoDelete(false);
-		items_.setAutoDelete(false);
+		npcs_.setAutoDelete( false );
+		items_.setAutoDelete( false );
 	}
 
 	void init( void );
 
 	// Manage spawned objects
-	void add(cUObject *object);
-	void remove(cUObject *object);
+	void add( cUObject* object );
+	void remove( cUObject* object );
 
 	void reSpawn( void );
 	void deSpawn( void );
@@ -65,7 +65,7 @@ public:
 		return name_;
 	}
 
-	unsigned int npcs( void ) const 
+	unsigned int npcs( void ) const
 	{
 		return npcs_.count();
 	}
@@ -122,7 +122,7 @@ private:
 	virtual void processNode( const cElement* Tag );
 	void spawnSingleNPC();
 	void spawnSingleItem();
-	void onSpawn(cUObject*);
+	void onSpawn( cUObject* );
 
 private:
 	QPtrList<cUObject> items_;

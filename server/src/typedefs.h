@@ -84,7 +84,7 @@ enum enCharTypes
 
 enum enWanderTypes
 {
-	enHalt					= 0,
+	enHalt																	= 0,
 	enFreely,
 	enRectangle,
 	enCircle,

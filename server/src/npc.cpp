@@ -114,54 +114,59 @@ void cNPC::buildSqlString( QStringList& fields, QStringList& tables, QStringList
 
 static void npcRegisterAfterLoading( P_NPC pc );
 
-void cNPC::postload(unsigned int version) {
-	cBaseChar::postload(version);
+void cNPC::postload( unsigned int version )
+{
+	cBaseChar::postload( version );
 
-	SERIAL owner = (SERIAL)owner_;
+	SERIAL owner = ( SERIAL ) owner_;
 	owner_ = 0;
-	setOwner(dynamic_cast<P_PLAYER>(World::instance()->findChar(owner)));
+	setOwner( dynamic_cast<P_PLAYER>( World::instance()->findChar( owner ) ) );
 }
 
-void cNPC::load(cBufferedReader &reader) {
-	load(reader, reader.version());
+void cNPC::load( cBufferedReader& reader )
+{
+	load( reader, reader.version() );
 
-	World::instance()->registerObject(this);
-	SectorMaps::instance()->add(this);
+	World::instance()->registerObject( this );
+	SectorMaps::instance()->add( this );
 }
 
-void cNPC::load(cBufferedReader &reader, unsigned int version) {
-	cBaseChar::load(reader, version);
+void cNPC::load( cBufferedReader& reader, unsigned int version )
+{
+	cBaseChar::load( reader, version );
 
 	summonTime_ = reader.readInt();
-	if (summonTime_) {
+	if ( summonTime_ )
+	{
 		summonTime_ += Server::instance()->time();
 	}
 	additionalFlags_ = reader.readInt();
-	owner_ = reinterpret_cast<P_PLAYER>(reader.readInt());
+	owner_ = reinterpret_cast<P_PLAYER>( reader.readInt() );
 	stablemasterSerial_ = reader.readInt();
-	setAI(reader.readAscii().data());
-	setWanderType((enWanderTypes)reader.readByte());
-	setWanderX1(reader.readShort());
-	setWanderY1(reader.readShort());
-	setWanderX2(reader.readShort());
-	setWanderY2(reader.readShort());
-	setWanderRadius(reader.readShort());
+	setAI( reader.readAscii().data() );
+	setWanderType( ( enWanderTypes ) reader.readByte() );
+	setWanderX1( reader.readShort() );
+	setWanderY1( reader.readShort() );
+	setWanderX2( reader.readShort() );
+	setWanderY2( reader.readShort() );
+	setWanderRadius( reader.readShort() );
 }
 
-void cNPC::save(cBufferedWriter &writer, unsigned int version) {
-	cBaseChar::save(writer, version);
+void cNPC::save( cBufferedWriter& writer, unsigned int version )
+{
+	cBaseChar::save( writer, version );
 
-	writer.writeInt(summonTime_ ? summonTime_ - Server::instance()->time() : 0);
-	writer.writeInt(additionalFlags_);
-	writer.writeInt(owner_ ? owner_->serial() : INVALID_SERIAL);
-	writer.writeInt(stablemasterSerial_);
-	writer.writeAscii(aiid_.latin1());
-	writer.writeByte((unsigned char)wanderType());
-	writer.writeShort(wanderX1());
-	writer.writeShort(wanderY1());
-	writer.writeShort(wanderX2());
-	writer.writeShort(wanderY2());
-	writer.writeShort(wanderRadius());
+	writer.writeInt( summonTime_ ? summonTime_ - Server::instance()->time() : 0 );
+	writer.writeInt( additionalFlags_ );
+	writer.writeInt( owner_ ? owner_->serial() : INVALID_SERIAL );
+	writer.writeInt( stablemasterSerial_ );
+	writer.writeAscii( aiid_.latin1() );
+	writer.writeByte( ( unsigned char ) wanderType() );
+	writer.writeShort( wanderX1() );
+	writer.writeShort( wanderY1() );
+	writer.writeShort( wanderX2() );
+	writer.writeShort( wanderY2() );
+	writer.writeShort( wanderRadius() );
 }
 
 void cNPC::load( char** result, UINT16& offset )
@@ -237,8 +242,10 @@ bool cNPC::isInnocent()
 	return notoriety() == 1;
 }
 
-void cNPC::setOwner(P_PLAYER data, bool nochecks) {
-	if (!nochecks && owner_) {
+void cNPC::setOwner( P_PLAYER data, bool nochecks )
+{
+	if ( !nochecks && owner_ )
+	{
 		owner_->removePet( this, true );
 	}
 
@@ -246,9 +253,10 @@ void cNPC::setOwner(P_PLAYER data, bool nochecks) {
 	changed( TOOLTIP );
 	changed_ = true;
 
-	if (!nochecks && owner_) {
-		owner_->addPet(this, true);
-		setSpawnregion(0);
+	if ( !nochecks && owner_ )
+	{
+		owner_->addPet( this, true );
+		setSpawnregion( 0 );
 	}
 }
 
@@ -584,7 +592,7 @@ void cNPC::soundEffect( UI16 soundId, bool hearAll )
 
 void cNPC::giveGold( Q_UINT32 amount, bool inBank )
 {
-	Q_UNUSED(inBank);
+	Q_UNUSED( inBank );
 	P_ITEM pCont = getBackpack();
 
 	if ( !pCont )
@@ -743,15 +751,15 @@ stError* cNPC::setProperty( const QString& name, const cVariant& value )
 		return 0;
 
 		/*
-			\property char.wandertype This integer is the type of wander algorithm used for this character. One of the following values is possible:
-			<code>0x00 Standing
-			0x01 Rectangle
-			0x02 Circle
-			0x03 FollowTarget
-			0x04 Destination
-			0x04 Inside Spawnregion only</code>
-			This property is exclusive to NPC objects.
-		*/
+				\property char.wandertype This integer is the type of wander algorithm used for this character. One of the following values is possible:
+				<code>0x00 Standing
+				0x01 Rectangle
+				0x02 Circle
+				0x03 FollowTarget
+				0x04 Destination
+				0x04 Inside Spawnregion only</code>
+				This property is exclusive to NPC objects.
+			*/
 	}
 	else if ( name == "wandertype" )
 	{
@@ -870,16 +878,17 @@ stError* cNPC::setProperty( const QString& name, const cVariant& value )
 	return cBaseChar::setProperty( name, value );
 }
 
-PyObject *cNPC::getProperty(const QString& name) {
-	PY_PROPERTY( "nextmsgtime",  nextMsgTime_ )
-	PY_PROPERTY( "antispamtimer",  nextMsgTime_ )
-	PY_PROPERTY( "nextguardcalltime",  nextGuardCallTime_ )
-	PY_PROPERTY( "antiguardstimer",  nextGuardCallTime_ )
+PyObject* cNPC::getProperty( const QString& name )
+{
+	PY_PROPERTY( "nextmsgtime", nextMsgTime_ )
+	PY_PROPERTY( "antispamtimer", nextMsgTime_ )
+	PY_PROPERTY( "nextguardcalltime", nextGuardCallTime_ )
+	PY_PROPERTY( "antiguardstimer", nextGuardCallTime_ )
 	PY_PROPERTY( "stablemaster", stablemasterSerial_ )
 	PY_PROPERTY( "npc", true )
-	PY_PROPERTY( "nextmovetime",  nextMoveTime_ )
-	PY_PROPERTY( "npcmovetime",  nextMoveTime_ )
-	PY_PROPERTY( "wandertype",  wanderType() )
+	PY_PROPERTY( "nextmovetime", nextMoveTime_ )
+	PY_PROPERTY( "npcmovetime", nextMoveTime_ )
+	PY_PROPERTY( "wandertype", wanderType() )
 	PY_PROPERTY( "wanderx1", wanderX1() )
 	PY_PROPERTY( "fx1", wanderX1() )
 	PY_PROPERTY( "wanderx2", wanderX2() )
@@ -890,12 +899,12 @@ PyObject *cNPC::getProperty(const QString& name) {
 	PY_PROPERTY( "fy2", wanderY2() )
 	PY_PROPERTY( "wanderradius", wanderRadius() )
 	PY_PROPERTY( "fz1", wanderRadius() )
-	PY_PROPERTY( "summontime",  summonTime_ )
-	PY_PROPERTY( "summontimer",  summonTime_ )
+	PY_PROPERTY( "summontime", summonTime_ )
+	PY_PROPERTY( "summontimer", summonTime_ )
 	PY_PROPERTY( "owner", owner_ )
 	PY_PROPERTY( "ai", aiid_ )
 	PY_PROPERTY( "summoned", summoned() )
-	return cBaseChar::getProperty(name);
+	return cBaseChar::getProperty( name );
 }
 
 Coord_cl cNPC::nextMove()
@@ -1001,7 +1010,7 @@ struct pathnode_coordComparePredicate : public std::binary_function<pathnode_cl,
 */
 float cNPC::pathHeuristic( const Coord_cl& source, const Coord_cl& destination )
 {
-	return ( float ) ( sqrt( pow( (float)(source.x - destination.x), 2 ) + pow( (float)(source.y - destination.y), 2 ) + pow( ( source.z - destination.z ) / 5.0f, 2 ) ) );
+	return ( float ) ( sqrt( pow( ( float ) ( source.x - destination.x ), 2 ) + pow( ( float ) ( source.y - destination.y ), 2 ) + pow( ( source.z - destination.z ) / 5.0f, 2 ) ) );
 }
 
 /*!

@@ -67,8 +67,9 @@ long wpItem_hash( wpItem* self )
 }
 
 // Return a string representation for an item object.
-static PyObject *wpItem_str(wpItem *object) {
-	return PyString_FromFormat("0x%x", object->pItem->serial());
+static PyObject* wpItem_str( wpItem* object )
+{
+	return PyString_FromFormat( "0x%x", object->pItem->serial() );
 }
 
 /*!
@@ -76,23 +77,23 @@ static PyObject *wpItem_str(wpItem *object) {
 */
 static PyTypeObject wpItemType =
 {
-	PyObject_HEAD_INIT( &PyType_Type )
-	0,
-	"wpitem",
-	sizeof( wpItemType ),
-	0,
-	wpDealloc,
-	0,
-	( getattrfunc ) wpItem_getAttr,
-	( setattrfunc ) wpItem_setAttr,
-	wpItem_compare,
-	0,
-	0,
-	0,
-	0,
-	( hashfunc ) wpItem_hash,
-	0,
-	(reprfunc)wpItem_str
+PyObject_HEAD_INIT( &PyType_Type )
+0,
+"wpitem",
+sizeof( wpItemType ),
+0,
+wpDealloc,
+0,
+( getattrfunc ) wpItem_getAttr,
+( setattrfunc ) wpItem_setAttr,
+wpItem_compare,
+0,
+0,
+0,
+0,
+( hashfunc ) wpItem_hash,
+0,
+( reprfunc ) wpItem_str
 };
 
 PyObject* PyGetItemObject( P_ITEM item )
@@ -186,7 +187,7 @@ static PyObject* wpItem_moveto( wpItem* self, PyObject* args )
 		{
 			return 0;
 		}
-		pos.z = (signed char)z;
+		pos.z = ( signed char ) z;
 		self->pItem->moveTo( pos, noRemove ? true : false );
 	}
 
@@ -439,7 +440,7 @@ static PyObject* wpItem_hastag( wpItem* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "s:item.hastag( key )", &pKey ) )
 		return 0;
 
-	QString key(pKey);
+	QString key( pKey );
 
 	return self->pItem->getTag( key ).isValid() ? PyTrue() : PyFalse();
 }
@@ -727,7 +728,7 @@ static PyObject* wpItem_countItem( wpItem* self, PyObject* args )
 */
 static PyObject* wpItem_multi( wpItem* self, PyObject* args )
 {
-	Q_UNUSED(args);
+	Q_UNUSED( args );
 	/*
 	if( self->pItem->free )
 	{
@@ -792,7 +793,7 @@ static PyObject* wpItem_dupe( wpItem* self, PyObject* args )
 */
 static PyObject* wpItem_isblessed( wpItem* self, PyObject* args )
 {
-	Q_UNUSED(args);
+	Q_UNUSED( args );
 	if ( self->pItem->free )
 	{
 		return 0;
@@ -990,13 +991,13 @@ static PyObject* wpItem_say( wpItem* self, PyObject* args, PyObject* keywds )
 
 		static char* kwlist[] =
 		{
-			"clilocid",
-			"args",
-			"affix",
-			"prepend",
-			"color",
-			"socket",
-			NULL
+		"clilocid",
+		"args",
+		"affix",
+		"prepend",
+		"color",
+		"socket",
+		NULL
 		};
 
 		if ( !PyArg_ParseTupleAndKeywords( args, keywds, "i|ssbiO&:char.say( clilocid, [args], [affix], [prepend], [color], [socket] )", kwlist, &id, &clilocargs, &affix, &prepend, &color, &PyConvertSocket, &socket ) )
@@ -1084,50 +1085,50 @@ static PyObject* wpItem_effect( wpItem* self, PyObject* args )
 
 static PyMethodDef wpItemMethods[] =
 {
-	{ "additem",			( getattrofunc ) wpItem_additem, METH_VARARGS, "Adds an item to this container." },
-	{ "countitem",			( getattrofunc ) wpItem_countItem, METH_VARARGS, "Counts how many items are inside this container." },
-	{ "countitems",			( getattrofunc ) wpItem_countitems, METH_VARARGS, "Counts the items inside of this container based on a list of baseids." },
-	{ "removeitems",		( getattrofunc ) wpItem_removeitems, METH_VARARGS, "Removes items inside of this container based on a list of baseids." },
-	{ "update",				( getattrofunc ) wpItem_update, METH_VARARGS, "Sends the item to all clients in range." },
-	{ "removefromview",		( getattrofunc ) wpItem_removefromview, METH_VARARGS, "Removes the item from the view of all in-range clients." },
-	{ "delete",				( getattrofunc ) wpItem_delete, METH_VARARGS, "Deletes the item and the underlying reference." },
-	{ "moveto",				( getattrofunc ) wpItem_moveto, METH_VARARGS, "Moves the item to the specified location." },
-	{ "soundeffect",		( getattrofunc ) wpItem_soundeffect, METH_VARARGS, "Sends a soundeffect to the surrounding sockets." },
-	{ "distanceto",			( getattrofunc ) wpItem_distanceto, METH_VARARGS, "Distance to another object or a given position." },
-	{ "canstack",			( getattrofunc ) wpItem_canstack, METH_VARARGS, "Sees if the item can be stacked on another item." },
-	{ "useresource",		( getattrofunc ) wpItem_useresource, METH_VARARGS, "Consumes a given resource from within the current item." },
-	{ "countresource",		( getattrofunc ) wpItem_countresource, METH_VARARGS, "Returns the amount of a given resource available in this container." },
-	{ "addtimer",			( getattrofunc ) wpItem_addtimer, METH_VARARGS, "Attaches a timer to this object." },
-	{ "getoutmostchar",		( getattrofunc ) wpItem_getoutmostchar, METH_VARARGS, "Get the outmost character." },
-	{ "getoutmostitem",		( getattrofunc ) wpItem_getoutmostitem, METH_VARARGS, "Get the outmost item." },
-	{ "getname",			( getattrofunc ) wpItem_getname, METH_VARARGS, "Get item name." },
-	{ "multi",				( getattrofunc ) wpItem_multi,	METH_VARARGS, 0 },
-	{ "lightning",			( getattrofunc ) wpItem_lightning, METH_VARARGS, 0 },
-	{ "resendtooltip",		( getattrofunc ) wpItem_resendtooltip, METH_VARARGS, 0 },
-	{ "dupe",				( getattrofunc ) wpItem_dupe, METH_VARARGS, 0 },
-	{ "say",				( getattrofunc ) wpItem_say, METH_VARARGS | METH_KEYWORDS, 0 },
-	{ "effect",				( getattrofunc ) wpItem_effect, METH_VARARGS, 0 },
+{ "additem",			( getattrofunc ) wpItem_additem, METH_VARARGS, "Adds an item to this container." },
+{ "countitem",			( getattrofunc ) wpItem_countItem, METH_VARARGS, "Counts how many items are inside this container." },
+{ "countitems",			( getattrofunc ) wpItem_countitems, METH_VARARGS, "Counts the items inside of this container based on a list of baseids." },
+{ "removeitems",		( getattrofunc ) wpItem_removeitems, METH_VARARGS, "Removes items inside of this container based on a list of baseids." },
+{ "update",				( getattrofunc ) wpItem_update, METH_VARARGS, "Sends the item to all clients in range." },
+{ "removefromview",		( getattrofunc ) wpItem_removefromview, METH_VARARGS, "Removes the item from the view of all in-range clients." },
+{ "delete",				( getattrofunc ) wpItem_delete, METH_VARARGS, "Deletes the item and the underlying reference." },
+{ "moveto",				( getattrofunc ) wpItem_moveto, METH_VARARGS, "Moves the item to the specified location." },
+{ "soundeffect",		( getattrofunc ) wpItem_soundeffect, METH_VARARGS, "Sends a soundeffect to the surrounding sockets." },
+{ "distanceto",			( getattrofunc ) wpItem_distanceto, METH_VARARGS, "Distance to another object or a given position." },
+{ "canstack",			( getattrofunc ) wpItem_canstack, METH_VARARGS, "Sees if the item can be stacked on another item." },
+{ "useresource",		( getattrofunc ) wpItem_useresource, METH_VARARGS, "Consumes a given resource from within the current item." },
+{ "countresource",		( getattrofunc ) wpItem_countresource, METH_VARARGS, "Returns the amount of a given resource available in this container." },
+{ "addtimer",			( getattrofunc ) wpItem_addtimer, METH_VARARGS, "Attaches a timer to this object." },
+{ "getoutmostchar",		( getattrofunc ) wpItem_getoutmostchar, METH_VARARGS, "Get the outmost character." },
+{ "getoutmostitem",		( getattrofunc ) wpItem_getoutmostitem, METH_VARARGS, "Get the outmost item." },
+{ "getname",			( getattrofunc ) wpItem_getname, METH_VARARGS, "Get item name." },
+{ "multi",				( getattrofunc ) wpItem_multi,	METH_VARARGS, 0 },
+{ "lightning",			( getattrofunc ) wpItem_lightning, METH_VARARGS, 0 },
+{ "resendtooltip",		( getattrofunc ) wpItem_resendtooltip, METH_VARARGS, 0 },
+{ "dupe",				( getattrofunc ) wpItem_dupe, METH_VARARGS, 0 },
+{ "say",				( getattrofunc ) wpItem_say, METH_VARARGS | METH_KEYWORDS, 0 },
+{ "effect",				( getattrofunc ) wpItem_effect, METH_VARARGS, 0 },
 
-	// Event handling
-	{ "callevent",			( getattrofunc ) wpItem_callevent, METH_VARARGS, 0 },
-	{ "addevent",			( getattrofunc ) wpItem_addevent,			METH_VARARGS, 0},
-	{ "removeevent",		( getattrofunc ) wpItem_removeevent,		METH_VARARGS, 0},
-	{ "hasevent",			( getattrofunc ) wpItem_hasevent,			METH_VARARGS, 0},
+// Event handling
+{ "callevent",			( getattrofunc ) wpItem_callevent, METH_VARARGS, 0 },
+{ "addevent",			( getattrofunc ) wpItem_addevent,			METH_VARARGS, 0},
+{ "removeevent",		( getattrofunc ) wpItem_removeevent,		METH_VARARGS, 0},
+{ "hasevent",			( getattrofunc ) wpItem_hasevent,			METH_VARARGS, 0},
 
-	// Effects
-	{ "movingeffect",		( getattrofunc ) wpItem_movingeffect, METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },
+// Effects
+{ "movingeffect",		( getattrofunc ) wpItem_movingeffect, METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },
 
-	// Tag System
-	{ "gettag",				( getattrofunc ) wpItem_gettag, METH_VARARGS, "Gets a tag assigned to a specific item." },
-	{ "settag",				( getattrofunc ) wpItem_settag, METH_VARARGS, "Sets a tag assigned to a specific item." },
-	{ "hastag",				( getattrofunc ) wpItem_hastag, METH_VARARGS, "Checks if a certain item has the specified tag." },
-	{ "deltag",				( getattrofunc ) wpItem_deltag, METH_VARARGS, "Deletes the specified tag." },
+// Tag System
+{ "gettag",				( getattrofunc ) wpItem_gettag, METH_VARARGS, "Gets a tag assigned to a specific item." },
+{ "settag",				( getattrofunc ) wpItem_settag, METH_VARARGS, "Sets a tag assigned to a specific item." },
+{ "hastag",				( getattrofunc ) wpItem_hastag, METH_VARARGS, "Checks if a certain item has the specified tag." },
+{ "deltag",				( getattrofunc ) wpItem_deltag, METH_VARARGS, "Deletes the specified tag." },
 
-	// Is*? Functions
-	{ "isitem",				( getattrofunc ) wpItem_isitem, METH_VARARGS, "Is this an item." },
-	{ "ischar",				( getattrofunc ) wpItem_ischar, METH_VARARGS, "Is this a char." },
-	{ "isblessed",			( getattrofunc ) wpItem_isblessed, METH_VARARGS, "Is this item blessed(newbie) "},
-	{ NULL, NULL, 0, NULL }
+// Is*? Functions
+{ "isitem",				( getattrofunc ) wpItem_isitem, METH_VARARGS, "Is this an item." },
+{ "ischar",				( getattrofunc ) wpItem_ischar, METH_VARARGS, "Is this a char." },
+{ "isblessed",			( getattrofunc ) wpItem_isblessed, METH_VARARGS, "Is this item blessed(newbie) "},
+{ NULL, NULL, 0, NULL }
 };
 
 // Getters + Setters
@@ -1192,15 +1193,19 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 	/*
 		\rproperty item.events Returns a list of all event names the object has.
 	*/
-	else if ( !strcmp( "events", name ) ) {
+	else if ( !strcmp( "events", name ) )
+	{
 		QStringList events = QStringList::split( ",", self->pItem->eventList() );
 		PyObject* list = PyList_New( events.count() );
 		for ( uint i = 0; i < events.count(); ++i )
 			PyList_SetItem( list, i, PyString_FromString( events[i].latin1() ) );
 		return list;
-	} else {
-		PyObject* result = self->pItem->getProperty(name);
-		if (result) {
+	}
+	else
+	{
+		PyObject* result = self->pItem->getProperty( name );
+		if ( result )
+		{
 			return result;
 		}
 	}

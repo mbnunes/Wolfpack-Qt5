@@ -74,19 +74,19 @@ static PyObject* wpRegionIteratorItems_getAttr( wpRegionIteratorItems* self, cha
 
 static PyTypeObject wpRegionIteratorItemsType =
 {
-	PyObject_HEAD_INIT( NULL )
-	0,
-	"wpItemRegionIterator",
-	sizeof( wpRegionIteratorItemsType ),
-	0,
-	wpItemIteratorDealloc,
-	0,
-	( getattrfunc ) wpRegionIteratorItems_getAttr,
-	0,
-	0,
-	0,
-	0,
-	0,
+PyObject_HEAD_INIT( NULL )
+0,
+"wpItemRegionIterator",
+sizeof( wpRegionIteratorItemsType ),
+0,
+wpItemIteratorDealloc,
+0,
+( getattrfunc ) wpRegionIteratorItems_getAttr,
+0,
+0,
+0,
+0,
+0,
 
 };
 
@@ -150,19 +150,19 @@ static PyObject* wpRegionIteratorChars_getAttr( wpRegionIteratorChars* self, cha
 
 static PyTypeObject wpRegionIteratorCharsType =
 {
-	PyObject_HEAD_INIT( NULL )
-	0,
-	"wpCharRegionIterator",
-	sizeof( wpRegionIteratorCharsType ),
-	0,
-	wpCharIteratorDealloc,
-	0,
-	( getattrfunc ) wpRegionIteratorChars_getAttr,
-	0,
-	0,
-	0,
-	0,
-	0,
+PyObject_HEAD_INIT( NULL )
+0,
+"wpCharRegionIterator",
+sizeof( wpRegionIteratorCharsType ),
+0,
+wpCharIteratorDealloc,
+0,
+( getattrfunc ) wpRegionIteratorChars_getAttr,
+0,
+0,
+0,
+0,
+0,
 
 };
 

@@ -40,7 +40,7 @@
 // Script Based Events
 enum ePythonEvent
 {
-	EVENT_USE					= 0,
+	EVENT_USE						= 0,
 	EVENT_SINGLECLICK,
 	EVENT_COLLIDE,
 	EVENT_WALK,
@@ -238,75 +238,97 @@ public:
 		\param name The name of the property.
 		\returns A python object with the value or None.
 	*/
-	virtual PyObject *getProperty(const QString &name);
-	virtual bool setPropety(const QString &name, PyObject *value);
+	virtual PyObject* getProperty( const QString& name );
+	virtual bool setPropety( const QString& name, PyObject* value );
 
 	// Functions for creating python representations of objects
-	inline PyObject *createPyObject(cPythonScriptable *object) {
-		if (object) {
+	inline PyObject* createPyObject( cPythonScriptable* object )
+	{
+		if ( object )
+		{
 			return object->getPyObject();
-		} else {
+		}
+		else
+		{
 			Py_RETURN_NONE;
 		}
 	}
 
-	inline PyObject *createPyObject(cTerritory *object) {
-		if (object) {
-			return PyGetRegionObject(object);
-		} else {
+	inline PyObject* createPyObject( cTerritory* object )
+	{
+		if ( object )
+		{
+			return PyGetRegionObject( object );
+		}
+		else
+		{
 			Py_RETURN_NONE;
 		}
 	}
 
-	inline PyObject *createPyObject(cAccount *object) {
-		if (object) {
-			return PyGetAccountObject(object);
-		} else {
+	inline PyObject* createPyObject( cAccount* object )
+	{
+		if ( object )
+		{
+			return PyGetAccountObject( object );
+		}
+		else
+		{
 			Py_RETURN_NONE;
 		}
 	}
 
-	inline PyObject *createPyObject(int value) {
-		return PyInt_FromLong(value);
+	inline PyObject* createPyObject( int value )
+	{
+		return PyInt_FromLong( value );
 	}
 
-	inline PyObject *createPyObject(bool value) {
-		if (value) {
+	inline PyObject* createPyObject( bool value )
+	{
+		if ( value )
+		{
 			Py_RETURN_TRUE;
-		} else {
+		}
+		else
+		{
 			Py_RETURN_FALSE;
 		}
 	}
 
-	inline PyObject *createPyObject(const Coord_cl &pos) {
-		return PyGetCoordObject(pos);
+	inline PyObject* createPyObject( const Coord_cl& pos )
+	{
+		return PyGetCoordObject( pos );
 	}
 
-	inline PyObject *createPyObject(unsigned int value) {
-		return PyInt_FromLong(value);
+	inline PyObject* createPyObject( unsigned int value )
+	{
+		return PyInt_FromLong( value );
 	}
 
-	inline PyObject *createPyObject(const QCString &value) {
-		return QString2Python(value.data());
+	inline PyObject* createPyObject( const QCString& value )
+	{
+		return QString2Python( value.data() );
 	}
 
-	inline PyObject *createPyObject(const QString &value) {
-		return QString2Python(value);
+	inline PyObject* createPyObject( const QString& value )
+	{
+		return QString2Python( value );
 	}
 
-	inline PyObject *createPyObject(double value) {
-		return PyFloat_FromDouble(value);
+	inline PyObject* createPyObject( double value )
+	{
+		return PyFloat_FromDouble( value );
 	}
 
 	// Method for converting python objects into normal objects
 	// Functions for creating python representations of objects
-	bool convertPyObject(PyObject *object, P_CHAR &pChar);
-	bool convertPyObject(PyObject *object, P_ITEM &pItem);
-    bool convertPyObject(PyObject *object, Coord_cl &pos);
-	bool convertPyObject(PyObject *object, QString &string);
-	bool convertPyObject(PyObject *object, QCString &string);
-	bool convertPyObject(PyObject *object, unsigned int &data);
-	bool convertPyObject(PyObject *object, int &data);
+	bool convertPyObject( PyObject* object, P_CHAR& pChar );
+	bool convertPyObject( PyObject* object, P_ITEM& pItem );
+	bool convertPyObject( PyObject* object, Coord_cl& pos );
+	bool convertPyObject( PyObject* object, QString& string );
+	bool convertPyObject( PyObject* object, QCString& string );
+	bool convertPyObject( PyObject* object, unsigned int& data );
+	bool convertPyObject( PyObject* object, int& data );
 
 #define PY_PROPERTY(namestr, getter) if ((namestr == name)) { \
 		return createPyObject((getter)); \

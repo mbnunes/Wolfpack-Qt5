@@ -74,9 +74,9 @@ public:
 	void load( char**, UINT16& );
 	void save();
 	bool del();
-	void load(cBufferedReader &reader, unsigned int version);
-	void save(cBufferedWriter &writer, unsigned int version);
-	void load(cBufferedReader &reader);
+	void load( cBufferedReader& reader, unsigned int version );
+	void save( cBufferedWriter& writer, unsigned int version );
+	void load( cBufferedReader& reader );
 
 	virtual bool send( cUOPacket* packet );
 	virtual enCharTypes objectType();
@@ -100,7 +100,7 @@ public:
 
 	// other public methods
 	virtual stError* setProperty( const QString& name, const cVariant& value );
-	PyObject *getProperty(const QString& name);
+	PyObject* getProperty( const QString& name );
 	void turnTo( cUObject* object ); // override
 	void turnTo( const Coord_cl& data ); // override
 	P_NPC unmount();
@@ -202,7 +202,8 @@ public:
 	PyObject* getPyObject();
 	const char* className() const;
 
-	unsigned char getClassid() {
+	unsigned char getClassid()
+	{
 		return cPlayer::classid;
 	}
 

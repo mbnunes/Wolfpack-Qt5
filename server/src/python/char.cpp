@@ -70,8 +70,9 @@ long wpChar_hash( wpChar* self )
 }
 
 // Return a string representation for a char object.
-static PyObject *wpChar_str(wpChar *object) {
-	return PyString_FromFormat("0x%x", object->pChar->serial());
+static PyObject* wpChar_str( wpChar* object )
+{
+	return PyString_FromFormat( "0x%x", object->pChar->serial() );
 }
 
 /*!
@@ -79,24 +80,24 @@ static PyObject *wpChar_str(wpChar *object) {
 */
 static PyTypeObject wpCharType =
 {
-	PyObject_HEAD_INIT( &PyType_Type )
-	0,
-	"wpchar",
-	sizeof( wpCharType ),
-	0,
-	//	FreeCharObject,
-	wpDealloc,
-	0,
-	( getattrfunc ) wpChar_getAttr,
-	( setattrfunc ) wpChar_setAttr,
-	wpChar_compare,
-	0,
-	0,
-	0,
-	0,
-	( hashfunc ) wpChar_hash,
-	0, // Call
-	(reprfunc)wpChar_str
+PyObject_HEAD_INIT( &PyType_Type )
+0,
+"wpchar",
+sizeof( wpCharType ),
+0,
+//	FreeCharObject,
+wpDealloc,
+0,
+( getattrfunc ) wpChar_getAttr,
+( setattrfunc ) wpChar_setAttr,
+wpChar_compare,
+0,
+0,
+0,
+0,
+( hashfunc ) wpChar_hash,
+0, // Call
+( reprfunc ) wpChar_str
 };
 
 PyObject* PyGetCharObject( P_CHAR pChar )
@@ -492,7 +493,7 @@ static PyObject* wpChar_checkskill( wpChar* self, PyObject* args )
 		return 0;
 
 	if ( self->pChar->checkSkill( skill, min, max ) )
-        Py_RETURN_TRUE;
+		Py_RETURN_TRUE;
 	Py_RETURN_FALSE;
 }
 
@@ -686,13 +687,13 @@ static PyObject* wpChar_say( wpChar* self, PyObject* args, PyObject* keywds )
 
 		static char* kwlist[] =
 		{
-			"clilocid",
-			"args",
-			"affix",
-			"prepend",
-			"color",
-			"socket",
-			NULL
+		"clilocid",
+		"args",
+		"affix",
+		"prepend",
+		"color",
+		"socket",
+		NULL
 		};
 
 		if ( !PyArg_ParseTupleAndKeywords( args, keywds, "i|ssbiO&:char.say( clilocid, [args], [affix], [prepend], [color], [socket] )", kwlist, &id, &clilocargs, &affix, &prepend, &color, &PyConvertSocket, &socket ) )
@@ -2253,96 +2254,96 @@ static PyObject* wpChar_callevent( wpChar* self, PyObject* args )
 
 static PyMethodDef wpCharMethods[] =
 {
-	{ "moveto",			( getattrofunc ) wpChar_moveto,			METH_VARARGS, "Moves the character to the specified location." },
-	{ "resurrect",		( getattrofunc ) wpChar_resurrect,			METH_VARARGS, "Resurrects the character." },
-	{ "kill",			( getattrofunc ) wpChar_kill,				METH_VARARGS, "This kills the character." },
-	{ "damage",			( getattrofunc ) wpChar_damage,			METH_VARARGS, "This damages the current character." },
-	{ "update",			( getattrofunc ) wpChar_update,			METH_VARARGS, "Resends the char to all clients in range." },
-	{ "resendtooltip",	( getattrofunc ) wpChar_resendtooltip,		METH_VARARGS, "Resends the tooltip for this character." },
-	{ "updateflags",	( getattrofunc ) wpChar_updateflags,		METH_VARARGS, "Resends the character if flags have changed (take care, this might look like a move)." },
-	{ "removefromview", ( getattrofunc ) wpChar_removefromview,	METH_VARARGS, "Removes the char from all surrounding clients." },
-	{ "message",		( getattrofunc ) wpChar_message,			METH_VARARGS, "Displays a message above the characters head - only visible for the player." },
-	{ "soundeffect",	( getattrofunc ) wpChar_soundeffect,		METH_VARARGS, "Plays a soundeffect for the character." },
-	{ "distanceto",		( getattrofunc ) wpChar_distanceto,		METH_VARARGS, "Distance to another object or a given position." },
-	{ "action",			( getattrofunc ) wpChar_action,			METH_VARARGS, "Lets the char perform an action." },
-	{ "directionto",	( getattrofunc ) wpChar_directionto,		METH_VARARGS, "Distance to another object or a given position." },
-	{ "checkskill",		( getattrofunc ) wpChar_checkskill,		METH_VARARGS, "Performs a skillcheck for the character." },
-	{ "itemonlayer",	( getattrofunc ) wpChar_itemonlayer,		METH_VARARGS, "Returns the item currently weared on a specific layer, or returns none." },
-	{ "getweapon",		( getattrofunc ) wpChar_getweapon,			METH_VARARGS, "What weapon does the character currently wear." },
-	{ "useresource",	( getattrofunc ) wpChar_useresource,		METH_VARARGS, "Consumes a resource posessed by the char." },
-	{ "countresource",	( getattrofunc ) wpChar_countresource,		METH_VARARGS, "Counts the amount of a certain resource the user has." },
-	{ "emote",			( getattrofunc ) wpChar_emote,				METH_VARARGS, "Shows an emote above the character." },
-	{ "say",			( getattrofunc ) wpChar_say,				METH_VARARGS | METH_KEYWORDS, "The character begins to talk." },
-	{ "turnto",			( getattrofunc ) wpChar_turnto,			METH_VARARGS, "Turns towards a specific object and resends if neccesary." },
-	{ "equip",			( getattrofunc ) wpChar_equip,				METH_VARARGS, "Equips a given item on this character." },
-	{ "maywalk",		( getattrofunc ) wpChar_maywalk,			METH_VARARGS, "Checks if this character may walk to a specific cell." },
-	{ "sound",			( getattrofunc ) wpChar_sound,				METH_VARARGS, "Play a creature specific sound." },
-	{ "disturb",		( getattrofunc ) wpChar_disturb,			METH_VARARGS, "Disturbs whatever this character is doing right now." },
-	{ "canreach",		( getattrofunc ) wpChar_canreach,			METH_VARARGS, "Checks if this character can reach a certain object." },
-	{ "notoriety",		( getattrofunc ) wpChar_notoriety,			METH_VARARGS, "Returns the notoriety of a character toward another character." },
-	{ "canpickup",		( getattrofunc ) wpChar_canpickup,			METH_VARARGS, NULL },
-	{ "cansee",			( getattrofunc ) wpChar_cansee,			METH_VARARGS, NULL },
-	{ "lightning",		( getattrofunc ) wpChar_lightning,			METH_VARARGS, NULL },
-	{ "log",			( getattrofunc ) wpChar_log,				METH_VARARGS, NULL },
-	{ "additem",		( getattrofunc ) wpChar_additem,			METH_VARARGS, "Creating item on specified layer."},
+{ "moveto",			( getattrofunc ) wpChar_moveto,			METH_VARARGS, "Moves the character to the specified location." },
+{ "resurrect",		( getattrofunc ) wpChar_resurrect,			METH_VARARGS, "Resurrects the character." },
+{ "kill",			( getattrofunc ) wpChar_kill,				METH_VARARGS, "This kills the character." },
+{ "damage",			( getattrofunc ) wpChar_damage,			METH_VARARGS, "This damages the current character." },
+{ "update",			( getattrofunc ) wpChar_update,			METH_VARARGS, "Resends the char to all clients in range." },
+{ "resendtooltip",	( getattrofunc ) wpChar_resendtooltip,		METH_VARARGS, "Resends the tooltip for this character." },
+{ "updateflags",	( getattrofunc ) wpChar_updateflags,		METH_VARARGS, "Resends the character if flags have changed (take care, this might look like a move)." },
+{ "removefromview", ( getattrofunc ) wpChar_removefromview,	METH_VARARGS, "Removes the char from all surrounding clients." },
+{ "message",		( getattrofunc ) wpChar_message,			METH_VARARGS, "Displays a message above the characters head - only visible for the player." },
+{ "soundeffect",	( getattrofunc ) wpChar_soundeffect,		METH_VARARGS, "Plays a soundeffect for the character." },
+{ "distanceto",		( getattrofunc ) wpChar_distanceto,		METH_VARARGS, "Distance to another object or a given position." },
+{ "action",			( getattrofunc ) wpChar_action,			METH_VARARGS, "Lets the char perform an action." },
+{ "directionto",	( getattrofunc ) wpChar_directionto,		METH_VARARGS, "Distance to another object or a given position." },
+{ "checkskill",		( getattrofunc ) wpChar_checkskill,		METH_VARARGS, "Performs a skillcheck for the character." },
+{ "itemonlayer",	( getattrofunc ) wpChar_itemonlayer,		METH_VARARGS, "Returns the item currently weared on a specific layer, or returns none." },
+{ "getweapon",		( getattrofunc ) wpChar_getweapon,			METH_VARARGS, "What weapon does the character currently wear." },
+{ "useresource",	( getattrofunc ) wpChar_useresource,		METH_VARARGS, "Consumes a resource posessed by the char." },
+{ "countresource",	( getattrofunc ) wpChar_countresource,		METH_VARARGS, "Counts the amount of a certain resource the user has." },
+{ "emote",			( getattrofunc ) wpChar_emote,				METH_VARARGS, "Shows an emote above the character." },
+{ "say",			( getattrofunc ) wpChar_say,				METH_VARARGS | METH_KEYWORDS, "The character begins to talk." },
+{ "turnto",			( getattrofunc ) wpChar_turnto,			METH_VARARGS, "Turns towards a specific object and resends if neccesary." },
+{ "equip",			( getattrofunc ) wpChar_equip,				METH_VARARGS, "Equips a given item on this character." },
+{ "maywalk",		( getattrofunc ) wpChar_maywalk,			METH_VARARGS, "Checks if this character may walk to a specific cell." },
+{ "sound",			( getattrofunc ) wpChar_sound,				METH_VARARGS, "Play a creature specific sound." },
+{ "disturb",		( getattrofunc ) wpChar_disturb,			METH_VARARGS, "Disturbs whatever this character is doing right now." },
+{ "canreach",		( getattrofunc ) wpChar_canreach,			METH_VARARGS, "Checks if this character can reach a certain object." },
+{ "notoriety",		( getattrofunc ) wpChar_notoriety,			METH_VARARGS, "Returns the notoriety of a character toward another character." },
+{ "canpickup",		( getattrofunc ) wpChar_canpickup,			METH_VARARGS, NULL },
+{ "cansee",			( getattrofunc ) wpChar_cansee,			METH_VARARGS, NULL },
+{ "lightning",		( getattrofunc ) wpChar_lightning,			METH_VARARGS, NULL },
+{ "log",			( getattrofunc ) wpChar_log,				METH_VARARGS, NULL },
+{ "additem",		( getattrofunc ) wpChar_additem,			METH_VARARGS, "Creating item on specified layer."},
 
-	// Mostly NPC functions
-	{ "fight",			( getattrofunc ) wpChar_fight,			METH_VARARGS, "Let's the character attack someone else." },
-	{ "goto",			( getattrofunc ) wpChar_goto,				METH_VARARGS, "The character should go to a coordinate." },
-	{ "follow",			( getattrofunc ) wpChar_follow,			METH_VARARGS, "The character should follow someone else." },
-	{ "vendorbuy",		( getattrofunc ) wpChar_vendorbuy,			METH_VARARGS, 0 },
-	{ "vendorsell",		( getattrofunc ) wpChar_vendorsell,		METH_VARARGS, 0 },
-	{ "aiengine",		( getattrofunc ) wpChar_aiengine,			METH_VARARGS, 0	},
-	{ "addtimer",		( getattrofunc ) wpChar_addtimer,			METH_VARARGS, "Adds a timer to this character." },
-	{ "dispel",			( getattrofunc ) wpChar_dispel,			METH_VARARGS, "Dispels this character (with special options)." },
+// Mostly NPC functions
+{ "fight",			( getattrofunc ) wpChar_fight,			METH_VARARGS, "Let's the character attack someone else." },
+{ "goto",			( getattrofunc ) wpChar_goto,				METH_VARARGS, "The character should go to a coordinate." },
+{ "follow",			( getattrofunc ) wpChar_follow,			METH_VARARGS, "The character should follow someone else." },
+{ "vendorbuy",		( getattrofunc ) wpChar_vendorbuy,			METH_VARARGS, 0 },
+{ "vendorsell",		( getattrofunc ) wpChar_vendorsell,		METH_VARARGS, 0 },
+{ "aiengine",		( getattrofunc ) wpChar_aiengine,			METH_VARARGS, 0	},
+{ "addtimer",		( getattrofunc ) wpChar_addtimer,			METH_VARARGS, "Adds a timer to this character." },
+{ "dispel",			( getattrofunc ) wpChar_dispel,			METH_VARARGS, "Dispels this character (with special options)." },
 
-	// Event handling functions
-	{ "addevent",		( getattrofunc ) wpChar_addevent,			METH_VARARGS, 0},
-	{ "removeevent",	( getattrofunc ) wpChar_removeevent,		METH_VARARGS, 0},
-	{ "hasevent",		( getattrofunc ) wpChar_hasevent,			METH_VARARGS, 0},
-	{ "callevent",		( getattrofunc ) wpChar_callevent,			METH_VARARGS, 0},
+// Event handling functions
+{ "addevent",		( getattrofunc ) wpChar_addevent,			METH_VARARGS, 0},
+{ "removeevent",	( getattrofunc ) wpChar_removeevent,		METH_VARARGS, 0},
+{ "hasevent",		( getattrofunc ) wpChar_hasevent,			METH_VARARGS, 0},
+{ "callevent",		( getattrofunc ) wpChar_callevent,			METH_VARARGS, 0},
 
-	// Update Stats
-	{ "updatestats",	( getattrofunc ) wpChar_updatestats,		METH_VARARGS, "Resends other stats to this character." },
-	{ "updatemana",		( getattrofunc ) wpChar_updatemana,		METH_VARARGS, "Resends the manabar to this character." },
-	{ "updatestamina",	( getattrofunc ) wpChar_updatestamina,		METH_VARARGS, "Resends the stamina bar to this character." },
-	{ "updatehealth",	( getattrofunc ) wpChar_updatehealth,		METH_VARARGS, "Resends the healthbar to the environment." },
+// Update Stats
+{ "updatestats",	( getattrofunc ) wpChar_updatestats,		METH_VARARGS, "Resends other stats to this character." },
+{ "updatemana",		( getattrofunc ) wpChar_updatemana,		METH_VARARGS, "Resends the manabar to this character." },
+{ "updatestamina",	( getattrofunc ) wpChar_updatestamina,		METH_VARARGS, "Resends the stamina bar to this character." },
+{ "updatehealth",	( getattrofunc ) wpChar_updatehealth,		METH_VARARGS, "Resends the healthbar to the environment." },
 
-	// Mount/Unmount
-	{ "unmount",		( getattrofunc ) wpChar_unmount,			METH_VARARGS, "Unmounts this character and returns the character it was previously mounted." },
-	{ "mount",			( getattrofunc ) wpChar_mount,				METH_VARARGS, "Mounts this on a specific mount." },
+// Mount/Unmount
+{ "unmount",		( getattrofunc ) wpChar_unmount,			METH_VARARGS, "Unmounts this character and returns the character it was previously mounted." },
+{ "mount",			( getattrofunc ) wpChar_mount,				METH_VARARGS, "Mounts this on a specific mount." },
 
-	// Effects
-	{ "movingeffect",	( getattrofunc ) wpChar_movingeffect,		METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },
-	{ "effect",			( getattrofunc ) wpChar_effect,			METH_VARARGS, "Shows an effect staying with this character." },
+// Effects
+{ "movingeffect",	( getattrofunc ) wpChar_movingeffect,		METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },
+{ "effect",			( getattrofunc ) wpChar_effect,			METH_VARARGS, "Shows an effect staying with this character." },
 
-	// Bank/Backpack
-	{ "getbankbox",		( getattrofunc ) wpChar_getbankbox,		METH_VARARGS,	"Gets and autocreates a bankbox for the character." },
-	{ "getbackpack",	( getattrofunc ) wpChar_getbackpack,		METH_VARARGS, "Gets and autocreates a backpack for the character." },
+// Bank/Backpack
+{ "getbankbox",		( getattrofunc ) wpChar_getbankbox,		METH_VARARGS,	"Gets and autocreates a bankbox for the character." },
+{ "getbackpack",	( getattrofunc ) wpChar_getbackpack,		METH_VARARGS, "Gets and autocreates a backpack for the character." },
 
-	// Follower System
-	{ "addfollower",	( getattrofunc ) wpChar_addfollower,		METH_VARARGS, "Adds a follower to the user." },
-	{ "removefollower",	( getattrofunc ) wpChar_removefollower,	METH_VARARGS, "Removes a follower from the user." },
-	{ "hasfollower",	( getattrofunc ) wpChar_hasfollower,		METH_VARARGS, "Checks if a certain character is a follower of this." },
-	{ "reveal", ( getattrofunc ) wpChar_reveal, METH_VARARGS, 0 },
-	{ "showname", ( getattrofunc ) wpChar_showname, METH_VARARGS, 0 },
+// Follower System
+{ "addfollower",	( getattrofunc ) wpChar_addfollower,		METH_VARARGS, "Adds a follower to the user." },
+{ "removefollower",	( getattrofunc ) wpChar_removefollower,	METH_VARARGS, "Removes a follower from the user." },
+{ "hasfollower",	( getattrofunc ) wpChar_hasfollower,		METH_VARARGS, "Checks if a certain character is a follower of this." },
+{ "reveal", ( getattrofunc ) wpChar_reveal, METH_VARARGS, 0 },
+{ "showname", ( getattrofunc ) wpChar_showname, METH_VARARGS, 0 },
 
-	// Tag System
-	{ "gettag",			( getattrofunc ) wpChar_gettag,			METH_VARARGS, "Gets a tag assigned to a specific char." },
-	{ "settag",			( getattrofunc ) wpChar_settag,			METH_VARARGS, "Sets a tag assigned to a specific char." },
-	{ "hastag",			( getattrofunc ) wpChar_hastag,			METH_VARARGS, "Checks if a certain char has the specified tag." },
-	{ "deltag",			( getattrofunc ) wpChar_deltag,			METH_VARARGS, "Deletes the specified tag." },
+// Tag System
+{ "gettag",			( getattrofunc ) wpChar_gettag,			METH_VARARGS, "Gets a tag assigned to a specific char." },
+{ "settag",			( getattrofunc ) wpChar_settag,			METH_VARARGS, "Sets a tag assigned to a specific char." },
+{ "hastag",			( getattrofunc ) wpChar_hastag,			METH_VARARGS, "Checks if a certain char has the specified tag." },
+{ "deltag",			( getattrofunc ) wpChar_deltag,			METH_VARARGS, "Deletes the specified tag." },
 
-	// Reputation System
-	{ "iscriminal",		( getattrofunc ) wpChar_iscriminal,		METH_VARARGS, "Is this character criminal.." },
-	{ "ismurderer",		( getattrofunc ) wpChar_ismurderer,		METH_VARARGS, "Is this character a murderer." },
-	{ "criminal",		( getattrofunc ) wpChar_criminal,			METH_VARARGS, "Make this character criminal." },
-	{ "delete",			( getattrofunc ) wpChar_delete,			METH_VARARGS, 0 },
+// Reputation System
+{ "iscriminal",		( getattrofunc ) wpChar_iscriminal,		METH_VARARGS, "Is this character criminal.." },
+{ "ismurderer",		( getattrofunc ) wpChar_ismurderer,		METH_VARARGS, "Is this character a murderer." },
+{ "criminal",		( getattrofunc ) wpChar_criminal,			METH_VARARGS, "Make this character criminal." },
+{ "delete",			( getattrofunc ) wpChar_delete,			METH_VARARGS, 0 },
 
-	// Is*? Functions
-	{ "isitem",			( getattrofunc ) wpChar_isitem,			METH_VARARGS, "Is this an item." },
-	{ "ischar",			( getattrofunc ) wpChar_ischar,			METH_VARARGS, "Is this a char." },
-	{ NULL, NULL, 0, NULL }
+// Is*? Functions
+{ "isitem",			( getattrofunc ) wpChar_isitem,			METH_VARARGS, "Is this an item." },
+{ "ischar",			( getattrofunc ) wpChar_ischar,			METH_VARARGS, "Is this a char." },
+{ NULL, NULL, 0, NULL }
 };
 
 // Getters & Setters
@@ -2364,9 +2365,9 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		return player->isGM() ? PyTrue() : PyFalse();
 
 		/*
-				\rproperty char.tags This property is a list of names for all tags attached to this character.
-				This property is exclusive to python scripts and overrides normal properties with the same name.
-			*/
+					\rproperty char.tags This property is a list of names for all tags attached to this character.
+					This property is exclusive to python scripts and overrides normal properties with the same name.
+				*/
 	}
 	else if ( !strcmp( "tags", name ) )
 	{
@@ -2386,10 +2387,10 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		return list;
 
 		/*
-				\rproperty char.party A <object id="party">party</object> object for the party the player belongs to.
-				None for NPCs or if the player is not in a party.
-				This property is exclusive to python scripts and overrides normal properties with the same name.
-			*/
+					\rproperty char.party A <object id="party">party</object> object for the party the player belongs to.
+					None for NPCs or if the player is not in a party.
+					This property is exclusive to python scripts and overrides normal properties with the same name.
+				*/
 	}
 	else if ( !strcmp( "party", name ) )
 	{
@@ -2403,10 +2404,10 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		Py_RETURN_NONE;
 
 		/*
-				\rproperty char.guild A <object id="guild">guild</object> object for the guild the player belongs to.
-				None for NPCs or if the player is not in a guild.
-				This property is exclusive to python scripts and overrides normal properties with the same name.
-			*/
+					\rproperty char.guild A <object id="guild">guild</object> object for the guild the player belongs to.
+					None for NPCs or if the player is not in a guild.
+					This property is exclusive to python scripts and overrides normal properties with the same name.
+				*/
 	}
 	else if ( !strcmp( "guild", name ) )
 	{
@@ -2420,10 +2421,10 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		Py_RETURN_NONE;
 
 		/*
-				\rproperty char.rank The rank for the players account.
-				NPCs and players without accounts always have rank 1.
-				This property is exclusive to python scripts and overrides normal properties with the same name.
-			*/
+					\rproperty char.rank The rank for the players account.
+					NPCs and players without accounts always have rank 1.
+					This property is exclusive to python scripts and overrides normal properties with the same name.
+				*/
 	}
 	else if ( !strcmp( "rank", name ) )
 	{
@@ -2444,10 +2445,10 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		}
 
 		/*
-				\rproperty char.region A <object id="REGION">region</object> object for the region the character is in.
-				May be None if the region the character is in is undefined.
-				This property is exclusive to python scripts and overrides normal properties with the same name.
-			*/
+					\rproperty char.region A <object id="REGION">region</object> object for the region the character is in.
+					May be None if the region the character is in is undefined.
+					This property is exclusive to python scripts and overrides normal properties with the same name.
+				*/
 	}
 	else if ( !strcmp( "region", name ) )
 		return PyGetRegionObject( self->pChar->region() );
@@ -2564,22 +2565,27 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 			PyList_SetItem( list, i, PyString_FromString( events[i].latin1() ) );
 		return list;
 		/*
-				\rproperty char.npc True if this character is a npc, false otherwise.
-				This property is exclusive to python scripts and overrides normal properties with the same name.
-			*/
+					\rproperty char.npc True if this character is a npc, false otherwise.
+					This property is exclusive to python scripts and overrides normal properties with the same name.
+				*/
 	}
 	else if ( !strcmp( "npc", name ) )
 	{
 		return self->pChar->objectType() == enNPC ? PyTrue() : PyFalse();
 		/*
-				\rproperty char.player True if this character is a player, false otherwise.
-				This property is exclusive to python scripts and overrides normal properties with the same name.
-			*/
-	} else if ( !strcmp( "player", name ) ) {
+					\rproperty char.player True if this character is a player, false otherwise.
+					This property is exclusive to python scripts and overrides normal properties with the same name.
+				*/
+	}
+	else if ( !strcmp( "player", name ) )
+	{
 		return self->pChar->objectType() == enPlayer ? PyTrue() : PyFalse();
-	} else {
-		PyObject *result = self->pChar->getProperty(name);
-		if (result) {
+	}
+	else
+	{
+		PyObject *result = self->pChar->getProperty( name );
+		if ( result )
+		{
 			return result;
 		}
 	}
@@ -2638,7 +2644,7 @@ int wpChar_setAttr( wpChar* self, char* name, PyObject* value )
 		//	return 0;
 		//}
 
-		stError* error = self->pChar->setProperty( name, val );
+		stError * error = self->pChar->setProperty( name, val );
 
 		if ( error )
 		{

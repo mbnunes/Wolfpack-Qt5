@@ -63,42 +63,44 @@ struct destroy_obj : std::unary_function<T, void>
 
 class QCString;
 
-class cBufferedWriter {
+class cBufferedWriter
+{
 private:
 	class cBufferedWriterPrivate *d;
 
 public:
-	cBufferedWriter(const QCString &magic, unsigned int version);
+	cBufferedWriter( const QCString& magic, unsigned int version );
 	~cBufferedWriter();
-    
-	void open(const QString &filename);
+
+	void open( const QString& filename );
 	void close();
 	void flush();
 
-	void writeInt(unsigned int data, bool unbuffered = false);
-	void writeShort(unsigned short data, bool unbuffered = false);
-	void writeByte(unsigned char data, bool unbuffered = false);
-	void writeUtf8(const QString &data, bool unbuffered = false);
-	void writeAscii(const QCString &data, bool unbuffered = false);
-	void writeRaw(const void *data, unsigned int size, bool unbuffered = false);
-	void writeDouble(double data, bool unbuffered = false);
+	void writeInt( unsigned int data, bool unbuffered = false );
+	void writeShort( unsigned short data, bool unbuffered = false );
+	void writeByte( unsigned char data, bool unbuffered = false );
+	void writeUtf8( const QString& data, bool unbuffered = false );
+	void writeAscii( const QCString& data, bool unbuffered = false );
+	void writeRaw( const void* data, unsigned int size, bool unbuffered = false );
+	void writeDouble( double data, bool unbuffered = false );
 
 	unsigned int position();
 	unsigned int version();
-	void setSkipSize(unsigned char type, unsigned int skipsize);
-	void setObjectCount(unsigned int count);
+	void setSkipSize( unsigned char type, unsigned int skipsize );
+	void setObjectCount( unsigned int count );
 	unsigned int objectCount();
 };
 
-class cBufferedReader {
+class cBufferedReader
+{
 private:
 	class cBufferedReaderPrivate *d;
 
 public:
-	cBufferedReader(const QCString &magic, unsigned int version);
+	cBufferedReader( const QCString& magic, unsigned int version );
 	~cBufferedReader();
-    
-	void open(const QString &filename);
+
+	void open( const QString& filename );
 	void close();
 	unsigned int version();
 
@@ -107,12 +109,12 @@ public:
 	unsigned char readByte();
 	double readDouble();
 	QString readUtf8();
-	QCString readAscii(bool nodictionary = false);
-	void readRaw(void *data, unsigned int size);
+	QCString readAscii( bool nodictionary = false );
+	void readRaw( void* data, unsigned int size );
 
 	unsigned int position();
-	const QMap<unsigned char, QCString> &typemap();
-	unsigned int getSkipSize(unsigned char type);
+	const QMap<unsigned char, QCString>& typemap();
+	unsigned int getSkipSize( unsigned char type );
 
 	unsigned int objectCount();
 };

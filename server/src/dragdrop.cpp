@@ -170,7 +170,7 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 				pContainer->addItem( splitItem, false );
 			splitItem->SetOwnSerial( pItem->ownSerial() );
 
-			splitItem->setSpawnregion(pItem->spawnregion());
+			splitItem->setSpawnregion( pItem->spawnregion() );
 
 			// He needs to see the new item
 			splitItem->update();
@@ -184,7 +184,7 @@ void DragAndDrop::grabItem( cUOSocket* socket, cUORxDragItem* packet )
 	pItem->removeFromView( true );
 
 	// Remove from spawnregion
-	pItem->setSpawnregion(0);
+	pItem->setSpawnregion( 0 );
 
 	// Remove it from the World if it is in world, otherwise remove it from it's current container
 	if ( pItem->isInWorld() )
@@ -546,17 +546,17 @@ void DragAndDrop::dropOnChar( cUOSocket* socket, P_ITEM pItem, P_CHAR pOtherChar
 		// Check if we're already trading,
 		// if not create a new window
 		/*
-			P_ITEM tradeWindow = pChar->atLayer( cBaseChar::TradeWindow );
-			//if( !tradeWindow )
-			//	tradeWindow = Trade->tradestart( client->socket(), pOtherChar );
-			socket->bounceItem( pItem, BR_NO_REASON );
-			socket->sysMessage( "Trading is disabled" );
-			return;
-			tradeWindow->addItem( pItem, false, false );
-			pItem->setPos( Coord_cl(rand() % 60, rand() % 60, 9) );
-			pItem->removeFromView( false );
-			pItem->update();
-			*/
+				P_ITEM tradeWindow = pChar->atLayer( cBaseChar::TradeWindow );
+				//if( !tradeWindow )
+				//	tradeWindow = Trade->tradestart( client->socket(), pOtherChar );
+				socket->bounceItem( pItem, BR_NO_REASON );
+				socket->sysMessage( "Trading is disabled" );
+				return;
+				tradeWindow->addItem( pItem, false, false );
+				pItem->setPos( Coord_cl(rand() % 60, rand() % 60, 9) );
+				pItem->removeFromView( false );
+				pItem->update();
+				*/
 		return;
 	}
 
@@ -865,14 +865,14 @@ void DragAndDrop::dropOnBroker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBroker 
 
 void DragAndDrop::dropOnBanker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBanker )
 {
-	Q_UNUSED(socket);
-	Q_UNUSED(pItem);
-	Q_UNUSED(pBanker);
+	Q_UNUSED( socket );
+	Q_UNUSED( pItem );
+	Q_UNUSED( pBanker );
 }
 
 void DragAndDrop::dropOnTrainer( cUOSocket* socket, P_ITEM pItem, P_CHAR pTrainer )
 {
-	Q_UNUSED(socket);
-	Q_UNUSED(pItem);
-	Q_UNUSED(pTrainer);
+	Q_UNUSED( socket );
+	Q_UNUSED( pItem );
+	Q_UNUSED( pTrainer );
 }

@@ -365,7 +365,7 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 	// Add our equipment - This does not seem to work !?
 	bool layers[0x20] =
 	{
-		0, 
+	0, 
 	};
 
 	cBaseChar::ItemContainer container( pChar->content() );

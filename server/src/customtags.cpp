@@ -119,7 +119,7 @@ cVariant::cVariant( int val )
 cVariant::cVariant( unsigned int val )
 {
 	typ = Int;
-	value.i = (int)val;
+	value.i = ( int ) val;
 }
 
 /*!
@@ -275,7 +275,7 @@ void cVariant::clear()
 static const int ntypes = 8;
 static const char* const type_map[ntypes] =
 {
-	0, "String", "Int", "Long", "Double", "BaseChar", "Item", "Coord"
+0, "String", "Int", "Long", "Double", "BaseChar", "Item", "Coord"
 };
 
 /*!
@@ -629,117 +629,131 @@ bool cVariant::cast( Type t )
 	return canCast( t );
 }
 
-void cVariant::serialize(cBufferedWriter &writer, unsigned int version) {
-	writer.writeByte(typ);
+void cVariant::serialize( cBufferedWriter& writer, unsigned int version )
+{
+	writer.writeByte( typ );
 	char skipper[8];
 
-	switch (typ) {
-		case Invalid:
-			writer.writeRaw(skipper, 8);
-			break;
+	switch ( typ )
+	{
+	case Invalid:
+		writer.writeRaw( skipper, 8 );
+		break;
 
-		case String:						
-			if (value.ptr) {
-				writer.writeUtf8(*(QString*)value.ptr);
-			} else {
-				writer.writeUtf8(QString::null);
-			}
-			writer.writeRaw(skipper, 4);
-			break;
+	case String:
+		if ( value.ptr )
+		{
+			writer.writeUtf8( *( QString * ) value.ptr );
+		}
+		else
+		{
+			writer.writeUtf8( QString::null );
+		}
+		writer.writeRaw( skipper, 4 );
+		break;
 
-		case Int:
-			writer.writeInt(value.i);
-			writer.writeRaw(skipper, 4);
-			break;
+	case Int:
+		writer.writeInt( value.i );
+		writer.writeRaw( skipper, 4 );
+		break;
 
-		case Long:
-			writer.writeInt(value.i);
-			writer.writeRaw(skipper, 4);
-			break;
+	case Long:
+		writer.writeInt( value.i );
+		writer.writeRaw( skipper, 4 );
+		break;
 
-		case Double:
-			writer.writeDouble(value.d);
-			break;
+	case Double:
+		writer.writeDouble( value.d );
+		break;
 
-		case BaseChar:
-			if (value.ptr) {
-				writer.writeInt(((P_CHAR)value.ptr)->serial());
-			} else {
-				writer.writeInt(INVALID_SERIAL);
-			}
-			writer.writeRaw(skipper, 4);
-			break;
+	case BaseChar:
+		if ( value.ptr )
+		{
+			writer.writeInt( ( ( P_CHAR ) value.ptr )->serial() );
+		}
+		else
+		{
+			writer.writeInt( INVALID_SERIAL );
+		}
+		writer.writeRaw( skipper, 4 );
+		break;
 
-		case Item:
-			if (value.ptr) {
-				writer.writeInt(((P_ITEM)value.ptr)->serial());
-			} else {
-				writer.writeInt(INVALID_SERIAL);
-			}
-			writer.writeRaw(skipper, 4);
-			break;
+	case Item:
+		if ( value.ptr )
+		{
+			writer.writeInt( ( ( P_ITEM ) value.ptr )->serial() );
+		}
+		else
+		{
+			writer.writeInt( INVALID_SERIAL );
+		}
+		writer.writeRaw( skipper, 4 );
+		break;
 
-		case Coord:
-			writer.writeShort(((Coord_cl*)(value.ptr))->x);
-			writer.writeShort(((Coord_cl*)(value.ptr))->y);
-			writer.writeByte(((Coord_cl*)(value.ptr))->z);
-			writer.writeByte(((Coord_cl*)(value.ptr))->map);
-			writer.writeRaw(skipper, 2);
-			break;
+	case Coord:
+		writer.writeShort( ( ( Coord_cl * ) ( value.ptr ) )->x );
+		writer.writeShort( ( ( Coord_cl * ) ( value.ptr ) )->y );
+		writer.writeByte( ( ( Coord_cl * ) ( value.ptr ) )->z );
+		writer.writeByte( ( ( Coord_cl * ) ( value.ptr ) )->map );
+		writer.writeRaw( skipper, 2 );
+		break;
 	}
 }
 
-void cVariant::serialize(cBufferedReader &reader, unsigned int version) {
+void cVariant::serialize( cBufferedReader& reader, unsigned int version )
+{
 	// Only invalid can be loaded
-	if (typ != Invalid) {
+	if ( typ != Invalid )
+	{
 		return;
 	}
 
 	unsigned char type = reader.readByte();
-	typ = (Type)type;
-	switch (typ) {
-		case Invalid:
-			reader.readInt();
-			reader.readInt();
-			break;
+	typ = ( Type ) type;
+	switch ( typ )
+	{
+	case Invalid:
+		reader.readInt();
+		reader.readInt();
+		break;
 
-		case String:						
-			value.ptr = new QString(reader.readUtf8());
-			reader.readInt();
-			break;
+	case String:
+		value.ptr = new QString( reader.readUtf8() );
+		reader.readInt();
+		break;
 
-		case Int:
-			value.i = reader.readInt();
-			reader.readInt();
-			break;
+	case Int:
+		value.i = reader.readInt();
+		reader.readInt();
+		break;
 
-		case Long:
-			value.i = reader.readInt();
-			reader.readInt();
-			break;
+	case Long:
+		value.i = reader.readInt();
+		reader.readInt();
+		break;
 
-		case Double:
-			value.d = reader.readDouble();
-			break;
+	case Double:
+		value.d = reader.readDouble();
+		break;
 
-		case BaseChar:
-			value.ptr = World::instance()->findChar(reader.readInt());
-			reader.readInt();
-			break;
+	case BaseChar:
+		value.ptr = World::instance()->findChar( reader.readInt() );
+		reader.readInt();
+		break;
 
-		case Item:
-			value.ptr = World::instance()->findItem(reader.readInt());
-			reader.readInt();
-			break;
+	case Item:
+		value.ptr = World::instance()->findItem( reader.readInt() );
+		reader.readInt();
+		break;
 
-		case Coord:
-			value.ptr = new Coord_cl;
-			((Coord_cl*)(value.ptr))->x = reader.readShort();
-			((Coord_cl*)(value.ptr))->y = reader.readShort();
-			((Coord_cl*)(value.ptr))->z = reader.readByte();
-			((Coord_cl*)(value.ptr))->map = reader.readByte();			
-			reader.readShort();
-			break;
+	case Coord:
+		value.ptr = new Coord_cl;
+		( ( Coord_cl * ) ( value.ptr ) )->x = reader.readShort();
+		( ( Coord_cl * ) ( value.ptr ) )->y = reader.readShort();
+		( ( Coord_cl * ) ( value.ptr ) )->z = reader.readByte();
+		( ( Coord_cl * ) ( value.ptr ) )->map = reader.readByte();			
+		reader.readShort();
+		break;
 	}
 }
 
@@ -1017,25 +1031,29 @@ bool cCustomTags::operator!=( const cCustomTags& cmp ) const
 	return !( this->operator == ( cmp ) );
 }
 
-void cCustomTags::save(SERIAL serial, cBufferedWriter &writer) {
-	if (tags_) {
+void cCustomTags::save( SERIAL serial, cBufferedWriter& writer )
+{
+	if ( tags_ )
+	{
 		QMap<QString, cVariant>::iterator it( tags_->begin() );
 
-		for (; it != tags_->end(); ++it) {
+		for ( ; it != tags_->end(); ++it )
+		{
 			// Erase invalid tags.
-			if (!it.data().isValid()) {
+			if ( !it.data().isValid() )
+			{
 				continue;
 			}
 
 			// Save serial and name
-			writer.writeByte(0xFE);
+			writer.writeByte( 0xFE );
 			unsigned int length = writer.position();
-			writer.writeInt(serial);
-			writer.writeUtf8(it.key());
-			it.data().serialize(writer, writer.version());
+			writer.writeInt( serial );
+			writer.writeUtf8( it.key() );
+			it.data().serialize( writer, writer.version() );
 			length = writer.position() - length;
 
-			writer.setSkipSize(0xFE, length);
-		}		
+			writer.setSkipSize( 0xFE, length );
+		}
 	}
 }

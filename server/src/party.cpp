@@ -455,17 +455,17 @@ static int wpParty_compare( PyObject* a, PyObject* b );
 */
 PyTypeObject wpPartyType =
 {
-	PyObject_HEAD_INIT( NULL )
-	0, 
-	"party", 
-	sizeof( wpPartyType ), 
-	0, 
-	wpDealloc, 
-	0, 
-	( getattrfunc ) wpParty_getAttr, 
-	( setattrfunc ) wpParty_setAttr, 
-	wpParty_compare,
-	0,
+PyObject_HEAD_INIT( NULL )
+0, 
+"party", 
+sizeof( wpPartyType ), 
+0, 
+wpDealloc, 
+0, 
+( getattrfunc ) wpParty_getAttr, 
+( setattrfunc ) wpParty_setAttr, 
+wpParty_compare,
+0,
 };
 
 static int wpParty_compare( PyObject* a, PyObject* b )
@@ -532,7 +532,7 @@ static PyObject* wpParty_tellall( wpParty* self, PyObject* args )
 
 static PyMethodDef wpPartyMethods[] =
 {
-	{ "tellall", ( getattrofunc ) wpParty_tellall, METH_VARARGS, 0 }, { "tellsingle", ( getattrofunc ) wpParty_tellsingle, METH_VARARGS, 0 }, { 0, 0, 0, 0 }
+{ "tellall", ( getattrofunc ) wpParty_tellall, METH_VARARGS, 0 }, { "tellsingle", ( getattrofunc ) wpParty_tellsingle, METH_VARARGS, 0 }, { 0, 0, 0, 0 }
 };
 
 static PyObject* wpParty_getAttr( wpParty* self, char* name )
@@ -585,9 +585,9 @@ static PyObject* wpParty_getAttr( wpParty* self, char* name )
 
 static int wpParty_setAttr( wpParty* self, char* name, PyObject* value )
 {
-	Q_UNUSED(self);
-	Q_UNUSED(name);
-	Q_UNUSED(value);
+	Q_UNUSED( self );
+	Q_UNUSED( name );
+	Q_UNUSED( value );
 	return 0;
 }
 

@@ -208,7 +208,7 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 		if ( pItem->isPileable() )
 		{
 			pSold = pItem->dupe();
-			pSold->removeTag("restock"); // Remove the restock tag;
+			pSold->removeTag( "restock" ); // Remove the restock tag;
 			pSold->setAmount( iter->second );
 			pPack->addItem( pSold );
 			pSold->update();
@@ -219,7 +219,7 @@ void Trade::buyAction( cUOSocket* socket, cUORxBuy* packet )
 			for ( UINT16 j = 0; j < amount; ++j )
 			{
 				pSold = pItem->dupe();
-				pSold->removeTag("restock"); // Remove the restock tag;
+				pSold->removeTag( "restock" ); // Remove the restock tag;
 				pSold->setAmount( 1 );
 				pPack->addItem( pSold );
 				pSold->update();
@@ -314,7 +314,7 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 			if ( !( *it ) )
 				continue;
 
-			if ( ( *it )->id() == pItem->id() && ( *it )->color() == pItem->color() &&
+			if ( ( *it )->id() == pItem->id() && ( *it )->color() == pItem->color() && 
 				//					(*it)->amount() >= pItem->amount() &&
 				( *it )->eventList() == pItem->eventList() )
 			{
@@ -356,7 +356,7 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 			if ( pItem->isPileable() )
 			{
 				P_ITEM pSold = pItem->dupe();
-				pSold->removeTag("restock");
+				pSold->removeTag( "restock" );
 				pSold->setAmount( iter->second );
 				pBought->addItem( pSold );
 				pSold->update();

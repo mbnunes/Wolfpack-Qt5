@@ -268,7 +268,7 @@ bool Speech::response( cUOSocket* socket, P_PLAYER pPlayer, const QString& comm,
 			for ( unsigned int i = 0; i < keywords.size(); ++i )
 				PyList_SetItem( pkeywords, i, PyInt_FromLong( keywords[i] ) );
 
-			PyObject* args = Py_BuildValue( "(NNNO)", pNpc->getPyObject(), pPlayer->getPyObject(), QString2Python(comm), pkeywords );
+			PyObject* args = Py_BuildValue( "(NNNO)", pNpc->getPyObject(), pPlayer->getPyObject(), QString2Python( comm ), pkeywords );
 
 			bool result = cPythonScript::callChainedEventHandler( EVENT_SPEECH, events, args );
 
@@ -338,7 +338,7 @@ void Speech::talking( P_PLAYER pChar, const QString& lang, const QString& speech
 	{
 		UINT16 keyword = *iter;
 
-		if (keyword == 0x07)
+		if ( keyword == 0x07 )
 			pChar->callGuards();
 	}
 

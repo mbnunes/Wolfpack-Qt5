@@ -188,15 +188,15 @@ static PyObject* wpDbResult_getAttr( wpDbResult* self, char* name );
 */
 PyTypeObject wpDbResultType =
 {
-	PyObject_HEAD_INIT( NULL )
-	0, 
-	"dbresult", 
-	sizeof( wpDbResultType ), 
-	0, 
-	wpDeallocDbResult, 
-	0, 
-	( getattrfunc ) wpDbResult_getAttr,
-	0,
+PyObject_HEAD_INIT( NULL )
+0, 
+"dbresult", 
+sizeof( wpDbResultType ), 
+0, 
+wpDeallocDbResult, 
+0, 
+( getattrfunc ) wpDbResult_getAttr,
+0,
 };
 
 /*
@@ -268,7 +268,7 @@ static PyObject* wpDbResult_getstring( wpDbResult* self, PyObject* args )
 
 static PyMethodDef wpDbResultMethods[] =
 {
-	{"free", ( getattrofunc ) wpDbResult_free, METH_VARARGS, 0}, {"fetchrow", ( getattrofunc ) wpDbResult_fetchrow, METH_VARARGS, 0}, {"getint", ( getattrofunc ) wpDbResult_getint, METH_VARARGS, 0}, {"getstring", ( getattrofunc ) wpDbResult_getstring, METH_VARARGS, 0}, {0, 0, 0, 0}
+{"free", ( getattrofunc ) wpDbResult_free, METH_VARARGS, 0}, {"fetchrow", ( getattrofunc ) wpDbResult_fetchrow, METH_VARARGS, 0}, {"getint", ( getattrofunc ) wpDbResult_getint, METH_VARARGS, 0}, {"getstring", ( getattrofunc ) wpDbResult_getstring, METH_VARARGS, 0}, {0, 0, 0, 0}
 };
 
 static PyObject* wpDbResult_getAttr( wpDbResult* self, char* name )

@@ -363,17 +363,17 @@ static int wpGuild_compare( PyObject* a, PyObject* b );
 */
 PyTypeObject wpGuildType =
 {
-	PyObject_HEAD_INIT( NULL )
-	0, 
-	"guild", 
-	sizeof( wpGuildType ), 
-	0, 
-	wpDealloc, 
-	0, 
-	( getattrfunc ) wpGuild_getAttr, 
-	( setattrfunc ) wpGuild_setAttr, 
-	wpGuild_compare,
-	0,
+PyObject_HEAD_INIT( NULL )
+0, 
+"guild", 
+sizeof( wpGuildType ), 
+0, 
+wpDealloc, 
+0, 
+( getattrfunc ) wpGuild_getAttr, 
+( setattrfunc ) wpGuild_setAttr, 
+wpGuild_compare,
+0,
 };
 
 static int wpGuild_compare( PyObject* a, PyObject* b )
@@ -610,7 +610,7 @@ PyObject* wpGuild_delete( wpGuild* self, PyObject* args )
 
 static PyMethodDef wpGuildMethods[] =
 {
-	{"delete", ( getattrofunc ) wpGuild_delete, METH_VARARGS, 0}, {"addmember", ( getattrofunc ) wpGuild_addmember, METH_VARARGS, 0}, {"removemember", ( getattrofunc ) wpGuild_removemember, METH_VARARGS, 0}, {"addcanidate", ( getattrofunc ) wpGuild_addcanidate, METH_VARARGS, 0}, {"removecanidate", ( getattrofunc ) wpGuild_removecanidate, METH_VARARGS, 0}, {"getmemberinfo", ( getattrofunc ) wpGuild_getmemberinfo, METH_VARARGS, 0}, {"setmemberinfo", ( getattrofunc ) wpGuild_setmemberinfo, METH_VARARGS, 0}, {0, 0, 0, 0}
+{"delete", ( getattrofunc ) wpGuild_delete, METH_VARARGS, 0}, {"addmember", ( getattrofunc ) wpGuild_addmember, METH_VARARGS, 0}, {"removemember", ( getattrofunc ) wpGuild_removemember, METH_VARARGS, 0}, {"addcanidate", ( getattrofunc ) wpGuild_addcanidate, METH_VARARGS, 0}, {"removecanidate", ( getattrofunc ) wpGuild_removecanidate, METH_VARARGS, 0}, {"getmemberinfo", ( getattrofunc ) wpGuild_getmemberinfo, METH_VARARGS, 0}, {"setmemberinfo", ( getattrofunc ) wpGuild_setmemberinfo, METH_VARARGS, 0}, {0, 0, 0, 0}
 };
 
 static PyObject* wpGuild_getAttr( wpGuild* self, char* name )

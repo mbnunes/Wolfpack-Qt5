@@ -221,7 +221,7 @@ public:
 	void handleRequestAttack( cUORxRequestAttack* packet );
 	void handleExtendedStats( cUORxExtendedStats* packet );
 	void handleAction( cUORxAction* packet );
-	void handleAllNames( cUORxAllNames *packet );
+	void handleAllNames( cUORxAllNames* packet );
 	void handleGumpResponse( cUORxGumpResponse* packet );
 	void handleHelpRequest( cUORxHelpRequest* packet );
 	void handleSkillLock( cUORxSkillLock* packet );

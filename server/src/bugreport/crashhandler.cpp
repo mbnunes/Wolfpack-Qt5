@@ -395,11 +395,11 @@ LPCTSTR __stdcall GetFaultReason( EXCEPTION_POINTERS* pExPtrs )
 			iCurr += BSUGetModuleBaseName( GetCurrentProcess(), ( HINSTANCE ) dwTemp, g_szBuff + iCurr, BUFF_SIZE - iCurr );
 		}
 
-	#ifdef _ALPHA_
+#ifdef _ALPHA_
 		iCurr += wsprintf( g_szBuff + iCurr, _T( " at %08X" ), pExPtrs->ExceptionRecord->ExceptionAddress );
-	#else
+#else
 		iCurr += wsprintf( g_szBuff + iCurr, _T( " at %04X:%08X" ), pExPtrs->ContextRecord->SegCs, pExPtrs->ExceptionRecord->ExceptionAddress );
-	#endif
+#endif
 
 		szRet = g_szBuff;
 	}
@@ -419,14 +419,14 @@ LPCTSTR __stdcall GetFirstStackTraceString( DWORD   			 dwOpts, EXCEPTION_POINTE
 	// Initialize the STACKFRAME structure.
 	ZeroMemory( &g_stFrame, sizeof( STACKFRAME ) ) ;
 
-	#ifdef _X86_
+#ifdef _X86_
 	g_stFrame.AddrPC.Offset = pExPtrs->ContextRecord->Eip ;
 	g_stFrame.AddrPC.Mode = AddrModeFlat				;
 	g_stFrame.AddrStack.Offset = pExPtrs->ContextRecord->Esp ;
 	g_stFrame.AddrStack.Mode = AddrModeFlat 			   ;
 	g_stFrame.AddrFrame.Offset = pExPtrs->ContextRecord->Ebp ;
 	g_stFrame.AddrFrame.Mode = AddrModeFlat 			   ;
-	#else
+#else
 	g_stFrame.AddrPC.Offset = ( DWORD ) pExPtrs->ContextRecord->Fir ;
 	g_stFrame.AddrPC.Mode = AddrModeFlat ;
 	g_stFrame.AddrReturn.Offset = ( DWORD ) pExPtrs->ContextRecord->IntRa;
@@ -435,7 +435,7 @@ LPCTSTR __stdcall GetFirstStackTraceString( DWORD   			 dwOpts, EXCEPTION_POINTE
 	g_stFrame.AddrStack.Mode = AddrModeFlat ;
 	g_stFrame.AddrFrame.Offset = ( DWORD ) pExPtrs->ContextRecord->IntFp;
 	g_stFrame.AddrFrame.Mode = AddrModeFlat ;
-	#endif
+#endif
 
 	return ( InternalGetStackTraceString( dwOpts, pExPtrs ) ) ;
 }
@@ -485,29 +485,29 @@ LPCTSTR __stdcall InternalGetStackTraceString( DWORD				dwOpts, EXCEPTION_POINTE
 
 		int iCurr = 0 ;
 		/*
-				// At a minimum, put the address in.
-		#ifdef _ALPHA_
-				iCurr += wsprintf ( g_szBuff + iCurr		,
-									_T ( "0x%08X" ) 		,
-									g_stFrame.AddrPC.Offset  ) ;
-		#else
-				iCurr += wsprintf ( g_szBuff + iCurr			  ,
-									_T ( "%04X:%08X" )  		  ,
-									pExPtrs->ContextRecord->SegCs ,
-									g_stFrame.AddrPC.Offset 	   ) ;
-		#endif
-		*/
+						// At a minimum, put the address in.
+				#ifdef _ALPHA_
+						iCurr += wsprintf ( g_szBuff + iCurr		,
+											_T ( "0x%08X" ) 		,
+											g_stFrame.AddrPC.Offset  ) ;
+				#else
+						iCurr += wsprintf ( g_szBuff + iCurr			  ,
+											_T ( "%04X:%08X" )  		  ,
+											pExPtrs->ContextRecord->SegCs ,
+											g_stFrame.AddrPC.Offset 	   ) ;
+				#endif
+				*/
 		// Do the parameters?
 		/*if ( GSTSO_PARAMS == ( dwOpts & GSTSO_PARAMS ) )
-		{
-			iCurr += wsprintf ( g_szBuff + iCurr		  ,
-								_T ( " (0x%08X 0x%08X "\
-									  "0x%08X 0x%08X)"  ) ,
-								g_stFrame.Params[ 0 ]     ,
-								g_stFrame.Params[ 1 ]     ,
-								g_stFrame.Params[ 2 ]     ,
-								g_stFrame.Params[ 3 ]      ) ;
-		}*/
+				{
+					iCurr += wsprintf ( g_szBuff + iCurr		  ,
+										_T ( " (0x%08X 0x%08X "\
+											  "0x%08X 0x%08X)"  ) ,
+										g_stFrame.Params[ 0 ]     ,
+										g_stFrame.Params[ 1 ]     ,
+										g_stFrame.Params[ 2 ]     ,
+										g_stFrame.Params[ 3 ]      ) ;
+				}*/
 
 		if ( GSTSO_MODULE == ( dwOpts & GSTSO_MODULE ) )
 		{
@@ -719,8 +719,8 @@ BOOL CALLBACK EnumerateLoadedModulesProc( PSTR ModuleName, DWORD ModuleBase, ULO
 	if ( !SymLoadModule( GetCurrentProcess(), NULL, "wolfpack.pdb", ModuleName, ModuleBase, ModuleSize ) )
 	{
 		/*char message[512];
-		  sprintf(message, "Couldn't load symbol information for module %s (0x%x).", ModuleName, GetLastError());
-		  MessageBox(0, message, "Failure", 0);*/
+				  sprintf(message, "Couldn't load symbol information for module %s (0x%x).", ModuleName, GetLastError());
+				  MessageBox(0, message, "Failure", 0);*/
 	}
 
 	moduleBases.append( QPair<unsigned int, unsigned int>( ModuleBase, ModuleSize ) );

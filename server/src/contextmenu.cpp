@@ -98,7 +98,7 @@ bool cContextMenu::onCheckVisible( cPlayer* from, cUObject* target, ushort entry
 	PyObject* args = Py_BuildValue( "NNH", from->getPyObject(), target->getPyObject(), entries_[entry]->scriptTag() );
 	for ( cPythonScript*script = scriptChain_.first(); script; script = scriptChain_.next() )
 	{
-		PyObject* obj = script->callEvent(EVENT_CONTEXTCHECKVISIBLE, args );
+		PyObject* obj = script->callEvent( EVENT_CONTEXTCHECKVISIBLE, args );
 		if ( obj )
 		{
 			if ( !PyObject_IsTrue( obj ) )
@@ -125,7 +125,7 @@ bool cContextMenu::onCheckEnabled( cPlayer* from, cUObject* target, ushort entry
 	PyObject* args = Py_BuildValue( "O&O&h", PyGetCharObject, from, PyGetObjectObject, target, entries_[entry]->scriptTag() );
 	for ( cPythonScript*script = scriptChain_.first(); script; script = scriptChain_.next() )
 	{
-		PyObject* obj = script->callEvent(EVENT_CONTEXTCHECKENABLED, args );
+		PyObject* obj = script->callEvent( EVENT_CONTEXTCHECKENABLED, args );
 		if ( obj )
 		{
 			if ( !PyObject_IsTrue( obj ) )

@@ -90,198 +90,198 @@ struct
 	const char* create;
 } tableInfo[] =
 {
-	{ "guilds", "CREATE TABLE guilds ( \
-		serial unsigned int(10) NOT NULL default '0', \
-		name varchar(255) NOT NULL default '', \
-		abbreviation varchar(6) NOT NULL default '', \
-		charta LONGTEXT NOT NULL, \
-		website varchar(255) NOT NULL default 'http://www.wpdev.org', \
-		alignment tinyint(2) NOT NULL default '0', \
-		leader unsigned int(10) NOT NULL default '0', \
-		founded int(11) NOT NULL default '0', \
-		guildstone unsigned int(10) NOT NULL default '0', \
-		PRIMARY KEY(serial) \
-	);" },
-	{ "guilds_members", "CREATE TABLE guilds_members ( \
-		guild unsigned int(10) NOT NULL default '0', \
-		player unsigned int(10) NOT NULL default '0', \
-		showsign unsigned tinyint(1) NOT NULL default '0', \
-		guildtitle varchar(255) NOT NULL default '', \
-		joined int(11) NOT NULL default '0', \
-		PRIMARY KEY(guild,player) \
-	);"},
-	{ "guilds_canidates", "CREATE TABLE guilds_canidates ( \
-		guild unsigned int(10) NOT NULL default '0', \
-		player unsigned int(10) NOT NULL default '0', \
-		PRIMARY KEY(guild,player) \
-	);"},
-	{ "settings", "CREATE TABLE settings ( \
-		option varchar(255) NOT NULL default '', \
-		value varchar(255) NOT NULL default '', \
-		PRIMARY KEY (option) \
-	);" },
-	{ "characters", "CREATE TABLE characters (\
-		serial unsigned int(10) NOT NULL default '0',\
-		name varchar(255) default NULL,\
-		title varchar(255) default NULL,\
-		creationdate varchar(19) default NULL,\
-		body unsigned smallint(5)  NOT NULL default '0',\
-		orgbody unsigned smallint(5)  NOT NULL default '0',\
-		skin unsigned smallint(5)  NOT NULL default '0',\
-		orgskin unsigned smallint(5)  NOT NULL default '0',\
-		saycolor unsigned smallint(5)  NOT NULL default '0',\
-		emotecolor unsigned smallint(5)  NOT NULL default '0',\
-		strength smallint(6) NOT NULL default '0',\
-		strengthmod smallint(6) NOT NULL default '0',\
-		dexterity smallint(6) NOT NULL default '0',\
-		dexteritymod smallint(6) NOT NULL default '0',\
-		intelligence smallint(6) NOT NULL default '0',\
-		intelligencemod smallint(6) NOT NULL default '0',\
-		maxhitpoints smallint(6) NOT NULL default '0',\
-		hitpoints smallint(6) NOT NULL default '0',\
-		maxstamina smallint(6) NOT NULL default '0',\
-		stamina smallint(6) NOT NULL default '0',\
-		maxmana smallint(6) default NULL,\
-		mana smallint(6) default NULL,\
-		karma int(11) NOT NULL default '0',\
-		fame int(11) NOT NULL default '0',\
-		kills unsigned int(10) NOT NULL default '0',\
-		deaths unsigned int(10) NOT NULL default '0',\
-		hunger unsigned int(10) NOT NULL default '0',\
-		poison tinyint(2) NOT NULL default '-1',\
-		murderertime unsigned int(10) NOT NULL default '0',\
-		criminaltime unsigned int(10) NOT NULL default '0',\
-		gender unsigned tinyint(1) NOT NULL default '0',\
-		propertyflags int(11)  NOT NULL default '0',\
-		murderer unsigned int(10) NOT NULL default '0',\
-		guarding unsigned int(10) NOT NULL default '0',\
-		hitpointsbonus smallint(6) NOT NULL default '0',\
-		staminabonus smallint(6) NOT NULL default '0',\
-		manabonus smallint(6) NOT NULL default '0',\
-		strcap tinyint(4)  NOT NULL default '125',\
-		dexcap tinyint(4)  NOT NULL default '125',\
-		intcap tinyint(4)  NOT NULL default '125',\
-		statcap tinyint(4)  NOT NULL default '225',\
-		baseid varchar(64) NOT NULL default '',\
-		direction unsigned tinyint(1) NOT NULL default '0',\
-		PRIMARY KEY (serial)\
-	);" },
-	{ "corpses", "CREATE TABLE corpses (\
-		serial unsigned int(10) NOT NULL default '0',\
-		bodyid unsigned smallint(5) NOT NULL default '0',\
-		hairstyle unsigned smallint(5) NOT NULL default '0',\
-		haircolor unsigned smallint(5) NOT NULL default '0',\
-		beardstyle unsigned smallint(5) NOT NULL default '0',\
-		beardcolor unsigned smallint(5) NOT NULL default '0',\
-		direction unsigned tinyint(1) NOT NULL default '0',\
-		charbaseid varchar(64) NOT NULL default '',\
-		murderer unsigned int(10) NOT NULL default '0',\
-		murdertime unsigned int(10) NOT NULL default '0',\
-		PRIMARY KEY (serial)\
-	);" },
-	{ "corpses_equipment", "CREATE TABLE corpses_equipment (\
-		serial unsigned int(10) NOT NULL default '0',\
-		layer unsigned tinyint(3)  NOT NULL default '0',\
-		item unsigned int(10) NOT NULL default '0',  \
-		PRIMARY KEY (serial,layer)\
-	);" },
-	{ "items", "CREATE TABLE items (\
-		serial unsigned int(10) NOT NULL default '0',\
-		id unsigned smallint(5) NOT NULL default '0',\
-		color unsigned smallint(5) NOT NULL default '0',\
-		cont unsigned int(10) NOT NULL default '0',\
-		layer unsigned tinyint(3) NOT NULL default '0',\
-		amount smallint(5)  NOT NULL default '0',\
-		hp smallint(6) NOT NULL default '0',\
-		maxhp smallint(6) NOT NULL default '0',\
-		magic tinyint(3)  NOT NULL default '0',\
-		owner unsigned int(10) NOT NULL default '0',\
-		visible tinyint(3)  NOT NULL default '0',\
-		priv tinyint(3)  NOT NULL default '0',\
-		baseid varchar(64) NOT NULL default '',\
-		PRIMARY KEY (serial)\
-	);" },
-	{ "npcs", "CREATE TABLE npcs (\
-		serial unsigned int(10) NOT NULL default '0',\
-		summontime int(11)  NOT NULL default '0',\
-		additionalflags int(11)  NOT NULL default '0',\
-		owner unsigned int(10) NOT NULL default '0',\
-		stablemaster unsigned int(10) NOT NULL default '0',\
-		ai varchar(255) default NULL,\
-		wandertype smallint(3) NOT NULL default '0',\
-		wanderx1 smallint(6) NOT NULL default '0',\
-		wanderx2 smallint(6) NOT NULL default '0',\
-		wandery1 smallint(6) NOT NULL default '0',\
-		wandery2 smallint(6) NOT NULL default '0',\
-		wanderradius smallint(6) NOT NULL default '0',\
-		PRIMARY KEY (serial)\
-	);" },
-	{ "players", "CREATE TABLE players (\
-		serial unsigned int(10) NOT NULL default '0',\
-		account varchar(16) default NULL,\
-		additionalflags int(10) NOT NULL default '0',\
-		visualrange unsigned tinyint(3) NOT NULL default '0',\
-		profile longtext,\
-		fixedlight unsigned tinyint(3) NOT NULL default '0',\
-		strlock tinyint(4) NOT NULL default '0',\
-		dexlock tinyint(4) NOT NULL default '0',\
-		intlock tinyint(4) NOT NULL default '0',\
-		PRIMARY KEY (serial)\
-	);" },
-	{ "skills", "CREATE TABLE skills (\
-		serial unsigned int(10) NOT NULL default '0',\
-		skill unsigned tinyint(2) NOT NULL default '0',\
-		value smallint(6) NOT NULL default '0',\
-		locktype tinyint(4) default '0',\
-		cap smallint(6) default '0',\
-		PRIMARY KEY (serial,skill)\
-	);" },
-	{ "tags", "CREATE TABLE tags (\
-		serial unsigned int(10) NOT NULL default '0',\
-		name varchar(64) NOT NULL default '',\
-		type varchar(6) NOT NULL default '',\
-		value longtext NOT NULL,\
-		PRIMARY KEY (serial,name)\
-	);" },
-	{ "uobject", "CREATE TABLE uobject (\
-		name varchar(255) default NULL,\
-		serial unsigned int(10) NOT NULL default '0',\
-		multis unsigned int(10) NOT NULL default '0',\
-		pos_x unsigned smallint(5)  NOT NULL default '0',\
-		pos_y unsigned smallint(5)  NOT NULL default '0',\
-		pos_z tinyint(4) NOT NULL default '0',\
-		pos_map unsigned tinyint(1) NOT NULL default '0',  \
-		events varchar(255) default NULL,\
-		havetags unsigned tinyint(1) NOT NULL default '0',\
-		PRIMARY KEY (serial)\
-	);" },
-	{ "uobjectmap", "CREATE TABLE uobjectmap (\
-		serial unsigned int(10) NOT NULL default '0',\
-		type varchar(80)  NOT NULL default '',\
-		PRIMARY KEY (serial)\
-	);" },
-	{ "effects", "CREATE TABLE effects (\
-		id unsigned int(10) NOT NULL default '0',\
-		objectid varchar(64) NOT NULL,\
-		expiretime unsigned int(10) NOT NULL,\
-		dispellable tinyint(4) NOT NULL default '0',\
-		source unsigned int(10) NOT NULL default '0',\
-		destination unsigned int(10) NOT NULL default '0',\
-		PRIMARY KEY (id)\
-	);" },
-	{ "effects_properties", "CREATE TABLE effects_properties (\
-		id unsigned int(10) NOT NULL default '0',\
-		keyname varchar(64) NOT NULL,\
-		type varchar(64) NOT NULL,\
-		value text NOT NULL,\
-		PRIMARY KEY (id,keyname)\
-	);" },
-	{ "spawnregions", "CREATE TABLE spawnregions (\
-		spawnregion varchar(64) NOT NULL,\
-		serial unsigned int(10) NOT NULL default '0',\
-		PRIMARY KEY (spawnregion, serial)\
-	);" },
-	{ NULL, NULL }
+{ "guilds", "CREATE TABLE guilds ( \
+serial unsigned int(10) NOT NULL default '0', \
+name varchar(255) NOT NULL default '', \
+abbreviation varchar(6) NOT NULL default '', \
+charta LONGTEXT NOT NULL, \
+website varchar(255) NOT NULL default 'http://www.wpdev.org', \
+alignment tinyint(2) NOT NULL default '0', \
+leader unsigned int(10) NOT NULL default '0', \
+founded int(11) NOT NULL default '0', \
+guildstone unsigned int(10) NOT NULL default '0', \
+PRIMARY KEY(serial) \
+);" },
+{ "guilds_members", "CREATE TABLE guilds_members ( \
+guild unsigned int(10) NOT NULL default '0', \
+player unsigned int(10) NOT NULL default '0', \
+showsign unsigned tinyint(1) NOT NULL default '0', \
+guildtitle varchar(255) NOT NULL default '', \
+joined int(11) NOT NULL default '0', \
+PRIMARY KEY(guild,player) \
+);"},
+{ "guilds_canidates", "CREATE TABLE guilds_canidates ( \
+guild unsigned int(10) NOT NULL default '0', \
+player unsigned int(10) NOT NULL default '0', \
+PRIMARY KEY(guild,player) \
+);"},
+{ "settings", "CREATE TABLE settings ( \
+option varchar(255) NOT NULL default '', \
+value varchar(255) NOT NULL default '', \
+PRIMARY KEY (option) \
+);" },
+{ "characters", "CREATE TABLE characters (\
+serial unsigned int(10) NOT NULL default '0',\
+name varchar(255) default NULL,\
+title varchar(255) default NULL,\
+creationdate varchar(19) default NULL,\
+body unsigned smallint(5)  NOT NULL default '0',\
+orgbody unsigned smallint(5)  NOT NULL default '0',\
+skin unsigned smallint(5)  NOT NULL default '0',\
+orgskin unsigned smallint(5)  NOT NULL default '0',\
+saycolor unsigned smallint(5)  NOT NULL default '0',\
+emotecolor unsigned smallint(5)  NOT NULL default '0',\
+strength smallint(6) NOT NULL default '0',\
+strengthmod smallint(6) NOT NULL default '0',\
+dexterity smallint(6) NOT NULL default '0',\
+dexteritymod smallint(6) NOT NULL default '0',\
+intelligence smallint(6) NOT NULL default '0',\
+intelligencemod smallint(6) NOT NULL default '0',\
+maxhitpoints smallint(6) NOT NULL default '0',\
+hitpoints smallint(6) NOT NULL default '0',\
+maxstamina smallint(6) NOT NULL default '0',\
+stamina smallint(6) NOT NULL default '0',\
+maxmana smallint(6) default NULL,\
+mana smallint(6) default NULL,\
+karma int(11) NOT NULL default '0',\
+fame int(11) NOT NULL default '0',\
+kills unsigned int(10) NOT NULL default '0',\
+deaths unsigned int(10) NOT NULL default '0',\
+hunger unsigned int(10) NOT NULL default '0',\
+poison tinyint(2) NOT NULL default '-1',\
+murderertime unsigned int(10) NOT NULL default '0',\
+criminaltime unsigned int(10) NOT NULL default '0',\
+gender unsigned tinyint(1) NOT NULL default '0',\
+propertyflags int(11)  NOT NULL default '0',\
+murderer unsigned int(10) NOT NULL default '0',\
+guarding unsigned int(10) NOT NULL default '0',\
+hitpointsbonus smallint(6) NOT NULL default '0',\
+staminabonus smallint(6) NOT NULL default '0',\
+manabonus smallint(6) NOT NULL default '0',\
+strcap tinyint(4)  NOT NULL default '125',\
+dexcap tinyint(4)  NOT NULL default '125',\
+intcap tinyint(4)  NOT NULL default '125',\
+statcap tinyint(4)  NOT NULL default '225',\
+baseid varchar(64) NOT NULL default '',\
+direction unsigned tinyint(1) NOT NULL default '0',\
+PRIMARY KEY (serial)\
+);" },
+{ "corpses", "CREATE TABLE corpses (\
+serial unsigned int(10) NOT NULL default '0',\
+bodyid unsigned smallint(5) NOT NULL default '0',\
+hairstyle unsigned smallint(5) NOT NULL default '0',\
+haircolor unsigned smallint(5) NOT NULL default '0',\
+beardstyle unsigned smallint(5) NOT NULL default '0',\
+beardcolor unsigned smallint(5) NOT NULL default '0',\
+direction unsigned tinyint(1) NOT NULL default '0',\
+charbaseid varchar(64) NOT NULL default '',\
+murderer unsigned int(10) NOT NULL default '0',\
+murdertime unsigned int(10) NOT NULL default '0',\
+PRIMARY KEY (serial)\
+);" },
+{ "corpses_equipment", "CREATE TABLE corpses_equipment (\
+serial unsigned int(10) NOT NULL default '0',\
+layer unsigned tinyint(3)  NOT NULL default '0',\
+item unsigned int(10) NOT NULL default '0',  \
+PRIMARY KEY (serial,layer)\
+);" },
+{ "items", "CREATE TABLE items (\
+serial unsigned int(10) NOT NULL default '0',\
+id unsigned smallint(5) NOT NULL default '0',\
+color unsigned smallint(5) NOT NULL default '0',\
+cont unsigned int(10) NOT NULL default '0',\
+layer unsigned tinyint(3) NOT NULL default '0',\
+amount smallint(5)  NOT NULL default '0',\
+hp smallint(6) NOT NULL default '0',\
+maxhp smallint(6) NOT NULL default '0',\
+magic tinyint(3)  NOT NULL default '0',\
+owner unsigned int(10) NOT NULL default '0',\
+visible tinyint(3)  NOT NULL default '0',\
+priv tinyint(3)  NOT NULL default '0',\
+baseid varchar(64) NOT NULL default '',\
+PRIMARY KEY (serial)\
+);" },
+{ "npcs", "CREATE TABLE npcs (\
+serial unsigned int(10) NOT NULL default '0',\
+summontime int(11)  NOT NULL default '0',\
+additionalflags int(11)  NOT NULL default '0',\
+owner unsigned int(10) NOT NULL default '0',\
+stablemaster unsigned int(10) NOT NULL default '0',\
+ai varchar(255) default NULL,\
+wandertype smallint(3) NOT NULL default '0',\
+wanderx1 smallint(6) NOT NULL default '0',\
+wanderx2 smallint(6) NOT NULL default '0',\
+wandery1 smallint(6) NOT NULL default '0',\
+wandery2 smallint(6) NOT NULL default '0',\
+wanderradius smallint(6) NOT NULL default '0',\
+PRIMARY KEY (serial)\
+);" },
+{ "players", "CREATE TABLE players (\
+serial unsigned int(10) NOT NULL default '0',\
+account varchar(16) default NULL,\
+additionalflags int(10) NOT NULL default '0',\
+visualrange unsigned tinyint(3) NOT NULL default '0',\
+profile longtext,\
+fixedlight unsigned tinyint(3) NOT NULL default '0',\
+strlock tinyint(4) NOT NULL default '0',\
+dexlock tinyint(4) NOT NULL default '0',\
+intlock tinyint(4) NOT NULL default '0',\
+PRIMARY KEY (serial)\
+);" },
+{ "skills", "CREATE TABLE skills (\
+serial unsigned int(10) NOT NULL default '0',\
+skill unsigned tinyint(2) NOT NULL default '0',\
+value smallint(6) NOT NULL default '0',\
+locktype tinyint(4) default '0',\
+cap smallint(6) default '0',\
+PRIMARY KEY (serial,skill)\
+);" },
+{ "tags", "CREATE TABLE tags (\
+serial unsigned int(10) NOT NULL default '0',\
+name varchar(64) NOT NULL default '',\
+type varchar(6) NOT NULL default '',\
+value longtext NOT NULL,\
+PRIMARY KEY (serial,name)\
+);" },
+{ "uobject", "CREATE TABLE uobject (\
+name varchar(255) default NULL,\
+serial unsigned int(10) NOT NULL default '0',\
+multis unsigned int(10) NOT NULL default '0',\
+pos_x unsigned smallint(5)  NOT NULL default '0',\
+pos_y unsigned smallint(5)  NOT NULL default '0',\
+pos_z tinyint(4) NOT NULL default '0',\
+pos_map unsigned tinyint(1) NOT NULL default '0',  \
+events varchar(255) default NULL,\
+havetags unsigned tinyint(1) NOT NULL default '0',\
+PRIMARY KEY (serial)\
+);" },
+{ "uobjectmap", "CREATE TABLE uobjectmap (\
+serial unsigned int(10) NOT NULL default '0',\
+type varchar(80)  NOT NULL default '',\
+PRIMARY KEY (serial)\
+);" },
+{ "effects", "CREATE TABLE effects (\
+id unsigned int(10) NOT NULL default '0',\
+objectid varchar(64) NOT NULL,\
+expiretime unsigned int(10) NOT NULL,\
+dispellable tinyint(4) NOT NULL default '0',\
+source unsigned int(10) NOT NULL default '0',\
+destination unsigned int(10) NOT NULL default '0',\
+PRIMARY KEY (id)\
+);" },
+{ "effects_properties", "CREATE TABLE effects_properties (\
+id unsigned int(10) NOT NULL default '0',\
+keyname varchar(64) NOT NULL,\
+type varchar(64) NOT NULL,\
+value text NOT NULL,\
+PRIMARY KEY (id,keyname)\
+);" },
+{ "spawnregions", "CREATE TABLE spawnregions (\
+spawnregion varchar(64) NOT NULL,\
+serial unsigned int(10) NOT NULL default '0',\
+PRIMARY KEY (spawnregion, serial)\
+);" },
+{ NULL, NULL }
 };
 
 /*****************************************************************************
@@ -397,29 +397,33 @@ void cWorld::unload()
 	32-bit value1
 	32-bit value2 (only used for doubles)
 */
-void cWorld::loadTag(cBufferedReader &reader, unsigned int version) {
-	cUObject *object = findObject(reader.readInt());
+void cWorld::loadTag( cBufferedReader& reader, unsigned int version )
+{
+	cUObject *object = findObject( reader.readInt() );
 	QString name = reader.readUtf8();
 	cVariant variant;
-	variant.serialize(reader, version);
+	variant.serialize( reader, version );
 
-	if (object) {
-		object->setTag(name, variant);
+	if ( object )
+	{
+		object->setTag( name, variant );
 	}
 }
 
 void cWorld::load()
 {
-	if (Config::instance()->databaseDriver() == "binary") {
+	if ( Config::instance()->databaseDriver() == "binary" )
+	{
 		QString filename = "world.bin";
 
-		if (QFile::exists(filename)) {
-			cBufferedReader reader("WOLFPACK", DATABASE_VERSION);
-			reader.open(filename);
+		if ( QFile::exists( filename ) )
+		{
+			cBufferedReader reader( "WOLFPACK", DATABASE_VERSION );
+			reader.open( filename );
 
-			Console::instance()->log(LOG_MESSAGE, QString("Loading %1 objects from %2.\n").arg(reader.objectCount()).arg(filename));
-			Console::instance()->send("0%");
-		
+			Console::instance()->log( LOG_MESSAGE, QString( "Loading %1 objects from %2.\n" ).arg( reader.objectCount() ).arg( filename ) );
+			Console::instance()->send( "0%" );
+
 			unsigned char type;
 			const QMap<unsigned char, QCString> &typemap = reader.typemap();
 			const QMap<unsigned char, QString> &server_typemap = UObjectFactory::instance()->getTypemap();
@@ -429,49 +433,65 @@ void cWorld::load()
 			unsigned int percent = 0;
 			unsigned int loadStart = getNormalizedTime();
 
-			do {
+			do
+			{
 				type = reader.readByte();
 
-				if (typemap.contains(type)) {
-					if (!server_typemap.contains(type)) {
+				if ( typemap.contains( type ) )
+				{
+					if ( !server_typemap.contains( type ) )
+					{
 						// Get the size for this block from the worldfile
 						// and skip the entire block
-						Console::instance()->log(LOG_WARNING, QString("Skipping unknown object type %1.").arg(typemap[type]));
-					} else {
-						cUObject *object = UObjectFactory::instance()->createObject(typemap[type]);
-						try {
-							object->load(reader);
-						} catch(wpException e) {
-							
+						Console::instance()->log( LOG_WARNING, QString( "Skipping unknown object type %1." ).arg( typemap[type] ) );
+					}
+					else
+					{
+						cUObject *object = UObjectFactory::instance()->createObject( typemap[type] );
+						try
+						{
+							object->load( reader );
+						}
+						catch ( wpException e )
+						{
 						}
 					}
 
 					loaded += 100;
-                    percent = loaded / count;
-					if (percent != lastpercent) {
-						unsigned int revert = QString::number(lastpercent).length() + 1;
-						for (unsigned int i = 0; i < revert; ++i) {
-							Console::instance()->send("\b");
+					percent = loaded / count;
+					if ( percent != lastpercent )
+					{
+						unsigned int revert = QString::number( lastpercent ).length() + 1;
+						for ( unsigned int i = 0; i < revert; ++i )
+						{
+							Console::instance()->send( "\b" );
 						}
 
 						lastpercent = percent;
-						Console::instance()->send(QString::number(percent) + "%");
+						Console::instance()->send( QString::number( percent ) + "%" );
 					}
-				// Special Type for Tags
-				} else if (type == 0xFE) {
-					loadTag(reader, reader.version());					
-				} else if (type != 0xFF) {
-					throw wpException(QString("Invalid worldfile, unknown and unskippable type %1.").arg(type));
+					// Special Type for Tags
 				}
-			} while (type != 0xFF);
+				else if ( type == 0xFE )
+				{
+					loadTag( reader, reader.version() );
+				}
+				else if ( type != 0xFF )
+				{
+					throw wpException( QString( "Invalid worldfile, unknown and unskippable type %1." ).arg( type ) );
+				}
+			}
+			while ( type != 0xFF );
 			reader.close();
 
 			unsigned int duration = getNormalizedTime() - loadStart;
 
-			Console::instance()->send("\b\b\b\b"); // 100%
-			Console::instance()->log(LOG_MESSAGE, QString("The world loaded in %1 ms.\n").arg(duration));
+			Console::instance()->send( "\b\b\b\b" ); // 100%
+			Console::instance()->log( LOG_MESSAGE, QString( "The world loaded in %1 ms.\n" ).arg( duration ) );
 		}
-	} else {
+	}
+	else
+	{
 		if ( !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
 		{
 			Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
@@ -699,18 +719,18 @@ void cWorld::load()
 		}
 
 		// Load SpawnRegion information
-		cDBResult result = PersistentBroker::instance()->query("SELECT spawnregion,serial FROM spawnregions;");
+		cDBResult result = PersistentBroker::instance()->query( "SELECT spawnregion,serial FROM spawnregions;" );
 
-		while (result.fetchrow())
+		while ( result.fetchrow() )
 		{
-			QString spawnregion = result.getString(0);
-			SERIAL serial = result.getInt(1);
+			QString spawnregion = result.getString( 0 );
+			SERIAL serial = result.getInt( 1 );
 
-			cSpawnRegion *region = SpawnRegions::instance()->region(spawnregion);
-			cUObject *object = findObject(serial);
-			if (object && region)
+			cSpawnRegion *region = SpawnRegions::instance()->region( spawnregion );
+			cUObject *object = findObject( serial );
+			if ( object && region )
 			{
-				object->setSpawnregion(region);
+				object->setSpawnregion( region );
 			}
 		}
 
@@ -764,34 +784,42 @@ void cWorld::save()
 		}
 	}
 
-	try {
+	try
+	{
 		unsigned int startTime = getNormalizedTime();
 
-		if (Config::instance()->databaseDriver() == "binary") {
+		if ( Config::instance()->databaseDriver() == "binary" )
+		{
 			// Save in binary format
 			cItemIterator itemIterator;
 			P_ITEM item;
-			cBufferedWriter writer("WOLFPACK", DATABASE_VERSION);
-			writer.open("world.bin");
+			cBufferedWriter writer( "WOLFPACK", DATABASE_VERSION );
+			writer.open( "world.bin" );
 			const QMap<unsigned char, QString> &typemap = UObjectFactory::instance()->getTypemap();
 
-			for (item = itemIterator.first(); item; item = itemIterator.next()) {
-				if (!item->container() && !item->multi()) {
-					item->save(writer);
+			for ( item = itemIterator.first(); item; item = itemIterator.next() )
+			{
+				if ( !item->container() && !item->multi() )
+				{
+					item->save( writer );
 				}
 			}
 
 			cCharIterator charIterator;
 			P_CHAR character;
-			for (character = charIterator.first(); character; character = charIterator.next()) {
-				if (!character->multi()) {
-					character->save(writer);
+			for ( character = charIterator.first(); character; character = charIterator.next() )
+			{
+				if ( !character->multi() )
+				{
+					character->save( writer );
 				}
 			}
 
-			writer.writeByte(0xFF); // Terminator Type
+			writer.writeByte( 0xFF ); // Terminator Type
 			writer.close();
-		} else {
+		}
+		else
+		{
 			if ( !PersistentBroker::instance()->openDriver( Config::instance()->databaseDriver() ) )
 			{
 				Console::instance()->log( LOG_ERROR, QString( "Unknown Worldsave Database Driver '%1', check your wolfpack.xml" ).arg( Config::instance()->databaseDriver() ) );
@@ -830,18 +858,18 @@ void cWorld::save()
 
 			PersistentBroker::instance()->startTransaction();
 
-			PersistentBroker::instance()->executeQuery("DELETE FROM spawnregions;");
+			PersistentBroker::instance()->executeQuery( "DELETE FROM spawnregions;" );
 
 			cItemIterator iItems;
 			for ( P_ITEM pItem = iItems.first(); pItem; pItem = iItems.next() )
 			{
 				PersistentBroker::instance()->saveObject( pItem );
 
-				if (pItem->spawnregion())
+				if ( pItem->spawnregion() )
 				{
-					QString name = PersistentBroker::instance()->quoteString(pItem->spawnregion()->name());
-					QString query = QString("INSERT INTO spawnregions VALUES('%1',%2);").arg(name).arg(pItem->serial());
-					PersistentBroker::instance()->executeQuery(query);
+					QString name = PersistentBroker::instance()->quoteString( pItem->spawnregion()->name() );
+					QString query = QString( "INSERT INTO spawnregions VALUES('%1',%2);" ).arg( name ).arg( pItem->serial() );
+					PersistentBroker::instance()->executeQuery( query );
 				}
 			}
 
@@ -850,11 +878,11 @@ void cWorld::save()
 			{
 				PersistentBroker::instance()->saveObject( pChar );
 
-				if (pChar->spawnregion())
+				if ( pChar->spawnregion() )
 				{
-					QString name = PersistentBroker::instance()->quoteString(pChar->spawnregion()->name());
-					QString query = QString("INSERT INTO spawnregions VALUES('%1',%2);").arg(name).arg(pChar->serial());
-					PersistentBroker::instance()->executeQuery(query);
+					QString name = PersistentBroker::instance()->quoteString( pChar->spawnregion()->name() );
+					QString query = QString( "INSERT INTO spawnregions VALUES('%1',%2);" ).arg( name ).arg( pChar->serial() );
+					PersistentBroker::instance()->executeQuery( query );
 				}
 			}
 
@@ -867,7 +895,7 @@ void cWorld::save()
 			// Save the Current Time
 			setOption( "worldtime", QString::number( UoTime::instance()->getMinutes() ), false );
 
-            // Save the accounts
+			// Save the accounts
 			Accounts::instance()->save();
 
 			PersistentBroker::instance()->disconnect();
@@ -1058,9 +1086,12 @@ void cWorld::registerObject( SERIAL serial, cUObject* object )
 		if ( serial > _lastCharSerial )
 			_lastCharSerial = serial;
 
-		if (pChar->objectType() == enPlayer) {
+		if ( pChar->objectType() == enPlayer )
+		{
 			++_playerCount;
-		} else if (pChar->objectType() == enNPC) {
+		}
+		else if ( pChar->objectType() == enNPC )
+		{
 			++_npcCount;
 		}
 	}
@@ -1111,9 +1142,12 @@ void cWorld::unregisterObject( SERIAL serial )
 		}
 
 		P_CHAR pChar = it->second;
-		if (pChar->objectType() == enPlayer) {
+		if ( pChar->objectType() == enPlayer )
+		{
 			--_playerCount;
-		} else if (pChar->objectType() == enNPC) {
+		}
+		else if ( pChar->objectType() == enNPC )
+		{
 			--_npcCount;
 		}
 

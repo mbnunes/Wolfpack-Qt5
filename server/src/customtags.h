@@ -71,15 +71,15 @@ public:
 	cVariant( const cVariant& v );
 	cVariant( const QString& );
 	cVariant( int );
-	cVariant( unsigned int);
+	cVariant( unsigned int );
 	cVariant( cBaseChar* );
 	cVariant( cItem* );
 	cVariant( const Coord_cl& );
 	cVariant( double );
 	cVariant( long int );
 
-	void serialize(cBufferedWriter &writer, unsigned int version);
-	void serialize(cBufferedReader &reader, unsigned int version);
+	void serialize( cBufferedWriter& writer, unsigned int version );
+	void serialize( cBufferedReader& reader, unsigned int version );
 
 	Type type() const;
 	const char* typeName() const;
@@ -159,7 +159,7 @@ public:
 
 	QValueList<cVariant> getValues();
 
-	void save(SERIAL serial, cBufferedWriter &writer);
+	void save( SERIAL serial, cBufferedWriter& writer );
 
 	bool getChanged() const
 	{

@@ -210,13 +210,16 @@ public:
 	unsigned int animalWildFleeRange() const;
 	float checkFollowTime() const;
 	float checkTamedTime() const;
-	bool antiSpeedHack() const {
+	bool antiSpeedHack() const
+	{
 		return antiSpeedHack_;
 	}
-	unsigned int antiSpeedHackDelay() const {
+	unsigned int antiSpeedHackDelay() const
+	{
 		return antiSpeedHackDelay_;
 	}
-	unsigned int antiSpeedHackDelayMounted() const {
+	unsigned int antiSpeedHackDelayMounted() const
+	{
 		return antiSpeedHackDelayMounted_;
 	}
 	int niceLevel() const;
@@ -234,7 +237,8 @@ public:
 	float boatSpeed() const;
 	unsigned int tamedDisappear() const;
 	unsigned int houseInTown() const;
-	inline bool dontStackSpawnedObjects() const {
+	inline bool dontStackSpawnedObjects() const
+	{
 		return dontStackSpawnedObjects_;
 	}
 
@@ -737,7 +741,7 @@ inline bool cConfig::overwriteDefinitions() const
 
 inline unsigned int cConfig::maxCharsPerAccount() const
 {
-	return (unsigned int) maxCharsPerAccount_;
+	return ( unsigned int ) maxCharsPerAccount_;
 }
 
 typedef SingletonHolder<cConfig> Config;

@@ -71,7 +71,7 @@
 // List of skill numbers (For later implementation)
 enum eSkills
 {
-	ALCHEMY = 0,
+	ALCHEMY				= 0,
 	ANATOMY,
 	ANIMALLORE,
 	ITEMID,

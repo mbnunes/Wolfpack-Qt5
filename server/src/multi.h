@@ -45,7 +45,8 @@ protected:
 	QPtrList<cUObject> objects;
 
 public:
-	unsigned char getClassid() {
+	unsigned char getClassid()
+	{
 		return cMulti::classid;
 	}
 
@@ -61,7 +62,7 @@ public:
 	void load( char **, UINT16& );
 	void save();
 	bool del();*/
-	void save(cBufferedWriter &writer);
+	void save( cBufferedWriter& writer );
 
 	// Find at certain position
 	static cMulti* find( const Coord_cl& pos );
@@ -71,7 +72,7 @@ public:
 
 	// Property Interface Methods
 	stError* setProperty( const QString& name, const cVariant& value );
-	PyObject *getProperty(const QString& name);
+	PyObject* getProperty( const QString& name );
 
 	// Python Interface Methods
 	PyObject* getPyObject();

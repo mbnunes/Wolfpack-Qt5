@@ -112,16 +112,18 @@ void cPlayer::buildSqlString( QStringList& fields, QStringList& tables, QStringL
 
 static void playerRegisterAfterLoading( P_PLAYER pc );
 
-void cPlayer::load(cBufferedReader &reader) {
-	load(reader, reader.version());
+void cPlayer::load( cBufferedReader& reader )
+{
+	load( reader, reader.version() );
 
-	World::instance()->registerObject(this);
-	SectorMaps::instance()->add(this);
+	World::instance()->registerObject( this );
+	SectorMaps::instance()->add( this );
 }
 
-void cPlayer::load(cBufferedReader &reader, unsigned int version) {
-	cBaseChar::load(reader, version);
-	setAccount(Accounts::instance()->getRecord(reader.readUtf8()));
+void cPlayer::load( cBufferedReader& reader, unsigned int version )
+{
+	cBaseChar::load( reader, version );
+	setAccount( Accounts::instance()->getRecord( reader.readUtf8() ) );
 	additionalFlags_ = reader.readInt();
 	visualRange_ = reader.readByte();
 	profile_ = reader.readUtf8();
@@ -131,16 +133,17 @@ void cPlayer::load(cBufferedReader &reader, unsigned int version) {
 	intelligenceLock_ = reader.readByte();
 }
 
-void cPlayer::save(cBufferedWriter &writer, unsigned int version) {
-	cBaseChar::save(writer, version);
-	writer.writeUtf8(account_ ? account_->login() : QString::null);
-	writer.writeInt(additionalFlags_);
-	writer.writeByte(visualRange_);
-	writer.writeUtf8(profile_);
-	writer.writeByte(fixedLightLevel_);
-	writer.writeByte(strengthLock_);
-	writer.writeByte(dexterityLock_);
-	writer.writeByte(intelligenceLock_);
+void cPlayer::save( cBufferedWriter& writer, unsigned int version )
+{
+	cBaseChar::save( writer, version );
+	writer.writeUtf8( account_ ? account_->login() : QString::null );
+	writer.writeInt( additionalFlags_ );
+	writer.writeByte( visualRange_ );
+	writer.writeUtf8( profile_ );
+	writer.writeByte( fixedLightLevel_ );
+	writer.writeByte( strengthLock_ );
+	writer.writeByte( dexterityLock_ );
+	writer.writeByte( intelligenceLock_ );
 }
 
 void cPlayer::load( char** result, UINT16& offset )
@@ -275,7 +278,7 @@ void cPlayer::resend( bool clean )
 				sendTooltip( socket );
 
 				// Send equipment tooltips to other players as well
-				for ( ItemContainer::const_iterator it(content_.begin()); it != content_.end(); ++it )
+				for ( ItemContainer::const_iterator it( content_.begin() ); it != content_.end(); ++it )
 				{
 					it.data()->sendTooltip( socket );
 				}
@@ -290,7 +293,7 @@ void cPlayer::resend( bool clean )
 
 void cPlayer::talk( const QString& message, UI16 color, UINT8 type, bool autospam, cUOSocket* socket )
 {
-	Q_UNUSED(autospam);
+	Q_UNUSED( autospam );
 	if ( color == 0xFFFF )
 		color = saycolor_;
 
@@ -602,7 +605,7 @@ void cPlayer::showName( cUOSocket* socket )
 	if ( !isIncognito() && fame_ >= 10000 )
 		charName.prepend( gender_ ? tr( "Lady " ) : tr( "Lord " ) );
 
-	QString affix("");
+	QString affix( "" );
 
 	if ( !isIncognito() && guild_ && !guild_->abbreviation().isEmpty() )
 	{
@@ -1259,24 +1262,25 @@ stError* cPlayer::setProperty( const QString& name, const cVariant& value )
 	return cBaseChar::setProperty( name, value );
 }
 
-PyObject *cPlayer::getProperty(const QString& name) {
-	PY_PROPERTY("account", account_)
+PyObject* cPlayer::getProperty( const QString& name )
+{
+	PY_PROPERTY( "account", account_ )
 	/*
 	\rproperty controlslots The amount of controlslots currently used for this
 	player.
 	This property is only available for player objects.
 	*/
-	PY_PROPERTY( "controlslots",  controlslots() )
-	PY_PROPERTY( "logouttime",  logoutTime_ )
+	PY_PROPERTY( "controlslots", controlslots() )
+	PY_PROPERTY( "logouttime", logoutTime_ )
 	PY_PROPERTY( "npc", false )
 	PY_PROPERTY( "lightbonus", fixedLightLevel_ )
-	PY_PROPERTY( "objectdelay",  objectDelay_ )
+	PY_PROPERTY( "objectdelay", objectDelay_ )
 	PY_PROPERTY( "visrange", visualRange_ )
 	PY_PROPERTY( "profile", profile_ )
 	PY_PROPERTY( "strengthlock", strengthLock_ )
 	PY_PROPERTY( "dexteritylock", dexterityLock_ )
 	PY_PROPERTY( "intelligencelock", intelligenceLock_ )
-	return cBaseChar::getProperty(name);
+	return cBaseChar::getProperty( name );
 }
 
 void cPlayer::awardFame( short amount )
@@ -1651,7 +1655,7 @@ void cPlayer::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 {
 	cUObject::createTooltip( tooltip, player );
 
-	QString affix(" ");
+	QString affix( " " );
 
 	// Append the (frozen) tag
 	if ( isFrozen() )

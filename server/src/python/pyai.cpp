@@ -57,21 +57,21 @@ int wpAI_compare( PyObject* a, PyObject* b );
 */
 static PyTypeObject wpAIType =
 {
-	PyObject_HEAD_INIT( &PyType_Type )
-	0,
-	"wpai",
-	sizeof( wpAIType ),
-	0,
-	//FreeItemObject,
-	wpDealloc,
-	0,
-	( getattrfunc ) wpAI_getAttr,
-	( setattrfunc ) wpAI_setAttr,
-	wpAI_compare,
-	0,
-	0,
-	0,
-	0,
+PyObject_HEAD_INIT( &PyType_Type )
+0,
+"wpai",
+sizeof( wpAIType ),
+0,
+//FreeItemObject,
+wpDealloc,
+0,
+( getattrfunc ) wpAI_getAttr,
+( setattrfunc ) wpAI_setAttr,
+wpAI_compare,
+0,
+0,
+0,
+0,
 };
 
 PyObject* PyGetAIObject( AbstractAI* ai )
@@ -113,8 +113,8 @@ static PyObject* wpAI_onSpeechInput( wpAI* self, PyObject* args )
 
 static PyMethodDef wpAIMethods[] =
 {
-	{ "onSpeechInput",			( getattrofunc ) wpAI_onSpeechInput, METH_VARARGS, "Executes the onSpeechInput event" },
-	{ NULL, NULL, 0, NULL }
+{ "onSpeechInput",			( getattrofunc ) wpAI_onSpeechInput, METH_VARARGS, "Executes the onSpeechInput event" },
+{ NULL, NULL, 0, NULL }
 };
 
 // Getters + Setters
@@ -128,9 +128,9 @@ static PyObject* wpAI_getAttr( wpAI* self, char* name )
 static int wpAI_setAttr( wpAI* self, char* name, PyObject* value )
 {
 	// Special Python things.
-	Q_UNUSED(self);
-	Q_UNUSED(name);
-	Q_UNUSED(value);
+	Q_UNUSED( self );
+	Q_UNUSED( name );
+	Q_UNUSED( value );
 	return 0;
 }
 

@@ -128,13 +128,16 @@ bool cShowTarget::responsed( cUOSocket* socket, cUORxTarget* target )
 	else
 		pObject = pItem;
 
-	PyObject *result = pObject->getProperty(key);
+	PyObject *result = pObject->getProperty( key );
 
-	if (!result) {
-		socket->sysMessage(tr("Unknown property: '%1'").arg(key));
-	} else {
-		socket->sysMessage(tr("'%1' is '%2'").arg(key).arg(PyString_AsString(PyObject_Str(result))));
-		Py_DECREF(result);
+	if ( !result )
+	{
+		socket->sysMessage( tr( "Unknown property: '%1'" ).arg( key ) );
+	}
+	else
+	{
+		socket->sysMessage( tr( "'%1' is '%2'" ).arg( key ).arg( PyString_AsString( PyObject_Str( result ) ) ) );
+		Py_DECREF( result );
 	}
 	return true;
 }

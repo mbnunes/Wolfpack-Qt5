@@ -67,8 +67,9 @@ void cCorpse::buildSqlString( QStringList& fields, QStringList& tables, QStringL
 	conditions.push_back( "uobjectmap.serial = corpses.serial" );
 }
 
-void cCorpse::load(cBufferedReader &reader, unsigned int version) {
-	cItem::load(reader, version);
+void cCorpse::load( cBufferedReader& reader, unsigned int version )
+{
+	cItem::load( reader, version );
 	bodyId_ = reader.readShort();
 	hairStyle_ = reader.readShort();
 	hairColor_ = reader.readShort();
@@ -81,33 +82,40 @@ void cCorpse::load(cBufferedReader &reader, unsigned int version) {
 
 	// Write a serial for every possible layer (fixed block size)
 	unsigned char layer;
-	for (layer = cBaseChar::SingleHandedWeapon; layer <= cBaseChar::Mount; ++layer) {
+	for ( layer = cBaseChar::SingleHandedWeapon; layer <= cBaseChar::Mount; ++layer )
+	{
 		SERIAL serial = reader.readInt();
-		if (serial != INVALID_SERIAL) {
-			equipment_.insert(layer, serial);
+		if ( serial != INVALID_SERIAL )
+		{
+			equipment_.insert( layer, serial );
 		}
 	}
 }
 
-void cCorpse::save(cBufferedWriter &writer, unsigned int version) {
-	cItem::save(writer, version);
-	writer.writeShort(bodyId_);
-	writer.writeShort(hairStyle_);
-	writer.writeShort(hairColor_);
-	writer.writeShort(beardStyle_);
-	writer.writeShort(beardColor_);
-	writer.writeByte(direction_);
-	writer.writeAscii(charbaseid_);
-	writer.writeInt(murderer_);
-	writer.writeInt(murdertime_);
+void cCorpse::save( cBufferedWriter& writer, unsigned int version )
+{
+	cItem::save( writer, version );
+	writer.writeShort( bodyId_ );
+	writer.writeShort( hairStyle_ );
+	writer.writeShort( hairColor_ );
+	writer.writeShort( beardStyle_ );
+	writer.writeShort( beardColor_ );
+	writer.writeByte( direction_ );
+	writer.writeAscii( charbaseid_ );
+	writer.writeInt( murderer_ );
+	writer.writeInt( murdertime_ );
 
 	// Write a serial for every possible layer (fixed block size)
 	unsigned char layer;
-	for (layer = cBaseChar::SingleHandedWeapon; layer <= cBaseChar::Mount; ++layer) {
-		if (equipment_.contains(layer)) {
-			writer.writeInt(equipment_[layer]);
-		} else {
-			writer.writeInt(INVALID_SERIAL);
+	for ( layer = cBaseChar::SingleHandedWeapon; layer <= cBaseChar::Mount; ++layer )
+	{
+		if ( equipment_.contains( layer ) )
+		{
+			writer.writeInt( equipment_[layer] );
+		}
+		else
+		{
+			writer.writeInt( INVALID_SERIAL );
 		}
 	}
 }
@@ -288,7 +296,7 @@ void cCorpse::addEquipment( UINT8 layer, SERIAL serial )
 		return;
 	}
 
-	equipment_.insert(layer, serial);
+	equipment_.insert( layer, serial );
 }
 
 cCorpse::cCorpse( bool init )
@@ -305,7 +313,7 @@ cCorpse::cCorpse( bool init )
 	murdertime_ = 0;
 	direction_ = 0;
 	id_ = 0x2006;
-	setBaseid("2006");
+	setBaseid( "2006" );
 }
 
 stError* cCorpse::setProperty( const QString& name, const cVariant& value )
@@ -316,43 +324,46 @@ stError* cCorpse::setProperty( const QString& name, const cVariant& value )
 	*/
 	SET_INT_PROPERTY( "bodyid", bodyId_ )
 	else
-	/*
-		\property item.hairstyle The id of the hairstyle displayed on the corpse.
-		For no hair use 0.
-		This property only exists for corpses.
-	*/
+		/*
+			\property item.hairstyle The id of the hairstyle displayed on the corpse.
+			For no hair use 0.
+			This property only exists for corpses.
+		*/
 		SET_INT_PROPERTY( "hairstyle", hairStyle_ )
 	else
-	/*
-		\property item.haircolor The color of the hair displayed on the corpse.
-		This property only exists for corpses.
-	*/
+		/*
+			\property item.haircolor The color of the hair displayed on the corpse.
+			This property only exists for corpses.
+		*/
 		SET_INT_PROPERTY( "haircolor", hairColor_ )
 	else
-	/*
-		\property item.beardstyle The id of the beardstyle displayed on the corpse.
-		For no beard use 0.
-		This property only exists for corpses.
-	*/
+		/*
+			\property item.beardstyle The id of the beardstyle displayed on the corpse.
+			For no beard use 0.
+			This property only exists for corpses.
+		*/
 		SET_INT_PROPERTY( "beardstyle", beardStyle_ )
 	else
-	/*
-		\property item.beardcolor The color of the beard displayed on the corpse.
-		This property only exists for corpses.
-	*/
+		/*
+			\property item.beardcolor The color of the beard displayed on the corpse.
+			This property only exists for corpses.
+		*/
 		SET_INT_PROPERTY( "beardcolor", beardColor_ )
 
-	/*
+		/*
 		\property item.murderer The character who killed this creature. May be None if the
 		character has been deleted or the owner of this corpse accidently died.
 		This property only exists for corpses.
-	*/
-	else if (name == "murderer")
+		*/
+	else if ( name == "murderer" )
 	{
 		P_CHAR pChar = value.toChar();
-		if (pChar) {
+		if ( pChar )
+		{
 			murderer_ = pChar->serial();
-		} else {
+		}
+		else
+		{
 			murderer_ = INVALID_SERIAL;
 		}
 	}
@@ -364,35 +375,36 @@ stError* cCorpse::setProperty( const QString& name, const cVariant& value )
 	else
 		SET_INT_PROPERTY( "murdertime", murdertime_ )
 
-	/*
+		/*
 		\property item.direction The direction this corpse is facing.
 		This property only exists for corpses.
-	*/
+		*/
 	else
 		SET_INT_PROPERTY( "direction", direction_ )
 
-	/*
+		/*
 		\property item.charbaseid The npc definition id of the murdererd creature.
 		This is used to derive the carve section for this corpse.
 		This property only exists for corpses.
-	*/
+		*/
 	else
 		SET_STR_PROPERTY( "charbaseid", charbaseid_ )
 
 	return cItem::setProperty( name, value );
 }
 
-PyObject* cCorpse::getProperty(const QString& name) {
+PyObject* cCorpse::getProperty( const QString& name )
+{
 	PY_PROPERTY( "bodyid", bodyId_ )
 	PY_PROPERTY( "hairstyle", hairStyle_ )
 	PY_PROPERTY( "haircolor", hairColor_ )
 	PY_PROPERTY( "beardstyle", beardStyle_ )
 	PY_PROPERTY( "beardcolor", beardColor_ )
-	PY_PROPERTY( "murderer", FindCharBySerial(murderer_) )
+	PY_PROPERTY( "murderer", FindCharBySerial( murderer_ ) )
 	PY_PROPERTY( "murdertime", murdertime_ )
 	PY_PROPERTY( "direction", direction_ )
 	PY_PROPERTY( "charbaseid", charbaseid_ )
-	return cItem::getProperty(name);
+	return cItem::getProperty( name );
 }
 
 void cCorpse::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
@@ -446,10 +458,12 @@ void cCorpse::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 	}
 }
 
-unsigned int cCorpse::decayDelay() {
+unsigned int cCorpse::decayDelay()
+{
 	unsigned int delay = cItem::decayDelay();
 
-	if (delay == 0) {
+	if ( delay == 0 )
+	{
 		return 0;
 	}
 

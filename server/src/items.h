@@ -61,17 +61,21 @@ protected:
 	unsigned char lightsource_;
 	unsigned int decaydelay_;
 	unsigned int flags_;
-	
+
 	// Misc Properties
 	bool loaded;
 	void load();
 	void reset();
 
-	inline void setWaterSource(bool data) {
-		if (data) {
+	inline void setWaterSource( bool data )
+	{
+		if ( data )
+		{
 			flags_ |= 0x01;
-		} else {
-			flags_ &= ~ 0x01;
+		}
+		else
+		{
+			flags_ &= ~0x01;
 		}
 	}
 public:
@@ -115,9 +119,9 @@ public:
 		return type_;
 	}
 
-	inline const QCString &bindmenu()
+	inline const QCString& bindmenu()
 	{
-        load();
+		load();
 		return bindmenu_;
 	}
 
@@ -127,9 +131,10 @@ public:
 		return lightsource_;
 	}
 
-	inline bool isWaterSource() {
+	inline bool isWaterSource()
+	{
 		load();
-		return (flags_ & 0x01) != 0;
+		return ( flags_ & 0x01 ) != 0;
 	}
 };
 
@@ -174,7 +179,8 @@ private:
 	} // easier to debug, compiler should make it inline;
 
 public:
-	unsigned char getClassid() {
+	unsigned char getClassid()
+	{
 		return cItem::classid;
 	}
 
@@ -192,9 +198,9 @@ public:
 	void save();
 	bool del();
 
-	void load(cBufferedReader &reader, unsigned int version);
-	void save(cBufferedWriter &reader, unsigned int version);
-	void postload(unsigned int version);
+	void load( cBufferedReader& reader, unsigned int version );
+	void save( cBufferedWriter& reader, unsigned int version );
+	void postload( unsigned int version );
 
 	void processContainerNode( const cElement* Tag );
 	virtual void update( cUOSocket* mSock = NULL );
@@ -202,7 +208,7 @@ public:
 	void soundEffect( UINT16 sound );
 
 	// Returns Zero if the item shouldn't decay
-    virtual unsigned int decayDelay();
+	virtual unsigned int decayDelay();
 
 	void sendTooltip( cUOSocket* mSock );
 	PyObject* getPyObject();
@@ -306,14 +312,15 @@ public:
 		flagChanged();
 	}
 
-	void save(cBufferedWriter &writer);
-	void load(cBufferedReader &reader);
+	void save( cBufferedWriter& writer );
+	void load( cBufferedReader& reader );
 
 	// Basedef Properties
-	inline bool isWaterSource() {
+	inline bool isWaterSource()
+	{
 		return basedef_ ? basedef_->isWaterSource() : false;
 	}
-	
+
 	inline float weight()
 	{
 		return basedef_ ? basedef_->weight() : 0.0f;
@@ -543,7 +550,7 @@ public:
 
 	void createTooltip( cUOTxTooltipList& tooltip, cPlayer* player );
 	virtual stError* setProperty( const QString& name, const cVariant& value );
-	virtual PyObject* getProperty(const QString& name);
+	virtual PyObject* getProperty( const QString& name );
 
 	////
 	virtual void flagUnchanged()

@@ -74,7 +74,7 @@ public:
 	typedef QValueVector<cTimer*> TimerContainer;
 	enum enLayer
 	{
-		TradeWindow = 0,
+		TradeWindow					= 0,
 		SingleHandedWeapon,
 		DualHandedWeapon,
 		Shoes,
@@ -83,12 +83,12 @@ public:
 		Hat,
 		Gloves,
 		Ring,
-		Neck = 0xA,
+		Neck						= 0xA,
 		Hair,
 		Waist,
 		InnerTorso,
 		Bracelet,
-		FacialHair = 0x10,
+		FacialHair					= 0x10,
 		MiddleTorso,
 		Earrings,
 		Arms,
@@ -107,7 +107,7 @@ public:
 
 	enum enBark
 	{
-		Bark_Attacking = 0,
+		Bark_Attacking		= 0,
 		Bark_Idle,
 		Bark_Hit,
 		Bark_GetHit,
@@ -118,11 +118,11 @@ public:
 	void load( char**, ushort& );
 	void save();
 	bool del();
-	void load(cBufferedReader &reader);
-	void load(cBufferedReader &reader, unsigned int version);
-	void save(cBufferedWriter &writer, unsigned int version);
-	void save(cBufferedWriter &writer);
-	void postload(unsigned int version);
+	void load( cBufferedReader& reader );
+	void load( cBufferedReader& reader, unsigned int version );
+	void save( cBufferedWriter& writer, unsigned int version );
+	void save( cBufferedWriter& writer );
+	void postload( unsigned int version );
 
 	// interface methods
 	// object type specific methods
@@ -147,9 +147,9 @@ public:
 	*/
 	enum TimingEvents
 	{
-		EventCombat = 0x01,
-		EventLight = 0x02,
-		EventTime = 0x04,
+		EventCombat		= 0x01,
+		EventLight		= 0x02,
+		EventTime		= 0x04,
 	};
 
 	/*!
@@ -177,7 +177,7 @@ public:
 	*/
 	enum FightStatus
 	{
-		FightDenied = 0x00,
+		FightDenied			= 0x00,
 		FightStarted,
 		FightContinued
 	};
@@ -248,7 +248,7 @@ public:
 	// other public methods
 	// Simple Property setting and getting for script engines.
 	stError* setProperty( const QString& name, const cVariant& value );
-	PyObject *getProperty(const QString &name);
+	PyObject* getProperty( const QString& name );
 	void updateHealth( void );
 	void action( uchar id, uchar speed = 1, bool reverse = false ); // Do an action
 	P_ITEM getWeapon() const;

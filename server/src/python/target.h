@@ -78,19 +78,19 @@ static PyObject* wpTarget_getAttr( wpTarget* self, char* name )
 
 static PyTypeObject wpTargetType =
 {
-	PyObject_HEAD_INIT( NULL )
-	0,
-	"wpTarget",
-	sizeof( wpTargetType ),
-	0,
-	wpDealloc,
-	0,
-	( getattrfunc ) wpTarget_getAttr,
-	0,
-	0,
-	0,
-	0,
-	0,
+PyObject_HEAD_INIT( NULL )
+0,
+"wpTarget",
+sizeof( wpTargetType ),
+0,
+wpDealloc,
+0,
+( getattrfunc ) wpTarget_getAttr,
+0,
+0,
+0,
+0,
+0,
 
 };
 
