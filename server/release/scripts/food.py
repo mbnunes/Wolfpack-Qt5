@@ -3,6 +3,17 @@ import random
 from wolfpack.consts import *
 
 #
+# Feed the food
+#
+#def onDropOnChar(char, item):
+	# See if it's not hostile
+	#if char.npc and char.id < 0x190:
+		#player = item.container		
+
+	#char.say('Dropped item on char')
+	#return 0
+
+#
 # Eat the food
 #
 def onUse(player, item):

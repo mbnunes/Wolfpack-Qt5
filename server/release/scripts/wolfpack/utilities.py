@@ -600,7 +600,7 @@ def createlockandkey( container ):
 	\function wolfpack.utilities.throwobject
 	\param char
 	\param object
-	\param target
+	\param pos The target position.
 	\param sendobject
 	\param speed
 	\param fixeddir
@@ -611,36 +611,21 @@ def createlockandkey( container ):
 	\return none
 	\description Animates a character's throwing of an object at a given target.
 """
-def throwobject( char, object, target, sendobject=0, movable=1, speed=10, fixeddir=0, explodes=0, hue=0, rendermode=0 ):
+def throwobject(char, object, pos, sendobject=0, movable=1, speed=10, fixeddir=0, explodes=0, hue=0, rendermode=0):
 	# This will make the object leave the character's pack and land at the target location.
-	if sendobject > 0 and object:
-		if target.char:
-			# Container Workaround
-			if object.container:
-				object.container = 0
-			object.moveto(target.char.pos)
-		elif target.item:
-			if target.item.type == 1 or target.item.type == 21:
-				return OOPS
-			# Container Workaround
-			if object.container:
-				object.container = 0
-			object.moveto( target.item.pos )
+	if sendobject > 0:
+		if movable:
+			object.magic = 0
 		else:
-			# Container Workaround
-			if object.container:
-				object.container = 0
-			object.moveto( target.pos )
-		char.turnto(target.pos)
-		char.action(0x9)
-		char.movingeffect(object.id, target.pos, fixeddir, explodes, speed, hue, rendermode)
-		object.magic = movable
-		object.update()
-	else:
-		char.turnto(target.pos)
-		char.action(0x9)
-		char.movingeffect(object.id, target.pos, fixeddir, explodes, speed, hue, rendermode)
+			object.magic = 2
 
+		object.container = 0
+		object.moveto(pos)
+		object.update()
+
+	char.turnto(pos)
+	char.action(0x9)
+	char.movingeffect(object.id, pos, fixeddir, explodes, speed, hue, rendermode)
 	return
 
 # Class for Wrapping Chars or Items in Argument Lists

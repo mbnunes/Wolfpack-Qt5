@@ -61,21 +61,34 @@ def onUse( char, item ):
 	return OK
 
 def targetexplosionpotion(char, args, target):
+	if target.char:
+		pos = target.char
+	elif target.item:
+		item = target.item.getoutmostitem()
+		if item.container:
+			pos = item.container.pos
+		else:
+			pos = item.pos
+	else:
+		pos = target.pos
+		
+	if char.distanceto(pos) > 15:
+		char.socket.clilocmessage(1005539)
+		return
+
 	potion = args[0]
-	throwobject( char, potion, target, 1, 3, 5 )
+	throwobject(char, potion, pos, 1, 3, 5)
 	# char, potion, counter value
 	potionexplosion( [ char, potion, 3 ] )
 	potion.settag('exploding', 'true')
 	return
 
 def potionexplosion(args):
-	# item.say() or similar feature is missing
-	# item.effect() is missing
 	char = args[0]
 	potion = args[1]
 	counter = args[2]
 	if counter > 0:
-		wolfpack.addtimer(1000, "potions.potioncountdown", [char, potion, counter] )
+		wolfpack.addtimer(1000, "potions.potioncountdown", [char.serial, potion.serial, counter] )
 		return
 	else:
 		potion.soundeffect(0x307) # Boom!
@@ -85,14 +98,14 @@ def potionexplosion(args):
 		return
 
 def potioncountdown( time, args ):
-	char = args[0]
-	potion = args[1]
+	char = wolfpack.findchar(args[0])
+	potion = wolfpack.findchar(args[1])
 	counter = args[2]
 	if counter >= 0:
 		if counter > 0:
-			potion.say("%s" % str(counter) )
+			potion.say("%u" % counter)
 			counter -= 1
-		potionexplosion([ char, potion, counter ])
+		potionexplosion([char, potion, counter])
 	return
 
 def potionregion( args ):
