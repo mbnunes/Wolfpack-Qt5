@@ -140,7 +140,7 @@ void cCommands::loadACLs( void )
 	if( ScriptSections.isEmpty() )
 	{
 		Console::instance()->ChangeColor( WPC_RED );
-		Console::instance()->send( tr("WARNING: No ACLs for players, counselors, gms and admins defined!\n") );
+		Console::instance()->send("WARNING: No ACLs for players, counselors, gms and admins defined!\n");
 		Console::instance()->ChangeColor( WPC_NORMAL );
 		return;
 	}
@@ -192,6 +192,9 @@ void cCommands::loadACLs( void )
 
 		_acls.insert( ACLname, acl );	
 	}
+
+	// Renew the ACL pointer for all loaded accounts
+	Accounts::instance()->clearAcls();
 }
 
 // COMMAND IMPLEMENTATION

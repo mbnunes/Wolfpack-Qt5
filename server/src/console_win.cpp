@@ -445,9 +445,9 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	appInstance = hInstance;
 
 	// Try to load riched20.dll
-	HMODULE hRiched = LoadLibrary( "riched20.dll" );
+	HMODULE hRiched = LoadLibrary("riched20.dll");
 
-	if( hRiched == 0 )
+	if (!hRiched)
 	{
 		MessageBox( 0, "The riched20.dll library could not be found on your system.\nPlease install Microsoft Internet Explorer 4.0 or later.", "Missing DLL", MB_OK|MB_ICONERROR );
 		return 1;
@@ -467,9 +467,9 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	wpClass.lpszClassName = WOLFPACK_CLASS;
 	wpClass.style = CS_DBLCLKS | CS_VREDRAW | CS_HREDRAW;
 	
-	if( !RegisterClass( &wpClass ) )
+	if (!RegisterClass(&wpClass))
 	{
-		MessageBox( 0, "Couldn't register Window Class.", "Window Class", MB_OK|MB_ICONERROR );
+		MessageBox(0, "Couldn't register Window Class.", "Window Class", MB_OK|MB_ICONERROR);
 		return 1;
 	}
 
@@ -486,7 +486,8 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 
 	ShowWindow( mainWindow, SW_NORMAL );
 
-	cServerThread serverThread( lpCmdLine );
+	cServerThread serverThread(lpCmdLine);
+	serverThread.start();
 
 	MSG msg;
 

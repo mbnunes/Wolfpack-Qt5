@@ -141,6 +141,7 @@ public:
 	void load();
 	void reload();
 	void clear();
+	void clearAcls();
 
 	typedef QMap<QString, cAccount*>::const_iterator const_iterator;
 	const_iterator begin() const { return accounts.begin(); }
