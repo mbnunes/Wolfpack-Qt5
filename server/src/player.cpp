@@ -1490,7 +1490,14 @@ bool cPlayer::canSeeItem(P_ITEM item, bool lineOfSight) {
 
 	// Check for container
 	if (item->container()) {
-		return cBaseChar::canSee(item->container(), lineOfSight);
+		P_ITEM container = dynamic_cast<P_ITEM>(item->container());
+
+		if (container) {
+			return canSeeItem(container, lineOfSight);
+		} else {
+			P_CHAR character = dynamic_cast<P_CHAR>(item->container());
+			return canSeeChar(character, lineOfSight);
+		}		
 	} else {
 		if (pos_.distance(item->pos()) > VISRANGE) {
 				return false;

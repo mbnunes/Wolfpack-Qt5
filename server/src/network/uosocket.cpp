@@ -1474,7 +1474,7 @@ void cUOSocket::playMusic()
 
 void cUOSocket::sendContainer( P_ITEM pCont )
 {
-	if( !pCont )
+	if( !pCont || !canSee(pCont) )
 		return;
 
 	// Get the container gump
@@ -1612,7 +1612,7 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 	{
 		P_ITEM pItem = *it;
 		
-		if( !pItem )
+		if( !pItem || !canSee(pItem) )
 			continue;
 
 		itemContent.addItem( pItem );

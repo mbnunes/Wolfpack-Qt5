@@ -1440,144 +1440,107 @@ void cItem::showName( cUOSocket *socket )
 }
 
 // This either sends a ground-item or a backpack item
-void cItem::update( cUOSocket *mSock )
+void cItem::update(cUOSocket *singlesocket)
 {
-	if( free )
-	{
-		removeFromView( false );
+	if (free) {
 		return;
 	}
 
 	// Items on Ground
-	if( isInWorld() )
-	{
+	if (!container_) {
 		// we change the packet during iteration, so we have to
 		// recompress it
-		cUOTxSendItem* sendItem = new cUOTxSendItem();
-		sendItem->setSerial( serial() );
-		sendItem->setId( id() );
-		sendItem->setAmount( amount() );
-		sendItem->setColor( color() );
-		sendItem->setCoord( pos() );
-		sendItem->setDirection( direction() );
+		cUOTxSendItem sendItem;
+		sendItem.setSerial(serial_);
+		sendItem.setId(id_);
+		sendItem.setAmount(amount_);
+		sendItem.setColor(color_);
+		sendItem.setCoord(pos_);
+		sendItem.setDirection(dir_);
 
-		if( mSock )
-		{
-			P_PLAYER pChar = mSock->player();
+		// Send to one person only
+		if (!singlesocket) {
+			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
+				if (socket->canSee(this)) {
+					P_PLAYER player = socket->player();
+					unsigned char flags = 0;
+					cUOTxSendItem packetCopy(sendItem);
 
-			// Only send to sockets in range
-			if( !pChar || !pChar->account() || ( pChar->dist( this ) > pChar->visualRange() ) )
-				return;
+					// Always Movable Flag
+					if (isAllMovable()) {
+						flags |= 0x20;
+					} else if (player->account()->isAllMove()) {
+						flags |= 0x20;
+					} else if (isOwnerMovable() && player->Owns(this)) {
+						flags |= 0x20;
+					}
 
-			// Completely invisible
-			if( ( visible_ == 2 ) && !pChar->isGM() )
-				return;
+					if (visible_ != 0) {
+						flags |= 0x80;
+					}
 
-			// Visible to owners and GMs only
-			else if( ( visible_ == 1 ) && !pChar->Owns( this ) && !pChar->isGM() )
-				return;
+					packetCopy.setFlags(flags);
 
-			if( isAllMovable() )
-				sendItem->setFlags( 0x20 );
-
-			else if( pChar->account()->isAllMove() )
-				sendItem->setFlags( 0x20 );
-
-			else if( isOwnerMovable() && pChar->Owns( this ) )
-				sendItem->setFlags( 0x20 );
-
-			if( ( visible() > 0 ) && !pChar->Owns( this ) )
-				sendItem->setFlags( sendItem->flags() | 0x80 );
-
-			// TODO: Insert code for view-multi-as-icon & view-lightsource-as-candle
-
-			mSock->send( sendItem );
-			sendTooltip( mSock );
-		}
-		else
-		{
-			for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-			{
-				P_PLAYER pChar = mSock->player();
-
-				// Only send to sockets in range
-				if( !pChar || !pChar->account() || ( pChar->dist( this ) > pChar->visualRange() ) )
-					continue;
-
-				// Completely invisible
-				if( ( visible() == 2 ) && !pChar->isGM() )
-					continue;
-
-				// Visible to owners and GMs only
-				else if( ( visible() == 1 ) && !pChar->Owns( this ) && !pChar->isGM() )
-					continue;
-
-				cUOTxSendItem sockSendItem( *sendItem );
-
-				if( isAllMovable() )
-					sockSendItem.setFlags( 0x20 );
-				else if( pChar->account()->isAllMove() )
-					sockSendItem.setFlags( 0x20 );
-				else if( ( isOwnerMovable() || isLockedDown() ) && pChar->Owns( this ) )
-					sockSendItem.setFlags( 0x20 );
-
-				if( ( visible() > 0 ) && !pChar->Owns( this ) )
-					sockSendItem.setFlags( sockSendItem.flags() | 0x80 );
-
-				// TODO: Insert code for view-multi-as-icon & view-lightsource-as-candle
-
-				mSock->send( &sockSendItem );
-				sendTooltip( mSock );
+					socket->send(&packetCopy);
+					sendTooltip(socket);
+				}
 			}
-			delete sendItem;
+		} else if (singlesocket && singlesocket->canSee(this)) {
+			P_PLAYER player = singlesocket->player();
+			unsigned char flags = 0;
+
+			// Always Movable Flag
+			if (isAllMovable()) {
+				flags |= 0x20;
+			} else if (player->account()->isAllMove()) {
+				flags |= 0x20;
+			} else if (isOwnerMovable() && player->Owns(this)) {
+				flags |= 0x20;
+			}
+
+			if (visible_ != 0) {
+				flags |= 0x80;
+			}
+
+			sendItem.setFlags(flags);
+
+			singlesocket->send(&sendItem);
+			sendTooltip(singlesocket);
 		}
 	}
 	// equipped items
 	else if( container_ && container_->isChar() )
 	{
 		cUOTxCharEquipment equipItem;
-		equipItem.fromItem( this );
-		P_CHAR pOwner = dynamic_cast<P_CHAR>( container_ );
+		equipItem.fromItem(this);
 
-		if( !pOwner )
-			return;
-
-		for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
-		{
-			P_PLAYER pChar = socket->player();
-
-			// Only send to sockets in range
-			if( !pChar || !pChar->inRange( pOwner, pChar->visualRange() ) )
-				continue;
-
-			socket->send( &equipItem );
-			sendTooltip( socket );
+		if (singlesocket) {
+			singlesocket->send(&equipItem);
+			sendTooltip(singlesocket);
+		} else {
+			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
+				if (socket->canSee(this)) {
+					socket->send(&equipItem);
+					sendTooltip(socket);
+				}
+			}
 		}
-	}
+	
 	// items in containers
-	else if( container_ && container_->isItem() )
-	{
+	} else if (container_ && container_->isItem()) {
 		cUOTxAddContainerItem contItem;
-		contItem.fromItem( this );
+		contItem.fromItem(this);
 
-		P_ITEM iCont = getOutmostItem();
-		cUObject *oCont = iCont;
-
-		if( iCont && iCont->container() && iCont->container()->isChar() )
-			oCont = dynamic_cast<P_CHAR>( iCont->container() );
-
-		if( !oCont )
-			return;
-
-		for( cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next() )
-		{
-			P_PLAYER pChar = socket->player();
-
-			if( !pChar || ( pChar->dist( oCont ) > pChar->visualRange() ) )
-				continue;
-
-			socket->send( &contItem );
-			sendTooltip( socket );
+		if (singlesocket) {
+			singlesocket->send(&contItem);
+			sendTooltip(singlesocket);
+		} else {
+			for (cUOSocket *socket = cNetwork::instance()->first(); socket; socket = cNetwork::instance()->next()) {
+				if (socket->canSee(this)) {
+					socket->send(&contItem);
+					sendTooltip(socket);
+				}
+			}
 		}
 	}
 }
