@@ -43,6 +43,18 @@
 #include <mysql.h>
 
 // Executes a query
+bool cDBDriver::query( const QString &query )
+{
+	MYSQL *mysql = cwmWorldState->mysql;
+
+	if( mysql_query( mysql, query.latin1() ) )
+		return false;
+
+	result = mysql_use_result( mysql );
+	return true;
+}
+
+// Just execute some SQL code, no result!
 bool cDBDriver::execute( const QString &query )
 {
 	MYSQL *mysql = cwmWorldState->mysql;

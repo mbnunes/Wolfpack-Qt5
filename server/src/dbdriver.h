@@ -46,7 +46,8 @@ public:
 	cDBDriver(): result( 0 ), row( 0 ) {}
 	virtual ~cDBDriver() {}
 
-	bool execute( const QString &query ); // Executes a query
+	bool execute( const QString &query ); // Just execute some SQL code, no return!
+	bool query( const QString &query ); // Executes a query
 	QString error(); // Returns an error (if there is one)
 	bool fetchrow(); // Fetchs a new row, returns false if there is no new row
 	void free(); // Call this to free the query
