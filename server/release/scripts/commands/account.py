@@ -247,7 +247,17 @@ def accountShow( socket, username, key ):
 			if account.rank >= characcount.rank and account.name != characcount.name:
 				socket.sysmessage( "Error: Your account rank does not permit this!" )
 				return False
-			if key == 'acl':
+			if key == 'all':
+				socket.sysmessage( "Account properties for %s:" % account.name  )
+				socket.sysmessage( "  acl: %s" % account.acl )
+				socket.sysmessage( "  email: %s" % account.email )
+				socket.sysmessage( "  rank: %s" % account.rank )
+				socket.sysmessage( "  flags: %s" % account.flags )
+				socket.sysmessage( "  inuse: %s" % account.inuse )
+				socket.sysmessage( "  lastlogin: %s" % account.lastlogin )
+				socket.sysmessage( "  multigems: %s" % account.multigems )
+				socket.sysmessage( "  characters: %s" % account.characters )
+			elif key == 'acl':
 				socket.sysmessage( "%s.acl = %s" % ( account.name, account.acl ) )
 				char.log( LOG_MESSAGE, "Requested %s.acl.\n" % account.name )
 				return True
@@ -348,7 +358,7 @@ def accountSet( socket, username, key, value ):
 			elif key == 'flags':
 				oldvalue = account.flags
 				socket.sysmessage( "Previous: %s.flags = %s" % ( account.name, account.flags ) )
-				account.flags = hex2dec(value)
+				account.flags = hex2dec( value )
 				socket.sysmessage( "Changed: %s.flags = %s" % ( account.name, account.flags ) )
 				char.log( LOG_MESSAGE, "Modified %s.flags ( %s :: %s ).\n" % ( account.name, oldvalue, value ) )
 				return True
@@ -366,35 +376,35 @@ def accountSet( socket, username, key, value ):
 					return False
 			# Password
 			elif key == 'password':
-				if len( key ) > 16 or len( key ) == 0:
-					if len( key ) > 16:
+				if len( value ) > 16 or len( value ) == 0:
+					if len( value ) > 16:
 						socket.sysmessage( "Error: Password exceeds the 16 character limit!" )
-					if len( key ) == 0:
+					if len( value ) == 0:
 						socket.sysmessage( "Error: Password is NULL!" )
 					return False
 				else:
 					oldvalue = account.password
-					account.password = key
+					account.password = str( value )
 					socket.sysmessage( "Changed: %s.password" % account.name )
 					char.log( LOG_MESSAGE, "Modified %s.password.\n" % account.name )
 					return True
 			# Email
 			elif key == 'email':
-				if len( key ) > 255 or len( key ) == 0:
-					if len( key ) > 255:
+				if len( value ) > 255 or len( value ) == 0:
+					if len( value ) > 255:
 						socket.sysmessage( "Error: Email exceeds the 255 character limit!" )
-					if len( key ) == 0:
+					if len( value ) == 0:
 						socket.sysmessage( "Error: Email is NULL!" )
 					return False
 				else:
 					oldvalue = account.email
-					account.email = key
+					account.email = str( value )
 					socket.sysmessage( "Changed: %s.email" % account.name )
 					char.log( LOG_MESSAGE, "Modified %s.email.\n" % account.name )
 					return True
 			# READ ONLY VALUES
 			elif key in ['name','lastlogin','inuse','characters','rank']:
-				char.log( LOG_MESSAGE, "Attempted modification of read-only value %s.%s.\n" % ( char.serial, account.name, key ) )
+				char.log( LOG_MESSAGE, "Attempted modification of read-only value %s.%s.\n" % ( account.name, key ) )
 				socket.sysmessage( "Error: The account.%s property is read only!" % key )
 				return False
 			# Unknown
