@@ -452,13 +452,13 @@ def charinfo( socket, char ):
 		#gump.addResizeGump( 280, 220, 0xBB8, 215, 20 )
 		physicaltotal = 100
 		if char.hastag('dmg_fire'):
-			physicaltotal -= unicode(char.gettag('dmg_fire'))
+			physicaltotal -= int(char.gettag('dmg_fire'))
 		if char.hastag('dmg_cold'):
-			physicaltotal -= unicode(char.gettag('dmg_cold'))
+			physicaltotal -= int(char.gettag('dmg_cold'))
 		if char.hastag('dmg_poison'):
-			physicaltotal -= unicode(char.gettag('dmg_poison'))
+			physicaltotal -= int(char.gettag('dmg_poison'))
 		if char.hastag('dmg_energy'):
-			physicaltotal -= unicode(char.gettag('dmg_energy'))
+			physicaltotal -= int(char.gettag('dmg_energy'))
 		gump.addText( 284, 220, unicode( physicaltotal ), 0x834 )
 		# 46
 		gump.addText( 113, 240, "Fire Damage:", 0x834 )
