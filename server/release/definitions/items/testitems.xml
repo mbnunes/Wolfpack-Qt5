@@ -1,0 +1,27 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Kosh                           |
+|   )).-' {{ ;'`   | Revised by: sereg                          |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<item id="empty_map_e">
+		<name>empty map</name>
+		<id>0x14ed</id>
+		<type>10</type>
+	</item>
+	<item id="empty_map_w">
+		<name>empty map</name>
+		<id>0x14ee</id>
+		<type>10</type>
+	</item>
+
+	<!-- world map small -->
+	<item id="world_map_small">
+		<name>World map small</name>
+		<id>0x14eb</id>
+		<type>10</type>
+	</item>
+</definitions>
