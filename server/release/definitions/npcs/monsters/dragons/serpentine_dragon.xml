@@ -12,12 +12,13 @@
 	<npc id="serpentine_dragon" inherit="monster_base">
 		<name>serpentine dragon</name>
 		<id>172</id>
-		<karma>15000</karma>
-		<fame>15000</fame>
+		<karma><random list="KARMA_L5" /></karma>
+		<fame><random list="FAME_L5" /></fame>
 		<!-- Stats -->
 		<str><random min="111" max="140"/></str>
 		<dex><random min="201" max="220"/></dex>
-		<int><random min="1001" max="1100"/></int>
+		<int><random min="1001" max="1040"/></int>
+		<maxhitpoints>480</maxhitpoints>
 		<!-- Skills -->
 		<evaluatingintel><random min="1001" max="1100"/></evaluatingintel>
 		<magery><random min="1101" max="1200"/></magery>
@@ -26,8 +27,8 @@
 		<tactics><random min="501" max="600"/></tactics>
 		<wrestling><random min="301" max="1000"/></wrestling>
 		<!-- Damage -->
-		<mindamage>5</mindamage>
-		<maxdamage>12</maxdamage>
+		<mindamage>9</mindamage>
+		<maxdamage>20</maxdamage>
 		<tag name="dmg_poison" value="25" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="25,35" type="int" />

@@ -12,19 +12,20 @@
 	<npc id="sand_vortex" inherit="monster_base">
 		<name>sand vortex</name>
 		<id>790</id>
-		<karma>-4500</karma>
-		<fame>4500</fame>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="96" max="120"/></str>
 		<dex><random min="171" max="195"/></dex>
 		<int><random min="76" max="100"/></int>
+		<maxhitpoints><random min="51" max="62" /></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance>1500</magicresistance>
 		<tactics>700</tactics>
 		<wrestling>800</wrestling>
 		<!-- Damage -->
-		<mindamage>3</mindamage>
-		<maxdamage>16</maxdamage>
+		<mindamage>5</mindamage>
+		<maxdamage>27</maxdamage>
 		<tag name="dmg_fire" value="10" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="60,70" type="int" />

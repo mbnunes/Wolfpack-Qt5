@@ -12,8 +12,8 @@
 	<npc id="treefellow" inherit="monster_base">
 		<name>treefellow</name>
 		<id>301</id>
-		<karma>3100</karma>
-		<fame>1800</fame>
+		<karma><random list="KARMA_NL2" /></karma>
+		<fame><random list="FAME_L1" /></fame>
 		<!-- Stats -->
 		<str><random min="196" max="220"/></str>
 		<dex><random min="31" max="55"/></dex>

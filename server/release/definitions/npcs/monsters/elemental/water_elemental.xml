@@ -12,21 +12,23 @@
 	<npc id="water_elemental" inherit="monster_base">
 		<name>water elemental</name>
 		<id>16</id>
-		<karma>-4500</karma>
-		<fame>4500</fame>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="126" max="155"/></str>
 		<dex><random min="66" max="85"/></dex>
 		<int><random min="101" max="125"/></int>
+		<maxhitpoints><random min="76" max="93" /></maxhitpoints>
 		<!-- Skills -->
 		<evaluatingintel><random min="601" max="750"/></evaluatingintel>
 		<magery><random min="601" max="750"/></magery>
 		<magicresistance><random min="1001" max="1150"/></magicresistance>
 		<tactics><random min="501" max="700"/></tactics>
 		<wrestling><random min="501" max="700"/></wrestling>
+		<meditation>0</meditation>
 		<!-- Damage -->
-		<mindamage>7</mindamage>
-		<maxdamage>9</maxdamage>
+		<mindamage>13</mindamage>
+		<maxdamage>17</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="10,25" type="int" />
 		<tag name="res_energy" value="5,10" type="int" />

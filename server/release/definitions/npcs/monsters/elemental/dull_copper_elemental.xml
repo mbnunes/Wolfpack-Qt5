@@ -12,19 +12,20 @@
 	<npc id="dull_copper_elemental" inherit="monster_base">
 		<name>dull copper elemental</name>
 		<id>110</id>
-		<karma>-3500</karma>
-		<fame>3500</fame>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="226" max="255"/></str>
 		<dex><random min="126" max="145"/></dex>
 		<int><random min="71" max="92"/></int>
+		<maxhitpoints><random min="136" max="153"/></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="501" max="950"/></magicresistance>
 		<tactics><random min="601" max="1000"/></tactics>
 		<wrestling><random min="601" max="1000"/></wrestling>
 		<!-- Damage -->
-		<mindamage>9</mindamage>
-		<maxdamage>16</maxdamage>
+		<mindamage>19</mindamage>
+		<maxdamage>37</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="10,20" type="int" />
 		<tag name="res_energy" value="20,30" type="int" />

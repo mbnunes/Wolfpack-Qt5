@@ -12,19 +12,20 @@
 	<npc id="drake" inherit="monster_base">
 		<name>drake</name>
 		<id><random list="NPCIDS_DRAKE" /></id>
-		<karma>-5500</karma>
-		<fame>5500</fame>
+		<karma><random list="KARMA_L4" /></karma>
+		<fame><random list="FAME_L4" /></fame>
 		<!-- Stats -->
 		<str><random min="401" max="430"/></str>
 		<dex><random min="133" max="152"/></dex>
 		<int><random min="101" max="140"/></int>
+		<maxhitpoints><random min="241" max="258" /></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="651" max="800"/></magicresistance>
 		<tactics><random min="651" max="900"/></tactics>
 		<wrestling><random min="651" max="800"/></wrestling>
 		<!-- Damage -->
-		<mindamage>11</mindamage>
-		<maxdamage>17</maxdamage>
+		<mindamage>30</mindamage>
+		<maxdamage>46</maxdamage>
 		<tag name="dmg_fire" value="20" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="40,50" type="int" />

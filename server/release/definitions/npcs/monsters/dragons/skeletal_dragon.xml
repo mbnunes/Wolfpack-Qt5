@@ -12,13 +12,13 @@
 	<npc id="skeletal_dragon" inherit="monster_base">
 		<name>skeletal dragon</name>
 		<id>104</id>
-		<karma><random min="-10000" max="-15000" /></karma>
-		<fame><random min="10000" max="15000" /></fame>
+		<karma><random list="KARMA_L5" /></karma>
+		<fame><random list="FAME_L5" /></fame>
 		<!-- Stats -->
-		<maxhitpoints><random min="558" max="599"/></maxhitpoints>
 		<str><random min="898" max="1030" /></str>
 		<dex><random min="68" max="200" /></dex>
 		<int><random min="488" max="620" /></int>
+		<maxhitpoints><random min="558" max="599"/></maxhitpoints>
 		<!-- Skills -->
 		<wrestling><random min="984" max="997" /></wrestling>
 		<tactics><random min="981" max="992" /></tactics>

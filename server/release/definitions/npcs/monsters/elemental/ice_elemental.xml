@@ -12,21 +12,23 @@
 	<npc id="ice_elemental" inherit="monster_base">
 		<name>ice elemental</name>
 		<id>161</id>
-		<karma>-4000</karma>
-		<fame>4000</fame>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="156" max="185"/></str>
 		<dex><random min="96" max="115"/></dex>
-		<int><random min="105" max="600"/></int>
+		<int><random min="171" max="192"/></int>
+		<maxhitpoints><random min="94" max="111"/></maxhitpoints>
 		<!-- Skills -->
 		<evaluatingintel><random min="105" max="600"/></evaluatingintel>
 		<magery><random min="105" max="600"/></magery>
 		<magicresistance><random min="301" max="800"/></magicresistance>
 		<tactics><random min="701" max="1000"/></tactics>
 		<wrestling><random min="601" max="1000"/></wrestling>
+		<meditation>0</meditation>
 		<!-- Damage -->
-		<mindamage>10</mindamage>
-		<maxdamage>21</maxdamage>
+		<mindamage>22</mindamage>
+		<maxdamage>45</maxdamage>
 		<tag name="dmg_cold" value="75" type="int" />
 		<!-- Resists -->
 		<tag name="res_cold" value="50,60" type="int" />

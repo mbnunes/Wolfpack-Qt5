@@ -12,12 +12,13 @@
 	<npc id="acid_elemental" inherit="monster_base">
 		<name>acid elemental</name>
 		<id>158</id>
-		<karma>-10000</karma>
-		<fame>10000</fame>
+		<karma><random list="KARMA_L5" /></karma>
+		<fame><random list="FAME_L5" /></fame>
 		<!-- Stats -->
 		<str><random min="326" max="355"/></str>
 		<dex><random min="66" max="85"/></dex>
-		<int><random min="701" max="850"/></int>
+		<int><random min="271" max="295"/></int>
+		<maxhitpoints><random min="196" max="213" /></maxhitpoints>
 		<!-- Skills -->
 		<anatomy><random min="303" max="600"/></anatomy>
 		<evaluatingintel><random min="701" max="850"/></evaluatingintel>
@@ -25,9 +26,10 @@
 		<magicresistance><random min="601" max="750"/></magicresistance>
 		<tactics><random min="801" max="900"/></tactics>
 		<wrestling><random min="701" max="900"/></wrestling>
+		<meditation>0</meditation>
 		<!-- Damage -->
-		<mindamage>9</mindamage>
-		<maxdamage>15</maxdamage>
+		<mindamage>26</mindamage>
+		<maxdamage>42</maxdamage>
 		<tag name="dmg_energy" value="25" type="int" />
 		<tag name="dmg_fire" value="50" type="int" />
 		<!-- Resists -->

@@ -12,19 +12,20 @@
 	<npc id="agapite_elemental" inherit="monster_base">
 		<name>agapite elemental</name>
 		<id>107</id>
-		<karma>-3500</karma>
-		<fame>3500</fame>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="226" max="255"/></str>
 		<dex><random min="126" max="145"/></dex>
 		<int><random min="71" max="92"/></int>
+		<maxhitpoints><random min="136" max="153"/></maxhitpoints>
 		<!-- Skills -->
 		<wrestling><random min="601" max="1000"/></wrestling>
 		<tactics><random min="601" max="1000"/></tactics>
 		<magicresistance><random min="501" max="950"/></magicresistance>
 		<!-- Damage -->
-		<mindamage>28</mindamage>
-		<maxdamage>29</maxdamage>
+		<mindamage>59</mindamage>
+		<maxdamage>69</maxdamage>
 		<!-- Resists -->
 		<tag name="res_cold" value="40,50" type="int" />
 		<tag name="res_energy" value="10,20" type="int" />

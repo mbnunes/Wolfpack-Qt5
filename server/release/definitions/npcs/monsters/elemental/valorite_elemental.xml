@@ -12,19 +12,20 @@
 	<npc id="valorite_elemental" inherit="monster_base">
 		<name>valorite elemental</name>
 		<id>112</id>
-		<karma>-3500</karma>
-		<fame>3500</fame>
+		<karma><random list="KARMA_L3" /></karma>
+		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
 		<str><random min="226" max="255"/></str>
 		<dex><random min="126" max="145"/></dex>
 		<int><random min="71" max="92"/></int>
+		<maxhitpoints><random min="136" max="153" /></maxhitpoints>
 		<!-- Skills -->
 		<magicresistance><random min="501" max="950"/></magicresistance>
 		<tactics><random min="601" max="1000"/></tactics>
 		<wrestling><random min="601" max="1000"/></wrestling>
 		<!-- Damage -->
-		<mindamage>25</mindamage>
-		<maxdamage>28</maxdamage>
+		<mindamage>59</mindamage>
+		<maxdamage>69</maxdamage>
 		<tag name="dmg_cold" value="25" type="int" />
 		<tag name="dmg_energy" value="25" type="int" />
 		<tag name="dmg_fire" value="25" type="int" />
