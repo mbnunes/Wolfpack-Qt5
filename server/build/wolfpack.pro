@@ -118,7 +118,7 @@ HEADERS = \
 	Timing.h \
 	timers.h \
 	tracking.h \
-	Trade.h \
+	trade.h \
 	typedefs.h \
 	uobject.h \
 	uotime.h \
@@ -173,7 +173,7 @@ SOURCES = \
 	Timing.cpp \
 	timers.cpp \
 	tracking.cpp \
-	Trade.cpp \
+	trade.cpp \
 	uobject.cpp \
 	walking.cpp \
 	world.cpp

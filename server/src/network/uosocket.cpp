@@ -55,7 +55,7 @@
 #include "../timers.h"
 #include "../targetrequests.h"
 #include "../dragdrop.h"
-#include "../Trade.h"
+#include "../trade.h"
 #include "../uobject.h"
 #include "../player.h"
 #include "../basechar.h"

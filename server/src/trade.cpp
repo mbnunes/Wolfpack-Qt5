@@ -25,7 +25,7 @@
  * Wolfpack Homepage: http://wpdev.sf.net/
  */
 
-#include "Trade.h"
+#include "trade.h"
 #include "inlines.h"
 #include "config.h"
 #include "typedefs.h"
