@@ -101,5 +101,90 @@ def kegfillmessage( char, kegfill ):
 		socket.clilocmessage( 502248 ) # The keg is nearly empty.
 	else:
 		socket.clilocmessage( 502259 ) # The keg is damaged.
-	return
+	return True
 
+def onDropOnItem( keg, potion ):
+	char = potion.container
+	socket = char.socket
+	potiontype = None
+	kegtype = None
+
+	if not char or not socket:
+		return False
+
+	if not isPotionkeg( keg ) or not isPotion( potion ):
+		return False
+
+	if isPotion( potion ):
+		# Potion Type
+		if potion.hasintproperty( 'potiontype' ):
+			potiontype = potion.getintproperty( 'potiontype' )
+		if potion.hastag( 'potiontype' ):
+			potiontype = int( potion.gettag( 'potiontype' ) )
+		# Keg Type
+		if keg.hasintproperty( 'potiontype' ):
+			kegtype = keg.getintproperty( 'potiontype' )
+		if keg.hastag( 'potiontype' ):
+			kegtype = int( keg.gettag( 'potiontype' ) )
+
+		if not potiontype in POTIONS:
+			socket.sysmessage( tr( "Only potions may be added to a potion keg!" ) )
+			return True
+
+
+		if not keg.hastag( 'kegfill' ):
+			kegfill = 0
+			keg.settag( 'kegfill', kegfill )
+		else:
+			kegfill = int( keg.gettag( 'kegfill' ) )
+			if kegfill < 0: # Safeguard against negative fills
+				kegfill = 0
+
+		if kegfill >= 100:
+			socket.clilocmessage( 502247 )
+			return True
+
+		if keg.baseid in [ 'potion_keg' ]:
+			if kegtype:
+				if potiontype == kegtype:
+					if kegfill < 100 and kegfill >= 0:
+						kegfill += 1
+						keg.settag( 'kegfill', kegfill )
+						char.soundeffect( 0x240 )
+						consumePotion( char, potion )
+						keg.update()
+						kegfillmessage( char, kegfill )
+						socket.clilocmessage( 502239 )
+						return True
+					else:
+						# The keg will not hold any more!
+						socket.clilocmessage( 502233 )
+						return True
+				else:
+					# You decide that it would be a bad idea to mix different types of otions.
+					socket.clilocmessage( 502236 )
+					return True
+			else:
+				if potion.hastag( 'potiontype' ):
+					kegtype = potion.gettag( 'potiontype' )
+				elif potion.hasintproperty( 'potiontype' ):
+					kegtype = potion.getintproperty( 'potiontype' )
+				keg.settag( 'potiontype', kegtype )
+				keg.settag( 'kegfill', 1 )
+				keg.name = POTIONS[ kegtype ][ KEG_NAME ]
+				char.soundeffect( 0x240 )
+				consumePotion( char, potion )
+				keg.update()
+				return True
+	return True
+
+def isPotionkeg( keg ):
+	return keg.hasscript('potionkeg') and keg.baseid in ['potion_keg'] and keg.id in [ 0x1940 ]
+
+def isPotion( potion ):
+	if potion.hastag( 'potiontype' ) and not potion.hasscript('potionkeg'):
+		return potion.hasscript('potions') and int( potion.gettag('potiontype') ) in POTIONS
+	elif potion.hasintproperty( 'potiontype' ) and not potion.hasscript('potionkeg'):
+		return potion.hasscript('potions') and potion.getintproperty('potiontype') in POTIONS
+	else:
+		return False
