@@ -1,16 +1,17 @@
 # phpMyAdmin MySQL-Dump
-# version 2.3.3pl1
+# version 2.3.0-rc2
+# http://phpwizard.net/phpMyAdmin/
 # http://www.phpmyadmin.net/ (download page)
 #
-# Servidor: localhost
-# Tempo de Generação: Abr 13, 2003 at 12:46 AM
-# Versão do Servidor: 4.00.01
-# Versão do PHP: 4.2.2
-# Banco de Dados : `wolfpack`
+# Host: localhost:3306
+# Generation Time: Jun 03, 2003 at 12:37 AM
+# Server version: 4.00.12
+# PHP Version: 4.3.1
+# Database : `wolfpack`
 # --------------------------------------------------------
 
 #
-# Estrutura da tabela `boats`
+# Table structure for table `boats`
 #
 
 CREATE TABLE boats (
@@ -31,7 +32,7 @@ CREATE TABLE boats (
 # --------------------------------------------------------
 
 #
-# Estrutura da tabela `boats_itemids`
+# Table structure for table `boats_itemids`
 #
 
 CREATE TABLE boats_itemids (
@@ -44,7 +45,7 @@ CREATE TABLE boats_itemids (
 # --------------------------------------------------------
 
 #
-# Estrutura da tabela `boats_itemoffsets`
+# Table structure for table `boats_itemoffsets`
 #
 
 CREATE TABLE boats_itemoffsets (
@@ -58,7 +59,7 @@ CREATE TABLE boats_itemoffsets (
 # --------------------------------------------------------
 
 #
-# Estrutura da tabela `bookpages`
+# Table structure for table `bookpages`
 #
 
 CREATE TABLE bookpages (
@@ -71,7 +72,7 @@ CREATE TABLE bookpages (
 # --------------------------------------------------------
 
 #
-# Estrutura da tabela `books`
+# Table structure for table `books`
 #
 
 CREATE TABLE books (
@@ -88,110 +89,58 @@ CREATE TABLE books (
 # --------------------------------------------------------
 
 #
-# Estrutura da tabela `characters`
+# Table structure for table `characters`
 #
 
 CREATE TABLE characters (
   serial int(11) NOT NULL default '0',
   name varchar(255) default NULL,
   title varchar(255) default NULL,
-  account varchar(255) default NULL,
-  creationday int(11) NOT NULL default '0',
-  gmmoveeff int(11) NOT NULL default '0',
-  guildtype tinyint(3) unsigned NOT NULL default '0',
-  guildtraitor tinyint(1) unsigned NOT NULL default '0',
-  cell smallint(6) NOT NULL default '0',
+  creationdate varchar(255) default NULL,
   dir char(1) NOT NULL default '',
   body smallint(5) unsigned NOT NULL default '0',
-  xbody smallint(5) unsigned NOT NULL default '0',
+  orgbody smallint(5) unsigned NOT NULL default '0',
   skin smallint(5) unsigned NOT NULL default '0',
-  xskin smallint(5) unsigned NOT NULL default '0',
-  priv tinyint(3) unsigned NOT NULL default '0',
-  stablemaster int(11) NOT NULL default '0',
-  npctype tinyint(3) unsigned NOT NULL default '0',
-  time_unused int(10) unsigned NOT NULL default '0',
-  allmove tinyint(3) unsigned NOT NULL default '0',
-  font tinyint(3) unsigned NOT NULL default '0',
-  emote smallint(5) unsigned NOT NULL default '0',
+  orgskin smallint(5) unsigned NOT NULL default '0',
+  saycolor smallint(5) unsigned NOT NULL default '0',
+  emotecolor smallint(5) unsigned NOT NULL default '0',
   strength smallint(6) NOT NULL default '0',
-  strength2 smallint(6) NOT NULL default '0',
+  strengthmod smallint(6) NOT NULL default '0',
   dexterity smallint(6) NOT NULL default '0',
-  dexterity2 smallint(6) NOT NULL default '0',
+  dexteritymod smallint(6) NOT NULL default '0',
   intelligence smallint(6) NOT NULL default '0',
-  intelligence2 smallint(6) NOT NULL default '0',
+  intelligencemod smallint(6) NOT NULL default '0',
+  maxhitpoints smallint(6) NOT NULL default '0',
   hitpoints smallint(6) NOT NULL default '0',
-  spawnregion varchar(255) default NULL,
+  maxstamina smallint(6) NOT NULL default '0',
   stamina smallint(6) NOT NULL default '0',
-  npc tinyint(1) NOT NULL default '0',
-  holdgold int(10) unsigned NOT NULL default '0',
-  shop tinyint(1) NOT NULL default '0',
-  owner int(11) NOT NULL default '-1',
-  robe int(11) NOT NULL default '0',
+  maxmana smallint(6) default NULL,
+  mana smallint(6) default NULL,
   karma int(11) NOT NULL default '0',
   fame int(11) NOT NULL default '0',
   kills int(10) unsigned NOT NULL default '0',
   deaths int(10) unsigned NOT NULL default '0',
-  dead tinyint(1) NOT NULL default '0',
-  packitem int(11) NOT NULL default '0',
-  fixedlight tinyint(3) unsigned NOT NULL default '0',
-  speech tinyint(3) unsigned NOT NULL default '0',
-  disablemsg varchar(255) default NULL,
-  cantrain tinyint(1) NOT NULL default '0',
   def int(10) unsigned NOT NULL default '0',
-  lodamage int(11) NOT NULL default '0',
-  hidamage int(11) NOT NULL default '0',
-  war tinyint(1) NOT NULL default '0',
-  npcwander tinyint(3) unsigned NOT NULL default '0',
-  oldnpcwander tinyint(3) unsigned NOT NULL default '0',
-  carve varchar(255) default NULL,
-  fx1 int(11) NOT NULL default '0',
-  fy1 int(11) NOT NULL default '0',
-  fz1 int(11) NOT NULL default '0',
-  fx2 int(11) NOT NULL default '0',
-  fy2 int(11) NOT NULL default '0',
-  spawn int(11) NOT NULL default '-1',
-  hidden tinyint(3) unsigned NOT NULL default '0',
   hunger int(11) NOT NULL default '0',
-  npcaitype int(11) NOT NULL default '0',
-  spattack int(11) NOT NULL default '0',
-  spadelay int(11) NOT NULL default '0',
-  taming int(11) NOT NULL default '0',
-  summontimer int(10) unsigned NOT NULL default '0',
-  summonremainingseconds smallint(5) unsigned NOT NULL default '0',
   poison int(11) NOT NULL default '0',
   poisoned int(10) unsigned NOT NULL default '0',
-  fleeat smallint(6) NOT NULL default '0',
-  reattackat smallint(6) NOT NULL default '0',
-  split tinyint(3) unsigned NOT NULL default '0',
-  splitchance tinyint(3) unsigned NOT NULL default '0',
-  guildtoggle tinyint(1) unsigned NOT NULL default '0',
-  guildstone int(11) NOT NULL default '-1',
-  guildtitle varchar(255) default NULL,
-  guildfealty int(11) NOT NULL default '0',
-  murderrate int(10) unsigned NOT NULL default '0',
-  menupriv int(11) NOT NULL default '0',
-  questtype int(11) NOT NULL default '0',
-  questdestregion int(11) NOT NULL default '0',
-  questorigregion int(11) NOT NULL default '0',
-  questbountypostserial int(11) NOT NULL default '0',
-  questbountyreward int(11) NOT NULL default '0',
-  jailtimer int(10) unsigned NOT NULL default '0',
-  jailsecs int(11) NOT NULL default '0',
-  lootlist varchar(255) default NULL,
-  food int(10) unsigned NOT NULL default '0',
-  say smallint(5) unsigned default NULL,
-  mana smallint(6) default NULL,
-  profile longtext,
+  murderertime int(11) unsigned NOT NULL default '0',
+  criminaltime int(11) unsigned NOT NULL default '0',
+  nutriment int(10) unsigned NOT NULL default '0',
+  stealthsteps int(11) unsigned NOT NULL default '0',
+  gender tinyint(1) unsigned NOT NULL default '0',
+  propertyflags int(11) unsigned NOT NULL default '0',
+  attacker int(11) unsigned NOT NULL default '0',
+  combattarget int(11) unsigned NOT NULL default '0',
+  murderer int(11) unsigned NOT NULL default '0',
   guarding int(11) NOT NULL default '-1',
-  destination varchar(32) NOT NULL default '0,0,0,0',
-  sex tinyint(1) unsigned NOT NULL default '0',
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
-) TYPE=MyISAM COMMENT='cChar';
+) TYPE=MyISAM COMMENT='cBaseChar';
 # --------------------------------------------------------
 
 #
-# Estrutura da tabela `corpses`
+# Table structure for table `corpses`
 #
 
 CREATE TABLE corpses (
@@ -207,7 +156,7 @@ CREATE TABLE corpses (
 # --------------------------------------------------------
 
 #
-# Estrutura da tabela `corpses_equipment`
+# Table structure for table `corpses_equipment`
 #
 
 CREATE TABLE corpses_equipment (
@@ -218,7 +167,7 @@ CREATE TABLE corpses_equipment (
 # --------------------------------------------------------
 
 #
-# Estrutura da tabela `guildstones`
+# Table structure for table `guildstones`
 #
 
 CREATE TABLE guildstones (
@@ -236,7 +185,7 @@ CREATE TABLE guildstones (
 # --------------------------------------------------------
 
 #
-# Estrutura da tabela `guildstones_members`
+# Table structure for table `guildstones_members`
 #
 
 CREATE TABLE guildstones_members (
@@ -246,7 +195,7 @@ CREATE TABLE guildstones_members (
 # --------------------------------------------------------
 
 #
-# Estrutura da tabela `guildstones_recruits`
+# Table structure for table `guildstones_recruits`
 #
 
 CREATE TABLE guildstones_recruits (
@@ -256,7 +205,7 @@ CREATE TABLE guildstones_recruits (
 # --------------------------------------------------------
 
 #
-# Estrutura da tabela `guildstones_war`
+# Table structure for table `guildstones_war`
 #
 
 CREATE TABLE guildstones_war (
@@ -266,7 +215,7 @@ CREATE TABLE guildstones_war (
 # --------------------------------------------------------
 
 #
-# Estrutura da tabela `houses`
+# Table structure for table `houses`
 #
 
 CREATE TABLE houses (
@@ -281,7 +230,7 @@ CREATE TABLE houses (
 # --------------------------------------------------------
 
 #
-# Estrutura da tabela `items`
+# Table structure for table `items`
 #
 
 CREATE TABLE items (
@@ -351,7 +300,7 @@ CREATE TABLE items (
 # --------------------------------------------------------
 
 #
-# Estrutura da tabela `multis`
+# Table structure for table `multis`
 #
 
 CREATE TABLE multis (
@@ -364,7 +313,7 @@ CREATE TABLE multis (
 # --------------------------------------------------------
 
 #
-# Estrutura da tabela `multis_bans`
+# Table structure for table `multis_bans`
 #
 
 CREATE TABLE multis_bans (
@@ -375,7 +324,7 @@ CREATE TABLE multis_bans (
 # --------------------------------------------------------
 
 #
-# Estrutura da tabela `multis_friends`
+# Table structure for table `multis_friends`
 #
 
 CREATE TABLE multis_friends (
@@ -386,7 +335,59 @@ CREATE TABLE multis_friends (
 # --------------------------------------------------------
 
 #
-# Estrutura da tabela `skills`
+# Table structure for table `npcs`
+#
+
+CREATE TABLE npcs (
+  serial int(11) NOT NULL default '0',
+  mindamage smallint(6) unsigned NOT NULL default '0',
+  maxdamage smallint(6) unsigned NOT NULL default '0',
+  tamingminskill smallint(6) unsigned NOT NULL default '0',
+  summontime int(11) unsigned NOT NULL default '0',
+  additionalflags int(11) unsigned NOT NULL default '0',
+  owner int(11) unsigned NOT NULL default '0',
+  carve varchar(255) default NULL,
+  spawnregion varchar(255) default NULL,
+  stablemaster int(11) unsigned NOT NULL default '0',
+  lootlist varchar(255) default NULL,
+  PRIMARY KEY  (serial),
+  UNIQUE KEY serial (serial)
+) TYPE=MyISAM COMMENT='cNPC';
+# --------------------------------------------------------
+
+#
+# Table structure for table `pages`
+#
+
+CREATE TABLE pages (
+  charserial int(11) NOT NULL default '-1',
+  pagetype tinyint(4) NOT NULL default '0',
+  pagetime varchar(64) NOT NULL default '',
+  pagepos varchar(32) NOT NULL default '0,0,0,0',
+  content mediumtext NOT NULL,
+  category int(11) NOT NULL default '0',
+  pageorder int(11) NOT NULL default '0'
+) TYPE=MyISAM COMMENT='class cPage';
+# --------------------------------------------------------
+
+#
+# Table structure for table `players`
+#
+
+CREATE TABLE players (
+  serial int(11) NOT NULL default '0',
+  account varchar(255) default NULL,
+  additionalflags int(10) unsigned NOT NULL default '0',
+  visualrange tinyint(3) unsigned NOT NULL default '0',
+  profile longtext,
+  fixedlight tinyint(3) unsigned NOT NULL default '0',
+  PRIMARY KEY  (serial),
+  UNIQUE KEY serial (serial)
+) TYPE=MyISAM COMMENT='cPlayer';
+# --------------------------------------------------------
+
+#
+# Table structure for table `skills`
 #
 
 CREATE TABLE skills (
@@ -401,7 +402,7 @@ CREATE TABLE skills (
 # --------------------------------------------------------
 
 #
-# Estrutura da tabela `spellbooks`
+# Table structure for table `spellbooks`
 #
 
 CREATE TABLE spellbooks (
@@ -414,7 +415,7 @@ CREATE TABLE spellbooks (
 # --------------------------------------------------------
 
 #
-# Estrutura da tabela `tags`
+# Table structure for table `tags`
 #
 
 CREATE TABLE tags (
@@ -426,7 +427,7 @@ CREATE TABLE tags (
 # --------------------------------------------------------
 
 #
-# Estrutura da tabela `uobject`
+# Table structure for table `uobject`
 #
 
 CREATE TABLE uobject (
@@ -446,7 +447,7 @@ CREATE TABLE uobject (
 # --------------------------------------------------------
 
 #
-# Estrutura da tabela `uobjectmap`
+# Table structure for table `uobjectmap`
 #
 
 CREATE TABLE uobjectmap (
@@ -456,14 +457,4 @@ CREATE TABLE uobjectmap (
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM;
 
-#!
-
-CREATE TABLE `pages` (
-  `charserial` int(11) NOT NULL default '-1',
-  `pagetype` tinyint(4) NOT NULL default '0',
-  `pagetime` varchar(64) NOT NULL default '',
-  `pagepos` varchar(32) NOT NULL default '0,0,0,0',
-  `content` mediumtext NOT NULL,
-  `category` int(11) NOT NULL default '0',
-  `pageorder` int(11) NOT NULL default '0'
-) TYPE=MyISAM COMMENT='class cPage';
+    
