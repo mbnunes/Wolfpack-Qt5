@@ -1,0 +1,362 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Ripper	                        |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<spawnregion id="bank1">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>banker_male</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1425" x2="1428" y1="1687" y2="1690" map="0" />
+	</spawnregion>
+	<spawnregion id="bank2">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>banker_female</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1434" x2="1440" y1="1683" y2="1687" map="0" />
+	</spawnregion>
+	<spawnregion id="bank3">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>banker_male</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1425" x2="1428" y1="1677" y2="1679" map="0" />
+	</spawnregion>
+	<spawnregion id="bank4">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>banker_male</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1648" x2="1653" y1="1601" y2="1614" map="0" />
+	</spawnregion>
+	<spawnregion id="blacksmith1">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>blacksmith_male</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1417" x2="1420" y1="1544" y2="1550" map="0" />
+	</spawnregion>
+	<spawnregion id="mage1">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>mage_male</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1486" x2="1491" y1="1547" y2="1550" map="0" />
+	</spawnregion>
+	<spawnregion id="mage2">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>mage_male</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1569" x2="1574" y1="1703" y2="1714" map="0" />
+	</spawnregion>
+	<spawnregion id="mage3">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>mage_male</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1594" x2="1598" y1="1648" y2="1654" map="0" />
+	</spawnregion>
+	<spawnregion id="herbalist1">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>herbalist_female</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1491" x2="1496" y1="1548" y2="1554" map="0" />
+	</spawnregion>
+	<spawnregion id="stablemaster1">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>stablemaster_male</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1509" x2="1526" y1="1546" y2="1550" map="0" />
+	</spawnregion>
+	<spawnregion id="stablemaster2">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>stablemaster_male</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1289" x2="1298" y1="1757" y2="1771" map="0" />
+	</spawnregion>
+	<spawnregion id="guard1">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>standard_guard</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1510" x2="1516" y1="1611" y2="1616" map="0" />
+	</spawnregion>
+	<spawnregion id="guard2">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>standard_guard</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1409" x2="1414" y1="1714" y2="1718" map="0" />
+	</spawnregion>
+	<spawnregion id="guard3">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>standard_guard</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1616" x2="1622" y1="1762" y2="1766" map="0" />
+	</spawnregion>
+	<spawnregion id="healer1">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>healer_male</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1470" x2="1477" y1="1608" y2="1614" map="0" />
+	</spawnregion>
+	<spawnregion id="armorer1">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>armorer_male</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1480" x2="1484" y1="1583" y2="1589" map="0" />
+	</spawnregion>
+	<spawnregion id="armorer2">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>armorer_male</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1445" x2="1450" y1="1646" y2="1651" map="0" />
+	</spawnregion>
+	<spawnregion id="armorer3">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>armorer_male</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1340" x2="1345" y1="1731" y2="1735" map="0" />
+	</spawnregion>
+	<spawnregion id="armorer4">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>armorer_male</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1632" x2="1634" y1="1689" y2="1691" map="0" />
+	</spawnregion>
+	<spawnregion id="baker1">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>baker_female</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1449" x2="1454" y1="1609" y2="1618" map="0" />
+	</spawnregion>
+	<spawnregion id="carpenter1">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>carpenter</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1429" x2="1432" y1="1593" y2="1598" map="0" />
+	</spawnregion>
+	<spawnregion id="architect1">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>architect</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1434" x2="1438" y1="1593" y2="1598" map="0" />
+	</spawnregion>
+	<spawnregion id="jeweler1">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>jeweler_female</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1417" x2="1423" y1="1576" y2="1582" map="0" />
+	</spawnregion>
+	<spawnregion id="jeweler2">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>jeweler_male</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1451" x2="1456" y1="1679" y2="1688" map="0" />
+	</spawnregion>
+	<spawnregion id="jeweler3">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>jeweler_female</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1648" x2="1653" y1="1641" y2="1643" map="0" />
+	</spawnregion>
+	<spawnregion id="tinker1">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>tinker</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1422" x2="1429" y1="1648" y2="1663" map="0" />
+	</spawnregion>
+	<spawnregion id="butcher1">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>butcher</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1449" x2="1454" y1="1721" y2="1726" map="0" />
+	</spawnregion>
+	<spawnregion id="provisioner1">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>provisioner_male</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1465" x2="1470" y1="1672" y2="1674" map="0" />
+	</spawnregion>
+	<spawnregion id="provisioner2">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>provisioner_male</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1604" x2="1606" y1="1712" y2="1715" map="0" />
+	</spawnregion>
+	<spawnregion id="tailor1">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>tailor_female</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1467" x2="1471" y1="1684" y2="1689" map="0" />
+	</spawnregion>
+	<spawnregion id="tailor2">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>tailor_female</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1547" x2="1552" y1="1657" y2="1662" map="0" />
+	</spawnregion>
+	<spawnregion id="cook1">
+		<maxnpcamount>1</maxnpcamount>
+		<mintime>0</mintime>
+		<maxtime>1</maxtime>
+		<npcs>
+			<npc>cook</npc>
+		</npcs>
+
+		<npcspercycle>1</npcspercycle>
+		<rectangle x1="1610" x2="1612" y1="1584" y2="1586" map="0" />
+	</spawnregion>
+</definitions>
