@@ -11,11 +11,11 @@
     </message>
     <message>
         <source>Server time: %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Serverzeit: %1</translation>
     </message>
     <message>
         <source>Please select a target</source>
-        <translation type="unfinished"></translation>
+        <translation>Bitte wähle ein Ziel</translation>
     </message>
     <message>
         <source>Usage: spawnregion &lt;respawn|clear|fill&gt;</source>
@@ -131,7 +131,7 @@
     </message>
     <message>
         <source>You cannot wear that item.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst diesen Gegenstand nicht tragen.</translation>
     </message>
     <message>
         <source>Enter a description for this item.</source>
@@ -175,19 +175,19 @@
     </message>
     <message>
         <source>Hello, my name is %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Hallo, mein Name ist %1.</translation>
     </message>
     <message>
         <source>It is now %1 hours and %2 minutes.</source>
-        <translation type="unfinished"></translation>
+        <translation>Es ist nun %1 Uhr und %2 Minuten.</translation>
     </message>
     <message>
         <source>You are in %1</source>
-        <translation type="unfinished"></translation>
+        <translation>Du befindest dich in %1</translation>
     </message>
     <message>
         <source>You are in the wilderness</source>
-        <translation type="unfinished"></translation>
+        <translation>Du befindest dich in der Wildnis</translation>
     </message>
     <message>
         <source>You seem to be unable to track the traces of creatures who have been here.</source>
@@ -196,7 +196,8 @@
     <message>
         <source>Compiled: %1 %2
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Kompiliert: %1 %2
+</translation>
     </message>
     <message>
         <source>Qt: %1 %2 (Compiled: %3)
@@ -445,19 +446,20 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>*You see %1 attacking you.*</source>
-        <translation type="unfinished"></translation>
+        <translation>*Du siehst wie %1 dich angreift*</translation>
     </message>
 </context>
 <context>
     <name>cCommands</name>
     <message>
         <source>Access to command &apos;%1&apos; was denied</source>
-        <translation type="unfinished"></translation>
+        <translation>Der Zugriff auf den Befehl &apos;%1&apos; wurde verweigert</translation>
     </message>
     <message>
         <source>Access to command &apos;%1&apos; was denied
 </source>
-        <translation type="unfinished"></translation>
+        <translation>Der Zugriff auf den Befehl &apos;%1&apos; wurde verweigert
+</translation>
     </message>
     <message>
         <source>Used command &apos;%1&apos;.
@@ -466,7 +468,7 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>Unknown Command</source>
-        <translation type="unfinished"></translation>
+        <translation>Unbekannter Befehl</translation>
     </message>
 </context>
 <context>
@@ -553,27 +555,28 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <name>cNPC</name>
     <message>
         <source> [frozen]</source>
-        <translation type="unfinished"></translation>
+        <translation>[eingefroren]
+</translation>
     </message>
     <message>
         <source> [guarded]</source>
-        <translation type="unfinished"></translation>
+        <translation>[bewacht]</translation>
     </message>
     <message>
         <source> [guarding]</source>
-        <translation type="unfinished"></translation>
+        <translation>[bewachend]</translation>
     </message>
     <message>
         <source>Sorry but i have no goods to sell</source>
-        <translation type="unfinished"></translation>
+        <translation>Es tut mir leid, aber ich habe nichts zu verkaufen</translation>
     </message>
     <message>
         <source>(frozen)</source>
-        <translation type="unfinished"></translation>
+        <translation>(eingefroren)</translation>
     </message>
     <message>
         <source> (frozen)</source>
-        <translation type="unfinished"></translation>
+        <translation>(eingefroren)</translation>
     </message>
 </context>
 <context>
@@ -708,43 +711,44 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <name>cPlayer</name>
     <message>
         <source>You are too far away to mount!</source>
-        <translation type="unfinished"></translation>
+        <translation>Du bist zu weit entfernt um aufzusteigen!</translation>
     </message>
     <message>
         <source>You dont own that creature.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dir gehört diese Kreatur nicht.</translation>
     </message>
     <message>
         <source>Lady </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Lord </source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source> [offline]</source>
-        <translation type="unfinished"></translation>
+        <translation>[ausgeloggt]</translation>
     </message>
     <message>
         <source> [guarded]</source>
-        <translation type="unfinished"></translation>
+        <translation>[bewacht]</translation>
     </message>
     <message>
         <source> [guarding]</source>
-        <translation type="unfinished"></translation>
+        <translation>[bewachend]
+</translation>
     </message>
     <message>
         <source>You loose your concentration</source>
-        <translation type="unfinished"></translation>
+        <translation>Du verlierst deine Konzentration</translation>
     </message>
     <message>
-        <source> <byte value="x9"/>Lady %1<byte value="x9"/>%2</source>
-        <translation type="unfinished"></translation>
+        <source><byte value="x9"/>Lady %1<byte value="x9"/>%2</source>
+        <translation></translation>
     </message>
     <message>
-        <source> <byte value="x9"/>Lord %1<byte value="x9"/>%2</source>
-        <translation type="unfinished"></translation>
+        <source><byte value="x9"/>Lord %1<byte value="x9"/>%2</source>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -859,91 +863,91 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <name>cSkills</name>
     <message>
         <source>You cannot do that as a ghost.</source>
-        <translation type="unfinished"></translation>
+        <translation>Das kannst du nicht machen als Geist.</translation>
     </message>
     <message>
         <source>You can&apos;t do that while you are casting.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst das nicht tun während du einen Zauber sprichst.</translation>
     </message>
     <message>
         <source>You must wait a few moments before using another skill.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du musst einen Moment warten bevor du eine andere Fertigkeit einsetzt.</translation>
     </message>
     <message>
         <source>That skill has not been implemented yet.</source>
-        <translation type="unfinished"></translation>
+        <translation>Diese Fertigkeit wurde noch nicht implementiert.</translation>
     </message>
     <message>
         <source>Why don&apos;t you simply take it?</source>
-        <translation type="unfinished"></translation>
+        <translation>Warum nimmst du es nicht einfach?</translation>
     </message>
     <message>
         <source>You can&apos;t steal from game masters.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst von Spielleitern nichst stehlen.</translation>
     </message>
     <message>
         <source>You are too far away to steal from that person.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du bist zu weit weg um von dieser Person etwas zu stehlen.</translation>
     </message>
     <message>
         <source>Bad luck, your victim doesn&apos;t have a backpack.</source>
-        <translation type="unfinished"></translation>
+        <translation>Pech gehabt, dein Opfer hat keinen Rucksack.</translation>
     </message>
     <message>
         <source>Your victim posesses nothing you could steal.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dein Opfer hat nichts, das du stehlen könntest.</translation>
     </message>
     <message>
         <source>You reach into %1&apos;s backpack and try to steal something...</source>
-        <translation type="unfinished"></translation>
+        <translation>Du greifst in den Rucksack von %1 und versuchst etwas zu stehlen...</translation>
     </message>
     <message>
         <source>You successfully steal %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du stielst erfolgreich %1.</translation>
     </message>
     <message>
         <source>You fail to steal the item.</source>
-        <translation type="unfinished"></translation>
+        <translation>Dein Versuch den Gegenstand zu stehlen schlägt fehl.</translation>
     </message>
     <message>
         <source>You have been cought!</source>
-        <translation type="unfinished"></translation>
+        <translation>Du wurdest entdeckt!</translation>
     </message>
     <message>
         <source>Guards! A thief is amoung us!</source>
-        <translation type="unfinished"></translation>
+        <translation>Wachen! Ein Dieb ist unter uns!</translation>
     </message>
     <message>
         <source>You notice %1 trying to steal %2 from you.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du bemerkst wie %1 versucht dir %2 zu stehlen.</translation>
     </message>
     <message>
         <source>You notice %1 trying to steal %2 from %3.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du bemerkst wie %1 versucht %2 von %3 zu stehlen.</translation>
     </message>
     <message>
         <source>%1 is trying to snoop in your pack</source>
-        <translation type="unfinished"></translation>
+        <translation>%1 versucht in deinen Rucksack zu sehen</translation>
     </message>
     <message>
         <source>You can&apos;t peek into that container or you&apos;ll be jailed.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du kannst nicht in diesen Behälter schauen oder du kommst ins Gefängnis.</translation>
     </message>
     <message>
         <source>You successfully peek into that container.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du wirfst erfolgreich einen Blick in den Behälter.</translation>
     </message>
     <message>
         <source>You failed to peek into that container.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du schaffst es nicht in den Behälter zu schauen.</translation>
     </message>
     <message>
         <source>Art thou attempting to disturb my privacy?</source>
-        <translation type="unfinished"></translation>
+        <translation>Versucht Ihr meine Privatsphäre zu stören?</translation>
     </message>
     <message>
         <source>You notice %1 trying to peek into your pack!</source>
-        <translation type="unfinished"></translation>
+        <translation>Du bemerkst wie %1 versucht in deinen Rucksack zu schauen!</translation>
     </message>
 </context>
 <context>
@@ -988,50 +992,51 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <name>cTerritories</name>
     <message>
         <source>You have left %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du verlässt %1.</translation>
     </message>
     <message>
         <source>You have entered %1.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du betrittst %1.</translation>
     </message>
     <message>
         <source>You have left the protection of %1 guards.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du verlässt nun den Schutz der %1.</translation>
     </message>
     <message>
         <source>You are now under the protection of %1 guards.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du stehst nun unter dem Schutz der %1.</translation>
     </message>
 </context>
 <context>
     <name>cTiming</name>
     <message>
         <source>You are no longer criminal.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du bist nicht länger als Verbrecher bekannt.</translation>
     </message>
     <message>
         <source>You are no longer a murderer.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du bist nicht länger als Mörder bekannt.</translation>
     </message>
     <message>
         <source>You are starving.</source>
-        <translation type="unfinished"></translation>
+        <translation>Du verhungerst.</translation>
     </message>
     <message>
         <source>*%1 looks a little hungry*</source>
-        <translation type="unfinished"></translation>
+        <translation>*%1 sieht ein wenig hungrig aus*</translation>
     </message>
     <message>
         <source>*%1 looks fairly hungry*</source>
-        <translation type="unfinished"></translation>
+        <translation>*%1 sieht ziemlich hungrig aus*</translation>
     </message>
     <message>
         <source>*%1 looks extremely hungry*</source>
-        <translation type="unfinished"></translation>
+        <translation>*%1 sieht extrem hungrig aus*
+</translation>
     </message>
     <message>
         <source>*%1 looks weak from starvation*</source>
-        <translation type="unfinished"></translation>
+        <translation>*%1 sieht verhungernd aus*</translation>
     </message>
 </context>
 <context>
@@ -1202,11 +1207,11 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     <name>cUOTxOpenPaperdoll</name>
     <message>
         <source>Lady</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <source>Lord</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>
@@ -1221,23 +1226,23 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
     <message>
         <source>Worldsave Initialized</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Worldsave gestartet</translation>
     </message>
     <message>
         <source>WORLDSAVE IN PROGRESS</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">WORLDSAVE LÄUFT</translation>
     </message>
     <message>
         <source>Saving %1 items.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Speichere %1 Gegenstände.</translation>
     </message>
     <message>
         <source>Saving %1 characters.</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Speichere %1 Charaktere.</translation>
     </message>
     <message>
         <source>Worldsave Completed In %1ms</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Worldsave nach %1 ms abgeschlossen</translation>
     </message>
 </context>
 </TS>
