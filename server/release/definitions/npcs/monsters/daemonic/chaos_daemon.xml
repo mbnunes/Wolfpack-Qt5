@@ -11,7 +11,7 @@
 	<!--  -->
 	<npc id="chaos_daemon" inherit="monster_base">
 		<name>chaos daemon</name>
-		<id>59</id>
+		<id>792</id>
 		<karma><random list="KARMA_L3" /></karma>
 		<fame><random list="FAME_L3" /></fame>
 		<!-- Stats -->
