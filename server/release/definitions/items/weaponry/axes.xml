@@ -7,6 +7,51 @@
 =================================================================
 -->
 <definitions>
+	<!-- Two Handed Axe -->
+	<item id="1442">
+		<durability>50</durability>
+		<twohanded />
+		<type>1002</type>
+		<id>0x1442</id>
+		<category>Weapons\Axes\Two Handed Axe (W/E)</category>
+	</item>
+
+	<item id="1443">
+		<inherit id="1442" />
+		<id>0x1443</id>
+		<category>Weapons\Axes\Two Handed Axe (N/S)</category>		
+	</item>
+
+	<!-- Large Battle Axe -->
+	<item id="13fa">
+		<id>0x13fa</id>
+		<durability>50</durability>
+		<twohanded />
+		<type>1002</type>
+		<category>Weapons\Axes\Large Battle Axe (W/E)</category>
+	</item>
+
+	<item id="13fb">
+		<inherit id="13fa" />
+		<id>0x13fb</id>
+		<category>Weapons\Axes\Large Battle Axe (W/E)</category>
+	</item>
+
+	<!-- War Axe -->
+	<item id="13af">
+		<id>0x13af</id>
+		<durability>50</durability>
+		<twohanded />
+		<type>1002</type>
+		<category>Weapons\Axes\War Axe (N/S)</category>
+	</item>
+
+	<item id="13b0">
+		<inherit id="13af" />
+		<id>0x13b0</id>
+		<category>Weapons\Axes\War Axe (N/S)</category>
+	</item>
+
 	<!-- Hatchet -->
 	<item id="f43">
 		<id>0xf43</id>

@@ -22,13 +22,13 @@
 	<item id="f60">
 		<id>0x0f60</id>
 		<type>1001</type>
-		<category>Weapons\Swords\Longsword (W/E)</category>
+		<category>Weapons\Swords\Longsword 1 (W/E)</category>
 	</item>
 
 	<item id="f61">
 		<inherit id="f60" />
 		<id>0x0f61</id>
-		<category>Weapons\Swords\Longsword (N/S)</category>
+		<category>Weapons\Swords\Longsword 1 (N/S)</category>
 	</item>
 
 	<item id="f62">
@@ -41,5 +41,119 @@
 		<inherit id="f62" />
 		<id>0x0f63</id>
 		<category>Weapons\Swords\Spear (W/E)</category>
+	</item>
+
+	<item id="13b5">
+		<id>0x13b5</id>
+		<type>1001</type>
+		<category>Weapons\Swords\Scimitar (W/E)</category>
+	</item>
+
+	<item id="13b6">
+		<inherit id="13b5" />
+		<id>0x13b6</id>
+		<category>Weapons\Swords\Scimitar (N/S)</category>
+	</item>
+
+	<item id="13b7">
+		<id>0x13b7</id>
+		<type>1001</type>
+		<category>Weapons\Swords\Longsword 2 (W/E)</category>
+	</item>
+
+	<item id="13b8">
+		<inherit id="13b7" />
+		<id>0x13b8</id>
+		<category>Weapons\Swords\Longsword 2 (N/S)</category>
+	</item>
+
+	<item id="13b9">
+		<id>0x13b9</id>
+		<type>1001</type>
+		<category>Weapons\Swords\Viking Sword (N/S)</category>
+	</item>
+
+	<item id="13ba">
+		<inherit id="13b9" />
+		<id>0x13ba</id>
+		<category>Weapons\Swords\Viking Sword (W/E)</category>
+	</item>
+
+	<!-- Pitchfork -->
+	<item id="e87">
+		<id>0x0e87</id>
+		<type>1001</type>
+		<category>Weapons\Swords\Pitchfork (W/E)</category>
+	</item>
+
+	<item id="e88">
+		<inherit id="e87" />
+		<id>0x0e88</id>
+		<category>Weapons\Swords\Pitchfork (N/S)</category>
+	</item>
+
+	<!-- Katana -->
+	<item id="13fe">
+		<id>0x13fe</id>
+		<type>1001</type>
+		<category>Weapons\Swords\Katana (W/E)</category>
+	</item>
+
+	<item id="13ff">
+		<inherit id="13fe" />
+		<id>0x13ff</id>
+		<category>Weapons\Swords\Katana (N/S)</category>
+	</item>
+	
+	<!-- Short Spear -->
+	<item id="1402">
+		<id>0x1402</id>
+		<type>1001</type>
+		<category>Weapons\Swords\Short Spear (W/E)</category>
+	</item>
+
+	<item id="1403">
+		<inherit id="1402" />
+		<id>0x1403</id>
+		<category>Weapons\Swords\Short Spear (N/S)</category>
+	</item>
+
+	<!-- War Fork -->
+	<item id="1404">
+		<type>1001</type>
+		<id>0x1404</id>
+		<category>Weapons\Swords\War Fork (W/E)</category>
+	</item>
+
+	<item id="1405">
+		<inherit id="1404" />
+		<id>0x1405</id>
+		<category>Weapons\Swords\War Fork (N/S)</category>
+	</item>
+
+	<!-- Halberd -->
+	<item id="143e">
+		<type>1001</type>
+		<id>0x143e</id>
+		<category>Weapons\Swords\Halberd (W/E)</category>
+	</item>
+
+	<item id="143f">
+		<inherit id="143e" />
+		<id>0x143f</id>
+		<category>Weapons\Swords\Halberd (N/S)</category>
+	</item>
+
+	<!-- Cutlass -->
+	<item id="1440">
+		<id>0x1440</id>
+		<type>1001</type>
+		<category>Weapons\Swords\Cutlass (W/E)</category>
+	</item>
+
+	<item id="1441">
+		<inherit id="1440" />
+		<id>0x1441</id>
+		<category>Weapons\Swords\Cutlass (N/S)</category>
 	</item>
 </definitions>

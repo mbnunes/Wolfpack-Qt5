@@ -9,22 +9,6 @@
 =================================================================
 -->
 <definitions>
-	<!-- Beehive + Bees -->
-	<item id="91a">
-		<id>0x091a</id>
-		<category>Misc\Beehive\Beehive</category>
-	</item>
-
-	<item id="91b">
-		<id>0x091b</id>
-		<category>Misc\Beehive\Bees 1</category>
-	</item>
-
-	<item id="923">
-		<id>0x0923</id>
-		<category>Misc\Beehive\Bees 2</category>
-	</item>
-
 	<!-- Game Pieces (leave these without category) -->
 	<item id="3584">
 		<id>0x3584</id>
@@ -289,4 +273,335 @@
 		<category>Misc\Scaffold\Scaffold (W/E) (2/2)</category>
 	</item>
 
+	<!-- Telescope -->
+
+	<item id="1459">
+		<id>0x1459</id>
+		<category>Misc\Telescope\Telescope (1/66)</category>
+	</item>
+
+	<item id="145a">
+		<id>0x145a</id>
+		<category>Misc\Telescope\Telescope (2/66)</category>
+	</item>
+
+	<item id="145b">
+		<id>0x145b</id>
+		<category>Misc\Telescope\Telescope (3/66)</category>
+	</item>
+
+	<item id="145c">
+		<id>0x145c</id>
+		<category>Misc\Telescope\Telescope (4/66)</category>
+	</item>
+
+	<item id="145d">
+		<id>0x145d</id>
+		<category>Misc\Telescope\Telescope (5/66)</category>
+	</item>
+
+	<item id="145e">
+		<id>0x145e</id>
+		<category>Misc\Telescope\Telescope (6/66)</category>
+	</item>
+
+	<item id="145f">
+		<id>0x145f</id>
+		<category>Misc\Telescope\Telescope (7/66)</category>
+	</item>
+
+	<item id="1460">
+		<id>0x1460</id>
+		<category>Misc\Telescope\Telescope (8/66)</category>
+	</item>
+
+	<item id="1461">
+		<id>0x1461</id>
+		<category>Misc\Telescope\Telescope (9/66)</category>
+	</item>
+
+	<item id="1462">
+		<id>0x1462</id>
+		<category>Misc\Telescope\Telescope (10/66)</category>
+	</item>
+
+	<item id="1463">
+		<id>0x1463</id>
+		<category>Misc\Telescope\Telescope (11/66)</category>
+	</item>
+
+	<item id="1464">
+		<id>0x1464</id>
+		<category>Misc\Telescope\Telescope (12/66)</category>
+	</item>
+
+	<item id="1465">
+		<id>0x1465</id>
+		<category>Misc\Telescope\Telescope (13/66)</category>
+	</item>
+
+	<item id="1466">
+		<id>0x1466</id>
+		<category>Misc\Telescope\Telescope (14/66)</category>
+	</item>
+
+	<item id="1467">
+		<id>0x1467</id>
+		<category>Misc\Telescope\Telescope (15/66)</category>
+	</item>
+
+	<item id="1468">
+		<id>0x1468</id>
+		<category>Misc\Telescope\Telescope (16/66)</category>
+	</item>
+
+	<item id="1469">
+		<id>0x1469</id>
+		<category>Misc\Telescope\Telescope (17/66)</category>
+	</item>
+
+	<item id="146a">
+		<id>0x146a</id>
+		<category>Misc\Telescope\Telescope (18/66)</category>
+	</item>
+
+	<item id="146b">
+		<id>0x146b</id>
+		<category>Misc\Telescope\Telescope (19/66)</category>
+	</item>
+
+	<item id="146c">
+		<id>0x146c</id>
+		<category>Misc\Telescope\Telescope (20/66)</category>
+	</item>
+
+	<item id="146d">
+		<id>0x146d</id>
+		<category>Misc\Telescope\Telescope (21/66)</category>
+	</item>
+
+	<item id="146e">
+		<id>0x146e</id>
+		<category>Misc\Telescope\Telescope (22/66)</category>
+	</item>
+
+	<item id="146f">
+		<id>0x146f</id>
+		<category>Misc\Telescope\Telescope (23/66)</category>
+	</item>
+
+	<item id="1470">
+		<id>0x1470</id>
+		<category>Misc\Telescope\Telescope (24/66)</category>
+	</item>
+
+	<item id="1471">
+		<id>0x1471</id>
+		<category>Misc\Telescope\Telescope (25/66)</category>
+	</item>
+
+	<item id="1472">
+		<id>0x1472</id>
+		<category>Misc\Telescope\Telescope (26/66)</category>
+	</item>
+
+	<item id="1473">
+		<id>0x1473</id>
+		<category>Misc\Telescope\Telescope (27/66)</category>
+	</item>
+
+	<item id="1474">
+		<id>0x1474</id>
+		<category>Misc\Telescope\Telescope (28/66)</category>
+	</item>
+
+	<item id="1475">
+		<id>0x1475</id>
+		<category>Misc\Telescope\Telescope (29/66)</category>
+	</item>
+
+	<item id="1476">
+		<id>0x1476</id>
+		<category>Misc\Telescope\Telescope (30/66)</category>
+	</item>
+
+	<item id="1477">
+		<id>0x1477</id>
+		<category>Misc\Telescope\Telescope (31/66)</category>
+	</item>
+
+	<item id="1478">
+		<id>0x1478</id>
+		<category>Misc\Telescope\Telescope (32/66)</category>
+	</item>
+
+	<item id="1479">
+		<id>0x1479</id>
+		<category>Misc\Telescope\Telescope (33/66)</category>
+	</item>
+
+	<item id="147a">
+		<id>0x147a</id>
+		<category>Misc\Telescope\Telescope (34/66)</category>
+	</item>
+
+	<item id="147b">
+		<id>0x147b</id>
+		<category>Misc\Telescope\Telescope (35/66)</category>
+	</item>
+
+	<item id="147c">
+		<id>0x147c</id>
+		<category>Misc\Telescope\Telescope (36/66)</category>
+	</item>
+
+	<item id="147d">
+		<id>0x147d</id>
+		<category>Misc\Telescope\Telescope (37/66)</category>
+	</item>
+
+	<item id="147e">
+		<id>0x147e</id>
+		<category>Misc\Telescope\Telescope (38/66)</category>
+	</item>
+
+	<item id="147f">
+		<id>0x147f</id>
+		<category>Misc\Telescope\Telescope (39/66)</category>
+	</item>
+
+	<item id="1480">
+		<id>0x1480</id>
+		<category>Misc\Telescope\Telescope (40/66)</category>
+	</item>
+
+	<item id="1481">
+		<id>0x1481</id>
+		<category>Misc\Telescope\Telescope (41/66)</category>
+	</item>
+
+	<item id="1482">
+		<id>0x1482</id>
+		<category>Misc\Telescope\Telescope (42/66)</category>
+	</item>
+
+	<item id="1483">
+		<id>0x1483</id>
+		<category>Misc\Telescope\Telescope (43/66)</category>
+	</item>
+
+	<item id="1484">
+		<id>0x1484</id>
+		<category>Misc\Telescope\Telescope (44/66)</category>
+	</item>
+
+	<item id="1485">
+		<id>0x1485</id>
+		<category>Misc\Telescope\Telescope (45/66)</category>
+	</item>
+
+	<item id="1486">
+		<id>0x1486</id>
+		<category>Misc\Telescope\Telescope (46/66)</category>
+	</item>
+
+	<item id="1487">
+		<id>0x1487</id>
+		<category>Misc\Telescope\Telescope (47/66)</category>
+	</item>
+
+	<item id="1488">
+		<id>0x1488</id>
+		<category>Misc\Telescope\Telescope (48/66)</category>
+	</item>
+
+	<item id="1489">
+		<id>0x1489</id>
+		<category>Misc\Telescope\Telescope (49/66)</category>
+	</item>
+
+	<item id="148a">
+		<id>0x148a</id>
+		<category>Misc\Telescope\Telescope (50/66)</category>
+	</item>
+
+	<item id="148b">
+		<id>0x148b</id>
+		<category>Misc\Telescope\Telescope (51/66)</category>
+	</item>
+
+	<item id="148c">
+		<id>0x148c</id>
+		<category>Misc\Telescope\Telescope (52/66)</category>
+	</item>
+
+	<item id="148d">
+		<id>0x148d</id>
+		<category>Misc\Telescope\Telescope (53/66)</category>
+	</item>
+
+	<item id="148e">
+		<id>0x148e</id>
+		<category>Misc\Telescope\Telescope (54/66)</category>
+	</item>
+
+	<item id="148f">
+		<id>0x148f</id>
+		<category>Misc\Telescope\Telescope (55/66)</category>
+	</item>
+
+	<item id="1490">
+		<id>0x1490</id>
+		<category>Misc\Telescope\Telescope (56/66)</category>
+	</item>
+
+	<item id="1491">
+		<id>0x1491</id>
+		<category>Misc\Telescope\Telescope (57/66)</category>
+	</item>
+
+	<item id="1492">
+		<id>0x1492</id>
+		<category>Misc\Telescope\Telescope (58/66)</category>
+	</item>
+
+	<item id="1493">
+		<id>0x1493</id>
+		<category>Misc\Telescope\Telescope (59/66)</category>
+	</item>
+
+	<item id="1494">
+		<id>0x1494</id>
+		<category>Misc\Telescope\Telescope (60/66)</category>
+	</item>
+
+	<item id="1495">
+		<id>0x1495</id>
+		<category>Misc\Telescope\Telescope (61/66)</category>
+	</item>
+
+	<item id="1496">
+		<id>0x1496</id>
+		<category>Misc\Telescope\Telescope (62/66)</category>
+	</item>
+
+	<item id="1497">
+		<id>0x1497</id>
+		<category>Misc\Telescope\Telescope (63/66)</category>
+	</item>
+
+	<item id="1498">
+		<id>0x1498</id>
+		<category>Misc\Telescope\Telescope (64/66)</category>
+	</item>
+
+	<item id="1499">
+		<id>0x1499</id>
+		<category>Misc\Telescope\Telescope (65/66)</category>
+	</item>
+
+	<item id="149a">
+		<id>0x149a</id>
+		<category>Misc\Telescope\Telescope (66/66)</category>
+	</item>
 </definitions>

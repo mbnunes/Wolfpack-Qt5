@@ -1,12 +1,13 @@
 <!--
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
-|  ((    _/{  "-;  | Created by: sereg	                        |
-|   )).-' {{ ;'`   | Revised by: DarkStorm                      |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
+|   )).-' {{ ;'`   | Revised by:                                |
 |  ( (  ;._ \\ ctr | Last Modification: created	                |
 =================================================================
 -->
 <definitions>
+	<!-- Mace -->
 	<item id="f5c">
 		<id>0x0f5c</id>
 		<type>1004</type>
@@ -17,5 +18,69 @@
 		<inherit id="f5c" />
 		<id>0x0f5d</id>
 		<category>Weapons\Maces\Mace (N/S)</category>
+	</item>
+
+	<!-- Club -->
+	<item id="13b3">
+		<type>1004</type>
+		<id>0x13b3</id>
+		<category>Weapons\Maces\Club (W/E)</category>
+	</item>
+
+	<item id="13b4">
+		<id>0x13b4</id>
+		<category>Weapons\Maces\Club (N/S)</category>
+	</item>
+
+	<!-- War Mace -->
+	<item id="1406">
+		<type>1004</type>
+		<id>0x1406</id>
+		<category>Weapons\Maces\War Mace (W/E)</category>
+	</item>
+
+	<item id="1407">
+		<inherit id="1406" />
+		<id>0x1407</id>
+		<category>Weapons\Maces\War Mace (N/S)</category>
+	</item>
+
+	<!-- War Hammer -->
+	<item id="1438">
+		<type>1004</type>
+		<id>0x1438</id>
+		<category>Weapons\Maces\War Hammer (W/E)</category>
+	</item>
+
+	<item id="1439">
+		<inherit id="1438" />
+		<id>0x1439</id>
+		<category>Weapons\Maces\War Hammer (N/S)</category>
+	</item>
+
+	<!-- Maul -->
+	<item id="143a">
+		<type>1004</type>
+		<id>0x143a</id>
+		<category>Weapons\Maces\Maul (W/E)</category>
+	</item>
+
+	<item id="143b">
+		<inherit id="143a" />
+		<id>0x143b</id>
+		<category>Weapons\Maces\Maul (N/S)</category>
+	</item>
+
+	<!-- Hammer Pick -->
+	<item id="143c">
+		<type>1004</type>
+		<id>0x143c</id>
+		<category>Weapons\Maces\Hammer Pick (W/E)</category>
+	</item>
+
+	<item id="143d">
+		<inherit id="143c" />
+		<id>0x143d</id>
+		<category>Weapons\Maces\Hammer Pick (N/S)</category>
 	</item>
 </definitions>

@@ -19,6 +19,18 @@
 		<id>0x0FB5</id>
 		<category>Skill Items\Blacksmithing\Sledge Hammer (N/S)</category>
 	</item>
+
+	<!-- Smith's Hammer -->
+	<item id="13e3">
+		<id>0x13e3</id>
+		<category>Skill Items\Blacksmithing\Smith's Hammer (W/E)</category>
+	</item>
+
+	<item id="13e4">
+		<inherit id="13e3" />
+		<id>0x13e4</id>
+		<category>Skill Items\Blacksmithing\Smith's Hammer (N/S)</category>
+	</item>
 	
 	<!-- Ingot -->
 	<item id="1bf2">

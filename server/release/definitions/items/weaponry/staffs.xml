@@ -61,13 +61,13 @@
 		<speed>33</speed>
 		<type>1003</type>
 		<weight>3.00</weight>
-		<category>Weapons\Staffs\Gnarled Staff N/S</category>
+		<category>Weapons\Staffs\Gnarled Staff (N/S)</category>
 	</item>
 	
 	<item id="13f9">
 		<inherit id="13f8" />
 		<id>0x13f9</id>
-		<category>Weapons\Staffs\Gnarled Staff W/E</category>
+		<category>Weapons\Staffs\Gnarled Staff (W/E)</category>
 	</item>	
 
 	<!-- Shepherds Crook -->
@@ -91,15 +91,16 @@
 		<category>Weapons\Staffs\Shepherds Crook (W/E)</category>
 	</item>
 
-	<!-- Pitchfork -->
-	<item id="e87">
-		<id>0x0e87</id>
-		<category>Weapons\Staffs\Pitchfork (W/E)</category>
+	<!-- Crook -->
+	<item id="13f4">
+		<id>0x13f4</id>
+		<type>1003</type>
+		<category>Weapons\Staffs\Crook (W/E)</category>
 	</item>
 
-	<item id="e88">
-		<inherit id="e87" />
-		<id>0x0e88</id>
-		<category>Weapons\Staffs\Pitchfork (N/S)</category>
+	<item id="13f5">
+		<inherit id="13f4" />
+		<id>0x13f5</id>
+		<category>Weapons\Staffs\Crook (N/S)</category>
 	</item>
 </definitions>

@@ -9,4 +9,102 @@
 =================================================================
 -->
 <definitions>
+	<item id="13c5">
+		<id>0x13c5</id>
+		<category>Armor\Leather\Sleeves (N/S)</category>
+	</item>
+
+	<item id="13cd">
+		<inherit id="13c5" />
+		<id>0x13cd</id>
+		<category>Armor\Leather\Sleeves (W/E)</category>
+	</item>
+
+	<item id="13c6">
+		<id>0x13c6</id>
+		<category>Armor\Leather\Gloves (N/S)</category>
+	</item>
+
+	<item id="13ce">
+		<inherit id="13c6" />
+		<id>0x13ce</id>
+		<category>Armor\Leather\Gloves (W/E)</category>
+	</item>
+
+	<item id="13c7">
+		<id>0x13c7</id>
+		<category>Armor\Leather\Gorget</category>
+	</item>
+
+	<item id="13cb">
+		<id>0x13cb</id>
+		<category>Armor\Leather\Leggings (N/S)</category>
+	</item>
+
+	<item id="13d2">
+		<inherit id="13cb" />
+		<id>0x13d2</id>
+		<category>Armor\Leather\Leggings (W/E)</category>
+	</item>
+
+	<item id="13cc">
+		<id>0x13cc</id>
+		<category>Armor\Leather\Tunic (N/S)</category>
+	</item>
+
+	<item id="13d3">
+		<inherit id="13cc" />
+		<id>0x13d3</id>
+		<category>Armor\Leather\Tunic (W/E)</category>
+	</item>
+
+	<!-- Studded -->
+	<item id="13d4">
+		<id>0x13d4</id>
+		<category>Armor\Studded Leather\Sleeves (N/S)</category>
+	</item>
+
+	<item id="13dc">
+		<inherit id="13d4" />
+		<id>0x13dc</id>
+		<category>Armor\Studded Leather\Sleeves (W/E)</category>
+	</item>
+
+	<item id="13d5">
+		<id>0x13d5</id>
+		<category>Armor\Studded Leather\Gloves (N/S)</category>
+	</item>
+
+	<item id="13dd">
+		<inherit id="13d5" />
+		<id>0x13dd</id>
+		<category>Armor\Studded Leather\Gloves (W/E)</category>
+	</item>
+
+	<item id="13d6">
+		<id>0x13d6</id>
+		<category>Armor\Studded Leather\Gorget</category>
+	</item>
+
+	<item id="13da">
+		<id>0x13da</id>
+		<category>Armor\Studded Leather\Leggings (N/S)</category>
+	</item>
+
+	<item id="13e1">
+		<inherit id="13da" />
+		<id>0x13e1</id>
+		<category>Armor\Studded Leather\Leggings (W/E)</category>
+	</item>
+
+	<item id="13db">
+		<id>0x13db</id>
+		<category>Armor\Studded Leather\Tunic (N/S)</category>
+	</item>
+
+	<item id="13e2">
+		<inherit id="13db" />
+		<id>0x13e2</id>
+		<category>Armor\Studded Leather\Tunic (W/E)</category>
+	</item>
 </definitions>

@@ -45,4 +45,30 @@
 		<id>0x0f52</id>
 		<category>Weapons\Fencing\Dagger (W/E)</category>
 	</item>
+
+	<!-- Butcher Knife -->
+	<item id="13f6">
+		<id>0x13f6</id>
+		<type>1005</type>
+		<category>Weapons\Fencing\Butcher Knife (N/S)</category>
+	</item>
+
+	<item id="13f7">
+		<inherit id="13f6" />
+		<id>0x13f7</id>
+		<category>Weapons\Fencing\Butcher Knife (W/E)</category>
+	</item>
+
+	<!-- Kryss -->
+	<item id="1400">
+		<id>0x1400</id>
+		<type>1005</type>
+		<category>Weapons\Fencing\Kryss (W/E)</category>
+	</item>
+
+	<item id="1401">
+		<inherit id="1400" />
+		<id>0x1401</id>
+		<category>Weapons\Fencing\Kryss (N/S)</category>
+	</item>
 </definitions>

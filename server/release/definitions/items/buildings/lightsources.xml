@@ -214,4 +214,40 @@
 		<id>0x0e31</id>
 		<category>Decoration\Lightsources\Brazier</category>
 	</item>
+
+	<item id="142c">
+		<id>0x142c</id>
+		<events>lightsource</events>
+		<category>Decoration\Lightsources\Candle 3 (On)</category>
+	</item>
+
+	<item id="142f">
+		<id>0x142f</id>
+		<events>lightsource</events>
+		<category>Decoration\Lightsources\Candle 3 (Off)</category>
+	</item>
+
+	<item id="1430">
+		<id>0x1430</id>
+		<events>lightsource</events>
+		<category>Decoration\Lightsources\Candle 4 (On)</category>
+	</item>
+
+	<item id="1433">
+		<id>0x1433</id>
+		<events>lightsource</events>
+		<category>Decoration\Lightsources\Candle 4 (Off)</category>
+	</item>
+
+	<item id="1434">
+		<id>0x1434</id>
+		<events>lightsource</events>
+		<category>Decoration\Lightsources\Candle 5 (On)</category>
+	</item>
+
+	<item id="1437">
+		<id>0x1437</id>
+		<events>lightsource</events>
+		<category>Decoration\Lightsources\Candle 5 (Off)</category>
+	</item>
 </definitions>

@@ -297,6 +297,19 @@
 		<value>40</value>
 	</item>
 
+	<!-- Orc Mask 1 n/s -->
+	<item id="141b">
+		<id>0x141b</id>
+		<category>Clothes\Headwear\Orc Mask (N/S)</category>
+	</item>
+
+	<!-- Orc Mask 1 w/e -->
+	<item id="141c">
+		<inherit id="141b" />
+		<id>0x141c</id>
+		<category>Clothes\Headwear\Orc Mask (W/E)</category>
+	</item>
+
 	<!-- Necklace 1 -->
 	<item id="1085">
 		<category>Clothes\Accessories\Necklace 1</category>
