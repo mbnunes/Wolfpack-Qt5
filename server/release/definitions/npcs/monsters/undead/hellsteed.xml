@@ -11,7 +11,7 @@
 	<!--  -->
 	<npc id="hellsteed" inherit="monster_base">
 		<name>hellsteed</name>
-		<id>205</id>
+		<id>793</id>
 		<karma><random list="KARMA_L4" /></karma>
 		<fame><random list="FAME_L4" /></fame>
 		<!-- Stats -->
