@@ -51,9 +51,9 @@ public:
 			StartTime[x]=0;
 			Active[x]=false;
 		}
-		CurrentRegions=0; // lb bugfix !? 
+		CurrentRegions=0; 
 	}
-	void DoWeather(int s); // start the weather
+	void DoWeather(int s); 
 	void SetActive(int reg) 
 	{
 		if(Active[reg]=true)

@@ -35,8 +35,6 @@
 #include "wolfpack.h"
 #include "cweather.h"
 
-unsigned long __stdcall WeatherThread( void *Arg );
-
 void cWeather::DoWeather(int s)
 { 
 	char rain[5]="\x65\x01\x46\x00";

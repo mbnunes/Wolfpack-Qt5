@@ -1,6 +1,4 @@
 -- Not a complete list, in Alphabetic order --
-
 Correa
-Duke
-Lord_Binary
 Ripper
+Skyfire
