@@ -2420,12 +2420,18 @@ void cBaseChar::goldSound( unsigned short amount, bool hearall )
 {
 	unsigned short sound;
 
-	if ( amount == 1 )
+	/*if ( amount == 1 )
 		sound = 0x35;
 	else if ( amount > 1 && amount < 6 )
 		sound = 0x36;
 	else
-		sound = 0x37;
+		sound = 0x37;*/
+	if (amount <= 1)
+		sound = 0x2e4;
+	else if (amount <= 5)
+		sound = 0x2e5;
+	else 
+		sound = 0x2e6;
 
 	soundEffect( sound, hearall );
 }
