@@ -162,7 +162,7 @@ bool cNPC::del()
 
 static void npcRegisterAfterLoading( P_NPC pc )
 {
-	if( !FindCharBySerial( pc->stablemasterSerial() )
+	if( !FindCharBySerial( pc->stablemasterSerial() ) )
 	{ 
 		MapObjects::instance()->add(pc); 
 	} 
