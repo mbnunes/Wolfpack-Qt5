@@ -1962,14 +1962,6 @@ QString cChar::fullName( void )
 	return fName;
 }
 
-// Remove it from all in-range sockets
-void cChar::removeFromView( bool clean )
-{
-	for( cUOSocket *socket = cNetwork::instance()->first(); !socket; socket = cNetwork::instance()->next() )
-		if( clean || ( socket->player() && ( socket->player()->pos.distance( pos ) <= socket->player()->VisRange ) ) )
-			socket->removeObject( this );
-}
-
 cGuildStone *cChar::getGuildstone()
 { 
 	return dynamic_cast<cGuildStone*>( FindItemBySerial( guildstone_ ) ); 

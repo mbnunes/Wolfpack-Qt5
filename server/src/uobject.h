@@ -63,6 +63,7 @@ public:
 	void clearEvents( void );
 	void addEvent( WPDefaultScript *Event );
 	void removeEvent( QString Name );
+	void removeFromView( bool clean = true );
 	bool hasEvent( QString Name );
 
 	QString eventList( void ); // Returns the list of events

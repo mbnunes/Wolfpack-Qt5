@@ -57,24 +57,29 @@
 
 void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 {
-	int j;//,serial; //Zippy lag
-	//int ptr,ci;
+	if( !pc_k )
+		return;
 
-	LongToCharPtr(pc_k->serial, &removeitem[1]);
-
-	if (pc_k->spawnSerial() != INVALID_SERIAL) 
+	if( pc_k->spawnSerial() != INVALID_SERIAL ) 
 		cspawnsp.remove(pc_k->spawnSerial(), pc_k->serial);
-	if (pc_k->ownserial != INVALID_SERIAL) 
-		cownsp.remove(pc_k->ownserial, pc_k->serial);
+
+	if( pc_k->ownserial != INVALID_SERIAL ) 
+		cownsp.remove( pc_k->ownserial, pc_k->serial );
 	
-	for (j=0;j<now;j++)
+	// We need to remove the equipment here.
+	vector< SERIAL > equipment = contsp.getData( pc_k->serial );
+
+	for( UINT32 i = 0; i < equipment.size(); ++i )
 	{
-		if (perm[j]) 
-			Xsend(j, removeitem, 5);		
+		P_ITEM pItem = FindItemBySerial( equipment[i] );
+		if( !pItem )
+			continue;
+
+		Items->DeleItem( pItem );
 	}
-	
-	if (pc_k != NULL) 
-		mapRegions->Remove(pc_k); // taking it out of mapregions BEFORE x,y changed, LB
+
+	pc_k->removeFromView( false ); // Remove the character from all in-range sockets view
+	mapRegions->Remove( pc_k ); // taking it out of mapregions BEFORE x,y changed
 
 	pc_k->free = true;
 	cCharsManager::getInstance()->deleteChar( pc_k );

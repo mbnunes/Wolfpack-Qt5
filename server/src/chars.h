@@ -297,7 +297,6 @@ public:
 	// This saves bandwith and CPU time !
 	void update( void ); // This is called when flags/name have been changed
 	void resend( bool clean = true ); // this is called when the char is being created or anything like that
-	void removeFromView( bool clean = true );
 	void makeShop( void );
 	QString fullName( void );
 

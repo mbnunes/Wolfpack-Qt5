@@ -1062,16 +1062,13 @@ void CWorldMain::savenewworld(QString module)
 	archive->close();
 	delete archive;
 
+	// Save the accounts
+	clConsole.PrepareProgress( tr( "Saving %1 accounts" ).arg( Accounts->count() ).latin1() );
+	Accounts->save();
+	clConsole.ProgressDone();
+	
 	ItemsThread.join();
 
-//	archive.prepareWritting("items");
-//	AllItemsIterator iterItems;
-//	for (iterItems.Begin(); !iterItems.atEnd(); ++iterItems)
-//	{
-//		archive.writeObject( iterItems.GetData() );
-//	}
-//	archive.close();
-	
 	if ( announce() )
 	{
 		sysbroadcast("Worldsave Done!\n");
@@ -1081,11 +1078,8 @@ void CWorldMain::savenewworld(QString module)
 		clConsole.ProgressDone();
 	}
 
-//	Guilds->Write( iWsc );
-
 	isSaving = false;
 
-//	AllTmpEff->On();
 	uiCurrentTime = getNormalizedTime();
 }
 

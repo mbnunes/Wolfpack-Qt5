@@ -63,13 +63,13 @@ private:
 	bool blocked_;
 	int attempts_;
 
-public:
-	
+public:	
 	AccountRecord();
 
 	QString login() const;
 
 	QString password() const;
+	void remove();
 	void setPassword( const QString& );
 	QValueVector<cChar*> caracterList() const;
 	bool authorized( const QString& action, const QString& value ) const;
@@ -112,6 +112,7 @@ public:
 	AccountRecord* createAccount( const QString& login, const QString& password );
 
 	uint count();
+	void remove( AccountRecord *record );
 
 	void save();
 	void load();

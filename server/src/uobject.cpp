@@ -37,11 +37,13 @@
 #include "uobject.h"
 #include "iserialization.h"
 #include "globals.h"
+#include "network.h"
 #include "regions.h"
 #include "junk.h"
 #include "defines.h"
 #include "wpdefaultscript.h"
 #include "wpscriptmanager.h"
+#include "network/uosocket.h"
 #include "wpdefmanager.h"
 
 // Debug includes and defines
@@ -287,4 +289,12 @@ void cUObject::processNode( const QDomElement &Tag )
 		Value = this->getNodeValue( Tag );
 
 	// nothing in here because the getters and setters are not finished!
+}
+
+// Remove it from all in-range sockets
+void cUObject::removeFromView( bool clean )
+{
+	for( cUOSocket *socket = cNetwork::instance()->first(); !socket; socket = cNetwork::instance()->next() )
+		if( clean || ( socket->player() && ( socket->player()->pos.distance( pos ) <= socket->player()->VisRange ) ) )
+			socket->removeObject( this );
 }

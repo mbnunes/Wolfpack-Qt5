@@ -386,10 +386,127 @@ void commandResend( cUOSocket *socket, const QString &command, QStringList &args
 	socket->resendWorld();
 }
 
+class cRemoveTarget: public cTargetRequest
+{
+public:
+	virtual void responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		P_CHAR pChar = FindCharBySerial( target->serial() );
+		P_ITEM pItem = FindItemBySerial( target->serial() );
+
+		if( pChar )
+		{
+			if( pChar->socket() )
+			{
+				socket->sysMessage( "You cannot delete logged in characters" );
+				return;
+			}
+
+			if( pChar->account() )
+				pChar->account()->removeCharacter( pChar );
+			Npcs->DeleteChar( pChar );
+		}
+		else if( pItem )
+		{
+			Items->DeleItem( pItem );
+		}
+		else
+			socket->sysMessage( "You need to select either an item or a character" );
+	}
+};
+
+void commandRemove( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	socket->attachTarget( new cRemoveTarget );
+}
+
+void commandAccount( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	// Account Create User Pass
+	// Account Remove User
+	// Account Password User Pass
+	// Account Show User Pass
+	if( args.count() == 0 )
+	{
+		socket->sysMessage( tr( "Usage: account <Create|Remove|Password|Show>" ) );
+		return;
+	}
+
+	QString subCommand = args[0].lower();
+
+	// Create Accounts
+	if( subCommand == "create" )
+	{
+		// Create a new account
+		if( args.count() < 3 )
+		{
+			socket->sysMessage( tr( "Usage: account create <Username> <Password>" ) );
+		} 
+		else if( Accounts->getRecord( args[1].left( 30 ) ) )
+		{
+			socket->sysMessage( tr( "Account '%1' already exists" ).arg( args[1].left( 30 ) ) );
+		}
+		else
+		{
+			Accounts->createAccount( args[1].left( 30 ), args[2].left( 30 ) );
+			socket->sysMessage( tr( "Account '%1' with password '%2' has been created" ).arg( args[1].left( 30 ) ).arg( args[2].left( 30 ) ) );
+		}
+	}
+
+	// Remove an Account and all associated characters
+	else if( subCommand == "remove" )
+	{
+		if( args.count() < 2 )
+		{
+			socket->sysMessage( tr( "Usage: account remove <Username>" ) );
+		} 
+		else if( !Accounts->getRecord( args[1].left( 30 ) ) )
+		{
+			socket->sysMessage( tr( "Account '%1' does not exist" ).arg( args[1].left( 30 ) ) );
+		}
+		else
+		{
+			AccountRecord *account = Accounts->getRecord( args[1].left( 30 ) );
+			QValueVector<cChar*> characters = account->caracterList();
+			Accounts->remove( account );
+
+			for( UINT32 i = 0; i < characters.size(); ++i )
+				if( characters[i] )
+					Npcs->DeleteChar( characters[i] );
+			
+			socket->sysMessage( tr( "Account '%1' and %2 characters have been removed" ).arg( args[1].left( 30 ) ).arg( i+1 ) );
+		}
+	}
+
+	// Set properties of accounts
+	else if( subCommand == "set" )
+	{
+		if( args.count() < 4 )
+		{
+			socket->sysMessage( tr( "Usage: account set <Username> <Key> <Value>" ) );
+		}
+		else if( !Accounts->getRecord( args[1] ) )
+		{
+				socket->sysMessage( tr( "Account '%1' does not exist" ).arg( args[1] ) );
+		}
+	}
+
+	// Show properties of accounts
+	else if( subCommand == "show" )
+	{
+		if( args.count() < 3 )
+		{
+			socket->sysMessage( tr( "Usage: account set <Username> <Key>" ) );
+		}
+	}
+}
+
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
 	{ "ADD", commandAdd },
+	{ "ACCOUNT", commandAccount },
+	{ "REMOVE", commandRemove },
 	{ "RESEND", commandResend },
 	{ "ADDITEM", commandAddItem },
 	{ "ADDNPC", commandAddNpc },

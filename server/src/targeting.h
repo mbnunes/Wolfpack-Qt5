@@ -47,7 +47,6 @@ class cItemTarget ;
 class cWpObjTarget ;
 class cTargets ;
 class cRenameTarget ;
-class cRemoveTarget ;
 class cNewzTarget ;
 class cBoltTarget ;
 class cSetAmountTarget ;

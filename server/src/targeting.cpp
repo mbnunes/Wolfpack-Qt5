@@ -309,27 +309,6 @@ static void TeleTarget(int s, PKGx6C *pp)
 	} 
 }
 
-class cRemoveTarget : public cWpObjTarget
-{
-public:
-	cRemoveTarget(P_CLIENT pCli) : cWpObjTarget(pCli), cItemTarget(pCli), cCharTarget(pCli), cTarget(pCli) {}
-	void CharSpecific()
-	{
-		if (pc->account() != 0 && pc->isPlayer()) // player check added by LB
-		{
-			sysmessage(s,"You cant delete players");
-			return;
-		}
-		sysmessage(s, "Removing character.");
-		Npcs->DeleteChar( pc );
-	}
-	void ItemSpecific()
-	{
-		sysmessage(s, "Removing item.");
-		Items->DeleItem(pi);
-	}
-};
-
 void DyeTarget(int s)
 {
 	int body,c1,c2,b,k;
@@ -4093,7 +4072,6 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 0: AddTarget(s,pt); break;
 		case 1: { cRenameTarget		T(ps);		T.process();} break;
 		case 2: TeleTarget(s,pt); break; // LB, bugfix, we need it for the /tele command
-		case 3: { cRemoveTarget		T(ps);		T.process();} break;
 		case 4: DyeTarget(s); break;
 		case 5: { cNewzTarget		T(ps);		T.process();} break;
 		case 6: if (Iready) pi->setType( addid1[s] ); break; //Typetarget

@@ -345,6 +345,9 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 		denyPacket = new cUOTxDenyLogin( DL_BLOCKED );		break;
 	};
 
+	if( !denyPacket && !authRet )
+		denyPacket = new cUOTxDenyLogin( DL_BADCOMMUNICATION );
+
 	// Reject login
 	if( denyPacket )
 	{

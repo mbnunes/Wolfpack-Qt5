@@ -218,3 +218,14 @@ AccountRecord* cAccounts::getRecord( const QString& login )
 		return it.data();
 }
 
+void AccountRecord::remove()
+{
+	Accounts->remove( this );
+}
+
+void cAccounts::remove( AccountRecord *record )
+{
+	if( accounts.contains( record->login() )
+		accounts.remove( record->login() );
+	delete record;
+}

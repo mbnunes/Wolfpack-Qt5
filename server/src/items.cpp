@@ -827,14 +827,8 @@ void cAllItems::DeleItem(P_ITEM pi)
 
 	if (!pi->free)
 	{
-		
-		LongToCharPtr(pi->serial, &removeitem[1]);
-
-		for (j=0;j<now;j++)
-		{
-			if (perm[j] && iteminrange(j, pi, VISRANGE)) 
-				Xsend(j, removeitem, 5);
-		}
+		// Remove it from view
+		pi->removeFromView( false );
 
 		if (pi->glow != INVALID_SERIAL) 
 		{  
