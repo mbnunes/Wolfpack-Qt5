@@ -15,6 +15,7 @@
 		<shopkeeper>
 			<restockable/>
 		</shopkeeper>
+		<tailoring><random min="650" max="880" /></tailoring>
 		<category>Vendors\Weaver (Male)</category>
 	</npc>
 	
@@ -24,6 +25,7 @@
 		<shopkeeper>
 			<restockable/>
 		</shopkeeper>
+		<tailoring><random min="650" max="880" /></tailoring>
 		<category>Vendors\Weaver (Female)</category>
 	</npc>
 

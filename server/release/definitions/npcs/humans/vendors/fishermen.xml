@@ -18,6 +18,7 @@
 			<sellable>
 			</sellable>
 		</shopkeeper>
+		<fishing><random min="750" max="980" /></fishing>
 		<category>Vendors\Fisherman (Male)</category>
 	</npc>
 	
@@ -31,6 +32,7 @@
 			<sellable>
 			</sellable>
 		</shopkeeper>
+		<fishing><random min="750" max="980" /></fishing>
 		<category>Vendors\Fisherlady (Female)</category>
 	</npc>
 

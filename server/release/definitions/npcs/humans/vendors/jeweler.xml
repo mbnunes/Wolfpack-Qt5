@@ -178,6 +178,7 @@
 				<item id="1f0a"/>
 			</sellable>
 		</shopkeeper>
+		<itemidentification><random min="640" max="1000" /></itemidentification>
 		<category>Vendors\Jeweler (Male)</category>
 	</npc>
 	
@@ -350,6 +351,7 @@
 				<item id="1f0a"/>
 			</sellable>
 		</shopkeeper>
+		<itemidentification><random min="640" max="1000" /></itemidentification>
 		<category>Vendors\Jeweler (Femele)</category>
 	</npc>
 

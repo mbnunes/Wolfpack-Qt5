@@ -122,6 +122,12 @@
 				<item id="e34"/>
 			</sellable>
 		</shopkeeper>
+		<evaluatinginteligence><random min="650" max="880" /></evaluatinginteligence>
+		<inscription><random min="600" max="830" /></inscription>
+		<magery><random min="640" max="1000" /></magery>
+		<meditation><random min="600" max="830" /></meditation>
+		<magicresist><random min="650" max="880" /></magicresist>
+		<wrestling><random min="360" max="680" /></wrestling>
 		<category>Vendors\Mage (Male)</category>
 	</npc>
 	
@@ -238,6 +244,12 @@
 				<item id="e34"/>
 			</sellable>
 		</shopkeeper>
+		<evaluatinginteligence><random min="650" max="880" /></evaluatinginteligence>
+		<inscription><random min="600" max="830" /></inscription>
+		<magery><random min="640" max="1000" /></magery>
+		<meditation><random min="600" max="830" /></meditation>
+		<magicresist><random min="650" max="880" /></magicresist>
+		<wrestling><random min="360" max="680" /></wrestling>
 		<category>Vendors\Mage (Female)</category>
 	</npc>
 

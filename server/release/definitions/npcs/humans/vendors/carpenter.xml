@@ -15,6 +15,8 @@
 		<shopkeeper>
 			<restockable/>
 		</shopkeeper>
+		<carpentry><random min="850" max="1000" /></carpentry>
+		<lumberjacking><random min="600" max="830" /></lumberjacking>
 		<category>Vendors\Carpenter (Male)</category>
 	</npc>
 	
@@ -24,6 +26,8 @@
 		<shopkeeper>
 			<restockable/>
 		</shopkeeper>
+		<carpentry><random min="850" max="1000" /></carpentry>
+		<lumberjacking><random min="600" max="830" /></lumberjacking>
 		<category>Vendors\Carpenter (Female)</category>
 	</npc>
 

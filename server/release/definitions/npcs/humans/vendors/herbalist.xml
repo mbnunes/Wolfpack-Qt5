@@ -50,6 +50,9 @@
 				<item id="f8d"/>
 			</sellable>
 		</shopkeeper>
+		<alchemy><random min="800" max="1000" /></alchemy>
+		<cooking><random min="800" max="1000" /></cooking>
+		<tasteidentification><random min="800" max="1000" /></tasteidentification>
 		<category>Vendors\Herbalist (Male)</category>
 	</npc>
 	
@@ -94,6 +97,9 @@
 				<item id="f8d"/>
 			</sellable>
 		</shopkeeper>
+		<alchemy><random min="800" max="1000" /></alchemy>
+		<cooking><random min="800" max="1000" /></cooking>
+		<tasteidentification><random min="800" max="1000" /></tasteidentification>
 		<category>Vendors\Herbalist (Female)</category>
 	</npc>
 

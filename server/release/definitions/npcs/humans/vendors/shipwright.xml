@@ -18,6 +18,8 @@
 			<sellable>
 			</sellable>
 		</shopkeeper>
+		<carpentry><random min="600" max="830" /></carpentry>
+		<macefighting><random min="360" max="680" /></macefighting>
 		<category>Vendors\Shipwright (Male)</category>
 	</npc>
 	
@@ -30,6 +32,8 @@
 			<sellable>
 			</sellable>
 		</shopkeeper>
+		<carpentry><random min="600" max="830" /></carpentry>
+		<macefighting><random min="360" max="680" /></macefighting>
 		<category>Vendors\Shipwright (Female)</category>
 	</npc>
 

@@ -15,6 +15,7 @@
 		<shopkeeper>
 			<restockable/>
 		</shopkeeper>
+		<anatomy><random min="450" max="680" /></anatomy>
 		<category>Vendors\Butcher (Male)</category>
 	</npc>
 	
@@ -24,6 +25,7 @@
 		<shopkeeper>
 			<restockable/>
 		</shopkeeper>
+		<anatomy><random min="450" max="680" /></anatomy>
 		<category>Vendors\Butcher (Female)</category>
 	</npc>
 

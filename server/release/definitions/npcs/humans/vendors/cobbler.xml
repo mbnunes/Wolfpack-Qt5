@@ -18,6 +18,7 @@
 			<sellable>
 			</sellable>
 		</shopkeeper>
+		<tailoring><random min="600" max="830" /></tailoring>
 		<category>Vendors\Cobbler (Male)</category>
 	</npc>
 	
@@ -30,6 +31,7 @@
 			<sellable>
 			</sellable>
 		</shopkeeper>
+		<tailoring><random min="600" max="830" /></tailoring>
 		<category>Vendors\Cobbler (Female)</category>
 	</npc>
 

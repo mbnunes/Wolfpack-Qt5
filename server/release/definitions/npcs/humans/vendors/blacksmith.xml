@@ -142,6 +142,13 @@
 				<item id="1b74"/>
 			</sellable>
 		</shopkeeper>
+		<armslore><random min="360" max="680" /></armslore>
+		<blacksmithing><random min="650" max="880" /></blacksmithing>
+		<fencing><random min="600" max="830" /></fencing>
+		<macefighting><random min="610" max="930" /></macefighting>
+		<tactics><random min="600" max="830" /></tactics>
+		<swordsmanship><random min="600" max="830" /></swordsmanship>
+		<parrying><random min="610" max="930" /></parrying>
 		<category>Vendors\blacksmith (Male)</category>
 	</npc>
 	
@@ -278,6 +285,13 @@
 				<item id="1b74"/>
 			</sellable>
 		</shopkeeper>
+		<armslore><random min="360" max="680" /></armslore>
+		<blacksmithing><random min="650" max="880" /></blacksmithing>
+		<fencing><random min="600" max="830" /></fencing>
+		<macefighting><random min="610" max="930" /></macefighting>
+		<tactics><random min="600" max="830" /></tactics>
+		<swordsmanship><random min="600" max="830" /></swordsmanship>
+		<parrying><random min="610" max="930" /></parrying>
 		<category>Vendors\Blacksmith (Female)</category>
 	</npc>
 

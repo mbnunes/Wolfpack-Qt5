@@ -250,6 +250,8 @@
 				<item id="f91"/>
 			</sellable>
 		</shopkeeper>
+		<alchemy><random min="850" max="1000" /></alchemy>
+		<tasteidentification><random min="650" max="880" /></tasteidentification>
 		<category>Vendors\Alchemist (Male)</category>
 	</npc>
 	
@@ -494,6 +496,8 @@
 				<item id="f91"/>
 			</sellable>
 		</shopkeeper>
+		<alchemy><random min="850" max="1000" /></alchemy>
+		<tasteidentification><random min="650" max="880" /></tasteidentification>
 		<category>Vendors\Alchemist (Female)</category>
 	</npc>
 

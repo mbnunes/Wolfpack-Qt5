@@ -66,6 +66,8 @@
 				<item id="9d6"/>
 			</sellable>
 		</shopkeeper>
+		<cooking><random min="750" max="980" /></cooking>
+		<tasteidentification><random min="360" max="680" /></tasteidentification>
 		<category>Vendors\Baker (Male)</category>
 	</npc>
 	
@@ -126,6 +128,8 @@
 				<item id="9d6"/>
 			</sellable>
 		</shopkeeper>
+		<cooking><random min="750" max="980" /></cooking>
+		<tasteidentification><random min="360" max="680" /></tasteidentification>
 		<category>Vendors\Baker (Female)</category>
 	</npc>
 

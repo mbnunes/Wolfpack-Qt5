@@ -15,6 +15,9 @@
 		<shopkeeper>
 			<restockable/>
 		</shopkeeper>
+		<lockpicking><random min="600" max="830"/></lockpicking>
+		<removetraps><random min="750" max="980"/></removetraps>
+		<tinkering><random min="640" max="1000"/></tinkering>
 		<category>Vendors\Tinker (Male)</category>
 	</npc>
 	
@@ -25,6 +28,9 @@
 		<shopkeeper>
 			<restockable/>
 		</shopkeeper>
+		<lockpicking><random min="600" max="830"/></lockpicking>
+		<removetraps><random min="750" max="980"/></removetraps>
+		<tinkering><random min="640" max="1000"/></tinkering>
 		<category>Vendors\Tinker (Female)</category>
 	</npc>
 

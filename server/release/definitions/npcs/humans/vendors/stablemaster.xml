@@ -12,54 +12,18 @@
 	<npc id="stablemaster_male">
 		<inherit>vendor_male</inherit>
 		<title>the Stablemaster</title>
-		<fencing>
-			<random min="150" max="380"/>
-		</fencing>
-		<parrying>
-			<random min="450" max="680"/>
-		</parrying>
-		<swordsmanship>
-			<random min="150" max="380"/>
-		</swordsmanship>
-		<wrestling>
-			<random min="150" max="380"/>
-		</wrestling>
-		<macefighting>
-			<random min="150" max="380"/>
-		</macefighting>
-		<magicresistance>
-			<random min="450" max="680"/>
-		</magicresistance>
-		<tactics>
-			<random min="450" max="680"/>
-		</tactics>
+		<animallore><random min="640" max="1000"/></animallore>
+		<animaltaming><random min="900" max="1000"/></animaltaming>
+		<veterinary><random min="650" max="880"/></veterinary>
 		<category>Vendors\Stablemaster (Male)</category>
 	</npc>
 	
 	<npc id="stablemaster_female">
 		<inherit>vendor_female</inherit>
 		<title>the Stablemaster</title>
-		<fencing>
-			<random min="150" max="380"/>
-		</fencing>
-		<parrying>
-			<random min="450" max="680"/>
-		</parrying>
-		<swordsmanship>
-			<random min="150" max="380"/>
-		</swordsmanship>
-		<wrestling>
-			<random min="150" max="380"/>
-		</wrestling>
-		<macefighting>
-			<random min="150" max="380"/>
-		</macefighting>
-		<magicresistance>
-			<random min="450" max="680"/>
-		</magicresistance>
-		<tactics>
-			<random min="450" max="680"/>
-		</tactics>
+		<animallore><random min="640" max="1000"/></animallore>
+		<animaltaming><random min="900" max="1000"/></animaltaming>
+		<veterinary><random min="650" max="880"/></veterinary>
 		<category>Vendors\Stablemaster (Female)</category>
 	</npc>
 

@@ -26,6 +26,7 @@
 				<item id="170f"/>
 			</sellable>
 		</shopkeeper>
+		<tailoring><random min="360" max="680"/></tailoring>
 		<category>Vendors\Tanner (Male)</category>
 	</npc>
 	
@@ -46,6 +47,7 @@
 				<item id="170f"/>
 			</sellable>
 		</shopkeeper>
+		<tailoring><random min="360" max="680"/></tailoring>
 		<category>Vendors\Tanner (Female)</category>
 	</npc>
 

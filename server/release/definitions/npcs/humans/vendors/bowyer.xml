@@ -18,6 +18,8 @@
 			<sellable>
 			</sellable>
 		</shopkeeper>
+		<archery><random min="600" max="830" /></archery>
+		<bowcrafting><random min="900" max="1000" /></bowcrafting>
 		<category>Vendors\Bowyer (Male)</category>
 	</npc>
 	
@@ -30,6 +32,8 @@
 			<sellable>
 			</sellable>
 		</shopkeeper>
+		<archery><random min="600" max="830" /></archery>
+		<bowcrafting><random min="900" max="1000" /></bowcrafting>
 		<category>Vendors\Bowyer (Female)</category>
 	</npc>
 

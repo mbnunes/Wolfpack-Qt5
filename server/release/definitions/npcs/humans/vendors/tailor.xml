@@ -31,6 +31,7 @@
 				</item>
 			</restockable>
 		</shopkeeper>
+		<tailoring><random min="640" max="1000"/></tailoring>
 		<category>Vendors\Tailor (Male)</category>
 	</npc>
 	
@@ -56,6 +57,7 @@
 				</item>
 			</restockable>
 		</shopkeeper>
+		<tailoring><random min="640" max="1000"/></tailoring>
 		<category>Vendors\Tailor (Female)</category>
 	</npc>
 

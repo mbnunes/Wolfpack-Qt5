@@ -15,6 +15,8 @@
 		<shopkeeper>
 			<restockable/>
 		</shopkeeper>
+		<camping><random min="450" max="680" /></camping>
+		<tactics><random min="450" max="680" /></tactics>
 		<category>Vendors\Provisioner (Male)</category>
 	</npc>
 	
@@ -24,6 +26,8 @@
 		<shopkeeper>
 			<restockable/>
 		</shopkeeper>
+		<camping><random min="450" max="680" /></camping>
+		<tactics><random min="450" max="680" /></tactics>
 		<category>Vendors\Provisioner (Female)</category>
 	</npc>
 
