@@ -53,13 +53,20 @@ unix {
 			}
 			LIBS += -lmysqlclient
 		}
+		isEmpty(MYSQL_INCLUDE)
+		{
+			message("MySQL include files not found, support is disabled")
+		}
 	}
 	# Python includes. Run configure script to initialize it.
 	!isEmpty($(PYTHONINC))
 	{
 	    INCLUDEPATH += $$(PYTHONINC)
 	}
-	
+	isEmpty($(PYTHONINC))
+	{
+		message("Error: Could not find Python include files") 
+	}
 	INCLUDEPATH += /usr/local/include/stlport lib/Python sqlite lib/Python/Include network
 	LIBS  += -L. -L/usr/local/lib -Llib/Python -ldl -lpython2.3 -lutil
 	
@@ -263,44 +270,47 @@ HEADERS		+= python/content.h \
 
 # SQLite Sources
 SOURCES 	+=	sqlite/attach.c \
-				sqlite/auth.c \
-				sqlite/btree.c \
-				sqlite/btree_rb.c \
-				sqlite/build.c \
-				sqlite/copy.c \
-				sqlite/delete.c \
-				sqlite/expr.c \
-				sqlite/func.c \
-				sqlite/hash.c \
-				sqlite/insert.c \
-				sqlite/main.c \
-				sqlite/opcodes.c \
-				sqlite/os.c \
-				sqlite/pager.c \
-				sqlite/parse.c \
-				sqlite/pragma.c \
-				sqlite/printf.c \
-				sqlite/random.c \
-				sqlite/select.c \
-				sqlite/table.c \
-				sqlite/tokenize.c \
-				sqlite/trigger.c \
-				sqlite/update.c \
-				sqlite/util.c \
-				sqlite/vacuum.c \
-				sqlite/vdbe.c \
-				sqlite/where.c
-			
+			sqlite/auth.c \
+			sqlite/btree.c \
+			sqlite/btree_rb.c \
+			sqlite/build.c \
+			sqlite/copy.c \
+			sqlite/date.c \
+			sqlite/delete.c \
+			sqlite/expr.c \
+			sqlite/func.c \
+			sqlite/hash.c \
+			sqlite/insert.c \
+			sqlite/main.c \
+			sqlite/opcodes.c \
+			sqlite/os.c \
+			sqlite/pager.c \
+			sqlite/parse.c \
+			sqlite/pragma.c \
+			sqlite/printf.c \
+			sqlite/random.c \
+			sqlite/select.c \
+			sqlite/table.c \
+			sqlite/tokenize.c \
+			sqlite/trigger.c \
+			sqlite/update.c \
+			sqlite/util.c \
+			sqlite/vacuum.c \
+			sqlite/vdbe.c \
+			sqlite/vdbeaux.c \
+			sqlite/where.c
+		
 HEADERS		+=	sqlite/btree.h \
-				sqlite/config.h \
-				sqlite/hash.h \
-				sqlite/opcodes.h \
-				sqlite/os.h \
-				sqlite/pager.h \
-				sqlite/parse.h \
-				sqlite/sqlite.h \
-				sqlite/sqliteInt.h \
-				sqlite/vdbe.h
+			sqlite/config.h \
+			sqlite/hash.h \
+			sqlite/opcodes.h \
+			sqlite/os.h \
+			sqlite/pager.h \
+			sqlite/parse.h \
+			sqlite/sqlite.h \
+			sqlite/sqliteInt.h \
+			sqlite/vdbe.h \
+			sqlite/vdbeInt.h
 
 INTERFACES	=
 TRANSLATIONS    = \
