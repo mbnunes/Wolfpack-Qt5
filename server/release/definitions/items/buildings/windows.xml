@@ -27,7 +27,7 @@
 		<id>0x22</id>
 		<category>Buildings\Walls\Stone Wall 1\Window 1</category>
 		<nodecay/>
-		<lightsource>2</lightsource>
+		<lightsource>0</lightsource>
 	</item>
 
 	<item id="23">

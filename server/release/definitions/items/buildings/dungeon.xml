@@ -2687,1087 +2687,1087 @@
 	<item id="1d13">
 		<id>0x1D13</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Wooden Coffin 1 (W/E) 1</category>
+		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 1 (W/E) 1</category>
 	</item>
 
 	<item id="1d14">
 		<id>0x1D14</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Wooden Coffin 1 (W/E) 2</category>
+		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 1 (W/E) 2</category>
 	</item>
 
 	<item id="1d15">
 		<id>0x1D15</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Wooden Coffin 1 (W/E) 3</category>
+		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 1 (W/E) 3</category>
 	</item>
 
 	<item id="1d16">
 		<id>0x1D16</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Wooden Coffin 1 (W/E) 4</category>
+		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 1 (W/E) 4</category>
 	</item>
 
 	<item id="1d17">
 		<id>0x1D17</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Wooden Coffin 1 (W/E) 5</category>
+		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 1 (W/E) 5</category>
 	</item>
 
 	<item id="1d18">
 		<id>0x1D18</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Wooden Coffin 2 (W/E) 1</category>
+		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 2 (W/E) 1</category>
 	</item>
 
 	<item id="1d19">
 		<id>0x1D19</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Wooden Coffin 2 (W/E) 2</category>
+		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 2 (W/E) 2</category>
 	</item>
 
 	<item id="1d1a">
 		<id>0x1D1A</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Wooden Coffin 2 (W/E) 3</category>
+		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 2 (W/E) 3</category>
 	</item>
 
 	<item id="1d1b">
 		<id>0x1D1B</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Wooden Coffin 2 (W/E) 4</category>
+		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 2 (W/E) 4</category>
 	</item>
 
 	<item id="1d1c">
 		<id>0x1D1C</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Wooden Coffin 2 (W/E) 5</category>
+		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 2 (W/E) 5</category>
 	</item>
 
 	<item id="1d1d">
 		<id>0x1D1D</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 1 (W/E) 1</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 1 (W/E) 1</category>
 	</item>
 
 	<item id="1d1e">
 		<id>0x1D1E</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 1 (W/E) 2</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 1 (W/E) 2</category>
 	</item>
 
 	<item id="1d1f">
 		<id>0x1D1F</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 1 (W/E) 3</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 1 (W/E) 3</category>
 	</item>
 
 	<item id="1d20">
 		<id>0x1D20</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 1 (W/E) 4</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 1 (W/E) 4</category>
 	</item>
 
 	<item id="1d21">
 		<id>0x1D21</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 1 (W/E) 5</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 1 (W/E) 5</category>
 	</item>
 
 	<item id="1d22">
 		<id>0x1D22</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 1 (W/E) 6</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 1 (W/E) 6</category>
 	</item>
 
 	<item id="1d23">
 		<id>0x1D23</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 2 (W/E) 1</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 2 (W/E) 1</category>
 	</item>
 
 	<item id="1d24">
 		<id>0x1D24</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 2 (W/E) 2</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 2 (W/E) 2</category>
 	</item>
 
 	<item id="1d25">
 		<id>0x1D25</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 2 (W/E) 3</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 2 (W/E) 3</category>
 	</item>
 
 	<item id="1d26">
 		<id>0x1D26</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 2 (W/E) 4</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 2 (W/E) 4</category>
 	</item>
 
 	<item id="1d27">
 		<id>0x1D27</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 2 (W/E) 5</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 2 (W/E) 5</category>
 	</item>
 
 	<item id="1d28">
 		<id>0x1D28</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 3 (W/E) 1</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (W/E) 1</category>
 	</item>
 
 	<item id="1d29">
 		<id>0x1D29</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 3 (W/E) 2</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (W/E) 2</category>
 	</item>
 
 	<item id="1d2a">
 		<id>0x1D2A</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 3 (W/E) 3</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (W/E) 3</category>
 	</item>
 
 	<item id="1d2b">
 		<id>0x1D2B</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 3 (W/E) 4</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (W/E) 4</category>
 	</item>
 
 	<item id="1d2c">
 		<id>0x1D2C</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 3 (W/E) 5</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (W/E) 5</category>
 	</item>
 
 	<item id="1d2d">
 		<id>0x1D2D</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 3 (W/E) 6</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (W/E) 6</category>
 	</item>
 
 	<item id="1d2e">
 		<id>0x1D2E</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 3 (W/E) 7</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (W/E) 7</category>
 	</item>
 
 	<item id="1d2f">
 		<id>0x1D2F</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 3 (W/E) 8</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (W/E) 8</category>
 	</item>
 
 	<item id="1d30">
 		<id>0x1D30</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Wooden Coffin 1 (N/S) 1</category>
+		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 1 (N/S) 1</category>
 	</item>
 
 	<item id="1d31">
 		<id>0x1D31</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Wooden Coffin 1 (N/S) 2</category>
+		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 1 (N/S) 2</category>
 	</item>
 
 	<item id="1d32">
 		<id>0x1D32</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Wooden Coffin 1 (N/S) 3</category>
+		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 1 (N/S) 3</category>
 	</item>
 
 	<item id="1d33">
 		<id>0x1D33</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Wooden Coffin 1 (N/S) 4</category>
+		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 1 (N/S) 4</category>
 	</item>
 
 	<item id="1d34">
 		<id>0x1D34</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Wooden Coffin 1 (N/S) 5</category>
+		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 1 (N/S) 5</category>
 	</item>
 
 	<item id="1d35">
 		<id>0x1D35</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Wooden Coffin 2 (N/S) 1</category>
+		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 2 (N/S) 1</category>
 	</item>
 
 	<item id="1d36">
 		<id>0x1D36</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Wooden Coffin 2 (N/S) 2</category>
+		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 2 (N/S) 2</category>
 	</item>
 
 	<item id="1d37">
 		<id>0x1D37</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Wooden Coffin 2 (N/S) 3</category>
+		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 2 (N/S) 3</category>
 	</item>
 
 	<item id="1d38">
 		<id>0x1D38</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Wooden Coffin 2 (N/S) 4</category>
+		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 2 (N/S) 4</category>
 	</item>
 
 	<item id="1d39">
 		<id>0x1D39</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Wooden Coffin 2 (N/S) 5</category>
+		<category>Dungeon\Coffins\Wooden\Body\Body in Wooden Coffin 2 (N/S) 5</category>
 	</item>
 
 	<item id="1d3a">
 		<id>0x1D3A</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 1 (N/S) 1</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 1 (N/S) 1</category>
 	</item>
 
 	<item id="1d3b">
 		<id>0x1D3B</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 1 (N/S) 2</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 1 (N/S) 2</category>
 	</item>
 
 	<item id="1d3c">
 		<id>0x1D3C</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 1 (N/S) 3</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 1 (N/S) 3</category>
 	</item>
 
 	<item id="1d3d">
 		<id>0x1D3D</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 1 (N/S) 4</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 1 (N/S) 4</category>
 	</item>
 
 	<item id="1d3e">
 		<id>0x1D3E</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 1 (N/S) 5</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 1 (N/S) 5</category>
 	</item>
 
 	<item id="1d3f">
 		<id>0x1D3F</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 2 (N/S) 1</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 2 (N/S) 1</category>
 	</item>
 
 	<item id="1d40">
 		<id>0x1D40</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 2 (N/S) 2</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 2 (N/S) 2</category>
 	</item>
 
 	<item id="1d41">
 		<id>0x1D41</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 2 (N/S) 3</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 2 (N/S) 3</category>
 	</item>
 
 	<item id="1d42">
 		<id>0x1D42</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 2 (N/S) 4</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 2 (N/S) 4</category>
 	</item>
 
 	<item id="1d43">
 		<id>0x1D43</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 2 (N/S) 5</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 2 (N/S) 5</category>
 	</item>
 
 	<item id="1d44">
 		<id>0x1D44</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 3 (N/S) 1</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (N/S) 1</category>
 	</item>
 
 	<item id="1d45">
 		<id>0x1D45</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 3 (N/S) 2</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (N/S) 2</category>
 	</item>
 
 	<item id="1d46">
 		<id>0x1D46</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 3 (N/S) 3</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (N/S) 3</category>
 	</item>
 
 	<item id="1d47">
 		<id>0x1D47</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 3 (N/S) 4</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (N/S) 4</category>
 	</item>
 
 	<item id="1d48">
 		<id>0x1D48</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 3 (N/S) 5</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (N/S) 5</category>
 	</item>
 
 	<item id="1d49">
 		<id>0x1D49</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 3 (N/S) 6</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (N/S) 6</category>
 	</item>
 
 	<item id="1d4a">
 		<id>0x1D4A</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 3 (N/S) 7</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (N/S) 7</category>
 	</item>
 
 	<item id="1d4b">
 		<id>0x1D4B</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Body in Stone Coffin 3 (N/S) 8</category>
+		<category>Dungeon\Coffins\Stone\Body\Body in Stone Coffin 3 (N/S) 8</category>
 	</item>
 
 	<item id="1d4c">
 		<id>0x1D4C</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 1 (W/E) 1</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 1 (W/E) 1</category>
 	</item>
 
 	<item id="1d4d">
 		<id>0x1D4D</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 1 (W/E) 2</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 1 (W/E) 2</category>
 	</item>
 
 	<item id="1d4e">
 		<id>0x1D4E</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 1 (W/E) 3</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 1 (W/E) 3</category>
 	</item>
 
 	<item id="1d4f">
 		<id>0x1D4F</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 1 (W/E) 4</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 1 (W/E) 4</category>
 	</item>
 
 	<item id="1d50">
 		<id>0x1D50</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 1 (W/E) 5</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 1 (W/E) 5</category>
 	</item>
 
 	<item id="1d51">
 		<id>0x1D51</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 1 (W/E) 6</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 1 (W/E) 6</category>
 	</item>
 
 	<item id="1d52">
 		<id>0x1D52</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 2 (W/E) 1</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (W/E) 1</category>
 	</item>
 
 	<item id="1d53">
 		<id>0x1D53</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 2 (W/E) 2</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (W/E) 2</category>
 	</item>
 
 	<item id="1d54">
 		<id>0x1D54</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 2 (W/E) 3</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (W/E) 3</category>
 	</item>
 
 	<item id="1d55">
 		<id>0x1D55</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 2 (W/E) 4</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (W/E) 4</category>
 	</item>
 
 	<item id="1d56">
 		<id>0x1D56</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 2 (W/E) 5</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (W/E) 5</category>
 	</item>
 
 	<item id="1d57">
 		<id>0x1D57</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 2 (W/E) 6</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (W/E) 6</category>
 	</item>
 
 	<item id="1d58">
 		<id>0x1D58</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 2 (W/E) 7</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (W/E) 7</category>
 	</item>
 
 	<item id="1d59">
 		<id>0x1D59</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 1 (W/E) 1</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 1 (W/E) 1</category>
 	</item>
 
 	<item id="1d5a">
 		<id>0x1D5A</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 1 (W/E) 2</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 1 (W/E) 2</category>
 	</item>
 
 	<item id="1d5b">
 		<id>0x1D5B</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 1 (W/E) 3</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 1 (W/E) 3</category>
 	</item>
 
 	<item id="1d5c">
 		<id>0x1D5C</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 1 (W/E) 4</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 1 (W/E) 4</category>
 	</item>
 
 	<item id="1d5d">
 		<id>0x1D5D</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 1 (W/E) 5</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 1 (W/E) 5</category>
 	</item>
 
 	<item id="1d5e">
 		<id>0x1D5E</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 2 (W/E) 1</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 2 (W/E) 1</category>
 	</item>
 
 	<item id="1d5f">
 		<id>0x1D5F</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 2 (W/E) 2</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 2 (W/E) 2</category>
 	</item>
 
 	<item id="1d60">
 		<id>0x1D60</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 2 (W/E) 3</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 2 (W/E) 3</category>
 	</item>
 
 	<item id="1d61">
 		<id>0x1D61</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 2 (W/E) 4</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 2 (W/E) 4</category>
 	</item>
 
 	<item id="1d62">
 		<id>0x1D62</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 2 (W/E) 5</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 2 (W/E) 5</category>
 	</item>
 
 	<item id="1d63">
 		<id>0x1D63</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 3 (W/E) 1</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (W/E) 1</category>
 	</item>
 
 	<item id="1d64">
 		<id>0x1D64</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 3 (W/E) 2</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (W/E) 2</category>
 	</item>
 
 	<item id="1d65">
 		<id>0x1D65</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 3 (W/E) 3</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (W/E) 3</category>
 	</item>
 
 	<item id="1d66">
 		<id>0x1D66</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 3 (W/E) 4</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (W/E) 4</category>
 	</item>
 
 	<item id="1d67">
 		<id>0x1D67</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 3 (W/E) 5</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (W/E) 5</category>
 	</item>
 
 	<item id="1d68">
 		<id>0x1D68</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 3 (W/E) 6</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (W/E) 6</category>
 	</item>
 
 	<item id="1d69">
 		<id>0x1D69</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 3 (W/E) 7</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (W/E) 7</category>
 	</item>
 
 	<item id="1d6a">
 		<id>0x1D6A</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 3 (W/E) 8</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (W/E) 8</category>
 	</item>
 
 	<item id="1d6b">
 		<id>0x1D6B</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 3 (W/E) 9</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (W/E) 9</category>
 	</item>
 
 	<item id="1d6c">
 		<id>0x1D6C</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 1 (N/S) 1</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 1 (N/S) 1</category>
 	</item>
 
 	<item id="1d6d">
 		<id>0x1D6D</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 1 (N/S) 2</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 1 (N/S) 2</category>
 	</item>
 
 	<item id="1d6e">
 		<id>0x1D6E</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 1 (N/S) 3</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 1 (N/S) 3</category>
 	</item>
 
 	<item id="1d6f">
 		<id>0x1D6F</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 1 (N/S) 4</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 1 (N/S) 4</category>
 	</item>
 
 	<item id="1d70">
 		<id>0x1D70</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 1 (N/S) 5</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 1 (N/S) 5</category>
 	</item>
 
 	<item id="1d71">
 		<id>0x1D71</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 2 (N/S) 1</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (N/S) 1</category>
 	</item>
 
 	<item id="1d72">
 		<id>0x1D72</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 2 (N/S) 2</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (N/S) 2</category>
 	</item>
 
 	<item id="1d73">
 		<id>0x1D73</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 2 (N/S) 3</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (N/S) 3</category>
 	</item>
 
 	<item id="1d74">
 		<id>0x1D74</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 2 (N/S) 4</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (N/S) 4</category>
 	</item>
 
 	<item id="1d75">
 		<id>0x1D75</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 2 (N/S) 5</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (N/S) 5</category>
 	</item>
 
 	<item id="1d76">
 		<id>0x1D76</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Wooden Coffin 2 (N/S) 6</category>
+		<category>Dungeon\Coffins\Wooden\Skeleton\Skeleton in Wooden Coffin 2 (N/S) 6</category>
 	</item>
 
 	<item id="1d77">
 		<id>0x1D77</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 1 (N/S) 1</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 1 (N/S) 1</category>
 	</item>
 
 	<item id="1d78">
 		<id>0x1D78</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 1 (N/S) 2</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 1 (N/S) 2</category>
 	</item>
 
 	<item id="1d79">
 		<id>0x1D79</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 1 (N/S) 3</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 1 (N/S) 3</category>
 	</item>
 
 	<item id="1d7a">
 		<id>0x1D7A</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 1 (N/S) 4</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 1 (N/S) 4</category>
 	</item>
 
 	<item id="1d7b">
 		<id>0x1D7B</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 1 (N/S) 5</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 1 (N/S) 5</category>
 	</item>
 
 	<item id="1d7c">
 		<id>0x1D7C</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 2 (N/S) 1</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 2 (N/S) 1</category>
 	</item>
 
 	<item id="1d7d">
 		<id>0x1D7D</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 2 (N/S) 2</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 2 (N/S) 2</category>
 	</item>
 
 	<item id="1d7e">
 		<id>0x1D7E</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 2 (N/S) 3</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 2 (N/S) 3</category>
 	</item>
 
 	<item id="1d7f">
 		<id>0x1D7F</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 2 (N/S) 4</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 2 (N/S) 4</category>
 	</item>
 
 	<item id="1d80">
 		<id>0x1D80</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 2 (N/S) 5</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 2 (N/S) 5</category>
 	</item>
 
 	<item id="1d81">
 		<id>0x1D81</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 3 (N/S) 1</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (N/S) 1</category>
 	</item>
 
 	<item id="1d82">
 		<id>0x1D82</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 3 (N/S) 2</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (N/S) 2</category>
 	</item>
 
 	<item id="1d83">
 		<id>0x1D83</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 3 (N/S) 3</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (N/S) 3</category>
 	</item>
 
 	<item id="1d84">
 		<id>0x1D84</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 3 (N/S) 4</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (N/S) 4</category>
 	</item>
 
 	<item id="1d85">
 		<id>0x1D85</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 3 (N/S) 5</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (N/S) 5</category>
 	</item>
 
 	<item id="1d86">
 		<id>0x1D86</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 3 (N/S) 6</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (N/S) 6</category>
 	</item>
 
 	<item id="1d87">
 		<id>0x1D87</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 3 (N/S) 7</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (N/S) 7</category>
 	</item>
 
 	<item id="1d88">
 		<id>0x1D88</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 3 (N/S) 8</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (N/S) 8</category>
 	</item>
 
 	<item id="1d89">
 		<id>0x1D89</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Skeleton in Stone Coffin 3 (N/S) 9</category>
+		<category>Dungeon\Coffins\Stone\Skeleton\Skeleton in Stone Coffin 3 (N/S) 9</category>
 	</item>
 
 	<item id="1c22">
 		<id>0x1C22</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 1 (W/E) 1</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (W/E) 1</category>
 	</item>
 
 	<item id="1c23">
 		<id>0x1C23</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 1 (W/E) 2</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (W/E) 2</category>
 	</item>
 
 	<item id="1c24">
 		<id>0x1C24</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 1 (W/E) 3</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (W/E) 3</category>
 	</item>
 
 	<item id="1c25">
 		<id>0x1C25</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 1 (W/E) 4</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (W/E) 4</category>
 	</item>
 
 	<item id="1c26">
 		<id>0x1C26</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 1 (W/E) 5</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (W/E) 5</category>
 	</item>
 
 	<item id="1c27">
 		<id>0x1C27</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 1 (W/E) 6</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (W/E) 6</category>
 	</item>
 
 	<item id="1c28">
 		<id>0x1C28</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 2 (W/E) 1</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (W/E) 1</category>
 	</item>
 
 	<item id="1c29">
 		<id>0x1C29</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 2 (W/E) 2</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (W/E) 2</category>
 	</item>
 
 	<item id="1c2a">
 		<id>0x1C2A</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 2 (W/E) 3</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (W/E) 3</category>
 	</item>
 
 	<item id="1c2b">
 		<id>0x1C2B</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 2 (W/E) 4</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (W/E) 4</category>
 	</item>
 
 	<item id="1c2c">
 		<id>0x1C2C</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 2 (W/E) 5</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (W/E) 5</category>
 	</item>
 
 	<item id="1c2d">
 		<id>0x1C2D</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 2 (W/E) 6</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (W/E) 6</category>
 	</item>
 
 	<item id="1c2e">
 		<id>0x1C2E</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 2 (W/E) 7</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (W/E) 7</category>
 	</item>
 
 	<item id="1c2f">
 		<id>0x1C2F</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 1 (N/S) 1</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (N/S) 1</category>
 	</item>
 
 	<item id="1c30">
 		<id>0x1C30</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 1 (N/S) 2</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (N/S) 2</category>
 	</item>
 
 	<item id="1c31">
 		<id>0x1C31</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 1 (N/S) 3</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (N/S) 3</category>
 	</item>
 
 	<item id="1c32">
 		<id>0x1C32</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 1 (N/S) 4</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (N/S) 4</category>
 	</item>
 
 	<item id="1c33">
 		<id>0x1C33</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 1 (N/S) 5</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (N/S) 5</category>
 	</item>
 
 	<item id="1c34">
 		<id>0x1C34</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 1 (N/S) 6</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 1 (N/S) 6</category>
 	</item>
 
 	<item id="1c35">
 		<id>0x1C35</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 2 (N/S) 1</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (N/S) 1</category>
 	</item>
 
 	<item id="1c36">
 		<id>0x1C36</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 2 (N/S) 2</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (N/S) 2</category>
 	</item>
 
 	<item id="1c37">
 		<id>0x1C37</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 2 (N/S) 3</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (N/S) 3</category>
 	</item>
 
 	<item id="1c38">
 		<id>0x1C38</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 2 (N/S) 4</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (N/S) 4</category>
 	</item>
 
 	<item id="1c39">
 		<id>0x1C39</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 2 (N/S) 5</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (N/S) 5</category>
 	</item>
 
 	<item id="1c3a">
 		<id>0x1C3A</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 2 (N/S) 6</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (N/S) 6</category>
 	</item>
 
 	<item id="1c3b">
 		<id>0x1C3B</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 2 (N/S) 7</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 2 (N/S) 7</category>
 	</item>
 
 	<item id="1c3c">
 		<id>0x1C3C</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (W/E) 1</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 1</category>
 	</item>
 
 	<item id="1c3d">
 		<id>0x1C3D</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (W/E) 2</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 2</category>
 	</item>
 
 	<item id="1c3e">
 		<id>0x1C3E</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (W/E) 3</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 3</category>
 	</item>
 
 	<item id="1c3f">
 		<id>0x1C3F</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (W/E) 4</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 4</category>
 	</item>
 
 	<item id="1c40">
 		<id>0x1C40</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (W/E) 5</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 5</category>
 	</item>
 
 	<item id="1c41">
 		<id>0x1C41</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (W/E) 6</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 6</category>
 	</item>
 
 	<item id="1c42">
 		<id>0x1C42</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (W/E) 7</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 7</category>
 	</item>
 
 	<item id="1c43">
 		<id>0x1C43</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (W/E) 8</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 8</category>
 	</item>
 
 	<item id="1c44">
 		<id>0x1C44</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (W/E) 9</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 9</category>
 	</item>
 
 	<item id="1c45">
 		<id>0x1C45</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (W/E) 10</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 10</category>
 	</item>
 
 	<item id="1c46">
 		<id>0x1C46</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (W/E) 11</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 11</category>
 	</item>
 
 	<item id="1c47">
 		<id>0x1C47</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (W/E) 12</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 12</category>
 	</item>
 
 	<item id="1c48">
 		<id>0x1C48</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (W/E) 13</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 13</category>
 	</item>
 
 	<item id="1c49">
 		<id>0x1C49</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (W/E) 14</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (W/E) 14</category>
 	</item>
 
 	<item id="1c4a">
 		<id>0x1C4A</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (N/S) 1</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 1</category>
 	</item>
 
 	<item id="1c4b">
 		<id>0x1C4B</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (N/S) 2</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 2</category>
 	</item>
 
 	<item id="1c4c">
 		<id>0x1C4C</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (N/S) 3</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 3</category>
 	</item>
 
 	<item id="1c4d">
 		<id>0x1C4D</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (N/S) 4</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 4</category>
 	</item>
 
 	<item id="1c4e">
 		<id>0x1C4E</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (N/S) 5</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 5</category>
 	</item>
 
 	<item id="1c4f">
 		<id>0x1C4F</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (N/S) 6</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 6</category>
 	</item>
 
 	<item id="1c50">
 		<id>0x1C50</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (N/S) 7</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 7</category>
 	</item>
 
 	<item id="1c51">
 		<id>0x1C51</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (N/S) 8</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 8</category>
 	</item>
 
 	<item id="1c52">
 		<id>0x1C52</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (N/S) 9</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 9</category>
 	</item>
 
 	<item id="1c53">
 		<id>0x1C53</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (N/S) 10</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 10</category>
 	</item>
 
 	<item id="1c54">
 		<id>0x1C54</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (N/S) 11</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 11</category>
 	</item>
 
 	<item id="1c55">
 		<id>0x1C55</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (N/S) 12</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 12</category>
 	</item>
 
 	<item id="1c56">
 		<id>0x1C56</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (N/S) 13</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 13</category>
 	</item>
 
 	<item id="1c57">
 		<id>0x1C57</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 (N/S) 14</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 (N/S) 14</category>
 	</item>
 
 	<item id="1c58">
 		<id>0x1C58</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 Lid (W/E) 1</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 Lid (W/E) 1</category>
 	</item>
 
 	<item id="1c59">
 		<id>0x1C59</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 Lid (W/E) 2</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 Lid (W/E) 2</category>
 	</item>
 
 	<item id="1c5a">
 		<id>0x1C5A</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 Lid (W/E) 3</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 Lid (W/E) 3</category>
 	</item>
 
 	<item id="1c5b">
 		<id>0x1C5B</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 Lid (W/E) 4</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 Lid (W/E) 4</category>
 	</item>
 
 	<item id="1c5c">
 		<id>0x1C5C</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 Lid (N/S) 1</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 Lid (N/S) 1</category>
 	</item>
 
 	<item id="1c5d">
 		<id>0x1C5D</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 Lid (N/S) 2</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 Lid (N/S) 2</category>
 	</item>
 
 	<item id="1c5e">
 		<id>0x1C5E</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 Lid (N/S) 3</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 Lid (N/S) 3</category>
 	</item>
 
 	<item id="1c5f">
 		<id>0x1C5F</id>
 		<nodecay />
-		<category>Dungeon\Coffins\Wooden Coffin 3 Lid (N/S) 4</category>
+		<category>Dungeon\Coffins\Wooden\Wooden Coffin 3 Lid (N/S) 4</category>
 	</item>
 
 	<!-- Sarcophagus -->
