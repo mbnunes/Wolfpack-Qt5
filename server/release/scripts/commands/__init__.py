@@ -233,7 +233,7 @@ def newlostarget(char, arguments, target):
 	srcpos = char.pos
 	srcpos.z += 15
 	
-	result = srcpos.lineofsightnew(targpos)
+	result = char.canreach(targpos, 20, True)
 	char.socket.sysmessage('RESULT: ' + str(result))
 
 def newlos(socket, command, arguments):
