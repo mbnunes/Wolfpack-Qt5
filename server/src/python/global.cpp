@@ -126,7 +126,7 @@ static QStringList getFlagNames( unsigned char flag1, unsigned char flag2, unsig
 
 /*
 	\function wolfpack.console.log
-	\param loglevel The loglevel for this message. See the ERROR_ constants in wolfpack/consts.py for
+	\param loglevel The loglevel for this message. See the "Log Constants" in <module id="wolfpack.consts">wolfpack.consts</module> for
 	details.
 	\param text The text of the message.
 	\description Sends a string to the console and the logfile.
@@ -987,7 +987,7 @@ static PyObject* wpList( PyObject* self, PyObject* args )
 /*
 	\function wolfpack.registerglobal
 	\param event An integer constant for the event that should be hooked.
-	Take a look at the EVENT constants in <module id="wolfpack.consts">wolfpack.consts</module> for details.
+	Take a look at the "Event Constants" in <module id="wolfpack.consts">wolfpack.consts</module> for details.
 	\param script The name of a script that should be notified about the given event.
 	\description This function registers a script as a global hook for one given event type. Whenever the
 	event is triggered, the given script will be called first. Please note that there can only be one 
@@ -1410,13 +1410,7 @@ static PyObject* wpPacket( PyObject* self, PyObject* args )
 /*
 	\function wolfpack.queueaction
 	\param action The action you want to queue.
-	One of these constants in <module>wolfpack.consts</module>:
-	<code>RELOAD_SCRIPTS
-	RELOAD_PYTHON
-	RELOAD_ACCOUNTS
-	RELOAD_CONFIGURATION
-	SAVE_WORLD
-	SAVE_ACCOUNTS</code>
+	Take a look at the "Action Constants" in the <module id="wolfpack.consts">wolfpack.consts</module> module.
 	\description This function queues an action to be executed in the next iteration of the mainloop.
 */ 
 static PyObject* wpQueueAction( PyObject* self, PyObject* args )
@@ -1436,7 +1430,7 @@ static PyObject* wpQueueAction( PyObject* self, PyObject* args )
 /*
 	\function wolfpack.getdefinition
 	\param type The definition type. 
-	Use one of the WPDT constants from <module id="wolfpack.consts">wolfpack.consts</module>.
+	Use one of the "Definition Constants" from <module id="wolfpack.consts">wolfpack.consts</module>.
 	\param id A string representing the id of the desired definition section.
 	\return None if the section could not be found or an <object id="element">element</object> object otherwise.
 	\description This function tries to find a section with the given type and id in the definitions and returns
@@ -1470,7 +1464,7 @@ static PyObject* wpGetDefinition( PyObject* self, PyObject* args )
 /*
 	\function wolfpack.getdefinitions
 	\param type The definition type. 
-	Use one of the WPDT constants from <module id="wolfpack.consts">wolfpack.consts</module>.
+	Use one of the "Definition Constants" from <module id="wolfpack.consts">wolfpack.consts</module>.
 	\return A tuple of strings.
 	\description This function will compile the ids of all sections of a given type.
 */
@@ -1507,7 +1501,7 @@ static PyObject* wpGetDefinitions( PyObject* self, PyObject* args )
 	\function wolfpack.callevent
 	\param script The id of the script containing the event.
 	\param event The numeric constant for the event you want to call.
-	See the EVENT constants in wolfpack.consts for details.
+	See the "Event Constants" in <module id="wolfpack.consts">wolfpack.consts</module> for details.
 	\param args A tuple containing the arguments for the event handler.
 	\return The return value from the event handler is passed trough.
 	\description This function calls an event handler in the given script.
@@ -1546,7 +1540,7 @@ static PyObject* wpCallEvent( PyObject* self, PyObject* args )
 	\function wolfpack.hasevent
 	\param script The id of the script containing the event.
 	\param event The numeric constant for the event you want to check for.
-	See the EVENT constants in wolfpack.consts for details.
+	See the "Event Constants" in <module id="wolfpack.consts">wolfpack.consts</module> for details.
 	\return True or false.
 	\description This function checks if the given script can handle an event of the given type and returns true if it can.
 */
@@ -1659,8 +1653,46 @@ static PyObject* wpHasNamedEvent( PyObject* self, PyObject* args )
 	}
 }
 
+/*
+	\function wolfpack.getoption
+	\param key The name of the option.
+	\param default The default value that is returned if the option does not exist.
+	\return A string with the value of the option.
+	\description This function retrieves an option from the world database.
+*/
+static PyObject* wpGetOption( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(self);
+	QString arg_key = getArgStr(0);
+	QString arg_def = getArgStr(1);
+	QString value;
+	World::instance()->getOption(arg_key, value, arg_def);
+	return PyString_FromString(value);
+}
+
+/*
+	\function wolfpack.setoption
+	\param key The name of the option.
+	\param value A string containing the value of the option.
+	\description This function sets a given option in the world database.
+*/
+static PyObject* wpSetOption( PyObject* self, PyObject* args )
+{
+	Q_UNUSED( self );
+
+	QString arg_key = getArgStr( 0 );
+	QString arg_val = getArgStr( 1 );
+
+	World::instance()->setOption( arg_key, arg_val );
+
+	Py_INCREF(Py_None);
+	return Py_None;
+}
+
 static PyMethodDef wpGlobal[] =
 {
+	{ "getOption",			wpGetOption,		METH_VARARGS, "Reads a string value from the database." },
+	{ "setOption",			wpSetOption,		METH_VARARGS, "Sets a string value and a key to the database." },
 	{ "callevent",			wpCallEvent,					METH_VARARGS, "Call an event in a script and return the result." },
 	{ "hasevent",			wpHasEvent,						METH_VARARGS, "If the given script has the given event. Return true." },
 	{ "callnamedevent",		wpCallNamedEvent,				METH_VARARGS, "Call an event in a script and return the result." },
@@ -1713,6 +1745,12 @@ static PyMethodDef wpGlobal[] =
 
 };
 
+/*
+	\function wolfpack.sockets.first
+	\return A <object id="socket">socket</object> object or None.
+	\description This function resets the iterator to the first available socket
+	and returns it.
+*/
 static PyObject* wpSocketsFirst( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -1720,6 +1758,12 @@ static PyObject* wpSocketsFirst( PyObject* self, PyObject* args )
 	return PyGetSocketObject( Network::instance()->first() );
 }
 
+/*
+	\function wolfpack.sockets.next
+	\return A <object id="socket">socket</object> object or None.
+	\description This function sets the iterator to the next available socket
+	and returns it. If there is no socket available, None is returned.
+*/
 static PyObject* wpSocketsNext( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -1727,8 +1771,10 @@ static PyObject* wpSocketsNext( PyObject* self, PyObject* args )
 	return PyGetSocketObject( Network::instance()->next() );
 }
 
-/*!
-	Retrieves the number of currently connected sockets
+/*
+	\function wolfpack.sockets.count
+	\return An integer value.
+	\description This function returns how many sockets are connected.
 */
 static PyObject* wpSocketsCount( PyObject* self, PyObject* args )
 {
@@ -1750,9 +1796,13 @@ static PyMethodDef wpSockets[] =
 
 };
 
-/*!
-	Finds an Account object.
- */
+/*
+	\function wolfpack.accounts.find
+	\param name A string containing the account name.
+	\return An <object id="account">account</object> object if an account was found. 
+	None otherwise.
+	\description This function tries to find an account with the given name and returns it.
+*/
 static PyObject* wpAccountsFind( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -1766,10 +1816,12 @@ static PyObject* wpAccountsFind( PyObject* self, PyObject* args )
 	return PyGetAccountObject( account );
 }
 
-/*!
-	Gets a list of Account names.
- */
-static PyObject* wpAccountsList( PyObject* self, PyObject* args )
+/*
+	\function wolfpack.accounts.list
+	\return A list of strings.
+	\description This function generates a list of all account names and returns it.
+*/
+satic PyObject* wpAccountsList( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
 	Q_UNUSED( args );
@@ -1787,9 +1839,11 @@ static PyObject* wpAccountsList( PyObject* self, PyObject* args )
 	return list;
 }
 
-/*!
-	Gets a list of ACL names.
- */
+/*
+	\function wolfpack.accounts.acls
+	\return A list of strings.
+	\description This function generates a list of the names of all available acls and returns it.
+*/
 static PyObject* wpAccountsAcls( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -1808,9 +1862,21 @@ static PyObject* wpAccountsAcls( PyObject* self, PyObject* args )
 	return list;
 }
 
-/*!
-	Returns an ACL as a dictionary.
- */
+/*
+	\function wolfpack.accounts.acl
+	\param acl The name of the acl.
+	\return None if no acl with the given name could be found. Otherwise a dictionary
+	with information about the acl is returned. For each group in the acl it contains
+	a key-value pair where the value is another dictionary containing the actions within the
+	group. If for instance you want to check if the gm acl has access to any command, the following
+	code should give you an idea:
+	<code>
+	allowed = 0
+	acl = wolfpack.accounts.acl('gm')
+	if acl.has_key('command') and acl['command'].has_key('any'):
+	&nbsp;&nbsp;allowed = acl['command']['any'].lower() == 'true'</code>
+	\description Retrieve an access control list from the server.
+*/
 static PyObject* wpAccountsAcl( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -1843,9 +1909,15 @@ static PyObject* wpAccountsAcl( PyObject* self, PyObject* args )
 	return dict;
 }
 
-/*!
-	Creates an account (username + password is enough)
- */
+/*
+	\function wolfpack.accounts.add
+	\param username A string containing the username of the new account.
+	\param password A string containing the password for the new account.
+	If MD5 password hashing is enabled, this password will be automatically converted.
+	\return None or an <object id="account">account</object> object.
+	\description This function creates a new account and returns it. If the account couldn't be created,
+	it returns None.
+*/
 static PyObject* wpAccountsAdd( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -1858,21 +1930,27 @@ static PyObject* wpAccountsAdd( PyObject* self, PyObject* args )
 	QString login = getArgStr( 0 );
 	QString password = getArgStr( 1 );
 
-	if ( login.length() < 1 && password.length() < 1 )
-		return PyFalse();
+	if (login.length() < 1 && password.length() < 1) {
+		Py_INCREF(Py_None);
+		return Py_None;
+	}
 
-	cAccount* account = Accounts::instance()->getRecord( login );
+	cAccount* account = Accounts::instance()->getRecord(login);
 
-	if ( account )
-		return PyFalse();
+	if (account) {
+		Py_INCREF(Py_None);
+		return Py_None;		
+	}
 
-	account = Accounts::instance()->createAccount( login, password );
-	return PyGetAccountObject( account );
+	account = Accounts::instance()->createAccount(login, password);
+	return PyGetAccountObject(account);
 }
 
-/*!
-	Reload accounts.
- */
+/*
+	\function wolfpack.accounts.reload
+	\description Reload the accounts in the next mainloop tick. This means
+	that the accounts will not be reloaded instantly.
+*/
 static PyObject* wpAccountsReload( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -1881,9 +1959,11 @@ static PyObject* wpAccountsReload( PyObject* self, PyObject* args )
 	return PyTrue();
 }
 
-/*!
-	Save accounts.
- */
+/*
+	\function wolfpack.accounts.save
+	\description Save the account database during the next mainloop iteration.
+	That means that the accounts will not be saved instantly.
+*/
 static PyObject* wpAccountsSave( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
@@ -1909,11 +1989,15 @@ static PyMethodDef wpAccounts[] =
 
 };
 
-/*!
-	Reads the boolean entry specified by key and group.
-	The key is created if it doesn't exist, using the default argument.
-	If an error occurs the settings are left unchanged and FALSE is returned;
-	otherwise TRUE is returned
+/*
+	\function wolfpack.settings.getbool
+	\param group A string containing the name of the group the configuration option is in.
+	\param key A string containing the name of the configuration option within the given group.
+	\param default If the configuration option does not exist, this value is returned instead.
+	\param create Defaults to false. If this is true and the option does not exist, the value given
+	as the default value will be written to the configuration file.
+	\return A boolean value.
+	\description This function retrieves a value from the configuration file.
 */
 static PyObject* wpSettingsGetBool( PyObject* self, PyObject* args )
 {
@@ -1928,11 +2012,12 @@ static PyObject* wpSettingsGetBool( PyObject* self, PyObject* args )
 	return Config::instance()->getBool( pyGroup, pyKey, pyDef, create ) ? PyTrue() : PyFalse();
 }
 
-/*!
-	Writes the boolean entry value into specified key and group.
-	The key is created if it doesn't exist. Any previous value is overwritten by value.
-	If an error occurs the settings are left unchanged and FALSE is returned;
-	otherwise TRUE is returned
+/*
+	\function wolfpack.settings.setbool
+	\param group A string containing the name of the group the configuration option is in.
+	\param key A string containing the name of the configuration option within the given group.
+	\param value The new value of the configuration option.
+	\description This function changes or creates a new configuration option.
 */
 static PyObject* wpSettingsSetBool( PyObject* self, PyObject* args )
 {
@@ -1947,12 +2032,15 @@ static PyObject* wpSettingsSetBool( PyObject* self, PyObject* args )
 	return PyTrue();
 }
 
-/*!
-	Reads the numeric entry specified by key and group.
-	The key is created if it doesn't exist using the default argument, provided
-	that \a create argument is true.
-	If an error occurs the settings are left unchanged and FALSE is returned;
-	otherwise TRUE is returned
+/*
+	\function wolfpack.settings.getnumber
+	\param group A string containing the name of the group the configuration option is in.
+	\param key A string containing the name of the configuration option within the given group.
+	\param default If the configuration option does not exist, this value is returned instead.
+	\param create Defaults to false. If this is true and the option does not exist, the value given
+	as the default value will be written to the configuration file.
+	\return An integer value.
+	\description This function retrieves a value from the configuration file.
 */
 static PyObject* wpSettingsGetNumber( PyObject* self, PyObject* args )
 {
@@ -1967,11 +2055,12 @@ static PyObject* wpSettingsGetNumber( PyObject* self, PyObject* args )
 	return PyInt_FromLong( Config::instance()->getNumber( pyGroup, pyKey, pyDef, create ) );
 }
 
-/*!
-	Writes the numeric entry value into specified key and group.
-	The key is created if it doesn't exist. Any previous value is overwritten by value.
-	If an error occurs the settings are left unchanged and FALSE is returned;
-	otherwise TRUE is returned
+/*
+	\function wolfpack.settings.setnumber
+	\param group A string containing the name of the group the configuration option is in.
+	\param key A string containing the name of the configuration option within the given group.
+	\param value The new value of the configuration option.
+	\description This function changes or creates a new configuration option.
 */
 static PyObject* wpSettingsSetNumber( PyObject* self, PyObject* args )
 {
@@ -1986,13 +2075,15 @@ static PyObject* wpSettingsSetNumber( PyObject* self, PyObject* args )
 	return PyTrue();
 }
 
-/*!
-	getString( group, key, default, create )
-	Reads the string entry specified by key and group.
-	The key is created if it doesn't exist using the default argument, provided that
-	\a create argument is true.
-	If an error occurs the settings are left unchanged and FALSE is returned;
-	otherwise TRUE is returned
+/*
+	\function wolfpack.settings.getstring
+	\param group A string containing the name of the group the configuration option is in.
+	\param key A string containing the name of the configuration option within the given group.
+	\param default If the configuration option does not exist, this value is returned instead.
+	\param create Defaults to false. If this is true and the option does not exist, the value given
+	as the default value will be written to the configuration file.
+	\return A string.
+	\description This function retrieves a value from the configuration file.
 */
 static PyObject* wpSettingsGetString( PyObject* self, PyObject* args )
 {
@@ -2007,11 +2098,12 @@ static PyObject* wpSettingsGetString( PyObject* self, PyObject* args )
 	return PyString_FromString( Config::instance()->getString( pyGroup, pyKey, pyDef, create ) );
 }
 
-/*!
-	Writes the string entry value into specified key and group.
-	The key is created if it doesn't exist. Any previous value is overwritten by value.
-	If an error occurs the settings are left unchanged and FALSE is returned;
-	otherwise TRUE is returned
+/*
+	\function wolfpack.settings.setstring
+	\param group A string containing the name of the group the configuration option is in.
+	\param key A string containing the name of the configuration option within the given group.
+	\param value The new value of the configuration option.
+	\description This function changes or creates a new configuration option.
 */
 static PyObject* wpSettingsSetString( PyObject* self, PyObject* args )
 {
@@ -2026,8 +2118,9 @@ static PyObject* wpSettingsSetString( PyObject* self, PyObject* args )
 	return PyTrue();
 }
 
-/*!
-	Reloads wolfpack.xml
+/*
+	\function wolfpack.settings.reload
+	\description This function reloads the settings file.
 */
 static PyObject* wpSettingsReload( PyObject* self, PyObject* args )
 {
@@ -2037,8 +2130,9 @@ static PyObject* wpSettingsReload( PyObject* self, PyObject* args )
 	return PyTrue();
 }
 
-/*!
-	Saves wolfpack.xml
+/*
+	\function wolfpack.settings.save
+	\description This function saves the settings file to disk.
 */
 static PyObject* wpSettingsSave( PyObject* self, PyObject* args )
 {
@@ -2054,56 +2148,24 @@ static PyObject* wpSettingsSave( PyObject* self, PyObject* args )
 */
 static PyMethodDef wpSettings[] =
 {
-	{ "getBool",		wpSettingsGetBool,		METH_VARARGS, "Reads a boolean value from wolfpack.xml." },
-	{ "setBool",		wpSettingsSetBool,		METH_VARARGS, "Sets a boolean value to wolfpack.xml." },
-	{ "getNumber",		wpSettingsGetNumber,	METH_VARARGS, "Gets a numeric value from wolfpack.xml." },
-	{ "setNumber",		wpSettingsSetNumber,	METH_VARARGS, "Sets a numeric value to wolfpack.xml." },
-	{ "getString",		wpSettingsGetString,	METH_VARARGS, "Reads a string value from wolfpack.xml." },
-	{ "setString",		wpSettingsSetString,	METH_VARARGS, "Writes a string value to wolfpack.xml." },
+	{ "getbool",		wpSettingsGetBool,		METH_VARARGS, "Reads a boolean value from wolfpack.xml." },
+	{ "setbool",		wpSettingsSetBool,		METH_VARARGS, "Sets a boolean value to wolfpack.xml." },
+	{ "getnumber",		wpSettingsGetNumber,	METH_VARARGS, "Gets a numeric value from wolfpack.xml." },
+	{ "setnumber",		wpSettingsSetNumber,	METH_VARARGS, "Sets a numeric value to wolfpack.xml." },
+	{ "getstring",		wpSettingsGetString,	METH_VARARGS, "Reads a string value from wolfpack.xml." },
+	{ "setstring",		wpSettingsSetString,	METH_VARARGS, "Writes a string value to wolfpack.xml." },
 	{ "reload",			wpSettingsReload,		METH_NOARGS, "Reloads wolfpack.xml." },
 	{ "save",			wpSettingsSave,			METH_NOARGS, "Saves changes made to wolfpack.xml"	},
 	{ NULL, NULL, 0, NULL } // Terminator
 
 };
 
-static PyObject* wpOptionsGetOption( PyObject* self, PyObject* args )
-{
-	Q_UNUSED( self );
-
-	QString arg_key = getArgStr( 0 );
-	QString arg_def = getArgStr( 1 );
-
-	QString value;
-
-	World::instance()->getOption( arg_key, value, arg_def );
-
-	return PyString_FromString( value );
-}
-
-static PyObject* wpOptionsSetOption( PyObject* self, PyObject* args )
-{
-	Q_UNUSED( self );
-
-	QString arg_key = getArgStr( 0 );
-	QString arg_val = getArgStr( 1 );
-
-	World::instance()->setOption( arg_key, arg_val );
-
-	return PyTrue();
-}
-
-/*!
-	wolfpack.options
-	config using the settings table
+/*
+	\function wolfpack.database.query
+	\param query A string containing the SQL query for the database.
+	\return A <object id="dbresult">dbresult</object> object.
+	\description This function executes the given SQL query in the currently connected database and returns the result.
 */
-static PyMethodDef wpOptions[] =
-{
-	{ "getOption",		wpOptionsGetOption,		METH_VARARGS, "Reads a string value from the database." },
-	{ "setOption",		wpOptionsSetOption,		METH_VARARGS, "Sets a string value and a key to the database." },
-	{ NULL, NULL, 0, NULL } // Terminator
-
-};
-
 static PyObject* wpQuery( PyObject* self, PyObject* args )
 {
 	char* query;
@@ -2137,6 +2199,11 @@ static PyObject* wpQuery( PyObject* self, PyObject* args )
 	return ( new cDBResult( result ) )->getPyObject();
 }
 
+/*
+	\function wolfpack.database.execute
+	\param query A string containing the SQL statement.
+	\description This function executes the given SQL query in the currently connected database and discards the result if there is any.
+*/
 static PyObject* wpExecute( PyObject* self, PyObject* args )
 {
 	char* query;
@@ -2164,9 +2231,17 @@ static PyObject* wpExecute( PyObject* self, PyObject* args )
 	}
 
 	PyMem_Free( query );
-	return PyTrue();
+
+	Py_INCREF(Py_None);
+	return Py_None;
 }
 
+/*
+	\function wolfpack.database.driver
+	\param database The id of the database you want to query. See the "Database Constants" in this module.
+	\return A string.	
+	\description This function returns the name of the database driver in use for the given database.
+*/
 static PyObject* wpDriver( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
@@ -2186,6 +2261,11 @@ static PyObject* wpDriver( PyObject* self, PyObject* args )
 	return PyString_FromString( driver.latin1() );
 }
 
+/*
+	\function wolfpack.database.close
+	\param database The id of the database you want to close. See the "Database Constants" in this module.
+	\description This function closes the connection to the given database.
+*/
 static PyObject* wpClose( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(args);
@@ -2202,6 +2282,11 @@ static PyObject* wpClose( PyObject* self, PyObject* args )
 	return PyTrue();
 }
 
+/*
+	\function wolfpack.database.open
+	\param database The id of the database you want to open. See the "Database Constants" in this module.
+	\description This function opens the connection to the given database.
+*/
 static PyObject* wpOpen( PyObject* self, PyObject* args )
 {
 	unsigned int database;

@@ -182,12 +182,21 @@ static void wpDeallocDbResult( PyObject* object )
 
 static PyObject* wpDbResult_getAttr( wpDbResult* self, char* name );
 
+/*
+	\object dbresult
+	\description This object type represents the response from the database to a query.
+*/
 PyTypeObject wpDbResultType =
 {
 	PyObject_HEAD_INIT( NULL )
 	0, "dbresult", sizeof( wpDbResultType ), 0, wpDeallocDbResult, 0, ( getattrfunc ) wpDbResult_getAttr
 };
 
+/*
+	\method dbresult.free
+	\description This function frees the resources allocated by this dbresult object. Always call this
+	when you no longer need this object.
+*/
 static PyObject* wpDbResult_free( wpDbResult* self, PyObject* args )
 {
 	Q_UNUSED( args );
@@ -196,6 +205,11 @@ static PyObject* wpDbResult_free( wpDbResult* self, PyObject* args )
 	return Py_None;
 }
 
+/*
+	\method dbresult.fetchrow
+	\return A boolean value.
+	\description Fetch a new row from the database and return false if the end of the result set was reached.
+*/
 static PyObject* wpDbResult_fetchrow( wpDbResult* self, PyObject* args )
 {
 	Q_UNUSED( args );
@@ -207,6 +221,14 @@ static PyObject* wpDbResult_fetchrow( wpDbResult* self, PyObject* args )
 		return PyFalse();
 }
 
+/*
+	\method dbresult.getint
+	\param position The position of the integer value you want to get.
+	\return An integer value.
+	\description Get an integer value from the row at the given position.
+	Please be careful with this function. If you specify an invalid position
+	it can lead to a crash of your server.
+*/
 static PyObject* wpDbResult_getint( wpDbResult* self, PyObject* args )
 {
 	unsigned int pos;
@@ -217,6 +239,14 @@ static PyObject* wpDbResult_getint( wpDbResult* self, PyObject* args )
 	return PyInt_FromLong( self->result->getInt( pos ) );
 }
 
+/*
+	\method dbresult.getstring
+	\param position The position of the string value you want to get.
+	\return A string value.
+	\description Get a string value from the row at the given position.
+	Please be careful with this function. If you specify an invalid position
+	it can lead to a crash of your server.
+*/
 static PyObject* wpDbResult_getstring( wpDbResult* self, PyObject* args )
 {
 	unsigned int pos;

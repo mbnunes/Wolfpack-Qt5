@@ -357,8 +357,9 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name );
 static int wpGuild_setAttr( wpGuild* self, char* name, PyObject* value );
 static int wpGuild_compare( PyObject* a, PyObject* b );
 
-/*!
-	The python type object for the guild type.
+/*
+	\object guild
+	\description This object type represents a guild.
 */
 PyTypeObject wpGuildType =
 {
@@ -374,6 +375,12 @@ static int wpGuild_compare( PyObject* a, PyObject* b )
 	return !( ( ( wpGuild * ) a )->guild == ( ( wpGuild * ) b )->guild );
 }
 
+/*
+	\method guild.addmember
+	\param player A <object id="char">char</object> object for a player.
+	\return False if a npc was passed, True otherwise.
+	\description This method adds a member to this guild.
+*/
 PyObject* wpGuild_addmember( wpGuild* self, PyObject* args )
 {
 	P_CHAR character;
@@ -393,6 +400,12 @@ PyObject* wpGuild_addmember( wpGuild* self, PyObject* args )
 	return 0;
 }
 
+/*
+	\method guild.removemember
+	\param player A <object id="char">char</object> object for a player.
+	\return False if a npc was passed, True otherwise.
+	\description This method removes a member from this guild.
+*/
 PyObject* wpGuild_removemember( wpGuild* self, PyObject* args )
 {
 	P_CHAR character;
@@ -412,6 +425,12 @@ PyObject* wpGuild_removemember( wpGuild* self, PyObject* args )
 	return 0;
 }
 
+/*
+	\method guild.addcanidate
+	\param player A <object id="char">char</object> object for a player.
+	\return False if a npc was passed, True otherwise.
+	\description This method adds a canidate to this guild.
+*/
 PyObject* wpGuild_addcanidate( wpGuild* self, PyObject* args )
 {
 	P_CHAR character;
@@ -431,6 +450,12 @@ PyObject* wpGuild_addcanidate( wpGuild* self, PyObject* args )
 	return 0;
 }
 
+/*
+	\method guild.removecanidate
+	\param player A <object id="char">char</object> object for a player.
+	\return False if a npc was passed, True otherwise.
+	\description This method removes a canidate from this guild.
+*/
 PyObject* wpGuild_removecanidate( wpGuild* self, PyObject* args )
 {
 	P_CHAR character;
@@ -450,6 +475,16 @@ PyObject* wpGuild_removecanidate( wpGuild* self, PyObject* args )
 	return 0;
 }
 
+/*
+	\method guild.setmemberinfo
+	\param player A <object id="char">char</object> object for a player.
+	\param info A dictionary with represents the member information for the given player in this guilds.
+	The following keys are valid:
+	- <code>showsign</code> Set this item to True if the guild abbreviation should be appended to the players name.
+	- <code>guildtitle</code> If this item is not None, it will be shown as this members title within the guild.
+	- <code>joined</code> This is a UNIX timestamp representing the time and date when this member joined the guild.
+	\description This method changes the member information structure for a member of this guild.
+*/
 PyObject* wpGuild_setmemberinfo( wpGuild* self, PyObject* args )
 {
 	P_PLAYER player;
@@ -507,6 +542,16 @@ PyObject* wpGuild_setmemberinfo( wpGuild* self, PyObject* args )
 	return PyTrue();
 }
 
+/*
+	\method guild.getmemberinfo
+	\param player A <object id="char">char</object> object for a player.
+	\return A dictionary with data from the member information structure for the given player in this guilds.
+	The following keys are valid:
+	- <code>showsign</code> This item is True if the guilds abbreviation is appended to this players name.
+	- <code>guildtitle</code> This item is the players title within the guild. It is a unicode string.
+	- <code>joined</code> This is a UNIX timestamp representing the time and date when this member joined the guild.
+	\description This method retrieves the memebr information structure for a member of this guild.
+*/
 PyObject* wpGuild_getmemberinfo( wpGuild* self, PyObject* args )
 {
 	P_PLAYER player;
@@ -541,6 +586,10 @@ PyObject* wpGuild_getmemberinfo( wpGuild* self, PyObject* args )
 	return result;
 }
 
+/*
+	\method guild.delete
+	\description Delete this guild.
+*/
 PyObject* wpGuild_delete( wpGuild* self, PyObject* args )
 {
 	Q_UNUSED( args );
@@ -563,6 +612,9 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 		return 0;
 	}
 
+	/*
+		\rproperty guild.members This property is a list of <object id="char">char</object> objects for every member of the guild.
+	*/
 	if ( !strcmp( name, "members" ) )
 	{
 		QPtrList<cPlayer>& members = self->guild->members();
@@ -576,6 +628,9 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 
 		return list;
 	}
+	/*
+		\rproperty guild.canidates This property is a list of <object id="char">char</object> objects for every canidate of the guild.
+	*/
 	else if ( !strcmp( name, "canidates" ) )
 	{
 		QPtrList<cPlayer>& canidates = self->guild->canidates();
@@ -589,6 +644,10 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 
 		return list;
 	}
+	/*
+		\property guild.leader This property is a <object id="char">char</object> object for the leader of the guild. This can also be None if there
+		is no leader.
+	*/
 	else if ( !strcmp( name, "leader" ) )
 	{
 		if ( !self->guild->leader() )
@@ -601,6 +660,9 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 			return self->guild->leader()->getPyObject();
 		}
 	}
+	/*
+		\property guild.name This is the name of this guild.
+	*/
 	else if ( !strcmp( name, "name" ) )
 	{
 		const QString& value = self->guild->name();
@@ -613,6 +675,9 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 			return PyUnicode_FromUnicode( ( Py_UNICODE * ) value.ucs2(), value.length() );
 		}
 	}
+	/*
+		\property guild.abbreviation This is the abbreviation of this guilds name.
+	*/
 	else if ( !strcmp( name, "abbreviation" ) )
 	{
 		const QString& value = self->guild->abbreviation();
@@ -625,6 +690,9 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 			return PyUnicode_FromUnicode( ( Py_UNICODE * ) value.ucs2(), value.length() );
 		}
 	}
+	/*
+		\property guild.charta This is the charta of this guild.
+	*/
 	else if ( !strcmp( name, "charta" ) )
 	{
 		const QString& value = self->guild->charta();
@@ -637,6 +705,9 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 			return PyUnicode_FromUnicode( ( Py_UNICODE * ) value.ucs2(), value.length() );
 		}
 	}
+	/*
+		\property guild.website This is the URL of the website for this guild.
+	*/
 	else if ( !strcmp( name, "website" ) )
 	{
 		const QString& value = self->guild->website();
@@ -649,18 +720,34 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 			return PyUnicode_FromUnicode( ( Py_UNICODE * ) value.ucs2(), value.length() );
 		}
 	}
+	/*
+		\property guild.alignment This integer value indicates the alignment of the guild.
+		<code>0: Neutral
+		1: Evil
+		2: Good</code>
+	*/
 	else if ( !strcmp( name, "alignment" ) )
 	{
 		return PyInt_FromLong( self->guild->alignment() );
 	}
+	/*
+		\property guild.serial This is the unique integer id for this guild. It can be used to 
+		retrieve a guild object by using the wolfpack.findguild function.
+	*/
 	else if ( !strcmp( name, "serial" ) )
 	{
 		return PyInt_FromLong( self->guild->serial() );
 	}
+	/*
+		\property guild.founded This property is a UNIX timestamp indicating when this guild was founded.
+	*/
 	else if ( !strcmp( name, "founded" ) )
 	{
 		return PyInt_FromLong( self->guild->founded().toTime_t() );
 	}
+	/*
+		\property guild.guildstone This is the main guildstone for this guild. It can be None if there is no main guildstone for this guild.
+	*/
 	else if ( !strcmp( name, "guildstone" ) )
 	{
 		if ( self->guild->guildstone() )

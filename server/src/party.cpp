@@ -436,8 +436,9 @@ void cParty::handlePacket( cUOSocket* socket, cUOPacket* packet )
 	};
 }
 
-/*!
-	The python object structure for a party.
+/*
+	\object party
+	\description This object type represents a party.
 */
 struct wpParty
 {
@@ -466,6 +467,13 @@ static int wpParty_compare( PyObject* a, PyObject* b )
 	return !( ( ( wpParty * ) a )->party == ( ( wpParty * ) b )->party );
 }
 
+/*
+	\method party.tellsingle
+	\param source A <object id="char">char</object> object for the source of the message.
+	\param target A <object id="char">char</object> object for the target of the message.
+	\param message A string containing the message to be sent.
+	\description Send a single party member a partymessage from a given source.
+*/
 static PyObject* wpParty_tellsingle( wpParty* self, PyObject* args )
 {
 	P_CHAR source, target;
@@ -481,12 +489,19 @@ static PyObject* wpParty_tellsingle( wpParty* self, PyObject* args )
 
 		PyMem_Free( message );
 
-		return PyTrue();
+		Py_INCREF(Py_None);
+		return Py_None;
 	}
 
 	return 0;
 }
 
+/*
+	\method party.tellsingle
+	\param source A <object id="char">char</object> object for the source of the message.
+	\param message A string containing the message to be sent.
+	\description Send a message to all party members from a single source.
+*/
 static PyObject* wpParty_tellall( wpParty* self, PyObject* args )
 {
 	P_CHAR source;
@@ -516,10 +531,16 @@ static PyObject* wpParty_getAttr( wpParty* self, char* name )
 {
 	cParty* party = self->party;
 
+	/*
+		\rproperty party.leader A <object id="char">char</object> object for the leader of this party.
+	*/
 	if ( !strcmp( name, "leader" ) )
 	{
 		return party->leader()->getPyObject();
 	}
+	/*
+		\rproperty party.members A list of <object id="char">char</object> objects for the members in this party.
+	*/
 	else if ( !strcmp( name, "members" ) )
 	{
 		QPtrList<cPlayer> members = party->members();
@@ -528,6 +549,9 @@ static PyObject* wpParty_getAttr( wpParty* self, char* name )
 			PyList_Append( list, member->getPyObject() );
 		return list;
 	}
+	/*
+		\rproperty party.canidates A list of <object id="char">char</object> objects for the canidates in this party.
+	*/
 	else if ( !strcmp( name, "canidates" ) )
 	{
 		QPtrList<cPlayer> canidates = party->canidates();
@@ -536,6 +560,9 @@ static PyObject* wpParty_getAttr( wpParty* self, char* name )
 			PyList_Append( list, canidate->getPyObject() );
 		return list;
 	}
+	/*
+		\rproperty party.lootingallowed A list of <object id="char">char</object> objects for the members of this party who allowed looting their corpse.
+	*/
 	else if ( !strcmp( name, "lootingallowed" ) )
 	{
 		QPtrList<cPlayer> lootlist = party->lootingAllowed();

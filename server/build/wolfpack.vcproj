@@ -106,7 +106,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qt-mt322.lib ws2_32.lib comctl32.lib msvcrt.lib python23.lib wininet.lib imagehlp.lib"
+				AdditionalDependencies="qt-mt331.lib ws2_32.lib comctl32.lib msvcrt.lib python23.lib wininet.lib imagehlp.lib"
 				OutputFile="../wolfpack.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"

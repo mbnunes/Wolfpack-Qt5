@@ -399,8 +399,9 @@ static PyObject* wpChar_distanceto( wpChar* self, PyObject* args )
 	\method char.action
 	\description Play an animation for the character.
 	The animation id is automatically translated if the character is on a horse or
-	if the current body id of the character doesn't	support the animation.
+	if the current body id of the character doesn't	support the animation. 	
 	\param id The id of the animation that should be played.
+	See the "Animation Constants" in <module id="wolfpack.consts">wolfpack.consts</module> for a list.
 */
 static PyObject* wpChar_action( wpChar* self, PyObject* args )
 {
@@ -2447,7 +2448,7 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		return list;
 
 		/*
-				\rproperty char.party A <object id="PARTY">PARTY</object> object for the party the player belongs to.
+				\rproperty char.party A <object id="party">party</object> object for the party the player belongs to.
 				None for NPCs or if the player is not in a party.
 				This property is exclusive to python scripts and overrides normal properties with the same name.
 			*/
@@ -2465,7 +2466,7 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		return Py_None;
 
 		/*
-				\rproperty char.guild A <object id="GUILD">GUILD</object> object for the guild the player belongs to.
+				\rproperty char.guild A <object id="guild">guild</object> object for the guild the player belongs to.
 				None for NPCs or if the player is not in a guild.
 				This property is exclusive to python scripts and overrides normal properties with the same name.
 			*/
