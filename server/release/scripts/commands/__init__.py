@@ -107,9 +107,10 @@ def nightsight(socket, command, arguments):
 """
 def multigems(socket, command, arguments):
 	socket.account.multigems = not socket.account.multigems
+	socket.resendworld(1)
 	
 	if socket.account.multigems:
-		socket.sysmessage("'multigems' is now on.")
+		socket.sysmessage("'multigems' is now on.")		
 	else:
 		socket.sysmessage("'multigems' is now off.")
 		

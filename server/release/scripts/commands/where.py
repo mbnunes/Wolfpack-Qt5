@@ -27,6 +27,14 @@ def where( socket, command, arguments ):
 			
 		region = region.parent
 		
+	multi = char.multi
+	
+	if multi and len(multi.name) > 0:
+		if not name:
+			name = multi.name
+		else:
+			name += ' (%s)' % multi.name
+		
 	if pos.map == 0:
 		map = 'Felucca'
 	elif pos.map == 1:
