@@ -995,6 +995,202 @@ public:
 	}
 };
 
+
+// Taste Identification
+class cSkTasteID: public cTargetRequest
+{
+public:
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		const P_ITEM pi = FindItemBySerial( target->serial() );
+		P_CHAR pc_currchar = socket->player();
+		if ( pi && !pi->isLockedDown() ) // Ripper
+		{
+			if( !( pi->type() == 19 || pi->type() == 14) )
+			{
+				socket->sysMessage( tr("You cant taste that!") );
+				return true;
+			}
+			if (!Skills->CheckSkill(pc_currchar, TASTEID, 0, 250))
+			{
+				socket->sysMessage( tr("You can't quite tell what this item is...") );
+			}
+			else
+			{
+				if( pi->corpse() )
+				{
+					socket->sysMessage( tr("You have to use your forensics evalutation skill to know more on this corpse.") );
+					return true;
+				}
+				
+				// Identify Item by Antichrist // Changed by MagiusCHE)
+				if (Skills->CheckSkill(pc_currchar, TASTEID, 250, 500))
+					if (pi->name2() != "#")
+						pi->setName( pi->name2() ); // Item identified! -- by Magius(CHE)
+					
+				socket->sysMessage( tr("You found that this item appears to be called: %1").arg(pi->name())  );
+					
+				if (Skills->CheckSkill(pc_currchar, TASTEID, 250, 500))
+				{
+					if((pi->poisoned>0) || (pi->morex==4 && pi->morey==6 && pi->morez==1))
+						socket->sysMessage( tr("This item is poisoned!") );
+					else
+						socket->sysMessage( tr("This item shows no poison.") );
+						
+					// Show Creator by Magius(CHE)
+					if (Skills->CheckSkill(pc_currchar, TASTEID, 250, 500))
+					{
+						if (pi->creator.size()>0)
+						{
+							if (pi->madewith>0) 
+								socket->sysMessage( tr("It is %1 by %2").arg(skill[pi->madewith-1].madeword).arg(pi->creator.c_str()) ); // Magius(CHE)
+							else if (pi->madewith<0) 
+								socket->sysMessage( tr("It is %1 by %2").arg(skill[0-pi->madewith-1].madeword).arg(pi->creator.c_str()) ); // Magius(CHE)
+							else 
+								socket->sysMessage( tr("It is made by %1").arg(pi->creator.c_str()) ); // Magius(CHE)
+						} else 
+							socket->sysMessage( tr("You don't know its creator!") );
+					} else 
+						socket->sysMessage( tr("You can't know its creator!") );
+				}
+			}
+		}
+		return true;
+	}
+};
+
+
+// Provocation
+class cSkProvocation: public cTargetRequest
+{
+	bool firstTarget;
+	P_CHAR attacker;
+public:
+	
+	cSkProvocation() : firstTarget(false) {}
+	
+	bool acquireFirst( cUOSocket* socket, cUORxTarget* target )
+	{
+		P_CHAR pc = FindCharBySerial( target->serial() );
+		P_CHAR pc_currchar = socket->player();
+		
+		if( pc == NULL ) 
+			return true; // cancel the skill
+		
+		P_ITEM inst = Skills->GetInstrument(socket);
+		if (inst == NULL) 
+		{
+			socket->sysMessage( tr("You do not have an instrument to play on!") );
+			return true; // cancel the skill
+		}
+		if ( pc->isInvul() || pc->shop || // invul or shopkeeper
+			pc->npcaitype()==0x01 || // healer
+			pc->npcaitype()==0x04 || // tele guard
+			pc->npcaitype()==0x06 || // chaos guard
+			pc->npcaitype()==0x07 || // order guard
+			pc->npcaitype()==0x09)   // city guard
+		{
+			socket->sysMessage( tr(" You cant entice that npc!") );
+			return true;
+		}
+		if (pc->inGuardedArea())
+		{
+			socket->sysMessage( tr(" You cant do that in town!") );
+			return true;
+		}
+
+		if (pc->isPlayer())
+			socket->sysMessage( tr("You cannot provoke other players.") );
+		else
+		{
+			socket->sysMessage( tr("You play your music, inciting anger, and your target begins to look furious. Whom do you wish it to attack?") );
+			Skills->PlayInstrumentWell(socket, inst);
+			firstTarget = true;
+			attacker = pc;
+			return false; 
+		}
+		return true;
+	}
+
+	bool selectVictim( cUOSocket* socket, cUORxTarget* target )
+	{
+		cChar* Victim = FindCharBySerial( target->serial() );
+		if (!Victim)
+			return true;
+		
+		P_CHAR Player = socket->player();
+	
+		if (Victim->inGuardedArea())
+		{
+			socket->sysMessage( tr("You cant do that in town!") );
+			return true;
+		}
+		if (Victim->isSameAs(attacker))
+		{
+			socket->sysMessage( tr("Silly bard! You can't get something to attack itself.") );
+			return true;
+		}
+		
+		P_ITEM inst = Skills->GetInstrument(socket);
+		if (inst == NULL) 
+		{
+			socket->sysMessage( tr("You do not have an instrument to play on!") );
+			return true;
+		}
+		if (Skills->CheckSkill((Player), MUSICIANSHIP, 0, 1000))
+		{
+			Skills->PlayInstrumentWell(socket, inst);
+			if (Skills->CheckSkill((Player), PROVOCATION, 0, 1000))
+			{
+				if( Player->inGuardedArea() )
+				{
+					Coord_cl cPos = Player->pos;
+					cPos.x++;
+					Combat->SpawnGuard( Player, Player, cPos );
+				}
+				
+				socket->sysMessage( tr("Your music succeeds as you start a fight.") );
+			}
+			else 
+			{
+				socket->sysMessage( tr("Your music fails to incite enough anger.") );
+				Victim = Player;		// make the targeted one attack the Player
+			}
+			
+			attacker->fight(Victim);
+			attacker->setAttackFirst();
+			
+			Victim->fight(attacker);
+			Victim->resetAttackFirst();
+			
+			strcpy(temp, tr("* You see %1 attacking %2 *").arg(attacker->name.c_str()).arg(Victim->name.c_str()) );
+			int i;
+			for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next())
+			{
+				if( mSock != socket && inrange1p( attacker, mSock->player() ) ) 
+					itemmessage( toOldSocket(mSock), temp, Victim->serial );
+			}
+		}
+		else
+		{
+			Skills->PlayInstrumentPoor(socket, inst);
+			socket->sysMessage( tr("You play rather poorly and to no effect.") );
+		}
+		return true;
+	}
+
+	virtual bool responsed( cUOSocket *socket, cUORxTarget *target )
+	{
+		if ( !firstTarget )
+			return acquireFirst( socket, target );
+		else
+			return selectVictim( socket, target);
+	}
+	
+};
+
+
+
 //////////////////////////
 // Function:	CalcRank
 // History:		24 Agoust 1999 created by Magius(CHE)
@@ -2131,7 +2327,9 @@ char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 			return 0;
 		}
 
-	} else ges=0;
+	} 
+	else 
+		ges=0;
 	
 	unsigned long loopexit=0;
 	while ( (wpadvance[1+i+skill[sk].advance_index].skill==sk && 
@@ -2422,7 +2620,7 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 		break;
 	case PROVOCATION:
 		message = tr("Whom do you wish to incite?");
-		//target(s, 0, 1, 0, 79, );
+		targetRequest = new cSkProvocation;
 		break;
 	case ENTICEMENT:
 		message = tr("Whom do you wish to entice?");
@@ -2459,17 +2657,15 @@ void cSkills::SkillUse( cUOSocket *socket, UINT16 id) // Skill is clicked on the
 	case FORENSICS:
 		message = tr("What corpse do you want to examine?");
 		targetRequest = new cSkForensics;
-		//target(s, 0, 1, 0, 154, );
 		break;
 	case POISONING:
 		message = tr("What poison do you want to apply?");
 		targetRequest = new cSkPoisoning;
-		//target(s, 0, 1, 0, 155, );
 		break;
 
 	case TASTEID:
 		message = tr("What do you want to taste?");
-        //target(s, 0, 1, 0, 70, );
+        targetRequest = new cSkTasteID;
         break;
 
 	case MEDITATION:

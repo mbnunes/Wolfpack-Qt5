@@ -4095,8 +4095,8 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 76: AxeTarget(ps,pt); break;
 		case 77: Skills->DetectHidden(s); break;
 
-		case 79: Skills->ProvocationTarget1(s); break;
-		case 80: Skills->ProvocationTarget2(s); break;
+//		case 79: Skills->ProvocationTarget1(s); break;
+//		case 80: Skills->ProvocationTarget2(s); break;
 		case 81: Skills->EnticementTarget1(s); break;
 		case 82: Skills->EnticementTarget2(s); break;
 

@@ -1337,48 +1337,6 @@ void cSkills::DetectHidden(UOXSOCKET s)
 
 }
 
-void cSkills::ProvocationTarget1(UOXSOCKET s)
-{
-	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
-	P_CHAR pc_currchar = currchar[s];
-
-	if( pc == NULL ) return;
-
-	P_ITEM inst = GetInstrument(pc_currchar->socket());
-	if (inst == NULL) 
-	{
-		sysmessage(s, tr("You do not have an instrument to play on!") );
-		return;
-	}
-	if ( pc->isInvul() || pc->shop || // invul or shopkeeper
-		pc->npcaitype()==0x01 || // healer
-		pc->npcaitype()==0x04 || // tele guard
-		pc->npcaitype()==0x06 || // chaos guard
-		pc->npcaitype()==0x07 || // order guard
-		pc->npcaitype()==0x09)   // city guard
-	{
-		sysmessage(s, tr(" You cant entice that npc!") );
-		return;
-	}
-	if (pc->inGuardedArea())
-	{
-		sysmessage(s, tr(" You cant do that in town!") );
-		return;
-	}
-	addid1[s]=buffer[s][7];
-	addid2[s]=buffer[s][8];
-	addid3[s]=buffer[s][9];
-	addid4[s]=buffer[s][10];
-	
-	if (pc->isPlayer())
-		sysmessage(s, tr("You cannot provoke other players.") );
-	else
-	{
-		target(s, 0, 1, 0, 80, "You play your music, inciting anger, and your target begins to look furious. Whom do you wish it to attack?");
-		PlayInstrumentWell(pc_currchar->socket(), inst);
-	}
-}
-
 void cSkills::EnticementTarget1(UOXSOCKET s)
 {
 	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
@@ -1446,76 +1404,6 @@ void cSkills::EnticementTarget2(UOXSOCKET s)
 	{
 		sysmessage(s, tr("Your music fails to attract them.") );
 		PlayInstrumentPoor(pc_currchar->socket(), inst);
-	}
-}
-
-void cSkills::ProvocationTarget2(UOXSOCKET s)
-{
-	cChar* Victim2 = FindCharBySerPtr(buffer[s]+7);
-	if (!Victim2)
-		return;
-
-	P_CHAR Player = currchar[s];
-
-	P_CHAR Victim1 = FindCharBySerial(calcserial(addid1[s], addid2[s], addid3[s], addid4[s]));
-
-	if (Victim2->inGuardedArea())
-	{
-		sysmessage(s, tr("You cant do that in town!") );
-		return;
-	}
-	if (Victim1->isSameAs(Victim2))
-	{
-		sysmessage(s, tr("Silly bard! You can't get something to attack itself.") );
-		return;
-	}
-
-	P_ITEM inst = GetInstrument(s);
-	if (inst == NULL) 
-	{
-		sysmessage(s, tr("You do not have an instrument to play on!") );
-		return;
-	}
-	if (CheckSkill((Player), MUSICIANSHIP, 0, 1000))
-	{
-		PlayInstrumentWell(Player->socket(), inst);
-		if (CheckSkill((Player), PROVOCATION, 0, 1000))
-		{
-			if( Player->inGuardedArea() )
-			{
-				Coord_cl cPos = Player->pos;
-				cPos.x++;
-				Combat->SpawnGuard( Player, Player, cPos );
-			}
-
-			sysmessage(s, tr("Your music succeeds as you start a fight.") );
-		}
-		else 
-		{
-			sysmessage(s, tr("Your music fails to incite enough anger.") );
-			Victim2 = Player;		// make the targeted one attack the Player
-		}
-
-		Victim1->fight(Victim2);
-		Victim1->setAttackFirst();
-		
-		Victim2->fight(Victim1);
-		Victim2->resetAttackFirst();
-		
-		strcpy(temp, tr("* You see %1 attacking %2 *").arg(Victim1->name.c_str()).arg(Victim2->name.c_str()) );
-		int i;
-		for (i=0;i<now;i++)
-		{
-			if (inrange1p(currchar[i], Victim1)&&perm[i])
-			{
-				itemmessage(i, temp, Victim1->serial);
-			}
-		}
-	}
-	else
-	{
-		PlayInstrumentPoor(Player->socket(), inst);
-		sysmessage(s, tr("You play rather poorly and to no effect.") );
 	}
 }
 

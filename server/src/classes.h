@@ -73,6 +73,7 @@ private:
 	void Hide( cUOSocket* );
 	void Stealth( cUOSocket* );
 	void PeaceMaking( cUOSocket* );
+public:
 	void PlayInstrumentWell(cUOSocket*, P_ITEM pi);
 	void PlayInstrumentPoor(cUOSocket*, P_ITEM pi);
 	P_ITEM GetInstrument( cUOSocket* );
@@ -116,8 +117,6 @@ public:
 	void CookOnFire(int s, short id1, short id2, char* matname);
 	void TreeTarget(int s);
 	void DetectHidden(UOXSOCKET s);
-	void ProvocationTarget1(UOXSOCKET s);
-	void ProvocationTarget2(UOXSOCKET s);
 	void EnticementTarget1(UOXSOCKET s);
 	void EnticementTarget2(UOXSOCKET s);
 	void AlchemyTarget(int s);
