@@ -87,6 +87,7 @@ bool cSectorMap::addItem( unsigned short x, unsigned short y, cUObject *object )
 		grid[block]->count = 1;
 		grid[block]->data = new cUObject*[1];
 		grid[block]->data[0] = object;
+		clConsole.send( QString("NERVIGES SCHEISS TEIL ZEIGT AN: neuer sektor gemacht\n") );
 	}
 	else
 	{
@@ -94,6 +95,7 @@ bool cSectorMap::addItem( unsigned short x, unsigned short y, cUObject *object )
 		grid[block]->count++;
 		grid[block]->data = (cUObject**)realloc( grid[block]->data, grid[block]->count * sizeof( cUObject* ) );
 		grid[block]->data[ grid[block]->count - 1 ] = object;
+		clConsole.send( QString("NERVIGES SCHEISS TEIL ZEIGT AN: item an sektor angefügt, neue länge: %1\n").arg(grid[block]->count) );
 	}
 
 	return true;
@@ -113,6 +115,8 @@ bool cSectorMap::removeItem( unsigned short x, unsigned short y, cUObject *objec
 	if( !grid[block] )
 		return true;
 
+	clConsole.send( QString("SCHEISS TEIL: for removen, länge %1, data = %2\n").arg( grid[block]->count ).arg( QString::number( (int)grid[block]->data, 16 ) ) );
+
 	// Remove the Item from the array (most complicated part of the code)
 	for( unsigned int i = 0; i < grid[block]->count; ++i )
 	{
@@ -122,13 +126,16 @@ bool cSectorMap::removeItem( unsigned short x, unsigned short y, cUObject *objec
 			cUObject **newData = new cUObject*[ grid[block]->count - 1 ];
 			
 			memcpy( newData, grid[block]->data, sizeof( cUObject* ) * i );
-			memcpy( newData + ( i * sizeof( cUObject* ) ), grid[block]->data + sizeof( cUObject* ) * i, sizeof( cUObject* ) * ( grid[block]->count - ++i ) );
+			memcpy( newData + ( i * sizeof( cUObject* ) ), grid[block]->data + ( sizeof( cUObject* ) * (i+1) ), sizeof( cUObject* ) * ( grid[block]->count - ( i + 1 ) ) );
 			
 			delete [] grid[block]->data;
 			grid[block]->data = newData;
 			grid[block]->count--;
+			break;
 		}
 	}
+
+	clConsole.send( QString("SCHEISS TEIL: item removed, länge %1, data = %2\n").arg( grid[block]->count ).arg( QString::number( (int)grid[block]->data, 16 ) ) );
 
 	// Check if the block can be freed
 	if( !grid[block]->count )
