@@ -198,7 +198,7 @@ def hairdye_callback( char, args, response ):
 
 # Dying Tub
 def dyingtub( char, item ):
-	if not char.canreach( item, 2 ) or item.getoutmostchar():
+	if not char.canreach( item, 2 ):
 		char.socket.sysmessage( localemsg( 6 ) )
 		return 1
 
@@ -209,7 +209,7 @@ def dyingtub( char, item ):
 def dyingtub_response( char, args, target ):
 	dyetub = wolfpack.finditem( args[0] )
 
-	if not dyetub or (not char.canreach( dyetub, 2 ) and dyetub.getoutmostchar() != char):
+	if not dyetub or not char.canreach( dyetub, 2 ):
 		char.message( localemsg( 6 ) )
 		return
 
