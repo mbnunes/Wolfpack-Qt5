@@ -33,17 +33,63 @@
 #include <qmap.h>
 #include <qptrlist.h>
 #include <qcstring.h>
+#include <qstring.h>
 
 class cElement;
 class cPythonScript;
 
-class cCharBaseDef : public cDefinable
-{
-	friend class cCharBaseDefs;
+#undef getIntProperty
+#undef getStrProperty
+
+class cBaseDef : public cDefinable {
 protected:
 	// Our id
 	QCString id_;
 
+	QMap<QString, unsigned int> intproperties;
+	QMap<QString, QString> properties;
+	
+	bool loaded;
+	virtual void reset();
+public:
+	void processNode( const cElement* node );
+
+	inline unsigned int getIntProperty(const QString &name, unsigned int def = 0) {
+		QMap<QString, unsigned int>::const_iterator it = intproperties.find(name);
+		if (it == intproperties.end()) {
+			return def;
+		} else {			
+			return *it;
+		}
+	}
+
+	inline bool hasIntProperty(const QString &name) {
+		return intproperties.contains(name);
+	}
+
+	inline const QString &getStrProperty(const QString &name, const QString &def = QString::null) {
+		QMap<QString, QString>::const_iterator it = properties.find(name);
+		if (it == properties.end()) {
+			return def;
+		} else {			
+			return *it;
+		}
+	}
+
+	inline bool hasStrProperty(const QString &name) {
+		return properties.contains(name);
+	}
+
+	inline const QCString& id() const
+	{
+		return id_;
+	}
+};
+
+class cCharBaseDef : public cBaseDef
+{
+	friend class cCharBaseDefs;
+protected:
 	// Sounds
 	unsigned short basesound_;
 	unsigned char soundmode_;
@@ -62,7 +108,6 @@ protected:
 	QCString baseScriptList_;
 
 	// Misc Properties
-	bool loaded;
 	void load();
 	void reset();
 	void refreshScripts();
@@ -94,11 +139,6 @@ public:
 	{
 		load();
 		return criticalHealth_;
-	}
-
-	inline const QCString& id() const
-	{
-		return id_;
 	}
 
 	inline unsigned short basesound()
@@ -205,12 +245,10 @@ typedef SingletonHolder<cCharBaseDefs> CharBaseDefs;
 	This class represents an item definition and it's
 	static properties.
 */
-class cItemBaseDef : public cDefinable
+class cItemBaseDef : public cBaseDef
 {
 	friend class cItemBaseDefs;
 protected:
-	// Our id
-	QCString id_;
 	float weight_;
 	unsigned int sellprice_;
 	unsigned int buyprice_;
@@ -223,7 +261,6 @@ protected:
 	QCString baseScriptList_;
 
 	// Misc Properties
-	bool loaded;
 	void load();
 	void reset();
 	void refreshScripts();
@@ -239,7 +276,6 @@ protected:
 			flags_ &= ~0x01;
 		}
 	}
-
 public:
 	cItemBaseDef( const QCString& id );
 	~cItemBaseDef();
@@ -256,11 +292,6 @@ public:
 	{
 		load();
 		return baseScripts_;
-	}
-
-	inline const QCString& id() const
-	{
-		return id_;
 	}
 
 	inline unsigned int decaydelay()

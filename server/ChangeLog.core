@@ -10,6 +10,11 @@ Wolfpack 12.9.10 Beta (CVS)
 	- Stablemasters now respond to stabling requests.  No charge yet!
 	- Fixed a bug where an error message for missing python gump
 	  callbacks led to a crash.
+	- Added a property system bound to the definitions. 
+	  <intproperty name="..." value="..." /> and
+	  <strproperty name="..." value="..." /> define properties that can be
+	  accessed via the methods getstrproperty, getintproperty, hasstrproperty,
+	  hasintproperty from items and chars.
 
 Wolfpack 12.9.9 Beta (4. September 2004)
 	- Allowed viewing and setting account properties via .set and .show.

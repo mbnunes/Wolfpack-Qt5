@@ -1090,6 +1090,109 @@ static PyObject* wpItem_effect( wpItem* self, PyObject* args )
 	Py_RETURN_NONE;
 }
 
+/*
+	\method item.getintproperty
+	\description Get an integer property from the items definition.
+	\param name The name of the property. This name is not case sensitive.
+	\param default The default value that is returned if this property doesnt
+	exist. Defaults to 0.
+	\return The property value or the given default value.
+*/
+static PyObject* wpItem_getintproperty( wpItem* self, PyObject* args )
+{
+	unsigned int def = 0;
+	PyObject *pyname;
+
+	if (!PyArg_ParseTuple(args, "O|i:item.getintproperty(name, def)", &pyname, &def)) {
+		return 0;
+	}
+
+	QString name = Python2QString(pyname);
+	if (self->pItem->basedef() ) {
+		return PyInt_FromLong( self->pItem->basedef()->getIntProperty( name, def ) );
+	} else {
+		return PyInt_FromLong( def );
+	}
+}
+
+/*
+	\method item.getstrproperty
+	\description Get a string property from the items definition.
+	\param name The name of the property. This name is not case sensitive.
+	\param default The default value that is returned if this property doesnt
+	exist. Defaults to an empty string.
+	\return The property value or the given default value.
+*/
+static PyObject* wpItem_getstrproperty( wpItem* self, PyObject* args )
+{
+	PyObject *pydef = 0;
+	PyObject *pyname;
+
+	if (!PyArg_ParseTuple(args, "O|O:item.getstrproperty(name, def)", &pyname, &pydef)) {
+		return 0;
+	}
+
+	QString name = Python2QString(pyname);
+	QString def = Python2QString(pydef);
+
+	if (self->pItem->basedef() ) {
+		return QString2Python( self->pItem->basedef()->getStrProperty( name, def ) );
+	} else {
+		if (pydef) {
+			Py_INCREF(pydef);
+			return pydef;
+		} else {
+			return QString2Python( "" );
+		}
+	}
+}
+
+/*
+	\method item.hasstrproperty
+	\description Checks if the definition of this item has a string property with the given name.
+	\param name The name of the property. This name is not case sensitive.
+	\return True if the definition has the property, False otherwise.
+*/
+static PyObject* wpItem_hasstrproperty( wpItem* self, PyObject* args )
+{
+	PyObject *pyname;
+
+	if (!PyArg_ParseTuple(args, "O:item.hasstrproperty(name)", &pyname)) {
+		return 0;
+	}
+
+	QString name = Python2QString(pyname);
+
+	if (self->pItem->basedef() && self->pItem->basedef()->hasStrProperty(name)) {
+		Py_RETURN_TRUE;
+	} else {
+		Py_RETURN_FALSE;
+	}
+}
+
+/*
+	\method item.hasintproperty
+	\description Checks if the definition of this item has an integer property with the given name.
+	\param name The name of the property. This name is not case sensitive.
+	\return True if the definition has the property, False otherwise.
+*/
+static PyObject* wpItem_hasintproperty( wpItem* self, PyObject* args )
+{
+	PyObject *pyname;
+
+	if (!PyArg_ParseTuple(args, "O:item.hasintproperty(name)", &pyname)) {
+		return 0;
+	}
+
+	QString name = Python2QString(pyname);
+
+	if (self->pItem->basedef() && self->pItem->basedef()->hasIntProperty(name)) {
+		Py_RETURN_TRUE;
+	} else {
+		Py_RETURN_FALSE;
+	}
+}
+
 static PyMethodDef wpItemMethods[] =
 {
 { "additem",			( getattrofunc ) wpItem_additem, METH_VARARGS, "Adds an item to this container." },
@@ -1115,6 +1218,12 @@ static PyMethodDef wpItemMethods[] =
 { "dupe",				( getattrofunc ) wpItem_dupe, METH_VARARGS, 0 },
 { "say",				( getattrofunc ) wpItem_say, METH_VARARGS | METH_KEYWORDS, 0 },
 { "effect",				( getattrofunc ) wpItem_effect, METH_VARARGS, 0 },
+
+// Definition Properties
+{ "getintproperty", ( getattrofunc ) wpItem_getintproperty,		METH_VARARGS, 0 },
+{ "getstrproperty", ( getattrofunc ) wpItem_getstrproperty,		METH_VARARGS, 0 },
+{ "hasintproperty", ( getattrofunc ) wpItem_hasintproperty,		METH_VARARGS, 0 },
+{ "hasstrproperty", ( getattrofunc ) wpItem_hasstrproperty,		METH_VARARGS, 0 },
 
 // Event handling
 { "callevent",			( getattrofunc ) wpItem_callevent, METH_VARARGS, 0 },

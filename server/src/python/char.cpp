@@ -831,6 +831,109 @@ static PyObject* wpChar_ischar( wpChar* self, PyObject* args )
 }
 
 /*
+	\method char.getintproperty
+	\description Get an integer property from the characters definition.
+	\param name The name of the property. This name is not case sensitive.
+	\param default The default value that is returned if this property doesnt
+	exist. Defaults to 0.
+	\return The property value or the given default value.
+*/
+static PyObject* wpChar_getintproperty( wpChar* self, PyObject* args )
+{
+	unsigned int def = 0;
+	PyObject *pyname;
+
+	if (!PyArg_ParseTuple(args, "O|i:char.getintproperty(name, def)", &pyname, &def)) {
+		return 0;
+	}
+
+	QString name = Python2QString(pyname);
+	if (self->pChar->basedef() ) {
+		return PyInt_FromLong( self->pChar->basedef()->getIntProperty( name, def ) );
+	} else {
+		return PyInt_FromLong( def );
+	}
+}
+
+/*
+	\method char.getstrproperty
+	\description Get a string property from the characters definition.
+	\param name The name of the property. This name is not case sensitive.
+	\param default The default value that is returned if this property doesnt
+	exist. Defaults to an empty string.
+	\return The property value or the given default value.
+*/
+static PyObject* wpChar_getstrproperty( wpChar* self, PyObject* args )
+{
+	PyObject *pydef = 0;
+	PyObject *pyname;
+
+	if (!PyArg_ParseTuple(args, "O|O:char.getstrproperty(name, def)", &pyname, &pydef)) {
+		return 0;
+	}
+
+	QString name = Python2QString(pyname);
+	QString def = Python2QString(pydef);
+
+	if (self->pChar->basedef() ) {
+		return QString2Python( self->pChar->basedef()->getStrProperty( name, def ) );
+	} else {
+		if (pydef) {
+			Py_INCREF(pydef);
+			return pydef;
+		} else {
+			return QString2Python( "" );
+		}
+	}
+}
+
+/*
+	\method char.hasstrproperty
+	\description Checks if the definition of this character has a string property with the given name.
+	\param name The name of the property. This name is not case sensitive.
+	\return True if the definition has the property, False otherwise.
+*/
+static PyObject* wpChar_hasstrproperty( wpChar* self, PyObject* args )
+{
+	PyObject *pyname;
+
+	if (!PyArg_ParseTuple(args, "O:char.hasstrproperty(name)", &pyname)) {
+		return 0;
+	}
+
+	QString name = Python2QString(pyname);
+
+	if (self->pChar->basedef() && self->pChar->basedef()->hasStrProperty(name)) {
+		Py_RETURN_TRUE;
+	} else {
+		Py_RETURN_FALSE;
+	}
+}
+
+/*
+	\method char.hasintproperty
+	\description Checks if the definition of this character has an integer property with the given name.
+	\param name The name of the property. This name is not case sensitive.
+	\return True if the definition has the property, False otherwise.
+*/
+static PyObject* wpChar_hasintproperty( wpChar* self, PyObject* args )
+{
+	PyObject *pyname;
+
+	if (!PyArg_ParseTuple(args, "O:char.hasintproperty(name)", &pyname)) {
+		return 0;
+	}
+
+	QString name = Python2QString(pyname);
+
+	if (self->pChar->basedef() && self->pChar->basedef()->hasIntProperty(name)) {
+		Py_RETURN_TRUE;
+	} else {
+		Py_RETURN_FALSE;
+	}
+}
+
+/*
 	\method char.gettag
 	\description Get a custom tag attached to the character.
 	\return None if there is no such tag, the tag value otherwise.
@@ -2363,6 +2466,12 @@ static PyMethodDef wpCharMethods[] =
 { "updatemana",		( getattrofunc ) wpChar_updatemana,		METH_VARARGS, "Resends the manabar to this character." },
 { "updatestamina",	( getattrofunc ) wpChar_updatestamina,		METH_VARARGS, "Resends the stamina bar to this character." },
 { "updatehealth",	( getattrofunc ) wpChar_updatehealth,		METH_VARARGS, "Resends the healthbar to the environment." },
+
+// Definition Properties
+{ "getintproperty", ( getattrofunc ) wpChar_getintproperty,		METH_VARARGS, 0 },
+{ "getstrproperty", ( getattrofunc ) wpChar_getstrproperty,		METH_VARARGS, 0 },
+{ "hasintproperty", ( getattrofunc ) wpChar_hasintproperty,		METH_VARARGS, 0 },
+{ "hasstrproperty", ( getattrofunc ) wpChar_hasstrproperty,		METH_VARARGS, 0 },
 
 // Mount/Unmount
 { "unmount",		( getattrofunc ) wpChar_unmount,			METH_VARARGS, "Unmounts this character and returns the character it was previously mounted." },

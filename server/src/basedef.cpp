@@ -33,6 +33,43 @@
 #include "basics.h"
 #include <string.h>
 
+void cBaseDef::processNode( const cElement* node ) {
+	if (node->name() == "intproperty") {
+		QString name = node->getAttribute("name");
+		if (!name.isEmpty()) {
+			QString value = node->getAttribute("value");
+			if (value.isNull()) {
+				value = node->text();
+			}
+			value = hex2dec(value); // Convert hexadecimal numbers accordingly
+			
+			bool ok;
+			unsigned int intvalue = value.toInt(&ok);
+
+			if (!ok) {
+				Console::instance()->log(LOG_WARNING, QString("Basedef %1 has invalid integer property %2.\n").arg(id_).arg(name));
+			}
+
+			intproperties.insert(name.lower(), intvalue, true);
+		}        
+	} else if (node->name() == "strproperty") {
+		QString name = node->getAttribute("name");
+		if (!name.isEmpty()) {
+			QString value = node->getAttribute("value");
+			if (value.isNull()) {
+				value = node->text();
+			}			
+			properties.insert(name.lower(), value, true);
+		}
+	}
+}
+
+void cBaseDef::reset() {
+	loaded = false;
+	intproperties.clear();
+	properties.clear();
+}
+
 cCharBaseDef::cCharBaseDef( const QCString& id )
 {
 	id_ = id;
@@ -45,7 +82,7 @@ cCharBaseDef::~cCharBaseDef()
 
 void cCharBaseDef::reset()
 {
-	loaded = false;
+	cBaseDef::reset();
 	basesound_ = 0;
 	soundmode_ = 0;
 	flags_ = 0;
@@ -119,6 +156,10 @@ void cCharBaseDef::processNode( const cElement* node )
 	{
 		baseScriptList_ = node->text();
 		refreshScripts();
+	}
+	else
+	{
+		cBaseDef::processNode(node);
 	}
 }
 
@@ -217,7 +258,7 @@ cItemBaseDef::~cItemBaseDef()
 
 void cItemBaseDef::reset()
 {
-	loaded = false;
+	cBaseDef::reset();
 	weight_ = 0.0f;
 	decaydelay_ = 0;
 	sellprice_ = 0;
@@ -279,6 +320,10 @@ void cItemBaseDef::processNode( const cElement* node )
 	{
 		baseScriptList_ = node->text();
 		refreshScripts();
+	}
+	else 
+	{
+		cBaseDef::processNode(node);
 	}
 }
 

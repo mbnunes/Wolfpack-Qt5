@@ -152,7 +152,11 @@ inline PyObject* QString2Python( const QString& string )
 
 inline QString Python2QString( PyObject* object )
 {
-	if ( PyUnicode_Check( object ) )
+	if ( !object )
+	{
+		return QString::null;
+	}
+	else if ( PyUnicode_Check( object ) )
 	{
 #if defined(Py_UNICODE_WIDE)
 		return QString::fromUtf8( PyString_AsString( PyUnicode_AsUTF8String( object ) ) );
