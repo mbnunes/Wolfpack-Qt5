@@ -181,7 +181,7 @@ void cTiming::poll() {
 				P_CHAR attacker = info->attacker();
 				P_CHAR victim = info->victim();
 
-				if (attacker && !victim->free) {
+				if (attacker && !attacker->free) {
 					attacker->poll(time, cBaseChar::EventCombat);
 				}
 				if (victim && !victim->free) {
