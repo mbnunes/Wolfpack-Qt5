@@ -388,6 +388,7 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 
 				if ( pItem->amount() <= amount )
 				{
+					pItem->removeFromView();
 					pItem->remove();
 				}
 				else
@@ -398,8 +399,8 @@ void Trade::sellAction( cUOSocket* socket, cUORxSell* packet )
 			}
 			else
 			{
+				pItem->removeFromView();
 				pBought->addItem( pItem );
-				pItem->update();
 			}
 		}
 	}
