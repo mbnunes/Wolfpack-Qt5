@@ -22,6 +22,48 @@ def onLogout( player ):
 
 	return True
 
+#
+# Disallow using items in trade containers
+#
+def onUse(char, item):
+	if item.container and item.container.container == char and item.container.layer == LAYER_TRADING:
+		return True
+	else:
+		return False
+
+def onPickup(player1, item):
+	box1 = player1.itemonlayer(LAYER_TRADING)
+	if not box1:
+		return False
+		
+	if item.container != box1:
+		return False
+		
+	if not player1.hastag('trade_partner'):
+		return False
+	
+	player2 = wolfpack.findchar(int(player1.gettag('trade_partner')))
+	if not player2:
+		return False
+	box2 = player2.itemonlayer(LAYER_TRADING)
+	
+	if not box2:
+		return False
+		
+	player1.settag( 'trade_button', 0 )
+	player2.settag( 'trade_button', 0 )
+		
+	# Reset the trading status and resend it
+	# To me
+	sendtradepacket( player1.socket, 2, box1.serial, 0, 0, "" )
+	
+	# To partner
+	sendtradepacket( player2.socket, 2, box2.serial, 0, 0, "" )
+	
+	item.removefromview(True)
+	
+	return False
+
 def onTradeAdd( player, item ):
 	#not implemented yet in code
 	#Refuse:
@@ -39,6 +81,30 @@ def onTradeRemove( player, item ):
 	#not implemented yet in code
 
 	return True
+	
+def onDropOnItem( item, box1 ):
+	player1 = box1.container
+	if not player1.hastag('trade_partner'):
+		return False
+	player2 = wolfpack.findchar(int(player1.gettag('trade_partner')))
+	if not player2:
+		return False
+	box2 = player2.itemonlayer(LAYER_TRADING)
+	
+	if not box2:
+		return False
+		
+	player1.settag( 'trade_button', 0 )
+	player2.settag( 'trade_button', 0 )
+		
+	# Reset the trading status and resend it
+	# To me
+	sendtradepacket( player1.socket, 2, box1.serial, 0, 0, "" )
+	
+	# To partner
+	sendtradepacket( player2.socket, 2, box2.serial, 0, 0, "" )	
+	
+	return False
 
 #
 # This event is called if an item is dropped on another character and
@@ -73,6 +139,9 @@ def onTradeStart( player1, player2, firstitem ):
 		box1.owner = player1
 		player1.additem( LAYER_TRADING, box1 )
 		box1.update()
+		box1new = 1
+	else:
+		box1new = 0
 
 	# Same operation for partner
 	box2 = player2.itemonlayer( LAYER_TRADING )
@@ -81,6 +150,9 @@ def onTradeStart( player1, player2, firstitem ):
 		box2.owner = player2
 		player2.additem( LAYER_TRADING, box2 )
 		box2.update()
+		box2new = 1
+	else:
+		box2new = 0
 
 	# Unable to create trade containers
 	if not box1 or not box2:
@@ -88,32 +160,38 @@ def onTradeStart( player1, player2, firstitem ):
 			firstitem.update()
 		return False
 
-	#onLogout event should be executed for tradewindow disposing
+	# onLogout event should be executed for tradewindow disposing
 	player1.addscript( 'system.trading' )
 	player2.addscript( 'system.trading' )
 
-	#We want to know serial of partner in future
+	# We want to know serial of partner in future
 	player1.settag( 'trade_partner', player2.serial )
 	player2.settag( 'trade_partner', player1.serial )
 
-	#We need to store button state of each player
+	# We need to store button state of each player
 	player1.settag( 'trade_button', 0 )
 	player2.settag( 'trade_button', 0 )
 
 	#Send trade window to both players
 	#To me
-	sendtradepacket( player1.socket, 0, player2.serial, box1.serial, box2.serial, player2.name )
+	if box1new:
+		sendtradepacket( player1.socket, 0, player2.serial, box1.serial, box2.serial, player2.name )
+		
 	#To partner
-	sendtradepacket( player2.socket, 0, player1.serial, box2.serial, box1.serial, player1.name )
+	if box2new:
+		sendtradepacket( player2.socket, 0, player1.serial, box2.serial, box1.serial, player1.name )
 
 	#Send buttons state
 	#To me
-	sendtradepacket( player1.socket, 2, box1.serial, 0, 0, "" )
+	sendtradepacket( player1.socket, 2, box1.serial, 0, 0, "" )	
 	#To partner
-	sendtradepacket( player2.socket, 2, box2.serial, 0, 0, "" )
+	sendtradepacket( player2.socket, 2, box2.serial, 0, 0, "" )	
 
 	box1.additem( firstitem )
 	firstitem.update()
+	
+	box1.addscript('system.trading')
+	box2.addscript('system.trading')
 
 	return True
 
@@ -168,6 +246,7 @@ def closetrade( player, partner, box1, box2 ):
 		cont2cont( box1, back1 )
 		sendclosetrade( player.socket, box1.serial )
 		box1.delete()
+
 	if box2:
 		back2 = partner.getbackpack()
 		cont2cont( box2, back2 )
