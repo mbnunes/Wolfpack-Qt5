@@ -23,7 +23,7 @@
 		<id>0x0ee</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -64,7 +64,7 @@
 		<id>0x0ee</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -105,7 +105,7 @@
 		<id>0x0ee</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -146,7 +146,7 @@
 		<id>0x0d6</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -187,7 +187,7 @@
 		<id>0x0d6</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -228,7 +228,7 @@
 		<id>0x0d6</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -269,7 +269,7 @@
 		<id>0x033</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -310,7 +310,7 @@
 		<id>0x033</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -351,7 +351,7 @@
 		<id>0x033</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -392,7 +392,7 @@
 		<id>0x033</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -436,7 +436,7 @@
 		<id>0x033</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -480,7 +480,7 @@
 		<id>0x033</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -524,7 +524,7 @@
 		<id>0x02f</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="2500" max="4999"/>
+			<random min="-2500" max="-4999"/>
 		</karma>
 		<fame>
 			<random min="2500" max="4999"/>
@@ -577,7 +577,7 @@
 		<id>0x02f</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="2500" max="4999"/>
+			<random min="-2500" max="-4999"/>
 		</karma>
 		<fame>
 			<random min="2500" max="4999"/>
@@ -630,7 +630,7 @@
 		<id>0x02f</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="2500" max="4999"/>
+			<random min="-2500" max="-4999"/>
 		</karma>
 		<fame>
 			<random min="2500" max="4999"/>
@@ -683,7 +683,7 @@
 		<id>0x01e</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="1250" max="2499"/>
+			<random min="-1250" max="-2499"/>
 		</karma>
 		<fame>
 			<random min="1250" max="2499"/>
@@ -727,7 +727,7 @@
 		<id>0x01e</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="1250" max="2499"/>
+			<random min="-1250" max="-2499"/>
 		</karma>
 		<fame>
 			<random min="1250" max="2499"/>
@@ -771,7 +771,7 @@
 		<id>0x01e</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="1250" max="2499"/>
+			<random min="-1250" max="-2499"/>
 		</karma>
 		<fame>
 			<random min="1250" max="2499"/>
@@ -815,7 +815,7 @@
 		<id>0x005</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -856,7 +856,7 @@
 		<id>0x005</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -897,7 +897,7 @@
 		<id>0x005</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -938,7 +938,7 @@
 		<id>0x008</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="625" max="1249"/>
+			<random min="-625" max="-1249"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -982,7 +982,7 @@
 		<id>0x008</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="625" max="1249"/>
+			<random min="-625" max="-1249"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -1026,7 +1026,7 @@
 		<id>0x008</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="625" max="1249"/>
+			<random min="-625" max="-1249"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -1070,7 +1070,7 @@
 		<id>0x008</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="5000" max="9999"/>
+			<random min="-5000" max="-9999"/>
 		</karma>
 		<fame>
 			<random min="5000" max="9999"/>
@@ -1114,7 +1114,7 @@
 		<id>0x008</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="5000" max="9999"/>
+			<random min="-5000" max="-9999"/>
 		</karma>
 		<fame>
 			<random min="5000" max="9999"/>
@@ -1158,7 +1158,7 @@
 		<id>0x008</id>
 		<inherit id="monster_base"/>
 		<karma>
-			<random min="5000" max="9999"/>
+			<random min="-5000" max="-9999"/>
 		</karma>
 		<fame>
 			<random min="5000" max="9999"/>

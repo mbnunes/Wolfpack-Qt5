@@ -20,7 +20,7 @@
 		<id>0x01f</id>
 		<inherit id="undead_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -64,7 +64,7 @@
 		<id>0x01f</id>
 		<inherit id="undead_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -108,7 +108,7 @@
 		<id>0x01f</id>
 		<inherit id="undead_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -152,7 +152,7 @@
 		<id>0x032</id>
 		<inherit id="undead_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -196,7 +196,7 @@
 		<id>0x032</id>
 		<inherit id="undead_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -240,7 +240,7 @@
 		<id>0x032</id>
 		<inherit id="undead_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -284,7 +284,7 @@
 		<id>0x038</id>
 		<inherit id="undead_base"/>
 		<karma>
-			<random min="2500" max="4999"/>
+			<random min="-2500" max="-4999"/>
 		</karma>
 		<fame>
 			<random min="2500" max="4999"/>
@@ -328,7 +328,7 @@
 		<id>0x038</id>
 		<inherit id="undead_base"/>
 		<karma>
-			<random min="2500" max="4999"/>
+			<random min="-2500" max="-4999"/>
 		</karma>
 		<fame>
 			<random min="2500" max="4999"/>
@@ -372,7 +372,7 @@
 		<id>0x038</id>
 		<inherit id="undead_base"/>
 		<karma>
-			<random min="2500" max="4999"/>
+			<random min="-2500" max="-4999"/>
 		</karma>
 		<fame>
 			<random min="2500" max="4999"/>
@@ -416,7 +416,7 @@
 		<id>0x039</id>
 		<inherit id="undead_base"/>
 		<karma>
-			<random min="2500" max="4999"/>
+			<random min="-2500" max="-4999"/>
 		</karma>
 		<fame>
 			<random min="2500" max="4999"/>
@@ -451,7 +451,7 @@
 		<id>0x039</id>
 		<inherit id="undead_base"/>
 		<karma>
-			<random min="2500" max="4999"/>
+			<random min="-2500" max="-4999"/>
 		</karma>
 		<fame>
 			<random min="2500" max="4999"/>
@@ -486,7 +486,7 @@
 		<id>0x039</id>
 		<inherit id="undead_base"/>
 		<karma>
-			<random min="2500" max="4999"/>
+			<random min="-2500" max="-4999"/>
 		</karma>
 		<fame>
 			<random min="2500" max="4999"/>
@@ -521,7 +521,7 @@
 		<id>0x002</id>
 		<inherit id="undead_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -562,7 +562,7 @@
 		<id>0x002</id>
 		<inherit id="undead_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -603,7 +603,7 @@
 		<id>0x002</id>
 		<inherit id="undead_base"/>
 		<karma>
-			<random min="0" max="624"/>
+			<random min="-0" max="-624"/>
 		</karma>
 		<fame>
 			<random min="0" max="1249"/>
@@ -644,7 +644,7 @@
 		<id>0x018</id>
 		<inherit id="undead_base"/>
 		<karma>
-			<random min="5000" max="9999"/>
+			<random min="-5000" max="-9999"/>
 		</karma>
 		<fame>
 			<random min="5000" max="9999"/>
@@ -697,7 +697,7 @@
 		<id>0x018</id>
 		<inherit id="undead_base"/>
 		<karma>
-			<random min="5000" max="9999"/>
+			<random min="-5000" max="-9999"/>
 		</karma>
 		<fame>
 			<random min="5000" max="9999"/>
@@ -750,7 +750,7 @@
 		<id>0x018</id>
 		<inherit id="undead_base"/>
 		<karma>
-			<random min="5000" max="9999"/>
+			<random min="-5000" max="-9999"/>
 		</karma>
 		<fame>
 			<random min="5000" max="9999"/>
@@ -803,7 +803,7 @@
 		<id>0x01a</id>
 		<inherit id="undead_base"/>
 		<karma>
-			<random min="2500" max="4999"/>
+			<random min="-2500" max="-4999"/>
 		</karma>
 		<fame>
 			<random min="2500" max="4999"/>
@@ -856,7 +856,7 @@
 		<id>0x01a</id>
 		<inherit id="undead_base"/>
 		<karma>
-			<random min="2500" max="4999"/>
+			<random min="-2500" max="-4999"/>
 		</karma>
 		<fame>
 			<random min="2500" max="4999"/>
@@ -909,7 +909,7 @@
 		<id>0x01a</id>
 		<inherit id="undead_base"/>
 		<karma>
-			<random min="2500" max="4999"/>
+			<random min="-2500" max="-4999"/>
 		</karma>
 		<fame>
 			<random min="2500" max="4999"/>
