@@ -128,7 +128,7 @@ def onTradeStart( player1, player2, firstitem ):
 			player1.socket.sysmessage('Your trading partner is currently busy.')
 			if not tobackpack(firstitem, player1):
 				firstitem.update()
-			return False
+			return True
 			
 	if player1.hastag('trade_partner'):
 		partner = wolfpack.findchar(int(player1.gettag('trade_partner')))
@@ -136,7 +136,7 @@ def onTradeStart( player1, player2, firstitem ):
 			player1.socket.sysmessage('You are trading with someone else right now.')
 			if not tobackpack(firstitem, player1):
 				firstitem.update()
-			return False
+			return True
 	
 	#player1 : I am
 	#player2 : Partner
@@ -167,7 +167,7 @@ def onTradeStart( player1, player2, firstitem ):
 	if not box1 or not box2:
 		if not tobackpack(firstitem, player1):
 			firstitem.update()
-		return False
+		return True
 
 	# onLogout event should be executed for tradewindow disposing
 	player1.addscript( 'system.trading' )
@@ -220,9 +220,9 @@ def onTrade( player, type, buttonstate, itemserial ):
 	if player.hastag( 'trade_partner' ):
 		partner = wolfpack.findchar( player.gettag( 'trade_partner' ) )
 		if not partner:
-			return False
+			return True
 	else:
-		return False
+		return True
 
 	#Get tradecontainers
 	box2 = partner.itemonlayer( LAYER_TRADING )
