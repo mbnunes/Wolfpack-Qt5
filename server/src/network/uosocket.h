@@ -92,7 +92,7 @@ public:
 	void handlePlayCharacter( cUORxPlayCharacter *packet );
 
 	// Utilities
-	void sendCharList( const QString &username );
+	void sendCharList();
 };
 
 #endif

@@ -160,18 +160,14 @@ void cUOSocket::handleServerAttach( cUORxServerAttach *packet )
 	sendCharList( packet->username() );
 }
 
-void cUOSocket::sendCharList( const QString &username )
+void cUOSocket::sendCharList()
 {
 	cUOTxCharTownList *charList = new cUOTxCharTownList;
 	charList->addCharacter( "This" );
 	charList->addCharacter( "is" );
 	charList->addCharacter( "just" );
-	
-	if( username != "user" )
-	{
-		charList->addCharacter( "a" );
-		charList->addCharacter( "test" );
-	}
+	charList->addCharacter( "a" );
+	charList->addCharacter( "test" );
 
 	charList->addTown( 0, "Britain", "Britain" );
 	charList->compile();
@@ -182,10 +178,6 @@ void cUOSocket::sendCharList( const QString &username )
 void cUOSocket::handleDeleteCharacter( cUORxDeleteCharacter *packet )
 {
 	cout << "Trying to delete character with id " << packet->index() << endl;
-	
-	/*cUOTxCharChangeResult *result = new cUOTxCharChangeResult;
-	result->setResult( CCR_BADPASS );
-	send( result );*/
 
 	cUOTxUpdateCharList *update = new cUOTxUpdateCharList;
 	update->setCharacter( 0, "You deleted me!" );
