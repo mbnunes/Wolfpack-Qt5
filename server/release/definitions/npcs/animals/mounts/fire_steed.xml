@@ -12,7 +12,7 @@
 		<tag name="mindamage" value="24" type="int" />
 		<tag name="maxdamage" value="36" type="int" />
 		<!-- <tag name="dmg_physical" value="40" type="int" /> -->
-		<tag name="dmg_fire" value="60" type="int" type="int" />
+		<tag name="dmg_fire" value="60" type="int" />
 		<!-- Defense -->
 		<tag name="res_physical" value="52,58" type="int" />
 		<tag name="res_fire" value="100" type="int" />

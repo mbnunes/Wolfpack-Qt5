@@ -20,11 +20,11 @@
 		<tag name="mindamage" value="7" type="int" />
 		<tag name="maxdamage" value="23" type="int" />
 		<!-- Resists -->
-		<tag name="res_cold" name="25,35" type="int" />
-		<tag name="res_energy" name="30,40" type="int" />
-		<tag name="res_fire" name="30,40" type="int" />
-		<tag name="res_physical" name="45,50" type="int" />
-		<tag name="res_poison" name="30,40" type="int" />
+		<tag name="res_cold" value="25,35" type="int" />
+		<tag name="res_energy" value="30,40" type="int" />
+		<tag name="res_fire" value="30,40" type="int" />
+		<tag name="res_physical" value="45,50" type="int" />
+		<tag name="res_poison" value="30,40" type="int" />
 		<!-- Misc. -->
 		<desc>Listen, Traveler, as I tell of the mysterious one-eyed race of giants known as the Cyclops! These massive, warlike brutes give complete obeisance to their rulers, the Titans, who wield magic with an almost religious fervor. Little more is known of them anyone brave (or fool hardy) enough to venture to their valley home seeking common ground for trade or discussion has been met with battle cries instead. Those few who returned tell tales that marvel at the Cyclops remarkable buildings. It is whispered that this race, perhaps the greatest of all builders in our land, may have been responsible for the shrines that grace Britannia. If this rumor is true, there are none alive who can verify such a statement.</desc>
 		<carve>carve_cyclops</carve>
