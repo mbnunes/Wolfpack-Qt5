@@ -34,6 +34,15 @@ echo -e "\e[1;32mChecking for base dependencies:\e[m";
 # }}}
 
 # check for permissions which are required by run-parts {{{
+	#
+	# correct path if necessary
+	#
+	if ! echo "$SETUP_BASEDIR"|grep '^/' > /dev/null 2>&1;
+	then
+		SETUP_BASEDIR="$PWD/$SETUP_BASEDIR";
+	fi
+	SETUP_BASEDIR="$(echo -n "$SETUP_BASEDIR"|sed -e 's|/\.*/|/|g')";
+
 	echo -e "\e[33m--> \e[1mPermissions correctly set?\e[m";
 	#
 	# does setup.d exist?
