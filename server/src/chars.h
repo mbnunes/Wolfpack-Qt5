@@ -53,6 +53,7 @@ class cChar : public cUObject
 {
 // Public Data Members
 public:
+	cChar() ;
     enum enInputMode { enNone, enRenameRune, enPricing, enDescription, enNameDeed, enHouseSign, enPageGM, enPageCouns};
 	//  Chaos/Order Guild Stuff for Ripper
 	short					GuildType;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild

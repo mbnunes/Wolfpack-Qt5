@@ -431,6 +431,11 @@ void cChar::fight(P_CHAR other)
 	}
 }
 
+
+cChar::cChar()
+{
+	VisRange = VISRANGE ;
+}
 ///////////////////////
 // Name:	CountItems
 // history:	by Duke, 26.3.2001

@@ -274,15 +274,18 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 	pc->dir = (dir&0x07);
 	
 	SendWalkToPlayer(pc, socket, sequence);
+
 	cRegion::RegionIterator4Chars ri(pc->pos);
 	for (ri.Begin(); ri.GetData() != ri.End(); ri++)
 	{
 		P_CHAR pc_vis = ri.GetData();
-		if (pc_vis != NULL)
+		if ((pc_vis != NULL)&& (pc_vis != pc))
 		{
 			int distance = chardist(pc_vis, pc);
 			if(distance<=pc_vis->VisRange)
-				SendWalkToOtherPlayers(pc_vis, dir, oldx, oldy,socket);
+			{
+				SendWalkToOtherPlayers(pc_vis, pc, dir, oldx, oldy,socket);
+			}
 		}
 	}
 	
@@ -314,6 +317,11 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 	//if (socket==-1) printf("checkregion called for %s region#: %i region-name:%s \n",pc->name,pc->region,region[pc->region].name);
 
 }
+
+
+
+
+
 
 // Function      : cMovement::isValidDirection()
 // Written by    : Unknown
@@ -954,10 +962,84 @@ void cMovement::SendWalkToPlayer(P_CHAR pc, UOXSOCKET socket, short int sequence
 	}
 }
 
-// send out our movement to all other players who can see us move
-void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short int oldy,UOXSOCKET socket )
+	
+void cMovement::SendWalkToOtherPlayers(P_CHAR pc,P_CHAR us, int dir, short int oldx, short int oldy, UOXSOCKET socket )
 {
-	// lets cache these vars in advance
+
+	// Ok, we are TOLD to how to send this to
+	
+	// We need to decide, to send a 78, or 77.
+
+	UOXSOCKET visSocket = calcSocketFromChar(pc) ;
+	{
+		// It is a real player, we actually care
+		const int newx = pc->pos.x ;
+		const int newy = pc->pos.y ;
+		
+		if (((abs(newx-us->pos.x) == pc->VisRange) || (abs(newy-us->pos.y) == pc->VisRange)) &&
+		(!((abs(oldx-us->pos.x) <= pc->VisRange) || (abs(oldy-us->pos.y) <= pc->VisRange))))
+		{
+
+				if (visSocket != -1)
+					impowncreate(visSocket, us, 1);
+				if (socket != -1)
+					impowncreate(socket,pc,1) ;
+		}
+		else
+		{
+				// We just need to send out a 77
+
+				
+				LongToCharPtr(us->serial, &extmove[1]);
+				ShortToCharPtr(us->id(), &extmove[5]);
+				extmove[7]=us->pos.x>>8;
+				extmove[8]=us->pos.x%256;
+				extmove[9]=us->pos.y>>8;
+				extmove[10]=us->pos.y%256;
+				extmove[11]=us->dispz;
+				extmove[12]=dir;
+				ShortToCharPtr(us->skin, &extmove[13]);
+				if( us->isNpc() /*&& pc->runs*/ && pc->war ) // Ripper 10-2-99 makes npcs run in war mode or follow :) (Ab mod, scriptable)
+					extmove[12]=dir|0x80;
+				if( us->isNpc() && (pc->ftarg != INVALID_SERIAL))
+					extmove[12]=dir|0x80;
+				if (us->war) extmove[15]=0x40; else extmove[15]=0x00;
+				if (us->hidden) extmove[15]=extmove[15]|0x80;
+				if( us->dead && !pc->war ) extmove[15] = extmove[15]|0x80; // Ripper
+				if(us->poisoned) extmove[15]=extmove[15]|0x04; //AntiChrist -- thnx to SpaceDog
+				//if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
+				int guild, race;
+				//chars[i].flag=0x04;       // everyone should be blue on default
+				guild = GuildCompare( pc, us );
+				race = Races.CheckRelation(pc,us);
+				if( us->kills > repsys.maxkills ) extmove[16]=6;
+				else if (guild==1 || race==1)//Same guild (Green)
+					extmove[16]=2;
+				else if (guild==2 || race==2) // Enemy guild.. set to orange
+					extmove[16]=5;
+				else
+				{
+					switch(us->flag)
+					{//1=blue 2=green 5=orange 6=Red 7=Transparent(Like skin 66 77a)
+					case 0x01: extmove[16]=6; break;// If a bad, show as red.
+					case 0x04: extmove[16]=1; break;// If a good, show as blue.
+					case 0x08: extmove[16]=2; break; //green (guilds)
+					case 0x10: extmove[16]=5; break;//orange (guilds)
+					default:extmove[16]=3; break;//grey
+					}
+				}
+				Network->xSend(visSocket, extmove, 17, 0);
+
+		}
+	}
+
+}
+
+
+
+
+/*
+// lets cache these vars in advance
 	//const int visibleRange = Races[pc->race]->VisRange;//Races->getVisRange( pc->race );
 	const int visibleRange =VISRANGE ;
 	const int newx=pc->pos.x;
@@ -975,13 +1057,12 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short
 		// lets see, its much cheaper to call perm[i] first so i'm reordering this
 		if ((socket != i) && (perm[i]) && (inrange1p(pc, currchar[i])))
 		{
-		/*
-			if (
+//			if (
 				(((abs(newx-chars[currchar[i]].pos.x)==visibleRange )||(abs(newy-chars[currchar[i]].pos.y)== visibleRange )) &&
-				((abs(oldx-chars[currchar[i]].pos.x)>visibleRange )||(abs(oldy-chars[currchar[i]].pos.y)>visibleRange ))) ||
-				((abs(newx-chars[currchar[i]].pos.x)==visibleRange )&&(abs(newy-chars[currchar[i]].pos.y)==visibleRange ))
-				)
-		*/
+//				((abs(oldx-chars[currchar[i]].pos.x)>visibleRange )||(abs(oldy-chars[currchar[i]].pos.y)>visibleRange ))) ||
+//				((abs(newx-chars[currchar[i]].pos.x)==visibleRange )&&(abs(newy-chars[currchar[i]].pos.y)==visibleRange ))
+//				)
+
 				
 			//if (
 			//(abs(newx-currchar[i]->pos.x)==Races[pc->race]->VisRange) && (abs(newy-currchar[i]->pos.y)==Races[pc->race]->VisRange) &&
@@ -989,6 +1070,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short
 			if (((abs(newx-currchar[i]->pos.x) == currchar[i]->VisRange) || (abs(newy-currchar[i]->pos.y) == currchar[i]->VisRange)) &&
 			(!((abs(oldx-currchar[i]->pos.x) <= currchar[i]->VisRange) || (abs(oldy-currchar[i]->pos.y) <= currchar[i]->VisRange))))
 			{
+
 				impowncreate(i, pc, 1);
 			}
 			else
@@ -1007,7 +1089,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short
 				//     extmove[12]=chars[currchar[c]].dir&0x7F;
 				//     extmove[12]=buffer[c][1];
 				ShortToCharPtr(pc->skin, &extmove[13]);
-				if( pc->isNpc() /*&& pc->runs*/ && pc->war ) // Ripper 10-2-99 makes npcs run in war mode or follow :) (Ab mod, scriptable)
+				if( pc->isNpc()  && pc->war ) // Ripper 10-2-99 makes npcs run in war mode or follow :) (Ab mod, scriptable)
 					extmove[12]=dir|0x80;
 				if( pc->isNpc() && (pc->ftarg != INVALID_SERIAL))
 					extmove[12]=dir|0x80;
@@ -1046,7 +1128,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short
 		}
 	}
 }
-
+*/
 // see if we should mention that we shove something out of the way
 //##ModelId=3C5D92AE0350
 void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, short int oldy)

@@ -98,7 +98,7 @@ private:
 	void MoveCharForDirection(P_CHAR pc, int dir);
 	void HandleRegionStuffAfterMove(P_CHAR pc, short int oldx, short int oldy);
 	void SendWalkToPlayer(P_CHAR pc, UOXSOCKET socket, short int sequence);
-	void SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short int oldy, UOXSOCKET socket=-1);
+	void SendWalkToOtherPlayers(P_CHAR pc, P_CHAR us, int dir, short int oldx, short int oldy, UOXSOCKET socket=-1);
 	void OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, short int oldy);
 	void HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning);
 	void HandleTeleporters(P_CHAR pc, UOXSOCKET socket, short int oldx, short int oldy);
