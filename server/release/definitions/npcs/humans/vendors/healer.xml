@@ -12,7 +12,7 @@
 	<npc id="healer_male">
 		<inherit>vendor_male</inherit>
 		<bindmenu>vendor_menu,train_menu,healer_menu</bindmenu>
-		<title>the Healer</title>
+		<title context="Vendor Male Titles">the Healer</title>
 		<shopkeeper>
 			<restockable>
 				<item id="e21">
@@ -55,7 +55,7 @@
 
 	<npc id="healer_female">
 		<inherit>vendor_female</inherit>
-		<title>the Healer</title>
+		<title context="Vendor Female Titles">the Healer</title>
 		<bindmenu>vendor_menu,train_menu,healer_menu</bindmenu>
 		<shopkeeper>
 			<restockable>

@@ -223,7 +223,7 @@
 	<!-- A mage vendor -->
 	<npc id="mage_male">
 		<inherit>vendor_male</inherit>
-		<title>the Mage</title>
+		<title context="Vendor Male Titles">the Mage</title>
 		<!-- The Equipment -->
 		<equipped>
 			<item id="1f03" > <!-- Robe -->
@@ -242,7 +242,7 @@
 	
 	<npc id="mage_female">
 		<inherit>vendor_female</inherit>
-		<title>the Mage</title>
+		<title context="Vendor Female Titles">the Mage</title>
 		<equipped>
 			<item id="1f03" > <!-- Robe -->
 				<color><random min="1301" max="1355" /></color>

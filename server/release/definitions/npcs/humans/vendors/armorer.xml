@@ -11,7 +11,7 @@
 	<!-- A armorer vendor -->
 	<npc id="armorer_male">
 		<inherit>vendor_male</inherit>
-		<title>the Armorer</title>
+		<title context="Vendor Male Titles">the Armorer</title>
 		<!-- The Equipment -->
 		<equipped>
 			<item id="153b" > <!-- Half Apron -->
@@ -120,7 +120,7 @@
 	
 	<npc id="armorer_female">
 		<inherit>vendor_female</inherit>
-		<title>the Armorer</title>
+		<title context="Vendor Female Titles">the Armorer</title>
 		<equipped>
 			<item id="153b" > <!-- Half Apron -->
 				<color><random min="1701" max="1755" /></color>

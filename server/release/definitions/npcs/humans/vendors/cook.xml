@@ -11,7 +11,7 @@
 	<!-- A cook vendor -->
 	<npc id="cook_male">
 		<inherit>vendor_male</inherit>
-		<title>the Cook</title>
+		<title context="Vendor Male Titles">the Cook</title>
 		<equipped>
 			<item id="153b" /> <!-- Half Apron -->
 		</equipped>
@@ -52,7 +52,7 @@
 	
 	<npc id="cook_female">
 		<inherit>vendor_female</inherit>
-		<title>the Cook</title>
+		<title context="Vendor Female Titles">the Cook</title>
 		<equipped>
 			<item id="153b" /> <!-- Half Apron -->
 		</equipped>

@@ -249,134 +249,6 @@ This is an unsorted and not neccesarily complete list of people who contributed 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <source>the Architect</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Armorer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Artist</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Baker</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Banker</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Hairstylist</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Bard</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Blacksmith</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Bowyer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the butcher</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Carpenter</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Cobbler</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Cook</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Fisherman</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Fisherlady</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Healer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Herbalist</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Innkeeper</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Jeweler</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Leatherworker</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Mage</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Provisioner</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Shipwright</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Spinner</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Stablemaster</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Tailor</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Tanner</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Tavernkeeper</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Tinker</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Veterinarian</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Weaponsmith</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>the Weaver</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>the piper</source>
         <translation type="unfinished"></translation>
     </message>
@@ -550,9 +422,6 @@ This is an unsorted and not neccesarily complete list of people who contributed 
     </message>
 </context>
 <context>
-    <name>@definitions</name>
-</context>
-<context>
     <name>AbstractAI</name>
     <message>
         <source>You can&apos;t have pets attack in town!</source>
@@ -712,11 +581,259 @@ This is an unsorted and not neccesarily complete list of people who contributed 
         <source>the Alchemist</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <source>the Architect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Armorer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Artist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Baker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Banker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Hairstylist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Bard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Blacksmith</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Bowyer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the butcher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Carpenter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Cobbler</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Cook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Fisherlady</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Healer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Herbalist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Innkeeper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Jeweler</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Leatherworker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Mage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Provisioner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Shipwright</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Spinner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Stablemaster</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Tailor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Tanner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Tavernkeeper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Tinker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Veterinarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Weaponsmith</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Weaver</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>Vendor Male Titles</name>
     <message>
         <source>the Alchemist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Architect</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Armorer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Artist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Baker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Banker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Hairstylist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Bard</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Blacksmith</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Bowyer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the butcher</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Carpenter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Cobbler</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Cook</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Fisherman</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Healer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Herbalist</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Innkeeper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Jeweler</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Leatherworker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Mage</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Provisioner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Shipwright</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Spinner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Stablemaster</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Tailor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Tanner</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Tavernkeeper</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Tinker</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Veterinarian</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Weaponsmith</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>the Weaver</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

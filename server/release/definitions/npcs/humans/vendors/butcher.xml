@@ -11,7 +11,7 @@
 	<!-- A butcher vendor -->
 	<npc id="butcher_male">
 		<inherit>vendor_male</inherit>
-		<title>the butcher</title>
+		<title context="Vendor Male Titles">the butcher</title>
 		<equipped>
 			<item id="153b" /> <!-- Half Apron -->
 			<item id="ec3" /> <!-- Cleaver -->
@@ -46,7 +46,7 @@
 	
 	<npc id="butcher_female">
 		<inherit>vendor_female</inherit>
-		<title>the butcher</title>
+		<title context="Vendor Female Titles">the butcher</title>
 		<equipped>
 			<item id="153b" /> <!-- Half Apron -->
 			<item id="ec3" /> <!-- Cleaver -->

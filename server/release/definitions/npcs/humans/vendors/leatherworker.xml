@@ -19,14 +19,14 @@
 	<!-- A leatherworker vendor -->
 	<npc id="leatherworker_male">
 		<inherit>vendor_male</inherit>
-		<title>the Leatherworker</title>
+		<title context="Vendor Male Titles">the Leatherworker</title>
 		<category>Vendors\Leatherworker (Male)</category>
 		<inherit id="leatherworker_inventory" />
 	</npc>
 	
 	<npc id="leatherworker_female">
 		<inherit>vendor_female</inherit>
-		<title>the Leatherworker</title>
+		<title context="Vendor Female Titles">the Leatherworker</title>
 		<category>Vendors\Leatherworker (Female)</category>
 		<inherit id="leatherworker_inventory" />
 	</npc>

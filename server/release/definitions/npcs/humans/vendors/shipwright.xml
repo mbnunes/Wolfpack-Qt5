@@ -11,7 +11,7 @@
 	<!-- A shipwright vendor -->
 	<npc id="shipwright_male">
 		<inherit>vendor_male</inherit>
-		<title>the Shipwright</title>
+		<title context="Vendor Male Titles">the Shipwright</title>
 		<equipped>
 			<item id="13e3" /> <!-- Smith's Hammer -->
 		</equipped>
@@ -28,7 +28,7 @@
 	
 	<npc id="shipwright_female">
 		<inherit>vendor_female</inherit>
-		<title>the Shipwright</title>
+		<title context="Vendor Female Titles">the Shipwright</title>
 		<equipped>
 			<item id="13e3" /> <!-- Smith's Hammer -->
 		</equipped>

@@ -11,7 +11,7 @@
 	<!-- A jeweler vendor -->
 	<npc id="jeweler_male">
 		<inherit>vendor_male</inherit>
-		<title>the Jeweler</title>
+		<title context="Vendor Male Titles">the Jeweler</title>
 		<shopkeeper>
 			<restockable>
 				<item id="f1b">
@@ -184,7 +184,7 @@
 	
 	<npc id="jeweler_female">
 		<inherit>vendor_female</inherit>
-		<title>the Jeweler</title>
+		<title context="Vendor Female Titles">the Jeweler</title>
 		<shopkeeper>
 			<restockable>
 				<item id="f1b">

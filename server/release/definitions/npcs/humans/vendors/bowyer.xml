@@ -11,7 +11,7 @@
 	<!-- A bowyer vendor -->
 	<npc id="bowyer_male">
 		<inherit>vendor_male</inherit>
-		<title>the Bowyer</title>
+		<title context="Vendor Male Titles">the Bowyer</title>
 		<equipped>
 			<item id="13b1" /> <!-- Bow -->
 			<item id="13c7" /> <!-- Leather Gorget -->
@@ -31,7 +31,7 @@
 	
 	<npc id="bowyer_female">
 		<inherit>vendor_female</inherit>
-		<title>the Bowyer</title>
+		<title context="Vendor Female Titles">the Bowyer</title>
 		<equipped>
 			<item id="13b1" /> <!-- Bow -->
 			<item id="13c7" /> <!-- Leather Gorget -->

@@ -11,7 +11,7 @@
 	<!-- A baker vendor -->
 	<npc id="baker_male">
 		<inherit>vendor_male</inherit>
-		<title>the Baker</title>
+		<title context="Vendor Male Titles">the Baker</title>
 		<equipped>
 			<item id="153b" /> <!-- Half Apron -->
 		</equipped>
@@ -76,7 +76,7 @@
 	
 	<npc id="baker_female">
 		<inherit>vendor_female</inherit>
-		<title>the Baker</title>
+		<title context="Vendor Female Titles">the Baker</title>
 		<equipped>
 			<item id="153b" /> <!-- Half Apron -->
 		</equipped>

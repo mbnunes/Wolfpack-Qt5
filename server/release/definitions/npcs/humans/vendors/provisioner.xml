@@ -51,7 +51,7 @@
 	<!-- A provisioner vendor -->
 	<npc id="provisioner_male">
 		<inherit>vendor_male</inherit>
-		<title>the Provisioner</title>
+		<title context="Vendor Male Titles">the Provisioner</title>
 		<camping><random min="450" max="680" /></camping>
 		<tactics><random min="450" max="680" /></tactics>
 		<category>Vendors\Provisioner (Male)</category>
@@ -60,7 +60,7 @@
 	
 	<npc id="provisioner_female">
 		<inherit>vendor_female</inherit>
-		<title>the Provisioner</title>
+		<title context="Vendor Female Titles">the Provisioner</title>
 		<camping><random min="450" max="680" /></camping>
 		<tactics><random min="450" max="680" /></tactics>
 		<category>Vendors\Provisioner (Female)</category>

@@ -11,7 +11,7 @@
 	<!-- A cobbler vendor -->
 	<npc id="cobbler_male">
 		<inherit>vendor_male</inherit>
-		<title>the Cobbler</title>
+		<title context="Vendor Male Titles">the Cobbler</title>
 		<shopkeeper>
 			<restockable>
 				<item id="170f"><amount>20</amount></item>
@@ -32,7 +32,7 @@
 	
 	<npc id="cobbler_female">
 		<inherit>vendor_female</inherit>
-		<title>the Cobbler</title>
+		<title context="Vendor Female Titles">the Cobbler</title>
 		<shopkeeper>
 			<restockable>
 				<item id="170f"><amount>20</amount></item>

@@ -58,7 +58,7 @@
 	<!-- A tinker vendor -->
 	<npc id="tinker_male">
 		<inherit>vendor_male</inherit>
-		<title>the Tinker</title>
+		<title context="Vendor Male Titles">the Tinker</title>
 		<lockpicking><random min="600" max="830"/></lockpicking>
 		<removetraps><random min="750" max="980"/></removetraps>
 		<tinkering><random min="640" max="1000"/></tinkering>
@@ -69,7 +69,7 @@
 	<!-- A tinker vendor -->
 	<npc id="tinker_female">
 		<inherit>vendor_female</inherit>
-		<title>the Tinker</title>
+		<title context="Vendor Female Titles">the Tinker</title>
 		<lockpicking><random min="600" max="830"/></lockpicking>
 		<removetraps><random min="750" max="980"/></removetraps>
 		<tinkering><random min="640" max="1000"/></tinkering>

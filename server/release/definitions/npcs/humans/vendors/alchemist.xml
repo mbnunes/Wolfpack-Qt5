@@ -65,7 +65,7 @@
 	<!-- A alchemist vendor -->
 	<npc id="alchemist_male">
 		<inherit>vendor_male</inherit>
-		<title>the Alchemist</title>
+		<title context="Vendor Male Titles">the Alchemist</title>
 		<!-- The Equipment -->
 		<equipped>
 			<item id="1f03" > <!-- Robe -->
@@ -80,7 +80,7 @@
 	
 	<npc id="alchemist_female">
 		<inherit>vendor_female</inherit>
-		<title>the Alchemist</title>
+		<title context="Vendor Female Titles">the Alchemist</title>
 		<!-- The Equipment -->
 		<equipped>
 			<item id="1f03" > <!-- Robe -->

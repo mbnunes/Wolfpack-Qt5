@@ -11,13 +11,13 @@
 	<!-- A artist -->
 	<npc id="artist_male">
 		<inherit>vendor_male</inherit>
-		<title>the Artist</title>
+		<title context="Vendor Male Titles">the Artist</title>
 		<category>Vendors\Artist (Male)</category>
 	</npc>
 	
 	<npc id="artist_female">
 		<inherit>vendor_female</inherit>
-		<title>the Artist</title>
+		<title context="Vendor Female Titles">the Artist</title>
 		<category>Vendors\Artist (Female)</category>
 	</npc>
 

@@ -11,7 +11,7 @@
 	<!-- A fisherman vendor -->
 	<npc id="fisherman_male">
 		<inherit>vendor_male</inherit>
-		<title>the Fisherman</title>
+		<title context="Vendor Male Titles">the Fisherman</title>
 		<equipped>
 			<item id="dbf" /> <!-- Fishing Pole -->
 		</equipped>
@@ -34,7 +34,7 @@
 	<!-- A fisherlady vendor -->
 	<npc id="fisherlady_female">
 		<inherit>vendor_female</inherit>
-		<title>the Fisherlady</title>
+		<title context="Vendor Female Titles">the Fisherlady</title>
 		<equipped>
 			<item id="dbf" /> <!-- Fishing Pole -->
 		</equipped>

@@ -11,7 +11,7 @@
 	<!-- A innkeeper vendor -->
 	<npc id="innkeeper_male">
 		<inherit>vendor_male</inherit>
-		<title>the Innkeeper</title>
+		<title context="Vendor Male Titles">the Innkeeper</title>
 		<shopkeeper>
 			<restockable>
 				<item id="99f"><amount>20</amount></item>
@@ -81,7 +81,7 @@
 	
 	<npc id="innkeeper_female">
 		<inherit>vendor_female</inherit>
-		<title>the Innkeeper</title>
+		<title context="Vendor Female Titles">the Innkeeper</title>
 		<shopkeeper>
 			<restockable>
 				<item id="99f"><amount>20</amount></item>

@@ -11,7 +11,7 @@
 	<!-- A carpenter vendor -->
 	<npc id="carpenter_male">
 		<inherit>vendor_male</inherit>
-		<title>the Carpenter</title>
+		<title context="Vendor Male Titles">the Carpenter</title>
 		<equipped>
 			<item id="153b" /> <!-- Half Apron -->
 		</equipped>
@@ -82,7 +82,7 @@
 	
 	<npc id="carpenter_female">
 		<inherit>vendor_female</inherit>
-		<title>the Carpenter</title>
+		<title context="Vendor Female Titles">the Carpenter</title>
 		<equipped>
 			<item id="153b" /> <!-- Half Apron -->
 		</equipped>

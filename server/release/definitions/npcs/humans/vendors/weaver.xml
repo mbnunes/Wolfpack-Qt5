@@ -24,7 +24,7 @@
 	<!-- A weaver vendor -->
 	<npc id="weaver_male">
 		<inherit>vendor_male</inherit>
-		<title>the Weaver</title>
+		<title context="Vendor Male Titles">the Weaver</title>
 		<tailoring><random min="650" max="880" /></tailoring>
 		<category>Vendors\Weaver (Male)</category>
 		<inherit id="weaver_inventory" />
@@ -32,7 +32,7 @@
 	
 	<npc id="weaver_female">
 		<inherit>vendor_female</inherit>
-		<title>the Weaver</title>
+		<title context="Vendor Female Titles">the Weaver</title>
 		<tailoring><random min="650" max="880" /></tailoring>
 		<category>Vendors\Weaver (Female)</category>
 		<inherit id="weaver_inventory" />

@@ -11,7 +11,7 @@
 	<!-- A blacksmith vendor -->
 	<npc id="blacksmith_male">
 		<inherit>vendor_male</inherit>
-		<title>the Blacksmith</title>
+		<title context="Vendor Male Titles">the Blacksmith</title>
 		<equipped>
 			<item id="153d" /> <!-- Full Apron -->
 			<item id="140d" /> <!-- Bascinet -->
@@ -159,7 +159,7 @@
 	
 	<npc id="blacksmith_female">
 		<inherit>vendor_female</inherit>
-		<title>the Blacksmith</title>
+		<title context="Vendor Female Titles">the Blacksmith</title>
 		<equipped>
 			<item id="153d" /> <!-- Full Apron -->
 			<item id="140d" /> <!-- Bascinet -->

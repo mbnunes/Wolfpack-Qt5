@@ -97,7 +97,7 @@
 	<!-- A Tailor vendor -->
 	<npc id="tailor_male">
 		<inherit>vendor_male</inherit>
-		<title>the Tailor</title>
+		<title context="Vendor Male Titles">the Tailor</title>
 		
 		<inherit id="tailor_inventory" />
 		<tailoring><random min="640" max="1000"/></tailoring>
@@ -106,7 +106,7 @@
 
 	<npc id="tailor_female">
 		<inherit>vendor_female</inherit>
-		<title>the Tailor</title>
+		<title context="Vendor Female Titles">the Tailor</title>
 
 		<inherit id="tailor_inventory" />
 		<tailoring><random min="640" max="1000"/></tailoring>

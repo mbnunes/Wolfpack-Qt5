@@ -14,7 +14,7 @@
 		<ai>Human_Vendor</ai>
 		<bindmenu>banker_menu,vendor_menu</bindmenu>
 		<invulnerable />
-		<title>the Banker</title>
+		<title context="Vendor Male Titles">the Banker</title>
 		<basescript>speech.banker</basescript>
 		<equipped>
 			<item id="1515" /> <!-- Cloak -->
@@ -35,7 +35,7 @@
 		<ai>Human_Vendor</ai>
 		<bindmenu>banker_menu,vendor_menu</bindmenu>
 		<invulnerable />
-		<title>the Banker</title>
+		<title context="Vendor Female Titles">the Banker</title>
 		<basescript>speech.banker</basescript>
 		<equipped>
 			<item id="1515" /> <!-- Cloak -->

@@ -11,7 +11,7 @@
 	<!-- A herbalist vendor -->
 	<npc id="herbalist_male">
 		<inherit>vendor_male</inherit>
-		<title>the Herbalist</title>
+		<title context="Vendor Male Titles">the Herbalist</title>
 		<shopkeeper>
 			<restockable>
 				<item id="f7a">
@@ -58,7 +58,7 @@
 	
 	<npc id="herbalist_female">
 		<inherit>vendor_female</inherit>
-		<title>the Herbalist</title>
+		<title context="Vendor Female Titles">the Herbalist</title>
 		<shopkeeper>
 			<restockable>
 				<item id="f7a">

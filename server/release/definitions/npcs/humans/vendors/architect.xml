@@ -11,7 +11,7 @@
 	<!-- A architect vendor -->
 	<npc id="architect_male">
 		<inherit>vendor_male</inherit>
-		<title>the Architect</title>
+		<title context="Vendor Male Titles">the Architect</title>
 		<shopkeeper>
 			<restockable/>
 		</shopkeeper>
@@ -20,7 +20,7 @@
 	
 	<npc id="architect_female">
 		<inherit>vendor_female</inherit>
-		<title>the Architect</title>
+		<title context="Vendor Female Titles">the Architect</title>
 		<shopkeeper>
 			<restockable/>
 		</shopkeeper>
