@@ -11,7 +11,129 @@
 		<item>headless</item>
 		<item>skeleton</item>
 	</list>
-	
+
+	<list id="ORCS_COMMON">
+		<item>orc_1</item>
+		<item>orc_2</item>
+		<item>orc_mage</item>
+		<item>orcish_lord</item>
+		<item>orc_scout</item>
+	</list>
+
+	<list id="LIZARDMEN_COMMON">
+		<item>lizardman_1</item>
+		<item>lizardman_2</item>
+		<item>lizardman_3</item>
+	</list>
+
+	<list id="RATMEN_COMMON">
+		<item>ratman_1</item>
+		<item>ratman_2</item>
+		<item>ratman_3</item>
+		<item>ratman_archer</item>
+		<item>ratman_mage</item>
+	</list>
+
+	<list id="FORESTS_COMMON">
+		<item>dire_wolf</item>
+		<item>bird</item>
+		<item>black_bear</item>
+		<item>brown_bear</item>
+		<item>black_bull</item>
+		<item>boar</item>
+		<item>brown_bull</item>
+		<item>pig</item>
+		<item>sheep_sheered</item>
+		<item>sheep_unsheered</item>
+		<item>timber_wolf</item>
+		<item>rabbit</item>
+		<item>snake</item>
+		<item>cow_black</item>
+		<item>cow_brown</item>
+		<item>hind</item>
+		<item>great_hart</item>
+		<item>grizzly_bear</item>
+		<item>goat</item>
+		<item>mountain_goat</item>
+		<item>jack_rabbit</item>
+		<item>rat</item>
+		<item>cougar</item>
+		<item>grey_wolf</item>
+		<item>white_wolf</item>
+		<item>eagle</item>
+		<item>chicken</item>
+		<item>horse_1</item>
+		<item>horse_2</item>
+		<item>horse_3</item>
+		<item>horse_4</item>
+		<item>ridable_llama</item>
+		<item>reaper</item>
+		<item>wisp</item>
+		<item>mongbat</item>
+		<item>harpy</item>
+		<item>gargoyle</item>
+		<item>lizardman_1</item>
+		<item>lizardman_2</item>
+		<item>lizardman_3</item>
+		<item>ratman_1</item>
+		<item>ratman_2</item>
+		<item>ratman_3</item>
+		<item>orc_1</item>
+		<item>orc_2</item>
+		<item>orc_mage</item>
+		<item>orcish_lord</item>
+		<item>orc_scout</item>
+	</list>
+
+	<list id="JUNGLES_COMMON">
+		<item>snake</item>
+		<item>panther</item>
+		<item>bird</item>
+		<item>eagle</item>
+		<item>gorilla</item>
+		<item>alligator</item>
+		<item>bullfrog</item>
+		<item>corpser</item>
+		<item>slime</item>
+		<item>swamp_tentacle</item>
+		<item>wisp</item>
+		<item>bogling</item>
+		<item>bog_thing</item>
+		<item>giant_toad</item>
+		<item>giant_serpent</item>
+		<item>imp</item>
+		<item>mongbat</item>
+		<item>mongbat_strong</item>
+		<item>ratman_1</item>
+		<item>ratman_2</item>
+		<item>ratman_3</item>
+	</list>
+
+	<list id="SWAMPS_COMMON">
+		<item>alligator</item>
+		<item>snake</item>
+		<item>giant_serpent</item>
+		<item>giant_toad</item>
+		<item>bullfrog</item>
+		<item>bird</item>
+		<item>eagle</item>
+		<item>swamp_tentacle</item>
+		<item>wisp</item>
+		<item>bogling</item>
+		<item>bog_thing</item>
+		<item>plague_beast</item>
+		<item>plague_beast_lord</item>
+		<item>lizardman_1</item>
+		<item>lizardman_2</item>
+		<item>lizardman_3</item>
+		<item>imp</item>
+		<item>mongbat</item>
+		<item>mongbat_strong</item>
+		<item>slime</item>
+		<item>giant_rat</item>
+		<item>rat</item>
+	</list>
+
 	<list id="standard_guards">
 		<item>male_teleguard</item>
 		<item>female_teleguard</item>
