@@ -100,6 +100,13 @@ def modifiers( target, tooltip ):
 	modifiers = {
 	"blessed" 	: [1038021,0],
 	"req_str" 	: [1061170,1],
+	"aos_req_str"   : [1061170,1],
+	"boni_dex"	: [1060409,1],
+	"aos_boni_dex"	: [1060409,1],
+	"boni_int"	: [1060432,1],
+	"aos_boni_int"	: [1060432,1],
+	"boni_str"	: [1060485,1],
+	"aos_boni_str"	: [1060485,1],
 	"res_physical" 	: [1060448,1],
 	"res_fire"	: [1060447,1],
 	"res_cold"	: [1060445,1],
@@ -109,7 +116,7 @@ def modifiers( target, tooltip ):
 	"dmg_fire"	: [1060405,1],
 	"dmg_cold"	: [1060404,1],
 	"dmg_poison"	: [1060406,1],
-	"dmg_energy"	: [1060407,1]
+	"dmg_energy"	: [1060407,1],
 	}
 
 	for tagname in modifiers.keys():
