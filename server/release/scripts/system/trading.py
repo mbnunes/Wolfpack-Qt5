@@ -296,7 +296,7 @@ def sendtradepacket( socket, action, partnerserial, box1serial, box2serial, play
 		packetlength += len( playername ) + 2
 		trade.resize( packetlength )
 		trade.setbyte( 16, 1 )
-		trade.setascii( 17, playername )
+		trade.setascii( 17, unicode(playername) )
 
 	trade.setshort( 1, packetlength )
 	trade.setbyte( 3, action )
