@@ -3,7 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -1237,8 +1237,8 @@ static PyObject *wpAccountsAcls( PyObject* self, PyObject* args )
 	while( it != Commands::instance()->aclend() )
 	{
 		QString name = it.key();
-		if( name != QString::null )
-			PyList_Append( list, PyString_FromString( name.latin1() ) );
+		if( !name )
+			PyList_Append( list, PyString_FromString( name ) );
 		++it;
 	}
 
@@ -1266,15 +1266,15 @@ static PyObject *wpAccountsAcl( PyObject* self, PyObject* args )
 
 	PyObject *dict = PyDict_New();
 	
-	QMap< QString, QMap< QString, bool > >::iterator git;
+	QMap< QString, QMap< QString, bool > >::const_iterator git;
 	for( git = acl->groups.begin(); git != acl->groups.end(); ++git )
 	{
 		PyObject *dict2 = PyDict_New();
 
-		for( QMap< QString, bool >::iterator it = (*git).begin(); it != (*git).end(); ++it )
-			PyDict_SetItem( dict2, PyString_FromString( it.key().latin1() ), it.data() ? PyTrue : PyFalse );
+		for( QMap< QString, bool >::const_iterator it = (*git).begin(); it != (*git).end(); ++it )
+			PyDict_SetItem( dict2, PyString_FromString( it.key() ), it.data() ? PyTrue : PyFalse );
 
-		PyDict_SetItem( dict, PyString_FromString( git.key().latin1() ), dict2 );
+		PyDict_SetItem( dict, PyString_FromString( git.key() ), dict2 );
 	}
 
 	return dict;

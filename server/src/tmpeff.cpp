@@ -48,7 +48,7 @@
 #include "basechar.h"
 #include "player.h"
 #include "npc.h"
-#include "ai.h"
+#include "ai/ai.h"
 #include "basics.h"
 #include "world.h"
 #include "inlines.h"

@@ -50,7 +50,7 @@
 #include "player.h"
 #include "npc.h"
 #include "chars.h"
-#include "ai.h"
+#include "ai/ai.h"
 #include "world.h"
 #include "inlines.h"
 #include "console.h"
@@ -416,11 +416,14 @@ bool QuestionSpeech( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pChar, const QSt
 	return false;
 }
 
-bool BankerSpeech( cUOSocket *socket, P_PLAYER pPlayer, P_CHAR pBanker, const QString& comm )
+bool BankerSpeech( cUOSocket *socket, P_PLAYER pPlayer, P_NPC pBanker, const QString& comm )
 {
 	// Needs to be a banker
 /*	if( pBanker->npcaitype() != 8 )
 		return false;*/
+
+	if ( pBanker->ai()->name() != "Banker")
+		return false;
 
 	if( pPlayer->dist(pBanker) > 6 )
 		return false;
@@ -441,7 +444,7 @@ bool BankerSpeech( cUOSocket *socket, P_PLAYER pPlayer, P_CHAR pBanker, const QS
     return false;
 }
 
-bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pTrainer, const QString& comm ) 
+bool TrainerSpeech( cUOSocket *socket, P_CHAR pPlayer, P_NPC pTrainer, const QString& comm ) 
 {
 /*	if( pPlayer->dist( pTrainer ) > 3 || !pTrainer->isHuman() )
 		return false;

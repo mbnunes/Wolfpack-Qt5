@@ -117,14 +117,15 @@ public:
 	map_st seekMap( const Coord_cl& ) const;
 	bool hasMap( uint id ) const;
 	signed char mapElevation( const Coord_cl& p ) const;
-	signed char mapAverageElevation( const Coord_cl& p ) const;
+	signed char mapAverageElevation( const Coord_cl& p, int* top = 0, int* botton = 0 ) const;
 	signed char dynamicElevation(const Coord_cl& pos) const;
 	signed char height(const Coord_cl& pos);
 	uint mapTileWidth( uint ) const;
 	uint mapTileHeight( uint ) const;
-	signed char staticTop(const Coord_cl& pos);
-	StaticsIterator staticsIterator( uint id, ushort x, ushort y, bool exact = true ) throw( wpException );
-	StaticsIterator staticsIterator( const Coord_cl&, bool exact = true ) throw( wpException );
+	signed char staticTop(const Coord_cl& pos) const;
+	bool canFit( int x, int y, int z, int map, int height ) const;
+	StaticsIterator staticsIterator( uint id, ushort x, ushort y, bool exact = true ) const throw( wpException );
+	StaticsIterator staticsIterator( const Coord_cl&, bool exact = true ) const throw( wpException );
 };
 
 // Inline member functions

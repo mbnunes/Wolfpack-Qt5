@@ -3,7 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -47,6 +47,7 @@
 #include <algorithm>
 #include <exception>
 #include <assert.h>
+#include <math.h>
 
 class MapsPrivate
 {
@@ -147,11 +148,27 @@ Maps::~Maps()
 
 /*!
 	Registers a map id and corresponding file to be accessible to Wolfpack
+	It will try it best to match the filenames in a case insensitive way,
+	since it's case sometimes varies and it might became an anoyance configuring the
+	server under Linux.
 */
 bool Maps::registerMap( uint id, const QString& mapfile, uint mapwidth, uint mapheight, const QString& staticsfile, const QString& staticsidx )
 {
 	try {
-		MapsPrivate* p = new MapsPrivate( basePath + staticsidx, basePath + mapfile, basePath + staticsfile );
+		QDir baseFolder( basePath );
+		QStringList files = baseFolder.entryList();
+		QString staticsIdxName, mapFileName, staticsFileName;
+		for ( QStringList::const_iterator it = files.begin(); it != files.end(); ++it )
+		{
+			if ( (*it).lower() == staticsidx.lower() )
+				staticsIdxName = *it;
+			if ( (*it).lower() == mapfile.lower() )
+				mapFileName = *it;
+			if ( (*it).lower() == staticsfile.lower() )
+				staticsFileName = *it;
+		}
+
+		MapsPrivate* p = new MapsPrivate( basePath + staticsIdxName, basePath + mapFileName, basePath + staticsFileName );
 		p->height = mapheight;
 		p->width  = mapwidth;
 		d.insert( id, p );
@@ -240,8 +257,10 @@ uint Maps::mapTileWidth( uint id ) const
 	neighbor tiles.
 	This method does not take into account dynamic objects that might
 	be placed in those coordinates, instead it only looks at the map file.
+	The optional parameters \a top and \a botton are respectively the highest
+	and lowerst values that composes the average
 */
-signed char Maps::mapAverageElevation( const Coord_cl& p ) const
+signed char Maps::mapAverageElevation( const Coord_cl& p, int* top /* = 0 */, int* botton /* = 0 */  ) const
 {
 	// first thing is to get the map where we are standing
 	map_st map1 = seekMap( p );
@@ -249,7 +268,7 @@ signed char Maps::mapAverageElevation( const Coord_cl& p ) const
 	// if this appears to be a valid land id, <= 2 is invalid
 	if (map1.id > 2 && ILLEGAL_Z != mapElevation(p))
 	{
-		// get three other nearby maps to decide on an average z?
+		// get three other nearby titles to decide on an average z?
 		INT8 map2z = mapElevation( p + Coord_cl( 1, 0, 0 ) );
 		INT8 map3z = mapElevation( p + Coord_cl( 0, 1, 0 ) );
 		INT8 map4z = mapElevation( p + Coord_cl( 1, 1, 0 ) );
@@ -259,25 +278,61 @@ signed char Maps::mapAverageElevation( const Coord_cl& p ) const
 		{
 			if (ILLEGAL_Z == map4z)
 				testz = map1.z;
-			else
-			{
-				testz = (INT8)((map1.z + map4z) >> 1);
-				if (testz%2<0) --testz; // make it round down, not just in the direction of 0
-			}
+			else // round down.
+				testz = (signed char)( floor( ( map1.z + map4z ) / 2.0 ) );
 		} 
 		else 
 		{
 			if (ILLEGAL_Z == map2z || ILLEGAL_Z == map3z)
 				testz = map1.z;
-			else
-			{
-				testz = (signed char)((map2z + map3z) >> 1);
-				if (testz%2<0) --testz; // make it round down, not just in the direction of 0
-			}
+			else // round down
+				testz = (signed char)( floor( ( map2z + map3z ) / 2.0 ) );
+		}
+		if ( top )
+		{
+			*top = map1.z;
+			if ( map2z > *top )
+				*top = map2z;
+			if ( map3z > *top )
+				*top = map3z;
+			if ( map4z > *top )
+				*top = map4z;
+		}
+		if ( botton )
+		{
+			*botton = map1.z;
+			if ( map2z < *botton )
+				*botton = map2z;
+			if ( map3z < *botton )
+				*botton = map3z;
+			if ( map4z < *botton )
+				*botton = map4z;
 		}
 		return testz;
 	}
 	return ILLEGAL_Z;
+}
+
+bool Maps::canFit( int x, int y, int z, int map, int height ) const
+{
+	if ( x < 0 || y < 0 || x >= mapTileWidth(map) * 8 || y >= mapTileHeight(map) * 8 )
+		return false;
+
+	map_st map1 = seekMap( map, x, y );
+	land_st land = TileCache::instance()->getLand( map1.id );
+	if ( land.isBlocking() )
+		return false; // There is something here.
+	
+	// check statics too
+	StaticsIterator StaticTiles = staticsIterator( Coord_cl( x, y, z, map ) );
+	for ( ; !StaticTiles.atEnd(); ++StaticTiles )
+	{
+		tile_st tile = TileCache::instance()->getTile(StaticTiles->itemid);
+		if ( ( tile.isBlocking() ) && StaticTiles->zoff + tile.height > z )
+			return false;
+	}
+
+	return true;
 }
 
 signed char Maps::dynamicElevation(const Coord_cl& pos) const
@@ -314,7 +369,7 @@ signed char Maps::dynamicElevation(const Coord_cl& pos) const
 	return z;
 }
 
-signed char Maps::staticTop(const Coord_cl& pos)
+signed char Maps::staticTop(const Coord_cl& pos) const
 {
 	signed char top = ILLEGAL_Z;
 	unsigned long loopexit = 0;
@@ -323,7 +378,7 @@ signed char Maps::staticTop(const Coord_cl& pos)
 	while ( !msi.atEnd() )
 	{
 		signed char tempTop = msi->zoff + TileCache::instance()->tileHeight(msi->itemid);
-		if ((tempTop <= pos.z + MaxZstep) && (tempTop > top))
+		if ( (tempTop <= pos.z + MaxZstep) && (tempTop > top) )
 		{
 			top = tempTop;
 		}
@@ -348,15 +403,15 @@ signed char Maps::height(const Coord_cl& pos)
 }
 
 
-StaticsIterator Maps::staticsIterator(uint id, ushort x, ushort y, bool exact /* = true */ ) throw (wpException)
+StaticsIterator Maps::staticsIterator(uint id, ushort x, ushort y, bool exact /* = true */ ) const throw (wpException)
 {
-	iterator it = d.find( id );
+	const_iterator it = d.find( id );
 	if ( it == d.end() )
 		throw wpException(QString("[Maps::staticsIterator line %1] map id(%2) not registered!").arg(__LINE__).arg(id) );
 	return StaticsIterator( x, y, it.data(), exact );
 }
 
-StaticsIterator Maps::staticsIterator( const Coord_cl& p, bool exact /* = true */ ) throw (wpException)
+StaticsIterator Maps::staticsIterator( const Coord_cl& p, bool exact /* = true */ ) const throw (wpException)
 {
 	return staticsIterator( p.map, p.x, p.y, exact );
 }
@@ -389,8 +444,9 @@ StaticsIterator::StaticsIterator( ushort x, ushort y, MapsPrivate* d, bool exact
 	baseX = x / 8;
 	baseY = y / 8;
 	pos = 0;
-
-	load(d, x, y, exact);
+	
+	if ( baseX < d->width && baseY < d->height )
+		load(d, x, y, exact);
 }
 
 /*!

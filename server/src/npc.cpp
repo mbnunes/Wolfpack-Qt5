@@ -51,7 +51,7 @@
 #include "combat.h"
 #include "walking.h"
 #include "skills.h"
-#include "ai.h"
+#include "ai/ai.h"
 #include "inlines.h"
 #include "basics.h"
 

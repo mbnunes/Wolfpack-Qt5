@@ -3,8 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//	Copyright 1997, 98 by Marcus Rating (Cironian)
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -100,6 +99,9 @@ void cUObject::moveTo( const Coord_cl& newpos, bool noRemove )
 	changed_ = true;
 }
 
+/*!
+	Returns the distance between this object and \a d
+*/
 unsigned int cUObject::dist(cUObject* d) const
 {	
 	if ( !d )
@@ -231,7 +233,10 @@ void cUObject::clearEvents()
 	}
 }
 
-// Checks if the object has a specific event
+/*!
+	Checks if the object has a specific event \a name
+	\sa addEvent
+*/
 bool cUObject::hasEvent( const QString& name ) const
 {
 	if( scriptChain )
@@ -248,6 +253,9 @@ bool cUObject::hasEvent( const QString& name ) const
 	return false;
 }
 
+/*!
+	Adds an event handler to this object
+*/
 void cUObject::addEvent( cPythonScript *Event )
 {
 	if( hasEvent( Event->name() ) )
@@ -323,31 +331,6 @@ void cUObject::removeEvent( const QString& name )
 	changed_ = true;
 }
 
-/****************************
- * 
- * Scripting events
- *
- ****************************/
-bool cUObject::onCreate( const QString &definition )
-{
-	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_CREATE );
-	bool result = false;
-	
-	if( scriptChain || global )
-	{
-		PyObject *args = Py_BuildValue( "O&s", PyGetObjectObject, this, definition.latin1() );
-
-		result = cPythonScript::callChainedEventHandler( EVENT_SHOWTOOLTIP, scriptChain, args );
-
-		if( !result && global )
-			result = global->callEventHandler( EVENT_CREATE, args );
-
-		Py_DECREF( args );
-	}
-
-	return result;
-}
-
 // If the scripts are reloaded call that for each and every existing object
 void cUObject::recreateEvents()
 {
@@ -404,7 +387,6 @@ void cUObject::processNode( const cElement *Tag )
 	{
 		name_ = Value;
 	}
-
 	//<direction>SE</direction>
 	else if( TagName == "direction" )
 	{
@@ -733,3 +715,27 @@ QStringList cUObject::getTags() const
 	return tags_.getKeys();
 }
 
+/****************************
+ * 
+ * Scripting events
+ *
+ ****************************/
+bool cUObject::onCreate( const QString &definition )
+{
+	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_CREATE );
+	bool result = false;
+	
+	if( scriptChain || global )
+	{
+		PyObject *args = Py_BuildValue( "O&s", PyGetObjectObject, this, definition.latin1() );
+
+		result = cPythonScript::callChainedEventHandler( EVENT_SHOWTOOLTIP, scriptChain, args );
+
+		if( !result && global )
+			result = global->callEventHandler( EVENT_CREATE, args );
+
+		Py_DECREF( args );
+	}
+
+	return result;
+}

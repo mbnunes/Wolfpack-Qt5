@@ -3,7 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -31,20 +31,19 @@
 #ifndef AI_H_HEADER_INCLUDED
 #define AI_H_HEADER_INCLUDED
 
-#include "typedefs.h"
-
 // platform includes
-#include "platform.h"
+#include "../platform.h"
 
 // wolfpack includes
-#include "factory.h"
-#include "definable.h"
-#include "singleton.h"
+#include "../factory.h"
+#include "../definable.h"
+#include "../singleton.h"
+#include "../typedefs.h"
 
 // library includes
-#include "qptrlist.h"
-#include "qstring.h"
-#include "qstringlist.h"
+#include <qptrlist.h>
+#include <qstring.h>
+#include <qstringlist.h>
 
 // forward declarations
 class Coord_cl;

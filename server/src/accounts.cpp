@@ -99,26 +99,18 @@ bool cAccount::removeCharacter( P_PLAYER d )
 	return false;
 }
 
-//#include "console.h"
-
+/*!
+	Checks if the account is autorized to perform the action catagorized
+	into \a group and \a value pair, found in the ACL
+*/
 bool cAccount::authorized( const QString& group, const QString& value ) const
 {
 	// No Valid ACL specified
 	if( !acl_ )
-	{// Let's try harder get one.
-		acl_ = Commands::instance()->getACL( aclName_ ); // loads if there was any specified.
-		if ( !acl_ )
-		{
-			acl_ = Commands::instance()->getACL( "player" );
-			if ( acl_ )
-				aclName_ = "player";
-			else
-				return false;
-		}
-	}
+		return false; // Since refreshAcl have already tried to get one, just give up.
 
 	// No group? No Access!
-	QMap< QString, QMap< QString, bool > >::iterator groupIter = acl_->groups.find( group );
+	QMap< QString, QMap< QString, bool > >::const_iterator groupIter = acl_->groups.find( group );
 	if( groupIter == acl_->groups.end() )
 		return false;
 
@@ -140,16 +132,15 @@ void cAccount::remove()
 	Accounts::instance()->remove( this );
 }
 
-void cAccounts::remove( cAccount *record )
-{
-	if( accounts.contains( record->login() ) )
-		accounts.remove( record->login() );
-	delete record;
-}
-
 void cAccount::refreshAcl()
 {
-	acl_ = Commands::instance()->getACL( aclName_ ); 
+	acl_ = Commands::instance()->getACL( aclName_ );
+
+	// No Valid ACL specified, will set as "player"
+	if ( !acl_ )
+	{
+		acl_ = Commands::instance()->getACL( "player" );
+	}
 }
 
 bool cAccount::isAllMove() const
@@ -408,6 +399,9 @@ void cAccounts::load()
 	}	
 }
 
+/*!
+	Reloads all accounts
+*/
 void cAccounts::reload()
 {
 	QMap< SERIAL, QString > characcnames;
@@ -453,6 +447,11 @@ void cAccounts::reload()
 	}
 }
 
+/*!
+	Creates an account with \a login and \a password. If this is the first account
+	on the system, it will be set with "admin" acl, otherwise, it will default to 
+	"player" acl.
+*/
 cAccount* cAccounts::createAccount( const QString& login, const QString& password )
 {
 	cAccount* d = new cAccount;
@@ -468,11 +467,28 @@ cAccount* cAccounts::createAccount( const QString& login, const QString& passwor
 	return d;
 }
 
+/*!
+	Removes \a record account from the system
+*/
+void cAccounts::remove( cAccount *record )
+{
+	if( accounts.contains( record->login() ) )
+		accounts.remove( record->login() );
+	delete record;
+}
+
+/*!
+	Returns the number of loaded accounts
+*/
 uint cAccounts::count()
 {
 	return accounts.count();
 }
 
+/*!
+	Retrieves the account matching \a login or 0 if no such
+	account can be found.
+*/
 cAccount* cAccounts::getRecord( const QString& login )
 {
 	iterator it = accounts.find( login );

@@ -29,7 +29,7 @@
 //==================================================================================
 
 #include "accounts.h"
-#include "ai.h"
+#include "ai/ai.h"
 #include "basedef.h"
 #include "basics.h"
 #include "boats.h"

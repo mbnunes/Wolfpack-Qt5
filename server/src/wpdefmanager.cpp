@@ -39,7 +39,7 @@
 #include <qvaluevector.h>
 
 // Reloading
-#include "ai.h"
+#include "ai/ai.h"
 #include "spawnregions.h"
 #include "territories.h"
 #include "resources.h"

@@ -156,7 +156,7 @@ void cSrvParams::readData()
 	guardsActive_			= getBool("General",	"Guards Enabled",	true, true);
 	saveSpawns_				= getBool("General",	"Save Spawned Regions", true, true);
 	lootdecayswithcorpse_   = getBool("General",    "Loot Decays With Corpse", true, true);
-	invisTimer_             = getDouble("General",    "InvisTimer", 60, true);
+	invisTimer_             = getDouble("General",  "InvisTimer", 60, true);
 	poisonTimer_		    = getNumber("General",  "PoisonTimer", 180, true);
 	hungerDamage_			= getNumber("General",  "Hunger Damage", 0, true);
 	persecute_              = getNumber("General",  "Persecution", 1, true);

@@ -37,6 +37,7 @@
 // Library Includes
 #include <qmap.h>
 #include <qstring.h>
+#include <qcstring.h>
 #include <qstringlist.h>
 #include <qobject.h>
 
@@ -74,12 +75,12 @@ public:
 
 	// Privlevel System
 	void loadACLs( void );
-	cAcl *getACL( const QString& );
+	cAcl *getACL( const QString& ) const;
 };
 
-inline cAcl *cCommands::getACL( const QString& key )
+inline cAcl *cCommands::getACL( const QString& key ) const
 {
-	QMap< QString, cAcl* >::iterator it = _acls.find( key );
+	QMap< QString, cAcl* >::const_iterator it = _acls.find( key );
 
 	if( it != _acls.end() )
 		return it.data();

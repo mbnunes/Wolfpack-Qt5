@@ -3,8 +3,7 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//	Copyright 1997, 98 by Marcus Rating (Cironian)
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -76,7 +75,7 @@ void cCommands::process( cUOSocket *socket, const QString &command )
 	pArgs.erase( pArgs.begin() );
 
 	// Check if the priviledges are ok
-	if( !pChar->account()->authorized("command", pCommand ))
+	if( !pChar->account()->authorized("command", pCommand.latin1() ))
 	{
 		socket->sysMessage( tr( "Access to command '%1' was denied" ).arg( pCommand.lower() ) );
 		socket->log( QString("Access to command '%1' was denied\n").arg(pCommand.lower()) );
@@ -165,7 +164,7 @@ void cCommands::loadACLs( void )
 		}
 
 		QMap< QString, bool > group;
-		QString groupName;
+		QCString groupName;
 
 
 		for( unsigned int i = 0; i < Tag->childCount(); ++i )
@@ -493,7 +492,7 @@ void commandAccount( cUOSocket *socket, const QString &command, const QStringLis
 			}
 			else if( key == "acl" )
 			{
-				if( !Commands::instance()->getACL( value ) )
+				if( !Commands::instance()->getACL( value.latin1() ) )
 				{
 					socket->sysMessage( tr( "You tried to specify an unknown acl '%1'" ).arg( value ) );
 				}
@@ -1240,6 +1239,264 @@ void commandGmtalk( cUOSocket *socket, const QString &command, const QStringList
 	}
 }
 
+void commandDoorGenerator( cUOSocket* socket, const QString &command, const QStringList &args ) throw()
+{
+	class DoorGenerator
+	{
+		enum DoorFacing {
+			WestCW  = 0, EastCCW, WestCCW, EastCW, SouthCW, NorthCCW, SouthCCW, NorthCW
+		};
+
+		bool isFrame( int id, int frames[], int size )
+		{
+			id &= 0x3FFF;
+			if ( id > frames[size - 1] )
+				return false;
+
+			for ( int i = 0; i < size; ++i )
+			{
+				int delta = id - frames[i];
+
+				if ( delta < 0 )
+					return false;
+				else if ( delta == 0 )
+					return true;
+			}
+			return false;
+		}
+
+		bool isSouthFrame( int id )
+		{
+			static int SouthFrames[] = { 
+				0x0006,0x0008,0x000B,0x001A,0x001B,0x001F,
+				0x0038,0x0057,0x0059,0x005B,0x005D,0x0080,
+			    0x0081,0x0082,0x0084,0x0090,0x0091,0x0094,
+			    0x0096,0x0099,0x00A6,0x00A7,0x00AA,0x00AE,
+			    0x00B0,0x00B3,0x00C7,0x00C9,0x00F8,0x00FA,
+				0x00FD,0x00FE,0x0100,0x0103,0x0104,0x0106,
+			    0x0109,0x0127,0x0129,0x012B,0x012D,0x012F,
+			    0x0131,0x0132,0x0134,0x0135,0x0137,0x0139,
+			    0x013B,0x014C,0x014E,0x014F,0x0151,0x0153,
+				0x0155,0x0157,0x0158,0x015A,0x015D,0x015E,
+			    0x015F,0x0162,0x01CF,0x01D1,0x01D4,0x01FF,
+				0x0204,0x0206,0x0208,0x020A };
+			return isFrame( id, SouthFrames, sizeof(SouthFrames) );
+		}
+		
+		bool isNorthFrame( int id )
+		{
+			static int NorthFrames[] = { 
+				0x0006,0x0008,0x000D,0x001A,0x001B,0x0020,
+				0x003A,0x0057,0x0059,0x005B,0x005D,0x0080,
+				0x0081,0x0082,0x0084,0x0090,0x0091,0x0094,
+                0x0096,0x0099,0x00A6,0x00A7,0x00AC,0x00AE,
+				0x00B0,0x00C7,0x00C9,0x00F8,0x00FA,0x00FD,
+                0x00FE,0x0100,0x0103,0x0104,0x0106,0x0109,
+				0x0127,0x0129,0x012B,0x012D,0x012F,0x0131,
+				0x0132,0x0134,0x0135,0x0137,0x0139,0x013B,
+				0x014C,0x014E,0x014F,0x0151,0x0153,0x0155,
+                0x0157,0x0158,0x015A,0x015D,0x015E,0x015F,
+				0x0162,0x01CF,0x01D1,0x01D4,0x01FF,0x0201,
+				0x0204,0x0208,0x020A };
+			return isFrame( id, NorthFrames, sizeof( NorthFrames ) );
+		}
+
+		bool isEastFrame( int id )
+		{
+			static int EastFrames[] = {
+				0x0007,0x000A,0x001A,0x001C,0x001E,0x0037,0x0058,
+                0x0059,0x005C,0x005E,0x0080,0x0081,0x0082,0x0084,
+				0x0090,0x0092,0x0095,0x0097,0x0098,0x00A6,0x00A8,
+                0x00AB,0x00AE,0x00AF,0x00B2,0x00C7,0x00C8,0x00EA,
+				0x00F8,0x00F9,0x00FC,0x00FE,0x00FF,0x0102,0x0104,
+                0x0105,0x0108,0x0127,0x0128,0x012B,0x012C,0x012E,
+                0x0130,0x0132,0x0133,0x0135,0x0136,0x0138,0x013A,
+                0x014C,0x014D,0x014F,0x0150,0x0152,0x0154,0x0156,
+                0x0158,0x0159,0x015C,0x015E,0x0160,0x0163,0x01CF,
+                0x01D0,0x01D3,0x01FF,0x0203,0x0205,0x0207,0x0209 };
+			return isFrame( id, EastFrames, sizeof( EastFrames ) );
+		}
+
+		bool isWestFrame( int id )
+		{
+			static int WestFrames[] = {
+				0x0007,0x000C,0x001A,0x001C,0x0021,0x0039,0x0058,0x0059,
+				0x005C,0x005E,0x0080,0x0081,0x0082,0x0084,0x0090,0x0092,
+				0x0095,0x0097,0x0098,0x00A6,0x00A8,0x00AD,0x00AE,0x00AF,
+				0x00B5,0x00C7,0x00C8,0x00EA,0x00F8,0x00F9,0x00FC,0x00FE,
+				0x00FF,0x0102,0x0104,0x0105,0x0108,0x0127,0x0128,0x012C,
+				0x012E,0x0130,0x0132,0x0133,0x0135,0x0136,0x0138,0x013A,
+				0x014C,0x014D,0x014F,0x0150,0x0152,0x0154,0x0156,0x0158,
+				0x0159,0x015C,0x015E,0x0160,0x0163,0x01CF,0x01D0,0x01D3,
+				0x01FF,0x0200,0x0203,0x0207,0x0209 };
+			return isFrame( id, WestFrames, sizeof( WestFrames ) );
+		}
+		
+		bool coordHasEastFrame( int x, int y, int z, int map )
+		{
+			StaticsIterator tiles = Map->staticsIterator( Coord_cl( x, y, z, map ), true );
+			for ( ; !tiles.atEnd(); ++tiles )
+			{
+				if ( tiles.data().zoff == z && isEastFrame( tiles.data().itemid ) )
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		bool coordHasSouthFrame( int x, int y, int z, int map )
+		{
+			StaticsIterator tiles = Map->staticsIterator( Coord_cl( x, y, z, map ), true );
+			for ( ; !tiles.atEnd(); ++tiles )
+			{
+				if ( tiles.data().zoff == z && isSouthFrame( tiles.data().itemid ) )
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		cItem* addDoor( int x, int y, int z, int map, DoorFacing facing )
+		{
+		    int doorTop = z + 20;
+
+			if ( y == 1743 && x >= 1343 && x <= 1344 )
+				return 0;
+		    if ( y == 1679 && x >= 1392 && x <= 1393 )
+				return 0;
+		    if ( x == 1320 && y >= 1618 && y <= 1640 )
+				return 0;
+		    if ( x == 1383 && y >= 1642 && y <= 1643 )
+				return 0;
+			if ( !Map->canFit( x, y, z, map, 16) )
+				return 0;
+			cItem* door = cItem::createFromScript( QString::number( 0x6A5 + 2*int(facing), 16 ) );
+			door->moveTo( Coord_cl( x, y, z, map ), true );
+			return door;
+		}
+		public:
+
+		int generate ( int region[], int map, cUOSocket* socket )
+		{
+			int count = 0;
+			for ( int rx = region[0]; rx < region[2]; ++rx )
+			{
+
+				for ( int ry = region[1]; ry < region[3]; ++ry )
+				{
+					StaticsIterator tiles = Map->staticsIterator( map, rx, ry, true );
+					for ( ; !tiles.atEnd(); ++tiles )
+					{
+						int id = tiles.data().itemid;
+						int z  = tiles.data().zoff;
+						if ( isWestFrame( id ) )
+						{
+		                    if ( coordHasEastFrame( rx + 2, ry, z, map ) )
+							{
+								addDoor( rx + 1, ry, z, map, WestCW );
+								++count;
+							}
+							else if ( coordHasEastFrame( rx + 3, ry, z, map ) )
+							{
+								cItem* first = addDoor( rx + 1, ry, z, map, WestCW );
+								cItem* second = addDoor( rx + 2, ry, z, map, EastCCW );
+								count += 2;
+								if ( first && second )
+								{
+									first->setTag( "link", second->serial() );
+									second->setTag( "link", first->serial() );
+								}
+								else
+								{
+									if ( !first && second )
+									{
+										second->remove();
+										--count;
+									}
+									if ( !second && first )
+									{
+										first->remove();
+										--count;
+									}
+								}
+							}
+						} 
+						else if ( isNorthFrame( id ) )
+						{
+							if ( coordHasSouthFrame( rx, ry + 2, z, map ) )
+							{
+								addDoor( rx, ry + 1, z, map, SouthCW );
+								++count;
+							}
+							else if ( coordHasSouthFrame( rx, ry + 3, z, map ) )
+							{
+								cItem* first = addDoor( rx, ry + 1, z, map, NorthCCW );
+								cItem* second = addDoor( rx, ry + 2, z, map, SouthCW );
+								count += 2;
+								if ( first && second )
+								{
+									first->setTag( "link", second->serial() );
+									second->setTag( "link", first->serial() );
+								}
+		                        else
+								{
+									if ( !first && second )
+									{
+										second->remove();
+										--count;
+									}
+									if ( !second && first )
+									{
+										first->remove();
+										--count;
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			return count;
+		}
+	};
+
+	DoorGenerator generator;
+
+    int BritRegions[][4] = { 
+		{  250,  750,  775, 1330 },
+        {  525, 2095,  925, 2430 },
+        { 1025, 2155, 1265, 2310 },
+		{ 1635, 2430, 1705, 2508 },
+		{ 1775, 2605, 2165, 2975 },
+		{ 1055, 3520, 1570, 4075 },
+		{ 2860, 3310, 3120, 3630 },
+		{ 2470, 1855, 3950, 3045 },
+		{ 3425,  990, 3900, 1455 },
+		{ 4175,  735, 4840, 1600 },
+		{ 2375,  330, 3100, 1045 },
+		{ 2100, 1090, 2310, 1450 },
+		{ 1495, 1400, 1550, 1475 },
+		{ 1085, 1520, 1415, 1910 },
+		{ 1410, 1500, 1745, 1795 },
+		{ 5120, 2300, 6143, 4095 } };
+	int IlshRegions[][4] = { { 0, 0, 288*8, 200*8 } };
+	int MalasRegions[][4] = { { 0, 0, 320*8, 256*8 } };
+    
+	socket->sysMessage("Generating doors, please wait ( Slow )");
+    int count = 0;
+	if ( Map->hasMap( 0 ) )
+	{
+		for ( int i = 0; i < 16; ++i )
+		{
+			socket->sysMessage(QString("doing [%1, %2, %3, %4]").arg(BritRegions[i][0]).arg(BritRegions[i][1]).arg(BritRegions[i][2]).arg(BritRegions[i][3]) );
+			count += generator.generate( BritRegions[i], 0, socket );
+			socket->sysMessage( tr("Doors so far: %1").arg(count) );
+		}
+	}
+}
+
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
@@ -1252,6 +1509,7 @@ stCommand cCommands::commands[] =
 	{ "ALLSHOW",		commandAllShow },
 	{ "ALLSKILLS",		commandAllSkills },
 	{ "BROADCAST",		commandBroadcast },
+	{ "DOORGEN",		commandDoorGenerator },
 	{ "FIX",			commandFix },
 	{ "GO",				commandGo },
 	{ "GMTALK",			commandGmtalk },

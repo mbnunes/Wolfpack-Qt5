@@ -43,7 +43,7 @@
 #include "player.h"
 #include "tilecache.h"
 #include "npc.h"
-#include "ai.h"
+#include "ai/ai.h"
 
 
 class cAddItemTarget: public cTargetRequest

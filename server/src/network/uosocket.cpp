@@ -65,7 +65,7 @@
 #include "../chars.h"
 #include "../npc.h"
 #include "../log.h"
-#include "../ai.h"
+#include "../ai/ai.h"
 
 #include <stdlib.h>
 #include <qhostaddress.h>

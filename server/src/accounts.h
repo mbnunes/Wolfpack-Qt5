@@ -4,7 +4,7 @@
 //	UO Server Emulation Program
 //
 //	Copyright 1997, 98 by Marcus Rating (Cironian)
-//  Copyright 2001-2003 by holders identified in authors.txt
+//  Copyright 2001-2004 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
 //	the Free Software Foundation; either version 2 of the License, or
@@ -29,22 +29,19 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-
-
 #if !defined(__ACCOUNTS_H__)
 #define __ACCOUNTS_H__
 
-#include "typedefs.h"
-#include "singleton.h"
-
 // Library Includes
 #include <qstring.h>
+#include <qcstring.h>
 #include <qdatetime.h>
 #include <qvaluevector.h>
 #include <qmap.h>
 
 // Wolfpack includes
-//#include "commands.h"
+#include "typedefs.h"
+#include "singleton.h"
 
 // Forward Class declarations
 
@@ -57,8 +54,8 @@ class cAccount
 private:
 	QString login_;
 	QString password_;
-	mutable cAcl *acl_;
-	mutable QString aclName_;
+	cAcl *acl_;
+	QString aclName_;
 	QValueVector<P_PLAYER> characters_;
 	QDateTime lastLogin_;
 	QDateTime blockUntil;

@@ -88,6 +88,8 @@ struct land_st
 	char unknown1;
 	char unknown2;
 	char name[20];
+
+	bool isBlocking() const	{ return flag1 & 0x40; }
 };
 
 class cTileCache

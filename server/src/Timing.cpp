@@ -51,7 +51,7 @@
 #include "npc.h"
 #include "player.h"
 #include "chars.h"
-#include "ai.h"
+#include "ai/ai.h"
 #include "inlines.h"
 #include "walking.h"
 #include "world.h"
