@@ -405,6 +405,39 @@ PyObject* wpSocket_sendcontainer( wpSocket* self, PyObject* args )
 	return PyTrue;
 }
 
+/*!
+	Sends a packet to this socket.
+*/
+PyObject* wpSocket_sendpacket( wpSocket* self, PyObject* args )
+{
+	if( PyTuple_Size( args ) != 1 )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	PyObject *list = PyTuple_GetItem( args, 0 );
+
+	if( !PyList_Check( list ) )
+	{
+		PyErr_BadArgument();
+		return 0;
+	}
+
+	// Build a packet
+	int packetLength = PyList_Size( list );
+
+	QByteArray buffer( packetLength );
+
+	for( int i = 0; i < packetLength; ++i )
+		buffer[i] = PyInt_AsLong( PyList_GetItem( list, i ) );
+
+	cUOPacket packet( buffer );
+	self->pSock->send( &packet );
+
+	return PyTrue;
+}
+
 static PyMethodDef wpSocketMethods[] = 
 {
     { "sysmessage",			(getattrofunc)wpSocket_sysmessage, METH_VARARGS, "Sends a system message to the char." },
@@ -417,6 +450,7 @@ static PyMethodDef wpSocketMethods[] =
 	{ "resendworld",		(getattrofunc)wpSocket_resendworld,  METH_VARARGS, "Sends the surrounding world to this socket." },
 	{ "resendplayer",		(getattrofunc)wpSocket_resendplayer,  METH_VARARGS, "Resends the player only." },
 	{ "sendcontainer",		(getattrofunc)wpSocket_sendcontainer,  METH_VARARGS, "Sends a container to the socket." },
+	{ "sendpacket",			(getattrofunc)wpSocket_sendpacket,		METH_VARARGS, "Sends a packet to this socket." },
     { NULL, NULL, 0, NULL }
 };
 

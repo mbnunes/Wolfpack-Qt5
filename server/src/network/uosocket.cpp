@@ -518,6 +518,7 @@ void cUOSocket::playChar( P_CHAR pChar )
 	cUOTxClientFeatures clientFeatures;
 	clientFeatures.setLbr( true );
 	clientFeatures.setT2a( true );
+	clientFeatures.setShort( 1, 0xFFFF );
 	send( &clientFeatures );
 
 	// We're now playing this char
