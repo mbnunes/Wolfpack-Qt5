@@ -123,7 +123,7 @@ def generate(object, arguments):
 			
 		except Exception, e:
 			console.log(LOG_PYTHON, "Unable to parse python template file: %s\n" % str(e))
-			return		
+			return
 
 		# Try to compile the file
 		try:
@@ -132,7 +132,7 @@ def generate(object, arguments):
 			console.log(LOG_PYTHON, "Unable to compile python template file: %s\n" % str(e))
 			templatemodule = None
 			return			
-			
+
 	# Try to execute the code
 	savedstdout = sys.stdout
 	sys.stdout = StringIO()

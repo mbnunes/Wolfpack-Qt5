@@ -439,6 +439,16 @@ PACKS = {
 		[1.0, 'f84', 5, 1], # 5 Garlic
 		[1.0, DEF_BASEGEMS, 1, 1], # One Gem
 		[1.0, ['e21','ee9'], 10, 1] # 10 Bandages
+	],
+	
+	# Body Parts
+	'bodypart': [
+		[1.0, DEF_BODYPARTS, 1, 0],
+	],
+	
+	# Single Bone
+	'bone': [
+		[1.0, 'f7e', 1, 0],
 	]
 }
 
