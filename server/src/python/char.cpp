@@ -849,7 +849,7 @@ PyObject* wpChar_turnto( wpChar* self, PyObject* args )
 	if( checkArgChar( 0 ) )
 		object = getArgChar( 0 );
 	else if( checkArgItem( 0 ) )
-		object = getArgItem( 1 );
+		object = getArgItem( 0 );
 
 	if( object )
 		self->pChar->turnTo( object );
