@@ -99,4 +99,6 @@
 
 	<!-- Magic Amor -->
 
+  <include file="definitions/items/armory/dragon.xml"/>
+
 </definitions>
