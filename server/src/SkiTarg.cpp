@@ -2089,11 +2089,13 @@ void cSkills::TameTarget(int s)
 				{
 				    pc->npcaitype = 10;
 					pc->tamed = true;
+					updatechar(pc);
 				}
 				else
 				{
 			        pc->npcaitype=0;
 			        pc->tamed = true;//AntiChrist fix
+					updatechar(pc);
 				}
 			}
 		}
