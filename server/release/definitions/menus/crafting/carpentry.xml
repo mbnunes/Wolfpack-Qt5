@@ -98,7 +98,7 @@
 			<carpentry min="421" max="921" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="15" name="Boards" />
 		</craft>
-		<craft definition="1049" name="Wooden Bench">
+		<craft definition="b2c" name="Wooden Bench">
 			<carpentry min="526" max="1026" />
 			<boards id="1bd7;1bd8;1bd9;1bda;1bdb;1bdc" amount="17" name="Boards" />
 		</craft>
