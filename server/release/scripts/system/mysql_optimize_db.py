@@ -62,24 +62,46 @@ def optimize_db():
 		try:
 			# What are we optimizing
 			if accountsdriver == 'mysql' and worlddriver == 'mysql':
-				log( LOG_MESSAGE, "Optimizing accounts and world databases..." )
+				log( LOG_MESSAGE, "MySQL: Optimizing accounts and world databases..." )
 			elif accountsdriver == 'mysql' or worlddriver == 'mysql':
 				if accountsdriver == 'mysql':
-					log( LOG_MESSAGE, "Optimizing accounts database..." )
+					log( LOG_MESSAGE, "MySQL: Optimizing accounts database..." )
 				elif worlddriver == 'mysql':
-					log( LOG_MESSAGE, "Optimizing world database..." )
+					log( LOG_MESSAGE, "MySQL: Optimizing world database..." )
 			# Time to optimize
 			if accountsdriver == 'mysql':
 				database.open( wolfpack.database.ACCOUNTS )
 				database.execute( "OPTIMIZE TABLE `accounts`" )
 				database.close()
-				log( LOG_MESSAGE, "Optimized accounts database!" )
+				log( LOG_MESSAGE, "MySQL: Optimized accounts database!" )
 			if worlddriver == 'mysql':
 				database.open( wolfpack.database.WORLD )
-				database.execute( "OPTIMIZE TABLE `boats`, `boats_itemids`, `boats_itemoffsets`,`bookpages`,`books`, `characters`, `corpses`, `corpses_equipment`, `effects`, `effects_properties`, `guilds`, `guilds_canidates`, `guilds_members`, `houses`, `items`, `multis`, `multis_bans`, `multis_friends`, `npcs`, `players`, `settings`, `skills`, `tags`, `uobject`, `uobjectmap` " )
+				database.execute( "OPTIMIZE TABLE `characters`, `corpses`, `corpses_equipment`, `effects`, `effects_properties`, `guilds`, `guilds_canidates`, `guilds_members`, `items`, `npcs`, `players`, `settings`, `skills`, `spawnregions`, `tags`, `uobject`, `uobjectmap` " )
 				database.close()
-				log( LOG_MESSAGE, "Optimized world database!" )
+				log( LOG_MESSAGE, "MySQL: Optimized world database!" )
 		except:
-			log( LOG_MESSAGE, " Performing world optimize failed." )
+			log( LOG_MESSAGE, " MySQL: Performing world/accounts optimize failed." )
+	if accountsdriver == 'sqlite' or worlddriver == 'sqlite':
+		try:
+			if accountsdriver == 'sqlite' and worlddriver == 'sqlite':
+				log( LOG_MESSAGE, "SQLite: Optimizing accounts and world databases..." )
+			elif accountsdriver == 'sqlite' or worlddriver == 'sqlite':
+				if accountsdriver == 'sqlite':
+					log( LOG_MESSAGE, "SQLite: Optimizing accounts database..." )
+				elif worlddriver == 'sqlite':
+					log( LOG_MESSAGE, "SQLite: Optimizing world database..." )
+			# Time to optimize
+			if accountsdriver == 'sqlite':
+				database.open( wolfpack.database.ACCOUNTS )
+				database.execute( "VACUUM accounts" )
+				database.close()
+				log( LOG_MESSAGE, "SQLite: Optimized accounts database!" )
+			if worlddriver == 'mysql':
+				database.open( wolfpack.database.WORLD )
+				database.execute( "VACUUM characters, corpses, corpses_equipment, effects, effects_properties, guilds, guilds_canidates, guilds_members, items, npcs, players, settings, skills, spawnregions, tags, uobject, uobjectmap " )
+				database.close()
+				log( LOG_MESSAGE, "SQLite: Optimized world database!" )
+		except:
+			log( LOG_MESSAGE, "SQLite: Performing world/accounts optimize failed." )
 	return
 
