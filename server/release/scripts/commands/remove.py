@@ -11,6 +11,7 @@ def onLoad():
 
 def commandRemove(socket, cmd, args):
 	socket.sysmessage( "Please select the object for removal." )
+	socket.sysmessage( "Caution: This can remove players!" )
 	socket.attachtarget( "commands.remove.doRemove", [] )
 	return True
 
@@ -36,6 +37,9 @@ def doRemove( char, args, target ):
 				char.socket.sysmessage("You cannot remove this player.")
 				return False
 			else:
+				if player.account.acl != 'player':
+					char.socket.sysmessage( "Players with special accounts can not be removed." )
+					return False
 				if socket:
 					socket.disconnect()
 					char.log( LOG_MESSAGE, "Removed player 0x%x.\n" % target.char.serial )
