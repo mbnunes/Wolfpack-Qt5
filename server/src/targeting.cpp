@@ -1705,155 +1705,746 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 
 static void CorpseTarget(const P_CLIENT pC)
 {
-	int n=0;
+	int n = 0;
 	UOXSOCKET s = pC->GetSocket();
-
-	int serial=LongFromCharPtr(buffer[s]+7);
+	
+	int serial = LongFromCharPtr(buffer[s] + 7);
 	P_ITEM pi = FindItemBySerial(serial);
-	if(pi != NULL)
+	if (pi != NULL)
 	{
-		if(iteminrange(s, pi, 1))
+		if (iteminrange(s, pi, 1))
 		{
-			npcshape[0]=pi->serial;
-			action(s,0x20);
-			n=1;
-			if(pi->more1==0)
+			npcshape[0] = pi->serial;
+			action(s, 0x20);
+			n = 1;
+			if (pi->more1 == 0)
 			{
-				pi->more1=1;//corpse being carved...can't carve it anymore
-
-				if(pi->morey || pi->carve>-1)
-				{//if specified, use enhanced carving system!
-					newCarveTarget(s, pi);//AntiChrist
-				} else
-				{//else use standard carving
-					switch(pi->amount) {
-					case 0x01: CarveTarget(s, 0, 2, 0, 0, 0, 0); break; //Ogre
-					case 0x02: CarveTarget(s, 0, 5, 0, 0, 0, 0); break; //Ettin
-					case 0x03: break;	//Zombie
-					case 0x04: break;	//Gargoyle
-					case 0x05: CarveTarget(s,36, 0, 0, 0, 0, 1); break; //Eagle
-					case 0x06: CarveTarget(s,25, 0, 0, 0, 0, 1); break; //Bird
-					case 0x07: CarveTarget(s, 0, 1, 0, 0, 0, 0); break; //Orc w/axe
-					case 0x08: break;	//Corpser
-					case 0x09: CarveTarget(s, 0, 1, 0, 0, 0, 0); break; //Deamon
-					case 0x0A: CarveTarget(s, 0, 1, 0, 0, 0, 0); break; //Deamon w/sword
-					case 0x0B: break;	//-NULL-
-					case 0x0C: CarveTarget(s, 0,19,20, 0, 0, 0); break; //Dragon (green)
-					case 0x0D: break;	//Air Elemental
-					case 0x0E: break;	//Earth Elemental
-					case 0x0F: break;	//Fire Elemental
-					case 0x10: break;	//Water Elemental
-					case 0x11: CarveTarget(s, 0, 3, 0, 0, 0, 0); break; //Orc
-					case 0x12: CarveTarget(s, 0, 5, 0, 0, 0, 0); break; //Ettin w/club
-					case 0x13: break; //-NULL-
-					case 0x14: break; //-NULL-
-					case 0x15: CarveTarget(s, 0, 4,20, 0, 0, 0); break; //Giant Serpent
-					case 0x16: CarveTarget(s, 0, 1, 0, 0, 0, 0); break; //Gazer
-					case 0x17: break;	//-NULL-
-					case 0x18: break;	//Liche
-					case 0x19: break;	//-NULL-
-					case 0x1A: break;	//Ghoul
-					case 0x1B: break;	//-NULL-
-					case 0x1C: break;	//Spider
-					case 0x1D: CarveTarget(s, 0, 1, 0, 1, 0, 0); break; //Gorilla
-					case 0x1E: CarveTarget(s,50, 0, 0, 0, 0, 1); break; //Harpy
-					case 0x1F: CarveTarget(s, 0, 1, 0, 0, 0, 0); break; //Headless
-					case 0x20: break;	//-NULL-
-					case 0x21: CarveTarget(s, 0, 1,12, 0, 0, 0); break; //Lizardman
-					case 0x0122: CarveTarget(s, 0,10, 0, 0, 0, 0); break; // Boar
-					case 0x23: CarveTarget(s, 0, 1,12, 0, 0, 0); break; //Lizardman w/spear
-					case 0x24: CarveTarget(s, 0, 1,12, 0, 0, 0); break; //Lizardman w/mace
-					case 0x0124: CarveTarget(s, 0, 1, 12,0, 0, 0); break; //pack Llama
-					case 0x25: break;	//-NULL-
-					case 0x26: break;	//-NULL-
-					case 0x27: CarveTarget(s, 0, 1, 0, 0, 0, 0); break; //Mongbat
-					case 0x28: break;	//-NULL-
-					case 0x29: CarveTarget(s, 0, 1, 0, 0, 0, 0); break; //Orc w/club
-					case 0x2A: break;	//Ratman
-					case 0x2B: break;	//-NULL-
-					case 0x2C: break;	//Ratman w/axe
-					case 0x2D: break;	//Ratman w/dagger
-					case 0x2E: break;	//-NULL-
-					case 0x2F: break;	//Reaper
-					case 0x30: break;	//Scorpion
-					case 0x31: break;	//-NULL-
-					case 0x32: break;	//Skeleton
-					case 0x33: break;	//Slime
-					case 0x34: CarveTarget(s, 0, 1, 0, 0, 0, 0); break; //Snake
-					case 0x35: CarveTarget(s, 0, 2, 0, 0, 0, 0); break; //Troll w/axe
-					case 0x36: CarveTarget(s, 0, 2, 0, 0, 0, 0); break; //Troll
-					case 0x37: CarveTarget(s, 0, 2, 0, 0, 0, 0); break; //Troll w/club
-					case 0x38: break;	//Skeleton w/axe
-					case 0x39: break;	//Skeleton w/sword
-					case 0x3A: break;	//Wisp
-					case 0x3B: CarveTarget(s, 0,19,20, 0, 0, 0); break; //Dragon (red)
-					case 0x3C: CarveTarget(s, 0,10,20, 0, 0, 0); break; //Drake (green)
-					case 0x3D: CarveTarget(s, 0,10,20, 0, 0, 0); break; //Drake (red)
-					case 0x46: CarveTarget(s, 0, 0, 0, 0, 0, 0); break; //Terathen Matriarche - t2a
-					case 0x47: CarveTarget(s, 0, 0, 0, 0, 0, 0); break; //Terathen drone - t2a
-					case 0x48: CarveTarget(s, 0, 0, 0, 0, 0, 0); break; //Terathen warrior, Terathen Avenger - t2a
-					case 0x4B: CarveTarget(s, 0,4, 0, 0, 0, 0); break; //Titan - t2a
-					case 0x4C: CarveTarget(s, 0, 4, 0, 0, 0, 0); break; //Cyclopedian Warrior - t2a
-					case 0x50: CarveTarget(s, 0,10, 2, 0, 0, 0); break; //Giant Toad - t2a
-					case 0x51: CarveTarget(s, 0, 4, 1, 0, 0, 0); break; //Bullfrog - t2a
-					case 0x55: CarveTarget(s, 0, 5, 7, 0, 0, 0); break; //Ophidian apprentice, Ophidian Shaman - t2a
-					case 0x56: CarveTarget(s, 0, 5, 7, 0, 0, 0); break; //Ophidian warrior, Ophidian Enforcer, Ophidian Avenger - t2a
-					case 0x57: CarveTarget(s, 0, 5, 7, 0, 0, 0); break; //Ophidian Matriarche - t2a
-					case 0x5F: CarveTarget(s, 0,19,20, 0, 0, 0); break; //Kraken - t2a
-						//case 0x3E-case 0x95: break; //-NULL-
-					case 0x96: CarveTarget(s, 0,10, 0, 0, 0, 0); break; //Sea Monster
-					case 0x97: CarveTarget(s, 0, 1, 0, 0, 0, 0); break; //Dolphin
-						//case 0x98-case 0xC7: break; //-NULL-
-					case 0xC8: CarveTarget(s, 0, 3,10, 0, 0, 0); break; //Horse (tan)
-					case 0xC9: CarveTarget(s, 0, 1, 0, 1, 0, 0); break; //Cat
-					case 0xCA: CarveTarget(s, 0, 1,12, 0, 0, 0); break; //Alligator
-					case 0xCB: CarveTarget(s, 0, 6, 0, 0, 0, 0); break; //Pig
-					case 0xCC: CarveTarget(s, 0, 3,10, 0, 0, 0); break; //Horse (dark)
-					case 0xCD: CarveTarget(s, 0, 1, 0, 1, 0, 0); break; //Rabbit
-					case 0xCE: CarveTarget(s, 0, 1,12, 0 ,0, 0); break; //Lava Lizard - t2a
-					case 0xCF: CarveTarget(s, 0, 3, 0, 0, 1, 0); break; //Sheep
-					case 0xD0: CarveTarget(s,25, 0, 0, 0, 0, 1); break; //Chicken
-					case 0xD1: CarveTarget(s, 0, 2, 8, 0, 0, 0); break; //Goat
-					case 0xD2: CarveTarget(s, 0,15, 0, 0, 0, 0); break; //Desert Ostarge - t2a
-					case 0xD3: CarveTarget(s, 0, 1, 12, 0, 0, 0); break; //Bear
-					case 0xD4: CarveTarget(s, 0, 1, 0, 2, 0, 0); break; //Grizzly Bear
-					case 0xD5: CarveTarget(s, 0, 2, 0, 3, 0, 0); break; //Polar Bear
-					case 0xD6: CarveTarget(s, 0, 1, 10, 0, 0, 0); break; //Cougar
-					case 0xD7: CarveTarget(s, 0, 1, 0, 1, 0, 0); break; //Giant Rat
-					case 0xD8: CarveTarget(s, 0, 8,12, 0, 0, 0); break; //Cow (black)
-					case 0xD9: CarveTarget(s, 0, 1, 0, 0, 0, 0); break; //Dog
-					case 0xDA: CarveTarget(s, 0,15, 0, 0, 0, 0); break; //Frenzied Ostard - t2a
-					case 0xDB: CarveTarget(s, 0,15, 0, 0, 0, 0); break; //Forest Ostard - t2a
-					case 0xDC: CarveTarget(s, 0, 1, 12,0, 0, 0); break; //Llama
-					case 0xDD: CarveTarget(s, 0, 1,12, 0, 0, 0); break; //Walrus
-					case 0xDE: break;	//-NULL-
-					case 0xDF: CarveTarget(s, 0, 3, 0, 0, 0, 0); break; //Sheep (BALD)
-					case 0xE1: CarveTarget(s, 0, 1, 0, 1, 0, 0); break; //Timber Wolf
-					case 0xE2: CarveTarget(s, 0, 3,10, 0, 0, 0); break; //Horse (Silver)
-					case 0xE3: break;	//-NULL-
-					case 0xE4: CarveTarget(s, 0, 3,10, 0, 0, 0); break; //Horse (tan)
-					case 0xE5: break;	//-NULL-
-					case 0xE6: break;	//-NULL-
-					case 0xE7: CarveTarget(s, 0, 8,12, 0, 0, 0); break; //Cow (brown)
-					case 0xE8: CarveTarget(s, 0,10,15, 0, 0, 0); break; //Bull (brown)
-					case 0xE9: CarveTarget(s, 0,10,15, 0, 0, 0); break; //Bull (d-brown)
-					case 0xEA: CarveTarget(s, 0, 6,15, 0, 0, 0); break; //Great Heart
-					case 0xEB: break;	//-NULL-
-					case 0xEC: break;	//-NULL-
-					case 0xED: CarveTarget(s, 0, 5, 8, 0, 0, 0); break; //Hind
-					case 0xEE: CarveTarget(s, 0, 1, 0, 0, 0, 0); break; //Rat
-						//case 0xEF-case 0xFF: break; //-NULL-
-					default:
-						LogErrorVar("Fallout of switch statement, value <%i>", pi->amount);
+				pi->more1 = 1;// corpse being carved...can't carve it anymore
+				
+				if (pi->morey || pi->carve>-1)
+				{// if specified, use enhanced carving system!
+					newCarveTarget(s, pi);// AntiChrist
+				}
+				else
+				{// else use standard carving
+					switch (pi->amount)
+					{
+						case 0x01: 
+							CarveTarget(s, 0, 2, 0, 0, 0, 0);
+							break; // Ogre
+						case 0x02: 
+							CarveTarget(s, 0, 5, 0, 0, 0, 0);
+							break; // Ettin
+						case 0x03: 
+							break;	// Zombie
+						case 0x04: 
+							break;	// Gargoyle
+						case 0x05: 
+							CarveTarget(s, 36, 0, 0, 0, 0, 1);
+							break; // Eagle
+						case 0x06: 
+							CarveTarget(s, 25, 0, 0, 0, 0, 1);
+							break; // Bird
+						case 0x07: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Orc (with an axe in 2d)
+						case 0x08: 
+							break;	// Corpser
+						case 0x09: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Daemon
+						case 0x0A: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Daemon (with a sword in 2d)
+						case 0x0B: 
+							break;	// Dread Spider
+						case 0x0C: 
+							CarveTarget(s, 0, 19, 20, 0, 0, 0);
+							break; // Dragon (green in t2a/grey in uo:td)
+						case 0x0D: 
+							break;	// Air Elemental
+						case 0x0E: 
+							break;	// Earth Elemental
+						case 0x0F: 
+							break;	// Fire Elemental
+						case 0x10: 
+							break;	// Water Elemental
+						case 0x11: 
+							CarveTarget(s, 0, 3, 0, 0, 0, 0);
+							break; // Orc
+						case 0x12: 
+							CarveTarget(s, 0, 5, 0, 0, 0, 0);
+							break; // Ettin (with club in 2d)
+						case 0x13: 
+							break;       // Frost Spider
+						case 0x14: 
+							break;       // Giant Spider
+						case 0x15: 
+							CarveTarget(s, 0, 4, 20, 0, 0, 0);
+							break; // Giant Serpent
+						case 0x16: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Gazer
+						case 0x17: 
+							CarveTarget(s, 0, 1, 0, 1, 0, 0);
+							break; // Dire Wolf
+						case 0x18: 
+							break;	// Liche
+						case 0x19: 
+							CarveTarget(s, 0, 1, 0, 1, 0, 0);
+							break; // Grey Wolf
+						case 0x1A: 
+							break;	// Ghoul
+						case 0x1B: 
+							CarveTarget(s, 0, 1, 0, 1, 0, 0);
+							break; // Grey Wolf (another one)
+						case 0x1C: 
+							break;	// Spider
+						case 0x1D: 
+							CarveTarget(s, 0, 1, 0, 1, 0, 0);
+							break; // Gorilla
+						case 0x1E: 
+							CarveTarget(s, 50, 0, 0, 0, 0, 1);
+							break; // Harpy
+						case 0x1F: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Headless
+							// case 0x20: break;	//-NULL-
+						case 0x21: 
+							CarveTarget(s, 0, 1, 12, 0, 0, 0);
+							break; // Lizardman
+						case 0x22: 
+							CarveTarget(s, 0, 1, 0, 1, 0, 0);
+							break; // White Wolf
+						case 0x23: 
+							CarveTarget(s, 0, 1, 12, 0, 0, 0);
+							break; // Lizardman (with spear in 2d)
+						case 0x24: 
+							CarveTarget(s, 0, 1, 12, 0, 0, 0);
+							break; // Lizardman (with mace in 2d)
+						case 0x25: 
+							CarveTarget(s, 0, 1, 0, 1, 0, 0);
+							break; // White Wolf (another one)
+						case 0x26: 
+							break;	// Black Gate Daemon
+						case 0x27: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Mongbat
+						case 0x28: 
+							break;	// Elder Daemon
+						case 0x29: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Orc (with club in 2d)
+						case 0x2A: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Ratman
+						case 0x2B: 
+							break;	// Ice Fiend
+						case 0x2C: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Ratman (with axe in 2d)
+						case 0x2D: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Ratman (with dagger in 2d)
+						case 0x2E: 
+							CarveTarget(s, 0, 19, 20, 0, 0, 0);
+							break; // Ancient Wyrm
+						case 0x2F: 
+							break;	// Reaper
+						case 0x30: 
+							break;	// Giant Scorpion
+						case 0x31: 
+							CarveTarget(s, 0, 19, 20, 0, 0, 0);
+							break; // White Wyrm
+						case 0x32: 
+							break;	// Skeleton
+						case 0x33: 
+							break;	// Slime
+						case 0x34: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Snake
+						case 0x35: 
+							CarveTarget(s, 0, 2, 0, 0, 0, 0);
+							break; // Troll (with axe in 2d)
+						case 0x36: 
+							CarveTarget(s, 0, 2, 0, 0, 0, 0);
+							break; // Troll
+						case 0x37: 
+							CarveTarget(s, 0, 2, 0, 0, 0, 0);
+							break; // Troll (with club in 2d)
+						case 0x38: 
+							break;	// Skeleton (with axe in 2d)
+						case 0x39: 
+							break;	// Skeleton (with sword in 2d)
+						case 0x3A: 
+							break;	// Wisp
+						case 0x3B: 
+							CarveTarget(s, 0, 19, 20, 0, 0, 0);
+							break; // Red Dragon
+						case 0x3C: 
+							CarveTarget(s, 0, 10, 20, 0, 0, 0);
+							break; // Drake (green in t2a/grey in uo:td)
+						case 0x3D: 
+							CarveTarget(s, 0, 10, 20, 0, 0, 0);
+							break; // Red Drake
+						case 0x3E: 
+							CarveTarget(s, 0, 10, 20, 0, 0, 0);
+							break; // Wyvern
+						case 0x3F: 
+							CarveTarget(s, 0, 1, 10, 0, 0, 0);
+							break; // Cougar
+						case 0x40: 
+							CarveTarget(s, 0, 1, 0, 2, 0, 0);
+							break; // Snow Leopard
+						case 0x41: 
+							CarveTarget(s, 0, 1, 0, 2, 0, 0);
+							break; // Snow Leopard (another one)
+						case 0x42: 
+							break;       // Swamp Tentacles
+						case 0x43: 
+							break;       // Stone Gargoyle
+						case 0x44: 
+							break;       // Elder Gazer
+						case 0x45: 
+							break;       // Elder Gazer (another one)
+						case 0x46: 
+							CarveTarget(s, 0, 0, 0, 0, 0, 0);
+							break; // Terathan Warrior
+						case 0x47: 
+							CarveTarget(s, 0, 0, 0, 0, 0, 0);
+							break; // Terathan Drone
+						case 0x48: 
+							CarveTarget(s, 0, 0, 0, 0, 0, 0);
+							break; // Terathan Queen
+						case 0x49: 
+							break;       // Stone Harpy
+						case 0x4A: 
+							CarveTarget(s, 0, 2, 0, 0, 0, 0);
+							break; // Imp
+						case 0x4B: 
+							CarveTarget(s, 0, 4, 0, 0, 0, 0);
+							break; // Titan
+						case 0x4C: 
+							CarveTarget(s, 0, 4, 0, 0, 0, 0);
+							break; // Cyclopean Warrior
+						case 0x4D: 
+							CarveTarget(s, 0, 19, 20, 0, 0, 0);
+							break; // Kraken
+						case 0x4E: 
+							break;       // Lich Lord
+						case 0x50: 
+							CarveTarget(s, 0, 10, 2, 0, 0, 0);
+							break; // Giant Toad
+						case 0x51: 
+							CarveTarget(s, 0, 4, 1, 0, 0, 0);
+							break; // Bullfrog
+						case 0x52: 
+							break;       // Lich Lord (another one)
+						case 0x53: 
+							CarveTarget(s, 0, 2, 0, 0, 0, 0);
+							break; // Ogre Lord
+						case 0x54: 
+							CarveTarget(s, 0, 2, 0, 0, 0, 0);
+							break; // Ogre Lord (another one)
+						case 0x55: 
+							CarveTarget(s, 0, 5, 7, 0, 0, 0);
+							break; // Ophidian Mage
+						case 0x56: 
+							CarveTarget(s, 0, 5, 7, 0, 0, 0);
+							break; // Ophidian Warrior
+						case 0x57: 
+							CarveTarget(s, 0, 5, 7, 0, 0, 0);
+							break; // Ophidian Queen
+						case 0x58: 
+							CarveTarget(s, 0, 2, 8, 0, 0, 0);
+							break; // Mountain Goat
+						case 0x59: 
+							CarveTarget(s, 0, 4, 20, 0, 0, 0);
+							break; // Giant Ice Snake
+						case 0x5A: 
+							CarveTarget(s, 0, 4, 20, 0, 0, 0);
+							break; // Giant Lava Snake
+						case 0x5B: 
+							CarveTarget(s, 0, 4, 20, 0, 0, 0);
+							break; // Giant Silver Serpent
+						case 0x5C: 
+							CarveTarget(s, 0, 4, 20, 0, 0, 0);
+							break; // Giant Silver Serpent (another one)
+						case 0x5D: 
+							CarveTarget(s, 0, 4, 20, 0, 0, 0);
+							break; // Giant Silver Serpent (another one)
+						case 0x5E: 
+							break;       // Frost Slime
+						case 0x5F: 
+							break;       // Leviathan (only works in 2D client)
+						case 0x60: 
+							break;       // Frost Slime (another one)
+						case 0x61: 
+							break;       // Hell Hound
+						case 0x62: 
+							break;       // Hell Hound (another one)
+						case 0x63: 
+							CarveTarget(s, 0, 1, 0, 1, 0, 0);
+							break; // Dark Wolf
+						case 0x64: 
+							CarveTarget(s, 0, 1, 0, 1, 0, 0);
+							break; // Silver Wolf
+						case 0x65: 
+							CarveTarget(s, 0, 4, 10, 0, 0, 0);
+							break; // Centaur
+						case 0x66: 
+							break;       // Exodus
+						case 0x67: 
+							CarveTarget(s, 0, 19, 20, 0, 0, 0);
+							break; // Asian Dragon
+						case 0x68: 
+							break;       // Skeletal Dragon
+							// case 0x69: break;       //-NULL-
+						case 0x6A: 
+							CarveTarget(s, 0, 19, 20, 0, 0, 0);
+							break; // Shadow Wyrm
+						case 0x6B: 
+							break;       // Agapite Elemental
+						case 0x6C: 
+							break;       // Bronze Elemental
+						case 0x6D: 
+							break;       // Copper Elemental
+						case 0x6E: 
+							break;       // Dull Copper Elemental
+						case 0x6F: 
+							break;       // Iron Elemental
+						case 0x70: 
+							break;       // Valorite Elemental
+						case 0x71: 
+							break;       // Verite Elemental
+						case 0x72: 
+							CarveTarget(s, 0, 3, 10, 0, 0, 0);
+							break; // Dark Steed
+						case 0x73: 
+							break;       // Ethereal Horse
+						case 0x74: 
+							CarveTarget(s, 0, 3, 10, 0, 0, 0);
+							break; // Nightmare
+						case 0x75: 
+							CarveTarget(s, 0, 3, 10, 0, 0, 0);
+							break; // Silver Steed
+						case 0x76: 
+							CarveTarget(s, 0, 3, 10, 0, 0, 0);
+							break; // War Horse (Britannians Faction)
+						case 0x77: 
+							CarveTarget(s, 0, 3, 10, 0, 0, 0);
+							break; // War Horse (Mage Council Faction)
+						case 0x78: 
+							CarveTarget(s, 0, 3, 10, 0, 0, 0);
+							break; // War Horse (Minax Faction)
+						case 0x79: 
+							CarveTarget(s, 0, 3, 10, 0, 0, 0);
+							break; // War Horse (Shadowlords Faction)
+						case 0x7A: 
+							CarveTarget(s, 0, 3, 10, 0, 0, 0);
+							break; // Unicorn
+						case 0x7B: 
+							break;       // Ethereal Warrior (smallest)
+						case 0x7C: 
+							break;       // Evil Mage
+						case 0x7D: 
+							break;       // Evil Mage Master
+						case 0x7E: 
+							break;       // Evil Mage Master (another one)
+						case 0x7F: 
+							break;       // Predator Hell Cat
+						case 0x80: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Pixie (smallest)
+						case 0x81: 
+							break;       // Swamp Tentacles (another one)
+						case 0x82: 
+							break;       // Blistering Gargoyle
+						case 0x83: 
+							break;       // Efreet
+						case 0x84: 
+							break;       // Kirin
+						case 0x85: 
+							break;       // Small Alligator
+						case 0x86: 
+							break;       // Komodo Dragon
+						case 0x87: 
+							CarveTarget(s, 0, 2, 0, 0, 0, 0);
+							break; // Artic Ogre Lord
+						case 0x88: 
+							break;       // Ophidian Archmage
+						case 0x89: 
+							break;       // Ophidian Knight
+						case 0x8A: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Orc Lord
+						case 0x8B: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Orc Lord (another one)
+						case 0x8C: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Orc Shaman
+						case 0x8D: 
+							break;       // Paladin
+						case 0x8E: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Ratman (another one)
+						case 0x8F: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Ratman Shaman
+						case 0x90: 
+							break;       // Sea Horse
+						case 0x91: 
+							CarveTarget(s, 0, 12, 0, 0, 0, 0);
+							break; // Sea Serpent
+						case 0x92: 
+							break;       // Shadowlord
+						case 0x93: 
+							break;       // Skeleton Knight
+						case 0x94: 
+							break;       // Skeleton Mage
+						case 0x95: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Succubus (smallest)
+						case 0x96: 
+							CarveTarget(s, 0, 10, 0, 0, 0, 0);
+							break; // Sea Serpent (smallest)
+						case 0x97: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Dolphin
+						case 0x98: 
+							break;       // Terathan Avenger
+						case 0x99: 
+							break;       // Ghoul
+						case 0x9A: 
+							break;       // Mummy
+						case 0x9B: 
+							break;       // Rotting Corpse
+							// case 0x9C: break;       //-NULL-
+						case 0x9D: 
+							break;       // Black Widow Spider (smallest)
+						case 0x9E: 
+							break;       // Acid Elemental
+						case 0x9F: 
+							break;       // Blood Elemental
+						case 0xA0: 
+							break;       // Blood Elemental (another one)
+						case 0xA1: 
+							break;       // Ice Elemental
+						case 0xA2: 
+							break;       // Poison Elemental
+						case 0xA3: 
+							break;       // Snow Elemental
+						case 0xA4: 
+							break;       // Energy Vortex
+						case 0xA5: 
+							break;       // Black Wisp
+						case 0xA6: 
+							break;       // Gold Elemental
+						case 0xA7: 
+							CarveTarget(s, 0, 1, 0, 2, 0, 0);
+							break; // Brown Bear
+						case 0xA8: 
+							break;       // Shadow Fiend
+							// case 0xA9: break;       //-NULL-
+						case 0xAA: 
+							break;       // Ethereal Llama
+						case 0xAB: 
+							break;       // Ethereal Ostard
+						case 0xAC: 
+							CarveTarget(s, 0, 19, 20, 0, 0, 0);
+							break; // Red Dragon (biggest)
+						case 0xAD: 
+							break;       // Black Widow Spider (biggest)
+						case 0xAE: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Succubus (biggest)
+						case 0xAF: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Ethereal Warrior (biggest)
+						case 0xB0: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Pixie (biggest)
+						case 0xB1: 
+							CarveTarget(s, 0, 3, 10, 0, 0, 0);
+							break; // Nightmare (another one)
+						case 0xB2: 
+							CarveTarget(s, 0, 3, 10, 0, 0, 0);
+							break; // Nightmare (another one)
+						case 0xB3: 
+							CarveTarget(s, 0, 3, 10, 0, 0, 0);
+							break; // Nightmare (another one)
+						case 0xB4: 
+							CarveTarget(s, 0, 19, 20, 0, 0, 0);
+							break; // White Wyrm (Retro)
+						case 0xB5: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Orc Scout
+						case 0xB6: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Orc Bomber
+							// case 0xB7-case 0xBA: break; //-NULL-
+						case 0xBB: 
+							CarveTarget(s, 0, 15, 0, 0, 0, 0);
+							break; // Ridgeback
+						case 0xBC: 
+							CarveTarget(s, 0, 15, 0, 0, 0, 0);
+							break; // Savage Ridgeback
+						case 0xBD: 
+							CarveTarget(s, 0, 4, 0, 0, 0, 0);
+							break; // Orc Brute
+							// case 0xBE-case 0xC7: break; //-NULL-
+						case 0xC8: 
+							CarveTarget(s, 0, 3, 10, 0, 0, 0);
+							break; // Horse (Dappled Brown)
+						case 0xC9: 
+							CarveTarget(s, 0, 1, 0, 1, 0, 0);
+							break; // Cat
+						case 0xCA: 
+							CarveTarget(s, 0, 1, 12, 0, 0, 0);
+							break; // Alligator
+						case 0xCB: 
+							CarveTarget(s, 0, 6, 0, 0, 0, 0);
+							break; // Pig
+						case 0xCC: 
+							CarveTarget(s, 0, 3, 10, 0, 0, 0);
+							break; // Horse (dark)
+						case 0xCD: 
+							CarveTarget(s, 0, 1, 0, 1, 0, 0);
+							break; // Rabbit
+						case 0xCE: 
+							CarveTarget(s, 0, 1, 12, 0 , 0, 0);
+							break; // Lava Lizard
+						case 0xCF: 
+							CarveTarget(s, 0, 3, 0, 0, 1, 0);
+							break; // Sheep
+						case 0xD0: 
+							CarveTarget(s, 25, 0, 0, 0, 0, 1);
+							break; // Chicken
+						case 0xD1: 
+							CarveTarget(s, 0, 2, 8, 0, 0, 0);
+							break; // Goat Billy
+						case 0xD2: 
+							CarveTarget(s, 0, 15, 0, 0, 0, 0);
+							break; // Desert Ostard
+						case 0xD3: 
+							CarveTarget(s, 0, 1, 12, 0, 0, 0);
+							break; // Bear
+						case 0xD4: 
+							CarveTarget(s, 0, 1, 0, 2, 0, 0);
+							break; // Grizzly Bear
+						case 0xD5: 
+							CarveTarget(s, 0, 2, 0, 3, 0, 0);
+							break; // Polar Bear
+						case 0xD6: 
+							CarveTarget(s, 0, 1, 10, 0, 0, 0);
+							break; // Panther
+						case 0xD7: 
+							CarveTarget(s, 0, 1, 0, 1, 0, 0);
+							break; // Giant Rat
+						case 0xD8: 
+							CarveTarget(s, 0, 8, 12, 0, 0, 0);
+							break; // Cow (black)
+						case 0xD9: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Hound
+						case 0xDA: 
+							CarveTarget(s, 0, 15, 0, 0, 0, 0);
+							break; // Frenzied Ostard
+						case 0xDB: 
+							CarveTarget(s, 0, 15, 0, 0, 0, 0);
+							break; // Forest Ostard
+						case 0xDC: 
+							CarveTarget(s, 0, 1, 12, 0, 0, 0);
+							break; // Llama
+						case 0xDD: 
+							CarveTarget(s, 0, 1, 12, 0, 0, 0);
+							break; // Walrus
+							// case 0xDE: break;	//-NULL-
+						case 0xDF: 
+							CarveTarget(s, 0, 3, 0, 0, 0, 0);
+							break; // Sheep (Shorn)
+						case 0xE1: 
+							CarveTarget(s, 0, 1, 0, 1, 0, 0);
+							break; // Timber Wolf
+						case 0xE2: 
+							CarveTarget(s, 0, 3, 10, 0, 0, 0);
+							break; // Horse (Dappled Grey)
+							// case 0xE3: break;	//-NULL-
+						case 0xE4: 
+							CarveTarget(s, 0, 3, 10, 0, 0, 0);
+							break; // Horse (tan)
+							// case 0xE5: break;	//-NULL-
+							// case 0xE6: break;	//-NULL-
+						case 0xE7: 
+							CarveTarget(s, 0, 8, 12, 0, 0, 0);
+							break; // Spotted Cow
+						case 0xE8: 
+							CarveTarget(s, 0, 10, 15, 0, 0, 0);
+							break; // Brown Bull
+						case 0xE9: 
+							CarveTarget(s, 0, 10, 15, 0, 0, 0);
+							break; // Spotted Bull
+						case 0xEA: 
+							CarveTarget(s, 0, 6, 15, 0, 0, 0);
+							break; // Great Heart
+							// case 0xEB: break;	//-NULL-
+							// case 0xEC: break;	//-NULL-
+						case 0xED: 
+							CarveTarget(s, 0, 5, 8, 0, 0, 0);
+							break; // Hind
+						case 0xEE: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Sewer Rat
+							// case 0xEF-case 0xFF: break; //-NULL-
+						case 0x0122: 
+							CarveTarget(s, 0, 10, 0, 0, 0, 0);
+							break; // Boar
+							// case 0x0123: break;   //-NULL-
+						case 0x0124: 
+							CarveTarget(s, 0, 1, 12, 0, 0, 0);
+							break; // Pack Llama
+							// case 0x0125-case 0x01A5: break; //-NULL
+						case 0x01A4: 
+							break;     // Blonde Boy (only in pre-t2a relases)
+						case 0x01A5: 
+							break;     // Brunette Boy (only in pre-t2a relases)
+						case 0x01A6: 
+							break;     // Toddler Girl (only in pre-t2a relases)
+						case 0x01A7: 
+							break;     // Brunette Girl (only in pre-t2a relases)
+							// case 0x01A8-case 0x02EF: break; //-NULL-
+						case 0x02F0: 
+							break;     // Iron Golem
+						case 0x02F1: 
+							break;     // Gargoyle Slave
+						case 0x02F2: 
+							break;     // Gargoyle Enforcer
+						case 0x02F3: 
+							break;     // Gargoyle Guard
+						case 0x02F4: 
+							break;     // Exodus Clockwork Overseer
+						case 0x02F5: 
+							break;     // Exodus Clockwork Minion
+						case 0x02F6: 
+							break;     // Gargoyle Shopkeeper
+							// case 0x02F7-case 0xFA: break; //-NULL-
+						case 0x02FB: 
+							break;     // Exodus Clockwork Minion (biggest)
+						case 0x02FC: 
+							break;     // Juka Warrior
+						case 0x02FD: 
+							break;     // Juka Mage
+						case 0x02FE: 
+							break;     // Kabur (NPC)
+						case 0x02FF: 
+							break;     // Blackthorn Cohort
+						case 0x0300: 
+							break;     // Juggernaut
+						case 0x0301: 
+							break;     // Future Blackthorn (NPC)
+						case 0x0302: 
+							break;     // Meer Mage
+						case 0x0303: 
+							break;     // Meer Warrior
+						case 0x0304: 
+							break;     // Adranath (NPC)
+						case 0x0305: 
+							break;     // Capitain Dasha (NPC)
+						case 0x0306: 
+							break;     // Dawn Girl (NPC)
+							// case 0x0307: break;     //Plague Beast (not working yet)
+							// case 0x0308: break;     //Horde Demon (smallest)(not working yet)
+							// case 0x0309: break;     //Doppleganger (not working yet)
+							// case 0x030A: break;     //Swarm (not working yet)
+							// case 0x030B: break;     //Bogling (not working yet)
+							// case 0x030C: break;     //Bog Thing (not working yet)
+							// case 0x030D: break;     //Fire Ant Worker (not working yet)
+							// case 0x030E: break;     //Fire Ant Warrior (not working yet)
+							// case 0x030F: break;     //Fire Ant Queen (not working yet)
+							// case 0x0310: break;     //Arcane Demon (not working yet)
+							// case 0x0311: break;     //Four Armed Demon (not working yet)
+							// case 0x0312: break;     //Chariot (not working yet)
+							// case 0x0313: break;     //-NULL-
+							// case 0x0314: break;     //Sphinx (not working yet)
+							// case 0x0315: break;     //Quagmire (not working yet)
+							// case 0x0316: break;     //Sand Vortex (not working yet)
+							// case 0x0317: break;     //Giant Beetle (not working yet)
+							// case 0x0318: break;     //Chaos Demon (not working yet)
+							// case 0x0319: break;     //Skeletal Mount (not working yet)
+							// case 0x031A: break;     //Swamp Dragon (not working yet)
+							// case 0x031B: break;     //Horde Demon (not working yet)
+							// case 0x031C: break;     //Horde Demon (biggest) (not working yet)
+						case 0x031D: 
+							break;     // Fire Dragon (buggy model)
+						case 0x031E: 
+							break;     // Rust Dragon (buggy model)
+							// case 0x031F: break;     //Armored Swamp Dragon (not working yet)
+							// case 0x0320-case 0x033: break; //-NULL-
+						case 0x0334: 
+							CarveTarget(s, 0, 3, 10, 0, 0, 0);
+							break; // Dappled Brown Horse (another one)
+						case 0x0338: 
+							CarveTarget(s, 0, 3, 10, 0, 0, 0);
+							break; // Dark Brown Horse (another one)
+						case 0x0339: 
+							CarveTarget(s, 0, 15, 0, 0, 0, 0);
+							break; // Desert Ostard (another one)
+						case 0x033A: 
+							CarveTarget(s, 0, 15, 0, 0, 0, 0);
+							break; // Forest Ostard (another one)
+						case 0x033B: 
+							CarveTarget(s, 0, 15, 0, 0, 0, 0);
+							break; // Frenzied Ostard (another one)
+						case 0x033C: 
+							CarveTarget(s, 0, 1, 12, 0, 0, 0);
+							break; // Llama (another one)
+							// case 0x033D: break; //-NULL-
+							// case 0x033E: break; //-NULL-
+						case 0x033F: 
+							CarveTarget(s, 25, 0, 0, 0, 0, 1);
+							break; // Parrot
+							// case 0x0340: CarveTarget(s,36, 0, 0, 0, 0, 1); break; //Phoenix (Not working yet)
+							// case 0x0341: CarveTarget(s,25, 0, 0, 0, 0, 1); break; //Turkey (Not working yet)
+						case 0x0342: 
+							break;     // Hell Cat
+						case 0x0343: 
+							CarveTarget(s, 0, 1, 0, 1, 0, 0);
+							break; // Jackrabbit
+							// case 0x0344: break;     //-NULL-
+						case 0x0345: 
+							break;     // Ice Snake
+						case 0x0346: 
+							break;     // Lava Snake
+						case 0x0347: 
+							CarveTarget(s, 0, 15, 0, 0, 0, 0);
+							break; // Ridgeback (another one)
+							// case 0x0348: break;     //Giant Ridgeback (not working yet)
+							// case 0x0349: break;     //Flame Ridgeback (not working yet)
+							// case 0x034A: break;     //Hatchling Ridgeback (not working yet)
+						case 0x034B: 
+							CarveTarget(s, 0, 1, 0, 0, 0, 0);
+							break; // Town Rat
+							// case 0x034C-case 0x034F: break; //-NULL-
+						case 0x0350: 
+							CarveTarget(s, 0, 3, 10, 0, 0, 0);
+							break; // Tan Horse (another one)
+							// case 0x0351-case 0x03F5: break; //-NULL-
+							// case 0x03E6: break; //Kirin (another one) (not working! why??)
+						default:
+							LogErrorVar("Fallout of switch statement, value <%i>", pi->amount);
 					}// switch
-				}//if morey || carve>-1
-			} else {
-				 sysmessage(s, "You carve the corpse but find nothing usefull.");
+				}// if morey || carve>-1
+			}
+			else 
+			{
+				sysmessage(s, "You carve the corpse but find nothing usefull.");
 			}// if more1==0
-		//break;
+			// break;
 		}
 	}// if i!=-1
-	if (!n) sysmessage(s, "That is too far away.");
+	if (!n)
+		sysmessage(s, "That is too far away.");
 }
 
 static void BladeTarget(P_CLIENT pC, PKGx6C *pp)
