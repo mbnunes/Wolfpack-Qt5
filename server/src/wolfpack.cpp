@@ -3591,7 +3591,11 @@ void npcattacktarget(P_CHAR pc_target2, P_CHAR pc_target)
 		if (!(pc_target->war))
 			npcToggleCombat(pc_target);
 		pc_target->setNextMoveTime();
+
+		// Let's turn them toward our target
+		pc_target->dir = chardir(pc_target, pc_target2);
 	}
+
 	if ((pc_target2->isNpc())&&!(pc_target2->npcaitype==4)) // changed from 0x40 to 4, LB
 	{
 		if (!(pc_target2->war))

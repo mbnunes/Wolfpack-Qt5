@@ -69,7 +69,7 @@ void cSrvParams::readData()
 	objectDelay_			= getNumber("Game Speed", "ObjectDelay", 1, true);
 	checkItemTime_			= getDouble("Game Speed", "Items Check Time", 1.1, true);
 	checkNPCTime_			= getDouble("Game Speed", "NPCs Check Time", 1.0, true);
-	checkTammedTime_			= getDouble("Game Speed", "Tamed Check Time", 0.5, true);
+	checkTammedTime_		= getDouble("Game Speed", "Tamed Check Time", 0.5, true);
 	checkAITime_			= getDouble("Game Speed", "AI Check Time", 1.2, true);
 	niceLevel_				= getNumber("Game Speed", "Nice Level", 2, true);
 	skillDelay_			    = getNumber("Game Speed", "SkillDelay", 7, true);

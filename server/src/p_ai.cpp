@@ -136,49 +136,72 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 		case 2 : // Monsters, PK's - (stupid NPCs)
 			if (!pc_i->war)
 			{
+				// Get the one with the least distance!
+				P_CHAR Victim = NULL;
+				UI32 minDist;
+
 				cRegion::RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
-					if (pc != NULL)
+					
+					if( pc == NULL )
+						continue;
+
+					d = chardist( pc_i, pc );
+					chance = RandomNum(1, 100);
+					
+					if( ( !pc->isNpc() ) && ( !online( pc ) ) )
+						continue;
+
+					if ( d > SrvParams->attack_distance() )
+						continue;
+
+					if ( pc->isInvul() || pc->isHidden() || pc->dead )
+						continue;
+
+					if ( pc->isNpc() && ( pc->npcaitype == 2 || pc->npcaitype == 1 ) )
+						continue;
+
+					if ( SrvParams->monsters_vs_animals() == 0 && ( pc->title.size() <= 0 && !pc->isHuman() ) )
+						continue;
+
+					if ( SrvParams->monsters_vs_animals() == 1 && chance > SrvParams->animals_attack_chance() )
+						continue;
+
+					// If the distance is below the minimal distance we found
+					if( ( Victim == NULL ) || ( minDist > d ) )
 					{
-						onl = online(pc);
-						d = chardist( pc_i, pc );
-						chance = RandomNum(1, 100);
-						if (pc == pc_i || !onl)
-							continue;
-						if (d>SrvParams->attack_distance())
-							continue;
-						if (onl &&(pc->isInvul() || pc->isHidden() || pc->dead))
-							continue;
-						if (pc->isNpc() &&(pc->npcaitype == 2 || pc->npcaitype == 1))
-							continue;
-						if (SrvParams->monsters_vs_animals() == 0 &&(pc->title.size() <= 0 && !pc->isHuman()))
-							continue;
-						if (SrvParams->monsters_vs_animals() == 1 && chance > SrvParams->animals_attack_chance())
-							continue;
-						if (pc_i->baseskill[MAGERY]>400)
-						{
-							if (pc_i->hp <(pc_i->st/2))
-							{
-								npctalkall(pc_i, "In Vas Mani", 0);
-								Magic->NPCHeal(pc_i);
-							}
-							if (pc_i->poisoned)
-							{
-								npctalkall(pc_i, "An Nox", 0);
-								Magic->NPCCure(pc_i);
-							}
-							if (pc->priv2&0x20)
-							{
-								npctalkall(pc_i, "An Ort", 0);
-								Magic->NPCDispel(pc_i, pc);
-							}
-						}
-						npcattacktarget(pc_i, pc);
-						return;
+						Victim = pc;
+						minDist = d;
+					}
+
+				}
+
+				if (pc_i->baseskill[MAGERY]>400)
+				{
+					if (pc_i->hp <(pc_i->st/2))
+					{
+						npctalkall(pc_i, "In Vas Mani", 0);
+						Magic->NPCHeal(pc_i);
+					}
+					if (pc_i->poisoned)
+					{
+						npctalkall(pc_i, "An Nox", 0);
+						Magic->NPCCure(pc_i);
+					}
+					if ( Victim->priv2&0x20 )
+					{
+						npctalkall(pc_i, "An Ort", 0);
+						Magic->NPCDispel(pc_i, Victim);
 					}
 				}
+
+				// We found a victim
+				if( Victim != NULL )
+					npcattacktarget(pc_i, Victim);
+
+				return;
 			}
 			break;
 		case 3 : // Evil Healers
