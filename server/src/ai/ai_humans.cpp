@@ -61,11 +61,11 @@ void Human_Vendor::onSpeechInput( P_PLAYER pTalker, const QString& comm )
 
 	if ( m_npc->inRange( pTalker, 4 ) && VendorChkName( m_npc, comm ) )
 	{
-		if ( comm.contains( tr( " BUY" ) ) )
+		if ( comm.contains( " BUY" ) )
 		{
 			m_npc->vendorBuy( pTalker );
 		}
-		else if ( comm.contains( tr( " SELL" ) ) )
+		else if ( comm.contains( " SELL" ) )
 		{
 			m_npc->vendorSell( pTalker );
 		}
@@ -99,16 +99,19 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString& message
 	Human_Vendor::onSpeechInput( pTalker, message );
 	if ( !pTalker->socket() )
 		return;
-	if ( m_npc->inRange( pTalker, 4 ) && ( VendorChkName( m_npc, message ) || message.contains( tr( "STABLEMASTER" ) ) ) )
+
+	if ( m_npc->inRange( pTalker, 4 ) && ( VendorChkName( m_npc, message ) || message.contains( "STABLEMASTER" ) ) )
 	{
-		if ( message.contains( tr( " STABLE" ) ) )
+		if ( message.contains( " STABLE" ) )
 		{
-			m_npc->talk( tr( "Which pet do you want me to stable?" ) );
+			m_npc->talk( 1042558 ); /* I charge 30 gold per pet for a real week's stable time.
+									*  I will withdraw it from thy bank account.
+									*  Which animal wouldst thou like to stable here?
+									*/
 			pTalker->socket()->attachTarget( new cStableTarget( m_npc ) );
 		}
-		else if ( message.contains( tr( " RELEASE" ) ) )
+		else if ( message.contains( " RELEASE" ) )
 		{
-			int gold = pTalker->countBankGold() + pTalker->countGold();
 			P_ITEM pPack = m_npc->getBankbox();
 			
 			cItem::ContainerContent stableitems;
@@ -149,7 +152,7 @@ void Human_Stablemaster::onSpeechInput( P_PLAYER pTalker, const QString& message
 				}
 
 				pPack->update();
-				m_npc->talk( tr( "Here's your pet back!" ) );
+				m_npc->talk( 1042559 ); // Here you go... and good day to you!;
 			}
 		}
 	}
@@ -168,42 +171,57 @@ void Human_Stablemaster::handleTargetInput( P_PLAYER player, cUORxTarget* target
 	if ( !pPack )
 		return;
 
+	if ( player->serial() == target->serial() )
+	{
+		m_npc->talk( 502672 ); // HA HA HA! Sorry, I am not an inn.
+		return;
+	}
+
 	P_NPC pPet = dynamic_cast<P_NPC>( World::instance()->findChar( target->serial() ) );
 	if ( !pPet )
 	{
-		m_npc->talk( tr( "I cannot stable that!" ) );
-		return;
+		m_npc->talk( 1048053 ); // You can't stable that!
 	}
-
-	if ( pPet->owner() != player )
+	else if ( pPet->owner() != player )
 	{
-		m_npc->talk( tr( "This does not belong to you!" ) );
-		return;
+		m_npc->talk( 1042562 ); // You do not own that pet!
 	}
+	else if ( pPet->isHuman() )
+	{
+		m_npc->talk( 502672 ); // HA HA HA! Sorry, I am not an inn.
+	}
+	else if ( pPet->isAtWar() )
+	{
+		m_npc->talk( 1042564 ); // I'm sorry.  Your pet seems to be busy.
+	}
+	else 
+	{
+		if ( player->takeGold( 30, true ) == 30 )
+		{
+			// we spawn a worldgem in the stablemasters bankbox for the pet
+			// it does only hold the serial of it, the serial of the owner and the
+			// number of refresh signals since begin of stabling
+			// the pet becomes "free", which means, that it isnt in the world
+			// but will still be saved.
+			P_ITEM pGem = new cItem();
+			pGem->Init( true );
+			pGem->setTag( "player", cVariant( player->serial() ) );
+			pGem->setTag( "pet", cVariant( pPet->serial() ) );
+			pGem->setId( 0x1ea7 );
+			pGem->setName( tr( "petitem: %1" ).arg( pPet->name() ) );
+			pGem->setVisible( 2 ); // gm visible
+			pPack->addItem( pGem );
+			pGem->update();
 
-	// we spawn a worldgem in the stablemasters bankbox for the pet
-	// it does only hold the serial of it, the serial of the owner and the
-	// number of refresh signals since begin of stabling
-	// the pet becomes "free", which means, that it isnt in the world
-	// but will still be saved.
-	P_ITEM pGem = new cItem();
-	pGem->Init( true );
-	pGem->setTag( "player", cVariant( player->serial() ) );
-	pGem->setTag( "pet", cVariant( pPet->serial() ) );
-	pGem->setId( 0x1ea7 );
-	pGem->setName( tr( "petitem: %1" ).arg( pPet->name() ) );
-	pGem->setVisible( 2 ); // gm visible
-	pPack->addItem( pGem );
-	pGem->update();
-
-
-	//pPet->free = true;
-	MapObjects::instance()->remove( pPet );
-	pPet->setStablemasterSerial( this->m_npc->serial() );
-	pPet->removeFromView();
-
-	// we need this for db saves
-    m_npc->talk( tr( "Say release to get your pet back!" ) );
+			//pPet->free = true;
+			MapObjects::instance()->remove( pPet );
+			pPet->setStablemasterSerial( this->m_npc->serial() );
+			pPet->removeFromView();
+			m_npc->talk( 502679 ); // Very well, thy pet is stabled. Thou mayst recover it by saying 'claim' to me. In one real world week, I shall sell it off if it is not claimed!
+		}
+		else
+			m_npc->talk( 502677 ); // But thou hast not the funds in thy bank account!
+	}
 }
 
 static AbstractAI* productCreator_HGC()

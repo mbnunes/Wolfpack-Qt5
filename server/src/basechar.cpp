@@ -1432,7 +1432,7 @@ void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight,
 
 	if ( atLayer( layer ) != 0 )
 	{
-		log( LOG_ERROR, QString( "Trying to put item 0x%1 on layer %2 which is already occupied.\n" ).arg( pi->serial(), 0, 16 ).arg( layer ) );
+		log( LOG_ERROR, tr( "Trying to put item 0x%1 on layer %2 which is already occupied.\n" ).arg( pi->serial(), 0, 16 ).arg( layer ) );
 		pi->container_ = 0;
 		pi->moveTo( pos_, true );
 		return;
