@@ -1,3 +1,4 @@
+<!-- edited with XML Spy v4.4 U (http://www.xmlspy.com) by Kosha (SiH) -->
 <!--
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
@@ -7,81 +8,154 @@
 =================================================================
 -->
 <definitions>
-	<!-- a serpent (sea) medium-->
-	<npc id="sea_serpent_medium">
-		<name>a sea serpent</name>
+	<!-- a serpent (sea) weak-->
+	<npc id="serpent_sea_weak">
+		<name>a serpent (sea)</name>
 		<id>0x096</id>
-		<inherit id="monster_base" />
-		<karma><random min="5000" max="9999" /></karma>
-		<fame><random min="5000" max="9999" /></fame>
-		<defense><random min="30" max="30" /></defense>
-		<lodamage></lodamage>
-		<hidamage></hidamage>
-		<gold><random min="" max="" /></gold>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="5000" max="9999"/>
+		</karma>
+		<fame>
+			<random min="5000" max="9999"/>
+		</fame>
+		<defense>
+			<random min="25" max="25"/>
+		</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
 		<!-- Stats -->
-		<str><random min="186" max="215" /></str>
-		<dex><random min="62" max="83" /></dex>
-		<int><random min="61" max="87" /></int>
+		<str>
+			<random min="158" max="182"/>
+		</str>
+		<dex>
+			<random min="52" max="70"/>
+		</dex>
+		<int>
+			<random min="51" max="73"/>
+		</int>
 		<!-- Skills -->
-		<wrestling><random min="643" max="730" /></wrestling>
-		<tactics><random min="601" max="694" /></tactics>
-		<magicresistance><random min="640" max="749" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-		<magery><random min="91" max="130" /></magery>
-		<evaluatingint><random min="0" max="0" /></evaluatingint>
-		<meditation><random min="0" max="0" /></meditation>
+		<wrestling>
+			<random min="546" max="620"/>
+		</wrestling>
+		<tactics>
+			<random min="510" max="589"/>
+		</tactics>
+		<magicresistance>
+			<random min="544" max="636"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
+		<magery>
+			<random min="77" max="110"/>
+		</magery>
+		<evaluatingint>
+			<random min="0" max="0"/>
+		</evaluatingint>
+		<meditation>
+			<random min="0" max="0"/>
+		</meditation>
 		<!-- Priv -->
 	</npc>
-	<!-- a serpent (sea) weak-->
-	<npc id="sea_serpent_weak">
-		<name>a sea serpent</name>
+	<!-- a serpent (sea) medium-->
+	<npc id="serpent_sea_medium">
+		<name>a serpent (sea)</name>
 		<id>0x096</id>
-		<inherit id="monster_base" />
-		<karma><random min="5000" max="9999" /></karma>
-		<fame><random min="5000" max="9999" /></fame>
-		<defense><random min="25" max="25" /></defense>
-		<lodamage>0</lodamage>
-		<hidamage>0</hidamage>
-		<gold><random min="" max="" /></gold>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="5000" max="9999"/>
+		</karma>
+		<fame>
+			<random min="5000" max="9999"/>
+		</fame>
+		<defense>
+			<random min="30" max="30"/>
+		</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
 		<!-- Stats -->
-		<str><random min="158" max="182" /></str>
-		<dex><random min="52" max="70" /></dex>
-		<int><random min="61" max="87" /></int>
+		<str>
+			<random min="186" max="215"/>
+		</str>
+		<dex>
+			<random min="62" max="83"/>
+		</dex>
+		<int>
+			<random min="61" max="87"/>
+		</int>
 		<!-- Skills -->
-		<wrestling><random min="546" max="620" /></wrestling>
-		<tactics><random min="510" max="589" /></tactics>
-		<magicresistance><random min="544" max="636" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-		<poisoning><random min="0" max="0" /></poisoning>
-		<magery><random min="77" max="110" /></magery>
-		<evaluatingint><random min="0" max="0" /></evaluatingint>
-		<meditation><random min="0" max="0" /></meditation>
+		<wrestling>
+			<random min="643" max="730"/>
+		</wrestling>
+		<tactics>
+			<random min="601" max="694"/>
+		</tactics>
+		<magicresistance>
+			<random min="640" max="749"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
+		<magery>
+			<random min="91" max="130"/>
+		</magery>
+		<evaluatingint>
+			<random min="0" max="0"/>
+		</evaluatingint>
+		<meditation>
+			<random min="0" max="0"/>
+		</meditation>
 		<!-- Priv -->
 	</npc>
 	<!-- a serpent (sea) hard-->
-	<npc id="sea_serpent_hard">
-		<name>a sea serpent</name>
+	<npc id="serpent_sea_hard">
+		<name>a serpent (sea)</name>
 		<id>0x096</id>
-		<inherit id="monster_base" />
-		<karma><random min="5000" max="9999" /></karma>
-		<fame><random min="5000" max="9999" /></fame>
-		<defense><random min="29" max="29" /></defense>
-		<lodamage>0</lodamage>
-		<hidamage>0</hidamage>
-		<gold><random min="" max="" /></gold>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="5000" max="9999"/>
+		</karma>
+		<fame>
+			<random min="5000" max="9999"/>
+		</fame>
+		<defense>
+			<random min="34" max="34"/>
+		</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
 		<!-- Stats -->
-		<str><random min="181" max="210" /></str>
-		<dex><random min="60" max="81" /></dex>
-		<int><random min="61" max="87" /></int>
+		<str>
+			<random min="213" max="247"/>
+		</str>
+		<dex>
+			<random min="71" max="95"/>
+		</dex>
+		<int>
+			<random min="70" max="100"/>
+		</int>
 		<!-- Skills -->
-		<wrestling><random min="628" max="713" /></wrestling>
-		<tactics><random min="587" max="678" /></tactics>
-		<magicresistance><random min="625" max="732" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-		<poisoning><random min="0" max="0" /></poisoning>
-		<magery><random min="88" max="127" /></magery>
-		<evaluatingint><random min="0" max="0" /></evaluatingint>
-		<meditation><random min="0" max="0" /></meditation>
+		<wrestling>
+			<random min="739" max="839"/>
+		</wrestling>
+		<tactics>
+			<random min="691" max="798"/>
+		</tactics>
+		<magicresistance>
+			<random min="736" max="861"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
+		<magery>
+			<random min="104" max="149"/>
+		</magery>
+		<evaluatingint>
+			<random min="0" max="0"/>
+		</evaluatingint>
+		<meditation>
+			<random min="0" max="0"/>
+		</meditation>
 		<!-- Priv -->
 	</npc>
 </definitions>

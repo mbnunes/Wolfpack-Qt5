@@ -1,3 +1,4 @@
+<!-- edited with XML Spy v4.4 U (http://www.xmlspy.com) by Kosha (SiH) -->
 <!--
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
@@ -7,152 +8,268 @@
 =================================================================
 -->
 <definitions>
-	<!-- a orc medium-->
-	<npc id="orc_medium">
-		<name>an orc</name>
-		<id>0x011</id>
-		<inherit id="monster_base" />
-		<karma><random min="1250" max="2499" /></karma>
-		<fame><random min="1250" max="2499" /></fame>
-		<defense><random min="28" max="28" /></defense>
-		<lodamage></lodamage>
-		<hidamage></hidamage>
-		<gold><random min="0" max="50" /></gold>
-		<!-- Stats -->
-		<str><random min="96" max="120" /></str>
-		<dex><random min="82" max="104" /></dex>
-		<int><random min="36" max="57" /></int>
-		<!-- Skills -->
-		<wrestling><random min="563" max="719" /></wrestling>
-		<tactics><random min="578" max="770" /></tactics>
-		<magicresistance><random min="547" max="715" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-		<!-- Priv -->
-	</npc>
 	<!-- a orc weak-->
 	<npc id="orc_weak">
-		<name>an orc</name>
+		<name>a orc</name>
 		<id>0x011</id>
-		<inherit id="monster_base" />
-		<karma><random min="1250" max="2499" /></karma>
-		<fame><random min="1250" max="2499" /></fame>
-		<defense><random min="23" max="23" /></defense>
-		<lodamage>0</lodamage>
-		<hidamage>0</hidamage>
-		<gold><random min="0" max="50" /></gold>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="1250" max="2499"/>
+		</karma>
+		<fame>
+			<random min="1250" max="2499"/>
+		</fame>
+		<defense>
+			<random min="23" max="23"/>
+		</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<gold>
+			<random min="0" max="50"/>
+		</gold>
 		<!-- Stats -->
-		<str><random min="81" max="102" /></str>
-		<dex><random min="69" max="88" /></dex>
-		<int><random min="36" max="57" /></int>
+		<str>
+			<random min="81" max="102"/>
+		</str>
+		<dex>
+			<random min="69" max="88"/>
+		</dex>
+		<int>
+			<random min="30" max="48"/>
+		</int>
 		<!-- Skills -->
-		<wrestling><random min="478" max="611" /></wrestling>
-		<tactics><random min="491" max="654" /></tactics>
-		<magicresistance><random min="464" max="607" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-		<poisoning><random min="0" max="0" /></poisoning>
-		<magery><random min="0" max="0" /></magery>
-		<evaluatingint><random min="0" max="0" /></evaluatingint>
-		<meditation><random min="0" max="0" /></meditation>
+		<wrestling>
+			<random min="478" max="611"/>
+		</wrestling>
+		<tactics>
+			<random min="491" max="654"/>
+		</tactics>
+		<magicresistance>
+			<random min="464" max="607"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
+		<!-- Priv -->
+	</npc>
+	<!-- a orc medium-->
+	<npc id="orc_medium">
+		<name>a orc</name>
+		<id>0x011</id>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="1250" max="2499"/>
+		</karma>
+		<fame>
+			<random min="1250" max="2499"/>
+		</fame>
+		<defense>
+			<random min="28" max="28"/>
+		</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<gold>
+			<random min="0" max="50"/>
+		</gold>
+		<!-- Stats -->
+		<str>
+			<random min="96" max="120"/>
+		</str>
+		<dex>
+			<random min="82" max="104"/>
+		</dex>
+		<int>
+			<random min="36" max="57"/>
+		</int>
+		<!-- Skills -->
+		<wrestling>
+			<random min="563" max="719"/>
+		</wrestling>
+		<tactics>
+			<random min="578" max="770"/>
+		</tactics>
+		<magicresistance>
+			<random min="547" max="715"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
 		<!-- Priv -->
 	</npc>
 	<!-- a orc hard-->
 	<npc id="orc_hard">
-		<name>an orc</name>
+		<name>a orc</name>
 		<id>0x011</id>
-		<inherit id="monster_base" />
-		<karma><random min="1250" max="2499" /></karma>
-		<fame><random min="1250" max="2499" /></fame>
-		<defense><random min="27" max="27" /></defense>
-		<lodamage>0</lodamage>
-		<hidamage>0</hidamage>
-		<gold><random min="0" max="50" /></gold>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="1250" max="2499"/>
+		</karma>
+		<fame>
+			<random min="1250" max="2499"/>
+		</fame>
+		<defense>
+			<random min="32" max="32"/>
+		</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<gold>
+			<random min="0" max="50"/>
+		</gold>
 		<!-- Stats -->
-		<str><random min="93" max="117" /></str>
-		<dex><random min="80" max="101" /></dex>
-		<int><random min="36" max="57" /></int>
+		<str>
+			<random min="110" max="138"/>
+		</str>
+		<dex>
+			<random min="94" max="119"/>
+		</dex>
+		<int>
+			<random min="41" max="65"/>
+		</int>
 		<!-- Skills -->
-		<wrestling><random min="550" max="702" /></wrestling>
-		<tactics><random min="564" max="752" /></tactics>
-		<magicresistance><random min="534" max="698" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-		<poisoning><random min="0" max="0" /></poisoning>
-		<magery><random min="0" max="0" /></magery>
-		<evaluatingint><random min="0" max="0" /></evaluatingint>
-		<meditation><random min="0" max="0" /></meditation>
-		<!-- Priv -->
-	</npc>
-	<!-- a orc captain medium-->
-	<npc id="orc_captain_medium">
-		<name>an orc captain</name>
-		<id>0x007</id>
-		<inherit id="monster_base" />
-		<karma><random min="1250" max="2499" /></karma>
-		<fame><random min="1250" max="2499" /></fame>
-		<defense><random min="34" max="34" /></defense>
-		<lodamage></lodamage>
-		<hidamage></hidamage>
-		<gold><random min="50" max="150" /></gold>
-		<!-- Stats -->
-		<str><random min="121" max="128" /></str>
-		<dex><random min="106" max="123" /></dex>
-		<int><random min="98" max="106" /></int>
-		<!-- Skills -->
-		<wrestling><random min="100" max="100" /></wrestling>
-		<tactics><random min="853" max="977" /></tactics>
-		<magicresistance><random min="708" max="778" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
+		<wrestling>
+			<random min="647" max="826"/>
+		</wrestling>
+		<tactics>
+			<random min="664" max="885"/>
+		</tactics>
+		<magicresistance>
+			<random min="629" max="822"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
 		<!-- Priv -->
 	</npc>
 	<!-- a orc captain weak-->
 	<npc id="orc_captain_weak">
-		<name>an orc captain</name>
+		<name>a orc captain</name>
 		<id>0x007</id>
-		<inherit id="monster_base" />
-		<karma><random min="1250" max="2499" /></karma>
-		<fame><random min="1250" max="2499" /></fame>
-		<defense><random min="28" max="28" /></defense>
-		<lodamage>0</lodamage>
-		<hidamage>0</hidamage>
-		<gold><random min="50" max="150" /></gold>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="1250" max="2499"/>
+		</karma>
+		<fame>
+			<random min="1250" max="2499"/>
+		</fame>
+		<defense>
+			<random min="28" max="28"/>
+		</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<gold>
+			<random min="50" max="150"/>
+		</gold>
 		<!-- Stats -->
-		<str><random min="102" max="108" /></str>
-		<dex><random min="90" max="104" /></dex>
-		<int><random min="98" max="106" /></int>
+		<str>
+			<random min="102" max="108"/>
+		</str>
+		<dex>
+			<random min="90" max="104"/>
+		</dex>
+		<int>
+			<random min="83" max="90"/>
+		</int>
 		<!-- Skills -->
-		<wrestling><random min="85" max="85" /></wrestling>
-		<tactics><random min="725" max="830" /></tactics>
-		<magicresistance><random min="601" max="661" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-		<poisoning><random min="0" max="0" /></poisoning>
-		<magery><random min="0" max="0" /></magery>
-		<evaluatingint><random min="0" max="0" /></evaluatingint>
-		<meditation><random min="0" max="0" /></meditation>
+		<wrestling>
+			<random min="85" max="85"/>
+		</wrestling>
+		<tactics>
+			<random min="725" max="830"/>
+		</tactics>
+		<magicresistance>
+			<random min="601" max="661"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
+		<!-- Priv -->
+	</npc>
+	<!-- a orc captain medium-->
+	<npc id="orc_captain_medium">
+		<name>a orc captain</name>
+		<id>0x007</id>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="1250" max="2499"/>
+		</karma>
+		<fame>
+			<random min="1250" max="2499"/>
+		</fame>
+		<defense>
+			<random min="34" max="34"/>
+		</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<gold>
+			<random min="50" max="150"/>
+		</gold>
+		<!-- Stats -->
+		<str>
+			<random min="121" max="128"/>
+		</str>
+		<dex>
+			<random min="106" max="123"/>
+		</dex>
+		<int>
+			<random min="98" max="106"/>
+		</int>
+		<!-- Skills -->
+		<wrestling>
+			<random min="100" max="100"/>
+		</wrestling>
+		<tactics>
+			<random min="853" max="977"/>
+		</tactics>
+		<magicresistance>
+			<random min="708" max="778"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
 		<!-- Priv -->
 	</npc>
 	<!-- a orc captain hard-->
 	<npc id="orc_captain_hard">
-		<name>an orc captain</name>
+		<name>a orc captain</name>
 		<id>0x007</id>
-		<inherit id="monster_base" />
-		<karma><random min="1250" max="2499" /></karma>
-		<fame><random min="1250" max="2499" /></fame>
-		<defense><random min="33" max="33" /></defense>
-		<lodamage>0</lodamage>
-		<hidamage>0</hidamage>
-		<gold><random min="50" max="150" /></gold>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="1250" max="2499"/>
+		</karma>
+		<fame>
+			<random min="1250" max="2499"/>
+		</fame>
+		<defense>
+			<random min="39" max="39"/>
+		</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<gold>
+			<random min="50" max="150"/>
+		</gold>
 		<!-- Stats -->
-		<str><random min="118" max="125" /></str>
-		<dex><random min="103" max="120" /></dex>
-		<int><random min="98" max="106" /></int>
+		<str>
+			<random min="139" max="147"/>
+		</str>
+		<dex>
+			<random min="121" max="141"/>
+		</dex>
+		<int>
+			<random min="112" max="121"/>
+		</int>
 		<!-- Skills -->
-		<wrestling><random min="97" max="97" /></wrestling>
-		<tactics><random min="833" max="955" /></tactics>
-		<magicresistance><random min="692" max="760" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-		<poisoning><random min="0" max="0" /></poisoning>
-		<magery><random min="0" max="0" /></magery>
-		<evaluatingint><random min="0" max="0" /></evaluatingint>
-		<meditation><random min="0" max="0" /></meditation>
+		<wrestling>
+			<random min="115" max="115"/>
+		</wrestling>
+		<tactics>
+			<random min="980" max="1123"/>
+		</tactics>
+		<magicresistance>
+			<random min="814" max="894"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
 		<!-- Priv -->
 	</npc>
 </definitions>

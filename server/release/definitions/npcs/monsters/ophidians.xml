@@ -1,3 +1,4 @@
+<!-- edited with XML Spy v4.4 U (http://www.xmlspy.com) by Kosha (SiH) -->
 <!--
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
@@ -7,232 +8,454 @@
 =================================================================
 -->
 <definitions>
-	<!-- a ophidian mage medium-->
-	<npc id="ophidian_mage_medium">
-		<name>an ophidian mage</name>
-		<id>0x055</id>
-		<inherit id="monster_base" />
-		<karma><random min="2500" max="4999" /></karma>
-		<fame><random min="2500" max="4999" /></fame>
-		<defense><random min="30" max="30" /></defense>
-		<lodamage></lodamage>
-		<hidamage></hidamage>
-		<gold><random min="50" max="150" /></gold>
-		<!-- Stats -->
-		<str><random min="183" max="204" /></str>
-		<dex><random min="191" max="213" /></dex>
-		<int><random min="97" max="120" /></int>
-		<!-- Skills -->
-		<wrestling><random min="352" max="616" /></wrestling>
-		<tactics><random min="729" max="780" /></tactics>
-		<magicresistance><random min="844" max="880" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-		<magery><random min="879" max="989" /></magery>
-		<evaluatingint><random min="0" max="0" /></evaluatingint>
-		<meditation><random min="0" max="0" /></meditation>
-		<!-- Priv -->
-	</npc>
 	<!-- a ophidian mage weak-->
 	<npc id="ophidian_mage_weak">
-		<name>an ophidian mage</name>
+		<name>a ophidian mage</name>
 		<id>0x055</id>
-		<inherit id="monster_base" />
-		<karma><random min="2500" max="4999" /></karma>
-		<fame><random min="2500" max="4999" /></fame>
-		<defense><random min="25" max="25" /></defense>
-		<lodamage>0</lodamage>
-		<hidamage>0</hidamage>
-		<gold><random min="50" max="150" /></gold>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="2500" max="4999"/>
+		</karma>
+		<fame>
+			<random min="2500" max="4999"/>
+		</fame>
+		<defense>
+			<random min="25" max="25"/>
+		</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<gold>
+			<random min="50" max="150"/>
+		</gold>
 		<!-- Stats -->
-		<str><random min="155" max="173" /></str>
-		<dex><random min="162" max="181" /></dex>
-		<int><random min="97" max="120" /></int>
+		<str>
+			<random min="155" max="173"/>
+		</str>
+		<dex>
+			<random min="162" max="181"/>
+		</dex>
+		<int>
+			<random min="82" max="102"/>
+		</int>
 		<!-- Skills -->
-		<wrestling><random min="299" max="523" /></wrestling>
-		<tactics><random min="619" max="663" /></tactics>
-		<magicresistance><random min="717" max="748" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-		<poisoning><random min="0" max="0" /></poisoning>
-		<magery><random min="747" max="840" /></magery>
-		<evaluatingint><random min="0" max="0" /></evaluatingint>
-		<meditation><random min="0" max="0" /></meditation>
+		<wrestling>
+			<random min="299" max="523"/>
+		</wrestling>
+		<tactics>
+			<random min="619" max="663"/>
+		</tactics>
+		<magicresistance>
+			<random min="717" max="748"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
+		<magery>
+			<random min="747" max="840"/>
+		</magery>
+		<evaluatingint>
+			<random min="0" max="0"/>
+		</evaluatingint>
+		<meditation>
+			<random min="0" max="0"/>
+		</meditation>
+		<!-- Priv -->
+	</npc>
+	<!-- a ophidian mage medium-->
+	<npc id="ophidian_mage_medium">
+		<name>a ophidian mage</name>
+		<id>0x055</id>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="2500" max="4999"/>
+		</karma>
+		<fame>
+			<random min="2500" max="4999"/>
+		</fame>
+		<defense>
+			<random min="30" max="30"/>
+		</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<gold>
+			<random min="50" max="150"/>
+		</gold>
+		<!-- Stats -->
+		<str>
+			<random min="183" max="204"/>
+		</str>
+		<dex>
+			<random min="191" max="213"/>
+		</dex>
+		<int>
+			<random min="97" max="120"/>
+		</int>
+		<!-- Skills -->
+		<wrestling>
+			<random min="352" max="616"/>
+		</wrestling>
+		<tactics>
+			<random min="729" max="780"/>
+		</tactics>
+		<magicresistance>
+			<random min="844" max="880"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
+		<magery>
+			<random min="879" max="989"/>
+		</magery>
+		<evaluatingint>
+			<random min="0" max="0"/>
+		</evaluatingint>
+		<meditation>
+			<random min="0" max="0"/>
+		</meditation>
 		<!-- Priv -->
 	</npc>
 	<!-- a ophidian mage hard-->
 	<npc id="ophidian_mage_hard">
-		<name>an ophidian mage</name>
+		<name>a ophidian mage</name>
 		<id>0x055</id>
-		<inherit id="monster_base" />
-		<karma><random min="2500" max="4999" /></karma>
-		<fame><random min="2500" max="4999" /></fame>
-		<defense><random min="29" max="29" /></defense>
-		<lodamage>0</lodamage>
-		<hidamage>0</hidamage>
-		<gold><random min="50" max="150" /></gold>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="2500" max="4999"/>
+		</karma>
+		<fame>
+			<random min="2500" max="4999"/>
+		</fame>
+		<defense>
+			<random min="34" max="34"/>
+		</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<gold>
+			<random min="50" max="150"/>
+		</gold>
 		<!-- Stats -->
-		<str><random min="178" max="199" /></str>
-		<dex><random min="186" max="208" /></dex>
-		<int><random min="97" max="120" /></int>
+		<str>
+			<random min="210" max="234"/>
+		</str>
+		<dex>
+			<random min="219" max="244"/>
+		</dex>
+		<int>
+			<random min="111" max="138"/>
+		</int>
 		<!-- Skills -->
-		<wrestling><random min="344" max="602" /></wrestling>
-		<tactics><random min="712" max="762" /></tactics>
-		<magicresistance><random min="825" max="860" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-		<poisoning><random min="0" max="0" /></poisoning>
-		<magery><random min="859" max="966" /></magery>
-		<evaluatingint><random min="0" max="0" /></evaluatingint>
-		<meditation><random min="0" max="0" /></meditation>
-		<!-- Priv -->
-	</npc>
-	<!-- a ophidian queen medium-->
-	<npc id="ophidian_queen_medium">
-		<name>an ophidian queen</name>
-		<id>0x057</id>
-		<inherit id="monster_base" />
-		<karma><random min="10000" max="20000" /></karma>
-		<fame><random min="10000" max="20000" /></fame>
-		<defense><random min="50" max="50" /></defense>
-		<lodamage></lodamage>
-		<hidamage></hidamage>
-		<gold><random min="200" max="250" /></gold>
-		<!-- Stats -->
-		<str><random min="439" max="489" /></str>
-		<dex><random min="109" max="109" /></dex>
-		<int><random min="375" max="441" /></int>
-		<!-- Skills -->
-		<wrestling><random min="668" max="676" /></wrestling>
-		<tactics><random min="603" max="671" /></tactics>
-		<magicresistance><random min="937" max="982" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-		<magery><random min="935" max="998" /></magery>
-		<evaluatingint><random min="156" max="189" /></evaluatingint>
-		<meditation><random min="189" max="195" /></meditation>
+		<wrestling>
+			<random min="404" max="708"/>
+		</wrestling>
+		<tactics>
+			<random min="838" max="897"/>
+		</tactics>
+		<magicresistance>
+			<random min="970" max="1012"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
+		<magery>
+			<random min="1010" max="1137"/>
+		</magery>
+		<evaluatingint>
+			<random min="0" max="0"/>
+		</evaluatingint>
+		<meditation>
+			<random min="0" max="0"/>
+		</meditation>
 		<!-- Priv -->
 	</npc>
 	<!-- a ophidian queen weak-->
 	<npc id="ophidian_queen_weak">
-		<name>an ophidian queen</name>
+		<name>a ophidian queen</name>
 		<id>0x057</id>
-		<inherit id="monster_base" />
-		<karma><random min="10000" max="20000" /></karma>
-		<fame><random min="10000" max="20000" /></fame>
-		<defense><random min="42" max="42" /></defense>
-		<lodamage>0</lodamage>
-		<hidamage>0</hidamage>
-		<gold><random min="200" max="250" /></gold>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="10000" max="20000"/>
+		</karma>
+		<fame>
+			<random min="10000" max="20000"/>
+		</fame>
+		<defense>
+			<random min="42" max="42"/>
+		</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<gold>
+			<random min="200" max="250"/>
+		</gold>
 		<!-- Stats -->
-		<str><random min="373" max="415" /></str>
-		<dex><random min="92" max="92" /></dex>
-		<int><random min="375" max="441" /></int>
+		<str>
+			<random min="373" max="415"/>
+		</str>
+		<dex>
+			<random min="92" max="92"/>
+		</dex>
+		<int>
+			<random min="318" max="374"/>
+		</int>
 		<!-- Skills -->
-		<wrestling><random min="567" max="574" /></wrestling>
-		<tactics><random min="512" max="570" /></tactics>
-		<magicresistance><random min="796" max="834" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-		<poisoning><random min="0" max="0" /></poisoning>
-		<magery><random min="794" max="848" /></magery>
-		<evaluatingint><random min="132" max="160" /></evaluatingint>
-		<meditation><random min="160" max="165" /></meditation>
+		<wrestling>
+			<random min="567" max="574"/>
+		</wrestling>
+		<tactics>
+			<random min="512" max="570"/>
+		</tactics>
+		<magicresistance>
+			<random min="796" max="834"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
+		<magery>
+			<random min="794" max="848"/>
+		</magery>
+		<evaluatingint>
+			<random min="132" max="160"/>
+		</evaluatingint>
+		<meditation>
+			<random min="160" max="165"/>
+		</meditation>
+		<!-- Priv -->
+	</npc>
+	<!-- a ophidian queen medium-->
+	<npc id="ophidian_queen_medium">
+		<name>a ophidian queen</name>
+		<id>0x057</id>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="10000" max="20000"/>
+		</karma>
+		<fame>
+			<random min="10000" max="20000"/>
+		</fame>
+		<defense>
+			<random min="50" max="50"/>
+		</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<gold>
+			<random min="200" max="250"/>
+		</gold>
+		<!-- Stats -->
+		<str>
+			<random min="439" max="489"/>
+		</str>
+		<dex>
+			<random min="109" max="109"/>
+		</dex>
+		<int>
+			<random min="375" max="441"/>
+		</int>
+		<!-- Skills -->
+		<wrestling>
+			<random min="668" max="676"/>
+		</wrestling>
+		<tactics>
+			<random min="603" max="671"/>
+		</tactics>
+		<magicresistance>
+			<random min="937" max="982"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
+		<magery>
+			<random min="935" max="998"/>
+		</magery>
+		<evaluatingint>
+			<random min="156" max="189"/>
+		</evaluatingint>
+		<meditation>
+			<random min="189" max="195"/>
+		</meditation>
 		<!-- Priv -->
 	</npc>
 	<!-- a ophidian queen hard-->
 	<npc id="ophidian_queen_hard">
-		<name>an ophidian queen</name>
+		<name>a ophidian queen</name>
 		<id>0x057</id>
-		<inherit id="monster_base" />
-		<karma><random min="10000" max="20000" /></karma>
-		<fame><random min="10000" max="20000" /></fame>
-		<defense><random min="48" max="48" /></defense>
-		<lodamage>0</lodamage>
-		<hidamage>0</hidamage>
-		<gold><random min="200" max="250" /></gold>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="10000" max="20000"/>
+		</karma>
+		<fame>
+			<random min="10000" max="20000"/>
+		</fame>
+		<defense>
+			<random min="57" max="57"/>
+		</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<gold>
+			<random min="200" max="250"/>
+		</gold>
 		<!-- Stats -->
-		<str><random min="429" max="477" /></str>
-		<dex><random min="106" max="106" /></dex>
-		<int><random min="375" max="441" /></int>
+		<str>
+			<random min="504" max="562"/>
+		</str>
+		<dex>
+			<random min="125" max="125"/>
+		</dex>
+		<int>
+			<random min="431" max="507"/>
+		</int>
 		<!-- Skills -->
-		<wrestling><random min="652" max="660" /></wrestling>
-		<tactics><random min="589" max="655" /></tactics>
-		<magicresistance><random min="915" max="959" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-		<poisoning><random min="0" max="0" /></poisoning>
-		<magery><random min="913" max="975" /></magery>
-		<evaluatingint><random min="152" max="184" /></evaluatingint>
-		<meditation><random min="184" max="190" /></meditation>
-		<!-- Priv -->
-	</npc>
-	<!-- a ophidian warrior medium-->
-	<npc id="ophidian_warrior_medium">
-		<name>an ophidian warrior</name>
-		<id>0x056</id>
-		<inherit id="monster_base" />
-		<karma><random min="2500" max="4999" /></karma>
-		<fame><random min="2500" max="4999" /></fame>
-		<defense><random min="36" max="36" /></defense>
-		<lodamage></lodamage>
-		<hidamage></hidamage>
-		<gold><random min="50" max="150" /></gold>
-		<!-- Stats -->
-		<str><random min="205" max="256" /></str>
-		<dex><random min="127" max="169" /></dex>
-		<int><random min="95" max="133" /></int>
-		<!-- Skills -->
-		<wrestling><random min="100" max="100" /></wrestling>
-		<tactics><random min="760" max="880" /></tactics>
-		<magicresistance><random min="722" max="797" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
+		<wrestling>
+			<random min="768" max="777"/>
+		</wrestling>
+		<tactics>
+			<random min="693" max="771"/>
+		</tactics>
+		<magicresistance>
+			<random min="1077" max="1129"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
+		<magery>
+			<random min="1075" max="1147"/>
+		</magery>
+		<evaluatingint>
+			<random min="179" max="217"/>
+		</evaluatingint>
+		<meditation>
+			<random min="217" max="224"/>
+		</meditation>
 		<!-- Priv -->
 	</npc>
 	<!-- a ophidian warrior weak-->
 	<npc id="ophidian_warrior_weak">
-		<name>an ophidian warrior</name>
+		<name>a ophidian warrior</name>
 		<id>0x056</id>
-		<inherit id="monster_base" />
-		<karma><random min="2500" max="4999" /></karma>
-		<fame><random min="2500" max="4999" /></fame>
-		<defense><random min="30" max="30" /></defense>
-		<lodamage>0</lodamage>
-		<hidamage>0</hidamage>
-		<gold><random min="50" max="150" /></gold>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="2500" max="4999"/>
+		</karma>
+		<fame>
+			<random min="2500" max="4999"/>
+		</fame>
+		<defense>
+			<random min="30" max="30"/>
+		</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<gold>
+			<random min="50" max="150"/>
+		</gold>
 		<!-- Stats -->
-		<str><random min="174" max="217" /></str>
-		<dex><random min="107" max="143" /></dex>
-		<int><random min="95" max="133" /></int>
+		<str>
+			<random min="174" max="217"/>
+		</str>
+		<dex>
+			<random min="107" max="143"/>
+		</dex>
+		<int>
+			<random min="80" max="113"/>
+		</int>
 		<!-- Skills -->
-		<wrestling><random min="85" max="85" /></wrestling>
-		<tactics><random min="646" max="748" /></tactics>
-		<magicresistance><random min="613" max="677" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-		<poisoning><random min="0" max="0" /></poisoning>
-		<magery><random min="0" max="0" /></magery>
-		<evaluatingint><random min="0" max="0" /></evaluatingint>
-		<meditation><random min="0" max="0" /></meditation>
+		<wrestling>
+			<random min="85" max="85"/>
+		</wrestling>
+		<tactics>
+			<random min="646" max="748"/>
+		</tactics>
+		<magicresistance>
+			<random min="613" max="677"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
+		<!-- Priv -->
+	</npc>
+	<!-- a ophidian warrior medium-->
+	<npc id="ophidian_warrior_medium">
+		<name>a ophidian warrior</name>
+		<id>0x056</id>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="2500" max="4999"/>
+		</karma>
+		<fame>
+			<random min="2500" max="4999"/>
+		</fame>
+		<defense>
+			<random min="36" max="36"/>
+		</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<gold>
+			<random min="50" max="150"/>
+		</gold>
+		<!-- Stats -->
+		<str>
+			<random min="205" max="256"/>
+		</str>
+		<dex>
+			<random min="127" max="169"/>
+		</dex>
+		<int>
+			<random min="95" max="133"/>
+		</int>
+		<!-- Skills -->
+		<wrestling>
+			<random min="100" max="100"/>
+		</wrestling>
+		<tactics>
+			<random min="760" max="880"/>
+		</tactics>
+		<magicresistance>
+			<random min="722" max="797"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
 		<!-- Priv -->
 	</npc>
 	<!-- a ophidian warrior hard-->
 	<npc id="ophidian_warrior_hard">
-		<name>an ophidian warrior</name>
+		<name>a ophidian warrior</name>
 		<id>0x056</id>
-		<inherit id="monster_base" />
-		<karma><random min="2500" max="4999" /></karma>
-		<fame><random min="2500" max="4999" /></fame>
-		<defense><random min="35" max="35" /></defense>
-		<lodamage>0</lodamage>
-		<hidamage>0</hidamage>
-		<gold><random min="50" max="150" /></gold>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="2500" max="4999"/>
+		</karma>
+		<fame>
+			<random min="2500" max="4999"/>
+		</fame>
+		<defense>
+			<random min="41" max="41"/>
+		</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<gold>
+			<random min="50" max="150"/>
+		</gold>
 		<!-- Stats -->
-		<str><random min="200" max="250" /></str>
-		<dex><random min="124" max="165" /></dex>
-		<int><random min="95" max="133" /></int>
+		<str>
+			<random min="235" max="294"/>
+		</str>
+		<dex>
+			<random min="146" max="194"/>
+		</dex>
+		<int>
+			<random min="109" max="152"/>
+		</int>
 		<!-- Skills -->
-		<wrestling><random min="97" max="97" /></wrestling>
-		<tactics><random min="742" max="860" /></tactics>
-		<magicresistance><random min="705" max="779" /></magicresistance>
-		<anatomy><random min="0" max="0" /></anatomy>
-		<poisoning><random min="0" max="0" /></poisoning>
-		<magery><random min="0" max="0" /></magery>
-		<evaluatingint><random min="0" max="0" /></evaluatingint>
-		<meditation><random min="0" max="0" /></meditation>
+		<wrestling>
+			<random min="115" max="115"/>
+		</wrestling>
+		<tactics>
+			<random min="874" max="1012"/>
+		</tactics>
+		<magicresistance>
+			<random min="830" max="916"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
 		<!-- Priv -->
 	</npc>
 </definitions>
