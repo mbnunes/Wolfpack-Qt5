@@ -325,7 +325,7 @@ def onShowTooltip(player, object, tooltip):
 	if object.hastag('fluid'):
 		btype = unicode(object.gettag('fluid'))
 	
-	if FLUIDS.has_key(btype):
+	if object.name == '' and FLUIDS.has_key(btype):
 		fprop = FLUIDS[btype]
 
 		tooltip.reset()

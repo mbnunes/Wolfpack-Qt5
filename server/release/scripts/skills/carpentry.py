@@ -288,4 +288,3 @@ def loadMenu(id, parent = None):
 #
 def onLoad():
 	loadMenu('CARPENTRY')
-
