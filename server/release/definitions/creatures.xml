@@ -11,8 +11,9 @@
 			4: only 1 sound !!
 			
 		FLAGS:
-			Bit 1: Creature can Fly
-			Bit 2: Anti-Blink (Creature is Missing Animation #4)
+			0x01: Creature can Fly
+			0x02: Anti-Blink (Creature is Missing Animation #4)
+      0x04: Creature has no corpse
 			
 		SHRINK:
 			Item id for the animal in shrinked form (numeric!)
@@ -37,10 +38,10 @@
 	<charbase id="0xa" basesound="0x165" shrink="0x20d3" flags="0x1" />
 	<charbase id="0xb" basesound="0x183" shrink="0x20fd" />
 	<charbase id="0xc" basesound="0x16a" shrink="0x20d6" flags="0x1" />
-	<charbase id="0xd" basesound="0x107" shrink="0x20ed" />
-	<charbase id="0xe" basesound="0x10c" shrink="0x20d7" />
-	<charbase id="0xf" basesound="0x111" shrink="0x20f3" />
-	<charbase id="0x10" basesound="0x116" shrink="0x210b" /> 
+	<charbase id="0xd" basesound="0x107" shrink="0x20ed" flags="0x04"/>
+	<charbase id="0xe" basesound="0x10c" shrink="0x20d7"/>
+	<charbase id="0xf" basesound="0x111" shrink="0x20f3" flags="0x04"/>
+	<charbase id="0x10" basesound="0x116" shrink="0x210b" flags="0x04"/> 
 	<charbase id="0x11" basesound="0x1b0" shrink="0x20e0" /> 
 	<charbase id="0x12" basesound="0x16f" shrink="0x20d8" /> 
 	<charbase id="0x13" basesound="0x183" shrink="0x20fd" />  
@@ -242,8 +243,8 @@
 	<charbase id="0x191" basesound="0x0" shrink="0x2107" />
 	<charbase id="0x192" basesound="0x0" shrink="0x25f0" />
 	<charbase id="0x193" basesound="0x0" shrink="0x25f1" />
-	<charbase id="0x23d" basesound="0x107" />
-	<charbase id="0x23e" basesound="0x200" soundmode="4" />
+	<charbase id="0x23d" basesound="0x107" flags="0x04"/>
+	<charbase id="0x23e" basesound="0x200" soundmode="4" flags="0x04"/>
 	<charbase id="0x2f0" basesound="0x10c" shrink="0x25b1" />
 	<charbase id="0x2f1" basesound="0x174" shrink="0x258d" flags="0x1" />
 	<charbase id="0x2f2" basesound="0x174" shrink="0x258d" flags="0x1" />
