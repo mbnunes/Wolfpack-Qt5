@@ -50,7 +50,7 @@ Coord_cl getCharLosCoord(P_CHAR pChar, bool eye) {
 	return result;
 }
 
-Coord_cl getItemLosCoord(P_ITEM pItem, bool eye) {
+Coord_cl getItemLosCoord(P_ITEM pItem) {
 	Coord_cl pos = pItem->getOutmostPos();
 	tile_st tile = TileCache::instance()->getTile(pItem->id());
 	pos.z += tile.height / 2 + 1;
@@ -117,10 +117,134 @@ inline QValueList<Coord_cl> getPointList(const Coord_cl &origin, const Coord_cl 
         d6 += d1;
 	}
 
+	// Add the target to the end of the pointlist if it's not already
+	// there
+	if (pointList.count() != 0 && pointList.last() != target) {
+		pointList.append(target);
+	}
+
 	return pointList;
 }
 
-bool lineOfSightNew(const Coord_cl &origin, const Coord_cl &target) {
+void getAverageZ(const Coord_cl &pos, int &z, int &average, int &top) {
+	int elevations[4];
+	Coord_cl tempPos = pos;
+
+	// Get the elevation of the tile itself
+	elevations[0] = Maps::instance()->seekMap(tempPos).z;
+
+	// Get the elevation of the tile on the lower left
+	tempPos = pos;
+	tempPos.y += 1;
+	elevations[1] = Maps::instance()->seekMap(tempPos).z;
+
+	// Get the elevation of the tile on the lower right
+	tempPos = pos;
+	tempPos.x += 1;
+	elevations[2] = Maps::instance()->seekMap(tempPos).z;
+
+	// Get the elevation of the tile below
+	tempPos = pos;
+	tempPos.x += 1;
+	tempPos.y += 1;
+	elevations[3] = Maps::instance()->seekMap(tempPos).z;	
+
+	// Get the smallest of the z values
+	z = QMIN( QMIN( QMIN(elevations[0], elevations[1]), elevations[2]), elevations[3]);
+    
+	// Get the highest of the z values
+	top = QMAX( QMAX( QMAX(elevations[0], elevations[1]), elevations[2]), elevations[3]);
+
+	// Whatever difference is smaller leads to the average elevation of the tile
+	if (abs(elevations[0] - elevations[3]) > abs(elevations[1] - elevations[2])) {
+		average = (int)floor((elevations[1] + elevations[2]) / 2.0);
+	} else {
+		average = (int)floor((elevations[0] + elevations[3]) / 2.0);
+	}
+}
+
+// Check for blocking tiles at the given position
+inline bool checkBlockingTiles(const Coord_cl &pos, const Coord_cl &target) {
+	// Check Map first
+	map_st maptile = Maps::instance()->seekMap(pos);
+	int mapBottom, mapTop, mapAverage;
+	getAverageZ(pos, mapBottom, mapAverage, mapTop);
+
+	// Ignore certain types of maptiles (Thanks to Krrios for help)
+	if (maptile.id != 2 && maptile.id != 0x1DB && (maptile.id < 0x1AE || maptile.id > 0x1B5)) {
+		// See if we intersect the maptile
+		if (pos.z >= mapBottom && pos.z <= mapTop) {
+			// The maptile won't block if it's our target.
+			if (pos.x != target.x || pos.y != target.y || mapBottom > target.z || mapTop < target.z) {
+				return true;
+			}
+		}
+	}
+
+	// Search for statics at that position
+	StaticsIterator statics = Maps::instance()->staticsIterator(pos, true);
+
+	// There is a special behaviour for 0x244 maptiles if there
+	// is no static item or dynamic item in the area.
+	if (maptile.id == 0x244 && statics.atEnd()) {
+		// If there are *any* items at that position, skip the special behaviour.
+		cItemSectorIterator *items = SectorMaps::instance()->findItems(pos, 0);
+
+		bool found = false;
+		for (P_ITEM item = items->first(); item; item = items->next()) {
+			if (item->visible() == 0) {
+				found = true;
+				break;
+			}
+		}
+
+		if (!found) {
+			return true;
+		}
+	}
+
+	for (; !statics.atEnd(); ++statics) {
+		const staticrecord &item = *statics;
+
+		tile_st tile = TileCache::instance()->getTile(item.itemid);
+		int height = tile.height;		
+		
+		// Bridges are half as high as normal tiles
+		if (tile.flag2 & 0x04) {
+			height /= 2;
+		}
+
+		if (item.zoff <= pos.z && item.zoff + height >= pos.z) {
+			// Either a window or noshoot tile
+			if (tile.flag2 & 0x30) {
+				// This will not block if it's "within" our target.
+				if (pos.x != target.x || pos.y != target.y || item.zoff > target.z || item.zoff + height < target.z) {
+					return true;
+				}
+			}
+		}
+	}
+
+	return false;
+}
+
+// Make sure that the points are aligned from top to bottom
+inline void normalizeCoords(Coord_cl &a, Coord_cl &b) {
+	if (a.x > b.x) {
+		std::swap(a.x, b.x);
+	}
+
+	if (a.y > b.y) {
+		std::swap(a.y, b.y);
+	}
+
+	if (a.z > b.z) {
+		std::swap(a.z, b.z);
+	}
+}
+
+// Check the line of sight from a source to a target coordinate.
+bool lineOfSightNew(Coord_cl origin, Coord_cl target) {
 	// If the target is out of range, save cpu time by not calculating the
 	// line of sight
 	if (origin.map != target.map || origin.distance(target) > 25) {
@@ -138,11 +262,18 @@ bool lineOfSightNew(const Coord_cl &origin, const Coord_cl &target) {
 	for (it = pointList.begin(); it != pointList.end(); ++it) {
 		Coord_cl point = *it;
 
+		// Check if there are blocking map, static or dynamic items.
+		bool blocked = checkBlockingTiles(point, target);
+
 		// Play an effect for the tile
-		point.effect(0x181D, 10, 20);
+		if (blocked) {
+			point.effect(0x181D, 10, 50, 0x21);
+		} else {
+			point.effect(0x181D, 10, 50, 0x44);
+		}
 	}
 
-	return false;
+	return true;
 }
 
 Coord_cl Coord_cl::null( 0xFFFF, 0xFFFF, 0xFF, 0xFF );

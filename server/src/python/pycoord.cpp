@@ -28,6 +28,8 @@
 #include "utilities.h"
 #include "../coord.h"
 #include "../walking.h"
+#include "../items.h"
+#include "../basechar.h"
 
 /*
 	\object coord
@@ -178,13 +180,33 @@ static PyObject* wpCoord_lineofsight( wpCoord* self, PyObject* args )
 	return Py_False;
 }
 
-extern bool lineOfSightNew(const Coord_cl &origin, const Coord_cl &target);
+extern bool lineOfSightNew(Coord_cl origin, Coord_cl target);
+extern void getAverageZ(const Coord_cl &pos, int &z, int &average, int &top);
+extern Coord_cl getItemLosCoord(P_ITEM pItem);
+extern Coord_cl getCharLosCoord(P_CHAR pChar, bool eye);
 
 static PyObject* wpCoord_lineofsightnew( wpCoord* self, PyObject* args )
 {
-	Coord_cl pos;
-	if ( !PyArg_ParseTuple( args, "O&:coord.lineofsight(coord)", &PyConvertCoord, &pos ) )
+	PyObject *object;
+	if ( !PyArg_ParseTuple( args, "O:coord.lineofsight(obj)", &object ) )
 		return 0;
+
+	Coord_cl pos;
+
+	if (checkWpCoord(object)) {
+		pos = getWpCoord(object);
+		
+		// Get the average elevation
+        int bottom, average, top;
+		getAverageZ(pos, bottom, average, top);
+
+		// Use the top
+		pos.z = top;
+	} else if ( checkWpItem(object) ) {
+		pos = getItemLosCoord(getWpItem(object));
+	} else if ( checkWpChar(object) ) {
+		pos = getCharLosCoord(getWpChar(object), false);
+	}
 	
 	if ( lineOfSightNew( self->coord, pos ) )
 		return Py_True;
