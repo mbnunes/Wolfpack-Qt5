@@ -1,4 +1,11 @@
-# Python Class for Gumps
+#===============================================================#
+#   )      (\_     | WOLFPACK 13.0.0 Scripts                    #
+#  ((    _/{  "-;  | Created by: DarkStorm                      #
+#   )).-' {{ ;'`   | Revised by:                                #
+#  ( (  ;._ \\ ctr | Last Modification: Created                 #
+#===============================================================#
+# Python class for gumps.    									#
+#===============================================================#
 
 from types import *
 
