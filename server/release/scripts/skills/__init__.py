@@ -31,7 +31,7 @@ def successharvest( char, gem, table, resname, amount ):
 	resourceitem.color = table[ resname ][ COLORID ]
 	resourceitem.id = table[ resname ][ RESOURCEID ]
 	resourceitem.amount = amount
-        gem.amount = gem.amount - amount
+        gem.settag( 'resourcecount', gem.gettag( 'resourcecount' ) - amount )
 
 	backpack.additem( resourceitem )
 
