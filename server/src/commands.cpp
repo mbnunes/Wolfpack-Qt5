@@ -1618,6 +1618,14 @@ void commandPages( cUOSocket *socket, const QString &command, QStringList &args 
 	}
 }
 
+void commandShutDown( cUOSocket *socket, const QString &command, QStringList &args )
+{
+	// Shutdown
+	// Shutdown x (x in seconds)
+	if( args.count() == 0 )
+		keeprun = 0;
+}
+
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
@@ -1638,6 +1646,7 @@ stCommand cCommands::commands[] =
 	{ "SAVE",			commandSave },
 	{ "SET",			commandSet },
 	{ "SHOW",			commandShow },
+	{ "SHUTDOWN",		commandShutDown },
 	{ "SPAWNREGION",	commandSpawnRegion },
 	{ "TAGS",			commandTags },
 	{ "TELE",			commandTele },

@@ -2121,12 +2121,6 @@ int main( int argc, char *argv[] )
 	if (NewWarningsLogged())
 		clConsole.send("New WARNINGS have been logged. Probably scripting errors. See the warnings*.log for details !\n");
 
-/*	delete cItemsManager::getInstance();
-	delete cCharsManager::getInstance();
-	delete cAllSpawnRegions::getInstance();
-	delete cAllTerritories::getInstance();
-	delete cAllMakeMenus::getInstance();*/
-
 	if (error) {
 		clConsole.send("ERROR: Server terminated by error!\n");
 
