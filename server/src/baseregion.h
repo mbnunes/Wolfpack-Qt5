@@ -165,6 +165,11 @@ protected:
 	}
 
 protected:
+	QString							name_;			// name of the region (section's name)
+	std::vector< rect_st >			rectangles_;	// vector of rectangles
+	std::vector< cBaseRegion* >		subregions_;	// list of region object references of included regions
+	cBaseRegion*					parent_;		// the region directly above this region
+public:
 	struct rect_st 
 	{
 		UI16 x1;
@@ -172,12 +177,7 @@ protected:
 		UI16 y1;
 		UI16 y2;
 	};
-
-	QString							name_;			// name of the region (section's name)
-	std::vector< rect_st >			rectangles_;	// vector of rectangles
-	std::vector< cBaseRegion* >		subregions_;	// list of region object references of included regions
-	cBaseRegion*					parent_;		// the region directly above this region
-public:
+	
 	// Only getters, no setters
 	cBaseRegion *parent() const { return parent_; }
 	std::vector< cBaseRegion* > children() const { return subregions_; }
