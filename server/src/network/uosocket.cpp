@@ -288,6 +288,11 @@ void cUOSocket::recieve()
 */
 void cUOSocket::handleLoginRequest( cUORxLoginRequest *packet )
 {
+	if( _account )
+	{
+		sendCharList();
+		return;
+	}
 	// If we dont authenticate disconnect us
 	if( !authenticate( packet->username(), packet->password() ) )
 	{

@@ -29,13 +29,6 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-// Books class by Lord Binary 7'th December 1999
-// Implements writable books
-
-// V0.9 5'th dec, initial version
-// V1.0 7'th dec 1999, "wrapped" everything in a class, added customable number of max-pages
-// V1.1 12-dec-1999 -> nasty bug fixed (item# used as "key" instead of serial#) and a few very small bugfixes
-
 // V2.0 20-jun-2002 rewritten - sereg
 
 #include "books.h"
