@@ -12,7 +12,7 @@
 	\command tilecolorz
 	\description Same as tilecolor, but limited to one z coordinate.
 	\usage - <code>tilecolorz z color</code>
-	- <code>tilecolor z color1,color2,...,colorn</coode>
+	- <code>tilecolorz z color1,color2,...,colorn</coode>
 	Z is the height where the items should be colored.
 	Color is the id of the color you want to hue the items in.
 	If you give more than one color, one color is randomly selected
