@@ -159,13 +159,13 @@ public:
 
 		// Child Element ?
 		if( stack.count() > 0 )
-		{			
+		{
 			cElement *parent = stack.current(); // Pop the potential parent
 			parent->addChild( element ); // Add the child to it's parent
 			element->setParent( parent );
 		}
 
-		stack.push( element ); // Push our element (there may be children)		
+		stack.push( element ); // Push our element (there may be children)
 		return true;
 	}
 
@@ -173,20 +173,20 @@ public:
 		if (stack.isEmpty()) {
 			return true;
 		}
-				
+
 		cElement *element = stack.pop();
 
 		// Did we complete a parent node?
 		if (stack.isEmpty()) {
 			// Find a category node
 			unsigned int i = 0;
-			
+
 			// Sort it into a category.
 			while(categories[i].name != 0) {
 				if (element->name() == categories[i].name) {
 					QString tagId = element->getAttribute( "id" );
 
-					// If the element has an id, 
+					// If the element has an id,
 					if (!tagId.isEmpty()) {
 						if (impl->unique[categories[i].key].contains(tagId) && !SrvParams->overwriteDefinitions()) {
 							Console::instance()->log(LOG_WARNING, QString("Duplicate %1: %2\n[File: %3, Line: %4]\n").arg(element->name()).arg(tagId).arg(filename).arg(locator->lineNumber()));
@@ -203,7 +203,7 @@ public:
 				++i;
 			}
 
-			Console::instance()->log(LOG_WARNING, QString("Unknown element: %1\n[File: %2, Line: %3]\n").arg(element->name()).arg(filename).arg(locator->lineNumber()));		
+			Console::instance()->log(LOG_WARNING, QString("Unknown element: %1\n[File: %2, Line: %3]\n").arg(element->name()).arg(filename).arg(locator->lineNumber()));
 			delete element;
 		}
 
@@ -238,7 +238,7 @@ public:
 		Console::instance()->log( LOG_ERROR, QString("%1\n[File: %2, Line: %3, Column: %4").arg(exception.message(), filename).arg(exception.lineNumber()).arg(exception.columnNumber()));
 		return true; // continue
 	}
-	
+
 
 };
 
@@ -248,14 +248,14 @@ bool WPDefManager::ImportSections( const QString& FileName )
 	QFile File( FileName );
 
     if ( !File.open( IO_ReadOnly ) )
-	{	
+	{
 		Console::instance()->send( "Unable to open " );
 		Console::instance()->send( FileName );
 		Console::instance()->send( "!\n" );
 		return false;
 	}
 
-	QXmlInputSource input( &File );	
+	QXmlInputSource input( &File );
 	QXmlSimpleReader reader;
 	reader.setFeature( "http://trolltech.com/xml/features/report-whitespace-only-CharData", false );
 
@@ -272,7 +272,7 @@ void WPDefManager::unload( void )
 {
 	// Clear the nodes
 	unsigned int i;
-	
+
 	for( i = 0; i < WPDT_COUNT; ++i )
 	{
 		QMap< QString, cElement* >::iterator it2;
@@ -287,7 +287,7 @@ void WPDefManager::unload( void )
 
 		impl->nonunique[i].clear();
 	}
-	
+
 	impl->imports.clear();
 
 	BaseDefManager::instance()->unload();
@@ -311,7 +311,7 @@ void WPDefManager::reload( void )
 	Resources::instance()->reload();
 	MakeMenus::instance()->reload();
 	ContextMenus::instance()->reload();
-	Skills->reload();	
+	Skills->reload();
 
 	// Update the Regions
 	cCharIterator iter;
@@ -331,7 +331,7 @@ void WPDefManager::load( void )
 
 	Console::instance()->sendProgress( "Loading Definitions" );
 
-	impl->imports = QStringList::split( ";", SrvParams->getString( "General", "Definitions", "definitions.xml", true ) );
+	impl->imports = QStringList::split( ";", SrvParams->getString( "General", "Definitions", "definitions/index.xml", true ) );
 
 	while (i < impl->imports.size()) {
 		ImportSections(impl->imports[i]);
@@ -357,7 +357,7 @@ void WPDefManager::load( void )
 			// Using the nodename is a very very bad habit
 			// if the name of the node is "item" then
 			// use the node value instead
-		
+
 			if( childTag->name() == "item" )
 				data = childTag->text();
 			else
@@ -366,7 +366,7 @@ void WPDefManager::load( void )
 			int mult = childTag->getAttribute( "mult" ).toInt();
 			if( mult <= 0 )
 				mult = 1;
-			
+
 			int j = 0;
 			while( j < mult )
 			{
@@ -528,7 +528,7 @@ void cElement::copyAttributes( const QXmlAttributes &attributes )
 	if( attrCount_ > 0 )
 	{
 		this->attributes = new stAttribute*[ attrCount_ ];
-	
+
 		for( unsigned int i = 0; i < attrCount_; ++i )
 		{
 			this->attributes[i] = new stAttribute;
@@ -567,7 +567,7 @@ void cElement::removeChild( cElement *element )
 		{
 			// Found the element we want to delete
 			unsigned int offset = 0;
-			
+
 			cElement **newChildren = new cElement* [ childCount_ - 1 ];
 
 			for( unsigned int j = 0; j < childCount_; ++j )
@@ -647,7 +647,7 @@ const cElement *cElement::findChild( const QString &name ) const
 		if( children[i]->name() == name.latin1() )
 			return children[i];
 	}
-	
+
 	return 0;
 }
 
@@ -671,7 +671,7 @@ QString cElement::value() const
 	for( unsigned int i = 0; i < childCount(); ++i )
 	{
 		const cElement *childTag = getChild( i );
-		
+
 		if( childTag->name() == "random" )
 		{
 			if( childTag->hasAttribute( "min" ) && childTag->hasAttribute( "max" ) )
@@ -700,7 +700,7 @@ QString cElement::value() const
 			else if( childTag->hasAttribute( "value" ) )
 			{
 				QStringList parts = QStringList::split( "-", childTag->getAttribute( "value", "0-0" ) );
-				
+
 				if( parts.count() >= 2 )
 				{
 					QString min = parts[0];
@@ -779,7 +779,7 @@ static PyObject* wpElement_findchild(wpElement *self, PyObject *args) {
 	if (!PyArg_ParseTuple(args, "s:element.findchild(name)", &name)) {
 		return 0;
 	}
-    
+
 	cElement *result = const_cast<cElement*>(self->element->findChild(name));
 
 	if (result) {
@@ -796,7 +796,7 @@ static PyObject* wpElement_getchild(wpElement *self, PyObject *args) {
 	if (!PyArg_ParseTuple(args, "I:element.getchild(pos)", &pos)) {
 		return 0;
 	}
-    
+
 	cElement *result = const_cast<cElement*>(self->element->getChild(pos));
 
 	if (result) {
