@@ -64,7 +64,6 @@ void WPConsole_cl::setStreams(istream *in, ostream *out, ostream *error, ostream
 	logstrm    = log;
 }
 
-
 //========================================================================================
 // Send a char string to the console
 void WPConsole_cl::send(char* szMessage, ...)
@@ -72,7 +71,7 @@ void WPConsole_cl::send(char* szMessage, ...)
 	va_list argptr;
 	char msg[512];
 	va_start(argptr, szMessage);
-	vsnprintf(msg,512, szMessage, argptr);
+	vsnprintf(msg, 512, szMessage, argptr);
 	va_end(argptr);
 	
 	string sMessage(msg);

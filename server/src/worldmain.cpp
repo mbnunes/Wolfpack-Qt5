@@ -1032,7 +1032,7 @@ void CWorldMain::savenewworld(char x)
 // For now on let's save all at once.
 
 	AllCharsIterator iterChars;
-	for (iterChars.Begin(); iterChars.GetData() != iterChars.End(); iterChars++)
+	for (iterChars.Begin(); !iterChars.atEnd(); iterChars++)
 	{
 		SaveChar(DEREF_P_CHAR(iterChars.GetData()));
 	}

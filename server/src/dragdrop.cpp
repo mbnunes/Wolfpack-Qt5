@@ -624,26 +624,26 @@ static bool ItemDroppedOnGuard(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	if( strstr( pi->name, "the head of" ) )
 	{
 		// This is a head of someone, see if the owner has a bounty on them
-		int nCharIdx = calcCharFromSer( pi->ownserial );
+		P_CHAR pCharIdx = FindCharBySerial( pi->ownserial );
 		
-		if( chars[nCharIdx].questBountyReward > 0 )
+		if( pCharIdx->questBountyReward > 0 )
 		{
 			// Give the person the bounty assuming that they are not the
 			// same person as the reward is for
-			if( pc_currchar->serial != chars[nCharIdx].serial )
+			if( pc_currchar->serial != pCharIdx->serial )
 			{
 				// give them the gold for bringing the villan to justice
-				addgold( s, chars[nCharIdx].questBountyReward );
-				goldsfx( s, chars[nCharIdx].questBountyReward );
+				addgold( s, pCharIdx->questBountyReward );
+				goldsfx( s, pCharIdx->questBountyReward );
 				
 				// Now thank them for their hard work
 				sprintf((char*) temp, "Excellent work! You have brought us the head of %s. Here is your reward of %d gold coins.",
-					chars[nCharIdx].name,
-					chars[nCharIdx].questBountyReward );
+					pCharIdx->name,
+					pCharIdx->questBountyReward );
 				npctalk( s, t, (char*)temp, 0);
 				
 				// Delete the Bounty from the bulletin board
-				Bounty->BountyDelete( chars[nCharIdx].serial );
+				Bounty->BountyDelete( pCharIdx->serial );
 				
 				// Adjust their karma and fame back to what it was before the beheading!
 				pc_currchar->fame   += 100;

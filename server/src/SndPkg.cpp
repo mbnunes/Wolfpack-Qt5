@@ -1277,11 +1277,14 @@ void chardel (UOXSOCKET s) // Deletion of character
 	{
 		j=0;
 		k=-1;
-		for (i=0;i<charcount;i++)
+		AllCharsIterator iterChars;
+		for (iterChars.Begin(); !iterChars.atEnd(); iterChars++)
 		{
-			if ((chars[i].account==acctno[s] && !chars[i].free))
+			P_CHAR pc = iterChars.GetData();
+			if ((pc->account==acctno[s] && !pc->free))
 			{
-				if (j==buffer[s][0x22]) k=i;
+				if (j == buffer[s][0x22]) 
+					k = DEREF_P_CHAR(pc);
 				j++;
 			}
 		}

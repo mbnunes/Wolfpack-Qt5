@@ -454,9 +454,9 @@ public:
 	~AllCharsIterator()							{ }
 	P_CHAR Begin()								{ pos = 0; return pos < charcount ? &chars[pos] : NULL;}
 	P_CHAR Next()								{ return pos++ < charcount ? &chars[pos] : NULL; }
-	P_CHAR End()								{ return NULL; }
+	bool atEnd()								{ return GetData() == NULL; }
 	P_CHAR GetData(void)						{ return pos < charcount ? &chars[pos] : NULL; }
-	AllCharsIterator& operator++(int/* inc*/)		{ pos++; return *this; }
+	AllCharsIterator& operator++(int/* inc*/)	{ pos++; return *this; }
 	
 };
 
