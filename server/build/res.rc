@@ -34,6 +34,13 @@ IDI_ICONRED             ICON                    "icon_red.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
+// Data
+//
+
+IDD_CREDITS             RCDATA                        "AUTHORS.txt"
+
+/////////////////////////////////////////////////////////////////////////////
+//
 // Menu
 //
 
@@ -134,6 +141,43 @@ END
 //
 
 IDB_LOGO                BITMAP                  "logo.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_DIALOGABOUT DIALOGEX 0, 0, 291, 175
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Wolfpack Credits"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,7,154,50,14,BS_CENTER
+    CONTROL         "",IDC_RICHEDIT,"RichEdit20A",ES_MULTILINE | ES_READONLY | 
+                    ES_NUMBER | WS_BORDER | WS_VSCROLL | WS_TABSTOP,7,7,277,
+                    143,WS_EX_TRANSPARENT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_DIALOGABOUT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 284
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 168
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
 #endif    // German (Germany) resources
 /////////////////////////////////////////////////////////////////////////////
 

@@ -2,12 +2,16 @@
 // Microsoft Visual C++ generated include file.
 // Used by res.rc
 //
+#define IDD_TEXT                        4
+#define IDD_CREDITS                     4
 #define IDI_ICON1                       101
 #define IDR_MAINMENU                    102
 #define IDB_LOGO                        102
 #define IDI_ICONGREEN                   105
 #define IDI_ICON3                       106
 #define IDI_ICONRED                     106
+#define IDD_DIALOGABOUT                 107
+#define IDC_RICHEDIT                    1000
 #define IDC_EXIT                        40001
 #define ID_RELOAD_ACCOUNTS              40002
 #define ID_RELOAD_CONFIGURATION         40003
@@ -23,9 +27,9 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NO_MFC                     1
-#define _APS_NEXT_RESOURCE_VALUE        107
+#define _APS_NEXT_RESOURCE_VALUE        109
 #define _APS_NEXT_COMMAND_VALUE         40011
-#define _APS_NEXT_CONTROL_VALUE         1000
+#define _APS_NEXT_CONTROL_VALUE         1001
 #define _APS_NEXT_SYMED_VALUE           101
 #endif
 #endif

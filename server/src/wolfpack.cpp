@@ -252,8 +252,10 @@ QValueVector< eActionType > actionQueue;
 
 void queueAction( eActionType type )
 {
-	QMutexLocker lock( &actionMutex );
-	actionQueue.push_back( type );
+	if (serverState == RUNNING) {
+		QMutexLocker lock( &actionMutex );
+		actionQueue.push_back( type );
+	}
 }
 
 //#if defined(_DEBUG)

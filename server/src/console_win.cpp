@@ -122,80 +122,112 @@ void drawWindow( HWND window )
 	EndPaint( window, &paintInfo );
 }
 
+LRESULT CALLBACK DialogProc(HWND hwnd, unsigned int msg, WPARAM wparam, LPARAM lparam) {
+	HWND richtext;
+
+	switch (msg) {
+		case WM_COMMAND:
+			if (HIWORD(wparam) == BN_CLICKED && (HWND) lparam == GetDlgItem(hwnd, IDOK)) {
+				EndDialog(hwnd, 0);
+			}
+			break;
+
+		case WM_CLOSE:
+			EndDialog(hwnd, 0);
+			break;
+
+		case WM_INITDIALOG:
+			richtext = GetDlgItem(hwnd, IDC_RICHEDIT);
+
+			if (richtext) {
+				HRSRC resource = FindResource(appInstance, MAKEINTRESOURCE(IDD_CREDITS), RT_RCDATA);
+				HGLOBAL rData = LoadResource(appInstance, resource);
+				
+				const char *data = (const char*)LockResource(rData);
+				QStringList creditList = QStringList::split(",", data);
+				QString credits = "This is an unsorted not neccesarily complete list of people who contributed to Wolfpack:\n\n";
+
+				for (unsigned int i = 0; i < creditList.size(); ++i) {
+					credits.append(creditList[i]);
+				}
+                
+				SetWindowText(richtext, credits.latin1());
+
+				UnlockResource(rData);
+				FreeResource(rData);
+			}
+	}
+
+	return FALSE;
+}
+
 bool handleMenuSelect( unsigned int id )
 {
 	bool result = true;
 
-	if( serverState != RUNNING )
-	{
-		result = false;
-	}
-	else
-	{
-		cUOSocket *mSock;
-		unsigned int i;
+	cUOSocket *mSock;
+	unsigned int i;
 
-		switch( id )
+	switch( id )
+	{
+	case IDC_EXIT:
+		keeprun = 0;
+
+		if( canClose )
+			DestroyWindow( mainWindow );
+
+		break;
+
+	case ID_HELP_ABOUT:
+		DialogBox(appInstance, MAKEINTRESOURCE(IDD_DIALOGABOUT), mainWindow, (DLGPROC)DialogProc);
+		break;
+
+	case ID_HELP_WOLFPACKHOMEPAGE:
+		ShellExecute(mainWindow, "open", "http://www.wpdev.org", 0, 0, SW_NORMAL);
+		break;
+
+	case ID_RELOAD_ACCOUNTS:
+		queueAction( RELOAD_ACCOUNTS );
+		break;
+
+	case ID_RELOAD_PYTHON:		
+		queueAction( RELOAD_PYTHON );
+		break;
+
+	case ID_RELOAD_SCRIPTS:
+		queueAction( RELOAD_SCRIPTS );
+		break;
+
+	case ID_RELOAD_CONFIGURATION:
+		queueAction( RELOAD_CONFIGURATION );
+		break;
+
+	case ID_SERVER_SAVEWORLD:
+		queueAction( SAVE_WORLD );
+		break;
+
+	case ID_SERVER_LISTUSERS:
+		// We simply do our thread safety manually here
+		cNetwork::instance()->lock();
+
+		// Generate a list of Users
+		mSock = cNetwork::instance()->first();
+		i = 0;
+		
+		for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 		{
-		case IDC_EXIT:
-			keeprun = 0;
-
-			if( canClose )
-				DestroyWindow( mainWindow );
-
-			break;
-
-		case ID_HELP_ABOUT:
-			MessageBox(mainWindow, "???", "Credits", MB_OK|MB_ICONINFORMATION);
-			break;
-
-		case ID_HELP_WOLFPACKHOMEPAGE:
-			ShellExecute(mainWindow, "open", "http://www.wpdev.org", 0, 0, SW_NORMAL);
-			break;
-
-		case ID_RELOAD_ACCOUNTS:
-			queueAction( RELOAD_ACCOUNTS );
-			break;
-
-		case ID_RELOAD_PYTHON:
-			queueAction( RELOAD_PYTHON );
-			break;
-
-		case ID_RELOAD_SCRIPTS:
-			queueAction( RELOAD_SCRIPTS );
-			break;
-
-		case ID_RELOAD_CONFIGURATION:
-			queueAction( RELOAD_CONFIGURATION );
-			break;
-
-		case ID_SERVER_SAVEWORLD:
-			queueAction( SAVE_WORLD );
-			break;
-
-		case ID_SERVER_LISTUSERS:
-			// We simply do our thread safety manually here
-			cNetwork::instance()->lock();
-
-			// Generate a list of Users
-			mSock = cNetwork::instance()->first();
-			i = 0;
-			
-			for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
-			{
-				if( mSock->player() )
-					Console::instance()->send( QString("%1) %2 [%3]\n").arg(++i).arg(mSock->player()->name()).arg(QString::number( mSock->player()->serial(), 16) ) );
-			}
-
-			cNetwork::instance()->unlock();
-
-			Console::instance()->send( QString( "Total Users Online: %1\n" ).arg( i ) );
-
-			break;
-
-		default:
-			result = false;
+			if( mSock->player() )
+				Console::instance()->send( QString("%1) %2 [%3]\n").arg(++i).arg(mSock->player()->name()).arg(QString::number( mSock->player()->serial(), 16) ) );
 		}
+
+		cNetwork::instance()->unlock();
+
+		Console::instance()->send( QString( "Total Users Online: %1\n" ).arg( i ) );
+
+		break;
+
+	default:
+		result = false;
 	}
 
 	return result;
@@ -367,8 +399,9 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 	case WM_CLOSE:
 		keeprun = 0;
 		
-		if( canClose )
+		if (canClose) {
 			DestroyWindow( mainWindow );
+		}
 
 		return 1;
 
@@ -517,7 +550,7 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 	ShowWindow( mainWindow, SW_NORMAL );
 
 	cServerThread serverThread(lpCmdLine);
-	serverThread.start();
+	//serverThread.start();
 
 	MSG msg;
 
