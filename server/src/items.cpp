@@ -97,6 +97,7 @@ cItem::cItem( const cItem& src ) : cUObject(src), totalweight_( 0 ), container_(
 	this->basedef_ = src.basedef_;
 	this->totalweight_ = amount_ * weight();
 	this->multi_ = 0;
+	this->isPersistent = false;
 	moveTo( src.pos_, true );
 }
 
@@ -1088,7 +1089,6 @@ P_ITEM cItem::dupe()
 	{
 		nItem->moveTo( pos_ );
 	}
-
 	return nItem;
 }
 
