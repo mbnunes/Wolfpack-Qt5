@@ -2082,7 +2082,9 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 
 	//int cansteal=2+pc_currchar->baseskill[STEALING]/100; // 0 stealing 2 stones, 10  3 stones, 99.9 12 stones, 100 17 stones !!!
 	//if (pc_currchar->baseskill[STEALING]>999) cansteal=17;
-	int cansteal = max(1,pc_currchar->baseskill[STEALING]/1000);
+	//int cansteal = max(1,pc_currchar->baseskill[STEALING]/1000);
+	int cansteal=200+pc_currchar->baseskill[STEALING];
+	if (pc_currchar->baseskill[STEALING]>999) cansteal=1700;
 		
 	if (buffer[s][7]<0x40)
 	{
