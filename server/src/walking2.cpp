@@ -219,7 +219,7 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 #endif
 			if ( socket != INVALID_UOXSOCKET )
 				deny(socket, pc, sequence);
-			if ( pc->npc )
+			if ( pc->isNpc() )
 					pc->pathnum += P_PF_MRV;
 			return;
 		}
@@ -231,7 +231,7 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 		printf("%s (cMovement::Walking) dx (%d) dy (%d) dz (%d)\n", DBGFILE, myx, myy, myz);
 #endif
 
-		if ( pc->npc && CheckForCharacterAtXYZ(pc, myx, myy, myz) )
+		if ( pc->isNpc() && CheckForCharacterAtXYZ(pc, myx, myy, myz) )
 		{
 			pc->pathnum += P_PF_MRV;
 			return;
@@ -300,7 +300,7 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 	HandleGlowItems(pc, socket);
 	
 	// would have already collided, right??
-	if (!amTurning && pc->npc == 0)
+	if (!amTurning && pc->isPlayer())
 		Magic->GateCollision(DEREF_P_CHAR(pc));
 	
 	// again, don't know if we need to check when turning or not
@@ -394,7 +394,7 @@ bool cMovement::isOverloaded(P_CHAR pc, UOXSOCKET socket, int sequence)
 {
 	// Who are we going to check for weight restrictions?
 	if ( !pc->dead &&							// If they're not dead
-		 !pc->npc &&							// they're not an npc
+		 !pc->isNpc() &&							// they're not an npc
 		 !pc->isGMorCounselor())			// they're not a GM
 	{
 		// Can probably put this in the above check, but I'll keep it here for now.
@@ -433,7 +433,7 @@ short int cMovement::CheckMovementType(P_CHAR pc)
 		return P_C_IS_GM_BODY;
 
 	// Am I a player?
-	if (!pc->npc)
+	if (pc->isPlayer())
 		return P_C_IS_PLAYER;
 
 	// Change this to a flag in NPC.scp
@@ -471,7 +471,7 @@ bool cMovement::CheckForCharacterAtXYZ(P_CHAR pc, short int cx, short int cy, si
 				CHARACTER i = calcCharFromSer(vecEntries[k]);
 				if (i != -1)
 				{
-					if (i!=DEREF_P_CHAR(pc) && (online(i) || chars[i].npc))
+					if (i!=DEREF_P_CHAR(pc) && (online(i) || chars[i].isNpc()))
 					{
 						// x=x,y=y, and distance btw z's <= MAX STEP
 						if ((chars[i].pos.x==cx) && (chars[i].pos.y==cy) && (abs(chars[i].pos.z-cz) <= P_M_MAX_Z_CLIMB))
@@ -724,7 +724,7 @@ bool cMovement::CheckForStealth(P_CHAR pc, UOXSOCKET socket)
 // see if a player has tried to move into a house they were banned from it
 bool cMovement::CheckForHouseBan(P_CHAR pc, UOXSOCKET socket)
 {
-    if ( !pc->npc ) // this code is also called from npcs-walking code, so only check for players to cut down lag!
+    if ( pc->isPlayer() ) // this code is also called from npcs-walking code, so only check for players to cut down lag!
     {
         	walksequence[socket] = -1;
 		int h=HouseManager->GetHouseNum(pc);
@@ -982,9 +982,9 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short
 				//     extmove[12]=chars[currchar[c]].dir&0x7F;
 				//     extmove[12]=buffer[c][1];
 				ShortToCharPtr(pc->skin, &extmove[13]);
-				if( pc->npc /*&& pc->runs*/ && pc->war ) // Ripper 10-2-99 makes npcs run in war mode or follow :) (Ab mod, scriptable)
+				if( pc->isNpc() /*&& pc->runs*/ && pc->war ) // Ripper 10-2-99 makes npcs run in war mode or follow :) (Ab mod, scriptable)
 					extmove[12]=dir|0x80;
-				if( pc->npc && (pc->ftarg>0))
+				if( pc->isNpc() && (pc->ftarg>0))
 					extmove[12]=dir|0x80;
 				if (pc->war) extmove[15]=0x40; else extmove[15]=0x00;
 				if (pc->hidden) extmove[15]=extmove[15]|0x80;
@@ -1039,7 +1039,7 @@ void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, 
 				printf("DEBUG: Mapchar %i [%i]\n",mapchar,mapitem);
 #endif
 				//Let GMs see logged out players
-				if ( online(DEREF_P_CHAR(mapchar)) || mapchar->npc || pc->isGM())
+				if ( online(DEREF_P_CHAR(mapchar)) || mapchar->isNpc() || pc->isGM())
 				{
 					if (
 						(((abs(newx-mapchar->pos.x)== visibleRange )||(abs(newy-mapchar->pos.y)== visibleRange )) &&
@@ -1059,7 +1059,7 @@ void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, 
 				pc->isGMorCounselor()
 				))
 				{
-					if (mapchar != pc && (online(DEREF_P_CHAR(mapchar)) || mapchar->npc))
+					if (mapchar != pc && (online(DEREF_P_CHAR(mapchar)) || mapchar->isNpc()))
 					{
 						if (mapchar->pos.x == pc->pos.x && mapchar->pos.y == pc->pos.y && mapchar->pos.z == pc->pos.z)
 						{
@@ -1256,7 +1256,7 @@ void cMovement::HandleTeleporters(P_CHAR pc, UOXSOCKET socket, short int oldx, s
 	if ((pc->pos.x!=oldx)||(pc->pos.y!=oldy))
 	{
 		//    /*if (!(pc->dead))*/ objTeleporters(DEREF_P_CHAR(pc)); //morrolan
-		if ( pc->npc==0)
+		if ( pc->isPlayer())
 			objTeleporters( DEREF_P_CHAR(pc) );   // ripper
 		teleporters( DEREF_P_CHAR(pc) );
 	}
@@ -1266,7 +1266,7 @@ void cMovement::HandleTeleporters(P_CHAR pc, UOXSOCKET socket, short int oldx, s
 /********* start of LB's no rain & snow in buildings stuff ***********/
 void cMovement::HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket)
 {
-	if (!pc->npc && online(DEREF_P_CHAR(pc))) // check for being in buildings (for weather) only for PC's
+	if (pc->isPlayer() && online(DEREF_P_CHAR(pc))) // check for being in buildings (for weather) only for PC's
 	{
 		// ok, this is already a bug, because the new weather stuff doesn't use this global
 		// for the weather.
@@ -1581,7 +1581,7 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
 	int j = rand() % 40;
 
     int dnpctime=0;
-    if (pc_i->npc && (pc_i->npcmovetime<=currenttime||(overflow)))
+    if (pc_i->isNpc() && (pc_i->npcmovetime<=currenttime||(overflow)))
     {
 #if DEBUG_NPCWALK
 		printf("ENTER (%s): %d AI %d WAR %d J\n", pc_i->name, pc_i->npcWander, pc_i->war, j);
@@ -1593,7 +1593,7 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
             {
                 if ( chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc_attacker)) > 1 /* || chardir(i, l)!=chars[i].dir // by Thyme: causes problems, will fix */)
                 {
-                    if ( online( DEREF_P_CHAR(pc_attacker) ) || pc_attacker->npc )
+                    if ( online( DEREF_P_CHAR(pc_attacker) ) || pc_attacker->isNpc() )
                     {
 						PathFind(pc_i, pc_attacker->pos.x, pc_attacker->pos.y);
                         j = chardirxyz(DEREF_P_CHAR(pc_i), pc_i->path[pc_i->pathnum].x, pc_i->path[pc_i->pathnum].y);
@@ -1617,7 +1617,7 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
 				{
 					P_CHAR pc_target = MAKE_CHAR_REF(pc_i->ftarg);
 	                if (pc_target == NULL) return;
-		            if ( online(DEREF_P_CHAR(pc_target)) || pc_target->npc )
+		            if ( online(DEREF_P_CHAR(pc_target)) || pc_target->isNpc() )
 			        {
 				        if ( chardist(DEREF_P_CHAR(pc_i), DEREF_P_CHAR(pc_target)) > 1 /* || chardir(i, k)!=chars[i].dir // by THyme: causes problems, will fix */)
 					    {
