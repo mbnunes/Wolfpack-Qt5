@@ -2141,7 +2141,7 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		sendStats.setStrength( pChar->strength() );
 		sendStats.setDexterity( pChar->dexterity() );
 		sendStats.setIntelligence( pChar->intelligence() );
-		sendStats.setWeight( pChar->weight() * 10 );
+		sendStats.setWeight( pChar->weight() );
 		sendStats.setGold( _player->CountBankGold() + pChar->CountGold() );
 		sendStats.setArmor( pChar->calcDefense( ALLBODYPARTS ) );
 		sendStats.setSex( pChar->gender() );

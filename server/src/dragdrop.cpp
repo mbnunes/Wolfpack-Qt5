@@ -60,7 +60,7 @@ void DragAndDrop::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 	if( !pChar )
 		return;
 
-	UINT32 weight = pChar->weight();
+	float weight = pChar->weight();
 
 	// Fetch the grab information
 	UI16 amount = packet->amount();
@@ -461,7 +461,7 @@ void DragAndDrop::dropItem( cUOSocket *socket, cUORxDropItem *packet )
 		return;
 	}
 
-	UINT32 weight = pChar->weight();
+	float weight = pChar->weight();
 
 	// Item dropped on Ground
 	if( !iCont && !cCont )

@@ -153,8 +153,8 @@ cItem::cItem( const cItem &src )
 	this->visible_=src.visible_;
 	this->weight_ = src.weight_;
 	this->base = src.base;
+	this->setTotalweight( ceilf( amount_ * weight_ * 100 ) / 100 );
 
-	this->setTotalweight( amount_ * weight_ );
 	this->recreateEvents();
 
 }
@@ -461,7 +461,7 @@ void cItem::save()
 		addField("def",				def_);
 		addField("hidamage",		hidamage_);
 		addField("lodamage",		lodamage_);
-		addField("weight",			weight_);
+		addField("weight",			( ceilf( weight_ * 100 ) / 100 ) );
 		addField("hp",				hp_ );
 		addField("maxhp",			maxhp_ );
 		addField("speed",			speed_ );
@@ -1094,7 +1094,7 @@ void cItem::processNode( const cElement *Tag )
 
 	// <weight>10</weight>
 	else if( TagName == "weight" )
-		this->setWeight( (UINT32)( Value.toFloat() * 10 ) );
+		this->setWeight( Value.toFloat() );
 
 	// <durability>10</durabilty>
 	else if( TagName == "durability" )
@@ -1283,9 +1283,9 @@ void cItem::processModifierNode( const cElement *Tag )
 	else if( TagName == "weight" )
 	{
 		if( Value.contains(".") || Value.contains(",") )
-			setWeight( (INT32)ceil((float)weight() * Value.toFloat()) );
+			setWeight( ceilf( (float)weight() * Value.toFloat() * 100 ) / 100 );
 		else
-			setWeight( weight() + Value.toInt() );
+			setWeight( (float)weight() + Value.toFloat() );
 	}
 
 	// <sellprice>+20</sellprice>
@@ -1426,12 +1426,12 @@ void cItem::showName( cUOSocket *socket )
 	// Send the item/weight as the last line in case of containers
 	if( type() == 1 || type() == 63 || type() == 65 || type() == 87 )
 	{
-		UINT16 tWeight = totalweight_;
+		float tWeight = totalweight_;
 
 		if( weight_ == 255 )
 			tWeight -= 255;
 
-		QString message = tr( "[%1 items, %2 stones]" ).arg( content_.size() ).arg( tWeight/10 );
+		QString message = tr( "[%1 items, %2 stones]" ).arg( content_.size() ).arg( tWeight );
 
 		socket->showSpeech( this, message, 0x3B2 );
 	}
@@ -1609,18 +1609,18 @@ void cItem::soundEffect( UINT16 sound )
 
 // Our weight has changed
 // Update the top-containers
-void cItem::setWeight( SI16 nValue )
+void cItem::setWeight( float nValue )
 {
-	setTotalweight( totalweight_ - ( amount_ * weight_ ) );
+	setTotalweight( ceilf( ( totalweight_ - ( amount_ * weight_ ) ) * 100 ) / 100 );
 	changed( TOOLTIP );
 	flagChanged();
-	weight_ = nValue;
-	setTotalweight( totalweight_ + ( amount_ * weight_ ) );
+	weight_ = ceilf( nValue * 100 ) / 100;
+	setTotalweight( ceilf( ( totalweight_ + ( amount_ * weight_ ) ) * 100 ) / 100 );
 }
 
 // This subtracts the weight of the top-container
 // And then readds the new weight
-void cItem::setTotalweight( int data )
+void cItem::setTotalweight( float data )
 {
 	//if( data < 0 )
 		// FixWeight!
@@ -1643,7 +1643,7 @@ void cItem::setTotalweight( int data )
 
 	changed( TOOLTIP );
 	flagChanged();
-	totalweight_ = data;
+	totalweight_ = ceilf( data * 100 ) / 100;
 
 	// Completely ignore the container if the free flag is set
 	// this flag is abused during the load phase of the server
@@ -1839,7 +1839,7 @@ void cItem::load( char **result, UINT16 &offset )
 	def_ = atoi( result[offset++] );
 	hidamage_ = atoi( result[offset++] );
 	lodamage_ = atoi( result[offset++] );
-	weight_ = atoi( result[offset++] );
+	weight_ = (float)atof( result[offset++] );
 	hp_ = atoi( result[offset++] );
 	maxhp_ = atoi( result[offset++] );
 	speed_ = atoi( result[offset++] );
@@ -1860,7 +1860,7 @@ void cItem::load( char **result, UINT16 &offset )
 	base = ItemBases::instance()->getItemBase( result[offset++] );
 
 	// Their own weight should already be set.
-	totalweight_ = amount_ * weight_;
+	totalweight_ = ceilf( amount_ * weight_ * 100 ) / 100;
 
 	itemRegisterAfterLoading( this );
 }
@@ -1995,8 +1995,8 @@ P_CHAR cItem::getOutmostChar()
 // If we change the amount, the weight changes as well
 void cItem::setAmount( UI16 nValue )
 {
-	setTotalweight( totalweight_ + ( ( nValue - amount_ ) * weight_ ) );
-	amount_ = nValue;
+	setTotalweight( totalweight_ + ceilf( ( nValue - amount_ ) * weight_ * 100 ) / 100 );
+	amount_ = nValue;	
 	changed( TOOLTIP );
 	flagChanged();
 }
@@ -2061,7 +2061,7 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 		}
 
 		int diff = val - amount_;
-		setTotalweight( totalweight_ + diff * weight_ );
+		setTotalweight( totalweight_ + ceilf( diff * weight_ * 100 ) / 100 );
 		amount_ = val;
 		return 0;
 	}
@@ -2072,23 +2072,14 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "speed", speed_ )
 	else SET_INT_PROPERTY( "lodamage", lodamage_ )
 	else SET_INT_PROPERTY( "hidamage", hidamage_ )
-	else if( name == "weight" )
-	{
-		setWeight( value.toInt() );
-		return 0;
-	}
-	else if( name == "stones" )
-	{
-		setWeight( value.toInt() * 10 );
-		return 0;
-	}
+	else SET_FLOAT_PROPERTY( "weight", weight_ )
 	else SET_INT_PROPERTY( "health", hp_ )
 	else SET_INT_PROPERTY( "maxhealth", maxhp_ )
 	else SET_INT_PROPERTY( "owner", ownserial_ )
 
 	else if( name == "totalweight" )
 	{
-		setTotalweight( value.toInt() );
+		setTotalweight( static_cast<QString>( value.toString() ).toFloat() );
 		return 0;
 	}
 
@@ -2232,7 +2223,6 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "lodamage", lodamage_ )
 	else GET_PROPERTY( "hidamage", hidamage_ )
 	else GET_PROPERTY( "weight", weight_ )
-	else GET_PROPERTY( "stones", weight_ / 10 )
 	else GET_PROPERTY( "health", hp_ )
 	else GET_PROPERTY( "maxhealth", maxhp_ )
 	else GET_PROPERTY( "owner", owner() )

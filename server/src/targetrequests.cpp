@@ -218,7 +218,7 @@ bool cSkStealing::responsed( cUOSocket *socket, cUORxTarget *target )
 		socket->sysMessage( tr("You cannot steal that.") );
 		return true;
 	}
-	if( (pi->totalweight()/10) > cansteal ) // LB, bugfix, (no weight check)
+	if( (pi->totalweight()) > cansteal ) // LB, bugfix, (no weight check)
 	{
 		socket->sysMessage( tr("That is too heavy.") );
 		return true;

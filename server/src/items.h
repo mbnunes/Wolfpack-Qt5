@@ -41,6 +41,7 @@
 // Library Includes
 #include <qvaluevector.h>
 #include <qdict.h>
+#include <math.h>
 
 // Forward Class declarations
 class ISerialization;
@@ -119,8 +120,7 @@ public:
 	SI16			lodamage()		const { return lodamage_; }		// Minimum damage weapon inflicts
 	SI16			hidamage()		const { return hidamage_; }		// Maximum damage weapon inflicts
 	bool			wipe()			const { return priv_&0x10; }		// Should the item be wiped when affected by /WIPE
-	SI16			weight()		const { return weight_; }
-	SI16			stones()		const { return (SI16)( weight_ / 10 ); } // Weight transformed to UO Stones
+	float			weight()		const { return ( ceilf( weight_ * 100 ) / 100 ); }
 	SI16			hp()			const { return hp_; }			// Number of hitpoints an item has
 	SI16			maxhp()			const { return maxhp_; }		// Maximum number of hitpoints an item has
 	bool			dye()			const { return priv_&0x80; }	// Can the item be dyed
@@ -128,7 +128,7 @@ public:
 	bool			newbie()		const { return priv_&0x02; }		// Is the Item Newbie
 	bool			nodecay()		const { return priv_&0x01; }		// Is the item protected from decaying
 	P_CHAR			owner()			const;
-	int				totalweight()	const { return totalweight_; }
+	float				totalweight()	const { return ( ceilf( totalweight_ * 100 ) / 100 ); }
 	cUObject*		container()		const { return container_; }
 	int				sellprice()		const { return sellprice_; } // Price this item is being bought at by normal vendors
 	int				buyprice()		const { return buyprice_; } // Price this item is being sold at by normal vendors
@@ -159,13 +159,13 @@ public:
 	void	setLodamage( SI16 nValue ) { lodamage_ = nValue; flagChanged(); changed( TOOLTIP );};
 	void	setWipe( bool nValue ) { ( nValue ) ? priv_ &= 0x10 : priv_ |= 0xEF; flagChanged();};
 	void	setNoDecay( bool nValue ) { ( nValue ) ? priv_ |= 0x01 : priv_ &= ~0x01; flagChanged(); };
-	void	setWeight( SI16 nValue );
+	void	setWeight( float nValue );
 	void	setHp( SI16 nValue ) { hp_ = nValue; flagChanged(); changed( TOOLTIP );};
 	void	setMaxhp( SI16 nValue ) { maxhp_ = nValue; flagChanged(); changed( TOOLTIP );};
 	void	setCorpse( bool nValue ) { ( nValue ) ? priv_ |= 0x40 : priv_ &= 0xBF; flagChanged(); changed( TOOLTIP );}
 	void	setNewbie( bool nValue ) { ( nValue ) ? priv_ |= 0x02 : priv_ &= 0xFD; flagChanged(); changed( TOOLTIP );}
 	void	setOwner( P_CHAR nOwner );
-	void	setTotalweight( int data );
+	void	setTotalweight( float data );
 	void	setSpawnRegion( const QString &data ) { spawnregion_ = data; flagChanged(); }
 
 	cItem();
@@ -273,10 +273,10 @@ protected:
 	unsigned char	layer_;			// The layer this item is equipped on
 	unsigned short	hp_;			// Amount of hitpoints this item has
 	unsigned short	maxhp_;			// The maximum amount of hitpoints this item can have
-	int				totalweight_;	// The weight of this item including all contained items
+	float		totalweight_;		// The weight of this item including all contained items
 	ContainerContent content_;		// The content of this item
-	QString			spawnregion_;	// The name of the spawnregion this item was spawned into
-	cUObject*		container_;		// The object this item is contained in
+	QString		spawnregion_;		// The name of the spawnregion this item was spawned into
+	cUObject*	container_;		// The object this item is contained in
 
 	unsigned char	magic_;			// Specifies in which manner this item can be moved.
 									// 0: This property is ignored
@@ -309,7 +309,7 @@ protected:
 	ushort		type_;
 	ushort		type2_;
 	SI16		speed_;
-	SI16		weight_;
+	float		weight_;
 	uint		def_;
 	int			sellprice_;
 	int			buyprice_;

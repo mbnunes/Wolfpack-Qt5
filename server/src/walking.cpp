@@ -1454,11 +1454,11 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running )
 //	return true;
 
 	// Weight percent
-	UINT32 allowedWeight = ( pChar->strength() * WEIGHT_PER_STR ) + 30;
-	UINT8 load = pChar->weight() / allowedWeight;
+	float allowedWeight = ( pChar->strength() * WEIGHT_PER_STR ) + 30;
+	float load = ceilf( ( pChar->weight() / allowedWeight ) * 100) / 100;
 
 	if( running )
-		load *= 2;
+		load = ceilf( load * 200 ) / 100;
 
 	// 200% load is too much
 	if( load >= 200 )
@@ -1468,13 +1468,13 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running )
 	}
 
 	// 20% overweight = ( 0.20 * 0.10 ) * (Weight carrying) = Stamina needed to move
-	INT32 overweight = load - 100;
+	float overweight = load - 100;
 
 	// We're not overloaded so we dont need additional stamina
 	if( overweight < 0 )
 		return true;
 
-	INT32 requiredStamina = (INT32)((double)( (double)overweight * 0.10f ) * (double)pChar->weight());
+	float requiredStamina = ceilf( (float)((double)( (double)overweight * 0.10f ) * (double)pChar->weight()) * 100 ) / 100;
 	
 	if( pChar->stamina() < requiredStamina ) 
 	{

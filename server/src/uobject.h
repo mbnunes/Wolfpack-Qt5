@@ -246,6 +246,15 @@ struct stError
 	return 0; \
 	}
 
+#define SET_FLOAT_PROPERTY( id, setter ) if( name == id ) {\
+	bool ok; \
+	float data = static_cast<QString>( value.toString() ).toFloat( &ok ); \
+	if( !ok ) \
+		PROPERTY_ERROR( -2, "Float expected" ) \
+	setter = data; \
+	return 0; \
+	}
+
 #define SET_BOOL_PROPERTY( id, setter ) if( name == id ) {\
 	bool ok; \
 	INT32 data = value.toInt( &ok ); \

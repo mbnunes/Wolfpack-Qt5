@@ -387,7 +387,7 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 		return;
 	}
 
-	UINT16 maxWeight = QMIN( 1, pChar->skillValue( STEALING ) / 10 ); // We can steal max. 10 Stones when we are a GM
+	float maxWeight = (float)QMIN( 1, pChar->skillValue( STEALING ) ); // We can steal max. 10 Stones when we are a GM
 	// 1000 Skill == 100 Weight == 10 Stones
 
 	QPtrList< cItem > containment = pBackpack->getContainment();
@@ -430,7 +430,7 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 	socket->sysMessage( tr( "You reach into %1's backpack and try to steal something..." ).arg( pVictim->name() ) );
 
 	// The success of our Theft depends on the weight of the stolen item
-	bool success = pChar->checkSkill( STEALING, 0, pToSteal->weight() * 10 );
+	bool success = pChar->checkSkill( STEALING, 0, pToSteal->weight() );
 	bool caught = false;
 
 	if( success )

@@ -1372,12 +1372,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 		setMeditating( value.toInt() );
 		return 0;
 	}
-	else SET_INT_PROPERTY( "weight", weight_ )
-	else if( name == "stones" )
-	{
-		weight_ = value.toInt() * 10;
-		return 0;
-	}
+	else SET_FLOAT_PROPERTY( "weight", weight_ )
 	else SET_INT_PROPERTY( "saycolor", saycolor_ )
 	else SET_INT_PROPERTY( "emotecolor", emoteColor_ )
 	else SET_INT_PROPERTY( "strength", strength_ )
@@ -1473,7 +1468,6 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "criminaltime", (int)criminalTime_ )
 	else GET_PROPERTY( "meditating", isMeditating() )
 	else GET_PROPERTY( "weight", weight_ )
-	else GET_PROPERTY( "stones", weight_ / 10 )
 	else GET_PROPERTY( "saycolor", saycolor_ )
 	else GET_PROPERTY( "emotecolor", emoteColor_ )
 	else GET_PROPERTY( "strength", strength_ )

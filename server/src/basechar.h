@@ -47,6 +47,9 @@
 #include "log.h"
 #include "multis.h"
 
+// include for ceilf()
+#include <math.h>
+
 class cMulti;
 class cUOTxTooltipList;
 
@@ -225,7 +228,7 @@ public:
     short			strengthMod() const;
     SERIAL			swingTarget() const;
     QString			title() const;
-    ushort			weight() const;
+    float			weight() const;
 	// bit flag getters
 	bool			isIncognito() const;
 	bool			isPolymorphed() const;
@@ -305,7 +308,7 @@ public:
     void setStrengthMod(short data);
     void setSwingTarget(SERIAL data);
     void setTitle(const QString &data);
-    void setWeight(ushort data);
+    void setWeight(float data);
 	// bit flag setters
 	void setIncognito(bool data);
 	void setPolymorphed(bool data);
@@ -390,7 +393,7 @@ protected:
     uint propertyFlags_;
 
     // Weight of the char, including worn items.
-    ushort weight_;
+    float weight_;
 
     // Base body armor value.
     ushort bodyArmor_;
@@ -1005,14 +1008,14 @@ inline void cBaseChar::setStrengthMod(short data)
 	changed_ = true;
 }
 
-inline ushort cBaseChar::weight() const
+inline float cBaseChar::weight() const
 {
-    return weight_;
+    return ( ceilf( weight_ * 100 ) / 100 );
 }
 
-inline void cBaseChar::setWeight(ushort data)
+inline void cBaseChar::setWeight(float data)
 {
-    weight_ = data;
+	weight_ = ceilf( data * 100 ) / 100;
 	changed_ = true;
 }
 
