@@ -122,9 +122,9 @@ void cNPC::postload( unsigned int version )
 
 	// If our stablemaster is missing, remove us
 	if (stablemasterSerial_ != INVALID_SERIAL) {
-		P_CHAR stablemaster = World::instance()->findChar(stablemasterSerial_);
+		cUObject *stablemaster = World::instance()->findObject(stablemasterSerial_);
 		if (!stablemaster) {
-			Console::instance()->log(LOG_WARNING, tr("Removing NPC %1 (0x%2) because of invalid stablemaster 0x%3.\n").arg(name()).arg(serial_).arg(stablemasterSerial_));
+			Console::instance()->log(LOG_WARNING, tr("Removing NPC %1 (0x%2) because of invalid stablemaster 0x%3.\n").arg(name()).arg(serial_, 0, 16).arg(stablemasterSerial_, 0, 16));
 			stablemasterSerial_ = INVALID_SERIAL;
 			remove();
 		}
