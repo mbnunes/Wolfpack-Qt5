@@ -36,7 +36,7 @@
 #include "qdom.h"
 #include "qstring.h"
 #include "qfile.h"
-#include "python.h"
+#include "Python.h"
 
 // Forward declaration for wolfpack extension function
 void init_wolfpack_globals();
