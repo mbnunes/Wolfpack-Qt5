@@ -98,7 +98,7 @@ bool doregionspawn(int r)//Regionspawns
 				if (npc != NULL)
 				{
 					spawnregion[r].current++;
-					npc->spawnregion=r; 
+					npc->setSpawnregion(r); 
 					return true;
 				}
 			}
@@ -140,7 +140,7 @@ bool doregionspawn(int r)//Regionspawns
 				if (npc != NULL)
 				{
 					spawnregion[r].current++;
-					npc->spawnregion=r;
+					npc->setSpawnregion(r);
 					return true;
 				}
 			}

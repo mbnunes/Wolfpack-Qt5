@@ -58,17 +58,17 @@
 static void reverseIncognito(P_CHAR pc)
 {
 
-	if(pc->incognito)//let's ensure it's under incognito effect!
+	if(pc->incognito())//let's ensure it's under incognito effect!
 	{
 		pc->setId(pc->xid);
 		
-		pc->skin = pc->xskin;	// SKIN COLOR
+		pc->setSkin( pc->xskin() );	// SKIN COLOR
 		
 		pc->name = pc->orgname().latin1();	// NAME
 		
-		if(pc->hairserial>-1)//if hairs exist, restore hair style/color
+		if(pc->hairserial() != INVALID_SERIAL)//if hairs exist, restore hair style/color
 		{
-			P_ITEM pHair = FindItemBySerial(pc->hairserial);
+			P_ITEM pHair = FindItemBySerial(pc->hairserial());
 			if(pHair)
 			{
 				if(pHair->incognito) //let's ensure it was marked as under incognito effect
@@ -81,9 +81,9 @@ static void reverseIncognito(P_CHAR pc)
 			}
 		}
 		
-		if(pc->beardserial>-1)//if beard exists, restore beard style/color
+		if(pc->beardserial()>-1)//if beard exists, restore beard style/color
 		{
-			P_ITEM pBeard = FindItemBySerial(pc->beardserial);
+			P_ITEM pBeard = FindItemBySerial(pc->beardserial());
 			if(pBeard)
 			{
 				if(pBeard->incognito) //let's ensure it was marked as under incognito effect
@@ -109,7 +109,7 @@ static void reverseIncognito(P_CHAR pc)
 					wornitems(j, pc);
 			}
 		}
-		pc->incognito=false;//AntiChrist
+		pc->setIncognito(false);//AntiChrist
 	}
 }
 
@@ -231,10 +231,10 @@ void cTmpEff::Reverse()
 		pc_s->in+=more3;
 		break;
 	case 18: //Polymorph spell by AntiChrist
-		if(pc_s->polymorph)
+		if(pc_s->polymorph())
 		{
 			pc_s->setId(pc_s->xid);
-			pc_s->polymorph=false;
+			pc_s->setPolymorph(false);
 			teleport(pc_s);
 		}
 		break;
@@ -399,10 +399,10 @@ void cTmpEff::Expire()
 		explodeitem(calcSocketFromChar((pc_s)), FindItemBySerial(getDest())); //explode this item
 		break;
 	case 18: //Polymorph spell by AntiChrist 9/99
-		if(pc_s->polymorph)//let's ensure it's under polymorph effect!
+		if(pc_s->polymorph())//let's ensure it's under polymorph effect!
 		{
 			pc_s->setId(pc_s->xid);
-			pc_s->polymorph=false;
+			pc_s->setPolymorph(false);
 			teleport(pc_s);
 		}
 		break;
@@ -708,18 +708,19 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 			pc_dest->id1=k>>8; // allow only non crashing ones
 			pc_dest->id2=k%256;
 
-			c1 = pc_dest->skin; // transparency for monsters allowed, not for players,
+			c1 = pc_dest->skin(); // transparency for monsters allowed, not for players,
 														 // if polymorphing from monster to player we have to switch from transparent to semi-transparent
 			b=c1&0x4000;
 			if (b==16384 && (k >=0x0190 && k<=0x03e1))
 			{
 				if (c1!=0x8000)
 				{
-					pc_dest->skin = pc_dest->xskin = 0xF000;
+					pc_dest->setSkin(0xF000);
+					pc_dest->setXSkin(0xF000);
 				}
 			}
 		}
-		pc_dest->polymorph=true;
+		pc_dest->setPolymorph(true);
 		break;
 	case 19://incognito spell - AntiChrist (10/99)//revised by AntiChrist - 9/12/99
 		{
@@ -728,10 +729,10 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 			//AntiChrist 11/11/99
 			//If char is already under polymorph effect, let's reverse the
 			//polymorph effect to avoid problems
-			if(pc_dest->polymorph)
+			if(pc_dest->polymorph())
 			{
 				pc_dest->setId(pc_dest->xid);
-				pc_dest->polymorph=false;
+				pc_dest->setPolymorph(false);
 				teleport(pc_dest);
 			}
 			int j;
@@ -739,8 +740,8 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 			//first: let's search for beard and hair serial
 			//(we could use alredy saved serials...but it's better
 			//to recalculate them)
-			pc_dest->hairserial=-1;
-			pc_dest->beardserial=-1;
+			pc_dest->setHairSerial(INVALID_SERIAL);
+			pc_dest->setBeardSerial(INVALID_SERIAL);
 
 			P_ITEM pi;
 			unsigned int ci;
@@ -749,15 +750,15 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 			{
 				pi = FindItemBySerial(vecContainer[ci]);
 				if(pi->layer==0x10)//beard
-					pc_dest->beardserial=pi->serial;
+					pc_dest->setBeardSerial(pi->serial);
 				if(pi->layer==0x0B)//hairs
-					pc_dest->hairserial=pi->serial;
+					pc_dest->setHairSerial(pi->serial);
 			}
 			// ------ SEX ------
 			pc_dest->xid = pc_dest->id();
 			pc_dest->id1=0x01;
 			//if we already have a beard..can't turn to female
-			if(pc_dest->beardserial>-1)
+			if(pc_dest->beardserial() != INVALID_SERIAL)
 			{//if character has a beard...only male
 				pc_dest->id2='\x90';//male
 			} else
@@ -767,16 +768,16 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 			}
 
 			// --- SKINCOLOR ---
-			pc_dest->xskin = pc_dest->skin;
+			pc_dest->setXSkin(pc_dest->skin());
 			color=rand()%6;
 			switch(color)
 			{
-				case 0:				pc_dest->skin = 0x83EA;				break;
-				case 1:				pc_dest->skin = 0x8405;				break;
-				case 2:				pc_dest->skin = 0x83EF;				break;
-				case 3:				pc_dest->skin = 0x83F5;				break;
-				case 4:				pc_dest->skin = 0x841C;				break;
-				case 5:				pc_dest->skin = 0x83FB;				break;
+				case 0:				pc_dest->setSkin(0x83EA);				break;
+				case 1:				pc_dest->setSkin(0x8405);				break;
+				case 2:				pc_dest->setSkin(0x83EF);				break;
+				case 3:				pc_dest->setSkin(0x83F5);				break;
+				case 4:				pc_dest->setSkin(0x841C);				break;
+				case 5:				pc_dest->setSkin(0x83FB);				break;
 				default:												break;
 			}
 
@@ -819,9 +820,9 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 			color2=color%256;
 
 			// ------ HAIR -----
-			if(pc_dest->hairserial>-1)//if hairs exist
+			if(pc_dest->hairserial() != INVALID_SERIAL)//if hairs exist
 			{//change hair style/color
-				P_ITEM pHair = FindItemBySerial(pc_dest->hairserial);
+				P_ITEM pHair = FindItemBySerial(pc_dest->hairserial());
 				if(pHair)
 				{
 					//stores old hair values...
@@ -861,9 +862,9 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 
 			// -------- BEARD --------
 			if(pc_dest->id2==0x90)// only if a man
-			if(pc_dest->beardserial>-1)//if beard exist
+			if(pc_dest->beardserial() != INVALID_SERIAL)//if beard exist
 			{//change beard style/color
-				P_ITEM pBeard = FindItemBySerial(pc_dest->beardserial);
+				P_ITEM pBeard = FindItemBySerial(pc_dest->beardserial());
 				if(pBeard)
 				{
 					//clConsole.send("BEARD FOUND!!\n");
@@ -911,7 +912,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 					wornitems(j, pc_dest);
 			}
 
-			pc_dest->incognito=true;//AntiChrist
+			pc_dest->setIncognito(true);//AntiChrist
 		}
 		break;
 

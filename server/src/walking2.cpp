@@ -682,8 +682,8 @@ bool cMovement::CheckForRunning(P_CHAR pc, UOXSOCKET socket, int dir)
 	if (dir&0x80)
 	{ //AntiChrist -- if running
 		// if we are using stealth
-		if (pc->stealth!=-1) { //AntiChrist - Stealth - stop hiding if player runs
-			pc->stealth=-1;
+		if (pc->stealth()!=-1) { //AntiChrist - Stealth - stop hiding if player runs
+			pc->setStealth(-1);
 			pc->hidden=0;
 			updatechar(pc);
 		}
@@ -691,12 +691,12 @@ bool cMovement::CheckForRunning(P_CHAR pc, UOXSOCKET socket, int dir)
 
 //Don't regenerate stamina while running
 		pc->regen2=uiCurrentTime+(SrvParams->staminarate()*MY_CLOCKS_PER_SEC);
-		pc->running++;
+		pc->setRunning(pc->running()+1);
 		// if all these things
-		if(!pc->dead && !pc->onhorse && pc->running>(SrvParams->runningStamSteps())*2)
+		if(!pc->dead && !pc->onhorse && pc->running()>(SrvParams->runningStamSteps())*2)
 		{
 			//The *2 it's because i noticed that a step(animation) correspond to 2 walking calls
-			pc->running=0;
+			pc->setRunning(0);
 			pc->stm--;
 			updatestats(pc,2);
 		}
@@ -706,7 +706,7 @@ bool cMovement::CheckForRunning(P_CHAR pc, UOXSOCKET socket, int dir)
 		}
 
 	} else {
-		pc->running=0;
+		pc->setRunning(0);
 	}
 	return true;
 }
@@ -716,12 +716,12 @@ bool cMovement::CheckForStealth(P_CHAR pc, UOXSOCKET socket)
 {
 	if ((pc->hidden)&&(!(pc->priv2&8)))
 	{
-		if(pc->stealth!=-1)
+		if(pc->stealth()!=-1)
 		{ //AntiChrist - Stealth
-			pc->stealth++;
-			if(pc->stealth>((SrvParams->maxStealthSteps()*pc->skill[STEALTH])/1000))
+			pc->setStealth(pc->stealth()+1);
+			if(pc->stealth()>((SrvParams->maxStealthSteps()*pc->skill[STEALTH])/1000))
 			{
-				pc->stealth=-1;
+				pc->setStealth(-1);
 				pc->hidden=0;
 				updatechar( pc );
 			}
@@ -987,7 +987,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, P_CHAR us, int dir, short int 
 			extmove[10]=us->pos.y%256;
 			extmove[11]=us->dispz;
 			extmove[12]=dir;
-			ShortToCharPtr(us->skin, &extmove[13]);
+			ShortToCharPtr(us->skin(), &extmove[13]);
 			if( us->isNpc() /*&& pc->runs*/ && pc->war ) // Ripper 10-2-99 makes npcs run in war mode or follow :) (Ab mod, scriptable)
 				extmove[12]=dir|0x80;
 			if( us->isNpc() && (pc->ftarg != INVALID_SERIAL))
@@ -1462,7 +1462,7 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
             extmove[11] = pc->dispz;
             extmove[12] = (unsigned char)(pc->dir&0x7F);
 
-			ShortToCharPtr(pc->skin, &extmove[13]);
+			ShortToCharPtr(pc->skin(), &extmove[13]);
 
 
             if (pc->war) extmove[15]=0x40; else extmove[15]=0x00;
@@ -1731,7 +1731,7 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
 				        }
 						// Dupois - Added April 4, 1999
 						// Has the Escortee reached the destination ??
-						if( ( !pc_target->dead ) && ( pc_i->questDestRegion == pc_i->region ) )
+						if( ( !pc_target->dead ) && ( pc_i->questDestRegion() == pc_i->region ) )
 						{
 							// Pay the Escortee and free the NPC
 							MsgBoardQuestEscortArrive( pc_i, calcSocketFromChar( pc_target ) );

@@ -2050,12 +2050,12 @@ void cSkills::TameTarget(int s)
 				return;
 			}
 			// Below... can't tame if you already have!
-			if( (pc->tamed) && pc_currchar->Owns(pc) )
+			if( (pc->tamed()) && pc_currchar->Owns(pc) )
 			{
 				sysmessage( s, tr("You already control that creature!" ) );
 				return;
 			}
-			if( pc->tamed )
+			if( pc->tamed() )
 			{
 				sysmessage( s, tr("That creature looks tame already." ) );
 				return;
@@ -2085,16 +2085,16 @@ void cSkills::TameTarget(int s)
 			pc->npcWander=0;
 			if(pc->id1==0x00 && (pc->id2==0x0C || pc->id2==0x3B))
 			{
-				if(pc->skin != 0x0481)
+				if(pc->skin() != 0x0481)
 				{
 				    pc->npcaitype = 10;
-					pc->tamed = true;
+					pc->setTamed(true);
 					updatechar(pc);
 				}
 				else
 				{
 			        pc->npcaitype=0;
-			        pc->tamed = true;//AntiChrist fix
+			        pc->setTamed(true);
 					updatechar(pc);
 				}
 			}
@@ -2236,7 +2236,7 @@ void cSkills::BeggingTarget(int s)
 
 		if(pc->isHuman() && (pc->in != 0)) //Used on human
 		{
-			if (pc->begging_timer>=uiCurrentTime)
+			if (pc->begging_timer()>=uiCurrentTime)
 			{
 				npctalk(s,pc, (char*)tr("Annoy someone else !").latin1() , 1);
 				return;
@@ -2253,7 +2253,7 @@ void cSkills::BeggingTarget(int s)
 				sysmessage(s, tr("They seem to ignore your begging plees.") );
 			else
 			{
-				SetTimerSec(&pc->begging_timer, SrvParams->beggingTime()); 
+				pc->setBegging_timer( SrvParams->beggingTime() * MY_CLOCKS_PER_SEC + uiCurrentTime); 
 				x=pc->skill[BEGGING]/50;
 
 				if (x<1) x=1; 

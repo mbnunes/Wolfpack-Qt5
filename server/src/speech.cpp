@@ -153,7 +153,7 @@ bool InputSpeech(string& comm, cChar* pPlayer, UOXSOCKET s)
 
 bool StableSpeech(cChar* pMaster, string& comm, cChar* pPlayer, UOXSOCKET s)
 {
-	if (pMaster->npc_type!=1)	// is it a stablemaster ?
+	if (pMaster->npc_type()!=1)	// is it a stablemaster ?
 		return 0;
 
     //if (!strstr( comm, "STABLE"))	// lets check if the keyword stable is in the commandstring, if not return !
@@ -227,12 +227,12 @@ bool StableSpeech(cChar* pMaster, string& comm, cChar* pPlayer, UOXSOCKET s)
 
 	mapRegions->Remove(p_pet);
 
-	p_pet->stablemaster_serial=pMaster->serial;
+	p_pet->setStablemaster_serial(pMaster->serial);
 
 	// set timer for fee calculation
 
-    p_pet->time_unused=0;
-	p_pet->timeused_last = getNormalizedTime();
+    p_pet->setTime_unused(0);
+	p_pet->setTimeused_last( getNormalizedTime() );
 
 	stablesp.insert(pMaster->serial, p_pet->serial);
 
@@ -244,7 +244,7 @@ bool StableSpeech(cChar* pMaster, string& comm, cChar* pPlayer, UOXSOCKET s)
 
 bool UnStableSpeech(cChar* pMaster, string& comm, cChar* pPlayer, UOXSOCKET s)
 {
-	if (pMaster->npc_type!=1)	// is it a stablemaster ?
+	if (pMaster->npc_type()!=1)	// is it a stablemaster ?
 		return 0;
 
 //    if (!(strstr( comm, "CLAIM") || strstr( comm, "RETRIEVE")))	// lets check if the keyword CLAIM is in the commandstring, if not return !
@@ -293,7 +293,7 @@ bool UnStableSpeech(cChar* pMaster, string& comm, cChar* pPlayer, UOXSOCKET s)
     ////////////////////////////////////////////////////////////
 
 	/// calc fee
-	float f_fee = ( (p_pet->time_unused) / 600.0f) * SrvParams->stablingFee() ; // (fee per 10 minutes) * number of 10 minute blocks
+	float f_fee = ( (p_pet->time_unused()) / 600.0f) * SrvParams->stablingFee() ; // (fee per 10 minutes) * number of 10 minute blocks
 	int fee = ( (int) f_fee) + 5; // 5 basefee
 
 	sprintf((char*)temp,"That's %i gold pieces",fee);
@@ -317,10 +317,10 @@ bool UnStableSpeech(cChar* pMaster, string& comm, cChar* pPlayer, UOXSOCKET s)
 	// remove from hash table
 	stablesp.remove(pMaster->serial, p_pet->serial);
 	
-	p_pet->stablemaster_serial=0; // actual unstabling
+	p_pet->setStablemaster_serial(INVALID_SERIAL); // actual unstabling
 	
-	p_pet->timeused_last=getNormalizedTime();
-	p_pet->time_unused=0;
+	p_pet->setTimeused_last(getNormalizedTime());
+	p_pet->setTime_unused(0);
 	
 	mapRegions->Remove(p_pet);	
 	mapRegions->Add( p_pet );
@@ -493,7 +493,7 @@ bool EscortSpeech(cChar* pEscortee, string& comm, cChar* pPlayer, UOXSOCKET s)
 {
 	// Dupois - Added Dec 20, 1999
 	// Escort text matches
-	if (pPlayer->dist(pEscortee) > 1 || pEscortee->questType!=ESCORTQUEST )
+	if (pPlayer->dist(pEscortee) > 1 || pEscortee->questType()!=ESCORTQUEST )
 		return 0;	// not close enough / not an escortee
 	
 	//char *response1=strstr( comm, "I WILL TAKE THEE");
@@ -514,7 +514,7 @@ bool EscortSpeech(cChar* pEscortee, string& comm, cChar* pPlayer, UOXSOCKET s)
 				// Set the expire time if nobody excepts the quest
 				pEscortee->summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParams->escortactiveexpire() ) );
 				// Send out the rant about accepting the escort
-				sprintf(temp, "Lead on! Payment shall be made when we arrive at %s.", region[pEscortee->questDestRegion].name);
+				sprintf(temp, "Lead on! Payment shall be made when we arrive at %s.", region[pEscortee->questDestRegion()].name);
 				npctalkall(pEscortee,temp, 0);
 				MsgBoardQuestEscortRemovePost( pEscortee );	// Remove post from message board
 				return 1;	// Return 1 so that we indicate that we handled the message
@@ -534,18 +534,18 @@ bool EscortSpeech(cChar* pEscortee, string& comm, cChar* pPlayer, UOXSOCKET s)
 			if ( pEscortee->ftarg == currchar[s]->serial )
 			{
 				// Send out the rant about accepting the escort
-				sprintf(temp, "Lead on to %s. I shall pay thee when we arrive.", region[pEscortee->questDestRegion].name);
+				sprintf(temp, "Lead on to %s. I shall pay thee when we arrive.", region[pEscortee->questDestRegion()].name);
 			}
 			else if ( pEscortee->ftarg == INVALID_SERIAL )  // If nobody has been accepted for the quest yet
 			{
 				// Send out the rant about accepting the escort
-				sprintf(temp, "I am seeking an escort to %s. Wilt thou take me there?", region[pEscortee->questDestRegion].name);
+				sprintf(temp, "I am seeking an escort to %s. Wilt thou take me there?", region[pEscortee->questDestRegion()].name);
 			}
 			else // The must be enroute
 			{
 				// Send out a message saying we are already being escorted
 				P_CHAR pPlayer = FindCharBySerial(pEscortee->ftarg);
-				sprintf(temp, "I am already being escorted to %s by %s.", region[pEscortee->questDestRegion].name, pPlayer->name.c_str() );
+				sprintf(temp, "I am already being escorted to %s by %s.", region[pEscortee->questDestRegion()].name, pPlayer->name.c_str() );
 			}
 			npctalkall(pEscortee,temp, 0);
 			return 1;	// Return success ( we handled the message )
@@ -690,7 +690,7 @@ bool PetCommand(cChar* pPet, string& comm, cChar* pPlayer, UOXSOCKET s)
 	//if (strstr( comm, " FOLLOW"))
 	if (comm.find(" FOLLOW") != string::npos)
 	{
-		pPlayer->guarded = false;
+		pPlayer->setGuarded(false);
 		//if (strstr( comm, " ME"))	//if me is in
 		if (comm.find(" ME") != string::npos)
 		{
@@ -713,7 +713,7 @@ bool PetCommand(cChar* pPet, string& comm, cChar* pPlayer, UOXSOCKET s)
 			sysmessage(s,"You cant have pets attack in town!");
 			return 0;
 		}
-		pPlayer->guarded = false;
+		pPlayer->setGuarded(false);
 		addx[s]=pPet->serial;
 		target(s, 0, 1, 0, 118, "Select the target to attack.");//AntiChrist
 		bReturn = true;
@@ -721,7 +721,7 @@ bool PetCommand(cChar* pPet, string& comm, cChar* pPlayer, UOXSOCKET s)
 	//else if (strstr( comm, " FETCH") || strstr( comm, " GET"))
 	else if ((comm.find(" FETCH") != string::npos) || (comm.find(" GET") != string::npos))
 	{
-		pPlayer->guarded = false;
+		pPlayer->setGuarded(false);
 		addx[s]=pPet->serial;
 		target(s, 0, 1, 0, 124, "Click on the object to fetch.");
 		bReturn = true;
@@ -729,7 +729,7 @@ bool PetCommand(cChar* pPet, string& comm, cChar* pPlayer, UOXSOCKET s)
 	//else if (strstr( comm, " COME"))
 	else if (comm.find(" COME") !=string::npos)
 	{
-		pPlayer->guarded = false;
+		pPlayer->setGuarded(false);
 		pPet->ftarg = pPlayer->serial;
 		pPet->npcWander=1;
 		pPet->setNextMoveTime();
@@ -751,7 +751,7 @@ bool PetCommand(cChar* pPet, string& comm, cChar* pPlayer, UOXSOCKET s)
 	//else if (strstr( comm, " STOP")||strstr( comm, " STAY"))
 	else if ((comm.find(" STOP") != string::npos) || (comm.find(" STAY") != string::npos))
 	{
-		pPlayer->guarded = false;
+		pPlayer->setGuarded(false);
 		pPet->ftarg = INVALID_SERIAL;
 		pPet->targ = INVALID_SERIAL;
 		if (pPet->war) 
@@ -762,7 +762,7 @@ bool PetCommand(cChar* pPet, string& comm, cChar* pPlayer, UOXSOCKET s)
 	//else if (strstr( comm, " TRANSFER"))
 	else if (comm.find(" TRANSFER") != string::npos)
 	{
-		pPlayer->guarded = false;
+		pPlayer->setGuarded(false);
 		addx[s]=pPet->serial;
 		target(s, 0, 1, 0, 119, "Select character to transfer your pet to.");
 		bReturn = true;
@@ -770,7 +770,7 @@ bool PetCommand(cChar* pPet, string& comm, cChar* pPlayer, UOXSOCKET s)
 	//else if (strstr( comm, " RELEASE"))
 	else if (comm.find(" RELEASE") != string::npos)
 	{
-		pPlayer->guarded = false;
+		pPlayer->setGuarded(false);
 		if (pPet->summontimer)
 		{
 			pPet->summontimer=uiCurrentTime;
@@ -778,7 +778,7 @@ bool PetCommand(cChar* pPet, string& comm, cChar* pPlayer, UOXSOCKET s)
 		pPet->ftarg = INVALID_SERIAL;
 		pPet->npcWander=2;
 		pPet->SetOwnSerial(-1);
-		pPet->tamed = false;
+		pPet->setTamed(false);
 		sprintf(temp, "*%s appears to have decided that it is better off without a master *", pPet->name.c_str());
 		npctalkall(pPet,temp,0);
 		{
@@ -796,35 +796,35 @@ bool PetCommand(cChar* pPet, string& comm, cChar* pPlayer, UOXSOCKET s)
 
 void PlVGetgold(int s, cChar* pVendor)//PlayerVendors
 {
-	unsigned int pay=0, give=pVendor->holdg, t=0;
+	unsigned int pay=0, give=pVendor->holdg(), t=0;
 	P_CHAR pPlayer = currchar[s];
 	
 	if (pPlayer->Owns(pVendor))
 	{
-		if (pVendor->holdg<1)
+		if (pVendor->holdg()<1)
 		{
 			npctalk(s,pVendor,"I have no gold waiting for you.",0);
-			pVendor->holdg=0;
+			pVendor->setHoldg(0);
 			return;
 		}
-		else if(pVendor->holdg <= 65535)
+		else if(pVendor->holdg() <= 65535)
 		{
-			if (pVendor->holdg>9)
+			if (pVendor->holdg()>9)
 			{
-				pay=(int)(pVendor->holdg*.1);
+				pay=(int)(pVendor->holdg()*0.1);
 				give-=pay;
 			}
 			else
 			{
-				pay=pVendor->holdg;
+				pay=pVendor->holdg();
 				give=0;
 			}
-			pVendor->holdg=0;
+			pVendor->setHoldg(0);
 		}
 		else
 		{
-			t=pVendor->holdg-65535;
-			pVendor->holdg=65535;
+			t=pVendor->holdg()-65535;
+			pVendor->setHoldg(65535);
 			pay=6554;
 			give=58981;
 		}
@@ -832,7 +832,7 @@ void PlVGetgold(int s, cChar* pVendor)//PlayerVendors
 			Items->SpawnItem(s, currchar[s],give,"#",1,0x0E,0xED,0,1,1);
 		sprintf((char*)temp, "Today's purchases total %i gold. I am keeping %i gold for my self. Here is the remaining %i gold. Have a nice day.",pVendor->holdg,pay,give);
 		npctalk(s,pVendor,(char*)temp,0);
-		pVendor->holdg=t;
+		pVendor->setHoldg(t);
 	}
 	else
 		npctalk(s,pVendor,"I don't work for you!",0);

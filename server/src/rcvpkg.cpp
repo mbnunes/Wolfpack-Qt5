@@ -103,7 +103,7 @@ void RcvAttack(P_CLIENT ps)
 
 		updatechar(pc_currchar);
 
-		if( pc_i->guarded )
+		if( pc_i->guarded() )
 		{
 			AllCharsIterator iter_char;
 			for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
@@ -139,7 +139,7 @@ void RcvAttack(P_CLIENT ps)
 				criminal( pc_currchar );
 				npcattacktarget(pc_i, pc_currchar);
 			}
-			else if ((pc_i->isNpc() || pc_i->tamed) && !pc_i->war && pc_i->npcaitype!=4) // changed from 0x40 to 4, cauz 0x40 was removed LB
+			else if ((pc_i->isNpc() || pc_i->tamed()) && !pc_i->war && pc_i->npcaitype!=4) // changed from 0x40 to 4, cauz 0x40 was removed LB
 			{
 				npcToggleCombat(pc_i);
 				pc_i->setNextMoveTime();
@@ -168,7 +168,7 @@ void RcvAttack(P_CLIENT ps)
 				{
 					criminal( pc_currchar );
 				}
-				else if (pc_i->isNpc() && pc_i->tamed)
+				else if (pc_i->isNpc() && pc_i->tamed())
 				{
 					criminal( pc_currchar );
 					npcattacktarget(pc_i, pc_currchar);

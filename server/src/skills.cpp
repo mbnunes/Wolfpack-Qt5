@@ -780,7 +780,7 @@ void cSkills::Stealth(int s)//AntiChrist
 	sprintf((char*)temp,"You can move %i steps unseen.", SrvParams->maxStealthSteps());
 	sysmessage(s,(char*)temp);
 	pc_currchar->hidden=1;
-	pc_currchar->stealth=0; //AntiChrist -- init. steps already done
+	pc_currchar->setStealth(0); //AntiChrist -- init. steps already done
 	updatechar(pc_currchar);
 }
 
@@ -1679,8 +1679,8 @@ void cSkills::Tracking(int s,int selection)
 {
 	P_CHAR pc_currchar = currchar[s];
 	pc_currchar->trackingtarget = pc_currchar->trackingtargets[selection]; // sets trackingtarget that was selected in the gump
-	SetTimerSec(&pc_currchar->trackingtimer,(((SrvParams->basetimer()*pc_currchar->skill[TRACKING])/1000)+1)); // tracking time in seconds ... gm tracker -> basetimer+1 seconds, 0 tracking -> 1 sec, new calc by LB
-	SetTimerSec(&pc_currchar->trackingdisplaytimer,SrvParams->redisplaytime());
+	pc_currchar->trackingtimer = (((SrvParams->basetimer()*pc_currchar->skill[TRACKING])/1000)+1) * MY_CLOCKS_PER_SEC + uiCurrentTime;
+	pc_currchar->setTrackingdisplaytimer(SrvParams->redisplaytime() * MY_CLOCKS_PER_SEC + uiCurrentTime);
 	P_CHAR pc_trackingTarget = FindCharBySerial(pc_currchar->trackingtarget);
 	sprintf((char*)temp,"You are now tracking %s.", pc_trackingTarget->name.c_str());
 	sysmessage(s,(char*)temp);

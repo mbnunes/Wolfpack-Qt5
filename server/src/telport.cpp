@@ -353,7 +353,8 @@ void advancementobjects(P_CHAR pc_s, int x, int allways)
 
 					if (!(strcmp((char*)script1,"SKIN")))
 					{
-						pc_s->skin = pc_s->xskin = static_cast<UI16>(hex2num(script2));
+						pc_s->setSkin(static_cast<UI16>(hex2num(script2)));
+						pc_s->setXSkin(static_cast<UI16>(hex2num(script2)));
 						teleport(pc_s);
 					}
 
@@ -470,7 +471,8 @@ void monstergate(P_CHAR pc_s, int x)
 			}
 			if (!(strcmp("SKIN",(char*)script1)))
 			{
-				pc_s->skin = pc_s->xskin = hex2num(script2);
+				pc_s->setSkin(hex2num(script2));
+				pc_s->setXSkin(hex2num(script2));
 			}
 			
 			if (!(strcmp("GOLD", (char*)script1)))
@@ -755,7 +757,8 @@ void polycolorgate(P_CHAR pc_s, int x)
 			} 
 			else if (!(strcmp("SKIN", (char*)script1))) 
 			{ 
-				pc_s->skin = pc_s->xskin = static_cast<UI16>(hex2num(script2));
+				pc_s->setSkin(static_cast<UI16>(hex2num(script2)));
+				pc_s->setXSkin(static_cast<UI16>(hex2num(script2)));
 			} 
 		} 
 	} 

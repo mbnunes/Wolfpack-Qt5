@@ -779,16 +779,16 @@ void item_char_test()
 		p_pet = iter_char.GetData();
 		if (p_pet != NULL)
 		{
-			 stablemaster_serial = p_pet->stablemaster_serial;
+			 stablemaster_serial = p_pet->stablemaster_serial();
 			 if (stablemaster_serial != INVALID_SERIAL) // stabled ?
 			 {
 				P_CHAR pc_j = FindCharBySerial(stablemaster_serial);
 				if (pc_j == NULL)
 				{
 					stablesp.remove(stablemaster_serial, p_pet->serial);
-					p_pet->stablemaster_serial = INVALID_SERIAL;
-					p_pet->timeused_last=getNormalizedTime();
-					p_pet->time_unused=0;
+					p_pet->setStablemaster_serial(INVALID_SERIAL);
+					p_pet->setTimeused_last(getNormalizedTime());
+					p_pet->setTime_unused(0);
 					mapRegions->Add(p_pet);
 					LogMessage("Stabled animal got freed because stablemaster died");
 					clConsole.send("stabled animal got freed because stablemaster died");
@@ -959,16 +959,16 @@ void deathstuff(P_CHAR pc_player)
 	if (pc_player->dead || pc_player->npcaitype == 17 || pc_player->isInvul())
 		return;
 
-	if(pc_player->polymorph)
+	if(pc_player->polymorph())
 	{
 		pc_player->setId(pc_player->xid);
-		pc_player->polymorph = false;
+		pc_player->setPolymorph( false );
 		teleport(pc_player);
 	}
 
 	pc_player->xid = pc_player->id(); // lb bugfix
-	pc_player->xskin = pc_player->skin;
-	pc_player->murdererSer = 0;	// Reset previous murderer serial # to zero
+	pc_player->setXSkin(pc_player->skin());
+	pc_player->setMurdererSer(INVALID_SERIAL);	// Reset previous murderer serial # to zero
 
 	if (pc_player->attacker != INVALID_SERIAL)
 	{
@@ -1020,7 +1020,7 @@ void deathstuff(P_CHAR pc_player)
 						// Ask the victim if they want to place a bounty on the murderer (need gump to be added to
 						// BountyAskViction() routine to make this a little nicer ) - no time right now
 						// BountyAskVictim( pc_player->serial, pc_t->serial );
-						pc_player->murdererSer = pc_t->serial;
+						pc_player->setMurdererSer( pc_t->serial );
 
 						pc_t->kills++;
 						sprintf((char*)temp, "You have killed %i innocent people.", pc_t->kills);
@@ -1072,14 +1072,14 @@ void deathstuff(P_CHAR pc_player)
 	}
 
 	PlayDeathSound(pc_player);
-	pc_player->skin = 0x0000; // Undyed
+	pc_player->setSkin(0x0000); // Undyed
 	pc_player->dead = true;	// Dead
 	pc_player->hp = 0;		// With no hp left
 	pc_player->poisoned = 0;
 	pc_player->poison = 0;	//AntiChrist
 	// Make the corpse
 	sprintf((char*)temp,"corpse of %s",pc_player->name.c_str());
-	const P_ITEM pi_c = Items->SpawnItem(pc_player, 1, (char*)temp, 0, 0x2006, pc_player->xskin, 0);
+	const P_ITEM pi_c = Items->SpawnItem(pc_player, 1, (char*)temp, 0, 0x2006, pc_player->xskin(), 0);
 	if(pi_c==NULL) return;//AntiChrist to preview crashes
 	// Corpse highlighting.. Ripper
 	if(pc_player->isPlayer())
@@ -1094,7 +1094,7 @@ void deathstuff(P_CHAR pc_player)
 
 	ele=pi_c->amount=pc_player->xid; // Amount == corpse type
 	pi_c->morey = ishuman(pc_player);//is human?? - AntiChrist
-	pi_c->carve=pc_player->carve;//store carve section - AntiChrist
+	pi_c->carve=pc_player->carve();//store carve section - AntiChrist
 	pi_c->name2 = pc_player->name;
 
 	pi_c->type=1;
@@ -1768,12 +1768,12 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 		pc->setId(0x0191);
 		pc->xid = 0x0191;
 	}
-	pc->skin = (buffer[s][0x50]|0x80 << 8) + buffer[s][0x51];
-	if ( pc->skin < 0x83EA || pc->skin>0x8422 )
+	pc->setSkin( (buffer[s][0x50]|0x80 << 8) + buffer[s][0x51] );
+	if ( pc->skin() < 0x83EA || pc->skin() > 0x8422 )
 	{
-		pc->skin = 0x83EA;
+		pc->setSkin( 0x83EA );
 	}
-	pc->xskin = pc->skin;
+	pc->setXSkin(pc->skin());
 	pc->setPriv(defaultpriv1);
 	pc->priv2=defaultpriv2;
 
@@ -1787,7 +1787,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 		pc->priv3[4]=0xFFFFFFFF;
 		pc->priv3[5]=0xFFFFFFFF;
 		pc->priv3[6]=0xFFFFFFFF;
-		pc->menupriv=-1; // lb, menu priv
+		pc->setMenupriv(-1); // lb, menu priv
 	}
 	else
 	{
@@ -1999,7 +1999,7 @@ int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn ne
 				p_pet = FindCharBySerial(pets[i]);
 				if (p_pet != NULL)
 				{
-					if ( p_petowner->Owns(p_pet) && p_pet->stablemaster_serial == stablemaster_serial) // already stabled and owned by claimer ?
+					if ( p_petowner->Owns(p_pet) && p_pet->stablemaster_serial() == stablemaster_serial) // already stabled and owned by claimer ?
 					{
 						found = true;
 						break;
@@ -2011,9 +2011,9 @@ int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn ne
 			{
 				stablesp.remove(stablemaster_serial, p_pet->serial);
 				
-				p_pet->stablemaster_serial = INVALID_SERIAL; // actual unstabling
-				p_pet->timeused_last = getNormalizedTime();
-				p_pet->time_unused = 0;
+				p_pet->setStablemaster_serial( INVALID_SERIAL ); // actual unstabling
+				p_pet->setTimeused_last( getNormalizedTime() );
+				p_pet->setTime_unused( 0 );
 				p_pet->pos = p_petowner->pos;
 				p_pet->npcWander = 0;
 				
@@ -2170,7 +2170,8 @@ void scriptcommand (int s, char *script1, char *script2) // Execute command from
 	}
 	if (!(strcmp("SKIN", (char*)script1)))
 	{
-		pc_currchar->skin = pc_currchar->xskin = static_cast<UI16>(hex2num(script2));
+		pc_currchar->setSkin(static_cast<UI16>(hex2num(script2)));
+		pc_currchar->setXSkin( static_cast<UI16>(hex2num(script2)) );
 		return;
 	}
 	if (!(strcmp("LIGHT", (char*)script1)))
@@ -2283,9 +2284,9 @@ void callguards( P_CHAR pc_player )
 	if( pc_player == NULL ) return;
 
 	//AntiChrist - anti "GUARDS" spawn timer
-	if(pc_player->antiguardstimer<uiCurrentTime)
+	if(pc_player->antiguardstimer()<uiCurrentTime)
 	{
-		pc_player->antiguardstimer=uiCurrentTime+(MY_CLOCKS_PER_SEC*10);
+		pc_player->setAntiguardstimer( uiCurrentTime+(MY_CLOCKS_PER_SEC*10) );
 	} else return;
 
 	if (!pc_player->inGuardedArea() || !SrvParams->guardsActive() )
@@ -2325,7 +2326,7 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 		}
 		strcpy((char*)temp, pc_mount->name.c_str());
 		pc_currchar->onhorse = true;
-		const P_ITEM pi = Items->SpawnItem(pc_currchar, 1, (char*)temp, 0, 0x0915, pc_mount->skin, 0);
+		const P_ITEM pi = Items->SpawnItem(pc_currchar, 1, (char*)temp, 0, 0x0915, pc_mount->skin(), 0);
 		if(!pi) return;
 		
 		switch (pc_mount->id2)
@@ -2440,11 +2441,11 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 		
 		mapRegions->Remove(pc_mount);
 		
-		pc_mount->stablemaster_serial = stablemaster_serial; // set stablemaster serial
+		pc_mount->setStablemaster_serial( stablemaster_serial );
 		
 		// set timer
-		pc_mount->time_unused = 0;
-		pc_mount->timeused_last = getNormalizedTime();
+		pc_mount->setTime_unused( 0 );
+		pc_mount->setTimeused_last( getNormalizedTime() );
 		
 		stablesp.insert(stablemaster_serial, pc_mount->serial);
 		//
@@ -3194,7 +3195,7 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 			{
 				if ((!currchar[r] && perm[r]) && !currchar[r]->free
 					&& !currchar[r]->isGM()
-					&& currchar[r]->clientidletime<uiCurrentTime
+					&& currchar[r]->clientidletime()<uiCurrentTime
 					
 					)
 				{
@@ -6077,14 +6078,14 @@ void setcharflag(P_CHAR pc)// repsys ...Ripper
 					pc->setInnocent();
 					return;
 				}
-				if (SrvParams->animals_guarded() == 1 && pc->npcaitype == 0 && !pc->tamed)
+				if (SrvParams->animals_guarded() == 1 && pc->npcaitype == 0 && !pc->tamed())
 				{
 					if (pc->inGuardedArea())	// in a guarded region, with guarded animals, animals == blue
 						pc->setInnocent();
 					else				// if the region's not guarded, they're gray
 						pc->setCriminal();
 				}
-				else if (pc->ownserial>-1 && pc->tamed)
+				else if (pc->ownserial>-1 && pc->tamed())
 				{
 					P_CHAR pc_owner = FindCharBySerial(pc->ownserial);
 					if (pc_owner != NULL)

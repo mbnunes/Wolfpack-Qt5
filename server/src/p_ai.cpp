@@ -77,7 +77,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 							continue;
 						sprintf((char*)temp, "Hello %s, Welcome to my shop, How may i help thee?.", pc->name.c_str());
 						npctalkall(pc_i, (char*)temp, 1);
-						pc_i->antispamtimer = uiCurrentTime + MY_CLOCKS_PER_SEC*30;
+						pc_i->setAntispamtimer(uiCurrentTime + MY_CLOCKS_PER_SEC*30);
 					}
 				}
 			}
@@ -287,26 +287,13 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 						d = chardist( pc_i, pc );
 						if (d > 3 || pc->isInvul() || pc->isNpc() || pc->dead || !onl || !pc->isInnocent())
 							continue;
-						int beg= RandomNum(0, 2);
+						switch (RandomNum(0, 2))
 						{
-							switch (beg)
-							{
-							case 0: 
-								npctalkall(pc_i, "Could thou spare a few coins?", 1);
-								pc_i->antispamtimer = uiCurrentTime + MY_CLOCKS_PER_SEC*30;
-								break;
-							case 1: 
-								npctalkall(pc_i, "Hey buddy can you spare some gold?", 1);
-								pc_i->antispamtimer = uiCurrentTime + MY_CLOCKS_PER_SEC*30;
-								break;
-							case 2: 
-								npctalkall(pc_i, "I have a family to feed, think of the children.", 1);
-								pc_i->antispamtimer = uiCurrentTime + MY_CLOCKS_PER_SEC*30;
-								break;
-							default:
-								break;
-							}
+						case 0: npctalkall(pc_i, "Could thou spare a few coins?", 1);					break;
+						case 1: npctalkall(pc_i, "Hey buddy can you spare some gold?", 1);				break;
+						case 2: npctalkall(pc_i, "I have a family to feed, think of the children.", 1);	break;
 						}
+						pc_i->setAntispamtimer(uiCurrentTime + MY_CLOCKS_PER_SEC*30);
 					}
 				}
 			}
@@ -335,13 +322,13 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 						{
 							sprintf((char*)temp, "You better watch your step %s, I am watching thee!!", pc->name.c_str());
 							npctalkall(pc_i, (char*)temp, 1);
-							pc_i->antispamtimer = uiCurrentTime + MY_CLOCKS_PER_SEC*30;
+							pc_i->setAntispamtimer(uiCurrentTime + MY_CLOCKS_PER_SEC*30);
 						}
 						else if (pc->isPlayer() && !(pc->isInnocent() || pc->dead))
 						{
 							sprintf((char*)temp, "%s is an upstanding citizen, I will protect thee in %s.", pc->name.c_str(), region[pc->region].name);
 							npctalkall(pc_i, (char*)temp, 1);
-							pc_i->antispamtimer = uiCurrentTime + MY_CLOCKS_PER_SEC*30;
+							pc_i->setAntispamtimer(uiCurrentTime + MY_CLOCKS_PER_SEC*30);
 						}
 						else if (d <= 10 &&(
 							(pc->isNpc() &&(pc->npcaitype == 2))	// evil npc
@@ -363,7 +350,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 			break;
 		case 10: // Tamed Dragons ..not white wyrm..Ripper
 			// so regular dragons attack reds on sight while tamed.
-			if (pc_i->isNpc() && pc_i->tamed)
+			if (pc_i->isNpc() && pc_i->tamed())
 			{
 				cRegion::RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); !ri.atEnd(); ri++)
@@ -406,7 +393,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 		case 17: 
 			break; // Zippy Player Vendors.
 		case 18: // Ripper.. Escort speech.
-		if (!pc_i->war && pc_i->questType == ESCORTQUEST)
+		if (!pc_i->war && pc_i->questType() == ESCORTQUEST)
 		{
 			cRegion::RegionIterator4Chars ri(pc_i->pos);
 			for (ri.Begin(); !ri.atEnd(); ri++)
@@ -419,9 +406,9 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 				    if (d > 10 || pc->isNpc() || pc->isInvul() || pc->dead || (pc->isPlayer() && !onl))
 					    continue;
 
-				    sprintf((char*)temp,"I am waiting for my escort to %s, Will you take me?", region[pc_i->questDestRegion].name);
+				    sprintf((char*)temp,"I am waiting for my escort to %s, Will you take me?", region[pc_i->questDestRegion()].name);
 				    npctalkall(pc_i,(char*)temp,1);
-				    pc_i->antispamtimer=uiCurrentTime+MY_CLOCKS_PER_SEC*30;
+				    pc_i->setAntispamtimer(uiCurrentTime+MY_CLOCKS_PER_SEC*30);
 				    return;
 				}
 			}
@@ -430,7 +417,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 		case 19:
 			break; // real estate broker...Ripper
 		case 32: // Pets Guarding..Ripper
-			if (pc_i->isNpc() && pc_i->tamed)
+			if (pc_i->isNpc() && pc_i->tamed())
 			{
 				cRegion::RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); !ri.atEnd(); ri++)
@@ -440,7 +427,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 					{
 						onl = online(pc);
 						d = chardist(pc_i, pc);
-						if (d > 10 || pc->isNpc() || pc->dead || !pc->guarded || !onl)
+						if (d > 10 || pc->isNpc() || pc->dead || !pc->guarded() || !onl)
 							continue;
 						if (pc->Owns(pc_i))
 						{

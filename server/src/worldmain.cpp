@@ -895,7 +895,7 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 		//AntiChrist bugfix for hiding
 		pc->priv2 &= 0xf7; // unhide - AntiChrist
 		pc->hidden = 0;
-		pc->stealth = -1;
+		pc->setStealth( -1 );
 
 		//AntiChrist bugfix for magic reflect
 		pc->priv2 &= 0xBF;
@@ -903,19 +903,20 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 
 		pc->region = calcRegionFromXY(pc->pos.x, pc->pos.y); //LB bugfix
 
-		pc->antispamtimer = 0;   //LB - AntiSpam -
-		pc->antiguardstimer = 0; //AntiChrist - AntiSpam for "GUARDS" call - to avoid (laggy) guards multi spawn
+		pc->setAntispamtimer( 0 );   //LB - AntiSpam -
+		pc->setAntiguardstimer( 0 ); //AntiChrist - AntiSpam for "GUARDS" call - to avoid (laggy) guards multi spawn
 
 		if (pc->id() <= 0x3e1)
 		{
 			unsigned short k = pc->id();
-			unsigned short c1 = pc->skin;
+			unsigned short c1 = pc->skin();
 			unsigned short b = c1&0x4000;
 			if ((b == 16384 && (k >=0x0190 && k<=0x03e1)) || c1==0x8000)
 			{
 				if (c1!=0xf000)
 				{
-					pc->skin = pc->xskin = 0xF000;
+					pc->setSkin( 0xF000 );
+					pc->setXSkin( 0xF000 );
 					clConsole.send("char/player: %s : %i correted problematic skin hue\n", pc->name.c_str(),pc->serial);
 				}
 			}
@@ -935,12 +936,12 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 			}
 		}
 
-		if(pc->stablemaster_serial == INVALID_SERIAL)
+		if(pc->stablemaster_serial() == INVALID_SERIAL)
 		{ 
 			mapRegions->Add(pc); 
 		} 
 		else
-			stablesp.insert(pc->stablemaster_serial, pc->serial);
+			stablesp.insert(pc->stablemaster_serial(), pc->serial);
 
 		if (pc->isPlayer())
 		{
@@ -956,7 +957,7 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 			}
 		}
 
-		if (pc->isPlayer() && pc->account==0) pc->menupriv=-1;
+		if (pc->isPlayer() && pc->account() == 0) pc->setMenupriv(-1);
 
 
 		int max_x = cMapStuff::mapTileWidth(pc->pos) * 8;

@@ -1054,7 +1054,7 @@ void sendperson_lsd(UOXSOCKET s, P_CHAR pc, char color1, char color2)
 
 	oc[13]=pc->pos.z; // Character z position
 	oc[14]=pc->dir; // Character direction
-	ShortToCharPtr(pc->skin, &oc[15]);	// Character skin color
+	ShortToCharPtr(pc->skin(), &oc[15]);	// Character skin color
 	oc[17]=0; // Character flags
 
 	/*if (pc->hidden || !(online(i)||pc->npc)) oc[17]=oc[17]|0x80;
@@ -1229,7 +1229,7 @@ void chardel (UOXSOCKET s) // Deletion of character
 			if (!SrvParams->checkCharAge())
 				Npcs->DeleteChar(toDelete);
 			else
-				if ((toDelete->creationday+7) < getPlatformDay())
+				if ((toDelete->creationday()+7) < getPlatformDay())
 					Npcs->DeleteChar(toDelete);
 				else
 				{
@@ -1308,11 +1308,11 @@ void textflags (UOXSOCKET s, P_CHAR pc, char *name)
 	if (pc->isInvul() && pc->account!=0)		{  if (title[11].other[0] != 0) sprintf((char*)temp, " [%s]",title[11].other); else temp[0] = 0; strcat(name2,(char*)temp); } // ripper
 	if (pc->account==0 && pc->isGM())			{  if (title[12].other[0] != 0) sprintf((char*)temp, " [%s]",title[12].other); else temp[0] = 0; strcat(name2,(char*)temp); } // ripper
 	if (pc->priv2&2)							{  if (title[13].other[0] != 0) sprintf((char*)temp, " [%s]",title[13].other); else temp[0] = 0; strcat(name2,(char*)temp); }
-	if (pc->guarded)							{  if (title[14].other[0] != 0) sprintf((char*)temp, " [%s]",title[14].other); else temp[0] = 0; strcat(name2,(char*)temp); } // Ripper
-	if (pc->tamed && pc->npcaitype==32 
-		&& pc_currchar->Owns(pc) && pc_currchar->guarded) 
+	if (pc->guarded())							{  if (title[14].other[0] != 0) sprintf((char*)temp, " [%s]",title[14].other); else temp[0] = 0; strcat(name2,(char*)temp); } // Ripper
+	if (pc->tamed() && pc->npcaitype==32 
+		&& pc_currchar->Owns(pc) && pc_currchar->guarded()) 
 												{ if  (title[15].other[0] != 0) sprintf((char*)temp, " [%s]",title[15].other); else temp[0] = 0; strcat(name2,(char*)temp); } // Ripper
-	if (pc->tamed && pc->npcaitype!=17 )		{ if  (title[16].other[0] != 0) sprintf((char*)temp, " [%s]",title[16].other); strcat(name2,(char*)temp); }
+	if (pc->tamed() && pc->npcaitype!=17 )		{ if  (title[16].other[0] != 0) sprintf((char*)temp, " [%s]",title[16].other); strcat(name2,(char*)temp); }
 	if (pc->war)								{ if  (title[17].other[0] != 0) sprintf((char*)temp, " [%s]",title[17].other); strcat(name2,(char*)temp); } // ripper
 	if ((pc->crimflag>0)&&(pc->kills<SrvParams->maxkills())) 
 												{ if  (title[18].other[0] != 0) sprintf((char*)temp, " [%s]",title[18].other); else temp[0] = 0; strcat(name2,(char*)temp); }// ripper
@@ -1375,7 +1375,7 @@ void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 		LongToCharPtr(pc->serial, &goxyz[1]);
 		goxyz[5]=pc->id1;
 		goxyz[6]=pc->id2;
-		ShortToCharPtr(pc->skin, &goxyz[8]);
+		ShortToCharPtr(pc->skin(), &goxyz[8]);
 		if(pc->poisoned) 
 			goxyz[10] |= 0x04; 
 		else 
@@ -1459,7 +1459,7 @@ void teleport2(P_CHAR pc) // used for /RESEND only - Morrolan, so people can fin
 	{
 		LongToCharPtr(pc->serial, &goxyz[1]);
 		ShortToCharPtr(pc->id(),  &goxyz[5]);
-		ShortToCharPtr(pc->skin,  &goxyz[8]);
+		ShortToCharPtr(pc->skin(),  &goxyz[8]);
 		goxyz[10]=0;
 		if (pc->isHidden()) 
 			goxyz[10]=0x80;
@@ -1523,7 +1523,7 @@ void updatechar(P_CHAR pc) // If character status has been changed (Polymorph), 
 			{
 				LongToCharPtr(pc->serial, &goxyz[1]);
 				ShortToCharPtr(pc->id(),  &goxyz[5]);
-				ShortToCharPtr(pc->skin,  &goxyz[8]);
+				ShortToCharPtr(pc->skin(),  &goxyz[8]);
 				if(pc->poisoned) 
 					goxyz[10]=0x04; 
 				else 
@@ -1933,9 +1933,9 @@ void npctalk(int s, P_CHAR pc_npc, char *txt,char antispam) // NPC speech
 
 	if (antispam)
 	{
-		if (pc_npc->antispamtimer<uiCurrentTime)
+		if (pc_npc->antispamtimer()<uiCurrentTime)
 		{
-			pc_npc->antispamtimer=uiCurrentTime+MY_CLOCKS_PER_SEC*10;
+			pc_npc->setAntispamtimer(uiCurrentTime+MY_CLOCKS_PER_SEC*10);
 			machwas=1;
 		} else machwas=0;
 	} else machwas=1;
@@ -1961,7 +1961,7 @@ void npctalk(int s, P_CHAR pc_npc, char *txt,char antispam) // NPC speech
 		{
 			pc_npc->saycolor = 0x0026;
 		}
-		else if(pc_npc->isNpc() && !pc_npc->tamed && !pc_npc->guarded && !pc_npc->war)
+		else if(pc_npc->isNpc() && !pc_npc->tamed() && !pc_npc->guarded() && !pc_npc->war)
 		{
 			pc_npc->saycolor = 0x005b;
 		}
@@ -1993,9 +1993,9 @@ void npctalk_runic(int s, P_CHAR pc_npc, char *txt,char antispam) // NPC speech
 
 	if (antispam)
 	{
-		if (pc_npc->antispamtimer<uiCurrentTime)
+		if (pc_npc->antispamtimer()<uiCurrentTime)
 		{
-			pc_npc->antispamtimer=uiCurrentTime+MY_CLOCKS_PER_SEC*10;
+			pc_npc->setAntispamtimer(uiCurrentTime+MY_CLOCKS_PER_SEC*10);
 			machwas=1;
 		} else machwas=0;
 	} else machwas=1;
@@ -2036,9 +2036,9 @@ void npcemote(int s, P_CHAR pc_npc, char *txt, char antispam) // NPC speech
 
 	if (antispam)
 	{
-		if (pc_npc->antispamtimer<uiCurrentTime)
+		if (pc_npc->antispamtimer()<uiCurrentTime)
 		{
-			pc_npc->antispamtimer=uiCurrentTime+MY_CLOCKS_PER_SEC*10;
+			pc_npc->setAntispamtimer(uiCurrentTime+MY_CLOCKS_PER_SEC*10);
 			machwas=1;
 		} else machwas=0;
 	} else machwas=1;
@@ -2662,7 +2662,7 @@ void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 	if (s==-1) return; //lb
 	P_CHAR pc_currchar = currchar[s];
 
-	if (pc->stablemaster_serial != INVALID_SERIAL) return; // dont **show** stabled pets
+	if (pc->stablemaster_serial() != INVALID_SERIAL) return; // dont **show** stabled pets
 
 	int sendit;
 	if (pc->isHidden() && pc!=currchar[s] && (pc_currchar->isGM())==0) sendit=0; else sendit=1;
@@ -2688,7 +2688,7 @@ void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 	if (z) oc[13]=pc->dispz; // Character z position
 	else oc[13]=pc->pos.z;
 	oc[14]=pc->dir; // Character direction
-	ShortToCharPtr(pc->skin, &oc[15]); // Character skin color
+	ShortToCharPtr(pc->skin(), &oc[15]); // Character skin color
 	oc[17]=0; // Character flags
 	if (pc->isHidden() || !(online(pc)||pc->isNpc())) oc[17]=oc[17]|0x80; // Show hidden state correctly
 	if (pc->poisoned) oc[17]=oc[17]|0x04; //AntiChrist -- thnx to SpaceDog

@@ -279,10 +279,8 @@ char cMagic::GateCollision(P_CHAR pc_player)
 	// Now check whether the PC (player character) has moved or simply turned
 	// If they have only turned, then ignore checking for a gate collision since it would
 	// have happened the previous time
-	if( ( pc_player->pos.x == pc_player->prevX ) &&
-		( pc_player->pos.y == pc_player->prevY ) &&
-		( pc_player->pos.z == pc_player->prevZ )	)
-	return 0;
+	if( pc_player->pos == pc_player->prevPos() )
+		return 0;
 
 	// - Tauriel's region stuff 3/6/99
 	int getcell = mapRegions->GetCell(pc_player->pos);
@@ -342,11 +340,9 @@ char cMagic::GateCollision(P_CHAR pc_player)
 
 	// Since the character has moved a step update the prevXYZ values
 	// to prevent the "bounce back" effect of the GateCollision check
-	pc_player->prevX = pc_player->pos.x;
-	pc_player->prevY = pc_player->pos.y;
-	pc_player->prevZ = pc_player->pos.z;
+	pc_player->setPrevPos(pc_player->pos);
 
-	return(1);
+	return 1;
 }
 
 ///////////////////
@@ -387,46 +383,46 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 			pc_monster = Npcs->AddNPCxyz(s,295,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
             pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
 			pc_monster->npcaitype=50;
-			pc_monster->tamed=false;			
+			pc_monster->setTamed(false);			
 		}
 		else
 		{
 			soundeffect(s, 0x02, 0x17); // AE
 			pc_monster = Npcs->AddNPCxyz(s,291,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 			pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
-			pc_monster->tamed=true;
+			pc_monster->setTamed(true);
 		}
 		break;
 	case 0x000A: // Daemon
 		soundeffect(s, 0x02, 0x16);
 		pc_monster = Npcs->AddNPCxyz(s,290,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
-		pc_monster->tamed=true;
+		pc_monster->setTamed(true);
 		break;
 	case 0x000E: //Earth
 		soundeffect(s, 0x02, 0x17);
 		pc_monster = Npcs->AddNPCxyz(s,292,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
-		pc_monster->tamed=true;
+		pc_monster->setTamed(true);
 		break;
 	case 0x000F: //Fire
 		soundeffect(s, 0x02, 0x17);
 		pc_monster = Npcs->AddNPCxyz(s,293,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
-		pc_monster->tamed=true;
+		pc_monster->setTamed(true);
 		break;
 	case 0x0010: //Water
 		soundeffect(s, 0x02, 0x17);
 		pc_monster = Npcs->AddNPCxyz(s,294,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
-		pc_monster->tamed=true;
+		pc_monster->setTamed(true);
 		break;
 	case 0x023E: //Blade Spirits
 		soundeffect(s, 0x02, 0x12); // I don't know if this is the right effect...	
 		pc_monster = Npcs->AddNPCxyz(s,296,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
 		pc_monster->npcaitype=50;
-		pc_monster->tamed=false;
+		pc_monster->setTamed(false);
 		break;
 	case 0x03e2: // Dupre The Hero
 		soundeffect(s, 0x02, 0x46);
@@ -497,7 +493,8 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 	pc_monster->name = monstername;
 	pc_monster->setId(id);
 	pc_monster->xid = id;
-	pc_monster->skin = pc_monster->xskin = color;
+	pc_monster->setSkin(color);
+	pc_monster->setXSkin(color);
 	pc_monster->priv2 = 0x20;
 	pc_monster->npc = 1;
 

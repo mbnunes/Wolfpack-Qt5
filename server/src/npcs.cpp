@@ -224,9 +224,9 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 
 	LongToCharPtr(pc_k->serial, &removeitem[1]);
 
-	if (pc_k->spawnregion>0 && pc_k->spawnregion<1024)
+	if ( pc_k->spawnregion() > 0 )
 	{
-		spawnregion[pc_k->spawnregion].current--;
+		spawnregion[pc_k->spawnregion()].current--;
 	}
 
 
@@ -513,7 +513,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 					retitem->setColor( hex2num(script2) );
 				}
 			}
-			else if (!strcmp("CARVE",(char*)script1)) pc_c->carve=str2num(script2);
+			else if (!strcmp("CARVE",(char*)script1)) pc_c->setCarve(str2num(script2));
 			else if (!strcmp("CAMPING",(char*)script1)) pc_c->baseskill[CAMPING] = getstatskillvalue((char*)script2);
 			else if (!strcmp("CARPENTRY",(char*)script1)) pc_c->baseskill[CARPENTRY] = getstatskillvalue((char*)script2);
 			else if (!strcmp("CARTOGRAPHY",(char*)script1)) pc_c->baseskill[CARTOGRAPHY] = getstatskillvalue((char*)script2);
@@ -842,7 +842,8 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 
 			if (!(strcmp("SKIN",(char*)script1))) 
 			{
-				pc_c->skin = pc_c->xskin = hex2num(script2);
+				pc_c->setSkin(hex2num(script2));
+				pc_c->setXSkin(hex2num(script2));
 			}
 			else if (!(strcmp("SHOPKEEPER", (char*)script1))) 
 			{
@@ -952,7 +953,8 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 			else if (!(strcmp("SKINLIST",(char*)script1)))
 			{
 				scpMark m=pScp->Suspend();
-				pc_c->xskin = pc_c->skin = addrandomcolor(pc_c,(char*)script2);
+				pc_c->setXSkin(addrandomcolor(pc_c,(char*)script2));
+				pc_c->setSkin(pc_c->xskin());
 				pScp->Resume(m);
 				strcpy((char*)script1, "DUMMY"); // To prevent accidental exit of loop.
 			}
@@ -964,7 +966,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
 				pc_c->baseskill[z]=str2num(gettokenstr);
 			}
 
-            else if (!(strcmp("STABLEMASTER",(char*)script1))) pc_c->npc_type=1;
+            else if (!(strcmp("STABLEMASTER",(char*)script1))) pc_c->setNpc_type(1);
 			break;
 
 			case 'T':

@@ -69,17 +69,6 @@ public:
 	unsigned char			id1; // Character body type
 	unsigned char			id2; // Character body type
 	unsigned short			xid; // Backup of body type for ghosts
-	bool					incognito;// AntiChrist - true if under incognito effect
-	bool					polymorph;// AntiChrist - true if under polymorph effect
-	unsigned short			haircolor; // backup of hair/beard for incognito spell
-	unsigned short			hairstyle;
-	unsigned short			beardcolor;
-	unsigned short			beardstyle;
-	UI16					skin; // Skin color
-	unsigned short			orgskin;	// skin color backup for incognito spell
-	UI16					xskin; // Backup of skin color
-	unsigned int			creationday;	// Day since EPOCH this character was created on
-	unsigned char			gmrestrict;	// for restricting GMs to certain regions
 	unsigned char			priv2;	// 1:Allmove, 2: Frozen, 4: View houses as icons, 8: permanently hidden
 	// 10: no need mana, 20: dispellable, 40: permanent magic reflect, 80: no need reagents
 	int			            priv3[7];  // needed for Lord binarys meta-gm stuff
@@ -209,45 +198,6 @@ public:
 	//int statuse[3]; //Morrolan - stat/skill cap STR/INT/DEX in that order
 	//int skilluse[TRUESKILLS][1]; //Morrolan - stat/skill cap
 	unsigned char			lockSkill[ALLSKILLS+1]; // LB, client 1.26.2b skill managment
-	int						stealth; //AntiChrist - stealth ( steps already done, -1=not using )
-	unsigned int			running; //AntiChrist - Stamina Loose while running
-	unsigned int			logout; //unsigned int logout;//Time till logout for this char -1 means in the world or already logged out //Instalog
-	unsigned int			clientidletime; // LB
-	SERIAL					swingtarg; //Tagret they are going to hit after they swing
-	unsigned int			holdg; // Gold a player vendor is holding for Owner
-	unsigned char			fly_steps; // number of step the creatures flies if it can fly
-	unsigned int			trackingdisplaytimer;
-	int						menupriv; // needed fro LB's menu priv system
-	//taken from 6904t2(5/10/99) - AntiChrist
-	bool					tamed;
-	//taken from 6904t2(5/10/99) - AntiChrist
-	bool					guarded;							// (Abaddon) if guarded
-    unsigned int			smoketimer; // LB
-	unsigned int			smokedisplaytimer;
-	unsigned int			antispamtimer;//LB - anti spam
-	unsigned int			antiguardstimer;//AntiChrist - anti "GUARDS" spawn
-	int						carve; //AntiChrist - for new carve system
-	int						hairserial;//there are needed for incognito stuff
-	int						beardserial;
-	unsigned int			begging_timer;
-	int						postType;
-	int						questType;
-	int						questDestRegion;
-	int						questOrigRegion;
-	int						questBountyReward;      // The current reward amount for the return of this chars head
-	int						questBountyPostSerial;  // The global posting serial number of the bounty message
-	SERIAL					murdererSer;            // Serial number of last person that murdered this char
-	int						prevX; // fix for looping gate travel bug (bounce back problem)
-	int						prevY;
-	signed char 			prevZ;
-	unsigned char			commandLevel;             // 0 = player, 1 = counselor, 2 = GM
-	unsigned int			spawnregion; 
-	SERIAL					stablemaster_serial; 
-	unsigned char			npc_type;		// currently only used for stabling, (type==1 -> stablemaster)
-	// can be used for other npc types too of course
-	unsigned int			time_unused;     
-	unsigned int			timeused_last;
-	// The bit for setting what effect gm movement 
     // commands shows 
     // 0 = off 
     // 1 = FlameStrike 
@@ -263,6 +213,55 @@ protected:
 	QString					title_;
 	bool					unicode_; // This is set to 1 if the player uses unicode speech, 0 if not
 	int						account_; // changed to signed, lb
+	bool					incognito_;// AntiChrist - true if under incognito effect
+	bool					polymorph_;// AntiChrist - true if under polymorph effect
+	unsigned short			haircolor_; // backup of hair/beard for incognito spell
+	unsigned short			hairstyle_;
+	unsigned short			beardcolor_;
+	unsigned short			beardstyle_;
+	UI16					skin_; // Skin color
+	unsigned short			orgskin_;	// skin color backup for incognito spell
+	UI16					xskin_; // Backup of skin color
+	unsigned int			creationday_;	// Day since EPOCH this character was created on
+	unsigned char			gmrestrict_;	// for restricting GMs to certain regions
+
+	int						stealth_; //AntiChrist - stealth ( steps already done, -1=not using )
+	unsigned int			running_; //AntiChrist - Stamina Loose while running
+	unsigned int			logout_; //unsigned int logout;//Time till logout for this char -1 means in the world or already logged out //Instalog
+	unsigned int			clientidletime_; // LB
+	SERIAL					swingtarg_; //Tagret they are going to hit after they swing
+	unsigned int			holdg_; // Gold a player vendor is holding for Owner
+	unsigned char			fly_steps_; // number of step the creatures flies if it can fly
+	unsigned int			trackingdisplaytimer_;
+	int						menupriv_; // needed fro LB's menu priv system
+	bool					tamed_;
+	bool					guarded_;							// (Abaddon) if guarded
+    unsigned int			smoketimer_; // LB
+	unsigned int			smokedisplaytimer_;
+	unsigned int			antispamtimer_;//LB - anti spam
+	unsigned int			antiguardstimer_;//AntiChrist - anti "GUARDS" spawn
+	int						carve_; //AntiChrist - for new carve system
+	int						hairserial_;//there are needed for incognito stuff
+	int						beardserial_;
+	unsigned int			begging_timer_;
+	int						postType_;
+	int						questType_;
+	int						questDestRegion_;
+	int						questOrigRegion_;
+	int						questBountyReward_;      // The current reward amount for the return of this chars head
+	int						questBountyPostSerial_;  // The global posting serial number of the bounty message
+	SERIAL					murdererSer_;            // Serial number of last person that murdered this char
+	Coord_cl				prevPos_;
+//	int						prevX_; // fix for looping gate travel bug (bounce back problem)
+//	int						prevY_;
+//	signed char 			prevZ_;
+	unsigned char			commandLevel_;             // 0 = player, 1 = counselor, 2 = GM
+	unsigned int			spawnregion_; 
+	SERIAL					stablemaster_serial_; 
+	unsigned char			npc_type_;		// currently only used for stabling, (type==1 -> stablemaster)
+	// can be used for other npc types too of course
+	unsigned int			time_unused_;     
+	unsigned int			timeused_last_;
 
 	
 	unsigned char			priv;	// 1:GM clearance, 2:Broadcast, 4:Invulnerable, 8: single click serial numbers
@@ -288,6 +287,54 @@ public:
 	QString					title() const;
 	bool					unicode() const; // This is set to 1 if the player uses unicode speech, 0 if not
 	int						account() const; // changed to signed, lb
+	bool					incognito() const { return incognito_;	}
+	bool					polymorph() const { return polymorph_;	}
+	unsigned short			haircolor() const { return haircolor_;	}
+	unsigned short			hairstyle() const { return hairstyle_;	}
+	unsigned short			beardcolor() const{ return beardcolor_; }
+	unsigned short			beardstyle() const{ return beardstyle_;	}
+	UI16					skin() const	  { return skin_;		}
+	unsigned short			orgskin() const	  { return orgskin_;	}
+	UI16					xskin() const     { return xskin_;		}
+	unsigned int			creationday() const{return creationday_;}
+	unsigned char			gmrestrict() const{ return gmrestrict_; }
+	int						stealth() const { return stealth_; }
+	unsigned int			running() const { return running_; }
+	unsigned int			logout() const {return logout_;} 
+	unsigned int			clientidletime() const {return clientidletime_;}
+	SERIAL					swingtarg() const { return swingtarg_; }
+	unsigned int			holdg() const {return holdg_;}
+	unsigned char			fly_steps() const {return fly_steps_;} // number of step the creatures flies if it can fly
+	unsigned int			trackingdisplaytimer() const { return trackingdisplaytimer_; }
+	int						menupriv() const {return menupriv_;}
+	bool					tamed() const {return tamed_;}
+	bool					guarded() const {return guarded_;}
+    unsigned int			smoketimer() const {return smoketimer_;}
+	unsigned int			smokedisplaytimer() const {return smokedisplaytimer_;}
+	unsigned int			antispamtimer() const { return antispamtimer_;}
+	unsigned int			antiguardstimer() const { return antiguardstimer_;}
+	int						carve() const {return carve_;}
+	SERIAL					hairserial() const {return hairserial_;}
+	SERIAL					beardserial() const { return beardserial_;}
+	unsigned int			begging_timer() const {return begging_timer_;}
+	int						postType() const {return postType_;}
+	int						questType() const {return questType_;}
+	int						questDestRegion() const {return questDestRegion_;}
+	int						questOrigRegion() const {return questOrigRegion_;}
+	int						questBountyReward() const {return questBountyReward_;}
+	int						questBountyPostSerial() const {return questBountyPostSerial_;}
+	SERIAL					murdererSer() const {return murdererSer_;}
+	Coord_cl				prevPos() const { return prevPos_; }
+//	int						prevX; // fix for looping gate travel bug (bounce back problem)
+//	int						prevY;
+//	signed char 			prevZ;
+	unsigned char			commandLevel() const { return commandLevel_;}             // 0 = player, 1 = counselor, 2 = GM
+	unsigned int			spawnregion() const {return spawnregion_;} 
+	SERIAL					stablemaster_serial() const {return stablemaster_serial_;} 
+	unsigned char			npc_type() const {return npc_type_;}
+	unsigned int			time_unused() const { return time_unused_;}
+	unsigned int			timeused_last() const { return timeused_last_;}
+
 	
 	// Setters
 	void					setGuildType(short data);
@@ -296,7 +343,51 @@ public:
 	void					setTitle( const QString& data);
 	void					setUnicode( bool data); // This is set to 1 if the player uses unicode speech, 0 if not
 	void					setAccount( int data); // changed to signed, lb
+	void					setIncognito ( bool data) { incognito_ = data; } 
+	void					setPolymorph ( bool data) { polymorph_ = data; }
+	void					setHairColor ( unsigned short data) { haircolor_ = data; }
+	void					setHairStyle ( unsigned short data) { hairstyle_ = data; }
+	void					setBeardColor( unsigned short data) { beardcolor_ = data;}
+	void					setBeardStyle( unsigned short data) { beardstyle_ = data;}
+	void					setSkin( unsigned short data) { skin_ = data; }
+	void					setOrgSkin( unsigned short data) { orgskin_ = data;}
+	void					setXSkin( unsigned short data) { xskin_ = data; }
+	void					setCreationDay( unsigned int data ) { creationday_ = data; }
+	void					setGmRestrict( unsigned char data ) { gmrestrict_ = data; }
 
+	void					setStealth(int data) {stealth_ = data;}
+	void					setRunning(unsigned int data) {running_ = data;}
+	void					setLogout(unsigned int data) {logout_ = data;}
+	void					setClientIdleTime( unsigned int data ) { clientidletime_ = data;}
+	void					setSwingTarg( SERIAL data ) { swingtarg_ = data; }
+	void					setHoldg( unsigned int data ) {holdg_ = data; }
+	void					setFlySteps( unsigned char data) {fly_steps_ = data; }
+	void					setTrackingdisplaytimer( unsigned int data ) { trackingdisplaytimer_ = data;}
+	void					setMenupriv(int data) { menupriv_ = data;}
+	void					setTamed( bool data ) { tamed_ = data; }
+	void					setGuarded( bool data ) { guarded_ = data; }
+    void					setSmokeTimer( unsigned int data ) { smoketimer_ = data; }
+	void					setSmokeDisplayTimer ( unsigned int data ) { smokedisplaytimer_ = data; }
+	void					setAntispamtimer ( unsigned int data ) { antispamtimer_ = data;}
+	void					setAntiguardstimer( unsigned int data ) { antiguardstimer_ = data;}
+	void					setCarve( int data ) { carve_ = data;}
+	void					setHairSerial( SERIAL data ) { hairserial_ = data;}
+	void					setBeardSerial( SERIAL data ) {beardserial_ = data;}
+	void 					setBegging_timer( unsigned int data ) { begging_timer_ = data;}
+	void					setPostType( int data ) { postType_ = data;}
+	void					setQuestType ( int data ) { questType_ = data;}
+	void					setQuestDestRegion( int data ) { questDestRegion_ = data;}
+	void					setQuestOrigRegion( int data ) {questOrigRegion_ = data;}
+	void					setQuestBountyReward ( int data ) { questBountyReward_ = data;}
+	void					setQuestBountyPostSerial ( int data ) {questBountyPostSerial_ = data;}
+	void					setMurdererSer( SERIAL data ) { murdererSer_ = data;}
+	void					setPrevPos( const Coord_cl& data ) { prevPos_ = data; }
+	void					setCommandLevel( unsigned char data ) { commandLevel_ = data;	}
+	void					setSpawnregion ( unsigned int data ) { spawnregion_ = data;	}
+	void					setStablemaster_serial (SERIAL data ) { stablemaster_serial_ = data; }  
+	void					setNpc_type( unsigned char data ) { npc_type_ = data; }
+	void					setTime_unused ( unsigned int data ) { time_unused_ = data; }
+	void					setTimeused_last( unsigned int data ) { timeused_last_ = data;}
 
 	
 	short effDex()				{return dx+tmpDex>0 ? dx+tmpDex : 0;}	// returns current effective Dexterity
@@ -428,7 +519,7 @@ inline bool  cChar::isPlayer() const		{return (!this->npc);}
 inline bool  cChar::isNpc()	const			{return (this->npc);}
 inline bool  cChar::isHuman() const			{return (this->id() == 0x190 || this->id() == 0x191);} 
 inline bool  cChar::isTrueGM() const		{return (priv&0x01);} 
-inline bool  cChar::isGM() const			{return (priv&0x01 && (!gmrestrict || region==gmrestrict)) || account == 0;} 
+inline bool  cChar::isGM() const			{return (priv&0x01 && (!gmrestrict_ || region==gmrestrict_)) || account_ == 0;} 
 inline bool  cChar::isCounselor() const		{return (priv&0x80 ? true : false);} 
 inline bool  cChar::isGMorCounselor() const	{return (priv&0x81 ?true:false);} 
 inline bool  cChar::isInvul() const			{return (priv&0x04 ?true:false);}

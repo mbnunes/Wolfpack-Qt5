@@ -1241,7 +1241,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							if (npcnum!=NULL)
 							{
 								npcnum->SetOwnSerial(currchar[ts]->serial);
-								npcnum->tamed = true;// AntiChrist FIX
+								npcnum->setTamed(true);// AntiChrist FIX
 							}
 						}
 						else if (!(strcmp("NEWSPEECH", (char*)script1)))  // Give the new npc a new spech -- MAgius(CHE) §

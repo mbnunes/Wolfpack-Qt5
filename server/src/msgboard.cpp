@@ -76,7 +76,7 @@ unsigned char msg2Post[MAXBUFFER_ASYNCH] = "\x71\xFF\xFF\x05\x40\x00\x00\x19\x00
 //////////////////////////////////////////////////////////////////////////////
 void MsgBoardGetPostType( int s )
 {
-	int type = currchar[s]->postType;
+	int type = currchar[s]->postType();
 	
 	switch ( type )
 	{
@@ -128,7 +128,7 @@ void MsgBoardGetPostType( int s )
 //////////////////////////////////////////////////////////////////////////////
 void MsgBoardSetPostType( int s, int Type )
 {
-	currchar[s]->postType = Type;
+	currchar[s]->setPostType( Type );
 	
 	switch ( Type )
 	{
@@ -1740,7 +1740,7 @@ void MsgBoardEvent(int s)
 			
 			// Check privledge level against server.scp msgpostaccess
 			if ( (currchar[s]->isGM()) || (SrvParams->msgboardPostAccess()) )
-				MsgBoardPost( s, currchar[s]->postType, 0 );
+				MsgBoardPost( s, currchar[s]->postType(), 0 );
 			else
 				sysmessage( s, "Thou art not allowed to post messages." );
 			
@@ -2068,7 +2068,7 @@ int MsgBoardPostQuest( int serial, int questType )
 					// Destination Region Name
 				case 'r':
 					{
-						strcpy( flagPos, region[FindCharBySerial( serial )->questDestRegion].name ); 
+						strcpy( flagPos, region[FindCharBySerial( serial )->questDestRegion()].name ); 
 						strcat( (char*)temp, tempString );
 						break;
 					}
@@ -2169,33 +2169,33 @@ void MsgBoardQuestEscortCreate( P_CHAR pc_npc )
 			// valid escort region is not the NPC's current location - if it is Abort
 			if ( (escortRegions==1) && (validEscortRegion[0]==pc_npc->region) )
 			{
-				pc_npc->questDestRegion = 0;
+				pc_npc->setQuestDestRegion(0);
 				break;
 			}
 			
-			pc_npc->questDestRegion = validEscortRegion[RandomNum(0, (escortRegions-1))];
+			pc_npc->setQuestDestRegion(validEscortRegion[RandomNum(0, (escortRegions-1))]);
 		}
 		else
 		{
-			pc_npc->questDestRegion = 0;  // If no escort regions have been defined in REGIONS.SCP then we can't do it!!
+			pc_npc->setQuestDestRegion(0);  // If no escort regions have been defined in REGIONS.SCP then we can't do it!!
 			break;
 		}
-	} while ( (pc_npc->questDestRegion == pc_npc->region) 	&& (++loopexit < MAXLOOPS)  );
+	} while ( (pc_npc->questDestRegion() == pc_npc->region) && (++loopexit < MAXLOOPS)  );
 	
 	// Set quest type to escort
-	pc_npc->questType = ESCORTQUEST;
+	pc_npc->setQuestType(ESCORTQUEST);
 	
 	// Make sure they don't move until an player accepts the quest
 	pc_npc->npcWander       = 0;                // Don't want our escort quest object to wander off.
 	pc_npc->npcaitype       = 18;                // set to escort speech so they can yell to all.
-	pc_npc->questOrigRegion = pc_npc->region;  // Store this in order to remeber where the original message was posted
+	pc_npc->setQuestOrigRegion(pc_npc->region);  // Store this in order to remeber where the original message was posted
 	
 	// Set the expirey time on the NPC if no body accepts the quest
 	if ( SrvParams->escortinitexpire() )
 		pc_npc->summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParams->escortinitexpire() ) );
 	
 	// Make sure the questDest is valid otherwise don't post and delete the NPC
-	if ( !pc_npc->questDestRegion )
+	if ( !pc_npc->questDestRegion() )
 	{
 		clConsole.send("WOLFPACK: MsgBoardQuestEscortCreate() No valid regions defined for escort quests\n");
 		Npcs->DeleteChar( pc_npc );
@@ -2242,7 +2242,7 @@ void MsgBoardQuestEscortArrive( P_CHAR pc_npc, int pcIndex )
 	// If they have no money, well, oops!
 	if ( servicePay == 0 )
 	{
-		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Alas, I seem to be a little short on gold. I have nothing to pay you with.", currchar[k]->name.c_str(), region[pc_npc->questDestRegion].name );
+		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Alas, I seem to be a little short on gold. I have nothing to pay you with.", currchar[k]->name.c_str(), region[pc_npc->questDestRegion()].name );
 		npctalk( k, pc_npc, (char*)temp, 0 );
 	}
 	else // Otherwise pay the poor sod for his time
@@ -2251,7 +2251,7 @@ void MsgBoardQuestEscortArrive( P_CHAR pc_npc, int pcIndex )
 		if ( servicePay < 75 ) servicePay += RandomNum(75, 100);
 		addgold( k, servicePay );
 		goldsfx( k, servicePay );
-		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Here is thy pay as promised.", currchar[k]->name.c_str(), region[pc_npc->questDestRegion].name );
+		sprintf( (char*)temp, "Thank you %s for thy service. We have made it safely to %s. Here is thy pay as promised.", currchar[k]->name.c_str(), region[pc_npc->questDestRegion()].name );
 		npctalk( k, pc_npc, (char*)temp, 0 );
 	}
 	
@@ -2262,8 +2262,8 @@ void MsgBoardQuestEscortArrive( P_CHAR pc_npc, int pcIndex )
 	// Take the NPC out of quest mode
 	pc_npc->npcWander = 2;						// Wander freely
 	pc_npc->ftarg = INVALID_SERIAL;				// Reset follow target
-	pc_npc->questType = 0;						// Reset quest type
-	pc_npc->questDestRegion = 0;				// Reset quest destination region
+	pc_npc->setQuestType(0);						// Reset quest type
+	pc_npc->setQuestDestRegion(0);				// Reset quest destination region
 	
 	// Set a timer to automatically delete the NPC
 	pc_npc->summontimer = ( uiCurrentTime + ( MY_CLOCKS_PER_SEC * SrvParams->escortdoneexpire() ) );
@@ -2681,11 +2681,11 @@ void MsgBoardMaintenance( void )
 								if (pc_z != NULL)
 								{
 									if ( pc_z->serial == calcserial(msg[13], msg[14], msg[15], msg[16]) &&
-										pc_z->isNpc()  &&	pc_z->questType > 0          )
+										pc_z->isNpc()  &&	pc_z->questType() > 0          )
 									{
 										// Now lets reset all of the escort timers after the server has reloaded the WSC file
 										// If this is an Escor Quest NPC 
-										if ( (pc_z->questType==ESCORTQUEST) )
+										if ( (pc_z->questType()==ESCORTQUEST) )
 										{
 											// And it doesn't have a player escorting it yet
 											if ( pc_z->ftarg == INVALID_SERIAL )
@@ -2720,14 +2720,14 @@ void MsgBoardMaintenance( void )
 								{
 									if ( (pc_z->serial             == postObjectSN) &&
 										   (pc_z->npc                == 0           ) &&
-										   (pc_z->questBountyReward  >  0           ) )
+										   (pc_z->questBountyReward()  >  0           ) )
 									{
 				                    // Check that if this is a BOUNTYQUEST that should be removed first!
 									    if( ( postAge>=SrvParams->bountysexpire() ) && ( SrvParams->bountysexpire()!=0 ) )
 					                    {                    
 										  // Reset the Player so they have no bounty on them
-											pc_z->questBountyReward     = 0;
-											pc_z->questBountyPostSerial = 0;
+											pc_z->setQuestBountyReward(0);
+											pc_z->setQuestBountyPostSerial(0);
 					                    }
 										else
 					                    {
@@ -2812,9 +2812,9 @@ void MsgBoardMaintenance( void )
 										{
 											if ( (pc_z->serial           == postObjectSN) &&
 										       (pc_z->npc                == 0           ) &&
-										       (pc_z->questBountyReward  >  0           ) )
+										       (pc_z->questBountyReward()  >  0           ) )
 											{
-												pc_z->questBountyPostSerial = newPostSN;
+												pc_z->setQuestBountyPostSerial(newPostSN);
 											}
 										}
 									}

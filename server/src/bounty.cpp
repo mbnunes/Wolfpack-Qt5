@@ -113,23 +113,23 @@ bool cBounty::BountyCreate( int nMurdererSerial, int nRewardAmount )
   if( nRewardAmount > 0 )
   {
     // Check that this murderer doesn't already have a bounty on them
-    if( pc_nIndex->questBountyReward > 0 )
+    if( pc_nIndex->questBountyReward() > 0 )
     {
       // This murderer already has a bounty on them because they 
       // have a reward amount on their head, so delete old bounty
       // and add the new (updated) one
-      nRewardAmount += pc_nIndex->questBountyReward;
+      nRewardAmount += pc_nIndex->questBountyReward();
       BountyDelete( nMurdererSerial );
     }
 
     // Attempt to post the message first
-    pc_nIndex->questBountyReward = nRewardAmount;
+    pc_nIndex->setQuestBountyReward(nRewardAmount);
     nPostSerial = MsgBoardPostQuest( nMurdererSerial, BOUNTYQUEST );
 
     // If we received a valid serial number then the post was successfull
     if( nPostSerial > 0 )
     {
-      pc_nIndex->questBountyPostSerial = nPostSerial;
+      pc_nIndex->setQuestBountyPostSerial(nPostSerial);
       return true;
     }
   }
@@ -156,11 +156,11 @@ bool cBounty::BountyDelete( int nMurdererSerial )
 
   // Find and mark the post associated with this bounty as deleted
   // so that the bulletin board maintenance routine can clean it up
-  bReturn = MsgBoardRemoveGlobalPostBySerial( pc_nIndex->questBountyPostSerial );
+  bReturn = MsgBoardRemoveGlobalPostBySerial( pc_nIndex->questBountyPostSerial() );
 
   // Reset all bounty values for this character
-  pc_nIndex->questBountyReward     = 0;
-  pc_nIndex->questBountyPostSerial = INVALID_SERIAL;
+  pc_nIndex->setQuestBountyReward(0);
+  pc_nIndex->setQuestBountyPostSerial( INVALID_SERIAL );
 
   return bReturn;
 

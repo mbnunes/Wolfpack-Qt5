@@ -137,7 +137,7 @@ void CheckPoisoning(UOXSOCKET sd, P_CHAR pc_attacker, P_CHAR pc_defender)
 // This checks LineOfSight before calling CombatHit (Duke, 10.7.2001)
 void cCombat::CombatHitCheckLoS(P_CHAR pAttacker, unsigned int currenttime)
 {
-	P_CHAR pDefender = FindCharBySerial(pAttacker->swingtarg);
+	P_CHAR pDefender = FindCharBySerial(pAttacker->swingtarg());
 	if ( pDefender == NULL ) return;
 	UOXSOCKET s1=calcSocketFromChar(pAttacker);
 
@@ -184,7 +184,7 @@ void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int cu
 
 
 
-	pc_attacker->swingtarg=-1;
+	pc_attacker->setSwingTarg(-1);
 
 	if((chardist(pc_attacker, pc_deffender)>1 && fightskill!=ARCHERY) || !los) return;
 	if(pc_deffender->isNpc() && pc_deffender->isInvul()) return; // ripper
@@ -852,7 +852,7 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 						if (fightskill==ARCHERY)
 							Combat->CombatHit(pc_attacker, pc_defender, currenttime,los);
 						else
-							pc_attacker->swingtarg = pc_defender->serial;
+							pc_attacker->setSwingTarg(pc_defender->serial);
 					}
 
 					SetWeaponTimeout(pc_attacker, pWeapon);

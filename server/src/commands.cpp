@@ -56,12 +56,6 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 
 	P_CHAR pc_currchar = currchar[s];
 
-	// )"!(§$&="(/§&(/)"&% What shoudl THAT be ????? - darkstorm
-	/*if (pc_currchar->unicode())
-		cCommands::cmd_offset = 1;
-	else
-		cCommands::cmd_offset = 1;*/
-
 	cCommands::command_line = speech;
 	cCommands::params = cCommands::command_line.split(" ");
 	strcpy((char*)nonuni, speech.c_str());
@@ -405,7 +399,7 @@ void cCommands::KillSpawn(int s, int r)  //courtesy of Revana
 	for(iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 	{
 		P_CHAR toCheck = iter_char.GetData();
-		if(toCheck->spawnregion==r && !toCheck->free)
+		if(toCheck->spawnregion()==r && !toCheck->free)
 		{
 			bolteffect(toCheck, true);
 			soundeffect2(toCheck, 0x0029);
@@ -688,7 +682,8 @@ void cCommands::DyeItem(int s) // Rehue an item
          if (k!=0x8000) 
 		 {	
 		 
-			pc->skin = pc->xskin = k;
+			pc->setSkin(k);
+			pc->setXSkin(k);
 			updatechar(pc);
          }
 	}

@@ -621,15 +621,15 @@ static bool ItemDroppedOnGuard(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 		// This is a head of someone, see if the owner has a bounty on them
 		P_CHAR pCharIdx = FindCharBySerial( pi->ownserial );
 		
-		if( pCharIdx->questBountyReward > 0 )
+		if( pCharIdx->questBountyReward() > 0 )
 		{
 			// Give the person the bounty assuming that they are not the
 			// same person as the reward is for
 			if( pc_currchar->serial != pCharIdx->serial )
 			{
 				// give them the gold for bringing the villan to justice
-				addgold( s, pCharIdx->questBountyReward );
-				goldsfx( s, pCharIdx->questBountyReward );
+				addgold( s, pCharIdx->questBountyReward() );
+				goldsfx( s, pCharIdx->questBountyReward() );
 				
 				// Now thank them for their hard work
 				sprintf((char*) temp, "Excellent work! You have brought us the head of %s. Here is your reward of %d gold coins.",

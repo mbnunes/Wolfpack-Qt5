@@ -704,8 +704,8 @@ PyObject *Py_WPCharGetAttr( Py_WPChar *self, char *name )
 	else getIntProperty( "serial", Char->serial )
 	else getIntProperty( "body", Char->id() )
 	else getIntProperty( "xbody", Char->xid )
-	else getIntProperty( "skin", Char->skin )
-	else getIntProperty( "xskin", Char->xskin )
+	else getIntProperty( "skin", Char->skin() )
+	else getIntProperty( "xskin", Char->xskin() )
 	
 	else getIntProperty( "health", Char->hp )
 	else getIntProperty( "stamina", Char->stm )
@@ -749,8 +749,10 @@ int Py_WPCharSetAttr( Py_WPChar *self, char *name, PyObject *value )
 		self->Char->setId( PyInt_AS_LONG( value ) );
 	
 	else setIntProperty( "xbody", Char->xid )
-	else setIntProperty( "skin", Char->skin )
-	else setIntProperty( "xskin", Char->xskin )
+	else if ( !strcmp( "skin", name ) )
+		self->Char->setSkin( PyInt_AS_LONG(value ) );
+	else if ( !strcmp( "xskin", name ) )
+		self->Char->setXSkin( PyInt_AS_LONG(value ) );
 	
 	else setIntProperty( "health", Char->hp )
 	else setIntProperty( "stamina", Char->stm )

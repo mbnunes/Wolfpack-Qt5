@@ -169,7 +169,7 @@ void cTargets::PlVBuy(int s)//PlayerVendors
 	pBackpack->DeleteAmount(price,0x0EED);	// take gold from player
 
 	npctalk(s, pc, "Thank you.",0);
-	pc->holdg+=pi->value; // putting the gold to the vendor's "pocket"
+	pc->setHoldg(pc->holdg() + pi->value); // putting the gold to the vendor's "pocket"
 
 	// sends item to the proud new owner's pack
 	pi->SetContSerial(pBackpack->serial);
@@ -369,7 +369,8 @@ void DyeTarget(int s)
 
 			if (k!=0x8000) // 0x8000 also crashes client ...
 			{
-				pc->skin = pc->xskin = k;
+				pc->setSkin(k);
+				pc->setXSkin(k);
 				updatechar(pc);
 			}
 		}
@@ -743,12 +744,12 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 	unmounthorse(targSocket);	//AntiChrist bugfix
 	
 	pc->setId(0x03DB);
-	pc->skin = 0x8021;
+	pc->setSkin(0x8021);
 	pc->xid = 0x03DB;
-	pc->xskin = 0x8021;
+	pc->setXSkin(0x8021);
 	pc->setPriv(0xF7);
 	pc->priv2 = (unsigned char) (0xD9);
-	pc->gmrestrict = 0; // By default, let's not restrict them.
+	pc->setGmRestrict(0); // By default, let's not restrict them.
 	
 	for (i = 0; i < 7; i++) // this overwrites all previous settings !
 	{
@@ -757,7 +758,7 @@ static void GMTarget(P_CLIENT ps, P_CHAR pc)
 			pc->priv3[i]=0xffffffff;
 		else
 			pc->priv3[i]=metagm[0][i]; // gm defaults is 0
-		pc->menupriv=-1; // LB, disabling menupriv stuff for gms per default
+		pc->setMenupriv(-1); // LB, disabling menupriv stuff for gms per default
 	}
 	
 	for (i = 0; i < TRUESKILLS; i++)
@@ -797,9 +798,9 @@ static void CnsTarget(P_CLIENT ps, P_CHAR pc)
 		savelog((char*)temp2, (char*)temp);
 	}
 	pc->setId(0x03DB);
-	pc->skin=0x8003;
+	pc->setSkin(0x8003);
 	pc->xid=0x03DB;
-	pc->xskin=0x8002;
+	pc->setXSkin(0x8002);
 	pc->setPriv(0xB6);
 	pc->priv2='\x8D';
 	if (strncmp(pc->name.c_str(), "Counselor", 9))
@@ -986,11 +987,11 @@ static void OwnerTarget(P_CLIENT ps, P_CHAR pc)
 	pc->SetOwnSerial(addser);
 	if (addser==-1)
 	{
-		pc->tamed=false;
+		pc->setTamed(false);
 	}
 	else
 	{
-		pc->tamed=true;
+		pc->setTamed(true);
 	}
 }
 
@@ -1040,8 +1041,8 @@ static void AddNpcTarget(int s, PKGx6C *pp)
 	pc->id1=addid1[s];
 	pc->id2=addid2[s];
 	pc->xid = pc->id();
-	pc->skin = 0;
-	pc->xskin = 0;
+	pc->setSkin(0);
+	pc->setXSkin(0);
 	pc->setPriv(0x10);
 	pc->pos.x=pp->TxLoc;
 	pc->pos.y=pp->TyLoc;
@@ -3108,7 +3109,7 @@ bool cTargets::NpcResurrectTarget(P_CHAR pc)
 		Fame(pc,0);
 		soundeffect2(pc, 0x0214);
 		pc->setId(pc->xid);
-		pc->skin = pc->xskin;
+		pc->setSkin(pc->xskin());
 		pc->dead=false;
 		pc->hp=pc->st;// /10;
 		pc->stm=pc->effDex();// /10;
@@ -3789,7 +3790,7 @@ void cTargets::MenuPrivTarg(int s)//LB's menu privs
 		sysmessage(s,temp);
 		sprintf(temp,"Menupriv %i set by %s",i,currchar[s]->name.c_str());
 		sysmessage(calcSocketFromChar(pc),temp);
-		pc->menupriv=i;
+		pc->setMenupriv(i);
 	}
 }
 
@@ -3875,7 +3876,7 @@ void cTargets::GuardTarget( UOXSOCKET s )
 	pPet->ftarg = currchar[s]->serial;
 	pPet->npcWander=1;
 	sysmessage(s, "Your pet is now guarding you.");
-	currchar[s]->guarded = true;
+	currchar[s]->setGuarded(true);
 }
 
 void cTargets::ResurrectionTarget( UOXSOCKET s )

@@ -82,7 +82,7 @@ void cChar::Init(bool ser)
 	this->name = "Mr. noname";
 	this->setOrgname("Mr. noname");
 
-	this->antispamtimer=0;//LB - anti spam
+	this->setAntispamtimer(0);//LB - anti spam
 
 	this->setUnicode(true); // This is set to 1 if the player uses unicode speech, 0 if not
 	this->setAccount(-1);
@@ -97,7 +97,8 @@ void cChar::Init(bool ser)
 	this->dir=0; //&0F=Direction
 	this->xid = 0x0190;
 	this->setId(0x0190);
-	this->skin = this->xskin = 0x0000; // Skin color
+	this->setSkin(0); // Skin color
+	this->setXSkin(0); // Skin color
 	this->setPriv(0);	// 1:GM clearance, 2:Broadcast, 4:Invulnerable, 8: single click serial numbers
 	// 10: Don't show skill titles, 20: GM Pagable, 40: Can snoop others packs, 80: Counselor clearance
 	this->priv2=0;	// 1:Allmove, 2: Frozen, 4: View houses as icons, 8: permanently hidden
@@ -123,7 +124,7 @@ void cChar::Init(bool ser)
 	this->jailtimer=0; //blackwinds jail system 
     this->jailsecs=0;
 	
-	this->creationday = getPlatformDay() ;
+	this->setCreationDay(getPlatformDay());
 	for (i=0;i<TRUESKILLS;i++)
 	{
 		this->baseskill[i]=0;
@@ -138,7 +139,7 @@ void cChar::Init(bool ser)
 	this->jailsecs=0;
 
 	this->ownserial=INVALID_SERIAL; // If Char is an NPC, this sets its owner
-	this->tamed = false; // True if NPC is tamed
+	this->setTamed(false); // True if NPC is tamed
 	this->robe = -1; // Serial number of generated death robe (If char is a ghost)
 	this->karma=0;
 	this->fame=0;
@@ -248,31 +249,31 @@ void cChar::Init(bool ser)
 	this->squelched=0; // zippy  - squelching
 	this->mutetime=0; //Time till they are UN-Squelched.
 	this->med = false; // false = not meditating, true = meditating //Morrolan - Meditation 
-	this->stealth=-1; //AntiChrist - stealth ( steps already done, -1=not using )
-	this->running=0; //AntiChrist - Stamina Loose while running
-	this->logout=0;//Time till logout for this char -1 means in the world or already logged out //Instalog
-	this->swingtarg=-1; //Tagret they are going to hit after they swing
-	this->holdg=0; // Gold a player vendor is holding for Owner
-	this->fly_steps=0; //LB -> used for flyging creatures
-	this->menupriv=0; // Lb -> menu priv
-	this->guarded=false; // True if CHAR is guarded by some NPC
-	this->smoketimer=0;
-	this->smokedisplaytimer=0;
-	this->carve=-1; // AntiChrist - for new carving system
-	this->antiguardstimer=0; // AntiChrist - for "GUARDS" call-spawn
-	this->polymorph=false;//polymorph - AntiChrist
-	this->incognito=false;//incognito - AntiChrist
-    this->postType = LOCALPOST;
-    this->questDestRegion = 0;
-    this->questOrigRegion= 0;
-    this->questBountyReward= 0;
-    this->questBountyPostSerial = INVALID_SERIAL;
-    this->murdererSer = 0;
-    this->spawnregion = 0;
-    this->npc_type = 0;
-    this->stablemaster_serial = INVALID_SERIAL;
-	this->timeused_last = getNormalizedTime();
-	this->time_unused = 0;
+	this->setStealth(-1); //AntiChrist - stealth ( steps already done, -1=not using )
+	this->setRunning(0); //AntiChrist - Stamina Loose while running
+	this->setLogout(0);//Time till logout for this char -1 means in the world or already logged out //Instalog
+	this->setSwingTarg(-1); //Tagret they are going to hit after they swing
+	this->setHoldg(0); // Gold a player vendor is holding for Owner
+	this->setFlySteps(0); //LB -> used for flyging creatures
+	this->setMenupriv(0); // Lb -> menu priv
+	this->setGuarded(false); // True if CHAR is guarded by some NPC
+	this->setSmokeTimer(0);
+	this->setSmokeDisplayTimer(0);
+	this->setCarve(-1); // AntiChrist - for new carving system
+	this->setAntiguardstimer(0); // AntiChrist - for "GUARDS" call-spawn
+	this->setPolymorph(false);//polymorph - AntiChrist
+	this->setIncognito(false);//incognito - AntiChrist
+    this->setPostType(LOCALPOST);
+    this->setQuestDestRegion(0);
+    this->setQuestOrigRegion(0);
+    this->setQuestBountyReward(0);
+    this->setQuestBountyPostSerial(INVALID_SERIAL);
+    this->setMurdererSer(INVALID_SERIAL);
+    this->setSpawnregion(0);
+    this->setNpc_type(0);
+    this->setStablemaster_serial(INVALID_SERIAL);
+	this->setTimeused_last(getNormalizedTime());
+	this->setTime_unused(0);
 
 	for (i=0;i<TRUESKILLS;i++)
 	{
@@ -281,25 +282,6 @@ void cChar::Init(bool ser)
 	}
 	for (i = 0; i < ALLSKILLS; i++) 
 		this->lockSkill[i]=0;
-}
-
-///////////////////////
-// Name:	cChar::day
-// history:	by punt, 15.4.2001
-// Purpose:	return the day this was created
-
-unsigned long cChar::day()
-{
-	return creationday;
-}
-///////////////////////
-// Name:	cChar::day(unsigned long)
-// history:	by punt, 15.4.2001
-// Purpose:	set the day this was created
-
-void cChar::day(unsigned long CreateDay)
-{
-	creationday = CreateDay ;
 }
 
 ///////////////////////
@@ -389,7 +371,7 @@ void cChar::unhide()
 {
 	if (this->isHidden() && !(this->priv2&8))	//if hidden but not permanently
 	{
-		this->stealth=-1;
+		this->setStealth(-1);
 		this->hidden=0;
 		updatechar(this);	// LB, necassary for client 1.26.2
 		if (this->isGM())
@@ -408,7 +390,7 @@ void cChar::setNextMoveTime(short tamediv)
 {
 //	if ( && this->tamed) return;	// MUST be nonzero
 	// let's let them move once in a while ;)
-	if(this->tamed)
+	if(this->tamed())
 		this->npcmovetime=(unsigned int)((uiCurrentTime+double(NPCSPEED*MY_CLOCKS_PER_SEC/5)));
 	else if(this->war)
 		this->npcmovetime=(unsigned int)((uiCurrentTime+double(NPCSPEED*MY_CLOCKS_PER_SEC/5)));
@@ -594,9 +576,9 @@ void cChar::SetOwnSerial(long ownser)
 	
 	setOwnSerialOnly(ownser);
 	if (ownser != serial && ownser != INVALID_SERIAL)
-		tamed = true;
+		tamed_ = true;
 	else
-		tamed = false;
+		tamed_ = false;
 
 	if (ownser != INVALID_SERIAL)		// if there is an owner, add it
 		cownsp.insert(ownserial, serial);
@@ -724,7 +706,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("name",			orgname_);
 		archive.read("title",			title_);
 		archive.read("account",			account_);
-		archive.read("creationday",		creationday);
+		archive.read("creationday",		creationday_);
 		archive.read("gmmoveeff",		gmMoveEff);
 		archive.read("guildtype",		GuildType);
 		archive.read("guildtraitor",	GuildTraitor);
@@ -734,8 +716,8 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("race",			race);
 		archive.read("body",			xid);	setId(xid);
 		archive.read("xbody",			xid);
-		archive.read("skin",			skin);	
-		archive.read("xskin",           xskin);
+		archive.read("skin",			skin_);	
+		archive.read("xskin",           xskin_);
 		archive.read("priv",			priv);
 		
 		archive.read("priv3a",			priv3[0]);
@@ -747,9 +729,9 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("priv3g",			priv3[6]);
 		// end of meta-gm save
 		
-		archive.read("stablemaster",	stablemaster_serial);
-		archive.read("npctype",			npc_type);
-		archive.read("time_unused",		time_unused);
+		archive.read("stablemaster",	stablemaster_serial_);
+		archive.read("npctype",			npc_type_);
+		archive.read("time_unused",		time_unused_);
 		
 		archive.read("allmove",			priv2);
 		archive.read("font",			fonttype);
@@ -762,11 +744,11 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("intelligence",	in);
 		archive.read("intelligence2",	in2);
 		archive.read("hitpoints",		hp);
-		archive.read("spawnregion",		spawnregion);
+		archive.read("spawnregion",		spawnregion_);
 		archive.read("stamina",			stm);
 		archive.read("mana",			mn);
 		archive.read("npc",				npc);
-		archive.read("holdgold",		holdg);
+		archive.read("holdgold",		holdg_);
 		archive.read("shop",			shop);
 		archive.read("own",				ownserial);
 		archive.read("robe",			robe);
@@ -800,7 +782,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("war",				war);
 		archive.read("npcwander",		npcWander);
 		archive.read("oldnpcwander",	oldnpcWander);
-		archive.read("carve",			carve);
+		archive.read("carve",			carve_);
 		archive.read("fx1",				fx1);
 		archive.read("fy1",				fy1);
 		archive.read("fz1",				fz1);
@@ -829,23 +811,23 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("guildtitle",		guildtitle);  
 		archive.read("guildfealty",		guildfealty);  
 		archive.read("murderrate",		murderrate);
-		archive.read("menupriv",		menupriv);  
-		archive.read("questtype",		questType);  
-		archive.read("questdestregion",	questDestRegion);  
-		archive.read("questorigregion",	questOrigRegion);  
-		archive.read("questbountypostserial", questBountyPostSerial);  
-		archive.read("questbountyreward", questBountyReward);  
+		archive.read("menupriv",		menupriv_);
+		archive.read("questtype",		questType_);
+		archive.read("questdestregion",	questDestRegion_);
+		archive.read("questorigregion",	questOrigRegion_);
+		archive.read("questbountypostserial", questBountyPostSerial_);
+		archive.read("questbountyreward", questBountyReward_);
 		archive.read("jailtimer",		jailtimer);
 		if (jailtimer != 0)
 			jailtimer += uiCurrentTime;
 		archive.read("jailsecs",		jailsecs); 
-		archive.read("gmrestrict",		gmrestrict); 
+		archive.read("gmrestrict",		gmrestrict_);
 		SetOwnSerial(ownserial);
 		SetSpawnSerial(spawnserial);
 	}
 	else if ( archive.isWritting())
 	{
-		if(incognito)
+		if(incognito())
 		{//save original name
 			archive.write("name", orgname());
 		} 
@@ -856,7 +838,7 @@ void cChar::Serialize(ISerialization &archive)
 		
 		archive.write("title",			title());
 		archive.write("account",		account());
-		archive.write("creationday",	creationday);
+		archive.write("creationday",	creationday_);
 		archive.write("gmmoveeff",		gmMoveEff);
 		archive.write("guildtype",		guildType());
 		archive.write("guildtraitor",	guildTraitor());
@@ -865,7 +847,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("dir",			dir);
 		archive.write("race",			race);
 		//AntiChrist - incognito and polymorph spell special stuff - 12/99
-		if(incognito || polymorph)
+		if(incognito() || polymorph())
 		{//if under incognito spell, don't save BODY but the original XBODY
 			archive.write("body", xid);
 		} 
@@ -875,16 +857,16 @@ void cChar::Serialize(ISerialization &archive)
 		}
 		archive.write("xbody", xid);
 		//AntiChrist - incognito spell special stuff - 12/99
-		if(incognito)
+		if(incognito())
 		{//if under incognito spell, don't save SKIN but the original XSKIN
-			archive.write("skin", xskin);
+			archive.write("skin", xskin_);
 		} 
 		else
 		{//else backup skin normally
-			archive.write("skin", skin);
+			archive.write("skin", skin_);
 		}
 		
-		archive.write("xskin",			xskin);
+		archive.write("xskin",			xskin_);
 		archive.write("priv",			priv);
 		
 		archive.write("priv3a",			priv3[0]);
@@ -896,9 +878,9 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("priv3g",			priv3[6]);
 		// end of meta-gm save
 		
-		archive.write("stablemaster",	stablemaster_serial);
-		archive.write("npctype",		npc_type);
-		archive.write("time_unused",	time_unused);
+		archive.write("stablemaster",	stablemaster_serial_);
+		archive.write("npctype",		npc_type_);
+		archive.write("time_unused",	time_unused_);
 		
 		archive.write("allmove",		priv2);
 		archive.write("font",			fonttype);
@@ -911,11 +893,11 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("intelligence",	in);
 		archive.write("intelligence2",	in2);
 		archive.write("hitpoints",		hp);
-		archive.write("spawnregion",	spawnregion);
+		archive.write("spawnregion",	spawnregion_);
 		archive.write("stamina",		stm);
 		archive.write("mana",			mn);
 		archive.write("npc",			npc);
-		archive.write("holdgold",		holdg);
+		archive.write("holdgold",		holdg_);
 		archive.write("shop",			shop);
 		archive.write("own",			ownserial);
 		archive.write("robe",			robe);
@@ -949,7 +931,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("war",			war);
 		archive.write("npcwander",		npcWander);
 		archive.write("oldnpcwander",	oldnpcWander);
-		archive.write("carve",			carve);
+		archive.write("carve",			carve_);
 		archive.write("fx1",			fx1);
 		archive.write("fy1",			fy1);
 		archive.write("fz1",			fz1);
@@ -977,15 +959,15 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("guildtitle",		guildtitle);  
 		archive.write("guildfealty",	guildfealty);  
 		archive.write("murderrate",		murderrate);
-		archive.write("menupriv",		menupriv);  
-		archive.write("questtype",		questType);  
-		archive.write("questdestregion",questDestRegion);  
-		archive.write("questorigregion",questOrigRegion);  
-		archive.write("questbountypostserial", questBountyPostSerial);  
-		archive.write("questbountyreward", questBountyReward);  
+		archive.write("menupriv",		menupriv_);
+		archive.write("questtype",		questType_);
+		archive.write("questdestregion",questDestRegion_);
+		archive.write("questorigregion",questOrigRegion_);
+		archive.write("questbountypostserial", questBountyPostSerial_);
+		archive.write("questbountyreward", questBountyReward_);
 		archive.write("jailtimer",		jailtimer/MY_CLOCKS_PER_SEC); 
 		archive.write("jailsecs",		jailsecs); 
-		archive.write("gmrestrict",		gmrestrict); 
+		archive.write("gmrestrict",		gmrestrict_);
 	}
 	cUObject::Serialize(archive);
 }

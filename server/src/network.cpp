@@ -509,14 +509,14 @@ void cNetworkStuff::charplay (int s) // After hitting "Play Character" button //
 		{
 			if (Accounts->GetInWorld(acctno[s]) != INVALID_SERIAL) //JM's crashfix
 			{
-				if ((pc_selected->logout<=getPlatformTime() || overflow))
+				if ((pc_selected->logout()<=getPlatformTime() || overflow))
 					Accounts->SetOffline(acctno[s]);
 			} else Accounts->SetOffline(acctno[s]);
 
 			if (Accounts->GetInWorld(acctno[s]) == INVALID_SERIAL || pc_selected->isGM())//AntiChrist
 			{
 				Accounts->SetOnline(acctno[s], pc_selected->serial);
-				pc_selected->logout = 0;
+				pc_selected->setLogout(0);
 				currchar[s] = pc_selected;
 				startchar(s);
 			} else {
@@ -574,9 +574,9 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 	if(pc_currchar->poisoned) startup[28]=0x04; else startup[28]=0x00; //AntiChrist -- thnx to SpaceDog
 	pc_currchar->spiritspeaktimer=0;	// initially set spiritspeak timer to 0
 
-	pc_currchar->stealth=-1;//AntiChrist
+	pc_currchar->setStealth(-1);//AntiChrist
 	if (! (pc_currchar->isGMorCounselor())) pc_currchar->hidden=0;//AntiChrist
-	pc_currchar->begging_timer=0;
+	pc_currchar->setBegging_timer(0);
 
 	Xsend(s, startup, 37);
 	pc_currchar->war=false;
@@ -723,12 +723,12 @@ char cNetworkStuff::LogOut(int s)//Instalog
 	if (valid)//||region[pc_currchar->region].priv&0x17)
 	{
 		Accounts->SetOffline(pc_currchar->account());
-		pc_currchar->logout = 0; // LB bugfix, was timeout
+		pc_currchar->setLogout(0); // LB bugfix, was timeout
 	} else {
 		if (perm[s])
 		{
 			Accounts->SetOffline(pc_currchar->account());  // Allows next login.
-		    pc_currchar->logout=uiCurrentTime+SrvParams->quittime()*MY_CLOCKS_PER_SEC;
+		    pc_currchar->setLogout(uiCurrentTime+SrvParams->quittime()*MY_CLOCKS_PER_SEC);
 		}
 	}
 
@@ -1174,7 +1174,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 			{
 				P_CHAR pc_currchar = currchar[s];
 				if ( pc_currchar != NULL && packet !=0x73 && packet!=0x80 && packet!=0xA4 && packet!=0xA0 && packet!=0x90 && packet!=0x91 )
-					pc_currchar->clientidletime=SrvParams->inactivityTimeout()*MY_CLOCKS_PER_SEC+uiCurrentTime;
+					pc_currchar->setClientIdleTime(SrvParams->inactivityTimeout()*MY_CLOCKS_PER_SEC+uiCurrentTime);
         		    // LB, client activity-timestamp !!! to detect client crashes, ip changes etc and disconnect in that case
         		    // 0x73 (idle packet) also counts towards client idle time
 
@@ -1601,10 +1601,10 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 				case 0x2C:// Resurrect menu choice			
 					if(buffer[s][1]==0x02)
 					{
-						if( ( pc_currchar->murdererSer > 0 ) && SrvParams->bountysactive() )
+						if( ( pc_currchar->murdererSer() > 0 ) && SrvParams->bountysactive() )
 						{
 							sprintf( (char*)temp, "To place a bounty on %s, use the command BOUNTY <Amount>.",
-						        FindCharBySerial(pc_currchar->murdererSer)->name.c_str() );
+						        FindCharBySerial(pc_currchar->murdererSer())->name.c_str() );
 							sysmessage( s,(char*) temp );
 						}
 						sysmessage(s, "You are now a ghost.");

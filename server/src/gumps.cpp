@@ -367,7 +367,7 @@ void cGump::Input(int s)
 			{ 
 				pc_j->setId(k);
 				pc_j->xid = pc_j->id();
-				c1 = pc_j->skin;						// transparency for mosnters allowed, not for palyers, 
+				c1 = pc_j->skin();						// transparency for mosnters allowed, not for palyers, 
 		                                              // if polymorphing from monster to player we have to switch from transparent to semi-transparent
 		                                              // or we have that sit-down-client crash
                b=c1&0x4000; 
@@ -375,7 +375,8 @@ void cGump::Input(int s)
 			   {
 				  if (c1!=0x8000)
 				  {
-                     pc_j->skin = pc_j->xskin = 0xF000;
+                     pc_j->setSkin(0xF000);
+					 pc_j->setXSkin(0xF000);
 				  }
 			   }			
 			}
@@ -393,7 +394,8 @@ void cGump::Input(int s)
 
                    if (k!=0x8000) // 0x8000 also crashes client ...
 				   {	
-		              pc_j->xskin = pc_j->skin = k;
+		              pc_j->setXSkin(k);
+					  pc_j->setSkin(k);
 				   }
 					break;
 		case 10:	k = str2num( text );	pc_j->def = k;		break;	// Defence
@@ -1502,7 +1504,7 @@ void ShowMenu( UOXSOCKET Socket, UI16 Menu ) // Menus for item creation
 		bool Passed = false;
 
 		// If we're on account 0 you can always access the menu
-		if( pc_currchar->menupriv == -1 ) 
+		if( pc_currchar->menupriv() == -1 ) 
 			Passed = true;
 		else
 		{
@@ -1514,7 +1516,7 @@ void ShowMenu( UOXSOCKET Socket, UI16 Menu ) // Menus for item creation
 
 			// Check if our character meets one of the requirements
 			for( UI08 i = 0; i < MenuPrivs.count(); i++ )
-				if( pc_currchar->menupriv == MenuPrivs[ i ].toInt() )
+				if( pc_currchar->menupriv() == MenuPrivs[ i ].toInt() )
 					Passed = true;
 		}
 

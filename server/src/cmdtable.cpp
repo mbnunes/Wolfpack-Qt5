@@ -437,7 +437,7 @@ void command_bounty(UOXSOCKET s)
 	if( !pc_cs->dead )
 	{
 		sysmessage(s, tr("You can only place a bounty while you are a ghost."));
-		pc_cs->murdererSer = 0;
+		pc_cs->setMurdererSer(INVALID_SERIAL);
 		return;
 	}
 	
@@ -452,16 +452,16 @@ void command_bounty(UOXSOCKET s)
 		int nAmount = makenumber(1);
 		if( Bounty->BountyWithdrawGold( pc_cs, nAmount ) )
 		{
-			if( Bounty->BountyCreate( pc_cs->murdererSer, nAmount ) )
+			if( Bounty->BountyCreate( pc_cs->murdererSer(), nAmount ) )
 			{
-				sysmessage( s, tr("You have placed a bounty of %1 gold coins on %2.").arg(nAmount).arg(FindCharBySerial(pc_cs->murdererSer)->name.c_str() ));
+				sysmessage( s, tr("You have placed a bounty of %1 gold coins on %2.").arg(nAmount).arg(FindCharBySerial(pc_cs->murdererSer())->name.c_str() ));
 			}
 			else
 				sysmessage( s, tr("You were not able to place a bounty (System Error)") );
 			
 			// Set murdererSer to 0 after a bounty has been 
 			// placed so it can only be done once
-			pc_cs->murdererSer = 0;
+			pc_cs->setMurdererSer(INVALID_SERIAL);
 		}
 		else
 			sysmessage( s, tr("You do not have enough gold to cover the bounty."));
@@ -527,7 +527,7 @@ void command_post(UOXSOCKET s)
 	P_CHAR pc_cs = currchar[s];
 	if (pc_cs) return;
 	
-	switch( pc_cs->postType )
+	switch( pc_cs->postType() )
 	{
 	case LOCALPOST:
 		sysmessage( s, tr("You are currently posting a message to a single board [LOCAL].") );
@@ -543,7 +543,7 @@ void command_post(UOXSOCKET s)
 		
 	default:
 		sysmessage( s, tr("You are currently posting an unknown message type. Setting to normal [LOCAL].") );
-		pc_cs->postType = LOCALPOST;
+		pc_cs->setPostType(LOCALPOST);
 	}
 	
 	return;
@@ -556,7 +556,7 @@ void command_gpost(UOXSOCKET s)
 	P_CHAR pc_cs = currchar[s];
 	if (pc_cs == NULL) return;
 	
-	pc_cs->postType = GLOBALPOST;
+	pc_cs->setPostType(GLOBALPOST);
 	sysmessage( s, tr("Now posting GLOBAL messages.") );
 	return;
 }
@@ -570,7 +570,7 @@ void command_rpost(UOXSOCKET s)
 	P_CHAR pc_cs = currchar[s];
 	if (pc_cs == NULL) return;
 	
-	pc_cs->postType = REGIONALPOST;
+	pc_cs->setPostType(REGIONALPOST);
 	sysmessage( s, tr("Now posting REGIONAL messages.") );
 	return;
 }
@@ -582,7 +582,7 @@ void command_lpost(UOXSOCKET s)
 	P_CHAR pc_cs = currchar[s];
 	if (pc_cs == NULL) return;
 	
-	pc_cs->postType = REGIONALPOST;
+	pc_cs->setPostType(REGIONALPOST);
 	sysmessage( s, tr("Now posting LOCAL messages.") );
 	return;
 }
@@ -984,7 +984,7 @@ void command_poly(UOXSOCKET s)
 			pc_currchar->setId(k);
 			pc_currchar->xid = pc_currchar->id();
 			
-			c1 = pc_currchar->skin; // transparency for mosnters allowed, not for players, 
+			c1 = pc_currchar->skin(); // transparency for mosnters allowed, not for players, 
 			// if polymorphing from monster to player we have to switch from transparent to semi-transparent
 			// or we have that sit-down-client crash
 			b=c1&0x4000; 
@@ -992,7 +992,8 @@ void command_poly(UOXSOCKET s)
 			{
 				if (c1!=0x8000)
 				{
-					pc_currchar->skin = pc_currchar->xskin = 0xF000;
+					pc_currchar->setSkin(0xF000);
+					pc_currchar->setXSkin(0xF000);
 				}
 			}
 			
@@ -1021,7 +1022,8 @@ void command_skin(UOXSOCKET s)
 		
 		if (k != 0x8000)
 		{	
-			pc_currchar->skin = pc_currchar->xskin = k;
+			pc_currchar->setSkin(k);
+			pc_currchar->setXSkin( k );
 			teleport((currchar[s]));
 		}
 	}
@@ -2390,7 +2392,7 @@ void command_wipenpcs(UOXSOCKET s)
 	for (iter_char.Begin(); !iter_char.atEnd(); iter_char++)
 	{
 		P_CHAR toCheck = iter_char.GetData();
-        if(toCheck->isNpc() && toCheck->npcaitype!=17 && !toCheck->tamed) // Ripper
+        if(toCheck->isNpc() && toCheck->npcaitype!=17 && !toCheck->tamed()) // Ripper
 		{			
 			LongToCharPtr(toCheck->serial, &removeitem[1]);
 			for (i=0;i<now;i++)

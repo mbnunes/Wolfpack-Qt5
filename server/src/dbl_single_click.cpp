@@ -666,7 +666,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			return;
 			
 		case 185: // let's smoke! :)
-			pc_currchar->smoketimer = pi->morex*MY_CLOCKS_PER_SEC + getNormalizedTime();
+			pc_currchar->setSmokeTimer(pi->morex*MY_CLOCKS_PER_SEC + getNormalizedTime());
 			Items->DeleItem(pi);
 			return;
 		case 186: // rename deed! -- eagle 1/29/00
@@ -826,12 +826,12 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 						pc_vendor->npcaitype = 17;
 						pc_vendor->makeInvulnerable();
 						pc_vendor->hidden = 0;
-						pc_vendor->stealth=-1;
+						pc_vendor->setStealth(-1);
 						pc_vendor->dir = pc_currchar->dir;
 						pc_vendor->npcWander = 0;
 						pc_vendor->setInnocent();
 						pc_vendor->SetOwnSerial(pc_currchar->serial);
-						pc_vendor->tamed = false;
+						pc_vendor->setTamed(false);
 						Items->DeleItem(pi);
 						sprintf((char*)temp, "Hello sir! My name is %s and i will be working for you.", pc_vendor->name.c_str());
 						npctalk(s, pc_vendor, (char*)temp, 1);
@@ -1667,7 +1667,7 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 		if (chardist( pc_currchar, target )<2 || pc_currchar->isGM())
 		{
 			//AntiChrist - cannot ride animals under polymorph effect
-			if (pc_currchar->polymorph)
+			if (pc_currchar->polymorph())
 			{
 				sysmessage(s, "You cannot ride anything under polymorph effect.");
 				return;

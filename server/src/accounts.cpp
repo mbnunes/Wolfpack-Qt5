@@ -259,7 +259,7 @@ bool cAccount::IsOnline( int acctnum )
 		else
 		{
 			P_CHAR pc = FindCharBySerial(dummy.character);
-			return pc->logout > uiCurrentTime;
+			return pc->logout() > uiCurrentTime;
 		}
 	} 
 	else 

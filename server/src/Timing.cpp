@@ -291,7 +291,7 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 			if ((pc->hidden == 2) && ((pc->invistimeout <= currenttime) || (overflow)) && (!(pc->priv2&8)))
 			{// only if not permanently hidden - AntiChrist
 				pc->hidden = 0;
-				pc->stealth=-1;
+				pc->setStealth(-1);
 				updatechar(pc);
 			}
 	}
@@ -309,9 +309,9 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 	UOXSOCKET s = calcSocketFromChar(pc);//Only calc socket once!
 
 	Magic->CheckFieldEffects2(currenttime, pc, 1);//Lag fix
-	if (!pc->dead && pc->swingtarg==-1 )
+	if (!pc->dead && pc->swingtarg() == -1 )
 		Combat->DoCombat(pc, currenttime);
-	else if(!pc->dead && (pc->swingtarg>=0 && pc->timeout<=currenttime))
+	else if(!pc->dead && (pc->swingtarg()>=0 && pc->timeout<=currenttime))
 		Combat->CombatHitCheckLoS(pc, currenttime);
 
 /*	if (wtype==1 && raindroptime<=currenttime && !noweather[s]) // implment. of xuri's raindrop idea, LB
@@ -324,11 +324,11 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 		}
 	} */
 
-	if (pc->smoketimer>currenttime)
+	if (pc->smoketimer()>currenttime)
 	{
-		if (pc->smokedisplaytimer<=currenttime)
+		if (pc->smokedisplaytimer()<=currenttime)
 		{
-			pc->smokedisplaytimer=currenttime+5*MY_CLOCKS_PER_SEC;
+			pc->setSmokeDisplayTimer(currenttime+5*MY_CLOCKS_PER_SEC);
 			staticeffect(pc, 0x37, 0x35, 0, 30);
 			soundeffect2(pc, 0x002B);
 			switch( RandomNum(0, 6) )
@@ -444,9 +444,9 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 		// LB, changed to seconds instead of crappy #of checks, 21/9/99
 	if(pc->trackingtimer > currenttime && online(pc))
 	{
-		if(pc->trackingdisplaytimer<=currenttime)
+		if(pc->trackingdisplaytimer()<=currenttime)
 		{
-			pc->trackingdisplaytimer=currenttime+SrvParams->redisplaytime()*MY_CLOCKS_PER_SEC;
+			pc->setTrackingdisplaytimer(currenttime+SrvParams->redisplaytime()*MY_CLOCKS_PER_SEC);
 			Skills->Track(pc);
 		}
 	} else
@@ -616,7 +616,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 {
 	if (pc == NULL)
 		return;
-	if (pc->stablemaster_serial != INVALID_SERIAL) return;
+	if (pc->stablemaster_serial() != INVALID_SERIAL) return;
 
 	int pcalc;
 	char t[120];
@@ -624,9 +624,9 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 	Npcs->CheckAI(currenttime, pc);//Lag fix
 	Movement->NpcMovement(currenttime, pc);//Lag fix
 	setcharflag(pc);
-	if (!pc->dead && pc->swingtarg==-1 )
+	if (!pc->dead && pc->swingtarg()==-1 )
 		Combat->DoCombat(pc, currenttime);
-	else if(!pc->dead && (pc->swingtarg>=0 && pc->timeout<=currenttime))
+	else if(!pc->dead && (pc->swingtarg()>=0 && pc->timeout<=currenttime))
 		Combat->CombatHitCheckLoS(pc,currenttime);
 
 	Magic->CheckFieldEffects2(currenttime, pc, 0);//Lag fix
@@ -649,7 +649,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 				// too long without every having its quest accepted by a player so we have to remove
 				// its posting from the message board before icing the NPC
 				// Only need to remove the post if the NPC does not have a follow target set
-				if ( (pc->questType==ESCORTQUEST) && (pc->ftarg == INVALID_SERIAL) )
+				if ( (pc->questType()==ESCORTQUEST) && (pc->ftarg == INVALID_SERIAL) )
 				{
 					MsgBoardQuestEscortRemovePost( pc );
 					MsgBoardQuestEscortDelete( pc );
@@ -775,7 +775,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 
 		if (pc->hunger) pc->hunger--; //Morrolan GMs and Counselors don't get hungry
 
-		if(pc->tamed && pc->npcaitype!=17)
+		if(pc->tamed() && pc->npcaitype!=17)
 		{//if tamed let's display his hungry status
 			switch(pc->hunger)
 			{
@@ -788,11 +788,11 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 			case 0:
 				//maximum hunger - untame code - AntiChrist
 				//pet release code here
-				if(pc->tamed)
+				if(pc->tamed())
 				{
 					pc->ftarg = INVALID_SERIAL;
 					pc->npcWander=2;
-					pc->tamed = false;
+					pc->setTamed(false);
 					if(pc->ownserial!=-1) 
 						pc->SetOwnSerial(-1);
 					sprintf((char*)temp, "* %s appears to have decided that it is better off without a master *", pc->name.c_str());
@@ -857,7 +857,7 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 		for (iter_char.Begin(); !iter_char.atEnd(); ++iter_char)
 		{
 			P_CHAR pc = iter_char.GetData();
-			if (pc->npc_type == 1)
+			if (pc->npc_type() == 1)
 			{
 				vector<SERIAL> pets( stablesp.getData(pc->serial) );
 				unsigned int ci;
@@ -866,8 +866,8 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 					P_CHAR pc_pet = FindCharBySerial(pets[ci]);
 					if (pc_pet != NULL)
 					{
-						diff = (getNormalizedTime() - pc_pet->timeused_last) / MY_CLOCKS_PER_SEC;
-						pc_pet->time_unused+=diff;
+						diff = (getNormalizedTime() - pc_pet->timeused_last()) / MY_CLOCKS_PER_SEC;
+						pc_pet->setTime_unused( pc_pet->time_unused() + diff );
 						//clConsole.send("stabling-check debug-name: %s\n",chars[i].name);
 					}
 				}
@@ -996,18 +996,18 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 								//so we can use two different speeds
 								//for checking tamed and non-tamed npcs!
 								//players WANT to have faster tamed npcs....
-							if( (!mapchar->tamed && checknpcs<=currenttime) || (mapchar->tamed && checktamednpcs<=currenttime) || (mapchar->npcWander==1 && checknpcfollow<=currenttime) || overflow)
+							if( (!mapchar->tamed() && checknpcs<=currenttime) || (mapchar->tamed() && checktamednpcs<=currenttime) || (mapchar->npcWander==1 && checknpcfollow<=currenttime) || overflow)
 							{
 								if (mapchar->isNpc()) 
 									genericCheck(mapchar, currenttime); // lb, lagfix
 								if (chardist(currchar[i], mapchar)<=24 && mapchar->isNpc()) //Morrolan tweak from 30 to 24 tiles
 									checkNPC(mapchar, currenttime);
 								else if (mapchar->isPlayer() &&
-									Accounts->GetInWorld(mapchar->account()) == mapchar->serial && mapchar->logout>0 &&
-									(mapchar->logout<=currenttime || (overflow)))
+									Accounts->GetInWorld(mapchar->account()) == mapchar->serial && mapchar->logout()>0 &&
+									(mapchar->logout()<=currenttime || (overflow)))
 								{										
 									Accounts->SetOffline(mapchar->account());
-									mapchar->logout = 0;
+									mapchar->setLogout(0);
 									updatechar(mapchar);
 								}
 							}
