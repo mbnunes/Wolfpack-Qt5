@@ -600,7 +600,7 @@ void cGuilds::EraseMember(P_CHAR pc)
 				guilds[guildnumber].member[member] = 0;
 				guilds[guildnumber].members--;
 				pc->guildnumber = 0;
-				pc->guildtoggle = 0;
+				pc->guildtoggle = false;
 				pc->guildfealty = 0;
 				pc->guildtitle[0] = 0;
 				return;
@@ -632,14 +632,14 @@ void cGuilds::ToggleAbbreviation(int s)
 	}
 	else
 	{
-		if (pc->guildtoggle==0)									// If set to Off then
+		if (!pc->guildtoggle)									// If set to Off then
 		{
-			pc->guildtoggle=1;									// Turn it On
+			pc->guildtoggle=true;									// Turn it On
 			sysmessage(s,"You toggled your abbreviation on.");	// Tell player about the change
 		}
 		else													// Otherwise
 		{
-			pc->guildtoggle=0;					// Turn if Off
+			pc->guildtoggle=false;					// Turn if Off
 			sysmessage(s,"You toggled your abbreviation off.");	// And tell him also
 		}
 	}
@@ -986,7 +986,7 @@ void cGuilds::GumpChoice(int s,int main,int sub)
 								pc->guildnumber = guildnumber;
 								guilds[guildnumber].recruit[recruit] = 0;
 								guilds[guildnumber].recruits--;
-								if (guilds[guildnumber].type!=0) pc->guildtoggle = 1;
+								if (guilds[guildnumber].type!=0) pc->guildtoggle = true;
 								sysmessage(s, "This candidate is now a guildmember.");
 								if ( guilds[guildnumber].type == 1 )
 									Items->SpawnItemBackpack2( calcSocketFromChar( pc ), 29, 1 );
@@ -1288,7 +1288,7 @@ void cGuilds::SetType(int guildnumber, int type)
 			{
                P_CHAR pc_j = FindCharBySerial(guilds[guildnumber].member[member]);
                if (pc_j != NULL) 
-				   pc_j->guildtoggle=1;
+				   pc_j->guildtoggle=true;
 			}
 		}
 	}
@@ -1470,7 +1470,7 @@ void cGuilds::Title(int s, P_CHAR pc_player2)
 
 	if (pc_player2->guildnumber<0 || pc_player2->guildnumber>=MAXGUILDS) return;
 
-	if ((pc_player2->guildnumber!=0)&&(pc_player2->guildtoggle==1))
+	if ((pc_player2->guildnumber!=0)&&(pc_player2->guildtoggle))
 	{
 		strcpy(abbreviation,guilds[pc_player2->guildnumber].abbreviation);
 		if (!(strcmp(abbreviation,"")))
@@ -1724,7 +1724,7 @@ void cGuilds::CheckConsistancy(void )
 		   pc_a->guildnumber=0;
 		   pc_a->guildfealty=0;
 		   pc_a->guildtitle="";
-		   pc_a->guildtoggle=0;
+		   pc_a->guildtoggle=false;
 		   ok=0;
 		}
 
@@ -1737,7 +1737,7 @@ void cGuilds::CheckConsistancy(void )
 			  pc_a->guildnumber=0;
 		      pc_a->guildfealty=0;
 		      pc_a->guildtitle="";
-		      pc_a->guildtoggle=0;
+		      pc_a->guildtoggle=false;
 		      ok=0;
 		   }
 			   

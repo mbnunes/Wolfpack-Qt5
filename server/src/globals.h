@@ -156,7 +156,7 @@ extern char *cline;
 
 extern int tnum;
 extern unsigned int starttime, endtime, lclock;
-extern unsigned char overflow;
+extern bool overflow;
 
 extern unsigned char globallight;
 extern unsigned char wtype;

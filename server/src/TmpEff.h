@@ -64,9 +64,9 @@ protected:
 public:
 	unsigned int expiretime;
 	unsigned char num;
-	unsigned char more1;
-	unsigned char more2;
-	unsigned char more3;
+	unsigned short more1;
+	unsigned short more2;
+	unsigned short more3;
 	unsigned char dispellable;
 
 public:

@@ -46,7 +46,7 @@ inline UOXSOCKET calcSocketFromChar(P_CHAR pc)
 	return -1;
 }
 
-inline void SetTimerSec(unsigned long *timer, const short seconds)
+inline void SetTimerSec(unsigned int *timer, const short seconds)
 {
 	*timer=seconds * MY_CLOCKS_PER_SEC + uiCurrentTime;
 }

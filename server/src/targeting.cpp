@@ -1631,7 +1631,7 @@ static void newCarveTarget(UOXSOCKET s, P_ITEM pi3)
 	if(deletecorpse)//if corpse has to be deleted
 	{
 		//let's empty it
-		int ci = 0;
+		unsigned int ci;
 		P_ITEM pj;
 		vector<SERIAL> vecContainer = contsp.getData(pi3->serial);
 		for ( ci = 0; ci < vecContainer.size(); ci++)
@@ -3053,7 +3053,7 @@ void cTargets::GlowTarget(int s) // LB 4/9/99, makes items glow
 		}
 	}
 
-	if (pi1->glow!=0)
+	if (pi1->glow != INVALID_SERIAL)
 	{
 		sysmessage(s,"that object already glows!\n");
 		return;
@@ -3138,7 +3138,7 @@ void cTargets::UnglowTaget(int s) // LB 4/9/99, removes the glow-effect from ite
 
 	Items->DeleItem(pj); // delete glowing object
 
-	pi->glow=0; // remove glow-identifier
+	pi->glow = INVALID_SERIAL; // remove glow-identifier
 	RefreshItem(pi);
 
 	impowncreate(s, currchar[s], 0); // if equipped send new old color too

@@ -1207,7 +1207,6 @@ void tweakmenu(UOXSOCKET s, SERIAL serial)
 {
 	char sect[512];
 	short int length, length2, textlines;
-	int i;
 	int line,loopexit=0;
 
 	char type;
@@ -1292,6 +1291,7 @@ void tweakmenu(UOXSOCKET s, SERIAL serial)
 			gump3[1]=strlen((char*)script1)%256;
 			Xsend(s, gump3, 2);
 			gump3[0]=0;
+			unsigned int i;
 			for (i=0;i<strlen((char*)script1);i++)
 			{
 				gump3[1]=script1[i];

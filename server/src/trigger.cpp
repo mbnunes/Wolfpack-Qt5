@@ -153,10 +153,8 @@ static void handle_IADD(UOXSOCKET const ts, int const ttype, const int coloring,
 void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 {
 
-	char sect[512], buff[512], effect[29], fmsg[512];
+	char sect[512], buff[512], fmsg[512];
 	char cmsg[512]; // completed trigger message
-	char clr1;
-	char clr2;
 	int serial;
 	unsigned int i, uiTempi, uiCompleted = 0;
 	int tl;
@@ -1478,6 +1476,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							if (pi->trigon)
 							{
 								strcpy(sect, script2);
+								int i;
 								for (i = 0; i < now; i++)
 								{
 									if (inrange1p(currchar[ts], currchar[i]) && perm[i])
@@ -1504,6 +1503,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							if (!pi->trigon)
 							{
 								strcpy(sect, script2);
+								int i;
 								for (i = 0; i < now; i++)
 								{
 									if (inrange1p(currchar[ts], currchar[i]) && perm[i])
@@ -2033,7 +2033,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 // ti: no-socket!!!! (NPC triggered) - Magius(CHE)
 void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magius(CHE) §
 {
-	char sect[512], effect[29];
+	char sect[512];
 	signed int j;
 	int p, c;
 	unsigned int i;
@@ -2240,6 +2240,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 					else if (!(strcmp("EMT", (char*)script1)))  // Player says something when trigger is activated -- Changed by Magius(CHE) §
 					{
 						strcpy(sect, (char*)script2);
+						int i;
 						for (i = 0; i < now; i++)
 						{
 							if (inrange1p(pc_ts, currchar[i]) && perm[i])

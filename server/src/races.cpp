@@ -168,7 +168,7 @@ void cRaces::SetRace(P_CHAR pc, int race)
 	if(Races[race]->NoHair)
 	{
 		vector<SERIAL> vecContainer = contsp.getData(pc->serial);
-		for (int ci=0;ci<vecContainer.size();ci++)
+		for (unsigned int ci=0;ci<vecContainer.size();ci++)
 		{
 			P_ITEM pi = FindItemBySerial(vecContainer[ci]);
 			if (pi != NULL)
@@ -182,7 +182,7 @@ void cRaces::SetRace(P_CHAR pc, int race)
 	if(Races[race]->NoBeard)
 	{
 		vector<SERIAL> vecContainer = contsp.getData(pc->serial);
-		for (int ci=0;ci<vecContainer.size();ci++)
+		for (unsigned int ci=0;ci<vecContainer.size();ci++)
 		{
 			P_ITEM pi = FindItemBySerial(vecContainer[ci]);
 			if (pi != NULL)
@@ -198,7 +198,7 @@ void cRaces::SetRace(P_CHAR pc, int race)
 		if((Races[race]->BeardReq==1 && pc->id2==0x90) || (Races[race]->BeardReq==2 && pc->id2==0x91) || (Races[race]->BeardReq==3))
 		{
 			vector<SERIAL> vecContainer = contsp.getData(pc->serial);
-			for (int ci=0;ci<vecContainer.size();ci++)
+			for (unsigned int ci=0;ci<vecContainer.size();ci++)
 			{
 				P_ITEM pi = FindItemBySerial(vecContainer[ci]);
 				if ( pi != NULL)

@@ -258,7 +258,7 @@ bool cMapStuff::IsUnderRoof(short int x, short int y, signed char z)
 		// this seems suspicious, if we are under a floor we return right away
 		// i guess you can assume if they are under a floor they are outside
 		// but can you promise that?? its too early for me to tell
-		if (tile.flag1&1==1 && (tile.height+stat->zoff)>z )
+		if ((tile.flag1&1) && (tile.height+stat->zoff)>z )
 			return false; // check the floor bit
 		// if set -> this must be a underpassing/bridge
 		
@@ -1191,7 +1191,7 @@ bool cMapStuff::CanMonsterMoveHere(short int x, short int y, signed char oldz)
 bool cMapStuff::IsRoofOrFloorTile( tile_st *tile )
 // checks to see if the tile is either a roof or floor tile
 {
-	if (tile->flag1&1 == 1 )
+	if (tile->flag1&1)
 		return true; // check the floor bit
 	
 	if (strstr("roof", (char *) tile->name) || strstr("shingle", (char *) tile->name)) 

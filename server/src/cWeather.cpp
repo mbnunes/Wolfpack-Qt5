@@ -170,7 +170,8 @@ void cWeather::run() throw()
 			WTimer();
 			CTimer();
 		}
-	    catch(Synchronization_Exception& e) {
+	    catch(Synchronization_Exception&) 
+	    {
 		}
 	}
 }

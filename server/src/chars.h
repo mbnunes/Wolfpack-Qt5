@@ -156,20 +156,20 @@ public:
 	//int pagegm; //GM Paging
 	//char region;
 	unsigned char			region;
-	unsigned long			skilldelay;
-	unsigned long			objectdelay;
+	unsigned int			skilldelay;
+	unsigned int			objectdelay;
 	int						combathitmessage;
 	int						making; // skill number of skill using to make item, 0 if not making anything.
 	SERIAL					lastTarget;
 	char					blocked;
 	char					dir2;
-	unsigned long			spiritspeaktimer; // Timer used for duration of spirit speak
+	unsigned int			spiritspeaktimer; // Timer used for duration of spirit speak
 	int						spattack;
 	int						spadelay;
 	unsigned int			spatimer;
 	int						taming; //Skill level required for taming
 	unsigned int			summontimer; //Timer for summoned creatures.
-	unsigned long			trackingtimer; // Timer used for the duration of tracking
+	unsigned int			trackingtimer; // Timer used for the duration of tracking
 	SERIAL					trackingtarget; // Tracking target ID
 	SERIAL					trackingtargets[MAXTRACKINGTARGETS];
 	unsigned int			fishingtimer; // Timer used to delay the catching of fish
@@ -198,12 +198,11 @@ public:
 	char					trainingplayerin; // Index in skillname of the skill the NPC is training the player in
 	bool					cantrain;
 	// Begin of Guild Related Character information (DasRaetsel)
-	int						guildtoggle;		// Toggle for Guildtitle								(DasRaetsel)
+	bool					guildtoggle;		// Toggle for Guildtitle								(DasRaetsel)
 	string					guildtitle;	// Title Guildmaster granted player						(DasRaetsel)
-	int						guildfealty;		// Serial of player you are loyal to (default=yourself)	(DasRaetsel)
+	SERIAL					guildfealty;		// Serial of player you are loyal to (default=yourself)	(DasRaetsel)
 	int						guildnumber;		// Number of guild player is in (0=no guild)			(DasRaetsel)
 	char					flag; //1=red 2=grey 4=Blue 8=green 10=Orange
-	//char tempflag; //Zippy -- Not Used
 	unsigned int			tempflagtime;
 	// End of Guild Related Character information
 	unsigned int			murderrate; //#of ticks until one murder decays //REPSYS 
@@ -223,13 +222,13 @@ public:
 	unsigned char			lockSkill[ALLSKILLS+1]; // LB, client 1.26.2b skill managment
 	int						stealth; //AntiChrist - stealth ( steps already done, -1=not using )
 	unsigned int			running; //AntiChrist - Stamina Loose while running
-	signed long int			logout; //unsigned int logout;//Time till logout for this char -1 means in the world or already logged out //Instalog
-	unsigned long int		clientidletime; // LB
+	unsigned int			logout; //unsigned int logout;//Time till logout for this char -1 means in the world or already logged out //Instalog
+	unsigned int			clientidletime; // LB
 	SERIAL					swingtarg; //Tagret they are going to hit after they swing
 	
 	unsigned int			holdg; // Gold a player vendor is holding for Owner
 	unsigned char			fly_steps; // number of step the creatures flies if it can fly
-	unsigned long int		trackingdisplaytimer;
+	unsigned int			trackingdisplaytimer;
 	int						menupriv; // needed fro LB's menu priv system
 	//taken from 6904t2(5/10/99) - AntiChrist
 	bool					tamed;
@@ -247,7 +246,7 @@ public:
 	int						hairserial;//there are needed for incognito stuff
 	int						beardserial;
 	
-	unsigned long int		begging_timer;
+	unsigned int			begging_timer;
 	int						postType;
 	int						questType;
 	int						questDestRegion;
@@ -386,8 +385,8 @@ public:
 	{
 	public:
 		void DoAI(P_CHAR pc_i,int currenttime);
-		void HarmMagic(P_CHAR pc_i,int currenttime,P_CHAR pc);
-		void HealMagic(P_CHAR pc_i,int currenttime);
+		void HarmMagic(P_CHAR pc_i, unsigned int currenttime,P_CHAR pc);
+		void HealMagic(P_CHAR pc_i, unsigned int currenttime);
 		void Claw(int i,int currenttime);
 		void Bite(int i,int currenttime);
 		void Breath(P_CHAR pc_i,int currenttime);

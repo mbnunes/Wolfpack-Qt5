@@ -147,7 +147,6 @@ void cBoat::PlankStuff(UOXSOCKET s, P_ITEM pi_plank)//If the plank is opened, do
 
 	pc_cs = currchar[s];
 
-	int a;
 	P_ITEM boat = GetBoat(pc_cs);
 	if(boat == NULL)//They aren't on a boat, so put then on the plank.
 	{
@@ -164,7 +163,8 @@ void cBoat::PlankStuff(UOXSOCKET s, P_ITEM pi_plank)//If the plank is opened, do
 		P_ITEM boat2 = GetBoat(pc_cs);
 		if (boat2 == NULL)
 			return;
-	
+
+		unsigned int a;	
 		vector<SERIAL> vecCown = cownsp.getData(pc_cs->serial);
 		for(a = 0; a < vecCown.size(); a++)//Put all their Pets/Hirlings on the boat too
 		{
@@ -209,7 +209,6 @@ void cBoat::LeaveBoat(UOXSOCKET s, P_ITEM pi_plank)//Get off a boat (dbl clicked
 	int y,y2=pi_plank->pos.y;
 	signed char z = pi_plank->pos.z, mz, sz, typ;
 	P_ITEM pBoat = GetBoat(pc_cs);
-	int a;
 	
 	if (pBoat == NULL) 
 		return;
@@ -228,8 +227,9 @@ void cBoat::LeaveBoat(UOXSOCKET s, P_ITEM pi_plank)//Get off a boat (dbl clicked
 			
 			if((typ==0 && mz!=5) || (typ==1 && sz!=-5))// everthing the blocks a boat is ok to leave the boat ... LB
 			{
+				unsigned int a;
 				vector<SERIAL> vecCown = cownsp.getData(pc_cs->serial);
-				for(a=0;a<vecCown.size();a++)//Put all their Pets/Hirlings on the boat too
+				for(a = 0; a < vecCown.size(); a++)//Put all their Pets/Hirlings on the boat too
 				{
 					pc_b = FindCharBySerial(vecCown[a]);
 
@@ -844,20 +844,21 @@ void cBoat::Turn(P_ITEM pBoat, int turn)//Turn the boat item, and send all the p
 	
 	
     serial=pBoat->serial; // lb !!!
-	
+
+	unsigned int ci;	
 	vector<SERIAL> vecEntries = imultisp.getData(serial);
-    for (a = 0; a < vecEntries.size(); a++)
+    for (ci = 0; ci < vecEntries.size(); ci++)
 	{
-		P_ITEM pi = FindItemBySerial(vecEntries[a]);
+		P_ITEM pi = FindItemBySerial(vecEntries[ci]);
 		if (pi != NULL)
 			TurnStuff(pBoat, pi, turn);
 	}
 	
 	vecEntries.clear();
 	vecEntries = cmultisp.getData(serial);
-	for (a = 0; a < vecEntries.size(); a++)
+	for (ci = 0; ci < vecEntries.size(); ci++)
 	{
-		P_CHAR pc = FindCharBySerial(vecEntries[a]);
+		P_CHAR pc = FindCharBySerial(vecEntries[ci]);
 		if (pc != NULL)
 			TurnStuff(pBoat, pc, turn);
 	}

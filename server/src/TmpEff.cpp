@@ -722,198 +722,197 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 		pc_dest->polymorph=true;
 		break;
 	case 19://incognito spell - AntiChrist (10/99)//revised by AntiChrist - 9/12/99
-		pTE->setExpiretime_s(90);
-
-		//AntiChrist 11/11/99
-		//If char is already under polymorph effect, let's reverse the
-		//polymorph effect to avoid problems
-		if(pc_dest->polymorph)
 		{
-			pc_dest->setId(pc_dest->xid);
-			pc_dest->polymorph=false;
+			pTE->setExpiretime_s(90);
+
+			//AntiChrist 11/11/99
+			//If char is already under polymorph effect, let's reverse the
+			//polymorph effect to avoid problems
+			if(pc_dest->polymorph)
+			{
+				pc_dest->setId(pc_dest->xid);
+				pc_dest->polymorph=false;
+				teleport(pc_dest);
+			}
+			int j;
+
+			//first: let's search for beard and hair serial
+			//(we could use alredy saved serials...but it's better
+			//to recalculate them)
+			pc_dest->hairserial=-1;
+			pc_dest->beardserial=-1;
+
+			P_ITEM pi;
+			unsigned int ci;
+			vector<SERIAL> vecContainer = contsp.getData(pc_dest->serial);
+			for ( ci = 0; ci < vecContainer.size(); ci++)
+			{
+				pi = FindItemBySerial(vecContainer[ci]);
+				if(pi->layer==0x10)//beard
+					pc_dest->beardserial=pi->serial;
+				if(pi->layer==0x0B)//hairs
+					pc_dest->hairserial=pi->serial;
+			}
+			// ------ SEX ------
+			pc_dest->xid = pc_dest->id();
+			pc_dest->id1=0x01;
+			//if we already have a beard..can't turn to female
+			if(pc_dest->beardserial>-1)
+			{//if character has a beard...only male
+				pc_dest->id2='\x90';//male
+			} else
+			{//if no beard let's randomly change
+				if((rand()%2)==0) pc_dest->id2='\x90';//male
+				else pc_dest->id2='\x91';//or female
+			}
+
+			// --- SKINCOLOR ---
+			pc_dest->xskin = pc_dest->skin;
+			color=rand()%6;
+			switch(color)
+			{
+				case 0:				pc_dest->skin = 0x83EA;				break;
+				case 1:				pc_dest->skin = 0x8405;				break;
+				case 2:				pc_dest->skin = 0x83EF;				break;
+				case 3:				pc_dest->skin = 0x83F5;				break;
+				case 4:				pc_dest->skin = 0x841C;				break;
+				case 5:				pc_dest->skin = 0x83FB;				break;
+				default:												break;
+			}
+
+			// ------ NAME -----
+			pc_dest->orgname = pc_dest->name;
+
+			if(pc_dest->id2==0x90) 
+				setrandomname(pc_dest, "1");//get a name from male list
+			else 
+				setrandomname(pc_dest, "2");//get a name from female list
+
+			//
+			//damn..this formula seems to include also some bad color...
+			//i'll test this later
+			//AntiChrist
+			//
+			//use unique color for hair&beard
+			//color=0x044E+(rand()%(0x04AD-0x044E));
+
+			//i had to track down some valid value
+			//for hair/beard colors, cause that
+			//formula contained some bad value =(
+			//but now it works perfectly :)
+			//AntiChrist-11/11/99
+			color=rand()%8;
+			switch(color)
+			{
+				case 0:	color=0x044e;	break;
+				case 1:	color=0x0455;	break;
+				case 2:	color=0x045e;	break;
+				case 3:	color=0x0466;	break;
+				case 4:	color=0x046a;	break;
+				case 5:	color=0x0476;	break;
+				case 6:	color=0x0473;	break;
+				case 7:	color=0x047c;	break;
+				default://it should not go here...but..who nows =P
+					color=0x044e;
+			}
+			color1=color>>8;
+			color2=color%256;
+
+			// ------ HAIR -----
+			if(pc_dest->hairserial>-1)//if hairs exist
+			{//change hair style/color
+				P_ITEM pHair = FindItemBySerial(pc_dest->hairserial);
+				if(pHair)
+				{
+					//stores old hair values...
+					pHair->moreb1 = static_cast<unsigned char>(pHair->color>>8);
+					pHair->moreb2 = static_cast<unsigned char>(pHair->color%256);
+					pHair->moreb3=pHair->id1;
+					pHair->moreb4=pHair->id2;
+
+					//and change them with random ones
+					switch(rand()%10)
+					{
+						case 0: pHair->id2='\x3B'; break;
+						case 1: pHair->id2='\x3C'; break;
+						case 2:	pHair->id2='\x3D'; break;
+						case 3:	pHair->id2='\x44'; break;
+						case 4:	pHair->id2='\x45'; break;
+						case 5:	pHair->id2='\x46'; break;
+						case 6:	pHair->id2='\x47'; break;
+						case 7:	pHair->id2='\x48'; break;
+						case 8:	pHair->id2='\x49'; break;
+						case 9:	pHair->id2='\x4A'; break;
+						default: pHair->id2='\x4A'; break;
+					}
+
+					//random color
+					pHair->color = color;
+					//let's check for invalid values
+					if ( pHair->color < 0x044E || pHair->color > 0x04AD )
+					{
+						pHair->color = 0x044E;
+					}
+
+					pHair->incognito = true;//AntiChrist
+				}//if j!=-1
+			}//if hairserial!=-1
+
+
+			// -------- BEARD --------
+			if(pc_dest->id2==0x90)// only if a man
+			if(pc_dest->beardserial>-1)//if beard exist
+			{//change beard style/color
+				P_ITEM pBeard = FindItemBySerial(pc_dest->beardserial);
+				if(pBeard)
+				{
+					//clConsole.send("BEARD FOUND!!\n");
+					//stores old beard values
+					pBeard->moreb1 = static_cast<unsigned char>(pBeard->color>>8);
+					pBeard->moreb2 = static_cast<unsigned char>(pBeard->color%256);
+					pBeard->moreb3 = static_cast<unsigned char>(pBeard->id() >> 8);
+					pBeard->moreb4 = static_cast<unsigned char>(pBeard->id()%256);
+
+					//changes them with random ones
+					switch(rand()%7)
+					{
+						case 0: pBeard->id2='\x3E'; break;
+						case 1: pBeard->id2='\x3F'; break;
+						case 2:	pBeard->id2='\x40'; break;
+						case 3:	pBeard->id2='\x41'; break;
+						case 4:	pBeard->id2='\x4B'; break;
+						case 5:	pBeard->id2='\x4C'; break;
+						case 6:	pBeard->id2='\x4D'; break;
+						default:pBeard->id2='\x4D'; break;
+					}
+
+					//random color
+					pBeard->color = color;
+
+					if ( pBeard->color < 0x044E || pBeard->color > 0x04AD )
+					{
+						pBeard->color = 0x044E;
+					}
+
+					pBeard->incognito=true;//AntiChrist
+				}//if j!=-1
+			}//if beardserial!=-1
+
+			//only refresh once
 			teleport(pc_dest);
+
+			socket=calcSocketFromChar(pc_dest);
+
+			wornitems(socket, pc_dest);//send update to current socket
+
+			for (j=0;j<now;j++)
+			{//and to all inrange sockets (without re-sending to current socket)//AntiChrist
+				if (perm[j] && inrange1p(pc_dest, currchar[j]) && (j!=socket))
+					wornitems(j, pc_dest);
+			}
+
+			pc_dest->incognito=true;//AntiChrist
 		}
-		int j,ci;
-
-		//first: let's search for beard and hair serial
-		//(we could use alredy saved serials...but it's better
-		//to recalculate them)
-		pc_dest->hairserial=-1;
-		pc_dest->beardserial=-1;
-
-		ci=0;
-		loopexit=0;
-		P_ITEM pi;
-		{ // ugly scope restringing... should do for now.
-		vector<SERIAL> vecContainer = contsp.getData(pc_dest->serial);
-		for ( ci = 0; ci < vecContainer.size(); ci++)
-		{
-			pi = FindItemBySerial(vecContainer[ci]);
-			if(pi->layer==0x10)//beard
-				pc_dest->beardserial=pi->serial;
-			if(pi->layer==0x0B)//hairs
-				pc_dest->hairserial=pi->serial;
-		}
-		}
-		// ------ SEX ------
-		pc_dest->xid = pc_dest->id();
-		pc_dest->id1=0x01;
-		//if we already have a beard..can't turn to female
-		if(pc_dest->beardserial>-1)
-		{//if character has a beard...only male
-			pc_dest->id2='\x90';//male
-		} else
-		{//if no beard let's randomly change
-			if((rand()%2)==0) pc_dest->id2='\x90';//male
-			else pc_dest->id2='\x91';//or female
-		}
-
-		// --- SKINCOLOR ---
-		pc_dest->xskin = pc_dest->skin;
-		color=rand()%6;
-		switch(color)
-		{
-			case 0:				pc_dest->skin = 0x83EA;				break;
-			case 1:				pc_dest->skin = 0x8405;				break;
-			case 2:				pc_dest->skin = 0x83EF;				break;
-			case 3:				pc_dest->skin = 0x83F5;				break;
-			case 4:				pc_dest->skin = 0x841C;				break;
-			case 5:				pc_dest->skin = 0x83FB;				break;
-			default:												break;
-		}
-
-		// ------ NAME -----
-		pc_dest->orgname = pc_dest->name;
-
-		if(pc_dest->id2==0x90) 
-			setrandomname(pc_dest, "1");//get a name from male list
-		else 
-			setrandomname(pc_dest, "2");//get a name from female list
-
-		//
-		//damn..this formula seems to include also some bad color...
-		//i'll test this later
-		//AntiChrist
-		//
-		//use unique color for hair&beard
-		//color=0x044E+(rand()%(0x04AD-0x044E));
-
-		//i had to track down some valid value
-		//for hair/beard colors, cause that
-		//formula contained some bad value =(
-		//but now it works perfectly :)
-		//AntiChrist-11/11/99
-		color=rand()%8;
-		switch(color)
-		{
-			case 0:	color=0x044e;	break;
-			case 1:	color=0x0455;	break;
-			case 2:	color=0x045e;	break;
-			case 3:	color=0x0466;	break;
-			case 4:	color=0x046a;	break;
-			case 5:	color=0x0476;	break;
-			case 6:	color=0x0473;	break;
-			case 7:	color=0x047c;	break;
-			default://it should not go here...but..who nows =P
-				color=0x044e;
-		}
-		color1=color>>8;
-		color2=color%256;
-
-		// ------ HAIR -----
-		if(pc_dest->hairserial>-1)//if hairs exist
-		{//change hair style/color
-			P_ITEM pHair = FindItemBySerial(pc_dest->hairserial);
-			if(pHair)
-			{
-				//stores old hair values...
-				pHair->moreb1 = static_cast<unsigned char>(pHair->color>>8);
-				pHair->moreb2 = static_cast<unsigned char>(pHair->color%256);
-				pHair->moreb3=pHair->id1;
-				pHair->moreb4=pHair->id2;
-
-				//and change them with random ones
-				switch(rand()%10)
-				{
-					case 0: pHair->id2='\x3B'; break;
-					case 1: pHair->id2='\x3C'; break;
-					case 2:	pHair->id2='\x3D'; break;
-					case 3:	pHair->id2='\x44'; break;
-					case 4:	pHair->id2='\x45'; break;
-					case 5:	pHair->id2='\x46'; break;
-					case 6:	pHair->id2='\x47'; break;
-					case 7:	pHair->id2='\x48'; break;
-					case 8:	pHair->id2='\x49'; break;
-					case 9:	pHair->id2='\x4A'; break;
-					default: pHair->id2='\x4A'; break;
-				}
-
-				//random color
-				pHair->color = color;
-				//let's check for invalid values
-				if ( pHair->color < 0x044E || pHair->color > 0x04AD )
-				{
-					pHair->color = 0x044E;
-				}
-
-				pHair->incognito = true;//AntiChrist
-			}//if j!=-1
-		}//if hairserial!=-1
-
-
-		// -------- BEARD --------
-		if(pc_dest->id2==0x90)// only if a man
-		if(pc_dest->beardserial>-1)//if beard exist
-		{//change beard style/color
-			P_ITEM pBeard = FindItemBySerial(pc_dest->beardserial);
-			if(pBeard)
-			{
-				//clConsole.send("BEARD FOUND!!\n");
-				//stores old beard values
-				pBeard->moreb1 = static_cast<unsigned char>(pBeard->color>>8);
-				pBeard->moreb2 = static_cast<unsigned char>(pBeard->color%256);
-				pBeard->moreb3 = static_cast<unsigned char>(pBeard->id() >> 8);
-				pBeard->moreb4 = static_cast<unsigned char>(pBeard->id()%256);
-
-				//changes them with random ones
-				switch(rand()%7)
-				{
-					case 0: pBeard->id2='\x3E'; break;
-					case 1: pBeard->id2='\x3F'; break;
-					case 2:	pBeard->id2='\x40'; break;
-					case 3:	pBeard->id2='\x41'; break;
-					case 4:	pBeard->id2='\x4B'; break;
-					case 5:	pBeard->id2='\x4C'; break;
-					case 6:	pBeard->id2='\x4D'; break;
-					default:pBeard->id2='\x4D'; break;
-				}
-
-				//random color
-				pBeard->color = color;
-
-				if ( pBeard->color < 0x044E || pBeard->color > 0x04AD )
-				{
-					pBeard->color = 0x044E;
-				}
-
-				pBeard->incognito=true;//AntiChrist
-			}//if j!=-1
-		}//if beardserial!=-1
-
-		//only refresh once
-		teleport(pc_dest);
-
-		socket=calcSocketFromChar(pc_dest);
-
-		wornitems(socket, pc_dest);//send update to current socket
-
-		for (j=0;j<now;j++)
-		{//and to all inrange sockets (without re-sending to current socket)//AntiChrist
-			if (perm[j] && inrange1p(pc_dest, currchar[j]) && (j!=socket))
-				wornitems(j, pc_dest);
-		}
-
-		pc_dest->incognito=true;//AntiChrist
 		break;
 
 	case 20: // LSD potions, LB 5'th nov 1999
@@ -983,14 +982,11 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 		return 0;
 	}
 	AllTmpEff->Insert(pTE);
-//	teffectcount++;
 	return 1;
 }
 
 bool cAllTmpEff::Add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3)
 {
-	if (teffectcount>(cmem*5)) return 0;
-
 	if (pc_source == NULL)
 		return 0;
 
@@ -1029,7 +1025,6 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char mor
 		return 0;
 	}
 	AllTmpEff->Insert(pTE);
-//	teffectcount++;
 	return 1;
 }
 

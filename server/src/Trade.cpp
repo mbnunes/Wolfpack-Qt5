@@ -550,7 +550,7 @@ void cTrade::trademsg(int s)
 
 void cTrade::dotrade(P_ITEM cont1, P_ITEM cont2)
 {
-	int serial,ci;
+	int serial;
 
 	P_CHAR p1 = FindCharBySerial(cont1->contserial);
 	if(p1 == NULL) return;
@@ -571,8 +571,9 @@ void cTrade::dotrade(P_ITEM cont1, P_ITEM cont2)
 	UOXSOCKET s2 = calcSocketFromChar(p2);
 
 	serial = cont1->serial;
+	unsigned int ci;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
-	for (ci = 0; ci < vecContainer.size(); ci++)
+	for (ci = 0; ci < vecContainer.size(); ++ci)
 	{
 		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
 		if (pi != NULL)
@@ -592,7 +593,7 @@ void cTrade::dotrade(P_ITEM cont1, P_ITEM cont2)
 	serial = cont2->serial;
 	vecContainer.clear();
 	vecContainer = contsp.getData(serial);
-	for (ci=0;ci<vecContainer.size();ci++)
+	for (ci = 0; ci < vecContainer.size(); ++ci)
 	{
 		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
 		if (pi != NULL)

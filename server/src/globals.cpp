@@ -212,7 +212,7 @@ char *cline;
 int tnum;
 
 unsigned int starttime, endtime, lclock;
-unsigned char overflow;
+bool overflow;
 unsigned char globallight;
 unsigned char wtype;
 int executebatch;

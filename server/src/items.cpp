@@ -747,7 +747,7 @@ void cItem::Init(char mkser)
 	this->tuses=0;    //Number of uses for trigger
 	this->poisoned=0; //AntiChrist -- for poisoning skill
  	this->murdertime=0; //AntiChrist -- for corpse -- when the people has been killed
-    this->glow=0;
+    this->glow = INVALID_SERIAL;
     this->glow_effect=0;
     this->glow_color = 0;
 	this->time_unused=0;

@@ -378,7 +378,7 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 {
 	int j;
 	tile_st tile;
-	int serial, ci, letsbounce=0; // AntiChrist (5) - new ITEMHAND system
+	int serial, letsbounce=0; // AntiChrist (5) - new ITEMHAND system
 	UOXSOCKET s=ps->GetSocket();
 	P_CHAR pc_currchar = ps->getPlayer();
 
@@ -459,8 +459,9 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 		// - AntiChrist (4) - checks for new ITEMHAND system
 		// - now you can't equip 2 hnd weapons with 1hnd weapons nor shields!!
 		serial=pc_currchar->serial;
+		unsigned int ci;
 		vector<SERIAL> vecContainer = contsp.getData(serial);
-		for (ci=0;ci<vecContainer.size();ci++)
+		for (ci = 0; ci < vecContainer.size(); ci++)
 		{
 			P_ITEM pi2 = FindItemBySerial(vecContainer[ci]);
 			if (pi2 != NULL && pi2->contserial == serial)
@@ -560,7 +561,7 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 		Weight->NewCalc(pc_currchar);	// Ison 2-20-99
 		statwindow(s, pc_currchar);
 		
-		if (pi->glow>0)
+		if (pi->glow != INVALID_SERIAL)
 		{
 			pc_currchar->removeHalo(pi); // if gm equips on differnt player it needs to be deleted out of the hashteble
 			pc_k->addHalo(pi);
@@ -789,7 +790,7 @@ static bool ItemDroppedOnSelf(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 		return true;
 	}
 	
-	if (pi->glow>0) // glowing items
+	if (pi->glow != INVALID_SERIAL) // glowing items
 	{
 		pc_currchar->addHalo(pi);
 		pc_currchar->glowHalo(pi);
@@ -985,7 +986,7 @@ void dump_item(P_CLIENT ps, PKGx08 *pp) // Item is dropped on ground or a charac
 		pi->MoveTo(pp->TxLoc,pp->TyLoc,pp->TzLoc);
 		pi->SetContSerial(-1);
 		
-		if (pi->glow)
+		if (pi->glow != INVALID_SERIAL)
 		{
 			pc_currchar->removeHalo(pi);
 			pc_currchar->glowHalo(pi);
@@ -1261,7 +1262,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 			if (pCont->type==9)
 				Magic->SpellBook(s, pCont); // LB, bugfix for showing(!) the wrong spell (clumsy) when a new spell is put into opened spellbook
 
-			if (pItem->glow>0) // LB's glowing items stuff
+			if (pItem->glow != INVALID_SERIAL) // LB's glowing items stuff
 			{
 				P_CHAR pc = GetPackOwner(pCont); 
 				pc_currchar->removeHalo(pItem); // if gm put glowing object in another pack, handle glowsp correctly !

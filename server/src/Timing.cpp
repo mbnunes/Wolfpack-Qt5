@@ -42,14 +42,13 @@
 
 void checktimers() // Check shutdown timers
 {
-	int tclock=uiCurrentTime;
-	if (lclock>tclock) overflow=1;
-	else overflow=0;
+	register unsigned int tclock = uiCurrentTime;
+	overflow = ( lclock > tclock );
 	if (endtime)
 	{
-		if (endtime<=tclock) keeprun=0;
+		if (endtime <= tclock) keeprun = 0;
 	}
-	lclock=tclock;
+	lclock = tclock;
 }
 
 void do_lsd(UOXSOCKET s)
@@ -960,7 +959,10 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 	if(lighttime<=currenttime || (overflow))
 	{
 		doworldlight(); //Changes lighting, if it is currently time to.
-		for (i=0;i<now;i++) if (online(currchar[i])) dolight(i,worldcurlevel); // bandwidth fix, LB
+		int i;
+		for (i = 0; i < now; i++) 
+			if (online(currchar[i])) 
+				dolight(i,worldcurlevel); // bandwidth fix, LB
 		lighttime=currenttime+30*MY_CLOCKS_PER_SEC;
 	}
 	static unsigned int itemlooptime = 0;

@@ -1295,7 +1295,6 @@ void chardel (UOXSOCKET s) // Deletion of character
 
 void textflags (UOXSOCKET s, P_CHAR pc, char *name)
 {
-	int a1, a2, a3, a4;
 	char name2[150] = {0,};
 
     if ( pc == NULL )
@@ -1967,11 +1966,11 @@ void npctalk(int s, P_CHAR pc_npc, char *txt,char antispam) // NPC speech
 
 		if (pc_npc->npcaitype==2 && server_data.BadNpcsRed == 0) //bad npcs speech (red)..Ripper
 		{
-			talk[10]=pc_npc->saycolor = 0x03B2;
+			pc_npc->saycolor = 0x03B2;
 		}
 		else if (pc_npc->npcaitype==2 && server_data.BadNpcsRed == 1)
 		{
-			talk[10]=pc_npc->saycolor = 0x0026;
+			pc_npc->saycolor = 0x0026;
 		}
 		else if(pc_npc->isNpc() && !pc_npc->tamed && !pc_npc->guarded && !pc_npc->war)
 		{

@@ -518,7 +518,7 @@ void cCharStuff::cDragonAI::Breath(P_CHAR pc_i, int currenttime)
 	return; 
 }
 
-void cCharStuff::cDragonAI::HarmMagic(P_CHAR pc_i, int currenttime, P_CHAR pc)
+void cCharStuff::cDragonAI::HarmMagic(P_CHAR pc_i, unsigned int currenttime, P_CHAR pc)
 {
 	if (currenttime >= pc_i->spatimer)
 	{
@@ -551,7 +551,7 @@ void cCharStuff::cDragonAI::HarmMagic(P_CHAR pc_i, int currenttime, P_CHAR pc)
 	return;
 }
 
-void cCharStuff::cDragonAI::HealMagic(P_CHAR pc_i, int currenttime)
+void cCharStuff::cDragonAI::HealMagic(P_CHAR pc_i, unsigned int currenttime)
 {
 	if (currenttime >= pc_i->spatimer)
 	{

@@ -736,9 +736,10 @@ char cNetworkStuff::LogOut(int s)//Instalog
 	P_CHAR pc_currchar = currchar[s];
 	if (pc_currchar == NULL)
 		return 0;
-	int i, a, valid=0;
+	int i, valid=0;
 	int x = pc_currchar->pos.x, y = pc_currchar->pos.y;
 	P_ITEM pi_multi = NULL;
+	unsigned int a;
 	for(a=0;a<logoutcount;a++)
 	{
 		if (logout[a].x1<=x && logout[a].y1<=y && logout[a].x2>=x && logout[a].y2>=y)
@@ -763,7 +764,7 @@ char cNetworkStuff::LogOut(int s)//Instalog
 		if (pPack != NULL)
 		{
 			vector<SERIAL> vecContainer = contsp.getData(pPack->serial);
-			for (a = 0; a < vecContainer.size(); a++)
+			for (unsigned int a = 0; a < vecContainer.size(); a++)
 			{
 				P_ITEM pi_ci = FindItemBySerial(vecContainer[a]);
 				if (pi_ci != NULL)
@@ -1413,7 +1414,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 					break;
 
 				case 0x72:// Combat Mode			
-					pc_currchar->war=buffer[s][1];
+					pc_currchar->war = buffer[s][1];
 					pc_currchar->targ = INVALID_SERIAL;
 					Xsend(s, buffer[s], 5);
 					if (pc_currchar->dead && pc_currchar->war) // Invisible ghost, resend.

@@ -482,7 +482,7 @@ void cSkills::Mine(int s)
 	int x,y,px,py,cx,cy,randnum1;	
 	char floor=0;
 	char mountain=0;
-	static unsigned long int oretime[max_res_x][max_res_y]; //610 and 410 were 1000 in LB release
+	static unsigned int oretime[max_res_x][max_res_y]; //610 and 410 were 1000 in LB release
 	static int oreamount[max_res_x][max_res_y];		//for now i'll put zippy values
 	int a, b, c;
 	unsigned long int curtime=uiCurrentTime;
@@ -526,7 +526,7 @@ void cSkills::Mine(int s)
 			for(b=1;b<max_res_y;b++)
 			{
 				oreamount[a][b]=resource.ore;
-				SetTimerSec(&oretime[a][b],resource.oretime);
+				SetTimerSec(&oretime[a][b], resource.oretime);
 			}
 		}
 		LogMessage("Done.");
@@ -700,7 +700,7 @@ void cSkills::TreeTarget(int s)
 {
 	int lumber=0;
 	int px,py,cx,cy;
-	static unsigned long logtime[max_res_x][max_res_y];//see mine for values...they were 1000 also here
+	static unsigned int logtime[max_res_x][max_res_y];//see mine for values...they were 1000 also here
 	static int logamount[max_res_x][max_res_y];
 	int a, b, c;
 	long int curtime=uiCurrentTime;
@@ -1486,7 +1486,7 @@ void cSkills::ProvocationTarget2(UOXSOCKET s)
 		Victim2->resetAttackFirst();
 		
 		sprintf(temp, "* You see %s attacking %s *", Victim1->name.c_str(), Victim2->name.c_str());
-		unsigned int i;
+		int i;
 		for (i=0;i<now;i++)
 		{
 			if (inrange1p(currchar[i], Victim1)&&perm[i])
@@ -2207,7 +2207,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 
 void cSkills::BeggingTarget(int s)
 {
-	int ci,gold,x,y,realgold;
+	int gold,x,y,realgold;
 	char abort;
 	P_CHAR pc_currchar = currchar[s];
 
@@ -2263,6 +2263,7 @@ void cSkills::BeggingTarget(int s)
 			
 				if (pi_p != NULL)				
 				{
+					unsigned int ci;
 					vector<SERIAL> vecContainer = contsp.getData(pi_p->serial);
 					for (ci = 0; ci < vecContainer.size(); ci++)
 					{

@@ -92,15 +92,15 @@ public:
 	int hidamage; //Maximum damage weapon inflicts
 	int racehate; //Race # that weapon does x2 damage to -Fraz-
 	int wpsk; //The skill needed to use the item
-	int hp; //Number of hit points an item has.
-	int maxhp; // Max number of hit points an item can have.
-	int st; // The strength needed to equip the item
-	int st2; // The strength the item gives
-	int dx; // The dexterity needed to equip the item
-	int dx2; // The dexterity the item gives
-	int in; // The intelligence needed to equip the item
-	int in2; // The intelligence the item gives
-	int spd; //The speed of the weapon
+	signed short hp; //Number of hit points an item has.
+	signed short maxhp; // Max number of hit points an item can have.
+	signed short st; // The strength needed to equip the item
+	signed short st2; // The strength the item gives
+	signed short dx; // The dexterity needed to equip the item
+	signed short dx2; // The dexterity the item gives
+	signed short in; // The intelligence needed to equip the item
+	signed short in2; // The intelligence the item gives
+	signed short spd; //The speed of the weapon
 	int smelt; // for item smelting
 	int secureIt; // secured chests
 	bool wipe; //Should this item be wiped with the /wipe command
@@ -149,7 +149,7 @@ public:
 	//       creator. A Negative value if the player is not enought
 	//       skilled!
 	
-	int glow; // LB identifies glowing objects
+	SERIAL glow; // LB identifies glowing objects
 	unsigned short glow_color; // for backup of old color
 	unsigned char glow_effect; 
 	

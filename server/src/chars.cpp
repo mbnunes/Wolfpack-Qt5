@@ -223,7 +223,7 @@ void cChar::Init(bool ser)
 	this->trainingplayerin=0; // Index in skillname of the skill the NPC is training the player in
 	this->cantrain=true;
 	// Begin of Guild Related Character information (DasRaetsel)
-	this->guildtoggle=0;		// Toggle for Guildtitle								(DasRaetsel)
+	this->guildtoggle=false;		// Toggle for Guildtitle								(DasRaetsel)
 	this->guildtitle="";	// Title Guildmaster granted player						(DasRaetsel)
 	this->guildfealty=-1;		// Serial of player you are loyal to (default=yourself)	(DasRaetsel)
 	this->guildnumber=0;		// Number of guild player is in (0=no guild)			(DasRaetsel)
@@ -469,7 +469,7 @@ void cChar::removeHalo(P_ITEM pi)
 
 void cChar::glowHalo(P_ITEM pi)
 {
-	if (pi->glow>0)
+	if (pi->glow != INVALID_SERIAL)
 	{
 		P_ITEM pHalo=FindItemBySerial(pi->glow);
 		if (!pHalo) return;
@@ -710,8 +710,6 @@ void cChar::Serialize(ISerialization &archive)
 {
 	if (archive.isReading())
 	{
-		unsigned short uiShort;
-		unsigned char  uiChar;
 		archive.read("name",			orgname);
 		archive.read("title",			title);
 		archive.read("account",			account);
@@ -723,8 +721,8 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("cell",			cell);
 		archive.read("dir",				dir);
 		archive.read("race",			race);
-		archive.read("body",			uiShort);	setId(uiShort); xid = uiShort;
-		archive.read("skin",			skin);		xskin = skin;
+		archive.read("body",			xid);	setId(xid);
+		archive.read("skin",			skin);	xskin = skin;
 		archive.read("priv",			priv);
 		
 		archive.read("priv3a",			priv3[0]);
