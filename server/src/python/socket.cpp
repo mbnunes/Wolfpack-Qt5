@@ -125,7 +125,7 @@ PyObject* wpSocket_sysmessage( wpSocket* self, PyObject* args )
 /*!
 	Sends speech of a given object to the socket
 */
-PyObject* wpSocket_sendspeech( wpSocket* self, PyObject* args )
+PyObject* wpSocket_showspeech( wpSocket* self, PyObject* args )
 {
 	// Needed/Allowed arugments:
 	// First Argument: Source
@@ -234,7 +234,7 @@ PyObject* wpSocket_attachtarget( wpSocket* self, PyObject* args )
 static PyMethodDef wpSocketMethods[] = 
 {
     { "sysmessage",			(getattrofunc)wpSocket_sysmessage, METH_VARARGS, "Sends a system message to the char." },
-	{ "sendspeech",			(getattrofunc)wpSocket_sendspeech, METH_VARARGS, "Sends raw speech to the socket." },
+	{ "showspeech",			(getattrofunc)wpSocket_showspeech, METH_VARARGS, "Sends raw speech to the socket." },
 	{ "disconnect",			(getattrofunc)wpSocket_disconnect, METH_VARARGS, "Disconnects the socket." },
 	{ "attachtarget",		(getattrofunc)wpSocket_attachtarget,  METH_VARARGS, "Adds a target request to the socket" },
     { NULL, NULL, 0, NULL }
