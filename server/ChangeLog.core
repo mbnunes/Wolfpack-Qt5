@@ -58,6 +58,7 @@ Wolfpack 12.9.12 Beta (CVS)
 	- Fixed bug #0000353. (Riding horses not possible with body 0x3db)
 	- Fixed command processing with command char . and body 0x3db.
 	- Added AI Monster_Mage.
+	- Hitpoints are now unsigned.
 
 Wolfpack 12.9.11 Beta (26. September 2004)
 	- Fixed a crashbug related to NPC ai storing invalidated character pointers.

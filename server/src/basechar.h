@@ -1,4 +1,4 @@
-/*
+	/*
  *     Wolfpack Emu (WP)
  * UO Server Emulation Program
  *
@@ -387,7 +387,7 @@ public:
 	uchar flag() const;
 	bool gender() const;
 	P_CHAR guarding() const;
-	short hitpoints() const;
+	unsigned short hitpoints() const;
 	unsigned char hunger() const;
 	uint hungerTime() const;
 	short intelligence() const;
@@ -467,7 +467,7 @@ public:
 	void setFlag( uchar data );
 	void setGender( bool data );
 	void setGuarding( P_CHAR data );
-	void setHitpoints( short data );
+	void setHitpoints( unsigned short data );
 	void setHunger( unsigned char data );
 	void setHungerTime( uint data );
 	void setIntelligence( short data );
@@ -1050,12 +1050,12 @@ inline void cBaseChar::setGender( bool data )
 	changed_ = true;
 }
 
-inline short cBaseChar::hitpoints() const
+inline unsigned short cBaseChar::hitpoints() const
 {
 	return hitpoints_;
 }
 
-inline void cBaseChar::setHitpoints( short data )
+inline void cBaseChar::setHitpoints( unsigned short data )
 {
 	hitpoints_ = data;
 	changed_ = true;

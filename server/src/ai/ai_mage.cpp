@@ -4,6 +4,7 @@
 #include "../npc.h"
 #include "../combat.h"
 #include "../serverconfig.h"
+#include "../walking.h"
 
 /*
 	The additional mage code does:
@@ -296,11 +297,65 @@ public:
 	Monster_Mage_MoveToTarget(P_NPC npc, AbstractAI* ai) : Monster_Aggr_Wander(npc, ai) {}
 
 	virtual float preCondition() {
-		return Monster_Aggr_Wander::preCondition();
+		Monster_Aggressive *ai = static_cast<Monster_Aggressive*>(m_ai);
+
+		if (ai->currentVictim()) {
+			return 1.0f; // Always keep a distance
+		} else {
+			return 0.0f;
+		}
 	}
 
 	virtual void execute() {
-		Monster_Aggr_Wander::execute();
+		P_CHAR currentVictim = static_cast<Monster_Aggressive*>(m_ai)->currentVictim();
+
+		if (!currentVictim || m_npc->isFrozen())
+			return;
+
+		unsigned int distance = m_npc->dist(currentVictim);
+
+		if (distance >= 10 && distance <= 12) {
+			return; // Right distance
+		} else if (distance > 10) {
+			movePath(currentVictim->pos(), true);
+		} else if (distance < 10) {
+			// Calculate the opposing direction and get away (at least try it)
+			unsigned char direction = (m_npc->pos().direction(currentVictim->pos()) + 4) % 8;
+
+			if (direction != m_npc->direction()) {
+				if (!Movement::instance()->Walking(m_npc, direction|0x80, 0xFF)) {
+					return;
+				}
+			}
+
+			if (!Movement::instance()->Walking(m_npc, direction|0x80, 0xFF)) {
+				direction = (direction + 1) % 8;
+
+				if (direction != m_npc->direction()) {
+					if (!Movement::instance()->Walking(m_npc, direction|0x80, 0xFF)) {
+						return;
+					}
+				}
+
+				if (!Movement::instance()->Walking(m_npc, direction|0x80, 0xFF)) {
+					direction = (direction == 1) ? 7 : (direction - 2);
+
+					if (direction != m_npc->direction()) {
+						if (!Movement::instance()->Walking(m_npc, direction|0x80, 0xFF)) {
+							return;
+						}
+					}
+
+					if (!Movement::instance()->Walking(m_npc, direction|0x80, 0xFF)) {
+						return; // We tried everything but failed
+					}
+				}
+			}
+		}
+	}
+
+	virtual float postCondition() {
+		return 1.0f; // This action doesn't last.
 	}
 
 	virtual const char* name() {
