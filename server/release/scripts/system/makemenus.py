@@ -161,7 +161,7 @@ class MakeItemAction(MakeAction):
 		gump.addTiledGump(10, 130, 150, 22, 2624)
 		gump.addTiledGump(10, 215, 150, 22, 2624)
 		gump.addTiledGump(10, 300, 150, 22, 2624)
-		gump.addCheckerTrans(10, 10, 510, 397)
+#		gump.addCheckerTrans(10, 10, 510, 397)
 
 		gump.addHtmlGump(10, 12, 510, 20, centerhtml % self.title)
 		if self.itemid != 0:
@@ -906,8 +906,8 @@ class MakeMenu:
 			player.socket.attachtarget("system.makemenus.MakeMenuTarget", [self.id, 3] + arguments)
 
 		# Submenu
-		elif response.button & 0x80000000:
-			submenu = response.button & ~ 0x80000000
+		elif response.button & 0x01000000:
+			submenu = response.button & ~ 0x01000000
 			if submenu < len(self.submenus):
 				self.submenus[submenu].send(player, arguments)
 
@@ -1044,7 +1044,7 @@ class MakeMenu:
 			for j in range(0, 9):
 				if actions + j < len(self.submenus):
 					yoffset = 80 + 20 * j
-					gump.addButton(15, yoffset, 4005, 4007, 0x80000000 | (actions + j))
+					gump.addButton(15, yoffset, 4005, 4007, 0x01000000 | (actions + j))
 					gump.addText(50, yoffset + 3, self.submenus[actions + j].title, 0x480)
 			actions += 9
 
