@@ -44,6 +44,16 @@
 
 QPtrList< MYSQL > connections; // A connection pool
 
+// Keep Alive Connections
+void cDBDriver::ping()
+{
+	for( st_mysql* mysql = connections.first(); mysql; mysql = connections.next() )
+	{
+		if( !mysql_ping( mysql ) )
+			connections.remove(); // Remove Current Connection
+	}
+}
+
 // Closes unused connections
 void cDBDriver::garbageCollect()
 {

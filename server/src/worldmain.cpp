@@ -206,11 +206,8 @@ void CWorldMain::savenewworld(QString module)
 	static unsigned long ocCount, oiCount;
 	UI32 savestarttime = getNormalizedTime();
 
-//	AllTmpEff->Off();
-
 	if ( !Saving() )
 	{
-		//	gcollect();
 		if ( announce() )
 		{
 			sysbroadcast("World data saving....");
@@ -226,6 +223,8 @@ void CWorldMain::savenewworld(QString module)
 	if (SrvParams->serverLog()) savelog("Server data save\n","server.log");
 
 	// Check out queued connections
+	cDBDriver driver;
+	driver.ping(); // Keep Alive or reestablish broken connections.
 
 	// Flush old items
 	persistentBroker->flushDeleteQueue();
@@ -266,8 +265,6 @@ void CWorldMain::savenewworld(QString module)
 	Accounts::instance()->save();
 	clConsole.ProgressDone();
 	
-//	ItemsThread.join();
-
 	if ( announce() )
 	{
 		sysbroadcast("Worldsave Done!\n");
@@ -281,7 +278,6 @@ void CWorldMain::savenewworld(QString module)
 
 	uiCurrentTime = getNormalizedTime();
 
-	cDBDriver driver;
 	driver.garbageCollect();
 }
 

@@ -54,7 +54,8 @@ public:
 	bool execute( const QString &query ); // Just execute some SQL code, no return!	
 	cDBResult query( const QString &query ); // Executes a query
 	QString error(); // Returns an error (if there is one), uses the current connection
-		
+	void ping();
+	
 	// We are using a multiple connection model
 	// So we may have to clean up a connection when
 	// it's no longer used
