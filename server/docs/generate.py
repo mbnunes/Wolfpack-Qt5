@@ -75,14 +75,14 @@ print "DELETE FROM documentation_objects_methods;"
 print "DELETE FROM documentation_objects_properties;"
 
 # Time
-print "INSERT INTO documentation_settings VALUES('generated', %u);" % int(time.time())
-print "INSERT INTO documentation_settings VALUES('version', '%s');" % (quote(getVersion()))
+print "REPLACE INTO documentation_settings VALUES('generated', %u);" % int(time.time())
+print "REPLACEINTO documentation_settings VALUES('version', '%s');" % (quote(getVersion()))
 
 for command in commands:
-	print "INSERT INTO documentation_commands VALUES('%s', '%s', '%s', '%s');" % (quote(command['name']), quote(command['description']), quote(command['usage']), quote(command['notes']))
+	print "REPLACE INTO documentation_commands VALUES('%s', '%s', '%s', '%s');" % (quote(command['name']), quote(command['description']), quote(command['usage']), quote(command['notes']))
 
 for event in events:
-	print "INSERT INTO documentation_events VALUES('%s', '%s', '%s', '%s', '%s', '%s');" % (quote(event['name']), quote(event['prototype']), quote(event['parameters']), quote(event['returnvalue']), quote(event['callcondition']), quote(event['notes']))
+	print "REPLACE INTO documentation_events VALUES('%s', '%s', '%s', '%s', '%s', '%s');" % (quote(event['name']), quote(event['prototype']), quote(event['parameters']), quote(event['returnvalue']), quote(event['callcondition']), quote(event['notes']))
 
 for object in objects:
 	# Copy methods and properties from inherited object types
@@ -99,10 +99,10 @@ for object in objects:
 			property['object'] = object['object']
 			objectsproperties.append(property)
 
-	print "INSERT INTO documentation_objects VALUES('%s', '%s');" % (quote(object['object']), quote(object['description']))
+	print "REPLACE INTO documentation_objects VALUES('%s', '%s');" % (quote(object['object']), quote(object['description']))
 	
 for method in objectsmethods:
-	print "INSERT INTO documentation_objects_methods VALUES('%s', '%s', '%s', '%s', '%s', '%s');" % (quote(method['object']), quote(method['method']), quote(method['prototype']), quote(method['parameters']), quote(method['returnvalue']), quote(method['description']))
+	print "REPLACE INTO documentation_objects_methods VALUES('%s', '%s', '%s', '%s', '%s', '%s');" % (quote(method['object']), quote(method['method']), quote(method['prototype']), quote(method['parameters']), quote(method['returnvalue']), quote(method['description']))
 
 for property in objectsproperties:
-	print "INSERT INTO documentation_objects_properties VALUES('%s', '%s', '%s', '%s');" % (quote(property['object']), quote(property['property']), quote(property['description']), quote(property['readonly']))
+	print "REPLACE INTO documentation_objects_properties VALUES('%s', '%s', '%s', '%s');" % (quote(property['object']), quote(property['property']), quote(property['description']), quote(property['readonly']))

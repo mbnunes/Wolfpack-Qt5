@@ -1,5 +1,5 @@
 <span class="smalltext">Generated: <? 
-	echo date('d.m.Y H:m', $SETTINGS['generated']);
+	echo date('d.m.Y H:M', $SETTINGS['generated']);
 ?> | Version: <?
 	echo $SETTINGS['version'];
 ?></span><br>
