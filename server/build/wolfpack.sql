@@ -1,4 +1,8 @@
 
+# MAKE SURE TO CHANGE THE DATABASE VERSION AT THE END OF THIS SCRIPT
+# IF YOU CHANGE THE LAYOUT
+# ALSO SEE world.cpp FOR THE SERVER DATABASE VERSION!
+
 CREATE TABLE `characters` (
 	`serial` int(10) unsigned NOT NULL default '0',
 	`name` varchar(255) default NULL,
