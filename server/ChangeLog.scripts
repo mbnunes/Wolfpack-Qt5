@@ -7,6 +7,7 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Fixed bug #0000289 - Fixed/added weight values for many items.
 		- Fixed bug #0000288 - All monsters should have 2000 mintaming.
 		- Fixed bug part 2 of #0000283 - Occlo renamed to Haven in locations.
+		- Fixed bug #0000304. (Cast animations for non humans)
 	* Python Script Changes:
 		- Removed weight from the info menu.
 		- The info command now correctly resends the changed players.
@@ -15,6 +16,9 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Fixed ore smelting.
 		- Fixed dye tubs.
 		- Fixed bug #0000295 (Missing MEDITATION cost import)
+		- Characters with an enabled staff flag can cast spells
+		  without any requirements now (even when using books and other
+		  items).
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.

@@ -5,7 +5,8 @@ import wolfpack.console
 from wolfpack import properties, utilities
 from magic.utilities import *
 from wolfpack.consts import MAGICRESISTANCE, EVALUATINGINTEL, INSCRIPTION, \
-	MAGERY, ANIM_CASTDIRECTED, SPELLDAMAGEBONUS, LOG_WARNING, SPELLCHANNELING
+	MAGERY, ANIM_CASTDIRECTED, SPELLDAMAGEBONUS, LOG_WARNING, SPELLCHANNELING, \
+	BODY_HUMAN
 import time
 
 # Recursive Function for counting reagents
@@ -140,8 +141,11 @@ class Spell:
 			char.say(self.mantra)
 
 		# Precasting
-		char.addscript('magic')		
-		char.action(self.castaction)
+		char.addscript('magic')
+		
+		# Show the cast action
+		if char.bodytype == BODY_HUMAN:
+			char.action(self.castaction)
 		
 		if item:
 			item = item.serial
@@ -230,7 +234,10 @@ class Spell:
 
 	def checkrequirements(self, char, mode, args=[], target=None, item=None):
 		if char.dead:
-			return 0
+			return False
+			
+		if char.gm:
+			return True
 
 		if mode == MODE_BOOK:
 			if not self.checkweapon(char):
@@ -274,6 +281,9 @@ class Spell:
 		return 1
 
 	def consumerequirements(self, char, mode, args=[], target=None, item=None):
+		if char.gm:
+			return True
+		
 		# Check Basic Requirements before proceeding (Includes Death of Caster etc.)
 		if not self.checkrequirements(char, mode, args, target, item):
 			fizzle(char)
