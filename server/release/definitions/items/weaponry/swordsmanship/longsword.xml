@@ -16,7 +16,7 @@
 		<weight>7.0</weight>
 		<tag name="req_str" value="35" type="int" />
 		<type>1001</type>
-		<events>equipment,weapons_blades</events>
+		<events>equipment,weapons.blades</events>
 		<category>Weapons\Swords\Longsword (N/S)</category>
 	</item>
 

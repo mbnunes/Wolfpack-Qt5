@@ -19,7 +19,7 @@ def onUse( char, item ):
 	sendGump( char, item )
 	return 1
 
-def onCollideItem( char, item ):
+def onCollide( char, item ):
 	# npc would not travel through moongate ;)
 	if( char.npc ):
 		return 1

@@ -13,7 +13,7 @@ from wolfpack import *
 
 def onUse( char, item ):
 	# If we've already learned all we can > cancel.
-	if( char.baseskill[ STEALING ] >= 600 ):
+	if( char.skill[ STEALING ] >= 600 ):
 		char.message( "Go search for real people." )
 		return 1
 	

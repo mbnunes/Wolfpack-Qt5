@@ -29,8 +29,8 @@ def magicdamage( basedamage, spell, mage, defender ):
 	circle = 1 + floor( spell / 8 )
 
 	# Calculate the resistances
-	chance1 = floor( defender.baseskill[ MAGICRESISTANCE ] / 5 )
-	chance2 = floor( defender.baseskill[ MAGICRESISTANCE ] - ( mage.baseskill[ MAGERY ] / 5 + circle * 5 ) )
+	chance1 = floor( defender.skill[ MAGICRESISTANCE ] / 5 )
+	chance2 = floor( defender.skill[ MAGICRESISTANCE ] - ( mage.skill[ MAGERY ] / 5 + circle * 5 ) )
 
 	chance = max( [ chance1, chance2 ] ) # The higher chance is used
 
@@ -47,10 +47,10 @@ def magicdamage( basedamage, spell, mage, defender ):
 	#(1 + (Attackers_EI - Your_resistance) / 200 )
 	# If your resistance is lower than your opponents evaluate intelligence, then the equation is:
 	#(1 + (Attackers_EI - Your_resistance) / 500 )
-	if( defender.baseskill[ MAGICRESISTANCE ] > mage.baseskill[ EVALUATINGINTEL ] ):
-		damage = damage * ( 1 + ( mage.baseskill[ EVALUATINGINTEL ] - defender.baseskill[ MAGICRESISTANCE ] ) / 200 )
+	if( defender.skill[ MAGICRESISTANCE ] > mage.skill[ EVALUATINGINTEL ] ):
+		damage = damage * ( 1 + ( mage.skill[ EVALUATINGINTEL ] - defender.skill[ MAGICRESISTANCE ] ) / 200 )
 	else:
-		damage = damage * ( 1 + ( mage.baseskill[ EVALUATINGINTEL ] - defender.baseskill[ MAGICRESISTANCE ] ) / 500 )
+		damage = damage * ( 1 + ( mage.skill[ EVALUATINGINTEL ] - defender.skill[ MAGICRESISTANCE ] ) / 500 )
 
 	return damage
 

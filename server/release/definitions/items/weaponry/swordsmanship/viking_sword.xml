@@ -16,7 +16,7 @@
 		<weight>6.0</weight>
 		<tag name="req_str" value="40" type="int" />
 		<type>1001</type>
-		<events>equipment,weapons_blades</events>
+		<events>equipment,weapons.blades</events>
 		<category>Weapons\Swords\Viking Sword (N/S)</category>
 	</item>
 

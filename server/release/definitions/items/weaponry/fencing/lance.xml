@@ -15,7 +15,7 @@
 		<speed>24</speed>
 		<weight>12.0</weight>
 		<tag name="req_str" value="95" type="int" />
-		<events>equipment,weapons_blades</events>
+		<events>equipment,weapons.blades</events>
 		<type>1005</type>
 		<category>Weapons\Fencing\Lance (N/S)</category>
 	</item>

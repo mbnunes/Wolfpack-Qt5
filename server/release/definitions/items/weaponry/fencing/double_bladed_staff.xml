@@ -15,7 +15,7 @@
 		<speed>49</speed>
 		<weight>7.0</weight>
 		<tag name="req_str" value="50" type="int" />
-		<events>equipment,weapons_blades</events>
+		<events>equipment,weapons.blades</events>
 		<type>1005</type>
 		<category>Weapons\Fencing\Double Bladed Staff (N/S)</category>
 	</item>

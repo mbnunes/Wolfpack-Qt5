@@ -103,7 +103,7 @@ def onUse( char, item ):
 		return 1
 	
 	# If we've already learned all we can > cancel.
-	if( char.baseskill[ ARCHERY ] >= 300 ):
+	if( char.skill[ ARCHERY ] >= 300 ):
 		char.message( "You can learn much from a dummy but you have already learned it all." )
 		return 1
 
@@ -126,7 +126,7 @@ def onUse( char, item ):
 		movingeff = 0x1bfe
 
 
-	wolfpack.movingeffect( movingeff, char, item )
+	char.movingeffect( movingeff, item, 1, 1, 1, 0, 1 )
 	
 	
 	# This increases the users skill

@@ -15,7 +15,7 @@
 		<speed>37</speed>
 		<weight>10.0</weight>
 		<tag name="req_str" value="50" type="int" />
-		<events>equipment,weapons_blades</events>
+		<events>equipment,weapons.blades</events>
 		<type>1005</type>
 		<category>Weapons\Fencing\Pike (N/S)</category>
 	</item>

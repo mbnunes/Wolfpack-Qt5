@@ -37,6 +37,7 @@
 
 	<item id="1ec1">
 		<id>0x1ec1</id>
+		<events>pickpocket_dip</events>
 		<category>Professions\Thieve\Pickpocket Dip (Animated)</category>
 	</item>
 </definitions>

@@ -16,7 +16,7 @@
 		<weight>1.0</weight>
 		<tag name="req_str" value="10" type="int" />
 		<type>1001</type>
-		<events>equipment,weapons_blades</events>
+		<events>equipment,weapons.blades</events>
 		<category>Weapons\Swords\Cleaver (N/S)</category>
 	</item>
 
