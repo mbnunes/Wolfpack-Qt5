@@ -119,12 +119,12 @@ while socket:
 		print '</td><td valign="middle">'
 		
 		if NOTOCOLORS.has_key(notoriety):
-			print '<font color="%s" face="Georgia"><b>%s</b></font>' % (NOTOCOLORS[notoriety], socket.player.name)
+			print '<font color="%s" face="Georgia"><b>%s</b></font>' % (NOTOCOLORS[notoriety], unicode(socket.player.name))
 		else:
 			print '<b>%s</b>' % socket.player.name
 
 	  	if socket.player.region and len(socket.player.region.name) > 0:
-	  		print ' (%s)' % socket.player.region.name
+	  		print ' (%s)' % unicode(socket.player.region.name)
 	  		
 	  	print '</td></tr>'
 		%></tr>
