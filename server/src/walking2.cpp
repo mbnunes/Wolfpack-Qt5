@@ -354,7 +354,7 @@ bool cMovement::isOverloaded(P_CHAR pc, UOXSOCKET socket, int sequence)
 	// Who are we going to check for weight restrictions?
 	if ( !pc->dead &&							// If they're not dead
 		 !pc->npc &&							// they're not an npc
-		 !pc->isGMorCounselor());			// they're not a GM
+		 !pc->isGMorCounselor())			// they're not a GM
 	{
 		// Can probably put this in the above check, but I'll keep it here for now.
 		if ( socket != INVALID_UOXSOCKET )
