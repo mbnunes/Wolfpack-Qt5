@@ -1068,7 +1068,7 @@ int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power
 				pj->hp--; //Take off a hit point 
 			if(pj->hp<=0) 
 			{ 
-				sysmessage(k, "Your %1 has been destroyed").arg(pj->getName().c_str()));
+				sysmessage(k, tr("Your %1 has been destroyed").arg(pj->getName().c_str()));
 				pc->removeItemBonus(pj);	// remove BONUS STATS given by equipped special items
 				//-Frazurbluu-  need to have tactics bonus removed also
 				if ((pj->trigon==1) && (pj->layer >0))// -Frazurbluu- Trigger Type 2 is my new trigger type *-
