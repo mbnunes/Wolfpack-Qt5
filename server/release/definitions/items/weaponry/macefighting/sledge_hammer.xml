@@ -1,0 +1,28 @@
+
+<definitions>
+
+	<!-- Sledge Hammer -->
+	<item id="fb4">
+		<id>0xfb4</id>
+		<onehanded />
+		<decay />
+		<nodye />
+		<type>1004</type>
+		<sellprice>4</sellprice>
+		<buyprice>9</buyprice>
+		<weight>5.0</weight>
+		<durability><random min="30" max="40" /></durability>
+		<tag name="remaining_uses" type="int" value="45" />
+		<tag name="req_str" value="40" type="int" />
+		<tag name="resname" value="iron" />
+		<events>skills.blacksmithing,equipment</events>
+		<category>Weapons\Maces\Sledge Hammer (W/E)</category>
+	</item>
+
+	<!-- Sledge Hammer -->
+	<item id="fb5" inherit="fb4">
+		<id>0xfb5</id>
+		<category>Weapons\Maces\Sledge Hammer (N/S)</category>
+	</item>
+
+</definitions>
