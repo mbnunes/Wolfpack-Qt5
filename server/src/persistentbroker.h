@@ -33,6 +33,7 @@
 
 #include <qsqldatabase.h>
 #include <typeinfo>
+#include <qregexp.h>
 
 class PersistentObject;
 

@@ -1159,7 +1159,7 @@ void cChar::save( const QString& s/* = QString::null  */ )
 	cUObject::save(s);
 }
 
-void characterRegisterAfterLoading( P_CHAR pc );
+static void characterRegisterAfterLoading( P_CHAR pc );
 
 void cChar::load( const QString& s/* = QString::null  */ )
 {
