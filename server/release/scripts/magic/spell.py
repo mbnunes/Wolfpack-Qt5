@@ -188,7 +188,7 @@ class Spell:
 			castspeed = 1
 
 		# Was: floor((delay / 4.0) * 1000)
-		char.message(str(castspeed / 4.0))
+		#char.message(str(castspeed / 4.0))
 		return castspeed * 250
 		
 	def checkweapon(self, char):
@@ -224,7 +224,7 @@ class Spell:
 				castrecovery = 0
 
 			delay = float(castrecovery) / 4.0
-			char.message(str(delay))
+			#char.message(str(delay))
 
 			char.socket.settag('spell_delay', time.time() + delay)
 
