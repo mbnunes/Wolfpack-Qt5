@@ -159,7 +159,6 @@ void cNetworkStuff::FlushBuffer(int s) // Sends buffered data at once
 	}
 }
 
-//##ModelId=3C5D92D80092
 void cNetworkStuff::ClearBuffers() // Sends ALL buffered data
 {
 	int i;
@@ -1881,7 +1880,6 @@ void cNetworkStuff::LoadHosts_deny(void)
 	closescript();	
 }
 
-//##ModelId=3C5D92D801AA
 bool cNetworkStuff::CheckForBlockedIP(sockaddr_in ip_address)
 {
 	unsigned int i;
@@ -1892,7 +1890,6 @@ bool cNetworkStuff::CheckForBlockedIP(sockaddr_in ip_address)
 	return false;
 }
 
-//##ModelId=3C5D92D8020F
 void cNetworkStuff::SendUOX3(UOXSOCKET s, void *point, int length, int test)
 {
 	// clConsole.send("xSend [%i] with %i -> ", s, length);
@@ -1907,7 +1904,6 @@ void cNetworkStuff::SendUOX3(UOXSOCKET s, void *point, int length, int test)
 
 }
 
-//##ModelId=3C5D92D80241
 void cNetworkStuff::SendOSI(UOXSOCKET s, void *point, int length, int test)
 {	
 	memcpy(&outbuffer[s][boutlength[s]], point, length);
@@ -1915,7 +1911,6 @@ void cNetworkStuff::SendOSI(UOXSOCKET s, void *point, int length, int test)
 	FlushBuffer(s);
 }
 
-//##ModelId=3C5D92D80269
 void cNetworkStuff::SendSMARTWOLF(UOXSOCKET s, void *point, int length, int test)
 {	
 	clConsole.send("SMARTWOLF PacketSendStyle not implementined, using UOX3 Style");
@@ -1925,7 +1920,6 @@ void cNetworkStuff::SendSMARTWOLF(UOXSOCKET s, void *point, int length, int test
 
 // LB 1'st Sept 2001
 // Heart of sychrounous-send
-//##ModelId=3C5D92D8029B
 void cNetworkStuff::CountPackets(UOXSOCKET s, int &numpackets, long int & offsettolastfullpacket, bool & dataerror)
 {
 	int buff_len = boutlength[s];

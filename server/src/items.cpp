@@ -43,7 +43,6 @@
 
 
 // constructor
-//##ModelId=3C5D92E7002F
 cItem::cItem( cItem &src )
 {
 	this->name = src.name;
@@ -135,7 +134,6 @@ cItem::cItem( cItem &src )
 	this->desc = src.desc;
 }
 
-//##ModelId=3C5D92E7006B
 inline string cItem::objectID()
 {
 	return string("ITEM");
@@ -156,7 +154,6 @@ void cItem::startDecay()
 //			necessary and returns 0. If the request could not be fully satisfied,
 //			the remainder is returned
 //
-//##ModelId=3C5D92EC00D7
 long cItem::ReduceAmount(const short amt)
 {
 	long rest=0;
