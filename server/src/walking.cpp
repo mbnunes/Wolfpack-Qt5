@@ -148,11 +148,11 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl &pos )
 	// Process the map at that position
 	stBlockItem mapBlock;
 	mapBlock.z = Map->mapAverageElevation( pos );
+	mapBlock.height = 0;
 
 	// TODO: Calculate the REAL average Z Value of that Map Tile here! Otherwise clients will have minor walking problems.
-	mapBlock.z = Map->mapElevation( pos );
-
 	map_st mapCell = Map->seekMap( pos );
+	mapBlock.z = mapCell.z;
 	land_st mapTile = TileCache::instance()->getLand( mapCell.id );
 
 	// If it's not impassable it's automatically walkable
@@ -498,6 +498,7 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 
 		// We moved so let's update our location
 		pChar->moveTo( newCoord );
+		pChar->setLastMovement(uiCurrentTime);
 		AllTerritories::instance()->check( pChar );
 
 		handleItems( pChar, oldpos );

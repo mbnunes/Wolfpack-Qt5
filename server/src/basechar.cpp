@@ -62,6 +62,7 @@
 
 cBaseChar::cBaseChar()
 {
+	lastMovement_		= 0;
 	attackTarget_		= 0;
 	nextSwing_			= 0;
 	bodyID_				= 0x190;
@@ -1206,6 +1207,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 		return 0;
 	}
 	else SET_INT_PROPERTY( "skin", skin_ )
+	else SET_INT_PROPERTY( "lastmovement", lastMovement_ )
 	else SET_INT_PROPERTY( "xskin", orgSkin_ )
 	else SET_INT_PROPERTY( "orgskin", orgSkin_ )
 	else if( name == "creationdate" )
@@ -1313,6 +1315,7 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 {
 
 	GET_PROPERTY( "orgname", orgName_ )
+	else GET_PROPERTY( "lastmovement", (int)lastMovement_ )
 	else GET_PROPERTY( "title", title_ )
 	else GET_PROPERTY( "incognito", isIncognito() )
 	else GET_PROPERTY( "polymorph", isPolymorphed() )

@@ -338,6 +338,7 @@ public:
     int				stealthedSteps() const;
     short			strength() const;
     short			strengthMod() const;
+	unsigned int	lastMovement() const;
     QString			title() const;
     float			weight() const;
 	// bit flag getters
@@ -395,6 +396,7 @@ public:
     void setOrgBodyID(short data);
     void setOrgName(const QString &data);
     void setOrgSkin(ushort data);
+	void setLastMovement(unsigned int data);
     void setPoison(int data);
     void setPoisoned(uint data);
     void setPoisonTime(uint data);
@@ -488,6 +490,9 @@ protected:
     // The original body id, when the char is affected by magic.
     // cOldChar::xid_
     ushort orgBodyID_;
+
+	// The last time this character moved
+	unsigned int lastMovement_;
 
     // The gender of the character. cOldChar::sex_
     bool gender_;
@@ -1384,6 +1389,14 @@ inline P_ITEM cBaseChar::leftHandItem() const
 inline cBaseChar::EffectContainer cBaseChar::effects() const
 {
 	return effects_;
+}
+
+inline unsigned int cBaseChar::lastMovement() const {
+	return lastMovement_;
+}
+
+inline void cBaseChar::setLastMovement(unsigned int data) {
+	lastMovement_ = data;
 }
 
 #endif /* CBASECHAR_H_HEADER_INCLUDED */

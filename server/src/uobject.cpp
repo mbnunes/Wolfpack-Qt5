@@ -416,19 +416,51 @@ void cUObject::processNode( const cElement *Tag )
 	// </tag>
 	else if( TagName == "tag" )
 	{
-		QString name = Tag->getAttribute( "name" );
-		QString value = Tag->getAttribute( "value" );
+		QString name = Tag->getAttribute("name");
+		QString value = Tag->getAttribute("value");
 
-		if( !name.isNull() && !value.isNull() )
-		{
-			QString type = Tag->getAttribute( "type", "string" );
+		if (!name.isNull()) {
+			// If there is no value attribute, use the
+			// tag content instead.
+			if (value.isNull()) {
+				value = Tag->text();
 
-			if( type == "int" )
-				tags_.set( name, cVariant( hex2dec( value ).toInt() ) );
-			else if( type == "float" )
-				tags_.set( name, cVariant( value.toFloat() ) );
-			else
-				tags_.set( name, cVariant( value ) );
+				if (value.isNull()) {
+					value = "";
+				}
+			}
+
+            QString type = Tag->getAttribute("type", "string");
+
+			if (type == "int") {
+				// If the value is separated by a ,
+				// we assume it's a random gradient.
+				// If it's separated by ; we assume it's a list of values
+				// we should choose from randomly.
+				int sep = value.find(',');
+
+				if (sep != -1) {
+					int min = hex2dec(value.left(sep)).toInt();
+					int max = hex2dec(value.mid(sep + 1)).toInt();
+					
+					int value = RandomNum(min, max);
+					tags_.set(name, cVariant((int)value));
+				} else {
+					// Choose a random value from the list.
+					if (value.contains(';')) {
+						QStringList values = QStringList::split(';', value);
+						if (values.size() > 0) {
+							value = values[RandomNum(0, values.size() - 1)];
+						}
+					}
+
+					tags_.set( name, cVariant(hex2dec(value).toInt()));
+				}				
+			} else if (type == "float") {
+				tags_.set(name, cVariant(value.toFloat()));
+			} else {
+				tags_.set(name, cVariant(value));
+			}
 		}
 	}
 	// <events>a,b,c</events>
