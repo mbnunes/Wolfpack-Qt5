@@ -42,12 +42,11 @@ cParty::cParty (P_PLAYER leader)
 
 cParty::~cParty() 
 {
-	for (P_PLAYER member = members_.first(); member; member = members_.next()) 
-	{
+  P_PLAYER member;
+	for (member = members_.first(); member; member = members_.next()) {
 		member->setParty(0);
 
-		if (member->socket()) 
-		{
+		if (member->socket()) {
 			cUOTxPartyRemoveMember updateparty;
 			updateparty.setSerial(member->serial());
 			member->socket()->send(&updateparty);
@@ -55,17 +54,13 @@ cParty::~cParty()
 		}
 	}
 	
-	while (canidates_.count() > 0) 
-	{
-		if (canidates_.first()->socket()) 
-		{
+  for (member = canidates_.first(); member; member = canidates_.next()) {
+		if (member->socket()) {
 			cUOTxPartyRemoveMember updateparty;
-			updateparty.setSerial(canidates_.first()->serial());
-			canidates_.first()->socket()->send(&updateparty);
-			canidates_.first()->socket()->clilocMessage(1005449);
+			updateparty.setSerial(member->serial());
+			member->socket()->send(&updateparty);
+			member->socket()->clilocMessage(1005449);
 		}
-
-		canidates_.erase(canidates_.begin());
 	}
 }
 
