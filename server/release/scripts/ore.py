@@ -305,9 +305,8 @@ def dosmelt(char, args):
 	return True
 
 def successsmelt(char, resname, amount):
-	item = wolfpack.additem('1bf2')
+	item = wolfpack.additem( '%s_ingot' % resname)
 	item.amount = amount
-	item.baseid = '%s_ingot' % resname
 
 	ore = mining.ORES[resname]
 
