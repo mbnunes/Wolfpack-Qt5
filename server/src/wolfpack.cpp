@@ -169,7 +169,7 @@ void signal_handler(int signal)
 		Accounts->reload();
 		break ;
 	case SIGUSR2:
-		cwmWorldState->savenewworld(SrvParams->worldSaveModule());
+//		cwmWorldState->savenewworld(SrvParams->worldSaveModule());
 		SrvParams->flush();
 		break ;
 	case SIGTERM:
