@@ -3367,9 +3367,11 @@ void cBaseChar::remove()
 	}
 
 	// Call the onDelete event.
-	PyObject* args = Py_BuildValue( "(N)", getPyObject() );
-	cPythonScript::callChainedEventHandler( EVENT_DELETE, scriptChain, args );
-	Py_DECREF( args );
+	if (canHandleEvent(EVENT_DELETE)) {
+		PyObject* args = Py_BuildValue( "(N)", getPyObject() );
+		callEventHandler( EVENT_DELETE, args );
+		Py_DECREF( args );
+	}
 
 	removeFromView( false );
 

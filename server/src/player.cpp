@@ -941,18 +941,11 @@ void cPlayer::removePet( P_NPC pPet, bool noOwnerChange )
 
 bool cPlayer::onTradeStart( P_PLAYER partner, P_ITEM firstitem )
 {
-	cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_TRADESTART );
 	bool result = false;
 
-	if ( scriptChain || global )
-	{
+	if (canHandleEvent(EVENT_TRADESTART)) {
 		PyObject* args = Py_BuildValue( "(O&O&O&)", PyGetCharObject, this, PyGetCharObject, partner, PyGetItemObject, firstitem );
-
-		result = cPythonScript::callChainedEventHandler( EVENT_TRADESTART, scriptChain, args );
-
-		if ( !result && global )
-			result = global->callEventHandler( EVENT_TRADESTART, args );
-
+		result = callEventHandler( EVENT_TRADESTART, args );
 		Py_DECREF( args );
 	}
 
@@ -961,17 +954,13 @@ bool cPlayer::onTradeStart( P_PLAYER partner, P_ITEM firstitem )
 
 bool cPlayer::onTrade( unsigned int type, unsigned int buttonstate, SERIAL itemserial )
 {
-	cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_TRADE );
 	bool result = false;
 
-	if ( scriptChain || global )
+	if ( canHandleEvent(EVENT_TRADE) )
 	{
 		PyObject* args = Py_BuildValue( "(O&iii)", PyGetCharObject, this, type, buttonstate, itemserial );
 
-		result = cPythonScript::callChainedEventHandler( EVENT_TRADE, scriptChain, args );
-
-		if ( !result && global )
-			result = global->callEventHandler( EVENT_TRADE, args );
+		result = callEventHandler(EVENT_TRADE, args );
 
 		Py_DECREF( args );
 	}
@@ -982,11 +971,11 @@ bool cPlayer::onPickup( P_ITEM pItem )
 {
 	bool result = false;
 
-	if ( scriptChain )
+	if ( canHandleEvent(EVENT_PICKUP) )
 	{
 		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetItemObject, pItem );
 
-		result = cPythonScript::callChainedEventHandler( EVENT_PICKUP, scriptChain, args );
+		result = callEventHandler( EVENT_PICKUP, args );
 
 		Py_DECREF( args );
 	}
@@ -996,18 +985,12 @@ bool cPlayer::onPickup( P_ITEM pItem )
 
 bool cPlayer::onLogin( void )
 {
-	cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_LOGIN );
 	bool result = false;
 
-	if ( scriptChain || global )
+	if ( canHandleEvent( EVENT_LOGIN ) )
 	{
 		PyObject* args = Py_BuildValue( "(O&)", PyGetCharObject, this );
-
-		result = cPythonScript::callChainedEventHandler( EVENT_LOGIN, scriptChain, args );
-
-		if ( !result && global )
-			result = global->callEventHandler( EVENT_LOGIN, args );
-
+		result = callEventHandler( EVENT_LOGIN, args );
 		Py_DECREF( args );
 	}
 
@@ -1016,18 +999,12 @@ bool cPlayer::onLogin( void )
 
 bool cPlayer::onCastSpell( unsigned int spell )
 {
-	cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_CASTSPELL );
 	bool result = false;
 
-	if ( scriptChain || global )
+	if ( canHandleEvent( EVENT_CASTSPELL ) )
 	{
 		PyObject* args = Py_BuildValue( "O&i", PyGetCharObject, this, spell );
-
-		result = cPythonScript::callChainedEventHandler( EVENT_CASTSPELL, scriptChain, args );
-
-		if ( !result && global )
-			result = global->callEventHandler( EVENT_CASTSPELL, args );
-
+		result = callEventHandler( EVENT_CASTSPELL, args );
 		Py_DECREF( args );
 	}
 
@@ -1036,18 +1013,12 @@ bool cPlayer::onCastSpell( unsigned int spell )
 
 bool cPlayer::onLogout( void )
 {
-	cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_LOGOUT );
 	bool result = false;
 
-	if ( scriptChain || global )
+	if ( canHandleEvent( EVENT_LOGOUT ) )
 	{
 		PyObject* args = Py_BuildValue( "(O&)", PyGetCharObject, this );
-
-		result = cPythonScript::callChainedEventHandler( EVENT_LOGOUT, scriptChain, args );
-
-		if ( !result && global )
-			result = global->callEventHandler( EVENT_LOGOUT, args );
-
+		result = callEventHandler( EVENT_LOGOUT, args );
 		Py_DECREF( args );
 	}
 
@@ -1057,17 +1028,13 @@ bool cPlayer::onLogout( void )
 // The character wants help
 bool cPlayer::onHelp( void )
 {
-	cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_HELP );
 	bool result = false;
 
-	if ( scriptChain || global )
+	if ( canHandleEvent(EVENT_HELP) )
 	{
 		PyObject* args = Py_BuildValue( "(O&)", PyGetCharObject, this );
 
-		result = cPythonScript::callChainedEventHandler( EVENT_HELP, scriptChain, args );
-
-		if ( !result && global )
-			result = global->callEventHandler( EVENT_HELP, args );
+		result = callEventHandler( EVENT_HELP, args );
 
 		Py_DECREF( args );
 	}
@@ -1078,18 +1045,12 @@ bool cPlayer::onHelp( void )
 // The character wants to chat
 bool cPlayer::onChat( void )
 {
-	cPythonScript* global = ScriptManager::instance()->getGlobalHook( EVENT_CHAT );
 	bool result = false;
 
-	if ( scriptChain || global )
+	if ( canHandleEvent( EVENT_CHAT ) )
 	{
 		PyObject* args = Py_BuildValue( "(O&)", PyGetCharObject, this );
-
-		result = cPythonScript::callChainedEventHandler( EVENT_CHAT, scriptChain, args );
-
-		if ( !result && global )
-			result = global->callEventHandler( EVENT_CHAT, args );
-
+		result = callEventHandler( EVENT_CHAT, args );
 		Py_DECREF( args );
 	}
 
@@ -1100,10 +1061,10 @@ bool cPlayer::onUse( P_ITEM pItem )
 {
 	bool result = false;
 
-	if ( scriptChain )
+	if ( canHandleEvent(EVENT_USE) )
 	{
 		PyObject* args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetItemObject, pItem );
-		result = cPythonScript::callChainedEventHandler( EVENT_USE, scriptChain, args );
+		result = callEventHandler( EVENT_USE, args );
 		Py_DECREF( args );
 	}
 

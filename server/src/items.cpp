@@ -526,10 +526,10 @@ void cItem::remove()
 		return;
 	}
 
-	if ( cPythonScript::canChainHandleEvent( EVENT_DELETE, scriptChain ) )
+	if ( canHandleEvent( EVENT_DELETE ) )
 	{
 		PyObject* args = Py_BuildValue( "(N)", getPyObject() );
-		cPythonScript::callChainedEventHandler( EVENT_DELETE, scriptChain, args );
+		callEventHandler( EVENT_DELETE, args );
 		Py_DECREF( args );
 	}
 

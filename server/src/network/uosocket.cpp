@@ -3025,12 +3025,7 @@ void cUOSocket::handleExtendedStats( cUORxExtendedStats* packet )
 
 void cUOSocket::handleChat( cUOPacket* packet )
 {
-	if ( _player->canHandleEvent( EVENT_CHAT ) )
-	{
-		PyObject* args = Py_BuildValue( "(N)", _player->getPyObject() );
-		_player->callEventHandler(EVENT_CHAT, args);
-		Py_DECREF( args );
-	}
+	_player->onChat();
 }
 
 bool cUOSocket::useItem( P_ITEM item )
