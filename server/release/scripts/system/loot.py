@@ -127,7 +127,7 @@ PACKS = {
 	],
 	'weapons_low_bows': [
 		[0.25, DEF_WEAPONS_BOWS, 1, 0]
-	],
+	]
 	# Armor Packs
 
 	# Reagent Packs
