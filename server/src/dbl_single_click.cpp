@@ -341,7 +341,7 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 		if (isItemSerial(pi->contserial))
 		{
 			P_ITEM pio = GetOutmostCont(pi);
-			if (!pio) return;		// this should *not* happen, but it does ! Watch the logfiles (Duke)
+			if (pio == NULL) return;		// this should *not* happen, but it does ! Watch the logfiles (Duke)
 			if (pc_currchar->Wears(pio) ||	// sub-pack
 				(pio->isInWorld() && iteminrange(s, pio, 2)))	// in world and in range
 			{
