@@ -7,6 +7,7 @@
 
 from wolfpack.consts import *
 from wolfpack.utilities import *
+from wolfpack.time import *
 import wolfpack
 
 ITEMID_DELAY = 5000
@@ -19,7 +20,7 @@ def onSkillUse( char, skill ):
 		return 0
 
 	if char.hastag( 'skill_delay' ):
-		cur_time = wolfpack.servertime()
+		cur_time = servertime()
 		if cur_time < char.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return 1
@@ -42,7 +43,7 @@ def response( char, args, target ):
 				char.socket.clilocmessage( 0x7A27E, "", 0x3b2, 3 )
 				return 0
  
- 		cur_time = wolfpack.servertime()
+ 		cur_time = servertime()
  		char.settag( 'skill_delay', cur_time + ITEMID_DELAY )
 
 		if not char.checkskill( ITEMID, 0, 1000 ):

@@ -7,6 +7,7 @@
 
 from wolfpack.consts import *
 from wolfpack.utilities import *
+from wolfpack.time import *
 import wolfpack
 
 # from UO Stratics:
@@ -16,6 +17,7 @@ import wolfpack
 # 4. You can continue to beg from the same NPC until he or she runs out of gold. (editors note: or until he or she has 9 or less gold) 
 # 5. If your karma gets too low, there is a chance the NPC will refuse to give you any gold at all. Where "low" means negative karma. All karma my GM Beggar had was the little he could acquire from wrestling rats in town.
 
+GOLD_COIN_ID = 0x0eed
 GOLD_COIN = "eed"
 GOLD_COIN1 = "eee"
 GOLD_COIN2 = "eef"
@@ -31,7 +33,7 @@ def onSkillUse( char, skill ):
 		return 0
 
 	if char.hastag( 'skill_delay' ):
-		cur_time = wolfpack.servertime()
+		cur_time = servertime()
 		if cur_time < char.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return 1
@@ -57,9 +59,9 @@ def response( char, args, target ):
 	# check if this npc is a 'human' ?
 
 	# You are too far away...
-	if char.canreach( npc.pos, BEGGING_RANGE ):
+	if not char.canreach( npc.pos, BEGGING_RANGE ):
 		# male npc
-		if not npc.sex:
+		if npc.sex:
 			char.socket.clilocmessage( 500401, "", 0x3b2, 3 )
 		# female npc
 		else:
@@ -67,14 +69,14 @@ def response( char, args, target ):
 		return
 
 	# town cryer : I feel sorry for thee... Thou dost not look trustworthy... no gold for thee today! : 500405 + 500406
-	gold = npc.countresource( GOLD_COIN )
+	gold = npc.countresource( GOLD_COIN_ID )
 	if not gold or gold < 10:
 		# Thou dost not look trustworthy... no gold for thee today!
 		char.socket.clilocmessage( 500406, "", 0x3b2, 3, npc )
 		return
 
 	success = char.checkskill( BEGGING, 0, 1200 )
-	cur_time = wolfpack.servertime()
+	cur_time = servertime()
 	char.settag( 'skill_delay', cur_time + BEGGING_DELAY )
 
 	# npc who has more than 100gp will give you 10gp

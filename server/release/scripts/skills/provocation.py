@@ -8,7 +8,9 @@
 import wolfpack
 from wolfpack.consts import *
 from wolfpack.utilities import *
+from wolfpack.time import *
 import whrandom
+from skills import *
 
 # % it will attack you when you fail to provocate
 ATTACK_IF_FAIL	= 20
@@ -23,7 +25,7 @@ def onSkillUse( char, skill ):
 		return 0
 
 	if char.hastag( 'skill_delay' ):
-		cur_time = wolfpack.servertime()
+		cur_time = servertime()
 		if cur_time < char.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return 1
@@ -88,7 +90,8 @@ def response( char, args, target ):
 
 	# ok, select next target
 	if char.gettag( 'provocation_step' ) == 0:
-		char.settag( 'provocatoin_target1', target.char.serial )
+		char.settag( 'provocation_target1', target.char.serial )
+		char.deltag( 'provocation_step' )
 		char.settag( 'provocation_step', 1 )
 		char.socket.clilocmessage( 1008085, "", 0x3b2, 3 )
 		char.socket.attachtarget( "skills.provocation.response" )
@@ -114,7 +117,7 @@ def response( char, args, target ):
 	target2 = target.char
 
 	# target1 and target2 must be 'canreach' at the same time
-	if not char.canreach( target1 ) or not char.canreach( target2 ):
+	if not char.canreach( target1, provo_range ) or not char.canreach( target2, provo_range ):
 		char.socket.clilocmessage( 1049449, "", 0x3b2, 3 )
 		clear_tags( char )
 		return 1
@@ -125,7 +128,7 @@ def response( char, args, target ):
 		return 1
 
 	clear_tags( char )
-	cur_time = wolfpack.servertime()
+	cur_time = servertime()
 	char.settag( 'skill_delay', cur_time + PROVO_DELAY )
 
 	# skill check : we should get the bard difficulty from xml definition

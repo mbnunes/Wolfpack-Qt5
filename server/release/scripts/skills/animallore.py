@@ -7,6 +7,7 @@
 
 from wolfpack.consts import *
 import wolfpack
+from wolfpack.time import *
 from wolfpack.gumps import cGump
 
 ANIMALLORE_DELAY = 5000
@@ -20,7 +21,7 @@ def onSkillUse( char, skill ):
 	        return 0
 
 	if char.hastag( 'skill_delay' ):
-		cur_time = wolfpack.servertime()
+		cur_time = servertime()
 		if cur_time < char.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return 1
@@ -220,6 +221,6 @@ def sendGump( char, args, target ):
 	loreGump.setType( 0x10101010 )
 	loreGump.send( char )
 
-	cur_time = wolfpack.servertime()
+	cur_time = servertime()
 	char.settag( 'skill_delay', cur_time + ANIMALLORE_DELAY )
 

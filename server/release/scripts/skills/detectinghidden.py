@@ -7,6 +7,7 @@
 
 from wolfpack.consts import *
 from wolfpack.utilities import *
+from wolfpack.time import *
 import wolfpack
 
 # UOSS : All dungeons can spawn the following traps at random locations: Floor saw trap, floor spike trap, poison gas trap and exploding mushroom trap.
@@ -30,7 +31,7 @@ def onSkillUse( char, skill ):
 		return 0
 
 	if char.hastag( 'skill_delay' ):
-		cur_time = wolfpack.servertime()
+		cur_time = servertime()
 		if cur_time < char.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return 1
@@ -61,7 +62,7 @@ def response( char, args, target ):
 		# do we need to checkskill ?
 		return
 
-	cur_time = wolfpack.servertime()
+	cur_time = servertime()
 	char.settag( 'skill_delay', cur_time + DETECTHIDDEN_DELAY )
 
 	success = char.checkskill( DETECTINGHIDDEN, 0, 1000 )

@@ -6,6 +6,7 @@
 #################################################################
 
 from wolfpack.consts import *
+from wolfpack.time import *
 import wolfpack
 from math import floor
 import random
@@ -21,7 +22,7 @@ def onSkillUse( char, skill ):
 	socket = char.socket
 
 	if char.hastag( 'skill_delay' ):
-		cur_time = wolfpack.servertime()
+		cur_time = servertime()
 		if cur_time < char.gettag( 'skill_delay' ):
 			socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return 1
@@ -34,7 +35,7 @@ def onSkillUse( char, skill ):
 
 def effect( char, args ):
 
-	cur_time = wolfpack.servertime()
+	cur_time = servertime()
 	char.settag( 'skill_delay', cur_time + SPSPEAK_DELAY )
 
 	if not char.checkskill( SPIRITSPEAK, 0, 1000 ):

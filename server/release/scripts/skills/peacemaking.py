@@ -8,6 +8,9 @@
 import wolfpack
 from wolfpack.consts import *
 from wolfpack.utilities import *
+from wolfpack.time import *
+#import skills
+from skills import *
 
 PEACE_DELAY = 5000
 
@@ -19,7 +22,7 @@ def onSkillUse( char, skill ):
 		return 0
 
 	if char.hastag( 'skill_delay' ):
-		cur_time = wolfpack.servertime()
+		cur_time = servertime()
 		if cur_time < char.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return 1
@@ -71,7 +74,7 @@ def response( char, args, target ):
 		return 0
 
 	char.deltag( 'peacemaking_instrument' )
-	cur_time = wolfpack.servertime()
+	cur_time = servertime()
 	char.settag( 'skill_delay', cur_time + PEACE_DELAY )
 
 	# if target him/her self : standard (regional) mode
@@ -86,11 +89,11 @@ def response( char, args, target ):
 			return 1
 		result = char.checkskill( PEACEMAKING, 0, 1000 )
 		# fail on peacemaking
-		if not success:
+		if not result:
 			char.socket.clilocmessage( 500613, "", 0x3b2, 3 )
 			return 1
 		char.socket.clilocmessage( 500615, "", 0x3b2, 3 )
-		creatures = wolfpack.chars( x, y, char.pos.map, peace_range )
+		creatures = wolfpack.chars( char.pos.x, char.pos.y, char.pos.map, peace_range )
 		for creature in creatures:
 			if char.canreach( creature, peace_range ):
 				# stop combat

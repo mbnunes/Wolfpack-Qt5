@@ -7,6 +7,7 @@
 
 from wolfpack.consts import *
 import wolfpack
+from wolfpack.time import *
 from math import floor
 
 ANATOMY_DELAY = 5000
@@ -24,7 +25,7 @@ def onSkillUse( char, skill ):
 	socket = char.socket
 
 	if char.hastag( 'skill_delay' ):
-		cur_time = wolfpack.servertime()
+		cur_time = servertime()
 		if cur_time < char.gettag( 'skill_delay' ):
 			socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return 1
@@ -63,7 +64,7 @@ def response( char, args, target ):
 		socket.clilocmessage( 0x7A266, "", 0x3b2, 3, target.char ) # That cannot be inspected.
 		return
 
-	cur_time = wolfpack.servertime()
+	cur_time = servertime()
 	char.settag( 'skill_delay', cur_time + ANATOMY_DELAY )
 
 	# Make a skillcheck and display the fail or success message above the targets head

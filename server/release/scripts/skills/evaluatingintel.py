@@ -7,6 +7,7 @@
 
 import wolfpack
 from wolfpack.consts import *
+from wolfpack.time import *
 from math import floor
 
 EVALINT_DELAY = 5000
@@ -20,7 +21,7 @@ def onSkillUse( char, skill ):
 		return 0
 
 	if char.hastag( 'skill_delay' ):
-		cur_time = wolfpack.servertime()
+		cur_time = servertime()
 		if cur_time < char.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return 1
@@ -41,7 +42,7 @@ def response( char, args, target ):
 	if not char.canreach( target.char, 8 ):
 		return 0
 
-	cur_time = wolfpack.servertime()
+	cur_time = servertime()
 	char.settag( 'skill_delay', cur_time + EVALINT_DELAY )
 
 	#if target.char == char:

@@ -7,6 +7,7 @@
 
 from wolfpack.consts import *
 from wolfpack.utilities import *
+from wolfpack.time import *
 import wolfpack
 
 HIDING_DELAY = 5000
@@ -19,7 +20,7 @@ def onSkillUse( char, skill ):
 		return 0
 
 	if char.hastag( 'skill_delay' ):
-		cur_time = wolfpack.servertime()
+		cur_time = servertime()
 		if cur_time < char.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return 1
@@ -35,7 +36,7 @@ def onSkillUse( char, skill ):
 	else:
 		char.socket.clilocmessage( 501237, "", 0x3b2, 4, char )
 	
-	cur_time = wolfpack.servertime()
+	cur_time = servertime()
 	char.settag( 'skill_delay', cur_time + HIDING_DELAY )
 
 	return 1

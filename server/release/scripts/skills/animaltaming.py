@@ -6,6 +6,7 @@
 #################################################################
 
 from wolfpack.consts import *
+from wolfpack.time import *
 import wolfpack
 import whrandom
 
@@ -34,7 +35,7 @@ def onSkillUse( char, skill ):
 
 	socket = char.socket
 	if char.hastag( 'skill_delay' ):
-		cur_time = wolfpack.servertime()
+		cur_time = servertime()
 		if cur_time < char.gettag( 'skill_delay' ):
 			socket.clilocmessage( 500118, "", 0x3b2, 3 )
 			return 1
@@ -127,7 +128,7 @@ def response( char, args, target ):
 	# start taming
 	socket.clilocmessage( 1010598, "", 0x3b2, 3, totame )
 
-	cur_time = wolfpack.servertime()
+	cur_time = servertime()
 	char.settag( 'skill_delay', cur_time + TAMING_DELAY )
 
 	# set timer
