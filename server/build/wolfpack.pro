@@ -30,7 +30,7 @@ win32-msvc:TMAKE_CXXFLAGS = /J /nologo /ML /W3 /GX /O2 /YX /FD /c
 win32-borland:TMAKE_CXXFLAGS =  -K -6 -q -x -WM -w-8057 -w-8066 -w-8060 -w-8027 -w-8059 -w-8004 -w-8012
 win32-borland:LIBS = ws2_32.lib lib/ZThread/lib/ZThread.lib lib/wrl/lib/wrl.lib
 
-HEADERS         = Client.h \
+HEADERS         = client.h \
 		  SndPkg.h \
 		  Timing.h \
 		  TmpEff.h \
