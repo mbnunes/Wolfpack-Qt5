@@ -11,8 +11,11 @@ class Option:
 		self.value = defvalue
 		self.choices = choices
 		
+
 class ConfigGroup:
 	def __init__(self, parent, y, text, options):
+		self.entries = []
+		self.text = text
 		self.gr = Pmw.Group( parent.interior(), 
 		tag_text = text,
 		tag_font = Pmw.logicalfont('Helvetica', 4),
@@ -31,6 +34,7 @@ class ConfigGroup:
 				entry.selectitem(str(op.value))
 				entry.pack(fill='both',expand=1,pady=5,padx=5)
 				self.height += 40
+				self.entries.append( entry )
 			else:
 				entry = Pmw.EntryField(self.gr.interior(), 
 				labelpos = 'w',
@@ -40,6 +44,7 @@ class ConfigGroup:
 				)
 				entry.pack(fill='both',expand=1,pady=5,padx=5)
 				self.height += 40
+				self.entries.append( entry )
 
 		parent.create_window(1, y,width=300,height=self.height,anchor='nw',window = self.gr)
 	
@@ -49,6 +54,9 @@ class ConfigGroup:
 				
 class XMLConfig:
 	def __init__(self, parent):
+		self.resutl = ''
+		self.parent = parent
+		self.groups = []
 		self.xmlname = 'wolfpack.xml'
         	self.sc = Pmw.ScrolledCanvas(parent,
 	        borderframe = 1,
@@ -83,36 +91,71 @@ class XMLConfig:
 				
 				opts.append( Option( op.getAttribute('key'), value, choices ) )
 			cfg = ConfigGroup( self.sc, y, gr.getAttribute('name'), opts )
+			self.groups.append( cfg )
 			y += cfg.height + 5
 			opts = []
 			
-
 		self.sc.pack(padx = 5, pady = 5, fill = 'both', expand = 1)
 		self.sc.resizescrollregion()
 	
-	
-	def writeXML(self):
-		dom = Document()
-		all = dom.createElement("preferences")
-		all.setAttribute('version','1.0')
-		all.setAttribute('application','Wolfpack')
-		sub = dom.createElement("group")
-		sub.setAttribute('name','AI')
-		all.appendChild(sub)
-		dom.appendChild(all)
-		file = open(filename,'w')
-		file.write("<!DOCTYPE preferences>\n")
-		file.write(dom.toprettyxml())
-		file.flush()
-		file.close()
+	def writexml(self):
+	        self.dialog = Pmw.MessageDialog(self.parent,
+			buttons = ('OK','Cancel'),
+			message_text = 'Save changes ?',
+			defaultbutton = 'OK',
+			title = 'My dialog',
+			command = self.execute)
+	        self.dialog.withdraw()
+        	self.dialog.activate(geometry = 'centerscreenalways')
+		
+	        if self.result == 'OK':
+			self.dialog.deactivate(self.result)
+			dom = Document()
+			all = dom.createElement("preferences")
+			all.setAttribute('version','1.0')
+			all.setAttribute('application','Wolfpack')
+			for gr in self.groups:
+				entries = gr.entries
+				groupname = gr.text
+				xgr = dom.createElement('group')
+				xgr.setAttribute('name',groupname)
+				for en in entries:
+					labeltext = en['label_text']
+					try:
+						value = en['value']
+					except:
+						value = str(en.get())
+					xop = dom.createElement('option')
+					xop.setAttribute('key',labeltext)
+					xop.setAttribute('value',value)
+					xgr.appendChild(xop)
+					
+				all.appendChild(xgr)
+       	
+			all.appendChild(xgr)
+			dom.appendChild(all)
+			file = open(self.xmlname,'w')
+			file.write("<!DOCTYPE preferences>\n")
+			file.write(dom.toprettyxml())
+			file.flush()
+			file.close()                         
+
+	def execute(self, result):
+		self.result = result
+		self.dialog.deactivate(result)
+
 
 if __name__ == '__main__':
 	root = Tkinter.Tk()
 	Pmw.initialise(root)
 	root.title('Wolfpack configurator')
 	
-	exitButton = Tkinter.Button(root, text = 'Exit', command = root.destroy)
-	exitButton.pack(side = 'bottom')
-	widget = XMLConfig(root)
+	config = XMLConfig(root)
+	saveButton = Tkinter.Button(root, text = 'Save changes', command = config.writexml)
+	saveButton.pack(pady = 5, padx = 5)
+	exitButton = Tkinter.Button(root, text = 'Exit configurator', command = root.destroy)
+	exitButton.pack(pady = 5, padx = 5)
+
+
 	root.mainloop()
 
