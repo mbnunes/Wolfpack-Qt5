@@ -5,22 +5,31 @@
 	<npc id="orcish_lord">
 		<name>an orcish lord</name>
 		<id>0x8a</id>
-		<category>Monsters\Orcs\Orcish Lord</category>
-		<skin>0</skin>
 		<inherit id="monster_base" />
-		<karma><random min="-2500" max="-4999" /></karma>
-		<fame><random min="2500" max="4999" /></fame>
-		<defense><random min="25" max="35" /></defense>
-		<lodamage>8</lodamage>
-		<hidamage>28</hidamage>
+		<karma>-2500</karma>
+		<fame>2500</fame>
 		<!-- Stats -->
-		<str><random min="147" max="215" /></str>
-		<dex><random min="91" max="115" /></dex>
-		<int><random min="61" max="85" /></int>
+		<str><random min="147" max="215"/></str>
+		<dex><random min="91" max="115"/></dex>
+		<int><random min="61" max="85"/></int>
 		<!-- Skills -->
-		<wrestling><random min="601" max="850" /></wrestling>
-		<tactics><random min="751" max="900" /></tactics>
-		<magicresistance><random min="701" max="850" /></magicresistance>
+		<magicresistance><random min="701" max="850"/></magicresistance>
+		<swordsmanship><random min="601" max="850"/></swordsmanship>
+		<tactics><random min="751" max="900"/></tactics>
+		<wrestling><random min="601" max="850"/></wrestling>
+		<!-- Damage -->
+		<lodamage>4</lodamage>
+		<hidamage>14</hidamage>
+		<!-- Resists -->
+		<defense><random min="25" max="35" /></defense>
+		<tag name="coldresist" value="20,30" />
+		<tag name="energyresist" value="30,40" />
+		<tag name="fireresist" value="30,40" />
+		<tag name="physicalresist" value="25,35" />
+		<tag name="poisonresist" value="30,40" />
+		<!-- Misc. -->
+		<desc>As Marshall to the orc horde, these leaders are vicious killers whocrave only battle. They hurl their armies and their very selves atanything that approaches. Skulls of the orcish lord are prime trophiesfor veteran warriors, probably because they are so hard won.</desc>
+		<category>Monsters\Orcs\Orcish Lord</category>
 	</npc>
 
 </definitions>

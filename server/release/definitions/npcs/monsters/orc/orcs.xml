@@ -4,20 +4,29 @@
 	<npc id="orc_base">
 		<inherit id="monster_base"/>
 		<name>an orc</name>
-		<karma><random min="-1250" max="-2499"/></karma>
-		<fame><random min="1250" max="2499"/></fame>
-		<defense><random min="25" max="30"/></defense>
-		<lodamage>9</lodamage>
-		<hidamage>13</hidamage>
+		<karma>-1500</karma>
+		<fame>1500</fame>
 		<gold><random min="25" max="50"/></gold>
 		<!-- Stats -->
 		<str><random min="96" max="120"/></str>
 		<dex><random min="81" max="105"/></dex>
 		<int><random min="36" max="60"/></int>
 		<!-- Skills -->
-		<wrestling><random min="501" max="700"/></wrestling>
-		<tactics><random min="551" max="800"/></tactics>
 		<magicresistance><random min="501" max="750"/></magicresistance>
+		<tactics><random min="551" max="800"/></tactics>
+		<wrestling><random min="501" max="700"/></wrestling>
+		<!-- Damage -->
+		<lodamage>5</lodamage>
+		<hidamage>7</hidamage>
+		<!-- Resists -->
+		<defense><random min="25" max="30"/></defense>
+		<tag name="coldresist" value="10,20" />
+		<tag name="energyresist" value="20,30" />
+		<tag name="fireresist" value="20,30" />
+		<tag name="physicalresist" value="25,30" />
+		<tag name="poisonresist" value="10,20" />
+		<!-- Misc. -->
+		<desc>Orcs are the oldest and fiercest foes of humanity, but these days havebeen largely driven into Underground refuges. They have a facesomewhat like a pig and a muscular, man-like body. It has long beensaid that they eat the flesh of man, but I believe they harass man forhis gold, not for his meat. They are a cruel and rapacious lot, andthe surface is better for their absence, but there are those who saythat we may expect a great resurgence of orcish aggression in the nearfuture.</desc>
 		<carve>carve_orc</carve>
 	</npc>
 

@@ -5,22 +5,31 @@
 	<npc id="orc_brute">
 		<name>an orc brute</name>
 		<id>0xbd</id>
-		<category>Monsters\Orcs\Orc Brute</category>
-		<skin>0</skin>
 		<inherit id="monster_base" />
-		<karma><random min="-10000" max="-15000" /></karma>
-		<fame><random min="10000" max="15000" /></fame>
-		<defense><random min="45" max="55" /></defense>
-		<lodamage>82</lodamage>
-		<hidamage>111</hidamage>
+		<karma>-15000</karma>
+		<fame>15000</fame>
 		<!-- Stats -->
-		<str><random min="767" max="945" /></str>
-		<dex><random min="66" max="75" /></dex>
-		<int><random min="46" max="70" /></int>
+		<str><random min="767" max="945"/></str>
+		<dex><random min="66" max="75"/></dex>
+		<int><random min="46" max="70"/></int>
 		<!-- Skills -->
-		<wrestling><random min="901" max="1000" /></wrestling>
-		<tactics><random min="901" max="1000" /></tactics>
-		<magicresistance><random min="1251" max="1400" /></magicresistance>
+		<macefighting><random min="901" max="1000"/></macefighting>
+		<magicresistance><random min="1251" max="1400"/></magicresistance>
+		<tactics><random min="901" max="1000"/></tactics>
+		<wrestling><random min="901" max="1000"/></wrestling>
+		<!-- Damage -->
+		<lodamage>20</lodamage>
+		<hidamage>25</hidamage>
+		<!-- Resists -->
+		<defense><random min="45" max="55" /></defense>
+		<tag name="coldresist" value="25,35" />
+		<tag name="energyresist" value="25,35" />
+		<tag name="fireresist" value="40,50" />
+		<tag name="physicalresist" value="45,55" />
+		<tag name="poisonresist" value="25,35" />
+		<!-- Misc. -->
+		<desc>Orc Brutes are much larger and stronger than any of the other orctypes, and have almost as little respect for their smaller kin as theydo for humans. Orc brutes are a fearsome foe, as they deal massiveblows, and have no qualms about lobbing smaller orc relatives at youin battle.</desc>
+		<category>Monsters\Orcs\Orc Brute</category>
 	</npc>
 
 </definitions>

@@ -5,21 +5,32 @@
 	<npc id="orc_scout">
 		<name>an orc scout</name>
 		<id>0xb5</id>
-		<category>Monsters\Orcs\Orc Scout</category>
-		<skin>0</skin>
 		<inherit id="monster_base" />
-		<karma><random min="-1250" max="-2499" /></karma>
-		<fame><random min="1250" max="2499" /></fame>
-		<defense><random min="25" max="35" /></defense>
-		<lodamage>28</lodamage>
-		<hidamage>31</hidamage>
+		<karma>-1500</karma>
+		<fame>1500</fame>
 		<!-- Stats -->
-		<str><random min="96" max="120" /></str>
-		<dex><random min="101" max="130" /></dex>
-		<int><random min="36" max="60" /></int>
+		<str><random min="96" max="120"/></str>
+		<dex><random min="101" max="130"/></dex>
+		<int><random min="36" max="60"/></int>
 		<!-- Skills -->
-		<tactics><random min="551" max="800" /></tactics>
-		<magicresistance><random min="501" max="750" /></magicresistance>
+		<magicresistance><random min="501" max="750"/></magicresistance>
+		<tactics><random min="551" max="800"/></tactics>
+		<archery><random min="601" max="900"/></archery>
+		<fencing><random min="501" max="700"/></fencing>
+		<healing><random min="601" max="900"/></healing>
+		<!-- Damage -->
+		<lodamage>5</lodamage>
+		<hidamage>7</hidamage>
+		<!-- Resists -->
+		<defense><random min="25" max="35" /></defense>
+		<tag name="coldresist" value="15,25" />
+		<tag name="energyresist" value="25,30" />
+		<tag name="fireresist" value="30,40" />
+		<tag name="physicalresist" value="25,35" />
+		<tag name="poisonresist" value="15,20" />
+		<!-- Misc. -->
+		<desc>Orc scouts are clever in battle. They can not only hide from theirfoes, when they feel their life is in danger, but they can detecthidden foes as well. The orc scout uses the common scout weapon of anorc bow, and their arrows cause large damage to those they hunt.</desc>
+		<category>Monsters\Orcs\Orc Scout</category>
 	</npc>
 
 </definitions>

@@ -4,25 +4,32 @@
 	<!-- an orc captain -->
 	<npc id="orc_captain">
 		<name>an orc captain</name>
-		<id>0x007</id>
-		<category>Monsters\Orcs\Orc Captain</category>
+		<id>0x7</id>
 		<inherit id="monster_base"/>
-		<karma><random min="-1250" max="-2499"/></karma>
-		<fame><random min="1250" max="2499"/></fame>
-		<defense><random min="30" max="35"/></defense>
-		<lodamage>11</lodamage>
-		<hidamage>31</hidamage>
+		<karma>-2500</karma>
+		<fame>2500</fame>
 		<gold><random min="50" max="100"/></gold>
 		<!-- Stats -->
 		<str><random min="111" max="145"/></str>
 		<dex><random min="101" max="135"/></dex>
 		<int><random min="86" max="110"/></int>
 		<!-- Skills -->
-		<wrestling>0</wrestling>
-		<tactics><random min="851" max="1000"/></tactics>
 		<magicresistance><random min="701" max="850"/></magicresistance>
+		<swordsmanship><random min="701" max="950"/></swordsmanship>
+		<tactics><random min="851" max="1000"/></tactics>
+		<!-- Damage -->
+		<lodamage>5</lodamage>
+		<hidamage>15</hidamage>
+		<!-- Resists -->
+		<defense><random min="30" max="35"/></defense>
+		<tag name="coldresist" value="15,25" />
+		<tag name="energyresist" value="5,10" />
+		<tag name="fireresist" value="10,20" />
+		<tag name="physicalresist" value="30,35" />
+		<tag name="poisonresist" value="5,10" />
+		<!-- Misc. -->
 		<carve>carve_orc</carve>
-		<!-- Priv -->
+		<category>Monsters\Orcs\Orc Captain</category>
 	</npc>
 
 </definitions>

@@ -5,22 +5,33 @@
 	<npc id="orc_bomber">
 		<name>an orc bomber</name>
 		<id>0xb6</id>
-		<category>Monsters\Orcs\Orc Bomber</category>
-		<skin>0</skin>
 		<inherit id="monster_base" />
-		<karma><random min="-1250" max="-2499" /></karma>
-		<fame><random min="1250" max="2499" /></fame>
-		<defense><random min="25" max="35" /></defense>
-		<lodamage>2</lodamage>
-		<hidamage>17</hidamage>
+		<karma>-2500</karma>
+		<fame>2500</fame>
 		<!-- Stats -->
-		<str><random min="147" max="215" /></str>
-		<dex><random min="91" max="115" /></dex>
-		<int><random min="61" max="85" /></int>
+		<str><random min="147" max="215"/></str>
+		<dex><random min="91" max="115"/></dex>
+		<int><random min="61" max="85"/></int>
 		<!-- Skills -->
-		<wrestling><random min="601" max="850" /></wrestling>
-		<tactics><random min="751" max="900" /></tactics>
-		<magicresistance><random min="701" max="850" /></magicresistance>
+		<magicresistance><random min="701" max="850"/></magicresistance>
+		<swordsmanship><random min="601" max="850"/></swordsmanship>
+		<tactics><random min="751" max="900"/></tactics>
+		<wrestling><random min="601" max="850"/></wrestling>
+		<!-- Damage -->
+		<lodamage>1</lodamage>
+		<hidamage>8</hidamage>
+		<tag name="firedamage" value="25" />
+		<tag name="physicaldamage" value="75" />
+		<!-- Resists -->
+		<defense><random min="25" max="35" /></defense>
+		<tag name="coldresist" value="15,25" />
+		<tag name="energyresist" value="25,30" />
+		<tag name="fireresist" value="30,40" />
+		<tag name="physicalresist" value="25,35" />
+		<tag name="poisonresist" value="15,20" />
+		<!-- Misc. -->
+		<desc>These industrious orcs have mastered the fine art of tinkering, andhave shown themselves to be both clever and aggressive. Watchcarefully when near an orc bomber, for they give little warning beforehurling powerful explosives into the midst of unwary adventurers.</desc>
+		<category>Monsters\Orcs\Orc Bomber</category>
 	</npc>
 
 </definitions>
