@@ -774,8 +774,8 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 			pResItem = new cResourceItem( section_, amount, vein );
 			if( pResItem )
 			{
-				pResItem->serial = cItemsManager::getInstance()->getUnusedSerial();
-				cItemsManager::getInstance()->registerItem( pResItem );
+				pResItem->serial = ItemsManager::instance()->getUnusedSerial();
+				ItemsManager::instance()->registerItem( pResItem );
 				pResItem->pos = pos;
 				cMapObjects::getInstance()->add( pResItem );
 				pResItem->update();

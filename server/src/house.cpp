@@ -59,13 +59,13 @@ using namespace std;
 void cHouse::processHouseItemNode( const QDomElement &Tag )
 {
 	P_CHAR pOwner = FindCharBySerial( ownserial );
-	P_ITEM nItem = Items->MemItemFree();
+	P_ITEM nItem = new cItem;
 
 	if( !nItem )
 		return;
 	
 	nItem->Init( true );
-	cItemsManager::getInstance()->registerItem( nItem );
+	ItemsManager::instance()->registerItem( nItem );
 
 	nItem->applyDefinition( Tag );
 	if( nItem->type() == 222 )
@@ -208,8 +208,8 @@ void cHouse::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SER
 	P_CHAR pc_currchar = FindCharBySerial( senderserial );
 	cUOSocket* socket = pc_currchar->socket();
 
-	this->serial = cItemsManager::getInstance()->getUnusedSerial();
-	cItemsManager::getInstance()->registerItem( this );
+	this->serial = ItemsManager::instance()->getUnusedSerial();
+	ItemsManager::instance()->registerItem( this );
 	this->SetOwnSerial( senderserial );
 	this->priv = 0;
 	this->MoveTo( posx, posy, posz );

@@ -38,13 +38,22 @@
 #include "exceptions.h"
 #include "typedefs.h"
 #include "defines.h"
+#include "singleton.h"
 
 // System Includes
-#include <map>
 #include <list>
 
 // Forward declarations
 class cChar;
+
+// Important compile switch
+#if defined(WP_DONT_USE_HASH_MAP)
+#include <map>
+typedef std::map< SERIAL, P_CHAR > cCharsManagerSuperClass;
+#else
+#include <hash_map>
+typedef std::hash_map< SERIAL, P_CHAR > cCharsManagerSuperClass;
+#endif
 
 
 /*!
@@ -59,16 +68,13 @@ USAGE
 	for characters. To access the single instance, call the static member
 	getInstance().
 */
-class cCharsManager : public std::map<SERIAL, cChar*>
+class cCharsManager : public cCharsManagerSuperClass
 {
 protected:
 	// Data Members
 	std::list<cChar*> deletedChars;
 	SERIAL	lastUsedSerial;
-protected:
-	cCharsManager() {} // Unallow anyone to instantiate.
-	cCharsManager(cCharsManager& _it) {} // Unallow copy constructor
-	cCharsManager& operator=(cCharsManager& _it) { return *this; } // Unallow Assignment
+
 public:
 	~cCharsManager();
 	void registerChar( cChar* ) throw(wp_exceptions::wpbad_ptr);
@@ -76,13 +82,9 @@ public:
 	SERIAL getUnusedSerial() const;
 	void deleteChar( cChar* ) throw(wp_exceptions::wpbad_ptr);
 	void purge();
-
-	static cCharsManager* getInstance()
-	{
-		static cCharsManager theCharsManager;
-		return &theCharsManager; 
-	}
 };
+
+typedef SingletonHolder<cCharsManager> CharsManager;
 
 /*!
 CLASS
@@ -103,15 +105,15 @@ protected:
 public:
 	AllCharsIterator()							
 	{ 
-		iterChars = cCharsManager::getInstance()->begin(); 
+		iterChars = CharsManager::instance()->begin(); 
 	}
 
 	virtual ~AllCharsIterator()					{ }
 	P_CHAR GetData(void)						{ return iterChars->second; }
-	P_CHAR First()								{ return cCharsManager::getInstance()->begin()->second; }
+	P_CHAR First()								{ return CharsManager::instance()->begin()->second; }
 	P_CHAR Begin()								
 	{
-		iterChars = cCharsManager::getInstance()->begin();
+		iterChars = CharsManager::instance()->begin();
 		return GetData();
 	}
 	P_CHAR Next()
@@ -119,11 +121,9 @@ public:
 		iterChars++;
 		return iterChars->second;
 	}
-	bool atEnd()										{ return (iterChars == cCharsManager::getInstance()->end()); }
+	bool atEnd()										{ return (iterChars == CharsManager::instance()->end()); }
 	const AllCharsIterator operator++(int);
-	const AllCharsIterator operator--(int);
 	AllCharsIterator& operator++()						{ ++iterChars; return *this;	 }
-	AllCharsIterator& operator--()						{ --iterChars; return *this;	 }
 };
 
 inline const AllCharsIterator AllCharsIterator::operator++(int)
@@ -131,13 +131,6 @@ inline const AllCharsIterator AllCharsIterator::operator++(int)
 	AllCharsIterator returnValue(*this);	// fetch
 	++iterChars;							// increment
 	return returnValue;						// return what was fetched
-}
-
-inline const AllCharsIterator AllCharsIterator::operator--(int)
-{
-	AllCharsIterator returnValue(*this);
-	--iterChars;
-	return returnValue;
 }
 
 inline bool isCharSerial(long ser) 

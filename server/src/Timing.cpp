@@ -993,8 +993,8 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 
 	if ( freeUnusedMemory <= currenttime )
 	{
-		cItemsManager::getInstance()->purge();
-		cCharsManager::getInstance()->purge();
+		ItemsManager::instance()->purge();
+		CharsManager::instance()->purge();
 		freeUnusedMemory = currenttime + MY_CLOCKS_PER_SEC*60*40; // check only each 40 minutes
 	}
 

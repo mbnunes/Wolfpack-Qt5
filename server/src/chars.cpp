@@ -114,17 +114,17 @@ void cChar::setSerial(SERIAL ser)
 {
 	this->serial = ser;
 	if ( this->serial != INVALID_SERIAL)
-		cCharsManager::getInstance()->registerChar(this);
+		CharsManager::instance()->registerChar(this);
 }
 
 void cChar::Init(bool ser)
 {
-	VisRange_ = VISRANGE ;
+	VisRange_ = VISRANGE;
 	unsigned int i;
 
 	if (ser)
 	{
-		this->setSerial(cCharsManager::getInstance()->getUnusedSerial());
+		this->setSerial(CharsManager::instance()->getUnusedSerial());
 	}
 	else
 	{
@@ -1745,13 +1745,13 @@ void cChar::processNode( const QDomElement &Tag )
 		std::vector< QDomElement >::iterator iter = equipment.begin();
 		while( iter != equipment.end() )
 		{
-			P_ITEM nItem = Items->MemItemFree();
+			P_ITEM nItem = new cItem;
 	
 			if( nItem == NULL )
 				continue;
 	
 			nItem->Init( true );
-			cItemsManager::getInstance()->registerItem( nItem );
+			ItemsManager::instance()->registerItem( nItem );
 
 			QDomElement tItem = (*iter);
 
@@ -2434,7 +2434,7 @@ void cChar::kill()
 
 	// Create our Corpse
 	cCorpse *corpse = new cCorpse( true );
-	cItemsManager::getInstance()->registerItem( corpse );
+	ItemsManager::instance()->registerItem( corpse );
 
 	QDomElement *elem = DefManager->getSection( WPDT_ITEM, "2006" );
 	
@@ -3013,9 +3013,9 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 				}
 				else
 				{
-					pItem = Items->MemItemFree();
+					pItem = new cItem;
 					pItem->Init( true );
-					cItemsManager::getInstance()->registerItem( pItem );
+					ItemsManager::instance()->registerItem( pItem );
 				}
 
 				if( pItem )
@@ -3047,9 +3047,9 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 				}
 				else
 				{
-					pItem = Items->MemItemFree();
+					pItem = new cItem;
 					pItem->Init( true );
-					cItemsManager::getInstance()->registerItem( pItem );
+					ItemsManager::instance()->registerItem( pItem );
 				}
 
 				if( pItem )
@@ -3081,9 +3081,9 @@ void cChar::applyStartItemDefinition( const QDomElement &Tag )
 				}
 				else
 				{
-					pItem = Items->MemItemFree();
+					pItem = new cItem;
 					pItem->Init( true );
-					cItemsManager::getInstance()->registerItem( pItem );
+					ItemsManager::instance()->registerItem( pItem );
 				}
 
 				if( pItem )
@@ -3574,7 +3574,7 @@ void cChar::stopRepeatedAction()
 
 static void characterRegisterAfterLoading( P_CHAR pc )
 {
-	cCharsManager::getInstance()->registerChar( pc );
+	CharsManager::instance()->registerChar( pc );
 	int zeta;
 	for ( zeta = 0; zeta < ALLSKILLS; ++zeta ) 
 		if (pc->lockSkill(zeta) != 0 && pc->lockSkill(zeta) != 1 && pc->lockSkill(zeta) != 2)

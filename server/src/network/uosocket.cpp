@@ -706,7 +706,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	Skills->updateSkillLevel( pChar, packet->skillId2() );
 	Skills->updateSkillLevel( pChar, packet->skillId3() );
 
-	cCharsManager::getInstance()->registerChar( pChar );
+	CharsManager::instance()->registerChar( pChar );
 
 	// Create the char equipment (JUST the basics !!)
 	P_ITEM pItem = new cItem;
@@ -719,7 +719,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pChar->addItem( static_cast<cChar::enLayer>(pItem->layer()), pItem );
 	pItem->dye = 1;
 	pItem->priv |= 0x02;
-	cItemsManager::getInstance()->registerItem( pItem );
+	ItemsManager::instance()->registerItem( pItem );
 
 	pItem = new cItem;
 	pItem->Init();
@@ -731,7 +731,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pChar->addItem( static_cast<cChar::enLayer>(pItem->layer()), pItem );
 	pItem->dye = 1;
 	pItem->priv |= 0x02;
-	cItemsManager::getInstance()->registerItem( pItem );
+	ItemsManager::instance()->registerItem( pItem );
 
 	// Hair & Beard
 	if( packet->hairStyle() )
@@ -745,7 +745,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 		pItem->setLayer( 11 );
 		pItem->setColor( packet->hairColor() );
 		pChar->addItem( static_cast<cChar::enLayer>(pItem->layer()), pItem );
-		cItemsManager::getInstance()->registerItem( pItem );
+		ItemsManager::instance()->registerItem( pItem );
 	}
 
 	if( packet->beardStyle() )
@@ -758,7 +758,7 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 		pItem->setLayer( 16 );
 		pItem->setColor( packet->beardColor() );
 		pChar->addItem( static_cast<cChar::enLayer>(pItem->layer()), pItem );
-		cItemsManager::getInstance()->registerItem( pItem );
+		ItemsManager::instance()->registerItem( pItem );
 	}
 
 	// Backpack + Bankbox autocreate
@@ -915,10 +915,7 @@ void cUOSocket::handleMultiPurpose( cUORxMultiPurpose *packet )
 
 void cUOSocket::handleContextMenuSelection( cUORxContextMenuSelection *packet ) 
 { 
-	
 	Q_UINT16 Tag = packet->EntryTag();
-
-	
 } 
 
 // Show a context menu
@@ -2091,7 +2088,7 @@ void cUOSocket::updateLightLevel( UINT8 level )
 			pLight.setLevel( level );
 
 		else
-			pLight.setLevel( SrvParams->worldCurrentLevel();
+			pLight.setLevel( SrvParams->worldCurrentLevel() );
 
 		send( &pLight );
 	}

@@ -110,8 +110,8 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	this->boatdir = 0; // starting with north boatdirection
 
 	this->applyDefinition( Tag );
-	this->serial = cItemsManager::getInstance()->getUnusedSerial();
-	cItemsManager::getInstance()->registerItem( this );
+	this->serial = ItemsManager::instance()->getUnusedSerial();
+	ItemsManager::instance()->registerItem( this );
 	if( this->multiids_.size() < 4 || !this->isValidPlace( posx, posy, posz, 0 ) )
 	{
 		cUOTxPause uoPacket;
@@ -121,8 +121,8 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 			socket->send( &uoPacket );
 			socket->sysMessage( tr("Can not build boat at this location!") );
 		}
-		cItemsManager::getInstance()->unregisterItem( this );
-		cItemsManager::getInstance()->deleteItem( this );
+		ItemsManager::instance()->unregisterItem( this );
+		ItemsManager::instance()->deleteItem( this );
 		return;
 	}
 
@@ -201,8 +201,8 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 			socket->send( &uoPacket );
 			socket->sysMessage( tr("Can not build boat without itemid definitions for special items!") );
 		}
-		cItemsManager::getInstance()->unregisterItem( this );
-		cItemsManager::getInstance()->deleteItem( this );
+		ItemsManager::instance()->unregisterItem( this );
+		ItemsManager::instance()->deleteItem( this );
 		Items->DeleItem( pTiller );
 		Items->DeleItem( pPlankL );
 		Items->DeleItem( pPlankR );

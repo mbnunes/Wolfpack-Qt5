@@ -165,8 +165,8 @@ P_CHAR FindCharBySerial(int serial)
 {
 	if (!isCharSerial(serial))
 		return NULL;
-	cCharsManager::iterator iterChars = cCharsManager::getInstance()->find( serial );
-	if ( iterChars == cCharsManager::getInstance()->end())
+	cCharsManager::iterator iterChars = CharsManager::instance()->find( serial );
+	if ( iterChars == CharsManager::instance()->end())
 		return NULL;
 	else 
 		return iterChars->second;

@@ -245,8 +245,8 @@ void CWorldMain::savenewworld(QString module)
 		{
 			sysbroadcast("World data saving....");
 			clConsole.send("Worldsave Started!\n" );
-			clConsole.send("items  : %i\n", cItemsManager::getInstance()->size());
-			clConsole.send("chars  : %i\n", cCharsManager::getInstance()->size());
+			clConsole.send("items  : %i\n", ItemsManager::instance()->size());
+			clConsole.send("chars  : %i\n", CharsManager::instance()->size());
 			clConsole.send("effects: %i\n", TempEffects::instance()->size());
 		}
 		isSaving = true;

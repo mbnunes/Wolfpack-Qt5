@@ -341,7 +341,6 @@ public:
 
 	cAllItems() {}
 	void DeleItem(P_ITEM pi);
-	P_ITEM  MemItemFree();
 	char isFieldSpellItem(P_ITEM pi);
 	P_ITEM  SpawnItem(UOXSOCKET nSocket,
 				int nAmount, const char* cName, int nStackable,

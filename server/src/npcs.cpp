@@ -91,7 +91,7 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 	cMapObjects::getInstance()->remove( pc_k ); // taking it out of mapregions BEFORE x,y changed
 	pc_k->del(); // Remove from Database
 	pc_k->free = true;
-	cCharsManager::getInstance()->deleteChar( pc_k );
+	CharsManager::instance()->deleteChar( pc_k );
 }
 
 void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat
@@ -103,7 +103,7 @@ void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat
 	P_CHAR pc_c = new cChar(*pc_k);
 	if ( pc_c == NULL ) return;
 //	pc_c->Init();
-	pc_c->setSerial(cCharsManager::getInstance()->getUnusedSerial());
+	pc_c->setSerial(CharsManager::instance()->getUnusedSerial());
 	pc_c->setFtarg(INVALID_SERIAL);
 	pc_c->moveTo(pc_k->pos + Coord_cl(1, 0, 0) );
 	pc_c->setKills(0);
@@ -133,7 +133,7 @@ P_CHAR cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos 
 
 	P_CHAR pChar = new cChar;
 	pChar->Init();
-	cCharsManager::getInstance()->registerChar( pChar );
+	CharsManager::instance()->registerChar( pChar );
 
 	pChar->setPriv( 0x10 );
 	pChar->setNpc(1);
@@ -171,7 +171,7 @@ P_CHAR cCharStuff::createScriptNpc( int s, P_ITEM pi_i, QString Section, int pos
 
 	P_CHAR nChar = new cChar;
 	nChar->Init( true );
-	cCharsManager::getInstance()->registerChar( nChar );
+	CharsManager::instance()->registerChar( nChar );
 
 	nChar->setPriv( 0x10 );
 	nChar->setNpc(1);

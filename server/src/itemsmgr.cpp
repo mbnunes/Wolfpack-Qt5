@@ -154,8 +154,8 @@ P_ITEM FindItemBySerial(int serial)
 {
 	if (!isItemSerial(serial))
 		return 0;
-	cItemsManager::iterator iterItems = cItemsManager::getInstance()->find( serial&0xBFFFFFFF );
-	if (iterItems == cItemsManager::getInstance()->end()) 
+	cItemsManager::iterator iterItems = ItemsManager::instance()->find( serial&0xBFFFFFFF );
+	if (iterItems == ItemsManager::instance()->end()) 
 		return 0;
 	else 
 		return iterItems->second;

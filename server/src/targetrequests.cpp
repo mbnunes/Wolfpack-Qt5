@@ -66,7 +66,7 @@ bool cAddItemTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	{
 		pItem = new cItem;
 		pItem->Init();
-		cItemsManager::getInstance()->registerItem( pItem );
+		ItemsManager::instance()->registerItem( pItem );
 
 		pItem->setName( "an item" );
 		pItem->setId( hex2dec( item_ ).toULong() );
@@ -109,7 +109,7 @@ bool cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	// Otherwise create our character here
 	P_CHAR pChar = new cChar;
 	pChar->Init();
-	cCharsManager::getInstance()->registerChar( pChar );
+	CharsManager::instance()->registerChar( pChar );
 
 	pChar->setPriv( 0x10 ); // No skill titles
 	pChar->setNpc(1);

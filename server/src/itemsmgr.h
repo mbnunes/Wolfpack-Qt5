@@ -38,24 +38,22 @@
 #include "exceptions.h"
 #include "defines.h"
 #include "typedefs.h"
+#include "singleton.h"
 
 // Forward declarations
 class cItem;
 
 // System Includes
-#include <map>
 #include <list>
+
+// Important compile switch
+#if defined(WP_DONT_USE_HASH_MAP)
+#include <map>
+typedef std::map< SERIAL, P_ITEM > cItemsManagerSuperClass;
+#else
 #include <hash_map>
-
-using namespace std;
-
-struct eqint
-{
-  bool operator()(const int s1, const int s2) const
-  {
-    return (s1 == s2);
-  }
-};
+typedef std::hash_map< SERIAL, P_ITEM > cItemsManagerSuperClass;
+#endif
 
 /*!
 CLASS
@@ -71,18 +69,13 @@ USAGE
 	\see cItem
 
 */
-//class cItemsManager: public std::map< SERIAL, P_ITEM >
-class cItemsManager: public hash_map< SERIAL, P_ITEM, hash<int>, eqint >
+class cItemsManager: public cItemsManagerSuperClass
 {
 protected:
 	// Data members
 	std::list<cItem*> deletedItems;
 	SERIAL lastUsedSerial;
-protected:
-	// Initialize our hashmap
-	cItemsManager()	{}
-	cItemsManager(cItemsManager& _it) {} // Unallow copy constructor
-	cItemsManager& operator=(cItemsManager& _it) { return *this; } // Unallow Assignment
+
 public:
 	~cItemsManager();
 	void registerItem( cItem* ) throw(wp_exceptions::wpbad_ptr);
@@ -90,13 +83,9 @@ public:
 	void deleteItem ( cItem * ) throw (wp_exceptions::wpbad_ptr);
 	void purge();
 	SERIAL getUnusedSerial() const;
-
-	static cItemsManager* getInstance()
-	{
-		static cItemsManager theItemsManager;
-		return &theItemsManager; 
-	}
 };
+
+typedef SingletonHolder<cItemsManager> ItemsManager;
 
 class AllItemsIterator
 {
@@ -106,16 +95,16 @@ protected:
 public:
 	AllItemsIterator()							
 	{ 
-		iterItems = cItemsManager::getInstance()->begin(); 
+		iterItems = ItemsManager::instance()->begin(); 
 	}
 
 	virtual ~AllItemsIterator()					{ }
 	P_ITEM GetData(void)						{ return iterItems->second; }
-	P_ITEM First()								{ return cItemsManager::getInstance()->begin()->second; }
+	P_ITEM First()								{ return ItemsManager::instance()->begin()->second; }
 	P_ITEM Begin()								
 	{
-		iterItems = cItemsManager::getInstance()->begin();
-		if ( cItemsManager::getInstance()->end() == iterItems )
+		iterItems = ItemsManager::instance()->begin();
+		if ( ItemsManager::instance()->end() == iterItems )
 			return 0;
 		return GetData();
 	}
@@ -125,13 +114,10 @@ public:
 		return iterItems->second;
 	}
 
-	bool atBegin()									{ return (iterItems == cItemsManager::getInstance()->begin()); }
-	bool atEnd()									{ return (iterItems == cItemsManager::getInstance()->end()); }
+	bool atBegin()									{ return (iterItems == ItemsManager::instance()->begin()); }
+	bool atEnd()									{ return (iterItems == ItemsManager::instance()->end()); }
 	const AllItemsIterator operator++(int);
-	//const AllItemsIterator operator--(int);
-	AllItemsIterator& operator++()								{ iterItems++; return *this;				}
-	//AllItemsIterator& operator--()								{ iterItems--; return *this;				}
-	
+	AllItemsIterator& operator++()					{ ++iterItems; return *this; }
 };
 
 inline const AllItemsIterator AllItemsIterator::operator++(int)
@@ -141,16 +127,9 @@ inline const AllItemsIterator AllItemsIterator::operator++(int)
 	return returnValue;						// return what was fetched
 }
 
-/*inline const AllItemsIterator AllItemsIterator::operator--(int)
-{
-	AllItemsIterator returnValue(*this);	// fetch
-	iterItems--;							// increment
-	return returnValue;						// return what was fetched
-}*/
-
 inline bool isItemSerial(long ser) 
 {
-	return (ser != INVALID_SERIAL && ser >= 0 && ser >= 0x40000000);
+	return (ser != INVALID_SERIAL && ser >= 0x40000000);
 }
 
 

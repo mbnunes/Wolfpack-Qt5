@@ -104,7 +104,6 @@ void enlist(UOXSOCKET s, UI32 listnum); // For enlisting in army
 
 // Day and Night related prototypes
 char indungeon(P_CHAR pc);
-void setabovelight(unsigned char);
 
 //void tweakmenu(UOXSOCKET, SERIAL);
 int validtelepos(int s);

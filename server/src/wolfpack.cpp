@@ -1316,7 +1316,7 @@ static void quickdelete( P_ITEM pi )
 
 	//pi->del(); // Remove from database
 	
-	cItemsManager::getInstance()->unregisterItem( pi );
+	ItemsManager::instance()->unregisterItem( pi );
 }
 
 int main( int argc, char *argv[] )
@@ -1813,20 +1813,6 @@ int ishuman(P_CHAR pc)
 	// Check if the Player or Npc is human! -- by Magius(CHE)
 	if (pc->xid()==0x0190 || pc->xid()==0x0191) return 1;
 	else return 0;
-}
-
-
-void setabovelight(unsigned char lightchar)
-{
-	int i;
-	if (lightchar != SrvParams->worldCurrentLevel())
-	{
-		SrvParams->worldCurrentLevel() = lightchar;
-		for (i=0;i<now;i++)
-		{
-			if (perm[i]) dolight(i, SrvParams->worldCurrentLevel());
-		}
-	}
 }
 
 int chardir(P_CHAR a, P_CHAR b)	// direction from character a to char b

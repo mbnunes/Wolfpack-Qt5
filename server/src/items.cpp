@@ -686,16 +686,11 @@ QString cItem::getName(void)
 	return QString(itemname);
 }
 
-P_ITEM cAllItems::MemItemFree()// -- Find a free item slot, checking freeitemmem[] first
-{
-	return new cItem;
-}
-
 void cItem::SetSerial(long ser)
 {
 	this->serial=ser;
 	if (ser != INVALID_SERIAL)
-		cItemsManager::getInstance()->registerItem( this );
+		ItemsManager::instance()->registerItem( this );
 }
 
 // -- Initialize an Item in the items array
@@ -703,7 +698,7 @@ void cItem::Init( bool mkser )
 {
 	if (mkser)		// give it a NEW serial #
 	{
-		this->SetSerial(cItemsManager::getInstance()->getUnusedSerial());
+		this->SetSerial(ItemsManager::instance()->getUnusedSerial());
 	}
 	else
 	{
@@ -843,7 +838,7 @@ void cAllItems::DeleItem(P_ITEM pi)
 
 		pi->del(); // Remove from database
 		// Queue for later delete.
-		cItemsManager::getInstance()->deleteItem(pi);
+		ItemsManager::instance()->deleteItem(pi);
 	}
 }
 
@@ -960,7 +955,7 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, const char* cName, bool p
 		}
 	}
 	// no such item found, so let's create it
-	P_ITEM pi = Items->MemItemFree();
+	P_ITEM pi = new cItem;
 	if (pi == NULL) return NULL;
 
 	pi->Init();
@@ -1416,8 +1411,8 @@ P_ITEM cAllItems::createScriptItem( QString Section )
 		if( DefSection->attribute( "type" ) == "book" )
 		{
 			cBook* nBook = new cBook();
-			nBook->serial = cItemsManager::getInstance()->getUnusedSerial();
-			cItemsManager::getInstance()->registerItem( nBook );
+			nBook->serial = ItemsManager::instance()->getUnusedSerial();
+			ItemsManager::instance()->registerItem( nBook );
 
 			nBook->applyDefinition( *DefSection );
 			nBook->setSection( Section );
@@ -1428,7 +1423,7 @@ P_ITEM cAllItems::createScriptItem( QString Section )
 		{
 			cSpellBook *spellBook = new cSpellBook();
 			spellBook->Init( true );
-			cItemsManager::getInstance()->registerItem( spellBook );
+			ItemsManager::instance()->registerItem( spellBook );
 
 			spellBook->applyDefinition( *DefSection );
 			
@@ -1437,9 +1432,9 @@ P_ITEM cAllItems::createScriptItem( QString Section )
 	}
 	else
 	{
-		nItem = MemItemFree();
+		nItem = new cItem;
 		nItem->Init( true );
-		cItemsManager::getInstance()->registerItem( nItem );
+		ItemsManager::instance()->registerItem( nItem );
 		
 		nItem->applyDefinition( *DefSection );
 	}
@@ -1975,13 +1970,13 @@ void cItem::processContainerNode( const QDomElement &Tag )
 		
 	for( SI32 i = 0; i < equipment.size(); i++ )
 	{
-			P_ITEM nItem = Items->MemItemFree();
+			P_ITEM nItem = new cItem;
 
 			if( nItem == NULL )
 				continue;
 	
 			nItem->Init( true );
-			cItemsManager::getInstance()->registerItem( nItem );
+			ItemsManager::instance()->registerItem( nItem );
 
 			nItem->applyDefinition( equipment[ i ] );
 
@@ -2255,8 +2250,8 @@ P_ITEM cItem::dupe()
 		return NULL;
 
 	P_ITEM nItem = new cItem( (*this) );
-	nItem->SetSerial( cItemsManager::getInstance()->getUnusedSerial() );
-	cItemsManager::getInstance()->registerItem( nItem );
+	nItem->SetSerial( ItemsManager::instance()->getUnusedSerial() );
+	ItemsManager::instance()->registerItem( nItem );
 	
 	// We wont dupe items on chars without proper handling
 	P_CHAR pWearer = dynamic_cast<P_CHAR>( nItem->container() );
@@ -2474,7 +2469,7 @@ QPtrList< cItem > cItem::getContainment() const
 
 static void itemRegisterAfterLoading( P_ITEM pi )
 {
-	cItemsManager::getInstance()->registerItem( pi );
+	ItemsManager::instance()->registerItem( pi );
 	if( pi->objectID() == "cGuildStone" ) // register as guild as well
 		guilds.push_back(pi->serial);
 
