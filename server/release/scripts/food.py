@@ -90,27 +90,26 @@ def onUse(player, item):
 
 def onCollide( char, item ):
 	if char.npc and item.baseid in farm_food and char.baseid in farm_eaters:
-		if 'food' in char.events:
+		if char.hasevent( 'food' ):
 			return True
-		if char.baseid in farm_eaters:
-			char.events = ['food'] + char.events
-			char.say( "*nibbles*" )
-			item.movable = 3
-			item.update()
-			return True
-		else:
-			return False
+		char.addevent( 'food' )
+		char.say( "*nibbles*" )
+		item.movable = 3
+		item.update()
+		return True
 	else:
 		return False
 
 def onWalk(char, dir, sequence):
 	if char.baseid in farm_eaters:
 		items = wolfpack.items(char.pos.x, char.pos.y, char.pos.map, 0)
+
 		food = None
 		for item in items:
-			if 'food' in item.events and item.baseid in farm_food:
+			if item.hasevent( 'food' ) and item.baseid in farm_food:
 				food = item
 				break
+
 		if food:
 			food.delete()
 			char.soundeffect( random.choice( [ 0x03a, 0x03b, 0x03c ] ), 1 )
@@ -118,14 +117,6 @@ def onWalk(char, dir, sequence):
 			if char.hitpoints < char.maxhitpoints:
 				char.hitpoints += 1
 				char.update()
-		events = char.events
-		while 'food' in events:
-			events.remove('food')
-		char.events = events
-		return True
-	else:
-		events = char.events
-		while 'food' in events:
-			events.remove('food')
-		char.events = events
-		return True
+
+	char.removeevent('food')
+	return True

@@ -94,4 +94,3 @@ def commandRemoveevent(socket, command, arguments):
 def onLoad():
 	wolfpack.registercommand('addevent', commandAddevent)
 	wolfpack.registercommand('removeevent', commandRemoveevent)
-	#wolfpack.registercommand('addevent', commandAddevent)

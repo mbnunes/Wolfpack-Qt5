@@ -600,10 +600,7 @@ def createlockandkey( container ):
 			key.settag('lock', rkeyid)
 			tocontainer( key, container )
 			container.settag( 'lock', rkeyid )
-			if not 'lock' in container.events:
-				events = container.events
-				events[:0] = ['lock']
-				container.events = events
+			container.addevent( 'lock' )
 	return
 
 """

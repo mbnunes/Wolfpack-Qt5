@@ -2,7 +2,7 @@
 import wolfpack
 
 def onDropOnItem(keyring, key):
-	if 'keyring' not in keyring.events or 'key' not in key.events:
+	if not keyring.hasevent( 'keyring' ) or not key.hasevent( 'key' ):
 		return 0
 
 	char = key.container
@@ -68,7 +68,7 @@ def lock_response(char, args, target):
 		char.socket.clilocmessage(501685)
 		return
 
-	if not 'lock' in target.item.events or not target.item.hastag('lock'):
+	if not target.item.hasevent( 'lock' ) or not target.item.hastag( 'lock' ):
 		char.socket.clilocmessage(501666)
 		return
 
@@ -78,7 +78,7 @@ def lock_response(char, args, target):
 	keys = keyring.content
 
 	for key in keys:
-		if key.hastag('lock') and 'key' in key.events:
+		if key.hastag('lock') and key.hasevent( 'key' ):
 			key_lock = str(key.gettag('lock'))
 
 			if key_lock == target_lock:

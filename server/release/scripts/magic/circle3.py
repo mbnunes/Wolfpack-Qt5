@@ -179,11 +179,10 @@ class Telekinesis(Spell):
 	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
-		events = target.events
 		hasevent = 0
 
 		# Check if there is an event handling onUse but not onTelekinesis
-		for event in events:
+		for event in target.events:
 			if wolfpack.hasevent(event, EVENT_TELEKINESIS):
 				hasevent = 1 # The object has at least one telekinesis handler
 				continue

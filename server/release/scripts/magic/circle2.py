@@ -118,9 +118,9 @@ class RemoveTrap (Spell):
 
 		# Remove the Trap Properties from the Item
 		target.removeevent( 'magic.trap' )
-		target.deltag('trap_owner', char.serial)
-		target.deltag('trap_damage', random.randint(10, 50))
-		target.deltag('trap_type', 'magic')
+		target.deltag('trap_owner')
+		target.deltag('trap_damage')
+		target.deltag('trap_type')
 
 class Protection(Spell):
 	def __init__(self):

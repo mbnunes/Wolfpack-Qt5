@@ -206,7 +206,7 @@ doors = [
 def searchkey( container, lock ):
 	for item in container.content:
 		# Check if it's a key
-		if 'key' in item.events and item.hastag( 'lock' ) and int( item.gettag( 'lock' ) ) == lock:
+		if item.hasevent( 'key' ) and item.hastag( 'lock' ) and int( item.gettag( 'lock' ) ) == lock:
 			return 1
 
 		if item.type == 1 and searchkey( item, lock ):

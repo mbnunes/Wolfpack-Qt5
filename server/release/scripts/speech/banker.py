@@ -139,7 +139,7 @@ def onSpeech( listener, speaker, text, keywords ):
 # An item has been dropped on us
 def onDropOnChar( char, item ):
 
-  if "speech_banker" in char.events:
+  if char.hasevent( 'speech_banker' ):
     char.socket.clilocmessage( 0x7A2A4, "", 0x3b2, 3, listener )
     #backpack = char.getbackpack()
     #item.container = backpack

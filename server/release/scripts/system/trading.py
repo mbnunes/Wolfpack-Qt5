@@ -65,10 +65,8 @@ def onTradeStart( player1, player2, firstitem ):
 		return False
 
 	#onLogout event should be executed for tradewindow disposing
-	events1 = player1.events
-	events1.append( 'system.trading' )
-	events2 = player2.events
-	events2.append( 'system.trading' )
+	player1.addevent( 'system.trading' )
+	player2.addevent( 'system.trading' )
 
 	#We want to know serial of partner in future
 	player1.settag( 'partner', player2.serial )

@@ -27,9 +27,8 @@ def response(player, args, target):
         guild.name = "%s's Guild" % (player.name)
         guild.addmember(player)
         guild.leader = player
-        events = player.events
-        if 'guilds.member' not in events:
-          player.events = events + ['guilds.member']
+
+        player.addevent( 'guilds.member' )
 
         # Create a guildstone at the given location
         guildstone = wolfpack.additem("guildstone")

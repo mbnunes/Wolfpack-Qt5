@@ -379,9 +379,9 @@ def nightsightPotion( char, potion ):
 	# With 100% magery you gain a 18 light level bonus
 	bonus = min(18, math.floor(18 * (char.skill[MAGERY] / 1000.0)))
 
-	char.events = ['magic.nightsight'] + char.events
-	char.settag("nightsight", bonus)
-	char.settag("nightsight_start", time.minutes())
+	char.addevent( 'magic.nightsight' )
+	char.settag( 'nightsight', bonus)
+	char.settag( 'nightsight_start', time.minutes())
 	char.lightbonus += bonus
 
 	if char.socket:

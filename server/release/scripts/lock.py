@@ -29,10 +29,8 @@ def gump_response(char, args, response):
 	# Add a lock to this item
 	if response.button == 1:
 		# Prepend 'lock' to the event chain
-		if not 'lock' in item.events:
-			events = item.events
-			events[:0] = ['lock']
-			item.events = events
+		if not item.hasevent( 'lock' ):
+			item.addevent( 'lock' )
 
 		# Set the lock id
 		item.settag('lock', response.text[1])
@@ -65,10 +63,7 @@ def gump_response(char, args, response):
 		item.deltag('locked')
 
 		# Remove the event from the eventlist
-		events = item.events
-		while 'lock' in events:
-			events.remove('lock')
-		item.events = events
+		item.removeevent( 'lock' )
 		item.resendtooltip()
 
 		char.socket.sysmessage('The lock has been removed from the item.')
@@ -92,7 +87,7 @@ def lock_response(char, args, target):
 	gump.setArgs([target.item.serial])
 
 	# Check if the item already has a lock
-	if 'lock' in target.item.events and target.item.hastag('lock'):
+	if target.item.hasevent('lock') and target.item.hastag('lock'):
 		gump.addBackground(id=0x2436, width=425, height=285)
 
 		lock = str(target.item.gettag('lock'))
@@ -168,7 +163,7 @@ def onLoad():
 
 def searchkey(item, lock):
 	# It's a key.
-	if 'key' in item.events and item.hastag('lock'):
+	if item.hasevent( 'key' ) and item.hastag( 'lock' ):
 		if lock == str(item.gettag('lock')):
 			return 1
 
@@ -201,7 +196,7 @@ def onUse(char, item):
 
 	# Only doors can be opened without unlocking them
 	# if the user has the key in his posession.
-	if 'door' in item.events:
+	if item.hasevent( 'door' ):
 		if searchkey(char.getbackpack(), lock):
 			char.socket.clilocmessage(501282)
 			return 0

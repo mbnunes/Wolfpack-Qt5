@@ -13,7 +13,7 @@ def onDropOnItem( potionkeg, potion ):
 	if not char or not socket:
 		return False
 
-	if ( not 'potionkeg' in potionkeg.events ) or ( not 'potions' in potion.events ):
+	if not potionkeg.hasevent( 'potionkeg' ) or not potion.hasevent( 'potions' ):
 		return False
 
 	if not potionkeg.hastag( 'kegfill' ):
@@ -71,7 +71,7 @@ def onUse( char, potionkeg ):
 	if not char or not backpack:
 		return False
 
-	if not 'potionkeg' in potionkeg.events:
+	if not potionkeg.hasevent( 'potionkeg' ):
 		return False
 
 	if not potionkeg.hastag( 'kegfill' ):

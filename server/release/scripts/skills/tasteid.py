@@ -37,7 +37,7 @@ def response(char, args, target):
 			socket.clilocmessage(500312)
 			return
 
-		if not 'food' in target.item.events:
+		if not target.item.hasevent( 'food' ):
 			socket.clilocmessage(502820)
 		else:
 			if not char.checkskill(TASTEID, 0, 1000):
