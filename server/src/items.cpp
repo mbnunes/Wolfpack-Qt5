@@ -364,7 +364,12 @@ bool cItem::ContainerPileItem(cItem* pItem)	// try to find an item in the contai
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
-		if (!pi && pi->id() == pItem->id() && !pi->free && pi->color == pItem->color)
+		if ( pi == NULL )
+		{
+			contsp.remove( this->serial, vecContainer[ci] ); // remove invalid entrie
+			continue; // skip to next.
+		}
+		if (pi->id() == pItem->id() && !pi->free && pi->color == pItem->color)
 			if (pi->PileItem(pItem))
 				return true;
 	}
