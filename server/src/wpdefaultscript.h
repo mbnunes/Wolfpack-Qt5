@@ -92,6 +92,7 @@ public:
 	// That means first onUse for the character is called
 	// and afterwards it's called for the item
 	// That way you can add special behaviour
+	virtual bool onServerstart() { return false; }
 	virtual bool onUse( P_CHAR User, P_ITEM Used ) { Q_UNUSED(User); Q_UNUSED(Used); return false; }
 
 	virtual bool onSingleClick( P_ITEM Item, P_CHAR Viewer ) { Q_UNUSED(Item); Q_UNUSED(Viewer); return false; }

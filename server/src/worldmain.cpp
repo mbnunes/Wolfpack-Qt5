@@ -236,7 +236,7 @@ void CWorldMain::savenewworld(QString module)
 		clConsole.send(tr("Worldsave Started!\n") );
 		clConsole.send(tr("items  : %1\n").arg( ItemsManager::instance()->size() ));
 		clConsole.send(tr("chars  : %1\n").arg( CharsManager::instance()->size() ));
-		clConsole.send(tr("effects: %1\n").arg( TempEffects::instance()->size() ));
+		clConsole.send(tr("effects: %1\n").arg( TempEffects::instance()->countSerializables() ));
 	}
 
 	SrvParams->flush();

@@ -52,6 +52,8 @@ public:
 	virtual void unload( void );
 
 	// Normal Events
+	bool onServerstart();
+
 	bool onUse( P_CHAR User, P_ITEM Used );
 	bool onSingleClick( P_ITEM Item, P_CHAR Viewer );
 	bool onSingleClick( P_CHAR Character, P_CHAR Viewer );

@@ -502,7 +502,7 @@ PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 {
 	// Three arguments
-	if( PyTuple_Size( args ) != 3 || !checkArgInt( 0 ) || !checkArgStr( 1 ) || !PyList_Check( PyTuple_GetItem( args, 2 ) ) )
+	if( (PyTuple_Size( args ) < 3 && PyTuple_Size( args ) > 4) || !checkArgInt( 0 ) || !checkArgStr( 1 ) || !PyList_Check( PyTuple_GetItem( args, 2 ) ) )
 	{
 		PyErr_BadArgument();
 		return NULL;

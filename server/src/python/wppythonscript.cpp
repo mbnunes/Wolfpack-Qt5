@@ -113,6 +113,15 @@ void WPPythonScript::load( const QDomElement &Data )
 }
 
 //========================== OVERRIDDEN DEFAULT EVENTS
+bool WPPythonScript::onServerstart()
+{
+	PyHasMethod( "onServerstart" )
+
+	PyObject *tuple = PyTuple_New( 0 );
+
+	PyEvalMethod( "onServerstart" )
+}
+
 bool WPPythonScript::onUse( P_CHAR User, P_ITEM Used )
 {
 	PyHasMethod( "onUse" )

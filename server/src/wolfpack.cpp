@@ -906,21 +906,21 @@ static void freeClasses( void )
 	delete NewMagic;
 }
 
-#if defined(_DEBUG)
-#include <crash.h>
-#endif
+//#if defined(_DEBUG)
+//#include <crash.h>
+//#endif
 
 /*!
 	Main server entry point.
 */
 int main( int argc, char *argv[] )
 {
-#if defined(_DEBUG)
+/*#if defined(_DEBUG)
 	InstallCrashHandler( HANDLE_HTTPREPORT, GSTSO_PARAMS | GSTSO_MODULE | GSTSO_SYMBOL | GSTSO_SRCLINE );
 	SetCustomMessage("A crash occurred. Please send this bug report to developers\n");
 	SetVersion(wp_version.verstring.c_str());
 #endif
-
+*/
 	QApplication app( argc, argv, false ); // we need one instance
 	QTranslator translator( 0 ); // must be valid thru app life.
 
@@ -1004,7 +1004,7 @@ int main( int argc, char *argv[] )
 		DefManager->load();
 		clConsole.send( "\n" );
 
-		ScriptManager->load();
+		ScriptManager->load( true );
 		clConsole.send( "\n" );
 
 		clConsole.send( "Loading skills...\n" );
@@ -1099,11 +1099,11 @@ int main( int argc, char *argv[] )
 	}
 	catch( ... )
 	{
-		clConsole.log( LOG_FATAL, "Error while loading world." );
+		clConsole.log( LOG_FATAL, tr("Error while loading world.") );
 		exit( -1 );
 	}
 
-	clConsole.PrepareProgress( "Postprocessing" );
+	clConsole.PrepareProgress( tr("Postprocessing") );
 
 	// this loop is for things that have to be done after *all* items and chars have been loaded (Duke)
 	P_ITEM pi;	

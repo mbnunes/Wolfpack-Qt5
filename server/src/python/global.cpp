@@ -838,6 +838,16 @@ PyObject* wpServerVersion( PyObject* self, PyObject* args )
 }
 
 /*!
+	Returns the current real date/time
+*/
+PyObject* wpCurrentdatetime( PyObject* self, PyObject* args )
+{
+	Q_UNUSED(args);	
+	Q_UNUSED(self);	
+	return PyString_FromString( QDateTime::currentDateTime().toString() );
+}
+
+/*!
 	wolfpack
 	Initializes wolfpack
 */
@@ -865,6 +875,7 @@ static PyMethodDef wpGlobal[] =
 	{ "registercommand",	wpRegisterCommand,	METH_VARARGS, "Registers a global command hook." },
 	{ "serveruptime",		wpServerUptime,		METH_VARARGS, "Returns uptime of server in seconds." },
 	{ "serverversion",		wpServerVersion,	METH_VARARGS, "Returns the server version string." },
+	{ "currentdatetime",	wpCurrentdatetime,	METH_VARARGS, "Returns the current real date/time" },
 	{ NULL, NULL, 0, NULL } // Terminator
 };
 

@@ -136,7 +136,7 @@ void WPScriptManager::unload( void )
 	commandhooks.clear();
 }
 
-void WPScriptManager::load( void )
+void WPScriptManager::load( bool serverstart )
 {
 	clConsole.PrepareProgress( "Loading Script Manager" );
 
@@ -166,7 +166,9 @@ void WPScriptManager::load( void )
 			continue;
 	
 		add( SectionList[ i ].latin1(), Script );
-		Script->load( *NodePtr );		
+		Script->load( *NodePtr );
+		if( serverstart )
+			Script->onServerstart();
 		++ScriptsLoaded;
 	}
 

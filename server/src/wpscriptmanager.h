@@ -91,7 +91,7 @@ public:
 	void add( const QString& Name, WPDefaultScript *Script );
 	void remove( const QString& Name );
 
-	void load( void );
+	void load( bool serverstart = false );
 	void reload( void );
 	void unload( void );
 

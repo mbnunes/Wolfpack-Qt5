@@ -218,6 +218,19 @@ public:
 	{
 		return teffects.size();
 	}
+
+	int countSerializables()
+	{
+		int count = 0;
+		std::vector< cTempEffect* >::iterator it = teffects.begin();
+		while( it != teffects.end() )
+		{
+			if( (*it)->isSerializable() )
+				++count;
+			++it;
+		}
+		return count;
+	}
 };
 
 typedef SingletonHolder<cTempEffects> TempEffects;
