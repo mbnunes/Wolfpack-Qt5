@@ -37,6 +37,7 @@
 #include "wpdefmanager.h"
 #include "charsmgr.h"
 #include "resources.h"
+#include "srvparams.h"
 
 #include "debug.h"
 
@@ -51,6 +52,13 @@ using namespace std;
 /*****************************************************************************
   cMakeItem member functions
  *****************************************************************************/
+
+cMakeItem::cMakeItem( const QString &name, const QString &section, UINT16 amount )
+{
+	name_ = name;
+	section_ = section;
+	amount_ = amount;
+}
 
 cMakeItem::cMakeItem( const QDomElement &Tag )
 {
@@ -321,6 +329,11 @@ cMakeSection::~cMakeSection()
 	skillchecks_.clear();
 }
 
+cMakeSection::cMakeSection( const QString &name, cMakeAction* baseaction )
+{
+	baseaction_ = baseaction;
+	name_ = name;
+}
 
 cMakeSection::cMakeSection( const QDomElement &Tag, cMakeAction* baseaction )
 {
@@ -537,6 +550,7 @@ void cMakeSection::execute( cUOSocket* const socket )
 			++miit;
 			continue;
 		}
+		clConsole.send( miit.current()->section()+"\n" );
 		P_ITEM pItem = Items->createScriptItem( miit.current()->section() );
 		if( pItem )
 		{
@@ -648,6 +662,20 @@ void cMakeSection::applySkillMod( float skillmod )
 		it.current()->applySkillMod( skillmod );
 		++it;
 	}
+}
+
+cMakeAction::cMakeAction( const QString &name, UINT16 model, const QString &description, WPACTIONTYPE type, cMakeMenu *basemenu )
+{
+	basemenu_ = basemenu;
+	name_ = name;
+	model_ = model;
+	description_ = description;
+	failmsg_ = (char*)0;
+	succmsg_ = (char*)0;
+	charaction_ = 0;
+	succsound_ = 0;
+	failsound_ = 0;
+	type_ = type;
 }
 
 cMakeAction::cMakeAction( const QDomElement &Tag, cMakeMenu* basemenu )
@@ -872,6 +900,14 @@ void cMakeAction::execute( cUOSocket* socket, UINT32 makesection )
 /*****************************************************************************
   cMakeMenu member functions
  *****************************************************************************/
+
+cMakeMenu::cMakeMenu( const QString &name, cMakeMenu* previous )
+{
+	name_ = name;
+	link_ = (char*)0;
+
+	prev_ = previous;
+}
 
 // cross linking will lead to an infinite loop and stack overflow
 // we avoid this by adding a special attribute for the menu tags
@@ -1434,6 +1470,107 @@ cAllMakeMenus::~cAllMakeMenus()
 	menus_.clear();
 }
 
+QString	cAllMakeMenus::getValue( const QDomElement &Tag ) const
+{
+	QString Value;
+	if( !Tag.hasChildNodes() )
+		return "";
+	else
+	{
+		QDomNode childNode = Tag.firstChild();
+		while( !childNode.isNull() )
+		{
+			if( !childNode.isElement() )
+			{
+				if( childNode.isText() )
+					Value += childNode.toText().data();
+				childNode = childNode.nextSibling();
+				continue;
+			}
+			QDomElement childTag = childNode.toElement();
+			if( childTag.nodeName() == "random" )
+			{
+				if( childTag.attributes().contains("min") && childTag.attributes().contains("max") )
+					if( childTag.attribute( "min", "0" ).contains( "." ) || childTag.attribute( "max", "0" ).contains( "." ) )
+						Value += QString::number( RandomNum( childTag.attributeNode("min").nodeValue().toFloat(), childTag.attributeNode("max").nodeValue().toFloat() ) );
+					else
+						Value += QString::number( RandomNum( childTag.attributeNode("min").nodeValue().toInt(), childTag.attributeNode("max").nodeValue().toInt() ) );
+				else if( childTag.attributes().contains("valuelist") )
+				{
+					QStringList RandValues = QStringList::split(",", childTag.attributeNode("list").nodeValue());
+					Value += RandValues[ RandomNum(0,RandValues.size()-1) ];
+				}
+				else if( childTag.attributes().contains( "list" ) )
+				{
+					Value += DefManager->getRandomListEntry( childTag.attribute( "list" ) );
+				}
+				else if( childTag.attributes().contains("dice") )
+					Value += QString::number(rollDice(childTag.attributeNode("dice").nodeValue()));
+				else if( childTag.attributes().contains( "value" ) )
+				{
+					QStringList parts = QStringList::split( "-", childTag.attribute( "value", "0-0" ) );
+					if( parts.count() >= 2 )
+					{
+						QString min = parts[0];
+						QString max = parts[1];
+
+						if( max.contains( "." ) || min.contains( "." ) )
+							Value += QString::number( RandomNum( min.toFloat(), max.toFloat() ) );
+						else
+							Value += QString::number( RandomNum( min.toInt(), max.toInt() ) );
+
+					}
+				}
+				else
+					Value += QString( "0" );
+			}
+
+			// Process the childnodes
+			QDomNodeList childNodes = childTag.childNodes();
+
+			for( int i = 0; i < childNodes.count(); i++ )
+			{
+				if( !childNodes.item( i ).isElement() )
+					continue;
+
+				Value += this->getValue( childNodes.item( i ).toElement() );
+			}
+			childNode = childNode.nextSibling();
+		}
+	}
+	return hex2dec( Value );
+}
+
+UINT16 cAllMakeMenus::getModel( const QDomElement &Tag )
+{
+	UINT16 model = 0;
+	QDomNode childNode = Tag.firstChild();
+	while( !childNode.isNull() )
+	{
+		if( childNode.isElement() )
+		{
+			QDomElement childTag = childNode.toElement();
+			if( childTag.nodeName() == "id" )
+				model = getValue( childTag ).toUShort();
+/*			else if( childTag.nodeName() == "inherit" )
+			{
+				QString section = (char*)0;
+				if( childTag.hasAttribute( "id" ) )
+					section = childTag.attribute( "id" );
+				else
+					section = childTag.text();
+
+				QDomElement inhSection = *DefManager->getSection( WPDT_ITEM, section );
+				if( !inhSection.isNull() )
+					model = getModel( inhSection );
+			}*/
+		}
+		childNode = childNode.nextSibling();
+	}
+	
+	return model;
+}
+
 void cAllMakeMenus::load()
 {
 	QStringList sections = DefManager->getSections( WPDT_MENU );
@@ -1444,12 +1581,301 @@ void cAllMakeMenus::load()
 		if( !DefSection->isNull() )
 		{
 			cMakeMenu* pMakeMenu = new cMakeMenu( *DefSection );
-			if( pMakeMenu )
+			if( pMakeMenu && !( (*it) == "ADD_MENU" && SrvParams->addMenuByCategoryTag() ) )
 			{
 				menus_.insert( make_pair< QString, cMakeMenu* >( (*it), pMakeMenu ) );
 			}
 		}
 		++it;
+	}
+
+	// build addmenu by category tags
+	if( SrvParams->addMenuByCategoryTag() )
+	{
+		// create base menu
+		cMakeMenu* pAddMenu = new cMakeMenu( tr( "Add Menu" ) );
+		if( !pAddMenu )
+			return;
+		
+		menus_.insert( make_pair< QString, cMakeMenu* >( "ADD_MENU", pAddMenu ) );
+
+		// item menu
+		cMakeMenu* pItemMenu = new cMakeMenu( tr( "Items" ), pAddMenu );
+		pAddMenu->addSubMenu( pItemMenu );
+
+		if( pItemMenu )
+		{
+			QStringList sections = DefManager->getSections( WPDT_ITEM );
+			
+			QStringList::const_iterator it = sections.begin();
+			while( it != sections.end() )
+			{
+				QDomElement defSection = *DefManager->getSection( WPDT_ITEM, (*it) );
+				if( !defSection.isNull() )
+				{
+					QString category	= (char*)0;
+					QString description = (char*)0;
+					UINT16 model = 0;
+
+					QDomNode childNode = defSection.firstChild();
+					while( !childNode.isNull() )
+					{
+						if( childNode.isElement() )
+						{
+							QDomElement childTag = childNode.toElement();
+							if( childTag.nodeName() == "category" )
+							{
+								category = childTag.text();
+							}
+							else if( childTag.nodeName() == "description" )
+							{
+								description = childTag.text();
+							}
+							else if( childTag.nodeName() == "id" )
+							{
+								model = getValue( childTag ).toUShort();
+							}
+							else if( childTag.nodeName() == "inherit" )
+							{
+								QString section = (char*)0;
+								if( childTag.hasAttribute( "id" ) )
+									section = childTag.attribute( "id" );
+								else
+									section = childTag.text();
+
+								QDomElement inhSection = *DefManager->getSection( WPDT_ITEM, section );
+								if( !inhSection.isNull() )
+									model = getModel( inhSection );
+							}
+						}
+
+						childNode = childNode.nextSibling();
+					}
+					
+					if( !category.isNull() && !category.isEmpty() )
+					{
+						cMakeMenu* currentBaseMenu = pItemMenu;
+
+						QStringList categorization = QStringList::split( "\\", category );
+						QStringList::const_iterator cit = categorization.begin();
+						while( cit != categorization.end() )
+						{
+							QString current = (*cit);
+							++cit;
+							if( cit != categorization.end() )
+							{
+								bool menuExists = false;
+								cMakeMenu::SubMenuContainer submenus = currentBaseMenu->subMenus();
+								cMakeMenu::SubMenuContainer::const_iterator sit = submenus.begin();
+								while( sit != submenus.end() )
+								{
+									if( (*sit)->name() == current )
+									{
+										menuExists = true;
+										currentBaseMenu = (*sit);
+										break;
+									}
+									++sit;
+								}
+
+								if( !menuExists )
+								{
+									// generate submenu, set current basemenu and continue
+									cMakeMenu* pNewMenu = new cMakeMenu( current, currentBaseMenu );
+									currentBaseMenu->addSubMenu( pNewMenu );
+									currentBaseMenu = pNewMenu;
+								}
+							}
+							else // last item means name
+							{
+								// generate cMakeAction object for the item definition...
+								cMakeAction* pItem = new cMakeAction( current, model, description, cMakeAction::CUSTOM_SECTIONS, currentBaseMenu );
+								if( pItem )
+								{
+									currentBaseMenu->addAction( pItem );
+									cMakeSection* pMakeSection = new cMakeSection( "", pItem );
+									if( pMakeSection )
+									{
+										pItem->appendSection( pMakeSection );
+										cMakeItem* pMakeItem = new cMakeItem( "", (*it), 1 );
+										if( pMakeItem )
+											pMakeSection->appendMakeItem( pMakeItem );
+									}
+								}
+							}
+						}
+					}
+				}
+				++it;
+			}
+		}
+
+		// npc menu
+		cMakeMenu* pNpcMenu = new cMakeMenu( tr( "NPCs" ), pAddMenu );
+		pAddMenu->addSubMenu( pNpcMenu );
+
+		if( pNpcMenu )
+		{
+			QStringList sections = DefManager->getSections( WPDT_NPC );
+			
+			QStringList::const_iterator it = sections.begin();
+			while( it != sections.end() )
+			{
+				QDomElement defSection = *DefManager->getSection( WPDT_NPC, (*it) );
+				if( !defSection.isNull() )
+				{
+					QString category	= (char*)0;
+					QString description = (char*)0;
+					UINT16 model = 0;
+
+					QDomNode childNode = defSection.firstChild();
+					while( !childNode.isNull() )
+					{
+						if( childNode.isElement() )
+						{
+							QDomElement childTag = childNode.toElement();
+							if( childTag.nodeName() == "category" )
+							{
+								category = childTag.text();
+							}
+							else if( childTag.nodeName() == "description" )
+							{
+								description = childTag.text();
+							}
+							else if( childTag.nodeName() == "id" )
+							{
+								model = getValue( childTag ).toUShort();
+							}
+							else if( childTag.nodeName() == "inherit" )
+							{
+								QString section = (char*)0;
+								if( childTag.hasAttribute( "id" ) )
+									section = childTag.attribute( "id" );
+								else
+									section = childTag.text();
+
+								QDomElement inhSection = *DefManager->getSection( WPDT_ITEM, section );
+								if( !inhSection.isNull() )
+									model = getModel( inhSection );
+							}
+						}
+
+						childNode = childNode.nextSibling();
+					}
+					
+					if( !category.isNull() && !category.isEmpty() )
+					{
+						cMakeMenu* currentBaseMenu = pNpcMenu;
+
+						QStringList categorization = QStringList::split( "\\", category );
+						QStringList::const_iterator cit = categorization.begin();
+						while( cit != categorization.end() )
+						{
+							QString current = (*cit);
+							++cit;
+							if( cit != categorization.end() )
+							{
+								bool menuExists = false;
+								cMakeMenu::SubMenuContainer submenus = currentBaseMenu->subMenus();
+								cMakeMenu::SubMenuContainer::const_iterator sit = submenus.begin();
+								while( sit != submenus.end() )
+								{
+									if( (*sit)->name() == current )
+									{
+										menuExists = true;
+										currentBaseMenu = (*sit);
+										break;
+									}
+									++sit;
+								}
+
+								if( !menuExists )
+								{
+									// generate submenu, set current basemenu and continue
+									cMakeMenu* pNewMenu = new cMakeMenu( current, currentBaseMenu );
+									currentBaseMenu->addSubMenu( pNewMenu );
+									currentBaseMenu = pNewMenu;
+								}
+							}
+							else // last item means name
+							{
+								// generate cMakeAction object for the npc definition...
+								cMakeAction* pNpc = new cMakeAction( current, creatures[model].icon, description, cMakeAction::NPC_SECTION, currentBaseMenu );
+								if( pNpc )
+								{
+									currentBaseMenu->addAction( pNpc );
+									cMakeSection* pMakeSection = new cMakeSection( "", pNpc );
+									if( pMakeSection )
+									{
+										pNpc->appendSection( pMakeSection );
+										pMakeSection->setNpcProperties( current, (*it) );
+									}
+								}
+							}
+						}
+					}
+				}
+				++it;
+			}
+		}
+
+		// resources menu
+		cMakeMenu* pResMenu = new cMakeMenu( tr( "Resources" ), pAddMenu );
+		pAddMenu->addSubMenu( pResMenu );
+
+		if( pResMenu )
+		{
+			cAllResources::iterator it = Resources::instance()->begin();
+			while( it != Resources::instance()->end() )
+			{
+				cResource* pResource = it->second;
+				if( pResource )
+				{
+					cMakeMenu* pMakeMenu = new cMakeMenu( pResource->name(), pResMenu );
+					if( pMakeMenu )
+					{
+						pResMenu->addSubMenu( pMakeMenu );
+						QValueVector< cResource::resourcespec_st > resourcespecs = pResource->resourceSpecs();
+						QValueVector< cResource::resourcespec_st >::iterator rit = resourcespecs.begin();
+						while( rit != resourcespecs.end() )
+						{
+							cResource::resourcespec_st item = (*rit);
+							cMakeAction* pMakeAction = new cMakeAction( item.name + " " + pResource->name(), item.ids[0], "", cMakeAction::CUSTOM_SECTIONS, pMakeMenu ); 
+							if( pMakeAction )
+							{
+								UINT16 model = 0;
+								if( item.ids.count() > 0 )
+									model = item.ids[0];
+
+								pMakeMenu->addAction( pMakeAction );
+
+								QValueVector< UINT16 > amounts( 10 );
+								amounts[0] = 1;		amounts[1] = 2;		amounts[2] = 5;
+								amounts[3] = 10;	amounts[4] = 20;	amounts[5] = 50;
+								amounts[6] = 100;	amounts[7] = 200;	amounts[8] = 500;
+								amounts[9] = 1000;
+
+								QValueVector< UINT16 >::iterator ait = amounts.begin();
+								while( ait != amounts.end() )
+								{
+									cMakeSection* pMakeSection = new cMakeSection( "("+QString::number( (*ait) )+")", pMakeAction );
+									if( pMakeSection )
+									{
+										pMakeAction->appendSection( pMakeSection );
+										cMakeItem* pMakeItem = new cMakeItem( "", item.name.lower() + "_" + it->first, (*ait) );
+										if( pMakeItem )
+											pMakeSection->appendMakeItem( pMakeItem );
+									}
+									++ait;
+								}
+							}
+							++rit;
+						}
+					}
+				}
+				++it;
+			}
+		}
 	}
 }
 

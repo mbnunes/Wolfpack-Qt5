@@ -55,6 +55,7 @@ class cItem;
 class cMakeItem : public cDefinable
 {
 public:
+	cMakeItem( const QString &name, const QString &section, UINT16 amount );
 	cMakeItem( const QDomElement &Tag );
 
 	// implements cDefinable
@@ -123,6 +124,7 @@ class cMakeSection : public QObject, public cDefinable
 {
 	Q_OBJECT
 public:
+	cMakeSection( const QString &name, cMakeAction* baseaction = NULL );
 	cMakeSection( const QDomElement &Tag, cMakeAction* baseaction = NULL );
 	~cMakeSection();
 
@@ -145,6 +147,7 @@ public:
 
 	// Setters
 	void		setName( const QString& data )			{ name_ = data; }
+	void		appendMakeItem( const cMakeItem* pmi )	{ makeitems_.append( pmi ); }
 	void		appendUseItem( const cUseItem* pui )	{ useitems_.append( pui ); }
 
 	void		execute( cUOSocket* const socket );
@@ -161,6 +164,12 @@ public:
 	void	setMakeItemAmounts( UINT16 amount );
 	void	addMakeItemSectionPrefixes( const QString& prefix );
 	void	applySkillMod( float skillmod );
+	void	setNpcProperties( const QString &name, const QString &section )
+	{
+		makenpc_.name = name;
+		makenpc_.section = section;
+	}
+
 private:
 	QPtrList< cMakeItem >		makeitems_;
 	QPtrList< cUseItem >		useitems_;
@@ -186,6 +195,7 @@ public:
 	};
 	typedef QValueVector< cMakeSection* > SectionContainer;
 
+	cMakeAction( const QString &name, UINT16 model, const QString &description, WPACTIONTYPE type, cMakeMenu* basemenu = NULL );
 	cMakeAction( const QDomElement &Tag, cMakeMenu* basemenu = NULL );
 	~cMakeAction()
 	{
@@ -216,6 +226,7 @@ public:
 	// Setters
 	void		setName( QString data )		{ name_ = data; }
 	void		setModel( UINT16 data )		{ model_ = data; }
+	void		appendSection( cMakeSection* pms )	{ makesections_.append( pms ); }
 
 	SectionContainer	makesections()	const { return makesections_; }
 
@@ -243,6 +254,7 @@ public:
 	typedef QValueVector< cMakeMenu* > SubMenuContainer;
 	typedef QValueVector< cMakeAction* > ActionContainer;
 	
+	cMakeMenu( const QString& name, cMakeMenu* previous = NULL );
 	cMakeMenu( const QDomElement &Tag, cMakeMenu* previous = NULL );
 	~cMakeMenu()
 	{
@@ -296,6 +308,17 @@ public:
 			return prev_->baseMenu();
 		else
 			return this;
+	}
+
+	// more methods
+	void	addSubMenu( cMakeMenu* pMenu )
+	{
+		submenus_.push_back( pMenu );
+	}
+
+	void	addAction( cMakeAction* pAction )
+	{
+		actions_.push_back( pAction );
 	}
 
 private:
@@ -369,6 +392,10 @@ public:
 	}
 
 	void	callMakeMenu( cUOSocket* socket, const QString& section );
+
+	// helper method
+	QString	getValue( const QDomElement &Tag ) const;
+	UINT16 getModel( const QDomElement &Tag );
 
 private:
 	std::map< QString, cMakeMenu* >		menus_;

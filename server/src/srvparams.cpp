@@ -206,6 +206,7 @@ void cSrvParams::readData()
 	cacheMulFiles_			= getBool  ("General",  "Cache Mul Files", true, true);
 	beggingRange_           = getNumber("General",  "Begging Range", 3, true);
 	clientsAllowed_			= QStringList::split(",", getString("General", "Allowed Clients", "SERVER_DEFAULT", true).upper());
+	categoryTagAddMenu_		= getBool  ("General",	"Build AddMenu by Category Tags", true, true);
 	
 	// We're saving the elapsed seconds since server-start (INGAME SECONDS!)
 	// fromString( QString::number(FIRST_YEAR) + "-" + getString("General", "Initial Date/Time", "01-18T01:00:00", true), Qt::ISODate);

@@ -943,7 +943,10 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 			pi->setColor( color );
 
 			if( !item.name.isNull() )
+			{
 				pi->setName( item.name );
+				pi->setName2( item.name );
+			}
 
 			pBackpack->addItem( pi );
 			socket->sendStatWindow();
@@ -1209,7 +1212,7 @@ cResourceItem::cResourceItem( const QString& resource, UINT32 amount, UINT32 vei
 	this->setId( 0x1ea7 );
 	this->amount_ = 1;
 	this->setName( tr("resitem: %1").arg(resource) );
-	this->setName2("#");
+	this->setName2( this->name() );
 	this->setVisible( 2 ); // gm visible
 }
 
@@ -1254,6 +1257,8 @@ void cAllResources::load()
 				itemcolor.appendChild(itemcolortxt );
 				QDomElement itemname = doc.createElement( "name" );
 				section.appendChild( itemname );
+				QDomElement itemname2 = doc.createElement( "identified" );
+				section.appendChild( itemname2 );
 				QDomText itemnametxt = doc.createTextNode( QString("%1 %2").arg( (*sit).name ).arg( pResource->name() ) );
 				itemname.appendChild( itemnametxt );
 

@@ -159,6 +159,7 @@ protected:
 	int resetAttemptCount_;
 	int accountsBlockTime_;
 	QString accountsArchiver_;
+	bool categoryTagAddMenu_;
 
 
 	// Remote Admin
@@ -336,7 +337,7 @@ public:
 	int AccountBlockTime() const;
 	int resetAttemptCount() const;
 	QString accountsArchiver() const;
-
+	bool addMenuByCategoryTag() const;
 
 
 	// Persistency Module
@@ -1140,6 +1141,11 @@ inline unsigned short cSrvParams::gamePort() const
 inline unsigned short cSrvParams::loginPort() const
 {
 	return loginPort_;
+}
+
+inline bool cSrvParams::addMenuByCategoryTag() const
+{
+	return categoryTagAddMenu_;
 }
 
 #endif //__SRVPARAMS_H___
