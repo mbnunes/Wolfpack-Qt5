@@ -42,22 +42,22 @@ def consumeReagents(item, items):
 
 def callback(char, args):
 	char.removescript('magic')
-	
+
 	# target
 	if args[3] and type(args[3]) is int:
 		target = wolfpack.findobject(args[3])
-		
+
 		# Object went out of scope
 		if not target:
 			fizzle(char)
 			return
 	else:
 		target = None
-	
+
 	# item
 	if args[4] and (type(args[4]) is int):
 		item = wolfpack.findobject(args[4])
-		
+
 		# Object went out of scope
 		if not item:
 			fizzle(char)
@@ -97,20 +97,20 @@ class Spell:
 		self.mana = mana_table[ self.circle - 1 ]
 		self.casttime = 500 + (250 * self.circle)
 		self.castaction = ANIM_CASTDIRECTED
-		
+
 		# Change this to 0 for AoS behaviour
 		self.castrecovery = 1 * circle
 
 	#
 	# Prepare the casting of this spell.
 	#
-	def precast(self, char, mode=0, args=[], target = None, item = None):	
+	def precast(self, char, mode=0, args=[], target = None, item = None):
 		socket = char.socket
-		
+
 		# Casting from a scroll and no scroll was passed
 		if mode == MODE_SCROLL and not item:
 			return
-		
+
 		# Casting from a wand and no wand was passed
 		if mode == MODE_WAND and not item:
 			return
@@ -142,17 +142,17 @@ class Spell:
 
 		# Precasting
 		char.addscript('magic')
-		
+
 		# Show the cast action
-		if char.bodytype == BODY_HUMAN:
+		if char.bodytype == BODY_HUMAN and not char.itemonlayer( LAYER_MOUNT ):
 			char.action(self.castaction)
-		
+
 		if item:
 			item = item.serial
-			
+
 		if target and (type(target).__name__ == 'wpchar' or type(target).__name__ == 'wpitem'):
 			target = target.serial
-			
+
 		if mode == MODE_BOOK:
 			source = 'book'
 		elif mode == MODE_SCROLL:
@@ -166,7 +166,7 @@ class Spell:
 			char.log(LOG_MESSAGE, "Casting spell %u (%s) from %s.\n" % (self.spellid, self.__class__.__name__, source))
 		else:
 			char.log(LOG_MESSAGE, "Casting spell %s from %s.\n" % (self.__class__.__name__, source))
-			
+
 		char.addtimer(self.calcdelay(char, mode), 'magic.spell.callback', [self, mode, args, target, item], 0, 0, "cast_delay")
 		return 1
 
@@ -177,10 +177,10 @@ class Spell:
 		# Wands and commands don't have a delay
 		if mode == MODE_WAND or mode == MODE_CMD:
 			return 0
-			
+
 		# Get the AOS bonus from all items the character wears
 		castspeed = 3 - properties.fromchar(char, CASTSPEEDBONUS)
-		
+
 		# Under the influence of the protection spell
 		# spells are cast more slowly
 		if char.propertyflags & 0x20000:
@@ -194,21 +194,21 @@ class Spell:
 		# Was: floor((delay / 4.0) * 1000)
 		#char.message(str(castspeed / 4.0))
 		return castspeed * 250
-		
+
 	def checkweapon(self, char):
 		weapon = char.itemonlayer(LAYER_RIGHTHAND)
-		
+
 		if not weapon or not properties.itemcheck(weapon, ITEM_WEAPON):
 			weapon = char.itemonlayer(LAYER_LEFTHAND)
-			
+
 		if not weapon:
 			return True
-			
+
 		# Check if the spellchanneling property is true for this item
 		if not properties.fromitem(weapon, SPELLCHANNELING):
 			if not utilities.tobackpack(weapon, char):
 				weapon.update()
-			
+
 			return True
 		else:
 			return True
@@ -216,14 +216,14 @@ class Spell:
 	#
 	# Set the delay for the next spell
 	#
-	def setspelldelay(self, char, mode):		
+	def setspelldelay(self, char, mode):
 		if char.npc:
 			pass
 		elif char.socket:
 			castrecovery = - properties.fromchar(char, CASTRECOVERYBONUS)
 			castrecovery += 6
-			castrecovery += self.castrecovery						
-			
+			castrecovery += self.castrecovery
+
 			if castrecovery < 0:
 				castrecovery = 0
 
@@ -235,7 +235,7 @@ class Spell:
 	def checkrequirements(self, char, mode, args=[], target=None, item=None):
 		if char.dead:
 			return False
-			
+
 		if char.gm:
 			return True
 
@@ -243,7 +243,7 @@ class Spell:
 			if not self.checkweapon(char):
 				char.message(502626)
 				return 0
-		
+
 			# Check for Mana
 			if char.mana < self.mana:
 				char.message(502625)
@@ -267,7 +267,7 @@ class Spell:
 			if not item or item.getoutmostchar() != char:
 				char.message(501625)
 				return 0
-				
+
 			# Check for Mana
 			if char.mana < (self.mana + 1) / 2:
 				char.message(502625)
@@ -283,11 +283,11 @@ class Spell:
 	def consumerequirements(self, char, mode, args=[], target=None, item=None):
 		if char.gm:
 			return True
-		
+
 		# Check Basic Requirements before proceeding (Includes Death of Caster etc.)
 		if not self.checkrequirements(char, mode, args, target, item):
 			fizzle(char)
-			return 0	
+			return 0
 
 		# Consume Mana
 		if mode == MODE_BOOK:
@@ -298,13 +298,13 @@ class Spell:
 			# Consume Reagents
 			if len(self.reagents) > 0:
 				consumeReagents(char.getbackpack(), self.reagents.copy())
-		
+
 		# Reduced Skill, Reduced Mana, No Reagents
 		elif mode == MODE_SCROLL:
 			if self.mana != 0:
 				char.mana = max(0, char.mana - (self.mana + 1) / 2)
 				char.updatemana()
-		
+
 			# Remove one of the scrolls
 			if item.amount == 1:
 				item.delete()
@@ -313,7 +313,7 @@ class Spell:
 				item.update()
 
 		# No requirements at all
-		elif mode == MODE_WAND:		
+		elif mode == MODE_WAND:
 			pass
 
 		# Check Skill
@@ -329,7 +329,7 @@ class Spell:
 				char.message(502632)
 				fizzle(char)
 				return 0
-				
+
 		# Set the next spell delay
 		self.setspelldelay(char, mode)
 
