@@ -17,7 +17,7 @@
 
 	<!-- Potion Keg -->
 	<item id="potion_keg">
-		<id value="0x1940" />
+		<id>0x1940</id>
 		<weight>10.0</weight>
 		<movable />
 		<tag name="kegfill" value="0" type="int" />
