@@ -15,7 +15,7 @@ def onLoad():
 
 def onSkillUse( char, skill ):
 	if skill != ANIMALLORE:
-		return 0
+            return 0
 
 	char.socket.clilocmessage( 0x7A268, "", 0x3b2, 3 ) # What animal should I look at?
 	char.socket.attachtarget( "skills.animallore.response" )    
@@ -23,12 +23,16 @@ def onSkillUse( char, skill ):
 	return 1
 
 def response( char, args, target ):
-    if not target.char or target.char.socket:
+    if not target.char:
         char.socket.clilocmessage( 0x7A269, "", 0x3b2, 3, char ) # That is not an animal
         return
 
+    if target.char.socket:
+        char.socket.clilocmessage ( 0x7A269, "", 0x3b2, 3, char ) # That is not an animal
+        return
+
     if not char.canreach( target.char, 13 ):
-		return # no msg sent when you fail los check on OSI, wonder why...
+        return # no msg sent when you fail los check on OSI, wonder why...
     
     if target.char.totame >= 1100 and not target.char.tamed:
         if char.skill[ ANIMALLORE ] == 1000:
@@ -164,13 +168,13 @@ def sendGump( char, args, target ):
     loreGump.addXmfHtmlGump( 147, 150, 160, 18, 0x1003DB, 0, 0, 200 ) # Preferred Foods
     if target.char.food == 1 or target.char.food == 8:
         loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DC, 0, 0, 16000229 ) # Meat
-    if target.char.food == 2 or target.char.food == 9:
+    elif target.char.food == 2 or target.char.food == 9:
         loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003E0, 0, 0, 16000229 ) # Fish
-    if target.char.food == 4 or target.char.food == 5:
+    elif target.char.food == 4 or target.char.food == 5:
         loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DD, 0, 0, 16000229 ) # Fruits and Vegetables
-    if target.char.food == 6 or target.char.food == 7:
+    elif target.char.food == 6 or target.char.food == 7:
         loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DE, 0, 0, 16000229 ) # Grains and Hay
-    if target.food == 13:
+    elif target.food == 13:
         loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0x1003DF, 0, 0, 16000229 ) # Metal
     else:
         loreGump.addXmfHtmlGump( 153, 168, 160, 18, 0xF6D6B, 0, 0, 16000229 ) # None
