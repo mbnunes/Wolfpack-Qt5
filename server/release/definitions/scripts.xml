@@ -177,12 +177,13 @@
 	<script>system.mysql_backup_db</script>
 
 	-->
-	<script>system.players</script>
+	<script>system.pages</script>
+	<script>system.players</script>	
 	<script>system.poison</script>
 	<script>system.regionchange</script>
 	<script>system.skillgain</script>
 	<script>system.spawns</script>
-	<script>system.trading</script>
+	<script>system.trading</script>	
 	<script>system.uogstatus</script>
 	<script>system.webadmin</script>
 
