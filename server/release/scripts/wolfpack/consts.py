@@ -306,6 +306,41 @@ LAYER_BANKBOX = 29
 LAYER_DRAGGING = 30
 LAYER_TRADING = 31
 
+# Layer Names
+LAYERNAMES = {
+  LAYER_RIGHTHAND: 'Right hand',
+  LAYER_LEFTHAND: 'Shield hand',
+  LAYER_SHOES: 'Shoes',
+  LAYER_PANTS: 'Pants',
+  LAYER_SHIRT: 'Inner Torso',
+  LAYER_HELM: 'Head',
+  LAYER_GLOVES: 'Hands',
+  LAYER_RING: 'Ring Finger',
+  LAYER_UNUSED1: 'Unused',
+  LAYER_NECK: 'Neck',
+  LAYER_HAIR: 'Hair',
+  LAYER_WAIST: 'Waist',
+  LAYER_CHEST: 'Middle Torso',
+  LAYER_BRACELET: 'Wrist',
+  LAYER_UNUSED2: 'Unused 2',
+  LAYER_BEARD: 'Beard',
+  LAYER_TORSO: 'Outer Torso',
+  LAYER_EARRINGS: 'Earrings',
+  LAYER_ARMS: 'Arms',
+  LAYER_CLOAK: 'Cloak',
+  LAYER_BACKPACK: 'Backpack',
+  LAYER_ROBE: 'Robe',
+  LAYER_SKIRT: 'Skirt',
+  LAYER_LEGS: 'Legs',
+  LAYER_MOUNT: 'Mount',
+  LAYER_NPCRESTOCK: 'NPC Restock',
+  LAYER_NPCNORESTOCK: 'NPC No Restock',
+  LAYER_NPCSELL: 'NPC Sell',
+  LAYER_BANKBOX: 'Bankbox',
+  LAYER_DRAGGING: 'Dragging',
+  LAYER_TRADING: 'Trading'
+}
+
 # Several Hook Constants
 HOOK_OBJECT = 1
 HOOK_ITEM = 2
