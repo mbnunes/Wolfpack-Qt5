@@ -88,7 +88,7 @@ PyObject* wpGumpResponse_getAttr( wpGumpResponse* self, char* name )
 		return list;
 	}
 
-	return PyFalse();
+	Py_RETURN_FALSE;
 }
 
 static PyTypeObject wpGumpResponseType =
@@ -106,7 +106,6 @@ static PyTypeObject wpGumpResponseType =
 	0,
 	0,
 	0,
-
 };
 
 PyObject* PyGetGumpResponse( const gumpChoice_st& response )

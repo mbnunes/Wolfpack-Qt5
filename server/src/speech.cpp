@@ -69,7 +69,7 @@ bool InputSpeech( cUOSocket* socket, P_PLAYER pChar, const QString& speech )
 	if ( !pItem )
 		return false;
 
-	bool ok;
+	bool ok = false;
 	//INT32 num = speech.toInt( &ok ); // Generally try to convert it
 	QString notification;
 
@@ -77,15 +77,7 @@ bool InputSpeech( cUOSocket* socket, P_PLAYER pChar, const QString& speech )
 	{
 		// Pricing an item - PlayerVendors
 	case cPlayer::enPricing:
-		if ( ok )
-		{
-			//			pItem->setPrice( num );
-			//			socket->sysMessage( tr( "This item's price has been set to %1." ).arg( num ) );
-			socket->sysMessage( "Ops, sorry not implemented" );
-		}
-		else
-			socket->sysMessage( tr( "You have to enter a numeric price" ) );
-
+		socket->sysMessage( "Ops, sorry not implemented" );
 		pChar->setInputMode( cPlayer::enDescription );
 		socket->sysMessage( tr( "Enter a description for this item." ) );
 		break;

@@ -735,7 +735,8 @@ PyTypeObject wpElementType =
 	0,
 	wpDealloc,
 	0,
-	( getattrfunc ) wpElement_getAttr
+	( getattrfunc ) wpElement_getAttr,
+	0,
 };
 
 static PyObject* wpElement_hasattribute( wpElement* self, PyObject* args )
@@ -747,7 +748,9 @@ static PyObject* wpElement_hasattribute( wpElement* self, PyObject* args )
 		return 0;
 	}
 
-	return self->element->hasAttribute( name ) ? PyTrue() : PyFalse();
+	if ( self->element->hasAttribute( name ) )
+		Py_RETURN_TRUE;
+	Py_RETURN_FALSE;
 }
 
 static PyObject* wpElement_getattribute( wpElement* self, PyObject* args )
@@ -797,8 +800,7 @@ static PyObject* wpElement_findchild( wpElement* self, PyObject* args )
 	}
 	else
 	{
-		Py_INCREF( Py_None );
-		return Py_None;
+		Py_RETURN_NONE;
 	}
 }
 
@@ -819,8 +821,7 @@ static PyObject* wpElement_getchild( wpElement* self, PyObject* args )
 	}
 	else
 	{
-		Py_INCREF( Py_None );
-		return Py_None;
+		Py_RETURN_NONE;
 	}
 }
 
@@ -846,8 +847,7 @@ static PyObject* wpElement_getAttr( wpElement* self, char* name )
 		}
 		else
 		{
-			Py_INCREF( Py_None );
-			return Py_None;
+			Py_RETURN_NONE;
 		}
 	}
 	else if ( !strcmp( name, "value" ) )

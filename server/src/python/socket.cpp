@@ -59,6 +59,7 @@ static PyTypeObject wpSocketType =
 	0,
 	( getattrfunc ) wpSocket_getAttr,
 	( setattrfunc ) wpSocket_setAttr,
+	0,
 
 };
 
@@ -66,8 +67,7 @@ PyObject* PyGetSocketObject( cUOSocket* socket )
 {
 	if ( !socket )
 	{
-		Py_INCREF( Py_None );
-		return Py_None;
+		Py_RETURN_NONE;
 	}
 
 	wpSocket* rVal = PyObject_New( wpSocket, &wpSocketType );
@@ -76,8 +76,7 @@ PyObject* PyGetSocketObject( cUOSocket* socket )
 	if ( rVal )
 		return ( PyObject * ) rVal;
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -88,8 +87,7 @@ static PyObject* wpSocket_disconnect( wpSocket* self, PyObject* args )
 {
 	Q_UNUSED( args );
 	self->pSock->socket()->close();
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -113,8 +111,7 @@ static PyObject* wpSocket_sysmessage( wpSocket* self, PyObject* args )
 	self->pSock->sysMessage( QString::fromUtf8( message ), color, font );
 	PyMem_Free( message );
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -171,8 +168,7 @@ static PyObject* wpSocket_clilocmessage( wpSocket* self, PyObject* args )
 		PyMem_Free( params );
 	}
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -200,8 +196,7 @@ static PyObject* wpSocket_showspeech( wpSocket* self, PyObject* args )
 
 	self->pSock->showSpeech( object, QString::fromUtf8( message ), color, font, ( cUOTxUnicodeSpeech::eSpeechType ) type );
 	PyMem_Free( message );
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -254,8 +249,7 @@ static PyObject* wpSocket_attachtarget( wpSocket* self, PyObject* args )
 	}
 
 	self->pSock->attachTarget( target );
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 static PyObject* wpSocket_attachitemtarget( wpSocket* self, PyObject* args )
@@ -326,8 +320,7 @@ static PyObject* wpSocket_attachitemtarget( wpSocket* self, PyObject* args )
 	}
 
 	self->pSock->attachTarget( target, targetitems, xoffset, yoffset, zoffset );
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 static PyObject* wpSocket_attachmultitarget( wpSocket* self, PyObject* args )
@@ -355,8 +348,7 @@ static PyObject* wpSocket_attachmultitarget( wpSocket* self, PyObject* args )
 	}
 
 	self->pSock->attachTarget( target, 0x4000 + multiid );
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*!
@@ -378,8 +370,7 @@ static PyObject* wpSocket_customize( wpSocket* self, PyObject* args )
 	cUOTxStartCustomHouse custom;
 	custom.setSerial( signpost->getTag( "house" ).toInt() ); // Morex of signpost contain serial of house
 	self->pSock->send( &custom );
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 
@@ -484,8 +475,7 @@ static PyObject* wpSocket_closegump( wpSocket* self, PyObject* args )
 	closeGump.setType( type );
 	self->pSock->send( &closeGump );
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -505,8 +495,7 @@ static PyObject* wpSocket_resendworld( wpSocket* self, PyObject* args )
 
 	self->pSock->resendWorld( clean != 0 );
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -519,8 +508,7 @@ static PyObject* wpSocket_resendplayer( wpSocket* self, PyObject* args )
 	if ( !self->pSock )
 		return PyFalse();
 	self->pSock->resendPlayer( false );
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -545,8 +533,7 @@ static PyObject* wpSocket_sendcontainer( wpSocket* self, PyObject* args )
 
 	self->pSock->sendContainer( getArgItem( 0 ) );
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 // DEPRECATED
@@ -577,8 +564,7 @@ static PyObject* wpSocket_sendpacket( wpSocket* self, PyObject* args )
 	cUOPacket packet( buffer );
 	self->pSock->send( &packet );
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -603,8 +589,7 @@ static PyObject* wpSocket_sendpaperdoll( wpSocket* self, PyObject* args )
 
 	self->pSock->sendPaperdoll( getArgChar( 0 ) );
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -655,8 +640,7 @@ static PyObject* wpSocket_gettag( wpSocket* self, PyObject* args )
 	else if ( value.type() == cVariant::Double )
 		return PyFloat_FromDouble( value.asDouble() );
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*!
@@ -687,8 +671,7 @@ static PyObject* wpSocket_settag( wpSocket* self, PyObject* args )
 		self->pSock->tags().set( key, cVariant( ( double ) PyFloat_AsDouble( object ) ) );
 	}
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*!
@@ -727,8 +710,7 @@ static PyObject* wpSocket_deltag( wpSocket* self, PyObject* args )
 	QString key = getArgStr( 0 );
 	self->pSock->tags().remove( key );
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*!
@@ -738,8 +720,7 @@ static PyObject* wpSocket_resendstatus( wpSocket* self, PyObject* args )
 {
 	Q_UNUSED( args );
 	self->pSock->sendStatWindow();
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 // Resend lightlevel
@@ -747,8 +728,7 @@ static PyObject* wpSocket_updatelightlevel( wpSocket* self, PyObject* args )
 {
 	Q_UNUSED( args );
 	self->pSock->updateLightLevel();
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 static PyObject* wpSocket_questarrow( wpSocket* self, PyObject* args )

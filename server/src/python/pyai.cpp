@@ -72,15 +72,13 @@ static PyTypeObject wpAIType =
 	0,
 	0,
 	0,
-	0
 };
 
 PyObject* PyGetAIObject( AbstractAI* ai )
 {
 	if ( !ai )
 	{
-		Py_INCREF( Py_None );
-		return Py_None;
+		Py_RETURN_NONE;
 	}
 
 	wpAI* returnVal = PyObject_New( wpAI, &wpAIType );
@@ -105,12 +103,12 @@ static PyObject* wpAI_onSpeechInput( wpAI* self, PyObject* args )
 
 	P_PLAYER player = dynamic_cast<P_PLAYER>( pc );
 	if ( !player )
-		return PyFalse();
+		Py_RETURN_FALSE;
 
 	QString str = getArgStr( 1 );
 	self->pAI->onSpeechInput( player, str.upper() );
 
-	return PyTrue();
+	Py_RETURN_TRUE;
 }
 
 static PyMethodDef wpAIMethods[] =

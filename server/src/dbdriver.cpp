@@ -189,7 +189,14 @@ static PyObject* wpDbResult_getAttr( wpDbResult* self, char* name );
 PyTypeObject wpDbResultType =
 {
 	PyObject_HEAD_INIT( NULL )
-	0, "dbresult", sizeof( wpDbResultType ), 0, wpDeallocDbResult, 0, ( getattrfunc ) wpDbResult_getAttr
+	0, 
+	"dbresult", 
+	sizeof( wpDbResultType ), 
+	0, 
+	wpDeallocDbResult, 
+	0, 
+	( getattrfunc ) wpDbResult_getAttr,
+	0,
 };
 
 /*
@@ -201,8 +208,7 @@ static PyObject* wpDbResult_free( wpDbResult* self, PyObject* args )
 {
 	Q_UNUSED( args );
 	self->result->free();
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -216,9 +222,9 @@ static PyObject* wpDbResult_fetchrow( wpDbResult* self, PyObject* args )
 	bool result = self->result->fetchrow();
 
 	if ( result )
-		return PyTrue();
+		Py_RETURN_TRUE;
 	else
-		return PyFalse();
+		Py_RETURN_FALSE;
 }
 
 /*

@@ -419,8 +419,14 @@ void cServer::setupConsole()
 #endif
 
 	Console::instance()->send( "Compiled for Python " PY_VERSION " (Using: " );
-	Console::instance()->send( pythonBuild + ")\n\n" );
-
+	Console::instance()->send( pythonBuild + ")\n" );
+	Console::instance()->send( "SQLite Support: enabled\n" );
+#if defined (MYSQL_DRIVER)
+	Console::instance()->send( "MySQL Support.: enabled\n" );
+#else
+	Console::instance()->send( "MySQL Support.: disabled\n" );
+#endif
+	Console::instance()->send("\n");
 	QString consoleTitle = QString( "%1 %2 %3" ).arg( productString(), productBeta(), productVersion() );
 	Console::instance()->setConsoleTitle( consoleTitle );
 }

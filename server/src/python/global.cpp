@@ -68,8 +68,7 @@
 PyObject* PyGetObjectObject( cUObject* object )
 {
 	if (!object) {
-		Py_INCREF(Py_None);
-		return Py_None;
+		Py_RETURN_NONE;
 	}
 
 	if ( dynamic_cast<P_ITEM>( object ) )
@@ -77,8 +76,7 @@ PyObject* PyGetObjectObject( cUObject* object )
 	else if ( dynamic_cast<P_CHAR>( object ) )
 		return PyGetCharObject( ( P_CHAR ) object );
 
-	Py_INCREF(Py_None);
-        return Py_None;
+	Py_RETURN_NONE;
 }
 
 static QStringList getFlagNames( unsigned char flag1, unsigned char flag2, unsigned char flag3, unsigned char flag4 )
@@ -149,7 +147,7 @@ static PyObject* wpConsole_log( PyObject* self, PyObject* args )
 
 	Console::instance()->log( ( eLogLevel ) loglevel, text );
 
-	return PyTrue();
+	Py_RETURN_TRUE;
 }
 
 /*
@@ -161,16 +159,16 @@ static PyObject* wpConsole_send( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self );
 	if ( PyTuple_Size( args ) < 1 )
-		return PyFalse();
+		Py_RETURN_FALSE;
 
 	PyObject* pyMessage = PyTuple_GetItem( args, 0 );
 
 	if ( pyMessage == Py_None )
-		return PyFalse();
+		Py_RETURN_FALSE;
 
 	Console::instance()->send( PyString_AS_STRING( pyMessage ) );
 
-	return PyTrue();
+	Py_RETURN_TRUE;
 }
 
 /*
@@ -190,8 +188,7 @@ static PyObject* wpConsole_sendprogress( PyObject* self, PyObject* args )
 
 	PyMem_Free( message );
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -203,8 +200,7 @@ static PyObject* wpConsole_senddone( PyObject* self, PyObject* args )
 	Q_UNUSED( self );
 	Q_UNUSED( args );
 	Console::instance()->sendDone();
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -216,8 +212,7 @@ static PyObject* wpConsole_sendfail( PyObject* self, PyObject* args )
 	Q_UNUSED( self );
 	Q_UNUSED( args );
 	Console::instance()->sendFail();
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -229,8 +224,7 @@ static PyObject* wpConsole_sendskip( PyObject* self, PyObject* args )
 	Q_UNUSED( self );
 	Q_UNUSED( args );
 	Console::instance()->sendSkip();
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -263,7 +257,7 @@ static PyObject* wpConsole_shutdown( PyObject* self, PyObject* args )
 	Q_UNUSED( args );
 	Server::instance()->cancel();
 
-	return PyTrue();
+	Py_RETURN_TRUE;
 }
 
 /*!
@@ -456,8 +450,7 @@ static PyObject* wpFindguild( PyObject* self, PyObject* args )
 	}
 	else
 	{
-		Py_INCREF( Py_None );
-		return Py_None;
+		Py_RETURN_NONE;
 	}
 }
 
@@ -497,8 +490,7 @@ static PyObject* wpFindmulti( PyObject* self, PyObject* args )
 
 	if ( !multi )
 	{
-		Py_INCREF( Py_None );
-		return Py_None;
+		Py_RETURN_NONE;
 	}
 	else
 	{
@@ -552,7 +544,7 @@ static PyObject* wpAddtimer( PyObject* self, PyObject* args )
 	effect->setExpiretime_ms( expiretime );
 	Timers::instance()->insert( effect );
 
-	return PyFalse();
+	Py_RETURN_FALSE;
 }
 
 /*
@@ -782,8 +774,7 @@ static PyObject* wpEffect( PyObject* self, PyObject* args )
 			mSock->send( &effect );
 	}
 
-	Py_INCREF(Py_None);
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -1023,8 +1014,7 @@ static PyObject* wpRegisterGlobal( PyObject* self, PyObject* args )
 
 	ScriptManager::instance()->setGlobalHook( ( ePythonEvent ) event, script );
 
-	Py_INCREF(Py_None);
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -1060,8 +1050,7 @@ static PyObject* wpRegisterCommand( PyObject* self, PyObject* args )
 	Py_INCREF( function );
 	ScriptManager::instance()->setCommandHook( command, function );
 	
-	Py_INCREF(Py_None);
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -1096,7 +1085,7 @@ static PyObject* wpRegisterPacketHook( PyObject* self, PyObject* args )
 	}
 
 	cUOSocket::registerPacketHandler( packet, function );
-	return PyTrue();
+	Py_RETURN_TRUE;
 }
 
 /*
@@ -1149,8 +1138,7 @@ static PyObject* wpAddMulti( PyObject* self, PyObject* args )
 	}
 	else
 	{
-		Py_INCREF( Py_None );
-		return Py_None;
+		Py_RETURN_NONE;
 	}
 }
 
@@ -1175,9 +1163,9 @@ static PyObject* wpIsStarting( PyObject* self, PyObject* args )
 	Q_UNUSED( self );
 	Q_UNUSED( args );
 	if ( Server::instance()->getState() == STARTUP )
-		return PyTrue();
+		Py_RETURN_TRUE;
 	else
-		return PyFalse();
+		Py_RETURN_FALSE;
 }
 
 /*
@@ -1189,9 +1177,9 @@ static PyObject* wpIsRunning( PyObject* self, PyObject* args )
 	Q_UNUSED( self );
 	Q_UNUSED( args );
 	if ( Server::instance()->getState() == RUNNING )
-		return PyTrue();
+		Py_RETURN_TRUE;
 	else
-		return PyFalse();
+		Py_RETURN_FALSE;
 }
 
 /*
@@ -1203,9 +1191,9 @@ static PyObject* wpIsReloading( PyObject* self, PyObject* args )
 	Q_UNUSED( self );
 	Q_UNUSED( args );
 	if ( Server::instance()->getState() == SCRIPTRELOAD )
-		return PyTrue();
+		Py_RETURN_TRUE;
 	else
-		return PyFalse();
+		Py_RETURN_FALSE;
 }
 
 /*
@@ -1217,9 +1205,9 @@ static PyObject* wpIsClosing( PyObject* self, PyObject* args )
 	Q_UNUSED( self );
 	Q_UNUSED( args );
 	if ( Server::instance()->getState() == SHUTDOWN )
-		return PyTrue();
+		Py_RETURN_TRUE;
 	else
-		return PyFalse();
+		Py_RETURN_FALSE;
 }
 
 /*
@@ -1486,8 +1474,7 @@ static PyObject* wpGetDefinition( PyObject* self, PyObject* args )
 	}
 	else
 	{
-		Py_INCREF( Py_None );
-		return Py_None;
+		Py_RETURN_NONE;
 	}
 }
 
@@ -1559,8 +1546,7 @@ static PyObject* wpCallEvent( PyObject* self, PyObject* args )
 
 	if ( !result )
 	{
-		Py_INCREF( Py_None );
-		return Py_None;
+		Py_RETURN_NONE;
 	}
 
 	return result;
@@ -1637,8 +1623,7 @@ static PyObject* wpCallNamedEvent( PyObject* self, PyObject* args )
 
 	if ( !result )
 	{
-		Py_INCREF( Py_None );
-		return Py_None;
+		Py_RETURN_NONE;
 	}
 
 	return result;
@@ -1715,8 +1700,7 @@ static PyObject* wpSetOption( PyObject* self, PyObject* args )
 
 	World::instance()->setOption( arg_key, arg_val );
 
-	Py_INCREF(Py_None);
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -1971,15 +1955,13 @@ static PyObject* wpAccountsAcl( PyObject* self, PyObject* args )
 	Q_UNUSED( self );
 	if ( !checkArgStr( 0 ) )
 	{
-		Py_INCREF( Py_None );
-		return Py_None;
+		Py_RETURN_NONE;
 	}
 
 	cAcl* acl = Commands::instance()->getACL( getArgStr( 0 ) );
 	if ( !acl )
 	{
-		Py_INCREF( Py_None );
-		return Py_None;
+		Py_RETURN_NONE;
 	}
 
 	PyObject* dict = PyDict_New();
@@ -2020,15 +2002,13 @@ static PyObject* wpAccountsAdd( PyObject* self, PyObject* args )
 	QString password = getArgStr( 1 );
 
 	if (login.length() < 1 && password.length() < 1) {
-		Py_INCREF(Py_None);
-		return Py_None;
+		Py_RETURN_NONE;
 	}
 
 	cAccount* account = Accounts::instance()->getRecord(login);
 
 	if (account) {
-		Py_INCREF(Py_None);
-		return Py_None;		
+		Py_RETURN_NONE;
 	}
 
 	account = Accounts::instance()->createAccount(login, password);
@@ -2045,7 +2025,7 @@ static PyObject* wpAccountsReload( PyObject* self, PyObject* args )
 	Q_UNUSED( self );
 	Q_UNUSED( args );
 	Server::instance()->queueAction( RELOAD_ACCOUNTS );
-	return PyTrue();
+	Py_RETURN_TRUE;
 }
 
 /*
@@ -2058,7 +2038,7 @@ static PyObject* wpAccountsSave( PyObject* self, PyObject* args )
 	Q_UNUSED( self );
 	Q_UNUSED( args );
 	Server::instance()->queueAction( SAVE_ACCOUNTS );
-	return PyTrue();
+	Py_RETURN_TRUE;
 }
 
 /*!
@@ -2119,7 +2099,7 @@ static PyObject* wpSettingsSetBool( PyObject* self, PyObject* args )
 		return 0;
 
 	Config::instance()->setBool( pyGroup, pyKey, pyValue );
-	return PyTrue();
+	Py_RETURN_TRUE;
 }
 
 /*
@@ -2162,7 +2142,7 @@ static PyObject* wpSettingsSetNumber( PyObject* self, PyObject* args )
 		return 0;
 
 	Config::instance()->setNumber( pyGroup, pyKey, pyValue );
-	return PyTrue();
+	Py_RETURN_TRUE;
 }
 
 /*
@@ -2205,7 +2185,7 @@ static PyObject* wpSettingsSetString( PyObject* self, PyObject* args )
 		return 0;
 
 	Config::instance()->setString( pyGroup, pyKey, pyValue );
-	return PyTrue();
+	Py_RETURN_TRUE;
 }
 
 /*
@@ -2217,7 +2197,7 @@ static PyObject* wpSettingsReload( PyObject* self, PyObject* args )
 	Q_UNUSED( self );
 	Q_UNUSED( args );
 	Config::instance()->reload();
-	return PyTrue();
+	Py_RETURN_TRUE;
 }
 
 /*
@@ -2229,7 +2209,7 @@ static PyObject* wpSettingsSave( PyObject* self, PyObject* args )
 	Q_UNUSED( self );
 	Q_UNUSED( args );
 	Config::instance()->flush();
-	return PyTrue();
+	Py_RETURN_TRUE;
 }
 
 /*!
@@ -2322,8 +2302,7 @@ static PyObject* wpExecute( PyObject* self, PyObject* args )
 
 	PyMem_Free( query );
 
-	Py_INCREF(Py_None);
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -2369,7 +2348,7 @@ static PyObject* wpClose( PyObject* self, PyObject* args )
 		return 0;
 	}
 
-	return PyTrue();
+	Py_RETURN_TRUE;
 }
 
 /*
@@ -2408,7 +2387,7 @@ static PyObject* wpOpen( PyObject* self, PyObject* args )
 		return 0;
 	}
 
-	return PyTrue();
+	Py_RETURN_TRUE;
 }
 
 static PyMethodDef wpDatabase[] =

@@ -100,8 +100,7 @@ static PyObject* wpContent_get( wpContent* self, int id )
 			goto error;
 	}
 	error:
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 static PySequenceMethods wpContentSequence =
@@ -130,7 +129,7 @@ static PyTypeObject wpContentType =
 	0,
 	0,
 	& wpContentSequence,
-
+	0,
 };
 
 #endif

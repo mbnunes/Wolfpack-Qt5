@@ -75,6 +75,7 @@ static PyTypeObject wpTooltipType =
 	0,
 	( getattrfunc ) wpTooltip_getAttr,
 	( setattrfunc ) wpTooltip_setAttr,
+	0,
 
 };
 
@@ -100,7 +101,7 @@ static PyObject* wpTooltip_add( wpTooltip* self, PyObject* args )
 
 	self->list->addLine( id, QString::fromUtf8( params ) );
 	PyMem_Free( params );
-	return PyTrue();
+	Py_RETURN_TRUE;
 }
 
 /*
@@ -112,7 +113,7 @@ static PyObject* wpTooltip_reset( wpTooltip* self, PyObject* args )
 	Q_UNUSED(args);
 	self->list->resize( 19 );
 	self->list->setShort( 1, 19 );
-	return PyTrue();
+	Py_RETURN_TRUE;
 }
 
 static PyMethodDef wpTooltipMethods[] =
@@ -126,8 +127,7 @@ PyObject* PyGetTooltipObject( cUOTxTooltipList* tooltip )
 {
 	if ( !tooltip )
 	{
-		Py_INCREF( Py_None );
-		return Py_None;
+		Py_RETURN_NONE;
 	}
 
 	wpTooltip* object = tooltipCache.allocObj( &wpTooltipType );

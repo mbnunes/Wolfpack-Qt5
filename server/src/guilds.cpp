@@ -364,7 +364,16 @@ static int wpGuild_compare( PyObject* a, PyObject* b );
 PyTypeObject wpGuildType =
 {
 	PyObject_HEAD_INIT( NULL )
-	0, "guild", sizeof( wpGuildType ), 0, wpDealloc, 0, ( getattrfunc ) wpGuild_getAttr, ( setattrfunc ) wpGuild_setAttr, wpGuild_compare,
+	0, 
+	"guild", 
+	sizeof( wpGuildType ), 
+	0, 
+	wpDealloc, 
+	0, 
+	( getattrfunc ) wpGuild_getAttr, 
+	( setattrfunc ) wpGuild_setAttr, 
+	wpGuild_compare,
+	0,
 };
 
 static int wpGuild_compare( PyObject* a, PyObject* b )
@@ -390,11 +399,11 @@ PyObject* wpGuild_addmember( wpGuild* self, PyObject* args )
 		if ( player )
 		{
 			self->guild->addMember( player );
-			return PyTrue();
+			Py_RETURN_TRUE;
 		}
 		else
 		{
-			return PyFalse();
+			Py_RETURN_FALSE;
 		}
 	}
 	return 0;
@@ -415,11 +424,11 @@ PyObject* wpGuild_removemember( wpGuild* self, PyObject* args )
 		if ( player )
 		{
 			self->guild->removeMember( player );
-			return PyTrue();
+			Py_RETURN_TRUE;
 		}
 		else
 		{
-			return PyFalse();
+			Py_RETURN_FALSE;
 		}
 	}
 	return 0;
@@ -440,11 +449,11 @@ PyObject* wpGuild_addcanidate( wpGuild* self, PyObject* args )
 		if ( player )
 		{
 			self->guild->addCanidate( player );
-			return PyTrue();
+			Py_RETURN_TRUE;
 		}
 		else
 		{
-			return PyFalse();
+			Py_RETURN_FALSE;
 		}
 	}
 	return 0;
@@ -465,11 +474,11 @@ PyObject* wpGuild_removecanidate( wpGuild* self, PyObject* args )
 		if ( player )
 		{
 			self->guild->removeCanidate( player );
-			return PyTrue();
+			Py_RETURN_TRUE;
 		}
 		else
 		{
-			return PyFalse();
+			Py_RETURN_FALSE;
 		}
 	}
 	return 0;
@@ -539,7 +548,7 @@ PyObject* wpGuild_setmemberinfo( wpGuild* self, PyObject* args )
 		}
 	}
 
-	return PyTrue();
+	Py_RETURN_TRUE;
 }
 
 /*
@@ -596,7 +605,7 @@ PyObject* wpGuild_delete( wpGuild* self, PyObject* args )
 	Guilds::instance()->unregisterGuild( self->guild );
 	delete self->guild;
 	self->guild = 0;
-	return PyTrue();
+	Py_RETURN_TRUE;
 }
 
 static PyMethodDef wpGuildMethods[] =
@@ -652,8 +661,7 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 	{
 		if ( !self->guild->leader() )
 		{
-			Py_INCREF( Py_None );
-			return Py_None;
+			Py_RETURN_NONE;
 		}
 		else
 		{
@@ -756,8 +764,7 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 		}
 		else
 		{
-			Py_INCREF( Py_None );
-			return Py_None;
+			Py_RETURN_NONE;
 		}
 	}
 

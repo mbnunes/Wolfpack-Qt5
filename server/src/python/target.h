@@ -73,7 +73,7 @@ static PyObject* wpTarget_getAttr( wpTarget* self, char* name )
 		if ( isCharSerial( self->object ) )
 			return PyGetCharObject( FindCharBySerial( self->object ) );
 
-	return PyFalse();
+	Py_RETURN_FALSE;
 }
 
 static PyTypeObject wpTargetType =
@@ -98,8 +98,7 @@ static PyObject* PyGetTarget( cUORxTarget* target, UINT8 map )
 {
 	if ( !target )
 	{
-		Py_INCREF( Py_None );
-		return Py_None;
+		Py_RETURN_NONE;
 	}
 
 	wpTarget* returnVal = PyObject_New( wpTarget, &wpTargetType );

@@ -58,7 +58,7 @@ PyTypeObject wpCoordType =
 	0,
 	( getattrfunc ) wpCoord_getAttr,
 	( setattrfunc ) wpCoord_setAttr,
-
+	0,
 };
 
 /*

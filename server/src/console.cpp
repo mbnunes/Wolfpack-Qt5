@@ -43,14 +43,6 @@
 #include <qthread.h>
 #include <qmutex.h>
 
-#if defined(Q_OS_UNIX)
-	#include <sys/types.h>
-	#include <sys/time.h>
-	#include <unistd.h>
-#else
-
-#endif
-
 using namespace std;
 
 // Constructor

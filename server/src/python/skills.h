@@ -114,6 +114,6 @@ static PyTypeObject wpSkillsType =
 	0,
 	0,
 	0,
-	& wpSkillsSequence,
-
+	&wpSkillsSequence,
+	0,
 };

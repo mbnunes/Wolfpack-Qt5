@@ -85,15 +85,15 @@ static PyTypeObject wpItemType =
 	0,
 	0,
 	0,
-	( hashfunc ) wpItem_hash
+	( hashfunc ) wpItem_hash,
+	0,
 };
 
 PyObject* PyGetItemObject( P_ITEM item )
 {
 	if ( item == NULL )
 	{
-		Py_INCREF( Py_None );
-		return Py_None;
+		Py_RETURN_NONE;
 	}
 
 	//	wpItem *returnVal = ItemCache::instance()->allocObj( &wpItemType );
@@ -115,12 +115,11 @@ static PyObject* wpItem_update( wpItem* self, PyObject* args )
 {
 	Q_UNUSED( args );
 	if ( !self->pItem || self->pItem->free )
-		return PyFalse();
+		Py_RETURN_FALSE;
 
 	self->pItem->update();
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*!
@@ -134,12 +133,11 @@ static PyObject* wpItem_delete( wpItem* self, PyObject* args )
 {
 	Q_UNUSED( args );
 	if ( !self->pItem || self->pItem->free )
-		return PyFalse();
+		Py_RETURN_FALSE;
 
 	self->pItem->remove();
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*!
@@ -186,8 +184,7 @@ static PyObject* wpItem_moveto( wpItem* self, PyObject* args )
 		self->pItem->moveTo( pos, noRemove ? true : false );
 	}
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -200,8 +197,7 @@ static PyObject* wpItem_removefromview( wpItem* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "|i:item.removefromview( clean )", &k ) )
 		return 0;
 	self->pItem->removeFromView( k != 0 ? true : false );
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*!
@@ -215,7 +211,7 @@ static PyObject* wpItem_removefromview( wpItem* self, PyObject* args )
 static PyObject* wpItem_soundeffect( wpItem* self, PyObject* args )
 {
 	if ( !self->pItem || self->pItem->free )
-		return PyFalse();
+		Py_RETURN_FALSE;
 
 	if ( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
 	{
@@ -225,8 +221,7 @@ static PyObject* wpItem_soundeffect( wpItem* self, PyObject* args )
 
 	self->pItem->soundEffect( PyInt_AsLong( PyTuple_GetItem( args, 0 ) ) );
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*!
@@ -296,7 +291,7 @@ static PyObject* wpItem_distanceto( wpItem* self, PyObject* args )
 static PyObject* wpItem_useresource( wpItem* self, PyObject* args )
 {
 	if ( !self->pItem || self->pItem->free )
-		return PyFalse();
+		Py_RETURN_FALSE;
 
 	if ( PyTuple_Size( args ) < 2 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) || !PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
 	{
@@ -328,7 +323,7 @@ static PyObject* wpItem_useresource( wpItem* self, PyObject* args )
 static PyObject* wpItem_countresource( wpItem* self, PyObject* args )
 {
 	if ( !self->pItem || self->pItem->free )
-		return PyFalse();
+		Py_RETURN_FALSE;
 
 	if ( PyTuple_Size( args ) < 1 || !PyInt_Check( PyTuple_GetItem( args, 0 ) ) )
 	{
@@ -358,8 +353,7 @@ static PyObject* wpItem_gettag( wpItem* self, PyObject* args )
 {
 	if ( !self->pItem || self->pItem->free )
 	{
-		Py_INCREF( Py_None );
-		return Py_None;
+		Py_RETURN_NONE;
 	}
 
 	if ( PyTuple_Size( args ) < 1 || !checkArgStr( 0 ) )
@@ -378,8 +372,7 @@ static PyObject* wpItem_gettag( wpItem* self, PyObject* args )
 	else if ( value.type() == cVariant::Double )
 		return PyFloat_FromDouble( value.asDouble() );
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*!
@@ -394,7 +387,7 @@ static PyObject* wpItem_gettag( wpItem* self, PyObject* args )
 static PyObject* wpItem_settag( wpItem* self, PyObject* args )
 {
 	if ( self->pItem->free )
-		return PyFalse();
+		Py_RETURN_FALSE;
 
 	char* key;
 	PyObject* object;
@@ -419,8 +412,7 @@ static PyObject* wpItem_settag( wpItem* self, PyObject* args )
 		self->pItem->setTag( key, cVariant( ( double ) PyFloat_AsDouble( object ) ) );
 	}
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*!
@@ -435,7 +427,7 @@ static PyObject* wpItem_settag( wpItem* self, PyObject* args )
 static PyObject* wpItem_hastag( wpItem* self, PyObject* args )
 {
 	if ( !self->pItem || self->pItem->free )
-		return PyFalse();
+		Py_RETURN_FALSE;
 
 	char* pKey = 0;
 	if ( !PyArg_ParseTuple( args, "s:item.hastag( key )", &pKey ) )
@@ -457,7 +449,7 @@ static PyObject* wpItem_hastag( wpItem* self, PyObject* args )
 static PyObject* wpItem_deltag( wpItem* self, PyObject* args )
 {
 	if ( !self->pItem || self->pItem->free )
-		return PyFalse();
+		Py_RETURN_FALSE;
 
 	if ( !checkArgStr( 0 ) )
 	{
@@ -468,8 +460,7 @@ static PyObject* wpItem_deltag( wpItem* self, PyObject* args )
 	QString key = PyString_AsString( PyTuple_GetItem( args, 0 ) );
 	self->pItem->removeTag( key );
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 /*
 	\method item.ischar
@@ -480,7 +471,7 @@ static PyObject* wpItem_ischar( wpItem* self, PyObject* args )
 {
 	Q_UNUSED( args );
 	Q_UNUSED( self );
-	return PyFalse();
+	Py_RETURN_FALSE;
 }
 /*
 	\method item.isitem
@@ -491,7 +482,7 @@ static PyObject* wpItem_isitem( wpItem* self, PyObject* args )
 {
 	Q_UNUSED( args );
 	Q_UNUSED( self );
-	return PyTrue();
+	Py_RETURN_TRUE;
 }
 
 /*!
@@ -511,7 +502,7 @@ static PyObject* wpItem_isitem( wpItem* self, PyObject* args )
 static PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 {
 	if ( !self->pItem || self->pItem->free )
-		return PyFalse();
+		Py_RETURN_FALSE;
 
 	if ( ( !checkArgObject( 1 ) && !checkArgCoord( 1 ) ) || !checkArgInt( 0 ) )
 	{
@@ -557,8 +548,7 @@ static PyObject* wpItem_movingeffect( wpItem* self, PyObject* args )
 	else
 		self->pItem->effect( id, pos, fixedDirection, explodes, speed, hue, renderMode );
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*!
@@ -597,8 +587,7 @@ static PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 	effect->setExpiretime_ms( expiretime );
 	Timers::instance()->insert( effect );
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*!
@@ -608,7 +597,7 @@ static PyObject* wpItem_getoutmostitem( wpItem* self, PyObject* args )
 {
 	Q_UNUSED( args );
 	if ( !self->pItem || self->pItem->free )
-		return PyFalse();
+		Py_RETURN_FALSE;
 
 	return PyGetItemObject( self->pItem->getOutmostItem() );
 }
@@ -620,7 +609,7 @@ static PyObject* wpItem_getoutmostchar( wpItem* self, PyObject* args )
 {
 	Q_UNUSED( args );
 	if ( !self->pItem || self->pItem->free )
-		return PyFalse();
+		Py_RETURN_FALSE;
 
 	return PyGetCharObject( self->pItem->getOutmostChar() );
 }
@@ -656,7 +645,7 @@ static PyObject* wpItem_getname( wpItem* self, PyObject* args )
 static PyObject* wpItem_additem( wpItem* self, PyObject* args )
 {
 	if ( !self->pItem || self->pItem->free )
-		return PyFalse();
+		Py_RETURN_FALSE;
 
 	if ( !checkArgItem( 0 ) )
 	{
@@ -701,8 +690,7 @@ static PyObject* wpItem_additem( wpItem* self, PyObject* args )
 		self->pItem->addItem( pItem, randomPos, handleWeight );
 	}
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*!
@@ -737,13 +725,11 @@ static PyObject* wpItem_multi( wpItem* self, PyObject* args )
 	/*
 	if( self->pItem->free )
 	{
-		Py_INCREF( Py_None );
-		return Py_None;
+		Py_RETURN_NONE;
 	}
 	return PyGetMultiObject( dynamic_cast< cMulti* >( FindItemBySerial( self->pItem->multis() ) )
 	*/
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -761,8 +747,7 @@ static PyObject* wpItem_lightning( wpItem* self, PyObject* args )
 
 	self->pItem->lightning( hue );
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -775,8 +760,7 @@ static PyObject* wpItem_resendtooltip( wpItem* self, PyObject* args )
 	if ( !self->pItem->free )
 		self->pItem->resendTooltip();
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -792,8 +776,7 @@ static PyObject* wpItem_dupe( wpItem* self, PyObject* args )
 		return item->getPyObject();
 	}
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -909,8 +892,7 @@ static PyObject* wpItem_removeevent( wpItem* self, PyObject* args )
 		return 0;
 	}
 	self->pItem->removeEvent( event );
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -936,8 +918,7 @@ static PyObject* wpItem_addevent( wpItem* self, PyObject* args )
 	}
 
 	self->pItem->addEvent( script );
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -1027,8 +1008,7 @@ static PyObject* wpItem_say( wpItem* self, PyObject* args, PyObject* keywds )
 		self->pItem->talk( getArgStr( 0 ), color );
 	}
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 /*
@@ -1093,8 +1073,7 @@ static PyObject* wpItem_effect( wpItem* self, PyObject* args )
 
 	self->pItem->pos().effect( id, speed, duration, hue, renderMode );
 
-	Py_INCREF( Py_None );
-	return Py_None;
+	Py_RETURN_NONE;
 }
 
 static PyMethodDef wpItemMethods[] =
@@ -1191,8 +1170,7 @@ static PyObject* wpItem_getAttr( wpItem* self, char* name )
 
 		if ( !multi )
 		{
-			Py_INCREF( Py_None );
-			return Py_None;
+			Py_RETURN_NONE;
 		}
 
 		const QPtrList<cUObject>& objects = multi->getObjects();

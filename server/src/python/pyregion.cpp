@@ -61,6 +61,7 @@ static PyTypeObject wpRegionType =
 	0,
 	( getattrfunc ) wpRegion_getAttr,
 	( setattrfunc ) wpRegion_setAttr,
+	0,
 
 };
 
@@ -209,8 +210,7 @@ PyObject* PyGetRegionObject( cTerritory* pRegion )
 {
 	if ( !pRegion )
 	{
-		Py_INCREF( Py_None );
-		return Py_None;
+		Py_RETURN_NONE;
 	}
 
 	wpRegion* returnVal = PyObject_New( wpRegion, &wpRegionType );

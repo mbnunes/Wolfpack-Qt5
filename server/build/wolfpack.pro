@@ -14,7 +14,6 @@ unix {
 
 	# Common unix settings
 	# Lets try to figure some paths
-	message("HINT: use ./configure script!")
 
 	CONFIG += console
 
@@ -41,12 +40,14 @@ MOC_DIR = obj
 
 INCLUDEPATH += sqlite 
 win32:DEFINES -= UNICODE
-#CONFIG += precompile_header
-# Precompiled header
-precompile_header:PRECOMPILED_HEADER = wolfpack_pch.h
 
 # Include configure's settings
-include(config.pri)
+!include(config.pri) {
+	message("HINT: use ./configure script!")
+}
+
+# Precompiled header
+precompile_header:PRECOMPILED_HEADER = wolfpack_pch.h
 
 # Common files
 

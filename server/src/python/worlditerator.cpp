@@ -65,7 +65,7 @@ static PyObject* wpItemIterator_getAttr( wpItemIterator* self, char* name )
 	else if ( !strcmp( name, "next" ) )
 		return PyGetItemObject( self->iter->next() );
 
-	return PyFalse();
+	Py_RETURN_FALSE;
 }
 
 static PyTypeObject wpItemIteratorType =
@@ -137,7 +137,7 @@ static PyObject* wpCharIterator_getAttr( wpCharIterator* self, char* name )
 	else if ( !strcmp( name, "next" ) )
 		return PyGetCharObject( self->iter->next() );
 
-	return PyFalse();
+	Py_RETURN_FALSE;
 }
 
 static PyTypeObject wpCharIteratorType =

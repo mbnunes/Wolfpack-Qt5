@@ -217,11 +217,17 @@ LRESULT CALLBACK AboutDialog( HWND hwnd, unsigned int msg, WPARAM wparam, LPARAM
 			QString pythonBuild = Py_GetVersion();
 			pythonBuild = pythonBuild.left( pythonBuild.find( ' ' ) );
 
-				#if defined(Py_ENABLE_SHARED)
+			#if defined(Py_ENABLE_SHARED)
 			credits += QString( "Python: %1 Shared (Compiled: %2)\n" ).arg( pythonBuild ).arg( PY_VERSION );
-				#else
+			#else
 			credits += QString( "Python: %1 Static (Compiled: %2)\n" ).arg( pythonBuild ).arg( PY_VERSION );
-				#endif
+			#endif
+			credits += "SQLite Support: enabled\n";
+			#if defined (MYSQL_DRIVER)
+			credits += "MySQL Support.: enabled\n";
+			#else
+			credits += "MySQL Support.: disabled\n";
+			#endif
 
 			cr.cpMin = GetWindowTextLength( richtext );
 			cr.cpMax = cr.cpMin;
@@ -778,7 +784,7 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 		{
 			char message[512];
 
-			unsigned int msecs, seconds, minutes, hours, days;
+			unsigned int seconds, minutes, hours, days;
 			days = Server::instance()->time() / 86400000;
 			hours = ( Server::instance()->time() % 86400000 ) / 3600000;
 			minutes = ( ( Server::instance()->time() % 86400000 ) % 3600000 ) / 60000;

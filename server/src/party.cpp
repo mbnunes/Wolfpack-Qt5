@@ -456,7 +456,16 @@ static int wpParty_compare( PyObject* a, PyObject* b );
 PyTypeObject wpPartyType =
 {
 	PyObject_HEAD_INIT( NULL )
-	0, "party", sizeof( wpPartyType ), 0, wpDealloc, 0, ( getattrfunc ) wpParty_getAttr, ( setattrfunc ) wpParty_setAttr, wpParty_compare, 
+	0, 
+	"party", 
+	sizeof( wpPartyType ), 
+	0, 
+	wpDealloc, 
+	0, 
+	( getattrfunc ) wpParty_getAttr, 
+	( setattrfunc ) wpParty_setAttr, 
+	wpParty_compare,
+	0,
 };
 
 static int wpParty_compare( PyObject* a, PyObject* b )
@@ -489,8 +498,7 @@ static PyObject* wpParty_tellsingle( wpParty* self, PyObject* args )
 
 		PyMem_Free( message );
 
-		Py_INCREF(Py_None);
-		return Py_None;
+		Py_RETURN_NONE;
 	}
 
 	return 0;
@@ -516,7 +524,7 @@ static PyObject* wpParty_tellall( wpParty* self, PyObject* args )
 
 		PyMem_Free( message );
 
-		return PyTrue();
+		Py_RETURN_TRUE;
 	}
 
 	return 0;
