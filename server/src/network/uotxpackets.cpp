@@ -32,6 +32,7 @@
 #include "uopacket.h"
 #include "../items.h"
 #include "../coord.h"
+#include "../basechar.h"
 
 // Library Includes
 #include <qstringlist.h>
@@ -172,8 +173,8 @@ void cUOTxUnicodeSpeech::setText( const QString &data )
 void cUOTxConfirmLogin::fromChar( P_CHAR pChar )
 {
 	setSerial( pChar->serial() );
-	setBody( pChar->id() );
-	setDirection( pChar->dir() );
+	setBody( pChar->bodyID() );
+	setDirection( pChar->direction() );
 	setX( pChar->pos().x );
 	setY( pChar->pos().y );
 	setZ( pChar->pos().z );
@@ -252,7 +253,7 @@ void cUOTxDenyMove::setCoord( Coord_cl coord )
 void cUOTxDenyMove::fromChar( P_CHAR pChar )
 {
 	setCoord( pChar->pos() );
-	setDirection( pChar->dir() );
+	setDirection( pChar->direction() );
 }
 
 void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
@@ -262,19 +263,19 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 	setY( pChar->pos().y );
 	setZ( pChar->pos().z );
 	setHue( pChar->skin() );
-	setBody( pChar->id() );
+	setBody( pChar->bodyID() );
 	
 	// If he's running we need to take that into account here
 	// ->running() is greater than zero in that case
-	setDirection( pChar->running() ? pChar->dir()|0x80 : pChar->dir() );
+	setDirection( pChar->running() ? pChar->direction()|0x80 : pChar->direction() );
 
-	if( pChar->war() )
+	if( pChar->isAtWar() )
 		setFlag( 0x40 );
 
-	if( pChar->hidden() )
+	if( pChar->isHidden() )
 		setFlag( flag() | 0x80 );
 
-	if( pChar->dead() && !pChar->war() )
+	if( pChar->isDead() && !pChar->isAtWar() )
 		setFlag( flag() | 0x80 );
 
 	if( pChar->poisoned() )
@@ -284,20 +285,20 @@ void cUOTxUpdatePlayer::fromChar( P_CHAR pChar )
 void cUOTxDrawChar::fromChar( P_CHAR pChar )
 {
 	setSerial( pChar->serial() );
-	setModel( pChar->id() );
+	setModel( pChar->bodyID() );
 	setX( pChar->pos().x );
 	setY( pChar->pos().y );
 	setZ( pChar->pos().z );
-	setDirection( pChar->dir() );
+	setDirection( pChar->direction() );
 	setColor( pChar->skin() );
 
-	if( pChar->war() )
+	if( pChar->isAtWar() )
 		setFlag( 0x40 );
 
-	if( pChar->hidden() || ( pChar->account() && !pChar->socket() ) )
+	if( pChar->isHidden() || ( pChar->account() && !pChar->socket() ) )
 		setFlag( flag() | 0x80 );
 
-	if( pChar->dead() && !pChar->war() )
+	if( pChar->isDead() && !pChar->isAtWar() )
 		setFlag( flag() | 0x80 );
 
 	if( pChar->poisoned() )
@@ -306,9 +307,9 @@ void cUOTxDrawChar::fromChar( P_CHAR pChar )
 	// Add our equipment - This does not seem to work !?
 	bool layers[0x20] = {0,};
 
-	cChar::ContainerContent container(pChar->content());
-	cChar::ContainerContent::const_iterator it (container.begin());
-	cChar::ContainerContent::const_iterator end(container.end());
+	cBaseChar::ItemContainer container(pChar->content());
+	cBaseChar::ItemContainer::const_iterator it (container.begin());
+	cBaseChar::ItemContainer::const_iterator end(container.end());
 	for (; it != end; ++it )
 	{
 		P_ITEM pItem = *it;
@@ -347,16 +348,16 @@ void cUOTxCharEquipment::fromItem( P_ITEM pItem )
 void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 {
 	setSerial( pChar->serial() );
-	setBody( pChar->id() );
+	setBody( pChar->bodyID() );
 	setSkin( pChar->skin() );
 	
-	if( pChar->war() )
+	if( pChar->isAtWar() )
 		setFlag( 0x40 );
 
-	if( pChar->hidden() )
+	if( pChar->isHidden() )
 		setFlag( flag() | 0x80 );
 
-	if( pChar->dead() && !pChar->war() )
+	if( pChar->isDead() && !pChar->isAtWar() )
 		setFlag( flag() | 0x80 );
 
 	if( pChar->poisoned() )
@@ -365,7 +366,7 @@ void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
 	setX( pChar->pos().x );
 	setY( pChar->pos().y );
 	setZ( pChar->pos().z );
-	setDirection( pChar->dir() );
+	setDirection( pChar->direction() );
 	//void setFlags( Q_UINT8 data ) { rawPacket[ 10 ] = data; } // // 10 = 0=normal, 4=poison, 0x40=attack, 0x80=hidden CHARMODE_WAR
 }
 
@@ -405,13 +406,13 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 	else
 		setName( pChar->name()+( pChar->title().isEmpty() ? "" : ", "+pChar->title() ) );
 
-	if( pChar->war() )
+	if( pChar->isAtWar() )
 		setFlag( 0x40 );
 
-	if( pChar->hidden() )
+	if( pChar->isHidden() )
 		setFlag( flag() | 0x80 );
 
-	if( pChar->dead() && !pChar->war() )
+	if( pChar->isDead() && !pChar->isAtWar() )
 		setFlag( flag() | 0x80 );
 
 	if( pChar->poisoned() )

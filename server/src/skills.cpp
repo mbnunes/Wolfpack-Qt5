@@ -700,7 +700,7 @@ void cSkills::RandomSteal( cUOSocket* socket, SERIAL victim )
 		}
 		
 		if( pVictim->isInnocent() && pChar->attackerSerial() != pVictim->serial() && GuildCompare( pChar, pVictim ) == 0)
-			pChar->criminal(); // Blue and not attacker and not guild
+			pChar->makeCriminal(); // Blue and not attacker and not guild
 
 		// Our Victim always notices it.
 		if( pVictim->socket() )
@@ -862,31 +862,31 @@ void cSkills::Meditation( cUOSocket *socket )
 	if (Skills->GetAntiMagicalArmorDefence(pc_currchar)>15) // blackwind armor affect fix
 	{
 		socket->sysMessage( tr("Regenerative forces cannot penetrate your armor."));
-		pc_currchar->setMed(false);
+		pc_currchar->setMeditating(false);
 		return;
 	}
 	else if (pc_currchar->getWeapon() || pc_currchar->getShield())
 	{
 		socket->sysMessage( tr("You cannot meditate with a weapon or shield equipped!"));
-		pc_currchar->setMed( false );
+		pc_currchar->setMeditating( false );
 		return;
 	}
-	else if ( pc_currchar->mn() == pc_currchar->in() )
+	else if ( pc_currchar->mana() == pc_currchar->intelligence() )
 	{
 		socket->sysMessage( tr("You are at peace."));
-		pc_currchar->setMed( false );
+		pc_currchar->setMeditating( false );
 		return;
 	}
 	else if (!pc_currchar->checkSkill( MEDITATION, 0, 1000))
 	{
 		socket->sysMessage( tr("You cannot focus your concentration."));
-		pc_currchar->setMed( false );
+		pc_currchar->setMeditating( false );
 		return;
 	}
 	else
 	{
 		socket->sysMessage( tr("You enter a meditative trance."));
-		pc_currchar->setMed( true );
+		pc_currchar->setMeditating( true );
 		pc_currchar->soundEffect(0x00f9, false);
 		return;
 	}
@@ -907,16 +907,16 @@ void cSkills::Persecute ( cUOSocket* socket )
 	if( target->isGM() )
 		return;
 
-	int decrease = ( pc_currchar->in() / 10 ) + 3;
+	int decrease = ( pc_currchar->intelligence() / 10 ) + 3;
 
-	if((pc_currchar->skilldelay()<=uiCurrentTime) || pc_currchar->isGM())
+	if((pc_currchar->skillDelay()<=uiCurrentTime) || pc_currchar->isGM())
 	{
-		if(((rand()%20)+pc_currchar->in())>45) //not always
+		if(((rand()%20)+pc_currchar->intelligence())>45) //not always
 		{
-			if( target->mn() <= decrease )
-				target->setMn(0);
+			if( target->mana() <= decrease )
+				target->setMana(0);
 			else 
-				target->setMn(target->mn() - decrease);
+				target->setMana(target->mana() - decrease);
 			socket->sysMessage(tr("Your spiritual forces disturb the enemy!"));
 
 			if ( target->socket() )
@@ -1488,7 +1488,7 @@ bool cSkills::advanceStats( P_CHAR pChar, UINT16 skill ) const
 		{
 			if( advStrength[i].base <= realStr && ( advStrength[ i ].success >= RandomNum( 0, 10000 ) ) )
 			{
-				pChar->setSt( pChar->st() + 1 );
+				pChar->setStrength( pChar->strength() + 1 );
 				gained = true;
 				break;
 			}
@@ -1501,7 +1501,7 @@ bool cSkills::advanceStats( P_CHAR pChar, UINT16 skill ) const
 		{
 			if( advDexterity[i].base <= realDex && ( advDexterity[ i ].success >= RandomNum( 0, 10000 ) ) )
 			{
-				pChar->setDex( pChar->realDex() + 1 );
+				pChar->setDexterity( pChar->dexterity() + 1 );
 				gained = true;
 				break;
 			}
@@ -1514,7 +1514,7 @@ bool cSkills::advanceStats( P_CHAR pChar, UINT16 skill ) const
 		{
 			if( advIntelligence[i].base <= realInt && ( advIntelligence[ i ].success >= RandomNum( 0, 10000 ) ) )
 			{
-				pChar->setIn( pChar->in() + 1 );
+				pChar->setIntelligence( pChar->intelligence() + 1 );
 				gained = true;
 				break;
 			}
@@ -1526,9 +1526,9 @@ bool cSkills::advanceStats( P_CHAR pChar, UINT16 skill ) const
 	if( gained )
 	{
 		// Atrohpy for Stats needs to be implemented here
-
-		if( pChar->socket() )
-			pChar->socket()->sendStatWindow();
+		P_PLAYER pc = dynamic_cast<P_PLAYER>(pChar);
+		if( pc && pc->socket() )
+			pc->socket()->sendStatWindow();
 	}
 
 	return gained;

@@ -49,6 +49,7 @@
 #include "skills.h"
 #include "mapobjects.h"
 #include "magic.h"
+#include "basechar.h"
 
 #include <algorithm>
 #include <typeinfo>
@@ -103,7 +104,7 @@ void explodeitem(cUOSocket* s, P_ITEM pi)
 		P_CHAR pc = ri.GetData();
 		if (pc != NULL)
 		{
-			if (pc->isInvul() || pc->npcaitype()==17)		// don't affect vendors
+			if ( pc->isInvulnerable() )		// don't affect vendors
 				continue;
 			if(pc->isGM() || (pc->isPlayer() && !pc->online()))
 				continue;
@@ -113,11 +114,11 @@ void explodeitem(cUOSocket* s, P_ITEM pi)
 			if ((dx<=len)&&(dy<=len)&&(dz<=len))
 			{
 //				pc->hp-=dmg+(2-QMIN(dx,dy));
-				tempshort = pc->hp();
+				tempshort = pc->hitpoints();
 				tempshort -= dmg+(2-QMIN(dx,dy));
-				pc->setHp( tempshort );
+				pc->setHitpoints( tempshort );
 				pc->updateHealth();
-				if (pc->hp()<=0)
+				if (pc->hitpoints()<=0)
 				{
 					pc->kill();
 				}
@@ -239,27 +240,27 @@ void cTmpEff::On(P_CHAR pc)
 	case 2: pc->setFixedLight( SrvParams->worldBrightLevel() );break;
 	case 3:	pc->chgDex(-1 * this->more1);	break;
 //	case 4:	pc->in-=this->more1;		break;
-	case 4: pc->setIn( (tempsignedshort = pc->in() ) - this->more1 ); break;
+	case 4: pc->setIntelligence( (tempsignedshort = pc->intelligence() ) - this->more1 ); break;
 //	case 5:	pc->st-=this->more1;		break;
-	case 5: pc->setSt( (tempsignedshort = pc->st() ) - this->more1 );  break;
+	case 5: pc->setStrength( (tempsignedshort = pc->strength() ) - this->more1 );  break;
 	case 6:	pc->chgDex(this->more1);	break;
 //	case 7:	pc->in+=this->more1;		break;
-	case 7: pc->setIn( (tempsignedshort = pc->in() ) + this->more1 );  break;
+	case 7: pc->setIntelligence( (tempsignedshort = pc->intelligence() ) + this->more1 );  break;
 //	case 8:	pc->st+=this->more1;		break;
-	case 8: pc->setSt( (tempsignedshort = pc->st() ) + this->more1 );	break;
+	case 8: pc->setStrength( (tempsignedshort = pc->strength() ) + this->more1 );	break;
 	case 11:
 //		pc->st+=this->more1;
-		pc->setSt( ( tempsignedshort = pc->st() ) + this->more1 );		
+		pc->setStrength( ( tempsignedshort = pc->strength() ) + this->more1 );		
 		pc->chgDex(this->more2);
 //		pc->in+=this->more3;
-		pc->setIn( pc->in() + this->more3 );
+		pc->setIntelligence( pc->intelligence() + this->more3 );
 		break;
 	case 12:
 //		pc->st-=this->more1;
-		pc->setSt( ( tempsignedshort = pc->st() ) - this->more1 );		
+		pc->setStrength( ( tempsignedshort = pc->strength() ) - this->more1 );		
 		pc->chgDex(-1 * this->more2);
 //		pc->in-=this->more3;
-		pc->setIn( pc->in() - this->more3 );
+		pc->setIntelligence( pc->intelligence() - this->more3 );
 		break;
 	}
 }
@@ -278,27 +279,27 @@ void cTmpEff::Off(P_CHAR pc)
 	case 2:	pc->setFixedLight('\xFF');		break;
 	case 3:	pc->chgDex(this->more1);	break;
 //	case 4:	pc->in+=this->more1;		break;
-	case 4: pc->setIn( ( tempsignedshort = pc->in() ) + this->more1 );		break;
+	case 4: pc->setIntelligence( ( tempsignedshort = pc->intelligence() ) + this->more1 );		break;
 //	case 5:	pc->st+=this->more1;		break;
-	case 5: pc->setSt( ( tempsignedshort = pc->st() ) + this->more1 );		break;
+	case 5: pc->setStrength( ( tempsignedshort = pc->strength() ) + this->more1 );		break;
 	case 6:	pc->chgDex(-1 * this->more1);break;
 //	case 7:	pc->in-=this->more1;		break;
-	case 7: pc->setIn( ( tempsignedshort = pc->in() ) - this->more1 );		break;
+	case 7: pc->setIntelligence( ( tempsignedshort = pc->intelligence() ) - this->more1 );		break;
 //	case 8:	pc->st-=this->more1;		break;
-	case 8: pc->setSt( ( tempsignedshort = pc->st() ) - this->more1 );		break;
+	case 8: pc->setStrength( ( tempsignedshort = pc->strength() ) - this->more1 );		break;
 	case 11:
 //		pc->st-=this->more1;
-		pc->setSt( ( tempsignedshort = pc->st() ) - this->more1 );		
+		pc->setStrength( ( tempsignedshort = pc->strength() ) - this->more1 );		
 		pc->chgDex(-1 * this->more2);
 //		pc->in-=this->more3;
-		pc->setIn( (tempsignedshort = pc->in() ) - this->more3 );
+		pc->setIntelligence( (tempsignedshort = pc->intelligence() ) - this->more3 );
 		break;
 	case 12:
 //		pc->st+=this->more1;
-		pc->setSt( ( tempsignedshort = pc->st() ) + this->more1 );		
+		pc->setStrength( ( tempsignedshort = pc->strength() ) + this->more1 );		
 		pc->chgDex(this->more2);
 //		pc->in+=this->more3;
-		pc->setIn( ( tempsignedshort = pc->in() ) + this->more3 );
+		pc->setIntelligence( ( tempsignedshort = pc->intelligence() ) + this->more3 );
 		break;
 	}
 }
@@ -316,27 +317,27 @@ void cTmpEff::Reverse()
 	case 2:	pc_s->setFixedLight('\xFF');break;
 	case 3:	pc_s->chgDex(more1);	break;
 //	case 4:	pc_s->in+=more1;		break;
-	case 4: pc_s->setIn( ( tempsignedshort = pc_s->in() ) + more1 );		break;
+	case 4: pc_s->setIn( ( tempsignedshort = pc_s->intelligence() ) + more1 );		break;
 //	case 5:	pc_s->st+=more1;		break;
-	case 5: pc_s->setSt( ( tempsignedshort = pc_s->st() ) + more1 );		break;
+	case 5: pc_s->setSt( ( tempsignedshort = pc_s->strength() ) + more1 );		break;
 	case 6:	pc_s->chgDex(-1 * more1);break;
 //	case 7:	pc_s->in-=more1;		break;
-	case 7: pc_s->setIn( ( tempsignedshort = pc_s->in() ) - more1 );		break;
+	case 7: pc_s->setIn( ( tempsignedshort = pc_s->intelligence() ) - more1 );		break;
 //	case 8:	pc_s->st-=more1;		break;
-	case 8: pc_s->setSt( ( tempsignedshort = pc_s->st() ) - more1 );		break;
+	case 8: pc_s->setSt( ( tempsignedshort = pc_s->strength() ) - more1 );		break;
 	case 11:
 //		pc_s->st-=more1;
-		pc_s->setSt( ( tempsignedshort = pc_s->st() ) - more1 );		
+		pc_s->setSt( ( tempsignedshort = pc_s->strength() ) - more1 );		
 		pc_s->chgDex(-1 * more2);
 //		pc_s->in-=more3;
-		pc_s->setIn( ( tempsignedshort = pc_s->in() ) - more3 );
+		pc_s->setIn( ( tempsignedshort = pc_s->intelligence() ) - more3 );
 		break;
 	case 12:
 //		pc_s->st+=more1;
-		pc_s->setSt( ( tempsignedshort = pc_s->st() ) + more1 );		
+		pc_s->setSt( ( tempsignedshort = pc_s->strength() ) + more1 );		
 		pc_s->chgDex(more2);
 //		pc_s->in+=more3;
-		pc_s->setIn( ( tempsignedshort = pc_s->in() ) + more3 );
+		pc_s->setIn( ( tempsignedshort = pc_s->intelligence() ) + more3 );
 		break;
 
 	case 18: // Polymorph spell
@@ -418,34 +419,34 @@ void cTmpEff::Expire()
 		break;
 	case 4:
 //		pc_s->in += more1;
-		pc_s->setIn( (tempsignedshort = pc_s->in() ) + more1 );
+		pc_s->setIn( (tempsignedshort = pc_s->intelligence() ) + more1 );
 		if( socket )
 			socket->updateMana();
 		break;
 	case 5:
 //		pc_s->st += more1;
-		pc_s->setSt( ( tempsignedshort = pc_s->st() ) + more1 );		
+		pc_s->setSt( ( tempsignedshort = pc_s->strength() ) + more1 );		
 		// TODO: Update the health-bars for all people in range (It *HAS* changed here)
         if( socket )
 			socket->updateHealth();
 		break;
 	case 6:
 		pc_s->chgDex( -1 * more1 );
-		pc_s->setStm( QMIN(pc_s->stm(), pc_s->effDex()) );
+		pc_s->setStamina( QMIN(pc_s->stamina(), pc_s->dexterity()) );
 		if( socket )
 			socket->updateStamina();
 		break;
 	case 7:
 //		pc_s->in-=more1;
-		pc_s->setIn( (tempsignedshort = pc_s->in() ) - more1 );
-		pc_s->setMn( QMIN(pc_s->mn(), pc_s->in()) );
+		pc_s->setIntelligence( (tempsignedshort = pc_s->intelligence() ) - more1 );
+		pc_s->setMana( QMIN(pc_s->mana(), pc_s->intelligence()) );
 		if( socket )
 			socket->updateMana();
 		break;
 	case 8:
 //		pc_s->st-=more1;
-		pc_s->setSt( ( tempsignedshort = pc_s->st() ) + more1 );	
-		pc_s->setHp( QMIN(pc_s->hp(), pc_s->st()) );
+		pc_s->setStrength( ( tempsignedshort = pc_s->strength() ) + more1 );	
+		pc_s->setHitpoints( QMIN(pc_s->hitpoints(), pc_s->strength()) );
 		if( socket )
 			socket->updateHealth();
 		break;
@@ -469,22 +470,22 @@ void cTmpEff::Expire()
 		break;
 	case 11:
 //		pc_s->st-=more1;
-		pc_s->setSt( ( tempsignedshort = pc_s->st() ) - more1 );
-		pc_s->setHp( QMIN(pc_s->hp(), pc_s->st()) );
-		pc_s->chgDex(-1 * more2);
-		pc_s->setStm( QMIN(pc_s->stm(), pc_s->effDex()) );
+		pc_s->setStrength( ( tempsignedshort = pc_s->strength() ) - more1 );
+		pc_s->setHp( QMIN(pc_s->hp(), pc_s->strength()) );
+		pc_s->setDexterity(-1 * more2);
+		pc_s->setStamina( QMIN(pc_s->stm(), pc_s->effDex()) );
 //		pc_s->in-=more3;
-		pc_s->setIn( ( tempsignedshort = pc_s->in() ) - more3 );
-		pc_s->setMn( QMIN(pc_s->mn(), pc_s->in()) );
+		pc_s->setIn( ( tempsignedshort = pc_s->intelligence() ) - more3 );
+		pc_s->setMana( QMIN(pc_s->mn(), pc_s->intelligence()) );
 		if( socket )
 			socket->sendStatWindow();
 		break;
 	case 12:
 //		pc_s->st+=more1;
-		pc_s->setSt( ( tempsignedshort = pc_s->st() ) + more1 );
-		pc_s->chgDex(more2);
+		pc_s->setStrength( ( tempsignedshort = pc_s->strength() ) + more1 );
+		pc_s->setDexterity(more2);
 //		pc_s->in+=more3;
-		pc_s->setIn( ( tempsignedshort = pc_s->in() ) + more3 );
+		pc_s->setIntelligence( ( tempsignedshort = pc_s->intelligence() ) + more3 );
 		if( socket )
 			socket->sendStatWindow();
 		break;
@@ -695,7 +696,7 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		if (pc_dest->effDex()<more1)
 			more1=pc_dest->effDex();
 		pc_dest->chgDex(-1 * more1);
-		pc_dest->setStm( QMIN(pc_dest->stm(), pc_dest->effDex()) );
+		pc_dest->setStamina( QMIN(pc_dest->stm(), pc_dest->effDex()) );
 		if( mSock )
 			mSock->updateStamina();
 		pTE->setExpiretime_s(pc_source->skillValue(MAGERY)/10);
@@ -705,10 +706,10 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		break;
 
 	case 4:
-		if (pc_dest->in()<more1)
-			more1=pc_dest->in();
-		pc_dest->setIn( (tempsignedshort = pc_dest->in() ) - more1 );
-		pc_dest->setMn( QMIN(pc_dest->mn(), pc_dest->in()) );
+		if (pc_dest->intelligence()<more1)
+			more1=pc_dest->intelligence();
+		pc_dest->setIn( (tempsignedshort = pc_dest->intelligence() ) - more1 );
+		pc_dest->setMana( QMIN(pc_dest->mn(), pc_dest->intelligence()) );
 		if( mSock )
 			mSock->updateMana();
 		pTE->setExpiretime_s(pc_source->skillValue(MAGERY)/10);
@@ -718,10 +719,10 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		break;
 
 	case 5:
-		if (pc_dest->st()<more1)
-			more1=pc_dest->st();
-		pc_dest->setSt( ( tempsignedshort = pc_dest->st() ) - more1 );
-		pc_dest->setHp( QMIN(pc_dest->hp(), pc_dest->st()) );
+		if (pc_dest->strength()<more1)
+			more1=pc_dest->strength();
+		pc_dest->setSt( ( tempsignedshort = pc_dest->strength() ) - more1 );
+		pc_dest->setHp( QMIN(pc_dest->hp(), pc_dest->strength()) );
 		if( mSock )
 			mSock->updateHealth();
 		pTE->setExpiretime_s(pc_source->skillValue(MAGERY)/10);
@@ -750,9 +751,9 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		break;
 
 	case 7:
-		if (pc_dest->in()+more1>255)
-			more1=pc_dest->in()-255;
-		pc_dest->setIn( (tempsignedshort = pc_dest->in() ) + more1 );	
+		if (pc_dest->intelligence()+more1>255)
+			more1=pc_dest->intelligence()-255;
+		pc_dest->setIn( (tempsignedshort = pc_dest->intelligence() ) + more1 );	
 		if( mSock )
 			mSock->updateMana();
 		pTE->setExpiretime_s(pc_source->skillValue(MAGERY)/10);
@@ -762,9 +763,9 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		break;
 	
 	case 8:
-		if (pc_dest->st()+more1>255)
-			more1=pc_dest->st()-255;
-		pc_dest->setSt( ( tempsignedshort = pc_dest->st() ) + more1 ); 
+		if (pc_dest->strength()+more1>255)
+			more1=pc_dest->strength()-255;
+		pc_dest->setSt( ( tempsignedshort = pc_dest->strength() ) + more1 ); 
 		if( mSock )
 			mSock->updateHealth();
 
@@ -833,11 +834,11 @@ bool cTempEffects::add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 		break;
 
 	case 45: // special sword use concussion intelligence loss -Frazurbluu-
-		if (pc_dest->in()<more1)
-			more1=pc_dest->in();
+		if (pc_dest->intelligence()<more1)
+			more1=pc_dest->intelligence();
 //		pc_dest->in-=more1;
-		pc_dest->setIn( ( tempsignedshort = pc_dest->in() ) - more1 );
-		pc_dest->setMn( QMIN( pc_dest->mn(), pc_dest->in() ) );
+		pc_dest->setIn( ( tempsignedshort = pc_dest->intelligence() ) - more1 );
+		pc_dest->setMana( QMIN( pc_dest->mn(), pc_dest->intelligence() ) );
 		if( mSock )
 			mSock->updateMana();
 		pTE->setExpiretime_s(30);

@@ -35,6 +35,7 @@
 #include "../defines.h"
 #include "../globals.h"
 #include "../wolfpack.h"
+#include "../basechar.h"
 #include "utilities.h"
 
 typedef struct {
