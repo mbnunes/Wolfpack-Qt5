@@ -9,7 +9,7 @@ PROJECT = wolfpack
 TARGET = wolfpack
 TEMPLATE = app
 CONFIG += qt console thread exceptions rtti
-MAKEFILE_GENERATOR = MINGW
+#MAKEFILE_GENERATOR = MINGW
 
 unix {
 
@@ -60,26 +60,29 @@ win32-borland:LIBS += ws2_32.lib
 # Common files
 
 HEADERS = \
-	Timing.h \
-	TmpEff.h \
-	Trade.h \
 	accounts.h \
-	basics.h \
 	basechar.h \
 	basedef.h \
-	coord.h \
+	baseregion.h \
+	basics.h \
 	combat.h \
 	commands.h \
+	config.h \
 	console.h \
+	contextmenu.h \
+	coord.h \
 	corpse.h \
-	getopts.h \
-	dbl_single_click.h \
+	customtags.h \
 	dbdriver.h \
+	dbl_single_click.h \
 	definable.h \
 	defines.h \
+	definitions.h \
 	dragdrop.h \
 	encryption.h \
 	exceptions.h \
+	factory.h \
+	getopts.h \
 	globals.h \
 	guilds.h \
 	gumps.h \
@@ -87,60 +90,71 @@ HEADERS = \
 	itemid.h \
 	items.h \
 	log.h \
+	maps.h \
 	md5.h \
+	mulstructs.h \
 	multi.h \
+	multiscache.h \
 	network.h \
 	npc.h \
-	platform.h \
+	pagesystem.h \
+	party.h \
 	persistentbroker.h \
 	persistentobject.h \
-	preferences.h \
+	platform.h \
 	player.h \
+	preferences.h \
+	progress.h \
 	pythonscript.h \
 	resource.h \
 	scriptmanager.h \
 	sectors.h \
+	server.h \
+	singleton.h \
+	skills.h \
 	spawnregions.h \
 	speech.h \
-	config.h \
-	skills.h \
 	structs.h \
 	targetrequests.h \
 	territories.h \
+	tilecache.h \
+	tileflags.h \
+	Timing.h \
+	TmpEff.h \
 	tracking.h \
+	Trade.h \
 	typedefs.h \
 	uobject.h \
+	uotime.h \
 	verinfo.h \
-	wolfpack.h \
-	tilecache.h \
 	walking.h \
+	wolfpack.h \
 	world.h \
-	server.h \
-	definitions.h \
 	wptargetrequests.h
 
 SOURCES = \
-	Timing.cpp \
-	Trade.cpp \
 	accounts.cpp \
 	basechar.cpp \
 	basedef.cpp \
 	basics.cpp \
 	combat.cpp \
 	commands.cpp \
+	config.cpp \
 	console.cpp \
 	contextmenu.cpp \
 	coord.cpp \
 	corpse.cpp \
 	customtags.cpp \
-	dbl_single_click.cpp \
 	dbdriver.cpp \
+	dbl_single_click.cpp \
 	definable.cpp \
+	definitions.cpp \
 	dragdrop.cpp \
+	encryption.cpp \
 	getopts.cpp \
 	globals.cpp \
+	guilds.cpp \
 	gumps.cpp \
-    guilds.cpp \
 	itemid.cpp \
 	items.cpp \
 	log.cpp \
@@ -150,30 +164,29 @@ SOURCES = \
 	multiscache.cpp \
 	network.cpp \
 	npc.cpp \
-	encryption.cpp \
 	party.cpp \
 	persistentbroker.cpp \
 	persistentobject.cpp \
-	preferences.cpp \
 	player.cpp \
+	preferences.cpp \
 	pythonscript.cpp \
-	sectors.cpp \
 	scriptmanager.cpp \
+	sectors.cpp \
+	server.cpp \
 	skills.cpp \
-	speech.cpp \
 	spawnregions.cpp \
-	config.cpp \
+	speech.cpp \
 	targetrequests.cpp \
 	territories.cpp \
 	tilecache.cpp \
+	Timing.cpp \
 	tmpeff.cpp \
 	tracking.cpp \
+	Trade.cpp \
 	uobject.cpp \
-	wolfpack.cpp \
 	walking.cpp \
+	wolfpack.cpp \
 	world.cpp \
-	server.cpp \
-	definitions.cpp \
 	wptargetrequests.cpp
 
 # Twofish Module

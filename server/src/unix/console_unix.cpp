@@ -36,41 +36,41 @@
 #include <qthread.h>
 
 // Wolfpack includes
-#include "console.h"
-#include "getopts.h"
-#include "globals.h"
-#include "wolfpack.h"
+#include "../console.h"
+#include "../getopts.h"
+#include "../globals.h"
+#include "../server.h"
 
 using namespace std;
 
 void resetNonBlockingIo()
 {
-        termios term_caps;
+	termios term_caps;
 
-        if( tcgetattr( STDIN_FILENO, &term_caps ) < 0 )
-                return;
+	if( tcgetattr( STDIN_FILENO, &term_caps ) < 0 )
+		return;
 
-        term_caps.c_lflag |= ICANON;
+	term_caps.c_lflag |= ICANON;
 	term_caps.c_lflag |= ECHO;
 
-        if( tcsetattr( STDIN_FILENO, TCSANOW, &term_caps ) < 0 )
-                return;
+	if( tcsetattr( STDIN_FILENO, TCSANOW, &term_caps ) < 0 )
+		return;
 }
 
 void setNonBlockingIo()
 {
-        termios term_caps;
+	termios term_caps;
 
-        if( tcgetattr( STDIN_FILENO, &term_caps ) < 0 )
-                return;
+	if( tcgetattr( STDIN_FILENO, &term_caps ) < 0 )
+		return;
 
-        term_caps.c_lflag &= ~ICANON;
+	term_caps.c_lflag &= ~ICANON;
 	term_caps.c_lflag &= ~ECHO;
 
-        if( tcsetattr( STDIN_FILENO, TCSANOW, &term_caps ) < 0 )
-                return;
+	if( tcsetattr( STDIN_FILENO, TCSANOW, &term_caps ) < 0 )
+		return;
 
-        setbuf( stdin, NULL );
+	setbuf( stdin, NULL );
 
 	atexit( resetNonBlockingIo );
 }
@@ -79,14 +79,20 @@ void signal_handler(int signal)
 {
 	switch (signal)
 	{
-	case SIGHUP:	queueAction( RELOAD_SCRIPTS );		break;
-	case SIGUSR1:	queueAction( RELOAD_ACCOUNTS );		break;
-	case SIGUSR2:	queueAction( SAVE_WORLD );			break;
-	case SIGTERM:
-		keeprun = 0 ;
-		break;
-	default:
-		break;
+		case SIGHUP:
+			Server::instance()->queueAction( RELOAD_SCRIPTS );
+			break;
+		case SIGUSR1:
+			Server::instance()->queueAction( RELOAD_ACCOUNTS );
+			break;
+		case SIGUSR2:
+			Server::instance()->queueAction( SAVE_WORLD );
+			break;
+		case SIGTERM:
+			Server::instance()->cancel();
+			break;
+		default:
+			break;
 	}
 }
 
@@ -107,7 +113,7 @@ protected:
 
 			if( !Getopts::instance()->isDaemon() )
 			{
-				while( serverState < SHUTDOWN )
+				while( Server::instance()->getState() < SHUTDOWN )
 				{
 					// Do a select operation on the stdin handle and see
 					// if there is any input waiting.
@@ -123,7 +129,7 @@ protected:
 					{
 						char c = fgetc( stdin );
 
-						if( c > 0 && serverState == RUNNING )
+						if( c > 0 && Server::instance()->getState() == RUNNING )
 						{
 							Console::instance()->queueCommand( QChar( c ) );
 						}
@@ -185,13 +191,27 @@ void cConsole::changeColor( enConsoleColors Color )
 	QString cb = "\e[0m";
 	switch( Color )
 	{
-	case WPC_GREEN: cb = "\e[1;32m";		break;
-	case WPC_RED:	cb = "\e[1;31m";		break;
-	case WPC_YELLOW:cb = "\e[1;33m";		break;
-	case WPC_NORMAL:cb = "\e[0m";			break;
-	case WPC_WHITE:	cb = "\e[1;37m";		break;
-	case WPC_BROWN: cb = "\e[0;33m";		break;
-	default: cb = "\e[0m";					break;
+		case WPC_GREEN:
+			cb = "\e[1;32m";
+			break;
+		case WPC_RED:
+			cb = "\e[1;31m";
+			break;
+		case WPC_YELLOW:
+			cb = "\e[1;33m";
+			break;
+		case WPC_NORMAL:
+			cb = "\e[0m";
+			break;
+		case WPC_WHITE:
+			cb = "\e[1;37m";
+			break;
+		case WPC_BROWN:
+			cb = "\e[0;33m";
+			break;
+		default:
+			cb = "\e[0m";
+			break;
 	}
 	send( cb );
 }

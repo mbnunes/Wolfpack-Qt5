@@ -25,9 +25,10 @@
  * Wolfpack Homepage: http://wpdev.sf.net/
  */
 
-
-#include "srvparams.h"
-#include "globals.h"
+#include "../config.h"
+#include "../globals.h"
+#include "../console.h"
+#include "../log.h"
 
 // Qt Includes
 #include <qhostaddress.h>

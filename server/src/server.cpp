@@ -148,11 +148,11 @@ LONG CALLBACK exceptionCatcher(_EXCEPTION_POINTERS *exception) {
 
 	DWORD options = GSTSO_PARAMS|GSTSO_MODULE|GSTSO_SYMBOL|GSTSO_SRCLINE;
 	const char* buff = GetFirstStackTraceString(options, exception);
-    do {
-        message.append(buff);
+	do {
+		message.append(buff);
 		message.append("\n");
-        buff = GetNextStackTraceString(options, exception);
-    } while (buff);
+		buff = GetNextStackTraceString(options, exception);
+	} while (buff);
 
 	throw wpException(" " + message);
 }
@@ -212,7 +212,7 @@ bool cServer::getSecure() {
 bool cServer::run(int argc, char **argv) {
 	bool error = false;
 	setState(STARTUP);
-	
+
 	QApplication app(argc, argv, false);
 	QTranslator translator(0);
 
@@ -261,7 +261,7 @@ bool cServer::run(int argc, char **argv) {
 	while (isRunning()) {
 		// Every 10th cycle we sleep for a while and give other threads processing time.
 		if (++cycles == 10) {
-			cycles = 0;				
+			cycles = 0;
 			_save = PyEval_SaveThread(); // Python threading - start
 			switch (Config::instance()->niceLevel()) {
 				case 0: break;	// very unnice - hog all cpu time
@@ -282,7 +282,7 @@ bool cServer::run(int argc, char **argv) {
 
 		try {
 			Console::instance()->poll();
-			Network::instance()->poll();			
+			Network::instance()->poll();
 			Timing::instance()->poll();
 		} catch(wpException e) {
 			Console::instance()->log(LOG_PYTHON, e.error() + "\n");
@@ -372,7 +372,7 @@ void cServer::unload() {
 	QPtrVector<cComponent> vector;
 	d->components.toVector(&vector);
 	int i;
-	
+
 	for (i = vector.size() - 1; i >= 0; --i) {
 		unload(vector[i]->getName());
 	}
@@ -428,7 +428,7 @@ void cServer::load(const QString &name) {
 		Console::instance()->sendDone();
 	}
 
-	// Find all components depending on this one and load them.	
+	// Find all components depending on this one and load them.
 	QPtrList<cComponent>::iterator it(d->components.begin());
 	for (; it != d->components.end(); ++it) {
 		cComponent *subcomponent = *it;

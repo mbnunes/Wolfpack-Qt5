@@ -68,11 +68,11 @@ Q_INT32 resolveName( const QString& data )
 		hostent* ptrHost = gethostbyname((char*)data.latin1());
  		if(ptrHost != 0)
 		{
-	        char** ptrPtr = ptrHost->h_addr_list;
-                //We only use the first one
-            if(*ptrPtr != NULL)
-            {
-            //      I can think of no other way
+			char** ptrPtr = ptrHost->h_addr_list;
+			//We only use the first one
+			if(*ptrPtr != NULL)
+			{
+				//      I can think of no other way
 	            memcpy(&uiValue,*ptrPtr,sizeof(in_addr)) ;
 		    }
 		}

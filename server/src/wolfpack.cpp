@@ -365,7 +365,7 @@ int main( int argc, char **argv )
 	QWaitCondition niceLevel;
 	unsigned char cycles = 0;
 
-	ScriptManager::instance()->onServerStart();	
+	ScriptManager::instance()->onServerStart();
 	Console::instance()->start(); // Startup Console
 
 	// This is our main loop
