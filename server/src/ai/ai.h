@@ -357,13 +357,13 @@ class Monster_Aggressive : public AbstractAI
 protected:
 	Monster_Aggressive() : AbstractAI()
 	{
-		notorietyOverride_ = 3;
+		notorietyOverride_ = 0x06; // It's a MONSTER, RED damn!
 	}
 
 public:
 	Monster_Aggressive( P_NPC npc ) : AbstractAI( npc )
 	{
-		notorietyOverride_ = 3;
+		notorietyOverride_ = 0x06; // It's a MONSTER, RED damn!
 	}
 
 	virtual void check();

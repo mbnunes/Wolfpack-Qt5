@@ -31,6 +31,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Its no longer possible to equip movable>=2 items with doubleclicks.
   - Added the tilepattern command.
   - Fixed an issue with the magic property generator (splash damage and hit spell effects were happening far too often)
+  - Fixed bug #0000387 and # 0000366 ( saying 'guard' in a guarded region hang the server )
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.

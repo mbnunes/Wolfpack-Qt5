@@ -97,7 +97,8 @@ void cCombat::spawnGuard( P_CHAR pOffender, P_CHAR pCaller, const Coord& pos )
 		pGuard->resend( false );
 		pGuard->soundEffect( 0x1FE );
 		pGuard->effect( 0x372A, 0x09, 0x06 );
-		pGuard->fight( pOffender );
+		pOffender->kill( pGuard );
+		//pGuard->fight( pOffender );
 	}
 }
 

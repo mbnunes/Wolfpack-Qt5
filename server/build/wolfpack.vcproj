@@ -21,7 +21,7 @@
 				AdditionalOptions="/GR
 "
 				Optimization="0"
-				AdditionalIncludeDirectories="..\src\sqlite;."
+				AdditionalIncludeDirectories="&quot;$(QTDIR)\include&quot;;..\src\sqlite;."
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;QT_DLL;QT_NO_STL;QT_THREAD_SUPPORT;CRASHHANDLER"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -36,7 +36,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qt-mt333.lib ws2_32.lib comctl32.lib"
+				AdditionalDependencies="$(QTDIR)\lib\qt-mt333.lib ws2_32.lib comctl32.lib"
 				OutputFile="../release/wolfpackd.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"

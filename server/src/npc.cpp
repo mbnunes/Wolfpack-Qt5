@@ -241,8 +241,21 @@ bool cNPC::del()
 
 bool cNPC::isInnocent()
 {
+	/*
+	Hard to tell because the ai-types are now string based
+	0 = invalid/across server line
+	1 = innocent (blue)
+	2 = guilded/ally (green)
+	3 = attackable but not criminal (gray)
+	4 = criminal (gray)
+	5 = enemy (orange)
+	6 = murderer (red)
+	7 = invulnerable (yellow)
+	//7 = unknown use (translucent (like 0x4000 hue))
+	*/
+
 	unsigned char notoriety = this->notoriety();
-	return notoriety >= 4 && notoriety <= 6;
+	return !( notoriety >= 4 && notoriety <= 6 );
 }
 
 void cNPC::setOwner( P_PLAYER data, bool nochecks )
