@@ -82,15 +82,9 @@ public:
 	void resetLoginAttempts() { attempts_ = 0; };
 	void loginAttemped() { ++attempts_; }
 	int loginAttempts() { return attempts_; }
-	void block( int seconds ) 
-	{
-		blockUntil = QDateTime::currentDateTime().addSecs( seconds );
-	}
-
-	void block()
-	{
-		blocked_ = true;
-	}
+	void block( int seconds );
+	void block();
+	void unBlock();
 	void setACL( cACL );
 		
 	void Serialize( ISerialization& );
@@ -152,6 +146,22 @@ inline QString AccountRecord::objectID( void ) const
 inline void AccountRecord::setACL( cACL d )
 {
 	acl_ = d;
+}
+
+inline void AccountRecord::block( int seconds )
+{
+	blockUntil = QDateTime::currentDateTime().addSecs( seconds );
+}
+
+inline void AccountRecord::block()
+{
+	blocked_ = true;
+}
+
+inline void AccountRecord::unBlock()
+{
+	blocked_ = false;
+	blockUntil = QDateTime::currentDateTime(); // Unblock now.
 }
 
 #endif // __ACCOUNTS_H__
