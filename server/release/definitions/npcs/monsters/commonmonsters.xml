@@ -7,4 +7,236 @@
 =================================================================
 -->
 <definitions>
+	<!-- a rat -->
+	<npc id="sewer_rat">
+		<name>a sewer rat</name>
+		<id>0x0ee</id>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="-0" max="-624"/>
+		</karma>
+		<fame>
+			<random min="0" max="1249"/>
+		</fame>
+		<defense>
+			<random min="6" max="6"/>
+		</defense>
+		<lodamage>1</lodamage>
+		<hidamage>4</hidamage>
+		<!-- Stats -->
+		<str>
+			<random min="10" max="10"/>
+		</str>
+		<dex>
+			<random min="35" max="35"/>
+		</dex>
+		<int>
+			<random min="10" max="10"/>
+		</int>
+		<!-- Skills -->
+		<wrestling>
+			<random min="50" max="50"/>
+		</wrestling>
+		<tactics>
+			<random min="40" max="40"/>
+		</tactics>
+		<magicresistance>
+			<random min="40" max="40"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
+		<totame>0</totame>
+		<food>1</food>
+		<!-- Priv -->
+	</npc>
+
+	<!-- a frost ooze -->
+	<npc id="frost_ooze">
+		<name>a frost ooze</name>
+		<id>0x033</id>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="-0" max="-624"/>
+		</karma>
+		<fame>
+			<random min="0" max="1249"/>
+		</fame>
+		<defense>
+			<random min="16" max="16"/>
+		</defense>
+		<lodamage>1</lodamage>
+		<hidamage>1</hidamage>
+		<!-- Stats -->
+		<str>
+			<random min="19" max="28"/>
+		</str>
+		<dex>
+			<random min="16" max="21"/>
+		</dex>
+		<int>
+			<random min="16" max="20"/>
+		</int>
+		<!-- Skills -->
+		<wrestling>
+			<random min="303" max="380"/>
+		</wrestling>
+		<tactics>
+			<random min="197" max="278"/>
+		</tactics>
+		<magicresistance>
+			<random min="59" max="95"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
+		<!-- Priv -->
+	</npc>
+
+	<!-- a slime -->
+	<npc id="slime">
+		<name>a slime</name>
+		<id>0x033</id>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="-0" max="-624"/>
+		</karma>
+		<fame>
+			<random min="0" max="1249"/>
+		</fame>
+		<defense>
+			<random min="8" max="8"/>
+		</defense>
+		<lodamage>1</lodamage>
+		<hidamage>5</hidamage>
+		<!-- Stats -->
+		<str>
+			<random min="25" max="33"/>
+		</str>
+		<dex>
+			<random min="16" max="21"/>
+		</dex>
+		<int>
+			<random min="16" max="20"/>
+		</int>
+		<!-- Skills -->
+		<wrestling>
+			<random min="258" max="329"/>
+		</wrestling>
+		<tactics>
+			<random min="235" max="307"/>
+		</tactics>
+		<magicresistance>
+			<random min="152" max="199"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
+		<poisoning>
+			<random min="307" max="496"/>
+		</poisoning>
+		<totame>231</totame>
+		<food>1</food>
+		<!-- Priv -->
+	</npc>
+
+	<!-- a reaper -->
+	<npc id="reaper">
+		<name>a reaper</name>
+		<id>0x02f</id>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="-2500" max="-4999"/>
+		</karma>
+		<fame>
+			<random min="2500" max="4999"/>
+		</fame>
+		<defense>
+			<random min="40" max="40"/>
+		</defense>
+		<lodamage>5</lodamage>
+		<hidamage>10</hidamage>
+		<gold>
+			<random min="0" max="150"/>
+		</gold>
+		<!-- Stats -->
+		<str>
+			<random min="72" max="201"/>
+		</str>
+		<dex>
+			<random min="66" max="75"/>
+		</dex>
+		<int>
+			<random min="110" max="235"/>
+		</int>
+		<!-- Skills -->
+		<wrestling>
+			<random min="563" max="631"/>
+		</wrestling>
+		<tactics>
+			<random min="467" max="570"/>
+		</tactics>
+		<magicresistance>
+			<random min="105" max="1218"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
+		<magery>
+			<random min="932" max="999"/>
+		</magery>
+		<evaluatingint>
+			<random min="15" max="244"/>
+		</evaluatingint>
+		<meditation>
+			<random min="0" max="0"/>
+		</meditation>
+		<!-- Priv -->
+	</npc>
+
+	<!-- a corpser -->
+	<npc id="corpser">
+		<name>a corpser</name>
+		<id>0x008</id>
+		<inherit id="monster_base"/>
+		<karma>
+			<random min="-625" max="-1249"/>
+		</karma>
+		<fame>
+			<random min="0" max="1249"/>
+		</fame>
+		<defense>
+			<random min="18" max="18"/>
+		</defense>
+		<lodamage>6</lodamage>
+		<hidamage>16</hidamage>
+		<gold>
+			<random min="0" max="50"/>
+		</gold>
+		<!-- Stats -->
+		<str>
+			<random min="158" max="180"/>
+		</str>
+		<dex>
+			<random min="26" max="45"/>
+		</dex>
+		<int>
+			<random min="27" max="40"/>
+		</int>
+		<!-- Skills -->
+		<wrestling>
+			<random min="518" max="613"/>
+		</wrestling>
+		<tactics>
+			<random min="451" max="570"/>
+		</tactics>
+		<magicresistance>
+			<random min="154" max="182"/>
+		</magicresistance>
+		<anatomy>
+			<random min="0" max="0"/>
+		</anatomy>
+		<!-- Priv -->
+	</npc>
+
 </definitions>

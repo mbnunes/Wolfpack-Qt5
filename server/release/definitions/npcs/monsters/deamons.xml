@@ -3,669 +3,228 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: Kosh                           |
-|   )).-' {{ ;'`   | Revised by: sereg                          |
+|   )).-' {{ ;'`   | Revised by: sereg, Viper                   |
 |  ( (  ;._ \\ ctr | Last Modification: Enhanced                |
 =================================================================
 -->
 <definitions>
-	<!-- a hellcat weak-->
-	<npc id="hellcat_weak">
+	<!-- a hellcat -->
+	<npc id="hellcat">
 		<name>a hellcat</name>
-		<id>0x0c9</id>
-		<category>Monsters\deamons\hellcat weak</category>
+		<id>0x342</id>
+		<category>Monsters\deamons\hellcat </category>
 		<inherit id="monster_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1249"/>
-		</fame>
-		<defense>
-			<random min="25" max="25"/>
-		</defense>
-		<lodamage>2</lodamage>
-		<hidamage>12</hidamage>
-		<!-- Stats -->
-		<str>
-			<random min="65" max="73"/>
-		</str>
-		<dex>
-			<random min="87" max="106"/>
-		</dex>
-		<int>
-			<random min="28" max="53"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="312" max="370"/>
-		</wrestling>
-		<tactics>
-			<random min="365" max="465"/>
-		</tactics>
-		<magicresistance>
-			<random min="395" max="505"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<carve>carve_hellcat_weak</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a hellcat medium-->
-	<npc id="hellcat_medium">
-		<name>a hellcat</name>
-		<id>0x0c9</id>
-		<category>Monsters\deamons\hellcat medium</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1249"/>
-		</fame>
-		<defense>
-			<random min="30" max="30"/>
-		</defense>
+		<karma><random min="-0" max="-624"/></karma>
+		<fame><random min="0" max="1249"/></fame>
+		<defense><random min="30" max="30"/></defense>
 		<lodamage>3</lodamage>
 		<hidamage>15</hidamage>
 		<!-- Stats -->
-		<str>
-			<random min="77" max="86"/>
-		</str>
-		<dex>
-			<random min="103" max="125"/>
-		</dex>
-		<int>
-			<random min="33" max="63"/>
-		</int>
+		<str><random min="77" max="86"/></str>
+		<dex><random min="103" max="125"/></dex>
+		<int><random min="33" max="63"/></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="368" max="436"/>
-		</wrestling>
-		<tactics>
-			<random min="430" max="548"/>
-		</tactics>
-		<magicresistance>
-			<random min="465" max="595"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<carve>carve_hellcat_medium</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a hellcat hard-->
-	<npc id="hellcat_hard">
-		<name>a hellcat</name>
-		<id>0x0c9</id>
-		<category>Monsters\deamons\hellcat hard</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1249"/>
-		</fame>
-		<defense>
-			<random min="34" max="34"/>
-		</defense>
-		<lodamage>3</lodamage>
-		<hidamage>17</hidamage>
-		<!-- Stats -->
-		<str>
-			<random min="88" max="98"/>
-		</str>
-		<dex>
-			<random min="118" max="143"/>
-		</dex>
-		<int>
-			<random min="37" max="72"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="423" max="501"/>
-		</wrestling>
-		<tactics>
-			<random min="494" max="630"/>
-		</tactics>
-		<magicresistance>
-			<random min="534" max="684"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<carve>carve_hellcat_hard</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a lava lizard weak-->
-	<npc id="lava_lizard_weak">
+		<wrestling><random min="368" max="436"/></wrestling>
+		<tactics><random min="430" max="548"/></tactics>
+		<magicresistance><random min="465" max="595"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		<carve>carve_hellcat</carve>
+		<totame>711</totame>
+		<food>1</food>
+		</npc>
+
+	<!-- a lava lizard -->
+	<npc id="lava_lizard">
 		<name>a lava lizard</name>
 		<id>0x0ce</id>
-		<category>Monsters\deamons\lava lizard weak</category>
+		<category>Monsters\deamons\lava lizard </category>
 		<inherit id="monster_base"/>
-		<karma>
-			<random min="-2500" max="-4999"/>
-		</karma>
-		<fame>
-			<random min="2500" max="4999"/>
-		</fame>
-		<defense>
-			<random min="34" max="34"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>23</hidamage>
-		<gold>
-			<random min="20" max="50"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="107" max="127"/>
-		</str>
-		<dex>
-			<random min="47" max="63"/>
-		</dex>
-		<int>
-			<random min="9" max="17"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="555" max="695"/>
-		</wrestling>
-		<tactics>
-			<random min="516" max="680"/>
-		</tactics>
-		<magicresistance>
-			<random min="48" max="589"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<carve>carve_lava_lizard_weak</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a lava lizard medium-->
-	<npc id="lava_lizard_medium">
-		<name>a lava lizard</name>
-		<id>0x0ce</id>
-		<category>Monsters\deamons\lava lizard medium</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-2500" max="-4999"/>
-		</karma>
-		<fame>
-			<random min="2500" max="4999"/>
-		</fame>
-		<defense>
-			<random min="40" max="40"/>
-		</defense>
-		<lodamage>2</lodamage>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="40" max="40"/></defense>
+		<lodamage>8</lodamage>
 		<hidamage>28</hidamage>
-		<gold>
-			<random min="20" max="50"/>
-		</gold>
+		<gold><random min="20" max="50"/></gold>
 		<!-- Stats -->
-		<str>
-			<random min="126" max="150"/>
-		</str>
-		<dex>
-			<random min="56" max="75"/>
-		</dex>
-		<int>
-			<random min="11" max="20"/>
-		</int>
+		<str><random min="126" max="150"/></str>
+		<dex><random min="56" max="75"/></dex>
+		<int><random min="11" max="20"/></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="653" max="818"/>
-		</wrestling>
-		<tactics>
-			<random min="608" max="800"/>
-		</tactics>
-		<magicresistance>
-			<random min="57" max="693"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<carve>carve_lava_lizard_medium</carve>
-		<!-- Priv -->
+		<wrestling><random min="653" max="818"/></wrestling>
+		<tactics><random min="608" max="800"/></tactics>
+		<magicresistance><random min="513" max="693"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		<carve>carve_lava_lizard</carve>
+		<totame>807</totame>
+		<food>12</food>
 	</npc>
-	<!-- a lava lizard hard-->
-	<npc id="lava_lizard_hard">
-		<name>a lava lizard</name>
-		<id>0x0ce</id>
-		<category>Monsters\deamons\lava lizard hard</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-2500" max="-4999"/>
-		</karma>
-		<fame>
-			<random min="2500" max="4999"/>
-		</fame>
-		<defense>
-			<random min="46" max="46"/>
-		</defense>
-		<lodamage>2</lodamage>
-		<hidamage>32</hidamage>
-		<gold>
-			<random min="20" max="50"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="144" max="172"/>
-		</str>
-		<dex>
-			<random min="64" max="86"/>
-		</dex>
-		<int>
-			<random min="12" max="23"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="750" max="940"/>
-		</wrestling>
-		<tactics>
-			<random min="699" max="920"/>
-		</tactics>
-		<magicresistance>
-			<random min="65" max="796"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<carve>carve_lava_lizard_hard</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a hell hound weak-->
-	<npc id="hell_hound_weak">
+
+	<!-- a hell hound -->
+	<npc id="hell_hound">
 		<name>a hell hound</name>
 		<id>0x0e1</id>
-		<category>Monsters\deamons\hell hound weak</category>
+		<category>Monsters\deamons\hell hound </category>
 		<inherit id="monster_base"/>
-		<karma>
-			<random min="-1250" max="-2499"/>
-		</karma>
-		<fame>
-			<random min="1250" max="2499"/>
-		</fame>
-		<defense>
-			<random min="25" max="25"/>
-		</defense>
-		<lodamage>5</lodamage>
-		<hidamage>17</hidamage>
-		<gold>
-			<random min="0" max="150"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="91" max="118"/>
-		</str>
-		<dex>
-			<random min="68" max="88"/>
-		</dex>
-		<int>
-			<random min="30" max="49"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="544" max="692"/>
-		</wrestling>
-		<tactics>
-			<random min="432" max="593"/>
-		</tactics>
-		<magicresistance>
-			<random min="262" max="624"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<carve>carve_hell_hound_weak</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a hell hound medium-->
-	<npc id="hell_hound_medium">
-		<name>a hell hound</name>
-		<id>0x0e1</id>
-		<category>Monsters\deamons\hell hound medium</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-1250" max="-2499"/>
-		</karma>
-		<fame>
-			<random min="1250" max="2499"/>
-		</fame>
-		<defense>
-			<random min="30" max="30"/>
-		</defense>
+		<karma><random min="-1250" max="-2499"/></karma>
+		<fame><random min="1250" max="2499"/></fame>
+		<defense><random min="30" max="30"/></defense>
 		<lodamage>6</lodamage>
 		<hidamage>20</hidamage>
-		<gold>
-			<random min="0" max="150"/>
-		</gold>
+		<gold><random min="0" max="150"/></gold>
 		<!-- Stats -->
-		<str>
-			<random min="108" max="139"/>
-		</str>
-		<dex>
-			<random min="81" max="104"/>
-		</dex>
-		<int>
-			<random min="36" max="58"/>
-		</int>
+		<str><random min="108" max="139"/></str>
+		<dex><random min="81" max="104"/></dex>
+		<int><random min="36" max="58"/></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="640" max="815"/>
-		</wrestling>
-		<tactics>
-			<random min="509" max="698"/>
-		</tactics>
-		<magicresistance>
-			<random min="309" max="735"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<carve>carve_hell_hound_medium</carve>
-		<!-- Priv -->
+		<wrestling><random min="640" max="815"/></wrestling>
+		<tactics><random min="509" max="698"/></tactics>
+		<magicresistance><random min="553" max="735"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		<carve>carve_hell_hound</carve>
+		<totame>855</totame>
+		<food>1</food>
 	</npc>
-	<!-- a hell hound hard-->
-	<npc id="hell_hound_hard">
-		<name>a hell hound</name>
-		<id>0x0e1</id>
-		<category>Monsters\deamons\hell hound hard</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-1250" max="-2499"/>
-		</karma>
-		<fame>
-			<random min="1250" max="2499"/>
-		</fame>
-		<defense>
-			<random min="34" max="34"/>
-		</defense>
-		<lodamage>6</lodamage>
-		<hidamage>23</hidamage>
-		<gold>
-			<random min="0" max="150"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="124" max="159"/>
-		</str>
-		<dex>
-			<random min="93" max="119"/>
-		</dex>
-		<int>
-			<random min="41" max="66"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="736" max="937"/>
-		</wrestling>
-		<tactics>
-			<random min="585" max="802"/>
-		</tactics>
-		<magicresistance>
-			<random min="355" max="845"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<carve>carve_hell_hound_hard</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a mong bat weak-->
-	<npc id="mong_bat_weak">
-		<name>a mong bat</name>
+
+	<!-- a mongbat -->
+	<npc id="mongbat">
+		<name>a mongbat</name>
 		<id>0x027</id>
-		<category>Monsters\deamons\mong bat weak</category>
+		<category>Monsters\deamons\mongbat </category>
 		<inherit id="monster_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1249"/>
-		</fame>
-		<defense>
-			<random min="8" max="8"/>
-		</defense>
+		<karma><random min="-0" max="-624"/></karma>
+		<fame><random min="0" max="1249"/></fame>
+		<defense><random min="8" max="8"/></defense>
 		<lodamage>1</lodamage>
 		<hidamage>1</hidamage>
-		<gold>
-			<random min="0" max="10"/>
-		</gold>
+		<gold><random min="0" max="10"/></gold>
 		<!-- Stats -->
-		<str>
-			<random min="8" max="8"/>
-		</str>
-		<dex>
-			<random min="22" max="31"/>
-		</dex>
-		<int>
-			<random min="8" max="11"/>
-		</int>
+		<str><random min="10" max="10"/></str>
+		<dex><random min="26" max="37"/></dex>
+		<int><random min="10" max="13"/></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="51" max="90"/>
-		</wrestling>
-		<tactics>
-			<random min="47" max="85"/>
-		</tactics>
-		<magicresistance>
-			<random min="45" max="102"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<carve>carve_mong_bat_weak</carve>
-		<!-- Priv -->
+		<wrestling><random min="60" max="106"/></wrestling>
+		<tactics><random min="56" max="100"/></tactics>
+		<magicresistance><random min="53" max="120"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		<carve>carve_mong_bat</carve>
+		<totame>0</totame>
+		<food>1</food>
 	</npc>
-	<!-- a mong bat medium-->
-	<npc id="mong_bat_medium">
-		<name>a mong bat</name>
-		<id>0x027</id>
-		<category>Monsters\deamons\mong bat medium</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1249"/>
-		</fame>
-		<defense>
-			<random min="10" max="10"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>2</hidamage>
-		<gold>
-			<random min="0" max="10"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="10" max="10"/>
-		</str>
-		<dex>
-			<random min="26" max="37"/>
-		</dex>
-		<int>
-			<random min="10" max="13"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="60" max="106"/>
-		</wrestling>
-		<tactics>
-			<random min="56" max="100"/>
-		</tactics>
-		<magicresistance>
-			<random min="53" max="120"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<carve>carve_mong_bat_medium</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a mong bat hard-->
-	<npc id="mong_bat_hard">
-		<name>a mong bat</name>
-		<id>0x027</id>
-		<category>Monsters\deamons\mong bat hard</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-0" max="-624"/>
-		</karma>
-		<fame>
-			<random min="0" max="1249"/>
-		</fame>
-		<defense>
-			<random min="11" max="11"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>2</hidamage>
-		<gold>
-			<random min="0" max="10"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="11" max="11"/>
-		</str>
-		<dex>
-			<random min="29" max="42"/>
-		</dex>
-		<int>
-			<random min="11" max="14"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="69" max="121"/>
-		</wrestling>
-		<tactics>
-			<random min="64" max="115"/>
-		</tactics>
-		<magicresistance>
-			<random min="60" max="138"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<carve>carve_mong_bat_hard</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a imp weak-->
-	<npc id="imp_weak">
+
+	<!-- a imp -->
+	<npc id="imp">
 		<name>a imp</name>
-		<id>0x027</id>
-		<category>Monsters\deamons\imp weak</category>
+		<id>0x04A</id>
+		<category>Monsters\deamons\imp </category>
 		<inherit id="monster_base"/>
-		<karma>
-			<random min="-1250" max="-2499"/>
-		</karma>
-		<fame>
-			<random min="1250" max="2499"/>
-		</fame>
-		<defense>
-			<random min="25" max="25"/>
-		</defense>
-		<lodamage>2</lodamage>
-		<hidamage>15</hidamage>
-		<gold>
-			<random min="0" max="50"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="77" max="96"/>
-		</str>
-		<dex>
-			<random min="51" max="68"/>
-		</dex>
-		<int>
-			<random min="73" max="93"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="392" max="420"/>
-		</wrestling>
-		<tactics>
-			<random min="357" max="425"/>
-		</tactics>
-		<magicresistance>
-			<random min="261" max="419"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<magery>
-			<random min="629" max="703"/>
-		</magery>
-		<evaluatingint>
-			<random min="765" max="847"/>
-		</evaluatingint>
-		<meditation>
-			<random min="0" max="0"/>
-		</meditation>
-		<carve>carve_imp_weak</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a imp medium-->
-	<npc id="imp_medium">
-		<name>a imp</name>
-		<id>0x027</id>
-		<category>Monsters\deamons\imp medium</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-1250" max="-2499"/>
-		</karma>
-		<fame>
-			<random min="1250" max="2499"/>
-		</fame>
-		<defense>
-			<random min="30" max="30"/>
-		</defense>
+		<karma><random min="-1250" max="-2499"/></karma>
+		<fame><random min="1250" max="2499"/></fame>
+		<defense><random min="30" max="30"/></defense>
 		<lodamage>3</lodamage>
 		<hidamage>18</hidamage>
-		<gold>
-			<random min="0" max="50"/>
-		</gold>
+		<gold><random min="0" max="50"/></gold>
 		<!-- Stats -->
-		<str>
-			<random min="91" max="114"/>
-		</str>
-		<dex>
-			<random min="61" max="81"/>
-		</dex>
-		<int>
-			<random min="86" max="110"/>
-		</int>
+		<str><random min="91" max="114"/></str>
+		<dex><random min="61" max="81"/></dex>
+		<int><random min="86" max="110"/></int>
 		<!-- Skills -->
-		<wrestling>
-			<random min="462" max="495"/>
-		</wrestling>
-		<tactics>
-			<random min="421" max="500"/>
-		</tactics>
-		<magicresistance>
-			<random min="308" max="494"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<magery>
-			<random min="740" max="828"/>
-		</magery>
-		<evaluatingint>
-			<random min="901" max="997"/>
-		</evaluatingint>
-		<meditation>
-			<random min="0" max="0"/>
-		</meditation>
-		<carve>carve_imp_medium</carve>
+		<wrestling><random min="462" max="495"/></wrestling>
+		<tactics><random min="421" max="500"/></tactics>
+		<magicresistance><random min="308" max="494"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		<magery><random min="740" max="828"/></magery>
+		<evaluatingintel><random min="901" max="997"/></evaluatingintel>
+		<meditation><random min="0" max="0"/></meditation>
+		<carve>carve_imp</carve>
+		<totame>831</totame>
+		<food>1</food>
+           </npc>
+	<!-- a gargoyle -->
+	<npc id="gargoyle">
+		<name>a gargoyle</name>
+		<id>0x040</id>
+		<category>Monsters\deamons\gargoyle </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-2500" max="-4999"/></karma>
+		<fame><random min="2500" max="4999"/></fame>
+		<defense><random min="27" max="27"/></defense>
+		<lodamage>6</lodamage>
+		<hidamage>20</hidamage>
+		<gold><random min="50" max="150"/></gold>
+		<!-- Stats -->
+		<str><random min="159" max="175"/></str>
+		<dex><random min="77" max="94"/></dex>
+		<int><random min="82" max="100"/></int>
+		<!-- Skills -->
+		<wrestling><random min="534" max="797"/></wrestling>
+		<tactics><random min="506" max="699"/></tactics>
+		<magicresistance><random min="710" max="841"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		<magery><random min="752" max="864"/></magery>
+		<evaluatingintel><random min="0" max="0"/></evaluatingintel>
+		<meditation><random min="0" max="0"/></meditation>
+		<carve>carve_gargoyle</carve>
+	</npc>
+
+	<!-- a daemon -->
+	<npc id="daemon">
+		<name><random list="NAMES_DAEMON" /></name>
+		<id>0x009</id>
+		<category>Monsters\deamons\demon </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-10000" max="-20000"/></karma>
+		<fame><random min="10000" max="20000"/></fame>
+		<defense><random min="52" max="58"/></defense>
+		<lodamage>6</lodamage>
+		<hidamage>20</hidamage>
+		<gold><random min="400" max="800"/></gold>
+		<!-- Stats -->
+		<str><random min="478" max="505"/></str>
+		<dex><random min="82" max="94"/></dex>
+		<int><random min="305" max="325"/></int>
+		<!-- Skills -->
+		<wrestling><random min="645" max="808"/></wrestling>
+		<tactics><random min="708" max="796"/></tactics>
+		<magicresistance><random min="864" max="950"/></magicresistance>
+		<anatomy><random min="0" max="0"/></anatomy>
+		<magery><random min="751" max="828"/></magery>
+		<evaluatingint><random min="0" max="0"/></evaluatingint>
+		<meditation><random min="0" max="0"/></meditation>
+		<carve>carve_demon</carve>
 		<!-- Priv -->
 	</npc>
-	<!-- a imp hard-->
-	<npc id="imp_hard">
-		<name>a imp</name>
-		<id>0x027</id>
-		<category>Monsters\deamons\imp hard</category>
+	<!-- a balron -->
+	<npc id="balron">
+		<name><random list="NAMES_BALRON" /></name>
+		<id>0x028</id>
+		<category>Monsters\deamons\Balron </category>
+		<inherit id="monster_base"/>
+		<karma><random min="-10000" max="-20000"/></karma>
+		<fame><random min="10000" max="20000"/></fame>
+		<defense><random min="74" max="90"/></defense>
+		<lodamage>40</lodamage>
+		<hidamage>60</hidamage>
+		<gold><random min="800" max="1200"/></gold>
+		<!-- Stats -->
+		<str><random min="1005" max="1183"/></str>
+		<dex><random min="187" max="238"/></dex>
+		<int><random min="151" max="247"/></int>
+		<!-- Skills -->
+		<wrestling><random min="912" max="997"/></wrestling>
+		<tactics><random min="901" max="997"/></tactics>
+		<magicresistance><random min="1167" max="1225"/></magicresistance>
+		<anatomy><random min="256" max="357"/></anatomy>
+		<magery><random min="969" max="991"/></magery>
+		<evaluatingint><random min="804" max="936"/></evaluatingint>
+		<meditation><random min="273" max="508"/></meditation>
+		<carve>carve_demon_with_sword</carve>
+		<!-- Priv -->
+	</npc>
+
+	<!-- a harpy -->
+	<npc id="harpy">
+		<name>a harpy</name>
+		<id>0x01e</id>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-1250" max="-2499"/>
@@ -674,542 +233,36 @@
 			<random min="1250" max="2499"/>
 		</fame>
 		<defense>
-			<random min="34" max="34"/>
+			<random min="28" max="28"/>
 		</defense>
-		<lodamage>3</lodamage>
-		<hidamage>20</hidamage>
-		<gold>
-			<random min="0" max="50"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="104" max="131"/>
-		</str>
-		<dex>
-			<random min="70" max="93"/>
-		</dex>
-		<int>
-			<random min="98" max="126"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="531" max="569"/>
-		</wrestling>
-		<tactics>
-			<random min="484" max="575"/>
-		</tactics>
-		<magicresistance>
-			<random min="354" max="568"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<magery>
-			<random min="851" max="952"/>
-		</magery>
-		<evaluatingint>
-			<random min="1036" max="1146"/>
-		</evaluatingint>
-		<meditation>
-			<random min="0" max="0"/>
-		</meditation>
-		<carve>carve_imp_hard</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a gargoyle weak-->
-	<npc id="gargoyle_weak">
-		<name>a gargoyle</name>
-		<id>0x040</id>
-		<category>Monsters\deamons\gargoyle weak</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-2500" max="-4999"/>
-		</karma>
-		<fame>
-			<random min="2500" max="4999"/>
-		</fame>
-		<defense>
-			<random min="27" max="27"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
+		<lodamage>5</lodamage>
+		<hidamage>16</hidamage>
 		<gold>
 			<random min="50" max="150"/>
 		</gold>
 		<!-- Stats -->
 		<str>
-			<random min="135" max="148"/>
+			<random min="96" max="118"/>
 		</str>
 		<dex>
-			<random min="65" max="79"/>
+			<random min="86" max="105"/>
 		</dex>
 		<int>
-			<random min="69" max="85"/>
+			<random min="54" max="71"/>
 		</int>
 		<!-- Skills -->
 		<wrestling>
-			<random min="453" max="677"/>
+			<random min="731" max="906"/>
 		</wrestling>
 		<tactics>
-			<random min="430" max="594"/>
+			<random min="759" max="994"/>
 		</tactics>
 		<magicresistance>
-			<random min="603" max="714"/>
+			<random min="546" max="650"/>
 		</magicresistance>
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-		<magery>
-			<random min="639" max="734"/>
-		</magery>
-		<evaluatingint>
-			<random min="0" max="0"/>
-		</evaluatingint>
-		<meditation>
-			<random min="0" max="0"/>
-		</meditation>
-		<carve>carve_gargoyle_weak</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a gargoyle medium-->
-	<npc id="gargoyle_medium">
-		<name>a gargoyle</name>
-		<id>0x040</id>
-		<category>Monsters\deamons\gargoyle medium</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-2500" max="-4999"/>
-		</karma>
-		<fame>
-			<random min="2500" max="4999"/>
-		</fame>
-		<defense>
-			<random min="32" max="32"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="50" max="150"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="159" max="175"/>
-		</str>
-		<dex>
-			<random min="77" max="94"/>
-		</dex>
-		<int>
-			<random min="82" max="100"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="534" max="797"/>
-		</wrestling>
-		<tactics>
-			<random min="506" max="699"/>
-		</tactics>
-		<magicresistance>
-			<random min="710" max="841"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<magery>
-			<random min="752" max="864"/>
-		</magery>
-		<evaluatingint>
-			<random min="0" max="0"/>
-		</evaluatingint>
-		<meditation>
-			<random min="0" max="0"/>
-		</meditation>
-		<carve>carve_gargoyle_medium</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a gargoyle hard-->
-	<npc id="gargoyle_hard">
-		<name>a gargoyle</name>
-		<id>0x040</id>
-		<category>Monsters\deamons\gargoyle hard</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-2500" max="-4999"/>
-		</karma>
-		<fame>
-			<random min="2500" max="4999"/>
-		</fame>
-		<defense>
-			<random min="36" max="36"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="50" max="150"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="182" max="201"/>
-		</str>
-		<dex>
-			<random min="88" max="108"/>
-		</dex>
-		<int>
-			<random min="94" max="115"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="614" max="916"/>
-		</wrestling>
-		<tactics>
-			<random min="581" max="803"/>
-		</tactics>
-		<magicresistance>
-			<random min="816" max="967"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<magery>
-			<random min="864" max="993"/>
-		</magery>
-		<evaluatingint>
-			<random min="0" max="0"/>
-		</evaluatingint>
-		<meditation>
-			<random min="0" max="0"/>
-		</meditation>
-		<carve>carve_gargoyle_hard</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a demon weak-->
-	<npc id="demon_weak">
-		<name>a demon</name>
-		<id>0x009</id>
-		<category>Monsters\deamons\demon weak</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-10000" max="-20000"/>
-		</karma>
-		<fame>
-			<random min="10000" max="20000"/>
-		</fame>
-		<defense>
-			<random min="44" max="49"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="400" max="800"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="406" max="429"/>
-		</str>
-		<dex>
-			<random min="69" max="79"/>
-		</dex>
-		<int>
-			<random min="259" max="276"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="548" max="686"/>
-		</wrestling>
-		<tactics>
-			<random min="601" max="676"/>
-		</tactics>
-		<magicresistance>
-			<random min="734" max="807"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<magery>
-			<random min="638" max="703"/>
-		</magery>
-		<evaluatingint>
-			<random min="0" max="0"/>
-		</evaluatingint>
-		<meditation>
-			<random min="0" max="0"/>
-		</meditation>
-		<carve>carve_demon_weak</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a demon medium-->
-	<npc id="demon_medium">
-		<name>a demon</name>
-		<id>0x009</id>
-		<category>Monsters\deamons\demon medium</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-10000" max="-20000"/>
-		</karma>
-		<fame>
-			<random min="10000" max="20000"/>
-		</fame>
-		<defense>
-			<random min="52" max="58"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="400" max="800"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="478" max="505"/>
-		</str>
-		<dex>
-			<random min="82" max="94"/>
-		</dex>
-		<int>
-			<random min="305" max="325"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="645" max="808"/>
-		</wrestling>
-		<tactics>
-			<random min="708" max="796"/>
-		</tactics>
-		<magicresistance>
-			<random min="864" max="950"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<magery>
-			<random min="751" max="828"/>
-		</magery>
-		<evaluatingint>
-			<random min="0" max="0"/>
-		</evaluatingint>
-		<meditation>
-			<random min="0" max="0"/>
-		</meditation>
-		<carve>carve_demon_medium</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a demon hard-->
-	<npc id="demon_hard">
-		<name>a demon</name>
-		<id>0x009</id>
-		<category>Monsters\deamons\demon hard</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-10000" max="-20000"/>
-		</karma>
-		<fame>
-			<random min="10000" max="20000"/>
-		</fame>
-		<defense>
-			<random min="59" max="66"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="400" max="800"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="549" max="580"/>
-		</str>
-		<dex>
-			<random min="94" max="108"/>
-		</dex>
-		<int>
-			<random min="350" max="373"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="741" max="929"/>
-		</wrestling>
-		<tactics>
-			<random min="814" max="915"/>
-		</tactics>
-		<magicresistance>
-			<random min="993" max="1092"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<magery>
-			<random min="863" max="952"/>
-		</magery>
-		<evaluatingint>
-			<random min="0" max="0"/>
-		</evaluatingint>
-		<meditation>
-			<random min="0" max="0"/>
-		</meditation>
-		<carve>carve_demon_hard</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a demon (with sword) weak-->
-	<npc id="demon_with_sword_weak">
-		<name>a demon (with sword)</name>
-		<id>0x00a</id>
-		<category>Monsters\deamons\demon with sword weak</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-10000" max="-20000"/>
-		</karma>
-		<fame>
-			<random min="10000" max="20000"/>
-		</fame>
-		<defense>
-			<random min="62" max="76"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="800" max="1200"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="854" max="1005"/>
-		</str>
-		<dex>
-			<random min="158" max="202"/>
-		</dex>
-		<int>
-			<random min="128" max="209"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="775" max="847"/>
-		</wrestling>
-		<tactics>
-			<random min="765" max="847"/>
-		</tactics>
-		<magicresistance>
-			<random min="991" max="1041"/>
-		</magicresistance>
-		<anatomy>
-			<random min="217" max="303"/>
-		</anatomy>
-		<magery>
-			<random min="823" max="842"/>
-		</magery>
-		<evaluatingint>
-			<random min="683" max="795"/>
-		</evaluatingint>
-		<meditation>
-			<random min="232" max="431"/>
-		</meditation>
-		<carve>carve_demon_with_sword_weak</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a demon (with sword) medium-->
-	<npc id="demon_with_sword_medium">
-		<name>a demon (with sword)</name>
-		<id>0x00a</id>
-		<category>Monsters\deamons\demon with sword medium</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-10000" max="-20000"/>
-		</karma>
-		<fame>
-			<random min="10000" max="20000"/>
-		</fame>
-		<defense>
-			<random min="74" max="90"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="800" max="1200"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="1005" max="1183"/>
-		</str>
-		<dex>
-			<random min="187" max="238"/>
-		</dex>
-		<int>
-			<random min="151" max="247"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="912" max="997"/>
-		</wrestling>
-		<tactics>
-			<random min="901" max="997"/>
-		</tactics>
-		<magicresistance>
-			<random min="1167" max="1225"/>
-		</magicresistance>
-		<anatomy>
-			<random min="256" max="357"/>
-		</anatomy>
-		<magery>
-			<random min="969" max="991"/>
-		</magery>
-		<evaluatingint>
-			<random min="804" max="936"/>
-		</evaluatingint>
-		<meditation>
-			<random min="273" max="508"/>
-		</meditation>
-		<carve>carve_demon_with_sword_medium</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a demon (with sword) hard-->
-	<npc id="demon_with_sword_hard">
-		<name>a demon (with sword)</name>
-		<id>0x00a</id>
-		<category>Monsters\deamons\demon with sword hard</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-10000" max="-20000"/>
-		</karma>
-		<fame>
-			<random min="10000" max="20000"/>
-		</fame>
-		<defense>
-			<random min="85" max="103"/>
-		</defense>
-		<lodamage>1</lodamage>
-		<hidamage>1</hidamage>
-		<gold>
-			<random min="800" max="1200"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="1155" max="1360"/>
-		</str>
-		<dex>
-			<random min="215" max="273"/>
-		</dex>
-		<int>
-			<random min="173" max="284"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="1048" max="1146"/>
-		</wrestling>
-		<tactics>
-			<random min="1036" max="1146"/>
-		</tactics>
-		<magicresistance>
-			<random min="1342" max="1408"/>
-		</magicresistance>
-		<anatomy>
-			<random min="294" max="410"/>
-		</anatomy>
-		<magery>
-			<random min="1114" max="1139"/>
-		</magery>
-		<evaluatingint>
-			<random min="924" max="1076"/>
-		</evaluatingint>
-		<meditation>
-			<random min="313" max="584"/>
-		</meditation>
-		<carve>carve_demon_with_sword_hard</carve>
 		<!-- Priv -->
 	</npc>
 </definitions>
-

@@ -8,66 +8,11 @@
 =================================================================
 -->
 <definitions>
-	<!-- a dragon (gray) weak-->
-	<npc id="dragon_gray_weak">
-		<name>a dragon (gray)</name>
+	<!-- a dragon (gray) -->
+	<npc id="dragon_gray">
+		<name>a dragon</name>
 		<id>0x00c</id>
-		<category>Monsters\dragons\dragon gray weak</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-10000" max="-20000"/>
-		</karma>
-		<fame>
-			<random min="10000" max="20000"/>
-		</fame>
-		<defense>
-			<random min="51" max="51"/>
-		</defense>
-		<lodamage>17</lodamage>
-		<hidamage>34</hidamage>
-		<gold>
-			<random min="1200" max="1800"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="673" max="701"/>
-		</str>
-		<dex>
-			<random min="74" max="93"/>
-		</dex>
-		<int>
-			<random min="371" max="403"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="773" max="792"/>
-		</wrestling>
-		<tactics>
-			<random min="829" max="850"/>
-		</tactics>
-		<magicresistance>
-			<random min="843" max="850"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<magery>
-			<random min="347" max="415"/>
-		</magery>
-		<evaluatingint>
-			<random min="0" max="0"/>
-		</evaluatingint>
-		<meditation>
-			<random min="0" max="0"/>
-		</meditation>
-		<carve>carve_dragon_gray_weak</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a dragon (gray) medium-->
-	<npc id="dragon_gray_medium">
-		<name>a dragon (gray)</name>
-		<id>0x00c</id>
-		<category>Monsters\dragons\dragon gray medium</category>
+		<category>Monsters\dragons\dragon gray </category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-10000" max="-20000"/>
@@ -115,124 +60,15 @@
 		<meditation>
 			<random min="0" max="0"/>
 		</meditation>
-		<carve>carve_dragon_gray_medium</carve>
+		<carve>carve_dragon_gray</carve>
 		<!-- Priv -->
 	</npc>
-	<!-- a dragon (gray) hard-->
-	<npc id="dragon_gray_hard">
-		<name>a dragon (gray)</name>
-		<id>0x00c</id>
-		<category>Monsters\dragons\dragon gray hard</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-10000" max="-20000"/>
-		</karma>
-		<fame>
-			<random min="10000" max="20000"/>
-		</fame>
-		<defense>
-			<random min="69" max="69"/>
-		</defense>
-		<lodamage>23</lodamage>
-		<hidamage>46</hidamage>
-		<gold>
-			<random min="1200" max="1800"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="910" max="948"/>
-		</str>
-		<dex>
-			<random min="101" max="126"/>
-		</dex>
-		<int>
-			<random min="502" max="546"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="1046" max="1071"/>
-		</wrestling>
-		<tactics>
-			<random min="1122" max="1150"/>
-		</tactics>
-		<magicresistance>
-			<random min="1140" max="1150"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<magery>
-			<random min="470" max="562"/>
-		</magery>
-		<evaluatingint>
-			<random min="0" max="0"/>
-		</evaluatingint>
-		<meditation>
-			<random min="0" max="0"/>
-		</meditation>
-		<carve>carve_dragon_gray_hard</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a dragon (red) weak-->
-	<npc id="dragon_red_weak">
-		<name>a dragon (red)</name>
+
+	<!-- a dragon (red) -->
+	<npc id="dragon_red">
+		<name>a dragon</name>
 		<id>0x03b</id>
-		<category>Monsters\dragons\dragon red weak</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-10000" max="-20000"/>
-		</karma>
-		<fame>
-			<random min="10000" max="20000"/>
-		</fame>
-		<defense>
-			<random min="51" max="51"/>
-		</defense>
-		<lodamage>17</lodamage>
-		<hidamage>34</hidamage>
-		<gold>
-			<random min="1200" max="1800"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="673" max="701"/>
-		</str>
-		<dex>
-			<random min="74" max="93"/>
-		</dex>
-		<int>
-			<random min="371" max="403"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="773" max="792"/>
-		</wrestling>
-		<tactics>
-			<random min="829" max="850"/>
-		</tactics>
-		<magicresistance>
-			<random min="843" max="850"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<magery>
-			<random min="347" max="415"/>
-		</magery>
-		<evaluatingint>
-			<random min="0" max="0"/>
-		</evaluatingint>
-		<meditation>
-			<random min="0" max="0"/>
-		</meditation>
-		<carve>carve_dragon_red_weak</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a dragon (red) medium-->
-	<npc id="dragon_red_medium">
-		<name>a dragon (red)</name>
-		<id>0x03b</id>
-		<category>Monsters\dragons\dragon red medium</category>
+		<category>Monsters\dragons\dragon red </category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-10000" max="-20000"/>
@@ -280,115 +116,15 @@
 		<meditation>
 			<random min="0" max="0"/>
 		</meditation>
-		<carve>carve_dragon_red_medium</carve>
+		<carve>carve_dragon_red</carve>
 		<!-- Priv -->
 	</npc>
-	<!-- a dragon (red) hard-->
-	<npc id="dragon_red_hard">
-		<name>a dragon (red)</name>
-		<id>0x03b</id>
-		<category>Monsters\dragons\dragon red hard</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-10000" max="-20000"/>
-		</karma>
-		<fame>
-			<random min="10000" max="20000"/>
-		</fame>
-		<defense>
-			<random min="69" max="69"/>
-		</defense>
-		<lodamage>23</lodamage>
-		<hidamage>46</hidamage>
-		<gold>
-			<random min="1200" max="1800"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="910" max="948"/>
-		</str>
-		<dex>
-			<random min="101" max="126"/>
-		</dex>
-		<int>
-			<random min="502" max="546"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="1046" max="1071"/>
-		</wrestling>
-		<tactics>
-			<random min="1122" max="1150"/>
-		</tactics>
-		<magicresistance>
-			<random min="1140" max="1150"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<magery>
-			<random min="470" max="562"/>
-		</magery>
-		<evaluatingint>
-			<random min="0" max="0"/>
-		</evaluatingint>
-		<meditation>
-			<random min="0" max="0"/>
-		</meditation>
-		<carve>carve_dragon_red_hard</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a drake (gray) weak-->
-	<npc id="drake_gray_weak">
-		<name>a drake (gray)</name>
+
+	<!-- a drake (gray) -->
+	<npc id="drake_gray">
+		<name>a drake</name>
 		<id>0x03c</id>
-		<category>Monsters\dragons\drake gray weak</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-5000" max="-9999"/>
-		</karma>
-		<fame>
-			<random min="5000" max="9999"/>
-		</fame>
-		<defense>
-			<random min="39" max="39"/>
-		</defense>
-		<lodamage>8</lodamage>
-		<hidamage>17</hidamage>
-		<gold>
-			<random min="300" max="350"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="341" max="365"/>
-		</str>
-		<dex>
-			<random min="113" max="128"/>
-		</dex>
-		<int>
-			<random min="85" max="119"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="584" max="695"/>
-		</wrestling>
-		<tactics>
-			<random min="566" max="765"/>
-		</tactics>
-		<magicresistance>
-			<random min="554" max="678"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<carve>carve_drake_gray_weak</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a drake (gray) medium-->
-	<npc id="drake_gray_medium">
-		<name>a drake (gray)</name>
-		<id>0x03c</id>
-		<category>Monsters\dragons\drake gray medium</category>
+		<category>Monsters\dragons\drake gray </category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-5000" max="-9999"/>
@@ -427,111 +163,22 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-		<carve>carve_drake_gray_medium</carve>
+		<carve>carve_drake_gray</carve>
 		<!-- Priv -->
 	</npc>
-	<!-- a drake (gray) hard-->
-	<npc id="drake_gray_hard">
-		<name>a drake (gray)</name>
-		<id>0x03c</id>
-		<category>Monsters\dragons\drake gray hard</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-5000" max="-9999"/>
-		</karma>
-		<fame>
-			<random min="5000" max="9999"/>
-		</fame>
-		<defense>
-			<random min="52" max="52"/>
-		</defense>
-		<lodamage>11</lodamage>
-		<hidamage>23</hidamage>
-		<gold>
-			<random min="300" max="350"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="462" max="494"/>
-		</str>
-		<dex>
-			<random min="154" max="173"/>
-		</dex>
-		<int>
-			<random min="116" max="161"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="791" max="940"/>
-		</wrestling>
-		<tactics>
-			<random min="767" max="1035"/>
-		</tactics>
-		<magicresistance>
-			<random min="749" max="917"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<carve>carve_drake_gray_hard</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a drake (red) weak-->
-	<npc id="drake_red_weak">
-		<name>a drake (red)</name>
+
+	<!-- a drake (red) -->
+	<npc id="drake_red">
+		<name>a drake</name>
 		<id>0x03d</id>
-		<category>Monsters\dragons\drake red weak</category>
+		<category>Monsters\dragons\drake red </category>
 		<inherit id="monster_base"/>
 		<karma>
 			<random min="-5000" max="-9999"/>
 		</karma>
 		<fame>
-			<random min="5000" max="9999"/>
-		</fame>
-		<defense>
-			<random min="39" max="39"/>
-		</defense>
-		<lodamage>8</lodamage>
-		<hidamage>17</hidamage>
-		<gold>
-			<random min="300" max="350"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="341" max="365"/>
-		</str>
-		<dex>
-			<random min="113" max="128"/>
-		</dex>
-		<int>
-			<random min="85" max="119"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="584" max="695"/>
-		</wrestling>
-		<tactics>
-			<random min="566" max="765"/>
-		</tactics>
-		<magicresistance>
-			<random min="554" max="678"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<carve>carve_drake_red_weak</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a drake (red) medium-->
-	<npc id="drake_red_medium">
-		<name>a drake (red)</name>
-		<id>0x03d</id>
-		<category>Monsters\dragons\drake red medium</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-5000" max="-9999"/>
-		</karma>
-		<fame>
+
+
 			<random min="5000" max="9999"/>
 		</fame>
 		<defense>
@@ -565,54 +212,7 @@
 		<anatomy>
 			<random min="0" max="0"/>
 		</anatomy>
-		<carve>carve_drake_red_medium</carve>
-		<!-- Priv -->
-	</npc>
-	<!-- a drake (red) hard-->
-	<npc id="drake_red_hard">
-		<name>a drake (red)</name>
-		<id>0x03d</id>
-		<category>Monsters\dragons\drake red hard</category>
-		<inherit id="monster_base"/>
-		<karma>
-			<random min="-5000" max="-9999"/>
-		</karma>
-		<fame>
-			<random min="5000" max="9999"/>
-		</fame>
-		<defense>
-			<random min="52" max="52"/>
-		</defense>
-		<lodamage>11</lodamage>
-		<hidamage>23</hidamage>
-		<gold>
-			<random min="300" max="350"/>
-		</gold>
-		<!-- Stats -->
-		<str>
-			<random min="462" max="494"/>
-		</str>
-		<dex>
-			<random min="154" max="173"/>
-		</dex>
-		<int>
-			<random min="116" max="161"/>
-		</int>
-		<!-- Skills -->
-		<wrestling>
-			<random min="791" max="940"/>
-		</wrestling>
-		<tactics>
-			<random min="767" max="1035"/>
-		</tactics>
-		<magicresistance>
-			<random min="749" max="917"/>
-		</magicresistance>
-		<anatomy>
-			<random min="0" max="0"/>
-		</anatomy>
-		<carve>carve_drake_red_hard</carve>
+		<carve>carve_drake_red</carve>
 		<!-- Priv -->
 	</npc>
 </definitions>
-
