@@ -513,12 +513,13 @@ void cWorld::load()
 
 	Console::instance()->PrepareProgress( "Postprocessing" );
 
-	P_ITEM pi;	
+	// It's not possible to use cItemIterator during postprocessing because it skips lingering items
+	ItemMap::iterator iter;
 	QPtrList< cItem > deleteItems;
 
-	cItemIterator iter;
-	for( pi = iter.first(); pi; pi = iter.next() )
+	for( iter = p->items.begin(); iter != p->items.end(); ++iter )
 	{
+		P_ITEM pi = iter->second;
 		SERIAL contserial = reinterpret_cast<SERIAL>(pi->container());
 
 		// We used free for uncontained items
@@ -532,6 +533,9 @@ void cWorld::load()
 				MapObjects::instance()->add(pi);
 			}
 		} else {
+			// Flag the container value as valid
+			pi->free = false;
+
 			// 1. Handle the Container Value
 			if (isItemSerial(contserial)) {
 				P_ITEM pCont = FindItemBySerial(contserial);
