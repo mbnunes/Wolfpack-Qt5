@@ -18,6 +18,7 @@ import atexit
 import cStringIO
 import traceback
 import web.sessions
+import wolfpack
 
 # Just override handle_error for nicer error handling
 class Webserver( HTTPServer ):
@@ -257,21 +258,29 @@ class WebserverThread(Thread):
 
 thread = None
 
-def onLoad():
+def onServerStart():
 	web.sessions.clear_sessions()
 
-	# Start the Thread
 	global thread
 	thread = WebserverThread( REMOTEADMIN_PORT )
 	thread.start()
+
+def onLoad():
+	# Not on ServerStart
+	if not wolfpack.isstarting():
+		web.sessions.clear_sessions()
+
+		# Start the Thread
+		global thread
+		thread = WebserverThread( REMOTEADMIN_PORT )
+		thread.start()
 
 def onUnload():
 	# Stop the Thread
 	global thread
 	if thread:
-		
 		thread.cancel()
-		time.sleep( 1 )
+		time.sleep( 1 )	# This is needed to allow the thread to sync (Remember => global interpreter lock)
 		thread.join() # Join with the thread
 
 	web.sessions.clear_sessions()
