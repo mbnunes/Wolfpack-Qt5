@@ -66,26 +66,12 @@
 */
 
 /* dummy functions */
-cDBDriver::~cDBDriver() {}
-bool cDBDriver::open( int id ) { return true; }
-void cDBDriver::close() {}
-cDBResult cDBDriver::query( const QString &query ) { return cDBResult( NULL, NULL ); }
 bool cDBDriver::exec( const QString &query ) { return true; }
 void cDBDriver::lockTable( const QString& table ) {}
 void cDBDriver::unlockTable( const QString& table ) {}
 QString cDBDriver::error() { return QString::null; }
-
 void cDBDriver::setActiveConnection( int id )
 {
-	if( connections.find( id ) == connections.end() )
-	{
-		connection = NULL;
-		open( id );		
-	}
-	else
-	{
-		connection = connections[ id ];
-	}
 }
 
 /*****************************************************************************
@@ -331,6 +317,19 @@ QString cMySQLDriver::error()
 	else
 	{
 		return QString::null;
+	}
+}
+
+void cMySQLDriver::setActiveConnection( int id )
+{
+	if( connections.find( id ) == connections.end() )
+	{
+		connection = NULL;
+		open( id );		
+	}
+	else
+	{
+		connection = connections[ id ];
 	}
 }
 

@@ -714,6 +714,7 @@ int main( int argc, char *argv[] )
 	// Try to open our driver
 	if( !persistentBroker->openDriver( SrvParams->databaseDriver() ) )
 	{		
+		clConsole.log( LOG_FATAL, QString("Error trying to open %1 database driver, check your wolfpack.xml").arg(SrvParams->databaseDriver()) );
 		exit( -1 );
 	}
 

@@ -66,7 +66,7 @@ bool PersistentBroker::openDriver( const QString& driver )
 #ifdef MYSQL_DRIVER
 	else if( driver == "mysql" )
 	{
-		connection = new cDBDriver;
+		connection = new cMySQLDriver;
 		sqlite = false;
 	}
 #endif

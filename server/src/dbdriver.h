@@ -49,7 +49,6 @@ class cDBDriver
 {
 	friend class cDBResult;
 protected:
-	std::map< int, st_mysql* > connections;
 	void *connection;
 
 	QString _host, _dbname, _username, _password;
@@ -59,20 +58,20 @@ protected:
 
 public:
 	cDBDriver() : connection(0) {}
-	virtual ~cDBDriver();
+	virtual ~cDBDriver() {};
 
 	virtual const char *name() const { return NULL; }
 
-	virtual bool open( int id = CONN_MAIN );
-	virtual void close();
+	virtual bool open( int id = CONN_MAIN ) = 0;
+	virtual void close() = 0;
 	virtual bool exec( const QString &query ); // Just execute some SQL code, no return!	
-	virtual cDBResult query( const QString &query ); // Executes a query
+	virtual cDBResult query( const QString &query ) = 0; // Executes a query
 	virtual void lockTable( const QString& table );
 	virtual void unlockTable( const QString& table );
 	virtual QString error(); // Returns an error (if there is one), uses the current connection
 	
 	// Setters + Getters
-	void setActiveConnection( int id = CONN_MAIN );
+	virtual void setActiveConnection( int id = CONN_MAIN );
 	void setUserName( const QString &data ) { _username = data; }
 	void setPassword( const QString &data ) { _password = data; }
 	void setHostName( const QString &data ) { _host = data; }
@@ -104,6 +103,7 @@ public:
 
 class cMySQLDriver : public cDBDriver
 {
+	std::map< int, st_mysql* > connections;
 public:
 	const char *name() const { return "mysql"; }
 
@@ -116,7 +116,7 @@ public:
 	void lockTable( const QString& table );
 	void unlockTable( const QString& table );
 	QString error();
-
+	void setActiveConnection( int id );
 	bool exec( const QString &query );
 	cDBResult query( const QString &query );
 };

@@ -142,7 +142,7 @@ void WPConsole_cl::log( UINT8 logLevel, const QString &message )
 void WPConsole_cl::error(const QString& sMessage)
 {
 	if (errorstrm != NULL)
-		(*errorstrm) << sMessage;
+		(*errorstrm) << sMessage.latin1();
 }
 
 //=========================================================================================

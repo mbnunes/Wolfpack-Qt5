@@ -686,12 +686,11 @@ static PyObject *wpMap( PyObject* self, PyObject* args )
 static PyObject* wpHasMap( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
-	if ( !checkArgInt(0) )
-	{
-		PyErr_BadArgument();
+	uint map = 0;
+	if( !PyArg_ParseTuple( args, "i:wolfpack.hasmap", &map ) )
 		return 0;
-	}
-	return Map->hasMap( getArgInt(0) ) ? PyTrue : PyFalse;
+
+	return Map->hasMap( map ) ? PyTrue : PyFalse;
 }
 
 /*!
@@ -813,17 +812,12 @@ static PyObject *wpCoord( PyObject* self, PyObject* args )
 {
 	Q_UNUSED(self);
 
-	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) || !checkArgInt( 3 ) )
-	{
-		PyErr_BadArgument();
+	uint x = 0, y = 0, z = 0;
+	uchar map = 0;
+	if( !PyArg_ParseTuple( args, "iiib:wolfpack.coord", &x, &y, &z, &map ) )
 		return 0;
-	}
 
-	Coord_cl pos;
-	pos.x = getArgInt( 0 );
-	pos.y = getArgInt( 1 );
-	pos.z = getArgInt( 2 );
-	pos.map = getArgInt( 3 );
+	Coord_cl pos( x, y, z, map );
 
 	return PyGetCoordObject( pos );
 }
@@ -835,12 +829,10 @@ static PyObject *wpMulti( PyObject* self, PyObject* args )
 {
 	Q_UNUSED( self);
 
-	if( !checkArgInt( 0 ) )
-	{
-		PyErr_BadArgument();
+	uint type = 0;
+	if( !PyArg_ParseTuple( args, "i:wolfpack.multi", &type ) )
 		return 0;
-	}
-	uint type = getArgInt( 0 );
+
 	P_MULTI pMulti = NULL;
 
 	switch( type )
