@@ -120,6 +120,7 @@ cBaseChar::~cBaseChar()
 
 cBaseChar& cBaseChar::operator=(const cBaseChar& right)
 {
+	return *this;
 }
 
 void cBaseChar::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
@@ -1505,7 +1506,7 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 	{
 		setTamed( value.toInt() );
 	}
-	else SET_CHAR_PROPERTY( "guarding", guarding_ )
+//	else SET_CHAR_PROPERTY( "guarding", guarding_ )
 	else SET_INT_PROPERTY( "murderer", murdererSerial_ )
 	else if( name == "casting" )
 	{
@@ -1538,71 +1539,71 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 		weight_ = value.toInt() * 10;
 		return 0;
 	}
-	else SET_STR_PROPERTY( "lootlist", lootList_ )
+//	else SET_STR_PROPERTY( "lootlist", lootList_ )
 	else SET_INT_PROPERTY( "saycolor", saycolor_ )
 	else SET_INT_PROPERTY( "emotecolor", emoteColor_ )
 	else SET_INT_PROPERTY( "strength", strength_ )
 	else SET_INT_PROPERTY( "dexterity", dexterity_ )
-	else SET_INT_PROPERTY( "intelligence", in_ )
-	else SET_INT_PROPERTY( "strength2", st2_ )
-	else SET_INT_PROPERTY( "dexterity2", dx2 )
-	else SET_INT_PROPERTY( "intelligence2", in2_ )
+	else SET_INT_PROPERTY( "intelligence", intelligence_ )
+	else SET_INT_PROPERTY( "strength2", strengthMod_ )
+	else SET_INT_PROPERTY( "dexterity2", dexterityMod_ )
+	else SET_INT_PROPERTY( "intelligence2", intelligenceMod_ )
 	else SET_INT_PROPERTY( "direction", direction_ )
-	else SET_INT_PROPERTY( "xid", xid_ )
-	else SET_INT_PROPERTY( "priv", priv )
-	else SET_INT_PROPERTY( "priv2", priv2_ )
-	else SET_INT_PROPERTY( "health", hp_ )
-	else SET_INT_PROPERTY( "stamina", stm_ )
-	else SET_INT_PROPERTY( "mana", mn_ )
-	else SET_INT_PROPERTY( "hidamage", hidamage_ )
-	else SET_INT_PROPERTY( "lodamage", lodamage_ )
-	else SET_INT_PROPERTY( "npc", npc_ )
-	else SET_INT_PROPERTY( "shop", shop_ )
+	else SET_INT_PROPERTY( "xid", orgBodyID_ )
+//	else SET_INT_PROPERTY( "priv", priv )
+//	else SET_INT_PROPERTY( "priv2", priv2_ )
+	else SET_INT_PROPERTY( "health", hitpoints_ )
+	else SET_INT_PROPERTY( "stamina", stamina_ )
+	else SET_INT_PROPERTY( "mana", mana_ )
+//	else SET_INT_PROPERTY( "hidamage", hidamage_ )
+//	else SET_INT_PROPERTY( "lodamage", lodamage_ )
+//	else SET_INT_PROPERTY( "npc", npc_ )
+//	else SET_INT_PROPERTY( "shop", shop_ )
 	else SET_INT_PROPERTY( "karma", karma_ )
 	else SET_INT_PROPERTY( "fame", fame_ )
 	else SET_INT_PROPERTY( "kills", kills_ )
 	else SET_INT_PROPERTY( "deaths", deaths_ )
-	else SET_INT_PROPERTY( "dead", dead_ )
-	else SET_INT_PROPERTY( "lightbonus", fixedlight_ )
-	else SET_INT_PROPERTY( "defense", def_ )
-	else SET_INT_PROPERTY( "war", war_ )
-	else SET_INT_PROPERTY( "target", targ_ )
-	else SET_INT_PROPERTY( "nextswing", timeout_ )
-	else SET_INT_PROPERTY( "regenhealth", regen_ )
-	else SET_INT_PROPERTY( "regenstamina", regen2_ )
-	else SET_INT_PROPERTY( "regenmana", regen3_ )
+//	else SET_INT_PROPERTY( "dead", dead_ )
+//	else SET_INT_PROPERTY( "lightbonus", fixedlight_ )
+//	else SET_INT_PROPERTY( "defense", def_ )
+//	else SET_INT_PROPERTY( "war", war_ )
+//	else SET_INT_PROPERTY( "target", targ_ )
+//	else SET_INT_PROPERTY( "nextswing", timeout_ )
+//	else SET_INT_PROPERTY( "regenhealth", regen_ )
+//	else SET_INT_PROPERTY( "regenstamina", regen2_ )
+	else SET_INT_PROPERTY( "regenmana", regenManaTime_ )
 	else if( name == "inputmode" )
 	{
-		inputmode_ = (enInputMode)value.toInt();
+//		inputmode_ = (enInputMode)value.toInt();
 		return 0;
 	}
-	else SET_INT_PROPERTY( "inputitem", inputitem_ )
-	else SET_INT_PROPERTY( "attacker", attacker_ )
-	else SET_INT_PROPERTY( "npcmovetime", npcmovetime_ )
-	else SET_INT_PROPERTY( "npcwander", npcWander_ )
-	else SET_INT_PROPERTY( "oldnpcwander", oldnpcWander_ )
-	else SET_INT_PROPERTY( "following", ftarg_ )
+//	else SET_INT_PROPERTY( "inputitem", inputitem_ )
+//	else SET_INT_PROPERTY( "attacker", attacker_ )
+//	else SET_INT_PROPERTY( "npcmovetime", npcmovetime_ )
+//	else SET_INT_PROPERTY( "npcwander", npcWander_ )
+//	else SET_INT_PROPERTY( "oldnpcwander", oldnpcWander_ )
+//	else SET_INT_PROPERTY( "following", ftarg_ )
 	else if( name == "destination" )
 	{
-		ptarg_ = value.toCoord();
+//		ptarg_ = value.toCoord();
 		return 0;
 	}
 	
-	SET_INT_PROPERTY( "fx1", fx1_ )
-	else SET_INT_PROPERTY( "fx2", fx2_ )
-	else SET_INT_PROPERTY( "fy1", fy1_ )
-	else SET_INT_PROPERTY( "fy2", fy2_ )
-	else SET_INT_PROPERTY( "fz1", fz1_ )
-	else SET_INT_PROPERTY( "skilldelay", skilldelay_ )
-	else SET_INT_PROPERTY( "objectdelay", objectdelay_ )
-	else SET_INT_PROPERTY( "totame", taming_ )
-	else SET_INT_PROPERTY( "summontimer", summontimer_) 
-	else SET_INT_PROPERTY( "visrange", VisRange_ )
-	else SET_INT_PROPERTY( "food", food_ )
-	else SET_CHAR_PROPERTY( "owner", owner_ )
-	else SET_STR_PROPERTY( "profile", profile_ )
-	else SET_INT_PROPERTY( "sex", sex_ )
-	else SET_INT_PROPERTY( "id", id_ )
+//	else SET_INT_PROPERTY( "fx1", fx1_ )
+//	else SET_INT_PROPERTY( "fx2", fx2_ )
+//	else SET_INT_PROPERTY( "fy1", fy1_ )
+//	else SET_INT_PROPERTY( "fy2", fy2_ )
+//	else SET_INT_PROPERTY( "fz1", fz1_ )
+//	else SET_INT_PROPERTY( "skilldelay", skilldelay_ )
+//	else SET_INT_PROPERTY( "objectdelay", objectdelay_ )
+//	else SET_INT_PROPERTY( "totame", taming_ )
+//	else SET_INT_PROPERTY( "summontimer", summontimer_) 
+//	else SET_INT_PROPERTY( "visrange", VisRange_ )
+//	else SET_INT_PROPERTY( "food", food_ )
+//	else SET_CHAR_PROPERTY( "owner", owner_ )
+//	else SET_STR_PROPERTY( "profile", profile_ )
+//	else SET_INT_PROPERTY( "sex", sex_ )
+	else SET_INT_PROPERTY( "id", bodyID_ )
 
 	// skill.
 	else if( name.left( 6 ) == "skill." )
@@ -1613,8 +1614,8 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 		if( skillId != -1 )
 		{
 			setSkillValue( skillId, value.toInt() );
-			if( socket_ )
-				socket_->sendSkill( skillId );
+//			if( socket_ )
+//				socket_->sendSkill( skillId );
 			return 0;
 		}
 	}
@@ -1624,110 +1625,111 @@ stError *cBaseChar::setProperty( const QString &name, const cVariant &value )
 
 stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 {
-	GET_PROPERTY( "orgname", orgname_ )
+
+//	GET_PROPERTY( "orgname", orgname_ )
 	GET_PROPERTY( "title", title_ )
-	GET_PROPERTY( "account", ( account_ != 0 ) ? account_->login() : QString( "" ) )
-	GET_PROPERTY( "incognito", incognito_ )
-	GET_PROPERTY( "polymorph", polymorph_ )
+//	GET_PROPERTY( "account", ( account_ != 0 ) ? account_->login() : QString( "" ) )
+//	GET_PROPERTY( "incognito", incognito_ )
+//	GET_PROPERTY( "polymorph", polymorph_ )
 	GET_PROPERTY( "skin", skin_ )
-	GET_PROPERTY( "xskin", xskin_ )
-	GET_PROPERTY( "creationday", (int)creationday_ )
-	GET_PROPERTY( "stealth", stealth_ )
-	GET_PROPERTY( "running", (int)running_ )
-	GET_PROPERTY( "logout", (int)logout_ )
-	GET_PROPERTY( "clientidletime", (int)clientidletime_ )
-	GET_PROPERTY( "swingtarget", FindCharBySerial( swingtarg_ ) )
-	GET_PROPERTY( "tamed", tamed_ )
-	GET_PROPERTY( "antispamtimer", (int)antispamtimer_ )
-	GET_PROPERTY( "antiguardstimer", (int)antiguardstimer_ )
-	GET_PROPERTY( "guarding", guarding_ )
-	GET_PROPERTY( "carve", carve_ )
-	GET_PROPERTY( "murderer", FindCharBySerial( murdererSer_ ) )
-	GET_PROPERTY( "spawnregion", spawnregion_ )
-	GET_PROPERTY( "stablemaster", FindCharBySerial( stablemaster_serial_ ) )
-	GET_PROPERTY( "casting", casting_ )
-	GET_PROPERTY( "hidden", hidden_ )
-	GET_PROPERTY( "attackfirst", attackfirst_ )
+	GET_PROPERTY( "xskin", orgSkin_ )
+//	GET_PROPERTY( "creationday", (int)creationday_ )
+//	GET_PROPERTY( "stealth", stealth_ )
+//	GET_PROPERTY( "running", (int)running_ )
+//	GET_PROPERTY( "logout", (int)logout_ )
+//	GET_PROPERTY( "clientidletime", (int)clientidletime_ )
+//	GET_PROPERTY( "swingtarget", FindCharBySerial( swingtarg_ ) )
+//	GET_PROPERTY( "tamed", tamed_ )
+//	GET_PROPERTY( "antispamtimer", (int)antispamtimer_ )
+//	GET_PROPERTY( "antiguardstimer", (int)antiguardstimer_ )
+//	GET_PROPERTY( "guarding", guarding_ )
+//	GET_PROPERTY( "carve", carve_ )
+//	GET_PROPERTY( "murderer", FindCharBySerial( murdererSer_ ) )
+//	GET_PROPERTY( "spawnregion", spawnregion_ )
+//	GET_PROPERTY( "stablemaster", FindCharBySerial( stablemaster_serial_ ) )
+//	GET_PROPERTY( "casting", casting_ )
+//	GET_PROPERTY( "hidden", hidden_ )
+//	GET_PROPERTY( "attackfirst", attackfirst_ )
 	GET_PROPERTY( "hunger", hunger_ )
-	GET_PROPERTY( "hungertime", (int)hungertime_ )
-	GET_PROPERTY( "npcaitype", npcaitype_ )
+//	GET_PROPERTY( "hungertime", (int)hungertime_ )
+//	GET_PROPERTY( "npcaitype", npcaitype_ )
 	GET_PROPERTY( "poison", poison_ )
 	GET_PROPERTY( "poisoned", (int)poisoned_ )
-	GET_PROPERTY( "poisontime", (int)poisontime_ )
-	GET_PROPERTY( "poisonwearofftime", (int)poisonwearofftime_ )
-	GET_PROPERTY( "fleeat", fleeat_ )
-	GET_PROPERTY( "reattackat", reattackat_ )
-	GET_PROPERTY( "split", split_ )
-	GET_PROPERTY( "splitchance", splitchnc_ )
-	GET_PROPERTY( "ra", ra_ )
-	GET_PROPERTY( "trainer", FindCharBySerial( trainer_ ) )
-	GET_PROPERTY( "trainingplayerin", trainingplayerin_ )
-	GET_PROPERTY( "cantrain", cantrain_ )
+//	GET_PROPERTY( "poisontime", (int)poisontime_ )
+//	GET_PROPERTY( "poisonwearofftime", (int)poisonwearofftime_ )
+//	GET_PROPERTY( "fleeat", fleeat_ )
+//	GET_PROPERTY( "reattackat", reattackat_ )
+//	GET_PROPERTY( "split", split_ )
+//	GET_PROPERTY( "splitchance", splitchnc_ )
+//	GET_PROPERTY( "ra", ra_ )
+//	GET_PROPERTY( "trainer", FindCharBySerial( trainer_ ) )
+//	GET_PROPERTY( "trainingplayerin", trainingplayerin_ )
+//	GET_PROPERTY( "cantrain", cantrain_ )
 	GET_PROPERTY( "flag", flag_ )
-	GET_PROPERTY( "murderrate", (int)murderrate_ )
-	GET_PROPERTY( "crimflag", crimflag_ )
-	GET_PROPERTY( "squelched", squelched_ )
-	GET_PROPERTY( "mutetime", (int)mutetime_ )
-	GET_PROPERTY( "meditating", med_ )
+//	GET_PROPERTY( "murderrate", (int)murderrate_ )
+//	GET_PROPERTY( "crimflag", crimflag_ )
+//	GET_PROPERTY( "squelched", squelched_ )
+//	GET_PROPERTY( "mutetime", (int)mutetime_ )
+//	GET_PROPERTY( "meditating", med_ )
 	GET_PROPERTY( "weight", weight_ )
 	GET_PROPERTY( "stones", weight_ / 10 )
-	GET_PROPERTY( "lootlist", lootlist_ )
+//	GET_PROPERTY( "lootlist", lootlist_ )
 	GET_PROPERTY( "saycolor", saycolor_ )
-	GET_PROPERTY( "emotecolor", emotecolor_ )
-	GET_PROPERTY( "strength", st_ )
-	GET_PROPERTY( "dexterity", dx )
-	GET_PROPERTY( "intelligence", in_ )
-	GET_PROPERTY( "strength2", st2_ )
-	GET_PROPERTY( "dexterity2", dx2 )
-	GET_PROPERTY( "intelligence2", in2_ )
+//	GET_PROPERTY( "emotecolor", emotecolor_ )
+	GET_PROPERTY( "strength", strength_ )
+	GET_PROPERTY( "dexterity", dexterity_ )
+	GET_PROPERTY( "intelligence", intelligence_ )
+	GET_PROPERTY( "strength2", strengthMod_ )
+	GET_PROPERTY( "dexterity2", dexterityMod_ )
+	GET_PROPERTY( "intelligence2", intelligenceMod_ )
 	GET_PROPERTY( "direction", direction_ )
-	GET_PROPERTY( "xid", xid_ )
-	GET_PROPERTY( "priv", priv )
-	GET_PROPERTY( "priv2", priv2_ )
-	GET_PROPERTY( "health", hp_ )
-	GET_PROPERTY( "stamina", stm_ )
-	GET_PROPERTY( "mana", mn_ )
-	GET_PROPERTY( "hidamage", hidamage_ )
-	GET_PROPERTY( "lodamage", lodamage_ )
-	GET_PROPERTY( "npc", npc_ )
-	GET_PROPERTY( "shop", shop_ )
+	GET_PROPERTY( "xid", orgBodyID_ )
+//	GET_PROPERTY( "priv", priv )
+//	GET_PROPERTY( "priv2", priv2_ )
+	GET_PROPERTY( "health", hitpoints_ )
+	GET_PROPERTY( "stamina", stamina_ )
+	GET_PROPERTY( "mana", mana_ )
+//	GET_PROPERTY( "hidamage", hidamage_ )
+//	GET_PROPERTY( "lodamage", lodamage_ )
+//	GET_PROPERTY( "npc", npc_ )
+//	GET_PROPERTY( "shop", shop_ )
 	GET_PROPERTY( "karma", karma_ )
 	GET_PROPERTY( "fame", fame_ )
 	GET_PROPERTY( "kills", (int)kills_ )
 	GET_PROPERTY( "deaths", (int)deaths_ )
-	GET_PROPERTY( "dead", dead_ )
-	GET_PROPERTY( "lightbonus", fixedlight_ )
-	GET_PROPERTY( "defense", (int)def_ )
-	GET_PROPERTY( "war", war_ )
-	GET_PROPERTY( "target", FindCharBySerial( targ_ ) )
-	GET_PROPERTY( "nextswing", (int)timeout_ )
-	GET_PROPERTY( "regenhealth", (int)regen_ )
-	GET_PROPERTY( "regenstamina", (int)regen2_ )
-	GET_PROPERTY( "regenmana", (int)regen3_ )
-	GET_PROPERTY( "inputmode", inputmode_ )
-	GET_PROPERTY( "inputitem", FindItemBySerial( inputitem_ ) )
-	GET_PROPERTY( "attacker", FindCharBySerial( attacker_ ) )
-	GET_PROPERTY( "npcmovetime", (int)npcmovetime_ )
-	GET_PROPERTY( "npcwander", npcWander_ )
-	GET_PROPERTY( "oldnpcwander", oldnpcWander_ )
-	GET_PROPERTY( "following", FindCharBySerial( ftarg_ ) )
-	GET_PROPERTY( "destination", ptarg_ )
-	GET_PROPERTY( "fx1", fx1_ )
-	GET_PROPERTY( "fx2", fx2_ )
-	GET_PROPERTY( "fy1", fy1_ )
-	GET_PROPERTY( "fy2", fy2_ )
-	GET_PROPERTY( "fz1", fz1_ )
-	GET_PROPERTY( "region", ( region_ != 0 ) ? region_->name() : QString( "" ) )
-	GET_PROPERTY( "skilldelay", (int)skilldelay_ )
-	GET_PROPERTY( "objectdelay", (int)objectdelay_ )
-	GET_PROPERTY( "totame", taming_ )
-	GET_PROPERTY( "summontimer", (int)summontimer_) 
-	GET_PROPERTY( "visrange", VisRange_ )
-	GET_PROPERTY( "food", (int)food_ )
-	GET_PROPERTY( "owner", owner_ )
-	GET_PROPERTY( "profile", profile_ )
-	GET_PROPERTY( "sex", sex_ )
-	GET_PROPERTY( "id", id_ )
+//	GET_PROPERTY( "dead", dead_ )
+//	GET_PROPERTY( "lightbonus", fixedlight_ )
+//	GET_PROPERTY( "defense", (int)def_ )
+//	GET_PROPERTY( "war", war_ )
+//	GET_PROPERTY( "target", FindCharBySerial( targ_ ) )
+//	GET_PROPERTY( "nextswing", (int)timeout_ )
+//	GET_PROPERTY( "regenhealth", (int)regen_ )
+//	GET_PROPERTY( "regenstamina", (int)regen2_ )
+//	GET_PROPERTY( "regenmana", (int)regen3_ )
+//	GET_PROPERTY( "inputmode", inputmode_ )
+//	GET_PROPERTY( "inputitem", FindItemBySerial( inputitem_ ) )
+//	GET_PROPERTY( "attacker", FindCharBySerial( attacker_ ) )
+//	GET_PROPERTY( "npcmovetime", (int)npcmovetime_ )
+//	GET_PROPERTY( "npcwander", npcWander_ )
+//	GET_PROPERTY( "oldnpcwander", oldnpcWander_ )
+//	GET_PROPERTY( "following", FindCharBySerial( ftarg_ ) )
+//	GET_PROPERTY( "destination", ptarg_ )
+//	GET_PROPERTY( "fx1", fx1_ )
+//	GET_PROPERTY( "fx2", fx2_ )
+//	GET_PROPERTY( "fy1", fy1_ )
+//	GET_PROPERTY( "fy2", fy2_ )
+//	GET_PROPERTY( "fz1", fz1_ )
+//	GET_PROPERTY( "region", ( region_ != 0 ) ? region_->name() : QString( "" ) )
+//	GET_PROPERTY( "skilldelay", (int)skilldelay_ )
+//	GET_PROPERTY( "objectdelay", (int)objectdelay_ )
+//	GET_PROPERTY( "totame", taming_ )
+//	GET_PROPERTY( "summontimer", (int)summontimer_) 
+//	GET_PROPERTY( "visrange", VisRange_ )
+//	GET_PROPERTY( "food", (int)food_ )
+//	GET_PROPERTY( "owner", owner_ )
+//	GET_PROPERTY( "profile", profile_ )
+	GET_PROPERTY( "sex", gender_ )
+	GET_PROPERTY( "id", bodyID_ )
 
 	// skill.
 	if( name.left( 6 ) == "skill." )
@@ -1742,15 +1744,16 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 		}
 	}
 
+
 	return cUObject::getProperty( name, value );
 }
 
 void cBaseChar::setSkillValue( UINT16 skill, UINT16 value )
 {
-	skills[ skill ].value = value;
+	skills_[ skill ].value = value;
 
 	// Check if we can delete the current skill
-	const stSkillValue &skValue = skills[ skill ];
+//	const stSkillValue &skValue = skills_[ skill ];
 
 //	if( skValue.cap == 1000 && skValue.lock == 0 && skValue.value == 0 )
 //		skills.remove( skill );
@@ -1760,7 +1763,7 @@ void cBaseChar::setSkillValue( UINT16 skill, UINT16 value )
 
 void cBaseChar::setSkillCap( UINT16 skill, UINT16 cap )
 {
-	skills[ skill ].cap = cap;
+	skills_[ skill ].cap = cap;
 
 	// Check if we can delete the current skill
 //	const stSkillValue &skValue = skills[ skill ];
@@ -1776,10 +1779,10 @@ void cBaseChar::setSkillLock( UINT16 skill, UINT8 lock )
 	if( lock > 2 )
 		lock = 0;
 
-	skills[ skill ].lock = lock;
+	skills_[ skill ].lock = lock;
 
 	// Check if we can delete the current skill
-	const stSkillValue &skValue = skills[ skill ];
+//	const stSkillValue &skValue = skills[ skill ];
 
 //	if( skValue.cap == 1000 && skValue.lock == 0 && skValue.value == 0 )
 //		skills.remove( skill );
@@ -1789,7 +1792,7 @@ void cBaseChar::setSkillLock( UINT16 skill, UINT8 lock )
 
 UINT16 cBaseChar::skillValue( UINT16 skill ) const
 {
-	return skills[ skill ].value;
+	return skills_[ skill ].value;
 
 //	if( skValue == skills.end() )
 //		return 0;
@@ -1797,7 +1800,7 @@ UINT16 cBaseChar::skillValue( UINT16 skill ) const
 
 UINT16 cBaseChar::skillCap( UINT16 skill ) const
 {
-	return skills[ skill ].cap;
+	return skills_[ skill ].cap;
 
 //	if( skValue == skills.end() )
 //		return 1000;
@@ -1805,7 +1808,7 @@ UINT16 cBaseChar::skillCap( UINT16 skill ) const
 
 UINT8 cBaseChar::skillLock( UINT16 skill ) const
 {
-	return skills[ skill ].lock;
+	return skills_[ skill ].lock;
 
 //	if( skValue == skills.end() )
 //		return 0;

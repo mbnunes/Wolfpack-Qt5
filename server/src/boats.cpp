@@ -46,6 +46,7 @@
 #include "world.h"
 #include "globals.h"
 #include "wpconsole.h"
+#include "player.h"
 
 
 #undef DBGFILE
@@ -94,7 +95,7 @@ cBoat::cBoat() : cMulti()
 
 void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial )
 {
-	P_CHAR pc_currchar = FindCharBySerial( senderserial );
+	P_PLAYER pc_currchar = dynamic_cast<P_PLAYER>(FindCharBySerial( senderserial ));
 	if( !pc_currchar )
 		return;
 	cUOSocket* socket = pc_currchar->socket();
@@ -495,7 +496,7 @@ void cBoat::turn( SI08 turn )
 	RegionIterator4Chars ri( pos() );
 	for( ri.Begin(); !ri.atEnd(); ri++ ) 
 	{
-		P_CHAR pc = ri.GetData();
+		P_PLAYER pc = dynamic_cast<P_PLAYER>(ri.GetData());
 		if( pc != NULL ) 
 		{
 			cUOSocket* socket = pc->socket();

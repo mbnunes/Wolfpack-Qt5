@@ -82,9 +82,9 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 	pc_k->setGuarding( 0 );
 	
 	// We need to remove the equipment here.
-	cChar::ContainerContent container(pc_k->content());
-	cChar::ContainerContent::const_iterator it (container.begin());
-	cChar::ContainerContent::const_iterator end(container.end());
+	cBaseChar::ItemContainer container(pc_k->content());
+	cBaseChar::ItemContainer::const_iterator it (container.begin());
+	cBaseChar::ItemContainer::const_iterator end(container.end());
 	for (; it != end; ++it )
 	{
 		P_ITEM pItem = *it;
