@@ -37,6 +37,7 @@
 #include "globals.h"
 #include "prototypes.h"
 #include "world.h"
+#include "player.h"
 
 #include <functional>
 #include <algorithm>

@@ -55,9 +55,9 @@ HEADERS         = \
 		  Trade.h \
 		  accounts.h \
 		  basics.h \
+		  basechar.h \
 		  boats.h \
 		  books.h \
-		  chars.h \
 		  coord.h \
 		  combat.h \
 		  commands.h \
@@ -81,12 +81,14 @@ HEADERS         = \
 		  makemenus.h \
 		  multis.h \
 		  network.h \
+		  npc.h \
                   pfactory.h \
 		  platform.h \
 		  prototypes.h \
 		  persistentbroker.h \
 		  persistentobject.h \
 		  preferences.h \
+		  player.h \
 		  mapobjects.h \
 		  resource.h \
 		  resources.h \
@@ -127,9 +129,10 @@ SOURCES         = \
 		  Trade.cpp \
 		  accounts.cpp \
 		  basics.cpp \
+		  basechar.cpp \
+		  basechar_flatstore.cpp \
 		  boats.cpp \
 		  books.cpp \
-		  char_flatstore.cpp \
                   chars.cpp \
 		  combat.cpp \
 		  commands.cpp \
@@ -156,15 +159,15 @@ SOURCES         = \
 		  mapobjects.cpp \
 		  multis.cpp \
 		  multiscache.cpp \
-		  necro.cpp \
 		  network.cpp \
-		  npcs.cpp \
+		  npc.cpp \
 		  p_ai.cpp \
 		  encryption.cpp \
                   pfactory.cpp \
   		  persistentbroker.cpp \
 		  persistentobject.cpp \
 		  preferences.cpp \
+		  player.cpp \
 		  resources.cpp \
                   serxmlfile.cpp \
                   serbinfile.cpp \
