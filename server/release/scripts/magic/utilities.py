@@ -51,10 +51,7 @@ MODE_CMD = 3
 def fizzle(char):
 	char.dispel(char, 1, "cast_delay")
 
-	eventlist = char.events
-	if 'magic' in eventlist:
-		eventlist.remove('magic')
-		char.events = eventlist
+   char.removeevent('magic')
 
 	if char.socket:
 		char.socket.deltag('cast_target')

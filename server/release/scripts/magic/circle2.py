@@ -92,7 +92,8 @@ class MagicTrap (Spell):
 		target.settag('trap_owner', char.serial)
 		target.settag('trap_damage', random.randint(10, 50))
 		target.settag('trap_type', 'magic')
-		target.events = target.events + ['magic.trap']
+		target.addevent( 'magic.trap' )
+
 
 class RemoveTrap (Spell):
 	def __init__(self):
@@ -108,20 +109,18 @@ class RemoveTrap (Spell):
 			return
 
 		# Already Trapped?
-		if not'magic.trap' in target.events:
+		if not target.hasevent( 'magic.trap' ):
 			fizzle(char)
 			return
 
 		wolfpack.effect(0x376a, target.pos, 9, 32)
 		target.soundeffect(0x1f0)
 
-		# Add the Trap Properties to the Item
+		# Remove the Trap Properties from the Item
+		target.removeevent( 'magic.trap' )
 		target.deltag('trap_owner', char.serial)
 		target.deltag('trap_damage', random.randint(10, 50))
 		target.deltag('trap_type', 'magic')
-		events = target.events
-		events.remove('magic.trap')
-		target.events = events
 
 class Protection(Spell):
 	def __init__(self):

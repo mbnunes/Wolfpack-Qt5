@@ -13,23 +13,16 @@ def onUse(char, item):
 		damage = item.gettag( 'trap_damage' )
 		owner = wolfpack.findchar(int(item.gettag('trap_owner')))
 	except:
+		item.removeevent( 'magic.trap' )
 		item.deltag('trap_type')
 		item.deltag('trap_damage')
 		item.deltag('trap_owner')
-		events = item.events
-		while 'magic.trap' in events:
-			events.remove('magic.trap')
-		item.events = events
 		return 0
 
+	item.removeevent( 'magic.trap' )
 	item.deltag('trap_type')
 	item.deltag('trap_damage')
 	item.deltag('trap_owner')
-
-	events = item.events
-	while 'magic.trap' in events:
-		events.remove('magic.trap')
-	item.events = events
 
 	char.message(502999)
 

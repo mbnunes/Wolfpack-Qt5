@@ -300,7 +300,7 @@ class PoisonField(Spell):
 			newitem.decay = 0 # Dont decay. TempEffect will take care of them
 			newitem.settag('dispellable_field', 1)
 			newitem.settag('level', level)
-			newitem.events = ['magic.poisonfield']
+			newitem.addevent( 'magic.poisonfield' )
 			newitem.update()
 			serials.append(newitem.serial)
 

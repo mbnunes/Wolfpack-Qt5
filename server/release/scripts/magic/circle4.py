@@ -126,7 +126,7 @@ class Recall (Spell):
 		char.turnto(target)
 
 		# We can only recall from recall runes
-		if not 'magic.rune' in target.events:
+		if not target.hasevent( 'magic.rune' ):
 			char.message(502357)
 			return
 
@@ -218,7 +218,7 @@ class FireField(Spell):
 			newitem.decay = 0 # Dont decay. TempEffect will take care of them
 			newitem.settag('dispellable_field', 1)
 			newitem.settag('source', char.serial)
-			newitem.events = ['magic.firefield']
+			newitem.addevent( 'magic.firefield' )
 			newitem.update()
 			serials.append(newitem.serial)
 

@@ -78,7 +78,7 @@ def onLoad():
 # Does the Spellbook have a specific spell?
 def hasspell( item, spell ):
 	if item and ( item.hasevent( 'magic.spellbook' ) or item.hasevent( 'magic.necrospellbook' ) ):
-		if 'magic.necrospellbook' in item.events:
+		if item.hasevent( 'magic.necrospellbook' ):
 			spell = spell - 100
 
 		circle = int( floor( spell / 8 ) ) + 1 # 0 for first circle
@@ -105,7 +105,7 @@ def countspells(item):
 
 # Adds the specified spell to the specified spellbook
 def addspell( item, spell ):
-	if not item or not 'magic.spellbook' in item.events:
+	if not item or not item.hasevent( 'magic.spellbook' ):
 		return 0
 
 	circle = int( floor( spell / 8 ) ) + 1 # 0 for first circle
@@ -126,7 +126,7 @@ def addspell( item, spell ):
 
 # Removes the specified spell from the specified spellbook
 def removespell( item, spell ):
-	if not item or not 'magic.spellbook' in item.events:
+	if not item or not item.hasevent( 'magic.spellbook' ):
 		return 0
 
 	# Circle
@@ -148,11 +148,12 @@ def removespell( item, spell ):
 def addspelltarget( char, args, target ):
 	spell = args[0]
 
-	if not target.item or not 'magic.spellbook' in target.item.events:
+	item = target.item
+
+	if not item or not item.hasevent( 'magic.spellbook' ):
 		char.socket.sysmessage( 'You need to target a spellbook.' )
 		return
 
-	item = target.item
 
 	if spell == 'all':
 		for i in range( 1, 9 ):
@@ -173,11 +174,11 @@ def addspelltarget( char, args, target ):
 def removespelltarget( char, args, target ):
 	spell = args[0]
 
-	if not target.item or not 'magic.spellbook' in target.item.events:
+	item = target.item
+
+	if not item or not item.hasevent( 'magic.spellbook' ):
 		char.socket.sysmessage( 'You need to target a spellbook.' )
 		return
-
-	item = target.item
 
 	if spell == 'all':
 		for i in range( 1, 9 ):

@@ -13,11 +13,7 @@ def wearout(player):
 
 	player.lightbonus = max(0, player.lightbonus - bonus)
 
-	events = player.events
-	while 'magic.nightsight' in events:
-		events.remove('magic.nightsight')
-	player.events = events
-
+   player.removeevent('magic.nightsight')
 	player.deltag('nightsight')
 	player.deltag('nightsight_start')
 

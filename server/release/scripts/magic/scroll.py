@@ -49,7 +49,7 @@ def onDropOnItem( cont, item ):
 		char.socket.sysmessage( "Error while calculating scroll id." )
 		return False
 
-	if ( 'magic.spellbook' in cont.events ):
+	if cont.hasevent( 'magic.spellbook' ):
 		if spell >= 64:
 			char.socket.sysmessage( "Scroll with invalid spell-id: %d" % spell )
 		else:

@@ -122,7 +122,7 @@ class MagicLock(Spell):
 		char.turnto(target)
 
 		# We can only lock unlocked chests
-		if target.type != 1 or 'lock' in target.events or target.container:
+		if target.type != 1 or target.hasevent( 'lock' ) or target.container:
 			char.message(501762)
 			return
 
@@ -134,10 +134,7 @@ class MagicLock(Spell):
 		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
-		events = target.events
-		events.append('lock')
-		target.events = events
-
+		target.addevent( 'lock' )
 		target.settag('lock', 'magic')
 
 		char.message(501763)
@@ -155,7 +152,7 @@ class Unlock(Spell):
 		char.turnto(target)
 
 		# We can only lock unlocked chests
-		if not 'lock' in target.events:
+		if not target.hasevent( 'lock' ):
 			char.message(503101)
 			return
 
@@ -166,10 +163,7 @@ class Unlock(Spell):
 		if not self.consumerequirements(char, mode, args, target, item):
 			return
 
-		events = target.events
-		events.remove('lock')
-		target.events = events
-
+		target.removeevent( 'lock' )
 		target.deltag('lock', 'magic')
 
 		wolfpack.effect(0x376a, target.pos, 9, 32)

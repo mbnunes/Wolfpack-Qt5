@@ -26,7 +26,7 @@ def expire(char, arguments):
 	items = wolfpack.items(char.pos.x, char.pos.y, char.pos.map, 0)
 
 	for item in items:
-		if 'magic.firefield' in item.events:
+		if item.hasevent( 'magic.firefield' ):
 			source = None
 			if item.hastag('source'):
 				source = wolfpack.findchar(int(item.gettag('source')))

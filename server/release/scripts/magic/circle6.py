@@ -115,7 +115,7 @@ class Mark (Spell):
 			return
 
 		# We can only mark recall runes
-		if not 'magic.rune' in target.events:
+		if not target.hasevent( 'magic.rune' ):
 			char.message(501797)
 			return
 
@@ -219,7 +219,7 @@ class ParalyzeField(Spell):
 			newitem.decay = 0 # Dont decay. TempEffect will take care of them
 			newitem.settag('dispellable_field', 1)
 			newitem.settag('strength', char.skill[self.damageskill])
-			newitem.events = ['magic.paralyzefield']
+			newitem.addevent( 'magic.paralyzefield' )
 			newitem.update()
 			serials.append(newitem.serial)
 			wolfpack.effect(0x376A, newitem.pos, 9, 10)

@@ -139,7 +139,7 @@ class GateTravel (Spell):
 		char.turnto(target)
 
 		# We can only recall from recall runes
-		if not 'magic.rune' in target.events:
+		if not target.hasevent( 'magic.rune' ):
 			char.message(502357)
 			return
 
@@ -184,7 +184,7 @@ class GateTravel (Spell):
 		gate.id = 0xf6c
 		gate.moveto(char.pos)
 		gate.settag('dispellable_field', 1)
-		gate.events = ['magic.gate']
+		gate.addevent( 'magic.gate' )
 		gate.settag('target', target.gettag('location'))
 		gate.direction = 9
 		gate.update()
@@ -196,7 +196,7 @@ class GateTravel (Spell):
 		gate.moveto(location)
 		gate.settag('target', '%u,%u,%d,%u' % (char.pos.x, char.pos.y, char.pos.z, char.pos.map))
 		gate.settag('dispellable_field', 1)
-		gate.events = ['magic.gate']
+		gate.addevent( 'magic.gate' )
 		gate.direction = 9
 		gate.update()
 		gate.soundeffect(0x20e)

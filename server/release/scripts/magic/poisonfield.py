@@ -29,7 +29,7 @@ def expire(char, arguments):
 	items = wolfpack.items(char.pos.x, char.pos.y, char.pos.map, 0)
 
 	for item in items:
-		if 'magic.poisonfield' in item.events:
+		if item.hasevent( 'magic.poisonfield' ):
 			level = 0
 			if item.hastag('level'):
 				level = int(item.gettag('level'))

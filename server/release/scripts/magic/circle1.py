@@ -117,7 +117,7 @@ class NightSight (CharEffectSpell):
 				char.socket.sysmessage('This spell only works on players.')
 			return 0
 
-		if 'magic.nightsight' in target.events:
+		if target.hasevent( 'magic.nightsight' ):
 			if char.socket:
 				if char == target:
 					char.socket.sysmessage('You already have nightsight.')
@@ -135,7 +135,7 @@ class NightSight (CharEffectSpell):
 		# With 100% magery you gain a 18 light level bonus
 		bonus = min(18, math.floor(18 * (char.skill[MAGERY] / 1000.0)))
 
-		target.events = ['magic.nightsight'] + target.events
+		target.addevent( 'magic.nightsight' )
 		target.settag("nightsight", bonus)
 		target.settag("nightsight_start", time.minutes())
 		target.lightbonus += bonus
