@@ -31,6 +31,7 @@ Wolfpack 12.9.9 Beta (CVS)
 	- Stamina loss when taking damage.
 	- Overweight prevents walking now.
 	- Walking is denied if stamina is 0.  
+	- Fixed an issue with account names containing foreign characters on save.
 
 Wolfpack 12.9.8 Beta (19. August 2004)
 	- Save fixes

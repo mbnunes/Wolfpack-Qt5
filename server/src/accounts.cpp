@@ -366,10 +366,10 @@ void cAccounts::save()
 
 			QString sql( "REPLACE INTO accounts VALUES( '%1', '%2', %3, '%4', %5, %6, '%7' );" );
 
-			sql = sql.arg( account->login_.lower() )
-				.arg( account->password_ )
+			sql = sql.arg( PersistentBroker::instance()->quoteString(account->login_) )
+				.arg( PersistentBroker::instance()->quoteString(account->password_) )
 				.arg( account->flags_ )
-				.arg( account->aclName_ )
+				.arg( PersistentBroker::instance()->quoteString(account->aclName_) )
 				.arg( !account->lastLogin_.isNull() ? account->lastLogin_.toTime_t() : 0 )
 				.arg( !account->blockUntil.isNull() ? account->blockUntil.toTime_t() : 0 )
 				.arg( PersistentBroker::instance()->quoteString(account->email_) );
