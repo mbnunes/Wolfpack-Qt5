@@ -98,6 +98,7 @@ HEADERS += \
 	platform.h \
 	player.h \
 	preferences.h \
+	profile.h \
 	progress.h \
 	pythonscript.h \
 	resource.h \
@@ -152,6 +153,7 @@ SOURCES += \
 	persistentobject.cpp \
 	player.cpp \
 	preferences.cpp \
+	profile.cpp \
 	pythonscript.cpp \
 	scriptmanager.cpp \
 	sectors.cpp \

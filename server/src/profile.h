@@ -19,7 +19,7 @@ enum eProfileKeys {
 	PF_COUNT,
 };
 
-#define ENABLE_PROFILING 0
+//#define ENABLE_PROFILING 0
 
 #if defined(ENABLE_PROFILING)
 void startProfiling(eProfileKeys key);
