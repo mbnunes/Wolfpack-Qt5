@@ -172,13 +172,11 @@ def callbackSocket( char, args, choice ):
 		return True
 	# Send Message
 	elif choice.button == 6:
-		for key in keys:
-			if key == 1:
-				if player.socket:
-					player.socket.sysmessage( textentries[ key ] )
-				else:
-					socket.sysmessage( "The Player has left. Message not sent." )
-				break
+		if 1 in keys:
+			if player.socket:
+				player.socket.sysmessage( 'A message from %s: %s' % (char.name, textentries[ key ]), char.saycolor )
+			else:
+				socket.sysmessage( "The Player has left. Message not sent." )
 		return True
 	# Char Info
 	elif choice.button == 5:
