@@ -240,7 +240,6 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args )
 
 		if( !node->isNull() && parseCoordinates( node->text(), newPos ) )
 		{
-			
 			pChar->removeFromView( false );
 			pChar->moveTo( newPos );
 			pChar->resend( false, true );
