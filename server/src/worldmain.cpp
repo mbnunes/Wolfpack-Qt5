@@ -53,6 +53,10 @@
 #include "dbdriver.h"
 #include "pagesystem.h"
 
+#include "Python.h"
+#include "python/utilities.h"
+#include "python/tempeffect.h"
+
 // Library Includes
 #include <qcstring.h>
 
@@ -179,8 +183,12 @@ void CWorldMain::loadnewworld( QString module ) // Load world
 		else if( objectID == "HIDECHAR" )
 			pTE = new cDelayedHideChar( INVALID_SERIAL );
 
+		else if( objectID == "cPythonEffect" )
+			pTE = new cPythonEffect;
+
 		else
 		{
+			clConsole.log( LOG_FATAL, QString( "An unknown temporary Effect class was found: %1" ).arg( objectID ) );
 			continue; // an error occured..
 		}
 

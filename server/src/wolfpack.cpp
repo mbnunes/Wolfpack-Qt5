@@ -1293,7 +1293,7 @@ int main( int argc, char *argv[] )
 		clConsole.send( ": " + error + "\n" );
 		clConsole.send( "Press any key to continue..." );
 		DeleteClasses();
-		exit(-1);		
+		exit(-1);
 	}
 
 	clConsole.PrepareProgress( tr("Postprocessing") );

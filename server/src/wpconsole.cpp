@@ -117,6 +117,9 @@ void WPConsole_cl::send(const QString &sMessage)
 //========================================================================================
 void WPConsole_cl::log( UINT8 logLevel, const QString &message )
 {
+	if( incompleteLine_.length() > 0 ) 
+		send( "\n" ); // End line
+
 	switch( logLevel )
 	{
 	case LOG_ERROR:
