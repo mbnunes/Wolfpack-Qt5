@@ -527,13 +527,19 @@ bool EscortSpeech(cChar* pEscortee, char* comm, cChar* pPlayer, UOXSOCKET s)
 bool BankerSpeech(cChar* pBanker, char* comm, cChar* pPlayer, UOXSOCKET s)
 {
 	if( pBanker->npcaitype != 8 )	// not a banker
+	{
 		return 0;
+	}
 	if (pPlayer->dist(pBanker) > 6)
+	{
 		return 0;
-	if (!(strstr(comm,"BANK") || strstr(comm,"BALANCE") || strstr(comm,"WITHDRAW") || strstr(comm,"CHECK")))
-		return 0;
-	BankerAI->DoAI(s,DEREF_P_CHAR(pBanker),comm);
-	return 1;
+	}
+	if (strstr(comm,"BANK") || strstr(comm,"BALANCE") || strstr(comm,"WITHDRAW") || strstr(comm,"CHECK"))
+	{
+	    BankerAI->DoAI(s,DEREF_P_CHAR(pBanker),comm);
+	    return 1;
+	}
+    return 0;	// speech was NOT handled
 }
 
 bool TrainerSpeech(cChar* pTrainer, char* comm, cChar* pPlayer, UOXSOCKET s)

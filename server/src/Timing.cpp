@@ -825,7 +825,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 						Npcs->DeleteChar(DEREF_P_CHAR(pc));
 					}
 				}
-				sprintf(t,"* %s must eat very soon or he will die! *",pc->name);
+				//sprintf(t,"* %s must eat very soon or he will die! *",pc->name);
 				break;
 			}
 
