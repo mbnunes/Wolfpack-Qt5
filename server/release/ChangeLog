@@ -6,6 +6,8 @@ Wolfpack 12.9.14 Beta (SVN)
  * Python Script Changes:
   - Added a follow command.
   - Tinkers can now choose a second material
+  - Fixed an issue with the spell Telekinesis
+  - Fix for Detecting Hidden
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
