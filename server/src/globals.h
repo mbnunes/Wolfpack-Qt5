@@ -290,7 +290,6 @@ extern char skillname[SKILLS+1][20];
 extern  std::multimap <int, tele_locations_st> tele_locations; // can't use a map here :(
 extern title_st title[ALLSKILLS+1];
 extern unsigned char *comm[CMAX];
-extern int layers[MAXLAYERS];
 
 extern creat_st creatures[2048]; //LB, stores the base-sound+sound flags of monsters, animals
 extern location_st location[4000];
@@ -303,8 +302,6 @@ extern char spellname[71][25];
 extern unsigned int metagm[256][7]; // for meta gm script
 extern int validEscortRegion[256];
 
-extern int freecharmem[301]; //stores pointers to deleted char struct memory
-extern int freeitemmem[501]; //stores pointers to deleted item struct memory
 extern int npcshape[5]; //Stores the coords of the bouding shape for the NPC
 
 extern jail_st jails[11];

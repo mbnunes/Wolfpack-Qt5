@@ -120,7 +120,6 @@ extern long int oldtime, newtime;
 #define MAXPAGES 75 // Maximum number of pages in the GM queue
 #define VISRANGE 18 // Visibility for normal items
 #define BUILDRANGE 31 // Visibility for castles and keeps
-#define MAP0CACHE 300
 #define PATHNUM 2
 
 
@@ -245,10 +244,6 @@ extern long int oldtime, newtime;
 #define YARN 0
 #define THREAD 1
 
-// Dupois - for fileArchive()
-// Added Oct 20, 1998
-#define MAXARCHID 14
-
 // Line Of Sight
 #define ITEM_TYPE_CHOICES 6
 #define TREES_BUSHES 1 // Trees and other large vegetaion in the way
@@ -257,10 +252,6 @@ extern long int oldtime, newtime;
 #define ROOFING_SLANTED 8  // So can't tele onto slanted roofs, basically
 #define FLOORS_FLAT_ROOFING 16  //  For attacking between floors
 #define LAVA_WATER 32  // Don't know what all to use this for yet
-
-// House List types
-#define H_FRIEND	1	// friend of the house
-#define H_BAN		2	// banned from house
 
 ///////////////////////  End Defines
 

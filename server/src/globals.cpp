@@ -384,7 +384,6 @@ list<SERIAL> guilds;
  std::multimap <int, tele_locations_st> tele_locations; // can't use a map here, so using a multimap with x as the key :(
  title_st title[ALLSKILLS+1];
  unsigned char *comm[CMAX];
- int layers[MAXLAYERS];
 
  location_st location[4000];
  logout_st logout[1024];//Instalog
@@ -396,8 +395,6 @@ list<SERIAL> guilds;
  int validEscortRegion[256];
  creat_st creatures[2048];
 
- int freecharmem[301]; //stores pointers to deleted char struct memory
- int freeitemmem[501]; //stores pointers to deleted item struct memory
  int npcshape[5]; //Stores the coords of the bouding shape for the NPC
 
  jail_st jails[11];

@@ -1079,8 +1079,7 @@ void sendperson_lsd(UOXSOCKET s, P_CHAR pc, char color1, char color2)
 	}
 	ShortToCharPtr(color, &oc[15]);
 
-	for (j=0;j<MAXLAYERS;j++) layers[j] = 0;
-
+	QMap<int, bool> layers;
 	unsigned int ci;
 	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
 	for (ci = 0; ci < vecContainer.size(); ci++)
@@ -1090,7 +1089,7 @@ void sendperson_lsd(UOXSOCKET s, P_CHAR pc, char color1, char color2)
 		{
 			if (pc->Wears(pi_j) && (!pi_j->free))
 			{
-				if ( layers[pi_j->layer()] == 0 )
+				if ( layers.contains( pi_j->layer() ) )
 				{
 					LongToCharPtr(pi_j->serial,oc+k+0);
 					ShortToCharPtr(pi_j->id(),oc+k+4);
@@ -1128,7 +1127,7 @@ void sendperson_lsd(UOXSOCKET s, P_CHAR pc, char color1, char color2)
 						}
 						k=k+2;
 					}
-					layers[pi_j->layer()] = 1;
+					layers[pi_j->layer()] = true;
 				}
 				else
 				{
@@ -2710,8 +2709,7 @@ void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 		default:   oc[18]=3; break;//grey (Can be pretty much any number.. I like 3 :-)
 	}
 
-	for (j=0;j<MAXLAYERS;j++) layers[j] = 0;
-
+	QMap<int, bool> layers;
 	unsigned int ci;
 	vector<SERIAL> vecContainer = contsp.getData(pc->serial);
 	for (ci = 0; ci < vecContainer.size(); ci++)
@@ -2720,19 +2718,19 @@ void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 		if (pi != NULL)
 			if (pc->Wears(pi) && !pi->free)
 			{
-				if ( layers[pi->layer()] == 0 )
+				if ( layers.contains( pi->layer() ) )
 				{
 					LongToCharPtr(pi->serial,oc+k+0);
 					ShortToCharPtr(pi->id(),oc+k+4);
 					oc[k+6]=pi->layer();
-					k=k+7;
+					k += 7;
 					if ( pi->color() != 0 )
 					{
 						oc[k-3] |= 0x80;
 						ShortToCharPtr(pi->color(), &oc[k+0]);
-						k=k+2;
+						k += 2;
 					}
-					layers[pi->layer()] = 1;
+					layers[pi->layer()] = true;
 				}
 				else
 				{
@@ -2751,7 +2749,7 @@ void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 	oc[k+1]=0;// and all of my messages went to my paperdoll gump instead of my character's
 	oc[k+2]=0;// head, when I was a character with serial number 0 0 0 1.
 	oc[k+3]=0;
-	k=k+4;
+	k += 4;
 
 	// unimportant remark: its a packet "terminator" !!! LB
 
