@@ -85,162 +85,167 @@ def response( char, args, target ):
 		char.socket.clilocmessage( 502440 ) # Scissors cannot be used on that to produce anything.
 		return
 
-	if target.item.id in ids_rawleather and target.item.hastag('resname'):
-		resname = str(target.item.gettag('resname'))
+	if not cutItem(char, target.item):
+		char.socket.clilocmessage( 502440, "", GRAY ) # Scissors can not be used on that to produce anything
+
+def cutItem(char, target):
+	if target.id in ids_rawleather and target.hastag('resname'):
+		resname = str(target.gettag('resname'))
 		char.soundeffect( 0x248 )
 		item_new = wolfpack.additem( "%s_cut" % resname )
-		item_new.amount = target.item.amount
-		target.item.delete()
+		item_new.amount = target.amount
+		target.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
 
-	elif target.item.id in ids_clothes_2:
+	elif target.id in ids_clothes_2:
 		char.soundeffect( 0x248 )
 		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 2
-		item_new.color = target.item.color
-		target.item.delete()
+		item_new.color = target.color
+		target.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
 
-	elif target.item.id in ids_clothes_4:
+	elif target.id in ids_clothes_4:
 		char.soundeffect( 0x248 )
 		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 4
-		item_new.color = target.item.color
-		target.item.delete()
+		item_new.color = target.color
+		target.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
 
-	elif target.item.id in ids_clothes_6:
+	elif target.id in ids_clothes_6:
 		char.soundeffect( 0x248 )
 		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 6
-		item_new.color = target.item.color
-		target.item.delete()
+		item_new.color = target.color
+		target.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
 
 
-	elif target.item.id in ids_clothes_8:
+	elif target.id in ids_clothes_8:
 		char.soundeffect( 0x248 )
 		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 8
-		item_new.color = target.item.color
-		target.item.delete()
+		item_new.color = target.color
+		target.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
 
 
-	elif target.item.id in ids_clothes_10:
+	elif target.id in ids_clothes_10:
 		char.soundeffect( 0x248 )
 		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 10
-		item_new.color = target.item.color
-		target.item.delete()
+		item_new.color = target.color
+		target.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
 
 
-	elif target.item.id in ids_clothes_11:
+	elif target.id in ids_clothes_11:
 		char.soundeffect( 0x248 )
 		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 11
-		item_new.color = target.item.color
-		target.item.delete()
+		item_new.color = target.color
+		target.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
 
 
-	elif target.item.id in ids_clothes_12:
+	elif target.id in ids_clothes_12:
 		char.soundeffect( 0x248 )
 		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 12
-		item_new.color = target.item.color
-		target.item.delete()
+		item_new.color = target.color
+		target.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
 
 
-	elif target.item.id in ids_clothes_13:
+	elif target.id in ids_clothes_13:
 		char.soundeffect( 0x248 )
 		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 13
-		item_new.color = target.item.color
-		target.item.delete()
+		item_new.color = target.color
+		target.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
 
 
-	elif target.item.id in ids_clothes_14:
+	elif target.id in ids_clothes_14:
 		char.soundeffect( 0x248 )
 		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 14
-		item_new.color = target.item.color
-		target.item.delete()
+		item_new.color = target.color
+		target.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
 
 
-	elif target.item.id in ids_clothes_15:
+	elif target.id in ids_clothes_15:
 		char.soundeffect( 0x248 )
 		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 15
-		item_new.color = target.item.color
-		target.item.delete()
+		item_new.color = target.color
+		target.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
 
 
-	elif target.item.id in ids_clothes_16:
+	elif target.id in ids_clothes_16:
 		char.soundeffect( 0x248 )
 		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 16
-		item_new.color = target.item.color
-		target.item.delete()
+		item_new.color = target.color
+		target.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
 
 
-	elif target.item.id in ids_clothes_24:
+	elif target.id in ids_clothes_24:
 		char.soundeffect( 0x248 )
 		item_new = wolfpack.additem( "1766" )
 		item_new.amount = 24
-		item_new.color = target.item.color
-		target.item.delete()
+		item_new.color = target.color
+		target.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
 
 
-	elif target.item.id in ids_bolts:
+	elif target.id in ids_bolts:
 		char.soundeffect( 0x248 )
 		item_new = wolfpack.additem( "1766" )
-		item_new.amount = target.item.amount * 50
-		item_new.color = target.item.color
-		target.item.delete()
+		item_new.amount = target.amount * 50
+		item_new.color = target.color
+		target.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
 
-	elif target.item.id in ids_clothes:
+	elif target.id in ids_clothes:
 		char.soundeffect( 0x248 )
 		item_new = wolfpack.additem( "e21" )
-		item_new.amount = target.item.amount
-		item_new.color = target.item.color
-		target.item.delete()
+		item_new.amount = target.amount
+		item_new.color = target.color
+		target.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
 			
 	# Bones
-	elif target.item.baseid in BONES:
-		amount = BONES[target.item.baseid]
+	elif target.baseid in BONES:
+		amount = BONES[target.baseid]
 		item_new = wolfpack.additem('f7e')
-		item_new.amount = amount * target.item.amount
-		target.item.delete()
+		item_new.amount = amount * target.amount
+		target.delete()
 		if not wolfpack.utilities.tocontainer( item_new, char.getbackpack() ):
 			item_new.update()
 		char.soundeffect(0x21B) # Soundeffect for cutting bones
 		char.socket.clilocmessage( 1008123, "", GRAY ) # Success message
 
 	else:
-		char.socket.clilocmessage( 502440, "", GRAY ) # Scissors can not be used on that to produce anything
-		return
+		return False
+		
+	return True
