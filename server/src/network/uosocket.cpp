@@ -2268,6 +2268,19 @@ void cUOSocket::resendWorld( bool clean )
 			drawChar.setHighlight( pChar->notoriety( _player ) );
 			send( &drawChar );
 			pChar->sendTooltip( this );
+
+			// Send the equipment Tooltips
+			cBaseChar::ItemContainer content = pChar->content();
+			cBaseChar::ItemContainer::const_iterator it;
+
+			for ( it = content.begin(); it != content.end(); it++ )
+			{
+				P_ITEM pItem = it.data();
+				if ( pItem->layer() <= 0x19 )
+				{
+					pItem->sendTooltip( this );
+				}
+			}
 		}
 	}
 }

@@ -36,6 +36,8 @@ Wolfpack 12.9.12 Beta (CVS)
 	- Fixed a bug (Exploit) related to consumeResource.
 	- Removed old page system from core.
 	- onCreate is now called for players on character creation.
+	- Fixed sending the tooltips of equipment when using the go menu or teleportation.
+	- Fixed "lingering" characters at the border of the screen if they walk away.
 	- Fixed bug #0000348 (  Guards should kill instantly )
 
 Wolfpack 12.9.11 Beta (26. September 2004)
