@@ -976,7 +976,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 
 void cAllItems::RespawnItem( UINT32 currenttime, P_ITEM pItem )
 {
-	if( !pItem || pItem->free )
+/*	if( !pItem || pItem->free )
 		return;
 
 	// Not ready to respawn yet
@@ -1051,9 +1051,8 @@ void cAllItems::RespawnItem( UINT32 currenttime, P_ITEM pItem )
 					--amount;
 				}
 				// Char has been tamed/changed owner
-				else if( pSpawned->tamed() || pSpawned->spawnSerial() != pItem->serial() )
+				else if( pSpawned->tamed() )
 				{
-					spawnsp.remove( pItem->serial(), pSpawned->serial() );
 					--amount;
 				}
 			}

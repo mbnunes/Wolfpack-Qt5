@@ -312,7 +312,7 @@ bool UnStableSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pMaster, const QS
 
 bool ShieldSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pGuard, const QString& comm )
 {
-	// lets be close to talk :)
+/*	// lets be close to talk :)
 	if( pPlayer->dist( pGuard ) > 3 )	
 		return false;
 
@@ -369,7 +369,7 @@ bool ShieldSpeech( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pGuard, const QStri
 		pGuard->talk( tr( "Hi fellow guild member, here is your new order shield." ) );
 		return true;
 	}
-
+*/
 	return false;
 }
 

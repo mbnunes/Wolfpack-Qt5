@@ -228,8 +228,6 @@ enum enDirection
 
 #define DEFAULTWEBPAGE "http://www.wpdev.org/"  //this URL doesn't exist, changed to www.wpdev.org ;)
 
-#define MAXTRACKINGTARGETS 20   // maximum number of trackable targets
-
 #define MY_CLOCKS_PER_SEC 1000
 #define INVALID_SERIAL -1
 #define INVALID_UOXSOCKET -1

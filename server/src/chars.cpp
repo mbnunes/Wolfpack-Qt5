@@ -80,7 +80,7 @@ bool  cChar::isCounselor() const		{return (priv&0x80 || ( account() && ( account
 bool  cChar::isGMorCounselor() const	{return (priv&0x81 || ( account() && ( account()->acl() == "admin" || account()->acl() == "gm" || account()->acl() == "counselor" ) ) );} 
 
 cChar::cChar():
-	socket_(0), account_(0), owner_(0), guildstone_( INVALID_SERIAL ), guarding_( 0 ),
+	socket_(0), account_(0), owner_(0), guarding_( 0 ),
 	regen_( 0 ), regen2_( 0 ), regen3_( 0 )
 {
 	changed( SAVE|TOOLTIP );
@@ -96,7 +96,6 @@ cChar::cChar( const P_CHAR mob )
 	this->guardedby_ = mob->guardedby();
 	this->effects_ = mob->effects();
 	this->owner_ = new cChar( mob->owner() );
-	this->trackingTarget_ = mob->trackingTarget();
 	this->orgname_ = mob->orgname();
 	this->title_ = mob->title();
 	this->sex_ = mob->sex();
@@ -104,10 +103,6 @@ cChar::cChar( const P_CHAR mob )
 	this->account_ = mob->account();
 	this->incognito_ = mob->incognito();
 	this->polymorph_ = mob->polymorph();
-	this->haircolor_ = mob->haircolor();
-	this->hairstyle_ = mob->hairstyle();
-	this->beardstyle_ = mob->beardstyle();
-	this->beardcolor_ = mob->beardstyle();
 	this->skin_ = mob->skin();
 	this->orgskin_ = mob->orgskin();
 	this->xskin_ = mob->xskin();
@@ -124,15 +119,12 @@ cChar::cChar( const P_CHAR mob )
 	this->carve_ = mob->carve();
 	this->begging_timer_ = mob->begging_timer();
 	this->murdererSer_ = mob->murdererSer();
-	this->prevPos_ = mob->prevPos();
 	this->spawnregion_ = mob->spawnregion();
 	this->stablemaster_serial_ = mob->stablemaster_serial();
-	this->spawnserial_ = mob->spawnSerial();
 	this->hidden_ = mob->hidden();
 	this->attackfirst_ = mob->attackfirst();
 	this->hunger_ = mob->hunger();
 	this->hungertime_ = mob->hungertime();
-	this->tailitem_ = mob->tailitem();
 	this->npcaitype_ = mob->npcaitype();
 	this->poison_ = mob->poison();
 	this->poisoned_ = mob->poisoned();
@@ -147,9 +139,6 @@ cChar::cChar( const P_CHAR mob )
 	this->trainer_ = mob->trainer();
 	this->trainingplayerin_ = mob->trainingplayerin();
 	this->cantrain_ = mob->cantrain();
-	this->guildtitle_ = mob->guildtitle();
-	this->guildfealty_ = mob->guildfealty();
-	this->guildstone_ = mob->guildstone();
 	this->flag_ = mob->flag();
 	this->trackingTimer_ = mob->trackingTimer();
 	this->murderrate_ = mob->murderrate();
@@ -338,12 +327,10 @@ void cChar::Init( bool createSerial )
 	this->fy1_ = -1; //NPC Wander Point 1 y
 	this->fy2_ = -1; //NPC Wander Point 2 y
 	this->fz1_ = 0; //NPC Wander Point 1 z
-	this->setSpawnSerial( INVALID_SERIAL ); // Spawned by
 	this->setHidden(0); // 0 = not hidden, 1 = hidden, 2 = invisible spell
 	this->resetAttackFirst(); // 0 = defending, 1 = attacked first
 	this->setHunger(6);  // Level of hungerness, 6 = full, 0 = "empty"
 	this->setHungerTime(0); // Timer used for hunger, one point is dropped every 20 min
-	this->setTailItem( INVALID_SERIAL );
 	this->setNpcAIType(0); // NPC ai
 	this->region_= NULL;
 	this->skilldelay_ = 0;
@@ -351,7 +338,6 @@ void cChar::Init( bool createSerial )
 	this->taming_ = 0; //Skill level required for taming
 	this->summontimer_ = 0; //Timer for summoned creatures.
 	this->trackingTimer_ = 0; // Timer used for the duration of tracking
-	this->trackingTarget_ = INVALID_SERIAL;
 
 	this->setPoison(0); // used for poison skill 
 	this->setPoisoned(0); // type of poison
@@ -368,12 +354,9 @@ void cChar::Init( bool createSerial )
 	this->setTrainer(INVALID_SERIAL); // Serial of the NPC training the char, -1 if none.
 	this->setTrainingplayerin(0); // Index in skillname of the skill the NPC is training the player in
 	this->setCantrain(true);
-	// Begin of Guild Related Character information (DasRaetsel)
-	this->setGuildtitle(QString::null);	// Title Guildmaster granted player						(DasRaetsel)
-	this->setGuildfealty(INVALID_SERIAL);		// Serial of player you are loyal to (default=yourself)	(DasRaetsel)
+
 	//this->flag=0x04; //1=red 2=grey 4=Blue 8=green 10=Orange
 	setcharflag( this );
-	// End of Guild Related Character information
 	this->setMurderrate(0); //# of ticks till murder decays.
 	this->setCrimflag(0); // time when no longer criminal -1 = not criminal
 	this->setCasting(false); // 0/1 is the cast casting a spell?
@@ -607,23 +590,6 @@ P_ITEM cChar::getBackpack()
 	return backpack;
 }
 
-///////////////////////
-// Name:	setters for various serials
-// history:	by Duke, 2.6.2001
-// Purpose:	encapsulates revoval/adding to the pointer arrays
-
-void cChar::SetSpawnSerial(long spawnser)
-{
-	changed( SAVE );
-	if (spawnSerial() != INVALID_SERIAL)	// if it was set, remove the old one
-		cspawnsp.remove(spawnSerial(), serial());
-
-	spawnserial_ = spawnser;
-
-	if (spawnser != INVALID_SERIAL)		// if there is a spawner, add it
-		cspawnsp.insert(spawnserial_, serial());
-}
-
 void cChar::SetMultiSerial(long mulser)
 {
 	this->setMultis( mulser );
@@ -726,11 +692,10 @@ void cChar::buildSqlString( QStringList &fields, QStringList &tables, QStringLis
 	fields.push_back( "characters.cantrain,characters.def" );
 	fields.push_back( "characters.lodamage,characters.hidamage,characters.war,characters.npcwander" );
 	fields.push_back( "characters.oldnpcwander,characters.carve,characters.fx1,characters.fy1,characters.fz1" );
-	fields.push_back( "characters.fx2,characters.fy2,characters.spawn,characters.hidden,characters.hunger" );
+	fields.push_back( "characters.fx2,characters.fy2,characters.hidden,characters.hunger" );
 	fields.push_back( "characters.npcaitype,characters.taming" );
 	fields.push_back( "characters.summontimer,characters.poison,characters.poisoned" );
 	fields.push_back( "characters.fleeat,characters.reattackat,characters.split,characters.splitchance" );
-	fields.push_back( "characters.guildstone,characters.guildtitle,characters.guildfealty" );
 	fields.push_back( "characters.murderrate" );
 	fields.push_back( "characters.lootlist,characters.food,characters.profile,characters.guarding,characters.destination" );
 	tables.push_back( "characters" );
@@ -801,7 +766,6 @@ void cChar::load( char **result, UINT16 &offset )
 	fz1_ = atoi( result[offset++] );
 	fx2_ = atoi( result[offset++] );
 	fy2_ = atoi( result[offset++] );
-	spawnserial_ = atoi( result[offset++] );
 	hidden_ = atoi( result[offset++] );
 	hunger_ = atoi( result[offset++] );
 	npcaitype_ = atoi( result[offset++] );
@@ -816,9 +780,6 @@ void cChar::load( char **result, UINT16 &offset )
 	reattackat_ = atoi( result[offset++] );
 	split_ = atoi( result[offset++] );
 	splitchnc_ = atoi( result[offset++] );
-	guildstone_ = atoi( result[offset++] );
-	guildtitle_ = result[offset++];
-	guildfealty_ = atoi( result[offset++] );
 	murderrate_ = atoi( result[offset++] );
 
 	loot_ = result[offset++];
@@ -832,8 +793,6 @@ void cChar::load( char **result, UINT16 &offset )
 	
 	parseCoordinates( result[offset++], ptarg_ );
 	sex_ = atoi( result[offset++] );
-
-	SetSpawnSerial( spawnserial_ );
 
 	// Query the Skills for this character
 	QString sql = "SELECT skills.skill,skills.value,skills.locktype,skills.cap FROM skills WHERE serial = '" + QString::number( serial() ) + "'";
@@ -932,7 +891,6 @@ void cChar::save()
 		addField( "fz1", fz1_);
 		addField( "fx2", fx2_);
 		addField( "fy2", fy2_);
-		addField( "spawn", spawnserial_);
 		addField( "hidden", hidden_);
 		addField( "hunger", hunger_);
 		addField( "npcaitype", npcaitype_);
@@ -945,9 +903,6 @@ void cChar::save()
 		addField( "reattackat", reattackat_);
 		addField( "split", split_);
 		addField( "splitchance",	splitchnc_);
-		addField( "guildstone", guildstone_);  
-		addField( "guildtitle", guildtitle_);  
-		addField( "guildfealty", guildfealty_);  
 		addField( "murderrate", murderrate_);
 		addStrField( "lootlist", loot_);
 		addField( "food", food_);
@@ -1826,7 +1781,7 @@ void cChar::showName( cUOSocket *socket )
 	if( kills_ >= SrvParams->maxkills() )
 		charName.append( tr(" [murderer]") );
 
-	cGuildStone *guildStone = dynamic_cast< cGuildStone* >( FindItemBySerial( guildstone_ ) );
+/*	cGuildStone *guildStone = dynamic_cast< cGuildStone* >( FindItemBySerial( guildstone_ ) );
 
 	// If we belong to a guild append the guilds title
 	// [Guildmaster, SdV] [Chaos]
@@ -1843,7 +1798,7 @@ void cChar::showName( cUOSocket *socket )
 		case cGuildStone::chaos:	charName.append( tr(" [Chaos]") ); break;
 		}
 	}
-	
+*/	
 	Q_UINT16 speechColor;
 
 	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red
@@ -2102,11 +2057,6 @@ QString cChar::fullName( void )
 		fName.append( QString( ", %1" ).arg( skillTitle ) );
 
 	return fName;
-}
-
-cGuildStone *cChar::getGuildstone()
-{ 
-	return dynamic_cast<cGuildStone*>( FindItemBySerial( guildstone_ ) ); 
 }
 
 void cChar::makeShop( void )
@@ -3499,7 +3449,6 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 
 	pc->setHidden( 0 );
 	pc->setStealth( -1 );
-	pc->SetSpawnSerial( pc->spawnSerial() );
 	
 	pc->setRegion( cAllTerritories::getInstance()->region( pc->pos().x, pc->pos().y, pc->pos().map ) );
 	
@@ -3891,7 +3840,6 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "skin", skin_ )
 	else SET_INT_PROPERTY( "orgskin", orgskin_ )
 	else SET_INT_PROPERTY( "xskin", xskin_ )
-	else SET_INT_PROPERTY( "trackingtarget", trackingTarget_ )
 	else SET_INT_PROPERTY( "creationday", creationday_ )
 	else SET_INT_PROPERTY( "stealth", stealth_ )
 	else SET_INT_PROPERTY( "running", running_ )
@@ -3907,7 +3855,6 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 	else SET_STR_PROPERTY( "spawnregion", spawnregion_ )
 	else SET_INT_PROPERTY( "stablemaster", stablemaster_serial_ )
 	else SET_INT_PROPERTY( "casting", casting_ )
-	else SET_INT_PROPERTY( "spawn", spawnserial_ )
 	else SET_INT_PROPERTY( "hidden", hidden_ )
 	else SET_INT_PROPERTY( "attackfirst", attackfirst_ )
 	else SET_INT_PROPERTY( "hunger", hunger_ )
@@ -3919,16 +3866,13 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "poisonwearofftime", poisonwearofftime_ )
 	else SET_INT_PROPERTY( "fleeat", fleeat_ )
 	else SET_INT_PROPERTY( "reattackat", reattackat_ )
-	else SET_STR_PROPERTY( "disabledmsg", disabledmsg_ )
 	else SET_INT_PROPERTY( "split", split_ )
 	else SET_INT_PROPERTY( "splitchance", splitchnc_ )
 	else SET_INT_PROPERTY( "ra", ra_ )
 	else SET_INT_PROPERTY( "trainer", trainer_ )
 	else SET_INT_PROPERTY( "trainingplayerin", trainingplayerin_ )
 	else SET_INT_PROPERTY( "cantrain", cantrain_ )
-	else SET_INT_PROPERTY( "guildtitle", guildtitle_ )
-	else SET_INT_PROPERTY( "guildfealty", guildfealty_ )
-	else if( name == "guildstone" )
+/*	else if( name == "guildstone" )
 	{
 		P_ITEM pItem = value.toItem();
 		// Remove from Current Guild
@@ -3950,7 +3894,7 @@ stError *cChar::setProperty( const QString &name, const cVariant &value )
 		}
 		else
 			return 0;
-	}
+	}*/
 	else SET_INT_PROPERTY( "flag", flag_ )
 	else SET_INT_PROPERTY( "murderrate", murderrate_ )
 	else SET_INT_PROPERTY( "crimflag", crimflag_ )
@@ -4055,14 +3999,9 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "account", ( account_ != 0 ) ? account_->login() : QString( "" ) )
 	GET_PROPERTY( "incognito", incognito_ )
 	GET_PROPERTY( "polymorph", polymorph_ )
-	GET_PROPERTY( "haircolor", haircolor_ )
-	GET_PROPERTY( "hairstyle", hairstyle_ )
-	GET_PROPERTY( "beardcolor", beardcolor_ )
-	GET_PROPERTY( "beardstyle", beardstyle_ )
 	GET_PROPERTY( "skin", skin_ )
 	GET_PROPERTY( "orgskin", orgskin_ )
 	GET_PROPERTY( "xskin", xskin_ )
-	GET_PROPERTY( "trackingtarget", FindCharBySerial( trackingTarget_ ) )
 	GET_PROPERTY( "creationday", (int)creationday_ )
 	GET_PROPERTY( "stealth", stealth_ )
 	GET_PROPERTY( "running", (int)running_ )
@@ -4078,7 +4017,6 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "spawnregion", spawnregion_ )
 	GET_PROPERTY( "stablemaster", FindCharBySerial( stablemaster_serial_ ) )
 	GET_PROPERTY( "casting", casting_ )
-	GET_PROPERTY( "spawn", FindItemBySerial( spawnserial_ ) )
 	GET_PROPERTY( "hidden", hidden_ )
 	GET_PROPERTY( "attackfirst", attackfirst_ )
 	GET_PROPERTY( "hunger", hunger_ )
@@ -4096,9 +4034,6 @@ stError *cChar::getProperty( const QString &name, cVariant &value ) const
 	GET_PROPERTY( "trainer", FindCharBySerial( trainer_ ) )
 	GET_PROPERTY( "trainingplayerin", trainingplayerin_ )
 	GET_PROPERTY( "cantrain", cantrain_ )
-	GET_PROPERTY( "guildtitle", guildtitle_ )
-	GET_PROPERTY( "guildfealty", guildfealty_ )
-	GET_PROPERTY( "guildstone", FindItemBySerial( guildstone_ ) )
 	GET_PROPERTY( "flag", flag_ )
 	GET_PROPERTY( "murderrate", (int)murderrate_ )
 	GET_PROPERTY( "crimflag", crimflag_ )
@@ -4301,7 +4236,6 @@ QString cChar::onShowPaperdollName( P_CHAR pOrigin )
 
 void cChar::setHairColor( unsigned short d)	
 { 
-	haircolor_ = d; 
 	changed( SAVE );
 	cItem* pHair = GetItemOnLayer( 11 );
 	if( pHair )
@@ -4314,7 +4248,6 @@ void cChar::setHairStyle( unsigned short d)
 { 
 	if( !isHair( d ) )
 		return;
-	hairstyle_ = d; 
 	changed( SAVE );
 	cItem* pHair = GetItemOnLayer( 11 );
 	if( pHair )
@@ -4329,7 +4262,6 @@ void cChar::setHairStyle( unsigned short d)
 		pHair->setDye(1);
 		pHair->setNewbie( true );
 		pHair->setId( d );
-		pHair->setColor( haircolor_ );
 		addItem( cChar::Hair, pHair );
 	}
 	pHair->update();
@@ -4338,7 +4270,6 @@ void cChar::setHairStyle( unsigned short d)
 
 void cChar::setBeardColor( unsigned short d)	
 { 
-	beardcolor_ = d; 
 	changed( SAVE );
 	cItem* pBeard = GetItemOnLayer( 16 );
 	if( pBeard )
@@ -4351,7 +4282,6 @@ void cChar::setBeardStyle( unsigned short d)
 { 
 	if( !isBeard( d ) )
 		return;
-	beardstyle_ = d; 
 	changed( SAVE );
 	cItem* pBeard = GetItemOnLayer( 16 );
 	if( pBeard )
@@ -4364,7 +4294,6 @@ void cChar::setBeardStyle( unsigned short d)
 		pBeard->setDye(1);
 		pBeard->setNewbie( true );
 		pBeard->setId( d );
-		pBeard->setColor( beardcolor_ );
 		addItem( cChar::FacialHair, pBeard );
 	}
 	pBeard->update();

@@ -70,7 +70,6 @@ enum eCharKeys
 	CHAR_FX2,
 	CHAR_FY2,
 	CHAR_FZ1,
-	CHAR_SPAWN,
 	CHAR_HIDDEN,
 	CHAR_HUNGER,
 	CHAR_NPCAITYPE,
@@ -82,9 +81,6 @@ enum eCharKeys
 	CHAR_REATTACKAT,
 	CHAR_SPLIT,
 	CHAR_SPLITCHANCE,
-	CHAR_GUILDSTONE,
-	CHAR_GUILDTITLE,
-	CHAR_GUILDFEALTY,
 	CHAR_MURDERRATE,
 	CHAR_LOOTLIST,
 	CHAR_FOOD,
@@ -236,9 +232,6 @@ void cChar::save( FlatStore::OutputFile *output, bool first ) throw()
 	if( fz1() )
 		output->chunkData( CHAR_FZ1, (char)fz1() );
 
-	if( spawnSerial() != INVALID_SERIAL )
-		output->chunkData( CHAR_SPAWN, (unsigned int)spawnSerial() );
-
 	if( hidden() )
 		output->chunkData( CHAR_HIDDEN, (unsigned char)hidden() );
 
@@ -271,15 +264,6 @@ void cChar::save( FlatStore::OutputFile *output, bool first ) throw()
 
 	if( splitchnc() )
 		output->chunkData( CHAR_SPLITCHANCE, (unsigned char)splitchnc() );
-
-	if( guildstone() != INVALID_SERIAL )
-		output->chunkData( CHAR_GUILDSTONE, (unsigned int)guildstone() );
-
-	if( !guildtitle().isNull() && !guildtitle().isEmpty() )
-		output->chunkData( CHAR_GUILDTITLE, (const char*)guildtitle().utf8().data() );
-
-	if( guildfealty() != INVALID_SERIAL )
-		output->chunkData( CHAR_GUILDFEALTY, (unsigned int)guildfealty() );
 
 	if( murderrate() )
 		output->chunkData( CHAR_MURDERRATE, (unsigned int)( murderrate() - uiCurrentTime ) );
@@ -517,10 +501,6 @@ bool cChar::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::
 		input->readChar( (char&)fz1_ );
 		break;
 
-	case CHAR_SPAWN:
-		input->readUInt( (unsigned int&)spawnserial_ );
-		break;
-
 	case CHAR_HIDDEN:
 		input->readUChar( hidden_ );
 		break;
@@ -564,18 +544,6 @@ bool cChar::load( unsigned char chunkGroup, unsigned char chunkType, FlatStore::
 
 	case CHAR_SPLITCHANCE:
 		input->readUChar( splitchnc_ );
-		break;
-
-	case CHAR_GUILDSTONE:
-		input->readUInt( (unsigned int&)guildstone_ );
-		break;
-
-	case CHAR_GUILDTITLE:
-		guildtitle_ = QString::fromUtf8( input->readString() );
-		break;
-
-	case CHAR_GUILDFEALTY:
-		input->readUInt( (unsigned int&)guildfealty_ );
 		break;
 
 	case CHAR_MURDERRATE:

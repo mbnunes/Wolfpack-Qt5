@@ -40,18 +40,16 @@
 #include "mapobjects.h"
 #include "gumps.h"
 
-//pc_currchar->trackingtarget = pc_currchar->trackingtargets[selection]; // sets trackingtarget that was selected in the gump
-//pc_currchar->trackingtimer = (((SrvParams->basetimer()*pc_currchar->skill(TRACKING))/1000)+1) * MY_CLOCKS_PER_SEC + uiCurrentTime;
-//pc_currchar->setTrackingdisplaytimer(SrvParams->redisplaytime() * MY_CLOCKS_PER_SEC + uiCurrentTime);
-
 class cRefreshTracking: public cTempEffect
 {
 private:
-	SERIAL tracker;
+	SERIAL tracker_;
+	SERIAL target_;
 public:
-	cRefreshTracking( SERIAL data )
+	cRefreshTracking( SERIAL tracker, SERIAL target )
 	{
-		tracker = data;
+		tracker_ = tracker;
+		target_ = target;
 		expiretime = uiCurrentTime + ( 5 * MY_CLOCKS_PER_SEC );
 		serializable = false;
 	}
@@ -60,22 +58,22 @@ public:
 	// Until our target expires
 	virtual void Expire()
 	{
-		P_CHAR pChar = FindCharBySerial( tracker );
+		P_CHAR pChar = FindCharBySerial( tracker_ );
 
 		if( !pChar || !pChar->socket() )
 			return;
 
-		P_CHAR pTarget = FindCharBySerial( pChar->trackingTarget() );
+		P_CHAR pTarget = FindCharBySerial( target_ );
 
 		// Disable the quest-arrow
-		if( !pTarget )
+		if( !pTarget || pChar->trackingTimer() <= uiCurrentTime )
 		{
 			pChar->socket()->sendQuestArrow( false, 0, 0 );
 			return;
 		}
 
 		pChar->socket()->sendQuestArrow( true, pTarget->pos().x, pTarget->pos().y );
-		TempEffects::instance()->insert( new cRefreshTracking( pChar->serial() ) );
+		TempEffects::instance()->insert( new cRefreshTracking( tracker_, target_ ) );
 	}
 };
 
@@ -94,13 +92,10 @@ public:
 		if( !pChar || pChar->dist( player ) > 32 )
 			return;
 
-		// Add the tracking target
-		player->setTrackingTarg( choice.button );
-
 		// Start the refresh-timer
 		// Start the wearoff-timer
 		player->setTrackingTimer( uiCurrentTime + ( 30 * MY_CLOCKS_PER_SEC ) );
-		TempEffects::instance()->insert( new cRefreshTracking( player->serial() ) );
+		TempEffects::instance()->insert( new cRefreshTracking( player->serial(), choice.button ) );
 	}
 
 	cTrackingList( P_CHAR player, UINT8 type )

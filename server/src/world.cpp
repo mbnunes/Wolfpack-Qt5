@@ -158,7 +158,6 @@ cWorld::~cWorld()
 static void quickdelete( P_ITEM pi ) throw()
 {
 	// Minimal way of deleting an item
-	pi->SetSpawnSerial( -1 );
 	pi->SetOwnSerial( -1 );
 
 	persistentBroker->addToDeleteQueue( "items", QString( "serial = '%1'" ).arg( pi->serial() ) );

@@ -56,8 +56,8 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 	if( !pc_k )
 		return;
 
-	if( pc_k->spawnSerial() != INVALID_SERIAL ) 
-		cspawnsp.remove(pc_k->spawnSerial(), pc_k->serial());
+//	if( pc_k->spawnSerial() != INVALID_SERIAL ) 
+//		cspawnsp.remove(pc_k->spawnSerial(), pc_k->serial());
 
 	pc_k->setOwner( 0 );
 	pc_k->setGuarding( 0 );
@@ -139,7 +139,6 @@ P_CHAR cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos 
 	pChar->setLoDamage(1);
 	pChar->setHiDamage(1);
 	pChar->setDef(1);
-	pChar->setSpawnSerial( INVALID_SERIAL );
 
 	pChar->moveTo( pos );
 

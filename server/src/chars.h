@@ -97,7 +97,6 @@ protected:
 	Effects					effects_; // Tempeffects affecting this character (Bless, Other Status affecting spells)
 	P_CHAR					owner_;
 
-	SERIAL					trackingTarget_;
 //	bool					animated;
 	QString					orgname_;//original name - for Incognito
 	QString					title_;
@@ -106,10 +105,6 @@ protected:
 	AccountRecord*			account_; // changed to signed, lb
 	bool					incognito_;// AntiChrist - true if under incognito effect
 	bool					polymorph_;// AntiChrist - true if under polymorph effect
-	unsigned short			haircolor_; // backup of hair/beard for incognito spell
-	unsigned short			hairstyle_;
-	unsigned short			beardcolor_;
-	unsigned short			beardstyle_;
 	UI16					skin_; // Skin color
 	unsigned short			orgskin_;	// skin color backup for incognito spell
 	UI16					xskin_; // Backup of skin color
@@ -128,15 +123,12 @@ protected:
 	QString					carve_; // carve system
 	unsigned int			begging_timer_;
 	SERIAL					murdererSer_;            // Serial number of last person that murdered this char
-	Coord_cl				prevPos_;
 	QString					spawnregion_; 
 	SERIAL					stablemaster_serial_; 
-	SERIAL					spawnserial_; // Spawned by
 	unsigned char			hidden_; // 0 = not hidden, 1 = hidden, 2 = invisible spell
 	bool					attackfirst_; // 0 = defending, 1 = attacked first
 	int						hunger_;  // Level of hungerness, 6 = full, 0 = "empty"
 	unsigned int			hungertime_; // Timer used for hunger, one point is dropped every 20 min
-	SERIAL					tailitem_;
 	int						npcaitype_; // NPC ai
 
 	int						poison_; // used for poison skill 
@@ -146,7 +138,6 @@ protected:
 	unsigned int			poisonwearofftime_; // LB, makes poision wear off ...
 	short					fleeat_;
 	short					reattackat_;
-	QString					disabledmsg_; //Character is disabled, so dysplay this message. -- added by Magius(CHE) §
 	SERIAL					envokeitem_;
 	unsigned char			split_;
 	unsigned char			splitchnc_;
@@ -154,13 +145,8 @@ protected:
 	SERIAL					trainer_; // Serial of the NPC training the char, -1 if none.
 	char					trainingplayerin_; // Index in skillname of the skill the NPC is training the player in
 	bool					cantrain_;
-	// Begin of Guild Related Character information (DasRaetsel)
-	QString					guildtitle_;			// Title Guildmaster granted player						(DasRaetsel)
-	SERIAL					guildfealty_;		// Serial of player you are loyal to (default=yourself)	(DasRaetsel)
-	SERIAL					guildstone_;			// Number of guild player is in (0=no guild)			(DasRaetsel)
 	char					flag_; //1=red 2=grey 4=Blue 8=green 10=Orange
 	UINT32					trackingTimer_;
-	// End of Guild Related Character information
 	unsigned int			murderrate_; //#of ticks until one murder decays //REPSYS 
 	long int				crimflag_; //Time when No longer criminal -1=Not Criminal
 	SERIAL					poisonserial_; //AntiChrist -- poisoning skill
@@ -282,14 +268,9 @@ public:
 	AccountRecord*			account() const; // changed to signed, lb
 	bool					incognito() const { return incognito_;	}
 	bool					polymorph() const { return polymorph_;	}
-	unsigned short			haircolor() const { return haircolor_;	}
-	unsigned short			hairstyle() const { return hairstyle_;	}
-	unsigned short			beardcolor() const{ return beardcolor_; }
-	unsigned short			beardstyle() const{ return beardstyle_;	}
 	UI16					skin() const	  { return skin_;		}
 	unsigned short			orgskin() const	  { return orgskin_;	}
 	UI16					xskin() const     { return xskin_;		}
-	SERIAL					trackingTarget() const { return trackingTarget_; }
 	unsigned int			creationday() const{return creationday_;}
 	int						stealth() const { return stealth_; }
 	unsigned int			running() const { return running_; }
@@ -303,16 +284,13 @@ public:
 	QString					carve() const {return carve_;}
 	unsigned int			begging_timer() const {return begging_timer_;}
 	SERIAL					murdererSer() const {return murdererSer_;}
-	Coord_cl				prevPos() const { return prevPos_; }
 	QString					spawnregion() const {return spawnregion_;} 
 	SERIAL					stablemaster_serial() const {return stablemaster_serial_;} 
 	bool					casting() const { return casting_;	}
-	SERIAL					spawnSerial() const { return spawnserial_;}
 	unsigned char			hidden() const { return hidden_; } // 0 = not hidden, 1 = hidden, 2 = invisible spell
 	bool					attackfirst() const { return attackfirst_; }
 	int						hunger() const { return hunger_; }
 	unsigned int			hungertime() const { return hungertime_;}
-	SERIAL					tailitem() const { return tailitem_; }
 	int						npcaitype() const { return npcaitype_;}
 	int						poison() const { return poison_;}
 	unsigned int			poisoned() const { return poisoned_; }
@@ -328,10 +306,6 @@ public:
 	SERIAL					trainer() const { return trainer_;}
 	char					trainingplayerin() const { return trainingplayerin_;}
 	bool					cantrain() const { return cantrain_; }
-	QString					guildtitle() const { return guildtitle_; }
-	SERIAL					guildfealty() const { return guildfealty_;}
-	cGuildStone*			getGuildstone();
-	SERIAL					guildstone() const { return guildstone_; }
 	char					flag() const { return flag_;}
 	unsigned int			murderrate() const { return murderrate_;}
 	long int				crimflag() const { return crimflag_;}
@@ -409,10 +383,6 @@ public:
 	void					setAccount( AccountRecord* data, bool moveFromAccToAcc = true ); // changed to signed, lb
 	void					setIncognito ( bool d) { incognito_ = d; changed( SAVE );} 
 	void					setPolymorph ( bool d) { polymorph_ = d; changed( SAVE );}
-	void					setHairColor ( unsigned short d);
-	void					setHairStyle ( unsigned short d);
-	void					setBeardColor( unsigned short d);
-	void					setBeardStyle( unsigned short d);
 	void					setSkin( unsigned short d) { skin_ = d; changed( SAVE );}
 	void					setOrgSkin( unsigned short d) { orgskin_ = d; changed( SAVE );}
 	void					setXSkin( unsigned short d) { xskin_ = d; changed( SAVE );}
@@ -428,16 +398,13 @@ public:
 	void					setCarve( const QString& d ) { carve_ = d; changed( SAVE );}
 	void 					setBegging_timer( unsigned int d ) { begging_timer_ = d; changed( SAVE );}
 	void					setMurdererSer( SERIAL d ) { murdererSer_ = d; changed( SAVE );}
-	void					setPrevPos( const Coord_cl& d ) { prevPos_ = d; changed( SAVE );}
 	void					setSpawnregion ( QString d ) { spawnregion_ = d; changed( SAVE );}
 	void					setStablemaster_serial (SERIAL d ) { stablemaster_serial_ = d; changed( SAVE );}  
 	void					setCasting( bool d ) { casting_ = d; changed( SAVE );}
-	void					setSpawnSerial( SERIAL d ) { spawnserial_ = d; changed( SAVE );}
 	void					setHidden ( unsigned char d ) { hidden_ = d; changed( SAVE );}
 	void					setAttackFirst ( bool d ) { attackfirst_ = d; changed( SAVE );}
 	void					setHunger ( int d ) { hunger_ = d; changed( SAVE );}
 	void					setHungerTime ( unsigned int d ) { hungertime_ = d; changed( SAVE );}
-	void					setTailItem ( SERIAL d ) { tailitem_ = d; changed( SAVE );}
 	void					setNpcAIType( int d ) { npcaitype_ = d; changed( SAVE );}
 
 	void					setPoison( int d ) { poison_ = d; changed( SAVE );}
@@ -454,9 +421,6 @@ public:
 	void					setTrainer( SERIAL d ) { trainer_ = d; changed( SAVE );}
 	void					setTrainingplayerin( char d ) { trainingplayerin_ = d; changed( SAVE );}
 	void					setCantrain( bool d ) { cantrain_ = d; changed( SAVE );}
-	void					setGuildtitle( const QString& d ) { guildtitle_ = d; changed( SAVE );}
-	void					setGuildfealty( SERIAL d ) { guildfealty_ = d; changed( SAVE );}
-	void					setGuildstone( SERIAL d ) { guildstone_ = d; changed( SAVE );}
 	void					setFlag( char d ) { flag_ = d; changed( SAVE );}
 	void					setMurderrate( unsigned int d ) { murderrate_ = d; changed( SAVE );}
 	void					setCrimflag( unsigned int d ) { crimflag_ = d; changed( SAVE );}
@@ -467,7 +431,6 @@ public:
 	void					setSocket( cUOSocket* d ) { socket_ = d; changed( SAVE );}
 	void					setWeight( unsigned short d ) { weight_ = d; changed( SAVE );}
 	void					setLootList( QString d ) { loot_ = d; changed( SAVE );}
-	void					setTrackingTarg( SERIAL d ) { trackingTarget_ = d; changed( SAVE );}
 	void					setTrackingTimer( UINT32 d ) { trackingTimer_ = d; changed( SAVE );}
 	void					setSayColor( UI16 d ) { saycolor_ = d; changed( SAVE );}
 	void					setEmoteColor( unsigned short d ) { emotecolor_ = d; changed( SAVE );}
@@ -526,6 +489,11 @@ public:
 	void					setSkillValue( UINT16 skill, UINT16 value );
 	void					setSkillCap( UINT16 skill, UINT16 cap );
 	void					setSkillLock( UINT16 skill, UINT8 lock );
+
+	void					setHairColor( unsigned short d); 
+	void					setHairStyle( unsigned short d); 
+	void					setBeardColor( unsigned short d); 
+	void					setBeardStyle( unsigned short d); 
 
 	void					pushMove( const Coord_cl &move );
 	void					pushMove( UI16 x, UI16 y, SI08 z );
@@ -602,7 +570,6 @@ public:
 	bool hasWeapon();
 	bool hasShield();
 	P_ITEM getBackpack();
-	void SetSpawnSerial(long spawnser);
 	void SetMultiSerial(long mulser);
 	void setSerial(SERIAL ser);
 	void MoveTo(short newx, short newy, signed char newz);

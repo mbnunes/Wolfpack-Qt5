@@ -915,7 +915,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 				case 0x0E1D:
 				case 0x0E1F:
 				case 0x0E1E:  // yarn to cloth
-					pc_currchar->setTailItem(  pi->serial() );
+//					pc_currchar->setTailItem(  pi->serial() );
 //					target(s, 0, 1, 0, 165, "Select loom to make your cloth");
 					return;
 				case 0x1BD1:
@@ -933,16 +933,16 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 					return;
 				case 0x0FF8:
 				case 0x0FF9: // pitcher of water to flour
-					pc_currchar->setTailItem( pi->serial() );
+//					pc_currchar->setTailItem( pi->serial() );
 //					target(s, 0, 1, 0, 173, "Select flour to pour this on.");  
 					return;
 				case 0x09C0:
 				case 0x09C1: // sausages to dough
-					pc_currchar->setTailItem( pi->serial() );
+//					pc_currchar->setTailItem( pi->serial() );
 //					target(s, 0, 1, 0, 174, "Select dough to put this on.");  
 					return;
 				case 0x0DF8: // wool to yarn 
-					pc_currchar->setTailItem( pi->serial() );
+//					pc_currchar->setTailItem( pi->serial() );
 //					target(s, 0, 1, 0, 164, "Select your spin wheel to spin wool.");      
 					return;
 				case 0x0F9D: // sewing kit for tailoring

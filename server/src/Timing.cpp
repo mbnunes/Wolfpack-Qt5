@@ -385,12 +385,6 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char cMapObjects::getInsta
 	}
 */
 
-	if( pc->trackingTimer() && ( pc->trackingTimer() < currenttime ) )
-	{
-		pc->setTrackingTarg( INVALID_SERIAL );
-		pc->setTrackingTimer( 0 );
-	}
-
 	if( SrvParams->hungerRate() > 1 && ( pc->hungertime() <= currenttime  ) )
 	{
 		if( !pc->isGMorCounselor() && pc->hunger() ) 

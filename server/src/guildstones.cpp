@@ -735,7 +735,7 @@ void cGuildStone::Recruit(UOXSOCKET s)
 
 int GuildCompare(P_CHAR player1, P_CHAR player2)
 {
-	if (player1 == NULL || player2 == NULL) return 0;
+/*	if (player1 == NULL || player2 == NULL) return 0;
 
 	// one of both not in a guild -> no guildwarfare
 	if (player1->guildstone() == INVALID_SERIAL || player2->guildstone() == INVALID_SERIAL ) return 0;
@@ -764,6 +764,7 @@ int GuildCompare(P_CHAR player1, P_CHAR player2)
 			}
 		}
 	}
+	*/
 	return 0;
 }
 
