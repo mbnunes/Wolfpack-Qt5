@@ -101,7 +101,7 @@ HEADERS += \
 	../src/profile.h \
 	../src/progress.h \
 	../src/pythonscript.h \
-	../src/resource.h \
+	resource.h \
 	../src/scriptmanager.h \
 	../src/server.h \
 	../src/singleton.h \
