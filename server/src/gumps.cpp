@@ -683,13 +683,13 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 		addText( 50, 200, tr( "Visible:" ), 0x834 );
 		addInputField( 200, 200, 200, 16, 25, QString( "%1" ).arg( pItem->visible ), 0x834 );
 		addText( 50, 220, tr( "Rank:" ), 0x834 );
-		addInputField( 200, 220, 200, 16, 26, QString( "%1" ).arg( pItem->rank ), 0x834 );
+		addInputField( 200, 220, 200, 16, 26, QString( "%1" ).arg( pItem->rank() ), 0x834 );
 		addText( 50, 240, tr( "Price:" ), 0x834 );
 		addInputField( 200, 240, 200, 16, 27, QString( "%1" ).arg( pItem->price() ), 0x834 );
 		addText( 50, 260, tr( "Restock:" ), 0x834 );
 		addInputField( 200, 260, 200, 16, 28, QString( "%1" ).arg( pItem->restock() ), 0x834 );
 		addText( 50, 280, tr( "Poisoned:" ), 0x834 );
-		addInputField( 200, 280, 200, 16, 29, QString( "%1" ).arg( pItem->poisoned ), 0x834 );
+		addInputField( 200, 280, 200, 16, 29, QString( "%1" ).arg( pItem->poisoned() ), 0x834 );
 		addText( 50, 300, tr( "Spawnregion:" ), 0x834 );
 		addInputField( 200, 300, 200, 16, 30, QString( "%1" ).arg( pItem->spawnregion() ), 0x834 );
 
@@ -714,7 +714,7 @@ cItemInfoGump::cItemInfoGump( cItem* pItem )
 		addResizeGump( 195, 300, 0xBB8, 215, 20 );
 
 		addText( 50, 120, tr( "Disabled:" ), 0x834 );
-		addInputField( 200, 120, 200, 16, 31, QString( "%1" ).arg( pItem->disabled ), 0x834 );
+		addInputField( 200, 120, 200, 16, 31, QString( "%1" ).arg( pItem->disabled() ), 0x834 );
 		addText( 50, 140, tr( "Time unused:" ), 0x834 );
 		addInputField( 200, 140, 200, 16, 32, QString( "%1" ).arg( pItem->time_unused ), 0x834 );
 		addText( 50, 160, tr( "Creator:" ), 0x834 );
@@ -882,7 +882,7 @@ void cItemInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				item_->visible = hex2dec( it->second ).toUShort();
 				break;
 			case 26:
-				item_->rank = hex2dec( it->second ).toInt();
+				item_->setRank( hex2dec( it->second ).toInt() );
 				break;
 			case 27:
 				item_->setPrice( hex2dec( it->second ).toInt() );
@@ -891,13 +891,13 @@ void cItemInfoGump::handleResponse( cUOSocket* socket, gumpChoice_st choice )
 				item_->setRestock( hex2dec( it->second ).toInt() );
 				break;
 			case 29:
-				item_->poisoned = hex2dec( it->second ).toUInt();
+				item_->setPoisoned( hex2dec( it->second ).toUInt() ); 
 				break;
 			case 30:
 				item_->setSpawnRegion( it->second );
 				break;
 			case 31:
-				item_->disabled = hex2dec( it->second ).toUInt();
+				item_->setDisabled( hex2dec( it->second ).toUInt() );
 				break;
 			case 32:
 				item_->time_unused = hex2dec( it->second ).toUInt();

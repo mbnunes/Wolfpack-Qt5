@@ -110,6 +110,16 @@ protected:
 	unsigned int gatetime_;
 	int gatenumber_;
 	unsigned int decaytime_;
+	unsigned int disabled_; //Item is disabled, cant trigger.
+	QString disabledmsg_; //Item is disabled, so display this message. -- added by Magius(CHE) §
+	unsigned int poisoned_; //AntiChrist -- for poisoning skill
+	long int murdertime_; //AntiChrist -- for corpse -- when the people has been killed
+	int rank_; //Magius(CHE) --- for rank system, this value is the LEVEL of the item from 1 to 10. Simply multiply the rank*10 and calculate the MALUS this item has from the original.
+	// for example: RANK 5 ---> 5*10=50% of malus
+	//   this item has same values decreased by 50%..
+	// RANK 1 ---> 1*10=10% this item has 90% of malus!
+	// RANK 10 --> 10*10=100% this item has no malus! RANK 10 is automatically setted if you select RANKSYSTEM 0.
+	// Vars: LODAMAGE,HIDAMAGE,ATT,DEF,HP,MAXHP
 //********************END ADDED FROM PUBLIC *************
 
 	virtual void	processNode( const QDomElement &Tag );
@@ -190,6 +200,11 @@ public:
 	unsigned int	gatetime()		const { return gatetime_; }
 	int				gatenumber()	const { return gatenumber_; }
 	unsigned int	decaytime()		const { return decaytime_; }
+	unsigned int	disabled()		const { return disabled_; } 
+	QString			disabledmsg()	const { return disabledmsg_; } 
+	unsigned int	poisoned()		const { return poisoned_; }
+	long int		murdertime()	const { return murdertime_; } 
+	int				rank()			const { return rank_; } 
 //***************************END ADDED GETTERS************
 
 
@@ -264,6 +279,12 @@ public:
 	void	setPrice( INT32 data ) { price_ = data; }
 	void	setBuyprice( INT32 data ) { buyprice_ = data; }
 	void	setSellprice( INT32 data ) { sellprice_ = data; }
+
+	void	setDisabled(unsigned int data) { disabled_ = data; }
+	void	setDisabledMsg(QString data) { disabledmsg_ = data; }
+	void	setPoisoned(unsigned int data) { poisoned_ = data; }
+	void	setMurderTime(long int data) { murdertime_ = data; }
+	void	setRank(int data) { rank_ = data; } 
 //*******************************************END ADDED SETTERS**********
 	SERIAL contserial;
 	
@@ -290,16 +311,7 @@ public:
 	//   7 |  80 | <unused>
 	UI08 priv;
 	
-	unsigned int disabled; //Item is disabled, cant trigger.
-	QString disabledmsg; //Item is disabled, so display this message. -- added by Magius(CHE) §
-	unsigned int poisoned; //AntiChrist -- for poisoning skill
-	long int murdertime; //AntiChrist -- for corpse -- when the people has been killed
-	int rank; //Magius(CHE) --- for rank system, this value is the LEVEL of the item from 1 to 10. Simply multiply the rank*10 and calculate the MALUS this item has from the original.
-	// for example: RANK 5 ---> 5*10=50% of malus
-	//   this item has same values decreased by 50%..
-	// RANK 1 ---> 1*10=10% this item has 90% of malus!
-	// RANK 10 --> 10*10=100% this item has no malus! RANK 10 is automatically setted if you select RANKSYSTEM 0.
-	// Vars: LODAMAGE,HIDAMAGE,ATT,DEF,HP,MAXHP
+
 	QString creator; // Store the name of the player made this item -- Magius(CHE)
 	int good; // Store type of GOODs to trade system! (Plz not set as UNSIGNED)  --- Magius(CHE)
 	int rndvaluerate; // Store the value calculated base on RANDOMVALUE in region.scp. ---- MAgius(CHE) (2)

@@ -449,9 +449,9 @@ namespace Combat
 
 		// If we used a poisoned Weapon to deal 
 		// damage, apply the poison here
-		if( pWeapon && ( pWeapon->poisoned > 0 ) )
+		if( pWeapon && ( pWeapon->poisoned() > 0 ) )
 		{
-			   pDefender->setPoisoned( pWeapon->poisoned );
+			   pDefender->setPoisoned( pWeapon->poisoned() );
 
 			   // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs
 			   pDefender->setPoisontime( uiCurrentTime + ( MY_CLOCKS_PER_SEC * ( 40 / pDefender->poisoned() ) ) );

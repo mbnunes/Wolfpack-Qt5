@@ -599,11 +599,11 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			default: socket->sysMessage( tr( "You are simply too full to eat any more!" ) );				break;
 			}// switch(pc_currchar->hunger)
 			
-			if ((pi->poisoned) &&(pc_currchar->poisoned() < pi->poisoned)) 
+			if ((pi->poisoned()) &&(pc_currchar->poisoned() < pi->poisoned())) 
 			{
 				socket->sysMessage(tr("You have been poisoned!"));
 				pc_currchar->soundEffect( 0x246 ); // poison sound
-				pc_currchar->setPoisoned( pi->poisoned );
+				pc_currchar->setPoisoned( pi->poisoned() );
 				pc_currchar->setPoisontime( uiCurrentTime +(MY_CLOCKS_PER_SEC*(40/pc_currchar->poisoned()))); // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
 				pc_currchar->setPoisonwearofftime( pc_currchar->poisontime() +(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()) ); // wear off starts after poison takes effect - AntiChrist
 				pc_currchar->resend( false );

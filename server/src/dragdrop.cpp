@@ -891,10 +891,10 @@ void cDragItems::dropFoodOnChar( cUOSocket* socket, P_ITEM pItem, P_CHAR pChar )
 	pChar->soundEffect( 0x3A + RandomNum( 1, 3 ) );
 
 	// If you want to poison a pet... Why not
-	if( pItem->poisoned && pChar->poisoned() < pItem->poisoned )
+	if( pItem->poisoned() && pChar->poisoned() < pItem->poisoned() )
 	{
 		pChar->soundEffect( 0x246 );
-		pChar->setPoisoned( pItem->poisoned );
+		pChar->setPoisoned( pItem->poisoned() );
 		
 		// a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
 		pChar->setPoisontime( uiCurrentTime + ( MY_CLOCKS_PER_SEC * ( 40 / pChar->poisoned() ) ) );
@@ -972,10 +972,10 @@ void cDragItems::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar )
 		pBeggar->soundEffect( 0x3A + RandomNum( 1, 3 ) );
 
 		// If you want to poison a pet... Why not
-		if( pItem->poisoned && pBeggar->poisoned() < pItem->poisoned )
+		if( pItem->poisoned() && pBeggar->poisoned() < pItem->poisoned() )
 		{
 			pBeggar->soundEffect( 0x246 );
-			pBeggar->setPoisoned( pItem->poisoned );
+			pBeggar->setPoisoned( pItem->poisoned() );
 			
 			// a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs - AntiChrist
 			pBeggar->setPoisontime( uiCurrentTime + ( MY_CLOCKS_PER_SEC * ( 40 / pBeggar->poisoned() ) ) );

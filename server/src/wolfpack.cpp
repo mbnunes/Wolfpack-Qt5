@@ -2347,9 +2347,9 @@ int calcValue(P_ITEM pi, int value)
 	}
 
 	// Lines added for Rank System by Magius(CHE)
-	if (pi->rank>0 && pi->rank<10 && SrvParams->rank_system()==1)
+	if (pi->rank()>0 && pi->rank()<10 && SrvParams->rank_system()==1)
 	{
-		value=(int) (pi->rank*value)/10;
+		value=(int) (pi->rank()*value)/10;
 	}
 	if (value<1) value=1;
 	// end addon

@@ -552,9 +552,9 @@ bool cSkArmsLore::responsed( cUOSocket *socket, cUORxTarget *target )
 	}
 	
 	// Display the rank if there is one (Between 25% and 50%)
-	if( ( pItem->rank > 0 ) && ( pItem->rank < 11 ) && SrvParams->rank_system() && pChar->checkSkill( ARMSLORE, 250, 500, false ) )
+	if( ( pItem->rank() > 0 ) && ( pItem->rank() < 11 ) && SrvParams->rank_system() && pChar->checkSkill( ARMSLORE, 250, 500, false ) )
 	{
-		switch( pItem->rank )
+		switch( pItem->rank() )
 		{
 		case 1: socket->sysMessage( tr("It seems an item with no quality.") );				break;
 		case 2: socket->sysMessage( tr("It seems an item very below standard quality.") );	break;

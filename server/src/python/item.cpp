@@ -653,12 +653,12 @@ PyObject *wpItem_getAttr( wpItem *self, char *name )
 	// spanserial
 	else getIntProperty( "dir", pItem->dir ) // lightsource type
 	else getIntProperty( "priv", pItem->priv ) 
-	else getIntProperty( "disabled", pItem->disabled )
-	else getStrProperty( "disabledmsg", pItem->disabledmsg.latin1() ) 
-	else getIntProperty( "poisoned", pItem->poisoned ) 
+	else getIntProperty( "disabled", pItem->disabled() )
+	else getStrProperty( "disabledmsg", pItem->disabledmsg().latin1() ) 
+	else getIntProperty( "poisoned", pItem->poisoned() ) 
 	else getStrProperty( "murderer", pItem->murderer().latin1() ) 
-	else getIntProperty( "murdertime", pItem->murdertime ) 
-	else getIntProperty( "rank", pItem->rank ) 
+	else getIntProperty( "murdertime", pItem->murdertime() ) 
+	else getIntProperty( "rank", pItem->rank() ) 
 	else getStrProperty( "creator", pItem->creator.latin1() ) 
 	else getIntProperty( "good", pItem->good ) 
 	else getIntProperty( "madewith", pItem->madewith ) 
@@ -830,15 +830,23 @@ int wpItem_setAttr( wpItem *self, char *name, PyObject *value )
 	// spanserial
 	else setIntProperty( "dir", pItem->dir ) // lightsource type
 	else setIntProperty( "priv", pItem->priv ) 
-	else setIntProperty( "disabled", pItem->disabled )
-	else setStrProperty( "disabledmsg", pItem->disabledmsg ) 
-	else setIntProperty( "poisoned", pItem->poisoned ) 
+//	else setIntProperty( "disabled", pItem->disabled() )
+	else if( !strcmp( name, "disabled" ) )
+		self->pItem->setDisabled( PyInt_AS_LONG( value ) );
+	else setStrProperty( "disabledmsg", pItem->disabledmsg() ) 
+//	else setIntProperty( "poisoned", pItem->poisoned() ) 
+	else if( !strcmp( name, "poisoned" ) )
+		self->pItem->setPoisoned( PyInt_AS_LONG( value ) );
 
 	else if( !strcmp( name, "murderer" ) )
 		self->pItem->setMurderer( PyString_AS_STRING( value ) );
 
-	else setIntProperty( "murdertime", pItem->murdertime ) 
-	else setIntProperty( "rank", pItem->rank ) 
+//	else setIntProperty( "murdertime", pItem->murdertime() ) 
+	else if( !strcmp( name, "murdertime" ) )
+		self->pItem->setMurderTime( PyInt_AS_LONG( value ) );
+//	else setIntProperty( "rank", pItem->rank() ) 
+	else if( !strcmp( name, "rank" ) )
+		self->pItem->setRank( PyInt_AS_LONG( value ) );
 	else setStrProperty( "creator", pItem->creator ) 
 	else setIntProperty( "good", pItem->good ) 
 	else setIntProperty( "madewith", pItem->madewith ) 

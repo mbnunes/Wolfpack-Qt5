@@ -78,7 +78,7 @@ void cItem::registerInFactory()
 // constructor
 cItem::cItem(): 
 contserial( INVALID_SERIAL ), container_(0), totalweight_(0), incognito(false),
-rndvaluerate(0), dooropen_(0),gatetime_(0),gatenumber_(-1),disabledmsg(""),murdertime(0),
+rndvaluerate(0), dooropen_(0),gatetime_(0),gatenumber_(-1),disabledmsg_(""),murdertime_(0),
 timeused_last(0), sellprice_( 0 ), buyprice_( 0 ), price_( 0 ), restock_( 1 ) {};
 
 cItem::cItem( cItem &src )
@@ -88,7 +88,7 @@ cItem::cItem( cItem &src )
 	this->creator = src.creator;
 	this->incognito = src.incognito;
 	this->madewith = src.madewith;
-	this->rank = src.rank;
+	this->rank_ = src.rank_;
 	this->good = src.good;
 	this->rndvaluerate = src.rndvaluerate;
 
@@ -145,11 +145,11 @@ cItem::cItem( cItem &src )
 	this->buyprice_ = src.buyprice_;
 	this->sellprice_ = src.sellprice_;
 	this->restock_ = src.restock_;
-	this->disabled=src.disabled;
-	this->disabledmsg = src.disabledmsg;
-	this->poisoned=src.poisoned;
+	this->disabled_ = src.disabled_;
+	this->disabledmsg_ = src.disabledmsg_;
+	this->poisoned_ = src.poisoned_;
 	this->murderer_ = src.murderer_;
- 	this->murdertime=src.murdertime;
+ 	this->murdertime_ = src.murdertime_;
 	this->time_unused=src.time_unused;
 	this->timeused_last=getNormalizedTime();
 	this->setSpawnRegion( src.spawnregion() );
@@ -521,14 +521,14 @@ void cItem::save()
 	addField("weight",		weight_);
 	addField("hp",			hp_);
 	addField("maxhp",			maxhp_);
-	addField("rank",			rank);
+	addField("rank",			rank_);
 	addField("st2",			st2_);
 	addField("dx",			dx_);
 	addField("dx2",			dx2_);
 	addField("intelligence",	in_);
 	addField("intelligence2",	in2_);
 	addField("speed",			speed_);
-	addField("poisoned",		poisoned);
+	addField("poisoned",		poisoned_);
 	addField("magic",			magic_);
 	addField("owner",			ownserial);
 	addField("visible",		visible);
@@ -538,7 +538,7 @@ void cItem::save()
 	addField("sellprice",			sellprice_);
 	addField("buyprice",			buyprice_);
 	addField("restock",		restock_);
-	addField("disabled",		disabled);
+	addField("disabled",		disabled_);
 	addStrField("spawnregion",	spawnregion_);
 	addField("good",			good);
 	addStrField("desc",			desc);
@@ -634,7 +634,7 @@ void cItem::Init( bool mkser )
 	this->name2_ = "#";
 	this->incognito=false;//AntiChrist - incognito
 	this->madewith=0; // Added by Magius(CHE)
-	this->rank=0; // Magius(CHE)
+	this->rank_ = 0; // Magius(CHE)
 	this->good=-1; // Magius(CHE)
 	this->rndvaluerate=0; // Magius(CHE) (2)
 
@@ -690,10 +690,10 @@ void cItem::Init( bool mkser )
 	this->dir=0; // Direction, or light source type.
 	// Everything decays by default.
 	this->priv=1; // Bit 0, decay off/on.  Bit 1, newbie item off/on.  Bit 2 Dispellable
-	this->disabled = 0; //Item is disabled, cant trigger.
-	this->disabledmsg = ""; //Item disabled message. -- by Magius(CHE) §
-	this->poisoned = 0; //AntiChrist -- for poisoning skill
- 	this->murdertime = 0; //AntiChrist -- for corpse -- when the people has been killed
+	this->disabled_ = 0; //Item is disabled, cant trigger.
+	this->disabledmsg_ = ""; //Item disabled message. -- by Magius(CHE) §
+	this->poisoned_ = 0; //AntiChrist -- for poisoning skill
+ 	this->murdertime_ = 0; //AntiChrist -- for corpse -- when the people has been killed
 	this->time_unused = 0;
 	this->timeused_last=getNormalizedTime();
 	this->spawnregion_ = "";
@@ -2227,7 +2227,7 @@ void cItem::applyRank( UI08 rank )
 	def_ = RandomNum( mindef, maxdef );
 	setMaxhp( RandomNum( minhp_, maxhp_ ) );
 	setHp( maxhp() );
-	this->rank = rank;
+	this->rank_ = rank_;
 }
 
 void cItem::talk( const QString &message, UI16 color, UINT8 type, bool autospam, cUOSocket* socket )
@@ -2426,14 +2426,14 @@ void cItem::load( char **result, UINT16 &offset )
 	weight_ = atoi( result[offset++] );
 	hp_ = atoi( result[offset++] );
 	maxhp_ = atoi( result[offset++] );
-	rank = atoi( result[offset++] );
+	rank_ = atoi( result[offset++] );
 	st2_ = atoi( result[offset++] );
 	dx_ = atoi( result[offset++] );
 	dx2_ = atoi( result[offset++] );
 	in_ = atoi( result[offset++] );
 	in2_ = atoi( result[offset++] );
 	speed_ = atoi( result[offset++] );
-	poisoned = atoi( result[offset++] );
+	poisoned_ = atoi( result[offset++] );
 	magic_ = atoi( result[offset++] );
 	ownserial = atoi( result[offset++] );
 	visible = atoi( result[offset++] );
@@ -2444,7 +2444,7 @@ void cItem::load( char **result, UINT16 &offset )
 	buyprice_ = atoi( result[offset++] );
 	price_ = atoi( result[offset++] );
 	restock_ = atoi( result[offset++] );
-	disabled = atoi( result[offset++] );
+	disabled_ = atoi( result[offset++] );
 	spawnregion_ = result[offset++];
 	good = atoi( result[offset++] );
 	desc = result[offset++];
@@ -2800,11 +2800,11 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	else SET_INT_PROPERTY( "buyprice", price_ )
 	else SET_INT_PROPERTY( "price", price_ )
 	else SET_INT_PROPERTY( "restock", restock_ )
-	else SET_INT_PROPERTY( "disabled", disabled )
-	else SET_STR_PROPERTY( "disabledmsg", disabledmsg )
-	else SET_INT_PROPERTY( "poisoned", poisoned )
-	else SET_INT_PROPERTY( "murdertime", murdertime )
-	else SET_INT_PROPERTY( "rank", rank )
+	else SET_INT_PROPERTY( "disabled", disabled_ )
+	else SET_STR_PROPERTY( "disabledmsg", disabledmsg_ )
+	else SET_INT_PROPERTY( "poisoned", poisoned_ )
+	else SET_INT_PROPERTY( "murdertime", murdertime_ )
+	else SET_INT_PROPERTY( "rank", rank_ )
 	else SET_STR_PROPERTY( "creator", creator )
 	else SET_INT_PROPERTY( "good", good )
 	else SET_INT_PROPERTY( "rndvaluerate", rndvaluerate )
@@ -2953,11 +2953,11 @@ stError *cItem::getProperty( const QString &name, cVariant &value )
 	else GET_PROPERTY( "sellprice", sellprice_ )
 	else GET_PROPERTY( "price", price_ )
 	else GET_PROPERTY( "restock", restock_ )
-	else GET_PROPERTY( "disabled", (int)disabled )
-	else GET_PROPERTY( "disabledmsg", disabledmsg )
-	else GET_PROPERTY( "poisoned", (int)poisoned )
-	else GET_PROPERTY( "murdertime", murdertime )
-	else GET_PROPERTY( "rank", rank )
+	else GET_PROPERTY( "disabled", (int)disabled_ )
+	else GET_PROPERTY( "disabledmsg", disabledmsg_ )
+	else GET_PROPERTY( "poisoned", (int)poisoned_ )
+	else GET_PROPERTY( "murdertime", murdertime_ )
+	else GET_PROPERTY( "rank", rank_ )
 	else GET_PROPERTY( "creator", creator )
 	else GET_PROPERTY( "good", good )
 	else GET_PROPERTY( "rndvaluerate", rndvaluerate )

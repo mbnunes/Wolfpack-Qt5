@@ -2303,7 +2303,7 @@ void cChar::kill()
 
 	// stores the time and the murderer's name
 	corpse->setMurderer( murderer );
-	corpse->murdertime = uiCurrentTime;
+	corpse->setMurderTime(uiCurrentTime);
 
 	// create loot
 	if( isNpc() )
@@ -2654,7 +2654,7 @@ P_CHAR cChar::unmount()
 			pMount->setHp( pi->hp() );
 			pMount->setFame( pi->lodamage() );
 			pMount->setKarma( pi->hidamage() );
-			pMount->setPoisoned( pi->poisoned );
+			pMount->setPoisoned( pi->poisoned() );
 			pMount->setSummonTimer( pi->decaytime() );
 			
 			pMount->moveTo( pos );
@@ -2747,7 +2747,7 @@ void cChar::mount( P_CHAR pMount )
 		pMountItem->setHp( pMount->hp() );
 		pMountItem->setLodamage( pMount->fame() );
 		pMountItem->setHidamage( pMount->karma() );
-		pMountItem->poisoned = pMount->poisoned();
+		pMountItem->setPoisoned( pMount->poisoned() );
 		if (pMount->summontimer() != 0)
 			pMountItem->setDecayTime(pMount->summontimer());
 

@@ -255,7 +255,7 @@ public:
 		
 		if(pc_currchar->isGM())
 		{
-			socket->sysMessage( tr("The %1 is %2 seconds old and the killer was %3.").arg(pi->name()).arg((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC).arg( pi->murderer() ) );
+			socket->sysMessage( tr("The %1 is %2 seconds old and the killer was %3.").arg(pi->name()).arg((curtim-pi->murdertime())/MY_CLOCKS_PER_SEC).arg( pi->murderer() ) );
 		}
 		else
 		{
@@ -263,9 +263,9 @@ public:
 				socket->sysMessage( tr("You are not certain about the corpse.")); 
 			else
 			{
-				if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)>180) socket->sysMessage( tr("The %1 is many many seconds old.").arg(pi->name()));
-				else if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)>60) socket->sysMessage( tr("The %1 is many seconds old.").arg(pi->name()) );
-				else if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)<=60) socket->sysMessage( tr("The %1 is few seconds old.").arg(pi->name()) );
+				if(((curtim-pi->murdertime())/MY_CLOCKS_PER_SEC)>180) socket->sysMessage( tr("The %1 is many many seconds old.").arg(pi->name()));
+				else if(((curtim-pi->murdertime())/MY_CLOCKS_PER_SEC)>60) socket->sysMessage( tr("The %1 is many seconds old.").arg(pi->name()) );
+				else if(((curtim-pi->murdertime())/MY_CLOCKS_PER_SEC)<=60) socket->sysMessage( tr("The %1 is few seconds old.").arg(pi->name()) );
 								
 				if ( !pc_currchar->checkSkill( FORENSICS, 500, 1000, false ) || pi->murderer() == "" ) 
 					socket->sysMessage( tr("You can't say who was the killer.") ); 
@@ -326,7 +326,7 @@ public:
 		if(success)
 		{
 			
-			if(pi->poisoned<pPoison->morez()) pi->poisoned = pPoison->morez();
+			if(pi->poisoned()<pPoison->morez()) pi->setPoisoned( pPoison->morez() );
 			socket->sysMessage( tr("You successfully poison that item.") );
 		} 
 		else
@@ -390,7 +390,7 @@ public:
 					
 				if (pc_currchar->checkSkill( TASTEID, 250, 500, false ))
 				{
-					if((pi->poisoned>0) || (pi->morex()==4 && pi->morey()==6 && pi->morez()==1))
+					if((pi->poisoned()>0) || (pi->morex()==4 && pi->morey()==6 && pi->morez()==1))
 						socket->sysMessage( tr("This item is poisoned!") );
 					else
 						socket->sysMessage( tr("This item shows no poison.") );
