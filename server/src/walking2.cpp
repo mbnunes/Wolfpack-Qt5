@@ -972,7 +972,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, P_CHAR us, int dir, short int 
 				if (socket != -1)
 					impowncreate(socket,pc,1) ;
 		}
-		else if ( visSocket != INVALID_SOCKET ) // did we get a valid socket?
+		else if ( visSocket != INVALID_UOXSOCKET ) // did we get a valid socket?
 		{
 			// We just need to send out a 77
 			LongToCharPtr(us->serial, &extmove[1]);

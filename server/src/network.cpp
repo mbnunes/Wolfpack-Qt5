@@ -891,7 +891,7 @@ void cNetworkStuff::CheckConn() // Check for connection requests
 		{	
 			len = sizeof(struct sockaddr_in);
 			client[now] = accept(a_socket, (struct sockaddr *)&client_addr, &len);
-			if ((client[now]<0))
+			if ( client[now]<0 )
 			{
 				clConsole.send("ERROR: Error at client connection!\n");
 				error=1;			
@@ -901,12 +901,10 @@ void cNetworkStuff::CheckConn() // Check for connection requests
 			if ( CheckForBlockedIP( client_addr ) )
 			{
 				clConsole.send("IPBlocking: Blocking IP address [%s] listed in hosts_deny\n", inet_ntoa( client_addr.sin_addr ));
-				
 				closesocket(client[now]);
 			}
 			else
 			{
-
 				newclient[now]=1;
 				acctno[now]=-1;
 				perm[now]=0;
