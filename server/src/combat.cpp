@@ -48,6 +48,10 @@
 #include "territories.h"
 #include "typedefs.h"
 #include "wpdefmanager.h"
+#include "basechar.h"
+#include "player.h"
+#include "npc.h"
+#include "chars.h"
 
 #include "debug.h"
 
@@ -78,7 +82,7 @@ namespace Combat
 		case WRESTLING:
 			if( !pChar->isHuman() )
 			{
-				id = creatures[ pChar->id() ].basesound + RandomNum( 0, 1 );
+				id = creatures[ pChar->bodyID() ].basesound + RandomNum( 0, 1 );
 				break;
 			}
 
@@ -165,7 +169,7 @@ namespace Combat
 	*/
 	void playGetHitSoundEffect( P_CHAR pChar )
 	{
-		if( pChar->id() == 0x191 )
+		if( pChar->bodyID() == 0x191 )
 		{
 			UI16 sound = hex2dec( DefManager->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_FEMALE" ) ).toUShort();
 			if( sound > 0 )
@@ -173,7 +177,7 @@ namespace Combat
 			else
 				pChar->soundEffect( 0x14b );
 		}
-		else if( pChar->id() == 0x190 )
+		else if( pChar->bodyID() == 0x190 )
 		{
 			UI16 sound = hex2dec( DefManager->getRandomListEntry( "SOUNDS_COMBAT_HIT_HUMAN_MALE" ) ).toUShort();
 			if( sound > 0 )
@@ -182,7 +186,7 @@ namespace Combat
 				pChar->soundEffect( 0x156 );
 		}
 		else	
-			playmonstersound( pChar, pChar->id(), SND_DEFEND );
+			playmonstersound( pChar, pChar->bodyID(), SND_DEFEND );
 	}
 
 	/*!
@@ -253,38 +257,46 @@ namespace Combat
 	*/
 	void checkandhit( P_CHAR pAttacker )
 	{
-		P_CHAR pDefender = FindCharBySerial( pAttacker->swingtarg() );
+		P_CHAR pDefender = FindCharBySerial( pAttacker->swingTarget() );
 		
 		// We made our swing, so reset the target.
-		pAttacker->setSwingTarg( INVALID_SERIAL );
+		pAttacker->setSwingTarget( INVALID_SERIAL );
 
-		if( !pDefender || pDefender->isInvul() )
+		if( !pDefender || pDefender->isInvulnerable() )
 		{
-			if( pAttacker->socket() )
-				pAttacker->socket()->sysMessage( tr( "You can't hit your target." ) );
-
-			return;
-		}
-
-		if( pDefender->dead() )
-		{
-			pAttacker->setSwingTarg( INVALID_SERIAL );
-			pAttacker->setTarg( INVALID_SERIAL );
-			pAttacker->setTimeOut( 0 );
-			pAttacker->resetAttackFirst();
-			
-			// Reset the target
-			if( pAttacker->socket() )
+			if( pAttacker->objectType() == enPlayer )
 			{
-				cUOTxAttackResponse aResponse;
-				aResponse.setSerial( INVALID_SERIAL );
-				pAttacker->socket()->send( &aResponse );
+				P_PLAYER pp = dynamic_cast<P_PLAYER>(pAttacker);
+				if( pp->socket() )
+					pp->socket()->sysMessage( tr( "You can't hit your target." ) );
 			}
 
 			return;
 		}
 
-		if( pDefender->hidden() )
+		if( pDefender->isDead() )
+		{
+			pAttacker->setSwingTarget( INVALID_SERIAL );
+			pAttacker->setCombatTarget( INVALID_SERIAL );
+			pAttacker->setNextHitTime( 0 );
+			pAttacker->setAttackFirst( false );
+			
+			// Reset the target
+			if( pAttacker->objectType() == enPlayer )
+			{
+				P_PLAYER pp = dynamic_cast<P_PLAYER>(pAttacker);
+				if( pp->socket() )
+				{
+					cUOTxAttackResponse aResponse;
+					aResponse.setSerial( INVALID_SERIAL );
+					pp->socket()->send( &aResponse );
+				}
+			}
+
+			return;
+		}
+
+		if( pDefender->isHidden() )
 			return;
 
 		// Can we see our target. 
@@ -302,7 +314,7 @@ namespace Combat
 	*/
 	void hit( P_CHAR pAttacker, P_CHAR pDefender, bool los )
 	{
-		UINT16 oldStm = pDefender->stm();
+		UINT16 oldStm = pDefender->stamina();
 
 		// Get the weapon the attacker is wearing.
 		P_ITEM pWeapon = pAttacker->getWeapon();
@@ -333,8 +345,14 @@ namespace Combat
 			{
 				// We have to be careful here.
 				// We could be spammed with those messages.
-				if( pAttacker->socket() )
-					pAttacker->socket()->sysMessage( tr( "You are out of ammunition!" ) );
+				if( pAttacker->objectType() == enPlayer )
+				{
+					P_PLAYER pp = dynamic_cast<P_PLAYER>(pAttacker);
+					if( pp->socket() )
+					{
+						pp->socket()->sysMessage( tr( "You are out of ammunition!" ) );
+					}
+				}
 
 				return;
 			}
@@ -413,11 +431,19 @@ namespace Combat
 			// swing didn't hit
 			// NOTE: There should be a random chance that this
 			// message appears *or* a flag to set
-			if( pAttacker->socket() )
-				pAttacker->socket()->sysMessage( tr( "You miss %1" ).arg( pDefender->name() ) );
+			if( pAttacker->objectType() == enPlayer )
+			{
+				P_PLAYER pp = dynamic_cast<P_PLAYER>(pAttacker);
+				if( pp->socket() )
+					pp->socket()->sysMessage( tr( "You miss %1" ).arg( pDefender->name() ) );
+			}
 
-			if( pDefender->socket() )
-				pDefender->socket()->sysMessage( tr( "%1 misses you" ).arg( pAttacker->name() ) );
+			if( pDefender->objectType() == enPlayer )
+			{
+				P_PLAYER pp = dynamic_cast<P_PLAYER>(pDefender);
+				if( pp->socket() )
+					pp->socket()->sysMessage( tr( "%1 misses you" ).arg( pAttacker->name() ) );
+			}
 
 			// If we missed using a Bow or Crossbow we 
 			// could leave the ammunition at the feets of 
@@ -445,9 +471,9 @@ namespace Combat
 		{
 			   pDefender->setPoisoned( pWeapon->poisoned() );
 
-			   // a lev.1 poison takes effect after 40 secs, a deadly pois.(lev.4) takes 40/4 secs
-			   pDefender->setPoisontime( uiCurrentTime + ( MY_CLOCKS_PER_SEC * ( 40 / pDefender->poisoned() ) ) );
-			   pDefender->setPoisonwearofftime( pDefender->poisontime() + ( MY_CLOCKS_PER_SEC * SrvParams->poisonTimer() ) );
+			   // a lev.1 poison takes effect after 40 secs, a isDeadly pois.(lev.4) takes 40/4 secs
+			   pDefender->setPoisonTime( uiCurrentTime + ( MY_CLOCKS_PER_SEC * ( 40 / pDefender->poisoned() ) ) );
+			   pDefender->setPoisonWearOffTime( pDefender->poisonTime() + ( MY_CLOCKS_PER_SEC * SrvParams->poisonTimer() ) );
 		}
 
 		// If we item we used was enchantet using 
@@ -459,6 +485,8 @@ namespace Combat
 		// Calc base damage
 		double damage;
 
+		P_NPC pn = dynamic_cast<P_NPC>(pAttacker);
+
 		// If we wear a weapon, use that value,
 		if( pWeapon )
 			damage = RandomNum( pWeapon->lodamage(), pWeapon->hidamage() );
@@ -467,10 +495,12 @@ namespace Combat
 		// I did not find this in the OSI specs
 		//damage = (SI32)ceil( (float)damage * (float)pAttacker->skillValue( wSkill ) / 1000.0f );
 		
-		// Fall back to lodamage/hidamage
-		else if( pAttacker->lodamage() != 0 && pAttacker->hidamage() != 0 )
-			// set basedamage to random value of weapon lo and hidamage
-			damage = RandomNum( pAttacker->lodamage(), pAttacker->hidamage() );
+		// Fall back to minDamage/maxDamage
+		else if( pAttacker->objectType() == enNPC && pn->minDamage() != 0 && pn->maxDamage() != 0 )
+		{
+			// set basedamage to random value of weapon lo and maxDamage
+			damage = RandomNum( pn->minDamage(), pn->maxDamage() );
+		}
 
 		// otherwise use the WRESTLING skill
 		else
@@ -482,7 +512,7 @@ namespace Combat
 		damage = damage * ( pAttacker->skillValue( TACTICS ) / 10 + 50 ) / 100;
 
 		// Strength (add 1/5 of strength * damage)
-		damage += damage * ( pAttacker->st() / 500 );
+		damage += damage * ( pAttacker->strength() / 500 );
 
 		// Anatomy (add 1/5 of anatomy * damage)
 		damage += damage * ( pAttacker->skillValue( ANATOMY ) / 500 );
@@ -513,11 +543,19 @@ namespace Combat
 			if( pDefender->skillValue( PARRYING ) / 2 >= RandomNum( 0, 1000 ) )
 			{
 				// We successfully parried the blow
-				if( pAttacker->socket() )
-					pAttacker->socket()->sysMessage( tr( "Your attack has been parried!" ) );
+				if( pAttacker->objectType() == enPlayer )
+				{
+					P_PLAYER pp = dynamic_cast<P_PLAYER>(pAttacker);
+					if( pp->socket() )
+						pp->socket()->sysMessage( tr( "Your attack has been parried!" ) );
+				}
 
-				if( pDefender->socket() )
-					pDefender->socket()->sysMessage( tr( "You parried the blow!" ) );
+				if( pDefender->objectType() == enPlayer )
+				{
+					P_PLAYER pp = dynamic_cast<P_PLAYER>(pDefender);
+					if( pp->socket() )
+						pp->socket()->sysMessage( tr( "You parried the blow!" ) );
+				}
 
 				if( wSkill != ARCHERY )
 					damage -= pShield->def();
@@ -603,7 +641,7 @@ namespace Combat
 		};
 
 		// Check if it has been a "hard" hit
-		bool hardHit = ( pDefender->st() * 0.1 <= damage );
+		bool hardHit = ( pDefender->strength() * 0.1 <= damage );
 
 		// Get the message for the defender and attacker
 		switch( bodyPart )
@@ -655,16 +693,24 @@ namespace Combat
 			break;
 		}
 
-		if( pAttacker->socket() )
-			pAttacker->socket()->sysMessage( qApp->translate("CombatHitMessages", attMessage.arg( pDefender->name() ) ) );
+		if( pAttacker->objectType() == enPlayer )
+		{
+			P_PLAYER pp = dynamic_cast<P_PLAYER>(pAttacker);
+			if( pp->socket() )
+				pp->socket()->sysMessage( qApp->translate("CombatHitMessages", attMessage.arg( pDefender->name() ) ) );
+		}
 
-		if( pDefender->socket() )
-			pDefender->socket()->sysMessage( qApp->translate("CombatHitMessages", defMessage.arg( pAttacker->name() ) ) );
+		if( pDefender->objectType() == enPlayer )
+		{
+			P_PLAYER pp = dynamic_cast<P_PLAYER>(pDefender);
+			if( pp->socket() )
+				pp->socket()->sysMessage( qApp->translate("CombatHitMessages", defMessage.arg( pAttacker->name() ) ) );
+		}
 
 		// Macefighting Weapons (2handed only) 
 		// Deal Stamina loss
 		if( pWeapon && ( pWeapon->type() == 1003 || pWeapon->type() == 1004 ) && pWeapon->twohanded() )
-			pDefender->setStm( QMAX( 0, pDefender->stm() - RandomNum( 3, 6 ) ) );
+			pDefender->setStamina( QMAX( 0, pDefender->stamina() - RandomNum( 3, 6 ) ) );
 
 		// Paralyzing + Concussion Hit are disabled for now
 		/*
@@ -687,12 +733,12 @@ namespace Combat
 
 		// attacker poisons defender
 		// and vice versa
-		pAttacker->applyPoison( pDefender );
-		pDefender->applyPoison( pAttacker );
+//		pAttacker->applyPoison( pDefender );
+//		pDefender->applyPoison( pAttacker );
 
 		// Cancel an eventual paralyze spell
-		if( ( pDefender->effDex() > 0 ) )
-			pDefender->setPriv2( pDefender->priv2() & 0xFD );
+//		if( ( pDefender->effDex() > 0 ) )
+//			pDefender->setPriv2( pDefender->priv2() & 0xFD );
 
 		// when hitten and damage >1, defender fails if casting a spell!
 		// Thats not really good, better make a check versus int+magic
@@ -711,7 +757,7 @@ namespace Combat
 		}*/
 
 		// Reactive Armor
-		if( pDefender->ra() )
+		if( pDefender->hasReactiveArmor() )
 		{
 			// lets reflect (MAGERY/2)% of the damage
 			SI32 reflectdamage = damage * pDefender->skillValue( MAGERY ) / 2000;
@@ -719,10 +765,10 @@ namespace Combat
 
 			if( reflectdamage > 0 )
 			{
-				pAttacker->setHp( QMAX( 0, pAttacker->hp() - reflectdamage ) );
+				pAttacker->setHitpoints( QMAX( 0, pAttacker->hitpoints() - reflectdamage ) );
 				pAttacker->updateHealth();
 
-				if( pAttacker->hp() <= 0 )
+				if( pAttacker->hitpoints() <= 0 )
 					pAttacker->kill();
 			}
 
@@ -733,13 +779,17 @@ namespace Combat
 		damage = QMAX( 0, damage );
 		if( damage > 0 )
 		{
-			pDefender->setHp( pDefender->hp() - damage );
+			pDefender->setHitpoints( pDefender->hitpoints() - damage );
 			
-			if( pAttacker->socket() )
-				pAttacker->socket()->showSpeech( pDefender, QString::number( damage ), 0x1F, 6 );
+			if( pAttacker->objectType() == enPlayer )
+			{
+				P_PLAYER pp = dynamic_cast<P_PLAYER>(pAttacker);
+				if( pp->socket() )
+					pp->socket()->showSpeech( pDefender, QString::number( damage ), 0x1F, 6 );
+			}
 
 			// If we die anyway dont update our health
-			if( pDefender->hp() > 0 )
+			if( pDefender->hitpoints() > 0 )
 				pDefender->updateHealth();
 		}
 
@@ -776,9 +826,10 @@ namespace Combat
 		   }
 		}*/
 
+		/*
 		//===== SPLITTING NPCS
 		UI08 splitnum = 0;
-		if( ( pDefender->split() > 0 ) && ( pDefender->hp() >= 1 ) )
+		if( ( pDefender->split() > 0 ) && ( pDefender->hitpoints() >= 1 ) )
 		{
 			if( RandomNum( 0, 100 ) <= pDefender->splitchnc() )
 			{
@@ -791,11 +842,15 @@ namespace Combat
 					cCharStuff::Split( pDefender );
 			}
 		}
-
+*/
 		// Resend the health bar of our defender to all surrounding characters
 		// ONLY if the hp really changed!
-		if( pDefender->stm() != oldStm && pDefender->socket() )
-			pDefender->socket()->sendStatWindow();
+		if( pDefender->stamina() != oldStm && pDefender->objectType() == enPlayer )
+		{
+			P_PLAYER pp = dynamic_cast<P_PLAYER>(pDefender);
+			if( pp->socket() )
+				pp->socket()->sendStatWindow();
+		}
 
 		// Get Hit sound + Animation
 		playGetHitSoundEffect( pDefender );
@@ -809,36 +864,41 @@ namespace Combat
 	void combat( P_CHAR pAttacker )
 	{
 		// We are either not fighting or dont have a target
-		if( !pAttacker || pAttacker->free || pAttacker->dead() || !pAttacker->war() || pAttacker->targ() == INVALID_SERIAL )
+		if( !pAttacker || pAttacker->free || pAttacker->isDead() || !pAttacker->isAtWar() || pAttacker->combatTarget() == INVALID_SERIAL )
 			return;
 
-		P_CHAR pDefender = FindCharBySerial( pAttacker->targ() );
+		P_CHAR pDefender = FindCharBySerial( pAttacker->combatTarget() );
 
 		// Check our Target
-		if( !pDefender || pDefender->free || ( pDefender->isPlayer() && !pDefender->socket() ) || pDefender->isHidden() || pDefender->dead() )
+		if( !pDefender || pDefender->free || pDefender->isHidden() || pDefender->isDead() )
 		{
-			pAttacker->setTimeOut(0);
+			pAttacker->setNextHitTime(0);
 			if( pDefender )
-				pDefender->setAttacker(INVALID_SERIAL);
-			pAttacker->setTarg(INVALID_SERIAL);
-			pAttacker->resetAttackFirst();
+				pDefender->setAttackerSerial(INVALID_SERIAL);
+			pAttacker->setCombatTarget(INVALID_SERIAL);
+			pAttacker->setAttackFirst( false );
 
 			// Reset the target
-			if( pAttacker->socket() )
+			if( pAttacker->objectType() == enPlayer )
 			{
-				cUOTxAttackResponse aResponse;
-				aResponse.setSerial( INVALID_SERIAL );
-				pAttacker->socket()->send( &aResponse );
+				P_PLAYER pp = dynamic_cast<P_PLAYER>(pAttacker);
+				if( pp->socket() )
+				{
+					cUOTxAttackResponse aResponse;
+					aResponse.setSerial( INVALID_SERIAL );
+					pp->socket()->send( &aResponse );
+				}
 			}
 
 			return;
 		}
 
 		// Some special stuff for guards
-		if( pAttacker->isNpc() && !pAttacker->inRange( pDefender, SrvParams->attack_distance() ) )
+		if( pAttacker->objectType() == enNPC && !pAttacker->inRange( pDefender, SrvParams->attack_distance() ) )
 		{
 			// Guards beam to their target if they are out of range
-			if( pAttacker->npcaitype() == 4 && pDefender->inGuardedArea() )
+#pragma note("reimplement with new npc ai!")
+/*			if( pAttacker->npcaitype() == 4 && pDefender->inGuardedArea() )
 			{
 					pAttacker->removeFromView( false );
 					pAttacker->moveTo( pDefender->pos() );
@@ -853,20 +913,20 @@ namespace Combat
 			// If we are out of close range, get out of warmode and stop fighting
 			else if( pAttacker->npcaitype() != 4 )
 			{
-				pAttacker->setTarg( INVALID_SERIAL );
-				pAttacker->setSwingTarg( INVALID_SERIAL );
-				pAttacker->setTimeOut(0);
+				pAttacker->setCombatTarget( INVALID_SERIAL );
+				pAttacker->setSwingTarget( INVALID_SERIAL );
+				pAttacker->setNextHitTime(0);
 				
 				P_CHAR pc = FindCharBySerial( pAttacker->attacker() );
 
 				if( pc )
 				{
-					pc->resetAttackFirst();
-					pc->setAttacker(INVALID_SERIAL);
+					pc->setAttackFirst( false );
+					pc->setAttackerSerial(INVALID_SERIAL);
 				}
 
-				pAttacker->setAttacker(INVALID_SERIAL);
-				pAttacker->resetAttackFirst();				
+				pAttacker->setAttackerSerial(INVALID_SERIAL);
+				pAttacker->setAttackFirst( false );				
 				
 				// We have been at war for sure, so we can
 				// update without harm
@@ -875,6 +935,7 @@ namespace Combat
 
 				return;
 			}
+			*/
 		}
 
 		// We have two delay-timers for attacking
@@ -904,33 +965,38 @@ namespace Combat
 			return;
 
 		// Let the defender fight back now that we are swinging at him.
-		if( pDefender->socket() && pDefender->targ() == INVALID_SERIAL )
+		if( pDefender->objectType() == enPlayer && pDefender->combatTarget() == INVALID_SERIAL )
 		{
 			pDefender->fight( pAttacker );
 		}
 
 		// Attacking costs a certain amount of stamina
-		if( abs( SrvParams->attackstamina() ) > 0 && !pAttacker->isGM() )
+		if( pAttacker->objectType() == enPlayer )
 		{
-			// We don't have enough Stamina
-			if( ( SrvParams->attackstamina() < 0 ) && ( pAttacker->stm() < abs( SrvParams->attackstamina() ) ) )
-			{
-				if( pAttacker->socket() )
-					pAttacker->socket()->sysMessage( tr( "You are too tired to attack." ) );
-				
-				// Only re-check for missing stamina the next time 
-				// we could try to hit them.
-				setWeaponTimeout( pAttacker, pAttacker->leftHandItem() );
-				setWeaponTimeout( pAttacker, pAttacker->rightHandItem() );
-				return;
-			}
+			P_PLAYER pp = dynamic_cast<P_PLAYER>(pAttacker);
 
-			// Reduce the Stamina
-			pAttacker->setStm( QMIN( pAttacker->effDex(), QMAX( 0, pAttacker->stm() + SrvParams->attackstamina() ) ) );
-			
-			// Send the changed stamina
-			if( pAttacker->socket() )
-				pAttacker->socket()->updateStamina();
+			if( abs( SrvParams->attackstamina() ) > 0 && !pp->isGM() )
+			{
+				// We don't have enough Stamina
+				if( ( SrvParams->attackstamina() < 0 ) && ( pp->stamina() < abs( SrvParams->attackstamina() ) ) )
+				{
+					if( pp->socket() )
+						pp->socket()->sysMessage( tr( "You are too tired to attack." ) );
+					
+					// Only re-check for missing stamina the next time 
+					// we could try to hit them.
+					setWeaponTimeout( pp, pp->leftHandItem() );
+					setWeaponTimeout( pp, pp->rightHandItem() );
+					return;
+				}
+
+				// Reduce the Stamina
+				pp->setStamina( QMIN( pp->dexterity(), QMAX( 0, pp->stamina() + SrvParams->attackstamina() ) ) );
+				
+				// Send the changed stamina
+				if( pp->socket() )
+					pp->socket()->updateStamina();
+			}
 		}
 				
 		// Show the Combat Animations
@@ -938,12 +1004,12 @@ namespace Combat
 
 		// If we are no guard, our target should re-attack us.
 		// (DarkStorm): But only if our Target is not fighting someone else
-		/*if( pAttacker->npcaitype() != 4 && pDefender->targ() == INVALID_SERIAL )
+		/*if( pAttacker->npcaitype() != 4 && pDefender->combatTarget() == INVALID_SERIAL )
 		{
 			pDefender->fight( pAttacker );
-			pDefender->setAttackFirst();
+			pDefender->setAttackFirstrength();
 			pAttacker->fight( pDefender );
-			pAttacker->resetAttackFirst();
+			pAttacker->setAttackFirst( false );
 		}*/
 
 		// A tempeffect is needed here eventually
@@ -951,21 +1017,22 @@ namespace Combat
 		if( pWeapon && pWeapon->getWeaponSkill() == ARCHERY )
 			hit( pAttacker, pDefender, true ); // We are positive that we can hit our target
 		else
-			pAttacker->setSwingTarg( pDefender->serial() );
+			pAttacker->setSwingTarget( pDefender->serial() );
 
 		// Set the time for the next attack
 		setWeaponTimeout( pAttacker, pWeapon );
 
 		// No Spellcasting monsters right now
-		//if( !pDefender->isInvul() )
+		//if( !pDefender->isInvulnerable() )
 		//{
 		//	NpcSpellAttack( pAttacker,pDefender,currenttime,los );
 		//}
 
 		// Our target finally died.
-		if( pDefender->hp() < 1 ) // Highlight // Repsys
+		if( pDefender->hitpoints() < 1 ) // Highlight // Repsys
 		{
-			if( ( pAttacker->npcaitype() == 4 || pAttacker->npcaitype() == 9 ) && pDefender->isNpc() )
+#pragma note("reimplement with new npc ai sys")
+/*			if( ( pAttacker->npcaitype() == 4 || pAttacker->npcaitype() == 9 ) && pDefender->isNpc() )
 			{
 				pDefender->action( 0x15 );					
 				pDefender->playDeathSound();
@@ -974,22 +1041,24 @@ namespace Combat
 			else
 			{
 				pDefender->kill();
-				pAttacker->setSwingTarg( -1 );
+				pAttacker->setSwingTarget( -1 );
 			}
+			*/
 				
 			// murder count \/				
-			if( ( pAttacker->isPlayer() ) && ( pDefender->isPlayer() ) ) //Player vs Player
+			if( ( pAttacker->objectType() == enPlayer ) && ( pDefender->objectType() == enPlayer ) ) //Player vs Player
 			{
-				if( pDefender->isInnocent() && GuildCompare( pAttacker, pDefender ) == 0 )
+				if( pDefender->isInnocent() )
 				{
 					pAttacker->setKills( pAttacker->kills() + 1 );
 
-					if( pAttacker->socket() )
+					P_PLAYER pp = dynamic_cast<P_PLAYER>(pAttacker);
+					if( pp->socket() )
 					{
-						pAttacker->socket()->sysMessage( tr( "You have killed %1 innocent people." ).arg( pAttacker->kills() ) );
+						pp->socket()->sysMessage( tr( "You have killed %1 innocent people." ).arg( pAttacker->kills() ) );
 
-						if( pAttacker->kills() == SrvParams->maxkills() + 1 )
-							pAttacker->socket()->sysMessage( tr("You are now a murderer!") );
+						if( pp->kills() == SrvParams->maxkills() + 1 )
+							pp->socket()->sysMessage( tr("You are now a murderer!") );
 					}
 				}
 				
@@ -1000,8 +1069,11 @@ namespace Combat
 				}
 			}
 
-			if( pAttacker->isNpc() && pAttacker->war() )
-				pAttacker->toggleCombat();
+			if( pAttacker->objectType() == enNPC && pAttacker->isAtWar() )
+			{
+				P_NPC pn = dynamic_cast<P_NPC>(pAttacker);
+				pn->toggleCombat();
+			}
 		}
 	}
 
@@ -1018,7 +1090,7 @@ namespace Combat
 				pWeapon->setSpeed( 35 );
 
 			// Attack Speed= 15,000 ÷ ( [Stamina +100] x Weapon Speed )
-			x = (15000*MY_CLOCKS_PER_SEC) / ((pAttacker->stm()+100) * pWeapon->speed() ); 
+			x = (15000*MY_CLOCKS_PER_SEC) / ((pAttacker->stamina()+100) * pWeapon->speed() ); 
 		}
 		else 
 		{
@@ -1027,9 +1099,9 @@ namespace Combat
 			else if( pAttacker->skillValue(WRESTLING) > 600 ) j = 45;
 			else if( pAttacker->skillValue(WRESTLING) > 800 ) j = 50;
 			else j = 30;
-			x = (15000*MY_CLOCKS_PER_SEC) / ((pAttacker->stm()+100) * j);
+			x = (15000*MY_CLOCKS_PER_SEC) / ((pAttacker->stamina()+100) * j);
 		}
-		pAttacker->setTimeOut(uiCurrentTime + x);
+		pAttacker->setNextHitTime(uiCurrentTime + x);
 	}
 
 	void doCombatAnimations( P_CHAR pAttacker, P_CHAR pDefender, P_ITEM pWeapon )
@@ -1037,7 +1109,7 @@ namespace Combat
 		// make sure attacker is facing the right direction
 		pAttacker->turnTo( pDefender );
 
-		UINT16 id = pAttacker->id();
+		UINT16 id = pAttacker->bodyID();
 
 		// Monsters receive special treatment
 		if( id < 0x0190 )
@@ -1059,9 +1131,9 @@ namespace Combat
 			}
 
 			pAttacker->action( action );
-			playmonstersound( pAttacker, pAttacker->id(), SND_ATTACK );
+			playmonstersound( pAttacker, pAttacker->bodyID(), SND_ATTACK );
 		}
-		else if (pAttacker->atLayer(cChar::Mount))
+		else if (pAttacker->atLayer(cBaseChar::Mount))
 		{
 			doHorseCombatAnimation( pAttacker ); // determines weapon in hand and runs animation
 		}
@@ -1096,7 +1168,7 @@ namespace Combat
 		if( !pc )
 			return false;
 
-		if( pc->timeout() < uiCurrentTime ) 
+		if( pc->nextHitTime() < uiCurrentTime ) 
 			return true;
 	
 		return false;
@@ -1254,7 +1326,7 @@ namespace Combat
 	void playGetHitAnimation( P_CHAR pChar )
 	{
 		// When we are not currently doing a swing against a target
-		if( pChar->swingtarg() == INVALID_SERIAL )
+		if( pChar->swingTarget() == INVALID_SERIAL )
 			pChar->action( 0x14 );
 	}
 
@@ -1280,7 +1352,7 @@ namespace Combat
 		if( !pOffender || !pCaller )
 			return;
 		
-		if( pOffender->dead() || pCaller->dead())
+		if( pOffender->isDead() || pCaller->isDead())
 			return;
 
 		cTerritory* pRegion = pCaller->region();
@@ -1288,21 +1360,21 @@ namespace Combat
 		if( pRegion == NULL )
 			return;
 		
-		if( pRegion->isGuarded() && SrvParams->guardsActive() && !pOffender->isInvul() )
+		if( pRegion->isGuarded() && SrvParams->guardsActive() && !pOffender->isInvulnerable() )
 		{
-			P_CHAR pGuard = cCharStuff::createScriptNpc( pRegion->getGuardSect(), pos );
+			P_NPC pGuard = cCharStuff::createScriptNpc( pRegion->getGuardSect(), pos );
 			
 			if ( !pGuard ) 
 				return;
 			
-			pGuard->setNpcAIType( 4 );
-			pGuard->setAttackFirst();
-			pGuard->setAttacker(pOffender->serial());
-			pGuard->setTarg(pOffender->serial());
-			pGuard->setNpcWander(2);  // set wander mode
+//			pGuard->setNpcAIType( 4 );
+			pGuard->setAttackFirst( true );
+			pGuard->setAttackerSerial(pOffender->serial());
+			pGuard->setCombatTarget(pOffender->serial());
+			pGuard->setWanderType( enCombatTarget );
 			pGuard->toggleCombat();
 			pGuard->setNextMoveTime();
-			pGuard->setSummonTimer( ( uiCurrentTime + (MY_CLOCKS_PER_SEC*25) ) );    
+			pGuard->setSummonTime( ( uiCurrentTime + (MY_CLOCKS_PER_SEC*25) ) );    
 			
 			pGuard->soundEffect( 0x1FE );
 			pGuard->effect( 0x372A, 0x09, 0x06 );
@@ -1381,7 +1453,7 @@ static void NpcSpellAttack( P_CHAR pc_attacker, P_CHAR pc_defender, unsigned int
 
 		int spattacks = numbitsset( pc_attacker->spattack );
 
-		if (!pc_defender->dead() && chardist(pc_attacker, pc_defender) < SrvParams->attack_distance() && spattacks > 0 )
+		if (!pc_defender->isDead() && chardist(pc_attacker, pc_defender) < SrvParams->attack_distance() && spattacks > 0 )
 		{
 			if (los)
 			{																	
@@ -1514,7 +1586,7 @@ void cCombat::ItemSpell(cChar* Attacker, cChar* Defender)
 		pi = FindItemBySerial(vecContainer[ci]);
 		if ( ( ( pi->layer() == 1 && pi->type() != 9 ) || (pi->layer() == 2 ) ) )
 		{
-			if( pi->offspell() && ( pi->att || pi->hidamage() ) && pi->type() == 15 )
+			if( pi->offspell() && ( pi->att || pi->maxDamage() ) && pi->type() == 15 )
 			{
 				switch( pi->offspell() )
 				{

@@ -110,7 +110,7 @@ void cNPC::save( FlatStore::OutputFile *output, bool first ) throw()
 	if( maxDamage() )
 		output->chunkData( NPC_MAXDAMAGE, (int)maxDamage() );
 	
-	if( wanderType() == enFreely )
+	if( wanderType() == enFreely || wanderType() == enCombatTarget )
 		output->chunkData( NPC_WANDERTYPE, (unsigned char)wanderType() );
 	else if( wanderType() == enRectangle )
 	{

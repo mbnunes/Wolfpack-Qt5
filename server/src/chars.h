@@ -54,7 +54,7 @@ namespace cCharStuff
 	P_CHAR MemCharFree();
 	void Split(P_CHAR pc_k);
 	void CheckAI(unsigned int currenttime, P_CHAR pc_i);
-	P_CHAR createScriptNpc( const QString &section, const Coord_cl &pos );
+	P_NPC createScriptNpc( const QString &section, const Coord_cl &pos );
 };
 
 #endif // __CHARS_H__

@@ -113,10 +113,6 @@ SOURCE=.\books.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\char_flatstore.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\chars.cpp
 # End Source File
 # Begin Source File

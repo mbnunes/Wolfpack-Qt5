@@ -33,36 +33,17 @@
 #include "platform.h"
 
 // Wolfpack includes
-#include "accounts.h"
-#include "wpdefaultscript.h"
+#include "chars.h"
+#include "basechar.h"
 #include "items.h"
-#include "debug.h"
-#include "tilecache.h"
-#include "TmpEff.h"
-#include "corpse.h"
+#include "player.h"
+#include "npc.h"
 #include "globals.h"
-#include "wolfpack.h"
-#include "iserialization.h"
-#include "mapobjects.h"
-#include "srvparams.h"
-#include "utilsys.h"
-#include "network.h"
-#include "network/uosocket.h"
-#include "network/uotxpackets.h" 
-#include "maps.h"
-#include "skills.h"
-#include "wpdefmanager.h"
-#include "guildstones.h"
-#include "walking.h"
-#include "persistentbroker.h"
-#include "territories.h"
-#include "dbdriver.h"
-#include "combat.h"
-
-#include "makemenus.h"
-#include "wpscriptmanager.h"
+#include "multis.h"
 #include "world.h"
-#include "itemid.h"
+#include "mapobjects.h"
+#include "wpdefmanager.h"
+#include "wpconsole.h"
 
 // Qt Includes
 #include <qstringlist.h>
@@ -78,7 +59,14 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 	if( !pc_k )
 		return;
 
-	pc_k->setOwner( 0 );
+	P_PLAYER pp_k = dynamic_cast<P_PLAYER>(pc_k);
+	P_NPC pn_k = dynamic_cast<P_NPC>(pc_k);
+
+	if( pn_k )
+	{
+		pn_k->setOwner( 0 );
+	}
+
 	pc_k->setGuarding( 0 );
 	
 	// We need to remove the equipment here.
@@ -111,6 +99,7 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 	World::instance()->deleteObject( pc_k );
 }
 
+/*
 void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat
 {
 	int z;
@@ -135,8 +124,9 @@ void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat
 		pc_c->setSplit(0);	
 	pc_c->update();
 }
+*/
 
-P_CHAR cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos )
+P_NPC cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos )
 {
 	if( section.isNull() || section.isEmpty() )
 		return NULL;
@@ -149,15 +139,12 @@ P_CHAR cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos 
 		return NULL;
 	}
 
-	P_CHAR pChar = new cChar;
+	P_NPC pChar = new cNPC;
 	pChar->Init();
 
-#pragma note("Show skill titles, implement with flag holder in new cChar")
-//	pChar->setPriv( 0x10 );
-	pChar->setNpc(1);
-	pChar->setLoDamage(1);
-	pChar->setHiDamage(1);
-	pChar->setDef(1);
+	pChar->setMinDamage(1);
+	pChar->setMaxDamage(1);
+	pChar->setBodyArmor(1);
 
 	pChar->moveTo( pos );
 
