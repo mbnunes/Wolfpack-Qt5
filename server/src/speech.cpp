@@ -663,14 +663,10 @@ bool cSpeech::response( cUOSocket *socket, P_PLAYER pPlayer, const QString& comm
 		if( pPlayer->dist( pNpc ) > 16 )
 			continue;
 
-		// Check if the NPC has a script that can handle 
-		// speech events and then check if it can handle everything
-		// or just certain things
 		cPythonScript **events = pNpc->getEvents();
 
-		if( events )
-		{
-			PyObject *pkeywords = PyList_New( keywords.size() );
+		if (events) {
+			PyObject *pkeywords = PyList_New(keywords.size());
 
 			// Set Items
 			for( unsigned int i = 0; i < keywords.size(); ++i )
