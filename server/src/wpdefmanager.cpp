@@ -129,7 +129,7 @@ void WPDefManager::ProcessNode( const QDomElement& Node )
 		clConsole.ChangeColor( WPC_YELLOW );
 		clConsole.send( "Warning: " );
 		clConsole.ChangeColor( WPC_NORMAL );
-		clConsole.send( tr( "Duplicate %1: %2\n" ).arg( NodeName ).arg( NodeID ) );
+		clConsole.send( QString( "Duplicate %1: %2\n" ).arg( NodeName ).arg( NodeID ) );
 	}
 
     Sections->insert( NodeID, Node );
@@ -154,7 +154,7 @@ bool WPDefManager::ImportSections( const QString& FileName )
 	QString errorMessage;
 	int errorLine, errorColumn;
 	
-	clConsole.PrepareProgress( tr( "Parsing %1" ).arg( FileName ) );
+	clConsole.PrepareProgress( QString( "Parsing %1" ).arg( FileName ) );
 
 	QByteArray data = File.readAll();
 
