@@ -149,8 +149,6 @@ static void item_bounce6(const P_CLIENT ps, const P_ITEM pi)
 void get_item(P_CLIENT ps) // Client grabs an item
 {
 	int npc=-1, amount, update = 0, serial;
-//	tile_st tile;
-	int z;// antichrist for trade fix
 	UOXSOCKET s = ps->GetSocket();
 	int cc = ps->GetCurrChar();
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(cc);
@@ -193,13 +191,13 @@ void get_item(P_CLIENT ps) // Client grabs an item
 						serial = calcserial(px->moreb1, px->moreb2, px->moreb3, px->moreb4);
 						if (serial == INVALID_SERIAL)
 							return;
-						z = calcItemFromSer(serial);
-						if (z!=-1)
-							if ((items[z].morez || px->morez))
+						P_ITEM pi_z = FindItemBySerial(serial);
+						if ( pi_z != NULL )
+							if ((pi_z->morez || px->morez))
 							{
-								items[z].morez = 0;
+								pi_z->morez = 0;
 								px->morez = 0;
-								sendtradestatus(z, DEREF_P_ITEM(px));
+								sendtradestatus(DEREF_P_ITEM(pi_z), DEREF_P_ITEM(px));
 							}
 					}
 					// Blackwinds Looting is crime implementation
@@ -207,10 +205,10 @@ void get_item(P_CLIENT ps) // Client grabs an item
 					if (px->corpse != 0 && !pc_currchar->Owns(px)) 
 					{ 
 						P_CHAR co = FindCharBySerial(px->ownserial);
-						if (px->more2 == 1 && Guilds->Compare(cc, DEREF_P_CHAR(co)) == 0) 
+						if (px->more2 == 1 && Guilds->Compare(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(co)) == 0) 
 						{ 
 							pc_currchar->karma -= 5; 
-							criminal(cc);
+							criminal(DEREF_P_CHAR(pc_currchar));
 							sysmessage(s, "You lost some karma!"); 
 						} 
 						npc = 0;
@@ -227,7 +225,7 @@ void get_item(P_CLIENT ps) // Client grabs an item
 	
 	if (npc>0) // 0=corpse, hence >0 ..
 	{
-		if (!(pc_currchar->isGM()) && npc != cc && ! pc_currchar->Owns(&chars[npc]))
+		if (!(pc_currchar->isGM()) && npc != DEREF_P_CHAR(pc_currchar) && ! pc_currchar->Owns(&chars[npc]))
 		{// Own serial stuff by Zippy -^ Pack aniamls and vendors.
 			bounce[1] = 0;
 			Xsend(s, bounce, 2);
@@ -308,7 +306,7 @@ void get_item(P_CLIENT ps) // Client grabs an item
 						pi_c->SetOwnSerial(pi_c->ownserial);
 						pi_c->SetSpawnSerial(pi_c->spawnserial);
 						
-						statwindow(s,cc);
+						statwindow(s,DEREF_P_CHAR(pc_currchar));
 						RefreshItem(pi_c);//AntiChrist
 					}
 					
@@ -423,10 +421,10 @@ void wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 
 	if (pi->id1>=0x40) return; // LB, client crashfix if multi-objects are moved to PD
 
-	if (k==cc || pc_currchar->isGM()) 
+	if (k==DEREF_P_CHAR(pc_currchar) || pc_currchar->isGM()) 
 	{
 		if (k!=-1) //lb
-			if (k==cc && pi->st>chars[k].st)
+			if (k==DEREF_P_CHAR(pc_currchar) && pi->st>chars[k].st)
 			{
 				sysmessage(s,"You are not strong enough to use that.");
 				Sndbounce5(s);
@@ -524,7 +522,7 @@ void wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 		}
 		if (!(pc_currchar->isGM())) //Ripper..players cant equip items on other players or npc`s paperdolls.
 		{
-			if ((k != cc) && (!chars[k].isNpc()))
+			if ((k != DEREF_P_CHAR(pc_currchar)) && (!chars[k].isNpc()))
 			{
 				sysmessage(s, "You cant put items on other players!");
 				item_bounce6(ps,pi);
@@ -566,8 +564,8 @@ void wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 		}
 		
 		itemsfx(s, pi->id());	// Dupois - see itemsfx() for details	// Added Oct 09, 1998
-		Weight->NewCalc(cc);	// Ison 2-20-99
-		statwindow(s,cc);
+		Weight->NewCalc(DEREF_P_CHAR(pc_currchar));	// Ison 2-20-99
+		statwindow(s,DEREF_P_CHAR(pc_currchar));
 		
 		if (pi->glow>0)
 		{
@@ -580,13 +578,14 @@ void wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 
 static bool ItemDroppedOnPet(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 {
-	UOXSOCKET s=ps->GetSocket();
-	CHARACTER cc=ps->GetCurrChar();
+	UOXSOCKET s = ps->GetSocket();
+	CHARACTER cc = ps->GetCurrChar();
+	P_CHAR pc_currchar = MAKE_CHAR_REF(cc);
 	P_CHAR pc_target = FindCharBySerial(pp->Tserial);
 
-	if(pc_target->hunger<6 && pi->type==14)//AntiChrist new hunger code for npcs
+	if( pc_target->hunger < 6 && pi->type == 14 )//AntiChrist new hunger code for npcs
 	{
-		soundeffect2(cc, 0x00, 0x3A+(rand()%3));	//0x3A - 0x3C three different sounds
+		soundeffect2(DEREF_P_CHAR(pc_currchar), 0x00, 0x3A+(rand()%3));	//0x3A - 0x3C three different sounds
 
 		if((pi->poisoned)&&(pc_target->poisoned<pi->poisoned)) 
 		{
@@ -603,7 +602,8 @@ static bool ItemDroppedOnPet(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 		pc_target->emotecolor2=0x26;
 		npcemoteall(DEREF_P_CHAR(pc_target),(char*)temp,1);
 		pc_target->hunger++;
-	} else
+	} 
+	else
 	{
 		sysmessage(s,"It doesn't appear to want the item");
 		Sndbounce5(s);
@@ -702,7 +702,7 @@ static bool ItemDroppedOnBanker(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	
 	if (pi->id() == 0x14F0 && pi->type == 1000)
 	{
-		 int n=Items->SpawnItem(cc,DEREF_P_CHAR(pc_currchar),value,"#",1,0x0E,0xED,0,0,0,0);
+		 int n=Items->SpawnItem(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(pc_currchar),value,"#",1,0x0E,0xED,0,0,0,0);
 	     if(n==-1) return false;
 	     const P_ITEM pi_n=MAKE_ITEMREF_LRV(n,false);
 		 sprintf((char*)temp,"%s I have cashed your check and deposited %i gold.",pc_currchar->name, value);
@@ -813,7 +813,7 @@ static bool ItemDroppedOnSelf(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 		pc_currchar->glowHalo(pi);
 	}
 	
-	int pack=packitem(cc); // LB ...
+	int pack=packitem(DEREF_P_CHAR(pc_currchar)); // LB ...
 	if (pack==-1) // if player has no pack, put it at its feet
 	{ 
 		pi->MoveTo(pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
@@ -823,8 +823,8 @@ static bool ItemDroppedOnSelf(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	{
 		items[pack].AddItem(pi); // player has a pack, put it in there
 		
-		Weight->NewCalc(cc);//AntiChrist bugfixes
-		statwindow(s,cc);
+		Weight->NewCalc(DEREF_P_CHAR(pc_currchar));//AntiChrist bugfixes
+		statwindow(s,DEREF_P_CHAR(pc_currchar));
 		itemsfx(s, pi->id());
 	}
 	return true;
@@ -838,7 +838,7 @@ static bool ItemDroppedOnChar(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 	P_CHAR pTC=FindCharBySerial(pp->Tserial);	// the targeted character
 	if (!pTC) return true;
 
-	if (DEREF_P_CHAR(pTC)!=cc)
+	if (DEREF_P_CHAR(pTC)!=DEREF_P_CHAR(pc_currchar))
 	{
 		if (pTC->isNpc())
 		{
@@ -972,15 +972,15 @@ void dump_item(P_CLIENT ps, PKGx08 *pp) // Item is dropped on ground or a charac
 		return;
 	}
 
-	Weight->NewCalc(cc);
-	statwindow(s,cc);
+	Weight->NewCalc(DEREF_P_CHAR(pc_currchar));
+	statwindow(s,DEREF_P_CHAR(pc_currchar));
 	pi->flags.isBeeingDragged=false;
 	
 	//Ripper...so order/chaos shields disappear when on ground.
 	if( pi->id1 == 0x1B && ( pi->id2 == 0xC3 || pi->id2 == 0xC4 ) )
 	{
-		soundeffect2(cc, 0x01, 0xFE);
-		staticeffect(cc, 0x37, 0x2A, 0x09, 0x06);
+		soundeffect2(DEREF_P_CHAR(pc_currchar), 0x01, 0xFE);
+		staticeffect(DEREF_P_CHAR(pc_currchar), 0x37, 0x2A, 0x09, 0x06);
 		Items->DeleItem( pi );
 		return;
 	}
@@ -1015,8 +1015,8 @@ void dump_item(P_CLIENT ps, PKGx08 *pp) // Item is dropped on ground or a charac
 	{
 		ItemDroppedOnChar(ps, pp, pi);
 		
-		Weight->NewCalc(cc);  // Ison 2-20-99
-		statwindow(s,cc);
+		Weight->NewCalc(DEREF_P_CHAR(pc_currchar));  // Ison 2-20-99
+		statwindow(s,DEREF_P_CHAR(pc_currchar));
 		itemsfx(s, pi->id());	// Dupois - see itemsfx() for details// Added Oct 09, 1998
 		
 		//Boats !
@@ -1168,7 +1168,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 				senditem(s, DEREF_P_ITEM(pCont));
 			return;
 		}
-		z=packitem(cc);
+		z=packitem(DEREF_P_CHAR(pc_currchar));
 		if (z!=-1) // lb
 		{
 			if (!pc_currchar->Wears(pCont) &&
@@ -1227,7 +1227,7 @@ void pack_item(P_CLIENT ps, PKGx08 *pp) // Item is put into container
 		pCont->AddItem(pItem,xx,yy);
 		
 		itemsfx(s, pItem->id());// see itemsfx() for details - Dupois Added Oct 09, 1998
-		statwindow(s,cc);
+		statwindow(s,DEREF_P_CHAR(pc_currchar));
 	}
 	// end of player run vendors
 	

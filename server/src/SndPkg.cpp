@@ -3033,7 +3033,7 @@ void sendshopinfo(int s, int c, P_ITEM pi)
 int sellstuff(int s, int i)
 {
 	char itemname[256];
-	int m1t, pack, z, value;
+	int m1t, z, value;
 	int serial,ci,serial1,ci1;
 	unsigned char m1[2048];
 	unsigned char m2[2];
@@ -3041,17 +3041,16 @@ int sellstuff(int s, int i)
 	char cinam2[256]; // By Magius(CHE)
 
     P_CHAR pc = MAKE_CHARREF_LRV(i, 0);
-
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 	P_ITEM sellcont = NULL;
 
-	serial=pc->serial;
+	serial = pc->serial;
 	vector<SERIAL> vecContainer = contsp.getData(serial);
 	for ( ci = 0; ci < vecContainer.size(); ci++)
 	{
 		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
 		if (pi != NULL)
-			if ((pi->contserial==serial) &&
-				(pi->layer==0x1C))
+			if ((pi->contserial==serial) && (pi->layer==0x1C))
 			{
 				sellcont = pi;
 				break;
@@ -3063,8 +3062,8 @@ int sellstuff(int s, int i)
 	m2[1]=0x01;
 	Xsend(s, m2, 2);
 
-	pack=packitem(currchar[s]);
-	if (pack==-1) return 0; //LB
+	P_ITEM pBackpack = Packitem(pc_currchar);
+	if (pBackpack == NULL) return 0; //LB
 
 	m1[0]=0x9E; // Header
 	m1[1]=0; // Size
@@ -3087,7 +3086,7 @@ int sellstuff(int s, int i)
 		{
 			if ((pi_q->contserial==serial))
 			{
-				serial1=items[pack].serial;
+				serial1 = pBackpack->serial;
 				vector<SERIAL> vecContainer2 = contsp.getData(serial1);
 				for ( ci1 = 0; ci1 < vecContainer2.size(); ci1++)
 				{

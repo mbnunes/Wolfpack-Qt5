@@ -1598,11 +1598,10 @@ void cSkills::RandomSteal(int s)
 			return;
 		}
 		
-		skill=Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),STEALING,0,999);
+		skill = Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), STEALING, 0, 999);
 		if (skill)
 		{
-			//pack=packitem(DEREF_P_CHAR(pc_currchar));
-			item->SetContSerial(items[packitem(DEREF_P_CHAR(pc_currchar))].serial);
+			item->SetContSerial(pc_currchar->packitem);
 			sysmessage(s,"You successfully steal that item.");
 			all_items(s);
 		} else sysmessage(s, "You failed to steal that item.");
@@ -2086,17 +2085,16 @@ int cSkills::Inscribe(int s,long snum)
 					// are you sure ??? that is click xLoc & click yLoc ! - Duke
 	}
 
-	int i=calcItemFromPtr(buffer[s]+7);		// Find what they clicked on
-	if (i<=-1
-		||!((items[i].id()==0x0E34)||  //its a scroll
-			(items[i].att>0 || items[i].def>0 || items[i].hidamage>0)))	// its something else
+	P_ITEM pi = FindItemBySerPtr(buffer[s]+7);		// Find what they clicked on
+	if (pi == NULL || !((pi->id()==0x0E34)||  //its a scroll
+		(pi->att>0 || pi->def>0 || pi->hidamage>0)))	// its something else
 	{
 		sysmessage(s,"You could not possibly engrave on that!");
 		chars[currchar[s]].making=0;
 	}
 	else
 	{
-		chars[currchar[s]].making=i;		//we gotta remember what they clicked on!
+		chars[currchar[s]].making = DEREF_P_ITEM(pi);		//we gotta remember what they clicked on!
 
 		/* select spell gump menu system here, must return control to WOLFPACK so we dont
 		freeze the game. when returning to this routine, use snum to determine where to go

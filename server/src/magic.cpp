@@ -1678,12 +1678,12 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 	if (!SrvParms->cutscrollreq)
 	{
 		if (type==1 && !(pc_currchar->isGM()) && !Skills->CheckSkill(DEREF_P_CHAR(pc_currchar), MAGERY, loskill, hiskill))
-			{
+		{
 				SpellFail(s);
 				pc_currchar->spell = 0;
 				pc_currchar->casting = 0;
 				return false;
-			}
+		}
 	}
 	if (type != 2) // if it's not a wand -Fraz-
 	{

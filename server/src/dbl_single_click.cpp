@@ -906,23 +906,25 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 			}
 		case 404: // Fraz'z ID wand
 			{
-				k = packitem(currchar[s]);
-				if (k!=-1)
-				if ((pi->contserial == items[k].serial) || pc_currchar->Wears(pi) &&(pi->layer == 1))
+				P_ITEM pBackpack = Packitem(pc_currchar);
+				if ( pBackpack != NULL )
 				{
-					if (pi->morex <= 0)
+					if ((pi->contserial == pBackpack->serial) || pc_currchar->Wears(pi) &&(pi->layer == 1))
 					{
-						sysmessage(s,  "That is out of charges.");
-						return;
+						if (pi->morex <= 0)
+						{
+							sysmessage(s,  "That is out of charges.");
+							return;
+						}
+						pi->morex--;
+						sprintf((char*)temp, "Your wand now has %i charges left", pi->morex);
+						sysmessage(s, (char*) temp);
+						target(s, 0, 1, 0, 75, "What do you wish to identify?");
 					}
-					pi->morex--;
-					sprintf((char*)temp, "Your wand now has %i charges left", pi->morex);
-					sysmessage(s, (char*) temp);
-					target(s, 0, 1, 0, 75, "What do you wish to identify?");
-				}
-				else
-				{
-					sysmessage(s, "If you wish to use this, it must be equipped or in your backpack.");
+					else
+					{
+						sysmessage(s, "If you wish to use this, it must be equipped or in your backpack.");
+					}
 				}
 				return;
 			}
@@ -1358,16 +1360,18 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				case 0x0C52:
 				case 0x0C53:
 				case 0x0C54: // cotton plants
-					if (!pc_currchar->onhorse)
-						action(s, 0x0D);
-					else 
-						action(s, 0x1d);
-					soundeffect(s, 0x01, 0x3E);
-					c = Items->SpawnItem(-1, DEREF_P_CHAR(pc_currchar), 1, "#", 1, 0x0D, 0xF9, 0, 0, 1, 1);
-					if (c < 0)
-						return;
-					items[c].SetContSerial(Packitem(pc_currchar)->serial);
-					sysmessage(s, "You reach down and pick some cotton.");
+					{
+						if (!pc_currchar->onhorse)
+							action(s, 0x0D);
+						else 
+							action(s, 0x1d);
+						soundeffect(s, 0x01, 0x3E);
+						P_ITEM p_cotton = MAKE_ITEM_REF(Items->SpawnItem(-1, DEREF_P_CHAR(pc_currchar), 1, "#", 1, 0x0D, 0xF9, 0, 0, 1, 1));
+						if ( p_cotton == NULL )
+							return;
+						p_cotton->SetContSerial(Packitem(pc_currchar)->serial);
+						sysmessage(s, "You reach down and pick some cotton.");
+					}
 					return; // cotton
 				case 0x105B:
 				case 0x105C:
@@ -1408,9 +1412,9 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 					if (Skills->CheckSkill(currchar[s], TINKERING, 500, 1000))
 					{
 						sysmessage(s, "You create the sextant.");
-						c = Items->SpawnItem(s, currchar[s], 1, "a sextant", 0, 0x10, 0x57, 0, 0, 1, 1);
-						if (c>-1)
-							items[c].priv|=0x01;
+						P_ITEM pi_sextant = MAKE_ITEM_REF(Items->SpawnItem(s, currchar[s], 1, "a sextant", 0, 0x10, 0x57, 0, 0, 1, 1));
+						if (pi_sextant != NULL)
+							pi_sextant->priv |= 0x01;
 						pi->ReduceAmount(1);
 					}
 					else 
@@ -1595,28 +1599,30 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 {
 	int keyboard, y;
 	unsigned char pdoll[256]="\x88\x00\x05\xA8\x90\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
-	int cc=currchar[s];
-	P_CHAR pc_currchar = MAKE_CHARREF_LR(cc);
+//	int cc=currchar[s];
+	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 	keyboard=buffer[s][1]&0x80;
 	
-	CHARACTER x = calcCharFromSer( target_serial );
+//	CHARACTER x = calcCharFromSer( target_serial );
 
-	if (x == -1)
+	P_CHAR target = FindCharBySerial( target_serial );
+
+
+	if (target == NULL)
 		return;
 
-	P_CHAR target = MAKE_CHARREF_LR(x);
 
 	if (((target->isNpc())&&(target->id1==(unsigned char)'\x00'))&&
 		((target->id2==(unsigned char)'\xC8')||
-		(target->id2==(unsigned char)'\xE2')||
-		(target->id2==(unsigned char)'\xE4')||
-		(target->id2==(unsigned char)'\xCC')||
-		(target->id2==(unsigned char)'\xDC')||
-		(target->id2==(unsigned char)'\xD2')||
-		(target->id2==(unsigned char)'\xDA')||
+		(target->id2==(unsigned char)'\xE2') ||
+		(target->id2==(unsigned char)'\xE4') ||
+		(target->id2==(unsigned char)'\xCC') ||
+		(target->id2==(unsigned char)'\xDC') ||
+		(target->id2==(unsigned char)'\xD2') ||
+		(target->id2==(unsigned char)'\xDA') ||
 		(target->id2==(unsigned char)'\xDB')))
 	{//if mount
-		if (chardist(cc, x)<2 || pc_currchar->isGM())
+		if (chardist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(target))<2 || pc_currchar->isGM())
 		{
 			//AntiChrist - cannot ride animals under polymorph effect
 			if (pc_currchar->polymorph)
@@ -1632,7 +1638,7 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 			if (target->war)
 				sysmessage(s,"Your pet is in battle right now!");
 			else
-				mounthorse(s, x);
+				mounthorse(s, DEREF_P_CHAR(target));
 		}
 		else sysmessage(s, "You need to get closer.");
 		return; 
@@ -1643,7 +1649,7 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 		{//if packhorse or packlhama added by JustMichael 8/31/99
 			if (pc_currchar->Owns(target))
 			{
-				y=packitem(x);
+				y=packitem(DEREF_P_CHAR(target));
 				if (y!=-1)
 				{
 					backpack(s,items[y].serial);
@@ -1669,8 +1675,8 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 	{//char
 		if (target->npcaitype==17)//PlayerVendors
 		{
-			npctalk(s,x,"Take a look at my goods.",0);
-			y=packitem(x);
+			npctalk(s,DEREF_P_CHAR(target),"Take a look at my goods.",0);
+			y=packitem(DEREF_P_CHAR(target));
 			if (y!=-1) backpack(s, items[y].serial); // rippers bugfix for vendor bags not opening !!!
 			return;
 		}
@@ -1684,8 +1690,8 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 		pdoll[3]=target->ser3;
 		pdoll[4]=target->ser4;
 		
-		completetitle = complete_title(x);
-		int l= strlen(completetitle);
+		completetitle = complete_title(DEREF_P_CHAR(target));
+		int l = strlen(completetitle);
 		if (l>=60) completetitle[60]=0;
 		strcpy((char*)&pdoll[5], completetitle);				
 		Xsend(s, pdoll, 66);
