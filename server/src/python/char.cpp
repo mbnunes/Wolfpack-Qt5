@@ -58,6 +58,13 @@ typedef struct
 {
 	PyObject_HEAD;
 	P_CHAR pChar;
+
+	PyObject *	py_account;
+	PyObject *	py_region;
+	PyObject *	py_socket;
+	PyObject *	py_skill;
+	PyObject *	py_skillcap;
+	PyObject *	py_skilllock;
 } wpChar;
 
 PyObject* wpChar_getAttr( wpChar* self, char* name );
@@ -75,6 +82,20 @@ static PyObject* wpChar_str( wpChar* object )
 	return PyString_FromFormat( "0x%x", object->pChar->serial() );
 }
 
+
+
+static void wpChar_Dealloc( wpChar * self )
+{
+	Py_XDECREF( self->py_account	);
+	Py_XDECREF( self->py_region	);
+	Py_XDECREF( self->py_socket	);
+	Py_XDECREF( self->py_skill		);
+	Py_XDECREF( self->py_skillcap	);
+	Py_XDECREF( self->py_skilllock);
+
+	wpDealloc( (PyObject*) self );
+}
+
 /*!
 	The typedef for Wolfpack Python chars
 */
@@ -85,8 +106,7 @@ PyObject_HEAD_INIT( &PyType_Type )
 "wpchar",
 sizeof( wpCharType ),
 0,
-//	FreeCharObject,
-wpDealloc,
+( destructor )	 wpChar_Dealloc,
 0,
 ( getattrfunc ) wpChar_getAttr,
 ( setattrfunc ) wpChar_setAttr,
@@ -130,6 +150,8 @@ wpChar_compare,
 0,
 };
 
+
+
 PyObject* PyGetCharObject( P_CHAR pChar )
 {
 	if ( !pChar )
@@ -140,6 +162,14 @@ PyObject* PyGetCharObject( P_CHAR pChar )
 	//	wpChar *returnVal = CharCache::instance()->allocObj( &wpCharType );
 	wpChar* returnVal = PyObject_New( wpChar, &wpCharType );
 	returnVal->pChar = pChar;
+
+	returnVal->py_account	= NULL;
+	returnVal->py_region		= NULL;
+	returnVal->py_socket		= NULL;
+	returnVal->py_skill		= NULL;
+	returnVal->py_skillcap	= NULL;
+	returnVal->py_skilllock	= NULL;
+
 	return ( PyObject * ) returnVal;
 }
 
@@ -2481,7 +2511,12 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 				*/
 	}
 	else if ( !strcmp( "region", name ) )
-		return PyGetRegionObject( self->pChar->region() );
+	{
+		if ( !self->py_region )
+			self->py_region	= PyGetRegionObject( self->pChar->region() );
+		Py_INCREF( self->py_region );
+		return self->py_region;
+	}
 
 	/*
 		\rproperty char.account An <object id="ACCOUNT">account</object> object for the players account.
@@ -2495,7 +2530,10 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		{
 			Py_RETURN_NONE;
 		}
-		return PyGetAccountObject( player->account() );
+		if ( !self->py_account )
+			self->py_account	= PyGetAccountObject( player->account() );
+		Py_INCREF( self->py_account );
+		return self->py_account;
 	}
 	/*
 		\rproperty char.socket The <object id="SOCKET">SOCKET</object> object for this character.
@@ -2510,7 +2548,10 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		{
 			Py_RETURN_NONE;
 		}
-		return PyGetSocketObject( player->socket() );
+		if ( !self->py_socket )
+			self->py_socket	= PyGetSocketObject( player->socket() );
+		Py_INCREF( self->py_socket );
+		return self->py_socket;
 	}
 	/*
 		\rproperty char.skill Returns a <object id="SKILL">SKILL</object> object in value mode for the character.
@@ -2518,10 +2559,15 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 	*/
 	else if ( !strcmp( "skill", name ) )
 	{
-		wpSkills* skills = PyObject_New( wpSkills, &wpSkillsType );
-		skills->pChar = self->pChar;
-		skills->type = 0;
-		return ( PyObject * ) ( skills );
+		if ( !self->py_skill )
+		{
+			wpSkills* skills	= PyObject_New( wpSkills, &wpSkillsType );
+			skills->pChar		= self->pChar;
+			skills->type		= 0;
+			self->py_skill		= (PyObject *) skills;
+		}
+		Py_INCREF( self->py_skill );
+		return self->py_skill;
 	}
 
 	/*
@@ -2530,10 +2576,15 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 	*/
 	else if ( !strcmp( "skillcap", name ) )
 	{
-		wpSkills* skills = PyObject_New( wpSkills, &wpSkillsType );
-		skills->pChar = self->pChar;
-		skills->type = 1;
-		return ( PyObject * ) ( skills );
+		if ( !self->py_skillcap )
+		{
+			wpSkills* skills	= PyObject_New( wpSkills, &wpSkillsType );
+			skills->pChar		= self->pChar;
+			skills->type		= 1;
+			self->py_skillcap	= (PyObject *) skills;
+		}
+		Py_INCREF( self->py_skillcap );
+		return self->py_skillcap;
 	}
 	/*
 		\rproperty char.skilllock Returns a <object id="SKILL">SKILL</object> object in lock mode for the character.
@@ -2541,10 +2592,15 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 	*/
 	else if ( !strcmp( "skilllock", name ) )
 	{
-		wpSkills* skills = PyObject_New( wpSkills, &wpSkillsType );
-		skills->pChar = self->pChar;
-		skills->type = 2;
-		return ( PyObject * ) ( skills );
+		if ( !self->py_skilllock )
+		{
+			wpSkills* skills		= PyObject_New( wpSkills, &wpSkillsType );
+			skills->pChar			= self->pChar;
+			skills->type			= 2;
+			self->py_skilllock	= (PyObject *) skills;
+		}
+		Py_INCREF( self->py_skilllock );
+		return self->py_skilllock;
 	}
 	/*
 		\rproperty char.followers Returns the list of followers for this player.
@@ -2594,19 +2650,19 @@ PyObject* wpChar_getAttr( wpChar* self, char* name )
 		for ( uint i = 0; i < scripts.count(); ++i )
 			PyList_SetItem( list, i, PyString_FromString( scripts[i].latin1() ) );
 		return list;
-		/*
-					\rproperty char.npc True if this character is a npc, false otherwise.
-					This property is exclusive to python scripts and overrides normal properties with the same name.
-				*/
 	}
+	/*
+		\rproperty char.npc True if this character is a npc, false otherwise.
+		This property is exclusive to python scripts and overrides normal properties with the same name.
+	*/
 	else if ( !strcmp( "npc", name ) )
 	{
 		return self->pChar->objectType() == enNPC ? PyTrue() : PyFalse();
-		/*
-					\rproperty char.player True if this character is a player, false otherwise.
-					This property is exclusive to python scripts and overrides normal properties with the same name.
-				*/
 	}
+	/*
+		\rproperty char.player True if this character is a player, false otherwise.
+		This property is exclusive to python scripts and overrides normal properties with the same name.
+	*/
 	else if ( !strcmp( "player", name ) )
 	{
 		return self->pChar->objectType() == enPlayer ? PyTrue() : PyFalse();
