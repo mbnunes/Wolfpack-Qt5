@@ -509,6 +509,28 @@ PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 	return PyFalse;
 }
 
+/*!
+	Gets the outmost item this item is contained in.
+*/
+PyObject* wpItem_getoutmostitem( wpItem* self, PyObject* args )
+{
+	if( !self->pItem || self->pItem->free )
+		return PyFalse;
+
+	return PyGetItemObject( self->pItem->getOutmostItem() );
+}
+
+/*!
+	Gets the outmost character this item is contained in.
+*/
+PyObject* wpItem_getoutmostchar( wpItem* self, PyObject* args )
+{
+	if( !self->pItem || self->pItem->free )
+		return PyFalse;
+
+	return PyGetCharObject( self->pItem->getOutmostChar() );
+}
+
 static PyMethodDef wpItemMethods[] = 
 {
     { "update",				(getattrofunc)wpItem_update, METH_VARARGS, "Sends the item to all clients in range." },
@@ -521,6 +543,8 @@ static PyMethodDef wpItemMethods[] =
 	{ "useresource",		(getattrofunc)wpItem_useresource, METH_VARARGS, "Consumes a given resource from within the current item." },
 	{ "countresource",		(getattrofunc)wpItem_countresource, METH_VARARGS, "Returns the amount of a given resource available in this container." },
 	{ "addtimer",			(getattrofunc)wpItem_addtimer, METH_VARARGS, "Attaches a timer to this object." },
+	{ "getoutmostchar",		(getattrofunc)wpItem_getoutmostchar, METH_VARARGS, "Get the outmost character." },
+	{ "getoutmostitem",		(getattrofunc)wpItem_getoutmostitem, METH_VARARGS, "Get the outmost item." },
 	
 	// Effects
 	{ "movingeffect",		(getattrofunc)wpItem_movingeffect, METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },

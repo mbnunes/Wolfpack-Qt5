@@ -85,6 +85,7 @@ void WPScriptManager::reload( void )
 {
 	// First unload, then reload
 	unload();
+	reloadPython();
 	load();
 
 	// After reloading all scripts we *need* to recreate all script-pointers 

@@ -142,3 +142,14 @@ void startPython( int argc, char* argv[] )
 	clConsole.ProgressDone();
 }
 
+void reloadPython()
+{
+	PyObject *sysModule = PyImport_ImportModule( "sys" );
+	PyObject *modules = PyObject_GetAttrString( sysModule, "modules" );
+
+	// This is a dictionary, so iterate trough it and reload all contained modules
+	PyObject *mList = PyDict_Items( modules );
+
+	for( INT32 i = 0; i < PyList_Size( mList ); ++i )
+		PyImport_ReloadModule( PyList_GetItem( mList, i ) );
+}
