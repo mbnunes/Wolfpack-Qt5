@@ -245,7 +245,7 @@ void equipItem( P_CHAR wearer, P_ITEM item )
 	if( tile.layer == 0 )
 	{
 		if( online( wearer ) )
-			sysmessage( calcSocketFromChar( wearer ), "You cannot wear that item." );
+			wearer->socket()->sysMessage( tr( "You cannot wear that item.") );
 
 		item->toBackpack( wearer );
 		return;
@@ -272,29 +272,28 @@ void equipItem( P_CHAR wearer, P_ITEM item )
 	wearer->giveItemBonus( item );
 }
 
-void cDragItems::bounceItem( P_CLIENT client, P_ITEM pItem, bool denyMove )
+void cDragItems::bounceItem( cUOSocket* socket, P_ITEM pItem, bool denyMove )
 {
 	// Reject the move of the item
-	cBounceItem pBounce( denyMove );
-	pBounce.send( client->socket() );
+	socket->bounceItem( pItem, BR_NO_REASON );
 
 	// If the Client is *not* dragging the item we don't need to reset it to it's original location
-	if( !client->dragging() )
+	if( !socket->dragging() )
 		return;
 
 	// Sends the item to the backpack of char (client)
-	pItem->toBackpack( client->player() );
+	pItem->toBackpack( socket->player() );
 
 	// When we're dropping the item to the ground let's play a nice sound-effect
 	// to all in-range sockets
 	if( pItem->isInWorld() )
 	{
-		for( UOXSOCKET s = 0; s < now; s++ )
-			if( inrange2( s, pItem ) )
-				soundeffect( s, 0x00, 0x42 );
+		for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+			if( mSock->inRange( socket ) )
+				mSock->soundEffect( 0x42, pItem );
 	}
 	else
-		soundeffect( client->socket(), 0x00, 0x57 );
+		socket->soundEffect( 0x57, pItem );
 }
 
 void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
@@ -847,13 +846,13 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 }
 
 // Item was dropped on a pet
-void cDragItems::dropOnPet( P_CLIENT client, P_ITEM pItem, P_CHAR pPet )
+void cDragItems::dropOnPet( cUOSocket* socket, P_ITEM pItem, P_CHAR pPet )
 {
 	// Feed our pets
 	if( ( pPet->hunger() >= 6 ) || pItem->type() != 14 )
 	{
-		client->sysMessage( "It doesn't seem to want your item" );
-		bounceItem( client, pItem );
+		socket->sysMessage( tr("It doesn't seem to want your item") );
+		bounceItem( socket, pItem );
 		return;
 	}
 
@@ -888,7 +887,7 @@ void cDragItems::dropOnPet( P_CLIENT client, P_ITEM pItem, P_CHAR pPet )
 		pPet->setHunger( 6 );
 
 		// Pack the rest into his backpack
-		bounceItem( client, pItem );
+		bounceItem( socket, pItem );
 		return;
 	}
 
@@ -896,14 +895,14 @@ void cDragItems::dropOnPet( P_CLIENT client, P_ITEM pItem, P_CHAR pPet )
 	Items->DeleItem( pItem );
 }
 
-void cDragItems::dropOnGuard( P_CLIENT client, P_ITEM pItem, P_CHAR pGuard )
+void cDragItems::dropOnGuard( cUOSocket* socket, P_ITEM pItem, P_CHAR pGuard )
 {
 	// Only heads for bountys are accepted
 	if( !pItem->name().contains( "the head of" ) || !pItem->owner())
 	{
-		pGuard->talk( "Bring that to a merchant if you want to sell it!" );
-		client->sysMessage( "I do not want that, citizen!" );
-		bounceItem( client, pItem );
+		pGuard->talk( tr("Bring that to a merchant if you want to sell it!") );
+		socket->sysMessage( tr("I do not want that, citizen!") );
+		bounceItem( socket, pItem );
 		return;
 	}
 
@@ -911,30 +910,29 @@ void cDragItems::dropOnGuard( P_CLIENT client, P_ITEM pItem, P_CHAR pGuard )
 
 	if( pVictim->questBountyReward() <= 0 )
 	{
-		pGuard->talk( "You can not claim a prize for innocent citizens!. You are lucky I don't strike you down where you stand!" );
-		bounceItem( client, pItem );
+		pGuard->talk( tr("You can not claim a prize for innocent citizens!. You are lucky I don't strike you down where you stand!") );
+		bounceItem( socket, pItem );
 		return;
 	}
 
-	if( pVictim == client->player() )
+	if( pVictim == socket->player() )
 	{
-		pGuard->talk( "You can not claim that prize scoundrel. You are lucky I don't strike you down where you stand!" );
+		pGuard->talk( tr("You can not claim that prize scoundrel. You are lucky I don't strike you down where you stand!") );
 		Items->DeleItem( pItem ); // The guard wont give the head back...
 		return;
 	}
 
-	addgold( client->socket(), pVictim->questBountyReward() );
+	addgold( toOldSocket(socket), pVictim->questBountyReward() );
 	//goldsfx( client->socket(), pVictim->questBountyReward() );
 	Bounty->BountyDelete( pVictim->serial );
 	
 	// Thank them for their work
-	pGuard->talk( QString( "Excellent work! You have brought us the head of %1. Here is your reward of %2 gold coins." ).arg( pVictim->name.c_str() ).arg( pVictim->questBountyReward() ) );
+	pGuard->talk( tr( "Excellent work! You have brought us the head of %1. Here is your reward of %2 gold coins." ).arg( pVictim->name.c_str() ).arg( pVictim->questBountyReward() ) );
 
-//	client->player()->karma += 100;
-	client->player()->setKarma( client->player()->karma() + 100 );
+	socket->player()->setKarma( socket->player()->karma() + 100 );
 }
 
-void cDragItems::dropOnBeggar( P_CLIENT client, P_ITEM pItem, P_CHAR pBeggar )
+void cDragItems::dropOnBeggar( cUOSocket* socket, P_ITEM pItem, P_CHAR pBeggar )
 {
 	int tempint;
 	
@@ -971,20 +969,20 @@ void cDragItems::dropOnBeggar( P_CLIENT client, P_ITEM pItem, P_CHAR pBeggar )
 			
 //			client->player()->karma += ( 6 - pBeggar->hunger() ) * 10;
 			tempint = ( 6 - pBeggar->hunger() ) * 10;
-			client->player()->setKarma( client->player()->karma() + tempint );
+			socket->player()->setKarma( socket->player()->karma() + tempint );
 
 			pItem->setAmount( pItem->amount() - ( 6 - pBeggar->hunger() ) );
 			pBeggar->setHunger( 6 );
 
 			// Pack the rest into his backpack
-			bounceItem( client, pItem );
+			bounceItem( socket, pItem );
 			return;
 		}
 
 		pBeggar->setHunger( pBeggar->hunger() + pItem->amount() );
 //		client->player()->karma += pItem->amount() * 10;
 		tempint = pItem->amount() * 10;
-		client->player()->setKarma( client->player()->karma() + tempint );
+		socket->player()->setKarma( socket->player()->karma() + tempint );
 
 		Items->DeleItem( pItem );
 		return;
@@ -993,49 +991,47 @@ void cDragItems::dropOnBeggar( P_CLIENT client, P_ITEM pItem, P_CHAR pBeggar )
 	// No Food? Then it has to be Gold
 	if( pItem->id() != 0xEED )
 	{
-		pBeggar->talk( "Sorry, but i can only use gold." );
-		bounceItem( client, pItem );
+		pBeggar->talk( tr("Sorry, but i can only use gold.") );
+		bounceItem( socket, pItem );
 		return;
 	}
 
-	pBeggar->talk( QString( "Thank you %1 for the %2 gold!" ).arg( client->player()->name.c_str() ).arg( pItem->amount() ) );
-	client->sysMessage( "You have gained some karma!" );
+	pBeggar->talk( tr( "Thank you %1 for the %2 gold!" ).arg( socket->player()->name.c_str() ).arg( pItem->amount() ) );
+	socket->sysMessage( "You have gained some karma!" );
 	
 	if( pItem->amount() <= 100 )
-//		client->player()->karma += 10;
-		client->player()->setKarma( client->player()->karma() + 10 );
+		socket->player()->setKarma( socket->player()->karma() + 10 );
 	else
-//		client->player()->karma += 50;
-		client->player()->setKarma( client->player()->karma() + 50 );
+		socket->player()->setKarma( socket->player()->karma() + 50 );
 	
 	Items->DeleItem( pItem );
 }
 
-void cDragItems::dropOnBroker( P_CLIENT client, P_ITEM pItem, P_CHAR pBroker )
+void cDragItems::dropOnBroker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBroker )
 {
 	// For House and Boat deeds we should pay back 75% of the value
 	if( pItem->id() == 0x14EF )
 	{
 		if( !pItem->value )
 		{
-			pBroker->talk( "I can only accept deeds with value!" );
-			bounceItem( client, pItem );
+			pBroker->talk( tr("I can only accept deeds with value!") );
+			bounceItem( socket, pItem );
 			return;
 		}
 
 		Q_UINT32 nValue = static_cast< Q_UINT32 >( 0.75 * pItem->value );
-		client->player()->giveGold( nValue, true );
+		socket->player()->giveGold( nValue, true );
 		Items->DeleItem( pItem );
-		pBroker->talk( QString( "Here you have your %1 gold, %2" ).arg( nValue ).arg( client->player()->name.c_str() ) );
+		pBroker->talk( tr( "Here you have your %1 gold, %2" ).arg( nValue ).arg( socket->player()->name.c_str() ) );
 		return;
 	}
 
-	bounceItem( client, pItem );
+	bounceItem( socket, pItem );
 }
 
-void cDragItems::dropOnBanker( P_CLIENT client, P_ITEM pItem, P_CHAR pBanker )
+void cDragItems::dropOnBanker( cUOSocket* socket, P_ITEM pItem, P_CHAR pBanker )
 {
-	P_CHAR pChar = client->player();
+	P_CHAR pChar = socket->player();
 
 	// No cheque ? >> Put into bank
 	if( ( pItem->id() != 0x14F0 ) && ( pItem->type() != 1000 ) )
@@ -1045,40 +1041,40 @@ void cDragItems::dropOnBanker( P_CLIENT client, P_ITEM pItem, P_CHAR pBanker )
 		if( bankBox )
 			bankBox->AddItem( pItem );
 		else
-			bounceItem( client, pItem );
+			bounceItem( socket, pItem );
 
-		pBanker->talk( QString( "The %1 is now in thy bank box" ).arg( pItem->getName() ) );
+		pBanker->talk( tr( "The %1 is now in thy bank box" ).arg( pItem->getName() ) );
 		return;
 	}
 
 	// No Value ?!
 	if( !pItem->value )
 	{
-		pBanker->talk( "This cheque does not have any value!" );
-		bounceItem( client, pItem );
+		pBanker->talk( tr("This cheque does not have any value!") );
+		bounceItem( socket, pItem );
 		return;
 	}
 
 	pChar->giveGold( pItem->value, true );
-	pBanker->talk( QString( "%1 I have cashed thy cheque and deposited %2 gold." ).arg( pChar->name.c_str() ).arg( pItem->amount() ) );
+	pBanker->talk( tr( "%1 I have cashed thy cheque and deposited %2 gold." ).arg( pChar->name.c_str() ).arg( pItem->amount() ) );
 
 	pItem->ReduceAmount();
 	//if( pItem->ReduceAmount() > 0 )
 	//	socket->bounce( pItem, BR_NO_REASON );
 }
 
-void cDragItems::dropOnTrainer( P_CLIENT client, P_ITEM pItem, P_CHAR pTrainer )
+void cDragItems::dropOnTrainer( cUOSocket* socket, P_ITEM pItem, P_CHAR pTrainer )
 {
-	P_CHAR pChar = client->player();
+	P_CHAR pChar = socket->player();
 
 	if( pItem->id() != 0xEED )
 	{
-		pTrainer->talk( "You need to give me gold if you want me to train you!" );
-		bounceItem( client, pItem );
+		pTrainer->talk( tr("You need to give me gold if you want me to train you!") );
+		bounceItem( socket, pItem );
 		return;
 	}
 
-	pTrainer->talk( "I thank thee for thy payment. That should give thee a good start on thy way. Farewell!" );
+	pTrainer->talk( tr("I thank thee for thy payment. That should give thee a good start on thy way. Farewell!") );
 
 	Q_UINT8 skill = pTrainer->trainingplayerin();
 	Q_INT32 skillSum = pChar->getSkillSum();
@@ -1089,7 +1085,7 @@ void cDragItems::dropOnTrainer( P_CLIENT client, P_ITEM pItem, P_CHAR pTrainer )
 	if( pItem->amount() > skillDelta )
 	{
 		pItem->ReduceAmount( skillDelta );
-		bounceItem( client, pItem );
+		bounceItem( socket, pItem );
 	}
 	else
 	{
@@ -1099,7 +1095,7 @@ void cDragItems::dropOnTrainer( P_CLIENT client, P_ITEM pItem, P_CHAR pTrainer )
 	
 	pChar->setBaseSkill( skill, pChar->baseSkill( skill ) + skillDelta );
 	Skills->updateSkillLevel( pChar, skill );
-	updateskill( client->socket(), skill );
+	updateskill( toOldSocket(socket), skill );
 
 	// we will not reset the trainer id here because he may want to give him more money
 }

@@ -29,8 +29,8 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#ifndef __CHARS_H
-#define __CHARS_H
+#if !defined(__CHARS_H__)
+#define __CHARS_H__
 
 #include "qptrlist.h"
 #include <map>
@@ -813,4 +813,4 @@ inline void	cChar::setOrgname( const QString& data )	{ orgname_ = data; }
 inline void cChar::setTitle( const QString& data )		{ title_ = data;   }
 inline void cChar::setUnicode(bool data)				{ unicode_ = data; }
 
-#endif
+#endif // __CHARS_H__

@@ -245,194 +245,7 @@ static void AddTarget(int s, PKGx6C *pp)
 	addid2[s]=0;
 }
 
-class cRenameTarget : public cWpObjTarget
-{
-public:
-	cRenameTarget(P_CLIENT pCli) : cWpObjTarget(pCli), cItemTarget(pCli), cCharTarget(pCli), cTarget(pCli) {}
-	void CharSpecific()
-	{
-		pc->name = xtext[s];
-	}
-	void ItemSpecific()
-	{
-		if(addx[s]==1) //rename2 //New -- Zippy
-			pi->setName2( xtext[s] );
-		else
-			pi->setName( xtext[s] );
-	}
-};
 
-void DyeTarget(int s)
-{
-	int body,c1,c2,b,k;
-
-	int serial=LongFromCharPtr(buffer[s]+7);
-	if ((addid1[s]==255)&&(addid2[s]==255))
-	{
-		P_ITEM pi=FindItemBySerial(serial);
-		if( pi )
-		{
-
-			//SndDyevat(s,pi->serial, pi->id());
-			pi->update();
-		}
-		P_CHAR pc = FindCharBySerial(serial);
-		if (pc != NULL)
-		{
-			//SndDyevat(s,pc->serial,0x2106);
-		}
-	}
-	else
-	{
-		P_ITEM pi=FindItemBySerial(serial);
-		if (pi!=NULL)
-		{
-			c1=addid1[s]; // lord binary, dying crash bugfix
-			c2=addid2[s];
-
-			if (!dyeall[s])
-			{
-				if ((((c1<<8)+c2)<0x0002) ||
-					(((c1<<8)+c2)>0x03E9) )
-				{
-					c1=0x03;
-					c2=0xE9;
-				}
-			}
-
-			b=((((c1<<8)+c2)&0x4000)>>14)+((((c1<<8)+c2)&0x8000)>>15);
-			if (!b)
-			{
-				pi->setColor( static_cast<unsigned short>(c1 << 8) + c2 );
-			}
-			pi->update();
-		}
-
-		P_CHAR pc = FindCharBySerial(serial);
-		if (pc != NULL)
-		{
-			body=pc->id();
-			k=(addid1[s]<<8)+addid2[s];
-			if( ( (k>>8) < 0x80 ) && body >= 0x0190 && body <= 0x0193 )
-				k += 0x8000;
-
-			b=k&0x4000;
-			if (b==16384 && (body >=0x0190 && body<=0x03e1))
-				k=0xf000; // but assigning the only "transparent" value that works, namly semi-trasnparency.
-
-			if (k!=0x8000) // 0x8000 also crashes client ...
-			{
-				pc->setSkin(k);
-				pc->setXSkin(k);
-				updatechar(pc);
-			}
-		}
-	}
-}
-
-class cNewzTarget : public cWpObjTarget
-{
-public:
-	cNewzTarget(P_CLIENT pCli) : cWpObjTarget(pCli), cItemTarget(pCli), cCharTarget(pCli), cTarget(pCli) {}
-	void CharSpecific()
-	{
-		pc->pos.z=addx[s];
-		teleport(pc);
-	}
-	void ItemSpecific()
-	{
-		pi->pos.z=addx[s];
-		pi->update();
-	}
-};
-
-//public !!
-void cTargets::IDtarget(int s)
-{
-	SERIAL serial = LongFromCharPtr(buffer[s]+7);
-	if (isItemSerial(serial))
-	{
-		P_ITEM pi = FindItemBySerial(serial);
-		if (pi == NULL)
-			return;
-
-		pi->setId( ( addx[s] << 8 ) + addy[s]  );
-		pi->update();
-		return;
-	}
-	else if (isCharSerial(serial))
-	{
-		P_CHAR pc = FindCharBySerial(serial);
-		if (pc == NULL)
-			return;
-		pc->setId( static_cast<ushort>(addx[s]<<8) + addy[s] );
-//		pc->xid = pc->id();
-		pc->setXid( pc->id());
-		updatechar( pc );
-	}
-}
-
-//public !!
-void cTargets::XTeleport(int s, int x)
-{
-	SERIAL serial = INVALID_SERIAL;
-	P_CHAR pc_currchar = currchar[s];
-	P_CHAR pc = NULL;
-	switch (x)
-	{
-		case 0:
-			serial = LongFromCharPtr(buffer[s] + 7);
-			pc = FindCharBySerial(serial);
-			break;
-		case 2:
-			if (perm[makenumber(1)])
-			{
-				pc = currchar[makenumber(1)];
-			}
-			else 
-				return;
-			break;
-		case 3:
-			{
-				UOXSOCKET s = pc_currchar->making;
-				currchar[s]->moveTo(pc_currchar->pos);
-				teleport(currchar[s]);
-			}
-			return;
-		case 5:
-			serial = calcserial(hexnumber(1), hexnumber(2), hexnumber(3), hexnumber(4));
-			pc = FindCharBySerial(serial);
-			break;
-	}
-	
-	if (pc != NULL)
-	{
-		pc->moveTo(pc_currchar->pos);
-		updatechar(pc);
-		return;// Zippy
-	}
-	P_ITEM pi = FindItemBySerial(serial);
-	if (pi != NULL)
-	{
-		pi->moveTo(pc_currchar->pos);
-		pi->update();
-	}
-}
-
-void XgoTarget(int s)
-{
-	int serial=LongFromCharPtr(buffer[s]+7);
-	P_CHAR pc = FindCharBySerial(serial);
-	if (pc != NULL)
-	{
-		Coord_cl pos(pc->pos);
-		pos.x = addx[s];
-		pos.y = addy[s];
-		pos.z = addz[s];
-		pc->moveTo(pos);
-		updatechar(pc);
-	}
-}
 
 static void KeyTarget(int s, P_ITEM pi) // new keytarget by Morollan
 {
@@ -566,44 +379,6 @@ void cTargets::IstatsTarget(int s)
 				pi->creator.c_str(),pi->madewith,pi->value,int(double(int(pi->decaytime-uiCurrentTime)/MY_CLOCKS_PER_SEC)),(pi->priv)&0x01,pi->good,pi->rndvaluerate); // Magius(CHE) (2)
 				sysmessage(s,(char*)temp); // Ison 2-20-99
 			// End Modified lines
-		}
-	}
-}
-void cTargets::TargIdTarget(int s) // Fraz
-{
-	const P_ITEM pi = FindItemBySerPtr(buffer[s] + 7);
-	if (pi)
-	{
-		if (buffer[s][7] >= 0x40)
-		{
-			if (pi && !pi->isLockedDown())
-			{
-				if (pi->name2() != "#")
-					pi->setName( pi->name2() );
-				if (pi->name() == "#")
-					pi->getName(temp2);
-				else 
-					strcpy((char*)temp2, pi->name().ascii() );
-				sprintf((char*)temp, "You found that this item appears to be called: %s", temp2);
-				sysmessage(s, (char*) temp);
-			}
-		}			
-		if (pi->type() != 15)
-		{
-			if (pi->type() != 404)
-			{
-				sysmessage(s, "This item has no hidden magical properties.");
-			}
-			else
-			{
-				sprintf((char*)temp, "It is enchanted with item identification, and has %d charges remaining.", pi->morex);
-				sysmessage(s, (char*)temp);
-			}
-		}
-		else
-		{
-			sprintf((char*)temp, "It is enchanted with the spell %s, and has %d charges remaining.", spellname[(8*(pi->morex - 1)) + pi->morey - 1], pi->morez);
-			sysmessage(s, (char*)temp);
 		}
 	}
 }
@@ -3739,12 +3514,12 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		switch(pt->Tnum)
 		{
 		case 0: AddTarget(s,pt); break;
-		case 1: { cRenameTarget		T(ps);		T.process();} break;
-		case 4: DyeTarget(s); break;
-		case 5: { cNewzTarget		T(ps);		T.process();} break;
+//		case 1: { cRenameTarget		T(ps);		T.process();} break;
+//		case 4: DyeTarget(s); break;
+//		case 5: { cNewzTarget		T(ps);		T.process();} break;
 		case 6: if (Iready) pi->setType( addid1[s] ); break; //Typetarget
-		case 7: Targ->IDtarget(s); break;
-		case 8:	XgoTarget(s); break;
+//		case 7: Targ->IDtarget(s); break;
+//		case 8:	XgoTarget(s); break;
 		case 10: ItemTarget(ps,pt); break;//MoreTarget
 		case 11: if (Iready) KeyTarget(s,pi); break;
 		case 12: Targ->IstatsTarget(s); break;
@@ -3802,7 +3577,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		//case 42: Skills->TameTarget(s); break;
 		case 43: Magic->Gate(s); break;
 		case 44: Magic->Heal(s); break; // we need this for /heal command
-		case 45: Fishing->FishTarget(ps); break;
+//		case 45: Fishing->FishTarget(ps); break;
 		case 47: if (Cready) pc->setTitle( xtext[s] ); break;//TitleTarget
 		case 48: Targ->ShowAccountCommentTarget(s); break;
 		case 53: npcact(s); break;
@@ -3819,7 +3594,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 67: Targ->NpcRectTarget(s); break;
 		case 71: if (Iready) ContainerEmptyTarget1(ps,pi); break;
 		case 72: if (Iready) ContainerEmptyTarget2(ps,pi); break;
-		case 75: Targ->TargIdTarget(s); break;
+//		case 75: Targ->TargIdTarget(s); break;
 
 //		case 79: Skills->ProvocationTarget1(s); break;
 //		case 80: Skills->ProvocationTarget2(s); break;
@@ -3859,7 +3634,7 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 		case 133: ItemTarget(ps,pt); break;//SetWipeTarget
 		case 134: Skills->Carpentry( socket ); break;
 		case 135: Targ->SetSpeechTarget(s); break;
-		case 136: Targ->XTeleport(s,0); break;
+//		case 136: Targ->XTeleport(s,0); break;
 
 		case 150: SetSpAttackTarget(s); break;
 		case 151: Targ->FullStatsTarget(s); break;

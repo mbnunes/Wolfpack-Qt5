@@ -762,7 +762,7 @@ enum eBounceReason
 class cUOTxBounceItem: public cUOPacket
 {
 public:
-	cUOTxBounceItem(): cUOPacket( 0x27, 2 ) {}
+	cUOTxBounceItem(): cUOPacket( 0x27, 2 ) { rawPacket[1] = BR_NO_REASON; } // better safe than sorry
 	void setReason( eBounceReason reason ) { rawPacket[1] = reason; }
 };
 

@@ -165,9 +165,7 @@ private:
 	void SetHome(int s);
 	void SetWork(int s);
 	void SetFood(int s);
-	void TargIdTarget(UOXSOCKET s); // added -Fraz- 
 public:
-	void IDtarget(int s);
 	void MultiTarget(P_CLIENT ps);
 	void Wiping(int s);
 	P_CHAR NpcMenuTarget(int s);
@@ -175,7 +173,6 @@ public:
 	void JailTarget(int s, int c);
 	void ReleaseTarget(int s, int c);
 	P_ITEM AddMenuTarget(int s, int x, int addmitem);
-	void XTeleport(int s, int x);
 	int BuyShop(UOXSOCKET s, P_CHAR pc);
 };
 #endif	// _TARGETING_INCLUDED

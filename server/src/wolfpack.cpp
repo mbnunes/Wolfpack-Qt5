@@ -302,19 +302,8 @@ unsigned int itemdist(P_CHAR pc, P_ITEM pi)// calculates distance between item i
 
 bool online(P_CHAR pc) // Is the player owning the character c online
 {
-	int i;
-
-	UOXSOCKET k = calcSocketFromChar(pc); //LB crashfix
-	if (k == -1 || pc->isNpc())
-		return false;
-	if(pc != 0 && pc->socket() != 0)
-		return true;//Instalog
-	else
-	{
-		for (i=0;i<now;i++)
-			if ((currchar[i] == pc) && (perm[i]))
-				return true;
-	}
+	if ( pc->socket() && pc->socket()->state() == cUOSocket::InGame )
+		return true;
 	return false;
 }
 

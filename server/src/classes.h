@@ -36,23 +36,9 @@
 
 #include "assert.h"
 #include "verinfo.h"
-#include <qdom.h>
-#include <map>
 
-// Foward declarations
-class QString;
-class QStringList;
-
-#include "client.h"
 // use this value whereever you need to return an illegal z value
 const signed char illegal_z = -128;	// reduced from -1280 to -128, to fit in with a valid signed char
-
-class cFishing
-{
-public:
-	void FishTarget(P_CLIENT ps);
-	void Fish(P_CHAR pc_i);
-};
 
 class cWeight
 {

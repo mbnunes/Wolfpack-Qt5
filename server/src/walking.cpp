@@ -1584,7 +1584,6 @@ inline bool cMovement::isOverloaded( P_CHAR pc )
 	if ( !pc->dead() && !pc->isNpc() && !pc->isGMorCounselor() )
 		if( !Weight->CheckWeight( pc ) || ( pc->stm() < 3 ) )
 			return true;
-
 	return false;	
 }
 
