@@ -321,146 +321,182 @@
 
 	<item id="bd3">
 		<id>0x0bd3</id>
+		<category>Signs\Guild Signs\Armaments Guild (N/S)</category>
 	</item>
 
 	<item id="bd4">
 		<id>0x0bd4</id>
+		<category>Signs\Guild Signs\Armaments Guild (W/E)</category>
 	</item>
 
 	<item id="bd5">
 		<id>0x0bd5</id>
+		<category>Signs\Guild Signs\Armourers' Guild (N/S)</category>
 	</item>
 
 	<item id="bd6">
 		<id>0x0bd6</id>
+		<category>Signs\Guild Signs\Armourers' Guild (W/E)</category>
 	</item>
 
 	<item id="bd7">
 		<id>0x0bd7</id>
+		<category>Signs\Guild Signs\Blacksmiths' Guild (N/S)</category>
 	</item>
 
 	<item id="bd8">
 		<id>0x0bd8</id>
+		<category>Signs\Guild Signs\Blacksmiths' Guild (W/E)</category>
 	</item>
 
 	<item id="bd9">
 		<id>0x0bd9</id>
+		<category>Signs\Guild Signs\Weapons Guild (N/S)</category>
 	</item>
 
 	<item id="bda">
 		<id>0x0bda</id>
+		<category>Signs\Guild Signs\Weapons Guild (W/E)</category>
 	</item>
 
 	<item id="bdb">
 		<id>0x0bdb</id>
+		<category>Signs\Guild Signs\Bardic Guild (N/S)</category>
 	</item>
 
 	<item id="bdc">
 		<id>0x0bdc</id>
+		<category>Signs\Guild Signs\Bardic Guild (W/E)</category>
 	</item>
 
 	<item id="bdd">
 		<id>0x0bdd</id>
+		<category>Signs\Guild Signs\Barters' Guild (N/S)</category>
 	</item>
 
 	<item id="bde">
 		<id>0x0bde</id>
+		<category>Signs\Guild Signs\Barters' Guild (W/E)</category>
 	</item>
 
 	<item id="bdf">
 		<id>0x0bdf</id>
+		<category>Signs\Guild Signs\Provisioners Guild (N/S)</category>
 	</item>
 
 	<item id="be0">
 		<id>0x0be0</id>
+		<category>Signs\Guild Signs\Provisioners Guild (W/E)</category>
 	</item>
 
 	<item id="be1">
 		<id>0x0be1</id>
+		<category>Signs\Guild Signs\Traders' Guild (N/S)</category>
 	</item>
 
 	<item id="be2">
 		<id>0x0be2</id>
+		<category>Signs\Guild Signs\Traders' Guild (W/E)</category>
 	</item>
 
 	<item id="be3">
 		<id>0x0be3</id>
+		<category>Signs\Guild Signs\Cooks' Guild (N/S)</category>
 	</item>
 
 	<item id="be4">
 		<id>0x0be4</id>
+		<category>Signs\Guild Signs\Cooks' Guild (W/E)</category>
 	</item>
 
 	<item id="be5">
 		<id>0x0be5</id>
+		<category>Signs\Guild Signs\Healers' Guild (N/S)</category>
 	</item>
 
 	<item id="be6">
 		<id>0x0be6</id>
+		<category>Signs\Guild Signs\Healers' Guild (W/E)</category>
 	</item>
 
 	<item id="be7">
 		<id>0x0be7</id>
+		<category>Signs\Guild Signs\Mages' Guild (N/S)</category>
 	</item>
 
 	<item id="be8">
 		<id>0x0be8</id>
+		<category>Signs\Guild Signs\Mages' Guild (W/E)</category>
 	</item>
 
 	<item id="be9">
 		<id>0x0be9</id>
+		<category>Signs\Guild Signs\Sorcerers' Guild (N/S)</category>
 	</item>
 
 	<item id="bea">
 		<id>0x0bea</id>
+		<category>Signs\Guild Signs\Sorcerers' Guild (W/E)</category>
 	</item>
 
 	<item id="beb">
 		<id>0x0beb</id>
+		<category>Signs\Guild Signs\Illusionists' Guild (N/S)</category>
 	</item>
 
 	<item id="bec">
 		<id>0x0bec</id>
+		<category>Signs\Guild Signs\Illusionists' Guild (W/E)</category>
 	</item>
 
 	<item id="bed">
 		<id>0x0bed</id>
+		<category>Signs\Guild Signs\Miners' Guild (N/S)</category>
 	</item>
 
 	<item id="bee">
 		<id>0x0bee</id>
+		<category>Signs\Guild Signs\Miners' Guild (W/E)</category>
 	</item>
 
 	<item id="bef">
 		<id>0x0bef</id>
+		<category>Signs\Guild Signs\Archers Guild (N/S)</category>
 	</item>
 
 	<item id="bf0">
 		<id>0x0bf0</id>
+		<category>Signs\Guild Signs\Archers Guild (W/E)</category>
 	</item>
 
 	<item id="bf1">
 		<id>0x0bf1</id>
+		<category>Signs\Guild Signs\Seamens Guild (N/S)</category>
 	</item>
 
 	<item id="bf2">
 		<id>0x0bf2</id>
+		<category>Signs\Guild Signs\Seamens Guild (W/E)</category>
 	</item>
 
 	<item id="bf3">
 		<id>0x0bf3</id>
+		<category>Signs\Guild Signs\Fishermens Guild (N/S)</category>
 	</item>
 
 	<item id="bf4">
 		<id>0x0bf4</id>
+		<category>Signs\Guild Signs\Fishermens Guild (W/E)</category>
 	</item>
 
 	<item id="bf5">
 		<id>0x0bf5</id>
+		<category>Signs\Guild Signs\Sailors Guild (N/S)</category>
 	</item>
 
 	<item id="bf6">
 		<id>0x0bf6</id>
+		<category>Signs\Guild Signs\Sailors Guild (W/E)</category>
 	</item>
 
 	<item id="bf7">

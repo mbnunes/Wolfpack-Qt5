@@ -2,7 +2,7 @@
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: DarkStorm                      |
-|   )).-' {{ ;'`   | Revised by:                                |
+|   )).-' {{ ;'`   | Revised by: Aerandir                       |
 |  ( (  ;._ \\ ctr | Last Modification: Created                 |
 =================================================================
 | Ground Tiles                                                  |
@@ -132,132 +132,145 @@
 		<category>Ground Tiles\Dirt Patches\Dirt Patch 4</category>
 	</item>
 
-	<!-- Lava+Water tiles by Aerandir -->
-
-	<!-- Lava animated tiles -->
+	<!-- Rest of file done by Aerandir! -->
+<!-- Lava animated tiles -->
     <item id="12ee">
 		<id>0x12ee</id>
-		<category>Ground Tiles\Lava\Lava 1</category>
+	<category>Ground Tiles\Lava\Lava\Lava 1</category>
 	</item>
 
 	<item id="12f4">
 		<id>0x12f4</id>
-		<category>Ground Tiles\Lava\Lava 2</category>
+	<category>Ground Tiles\Lava\Lava\Lava 2</category>
 	</item>
 
 	<item id="12fa">
 		<id>0x12fa</id>
-		<category>Ground Tiles\Lava\Lava 3</category>
+	<category>Ground Tiles\Lava\Lava\Lava 3</category>
 	</item>
 
 	<item id="12fe">
 		<id>0x12fe</id>
-		<category>Ground Tiles\Lava\Lava 4</category>
+	<category>Ground Tiles\Lava\Lava\Lava 4</category>
 	</item>
 
 	<item id="1300">
 		<id>0x1300</id>
-		<category>Ground Tiles\Lava\Lava 5</category>
+	<category>Ground Tiles\Lava\Lava\Lava 5</category>
 	</item>
 
 	<item id="1306">
 		<id>0x1306</id>
-		<category>Ground Tiles\Lava\Lava 6</category>
+	<category>Ground Tiles\Lava\Lava\Lava 6</category>
 	</item>
 
 	<item id="130c">
 		<id>0x130c</id>
-		<category>Ground Tiles\Lava\Lava 7</category>
+	<category>Ground Tiles\Lava\Lava\Lava 7</category>
 	</item>
 
 	<item id="1312">
 		<id>0x1312</id>
-		<category>Ground Tiles\Lava\Lava 8</category>
+	<category>Ground Tiles\Lava\Lava\Lava 8</category>
 	</item>
 
 	<item id="1318">
 		<id>0x1318</id>
-		<category>Ground Tiles\Lava\Lava 9</category>
+	<category>Ground Tiles\Lava\Lava\Lava 9</category>
+	</item>
+	
+	<item id="3462">
+		<id>0x3462</id>
+	<category>Ground Tiles\Lava\Lava\Lava 10</category>
 	</item>
 
-	<!-- Lava animated border -->
+	<item id="3468">
+		<id>0x3468</id>
+	<category>Ground Tiles\Lava\Lava\Lava 11</category>
+	</item>
+
+	
+
+<!-- Lava animated border -->
+
 	<item id="131e">
 		<id>0x131e</id>
-		<category>Ground Tiles\Lava\Border\Border 1</category>
+	<category>Ground Tiles\Lava\Border\Border 1</category>
 	</item>
 
 	<item id="1324">
 		<id>0x1324</id>
-		<category>Ground Tiles\Lava\Border\Border 2</category>
+	<category>Ground Tiles\Lava\Border\Border 2</category>
 	</item>
 
 	<item id="1327">
 		<id>0x1327</id>
-		<category>Ground Tiles\Lava\Border\Border 3</category>
+	<category>Ground Tiles\Lava\Border\Border 3</category>
 	</item>
 
 	<item id="132a">
 		<id>0x132a</id>
-		<category>Ground Tiles\Lava\Border\Border 4</category>
+	<category>Ground Tiles\Lava\Border\Border 4</category>
 	</item>
 
 	<item id="132d">
 		<id>0x132d</id>
-		<category>Ground Tiles\Lava\Border\Border 5</category>
+	<category>Ground Tiles\Lava\Border\Border 5</category>
 	</item>
 
 	<item id="1330">
 		<id>0x1330</id>
-		<category>Ground Tiles\Lava\Border\Border 6</category>
+	<category>Ground Tiles\Lava\Border\Border 6</category>
 	</item>
 
 	<item id="1333">
 		<id>0x1333</id>
-		<category>Ground Tiles\Lava\Border\Border 7</category>
+	<category>Ground Tiles\Lava\Border\Border 7</category>
 	</item>
 
 	<item id="1336">
 		<id>0x1336</id>
-		<category>Ground Tiles\Lava\Border\Border 8</category>
+	<category>Ground Tiles\Lava\Border\Border 8</category>
 	</item>
 
 	<item id="1339">
 		<id>0x1339</id>
-		<category>Ground Tiles\Lava\Border\Border 9</category>
+	<category>Ground Tiles\Lava\Border\Border 9</category>
 	</item>
 
 	<item id="133c">
 		<id>0x133c</id>
-		<category>Ground Tiles\Lava\Border\Border 10</category>
+	<category>Ground Tiles\Lava\Border\Border 10</category>
 	</item>
 
 	<item id="133f">
 		<id>0x133f</id>
-		<category>Ground Tiles\Lava\Border\Border 11</category>
+	<category>Ground Tiles\Lava\Border\Border 11</category>
 	</item>
 
 	<item id="1342">
 		<id>0x1342</id>
-		<category>Ground Tiles\Lava\Border\Border 12</category>
+	<category>Ground Tiles\Lava\Border\Border 12</category>
 	</item>
 
 	<item id="1345">
 		<id>0x1345</id>
-		<category>Ground Tiles\Lava\Border\Border 13</category>
+	<category>Ground Tiles\Lava\Border\Border 13</category>
 	</item>
 
 	<item id="1348">
 		<id>0x1348</id>
-		<category>Ground Tiles\Lava\Border\Border 14</category>
+	<category>Ground Tiles\Lava\Border\Border 14</category>
 	</item>
 
 	<item id="134b">
 		<id>0x134b</id>
-		<category>Ground Tiles\Lava\Border\Border 15</category>
+	<category>Ground Tiles\Lava\Border\Border 15</category>
 	</item>
+		
+<!-- Lava: misc tiles -->
 
-	<!-- Lava: misc tiles -->
-    <item id="1a19">
+        <item id="1a19">
 		<id>0x1a19</id>
 	<category>Ground Tiles\Lava\Misc\Lava 1</category>
 	</item>
@@ -1322,6 +1335,96 @@
 	<category>Ground Tiles\Water\Misc\Rocks\Rock 19</category>
 	</item>
 	
+	<item id="3421">
+		<id>0x3421</id>
+	<category>Ground Tiles\Water\Misc\Rocks\Rock 20</category>
+	</item>
+
+	<item id="3422">
+		<id>0x3422</id>
+	<category>Ground Tiles\Water\Misc\Rocks\Rock 21</category>
+	</item>
+
+	<item id="3423">
+		<id>0x3423</id>
+	<category>Ground Tiles\Water\Misc\Rocks\Rock 22</category>
+	</item>
+
+	<item id="3424">
+		<id>0x3424</id>
+	<category>Ground Tiles\Water\Misc\Rocks\Rock 23</category>
+	</item>
+
+	<item id="3426">
+		<id>0x3426</id>
+	<category>Ground Tiles\Water\Misc\Rocks\Rock 24</category>
+	</item>
+
+	<item id="3427">
+		<id>0x3427</id>
+	<category>Ground Tiles\Water\Misc\Rocks\Rock 25</category>
+	</item>
+
+	<item id="3428">
+		<id>0x3428</id>
+	<category>Ground Tiles\Water\Misc\Rocks\Rock 26</category>
+	</item>
+
+	<item id="3429">
+		<id>0x3429</id>
+	<category>Ground Tiles\Water\Misc\Rocks\Rock 27</category>
+	</item>
+
+	<item id="342c">
+		<id>0x342c</id>
+	<category>Ground Tiles\Water\Misc\Rocks\Rock 28</category>
+	</item>
+
+	<item id="342d">
+		<id>0x342d</id>
+	<category>Ground Tiles\Water\Misc\Rocks\Rock 29</category>
+	</item>
+
+	<item id="342e">
+		<id>0x342e</id>
+	<category>Ground Tiles\Water\Misc\Rocks\Rock 30</category>
+	</item>
+
+	<item id="342f">
+		<id>0x342f</id>
+	<category>Ground Tiles\Water\Misc\Rocks\Rock 31</category>
+	</item>
+
+	<item id="3430">
+		<id>0x3430</id>
+	<category>Ground Tiles\Water\Misc\Rocks\Rock 32</category>
+	</item>
+
+	<item id="3431">
+		<id>0x3431</id>
+	<category>Ground Tiles\Water\Misc\Rocks\Rock 33</category>
+	</item>
+
+	<item id="3432">
+		<id>0x3432</id>
+	<category>Ground Tiles\Water\Misc\Rocks\Rock 34</category>
+	</item>
+
+	<item id="3433">
+		<id>0x3433</id>
+	<category>Ground Tiles\Water\Misc\Rocks\Rock 35</category>
+	</item>
+
+ 	<item id="3434">
+		<id>0x3434</id>
+	<category>Ground Tiles\Water\Misc\Rocks\Rock 36</category>
+	</item>
+	
+	<item id="3435">
+		<id>0x3435</id>
+	<category>Ground Tiles\Water\Misc\Rocks\Rock 37</category>
+	</item>
+
 	
 <!--Water:Waterfall-->
 	<item id="34d5">
@@ -1765,4 +1868,667 @@
 		<id>0x17b2</id>
 	<category>Ground Tiles\Water\Not animated\Border\Water 22</category>
 	</item>
+
+
+
+<!-- Swamp:Not animated tiles border -->
+        <item id="3209">
+		<id>0x3209</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 1</category>
+	</item>
+
+	<item id="320a">
+		<id>0x320a</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 2</category>
+	</item>
+
+	<item id="3252">
+		<id>0x3252</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 3</category>
+	</item>
+
+	<item id="3253">
+		<id>0x3253</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 4</category>
+	</item>
+
+	<item id="3254">
+		<id>0x3254</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 5</category>
+	</item>
+
+	<item id="3255">
+		<id>0x3255</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 6</category>
+	</item>
+
+	<item id="3256">
+		<id>0x3256</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 7</category>
+	</item>
+
+	<item id="3257">
+		<id>0x3257</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 8</category>
+	</item>
+
+	<item id="3258">
+		<id>0x3258</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 9</category>
+	</item>
+
+	<item id="3259">
+		<id>0x3259</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 10</category>
+	</item>
+
+	<item id="325a">
+		<id>0x325a</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 11</category>
+	</item>
+
+	<item id="325b">
+		<id>0x325b</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 12</category>
+	</item>
+
+	<item id="325c">
+		<id>0x325c</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 13</category>
+	</item>
+
+	<item id="325d">
+		<id>0x325d</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 14</category>
+	</item>
+
+	<item id="325e">
+		<id>0x325e</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 15</category>
+	</item>
+
+	<item id="325f">
+		<id>0x325f</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 16</category>
+	</item>
+
+	<item id="3260">
+		<id>0x3260</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 17</category>
+	</item>
+
+	<item id="3261">
+		<id>0x3261</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 18</category>
+	</item>
+
+	<item id="3262">
+		<id>0x3262</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 19</category>
+	</item>
+
+	<item id="3263">
+		<id>0x3263</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 20</category>
+	</item>
+
+	<item id="3264">
+		<id>0x3264</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 21</category>
+	</item>
+
+	<item id="3265">
+		<id>0x3265</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 22</category>
+	</item>
+
+	<item id="3266">
+		<id>0x3266</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 23</category>
+	</item>
+
+	<item id="3267">
+		<id>0x3267</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 24</category>
+	</item>
+
+	<item id="3268">
+		<id>0x3268</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 25</category>
+	</item>
+
+	<item id="3270">
+		<id>0x3270</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 26</category>
+	</item>
+
+	<item id="3271">
+		<id>0x3271</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 27</category>
+	</item>
+
+	<item id="3272">
+		<id>0x3272</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 28</category>
+	</item>
+
+	<item id="3273">
+		<id>0x3273</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 29</category>
+	</item>
+
+	<item id="3274">
+		<id>0x3274</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 30</category>
+	</item>
+
+	<item id="3275">
+		<id>0x3275</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 21</category>
+	</item>
+
+	<item id="3276">
+		<id>0x3276</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 32</category>
+	</item>
+
+	<item id="3277">
+		<id>0x3277</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 33</category>
+	</item>
+
+	<item id="3278">
+		<id>0x3278</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 34</category>
+	</item>
+
+	<item id="3279">
+		<id>0x3279</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 35</category>
+	</item>
+
+	<item id="327a">
+		<id>0x327a</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 36</category>
+	</item>
+
+	<item id="327b">
+		<id>0x327b</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 37</category>
+	</item>
+
+	<item id="327c">
+		<id>0x327c</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 38</category>
+	</item>
+
+	<item id="327d">
+		<id>0x327d</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 39</category>
+	</item>
+
+	<item id="327e">
+		<id>0x327e</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 40</category>
+	</item>
+
+	<item id="327f">
+		<id>0x327f</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 41</category>
+	</item>
+
+	<item id="3280">
+		<id>0x3280</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 42</category>
+	</item>
+
+	<item id="3281">
+		<id>0x3281</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 43</category>
+	</item>
+
+	<item id="3282">
+		<id>0x3282</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 44</category>
+	</item>
+
+	<item id="3283">
+		<id>0x3283</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 45</category>
+	</item>
+
+	<item id="3284">
+		<id>0x3284</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 46</category>
+	</item>
+
+	<item id="3285">
+		<id>0x3285</id>
+	<category>Ground Tiles\Swamp\Border\Swamp 47</category>
+	</item>
+
+
+<!-- Swamp:Misc splash-->
+
+<item id="322c">
+		<id>0x322c</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 1</category>
+	</item>
+
+	<item id="322d">
+		<id>0x322d</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 2</category>
+	</item>
+
+	<item id="322e">
+		<id>0x322e</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 3</category>
+	</item>
+
+	<item id="322f">
+		<id>0x322f</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 4</category>
+	</item>
+
+	<item id="3230">
+		<id>0x3230</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 5</category>
+	</item>
+
+	<item id="3231">
+		<id>0x3231</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 6</category>
+	</item>
+
+	<item id="3232">
+		<id>0x3232</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 7</category>
+	</item>
+
+	<item id="3233">
+		<id>0x3233</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 8</category>
+	</item>
+
+	<item id="3234">
+		<id>0x3234</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 9</category>
+	</item>
+
+	<item id="3236">
+		<id>0x3236</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 10</category>
+	</item>
+
+	<item id="3237">
+		<id>0x3237</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 11</category>
+	</item>
+
+	<item id="3238">
+		<id>0x3238</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 12</category>
+	</item>
+
+	<item id="3239">
+		<id>0x3239</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 13</category>
+	</item>
+
+	<item id="323a">
+		<id>0x323a</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 14</category>
+	</item>
+
+	<item id="323b">
+		<id>0x323b</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 15</category>
+	</item>
+
+	<item id="323c">
+		<id>0x323c</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 16</category>
+	</item>
+
+	<item id="323d">
+		<id>0x323d</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 17</category>
+	</item>
+
+	<item id="323e">
+		<id>0x323e</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 18</category>
+	</item>
+
+	<item id="323f">
+		<id>0x323f</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 19</category>
+	</item>
+
+	<item id="3241">
+		<id>0x3241</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 20</category>
+	</item>
+
+	<item id="3242">
+		<id>0x3242</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 21</category>
+	</item>
+
+	<item id="3243">
+		<id>0x3243</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 22</category>
+	</item>
+
+	<item id="3244">
+		<id>0x3244</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 23</category>
+	</item>
+
+	<item id="3245">
+		<id>0x3245</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 24</category>
+	</item>
+
+	<item id="3246">
+		<id>0x3246</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 25</category>
+	</item>
+
+	<item id="3247">
+		<id>0x3247</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 26</category>
+	</item>
+
+	<item id="3248">
+		<id>0x3248</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 27</category>
+	</item>
+
+	<item id="3249">
+		<id>0x3249</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 28</category>
+	</item>
+
+	<item id="324a">
+		<id>0x324a</id>
+	<category>Ground Tiles\Swamp\Misc\Splash\Swamp 29</category>
+	</item>
+
+
+<!-- Swamp:Misc Treestump -->
+
+<item id="324e">
+		<id>0x324e</id>
+	<category>Ground Tiles\Swamp\Misc\Treestump\Swamp 1</category>
+	</item>
+
+	<item id="324f">
+		<id>0x324f</id>
+	<category>Ground Tiles\Swamp\Misc\Treestump\Swamp 2</category>
+	</item>
+
+	<item id="3250">
+		<id>0x3250</id>
+	<category>Ground Tiles\Swamp\Misc\Treestump\Swamp 3</category>
+	</item>
+
+	<item id="3251">
+		<id>0x3251</id>
+	<category>Ground Tiles\Swamp\Misc\Treestump\Swamp 4</category>
+	</item>
+	
+	<item id="324b">
+		<id>0x324b</id>
+	<category>Ground Tiles\Swamp\Misc\Treestump\Swamp 5</category>
+	</item>
+
+	<item id="324c">
+		<id>0x324c</id>
+	<category>Ground Tiles\Swamp\Misc\Treestump\Swamp 6</category>
+	</item>
+
+	<item id="324d">
+		<id>0x324d</id>
+	<category>Ground Tiles\Swamp\Misc\Treestump\Swamp 7</category>
+	</item>
+
+<!-- Swamp:Not animated tiles -->
+
+
+	<item id="320d">
+		<id>0x320d</id>
+	<category>Ground Tiles\Swamp\Swamp 1</category>
+	</item>
+
+	<item id="320e">
+		<id>0x320e</id>
+	<category>Ground Tiles\Swamp\Swamp 2</category>
+	</item>
+
+	<item id="320f">
+		<id>0x320f</id>
+	<category>Ground Tiles\Swamp\Swamp 3</category>
+	</item>
+
+	<item id="3210">
+		<id>0x3210</id>
+	<category>Ground Tiles\Swamp\Swamp 4</category>
+	</item>
+
+	<item id="3211">
+		<id>0x3211</id>
+	<category>Ground Tiles\Swamp\Swamp 5</category>
+	</item>
+
+	<item id="3213">
+		<id>0x3213</id>
+	<category>Ground Tiles\Swamp\Swamp 6</category>
+	</item>
+
+	<item id="3214">
+		<id>0x3214</id>
+	<category>Ground Tiles\Swamp\Swamp 7</category>
+	</item>
+
+	<item id="3215">
+		<id>0x3215</id>
+	<category>Ground Tiles\Swamp\Swamp 8</category>
+	</item>
+
+	<item id="3216">
+		<id>0x3216</id>
+	<category>Ground Tiles\Swamp\Swamp 9</category>
+	</item>
+
+	<item id="3217">
+		<id>0x3217</id>
+	<category>Ground Tiles\Swamp\Swamp 10</category>
+	</item>
+
+	<item id="3218">
+		<id>0x3218</id>
+	<category>Ground Tiles\Swamp\Swamp 11</category>
+	</item>
+
+	<item id="321a">
+		<id>0x321a</id>
+	<category>Ground Tiles\Swamp\Swamp 12</category>
+	</item>
+	
+	<item id="321b">
+		<id>0x321b</id>
+	<category>Ground Tiles\Swamp\Swamp 13</category>
+	</item>
+
+	<item id="321c">
+		<id>0x321c</id>
+	<category>Ground Tiles\Swamp\Swamp 14</category>
+	</item>
+
+	<item id="321d">
+		<id>0x321d</id>
+	<category>Ground Tiles\Swamp\Swamp 15</category>
+	</item>
+
+	<item id="321e">
+		<id>0x321e</id>
+	<category>Ground Tiles\Swamp\Swamp 16</category>
+	</item>
+
+	<item id="3220">
+		<id>0x3220</id>
+	<category>Ground Tiles\Swamp\Swamp 17</category>
+	</item>
+
+	<item id="3221">
+		<id>0x3221</id>
+	<category>Ground Tiles\Swamp\Swamp 18</category>
+	</item>
+
+	<item id="3222">
+		<id>0x3222</id>
+	<category>Ground Tiles\Swamp\Swamp 19</category>
+	</item>
+
+	<item id="3223">
+		<id>0x3223</id>
+	<category>Ground Tiles\Swamp\Swamp 20</category>
+	</item>
+
+	<item id="3224">
+		<id>0x3224</id>
+	<category>Ground Tiles\Swamp\Swamp 21</category>
+	</item>
+
+	<item id="3226">
+		<id>0x3226</id>
+	<category>Ground Tiles\Swamp\Swamp 22</category>
+	</item>
+
+	<item id="3227">
+		<id>0x3227</id>
+	<category>Ground Tiles\Swamp\Swamp 23</category>
+	</item>
+
+	<item id="3228">
+		<id>0x3228</id>
+	<category>Ground Tiles\Swamp\Swamp 24</category>
+	</item>
+
+	<item id="3229">
+		<id>0x3229</id>
+	<category>Ground Tiles\Swamp\Swamp 25</category>
+	</item>
+
+	<item id="322a">
+		<id>0x322a</id>
+	<category>Ground Tiles\Swamp\Swamp 26</category>
+	</item>
+
+	<item id="3269">
+		<id>0x3269</id>
+	<category>Ground Tiles\Swamp\Swamp 27</category>
+	</item>
+
+	<item id="326a">
+		<id>0x326a</id>
+	<category>Ground Tiles\Swamp\Swamp 28</category>
+	</item>
+
+	<item id="326b">
+		<id>0x326b</id>
+	<category>Ground Tiles\Swamp\Swamp 29</category>
+	</item>
+
+	<item id="326c">
+		<id>0x326c</id>
+	<category>Ground Tiles\Swamp\Swamp 30</category>
+	</item>
+
+	<item id="326d">
+		<id>0x326d</id>
+	<category>Ground Tiles\Swamp\Swamp 31</category>
+	</item>
+
+	<item id="326e">
+		<id>0x326e</id>
+	<category>Ground Tiles\Swamp\Swamp 32</category>
+	</item>
+
+	<item id="326f">
+		<id>0x326f</id>
+	<category>Ground Tiles\Swamp\Swamp 33</category>
+	</item>
+
+
+<!-- Grass:Not animated tiles -->
+
+	<item id="177d">
+		<id>0x177d</id>
+	<category>Ground Tiles\Grass\Grass 1</category>
+	</item>
+
+	<item id="177e">
+		<id>0x177e</id>
+	<category>Ground Tiles\Grass\Grass 2</category>
+	</item>
+
+	<item id="177f">
+		<id>0x177f</id>
+	<category>Ground Tiles\Grass\Grass 3</category>
+	</item>
+
+	<item id="1780">
+		<id>0x1780</id>
+	<category>Ground Tiles\Grass\Grass 4</category>
+	</item>
+
+	<item id="1781">
+		<id>0x1781</id>
+	<category>Ground Tiles\Grass\Grass 5</category>
+	</item>
+
+<!-- Grass:Not animated tiles edges -->
+
+	<item id="1782">
+		<id>0x1782</id>
+	<category>Ground Tiles\Grass\Edges\Grass 1</category>
+	</item>
+
+	<item id="1783">
+		<id>0x1783</id>
+	<category>Ground Tiles\Grass\Edges\Grass 1</category>
+	</item>
+
+	<item id="1784">
+		<id>0x1784</id>
+	<category>Ground Tiles\Grass\Edges\Grass 1</category>
+	</item>
+
+	<item id="1785">
+		<id>0x1785</id>
+	<category>Ground Tiles\Grass\Edges\Grass 1</category>
+	</item>
+
+	<item id="1786">
+		<id>0x1786</id>
+	<category>Ground Tiles\Grass\Edges\Grass 1</category>
+	</item>
+
+	<item id="1787">
+		<id>0x1787</id>
+	<category>Ground Tiles\Grass\Edges\Grass 1</category>
+	</item>
+
+	<item id="1788">
+		<id>0x1788</id>
+	<category>Ground Tiles\Grass\Edges\Grass 1</category>
+	</item>
+
+	<item id="1789">
+		<id>0x1789</id>
+	<category>Ground Tiles\Grass\Edges\Grass 1</category>
+	</item>
+
 </definitions>
