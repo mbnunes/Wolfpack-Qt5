@@ -671,11 +671,11 @@ char *complete_title(CHARACTER p) // generates the ENTIRE title plus criminal st
 			strcpy((char*)temp,tempstr);
 			if (strlen(pc->title)>0)
 			{//Titled & Skill
-				sprintf(tempstr, "%s %s %s, %s %s", temp, Races[pc->race]->RaceName, pc->title, title1(pc), title2(pc));
+				sprintf(tempstr, "%s %s %s, %s %s", temp, Races[pc->race]->RaceName.c_str(), pc->title, title1(pc), title2(pc));
 			}
 			else
 			{//Just skilled
-				sprintf(tempstr, "%s %s, %s %s", Races[pc->race]->RaceName, temp, title1(pc), title2(pc));
+				sprintf(tempstr, "%s %s, %s %s", Races[pc->race]->RaceName.c_str(), temp, title1(pc), title2(pc));
 			}
 		}
 	}
