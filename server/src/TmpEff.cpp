@@ -33,6 +33,7 @@
 // TmpEff.cpp: implementation of temporary effects
 //				cut from Wolfpack.cpp by Duke, 25.10.2000
 
+#include "platform.h"
 
 #include "TmpEff.h"
 
