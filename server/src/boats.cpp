@@ -1309,11 +1309,11 @@ void cBoat::Serialize( ISerialization &archive )
 			int currid = this->multiids_[i];
 			archive.write( "boat.multiid", currid );
 		}
-		for( i = 0; i < 3; i++ )
+		for( i = 0; i < 4; i++ )
 		{
-			for( j = 0; j < 3; j++ )
+			for( j = 0; j < 4; j++ )
 			{
-				for( k = 0; k < 1; k++ )
+				for( k = 0; k < 2; k++ )
 				{
 					archive.write( (char*)QString("boat.itemoffset.%1.%2.%3").arg(i).arg(j).arg(k).latin1(), this->itemoffsets[i][j][k] );
 				}

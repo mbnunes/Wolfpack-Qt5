@@ -821,6 +821,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("packitem",		packitem);
 		archive.read("fixedlight",		fixedlight);
 		archive.read("speech",			speech);
+
 		archive.read("trigger",			trigger_);
 		archive.read("trigword",		trigword_);
 		archive.read("disablemsg",		disabledmsg_);
@@ -854,6 +855,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("spattack",		spattack);
 		archive.read("spadelay",		spadelay);
 		archive.read("taming",			taming);
+
 		archive.read("summontimer",		summontimer);
 		if (summontimer != 0)
 			summontimer += uiCurrentTime;
@@ -998,7 +1000,8 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("spattack",		spattack);
 		archive.write("spadelay",		spadelay);
 		archive.write("taming",			taming);
-		archive.write("summonremainingseconds", summontimer/MY_CLOCKS_PER_SEC);
+		unsigned int summtimer = summontimer-uiCurrentTime;
+		archive.write("summonremainingseconds", summtimer);
 		
 		archive.write("advobj",			advobj_);
 		archive.write("poison",			poison_);
@@ -1019,7 +1022,8 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("questorigregion",questOrigRegion_);
 		archive.write("questbountypostserial", questBountyPostSerial_);
 		archive.write("questbountyreward", questBountyReward_);
-		archive.write("jailtimer",		jailtimer/MY_CLOCKS_PER_SEC); 
+		unsigned int jtimer = jailtimer-uiCurrentTime;
+		archive.write("jailtimer",		jtimer); 
 		archive.write("jailsecs",		jailsecs); 
 		archive.write("lootlist",		loot_);
 	}

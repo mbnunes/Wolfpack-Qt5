@@ -615,6 +615,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("racehate",	racehate_);
 		archive.read("st",			st);
 		archive.read("time_unused",	time_unused);
+
 		archive.read("weight",		weight_);
 		archive.read("hp",			hp_);
 		archive.read("maxhp",		maxhp_);

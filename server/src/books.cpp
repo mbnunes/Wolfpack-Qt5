@@ -52,8 +52,10 @@ void cBook::Serialize( ISerialization &archive )
 	{
 		archive.read( "book.title", title_ );
 		archive.read( "book.author", author_ );
+		UINT32 contsize = 0;
+		archive.read( "book.contsize", contsize );
 		UI32 i;
-		for( i = 0; i < content_.size(); i++ )
+		for( i = 0; i < contsize; i++ )
 		{
 			QString currPage = (char*)0;
 			archive.read( (char*)QString("book.content.page%1").arg(i).latin1(), currPage );
@@ -68,6 +70,8 @@ void cBook::Serialize( ISerialization &archive )
 	{
 		archive.write( "book.title", title_ );
 		archive.write( "book.author", author_ );
+		UINT32 contsize = content_.size();
+		archive.write( "book.contsize", contsize );
 		UI32 i;
 		for( i = 0; i < content_.size(); i++ )
 		{

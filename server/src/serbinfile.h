@@ -56,8 +56,9 @@ protected:
 	std::fstream file;
 	unsigned int _version;
 	unsigned int _count;
+	unsigned int _objectlevel;
 public:
-	serBinFile() : _version(0), _count(0) {}
+	serBinFile() : _version(0), _count(0), _objectlevel(0) {}
 	virtual ~serBinFile() {}
 
 	virtual void prepareReading(std::string ident, int bLevel = 0);

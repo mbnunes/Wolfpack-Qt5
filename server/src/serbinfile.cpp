@@ -131,8 +131,10 @@ void serBinFile::close()
 
 void serBinFile::writeObjectID( const QString& data )
 {
-	write("objectID", data);
-	++_count;
+	write("objectID", (std::string)data.latin1());
+	if( _objectlevel == 0 )
+		++_count;
+	++_objectlevel;
 }
 
 void serBinFile::write(const char* Key, std::string &data)
@@ -185,7 +187,7 @@ void serBinFile::write(const char* Key, double data)
 
 void serBinFile::done()
 {
-
+	--_objectlevel;
 }
 
 void serBinFile::readObjectID(QString &data)

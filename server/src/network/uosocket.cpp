@@ -515,9 +515,16 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 		send( &denyPacket );
 	}
 
-	_account = authRet;
+	bool inUse = false;
+	for ( cUOSocket *mSock = cNetwork::instance()->first(); mSock && !inUse; mSock = cNetwork::instance()->next())
+		if( mSock->account() == authRet )
+			inUse = true;
 
-	return ( error == cAccounts::NoError );
+
+	if( !inUse )
+		_account = authRet;
+
+	return ( error == cAccounts::NoError && !inUse );
 }
 
 // Processes a create character request
