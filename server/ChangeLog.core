@@ -15,6 +15,7 @@ Wolfpack 12.9.10 Beta (CVS)
 	  <strproperty name="..." value="..." /> define properties that can be
 	  accessed via the methods getstrproperty, getintproperty, hasstrproperty,
 	  hasintproperty from items and chars.
+	- Fixed contextmenus to use <scripts></scripts>, this was missed.
 
 Wolfpack 12.9.9 Beta (4. September 2004)
 	- Allowed viewing and setting account properties via .set and .show.

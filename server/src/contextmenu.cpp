@@ -41,7 +41,7 @@ void cContextMenu::processNode( const cElement* Tag )
 {
 	QString TagName = Tag->name();
 
-	if ( TagName == "events" )
+	if ( TagName == "scripts" )
 	{
 		scripts_ = Tag->value();
 	}
