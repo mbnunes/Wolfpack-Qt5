@@ -65,7 +65,7 @@ public:
 	bool catchAllSpeech() const { return catchAllSpeech_; }
 	void setHandleSpeech( bool data ) { handleSpeech_ = data; }
 	void setCatchAllSpeech( bool data ) { catchAllSpeech_ = data; }
-	bool canHandleSpeech( const QString &text, std::vector< UINT16 > keywords );
+	bool canHandleSpeech( const QString &text, std::vector< UINT16 > keywords ) {return false;};
 
 	// Scripting Type (i.e. Python or "Default")
 	virtual const QString Type( void ) {

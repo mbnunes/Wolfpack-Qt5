@@ -25,7 +25,7 @@ CFG=wolf - Win32 Debug
 # PROP AllowPerConfigDependencies 0
 # PROP Scc_ProjName "wolf"
 # PROP Scc_LocalPath "."
-CPP=cl.exe
+CPP=xicl6.exe
 RSC=rc.exe
 
 !IF  "$(CFG)" == "wolf - Win32 Release"
@@ -48,7 +48,7 @@ RSC=rc.exe
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
-LINK32=link.exe
+LINK32=xilink6.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /machine:I386
 # ADD LINK32 ws2_32.lib ZThread.lib $(QTDIR)\lib\qt-mt310.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib libmysql.lib /nologo /subsystem:console /incremental:yes /map /machine:I386 /out:"C:\wolfpack\wolf.exe" /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib"
 # SUBTRACT LINK32 /nodefaultlib
@@ -63,7 +63,7 @@ LINK32=link.exe
 # PROP Use_MFC 0
 # PROP Use_Debug_Libraries 1
 # PROP Output_Dir "c:\wolfpack"
-# PROP Intermediate_Dir "c:\wolfpack\intermediate"
+# PROP Intermediate_Dir "Debug"
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
@@ -73,9 +73,9 @@ LINK32=link.exe
 BSC32=bscmake.exe
 # ADD BASE BSC32 /nologo
 # ADD BSC32 /nologo
-LINK32=link.exe
+LINK32=xilink6.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 ws2_32.lib ZThread.lib $(QTDIR)\lib\qt-mt310.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib libmysql.lib /nologo /version:12.9 /subsystem:console /debug /machine:I386 /nodefaultlib:"libcmt" /nodefaultlib:"libcmtd" /force /out:"debug/wolf.exe" /pdbtype:sept /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib" /libpath:"c:\mysql\lib\opt"
+# ADD LINK32 ws2_32.lib ZThread.lib $(QTDIR)\lib\qt-mt310.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib libmysql.lib /nologo /version:12.9 /subsystem:console /debug /machine:I386 /nodefaultlib:"libcmt" /nodefaultlib:"libcmtd" /out:"debug/wolf.exe" /pdbtype:sept /libpath:"lib\ZThread\lib" /libpath:"lib\Python\lib" /libpath:"lib\bugreport\lib"
 # SUBTRACT LINK32 /pdb:none
 
 !ENDIF 

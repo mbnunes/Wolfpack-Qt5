@@ -252,12 +252,11 @@ signed char Maps::dynamicElevation(const Coord_cl& pos) const
 			}
 			if ( ( mapitem->pos.x == pos.x ) && ( mapitem->pos.y == pos.y ) && ( !mapitem->isMulti() ) )
 			{
-				INT8 ztemp = mapitem->pos.z + TileCache::instance()->tileHeight( mapitem->id() );
+				const INT8 ztemp = mapitem->pos.z + TileCache::instance()->tileHeight( mapitem->id() );
 				if ((ztemp <= pos.z + MaxZstep) && (ztemp > z))
 				{
 					z = ztemp;
 				}
-				
 			}
 		}
 	}
@@ -277,6 +276,7 @@ signed char Maps::staticTop(const Coord_cl& pos)
 		{
 			top = tempTop;
 		}
+		++msi;
 	}
 	return top;
 }	
