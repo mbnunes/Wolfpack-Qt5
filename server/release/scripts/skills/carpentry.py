@@ -13,41 +13,41 @@ from skills.blacksmithing import METALS
 #
 def checktool(char, item, wearout = 0):
 	if not item:
-		return 0
+		return False
 
 	# Has to be in our posession
 	if item.getoutmostchar() != char:
 		char.socket.clilocmessage(500364)
-		return 0
+		return False
 
 	# We do not allow "invulnerable" tools.
 	if not item.hastag('remaining_uses'):
 		char.socket.clilocmessage(1044038)
 		item.delete()
-		return 0
+		return False
 
 	if wearout:
 		uses = int(item.gettag('remaining_uses'))
 		if uses <= 1:
 			char.socket.clilocmessage(1044038)
 			item.delete()
-			return 0
+			return False
 		else:
 			item.settag('remaining_uses', uses - 1)
 
-	return 1
+	return True
 
 #
 # Bring up the carpentry menu
 #
 def onUse(char, item):
 	if not checktool(char, item):
-		return 1
+		return True
 
 	menu = findmenu('CARPENTRY')
 	if menu:
 		menu.send(char, [item.serial])
-	return 1
+	return True
 
 #
 # Carp an item.
@@ -64,7 +64,7 @@ class CarpItemAction(CraftItemAction):
 	def getexceptionalchance(self, player, arguments):
 		# Only works if this item requires carpentry
 		if not self.skills.has_key(CARPENTRY):
-			return 0
+			return False
 
 		minskill = self.skills[CARPENTRY][0]
 		maxskill = self.skills[CARPENTRY][1]
@@ -124,7 +124,7 @@ class CarpItemAction(CraftItemAction):
 		assert(len(arguments) > 0, 'Arguments has to contain a tool reference.')
 
 		if not checktool(player, wolfpack.finditem(arguments[0])):
-			return 0
+			return False
 
 		return CraftItemAction.make(self, player, arguments, nodelay)
 
@@ -153,13 +153,13 @@ class CarpentryMenu(MakeMenu):
 	#
 	def getsubmaterial1used(self, player, arguments):
 		if not player.hastag('blacksmithing_ore'):
-			return 0
+			return False
 		else:
 			material = int(player.gettag('blacksmithing_ore'))
 			if material < len(self.submaterials1):
 				return material
 			else:
-				return 0
+				return False
 
 	#
 	# Save the material preferred by the user in a tag

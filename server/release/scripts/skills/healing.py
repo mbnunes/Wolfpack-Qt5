@@ -42,17 +42,17 @@ def onUse( char, item ):
 			return
 	char.socket.clilocmessage( 500948, "", 0x3b2, 3 )
 	char.socket.attachtarget( "skills.healing.response" )
-	return 1
+	return True
 
 def response( char, args, target ):
 	if not target.char:
 		char.socket.clilocmessage( 500970, "", 0x3b2, 3 )
-		return 1
+		return True
 	# will be added : a golem would not healed by bandages
 
 	# count bandage
 	if not char.countresource( 0x0e21 ):
-		return 1
+		return True
 
 	anatomy = char.skill[ ANATOMY ]
 	healing = char.skill[ HEALING ]
@@ -62,18 +62,18 @@ def response( char, args, target ):
 		# you cannot res yourself
 		if char == target.char:
 			#char.socket.clilocmessage()
-			return 1
+			return True
 		if healing >= RES_HEALING and anatomy >= RES_ANATOMY:
 			res_char( char, target.char, healing, anatomy )
 		else:
 			char.socket.clilocmessage( 1049656, "", 0x3b2, 3 )
-		return 1
+		return True
 	if target.char.poisoned:
 		if healing >= CURE_HEALING and anatomy >= CURE_ANATOMY:
 			cure_char( char, target.char, healing, anatomy )
 		#else:
 			#char.socket.clilocmessage()
-		return 1
+		return True
 
 	# calc total heal amount : used formula from UOSS
 	heal_min = 3 + ( char.skill[ ANATOMY ] + char.skill[ HEALING ] ) / 50

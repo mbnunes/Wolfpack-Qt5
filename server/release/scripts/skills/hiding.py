@@ -15,13 +15,13 @@ HIDING_DELAY = 5000
 
 def hiding( char, skill ):
 	if skill != HIDING:
-		return 0
+		return False
 
 	if char.socket.hastag( 'skill_delay' ):
 		cur_time = servertime()
 		if cur_time < char.socket.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
-			return 1
+			return True
 		else:
 			char.socket.deltag( 'skill_delay' )
 
@@ -38,7 +38,7 @@ def hiding( char, skill ):
 	cur_time = servertime()
 	char.socket.settag( 'skill_delay', cur_time + HIDING_DELAY )
 
-	return 1
+	return True
 
 def onLoad():
 	skills.register( HIDING, hiding )

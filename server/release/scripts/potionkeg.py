@@ -18,14 +18,14 @@ POT_DEF = 5
 ### Filling the keg ###
 def onDropOnItem(potionkeg, potion):
 	if ('potionkeg' not in potionkeg.events) or ('potions' not in potion.events):
-		return 0
+		return False
 
 	char = potion.container
 	socket = char.socket
 
 	if not potion.hastag('potiontype') or not potionkeg.hastag('kegfill'):
 		socket.sysmessage("Only potions may be added to a potion keg!")
-		return 0
+		return False
 
 	char.say("Test")
 	"""
@@ -40,25 +40,25 @@ def onDropOnItem(potionkeg, potion):
 					kegfill += 1
 					potionkeg.settag('kegfill', kegfill)
 					potion.delete()
-					return 1
+					return True
 				else:
 					# The keg will not hold any more!
 					socket.clilocmessage(502233)
-					return 1
+					return True
 			else:
 				# You decide that it would be a bad idea to mix different types of potions.
 				socket.clilocmessage(502236)
-				return 1
+				return True
 		else:
 			potionkeg.settag( 'potiontype', potion.gettag('potiontype') )
 			potionkeg.settag( 'kegfill', 1 )
 			potionkeg.name = potions[ potion.gettag('potiontype') ][ KEG_NAME ]
 			consumePotion( char, potion, 1 )
-			return 1
+			return True
 	else:
-		return 0
+		return False
 	"""
-	return 1
+	return True
 
 ### End Filling ###
 
@@ -94,10 +94,10 @@ def onUse(char, potionkeg):
 		if potionkeg.hastag('potiontype'):
 			potionkeg.deltag('potiontype')
 
-	return 1
+	return True
 
 def checkkegstatus(char, potionkeg, potiontype):
 	if potionkeg.name != potions[ potiontype ][ KEG_NAME ]:
 		potionkeg.name = potions[ potiontype ][ KEG_NAME ]
-	return 1
+	return True
 

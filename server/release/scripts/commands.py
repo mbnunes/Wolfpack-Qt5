@@ -12,7 +12,7 @@ def onCommand( socket, command, argstring ):
 	elif command == "TESTPACKET":
 		testpacket( socket, command, argstring )
 
-	return 1
+	return True
 
 def testpacket( socket, command, argstring ):
 	file = open( 'packet.dat', 'rb' )

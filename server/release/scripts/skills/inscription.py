@@ -18,41 +18,41 @@ reagents = { 'f7a':0, 'f7b':1, 'f84':2, 'f85':3, 'f86':4, 'f88':5, 'f8c':6, 'f8d
 
 def checktool(char, item, wearout=0):
 	if not item:
-		return 0
+		return False
 	if item.getoutmostchar() != char:
 		char.socket.clilocmessage(500364)
-		return 0
+		return False
 	# use this for a Siege-style shard
 	#if not item.hastag('remaining_uses'):
 	#	char.socket.clilocmessage(1044038)
 	#	item.delete()
-	#	return 0
+	#	return False
 	#if wearout:
 	#	uses = int(item.gettag('remaining_uses'))
 	#	if uses < 1:
 	#		char.socket.clilocmessage(1044038)
 	#		item.delete()
-	#		return 0
+	#		return False
 	#	else:
 	#		item.settag('remaining_uses', uses - 1)
-	return 1
+	return True
 
 # skill is used via the blue button on skill gump - copy a book
 def inscription(char, skill):
 	if skill != INSCRIPTION:
-		return 0
+		return False
 	char.socket.sysmessage("copying a book is not implemented yet")
-	return 1
+	return True
 
 # skill is used via a scribe's pen
 def onUse(char, item):
 	#if not checktool(char, item):
-	#	return 1
+	#	return True
 	# send makemenu
 	menu = findmenu('INSCRIPTION')
 	if menu:
 		menu.send(char, [item.serial])
-	return 1
+	return True
 
 class InscriptionMenu(CraftMenu):
 	def __init__(self, id, parent, titleid=0, title=''):
@@ -60,7 +60,7 @@ class InscriptionMenu(CraftMenu):
 		self.allowmark = 1
 		self.allowrepair = 0
 		self.gumptype = 0xce123456
-	
+
 def loadMenu( id, parent = None ):
 	definition = wolfpack.getdefinition(WPDT_MENU, id)
 	if not definition:
@@ -131,10 +131,10 @@ class InsItemAction(CraftItemAction):
 
 	# FIXME : exceptional / success chance
 	def getexceptionalchance(self, player, args):
-		return 0
+		return False
 
 	def getsuccesschance(self, player, args):
-		return 0
+		return False
 
 	def checkmaterial(self, player, args, silent=0):
 		backpack = player.getbackpack()
@@ -150,12 +150,12 @@ class InsItemAction(CraftItemAction):
 				player.socket.clilocmessage(1044361 + msg_id)
 				# recall rune
 				#elif '1f14' in baseids or '1f15' in baseids or '1f16' in baseids or '1f17' in baseids:
-				return 0
-		return 1
+				return False
+		return True
 
 	def make(self, player, args, nodelay=0):
 		if not checktool(player, wolfpack.finditem(args[0]), 0):
-			return 0
+			return False
 		# spell scrolls
 		# FIXME : spell no. is not correct
 		if self.titleid > 1027980 and self.titleid < 1028045:
@@ -170,22 +170,22 @@ class InsItemAction(CraftItemAction):
 				self.noticestr = "You don't have that spell in your spellbook."
 				self.parent.send(player, args)
 				player.socket.sysmessage(self.noticestr)
-				return 0
+				return False
 			if player.mana < self.mana:
 				player.socket.clilocmessage(1044380)
 				self.noticeid = 1044380
 				self.noticestr = ''
 				self.parent.send(player, args)
-				return 0
+				return False
 			if player.socket.hastag('craftmenu_crafting'):
 				player.socket.clilocmessage(500119)
 				self.noticeid = 500119
 				self.noticestr = ''
 				self.parent.send(player, args)
-				return 0
+				return False
 			if not self.checkmaterial(player, args):
 				self.parent.send(player, args)
-				return 0
+				return False
 			player.mana = player.mana - self.mana
 			self.consumematerial(player, args, 0)
 			success = self.checkskills( player, args, 1)
@@ -205,7 +205,7 @@ class InsItemAction(CraftItemAction):
 			self.noticeid = 0
 			self.noticestr = 'Not implemented yet'
 			self.parent.send(player, args)
-			return 0
+			return False
 
 def onLoad():
 	loadMenu( 'INSCRIPTION' )

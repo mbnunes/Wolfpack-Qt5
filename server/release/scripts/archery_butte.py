@@ -34,7 +34,7 @@ def giveAmmo( char, item ):
 
 	if( not boltCount and not arrowCount ):
 		char.message( "The butte is empty." )
-		return 1
+		return True
 
 	if( arrowCount ):
 		if( arrowCount > 1 ):
@@ -79,12 +79,12 @@ def onUse( char, item ):
 
 	if( char.distanceto( item ) > 10 or char.distanceto( item ) < 5 ):
 		char.message( "You are either too near or far to shoot." )
-		return 1
+		return True
 
 	# Sanity checks for the line-of-fire
 	if( ( item.id == 0x100b and ( char.pos.x != item.pos.x or char.pos.y <= item.pos.y ) ) or ( item.id == 0x100a and ( char.pos.y != item.pos.y or char.pos.x <= item.pos.x ) ) ):
 		char.message( "You can't shoot from here." )
-		return 1
+		return True
 
 	# TODO: Check line of sight
 
@@ -101,17 +101,17 @@ def onUse( char, item ):
 
 	if( ( weaponskill(char, char.getweapon()) != ARCHERY ) or ( ammo == -1 ) ):
 		char.message( "You only can use crossbows and bows on this butte." )
-		return 1
+		return True
 
 	# If we've already learned all we can > cancel.
 	if( char.skill[ ARCHERY ] >= 300 ):
 		char.message( "You can learn much from a dummy but you have already learned it all." )
-		return 1
+		return True
 
 	# Use ammo (if 0 was used = no ammo)
 	if( not char.useresource( 1, ammo ) ):
 		char.message( "You are out of ammunition." )
-		return 1
+		return True
 
 	# Display the char-action
 	# (archery shot)
@@ -146,7 +146,7 @@ def onUse( char, item ):
 		else:
 			item.settag( "bolt_count", item.gettag( "bolt_count" ) + 1 )
 
-	return 1
+	return True
 
 def ammoType( char ):
 	# Bows & Crossbows are on layer 1

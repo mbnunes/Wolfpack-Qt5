@@ -26,20 +26,20 @@ DETECTHIDDEN_DELAY = 5000
 def detectinghidden( char, skill ):
 	# only handle detect hidden
 	if skill != DETECTINGHIDDEN:
-		return 0
+		return False
 
 	if char.socket.hastag( 'skill_delay' ):
 		cur_time = servertime()
 		if cur_time < char.socket.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
-			return 1
+			return True
 		else:
 			char.socket.deltag( 'skill_delay' )
 
 	char.socket.clilocmessage( 500819, "", 0x3b2, 3 )
 	char.socket.attachtarget( "skills.detectinghidden.response" )
 
-	return 1
+	return True
 
 def response( char, args, target ):
 	if not char:

@@ -17,7 +17,7 @@ ANATOMY_DELAY = 1000
 def anatomy( char, skill ):
 	# We only handle anatomy
 	if skill != ANATOMY:
-		return 0
+		return False
 
 	socket = char.socket
 
@@ -25,7 +25,7 @@ def anatomy( char, skill ):
 		cur_time = servertime()
 		if cur_time < socket.gettag( 'skill_delay' ):
 			socket.clilocmessage( 500118, "", 0x3b2, 3 )
-			return 1
+			return True
 		else:
 			socket.deltag( 'skill_delay' )
 
@@ -33,7 +33,7 @@ def anatomy( char, skill ):
 	socket.clilocmessage( 0x7A261, "", 0x3b2, 3 ) # Whom shall I examine?
 	socket.attachtarget( "skills.anatomy.response" )
 
-	return 1
+	return True
 
 def response( char, args, target ):
 

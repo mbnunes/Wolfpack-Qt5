@@ -5,13 +5,14 @@
 #  ( (  ;._ \\ ctr # Last Modification: Jan 26 2004
 #################################################################
 
-from wolfpack.consts import *
-from wolfpack import console
 import wolfpack
 import skills
-from wolfpack.time import *
-from wolfpack.utilities import ismountainorcave, tobackpack
 import random
+from wolfpack.consts import *
+from wolfpack.time import *
+from wolfpack import console
+from wolfpack.utilities import ismountainorcave, tobackpack
+
 
 #mining calling from pickaxe.py and shovel.py
 
@@ -46,7 +47,7 @@ def mining( char, pos, tool ):
 	char.socket.settag( 'is_mining', ( servertime() + miningdelay ) )
 	char.turnto( pos )
 	char.action( ANIM_ATTACK3 )
-	return 1
+	return True
 
 def createoregem(pos):
 	gem = wolfpack.additem('ore_gem')
@@ -90,7 +91,7 @@ def getvein(socket, pos):
 def response( char, args, target ):
 	socket = char.socket
 	if not socket:
-		return 0
+		return False
 
 	pos = target.pos
 
@@ -98,7 +99,7 @@ def response( char, args, target ):
 	if char.pos.map != pos.map or char.pos.distance( pos ) > MINING_MAX_DISTANCE:
 		# That is too far away
 		socket.clilocmessage( 500446, "", GRAY )
-		return 1
+		return True
 
 	tool = args[0]
 
@@ -107,7 +108,7 @@ def response( char, args, target ):
 	if target.char:
 		# You can't mine that.
 		socket.clilocmessage( 501863, "", GRAY )
-		return 1
+		return True
 
 	#Find tile by it's position if we haven't model
 	elif target.model == 0:
@@ -117,7 +118,7 @@ def response( char, args, target ):
 		else:
 			# You can't mine there.
 			socket.clilocmessage( 501862, "", GRAY )
-		return 1
+		return True
 
 	#Find tile by it's model
 	elif target.model != 0:
@@ -126,12 +127,12 @@ def response( char, args, target ):
 			mining( char, target.pos, tool )
 		else:
 			socket.clilocmessage( 501862, "", GRAY ) # You can't mine there.
-		return 1
+		return True
 
 	else:
-		return 0
+		return False
 
-	return 1
+	return True
 
 #Sound effect
 def domining(time, args):
@@ -145,12 +146,12 @@ def domining(time, args):
 	# Recheck distance
 	#if not char.canreach(pos, MINING_MAX_DISTANCE):
 	#	socket.clilocmessage(501867)
-	#	return 0
+	#	return False
 
 	veingem = getvein(socket, pos)
 
 	if not veingem or not veingem.hastag('resourcecount'):
-		return 0
+		return False
 
 	# 50% chance to dig up primary resource,
 	# even if the vein has something else.
@@ -170,19 +171,19 @@ def domining(time, args):
 			duration = random.randint(MINING_REFILLTIME[0], MINING_REFILLTIME[1])
 			wolfpack.addtimer(duration, "skills.mining.respawnvein", [veingem], 1)
 			veingem.settag('resource_empty', 1)
-		return 0
+		return False
 
 	# You loosen some rocks but fail to find any usable ore.
 	if char.skill < reqskill:
 		socket.clilocmessage(501869)
-		return 0
+		return False
 
 	chance = max(0, char.skill[MINING] - ORES[resname][MINSKILL]) / 1000.0
 	success = 0
 
 	if not skills.checkskill(char, MINING, chance):
 		socket.clilocmessage(501869)
-		return 0
+		return False
 
 	# Digs up the large ore.
 	if resourcecount >= 5:
@@ -208,7 +209,7 @@ def domining(time, args):
 			tool.delete()
 			socket.clilocmessage(1044038) # You have worn out your tool!
 
-	return 1
+	return True
 
 def successmining(char, gem, resname, size):
 	# Create the ore and put it into the players backpack
@@ -247,11 +248,11 @@ def successmining(char, gem, resname, size):
 		char.socket.clilocmessage(message, "", GRAY)
 	else:
 		char.socket.sysmessage(unicode(message))
-	return 1
+	return True
 
 def respawnvein( time, args ):
 	vein = args[0]
 	if vein and vein.hastag('resource_empty') and vein.gettag('resourcecount') == 0:
 		vein.settag('resourcecount', random.randint(MINING_ORE[0], MINING_ORE[1]))
 		vein.deltag('resource_empty')
-	return 1
+	return True

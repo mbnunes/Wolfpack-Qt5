@@ -21,7 +21,7 @@ def onShowToolTip( sender, target, tooltip ):
 	tooltip.add( 1038021, "" ) # Blessed
 	tooltip.add( 1060738, str( target.gettag( "value") ) )
 	tooltip.send ( sender )
-	return 1
+	return True
 
 def onUse( char, item ):
 	#D: 0xFE8F0 (0)
@@ -39,4 +39,4 @@ def onUse( char, item ):
 		char.soundeffect( 0x37, 0 )
 		char.socket.sendcontainer( bankbox )
 		item.delete()
-	return 1
+	return True

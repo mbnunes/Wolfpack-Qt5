@@ -15,20 +15,20 @@ ANIMALLORE_DELAY = 1000
 
 def animallore( char, skill ):
 	if skill != ANIMALLORE:
-		return 0
+		return False
 
 	if char.socket.hastag( 'skill_delay' ):
 		cur_time = servertime()
 		if cur_time < char.socket.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
-			return 1
+			return True
 		else:
 			char.socket.deltag( 'skill_delay' )
 
 	char.socket.clilocmessage( 0x7A268, "", 0x3b2, 3 ) # What animal should I look at?
 	char.socket.attachtarget( "skills.animallore.response" )
 
-	return 1
+	return True
 
 def response( char, args, target ):
 	if not target.char:
@@ -41,7 +41,7 @@ def response( char, args, target ):
 
 	if not char.canreach( target.char, 13 ):
 		return # no msg sent when you fail los check on OSI, wonder why...
-	
+
 	if target.char.mintaming >= 1100 and not target.char.tamed:
 		if char.skill[ ANIMALLORE ] == 1000:
 			char.socket.clilocmessage( 0x10044B, "", 0x3b2, 3 ) # At your skill level, you can only lore tamed or tameable creatures.

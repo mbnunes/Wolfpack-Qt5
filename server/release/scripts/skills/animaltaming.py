@@ -30,18 +30,18 @@ def animaltaming( char, skill ):
 		cur_time = servertime()
 		if cur_time < char.socket.gettag( 'skill_delay' ):
 			char.socket.clilocmessage( 500118, "", 0x3b2, 3 )
-			return 1
+			return True
 		else:
 			char.socket.deltag( 'skill_delay' )
 
 	# Assign the target request
 	char.socket.clilocmessage( 502789, "", 0x3b2, 3 )
 	char.socket.attachtarget("skills.animaltaming.response")
-	return 1
+	return True
 
 def response(char, args, target):
     dotame(char, target.char)
-    return 1
+    return True
 
 def dotame(char, totame):
 	socket = char.socket

@@ -1,8 +1,8 @@
 
-from wolfpack.consts import *
-import whrandom
 import wolfpack
+import whrandom
 import skills
+from wolfpack.consts import *
 from wolfpack.time import *
 from wolfpack.utilities import *
 from random import randint
@@ -266,4 +266,3 @@ def respawnvein( time, args ):
 		return True
 	else:
 		return False
-

@@ -57,60 +57,60 @@ def checkanvilandforge(char):
 			forge = 1
 
 		if anvil and forge:
-			return 1
+			return True
 
-	return 0
+	return False
 
 #
 # Check if the character is using the right tool
 #
 def checktool(char, item, wearout = 0):
 	if not item:
-		return 0
+		return False
 
 	# Has to be in our posession
 	if item.getoutmostchar() != char:
 		char.socket.clilocmessage(500364)
-		return 0
+		return False
 
 	# We do not allow "invulnerable" tools.
 	if not item.hastag('remaining_uses'):
 		char.socket.clilocmessage(1044038)
 		item.delete()
-		return 0
+		return False
 
 	# See if we have another tool equipped
 	equipped = char.itemonlayer(LAYER_RIGHTHAND)
 	if equipped and equipped != item:
 		char.socket.clilocmessage(1048146)
-		return 0
+		return False
 
 	if wearout:
 		uses = int(item.gettag('remaining_uses'))
 		if uses <= 1:
 			char.socket.clilocmessage(1044038)
 			item.delete()
-			return 0
+			return False
 		else:
 			item.settag('remaining_uses', uses - 1)
 
-	return 1
+	return True
 
 #
 # Bring up the blacksmithing menu
 #
 def onUse(char, item):
 	if not checktool(char, item):
-		return 1
+		return True
 
 	if not checkanvilandforge(char):
 		char.socket.clilocmessage(1044267)
-		return 1
+		return True
 
 	menu = findmenu('BLACKSMITHING')
 	if menu:
 		menu.send(char, [item.serial])
-	return 1
+	return True
 
 #
 # Smith an item.
@@ -127,7 +127,7 @@ class SmithItemAction(CraftItemAction):
 	def getexceptionalchance(self, player, arguments):
 		# Only works if this item requires blacksmithing
 		if not self.skills.has_key(BLACKSMITHING):
-			return 0
+			return False
 
 		minskill = self.skills[BLACKSMITHING][0]
 		maxskill = self.skills[BLACKSMITHING][1]
@@ -216,10 +216,10 @@ class SmithItemAction(CraftItemAction):
 		# Look for forge and anvil
 		if not checkanvilandforge(player):
 			player.socket.clilocmessage(1044267)
-			return 0
+			return False
 
 		if not checktool(player, wolfpack.finditem(arguments[0])):
-			return 0
+			return False
 
 		return CraftItemAction.make(self, player, arguments, nodelay)
 
@@ -387,26 +387,26 @@ class BlacksmithingMenu(MakeMenu):
 	#
 	def getsubmaterial1used(self, player, arguments):
 		if not player.hastag('blacksmithing_ore'):
-			return 0
+			return False
 		else:
 			material = int(player.gettag('blacksmithing_ore'))
 			if material < len(self.submaterials1):
 				return material
 			else:
-				return 0
+				return False
 
 	#
 	# Get the material used by the character from the tags
 	#
 	def getsubmaterial2used(self, player, arguments):
 		if not player.hastag('blacksmithing_scales'):
-			return 0
+			return False
 		else:
 			material = int(player.gettag('blacksmithing_scales'))
 			if material < len(self.submaterials2):
 				return material
 			else:
-				return 0
+				return False
 
 	#
 	# Save the material preferred by the user in a tag

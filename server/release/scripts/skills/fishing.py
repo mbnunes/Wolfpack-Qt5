@@ -35,12 +35,12 @@ def onUse( char, item ):
 	# Can't fish on horses
 	if char.itemonlayer( LAYER_MOUNT ):
 		socket.clilocmessage( 0x7A4EB, "", 0x3b2, 3 ) # You can't fish while riding!
-		return 1
+		return True
 
 	# Are we already fishing?
 	if socket.hastag( 'is_fishing' ) and socket.gettag( 'is_fishing' ) > wolfpack.time.servertime():
 		socket.clilocmessage( 0x7A4EC, "", 0x3b2, 3 ) # You are already fishing.
-		return 1
+		return True
 
 	iserial = item.serial
 	hand1 = char.itemonlayer( LAYER_LEFTHAND )
@@ -48,14 +48,14 @@ def onUse( char, item ):
 	# Assign the target request
 	if hand1 and hand1.serial != item.serial:
 		socket.clilocmessage( 502641, "", 0x3b2, 3 ) # Must equip this item to use it!
-		return 1
+		return True
 	elif hand2 and hand2.serial != item.serial:
 		socket.clilocmessage( 502641, "", 0x3b2, 3 ) # Must equip this item to use it!
-		return 1
+		return True
 	else:
 		socket.clilocmessage( 0x7A4EE, "", 0x3b2, 3 ) # What water do you want to fish in?
 		socket.attachtarget( "skills.fishing.response" )
-	return 1
+	return True
 
 def response( char, args, target ):
 	socket = char.socket

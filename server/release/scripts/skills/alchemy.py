@@ -13,41 +13,41 @@ import random
 #
 def checktool(char, item, wearout = 0):
 	if not item:
-		return 0
+		return False
 
 	# Has to be in our posession
 	if item.getoutmostchar() != char:
 		char.socket.clilocmessage(1044263)
-		return 0
+		return False
 
 	# We do not allow "invulnerable" tools.
 	if not item.hastag('remaining_uses'):
 		char.socket.clilocmessage(1044038)
 		item.delete()
-		return 0
+		return False
 
 	if wearout:
 		uses = int(item.gettag('remaining_uses'))
 		if uses <= 1:
 			char.socket.clilocmessage(1044038)
 			item.delete()
-			return 0
+			return False
 		else:
 			item.settag('remaining_uses', uses - 1)
 
-	return 1
+	return True
 
 #
 # Bring up the alchemy menu
 #
 def onUse(char, item):
 	if not checktool(char, item):
-		return 1
+		return True
 
 	menu = findmenu('ALCHEMY')
 	if menu:
 		menu.send(char, [item.serial])
-	return 1
+	return True
 
 #
 # Brew an item.
@@ -62,7 +62,7 @@ class BrewItemAction(CraftItemAction):
 	# No exceptional alchemist items.
 	#
 	def getexceptionalchance(self, player, arguments):
-		return 0
+		return False
 
 	#
 	# Play the "grind" sound when we fail to create a potion
@@ -97,7 +97,7 @@ class BrewItemAction(CraftItemAction):
 		assert(len(arguments) > 0, 'Arguments has to contain a tool reference.')
 
 		if not checktool(player, wolfpack.finditem(arguments[0])):
-			return 0
+			return False
 
 		return CraftItemAction.make(self, player, arguments, nodelay)
 
