@@ -58,40 +58,57 @@ class WPConsole_cl;
 
 //Class definitions
 
+//##ModelId=3C5D9290034D
 class WPConsole_cl
 {
 public:
 	// Constructor
+	//##ModelId=3C5D929102F3
 	WPConsole_cl();
 	// Destructor
+	//##ModelId=3C5D929103C5
 	~WPConsole_cl();
 
+	//##ModelId=3C5D929103D9
 	void enabled(bool);
+	//##ModelId=3C5D929200B9
 	void setStreams(istream *in, ostream *out, ostream *error, ostream *log);
 
 	// Send a message to the console
+	//##ModelId=3C5D92920115
 	void send(char* szMessage, ...);
+	//##ModelId=3C5D92920132
 	void send(string sMessage);
 
 
 	// Log a message
+	//##ModelId=3C5D92920150
 	void log(char* szMessage, ...);
+	//##ModelId=3C5D9292016E
 	void log(string sMessage);
 
 	// Flag an error
+	//##ModelId=3C5D92920179
 	void error(char* szMessage, ...);
+	//##ModelId=3C5D929201A0
 	void error(string sMessage);
 
         // Get input from the console
+	//##ModelId=3C5D929201B4
 	UI08 getkey(void);
 
 private:
 
+	//##ModelId=3C5D92A603C5
 	istream *inputstrm;
+	//##ModelId=3C5D92A7010A
 	ostream *outputstrm;
+	//##ModelId=3C5D92A70133
 	ostream *errorstrm;
+	//##ModelId=3C5D92A7015B
 	ostream *logstrm;
 
+	//##ModelId=3C5D92A7016E
 	bool bEnabled;
 };
 //==========================================================================================

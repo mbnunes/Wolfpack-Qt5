@@ -69,12 +69,19 @@
 #define CMD_TARGETTMP	18	/* target with tempint */
 #define CMD_TARGETHTMP	19	/* target with hex tempint */
 
+//##ModelId=3C5D92F601C2
 typedef struct cmdtable_s CMDTABLE_S;
+//##ModelId=3C5D92F60244
 struct cmdtable_s {
+	//##ModelId=3C5D92F6026D
 	const char *	cmd_name;
+	//##ModelId=3C5D92F60280
 	unsigned int	cmd_priv_m;	/* PRIV3 byte# - 0-6, 255=no privs needed */
+	//##ModelId=3C5D92F60294
 	unsigned int	cmd_priv_b;	/* PRIV3 bit within byte - 0-31 */
+	//##ModelId=3C5D92F602A8
 	unsigned int	cmd_type;	/* Type of command - see above */
+	//##ModelId=3C5D92F602BC
 	void 		(*cmd_extra) ();	/* extra data - see above */
 };
 extern CMDTABLE_S command_table[];
@@ -82,9 +89,12 @@ extern CMDTABLE_S command_table[];
 #define CMD_EXEC	void (*) (int)
 #define CMD_DEFINE	void (*)()
 
+//##ModelId=3C5D92F602DA
 typedef struct target_s TARGET_S;
+//##ModelId=3C5D92F60334
 struct target_s {	/* arguments to the target() function */
 	int	a1, a2, a3, a4;
+	//##ModelId=3C5D92F6035C
 	char	txt[128];
 };
 

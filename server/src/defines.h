@@ -46,6 +46,7 @@
 #endif
 #endif
 #if defined(__unix__)
+//##ModelId=3C5D92F50206
 typedef unsigned char BYTE ;
 #define SOCKET_ERROR -1
 //#ifndef max

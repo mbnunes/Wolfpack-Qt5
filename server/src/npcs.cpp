@@ -36,6 +36,8 @@
 #include "debug.h"
 #include "utilsys.h"
 
+#include <string>
+
 #undef  DBGFILE
 #define DBGFILE "npcs.cpp"
 
@@ -209,6 +211,7 @@ void setrandomname(P_CHAR pc_s, char * namelist)
 	}
 }
 
+//##ModelId=3C5D932A0072
 void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 {
 	int j;//,serial; //Zippy lag
@@ -242,12 +245,14 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 	pc_k = NULL;
 }
 
+//##ModelId=3C5D932A0086
 P_CHAR cCharStuff::MemCharFree()			// Find a free char slot
 {
 	P_CHAR pc = new cChar;
 	return pc;
 }
 
+//##ModelId=3C5D932A0090
 P_ITEM cCharStuff::AddRandomLoot(P_ITEM pBackpack, char * lootlist)
 {
 	char sect[512];
@@ -310,6 +315,7 @@ P_ITEM cCharStuff::AddRandomLoot(P_ITEM pBackpack, char * lootlist)
 }
 
 /*** s: socket ***/
+//##ModelId=3C5D932A00AE
 int cCharStuff::getRandomNPC(char * npclist)
 {
 	//This function gets the random npc number from the list and recalls
@@ -365,6 +371,7 @@ int cCharStuff::AddRespawnNPC(int s, int npcNum, int type)
 	else
 		return AddNPC(s, NULL, npcNum, 0,0,0);	// 's' is a socket
 }*/
+//##ModelId=3C5D932A00B9
 P_CHAR cCharStuff::AddNPCxyz(int s, int npcNum, int type, int x1, int y1, signed char z1) //Morrolan - replacement for old Npcs->AddNPCxyz(), fixes a LOT of problems.
 {
 	if (type == 0)
@@ -374,6 +381,7 @@ P_CHAR cCharStuff::AddNPCxyz(int s, int npcNum, int type, int x1, int y1, signed
 	return NULL;
 }
 
+//##ModelId=3C5D932A011C
 P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed char z1)
 {
 	int tmp, z, lovalue, hivalue;
@@ -1128,6 +1136,7 @@ P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed
    return pc_c;
 }
 
+//##ModelId=3C5D932A00F4
 void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat
 {
 	int serial,z;
@@ -1158,6 +1167,7 @@ void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat
 // Remark:	the recalculation of the region is necessary because it is not maintained properly :(
 //			I think it is better to do this only when needed
 //
+//##ModelId=3C5D9329014D
 bool cChar::inGuardedArea()
 {
 	this->region=calcRegionFromXY(this->pos.x, this->pos.y);	// make sure it is set correctly

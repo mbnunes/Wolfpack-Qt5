@@ -313,24 +313,31 @@ bool UnStableSpeech(cChar* pMaster, char* comm, cChar* pPlayer, UOXSOCKET s)
 bool ShieldSpeech(cChar* pGuard, char* comm, cChar* pPlayer, UOXSOCKET s)
 {
 	if (pPlayer->dist(pGuard) > 3)	// lets be close to talk :)
-		return 0;
+		return false;
 				
 	if(pGuard->npcaitype == 6)	// chaos guard
 	{
 		if (strstr( comm, "CHAOS SHIELD")) //Ripper...if in chaos guild get a new shield.
 		{	// if they say chaos shield
-			if(pPlayer->guildnumber==0)	// if not in a guild.
+			if(pPlayer->guildstone == INVALID_SERIAL)	// if not in a guild.
 			{
 				npctalk(s,pGuard,"You must be in a chaos guild to get a shield!",1);
 			}
-			else if(Guilds->GetType(pPlayer->guildnumber)==1)	// if they are in a order guild.
+			else 
 			{
-				npctalk(s,pGuard,"Sorry but you are in a order guild!",1);
-			}
-			else if(Guilds->GetType(pPlayer->guildnumber)==2)	// if they are in a chaos guild.
-			{
-				if(pPlayer->CountItems(0x1BC3)>0)
-					// if they have a chaos shield in their pack lets stop here.
+				cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(pPlayer->guildstone));
+				if ( pStone == NULL )
+				{
+					npctalk(s,pGuard,"You must be in a chaos guild to get a shield!",1);
+					return true;
+				}
+				if ( pStone->guildType != cGuildStone::chaos )
+				{
+					npctalk(s, pGuard, "Sorry but you are not in a chaos guild!", 1);
+					return true;
+				}
+
+				if(pPlayer->CountItems(0x1BC3)>0)					// if they have a chaos shield in their pack lets stop here.
 				{
 					npctalk(s,pGuard,"you already have a shield!",1);
 				}
@@ -342,42 +349,48 @@ bool ShieldSpeech(cChar* pGuard, char* comm, cChar* pPlayer, UOXSOCKET s)
 					npctalk(s,pGuard,"Hi fellow guild member,here is your new shield.",1);
 				}
 			}
-			return 1;
+			return true;
 		}
 	}
-
-	if(pGuard->npcaitype == 7)	// order guard
+	else if(pGuard->npcaitype == 7)	// order guard
 	{
 		if (strstr( comm, "ORDER SHIELD")) //Ripper...if in order guild get a new shield.
 			// if they say order shield
 		{
-			if(pPlayer->guildnumber==0)	// if not in a guild.
+			if(pPlayer->guildstone == INVALID_SERIAL)	// if not in a guild.
 			{
 				npctalk(s,pGuard,"You must be in a order guild to get a shield!",1);
 			}
-			else if(Guilds->GetType(pPlayer->guildnumber)==2)	// if they are in a chaos guild.
+			else
 			{
-				npctalk(s,pGuard,"Sorry but you are in a chaos guild!",1);
-			}
-			else if(Guilds->GetType(pPlayer->guildnumber)==1)	// if they are in a order guild.
-			{
-				if(pPlayer->CountItems(0x1BC4)>0)
-					// if they have a order shield in thier pack lets stop here.
+				cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(pPlayer->guildstone));
+				if ( pStone == NULL )
+				{
+					npctalk(s,pGuard,"You must be in a chaos guild to get a shield!",1);
+					return true;
+				}
+				if ( pStone->guildType != cGuildStone::order )
+				{
+					npctalk(s, pGuard, "Sorry but you are not in an order guild!", 1);
+					return true;
+				}
+
+				if(pPlayer->CountItems(0x1BC4)>0)					// if they have a chaos shield in their pack lets stop here.
 				{
 					npctalk(s,pGuard,"you already have a shield!",1);
 				}
 				else
 				{
-					cwmWorldState->RemoveItemsFromCharBody(currchar[s]->serial, 0x1B, 0xC4);
-					// if they are wearing a order shield lets just delete it.
-					Items->SpawnItemBackpack2( s,29,1 );	// lets give them a new order shield.
-					npctalk(s,pGuard,"Hi fellow guild member,here is your new shield.",1);
+					cwmWorldState->RemoveItemsFromCharBody(currchar[s]->serial,0x1B, 0xC4);
+					// if they are wearing an order shield lets just delete it.
+					Items->SpawnItemBackpack2( s, 29, 1 );	// lets give them a new chaos shield.
+					npctalk(s,pGuard,"Hi fellow guild member, here is your new shield.",1);
 				}
 			}
-			return 1;
+			return true;
 		}
 	}
-	return 0;
+	return false;
 }
 
 bool QuestionSpeech(cChar* pc, char* comm, cChar* pPlayer, UOXSOCKET s)
@@ -870,6 +883,7 @@ bool VendorSpeech(cChar* pVendor, char* comm, cChar* pPlayer, UOXSOCKET s)
 //			that they might be interested in.
 //			This is especially usefull in crowded places.
 
+//##ModelId=3C5D92D0005E
 int cSpeech::response(UOXSOCKET s, P_CHAR pPlayer, char* SpeechUpr)
 {
 	char *comm=SpeechUpr;
@@ -1079,7 +1093,9 @@ void cSpeech::talking(int s, string speech) // PC speech
 	strupr(SpeechUpr);
 
 	if (!strcmp(SpeechUpr, "I RESIGN FROM MY GUILD"))
-		Guilds->Resign(s);
+	{
+		GuildResign(s);
+	}
 	
 	if (response(s,pc_currchar,SpeechUpr))
 		return;  // Vendor responded already
@@ -1205,6 +1221,7 @@ void cSpeech::talking(int s, string speech) // PC speech
 /* wchar2char and char2wchar converts between ANSI char and Wide Chars
 used by UO Client. Be aware, those functions returns their results in
 temp[1024] global variable */
+//##ModelId=3C5D92D00091
 void cSpeech::wchar2char (const char* str)
 {
 	memset(&temp[0], 0, 1024);
@@ -1216,6 +1233,7 @@ void cSpeech::wchar2char (const char* str)
 	}
 }
 
+//##ModelId=3C5D92D000A4
 void cSpeech::char2wchar (const char* str)
 {
 	memset(&temp[0], 0, 1024);

@@ -1049,7 +1049,7 @@ void deathstuff(P_CHAR pc_player)
 				//murder count \/
 				if ((pc_player->isPlayer())&&(pc_t->isPlayer()))//Player vs Player
 				{
-					if(pc_player->isInnocent() && (Races.CheckRelation(pc_t,pc_player)==1) && Guilds->Compare( pc_t, pc_player ) == 0 && pc_t->attackfirst == 1)
+					if(pc_player->isInnocent() && (Races.CheckRelation(pc_t,pc_player)==1) && GuildCompare( pc_t, pc_player ) == 0 && pc_t->attackfirst == 1)
 					{
 						// Ask the victim if they want to place a bounty on the murderer (need gump to be added to
 						// BountyAskViction() routine to make this a little nicer ) - no time right now
@@ -1710,29 +1710,25 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 	if (changed)
 	{
 		// house refreshment when a house owner or friend of a houe opens the house door
-		int h=-1, hf=-1;
 		float ds=0;
 		P_CHAR pc_currchar = currchar[s];
+		
+		cHouse* pHouse = dynamic_cast<cHouse*>(findmulti(pi->pos));
+		if (pHouse == NULL)
+			return;
 
-		h=HouseManager->GetHouseNum(pc_currchar);
-		if(h>=0)
+		if(!(pc_currchar->Owns(pHouse) || pHouse->isFriend(pc_currchar)))
+			return;
+		if (SrvParms->housedecay_secs!=0)
+			ds = static_cast<float>((pHouse->time_unused)*100) / (SrvParms->housedecay_secs);
+		else 
+			ds = -1;	
+		if (ds >= 50) // sysmessage if decay status >=50%
 		{
-			hf=House[h]->FindFriend(pc_currchar);
-			if(hf<0 && (House[h]->OwnerAccount!=pc_currchar->account))
-				return;
-			if (SrvParms->housedecay_secs!=0)
-				 ds = static_cast<float>((House[h]->TimeUnused)*100) / (SrvParms->housedecay_secs);
-			else ds=-1;	
-			if (ds>=50) // sysmessage iff decay status >=50%
-			{
-				if (hf)
-					sysmessage(s,"You refreshed your friend's house");
-				else
-					sysmessage(s,"You refreshed the house");
-			}
-			House[h]->TimeUnused=0;
-			House[h]->LastUsed=getNormalizedTime();
+			sysmessage(s,"You refreshed the house");
 		}
+		pHouse->time_unused = 0;
+		pHouse->last_used = getNormalizedTime();
 	}
 	if (changed==0 && s>-1) sysmessage(s, "This doesnt seem to be a valid door type. Contact a GM.");
 }
@@ -2981,7 +2977,7 @@ int main(int argc, char *argv[])
 	InitServerSettings();
 
 	item_char_test(); //LB
-	Guilds->CheckConsistancy(); // LB
+	//Guilds->CheckConsistancy(); // LB
 	clConsole.send("Loading Races!\n");
 	Races.LoadRaceFile();
 	clConsole.send("Races Loaded!\n");
@@ -5453,7 +5449,6 @@ void StartClasses(void)
 	Boats=NULL;
 	Combat=NULL;
 	Commands=NULL;
-	Guilds=NULL;
 	Gumps=NULL;
 	Items=NULL;
 	Map=NULL;
@@ -5478,7 +5473,6 @@ void StartClasses(void)
 	Boats = new cBoat;
 	Combat = new cCombat;
 	Commands = new cCommands;
-	Guilds=new cGuilds;
 	Gumps = new cGump;
 	Items = new cAllItems;
 	Map = new cMapStuff;
@@ -5493,8 +5487,6 @@ void StartClasses(void)
 	AllTmpEff = new cAllTmpEff;
 	Movement = new cMovement;
 	//Weather = new cWeather;
-	HouseManager=new cHouseManager;
-	House.resize(0); 
 	// Sky's AI Stuff
 	DragonAI=new cCharStuff::cDragonAI;
 	BankerAI=new cCharStuff::cBankerAI;
@@ -5511,7 +5503,6 @@ void DeleteClasses(void)
 	delete Boats;
 	delete Combat;
 	delete Commands;
-	delete Guilds;
 	delete Gumps;
 	delete Items;
 	delete Map;

@@ -275,6 +275,7 @@ int im_kill( item_menu *menu )
 /*   ************************   */
 
 /* menulist_node: node in linked list of loaded menus. */
+//##ModelId=3C5D9330026F
 typedef struct _menulist_node {
   item_menu *menu;
   std::string name;
@@ -295,6 +296,7 @@ static enum {
   TK_ERROR
 } curr_token;
 
+//##ModelId=3C5D933002C9
 typedef struct _menu_option_info {
   menulist_node *parent;
   char is_final; /* 1 if param is valid, 0 if name. */

@@ -163,6 +163,7 @@ int SpawnFishingItem(UOXSOCKET s,int nInPack, char* cScript, char* cList, char* 
 	return -1;
 }
 
+//##ModelId=3C5D92FA0380
 void cFishing::FishTarget(P_CLIENT ps)
 {
 	// fixes an exploit with fishing, LB
@@ -210,6 +211,7 @@ void cFishing::FishTarget(P_CLIENT ps)
 
 
 // LB: added fish stacking !!
+//##ModelId=3C5D92FA0394
 void cFishing::Fish(P_CHAR pc_i)
 {
 	if ( pc_i == NULL ) return;

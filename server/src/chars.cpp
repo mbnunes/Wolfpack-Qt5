@@ -48,12 +48,18 @@
 
 // Inline members
 
+//##ModelId=3C5D932803A4
 bool cChar::Owns(P_ITEM pi)			{	return (serial==pi->ownserial);		}
-bool cChar::Wears(P_ITEM pi)		{	return (serial == pi->contserial);	}
+//##ModelId=3C5D932803D6
+bool cChar::Wears(P_ITEM pi)			{	return (serial == pi->contserial);	}
+//##ModelId=3C5D9329019D
 unsigned int cChar::dist(cChar* pc)	{	return pos.distance(pc->pos);		}
+//##ModelId=3C5D932901CF
 unsigned int cChar::dist(cItem* pi)	{	return pos.distance(pi->pos);		}
+//##ModelId=3C5D9326035B
+string cChar::objectID()				{	return string("CHARACTER");			}
 
-
+//##ModelId=3C5D9328025A
 void cChar::setSerial(SERIAL ser)
 {
 	this->serial = ser;
@@ -61,6 +67,7 @@ void cChar::setSerial(SERIAL ser)
 		cCharsManager::getInstance()->registerChar(this);
 }
 
+//##ModelId=3C5D932900E9
 void cChar::Init(bool ser)
 {
 	unsigned int i;
@@ -226,7 +233,7 @@ void cChar::Init(bool ser)
 	this->guildtoggle=false;		// Toggle for Guildtitle								(DasRaetsel)
 	this->guildtitle="";	// Title Guildmaster granted player						(DasRaetsel)
 	this->guildfealty=-1;		// Serial of player you are loyal to (default=yourself)	(DasRaetsel)
-	this->guildnumber=0;		// Number of guild player is in (0=no guild)			(DasRaetsel)
+	this->guildstone=INVALID_SERIAL;		// GuildStone Serial of guild player is in (INVALID_SERIAL=no guild)			(DasRaetsel)
 	this->GuildTraitor=false; 
 	//this->flag=0x04; //1=red 2=grey 4=Blue 8=green 10=Orange
 	this->flag=0x02; //1=red 2=grey 4=Blue 8=green 10=Orange // grey as default - AntiChrist
@@ -284,6 +291,7 @@ void cChar::Init(bool ser)
 // history:	by punt, 15.4.2001
 // Purpose:	return the day this was created
 //
+//##ModelId=3C5D93260243
 unsigned long cChar::day()
 {
 	return creationday;
@@ -293,6 +301,7 @@ unsigned long cChar::day()
 // history:	by punt, 15.4.2001
 // Purpose:	set the day this was created
 //
+//##ModelId=3C5D932601FD
 void cChar::day(unsigned long CreateDay)
 {
 	creationday = CreateDay ;
@@ -303,6 +312,7 @@ void cChar::day(unsigned long CreateDay)
 // history:	by Duke, 26.3.2001
 // Purpose:	returns the item on the given layer, if any
 //
+//##ModelId=3C5D93280033
 P_ITEM cChar::GetItemOnLayer(unsigned char layer)
 {
 	P_ITEM pi;
@@ -326,6 +336,7 @@ P_ITEM cChar::GetItemOnLayer(unsigned char layer)
 // Purpose:	Return the bank box. If banktype == 1, it will return the Item's bank box, else, 
 //          gold bankbox is returned. 
 //
+//##ModelId=3C5D93280065
 P_ITEM cChar::GetBankBox( short banktype )			
 {
 	P_ITEM pi;
@@ -366,6 +377,7 @@ P_ITEM cChar::GetBankBox( short banktype )
 // history:	by Duke, 17.3.2001
 // Purpose:	stops meditation if necessary. Displays message if a socket is passed
 //
+//##ModelId=3C5D93270349
 void cChar::disturbMed(UOXSOCKET s)
 {
 	if (this->med) //Meditation
@@ -381,6 +393,7 @@ void cChar::disturbMed(UOXSOCKET s)
 // history:	by Duke, 17.3.2001
 // Purpose:	reveals the char if he was hidden
 //
+//##ModelId=3C5D93270385
 void cChar::unhide()
 {
 	if (this->isHidden() && !(this->priv2&8))	//if hidden but not permanently
@@ -398,6 +411,7 @@ void cChar::unhide()
 // history:	by Duke, 20.3.2001
 // Purpose:	sets the move timer. tamediv can shorten the time for tamed npcs
 //
+//##ModelId=3C5D93270316
 void cChar::setNextMoveTime(short tamediv)
 {
 //	if ( && this->tamed) return;	// MUST be nonzero
@@ -435,6 +449,7 @@ void cChar::fight(P_CHAR other)
 // Purpose:	searches the character recursively,
 //			counting the items of the given ID and (if given) color
 //
+//##ModelId=3C5D932703AD
 int cChar::CountItems(short ID, short col)
 {
 	P_ITEM pi=this->getBackpack();
@@ -445,6 +460,7 @@ int cChar::CountItems(short ID, short col)
 	return number ;
 }
 
+//##ModelId=3C5D93280097
 int cChar::CountBankGold()
 {
 	P_ITEM pi = GetBankBox(1); //we want gold bankbox.
@@ -457,16 +473,19 @@ int cChar::CountBankGold()
 // history:	by Duke, 13.5.2001
 // Purpose:	assigns the halo of the given item to a character
 //
+//##ModelId=3C5D932800AB
 void cChar::addHalo(P_ITEM pi)
 {
 	glowsp.insert(this->serial, pi->serial);
 }
 
+//##ModelId=3C5D932800DD
 void cChar::removeHalo(P_ITEM pi)
 {
 	glowsp.remove(this->serial, pi->serial);
 }
 
+//##ModelId=3C5D9328010F
 void cChar::glowHalo(P_ITEM pi)
 {
 	if (pi->glow != INVALID_SERIAL)
@@ -504,6 +523,7 @@ void cChar::glowHalo(P_ITEM pi)
 // history:	moved here from combat.cpp by Duke, 20.5.2001
 // Purpose:	finds the equipped weapon of a character
 //
+//##ModelId=3C5D9328014B
 P_ITEM cChar::getWeapon()
 {
 	unsigned int ci=0;
@@ -527,6 +547,7 @@ P_ITEM cChar::getWeapon()
 // history:	by Duke, 20.5.2001
 // Purpose:	finds the equipped shield of a character
 //
+//##ModelId=3C5D93280155
 P_ITEM cChar::getShield()
 {
 	P_ITEM pi=GetItemOnLayer(2);
@@ -564,6 +585,7 @@ P_ITEM Packitem(P_CHAR pc) // Find packitem
 	return NULL;
 }
 
+//##ModelId=3C5D9328015F
 P_ITEM cChar::getBackpack()	{return Packitem(this);}
 
 ///////////////////////
@@ -571,11 +593,13 @@ P_ITEM cChar::getBackpack()	{return Packitem(this);}
 // history:	by Duke, 2.6.2001
 // Purpose:	encapsulates revoval/adding to the pointer arrays
 //
+//##ModelId=3C5D93280169
 void cChar::setOwnSerialOnly(long ownser)
 {
 	ownserial=ownser;
 }
 
+//##ModelId=3C5D932801AF
 void cChar::SetOwnSerial(long ownser)
 {
 	if (ownserial!=-1)	// if it was set, remove the old one
@@ -591,6 +615,7 @@ void cChar::SetOwnSerial(long ownser)
 		cownsp.insert(ownserial, serial);
 }
 
+//##ModelId=3C5D932801F6
 void cChar::SetSpawnSerial(long spawnser)
 {
 	if (spawnserial!=-1)	// if it was set, remove the old one
@@ -602,6 +627,7 @@ void cChar::SetSpawnSerial(long spawnser)
 		cspawnsp.insert(spawnserial, serial);
 }
 
+//##ModelId=3C5D93280228
 void cChar::SetMultiSerial(long mulser)
 {
 	if (multis!=-1)	// if it was set, remove the old one
@@ -613,11 +639,13 @@ void cChar::SetMultiSerial(long mulser)
 		cmultisp.insert(multis, this->serial);
 }
 
+//##ModelId=3C5D9328030E
 void cChar::MoveToXY(short newx, short newy)
 {
 	this->MoveTo(newx,newy,pos.z);	// keep the old z value
 }
 
+//##ModelId=3C5D9328028C
 void cChar::MoveTo(short newx, short newy, signed char newz)
 {
 	// Avoid crash if go to 0,0
@@ -631,6 +659,7 @@ void cChar::MoveTo(short newx, short newy, signed char newz)
 	mapRegions->Add(this);
 }
 
+//##ModelId=3C5D9329002A
 unsigned int cChar::getSkillSum()
 {
 	register unsigned int sum = 0, a;
@@ -646,6 +675,7 @@ unsigned int cChar::getSkillSum()
 // history:	by Duke, 27.7.2001
 // Purpose:	calculates how much the given player can learn from this teacher
 //
+//##ModelId=3C5D93290034
 int cChar::getTeachingDelta(cChar* pPlayer, int skill, int sum)
 {
 	int delta = min(250,this->baseskill[skill]/2);		// half the trainers skill, but not more than 250
@@ -663,6 +693,7 @@ int cChar::getTeachingDelta(cChar* pPlayer, int skill, int sum)
 // history:	by Duke, 19.8.2001
 // Purpose:	removes boni given by an item
 //
+//##ModelId=3C5D932900B6
 void cChar::removeItemBonus(cItem* pi)
 {
 	this->st -= pi->st2;
@@ -675,6 +706,7 @@ void cChar::removeItemBonus(cItem* pi)
 // history:	by Duke, 20.9.2001
 // Purpose:	checks if the char can drag the item
 //
+//##ModelId=3C5D93290157
 bool cChar::canPickUp(cItem* pi)
 {
 	if (!pi)
@@ -696,16 +728,18 @@ bool cChar::canPickUp(cItem* pi)
 	return true;
 }
 
+//##ModelId=3C5D93290201
 int cChar::MyHome()
 {
-	int h;
+/*	int h;
 	h=HouseManager->GetHouseNum(this);
 	if(h>=0)
 		if(House[h]->OwnerSerial==this->serial)
-			return h;
+			return h;*/
 	return -1;
 }
 
+//##ModelId=3C5D93260329
 void cChar::Serialize(ISerialization &archive)
 {
 	if (archive.isReading())
@@ -722,7 +756,9 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("dir",				dir);
 		archive.read("race",			race);
 		archive.read("body",			xid);	setId(xid);
-		archive.read("skin",			skin);	xskin = skin;
+		archive.read("xbody",			xid);
+		archive.read("skin",			skin);	
+		archive.read("xskin",           xskin);
 		archive.read("priv",			priv);
 		
 		archive.read("priv3a",			priv3[0]);
@@ -800,7 +836,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("spattack",		spattack);
 		archive.read("spadelay",		spadelay);
 		archive.read("taming",			taming);
-		archive.read("summonremainingseconds", summontimer);
+		archive.read("summontimer",		summontimer);
 		if (summontimer != 0)
 			summontimer += uiCurrentTime;
 		archive.read("advobj",			advobj);
@@ -812,7 +848,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.read("splitchance",		splitchnc);
 		// Begin of Guild related things (DasRaetsel)
 		archive.read("guildtoggle",		guildtoggle);  
-		archive.read("guildnumber",		guildnumber);  
+		archive.read("guildstone",		guildstone);  
 		archive.read("guildtitle",		guildtitle);  
 		archive.read("guildfealty",		guildfealty);  
 		archive.read("murderrate",		murderrate);
@@ -827,6 +863,8 @@ void cChar::Serialize(ISerialization &archive)
 			jailtimer += uiCurrentTime;
 		archive.read("jailsecs",		jailsecs); 
 		archive.read("gmrestrict",		gmrestrict); 
+		SetOwnSerial(ownserial);
+		SetSpawnSerial(spawnserial);
 	}
 	else if ( archive.isWritting())
 	{
@@ -958,7 +996,7 @@ void cChar::Serialize(ISerialization &archive)
 		archive.write("splitchance",	splitchnc);
 		// Begin of Guild related things (DasRaetsel)
 		archive.write("guildtoggle",	guildtoggle);  
-		archive.write("guildnumber",	guildnumber);  
+		archive.write("guildnumber",	guildstone);  
 		archive.write("guildtitle",		guildtitle);  
 		archive.write("guildfealty",	guildfealty);  
 		archive.write("murderrate",		murderrate);

@@ -33,16 +33,25 @@
 
 using namespace std;
 
+//##ModelId=3C5D92D00308
 void serTextFile::setVersion(unsigned int __version)
 {
 	_version = __version;
 }
 
+//##ModelId=3C5D92D002F3
 unsigned int serTextFile::getVersion()
 {
 	return _version;
 }
 
+//##ModelId=3C5D92D002FD
+unsigned int serTextFile::size()
+{
+	return _count;
+}
+
+//##ModelId=3C5D92D002B7
 void serTextFile::prepareReading(std::string ident)
 {
 	std::string fileName(ident);
@@ -50,9 +59,11 @@ void serTextFile::prepareReading(std::string ident)
 	file.open(fileName.c_str(), ios::in);
 	// First line in file is version
 	file >> _version;
+	file >> _count;
 	ISerialization::prepareReading(ident);
 }
 
+//##ModelId=3C5D92D002CB
 void serTextFile::prepareWritting(std::string ident)
 {
 	std::string fileName(ident);
@@ -60,59 +71,77 @@ void serTextFile::prepareWritting(std::string ident)
 	file.open(fileName.c_str(), ios::out);
 	// First line in file is version
 	file << _version << endl;
+	file << _count   << endl;
 	ISerialization::prepareWritting(ident);
 }
 
+//##ModelId=3C5D92D002DF
 void serTextFile::close()
 {
+	if ( isWritting() )
+	{
+		file.seekp(0, ios::beg);
+		file << _version << endl;
+		file << _count << endl;
+	}
 	file.close();
 }
 
 void serTextFile::writeObjectID(string data)
 {
 	file << "SECTION " << data << endl;
+	_count++;
 }
 
+//##ModelId=3C5D92D00339
 void serTextFile::write(std::string Key, std::string &data)
 {
 	file << Key << " " << data << endl;
 }
 
+//##ModelId=3C5D92D0034E
 void serTextFile::write(std::string Key, unsigned int data)
 {
 	file << Key << " " << data << endl;
 }
 
+//##ModelId=3C5D92D0036C
 void serTextFile::write(std::string Key, signed int data)
 {
 	file << Key << " " << data << endl;
 }
 
+//##ModelId=3C5D92D00394
 void serTextFile::write(std::string Key, signed short data)
 {
 	file << Key << " " << data << endl;
 }
 
+//##ModelId=3C5D92D1002E
 void serTextFile::write(std::string Key, unsigned short data)
 {
 	file << Key << " " << data << endl;
 }
 
+//##ModelId=3C5D92D1004C
 void serTextFile::write(std::string Key, unsigned char data)
 {
 	file << Key << " " << data << endl;
 }
 
+//##ModelId=3C5D92D100A6
 void serTextFile::write(std::string Key, signed char data)
 {
 	file << Key << " " << data << endl;
 }
 
+//##ModelId=3C5D92D100C4
 void serTextFile::write(std::string Key, bool data)
 {
 	file << Key << " " << data << endl;
 }
 
+//##ModelId=3C5D92D100E2
 void serTextFile::doneWritting()
 {
 
@@ -134,6 +163,7 @@ void serTextFile::read(std::string Key, string& data)
 	data = buffer;
 }
 
+//##ModelId=3C5D92D1013C
 void serTextFile::read(std::string Key, unsigned int  &data)
 {
 	char buffer[256];
@@ -141,6 +171,7 @@ void serTextFile::read(std::string Key, unsigned int  &data)
 	file >> data;
 }
 
+//##ModelId=3C5D92D1015A
 void serTextFile::read(std::string Key, signed   int  &data)
 {
 	char buffer[256];
@@ -148,6 +179,7 @@ void serTextFile::read(std::string Key, signed   int  &data)
 	file >> data;
 }
 
+//##ModelId=3C5D92D10196
 void serTextFile::read(std::string Key, signed short &data)
 {
 	char buffer[256];
@@ -155,6 +187,7 @@ void serTextFile::read(std::string Key, signed short &data)
 	file >> data;
 }
 
+//##ModelId=3C5D92D10178
 void serTextFile::read(std::string Key, unsigned short &data)
 {
 	char buffer[256];
@@ -162,6 +195,7 @@ void serTextFile::read(std::string Key, unsigned short &data)
 	file >> data;
 }
 
+//##ModelId=3C5D92D101B4
 void serTextFile::read(std::string Key, unsigned char &data)
 {
 	char buffer[256];
@@ -169,6 +203,7 @@ void serTextFile::read(std::string Key, unsigned char &data)
 	file >> data;
 }
 
+//##ModelId=3C5D92D101DC
 void serTextFile::read(std::string Key, signed   char &data)
 {
 	char buffer[256];
@@ -176,6 +211,7 @@ void serTextFile::read(std::string Key, signed   char &data)
 	file >> data;
 }
 
+//##ModelId=3C5D92D101F1
 void serTextFile::read(std::string Key, bool &data)
 {
 	char buffer[256];

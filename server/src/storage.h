@@ -53,38 +53,60 @@ using namespace std;
 // Class definition
 
 
+//##ModelId=3C5D92CB03AA
 template<class T> class Storage_cl
 {
 public:
+	//##ModelId=3C5D92CB03D2
 	Storage_cl();
+	//##ModelId=3C5D92CB03D3
 	~Storage_cl();
+	//##ModelId=3C5D92CB03DC
 	bool insert(T& cData, int serial);
+	//##ModelId=3C5D92CC000A
 	bool insert(T* ptrData, int serial);
+	//##ModelId=3C5D92CC0027
 	int Count(void);
+	//##ModelId=3C5D92CC003B
 	T* getPtr(int serial);
+	//##ModelId=3C5D92CC0046
 	T* Next(int &offset);
 	
+	//##ModelId=3C5D92CC0059
 	void remove(int serial);
+	//##ModelId=3C5D92CC006D
 	T* operator[](long index);
 	
 private:
+	//##ModelId=3C5D92CC00AB
 	map<int, T*> mapData;
+	//##ModelId=3C5D92CC00D2
 	map<int, T*>::iterator iterData;
+	//##ModelId=3C5D92CC0118
 	vector<int> indices;
 };
 
+//##ModelId=3C5D92CC0185
 class Container_cl
 {
 public:
+	//##ModelId=3C5D92CC01A3
 	Container_cl();
+	//##ModelId=3C5D92CC01AD
 	~Container_cl();
+	//##ModelId=3C5D92CC01B7
 	bool insert(SERIAL serContainer, SERIAL serObject);
+	//##ModelId=3C5D92CC01CB
 	vector<SERIAL> getData(SERIAL serContainer);
+	//##ModelId=3C5D92CC01DF
 	bool find(SERIAL serContainer, SERIAL serObject);
+	//##ModelId=3C5D92CC01F3
 	bool remove(SERIAL serContainer, SERIAL serObject);
 	
 private:
+	//##ModelId=3C5D92CC023A
 	multimap<SERIAL, SERIAL> mapData;
+	//##ModelId=3C5D92CC0262
 	multimap<SERIAL, SERIAL>::iterator iterData;
 };
 

@@ -47,6 +47,7 @@ static inline void _do_target(int s, TARGET_S *ts) {
 
 /* extensively modified 8/2/99 crackerjack@crackerjack.net -
  * see cmdtable.cpp for more details */
+//##ModelId=3C5D92FA0221
 void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' command like /ADD
 {
 	int i=9;
@@ -260,6 +261,7 @@ void cCommands::Command(UOXSOCKET s, string speech) // Client entred a '/' comma
 	sysmessage(s, "BUG: Should never reach end of command() function!");
 }
 
+//##ModelId=3C5D92FA0005
 mstring cCommands::GetAllParams(void)
 {
 	string::size_type pos = 0;
@@ -274,6 +276,7 @@ mstring cCommands::GetAllParams(void)
 }
 
 
+//##ModelId=3C5D92FA023F
 void cCommands::MakeShop(P_CHAR pc_c)
 {
 	if ( pc_c == NULL ) return;
@@ -315,6 +318,7 @@ void cCommands::MakeShop(P_CHAR pc_c)
 	}
 }
 
+//##ModelId=3C5D92FA0019
 void cCommands::NextCall(int s, int type)
 {
 	// Type is the same as it is in showgmqueue()
@@ -396,6 +400,7 @@ void cCommands::NextCall(int s, int type)
 	}// if
 }
 
+//##ModelId=3C5D92FA0037
 void cCommands::KillSpawn(int s, int r)  //courtesy of Revana
 {
 	int killed=0;
@@ -439,6 +444,7 @@ void cCommands::KillSpawn(int s, int r)  //courtesy of Revana
 	sysmessage(s, temp);
 }
 
+//##ModelId=3C5D92FA0055
 void cCommands::RegSpawnMax (int s, int r) // rewrite LB
 {
 	int i, spawn;
@@ -468,6 +474,7 @@ void cCommands::RegSpawnMax (int s, int r) // rewrite LB
 	if (temps!=NULL) delete [] temps;
 }
 
+//##ModelId=3C5D92FA00A5
 void cCommands::RegSpawnNum (int s, int r, int n) // rewrite by LB
 {
 	int i, spawn=0;
@@ -502,6 +509,7 @@ void cCommands::RegSpawnNum (int s, int r, int n) // rewrite by LB
 
 }//regspawnnum
 
+//##ModelId=3C5D92FA00CD
 void cCommands::KillAll(int s, int percent, const char* sysmsg)
 {
 	sysmessage(s,"Killing all characters, this may cause some lag...");
@@ -530,6 +538,7 @@ void cCommands::KillAll(int s, int percent, const char* sysmsg)
 //o---------------------------------------------------------------------------o
 //|   Purpose     -  
 //o---------------------------------------------------------------------------o
+//##ModelId=3C5D92FA0177
 void cCommands::CPage(int s, char *reason) // Help button (Calls Counselor Call Menus up)
 {
 	int i, x;
@@ -592,6 +601,7 @@ void cCommands::CPage(int s, char *reason) // Help button (Calls Counselor Call 
 //o---------------------------------------------------------------------------o
 //|   Purpose     :  Help button (Calls GM Call Menus up)
 //o---------------------------------------------------------------------------o
+//##ModelId=3C5D92FA01DB
 void cCommands::GMPage(int s, char *reason)
 {
 	int i, x = 0;
@@ -645,6 +655,7 @@ void cCommands::GMPage(int s, char *reason)
 	}
 }
 
+//##ModelId=3C5D92FA0254
 void cCommands::DyeItem(int s) // Rehue an item
 {
 	int body,c1,c2,b,k;
@@ -709,6 +720,7 @@ void cCommands::DyeItem(int s) // Rehue an item
 }
 
 
+//##ModelId=3C5D92FA0268
 void cCommands::SetItemTrigger(int s)
 {
 	int serial;
@@ -723,6 +735,7 @@ void cCommands::SetItemTrigger(int s)
   }
 }
 
+//##ModelId=3C5D92FA0286
 void cCommands::SetTriggerType(int s)
 {
 	int serial;
@@ -737,6 +750,7 @@ void cCommands::SetTriggerType(int s)
   }
 }
 
+//##ModelId=3C5D92FA029A
 void cCommands::SetTriggerWord(int s)
 {
 	int serial;
@@ -751,6 +765,7 @@ void cCommands::SetTriggerWord(int s)
   }
 }
 
+//##ModelId=3C5D92FA00F5
 void cCommands::AddHere(int s, char z)
 {
 	bool pileable = false;
@@ -776,6 +791,7 @@ void cCommands::AddHere(int s, char z)
 }
 
 
+//##ModelId=3C5D92FA02AE
 void cCommands::SetNPCTrigger(int s)
 {
 	SERIAL serial = calcserial(buffer[s][7],buffer[s][8],buffer[s][9],buffer[s][10]);
@@ -793,6 +809,7 @@ void cCommands::SetNPCTrigger(int s)
 }
 
 
+//##ModelId=3C5D92FA014F
 void cCommands::WhoCommand(int s, int type,int buttonnum)
 {
 	char sect[512];
@@ -914,6 +931,7 @@ void cCommands::WhoCommand(int s, int type,int buttonnum)
 	}
 }
 
+//##ModelId=3C5D92FA01F9
 void cCommands::MakePlace(int s, int i) // Decode a teleport location number into X/Y/Z
 {
 	int x = 0, y = 0, z = 0, loopexit = 0;
@@ -947,6 +965,7 @@ void cCommands::MakePlace(int s, int i) // Decode a teleport location number int
 }
 
 
+//##ModelId=3C5D92FA02C2
 void cCommands::DupeItem(int s, P_ITEM pi_target, int amount)
 {
 	P_CHAR pc_currchar = currchar[s];
@@ -972,6 +991,7 @@ void cCommands::DupeItem(int s, P_ITEM pi_target, int amount)
 	RefreshItem(pi_c);//AntiChrist
 }
 
+//##ModelId=3C5D92FA011D
 void cCommands::ShowGMQue(int s, int type) // Shows next unhandled call in the GM queue
 {
 	
@@ -1042,6 +1062,7 @@ void cCommands::ShowGMQue(int s, int type) // Shows next unhandled call in the G
 // new wipe function, basically it prints output on the console when someone wipes so that
 // if a malicious GM wipes the world you know who to blame
 
+//##ModelId=3C5D92FA013B
 void cCommands::Wipe(int s)
 {
 	P_CHAR pc_currchar = currchar[s];
@@ -1062,6 +1083,7 @@ void cCommands::Wipe(int s)
 	sysbroadcast("All items have been wiped."); 
 }
 
+//##ModelId=3C5D92FA02EA
 void cCommands::Possess(int s) 
 {
 /*	P_CHAR pPos = FindCharBySerPtr(buffer[s]+7);	// char to posess

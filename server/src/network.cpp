@@ -49,6 +49,7 @@ static int m_packetLen[256];
 #define ACCOUNT_WIPE -6
 
 
+//##ModelId=3C5D92D703BC
 cNetworkStuff::cNetworkStuff() // Initialize sockets
 {
 //    sockInit();
@@ -116,6 +117,7 @@ cNetworkStuff::cNetworkStuff() // Initialize sockets
 }
 
 
+//##ModelId=3C5D92D9027E
 void cNetworkStuff::DoStreamCode(UOXSOCKET s)
 { 
 	int status ;
@@ -157,6 +159,7 @@ void cNetworkStuff::FlushBuffer(int s) // Sends buffered data at once
 	}
 }
 
+//##ModelId=3C5D92D80092
 void cNetworkStuff::ClearBuffers() // Sends ALL buffered data
 {
 	int i;
@@ -370,6 +373,7 @@ void cNetworkStuff::LoginMain(int s)
 }
 
 
+//##ModelId=3C5D92D902C4
 void cNetworkStuff::Login2(int s)
 {
 	unsigned long int i;
@@ -405,6 +409,7 @@ void cNetworkStuff::Login2(int s)
 	}
 }
 
+//##ModelId=3C5D92D902E2
 void cNetworkStuff::Relay(int s) // Relay player to a certain IP
 {
 	unsigned long int ip;
@@ -425,6 +430,7 @@ void cNetworkStuff::Relay(int s) // Relay player to a certain IP
 	Xsend(s, login03, 11);
 }
 
+//##ModelId=3C5D92D90300
 void cNetworkStuff::GoodAuth(int s)
 {
 	int tlen;
@@ -490,6 +496,7 @@ void cNetworkStuff::GoodAuth(int s)
 	//Instalog really necessary?
 }
 
+//##ModelId=3C5D92D9033C
 void cNetworkStuff::CharList(int s) // Gameserver login and character listing
 {
 	signed long int i;
@@ -527,6 +534,7 @@ void cNetworkStuff::CharList(int s) // Gameserver login and character listing
 		GoodAuth(s);
 }
 
+//##ModelId=3C5D92D903C9
 void cNetworkStuff::pSplit (char *pass0) // Split login password into Wolfpack password and UO password
 {
 	int i,loopexit=0;
@@ -538,6 +546,7 @@ void cNetworkStuff::pSplit (char *pass0) // Split login password into Wolfpack p
 	if (pass0[i]!=0) strcpy(pass2, pass0+i+1);
 }
 
+//##ModelId=3C5D92D9031E
 void cNetworkStuff::charplay (int s) // After hitting "Play Character" button //Instalog
 {
 	int j;
@@ -731,6 +740,7 @@ void cNetworkStuff::startchar(int s) // Send character startup stuff to player
 }
 
 //Boats->added multi checking to instalog.
+//##ModelId=3C5D92D903AB
 char cNetworkStuff::LogOut(int s)//Instalog
 {
 	P_CHAR pc_currchar = currchar[s];
@@ -803,6 +813,7 @@ char cNetworkStuff::LogOut(int s)//Instalog
 // parameters : x = # of bytes
 //            : a = buffer offset
 
+//##ModelId=3C5D92D9035A
 int cNetworkStuff::Receive(int s, int x, int a) // Old socket receive function (To be replaced soon)
 {   
 	int count,loopexit=0;
@@ -826,6 +837,7 @@ int cNetworkStuff::Receive(int s, int x, int a) // Old socket receive function (
 	return count;
 }
 
+//##ModelId=3C5D92D903DD
 void cNetworkStuff::sockInit()
 {
 	int bcode;
@@ -918,6 +930,7 @@ void cNetworkStuff::sockInit()
 }
 
 
+//##ModelId=3C5D92D800C4
 void cNetworkStuff::SockClose () // Close all sockets for shutdown
 {
 	int i;
@@ -925,6 +938,7 @@ void cNetworkStuff::SockClose () // Close all sockets for shutdown
 	for (i=0;i<MAXCLIENT;i++) closesocket(client[i]);
 }
 
+//##ModelId=3C5D92D8009C
 void cNetworkStuff::CheckConn() // Check for connection requests
 {
 	int s;
@@ -1015,6 +1029,7 @@ void cNetworkStuff::CheckConn() // Check for connection requests
 	}
 }
 
+//##ModelId=3C5D92D800B0
 void cNetworkStuff::CheckMessage() // Check for messages from the clients
 {
 	int s, i, oldnow;
@@ -1096,6 +1111,7 @@ static unsigned int bit_table[257][2] =
 
 };
 
+//##ModelId=3C5D92D90292
 int cNetworkStuff::Pack(void *pvIn, void *pvOut, int len)
 {
 	unsigned char *pIn = (unsigned char *)pvIn;
@@ -1147,6 +1163,7 @@ int cNetworkStuff::Pack(void *pvIn, void *pvOut, int len)
 	return actByte;
 }
 
+//##ModelId=3C5D92D9038D
 void cNetworkStuff::GetMsg(int s) // Receive message from client 
 {
 	int count, j, serial, length, dyn_length, loopexit=0, fb;
@@ -1809,6 +1826,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 
 }
 
+//##ModelId=3C5D92D90260
 signed long cNetworkStuff::Authenticate( const char *username, const char *pass )
 {
 	// We want case sensitive password/usernames
@@ -1816,6 +1834,7 @@ signed long cNetworkStuff::Authenticate( const char *username, const char *pass 
 	return Accounts->Authenticate(dummyusername, dummypass);
 }
 
+//##ModelId=3C5D92D80100
 void cNetworkStuff::LoadHosts_deny(void)
 {
 	unsigned long loopexit = 0;
@@ -1871,6 +1890,7 @@ void cNetworkStuff::LoadHosts_deny(void)
 	closescript();	
 }
 
+//##ModelId=3C5D92D801AA
 bool cNetworkStuff::CheckForBlockedIP(sockaddr_in ip_address)
 {
 	unsigned int i;
@@ -1881,6 +1901,7 @@ bool cNetworkStuff::CheckForBlockedIP(sockaddr_in ip_address)
 	return false;
 }
 
+//##ModelId=3C5D92D8020F
 void cNetworkStuff::SendUOX3(UOXSOCKET s, void *point, int length, int test)
 {
 	// clConsole.send("xSend [%i] with %i -> ", s, length);
@@ -1895,6 +1916,7 @@ void cNetworkStuff::SendUOX3(UOXSOCKET s, void *point, int length, int test)
 
 }
 
+//##ModelId=3C5D92D80241
 void cNetworkStuff::SendOSI(UOXSOCKET s, void *point, int length, int test)
 {	
 	memcpy(&outbuffer[s][boutlength[s]], point, length);
@@ -1902,6 +1924,7 @@ void cNetworkStuff::SendOSI(UOXSOCKET s, void *point, int length, int test)
 	FlushBuffer(s);
 }
 
+//##ModelId=3C5D92D80269
 void cNetworkStuff::SendSMARTWOLF(UOXSOCKET s, void *point, int length, int test)
 {	
 	clConsole.send("SMARTWOLF PacketSendStyle not implementined, using UOX3 Style");
@@ -1911,6 +1934,7 @@ void cNetworkStuff::SendSMARTWOLF(UOXSOCKET s, void *point, int length, int test
 
 // LB 1'st Sept 2001
 // Heart of sychrounous-send
+//##ModelId=3C5D92D8029B
 void cNetworkStuff::CountPackets(UOXSOCKET s, int &numpackets, long int & offsettolastfullpacket, bool & dataerror)
 {
 	int buff_len = boutlength[s];
@@ -1979,6 +2003,7 @@ void cNetworkStuff::CountPackets(UOXSOCKET s, int &numpackets, long int & offset
   
 }
 
+//##ModelId=3C5D92D802C3
 bool cNetworkStuff::CheckPacket(UOXSOCKET s, unsigned char packetnumber, int length, unsigned long int offset)
 {
 	bool ok=true;
@@ -2005,6 +2030,7 @@ bool cNetworkStuff::CheckPacket(UOXSOCKET s, unsigned char packetnumber, int len
 // when we have erros in send, i.g synch error, lets try to fire an error message to client before disconnecting
 // of course xsend can't be used, because it's called for erorrs IN xsend.
  
+//##ModelId=3C5D92D901F3
 void cNetworkStuff::SendGoodByeMessageRaw(UOXSOCKET s)
 {
   

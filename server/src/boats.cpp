@@ -141,6 +141,7 @@ bool inmulti(Coord_cl pos, P_ITEM pi)//see if they are in the multi at these cho
 	return false;
 }
 
+//##ModelId=3C5D932E0013
 void cBoat::PlankStuff(UOXSOCKET s, P_ITEM pi_plank)//If the plank is opened, double click Will send them here
 {
 	P_CHAR pc_cs,pc_b;
@@ -268,6 +269,7 @@ void cBoat::LeaveBoat(UOXSOCKET s, P_ITEM pi_plank)//Get off a boat (dbl clicked
 	sysmessage(s,"You cannot get off here!");
 }
 
+//##ModelId=3C5D932D0397
 void cBoat::OpenPlank(P_ITEM pi_p)//Open, or close the plank (called from keytarget() )
 {
 	switch(pi_p->id2)
@@ -444,6 +446,7 @@ bool cBoat::Build(UOXSOCKET s, P_ITEM pBoat, char id2)//Build a boat! (Do stuff 
 	return true;
 }
 
+//##ModelId=3C5D932D017B
 P_ITEM cBoat::GetBoat(P_CHAR pcc_cs)//get the closest boat to the player and check to make sure they are on it
 {	
 	
@@ -476,6 +479,7 @@ P_ITEM cBoat::GetBoat(P_CHAR pcc_cs)//get the closest boat to the player and che
 // it doesnt check against dynamics yet, especially against other ships.
 // hopefully coming soon
 
+//##ModelId=3C5D932D0102
 bool cBoat::Block(P_ITEM pBoat, short int xmove, short int ymove, int dir)//Check to see if the boat is blocked in front of, behind, or next to it (Depending on direction)
 // PARAM WARNING: xmove and ymove is unreferenced
 {
@@ -725,6 +729,7 @@ void cBoat::Move(UOXSOCKET s, int dir, P_ITEM pBoat)
 	Xsend(s,restart,2);
 }
 
+//##ModelId=3C5D932D0134
 void cBoat::TurnStuff(P_ITEM pBoat, P_CHAR pc_i, int dir)//Turn an item that was on the boat when the boat was turned.
 {
 	if (pc_i == NULL) 
@@ -752,6 +757,7 @@ void cBoat::TurnStuff(P_ITEM pBoat, P_CHAR pc_i, int dir)//Turn an item that was
 	teleport((pc_i));
 }
 
+//##ModelId=3C5D932D015C
 void cBoat::TurnStuff(P_ITEM pBoat, P_ITEM pi, int dir)//Turn an item that was on the boat when the boat was turned.
 {
 	int dx = pi->pos.x - pBoat->pos.x;//get their distance x
@@ -773,6 +779,7 @@ void cBoat::TurnStuff(P_ITEM pBoat, P_ITEM pi, int dir)//Turn an item that was o
 	sendinrange(pi);
 }
 
+//##ModelId=3C5D932E0122
 void cBoat::Turn(P_ITEM pBoat, int turn)//Turn the boat item, and send all the people/items on the boat to turnboatstuff()
 {
 	if (pBoat == NULL) return; 

@@ -116,7 +116,7 @@ void RcvAttack(P_CLIENT ps)
 
 		if (pc_i->inGuardedArea() && SrvParms->guardsactive)
 		{
-			if (pc_i->isPlayer() && pc_i->isInnocent() && Guilds->Compare( pc_currchar, pc_i )==0) //REPSYS
+			if (pc_i->isPlayer() && pc_i->isInnocent() && GuildCompare( pc_currchar, pc_i )==0) //REPSYS
 			{
 				criminal( pc_currchar );
 				Combat->SpawnGuard(pc_currchar, pc_i ,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
@@ -162,7 +162,7 @@ void RcvAttack(P_CLIENT ps)
 		{
 			if (pc_i->isInnocent())
 			{
-				if (pc_i->isPlayer() && Guilds->Compare( pc_currchar, pc_i )==0)
+				if (pc_i->isPlayer() && GuildCompare( pc_currchar, pc_i )==0)
 				{
 					criminal( pc_currchar );
 				}

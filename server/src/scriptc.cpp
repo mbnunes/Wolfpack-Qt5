@@ -70,6 +70,7 @@ char get_modification_date(const char *filename, time_t* mod_time)
     return 1;
 }
 
+//##ModelId=3C5D92D200BC
 bool Script::preload()	// load the complete script into memory (Duke,6.1.2001)
 {
     FILE *fp;
@@ -101,6 +102,7 @@ bool Script::preload()	// load the complete script into memory (Duke,6.1.2001)
 
 }
 
+//##ModelId=3C5D92D200CF
 void Script::reload()
 {
 	if(flags & SCP_PRELOADABLE)
@@ -113,6 +115,7 @@ void Script::reload()
 }
 
 #if 1
+//##ModelId=3C5D92D200ED
 void Script::MakeIndexForFile()
 {
 	FILE *fp;
@@ -285,6 +288,7 @@ void Script::MakeIndexForFile()
 }
 #endif
 
+//##ModelId=3C5D92D200F7
 void Script::MakeIndexForMem()
 {
     char section_name[256];
@@ -324,6 +328,7 @@ void Script::MakeIndexForMem()
 }
 
 // Parse this script, caching section positions
+//##ModelId=3C5D92D103D1
 Script::Script(const char *_filename, short _flags)
 {
 	flags = _flags;
@@ -335,6 +340,7 @@ Script::Script(const char *_filename, short _flags)
     reload();
 }
 
+//##ModelId=3C5D92D103E5
 Script::~Script()
 {
 	if ( filename != NULL )
@@ -342,6 +348,7 @@ Script::~Script()
 }
 
 // Look for that section in this previously parsed script file
+//##ModelId=3C5D92D2009D
 char Script::find(const char *section) {
     time_t current;
     
@@ -367,6 +374,7 @@ char Script::find(const char *section) {
     return 1;
 }
 
+//##ModelId=3C5D92D20007
 bool Script::Open()
 {
 	if (flags & SCP_PRELOADED)
@@ -378,6 +386,7 @@ bool Script::Open()
 	return true;
 }
 
+//##ModelId=3C5D92D20012
 Script* Script::Select(char* sect, short custom)
 {
 	Script * pScp;
@@ -398,6 +407,7 @@ Script* Script::Select(char* sect, short custom)
 	return NULL;
 }
 
+//##ModelId=3C5D92D20061
 scpMark Script::Suspend()
 {
 	scpMark pos;
@@ -409,6 +419,7 @@ scpMark Script::Suspend()
 	return pos;
 }
 
+//##ModelId=3C5D92D20062
 void Script::Resume(scpMark mark)
 {
 	this->Open();
@@ -418,6 +429,7 @@ void Script::Resume(scpMark mark)
 		fseek(scpfile, mark, SEEK_SET);
 }
 
+//##ModelId=3C5D92D200D9
 bool Script::ReadMemLine()	// 
 {
 	char *p=curmempos;
@@ -451,6 +463,7 @@ bool Script::ReadMemLine()	//
 	return true;
 }
 
+//##ModelId=3C5D92D20075
 bool Script::NextLine()
 {
 	if (flags & SCP_PRELOADED)
@@ -465,6 +478,7 @@ bool Script::NextLine()
 	return true;
 }
 
+//##ModelId=3C5D92D2007F
 void Script::NextLineSplitted()
 {
 	if (flags & SCP_PRELOADED)
@@ -490,6 +504,7 @@ void Script::NextLineSplitted()
 
 
 // Look for that section in this previously parsed script file
+//##ModelId=3C5D92D200B1
 char Script::isin(const char *section) {
     time_t current;
     

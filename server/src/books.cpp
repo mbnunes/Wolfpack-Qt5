@@ -41,17 +41,20 @@
 #undef DBGFILE
 #define DBGFILE "books.cpp"
 
+//##ModelId=3C5D932C02C4
 cBooks::cBooks()//Constructor
 {
 	return;
 }
 
+//##ModelId=3C5D932C0378
 cBooks::~cBooks()//Destructor
 {
 
 }
 
 // opens old (readonly) books == old, bugfixed readbook function
+//##ModelId=3C5D932C02CE
 void cBooks::openbook_old(UOXSOCKET s, P_ITEM pBook)
 {
 	unsigned char bookopen[10]="\x93\x40\x01\x02\x03\x00\x00\x00\x02"; //LB 7'th dec 1999, making it client 1.26 complaint
@@ -100,6 +103,7 @@ void cBooks::openbook_old(UOXSOCKET s, P_ITEM pBook)
 // opens new books
 // writeable 1 -> open new books in writable mode
 //           0 -> open new books in readonly mode
+//##ModelId=3C5D932C02E2
 void cBooks::openbook_new(UOXSOCKET s, P_ITEM pBook, char writeable)
 {
 	unsigned char bookopen[10]= "\x93\x40\x01\x02\x03\x01\x01\x00\x02"; //LB 7'th dec 1999, making it client 1.26 complaint
@@ -209,6 +213,7 @@ void cBooks::openbook_new(UOXSOCKET s, P_ITEM pBook, char writeable)
 }
 
 // sends a page of new readonly book to the client
+//##ModelId=3C5D932C031F
 void cBooks::readbook_readonly(UOXSOCKET s, P_ITEM pBook, int p) 
 {
 
@@ -258,6 +263,7 @@ void cBooks::readbook_readonly(UOXSOCKET s, P_ITEM pBook, int p)
 
 
 // old readbook function
+//##ModelId=3C5D932C0300
 void cBooks::readbook_readonly_old(UOXSOCKET s, P_ITEM pBook, int p)
 {
 	int x, y, pos, j;
@@ -323,6 +329,7 @@ void cBooks::readbook_readonly_old(UOXSOCKET s, P_ITEM pBook, int p)
 }
 
 // writes changes to a writable book to the bok file.		
+//##ModelId=3C5D932C033D
 void cBooks::readbook_writeable(UOXSOCKET s, P_ITEM pBook, int p, int l)
 {
 	int ii=0,lines_processed=0,lin=0;
@@ -357,6 +364,7 @@ void cBooks::readbook_writeable(UOXSOCKET s, P_ITEM pBook, int p, int l)
 // PRE: packets 0x93 needs to be send by client BEFORE its called. 
 // (and its data copied to the authorbuffer)
 
+//##ModelId=3C5D932C0025
 void cBooks::write_author(P_ITEM pBook,UOXSOCKET s)
 {
 	FILE *file = NULL;
@@ -403,6 +411,7 @@ void cBooks::write_author(P_ITEM pBook,UOXSOCKET s)
 }
 
 
+//##ModelId=3C5D932C0043
 void cBooks::write_title(P_ITEM pBook,UOXSOCKET s)
 {
 	FILE *file;
@@ -449,6 +458,7 @@ void cBooks::write_title(P_ITEM pBook,UOXSOCKET s)
 	file = NULL;
 }
 
+//##ModelId=3C5D932C0061
 void cBooks::write_line(P_ITEM pBook, int page, int line, char linestr[34], UOXSOCKET s)
 {
 	
@@ -496,6 +506,7 @@ void cBooks::write_line(P_ITEM pBook, int page, int line, char linestr[34], UOXS
 	file = NULL;
 }
 
+//##ModelId=3C5D932C0094
 void cBooks::read_author(P_ITEM pBook,char auth[31])
 {
 	
@@ -535,6 +546,7 @@ void cBooks::read_author(P_ITEM pBook,char auth[31])
 }
 
 	
+//##ModelId=3C5D932C00E3
 void cBooks::read_title(P_ITEM pBook,char title[61])
 {
 	FILE *file;
@@ -572,6 +584,7 @@ void cBooks::read_title(P_ITEM pBook,char title[61])
 	file = NULL;
 }
 
+//##ModelId=3C5D932C0101
 int cBooks::read_number_of_pages(P_ITEM pBook)
 {
 	FILE *file;
@@ -617,6 +630,7 @@ int cBooks::read_number_of_pages(P_ITEM pBook)
 	
 
 // page+linumber=1 indexed ! (as returned from client)
+//##ModelId=3C5D932C0115
 void cBooks::read_line(P_ITEM pBook, int page,int linenumber, char line[33])
 {
 	FILE *file;
@@ -654,6 +668,7 @@ void cBooks::read_line(P_ITEM pBook, int page,int linenumber, char line[33])
 	file = NULL;
 }
 
+//##ModelId=3C5D932C0364
 void cBooks::delete_bokfile(P_ITEM pBook)
 {
 	char fileName[13];    
@@ -664,6 +679,7 @@ void cBooks::delete_bokfile(P_ITEM pBook)
 // "Formats" a newly created book-file
 // This NEEDS to be done with ANY new book file.
 // 
+//##ModelId=3C5D932C0179
 signed char cBooks::make_new_book_file(char *fileName, P_ITEM pBook)
 {
 	FILE *file;

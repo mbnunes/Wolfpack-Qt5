@@ -44,8 +44,10 @@ public:
 };
 */
 
+//##ModelId=3C5D932F03CC
 struct max_serialPred : binary_function<pair<SERIAL, cChar*>, pair<SERIAL, cChar*>, bool>
 {
+	//##ModelId=3C5D93300201
 	bool operator()(pair<SERIAL,cChar*> a, pair<SERIAL,cChar*> b)
 	{
 		return a.first < b.first;
@@ -60,6 +62,7 @@ struct max_serialPred : binary_function<pair<SERIAL, cChar*>, pair<SERIAL, cChar
  *
  * @return void  : none
  */
+//##ModelId=3C5D931103DD
 void cCharsManager::registerChar(cChar* pc) throw(wp_exceptions::bad_ptr)
 {
 	if ( pc != NULL)
@@ -81,6 +84,7 @@ void cCharsManager::registerChar(cChar* pc) throw(wp_exceptions::bad_ptr)
  *
  * @return void  : none
  */
+//##ModelId=3C5D93120031
 void cCharsManager::unregisterChar(cChar* pc) throw(wp_exceptions::bad_ptr)
 {
 	if ( pc != NULL)
@@ -97,6 +101,7 @@ void cCharsManager::unregisterChar(cChar* pc) throw(wp_exceptions::bad_ptr)
  *
  * @return SERIAL  : Valid serial number
  */
+//##ModelId=3C5D93120045
 SERIAL cCharsManager::getUnusedSerial() const
 {
 //	typedef maxKeyPred<SERIAL, cChar*> max_serialPred;
@@ -113,6 +118,7 @@ SERIAL cCharsManager::getUnusedSerial() const
  *
  * @return void  : none
  */
+//##ModelId=3C5D9312004F
 void cCharsManager::deleteChar(cChar* pc) throw(wp_exceptions::bad_ptr)
 {
 	if ( pc != NULL)
@@ -132,6 +138,7 @@ void cCharsManager::deleteChar(cChar* pc) throw(wp_exceptions::bad_ptr)
  *
  * @return void  : none
  */
+//##ModelId=3C5D93120063
 void cCharsManager::purge()
 {
 	list<cChar*>::iterator it;

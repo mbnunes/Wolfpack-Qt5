@@ -36,18 +36,21 @@
 #undef DBGFILE
 #define DBGFILE "accounts.cpp"
 
+//##ModelId=3C5D932F01AF
 cAccount::cAccount(void)
 {
 	unsavedaccounts = 0;
 	saveratio = 0;         // Save everyaccount
 }
 
+//##ModelId=3C5D932F01B9
 cAccount::~cAccount(void)
 {
 	if (unsavedaccounts > 0)
 		SaveAccounts();
 }
 
+//##ModelId=3C5D932F015F
 void cAccount::LoadAccount( int acctnumb )
 {
 	unsigned long loopexit=0;
@@ -72,11 +75,13 @@ void cAccount::LoadAccount( int acctnumb )
 	lasttimecheck = uiCurrentTime;
 }
 
+//##ModelId=3C5D932F0282
 int cAccount::Count()
 {
 	return acctlist.size();
 }
 
+//##ModelId=3C5D932F0246
 void cAccount::LoadAccounts( void )
 {
 	int b,c,ac, account,loopexit=0;
@@ -116,6 +121,7 @@ void cAccount::LoadAccounts( void )
 	closescript();	
 }
 
+//##ModelId=3C5D932F025A
 void cAccount::SaveAccounts( void )
 {
 	map<string, account_st>::iterator iter_account;
@@ -151,6 +157,7 @@ void cAccount::SaveAccounts( void )
 	return;
 }
 
+//##ModelId=3C5D932F028C
 bool cAccount::RemoteAdmin(int acctnum)
 {
 	if (acctnum < 0)
@@ -168,6 +175,7 @@ bool cAccount::RemoteAdmin(int acctnum)
 }
 	
 
+//##ModelId=3C5D932F02A0
 signed int cAccount::Authenticate(string username, string password)
 {
 	account_st account;
@@ -188,6 +196,7 @@ signed int cAccount::Authenticate(string username, string password)
 		return LOGIN_NOT_FOUND;
 }
 
+//##ModelId=3C5D932F02C8
 unsigned int cAccount::CreateAccount(string username, string password)
 {
 	lastusedacctnum++;
@@ -204,6 +213,7 @@ unsigned int cAccount::CreateAccount(string username, string password)
 	return account.number;
 }
 
+//##ModelId=3C5D932F026E
 void cAccount::CheckAccountFile(void)
 {
 
@@ -220,6 +230,7 @@ void cAccount::CheckAccountFile(void)
 
 }
 
+//##ModelId=3C5D932F01E2
 bool cAccount::IsOnline( int acctnum )
 {
 	if (acctnum < 0)
@@ -240,6 +251,7 @@ bool cAccount::IsOnline( int acctnum )
 		return false;
 }
 
+//##ModelId=3C5D932F01F6
 SERIAL cAccount::GetInWorld( int acctnum )
 {
 	if (acctnum < 0)
@@ -261,6 +273,7 @@ void cAccount::SetOnline( int acctnum, SERIAL serial)
 	acctman.insert(make_pair(acctnum, dummy));
 }
 
+//##ModelId=3C5D932F0228
 void cAccount::SetOffline( int acctnum )
 {
 	map<int, acctman_st>::iterator iter_acctman;
@@ -271,6 +284,7 @@ void cAccount::SetOffline( int acctnum )
 
 }
 
+//##ModelId=3C5D932F02E6
 bool cAccount::ChangePassword(unsigned int number, string password)
 {
 

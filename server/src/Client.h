@@ -45,21 +45,31 @@
 // Forward Class declaration
 class cChar;
 
+//##ModelId=3C5D92F60398
 class cClient  
 {
 protected:
+	//##ModelId=3C5D92F603C0
 	int		socket;
 //	bool	dragging;
 public:
+	//##ModelId=3C5D92F603D4
 	explicit cClient(int s);
+	//##ModelId=3C5D92F70000
 	~cClient();
+	//##ModelId=3C5D92F70001
 	UOXSOCKET GetSocket();
+	//##ModelId=3C5D92F7000A
 	cChar* getPlayer();
+	//##ModelId=3C5D92F70014
 	bool IsDragging();
+	//##ModelId=3C5D92F70028
 	void SetDragging();
+	//##ModelId=3C5D92F70032
 	void ResetDragging();
 };
 
+//##ModelId=3C5D92F7003C
 typedef cClient* P_CLIENT;
 
 #endif // !defined(AFX_CLIENT_H__34C6E2C3_782D_4442_A4CC_8EC2B7DDD228__INCLUDED_)

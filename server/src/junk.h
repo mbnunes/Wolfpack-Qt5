@@ -67,7 +67,6 @@ extern cAccount			*Accounts;
 extern cAdmin			*Admin;
 extern cCombat			*Combat;
 extern cCommands		*Commands;
-extern cGuilds			*Guilds;
 extern cGump			*Gumps;
 extern cAllItems		*Items;
 extern cMapStuff		*Map;

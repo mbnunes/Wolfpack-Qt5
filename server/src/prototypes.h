@@ -43,7 +43,7 @@ void endScrn() ;
 void updatehtml();
 void offlinehtml();
 
-bool ishouse(int id1, int id2);
+bool ishouse(unsigned short);
 
 //Boats --Fucntions in Boats.cpp
 void sendinrange(P_ITEM pi);
@@ -93,7 +93,6 @@ int SpawnFishingItem(int nCharID,int nInPack, char* cScript, char* cList, char* 
 
 //int checkweight2(int s);
 int check_house_decay();
-bool ishouse(P_ITEM);
 void cleanup(int s);
 void titletarget(int s);
 int ishuman(P_CHAR pc);

@@ -32,6 +32,7 @@
 #include "wolfpack.h"
 #include "races.h"
 
+//##ModelId=3C5D92D503D7
 void cRaces::LoadRaceFile()
 {
 	int racecount = 0;
@@ -156,6 +157,7 @@ void cRaces::LoadRaceFile()
 	fclose(wscfile);
 }
 
+//##ModelId=3C5D92D503E1
 void cRaces::SetRace(P_CHAR pc, int race)
 {
 	int so = calcSocketFromChar(pc);
@@ -275,6 +277,7 @@ void cRaces::SetRace(P_CHAR pc, int race)
 	teleport(pc);
 }
 
+//##ModelId=3C5D92D60035
 int cRaces::RandomHairStyle()
 {
 	switch( RandomNum(0,9) )
@@ -293,6 +296,7 @@ int cRaces::RandomHairStyle()
 	}
 }
 
+//##ModelId=3C5D92D6003F
 int cRaces::RandomBeardStyle()
 {
 	switch( RandomNum(0,7) )
@@ -309,6 +313,7 @@ int cRaces::RandomBeardStyle()
 	}
 }
 
+//##ModelId=3C5D92D60017
 int cRaces::CheckRelation(P_CHAR pc_1, P_CHAR pc_2)
 {
 	if(pc_1 == pc_2)
@@ -330,6 +335,7 @@ int cRaces::CheckRelation(P_CHAR pc_1, P_CHAR pc_2)
 	return 3;
 }
 
+//##ModelId=3C5D92D5028C
 bool cRace::CheckSkillUse(int skillnum)
 {
 	unsigned int skillcount;
@@ -339,6 +345,7 @@ bool cRace::CheckSkillUse(int skillnum)
 	return false;
 }
 
+//##ModelId=3C5D92D502D2
 bool cRace::CheckSpellImune(int spellnum)
 {
 	unsigned int spellcount;
@@ -348,6 +355,7 @@ bool cRace::CheckSpellImune(int spellnum)
 	return false;
 }
 
+//##ModelId=3C5D92D502F1
 bool cRace::CheckItemUse(int itemnum)
 {
 	unsigned int itemcount;

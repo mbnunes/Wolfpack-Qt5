@@ -38,6 +38,7 @@
 #undef  DBGFILE
 #define DBGFILE "cache.cpp"
 
+//##ModelId=3C5D92F200AD
 UOXFile::UOXFile(char *fileName, char *mode)
 {
 	char  localMode[16];
@@ -69,6 +70,7 @@ UOXFile::UOXFile(char *fileName, char *mode)
 	}
 }
 
+//##ModelId=3C5D92F200C2
 UOXFile::~UOXFile()
 {
 	if (ioBuff != NULL) 
@@ -77,12 +79,14 @@ UOXFile::~UOXFile()
 		fclose(theFile);
 }
 
+//##ModelId=3C5D92F200F3
 void UOXFile::rewind()
 {
 	fseek(theFile, 0, SEEK_SET);
 	bSize = bIndex = IOBUFFLEN;
 }
 
+//##ModelId=3C5D92F20108
 void UOXFile::seek(long offset, int whence)
 {
 	if (whence == SEEK_SET || whence == SEEK_CUR || whence == SEEK_END)
@@ -92,6 +96,7 @@ void UOXFile::seek(long offset, int whence)
 	}
 }
 
+//##ModelId=3C5D92F20130
 int UOXFile::wpgetch(void)
 {
 	if (qRefill())
@@ -103,12 +108,14 @@ int UOXFile::wpgetch(void)
 		return -1;
 }
 
+//##ModelId=3C5D92F2013B
 void UOXFile::refill()
 {
 	bSize = fread(ioBuff, sizeof(char), IOBUFFLEN, theFile);
 	bIndex = 0;
 }
 
+//##ModelId=3C5D92F2014E
 char *UOXFile::gets(char *lnBuff, int lnSize)
 {
 	unsigned long loopexit = 0, loopexit2 = 0;
@@ -157,6 +164,7 @@ char *UOXFile::gets(char *lnBuff, int lnSize)
 		return NULL;
 }
 
+//##ModelId=3C5D92F2016C
 int UOXFile::puts(char *lnBuff)
 {
 	if (fmode == 1)
@@ -168,18 +176,21 @@ int UOXFile::puts(char *lnBuff)
 	return -1;
 }
 
+//##ModelId=3C5D92F20194
 void UOXFile::getUChar(unsigned char *buff, unsigned int number)
 {
 	for (unsigned int i = 0; i < number; i++)
 		buff[i] = static_cast < unsigned char>(this->wpgetch());
 }
 
+//##ModelId=3C5D92F201BC
 void UOXFile::getChar(signed char *buff, unsigned int number)
 {
 	for (unsigned int i = 0; i < number; i++)
 		buff[i] = static_cast < signed char>(this->wpgetch());
 }
 
+//##ModelId=3C5D92F201E4
 void UOXFile::getUShort(unsigned short *buff, unsigned int number)
 {
 	for (unsigned int i = 0; i < number; i++)
@@ -198,6 +209,7 @@ void UOXFile::getShort(short *buff, unsigned int number)
 	}
 }
 
+//##ModelId=3C5D92F20216
 void UOXFile::getULong(UI32 *buff, unsigned int number)
 {
 	for (unsigned int i = 0; i < number; i++)
@@ -209,6 +221,7 @@ void UOXFile::getULong(UI32 *buff, unsigned int number)
 	}
 }
 
+//##ModelId=3C5D92F20234
 void UOXFile::getLong(SI32 *buff, unsigned int number)
 {
 	for (unsigned int i = 0; i < number; i++)
@@ -264,6 +277,7 @@ long pos = ftell(theFile);
 	}
 */
 
+//##ModelId=3C5D92F20248
 void UOXFile::get_versionrecord(struct versionrecord *buff, unsigned int number)
 {
 	for (unsigned int i = 0; i < number; i++)
@@ -302,6 +316,7 @@ DWORD: Unknown(Perhaps some CRC for the block, most blocks in UO files got this)
 0D - multi.i
 */
 
+//##ModelId=3C5D92F20266
 void UOXFile::get_st_multi(struct st_multi *buff, unsigned int number)
 {
 	for (unsigned int i = 0; i < number; i++)
@@ -315,6 +330,7 @@ void UOXFile::get_st_multi(struct st_multi *buff, unsigned int number)
 	}
 }
 
+//##ModelId=3C5D92F2027B
 void UOXFile::get_land_st(struct land_st *buff, unsigned int number)
 {
 	for (unsigned int i = 0; i < number; i++)
@@ -329,6 +345,7 @@ void UOXFile::get_land_st(struct land_st *buff, unsigned int number)
 	}
 }
 
+//##ModelId=3C5D92F20298
 void UOXFile::get_tile_st(struct tile_st *buff, unsigned int number)
 {
 	for (unsigned int i = 0; i < number; i++)
@@ -348,6 +365,7 @@ void UOXFile::get_tile_st(struct tile_st *buff, unsigned int number)
 	}
 }
 
+//##ModelId=3C5D92F202AC
 void UOXFile::get_map_st(struct map_st *buff, unsigned int number)
 {
 	for (unsigned int i = 0; i < number; i++)
@@ -357,6 +375,7 @@ void UOXFile::get_map_st(struct map_st *buff, unsigned int number)
 	}
 }
 
+//##ModelId=3C5D92F202CA
 void UOXFile::get_st_multiidx(struct st_multiidx *buff, unsigned int number)
 {
 	for (unsigned int i = 0; i < number; i++)
@@ -367,6 +386,7 @@ void UOXFile::get_st_multiidx(struct st_multiidx *buff, unsigned int number)
 	}
 }
 
+//##ModelId=3C5D92F202DE
 void UOXFile::get_staticrecord(struct staticrecord *buff, unsigned int number)
 {
 	for (unsigned int i = 0; i < number; i++)

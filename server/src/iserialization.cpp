@@ -44,5 +44,6 @@ void ISerialization::readObject( cUObject *base )
 
 void ISerialization::writeObject( cUObject *base )
 {
+	writeObjectID( base->objectID() );
 	base->Serialize(*this);
 }

@@ -138,6 +138,7 @@
 **
 */
 
+//##ModelId=3C5D92AD0054
 void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 {
 	// Here it used to check if dir was -1 and return. We need to make sure that we
@@ -327,6 +328,7 @@ void cMovement::Walking(P_CHAR pc, int dir, int sequence)
 // West           6 0x06         134 0x86
 // Northwest      7 0x07         135 0x87
 
+//##ModelId=3C5D92AD0221
 bool cMovement::isValidDirection(int dir)
 {
 	return ( dir == ( dir & 0x87 ) );
@@ -344,6 +346,7 @@ bool cMovement::isValidDirection(int dir)
 // end of the spell cast. With this new check, we don't even need to set the frozen bit when
 // casting a spell!
 
+//##ModelId=3C5D92AD0235
 bool cMovement::isFrozen(P_CHAR pc, UOXSOCKET socket, int sequence)
 {
 
@@ -390,6 +393,7 @@ bool cMovement::isFrozen(P_CHAR pc, UOXSOCKET socket, int sequence)
 
 // Rewrote to deny the client... We'll see if it works.
 
+//##ModelId=3C5D92AD025D
 bool cMovement::isOverloaded(P_CHAR pc, UOXSOCKET socket, int sequence)
 {
 	// Who are we going to check for weight restrictions?
@@ -426,6 +430,7 @@ bool cMovement::isOverloaded(P_CHAR pc, UOXSOCKET socket, int sequence)
 // I left a gap between Player and NPC because someone may want to implement race
 // restrictions... 
 
+//##ModelId=3C5D92AE00C4
 short int cMovement::CheckMovementType(P_CHAR pc)
 {
 	// Am I a GM Body?
@@ -456,6 +461,7 @@ short int cMovement::CheckMovementType(P_CHAR pc)
 }
 
 
+//##ModelId=3C5D92AE010A
 bool cMovement::CheckForCharacterAtXYZ(P_CHAR pc, short int cx, short int cy, signed char cz)
 {
 	unsigned int StartGrid=mapRegions->StartGrid(cx, cy);
@@ -487,6 +493,7 @@ bool cMovement::CheckForCharacterAtXYZ(P_CHAR pc, short int cx, short int cy, si
 
 // check if GM Body
 
+//##ModelId=3C5D92AD0285
 bool cMovement::CanGMWalk(unitile_st xyb)
 {
 	unsigned short int blockid = xyb.id;
@@ -549,6 +556,7 @@ bool cMovement::CanGMWalk(unitile_st xyb)
 	return false;
 }
 
+//##ModelId=3C5D92AD02C1
 bool cMovement::CanNPCWalk(unitile_st xyb)
 {
 	unsigned short int blockid = xyb.id;
@@ -568,6 +576,7 @@ bool cMovement::CanNPCWalk(unitile_st xyb)
 	return false;
 }
 
+//##ModelId=3C5D92AD02A3
 bool cMovement::CanPlayerWalk(unitile_st xyb)
 {
 	unsigned short int blockid = xyb.id;
@@ -588,6 +597,7 @@ bool cMovement::CanPlayerWalk(unitile_st xyb)
 }
 
 
+//##ModelId=3C5D92AD02E9
 bool cMovement::CanFishWalk(unitile_st xyb)
 {
 	unsigned short int blockid = xyb.id;
@@ -634,6 +644,7 @@ bool cMovement::CanFishWalk(unitile_st xyb)
 
 // needs testing... not totally accurate, but something to hold place.
 
+//##ModelId=3C5D92AD0307
 bool cMovement::CanBirdWalk(unitile_st xyb)
 {
 //	unsigned short int blockid = xyb.id;
@@ -645,6 +656,7 @@ bool cMovement::CanBirdWalk(unitile_st xyb)
 
 // if we have a valid socket, see if we need to deny the movement request because of
 // something to do with the walk sequence being out of sync.
+//##ModelId=3C5D92AE01D2
 bool cMovement::VerifySequence(P_CHAR pc, UOXSOCKET socket, int sequence) throw()
 {
     if (socket != INVALID_UOXSOCKET)
@@ -658,6 +670,7 @@ bool cMovement::VerifySequence(P_CHAR pc, UOXSOCKET socket, int sequence) throw(
     return true;
 }
 
+//##ModelId=3C5D92AE01F0
 bool cMovement::CheckForRunning(P_CHAR pc, UOXSOCKET socket, int dir)
 // New need for return
 // returns true if updatechar required, or false if not
@@ -696,6 +709,7 @@ bool cMovement::CheckForRunning(P_CHAR pc, UOXSOCKET socket, int dir)
 	return true;
 }
 
+//##ModelId=3C5D92AE0218
 bool cMovement::CheckForStealth(P_CHAR pc, UOXSOCKET socket)
 // PARAM WARNING: unreferenced paramater socket
 {
@@ -721,11 +735,12 @@ bool cMovement::CheckForStealth(P_CHAR pc, UOXSOCKET socket)
 }
 
 // see if a player has tried to move into a house they were banned from it
+//##ModelId=3C5D92AE0240
 bool cMovement::CheckForHouseBan(P_CHAR pc, UOXSOCKET socket)
 {
     if ( pc->isPlayer() ) // this code is also called from npcs-walking code, so only check for players to cut down lag!
     {
-        	walksequence[socket] = -1;
+/*        	walksequence[socket] = -1;
 		int h=HouseManager->GetHouseNum(pc);
 		if(h>=0)
 		{
@@ -742,7 +757,7 @@ bool cMovement::CheckForHouseBan(P_CHAR pc, UOXSOCKET socket)
 				}
 			}
 		}
-    } 
+*/    } 
     return true;
 }
 
@@ -751,6 +766,7 @@ bool cMovement::CheckForHouseBan(P_CHAR pc, UOXSOCKET socket)
 // directions. Oh, and since I we already have the GetX/YfromDir functions (and we need those) why don't we just
 // use them here?
 
+//##ModelId=3C5D92AE029A
 void cMovement::MoveCharForDirection(P_CHAR pc, int dir)
 {
 	pc->pos.x = GetXfromDir(dir, pc->pos.x);
@@ -761,6 +777,7 @@ void cMovement::MoveCharForDirection(P_CHAR pc, int dir)
 // Split up of FillXYBlockStuff
 
 
+//##ModelId=3C5D92AD0361
 void cMovement::GetBlockingMap(SI16 x, SI16 y, unitile_st *xyblock, int &xycount)
 {
 	int mapid = 0;
@@ -784,6 +801,7 @@ void cMovement::GetBlockingMap(SI16 x, SI16 y, unitile_st *xyblock, int &xycount
 }
 
 
+//##ModelId=3C5D92AD0389
 void cMovement::GetBlockingStatics(SI16 x, SI16 y, unitile_st *xyblock, int &xycount)
 {
 	MapStaticIterator msi(x, y);
@@ -806,6 +824,7 @@ void cMovement::GetBlockingStatics(SI16 x, SI16 y, unitile_st *xyblock, int &xyc
 	}
 }
 
+//##ModelId=3C5D92AD03BB
 void cMovement::GetBlockingDynamics(SI16 x, SI16 y, unitile_st *xyblock, int &xycount)
 {
 	Coord_cl position(x, y, 0);
@@ -874,6 +893,7 @@ void cMovement::GetBlockingDynamics(SI16 x, SI16 y, unitile_st *xyblock, int &xy
 } //- end of itemcount for loop
 
 // checkout everything we might need to take into account and fill it into the xyblock array
+//##ModelId=3C5D92AD0325
 void cMovement::FillXYBlockStuff(short int x, short int y, unitile_st *xyblock, int &xycount)
 {
 
@@ -886,6 +906,7 @@ void cMovement::FillXYBlockStuff(short int x, short int y, unitile_st *xyblock, 
 
 // so we are going to move, lets update the regions
 // FYI, Items equal to or greater than 1000000 are considered characters...
+//##ModelId=3C5D92AE02D6
 void cMovement::HandleRegionStuffAfterMove(P_CHAR pc, short int oldx, short int oldy)
 {
 	// save where we were moving to
@@ -927,6 +948,7 @@ void cMovement::HandleRegionStuffAfterMove(P_CHAR pc, short int oldx, short int 
 
 
 // actually send the walk command back to the player and increment the sequence
+//##ModelId=3C5D92AE02FE
 void cMovement::SendWalkToPlayer(P_CHAR pc, UOXSOCKET socket, short int sequence)
 {
 	if (socket!=INVALID_UOXSOCKET)
@@ -945,6 +967,7 @@ void cMovement::SendWalkToPlayer(P_CHAR pc, UOXSOCKET socket, short int sequence
 }
 
 // send out our movement to all other players who can see us move
+//##ModelId=3C5D92AE0327
 void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short int oldy)
 {
 	// lets cache these vars in advance
@@ -992,7 +1015,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short
 				//if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
 				int guild, race;
 				//chars[i].flag=0x04;       // everyone should be blue on default
-				guild = Guilds->Compare( pc, currchar[i] );
+				guild = GuildCompare( pc, currchar[i] );
 				race = Races.CheckRelation(pc,pc_check);
 				if( pc->kills > repsys.maxkills ) extmove[16]=6;
 				else if (guild==1 || race==1)//Same guild (Green)
@@ -1018,6 +1041,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short
 }
 
 // see if we should mention that we shove something out of the way
+//##ModelId=3C5D92AE0350
 void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, short int oldy)
 {
 	if (socket!=INVALID_UOXSOCKET)
@@ -1096,6 +1120,7 @@ void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, 
 
 // Umm... we need to split this up...
 
+//##ModelId=3C5D92AE03A0
 void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 {
 	// apparently we don't want NPCs to be affected by any of this stuff,
@@ -1246,6 +1271,7 @@ void cMovement::HandleItemCollision(P_CHAR pc, UOXSOCKET socket, bool amTurning)
 	}
 }
 
+//##ModelId=3C5D92AE03C7
 void cMovement::HandleTeleporters(P_CHAR pc, UOXSOCKET socket, short int oldx, short int oldy)
 // PARAM WARNING: unreferenced paramater socket
 {
@@ -1261,6 +1287,7 @@ void cMovement::HandleTeleporters(P_CHAR pc, UOXSOCKET socket, short int oldx, s
 
 
 /********* start of LB's no rain & snow in buildings stuff ***********/
+//##ModelId=3C5D92AF0039
 void cMovement::HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket)
 {
 	if (pc->isPlayer() && online(pc)) // check for being in buildings (for weather) only for PC's
@@ -1293,6 +1320,7 @@ void cMovement::HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket)
 	}
 }
 
+//##ModelId=3C5D92AF0057
 void cMovement::HandleGlowItems(P_CHAR pc, UOXSOCKET socket)
 // PARAM WARNING: unreferenced paramater socket
 {
@@ -1315,6 +1343,7 @@ void cMovement::HandleGlowItems(P_CHAR pc, UOXSOCKET socket)
 }
 
 // return whether someone is a GM Body
+//##ModelId=3C5D92AF0075
 bool cMovement::IsGMBody(P_CHAR pc)
 {
 	if (
@@ -1328,6 +1357,7 @@ bool cMovement::IsGMBody(P_CHAR pc)
 }
 
 
+//##ModelId=3C5D92AD0072
 void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
 {
     for (int i=0;i<now;i++)
@@ -1351,7 +1381,7 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
             if (pc->war) extmove[15]=0x40; else extmove[15]=0x00;
             if (pc->hidden) extmove[15]=extmove[15]|0x80;
             if (pc->poisoned) extmove[15]=extmove[15]|0x04; //AntiChrist -- thnx to SpaceDog
-            const int guild = Guilds->Compare( pc, currchar[i] );
+            const int guild = GuildCompare( pc, currchar[i] );
             const int race = Races.CheckRelation(pc,pc_check);
             if (pc->kills > repsys.maxkills ) extmove[16]=6; // ripper
             //if (pc->npcaitype==0x02) extmove[16]=6; else extmove[16]=1;
@@ -1384,6 +1414,7 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
 }
 
 
+//##ModelId=3C5D92AE0132
 void cMovement::NpcWalk(P_CHAR pc_i, int j, int type)   //type is npcwalk mode (0 for normal, 1 for box, 2 for circle)
 {
 	// sometimes the NPC movement code comes up with -1, for example, if we are following someone
@@ -1437,6 +1468,7 @@ void cMovement::NpcWalk(P_CHAR pc_i, int j, int type)   //type is npcwalk mode (
 // Revision Date : 2000.09.15
 // Purpose       : Return the new y from given dir
 
+//##ModelId=3C5D92AE018C
 unsigned short cMovement::GetYfromDir(int dir, unsigned short y)
 {
 
@@ -1462,6 +1494,7 @@ unsigned short cMovement::GetYfromDir(int dir, unsigned short y)
 // Revision Date : 2000.09.15
 // Purpose       : Return the new x from given dir
 
+//##ModelId=3C5D92AE015A
 unsigned short cMovement::GetXfromDir(int dir, unsigned short x)
 {
 
@@ -1501,6 +1534,7 @@ unsigned short cMovement::GetXfromDir(int dir, unsigned short x)
 // save memory.
 
 
+//##ModelId=3C5D92AE01AA
 void cMovement::PathFind(P_CHAR pc, unsigned short gx, unsigned short gy)
 {
 
@@ -1566,6 +1600,7 @@ printf("Character stuck!\n");
 
 
 //NEW NPCMOVEMENT ZIPPY CODE STARTS HERE -- AntiChrist meging codes --
+//##ModelId=3C5D92AD00EA
 void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
 {
 //    register int k;
@@ -1720,6 +1755,7 @@ void cMovement::NpcMovement(unsigned int currenttime, P_CHAR pc_i)//Lag fix
 // in the calculation. This calculation does not take into account any blocking objects.
 // It will be used as a heuristic in determining priority of movement.
 
+//##ModelId=3C5D92AE0010
 short int cMovement::Distance(short int sx, short int sy, short int dx, short int dy)
 {
 	return ( ( abs(sx-dx) < abs(sy-dy) ) ? abs(sy-dy) : abs(sx-dx) );
@@ -1734,6 +1770,7 @@ short int cMovement::Distance(short int sx, short int sy, short int dx, short in
 // the walking code. Ever wonder why NPCs can walk through walls and stuff in combat mode? This
 // is the fix, plus more.
 
+//##ModelId=3C5D92AE0088
 short int cMovement::Direction(short int sx, short int sy, short int dx, short int dy)
 {
 	
@@ -1755,6 +1792,7 @@ short int cMovement::Direction(short int sx, short int sy, short int dx, short i
 	return dir;
 }
 
+//##ModelId=3C5D92AD0086
 bool cMovement::CanCharWalk(P_CHAR pc, short int x, short int y, signed char &z)
 {
 
@@ -1877,6 +1915,7 @@ bool cMovement::CanCharWalk(P_CHAR pc, short int x, short int y, signed char &z)
 // Purpose       : Check if a character can walk to a from x,y to dir direction
 // Method        : This handles the funky diagonal moves.
 
+//##ModelId=3C5D92AD00AF
 bool cMovement::CanCharMove(P_CHAR pc, short int x, short int y, signed char &z, int dir)
 {
 	z = illegal_z;
@@ -1893,6 +1932,7 @@ bool cMovement::CanCharMove(P_CHAR pc, short int x, short int y, signed char &z,
 }
 
 
+//##ModelId=3C5D92AF016F
 void cMovement::deny( UOXSOCKET k, P_CHAR pc, int sequence )
 {
 	char walkdeny[9] = "\x21\x00\x01\x02\x01\x02\x00\x01";
@@ -1993,6 +2033,7 @@ inline int calcTileHeight( int h ) throw()
     invalid_z == -128, if walk is blocked
 
 ********************************************************/
+//##ModelId=3C5D92AD0158
 int cMovement::calc_walk(P_CHAR pc, unsigned int x, unsigned int y, unsigned int oldx, unsigned int oldy, bool justask )
 {
 	const signed int oldz = pc->pos.z;
@@ -2125,6 +2166,7 @@ int cMovement::calc_walk(P_CHAR pc, unsigned int x, unsigned int y, unsigned int
 
 // knox, reinserted it since some other files access it,
 //       100% sure this is wrong, however the smaller ill.
+//##ModelId=3C5D92AD0130
 int cMovement::validNPCMove( short int x, short int y, signed char z, P_CHAR pc_s )
 {
 	const int getcell=mapRegions->GetCell(x,y);
@@ -2190,6 +2232,7 @@ int cMovement::validNPCMove( short int x, short int y, signed char z, P_CHAR pc_
 
 
 // Static Members
+//##ModelId=3C5D92AD01BE
 void cMovement::getXYfromDir(int dir, int *x, int *y)
 {
 	switch(dir&0x07)

@@ -40,20 +40,34 @@ class cChar;
 
 // Typedefs
 
+//##ModelId=3C5D92B0026B
 typedef int					GUILDID;
+//##ModelId=3C5D92B00289
 typedef unsigned int		TIMERVAL;
+//##ModelId=3C5D92B002BB
 typedef int					UOXSOCKET;
+//##ModelId=3C5D92B002E3
 typedef int					PLAYER;
+//##ModelId=3C5D92B0030B
 typedef int					CHARACTER;
+//##ModelId=3C5D92B00333
 typedef unsigned char		LIGHTLEVEL;
+//##ModelId=3C5D92B0035B
 typedef unsigned char		SECONDS;
+//##ModelId=3C5D92B0037A
 typedef int					ITEM;
+//##ModelId=3C5D92B003A2
 typedef int					SERIAL;
+//##ModelId=3C5D92B003CA
 typedef unsigned int		RACE;
 
+//##ModelId=3C5D92B1000A
 typedef	cItem *				P_ITEM;
+//##ModelId=3C5D92B10032
 typedef const cItem *		PC_ITEM;
+//##ModelId=3C5D92B1005A
 typedef cChar *				P_CHAR;
+//##ModelId=3C5D92B10082
 typedef const cChar *		PC_CHAR;
 
 

@@ -67,48 +67,81 @@ class cAccount;
 
 
 using namespace std;
+//##ModelId=3C5D932E0226
 struct account_st
 {
+	//##ModelId=3C5D932E0258
 	unsigned int number;
+	//##ModelId=3C5D932E0276
 	string name;
+	//##ModelId=3C5D932E029F
 	string pass;
+	//##ModelId=3C5D932E02B2
 	bool ban;
+	//##ModelId=3C5D932E02C6
 	bool remoteadmin;
 };
 
+//##ModelId=3C5D932E038F
 class cAccount
 {
 private:
+	//##ModelId=3C5D932F000D
 	map<string, account_st> acctlist;
+	//##ModelId=3C5D932F0084
 	map<int, string> acctnumbers_sp;
 
+	//##ModelId=3C5D932F0368
 	struct acctman_st {
+		//##ModelId=3C5D932F0386
 		bool online;
+		//##ModelId=3C5D932F03A5
 		SERIAL character;
 	};
+	//##ModelId=3C5D932F00E8
 	map<int, acctman_st> acctman;
+	//##ModelId=3C5D932F0105
 	int lastusedacctnum;
+	//##ModelId=3C5D932F0123
 	unsigned int unsavedaccounts;
+	//##ModelId=3C5D932F0141
 	unsigned int saveratio;
 
+	//##ModelId=3C5D932F015F
 	void LoadAccount ( int acctnumb );
 public:
+	//##ModelId=3C5D932F017D
 	unsigned int lasttimecheck;
 
+	//##ModelId=3C5D932F01AF
 	cAccount( void );
+	//##ModelId=3C5D932F01B9
 	~cAccount( void );
+	//##ModelId=3C5D932F01CE
 	void SetSaveRatio ( int );
+	//##ModelId=3C5D932F01E2
 	bool IsOnline( int );
+	//##ModelId=3C5D932F01F6
 	SERIAL GetInWorld( int );
+	//##ModelId=3C5D932F020A
 	void SetOnline( int, CHARACTER );
+	//##ModelId=3C5D932F0228
 	void SetOffline( int acctnum );
+	//##ModelId=3C5D932F0246
 	void LoadAccounts( void );
+	//##ModelId=3C5D932F025A
 	void SaveAccounts( void );
+	//##ModelId=3C5D932F026E
 	void CheckAccountFile(void);
+	//##ModelId=3C5D932F0282
 	int Count();
+	//##ModelId=3C5D932F028C
 	bool RemoteAdmin(int acctnum);
+	//##ModelId=3C5D932F02A0
 	signed int Authenticate(string username, string password);
+	//##ModelId=3C5D932F02C8
 	unsigned int CreateAccount(string username, string password);
+	//##ModelId=3C5D932F02E6
 	bool ChangePassword(unsigned int number, string password);
 };
 

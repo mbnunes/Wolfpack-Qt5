@@ -68,19 +68,28 @@ extern WPConsole_cl clConsole ;
 
 // Any specific structures
 
+//##ModelId=3C5D92B40267
 struct statictile_st
 {
+	//##ModelId=3C5D92B40286
 	string sName ;
+	//##ModelId=3C5D92B402A4
 	UI32	uiFlag ;
+	//##ModelId=3C5D92B402C2
 	SI08	siLayer ;
+	//##ModelId=3C5D92B40325
 	SI16	siHeight ;
+	//##ModelId=3C5D92B40344
 	SI32	siGump;
 } ;
 
 
+//##ModelId=3C5D92B4037F
 struct landtile_st
 {
+	//##ModelId=3C5D92B403B2
 	string sName ;
+	//##ModelId=3C5D92B403C6
 	UI32 uiFlag ;
 };
 
@@ -95,59 +104,79 @@ struct landtile_st
 
 
 //Class definitions
+//##ModelId=3C5D92B5015A
 class TileCache_cl
 {
 public:
         /// Constructor
+	//##ModelId=3C5D92B50178
         TileCache_cl()   ;
         /// Cosntructor of itself
+	//##ModelId=3C5D92B50182
         TileCache_cl(const TileCache_cl& clData) ;
 
+	//##ModelId=3C5D92B5018C
 		TileCache_cl(string sDirectory) ;
         /// Desctructor
+	//##ModelId=3C5D92B50197
         ~TileCache_cl() ;
 
         /// Clear out any that we have
 
+	//##ModelId=3C5D92B501A0
 		bool clear( );
 
 
 		// Set our directory
+	//##ModelId=3C5D92B501B4
 		void setDirectory(string sDirectory) ;
 
 		// Cache the tiles
+	//##ModelId=3C5D92B501BF
 		bool cacheData() ;
 
 
 		// get a land tile data
 
+	//##ModelId=3C5D92B501DC
 		landtile_st getLandTile(UI16 uiId) ;
 
+	//##ModelId=3C5D92B501F0
 		statictile_st getStaticTile(UI16 uiID) ;
 
 
+	//##ModelId=3C5D92B50204
 		TileCache_cl&  operator=(const TileCache_cl& clData) ;
 
 private:
+	//##ModelId=3C5D92B5020F
 		bool processVerdata() ;
+	//##ModelId=3C5D92B50222
 		bool processLand() ;
+	//##ModelId=3C5D92B50236
 		bool processStatic() ;
 
 private:
 
+	//##ModelId=3C5D92B50350
 		vector<landtile_st> vecLand ;
 
+	//##ModelId=3C5D92B50396
 		vector<statictile_st> vecStatic ;
 
 
+	//##ModelId=3C5D92B503BE
 		string sFile ;
+	//##ModelId=3C5D92B503D2
 		string sVerdata ;
 
 
 
 		// We read in the verdatamul for each file type, a great room for speed improvment on startup later
 
+	//##ModelId=3C5D92B60031
 		map<SI32,verdata_st>  mapVerdata ;
+	//##ModelId=3C5D92B6008A
 		map<SI32,verdata_st>::iterator iterVerdata ;
 
 

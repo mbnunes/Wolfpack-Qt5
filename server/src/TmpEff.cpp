@@ -106,6 +106,7 @@ static void reverseIncognito(P_CHAR pc)
 	}
 }
 
+//##ModelId=3C5D92B3026F
 void cTmpEff::Init()
 {
 	sourSer = INVALID_SERIAL;
@@ -118,31 +119,37 @@ void cTmpEff::Init()
 	dispellable=0;
 }
 
+//##ModelId=3C5D92B30298
 int cTmpEff::getDest()
 {
 	return destSer;
 }
 
+//##ModelId=3C5D92B3028D
 void cTmpEff::setDest(int ser)
 {
 	destSer=ser;
 }
 
+//##ModelId=3C5D92B302C0
 int cTmpEff::getSour()
 {
 	return sourSer;
 }
 
+//##ModelId=3C5D92B302A2
 void cTmpEff::setSour(int ser)
 {
 	sourSer=ser;
 }
 
+//##ModelId=3C5D92B30279
 void cTmpEff::setExpiretime_s(int seconds)
 {
 	expiretime=uiCurrentTime+(seconds*MY_CLOCKS_PER_SEC);
 }
 
+//##ModelId=3C5D92B302CA
 void cTmpEff::On(P_CHAR pc)
 {
 	if (!pc)
@@ -171,6 +178,7 @@ void cTmpEff::On(P_CHAR pc)
 	}
 }
 
+//##ModelId=3C5D92B302DE
 void cTmpEff::Off(P_CHAR pc)
 {
 	if (!pc)
@@ -199,6 +207,7 @@ void cTmpEff::Off(P_CHAR pc)
 	}
 }
 
+//##ModelId=3C5D92B302F2
 void cTmpEff::Reverse()
 {
 	P_CHAR pc_s = FindCharBySerial(getDest());
@@ -251,6 +260,7 @@ void cTmpEff::Reverse()
 	Items->CheckEquipment(pc_s); //AntiChrist - checks equipments for stats requirements
 }
 
+//##ModelId=3C5D92B302FC
 void cTmpEff::Expire()
 {
 	int k;
@@ -463,6 +473,7 @@ void cTmpEff::Expire()
 	Items->CheckEquipment(pc_s); //AntiChrist - checks equipments for stats requirements
 }
 
+//##ModelId=3C5D92B40181
 void cAllTmpEff::Off()
 {
 	unsigned int i;
@@ -475,6 +486,7 @@ void cAllTmpEff::Off()
 	}
 }
 
+//##ModelId=3C5D92B40177
 void cAllTmpEff::On()
 {
 	unsigned int i;
@@ -487,6 +499,7 @@ void cAllTmpEff::On()
 	}
 }
 
+//##ModelId=3C5D92B4018B
 void cAllTmpEff::Check()
 {
 	unsigned int i;
@@ -502,6 +515,7 @@ void cAllTmpEff::Check()
 	}
 }
 
+//##ModelId=3C5D92B40195
 bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur)
 {
 	unsigned int ic; // antichrist' changes
@@ -985,6 +999,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 	return 1;
 }
 
+//##ModelId=3C5D92B401DB
 bool cAllTmpEff::Add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3)
 {
 	if (pc_source == NULL)
@@ -1028,18 +1043,21 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char mor
 	return 1;
 }
 
+//##ModelId=3C5D92B4014E
 bool cAllTmpEff::Alloc(int count)
 {
 	teffects = (cTmpEff *)malloc(count*sizeof(cTmpEff));	//MAXEFFECTS = 5*MAXCHARS
 	return teffects==NULL ? false : true;
 }
 
+//##ModelId=3C5D92B40163
 bool cAllTmpEff::ReAlloc(int newcount)
 {
 	teffects = (cTmpEff *)realloc(teffects, (newcount)*sizeof(cTmpEff));
 	return teffects==NULL ? false : true;
 }
 
+//##ModelId=3C5D92B40221
 void cAllTmpEff::Insert(cTmpEff* pTE)
 {
 	memcpy(&teffects[teffectcount],pTE,sizeof(cTmpEff));
@@ -1047,6 +1065,7 @@ void cAllTmpEff::Insert(cTmpEff* pTE)
 	delete pTE;
 }
 
+//##ModelId=3C5D92B4022B
 void cAllTmpEff::Remove(cTmpEff* pTE)
 {
 	memcpy(pTE,&teffects[teffectcount-1],sizeof(cTmpEff));

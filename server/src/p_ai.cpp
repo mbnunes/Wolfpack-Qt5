@@ -36,6 +36,7 @@
 #undef  DBGFILE
 #define DBGFILE "p_ai.cpp"
 
+//##ModelId=3C5D932A00FF
 void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zippy
 {
 	int d, onl;
@@ -462,6 +463,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 
 
 
+//##ModelId=3C5D932A0267
 void cCharStuff::cDragonAI::DoAI(P_CHAR pc_i, int currenttime)
 {
 	int randvalue;
@@ -511,6 +513,7 @@ void cCharStuff::cDragonAI::DoAI(P_CHAR pc_i, int currenttime)
 	return;
 }
 
+//##ModelId=3C5D932A02E9
 void cCharStuff::cDragonAI::Breath(P_CHAR pc_i, int currenttime)
 {
 	Magic->PFireballTarget(pc_i, FindCharBySerial(pc_i->targ), 20);
@@ -518,6 +521,7 @@ void cCharStuff::cDragonAI::Breath(P_CHAR pc_i, int currenttime)
 	return; 
 }
 
+//##ModelId=3C5D932A0285
 void cCharStuff::cDragonAI::HarmMagic(P_CHAR pc_i, unsigned int currenttime, P_CHAR pc)
 {
 	if (currenttime >= pc_i->spatimer)
@@ -551,6 +555,7 @@ void cCharStuff::cDragonAI::HarmMagic(P_CHAR pc_i, unsigned int currenttime, P_C
 	return;
 }
 
+//##ModelId=3C5D932A02A3
 void cCharStuff::cDragonAI::HealMagic(P_CHAR pc_i, unsigned int currenttime)
 {
 	if (currenttime >= pc_i->spatimer)
@@ -568,12 +573,14 @@ void cCharStuff::cDragonAI::HealMagic(P_CHAR pc_i, unsigned int currenttime)
 	}
 	DoneAI(pc_i, currenttime);
 }
+//##ModelId=3C5D932A0307
 void cCharStuff::cDragonAI::DoneAI(P_CHAR pc_i, int currenttime)
 {
 	pc_i->spatimer = currenttime + (pc_i->spadelay*MY_CLOCKS_PER_SEC); 
 	return;
 }
 
+//##ModelId=3C5D932B000F
 bool cCharStuff::cBankerAI::DoAI(int c, P_CHAR pBanker, char *comm)
 {
 	P_CHAR pc_currchar = currchar[c];
@@ -619,12 +626,14 @@ bool cCharStuff::cBankerAI::DoAI(int c, P_CHAR pBanker, char *comm)
 	return true;
 }
 
+//##ModelId=3C5D932B0087
 void cCharStuff::cBankerAI::OpenBank(UOXSOCKET c)
 {
 	openbank(c, currchar[c]);
 	return;
 }
 
+//##ModelId=3C5D932B006A
 bool cCharStuff::cBankerAI::Balance(int c, P_CHAR pBanker)
 {
 	P_CHAR pc_currchar = currchar[c];
@@ -633,6 +642,7 @@ bool cCharStuff::cBankerAI::Balance(int c, P_CHAR pBanker)
 	return true;
 }
 
+//##ModelId=3C5D932B002D
 bool cCharStuff::cBankerAI::Withdraw(int c, P_CHAR pBanker, char *comm)
 {
 	P_CHAR pc_currchar = currchar[c];
@@ -665,6 +675,7 @@ bool cCharStuff::cBankerAI::Withdraw(int c, P_CHAR pBanker, char *comm)
 	return true;
 }
 
+//##ModelId=3C5D932B004B
 bool cCharStuff::cBankerAI::BankCheck(int c, P_CHAR pBanker, char *comm)
 {
 	P_CHAR pc_currchar = currchar[c];

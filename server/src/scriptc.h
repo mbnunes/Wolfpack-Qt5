@@ -36,11 +36,15 @@
 #include <string>
 
 using namespace std ;
+//##ModelId=3C5D92D10222
 typedef unsigned long scpMark;
 
 // One entry in the cache
+//##ModelId=3C5D92D1025F
 struct ScriptEntry {
+	//##ModelId=3C5D92D10292
 	string name;
+	//##ModelId=3C5D92D102A5
     unsigned long offset;
 };
 
@@ -55,41 +59,67 @@ extern char script1[512];
 #define SCP_PRELOADED	0x0004
 
 #ifndef _MSC_VER
+//##ModelId=3C5D92D102C3
 typedef long int _off_t ;
 #endif
 
 
+//##ModelId=3C5D92D103B3
 class Script
 {
 public:
+	//##ModelId=3C5D92D103D1
     Script(const char *_filename, short _flags=0);
+	//##ModelId=3C5D92D103E5
 	~Script();
+	//##ModelId=3C5D92D20007
 	bool Open();
+	//##ModelId=3C5D92D20011
 	void Close() {if (!(flags & SCP_PRELOADED)) closescript();}
+	//##ModelId=3C5D92D20012
 	Script* Select(char* sect, short custom);
+	//##ModelId=3C5D92D20061
 	scpMark Suspend();
+	//##ModelId=3C5D92D20062
 	void Resume(scpMark mark);
+	//##ModelId=3C5D92D20075
 	bool NextLine();
+	//##ModelId=3C5D92D2007F
 	void NextLineSplitted();
+	//##ModelId=3C5D92D20089
 	int  CmpTok1(char* comp) {return strcmp((char*)script1,comp);}
 
+	//##ModelId=3C5D92D2009D
     char find(const char *section);
+	//##ModelId=3C5D92D200B1
     char isin(const char *section);
         
     
 private:
+	//##ModelId=3C5D92D200BC
 	bool preload();
+	//##ModelId=3C5D92D200CF
     void reload();
+	//##ModelId=3C5D92D200D9
 	bool ReadMemLine();
+	//##ModelId=3C5D92D200ED
 	void MakeIndexForFile();
+	//##ModelId=3C5D92D200F7
 	void MakeIndexForMem();
     
+	//##ModelId=3C5D92D20185
 	map<string, ScriptEntry> entries;
+	//##ModelId=3C5D92D201AC
     time_t last_modification;
+	//##ModelId=3C5D92D201CA
     char *filename;
+	//##ModelId=3C5D92D201E8
 	char *img;
+	//##ModelId=3C5D92D201FC
 	_off_t scpsize;
+	//##ModelId=3C5D92D2021A
 	char *curmempos;	// current read position for preloaded files
+	//##ModelId=3C5D92D20238
 	short flags;
 };
 

@@ -64,41 +64,62 @@ class cBooks ;
 
 // Class defination
 
+//##ModelId=3C5D932B03E5
 class cBooks
 {
 	private:
 		// that private methods read and write from the *.bok files
+	//##ModelId=3C5D932C0025
 		void write_author(P_ITEM pBook,UOXSOCKET s);
+	//##ModelId=3C5D932C0043
 		void write_title(P_ITEM pBook, UOXSOCKET s);
+	//##ModelId=3C5D932C0061
 		void write_line(P_ITEM pBook, int page, int line, char linestr[34], UOXSOCKET s);
 		
+	//##ModelId=3C5D932C0094
 		void read_author(P_ITEM pBook,char auth[31]);
+	//##ModelId=3C5D932C00E3
 		void read_title(P_ITEM pBook,char title[61]);
+	//##ModelId=3C5D932C0101
 		int  read_number_of_pages(P_ITEM pBook);
+	//##ModelId=3C5D932C0115
 		void read_line(P_ITEM pBook, int page,int linenumber, char line[33]);
 
+	//##ModelId=3C5D932C0179
 		signed char make_new_book_file(char *fileName, P_ITEM pBook); // "formats and creates a new bok file"
 					
 	public:
+	//##ModelId=3C5D932C0237
 		char a_t; // flag -> set if author and title changed		
+	//##ModelId=3C5D932C0255
 		char authorbuffer[MAXCLIENT][32]; 
+	//##ModelId=3C5D932C0291
 		char titlebuffer[MAXCLIENT][62];
+	//##ModelId=3C5D932C02B0
 		char pagebuffer[MAXCLIENT][512]; //i think 256 is enough (8 lines *32 chars per line = 256, but i took 512 to be on the safe side and avoid crashes 
 	
+	//##ModelId=3C5D932C02C4
 	    cBooks();
 
+	//##ModelId=3C5D932C02CE
         void openbook_old(UOXSOCKET s, P_ITEM pBook); // opens old-readonly books, takes data from misc.scp
 		
+	//##ModelId=3C5D932C02E2
 		void openbook_new(UOXSOCKET s, P_ITEM pBook,char writeable); // opens new books
 
+	//##ModelId=3C5D932C0300
 		void readbook_readonly_old(UOXSOCKET s, P_ITEM pBook, int p); // reads books from misc.scp, readonly = old books
 		                                                        
+	//##ModelId=3C5D932C031F
 		void readbook_readonly(UOXSOCKET s, P_ITEM pBook, int p);     // reads new books readonly ( from *.bok file )
 		                                                     		                                                      
+	//##ModelId=3C5D932C033D
 		void readbook_writeable(UOXSOCKET s, P_ITEM pBook, int p, int l); // writes changes to a new book opened in writable mode 
 
+	//##ModelId=3C5D932C0364
 		void delete_bokfile(P_ITEM pBook); // deletes bok-file.
 
+	//##ModelId=3C5D932C0378
 		virtual ~cBooks();
         	
 };

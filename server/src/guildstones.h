@@ -32,11 +32,20 @@
 #if !defined (__GUILDSTONES_H__)
 #define __GUILDSTONES_H__
 
+// Platform Includes
+#include "platform.h"
+
 // System Includes
 #include <stdio.h>
+#include <string>
+#include <vector>
 
 // Wolfpack Includes
+#include "items.h"
 #include "typedefs.h"
+
+// Forward Class
+class ISerialization;
 
 #define	MAXGUILDS 100
 #define	MAXGUILDMEMBERS 30
@@ -46,60 +55,54 @@
 #define DEFAULTCHARTER "WOLFPACK Guildstone"
 
 
-struct guild_st
+class cGuildStone : public cItem
 {
-	bool	free;							// Guild slot used?
-	char	name[41];						// Name of the guild
-	char	abbreviation[4];				// Abbreviation of the guild
-	int		type;							// Type of guild (0=standard/1=chaos/2=order)
-	char	charter[51];					// Charter of guild
-	char	webpage[51];					// Web url of guild
-	SERIAL	stone;							// The serial of the guildstone
-	SERIAL	master;							// The serial of the guildmaster
-	int		recruits;						// Amount of recruits
-	int		recruit[MAXGUILDRECRUITS + 1];	// Serials of candidates
-	int		members;						// Amount of members
-	int		member[MAXGUILDMEMBERS + 1];	// Serials of all the members
-	int		wars;							// Amount of wars
-	int		war[MAXGUILDWARS + 1];			// Numbers of Guilds we have declared war to
-	int		priv;							// Some dummy to remember some values
+public:
+	enum enGuildType { standard = 0, chaos, order };
+	std::string			guildName;
+	std::string			abbreviation;
+	enGuildType			guildType;
+	std::string			charter;
+	std::string			webpage;
+	SERIAL				master;
+	std::vector<SERIAL>	recruit;
+	std::vector<SERIAL>	member;
+	std::vector<SERIAL>	war;
+
+public:
+	cGuildStone() {}
+	virtual ~cGuildStone() {}
+	virtual void Serialize( ISerialization &archive );
+	virtual std::string objectID();
+	
+	void addMember(P_CHAR);
+	bool isMember(P_CHAR);
+	void removeMember(P_CHAR);
+	void Menu(UOXSOCKET s, int page);
+	void CalcMaster();
+	void ToggleAbbreviation(UOXSOCKET s);
+	void Recruit(UOXSOCKET s);
+	void GumpInput(UOXSOCKET s, int type, int index, char *text);
+	void GumpChoice(UOXSOCKET s,int main,int sub);
+	void ChangeName(UOXSOCKET s, char *text);
+	void ChangeAbbreviation(UOXSOCKET s, char *text);
+	void ChangeTitle(UOXSOCKET s, char *text);
+	void ChangeCharter(UOXSOCKET s, char *text);
+	void ChangeWebpage(UOXSOCKET s, char *text);
+	enGuildType cGuildStone::GetType();
+	void SetType(enGuildType type);
+	void Broadcast(char *text);
 };
 
-class cGuilds
+inline std::string cGuildStone::objectID()
 {
-private:
-	void EraseMember(P_CHAR pc);
-	void EraseGuild(int guildnumber);
-	void ToggleAbbreviation(int s);
-	int SearchSlot(int guildnumber, int type);
-	void ChangeName(int s, char *text);
-	void ChangeAbbreviation(int s, char *text);
-	void ChangeTitle(int s, char *text);
-	void ChangeCharter(int s, char *text);
-	void ChangeWebpage(int s, char *text);
-	int CheckValidPlace(int s);
-	void Broadcast(int guildnumber, char *text);
-	void CalcMaster(int guildnumber);
-	void SetType(int guildnumber, int type);
-public:
-	guild_st guilds[MAXGUILDS]; //lb, moved from WOLFPACK.h cauz global variabels cant be changed in constuctors ...
-	cGuilds();
-	virtual ~cGuilds();
-	int	GetType(int guildnumber);
-	void StonePlacement(int s);
-	void Menu(int s, int page);
-	void Resign(int s);
-	void Recruit(int s);
-	void TargetWar(int s);
-	void StoneMove(int s);
-	int Compare(P_CHAR player1, P_CHAR player2);
-	void GumpInput(int s, int type, int index, char *text);
-	void GumpChoice(int s, int main, int sub);
-	int SearchByStone(int s);
-	void Title(int s, P_CHAR pc_player2);
-	void Read(int guildnumber);
-	void Write(FILE *wscfile);
-	void CheckConsistancy(void);
-};
+	return std::string("GUILDSTONE");
+}
+
+int CheckValidPlace(UOXSOCKET s);
+void GuildResign(UOXSOCKET s);
+int GuildCompare(P_CHAR player1, P_CHAR player2);
+void StonePlacement(UOXSOCKET s);
+void GuildTitle(int s, P_CHAR pc_player2);
 
 #endif //__GUILDSTONES_H__

@@ -25,6 +25,7 @@
 #ifndef IN_PLATFORM_H
 #define IN_PLATFORM_H
 //========================================================================
+//##ModelId=3C5D92D60071
 enum enByteOrder{ littleEndian, bigEndian };
 #define BYTEORDER littleEndian 
 // We have to worry about Intel's compilier as well
@@ -113,13 +114,21 @@ enum enByteOrder{ littleEndian, bigEndian };
 
 
 //========================================================================
+//##ModelId=3C5D92D600A3
 typedef unsigned long	UI32;
+//##ModelId=3C5D92D600D5
 typedef unsigned short	UI16;
+//##ModelId=3C5D92D60107
 typedef unsigned char	UI08;
+//##ModelId=3C5D92D60157
 typedef signed long		SI32;
+//##ModelId=3C5D92D60189
 typedef signed short	SI16;
+//##ModelId=3C5D92D601BC
 typedef signed char		SI08;
+//##ModelId=3C5D92D601EE
 typedef float			RF32;
+//##ModelId=3C5D92D60220
 typedef double			RF64;
 //========================================================================
 //========================================================================
@@ -128,3 +137,4 @@ typedef double			RF64;
 //========================================================================
 //========================================================================
 #endif
+

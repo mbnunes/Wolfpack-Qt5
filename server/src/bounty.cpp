@@ -50,6 +50,7 @@
 //
 // RETURNS:     void
 //////////////////////////////////////////////////////////////////////////////
+//##ModelId=3C5D932B015A
 void cBounty::BountyAskVictim( int nVictimSerial, int nMurdererSerial )
 {
   int nAmount     = 0;
@@ -102,6 +103,7 @@ void cBounty::BountyAskVictim( int nVictimSerial, int nMurdererSerial )
 // RETURNS:     TRUE  Bounty post successfully created
 //              FALSE Bounty post could not be created
 //////////////////////////////////////////////////////////////////////////////
+//##ModelId=3C5D932B0178
 bool cBounty::BountyCreate( int nMurdererSerial, int nRewardAmount )
 {
   P_CHAR pc_nIndex  = FindCharBySerial( nMurdererSerial );
@@ -147,6 +149,7 @@ bool cBounty::BountyCreate( int nMurdererSerial, int nRewardAmount )
 } // BountyCreate()
 
 
+//##ModelId=3C5D932B0218
 bool cBounty::BountyDelete( int nMurdererSerial )
 {
   bool  bReturn = true;
@@ -168,6 +171,7 @@ bool cBounty::BountyDelete( int nMurdererSerial )
 } // BountyDelete()
 
 
+//##ModelId=3C5D932B022C
 bool cBounty::BountyWithdrawGold( P_CHAR pVictim, int nAmount )
 {
 	int has = pVictim->CountBankGold();

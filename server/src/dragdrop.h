@@ -41,11 +41,15 @@
 #endif // _MSC_VER >= 1000
 class cDragdrop;
 
+//##ModelId=3C5D92F5015C
 class cDragdrop
 {
 public:
+	//##ModelId=3C5D92F501C0
 	void get_item(P_CLIENT ps);			// Client grabs an item
+	//##ModelId=3C5D92F501D4
     void wear_item(P_CLIENT ps);			// Item is dropped on paperdoll
+	//##ModelId=3C5D92F501E8
     void drop_item(P_CLIENT ps);	// Item is dropped on ground, char or item
 };
 

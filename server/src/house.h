@@ -1,88 +1,72 @@
-#ifndef _H_HOUSE
-#define _H_HOUSE
-#include "wolfpack.h"
+//==================================================================================
+//
+//      Wolfpack Emu (WP)
+//	UO Server Emulation Program
+//
+//	Copyright 1997, 98 by Marcus Rating (Cironian)
+//  Copyright 2001 by holders identified in authors.txt
+//	This program is free software; you can redistribute it and/or modify
+//	it under the terms of the GNU General Public License as published by
+//	the Free Software Foundation; either version 2 of the License, or
+//	(at your option) any later version.
+//
+//	This program is distributed in the hope that it will be useful,
+//	but WITHOUT ANY WARRANTY; without even the implied warranty of
+//	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+//	GNU General Public License for more details.
+//
+//	You should have received a copy of the GNU General Public License
+//	along with this program; if not, write to the Free Software
+//	Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+//
+//	* In addition to that license, if you are running this program or modified
+//	* versions of it on a public system you HAVE TO make the complete source of
+//	* the version used by you available or provide people with a location to
+//	* download it.
+//
+//
+//
+//	Wolfpack Homepage: http://wpdev.sf.net/
+//========================================================================================
 
-class cHouseManager
+#if !defined(__HOUSE_H__)
+#define __HOUSE_H__
+
+#include "wolfpack.h"
+#include "globals.h"
+#include "items.h"
+//#include "typedefs.h"
+
+// System Headers
+//#include <vector>
+
+// Forward Class declaration
+class ISerialization;
+
+class cHouse : public cItem
 {
+protected:
+	std::vector<SERIAL> friends;
+	std::vector<SERIAL> bans;
 public:
-	cHouseManager()
-	{
-		HouseFile=NULL;
-	};
-	~cHouseManager()
-	{
-		HouseFile=NULL;
-	};
-	void AddHome(int s, int i);
-	void HomeTarget(int s, int a1, int a2, int a3, int a4, char b1, char b2, char *txt);
-	bool HomeBuildSite(int x, int y, int z, int sx, int sy) { return true;}
-	void RemoveHouse(int i);
-	void RemoveKeys(int serial);
-	int CheckDecayStatus();
-	int GetHouseNum(P_CHAR pc);
-	int GetHouseNum(P_ITEM pi);
-	void SaveHouses();
-	void LoadHouses();
-private:
-	FILE *HouseFile;
+
+	unsigned int last_used;
+
+	cHouse() {}
+	virtual ~cHouse() {}
+	virtual void Serialize( ISerialization &archive );
+	virtual std::string objectID();
+	
+	bool isBanned(P_CHAR pc);
+	void addBan(P_CHAR pc);
+	void removeBan(P_CHAR pc);
+	bool isFriend(P_CHAR pc);
+	void addFriend(P_CHAR pc);
+	void removeFriend(P_CHAR pc);
 };
-class cHouse
-{
-public:
-	cHouse()
-	{
-		id1=0;
-		id2=0;
-		SecureAmount=0;
-		SecureTotal=0;
-		LockAmount=0;
-		LockTotal=0;
-		serial=0;
-		OwnerAccount=0;
-		OwnerSerial=0;
-		LastUsed=0;
-		TimeUnused=0;
-		FriendList.resize(0);
-		BanList.resize(0);
-	};
-	~cHouse()
-	{
-		id1=0;
-		id2=0;
-		SecureAmount=0;
-		SecureTotal=0;
-		LockAmount=0;
-		LockTotal=0;
-		serial=0;
-		OwnerAccount=0;
-		OwnerSerial=0;
-		LastUsed=0;
-		TimeUnused=0;
-		FriendList.clear();
-		BanList.clear();
-	};
-	int AddFriend(P_CHAR pc);
-	bool RemoveFriend(P_CHAR pc);
-	int FindFriend(P_CHAR pc);
-	int AddBan(P_CHAR pc);
-	bool RemoveBan(P_CHAR pc);
-	int FindBan(P_CHAR pc);
-	Coord_cl pos;
-	Coord_cl pos2;
-	int id1;
-	int id2;
-	int SecureAmount;
-	int SecureTotal;
-	int LockAmount;
-	int LockTotal;
-	int serial;
-	int OwnerAccount;
-	int OwnerSerial;
-	int LastUsed;
-	int TimeUnused;
-	vector<int> FriendList;
-	vector<int> BanList;
-};
-extern cHouseManager* HouseManager;
-extern std::vector<cHouse *> House;
-#endif
+
+void BuildHouse(UOXSOCKET s, int i);
+void RemoveKeys(SERIAL serial);
+int check_house_decay();
+
+#endif // __HOUSE_H__

@@ -1330,7 +1330,7 @@ void textflags (UOXSOCKET s, P_CHAR pc, char *name)
 												{ if  (title[18].other[0] != 0) sprintf((char*)temp, " [%s]",title[18].other); else temp[0] = 0; strcat(name2,(char*)temp); }// ripper
 	if (pc->kills>=repsys.maxkills)				{ if  (title[19].other[0] != 0) sprintf((char*)temp, " [%s]",title[19].other); else temp[0] = 0; strcat(name2,(char*)temp); } // AntiChrist
 
-	Guilds->Title(s, pc);
+	GuildTitle(s, pc);
 
 	int tl,guild,race;
 	tl=44+strlen(name2)+1;
@@ -1340,7 +1340,7 @@ void textflags (UOXSOCKET s, P_CHAR pc, char *name)
 	talk[7]=1;
 	talk[8]=1;
 	talk[9]=6; // Mode: "You see"
-	guild = Guilds->Compare(currchar[s], pc);
+	guild = GuildCompare(currchar[s], pc);
 	race = Races.CheckRelation(pc, pc_currchar);
 	if (guild == 1 || race == 1) //Same guild (Green)
 	{
@@ -2714,7 +2714,7 @@ void impowncreate(int s, P_CHAR pc, int z) //socket, player to send
 
 	k=19;
 	int guild,race;
-	guild = Guilds->Compare( currchar[s], pc );
+	guild = GuildCompare( currchar[s], pc );
 	race = Races.CheckRelation(pc_currchar, pc);
 	if (guild == 1 || race == 1)//Same guild (Green)
 		oc[18]=2;

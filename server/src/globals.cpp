@@ -280,7 +280,6 @@ cAdmin			*Admin;
 cBoat			*Boats;//Boats ! --Zippy
 cCombat			*Combat;
 cCommands		*Commands;
-cGuilds			*Guilds;
 cGump			*Gumps;
 cAllItems		*Items;
 cMapStuff		*Map;
@@ -297,7 +296,6 @@ cAccount		*Accounts;
 cAllTmpEff		*AllTmpEff;
 cMovement		*Movement;
 cWeather		*Weather;
-cHouseManager   *HouseManager;
 cSpeech	        *Speech;
 cTrigger	    *Trig;
 cDragdrop       *Drag;

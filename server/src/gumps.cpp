@@ -42,6 +42,7 @@
 #undef  DBGFILE
 #define DBGFILE "gumps.cpp"
 
+//##ModelId=3C5D92F203BB
 void cGump::Button(int s, int button, SERIAL serial, char type)
 {
 	int i;
@@ -270,7 +271,12 @@ void cGump::Input(int s)
 	serial = LongFromCharPtr((unsigned char*)&buffer[s][3]);
 	P_CHAR pc_currchar = currchar[s];
 
-	Guilds->GumpInput(s,type,index,text);
+	if (type == 100)
+	{
+		cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(pc_currchar->guildstone));
+		if ( pStone != NULL)
+			pStone->GumpInput(s,type,index,text);
+	}
 
 	if (type == 1 && (pc_currchar->isGM()))//AntiChrist
 	{
@@ -401,6 +407,7 @@ void cGump::Input(int s)
 }
 
 
+//##ModelId=3C5D92F3000F
 void cGump::Menu(UOXSOCKET s, int m, P_ITEM it)
 {
 	char sect[512];
@@ -1343,7 +1350,12 @@ void choice(int s) // Choice from GMMenu, Itemmenu or Makemenu received
     //clConsole.send("main:%i sub:%i \n",main,sub);
 	// if ((main!=0) && (sub==0)) clConsole.send("add menu (gm menu) closed- including its submenus\n");
 
-	if ((main>=8000)&&(main<=8100)) Guilds->GumpChoice(s,main,sub);
+	if ( main >= 8000 && main <= 8100 )
+	{
+		cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(pc_currchar->guildstone));
+		if ( pStone != NULL )
+			pStone->GumpChoice(s,main,sub);
+	}
 	
 	if( (main&0xFF00)==0xFF00)
 	{
@@ -1664,6 +1676,7 @@ void itemmenu(int s, int m) // Menus for item creation
 
 }
 
+//##ModelId=3C5D92F3002D
 void cGump::Open(int s, P_CHAR pc, int num1, int num2)
 {
 	unsigned char shopgumpopen[8]="\x24\x00\x00\x00\x01\x00\x30";

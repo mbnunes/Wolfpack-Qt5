@@ -59,6 +59,7 @@ inline void SetSkillDelay(P_CHAR pc)
 //
 // Purpose:		calculate item rank based on player' skill.
 //
+//##ModelId=3C5D93020024
 int cSkills::CalcRank(int s,int skill)
 {
 	int rk_range,rank;
@@ -96,6 +97,7 @@ int cSkills::CalcRank(int s,int skill)
 //
 // Purpose:		modify variables base on item's rank.
 //
+//##ModelId=3C5D93020056
 void cSkills::ApplyRank(int s, P_ITEM pi, int rank)
 {
 	char tmpmsg[512];
@@ -138,6 +140,7 @@ void cSkills::ApplyRank(int s, P_ITEM pi, int rank)
 // history:	by Magius(CHE),24 Agoust 1999
 // Purpose:	Resets all values into itemmake[s].
 //
+//##ModelId=3C5D93020088
 void cSkills::Zero_Itemmake(int s)
 {
 	itemmake[s].has=0;
@@ -159,23 +162,30 @@ void cSkills::Zero_Itemmake(int s)
 // history:	by Unknown
 // Purpose:	create a specified menuitem target.
 //
+//##ModelId=3C5D93300305
 typedef int SOCK;
 
 class cMMTsmith;		// forward declaration for cMMT factory
 
+//##ModelId=3C5D93310018
 class cMMT				// MakeMenuTarget
 {
 protected:
+	//##ModelId=3C5D9331004A
 	char* failtext;
+	//##ModelId=3C5D93310072
 	unsigned char badsnd1;
+	//##ModelId=3C5D93310090
 	unsigned char badsnd2;
 public:
+	//##ModelId=3C5D933100EA
 	cMMT(short badsnd=0, char *failmsg="You fail to create the item.")
 	{
 		badsnd1 = static_cast<unsigned char>(badsnd>>8);
 		badsnd2 = static_cast<unsigned char>(badsnd&0x00FF);
 		failtext=failmsg;
 	}
+	//##ModelId=3C5D93310108
 	virtual void deletematerial(SOCK s, int amount)
 	{
 		P_ITEM pPack=Packitem(currchar[s]);
@@ -190,18 +200,27 @@ public:
 		if (itemmake[s].Mat2id)												// if a 2nd material is used,
 			delequan(currchar[s],itemmake[s].Mat2id,amount>0 ? amount : 1);	// delete that too */
 	}
+	//##ModelId=3C5D93310130
 	virtual void delonfail(SOCK s)		{deletematerial(s, itemmake[s].needs/2);}
+	//##ModelId=3C5D9331014E
 	virtual void delonsuccess(SOCK s)	{deletematerial(s, itemmake[s].needs);}
+	//##ModelId=3C5D93310162
 	virtual void playbad(SOCK s)		{soundeffect(s,badsnd1,badsnd2);}
+	//##ModelId=3C5D933101E4
 	virtual void failmsg(SOCK s)		{sysmessage(s,failtext);}
+	//##ModelId=3C5D933101F8
 	virtual void failure(SOCK s)		{delonfail(s);playbad(s);failmsg(s);}
+	//##ModelId=3C5D93310217
 	static cMMT* factory(short skill);
 };
 
+//##ModelId=3C5D9331028F
 class cMMTsmith : public cMMT		// MakeMenuTarget for Smithing
 {
 public:
+	//##ModelId=3C5D933102C1
 	cMMTsmith(short badsnd=0x002A) : cMMT(badsnd) {}
+	//##ModelId=3C5D933102D5
 	virtual void deletematerial(SOCK s, int amount)
 	{
 		P_ITEM pPack= Packitem(currchar[s]);
@@ -225,6 +244,7 @@ public:
 	}
 };
 
+//##ModelId=3C5D93310217
 cMMT* cMMT::factory(short skill)
 {
 	switch (skill)
@@ -239,6 +259,7 @@ cMMT* cMMT::factory(short skill)
 	}
 }
 
+//##ModelId=3C5D930202EB
 void cSkills::MakeMenuTarget(int s, int x, int skill)
 {
 //	int cc=currchar[s];
@@ -515,6 +536,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 //		END OF: By Polygon
 }
 
+//##ModelId=3C5D93020313
 void cSkills::MakeMenu(int s, int m, int skill) // Menus for playermade objects
 { // s - character online #, m - menu to use, skill - skill being used
 	int total, i;
@@ -656,6 +678,7 @@ void cSkills::MakeMenu(int s, int m, int skill) // Menus for playermade objects
 	targetok[s]=1; 
 }
 
+//##ModelId=3C5D9301025E
 void cSkills::Hide(int s) 
 { 
 	P_CHAR pc_currchar = currchar[s]; 
@@ -704,6 +727,7 @@ void cSkills::Hide(int s)
 	updatechar(pc_currchar); 
 }
 
+//##ModelId=3C5D93010272
 void cSkills::Stealth(int s)//AntiChrist
 {
 //	int c=currchar[s];
@@ -731,6 +755,7 @@ void cSkills::Stealth(int s)//AntiChrist
 	updatechar(pc_currchar);
 }
 
+//##ModelId=3C5D93010290
 void cSkills::PeaceMaking(int s)
 {
 	int res1, res2, j;
@@ -777,6 +802,7 @@ void cSkills::PeaceMaking(int s)
 	}
 }
 
+//##ModelId=3C5D930102C2
 void cSkills::PlayInstrumentWell(int s, P_ITEM pi)
 {
 	switch(pi->id())
@@ -793,6 +819,7 @@ void cSkills::PlayInstrumentWell(int s, P_ITEM pi)
 	}
 }
 
+//##ModelId=3C5D930102F4
 void cSkills::PlayInstrumentPoor(int s, P_ITEM pi)
 {
 	switch(pi->id())
@@ -809,6 +836,7 @@ void cSkills::PlayInstrumentPoor(int s, P_ITEM pi)
 	}
 }
 
+//##ModelId=3C5D9301031C
 P_ITEM cSkills::GetInstrument(int s)
 {
 	P_CHAR pc_currchar = currchar[s];
@@ -855,6 +883,7 @@ static bool DoOnePotion(int s,short regid, int regamount, char* regname)
 // Purpose:	determines regs and quantity, creates working sound and
 //			indirectly calls CreatePotion on success
 //
+//##ModelId=3C5D930201DD
 void cSkills::DoPotion(int s, int type, int sub, P_ITEM mortar)
 {
 	if (sub == 0)	// user cancelled second alchemy menu 
@@ -904,6 +933,7 @@ void cSkills::DoPotion(int s, int type, int sub, P_ITEM mortar)
 // Purpose:	does the appropriate skillcheck for the potion, creates it
 //			in the mortar on success and tries to put it into a bottle
 //
+//##ModelId=3C5D93020101
 void cSkills::CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar)
 {
 	int success=0;
@@ -969,6 +999,7 @@ void cSkills::CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar)
 // Purpose: Uses the targeted potion bottle *outside* the backpack to
 //			pour in the potion from the mortar
 //
+//##ModelId=3C5D9303006C
 void cSkills::BottleTarget(int s)
 {
 	P_ITEM pi=FindItemBySerPtr(buffer[s]+7);
@@ -997,6 +1028,7 @@ void cSkills::BottleTarget(int s)
 // history: unknown, revamped by Duke,23.04.2000
 // Purpose: this really creates the potion
 //
+//##ModelId=3C5D9303008A
 void cSkills::PotionToBottle(P_CHAR pc, P_ITEM pi_mortar)
 {
 	unsigned char id1,id2;
@@ -1067,6 +1099,7 @@ void cSkills::PotionToBottle(P_CHAR pc, P_ITEM pi_mortar)
 	return;
 }
 
+//##ModelId=3C5D9303009E
 char cSkills::CheckSkill(P_CHAR pc, unsigned short int sk, int low, int high)
 {
 	char skillused=0;
@@ -1113,6 +1146,7 @@ char cSkills::CheckSkill(P_CHAR pc, unsigned short int sk, int low, int high)
 	return skillused;
 }
 
+//##ModelId=3C5D93020129
 char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 {
 	int i=0, retval, incval,a,d=0;
@@ -1275,6 +1309,7 @@ static int AdvanceOneStat(int sk, int i, signed short *stat, signed short *stat2
 //			gives all three stats the chance (from skills.scp & server.scp) to rise
 //			and reduces the two other stats if necessary
 //
+//##ModelId=3C5D93020151
 void cSkills::AdvanceStats(P_CHAR pc, int sk)
 {
 	int i,so;
@@ -1328,6 +1363,7 @@ void cSkills::AdvanceStats(P_CHAR pc, int sk)
 	}
 }
 
+//##ModelId=3C5D93030148
 void cSkills::SpiritSpeak(int s) // spirit speak time, on a base of 30 seconds + skill[SPIRITSPEAK]/50 + INT
 {
 	//	Unsure if spirit speaking should they attempt again?
@@ -1345,6 +1381,7 @@ void cSkills::SpiritSpeak(int s) // spirit speak time, on a base of 30 seconds +
 	SetTimerSec(&currchar[s]->spiritspeaktimer,spiritspeak_data.spiritspeaktimer+currchar[s]->in);
 }
 
+//##ModelId=3C5D930403B6
 int cSkills::GetCombatSkill(P_CHAR pc)
 {
 	int skillused = WRESTLING;
@@ -1382,6 +1419,7 @@ int cSkills::GetCombatSkill(P_CHAR pc)
 	return(skillused);
 }
 
+//##ModelId=3C5D930403CA
 void cSkills::SkillUse(int s, int x) // Skill is clicked on the skill list
 {
 //	int cc=currchar[s];
@@ -1522,6 +1560,7 @@ void cSkills::SkillUse(int s, int x) // Skill is clicked on the skill list
 		sysmessage(s, "You must wait a few moments before using another skill.");
 }
 
+//##ModelId=3C5D9301034E
 void cSkills::RandomSteal(int s)
 {
 	int i, skill;
@@ -1601,7 +1640,7 @@ void cSkills::RandomSteal(int s)
 			
 			if (pc_npc->isNpc()) npctalkall(pc_npc, "Guards!! A thief is amoung us!",0);
 			
-			if (pc_npc->isInnocent() && pc_currchar->attacker != pc_npc->serial && Guilds->Compare( pc_currchar, pc_npc )==0)//AntiChrist
+			if (pc_npc->isInnocent() && pc_currchar->attacker != pc_npc->serial && GuildCompare( pc_currchar, pc_npc )==0)//AntiChrist
 				criminal( pc_currchar );//Blue and not attacker and not guild
 			
 			if (item->name != "#")
@@ -1626,6 +1665,7 @@ void cSkills::RandomSteal(int s)
 	} else sysmessage(s, "You are too far away to steal that item.");
 }
 
+//##ModelId=3C5D9300014E
 void cSkills::Tracking(int s,int selection)
 {
 	P_CHAR pc_currchar = currchar[s];
@@ -1638,6 +1678,7 @@ void cSkills::Tracking(int s,int selection)
 	Skills->Track(pc_currchar);
 }
 
+//##ModelId=3C5D93050029
 void cSkills::CreateTrackingMenu(int s,int m)
 {
 	unsigned int i;
@@ -1769,6 +1810,7 @@ void cSkills::CreateTrackingMenu(int s,int m)
 	closescript();
 }
 
+//##ModelId=3C5D9305003D
 void cSkills::TrackingMenu(int s,int gmindex)
 {
 	int total, i;
@@ -1829,6 +1871,7 @@ void cSkills::TrackingMenu(int s,int gmindex)
 	}
 }
 
+//##ModelId=3C5D930201C9
 void cSkills::Track(P_CHAR pc_i)
 {
 	if ( pc_i == NULL)
@@ -1872,6 +1915,7 @@ void cSkills::Track(P_CHAR pc_i)
 	Xsend(s,arrow,6);
 }
 
+//##ModelId=3C5D930200EC
 int cSkills::TrackingDirection(UOXSOCKET s,P_CHAR pc_i)
 {
 	int direction = 5;
@@ -2058,6 +2102,7 @@ void TellScroll( char *menu_name, int s, long snum )
 // Purpose:	bring up inscription menue
 // Remarks:	snum is not needed here. Should change classes.h and targeting.cpp
 //
+//##ModelId=3C5D930500A1
 int cSkills::Inscribe(int s,long snum) 
 {
 	if(buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) 
@@ -2091,6 +2136,7 @@ int cSkills::Inscribe(int s,long snum)
 // history:	unknown, modified by AntiChrist, totally revamped by Duke,8 April 2000
 // Purpose:	check mana&regs and set the name of selected spell
 //
+//##ModelId=3C5D930500BF
 int cSkills::EngraveAction(int s, P_ITEM pi, int cir, int spl)
 {
 	char *spn;					// spellname
@@ -2225,6 +2271,7 @@ int cSkills::EngraveAction(int s, P_ITEM pi, int cir, int spl)
 }
 
 // Calculate the skill of this character based on the characters baseskill and stats
+//##ModelId=3C5D930500E7
 void cSkills::updateSkillLevel(P_CHAR pc, int s)
 {
 	int temp = (((skill[s].st * pc->st) / 100 +
@@ -2236,6 +2283,7 @@ void cSkills::updateSkillLevel(P_CHAR pc, int s)
 	pc->skill[s] = max(static_cast<unsigned int>(pc->baseskill[s]), static_cast<unsigned int>(temp));
 }
 
+//##ModelId=3C5D9305017D
 void cSkills::TDummy(int s)
 {
 	//unsigned int i;
@@ -2303,6 +2351,7 @@ void CollectAmmo(int s, int a, int b)
 	}
 }
 
+//##ModelId=3C5D930501A5
 void cSkills::AButte(int s1, P_ITEM pButte)
 {
 	int v1,i;
@@ -2491,6 +2540,7 @@ void cSkills::Meditation(UOXSOCKET s) // Morrolan - meditation(int socket)
 //and his mana decreases each time you try to persecute him
 //decrease=3+(your int/10)
 //
+//##ModelId=3C5D930501C3
 void cSkills::Persecute (UOXSOCKET s) //AntiChrist - persecute stuff
 {
 	P_CHAR pc_currchar = currchar[s];
@@ -2643,6 +2693,7 @@ void SkillVars()
 	strcpy(skill[REMOVETRAPS].madeword,"made");
 }
 
+//##ModelId=3C5D930502D2
 int cSkills::GetAntiMagicalArmorDefence(P_CHAR pc)
 {// blackwind
 	int ar = 0;
@@ -2667,6 +2718,7 @@ int cSkills::GetAntiMagicalArmorDefence(P_CHAR pc)
 	return ar;
 }
 
+//##ModelId=3C5D930502F0
 void cSkills::Snooping(P_CHAR player, P_ITEM container)
 {
 
@@ -2709,6 +2761,7 @@ void cSkills::Snooping(P_CHAR player, P_ITEM container)
 	Function is called when clicked on the "Cartography button
 	Builds the cartography menu
 */
+//##ModelId=3C5D930501CD
 void cSkills::Cartography(int s)
 {
 //	int cc=currchar[s];	// Get the current char of the client
@@ -2729,6 +2782,7 @@ void cSkills::Cartography(int s)
 	determine if the correct map type is in pack
 */
 
+//##ModelId=3C5D930501F5
 bool cSkills::HasEmptyMap(P_CHAR pc)	// Check if the player carries an empty map
 {
 	P_ITEM pack;	// Variable that stores the backpack
@@ -2749,6 +2803,7 @@ bool cSkills::HasEmptyMap(P_CHAR pc)	// Check if the player carries an empty map
 	return false;	// Search lasted too long, abort
 }
 
+//##ModelId=3C5D93050231
 bool cSkills::DelEmptyMap(P_CHAR pc)	// Delete an empty map from the player's backpack, use HasEmptyMap before!
 {
 	P_ITEM pack;	// Variable that stores the backpack
@@ -2784,6 +2839,7 @@ bool cSkills::DelEmptyMap(P_CHAR pc)	// Delete an empty map from the player's ba
 	Called when double-clicked such a map
 */
 
+//##ModelId=3C5D93050245
 void cSkills::Decipher(P_ITEM tmap, int s)
 {
 	P_CHAR pc_currchar = currchar[s];

@@ -198,6 +198,7 @@ extern int loopTimeCount;
 extern unsigned long int serverstarttime;
 
 
+//##ModelId=3C5D92F50030
 enum  enScripts { items_script = 0,npc_script,create_script,regions_script,misc_script,skills_script,
 			location_script,menus_script,spells_script,speech_script,tracking_script,
 			newbie_script,titles_script,advance_script,trigger_script,ntrigger_script,

@@ -41,6 +41,7 @@
 //========================================================================================
 
 
+//##ModelId=3C5D92F60045
 Coord_cl::Coord_cl(void)
 {
 	x = y = z = map = plane = 0;
@@ -49,6 +50,7 @@ Coord_cl::Coord_cl(void)
 //========================================================================================
 
 
+//##ModelId=3C5D92F60050
 Coord_cl::Coord_cl(const Coord_cl& clCoord)
 {
 	(*this) = clCoord ;
@@ -57,6 +59,7 @@ Coord_cl::Coord_cl(const Coord_cl& clCoord)
 //========================================================================================
 
 
+//##ModelId=3C5D92F60063
 Coord_cl::Coord_cl(UI16 uiX, UI16 uiY, SI08 siZ, UI08 uiMap, UI08 uiPlane)
 {
 	x = uiX;
@@ -77,6 +80,7 @@ Coord_cl::Coord_cl(UI16 uiX, UI16 uiY, SI08 siZ, UI08 uiMap, UI08 uiPlane)
  *
  * @return UI32  : distance result
  */
+//##ModelId=3C5D92F600C7
 UI32 Coord_cl::distance(Coord_cl &src)
 {
 	UI32 uiResult = ~0; // Initialize with *infinite*
@@ -90,6 +94,7 @@ UI32 Coord_cl::distance(Coord_cl &src)
 }
 
 // Operators
+//##ModelId=3C5D92F6008B
 Coord_cl& Coord_cl::operator=(const Coord_cl& clCoord)
 {
 	x = clCoord.x;
@@ -100,11 +105,13 @@ Coord_cl& Coord_cl::operator=(const Coord_cl& clCoord)
 	return (*this);
 }
 
+//##ModelId=3C5D92F6009F
 bool Coord_cl::operator ==(const Coord_cl& src)
 {
 	return (x == src.x && y == src.y && z == src.z && map == src.map && plane == src.plane);
 }
 
+//##ModelId=3C5D92F600B3
 Coord_cl Coord_cl::operator+(const Coord_cl& src) const
 {
 	return Coord_cl(this->x + src.x, this->y + src.y, this->z + src.z);

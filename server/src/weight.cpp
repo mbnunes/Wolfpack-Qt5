@@ -53,6 +53,7 @@ void newcalcweight(int);
 
 **************************************************************************************************************************/
 
+//##ModelId=3C5D9306005D
 void cWeight::NewCalc(P_CHAR pc)
 {
 	float totalweight=0.0;
@@ -88,6 +89,7 @@ void cWeight::NewCalc(P_CHAR pc)
 // History:	Ison 2-20-99  - rewrote by Tauriel 3/20/99
 //			rewritten by Duke 4.11.2k
 //
+//##ModelId=3C5D93060020
 float cWeight::RecursePacks(P_ITEM bp)
 {
 	float totalweight=0.0;
@@ -114,6 +116,7 @@ float cWeight::RecursePacks(P_ITEM bp)
 	return totalweight;
 }
 
+//##ModelId=3C5D9306000C
 int cWeight::CheckWeight(UOXSOCKET s) // Check when player is walking if overloaded
 {
 	P_CHAR pc = currchar[s];
@@ -134,6 +137,7 @@ int cWeight::CheckWeight(UOXSOCKET s) // Check when player is walking if overloa
 	return 1;
 }
 
+//##ModelId=3C5D93060052
 int cWeight::CheckWeight2(int s) // Morrolan - Check when player is teleporting if overloaded
 {
 	P_CHAR pc = currchar[s];
@@ -151,6 +155,7 @@ int cWeight::CheckWeight2(int s) // Morrolan - Check when player is teleporting 
 }
 
 //	history:	added containersearch Duke, 4.11.2k
+//##ModelId=3C5D930600A2
 float cWeight::LockeddownWeight(P_ITEM pItem, int *total, int *total2 )
 {
 	float totalweight=0.0;

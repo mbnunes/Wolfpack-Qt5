@@ -41,9 +41,11 @@
 // and loads of stupid other things/bugs
 
 #include "guildstones.h"
-#include "wolfpack.h"
+#include "globals.h"
 #include "SndPkg.h"
 #include "debug.h"
+#include "wolfpack.h"
+#include "iserialization.h"
 
 #undef  DBGFILE
 #define DBGFILE "guildstones.cpp"
@@ -51,54 +53,47 @@
 // placeguildstone() : spawns a renamed gravestone at players location and removes deed
 // Placer gets guildmaster, whatever he does ;)
 // Force placer to give that damn guild a damn name :)
-void cGuilds::StonePlacement(int s)
+void StonePlacement(UOXSOCKET s)
 {
 	int guildnumber;
-	//unsigned int k; // lb, msvc++ 5.0 didnt like the guild(int x,inty) ...
 	char stonename[60];
 	P_CHAR pc = currchar[s];
 	P_ITEM pDeed = FindItemBySerial(pc->fx1);
-	P_ITEM pStone=NULL;
+	cGuildStone* pStone = NULL;
 
 	if (CheckValidPlace(s)!=1)
 	{
-		sysmessage(s,"You cannot place guildstones at any other location than your house");
+		sysmessage(s, "You cannot place guildstones at any other location than your house");
 		return;
 	}
 	
 	if (pDeed->id()==0x14F0)
 	{
-		if (pc->guildnumber!=0)
+		if (pc->guildstone != INVALID_SERIAL)
 		{
 			itemmessage(s,"You are already in a guild.",pDeed->serial);
 			return;
 		}
-		guildnumber=Guilds->SearchSlot(0,1);
-		if (guildnumber==-1)
-		{
-			itemmessage(s,"There are already enough guildstones placed.",pDeed->serial);
-			return;
-		}
-		pc->guildnumber=guildnumber;
-		pStone = Items->SpawnItem(currchar[s],1,"Guildstone for an unnamed guild",0,0x0ED5,0,0);
+		pStone = new cGuildStone;		
 		if (!pStone)
 		{//AntiChrist - to prevent crashes
-			sysmessage(s,"Cannot create guildstone");
+			sysmessage(s, "Cannot create guildstone");
 			return;
 		}
+		pStone->Init();
+		pStone->setId(0x0ED5);
+		pStone->name = "Guildstone for an unnamed guild";
+		Items->GetScriptItemSetting(pStone);
+		pc->guildstone = pStone->serial;
 		if (pc->id() == 0x0191)	
 			pc->guildtitle = "Guildmistress";	
 		else
 			pc->guildtitle = "Guildmaster";
 
-
-		guilds[guildnumber].free = false;
-		guilds[guildnumber].members = 1;
-		guilds[guildnumber].member[1] = pc->serial;
-		guilds[guildnumber].type = 0;
-		guilds[guildnumber].abbreviation[0] = 0;
-		strcpy(guilds[guildnumber].webpage,DEFAULTWEBPAGE);
-		strcpy(guilds[guildnumber].charter,DEFAULTCHARTER);
+		pStone->webpage = DEFAULTWEBPAGE;
+		pStone->charter = DEFAULTCHARTER;
+		pStone->addMember( pc );
+		pStone->guildType = cGuildStone::standard;
 		pStone->MoveTo(pc->pos.x,pc->pos.y,pc->pos.z);
 		pStone->type = 202;
 		pStone->priv = 0;
@@ -107,13 +102,11 @@ void cGuilds::StonePlacement(int s)
 
 		RefreshItem(pStone);//AntiChrist
 		Items->DeleItem(pDeed);
-		guilds[guildnumber].stone=pStone->serial;
-		guilds[guildnumber].master=pc->serial;
 		entrygump(s, pc->serial,100,1,40,"Enter a name for the guild.");
 	}
 	else
 	{
-		guildnumber = SearchByStone(s);
+/*		guildnumber = SearchByStone(s);
 		if (guildnumber==-1)
 		{//AntiChrist
 			sysmessage(s,"There are already enough guildstones placed.");
@@ -140,60 +133,63 @@ void cGuilds::StonePlacement(int s)
 		}
 		else
 			itemmessage(s,"You are not the guildmaster of this guild. Only the guildmaster may use this guildstone teleporter.",pDeed->serial);
-	}
+*/	}
 }
 
+//##ModelId=3C5D92F40146
+void cGuildStone::addMember(P_CHAR pc)
+{
+	member.push_back(pc->serial);
+	sort(member.begin(), member.end());
+}
+
+//##ModelId=3C5D92F40165
+bool cGuildStone::isMember(P_CHAR pc)
+{
+	return binary_search(member.begin(), member.end(), pc->serial);
+}
 
 // guildstonemenu() : Opens the guild menu for a player
 // Recognizes Guildmaster with the owner fields of the stone.
 // Ofcourse checks for membership before opening any gump ;)
-void cGuilds::Menu(int s, int page)
+void cGuildStone::Menu(UOXSOCKET s, int page)
 {
-	int total,i, counter,guild,recruit,war,member;
+	//int total,i, counter,guild,recruit,war,member;
+	int counter = 1;
 	int lentext;
 	int gumpnum = 0;
 	char guildfealty[60],guildt[16],toggle[6];
 	static char mygump[MAXMEMRECWAR][257];
 
 	P_CHAR pc = currchar[s];
-	P_ITEM stone = FindItemBySerial(pc->fx1);
 
-	int guildnumber=Guilds->SearchByStone(s);
-
-	if (guildnumber==-1)
+	if (!isMember( pc ) && !pc->isGM())
 	{
 		sysmessage(s, "You are not a member of this guild. Ask an existing guildmember to invite you into this guild.");
 		return;
 	}
 
-	if ((guilds[guildnumber].stone!=stone->serial)&&
-		(!(pc->isGM())))
-	{
-		itemmessage(s,"You are not a member of this guild. Ask an existing guildmember to invite you into this guild.", stone->serial);
-		return;
-	}
-
 	strcpy(guildfealty, "yourself");
-	if ((pc->guildfealty != pc->serial)&&(pc->guildfealty!=0))
+	if ((pc->guildfealty != pc->serial)&&(pc->guildfealty != INVALID_SERIAL))
 	{
-		for (member=1;member<MAXGUILDMEMBERS;member++)
+		vector<SERIAL>::iterator it = find(member.begin(), member.end(), pc->guildfealty);
+		if ( it != member.end())
 		{
-			if (pc->guildfealty == guilds[guildnumber].member[member])
-			{
-				strcpy(guildfealty, FindCharBySerial(guilds[guildnumber].member[member])->name.c_str());
-				break;
-			}
+			strcpy(guildfealty, FindCharBySerial(*it)->name.c_str());
 		}
 	}
-	else pc->guildfealty = pc->serial;	
-	if (guilds[guildnumber].master==0) Guilds->CalcMaster(guildnumber);
-	P_CHAR guildmaster = FindCharBySerial(guilds[guildnumber].master);
+	else 
+		pc->guildfealty = pc->serial;	
+	if (this->ownserial == INVALID_SERIAL) 
+		CalcMaster();
+	
+	P_CHAR guildmaster = FindCharBySerial(this->ownserial);
 
-	switch (guilds[guildnumber].type) 
+	switch (this->guildType) 
 	{
-		case 0:		strcpy(guildt, " Standard");	break;
-		case 1:		strcpy(guildt, "n Order");		break;
-		case 2:		strcpy(guildt, " Chaos");		break;
+		case standard:		strcpy(guildt, " Standard");	break;
+		case order:			strcpy(guildt, "n Order");		break;
+		case chaos:			strcpy(guildt, " Chaos");		break;
 	}
 	
 	if (pc->guildtoggle) 
@@ -210,7 +206,7 @@ void cGuilds::Menu(int s, int page)
 
 		if (guildmaster<0) return;
 
-		lentext = sprintf(mygump[0], "%s (%s %s)", guilds[guildnumber].name, guildmaster->guildtitle.c_str(), guildmaster->name.c_str());
+		lentext = sprintf(mygump[0], "%s (%s %s)", this->guildName.c_str(), guildmaster->guildtitle.c_str(), guildmaster->name.c_str());
 		strcpy(mygump[1],"Recruit someone into the guild.");
 		strcpy(mygump[2],"View the current roster.");
 		strcpy(mygump[3],"View the guild's charter.");
@@ -218,23 +214,22 @@ void cGuilds::Menu(int s, int page)
 		sprintf(mygump[5],"Toggle showing the guild's abbreviation in your name to unguilded people. Currently %s.",toggle);
 		strcpy(mygump[6],"Resign from the guild.");
 		strcpy(mygump[7],"View list of candidates who have been sponsored to the guild.");
-	    if ((pc->serial==guilds[guildnumber].master)||
-			(pc->isGM()))							// Guildmaster Access?
+	    if ((pc->serial == this->ownserial)|| (pc->isGM()))							// Guildmaster Access?
 		{															
 			gumpnum=10;
 			gmprefix[7]=8000>>8;
 			gmprefix[8]=8000%256;
 			sprintf(mygump[8],"Access %s functions.", guildmaster->guildtitle.c_str());
-			sprintf(mygump[9],"View list of guild that %s has declared war on.",guilds[guildnumber].name);
-			sprintf(mygump[10],"View list of guilds that have declared war on %s.",guilds[guildnumber].name);
+			sprintf(mygump[9],"View list of guild that %s has declared war on.", this->guildName.c_str());
+			sprintf(mygump[10],"View list of guilds that have declared war on %s.",this->guildName.c_str());
 		} else {													// Normal Members access!
-			sprintf(mygump[8],"View list of guilds that %s have declared war on.",guilds[guildnumber].name);
-			sprintf(mygump[9],"View list of guilds that have declared war on %s.",guilds[guildnumber].name);
+			sprintf(mygump[8],"View list of guilds that %s have declared war on.",this->guildName.c_str());
+			sprintf(mygump[9],"View list of guilds that have declared war on %s.",this->guildName.c_str());
 		}
 		break;
 	case 2:														// guildmaster menu
 		gumpnum=14;
-		lentext = sprintf(mygump[0], "%s, %s functions", guilds[guildnumber].name, guildmaster->guildtitle.c_str());
+		lentext = sprintf(mygump[0], "%s, %s functions", this->guildName.c_str(), guildmaster->guildtitle.c_str());
 		strcpy(mygump[1], "Set the guild name.");
 		strcpy(mygump[2], "Set the guild's abbreviation.");
 		sprintf(mygump[3], "Change the type of the guild. (Currently a%s guild.)",guildt);
@@ -264,7 +259,7 @@ void cGuilds::Menu(int s, int page)
 		break;
 	case 4:														// edit charter
 		gumpnum=3;
-		lentext=sprintf(mygump[0], "Set %s charter.",guilds[guildnumber].name);
+		lentext=sprintf(mygump[0], "Set %s charter.", this->guildName.c_str());
 		strcpy(mygump[1], "Select this to return to main menu.");
 		strcpy(mygump[2], "Set the charter.");
 		strcpy(mygump[3], "Set the webpage.");
@@ -273,142 +268,142 @@ void cGuilds::Menu(int s, int page)
 		break;
 	case 5:														// view charter
 		gumpnum=2;
-		lentext=sprintf(mygump[0], "%s charter.",guilds[guildnumber].name);
-		sprintf(mygump[1], "%s. Select this to return to the main menu.",guilds[guildnumber].charter);
-		sprintf(mygump[2], "Visit the guild website at %s",guilds[guildnumber].webpage);
+		lentext=sprintf(mygump[0], "%s charter.", this->guildName.c_str());
+		sprintf(mygump[1], "%s. Select this to return to the main menu.", this->charter.c_str());
+		sprintf(mygump[2], "Visit the guild website at %s", this->webpage.c_str());
 		gmprefix[7]=8005>>8;
 		gmprefix[8]=8005%256;
 		break;
-	case 6:														// Candidates list
-		gumpnum=guilds[guildnumber].recruits+1;
-		lentext=sprintf(mygump[0], "%s list of candidates.",guilds[guildnumber].name);
+	case 6:
+	{														// Candidates list
+		gumpnum = this->recruit.size();
+		lentext=sprintf(mygump[0], "%s list of candidates.", this->guildName.c_str());
 		sprintf(mygump[1], "Select this to return to the menu.");
-		counter=1;
-		for (recruit=1;recruit<MAXGUILDRECRUITS;recruit++)
+		unsigned int i;
+		for (i = 0; i < recruit.size(); ++i)
 		{
-			if (guilds[guildnumber].recruit[recruit]!=0)
-			{
-				counter++;
-				strcpy(mygump[counter], FindCharBySerial(guilds[guildnumber].recruit[recruit])->name.c_str());
-			}
+			strcpy(mygump[counter++], FindCharBySerial(this->recruit[i])->name.c_str());
 		}
 		gmprefix[7]=8006>>8;
 		gmprefix[8]=8006%256;
 		break;
-	case 7:														// roster
-		gumpnum=guilds[guildnumber].members+1;
-		lentext=sprintf(mygump[0], "%s members roster.",guilds[guildnumber].name);
+	}
+	case 7:
+	{														// roster
+		gumpnum = this->member.size();
+		lentext=sprintf(mygump[0], "%s members roster.", this->guildName.c_str());
 		strcpy(mygump[1], "Select this to return to the menu.");
 		counter=1;
-		for (member=1;member<MAXGUILDMEMBERS;member++)
+		unsigned int i;
+		for (i = 0; i < member.size(); ++i)
 		{
-			if (guilds[guildnumber].member[member]!=0)
-			{
-				counter++;
-				strcpy(mygump[counter], FindCharBySerial(guilds[guildnumber].member[member])->name.c_str());
-			}
+			counter++;
+			strcpy(mygump[counter], FindCharBySerial(this->member[i])->name.c_str());
 		}
 		gmprefix[7]=8007>>8;
 		gmprefix[8]=8007%256;
 		break;
-	case 8:														// member dismiss
-		gumpnum=guilds[guildnumber].members+1;
+	}
+	case 8:
+	{													// member dismiss
+		gumpnum = this->member.size();
 		lentext=sprintf(mygump[0], "Dismiss what member?");
 		strcpy(mygump[1], "Select this to return to the menu.");
 		counter=1;
-		for (member=1;member<MAXGUILDMEMBERS;member++)
+		unsigned int i;
+		for ( i = 0; i < member.size(); ++i)
 		{
-			if (guilds[guildnumber].member[member]!=0)
-			{
-				counter++;
-				strcpy(mygump[counter], FindCharBySerial(guilds[guildnumber].member[member])->name.c_str());
-			}
+			counter++;
+			strcpy(mygump[counter], FindCharBySerial(this->member[i])->name.c_str());
 		}
 		gmprefix[7]=8008>>8;
 		gmprefix[8]=8008%256;
 		break;
-	case 9:														// Refuse Candidates
-		gumpnum=guilds[guildnumber].recruits+1;
-		lentext=sprintf(mygump[0], "Refuse what candidate? %s",guilds[guildnumber].name);
+	}
+	case 9:	
+	{													// Refuse Candidates
+		gumpnum = this->recruit.size();
+		lentext=sprintf(mygump[0], "Refuse what candidate? %s", this->guildName.c_str());
 		strcpy(mygump[1], "Select this to return to the menu.");
 		counter=1;
-		for (recruit=1;recruit<MAXGUILDRECRUITS;recruit++)
+		unsigned int i;
+		for ( i = 0; i < recruit.size(); ++i)
 		{
-			if (guilds[guildnumber].recruit[recruit]!=0)
-			{
-				counter++;
-				strcpy(mygump[counter], FindCharBySerial(guilds[guildnumber].recruit[recruit])->name.c_str());
-			}
+			counter++;
+			strcpy(mygump[counter], FindCharBySerial(this->recruit[i])->name.c_str());
 		}
 		gmprefix[7]=8009>>8;
 		gmprefix[8]=8009%256;
 		break;
+	}
 	case 10:														// Accept Candidates
-		gumpnum=guilds[guildnumber].recruits+1;
-		lentext=sprintf(mygump[0], "Accept what candidate?.%s",guilds[guildnumber].name);
+	{
+		gumpnum = this->recruit.size();
+		lentext=sprintf(mygump[0], "Accept what candidate?.%s", this->guildName.c_str());
 		strcpy(mygump[1], "Select this to return to the menu.");
 		counter=1;
-		for (recruit=1;recruit<MAXGUILDRECRUITS;recruit++)
+		unsigned int i;
+		for ( i = 0; i < recruit.size(); ++i)
 		{
-			if (guilds[guildnumber].recruit[recruit]!=0)
-			{
-				counter++;
-				strcpy(mygump[counter], FindCharBySerial(guilds[guildnumber].recruit[recruit])->name.c_str());
-			}
+			counter++;
+			strcpy(mygump[counter], FindCharBySerial(this->recruit[i])->name.c_str());
 		}
 		gmprefix[7]=8010>>8;
 		gmprefix[8]=8010%256;
 		break;
+	}
 	case 11:														// War list
-		gumpnum=guilds[guildnumber].wars+1;
-		lentext=sprintf(mygump[0], "Guild that %s has declared war on.",guilds[guildnumber].name);
+	{
+		gumpnum = this->war.size();
+		lentext=sprintf(mygump[0], "Guild that %s has declared war on.", this->guildName.c_str());
 		strcpy(mygump[1], "Select this to return to the menu.");
 		counter=1;
-		for (war=1;war<MAXGUILDWARS;war++)
+		unsigned int i;
+		for ( i = 0; i < war.size(); ++i )
 		{
-			if (guilds[guildnumber].war[war]!=0)
-			{
-				counter++;
-				strcpy(mygump[counter],guilds[guilds[guildnumber].war[war]].name);
-			}
+			counter++;
+			cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(this->war[i]));
+			strcpy(mygump[counter], pStone->guildName.c_str());
 		}
 		gmprefix[7]=8011>>8;
 		gmprefix[8]=8011%256;
 		break;
-	case 12:														// grant title
-		gumpnum=guilds[guildnumber].members+1;
+	}
+	case 12:
+	{														// grant title
+		gumpnum = this->member.size();
 		lentext=sprintf(mygump[0], "Grant a title to whom?");
 		strcpy(mygump[1], "Select this to return to the menu.");
-		counter=1;
-		for (member=1;member<MAXGUILDMEMBERS;member++)
+		counter = 1;
+		unsigned int i;
+		for (i = 0; i < this->member.size(); ++i)
 		{
-			if (guilds[guildnumber].member[member]!=0)
-			{
-				counter++;
-				strcpy(mygump[counter], FindCharBySerial(guilds[guildnumber].member[member])->name.c_str());
-			}
+			counter++;
+			strcpy(mygump[counter], FindCharBySerial(this->member[i])->name.c_str());
 		}
 		gmprefix[7]=8012>>8;
 		gmprefix[8]=8012%256;
 		break;
-	case 13:														// fealty
-		gumpnum=guilds[guildnumber].members+1;
-		lentext=sprintf(mygump[0], "Whom do you wish to be loyal to?");
+	}
+	case 13:	
+	{													// fealty
+		gumpnum = this->member.size();
+		lentext = sprintf(mygump[0], "Whom do you wish to be loyal to?");
 		strcpy(mygump[1], "Select this to return to the menu.");
 		counter=1;
-		for (member=1;member<MAXGUILDMEMBERS;member++)
+		unsigned int i;
+		for (i = 0; i < this->member.size(); ++i)
 		{
-			if (guilds[guildnumber].member[member]!=0)
-			{
-				counter++;
-				strcpy(mygump[counter], FindCharBySerial(guilds[guildnumber].member[member])->name.c_str());
-			}
+			counter++;
+			strcpy(mygump[counter], FindCharBySerial(this->member[i])->name.c_str());
 		}
 		gmprefix[7]=8013>>8;
 		gmprefix[8]=8013%256;
 		break;
+	}
 	case 14:														// declare War list
-		int dummy;
+	{
+/*		int dummy;
 		gumpnum=1;
 		lentext=sprintf(mygump[0], "What guilds do you with to declare war?");
 		strcpy(mygump[1], "Select this to return to the menu.");
@@ -427,9 +422,10 @@ void cGuilds::Menu(int s, int page)
 		}
 		gmprefix[7]=8014>>8;
 		gmprefix[8]=8014%256;
-		break;
+*/		break;
+	}
 	case 15:														// declare peace list
-		gumpnum=guilds[guildnumber].wars+1;
+/*		gumpnum=guilds[guildnumber].wars+1;
 		lentext=sprintf(mygump[0], "What guilds do you with to declare peace?");
 		strcpy(mygump[1], "Select this to return to the menu.");
 		counter=1;
@@ -443,9 +439,9 @@ void cGuilds::Menu(int s, int page)
 		}
 		gmprefix[7]=8015>>8;
 		gmprefix[8]=8015%256;
-		break;
+*/		break;
 	case 16:														// War list 2
-		gumpnum=1;
+/*		gumpnum=1;
 		lentext=sprintf(mygump[0], "Guilds that have decalred war on %s.",guilds[guildnumber].name);
 		strcpy(mygump[1], "Select this to return to the menu.");
 		counter=1;
@@ -465,11 +461,11 @@ void cGuilds::Menu(int s, int page)
 		}
 		gmprefix[7]=8016>>8;
 		gmprefix[8]=8016%256;
-		break;
+*/		break;
 	}
 	
-	total=9+1+lentext+1;
-	for (i=1;i<=gumpnum;i++)
+	int total=9+1+lentext+1;
+	for (int i=1;i<=gumpnum;i++)
 	{
 		total+=4+1+strlen(mygump[i]);
 	}
@@ -499,29 +495,29 @@ void cGuilds::Menu(int s, int page)
 // Offcourse guilddatabase gets checked for members left, if everyone is gone, then vanish
 // the guildstone. After Guildmaster resigns, the fealty of each remaining member calculates
 // a new guildmaster, if there is a draw then we'll have no master until they change their minds ;)
-void cGuilds::Resign(int s)
+void GuildResign(int s)
 {
 
 	P_CHAR pc = currchar[s];
 
-	int guildnumber = pc->guildnumber;
+	cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial(pc->guildstone));
 
-	if (guildnumber==-1)
+	if (pStone == NULL)
 	{
 		sysmessage(s, "You are in no guild");
 		return;
 	}
 
-	Guilds->EraseMember( currchar[s] );
+	pStone->removeMember( currchar[s] );
 	sysmessage(s,"You are no longer in that guild.");
-	if ((guilds[guildnumber].master == pc->serial) && (guilds[guildnumber].members!=0))
+	if ((pStone->ownserial == pc->serial) && (!pStone->member.empty()))
 	{
-		guilds[guildnumber].master=0;
-		Guilds->CalcMaster(guildnumber);
+		pStone->SetOwnSerial(INVALID_SERIAL);
+		pStone->CalcMaster();
 	}
-	if (guilds[guildnumber].members==0)
+	if (pStone->member.empty())
 	{
-		Guilds->EraseGuild(guildnumber);
+		Items->DeleItem( pStone );
 		sysmessage(s,"You have been the last member of that guild so the stone vanishes.");
 	}
 	return;
@@ -530,9 +526,9 @@ void cGuilds::Resign(int s)
 
 // OKAY
 // guilderaseguild() Wipes all information about a guild and removes the guildstone
-void cGuilds::EraseGuild(int guildnumber)
+void EraseGuild(int guildnumber)
 {
-
+/*
 	if (guildnumber<0 || guildnumber >=MAXGUILDS) return;
 
 	P_ITEM pStone = FindItemBySerial(guilds[guildnumber].stone);
@@ -557,6 +553,7 @@ void cGuilds::EraseGuild(int guildnumber)
 			}
 		}
 	}
+	*/
 }
 
 
@@ -573,77 +570,51 @@ static void RemoveShields(P_CHAR pc)
 }
 
 // guilderasemember() Wipes all guild related data from a player
-void cGuilds::EraseMember(P_CHAR pc)
+void cGuildStone::removeMember(P_CHAR pc)
 {
 	if ( pc == NULL ) return;
-	int guildnumber = pc->guildnumber;
 
-	if (guildnumber>=0 && guildnumber <MAXGUILDS)
-	{
-		int j,member;
-		for(j=0;j<=guilds[guildnumber].members;j++)
-		{
-			if (guilds[guildnumber].member[j] == pc->serial)
-			{
-				P_CHAR holding = FindCharBySerial(guilds[guildnumber].member[j]);
-				if (holding != NULL) 
-				{
-					RemoveShields(holding);
-				}
-			}
-		}
-
-		for (member=1;member<MAXGUILDMEMBERS;member++)
-		{
-			if (guilds[guildnumber].member[member] == pc->serial)
-			{
-				guilds[guildnumber].member[member] = 0;
-				guilds[guildnumber].members--;
-				pc->guildnumber = 0;
-				pc->guildtoggle = false;
-				pc->guildfealty = 0;
-				pc->guildtitle[0] = 0;
-				return;
-			}
-		}
-	}
+	vector<SERIAL>::iterator it = find(member.begin(), member.end(), pc->serial);
+	member.erase(it);
+	pc->guildstone = INVALID_SERIAL;
+	pc->guildfealty = INVALID_SERIAL;
+	pc->guildtoggle = false;
+	pc->guildtitle = "";
+	RemoveShields(pc);
 }
 
 
 
 // guildtoggleabbreviation() Toggles the settings for showing or not showing the guild title
 // Informs player about his change
-void cGuilds::ToggleAbbreviation(int s)
+void cGuildStone::ToggleAbbreviation(UOXSOCKET s)
 {
-
 	P_CHAR pc = currchar[s];
-	int guildnumber = pc->guildnumber;
 
-	if (guildnumber<0 || guildnumber>MAXGUILDS) 
+	if (!isMember(pc)) 
 	{
-		sysmessage(s, "you are in no guild");
+		sysmessage(s, "you are not a guild member");
 		return;
 	}
 
-	if (guilds[guildnumber].type!=0)							// Check for Order/Chaos
+	if (this->guildType != cGuildStone::standard)		// Check for Order/Chaos
 	{
-		sysmessage(s,"You are in an Order/Chaos guild, you cannot toggle your title.");
-																// They may not toggle it off!
+		sysmessage(s, "You are in an Order/Chaos guild, you cannot toggle your title.");
 	}
 	else
 	{
 		if (!pc->guildtoggle)									// If set to Off then
 		{
-			pc->guildtoggle=true;									// Turn it On
-			sysmessage(s,"You toggled your abbreviation on.");	// Tell player about the change
+			pc->guildtoggle = true;									// Turn it On
+			sysmessage(s, "You toggled your abbreviation on.");	// Tell player about the change
 		}
 		else													// Otherwise
 		{
-			pc->guildtoggle=false;					// Turn if Off
-			sysmessage(s,"You toggled your abbreviation off.");	// And tell him also
+			pc->guildtoggle = false;					// Turn if Off
+			sysmessage(s, "You toggled your abbreviation off.");	// And tell him also
 		}
 	}
-	Guilds->Menu(s,1);											// Send him back to the menu
+	this->Menu(s, 1);										// Send him back to the menu
 	return;
 }
 
@@ -651,12 +622,11 @@ void cGuilds::ToggleAbbreviation(int s)
 // guildrecruit() Let the guild members recruit some player into the guild.
 // Checks the guild database if "to be recruited" player already in any other guild.
 // puts a tag with players serial number into the guilds recruit database.
-void cGuilds::Recruit(int s)
+void cGuildStone::Recruit(UOXSOCKET s)
 {
 	int slot, dummy;
-	int guildnumber = SearchByStone(s);
 
-	if (guildnumber==-1) 
+	if ( currchar[s]->guildstone == INVALID_SERIAL ) 
 	{
 		sysmessage(s,"you are in no guild");
 		return;
@@ -667,154 +637,49 @@ void cGuilds::Recruit(int s)
 	P_CHAR pc = FindCharBySerial( serial );
 	if(pc != NULL)
 	{
-			if (pc->guildnumber!=0) 
+			if (pc->guildstone != INVALID_SERIAL) 
 				sysmessage(s,"This person is already in a guild.");
 			else 
 			{
 				if (pc->isPlayer())
 				{
-					slot = SearchSlot(guildnumber, 3);
-					for ( dummy = 1; dummy < MAXGUILDRECRUITS; dummy++ )
-					{
-						if ( guilds[guildnumber].recruit[dummy] == pc->serial ) slot = 0;
-					}
-					if ((slot!=-1)&&(slot!=0))
-					{
-						guilds[guildnumber].recruits++;
-						guilds[guildnumber].recruit[slot] = pc->serial;
-					}
-					else
-					{
-						if (slot==-1) sysmessage(s, "No more recruit slots free.");
-						if (slot==0) sysmessage(s, "This being is already a candidate.");
-					}
-				} else sysmessage(s,"This is not a player.");
-			}
-			//break;
-		//} for
-	}
-	Guilds->Menu(s,1);
-	return;
-}
-
-
-// guildtargetwar() Let us target some player and add his guild to the warlist
-// Checks the guild database if "to be wared" guild is already in warlist.
-// puts a tag with guilds number into the guilds war database.
-void cGuilds::TargetWar(int s)
-{
-	int slot, dummy;
-	int guildnumber = Guilds->SearchByStone(s);
-	char text [200];
-
-
-	if (guildnumber==-1)
-	{
-		sysmessage(s,"you are in no guild");
-		return;
-	}
-
-	if(buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return; // check if user canceled operation - Morrolan
-	SERIAL serial=calcserial(buffer[s][7],buffer[s][8],buffer[s][9],buffer[s][10]);
-	P_CHAR pc = FindCharBySerial( serial );
-	if( pc != NULL)
-	{
-			if (pc->guildnumber==0) 
-				sysmessage(s,"This person is not in a guild.");
-			else if (pc->guildnumber==guildnumber) sysmessage(s, "War yourself? Nah.");
-			else 
-			{
-				if (pc->isPlayer())
-				{
-					slot = Guilds->SearchSlot( guildnumber, 4 );
-					for ( dummy = 1; dummy < MAXGUILDWARS; dummy++ )
-					{
-						if ( guilds[guildnumber].war[dummy] == pc->guildnumber ) slot = 0;
-					}
-					if ((slot!=-1)&&(slot!=0))
-					{
-						guilds[guildnumber].wars++;
-						guilds[guildnumber].war[slot] = pc->guildnumber;
-						sprintf(text,"%s declared war to %s",guilds[guildnumber].name,guilds[pc->guildnumber].name);
-						Guilds->Broadcast(guildnumber,text);
-					}
-					else
-					{
-						if (slot==-1) sysmessage(s,"No more war slots free.");
-						if (slot==0) sysmessage(s,"This guild is already in our warlist.");
-					}
-				}
+					this->recruit.push_back(pc->serial);
+				} 
 				else sysmessage(s,"This is not a player.");
 			}
 			//break;
 		//} for
 	}
-	Guilds->Menu(s,2);
+	this->Menu(s,1);
 	return;
 }
 
-
-
-// guildstonemove() : Let the guildmaster move the stone anytime
-// removes the stone item, gives Guildmaster a teleporterstone
-// guild will be still active
-// teleporterstone id 0x1869
-void cGuilds::StoneMove(int s)
-{
-	int guildnumber=Guilds->SearchByStone(s);
-	if (guildnumber==-1) return;
-	P_ITEM pStone = FindItemBySerial( guilds[guildnumber].stone );
-	if (pStone == NULL) return;
-															// Get stone
-	P_ITEM newstone;										// For the new stone
-	char stonename[80];                                     // And for its name
-
-	sprintf(stonename,"a guildstone teleporter for %s",guilds[guildnumber].name);
-															// Give it a name
-	newstone = Items->SpawnItem(s, currchar[s], 1, stonename, 0, 0x18, 0x69, 0, 1, 1);	// Spawn the stone in the masters backpack
-	if (newstone == NULL) return; //AntiChrist
-	newstone->type=202;										// Set Guildstone to Type 'Guild Related'
-	guilds[guildnumber].stone=newstone->serial;				// Remember its serial number
-	Items->DeleItem(pStone);									// Remove the guildstone
-	sysmessage(s,"Take care of that stone!");				// And tell him also
-	return;													// Bye bye
-}
-
-
-// guildsearch() Okay this is for highlighting/guards and other stuff, so you know what relation
-// player 1 and player 2 have. results are:
-// 1= both in same guild (so fighting is okay, green hightlighting)
-// 2= both in opposite guilds/guildtypes (so fighting is okay, orange highlighting)
-// 0= no guildwarfare, or no guild relation (so no fighting, normal highlighting)
-// Oh, Order/Order or Chaos/Chaos guilds (in different guilds) may not war eachother! 
-int cGuilds::Compare(P_CHAR player1, P_CHAR player2)
+int GuildCompare(P_CHAR player1, P_CHAR player2)
 {
 	int counter;
 	if (player1 == NULL || player2 == NULL) return 0;
 
-	int guildnumber=player1->guildnumber;
-    int guildnumber2=player2->guildnumber;
-
 	// one of both not in a guild -> no guildwarfare
-	if (guildnumber<0 || guildnumber>=MAXGUILDS || guildnumber2<0 || guildnumber2>=MAXGUILDS) return 0;
+	if (player1->guildstone == INVALID_SERIAL || player2->guildstone == INVALID_SERIAL ) return 0;
 
-	if ((guildnumber!=0)&&(guildnumber2!=0))
+	if (player1->guildstone == player2->guildstone) { return 1; }
+
+	cGuildStone* pStone1 = dynamic_cast<cGuildStone*>(FindItemBySerial(player1->guildstone));
+	cGuildStone* pStone2 = dynamic_cast<cGuildStone*>(FindItemBySerial(player2->guildstone));
+
+	if ( pStone1->guildType != pStone2->guildType && pStone1->guildType != cGuildStone::standard && pStone2->guildType != cGuildStone::standard)
 	{
-		if (guildnumber==guildnumber2) {return 1;}
+		return 2;
+	}
 
-		if (((guilds[guildnumber].type==1)&&(guilds[guildnumber2].type==2))||
-			((guilds[guildnumber].type==2)&&(guilds[guildnumber2].type==1)))
-		{return 2;}
-
-		for (counter=1;counter<MAXGUILDWARS;counter++)
+	unsigned int i;
+	for (i = 0; i < pStone1->war.size(); ++i)
+	{
+		if ( find(pStone1->war.begin(), pStone1->war.end(), pStone2->serial) != pStone1->war.end() )
 		{
-			if (guilds[guildnumber].war[counter]==guildnumber2)
+			if ( find( pStone2->war.begin(), pStone2->war.end(), pStone1->serial ) != pStone2->war.end() )
 			{
-				for (counter=1;counter<MAXGUILDWARS;counter++)
-				{
-					if (guilds[guildnumber2].war[counter]==guildnumber)
-					{return 2;}
-				}
+				return 2;
 			}
 		}
 	}
@@ -824,9 +689,9 @@ int cGuilds::Compare(P_CHAR player1, P_CHAR player2)
 
 // guildgumpinput() result branching for those niffy little gump text fields
 // Called by: gumpinput()
-void cGuilds::GumpInput(int s, int type, int index, char *text)
+void cGuildStone::GumpInput(UOXSOCKET s, int type, int index, char *text)
 {
-	if (type==100)
+	if (type == 100)
 	{
 		switch (index)
 		{
@@ -843,17 +708,16 @@ void cGuilds::GumpInput(int s, int type, int index, char *text)
 
 // guildgumpchoice() branches the results of those checkbox gumps
 // Called by: choice() 
-void cGuilds::GumpChoice(int s,int main,int sub)
+void cGuildStone::GumpChoice(UOXSOCKET s,int main,int sub)
 {
-	int member, recruit, war, guild, counter, slot;
+//	int member, recruit, war, guild, counter, slot;
 	//int members[MAXGUILDMEMBERS];
 	//int recruits[MAXGUILDRECRUITS];
 	P_CHAR pc_currchar = currchar[s];
 	char text[200];
+	int counter = 1;
 
-	int guildnumber=Guilds->SearchByStone(s);
-
-	if (guildnumber==-1) return ;
+	if ( pc_currchar->guildstone != this->serial ) return;
 
 	switch(main)
 	{
@@ -866,7 +730,7 @@ void cGuilds::GumpChoice(int s,int main,int sub)
 		case 3: Menu(s,5);														break;
 		case 4: Menu(s,13);														break;
 		case 5: ToggleAbbreviation(s);											break;
-		case 6: Resign(s);														break;
+		case 6: GuildResign(s);													break;
 		case 7: Menu(s,6);														break;
 		case 8:
 		default:
@@ -884,24 +748,24 @@ void cGuilds::GumpChoice(int s,int main,int sub)
 		{
 		case 1:  entrygump(s,pc_currchar->serial,100,1,40,"Enter a new guildname.");		break;
 		case 2:  entrygump(s,pc_currchar->serial,100,2,3,"Enter a new guild abbreviation.");break;
-		case 3:  Guilds->Menu(s,3);															break;
-		case 4:  Guilds->Menu(s,4);															break;
-		case 5:  Guilds->Menu(s,8);															break;
-		case 6:  Guilds->Menu(s,14);														break;
+		case 3:  Menu(s,3);																	break;
+		case 4:  Menu(s,4);																	break;
+		case 5:  Menu(s,8);																	break;
+		case 6:  Menu(s,14);																break;
 		case 7:  target(s,0,1,0,221,"Select person to declare war to.");					break;
-		case 8:  Guilds->Menu(s,15);														break;
-		case 9:	 Guilds->Menu(s,10);														break;
-		case 10: Guilds->Menu(s,9);															break;
+		case 8:  Menu(s,15);																break;
+		case 9:	 Menu(s,10);																break;
+		case 10: Menu(s,9);																	break;
 		case 11: entrygump(s,pc_currchar->serial,100,3,20,"Enter new guildmastertitle.");	break;
-		case 12: Guilds->Menu(s,12);														break;
-		case 13: Guilds->StoneMove(s);														break;
-		case 14: Guilds->Menu(s,1);															break;
+		case 12: Menu(s,12);																break;
+		case 13: sysmessage(s, "Not yet");													break;
+		case 14: Menu(s,1);																	break;
 		}
 		return;
 	case 8003:													// set type menu
-		if (sub >= 2 && sub <=4) 
-			Guilds->SetType(guildnumber, sub-2);
-		Guilds->Menu(s,2);
+//		if (sub >= 2 && sub <=4) 
+//			SetType(sub-2);
+		Menu(s,2);
 		return;
 	case 8004:													// edit charter menu
 		switch( sub )
@@ -912,106 +776,59 @@ void cGuilds::GumpChoice(int s,int main,int sub)
 		}
 		return;
 	case 8005:													// view charter menu
-		if (sub==1) Guilds->Menu(s,1);
-		if (sub==2) weblaunch(s,guilds[guildnumber].webpage);
+		if (sub==1) Menu(s,1);
+		else if (sub==2) weblaunch(s, (char*)this->webpage.c_str());
 		return;
 	case 8006:													// candidates menu
-		Guilds->Menu(s,1);
+		Menu(s,1);
 		return;
 	case 8007:													// roster menu
-		Guilds->Menu(s,1);
+		Menu(s,1);
 		return;
-	case 8008:													// dismiss menu
-		counter=1;
-		for (member=1;member<MAXGUILDMEMBERS;member++)
+	case 8008:			// dismiss menu
+		if ( static_cast<unsigned int>(sub) >= member.size() )
+			return;
+		if ( member[sub] == pc_currchar->serial)
+			sysmessage( s, "You can not dismiss yourself, please resign from the guild instead");
+		else
 		{
-			if (guilds[guildnumber].member[member]!=0)
-			{
-				counter++;
-				if (sub==counter)
-				{
-					if (guilds[guildnumber].member[member] == pc_currchar->serial)
-					{
-						sysmessage(s,"You cannot dimiss yourself, please resign from the guild if you wish.");
-					}
-					else
-					{
-						P_CHAR pc_member = FindCharBySerial(guilds[guildnumber].member[member]);
-						Guilds->EraseMember(pc_member);
-						sysmessage(s,"Kicked that member out of the guild.");
-						if (online(pc_member))
-							sysmessage(calcSocketFromChar(pc_member),"You got dismissed out of your guild.");
-					}
-					break;
-				}
-			}
-		}	
-		Guilds->Menu(s,2);
+			P_CHAR pc_member = FindCharBySerial(member[sub]);
+			removeMember( pc_member );
+			sysmessage(s,"Kicked that member out of the guild.");
+			if (online(pc_member))
+				sysmessage(calcSocketFromChar(pc_member),"You got dismissed out of your guild.");
+		}
+		Menu(s,2);
 		return;
 	case 8009:													// refuse menu
 		counter=1;
-		for (recruit=1;recruit<MAXGUILDRECRUITS;recruit++)
+		if ( static_cast<unsigned int>(sub) >= recruit.size() )
+			return;
+		else
 		{
-			if (guilds[guildnumber].recruit[recruit]!=0)
-			{
-				counter++;
-				if (sub==counter)
-				{
-					guilds[guildnumber].recruit[recruit]=0;
-					guilds[guildnumber].recruits--;
-					sysmessage(s,"Removed candidate from the list.");
-				}
-			}		
+			recruit.erase( recruit.begin() + sub );
+			sysmessage(s,"Removed candidate from the list.");
 		}
-		Guilds->Menu(s,2);
+		Menu(s,2);
 		return;
 	case 8010:													// accept
 		counter=1;
-		for (recruit=1;recruit<MAXGUILDRECRUITS;recruit++)
+		if ( static_cast<unsigned int>(sub) >= recruit.size() )
+			return;
+		else
 		{
-			if (guilds[guildnumber].recruit[recruit] != 0)
-			{
-				counter++;
-				if (sub == counter)
-				{
-					P_CHAR pc = FindCharBySerial ( guilds[guildnumber].recruit[recruit] );
-					if (pc != NULL) //lb
-						if (pc->guildnumber == 0)
-						{
-							slot = Guilds->SearchSlot(guildnumber,2);
-							if (slot != -1)
-							{
-								guilds[guildnumber].member[slot] = pc->serial;
-								guilds[guildnumber].members++;
-								pc->guildnumber = guildnumber;
-								guilds[guildnumber].recruit[recruit] = 0;
-								guilds[guildnumber].recruits--;
-								if (guilds[guildnumber].type!=0) pc->guildtoggle = true;
-								sysmessage(s, "This candidate is now a guildmember.");
-								if ( guilds[guildnumber].type == 1 )
-									Items->SpawnItemBackpack2( calcSocketFromChar( pc ), 29, 1 );
-						        else if ( guilds[guildnumber].type == 2 )
-									Items->SpawnItemBackpack2( calcSocketFromChar( pc ), 28, 1 );
-							}
-							else sysmessage(s, "This guild is full, maximum amount of members reached!" );
-						}
-						else 
-						{
-							sysmessage(s,"This candidate is already in another guild, I'll remove him from your list now.");
-							guilds[guildnumber].recruit[recruit] = 0;
-							guilds[guildnumber].recruits--;
-						}
-				}
-			}		
+			addMember( FindCharBySerial(recruit[sub]) );
+			recruit.erase( recruit.begin() + sub );
+			sysmessage( s, "The candidate is now a guild member");
 		}
-		Guilds->Menu(s,2);
+		Menu(s,2);
 		return;
 	case 8011:													// warlist menu
-		Guilds->Menu(s,1);
+		Menu(s,1);
 		return;
 	case 8012:													// grant title menu
-		if (sub==1) Guilds->Menu(s,2);
-		counter=1;
+		if (sub==1) Menu(s,2);
+/*		counter=1;
 		for (member = 1; member < MAXGUILDMEMBERS; member++)
 		{
 			if (guilds[guildnumber].member[member]!=0)
@@ -1025,24 +842,18 @@ void cGuilds::GumpChoice(int s,int main,int sub)
 				}
 			}		
 		}
-		return;
+*/		return;
 	case 8013:													// fealty menu
-		counter=1;
-		for (member=1;member<MAXGUILDMEMBERS;member++)
+		if ( static_cast<unsigned int>(sub) >= member.size() )
+			return;
+		else
 		{
-			if (guilds[guildnumber].member[member]!=0)
-			{
-				counter++;
-				if (sub==counter)
-				{
-					pc_currchar->guildfealty=guilds[guildnumber].member[member];
-				}
-			}
+			pc_currchar->guildfealty = member[sub];
 		}
-		Guilds->Menu(s,1);
+		Menu(s,1);
 		return;
 	case 8014:													// declare war menu
-		counter=1;
+/*		counter=1;
 		for (guild=1;guild<MAXGUILDS;guild++)
 		{
 			if ((strcmp(guilds[guildnumber].name,guilds[guild].name))&&
@@ -1071,10 +882,10 @@ void cGuilds::GumpChoice(int s,int main,int sub)
 				}
 			}
 		}
-		Guilds->Menu(s,2);
+*/		Menu(s,2);
 		return;
 	case 8015:													// declare peace menu
-		counter=1;
+/*		counter=1;
 		for (war=1;war<MAXGUILDWARS;war++)
 		{
 			if (guilds[guildnumber].war[war]!=0)
@@ -1089,10 +900,10 @@ void cGuilds::GumpChoice(int s,int main,int sub)
 				}
 			}
 		}
-		Guilds->Menu(s,2);
+*/		Menu(s,2);
 		return;
 	case 8016:													// warlist menu 2
-		Guilds->Menu(s,1);
+		Menu(s,1);
 		return;
 	}
 }
@@ -1104,9 +915,9 @@ void cGuilds::GumpChoice(int s,int main,int sub)
 // guildnamechange(character, text) copies the text info the guildstones name field 
 // (guildnumber gets calculated from the double clicked guildstones), and notifies all online
 // guildmambers about the change.
-void cGuilds::ChangeName(int s, char *text)
+void cGuildStone::ChangeName(UOXSOCKET s, char *text)
 {
-	int guildnumber=Guilds->SearchByStone(s);
+/*	int guildnumber=Guilds->SearchByStone(s);
 
 	if (guildnumber==-1) return;
 
@@ -1129,6 +940,7 @@ void cGuilds::ChangeName(int s, char *text)
 		Guilds->Broadcast(guildnumber,txt);
 	}
 	else sysmessage(s,"This name is already taken by another guild.");
+	*/
 }
 
 
@@ -1136,9 +948,9 @@ void cGuilds::ChangeName(int s, char *text)
 // guildabbreviationchange(character, text) copies the text info the guildstones abbreviation field 
 // (guildnumber gets calculated from the double clicked guildstones), and notifies editing player about
 // the change.
-void cGuilds::ChangeAbbreviation(int s, char *text)
+void cGuildStone::ChangeAbbreviation(UOXSOCKET s, char *text)
 {
-	int guildnumber=Guilds->SearchByStone(s);
+/*	int guildnumber=Guilds->SearchByStone(s);
 
 	if (guildnumber==-1) return;
 
@@ -1157,22 +969,15 @@ void cGuilds::ChangeAbbreviation(int s, char *text)
 		Guilds->Broadcast(guildnumber,txt);
 	}
 	else sysmessage(s,"This abbreviation is already taken by another guild.");
-	Guilds->Menu(s,2);
+*/	Menu(s,2);
 }
-
-
-
-
 
 // guildtitlechange(character, text) copies the text info the characters title field (guildnumber
 // gets calculated from the double clicked guildstones), changed character was buffered in the guilds
 // private field (as backup buffer) and notifies editing player about the change.
-void cGuilds::ChangeTitle(int s, char *text)
+void cGuildStone::ChangeTitle(UOXSOCKET s, char *text)
 {
-	int guildnumber=Guilds->SearchByStone(s);
-	if (guildnumber==-1) return;
-
-	P_CHAR member = FindCharBySerial(guilds[guildnumber].priv);
+/*	P_CHAR member = FindCharBySerial(guilds[guildnumber].priv);
 
 	if (member == NULL) member = currchar[s];
 	guilds[guildnumber].priv = INVALID_SERIAL;
@@ -1181,284 +986,202 @@ void cGuilds::ChangeTitle(int s, char *text)
 		sysmessage(s,"You changed your own title.");
 	else 
 		sysmessage(s,"You changed the title.");
-	Guilds->Menu(s,2);
+*/	Menu(s,2);
 }
-
-
-
 
 // TESTED: OKAY
 // guildcharterchange(character, text) copies the text info the guildstones charter field (guildnumber
 // gets calculated from the double clicked guildstones), and notifies editing player about the change.
-void cGuilds::ChangeCharter(int s, char *text)
+void cGuildStone::ChangeCharter(UOXSOCKET s, char *text)
 {
-	int guildnumber=Guilds->SearchByStone(s);
-	if (guildnumber==-1) return;
-
-	strcpy(guilds[guildnumber].charter, text);
+	this->charter = text;
 	sysmessage(s,"You changed the guilds charter.");
-	Guilds->Menu(s,2);
+	Menu(s,2);
 }
-
-
-
 
 // TESTED: OKAY
 // guildwebpagechange(character, text) copies the text info the guildstones webpage field (guildnumber
 // gets calculated from the double clicked guildstones), and notifies editing player about the change.
-void cGuilds::ChangeWebpage(int s, char *text)
+void cGuildStone::ChangeWebpage(UOXSOCKET s, char *text)
 {
-	int guildnumber = Guilds->SearchByStone(s);
-	if (guildnumber==-1) return;
-
-	strcpy(guilds[guildnumber].webpage, text);
-	sysmessage(s,"You changed the guilds webpage url.");
-	Guilds->Menu(s,2);
+	this->webpage = text;
+	sysmessage(s, "You changed the guilds webpage url.");
+	Menu(s,2);
 }
 
-int cGuilds::GetType(int guildnumber)
+cGuildStone::enGuildType cGuildStone::GetType()
 {
-	if (guildnumber<0 || guildnumber >=MAXGUILDS)
-		return 0;
-	else
-		return guilds[guildnumber].type;
+	return this->guildType;
 }
 
-void cGuilds::SetType(int guildnumber, int type)
+void cGuildStone::SetType(enGuildType type)
 {
-	int j;
-	int member;
+	guildType = type;
 
-	if (guildnumber<0 || guildnumber >=MAXGUILDS) return;
-
-	guilds[guildnumber].type = type;
-    // Redone by Ripper and LB - march 19, 2000	
-	//	I think the idea here is to either remove shields from ALL 
-	//	(order/chaos) guilds members and replace them with opposite
-	//	sheild types, or remove them alltogether
+	unsigned int i;
 	switch(type)
 	{
-		case 1:	//	Convert into a order guild
-			for(j=0;j<=guilds[guildnumber].members;j++)
-			{
-				P_CHAR holding = FindCharBySerial(guilds[guildnumber].member[j]);
-                if (holding != NULL) 
-				{
-					RemoveShields( holding );
-					Items->SpawnItemBackpack2( calcSocketFromChar( holding ), 29, 1 );	// will not work for offline chars (Duke)
-				}
-			}
-			Guilds->Broadcast( guildnumber, "Your guild is now an Order guild." );
-			Guilds->Broadcast( guildnumber, "An order shield has been placed in your pack!" );
-			break;
-		case 2:	//	Convert guild into an choas guild
-			for(j=0;j<=guilds[guildnumber].members;j++)
-			{
-				P_CHAR holding = FindCharBySerial(guilds[guildnumber].member[j]);
-                if ( holding != NULL ) 
-				{
-					RemoveShields( holding );
-					Items->SpawnItemBackpack2( calcSocketFromChar( holding ), 28, 1 );
-				}
-			}
-			Guilds->Broadcast( guildnumber, "Your guild is now a Chaos guild." );
-			Guilds->Broadcast( guildnumber, "A chaos shield has been placed in your pack!" );
-			break;
-		case 0:	// Convert guild into a standard guild
-		default:	//	Just let it fall through 
-			//	Idea is to remove the items from this guilds members(Im gonna use your item loop for clarity)
-			for(j = 0;j <= guilds[guildnumber].members; j++)
-			{
-				P_CHAR holding = FindCharBySerial(guilds[guildnumber].member[j]);
-				if( holding != NULL )
-				{
-					RemoveShields( holding );
-				}
-			}
-			Guilds->Broadcast( guildnumber, "Your guild is now a Standard guild." );
-			break;
-	}
-
-	// Im goging to leave this here cause I am not sure what it does.
-	if (type!=0)
-	{
-		for (member=1;member<MAXGUILDMEMBERS;member++)
+	case order:	//	Convert into a order guild
+		for(i = 0; i < member.size(); ++i)
 		{
-			if (guilds[guildnumber].member[member]!=0)
+			P_CHAR holding = FindCharBySerial( member[i] );
+			if (holding != NULL) 
 			{
-               P_CHAR pc_j = FindCharBySerial(guilds[guildnumber].member[member]);
-               if (pc_j != NULL) 
-				   pc_j->guildtoggle=true;
+				RemoveShields( holding );
+				Items->SpawnItemBackpack2( calcSocketFromChar( holding ), 29, 1 );	// will not work for offline chars (Duke)
 			}
 		}
+		Broadcast( "Your guild is now an Order guild." );
+		Broadcast( "An order shield has been placed in your pack!" );
+		break;
+	case chaos:	//	Convert guild into an choas guild
+		for(i = 0; i < member.size(); ++i)
+		{
+			P_CHAR holding = FindCharBySerial( member[i] );
+			if ( holding != NULL ) 
+			{
+				RemoveShields( holding );
+				Items->SpawnItemBackpack2( calcSocketFromChar( holding ), 28, 1 );
+			}
+		}
+		Broadcast( "Your guild is now a Chaos guild." );
+		Broadcast( "A chaos shield has been placed in your pack!" );
+		break;
+	case standard:	// Convert guild into a standard guild
+	default:	//	Just let it fall through 
+		for(i = 0; i < member.size(); ++i)
+		{
+			P_CHAR holding = FindCharBySerial( member[i] );
+			if( holding != NULL )
+			{
+				RemoveShields( holding );
+			}
+		}
+		Broadcast( "Your guild is now a Standard guild." );
+		break;
 	}
-
 }
 
 // TESTED: OKAY
 // Uhm.. do i need char or socket for sysmessage? hehe.. a socket ofcourse, FiXED iT!
 // guildbroadcast(guildnumber, text) broadcasts message to all online members of guild
-void cGuilds::Broadcast(int guildnumber, char *text)
+void cGuildStone::Broadcast(char *text)
 {
-	int member, s;
-
-	if (guildnumber==-1) return;
-
-	for (member=1;member<MAXGUILDMEMBERS;member++)
+	unsigned int i;
+	for (i = 0; i < member.size(); ++i)
 	{
-		if (guilds[guildnumber].member[member]!=0)
-		{
-			P_CHAR pc = FindCharBySerial(guilds[guildnumber].member[member]);
-			s = calcSocketFromChar( pc );
-			if ( online( pc ) ) 
-				sysmessage(s,text);
-		}
+		P_CHAR pc = FindCharBySerial( member[i] );
+		if ( pc == NULL )
+			continue;
+		if ( online( pc ) ) 
+			sysmessage( calcSocketFromChar( pc ), text);
 	}
-}
-
-
-// TESTED: OKAY (but not the best solution ;))
-// guildSearchByStone(guildstone serial) get the guildnumber from the stones serial number
-int cGuilds::SearchByStone(int s)
-{
-	int guildnumber;
-	P_CHAR pc = currchar[s];
-
-	SERIAL stone = pc->fx1;
-
-	if (pc->isGM())
-	{
-		for ( guildnumber = 1; guildnumber < MAXGUILDS; guildnumber++)
-		{
-			if ( guilds[guildnumber].stone == stone ) 
-			{
-				return guildnumber;
-			}
-		}
-		return pc->guildnumber;
-	}
-	else
-	{
-		return pc->guildnumber;
-	}
-	return -1;
-}
-
-// TESTED: OKAY
-// guildsearchslot(guildnumber, search type) searches for a free slot of the 4 possible types, results
-// the free slot or -1 of no free slot available
-// Types  1:guildslots, 2:memberslots, 3: recruitslots, 4: warslots
-int cGuilds::SearchSlot(int guildnumber, int type)
-{
-	int counter;
-
-	switch(type)
-	{
-	case 1:												// guildslots
-		for (counter=1; counter<MAXGUILDS; counter++)
-			if (guilds[counter].free) return counter;
-	    if (guildnumber<0 || guildnumber>=MAXGUILDS) return -1;
-		break;
-	case 2:												// memberslots
-		for (counter=1; counter<MAXGUILDMEMBERS; counter++)
-			if (guilds[guildnumber].member[counter]==0) return counter;
-		break;
-	case 3:												// recruitslots
-		for (counter=1; counter<MAXGUILDRECRUITS; counter++)
-			if (guilds[guildnumber].recruit[counter]==0) return counter;
-		break;
-	case 4:												// warslots
-		for (counter=1; counter<MAXGUILDWARS; counter++)
-			if (guilds[guildnumber].war[counter]==0) return counter;
-		break;
-	}
-	return -1;
 }
 
 
 // TESTED: OKAY (i think so, but ugly -> redo it!)
 // guildmastercalc(guildnumber) counts all fealty settings of all members of 'guildnumber' and sets
 // a new guildmaster if there is a draw then there will be no master, til the next check ;)
-void cGuilds::CalcMaster(int guildnumber)
+void cGuildStone::CalcMaster()
 {
-	int member, member2;
-	int guildmember[MAXGUILDMEMBERS]={0};
-	int currenthighest=0, draw=0;
-	SERIAL currentfealty = INVALID_SERIAL;
 
-	if (guildnumber<0 || guildnumber>=MAXGUILDS) return;
-
-	for (member=1;member<MAXGUILDMEMBERS;member++)
-	{
-		P_CHAR currentmember = FindCharBySerial(guilds[guildnumber].member[member]);
-
-		if (currentmember != NULL) 
-			currentfealty = FindCharBySerial(currentmember->guildfealty)->serial;
-
-		for (member2 = 1; member2 < MAXGUILDMEMBERS; member2++)
-		{
-			if ((guilds[guildnumber].member[member2] == currentfealty) && (currentfealty!=0))
-				guildmember[member2]++;
-		}
-	}
+	std::map<unsigned int, unsigned int> votes; // Key is member serial and data #votes
 	
-	for (member=1;member<MAXGUILDMEMBERS;member++)
+	unsigned int i;
+	for ( i = 0; i < member.size(); ++i)
 	{
-		if (guildmember[member]>guildmember[currenthighest]) {draw=0;currenthighest=member;}
-		else if (guildmember[member]==guildmember[currenthighest]) draw=1;
+		P_CHAR pc = FindCharBySerial( member[i] );
+		votes[pc->guildfealty]++;
 	}
-	if (draw==0) guilds[guildnumber].master=guilds[guildnumber].member[currenthighest];
-	return;
-}
 
-
-
-cGuilds::~cGuilds()
-{
-}
-
-// TESTED: OKAY
-// guildinit() initializes the guild structure fields, marks them all as free.
-// Called by: main()
-cGuilds::cGuilds(void)
-{
-	int guildnumber, member, recruit, war;
-
-	for (guildnumber=1;guildnumber<MAXGUILDS;guildnumber++)
+/*	struct maxVotes : public binary_function< pair<unsigned int, unsigned int>, pair<unsigned int, unsigned int>, bool>
 	{
-		guilds[guildnumber].free = true;
-		guilds[guildnumber].name[0] = 0;
-		guilds[guildnumber].abbreviation[0] = 0;
-		guilds[guildnumber].type=0;
-		guilds[guildnumber].charter[0] = 0;
-		guilds[guildnumber].webpage[0] = 0;
-		guilds[guildnumber].stone=0;
-		guilds[guildnumber].master=0;
-		guilds[guildnumber].members=0;
-		for (member=1;member<MAXGUILDMEMBERS;member++)
-		{
-			guilds[guildnumber].member[member]=0;
+		operator(pair<unsigned int, unsigned int> a, pair<unsigned int, unsigned int> b) 
+		{ 
+			return (a.second < b.second);
 		}
-		guilds[guildnumber].recruits=0;
-		for (recruit=1;recruit<MAXGUILDRECRUITS;recruit++)
-		{
-			guilds[guildnumber].recruit[recruit]=0;
-		}
-		guilds[guildnumber].wars=0;
-		for (war=1;war<MAXGUILDWARS;war++)
-		{
-			guilds[guildnumber].war[war]=0;
-		}
-		guilds[guildnumber].priv=0;
-	}
+	};*/
+
+	std::map<unsigned int, unsigned int>::iterator it = max_element(votes.begin(), votes.end(), votes.value_comp());
+
+	unsigned int currenthighest = it->first;
+	unsigned int currenthighestvotes = it->second;
+	votes.erase( it );
+	// check for draw;
+	it = max_element(votes.begin(), votes.end(), votes.value_comp());
+	bool draw =  ( it->second == currenthighestvotes );
+
+	if (!draw)
+		this->master = currenthighest;
 }
 
+void cGuildStone::Serialize( ISerialization &archive )
+{
+	if ( archive.isReading() )
+	{
+		archive.read( "guildname", guildName );
+		archive.read( "abbreviation", abbreviation );
+		archive.read( "guildtype", (int&)(guildType) );
+		archive.read( "charter", charter );
+		archive.read( "webpate", webpage );
+		archive.read( "master", master );
+		unsigned int uiCount, i;
+		archive.read( "recruitcount", uiCount);
+		for ( i = 0; i < uiCount; ++i )
+		{
+			SERIAL tmp;
+			archive.read("recruit", tmp);
+			recruit.push_back(tmp);
+		}
+		archive.read( "membercount", uiCount );
+		for ( i = 0; i < uiCount; ++i )
+		{
+			SERIAL tmp;
+			archive.read("member", tmp);
+			member.push_back(tmp);
+		}
+		archive.read( "warcount", uiCount );
+		for ( i = 0; i < uiCount; ++i )
+		{
+			SERIAL tmp;
+			archive.read("war", tmp);
+			war.push_back(tmp);
+		}
+		sort(member.begin(), member.end()); // just to make sure.
+	}
+	else if ( archive.isWritting() )
+	{
+		archive.write( "guildname", guildName );
+		archive.write( "abbreviation", abbreviation );
+		archive.write( "guildtype", guildType );
+		archive.write( "charter", charter );
+		archive.write( "webpate", webpage );
+		archive.write( "master", master );
+		unsigned int i;
+		archive.write( "recruitcount", recruit.size());
+		for ( i = 0; i < recruit.size(); ++i )
+		{
+			archive.write("recruit", recruit[i]);
+		}
+		archive.write( "membercount", member.size() );
+		for ( i = 0; i < member.size(); ++i )
+		{
+			archive.write("member", member[i]);
+		}
+		archive.write( "warcount", war.size() );
+		for ( i = 0; i < war.size(); ++i )
+		{
+			archive.write("war", war[i]);
+		}
+	}
+	cItem::Serialize( archive );
+}
 
 // TESTED: OKAY (fine fine.. now proove that it really works.. )
 // guildtitle(viewing character socket, clicked character) displays players title string, over the name
 // of clicked character, name color gets calculated from the guild relationship of both players
 // Called by: textflags()
-void cGuilds::Title(int s, P_CHAR pc_player2)
+void GuildTitle(int s, P_CHAR pc_player2)
 {
 	char title[150];
 	char abbreviation[5];
@@ -1468,25 +1191,25 @@ void cGuilds::Title(int s, P_CHAR pc_player2)
 	if ( pc_player2 == NULL )
 		return;
 
-	if (pc_player2->guildnumber<0 || pc_player2->guildnumber>=MAXGUILDS) return;
-
-	if ((pc_player2->guildnumber!=0)&&(pc_player2->guildtoggle))
+	if ( pc_player2->guildstone != INVALID_SERIAL && pc_player2->guildtoggle )
 	{
-		strcpy(abbreviation,guilds[pc_player2->guildnumber].abbreviation);
+		cGuildStone* pStone = dynamic_cast<cGuildStone*>(FindItemBySerial( pc_player2->guildstone ));
+		strcpy(abbreviation, pStone->abbreviation.c_str());
+		
 		if (!(strcmp(abbreviation,"")))
 			strcpy(abbreviation,"none");
-		if (guilds[pc_player2->guildnumber].type!=0)
+		switch (pStone->guildType)
 		{
-			if (guilds[pc_player2->guildnumber].type==1) strcpy(guildtype,"Order");
-			else if (guilds[pc_player2->guildnumber].type==2) strcpy(guildtype,"Chaos");
-			if (pc_player2->guildtitle != "") sprintf(title,"[%s, %s] [%s]",pc_player2->guildtitle.c_str(),abbreviation,guildtype);
-			else sprintf(title,"[%s] [%s]",abbreviation, guildtype);
+		case cGuildStone::order:	strcpy(guildtype, "Order");		break;
+		case cGuildStone::chaos:	strcpy(guildtype, "Chaos");		break;
+		default:													break;		
 		}
-		else
-		{
-			if (pc_player2->guildtitle != "") sprintf(title,"[%s, %s]",pc_player2->guildtitle.c_str(),abbreviation);
-			else sprintf(title,"[%s]",abbreviation);
-		}
+
+		if (pc_player2->guildtitle != "") 
+			sprintf(title,"[%s, %s] [%s]",pc_player2->guildtitle.c_str(),abbreviation,guildtype);
+		else 
+			sprintf(title,"[%s] [%s]",abbreviation, guildtype);
+
 		tl=44+strlen(title)+1;
 		talk[1]=tl>>8;
 		talk[2]=tl%256;
@@ -1503,107 +1226,14 @@ void cGuilds::Title(int s, P_CHAR pc_player2)
 	}
 }
 
-// TESTED: OKAY
-// guildread(character) reads the guild structure from the wsc file, copies it to the 'character' structure.
-// Called by: loadnewworld()
-void cGuilds::Read(int guildnumber)
-{
-	int war=1, member=1, recruit=1,loopexit=0;
-
-	if (guildnumber<0 || guildnumber>=MAXGUILDS)
-	{
-		sprintf((char*)temp,"invalid guild infmormation entry in wppcs.wsc");
-		LogError((char*)temp);
-		return;
-	}
-
-	do
-	{
-		readw2();
-		if (!strcmp(script1, "NAME")) strcpy(guilds[guildnumber].name, script2);
-		else if (!strcmp(script1, "ABBREVIATION")) strcpy(guilds[guildnumber].abbreviation, script2);
-		else if (!strcmp(script1, "TYPE")) guilds[guildnumber].type = str2num(script2);
-		else if (!strcmp(script1, "CHARTER")) strcpy(guilds[guildnumber].charter, script2);
-		else if (!strcmp(script1, "WEBPAGE")) strcpy(guilds[guildnumber].webpage, script2);
-		else if (!strcmp(script1, "STONE")) guilds[guildnumber].stone = str2num(script2);
-		else if (!strcmp(script1, "MASTER")) guilds[guildnumber].master = str2num(script2);
-		else if (!strcmp(script1, "RECRUITS")) guilds[guildnumber].recruits = str2num(script2);
-		else if (!strcmp(script1, "RECRUIT")) { if (recruit<MAXGUILDRECRUITS) { guilds[guildnumber].recruit[recruit]=str2num(script2);recruit++; } }
-		else if (!strcmp(script1, "MEMBERS")) guilds[guildnumber].members=str2num(script2);
-		else if (!strcmp(script1, "MEMBER")) { if (member<MAXGUILDMEMBERS) { guilds[guildnumber].member[member]=str2num(script2);member++;} }
-		else if (!strcmp(script1, "WARS")) guilds[guildnumber].wars = str2num(script2);
-		else if (!strcmp(script1, "WAR")) { if (war<MAXGUILDWARS) { guilds[guildnumber].war[war]=str2num(script2);war++;} }
-		guilds[guildnumber].free = false;
-	}
-	while ( (strcmp((char*)script1,"}")) && (++loopexit < MAXLOOPS) );
-}
-
-
-
-// TESTED: OKAY
-// guildwrite() writes the guild structure to the wsc file.
-// Called by: worldmain()
-void cGuilds::Write(FILE *wscfile)
-{
-	int guildnumber, member, recruit, war;
-
-	for (guildnumber=1;guildnumber<MAXGUILDS;guildnumber++)
-	{
-		if (!guilds[guildnumber].free)
-		{
-			fprintf(wscfile,"SECTION GUILD %i\n", guildnumber);
-			fprintf(wscfile,"{\n");
-			fprintf(wscfile,"NAME %s\n", guilds[guildnumber].name);
-			fprintf(wscfile,"ABBREVIATION %s\n", guilds[guildnumber].abbreviation);
-			fprintf(wscfile,"TYPE %i\n", guilds[guildnumber].type);
-			fprintf(wscfile,"CHARTER %s\n", guilds[guildnumber].charter);
-			fprintf(wscfile,"WEBPAGE %s\n", guilds[guildnumber].webpage);
-			fprintf(wscfile,"STONE %i\n", guilds[guildnumber].stone);
-			fprintf(wscfile,"MASTER %i\n", guilds[guildnumber].master);
-			fprintf(wscfile,"MEMBERS %i\n", guilds[guildnumber].members);
-			for (member=1;member<MAXGUILDMEMBERS;member++)
-			{
-				if (guilds[guildnumber].member[member]!=0)
-				{
-					fprintf(wscfile,"MEMBER %i\n", guilds[guildnumber].member[member]);
-				}
-			}
-			fprintf(wscfile,"RECRUITS %i\n", guilds[guildnumber].recruits);
-			for (recruit=1;recruit<MAXGUILDRECRUITS;recruit++)
-			{
-				if (guilds[guildnumber].recruit[recruit]!=0)
-				{
-					fprintf(wscfile,"RECRUIT %i\n", guilds[guildnumber].recruit[recruit]);
-				}
-			}
-			fprintf(wscfile,"WARS %i\n", guilds[guildnumber].wars);
-			for (war=1;war<MAXGUILDWARS;war++)
-			{
-				if (guilds[guildnumber].war[war]!=0)
-				{
-					fprintf(wscfile,"WAR %i\n", guilds[guildnumber].war[war]);
-				}
-			}
-			fprintf(wscfile,"}\n\n");
-		}
-	}
-}
-/*
-int cGuilds::CheckValidPlace(int x,int y)
-{
-	// This is still in work.. please be patient..
-	return 1;
-}
-*/
-
-int cGuilds::CheckValidPlace(int s)
+int CheckValidPlace(int s)
 {
 	int los = 0;
 	P_CHAR pc_currchar = currchar[s];
 	P_ITEM pi_multi = findmulti(pc_currchar->pos); 
 	if (pi_multi == NULL) 
 		return 0;
-	if (!ishouse(pi_multi)) 
+	if (!ishouse(pi_multi->id())) 
 		return 0;
 	
 	if(pc_currchar->packitem != INVALID_SERIAL)
@@ -1633,9 +1263,9 @@ int cGuilds::CheckValidPlace(int s)
 /// LB 11'th NOV 2000
 /// correkt incorrect guild settings
 /// called at startup
-void cGuilds::CheckConsistancy(void )
+void CheckConsistancy(void )
 {
-   int guildnumber,members,serial,ok=1,error=0;
+/*   int guildnumber,members,serial,ok=1,error=0;
    P_CHAR pc_a;
 
    clConsole.send("checking guild data consistancy\n");
@@ -1748,5 +1378,6 @@ void cGuilds::CheckConsistancy(void )
    }
 
    if (error) clConsole.send("guild releated errors detected and corrected, check logs\n"); else clConsole.send("no errors found\n");
-
+*/
 }
+

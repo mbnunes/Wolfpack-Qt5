@@ -54,17 +54,23 @@ class cAdmin;
 //#include "netsys.h"
 #include "debug.h"
 
+//##ModelId=3C5D932E0172
 class cAdmin
 {
 public:
+	//##ModelId=3C5D932E01AE
 	cAdmin();
+	//##ModelId=3C5D932E01C2
 	void ReadIni();
 	
+	//##ModelId=3C5D932E01CC
 	short int port;
 private:
+	//##ModelId=3C5D932E01D6
 	void ReadString();
 
 private:
+	//##ModelId=3C5D932E01EA
 	FILE *infile;
 } ;
 

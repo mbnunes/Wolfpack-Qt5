@@ -34,29 +34,46 @@
 
 #include "platform.h"
 #include "typedefs.h"
+#include "coord.h"
+
+// System includes
+#include <string>
 
 // Forward class declarations
 class ISerialization;
 class Coord_cl;
 
+//##ModelId=3C5D92B0015D
 class cUObject
 {
 // Data Members
 public:
+	//##ModelId=3C5D92B00186
 	SERIAL serial;
+	//##ModelId=3C5D92B001A4
 	SERIAL multis;
+	//##ModelId=3C5D92B001B7
 	bool free;
 
-	string name;
+	//##ModelId=3C5D92B001D6
+	std::string name;
+	//##ModelId=3C5D92B001F4
 	Coord_cl pos;
 // Methods
 protected:
+	//##ModelId=3C5D92B00207
 	void init();
 public:
+	//##ModelId=3C5D92B0021B
 	cUObject();
+	//##ModelId=3C5D92B0021C
 	cUObject( cUObject& ); // Copy constructor
+	//##ModelId=3C5D92B0022F
 	virtual ~cUObject() = 0;
+	//##ModelId=3C5D92B00239
 	virtual void Serialize(ISerialization &archive);
+	//##ModelId=3C5D92B00257
+	virtual std::string objectID();
 };
 
 #endif // __UOBJECT_H__

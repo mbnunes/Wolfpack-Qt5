@@ -39,6 +39,7 @@
 #define DBGFILE "combat.cpp"
 #define SWINGAT (unsigned int)1.75 * MY_CLOCKS_PER_SEC // changed from signed to unsigned, LB
 
+//##ModelId=3C5D92F800D4
 int cCombat::GetBowType(P_CHAR pc)
 {
 	unsigned int ci=0;
@@ -63,6 +64,7 @@ int cCombat::GetBowType(P_CHAR pc)
 	return 0;
 }
 
+//##ModelId=3C5D92F8000C
 void cCombat::ItemCastSpell(UOXSOCKET s, P_CHAR pc, P_ITEM pi)//S=Socket c=Char # Target i=Item //Itemid
 {
 	if(!pi) return;
@@ -125,6 +127,7 @@ void CheckPoisoning(UOXSOCKET sd, P_CHAR pc_attacker, P_CHAR pc_defender)
 }
 
 // This checks LineOfSight before calling CombatHit (Duke, 10.7.2001)
+//##ModelId=3C5D92F80138
 void cCombat::CombatHitCheckLoS(P_CHAR pAttacker, unsigned int currenttime)
 {
 	P_CHAR pDefender = FindCharBySerial(pAttacker->swingtarg);
@@ -137,6 +140,7 @@ void cCombat::CombatHitCheckLoS(P_CHAR pAttacker, unsigned int currenttime)
 }
 
 // CombatHit now expects that LineOfSight has been checked before (Duke, 10.7.2001)
+//##ModelId=3C5D92F80156
 void cCombat::CombatHit(P_CHAR pc_attacker, P_CHAR pc_deffender, unsigned int currenttime, short los)
 {
 	char hit;
@@ -672,6 +676,7 @@ static void SetWeaponTimeout(P_CHAR Attacker, P_ITEM Weapon)
 }
 
 
+//##ModelId=3C5D92F800A2
 void cCombat::DoCombatAnimations(P_CHAR pc_attacker, P_CHAR pc_defender, int fightskill, int bowtype, int los)
 {
 	short id = pc_attacker->id();
@@ -723,6 +728,7 @@ void cCombat::DoCombatAnimations(P_CHAR pc_attacker, P_CHAR pc_defender, int fig
 	}
 }
 
+//##ModelId=3C5D92F80188
 void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 {
 	int x, bowtype=0;// spamanachecking, tmp;
@@ -879,7 +885,7 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 				
 				if ((pc_attacker->isPlayer())&&(pc_defender->isPlayer()))//Player vs Player
 				{
-					if(pc_defender->isInnocent() && Guilds->Compare(pc_attacker, pc_defender )==0 && Races.CheckRelation(pc_attacker,pc_defender)!=2)
+					if(pc_defender->isInnocent() && GuildCompare(pc_attacker, pc_defender )==0 && Races.CheckRelation(pc_attacker,pc_defender)!=2)
 					{
 						pc_attacker->kills++;
 						sprintf((char*)temp, "You have killed %i innocent people.", pc_attacker->kills);
@@ -903,6 +909,7 @@ void cCombat::DoCombat(P_CHAR pc_attacker, unsigned int currenttime)
 	}
 }
 
+//##ModelId=3C5D92F800E8
 int cCombat::CalcAtt(P_CHAR pc_p) // Calculate total attack powerer
 {
 	int total = 0, j;
@@ -953,6 +960,7 @@ int cCombat::CalcAtt(P_CHAR pc_p) // Calculate total attack powerer
 	return total;
 }
 
+//##ModelId=3C5D92F800FC
 int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power 
 { 
 	P_ITEM pj=NULL; 
@@ -1076,6 +1084,7 @@ int cCombat::CalcDef(P_CHAR pc,int x) // Calculate total defense power
 	return total;
 }
 
+//##ModelId=3C5D92F80034
 int cCombat::TimerOk(P_CHAR pc)
 {
 	int d=0;
@@ -1089,6 +1098,7 @@ int cCombat::TimerOk(P_CHAR pc)
 }
 
 //play animation for weapon in hand during combat on a horse //kolours - modularized (09/20/98)
+//##ModelId=3C5D92F80110
 void cCombat::CombatOnHorse(P_CHAR pc)
 {
 	if ( pc == NULL ) return;
@@ -1129,6 +1139,7 @@ void cCombat::CombatOnHorse(P_CHAR pc)
 }
 
 //play animation for weapon in hand for combat on foot //kolours - (09/20/98)
+//##ModelId=3C5D92F80124
 void cCombat::CombatOnFoot(P_CHAR pc)
 {
 	 if ( pc == NULL ) return;
@@ -1206,6 +1217,7 @@ void cCombat::CombatOnFoot(P_CHAR pc)
 
 
 //s: char#
+//##ModelId=3C5D92F801B0
 void cCombat::SpawnGuard(P_CHAR pc_offender, P_CHAR pc_caller, int x, int y, signed char z)
 {
 	int t;
@@ -1250,6 +1262,7 @@ void cCombat::SpawnGuard(P_CHAR pc_offender, P_CHAR pc_caller, int x, int y, sig
 	}
 }
 
+//##ModelId=3C5D92F80048
 void cCombat::ItemSpell(cChar* Attacker, cChar* Defender)
 {
 	if (Attacker->npc)			// npcs can't use casting weapons right now (Duke)
@@ -1297,6 +1310,7 @@ void cCombat::ItemSpell(cChar* Attacker, cChar* Defender)
 }
 
 //AntiChrist - do the sound effect ( only if HITTEN! )
+//##ModelId=3C5D92F80066
 void cCombat::doSoundEffect(P_CHAR pc, int fightskill, P_ITEM pWeapon)
 {
 	bool heavy=false;
@@ -1346,6 +1360,7 @@ void cCombat::doSoundEffect(P_CHAR pc, int fightskill, P_ITEM pWeapon)
 
 
 //AntiChrist - do the "MISSED" sound effect
+//##ModelId=3C5D92F8008E
 void cCombat::doMissedSoundEffect(P_CHAR pc)
 {
 	int a=rand()%3;

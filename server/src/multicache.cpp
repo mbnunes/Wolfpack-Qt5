@@ -40,12 +40,14 @@
 
 //========================================================================================
 /// Constructor
+//##ModelId=3C5D92DA008B
 MultiCache_cl::MultiCache_cl()
 {
 	clear() ;
 }
 //========================================================================================
 /// Constructor of itself
+//##ModelId=3C5D92DA0095
 MultiCache_cl::MultiCache_cl(const MultiCache_cl& clData)
 {
 	(*this) = clData ;
@@ -53,6 +55,7 @@ MultiCache_cl::MultiCache_cl(const MultiCache_cl& clData)
 }
 
 //========================================================================================
+//##ModelId=3C5D92DA00A0
 MultiCache_cl::MultiCache_cl(string sDirectory)
 {
 	setDirectory(sDirectory) ;
@@ -64,6 +67,7 @@ MultiCache_cl::MultiCache_cl(string sDirectory)
 
 //========================================================================================
 /// Desctructor
+//##ModelId=3C5D92DA00B3
 MultiCache_cl::~MultiCache_cl()
 {
   clear() ;
@@ -72,6 +76,7 @@ MultiCache_cl::~MultiCache_cl()
 
 //========================================================================================
 /// Clear out any that we have
+//##ModelId=3C5D92DA00BD
 bool MultiCache_cl::clear()
 {
 	bool bReturn = true ;
@@ -82,6 +87,7 @@ bool MultiCache_cl::clear()
 
 //========================================================================================
 // Set our directory
+//##ModelId=3C5D92DA00C7
 void MultiCache_cl::setDirectory(string sDirectory)
 {
 
@@ -91,6 +97,7 @@ void MultiCache_cl::setDirectory(string sDirectory)
 
 //========================================================================================
 // Cache the tiles
+//##ModelId=3C5D92DA00DB
 bool MultiCache_cl::cacheData()
 {
 	clear() ;
@@ -124,6 +131,7 @@ bool MultiCache_cl::cacheData()
 
 
 //========================================================================================
+//##ModelId=3C5D92DA00E5
 MultiCache_cl&  MultiCache_cl::operator=(const MultiCache_cl& clData)
 {
 
@@ -132,6 +140,7 @@ MultiCache_cl&  MultiCache_cl::operator=(const MultiCache_cl& clData)
 }
 
 //========================================================================================
+//##ModelId=3C5D92DA010D
 bool MultiCache_cl::processVerdata()
 {
 	bool bReturn = false ;
@@ -195,6 +204,7 @@ bool MultiCache_cl::processVerdata()
 //========================================================================================
 
 //========================================================================================
+//##ModelId=3C5D92DA00F9
 bool MultiCache_cl::isValid(SI32 siId)
 {
 	return true;

@@ -45,6 +45,7 @@ using namespace std;
 
 #define IM_MAX_SIZE 40 /* Max number of menu options */
 
+//##ModelId=3C5D92F003AE
 typedef struct _item_menu item_menu;
 
 /* void im_callback( item_menu *menu, int player, long item_param )
@@ -52,22 +53,33 @@ typedef struct _item_menu item_menu;
  * Callback called by im when an item is selected from the
  * menu. States menu, player, and parameter.
  */
+//##ModelId=3C5D92F10020
 typedef void (*im_callback)( item_menu *menu, int player, long item_param );
 
 /* item_menu structure */
+//##ModelId=3C5D92F10098
 struct _item_menu {
+	//##ModelId=3C5D92F100DF
 	std::string title;           /* Menu title */
+	//##ModelId=3C5D92F100F3
 	im_callback callback;  /* Callback function */
 
+	//##ModelId=3C5D92F101EC
   struct im_item {
+		//##ModelId=3C5D92F10200
     int id;              /* id (used for picture) */
+		//##ModelId=3C5D92F10214
     long param;          /* parameter (for callback) */
+		//##ModelId=3C5D92F10234
 	std::string title;         /* option name */
   } im_items[IM_MAX_SIZE];  /* List of menu options */
   
+	//##ModelId=3C5D92F10110
   int nitems;
 
+	//##ModelId=3C5D92F10124
   unsigned char *gump_message; /* byte block for message */
+	//##ModelId=3C5D92F1014C
   int total_bytes; /* total bytes = prefix + len + text + # items + ... */
                            /* ... + middle + len + text (for each item) */
 
@@ -130,6 +142,7 @@ int im_kill( item_menu *menu );
  * Callback called by im when an item is selected from the
  * menu. States menu, player, and parameter.
  */
+//##ModelId=3C5D92F10251
 typedef void (*im_menucallback)( char *menu_name, int player, long item_param );
 
 /*

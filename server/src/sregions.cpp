@@ -575,6 +575,7 @@ void checkregion(P_CHAR pc_i)
 //			to allow for memory reallocation and to avoid lag
 // History:	by Duke, 17.12.2000
 //
+//##ModelId=3C5D92CF03C4
 void cRespawn::Continue()
 {
 

@@ -33,11 +33,13 @@
 
 
 
+//##ModelId=3C5D932E01AE
 cAdmin::cAdmin()
 {
 
 }
 
+//##ModelId=3C5D932E01C2
 void cAdmin::ReadIni()
 {
 	int keep,loopexit=0;
@@ -186,6 +188,7 @@ void cAdmin::ReadIni()
 	infile = NULL;
 }
 
+//##ModelId=3C5D932E01D6
 void cAdmin::ReadString()
 {
 	int i=0;

@@ -58,6 +58,7 @@ void bitprint(FILE *fp, unsigned char x)
 #endif
 
 
+//##ModelId=3C5D92DF0196
 cMapStuff::cMapStuff() : versionCache(NULL), versionRecordCount(0), versionMemory(0), StaMem(0), TileMem(0),
 Cache(0), Map0CacheHit(0), Map0CacheMiss(0), StaticBlocks(0),
 mapfile(NULL), sidxfile(NULL), statfile(NULL), verfile(NULL), tilefile(NULL), multifile(NULL), midxfile(NULL)
@@ -82,6 +83,7 @@ mapfile(NULL), sidxfile(NULL), statfile(NULL), verfile(NULL), tilefile(NULL), mu
 	
 }
 
+//##ModelId=3C5D92DF01A0
 cMapStuff::~cMapStuff()
 {
 	if (versionCache) delete [] versionCache;
@@ -95,6 +97,7 @@ cMapStuff::~cMapStuff()
 	if( midxfile )  delete midxfile;
 }
 
+//##ModelId=3C5D92DF01AA
 void cMapStuff::Load()
 {
 	clConsole.send("Preparing to open *.mul files...\n(If they don't open, fix your paths in the wolfpack.ini)\n");
@@ -182,6 +185,7 @@ void cMapStuff::Load()
 // oh yah, well that's encouraging.. NOT! at least LB was kind enough to
 // move this out into a separate file. he gets kudos for that!
 //int cMapStuff::TileHeight(int tilenum)
+//##ModelId=3C5D92DF02C3
 signed char cMapStuff::TileHeight(int tilenum)
 {
 	tile_st tile;
@@ -212,6 +216,7 @@ bool CanUseOldZ(int oldz, int newz)
 //|   Purpose     :  Top of statics at/above given coordinates
 //o-------------------------------------------------------------o
 //int cMapStuff::StaticTop(int x, int y, int oldz)
+//##ModelId=3C5D92DF01F1
 signed char cMapStuff::StaticTop(short int x, short int y, signed char oldz)
 {
 //	int top = illegal_z;
@@ -245,6 +250,7 @@ signed char cMapStuff::StaticTop(short int x, short int y, signed char oldz)
 //           probably with the floor-bit
 
 //bool cMapStuff::IsUnderRoof(int x, int y, int z)
+//##ModelId=3C5D92DF01B4
 bool cMapStuff::IsUnderRoof(short int x, short int y, signed char z)
 {
 	MapStaticIterator msi(x, y);
@@ -293,6 +299,7 @@ bool cMapStuff::IsUnderRoof(short int x, short int y, signed char z)
 
 //
 // i guess this function returns where the tile is a 'blocker' meaning you can't pass through it
+//##ModelId=3C5D92E0017A
 bool cMapStuff::DoesTileBlock(int tilenum)
 {
 	tile_st tile;
@@ -302,6 +309,7 @@ bool cMapStuff::DoesTileBlock(int tilenum)
 	return DoesTileBlock(tile);
 }
 
+//##ModelId=3C5D92E001CA
 bool cMapStuff::DoesTileBlock( tile_st &tile )
 {
 	return (tile.flag1&0x40) == 0x40;
@@ -309,6 +317,7 @@ bool cMapStuff::DoesTileBlock( tile_st &tile )
 
 // crackerjack 8/9/1999 - finds the "corners" of a multitile object. I use
 // this for when houses are converted into deeds.
+//##ModelId=3C5D92DF0313
 void cMapStuff::MultiArea(P_ITEM pi, int *x1, int *y1, int *x2, int *y2)
 {
 	st_multi multi;
@@ -337,6 +346,7 @@ void cMapStuff::MultiArea(P_ITEM pi, int *x1, int *y1, int *x2, int *y2)
 
 // return the height of a multi item at the given x,y. this seems to actually return a height
 //int cMapStuff::MultiHeight(int i, int x, int y, int oldz)
+//##ModelId=3C5D92DE039E
 signed char cMapStuff::MultiHeight(P_ITEM pi, short int x, short int y, signed char oldz)
 {                                                                                                                                  	st_multi multi;                                                                                                               
 	UOXFile *mfile = NULL;
@@ -372,6 +382,7 @@ signed char cMapStuff::MultiHeight(P_ITEM pi, short int x, short int y, signed c
 
 // This was fixed to actually return the *elevation* of dynamic items at/above given coordinates
 //int cMapStuff::DynamicElevation(int x, int y, int oldz)
+//##ModelId=3C5D92DF022D
 signed char cMapStuff::DynamicElevation(short int x, short int y, signed char oldz)
 {
 	//int z = illegal_z;
@@ -406,6 +417,7 @@ signed char cMapStuff::DynamicElevation(short int x, short int y, signed char ol
 }
 
 
+//##ModelId=3C5D92DF0006
 int cMapStuff::MultiTile(P_ITEM pi, short int x, short int y, signed char oldz)
 {
 	SI32 length = 0;
@@ -438,6 +450,7 @@ int cMapStuff::MultiTile(P_ITEM pi, short int x, short int y, signed char oldz)
 // returns which dynamic tile is present at (x,y) or -1 if no tile exists
 // originally by LB & just michael
 //int cMapStuff::DynTile(int x, int y, int oldz)
+//##ModelId=3C5D92DF0100
 int cMapStuff::DynTile(short int x, short int y, signed char oldz)
 {
 	const int getcell = mapRegions->GetCell(x,y);
@@ -479,6 +492,7 @@ char cMapStuff::o_Type(int x, int y, int oldz)
 // return the elevation of MAP0.MUL at given coordinates, we'll assume since its land
 // the height is inherently 0
 //int cMapStuff::MapElevation(int x, int y)
+//##ModelId=3C5D92DF025F
 signed char cMapStuff::MapElevation(short int x, short int y)
 {
 	map_st map = SeekMap0( x, y );
@@ -494,6 +508,7 @@ signed char cMapStuff::MapElevation(short int x, short int y)
 
 // compute the 'average' map height by looking at three adjacent cells
 //int cMapStuff::AverageMapElevation(int x, int y, int &id)
+//##ModelId=3C5D92DF0287
 signed char cMapStuff::AverageMapElevation(short int x, short int y, int &id)
 {
 	// first thing is to get the map where we are standing
@@ -554,6 +569,7 @@ char cMapStuff::MapType(int x, int y) // type of MAP0.MUL at given coordinates
 // given by the file, but actually we aren't going to use all of them, since we
 // only care about the patches made to the 6 files the server needs.  so the
 // versionRecordCount hold how many we actually saved
+//##ModelId=3C5D92DF00EC
 void cMapStuff::CacheVersion()
 {
 	verfile->seek(0, SEEK_SET);
@@ -616,6 +632,7 @@ void cMapStuff::CacheVersion()
 }
 
 
+//##ModelId=3C5D92DF004C
 SI32 cMapStuff::VerSeek(SI32 file, SI32 block)
 {
 	for (UI32 i = 0; i < versionRecordCount; ++i)
@@ -629,6 +646,7 @@ SI32 cMapStuff::VerSeek(SI32 file, SI32 block)
 	return 0;
 }
 
+//##ModelId=3C5D92DF007E
 char cMapStuff::VerTile(int tilenum, tile_st *tile)
 {
 	if (tilenum==-1) return 0;
@@ -649,6 +667,7 @@ char cMapStuff::VerTile(int tilenum, tile_st *tile)
 	}
 }
 
+//##ModelId=3C5D92DF036D
 void cMapStuff::SeekTile(int tilenum, tile_st *tile)
 {
 	assert(tilenum >= 0);
@@ -702,6 +721,7 @@ void cMapStuff::SeekTile(int tilenum, tile_st *tile)
 	}
 }
 
+//##ModelId=3C5D92DE01F9
 void cMapStuff::CacheTiles()
 {
 	// temp disable caching so we can fill the cache
@@ -796,6 +816,7 @@ void cMapStuff::CacheTiles()
 #endif
 }
 
+//##ModelId=3C5D92DE0362
 char cMapStuff::VerLand(int landnum, land_st *land)
 {
 	const SI32 block=(landnum/32);
@@ -813,6 +834,7 @@ char cMapStuff::VerLand(int landnum, land_st *land)
 	return 1;
 }
 
+//##ModelId=3C5D92DF03D1
 void cMapStuff::SeekLand(int landnum, land_st *land)
 {
 	const SI32 block=(landnum/32);
@@ -824,6 +846,7 @@ void cMapStuff::SeekLand(int landnum, land_st *land)
 	}
 }
 
+//##ModelId=3C5D92DF0395
 void cMapStuff::SeekMulti(int multinum, UOXFile **mfile, SI32 *length)
 {
 	const int len=VerSeek(VERFILE_MULTI, multinum);
@@ -865,6 +888,7 @@ void cMapStuff::SeekMulti(int multinum, UOXFile **mfile, SI32 *length)
 **  		    ... your code here...
 **	  	}
 */
+//##ModelId=3C5D92E1015D
 MapStaticIterator::MapStaticIterator(unsigned int x, unsigned int y, bool exact) :
 baseX(x / 8), baseY(y / 8), remainX(x % 8), remainY(y % 8), length(0), index(0),
 pos(0), exactCoords(exact), tileid(0)
@@ -896,12 +920,14 @@ pos(0), exactCoords(exact), tileid(0)
 	}
 }
 
+//##ModelId=3C5D92E10185
 staticrecord *MapStaticIterator::First()
 {
 	index = 0;
 	return Next();
 }
 
+//##ModelId=3C5D92E1018F
 staticrecord *MapStaticIterator::Next()
 {
 	tileid = 0;
@@ -975,6 +1001,7 @@ staticrecord *MapStaticIterator::Next()
 
 // since 99% of the time we want the tile at the requested location, here's a
 // helper function.  pass in the pointer to a struct you want filled.
+//##ModelId=3C5D92E101E9
 void MapStaticIterator::GetTile(tile_st *tile) const
 {
 	assert(tile);
@@ -985,6 +1012,7 @@ void MapStaticIterator::GetTile(tile_st *tile) const
 ** some clean up to the caching and it wasn't reporting all the memory actually
 ** used by the StaticCache[][] in cMapStuff
 */
+//##ModelId=3C5D92DE020D
 void cMapStuff::CacheStatics( void )
 {
 	StaticBlocks = ( MapTileWidth * MapTileHeight );
@@ -1035,6 +1063,7 @@ void cMapStuff::CacheStatics( void )
 	clConsole.send("Done.\n");
 }
 
+//##ModelId=3C5D92E0010C
 map_st cMapStuff::SeekMap0( unsigned short x, unsigned short y )
 {
 	const UI16 x1 = x /8, y1 = y / 8, x2 = x % 8, y2 = y % 8;
@@ -1092,6 +1121,7 @@ map_st cMapStuff::SeekMap0( unsigned short x, unsigned short y )
 
 // these two functions don't look like they are actually used by anything
 // anymore, at least we know which bit means wet
+//##ModelId=3C5D92DF00B0
 bool cMapStuff::IsTileWet(int tilenum)   // lord binary
 {
 	tile_st tile;
@@ -1101,6 +1131,7 @@ bool cMapStuff::IsTileWet(int tilenum)   // lord binary
 
 // i don't know what this bit means exactly, its a walkway? or you are allowed
 // to walk?
+//##ModelId=3C5D92DF00CE
 bool cMapStuff::TileWalk(int tilenum)
 {
 	tile_st tile;
@@ -1112,6 +1143,7 @@ bool cMapStuff::TileWalk(int tilenum)
 
 // Blocking statics at/above given coordinates?
 //bool cMapStuff::DoesStaticBlock( int x, int y, int oldz )
+//##ModelId=3C5D92DF013C
 bool cMapStuff::DoesStaticBlock( short int x, short int y, signed char oldz )
 {
 	MapStaticIterator msi(x, y);
@@ -1138,6 +1170,7 @@ bool cMapStuff::DoesStaticBlock( short int x, short int y, signed char oldz )
 
 // Return new height of player who walked to X/Y but from OLDZ
 //int cMapStuff::Height(int x, int y, int oldz)
+//##ModelId=3C5D92DF02E1
 signed char cMapStuff::Height(short int x, short int y, signed char oldz)
 {
 	// let's check in this order.. dynamic, static, then the map
@@ -1155,6 +1188,7 @@ signed char cMapStuff::Height(short int x, short int y, signed char oldz)
 // can the monster move here from an adjacent cell at elevation 'oldz'
 // use illegal_z if they are teleporting from an unknown z
 //bool cMapStuff::CanMonsterMoveHere(int x, int y, int oldz)
+//##ModelId=3C5D92E0018E
 bool cMapStuff::CanMonsterMoveHere(short int x, short int y, signed char oldz)
 {
 	if( x < 0 || y < 0 || x >= ( MapTileWidth * 8 ) || y >= ( MapTileHeight * 8 ) )
@@ -1188,6 +1222,7 @@ bool cMapStuff::CanMonsterMoveHere(short int x, short int y, signed char oldz)
     return true;
 }
 
+//##ModelId=3C5D92E00134
 bool cMapStuff::IsRoofOrFloorTile( tile_st *tile )
 // checks to see if the tile is either a roof or floor tile
 {
@@ -1212,6 +1247,7 @@ bool cMapStuff::IsRoofOrFloorTile( tile_st *tile )
 	return false;
 }
 
+//##ModelId=3C5D92E00166
 bool cMapStuff::IsRoofOrFloorTile( unitile_st *tile )
 // checks to see if the tile is either a roof or floor tile
 {

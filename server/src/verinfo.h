@@ -104,35 +104,54 @@ g5: Wolfpack derivates
 /// note: no code for offical encoding yet, but will be added soon, LB 30-Sept 2001
 
 
+//##ModelId=3C5D92AF01F2
 struct wpversion_32bit
 {
+	//##ModelId=3C5D92AF0210
 	unsigned char major_version;
+	//##ModelId=3C5D92AF0224
     unsigned char sub_version;
+	//##ModelId=3C5D92AF022E
 	unsigned char subsub_version;
+	//##ModelId=3C5D92AF0242
 	unsigned char flags;
+	//##ModelId=3C5D92AF0256
 	unsigned char derivate;
+	//##ModelId=3C5D92AF026A
 	wpversion_32bit() : flags(0) { ; }
 
 };
 
 
 // changed all the #defines dealing with verison stuff to a struct, LB
+//##ModelId=3C5D92AF031E
 struct wp_version_info
 {
     public:
 
+	//##ModelId=3C5D92AF033C
 	   unsigned int   vernumber;
+	//##ModelId=3C5D92AF0351
 	   wpversion_32bit verstruct;
 
+	//##ModelId=3C5D92AF0383
 	   string verstring; 
+	//##ModelId=3C5D92AF0397
 	   string productstring;
+	//##ModelId=3C5D92AF03B5
 	   string betareleasestring;
+	//##ModelId=3C5D92AF03D3
 	   string clientsupportedstring;
+	//##ModelId=3C5D92B00009
 	   string timezonestring;
+	//##ModelId=3C5D92B00027
 	   string compiledbystring;
+	//##ModelId=3C5D92B00045
 	   string codersstring;
+	//##ModelId=3C5D92B00063
 	   string emailstring;
 
+	//##ModelId=3C5D92B00080
 	   wp_version_info()
 	   {
 		   /////////////////////////////////////
@@ -174,9 +193,11 @@ struct wp_version_info
            emailstring = " ";		  
 	   }
 
+	//##ModelId=3C5D92B0008A
 	   virtual ~wp_version_info() { ; }
 
 	   private:
+	//##ModelId=3C5D92B0008C
        unsigned int to_32bitver(wpversion_32bit data)
 	   {
 	       unsigned int result, r1,r2,r3,r4,r5;	
@@ -190,6 +211,7 @@ struct wp_version_info
 	   }
 
 
+	//##ModelId=3C5D92B00103
        wpversion_32bit from_32bitver( unsigned long int indata)
 	   {
 	       wpversion_32bit wpv32;

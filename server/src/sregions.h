@@ -54,18 +54,28 @@ class cRespawn ;
 
 
 
+//##ModelId=3C5D92CF0324
 class cRespawn
 {
 private:
+	//##ModelId=3C5D92CF0342
 	bool respawning;
+	//##ModelId=3C5D92CF0356
 	bool doItemSpawns;
+	//##ModelId=3C5D92CF0374
 	int currentSpawnRegion;
+	//##ModelId=3C5D92CF0388
 	unsigned int currentSpawnItem;
 public:
+	//##ModelId=3C5D92CF03A6
 	cRespawn() {respawning = doItemSpawns = false;}
+	//##ModelId=3C5D92CF03A7
 	~cRespawn() {}
+	//##ModelId=3C5D92CF03B0
 	bool AreWeRespawning() {return respawning;}
+	//##ModelId=3C5D92CF03BA
 	void Start() {respawning = doItemSpawns = true; currentSpawnRegion=1; currentSpawnItem=0;}
+	//##ModelId=3C5D92CF03C4
 	void Continue();
 };
 

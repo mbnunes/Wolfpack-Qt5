@@ -25,24 +25,28 @@
 #include "mstring.h"
 //========================================================================
 // Begin Constructor
+//##ModelId=3C5D92DB01FF
 mstring::mstring() : string()
 {
 }
 // End of Constructor
 //========================================================================
 // Begin Constructor (const string&)
+//##ModelId=3C5D92DB0209
 mstring::mstring(const string& sStr) : string(static_cast<string>(sStr))
 { 
 }
 // End of Constructor (const string&)
 //========================================================================
 // Constructor that is populated from the null terminated char string
+//##ModelId=3C5D92DB0231
 mstring::mstring(char* szStr) : string(szStr)
 {
 }
 // End of Constructor
 //========================================================================
 // Begin Constructor (char*, UI32)
+//##ModelId=3C5D92DB0245
 mstring::mstring(char* szStr, UI32 uiLen) : string(szStr, uiLen)
 {
 	// Creates a string  using the char string and the number of characters specified
@@ -50,18 +54,21 @@ mstring::mstring(char* szStr, UI32 uiLen) : string(szStr, uiLen)
 // End of Constructor (char *, UI32)
 //========================================================================
 // Begin Constructor (const string&, UI32, UI32)
+//##ModelId=3C5D92DB0213
 mstring::mstring(const string& clString, UI32 uiIdx, UI32 uiLength)  : string(static_cast<string>(clString), uiIdx, uiLength)
 {
 }
 // End of Constructor (const string&, UI32, UI32)
 //========================================================================
 // Begin Destructor
+//##ModelId=3C5D92DB025A
 mstring::~mstring()
 {
 }
 // End of Destrcutor
 //========================================================================
 // Begin appendNum (UI08,UI16)
+//##ModelId=3C5D92DB03A3
 mstring& mstring::appendNum(UI08 uiValue, UI16 uiBase) 
 {
 	// Convert a byte	
@@ -70,6 +77,7 @@ mstring& mstring::appendNum(UI08 uiValue, UI16 uiBase)
 // End of appendNum (UI08,UI16)
 //========================================================================
 // Begin appendNum (UI16, UI16)
+//##ModelId=3C5D92DB03C1
 mstring& mstring::appendNum(UI16 uiValue, UI16 uiBase)
 {
 	// Convert a 16 bit integer
@@ -78,6 +86,7 @@ mstring& mstring::appendNum(UI16 uiValue, UI16 uiBase)
 // End of appendNum (UI16,UI16)
 //========================================================================
 // Begin appendNum(UI32,UI16)
+//##ModelId=3C5D92DB03DF
 mstring& mstring::appendNum(UI32 uiValue, UI16 uiBase)
 {
 	// Convert a 32 bit integer
@@ -121,6 +130,7 @@ mstring& mstring::appendNum(UI32 uiValue, UI16 uiBase)
 // End of appendNum (UI32,UI16)
 //========================================================================
 // Begin appendNum(SI08,UI16)
+//##ModelId=3C5D92DC000D
 mstring & mstring::appendNum(SI08 siValue, UI16 uiBase) 
 {
 	// Set a signed eight bit value
@@ -129,6 +139,7 @@ mstring & mstring::appendNum(SI08 siValue, UI16 uiBase)
 // End of setNum (SI08,UI16)
 //========================================================================
 // Begin appendNum (SI16, UI16)
+//##ModelId=3C5D92DC005C
 mstring & mstring::appendNum(SI16 siValue, UI16 uiBase) 
 {
 	// Set a signed 16 bit value
@@ -137,6 +148,7 @@ mstring & mstring::appendNum(SI16 siValue, UI16 uiBase)
 // End of appendNum (SI16, UI16)
 //========================================================================
 // Begi appendNum (SI32,UI16)
+//##ModelId=3C5D92DC007A
 mstring & mstring::appendNum(SI32 siValue, UI16 uiBase)
 {
 	// Set a signed 32 bit value
@@ -180,6 +192,7 @@ mstring & mstring::appendNum(SI32 siValue, UI16 uiBase)
 // End of appendNum (SI32,UI16)
 //========================================================================
 // Begin setNum (UI08,UI16)
+//##ModelId=3C5D92DB0303
 mstring& mstring::setNum(UI08 uiValue, UI16 uiBase) 
 {
 	// Convert a byte	
@@ -188,6 +201,7 @@ mstring& mstring::setNum(UI08 uiValue, UI16 uiBase)
 // End of setNum (UI08,UI16)
 //========================================================================
 // Begin setNum (UI16, UI16)
+//##ModelId=3C5D92DB0321
 mstring& mstring::setNum(UI16 uiValue, UI16 uiBase)
 {
 	// Convert a 16 bit integer
@@ -196,6 +210,7 @@ mstring& mstring::setNum(UI16 uiValue, UI16 uiBase)
 // End of setNum (UI16,UI16)
 //========================================================================
 // Begin setNum(UI32,UI16)
+//##ModelId=3C5D92DB0336
 mstring& mstring::setNum(UI32 uiValue, UI16 uiBase)
 {
 	// Convert a 32 bit integer
@@ -232,6 +247,7 @@ mstring& mstring::setNum(UI32 uiValue, UI16 uiBase)
 // End of setNum (UI32,UI16)
 //========================================================================
 // Begin setNum(SI08,UI16)
+//##ModelId=3C5D92DB0354
 mstring & mstring::setNum(SI08 siValue, UI16 uiBase) 
 {
 	// Set a signed eight bit value
@@ -240,6 +256,7 @@ mstring & mstring::setNum(SI08 siValue, UI16 uiBase)
 // End of setNum (SI08,UI16)
 //========================================================================
 // Begin setNum (SI16, UI16)
+//##ModelId=3C5D92DB0371
 mstring & mstring::setNum(SI16 siValue, UI16 uiBase) 
 {
 	// Set a signed 16 bit value
@@ -248,6 +265,7 @@ mstring & mstring::setNum(SI16 siValue, UI16 uiBase)
 // End of setNum (SI16, UI16)
 //========================================================================
 // Begi setNum (SI32,UI16)
+//##ModelId=3C5D92DB0385
 mstring & mstring::setNum(SI32 siValue, UI16 uiBase)
 {
 	// Set a signed 32 bit value
@@ -285,6 +303,7 @@ mstring & mstring::setNum(SI32 siValue, UI16 uiBase)
 // End of setNum (SI32,UI16)
 //========================================================================
 // Begin toUI32
+//##ModelId=3C5D92DC0098
 UI32 mstring::toUI32(UI16 uiBase)
 {
 	// Make a stream for our conversion
@@ -319,6 +338,7 @@ UI32 mstring::toUI32(UI16 uiBase)
 // End of toUI32
 //========================================================================
 // Begin toUI16
+//##ModelId=3C5D92DC00B6
 UI16 mstring::toUI16(UI16 uiBase)
 {
 	// Return a 16 bit unsigned
@@ -327,6 +347,7 @@ UI16 mstring::toUI16(UI16 uiBase)
 // End of toUI16
 //========================================================================
 // Begin toUI08
+//##ModelId=3C5D92DC00CA
 UI08 mstring::toUI08(UI16 uiBase)
 {
 	return static_cast<UI08>(toUI32(uiBase));
@@ -334,6 +355,7 @@ UI08 mstring::toUI08(UI16 uiBase)
 // End of toUI08
 //========================================================================
 // Begin toSI32
+//##ModelId=3C5D92DC00DE
 SI32 mstring::toSI32(UI16 uiBase)
 {
 	// Make a stream for our conversion
@@ -367,6 +389,7 @@ SI32 mstring::toSI32(UI16 uiBase)
 // End of toSI32
 //========================================================================
 // Begin toSI16
+//##ModelId=3C5D92DC011A
 SI16 mstring::toSI16(UI16 uiBase)
 {
 	return static_cast<SI16>(toSI32(uiBase));
@@ -374,6 +397,7 @@ SI16 mstring::toSI16(UI16 uiBase)
 // End of toSI16
 //========================================================================
 // Begin toSI08
+//##ModelId=3C5D92DC012F
 SI08 mstring::toSI08(UI16 uiBase)
 {
 	return static_cast<SI08>(toSI32(uiBase));
@@ -381,12 +405,14 @@ SI08 mstring::toSI08(UI16 uiBase)
 // End of toSI08
 //========================================================================
 // Begin local split
+//##ModelId=3C5D92DB0295
 vector<mstring> mstring::split(const mstring& sSep, const UI16 uiAmount)
 {
 	return split(sSep, *this, uiAmount);
 }
 //========================================================================
 // Begin split (const mstring&, const mstring&)
+//##ModelId=3C5D92DC01D8
 vector<mstring> mstring::split(const mstring & clSep,  const mstring & clString, const UI16 uiAmount)
 {
 	vector<mstring> vecStrings;
@@ -442,6 +468,7 @@ vector<mstring> mstring::split(const mstring & clSep,  const mstring & clString,
 // End of split (const mstring&, const mstring&)
 //========================================================================
 // Begin local split
+//##ModelId=3C5D92DB02B3
 vector<mstring> mstring::split(char* ptrSep, const UI16 uiAmount)
 {
 	return split(ptrSep, *this, uiAmount);
@@ -449,6 +476,7 @@ vector<mstring> mstring::split(char* ptrSep, const UI16 uiAmount)
 // End of local split
 //========================================================================
 // Begin split (char *, const mstring)
+//##ModelId=3C5D92DC0200
 vector<mstring> mstring::split(char * ptrSep,  const mstring clString, const UI16 uiAmount)
 {
 	mstring clSep(ptrSep);
@@ -459,12 +487,14 @@ vector<mstring> mstring::split(char * ptrSep,  const mstring clString, const UI1
 
 //========================================================================
 // Begin local split
+//##ModelId=3C5D92DB02C7
 vector<mstring> mstring::splitAny(const mstring& sSep, const UI16 uiAmount)
 {
 	return splitAny(sSep, *this, uiAmount);
 }
 //========================================================================
 // Begin split (const mstring&, const mstring&)
+//##ModelId=3C5D92DC032D
 vector<mstring> mstring::splitAny(const mstring & clSep,  const mstring & clString, const UI16 uiAmount)
 {
 	vector<mstring> vecStrings;
@@ -520,6 +550,7 @@ vector<mstring> mstring::splitAny(const mstring & clSep,  const mstring & clStri
 // End of split (const mstring&, const mstring&)
 //========================================================================
 // Begin local split
+//##ModelId=3C5D92DB02E5
 vector<mstring> mstring::splitAny(char* ptrSep, const UI16 uiAmount)
 {
 	return splitAny(ptrSep, *this, uiAmount);
@@ -527,6 +558,7 @@ vector<mstring> mstring::splitAny(char* ptrSep, const UI16 uiAmount)
 // End of local split
 //========================================================================
 // Begin split (char *, const mstring)
+//##ModelId=3C5D92DC0355
 vector<mstring> mstring::splitAny(char * ptrSep,  const mstring clString, const UI16 uiAmount)
 {
 	mstring clSep(ptrSep);
@@ -536,6 +568,7 @@ vector<mstring> mstring::splitAny(char * ptrSep,  const mstring clString, const 
 
 //========================================================================
 // Begin unicode (const char*, UI32)
+//##ModelId=3C5D92DB026D
 void mstring::unicode(const char* szBuffer, UI32 uiLen)
 {
 	// right now we throw away the top byte of each value, assume latin8
@@ -560,6 +593,7 @@ void mstring::unicode(const char* szBuffer, UI32 uiLen)
 // End of unicode (const char *,UI32)
 //========================================================================
 // Begin unicode
+//##ModelId=3C5D92DB0263
 char* mstring::unicode()
 {
 	// We return a unicode character array, just add zero to the top byte
@@ -579,12 +613,14 @@ char* mstring::unicode()
 // End of unicode
 //========================================================================
 // local trim
+//##ModelId=3C5D92DB028B
 void mstring::trim()
 {
 	trim(*this);
 }
 //========================================================================
 // Begin trim
+//##ModelId=3C5D92DC0373
 mstring mstring::trim(mstring& clInput)
 {
 	SI32 siStart = clInput.find_first_not_of(MYWHITESPACE);
@@ -599,6 +635,7 @@ mstring mstring::trim(mstring& clInput)
 // End of trim
 //========================================================================
 // Begin cleanup
+//##ModelId=3C5D92DB02FA
 void mstring::cleanup()
 {
 	(*this) = cleanup(*this);
@@ -606,6 +643,7 @@ void mstring::cleanup()
 
 //========================================================================
 // Begin cleanup
+//##ModelId=3C5D92DC039B
 mstring mstring::cleanup(mstring clInput)
 {
 	// First thing is get rid of trailing/leading blanks
@@ -628,12 +666,14 @@ mstring mstring::cleanup(mstring clInput)
 // End of cleanup
 
 //========================================================================
+//##ModelId=3C5D92DC01B0
 string mstring::pop(char* szSep)
 {
 	string sSep(szSep);
 	return pop(sSep);
 }
 //========================================================================
+//##ModelId=3C5D92DC01BA
 string mstring::pop(string sSep)
 {
 	// find a sperator, return the porting in front, and reset the string
@@ -659,6 +699,7 @@ string mstring::pop(string sSep)
 }
 //========================================================================
 // Begin lower()
+//##ModelId=3C5D92DC0188
 string mstring::lower()
 {
 	return lower((*this));
@@ -666,6 +707,7 @@ string mstring::lower()
 
 //==========================================================================
 // Begin upper()
+//##ModelId=3C5D92DC0192
 string mstring::upper()
 {
 	return upper((*this));
@@ -673,6 +715,7 @@ string mstring::upper()
 
 //=========================================================================
 // Begin static lower
+//##ModelId=3C5D92DC03AF
 string mstring::lower(string& sTemp)
 {
 	string sReturn; 
@@ -684,6 +727,7 @@ string mstring::lower(string& sTemp)
 
 //=========================================================================
 // Begin static upper
+//##ModelId=3C5D92DC03C3
 string mstring::upper(string& sTemp)
 {
 	string sReturn;
@@ -693,6 +737,7 @@ string mstring::upper(string& sTemp)
 }
 
 //=======================================================================
+//##ModelId=3C5D92DC019C
 bool mstring::compare(string sTemp)
 {
 	string sTemp1;

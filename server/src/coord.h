@@ -69,26 +69,39 @@ extern WPConsole_cl clConsole;
 
 //Class definitions
 
+//##ModelId=3C5D92F6001D
 class Coord_cl
 {
 public:
 
+	//##ModelId=3C5D92F60045
 	Coord_cl(void);
+	//##ModelId=3C5D92F60050
 	Coord_cl(const Coord_cl& clCoord) ;
+	//##ModelId=3C5D92F60063
 	Coord_cl(UI16, UI16, SI08, UI08 uiMap = 0, UI08 uiPlane = 0);
 	// Operators
+	//##ModelId=3C5D92F6008B
 	Coord_cl& operator= (const Coord_cl& clCoord) ;
+	//##ModelId=3C5D92F6009F
 	bool operator==(const Coord_cl&);
+	//##ModelId=3C5D92F600B3
 	Coord_cl operator+(const Coord_cl& src) const;
 
+	//##ModelId=3C5D92F600C7
 	UI32 distance(Coord_cl &src);
 
 public:
 
+	//##ModelId=3C5D92F600E6
 	UI16 	x;
+	//##ModelId=3C5D92F60104
 	UI16 	y;
+	//##ModelId=3C5D92F60122
 	SI08 	z;
+	//##ModelId=3C5D92F60154
 	UI08    map;
+	//##ModelId=3C5D92F60172
 	UI08    plane;
 
 };

@@ -36,13 +36,14 @@
 #include "utilsys.h"
 #include "iserialization.h"
 #include "debug.h"
-
+#include "items.h"
 
 #undef  DBGFILE
 #define DBGFILE "items.cpp"
 
 
 // constructor
+//##ModelId=3C5D92E7002F
 cItem::cItem( cItem &src )
 {
 	this->name = src.name;
@@ -134,6 +135,17 @@ cItem::cItem( cItem &src )
 	this->desc = src.desc;
 }
 
+//##ModelId=3C5D92E7006B
+inline string cItem::objectID()
+{
+	return string("ITEM");
+}
+
+inline void cItem::startDecay()			
+{
+	this->decaytime=SrvParms->decaytimer*MY_CLOCKS_PER_SEC+uiCurrentTime;
+}
+
 
 ///////////////
 // Name:	ReduceAmount
@@ -144,6 +156,7 @@ cItem::cItem( cItem &src )
 //			necessary and returns 0. If the request could not be fully satisfied,
 //			the remainder is returned
 //
+//##ModelId=3C5D92EC00D7
 long cItem::ReduceAmount(const short amt)
 {
 	long rest=0;
@@ -160,6 +173,7 @@ long cItem::ReduceAmount(const short amt)
 	return rest;
 }
 
+//##ModelId=3C5D92EA0297
 void cItem::SetContSerial(long contser)
 {
 	if (this->contserial != INVALID_SERIAL)
@@ -171,11 +185,13 @@ void cItem::SetContSerial(long contser)
 		contsp.insert(this->contserial, this->serial);
 }
 
+//##ModelId=3C5D92EB0130
 void cItem::setOwnSerialOnly(long ownser)
 {
 	ownserial=ownser;
 }
 
+//##ModelId=3C5D92EB014E
 void cItem::SetOwnSerial(long ownser)
 {
 	if (ownserial != INVALID_SERIAL)	// if it was set, remove the old one
@@ -187,6 +203,7 @@ void cItem::SetOwnSerial(long ownser)
 		ownsp.insert(ownserial, serial);
 }
 
+//##ModelId=3C5D92EB01E4
 void cItem::SetSpawnSerial(long spawnser)
 {
 	if (spawnserial != INVALID_SERIAL)	// if it was set, remove the old one
@@ -198,6 +215,7 @@ void cItem::SetSpawnSerial(long spawnser)
 		spawnsp.insert(spawnserial, this->serial);
 }
 
+//##ModelId=3C5D92EB020C
 void cItem::SetMultiSerial(long mulser)
 {
 	if (this->multis != INVALID_SERIAL)	// if it was set, remove the old one
@@ -209,6 +227,7 @@ void cItem::SetMultiSerial(long mulser)
 		imultisp.insert(this->multis, this->serial);
 }
 
+//##ModelId=3C5D92EC004B
 void cItem::MoveTo(int newx, int newy, signed char newz)
 {
 	mapRegions->Remove(this);
@@ -230,6 +249,7 @@ void cItem::MoveTo(int newx, int newy, signed char newz)
 // x-range 18 .. 118 for 1,2,3
 //         40 .. 140 for 4
 //
+//##ModelId=3C5D92EC00FF
 short cItem::GetContGumpType()
 {
 	switch (id())
@@ -290,6 +310,7 @@ short cItem::GetContGumpType()
 	}
 }
 
+//##ModelId=3C5D92EC0177
 bool cItem::AddItem(cItem* pItem, short xx, short yy)	// Add Item to container
 {
 	pItem->SetContSerial(this->serial);
@@ -309,6 +330,7 @@ bool cItem::AddItem(cItem* pItem, short xx, short yy)	// Add Item to container
 	return true;
 }
 
+//##ModelId=3C5D92EC0131
 bool cItem::PileItem(cItem* pItem)	// pile two items
 {
 	if (!(this->pileable && pItem->pileable &&
@@ -335,6 +357,7 @@ bool cItem::PileItem(cItem* pItem)	// pile two items
 	return true;
 }
 
+//##ModelId=3C5D92EC014F
 bool cItem::ContainerPileItem(cItem* pItem)	// try to find an item in the container to stack with
 {
 	unsigned int ci;
@@ -349,6 +372,7 @@ bool cItem::ContainerPileItem(cItem* pItem)	// try to find an item in the contai
 	return false;
 }
 
+//##ModelId=3C5D92EC0109
 void cItem::SetRandPosInCont(cItem* pCont)
 {
 	int k=pCont->GetContGumpType();	
@@ -373,6 +397,7 @@ void cItem::SetRandPosInCont(cItem* pCont)
 	}
 }
 
+//##ModelId=3C5D92EC01BD
 int cItem::CountItems(short ID, short col)
 {
 	return ContainerCountItems(serial, ID, col);
@@ -385,7 +410,8 @@ int cItem::CountItems(short ID, short col)
 // Purpose:	recurses through the container given by serial and deletes items of
 //			the given id and color(if given) until the given amount is reached
 //
-int cItem::DeleteAmount(int amount, short id, short color)
+//##ModelId=3C5D92EC01F9
+int cItem::DeleteAmount(int amount, unsigned short _id, unsigned short _color)
 {
 	int rest=amount;
 	P_ITEM pi;
@@ -395,9 +421,8 @@ int cItem::DeleteAmount(int amount, short id, short color)
 	{
 		pi = FindItemBySerial(vecContainer[ci]);
 		if (pi->type==1)
-			rest=pi->DeleteAmount(rest, id, color);
-		if (pi->id()==id
-			&& (color==-1 || (pi->color == color)))
+			rest=pi->DeleteAmount(rest, _id, _color);
+		if (pi->id()==_id && (_color == 0 || (pi->color == _color)))
 			rest=pi->ReduceAmount(rest);
 		if (rest<=0)
 			break;
@@ -405,17 +430,20 @@ int cItem::DeleteAmount(int amount, short id, short color)
 	return rest;
 }
 
+//##ModelId=3C5D92EB0360
 void cItem::setId(unsigned short id)
 {
 	id1=id>>8;
 	id2=id&0x00FF;
 }
 
-void cItem::setColor(unsigned short color)
+//##ModelId=3C5D92EB0388
+void cItem::setColor(unsigned short _color)
 {
-	color = color;
+	color = _color;
 }
 
+//##ModelId=3C5D92E70044
 void cItem::Serialize(ISerialization &archive)
 {
 	if (archive.isReading())
@@ -425,7 +453,7 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("name2",		name2);
 		archive.read("creator",		creator);
 		archive.read("sk_name",		madewith);
-		archive.read("color",		temp);			setColor(temp);
+		archive.read("color",		color);
 		archive.read("cont",		contserial);
 		archive.read("layer",		layer);
 		archive.read("itemhand",	itmhand);
@@ -602,11 +630,13 @@ static int getname(P_ITEM pi, char* itemname)
 	return strlen((char*)itemname)+1;
 }
 
+//##ModelId=3C5D92EC0249
 int cItem::getName(char* itemname)
 {
 	return getname(this, itemname);
 }
 
+//##ModelId=3C5D92EC0267
 string cItem::getName(void)
 {
 	char itemname[256] = {0,};
@@ -616,6 +646,7 @@ string cItem::getName(void)
 }
 
 // return the weight of an item. May have to seek it from MUL files
+//##ModelId=3C5D92EC0285
 int cItem::getWeight()
 {
 	unsigned int itemweight=0;
@@ -642,11 +673,13 @@ int cItem::getWeight()
 	return itemweight;
 }
 
+//##ModelId=3C5D92EE0134
 P_ITEM cAllItems::MemItemFree()// -- Find a free item slot, checking freeitemmem[] first
 {
 	return new cItem;
 }
 
+//##ModelId=3C5D92EA023C
 void cItem::SetSerial(long ser)
 {
 	this->serial=ser;
@@ -655,7 +688,8 @@ void cItem::SetSerial(long ser)
 }
 
 // -- Initialize an Item in the items array
-void cItem::Init(char mkser)
+//##ModelId=3C5D92EA01CE
+void cItem::Init(bool mkser)
 {
 //	if (nItem==itemcount) itemcount++;
 
@@ -756,6 +790,7 @@ void cItem::Init(char mkser)
 }
 
 // -- delete an item (Actually just mark it is free)
+//##ModelId=3C5D92EE0102
 void cAllItems::DeleItem(P_ITEM pi)
 {		
 	int j;
@@ -816,6 +851,7 @@ void cAllItems::DeleItem(P_ITEM pi)
 }
 
 // sockets
+//##ModelId=3C5D92EE0149
 P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 {
 	char sect[512];
@@ -1096,6 +1132,7 @@ P_ITEM cAllItems::CreateFromScript(UOXSOCKET so, int itemnum)
 	return pi;	
 }
 
+//##ModelId=3C5D92EE01C0
 P_ITEM cAllItems::CreateScriptItem(int s, int itemnum, int nSpawned)
 {
 	P_ITEM pi = Items->CreateFromScript(s,itemnum);
@@ -1130,6 +1167,7 @@ P_ITEM cAllItems::CreateScriptItem(int s, int itemnum, int nSpawned)
 	return pi;
 }
 
+//##ModelId=3C5D92EE01DE
 int cAllItems::CreateRandomItem(char * sItemList)//NEW FUNCTION -- 24/6/99 -- AntiChrist merging codes
 {
 	int i=0, loopexit=0, iList[256];  //-- no more than 256 items in a single item list
@@ -1165,6 +1203,7 @@ int cAllItems::CreateRandomItem(char * sItemList)//NEW FUNCTION -- 24/6/99 -- An
 	if (i==0) return iList[0]; else return(iList[rand()%i]);
 }
 
+//##ModelId=3C5D92EE00BC
 cItem* cAllItems::CreateScriptRandomItem(int s, char * sItemList)
 {
 	int i=0, loopexit=0, iList[512], k;  //-- no more than 512 items in a single item list (changed by Magius(CHE))
@@ -1234,6 +1273,7 @@ cItem* cAllItems::CreateScriptRandomItem(int s, char * sItemList)
         */
         // what fur said about the assert only partially applies to this version. Duke
        
+//##ModelId=3C5D92EE0210
 P_ITEM cAllItems::SpawnItem(UOXSOCKET nSocket,
 					int nAmount, char* cName, int nStackable,
 					unsigned char cItemId1, unsigned char cItemId2,
@@ -1251,6 +1291,7 @@ P_ITEM cAllItems::SpawnItem(UOXSOCKET nSocket,
 	}
 }
 
+//##ModelId=3C5D92EE027E
 P_ITEM cAllItems::SpawnItem(UOXSOCKET nSocket, P_CHAR ch,
 					int nAmount, char* cName, int nStackable,
 					unsigned char cItemId1, unsigned char cItemId2,
@@ -1265,6 +1306,7 @@ P_ITEM cAllItems::SpawnItem(UOXSOCKET nSocket, P_CHAR ch,
 	return pi;
 }
 
+//##ModelId=3C5D92EF0013
 P_ITEM cAllItems::SpawnItemBank(P_CHAR pc_ch, int nItem)
 {
 	if (pc_ch == NULL) 
@@ -1288,6 +1330,7 @@ P_ITEM cAllItems::SpawnItemBank(P_CHAR pc_ch, int nItem)
 	return pi;
 }
 
+//##ModelId=3C5D92EE0365
 P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, char* cName, bool pileable, short id, short color, bool bPack)
 {
 	if (pc_ch == NULL) 
@@ -1366,6 +1409,7 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, char* cName, bool pileabl
 	return pi;
 }
 
+//##ModelId=3C5D92EF0167
 void cAllItems::GetScriptItemSetting(P_ITEM pi)
 {// by Magius(CHE) //bugfixed by AntiChrist
 	//clConsole.send("cAllItems::GetScriptItemSetting....");//debug
@@ -1559,6 +1603,7 @@ void cAllItems::GetScriptItemSetting(P_ITEM pi)
 
 }
 
+//##ModelId=3C5D92EF0045
 P_ITEM cAllItems::SpawnItemBackpack2(UOXSOCKET s, int nItem, int nDigging) // Added by Genesis 11-5-98
 {
 	P_CHAR pc_currchar = currchar[s];
@@ -1589,6 +1634,7 @@ P_ITEM cAllItems::SpawnItemBackpack2(UOXSOCKET s, int nItem, int nDigging) // Ad
 	return pi;
 }
 
+//##ModelId=3C5D92EE013E
 char cAllItems::isFieldSpellItem(P_ITEM pi) //LB
 {
 	int a=0;
@@ -1605,6 +1651,7 @@ char cAllItems::isFieldSpellItem(P_ITEM pi) //LB
 	return a;
 }
 //taken from 6904t2(5/10/99) - AntiChrist
+//##ModelId=3C5D92EF008B
 void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi) 
 {
 	int serial, preservebody;
@@ -1717,6 +1764,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 
 //NEW RESPAWNITEM FUNCTION STARTS HERE -- AntiChrist merging codes -- (24/6/99)
 
+//##ModelId=3C5D92EF00C7
 void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 {
 	int  k,m,serial,ci, c;
@@ -1840,6 +1888,7 @@ void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 	}//for 
 }
 
+//##ModelId=3C5D92EF00F9
 void cAllItems::AddRespawnItem(P_ITEM pItem, int x, int y)
 {
 	if (pItem == NULL)
@@ -1873,6 +1922,7 @@ void cAllItems::AddRespawnItem(P_ITEM pItem, int x, int y)
 	RefreshItem(pi);//AntiChrist
 }
 
+//##ModelId=3C5D92EF0153
 void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 {
 	if (pc_p == NULL)

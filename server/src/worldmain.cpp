@@ -33,6 +33,9 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "worldmain.h"
+#include "serbinfile.h"
+#include "progress.h"
+
 #undef  DBGFILE
 #define DBGFILE "worldmain.cpp"
 
@@ -41,6 +44,7 @@
 //////////////////////////////////////////////////////////////////////
 
 
+//##ModelId=3C5D92A90153
 CWorldMain::CWorldMain()
 {
 	announce(false);
@@ -51,6 +55,7 @@ CWorldMain::CWorldMain()
 	isSaving = false;
 }
 
+//##ModelId=3C5D92A9015D
 CWorldMain::~CWorldMain()
 {
 	if (iWsc)
@@ -154,7 +159,7 @@ void loadchar(int x) // Load a character from WSC
 					pc->GuildTraitor=false; 
 			} 
 			else if (!strcmp((char*)script1, "GUILDTOGGLE"))   pc->guildtoggle=str2num(script2);
-			else if (!strcmp((char*)script1, "GUILDNUMBER"))   pc->guildnumber=str2num(script2);
+			else if (!strcmp((char*)script1, "GUILDNUMBER"))   pc->guildstone=str2num(script2);
 			else if (!strcmp((char*)script1, "GMRESTRICT"))    pc->gmrestrict=str2num(script2); 
 		    else if (!strcmp((char*)script1, "GUILDTITLE"))    pc->guildtitle = (char*)script2;
 		    else if (!strcmp((char*)script1, "GUILDFEALTY"))   pc->guildfealty=str2num(script2);
@@ -308,9 +313,7 @@ void loadchar(int x) // Load a character from WSC
 			}
 			else if (!strcmp((char*)script1, "SPAWN"))
 			{
-				pc->spawnserial=str2num(script2);;
-				if (pc->spawnserial != INVALID_SERIAL) 
-					cspawnsp.insert(pc->spawnserial, pc->serial);
+				pc->SetSpawnSerial(str2num(script2));
 			}
 			else if (!strcmp((char*)script1, "STABLEMASTER"))
 			{
@@ -749,171 +752,164 @@ void loaditem (int x) // Load an item from WSC
 
 void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
 {
-//	unsigned char memerr=0; // Changed by MAgius(che) (1)
-	char outper[4];	// Magius(CHE) (1)
-	unsigned int i=0;
-	unsigned int percent=0,a=0,pred=0,maxm=0; // Magius(CHE) (1)
-	*outper='\0';
 
-	cmem=0;
-	clConsole.send("Loading World, Building map Regions, checking Item weight...\n");
-	wscfile=fopen("wppcs.wsc","r");
-	if(!wscfile)
+	serBinFile archive;
+	archive.prepareReading("items"); // Load Items
+	string objectID;
+	register unsigned int i;
+	clConsole.send("Loading Items %i...\n", archive.size());
+	progress_display progress(archive.size());
+	for ( i = 0; i < archive.size(); ++progress, ++i)
 	{
-		clConsole.send("WARNING: wppcs.wsc not found. Defaulting to wolfpack.wsc\n");
+		archive.readObjectID(objectID);
+		P_ITEM pi = NULL;
+		if ( objectID == "ITEM" )
+		{
+			pi = new cItem;
+		} 
+		else if ( objectID == "HOUSE" )
+		{
+			pi = dynamic_cast<P_ITEM>(new cHouse);
+		}
+		else if ( objectID == "GUILDSTONE" )
+		{
+			pi = dynamic_cast<P_ITEM>(new cGuildStone);
+		}
+		else // somethine went wrong and we have a NULL pointer.
+			continue; 
+		pi->Init(false);
+		archive.readObject( pi );
+		cItemsManager::getInstance()->registerItem( pi );
+		pi->timeused_last=getNormalizedTime();
+		// Set the outside indices
+		pi->SetSpawnSerial(pi->spawnserial);
+		pi->SetContSerial(pi->contserial);
+		pi->SetOwnSerial(pi->ownserial);
+
+		//add item weight if item doesn't have it yet
+		if (pi->weight<=0) // LB, changed from 29 to 0
+		{
+			pi->weight=0;
+			pi->weight=pi->getWeight();
+		}
+		if (pi->maxhp==0) pi->maxhp=pi->hp;
+		// Tauriel adding region pointers
+		if (pi->isInWorld())
+		{
+			int max_x = MapTileWidth  * 8;
+			int max_y = MapTileHeight * 8;
+			mapRegions->Add(pi); // it reurns 1 if inalid, if invalid it DOESNT get added !!!
+			if (pi->pos.x>max_x || pi->pos.y>max_y) 
+			{
+				Items->DeleItem(pi);	//these are invalid locations, delete them!
+			}
+		}
 	}
-	else
+	archive.close();
+
+	// Load Chars
+	archive.prepareReading("chars");
+	clConsole.send("Loading Characters %i...\n", archive.size());
+	progress.restart(archive.size());
+	for ( i = 0; i < archive.size(); ++progress, ++i)
 	{
-		//Get number for initial character memory needed ->
-		int cnum=0;
-		readw3();
-		if (!(strcmp((char*)script1, "INITMEM"))) cnum = str2num(script2);
-		maxm=cnum; // Magius(CHE) (1)
-
-		// check if the map-mode (ilshenar or britannia) and wordfiles match , LB
-		
-		bool ok;
-		bool ilsh = MapTileHeight<300;
-		bool s=false;
-
-		readw3();
-
-		if (!(strcmp((char*)script1, "ILSHENAR"))) ok = ilsh; 	       // worldfiles with ilsh tag runnning on an ilsh shard -> ok					
-		else if (!(strcmp((char*)script1, "BRITANNIA"))) ok = !ilsh;  // worldfiles with brit tag running on a brit shard -> ok		
-		else ok = !ilsh;                                       // old britannian worldfiles without map-type tag running on an ilsh shard -> not good
-	                                                           // old britannian worldfiles without map-type tag running on a brit sahrd -> ok
-		                                                        
-        if (!(strcmp((char*)script1, "SECTION"))) s=true;             // old wordfiles that dont have the ilsh or brit tag might have a section tag next, prevents skipping of the first one in that case
-
-		if (ilsh && !ok) 
-		{ 		
-			LogCritical("You are runnning an ILSHENAR map shard, you tryed to load BRITANNIA map shard wordfiles\n");
-			exit(-1);
-		}
-
-		if (!ilsh && !ok)
-		{		
-			LogCritical("You are runnning a BRITANNIA map shard, you tryed to load ILSHENAR map shard wordfiles\n");
-			exit(-1);
-		}
-
-		clConsole.send("Loading characters ");	// MAgius(CHE) (1)
-		unsigned long loopexit=0;
-		do
+		archive.readObjectID(objectID);
+		P_CHAR pc = NULL;
+		if ( objectID == "CHARACTER" )
 		{
-			if (!s) readw3(); else s=false;
-			if (!(strcmp((char*)script1, "SECTION")))
-			{
-				if (!(strcmp((char*)script2, "CHARACTER")))
-				{
-					loadchar(str2num(script3));
-					a++;
-					pred=percent; //Magius(CHE) (1)
-					if(maxm==0) maxm++;
-					percent=(int) (a*100)/(maxm);
-					if (strlen(outper)>0)
-					{ //Magius(CHE) (1)
-						for (i=1;i<=strlen(outper)+1;i++) clConsole.send("\b");
-						*outper='\0';
-					}
-				}
-			}
-			if (percent>pred) // Changed by MAgius(CHE) (1)
-			{
-				numtostr(percent,outper);
-				clConsole.send("%s%%",outper);
-				pred=percent;
-			}
-		} while (strcmp((char*)script1,"EOF") && !feof(wscfile) && (++loopexit < MAXLOOPS*10) );
-		fclose(wscfile);
-		if (strlen(outper)>0)
-		{ //Magius(CHE) (1)
-			for (i=1;i<=strlen(outper)+1;i++) clConsole.send("\b");
-			*outper='\0';
-		}
-		clConsole.send("Done.\n"); // Magius(CHE)
-
-
-		wscfile=fopen("wpitems.wsc", "r");
-		if (wscfile==NULL)
-		{
-			clConsole.send("ERROR: wpitems.wsc not found. No items will be loaded.\n");
+			pc = new cChar;
+			pc->Init(false);
 		}
 		else
+			continue; // Something went wrong and we have an NULL pointer
+		archive.readObject( pc );
+		cCharsManager::getInstance()->registerChar( pc );
+		int zeta;
+		for (zeta = 0;zeta<ALLSKILLS;zeta++) if (pc->lockSkill[zeta]!=0 && pc->lockSkill[zeta]!=1 && pc->lockSkill[zeta]!=2) pc->lockSkill[zeta]=0;
+
+		//AntiChrist bugfix for hiding
+		pc->priv2 &= 0xf7; // unhide - AntiChrist
+		pc->hidden = 0;
+		pc->stealth = -1;
+
+		//AntiChrist bugfix for magic reflect
+		pc->priv2 &= 0xBF;
+
+
+		pc->region = calcRegionFromXY(pc->pos.x, pc->pos.y); //LB bugfix
+
+		pc->antispamtimer = 0;   //LB - AntiSpam -
+		pc->antiguardstimer = 0; //AntiChrist - AntiSpam for "GUARDS" call - to avoid (laggy) guards multi spawn
+
+//		k = pc->id();
+		if (pc->id() <= 0x3e1)
 		{
-			//Get number for initial character memory needed ->
-			int inum=0;
-			readw3();
-			if (!(strcmp((char*)script1, "INITMEM"))) 
-				maxm = inum = str2num(script2);
-
-			clConsole.send("Loading items ");	// AntiChrist - sorry magius, but it's better to see in this way i think
-			a=0; // Magius(CHE) (2)
-			loopexit=0;
-			do {
-				readw3();
-				if (!strcmp((char*)script1, "SECTION"))
-				{
-					if (!strcmp((char*)script2, "WORLDITEM")) {
-						loaditem(str2num(script3));
-					}
-
-					else if (!strcmp((char*)script2, "GUILD"))
-						Guilds->Read(str2num(script3));
-					a++;
-					pred=percent; //Magius(CHE) (1)
-					if(maxm==0) maxm++;
-					percent=(int) (a*100)/(maxm);
-					if (strlen(outper)>0) { //Magius(CHE) (1)
-						for (i=1;i<=strlen(outper)+1;i++) clConsole.send("\b");
-						*outper='\0';
-					}
-				}
-				if (percent>pred) // Changed by MAgius(CHE) (1)
-				{
-					numtostr(percent,outper);
-					clConsole.send("%s%%",outper);
-					pred=percent;
-				}
-			} while (strcmp((char*)script1, "EOF") && !feof(wscfile) && (++loopexit < MAXLOOPS*10) );
-			fclose(wscfile);
-		}
-		if (strlen(outper)>0) { //Magius(CHE) (1)
-			for (i=1;i<=strlen(outper)+1;i++) clConsole.send("\b");
-			*outper='\0';
-		}
-		clConsole.send("Done.\n"); // Magius(CHE)
-		clConsole.send("World Loaded.\n"); // Changed by MAgius(CHE) (1)
-		clConsole.send("Loading Houses.\n");
-		HouseManager->LoadHouses();
-		clConsole.send("Done!\n");
-		return;
-	}
-
-	wscfile=fopen("wolfpack.wsc", "r");
-	//if(wscfile==NULL)
-	if(!wscfile)
-		clConsole.send("ERROR: World data not found, using blank world instead.\n");
-	else {
-		unsigned long loopexit=0;
-		do
-		{
-			readw3();
-			if (!(strcmp((char*)script1, "SECTION")))
+			unsigned short k = pc->id();
+			unsigned short c1 = pc->skin;
+			unsigned short b = c1&0x4000;
+			if ((b == 16384 && (k >=0x0190 && k<=0x03e1)) || c1==0x8000)
 			{
-				if (!(strcmp((char*)script2, "CHARACTER")))
-					loadchar(str2num(script3));
-				if (!(strcmp((char*)script2, "WORLDITEM")))
-					loaditem(str2num(script3));
-				if (!(strcmp((char*)script2, "GUILD")))
-					Guilds->Read(str2num(script3));
+				if (c1!=0xf000)
+				{
+					pc->skin = pc->xskin = 0xF000;
+					clConsole.send("char/player: %s : %i correted problematic skin hue\n", pc->name.c_str(),pc->serial);
+				}
+			}
+		} 
+		else	// client crashing body --> delete if non player esle put onl”x a warning on server screen
+			// we dont want to delete that char, dont we ?
+		{
+			if (pc->account==-1)
+			{
+				Npcs->DeleteChar(pc);
+			} 
+			else
+			{
+				pc->id1 = 0x01;
+				pc->id2 = 0x90;
+				clConsole.send("player: %s with bugged body-value detected, restored to male shape\n",pc->name.c_str());
 			}
 		}
-		while (strcmp((char*)script1, "EOF") && !feof(wscfile) && (++loopexit < MAXLOOPS*10));
-		fclose(wscfile);
-		wscfile = NULL;
-		clConsole.send("Done.\n");
+
+		if(pc->stablemaster_serial == INVALID_SERIAL)
+		{ 
+			mapRegions->Add(pc); 
+		} 
+		else
+			stablesp.insert(pc->stablemaster_serial, pc->serial);
+
+		for (int u=0;u<7;u++)
+		{
+			if (pc->isPlayer())
+			{
+				if (pc->priv3[u]==0) // dont overwrite alreday saved settings
+				{
+					if (!pc->isGMorCounselor()) pc->priv3[u]=metagm[2][u]; //normal player defaults
+					if (pc->isCounselor()) pc->priv3[u]=metagm[1][u]; // couscelor defaults
+					if (pc->isGM()) pc->priv3[u]=metagm[0][u]; // gm defaults
+						if (pc->account==0) pc->priv3[u]=0xffffffff;
+				}
+			}
+		}
+
+		if (pc->isPlayer() && pc->account==0) pc->menupriv=-1;
+
+
+		int max_x = MapTileWidth  * 8;
+		int max_y = MapTileHeight * 8;
+		if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account ==-1) || ((pc->pos.x>max_x || pc->pos.y>max_y) && pc->account == -1))
+		// if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account ==-1) || ((pc->pos.x>max_x || pc->pos.y>max_y || pc->pos.x<0 || pc->pos.y<0) && pc->account==-1))
+		{
+			Npcs->DeleteChar(pc); //character in an invalid location
+		}
+		if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account != -1) || (( pc->pos.x>max_x || pc->pos.y>max_y ) && pc->account !=-1))
+		// if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account !=-1) || ((pc->pos.x>max_x || pc->pos.y>max_y || pc->pos.x<0 || pc->pos.y<0) && pc->account!=-1))
+		{
+			pc->MoveTo(900,300,30); //player in an invalid location
+		}
+		setcharflag(pc);//AntiChrist
 	}
+	archive.close();
 }
 
 //o---------------------------------------------------------------------------o
@@ -925,6 +921,7 @@ void CWorldMain::loadnewworld() // Load world from WOLFPACK.WSC
 //|					readable script file "*.wsc". This stores all world items
 //|					and NPC/PC character information for a given shard
 //o---------------------------------------------------------------------------o
+//##ModelId=3C5D92A90135
 void CWorldMain::savenewworld(char x)
 {
 //	int multi=-1;
@@ -956,104 +953,47 @@ void CWorldMain::savenewworld(char x)
 			clConsole.send("Worldsave Started!\n" );
 			clConsole.send("items: %i\n", cItemsManager::getInstance()->size());
 		}
-
-
-		cWsc=fopen("wppcs.wsc", "w");
-		if (cWsc == NULL) 
-		{
-			clConsole.send("Error, couldn't open wppcs.wsc for writing. Check file permissions.\n");
-			return;
-		}
-	
-		fprintf(cWsc, "// Wolfpack World Script (WSC)[TEXT]\n");
-		fprintf(cWsc, "// Generated by %s Version %s\n",  wp_version.betareleasestring.c_str() , wp_version.verstring.c_str() );
-		fprintf(cWsc, "// This file replaces the function of the *.UOX files in pre-0.50 versions[TEXT]\n");
-		fprintf(cWsc, "// Wolfpack CHARACTERS.\n");
-		fprintf(cWsc, "INITMEM %i //Do NOT edit this line!\n", cCharsManager::getInstance()->size());
-		if (MapTileHeight<300) fprintf(cWsc, "ILSHENAR MAP WORLD\n\n"); else fprintf(cWsc, "BRITANNIA MAP WORLD\n\n");
-
-		iWsc=fopen("wpitems.wsc", "w");
-		if (iWsc == NULL)
-		{
-			clConsole.send("Error, couldn't open wpitems.wsc for writing. Check file permissions.\n");
-			return;
-		}
-	
-		fprintf(iWsc, "// Wolfpack World Script (WSC)[TEXT]\n");
-		fprintf(iWsc, "// Generated by Wolfpack Version %s\n", wp_version.verstring.c_str() );
-		fprintf(iWsc, "// This file replaces the function of the *.UOX files in pre-0.50 versions[TEXT]\n");
-		fprintf(iWsc, "// Wolfpack items and Guild information.\n");
-		fprintf(iWsc, "INITMEM %i\n", cItemsManager::getInstance()->size());
-		if (MapTileHeight<300) 
-			fprintf(iWsc, "ILSHENAR MAP WORLD\n\n"); 
-		else 
-			fprintf(iWsc, "BRITANNIA MAP WORLD\n\n");
-
-//		ocCount = charcount;
-		Cur = 0;
 		isSaving = true;
 	}
 
-	if ( PerLoop > 0 )
-		Max = min((Cur + PerLoop), max(oiCount, ocCount));
-	else
-		Max = max(oiCount, ocCount);
-
-	P_ITEM piDefault = new cItem;	// create an item with the default values
-	piDefault->Init(0);
-
-// For now on let's save all at once.
-
+	serBinFile archive;
+	archive.prepareWritting("chars");
 	AllCharsIterator iterChars;
-	for (iterChars.Begin(); !iterChars.atEnd(); iterChars++)
+	for (iterChars.Begin(); !iterChars.atEnd(); ++iterChars)
 	{
-		SaveChar(iterChars.GetData());
+		archive.writeObject( iterChars.GetData() );
 	}
+	archive.close();
 
+	archive.prepareWritting("items");
 	AllItemsIterator iterItems;
-	for (iterItems.Begin(); !iterItems.atEnd(); iterItems++)
+	for (iterItems.Begin(); !iterItems.atEnd(); ++iterItems)
 	{
-		SaveItem(iterItems.GetData(), piDefault);
+		archive.writeObject( iterItems.GetData() );
 	}
-
+	archive.close();
+	
 	if ( announce() )
 	{
 		sysbroadcast("Worldsave Done!\n");
 		clConsole.send("Worldsave Done!\n");
 	}
 
-	fprintf(cWsc,"\nEOF\n\n");
-	fclose(cWsc);
+//	Guilds->Write( iWsc );
 
-	Guilds->Write( iWsc );
-	fprintf(iWsc, "EOF\n\n");
-	fclose(iWsc);
-
-	Cur = Max = ocCount = oiCount = 0;
 	isSaving = false;
 
-	iWsc = cWsc = NULL;
-
-	if( announce() )
-	{
-		sysbroadcast("Saving Houses....");
-		clConsole.send("Saving Houses....");
-	}
-	HouseManager->SaveHouses();
-	if( announce() )
-	{
-		sysbroadcast("Done!\n");
-		clConsole.send("Done!\n");
-	}
 	AllTmpEff->On();
 	uiCurrentTime = getNormalizedTime();
 }
 
+//##ModelId=3C5D92A900A8
 int CWorldMain::announce()
 {
 	return DisplayWorldSaves;
 }
 
+//##ModelId=3C5D92A9010D
 void CWorldMain::announce(int choice)
 {
 	if(choice<1)
@@ -1062,6 +1002,7 @@ void CWorldMain::announce(int choice)
 		DisplayWorldSaves=1;
 }
 
+//##ModelId=3C5D92A90171
 void CWorldMain::SetLoopSaveAmt( long toSet )
 {
 	if ( toSet <= 0 )
@@ -1070,16 +1011,19 @@ void CWorldMain::SetLoopSaveAmt( long toSet )
 		PerLoop = toSet;
 }
 
+//##ModelId=3C5D92A90185
 long CWorldMain::LoopSaveAmt( void )
 {
 	return PerLoop;
 }
 
+//##ModelId=3C5D92A90190
 bool CWorldMain::Saving( void )
 {
 	return isSaving;
 }
 
+//##ModelId=3C5D92A90225
 void CWorldMain::SaveChar( P_CHAR pc )
 {
 	char valid=0;
@@ -1331,8 +1275,8 @@ void CWorldMain::SaveChar( P_CHAR pc )
 // Begin of Guild related things (DasRaetsel)
 			if (pc->guildtoggle != pc_reference->guildtoggle)
 				fprintf(cWsc, "GUILDTOGGLE %i\n", pc->guildtoggle);  
-			if (pc->guildnumber != pc_reference->guildnumber)
-				fprintf(cWsc, "GUILDNUMBER %i\n", pc->guildnumber);  
+			if (pc->guildstone != pc_reference->guildstone)
+				fprintf(cWsc, "GUILDNUMBER %i\n", pc->guildstone);  
 			if (pc->guildtitle != pc_reference->guildtitle)
 				fprintf(cWsc, "GUILDTITLE %s\n", pc->guildtitle.c_str());  
 			if (pc->guildfealty != pc_reference->guildfealty)
@@ -1451,6 +1395,7 @@ void swapDragInfo(P_ITEM pi)
 	pi->oldlayer=tmpLayer;
 }
 
+//##ModelId=3C5D92A90239
 void CWorldMain::SaveItem( P_ITEM pi, P_ITEM pDefault)
 {
 
@@ -1573,6 +1518,7 @@ void CWorldMain::SaveItem( P_ITEM pi, P_ITEM pDefault)
 //o--------------------------------------------------------------------------
 //|	Returns			-	true if removed, false otherwise
 //o--------------------------------------------------------------------------
+//##ModelId=3C5D92A901A3
 bool CWorldMain::RemoveItemsFromCharBody( int charserial, int type1, int type2 )
 { 
 	int serial;

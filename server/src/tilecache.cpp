@@ -40,6 +40,7 @@
 
 //========================================================================================
 /// Constructor
+//##ModelId=3C5D92B50178
 TileCache_cl::TileCache_cl()
 {
 	vecStatic.clear() ;
@@ -48,6 +49,7 @@ TileCache_cl::TileCache_cl()
 }
 //========================================================================================
 /// Constructor of itself
+//##ModelId=3C5D92B50182
 TileCache_cl::TileCache_cl(const TileCache_cl& clData)
 {
 	(*this) = clData ;
@@ -55,6 +57,7 @@ TileCache_cl::TileCache_cl(const TileCache_cl& clData)
 }
 
 //========================================================================================
+//##ModelId=3C5D92B5018C
 TileCache_cl::TileCache_cl(string sDirectory)
 {
 	setDirectory(sDirectory) ;
@@ -66,6 +69,7 @@ TileCache_cl::TileCache_cl(string sDirectory)
 
 //========================================================================================
 /// Desctructor
+//##ModelId=3C5D92B50197
 TileCache_cl::~TileCache_cl()
 {
   clear() ;
@@ -74,6 +78,7 @@ TileCache_cl::~TileCache_cl()
 
 //========================================================================================
 /// Clear out any that we have
+//##ModelId=3C5D92B501A0
 bool TileCache_cl::clear()
 {
 	bool bReturn = true ;
@@ -86,6 +91,7 @@ bool TileCache_cl::clear()
 
 //========================================================================================
 // Set our directory
+//##ModelId=3C5D92B501B4
 void TileCache_cl::setDirectory(string sDirectory)
 {
 
@@ -96,6 +102,7 @@ void TileCache_cl::setDirectory(string sDirectory)
 
 //========================================================================================
 // Cache the tiles
+//##ModelId=3C5D92B501BF
 bool TileCache_cl::cacheData()
 {
 	bool bReturn ;
@@ -119,6 +126,7 @@ bool TileCache_cl::cacheData()
 
 //========================================================================================
 // get a land tile data
+//##ModelId=3C5D92B501DC
 landtile_st TileCache_cl::getLandTile(UI16 uiId)
 {
 	landtile_st stLand ;
@@ -130,6 +138,7 @@ landtile_st TileCache_cl::getLandTile(UI16 uiId)
 }
 
 //========================================================================================
+//##ModelId=3C5D92B501F0
 statictile_st TileCache_cl::getStaticTile(UI16 uiId)
 {
 	statictile_st stStatic ;
@@ -141,6 +150,7 @@ statictile_st TileCache_cl::getStaticTile(UI16 uiId)
 }
 
 //========================================================================================
+//##ModelId=3C5D92B50204
 TileCache_cl&  TileCache_cl::operator=(const TileCache_cl& clData)
 {
 	vecLand = clData.vecLand ;
@@ -153,6 +163,7 @@ TileCache_cl&  TileCache_cl::operator=(const TileCache_cl& clData)
 }
 
 //========================================================================================
+//##ModelId=3C5D92B5020F
 bool TileCache_cl::processVerdata()
 {
 	bool bReturn = false ;
@@ -203,6 +214,7 @@ bool TileCache_cl::processVerdata()
 	return bReturn ;
 }
 //========================================================================================
+//##ModelId=3C5D92B50222
 bool TileCache_cl::processLand()
 {
 	bool bReturn = false ;
@@ -276,6 +288,7 @@ bool TileCache_cl::processLand()
 }
 
 //========================================================================================
+//##ModelId=3C5D92B50236
 bool TileCache_cl::processStatic()
 {
 	bool bReturn = false ;

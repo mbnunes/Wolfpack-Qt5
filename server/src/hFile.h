@@ -32,19 +32,28 @@
 #ifndef _H_FILE
 #define _H_FILE
 
+//##ModelId=3C5D92F10297
 class cFile
 {
 public:
+	//##ModelId=3C5D92F102BF
 	cFile()
 	{
 		isOpen=false;
 	}
+	//##ModelId=3C5D92F102C0
 	bool isOpen;
+	//##ModelId=3C5D92F102D3
 	char value1[512];
+	//##ModelId=3C5D92F102E7
 	char value2[512];
+	//##ModelId=3C5D92F102FB
 	bool Open(char FileName[50], char type[5]);	//type: enter the ios format, example "r+t", "r+b", etc.
+	//##ModelId=3C5D92F1030F
 	void Close();
+	//##ModelId=3C5D92F10319
 	void Read2();
+	//##ModelId=3C5D92F10323
 	FILE *OpenedFile;
 };
 
