@@ -808,41 +808,6 @@ void cAllItems::DeleItem(P_ITEM pi)
 	}
 }
 
-int cAllItems::CreateRandomItem(char * sItemList)//NEW FUNCTION -- 24/6/99 -- AntiChrist merging codes
-{
-	int i=0, loopexit=0, iList[256];  //-- no more than 256 items in a single item list
-	char sect[512];
-	openscript("items.scp");
-	sprintf(sect, "ITEMLIST %s", sItemList);
-	if (!i_scripts[items_script]->find(sect)) // -- Valid itemlist?
-	{
-		closescript();
-		if (n_scripts[custom_item_script][0]!=0)
-		{
-			openscript(n_scripts[custom_item_script]);
-			if (!i_scripts[custom_item_script]->find(sect))
-			{
-				closescript(); //AntiChrist
-				return -1;
-			}
-		} else return -1;
-	}
-
-	do  // -- count items storing item #'s in iList[]
-	{
-		read1();
-		if (script1[0]!='}')
-		{
-			iList[i]=str2num(script1);
-			i++;
-		}
-	}
-	while ( (script1[0]!='}') && (++loopexit < MAXLOOPS) );
-	closescript();
-
-	if (i==0) return iList[0]; else return(iList[rand()%i]);
-}
-
 cItem* cAllItems::CreateScriptRandomItem(int s, char * sItemList)
 {
 	int i=0, loopexit=0, iList[512], k;  //-- no more than 512 items in a single item list (changed by Magius(CHE))
@@ -1233,7 +1198,7 @@ void cAllItems::DecayItem(unsigned int currenttime, P_ITEM pi)
 
 void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 {
-	int  k,m,serial,ci, c;
+	int  k,m,serial, c;
 	//char ilist[66]="101010100010100101010100001101010000110101010101011010";
 	if (pi == NULL)
 		return;
@@ -1277,7 +1242,7 @@ void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 					}
 					if ((pi->gatetime<=currenttime ||(overflow)) && pi->morex!=0)
 					{
-						Items->AddRespawnItem(pi, pi->morex, 0);
+						Items->AddRespawnItem(pi, QString("%1").arg(pi->morex), false);
 						pi->gatetime=0;
 					}
 				}
@@ -1341,11 +1306,11 @@ void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 							pi->setType( 64 ); //Lock the container 
 						//numtostr(pi->morex,m); //ilist); //LB, makes chest spawners using random Itemlist items instead of a single type, LB							
 						if(pi->morex)
-							Items->AddRespawnItem(pi, pi->morex, 1);//If the item contains an item list then it will randomly choose one from the list, JM
+							Items->AddRespawnItem(pi, QString("%1").arg(pi->morex), true);//If the item contains an item list then it will randomly choose one from the list, JM
 						else
 						{
-							ci=Items->CreateRandomItem("70"); //default itemlist);
-							Items->AddRespawnItem(pi,ci, 1);
+							QString itemSect = DefManager->getRandomListEntry( "70" );
+							Items->AddRespawnItem(pi, itemSect, true);
 						}
 						pi->gatetime=0;	
 					}
@@ -1355,15 +1320,15 @@ void cAllItems::RespawnItem(unsigned int currenttime, P_ITEM pi)
 	}//for 
 }
 
-void cAllItems::AddRespawnItem(P_ITEM pItem, int x, int y)
+void cAllItems::AddRespawnItem(P_ITEM pItem, QString itemSect, bool spawnInItem )
 {
 	if (pItem == NULL)
 		return;
 
-	P_ITEM pi = createScriptItem(-1, QString("%1").arg(x), 1); // lb, bugfix
+	P_ITEM pi = createScriptItem(-1, itemSect, 1); // lb, bugfix
 	if (pi == NULL) return;
 	
-	if(y<=0)
+	if( !spawnInItem )
 	{
 		pi->MoveTo(pItem->pos.x, pItem->pos.y, pItem->pos.z); //add spawned item to map cell if not in a container
 	}
@@ -1375,7 +1340,7 @@ void cAllItems::AddRespawnItem(P_ITEM pItem, int x, int y)
 
 
 	//** Lb bugfix for spawning in wrong pack positions **//
-	if (y>0)
+	if(spawnInItem)
 	{
 		P_ITEM pChest = NULL;
 		if (pi->spawnserial!=-1)

@@ -866,7 +866,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 	{
 	case 0x0000:	// summon monster
  		soundeffect( s, 0x02, 0x15 );
-		pc_monster = Npcs->createScriptNpc( s, NULL, QString("%1").arg(Npcs->getRandomNPC("10000")));
+		pc_monster = Npcs->createScriptNpc( s, NULL, DefManager->getRandomListEntry( "10000" ));
  		if( pc_monster == NULL )
  		{
  			sysmessage( s, "Contact your shard op to setup the summon list!" );
@@ -3168,7 +3168,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 			//////////// (2) CREATE FOOD ////////////////
         case 2: // Fallen/Ripper - Now random food from scripts (ITEMLIST 75)
 			{
-	           P_ITEM pj = Items->SpawnItemBackpack2(s,QString("%1").arg(Items->CreateRandomItem("75")),1);
+	           P_ITEM pj = Items->SpawnItemBackpack2(s,DefManager->getRandomListEntry("75"),1);
 			   {
 	              if (pj != NULL) // Ripper
 				  {

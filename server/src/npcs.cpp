@@ -315,41 +315,6 @@ P_ITEM cCharStuff::AddRandomLoot(P_ITEM pBackpack, char * lootlist)
 	return retitem;
 }
 
-/*** s: socket ***/
-int cCharStuff::getRandomNPC(char * npclist)
-{
-	//This function gets the random npc number from the list and recalls
-	//addrespawnnpc passing the new number
-	char sect[512];
-	unsigned int uiTempList[100];
-	int i=0,k=0;
-	sprintf(sect, "NPCLIST %s", npclist);
-
-	Script *pScpBase=i_scripts[npc_script];
-	Script *pScp=pScpBase->Select(sect,custom_npc_script);
-	if (!pScp) return 0;
-
-	unsigned long loopexit=0;
-	do
-	{
-		pScp->NextLine();
-		if (script1[0]!='}')
-		{
-			uiTempList[i]=str2num(script1);
-			i++;
-		}
-	}
-	while ( (script1[0]!='}') && (++loopexit < MAXLOOPS));
-	pScp->Close();
-
-	if(i>0)
-	{
-		i=rand()%(i);
-		k=uiTempList[i];
-	}
-	return k;
-}
-
 void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat
 {
 	int z;

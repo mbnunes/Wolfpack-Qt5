@@ -297,7 +297,6 @@ public:
 	void DeleItem(P_ITEM pi);
 	P_ITEM  MemItemFree();
 	char isFieldSpellItem(P_ITEM pi);
-	int  CreateRandomItem(char *sItemList);
 	P_ITEM  SpawnItem(UOXSOCKET nSocket,
 				int nAmount, char* cName, int nStackable,
 				unsigned char cItemId1, unsigned char cItemId2,
@@ -313,7 +312,7 @@ public:
 	P_ITEM  SpawnItemBackpack2(UOXSOCKET s, QString nItem, int nDigging);
 	void DecayItem(unsigned int currenttime, P_ITEM pi);
 	void RespawnItem(unsigned int Currenttime, P_ITEM pi);
-	void AddRespawnItem(P_ITEM pItem, int x, int y);
+	void AddRespawnItem(P_ITEM pItem, QString itemSect, bool spawnInItem);
 	void CheckEquipment(P_CHAR pc_p); //AntiChrist
 	void GetScriptItemSetting(P_ITEM pi); // by Magius(CHE)
 };
