@@ -134,7 +134,7 @@ def decoration( socket, command, arguments ):
         if wolfpack.hasmap(2):
             parser.parse("data/decoration.2.xml")
         if wolfpack.hasmap(3):
-            parser.parse("data/decoration.2.xml")
+            parser.parse("data/decoration.3.xml")
 
 def onLoad():
 	wolfpack.registercommand( "decoration", decoration )
