@@ -482,11 +482,6 @@ void DragAndDrop::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar
 	// If we're dropping it on some NPC: checkBehaviours
 	// If not handeled: Equip the item if the NPC is owned by us
 
-	// To prevent bad effects remove it from the clients view first
-	cUOTxRemoveObject rObject;
-	rObject.setSerial( pItem->serial() );
-	socket->send( &rObject );
-
 	P_CHAR pChar = socket->player();
 
 	if( pItem->onDropOnChar( pOtherChar ) )
@@ -510,6 +505,14 @@ void DragAndDrop::dropOnChar( cUOSocket *socket, P_ITEM pItem, P_CHAR pOtherChar
 	// Dropped on ourself
 	if( pChar == pOtherChar )
 	{
+		// If we don't send this packet, the client creates some sort of "ghost image" in the container.
+		cUOPacket packet( 0x23, 26 );
+		packet.setShort( 1, pItem->id() );
+		packet.setShort( 6, pItem->amount() );
+		packet.setInt( 8, pChar->serial() );
+		packet.setInt( 17, pChar->getBackpack()->serial() );
+		socket->send( &packet );
+
 		pItem->toBackpack( pChar );
 		return;
 	}
@@ -736,11 +739,10 @@ void DragAndDrop::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, con
 
 	// We may also drop into *any* locked chest
 	// So we can have post-boxes ;o)
-	// Spellbooks are containers for us as well
 	if( pCont->type() == 1 || pCont->type() == 8 || pCont->type() == 63 || pCont->type() == 65 || pCont->type() == 66 )
 	{
 		// If we're dropping it onto the closed container
-		if( dropPos.distance( pCont->pos() ) == 0 )
+		if( dropPos.x == 0xFFFF && dropPos.y == 0xFFFF )
 		{
 			pCont->addItem( pItem );
 		}
