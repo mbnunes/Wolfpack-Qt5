@@ -1159,6 +1159,7 @@ void cUOSocket::handleAosMultiPurpose( cUORxAosMultiPurpose *packet )
 	}; 
 } 
 #pragma message(Reminder "Implement Custom House subcommands here")
+
 void cUOSocket::handleCHBackup( cUORxAosMultiPurpose *packet )
 {
 }

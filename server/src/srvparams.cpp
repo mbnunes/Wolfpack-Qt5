@@ -268,7 +268,7 @@ void cSrvParams::setDefaultStartLocation()
 
 void cSrvParams::setDefaultServerList()
 {
-	setString("LoginServer", "Shard 1", "Default=127.0.0.1,2592");
+	setString("LoginServer", "Shard 1", "Your Shard Name=127.0.0.1,2592");
 	flush(); // save.
 }
 

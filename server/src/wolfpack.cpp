@@ -462,7 +462,11 @@ int main( int argc, char **argv )
 	Console::instance()->ProgressDone();
 
 	if( SrvParams->enableLogin() )
+	{
         Console::instance()->send( QString( "LoginServer running on port %1\n" ).arg( SrvParams->loginPort() ) );
+		if ( SrvParams->serverList().size() > 1 )
+			Console::instance()->log( LOG_WARNING, "LoginServer enabled but there no Game server entries found\n Check your wolfpack.xml settings" );
+	}
 
 	if( SrvParams->enableGame() )
         Console::instance()->send( QString( "GameServer running on port %1\n" ).arg( SrvParams->gamePort() ) );
