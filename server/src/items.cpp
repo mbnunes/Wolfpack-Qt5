@@ -1512,9 +1512,9 @@ void cItem::processNode( const QDomElement& Tag )
 	else if( TagName == "morex" )
 		this->morex_ = Value.toInt();
 
-	// <morex>10</morex>
+	// <morey>10</morey>
 	else if( TagName == "morey" )
-		this->morex_ = Value.toInt();
+		this->morey_ = Value.toInt();
 
 	// <morez>10</morez>
 	else if( TagName == "morez" )
