@@ -1452,7 +1452,7 @@ cTempEffect*	cTmpEffFibHeap::meld( cTmpEffFibHeap &nFheap )	// O(1) !!!
 	return this->head;
 }
 
-void			cTmpEffFibHeap::deleteMin()		// O( lg N )
+void			cTmpEffFibHeap::deleteMin()		// amortized O( lg N )
 {
 	if( this->head )
 	{

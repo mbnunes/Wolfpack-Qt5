@@ -937,28 +937,28 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					}
 					return;// deeds
 				case 0x0E9C:
-					if (Skills->CheckSkill( pc_currchar, MUSICIANSHIP, 0, 1000 ) )
+					if( pc_currchar->checkSkill( MUSICIANSHIP, 0, 1000 ) )
 						pc_currchar->soundEffect( 0x0038 );
 					else 
 						pc_currchar->soundEffect( 0x0039 );
 					return;
 				case 0x0E9D:
 				case 0x0E9E:
-					if (Skills->CheckSkill( pc_currchar, MUSICIANSHIP, 0, 1000 ) )
+					if( pc_currchar->checkSkill( MUSICIANSHIP, 0, 1000 ) )
 						pc_currchar->soundEffect( 0x0052 );
 					else 
 						pc_currchar->soundEffect( 0x0053 );
 					return;
 				case 0x0EB1:
 				case 0x0EB2:
-					if (Skills->CheckSkill( pc_currchar, MUSICIANSHIP, 0, 1000 ) )
+					if( pc_currchar->checkSkill( MUSICIANSHIP, 0, 1000 ) )
 						pc_currchar->soundEffect( 0x0045 );
 					else 
 						pc_currchar->soundEffect( 0x0046 );
 					return;
 				case 0x0EB3:
 				case 0x0EB4:
-					if (Skills->CheckSkill( pc_currchar, MUSICIANSHIP, 0, 1000 ) )
+					if( pc_currchar->checkSkill( MUSICIANSHIP, 0, 1000 ) )
 						pc_currchar->soundEffect( 0x004C );
 					else 
 						pc_currchar->soundEffect( 0x004D );
@@ -1095,7 +1095,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					return;
 				case 0x0DE1:
 				case 0x0DE2: // camping
-					if (Skills->CheckSkill(currchar[s], CAMPING, 0, 500)) // Morrolan TODO: insert logout code for campfires here
+					if( currchar[s]->checkSkill( CAMPING, 0, 500)) // Morrolan TODO: insert logout code for campfires here
 					{
 						P_ITEM pFire = Items->SpawnItem(currchar[s], 1, "#", 0, 0x0DE3, 0, 0);
 						if (pFire)
@@ -1120,7 +1120,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					}
 					return; // camping
 				case 0x1508: // magic statue?
-					if (Skills->CheckSkill(currchar[s], ITEMID, 0, 10))
+					if( currchar[s]->checkSkill( ITEMID, 0, 10))
 					{
 						pi->setId(0x1509);
 						pi->setType( 45 );
@@ -1132,7 +1132,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					}
 					return;
 				case 0x1509:
-					if (Skills->CheckSkill(currchar[s], ITEMID, 0, 10))
+					if( currchar[s]->checkSkill( ITEMID, 0, 10))
 					{
 						pi->setId(0x1508);
 						pi->setType( 45 );
@@ -1283,7 +1283,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 					return;
 				case 0x1059:
 				case 0x105A:// tinker sextant
-					if (Skills->CheckSkill(currchar[s], TINKERING, 500, 1000))
+					if( currchar[s]->checkSkill( TINKERING, 500, 1000))
 					{
 						socket->sysMessage(tr("You create the sextant."));
 						P_ITEM pi_sextant = Items->SpawnItem(s, currchar[s], 1, "a sextant", 0, 0x10, 0x57, 0, 1, 1);

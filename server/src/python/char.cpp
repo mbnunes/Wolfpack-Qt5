@@ -338,7 +338,7 @@ PyObject* wpChar_checkskill( wpChar* self, PyObject* args )
 	UINT16 min = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
 	UINT16 max = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
 
-	bool success = Skills->CheckSkill( self->pChar, skillId, min, max );
+	bool success = self->pChar->checkSkill( skillId, min, max );
 
 	return success ? PyTrue : PyFalse;
 }

@@ -413,7 +413,7 @@ UINT32	cMakeSection::calcRank( cChar* pChar )
 	QPtrListIterator< cSkillCheck > skit( skillchecks_ );
 	while( skit.current() && hasSuccess )
 	{
-		if( !Skills->CheckSkill( pChar, skit.current()->skillid(), skit.current()->min(), skit.current()->max() ) )
+		if( !pChar->checkSkill( skit.current()->skillid(), skit.current()->min(), skit.current()->max() ) )
 			hasSuccess = false;
 		else
 		{

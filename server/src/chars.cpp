@@ -3232,3 +3232,51 @@ UI16 cChar::calcDefense( enBodyParts bodypart, bool wearout )
 
 	return total;
 }
+
+bool cChar::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
+{
+	bool skillused = false;
+	
+	if( dead_ )
+	{
+		if( socket_ )
+			socket_->sysMessage( tr( "Ghosts can not train %1" ).arg( QString( skillname[ skill ] ).lower() ) );
+		return false;
+	}
+
+	if( max > 1200 )
+		max = 1200;
+
+	// how far is the player's skill above the required minimum ?
+	int charrange = this->skill( skill ) - min;	
+	
+	if( charrange < 0 )
+		charrange = 0;
+
+	if( min == max )
+	{
+		LogCritical("cChar::checkSkill(..): minskill == maxskill, avoided division by zero\n");
+		return false;
+	}
+	float chance = (((float)charrange*890.0f)/(float)(max-min))+100.0f;	// +100 means: *allways* a minimum of 10% for success
+	if( chance > 990 ) 
+		chance=990;	// *allways* a 1% chance of failure
+	
+	if( chance >= RandomNum( 0, 1000 ) ) 
+		skillused = true;
+	
+	if( baseSkill_[ skill ] < max )
+	{
+		// Take care. Only gain skill when not using scrolls
+		//if( sk != MAGERY || ( sk == MAGERY && pc->isPlayer() && currentSpellType[s] == 0 ) )
+		//{
+			if( advance && Skills->AdvanceSkill( this, skill, skillused ) )
+			{
+				Skills->updateSkillLevel(this, skill); 
+				if( socket_ )
+					socket_->sendSkill( skill );
+			}
+		//}
+	}
+	return skillused;
+}

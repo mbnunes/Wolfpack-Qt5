@@ -127,7 +127,7 @@ public:
 		}
 
 		// Check the Skill
-		if( !Skills->CheckSkill( pChar, ANATOMY, 0, 1000 ) ) 
+		if( !pChar->checkSkill( ANATOMY, 0, 1000 ) ) 
 		{
 			pChar->message( tr( "You are not certain." ) );
 			return true;
@@ -203,7 +203,7 @@ public:
 			return true;
 		}
 
-		if( !Skills->CheckSkill( pChar, ARMSLORE, 0, 250 ) )
+		if( !pChar->checkSkill( ARMSLORE, 0, 250 ) )
 		{
 			socket->sysMessage( tr( "You are not certain..." ) );
 			return true;
@@ -222,7 +222,7 @@ public:
 			else if (totalHp>0.7) status = tr( "is barely used, with a few nicks and scrapes" );
 			else if (totalHp>0.6) status = tr( "is in fairly good condition" );
 			else if (totalHp>0.5) status = tr( "suffered some wear and tear" );
-			else if (totalHp>0.4) status = tr( "is well used [%1%%" );
+			else if (totalHp>0.4) status = tr( "is well used" );
 			else if (totalHp>0.3) status = tr( "is rather battered." );
 			else if (totalHp>0.2) status = tr( "is somewhat badly damaged." );
 			else if (totalHp>0.1) status = tr( "is flimsy and not trustworthy." );
@@ -232,7 +232,7 @@ public:
 		}
 
 		// You get the Damage status between 25% and 51%
-		if( Skills->CheckSkill( pChar, ARMSLORE, 250, 510 ) )
+		if( pChar->checkSkill( ARMSLORE, 250, 510, false ) )
 		{
 			if( pItem->hidamage() && pItem->lodamage() )
 			{
@@ -249,7 +249,7 @@ public:
 				mParts.push_back( status );
 
 				// The weapon speed is displayed between 50% and 100%
-				if( Skills->CheckSkill( pChar, ARMSLORE, 500, 1000 ) )
+				if( pChar->checkSkill( ARMSLORE, 500, 1000, false ) )
 				{
 					if( pItem->speed() > 32 )		status = tr( "is very fast" );
 					else if( pItem->speed() > 25 )	status = tr( "is fast" );
@@ -293,7 +293,7 @@ public:
 		}
 
 		// Display the rank if there is one (Between 25% and 50%)
-		if( ( pItem->rank > 0 ) && ( pItem->rank < 11 ) && SrvParams->rank_system() && Skills->CheckSkill( pChar, ARMSLORE, 250, 500 ) )
+		if( ( pItem->rank > 0 ) && ( pItem->rank < 11 ) && SrvParams->rank_system() && pChar->checkSkill( ARMSLORE, 250, 500, false ) )
 		{
 			switch( pItem->rank )
 			{
@@ -356,7 +356,7 @@ public:
 					else if( low > 1000 )
 						low = 1000;
 					
-					if( ( Skills->CheckSkill( pChar, DETECTINGHIDDEN, low, 1000 ) ) && ( c <= range ) )
+					if( ( pChar->checkSkill( DETECTINGHIDDEN, low, 1000 ) ) && ( c <= range ) )
 					{
 						hChar->unhide();
 						hChar->message( tr( "You have been revealed!" ) );
@@ -388,7 +388,7 @@ public:
 
 		if ( !pi->isLockedDown() ) // Ripper
 		{
-			if (!Skills->CheckSkill(pc_currchar, ITEMID, 0, 250))
+			if (!pc_currchar->checkSkill( ITEMID, 0, 250))
 			{
 				socket->sysMessage( tr("You can't quite tell what this item is...") );
 			}
@@ -401,7 +401,7 @@ public:
 				}
 				
 				// Identify Item by Antichrist // Changed by MagiusCHE)
-				if ( Skills->CheckSkill(pc_currchar, ITEMID, 250, 500) )
+				if ( pc_currchar->checkSkill( ITEMID, 250, 500) )
 				{
 					if (pi->name2() == "#") 
 						pi->setName( pi->name2() );
@@ -409,7 +409,7 @@ public:
 					socket->sysMessage( tr("You found that this item appears to be called: %1").arg(pi->name()) );
 					
 					// Show Creator by Magius(CHE)
-					if (Skills->CheckSkill(pc_currchar, ITEMID, 250, 500))
+					if (pc_currchar->checkSkill( ITEMID, 250, 500, false ))
 					{
 						if (pi->creator.size()>0)
 						{
@@ -425,7 +425,7 @@ public:
 						socket->sysMessage( tr("You can't know its creator!") );
 					// End Show creator
 					
-					if (!Skills->CheckSkill(pc_currchar, ITEMID, 250, 500))
+					if (!pc_currchar->checkSkill( ITEMID, 250, 500, false ))
 					{
 						socket->sysMessage( tr("You can't tell if it is magical or not.") );
 					}
@@ -437,13 +437,13 @@ public:
 						}
 						else
 						{
-							if (!Skills->CheckSkill(pc_currchar, ITEMID, 500, 1000))
+							if (!pc_currchar->checkSkill( ITEMID, 500, 1000, false ))
 							{
 								socket->sysMessage( tr("This item is enchanted with a spell, but you cannot determine which") );
 							}
 							else
 							{
-								if (!Skills->CheckSkill(pc_currchar, ITEMID, 750, 1100))
+								if (!pc_currchar->checkSkill( ITEMID, 750, 1100, false ))
 								{
 									socket->sysMessage( tr("It is enchanted with the spell %1, but you cannot determine how many charges remain.").arg(spellname[(8*(pi->morex-1))+pi->morey-1]) );
 								}
@@ -487,7 +487,7 @@ public:
 			return true; 
 		} 
 		
-		if (!Skills->CheckSkill(pc_currchar,EVALUATINGINTEL, 0, 1000)) 
+		if (!pc_currchar->checkSkill(EVALUATINGINTEL, 0, 1000)) 
 		{
 			socket->sysMessage( tr("You are not certain..") );
 			return true;
@@ -560,7 +560,7 @@ public:
 					LogError("switch reached default");
 				}
 			}
-			if ((!Skills->CheckSkill(pc_currchar,TAMING, 0, 1000))||
+			if ((!pc_currchar->checkSkill(TAMING, 0, 1000))||
 				(pc_currchar->skill(TAMING)<pc->taming)) 
 			{
 				socket->sysMessage( tr("You were unable to tame it.") );
@@ -634,7 +634,7 @@ public:
 			case 2:		pc_currchar->talk( tr("I have a family to feed, think of the children."), -1 ,0);	break;
 			}
 			
-			if (!Skills->CheckSkill(pc_currchar, BEGGING, 0, 1000))
+			if (!pc_currchar->checkSkill( BEGGING, 0, 1000))
 			{
 				socket->sysMessage( tr("They seem to ignore your begging plees.") );
 			}
@@ -739,7 +739,8 @@ public:
 		}
 		else // Lore used on a non-human
 		{
-			if (Skills->CheckSkill(pc_currchar, ANIMALLORE, 0, 1000))
+#pragma note("Adjust to OSI style, see stratics")
+			if (pc_currchar->checkSkill( ANIMALLORE, 0, 1000))
 			{
 				pc->talk( tr("Attack[%1-%2] Defense [%3] Taming [%4] Hit Points [%5]").arg(pc->lodamage()).arg(pc->hidamage()).arg(pc->def()).arg(pc->taming/10).arg(pc->hp()) );
 				return true;
@@ -807,7 +808,7 @@ public:
 			return true;
 		}
 		
-		skill = Skills->CheckSkill(pc_currchar,STEALING, 0, 999);
+		skill = pc_currchar->checkSkill(STEALING, 0, 999);
 		if( pc_currchar->inRange( pc_npc, 1 ) )
 		{
 			if (skill)
@@ -885,7 +886,7 @@ public:
 		}
 		else
 		{
-			if (!Skills->CheckSkill(pc_currchar, FORENSICS, 0, 500)) 
+			if (!pc_currchar->checkSkill( FORENSICS, 0, 500)) 
 				socket->sysMessage( tr("You are not certain about the corpse.")); 
 			else
 			{
@@ -894,7 +895,7 @@ public:
 				if(((curtim-pi->murdertime)/MY_CLOCKS_PER_SEC)>180) strcpy((char*)temp2, tr("many many"));
 				socket->sysMessage( tr("The %1 is %2 seconds old.").arg(pi->name()).arg(temp2) );
 				
-				if ( !Skills->CheckSkill(pc_currchar, FORENSICS, 500, 1000) || pi->murderer() == "" ) 
+				if ( !pc_currchar->checkSkill( FORENSICS, 500, 1000, false ) || pi->murderer() == "" ) 
 					socket->sysMessage( tr("You can't say who was the killer.") ); 
 				else
 				{
@@ -938,12 +939,12 @@ public:
 		int success=0;
 		switch(pPoison->morez)
 		{
-		case 1:	success=Skills->CheckSkill((pc), POISONING, 0, 500);		break;//lesser poison
-		case 2:	success=Skills->CheckSkill((pc), POISONING, 151, 651);		break;//poison
-		case 3:	success=Skills->CheckSkill((pc), POISONING, 551, 1051);		break;//greater poison
-		case 4:	success=Skills->CheckSkill((pc), POISONING, 901, 1401);		break;//deadly poison
+		case 1:	success=pc->checkSkill( POISONING, 0, 500);		break;//lesser poison
+		case 2:	success=pc->checkSkill( POISONING, 151, 651);		break;//poison
+		case 3:	success=pc->checkSkill( POISONING, 551, 1051);		break;//greater poison
+		case 4:	success=pc->checkSkill( POISONING, 901, 1401);		break;//deadly poison
 		default:
-			LogError("switch reached default");
+			LogError("cSkPoisoning::poisonItem(..): switch reached default\n");
 			return true;
 		}
 
@@ -998,7 +999,7 @@ public:
 				socket->sysMessage( tr("You cant taste that!") );
 				return true;
 			}
-			if (!Skills->CheckSkill(pc_currchar, TASTEID, 0, 250))
+			if (!pc_currchar->checkSkill( TASTEID, 0, 250))
 			{
 				socket->sysMessage( tr("You can't quite tell what this item is...") );
 			}
@@ -1011,13 +1012,13 @@ public:
 				}
 				
 				// Identify Item by Antichrist // Changed by MagiusCHE)
-				if (Skills->CheckSkill(pc_currchar, TASTEID, 250, 500))
+				if (pc_currchar->checkSkill( TASTEID, 250, 500, false ))
 					if (pi->name2() != "#")
 						pi->setName( pi->name2() ); // Item identified! -- by Magius(CHE)
 					
 				socket->sysMessage( tr("You found that this item appears to be called: %1").arg(pi->name())  );
 					
-				if (Skills->CheckSkill(pc_currchar, TASTEID, 250, 500))
+				if (pc_currchar->checkSkill( TASTEID, 250, 500, false ))
 				{
 					if((pi->poisoned>0) || (pi->morex==4 && pi->morey==6 && pi->morez==1))
 						socket->sysMessage( tr("This item is poisoned!") );
@@ -1025,7 +1026,7 @@ public:
 						socket->sysMessage( tr("This item shows no poison.") );
 						
 					// Show Creator by Magius(CHE)
-					if (Skills->CheckSkill(pc_currchar, TASTEID, 250, 500))
+					if (pc_currchar->checkSkill( TASTEID, 250, 500, false ))
 					{
 						if (pi->creator.size()>0)
 						{
@@ -1124,10 +1125,10 @@ public:
 			socket->sysMessage( tr("You do not have an instrument to play on!") );
 			return true;
 		}
-		if (Skills->CheckSkill((Player), MUSICIANSHIP, 0, 1000))
+		if (Player->checkSkill( MUSICIANSHIP, 0, 1000))
 		{
 			Skills->PlayInstrumentWell(socket, inst);
-			if (Skills->CheckSkill((Player), PROVOCATION, 0, 1000))
+			if (Player->checkSkill( PROVOCATION, 0, 1000))
 			{
 				if( Player->inGuardedArea() )
 				{
@@ -1239,7 +1240,7 @@ bool cSkRepairItem::responsed( cUOSocket *socket, cUORxTarget *target )
 		if		((smithing>=900)) dmg=1;
 		else if ((smithing>=700)) dmg=2;
 		else if ((smithing>=500)) dmg=3;
-		hasSuccess = Skills->CheckSkill((pc),BLACKSMITHING, 0, 1000);
+		hasSuccess = pc->checkSkill(BLACKSMITHING, 0, 1000);
 	}
 
 	if( hasSuccess )
@@ -1282,7 +1283,7 @@ void cSkills::Hide( cUOSocket *socket )
 		return; 
 	} 
 	
-	if( !Skills->CheckSkill( pChar, HIDING, 0, 1000 ) ) 
+	if( !pChar->checkSkill( HIDING, 0, 1000 ) ) 
 	{ 
 		pChar->message( "You are unable to hide here." );
 		return; 
@@ -1316,7 +1317,7 @@ void cSkills::Stealth( cUOSocket *socket )
 		return;
 	}
 
-	if( !Skills->CheckSkill( pChar, STEALTH, 0, 1000 ) ) 
+	if( !pChar->checkSkill( STEALTH, 0, 1000 ) ) 
 	{
 		socket->sysMessage( tr( "You fail to stealth with your environment." ) );
 		pChar->unhide();
@@ -1337,8 +1338,8 @@ void cSkills::PeaceMaking(cUOSocket* socket)
 		return;
 	}
 	P_CHAR pc_currchar = socket->player();
-	res1=Skills->CheckSkill(pc_currchar, PEACEMAKING, 0, 1000);
-	res2=Skills->CheckSkill(pc_currchar, MUSICIANSHIP, 0, 1000);
+	res1=pc_currchar->checkSkill( PEACEMAKING, 0, 1000);
+	res2=pc_currchar->checkSkill( MUSICIANSHIP, 0, 1000);
 	if (res1 && res2)
 	{
 		Skills->PlayInstrumentWell(socket, p_inst);
@@ -1503,26 +1504,26 @@ void cSkills::CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar)
 
 	switch((10*type)+sub)
 	{
-	case 11:success=Skills->CheckSkill(pc, ALCHEMY,151, 651);break;//agility
-	case 12:success=Skills->CheckSkill(pc, ALCHEMY,351, 851);break;//greater agility
-	case 21:success=Skills->CheckSkill(pc, ALCHEMY,  0, 500);break;//lesser cure
-	case 22:success=Skills->CheckSkill(pc, ALCHEMY,251, 751);break;//cure
-	case 23:success=Skills->CheckSkill(pc, ALCHEMY,651,1151);break;//greater cure
-	case 31:success=Skills->CheckSkill(pc, ALCHEMY, 51, 551);break;//lesser explosion
-	case 32:success=Skills->CheckSkill(pc, ALCHEMY,351, 851);break;//explosion
-	case 33:success=Skills->CheckSkill(pc, ALCHEMY,651,1151);break;//greater explosion
-	case 41:success=Skills->CheckSkill(pc, ALCHEMY,  0, 500);break;//lesser heal
-	case 42:success=Skills->CheckSkill(pc, ALCHEMY,151, 651);break;//heal
-	case 43:success=Skills->CheckSkill(pc, ALCHEMY,551,1051);break;//greater heal
-	case 51:success=Skills->CheckSkill(pc, ALCHEMY,  0, 500);break;//night sight
-	case 61:success=Skills->CheckSkill(pc, ALCHEMY,  0, 500);break;//lesser poison
-	case 62:success=Skills->CheckSkill(pc, ALCHEMY,151, 651);break;//poison
-	case 63:success=Skills->CheckSkill(pc, ALCHEMY,551,1051);break;//greater poison
-	case 64:success=Skills->CheckSkill(pc, ALCHEMY,901,1401);break;//deadly poison
-	case 71:success=Skills->CheckSkill(pc, ALCHEMY,  0, 500);break;//refresh
-	case 72:success=Skills->CheckSkill(pc, ALCHEMY,251, 751);break;//total refreshment
-	case 81:success=Skills->CheckSkill(pc, ALCHEMY,251, 751);break;//strength
-	case 82:success=Skills->CheckSkill(pc, ALCHEMY,451, 951);break;//greater strength
+	case 11:success=pc->checkSkill( ALCHEMY,151, 651);break;//agility
+	case 12:success=pc->checkSkill( ALCHEMY,351, 851);break;//greater agility
+	case 21:success=pc->checkSkill( ALCHEMY,  0, 500);break;//lesser cure
+	case 22:success=pc->checkSkill( ALCHEMY,251, 751);break;//cure
+	case 23:success=pc->checkSkill( ALCHEMY,651,1151);break;//greater cure
+	case 31:success=pc->checkSkill( ALCHEMY, 51, 551);break;//lesser explosion
+	case 32:success=pc->checkSkill( ALCHEMY,351, 851);break;//explosion
+	case 33:success=pc->checkSkill( ALCHEMY,651,1151);break;//greater explosion
+	case 41:success=pc->checkSkill( ALCHEMY,  0, 500);break;//lesser heal
+	case 42:success=pc->checkSkill( ALCHEMY,151, 651);break;//heal
+	case 43:success=pc->checkSkill( ALCHEMY,551,1051);break;//greater heal
+	case 51:success=pc->checkSkill( ALCHEMY,  0, 500);break;//night sight
+	case 61:success=pc->checkSkill( ALCHEMY,  0, 500);break;//lesser poison
+	case 62:success=pc->checkSkill( ALCHEMY,151, 651);break;//poison
+	case 63:success=pc->checkSkill( ALCHEMY,551,1051);break;//greater poison
+	case 64:success=pc->checkSkill( ALCHEMY,901,1401);break;//deadly poison
+	case 71:success=pc->checkSkill( ALCHEMY,  0, 500);break;//refresh
+	case 72:success=pc->checkSkill( ALCHEMY,251, 751);break;//total refreshment
+	case 81:success=pc->checkSkill( ALCHEMY,251, 751);break;//strength
+	case 82:success=pc->checkSkill( ALCHEMY,451, 951);break;//greater strength
 	default:
 		LogError("switch reached default");
 		return;
@@ -1655,57 +1656,6 @@ void cSkills::PotionToBottle(P_CHAR pc, P_ITEM pi_mortar)
 	// they have those settings! :) that's easy isn't it? =P
 	
 	return;
-}
-
-char cSkills::CheckSkill(P_CHAR pc, unsigned short int sk, int low, int high)
-{
-	char skillused = 0;
-	
-	if( !pc ) 
-		return 0;
-    
-	cUOSocket *socket = pc->socket();
-
-	if( pc->dead() ) // fix for magic resistance exploit and probably others too, LB
-	{
-		if( socket )
-			socket->sysMessage( tr( "Ghosts can not train %1" ).arg( skillname[sk] ) );
-		return 0;
-	}
-
-	if( high > 1200 )
-		high = 1200;
-
-	// how far is the player's skill above the required minimum ?
-	int charrange = pc->skill( sk ) - low;	
-	
-	if( charrange < 0 )
-		charrange = 0;
-
-	if( high == low )
-	{
-		LogCritical("minskill equals maxskill");
-		return 0;
-	}
-	float chance = ((charrange*890)/(high-low))+100.0f;	// +100 means: *allways* a minimum of 10% for success
-	if (chance>990) chance=990;	// *allways* a 1% chance of failure
-	
-	if( chance >= rand()%1000 ) skillused = 1;
-	
-	if( pc->baseSkill( sk ) < high )
-	{
-		// Take care. Only gain skill when not using scrolls
-		//if( sk != MAGERY || ( sk == MAGERY && pc->isPlayer() && currentSpellType[s] == 0 ) )
-		//{
-			if( Skills->AdvanceSkill( pc, sk, skillused ) )
-			{
-				Skills->updateSkillLevel(pc, sk); 
-				if( pc->socket() )
-					pc->socket()->sendSkill( sk );
-			}
-		//}
-	}
-	return skillused;
 }
 
 char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
@@ -2173,7 +2123,7 @@ void cSkills::RandomSteal(cUOSocket* socket, SERIAL victim)
 			return;
 		}
 		
-		skill = Skills->CheckSkill(pc_currchar, STEALING, 0, 999);
+		skill = pc_currchar->checkSkill( STEALING, 0, 999);
 		if (skill)
 		{
 			item->setContSerial(pc_currchar->packitem());
@@ -2224,9 +2174,9 @@ static int CheckThreeSkills(int s, int low, int high)
 {
 	int part=0;
 	currentSpellType[s]=0;		// needed for MAGERY check
-	part += Skills->CheckSkill(currchar[s], INSCRIPTION,  low, high);
-	part += Skills->CheckSkill(currchar[s], MAGERY,		low, high);
-	part += Skills->CheckSkill(currchar[s], TINKERING,	low, high);
+	part += currchar[s]->checkSkill( INSCRIPTION,  low, high);
+	part += currchar[s]->checkSkill( MAGERY,		low, high);
+	part += currchar[s]->checkSkill( TINKERING,	low, high);
 	return part;
 }
 
@@ -2734,7 +2684,7 @@ void cSkills::Meditation( cUOSocket *socket )
 		pc_currchar->setMed( false );
 		return;
 	}
-	else if (!Skills->CheckSkill(pc_currchar, MEDITATION, 0, 1000))
+	else if (!pc_currchar->checkSkill( MEDITATION, 0, 1000))
 	{
 		socket->sysMessage( tr("You cannot focus your concentration."));
 		pc_currchar->setMed( false );
@@ -2955,7 +2905,7 @@ void cSkills::Snooping( P_CHAR player, P_ITEM container )
 		socket->sysMessage( tr( "You can't peek into that container or you'll be jailed." ) );
 		return;
 	}
-	else if( Skills->CheckSkill( player, SNOOPING, 0, 1000 ) )
+	else if( player->checkSkill( SNOOPING, 0, 1000 ) )
 	{
 		socket->sendContainer( container );
 		socket->sysMessage( tr( "You successfully peek into that container." ) );

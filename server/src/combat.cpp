@@ -228,23 +228,27 @@ namespace Combat
 			}
 
 			// skillchecks for attacker and defender
-			Skills->CheckSkill( pAttacker, fightskill, minskill, maxskill );
-			Skills->CheckSkill( pDefender, deffightskill, defminsk, defmaxsk );
-			Skills->CheckSkill( pAttacker, TACTICS, minskill, maxskill );
-			Skills->CheckSkill( pAttacker, ANATOMY, minskill, maxskill );
-			Skills->CheckSkill( pDefender, TACTICS, defminsk, defmaxsk );
+			pAttacker->checkSkill( fightskill, minskill, maxskill );
+			pDefender->checkSkill( deffightskill, defminsk, defmaxsk );
+			pAttacker->checkSkill( TACTICS, minskill, maxskill );
+			pAttacker->checkSkill( ANATOMY, minskill, maxskill );
+			pDefender->checkSkill( TACTICS, defminsk, defmaxsk );
 
 			// Hit Evasion = (Evaluate Intelligence + Anatomy + 20) / 2 (with a maximum of 120) 
-			SI32 evasionchance = ( pDefender->skill( EVALUATINGINTEL ) + pDefender->skill( ANATOMY ) + 200 ) / 20;
-			if( evasionchance > 120 )
-				evasionchance = 120;
-			else if( evasionchance < 0 )
-				evasionchance = 0;
+			SI32 evasionchance = 0;
+			if( deffightskill == WRESTLING )
+			{
+				evasionchance = ( pDefender->skill( EVALUATINGINTEL ) + pDefender->skill( ANATOMY ) + 200 ) / 20;
+				if( evasionchance > 120 )
+					evasionchance = 120;
+				else if( evasionchance < 0 )
+					evasionchance = 0;
+			}
 
 			// Hit Chance = ( Attacker's Combat Ability + 50 ) ÷ ( [Defender's Combat Ability + 50] x 2 )
 			SI32 hitchance = (SI32)floor( ( (float)pAttacker->skill( fightskill ) + 500.0f ) / ( ( (float)pDefender->skill( deffightskill ) + 500.0f ) * 2.0f ) * 100.0f );
 			
-			if( RandomNum( 0, 100 ) <= evasionchance && RandomNum( 0, 100 ) >= hitchance )
+			if( RandomNum( 0, 100 ) <= evasionchance || RandomNum( 0, 100 ) >= hitchance )
 			{
 				// Display a message to both players that the 
 				// swing didn't hit
@@ -346,7 +350,7 @@ namespace Combat
 			P_ITEM pShield = pDefender->leftHandItem();
 			if( pShield && IsShield( pShield->id() ) )
 			{
-				Skills->CheckSkill(pDefender, PARRYING, (int)floor( ( (float)accuracy / 100.0f) * (float)pAttacker->skill( fightskill ) ), 1000 );
+				pDefender->checkSkill( PARRYING, (int)floor( ( (float)accuracy / 100.0f) * (float)pAttacker->skill( fightskill ) ), 1000 );
 				// % Chance of Blocking= Parrying Skill ÷ 2
 				if( pDefender->skill( PARRYING ) / 2 >= RandomNum( 0, 1000 ) )
 				{

@@ -2220,7 +2220,7 @@ void cTargets::MultiTarget(cUOSocket* socket) // If player clicks on something w
 		case 35: if (Cready) pc->setPriv2(pc->priv2() & 0xfd);
 		case 38: Magic->Recall(s); break;
 		case 39: Magic->Mark(s); break;
-		case 40: Skills->ItemIdTarget(s); break;
+//		case 40: Skills->ItemIdTarget(s); break;
 //		case 41: Skills->Evaluate_int_Target(s); break;
 		//case 42: Skills->TameTarget(s); break;
 		case 43: Magic->Gate(s); break;
@@ -2246,8 +2246,8 @@ void cTargets::MultiTarget(cUOSocket* socket) // If player clicks on something w
 
 //		case 79: Skills->ProvocationTarget1(s); break;
 //		case 80: Skills->ProvocationTarget2(s); break;
-		case 81: Skills->EnticementTarget1(s); break;
-		case 82: Skills->EnticementTarget2(s); break;
+//		case 81: Skills->EnticementTarget1(s); break;
+//		case 82: Skills->EnticementTarget2(s); break;
 
 //		case 86: Targ->SwordTarget(ps,pt); break;
 		case 87: Magic->SbOpenContainer(s); break;

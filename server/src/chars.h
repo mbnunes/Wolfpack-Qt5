@@ -739,6 +739,8 @@ public:
 	P_ITEM rightHandItem();
 	P_ITEM leftHandItem();
 
+	bool checkSkill( UI16 skill, SI32 min, SI32 max, bool advance = true );
+
 	// Definition loading - sereg
 protected:
 	virtual void processNode( const QDomElement& Tag );

@@ -709,7 +709,7 @@ void cDragItems::dropOnItem( cUOSocket *socket, P_ITEM pItem, P_ITEM pCont, cons
 		// He needs to do a snoop-check
 		if( pChar->canSnoop() )
 		{
-			if( !Skills->CheckSkill( pChar, SNOOPING, 0, 1000 ) )
+			if( !pChar->checkSkill( SNOOPING, 0, 1000 ) )
 			{
 
 				socket->sysMessage( tr( "You fail to put that into %1's pack" ).arg( packOwner->name.c_str() ) );

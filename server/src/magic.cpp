@@ -1215,7 +1215,7 @@ P_CHAR cMagic::CheckMagicReflect(P_CHAR &attacker, P_CHAR &defender)
 //
 char cMagic::CheckResist(P_CHAR pc_attacker, P_CHAR pc_defender, int circle)
 {
-	char i=Skills->CheckSkill(pc_defender, MAGICRESISTANCE, 80*circle, 800+(80*circle));
+	char i=pc_defender->checkSkill( MAGICRESISTANCE, 80*circle, 800+(80*circle));
 
 	if (i)
 	{
@@ -1577,7 +1577,7 @@ void cMagic::NPCHeal(P_CHAR pc)
     int hiskill=spells[10].hiskill;
 	if ( pc == NULL ) return;
 
-	if (!Skills->CheckSkill(pc, MAGERY, loskill, hiskill))
+	if (!pc->checkSkill( MAGERY, loskill, hiskill))
 	{
 		UOXSOCKET ss=calcSocketFromChar(pc);
 		if (ss>-1)
@@ -1603,7 +1603,7 @@ void cMagic::NPCCure(P_CHAR pc)
 
 	if ( pc == NULL ) return;
 
-	if (!Skills->CheckSkill(pc, MAGERY, loskill, hiskill))
+	if (!pc->checkSkill( MAGERY, loskill, hiskill))
 	{
 		UOXSOCKET ss=calcSocketFromChar(pc);
 		if (ss>-1)
@@ -1629,7 +1629,7 @@ void cMagic::NPCDispel(P_CHAR pc_s, P_CHAR pc_i)
 	int hiskill=spells[41].hiskill;
 	if ( pc_s == NULL)
 		return;
-	if (!Skills->CheckSkill(pc_s, MAGERY, loskill, hiskill))
+	if (!pc_s->checkSkill( MAGERY, loskill, hiskill))
 	{
 		UOXSOCKET ss = calcSocketFromChar(pc_s);
 		if (ss>-1)
@@ -1689,7 +1689,7 @@ void cMagic::EnergyBoltSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool useman
 //
 char cMagic::CheckParry(P_CHAR pc_player, int circle)
 {
-	char i=Skills->CheckSkill(pc_player, PARRYING, 80*circle, 800+(80*circle));
+	char i=pc_player->checkSkill( PARRYING, 80*circle, 800+(80*circle));
 	if(i)
 	{
 		UOXSOCKET s = calcSocketFromChar(pc_player);
@@ -2065,7 +2065,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 	{
 		loskill=spells[curSpell].loskill;
 		hiskill=spells[curSpell].hiskill;
-		if (!(pc_currchar->isGM()) && !Skills->CheckSkill(pc_currchar, MAGERY, loskill, hiskill))
+		if (!(pc_currchar->isGM()) && !pc_currchar->checkSkill( MAGERY, loskill, hiskill))
 		{
 			SpellFail(s);
 			pc_currchar->setSpell( 0 );

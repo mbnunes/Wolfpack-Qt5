@@ -844,7 +844,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 	if( pc->stm() < 0 )
 		pc->setStm(0);
 
-	if( !Skills->CheckSkill( pc, skillid_, item.minskill, item.maxskill ) )
+	if( !pc->checkSkill( skillid_, item.minskill, item.maxskill ) )
 	{
 		pc->action( charaction_ );
 		pc->soundEffect( sound_, true );
@@ -1051,7 +1051,7 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 	if( pc->stm() < 0 )
 		pc->setStm(0);
 
-	if( !Skills->CheckSkill( pc, skillid_, item.minskill, item.maxskill ) )
+	if( !pc->checkSkill( skillid_, item.minskill, item.maxskill ) )
 	{
 		pc->action( charaction_ );
 		pc->soundEffect( sound_, true );

@@ -45,7 +45,7 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 			{
 				int reschance = static_cast<int>((ph->baseSkill(HEALING)+ph->baseSkill(ANATOMY))*0.17);
 				int rescheck=RandomNum(1,100);
-				if (Skills->CheckSkill((ph),HEALING,800,1000) && Skills->CheckSkill((ph),ANATOMY,800,1000) && reschance<=rescheck)
+				if (ph->checkSkill(HEALING,800,1000) && ph->checkSkill(ANATOMY,800,1000) && reschance<=rescheck)
 					socket->sysMessage( tr("You failed to resurrect the ghost") );
 				else
 				{
@@ -69,8 +69,8 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 				{
 					int curechance = static_cast<int>((ph->baseSkill(HEALING)+ph->baseSkill(ANATOMY))*0.67);
 					int curecheck=RandomNum(1,100);
-					Skills->CheckSkill((ph),HEALING,600,1000);
-					Skills->CheckSkill((ph),ANATOMY,600,1000);
+					ph->checkSkill(HEALING,600,1000);
+					ph->checkSkill(ANATOMY,600,1000);
 					if(curechance<=curecheck)
 					{
 						pp->setPoisoned(0);
@@ -91,8 +91,8 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 				}
 				else
 				{
-					if (Skills->CheckSkill(ph,VETERINARY,600,1000) &&
-						Skills->CheckSkill(ph,ANIMALLORE,600,1000))
+					if (ph->checkSkill(VETERINARY,600,1000) &&
+						ph->checkSkill(ANIMALLORE,600,1000))
 					{
 						pp->setPoisoned(0);
 						socket->sysMessage( tr("Because of your skill, you were able to counter the poison."));
@@ -115,7 +115,7 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 		
 		if(pp->isHuman()) //Used on human
 		{
-			if (!Skills->CheckSkill((ph),HEALING,0,1000))
+			if (!ph->checkSkill(HEALING,0,1000))
 			{
 				socket->sysMessage( tr("You apply the bandages, but they barely help!") );
 //				pp->hp++;
@@ -138,7 +138,7 @@ bool cSkHealing::responsed( cUOSocket *socket, cUORxTarget *target )
 		}
 		else //Bandages used on a non-human
 		{
-			if (!Skills->CheckSkill((ph),VETERINARY,0,1000))
+			if (!ph->checkSkill(VETERINARY,0,1000))
 				socket->sysMessage( tr("You are not skilled enough to heal that creature.") );
 			else
 			{
@@ -176,7 +176,7 @@ bool cSkLockpicking::responsed( cUOSocket *socket, cUORxTarget *target )
 		{
 			if(pi->more1==0 && pi->more2==0 && pi->more3==0 && pi->more4==0)
 			{ //Make sure it isn't an item that has a key (i.e. player house, chest..etc)
-				if(Skills->CheckSkill(pc_currchar, LOCKPICKING, 0, 1000))
+				if(pc_currchar->checkSkill( LOCKPICKING, 0, 1000))
 				{
 					switch(pi->type())
 					{

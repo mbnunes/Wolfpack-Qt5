@@ -241,7 +241,7 @@ void trackingMenu( cUOSocket *socket )
 	socket->send( &cGump );
 
 	// If we fail a simple check we dont get the menu
-	if( !Skills->CheckSkill( pChar, TRACKING, 0, 250 ) )
+	if( !pChar->checkSkill( TRACKING, 0, 250 ) )
 	{
 		socket->sysMessage( tr( "You seem to be unable to track the traces of creatures who have been here." ) );
 		return;

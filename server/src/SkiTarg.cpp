@@ -395,7 +395,7 @@ void cSkills::MakePizza(int s)
 * the edges of the detect circle. Also low skill detecters cannot find high skilled
 * hiders as easily as low skilled hiders.
 */
-
+/*
 void cSkills::EnticementTarget1(UOXSOCKET s)
 {
 	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
@@ -465,7 +465,7 @@ void cSkills::EnticementTarget2(UOXSOCKET s)
 		PlayInstrumentPoor(pc_currchar->socket(), inst);
 	}
 }
-
+*/
 //////////////////////////
 // name:	AlchemyTarget
 // history: unknown, revamped by Duke,21.04.2000
@@ -556,6 +556,7 @@ void cSkills::CreateBandageTarget(int s)//-Frazurbluu- rewrite of tailoring to c
 	}
 }
 
+/*
 ////////////////////////
 // name:	HealingSkillTarget
 // history: unknown, revamped by Duke, 4.06.2000
@@ -711,7 +712,9 @@ void cSkills::HealingSkillTarget(UOXSOCKET s)
 		pib->ReduceAmount(1);
 	}
 }
+*/
 
+/*
 void cSkills::ItemIdTarget(int s)
 {
 	P_CHAR pc_currchar = currchar[s];
@@ -786,8 +789,7 @@ void cSkills::ItemIdTarget(int s)
 		}
 	}
 }
-
-
+*/
 
 //////////////////////////////////
 // name:	cTinkerCombine
@@ -868,7 +870,7 @@ public:
 				sysmessage(s, tr("You aren't skilled enough to even try that!") );
 				return;
 			}
-			if( !Skills->CheckSkill( pc_currchar, TINKERING, minskill, 1000 ) )
+			if( !pc_currchar->checkSkill( TINKERING, minskill, 1000 ) )
 			{
 				failmsg(s);
 				P_ITEM piLoser= rand()%2 ? piTarg : piClick;
@@ -886,6 +888,7 @@ public:
 		}
 	}
 };
+
 
 class cTinkCreateAwG : public cTinkerCombine
 {

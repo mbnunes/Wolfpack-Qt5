@@ -1769,11 +1769,11 @@ void cItem::processNode( const QDomElement& Tag )
 		QString Type = Tag.attribute( "type" );
 			
 		if( Type == "str" )
-			this->st2 = Value.toULong();
+			this->st2 = Value.toShort();
 		else if( Type == "dex" )
-			this->dx2 = Value.toULong();
+			this->dx2 = Value.toShort();
 		else if( Type == "int" )
-			this->in2 = Value.toULong();
+			this->in2 = Value.toShort();
 	}
 
 	// <dye />
