@@ -77,6 +77,8 @@ Wolfpack 12.9.13 Beta (SVN)
     <container><item list="list" /><item randomlist="list1,list2" /></container>
   - Disabled verdata.mul support as this is no longer included in the latest
     releases of Ultima Online. Note: Commented out the source code only.
+  - Implemented an onSelectAbility event for the weapon special moves.
+  - Corrected the NINJITSU and BUSHIDO skill ids.
   - Small cleanup to wolfpack.xml: Database options follow the same option
     names are are given in account options. 
  * Definition Changes:
@@ -105,6 +107,8 @@ Wolfpack 12.9.13 Beta (SVN)
   - Gave guards colored hair.
   - NPC skill defines are now: <skill id="skilldef">value</skill>
   - Gold now has weight.
+  - Corrected the bushido and ninjitsu skill ids.
+  - All mounts now have the event npc.mount
  * Python Script Changes:
   - Fixed bug #0000369. (Equip possible although item.movable = 3)
   - Fixed bug #0000361. (Pets don't follow trough gate)
@@ -141,6 +145,13 @@ Wolfpack 12.9.13 Beta (SVN)
   - Added nukez command. Same as nuke, but limited to one z coordinate.
   - Added tilemove command.
   - Increased energyvortex and bladespirit casting time.
+  - Implemented the bleeding wound system.
+  - Implemented the weapon special moves.
+  - Implemented the SelfRepair item property.
+  - Implemented the Enhance Potions item property.
+  - Implemented the Splash Damage item properties.
+  - Implemented the On Hit spell effect item properties.
+  - Implemented support for dispel difficulty/dispel focus (see playguide).
  * Misc. Changes:
   - FAQ Updates.
  * Known Issues, Bugs, and Missing Features:
