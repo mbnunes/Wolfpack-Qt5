@@ -28,3 +28,4 @@ namely Wolfpack refusing to start on (some) W95 machines (LB)
 23) Changed: added a tag GOLD # to newbie.scp. You just add it to the default section for
 the starting gold. NOTE: You MUST take the starting gold line out of the wolfpack.ini. It
 isnt needed anymore. (Ripper)
+24) Added: Made all the starting equipting including shirt/pants & dagger newbiefyed. (Ripper)

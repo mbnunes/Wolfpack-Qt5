@@ -684,7 +684,6 @@ void gcollect () // Remove items which were in deleted containers
 {
 	int removed, rtotal=0;
 	int idelete;
-	unsigned int i ;
 	LogMessage("Performing Garbage Collection...");
 
 	rtotal=0;
@@ -1969,6 +1968,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	pi->type=0;
 	pi->dye=1;
 	pi->hp=10;
+	pi->priv |= 0x02; // Mark as a newbie item
 	}
 
 	{	// limit the scope of pi
@@ -1991,6 +1991,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	pi->dye=1;
 	pi->hp=10;
 	pi->def=1;
+	pi->priv |= 0x02; // Mark as a newbie item
 	}
 
 	{	// limit the scope of pi
@@ -2002,6 +2003,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	pi->dye=1;
 	pi->hp=10;
 	pi->def=1;
+	pi->priv |= 0x02; // Mark as a newbie item
 	}
 
 	{	// limit the scope of pi
@@ -2016,6 +2018,7 @@ void charcreate( UOXSOCKET s ) // All the character creation stuff
 	pi->lodamage=3;
 	pi->hidamage=15;
 	pi->itmhand=1;
+	pi->priv |= 0x02; // Mark as a newbie item
 	}
 
 #ifdef SPECIAL
