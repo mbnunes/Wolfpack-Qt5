@@ -397,8 +397,8 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 			if ( SrvParams->autoAccountCreate() )
 			{
 				authRet = Accounts->createAccount( username, password );
-				if( authRet )
-					return authenticate( username, password );
+				_account = authRet;
+				return true;
 			}
 			else
 				denyPacket.setReason( DL_NOACCOUNT );
