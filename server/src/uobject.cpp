@@ -408,16 +408,16 @@ bool cUObject::inRange( cUObject *object, UINT32 range )
 
 void cUObject::load( QSqlQuery *result, UINT16 &offset )
 {
-	name = result->value( offset++ ).toString();
-	serial = result->value( offset++ ).toInt();
-	multis = result->value( offset++ ).toInt();
-	pos.x = result->value( offset++ ).toInt();
-	pos.y = result->value( offset++ ).toInt();
-	pos.z = result->value( offset++ ).toInt();
+	name	= result->value( offset++ ).toString();
+	serial	= result->value( offset++ ).toInt();
+	multis	= result->value( offset++ ).toInt();
+	pos.x	= result->value( offset++ ).toInt();
+	pos.y	= result->value( offset++ ).toInt();
+	pos.z	= result->value( offset++ ).toInt();
 	pos.map = result->value( offset++ ).toInt();
 	QString events = result->value( offset++ ).toString();
-	eventList_ = QStringList::split( ",", events );
-	bindmenu_ = result->value( offset++ ).toInt();
+	eventList_	= QStringList::split( ",", events );
+	bindmenu_	= result->value( offset++ ).toString();
 }
 
 void cUObject::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
