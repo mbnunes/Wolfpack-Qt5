@@ -61,6 +61,12 @@ def giveAmmo( char, item ):
 
 	return 1
 
+def checkDirection(char, item):
+	if( ( item.id == 0x100b and ( char.pos.x != item.pos.x or char.pos.y <= item.pos.y ) ) or ( item.id == 0x100a and ( char.pos.y != item.pos.y or char.pos.x <= item.pos.x ) ) ):
+		return False
+	else:
+		return True
+
 def onUse( char, item ):
 	# Init the butte
 	if( not item.hastag( "arrow_count" ) or not item.hastag( "bolt_count" ) ):
@@ -88,7 +94,7 @@ def onUse( char, item ):
 		return True
 
 	# Sanity checks for the line-of-fire
-	if( ( item.id == 0x100b and ( char.pos.x != item.pos.x or char.pos.y <= item.pos.y ) ) or ( item.id == 0x100a and ( char.pos.y != item.pos.y or char.pos.x <= item.pos.x ) ) ):
+	if not checkDirection(char, item):
 		#You aren't properly lined up with the archery butte to get an accurate shot.
 		char.socket.clilocmessage(500597)
 		return True
