@@ -21,11 +21,11 @@
 		<hidamage>22</hidamage>
 		<!-- Resists -->
 		<defense><random min="60" max="70"/></defense>
-		<coldresist><random min="15" max="25"/></coldresist>
-		<energyresist><random min="15" max="25"/></energyresist>
-		<fireresist><random min="40" max="50"/></fireresist>
-		<physicalresist><random min="60" max="70"/></physicalresist>
-		<poisonresist><random min="15" max="25"/></poisonresist>
+		<tag name="coldresist" value="15,25" />
+		<tag name="energyresist" value="15,25" />
+		<tag name="fireresist" value="40,50" />
+		<tag name="physicalresist" value="60,70" />
+		<tag name="poisonresist" value="15,25" />
 		<!-- Misc. -->
 		<category>Monsters\Clockwork\Exodus Minion</category>
 	</npc>

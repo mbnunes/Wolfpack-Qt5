@@ -23,11 +23,11 @@
 		<hidamage>24</hidamage>
 		<!-- Resists -->
 		<defense><random min="45" max="55"/></defense>
-		<coldresist><random min="25" max="35"/></coldresist>
-		<energyresist><random min="35" max="45"/></energyresist>
-		<fireresist><random min="35" max="45"/></fireresist>
-		<physicalresist><random min="45" max="55"/></physicalresist>
-		<poisonresist><random min="45" max="55"/></poisonresist>
+		<tag name="coldresist" value="25,35" />
+		<tag name="energyresist" value="35,45" />
+		<tag name="fireresist" value="35,45" />
+		<tag name="physicalresist" value="45,55" />
+		<tag name="poisonresist" value="45,55" />
 		<!-- Misc. -->
 		<category>Animals\Clockwork\Centaur</category>
 		<totame>1100</totame>
