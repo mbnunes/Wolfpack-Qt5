@@ -84,7 +84,7 @@ QString cOnlineStatus::getCpu()
 	Q_UINT32	cur_uptime = uptime_.elapsed();
 	QString		percents;
 	
-	percents = QString( "%1.%2%" ).arg( ( 100 * ( cur_cpu - prv_cpu_ ) ) / ( cur_uptime - prv_uptime_ ) ).arg( (( 100 * ( cur_cpu - prv_cpu_ ) ) % ( cur_uptime - prv_uptime_ ) );
+	percents = QString( "%1.%2%" ).arg( ( 100 * ( cur_cpu - prv_cpu_ ) ) / ( cur_uptime - prv_uptime_ ) ).arg( (( 100 * ( cur_cpu - prv_cpu_ ) ) % ( cur_uptime - prv_uptime_ )),4 );
 	
 	prv_cpu_ = cur_cpu;
 	prv_uptime_ = cur_uptime;
