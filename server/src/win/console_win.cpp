@@ -61,11 +61,13 @@ extern int main( int argc, char **argv );
 #define CONTROL_LOGWINDOW 0x10
 #define CONTROL_INPUT 0x11
 
+CHARFORMAT cf;
 HMENU hmMainMenu;
 HICON iconRed = 0, iconGreen = 0;
 HBITMAP hLogo = 0;
 HWND lblUptime = 0, bmpLogo;
 HBRUSH hbSeparator = 0, hbBackground = 0;
+DWORD guiThread;
 HWND statusIcon = 0;
 HWND logWindow = 0;			// Log Window
 HWND inputWindow = 0;		// Input Textfield
@@ -237,7 +239,6 @@ bool handleMenuSelect( unsigned int id )
 
 LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam )
 {
-	CHARFORMAT cf;	
 	LOGFONT lfont;
 	NMHDR *notify = (NMHDR*)lparam;
 	HDC dc;	
@@ -248,8 +249,8 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 		if ((HWND)lparam == lblUptime) {
 			dc = (HDC)wparam;
 
-			//SelectObject( dc, GetStockObject(ANSI_VAR_FONT) );			
-			SetTextColor( dc, RGB( 0xAF, 0xAF, 0xAF ) );
+			//SelectObject( dc, GetStockObject(ANSI_VAR_FONT) );
+			SetTextColor(dc, RGB(0xAF, 0xAF, 0xAF));
 
 			SetBkMode( dc, TRANSPARENT );
 			//SelectObject( dc, GetStockObject( SYSTEM_FONT ) );
@@ -497,7 +498,7 @@ protected:
 		}
 		else
 		{
-			PostMessage( mainWindow, WM_QUIT, 0, 0 );
+			SendMessage( mainWindow, WM_QUIT, 0, 0 );
 		}
 	}
 };
@@ -505,6 +506,7 @@ protected:
 int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nShowCmd )
 {
 	appInstance = hInstance;
+	guiThread = GetCurrentThreadId();
 
 	// Try to load riched20.dll
 	HMODULE hRiched = LoadLibrary("riched20.dll");
@@ -683,11 +685,14 @@ void cConsole::send(const QString &sMessage)
 		}
 	}
 
-	unsigned int tLength = GetWindowTextLength( logWindow );
-	SendMessage( logWindow, EM_SETSEL, tLength, tLength );
+	unsigned int tLength = GetWindowTextLength(logWindow);
+	SendMessage(logWindow, EM_SETSEL, tLength, tLength);
+
+	// Set it to the current charformat
+	SendMessage(logWindow, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM)&cf);
 
 	// Now it will get right, even if the user had selected sth.
-	SendMessage( logWindow, EM_REPLACESEL, FALSE, (LPARAM)sMessage.latin1() );
+	SendMessage(logWindow, EM_REPLACESEL, FALSE, (LPARAM)sMessage.latin1());
 
 	// And ofcourse if not some control is currently capturing the input
 	if( !GetCapture() )
@@ -716,8 +721,7 @@ void cConsole::ChangeColor( WPC_ColorKeys color )
 	// Move the selection to the end of the field
 	unsigned int tLength = GetWindowTextLength(logWindow);
 	SendMessage(logWindow, EM_SETSEL, tLength, tLength);
-
-	CHARFORMAT cf;
+	
 	ZeroMemory( &cf, sizeof( CHARFORMAT ) );
 	cf.cbSize = sizeof( CHARFORMAT );
 	cf.dwMask = CFM_COLOR;
@@ -749,8 +753,6 @@ void cConsole::ChangeColor( WPC_ColorKeys color )
 		break;
 
 	};
-
-	SendMessage( logWindow, EM_SETCHARFORMAT, SCF_SELECTION, (LPARAM)&cf );
 }
 
 void cConsole::setConsoleTitle( const QString& data )
@@ -765,7 +767,7 @@ void cConsole::setAttributes( bool bold, bool italic, bool underlined, unsigned 
 	ZeroMemory( &cf, sizeof( CHARFORMAT ) );
 	cf.cbSize = sizeof( CHARFORMAT );
 
-	SendMessage( logWindow, EM_GETCHARFORMAT, SCF_SELECTION, (WPARAM)&cf );
+	SendMessage(logWindow, EM_GETCHARFORMAT, SCF_SELECTION, (WPARAM)&cf);
 
 	if( bold )
 	{
