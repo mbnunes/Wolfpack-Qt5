@@ -90,19 +90,51 @@ bool cHouse::onValidPlace()
 	if( Region != NULL && Region->isGuarded() && SrvParams->houseInTown() == 0 )
 		return false;
 
-	signed int checkz;
-	int checkx;
-	int checky;
-	checkx=pos.x-abs(space_.x/2);
-	for (;checkx<(pos.x+abs(space_.x/2));checkx++)
+	UI32 multiid = this->id() - 0x4000;
+
+	int j;
+	SI32 length;
+	st_multi multi;
+	UOXFile *mfile;
+	Map->SeekMulti(multiid, &mfile, &length);
+	length=length/sizeof(st_multi);
+	if (length == -1 || length>=17000000)//Too big...
 	{
-		checky=pos.y-(space_.y/2);
-		for (;checky<(pos.y+(space_.y/2));checky++)
+		clConsole.log( QString( "cBoat::isValidPlace: Bad length in multi file. Avoiding stall." ).latin1() );
+		length = 0;
+	}
+
+	SI08 mapz = 0;
+	map_st map;
+	land_st land;
+	tile_st tile;
+	for( j = 0; j < length; j++ )
+	{
+		mfile->get_st_multi(&multi);
+
+		mapz = Map->MapElevation( Coord_cl( multi.x + pos.x, multi.y + pos.y, pos.z, pos.map ) );
+		if( pos.z < mapz )
+			return false;
+		
+		MapStaticIterator msi( Coord_cl( multi.x + pos.x, multi.y + pos.y, pos.z, pos.map ) );
+		staticrecord *stat = msi.Next();
+		while( stat != NULL )
 		{
-			checkz=Map->MapElevation( Coord_cl( checkx,checky, pos.z, pos.map));
-			if ((checkz<(pos.z-7)) || (checkz>(pos.z+7)))
-			{
+			msi.GetTile( &tile );
+			if( multi.z > stat->zoff && multi.z < (stat->zoff + tile.height) )
 				return false;
+			stat = msi.Next();
+		}
+		
+		cRegion::RegionIterator4Items ri( Coord_cl( multi.x + pos.x, multi.y + pos.y, pos.z, pos.map ) );
+		for( ri.Begin(); !ri.atEnd(); ri++ ) 
+		{
+			P_ITEM pi = ri.GetData();
+			if( pi != NULL )
+			{
+				Map->SeekTile( pi->id(), &tile );
+				if( multi.z > pi->pos.z && multi.z < ( pi->pos.z + tile.height ) )
+					return false;
 			}
 		}
 	}

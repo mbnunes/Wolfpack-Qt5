@@ -809,11 +809,14 @@ void tileeffect(int x, int y, int z, char eff1, char eff2, char speed, char loop
 			if(abs(currchar[j]->pos.x-x)<=VISRANGE && abs(currchar[j]->pos.y-y)<=VISRANGE) 
 				Xsend(j, effect, 28);
 		}
+
 	}
 }
 
 void senditem(UOXSOCKET s, P_ITEM pi) // Send items (on ground)
 {
+	if( pi == NULL )
+		return;
 	int pack,serial;
 	unsigned char itmput[21]="\x1A\x00\x13\x40\x01\x02\x03\x20\x42\x00\x32\x06\x06\x06\x4A\x0A\x00\x00\x00";
 	P_CHAR pc_currchar = currchar[s];

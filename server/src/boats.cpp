@@ -206,6 +206,12 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 
 	this->autosail_ = 0;	// khpae : not moving 0, 1-8 : moving boatdirection+1
 
+	RefreshItem( pTiller );
+	RefreshItem( pPlankL );
+	RefreshItem( pPlankR );
+	RefreshItem( pHold );
+	RefreshItem( this );
+
 	mapRegions->Add(pTiller);//Make sure everything is in da regions!
 	mapRegions->Add(pPlankL);
 	mapRegions->Add(pPlankR);
