@@ -3,11 +3,10 @@
 
 import web.sessions
 import web.template
-import cgi
-import sys
 import wolfpack.console
 from wolfpack.consts import *
-import re
+import sys, cgi, re, string
+
 
 form = cgi.FieldStorage()
 session_id = form.getvalue( 'session', '' )
@@ -46,6 +45,11 @@ for line in wolfpack.console.getbuffer():
 		# Take it out
 		line = line[:i-1] + line[i+1:]
 		i = line.find( "\b" )
+
+	line = string.replace( line, "", "" )
+	line = string.replace( line, "[1;37m", "" )
+	line = string.replace( line, "[1;32m", "" )
+	line = string.replace( line, "[0m", "" )
 	
 	content += line + "\n"
 
