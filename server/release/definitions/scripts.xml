@@ -27,6 +27,7 @@
 	<script>scroll</script>
 	<script>spellbook</script>
 	<script>environment</script>
+	<script>door</script>
 	
 	<!-- Commands -->
 	<script>wolfpack.commands</script>

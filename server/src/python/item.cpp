@@ -36,6 +36,7 @@
 #include "../wolfpack.h"
 #include "../scriptmanager.h"
 #include "../itemid.h"
+#include "../multis.h"
 #include "../books.h"
 #include "../basechar.h"
 #include "../singleton.h"
@@ -700,6 +701,19 @@ static PyObject* wpItem_setadv( wpItem* self, PyObject* args )
 	return PyTrue;
 }
 
+// If we are in a multi, return the multi object for it
+// otherwise pynone
+static PyObject* wpItem_multi( wpItem* self, PyObject* args )
+{
+	if( self->pItem->free )
+	{
+		Py_INCREF( Py_None );
+		return Py_None;
+	}
+
+	return PyGetMultiObject( dynamic_cast< cMulti* >( FindItemBySerial( self->pItem->multis() ) ) );  
+}
+
 static PyMethodDef wpItemMethods[] = 
 {
 	{ "additem",			(getattrofunc)wpItem_additem, METH_VARARGS, "Adds an item to this container." },
@@ -718,6 +732,7 @@ static PyMethodDef wpItemMethods[] =
 	{ "getname",			(getattrofunc)wpItem_getname, METH_VARARGS, "Get item name." },
 	{ "getadv",				(getattrofunc)wpItem_getadv, METH_VARARGS,"Get advanced modifiers." },
 	{ "setadv",				(getattrofunc)wpItem_setadv, METH_VARARGS,"Set advanced modifiers." },
+	{ "multi",				(getattrofunc)wpItem_multi,	METH_VARARGS, NULL },
 
 	// Effects
 	{ "movingeffect",		(getattrofunc)wpItem_movingeffect, METH_VARARGS, "Shows a moving effect moving toward a given object or coordinate." },

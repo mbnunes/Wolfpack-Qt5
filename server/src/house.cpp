@@ -201,7 +201,7 @@ void cHouse::processNode( const cElement *Tag )
 
 void cHouse::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial )
 {
-	P_PLAYER pc_currchar = dynamic_cast<P_PLAYER>(FindCharBySerial( senderserial ));
+	P_PLAYER pc_currchar = dynamic_cast<P_PLAYER>( FindCharBySerial( senderserial ) );
 	if ( !pc_currchar )
 		return;
 	cUOSocket* socket = pc_currchar->socket();
@@ -218,9 +218,9 @@ void cHouse::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL
 		if( socket )
 			socket->sysMessage( tr("Can not build a house at this location!") );
 		this->remove();
-		this->remove();
 		return;
 	}
+
 	this->update();
 
 	P_ITEM pDeed = FindItemBySerial( deedserial );
@@ -228,9 +228,9 @@ void cHouse::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL
 		pDeed->remove();
 
 	if( !nokey_ )
-		createKeys( pc_currchar, tr("house key") );
+		createKeys( pc_currchar, tr( "house key" ) );
 
-	RegionIterator4Items ri(this->pos());
+	RegionIterator4Items ri( this->pos() );
 	for(ri.Begin(); !ri.atEnd(); ri++)
 	{
 		P_ITEM si = ri.GetData();

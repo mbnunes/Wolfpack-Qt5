@@ -59,7 +59,6 @@ void goldsfx( cUOSocket *socket, UINT16 amount, bool hearall );
 
 int getamount(P_CHAR pc, short id);
 void delequan(P_CHAR pc, short id, int amount, int *not_deleted = NULL);
-void dooruse( cUOSocket*, P_ITEM );
 void playmonstersound(P_CHAR monster, unsigned short id, int sfx);
 void sellaction(int s);
 void StoreItemRandomValue(P_ITEM pi,QString tmpreg); // by Magius(CHE) (2) for trade system

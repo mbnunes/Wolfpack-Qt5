@@ -514,6 +514,29 @@ static PyObject* wpMulti_bans( wpMulti* self, PyObject* args )
 	return list;
 }
 
+/*
+ * Is the player authorized?
+ */
+static PyObject* wpMulti_authorized( wpMulti* self, PyObject* args )
+{
+	if( self->pMulti->free )
+		return PyFalse;
+
+	if( !checkArgChar( 0 ) )
+		return PyFalse;
+
+	P_PLAYER pChar = dynamic_cast< P_PLAYER >( getArgChar( 0 ) );
+
+	if( pChar )
+	{
+		return self->pMulti->authorized( pChar ) ? PyTrue : PyFalse; 
+	}
+	else
+	{
+		return PyFalse;
+	}
+}
+
 static PyMethodDef wpMultiMethods[] = 
 {
 	{ "additem",			(getattrofunc)wpMulti_additem, METH_VARARGS, "Adds an item to this multi." },
@@ -526,9 +549,10 @@ static PyMethodDef wpMultiMethods[] =
 	{ "chars",				(getattrofunc)wpMulti_chars, METH_VARARGS, "Returns the list of the chars in this multi." },
 	{ "items",				(getattrofunc)wpMulti_items, METH_VARARGS, "Returns the list of the items in this multi." },
 	{ "friends",			(getattrofunc)wpMulti_friends, METH_VARARGS, "Returns the friends list of this multi." },
-	{ "bans",				(getattrofunc)wpMulti_friends, METH_VARARGS, "Returns the ban list of this multi." },
+	{ "bans",				(getattrofunc)wpMulti_bans, METH_VARARGS, "Returns the ban list of this multi." },
 	{ "addchtile",			(getattrofunc)wpMulti_addchtile, METH_VARARGS, "Adds a tile to the custom house." },
 	{ "sendcustomhouse",	(getattrofunc)wpMulti_sendcustomhouse, METH_VARARGS, "Sends custom house." },
+	{ "authorized",			(getattrofunc)wpMulti_authorized, METH_VARARGS, NULL },
 
 	// Tag System
 	{ "gettag",				(getattrofunc)wpMulti_gettag, METH_VARARGS, "Gets a tag assigned to a specific item." },

@@ -311,19 +311,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 		}
 		// End Boats --^
 		return;
-		
-	case 2: // Order gates?
-		return;// order gates
-	case 4: // Chaos gates?
-		return;// chaos gates
-	case 6: // teleport item (ring?)
-		return;// case 6
-	case 7: // key
-		return;// case 7 (keys)
-	case 8: // locked item spawner
-		pc_currchar->setObjectDelay( 0 );
-		socket->sysMessage( tr("This item is locked.") );
-		return;// case 8/64 (locked container)
 
 	// Book
 	case 11:
@@ -335,52 +322,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 			pBook->open( socket );
 		}
 		return;
-	}	
-	case 12: // door(unlocked)
-		pc_currchar->setObjectDelay( 0 );
-		dooruse( socket, pi );
-		return;
-	case 13: // locked door
-		{
-			if( pi->multis() != INVALID_SERIAL )
-			{
-				cMulti* pMulti = dynamic_cast< cMulti* >( FindItemBySerial( pi->multis() ) );
-				if( pMulti )
-				{
-					if( pMulti->authorized( pc_currchar ) )
-					{
-						socket->sysMessage( tr( "You quickly unlock, use, and then relock the door." ) );
-						pc_currchar->setObjectDelay( 0 );
-						dooruse( socket, pi );
-						return;
-					}
-				}
-			}
-			else
-			{
-				P_ITEM pPack = pc_currchar->getBackpack();
-				if( pPack )
-				{
-					cItem::ContainerContent container = pPack->content();
-					cItem::ContainerContent::const_iterator it(container.begin());
-					for( ; it != container.end(); ++it )
-					{
-						P_ITEM pj = *it;
-						if( pj && pj->type() == 7 && 
-							pj->tags().get( "linkserial" ).isValid() && pj->tags().get( "linkserial" ).toInt() == pi->serial() )
-						{
-							socket->sysMessage( tr( "You quickly unlock, use, and then relock the door." ) );
-							pc_currchar->setObjectDelay( 0 );
-							dooruse( socket, pi );
-							return;
-						}
-					}
-				}
-			}
-
-			socket->sysMessage( tr( "This door is locked." ) );
-			return;
-		}
+	}
 
 	// Food, OSI style
 	case 14:

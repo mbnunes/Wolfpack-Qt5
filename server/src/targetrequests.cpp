@@ -160,13 +160,19 @@ bool cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 
 bool cBuildMultiTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 {
-	if( target->x() & 0xFFFF || target->y() & 0xFFFF || target->z() & 0xFF )
+	if( target->x() == 0xFFFF || target->y() == 0xFFFF || target->z() == 0xFF )
+	{
+		socket->sysMessage( "Invalid target." );
 		return true;
+	}
 	
 	const cElement* DefSection = DefManager->getDefinition( WPDT_MULTI, multisection_ );
 	
 	if( !DefSection )
+	{
+		socket->sysMessage( "Invalid multisection." );
 		return true;
+	}
 
 	if( DefSection->getAttribute( "type" ) == "house" )
 	{
