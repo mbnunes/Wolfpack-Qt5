@@ -112,6 +112,10 @@
 	<script>magic.paralyzefield</script>
 	<script>magic.trap</script>
 
+	<script>magic.necromancy</script>
+	<script>magic.necrospells</script>
+	<script>magic.necrospellbook</script>
+
 	<!-- Multis -->
 	<script>deeds.multideed</script>
 	<script>signpost</script>

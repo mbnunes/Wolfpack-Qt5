@@ -1,0 +1,24 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Radiant                        |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Necromancer                                                   |
+=================================================================
+-->
+<definitions>
+	<!-- Spellbook -->
+	<item id="2253">
+		<id>0x2253</id>
+		<onehanded />
+		<newbie />
+		<decay />
+		<buyprice>18</buyprice>
+		<sellprice>9</sellprice>
+		<value>30</value>
+		<category>Professions\Necromancer\Spellbook</category>
+		<events>magic.necrospellbook</events>
+	</item>
+</definitions>

@@ -1,11 +1,11 @@
-#===============================================================#
-#	 )			(\_		 | WOLFPACK 13.0.0 Scripts										#
-#	((		_/{	"-;	| Created by: DarkStorm											#
-#	 )).-' {{ ;'`	 | Revised by:																#
-#	( (	;._ \\ ctr | Last Modification: Created								 #
-#===============================================================#
-# Script for Spellbooks																				 #
-#===============================================================#
+#================================================================#
+#	 )			(\_	 | WOLFPACK 13.0.0 Scripts                   #
+#	((		_/{	"-;	 | Created by: DarkStorm                     #
+#	 )).-' {{ ;'`	 | Revised by: Radiant                       #
+#	( (	;._ \\ ctr   | Last Modification: Changes for necromancy #
+#================================================================#
+# Script for Spellbooks                                          #
+#================================================================#
 
 """
 	\command addspell
@@ -77,7 +77,10 @@ def onLoad():
 		
 # Does the Spellbook have a specific spell?
 def hasspell( item, spell ):
-	if item and 'magic.spellbook' in item.events:
+	if item and ( item.hasevent( 'magic.spellbook' ) or item.hasevent( 'magic.necrospellbook' ) ):
+		if 'magic.necrospellbook' in item.events:
+			spell = spell - 100
+
 		circle = int( floor( spell / 8 ) ) + 1 # 0 for first circle
 		spell = spell % 8
 		
