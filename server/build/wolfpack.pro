@@ -16,7 +16,7 @@ win32-msvc:DEFINES +=  _CONSOLE _MBCS
 win32:INCLUDEPATH += lib/Python/PC
 unix:INCLUDEPATH += lib/Python
 unix:CONFIG += qt
-unix:LIBS       = -Llib/ZThread/lib -Llib/Python -ldl -lZThread -lpython2.2
+unix:LIBS       = -Llib/ZThread/lib -Llib/Python -ldl -lZThread -lpython2.2 -lmysqlclient
 
 
 
