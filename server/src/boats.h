@@ -164,6 +164,7 @@ protected:
 	bool isValidPlace( UI16 posx, UI16 posy, SI08 posz, UI08 boatdir );
 
 protected:
+	bool	moves_;
 	UI08	boatdir;
 	UI08	autosail_;
 	std::vector< UI16 > multiids_;

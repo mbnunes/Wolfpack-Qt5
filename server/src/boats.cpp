@@ -34,6 +34,8 @@
 #include "network.h"
 #include "regions.h"
 #include "mapstuff.h"
+#include "srvparams.h"
+
 #include "classes.h" // only for the illegal_z!
 
 #undef DBGFILE
@@ -47,6 +49,7 @@ cBoat::cBoat()
 	this->deedsection_ = (char*)0;
 	this->boatdir = 0;
 	this->autosail_ = 0;
+	this->moves_ = false;
 
 
 	// default special-item ids!
@@ -94,6 +97,8 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	this->type_ = 117;//Boat type
 	this->name_ = "a mast";//Name is something other than "%s's house"
 	this->boatdir = 0; // starting with north boatdirection
+
+	this->gatetime=(unsigned int)(uiCurrentTime + (double)(SrvParams->boatSpeed()*MY_CLOCKS_PER_SEC));
 
 	this->applyDefinition( Tag );
 	if( this->multiids_.size() < 4 || !this->isValidPlace( posx, posy, posz, 0 ) )
@@ -503,7 +508,7 @@ void cBoat::turn( SI08 turn )
 	else if( turn < 0 ) 
 	{
 		if( this->boatdir <= 1 )
-			newboatdir = 7;
+			newboatdir = 6;
 		else
 			newboatdir-=2;
 	}
@@ -657,6 +662,9 @@ void cBoat::turn( SI08 turn )
 
 bool cBoat::move( void )
 {
+	if( !this->moves_ )
+		return false;
+
 	if( this->autosail_ > 0 )
 	{
 		// do autosail stuff HERE, that means find out the new boatdirection, turn the boat if necissary and change the mappin stuff
