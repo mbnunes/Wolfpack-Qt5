@@ -157,7 +157,7 @@ public:
 	void TasteIDTarget(int s);
 	int TrackingDirection(int s, int i);
 	void CreatePotion(CHARACTER s, char type, char sub, P_ITEM pi_mortar);
-	char AdvanceSkill(CHARACTER s, int sk, char skillused);
+	char AdvanceSkill(P_CHAR pc, int sk, char skillused);
 	void AdvanceStats(CHARACTER s, int sk);
 	void TinkerAxel(int s);
 	void TinkerAwg(int s);

@@ -666,7 +666,7 @@ void cSkills::Hide(int s)
 	if (pc_currchar->attacker != INVALID_SERIAL)
 	{ 
 		P_CHAR pc_attacker = FindCharBySerial(pc_currchar->attacker);
-		if (inrange1p(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(pc_attacker)))
+		if (inrange1p(pc_currchar, pc_attacker))
 		{
 			sysmessage(s, "You cannot hide while fighting."); 
 			return; 
@@ -759,7 +759,7 @@ void cSkills::PeaceMaking(int s)
 			P_CHAR mapchar = ri.GetData();
 			if (mapchar !=NULL)
 			{
-				if (inrange1p(DEREF_P_CHAR(mapchar), DEREF_P_CHAR(pc_currchar)) && mapchar->war)
+				if (inrange1p(mapchar, pc_currchar) && mapchar->war)
 				{
 					j = calcSocketFromChar(DEREF_P_CHAR(mapchar));
 					if ( j != INVALID_UOXSOCKET )
@@ -844,7 +844,7 @@ static bool DoOnePotion(int s,short regid, int regamount, char* regname)
 	{
 		success=true;
 		sprintf((char*)temp, "*%s starts grinding some %s in the mortar.*", currchar[s]->name, regname);
-		npcemoteall(DEREF_P_CHAR(currchar[s]), (char*)temp,1); // LB, the 1 stops stupid alchemy spam
+		npcemoteall(currchar[s], (char*)temp,1); // LB, the 1 stops stupid alchemy spam
 		delequan(DEREF_P_CHAR(currchar[s]),regid,regamount);
 	}
 	else
@@ -944,7 +944,7 @@ void cSkills::CreatePotion(int s, char type, char sub, P_ITEM pi_mortar)
 	if (success==0 && !pc->isGM()) // AC bugfix
 	{
 		sprintf((char*)temp, "*%s tosses the failed mixture from the mortar, unable to create a potion from it.*", pc->name);
-		npcemoteall(s, (char*)temp,0);
+		npcemoteall(pc, (char*)temp,0);
 		return;
 	}
 	pi_mortar->type=17;
@@ -961,8 +961,8 @@ void cSkills::CreatePotion(int s, char type, char sub, P_ITEM pi_mortar)
 		// Dupois - Added pouring potion sfx Oct 09, 1998
 		soundeffect(s, 0x02, 0x40);	// Liquid sfx
 		sprintf((char*)temp, "*%s pours the completed potion into a bottle.*", pc->name);
-		npcemoteall(s, (char*)temp,0);
-		delequan(s, 0x0F0E, 1);
+		npcemoteall(pc, (char*)temp,0);
+		delequan(DEREF_P_CHAR(pc), 0x0F0E, 1);
 		Skills->PotionToBottle(s, pi_mortar);
 	} 
 }
@@ -988,7 +988,7 @@ void cSkills::BottleTarget(int s)
 		if (mortar->type == 17) 
 		{
 			sprintf((char*)temp, "*%s pours the completed potion into a bottle.*", pc_currchar->name);
-			npcemoteall(DEREF_P_CHAR(pc_currchar), (char*)temp,0);
+			npcemoteall(pc_currchar, (char*)temp,0);
 			Skills->PotionToBottle(DEREF_P_CHAR(pc_currchar), mortar);
 		}
 	}
@@ -1106,7 +1106,7 @@ char cSkills::CheckSkill(P_CHAR pc, unsigned short int sk, int low, int high)
 	{
 		if (sk!=MAGERY || (sk==MAGERY && pc->isPlayer() && currentSpellType[s]==0))
 		{
-			if(Skills->AdvanceSkill(DEREF_P_CHAR(pc), sk, skillused))
+			if(Skills->AdvanceSkill(pc, sk, skillused))
 			{
 				Skills->updateSkillLevel(DEREF_P_CHAR(pc), sk); 
 				if(pc->isPlayer() && online(pc)) updateskill(s, sk);
@@ -1116,7 +1116,7 @@ char cSkills::CheckSkill(P_CHAR pc, unsigned short int sk, int low, int high)
 	return skillused;
 }
 
-char cSkills::AdvanceSkill(CHARACTER s, int sk, char skillused)
+char cSkills::AdvanceSkill(P_CHAR pc, int sk, char skillused)
 {
 	int i=0, retval, incval,a,d=0;
 	unsigned int ges = 0;
@@ -1124,7 +1124,8 @@ char cSkills::AdvanceSkill(CHARACTER s, int sk, char skillused)
 
 	int atrophy_candidates[ALLSKILLS+1];
 
-	P_CHAR pc = MAKE_CHARREF_LRV(s, 0)
+	if (pc == NULL)
+		return 0;
 
 
 	lockstate=pc->lockSkill[sk];
@@ -1601,7 +1602,7 @@ void cSkills::RandomSteal(int s)
 		{//Did they get cought? (If they fail 1 in 5 chance, other wise their skill away from 1000 out of 1000 chance)
 			sysmessage(s,"You have been cought!");
 			
-			if (pc_npc->isNpc()) npctalkall(DEREF_P_CHAR(pc_npc), "Guards!! A thief is amoung us!",0);
+			if (pc_npc->isNpc()) npctalkall(pc_npc, "Guards!! A thief is amoung us!",0);
 			
 			if (pc_npc->isInnocent() && pc_currchar->attacker != pc_npc->serial && Guilds->Compare(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(pc_npc))==0)//AntiChrist
 				criminal( pc_currchar );//Blue and not attacker and not guild
@@ -1621,7 +1622,7 @@ void cSkills::RandomSteal(int s)
 			{
 				if (perm[i])
 				{
-				    if((i!=s)&&(inrange1p(DEREF_P_CHAR(pc_currchar),DEREF_P_CHAR(currchar[i])))&&(rand()%10+10==17||(rand()%2==1 && currchar[i]->in>=pc_currchar->in))) sysmessage(s,temp2);
+				    if((i!=s)&&(inrange1p(pc_currchar,currchar[i]))&&(rand()%10+10==17||(rand()%2==1 && currchar[i]->in>=pc_currchar->in))) sysmessage(s,temp2);
 				}
 			}
 		}
@@ -1968,7 +1969,7 @@ void TellScroll( char *menu_name, int s, long snum )
 	
 	if (spells[num].action)
 		impaction(s, spells[num].action);
-	npctalkall(DEREF_P_CHAR(pc_currchar), spells[num].mantra,0);
+	npctalkall(pc_currchar, spells[num].mantra,0);
 	
 	if(!Magic->CheckReagents(DEREF_P_CHAR(pc_currchar), spells[num].reagents)
 		|| !Magic->CheckMana(DEREF_P_CHAR(pc_currchar), num))

@@ -160,13 +160,14 @@ int inrange1 (UOXSOCKET a, UOXSOCKET b) // Are players from sockets a and b in v
 	return 0;
 }
 
-bool inrange1p (PC_CHAR pca, CHARACTER b) // Are characters a and b in visual range
+bool inrange1p (PC_CHAR pca, P_CHAR pcb) // Are characters a and b in visual range
 {
-	if (pca == NULL || b<0 || b>cmem) return false;
+	if (pca == NULL || pcb == NULL) return false;
 
-	return inVisRange(pca->pos.x, pca->pos.y, chars[b].pos.x, chars[b].pos.y);
+	return inVisRange(pca->pos.x, pca->pos.y, pcb->pos.x, pcb->pos.y);
 }
 
+/*
 int inrange1p (CHARACTER a, CHARACTER b) // Are characters a and b in visual range
 {
 	if (a<0 || a>cmem || b<0 || b>cmem) return 0; //LB
@@ -175,7 +176,7 @@ int inrange1p (CHARACTER a, CHARACTER b) // Are characters a and b in visual ran
 		return 1;
 	return 0;
 }
-
+*/
 ///////////
 // Name:	inRange
 // Purpose:	checks if position 1 and 2 are in given range
@@ -1028,7 +1029,7 @@ void deathstuff(int i)
 				pc_t->summontimer=(uiCurrentTime+(MY_CLOCKS_PER_SEC*20));
 				pc_t->npcWander=2;
 				pc_t->setNextMoveTime();
-				npctalkall(DEREF_P_CHAR(pc_t),"Thou have suffered thy punishment, scoundrel.",0);
+				npctalkall(pc_t,"Thou have suffered thy punishment, scoundrel.",0);
 			}
 			pc_t->targ=INVALID_SERIAL;
 			pc_t->timeout=0;
@@ -1211,7 +1212,7 @@ void deathstuff(int i)
 				clearmsg[6]=pc_player->ser4;
 				clearmsg[7]=0x00;
 				for (l=0;l<now;l++)
-					if (perm[l] && inrange1p(DEREF_P_CHAR(pc_player), DEREF_P_CHAR(currchar[l]))) 
+					if (perm[l] && inrange1p(pc_player, currchar[l])) 
 						Xsend(l, clearmsg, 8);
 			}//else if it's a normal item but ( not newbie and not bank items )
 			else if ((!(pi_j->priv&0x02)) && pi_j->layer!=0x1D)
@@ -2366,26 +2367,26 @@ void batchcheck(int s) // Do we have to run a batch file
 	executebatch=0;
 }
 
-void npctalkall_runic(int npc, char *txt,char antispam)
+void npctalkall_runic(P_CHAR npc, char *txt,char antispam)
 {
-	if (npc==-1) return;
+	if (npc == NULL) return;
 
 	int i;
 
 	for (i=0;i<now;i++)
-		if (inrange1p(npc, DEREF_P_CHAR(currchar[i]))&&perm[i])
-			npctalk_runic(i, npc, txt,antispam);
+		if (inrange1p(npc, currchar[i])&&perm[i])
+			npctalk_runic(i, DEREF_P_CHAR(npc), txt,antispam);
 }
 
-void npcemoteall(int npc, char *txt,unsigned char antispam) // NPC speech to all in range.
+void npcemoteall(P_CHAR npc, char *txt,unsigned char antispam) // NPC speech to all in range.
 {
 	int i;
 
-	if (npc==-1) return;
+	if (npc==NULL) return;
 
 	for (i=0;i<now;i++)
-		if (inrange1p(npc, DEREF_P_CHAR(currchar[i]))&&perm[i])
-			npcemote(i, npc, txt,antispam);
+		if (inrange1p(npc, currchar[i])&&perm[i])
+			npcemote(i, DEREF_P_CHAR(npc), txt,antispam);
 }
 
 //taken from 6904t2(5/10/99) - AntiChrist
@@ -3615,7 +3616,7 @@ void npcattacktarget(int target2, int target)
 
 	for (i=0;i<now;i++)
 		{
-		 if (inrange1p(currchar[i], DEREF_P_CHAR(pc_target))&&perm[i])
+		 if (inrange1p(currchar[i], pc_target)&&perm[i])
 		 {
 			  pc_target->emotecolor1=0x00;
 			  pc_target->emotecolor2=0x26;
@@ -5388,7 +5389,7 @@ void RefreshItem(P_ITEM pi)//Send this item to all online people in range
 		P_CHAR charcont = FindCharBySerial(pi->contserial);
 		for(a=0;a<(unsigned)now;a++)//send this item to all the sockets in range
 		{
-			if(perm[a] && inrange1p(currchar[a], DEREF_P_CHAR(charcont)))
+			if(perm[a] && inrange1p(currchar[a], charcont))
 				Xsend(a, wearitem, 15);
 		}
 		return;

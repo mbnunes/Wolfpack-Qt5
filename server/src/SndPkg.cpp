@@ -118,7 +118,7 @@ void soundeffect2(PC_CHAR pc, short sound)
 	sfx[8]=pc->pos.y>>8;
 	sfx[9]=pc->pos.y%256;
 	for (i=0;i<now;i++)
-		if ((perm[i])&&(inrange1p(pc, DEREF_P_CHAR(currchar[i]))))
+		if ((perm[i])&&(inrange1p(pc, currchar[i])))
 		{
 			Xsend(i, sfx, 12);
 		}
@@ -136,7 +136,7 @@ void soundeffect2(CHARACTER p, unsigned char a, unsigned char b)
 	sfx[8]=pc->pos.y>>8;
 	sfx[9]=pc->pos.y%256;
 	for (i=0;i<now;i++)
-		if ((perm[i])&&(inrange1p(p, DEREF_P_CHAR(currchar[i]))))
+		if ((perm[i])&&(inrange1p(pc, currchar[i])))
 		{
 			Xsend(i, sfx, 12);
 		}
@@ -204,7 +204,7 @@ void npcaction(int npc, int x) // NPC character does a certain action
 	doact[5]=x>>8;
 	doact[6]=x%256;
 	for (i=0;i<now;i++) 
-		if ((inrange1p(currchar[i], npc))&&(perm[i])) 
+		if ((inrange1p(currchar[i], pc_npc))&&(perm[i])) 
 			Xsend(i, doact, 14);
 }
 
@@ -794,7 +794,7 @@ void sendbpitem(UOXSOCKET s, P_ITEM pi) // Update single item in backpack
 
 	P_CHAR pc = FindCharBySerial(pio->contserial);
 
-	if (((pc != NULL)&&(inrange1p(currchar[s],DEREF_P_CHAR(pc))))|| // if item is in a character's
+	if (((pc != NULL)&&(inrange1p(currchar[s], pc)))|| // if item is in a character's
 		//pack (or subcontainer) and player is in range
 		((pc == NULL)&&(inrange2(s,pio))))	// or item is in container on ground and
 		// container is in range
@@ -1470,7 +1470,7 @@ void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 		if (perm[i])
 		{
 		   Xsend(i, removeitem, 5);
-		   if (inrange1p(DEREF_P_CHAR(pc), DEREF_P_CHAR(currchar[i]))) 
+		   if (inrange1p(pc, currchar[i])) 
 			   impowncreate(i, DEREF_P_CHAR(pc), 1);
 		}
 	}
@@ -1492,7 +1492,7 @@ void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 					P_ITEM mapitem = FindItemBySerial(vecEntries[w]);
 					if (mapchar != NULL)
 					{
-						if ((mapchar->isNpc()||online(mapchar)||pc->isGM())&&(pc != mapchar)&&(inrange1p(DEREF_P_CHAR(pc), DEREF_P_CHAR(mapchar))))
+						if ((mapchar->isNpc()||online(mapchar)||pc->isGM())&&(pc != mapchar)&&(inrange1p(pc, mapchar)))
 						{
 							impowncreate(k, DEREF_P_CHAR(mapchar), 1);
 						}
@@ -1557,7 +1557,7 @@ void teleport2(CHARACTER s) // used for /RESEND only - Morrolan, so people can f
 		// Added Oct 08, 1998
 		if (perm[i])
 		{			 
-			if (inrange1p(DEREF_P_CHAR(pc), DEREF_P_CHAR(currchar[i])))
+			if (inrange1p(pc, currchar[i]))
 			{
 				impowncreate(i, DEREF_P_CHAR(pc), 1);
 			}
@@ -1570,7 +1570,7 @@ void teleport2(CHARACTER s) // used for /RESEND only - Morrolan, so people can f
 		for (iter_char.Begin(); iter_char.GetData() != NULL; iter_char++)
 		{ //Tauriel only send inrange people (walking takes care of out of view)
 			P_CHAR pc_i = iter_char.GetData();
-			if ( ( online(pc_i) || pc_i->isNpc() || pc->isGM()) && (pc->serial!= pc_i->serial) && (inrange1p(s, DEREF_P_CHAR(pc_i))))
+			if ( ( online(pc_i) || pc_i->isNpc() || pc->isGM()) && (pc->serial!= pc_i->serial) && (inrange1p(pc, pc_i)))
 			{
 				impowncreate(k, DEREF_P_CHAR(pc_i), 1);
 			}
@@ -1590,7 +1590,7 @@ void updatechar(CHARACTER c) // If character status has been changed (Polymorph)
 
 	for (i=0;i<now;i++)
 	{
-		if (perm[i] && inrange1p(currchar[i], c))
+		if (perm[i] && inrange1p(currchar[i], pc))
 		{
 			removeitem[1]=pc->ser1;
 			removeitem[2]=pc->ser2;
@@ -1621,7 +1621,7 @@ void updatechar(CHARACTER c) // If character status has been changed (Polymorph)
 				Xsend(i, goxyz, 19);
 				walksequence[i]=-1;
 			}
-			if (inrange1p(DEREF_P_CHAR(pc), DEREF_P_CHAR(currchar[i])))
+			if (inrange1p(pc, currchar[i]))
 			{
 				impowncreate(i, DEREF_P_CHAR(pc), 0);			
 			}
@@ -1709,7 +1709,7 @@ void updatestats( P_CHAR pc, char x )
 	if (x == 0)  //Send to all, only if it's Health change
 	{
 		for (i=0;i<now;i++) 
-			if (perm[i] && inrange1p(currchar[i], DEREF_P_CHAR(pc)) ) 
+			if (perm[i] && inrange1p(currchar[i], pc) ) 
 				Xsend(i, updater, 9);
 	} else {
 		UOXSOCKET s = calcSocketFromChar(pc);
@@ -2097,20 +2097,15 @@ void npctalk(int s, int npc, char *txt,char antispam) // NPC speech
 	}
 }
 
-void npctalkall(cChar* pc, char *txt,char antispam) // NPC speech to all in range.
+void npctalkall(P_CHAR npc, char *txt,char antispam) // NPC speech to all in range.
 {
-	npctalkall(DEREF_P_CHAR(pc), txt, antispam);
-}
-
-void npctalkall(int npc, char *txt,char antispam) // NPC speech to all in range.
-{
-	if (npc==-1) return;
+	if (npc==NULL) return;
 
 	int i;
 
 	for (i=0;i<now;i++)
-		if (inrange1p(npc, DEREF_P_CHAR(currchar[i]))&&perm[i])
-			npctalk(i, npc, txt,antispam);
+		if (inrange1p(npc, currchar[i])&&perm[i])
+			npctalk(i, DEREF_P_CHAR(npc), txt,antispam);
 }
 
 void npctalk_runic(int s, int npc, char *txt,char antispam) // NPC speech
@@ -2245,7 +2240,7 @@ void staticeffect(CHARACTER player, unsigned char eff1, unsigned char eff2, unsi
 	 {
 	   for (j=0;j<now;j++)
 	   {
-		 if ((inrange1p(currchar[j],player))&&(perm[j]))
+		 if ((inrange1p(currchar[j], pc_player))&&(perm[j]))
 		 {
 			Xsend(j, effect, 28);
 		 }
@@ -2257,7 +2252,7 @@ void staticeffect(CHARACTER player, unsigned char eff1, unsigned char eff2, unsi
 		// UO3D effect -> let's check which client can see it
 	   for (j=0;j<now;j++)
 	   {
-		 if ((inrange1p(currchar[j],player))&&(perm[j]))
+		 if ((inrange1p(currchar[j],pc_player))&&(perm[j]))
 		 {
 			 if (clientDimension[j]==2 && !skip_old) // 2D client, send old style'd 
 			 {
@@ -2342,7 +2337,7 @@ void movingeffect(int source, int dest, unsigned char eff1, unsigned char eff2, 
 	 {
 	   for (j=0;j<now;j++)
 	   {
-		 if ( (inrange1p(currchar[j],DEREF_P_CHAR(pc_source)))&&(inrange1p(currchar[j],DEREF_P_CHAR(pc_dest)))&&(perm[j]))
+		 if ( (inrange1p(currchar[j],pc_source))&&(inrange1p(currchar[j],pc_dest))&&(perm[j]))
 		 {
 			Xsend(j, effect, 28);
 		 }
@@ -2354,7 +2349,7 @@ void movingeffect(int source, int dest, unsigned char eff1, unsigned char eff2, 
 		// UO3D effect -> let's check which client can see it
 	   for (j=0;j<now;j++)
 	   {
-		 if ( (inrange1p(currchar[j],DEREF_P_CHAR(pc_source)))&&(inrange1p(currchar[j],DEREF_P_CHAR(pc_dest)))&&(perm[j]))
+		 if ( (inrange1p(currchar[j],pc_source))&&(inrange1p(currchar[j],pc_dest))&&(perm[j]))
 		 {
 			 if (clientDimension[j]==2 && !skip_old) // 2D client, send old style'd 
 			 {
@@ -2404,7 +2399,7 @@ void bolteffect(int player, bool UO3DonlyEffekt, bool skip_old )
 	 {
 	   for (j=0;j<now;j++)
 	   {
-		 if ((inrange1p(currchar[j],player))&&(perm[j]))
+		 if ((inrange1p(currchar[j],pc_player))&&(perm[j]))
 		 {			
 			Xsend(j, effect, 28);
 		 }
@@ -2416,7 +2411,7 @@ void bolteffect(int player, bool UO3DonlyEffekt, bool skip_old )
 		// UO3D effect -> let's check which client can see it
 	   for (j=0;j<now;j++)
 	   {
-		 if ((inrange1p(currchar[j],player))&&(perm[j]))
+		 if ((inrange1p(currchar[j],pc_player))&&(perm[j]))
 		 {
 			 if (clientDimension[j]==2 && !skip_old) // 2D client, send old style'd 
 			 {
@@ -2560,7 +2555,7 @@ void bolteffect2(int player,char a1,char a2)	// experimenatal, lb
 
 	for (j=0;j<now;j++)
 	{
-		if ((inrange1p(currchar[j],player))&&(perm[j]))
+		if ((inrange1p(currchar[j],pc_player))&&(perm[j]))
 		{
 			Xsend(j, effect, 28);
 		}
@@ -2691,7 +2686,7 @@ void movingeffect3(int source, int dest, unsigned char eff1, unsigned char eff2,
 	effect[27]=explode; // This value is used for moving effects that explode on impact.
 	for (j=0;j<now;j++)
 	{
-		if ((inrange1p(currchar[j],source))&&(inrange1p(currchar[j],dest))&&(perm[j]))
+		if ((inrange1p(currchar[j],pc_source))&&(inrange1p(currchar[j],pc_dest))&&(perm[j]))
 		{
 			Xsend(j, effect, 28);
 		}
@@ -2740,7 +2735,7 @@ void movingeffect2(int source, P_ITEM dest, unsigned char eff1, unsigned char ef
 	effect[27]=explode; // This value is used for moving effects that explode on impact.
 	for (j=0;j<now;j++)
 	{	// - If in range of source person or destination position and online send effect
-		if ((inrange1p(currchar[j],source) || inrange2(j,pi)) && (perm[j]))
+		if ((inrange1p(currchar[j],pc_source) || inrange2(j,pi)) && (perm[j]))
 		{
 			Xsend(j, effect, 28);
 		}
@@ -2826,7 +2821,7 @@ void deathaction(int s, P_ITEM pi_x) // Character does a certain action
 	LongToCharPtr(pi_x->serial,deathact+5);
 	
 	for (i=0;i<now;i++) 
-		if ((inrange1p(s, DEREF_P_CHAR(currchar[i])))&&(perm[i]) && (currchar[i]!=pc)) 
+		if ((inrange1p(pc, currchar[i]))&&(perm[i]) && (currchar[i]!=pc)) 
 			Xsend(i, deathact, 13);
 	
 }
@@ -3144,7 +3139,7 @@ int sellstuff(int s, int i)
 	}
 	else
 	{
-		npctalkall(i, "Thou doth posses nothing of interest to me.",0);
+		npctalkall(pc, "Thou doth posses nothing of interest to me.",0);
 	}
 	m2[0]=0x33;
 	m2[1]=0x00;

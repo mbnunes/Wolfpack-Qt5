@@ -254,7 +254,7 @@ void MakeNecroReg(int nSocket, P_ITEM pMat, short id)
 	if( id>=0x1B11 && id<=0x1B1C ) // Make bone powder.
 	{
 		sprintf((char*)temp,"%s is grinding some bone into powder.", pc_currchar->name);
-		npcemoteall(DEREF_P_CHAR(pc_currchar), (char*)temp,1);
+		npcemoteall(pc_currchar, (char*)temp,1);
 		tempeffect(pc_currchar, pc_currchar, 9, 0, 0, 0);
 		tempeffect(pc_currchar, pc_currchar, 9, 0, 3, 0);
 		tempeffect(pc_currchar, pc_currchar, 9, 0, 6, 0);

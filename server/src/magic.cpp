@@ -1056,7 +1056,7 @@ void cMagic::NPCCure(CHARACTER s)
 		SubtractMana(pc,5);
 		pc->poisoned=0;
 		pc->poisonwearofftime=uiCurrentTime;
-		npcemoteall(DEREF_P_CHAR(pc), "Laughs at the poison attempt", 0);
+		npcemoteall(pc, "Laughs at the poison attempt", 0);
 	}
 
 }
@@ -1637,9 +1637,9 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 	if (type!=2)
 	{
 		if (spells[num].runic || pc_currchar->skill[MAGERY]/10 > 99 )	// Add runic talk to gm mages (Blackwind)
-			npctalkall_runic(DEREF_P_CHAR(pc_currchar),strupr(spells[num].mantra),0);
+			npctalkall_runic(pc_currchar,strupr(spells[num].mantra),0);
 		else
-			npctalkall(DEREF_P_CHAR(pc_currchar), spells[num].mantra,0);
+			npctalkall(pc_currchar, spells[num].mantra,0);
 		impaction(s, spells[num].action);
 	}
 	//spell section for implementation specific stuff to get the spell to work

@@ -955,7 +955,7 @@ void cMovement::SendWalkToOtherPlayers(P_CHAR pc, int dir, short int oldx, short
 	for (int i=0;i<now;i++)
 	{
 		// lets see, its much cheaper to call perm[i] first so i'm reordering this
-		if ((perm[i]) && (inrange1p(DEREF_P_CHAR(pc), DEREF_P_CHAR(currchar[i]))))
+		if ((perm[i]) && (inrange1p(pc, currchar[i])))
 		{
 			/*if (
 				(((abs(newx-chars[currchar[i]].pos.x)==visibleRange )||(abs(newy-chars[currchar[i]].pos.y)== visibleRange )) &&
@@ -1334,7 +1334,7 @@ void cMovement::CombatWalk(P_CHAR pc) // Only for switching to combat mode
     for (unsigned int i=0;i<now;i++)
     {
 		// moved perm[i] first since its much faster
-        if ((perm[i]) && (inrange1p(DEREF_P_CHAR(pc), DEREF_P_CHAR(currchar[i]))))
+        if ((perm[i]) && (inrange1p(pc, currchar[i])))
         {
 			P_CHAR pc_check = currchar[i];
             extmove[1] = pc->ser1;

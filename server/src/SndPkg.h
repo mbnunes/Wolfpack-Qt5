@@ -101,7 +101,6 @@ void itemtalk(int s, P_ITEM pi, char *txt); // Item "speech"
 void npctalk(int s, cChar* pNpc, char *txt,char antispam); // NPC speech
 void npctalk(int s, int npc, char *txt,char antispam); // NPC speech
 void npctalkall(cChar* pNpc, char *txt,char antispam); // NPC speech to all in range.
-void npctalkall(int npc, char *txt,char antispam); // NPC speech to all in range.
 void npctalk_runic(int s, int npc, char *txt,char antispam); // NPC speech
 void npcemote(int s, int npc, char *txt, char antispam); // NPC speech
 

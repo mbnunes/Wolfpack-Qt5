@@ -102,7 +102,7 @@ void charcreate(UOXSOCKET s);	// All the character creation stuff
 void srequest(int s);
 
 int inrange2 (UOXSOCKET s, P_ITEM pi);
-bool inrange1p (PC_CHAR pca, CHARACTER b);
+bool inrange1p (PC_CHAR pca, P_CHAR pcb);
 bool iteminrange (const UOXSOCKET s, const P_ITEM pi, const int distance);
 void vialtarget(int nSocket);
 void MakeNecroReg(int nSocket,P_ITEM pMat, short id);

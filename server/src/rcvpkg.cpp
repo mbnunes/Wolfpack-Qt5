@@ -128,7 +128,7 @@ void RcvAttack(P_CLIENT ps)
 			}
 			else if( pc_i->isNpc() && pc_i->isInnocent() && pc_i->isHuman() && pc_i->npcaitype!=4 )
 			{
-				npctalkall(DEREF_P_CHAR(pc_i), "Help! Guards! I've been attacked!", 1);
+				npctalkall(pc_i, "Help! Guards! I've been attacked!", 1);
 				criminal( pc_currchar );
 				callguards(DEREF_P_CHAR(pc_i));
 			}
@@ -178,7 +178,7 @@ void RcvAttack(P_CLIENT ps)
 					npcattacktarget(DEREF_P_CHAR(pc_i),DEREF_P_CHAR(pc_currchar));
 					if (pc_i->isHuman() )
 					{
-						npctalkall(DEREF_P_CHAR(pc_i), "Help! Guards! Tis a murder being commited!", 1);
+						npctalkall(pc_i, "Help! Guards! Tis a murder being commited!", 1);
 					}
 				}
 			}

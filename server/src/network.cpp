@@ -792,7 +792,7 @@ char cNetworkStuff::LogOut(int s)//Instalog
 
 	for (i=0;i<now;i++) 
 	{
-		if(perm[i] && i!=s && inrange1p(currchar[i],DEREF_P_CHAR(pc_currchar)))
+		if(perm[i] && i!=s && inrange1p(currchar[i], pc_currchar))
 			impowncreate(i,DEREF_P_CHAR(pc_currchar),0);
 	}
 

@@ -2173,7 +2173,7 @@ void cTargets::TransferTarget(int s)
 		return;
 
 	sprintf(t,"* %s will now take %s as his master *",pc1->name,pc2->name);
-	npctalkall(DEREF_P_CHAR(pc1), t, 0);
+	npctalkall(pc1, t, 0);
 
 	if (pc1->ownserial != -1) 
 		pc1->SetOwnSerial(-1);
@@ -2706,7 +2706,7 @@ void cTargets::HouseOwnerTarget(int s) // crackerjack 8/10/99 - change house own
 
 	int k;
 	for(k=0;k<now;k++)
-		if(k!=s && ( (perm[k] && inrange1p(DEREF_P_CHAR(currchar[k]), DEREF_P_CHAR(currchar[s])) )||
+		if(k!=s && ( (perm[k] && inrange1p(currchar[k], currchar[s]) )||
 			(currchar[k]->serial==o_serial)))
 			sysmessage(k, (char*)temp);
 }

@@ -1489,7 +1489,7 @@ void cSkills::ProvocationTarget2(UOXSOCKET s)
 		unsigned int i;
 		for (i=0;i<now;i++)
 		{
-			if (inrange1p(currchar[i], DEREF_P_CHAR(Victim1))&&perm[i])
+			if (inrange1p(currchar[i], Victim1)&&perm[i])
 			{
 				itemmessage(i, temp, Victim1->serial);
 			}
@@ -2065,8 +2065,8 @@ void cSkills::TameTarget(int s)
 				{
 				case 0: npctalkall(pc_currchar, "I've always wanted a pet like you.",0); break;
 				case 1: npctalkall(pc_currchar, "Will you be my friend?",0); break;
-				case 2: sprintf((char*)temp, "Here %s.",pc->name); npctalkall(DEREF_P_CHAR(pc_currchar), (char*)temp,0); break;
-				case 3: sprintf((char*)temp, "Good %s.",pc->name); npctalkall(DEREF_P_CHAR(pc_currchar), (char*)temp,0); break;
+				case 2: sprintf((char*)temp, "Here %s.",pc->name); npctalkall(pc_currchar, (char*)temp,0); break;
+				case 3: sprintf((char*)temp, "Good %s.",pc->name); npctalkall(pc_currchar, (char*)temp,0); break;
 				default: 
 					LogError("switch reached default");
 				}
@@ -2195,7 +2195,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 				if (perm[i])
 				{
 
-				  if((i!=s)&&(inrange1p(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(currchar[i])))&&(rand()%10+10==17||(rand()%2==1 && currchar[i]->in>=pc_currchar->in))) sysmessage(s,temp2);
+				  if((i!=s)&&(inrange1p(pc_currchar, currchar[i]))&&(rand()%10+10==17||(rand()%2==1 && currchar[i]->in>=pc_currchar->in))) sysmessage(s,temp2);
 				}
 			}
 
@@ -2238,7 +2238,7 @@ void cSkills::BeggingTarget(int s)
 				return;
 			}
 
-			npctalkall(DEREF_P_CHAR(pc_currchar), begging_data.text[rand()%3],0); // npcemoteall?
+			npctalkall(pc_currchar, begging_data.text[rand()%3],0); // npcemoteall?
 			if (!Skills->CheckSkill(pc_currchar,BEGGING, 0, 1000))
 				sysmessage(s,"They seem to ignore your begging plees.");
 			else
@@ -2298,7 +2298,7 @@ void cSkills::BeggingTarget(int s)
 					npctalk(s,DEREF_P_CHAR(pc),"Thou dost not look trustworthy... no gold for thee today! ",1);
 					return;
 				}
-				npctalkall(DEREF_P_CHAR(pc),"I feel sorry for thee... here have a gold coin .",0);
+				npctalkall(pc,"I feel sorry for thee... here have a gold coin .",0);
 				addgold(s,realgold);
 				sysmessage(s,"Some gold is placed in your pack.");
 			}

@@ -530,7 +530,7 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 						sprintf(t,"* %s looks a bit nauseous *", pc->name);
 						pc->emotecolor1=0x00;//buffer[s][4];
 						pc->emotecolor2=0x26;//buffer[s][5];
-						npcemoteall(DEREF_P_CHAR(pc),t,1);
+						npcemoteall(pc,t,1);
 					}
 				 
 					pc->hp -= max(((pc->hp)*RandomNum(5,15))/100, RandomNum(0,1) ); // between 0% and 10% of player's hp 
@@ -545,7 +545,7 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 						sprintf(t,"* %s looks disoriented and nauseous! *",pc->name);
 						pc->emotecolor1=0x00;//buffer[s][4];
 						pc->emotecolor2=0x26;//buffer[s][5];
-						npcemoteall(DEREF_P_CHAR(pc),t,1);
+						npcemoteall(pc,t,1);
 					}
 					
 					pc->hp -= max(((pc->hp)*RandomNum(10,20))/100, RandomNum(0,1)); //between 10% and 20% of player's hp
@@ -560,7 +560,7 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 						sprintf(t,"* %s is in severe pain! *", pc->name);
 						pc->emotecolor1=0x00;//buffer[s][4];
 						pc->emotecolor2=0x26;//buffer[s][5];
-						npcemoteall(DEREF_P_CHAR(pc),t,1);
+						npcemoteall(pc,t,1);
 					}
 					x=RandomNum(1,3);
 					y=RandomNum(5,10);
@@ -578,7 +578,7 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 						sprintf(t,"* %s looks extremely weak and is wrecked in pain! *", pc->name);
 						pc->emotecolor1=0x00;//buffer[s][4];
 						pc->emotecolor2=0x26;//buffer[s][5];
-						npcemoteall(DEREF_P_CHAR(pc),t,1);
+						npcemoteall(pc,t,1);
 					}
 
 					x = RandomNum(3,6);
@@ -716,7 +716,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 						sprintf(t,"* %s looks a bit nauseous *",pc->name);
 						pc->emotecolor1=0x00;//buffer[s][4];
 						pc->emotecolor2=0x26;//buffer[s][5];
-						npcemoteall(DEREF_P_CHAR(pc),t,1);
+						npcemoteall(pc,t,1);
 					}
 					pc->hp -= RandomNum(1,2);
 					updatestats(pc, 0);
@@ -729,7 +729,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 						sprintf(t,"* %s looks disoriented and nauseous! *",pc->name);
 						pc->emotecolor1=0x00;//buffer[s][4];
 						pc->emotecolor2=0x26;//buffer[s][5];
-						npcemoteall(DEREF_P_CHAR(pc),t,1);
+						npcemoteall(pc,t,1);
 					}
 
 					pcalc = ( ( pc->hp * RandomNum(2,5) ) / 100) + RandomNum(0,2); // damage: 1..2..5% of hp's+ 1..2 constant
@@ -744,7 +744,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 						sprintf(t,"* %s is in severe pain! *",pc->name);
 						pc->emotecolor1=0x00;//buffer[s][4];
 						pc->emotecolor2=0x26;//buffer[s][5];
-						npcemoteall(DEREF_P_CHAR(pc),t,1);
+						npcemoteall(pc,t,1);
 					}
 					pcalc=( ( pc->hp * RandomNum(5,10) ) / 100 ) + RandomNum(1,3); // damage: 5..10% of hp's+ 1..2 constant
 					pc->hp -= pcalc;
@@ -758,7 +758,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 						sprintf(t,"* %s looks extremely weak and is wrecked in pain! *",pc->name);
 						pc->emotecolor1=0x00;//buffer[s][4];
 						pc->emotecolor2=0x26;//buffer[s][5];
-						npcemoteall(DEREF_P_CHAR(pc),t,1);
+						npcemoteall(pc,t,1);
 					}
 
 					pcalc=( (pc->hp * RandomNum(10,15) ) / 100 ) + RandomNum(3,6); // damage:10 to 15% of hp's+ 3..6 constant, quite deadly <g>
@@ -814,7 +814,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					if(pc->ownserial!=-1) 
 						pc->SetOwnSerial(-1);
 					sprintf((char*)temp, "* %s appears to have decided that it is better off without a master *", pc->name);
-					npctalkall(DEREF_P_CHAR(pc),(char*)temp,0);
+					npctalkall(pc, (char*)temp,0);
 					{
 						soundeffect2(DEREF_P_CHAR(pc), 0x01, 0xFE);
 						if(SrvParms->tamed_disappear==1)
@@ -829,7 +829,7 @@ void checkNPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 			{//display message ( if there's one
 				pc->emotecolor1=0x00;//buffer[s][4];
 				pc->emotecolor2=0x26;//buffer[s][5];
-				npcemoteall(DEREF_P_CHAR(pc),t,1);
+				npcemoteall(pc,t,1);
 			}
 		}//if tamed
 		pc->hungertime=currenttime+(SrvParms->hungerrate*MY_CLOCKS_PER_SEC); // Bookmark

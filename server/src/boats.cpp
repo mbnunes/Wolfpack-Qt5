@@ -235,7 +235,7 @@ void cBoat::LeaveBoat(UOXSOCKET s, P_ITEM pi_plank)//Get off a boat (dbl clicked
 
 					if (pc_b != NULL) // never log -1's that indicate non existance !!!
 					{
-						if (pc_b->isNpc() && pc_cs->Owns(pc_b) && inrange1p(DEREF_P_CHAR(currchar[s]), DEREF_P_CHAR(pc_b))<=15)
+						if (pc_b->isNpc() && pc_cs->Owns(pc_b) && inrange1p(currchar[s], pc_b))
 						{
 							pc_b->MoveTo(x,y, typ ? sz : mz);
 							

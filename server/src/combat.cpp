@@ -764,7 +764,7 @@ void cCombat::DoCombat(int a, unsigned int currenttime)
 					teleport((pc_attacker));
 					soundeffect2(DEREF_P_CHAR(pc_attacker), 0x01, 0xFE); // crashfix, LB
 					staticeffect(DEREF_P_CHAR(pc_attacker), 0x37, 0x2A, 0x09, 0x06);
-					npctalkall(DEREF_P_CHAR(pc_attacker),"Halt, scoundrel!",1);
+					npctalkall(pc_attacker,"Halt, scoundrel!",1);
 				}
 				else 
 				{ // else -> npcaityes != 4
@@ -1243,8 +1243,8 @@ void cCombat::SpawnGuard(P_CHAR pc_offender, P_CHAR pc_caller, int x, int y, sig
 		updatechar(DEREF_P_CHAR(pc_guard));
 		switch (RandomNum(0,1))
 		{
-		case 0:		npctalkall(DEREF_P_CHAR(pc_guard), "Thou shalt regret thine actions, swine!", 1);	break;
-		case 1:		npctalkall(DEREF_P_CHAR(pc_guard), "Death to all Evil!", 1);							break;
+		case 0:		npctalkall(pc_guard, "Thou shalt regret thine actions, swine!", 1);	break;
+		case 1:		npctalkall(pc_guard, "Death to all Evil!", 1);							break;
 		}
 	}
 }

@@ -206,21 +206,11 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 							staticeffect(DEREF_P_CHAR(pc), 0x37, 0x09, 0x09, 0x19); // Flamestrike effect
 							switch (RandomNum(0, 4)) 
 							{
-							case 0: 
-								npctalkall(pc_i, "Fellow minion of Mondain, Live!!", 1);
-								break;
-							case 1: 
-								npctalkall(pc_i, "Thou has evil flowing through your vains, so I will bring you back to life.", 1);
-								break;
-							case 2: 
-								npctalkall(pc_i, "If I res thee, promise to raise more hell!.", 1);
-								break;
-							case 3: 
-								npctalkall(pc_i, "From hell to Britannia, come alive!.", 1);
-								break;
-							case 4: 
-								npctalkall(pc_i, "Since you are Evil, I will bring you back to consciouness.", 1);
-								break;
+							case 0: npctalkall(pc_i, "Fellow minion of Mondain, Live!!", 1);											break;
+							case 1: npctalkall(pc_i, "Thou has evil flowing through your vains, so I will bring you back to life.", 1);	break;
+							case 2: npctalkall(pc_i, "If I res thee, promise to raise more hell!.", 1);									break;
+							case 3: npctalkall(pc_i, "From hell to Britannia, come alive!.", 1);										break;
+							case 4: npctalkall(pc_i, "Since you are Evil, I will bring you back to consciouness.", 1);					break;
 							}
 						}
 					}
@@ -228,8 +218,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, int i) // Lag Fix -- Zippy
 			}
 			break;
 		case 4 : // Guards
-			if (!pc_i->war	// guard isnt busy 
-				&& pc_i->inGuardedArea())	// this region is guarded
+			if (!pc_i->war && pc_i->inGuardedArea())	// this region is guarded
 			{
 				cRegion::RegionIterator4Chars ri(pc_i->pos);
 				for (ri.Begin(); ri.GetData() != ri.End(); ri++)
@@ -489,7 +478,7 @@ void cCharStuff::cDragonAI::DoAI(int i, int currenttime)
 	P_CHAR pc_i = MAKE_CHARREF_LR(i);
 	if (pc_i->war)
 	{
-		npctalkall(i, "Who dares disturbe me?!?!", 1);
+		npctalkall(pc_i, "Who dares disturbe me?!?!", 1);
 		cRegion::RegionIterator4Chars ri(pc_i->pos);
 		for (ri.Begin(); ri.GetData() != ri.End(); ri++)
 		{

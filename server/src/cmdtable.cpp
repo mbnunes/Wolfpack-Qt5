@@ -972,7 +972,7 @@ void command_showids(UOXSOCKET s)
 		P_CHAR mapchar = FindCharBySerial(vecEntries[k]);
 		if ( mapchar != NULL)
 		{
-			if (inrange1p(currchar[s], DEREF_P_CHAR(mapchar))) 
+			if (inrange1p(currchar[s], mapchar)) 
 				showcname(s, DEREF_P_CHAR(mapchar), 1);
 		}
 	}
@@ -2378,7 +2378,7 @@ void command_wipenpcs(UOXSOCKET s)
 			LongToCharPtr(toCheck->serial, &removeitem[1]);
 			for (i=0;i<now;i++)
 			{
-				if (perm[i] && inrange1p(DEREF_P_CHAR(toCheck), DEREF_P_CHAR(currchar[i]))) 
+				if (perm[i] && inrange1p(toCheck, currchar[i])) 
 					Xsend(i, removeitem, 5);
 			}
 			

@@ -1695,7 +1695,7 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 			pi->MoveTo(pc_p->pos.x,pc_p->pos.y,pc_p->pos.z);
 			
 			for (int j=0;j<now;j++)
-				if (inrange1p(DEREF_P_CHAR(pc_p), DEREF_P_CHAR(currchar[j]))&&perm[j])
+				if (inrange1p(pc_p, currchar[j])&&perm[j])
 				{
 					wornitems(j, DEREF_P_CHAR(pc_p));
 					senditem(j, pi);

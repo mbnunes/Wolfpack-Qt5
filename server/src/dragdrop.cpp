@@ -557,7 +557,7 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 
 		for (j=0;j<now;j++)
 		{
-			if (perm[j] && inrange1p(DEREF_P_CHAR(pc_k), DEREF_P_CHAR(currchar[j])) && (j!=s))//and to all inrange sockets (without re-sending to current socket)//AntiChrist
+			if (perm[j] && inrange1p(pc_k, currchar[j]) && (j!=s))//and to all inrange sockets (without re-sending to current socket)//AntiChrist
 				wornitems(j, DEREF_P_CHAR(pc_k));
 		}
 		
@@ -597,7 +597,7 @@ static bool ItemDroppedOnPet(P_CLIENT ps, PKGx08 *pp, P_ITEM pi)
 		sprintf((char*)temp,"* You see %s eating %s *",pc_target->name,temp2);
 		pc_target->emotecolor1=0x00;
 		pc_target->emotecolor2=0x26;
-		npcemoteall(DEREF_P_CHAR(pc_target),(char*)temp,1);
+		npcemoteall(pc_target,(char*)temp,1);
 		pc_target->hunger++;
 	} 
 	else

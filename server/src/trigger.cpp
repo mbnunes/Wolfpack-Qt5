@@ -391,7 +391,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						unsigned int baseskill = pc_ts->baseskill[skill];
 						if (i > baseskill)
 						{
-							Skills->AdvanceSkill(DEREF_P_CHAR(currchar[ts]), skill, 0);
+							Skills->AdvanceSkill(currchar[ts], skill, 0);
 							Skills->updateSkillLevel(DEREF_P_CHAR(currchar[ts]), skill);
 							updateskill(ts, skill);
 							if (strlen(fmsg))
@@ -627,7 +627,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 						strcpy(sect, script2);
 						for (i = 0; i < now; i++)
 						{
-							if (inrange1p(DEREF_P_CHAR(currchar[ts]), DEREF_P_CHAR(currchar[i])) && perm[i])
+							if (inrange1p(currchar[ts], currchar[i]) && perm[i])
 							{
 								tl = 44 + strlen(sect) + 1;
 								talk[1] = tl >> 8;
@@ -892,7 +892,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							effect[27] = 0x01; // This value is used for moving effects that explode on impact.
 							for (uiTempi = 0; uiTempi < now; uiTempi++)
 							{
-								if ((inrange1p(currchar[uiTempi], ts)) &&(inrange1p(currchar[uiTempi], ts)) &&(perm[uiTempi]))
+								if ((inrange1p(currchar[uiTempi], currchar[ts])) &&(inrange1p(currchar[uiTempi], currchar[ts])) &&(perm[uiTempi]))
 								{
 									Xsend(uiTempi, effect, 28);
 								}
@@ -1498,7 +1498,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								strcpy(sect, script2);
 								for (i = 0; i < now; i++)
 								{
-									if (inrange1p(DEREF_P_CHAR(currchar[ts]), DEREF_P_CHAR(currchar[i])) && perm[i])
+									if (inrange1p(currchar[ts], currchar[i]) && perm[i])
 									{
 										tl = 44 + strlen(sect) + 1;
 										talk[1] = tl >> 8;
@@ -1527,7 +1527,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 								strcpy(sect, script2);
 								for (i = 0; i < now; i++)
 								{
-									if (inrange1p(DEREF_P_CHAR(currchar[ts]), DEREF_P_CHAR(currchar[i])) && perm[i])
+									if (inrange1p(currchar[ts], currchar[i]) && perm[i])
 									{
 										tl = 44 + strlen(sect) + 1;
 										talk[1] = tl >> 8;
@@ -1841,7 +1841,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 							}
 							else 
 							{
-								Skills->AdvanceSkill(DEREF_P_CHAR(currchar[ts]), p, 1);
+								Skills->AdvanceSkill(currchar[ts], p, 1);
 								Skills->updateSkillLevel(DEREF_P_CHAR(currchar[ts]), p);
 								updateskill(ts, p);
 							}
@@ -2155,7 +2155,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 						unsigned int baseskill = pc_ts->baseskill[skill];
 						if (i > baseskill)
 						{
-							Skills->AdvanceSkill(DEREF_P_CHAR(pc_ts), skill, 0);
+							Skills->AdvanceSkill(pc_ts, skill, 0);
 							Skills->updateSkillLevel(DEREF_P_CHAR(pc_ts), skill);
 							updateskill(ts, skill);
 							if (strlen(fmsg))
@@ -2267,7 +2267,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 						strcpy(sect, (char*)script2);
 						for (i = 0; i < now; i++)
 						{
-							if (inrange1p(DEREF_P_CHAR(pc_ts), DEREF_P_CHAR(currchar[i])) && perm[i])
+							if (inrange1p(pc_ts, currchar[i]) && perm[i])
 							{
 								tl = 44 + strlen(sect) + 1;
 								talk[1] = tl >> 8;
@@ -2612,7 +2612,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 								effect[27] = 0x00; // This value is used for moving effects that explode on impact.
 								for (j = 0; j < now; j++)
 								{
-									if ((inrange1p(currchar[j], DEREF_P_CHAR(pc_ts))) &&(perm[j]))
+									if ((inrange1p(currchar[j], pc_ts)) &&(perm[j]))
 									{
 										Xsend(j, effect, 28);
 									}
@@ -3050,7 +3050,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 								chars[ti].xid1 = hexnumber(0);
 								chars[ti].xid2 = hexnumber(1);
 								for (j = 0; j < now; j++)
-									if (perm[j] && inrange1p(currchar[j], ti))
+									if (perm[j] && inrange1p(currchar[j], pc_ts))
 										updatechar(ti);
 							}
 						}
@@ -3108,7 +3108,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, int ti, int ttype) // Changed by Magius(
 							}
 							else 
 							{
-								Skills->AdvanceSkill(DEREF_P_CHAR(pc_ts), p, 1);
+								Skills->AdvanceSkill(pc_ts, p, 1);
 							}
 						}
 						else if (!(strcmp("SETOWNER", (char*)script1)))  // Set ownership of NPC

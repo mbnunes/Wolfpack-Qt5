@@ -102,7 +102,7 @@ static void reverseIncognito(P_CHAR pc)
 			int j;
 			for (j=0;j<now;j++)
 			{//and to all inrange sockets (without re-sending to current socket)//AntiChrist
-				if (perm[j] && inrange1p(c, DEREF_P_CHAR(currchar[j])) && (j!=socket))
+				if (perm[j] && inrange1p(pc, currchar[j]) && (j!=socket))
 					wornitems(j, DEREF_P_CHAR(pc));
 			}
 		}
@@ -324,7 +324,7 @@ void cTmpEff::Expire()
 			if (more2!=0)
 			{
 				sprintf((char*)temp, "*%s continues grinding.*", pc_s->name);
-				npcemoteall(DEREF_P_CHAR(pc_s), (char*)temp,1);
+				npcemoteall(pc_s, (char*)temp,1);
 			}
 			soundeffect2(DEREF_P_CHAR(pc_s), 0x02, 0x42);
 		}
@@ -920,7 +920,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 
 		for (j=0;j<now;j++)
 		{//and to all inrange sockets (without re-sending to current socket)//AntiChrist
-			if (perm[j] && inrange1p(DEREF_P_CHAR(pc_dest), DEREF_P_CHAR(currchar[j])) && (j!=socket))
+			if (perm[j] && inrange1p(pc_dest, currchar[j]) && (j!=socket))
 				wornitems(j, DEREF_P_CHAR(pc_dest));
 		}
 

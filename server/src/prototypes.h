@@ -73,7 +73,7 @@ void monstergate(int s, int x);
 //void npcMovement2(unsigned int, int);//Lag fix -- Zippy
 //void npcMovement(unsigned int);
 void Karma(P_CHAR pc_toChange, P_CHAR pc_Killed, int nKarma);
-void npctalkall_runic(int npc, char *txt,char antispam);
+void npctalkall_runic(P_CHAR npc, char *txt,char antispam);
 void Fame(int nCharID, int nFame);
 void charstartup(int s);
 void checkdumpdata(unsigned int currenttime); // This dumps data for Ridcully's UOXBot 0.02 (jluebbe@hannover.aball.de)
@@ -188,13 +188,12 @@ void wornitems(UOXSOCKET s, CHARACTER j);
 void RefreshItem(P_ITEM pi);
 int MenuListGenerator();
 void itemmenu(int s, int m);
-void npcemoteall(int npc, char *txt,unsigned char antispam);
+void npcemoteall(P_CHAR npc, char *txt,unsigned char antispam);
 int findsection (unsigned char *s);
 void read1 ();
 void read2 ();
 bool inVisRange(int x1, int y1, int x2, int y2);
 int inrange1(UOXSOCKET a, UOXSOCKET b);
-int inrange1p (CHARACTER a, CHARACTER b);
 void deathstuff(int i);
 bool online(P_CHAR pc);
 void loadserverscript(void);
