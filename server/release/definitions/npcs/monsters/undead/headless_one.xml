@@ -9,7 +9,6 @@
 <definitions>
 
 	<npc id="headless" inherit="undead_base">
-		<lootlist>poor</lootlist>
 		<name>a headless one</name>
 		<id>0x1f</id>
 		<karma>-450</karma>
@@ -31,6 +30,7 @@
 		<desc>The Headless are so called for they have the appearance of a hairy manwith no head. Therefore many believe them to be spectres, but oncloser examination they are revealed as corporeal creatures with theirsensory apparatus in their chest cavities. Despite their lust for goldand their appearance of deformed humanity, most suspect they are nomore than clever beasts.</desc>
 		<carve>carve_headless</carve>
 		<category>Monsters\Undead\Headless One</category>
+		<lootlist>alcoholpack_low;foodpack_low;verypoor</lootlist>
 	</npc>
 
 </definitions>

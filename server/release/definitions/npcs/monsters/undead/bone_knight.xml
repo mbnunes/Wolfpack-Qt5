@@ -12,7 +12,6 @@
 	<npc id="bone_knight" inherit="undead_base">
 		<name>a bone knight</name>
 		<id>0x39</id>
-		<gold><random min="100" max="130"/></gold>
 		<karma>-3000</karma>
 		<fame>3000</fame>
 		<!-- Stats -->
@@ -35,6 +34,7 @@
 		<tag name="res_poison" value="20,30" type="int" />
 		<!-- Misc. -->
 		<category>Monsters\Undead\Bone Knight</category>
+		<lootlist>armor_platemail_med;rich;weapons_swords;gems_low</lootlist>
 	</npc>
 
 </definitions>
