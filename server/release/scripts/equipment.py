@@ -15,6 +15,9 @@ def modifiers(object, tooltip):
     "boni_int": 1060432,
     "boni_str": 1060485,
     "remaining_uses": 1060584,
+    "aos_boni_damage": 1060401,
+    "aos_lower_requirements": 1060435,
+    "aos_boni_durability": 1060410,
   }
 
   for (tag, cliloc) in modifiers.items():

@@ -39,7 +39,7 @@ ARMOR_PROPERTIES = {
   'valorite': [1.5],
 }
 
-WEAPON_RESOURCEPROPERTIES = {
+WEAPON_PROPERTIES = {
   # Durability Bonus (% of current val), Lower Requirements (% of current val)
   'dullcopper': [2.0],
   'shadowiron': [1.5],
@@ -94,11 +94,17 @@ class SmithItemAction(CraftItemAction):
       item.settag('resname', material[5])
 
       # Armor properties
-      if itemcheck(item, ITEM_ARMOR) and ARMOR_PROPERTIES.has_key(material[5]):
-        info = ARMOR_PROPERTIES[material[5]]
-        if info[0] > 0:
-          item.maxhealth = int(math.ceil(item.maxhealth * info[0]))
-          item.health = item.maxhealth
+      if itemcheck(item, ITEM_ARMOR):
+        if ARMOR_PROPERTIES.has_key(material[5]):
+          info = ARMOR_PROPERTIES[material[5]]
+          if info[0] > 0:
+            item.maxhealth = int(math.ceil(item.maxhealth * info[0]))
+            item.health = item.maxhealth
+            value = int(info[0] * 100)
+            if item.hastag('aos_boni_durability'):
+              item.settag('aos_boni_durability', int(item.gettag('aos_boni_durability')) - 100 + value)
+            else:
+              item.settag('aos_boni_durability', value)
 
         # Distribute another 6 points randomly between the resistances this armor already has
         if exceptional:
@@ -115,11 +121,17 @@ class SmithItemAction(CraftItemAction):
           item.settag('res_poison', fromitem(item, RESISTANCE_POISON) + boni[4])
 
       # Weapon properties
-      elif itemcheck(item, ITEM_WEAPON) and WEAPON_PROPERTIES.has_key(material[5]):
-        info = WEAPON_PROPERTIES[material[5]]
-        if info[0] > 0:
-          item.maxhealth = math.ceil(item.maxhealth * info[0])
-          item.health = item.maxhealth
+      elif itemcheck(item, ITEM_WEAPON):
+        if WEAPON_PROPERTIES.has_key(material[5]):
+          info = WEAPON_PROPERTIES[material[5]]
+          if info[0] > 0:
+            item.maxhealth = math.ceil(item.maxhealth * info[0])
+            item.health = item.maxhealth
+            value = int(fromitem(item, ) + (info[0] - 1.0) * 100)
+            if item.hastag('aos_boni_durability'):
+              item.settag('aos_boni_durability', int(item.gettag('aos_boni_durability')) + value)
+            else:
+              item.settag('aos_boni_durability', value)
 
         # Increase the damage bonus by 20%
         if exceptional:
