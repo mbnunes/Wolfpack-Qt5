@@ -161,6 +161,7 @@ public:
 	P_ITEM	getCorpse( void ); // Get the corpse this item is in
 	void	toBackpack( P_CHAR pChar );
 	void	showName( cUOSocket *socket );
+	void	applyRank( UI08 rank );
 
 	SERIAL contserial;
 

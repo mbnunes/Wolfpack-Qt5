@@ -2337,3 +2337,26 @@ void cItem::setTotalweight( INT32 data )
 			pItem->setTotalweight( pItem->totalweight() + totalweight_ );
 	}
 }
+
+void cItem::applyRank( UI08 rank )
+{
+	// Variables to change: LODAMAGE,HIDAMAGE,ATT,DEF,HP,MAXHP
+	double minmod = (double)(rank-1) * 10.0f / 100.0f;
+	double maxmod = (double)(rank+1) * 10.0f / 100.0f;
+	UINT16 minhp_ = (UINT16)floor( minmod * (double)hp() );
+	UINT16 maxhp_ = (UINT16)floor( maxmod * (double)hp() );
+	INT16  minlodam = (UINT16)floor( minmod * (double)lodamage() );
+	INT16  maxlodam = (UINT16)floor( maxmod * (double)lodamage() );
+	INT16  minhidam = (UINT16)floor( minmod * (double)hidamage() );
+	INT16  maxhidam = (UINT16)floor( maxmod * (double)hidamage() );
+	UINT16 mindef = (UINT16)floor( minmod * (double)def );
+	UINT16 maxdef = (UINT16)floor( maxmod * (double)def );
+	
+	setLodamage( RandomNum( minlodam, maxlodam ) );
+	setHidamage( RandomNum( minhidam, maxhidam ) );
+	def = RandomNum( mindef, maxdef );
+	setMaxhp( RandomNum( minhp_, maxhp_ ) );
+	setHp( maxhp() );
+}
+
+

@@ -81,73 +81,6 @@ void playSkillSound( UOXSOCKET Socket, UI08 Skill, bool Success )
 	};
 }
 
-void applyRank( UOXSOCKET Socket, P_ITEM Item, UI08 Rank )
-{
-	QString Message;
-
-	// Variables to change: LODAMAGE,HIDAMAGE,ATT,DEF,HP,MAXHP
-	if( Item->lodamage() > 0 ) 
-		Item->setLodamage( ( Rank * Item->lodamage() ) / 7 );
-
-	if( Item->hidamage() > 0 ) 
-		Item->setHidamage( ( Rank * Item->hidamage() ) / 7 );
-
-	if( Item->att > 0 ) 
-		Item->att = ( Rank * Item->att ) / 7;
-
-	if( Item->def > 0 ) 
-		Item->def = ( Rank * Item->def ) / 7;
-
-	if( Item->hp() > 0 ) 
-		Item->setHp( ( Rank * Item->hp() ) / 7 );
-
-	if( Item->maxhp() > 0 ) 
-		Item->setMaxhp( ( Rank * Item->maxhp() ) / 7 );
-
-	switch( Rank )
-	{
-		case 1: 
-			Message = tr("You made an item with no quality!");
-			break;
-
-		case 2: 
-			Message = tr("You made an item very below standard quality!");
-			break;
-
-		case 3: 
-			Message = tr("You made an item below standard quality!");
-			break;
-
-		case 4: 
-			Message = tr("You made a weak quality item!");
-			break;
-
-		case 5: 
-			Message = tr("You made a standard quality item!");
-			break;
-
-		case 6: 
-			Message = tr("You made a nice quality item!");
-			break;
-
-		case 7: 
-			Message = tr("You made a good quality item!");
-			break;
-
-		case 8: 
-			Message = tr("You made a great quality item!");
-			break;
-
-		case 9: 
-			Message = tr("You made a beautiful quality item!");
-			break;
-
-		case 10: 
-			Message = tr("You made a perfect quality item!");
-			break;
-	}
-	sysmessage( Socket, Message );
-}
 
 // Calculates a rank for the given parameters
 UI08 calcRank( P_CHAR Character, UI08 Skill, UI08 MinSkill, UI08 MaxSkill )
@@ -688,7 +621,7 @@ bool makeItem( UOXSOCKET Socket, QDomElement& Action )
 
 	P_ITEM Item = Items->SpawnItemBackpack2( Socket, ItemID, false );
 
-	applyRank( Socket, Item, Rank );
+//	applyRank( Socket, Item, Rank );
 
 	sysmessage( Socket, "You put the item in your backpack." );
 

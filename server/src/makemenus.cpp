@@ -409,15 +409,11 @@ void cMakeSection::execute( cUOSocket* socket )
 			continue;
 		}
 		P_ITEM pItem = Items->createScriptItem( miit.current()->section() );
-		UINT16 minhp = 0;
-		UINT16 maxhp = 0;
 		if( pItem )
 		{
-			minhp = (UINT16)floor( (double)(rank-1) * 10.0f / 100.0f * (double)pItem->hp() );
-			maxhp = (UINT16)floor( (double)(rank+1) * 10.0f / 100.0f * (double)pItem->hp() );
 			if( pItem->isPileable() )
 				pItem->setAmount( miit.current()->amount() );
-			pItem->setHp( RandomNum( minhp, maxhp ) );
+			pItem->applyRank( rank );
 			pBackpack->AddItem( pItem );
 		}
 
@@ -429,7 +425,7 @@ void cMakeSection::execute( cUOSocket* socket )
 				pItem = Items->createScriptItem( miit.current()->section() );
 				if( pItem )
 				{
-					pItem->setHp( RandomNum( minhp, maxhp ) );
+					pItem->applyRank( rank );
 					pBackpack->AddItem( pItem );
 				}
 			}
@@ -448,6 +444,51 @@ void cMakeSection::execute( cUOSocket* socket )
 		pChar->soundEffect( baseaction_->sound() );
 
 	// TODO rank messages
+	QString Message;
+
+	switch( rank )
+	{
+		case 1: 
+			Message = tr("You made an item with no quality!");
+			break;
+
+		case 2: 
+			Message = tr("You made an item very below standard quality!");
+			break;
+
+		case 3: 
+			Message = tr("You made an item below standard quality!");
+			break;
+
+		case 4: 
+			Message = tr("You made a weak quality item!");
+			break;
+
+		case 5: 
+			Message = tr("You made a standard quality item!");
+			break;
+
+		case 6: 
+			Message = tr("You made a nice quality item!");
+			break;
+
+		case 7: 
+			Message = tr("You made a good quality item!");
+			break;
+
+		case 8: 
+			Message = tr("You made a great quality item!");
+			break;
+
+		case 9: 
+			Message = tr("You made a beautiful quality item!");
+			break;
+
+		case 10: 
+			Message = tr("You made a perfect quality item!");
+			break;
+	}
+	socket->sysMessage( Message );
 }
 
 cMakeAction::cMakeAction( const QDomElement &Tag, cMakeMenu* basemenu )

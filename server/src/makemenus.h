@@ -157,7 +157,6 @@ public:
 	bool	skilledEnough( cChar* pChar );
 	// calcRank checks the skill and may raise it! (==0) => failed, (>0) => success
 	UINT32	calcRank( cChar* pChar );
-
 private:
 	QPtrList< cMakeItem >		makeitems_;
 	QPtrList< cUseItem >		useitems_;
