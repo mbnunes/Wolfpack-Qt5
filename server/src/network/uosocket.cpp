@@ -626,12 +626,18 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 				denyPacket.setReason( DL_NOACCOUNT );
 			break;
 		case cAccounts::BadPassword:
-			denyPacket.setReason( DL_BADPASSWORD ); break;
+			log( QString( "Failed to log in as '%1', wrong password\n" ).arg( username ) );
+			denyPacket.setReason( DL_BADPASSWORD ); 
+			break;
 		case cAccounts::Wipped:
 		case cAccounts::Banned:
-			denyPacket.setReason( DL_BLOCKED ); break;
+			log( QString( "Failed to log in as '%1', Wipped/Banned account\n" ).arg( username ) );
+			denyPacket.setReason( DL_BLOCKED ); 
+			break;
 		case cAccounts::AlreadyInUse:
-			denyPacket.setReason( DL_INUSE ); break;
+			log( QString( "Failed to log in as '%1', account is already in use\n" ).arg( username ) );
+			denyPacket.setReason( DL_INUSE ); 
+			break;
 		};
 
 		log( QString( "Failed to log in as '%1'.\n" ).arg( username ) );
