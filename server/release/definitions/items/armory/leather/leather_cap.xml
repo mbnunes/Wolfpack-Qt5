@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- Leather Cap -->
+	<item id="1db9">
+		<id>0x1db9</id>
+		<name>leather cap</name>
+		<decay />
+		<nodye />
+		<tag name="req_str" value="20" type="int" />
+		<events>equipment</events>
+		<defense>2</defense>
+		<durability><random min="30" max="40" /></durability>
+		<restock>10</restock>
+		<weight>2.0</weight>
+		<buyprice>63</buyprice>
+		<sellprice>31</sellprice>
+		<category>Armor\Leather\Cap (N/S)</category>
+	</item>
+
+	<item id="1dba">
+		<inherit id="1db9" />
+		<id>0x1dba</id>
+		<category>Armor\Leather\Cap (E/W)</category>
+	</item>
+
+ </definitions>

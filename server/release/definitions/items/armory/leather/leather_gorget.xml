@@ -1,0 +1,21 @@
+
+<definitions>
+
+	<!-- Leather Gorget -->
+	<item id="13c7">
+		<id>0x13c7</id>
+		<name>leather gorget</name>
+		<decay />
+		<nodye />
+		<tag name="req_str" value="20" type="int" />
+		<events>equipment</events>
+		<defense>2</defense>
+		<durability><random min="30" max="40" /></durability>
+		<restock>10</restock>
+		<weight>2.0</weight>
+		<buyprice>74</buyprice>
+		<sellprice>37</sellprice>
+		<category>Armor\Leather\Gorget</category>
+	</item>
+
+</definitions>

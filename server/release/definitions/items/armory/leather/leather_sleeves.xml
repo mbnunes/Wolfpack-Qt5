@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- Leather Sleeves -->
+	<item id="13c5">
+		<id>0x13c5</id>
+		<name>leather sleeves</name>
+		<decay />
+		<nodye />
+		<tag name="req_str" value="20" type="int" />
+		<events>equipment</events>
+		<defense>2</defense>
+		<durability><random min="30" max="40" /></durability>
+		<restock>10</restock>
+		<weight>2.0</weight>
+		<buyprice>80</buyprice>
+		<sellprice>40</sellprice>
+		<category>Armor\Leather\Sleeves (N/S)</category>
+	</item>
+
+	<item id="13cd">
+		<inherit id="13c5" />
+		<id>0x13cd</id>
+		<category>Armor\Leather\Sleeves (E/W)</category>
+	</item>
+
+</definitions>

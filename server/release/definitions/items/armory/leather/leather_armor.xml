@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- Female Tunic -->
+	<item id="1c06">
+		<id>0x1c06</id>
+		<name>leather armor</name>
+		<decay />
+		<nodye />
+		<tag name="req_str" value="25" type="int" />
+		<events>equipment</events>
+		<defense>2</defense>
+		<durability><random min="30" max="40" /></durability>
+		<restock>10</restock>
+		<weight>1.0</weight>
+		<buyprice>116</buyprice>
+		<sellprice>58</sellprice>
+		<category>Armor\Leather\Female Leather Armor (N/S)</category>
+	</item>
+
+	<items id="1c07">
+		<inherit id="1c06" />
+		<id>0x1c07</id>
+		<category>Armor\Leather\Female Leather Armor (E/W)</category>
+	</items>
+
+ </definitions>

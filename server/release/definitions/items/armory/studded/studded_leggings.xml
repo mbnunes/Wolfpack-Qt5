@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- Studded Leggings -->
+	<item id="13da">
+		<id>0x13da</id>
+		<name>studded leggings</name>
+		<decay />
+		<nodye />
+		<tag name="req_str" value="30" type="int" />
+		<events>equipment</events>
+		<defense>2</defense>
+		<durability><random min="35" max="45" /></durability>
+		<restock>10</restock>
+		<weight>3.0</weight>
+		<buyprice>103</buyprice>
+		<sellprice>51</sellprice>
+		<category>Armor\Studded Leather\Leggings (N/S)</category>
+	</item>
+
+	<item id="13e1">
+		<inherit id="13da" />
+		<id>0x13e1</id>
+		<category>Armor\Studded Leather\Leggings (E/W)</category>
+	</item>
+
+</definitions>

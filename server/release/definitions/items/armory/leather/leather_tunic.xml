@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- Leather Tunic -->
+	<item id="13cc">
+		<id>0x13cc</id>
+		<name>leather tunic</name>
+		<decay />
+		<nodye />
+		<tag name="req_str" value="25" type="int" />
+		<events>equipment</events>
+		<defense>2</defense>
+		<durability><random min="30" max="40" /></durability>
+		<restock>10</restock>
+		<weight>2.0</weight>
+		<buyprice>101</buyprice>
+		<sellprice>52</sellprice>
+		<category>Armor\Leather\Tunic (N/S)</category>
+	</item>
+
+	<item id="13d3">
+		<inherit id="13cc" />
+		<id>0x13d3</id>
+		<category>Armor\Leather\Tunic (E/W)</category>
+	</item>
+
+</definitions>

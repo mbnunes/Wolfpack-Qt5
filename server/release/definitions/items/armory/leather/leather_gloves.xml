@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- Leather Gloves -->
+	<item id="13c6">
+		<id>0x13c6</id>
+		<name>leather gloves</name>
+		<decay />
+		<nodye />
+		<tag name="req_str" value="20" type="int" />
+		<events>equipment</events>
+		<defense>2</defense>
+		<durability><random min="30" max="40" /></durability>
+		<restock>10</restock>
+		<weight>1.0</weight>
+		<buyprice>60</buyprice>
+		<sellprice>30</sellprice>
+		<category>Armor\Leather\Gloves (N/S)</category>
+	</item>
+
+	<item id="13ce">
+		<inherit id="13c6" />
+		<id>0x13ce</id>
+		<category>Armor\Leather\Gloves (E/W)</category>
+	</item>
+
+</definitions>

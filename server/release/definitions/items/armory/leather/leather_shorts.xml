@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- Leather Shorts -->
+	<item id="1c00">
+		<id>0x1c00</id>
+		<name>leather shorts</name>
+		<decay />
+		<nodye />
+		<tag name="req_str" value="20" type="int" />
+		<events>equipment</events>
+		<defense>2</defense>
+		<durability><random min="30" max="40" /></durability>
+		<restock>10</restock>
+		<weight>2.0</weight>
+		<buyprice>86</buyprice>
+		<sellprice>43</sellprice>
+		<category>Armor\Leather\Shorts (N/S)</category>
+	</item>
+
+	<item id="1c01">
+		<inherit id="1c00" />
+		<id>0x1c01</id>
+		<category>Armor\Leather\Shorts (E/W)</category>
+	</item>
+
+</definitions>

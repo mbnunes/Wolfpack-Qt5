@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- Leather Skirt -->
+	<item id="1c08">
+		<id>0x1c08</id>
+		<name>leather skirt</name>
+		<decay />
+		<nodye />
+		<tag name="req_str" value="20" type="int" />
+		<events>equipment</events>
+		<defense>2</defense>
+		<durability><random min="30" max="40" /></durability>
+		<restock>10</restock>
+		<weight>1.0</weight>
+		<buyprice>87</buyprice>
+		<sellprice>43</sellprice>
+		<category>Armor\Leather\Skirt (N/S)</category>
+	</item>
+
+	<item id="1c09">
+		<inherit id="1c08" />
+		<id>0x1c09</id>
+		<category>Armor\Leather\Skirt (E/W)</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,21 @@
+
+<definitions>
+
+	<!-- Studded Gorget -->
+	<item id="13d6">
+		<id>0x13d6</id>
+		<name>studded gorget</name>
+		<decay />
+		<nodye />
+		<tag name="req_str" value="25" type="int" />
+		<events>equipment</events>
+		<defense>2</defense>
+		<durability><random min="35" max="45" /></durability>
+		<restock>10</restock>
+		<weight>1.0</weight>
+		<buyprice>73</buyprice>
+		<sellprice>36</sellprice>
+		<category>Armor\Studded Leather\Gorget</category>
+	</item>
+
+</definitions>

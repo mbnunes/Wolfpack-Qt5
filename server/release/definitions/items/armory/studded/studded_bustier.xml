@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- Studded Bustier -->
+	<item id="1c0c">
+		<id>0x1c0c</id>
+		<name>studded bustier</name>
+		<decay />
+		<nodye />
+		<tag name="req_str" value="35" type="int" />
+		<events>equipment</events>
+		<defense>2</defense>
+		<durability><random min="35" max="45" /></durability>
+		<restock>10</restock>
+		<weight>1.0</weight>
+		<buyprice>120</buyprice>
+		<sellprice>60</sellprice>
+		<category>Armor\Studded Leather\Bustier (N/S)</category>
+	</item>
+
+	<item id="1c0d">
+		<inherit id="1c0c" />
+		<id>0x1c0d</id>
+		<category>Armor\Studded Leather\Bustier (E/W)</category>
+	</item>
+
+</definitions>

@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- Leather Bustier -->
+	<item id="1c0a">
+		<id>0x1c0a</id>
+		<name>leather bustier</name>
+		<decay />
+		<nodye />
+		<tag name="req_str" value="20" type="int" />
+		<events>equipment</events>
+		<defense>2</defense>
+		<durability><random min="30" max="40" /></durability>
+		<restock>10</restock>
+		<weight>2.0</weight>
+		<buyprice>97</buyprice>
+		<sellprice>48</sellprice>
+		<category>Armor\Leather\Bustier (N/S)</category>
+	</item>
+
+	<item id="1c0b">
+		<inherit id="1c0a" />
+		<id>0x1c0b</id>
+		<category>Armor\Leather\Bustier (E/W)</category>
+	</item>
+
+ </definition>

@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- Studded Sleeves -->
+	<item id="13d4">
+		<id>0x13d4</id>
+		<name>studded sleeves</name>
+		<decay />
+		<nodye />
+		<tag name="req_str" value="25" type="int" />
+		<events>equipment</events>
+		<defense>2</defense>
+		<durability><random min="35" max="45" /></durability>
+		<restock>10</restock>
+		<weight>4.0</weight>
+		<buyprice>87</buyprice>
+		<sellprice>43</sellprice>
+		<category>Armor\Studded Leather\Sleeves (N/S)</category>
+	</item>
+
+	<item id="13dc">
+		<inherit id="13d4" />
+		<id>0x13dc</id>
+		<category>Armor\Studded Leather\Sleeves (E/W)</category>
+	</item>
+
+ </definitions>

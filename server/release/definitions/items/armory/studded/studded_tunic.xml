@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- Studded Tunic -->
+	<item id="13db">
+		<id>0x13db</id>
+		<name>studded tunic</name>
+		<decay />
+		<nodye />
+		<tag name="req_str" value="35" type="int" />
+		<events>equipment</events>
+		<defense>2</defense>
+		<durability><random min="35" max="45" /></durability>
+		<restock>10</restock>
+		<weight>5.0</weight>
+		<buyprice>128</buyprice>
+		<sellprice>64</sellprice>
+		<category>Armor\Studded Leather\Tunic (N/S)</category>
+	</item>
+
+	<item id="13e2">
+		<inherit id="13db" />
+		<id>0x13e2</id>
+		<category>Armor\Studded Leather\Tunic (E/W)</category>
+	</item>
+
+</definitions>

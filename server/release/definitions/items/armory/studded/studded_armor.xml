@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- Studded Armor -->
+	<item id="1c02">
+		<id>0x1c02</id>
+		<name>studded armor</name>
+		<decay />
+		<nodye />
+		<tag name="req_str" value="35" type="int" />
+		<events>equipment</events>
+		<defense>2</defense>
+		<durability><random min="35" max="45" /></durability>
+		<restock>10</restock>
+		<weight>6.0</weight>
+		<buyprice>142</buyprice>
+		<sellprice>71</sellprice>
+		<category>Armor\Studded Leather\Female Armor (N/S)</category>
+	</item>
+
+	<item id="1c03">
+		<inherit id="1c02" />
+		<id>0x1c03</id>
+		<category>Armor\Studded Leather\Female Armor (E/W)</category>
+	</item>
+
+ </definition>

@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- Studded Gloves -->
+	<item id="13d5">
+		<id>0x13d5</id>
+		<name>studded gloves</name>
+		<decay />
+		<nodye />
+		<tag name="req_str" value="25" type="int" />
+		<events>equipment</events>
+		<defense>2</defense>
+		<durability><random min="35" max="45" /></durability>
+		<restock>10</restock>
+		<weight>1.0</weight>
+		<buyprice>79</buyprice>
+		<sellprice>39</sellprice>
+		<category>Armor\Studded Leather\Gloves (N/S)</category>
+	</item>
+
+	<item id="13dd">
+		<inherit id="13d5" />
+		<id>0x13dd</id>
+		<category>Armor\Studded Leather\Gloves (E/W)</category>
+	</item>
+
+</definitions>

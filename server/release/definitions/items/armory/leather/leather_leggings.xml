@@ -1,0 +1,27 @@
+
+<definitions>
+
+	<!-- Leather Leggings -->
+	<item id="13cb">
+		<id>0x13cb</id>
+		<name>leather leggings</name>
+		<decay />
+		<nodye />
+		<tag name="req_str" value="20" type="int" />
+		<events>equipment</events>
+		<defense>2</defense>
+		<durability><random min="30" max="40" /></durability>
+		<restock>10</restock>
+		<weight>4.0</weight>
+		<buyprice>80</buyprice>
+		<sellprice>40</sellprice>
+		<category>Armor\Leather\Leggings (N/S)</category>
+	</item>
+
+	<item id="13d2">
+		<inherit id="13cb" />
+		<id>0x13d2</id>
+		<category>Armor\Leather\Leggings (E/W)</category>
+	</item>
+
+</definitions>
