@@ -47,6 +47,7 @@ from wolfpack.gumps import cGump
 from wolfpack.utilities import hex2dec
 from wolfpack import console
 from string import lstrip
+import os
 
 def import_command( socket, command, arguments ):
 	char = socket.player
@@ -211,7 +212,7 @@ def parseSphere(file, map):
 				item.magic = 2
 				item.id = itemid
 				item.color = color
-				item.moveto(x, y, z, map, 1)
+				item.moveto( x, y, z, map )
 				item.update()
 				count += 1
 
@@ -323,9 +324,6 @@ def parseWsc( file, map ):
 			else:
 				baseid = lstrip( str( hex( id ) ), "0x" )
 				newitem = wolfpack.additem( "%s" % baseid ) # Generate a new serial for us
-
-			#if not newitem:
-			#	newitem = wolfpack.newitem( 1 ) # Generate a new serial for us
 
 			newitem.decay = 0
 			newitem.color = color

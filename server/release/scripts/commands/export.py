@@ -42,6 +42,10 @@
 
 import wolfpack
 from wolfpack.gumps import cGump
+import os
+
+# BaseID's not to save.
+nonsaves = ['gem','ore_gem','wood_gem']
 
 def exportcmd( socket, command, arguments ):
 
@@ -125,51 +129,61 @@ def export( char, args, choice ):
 	iterator = wolfpack.itemregion( args[0], args[1], args[2], args[3], char.pos.map )
 	warnings = ''
 
+	if os.name == 'posix':
+		newline = "\n"
+	else:
+		newline = "\r\n"
+
 	item = iterator.first
 	i = 0
 	while item:
-		# Build our string
-		if format == 1: # Sphere 51a
-			output.write( "[WORLDITEM 0%x]\r\n" % item.id )
-			output.write( "SERIAL=0%x\r\n" % item.serial )
-			if item.name != '#':
-				output.write( "NAME=%s\r\n" % item.name )
-			output.write( "ID=0%x\r\n" % item.id )
-			output.write( "COLOR=0%x\r\n" % item.color )
-			output.write( "P=%d,%d,%i\r\n\r\n" % ( item.pos.x, item.pos.y, item.pos.z ) )
+		if not item.baseid in nonsaves:
+			# Build our string
+			if format == 1: # Sphere 51a
+				output.write( "[WORLDITEM 0%x]%s" % ( item.id, newline ) )
+				output.write( "SERIAL=0%x%s" % ( item.serial, newline ) )
+				if item.name != '#':
+					output.write( "NAME=%s%s" % ( item.name, newline ) )
+				output.write( "ID=0%x%s" % ( item.id, newline ) )
+				output.write( "COLOR=0%x%s" % ( item.color, newline ) )
+				output.write( "P=%i,%i,%i%s%s" % ( item.pos.x, item.pos.y, item.pos.z, newline ) )
 
-		elif format == 2: # WSC
-			output.write( "SECTION WORLDITEM %d\r\n{\r\n" % i )
-			output.write( "SERIAL %d\r\n" % item.serial )
-			if item.baseid != '':
-				output.write( "BASEID %s\r\n" % item.baseid )
-			if item.name != '#':
-				output.write( "NAME %s\r\n" % item.name )
-			output.write( "ID %d\r\n" % item.id )
-			output.write( "X %d\r\n" % item.pos.x )
-			output.write( "Y %d\r\n" % item.pos.y )
-			output.write( "Z %i\r\n" % item.pos.z )
-			output.write( "MAP %i\r\n" % item.pos.map )
-			output.write( "CONT -1\r\n" )
-			output.write( "TYPE 255\r\n" ) # Useful for World Freezes
-			output.write( "AMOUNT %d\r\n" % item.amount )
-			output.write( "COLOR %d\r\n" % item.color )
+			elif format == 2: # WSC, Lonewolf Style, Compatible with Linux Worldforge
+				output.write( "SECTION WORLDITEM%s" % newline )
+				output.write( "{%s" % newline )
+				output.write( "SERIAL %i%s" % ( item.serial, newline ) )
+				output.write( "ID %i%s" % ( item.id, newline ) )
+				if item.baseid != '':
+					output.write( "BASEID %s%s" % ( item.baseid, newline ) )
+				if item.name != '#' or item.name != '':
+					output.write( "NAME %s%s" % ( item.name, newline ) )
 
-			output.write( "}\r\n\r\n" )
+				output.write( "X %i%s" % ( item.pos.x, newline ) )
+				output.write( "Y %i%s" % ( item.pos.y, newline ) )
+				output.write( "Z %i%s" % ( item.pos.z, newline ) )
+				output.write( "MAP %i%s" % ( item.pos.map, newline ) )
+				if item.type:
+					output.write( "TYPE %i%s" % ( item.type, newline ) ) # World Freeze Requirement
+				else:
+					output.write( "TYPE 255%s" % newline ) # World Freeze Requirement
+				output.write( "COLOR %i%s" % ( item.color, newline ) )
+				output.write( "CONT -1%s" % newline )
+				output.write( "}%s%s" ( newline, newline ) )
 
-		else: # Text
-			output.write( "%s 0x%x %i %i %i %i 0x%x\r\n" % ( item.baseid, item.id, item.pos.x, item.pos.y, item.pos.z, item.pos.map, item.color ) )
-			pass
+			else: # Text
+				output.write( "%s 0x%x %i %i %i %i 0x%x%s" % ( item.baseid, item.id, item.pos.x, item.pos.y, item.pos.z, item.pos.map, item.color, newline ) )
+				# Older Format, no baseid/map saved
+				#output.write( "0x%x %i %i %i 0x%x%s" % ( item.id, item.pos.x, item.pos.y, item.pos.z, item.color, newline ) )
 
 		if item.amount > 1:
-			warnings += 'Item %s has an amount of %d. This information will be lost when made static.<br><br>' % ( hex( item.serial ), item.amount )
+			warnings += 'Item %i has an amount of %i. This information will be lost when made static.<br><br>' % ( hex( item.serial ), item.amount )
 
 		eventlist = item.eventlist
 		if len( eventlist ) > 0:
-			warnings += 'Item %s has events (%s) assigned to it. It wont be usable when made static.<br><br>' % ( hex( item.serial ), eventlist )
+			warnings += 'Item %i has events (%s) assigned to it. It wont be usable when made static.<br><br>' % ( hex( item.serial ), eventlist )
 
 		if item.type != 0:
-			warnings += 'Item %s is of type %d. It wont be usable when made static.<br><br>' % ( hex( item.serial ), item.type )
+			warnings += 'Item %i is of type %i. It wont be usable when made static.<br><br>' % ( hex( item.serial ), item.type )
 
 		i += 1
 
