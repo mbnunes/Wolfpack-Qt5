@@ -220,20 +220,25 @@ class CraftItemAction(MakeItemAction):
 
 	#
 	# Returns true if the player has the required material.
+	# If materials is an empty list, it's correctly filled with data.
 	#
 	def checkmaterial(self, player, arguments, silent = 0):
 		backpack = player.getbackpack()
 
-		# See if we have enough of the two
-		# user selectable materials and check if we
-		# can even craft them too
+		submaterial1amount = 0 # Amount of submaterial 1 left to consume
+		submaterial1baseids = [] # List of baseids that statisfy this submaterial
+		submaterial2amount = 0 # Amount of submaterial 2 left to consume
+		submaterial2baseids = [] # List of baseids that statisfy this submaterial		
+
+		# Do numerous checks to see if the first submaterial can be used
 		if self.submaterial1 > 0:
 			materials = self.parent.submaterials1
 			material = self.parent.getsubmaterial1used(player, arguments)
 			if material >= len(materials):
 				if not silent:
 					player.socket.sysmessage(tr("You try to craft with an invalid material."))
-				return 0
+				return False
+
 			material = materials[material]
 
 			# Check the skill requirement of the material.
@@ -243,17 +248,10 @@ class CraftItemAction(MakeItemAction):
 						player.socket.clilocmessage(self.parent.submaterial1noskill)
 					else:
 						player.socket.clilocmessage(1044153)
-				return 0
-
-			# Check the required amount of the material
-			count = backpack.countitems(material[3])
-			if count < self.submaterial1:
-				if not silent:
-					if self.parent.submaterial1missing != 0:
-						player.socket.clilocmessage(self.parent.submaterial1missing)
-					else:
-						player.socket.sysmessage(self.lackmaterial)
-				return 0
+				return False
+				
+			submaterial1amount = self.submaterial1 # Make a copy of the amount that has to be consumed
+			submaterial1baseids = material[3] # This is a list of baseids that are accepted for this material
 
 		if self.submaterial2 > 0:
 			materials = self.parent.submaterials2
@@ -261,8 +259,9 @@ class CraftItemAction(MakeItemAction):
 			if material >= len(materials):
 				if not silent:
 					player.socket.sysmessage(tr("You try to craft with an invalid material."))
-				return 0
+				return False
 			material = materials[material]
+
 			# Check the skill requirement of the material.
 			if material[2] and player.skill[material[1]] < material[2]:
 				if not silent:
@@ -270,27 +269,57 @@ class CraftItemAction(MakeItemAction):
 						player.socket.clilocmessage(self.parent.submaterial2noskill)
 					else:
 						player.socket.clilocmessage(1044153)
-				return 0
+				return False
 
-			# Check the required amount of the material
-			count = backpack.countitems(material[3])
-			if count < self.submaterial2:
-				if not silent:
-					if self.parent.submaterial2missing != 0:
-						player.socket.clilocmessage(self.parent.submaterial2missing)
-					else:
-						player.socket.sysmessage(self.lackmaterial)
-				return 0
+			submaterial2amount = self.submaterial2 # Make a copy of the amount that has to be consumed
+			submaterial2baseids = material[3] # This is a list of baseids that are accepted for this material
 
+		materials = [] # Local copy of material list
 		for material in self.materials:
-			(baseids, amount) = material[:2]
-			count = backpack.countitems(baseids)
-			if count < amount:
-				if not silent:
-					player.socket.sysmessage(self.lackmaterial)
-				return 0
+			materials.append(material[:2]) # Last element is the amount left to find
 
-		return 1
+		# This loop checks for all required materials at once.
+		for item in backpack.content:
+			# Check if the pile is used by the main material
+			if item.baseid in submaterial1baseids:
+				submaterial1amount -= item.amount
+				continue
+			
+			# Check if the pile is used by the secondary material	
+			if item.baseid in submaterial2baseids:
+				submaterial1amount -= item.amount
+				continue
+				
+			for material in materials:
+				if item.baseid in material[0]:
+					material[1] -= item.amount
+					break # Break the inner loop
+
+		# We didn't succeed in finding enough of submaterial1
+		if submaterial1amount > 0:
+			if not silent:
+				if self.parent.submaterial1missing != 0:
+					player.socket.clilocmessage(self.parent.submaterial1missing)
+				else:
+					player.socket.sysmessage(self.lackmaterial)
+			return False
+			
+		# We didn't succeed in finding enough of submaterial2
+		if submaterial2amount > 0:
+			if not silent:
+				if self.parent.submaterial2missing != 0:
+					player.socket.clilocmessage(self.parent.submaterial2missing)
+				else:
+					player.socket.sysmessage(self.lackmaterial)
+			return False
+			
+		# Check if we found all the normal material we need to produce this item.
+		for material in materials:
+			if material[1] > 0:
+				player.socket.sysmessage(self.lackmaterial)
+				return False
+
+		return True
 
 	#
 	# Consume material to make the item.
@@ -298,36 +327,126 @@ class CraftItemAction(MakeItemAction):
 	def consumematerial(self, player, arguments, half = 0):
 		backpack = player.getbackpack()
 
+		submaterial1amount = 0 # Amount of submaterial 1 left to consume
+		submaterial1baseids = [] # List of baseids that statisfy this submaterial
+		submaterial2amount = 0 # Amount of submaterial 2 left to consume
+		submaterial2baseids = [] # List of baseids that statisfy this submaterial		
+
+		# Do numerous checks to see if the first submaterial can be used
 		if self.submaterial1 > 0:
 			materials = self.parent.submaterials1
 			material = self.parent.getsubmaterial1used(player, arguments)
+			if material >= len(materials):
+				if not silent:
+					player.socket.sysmessage(tr("You try to craft with an invalid material."))
+				return False
+
+			material = materials[material]
+
+			# Check the skill requirement of the material.
+			if material[2] and player.skill[material[1]] < material[2]:
+				if not silent:
+					if self.parent.submaterial1noskill != 0:
+						player.socket.clilocmessage(self.parent.submaterial1noskill)
+					else:
+						player.socket.clilocmessage(1044153)
+				return False
+				
+			submaterial1amount = self.submaterial1 # Make a copy of the amount that has to be consumed
 			if half:
-				amount = int(math.ceil(self.submaterial1 * 0.5))
-			else:
-				amount = self.submaterial1
-			count = backpack.removeitems(materials[material][3], amount)
-			if count != 0:
-				return 0
+				submaterial1amount = int(math.ceil(submaterial1amount * 0.5))
+			submaterial1baseids = material[3] # This is a list of baseids that are accepted for this material
 
 		if self.submaterial2 > 0:
 			materials = self.parent.submaterials2
 			material = self.parent.getsubmaterial2used(player, arguments)
-			if half:
-				amount = int(math.ceil(self.submaterial2 * 0.5))
-			else:
-				amount = self.submaterial2
-			count = backpack.removeitems(materials[material][3], amount)
-			if count != 0:
-				return 0
+			if material >= len(materials):
+				if not silent:
+					player.socket.sysmessage(tr("You try to craft with an invalid material."))
+				return False
+			material = materials[material]
 
-		for material in self.materials:
-			(baseids, amount) = material[:2]
+			# Check the skill requirement of the material.
+			if material[2] and player.skill[material[1]] < material[2]:
+				if not silent:
+					if self.parent.submaterial2noskill != 0:
+						player.socket.clilocmessage(self.parent.submaterial2noskill)
+					else:
+						player.socket.clilocmessage(1044153)
+				return False
+
+			submaterial2amount = self.submaterial2 # Make a copy of the amount that has to be consumed
 			if half:
-				amount = int(math.ceil(amount * 0.5))
-			count = backpack.removeitems(baseids, amount)
-			if count != 0:
-				return 0
-		return 1
+				submaterial2amount = int(math.ceil(submaterial2amount * 0.5))
+			submaterial2baseids = material[3] # This is a list of baseids that are accepted for this material
+
+		materials = [] # Local copy of material list
+		for material in self.materials:
+			m = material[:2]
+			if half:
+				m[1] = int(math.ceil(m[1] * 0.5))
+			materials.append(m) # Last element is the amount left to find
+
+		# This loop checks for all required materials at once.
+		for item in backpack.content:
+			# Check if the pile is used by the main material
+			if item.baseid in submaterial1baseids:
+				if item.amount < submaterial1amount: # We have less or equal than we need
+					submaterial1amount -= item.amount
+					item.delete()
+				else: # We have more than we need
+					item.amount -= submaterial1amount
+					item.update()
+					submaterial1amount = 0
+				continue
+			
+			# Check if the pile is used by the secondary material	
+			if item.baseid in submaterial2baseids:
+				if item.amount < submaterial2amount: # We have less or equal than we need
+					submaterial2amount -= item.amount
+					item.delete()
+				else: # We have more than we need
+					item.amount -= submaterial2amount
+					item.update()
+					submaterial2amount = 0
+				continue
+				
+			for material in materials:
+				if item.baseid in material[0]:
+					if item.amount < material[1]: # We have less or equal than we need
+						material[1] -= item.amount
+						item.delete()
+					else: # We have more than we need
+						item.amount -= material[1]
+						item.update()
+						material[1] = 0
+					break # Break the inner loop
+
+		# We didn't succeed in finding enough of submaterial1
+		if submaterial1amount > 0:
+			if not silent:
+				if self.parent.submaterial1missing != 0:
+					player.socket.clilocmessage(self.parent.submaterial1missing)
+				else:
+					player.socket.sysmessage(self.lackmaterial)
+			return False
+			
+		# We didn't succeed in finding enough of submaterial2
+		if submaterial2amount > 0:
+			if not silent:
+				if self.parent.submaterial2missing != 0:
+					player.socket.clilocmessage(self.parent.submaterial2missing)
+				else:
+					player.socket.sysmessage(self.lackmaterial)
+			return False
+			
+		# Check if we found all the normal material we need to produce this item.
+		for material in materials:
+			if material[1] > 0:
+				player.socket.sysmessage(self.lackmaterial)
+				return False
+
+		return True
 
 	#
 	# Sees if the player has all the required skills to make
