@@ -41,8 +41,6 @@
 
 // Extension includes
 #include "utilities.h"
-#include "item.h"
-#include "char.h"
 
 /*
 inline PyObject* PyGetTargetObject( cUOTxTarget *target )

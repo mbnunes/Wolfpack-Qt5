@@ -30,8 +30,6 @@
 //========================================================================================
 
 #include "utilities.h"
-#include "char.h"
-#include "item.h"
 #include "../globals.h"
 #include "../network/uosocket.h"
 #include "../network/uotxpackets.h"

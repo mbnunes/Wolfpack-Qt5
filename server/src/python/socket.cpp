@@ -30,8 +30,6 @@
 //========================================================================================
 
 #include "utilities.h"
-#include "item.h"
-#include "char.h"
 #include "../network/uosocket.h"
 
 /*!
@@ -76,6 +74,18 @@ PyObject* PyGetSocketObject( cUOSocket *socket )
 }
 
 /*!
+	Disconnects the socket.
+*/
+PyObject* wpSocket_disconnect( wpSocket* self, PyObject* args )
+{
+	if( !self->pSock )
+		return PyFalse;
+
+	self->pSock->socket()->close();
+	return PyTrue;
+}
+
+/*!
 	Sends a system message to the socket
 */
 PyObject* wpSocket_sysmessage( wpSocket* self, PyObject* args )
@@ -83,7 +93,7 @@ PyObject* wpSocket_sysmessage( wpSocket* self, PyObject* args )
 	if( !self->pSock )
 		return PyFalse;
 
-	if( PyTuple_Size( args ) < 1 || !PyString_Check( PyTuple_GetItem( args, 0 ) ) )
+	if( PyTuple_Size( args ) < 1 || checkArgStr( 0 ) )
 	{
 		clConsole.send( "Minimum argument count for socket.sysmessage is 1" );
 		return PyFalse;
@@ -93,10 +103,10 @@ PyObject* wpSocket_sysmessage( wpSocket* self, PyObject* args )
 	UINT16 color = 0x37;
 	UINT16 font = 3;
 
-	if( PyTuple_Size( args ) > 1 && PyInt_Check( PyTuple_GetItem( args, 1 ) ) )
+	if( PyTuple_Size( args ) > 1 && checkArgInt( 1 ) )
 		color = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
 
-	if( PyTuple_Size( args ) > 2 && PyInt_Check( PyTuple_GetItem( args, 2 ) ) )
+	if( PyTuple_Size( args ) > 2 && checkArgInt( 2 ) )
 		font = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
 
 	self->pSock->sysMessage( message, color, font );
@@ -115,7 +125,7 @@ PyObject* wpSocket_sendspeech( wpSocket* self, PyObject* args )
 	// optional:
 	// Third Argument: Color
 	// Fourth Argument: SpeechType
-	if( !self->pSock || PyTuple_Size( args ) < 2 || !checkArgStr( 1 ) ) 
+	if( !self->pSock || PyTuple_Size( args ) < 2 || !checkArgStr( 1 ) || !checkArgObject( 2 ) ) 
 		return PyFalse;
 
 	cUObject *object = NULL;
@@ -133,14 +143,14 @@ PyObject* wpSocket_sendspeech( wpSocket* self, PyObject* args )
 	if( !object )
 		return PyFalse;
 
-	if( PyTuple_Size( args ) > 2 && PyInt_Check( PyTuple_GetItem( args, 2 ) ) )
-		color = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
+	if( PyTuple_Size( args ) > 2 && checkArgInt( 2 ) )
+		color = getArgInt( 2 );
 
-	if( PyTuple_Size( args ) > 3 && PyInt_Check( PyTuple_GetItem( args, 3 ) ) )
-		font = PyInt_AsLong( PyTuple_GetItem( args, 3 ) );
+	if( PyTuple_Size( args ) > 3 && checkArgInt( 3 ) )
+		font = getArgInt( 3 );
 
-	if( PyTuple_Size( args ) > 4 && PyInt_Check( PyTuple_GetItem( args, 4 ) ) )
-		type = PyInt_AsLong( PyTuple_GetItem( args, 4 ) );
+	if( PyTuple_Size( args ) > 4 && checkArgInt( 4 ) )
+		type = getArgInt( 4 );
 
 	switch( type )
 	{
@@ -174,6 +184,7 @@ static PyMethodDef wpSocketMethods[] =
 {
     { "sysmessage",			(getattrofunc)wpSocket_sysmessage, METH_VARARGS, "Sends a system message to the char." },
 	{ "sendspeech",			(getattrofunc)wpSocket_sendspeech, METH_VARARGS, "Sends raw speech to the socket." },
+	{ "disconnect",			(getattrofunc)wpSocket_disconnect, METH_VARARGS, "Disconnects the socket." },
     { NULL, NULL, 0, NULL }
 };
 

@@ -30,13 +30,10 @@
 //========================================================================================
 
 #include "utilities.h"
-#include "item.h"
-#include "char.h"
-#include "socket.h"
-#include "pycoord.h"
 #include "skills.h"
 #include "content.h"
 #include "../chars.h"
+#include "../territories.h"
 #include "../prototypes.h"
 #include "../junk.h"
 #include "../classes.h"
@@ -556,9 +553,7 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	
 	// Region object
 	else if( !strcmp( "region", name ) )
-	{
-		return Py_None;
-	}
+		return PyGetRegionObject( cAllTerritories::getInstance()->region( self->pChar->region ) );
 
 	else pGetInt( "skilldelay", skilldelay )
 	else pGetInt( "objectdelay", objectdelay )
@@ -586,6 +581,9 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else pGetInt( "hairstyle", hairstyle() )
 	else pGetInt( "beardcolor", beardcolor() )
 	else pGetInt( "beardstyle", beardstyle() )
+
+	else if( !strcmp( "socket", name ) )
+		return PyGetSocketObject( self->pChar->socket() );
 
 	/*getStrProperty( "name", pChar->name.c_str() )
 	else getStrProperty( "orgname", pChar->orgname().latin1() )
@@ -707,4 +705,12 @@ P_CHAR getWpChar( PyObject *pObj )
 
 	wpChar *item = (wpChar*)( pObj );
 	return item->pChar;
+}
+
+bool checkWpChar( PyObject *pObj )
+{
+	if( pObj->ob_type != &wpCharType )
+		return false;
+	else
+		return true;
 }

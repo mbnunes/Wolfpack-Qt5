@@ -35,6 +35,16 @@
 #include "Python.h"
 #include "pyerrors.h"
 
+class cUOSocket;
+class cItem;
+class cChar;
+class Coord_cl;
+class AccountRecord;
+class cTerritory;
+
+typedef cItem* P_ITEM;
+typedef cChar* P_CHAR;
+
 /*!
 	Things commonly used in other python-definition
 	source-files.
@@ -51,10 +61,6 @@
 #define setStrProperty( identifier, property ) if( !strcmp( name, identifier ) ) self->property = PyString_AS_STRING( value );
 #define getIntProperty( identifier, property ) if( !strcmp( name, identifier ) ) return PyInt_FromLong( self->property );
 #define getStrProperty( identifier, property ) if( !strcmp( name, identifier ) ) return PyString_FromString( self->property );
-
-// Argument checks
-#define checkArgInt( id ) PyInt_Check( PyTuple_GetItem( args, id ) )
-#define checkArgStr( id ) PyString_Check( PyTuple_GetItem( args, id ) )
 
 // If an error occured, report it
 inline void PyReportError( void )
@@ -76,12 +82,31 @@ bool checkWpCoord( PyObject *object );
 PyObject *PyGetCoordObject( const Coord_cl& coord );
 Coord_cl getWpCoord( PyObject* object );
 
-bool checkWpItem( P_ITEM );
+bool checkWpItem( PyObject *object );
 PyObject* PyGetItemObject( P_ITEM );
 P_ITEM getWpItem( PyObject* );
 
-bool checkWpChar( P_CHAR );
+bool checkWpChar( PyObject *object );
 PyObject* PyGetCharObject( P_CHAR );
 P_CHAR getWpChar( PyObject* );
+
+bool checkWpAccount( PyObject *object );
+PyObject* PyGetAccountObject( AccountRecord* );
+AccountRecord* getWpAccount( PyObject* );
+
+bool checkWpRegion( PyObject *object );
+PyObject* PyGetRegionObject( cTerritory* );
+cTerritory* getWpRegion( PyObject* );
+
+// Argument checks
+#define checkArgObject( id ) checkWpItem( PyTuple_GetItem( args, id ) ) || checkWpChar( PyTuple_GetItem( args, id ) )
+#define checkArgInt( id ) PyInt_Check( PyTuple_GetItem( args, id ) )
+#define getArgInt( id ) PyInt_AsLong( PyTuple_GetItem( args, id ) )
+#define checkArgStr( id ) PyString_Check( PyTuple_GetItem( args, id ) )
+#define getArgStr( id ) PyString_AsString( PyTuple_GetItem( args, id ) )
+#define checkArgAccount( id ) checkWpAccount( PyTuple_GetItem( args, id ) )
+#define checkArgRegion( id ) checkWpRegion( PyTuple_GetItem( args, id ) )
+#define getArgRegion( id ) getWpRegion( PyTuple_GetItem( args, id ) )
+#define getArgAccount( id ) getWpAccount( PyTuple_GetItem( args, id ) )
 
 #endif

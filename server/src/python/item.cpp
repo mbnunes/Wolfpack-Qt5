@@ -30,9 +30,6 @@
 //========================================================================================
 
 #include "utilities.h"
-#include "item.h"
-#include "pycoord.h"
-#include "char.h"
 #include "content.h"
 #include "../items.h"
 #include "../tilecache.h"
@@ -734,4 +731,12 @@ P_ITEM getWpItem( PyObject *pObj )
 
 	wpItem *item = (wpItem*)( pObj );
 	return item->pItem;
+}
+
+bool checkWpItem( PyObject *pObj )
+{
+	if( pObj->ob_type != &wpItemType )
+		return false;
+	else
+		return true;
 }
