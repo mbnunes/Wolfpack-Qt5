@@ -27,7 +27,7 @@ def addmulti(player, arguments, target):
 
 	multi = wolfpack.addmulti(str(arguments[0]))
 	multi.moveto(target.pos)
-	multi.update()	
+	multi.update()
 
 #
 # Target response for adding an item
@@ -209,7 +209,7 @@ def generateAddMenu():
 		else:
 			addnpc = AddNpcAction(submenus['\\'.join(categories) + '\\'], description, definition)
 		addnpc.description = 'Definition: ' + definition
-	
+
 	for (id, menu) in submenus.items():
 		menu.sort()
 
@@ -221,7 +221,7 @@ def onLoad():
 """
 	\command add
 	\description Add a npc or item and if no definition was specified, open a menu.
-	\usage - <code>add npc-id</code>	
+	\usage - <code>add npc-id</code>
 	- <code>add item-id</code>
 	- <code>add</code>
 	If neither a npc nor an item id is passed to the add command, a menu with all

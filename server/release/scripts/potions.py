@@ -12,24 +12,26 @@ INTELLIGENCE_TIME = 120000 # 2 minutes
 # potion [ return_bottle, aggressive, target ]
 potions = \
 {
-	'nightsight':				[ 1, 0, 0 ],
-	'lesser_heal':				[ 1, 0, 0 ],
-	'heal':						[ 1, 0, 0 ],
-	'greater_heal':			[ 1, 0, 0 ],
-	'lesser_cure':				[ 1, 0, 0 ],
-	'cure':						[ 1, 0, 0 ],
-	'greater_cure':			[ 1, 0, 0 ],
-	'agility':						[ 1, 0, 0 ],
-	'greater_agility':			[ 1, 0, 0 ],
-	'strength':					[ 1, 0, 0 ],
-	'greater_strength':		[ 1, 0, 0 ],
-	'lesser_explosion':		[ 0, 1, 1 ],
-	'explosion':				[ 0, 1, 1 ],
-	'greater_explosion':	[ 0, 1, 1 ],
-	'lesser_poison':			[ 1, 0, 0 ],
-	'poison':					[ 1, 0, 0 ],
-	'greater_poison':		[ 1, 0, 0 ],
-	'deadly_poison':			[ 1, 0, 0 ]
+	0:		[ 1, 0, 0 ], # nightsight
+	1:		[ 1, 0, 0 ], # lesser heal
+	2:		[ 1, 0, 0 ], # heal
+	3:		[ 1, 0, 0 ], # greater heal
+	4:		[ 1, 0, 0 ], # lesser cure
+	5:		[ 1, 0, 0 ], # cure
+	6:		[ 1, 0, 0 ], # greater cure
+	7:		[ 1, 0, 0 ], # agility
+	8:		[ 1, 0, 0 ], # greater agility
+	9:		[ 1, 0, 0 ], # strength
+	10:	[ 1, 0, 0 ], # greater strength
+	11:	[ 0, 1, 1 ], # lesser explosion
+	12:	[ 0, 1, 1 ], # explosion
+	13:	[ 0, 1, 1 ], # greater explosion
+	14:	[ 1, 0, 0 ], # lesser poison
+	15:	[ 1, 0, 0 ], # poison
+	16:	[ 1, 0, 0 ], # greater poison
+	17:	[ 1, 0, 0 ], # deadly poison
+	18:	[ 1, 0, 0 ], # refresh
+	19:	[ 1, 0, 0 ] # total refresh
 }
 
 POT_RETURN_BOTTLE = 0
@@ -69,7 +71,7 @@ def potioncheck( char, item, potiontype ):
 	# Do we throw this thing?
 	if potions[ potiontype ][ POT_TARGET ] == TRUE:
 		# Explosion Potion
-		if potiontype == 'lesser_explosion' or potiontype == 'explosion' or potiontype == 'greater_explosion':
+		if potiontype in [ 11, 12, 13 ]:
 			socket.sysmessage( 'Please select a target...', RED )
 			socket.attachtarget( "potions.targetexplosionpotion", [ item ] )
 
@@ -80,7 +82,7 @@ def potioncheck( char, item, potiontype ):
 	# We just drink this potion...
 	else:
 		# Heal Potions
-		if potiontype == 'lesser_heal' or potiontype == 'heal' or potiontype == 'greater_heal':
+		if potiontype in [ 1, 2, 3 ]:
 			if canUsePotion(char, item):
 				if char.hastag('poisoned'):
 					# You can not heal yourself in your current state.
@@ -93,12 +95,12 @@ def potioncheck( char, item, potiontype ):
 					healPotion(char, item, potiontype)
 
 		# Cure Potions
-		elif potiontype == 'lesser_cure' or potiontype == 'cure' or potiontype == 'greater_cure':
+		elif potiontype in [ 4, 5, 6 ]:
 			if canUsePotion(char, item):
 				socket.sysmessage('Drinking a cure potion.')
 
 		# Agility Potions
-		elif potiontype == 'agility' or potiontype == 'greater_agility':
+		elif potiontype in [ 7, 8 ]:
 			if canUsePotion(char, item):
 				if not char.hastag('agility_effect'):
 					agilityPotion(char, item, potiontype)
@@ -107,7 +109,7 @@ def potioncheck( char, item, potiontype ):
 					char.socket.clilocmessage(502173)
 
 		# Strength Potions
-		elif potiontype == 'strength' or potiontype == 'greater_strength':
+		elif potiontype in [ 9, 10 ]:
 			if canUsePotion( char, item ):
 				if not char.hastag( 'strength_effect' ):
 					strengthPotion( char, item, potiontype )
@@ -116,12 +118,12 @@ def potioncheck( char, item, potiontype ):
 					char.socket.clilocmessage( 502173, '', GRAY )
 
 		# Poison Potions
-		elif potiontype == 'lesser_poison' or potiontype == 'poison' or potiontype == 'greater_poison' or potiontype == 'deadly_poison':
+		elif potiontype in [ 14, 15, 16, 17 ]:
 			if canUsePotion( char, item ):
 				poisonPotion( char, item, potiontype )
 
 		# Nightsight Potions
-		elif potiontype == 'nightsight':
+		elif potiontype in [ 0 ]:
 			if canUsePotion( char, item ):
 				nightsightPotion( char, potion )
 

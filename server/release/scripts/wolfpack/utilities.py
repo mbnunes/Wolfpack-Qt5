@@ -615,14 +615,16 @@ def throwobject( char, object, target, sendobject=0, speed=10, fixeddir=0, explo
 	char.action(0x9)
 	char.movingeffect(object.id, target.pos, fixeddir, explodes, speed, hue, rendermode)
 	# This will make the object leave the character's pack and land at the target location.
-	if sendobject > 0:
-		char.say('Woooooooooo!')
+	if sendobject > 0 and object:
 		if target.char:
-			object.moveto(target.char.pos)
+			char.say('Bombing a character with %s!' % (object.name) )
+			object.moveto(target.char.pos.x, target.char.pos.y)
 		elif target.item and target.item.type != 1 and (not target.item.container):
-			object.moveto( target.item.pos )
+			char.say('Bombing an item with %s!' % (object.name) )
+			object.moveto( target.item.pos.x, target.item.pos.y )
 		else:
-			object.moveto( target.pos )
+			char.say('Bombing something else with %s!' % (object.name) )
+			object.moveto( target.pos.x, target.pos.y )
 		object.update()
 	return
 
