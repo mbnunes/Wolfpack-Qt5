@@ -217,41 +217,6 @@ bool cRemoveTarget::responsed( cUOSocket* socket, cUORxTarget* target )
 	return true;
 }
 
-bool cAddEventTarget::responsed( cUOSocket* socket, cUORxTarget* target )
-{
-	cUObject* pObject = 0;
-
-	if ( isCharSerial( target->serial() ) )
-		pObject = FindCharBySerial( target->serial() );
-	else if ( isItemSerial( target->serial() ) )
-		pObject = FindItemBySerial( target->serial() );
-
-	// We have to have a valid target
-	if ( !pObject )
-	{
-		socket->sysMessage( tr( "You have to target a character or an item." ) );
-		return true;
-	}
-
-	// Check if we already have the event
-	if ( pObject->hasEvent( _event ) )
-	{
-		socket->sysMessage( tr( "This object already has the event '%1'" ).arg( _event ) );
-		return true;
-	}
-
-	cPythonScript* script = ScriptManager::instance()->find( _event.latin1() );
-
-	if ( !script )
-	{
-		socket->sysMessage( tr( "Invalid event: '%1'" ).arg( _event ) );
-		return true;
-	}
-
-	pObject->addEvent( script );
-	return true;
-}
-
 bool cShowTarget::responsed( cUOSocket* socket, cUORxTarget* target )
 {
 	// Check for a valid target

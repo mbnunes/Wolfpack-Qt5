@@ -866,55 +866,6 @@ void commandReload( cUOSocket* socket, const QString& command, const QStringList
 }
 
 /*
-	\command addevent
-	\description Attach a script to an object.
-	\usage - <code>addevent [script]</code>
-	Script is the id of the script you want to attach.
-*/
-void commandAddEvent( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
-{
-	Q_UNUSED( command );
-	if ( args.size() < 1 )
-	{
-		socket->sysMessage( "Usage: addevent <identifier>" );
-		return;
-	}
-
-	QString event = args.join( " " );
-
-	// No such event
-	if ( !ScriptManager::instance()->find( event.latin1() ) )
-	{
-		socket->sysMessage( tr( "Invalid event: '%1'" ).arg( event ) );
-		return;
-	}
-
-	socket->sysMessage( tr( "Please select a target to add event '%1' to." ).arg( event ) );
-	socket->attachTarget( new cAddEventTarget( event ) );
-}
-
-/*
-	\command removeevent
-	\description Remove a script from an object.
-	\usage - <code>removeevent [script]</code>
-	Script is the id of the script you want to remove.
-*/
-void commandRemoveEvent( cUOSocket* socket, const QString& command, const QStringList& args ) throw()
-{
-	Q_UNUSED( command );
-	if ( args.size() < 1 )
-	{
-		socket->sysMessage( "Usage: removeevent <identifier>" );
-		return;
-	}
-
-	QString event = args.join( " " );
-
-	socket->sysMessage( tr( "Please select a target to remove event '%1' from." ).arg( event ) );
-	socket->attachTarget( new cRemoveEventTarget( event ) );
-}
-
-/*
 	\command move
 	\description Move an object relatively to its current position.
 	\usage - <code>move [x]</code>
@@ -1395,28 +1346,26 @@ void commandDoorGenerator( cUOSocket* socket, const QString& command, const QStr
 // Command Table (Keep this at the end)
 stCommand cCommands::commands[] =
 {
-	{ "ACCOUNT", commandAccount },
-	{ "ADDEVENT", commandAddEvent },
+	{ "ACCOUNT", commandAccount }, 
 	{ "ALLMOVE", commandAllMove },
-	{ "ALLSHOW", commandAllShow },
-	{ "ALLSKILLS", commandAllSkills },
-	{ "BROADCAST", commandBroadcast },
-	{ "DOORGEN", commandDoorGenerator },
-	{ "FIX", commandFix },
-	{ "GMTALK", commandGmtalk },
-	{ "INVIS", commandInvis },
-	{ "KILL", commandKill },
-	{ "MOVE", commandMove },
-	{ "PAGES", commandPages },
-	{ "PAGENOTIFY", commandPageNotify },
-	{ "PASSWORD", commandPassword },
-	{ "RELOAD", commandReload },
-	{ "REMOVE", commandRemove },
-	{ "REMOVEEVENT", commandRemoveEvent },
-	{ "RESEND", commandResend },
-	{ "RESTOCK", commandRestock },
-	{ "RESURRECT", commandResurrect },
-	{ "SAVE", commandSave },
+	{ "ALLSHOW", commandAllShow }, 
+	{ "ALLSKILLS", commandAllSkills }, 
+	{ "BROADCAST", commandBroadcast }, 
+	{ "DOORGEN", commandDoorGenerator }, 
+	{ "FIX", commandFix }, 
+	{ "GMTALK", commandGmtalk }, 
+	{ "INVIS", commandInvis }, 
+	{ "KILL", commandKill }, 
+	{ "MOVE", commandMove }, 
+	{ "PAGES", commandPages }, 
+	{ "PAGENOTIFY", commandPageNotify }, 
+	{ "PASSWORD", commandPassword }, 
+	{ "RELOAD", commandReload }, 
+	{ "REMOVE", commandRemove }, 
+	{ "RESEND", commandResend }, 
+	{ "RESTOCK", commandRestock }, 
+	{ "RESURRECT", commandResurrect }, 
+	{ "SAVE", commandSave }, 
 	{ "SERVERTIME", commandServerTime },
 	{ "SET", commandSet },
 	{ "SHOW", commandShow },

@@ -416,55 +416,6 @@ public:
 	}
 };
 
-class cAddEventTarget : public cTargetRequest
-{
-private:
-	QString _event;
-public:
-	cAddEventTarget( const QString& event ) : _event( event )
-	{
-	}
-
-	bool responsed( cUOSocket* socket, cUORxTarget* target );
-};
-
-class cRemoveEventTarget : public cTargetRequest
-{
-private:
-	QString _event;
-public:
-	cRemoveEventTarget( const QString& event ) : _event( event )
-	{
-	}
-
-	virtual bool responsed( cUOSocket* socket, cUORxTarget* target )
-	{
-		cUObject* pObject = 0;
-
-		if ( isCharSerial( target->serial() ) )
-			pObject = FindCharBySerial( target->serial() );
-		else if ( isItemSerial( target->serial() ) )
-			pObject = FindItemBySerial( target->serial() );
-
-		// We have to have a valid target
-		if ( !pObject )
-		{
-			socket->sysMessage( tr( "You have to target a character or an item." ) );
-			return true;
-		}
-
-		// Check if we already have the event
-		if ( !pObject->hasEvent( _event ) )
-		{
-			socket->sysMessage( tr( "This object doesn't have the event '%1'" ).arg( _event ) );
-			return true;
-		}
-
-		pObject->removeEvent( _event );
-		return true;
-	}
-};
-
 class cMoveTarget : public cTargetRequest
 {
 private:
