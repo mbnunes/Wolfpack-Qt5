@@ -18,10 +18,10 @@ def sendPage( char, serial, page, lines ):
 	
 	offset = 13
 	for line in lines:
-		packet.setascii( offset, line )
-		offset += len( line ) + 1
+		packet.setascii(offset, str(line))
+		offset += len(line) + 1
 				
-	packet.send( char.socket )
+	packet.send(char.socket)
 
 def onUse( char, item ):
 	char.objectdelay = 0
@@ -51,11 +51,11 @@ def onUse( char, item ):
 			
 	packet.setshort( 9, pages )
 	
-	packet.setshort( 11, len( author ) + 1 )
-	packet.setascii( 13, author )
+	packet.setshort( 11, len(title) + 1 )
+	packet.setascii( 13, title )
 	
-	packet.setshort( 13 + len( author ) + 1, len( title ) + 1 )
-	packet.setascii( 15 + len( author ) + 1, title )
+	packet.setshort( 13 + len(title) + 1, len(author) + 1 )
+	packet.setascii( 15 + len(title) + 1, author )
 
 	packet.send( char.socket )
 
@@ -89,13 +89,13 @@ def onBookRequestPage( char, item, page ):
 	sendPage( char, item.serial, page, lines )
 
 # Request Update
-def onBookUpdatePage( char, item, page, content ):
-	if item.hastag( 'protected' ):
-		char.message( 'This book is protected' )
+def onBookUpdatePage(char, item, page, content):
+	if item.hastag('protected'):
+		char.message('This book is read only.')
 		return
 	
 	if item.hastag( 'pages' ):
-		pages = int( item.gettag( 'pages' ) )
+		pages = int(item.gettag('pages'))
 	else:
 		pages = 64
 		
@@ -103,15 +103,19 @@ def onBookUpdatePage( char, item, page, content ):
 		return
 
 	if len( content.strip()	) == 0:
-		item.deltag( 'page%u' % page )
+		item.deltag('page%u' % page)
 		return
 		
 	item.settag( 'page%u' % page, content )
 		
-def onBookUpdateInfo( char, item, author, title ):
-	if item.hastag( 'protected' ):
-		char.message( 'This book is protected' )
-		return
-		
-	item.settag( 'author', author )
-	item.name = title
+def onBookUpdateInfo(char, item, title, author):
+  if item.hastag( 'protected' ):
+    char.message( 'This book is read only.' )
+    return
+  
+  if len(author) == 0:
+    item.deltag('author')
+  else:
+    item.settag('author', author)
+  
+  item.name = title
