@@ -1162,7 +1162,7 @@ void cAllResources::load()
 			while( sit != specs.end() )
 			{
 				QDomElement section = doc.createElement( "item" );
-				section.setAttribute( "id", QString("%1_%2").arg( (*sit).name ).arg( (*it) ) );
+				section.setAttribute( "id", QString("%1_%2").arg( (*sit).name.lower() ).arg( (*it) ) );
 				doc.appendChild( section );
 				QDomElement itemid = doc.createElement( "id" );
 				section.appendChild( itemid );

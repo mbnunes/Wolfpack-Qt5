@@ -36,6 +36,8 @@
 #include "network/uosocket.h"
 #include "wpdefmanager.h"
 
+#include "qregexp.h"
+
 #undef DBGFILE
 #define DBGFILE "books.cpp"
 
@@ -112,7 +114,13 @@ void cBook::processNode( const QDomElement &Tag )
 			if( childNode.isElement() )
 			{
 				QDomElement childTag = childNode.toElement();
-				Value = this->getNodeValue( childTag );
+				QString text = childTag.text();
+				text = text.replace( QRegExp( "\\t" ), "" );
+				if( text.left( 1 ) == "\n" || text.left( 1 ) == "\r" )
+					text = text.right( text.length()-1 );
+				if( text.right( 1 ) == "\n" || text.right( 1 ) == "\r" )
+					text = text.left( text.length()-1 );
+
 				if( childTag.attributes().contains("no") )
 				{
 					UINT32 n = childTag.attribute( "no" ).toShort();
@@ -121,10 +129,10 @@ void cBook::processNode( const QDomElement &Tag )
 					while( content_.size() < n )
 						content_.push_back( "" );
 
-					content_[ n - 1 ] = Value;
+					content_[ n - 1 ] = text;
 				}
 				else
-					content_.push_back( Value );
+					content_.push_back( text );
 			}
 			childNode = childNode.nextSibling();
 		}
@@ -190,7 +198,13 @@ void cBook::refresh( void )
 						if( chchildNode.isElement() )
 						{
 							QDomElement chchildTag = chchildNode.toElement();
-							Value = this->getNodeValue( chchildTag );
+							QString text = chchildTag.text();
+							text = text.replace( QRegExp( "\\t" ), "" );
+							if( text.left( 1 ) == "\n" || text.left( 1 ) == "\r" )
+								text = text.right( text.length()-1 );
+							if( text.right( 1 ) == "\n" || text.right( 1 ) == "\r" )
+								text = text.left( text.length()-1 );
+
 							if( chchildTag.attributes().contains("no") )
 							{
 								UINT32 n = chchildTag.attribute( "no" ).toShort();
@@ -199,10 +213,10 @@ void cBook::refresh( void )
 								while( content.size() < n )
 									content.push_back( "" );
 
-								content[ n - 1 ] = Value;
+								content[ n - 1 ] = text;
 							}
 							else
-								content.push_back( Value );
+								content.push_back( text );
 						}
 						chchildNode = chchildNode.nextSibling();
 					}

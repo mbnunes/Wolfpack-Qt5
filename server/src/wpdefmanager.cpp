@@ -38,6 +38,7 @@
 // Library Includes
 #include "qdom.h"
 #include "qfile.h"
+#include "qregexp.h"
 
 // Method for processing one node
 void WPDefManager::ProcessNode( QDomElement Node )
@@ -479,6 +480,14 @@ QString WPDefManager::getText( QString TextSection )
 	if( DefSection->isNull() )
 		return QString();
 	else
-		return DefSection->text();
+	{
+		QString text = DefSection->text();
+		if( text.left( 1 ) == "\n" || text.left( 0 ) == "\r" )
+			text = text.right( text.length()-1 );
+		text = text.replace( QRegExp( "\\t" ), "" );
+		if( text.right( 1 ) == "\n" || text.right( 1 ) == "\r" )
+			text = text.left( text.length()-1 );
+		return text;
+	}
 }
 
