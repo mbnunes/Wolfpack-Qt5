@@ -1496,6 +1496,28 @@ void cMovement::NpcMovement( unsigned int currenttime, P_CHAR pc_i )
 			}
 		}
 		break;
+	// Try to find your way to a specified position
+	case 6:
+		if( pc_i->pos.map != pc_i->ptarg().map )
+		{
+			pc_i->setNpcWander( 0 );
+		}
+		else
+		{
+			Coord_cl dest( pc_i->ptarg() );
+
+			if( dest.x == 0 && dest.y == 0  && dest.z == 0 )
+				pc_i->setNpcWander( 0 );
+			else if( dest.distance( pc_i->pos ) == 0 )
+			{
+				pc_i->setNpcWander( 0 );
+			}
+			else
+			{
+				UINT8 dir = chardirxyz( pc_i, dest.x, dest.y );
+		        Walking( pc_i, dir, 0xFF );
+			}
+		}		
 	}
 
 	pc_i->setNextMoveTime();

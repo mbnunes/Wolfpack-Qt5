@@ -674,7 +674,7 @@ void cChar::buildSqlString( QStringList &fields, QStringList &tables, QStringLis
 	fields.push_back( "characters.guildtoggle,characters.guildstone,characters.guildtitle,characters.guildfealty" );
 	fields.push_back( "characters.murderrate,characters.menupriv,characters.questtype,characters.questdestregion" );
 	fields.push_back( "characters.questorigregion,characters.questbountypostserial,characters.questbountyreward,characters.jailtimer" );
-	fields.push_back( "characters.jailsecs,characters.lootlist,characters.food,characters.profile,characters.guarding" );
+	fields.push_back( "characters.jailsecs,characters.lootlist,characters.food,characters.profile,characters.guarding,characters.destination" );
 	tables.push_back( "characters" );
 	conditions.push_back( "uobjectmap.serial = characters.serial" );
 }
@@ -791,6 +791,8 @@ void cChar::load( char **result, UINT16 &offset )
 	if( (SERIAL)guarding_ == -1 )
 		guarding_ = 0;
 	
+	parseCoordinates( result[offset++], ptarg_ );
+
 	SetSpawnSerial( spawnserial_ );
 
 	// Query the Skills for this character
@@ -921,6 +923,7 @@ void cChar::save()
 	addField( "food", food_);
 	addStrField( "profile", profile_ );
 	addField( "guarding", guarding_ ? guarding_->serial : INVALID_SERIAL );
+	addStrField( "destination", QString( "%1,%2,%3,%4" ).arg( ptarg_.x ).arg( ptarg_.y ).arg( ptarg_.z ).arg( ptarg_.map ) );
 
 	addCondition( "serial", serial );
 	saveFields;

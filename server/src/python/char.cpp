@@ -208,6 +208,24 @@ PyObject* wpChar_moveto( wpChar* self, PyObject* args )
 }
 
 /*!
+	Plays a creature specific sound.
+*/
+PyObject* wpChar_sound( wpChar* self, PyObject* args )
+{
+	if( !self->pChar || self->pChar->free )
+		return PyFalse;
+
+	if( !checkArgInt( 0 ) )
+	{
+		PyErr_BadArgument();
+		return NULL;
+	}
+
+	playmonstersound( self->pChar, self->pChar->id(), getArgInt( 0 ) );
+	return PyTrue;
+}
+
+/*!
 	Plays a soundeffect originating from the char
 */
 PyObject* wpChar_soundeffect( wpChar* self, PyObject* args )
@@ -1206,6 +1224,15 @@ PyObject* wpChar_attack( wpChar* self, PyObject* args )
 
 	self->pChar->fight( pChar );
 
+	// Show the You see XXX attacking YYY messages
+	QString message = tr( "*You see %1 attacking %2*" ).arg( self->pChar->name ).arg( pChar->name );
+	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
+		if( mSock->player() && mSock->player() != self->pChar && mSock->player() != pChar && mSock->player()->inRange( self->pChar, mSock->player()->VisRange() ) )
+			mSock->showSpeech( self->pChar, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
+	
+	if( pChar->socket() )
+		pChar->socket()->showSpeech( self->pChar, tr( "*You see %1 attacking you*" ).arg( self->pChar->name ), 0x26, 3, cUOTxUnicodeSpeech::Emote );
+
 	return PyTrue;
 }
 
@@ -1258,7 +1285,7 @@ PyObject* wpChar_goto( wpChar* self, PyObject* args )
 	}
 
 	self->pChar->setPtarg( pos );
-	self->pChar->setNpcWander( 1 );
+	self->pChar->setNpcWander( 6 );
 	self->pChar->setNextMoveTime();
 
 	return PyTrue;
@@ -1288,6 +1315,7 @@ static PyMethodDef wpCharMethods[] =
 	{ "turnto",			(getattrofunc)wpChar_turnto, METH_VARARGS, "Turns towards a specific object and resends if neccesary." },
 	{ "equip",			(getattrofunc)wpChar_equip, METH_VARARGS, "Equips a given item on this character." },
 	{ "maywalk",		(getattrofunc)wpChar_maywalk, METH_VARARGS, "Checks if this character may walk to a specific cell." },
+	{ "sound",			(getattrofunc)wpChar_sound, METH_VARARGS, "Play a creature specific sound." },
 	
 	// Mostly NPC functions
 	{ "attack",			(getattrofunc)wpChar_attack, METH_VARARGS, "Let's the character attack someone else." },
@@ -1457,6 +1485,9 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 	else pGetInt( "hairstyle", hairstyle() )
 	else pGetInt( "beardcolor", beardcolor() )
 	else pGetInt( "beardstyle", beardstyle() )
+	
+	else if( !strcmp( "guarding", name ) )
+		return PyGetCharObject( self->pChar->guarding() );
 
 	else if( !strcmp( "socket", name ) )
 		return PyGetSocketObject( self->pChar->socket() );
@@ -1480,7 +1511,7 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 		return (PyObject*)( skills );
 	}
 
-	else pGetInt( "direction", beardstyle() )
+	else pGetInt( "direction", dir() )
 	else pGetInt( "serial", serial )
 
 	else pGetStr( "profile", profile() )
@@ -1498,6 +1529,17 @@ PyObject *wpChar_getAttr( wpChar *self, char *name )
 
 		for( INT32 i = 0; i < followers.size(); ++i )
 			PyTuple_SetItem( rVal, i, PyGetCharObject( followers[i] ) );
+
+		return rVal;
+	}
+
+	else if( !strcmp( "guards", name ) )
+	{
+		cChar::Followers guards = self->pChar->guardedby();
+		PyObject *rVal = PyTuple_New( guards.size() );
+
+		for( INT32 i = 0; i < guards.size(); ++i )
+			PyTuple_SetItem( rVal, i, PyGetCharObject( guards[i] ) );
 
 		return rVal;
 	}
