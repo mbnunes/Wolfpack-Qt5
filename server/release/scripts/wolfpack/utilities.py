@@ -21,10 +21,13 @@ from types import *
 
 """
 	\function wolfpack.utilities.rolldice
-	\param dice
-	\param sides
-	\param bonus
-	\return Integer
+	\param dice This is either the number of dice you want to roll or a string representation of the number of dice, the sides
+	and the bonus. One of the following would be valid: <code>"2d8+4", "2d8", "1d4-1", "20d10"</code>.
+	\param sides Defaults to 6.
+	The number of sides each dice should have.
+	\param bonus Defaults to 0.
+	The bonus that should be added to the result after the dice have been rolled.
+	\return The result of the roll as an integer.
 	\description Rolls some dice and returns a result.
 """
 def rolldice(dice, sides=6, bonus=0):
