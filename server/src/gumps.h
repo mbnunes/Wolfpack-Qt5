@@ -99,7 +99,7 @@ public:
 	void addTiledGump( Q_INT32 gumpX, Q_INT32 gumpY, Q_INT32 width, Q_INT32 height, Q_UINT16 gumpId, Q_INT16 hue );
 
 	// Art-tile pictures
-	void addTilePic( Q_INT32 tileX, Q_INT32 tileY, Q_UINT16 tileId ) { layout_.push_back( QString( "{tilepic %1 %2 %3%4}" ).arg( tileX ).arg( tileY ).arg( tileId ) ); }	
+	void addTilePic( Q_INT32 tileX, Q_INT32 tileY, Q_UINT16 tileId, Q_INT16 hue = 0 ) { layout_.push_back( QString( "{tilepic %1 %2 %3 %4}" ).arg( tileX ).arg( tileY ).arg( tileId ).arg( hue ) ); }	
 
 	// Form-fields
 	// 7 = x,y,widthpix,widthchars,wHue,TEXTID,startstringindex

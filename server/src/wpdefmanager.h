@@ -55,7 +55,12 @@ enum WPDEF_TYPE
 	WPDT_TEXT,
 	WPDT_STARTITEMS,
 	WPDT_LOCATION,
-	WPDT_SKILL
+	WPDT_SKILL,
+	WPDT_ACTION,
+	WPDT_MAKESECTION,
+	WPDT_MAKEITEM,
+	WPDT_USEITEM,
+	WPDT_SKILLCHECK
 };
 
 class WPDefManager  
@@ -76,6 +81,11 @@ private:
 	DefSections StartItems;
 	DefSections Locations;
 	DefSections Skills;
+	DefSections Actions;
+	DefSections MakeSections;
+	DefSections MakeItems;
+	DefSections UseItems;
+	DefSections SkillChecks;
 
 	bool ImportSections( const QString& FileName );
 	void ProcessNode( QDomElement Node );

@@ -97,6 +97,16 @@ void WPDefManager::ProcessNode( QDomElement Node )
 		Locations.insert( NodeID, Node );
 	else if( NodeName == "skill" )
 		Skills.insert( NodeID, Node );
+	else if( NodeName == "action" )
+		Actions.insert( NodeID, Node );
+	else if( NodeName == "make" )
+		MakeSections.insert( NodeID, Node );
+	else if( NodeName == "makeitem" )
+		MakeItems.insert( NodeID, Node );
+	else if( NodeName == "useitem" )
+		UseItems.insert( NodeID, Node );
+	else if( NodeName == "skillcheck" )
+		SkillChecks.insert( NodeID, Node );
 }
 
 // Recursive Function for Importing Script Sections
@@ -183,6 +193,11 @@ void WPDefManager::unload( void )
 	clearNodes( StartItems );
 	clearNodes( Locations );
 	clearNodes( Skills );
+	clearNodes( Actions );
+	clearNodes( MakeSections );
+	clearNodes( MakeItems );
+	clearNodes( UseItems );
+	clearNodes( SkillChecks );
 }
 
 void WPDefManager::reload( void )
@@ -263,6 +278,26 @@ QDomElement *WPDefManager::getSection( WPDEF_TYPE Type, QString Section )
 		ListPointer = &Skills;
 		break;
 
+	case WPDT_ACTION:
+		ListPointer = &Actions;
+		break;
+
+	case WPDT_MAKESECTION:
+		ListPointer = &MakeSections;
+		break;
+
+	case WPDT_MAKEITEM:
+		ListPointer = &MakeItems;
+		break;
+
+	case WPDT_USEITEM:
+		ListPointer = &UseItems;
+		break;
+
+	case WPDT_SKILLCHECK:
+		ListPointer = &SkillChecks;
+		break;
+
 	default:
 		return 0;
 	};
@@ -333,6 +368,26 @@ QStringList WPDefManager::getSections( WPDEF_TYPE Type )
 
 	case WPDT_SKILL:
 		ListPointer = &Skills;
+		break;
+
+	case WPDT_ACTION:
+		ListPointer = &Actions;
+		break;
+
+	case WPDT_MAKESECTION:
+		ListPointer = &MakeSections;
+		break;
+
+	case WPDT_MAKEITEM:
+		ListPointer = &MakeItems;
+		break;
+
+	case WPDT_USEITEM:
+		ListPointer = &UseItems;
+		break;
+
+	case WPDT_SKILLCHECK:
+		ListPointer = &SkillChecks;
 		break;
 
 	default:

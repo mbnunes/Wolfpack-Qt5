@@ -41,15 +41,128 @@
 // Library includes
 #include "qstringlist.h"
 #include "qdom.h"
+#include "qptrlist.h"
 
 // Forward declaration
 class cMakeMenuGump;
+class cItem;
+
+class cMakeItem : public cDefinable
+{
+public:
+	cMakeItem( const QDomElement &Tag );
+	~cMakeItem() {}
+
+	// implements cDefinable
+	virtual void processNode( const QDomElement &Tag );
+
+	// Getters
+	QString			name()		const	{ return name_; }
+	QString			section()	const	{ return section_; }
+	UINT16			amount()	const	{ return amount_; }
+
+private:
+	QString			name_;
+	QString			section_;
+	UINT16			amount_;
+};
+
+class cUseItem : public cDefinable
+{
+public:
+	cUseItem( const QDomElement &Tag );
+	~cUseItem() {}
+
+	// implements cDefinable
+	virtual void processNode( const QDomElement &Tag );
+
+	// Getters
+	UINT16		id()		{ return id_; }
+	QString		name()		{ return name_; }
+	UINT16		colormin()	{ return colormin_; }
+	UINT16		colormax()	{ return colormax_; }
+	UINT16		amount()	{ return amount_; }
+
+private:
+	UINT16		id_;
+	QString		name_;
+	UINT16		colormin_;
+	UINT16		colormax_;
+	UINT16		amount_;
+};
+
+class cSkillCheck : public cDefinable
+{
+public:
+	cSkillCheck( const QDomElement &Tag );
+	~cSkillCheck() {}
+
+	// implements cDefinable
+	virtual void processNode( const QDomElement &Tag );
+
+	// Getters
+	UINT8		skillid()	{ return skillid_; }
+	UINT16		min()		{ return min_; }
+	UINT16		max()		{ return max_; }
+
+private:
+	UINT8		skillid_;
+	UINT16		min_;
+	UINT16		max_;
+};
+
+class cMakeSection : public cDefinable
+{
+public:
+	cMakeSection( const QDomElement &Tag );
+	~cMakeSection() 
+	{
+		makeitems_.setAutoDelete( true );
+		makeitems_.clear();
+
+		useitems_.setAutoDelete( true );
+		useitems_.clear();
+
+		skillchecks_.setAutoDelete( true );
+		skillchecks_.clear();
+
+	}
+
+	// implements cDefinable
+	virtual void processNode( const QDomElement &Tag );
+
+	// Getters
+	QPtrList< cMakeItem >		makeitems()		const { return makeitems_; }
+	QPtrList< cUseItem >		useitems()		const { return useitems_; }
+	QPtrList< cSkillCheck >	skillchecks()		const { return skillchecks_; }
+
+	// execute helper methods
+	bool	hasEnough( cItem* pBackpack );
+	void	useResources( cItem* pBackpack );
+	// if any of foreach(skill) : skill < min => false
+	bool	skilledEnough( cChar* pChar );
+	// calcRank checks the skill and may raise it! (==0) => failed, (>0) => success
+	UINT32	calcRank( cChar* pChar );
+
+private:
+	QPtrList< cMakeItem >		makeitems_;
+	QPtrList< cUseItem >		useitems_;
+	QPtrList< cSkillCheck >	skillchecks_;
+};
 
 class cMakeAction : public cDefinable
 {
 public:
 	cMakeAction( const QDomElement &Tag );
-	~cMakeAction() {}
+	~cMakeAction() 
+	{
+		std::vector< cMakeSection* >::iterator it = makesections_.begin();
+		while( it != makesections_.end() )
+		{
+			delete (*it);
+			it++;
+		}
+	}
 
 	// implements cDefinable
 	virtual void processNode( const QDomElement &Tag );
@@ -63,54 +176,24 @@ public:
 	void		setName( QString data )		{ name_ = data; }
 	void		setModel( UINT16 data )		{ model_ = data; }
 
-	struct useitemprops_st
-	{
-		UINT16			id;
-		QString			name;
-		UINT16			colormin;
-		UINT16			colormax;
-		UINT16			amount;
-	};
-
-	struct makeitemprops_st
-	{
-		UINT16			model;
-		QString			name;
-		QString			section;
-		UINT16			color;
-		UINT16			amount;
-	};
-
 	struct makenpcprops_st
 	{
-		UINT16			model;
 		QString			name;
 		QString			section;
 	};
 
-	struct skillprops_st
-	{
-		UINT8 skillid;
-		UINT16 min;
-		UINT16 max;
-	};
+	std::vector< cMakeSection* >		makesections()	const { return makesections_; }
+	makenpcprops_st						makenpc()		const { return makenpc_; }
 
-	std::vector< useitemprops_st >		useitems()	const { return useitems_; }
-	std::vector< makeitemprops_st >		makeitems()	const { return makeitems_; }
-	makenpcprops_st						makenpc()	const { return makenpc_; }
-	std::vector< skillprops_st >		skills()	const { return skills_; }
-
-	void		execute( cUOSocket* socket );
+	void		execute( cUOSocket* socket, UINT32 makesection );
 
 private:
 	QString							name_;
 	UINT16							model_;
 	QString							description_;
 
-	std::vector< useitemprops_st >		useitems_;
-	std::vector< makeitemprops_st >		makeitems_;
+	std::vector< cMakeSection* >		makesections_;
 	makenpcprops_st						makenpc_;
-	std::vector< skillprops_st >		skills_;
 	QString								failmsg_;
 	QString								succmsg_;
 	UINT8								charaction_;
@@ -187,9 +270,14 @@ private:
 	cMakeMenu* prev_;
 public:
 	cMakeMenuGump( cMakeMenu* menu );
+	cMakeMenuGump( cMakeAction* action, cMakeMenu* prev );
 	
 	// implements cGump
 	virtual void handleResponse( cUOSocket* socket, gumpChoice_st choice );
+
+	// gump build helper methods
+	void	buildSection( UINT32 x, UINT32 y, UINT32 width, cMakeSection* makesection );
+	void	buildSubMenus( UINT32 x, UINT32 y, UINT32 width, UINT32 height );
 };
 
 class cAllMakeMenus
