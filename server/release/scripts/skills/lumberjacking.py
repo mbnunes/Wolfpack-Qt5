@@ -178,6 +178,8 @@ def successlumberjacking( time, args ):
 		char.socket.clilocmessage( 500495 ) # You hack at the tree for a while but fail to produce...
 		return OOPS
 	else:
+		if not wolfpack.utilities.tobackpack( resourceitem, char ):
+			resourceitem.update()
 		char.socket.clilocmessage( 500498 ) # You put some logs into your backpack
 		if int( tool.gettag('remaining_uses') ) > 1:
 			tool.settag( 'remaining_uses', str( int(tool.gettag('remaining_uses')) - 1 ) )
@@ -188,9 +190,6 @@ def successlumberjacking( time, args ):
 			socket.clilocmessage( 500499, '', GRAY ) 
 		char.deltag('wood_gem')
 
-	if not wolfpack.utilities.tobackpack( resourceitem, char ):
-		resourceitem.update()
-
 	if int( resource.gettag('resourcecount')) >= 1:
 		resource.settag( 'resourcecount', amount - 1 )
 		
@@ -198,10 +197,7 @@ def successlumberjacking( time, args ):
 		if not resource.hastag ('resource_empty') and int( resource.gettag( 'resourcecount' ) ) == 0:
 			resource.settag( 'resource_empty', 'true' )
 			wolfpack.addtimer( int( LUMBERJACKING_REFILLTIME * 1000 ), "skills.lumberjacking.respawnvein", [ resource ] )
-	
-	if not wolfpack.utilities.tocontainer( resourceitem, backpack ):
-		resourceitem.update()
-			
+
 	return OK
 
 def respawnvein( time, args ):
