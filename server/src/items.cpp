@@ -383,6 +383,7 @@ void cItem::load( cBufferedReader& reader, unsigned int version )
 	visible_ = reader.readByte();
 	priv_ = reader.readByte();
 	basedef_ = ItemBaseDefs::instance()->get( reader.readAscii() );
+	totalweight_ = weight();
 
 	// Add to container and handle weight
 	if ( container )

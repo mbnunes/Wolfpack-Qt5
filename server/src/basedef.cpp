@@ -144,7 +144,7 @@ void cCharBaseDef::load()
 		loaded = true;
 		const cElement* element = Definitions::instance()->getDefinition( WPDT_NPC, id_ );
 
-		if ( !element )
+		if ( !element && !id_.isEmpty() )
 		{
 			Console::instance()->log( LOG_WARNING, QString( "Missing npc definition '%1'.\n" ).arg( id_ ) );
 			return;
@@ -288,7 +288,7 @@ void cItemBaseDef::load()
 		loaded = true;
 		const cElement* element = Definitions::instance()->getDefinition( WPDT_ITEM, id_ );
 
-		if ( !element )
+		if ( !element && !id_.isEmpty() )
 		{
 			Console::instance()->log( LOG_WARNING, QString( "Missing item definition '%1'.\n" ).arg( id_ ) );
 			return;
