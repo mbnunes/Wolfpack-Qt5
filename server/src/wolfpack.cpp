@@ -5610,6 +5610,7 @@ void StartClasses(void)
 
 void DeleteClasses(void)
 {
+	Weather->kill();
 	delete cwmWorldState;
 	delete mapRegions;
 	delete Accounts;
@@ -5631,9 +5632,9 @@ void DeleteClasses(void)
 	delete CharArray;
 	delete Respawn;
 	delete Movement;
-	delete Weather;
 	delete DragonAI;
 	delete BankerAI;
+	delete Weather;
 }
 
 // if we can find new effects they can be added here and will be active 

@@ -52,6 +52,7 @@ public:
 		}
 		CurrentRegions=0; 
 	}
+	virtual ~cWeather() throw() {}
 	void DoWeather(int s); 
 	void SetActive(int reg) 
 	{

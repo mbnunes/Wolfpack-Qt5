@@ -72,7 +72,6 @@ static void handle_IADD(UOXSOCKET const ts, int const ttype,
 	splitline();
 	unsigned int ItemNum = makenumber(0);
 	unsigned int InBackpack = makenumber(1);
-//	CHARACTER cc = currchar[ts];
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[ts]);
 	
 	switch (pc_currchar->dir)

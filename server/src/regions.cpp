@@ -145,7 +145,8 @@ vector<SERIAL> cRegion::GetCellEntries(UI32 cell, enDomain type)
 	vector<SERIAL> vecValue;
 	iterMapCells iterData;
 	pair<iterMapCells, iterMapCells> iterRange = MapCells.equal_range(cell);
-		
+
+	vecValue.reserve(std::distance(iterRange.first, iterRange.second));
 	for (iterData = iterRange.first; iterData != iterRange.second; ++iterData)
 	{
 		switch (type)
