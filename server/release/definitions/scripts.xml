@@ -18,8 +18,10 @@
 	<script id="clothing_bless_deed" type="python" module="clothing_bless_deed" />
 	<script id="item_bless_deed"	type="python" module="item_bless_deed" />
 	<script id="carpentry_deed" type="python" module="carpentry_deed" />
-	<script id="multideed" 		type="python" module="multideed" />
-	<script id="signpost" 		type="python" module="signpost" />
+	
+	<!-- Commands -->
+	<script id="commands"		type="python" module="commands" />
+	<script id="cmdinfo" 		type="python" module="commands.info" />
 
 	<!-- Magic Tools -->
 	<script id="recall_rune" type="python" module="recall_rune" />
@@ -42,7 +44,6 @@
 
 	<!-- System Scripts -->
 	<script id="webadmin"		type="python" module="webadmin" />
-	<script id="commands"		type="python" module="commands" />
 	<script id="tooltip"		type="python" module="tooltip" />
 
 	<!-- Skills -->

@@ -139,3 +139,13 @@ def spell( id ):
 
 def multi( id ):
 	return _wolfpack.multi( id )
+	
+def map( x, y, map ):
+	return _wolfpack.map( x, y, map )
+	
+def tiledata( id ):
+	return _wolfpack.tiledata( id )
+	
+def statics( x, y, map ):
+	return _wolfpack.statics( x, y, map )
+	
