@@ -253,7 +253,7 @@ class BlacksmithingMenu(MakeMenu):
     MakeMenu.__init__(self, id, parent, title)
     self.allowmark = 1
     self.allowrepair = 1
-    self.allowenhance = 1
+    #self.allowenhance = 1
     self.allowsmelt = 1
     self.submaterials1 = METALS
     self.submaterials2 = SCALES
