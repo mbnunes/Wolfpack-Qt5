@@ -7,7 +7,7 @@
 |  ( (  ;._ \\ ctr | Last Modification: 11/2/2002               |
 =================================================================
 -->
-<definition>
+<definitions>
 	
 	<region id="Felluca Wilderness">
 		<rectangle x1="0" y1="0" x2="6144" y2="4096" map="0" />
@@ -570,4 +570,4 @@
 			<rectangle x1="744" y1="1152" x2="792" y2="1176" map="2" />
 		</region>
 	</region>
-</definition>
+</definitions>

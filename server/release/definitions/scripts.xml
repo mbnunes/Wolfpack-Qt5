@@ -1,73 +1,78 @@
+<!--
+	This file contains a simple file-list of all scripts
+	you want to load on startup. The name between the tags
+	is automatically the script-name used internally (for
+	other scripts or eventlists).
+-->
 <definitions>
-	<script id="training_dummy" 	type="python" module="training_dummy" />
-	<script id="pickpocket_dip" 	type="python" module="pickpocket_dip" />
-	<script id="archery_butte" 	type="python" module="archery_butte" />
-	<script id="wall_clock" 	type="python" module="wall_clock" />
-	<script id="slotmachine" 	type="python" module="slotmachine" />
-	<script id="kindling" 		type="python" module="kindling" />
-	<script id="check"		type="python" module="check" />
-	<script id="lightsource"	type="python" module="lightsource" />
-	<script id="weapons_blades"	type="python" module="weapons.blades" />
-	<script id="scissors" 		type="python" module="scissors" />
-	<script id="cooking" 		type="python" module="cooking" />
-	<script id="wool" 			type="python" module="wool" />
-	<script id="yarn" 			type="python" module="yarn" />
-	<script id="potions" 		type="python" module="potions" />
-	<script id="shrink" 		type="python" module="shrink" />
-	<script id="commoditydeed" type="python" module="commoditydeed" />
-	<script id="clothing_bless_deed" type="python" module="clothing_bless_deed" />
-	<script id="item_bless_deed"	type="python" module="item_bless_deed" />
-	<script id="carpentry_deed" type="python" module="carpentry_deed" />
+	<script>training_dummy</script>
+	<script>pickpocket_dip</script>
+	<script>archery_butte</script>
+	<script>wall_clock</script>
+	<script>slotmachine</script>
+	<script>kindling</script>
+	<script>check</script>
+	<script>lightsource</script>
+	<script>weapons.blades</script>
+	<script>scissors</script>
+	<script>cooking</script>
+	<script>wool</script>
+	<script>yarn</script>
+	<script>potions</script>
+	<script>shrink</script>
+	<script>commoditydeed</script>
+	<script>clothing_bless_deed</script>
+	<script>item_bless_deed</script>
+	<script>carpentry_deed</script>
 	
 	<!-- Commands -->
-	<script id="wolfpack.commands.info" type="python" module="wolfpack.commands.info" />
-	<script id="wolfpack.commands.export" type="python" module="wolfpack.commands.export" />
-	<script id="wolfpack.commands.import" type="python" module="wolfpack.commands.import" />
+	<script>wolfpack.commands.info</script>
+	<script>wolfpack.commands.export</script>
+	<script>wolfpack.commands.import</script>
 
-	<!-- Magic Tools -->
-	<script id="recall_rune" type="python" module="recall_rune" />
-
-	<!-- Rune Book -->
-	<script id="runebook" type="python" module="runebook" />
+	<!-- Magic -->
+	<script>recall_rune</script>
+	<script>wolfpack.magic</script>
+	<script>runebook</script>
 
 	<!-- Moongate -->
-	<script id="moongate" type="python" module="moongate" />
+	<script>moongate</script>
 
 	<!-- Context menu scripts -->
-	<script id="daggermenu" type="python" module="daggermenu" />
-	<script id="bankermenu" type="python" module="bankermenu" />
+	<script>daggermenu</script>
+	<script>bankermenu</script>
 
 	<!-- Speech Scripts -->
-	<script id="speech_pets" type="python" module="speech.pets" />
-	<script id="speech_banker" type="python" module="speech.banker" />
-	<script id="speech_barber" type="python" module="speech.barber" />
-	<script id="speech_stablemaster" type="python" module="speech.stablemaster" />
+	<script>speech.pets</script>
+	<script>speech.banker</script>
+	<script>speech.barber</script>
+	<script>speech.stablemaster</script>
 
 	<!-- System Scripts -->
-	<script id="webadmin"		type="python" module="webadmin" />
-	<script id="tooltip"		type="python" module="tooltip" />
+	<script>webadmin</script>
+	<script>tooltip</script>
 
 	<!-- Skills -->
-	<script id="skills.anatomy"	type="python" module="skills.anatomy" />
-	<script id="skills.animallore"	type="python" module="skills.animallore" />
-	<script id="skills.fishing"	type="python" module="skills.fishing" />
-	<script id="skills.armslore"	type="python" module="skills.armslore" />
-	<script id="skills.animaltaming" type="python" module="skills.animaltaming" />
-	<script id="skills.begging" type="python" module="skills.begging" />
-	<script id="skills.bowcraft" type="python" module="skills.bowcraft" />
-	<script id="skills.cooking" type="python" module="skills.cooking" />
-	<script id="skills.alchemy" type="python" module="skills.alchemy" />
-	<script id="skills.tinkering" type="python" module="skills.tinkering" />
-	<script id="skills.carpentry" type="python" module="skills.carpentry" />
-	<script id="skills.blacksmithing" type="python" module="skills.blacksmithing" />
-	<script id="skills.healing" type="python" module="skills.healing" />
-	<script id="skills.hiding" type="python" module="skills.hiding" />
-	<script id="skills.inscription" type="python" module="skills.inscription" />
-	<script id="skills.detectinghidden" type="python" module="skills.detectinghidden" />
-	<script id="skills.musicianship" type="python" module="skills.musicianship" />
-	<script id="skills.peacemaking" type="python" module="skills.peacemaking" />
-	<script id="skills.provocation" type="python" module="skills.provocation" />
-
+	<script>skills.anatomy</script>
+	<script>skills.animallore</script>
+	<script>skills.fishing</script>
+	<script>skills.armslore</script>
+	<script>skills.animaltaming</script>
+	<script>skills.begging</script>
+	<script>skills.bowcraft</script>
+	<script>skills.cooking</script>
+	<script>skills.alchemy</script>
+	<script>skills.tinkering</script>
+	<script>skills.carpentry</script>
+	<script>skills.blacksmithing</script>
+	<script>skills.healing</script>
+	<script>skills.hiding</script>
+	<script>skills.inscription</script>
+	<script>skills.detectinghidden</script>
+	<script>skills.musicianship</script>
+	<script>skills.peacemaking</script>
+	<script>skills.provocation</script>
+	
 	<!-- Load *LAST* thats important -->
-	<script id="errorhandler"	type="python" module="errorhandler" />
+	<script>errorhandler</script>
 </definitions>
