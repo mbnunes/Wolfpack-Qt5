@@ -21,6 +21,7 @@
 """
 
 import wolfpack
+from wolfpack import utilities
 
 def commandMove( socket, cmd, args ):
 	moveself = cmd.upper() == 'SMOVE'
@@ -73,6 +74,11 @@ def commandMove( socket, cmd, args ):
 					newposition = wolfpack.coord( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), newmap )
 				else:
 					newposition = wolfpack.coord( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), pos.map )
+
+				if not( utilities.isValidPosition(newposition) ):
+					char.socket.sysmessage( "Error: Destination invalid!"  )
+					return False
+
 				char.removefromview()
 				char.moveto( newposition )
 				char.update()
@@ -108,10 +114,15 @@ def response( char, args, target ):
 		item = target.item
 		pos = item.pos
 		if newmap != None:
-			newposition = "%i,%i,%i,%i" % ( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), newmap )
+			newposition = wolfpack.coord( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), newmap )
 		else:
-			newposition = "%i,%i,%i,%i" % ( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), pos.map )
-		item.pos = newposition
+			newposition = wolfpack.coord( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), pos.map )
+
+		if not( utilities.isValidPosition(newposition) ):
+			char.socket.sysmessage( "Error: Destination invalid!"  )
+			return False
+
+		item.moveto( newposition )
 		item.update()
 		return True
 	elif target.char:
@@ -121,6 +132,10 @@ def response( char, args, target ):
 			newposition = wolfpack.coord( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), newmap )
 		else:
 			newposition = wolfpack.coord( (pos.x + xmod) , (pos.y + ymod ), (pos.z + zmod), pos.map )
+		
+		if not( utilities.isValidPosition(newposition) ):
+			return False
+		
 		char.removefromview()
 		char.moveto( newposition )
 		char.update()

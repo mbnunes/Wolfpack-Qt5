@@ -31,6 +31,10 @@ def teleport( char, args, target ):
 	else:
 		target = target.pos
 
+	if not( utilities.isValidPosition(target) ):
+		char.socket.sysmessage( 'Invalid target.' )
+		return False
+
 	char.removefromview()
 	char.moveto( target )
 	char.update()
