@@ -97,18 +97,12 @@ extern unsigned int nextnpcaitime;
 extern unsigned int nextdecaytime;
 
 extern int autosaved, dosavewarning;
-extern int len_connection_addr;
-extern struct sockaddr_in connection;
-extern struct sockaddr_in client_addr;
-extern struct hostent *he;
+//extern int len_connection_addr;
+//extern struct sockaddr_in connection;
+//extern struct sockaddr_in client_addr;
+//extern struct hostent *he;
 extern int err, error;
 extern int keeprun;
-extern int a_socket;
-extern fd_set conn ;
-extern fd_set all ;
-extern fd_set errsock ;
-extern int nfds;
-extern timeval uoxtimeout;
 extern int now;
 
 
@@ -153,7 +147,7 @@ extern int openings;
 
 extern unsigned char tempflag;
 
-extern short wp_port;
+//extern short wp_port;
 extern unsigned int shoprestocktime;
 extern int shoprestockrate;
 extern unsigned int respawntime;
@@ -197,11 +191,11 @@ extern unsigned long initialservermill ;
 /////////////////////////////////////////////
 // maximum too cause maxclient = maximum +1
 
-extern char firstpacket[MAXCLIENT+1];
+//extern char firstpacket[MAXCLIENT+1];
 extern char noweather[MAXCLIENT+1]; //LB
 extern unsigned char LSD[MAXCLIENT];
 
-extern int newclient[MAXCLIENT];
+//extern int newclient[MAXCLIENT];
 extern unsigned char  buffer[MAXCLIENT][MAXBUFFER_REAL];
 extern char  outbuffer[MAXCLIENT][MAXBUFFER_REAL];
 extern int whomenudata [(MAXCLIENT)*10]; // LB, for improved whomenu, ( is important !!!
@@ -225,10 +219,10 @@ extern signed char addz[MAXCLIENT];
 extern int addmitem[MAXCLIENT];
 extern char xtext[MAXCLIENT][31];
 extern unsigned char perm[MAXCLIENT];
-extern unsigned char cryptclient[MAXCLIENT];
-extern unsigned char usedfree[MAXCLIENT];
-extern int binlength[MAXIMUM+1];
-extern int boutlength[MAXIMUM+1];
+//extern unsigned char cryptclient[MAXCLIENT];
+//extern unsigned char usedfree[MAXCLIENT];
+//extern int binlength[MAXIMUM+1];
+//extern int boutlength[MAXIMUM+1];
 extern unsigned char clientDimension[MAXCLIENT]; // stores if the client is the new 3d or old 2d one
 extern std::string SocketStrings[MAXCLIENT];
 
@@ -295,7 +289,7 @@ extern jail_st jails[11];
 ///////////// global string vars /////////
 /////////////////////////////////////////
 
-extern char idname[256];
+//extern char idname[256];
 extern char script1[512];
 extern char script2[512];
 extern char script3[512];
@@ -305,17 +299,17 @@ extern char skilltitle[50];
 extern char prowesstitle[50];
 extern char *completetitle;
 extern char gettokenstr[256];
-extern char goldamountstr[10];
-extern char defaultpriv1str[2];
-extern char defaultpriv2str[2];
+//extern char goldamountstr[10];
+//extern char defaultpriv1str[2];
+//extern char defaultpriv2str[2];
 extern char temp[1024];
 extern char temp2[1024];
 extern char temp3[1024];
 extern char temp4[1024];
-extern char schei___[512];
+//extern char schei___[512];
 
-extern char mapname[512], sidxname[512], statname[512], vername[512], tilename[512], multiname[512], midxname[512];
-extern char saveintervalstr[4];
+//extern char mapname[512], sidxname[512], statname[512], vername[512], tilename[512], multiname[512], midxname[512];
+//extern char saveintervalstr[4];
 extern char scpfilename[32];//AntiChrist
 
 

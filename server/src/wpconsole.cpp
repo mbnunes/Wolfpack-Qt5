@@ -256,3 +256,10 @@ void WPConsole_cl::ChangeColor( WPC_ColorKeys Color )
 		SetConsoleTextAttribute( ConsoleHandle, ColorKey );
 	#endif
 }
+
+void WPConsole_cl::setConsoleTitle( const QString& data )
+{
+#ifndef __unix__
+	SetConsoleTitle( data.latin1() );
+#endif
+}

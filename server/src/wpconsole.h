@@ -67,8 +67,6 @@ enum WPC_ColorKeys
 	WPC_WHITE,
 };
 
-
-//##ModelId=3C5D9290034D
 class WPConsole_cl
 {
 public:
@@ -105,6 +103,7 @@ public:
 	void ProgressSkip( void );
 
 	void ChangeColor( WPC_ColorKeys Color );
+	void setConsoleTitle( const QString& data );
 
 private:
 

@@ -68,7 +68,7 @@ void cCharsManager::registerChar(cChar* pc) throw(wp_exceptions::wpbad_ptr)
 	if ( pc != NULL)
 	{
 		insert(make_pair(pc->serial, pc));
-		lastUsedSerial = max(lastUsedSerial, pc->serial);
+		lastUsedSerial = QMAX(lastUsedSerial, pc->serial);
 	}
 	else
 	{
@@ -104,7 +104,7 @@ SERIAL cCharsManager::getUnusedSerial() const
 {
 //	typedef maxKeyPred<SERIAL, cChar*> max_serialPred;
 //	map<SERIAL, cChar*>::const_iterator temp = std::max_element(this->begin(), this->end(), max_serialPred());
-	return max(1, lastUsedSerial+1); // no serial 0
+	return QMAX(1, lastUsedSerial+1); // no serial 0
 }
 
 

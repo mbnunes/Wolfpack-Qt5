@@ -63,7 +63,7 @@ void cItemsManager::registerItem(cItem* pi) throw(wp_exceptions::wpbad_ptr)
 	if ( pi != NULL)
 	{
 		insert(make_pair(pi->serial, pi));
-		lastUsedSerial = max(lastUsedSerial, pi->serial);
+		lastUsedSerial = QMAX(lastUsedSerial, pi->serial);
 	}
 	else
 	{
@@ -97,7 +97,7 @@ SERIAL cItemsManager::getUnusedSerial() const
 {
 //	typedef maxKeyPred<SERIAL, cItem*> max_serialPred;
 //	map<SERIAL, cItem*>::const_iterator temp = std::max_element(this->begin(), this->end(), max_serialPred());
-	return max(0x40000001, lastUsedSerial + 1);
+	return QMAX(0x40000001, lastUsedSerial + 1);
 }
 
 /*!

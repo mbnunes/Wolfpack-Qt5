@@ -84,44 +84,6 @@
 #define DBGFILE "wolfpack.cpp"
 #include "debug.h"
 
-#include "wip.h"
-
-#ifndef __unix__
-HANDLE hco;
-CONSOLE_SCREEN_BUFFER_INFO csbi;
-
-#define W95		0x1
-#define W98		0x2
-#define WME		0x3
-#define WNT4    0x4
-#define W2K		0x5
-#define XP      0x6
-
-int GetWindowsVersion()
-{
-	
-   OSVERSIONINFO winfo;
-   winfo.dwOSVersionInfoSize=sizeof(OSVERSIONINFO);
-   GetVersionEx(&winfo);
-
-   if(winfo.dwPlatformId==VER_PLATFORM_WIN32_NT)
-   {
-	  if      (winfo.dwMajorVersion<=4)                              { return WNT4; }
-	  else if (winfo.dwMajorVersion==5 && winfo.dwMinorVersion == 0) { return W2K;  }
-	  else if (winfo.dwMajorVersion==5 && winfo.dwMinorVersion == 1) { return XP;   }
-   }
-   else if(winfo.dwPlatformId==VER_PLATFORM_WIN32_WINDOWS)
-   {
-	 if(winfo.dwMinorVersion<10)   { return W95; }
-	 else
-	 if(winfo.dwMinorVersion<90)   { return W98; }
-	 else { return WME;	 }
-   }
-   return W95; // Makes compiler happier.
-}
-
-#endif
-
 void clearscreen( void )
 {
 
@@ -180,7 +142,7 @@ void constart( void )
 //
 bool inVisRange(int x1, int y1, int x2, int y2)
 {
-	return (max(abs(x1-x2), abs(y1-y2)) <= VISRANGE);
+	return (QMAX(abs(x1-x2), abs(y1-y2)) <= VISRANGE);
 }
 
 int inrange1 (UOXSOCKET a, UOXSOCKET b) // Are players from sockets a and b in visual range
@@ -217,7 +179,7 @@ int inrange1p (CHARACTER a, CHARACTER b) // Are characters a and b in visual ran
 //
 inline bool inRange(int x1, int y1, int x2, int y2, int range)
 {
-	return (max(abs(x1-x2), abs(y1-y2)) <= range);
+	return (QMAX(abs(x1-x2), abs(y1-y2)) <= range);
 }
 
 int inrange2 (UOXSOCKET s, P_ITEM pi) // Is item i in visual range for player on socket s
@@ -1312,7 +1274,7 @@ void explodeitem(int s, P_ITEM pi)
 			dz=abs(pc->pos.z-pi->pos.z);
 			if ((dx<=len)&&(dy<=len)&&(dz<=len))
 			{
-				pc->hp-=dmg+(2-min(dx,dy));
+				pc->hp-=dmg+(2-QMIN(dx,dy));
 				updatestats(pc, 0);
 				if (pc->hp<=0)
 				{
@@ -1738,7 +1700,7 @@ void scriptcommand (int s, char *script1, char *script2) // Execute command from
 	}
 	if (!(strcmp("VERSION", (char*)script1)))
 	{
-		sysmessage(s, idname);
+		sysmessage(s, QString( "%1 %2 %3" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() ));
 		return;
 	}
 	//AntiChrist - no need of skill type check
@@ -2384,10 +2346,8 @@ int main( int argc, char *argv[] )
 	openings = 0;
 	scpfilename[0] = 0;
 	
-	#ifndef __unix__
-		QString consoleTitle = QString( "%1 %2 %3" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() );
-		SetConsoleTitle( consoleTitle.latin1() );
-    #endif
+	QString consoleTitle = QString( "%1 %2 %3" ).arg( wp_version.productstring.c_str() ).arg( wp_version.betareleasestring.c_str() ).arg( wp_version.verstring.c_str() );
+	clConsole.setConsoleTitle( consoleTitle );
 
 	StartClasses();
 	CIAO_IF_ERROR;
@@ -2507,8 +2467,6 @@ int main( int argc, char *argv[] )
 	endtime=0;
 	lclock=0;
 
-	FD_ZERO(&conn);
-
 	clConsole.PrepareProgress( "Start glowing items" );
 	start_glow();
 	clConsole.ProgressDone();
@@ -2549,11 +2507,6 @@ int main( int argc, char *argv[] )
 
 	CIAO_IF_ERROR;
 
-    if( MapTileHeight > 300 )
-		clConsole.send("\nMap: Britannia\n");
-	else
-		clConsole.send("\nMap: Ilshenar\n");
-
     // print allowed clients	
 	clConsole.send( "Allowed clients: " );
 
@@ -2579,13 +2532,13 @@ int main( int argc, char *argv[] )
 		switch(SrvParams->niceLevel())
 		{
 			case 0: break;	// very unnice - hog all cpu time
-			case 1: if (now!=0) Sleep(10); else Sleep(100); break;
-			case 2: Sleep(10); break;
-			case 3: Sleep(40); break;// very nice
-			case 4: if (now!=0) Sleep(10); else Sleep(4000); break; // anti busy waiting
-			case 5: if (now!=0) Sleep(40); else Sleep(5000); break;
+			case 1: if (now!=0) ZThread::Thread::sleep(10); else ZThread::Thread::sleep(100); break;
+			case 2: ZThread::Thread::sleep(10); break;
+			case 3: ZThread::Thread::sleep(40); break;// very nice
+			case 4: if (now!=0) ZThread::Thread::sleep(10); else ZThread::Thread::sleep(4000); break; // anti busy waiting
+			case 5: if (now!=0) ZThread::Thread::sleep(40); else ZThread::Thread::sleep(5000); break;
 
-			default: Sleep(10); break;
+			default: ZThread::Thread::sleep(10); break;
 		}
 
 		// Python threading - end
@@ -2675,6 +2628,7 @@ int main( int argc, char *argv[] )
 
 		tempTime = getNormalizedTime() - loopSecs;
 		loopTime += tempTime;
+		qApp->processOneEvent();
 	}
 
 	sysbroadcast("The server is shutting down.");
@@ -3451,15 +3405,15 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 		switch(pi->morez)
 		{
 		case 1:
-			pc_p->hp=min(static_cast<signed short>(pc_p->hp+5+RandomNum(1,5)+pc_p->skill(17)/100), pc_p->st);
+			pc_p->hp=QMIN(static_cast<signed short>(pc_p->hp+5+RandomNum(1,5)+pc_p->skill(17)/100), pc_p->st);
 			sysmessage(s, tr("You feel better!"));
 			break;
 		case 2:
-			pc_p->hp=min(static_cast<signed short>(pc_p->hp+15+RandomNum(1,10)+pc_p->skill(17)/50), pc_p->st);
+			pc_p->hp=QMIN(static_cast<signed short>(pc_p->hp+15+RandomNum(1,10)+pc_p->skill(17)/50), pc_p->st);
 			sysmessage(s, tr("You feel more healty!"));
 			break;
 		case 3:
-			pc_p->hp=min(static_cast<signed short>(pc_p->hp+20+RandomNum(1,20)+pc_p->skill(17)/40), pc_p->st);
+			pc_p->hp=QMIN(static_cast<signed short>(pc_p->hp+20+RandomNum(1,20)+pc_p->skill(17)/40), pc_p->st);
 			sysmessage(s, tr("You feel much more healty!"));
 			break;
 		default:
@@ -3487,11 +3441,11 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 		switch(pi->morez)
 		{
 		case 1:
-			pc_p->stm=min(pc_p->stm+20+RandomNum(1,10), (int)pc_p->effDex());
+			pc_p->stm=QMIN(pc_p->stm+20+RandomNum(1,10), (int)pc_p->effDex());
 			sysmessage(s, tr("You feel more energetic!"));
 			break;
 		case 2:
-			pc_p->stm=min(pc_p->stm+40+RandomNum(1,30), (int)pc_p->effDex());
+			pc_p->stm=QMIN(pc_p->stm+40+RandomNum(1,30), (int)pc_p->effDex());
 			sysmessage(s, tr("You feel much more energetic!"));
 			break;
 		default:
@@ -3526,12 +3480,12 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 		{
 		case 1:
 		
-			pc_p->mn=min(pc_p->mn+10+pi->morex/100, (unsigned)pc_p->in);
+			pc_p->mn=QMIN(pc_p->mn+10+pi->morex/100, (unsigned)pc_p->in);
 		
 			break;
 		case 2:
 		
-			pc_p->mn=min(pc_p->mn+20+pi->morex/50, (unsigned)pc_p->in);
+			pc_p->mn=QMIN(pc_p->mn+20+pi->morex/50, (unsigned)pc_p->in);
 		
 			break;
 		default:
@@ -5316,8 +5270,6 @@ void SetGlobalVars()
 	
 	save_counter=0;
 	cmem=0;
-	uoxtimeout.tv_sec=0;
-	uoxtimeout.tv_usec=0;
 	keeprun=1;
 	error=0;
 	now=0;

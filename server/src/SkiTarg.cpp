@@ -2158,7 +2158,7 @@ void cSkills::StealingTarget(int s) // re-arranged by LB 22-dec 1999
 	char temp2[512];
 	tile_st tile;
 	P_CHAR pc_currchar = currchar[s];
-    int cansteal = max(1,pc_currchar->baseSkill(STEALING)/10);
+    int cansteal = QMAX(1,pc_currchar->baseSkill(STEALING)/10);
 	cansteal = cansteal * 10;
 		
 	if (buffer[s][7]<0x40)

@@ -164,7 +164,7 @@ void restockNPC(unsigned int currenttime, P_CHAR pc_i)
 						{
 							if (pic->restock)
 							{
-								int tmp=min(pic->restock, (pic->restock/2)+1);
+								int tmp=QMIN(pic->restock, (pic->restock/2)+1);
 								pic->setAmount( pic->amount() + tmp );
 								pic->restock -= tmp;
 							}
@@ -529,7 +529,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 						npcemoteall(pc,t,1);
 					}
 				 
-					pc->hp -= max(((pc->hp)*RandomNum(5,15))/100, RandomNum(0,1) ); // between 0% and 10% of player's hp 
+					pc->hp -= QMAX(((pc->hp)*RandomNum(5,15))/100, RandomNum(0,1) ); // between 0% and 10% of player's hp 
  
 					updatestats(pc, 0);
 					break;
@@ -543,7 +543,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 						npcemoteall(pc,t,1);
 					}
 					
-					pc->hp -= max(((pc->hp)*RandomNum(10,20))/100, RandomNum(0,1)); //between 10% and 20% of player's hp
+					pc->hp -= QMAX(((pc->hp)*RandomNum(10,20))/100, RandomNum(0,1)); //between 10% and 20% of player's hp
  
 					updatestats(pc, 0);
 					break;
@@ -560,7 +560,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					y=RandomNum(5,10);
 					y=10;
 					
-					pc->hp -= max(((pc->hp)*RandomNum(20,30))/100, RandomNum(0,1)); //between 20% and 30% of player's hp 
+					pc->hp -= QMAX(((pc->hp)*RandomNum(20,30))/100, RandomNum(0,1)); //between 20% and 30% of player's hp 
 
 					updatestats(pc, 0);
 					break; // lb !!!
@@ -577,7 +577,7 @@ void checkPC(P_CHAR pc, unsigned int currenttime)//Char mapRegions
 					x = RandomNum(3,6);
 					y = 20;
 				
-					pc->hp -= max(((pc->hp)*RandomNum(30,40))/100, 1); //between 30% and 40% of player's hp 
+					pc->hp -= QMAX(((pc->hp)*RandomNum(30,40))/100, 1); //between 30% and 40% of player's hp 
 					updatestats(pc, 0);
 					break;
 

@@ -492,7 +492,7 @@ void command_serversleep(UOXSOCKET s)
 		}
 		seconds=seconds*1000; 
 		
-		Sleep(seconds);
+		ZThread::Thread::sleep(seconds);
 		
 		sprintf((char*)temp,"server is back from a %i second break",seconds/1000);
 		
@@ -1733,7 +1733,7 @@ void command_dungeonlight(UOXSOCKET s)
 {
 	if (tnum==2)
 	{
-		SrvParams->setDungeonLightLevel( min(hexnumber(1), 27) );
+		SrvParams->setDungeonLightLevel( QMIN(hexnumber(1), 27) );
 		sysmessage(s, tr("Dungeon light level set."));
 	}
 	return;

@@ -220,7 +220,7 @@ public:
 	{
 		P_ITEM pPack=Packitem(currchar[s]);
 		if (!pPack) return;
-		int amt = max(amount, 1);
+		int amt = QMAX(amount, 1);
 
 		pPack->DeleteAmount(amt,itemmake[s].Mat1id,itemmake[s].Mat1color);
 		if (itemmake[s].Mat2id)						// if a 2nd material is used, delete that too
@@ -1588,7 +1588,7 @@ void cSkills::RandomSteal(int s)
 	char temp2[512];
 	tile_st tile;
 	P_CHAR pc_currchar = currchar[s];	
-	int cansteal = max(1, pc_currchar->baseSkill(STEALING)/10);
+	int cansteal = QMAX(1, pc_currchar->baseSkill(STEALING)/10);
 	cansteal = cansteal * 10;
 	
 	P_CHAR pc_npc = FindCharBySerPtr(buffer[s]+7);
@@ -2292,7 +2292,7 @@ void cSkills::updateSkillLevel(P_CHAR pc, int s)
 		*(1000-pc->baseSkill(s)))/1000+pc->baseSkill(s);
 	
 		
-	pc->setSkill(s, max(static_cast<unsigned int>(pc->baseSkill(s)), static_cast<unsigned int>(temp)));
+	pc->setSkill(s, QMAX(static_cast<unsigned int>(pc->baseSkill(s)), static_cast<unsigned int>(temp)));
 }
 
 void cSkills::TDummy(int s)

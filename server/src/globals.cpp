@@ -112,8 +112,6 @@ unsigned char extmove[18]="\x77\x01\x02\x03\x04\x01\x90\x01\x02\x01\x02\x0A\x00\
 unsigned char particleSystem[49];             
 time_t	oldtime, newtime;
 #ifndef __unix__
-WSADATA wsaData;
-WORD wVersionRequested;
 
 #else
       
@@ -154,21 +152,14 @@ int autosaved, saveinterval;
 int dosavewarning=0;	
 bool heartbeat;
 
-int len_connection_addr;
-struct sockaddr_in connection;
-struct sockaddr_in client_addr;
-struct hostent *he;
+//int len_connection_addr;
+//struct hostent *he;
 int err, error;
 int keeprun;
-int a_socket;
+//int a_socket;
 
-fd_set conn ;
-fd_set all ;
-fd_set errsock;
-
-int nfds;
+//int nfds;
 short wp_port=2593; //deafult!
-timeval uoxtimeout;
 int now;
 
 FILE *scpfile, *lstfile, *wscfile, *mapfile, *sidxfile, *statfile, *verfile, *tilefile, *multifile, *midxfile;
@@ -292,7 +283,7 @@ cCharStuff::cBankerAI	*BankerAI;
  char noweather[MAXCLIENT+1]; //LB
  unsigned char LSD[MAXCLIENT];
 
-char firstpacket[MAXCLIENT+1];
+//char firstpacket[MAXCLIENT+1];
 
  int newclient[MAXCLIENT];
  char unsigned buffer[MAXCLIENT][MAXBUFFER_REAL];
@@ -318,10 +309,10 @@ char firstpacket[MAXCLIENT+1];
  int addmitem[MAXCLIENT];
  char xtext[MAXCLIENT][31];
  unsigned char perm[MAXCLIENT];
- unsigned char cryptclient[MAXCLIENT];
- unsigned char usedfree[MAXCLIENT];
- int binlength[MAXIMUM+1];
- int boutlength[MAXIMUM+1];
+// unsigned char cryptclient[MAXCLIENT];
+// unsigned char usedfree[MAXCLIENT];
+// int binlength[MAXIMUM+1];
+// int boutlength[MAXIMUM+1];
  std::string SocketStrings[MAXCLIENT];
 
  int clickx[MAXCLIENT];
@@ -383,7 +374,7 @@ list<SERIAL> guilds;
 ///////////// global string vars /////////
 /////////////////////////////////////////
 
- char idname[256];
+// char idname[256];
  char script1[512];
  char script2[512];
  char script3[512];
@@ -393,17 +384,17 @@ list<SERIAL> guilds;
  char prowesstitle[50];
  char *completetitle;
  char gettokenstr[256];
- char goldamountstr[10];
- char defaultpriv1str[2];
- char defaultpriv2str[2];
+// char goldamountstr[10];
+// char defaultpriv1str[2];
+// char defaultpriv2str[2];
  char temp[1024];
  char temp2[1024];
  char temp3[1024];
  char temp4[1024];
- char schei___[512];
+// char schei___[512];
 
- char mapname[512], sidxname[512], statname[512], vername[512], tilename[512], multiname[512], midxname[512];
- char saveintervalstr[4];
+// char mapname[512], sidxname[512], statname[512], vername[512], tilename[512], multiname[512], midxname[512];
+// char saveintervalstr[4];
  char scpfilename[32];//AntiChrist
 
 

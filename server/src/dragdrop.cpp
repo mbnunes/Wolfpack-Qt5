@@ -194,7 +194,7 @@ void cDragItems::grabItem( P_CLIENT client )
 	// Take that into account
 	if( pItem->amount() > 1 )
 	{
-		UI32 pickedAmount = min( amount, pItem->amount() );
+		UI32 pickedAmount = QMAX( amount, pItem->amount() );
 
 		// We only have to split if we're not taking it all
 		if( pickedAmount != pItem->amount() )

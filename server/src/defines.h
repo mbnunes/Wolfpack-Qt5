@@ -65,12 +65,9 @@ char *strupr(char *);
 #include <sys/types.h>
 extern time_t  oldtime, newtime;
 #define SLPMULTI 1000
-#define Sleep(sec) usleep(sec * 1000)
+//#define Sleep(sec) usleep(sec * 1000)
 
 #else
-#include <winsock2.h>
-extern WSADATA wsaData;
-extern WORD wVersionRequested;
 extern long int oldtime, newtime;
 
 #endif
@@ -255,8 +252,6 @@ extern long int oldtime, newtime;
 
 ///////////////////////  End Defines
 
-
-// DasRaetsels' stuff down, don't touch ;)
 
 #define DEFAULTWEBPAGE "http://www.wpdev.org/"  //this URL doesn't exist, changed to www.wpdev.org ;)
 

@@ -263,7 +263,7 @@ void cTrade::restock(int s)
 						{
 							if (pi->restock > 0)
 							{
-								a = min(pi->restock, (pi->restock/2)+1);
+								a = QMIN(pi->restock, (pi->restock/2)+1);
 								pi->setAmount( pi->amount() + a );
 								pi->restock-=a;
 							}

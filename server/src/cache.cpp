@@ -46,7 +46,7 @@ UOXFile::UOXFile(char *fileName, char *mode)
 	
 	ioBuff = new char[IOBUFFLEN];
 	
-	memset(ioBuff, 0x00, sizeof(BYTE)*IOBUFFLEN);
+	memset(ioBuff, 0x00, sizeof(unsigned char)*IOBUFFLEN);
 	
 	if (ioBuff != NULL)
 	{

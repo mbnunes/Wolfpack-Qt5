@@ -1272,7 +1272,7 @@ void cMagic::MagicDamage(P_CHAR pc, int amount)
 	if ( Region != NULL && !pc->isInvul() && Region->allowsMagicDamage() ) // LB magic-region change
 	{
 		if (pc->isNpc()) amount *= 2;			// double damage against non-players
-		pc->hp = max(0, pc->hp-amount);
+		pc->hp = QMAX(0, pc->hp-amount);
 		updatestats((pc), 0);
 		if (pc->hp <= 0)
 		{
@@ -1596,7 +1596,7 @@ void cMagic::NPCHeal(P_CHAR pc)
 	{
 		SubtractMana(pc, 10);
 		int j=pc->hp+(pc->skill(MAGERY)/30+RandomNum(1,12));
-		pc->hp = min(pc->st, static_cast<signed short>(j));
+		pc->hp = QMIN(pc->st, static_cast<signed short>(j));
 		doStaticEffect(pc, 4);
 		updatestats(pc, 0);
 	}
@@ -2382,7 +2382,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							}
 						}
 						j=pc_defender->hp+(pc_currchar->skill(MAGERY)/30+RandomNum(1,12));
-						pc_defender->hp=min(pc_defender->st, static_cast<signed short>(j));
+						pc_defender->hp=QMIN(pc_defender->st, static_cast<signed short>(j));
 						updatestats((pc_defender), 0);
 						break;
 						//////////// (30) LIGHTNING /////////////
@@ -3268,7 +3268,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								if(pc->isInnocent()) criminal(currchar[s]);
 								
 								if (!pc->isGM() && pc->account()!=0)
-									dmgmod = min(distx,disty);
+									dmgmod = QMIN(distx,disty);
 								dmgmod = -(dmgmod - 7);
 								pc->hp -=  dmg+dmgmod;
 								pc->stm -= rand()%10+5;

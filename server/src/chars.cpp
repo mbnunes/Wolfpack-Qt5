@@ -84,7 +84,7 @@ void cChar::giveGold( Q_UINT32 amount, bool inBank )
 		P_ITEM pile = new cItem;
 		pile->Init();
 		pile->setId( 0xEED );
-		pile->setAmount( min( total, static_cast<Q_UINT32>(65535) ) );
+		pile->setAmount( QMIN( total, static_cast<Q_UINT32>(65535) ) );
 		pCont->AddItem( pile );
 
 		total -= pile->amount();
@@ -717,7 +717,7 @@ unsigned int cChar::getSkillSum()
 
 int cChar::getTeachingDelta(cChar* pPlayer, int skill, int sum)
 {
-	int delta = min(250,this->baseSkill(skill)/2);		// half the trainers skill, but not more than 250
+	int delta = QMIN(250,this->baseSkill(skill)/2);		// half the trainers skill, but not more than 250
 	delta -= pPlayer->baseSkill(skill);					// calc difference
 	if (delta <= 0)
 		return 0;
