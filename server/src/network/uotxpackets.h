@@ -2525,4 +2525,19 @@ public:
 	}
 };
 
+// 0xDC Attach Tooltip
+class cUOTxNewAttachTooltip : public cUOPacket
+{
+public:
+	cUOTxNewAttachTooltip() : cUOPacket( 0xDC, 9 ) {
+	}
+
+	void setSerial( unsigned int data ) {
+		setInt( 1, data );
+	}
+	void setId( unsigned int data ) {
+		setInt( 5, data ) ;
+	}
+};
+
 #endif // __UO_TXPACKETS__

@@ -632,29 +632,63 @@ void cNPC::showName( cUOSocket* socket )
 	Q_UINT16 speechColor;
 
 	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red
-	switch ( notoriety( socket->player() ) )
-	{
-	case 0x01:
-		speechColor = 0x59; break; //blue
-	case 0x02:
-		speechColor = 0x3F; break; //green
-	case 0x03:
-		speechColor = 0x3B2; break; //grey
-	case 0x05:
-		speechColor = 0x90; break; //orange
-	case 0x06:
-		speechColor = 0x22; break; //red
-	default:
-		speechColor = 0x3B2; break; // grey
+	if (Config::instance()->sendAsciiNames()) {
+		switch ( notoriety( socket->player() ) )
+		{
+		case 0x01:
+			speechColor = 0x63; break; //blue
+		case 0x02:
+			speechColor = 0x44; break; //green
+		case 0x03:
+			speechColor = 0x3B2; break; //grey
+		case 0x05:
+			speechColor = 0x2b; break; //orange
+		case 0x06:
+			speechColor = 0x0026; break; //red
+		default:
+			speechColor = 0x3B2; break; // grey
+		}
+	
+		if ( isInvulnerable() )
+		{
+			speechColor = 0x37;
+		}
+	
+		// ASCII Packet
+		cUOTxAsciiSpeech speech;
+		speech.setId(body_);
+		speech.setSerial(serial_);
+		speech.setMessage(charName);
+		speech.setColor(speechColor);
+		speech.setFont(3);
+		speech.setType(6); // Object Speech
+		speech.setName(name_);
+		socket->send(&speech);
+	} else {
+		switch ( notoriety( socket->player() ) )
+		{
+		case 0x01:
+			speechColor = 0x59; break; //blue
+		case 0x02:
+			speechColor = 0x3F; break; //green
+		case 0x03:
+			speechColor = 0x3B2; break; //grey
+		case 0x05:
+			speechColor = 0x90; break; //orange
+		case 0x06:
+			speechColor = 0x22; break; //red
+		default:
+			speechColor = 0x3B2; break; // grey
+		}
+	
+		if ( isInvulnerable() )
+		{
+			speechColor = 0x35;
+		}
+	
+		// Show it to the socket
+		socket->showSpeech( this, charName, speechColor, 3, cUOTxUnicodeSpeech::System );
 	}
-
-	if ( isInvulnerable() )
-	{
-		speechColor = 0x35;
-	}
-
-	// Show it to the socket
-	socket->showSpeech( this, charName, speechColor, 3, cUOTxUnicodeSpeech::System );
 }
 
 void cNPC::soundEffect( UI16 soundId, bool hearAll )

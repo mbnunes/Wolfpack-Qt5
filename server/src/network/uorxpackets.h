@@ -1262,4 +1262,20 @@ public:
 	}
 };
 
+// 0xD6 Request Tooltips
+class cUORxRequestTooltips : public cUOPacket
+{
+public:
+	cUORxRequestTooltips( const QByteArray& data ) : cUOPacket( data ) {
+	}
+
+	const unsigned short getCount() {
+		return (getShort(1) - 3) / 4;
+	}
+
+	const unsigned int getSerial(unsigned short index) {
+		return getInt(3 + index * 4);
+	}
+};
+
 #endif // __UO_RXPACKETS__

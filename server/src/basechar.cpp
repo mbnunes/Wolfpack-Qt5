@@ -829,12 +829,17 @@ bool cBaseChar::resurrect( cUObject* source )
 	}
 	else
 	{
+		SERIAL hairSerial = corpse->getEquipment(Hair);
+		SERIAL beardSerial = corpse->getEquipment(FacialHair);
+
 		// Move all items from the corpse to the backpack and then look for
 		// previous equipment
 		for ( ContainerCopyIterator it( corpse ); !it.atEnd(); ++it )
 		{
-			backpack->addItem( *it, false );
-			( *it )->update();
+			if ((*it)->serial() != hairSerial && (*it)->serial() != beardSerial) {
+				backpack->addItem( *it, false );
+				( *it )->update();	
+			}
 		}
 
 		for ( unsigned char layer = SingleHandedWeapon; layer < Mount; layer++ )
@@ -2896,11 +2901,14 @@ bool cBaseChar::kill( cUObject* source )
 
 			if ( item )
 			{
-				if ( layer != Backpack && layer != Hair && layer != FacialHair )
-				{
+				if ( layer == Hair || layer == FacialHair ) {
+					// Dupe the item and put it on the corpse
+					P_ITEM pNewItem = item->dupe();
+					corpse->addItem( pNewItem );
+					corpse->addEquipment( layer, pNewItem->serial() );
+				} else if (layer != Backpack) {
 					// Put into the backpack
-					if ( item->newbie() )
-					{
+					if (item->newbie() || item->movable() > 1) {
 						backpack->addItem( item );
 
 						if ( player && player->socket() )
@@ -2911,16 +2919,6 @@ bool cBaseChar::kill( cUObject* source )
 						corpse->addItem( item );
 						corpse->addEquipment( layer, item->serial() );
 					}
-				}
-				else if ( layer == Hair )
-				{
-					corpse->setHairStyle( item->id() );
-					corpse->setHairColor( item->color() );
-				}
-				else if ( layer == FacialHair )
-				{
-					corpse->setBeardStyle( item->id() );
-					corpse->setBeardColor( item->color() );
 				}
 			}
 		}
@@ -2943,7 +2941,7 @@ bool cBaseChar::kill( cUObject* source )
 	for ( ContainerCopyIterator it( backpack ); !it.atEnd(); ++it )
 	{
 		P_ITEM item = *it;
-		if ( !item->newbie() )
+		if ( !item->newbie() && item->movable() <= 1 )
 		{
 			if ( corpse )
 				corpse->addItem( item );

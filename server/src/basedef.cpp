@@ -592,6 +592,7 @@ void cItemBaseDef::reset()
 	type_ = 0;
 	lightsource_ = 0;
 	flags_ = 0;
+	clilocName_ = 0;
 }
 
 void cItemBaseDef::processNode( const cElement* node )
@@ -610,6 +611,11 @@ void cItemBaseDef::processNode( const cElement* node )
 	else if ( node->name() == "sellprice" )
 	{
 		sellprice_ = node->value().toUInt();
+	}
+	// <clilocname>1</clilocname>
+	else if ( node->name() == "clilocname" )
+	{
+		clilocName_ = node->text().toInt();
 	}
 	// <type>1</type>
 	else if ( node->name() == "type" )

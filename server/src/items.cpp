@@ -953,26 +953,28 @@ void cItem::showName( cUOSocket* socket )
 
 		if ( amount_ > 1 )
 		{
-			if ( name_.isEmpty() )
-			{
-				message = 1050039;
-				params = QString( "%1\t#%2" ).arg( amount_ ).arg( 1020000 + id_ );
-			}
-			else
-			{
-				message = 1050039;
+			message = 1050039;
+			if ( name_.isEmpty() ) {
+				unsigned int clilocName = this->clilocName();				
+				if (clilocName != 0) {					
+					params = QString( "%1\t#%2" ).arg( amount_ ).arg( clilocName );
+				} else {			
+					params = QString( "%1\t#%2" ).arg( amount_ ).arg( 1020000 + id_ );
+				}
+			} else {
 				params = QString( "%1\t%2" ).arg( amount_ ).arg( name_ );
 			}
 		}
 		else
 		{
-			if ( name_.isEmpty() )
-			{
-				message = 1042971;
-				params = QString( "#%2" ).arg( 1020000 + id_ );
-			}
-			else
-			{
+			if ( name_.isEmpty() ) {
+				unsigned int clilocName = this->clilocName();
+				if (clilocName != 0) {
+					message = clilocName;
+				} else {
+					message = 1020000 + id_;
+				}
+			} else {
 				message = 1042971;
 				params = name_;
 			}
@@ -2067,17 +2069,29 @@ void cItem::createTooltip( cUOTxTooltipList& tooltip, cPlayer* player )
 	// Add the object name.
 	if ( amount_ > 1 )
 	{
-		if ( name_.isEmpty() )
-			tooltip.addLine( 1050039, QString( "%1\t#%2" ).arg( amount_ ).arg( 1020000 + id_ ) );
-		else
+		if ( name_.isEmpty() ) {
+			unsigned int clilocName = this->clilocName();
+			if (clilocName != 0) {
+				tooltip.addLine( 1050039, QString( "%1\t#%2" ).arg( amount_ ).arg( clilocName ) );
+			} else {			
+				tooltip.addLine( 1050039, QString( "%1\t#%2" ).arg( amount_ ).arg( 1020000 + id_ ) );
+			}
+		} else {
 			tooltip.addLine( 1050039, QString( "%1\t%2" ).arg( amount_ ).arg( name_ ) );
+		}
 	}
 	else
 	{
-		if ( name_.isEmpty() )
-			tooltip.addLine( 1042971, QString( "#%2" ).arg( 1020000 + id_ ) );
-		else
+		if ( name_.isEmpty() ) {
+			unsigned int clilocName = this->clilocName();
+			if (clilocName != 0) {
+				tooltip.addLine( clilocName, "" );
+			} else {
+				tooltip.addLine( 1020000 + id_, "" );
+			}
+		} else {
 			tooltip.addLine( 1042971, name_ );
+		}
 	}
 
 	// Add tooltip for locked down items

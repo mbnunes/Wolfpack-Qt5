@@ -232,6 +232,7 @@ public:
 	void handleCHRevert( cUORxAosMultiPurpose* packet );
 	void handleParty( cUOPacket* packet );
 	void handleChat( cUOPacket* packet );
+	void handleRequestTooltips( cUORxRequestTooltips* packet );
 
 	// Utilities
 	void updateChar( P_CHAR pChar );

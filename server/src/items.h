@@ -198,6 +198,10 @@ public:
 	{
 		return basedef_ ? basedef_->id() : 0;
 	}
+	inline unsigned int clilocName() const
+	{
+		return basedef_ ? basedef_->clilocName() : 0;
+	}
 	inline cItemBaseDef* basedef() const
 	{
 		return basedef_;

@@ -331,7 +331,7 @@ void cUOSocket::recieve()
 	switch ( packetId )
 	{
 		case 0x00:
-			handleCreateChar( dynamic_cast<cUORxCreateChar*>( packet ) );
+			handleCreateChar( static_cast<cUORxCreateChar*>( packet ) );
 			break;
 		case 0x01:
 			// Disconnect Notification recieved, should NEVER happen as it's unused now
@@ -339,108 +339,111 @@ void cUOSocket::recieve()
 			break;
 		case 0x02:
 			// just want to walk a little.
-			handleWalkRequest( dynamic_cast<cUORxWalkRequest*>( packet ) );
+			handleWalkRequest( static_cast<cUORxWalkRequest*>( packet ) );
 			break;
 		case 0x05:
-			handleRequestAttack( dynamic_cast<cUORxRequestAttack*>( packet ) );
+			handleRequestAttack( static_cast<cUORxRequestAttack*>( packet ) );
 			break;
 		case 0x06:
-			handleDoubleClick( dynamic_cast<cUORxDoubleClick*>( packet ) );
+			handleDoubleClick( static_cast<cUORxDoubleClick*>( packet ) );
 			break;
 		case 0x07:
-			DragAndDrop::grabItem( this, dynamic_cast<cUORxDragItem*>( packet ) );
+			DragAndDrop::grabItem( this, static_cast<cUORxDragItem*>( packet ) );
 			break;
 		case 0x08:
-			DragAndDrop::dropItem( this, dynamic_cast<cUORxDropItem*>( packet ) );
+			DragAndDrop::dropItem( this, static_cast<cUORxDropItem*>( packet ) );
 			break;
 		case 0x09:
-			handleRequestLook( dynamic_cast<cUORxRequestLook*>( packet ) );
+			handleRequestLook( static_cast<cUORxRequestLook*>( packet ) );
 			break;
 		case 0x12:
-			handleAction( dynamic_cast<cUORxAction*>( packet ) );
+			handleAction( static_cast<cUORxAction*>( packet ) );
 			break;
 		case 0x13:
-			DragAndDrop::equipItem( this, dynamic_cast<cUORxWearItem*>( packet ) );
+			DragAndDrop::equipItem( this, static_cast<cUORxWearItem*>( packet ) );
 			break;
 		case 0x22:
 			resync();
 			break;
 		case 0x2C:
-			handleResurrectionMenu( dynamic_cast<cUORxResurrectionMenu*>( packet ) ); break;
+			handleResurrectionMenu( static_cast<cUORxResurrectionMenu*>( packet ) ); break;
 		case 0x34:
-			handleQuery( dynamic_cast<cUORxQuery*>( packet ) );
+			handleQuery( static_cast<cUORxQuery*>( packet ) );
 			break;
 		case 0x3A:
-			handleSkillLock( dynamic_cast<cUORxSkillLock*>( packet ) );
+			handleSkillLock( static_cast<cUORxSkillLock*>( packet ) );
 			break;
 		case 0x3B:
-			handleBuy( dynamic_cast<cUORxBuy*>( packet ) );
+			handleBuy( static_cast<cUORxBuy*>( packet ) );
 			break;
 		case 0x5D:
-			handlePlayCharacter( dynamic_cast<cUORxPlayCharacter*>( packet ) );
+			handlePlayCharacter( static_cast<cUORxPlayCharacter*>( packet ) );
 			break;
 		case 0x6c:
-			handleTarget( dynamic_cast<cUORxTarget*>( packet ) );
+			handleTarget( static_cast<cUORxTarget*>( packet ) );
 			break;
 		case 0x6F:
-			handleSecureTrading( dynamic_cast<cUORxSecureTrading*>( packet ) );
+			handleSecureTrading( static_cast<cUORxSecureTrading*>( packet ) );
 			break;
 		case 0x72:
-			handleChangeWarmode( dynamic_cast<cUORxChangeWarmode*>( packet ) );
+			handleChangeWarmode( static_cast<cUORxChangeWarmode*>( packet ) );
 			break;
 		case 0x73:
 			break; // Pings are handeled
 		case 0x75:
-			handleRename( dynamic_cast<cUORxRename*>( packet ) );
+			handleRename( static_cast<cUORxRename*>( packet ) );
 			break;
 		case 0x80:
-			handleLoginRequest( dynamic_cast<cUORxLoginRequest*>( packet ) );
+			handleLoginRequest( static_cast<cUORxLoginRequest*>( packet ) );
 			break;
 		case 0x83:
-			handleDeleteCharacter( dynamic_cast<cUORxDeleteCharacter*>( packet ) );
+			handleDeleteCharacter( static_cast<cUORxDeleteCharacter*>( packet ) );
 			break;
 		case 0x91:
-			handleServerAttach( dynamic_cast<cUORxServerAttach*>( packet ) );
+			handleServerAttach( static_cast<cUORxServerAttach*>( packet ) );
 			break;
 		case 0x98:
-			handleAllNames( dynamic_cast<cUORxAllNames*>( packet ) );
+			handleAllNames( static_cast<cUORxAllNames*>( packet ) );
 			break;
 		case 0x9B:
-			handleHelpRequest( dynamic_cast<cUORxHelpRequest*>( packet ) );
+			handleHelpRequest( static_cast<cUORxHelpRequest*>( packet ) );
 			break;
 		case 0x9F:
-			handleSell( dynamic_cast<cUORxSell*>( packet ) ); break;
+			handleSell( static_cast<cUORxSell*>( packet ) ); break;
 		case 0xA0:
-			handleSelectShard( dynamic_cast<cUORxSelectShard*>( packet ) );
+			handleSelectShard( static_cast<cUORxSelectShard*>( packet ) );
 			break;
 		case 0xA4:
-			handleHardwareInfo( dynamic_cast<cUORxHardwareInfo*>( packet ) );
+			handleHardwareInfo( static_cast<cUORxHardwareInfo*>( packet ) );
 			break;
 		case 0xA7:
-			handleGetTip( dynamic_cast<cUORxGetTip*>( packet ) );
+			handleGetTip( static_cast<cUORxGetTip*>( packet ) );
 			break;
 		case 0xAD:
-			handleSpeechRequest( dynamic_cast<cUORxSpeechRequest*>( packet ) );
+			handleSpeechRequest( static_cast<cUORxSpeechRequest*>( packet ) );
 			break;
 		case 0xB1:
-			handleGumpResponse( dynamic_cast<cUORxGumpResponse*>( packet ) );
+			handleGumpResponse( static_cast<cUORxGumpResponse*>( packet ) );
 			break;
 		case 0xB5:
 			handleChat( packet ); break;
 		case 0xB8:
-			handleProfile( dynamic_cast<cUORxProfile*>( packet ) );
+			handleProfile( static_cast<cUORxProfile*>( packet ) );
 			break;
 		case 0xBD:
-			_version = dynamic_cast<cUORxSetVersion*>( packet )->version();
+			_version = static_cast<cUORxSetVersion*>( packet )->version();
 			break;
 		case 0xBF:
-			handleMultiPurpose( dynamic_cast<cUORxMultiPurpose*>( packet ) );
+			handleMultiPurpose( static_cast<cUORxMultiPurpose*>( packet ) );
 			break;
 		case 0xC8:
-			handleUpdateRange( dynamic_cast<cUORxUpdateRange*>( packet ) );
+			handleUpdateRange( static_cast<cUORxUpdateRange*>( packet ) );
+			break;
+		case 0xD6:
+			handleRequestTooltips( static_cast<cUORxRequestTooltips*>( packet ) );
 			break;
 		case 0xD7:
-			handleAosMultiPurpose( dynamic_cast<cUORxAosMultiPurpose*>( packet ) );
+			handleAosMultiPurpose( static_cast<cUORxAosMultiPurpose*>( packet ) );
 			break;
 		case 0xB6:
 			break; // Completely ignore the packet.
@@ -2175,23 +2178,6 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 		++count;
 	}
 
-	cCorpse* pCorpse = dynamic_cast<cCorpse*>( pCont );
-
-	if ( pCorpse )
-	{
-		if ( pCorpse->hairStyle() )
-		{
-			itemContent.addItem( 0x4FFFFFFE, pCorpse->hairStyle(), pCorpse->hairColor(), 0, 0, 1, pCorpse->serial() );
-			++count;
-		}
-
-		if ( pCorpse->beardStyle() )
-		{
-			itemContent.addItem( 0x4FFFFFFF, pCorpse->beardStyle(), pCorpse->beardColor(), 0, 0, 1, pCorpse->serial() );
-			++count;
-		}
-	}
-
 	// Only send if there is content
 	if ( count )
 	{
@@ -3668,4 +3654,18 @@ void cUOSocket::handleResurrectionMenu( cUORxResurrectionMenu* packet )
 	send( &warmode );
 
 	return;
+}
+
+void cUOSocket::handleRequestTooltips( cUORxRequestTooltips *packet) {
+	unsigned short count = packet->getCount();
+	for (unsigned short i = 0; i < count; ++i) {
+		cUObject *object = World::instance()->findObject(packet->getSerial(i));
+
+		// Create a tooltip for the object and send it to the client.
+		if (object) {
+			cUOTxTooltipList tooltip;
+			object->createTooltip( tooltip, player() );
+			send( &tooltip );
+		}
+	}
 }

@@ -150,6 +150,8 @@ protected:
 	unsigned int showNpcTitles_;
 	unsigned char maxCharsPerAccount_;
 	bool refreshMaxValues_;
+	bool newTooltipPackets_;
+	bool sendAsciiNames_;
 
 	// Binary Save Driver
 	unsigned int binaryBackups_;
@@ -239,6 +241,7 @@ public:
 	{
 		return antiSpeedHackDelayMounted_;
 	}
+	bool newTooltipPackets() const;
 	int niceLevel() const;
 	unsigned int itemDecayTime() const;
 	unsigned int npcCorpseDecayTime() const;
@@ -299,6 +302,7 @@ public:
 	double tamedNpcMoveTime() const;
 	unsigned int showNpcTitles() const;
 	bool overwriteDefinitions() const;
+	bool sendAsciiNames() const;
 
 	// Persistency Module
 	QString databaseDriver() const;
@@ -791,6 +795,16 @@ inline bool cConfig::overwriteDefinitions() const
 inline unsigned char cConfig::mountRange() const
 {
 	return mountRange_;
+}
+
+inline bool cConfig::newTooltipPackets() const
+{
+	return newTooltipPackets_;
+}
+
+inline bool cConfig::sendAsciiNames() const
+{
+	return sendAsciiNames_;
 }
 
 inline unsigned int cConfig::maxCharsPerAccount() const

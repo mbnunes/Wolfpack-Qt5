@@ -49,6 +49,7 @@
 #include "player.h"
 #include "basics.h"
 #include "items.h"
+#include "serverconfig.h"
 #include "basics.h"
 #include "world.h"
 
@@ -833,15 +834,19 @@ void cUObject::sendTooltip( cUOSocket* mSock )
 		setTooltip( tooltip_ );
 	}
 
-	cUOTxAttachTooltip tooltip;
-
-	tooltip.setId( tooltip_ );
-	tooltip.setSerial( serial() );
-
-	//if (tooltip_ >= mSock->toolTips()->size() || !mSock->haveTooltip(tooltip_)) {
-	mSock->addTooltip( tooltip_ );
-	mSock->send( &tooltip );
-	//}
+	if (Config::instance()->newTooltipPackets()) {
+		cUOTxNewAttachTooltip tooltip;
+		tooltip.setId( tooltip_ );
+		tooltip.setSerial( serial() );
+		mSock->addTooltip( tooltip_ );
+		mSock->send( &tooltip );
+	} else {
+		cUOTxAttachTooltip tooltip;
+		tooltip.setId( tooltip_ );
+		tooltip.setSerial( serial() );
+		mSock->addTooltip( tooltip_ );
+		mSock->send( &tooltip );
+	}	
 }
 
 void cUObject::changed( uint state )
@@ -932,16 +937,31 @@ void cUObject::resendTooltip()
 	{
 		tooltip_ = World::instance()->getUnusedTooltip();
 
-		cUOTxAttachTooltip attach;
-		attach.setId( tooltip_ );
-		attach.setSerial( serial_ );
+		if (Config::instance()->newTooltipPackets()) {
+			cUOTxNewAttachTooltip tooltip;
+			tooltip.setId( tooltip_ );
+			tooltip.setSerial( serial() );
 
-		for ( cUOSocket*s = Network::instance()->first(); s; s = Network::instance()->next() )
-		{
-			if ( s->player() && s->player()->inRange( this, s->player()->visualRange() ) )
+			for ( cUOSocket*s = Network::instance()->first(); s; s = Network::instance()->next() )
 			{
-				s->addTooltip( tooltip_ );
-				s->send( &attach );
+				if ( s->player() && s->player()->inRange( this, s->player()->visualRange() ) )
+				{
+					s->addTooltip( tooltip_ );
+					s->send( &tooltip );
+				}
+			}
+		} else {
+			cUOTxAttachTooltip tooltip;
+			tooltip.setId( tooltip_ );
+			tooltip.setSerial( serial() );
+
+			for ( cUOSocket*s = Network::instance()->first(); s; s = Network::instance()->next() )
+			{
+				if ( s->player() && s->player()->inRange( this, s->player()->visualRange() ) )
+				{
+					s->addTooltip( tooltip_ );
+					s->send( &tooltip );
+				}
 			}
 		}
 	}
@@ -1143,10 +1163,10 @@ void cUObject::save( cBufferedWriter& writer )
 	writer.setObjectCount( writer.objectCount() + 1 );
 	writer.writeByte( getClassid() );
 
-	unsigned int length = writer.position();
+	//unsigned int length = writer.position();
 	save( writer, writer.version() );
-	length = writer.position() - length;
-	writer.setSkipSize( getClassid(), length );
+	//length = writer.position() - length;
+	writer.setSkipSize( getClassid(), 0 ); // This is no longer used and will be removed.
 
 	// Save the spawnregion association
 	if ( spawnregion_ )

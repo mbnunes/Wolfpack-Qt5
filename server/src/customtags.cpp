@@ -1046,13 +1046,13 @@ void cCustomTags::save( SERIAL serial, cBufferedWriter& writer )
 
 			// Save serial and name
 			writer.writeByte( 0xFE );
-			unsigned int length = writer.position();
+			//unsigned int length = writer.position();
 			writer.writeInt( serial );
 			writer.writeUtf8( it.key() );
 			it.data().serialize( writer, writer.version() );
-			length = writer.position() - length;
+			//length = writer.position() - length;
 
-			writer.setSkipSize( 0xFE, length );
+			writer.setSkipSize( 0xFE, 0 );
 		}
 	}
 }

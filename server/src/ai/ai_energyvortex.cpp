@@ -70,7 +70,7 @@ static P_CHAR findBestTarget( P_NPC npc )
 	// If we're not tamed, we attack other players as well.
 	if ( !npc->isTamed() )
 	{
-		MapCharsIterator ri = MapObjects::instance()->listCharsInCircle( npc->pos(), VISRANGE );
+		MapCharsIterator ri = MapObjects::instance()->listCharsInCircle( npc->pos(), 6 );
 		for ( P_CHAR pChar = ri.first(); pChar; pChar = ri.next() )
 		{
 			// We limit ourself to players and pets owned by players.

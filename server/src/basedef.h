@@ -342,6 +342,7 @@ protected:
 	unsigned char lightsource_;
 	unsigned int decaydelay_;
 	unsigned int flags_;
+	unsigned int clilocName_; // This is the default name of this type of item
 
 	// Misc Properties
 	void load();
@@ -368,6 +369,12 @@ public:
 	{
 		load();
 		return decaydelay_;
+	}
+
+	inline unsigned int clilocName()
+	{
+		load();
+		return clilocName_;
 	}
 
 	inline float weight()

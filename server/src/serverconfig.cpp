@@ -212,12 +212,14 @@ void cConfig::readData()
 	antiSpeedHackDelay_ = getNumber( "General", "Anti Speed Hack Delay", 175, true );
 	antiSpeedHackDelayMounted_ = getNumber( "General", "Anti Speed Hack Delay Mounted", 75, true );
 	refreshMaxValues_ = getBool( "General", "Refresh Characters Maximum Values", true, true );
+	sendAsciiNames_ = getBool( "General", "Send ASCII Character Names", false, true );
 
 	saveInterval_ = getNumber( "General", "Save Interval", 900, true );
 	mulPath_ = QDir::convertSeparators( getString( "General", "MulPath", "./muls/", true ) );
 	logPath_ = QDir::convertSeparators( getString( "General", "LogPath", "./logs/", true ) );
 	logRotate_ = getBool( "General", "LogRotate", true, true );
 	mountRange_ = getNumber( "General", "Mount Range", 2, true );
+	newTooltipPackets_ = getBool( "General", "New Tooltip Packets", true, true );
 
 	// Network
 	loginPort_ = getNumber( "Network", "Loginserver Port", 2593, true );

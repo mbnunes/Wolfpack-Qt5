@@ -422,21 +422,25 @@
 		<id>0x1849</id>
 		<category>Professions\Alchemist\Heating Stand (W/E) (Off)</category>
 		<weight>1.0</weight>
+		<basescript>lightsource</basescript>
 	</item>
 
 	<item id="184a" inherit="1849">
 		<id>0x184a</id>
 		<category>Professions\Alchemist\Heating Stand (W/E) (On)</category>
+		<basescript>lightsource</basescript>
 	</item>
 
 	<item id="184d" inherit="1849">
 		<id>0x184d</id>
 		<category>Professions\Alchemist\Heating Stand (N/S) (Off)</category>
+		<basescript>lightsource</basescript>
 	</item>
 
 	<item id="184e" inherit="1849">
 		<id>0x184e</id>
 		<category>Professions\Alchemist\Heating Stand (N/S) (On)</category>
+		<basescript>lightsource</basescript>
 	</item>
 
 	<item id="1851">

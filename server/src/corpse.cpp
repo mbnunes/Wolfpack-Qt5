@@ -59,10 +59,10 @@ void cCorpse::load( cBufferedReader& reader, unsigned int version )
 {
 	cItem::load( reader, version );
 	bodyId_ = reader.readShort();
-	hairStyle_ = reader.readShort();
-	hairColor_ = reader.readShort();
-	beardStyle_ = reader.readShort();
-	beardColor_ = reader.readShort();
+	/*hairStyle_ =*/ reader.readShort();
+	/*hairColor_ =*/ reader.readShort();
+	/*beardStyle_ =*/ reader.readShort();
+	/*beardColor_ =*/ reader.readShort();
 	direction_ = reader.readByte();
 	charbaseid_ = reader.readAscii();
 	murderer_ = reader.readInt();
@@ -84,10 +84,10 @@ void cCorpse::save( cBufferedWriter& writer, unsigned int version )
 {
 	cItem::save( writer, version );
 	writer.writeShort( bodyId_ );
-	writer.writeShort( hairStyle_ );
-	writer.writeShort( hairColor_ );
-	writer.writeShort( beardStyle_ );
-	writer.writeShort( beardColor_ );
+	writer.writeShort( 0 /*hairStyle_*/ );
+	writer.writeShort( 0 /*hairColor_*/ );
+	writer.writeShort( 0 /*beardStyle_*/ );
+	writer.writeShort( 0 /*beardColor_*/ );
 	writer.writeByte( direction_ );
 	writer.writeAscii( charbaseid_ );
 	writer.writeInt( murderer_ );
@@ -112,10 +112,10 @@ void cCorpse::load( char** result, Q_UINT16& offset )
 {
 	cItem::load( result, offset );
 	bodyId_ = atoi( result[offset++] );
-	hairStyle_ = atoi( result[offset++] );
-	hairColor_ = atoi( result[offset++] );
-	beardStyle_ = atoi( result[offset++] );
-	beardColor_ = atoi( result[offset++] );
+	/*hairStyle_ =*/ atoi( result[offset++] );
+	/*hairColor_ =*/ atoi( result[offset++] );
+	/*beardStyle_ =*/ atoi( result[offset++] );
+	/*beardColor_ =*/ atoi( result[offset++] );
 	direction_ = atoi( result[offset++] );
 	charbaseid_ = result[offset++];
 	murderer_ = atoi( result[offset++] );
@@ -143,10 +143,10 @@ void cCorpse::save()
 
 	addField( "serial", serial() );
 	addField( "bodyid", bodyId_ );
-	addField( "hairstyle", hairStyle_ );
-	addField( "haircolor", hairColor_ );
-	addField( "beardstyle", beardStyle_ );
-	addField( "beardcolor", beardColor_ );
+	addField( "hairstyle", 0 /*hairStyle_*/ );
+	addField( "haircolor", 0 /*hairColor_*/ );
+	addField( "beardstyle", 0 /*beardStyle_*/ );
+	addField( "beardcolor", 0 /*beardColor_*/ );
 	addField( "direction", direction_ );
 	addStrField( "charbaseid", charbaseid_ );
 	addField( "murderer", murderer_ );
@@ -211,18 +211,6 @@ void cCorpse::update( cUOSocket* mSock )
 				corpseEquip.addItem( it.key(), it.data() );
 				corpseContent.addItem( pItem );
 			}
-		}
-
-		if ( hairStyle_ )
-		{
-			corpseEquip.addItem( 11, 0x4FFFFFFE ); // Hair
-			corpseContent.addItem( 0x4FFFFFFE, hairStyle_, hairColor_, 0, 0, 1, serial() );
-		}
-
-		if ( beardStyle_ )
-		{
-			corpseEquip.addItem( 16, 0x4FFFFFFF ); // Beard
-			corpseContent.addItem( 0x4FFFFFFF, beardStyle_, beardColor_, 0, 0, 1, serial() );
 		}
 
 		sendItem.setId( id() );
@@ -294,10 +282,6 @@ cCorpse::cCorpse( bool init )
 		cItem::Init( true );
 
 	bodyId_ = 0x190;
-	hairStyle_ = 0;
-	hairColor_ = 0;
-	beardStyle_ = 0;
-	beardColor_ = 0;
 	murderer_ = INVALID_SERIAL;
 	murdertime_ = 0;
 	direction_ = 0;
@@ -312,33 +296,6 @@ stError* cCorpse::setProperty( const QString& name, const cVariant& value )
 		This property only exists for corpses.
 	*/
 	SET_INT_PROPERTY( "bodyid", bodyId_ )
-	else
-			/*
-				\property item.hairstyle The id of the hairstyle displayed on the corpse.
-				For no hair use 0.
-				This property only exists for corpses.
-			*/
-		SET_INT_PROPERTY( "hairstyle", hairStyle_ )
-	else
-			/*
-				\property item.haircolor The color of the hair displayed on the corpse.
-				This property only exists for corpses.
-			*/
-		SET_INT_PROPERTY( "haircolor", hairColor_ )
-	else
-			/*
-				\property item.beardstyle The id of the beardstyle displayed on the corpse.
-				For no beard use 0.
-				This property only exists for corpses.
-			*/
-		SET_INT_PROPERTY( "beardstyle", beardStyle_ )
-	else
-			/*
-				\property item.beardcolor The color of the beard displayed on the corpse.
-				This property only exists for corpses.
-			*/
-		SET_INT_PROPERTY( "beardcolor", beardColor_ )
-
 		/*
 		\property item.murderer The character who killed this creature. May be None if the
 		character has been deleted or the owner of this corpse accidently died.
@@ -385,10 +342,6 @@ stError* cCorpse::setProperty( const QString& name, const cVariant& value )
 PyObject* cCorpse::getProperty( const QString& name )
 {
 	PY_PROPERTY( "bodyid", bodyId_ )
-	PY_PROPERTY( "hairstyle", hairStyle_ )
-	PY_PROPERTY( "haircolor", hairColor_ )
-	PY_PROPERTY( "beardstyle", beardStyle_ )
-	PY_PROPERTY( "beardcolor", beardColor_ )
 	PY_PROPERTY( "murderer", FindCharBySerial( murderer_ ) )
 	PY_PROPERTY( "murdertime", murdertime_ )
 	PY_PROPERTY( "direction", direction_ )

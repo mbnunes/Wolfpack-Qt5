@@ -115,6 +115,8 @@ cUOPacket* getUORxPacket( const QByteArray& data )
 		return new cUORxUpdateRange( data );
 	case 0xB8:
 		return new cUORxProfile( data );
+	case 0xD6:
+		return new cUORxRequestTooltips( data );
 	case 0xD7:
 		return cUORxAosMultiPurpose::packet( data );
 	default:
