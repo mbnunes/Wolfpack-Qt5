@@ -676,8 +676,8 @@ void cWorld::load()
 	getOption( "worldtime", db_time, default_time );
 	uoTime.setTime_t( db_time.toInt() );
 	Console::instance()->ProgressDone();
-
-	Console::instance()->send("Worldtime is " + uoTime.toString() + ".\n" );
+	
+	Console::instance()->send(QString("Worldtime is %1 on %3. %4 in year %5").arg(uoTime.time().toString()).arg(uoTime.date().day()).arg(QDate::monthName(uoTime.date().month())).arg(uoTime.date().year() - 1970) + ".\n" );
 
 	persistentBroker->disconnect();
 

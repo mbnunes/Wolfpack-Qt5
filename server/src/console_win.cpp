@@ -60,6 +60,7 @@ extern int main( int argc, char **argv );
 #define CONTROL_INPUT 0x11
 
 HMENU hmMainMenu;
+HICON iconRed = 0, iconGreen = 0;
 HBITMAP hLogo = 0;
 HWND lblUptime = 0, bmpLogo;
 HBRUSH hbSeparator = 0, hbBackground = 0;
@@ -68,6 +69,7 @@ HWND inputWindow = 0;		// Input Textfield
 HWND mainWindow = 0;		// Main Window
 HINSTANCE appInstance = 0;	// Application Instance
 HFONT font = 0;				// The font we'll use
+HFONT arialFont = 0;		// ARIAL
 unsigned int inputHeight = 0; // For measuring the height of the input field
 unsigned int logLimit = 0;	// How many characters fit into the log window
 unsigned int uptimeTimer = 0;
@@ -204,11 +206,11 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 		{
 			dc = (HDC)wparam;
 
-			SelectObject( dc, GetStockObject(ANSI_VAR_FONT) );
+			//SelectObject( dc, GetStockObject(ANSI_VAR_FONT) );			
 			SetTextColor( dc, RGB( 0xAF, 0xAF, 0xAF ) );
 
 			SetBkMode( dc, TRANSPARENT );
-			SelectObject( dc, GetStockObject( SYSTEM_FONT ) );
+			//SelectObject( dc, GetStockObject( SYSTEM_FONT ) );
 			return (LRESULT)hbBackground;
 		}
 		return DefWindowProc( hwnd, msg, wparam, lparam ); 
@@ -233,7 +235,12 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 
 		logLimit = SendMessage( logWindow, EM_GETLIMITTEXT, 0, 0 );
 
-		// Set up the fonts we need        
+		// Set up the fonts we need
+		ZeroMemory(&lfont, sizeof(LOGFONT));
+		qstrcpy(lfont.lfFaceName, "Arial");
+		lfont.lfQuality = ANTIALIASED_QUALITY;
+		arialFont = CreateFontIndirect( &lfont );
+
 		ZeroMemory( &lfont, sizeof( LOGFONT ) );
 		qstrcpy( lfont.lfFaceName, "Fixedsys" );
 		lfont.lfQuality = ANTIALIASED_QUALITY;
@@ -266,6 +273,8 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 		SendMessage( bmpLogo, STM_SETIMAGE, IMAGE_BITMAP, (LPARAM)hLogo );
 
 		lblUptime = CreateWindow( "STATIC", 0, WS_CHILD|WS_VISIBLE, 400, 15, 250, 25, hwnd, 0, appInstance, 0 );
+		SendMessage( lblUptime, WM_SETFONT, (WPARAM)arialFont, 0 );
+
 		// Set up our timer to refresh the nice Uptime Counter
 		uptimeTimer = SetTimer( NULL, 0, 500, 0 );
 
@@ -353,6 +362,8 @@ LRESULT CALLBACK wpWindowProc( HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam
 		DeleteObject( hLogo );
 		DeleteObject( hbSeparator );
 		DeleteObject( hbBackground );
+		DeleteObject( iconRed );
+		DeleteObject( iconGreen );
 		keeprun = 0;
 		PostQuitMessage( 0 );
 		return 0;
@@ -455,19 +466,23 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 
 	hbSeparator = CreateSolidBrush( RGB( 0xAF, 0xAF, 0xAF ) );
 	hbBackground = CreateSolidBrush( RGB( 0, 64, 38 ) );
+	iconGreen = (HICON)LoadImage(appInstance, MAKEINTRESOURCE(IDI_ICONGREEN), IMAGE_ICON, 16, 16, 0);
+	iconRed = (HICON)LoadImage(appInstance, MAKEINTRESOURCE(IDI_ICONRED), IMAGE_ICON, 16, 16, 0);
 
 	// Create the WindowClass
-	WNDCLASS wpClass;
-	ZeroMemory( &wpClass, sizeof( WNDCLASS ) );
+	WNDCLASSEX wpClass;
+	ZeroMemory( &wpClass, sizeof( WNDCLASSEX ) );
+	wpClass.cbSize = sizeof(WNDCLASSEX);
 	wpClass.hInstance = hInstance;
 	wpClass.lpfnWndProc = wpWindowProc;
 	wpClass.hCursor = LoadCursor( NULL, MAKEINTRESOURCE( IDC_ARROW ) );
 	wpClass.hIcon = LoadIcon( hInstance, MAKEINTRESOURCE( IDI_ICON1 ) );
 	wpClass.hbrBackground = hbBackground;
 	wpClass.lpszClassName = WOLFPACK_CLASS;
+	wpClass.hIconSm = iconRed;
 	wpClass.style = CS_DBLCLKS | CS_VREDRAW | CS_HREDRAW;
 	
-	if (!RegisterClass(&wpClass))
+	if (!RegisterClassEx(&wpClass))
 	{
 		MessageBox(0, "Couldn't register Window Class.", "Window Class", MB_OK|MB_ICONERROR);
 		return 1;
@@ -475,7 +490,6 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 
 	// Create the Window itself
 	hmMainMenu = LoadMenu( appInstance, MAKEINTRESOURCE( IDR_MAINMENU ) );
-
 	mainWindow = CreateWindow( WOLFPACK_CLASS, "Wolfpack", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 640, 480, NULL, hmMainMenu, hInstance, NULL );
 
 	if( mainWindow == 0 )
@@ -519,6 +533,19 @@ int APIENTRY WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdL
 
 			sprintf( message, "Uptime: %u:%02u:%02u:%02u", days, hours, minutes, seconds );
 			SetWindowText( lblUptime, message );
+
+			// Update the icon
+			static unsigned int lastState = 0xFFFFFFFF;
+
+			if (lastState != serverState) {
+				if (serverState == RUNNING) {
+					SendMessage(mainWindow, WM_SETICON, ICON_SMALL, (WPARAM)iconGreen);
+				} else {
+					SendMessage(mainWindow, WM_SETICON, ICON_SMALL, (WPARAM)iconRed);
+				}
+			}
+
+			lastState = serverState;
 		}
 
 		TranslateMessage( &msg );

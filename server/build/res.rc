@@ -1,4 +1,4 @@
-//Microsoft Developer Studio generated resource script.
+// Microsoft Visual C++ generated resource script.
 //
 #include "resource.h"
 
@@ -7,15 +7,19 @@
 //
 // Generated from the TEXTINCLUDE 2 resource.
 //
-
+#include "afxres.h"
 
 /////////////////////////////////////////////////////////////////////////////
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// Deutsch (Deutschland) resources
+// German (Germany) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_DEU)
+#ifdef _WIN32
+LANGUAGE LANG_GERMAN, SUBLANG_GERMAN
+#pragma code_page(1252)
+#endif //_WIN32
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -24,21 +28,16 @@
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_ICON1               ICON    DISCARDABLE     "icon2.ico"
-
-/////////////////////////////////////////////////////////////////////////////
-//
-// Bitmap
-//
-
-IDB_LOGO                BITMAP  DISCARDABLE     "logo.bmp"
+IDI_ICON1               ICON                    "icon2.ico"
+IDI_ICONGREEN           ICON                    "icon_green.ico"
+IDI_ICONRED             ICON                    "icon_red.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Menu
 //
 
-IDR_MAINMENU MENU DISCARDABLE 
+IDR_MAINMENU MENU 
 BEGIN
     POPUP "&File"
     BEGIN
@@ -59,13 +58,12 @@ BEGIN
 END
 
 
-#ifndef _MAC
 /////////////////////////////////////////////////////////////////////////////
 //
 // Version
 //
 
-VS_VERSION_INFO VERSIONINFO
+1 VERSIONINFO
  FILEVERSION 12,9,4,0
  PRODUCTVERSION 13,0,0,0
  FILEFLAGSMASK 0x3fL
@@ -82,18 +80,14 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "Comments", "http://www.wpdev.org/\0"
-            VALUE "CompanyName", "Wolfpack Development Team\0"
-            VALUE "FileDescription", "Ultima Online Server Emulator\0"
-            VALUE "FileVersion", "12, 9, 4, 0\0"
-            VALUE "InternalName", "\0"
-            VALUE "LegalCopyright", "© 2002-2003 Wolfpack Dev. Team\0"
-            VALUE "LegalTrademarks", "\0"
-            VALUE "OriginalFilename", "wolfpack.exe\0"
-            VALUE "PrivateBuild", "\0"
-            VALUE "ProductName", "Wolfpack Emu\0"
-            VALUE "ProductVersion", "13, 0, 0, 0\0"
-            VALUE "SpecialBuild", "\0"
+            VALUE "Comments", "http://www.wpdev.org/"
+            VALUE "CompanyName", "Wolfpack Development Team"
+            VALUE "FileDescription", "Ultima Online Server Emulator"
+            VALUE "FileVersion", "12, 9, 4, 0"
+            VALUE "LegalCopyright", "© 2002-2003 Wolfpack Dev. Team"
+            VALUE "OriginalFilename", "wolfpack.exe"
+            VALUE "ProductName", "Wolfpack Emu"
+            VALUE "ProductVersion", "13, 0, 0, 0"
         END
     END
     BLOCK "VarFileInfo"
@@ -102,8 +96,6 @@ BEGIN
     END
 END
 
-#endif    // !_MAC
-
 
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
@@ -111,18 +103,18 @@ END
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE DISCARDABLE 
+1 TEXTINCLUDE 
 BEGIN
     "resource.h\0"
 END
 
-2 TEXTINCLUDE DISCARDABLE 
+2 TEXTINCLUDE 
 BEGIN
-    "\r\n"
+    "#include ""afxres.h""\r\n"
     "\0"
 END
 
-3 TEXTINCLUDE DISCARDABLE 
+3 TEXTINCLUDE 
 BEGIN
     "\r\n"
     "\0"
@@ -130,7 +122,14 @@ END
 
 #endif    // APSTUDIO_INVOKED
 
-#endif    // Deutsch (Deutschland) resources
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_LOGO                BITMAP                  "logo.bmp"
+#endif    // German (Germany) resources
 /////////////////////////////////////////////////////////////////////////////
 
 
