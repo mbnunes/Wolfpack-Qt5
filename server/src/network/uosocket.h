@@ -86,6 +86,8 @@ public:
 	QString lang( void ) const;
 
 	P_CHAR player( void ) const;
+	P_ITEM dragging() const;
+
 
 	Q_UINT32 rxBytes( void ) const;
 	Q_UINT32 txBytes( void ) const;

@@ -84,6 +84,7 @@ class cTrigger;
 class cTrade;
 class cBounty;
 class cRegion;
+class cAccounts;
 
 //-=-=-=-=-=-=-Classes Definitions=-=-=-=-=-=//
 extern cSrvParams		*SrvParams;

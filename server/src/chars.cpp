@@ -38,6 +38,7 @@
 
 
 // Wolfpack includes
+#include "accounts.h"
 #include "wpdefaultscript.h"
 #include "chars.h"
 #include "charsmgr.h"
@@ -827,14 +828,12 @@ void cChar::Serialize(ISerialization &archive)
 		unsigned int j;
 		for (j=0;j<TRUESKILLS;j++)
 		{
-			char t[256] = {0,};
-			numtostr(j, t);
-			string temp = string("skill") + string(t);
-			archive.read(temp.c_str(), baseSkill_[j]);
-			temp = string("skl") + string(t);
-			archive.read(temp.c_str(), lockSkill[j] );
+			QString temp = QString("skill") + QString::number(j);
+			archive.read(temp, baseSkill_[j]);
+			temp = QString("skl") + QString::number(j);
+			archive.read(temp, lockSkill[j] );
 		}
-		archive.read("cantrain", cantrain_);
+		archive.read("cantrain",		cantrain_);
 		
 		archive.read("att",				att);
 		archive.read("def",				def);
@@ -1925,10 +1924,7 @@ QString cChar::fullName( void )
 {
 	QString fName;
 
-	if( ( account_ == 0 ) && isGM() )
-		fName = tr( "The Shard Admin %1 %2" ).arg( name.c_str() ).arg( title_ );
-
-	else if( isGM() )
+	if( isGM() )
 		fName = QString( "%1 %2" ).arg( name.c_str() ).arg( title_ );
 
 	// Normal Criminal
@@ -1957,10 +1953,10 @@ QString cChar::fullName( void )
 
 	// Normal Player
 	else if( title_.isEmpty() )
-		fName = tr( "%1%2, %3 %4" ).arg( title3( this ) ).arg( name.c_str() ).arg( title1( this ) ).arg( title2( this ) );
+		fName = QString( "%1%2, %3 %4" ).arg( title3( this ) ).arg( name.c_str() ).arg( title1( this ) ).arg( title2( this ) );
 
 	else
-		fName = tr( "%1%2 %4, %4 %5" ).arg( title3( this ) ).arg( name.c_str() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+		fName = QString( "%1%2 %4, %4 %5" ).arg( title3( this ) ).arg( name.c_str() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
 
 	return fName;
 }

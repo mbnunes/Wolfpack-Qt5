@@ -33,6 +33,7 @@
 #include "platform.h"
 
 // Wolfpack Includes
+#include "accounts.h"
 #include "speech.h"
 #include "worldmain.h"
 #include "trigger.h"

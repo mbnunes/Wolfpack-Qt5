@@ -385,7 +385,7 @@ void cGumps::Input(int s)
 			}
 			break;
 		case 9:		k = hex2num( text );		// Skin
-					body=(pc_j->id1<<8)+pc_j->id2;
+					body=pc_j->id();
 
                     b=k&0x4000; // Lord binary --> that touchy transparency bit ! 
 		                        // fixes a client crash with transparently dyed skin.

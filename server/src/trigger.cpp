@@ -1497,8 +1497,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 										talk[1] = tl >> 8;
 										talk[2] = tl%256;
 										LongToCharPtr(pc_ts->serial, &talk[3]);
-										talk[7] = pc_ts->id1;
-										talk[8] = pc_ts->id2;
+										ShortToCharPtr(pc_ts->id(), &talk[7]);
 										talk[9] = 0; // Type
 										ShortToCharPtr(pc_ts->saycolor, &talk[10]);
 										talk[12] = 0;
@@ -1524,8 +1523,7 @@ void cTrigger::triggerwitem(UOXSOCKET const ts, P_ITEM pi, int ttype)
 										talk[1] = tl >> 8;
 										talk[2] = tl%256;
 										LongToCharPtr(pc_ts->serial, &talk[3]);
-										talk[7] = pc_ts->id1;
-										talk[8] = pc_ts->id2;
+										ShortToCharPtr(pc_ts->id(), &talk[7]);
 										talk[9] = 0; // Type
 										ShortToCharPtr(pc_ts->saycolor, &talk[10]);
 										talk[12] = 0;
@@ -3014,8 +3012,7 @@ void cTrigger::triggernpc(UOXSOCKET ts, P_CHAR ti, int ttype) // Changed by Magi
 							{
 								cline = &script2[0];
 								splitline();
-								pc_ts->id1 = hexnumber(0);
-								pc_ts->id2 = hexnumber(1);
+								pc_ts->setId(static_cast<ushort>(hexnumber(0)<<8)+hexnumber(1));
 								pc_ts->xid = pc_ts->id();
 								for (j = 0; j < now; j++)
 									if (perm[j] && inrange1p(currchar[j], pc_ts))

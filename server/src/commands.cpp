@@ -40,6 +40,7 @@
 #include "srvparams.h"
 #include "territories.h"
 #include "targetrequests.h"
+#include "accounts.h"
 #include "network/uosocket.h"
 
 // System Includes

@@ -49,8 +49,7 @@
 #include <cstdio>
 
 class Coord_cl;
-
-using namespace std ;
+class QString;
 
 //////////////////////////////////////////////////////////////////////
 // name:	LongFromCharPtr, ShortFromCharPtr
@@ -82,13 +81,6 @@ inline void ShortToCharPtr(const unsigned short i, unsigned char *p)
 
 // LB, wrapping of the stdlib num-2-str functions
 inline void numtostr(int i, char *ourstring) { sprintf(ourstring,"%d",i) ;}
-//inline void numtostr(unsigned int i, char *string) { sprintf(string,"%u",i) ;}
-inline void hextostr(int i, char *ourstring)       { sprintf (ourstring, "%x",i) ; }
-//inline void hextostr(unsigned int i, char *string)      { sprintf (string, "%x",i) ; }
-//#else 
-//inline void numtostr(int i,char *ourstring)	{itoa(i,ourstring,10);}
-//inline void hextostr(int i,char *ourstring)	{itoa(i,ourstring,16);}
-//#endif
 
 #define BASE_INARRAY -1
 #define BASE_AUTO 0
@@ -102,8 +94,7 @@ int rollDice( QString dicePattern );
 
 // Xan : conversion from sz to numbers
 int str2num (char *sz, int base = BASE_AUTO);
-
-int str2num (string sz,int base= BASE_AUTO) ;
+int str2num (std::string sz,int base = BASE_AUTO);
 
 // Xan : new style hexstring to number
 inline int hex2num (char *sz)
@@ -111,9 +102,9 @@ inline int hex2num (char *sz)
 	return str2num(sz, BASE_HEX);
 }
 
-inline int hex2num (string sz)
+inline int hex2num (std::string sz)
 {
-	return str2num(sz,BASE_HEX) ;
+	return str2num(sz,BASE_HEX);
 }
 
 bool parseCoordinates( const QString &input, Coord_cl &coord );

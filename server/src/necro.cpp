@@ -91,7 +91,7 @@ void vialtarget(int nSocket) // bug & crashfixed by LB 25 september 1999
 				}
 				if (Victim->npc)
 				{
-					if( Victim->id1==0x00 &&( Victim->id2==0x0c || (Victim->id2>=0x3b && Victim->id2<=0x3d) ))
+					if( Victim->id() == 0x000c || (Victim->id()>=0x003b && Victim->id()<=0x003d) )
 						Vial->more1=1;
 					// Guard be summuned if in town and good npc
 					// if good flag criminal

@@ -747,8 +747,8 @@ void senditem_lsd(UOXSOCKET s, P_ITEM pi,char color1, char color2, int x, int y,
 
 		if (pi->visible==3)
 		{
-			if ((pc_currchar->id1==0x03 && pc_currchar->id2==0xDB) || !pc_currchar->isGM())
-				itmput[18]|=0x80;
+			if ( pc_currchar->id() == 0x03DB || !pc_currchar->isGM() )
+				itmput[18] |= 0x80;
 		}
 
 		if (pi->isAllMovable()) itmput[18]+=0x20;
@@ -1064,8 +1064,7 @@ void teleport(P_CHAR pc) // Teleports character to its current set coordinates
 		LongToCharPtr(pc->serial, &removeitem[1]);
 
 		LongToCharPtr(pc->serial, &goxyz[1]);
-		goxyz[5]=pc->id1;
-		goxyz[6]=pc->id2;
+		ShortToCharPtr( pc->id(), &goxyz[5]);
 		ShortToCharPtr(pc->skin(), &goxyz[8]);
 		if(pc->poisoned()) 
 			goxyz[10] |= 0x04; 
@@ -1328,13 +1327,14 @@ void statwindow(int s, P_CHAR pc) // Opens the status window
 {
 	int x;
 	unsigned char statstring[67]="\x11\x00\x42\x00\x05\xA8\x90XYZ\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x12\x00\x34\xFF\x01\x00\x00\x5F\x00\x60\x00\x61\x00\x62\x00\x63\x00\x64\x00\x65\x00\x00\x75\x30\x01\x2C\x00\x00";
-	bool ghost;
 	
 	if (s<0 || s>=MAXCLIENT || pc == NULL) return; // lb, fixes a few (too few) -1 crashes ...
 
 	P_CHAR pc_currchar = currchar[s];
 
-	if ((pc->id1==0x01 && pc->id2==0x92) || (pc->id1==0x01 && pc->id2==0x93)) ghost = true; else ghost = false;
+	bool ghost = false;
+	if ((pc->id() == 0x0192) || (pc->id() ==0x0193)) 
+		ghost = true; 
 
 	LongToCharPtr(pc->serial, &statstring[3]);
 	strncpy((char*)&statstring[7],pc->name.c_str(), 30); // can not be more than 30 at least no without changing packet lenght
@@ -1370,8 +1370,7 @@ void statwindow(int s, P_CHAR pc) // Opens the status window
 	// packet #42 has some problems, dont try to be smart and replace the workaround by
 	// if (ghost) statstring[42]=0; else statstring[42]=1, LB
 
-	if ((pc->id1==0x01)&&(pc->id2==0x91)) statstring[43]=1;
-	else if ((pc->id1==0x01) && (pc->id2==0x93)) statstring[43]=1;
+	if ( pc->id() == 0x0191 || pc->id() == 0x0193 ) statstring[43] = 1;
 	else statstring[43]=0; // LB, prevents very female looking male players ... :-)
 
 	//Changed so ghosts can see their str, dex and int, their char haven't lose those attributes.

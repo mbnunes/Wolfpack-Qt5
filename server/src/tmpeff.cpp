@@ -817,8 +817,7 @@ bool cTempEffects::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 
 		if (k>=0x000 && k<=0x3e1) // lord binary, body-values >0x3e crash the client
 		{
-			pc_dest->id1=k>>8; // allow only non crashing ones
-			pc_dest->id2=k%256;
+			pc_dest->setId(k); // allow only non crashing ones
 
 			c1 = pc_dest->skin(); // transparency for monsters allowed, not for players,
 														 // if polymorphing from monster to player we have to switch from transparent to semi-transparent
@@ -868,15 +867,16 @@ bool cTempEffects::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 			}
 			// ------ SEX ------
 			pc_dest->xid = pc_dest->id();
-			pc_dest->id1=0x01;
+
 			//if we already have a beard..can't turn to female
 			if(pc_dest->beardserial() != INVALID_SERIAL)
 			{//if character has a beard...only male
-				pc_dest->id2='\x90';//male
-			} else
+				pc_dest->setId(0x0190);//male
+			}
+			else
 			{//if no beard let's randomly change
-				if((rand()%2)==0) pc_dest->id2='\x90';//male
-				else pc_dest->id2='\x91';//or female
+				if((rand()%2)==0) pc_dest->setId(0x0190);//male
+				else pc_dest->setId(0x0191);//or female
 			}
 
 			// --- SKINCOLOR ---
@@ -896,7 +896,7 @@ bool cTempEffects::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 			// ------ NAME -----
 			pc_dest->setOrgname( pc_dest->name.c_str() );
 
-			if(pc_dest->id2==0x90) 
+			if(pc_dest->id()==0x0190) 
 				pc_dest->name = DefManager->getRandomListEntry( "1" );
 			else 
 				pc_dest->name = DefManager->getRandomListEntry( "2" );//get a name from female list
@@ -973,7 +973,7 @@ bool cTempEffects::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char 
 
 
 			// -------- BEARD --------
-			if(pc_dest->id2==0x90)// only if a man
+			if(pc_dest->id()==0x0190)// only if a man
 			if(pc_dest->beardserial() != INVALID_SERIAL)//if beard exist
 			{//change beard style/color
 				P_ITEM pBeard = FindItemBySerial(pc_dest->beardserial());

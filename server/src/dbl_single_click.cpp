@@ -751,14 +751,13 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 			}
 			return; // case 100
 		case 101: //??
-			pc_currchar->id1 = pi->morex >> 8; 
-			pc_currchar->id2 = pi->morex %  256; 
-			teleport(currchar[s]);
+			pc_currchar->setId( pi->morex ); 
+			teleport(pc_currchar);
 			pi->setType( 102 );
 			return; // case 101
 		case 102: //??
 			pc_currchar->setId(pc_currchar->xid); 
-			teleport(currchar[s]);
+			teleport(pc_currchar);
 			pi->setType( 101 );
 			return; // case 102
 		case 103: // Army enlistment

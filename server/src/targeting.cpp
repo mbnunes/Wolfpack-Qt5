@@ -357,7 +357,7 @@ void DyeTarget(int s)
 		P_CHAR pc = FindCharBySerial(serial);
 		if (pc != NULL)
 		{
-			body=(pc->id1<<8)+pc->id2;
+			body=pc->id();
 			k=(addid1[s]<<8)+addid2[s];
 			if( ( (k>>8) < 0x80 ) && body >= 0x0190 && body <= 0x0193 )
 				k += 0x8000;
@@ -411,10 +411,9 @@ void cTargets::IDtarget(int s)
 		P_CHAR pc = FindCharBySerial(serial);
 		if (pc == NULL)
 			return;
-		pc->id1=addx[s];
-		pc->id2=addy[s];
+		pc->setId( static_cast<ushort>(addx[s]<<8) + addy[s] );
 		pc->xid = pc->id();
-		updatechar(pc);
+		updatechar( pc );
 	}
 }
 
@@ -1032,8 +1031,7 @@ static void AddNpcTarget(int s, PKGx6C *pp)
 		return;
 	pc->Init();
 	pc->name = "Dummy";
-	pc->id1=addid1[s];
-	pc->id2=addid2[s];
+	pc->setId(static_cast<ushort>(addid1[s] << 8)+addid2[s]);
 	pc->xid = pc->id();
 	pc->setSkin(0);
 	pc->setXSkin(0);

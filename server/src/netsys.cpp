@@ -56,26 +56,6 @@ string	sock_ntop(in_addr_t uiAddress)
 }
 //End of sock_ntop (in_addr_t)
 //========================================================================
-//Begin sock_errro
-SI32 sock_error(SI32 siStatus, SI32 siErrno)
-{
-	if (siStatus == SOCKET_ERROR)
-	{
-
-#if defined(_POSIX)
-		siErrno = errno ;
-		cout << strerror(errno) << endl ;
-#elif defined (WIN32)
-		siErrno = WSAGetLastError() ;
-		WSASetLastError(0) ;
-#endif
-	}
-	else
-		siErrno = 0 ;
-	return siStatus ;
-}
-// end sock_errro
-//========================================================================
 //Begin sock_pton
 UI32 sock_pton(string sIP)
 {
@@ -89,38 +69,6 @@ UI32 sock_pton(string sIP)
 	return stAddr.s_addr ;
 }
 //End of sock_pton
-//========================================================================
-//Begin sock_size
-SI32 sock_size(SI32 siSocket)
-{
-	SI32 siSize = 0 ;
-	bool bAction = false ;
-	// We dont want to wait at all
-	timeval	stTime ;
-	stTime.tv_sec = 0 ;
-	stTime.tv_usec = 0 ;
-	// We want to get the data in the socket.  If the socket has been closed (client side)
-	// we want that as well
-	if (siSocket != -1)
-	{
-		//  first, see if anything has happend on the input side of it
-		fd_set	fdSockSet ;
-		// Zero the descriptor set
-		FD_ZERO(&fdSockSet) ;
-		FD_SET(siSocket,&fdSockSet) ;
-		if( select(siSocket+1,&fdSockSet,0,0,&stTime) > 0)
-		{
-			// We had activity on our socket (either was written to or closed)
-			bAction = true ;
-		} 
-
-		ioctlsocket(siSocket,FIONREAD,(unsigned long *)&siSize) ;
-		// if size is 0, and we had activity, then it was closed
-		if (bAction & (siSize == 0))
-			siSize = -1 ;
-	}
-	return siSize ;
-}
 //========================================================================
 //Begin sock_linger
 SI32	sock_linger(SI32 siSocket,bool bLinger)
@@ -142,16 +90,6 @@ SI32	sock_linger(SI32 siSocket,bool bLinger)
 	return 1 ;
 }
 // end sock_linger
-//========================================================================
-// sock_flush
-SI32	sock_flush(SI32 siSocket)
-{
-	SI32 siStatus = 0 ;
-	/// REMAINS TO BE DONE
-	
-	return siStatus ;
-}
-// end sock_flush
 //=======================================================================
 // getDNS
 UI32	getDNS(string sIP)

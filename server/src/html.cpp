@@ -35,6 +35,9 @@
 #include "srvparams.h"
 #include "debug.h"
 #include "scriptc.h"
+#include "accounts.h"
+
+//Library Includes
 #include "qhostaddress.h"
 
 #undef  DBGFILE

@@ -304,7 +304,7 @@ std::vector<ServerList_st>& cSrvParams::serverList()
 									UINT8 part2 = ( ip & 0x00FF0000 ) >> 16;
 
 									if	( 
-										( ip == 0x7F000000 ) || 
+										( part1 == 127 ) || //this one is class A too.
 										( part1 == 10 ) || 
 										( ( part1 == 192 ) && ( part2 == 168 ) ) || 
 										( ( part1 == 172 ) && ( part2 == 16 ) ) 

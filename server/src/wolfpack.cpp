@@ -66,6 +66,7 @@
 #include "Timing.h"
 #include "scriptc.h"
 #include "tilecache.h"
+#include "accounts.h"
 
 // new-style includes
 #include "wpdefmanager.h"
@@ -599,10 +600,10 @@ char *title3(P_CHAR pc) // Paperdoll title for character p (3)
 	{
 		if (pc->kills >= (unsigned)SrvParams->maxkills())
 		{
-			if (pc->id2==0x91) strcpy(fametitle,"The Murderous Lady ");//Morrolan rep
+			if (pc->id()==0x0191) strcpy(fametitle,"The Murderous Lady ");//Morrolan rep
 			else strcpy(fametitle,"The Murderer Lord ");
 		}
-		else if (pc->id2==0x91) sprintf(fametitle,"The %sLady ",thetitle);
+		else if (pc->id()==0x0191) sprintf(fametitle,"The %sLady ",thetitle);
 		else sprintf(fametitle,"The %sLord ",thetitle);
 	}
 	else
@@ -929,8 +930,8 @@ void deathstuff(P_CHAR pc_player)
 		}
 	}
 	ele=0;
-	if(pc_player->isPlayer()) pc_player->id1=0x01; // Character is a ghost
-	if (pc_player->xid==0x0191)
+
+	if (pc_player->xid == 0x0191)
 	{
 		pc_player->setId(0x0193);	// Male or Female
 	}
@@ -1735,7 +1736,7 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 		const P_ITEM pi = Items->SpawnItem(pc_currchar, 1, (char*)temp, 0, 0x0915, pc_mount->skin(), 0);
 		if(!pi) return;
 		
-		switch (pc_mount->id2)
+		switch (static_cast<ushort>(pc_mount->id()&0x00FF))
 		{
 			case 0xC8: pi->setId(0x3E9F); break; // Horse
 			case 0xE2: pi->setId(0x3EA0); break; // Horse
@@ -1826,10 +1827,8 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 		int xx = pc_mount->pos.x;
 		int yy = pc_mount->pos.y;
 		signed char zz = pc_mount->pos.z;
-		int id1 = pc_mount->id1;
-		int id2 = pc_mount->id2;
-		pc_mount->id1 = 0;
-		pc_mount->id2 = 0;
+		unsigned short id = pc_mount->id();
+		pc_mount->setId(0);
 		pc_mount->pos = Coord_cl(0, 0, 0);
 		
 		for (int ch = 0; ch < now; ch++)
@@ -1838,8 +1837,7 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 				impowncreate(ch, pc_mount, 0);
 		}
 		
-		pc_mount->id1 = id1;
-		pc_mount->id2 = id2;
+		pc_mount->setId(id);
 		pc_mount->war = false;
 		pc_mount->attacker = INVALID_SERIAL;
 		pc_mount->pos = Coord_cl(xx, yy, zz);
@@ -1859,7 +1857,7 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount) // Remove horse char and give play
 		//////////////////////////////////
 	}
 	else
-	 sysmessage(s, "You dont own that creature.");
+		sysmessage(s, "You dont own that creature.");
 }
 
 void endScrn()
@@ -1882,6 +1880,8 @@ void endScrn()
 // Name:	checkkey()
 // Purpose:	Facilitate console control. SysOp keys, and localhost controls.
 //
+#include <conio.h>
+
 void checkkey ()
 {
 	int i,j=0;
@@ -3327,7 +3327,7 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 		return;
 	}
 	soundeffect2(pc_p, 0x0030);
-	if (pc_p->id1>=1 && pc_p->id2>90 && pc_p->onHorse()==0)
+	if (pc_p->isHuman() && !pc_p->onHorse())
 		npcaction( pc_p, 0x22);
 	//empty bottle after drinking - Tauriel
 	if (pi->amount()!=1)
@@ -3358,10 +3358,6 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 	}
 	RefreshItem(pi);// AntiChrist
 	// end empty bottle change
-#if 0
-	}
-     else sysmessage(s, "You must wait a few seconds before you drink another potion");
-#endif
 }
 
 int calcValue(P_ITEM pi, int value)

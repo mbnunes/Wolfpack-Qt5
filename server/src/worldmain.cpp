@@ -33,8 +33,6 @@
 //////////////////////////////////////////////////////////////////////
 
 #include "worldmain.h"
-//#include "serbinfile.h"
-//#include "serxmlfile.h"
 #include "progress.h"
 #include "charsmgr.h"
 #include "itemsmgr.h"
@@ -49,6 +47,7 @@
 #include "utilsys.h"
 #include "mapstuff.h"
 #include "territories.h"
+#include "accounts.h"
 
 #undef  DBGFILE
 #define DBGFILE "worldmain.cpp"
@@ -876,8 +875,7 @@ void CWorldMain::loadnewworld(QString module) // Load world from WOLFPACK.WSC
 			} 
 			else
 			{
-				pc->id1 = 0x01;
-				pc->id2 = 0x90;
+				pc->setId(0x0190);
 				clConsole.send("player: %s with bugged body-value detected, restored to male shape\n",pc->name.c_str());
 			}
 		}

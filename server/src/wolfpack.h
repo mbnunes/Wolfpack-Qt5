@@ -46,14 +46,14 @@
 
 //#include <winsock2.h>
 //#include <winbase.h>
-#include <dos.h>
-#include <io.h>
-#include <climits>
-#include <conio.h>
+//#include <dos.h>
+//#include <io.h>
+//#include <climits>
+//#include <conio.h>
 // Wolfpack includes
 #endif
 
-using namespace std;
+//using namespace std;
 
 // Forward class declarations
 
@@ -70,7 +70,7 @@ using namespace std;
 #include "msgboard.h" // Bulletin Boards
 #include "hCache.h"   // MUL Cache stuff.
 //#include "hFile.h"  // New File IO stuff //Currently unused
-#include "accounts.h" // Account System.
+//#include "accounts.h" // Account System.
 #include "cweather.h" // Weather System
 #include "house.h"    // Housing System
 #include "defines.h"

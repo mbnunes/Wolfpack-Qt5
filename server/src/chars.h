@@ -38,7 +38,7 @@
 // just temporary
 #include "debug.h"
 
-#include "guildstones.h"
+//#include "guildstones.h"
 #include "typedefs.h"
 #include "structs.h"
 #include "defines.h"
@@ -48,6 +48,7 @@
 class QString;
 class cUOSocket;
 class AccountRecord;
+class cGuildStone;
 
 #undef  DBGFILE
 #define DBGFILE "chars.h"
@@ -71,8 +72,6 @@ public:
 	// changed from unsigned to signed, LB
 	
 	unsigned char			dir; //&0F=Direction
-	unsigned char			id1; // Character body type
-	unsigned char			id2; // Character body type
 	unsigned short			xid; // Backup of body type for ghosts
 	unsigned char			priv2;	// 1:Allmove, 2: Frozen, 4: View houses as icons, 8: permanently hidden
 	// 10: no need mana, 20: dispellable, 40: permanent magic reflect, 80: no need reagents
@@ -160,13 +159,16 @@ public:
     int						gmMoveEff;
 
 	int						VisRange;
+
 	// Protected Data Members	
 protected:
+
 	short					GuildType;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild
 	bool					GuildTraitor; // (true) This character converted, (false) Neve converted, or not an order/chaos guild member
 	QString					orgname_;//original name - for Incognito
 	QString					title_;
 	bool					unicode_; // This is set to 1 if the player uses unicode speech, 0 if not
+	unsigned short			id_;
 	AccountRecord*			account_; // changed to signed, lb
 	bool					incognito_;// AntiChrist - true if under incognito effect
 	bool					polymorph_;// AntiChrist - true if under polymorph effect
@@ -528,8 +530,8 @@ public:
 	bool  incDecDex(short val)	{dx2 += val;
 	if (dx2>1000) {dx2-=1000;chgRealDex(1);return true;}
 	else return false;}
-	unsigned short id() const				{return static_cast<unsigned short>((id1<<8)+id2);}
-	void setId(unsigned short id)			{id1 = id>>8;	id2 = id&0x00FF;}
+	unsigned short id() const				{return id_;}
+	void setId(unsigned short data)			{id_ = data;}
 	bool  isPlayer() const;
 	bool  isNpc() const;
 	bool  isHuman()	const;

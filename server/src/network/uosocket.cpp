@@ -1301,3 +1301,24 @@ void cUOSocket::resync()
 	updatePlayer();
 	sendChar( _player );
 }
+
+P_ITEM cUOSocket::dragging() const
+{
+	P_CHAR pChar = _player;
+
+	if( !pChar )
+		return 0;
+
+	vector< SERIAL > equipment = contsp.getData( pChar->serial );
+
+	for( UI32 i = 0; i < equipment.size(); i++ )
+	{
+		P_ITEM pItem = FindItemBySerial( equipment[ i ] );
+
+		if( pItem && ( pItem->layer() == 0x1E ) )
+			return pItem;
+	}
+
+	return 0;
+}
+

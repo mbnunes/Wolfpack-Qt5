@@ -39,6 +39,10 @@
 #include "qstringlist.h"
 #include "coord.h"
 
+// Library Includes
+#include "qstring.h"
+
+
 int RandomNum(int nLowNum, int nHighNum)
 {
 	if (nHighNum - nLowNum + 1)
