@@ -106,9 +106,11 @@ def lock_response(char, args, target):
 		if door_lock == key_lock:			
 			if target.item.hastag('locked') and int(target.item.gettag('locked')) == 1:
 					target.item.deltag('locked')
+					char.log(LOG_TRACE, tr("Accessed locked object 0x%x using key 0x%x.\n") % (target.item.serial, key.serial))
 					target.item.say(1048001, "", "", False, 0x3b2, char.socket)
 			else:
 					target.item.settag('locked',1)
+					char.log(LOG_TRACE, tr("Locked object 0x%x using key 0x%x.\n") % (target.item.serial, key.serial))
 					target.item.say(1048000, "", "", False, 0x3b2, char.socket)
 			char.soundeffect(0x241)
 			target.item.resendtooltip()

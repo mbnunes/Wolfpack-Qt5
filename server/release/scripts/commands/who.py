@@ -157,7 +157,10 @@ def details(char, player):
 	# Disconnect
 	gump.addButton( 220, 200, 0xFA5, 0xFA7, 7 )
 	gump.addText( 250, 200, unicode( "Disconnect" ), 0x834 )
-	
+	# Follow
+	gump.addButton( 220, 220, 0xFA5, 0xFA7, 8 )
+	gump.addText( 250, 220, unicode( "Follow char" ), 0x834 )
+
 	# Get the installation from the client flags
 	flags = player.socket.flags
 	if flags & 0x10:
@@ -189,6 +192,10 @@ def callbackSocket( char, args, choice ):
 	# Cancel
 	if choice.button == 0:
 		return False
+	# Follow
+	elif choice.button == 8:
+		commands.follow.who_target( char, args, player )
+		return True
 	# Disconnect
 	elif choice.button == 7:
 		player.socket.disconnect()

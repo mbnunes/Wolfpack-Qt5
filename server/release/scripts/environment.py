@@ -119,7 +119,7 @@ def hairdye( char, item ):
 		char.message( localemsg( 3 ) )
 		return 1
 
-	gump = cGump( x=50, y=50, callback="environment.hairdye_callback" )
+	gump = cGump( x=50, y=50, callback=hairdye_callback )
 
 	# First Page (visible everywhere)
 	gump.startPage( 0 )

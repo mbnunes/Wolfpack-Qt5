@@ -34,19 +34,28 @@ def timer(char, args):
 	
 	char.addtimer(1500, timer, [], False, False, 'FOLLOW_TIMER')
 
+# for the .who-menu
+def who_target(player, arguments, target):
+	if player == target or target.pos.map == 0xFF:
+		player.socket.sysmessage(tr('You chose an invalid follow target.'))
+		return
+	dofollow( player, target)
+
 def target(player, arguments, target):
 	if not target.char or target.char == player or target.pos.map == 0xFF:
 		player.socket.sysmessage(tr('You chose an invalid follow target.'))
 		return
-		
+	dofollow( player, target)
+
+def dofollow( player, target):
 	if target.rank > player.rank:
 		player.socket.sysmessage(tr('You better don''t do that.'))
 		return
 
-	message = tr('Started following 0x%x.') % target.char.serial
+	message = tr('Started following 0x%x.') % target.serial
 	player.socket.sysmessage(message)
 	player.socket.log(LOG_MESSAGE, message + "\n")	
-	player.socket.settag('follow_target', target.char.serial)
+	player.socket.settag('follow_target', target.serial)
 	player.dispel(None, True, 'FOLLOW_TIMER')
 	player.addtimer(1500, timer, [], False, False, 'FOLLOW_TIMER')
 
