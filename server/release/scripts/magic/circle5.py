@@ -49,6 +49,12 @@ class DispelField (Spell):
 	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
+		# Gates need special handling
+		if target.hasscript('magic.gate'):
+			other_gate = target.gettag('other_gate')
+			if other_gate != None:
+				item = wolfpack.finditem(other_gate)
+
 		# Dispellable?
 		if not target.hastag('dispellable_field'):
 			if char.socket:

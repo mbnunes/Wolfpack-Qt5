@@ -6,6 +6,7 @@
 #################################################################
 
 import wolfpack
+from wolfpack import console, tr
 from wolfpack.consts import *
 from wolfpack.utilities import *
 
@@ -281,8 +282,19 @@ def pressbutton( player, partner, box1, box2 ):
 	if button1 == 1 and button2 == 1:
 		back1 = player.getbackpack()
 		back2 = partner.getbackpack()
-		cont2cont( box2, back1 )
-		cont2cont( box1, back2 )
+
+		for item in box1.content:
+			# Player is giving this item to partner
+			player.log(LOG_TRACE, tr("Trading item 0x%x ('%s', %u) to player '%s' (0x%x, %s)\n") % (item.serial, item.baseid, item.amount, partner.orgname, partner.serial, partner.account.name))
+			if not tocontainer( item, back2 ):
+				item.update()
+		
+		for item in box2.content:
+			# Partner is giving this item to partner
+			partner.log(LOG_TRACE, tr("Trading item 0x%x ('%s', %u) to player '%s' (0x%x, %s)\n") % (item.serial, item.baseid, item.amount, player.orgname, player.serial, player.account.name))
+			if not tocontainer( item, back1 ):
+				item.update()
+
 		closetrade( player, partner, box1, box2 )
 
 	return True

@@ -563,7 +563,7 @@ def canGrow(plant):
 # That is either the backpack of the user or a multi
 #
 def validGrowthLocation(plant):
-	if not plant.container and plant.multi:
+	if not plant.container and plant.lockeddown:
 		return GROWTHALLOWMULTI
 		
 	cont = plant.getoutmostitem()

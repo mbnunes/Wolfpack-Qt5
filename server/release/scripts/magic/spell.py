@@ -95,11 +95,12 @@ class Spell:
 		self.inherent = 0
 		mana_table = [ 4, 6, 9, 11, 14, 20, 40, 50 ]
 		self.mana = mana_table[ self.circle - 1 ]
-		self.casttime = 500 + (250 * self.circle)
+		#self.casttime = 500 + (250 * self.circle)
 		self.castaction = ANIM_CASTDIRECTED
+		self.castspeed = circle
 
 		# Change this to 0 for AoS behaviour
-		self.castrecovery = 1 * circle
+		self.castrecovery = int(0.5 * circle)
 
 	#
 	# Show the cast action
@@ -225,7 +226,7 @@ class Spell:
 		# Cast Speed Bonus is capped at 2
 		castspeed -= min(2, properties.fromchar(char, CASTSPEEDBONUS))
 
-		castspeed += self.circle
+		castspeed += self.castspeed
 
 		if castspeed < 1:
 			castspeed = 1

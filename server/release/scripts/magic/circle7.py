@@ -173,23 +173,26 @@ class GateTravel (Spell):
 		serials = []
 
 		# Create the two gates
-		gate = wolfpack.additem('f6c')
-		gate.moveto(char.pos)
-		gate.settag('dispellable_field', 1)
-		gate.addscript( 'magic.gate' )
-		gate.settag('target', str(location))
-		gate.update()
-		gate.soundeffect(0x20e)
-		serials.append(gate.serial)
+		gate1 = wolfpack.additem('f6c')
+		gate1.moveto(char.pos)
+		gate1.settag('dispellable_field', 1)
+		gate1.addscript( 'magic.gate' )
+		gate1.settag('target', str(location))
+		gate1.update()
+		gate1.soundeffect(0x20e)
+		serials.append(gate1.serial)
 
-		gate = wolfpack.additem('f6c')
-		gate.moveto(location)
-		gate.settag('target', '%u,%u,%d,%u' % (char.pos.x, char.pos.y, char.pos.z, char.pos.map))
-		gate.settag('dispellable_field', 1)
-		gate.addscript( 'magic.gate' )
-		gate.update()
-		gate.soundeffect(0x20e)
-		serials.append(gate.serial)
+		gate2 = wolfpack.additem('f6c')
+		gate2.moveto(location)
+		gate2.settag('target', '%u,%u,%d,%u' % (char.pos.x, char.pos.y, char.pos.z, char.pos.map))
+		gate2.settag('dispellable_field', 1)
+		gate2.addscript( 'magic.gate' )
+		gate2.update()
+		gate2.soundeffect(0x20e)
+		serials.append(gate2.serial)
+	
+		gate1.settag('other_gate', gate2.serial)
+		gate2.settag('other_gate', gate1.serial)
 
 		wolfpack.addtimer(30000, field_expire, serials, 1)
 
