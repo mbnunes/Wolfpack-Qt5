@@ -1834,13 +1834,13 @@ void cUOSocket::handleAction( cUORxAction *packet )
 
 void cUOSocket::handleGumpResponse( cUORxGumpResponse* packet )
 {
-	cGump* pGump = gumps[ packet->serial() ];
+	cGump* pGump = gumps[ packet->serial()-1 ];
 	
 	if( pGump )
 	{
-		gumps[ packet->serial() ] = NULL;
 		pGump->handleResponse( this, packet->choice() );
 		delete pGump;
+		gumps[ packet->serial()-1 ] = NULL;
 	}
 }
 
