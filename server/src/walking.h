@@ -57,7 +57,7 @@ public:
 	bool Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence );
 	void CombatWalk( P_CHAR pc );
 	void NpcMovement( unsigned int currenttime, P_NPC pc_i );
-	bool canLandMonsterMoveHere( const Coord_cl& ) const;
+	bool canLandMonsterMoveHere( Coord_cl& ) const;
 	bool CheckForCharacterAtXYZ( P_CHAR pc, const Coord_cl& pos );
 	Coord_cl calcCoordFromDir( Q_UINT8 dir, const Coord_cl& oldCoords );
 private:

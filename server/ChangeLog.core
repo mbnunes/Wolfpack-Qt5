@@ -39,6 +39,7 @@ Wolfpack 12.9.9 Beta (CVS)
 	- Documentation fixes for item.addtimer.
 	- Item Base Definitions are now reloaded correctly.
 	- Fixed bug #0000267 (Max. falling height is now infinite).
+	- Fixed bug #0000268 (coord.validspawnspot() now corrects the z value of coordinates)
 
 Wolfpack 12.9.8 Beta (19. August 2004)
 	- Save fixes

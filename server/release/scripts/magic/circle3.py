@@ -83,16 +83,18 @@ class Teleport(Spell):
 	def target(self, char, mode, targettype, target, args, item):
 		char.turnto(target)
 
+		# Check if the target tile is blocked or in a multi
+		# target.validspawnspot() will automatically set the z
+		# of the coord to the nearest top
+		if (not target.validspawnspot() or wolfpack.findmulti(target)) and not char.gm:		
+			if char.socket:
+				char.socketclilocmessage(501942)
+			return
+
 		# Line of Sight (touch!! or else we can teleport trough windows)
 		if not char.canreach(target, 12):
 			if char.socket:
 				char.socket.clilocmessage(500237)
-			return
-
-		# Check if the target tile is blocked or in a multi
-		if (not target.validspawnspot() or wolfpack.findmulti(target)) and not char.gm:
-			if char.socket:
-				char.socketclilocmessage(501942)
 			return
 
 		if not self.consumerequirements(char, mode, args, target, item):

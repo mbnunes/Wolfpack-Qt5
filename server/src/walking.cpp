@@ -121,6 +121,10 @@ struct stBlockItem
 // the tile we're walking on is impassable
 bool checkWalkable( P_CHAR pChar, Q_UINT16 tileId )
 {
+	if (!pChar) {
+		return false;
+	}
+
 	Q_UNUSED( pChar );
 	Q_UNUSED( tileId );
 	return false;
@@ -234,7 +238,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl& pos )
 			}
 			continue;
 		}
-		else if ( pChar->isDead() )
+		else if ( pChar && pChar->isDead() )
 		{
 			// Doors can be passed by ghosts
 			if ( pItem->hasScript( "door" ) )
@@ -813,57 +817,55 @@ Q_UINT16 DynTile( const Coord_cl& pos )
 	return ( Q_UINT16 ) - 1;
 }
 
-bool cMovement::canLandMonsterMoveHere( const Coord_cl& pos ) const
+bool cMovement::canLandMonsterMoveHere( Coord_cl& pos ) const
 {
 	if ( pos.x >= ( Maps::instance()->mapTileWidth( pos.map ) * 8 ) || pos.y >= ( Maps::instance()->mapTileHeight( pos.map ) * 8 ) )
 		return false;
 
-	const signed char elev = Maps::instance()->mapElevation( pos );
-	Coord_cl target = pos;
-	target.z = elev;
-	if ( ILLEGAL_Z == elev )
-		return false;
+	// Go trough the array top-to-bottom and check
+	// If we find a tile to walk on
+	vector<stBlockItem> blockList = getBlockingItems( 0, pos );
+	bool found = false;
+	Q_UINT32 i;
 
-	// get the tile id of any dynamic tiles at this spot
-	Coord_cl mPos = pos;
-	mPos.z = elev;
-	const Q_INT32 dt = DynTile( mPos );
-
-	// if there is a dynamic tile at this spot, check to see if its a blocker
-	// if it does block, might as well Q_INT16-circuit and return right away
-	if ( dt >= 0 )
+	for ( i = 0; i < blockList.size(); ++i )
 	{
-		tile_st tile = TileCache::instance()->getTile( dt );
-		if ( tile.isBlocking() || tile.isWet() )
+		stBlockItem item = blockList[i];
+		Q_INT8 itemTop = ( item.z + item.height );
+
+		// If we encounter any object with itemTop <= pos.z which is NOT walkable
+		// Then we can as well just return false as while falling we would be
+		// blocked by that object
+		if ( !item.walkable && itemTop < pos.z )
 			return false;
-	}
 
-	// if there's a static block here in our way, return false
-	StaticsIterator msi = Maps::instance()->staticsIterator( pos );
-	while ( !msi.atEnd() )
-	{
-		tile_st tile = TileCache::instance()->getTile( msi->itemid );
-		const Q_INT32 elev = msi->zoff + cTileCache::tileHeight( tile );
-		if ( ( elev >= pos.z ) && ( msi->zoff <= pos.z ) )
-		{
-			if ( tile.isBlocking() || tile.isWet() )
-				return false;
-		}
-		msi++;
-	}
-
-	RegionIterator4Items items( pos, 0 );
-	for ( items.Begin(); !items.atEnd(); items++ )
-	{
-		P_ITEM item = items.GetData();
-		tile_st tile = TileCache::instance()->getTile( item->id() );
-		const Q_INT32 elev = item->pos().z + cTileCache::tileHeight( tile );
-		if ( ( elev >= pos.z ) && ( item->pos().z <= pos.z ) )
-		{
-			if ( tile.isBlocking() || tile.isWet() )
-				return false;
+		if ( item.walkable ) {
+			// If the top of the item is within our max-climb reach
+			// then the first check passed. in addition we need to
+			// check if the "bottom" of the item is reachable
+			// I would say 2 is a good "reach" value for the bottom
+			// of any item
+			if ( itemTop < pos.z + P_M_MAX_Z_CLIMB && itemTop >= pos.z - P_M_MAX_Z_FALL ) {
+				pos.z = itemTop;
+				found = true;
+				break;
+			// Climbing maptiles is 5 tiles easier
+			} else if ( item.maptile && itemTop < pos.z + P_M_MAX_Z_CLIMB + 5 && itemTop >= pos.z - P_M_MAX_Z_FALL ) {
+				pos.z = itemTop;
+				found = true;
+				break;
+			} else if ( itemTop < pos.z ) {
+				pos.z = itemTop;
+				found = true;
+				break;
+			}
 		}
 	}
+
+	// If we're still at the same position
+	// We didn't find anything to step on
+	if ( !found )
+		return false;
 
 	return true;
 }

@@ -148,7 +148,8 @@ static PyObject* wpCoord_direction( wpCoord* self, PyObject* args )
 	\method coord.validspawnspot
 	\return A boolean value.
 	\description This method returns true if this coordinate is a valid spawn spot for a monster, character or item.
-	Otherwise it returns false.
+	Otherwise it returns false. This method will also set the z component of the coordinate to the nearest
+	item top a land creature can stand on.
 */
 static PyObject* wpCoord_validspawnspot( wpCoord* self, PyObject* args )
 {
