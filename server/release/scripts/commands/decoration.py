@@ -65,7 +65,7 @@ class DecorationHandler( ContentHandler ):
             z = int( atts.getValue("z") )
             map = int( atts.getValue("map") )
             item.moveto( x, y, z, map )
-            item.magic = 3 # not moveable
+            item.movable = 3 # not movable
             item.update()
             item.decay = 0 # no decay
 
@@ -109,10 +109,10 @@ class DecorationSaveHandler:
                 file.write("\t</item>\n")
             file.write("</decoration>\n")
             file.close()
-                
-        
-        
-        
+
+
+
+
 
 def decoration( socket, command, arguments ):
     if len(arguments) > 0:
@@ -122,7 +122,7 @@ def decoration( socket, command, arguments ):
             socket.sysmessage("Sorting items")
             saveObject.sort()
             saveObject.save()
-            
+
     else:
         parser = xml.sax.make_parser()
         handler = DecorationHandler()
