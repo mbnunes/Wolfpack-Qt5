@@ -1518,7 +1518,7 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 							}
 						}
 						if (pj != NULL && Magic->CheckBook(((book-1)/8)+1, (book-1)%8, pj))
-						{
+						
 						
 							if (pc_currchar->priv2&2) // REAL cant cast while frozen bugfix, lord binary
 							{
@@ -1533,11 +1533,11 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 								currentSpellType[s]=0;
 								Magic->newSelectSpell2Cast( s, book );
 							}
-						}
-						else 
-						{
-							sysmessage(s, "You don't have that spell."); 
-						}
+					
+					//	else 
+					//	{
+					//		sysmessage(s, "You don't have that spell."); 
+					//	}
 					}
 						break;
 					
