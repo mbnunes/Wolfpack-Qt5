@@ -4,7 +4,7 @@ import time
 import os
 import os.path
 import sys
-from parse import parsepython, parsecpp, getVersion
+from parse import parsepython, parsecpp, getVersion, getVersionNumber
 from glob import glob
 
 paths = sys.argv[1:]
@@ -265,6 +265,9 @@ for object in objects:
 	template = open('templates/object.html')
 	text = template.read()
 	template.close()
+	
+	text = text.replace('{GENERATED}', generated)
+	text = text.replace('{VERSION}', version)	
 		
 	# Compile an overview 	
 	overview = ''
@@ -522,4 +525,8 @@ text = text.replace('{MODULES}', str(len(modules)))
 
 output = open('webroot/index.html', "wt")
 output.write(text)
+output.close()
+
+output = open('version', 'wt')
+output.write(str(getVersionNumber()))
 output.close()

@@ -25,6 +25,9 @@ def getVersion():
 		return 'Wolfpack ' + VERSION
 	else:
 		return 'Wolfpack ' + VERSION + ' ' + BETA
+		
+def getVersionNumber():
+	return VERSION
 
 # <object id="char">....</object>
 # <object id="item">....</object>
