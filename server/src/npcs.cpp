@@ -1156,11 +1156,7 @@ void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat
 	pc_c->Init();
 	serial=pc_c->serial;
 	memcpy(pc_c, pc_k, sizeof(cChar));
-	pc_c->ser1=serial>>24;
-	pc_c->ser2=serial>>16;
-	pc_c->ser3=serial>>8;
-	pc_c->ser4=serial%256;
-	pc_c->serial=serial;
+	pc_c->setSerial(serial);
 	pc_c->ftarg = INVALID_SERIAL;
 	pc_c->MoveTo(pc_k->pos.x+1, pc_k->pos.y, pc_k->pos.z);
 	pc_c->kills=0;

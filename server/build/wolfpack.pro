@@ -23,8 +23,7 @@ win32-borland:LIBS = ws2_32.lib
 TARGET          = wolfpack
 TEMPLATE        = app
 CONFIG          = console release
-HEADERS		= CharWrap.h \
-		  Client.h \
+HEADERS         = Client.h \
 		  SndPkg.h \
 		  SrvParms.h \
 		  Timing.h \
@@ -37,8 +36,8 @@ HEADERS		= CharWrap.h \
 		  boats.h \
 		  books.h \
 		  bounty.h \
-		  char_array.h \
 		  chars.h \
+                  charsmgr.h \
 		  classes.h \
 		  cmdtable.h \
 		  coord.h \
@@ -94,8 +93,7 @@ HEADERS		= CharWrap.h \
 		  tilecache.h \
 		  walking2.h
 
-SOURCES		= CharWrap.cpp \
-		  Client.cpp \
+SOURCES         = Client.cpp \
 		  LoS.cpp \
 		  SkiTarg.cpp \
 		  SndPkg.cpp \
@@ -112,7 +110,8 @@ SOURCES		= CharWrap.cpp \
 		  bounty.cpp \
 		  cFile.cpp \
 		  cache.cpp \
-		  char_array.cpp \
+                  chars.cpp \
+                  charsmgr.cpp \
 		  cmdtable.cpp \
 		  combat.cpp \
 		  commands.cpp \

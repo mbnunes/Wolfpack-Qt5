@@ -44,6 +44,101 @@
 #define ITEM_RESERVE 300	// minimum of free slots that should be left in the array.
 							// otherwise, more memory will be allocated in the mainloop (Duke)
 
+// constructor
+cItem::cItem( cItem &src )
+{
+	strcpy(this->name, src.name);
+	strcpy(this->name2, src.name2); 
+	strcpy(this->creator, src.creator);
+	this->incognito = src.incognito;
+	this->madewith = src.madewith;
+	this->rank = src.rank;
+	this->good = src.good;
+	this->rndvaluerate = src.rndvaluerate;
+
+	this->multis = src.multis;
+	this->free = false;
+	this->flags.isBeeingDragged = src.flags.isBeeingDragged;
+	this->setId(src.id());
+	this->pos = src.pos;
+	this->color1 = src.color1;
+	this->color2 = src.color2;
+	this->setContSerialOnly(src.contserial);
+	this->oldcontserial=INVALID_SERIAL;
+	this->layer = this->oldlayer = src.layer;
+	this->itmhand = src.itmhand;
+	this->type = src.type;
+	this->type2 = src.type2;
+	this->offspell = src.offspell;
+	this->weight = src.weight;
+	this->more1 = src.more1;
+	this->more2 = src.more2;
+	this->more3 = src.more3;
+	this->more4 = src.more4;
+	this->moreb1 = src.moreb1;
+	this->moreb2 = src.moreb2;
+	this->moreb3 = src.moreb3;
+	this->moreb4 = src.moreb4;
+	this->morex = src.morex;
+	this->morey = src.morey;;
+	this->morez = src.morez;
+	this->amount = src.amount;
+	this->amount2 = src.amount2;
+	this->doordir = src.doordir;
+	this->dooropen = src.dooropen;
+	this->pileable = src.pileable;
+	this->dye = src.dye;
+	this->corpse = src.corpse;
+	this->carve = src.carve;
+	this->att = src.att;
+	this->def = src.def;
+	this->lodamage=src.lodamage;
+	this->hidamage=src.hidamage;
+	this->racehate=src.racehate;
+	this->smelt=src.smelt;
+	this->secureIt = src.secureIt;
+	this->wpsk=src.wpsk;
+	this->hp=src.hp;
+	this->maxhp=src.maxhp;
+	this->st=src.st;
+	this->st2=src.st2;
+	this->dx=src.dx;
+	this->dx2=src.dx2;
+	this->in=src.in;
+	this->in2=src.in2;
+	this->spd=src.spd;
+	this->wipe=src.wipe;
+	this->magic=src.magic;
+	this->gatetime=src.gatetime;
+	this->gatenumber=src.gatenumber;
+	this->decaytime = src.decaytime;
+	this->setOwnSerialOnly(src.ownserial);
+	this->visible=src.visible;
+	this->spawnserial=src.spawnserial;
+	this->dir=src.dir;
+	this->priv=src.priv;
+	this->value=src.value;
+	this->restock=src.restock;
+	this->trigger=src.trigger;
+	this->trigtype=src.trigtype;
+	this->trigon=src.trigon;
+	this->disabled=src.disabled;
+	strcpy(this->disabledmsg, src.disabledmsg);
+	this->tuses=src.tuses;
+	this->poisoned=src.poisoned;
+	strcpy(this->murderer, src.murderer);
+ 	this->murdertime=src.murdertime;
+    this->glow=src.glow;
+    this->glow_effect=src.glow_effect;
+    this->glow_c1=src.glow_c1;
+    this->glow_c2=src.glow_c2;
+	this->time_unused=src.time_unused;
+	this->timeused_last=getNormalizedTime();
+	this->spawnregion=src.spawnregion;
+	strcpy(this->desc, src.desc);
+}
+
+
 ///////////////
 // Name:	ReduceAmount
 // history:	by Duke, 4.06.2000
@@ -423,7 +518,7 @@ void cItem::SetSerial(long ser)
 	this->ser3=(unsigned char) ((ser&0x0000FF00)>>8);
 	this->ser4=(unsigned char) ((ser&0x000000FF));
 	this->serial=ser;
-	if (ser > -1)
+	if (ser != INVALID_SERIAL)
 		cItemsManager::getItemsManager().registerItem( this );
 }
 

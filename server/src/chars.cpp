@@ -61,7 +61,8 @@ void cChar::setSerial(SERIAL ser)
 	this->ser3 = static_cast<unsigned char>(ser>>8);
 	this->ser4 = static_cast<unsigned char>(ser%256);
 	this->serial = ser;
-	cCharsManager::getCharsManager().registerChar(this);
+	if ( ser != INVALID_SERIAL)
+		cCharsManager::getCharsManager().registerChar(this);
 }
 
 void cChar::Init(bool ser)

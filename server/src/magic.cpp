@@ -861,11 +861,11 @@ void cMagic::MagicTrap(P_CHAR pc, P_ITEM pTrap)
 //
 char cMagic::CheckReagents(P_CHAR pc, reag_st reagents)
 {
-	reag_st failmsg;
+	reag_st failmsg = {0,};
 
 	if (pc->priv2&0x80) return 1;
 
-	memset(&failmsg,0,sizeof(reag_st)); // set all members to 0
+	//memset(&failmsg,0,sizeof(reag_st)); // set all members to 0
 
 	if (reagents.ash!=0 && getamount(pc, 0x0F8C)<reagents.ash)
 		failmsg.ash=1;

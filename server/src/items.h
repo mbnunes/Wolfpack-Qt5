@@ -41,6 +41,8 @@ using namespace std ;
 class cItem
 {
 public:
+	cItem() {};
+	cItem( cItem& src); // Copy constructor
 	unsigned char ser1; // Item serial number
 	unsigned char ser2;
 	unsigned char ser3;

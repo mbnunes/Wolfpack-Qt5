@@ -4256,11 +4256,7 @@ void usepotion(P_CHAR pc_p, P_ITEM pi)//Reprogrammed by AntiChrist
 		int kser = pi->serial;
 
 		pi->Init(0);
-		pi->ser1=k1;
-		pi->ser2=k2;
-		pi->ser3=k3;
-		pi->ser4=k4;
-		pi->serial=kser;
+		pi->SetSerial(kser);
 		pi->setId(0x0F0E);
 
 		if (lsd==10) // empty Lsd potions

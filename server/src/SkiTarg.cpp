@@ -2436,11 +2436,7 @@ void cSkills::PoisoningTarget(int s) //AntiChrist
 		int kser = pPoi->serial;
 
 		pPoi->Init(0);
-		pPoi->ser1=k1;
-		pPoi->ser2=k2;
-		pPoi->ser3=k3;
-		pPoi->ser4=k4;
-		pPoi->serial=kser;
+		pPoi->SetSerial(kser);
 		pPoi->setId(0x0F0E);
 		pPoi->pileable=1;
 		pPoi->MoveTo(pc->pos.x,pc->pos.y,pc->pos.z);

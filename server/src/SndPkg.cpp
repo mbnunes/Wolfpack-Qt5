@@ -2183,13 +2183,13 @@ void npcemote(int s, P_CHAR pc_npc, char *txt, char antispam) // NPC speech
 void staticeffect(P_CHAR pc_player, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop,  bool UO3DonlyEffekt, stat_st *sta, bool skip_old)
 {
 	int a0,a1,a2,a3,a4;
-	char effect[29];
+	char effect[29] = {0,};
 	int j;
 	if ( pc_player == NULL ) return;
 
 	if (!skip_old)
 	{
-		memset(&effect[0], 0, 29);	
+//		memset(&effect[0], 0, 29);	
 	    effect[0]=0x70; // Effect message
 	    effect[1]=0x03; // Static effect
 	    effect[2]=pc_player->ser1;
@@ -2345,7 +2345,7 @@ void movingeffect(P_CHAR pc_source, P_CHAR pc_dest, unsigned char eff1, unsigned
 
 void bolteffect(P_CHAR pc_player, bool UO3DonlyEffekt, bool skip_old )
 {
-	char effect[29];
+	char effect[29] = {0,};
 	int  j;
 
 	if ( pc_player == NULL )
@@ -2353,7 +2353,7 @@ void bolteffect(P_CHAR pc_player, bool UO3DonlyEffekt, bool skip_old )
 
 	if (!skip_old)
 	{
-	  memset(&effect[0], 0, 29);	
+//	  memset(&effect[0], 0, 29);	
 	  effect[0]=0x70; // Effect message
 	  effect[1]=0x01; // Bolt effect
 	  effect[2]=pc_player->ser1;
@@ -2410,12 +2410,12 @@ void bolteffect(P_CHAR pc_player, bool UO3DonlyEffekt, bool skip_old )
 // staticeffect2 is for effects on items
 void staticeffect2(P_ITEM pi, unsigned char eff1, unsigned char eff2, unsigned char speed, unsigned char loop, unsigned char explode, bool UO3DonlyEffekt,  stat_st *str, bool skip_old )
 {
-	char effect[29];
+	char effect[29] = {0,};
 	int j;
 	
 	if (!skip_old)
 	{
-		memset(&effect[0], 0, 29);
+//		memset(&effect[0], 0, 29);
 		effect[0]=0x70; // Effect message
 		effect[1]=0x02; // Static effect
 		effect[2]=pi->ser1;
@@ -2589,9 +2589,9 @@ void movingeffect3(P_CHAR pc_source, unsigned short x, unsigned short y, signed 
 // staticeffect3 is for effects on items
 void staticeffect3(UI16 x, UI16 y, SI08 z, unsigned char eff1, unsigned char eff2, char speed, char loop, char explode)
 {
-	char effect[29];
+	char effect[29] = {0,};
 	int j;
-	memset (&effect, 0, 29);
+//	memset (&effect, 0, 29);
 
 	effect[0]=0x70; // Effect message
 	effect[1]=0x02; // Static effect

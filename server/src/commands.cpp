@@ -967,10 +967,11 @@ void cCommands::DupeItem(int s, P_ITEM pi_target, int amount)
 	if(pPack == NULL) 
 		return;//AntiChrist
 
-	P_ITEM pi_c = Items->MemItemFree();
-	pi_c->Init(0);
+//	P_ITEM pi_c = Items->MemItemFree();
+//	pi_c->Init(0);
 #pragma note("Replace by a copy constructor before finishing items[]")
-	memcpy(pi_c, pi_target, sizeof(cItem));
+	//memcpy(pi_c, pi_target, sizeof(cItem));
+	P_ITEM pi_c = new cItem(*pi_target);
 	pi_c->SetSerial(cItemsManager::getItemsManager().getUnusedSerial());
 	
 	pi_c->SetContSerial(pPack->serial);
