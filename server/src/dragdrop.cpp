@@ -364,22 +364,11 @@ void DragAndDrop::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	// If that fails it cancels
 	// we also need to check if there is a twohanded weapon if we want to equip another weapon.
 	UI08 layer = pTile.layer;
-
-	bool twohanded = false;
+	
 	P_ITEM equippedLayerItem = pWearer->atLayer( static_cast<cBaseChar::enLayer>(layer) );
-	if ( equippedLayerItem )
-		twohanded = equippedLayerItem->twohanded();
-
-	if( twohanded && ( layer == 1 || layer == 2 ) )
-	{
-		socket->sysMessage( tr("You can't hold another item while wearing a twohanded weapon!") );
-		socket->bounceItem( pItem, BR_NO_REASON );
-		return;
-	}
 
 	// we're equipping so we do the check
-	if( equippedLayerItem )
-	{ 
+	if (equippedLayerItem) { 
 		if( pChar->canPickUp( equippedLayerItem ) )
 		{
 			equippedLayerItem->toBackpack( pWearer );
@@ -390,6 +379,27 @@ void DragAndDrop::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 			socket->bounceItem( pItem, BR_NO_REASON );
 			return;
 		}
+	}
+
+	// Check other layers if neccesary
+	bool occupied = false;
+
+	if (pItem->twohanded() && layer == 1) {
+		occupied = pWearer->leftHandItem() != 0;  // Twohanded weapon on layer 1 forbids item on layer 2
+	} else if (pItem->twohanded() && layer == 2) {
+		occupied = pWearer->rightHandItem() != 0;  // Twohanded weapon on layer 2 forbids item on layer 1
+	} else if (layer == 1) {
+		P_ITEM lefthand = pWearer->leftHandItem();
+		occupied = lefthand && lefthand->twohanded();
+	} else if (layer == 2) {
+		P_ITEM righthand = pWearer->rightHandItem();
+		occupied = righthand && righthand->twohanded();
+	}
+
+	if (occupied) {
+		socket->sysMessage(tr("You can't hold another item while wearing a twohanded item!"));
+		socket->bounceItem(pItem, BR_NO_REASON);
+		return;
 	}
 
 	// At this point we're certain that we can wear the item
