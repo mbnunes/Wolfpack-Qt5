@@ -35,7 +35,6 @@
 // Wolfpack Includes
 //#include "cmdtable.h" // who took this out and why?? cj 8/11/99
 #include "targeting.h"
-#include "trigger.h"
 #include "guildstones.h"
 #include "regions.h"
 #include "srvparams.h"
@@ -48,7 +47,6 @@
 #include "network/uosocket.h"
 #include "gumps.h"
 #include "network.h"
-#include "scriptc.h"
 
 #undef DBGFILE
 #define DBGFILE "targeting.cpp"

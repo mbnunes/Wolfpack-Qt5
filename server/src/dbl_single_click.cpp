@@ -33,8 +33,8 @@
 #include "platform.h"
 
 // Wolfpack Includes
-#include "trigger.h"
 #include "dbl_single_click.h"
+#include "globals.h"
 #include "guildstones.h"
 #include "srvparams.h"
 #include "classes.h"

@@ -41,7 +41,6 @@
 #include "speech.h"
 #include "itemid.h"
 #include "bounty.h"
-#include "trigger.h"
 #include "guildstones.h"
 #include "regions.h"
 #include "srvparams.h"

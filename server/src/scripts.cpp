@@ -38,7 +38,6 @@
 
 #include "wolfpack.h"
 #include "debug.h"
-#include "scriptc.h"
 
 #undef  DBGFILE
 #define DBGFILE "scripts.cpp"

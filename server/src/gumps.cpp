@@ -42,7 +42,6 @@
 #include "wpdefmanager.h"
 #include "classes.h"
 #include "network.h"
-#include "scriptc.h"
 #include "network/uosocket.h"
 #include "spawnregions.h"
 #include "accounts.h"

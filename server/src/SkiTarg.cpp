@@ -36,7 +36,6 @@
 #include "wolfpack.h"
 #include "itemid.h"
 #include "SndPkg.h"
-#include "trigger.h"
 #include "guildstones.h"
 #include "combat.h"
 #include "regions.h"

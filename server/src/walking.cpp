@@ -35,7 +35,6 @@
 // Wolfpack Includes
 #include "walking.h"
 #include "wolfpack.h"
-#include "trigger.h"
 #include "debug.h"
 #include "guildstones.h"
 #include "regions.h"

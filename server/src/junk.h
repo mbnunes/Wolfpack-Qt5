@@ -142,6 +142,7 @@ P_CHAR GetPackOwner(P_ITEM pItem, short rec = 10);
 
 /////////////////////////////////// Remove Me before release!!!! ///////////////////////////
 #include "network.h"
+#include "globals.h"
 
 inline UOXSOCKET toOldSocket(cUOSocket* s)
 {

@@ -50,7 +50,6 @@
 #include "classes.h"
 #include "network.h"
 #include "mapstuff.h"
-#include "scriptc.h"
 #include "network/uosocket.h"
 
 #undef DBGFILE

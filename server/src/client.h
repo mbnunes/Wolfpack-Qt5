@@ -37,6 +37,7 @@
 #define __CLIENT_H__
 
 #include "typedefs.h"
+#include "globals.h"
 
 class cClient  
 {

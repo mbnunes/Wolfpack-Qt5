@@ -275,10 +275,6 @@ SOURCE=.\remadmin.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\scriptc.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\scripts.cpp
 # End Source File
 # Begin Source File
@@ -600,10 +596,6 @@ SOURCE=.\remadmin.h
 # Begin Source File
 
 SOURCE=.\resource.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\scriptc.h
 # End Source File
 # Begin Source File
 

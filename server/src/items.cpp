@@ -40,7 +40,6 @@
 #include "iserialization.h"
 #include "debug.h"
 #include "items.h"
-#include "trigger.h"
 #include "books.h"
 #include "regions.h"
 #include "tilecache.h"
@@ -50,7 +49,6 @@
 #include "mapstuff.h"
 #include "network.h"
 #include "classes.h"
-#include "scriptc.h"
 
 #undef  DBGFILE
 #define DBGFILE "items.cpp"
