@@ -1,0 +1,138 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: khpae                          |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+-->
+<definitions>
+	<menu id="CRAFTMENU_ALCHEMY">
+		<name>Alchemy</name>
+		
+		<menu inherit="ALCHEMY_heal" />
+		<!--menu inherit="ALCHEMY_cure" /-->
+		<!--menu inherit="ALCHEMY_strength" /-->
+		<!--menu inherit="ALCHEMY_agility" /-->
+		<!--menu inherit="ALCHEMY_refresh" /-->
+		<menu inherit="ALCHEMY_nightsight" />
+		<!--menu inherit="ALCHEMY_explosion" /-->
+		<menu inherit="ALCHEMY_poison" />
+	</menu>
+	
+	<menu id="ALCHEMY_heal">
+		<name>Yellow Potion</name>
+
+		<action>
+			<name>Lesser Heal</name>
+			<model>0x0f0c</model>
+			<description>Lesser Heal Potion</description>
+			<make>
+				<useitem itemid="f85" amount="1" />
+				<makeitem section="potion_lesserheal" amount="1" />
+				<skillcheck skillid="0" min="0" max="150" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action>
+			<name>Heal</name>
+			<model>0x0f0c</model>
+			<description>Heal Potion</description>
+			<make>
+				<useitem itemid="f85" amount="3" />
+				<makeitem section="potion_heal" amount="1" />
+				<skillcheck skillid="0" min="151" max="550" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+ 
+		<action>
+			<name>Greater Heal</name>
+			<model>0x0f0c</model>
+			<description>Greater Heal Potion</description>
+			<make>
+				<useitem itemid="f85" amount="7" />
+				<makeitem section="potion_greaterheal" amount="1" />
+				<skillcheck skillid="0" min="551" max="1000" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+	</menu>
+
+	<menu id="ALCHEMY_nightsight">
+		<name>Black Potion</name>
+
+		<action>
+			<name>Nightsight</name>
+			<model>0x0f06</model>
+			<description>Nightsight Potion</description>
+			<make>
+				<useitem itemid="f8d" amount="1" />
+				<makeitem section="potion_nightsight" amount="1" />
+				<skillcheck skillid="0" min="0" max="150" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+	</menu>
+
+	<menu id="ALCHEMY_poison">
+		<name>Green Potion</name>
+
+		<action>
+			<name>Lesser Poison</name>
+			<model>0x0f0a</model>
+			<description>Lesser Poison Potion</description>
+			<make>
+				<useitem itemid="f88" amount="1" />
+				<makeitem section="potion_lesserpoison" amount="1" />
+				<skillcheck skillid="0" min="0" max="150" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action>
+			<name>Poison</name>
+			<model>0x0f0a</model>
+			<description>Poison Potion</description>
+			<make>
+				<useitem itemid="f88" amount="2" />
+				<makeitem section="potion_poison" amount="1" />
+				<skillcheck skillid="0" min="151" max="550" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action>
+			<name>Greater Poison</name>
+			<model>0x0f0a</model>
+			<description>Greater Poison Potion</description>
+			<make>
+				<useitem itemid="f88" amount="4" />
+				<makeitem section="potion_greaterpoison" amount="1" />
+				<skillcheck skillid="0" min="551" max="900" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+
+		<action>
+			<name>Deadly Poison</name>
+			<model>0x0f0a</model>
+			<description>Deadly Poison Potion</description>
+			<make>
+				<useitem itemid="f88" amount="8" />
+				<makeitem section="potion_deadlypoison" amount="1" />
+				<skillcheck skillid="0" min="901" max="1000" />
+			</make>
+			<fail>You failed</fail>
+			<success>You succeeded</success>
+		</action>
+	</menu>
+</definitions>
