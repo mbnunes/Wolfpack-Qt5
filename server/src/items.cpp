@@ -1924,7 +1924,7 @@ void cItem::showName( cUOSocket *socket )
 
 	// Try a localized Message
 	if( name_ == "#" )
-		socket->clilocMessageAffix( 1, 20 +  id_ / 1000, id_ % 1000, "", itemname, 0x3B2, 3, this );
+		socket->clilocMessageAffix( 0xF9060 + id_, "", itemname, 0x3B2, 3, this );
 	else
 		socket->showSpeech( this, itemname );
 	

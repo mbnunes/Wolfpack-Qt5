@@ -331,7 +331,7 @@ void cDragItems::equipItem( cUOSocket *socket, cUORxWearItem *packet )
 	// We're dead and can't do that
 	if( pChar->dead() )
 	{
-		socket->clilocMessage( 0, 500, 949, "", 0x3b2 ); // You can't do that when you're dead.
+		socket->clilocMessage( 0x7A4D5, "", 0x3b2 ); // You can't do that when you're dead.
 
 		socket->bounceItem( pItem, BR_NO_REASON );
 		return;

@@ -124,39 +124,35 @@ PyObject* wpSocket_clilocmessage( wpSocket* self, PyObject* args )
 	if( !self->pSock )
 		return PyFalse;
 
-	if( !checkArgInt( 0 ) || !checkArgInt( 1 ) || !checkArgInt( 2 ) )
+	if( !checkArgInt( 0 ) )
 	{
 		PyErr_BadArgument();
 		return NULL;
 	}
-
-	UINT16 type = getArgInt( 0 );
-	UINT16 file = getArgInt( 1 );
-	UINT16 message = getArgInt( 2 );
 
 	UINT16 color = 0x37;
 	UINT16 font = 3;
 
 	QString params( "" );
 
-	if( checkArgStr( 3 ) )
-		params = getArgStr( 3 );
+	if( checkArgStr( 1 ) )
+		params = getArgStr( 1 );
 
-	if( checkArgInt( 4 ) )
-		color = getArgInt( 4 );
+	if( checkArgInt( 2 ) )
+		color = getArgInt( 2 );
 
-	if( checkArgInt( 5 ) )
-		font = getArgInt( 5 );
+	if( checkArgInt( 3 ) )
+		font = getArgInt( 3 );
 
 	// Object
 	cUObject *object = 0;
 
-	if( checkArgChar( 6 ) )
-		object = getArgChar( 6 );
-	else if( checkArgItem( 6 ) )
-		object = getArgItem( 6 );
+	if( checkArgChar( 4 ) )
+		object = getArgChar( 4 );
+	else if( checkArgItem( 4 ) )
+		object = getArgItem( 4 );
 
-	self->pSock->clilocMessage( type, file, message, params, color, font, object );
+	self->pSock->clilocMessage( getArgInt( 0 ), params, color, font, object );
 
 	return PyTrue;
 }

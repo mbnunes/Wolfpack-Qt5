@@ -642,7 +642,7 @@ bool cNewMagic::checkTarget( P_CHAR pCaster, stNewSpell *sInfo, cUORxTarget *tar
 			return true;
 		else
 		{
-			socket->clilocMessage( 0, 500, 312, "", 0x3b2 ); // You cannot reach that
+			socket->clilocMessage( 0x7A258, "", 0x3b2 ); // You cannot reach that
 			return false;
 		}
 	}

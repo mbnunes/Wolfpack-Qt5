@@ -740,17 +740,8 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 		pc->soundEffect( sound_, true );
 		if( failmsg_.left( 7 ) == "cliloc:" )
 		{
-			QString id = failmsg_.right( failmsg_.length() - 7 );
-			QStringList parts = QStringList::split( ",", id );
-
-			if( parts.count() == 3 )
-			{
-				INT32 type = parts[0].toInt();
-				INT32 file = parts[1].toInt();
-				INT32 id = parts[2].toInt();
-
-				socket->clilocMessage( type, file, id );
-			}
+			QString id = hex2dec( failmsg_.right( failmsg_.length() - 7 ) );
+			socket->clilocMessage( id.toInt() );
 		}
 		else
 			socket->sysMessage( failmsg_ );
@@ -818,17 +809,8 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 		pc->soundEffect( sound_, true );
 		if( emptymsg_.left( 7 ) == "cliloc:" )
 		{
-			QString id = emptymsg_.right( emptymsg_.length() - 7 );
-			QStringList parts = QStringList::split( ",", id );
-
-			if( parts.count() == 3 )
-			{
-				INT32 type = parts[0].toInt();
-				INT32 file = parts[1].toInt();
-				INT32 id = parts[2].toInt();
-
-				socket->clilocMessage( type, file, id );
-			}
+			QString id = hex2dec( emptymsg_.right( emptymsg_.length() - 7 ) );
+			socket->clilocMessage( id.toInt() );
 		}
 		else
 			socket->sysMessage( emptymsg_ );
@@ -882,17 +864,8 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 		pc->soundEffect( sound_, true );
 		if( failmsg_.left( 7 ) == "cliloc:" )
 		{
-			QString id = failmsg_.right( failmsg_.length() - 7 );
-			QStringList parts = QStringList::split( ",", id );
-
-			if( parts.count() == 3 )
-			{
-				INT32 type = parts[0].toInt();
-				INT32 file = parts[1].toInt();
-				INT32 id = parts[2].toInt();
-
-				socket->clilocMessage( type, file, id );
-			}
+			QString id = hex2dec( failmsg_.right( failmsg_.length() - 7 ) );
+			socket->clilocMessage( id.toInt() );
 		}
 		else
 			socket->sysMessage( failmsg_ );
@@ -919,17 +892,8 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 		pc->soundEffect( sound_, true );
 		if( failmsg_.left( 7 ) == "cliloc:" )
 		{
-			QString id = failmsg_.right( failmsg_.length() - 7 );
-			QStringList parts = QStringList::split( ",", id );
-
-			if( parts.count() == 3 )
-			{
-				INT32 type = parts[0].toInt();
-				INT32 file = parts[1].toInt();
-				INT32 id = parts[2].toInt();
-
-				socket->clilocMessage( type, file, id );
-			}
+			QString id = hex2dec( failmsg_.right( failmsg_.length() - 7 ) );
+			socket->clilocMessage( id.toInt() );
 		}
 		else
 			socket->sysMessage( failmsg_ );
@@ -947,17 +911,8 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 
 	if( succmsg_.left( 7 ) == "cliloc:" )
 	{
-		QString id = succmsg_.right( succmsg_.length() - 7 );
-		QStringList parts = QStringList::split( ",", id );
-
-			if( parts.count() == 3 )
-			{
-				INT32 type = parts[0].toInt();
-				INT32 file = parts[1].toInt();
-				INT32 id = parts[2].toInt();
-
-				socket->clilocMessage( type, file, id );
-			}
+		QString id = hex2dec( succmsg_.right( succmsg_.length() - 7 ) );
+		socket->clilocMessage( id.toInt() );
 	}
 	else
 	{
@@ -1009,17 +964,8 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 	{
 		if( emptymsg_.left( 7 ) == "cliloc:" )
 		{
-			QString id = emptymsg_.right( emptymsg_.length() - 7 );
-			QStringList parts = QStringList::split( ",", id );
-
-			if( parts.count() == 3 )
-			{
-				INT32 type = parts[0].toInt();
-				INT32 file = parts[1].toInt();
-				INT32 id = parts[2].toInt();
-
-				socket->clilocMessage( type, file, id );
-			}
+			QString id = hex2dec( emptymsg_.right( emptymsg_.length() - 7 ) );
+			socket->clilocMessage( id.toInt() );
 		}
 		else
 			socket->sysMessage( emptymsg_ );
@@ -1032,17 +978,8 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 		{
 			if( emptymsg_.left( 7 ) == "cliloc:" )
 			{
-				QString id = emptymsg_.right( emptymsg_.length() - 7 );
-				QStringList parts = QStringList::split( ",", id );
-
-				if( parts.count() == 3 )
-				{
-					INT32 type = parts[0].toInt();
-					INT32 file = parts[1].toInt();
-					INT32 id = parts[2].toInt();
-
-					socket->clilocMessage( type, file, id );
-				}
+				QString id = hex2dec( emptymsg_.right( emptymsg_.length() - 7 ) );
+				socket->clilocMessage( id.toInt() );
 			}
 			else
 				socket->sysMessage( emptymsg_ );
@@ -1140,17 +1077,8 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 	{
 		if( emptymsg_.left( 7 ) == "cliloc:" )
 		{
-			QString id = emptymsg_.right( emptymsg_.length() - 7 );
-			QStringList parts = QStringList::split( ",", id );
-
-			if( parts.count() == 3 )
-			{
-				INT32 type = parts[0].toInt();
-				INT32 file = parts[1].toInt();
-				INT32 id = parts[2].toInt();
-
-				socket->clilocMessage( type, file, id );
-			}
+			QString id = hex2dec( emptymsg_.right( emptymsg_.length() - 7 ) );
+			socket->clilocMessage( id.toInt() );
 		}
 		else
 			socket->sysMessage( emptymsg_ );
@@ -1200,17 +1128,8 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 			pSource->setAmount( pSource->amount() - delamount );
 		if( failmsg_.left( 7 ) == "cliloc:" )
 		{
-			QString id = failmsg_.right( failmsg_.length() - 7 );
-			QStringList parts = QStringList::split( ",", id );
-
-			if( parts.count() == 3 )
-			{
-				INT32 type = parts[0].toInt();
-				INT32 file = parts[1].toInt();
-				INT32 id = parts[2].toInt();
-
-				socket->clilocMessage( type, file, id );
-			}
+			QString id = hex2dec( failmsg_.right( failmsg_.length() - 7 ) );
+			socket->clilocMessage( id.toInt() );
 		}
 		else
 			socket->sysMessage( failmsg_ );
@@ -1235,17 +1154,8 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 		Items->DeleItem( pSource );
 		if( failmsg_.left( 7 ) == "cliloc:" )
 		{
-			QString id = failmsg_.right( failmsg_.length() - 7 );
-			QStringList parts = QStringList::split( ",", id );
-
-			if( parts.count() == 3 )
-			{
-				INT32 type = parts[0].toInt();
-				INT32 file = parts[1].toInt();
-				INT32 id = parts[2].toInt();
-
-				socket->clilocMessage( type, file, id );
-			}
+			QString id = hex2dec( failmsg_.right( failmsg_.length() - 7 ) );
+			socket->clilocMessage( id.toInt() );
 		}
 		else
 			socket->sysMessage( failmsg_ );
@@ -1256,17 +1166,8 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 	
 	if( succmsg_.left( 7 ) == "cliloc:" )
 	{
-		QString id = succmsg_.right( succmsg_.length() - 7 );
-		QStringList parts = QStringList::split( ",", id );
-
-		if( parts.count() == 3 )
-		{
-			INT32 type = parts[0].toInt();
-			INT32 file = parts[1].toInt();
-			INT32 id = parts[2].toInt();
-
-			socket->clilocMessage( type, file, id );
-		}
+		QString id = hex2dec( succmsg_.right( succmsg_.length() - 7 ) );
+		socket->clilocMessage( id.toInt() );
 	}
 	else
 	{
@@ -1404,7 +1305,7 @@ bool cFindResource::responsed( cUOSocket *socket, cUORxTarget *target )
 	
 	if( ( pc->pos().distance( pos ) > 4 ) ) //|| !lineOfSight( pChar->pos(), pos, DOORS|ROOFING_SLANTED|WALLS_CHIMNEYS ) )
 	{
-		socket->clilocMessage( 0, 500, 312, "", 0x3b2 ); // You cannot reach that
+		socket->clilocMessage( 0x7A258, "", 0x3b2 ); // You cannot reach that
 		return false;
 	}
 	
@@ -1502,7 +1403,7 @@ bool cConvertResource::responsed( cUOSocket *socket, cUORxTarget *target )
 	
 	if( ( pc->pos().distance( pos ) > 4 ) ) //|| !lineOfSight( pChar->pos(), pos, DOORS|ROOFING_SLANTED|WALLS_CHIMNEYS ) )
 	{
-		socket->clilocMessage( 0, 500, 312, "", 0x3b2 ); // You cannot reach that
+		socket->clilocMessage( 0x7A258, "", 0x3b2 ); // You cannot reach that
 		return false;
 	}
 	

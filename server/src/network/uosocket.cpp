@@ -1660,7 +1660,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 				Skills->Persecute( this );
 		} 
 		else
-			clilocMessage( 0, 500, 949, "", 0x3b2 ); // You can't do that when you're dead.
+			clilocMessage( 0x7A4D5, "", 0x3b2 ); // You can't do that when you're dead.
 
 		send( &attack );
 		return;
@@ -2173,7 +2173,7 @@ thanks to codex, see
 http://www.wpdev.org/modules.php?op=modload&name=phpBB2&file=viewtopic&t=1117&sid=44a576c488c79ba923295eae549bed42
 for more information
 */
-void cUOSocket::clilocMessage( const Q_INT16 TypeID, const Q_INT16 FileID, const Q_UINT16 MsgID, const QString &params, const Q_UINT16 color, const Q_UINT16 font, cUObject *object )
+void cUOSocket::clilocMessage( const UINT32 MsgID, const QString &params, const Q_UINT16 color, const Q_UINT16 font, cUObject *object )
 {
 	cUOTxClilocMsg msg;
 
@@ -2195,14 +2195,14 @@ void cUOSocket::clilocMessage( const Q_INT16 TypeID, const Q_INT16 FileID, const
 	msg.setBody( 0xFF );
 	msg.setHue( color );
 	msg.setFont( font );
-	msg.setMsgNum( TypeID * 1000000 + FileID * 1000 + MsgID );
+	msg.setMsgNum( MsgID );
 
 	msg.setParams( params );
 
 	send( &msg );
 }
 
-void cUOSocket::clilocMessageAffix( const Q_INT16 TypeID, const Q_INT16 FileID, const Q_UINT16 MsgID, const QString &params, const QString &affix, const Q_UINT16 color, const Q_UINT16 font, cUObject *object, bool dontMove, bool prepend )
+void cUOSocket::clilocMessageAffix( const UINT32 MsgID, const QString &params, const QString &affix, const Q_UINT16 color, const Q_UINT16 font, cUObject *object, bool dontMove, bool prepend )
 {
 	cUOTxClilocMsgAffix msg;
 
@@ -2232,7 +2232,7 @@ void cUOSocket::clilocMessageAffix( const Q_INT16 TypeID, const Q_INT16 FileID, 
 		flags |= cUOTxClilocMsgAffix::DontMove;
 	msg.setFlags( flags );
 
-	msg.setMsgNum( TypeID * 1000000 + FileID * 1000 + MsgID );
+	msg.setMsgNum( MsgID );
 
 	msg.setParams( affix, params );
 
