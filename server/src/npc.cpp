@@ -101,7 +101,7 @@ void cNPC::registerInFactory()
 {
 	QStringList fields, tables, conditions;
 	buildSqlString( fields, tables, conditions ); // Build our SQL string
-	QString sqlString = QString( "SELECT %1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cNPC' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
+	QString sqlString = QString( "SELECT %1 FROM `uobjectmap`,%2 WHERE uobjectmap.type = 'cNPC' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
 	UObjectFactory::instance()->registerType( "cNPC", productCreator );
 	UObjectFactory::instance()->registerSqlQuery( "cNPC", sqlString );
 }
@@ -160,7 +160,7 @@ void cNPC::save()
 	{
 		initSave;
 		setTable( "npcs" );
-		
+
 		addField( "serial", serial() );
 		addField( "mindamage", minDamage_);
 		addField( "maxdamage", maxDamage_);
@@ -182,7 +182,7 @@ void cNPC::save()
 		addField( "fleeat", criticalHealth() );
 		addField( "spellslow", spellsLow_ );
 		addField( "spellshigh", spellsHigh_ );
-		
+
 		addCondition( "serial", serial() );
 		saveFields;
 	}
@@ -190,18 +190,18 @@ void cNPC::save()
 }
 
 bool cNPC::del()
-{	
+{
 	if( !isPersistent )
 		return false; // We didn't need to delete the object
 
-	persistentBroker->addToDeleteQueue( "npcs", QString( "serial = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "npcs", QString( "`serial` = '%1'" ).arg( serial() ) );
 	changed_ = true;
 	return cBaseChar::del();
 }
 
 static void npcRegisterAfterLoading( P_NPC pc )
 {
-	MapObjects::instance()->add(pc); 
+	MapObjects::instance()->add(pc);
 }
 
 void cNPC::setOwner(P_PLAYER data, bool nochecks)
@@ -278,7 +278,7 @@ void cNPC::resend( bool clean, bool excludeself )
 
 		if( pChar->dist( this ) > pChar->visualRange() )
 			continue;
-        
+
 		if( clean )
 			mSock->send( &rObject );
 
@@ -287,10 +287,10 @@ void cNPC::resend( bool clean, bool excludeself )
 			continue;
 
 		drawChar.setHighlight( notority( pChar ) );
-		
+
 		sendTooltip( mSock );
 		mSock->send( &drawChar );
-		
+
 		for( ItemContainer::const_iterator it = content_.begin(); it != content_.end(); ++it )
 		{
 			it.data()->sendTooltip( mSock );
@@ -304,7 +304,7 @@ void cNPC::talk( const QString &message, UI16 color, UINT8 type, bool autospam, 
 	{
 		if( nextMsgTime_ < uiCurrentTime )
 			nextMsgTime_ = uiCurrentTime + MY_CLOCKS_PER_SEC*10;
-		else 
+		else
 			return;
 	}
 
@@ -400,10 +400,10 @@ UINT8 cNPC::notority( P_CHAR pChar ) // Gets the notority toward another char
 
 	if( pChar->kills() > SrvParams->maxkills() )
 		result = 0x06; // 6 = Red -> Murderer
-	
+
 //	else if( guildStatus == 1 )
 //		result = 0x02; // 2 = Green -> Same Guild
-	
+
 //	else if( guildStatus == 2 )
 //		result = 0x05; // 5 = Orange -> Enemy Guild
 
@@ -412,7 +412,7 @@ UINT8 cNPC::notority( P_CHAR pChar ) // Gets the notority toward another char
 		// Monsters are always bad
 //		if( npcaitype_ == 4 )
 //			return 0x01;
-		
+
 		if( isHuman() )
 		{
 			if( karma_ > 0 )
@@ -420,17 +420,17 @@ UINT8 cNPC::notority( P_CHAR pChar ) // Gets the notority toward another char
 			else
 				result = 0x06;
 		}
-		
+
 		// Everything else
 		else
 		{
 			if( karma_ >= 0 )
 				return 0x03;
-			else 
+			else
 				return 0x01;
 		}
 	}
-	
+
 	return result;
 }
 
@@ -520,7 +520,7 @@ void cNPC::kill()
 
 	// Now for the corpse
 	P_ITEM pi_backpack = getBackpack();
-	
+
 #pragma message(__FILE__ Reminder "Implement here tradewindow closing and disposal of it's cItem*")
 	// Close here the trade window... we still not sure how this will work, so I took out
 	//the old code
@@ -537,7 +537,7 @@ void cNPC::kill()
 	playDeathSound();
 
 	setSkin( 0x0000 ); // Undyed
-	
+
 	// Reset poison
 	setPoisoned(0);
 	setPoison(0);
@@ -546,7 +546,7 @@ void cNPC::kill()
 	cCorpse *corpse = new cCorpse( true );
 
 	const cElement *elem = DefManager->getDefinition( WPDT_ITEM, "2006" );
-	
+
 	if( elem )
 		corpse->applyDefinition( elem );
 
@@ -555,7 +555,7 @@ void cNPC::kill()
 
 	// Check for the player hair/beard
 	P_ITEM pHair = GetItemOnLayer( 11 );
-	
+
 	if( pHair )
 	{
 		corpse->setHairColor( pHair->color() );
@@ -563,7 +563,7 @@ void cNPC::kill()
 	}
 
 	P_ITEM pBeard = GetItemOnLayer( 16 );
-	
+
 	if( pBeard )
 	{
 		corpse->setBeardColor( pBeard->color() );
@@ -577,7 +577,7 @@ void cNPC::kill()
 
 	corpse->moveTo( pos() );
 	corpse->setDirection( direction() );
-	
+
 	// stores the time and the murderer's name
 	corpse->setMurderer( murderer );
 	corpse->setMurderTime(uiCurrentTime);
@@ -593,7 +593,7 @@ void cNPC::kill()
 			corpse->addItem( pi_loot );
 		it++;
 	}
-	
+
 	std::vector< P_ITEM > equipment;
 
 	// Check the Equipment and Unequip if neccesary
@@ -605,7 +605,7 @@ void cNPC::kill()
 		if( pi_j )
 			equipment.push_back( pi_j );
 	}
-	
+
 	for( std::vector< P_ITEM >::iterator iit = equipment.begin(); iit != equipment.end(); ++iit )
 	{
 		P_ITEM pi_j = *iit;
@@ -626,9 +626,9 @@ void cNPC::kill()
 
 					// put the item in the corpse only of we're sure it's not a newbie item or a spellbook
 					if( !pi_k->newbie() && ( pi_k->type() != 9 ) )
-					{					
+					{
 						corpse->addItem( pi_k );
-						
+
 						// Ripper...so order/chaos shields disappear when on corpse backpack.
 						if( pi_k->id() == 0x1BC3 || pi_k->id() == 0x1BC4 )
 						{
@@ -646,20 +646,20 @@ void cNPC::kill()
 				{
 					pi_j->removeFromView();
 					corpse->addEquipment( pi_j->layer(), pi_j->serial() );
-					corpse->addItem( pi_j );					
+					corpse->addItem( pi_j );
 				}
 			}
 			else if( ( pi_j != pi_backpack ) && ( pi_j->layer() != 0x1D ) )
-			{	
+			{
 				// else if the item is newbie put it into char's backpack
 				pi_j->removeFromView();
 				pi_backpack->addItem( pi_j );
 			}
 
-			//if( ( pi_j->layer() == 0x15 ) && ( shop == 0 ) ) 
+			//if( ( pi_j->layer() == 0x15 ) && ( shop == 0 ) )
 			//	pi_j->setLayer( 0x1A );
 		}
-	}	
+	}
 
 	corpse->update();
 
@@ -692,7 +692,7 @@ void cNPC::callGuards()
 	if( nextGuardCallTime() < uiCurrentTime )
 	{
 		setNextGuardCallTime( uiCurrentTime + (MY_CLOCKS_PER_SEC*10) );
-	} else 
+	} else
 		return;
 
 	cBaseChar::callGuards();
@@ -766,13 +766,13 @@ void cNPC::showName( cUOSocket *socket )
 
 	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red
 	switch( notority( socket->player() ) )
-	{		
+	{
 		case 0x01:	speechColor = 0x5A;		break; //blue
 		case 0x02:	speechColor = 0x43;		break; //green
 		case 0x03:	speechColor = 0x3B2;	break; //grey
 		case 0x05:	speechColor = 0x30;		break; //orange
 		case 0x06:	speechColor = 0x26;		break; //red
-		default:	speechColor = 0x3B2;	break; // grey		
+		default:	speechColor = 0x3B2;	break; // grey
 	}
 
 	// Show it to the socket
@@ -792,7 +792,7 @@ void cNPC::fight(P_CHAR other)
 	this->unhide();
 	this->attackerSerial_ = other->serial();
 	this->setAtWar( true );
-	
+
 	if( !isAtWar() )
 		toggleCombat();
 
@@ -847,7 +847,7 @@ UINT32 cNPC::takeGold( UINT32 amount, bool useBank )
 
 void cNPC::attackTarget( P_CHAR defender )
 {
-	if( this == defender || !defender || isDead() || defender->isDead() ) 
+	if( this == defender || !defender || isDead() || defender->isDead() )
 		return;
 
 	bark( Bark_Attacking );
@@ -856,7 +856,7 @@ void cNPC::attackTarget( P_CHAR defender )
 	P_CHAR target = FindCharBySerial( defender->combatTarget() );
 	if( target )
 		cdist = defender->dist( target );
-	else 
+	else
 		cdist = 30;
 
 	if( cdist > defender->dist( this ) )
@@ -868,7 +868,7 @@ void cNPC::attackTarget( P_CHAR defender )
 	target = FindCharBySerial( combatTarget_ );
 	if( target )
 		cdist = this->dist( target );
-	else 
+	else
 		cdist = 30;
 
 	if( ( cdist > defender->dist( this ) ) &&
@@ -880,7 +880,7 @@ void cNPC::attackTarget( P_CHAR defender )
 	}
 
 	unhide();
-	
+
 	P_NPC pNPC = dynamic_cast<P_NPC>(defender);
 	if( pNPC )
 	{
@@ -888,7 +888,7 @@ void cNPC::attackTarget( P_CHAR defender )
 			pNPC->toggleCombat();
 		pNPC->setNextMoveTime();
 	}
-	
+
 /*	if( npcaitype_ != 4 )
 	{
 		if ( !war_ )
@@ -1016,10 +1016,10 @@ void cNPC::processNode( const cElement *Tag )
 		for( unsigned int i = 0; i < Tag->childCount(); ++i )
 		{
 			const cElement *currNode = Tag->getChild( i );
-			
+
 			if( !currNode->childCount() )
 				continue;
-			
+
 			unsigned char contlayer = 0;
 			if( currNode->name() == "restockable" )
 				contlayer = BuyRestockContainer;
@@ -1027,13 +1027,13 @@ void cNPC::processNode( const cElement *Tag )
 				contlayer = BuyNoRestockContainer;
 			else if( currNode->name() == "sellable" )
 				contlayer = SellContainer;
-			else 
+			else
 				continue;
-				
+
 			P_ITEM contItem = this->GetItemOnLayer( contlayer );
 			if( contItem != NULL )
 				contItem->processContainerNode( currNode );
-		}		
+		}
 	}
 
 	else if( TagName == "inherit" )
@@ -1049,7 +1049,7 @@ void cNPC::processNode( const cElement *Tag )
 			applyDefinition( element );
 	}
 
-	else 
+	else
 		cBaseChar::processNode( Tag );
 
 }
@@ -1107,8 +1107,8 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 		return 0;
 	}
 	else SET_INT_PROPERTY( "totame", tamingMinSkill_ )
-	else SET_INT_PROPERTY( "summontime", summonTime_) 
-	else SET_INT_PROPERTY( "summontimer", summonTime_) 
+	else SET_INT_PROPERTY( "summontime", summonTime_)
+	else SET_INT_PROPERTY( "summontimer", summonTime_)
 	else if( name == "owner" )
 	{
 		P_PLAYER pOwner = dynamic_cast<P_PLAYER>(value.toChar());
@@ -1144,7 +1144,7 @@ stError *cNPC::setProperty( const QString &name, const cVariant &value )
 		setSpell( spell, value.toInt() );
 		return 0;
 	}
-	
+
 	return cBaseChar::setProperty( name, value );
 }
 
@@ -1178,8 +1178,8 @@ stError *cNPC::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "wanderradius", wanderRadius() )
 	else GET_PROPERTY( "fz1", wanderRadius() )
 	else GET_PROPERTY( "totame", tamingMinSkill_ )
-	else GET_PROPERTY( "summontime", (int)summonTime_) 
-	else GET_PROPERTY( "summontimer", (int)summonTime_) 
+	else GET_PROPERTY( "summontime", (int)summonTime_)
+	else GET_PROPERTY( "summontimer", (int)summonTime_)
 	else GET_PROPERTY( "owner", owner_ )
 	else GET_PROPERTY( "ai", aiid_ )
 	else GET_PROPERTY( "fleeat", criticalHealth_ )
@@ -1189,7 +1189,7 @@ stError *cNPC::getProperty( const QString &name, cVariant &value ) const
 	else if( "name" == "spell" )
 	{
 		UINT8 spell = name.right( name.length() - 6 ).toShort();
-		
+
 		value = cVariant( hasSpell( spell ) );
 		return 0;
 	}
@@ -1253,7 +1253,7 @@ Coord_cl cNPC::pathDestination( void ) const
 	We'll need to build a list of pathnodes. Each pathnode contains
 	coordinates, iteration step, cost and a pointer to its predecessor.
 */
-class pathnode_cl 
+class pathnode_cl
 {
 public:
 	pathnode_cl( UI16 x_, UI16 y_, SI08 z_, UI16 step_, float cost_ ) : prev( NULL ), x( x_ ), y( y_ ), z( z_ ), step( step_ ), cost( cost_ ) {}
@@ -1293,7 +1293,7 @@ struct pathnode_coordComparePredicate : public std::binary_function<pathnode_cl,
 
 /*!
 	Heuristic function for A*
-	We use simple 3-dim. euclid distance: d = sqrt( (x1-x2)² + (y1-y2)² + (z1-z2)² )
+	We use simple 3-dim. euclid distance: d = sqrt( (x1-x2) + (y1-y2) + (z1-z2) )
 */
 float cNPC::pathHeuristic( const Coord_cl &source, const Coord_cl &destination )
 {
@@ -1313,7 +1313,7 @@ void cNPC::findPath( const Coord_cl &goal, float sufficient_cost /* = 0.0f */ )
 		return;
 
 	/*
-		For A* we use a priority queue to store the unexamined path nodes 
+		For A* we use a priority queue to store the unexamined path nodes
 		in a way, that the node with lowest cost lies always at the beginning.
 		I'll use std::vector combined with the stl heap functions for it.
 	*/
@@ -1342,7 +1342,7 @@ void cNPC::findPath( const Coord_cl &goal, float sufficient_cost /* = 0.0f */ )
 
 	/*
 		Each iteration of the following loop will take the first element
-		out of the priority queue and calculate the neighbour nodes 
+		out of the priority queue and calculate the neighbour nodes
 		(sourrounding coordinates). The nodes have prev pointers which let
 		us get the whole path in the end.
 
@@ -1375,7 +1375,7 @@ void cNPC::findPath( const Coord_cl &goal, float sufficient_cost /* = 0.0f */ )
 
 			visited = std::binary_search( visited_nodes.begin(), visited_nodes.end(), currentNode, pathnode_coordComparePredicate() );
 
-			// steps > step depth 
+			// steps > step depth
 		} while( ( visited || currentNode->step > SrvParams->pathfindMaxSteps() ) && !unvisited_nodes.empty() );
 
 		if( iterations > SrvParams->pathfindMaxIterations() || currentNode->step > SrvParams->pathfindMaxSteps() )
@@ -1464,14 +1464,14 @@ void cNPC::setAI( const QString &data )
 {
 	QString tmp = QStringList::split( ",", data )[0];
 	aiid_ = tmp;
-	
+
 	if( ai_ )
 		delete ai_;
 
 	ai_ = NULL;
 
 	AbstractAI* ai = AIFactory::instance()->createObject( tmp );
-	if( !ai ) 
+	if( !ai )
 		return;
 
 	ScriptAI* sai = dynamic_cast< ScriptAI* >( ai );

@@ -201,12 +201,12 @@ void cBaseChar::load( char **result, UINT16 &offset )
 	propertyFlags_ = atoi( result[offset++] );
 	attackerSerial_ = atoi( result[offset++] );
 	combatTarget_ = atoi( result[offset++] );
-	murdererSerial_ = atoi( result[offset++] );	
+	murdererSerial_ = atoi( result[offset++] );
 	ser = atoi( result[offset++] );
 	guarding_ = dynamic_cast<P_PLAYER>(FindCharBySerial( ser ));
-	
+
 	// Query the Skills for this character
-	QString sql = "SELECT skills.skill,skills.value,skills.locktype,skills.cap FROM skills WHERE serial = '" + QString::number( serial() ) + "'";
+	QString sql = "SELECT `skill`,`value`,`locktype`,`cap` FROM `skills` WHERE `serial` = '" + QString::number( serial() ) + "'";
 
 	cDBResult res = persistentBroker->query( sql );
 	if( !res.isValid() )
@@ -247,9 +247,9 @@ void cBaseChar::save()
 	{
 		initSave;
 		setTable( "characters" );
-		
+
 		addField( "serial", serial() );
-		addStrField( "name", orgName_ );	
+		addStrField( "name", orgName_ );
 		addStrField( "title", title_ );
 		addStrField( "creationdate", creationDate_.toString() );
 		addField( "body", bodyID_ );
@@ -289,7 +289,7 @@ void cBaseChar::save()
 		addField( "guarding", guarding_ ? guarding_->serial() : INVALID_SERIAL );
 		addCondition( "serial", serial() );
 		saveFields;
-		
+
 		QValueVector< stSkillValue >::const_iterator it;
 		int i = 0;
 		persistentBroker->lockTable("skills");
@@ -313,12 +313,12 @@ void cBaseChar::save()
 }
 
 bool cBaseChar::del()
-{	
+{
 	if( !isPersistent )
 		return false; // We didn't need to delete the object
 
-	persistentBroker->addToDeleteQueue( "characters", QString( "serial = '%1'" ).arg( serial() ) );
-	persistentBroker->addToDeleteQueue( "skills", QString( "serial = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "characters", QString( "`serial` = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "skills", QString( "`serial` = '%1'" ).arg( serial() ) );
 	changed_ = true;
 	return cUObject::del();
 }
@@ -327,7 +327,7 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 {
 	World::instance()->registerObject( pc );
 	pc->setRegion( AllTerritories::instance()->region( pc->pos().x, pc->pos().y, pc->pos().map ) );
-	
+
 	if (pc->bodyID() <= 0x3e1)
 	{
 		unsigned short k = pc->bodyID();
@@ -342,8 +342,8 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 				Console::instance()->send(QString("char/player: %1 : [%2] correted problematic skin hue\n").arg(pc->name()).arg( pc->serial(), 16 ) );
 			}
 		}
-	} 
-	
+	}
+
 	UINT16 max_x = Map->mapTileWidth(pc->pos().map) * 8;
 	UINT16 max_y = Map->mapTileHeight(pc->pos().map) * 8;
 
@@ -352,7 +352,7 @@ static void characterRegisterAfterLoading( P_CHAR pc )
 	{
 		cCharStuff::DeleteChar( pc );
 		return;
-	}	
+	}
 }
 
 bool cBaseChar::isMurderer() const
@@ -376,7 +376,7 @@ void cBaseChar::updateHealth( void )
 		// Send only if target can see us
 		if( !pPlayer || !pPlayer->socket() || !pPlayer->inRange( this, pPlayer->visualRange() ) || ( isHidden() && !pPlayer->isGM() && this != pPlayer ) )
 			continue;
-	
+
 		pPlayer->socket()->updateHealth( this );
 	}
 }
@@ -391,14 +391,14 @@ void cBaseChar::action( UINT8 id )
 
 	else if( mounted && ( id == 0x0D || id == 0x14 ) )
 		id = 0x1D;
-	
+
 	// Attack (1H,Side,Down) + Cast Directed
 	else if( mounted && ( id == 0x09 || id == 0x0a ||id == 0x0b ||id == 0x10 ) )
 		id = 0x1A;
-	
+
 	// Bow + Salute + Eat
 	else if( mounted && ( id == 0x13 || id == 0x20 || id == 0x21 || id == 0x22 ) )
-		id = 0x1C; 
+		id = 0x1C;
 
 	else if( ( mounted || bodyID_ < 0x190 ) && ( bodyID_ == 0x22 ) )
 		return;
@@ -421,7 +421,7 @@ void cBaseChar::action( UINT8 id )
 P_ITEM cBaseChar::getWeapon() const
 {
 	// Check if we have something on our right hand
-	P_ITEM rightHand = rightHandItem(); 
+	P_ITEM rightHand = rightHandItem();
 	if( Combat::weaponSkill( rightHand ) != WRESTLING )
 		return rightHand;
 
@@ -441,8 +441,8 @@ P_ITEM cBaseChar::getShield() const
 	return NULL;
 }
 
-void cBaseChar::setHairColor( UINT16 d)	
-{ 
+void cBaseChar::setHairColor( UINT16 d)
+{
 	changed_ = true;
 	cItem* pHair = GetItemOnLayer( 11 );
 	if( pHair )
@@ -451,8 +451,8 @@ void cBaseChar::setHairColor( UINT16 d)
 	resend();
 }
 
-void cBaseChar::setHairStyle( UINT16 d)	
-{ 
+void cBaseChar::setHairStyle( UINT16 d)
+{
 	if( !isHair( d ) )
 		return;
 	changed_ = true;
@@ -475,8 +475,8 @@ void cBaseChar::setHairStyle( UINT16 d)
 	resend();
 }
 
-void cBaseChar::setBeardColor( UINT16 d)	
-{ 
+void cBaseChar::setBeardColor( UINT16 d)
+{
 	changed_ = true;
 	cItem* pBeard = GetItemOnLayer( 16 );
 	if( pBeard )
@@ -485,8 +485,8 @@ void cBaseChar::setBeardColor( UINT16 d)
 	resend();
 }
 
-void cBaseChar::setBeardStyle( UINT16 d)	
-{ 
+void cBaseChar::setBeardStyle( UINT16 d)
+{
 	if( !isBeard( d ) )
 		return;
 	changed_ = true;
@@ -538,7 +538,7 @@ void cBaseChar::playDeathSound()
 	}
 }
 
-// This should check soon if we are standing above our 
+// This should check soon if we are standing above our
 // corpse and if so, merge with our corpse instead of
 // just resurrecting
 void cBaseChar::resurrect()
@@ -568,7 +568,7 @@ void cBaseChar::resurrect()
 
 	pRobe = cItem::createFromScript( "1f03" );
 
-	if( !pRobe ) 
+	if( !pRobe )
 		return;
 
 	pRobe->setColor( 0 );
@@ -587,23 +587,23 @@ void cBaseChar::turnTo( const Coord_cl &pos )
 	INT16 ydif = (INT16)( pos.y - this->pos().y );
 	UINT8 nDir;
 
-	if( xdif == 0 && ydif < 0 ) 
+	if( xdif == 0 && ydif < 0 )
 		nDir = 0;
-	else if( xdif > 0 && ydif < 0 ) 
+	else if( xdif > 0 && ydif < 0 )
 		nDir = 1;
-	else if( xdif > 0 && ydif ==0 ) 
+	else if( xdif > 0 && ydif ==0 )
 		nDir = 2;
-	else if( xdif > 0 && ydif > 0 ) 
+	else if( xdif > 0 && ydif > 0 )
 		nDir = 3;
-	else if( xdif ==0 && ydif > 0 ) 
+	else if( xdif ==0 && ydif > 0 )
 		nDir = 4;
-	else if( xdif < 0 && ydif > 0 ) 
+	else if( xdif < 0 && ydif > 0 )
 		nDir = 5;
-	else if( xdif < 0 && ydif ==0 ) 
+	else if( xdif < 0 && ydif ==0 )
 		nDir = 6;
-	else if( xdif < 0 && ydif < 0 ) 
+	else if( xdif < 0 && ydif < 0 )
 		nDir = 7;
-	else 
+	else
 		return;
 
 	if( nDir != direction() )
@@ -627,7 +627,7 @@ void cBaseChar::wear( P_ITEM pi )
 	UINT8 layer = pi->layer();
 
 	if( !pi->container() )
-	{	
+	{
 		pi->setLayer( 0 );
 		if( !layer )
 		{
@@ -646,7 +646,7 @@ void cBaseChar::wear( P_ITEM pi )
 	packet.setSerial( pi->serial() );
 	packet.fromItem( pi );
 	for ( cUOSocket* socket = cNetwork::instance()->first(); socket != 0; socket = cNetwork::instance()->next() )
-		if( socket->player() && socket->player()->inRange( this, socket->player()->visualRange() ) ) 
+		if( socket->player() && socket->player()->inRange( this, socket->player()->visualRange() ) )
 			socket->send( &packet );
 }
 
@@ -681,7 +681,7 @@ int cBaseChar::CountItems( short ID, short col )
 	}
 
 	P_ITEM pi = getBackpack();
-	
+
 	if( pi )
 		number = pi->CountItems( ID, col );
 	return number;
@@ -697,7 +697,7 @@ P_ITEM cBaseChar::GetItemOnLayer(unsigned char layer)
 	return atLayer( static_cast<enLayer>(layer) );
 }
 
-P_ITEM cBaseChar::getBackpack()	
+P_ITEM cBaseChar::getBackpack()
 {
 	P_ITEM backpack = atLayer( Backpack );
 
@@ -728,7 +728,7 @@ void cBaseChar::setSerial( const SERIAL ser )
 		World::instance()->unregisterObject( this->serial() );
 
 	cUObject::setSerial( ser );
-	
+
 	World::instance()->registerObject( this );
 }
 
@@ -740,9 +740,9 @@ void cBaseChar::MoveTo(short newx, short newy, signed char newz)
 	cUObject::moveTo( Coord_cl(newx, newy, newz, pos().map) );
 }
 
-bool cBaseChar::Wears(P_ITEM pi)			
-{	
-	return (this == pi->container());	
+bool cBaseChar::Wears(P_ITEM pi)
+{
+	return (this == pi->container());
 }
 
 unsigned int cBaseChar::getSkillSum() const
@@ -788,7 +788,7 @@ void cBaseChar::emote( const QString &emote, UI16 color )
 	textSpeech.setName( name() );
 	textSpeech.setColor( color );
 	textSpeech.setText( emote );
-	
+
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 		if( mSock->player() && mSock->player()->inRange( this, mSock->player()->visualRange() ) )
 			mSock->send( &textSpeech );
@@ -796,32 +796,32 @@ void cBaseChar::emote( const QString &emote, UI16 color )
 
 UI16 cBaseChar::calcDefense( enBodyParts bodypart, bool wearout )
 {
-	P_ITEM pHitItem = NULL; 
+	P_ITEM pHitItem = NULL;
 	UI16 total = bodyArmor_; // the body armor is base value
 
 	if( bodypart == ALLBODYPARTS )
 	{
 		P_ITEM pShield = leftHandItem();
-		
-		// Displayed AR = ((Parrying Skill * Base AR of Shield) ÷ 200) + 1
+
+		// Displayed AR = ((Parrying Skill * Base AR of Shield) ï¿½200) + 1
 		if( pShield && IsShield( pShield->id() ) )
 			total += ( (UI16)( (float)( skillValue( PARRYING ) * pShield->def() ) / 200.0f ) + 1 );
-	} 	
+	}
 
-	if( skillValue( PARRYING ) >= 1000 ) 
-		total += 5; // gm parry bonus. 
+	if( skillValue( PARRYING ) >= 1000 )
+		total += 5; // gm parry bonus.
 
-	P_ITEM pi; 
+	P_ITEM pi;
 	ItemContainer::const_iterator it = content_.begin();
 
 	while( it != content_.end() )
 	{
 		pi = *it;
-		if( pi && pi->layer() > 1 && pi->layer() < 25 ) 
-		{ 
-			//blackwinds new stuff 
+		if( pi && pi->layer() > 1 && pi->layer() < 25 )
+		{
+			//blackwinds new stuff
 			UI16 effdef = 0;
-			if( pi->maxhp() > 0 ) 
+			if( pi->maxhp() > 0 )
 				effdef = (UI16)( (float)pi->hp() / (float)pi->maxhp() * (float)pi->def() );
 
 			if( bodypart == ALLBODYPARTS )
@@ -833,80 +833,80 @@ UI16 cBaseChar::calcDefense( enBodyParts bodypart, bool wearout )
 						pi->wearOut();
 				}
 			}
-			else 
-			{ 
-				switch( pi->layer() ) 
-				{ 
-				case 5: 
-				case 13: 
-				case 17: 
-				case 20: 
-				case 22: 
-					if( bodypart == BODY ) 
-					{ 
-						total += effdef; 
-						pHitItem = pi; 
-					} 
-					break; 
-				case 19: 
-					if( bodypart == ARMS ) 
-					{ 
-						total += effdef; 
-						pHitItem = pi; 
-					} 
-					break; 
-				case 6: 
-					if( bodypart == HEAD ) 
-					{ 
-						total += effdef; 
-						pHitItem = pi; 
-					} 
-					break; 
-				case 3: 
-				case 4: 
-				case 12: 
-				case 23: 
-				case 24: 
+			else
+			{
+				switch( pi->layer() )
+				{
+				case 5:
+				case 13:
+				case 17:
+				case 20:
+				case 22:
+					if( bodypart == BODY )
+					{
+						total += effdef;
+						pHitItem = pi;
+					}
+					break;
+				case 19:
+					if( bodypart == ARMS )
+					{
+						total += effdef;
+						pHitItem = pi;
+					}
+					break;
+				case 6:
+					if( bodypart == HEAD )
+					{
+						total += effdef;
+						pHitItem = pi;
+					}
+					break;
+				case 3:
+				case 4:
+				case 12:
+				case 23:
+				case 24:
 					if( bodypart == LEGS )
-					{ 
-						total += effdef; 
-						pHitItem = pi; 
-					} 
-					break; 
-				case 10: 
-					if( bodypart == NECK ) 
-					{ 
-						total += effdef; 
-						pHitItem = pi; 
-					} 
-					break; 
-				case 7: 
+					{
+						total += effdef;
+						pHitItem = pi;
+					}
+					break;
+				case 10:
+					if( bodypart == NECK )
+					{
+						total += effdef;
+						pHitItem = pi;
+					}
+					break;
+				case 7:
 					if( bodypart == HANDS )
-					{ 
-						total += effdef; 
-						pHitItem = pi; 
-					} 
-					break; 
-				default: 
-					break; 
-				} 
+					{
+						total += effdef;
+						pHitItem = pi;
+					}
+					break;
+				default:
+					break;
+				}
 			}
 		}
 		++it;
-	} 
+	}
 
-	if( pHitItem ) 
-	{ 
-		// don't damage hairs, beard and backpack 
-		// important! this sometimes cause backpack destroy! 
+	if( pHitItem )
+	{
+		// don't damage hairs, beard and backpack
+		// important! this sometimes cause backpack destroy!
 		if( pHitItem->layer() != 0x0B && pHitItem->layer() != 0x10 && pHitItem->layer() != 0x15 )
 		{
 			pHitItem->wearOut();
 		}
 	}
-	
+
 	// Base AR ?
-	/*if( total < 2 && bodypart == ALLBODYPARTS ) 
+	/*if( total < 2 && bodypart == ALLBODYPARTS )
 		total = 2;*/
 
 	return total;
@@ -915,15 +915,15 @@ UI16 cBaseChar::calcDefense( enBodyParts bodypart, bool wearout )
 bool cBaseChar::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
 {
 	bool success = false;
-	
+
 	// Maximum Value of 120 for checks
 	// I disabled this so you can make skillchecks for grandmasters that are still tough
 	//if( max > 1200 )
 	//    max = 1200;
 
 	// How far is the players skill above the required minimum.
-	int charrange = skillValue( skill ) - min;	
-	
+	int charrange = skillValue( skill ) - min;
+
 	if( charrange < 0 )
 		charrange = 0;
 
@@ -933,13 +933,13 @@ bool cBaseChar::checkSkill( UI16 skill, SI32 min, SI32 max, bool advance )
 
 	// +100 means: *allways* a minimum of 10% for success
 	float chance = ( ( (float) charrange * 890.0f ) / (float)( max - min ) ) + 100.0f;
-	
-	if( chance > 990 ) 
+
+	if( chance > 990 )
 		chance = 990;	// *allways* a 1% chance of failure
-	
+
 	if( chance >= RandomNum( 0, 1000 ) )
 		success = true;
-	
+
 	return success;
 }
 
@@ -1006,7 +1006,7 @@ void cBaseChar::removeEffect( cTempEffect *effect )
 			break;
 		}
 		++iter;
-	}	
+	}
 }
 
 void cBaseChar::processNode( const cElement *Tag )
@@ -1020,7 +1020,7 @@ void cBaseChar::processNode( const cElement *Tag )
 	// <bindmenu id="contextmenu />
 	if( TagName == "bindmenu" )
 	{
-		if( !Tag->getAttribute( "id" ).isNull() ) 
+		if( !Tag->getAttribute( "id" ).isNull() )
 			this->setBindmenu(Tag->getAttribute( "id" ));
 		else
 			setBindmenu(Value);
@@ -1101,7 +1101,7 @@ void cBaseChar::processNode( const cElement *Tag )
 			maxStamina_ = dexterity_;
 		stamina_ = maxStamina_;
 	}
-	
+
 	else if( TagName == "int" )
 	{
 		intelligence_ = Value.toLong();
@@ -1193,7 +1193,7 @@ void cBaseChar::processNode( const cElement *Tag )
 						if( tInfo.layer > 0 )
 							mLayer = tInfo.layer;
 					}
-						
+
 					if( !mLayer )
 						pItem->remove();
 					else
@@ -1220,14 +1220,14 @@ void cBaseChar::processNode( const cElement *Tag )
 		else
 			setSkillValue( skillId, Value.toInt() );
 	}
-	
+
 }
 
 void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight, bool noRemove )
 {
 	// DoubleEquip is *NOT* allowed
 	if ( atLayer( layer ) != 0 )
-	{		
+	{
 		log( LOG_WARNING, QString( "Trying to put an item on layer %1 which is already occupied\n" ).arg( layer ) );
 		pi->setContainer( 0 );
 		return;
@@ -1238,7 +1238,7 @@ void cBaseChar::addItem( cBaseChar::enLayer layer, cItem* pi, bool handleWeight,
 		// Dragging doesnt count as Equipping
 		if( layer != Dragging )
 			pi->onEquip( this, layer );
-		pi->removeFromCont();		
+		pi->removeFromCont();
 	}
 
 	content_.insert( (ushort)(layer), pi );
@@ -1515,7 +1515,7 @@ stError *cBaseChar::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "invulnerable", isInvulnerable() )
 	else GET_PROPERTY( "invisible", isInvisible() )
 	else GET_PROPERTY( "frozen", isFrozen() )
-	
+
 	// skill.
 	else if( name.left( 6 ) == "skill." )
 	{
@@ -1637,12 +1637,12 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 	if( scriptChain )
 	{
 		PyObject *args;
-		
+
 		if( dynamic_cast< P_CHAR >( source ) != 0 )
 			args = Py_BuildValue( "O&iiO&", PyGetCharObject, this, (unsigned int)type, amount, PyGetCharObject, source );
 		else if( dynamic_cast< P_ITEM >( source ) )
 			args = Py_BuildValue( "O&iiO&", PyGetCharObject, this, (unsigned int)type, amount, PyGetItemObject, source );
-		
+
 		PyObject *result = cPythonScript::callChainedEvent( EVENT_DAMAGE, scriptChain, args );
 
 		if( result )
@@ -1674,7 +1674,7 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 		hitpoints_ -= amount;
 		updateHealth();
 		Combat::playGetHitSoundEffect( this );
-		Combat::playGetHitAnimation( this );		
+		Combat::playGetHitAnimation( this );
 	}
 
 	return amount;
@@ -1716,7 +1716,7 @@ void cBaseChar::bark( enBark type )
 	case 2:
 		if( type == Bark_GetHit )
 			return;
-		
+
 	// Only Attack, Hit, GetHit and Death
 	case 3:
 		if( type == Bark_Idle )
@@ -1843,7 +1843,7 @@ void cBaseChar::showPaperdoll(cUOSocket *source, bool hotkey) {
 bool cBaseChar::onWalk( unsigned char direction, unsigned char sequence )
 {
 	bool result = false;
-	
+
 	if( scriptChain )
 	{
 		PyObject *args = Py_BuildValue( "O&bb", PyGetCharObject, this, direction, sequence );
@@ -1857,7 +1857,7 @@ bool cBaseChar::onWalk( unsigned char direction, unsigned char sequence )
 bool cBaseChar::onTalk( unsigned char type, unsigned short color, unsigned short font, const QString &text, const QString &lang )
 {
 	bool result = false;
-	
+
 	if( scriptChain )
 	{
 		PyObject *args = Py_BuildValue( "O&bhhuu", PyGetCharObject, this, type, color, font, text.ucs2(), lang.ucs2() );
@@ -1871,7 +1871,7 @@ bool cBaseChar::onTalk( unsigned char type, unsigned short color, unsigned short
 bool cBaseChar::onWarModeToggle( bool war )
 {
 	bool result = false;
-	
+
 	if( scriptChain )
 	{
 		PyObject *args = Py_BuildValue( "O&i", PyGetCharObject, this, war ? 1 : 0 );
@@ -1885,7 +1885,7 @@ bool cBaseChar::onWarModeToggle( bool war )
 bool cBaseChar::onShowPaperdoll( P_CHAR pOrigin )
 {
 	bool result = false;
-	
+
 	if( scriptChain )
 	{
 		PyObject *args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetCharObject, pOrigin );
@@ -1901,11 +1901,11 @@ bool cBaseChar::onShowSkillGump()
 	return cPythonScript::callChainedEventHandler( EVENT_SHOWSKILLGUMP, scriptChain );
 }
 
-bool cBaseChar::onSkillUse( unsigned char skill ) 
+bool cBaseChar::onSkillUse( unsigned char skill )
 {
 	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_SKILLUSE );
 	bool result = false;
-	
+
 	if( scriptChain || global )
 	{
 		PyObject *args = Py_BuildValue( "O&b", PyGetCharObject, this, skill );
@@ -1924,7 +1924,7 @@ bool cBaseChar::onSkillUse( unsigned char skill )
 bool cBaseChar::onDropOnChar( P_ITEM pItem )
 {
 	bool result = false;
-	
+
 	if( scriptChain )
 	{
 		PyObject *args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetItemObject, pItem );
@@ -1966,7 +1966,7 @@ QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 bool cBaseChar::onDeath()
 {
 	bool result = false;
-	
+
 	if( scriptChain )
 	{
 		PyObject *args = Py_BuildValue( "O&", PyGetCharObject, this );
@@ -1980,7 +1980,7 @@ bool cBaseChar::onCHLevelChange( unsigned int level )
 {
 	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_CHLEVELCHANGE );
 	bool result = false;
-	
+
 	if( scriptChain || global )
 	{
 		PyObject *args = Py_BuildValue( "O&i", PyGetCharObject, this, level );
@@ -2000,7 +2000,7 @@ bool cBaseChar::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
 {
 	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_SHOWTOOLTIP );
 	bool result = false;
-	
+
 	if( scriptChain || global )
 	{
 		PyObject *args = Py_BuildValue( "O&O&O&", PyGetCharObject, sender, PyGetCharObject, this, PyGetTooltipObject, tooltip );
@@ -2020,7 +2020,7 @@ bool cBaseChar::onSkillGain( unsigned char skill, unsigned short min, unsigned s
 {
 	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_SKILLGAIN );
 	bool result = false;
-	
+
 	if( scriptChain || global )
 	{
 		PyObject *args = Py_BuildValue( "O&bhhi", PyGetCharObject, this, skill, min, max, success ? 1 : 0 );
@@ -2040,7 +2040,7 @@ bool cBaseChar::onStatGain( unsigned char stat )
 {
 	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_STATGAIN );
 	bool result = false;
-	
+
 	if( scriptChain || global )
 	{
 		PyObject *args = Py_BuildValue( "O&b", PyGetCharObject, this, stat );

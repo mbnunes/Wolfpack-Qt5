@@ -92,7 +92,7 @@ void cItemBases::load()
 		{
 			cItemBase *itembase = new cItemBase;
 			itembase->id_ = id;
-			
+
 			itembases.insert( id, itembase );
 		}
 	}
@@ -108,7 +108,7 @@ inline cItemBase *cItemBases::getItemBase( const QString &id )
  *****************************************************************************/
 
 // constructor
-cItem::cItem(): container_(0), totalweight_(0), sellprice_( 0 ), 
+cItem::cItem(): container_(0), totalweight_(0), sellprice_( 0 ),
 buyprice_( 0 ), restock_( 1 ), base( 0 )
 {
 	spawnregion_ = QString::null;
@@ -125,7 +125,7 @@ cItem::cItem( const cItem &src )
 	this->setMultis( src.multis() );
 	this->setPos(src.pos());
 	this->tooltip_ = src.tooltip_;
-	
+
 	//cItem properties setting
 	this->amount_ = src.amount_;
 	this->buyprice_ = src.buyprice_;
@@ -149,14 +149,14 @@ cItem::cItem( const cItem &src )
 	this->setId(src.id());
 	this->setOwnSerialOnly(src.ownSerial());
 	this->spawnregion_=src.spawnregion_;
-	this->speed_=src.speed_;	
+	this->speed_=src.speed_;
 	this->totalweight_ = src.totalweight_;
 	this->type2_ = src.type2_;
 	this->type_ = src.type_;
 	this->visible_=src.visible_;
 	this->weight_ = src.weight_;
 	this->base = src.base;
-	
+
 	this->setTotalweight( amount_ * weight_ );
 	this->recreateEvents();
 
@@ -164,7 +164,7 @@ cItem::cItem( const cItem &src )
 
 P_CHAR cItem::owner( void ) const
 {
-	return FindCharBySerial( ownserial_ ); 
+	return FindCharBySerial( ownserial_ );
 }
 
 void cItem::setOwner( P_CHAR nOwner )
@@ -184,7 +184,7 @@ void cItem::toBackpack( P_CHAR pChar )
 {
 	flagChanged();
 	P_ITEM pPack = pChar->getBackpack();
-	
+
 	// Pack it to the ground
 	if( !pPack )
 	{
@@ -258,7 +258,7 @@ void cItem::MoveTo(int newx, int newy, signed char newz)
 // type  1 : y-range 50  .. 100
 // type  2 : y-range 30  .. 80
 // type  3 : y-range 100 .. 150
-// type  4 : y-range 40  .. 140 
+// type  4 : y-range 40  .. 140
 // x-range 18 .. 118 for 1,2,3
 //         40 .. 140 for 4
 //
@@ -272,7 +272,7 @@ short cItem::GetContGumpType()
 	case 0x09ab: return 3;
 	case 0x09b0: return 1;
 	case 0x09b2: return 4;
-		
+
 	case 0x0A2C: return 1;	// chest of drawers
 	case 0x0A30: return 1;	// chest of drawers
 	case 0x0A34: return 1;	// chest of drawers
@@ -282,7 +282,7 @@ short cItem::GetContGumpType()
 	case 0x0A4F: return 1;	// armoire
 	case 0x0A51: return 1;	// armoire
 	case 0x0A53: return 1;	// armoire
-		
+
 	case 0x0A97: return 1;	// bookshelf
 	case 0x0A98: return 1;	// bookshelf
 	case 0x0A99: return 1;	// bookshelf
@@ -291,7 +291,7 @@ short cItem::GetContGumpType()
 	case 0x0A9C: return 1;	// bookshelf
 	case 0x0A9D: return 1;	// bookshelf
 	case 0x0A9E: return 1;	// bookshelf
-		
+
 	case 0x0e3c: return 2;
 	case 0x0e3d: return 2;
 	case 0x0e3e: return 2;
@@ -301,20 +301,20 @@ short cItem::GetContGumpType()
 	case 0x0e42: return 3;
 	case 0x0e43: return 3;
 	case 0x0e75: return 4;
-		
+
 	case 0x0e76: return 1;
 	case 0x0e77: return 4;
 	case 0x0e78: return 2;
 	case 0x0e79: return 1;
 	case 0x0e7a: return 1;
-		
+
 	case 0x0e7c: return 3;
 	case 0x0e7d: return 1;
 	case 0x0e7e: return 2;
 	case 0x0e7f: return 4;
 	case 0x0e80: return 1;
 	case 0x0e83: return 4;
-		
+
 	case 0x2006: return 5;	// a corpse/coffin
 	default: return -1;
 	}
@@ -344,7 +344,7 @@ bool cItem::PileItem(cItem* pItem)	// pile two items
 		this->setAmount( this->amount()  + pItem->amount() );
 		pItem->remove();
 	}
-	
+
 	changed( TOOLTIP );
 	flagChanged();
 	update();
@@ -372,7 +372,7 @@ void cItem::SetRandPosInCont(cItem* pCont)
 	position.x = RandomNum(18, 118);
 	position.z=9;
 
-	switch (k) 
+	switch (k)
 	{
 	case 1: position.y = RandomNum(50, 100);	break;
 	case 2: position.y = RandomNum(30, 80);		break;
@@ -405,7 +405,7 @@ static int ContainerCountItems(const int serial, short id, short color)
 		if (pi->id() == id && ( color == -1 || pi->color() == color ) )
 			total += pi->amount();
 	}
-	
+
 	return total;
 }
 
@@ -448,7 +448,7 @@ void cItem::save()
 	{
 		initSave;
 		setTable( "items" );
-		
+
 		addField("serial",			serial() );
 		addField("id",				id() );
 		addField("color",			color() );
@@ -477,7 +477,7 @@ void cItem::save()
 		addField("buyprice",		buyprice_ );
 		addField("restock",			restock_ );
 		addStrField("baseid",		base ? base->id() : QString("") );
-		
+
 		addCondition( "serial", serial() );
 		saveFields;
 	}
@@ -491,7 +491,7 @@ bool cItem::del()
 	if( !isPersistent )
 		return false; // We didn't need to delete the object
 
-	persistentBroker->addToDeleteQueue( "items", QString( "serial = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "items", QString( "`serial` = '%1'" ).arg( serial() ) );
 	flagChanged();
 	return cUObject::del();
 }
@@ -504,7 +504,7 @@ QString cItem::getName( bool shortName )
 	tile_st tile = TileCache::instance()->getTile( id_ );
 
 	QString itemname = tile.name;
-	
+
 	// NEVER prepend a or at when shortName is true (You destroy your a shirt sounds stupid doesnt it)
 	if( !shortName )
 	{
@@ -519,7 +519,7 @@ QString cItem::getName( bool shortName )
 	{
 		// Test if we have a %.../...% form or a simple %
 		QRegExp simple( "%([^/]+)%" );
-		simple.setMinimal( TRUE ); 
+		simple.setMinimal( TRUE );
 
 		if( itemname.contains( simple ) )
 			itemname.replace( simple, simple.cap( 1 ) );
@@ -613,12 +613,12 @@ void cItem::remove()
 		if( pMulti )
 			pMulti->removeItem( this );
 	}
-	
+
 	// Queue for later deletion
 	World::instance()->deleteObject( this );
 }
 
-void cItem::startDecay()			
+void cItem::startDecay()
 {
 	if( container_ || nodecay() )
 		return;
@@ -626,7 +626,7 @@ void cItem::startDecay()
 //	flagChanged();
 
 	decaytime_ = uiCurrentTime;
-	
+
 	// Player corpses take longer to decay
 	if( !corpse() )
 	{
@@ -800,9 +800,9 @@ void cItem::respawn( unsigned int currenttime )
 					}
 					if ((pi->gatetime<=currenttime ||(overflow)) && pi->morex!=0)
 					{
-						if(pi->type()==63) 
-							pi->setType( 64 ); //Lock the container 
-						//numtostr(pi->morex,m); //ilist); //LB, makes chest spawners using random Itemlist items instead of a single type, LB							
+						if(pi->type()==63)
+							pi->setType( 64 ); //Lock the container
+						//numtostr(pi->morex,m); //ilist); //LB, makes chest spawners using random Itemlist items instead of a single type, LB
 						if(pi->morex)
 							Items->AddRespawnItem(pi, QString("%1").arg(pi->morex), true);//If the item contains an item list then it will randomly choose one from the list, JM
 						else
@@ -810,12 +810,12 @@ void cItem::respawn( unsigned int currenttime )
 							QString itemSect = DefManager->getRandomListEntry( "70" );
 							Items->AddRespawnItem(pi, itemSect, true);
 						}
-						pi->gatetime=0;	
+						pi->gatetime=0;
 					}
 				}
 			}
 		}//If time
-	}//for 
+	}//for
 }*/
 /*
 void cAllItems::AddRespawnItem(P_ITEM pItem, QString itemSect, bool spawnInItem )
@@ -825,7 +825,7 @@ void cAllItems::AddRespawnItem(P_ITEM pItem, QString itemSect, bool spawnInItem 
 
 	P_ITEM pi = cItem::createFromScript( itemSect ); // lb, bugfix
 	if (pi == NULL) return;
-	
+
 	if( !spawnInItem )
 	{
 		pi->moveTo(pItem->pos()); //add spawned item to map cell if not in a container
@@ -853,7 +853,7 @@ void cAllItems::AddRespawnItem(P_ITEM pItem, QString itemSect, bool spawnInItem 
 bool cItem::onSingleClick( P_PLAYER Viewer )
 {
 	bool result = false;
-	
+
 	if( scriptChain )
 	{
 		PyObject *args = Py_BuildValue( "O&O&", PyGetItemObject, this, PyGetCharObject, Viewer );
@@ -867,7 +867,7 @@ bool cItem::onSingleClick( P_PLAYER Viewer )
 bool cItem::onDropOnItem( P_ITEM pItem )
 {
 	bool result = false;
-	
+
 	if( scriptChain )
 	{
 		PyObject *args = Py_BuildValue( "O&O&", PyGetItemObject, layer_ == 0x1E ? pItem : this, PyGetItemObject, layer_ == 0x1E ? this : pItem );
@@ -881,7 +881,7 @@ bool cItem::onDropOnItem( P_ITEM pItem )
 bool cItem::onDropOnGround( const Coord_cl &pos )
 {
 	bool result = false;
-	
+
 	if( scriptChain )
 	{
 		PyObject *args = Py_BuildValue( "O&N", PyGetItemObject, this, PyGetCoordObject( pos ) );
@@ -895,7 +895,7 @@ bool cItem::onDropOnGround( const Coord_cl &pos )
 bool cItem::onPickup( P_CHAR pChar )
 {
 	bool result = false;
-	
+
 	if( scriptChain )
 	{
 		PyObject *args = Py_BuildValue( "O&O&", PyGetCharObject, pChar, PyGetItemObject, this );
@@ -909,7 +909,7 @@ bool cItem::onPickup( P_CHAR pChar )
 bool cItem::onEquip( P_CHAR pChar, unsigned char layer )
 {
 	bool result = false;
-	
+
 	if( scriptChain )
 	{
 		PyObject *args = Py_BuildValue( "O&O&b", PyGetCharObject, pChar, PyGetItemObject, this, layer );
@@ -923,7 +923,7 @@ bool cItem::onEquip( P_CHAR pChar, unsigned char layer )
 bool cItem::onBookUpdateInfo( P_CHAR pChar, const QString &author, const QString &title )
 {
 	bool result = false;
-	
+
 	if( scriptChain )
 	{
 		PyObject *args = Py_BuildValue( "O&O&uu", PyGetCharObject, pChar, PyGetItemObject, this, author.ucs2(), title.ucs2() );
@@ -937,7 +937,7 @@ bool cItem::onBookUpdateInfo( P_CHAR pChar, const QString &author, const QString
 bool cItem::onBookRequestPage( P_CHAR pChar, unsigned short page )
 {
 	bool result = false;
-	
+
 	if( scriptChain )
 	{
 		PyObject *args = Py_BuildValue( "O&O&h", PyGetCharObject, pChar, PyGetItemObject, this, page );
@@ -951,7 +951,7 @@ bool cItem::onBookRequestPage( P_CHAR pChar, unsigned short page )
 bool cItem::onBookUpdatePage( P_CHAR pChar, unsigned short page, const QString &content )
 {
 	bool result = false;
-	
+
 	if( scriptChain )
 	{
 		PyObject *args = Py_BuildValue( "O&O&hu", PyGetCharObject, pChar, PyGetItemObject, this, page, content.ucs2() );
@@ -965,7 +965,7 @@ bool cItem::onBookUpdatePage( P_CHAR pChar, unsigned short page, const QString &
 bool cItem::onUnequip( P_CHAR pChar, unsigned char layer )
 {
 	bool result = false;
-	
+
 	if( scriptChain )
 	{
 		PyObject *args = Py_BuildValue( "O&O&b", PyGetCharObject, pChar, PyGetItemObject, this, layer );
@@ -979,7 +979,7 @@ bool cItem::onUnequip( P_CHAR pChar, unsigned char layer )
 bool cItem::onWearItem( P_PLAYER pPlayer, P_CHAR pChar, unsigned char layer )
 {
 	bool result = false;
-	
+
 	if( scriptChain )
 	{
 		PyObject *args = Py_BuildValue( "O&O&O&b", PyGetCharObject, pPlayer, PyGetCharObject, pChar, PyGetItemObject, this, layer );
@@ -993,7 +993,7 @@ bool cItem::onWearItem( P_PLAYER pPlayer, P_CHAR pChar, unsigned char layer )
 bool cItem::onUse( P_CHAR pChar )
 {
 	bool result = false;
-	
+
 	if( scriptChain )
 	{
 		PyObject *args = Py_BuildValue( "O&O&", PyGetCharObject, pChar, PyGetItemObject, this );
@@ -1008,7 +1008,7 @@ bool cItem::onUse( P_CHAR pChar )
 bool cItem::onCollide( P_CHAR pChar )
 {
 	bool result = false;
-	
+
 	if( scriptChain )
 	{
 		PyObject *args = Py_BuildValue( "O&O&", PyGetCharObject, pChar, PyGetItemObject, this );
@@ -1022,7 +1022,7 @@ bool cItem::onCollide( P_CHAR pChar )
 bool cItem::onDropOnChar( P_CHAR pChar )
 {
 	bool result = false;
-	
+
 	if( scriptChain )
 	{
 		PyObject *args = Py_BuildValue( "O&O&", PyGetCharObject, pChar, PyGetItemObject, this );
@@ -1037,7 +1037,7 @@ bool cItem::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
 {
 	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_SHOWTOOLTIP );
 	bool result = false;
-	
+
 	if( scriptChain || global )
 	{
 		PyObject *args = Py_BuildValue( "O&O&O&", PyGetCharObject, sender, PyGetItemObject, this, PyGetTooltipObject, tooltip );
@@ -1060,14 +1060,14 @@ void cItem::processNode( const cElement *Tag )
 	// we do this as we're going to modify the element
 	QString TagName = Tag->name();
 	QString Value = Tag->getValue();
-	
+
 	const cElement *section = DefManager->getDefinition( WPDT_DEFINE, TagName );
 
 	// <bindmenu>contextmenu</bindmenu>
 	// <bindmenu id="contextmenu" />
 	if( TagName == "bindmenu" )
 	{
-		if( Tag->hasAttribute( "id" ) ) 
+		if( Tag->hasAttribute( "id" ) )
 			this->setBindmenu( Tag->getAttribute( "id" ));
 		else
 			setBindmenu(Value);
@@ -1189,7 +1189,7 @@ void cItem::processNode( const cElement *Tag )
 
 	// <content><item id="a" />...<item id="z" /></contains> (sereg)
 	else if( TagName == "content" && Tag->childCount() > 0 )
-		this->processContainerNode( Tag ); 
+		this->processContainerNode( Tag );
 
 	// <inherit>f23</inherit>
 	else if( TagName == "inherit" )
@@ -1200,7 +1200,7 @@ void cItem::processNode( const cElement *Tag )
 			section = DefManager->getDefinition( WPDT_ITEM, Tag->getAttribute( "id" ) );
 		else
 			section = DefManager->getDefinition( WPDT_ITEM, Value );
-		
+
 		if( section )
 			applyDefinition( section );
 	}
@@ -1374,12 +1374,12 @@ void cItem::processContainerNode( const cElement *tag )
 void cItem::showName( cUOSocket *socket )
 {
 	// End chars/npcs section
-	
+
     if( onSingleClick( socket->player() ) )
-        return;       
-		
+        return;
+
 	QString itemname( "" );
-	
+
 	if( !name_.isNull() )
 		itemname = getName();
 
@@ -1396,7 +1396,7 @@ void cItem::showName( cUOSocket *socket )
 		socket->clilocMessageAffix( 0xF9060 + id_, "", itemname, 0x3B2, 3, this );
 	else
 		socket->showSpeech( this, itemname );
-	
+
 /*	// When we click on a player vendors item,
 	// we show the price as well
 	if( container_ && container_->isItem() )
@@ -1432,7 +1432,7 @@ void cItem::showName( cUOSocket *socket )
 	if( type() == 1 || type() == 63 || type() == 65 || type() == 87 )
 	{
 		UINT16 tWeight = totalweight_;
-		
+
 		if( weight_ == 255 )
 			tWeight -= 255;
 
@@ -1479,7 +1479,7 @@ void cItem::update( cUOSocket *mSock )
 			// Visible to owners and GMs only
 			else if( ( visible_ == 1 ) && !pChar->Owns( this ) && !pChar->isGM() )
 				return;
-	        
+
 			if( isAllMovable() )
 				sendItem->setFlags( 0x20 );
 
@@ -1493,7 +1493,7 @@ void cItem::update( cUOSocket *mSock )
 				sendItem->setFlags( sendItem->flags() | 0x80 );
 
 			// TODO: Insert code for view-multi-as-icon & view-lightsource-as-candle
-		
+
 			mSock->send( sendItem );
 			sendTooltip( mSock );
 		}
@@ -1502,33 +1502,33 @@ void cItem::update( cUOSocket *mSock )
 			for( mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 			{
 				P_PLAYER pChar = mSock->player();
-	
+
 				// Only send to sockets in range
 				if( !pChar || !pChar->account() || ( pChar->dist( this ) > pChar->visualRange() ) )
 					continue;
-	
+
 				// Completely invisible
 				if( ( visible() == 2 ) && !pChar->isGM() )
 					continue;
-	
+
 				// Visible to owners and GMs only
 				else if( ( visible() == 1 ) && !pChar->Owns( this ) && !pChar->isGM() )
 					continue;
 
 				cUOTxSendItem sockSendItem( *sendItem );
-	            
+
 				if( isAllMovable() )
 					sockSendItem.setFlags( 0x20 );
 				else if( pChar->account()->isAllMove() )
 					sockSendItem.setFlags( 0x20 );
 				else if( ( isOwnerMovable() || isLockedDown() ) && pChar->Owns( this ) )
 					sockSendItem.setFlags( 0x20 );
-	
+
 				if( ( visible() > 0 ) && !pChar->Owns( this ) )
 					sockSendItem.setFlags( sockSendItem.flags() | 0x80 );
-	
+
 				// TODO: Insert code for view-multi-as-icon & view-lightsource-as-candle
-				
+
 				mSock->send( &sockSendItem );
 				sendTooltip( mSock );
 			}
@@ -1561,7 +1561,7 @@ void cItem::update( cUOSocket *mSock )
 	else if( container_ && container_->isItem() )
 	{
 		cUOTxAddContainerItem contItem;
-		contItem.fromItem( this );	
+		contItem.fromItem( this );
 
 		P_ITEM iCont = getOutmostItem();
 		cUObject *oCont = iCont;
@@ -1592,7 +1592,7 @@ P_ITEM cItem::dupe()
 
 	P_ITEM nItem = new cItem( (*this) );
 	nItem->setSerial( World::instance()->findItemSerial() );
-	
+
 	// We wont dupe items on chars without proper handling
 	P_CHAR pWearer = dynamic_cast<P_CHAR>( nItem->container() );
 	if( pWearer )
@@ -1629,7 +1629,7 @@ void cItem::setTotalweight( int data )
 {
 	//if( data < 0 )
 		// FixWeight!
-	
+
 	// Completely ignore the container if the free flag is set
 	// this flag is abused during the load phase of the server
 	// to flag items with yet unprocessed container values
@@ -1673,7 +1673,7 @@ void cItem::talk( const QString &message, UI16 color, UINT8 type, bool autospam,
 
 	if( socket )
 		lang = socket->lang();
-	
+
 	cUOTxUnicodeSpeech::eSpeechType speechType;
 
 	switch( type )
@@ -1778,11 +1778,11 @@ QPtrList< cItem > cItem::getContainment() const
 			}
 		}
 		// Or just put it into our list
-		else 
+		else
 			itemlist.append( pItem );
 
 		++it;
-	}	
+	}
 
 	return itemlist;
 }
@@ -1805,7 +1805,7 @@ void cItem::registerInFactory()
 {
 	QStringList fields, tables, conditions;
 	buildSqlString( fields, tables, conditions ); // Build our SQL string
-	QString sqlString = QString( "SELECT %1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cItem' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
+	QString sqlString = QString( "SELECT %1 FROM `uobjectmap`,%2 WHERE uobjectmap.type = 'cItem' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
 	UObjectFactory::instance()->registerType("cItem", productCreator);
 	UObjectFactory::instance()->registerSqlQuery( "cItem", sqlString );
 }
@@ -1820,8 +1820,8 @@ void cItem::load( char **result, UINT16 &offset )
 
 	id_ = atoi( result[offset++] );
 	color_ = atoi( result[offset++] );
-	
-	//  Warning, ugly optimization ahead, if you have a better idea, we want to hear it. 
+
+	//  Warning, ugly optimization ahead, if you have a better idea, we want to hear it.
 	//  For load speed and memory conservation, we will store the SERIAL of the container
 	//  here and then right after load is done we replace that value with it's memory address
 	//  as it should be.
@@ -1833,13 +1833,13 @@ void cItem::load( char **result, UINT16 &offset )
 	}
 
 	// ugly optimization ends here.
-	
+
 	layer_ = atoi( result[offset++] );
 	type_ = atoi( result[offset++] );
 	type2_ = atoi( result[offset++] );
 	amount_ = atoi( result[offset++] );
 	decaytime_ = atoi( result[offset++] );
-	if( decaytime_ > 0 ) 
+	if( decaytime_ > 0 )
 		decaytime_ += uiCurrentTime;
 	def_ = atoi( result[offset++] );
 	hidamage_ = atoi( result[offset++] );
@@ -1851,10 +1851,10 @@ void cItem::load( char **result, UINT16 &offset )
 	magic_ = atoi( result[offset++] );
 	ownserial_ = atoi( result[offset++] );
 	visible_ = atoi( result[offset++] );
-	
+
 	if( strlen( result[offset] ) == 0 )
 		spawnregion_ = QString::null;
-	else 
+	else
 		spawnregion_ = QString::fromUtf8( result[offset] );
 	offset++;
 
@@ -1896,7 +1896,7 @@ void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRem
 	content_.push_back( pItem );
 	pItem->layer_ = 0;
 	pItem->container_ = this;
-	
+
 	if( randomPos && !this->ContainerPileItem( pItem ) ) // try to pile
 	{
 		if (randomPos)
@@ -1917,7 +1917,7 @@ void cItem::removeItem( cItem* pItem, bool handleWeight )
 		{
 			content_.erase(it);
 			if (handleWeight)
-				setTotalweight(	this->totalweight() - pItem->totalweight() );		
+				setTotalweight(	this->totalweight() - pItem->totalweight() );
 			break;
 		}
 
@@ -1981,7 +1981,7 @@ P_ITEM cItem::getOutmostItem()
 P_CHAR cItem::getOutmostChar()
 {
 	if( container_ && container_->isChar() )
-	{		
+	{
 		return dynamic_cast< P_CHAR >( container_ );
 	}
 	else if( container_ && container_->isItem() )
@@ -1994,14 +1994,14 @@ P_CHAR cItem::getOutmostChar()
 			return 0;
 	}
 	else
-		return 0;		
+		return 0;
 }
 
 // If we change the amount, the weight changes as well
 void cItem::setAmount( UI16 nValue )
 {
 	setTotalweight( totalweight_ + ( ( nValue - amount_ ) * weight_ ) );
-	amount_ = nValue;	
+	amount_ = nValue;
 	changed( TOOLTIP );
 	flagChanged();
 }
@@ -2012,14 +2012,14 @@ UINT16 cItem::getWeaponSkill()
 	{
 		// 1001: Sword Weapons (Swordsmanship)
 		// 1002: Axe Weapons (Swordsmanship + Lumberjacking)
-		case 1001:			
+		case 1001:
 		case 1002:
 			return SWORDSMANSHIP;
 			break;
 
 		// 1003: Macefighting (Staffs)
 		// 1004: Macefighting (Maces/WarHammer)
-		case 1003:			
+		case 1003:
 		case 1004:
 			return MACEFIGHTING;
 			break;
@@ -2046,10 +2046,10 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 {
 	changed( TOOLTIP );
 	flagChanged();
-	
+
 	SET_INT_PROPERTY( "id", id_ )
 	else SET_INT_PROPERTY( "color", color_ )
-	
+
 	else if( name == "baseid" )
 	{
 		base = ItemBases::instance()->getItemBase( value.toString() );
@@ -2096,14 +2096,14 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 		setTotalweight( value.toInt() );
 		return 0;
 	}
-	
+
 	else if( name == "container" )
 	{
 		// To int and Check for Serial type (makes it safer as well)
 		SERIAL cser = value.toInt();
 		P_CHAR pChar = FindCharBySerial( cser );
 		P_ITEM pItem = FindItemBySerial( cser );
-		
+
 		if( pItem )
 			pItem->addItem( this );
 		else if( pChar )
@@ -2210,7 +2210,7 @@ stError *cItem::setProperty( const QString &name, const cVariant &value )
 	}
 	else if( name == "dye" )
 	{
-		setDye( value.toInt() != 0 ? true : false );			
+		setDye( value.toInt() != 0 ? true : false );
 	}
 	else if( name == "corpse" )
 	{
@@ -2242,7 +2242,7 @@ stError *cItem::getProperty( const QString &name, cVariant &value ) const
 	else GET_PROPERTY( "maxhealth", maxhp_ )
 	else GET_PROPERTY( "owner", owner() )
 	else GET_PROPERTY( "totalweight", totalweight_ )
-	
+
 	// container
 	else if( name == "container" )
 	{

@@ -52,7 +52,7 @@
 #include "basics.h"
 
 #undef DBGFILE
-#define DBGFILE "boats.cpp" 
+#define DBGFILE "boats.cpp"
 
 cBoat::cBoat() : cMulti()
 {
@@ -68,7 +68,7 @@ cBoat::cBoat() : cMulti()
 	this->itemids[1][0] = this->itemids[3][2] = 0x3E8A;
 	this->itemids[2][0] = this->itemids[0][2] = 0x3EB2;
 	this->itemids[3][0] = this->itemids[1][2] = 0x3E85;
-	
+
 	this->itemids[0][1] = this->itemids[2][3] = 0x3ED5;
 	this->itemids[1][1] = this->itemids[3][3] = 0x3E89;
 	this->itemids[2][1] = this->itemids[0][3] = 0x3ED4;
@@ -161,9 +161,9 @@ void cBoat::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL 
 		this->itemserials[ TILLER ] = pTiller->serial();
 		pTiller->setTag("gatetime", (int)(uiCurrentTime + (double)(SrvParams->boatSpeed()*MY_CLOCKS_PER_SEC)));
 	}
-		
+
 	P_ITEM pPlankR = cItem::createFromId( this->itemids[0][ PORT_P_C ] );
-	if( !pPlankR ) 
+	if( !pPlankR )
 		siproblem = 1;
 	else
 	{
@@ -240,7 +240,7 @@ void cBoat::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL 
 		// resume client
 		socket->send( &uoResume );
 	}
-	
+
 	this->SetOwnSerial( pc_currchar->serial() );
 }
 
@@ -372,7 +372,7 @@ void cBoat::processSpecialItemNode( const cElement *Tag, UI08 item )
 			{
 				coord = Y;
 			}
-			
+
 			if( coord < 0xFF )
 			{
 				this->itemoffsets[0][ item ][ coord ] = childTag->getAttribute( "north" ).toShort();
@@ -414,13 +414,13 @@ bool cBoat::isValidPlace( UI16 posx, UI16 posy, SI08 posz, UI08 boatdir )
 		}
 		if( mapblocks )
 			return false;
-		
+
 		/*
 		RegionIterator4Items ri( Coord_cl( multi.x + posx, multi.y + posy, pos().z, pos.map ) );
-		for( ri.Begin(); !ri.atEnd(); ri++ ) 
+		for( ri.Begin(); !ri.atEnd(); ri++ )
 		{
 			P_ITEM pi = ri.GetData();
-			if( ( pi != NULL ) && ( pi->serial() != this->serial() ) && ( pi->pos().x == (multi.x + posx) ) && ( pi->pos().y == (multi.y + posy) ) ) 
+			if( ( pi != NULL ) && ( pi->serial() != this->serial() ) && ( pi->pos().x == (multi.x + posx) ) && ( pi->pos().y == (multi.y + posy) ) )
 				return false;
 		}
 		*/
@@ -433,17 +433,17 @@ void cBoat::turn( SI08 turn )
 	P_ITEM pTiller = FindItemBySerial( this->itemserials[ TILLER ] );
 	if( pTiller == NULL )
 		return;
-	
+
 	P_ITEM pPortplank = FindItemBySerial( this->itemserials[ PORT_PLANK ] );
-	if( pPortplank == NULL ) 
+	if( pPortplank == NULL )
 		return;
 
 	P_ITEM pStarplank = FindItemBySerial( this->itemserials[ STARB_PLANK ] );
-	if( pStarplank == NULL ) 
+	if( pStarplank == NULL )
 		return;
 
 	P_ITEM pHold = FindItemBySerial( this->itemserials[ HOLD ] );
-	if( pHold == NULL ) 
+	if( pHold == NULL )
 		return;
 
 	QString errormsg = (char*)0;
@@ -458,7 +458,7 @@ void cBoat::turn( SI08 turn )
 		else
 			newboatdir+=2;
 	}
-	else if( turn < 0 ) 
+	else if( turn < 0 )
 	{
 		if( this->boatdir <= 1 )
 			newboatdir = 6;
@@ -475,10 +475,10 @@ void cBoat::turn( SI08 turn )
 	cUOTxPause uoPacket;
 	uoPacket.pause();
 	RegionIterator4Chars ri( pos() );
-	for( ri.Begin(); !ri.atEnd(); ri++ ) 
+	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{
 		P_PLAYER pc = dynamic_cast<P_PLAYER>(ri.GetData());
-		if( pc != NULL ) 
+		if( pc != NULL )
 		{
 			cUOSocket* socket = pc->socket();
 			if( socket )
@@ -500,7 +500,7 @@ void cBoat::turn( SI08 turn )
 	UI08 shortboatdir = newboatdir / 2;
 	this->id_ = this->multiids_[ shortboatdir ];
 	this->boatdir = newboatdir;
-	
+
 	// turn all items and chars on the boat and send them
 	QValueList< SERIAL > toremove;
 	QValueList< SERIAL >::iterator it = chars_.begin();
@@ -510,7 +510,7 @@ void cBoat::turn( SI08 turn )
 		P_CHAR pc = FindCharBySerial( *it );
 		if( pc && pc->pos().x != 0 && pc->pos().y != 0 && pc->pos().z != 0 ) // dont move mounted animals, that were mounted when user was on boat
 		{
-			UI16 newx = pc->pos().x; 
+			UI16 newx = pc->pos().x;
 			UI16 newy = pc->pos().y;
 			dx = this->pos().x - newx;
 			dy = this->pos().y - newy;
@@ -607,17 +607,17 @@ void cBoat::turn( SI08 turn )
 		pos().y + itemoffsets[shortboatdir][PORT_PLANK][Y],
 		pPortplank->pos().z );
 	pPortplank->setId( itemids[shortboatdir][PORT_P_C] );
-	
+
 	pStarplank->MoveTo( pos().x + itemoffsets[shortboatdir][STARB_PLANK][X],
 		pos().y + itemoffsets[shortboatdir][STARB_PLANK][Y],
 		pStarplank->pos().z );
 	pStarplank->setId( itemids[shortboatdir][STAR_P_C] );
-	
+
 	pTiller->MoveTo( pos().x + itemoffsets[shortboatdir][TILLER][X],
 		pos().y + itemoffsets[shortboatdir][TILLER][Y],
 		pTiller->pos().z );
 	pTiller->setId( itemids[shortboatdir][TILLER_ID] );
-	
+
 	pHold->MoveTo( pos().x + itemoffsets[shortboatdir][HOLD][X],
 		pos().y + itemoffsets[shortboatdir][HOLD][Y],
 		pHold->pos().z );
@@ -655,24 +655,24 @@ bool cBoat::move( void )
 	P_ITEM pTiller = FindItemBySerial( this->itemserials[ TILLER ] );
 	if( pTiller == NULL )
 		return false;
-	
+
 	P_ITEM pPortplank = FindItemBySerial( this->itemserials[ PORT_PLANK ] );
-	if( pPortplank == NULL ) 
+	if( pPortplank == NULL )
 		return false;
 
 	P_ITEM pStarplank = FindItemBySerial( this->itemserials[ STARB_PLANK ] );
-	if( pStarplank == NULL ) 
+	if( pStarplank == NULL )
 		return false;
 
 	P_ITEM pHold = FindItemBySerial( this->itemserials[ HOLD ] );
-	if( pHold == NULL ) 
+	if( pHold == NULL )
 		return false;
 
 	//Xsend(s,wppause,2);
 
 	switch( this->boatdir )
 	{
-	case 0: 
+	case 0:
 		dx += shift_;
 		dy -= moves_;
 		break;
@@ -680,11 +680,11 @@ bool cBoat::move( void )
 		dx += moves_;
 		dy += shift_;
 		break;
-	case 4: 
+	case 4:
 		dx -= shift_;
 		dy += moves_;
 		break;
-	case 6: 
+	case 6:
 		dx -= moves_;
 		dy -= shift_;
 		break;
@@ -715,10 +715,10 @@ bool cBoat::move( void )
 	cUOTxPause uoPacket;
 	uoPacket.pause();
 	RegionIterator4Chars ri( pos() );
-	for( ri.Begin(); !ri.atEnd(); ri++ ) 
+	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{
 		P_PLAYER pc = dynamic_cast<P_PLAYER>(ri.GetData());
-		if( pc ) 
+		if( pc )
 		{
 			cUOSocket* socket = pc->socket();
 			if( socket )
@@ -878,7 +878,7 @@ void cBoat::handlePlankClick( cUOSocket* socket, P_ITEM pplank )
 		// khpae
 		UI16 x, y;
 		SI08 z;
-		switch( this->boatdir ) 
+		switch( this->boatdir )
 		{
 		case 0:
 		case 4:
@@ -893,7 +893,7 @@ void cBoat::handlePlankClick( cUOSocket* socket, P_ITEM pplank )
 		default:
 			return;
 		}
-		
+
 		z = pos().z + 3;
 		pc_currchar->MoveTo( x, y, z );
 		pc_currchar->resend();
@@ -902,11 +902,11 @@ void cBoat::handlePlankClick( cUOSocket* socket, P_ITEM pplank )
 	}
 	else
 	{
-		if( leave( socket, pplank ) ) 
+		if( leave( socket, pplank ) )
 		{
 			socket->sysMessage( tr("You left the boat.") );
-		} 
-		else 
+		}
+		else
 		{
 			socket->sysMessage( tr("You cannot get off here!") );
 		}
@@ -920,7 +920,7 @@ bool cBoat::leave( cUOSocket* socket, P_ITEM pplank )
 		return false;
 
 	UI16 x, y, x0, y0, x1, y1;
-	switch( this->boatdir ) 
+	switch( this->boatdir )
 	{
 	case 0:
 	case 4:
@@ -940,13 +940,13 @@ bool cBoat::leave( cUOSocket* socket, P_ITEM pplank )
 		return false;
 	}
 	UI16 tmp;
-	if (x0 > x1) 
+	if (x0 > x1)
 	{
 		tmp = x0;
 		x0 = x1;
 		x1 = tmp;
 	}
-	if (y0 > y1) 
+	if (y0 > y1)
 	{
 		tmp = y0;
 		y0 = y1;
@@ -954,19 +954,19 @@ bool cBoat::leave( cUOSocket* socket, P_ITEM pplank )
 	}
 	signed char sz, mz, z;
 	bool check = false;
-	for( x = x0; x <= x1; x++ ) 
+	for( x = x0; x <= x1; x++ )
 	{
-		for( y = y0; y <= y1; y++) 
+		for( y = y0; y <= y1; y++)
 		{
 			sz = Map->staticTop( Coord_cl( x, y, 0, 0) );
 			mz = Map->mapElevation( Coord_cl( x, y, 0, 0) );
-			if( (sz == ILLEGAL_Z) && (mz != -5) ) 
+			if( (sz == ILLEGAL_Z) && (mz != -5) )
 			{
 				z = mz;
 				check = true;
 				break;
-			} 
-			else if( (sz != ILLEGAL_Z) && (sz != -5) ) 
+			}
+			else if( (sz != ILLEGAL_Z) && (sz != -5) )
 			{
 				z = sz;
 				check = true;
@@ -974,12 +974,12 @@ bool cBoat::leave( cUOSocket* socket, P_ITEM pplank )
 			}
 		}
 
-		if( check ) 
+		if( check )
 			break;
 
 	}
 
-	if( !check ) 
+	if( !check )
 		return false;
 
 	cBaseChar::CharContainer pets = pc_currchar->pets();
@@ -1008,30 +1008,30 @@ void cBoat::switchPlankState( P_ITEM pplank ) //Open, or close the plank (called
 {
 	UI08 shortboatdir = this->boatdir / 2;
 	if( pplank->id() == this->itemids[ shortboatdir ][PORT_P_C] )
-		pplank->setId( this->itemids[ shortboatdir ][PORT_P_O] ); 
+		pplank->setId( this->itemids[ shortboatdir ][PORT_P_O] );
 	else if( pplank->id() == this->itemids[ shortboatdir ][PORT_P_O] )
-		pplank->setId( this->itemids[ shortboatdir ][PORT_P_C] ); 
+		pplank->setId( this->itemids[ shortboatdir ][PORT_P_C] );
 	else if( pplank->id() == this->itemids[ shortboatdir ][STAR_P_C] )
-		pplank->setId( this->itemids[ shortboatdir ][STAR_P_O] ); 
+		pplank->setId( this->itemids[ shortboatdir ][STAR_P_O] );
 	else if( pplank->id() == this->itemids[ shortboatdir ][STAR_P_O] )
-		pplank->setId( this->itemids[ shortboatdir ][STAR_P_C] ); 
+		pplank->setId( this->itemids[ shortboatdir ][STAR_P_C] );
 }
 
 char cBoat::speechInput( cUOSocket* socket, const QString& msg )//See if they said a command. msg must already be capitalized
 {
 	SERIAL serial;
 
-	if( !socket || !socket->player() ) 
+	if( !socket || !socket->player() )
 		return 0;
 
 	P_PLAYER pc = socket->player();
 
 	//get the tiller man's item #
 	serial = this->itemserials[ TILLER ];
-	if ( serial == INVALID_SERIAL ) 
+	if ( serial == INVALID_SERIAL )
 		return 0;
 	P_ITEM tiller = FindItemBySerial( serial );
-	if ( tiller == NULL ) 
+	if ( tiller == NULL )
 		return 0;
 
 	if( !authorized( pc ) )
@@ -1129,14 +1129,14 @@ char cBoat::speechInput( cUOSocket* socket, const QString& msg )//See if they sa
 }
 
 // khpae - make deed from a boat
-void cBoat::toDeed( cUOSocket* socket ) 
+void cBoat::toDeed( cUOSocket* socket )
 {
 	P_PLAYER pc = socket->player();
-	if ( !pc ) 
+	if ( !pc )
 		return;
 
 	// if player is in boat
-	if ( inMulti( pc->pos() ) ) 
+	if ( inMulti( pc->pos() ) )
 	{
 		socket->sysMessage ( tr("You must leave the boat to do this.") );
 		return;
@@ -1144,13 +1144,13 @@ void cBoat::toDeed( cUOSocket* socket )
 
 	// check if the player has the boat key
 
-	if ( !authorized( pc ) ) 
+	if ( !authorized( pc ) )
 	{
 		socket->sysMessage ( tr("You are not allowed to do this!") );
 		return;
 	}
 
-	if( items_.size() > 0 || chars_.size() > 0 ) 
+	if( items_.size() > 0 || chars_.size() > 0 )
 	{
 		socket->sysMessage ( tr("The boat is not empty.") );
 		return;
@@ -1162,7 +1162,7 @@ void cBoat::toDeed( cUOSocket* socket )
 	{
 		P_ITEM pDeed = cItem::createFromScript( this->deedsection_ );
 
-		if( !pDeed ) 
+		if( !pDeed )
 			socket->sysMessage ( tr("An error occured. Send a bug report to the staff, please.") );
 		else
 			pBackpack->addItem( pDeed );
@@ -1173,17 +1173,17 @@ void cBoat::toDeed( cUOSocket* socket )
 	P_ITEM pTiller = FindItemBySerial( this->itemserials[ TILLER ] );
 	if( pTiller != NULL )
 		pTiller->remove();
-	
+
 	P_ITEM pPortplank = FindItemBySerial( this->itemserials[ PORT_PLANK ] );
-	if( pPortplank != NULL ) 
+	if( pPortplank != NULL )
 		pPortplank->remove();
 
 	P_ITEM pStarplank = FindItemBySerial( this->itemserials[ STARB_PLANK ] );
-	if( pStarplank != NULL ) 
+	if( pStarplank != NULL )
 		pStarplank->remove();
 
 	P_ITEM pHold = FindItemBySerial( this->itemserials[ HOLD ] );
-	if( pHold != NULL ) 
+	if( pHold != NULL )
 		pHold->remove();
 
 	this->removeChar( pc );
@@ -1200,7 +1200,7 @@ void cBoat::registerInFactory()
 {
 	QStringList fields, tables, conditions;
 	buildSqlString( fields, tables, conditions ); // Build our SQL string
-	QString sqlString = QString( "SELECT %1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cBoat' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
+	QString sqlString = QString( "SELECT %1 FROM `uobjectmap`,%2 WHERE uobjectmap.type = 'cBoat' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
 	UObjectFactory::instance()->registerType("cBoat", productCreator);
 	UObjectFactory::instance()->registerSqlQuery( "cBoat", sqlString );
 }
@@ -1216,7 +1216,7 @@ void cBoat::buildSqlString( QStringList &fields, QStringList &tables, QStringLis
 void cBoat::load( char **result, UINT16 &offset )
 {
 	cMulti::load( result, offset );
-	
+
 	autosail_ = atoi( result[offset++] );
 	boatdir = atoi( result[offset++] );
 
@@ -1228,7 +1228,7 @@ void cBoat::load( char **result, UINT16 &offset )
 		multiids_.push_back( atoi( result[offset++] ) );
 
 	// Load the other tables
-	QString sql = "SELECT boats_itemids.a,boats_itemids.b,boats_itemids.id FROM boats_itemids WHERE serial = '" + QString::number( serial() ) + "'";
+	QString sql = "SELECT `a`,`b`,`id` FROM `boats_itemids` WHERE `serial` = '" + QString::number( serial() ) + "'";
 	cDBResult res = persistentBroker->query( sql );
 
 	if( !res.isValid() )
@@ -1252,10 +1252,10 @@ void cBoat::load( char **result, UINT16 &offset )
 
 	res.free();
 
-	sql = "SELECT boats_itemoffsets.a,boats_itemoffsets.b,boats_itemoffsets.c,boats_itemoffsets.offset FROM boats_itemoffsets WHERE serial = '" + QString::number( serial() ) + "'";
+	sql = "SELECT `a`,`b`,`c`,`offset` FROM `boats_itemoffsets` WHERE `serial` = '" + QString::number( serial() ) + "'";
 	res = persistentBroker->query( sql );
 
-	// Error Checking		
+	// Error Checking
 	if( !res.isValid() )
 		throw persistentBroker->lastError();
 
@@ -1302,7 +1302,7 @@ void cBoat::save()
 	addCondition( "serial", serial() );
 	saveFields;
 
-	// Save the other tables as well	
+	// Save the other tables as well
 	for( i = 0; i < 4; i ++ )
 	{
 		for( j = 0; j < 6; j++ )
@@ -1346,9 +1346,9 @@ bool cBoat::del()
 	if( !isPersistent )
 		return false;
 
-	persistentBroker->addToDeleteQueue( "boats", QString( "serial = '%1'" ).arg( serial() ) );
-	persistentBroker->addToDeleteQueue( "boats_itemoffsets", QString( "serial = '%1'" ).arg( serial() ) );
-	persistentBroker->addToDeleteQueue( "boats_itemids", QString( "serial = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "boats", QString( "`serial` = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "boats_itemoffsets", QString( "`serial` = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "boats_itemids", QString( "`serial` = '%1'" ).arg( serial() ) );
 
 	return cMulti::del();
 }

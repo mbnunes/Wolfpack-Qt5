@@ -135,7 +135,7 @@ void cResource::processNode( const cElement *Tag )
 
 			if( chTagName == "name" )
 				item.name = chValue;
-			
+
 			else if( chTagName == "definition" )
 				item.definition = chValue;
 
@@ -254,7 +254,7 @@ void cResource::processNode( const cElement *Tag )
 			else if( chTagName == "artid" )
 			{
 				Value = childTag->text();
-				
+
 				for( unsigned int j = 0; j < childTag->childCount(); ++j )
 				{
 					const cElement *chchTag = childTag->getChild( j );
@@ -406,7 +406,7 @@ void cResource::processNode( const cElement *Tag )
 						++it;
 					}
 				}
-				
+
 				if( childTag->hasAttribute("srcids") )
 				{
 					Value = childTag->getAttribute("srcids");
@@ -446,7 +446,7 @@ void cResource::processNode( const cElement *Tag )
 				if( childTag->hasAttribute( "rate" ) )
 					item.conversion.rate = childTag->getAttribute( "rate" ).toFloat();
 			}
-		
+
 			// <modifier type="useamount">1.3</modifier>
 			// <modifier type="skill">1.4</modifier>
 			else if( chTagName == "modifier" )
@@ -465,10 +465,10 @@ void cResource::processNode( const cElement *Tag )
 	else if( TagName == "mapid" )
 	{
 		Value = Tag->text();
-		
+
 		for( unsigned int j = 0; j < Tag->childCount(); ++j )
 		{
-			const cElement *chTag = Tag->getChild( j );				
+			const cElement *chTag = Tag->getChild( j );
 			QString chTagName = chTag->name();
 			QString chValue = chTag->getValue();
 			if( chTagName == "getlist" && chTag->hasAttribute( "id" ) )
@@ -515,7 +515,7 @@ void cResource::processNode( const cElement *Tag )
 	else if( TagName == "artid" )
 	{
 		Value = Tag->text();
-		
+
 		for( unsigned int j = 0; j < Tag->childCount(); ++j )
 		{
 			const cElement *chTag = Tag->getChild( j );
@@ -832,7 +832,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 	if( staminamax_ > staminamin_ )
 		pc->setStamina(pc->stamina() - RandomNum( staminamin_, staminamax_ ) );
 	else
-		pc->setStamina( pc->stamina() - staminamin_ );	
+		pc->setStamina( pc->stamina() - staminamin_ );
 	if( pc->stamina() < 0 )
 		pc->setStamina(0);
 
@@ -863,7 +863,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 
 	if( spawnamount > amount )
 		spawnamount = amount;
-	
+
 	if( spawnamount == 0 )
 	{
 		pc->action( charaction_ );
@@ -877,7 +877,7 @@ void cResource::handleFindTarget( cUOSocket* socket, Coord_cl pos, UINT16 mapid,
 			socket->sysMessage( failmsg_ );
 		return;
 	}
-	
+
 	amount -= spawnamount;
 	pResItem->setTag( "amount", cVariant( (int)amount ) );
 	if( amount == 0 )
@@ -1140,9 +1140,9 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 			socket->sysMessage( failmsg_ );
 		return;
 	}
-	
+
 	pSource->remove();
-	
+
 	if( succmsg_.left( 7 ) == "cliloc:" )
 	{
 		QString id = hex2dec( succmsg_.right( succmsg_.length() - 7 ) );
@@ -1164,7 +1164,7 @@ void cResource::handleConversionTarget( cUOSocket* socket, Coord_cl pos, cItem* 
 
 		pi = cItem::createFromId( id );
 		pi->setColor( color );
-		
+
 		if( !item.name.isNull() )
 			pi->setName( QString("%1 %2").arg( item.name ).arg( name_ ) );
 		else
@@ -1287,15 +1287,15 @@ bool cFindResource::responsed( cUOSocket *socket, cUORxTarget *target )
 		socket->sysMessage( tr( "You must wait a few moments before using another skill." ) );
 		return true;
 	}
-	
+
 	if( ( pc->pos().distance( pos ) > 4 ) ) //|| !lineOfSight( pChar->pos(), pos, DOORS|ROOFING_SLANTED|WALLS_CHIMNEYS ) )
 	{
 		socket->clilocMessage( 0x7A258, "", 0x3b2 ); // You cannot reach that
 		return false;
 	}
-	
+
 	// Check if there IS what we have targetted at the given position
-	// If not we eiter have wrong statics clientside or a 
+	// If not we eiter have wrong statics clientside or a
 	// cheater.
 	if( target->serial() )
 	{
@@ -1385,15 +1385,15 @@ bool cConvertResource::responsed( cUOSocket *socket, cUORxTarget *target )
 		socket->sysMessage( tr( "You must wait a few moments before using another skill." ) );
 		return true;
 	}
-	
+
 	if( ( pc->pos().distance( pos ) > 4 ) ) //|| !lineOfSight( pChar->pos(), pos, DOORS|ROOFING_SLANTED|WALLS_CHIMNEYS ) )
 	{
 		socket->clilocMessage( 0x7A258, "", 0x3b2 ); // You cannot reach that
 		return false;
 	}
-	
+
 	// Check if there IS what we have targetted at the given position
-	// If not we eiter have wrong statics clientside or a 
+	// If not we eiter have wrong statics clientside or a
 	// cheater.
 	if( target->serial() )
 	{
@@ -1463,7 +1463,7 @@ void cResourceItem::registerInFactory()
 {
 	QStringList fields, tables, conditions;
 	buildSqlString( fields, tables, conditions ); // Build our SQL string
-	QString sqlString = QString( "SELECT %1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cResourceItem' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
+	QString sqlString = QString( "SELECT %1 FROM `uobjectmap`,%2 WHERE uobjectmap.type = 'cResourceItem' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
 	UObjectFactory::instance()->registerType("cResourceItem", productCreator);
 	UObjectFactory::instance()->registerSqlQuery( "cResourceItem", sqlString );
 }

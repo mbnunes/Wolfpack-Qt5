@@ -50,7 +50,7 @@
 using namespace std;
 
 #undef DBGFILE
-#define DBGFILE "multis.cpp" 
+#define DBGFILE "multis.cpp"
 
 cMulti::cMulti()
 {
@@ -71,14 +71,14 @@ void cMulti::buildSqlString( QStringList &fields, QStringList &tables, QStringLi
 void cMulti::load( char **result, UINT16 &offset )
 {
 	cItem::load( result, offset );
-	
+
 	coowner_ = atoi( result[offset++] );
 	deedsection_ = result[offset++];
 
 	// Load from two additional tables here
-	QString sql = "SELECT multis_bans.serial,multis_bans.ban FROM multis_bans WHERE multis_bans.serial = '" + QString::number( serial() ) + "'";
+	QString sql = "SELECT `serial`,`ban` FROM `multis_bans` WHERE `serial` = '" + QString::number( serial() ) + "'";
 
-	cDBResult res = persistentBroker->query( sql );	
+	cDBResult res = persistentBroker->query( sql );
 
 	while( res.fetchrow() )
 	{
@@ -92,7 +92,7 @@ void cMulti::load( char **result, UINT16 &offset )
 
 	res.free();
 
-	sql = "SELECT multis_friends.serial,multis_friends.friend FROM multis_friends WHERE multis_friends.serial = '" + QString::number( serial() ) + "'";
+	sql = "SELECT `serial`,`friend` FROM `multis_friends` WHERE `serial` = '" + QString::number( serial() ) + "'";
 
 	res = persistentBroker->query( sql );
 
@@ -113,7 +113,7 @@ void cMulti::save()
 {
 	initSave;
 	setTable( "multis" );
-	
+
 	addField( "serial", serial() );
 	addField( "coowner", coowner_ );
 	addStrField( "deedsection", deedsection_ );
@@ -124,17 +124,17 @@ void cMulti::save()
 	// Reset Bans+Friends
 	if( isPersistent )
 	{
-		persistentBroker->executeQuery( QString( "DELETE FROM multis_bans WHERE serial = '%1'" ).arg( serial() ) );
-		persistentBroker->executeQuery( QString( "DELETE FROM multis_friends WHERE serial = '%1'" ).arg( serial() ) );
+		persistentBroker->executeQuery( QString( "DELETE FROM `multis_bans` WHERE `serial` = '%1'" ).arg( serial() ) );
+		persistentBroker->executeQuery( QString( "DELETE FROM `multis_friends` WHERE `serial` = '%1'" ).arg( serial() ) );
 	}
-	
+
 	// Friends + Bans
 	INT32 i;
 	for ( i = 0; i < bans_.size(); ++i )
-		persistentBroker->executeQuery( QString( "REPLACE INTO multis_bans VALUES(%1,%2)" ).arg( serial() ).arg( bans_[i] ) );
+		persistentBroker->executeQuery( QString( "REPLACE INTO `multis_bans` VALUES(%1,%2)" ).arg( serial() ).arg( bans_[i] ) );
 
 	for ( i = 0; i < friends_.size(); ++i )
-		persistentBroker->executeQuery( QString( "REPLACE INTO multis_friends VALUES(%1,%2)" ).arg( serial() ).arg( friends_[i] ) );
+		persistentBroker->executeQuery( QString( "REPLACE INTO `multis_friends` VALUES(%1,%2)" ).arg( serial() ).arg( friends_[i] ) );
 
 	cItem::save();
 }
@@ -144,9 +144,9 @@ bool cMulti::del()
 	if( !isPersistent )
 		return false;
 
-	persistentBroker->addToDeleteQueue( "multis", QString( "serial = '%1'" ).arg( serial() ) );
-	persistentBroker->addToDeleteQueue( "multis_bans", QString( "serial = '%1'" ).arg( serial() ) );
-	persistentBroker->addToDeleteQueue( "multis_friends", QString( "serial = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "multis", QString( "`serial` = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "multis_bans", QString( "`serial` = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "multis_friends", QString( "`serial` = '%1'" ).arg( serial() ) );
 
 	return cItem::del();
 }
@@ -191,7 +191,7 @@ cMulti* cMulti::findMulti( const Coord_cl &pos )
 	SI32 currdistance;
 
 	RegionIterator4Items ri( pos );
-	
+
 	for( ri.Begin(); !ri.atEnd(); ri++ )
 	{
 		cMulti* pCurrMulti = dynamic_cast< cMulti* >(ri.GetData());
@@ -252,7 +252,7 @@ void cMulti::addChar( P_CHAR pc )
 {
 	if( !chars_.contains( pc->serial() ) )
 		chars_.append( pc->serial() );
-	
+
 	pc->SetMultiSerial( serial() );
 }
 
@@ -306,7 +306,7 @@ void cMulti::addBan(P_CHAR pc)
 }
 
 void cMulti::addFriend(P_CHAR pc)
-{	
+{
 	if( find(friends_.begin(), friends_.end(), pc->serial()) == friends_.end() )
 	{
 		friends_.push_back(pc->serial());
@@ -358,7 +358,7 @@ void cMulti::createKeys( P_PLAYER pc, const QString &name )
 		pKey->setName( name );
 		if( pBackpack )
 			pBackpack->addItem( pKey );
-		else 
+		else
 			pBankbox->addItem( pKey );
 	}
 
@@ -408,18 +408,18 @@ P_ITEM cMulti::findKey( P_CHAR pc )
 	while( it != container.end() )
 	{
 		pi = *it;
-		if( !pi ) 
+		if( !pi )
 		{
 			++it;
 			continue;
 		}
-		
-		if( pi->type() == 7 ) 
+
+		if( pi->type() == 7 )
 		{
 			if( pi->getTag( "linkserial" ).isValid() )
 			{
 				SERIAL si = pi->getTag( "linkserial" ).toInt();
-				if( si == this->serial() ) 
+				if( si == this->serial() )
 				{
 					found = true;
 					break;
@@ -443,15 +443,15 @@ bool cMulti::authorized( P_PLAYER pc )
 }
 
 
-P_CHAR cMulti::coOwner( void )	
-{ 
-	return FindCharBySerial( coowner_ ); 
+P_CHAR cMulti::coOwner( void )
+{
+	return FindCharBySerial( coowner_ );
 }
 
 void cMulti::setCoOwner( P_CHAR pc )
-{ 
-	if( pc ) 
-		coowner_ = pc->serial(); 
+{
+	if( pc )
+		coowner_ = pc->serial();
 }
 
 void cMulti::setName( const QString nValue )
@@ -502,11 +502,11 @@ cMultiGump::cMultiGump( SERIAL charSerial, SERIAL multiSerial )
 	addText( 190, 90, tr( "Owner menu" ), 0x530 );
 
 	// Apply button
-	addButton( 50, 400, 0xEF, 0xF0, 2 ); 
+	addButton( 50, 400, 0xEF, 0xF0, 2 );
 	// OK button
-	addButton( 120, 400, 0xF9, 0xF8, 1 ); 
+	addButton( 120, 400, 0xF9, 0xF8, 1 );
 	// Cancel button
-	addButton( 190, 400, 0xF3, 0xF1, 0 ); 
+	addButton( 190, 400, 0xF3, 0xF1, 0 );
 
 	bool authban = false;
 	bool authfriend = false;
@@ -629,7 +629,7 @@ cMultiGump::cMultiGump( SERIAL charSerial, SERIAL multiSerial )
 			{
 				UI32 offset = i - (page_-2) * 10;
 				addText( 60, 140+offset*20, QString(bans[ i ]->name()), 0x834 );
-				addButton( 20, 140+offset*20, 0xFB1, 0xFB3, 10+i ); 
+				addButton( 20, 140+offset*20, 0xFB1, 0xFB3, 10+i );
 				++i;
 			}
 			addText( 40, 120, tr("Ban List"), 0x834 );
@@ -644,7 +644,7 @@ cMultiGump::cMultiGump( SERIAL charSerial, SERIAL multiSerial )
 			{
 				UI32 offset = i - (page_-banpages-2) * 10;
 				addText( 60, 140+offset*20, QString(friends[ i ]->name()), 0x834 );
-				addButton( 20, 140+offset*20, 0xFB1, 0xFB3, 10+i+bans.size() ); 
+				addButton( 20, 140+offset*20, 0xFB1, 0xFB3, 10+i+bans.size() );
 				++i;
 			}
 			addText( 40, 120, tr("Friend List"), 0x834 );
@@ -705,7 +705,7 @@ void cMultiGump::handleResponse( cUOSocket* socket, const gumpChoice_st& choice 
 		socket->sysMessage( tr("Select a person to make %1 of this house!").arg( choice.button == 3 ? tr("owner") : tr("co-owner") ) );
 		cSetMultiOwnerTarget* pTargetRequest = new cSetMultiOwnerTarget( multi_, choice.button == 4 );
 		socket->attachTarget( pTargetRequest );
-	}	
+	}
 	else if( choice.button == 5 )
 	{
 		socket->sysMessage( tr("Select an item to lock / unlock!") );

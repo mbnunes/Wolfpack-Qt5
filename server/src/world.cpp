@@ -798,7 +798,7 @@ void cWorld::getOption( const QString name, QString &value, const QString fallba
 		return;
 	}
 
-	cDBResult res = persistentBroker->query( QString( "SELECT value FROM settings WHERE option = '%1'" ).arg( persistentBroker->quoteString( name ) ) );
+	cDBResult res = persistentBroker->query( QString( "SELECT `option`,`value` FROM `settings` WHERE `option` = '%1'" ).arg( persistentBroker->quoteString( name ) ) );
 
 	if( !res.isValid() || !res.fetchrow() )
 	{

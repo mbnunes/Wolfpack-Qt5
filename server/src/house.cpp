@@ -63,7 +63,7 @@ void cHouse::processHouseItemNode( const cElement *Tag )
 	if( id != QString::null )
 	{
 		nItem = cItem::createFromScript( id );
-	}	 
+	}
 
 	if( nItem )
 	{
@@ -80,7 +80,7 @@ void cHouse::processHouseItemNode( const cElement *Tag )
 		for( unsigned int i = 0; i < Tag->childCount(); ++i )
 		{
 			const cElement *childTag = Tag->getChild( i );
-			
+
 			QString TagName = childTag->name();
 			QString Value = childTag->getValue();
 
@@ -146,7 +146,7 @@ bool cHouse::onValidPlace()
 		land_st mapTile = TileCache::instance()->getLand( Map->seekMap( multipos ).id );
 		if( mapTile.flag1 & 0x40 || mapTile.flag1 & 0x80 )
 			return false;
-		
+
 		StaticsIterator msi = Map->staticsIterator( multipos );
 		while( !msi.atEnd() )
 		{
@@ -155,9 +155,9 @@ bool cHouse::onValidPlace()
 				return false;
 			++msi;
 		}
-		
+
 		RegionIterator4Items ri( multipos );
-		for( ri.Begin(); !ri.atEnd(); ri++ ) 
+		for( ri.Begin(); !ri.atEnd(); ri++ )
 		{
 			P_ITEM pi = ri.GetData();
 			if( pi && pi->multis() != serial() )
@@ -241,7 +241,7 @@ void cHouse::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL
 		P_ITEM si = ri.GetData();
 		si->update();
 	}
-		
+
 	pc_currchar->MoveTo( this->pos().x + charpos_.x, this->pos().y + charpos_.y, this->pos().z + charpos_.z );
 	pc_currchar->resend();
 }
@@ -297,7 +297,7 @@ void cHouse::toDeed( cUOSocket* socket )
 	}*/
 
 	this->remove();
-	
+
 	if( this->deedsection_.isNull() || this->deedsection_.isEmpty() || !pBackpack )
 	{
 		this->remove();
@@ -305,7 +305,7 @@ void cHouse::toDeed( cUOSocket* socket )
 	}
 
 	P_ITEM pDeed = cItem::createFromScript( this->deedsection_ );
-	if( pDeed ) 
+	if( pDeed )
 	{
 		pBackpack->addItem( pDeed );
 		pDeed->update();
@@ -335,7 +335,7 @@ void cHouse::save()
 {
 	initSave;
 	setTable( "houses" );
-	
+
 	addField( "serial", serial() );
 	addField( "nokey", nokey_ );
 	addField( "charpos_x", charpos_.x );
@@ -353,7 +353,7 @@ bool cHouse::del()
 	if( !isPersistent )
 		return false;
 
-	persistentBroker->addToDeleteQueue( "houses", QString( "serial = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "houses", QString( "`serial` = '%1'" ).arg( serial() ) );
 
 	return cMulti::del();
 }
@@ -367,7 +367,7 @@ void cHouse::registerInFactory()
 {
 	QStringList fields, tables, conditions;
 	buildSqlString( fields, tables, conditions ); // Build our SQL string
-	QString sqlString = QString( "SELECT %1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cHouse' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
+	QString sqlString = QString( "SELECT %1 FROM `uobjectmap`,%2 WHERE uobjectmap.type = 'cHouse' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
 	UObjectFactory::instance()->registerType("cHouse", productCreator);
 	UObjectFactory::instance()->registerSqlQuery( "cHouse", sqlString );
 }
@@ -383,12 +383,12 @@ void cHouse::sendCH( cUOSocket* socket )
 
 	cUOTxCustomHouse customhouse;
 	customhouse.setSerial( this->serial() );
-	customhouse.setCompression( 0 );	
+	customhouse.setCompression( 0 );
 	customhouse.setRevision( this->revision() );
 
 	for( UINT32 i = 0; i < chtiles_.count(); i++ )
 		customhouse.addTile( chtiles_[i].model(), chtiles_[i].pos() );
-	
+
 	socket->send( &deed );
 	socket->send( &customhouse );
 }

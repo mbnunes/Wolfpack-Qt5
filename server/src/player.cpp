@@ -90,7 +90,7 @@ void cPlayer::registerInFactory()
 {
 	QStringList fields, tables, conditions;
 	buildSqlString( fields, tables, conditions ); // Build our SQL string
-	QString sqlString = QString( "SELECT %1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cPlayer' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
+	QString sqlString = QString( "SELECT %1 FROM `uobjectmap`,%2 WHERE uobjectmap.type = 'cPlayer' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
 	UObjectFactory::instance()->registerType( "cPlayer", productCreator );
 	UObjectFactory::instance()->registerSqlQuery( "cPlayer", sqlString );
 }
@@ -126,7 +126,7 @@ void cPlayer::save()
 	{
 		initSave;
 		setTable( "players" );
-		
+
 		addField( "serial", serial() );
 
 		if( account_ )
@@ -150,11 +150,11 @@ void cPlayer::save()
 }
 
 bool cPlayer::del()
-{	
+{
 	if( !isPersistent )
 		return false; // We didn't need to delete the object
 
-	persistentBroker->addToDeleteQueue( "players", QString( "serial = '%1'" ).arg( serial() ) );
+	persistentBroker->addToDeleteQueue( "players", QString( "`serial` = '%1'" ).arg( serial() ) );
 	changed_ = true;
 	return cBaseChar::del();
 }
@@ -177,7 +177,7 @@ static void playerRegisterAfterLoading( P_PLAYER pc )
 		}
 		pc->del();
 		return;
-	} 
+	}
 /*	else
 	{
 		pc->setBodyID(0x0190);
@@ -242,7 +242,7 @@ void cPlayer::resend( bool clean, bool excludeself )
 
 		if( pChar->dist( this ) > pChar->visualRange() )
 			continue;
-        
+
 		if( clean )
 			mSock->send( &rObject );
 
@@ -255,7 +255,7 @@ void cPlayer::resend( bool clean, bool excludeself )
 			continue;
 
 		drawChar.setHighlight( notority( pChar ) );
-		
+
 		sendTooltip( mSock );
 		mSock->send( &drawChar );
 
@@ -276,7 +276,7 @@ void cPlayer::talk( const QString &message, UI16 color, UINT8 type, bool autospa
 
 	if( socket_ )
 		lang = socket_->lang();
-	
+
 	cUOTxUnicodeSpeech::eSpeechType speechType;
 
 	switch( type )
@@ -309,7 +309,7 @@ void cPlayer::talk( const QString &message, UI16 color, UINT8 type, bool autospa
 		{
 			if( message.at( gI ) == " " )
 				ghostSpeech.append( " " );
-			else 
+			else
 				ghostSpeech.append( ( RandomNum( 0, 1 ) == 0 ) ? "o" : "O" );
 		}
 
@@ -357,10 +357,10 @@ UINT8 cPlayer::notority( P_CHAR pChar ) // Gets the notority toward another char
 
 	if( pChar->kills() > SrvParams->maxkills() )
 		result = 0x06; // 6 = Red -> Murderer
-	
+
 //	else if( guildStatus == 1 )
 //		result = 0x02; // 2 = Green -> Same Guild
-	
+
 //	else if( guildStatus == 2 )
 //		result = 0x05; // 5 = Orange -> Enemy Guild
 
@@ -368,7 +368,7 @@ UINT8 cPlayer::notority( P_CHAR pChar ) // Gets the notority toward another char
 	{
 		if( isCriminal() )
 			result = 0x03;
-		else if( karma_ < -2000 ) 
+		else if( karma_ < -2000 )
 			result = 0x06;
 		else if( karma_ < 0 )
 			result = 0x03;
@@ -380,7 +380,7 @@ UINT8 cPlayer::notority( P_CHAR pChar ) // Gets the notority toward another char
 		// Everything else
 		result = 0x03;
 	}
-	
+
 	return result;
 }
 
@@ -475,7 +475,7 @@ void cPlayer::kill()
 						if( pp_t->kills_ >= SrvParams->maxkills() )
 						{
 							pp_t->socket()->sysMessage( tr( "You are now a murderer!" ) );
-							
+
 							// Set the Murder Decay Time
 							pp_t->setMurdererTime( getNormalizedTime() + SrvParams->murderdecay() * MY_CLOCKS_PER_SEC );
 						}
@@ -494,7 +494,7 @@ void cPlayer::kill()
 
 	// Now for the corpse
 	P_ITEM pi_backpack = getBackpack();
-	
+
 	unmount();
 
 #pragma message(__FILE__ Reminder "Implement here tradewindow closing and disposal of it's cItem*")
@@ -513,7 +513,7 @@ void cPlayer::kill()
 	playDeathSound();
 
 	setSkin( 0x0000 ); // Undyed
-	
+
 	// Reset poison
 	setPoisoned(0);
 	setPoison(0);
@@ -522,7 +522,7 @@ void cPlayer::kill()
 	cCorpse *corpse = new cCorpse( true );
 
 	const cElement *elem = DefManager->getDefinition( WPDT_ITEM, "2006" );
-	
+
 	if( elem )
 		corpse->applyDefinition( elem );
 
@@ -531,7 +531,7 @@ void cPlayer::kill()
 
 	// Check for the player hair/beard
 	P_ITEM pHair = GetItemOnLayer( 11 );
-	
+
 	if( pHair )
 	{
 		corpse->setHairColor( pHair->color() );
@@ -539,7 +539,7 @@ void cPlayer::kill()
 	}
 
 	P_ITEM pBeard = GetItemOnLayer( 16 );
-	
+
 	if( pBeard )
 	{
 		corpse->setBeardColor( pBeard->color() );
@@ -565,7 +565,7 @@ void cPlayer::kill()
 	corpse->moveTo( pos() );
 
 	corpse->setDirection( direction() );
-	
+
 	// Set the ownerserial to the player's
 	corpse->SetOwnSerial( serial() );
 
@@ -606,9 +606,9 @@ void cPlayer::kill()
 
 					// put the item in the corpse only of we're sure it's not a newbie item or a spellbook
 					if( !pi_k->newbie() && ( pi_k->type() != 9 ) )
-					{					
+					{
 						corpse->addItem( pi_k );
-						
+
 						// Ripper...so order/chaos shields disappear when on corpse backpack.
 						if( pi_k->id() == 0x1BC3 || pi_k->id() == 0x1BC4 )
 						{
@@ -626,17 +626,17 @@ void cPlayer::kill()
 				{
 					pi_j->removeFromView();
 					corpse->addEquipment( pi_j->layer(), pi_j->serial() );
-					corpse->addItem( pi_j );					
+					corpse->addItem( pi_j );
 				}
 			}
 			else if( ( pi_j != pi_backpack ) && ( pi_j->layer() != 0x1D ) )
-			{	
+			{
 				// else if the item is newbie put it into char's backpack
 				pi_j->removeFromView();
 				pi_backpack->addItem( pi_j );
 			}
 
-			//if( ( pi_j->layer() == 0x15 ) && ( shop == 0 ) ) 
+			//if( ( pi_j->layer() == 0x15 ) && ( shop == 0 ) )
 			//	pi_j->setLayer( 0x1A );
 		}
 	}
@@ -707,7 +707,7 @@ P_NPC cPlayer::unmount()
 			pMount->setFame( pi->lodamage() );
 			pMount->setKarma( pi->hidamage() );
 			pMount->setSummonTime( pi->decaytime() );
-			
+
 			pMount->moveTo( pos() );
 			pMount->resend( false );
 		}
@@ -720,7 +720,7 @@ P_NPC cPlayer::unmount()
 }
 
 void cPlayer::mount( P_NPC pMount )
-{	
+{
 	if( !pMount )
 		return;
 
@@ -780,14 +780,14 @@ void cPlayer::mount( P_NPC pMount )
 			case 0x1a: pMountItem->setId(0x3EBD); break; // swamp dragon
 			case 0x1f: pMountItem->setId(0x3EBE); break; // armor dragon
 		}
-		
+
 		this->addItem( cBaseChar::Mount, pMountItem );
 		Coord_cl position = pMountItem->pos();
 		position.x = pMount->wanderX1();
 		position.y = pMount->wanderY1();
 		position.z = pMount->wanderRadius();
 		pMountItem->setPos( position );
-		
+
 		pMountItem->setTag( "pet", cVariant( pMount->serial() ) );
 		pMountItem->setTag( "body", cVariant( pMount->bodyID() ) );
 
@@ -809,14 +809,14 @@ void cPlayer::mount( P_NPC pMount )
 		{
 			pMount->setOwner( this );
 		}
-		
+
 		// remove it from screen!
 		pMount->removeFromView( true );
-		
+
 		pMount->setBodyID(0);
 		MapObjects::instance()->remove( pMount );
 		pMount->setPos( Coord_cl( 0, 0, 0 ) );
-		
+
 		pMount->setAtWar( false );
 		pMount->setAttackerSerial(INVALID_SERIAL);
 	}
@@ -827,17 +827,17 @@ void cPlayer::mount( P_NPC pMount )
 bool cPlayer::isGM() const
 {
 	return account() && ( account()->acl() == "admin" || account()->acl() == "gm" ) && account()->isStaff();
-} 
+}
 
-bool cPlayer::isCounselor() const 
+bool cPlayer::isCounselor() const
 {
 	return account() && ( account()->acl() == "counselor" )  && account()->isStaff();
 }
- 
-bool cPlayer::isGMorCounselor() const	
+
+bool cPlayer::isGMorCounselor() const
 {
 	return account() && ( account()->acl() == "admin" || account()->acl() == "gm" || account()->acl() == "counselor" ) && account()->isStaff();
-} 
+}
 
 void cPlayer::showName( cUOSocket *socket )
 {
@@ -898,13 +898,13 @@ void cPlayer::showName( cUOSocket *socket )
 
 	// 0x01 Blue, 0x02 Green, 0x03 Grey, 0x05 Orange, 0x06 Red
 	switch( notority( socket->player() ) )
-	{		
+	{
 		case 0x01:	speechColor = 0x5A;		break; //blue
 		case 0x02:	speechColor = 0x43;		break; //green
 		case 0x03:	speechColor = 0x3B2;	break; //grey
 		case 0x05:	speechColor = 0x30;		break; //orange
 		case 0x06:	speechColor = 0x26;		break; //red
-		default:	speechColor = 0x3B2;	break; // grey		
+		default:	speechColor = 0x3B2;	break; // grey
 	}
 
 	// Show it to the socket
@@ -919,9 +919,9 @@ void cPlayer::makeCriminal()
 	if( isGMorCounselor() )
 		return;
 
-	//not grey, not red	
+	//not grey, not red
 	if( !this->isCriminal() && !this->isMurderer() )
-	{ 
+	{
 		 this->setCriminalTime((SrvParams->crimtime()*MY_CLOCKS_PER_SEC)+uiCurrentTime);
 
 		 if( socket_ )
@@ -945,7 +945,7 @@ void cPlayer::fight(P_CHAR other)
 	this->disturbMed();	// Meditation
 	this->attackerSerial_ = other->serial();
 	this->setAtWar( true );
-	
+
 	if( socket_ )
 	{
 		// Send warmode status
@@ -978,7 +978,7 @@ void cPlayer::disturbMed()
 P_ITEM cPlayer::getBankBox( void )
 {
 	P_ITEM pi = atLayer( BankBox );
-	
+
 	if( !pi )
 	{
 		pi = cItem::createFromScript( "9ab" );
@@ -1029,7 +1029,7 @@ void cPlayer::soundEffect( UI16 soundId, bool hearAll )
 		if( socket_ )
 			socket_->send( &pSoundEffect );
 	}
-	else 
+	else
 	{
 		// Send the sound to all sockets in range
 		for( cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next() )
@@ -1104,7 +1104,7 @@ bool cPlayer::online() const
 	return socket_ && socket_->state() == cUOSocket::InGame;
 }
 
-void cPlayer::giveNewbieItems( Q_UINT8 skill ) 
+void cPlayer::giveNewbieItems( Q_UINT8 skill )
 {
 	const cElement *startItems = DefManager->getDefinition( WPDT_STARTITEMS, ( skill == 0xFF ) ? QString("default") : Skills->getSkillDef( skill ).lower() );
 
@@ -1129,8 +1129,8 @@ void cPlayer::applyStartItemDefinition( const cElement *element )
 		if( node->name() == "inherit" )
 		{
 			const cElement* inheritNode = DefManager->getDefinition( WPDT_STARTITEMS, node->getAttribute( "id" ) );
-			
-			if( inheritNode )			
+
+			if( inheritNode )
 			{
 				applyStartItemDefinition( inheritNode );
 			}
@@ -1149,13 +1149,13 @@ void cPlayer::applyStartItemDefinition( const cElement *element )
 			const QString &id = node->getAttribute( "id" );
 
 			if( id != QString::null )
-			{		
+			{
 				pItem = cItem::createFromScript( id );
 			}
 			else
-			{		
+			{
 				const QString &list = node->getAttribute( "list" );
-	
+
 				if( list != QString::null )
 				{
 					pItem = cItem::createFromList( list );
@@ -1238,7 +1238,7 @@ void cPlayer::addPet( P_NPC pPet, bool noOwnerChange )
 	if( !pPet )
 		return;
 
-	// It may be the follower of someone else already, so 
+	// It may be the follower of someone else already, so
 	// check that...
 	if( pPet->owner() && pPet->owner() != this )
 		pPet->owner()->removePet( pPet, true );
@@ -1274,7 +1274,7 @@ bool cPlayer::onTradeStart( P_PLAYER partner, P_ITEM firstitem )
 {
 	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_TRADESTART );
 	bool result = false;
-	
+
 	if( scriptChain || global )
 	{
 		PyObject *args = Py_BuildValue( "(O&O&O&)", PyGetCharObject, this, PyGetCharObject, partner, PyGetItemObject, firstitem );
@@ -1294,7 +1294,7 @@ bool cPlayer::onTrade( unsigned int type, unsigned int buttonstate, SERIAL items
 {
 	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_TRADE );
 	bool result = false;
-	
+
 	if( scriptChain || global )
 	{
 		PyObject *args = Py_BuildValue( "(O&iii)", PyGetCharObject, this, type, buttonstate, itemserial );
@@ -1312,7 +1312,7 @@ bool cPlayer::onTrade( unsigned int type, unsigned int buttonstate, SERIAL items
 bool cPlayer::onPickup( P_ITEM pItem )
 {
 	bool result = false;
-	
+
 	if( scriptChain )
 	{
 		PyObject *args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetItemObject, pItem );
@@ -1329,7 +1329,7 @@ bool cPlayer::onLogin( void )
 {
 	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_LOGIN );
 	bool result = false;
-	
+
 	if( scriptChain || global )
 	{
 		PyObject *args = Py_BuildValue( "(O&)", PyGetCharObject, this );
@@ -1349,7 +1349,7 @@ bool cPlayer::onCastSpell( unsigned int spell )
 {
 	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_CASTSPELL );
 	bool result = false;
-	
+
 	if( scriptChain || global )
 	{
 		PyObject *args = Py_BuildValue( "O&i", PyGetCharObject, this, spell );
@@ -1369,7 +1369,7 @@ bool cPlayer::onLogout( void )
 {
 	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_LOGOUT );
 	bool result = false;
-	
+
 	if( scriptChain || global )
 	{
 		PyObject *args = Py_BuildValue( "(O&)", PyGetCharObject, this );
@@ -1390,7 +1390,7 @@ bool cPlayer::onHelp( void )
 {
 	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_HELP );
 	bool result = false;
-	
+
 	if( scriptChain || global )
 	{
 		PyObject *args = Py_BuildValue( "(O&)", PyGetCharObject, this );
@@ -1411,7 +1411,7 @@ bool cPlayer::onChat( void )
 {
 	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_CHAT );
 	bool result = false;
-	
+
 	if( scriptChain || global )
 	{
 		PyObject *args = Py_BuildValue( "(O&)", PyGetCharObject, this );
@@ -1430,7 +1430,7 @@ bool cPlayer::onChat( void )
 bool cPlayer::onShowContext( cUObject *object )
 {
 	bool result = false;
-	
+
 	if( scriptChain )
 	{
 		PyObject *args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetObjectObject, object );
@@ -1444,7 +1444,7 @@ bool cPlayer::onShowContext( cUObject *object )
 bool cPlayer::onUse( P_ITEM pItem )
 {
 	bool result = false;
-	
+
 	if( scriptChain )
 	{
 		PyObject *args = Py_BuildValue( "O&O&", PyGetCharObject, this, PyGetItemObject, pItem );
@@ -1461,7 +1461,7 @@ void cPlayer::processNode( const cElement *Tag )
 }
 
 QPtrList< cMakeSection > cPlayer::lastSelections( cMakeMenu* basemenu )
-{ 
+{
 	QMap< cMakeMenu*, QPtrList< cMakeSection > >::iterator it = lastSelections_.find( basemenu );
 	if( it != lastSelections_.end() )
 		return it.data();
@@ -1475,7 +1475,7 @@ cMakeSection* cPlayer::lastSection( cMakeMenu* basemenu )
 	QPtrList< cMakeSection > lastsections_;
 	if( it != lastSelections_.end() )
 		 lastsections_ = it.data();
-	else 
+	else
 		return 0;
 
 	if( lastsections_.count() > 0 )
@@ -1497,7 +1497,7 @@ void cPlayer::setLastSection( cMakeMenu* basemenu, cMakeSection* data )
 		lastSelections_.insert( basemenu, lastsections_ );
 		return;
 	}
-	
+
 	QPtrListIterator< cMakeSection > it( lastsections_ );
 	while( it.current() )
 	{
@@ -1508,7 +1508,7 @@ void cPlayer::setLastSection( cMakeMenu* basemenu, cMakeSection* data )
 	lastsections_.prepend( data );
 	while( lastsections_.count() > 10 )
 		lastsections_.removeLast();
-	
+
 	mit.data() = lastsections_;
 	return;
 }
@@ -1571,7 +1571,7 @@ stError *cPlayer::setProperty( const QString &name, const cVariant &value )
 			return 0;
 		}
 	}
-	
+
 	return cBaseChar::setProperty( name, value );
 }
 

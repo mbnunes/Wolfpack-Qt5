@@ -42,15 +42,15 @@
 #include "world.h"
 
 // DB AutoCreation
-const char *createSql = "CREATE TABLE accounts (\
-  login varchar(255) NOT NULL default '',\
-  password varchar(255) NOT NULL default '',\
-  flags int NOT NULL default '0',\
-  acl varchar(255) NOT NULL default 'player',\
-  lastlogin int NOT NULL default '',\
-  blockuntil int NOT NULL default '',\
-  PRIMARY KEY (login)\
-);";
+const char *createSql = "CREATE TABLE `accounts` (\
+	`login` varchar(255) NOT NULL default '',\
+	`password` varchar(255) NOT NULL default '',\
+	`flags` int NOT NULL default '0',\
+	`acl` varchar(255) NOT NULL default 'player',\
+	`lastlogin` int NOT NULL default '',\
+	`blockuntil` int NOT NULL default '',\
+	PRIMARY KEY (`login`)\
+	);";
 
 /*****************************************************************************
   cAccount member functions
@@ -236,7 +236,7 @@ void cAccounts::clear()
 {
 	iterator it = accounts.begin();
 	for (; it != accounts.end(); ++it)
-		delete it.data();	
+		delete it.data();
 }
 
 cAccount* cAccounts::authenticate(const QString& login, const QString& password, enErrorCode* error) const
@@ -248,7 +248,7 @@ cAccount* cAccounts::authenticate(const QString& login, const QString& password,
 	{
 		// First we check for blocked account.
 		if ( it.data()->isBlocked() )
-		{	
+		{
 			if( error )
 				*error = Banned;
 			return 0;
@@ -261,7 +261,7 @@ cAccount* cAccounts::authenticate(const QString& login, const QString& password,
 			return 0;
 		}
 
-		// Ok, let´s continue.
+		// Ok, lets continue.
 		if (it.data()->password() == password)
 		{
 			it.data()->setLastLogin( QDateTime::currentDateTime() );
@@ -311,15 +311,15 @@ void cAccounts::save()
 
 		persistentBroker->executeQuery( "BEGIN;" );
 
-		persistentBroker->executeQuery( "DELETE FROM accounts;" );
+		persistentBroker->executeQuery( "DELETE FROM `accounts`;" );
 
 		iterator it = accounts.begin();
 		for (; it != accounts.end(); ++it)
 		{
-			// INSERT 
+			// INSERT
 			cAccount *account = it.data();
-	
-			QString sql( "INSERT INTO accounts VALUES( '%1', '%2', %3, '%4', %5, %6 );" );
+
+			QString sql( "INSERT INTO `accounts` VALUES( '%1', '%2', %3, '%4', %5, %6 );" );
 
 			sql = sql.arg( account->login_.lower() ).arg( account->password_ ).arg( account->flags_ ).arg( account->aclName_ ).arg( !account->lastLogin_.isNull() ? account->lastLogin_.toTime_t() : 0 ).arg( !account->blockUntil.isNull() ? account->blockUntil.toTime_t() : 0 );
 
@@ -339,7 +339,7 @@ void cAccounts::save()
 		if( connected )
 			persistentBroker->executeQuery( "ROLLBACK;" );
 		Console::instance()->log( LOG_ERROR, "Unknown error while saving Accounts." );
-	}	
+	}
 }
 
 void cAccounts::load()
@@ -365,7 +365,7 @@ void cAccounts::load()
 			Console::instance()->send("Created default admin account: Login = admin, Password = admin\n");
 		}
 
-		cDBResult result = persistentBroker->query( "SELECT accounts.login,accounts.password,accounts.flags,accounts.acl,accounts.lastlogin,accounts.blockuntil FROM accounts;" );
+		cDBResult result = persistentBroker->query( "SELECT `login`,`password`,`flags`,`acl`,`lastlogin`,`blockuntil` FROM `accounts`;" );
 
 		// Clear Accounts HERE
 		// Here we can be pretty sure that we have a valid datasource for accounts
@@ -395,7 +395,7 @@ void cAccounts::load()
 	catch( ... )
 	{
 		Console::instance()->log( LOG_ERROR, "Unknown error while loading Accounts" );
-	}	
+	}
 }
 
 /*!
@@ -448,7 +448,7 @@ void cAccounts::reload()
 
 /*!
 	Creates an account with \a login and \a password. If this is the first account
-	on the system, it will be set with "admin" acl, otherwise, it will default to 
+	on the system, it will be set with "admin" acl, otherwise, it will default to
 	"player" acl.
 */
 cAccount* cAccounts::createAccount( const QString& login, const QString& password )

@@ -55,11 +55,11 @@
 // Library Includes
 
 cUObject::cUObject() :
-	serial_( INVALID_SERIAL ), 
-	multis_( INVALID_SERIAL ), 
-	free( false ), 
-	bindmenu_( QString::null ), 
-	changed_(true), 
+	serial_( INVALID_SERIAL ),
+	multis_( INVALID_SERIAL ),
+	free( false ),
+	bindmenu_( QString::null ),
+	changed_(true),
 	tooltip_( 0xFFFFFFFF ),
 	eventList_( QString::null ),
 	name_( QString::null ),
@@ -104,10 +104,10 @@ void cUObject::moveTo( const Coord_cl& newpos, bool noRemove )
 	Returns the distance between this object and \a d
 */
 unsigned int cUObject::dist(cUObject* d) const
-{	
+{
 	if ( !d )
 		return ~0;
-	return pos_.distance(d->pos_);		
+	return pos_.distance(d->pos_);
 }
 
 
@@ -134,7 +134,7 @@ void cUObject::load( char **result, UINT16 &offset )
 	recreateEvents();
 	if( havetags_ )
 		tags_.load( serial_ );
-	
+
 	PersistentObject::load( result, offset );
 }
 
@@ -159,12 +159,12 @@ void cUObject::save()
 		saveFields;
 		clearFields;
 	}
-	
+
 	// uobject fields
 	if ( changed_ )
 	{
 		initSave;
-		setTable( "uobject" );	
+		setTable( "uobject" );
 		addStrField( "name", name_ );
 		addField( "serial", serial_ );
 		addField( "multis", multis_ );
@@ -196,8 +196,8 @@ bool cUObject::del()
 	if( !isPersistent )
 		return false; // We didn't need to delete the object
 
-	persistentBroker->addToDeleteQueue( "uobject", QString( "serial = '%1'" ).arg( serial_ ) );
-	persistentBroker->addToDeleteQueue( "uobjectmap", QString( "serial = '%1'" ).arg( serial_ ) );
+	persistentBroker->addToDeleteQueue( "uobject", QString( "`serial` = '%1'" ).arg( serial_ ) );
+	persistentBroker->addToDeleteQueue( "uobjectmap", QString( "`serial` = '%1'" ).arg( serial_ ) );
 
 	if( tags_.size() > 0 )
 		tags_.del( serial_ );
@@ -243,7 +243,7 @@ bool cUObject::hasEvent( const QString& name ) const
 	if( scriptChain )
 	{
 		unsigned int count = reinterpret_cast< unsigned int >( scriptChain[0] );
-		
+
 		for( unsigned int i = 1; i <= count; ++i )
 		{
 			if( scriptChain[i]->name() == name )
@@ -272,7 +272,7 @@ void cUObject::addEvent( cPythonScript *Event )
 		memcpy( newScriptChain, scriptChain, (count+1) * sizeof( cPythonScript* ) );
 		newScriptChain[ count+1 ] = Event;
 		newScriptChain[ 0 ] = reinterpret_cast< cPythonScript* >( count + 1 );
-		
+
 		delete [] scriptChain;
 		scriptChain = newScriptChain;
 	}
@@ -327,7 +327,7 @@ void cUObject::removeEvent( const QString& name )
 		QStringList eventList = QStringList::split( ",", eventList_ );
 		eventList.remove( name );
 		eventList_ = eventList.join( "," );
-	
+
 		if( eventList_.isEmpty() )
 			eventList_ = QString::null;
 	}
@@ -344,8 +344,8 @@ void cUObject::recreateEvents()
 
 	delete [] scriptChain;
 	scriptChain = 0;
-	
-	// Walk the eventList and recreate 
+
+	// Walk the eventList and recreate
 	QStringList::const_iterator myIter;
 	QStringList eventList = QStringList::split( ",", eventList_ );
 
@@ -367,7 +367,7 @@ void cUObject::recreateEvents()
 					memcpy( newScriptChain, scriptChain, (count+1) * sizeof( cPythonScript* ) );
 					newScriptChain[ count+1 ] = Event;
 					newScriptChain[ 0 ] = reinterpret_cast< cPythonScript* >( count + 1 );
-					
+
 					delete [] scriptChain;
 					scriptChain = newScriptChain;
 				}
@@ -419,7 +419,7 @@ void cUObject::processNode( const cElement *Tag )
 	//		<value>smallboat</value>
 	// </tag>
 	else if( TagName == "tag" )
-	{		
+	{
 		QString name = Tag->getAttribute( "name" );
 		QString value = Tag->getAttribute( "value" );
 
@@ -445,7 +445,7 @@ void cUObject::processNode( const cElement *Tag )
 
 		recreateEvents();
 	}
-	else 
+	else
 	{
 		cVariant variant( Value );
 		setProperty( TagName, variant );
@@ -479,7 +479,7 @@ void cUObject::removeFromView( bool clean )
 // Checks if the specified object is in range
 bool cUObject::inRange( cUObject *object, UINT32 range ) const
 {
-	if( !object ) 
+	if( !object )
 		return false;
 
 	Coord_cl pos = object->pos_;
@@ -664,7 +664,7 @@ void cUObject::sendTooltip( cUOSocket* mSock )
 {
 	if( tooltip_ == 0xFFFFFFFF )
 	{
-		tooltip_ = World::instance()->getUnusedTooltip(); 
+		tooltip_ = World::instance()->getUnusedTooltip();
 		setTooltip( tooltip_ );
 	}
 
@@ -740,7 +740,7 @@ void cUObject::resendTooltip() {
 	// Either Attach or Refresh the Data
 	if (tooltip_ == 0xFFFFFFFF) {
 		tooltip_ = World::instance()->getUnusedTooltip();
-		
+
 		cUOTxAttachTooltip attach;
 		attach.setId(tooltip_);
 		attach.setSerial(serial_);
@@ -752,7 +752,7 @@ void cUObject::resendTooltip() {
 			}
 		}
 	} else {
-		cUOTxTooltipList tooltip;		
+		cUOTxTooltipList tooltip;
 
 		for (cUOSocket *s = cNetwork::instance()->first(); s; s = cNetwork::instance()->next()) {
 			if (s->player() && s->player()->inRange(this, s->player()->visualRange())) {
@@ -764,7 +764,7 @@ void cUObject::resendTooltip() {
 }
 
 /****************************
- * 
+ *
  * Scripting events
  *
  ****************************/
@@ -772,7 +772,7 @@ bool cUObject::onCreate( const QString &definition )
 {
 	cPythonScript *global = ScriptManager::instance()->getGlobalHook( EVENT_CREATE );
 	bool result = false;
-	
+
 	if( scriptChain || global )
 	{
 		PyObject *args = Py_BuildValue( "O&s", PyGetObjectObject, this, definition.latin1() );
