@@ -1354,7 +1354,7 @@ void cSkills::PeaceMaking(cUOSocket* socket)
 				if( mapchar->socket() )
 					mapchar->socket()->sysMessage( tr("You hear some lovely music, and forget about fighting.") );
 				if( mapchar->war ) 
-					npcToggleCombat( mapchar );
+					mapchar->toggleCombat();
 				mapchar->targ = INVALID_SERIAL;
 				mapchar->attacker = INVALID_SERIAL;
 				mapchar->resetAttackFirst();

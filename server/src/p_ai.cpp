@@ -146,15 +146,14 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 				P_CHAR Victim = NULL;
 				UI32 minDist;
 
-				RegionIterator4Chars ri(pc_i->pos);
+				RegionIterator4Chars ri( pc_i->pos, SrvParams->attack_distance() );
 				for (ri.Begin(); !ri.atEnd(); ri++)
 				{
 					P_CHAR pc = ri.GetData();
 					
-					if( pc == NULL )
+					if( !pc )
 						continue;
 
-					d = chardist( pc_i, pc );
 					chance = RandomNum(1, 100);
 					
 					if( ( !pc->isNpc() ) && ( !online( pc ) ) )
@@ -176,10 +175,10 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						continue;
 
 					// If the distance is below the minimal distance we found
-					if( ( Victim == NULL ) || ( minDist > d ) )
+					if( ( Victim == NULL ) || ( minDist > pc_i->pos.distance( pc->pos ) ) )
 					{
 						Victim = pc;
-						minDist = d;
+						minDist = pc_i->pos.distance( pc->pos );
 					}
 
 				}
@@ -205,7 +204,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 
 				// We found a victim
 				if( Victim && !Victim->isGMorCounselor() )
-					npcattacktarget(pc_i, Victim);
+					pc_i->attackTarget( Victim );
 
 				return;
 			}
@@ -298,8 +297,8 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							pc_i->soundEffect( 0x01FE );
 							staticeffect(pc_i, 0x37, 0x2A, 0x09, 0x06);
 							// We found a victim
-				            if( Victim != NULL )
-							npcattacktarget(pc_i, Victim);
+				            if( Victim )
+							 pc_i->attackTarget( Victim );
 							pc_i->talk( tr("Thou shalt regret thine actions, swine!"), -1, 0 );
 							return;
 						}
@@ -387,8 +386,8 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							pc_i->soundEffect( 0x01FE );
 							staticeffect(pc_i, 0x37, 0x2A, 0x09, 0x06);
 							// We found a victim
-				            if( Victim != NULL )
-							npcattacktarget(pc_i, Victim);
+				            if( Victim )
+							pc_i->attackTarget( Victim );
 							pc_i->talk( tr("Thou shalt regret thine actions, swine!"), -1, 0 );
 							return;
 						}
@@ -413,7 +412,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							continue;
 						if (pc->isNpc() && pc->npcaitype() != 2)
 							continue;
-						npcattacktarget(pc_i, pc);
+						pc_i->attackTarget( pc );
 						return;
 					}
 				}
@@ -437,7 +436,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 							continue;
 						if (!(pc->npcaitype() == 2 || pc->isMurderer()))
 							continue;
-						npcattacktarget(pc_i, pc);
+						pc_i->attackTarget( pc );
 					}
 				}
 			}
@@ -491,7 +490,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						if (pc->Owns(pc_i))
 						{
 							P_CHAR pc_target = FindCharBySerial(pc->attacker);
-							npcattacktarget(pc_i, pc_target);
+							pc_i->attackTarget( pc_target );
 							return;
 						}
 					}
@@ -515,7 +514,7 @@ void cCharStuff::CheckAI( unsigned int currenttime, P_CHAR pc_i )
 						    continue;
 						if (pc->isInvul() || pc->dead())
 							continue;
-						npcattacktarget(pc_i, pc);
+						pc_i->attackTarget( pc );
 						return;
 					}
 				}
@@ -615,7 +614,7 @@ void cCharStuff::cDragonAI::HealMagic(P_CHAR pc_i, unsigned int currenttime)
 			Magic->NPCHeal(pc_i);
 		}
 		if (pc_i->targ != INVALID_SERIAL)
-			npcattacktarget(pc_i, FindCharBySerial(pc_i->targ));
+			pc_i->attackTarget( FindCharBySerial(pc_i->targ) );
 	}
 	DoneAI(pc_i, currenttime);
 }

@@ -1055,7 +1055,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 	P_CHAR pc_i = FindCharBySerial( serial );
 	if(pc_i == NULL) return;
 
-	npcattacktarget(pc_i, pc_monster);
+	pc_i->attackTarget( pc_monster );
 }
 
 ///////////////////
@@ -2236,7 +2236,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 							sysmessage(s," They are Invulnerable merchants!");
 							return;
 						}
-						npcattacktarget(pc_defender, pc_currchar);
+						pc_defender->attackTarget( pc_currchar );
 					}
 					if( spellReflectable( curSpell ) )
 					{
@@ -2781,7 +2781,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 										}
 										
 										if (mapchar->isNpc())
-											npcattacktarget(mapchar, pc_currchar);
+											mapchar->attackTarget( pc_currchar );
 										doStaticEffect(mapchar, curSpell);
 										mapchar->soundEffect( 0x01FB );
 										if(CheckResist(pc_currchar, mapchar, 6)) j=pc_currchar->skill(MAGERY)/200;
@@ -2880,7 +2880,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 											return;
 										}
 										if (mapchar->isNpc())
-											npcattacktarget(pc_currchar, mapchar);
+											pc_currchar->attackTarget( mapchar );
 										bolteffect(mapchar, true);
 										pc_currchar->soundEffect( 0x0029 ); //Homey fix for chainlightning sound
 										
@@ -2952,7 +2952,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 									{
 										if(CheckResist(pc_currchar, mapchar, 7) && rand()%2==0 ) // cant be 100% resisted , LB, osi
 										{
-											if (mapchar->isNpc()) npcattacktarget(mapchar, pc_currchar);
+											if (mapchar->isNpc()) 
+												mapchar->attackTarget( pc_currchar );
 											return;
 										}
 										if (mapchar->isNpc()) mapchar->kill(); // LB !!!!
@@ -2990,7 +2991,8 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 											sysmessage(s," They are Invulnerable merchants!");
 											return;
 										}
-										if (mapchar->isNpc()) npcattacktarget(pc_currchar,mapchar);
+										if (mapchar->isNpc()) 
+											pc_currchar->attackTarget( mapchar );
 										mapchar->soundEffect( 0x0160 ); //sound fix for swarm--Homey
 										cMagic::doMoveEffect(curSpell, pc_currchar, mapchar );
 										cMagic::doStaticEffect(mapchar, curSpell);
@@ -3277,7 +3279,7 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 								if (pc->isNpc())
 								{
 									npcaction(pc, 0x2);
-									npcattacktarget(currchar[s],pc);
+									currchar[s]->attackTarget(pc);
 								}
 							}
 						}	

@@ -342,6 +342,9 @@ void cUOSocket::disconnect( void )
 
 	cNetwork::instance()->netIo()->flush( _socket );
 	_socket->close();
+
+	if( _player )
+		_player->resend( true );
 }
 
 /*!
@@ -510,7 +513,7 @@ void cUOSocket::playChar( P_CHAR pChar )
 	// We're now playing this char:
 	setPlayer( pChar );
 	resendWorld( false );
-	pChar->resend( false ); // Send us to others
+	pChar->resend( true ); // Send us to others
 }
 
 bool cUOSocket::authenticate( const QString &username, const QString &password )
@@ -1546,7 +1549,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 		{
 			P_CHAR toCheck = cIter.GetData();
 			if( pc_i->Owns( toCheck ) && toCheck->npcaitype() == 32 && toCheck->inRange( _player, 10 ) )
-				npcattacktarget( toCheck, _player );
+				toCheck->attackTarget( _player );
 				// This was: npcattacktarget( _player, toCheck );
 		}
 	}
@@ -1572,11 +1575,11 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 		else if( pc_i->isNpc() && pc_i->npcaitype() == 4 )
 		{
 			criminal( _player );
-			npcattacktarget( pc_i, _player );
+			pc_i->attackTarget( _player );
 		}
 		else if ((pc_i->isNpc() || pc_i->tamed()) && !pc_i->war && pc_i->npcaitype() != 4) // changed from 0x40 to 4, cauz 0x40 was removed LB
 		{
-			npcToggleCombat( pc_i );
+			pc_i->toggleCombat();
 			pc_i->setNextMoveTime();
 		}
 		else
@@ -1595,7 +1598,7 @@ void cUOSocket::handleRequestAttack( cUORxRequestAttack* packet )
 			else if( pc_i->isNpc() )
 			{
 				criminal( _player );
-				npcattacktarget( pc_i, _player );
+				pc_i->attackTarget( _player );
 
 				if( !pc_i->tamed() && pc_i->isHuman() )
 					pc_i->talk( tr( "Help! Guards! Tis a murder being commited!" ) );
@@ -1636,9 +1639,6 @@ void cUOSocket::resendWorld( bool clean )
 	if( !_player )
 		return;
 
-	cUOTxRemoveObject rObject;
-	cUOTxSendItem sendItem;
-
 	RegionIterator4Items itIterator( _player->pos );
 	for( itIterator.Begin(); !itIterator.atEnd(); itIterator++ )
 	{
@@ -1646,7 +1646,7 @@ void cUOSocket::resendWorld( bool clean )
 		pItem->update( this );
 	}
 
-	RegionIterator4Chars chIterator( _player->pos );
+	RegionIterator4Chars chIterator( _player->pos, _player->VisRange );
 
 	for( chIterator.Begin(); !chIterator.atEnd(); chIterator++ )
 	{
@@ -1654,11 +1654,9 @@ void cUOSocket::resendWorld( bool clean )
 		if( !pChar || pChar == _player )
 			continue;
 
-		if( pChar->pos.distance( _player->pos ) > _player->VisRange )
-			continue;
-
 		if( clean )
 		{
+			cUOTxRemoveObject rObject;
 			rObject.setSerial( pChar->serial );
 			send( &rObject );
 		}
@@ -1801,6 +1799,10 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 
 	// For other chars we only send the basic stats
 	cUOTxSendStats sendStats;
+
+	// TODO: extended packet information
+	sendStats.setFullMode( pChar == _player, _version.left(2) == "3." );
+
 	sendStats.setAllowRename( _player->Owns( pChar ) || _player->isGM() );
 	
 	sendStats.setMaxHp( pChar->st() );
@@ -1809,8 +1811,6 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 	sendStats.setName( pChar->name.c_str() );
 	sendStats.setSerial( pChar->serial );
 		
-	sendStats.setFullMode( pChar == _player, _version.left(2) == "3." );
-
 	// Set the rest - and reset if nec.
 	if( pChar == _player )
 	{
@@ -1825,9 +1825,13 @@ void cUOSocket::sendStatWindow( P_CHAR pChar )
 		sendStats.setGold( pChar->CountBankGold() + pChar->CountGold() );
 		sendStats.setArmor( Combat->CalcDef( pChar, 0 ) ); // TODO: Inaccurate	
 		sendStats.setSex( true );
-		sendStats.setPets( 0 );
-		sendStats.setMaxPets( 0 );
-		sendStats.setStatCap( 300 );
+		if( _version.left(2) == "3." )
+		{
+			std::vector< SERIAL > vecContainer = ownsp.getData( pChar->serial );
+			sendStats.setPets( vecContainer.size() );
+			sendStats.setMaxPets( 0xFF );
+			sendStats.setStatCap( SrvParams->statcap() );
+		}
 	}
 
 	send( &sendStats );

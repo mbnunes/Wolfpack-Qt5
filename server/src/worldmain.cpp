@@ -201,7 +201,8 @@ void CWorldMain::loadnewworld(QString module) // Load world
 
 		int max_x = cMapStuff::mapTileWidth(pc->pos) * 8;
 		int max_y = cMapStuff::mapTileHeight(pc->pos) * 8;
-		if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account() ==0) || ((pc->pos.x>max_x || pc->pos.y>max_y) && pc->account() == 0))
+		if( ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account() ==0) || ((pc->pos.x>max_x || pc->pos.y>max_y) && pc->account() == 0))
+			&& !( pc->pos.x == 0 && pc->pos.y == 0 && pc->pos.z == 0 ) ) // the last are mounted animals
 		// if ((pc->pos.x < 100 && pc->pos.y < 100 && pc->account ==-1) || ((pc->pos.x>max_x || pc->pos.y>max_y || pc->pos.x<0 || pc->pos.y<0) && pc->account==-1))
 		{
 			Npcs->DeleteChar(pc); //character in an invalid location

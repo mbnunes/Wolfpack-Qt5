@@ -177,13 +177,13 @@ the line of sight.
 				// we just have to take that coordinate...
 				if( floor( t ) == t ) 
 				{
-					collisions.push_back( Coord_cl( floor( t ), gridy, source.z + (SI08)floor( dz_x * (double)i ), source.map ) );
+					collisions.push_back( Coord_cl( floor( t ), gridy, source.z + (SI08)floor( dz_y * (double)i ), source.map ) );
 				}
 				// but if not, we have to take BOTH coordinates, which the calculated collision is between!
 				else
 				{ 
-					collisions.push_back( Coord_cl( floor( t ), gridy, source.z + (SI08)floor( dz_x * (double)i ), source.map ) );
-					collisions.push_back( Coord_cl( ceil( t ), gridy, source.z + (SI08)floor( dz_x * (double)i ), source.map ) );
+					collisions.push_back( Coord_cl( floor( t ), gridy, source.z + (SI08)floor( dz_y * (double)i ), source.map ) );
+					collisions.push_back( Coord_cl( ceil( t ), gridy, source.z + (SI08)floor( dz_y * (double)i ), source.map ) );
 				}
 			}
 		}

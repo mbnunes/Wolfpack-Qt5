@@ -531,17 +531,26 @@ public:
 class cUOTxSendStats: public cUOPacket
 {
 public:
-	cUOTxSendStats(): cUOPacket( 0x11, 70 ) { setShort( 1, 0x42 ); }
+	cUOTxSendStats(): cUOPacket( 0x11, 0x2B ) { setShort( 1, 0x2B ); }
 
 	void setFullMode( bool mode, bool extended = false ) 
 	{ 
 		if( extended )
 		{
+			rawPacket.resize( 0x46 );
 			setShort( 1, 0x46 );
 			rawPacket[42] = 0x03;
 		}
+		else if( mode )
+		{
+			rawPacket.resize( 0x42 );
+			setShort( 1, 0x42 );
+			rawPacket[42] = 0x01;
+		}
 		else
-			rawPacket[42] = mode ? 0x01 : 0x00;
+		{
+			rawPacket[42] = 0x00;
+		}
 	}
 
 	void setAllowRename( bool mode ) { rawPacket[41] = mode ? 0x01 : 0x00; }

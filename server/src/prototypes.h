@@ -88,7 +88,6 @@ int check_house_decay();
 void cleanup(int s);
 void titletarget(int s);
 int ishuman(P_CHAR pc);
-void npcact(int s);
 //void objTeleporters(P_CHAR pc_s);
 void SkillVars();
 void StartClasses();
@@ -97,12 +96,9 @@ void BuildPointerArray();
 void InitMultis();
 void InitServerSettings();
 void DeleteClasses();
-void npcToggleCombat(P_CHAR pc);
 int chardir(P_CHAR a, P_CHAR b);
 void telltime(int s);
 int fielddir(P_CHAR pc, int x, int y, int z);
-void npcattacktarget(P_CHAR attacker, P_CHAR defender);
-void npcsimpleattacktarget(P_CHAR attacker, P_CHAR defender);
 int RandomNum(int nLowNum, int nHighNum);
 void enlist(UOXSOCKET s, UI32 listnum); // For enlisting in army
 

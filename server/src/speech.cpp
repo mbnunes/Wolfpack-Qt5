@@ -675,7 +675,7 @@ bool PetCommand( cUOSocket *socket, P_CHAR pPlayer, P_CHAR pPet, const QString& 
 		pPet->ftarg = INVALID_SERIAL;
 		pPet->targ = INVALID_SERIAL;
 		if (pPet->war) 
-			npcToggleCombat( pPet );
+			pPet->toggleCombat();
 		pPet->npcWander=0;
 		bReturn = true;
 	}

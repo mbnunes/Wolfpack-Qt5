@@ -896,14 +896,17 @@ void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 					pc_attacker->attacker = INVALID_SERIAL;
 					pc_attacker->resetAttackFirst();
 					if (pc_attacker->isNpc() && pc_attacker->npcaitype()!=17 && !pc_attacker->dead() && pc_attacker->war)
-						npcToggleCombat(pc_attacker);
+						pc_attacker->toggleCombat();
 				}
 			}
 			else
 			{
 				if( pc_attacker->targ == INVALID_SERIAL )
 				{
-					npcsimpleattacktarget( pc_attacker, pc_defender );
+					pc_defender->fight( pc_attacker );
+					pc_defender->setAttackFirst();
+					pc_attacker->fight( pc_defender );
+					pc_attacker->resetAttackFirst();
 					x=( ( ( 100-pc_attacker->effDex() ) * MY_CLOCKS_PER_SEC ) / 25 ) + ( 1 * MY_CLOCKS_PER_SEC ); //Yet another attempt.
 					pc_attacker->timeout=currenttime+x;
 					return;
@@ -967,7 +970,10 @@ void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
                         {
 							if (los)
 							{
-								npcsimpleattacktarget(pc_attacker, pc_defender);
+								pc_defender->fight( pc_attacker );
+								pc_defender->setAttackFirst();
+								pc_attacker->fight( pc_defender );
+								pc_attacker->resetAttackFirst();
 							}
 						}
 
@@ -1037,7 +1043,7 @@ void cCombat::DoCombat( P_CHAR pc_attacker, unsigned int currenttime )
 					}
 				}
 
-				npcToggleCombat(pc_attacker);
+				pc_attacker->toggleCombat();
 			}
 		}
 	}
@@ -1421,7 +1427,7 @@ void cCombat::SpawnGuard( P_CHAR pc_offender, P_CHAR pc_caller, const Coord_cl &
 		pc_guard->attacker = pc_offender->serial;
 		pc_guard->targ = pc_offender->serial;
 		pc_guard->npcWander = 2;  // set wander mode
-		npcToggleCombat( pc_guard );
+		pc_guard->toggleCombat();
 		pc_guard->setNextMoveTime();
 		pc_guard->summontimer =(getNormalizedTime() +(MY_CLOCKS_PER_SEC*25));    
 		

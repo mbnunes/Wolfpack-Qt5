@@ -967,8 +967,8 @@ void explodeitem(int s, P_ITEM pi)
 				}
 				else
 				{
-					npcattacktarget(pc, pc_currchar);
-					updatechar(pc);
+					pc->attackTarget( pc_currchar );
+					pc->resend(false);
 				}
 			}
 		}
@@ -1963,21 +1963,6 @@ int ishuman(P_CHAR pc)
 	else return 0;
 }
 
-void npcact(int s)
-{
-	P_CHAR pc = FindCharBySerPtr(buffer[s]+7);
-	if (pc != NULL)
-	{
-		npcaction( pc, addid1[s]);
-	}
-}
-
-void npcToggleCombat(P_CHAR pc)
-{
-	pc->war = !pc->war;
-	Movement->CombatWalk(pc);
-}
-
 void setabovelight(unsigned char lightchar)
 {
 	int i;
@@ -2128,90 +2113,6 @@ char indungeon(P_CHAR pc)
 	return 0;
 }
 
-void npcattacktarget( P_CHAR attacker, P_CHAR defender )
-{
-	if (attacker == defender) return;
-	if (attacker == NULL || defender == NULL) return;
-
-	if (attacker->dead() || defender->dead()) return;
-	if (defender->pos.z > (attacker->pos.z +10)) return;//FRAZAI
-	if (defender->pos.z < (attacker->pos.z -10)) return;//FRAZAI
-
-	Coord_cl attpos( attacker->pos );
-	Coord_cl defpos( defender->pos );
-
-	attpos.z += 13; // eye height of attacker
-
-	if( !lineOfSight( attpos, defpos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) )
-		return;
-
-	playmonstersound( defender, defender->id(), SND_STARTATTACK );
-	int i;
-	unsigned int cdist=0 ;
-
-	if( defender->targ != INVALID_SERIAL )
-		cdist = chardist( defender, FindCharBySerial(defender->targ));
-	else cdist=30;
-
-	if( cdist>chardist( defender, attacker ) )
-	{
-		defender->targ = attacker->serial;
-		defender->attacker = attacker->serial;
-		defender->setAttackFirst();
-	}
-
-	if (attacker->targ != INVALID_SERIAL)
-		cdist = chardist(attacker, FindCharBySerial(attacker->targ));
-	else cdist=30;
-
-	if ((cdist > chardist(defender, attacker))&&
-		((!(attacker->npcaitype()==4)||(!((attacker->targ==INVALID_SERIAL)))))) // changed from 0x40 to 4, LB
-	{
-		attacker->targ = defender->serial;
-		attacker->attacker = defender->serial;
-		attacker->resetAttackFirst();
-	}
-
-	defender->unhide();
-	defender->disturbMed();
-
-	attacker->unhide();
-	attacker->disturbMed();
-
-	if( defender->isNpc() )
-	{
-		if( !( defender->war ) )
-			npcToggleCombat( defender );
-		defender->setNextMoveTime();
-	}
-	
-	if( ( attacker->isNpc() ) && !( attacker->npcaitype() == 4 ) ) // changed from 0x40 to 4, LB
-	{
-		if ( !( attacker->war ) )
-			npcToggleCombat(attacker);
-
-		attacker->setNextMoveTime();
-	}
-	
-	// Send a message to the defender
-	if( defender->socket() )
-	{
-		QString message = tr( "You see %1 attacking you!" ).arg( attacker->name.c_str() );
-		defender->socket()->showSpeech( attacker, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
-	}
-
-	QString emote = tr( "You see %1 attacking %2" ).arg( attacker->name.c_str() ).arg( defender->name.c_str() );
-
-	RegionIterator4Chars cIter( attacker->pos );
-	for( cIter.Begin(); !cIter.atEnd(); cIter++ )
-	{
-		P_CHAR pChar = cIter.GetData();
-
-		if( pChar && ( pChar != defender ) && pChar->socket() && pChar->inRange( attacker, pChar->VisRange ) )
-			pChar->socket()->showSpeech( attacker, emote, 0x26, 3, cUOTxUnicodeSpeech::Emote );
-	}
-}
-
 ////////////////////
 // Author : LB
 // purpose: converting x,y coords to sextant coords
@@ -2288,18 +2189,6 @@ void getSextantCords(signed int x, signed int y, bool t2a, char *sextant)
    strcat((char*)sextant,"' ");
    if (yH>=0) strcat((char*)sextant,"S"); else strcat((char*)sextant,"N");
 
-}
-
-void npcsimpleattacktarget( P_CHAR attacker, P_CHAR defender )
-{
-	if (attacker == NULL || defender == NULL) return;
-	if (attacker == defender) return;
-	if (attacker->dead() || defender->dead()) return;
-
-	defender->fight(attacker);
-	defender->setAttackFirst();
-	attacker->fight(defender);
-	attacker->resetAttackFirst();
 }
 
 // streamlined by Duke 01.06.2000

@@ -531,7 +531,7 @@ void cBoat::turn( SI08 turn )
 	{
 		SI08 dx = 0, dy = 0;
 		P_CHAR pc = FindCharBySerial( *it );
-		if( pc )
+		if( pc && pc->pos.x != 0 && pc->pos.y != 0 && pc->pos.z != 0 ) // dont move mounted animals, that were mounted when user was on boat
 		{
 			UI16 newx = pc->pos.x; 
 			UI16 newy = pc->pos.y;
@@ -773,7 +773,7 @@ bool cBoat::move( void )
 	while( it != chars_.end() )
 	{
 		P_CHAR pc = FindCharBySerial( *it );
-		if( pc )
+		if( pc && pc->pos.x != 0 && pc->pos.y != 0 && pc->pos.z != 0 ) // dont move mounted animals, that were mounted when user was on boat
 		{
 			pc->MoveTo( pc->pos.x + dx, pc->pos.y + dy, pc->pos.z );
 

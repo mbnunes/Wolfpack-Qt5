@@ -531,51 +531,54 @@ void cMakeSection::execute( cUOSocket* socket )
 	if( baseaction_->sound() > 0 )
 		pChar->soundEffect( baseaction_->sound() );
 
-	QString Message;
 
-	switch( rank )
+	if( makeitems_.count() > 0 )
 	{
-		case 1: 
-			Message = tr("You made an item with no quality!");
-			break;
+		QString Message;
+		switch( rank )
+		{
+			case 1: 
+				Message = tr("You made an item with no quality!");
+				break;
 
-		case 2: 
-			Message = tr("You made an item very below standard quality!");
-			break;
+			case 2: 
+				Message = tr("You made an item very below standard quality!");
+				break;
 
-		case 3: 
-			Message = tr("You made an item below standard quality!");
-			break;
+			case 3: 
+				Message = tr("You made an item below standard quality!");
+				break;
 
-		case 4: 
-			Message = tr("You made a weak quality item!");
-			break;
+			case 4: 
+				Message = tr("You made a weak quality item!");
+				break;
 
-		case 5: 
-			Message = tr("You made a standard quality item!");
-			break;
+			case 5: 
+				Message = tr("You made a standard quality item!");
+				break;
 
-		case 6: 
-			Message = tr("You made a nice quality item!");
-			break;
+			case 6: 
+				Message = tr("You made a nice quality item!");
+				break;
 
-		case 7: 
-			Message = tr("You made a good quality item!");
-			break;
+			case 7: 
+				Message = tr("You made a good quality item!");
+				break;
 
-		case 8: 
-			Message = tr("You made a great quality item!");
-			break;
+			case 8: 
+				Message = tr("You made a great quality item!");
+				break;
 
-		case 9: 
-			Message = tr("You made a beautiful quality item!");
-			break;
+			case 9: 
+				Message = tr("You made a beautiful quality item!");
+				break;
 
-		case 10: 
-			Message = tr("You made a perfect quality item!");
-			break;
+			case 10: 
+				Message = tr("You made a perfect quality item!");
+				break;
+		}
+		socket->sysMessage( Message );
 	}
-	socket->sysMessage( Message );
 }
 
 void cMakeSection::setMakeItemAmounts( UINT16 amount )

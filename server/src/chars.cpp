@@ -57,6 +57,7 @@
 #include "wpdefmanager.h"
 #include "guildstones.h"
 #include "network/asyncnetio.h"
+#include "walking.h"
 
 #undef  DBGFILE
 #define DBGFILE "chars.cpp"
@@ -448,7 +449,7 @@ void cChar::fight(P_CHAR other)
 	if (this->isNpc())
 	{
 		if (!this->war)
-			npcToggleCombat(this);
+			toggleCombat();
 		this->setNextMoveTime();
 	}
 }
@@ -2215,14 +2216,13 @@ void cChar::kill()
 			}
 
 			if( pc_t->isNpc() && pc_t->war )
-				npcToggleCombat( pc_t ); // ripper
+				pc_t->toggleCombat();
 		}
 	}
 
 	// Now for the corpse
 	P_ITEM pi_backpack = getBackpack();
 	
-	// TODO: Unmount the user	
 	unmount();
 
 	P_ITEM pi_j;
@@ -2650,7 +2650,6 @@ void cChar::wear( P_ITEM pi )
 			socket->send( &packet );
 }
 
-// Needs implementation
 P_CHAR cChar::unmount()
 {
 	std::vector< SERIAL > vecContainer = contsp.getData( serial );
@@ -2780,19 +2779,19 @@ void cChar::mount( P_CHAR pMount )
 		// Sends update.
 		wear( pMountItem );
 
-/*		// if this is a gm lets tame the animal in the process
+		// if this is a gm lets tame the animal in the process
 		if( isGM() )
 		{
 			pMount->SetOwnSerial( serial );
 			pMount->setNpcAIType( 0 );
-		}*/
+		}
 		
 		// remove it from screen!
 		pMount->setId(0);
 		cMapObjects::getInstance()->remove( pMount );
 		pMount->pos = Coord_cl(0, 0, 0);
 		
-		pMount->resend( true );
+		pMount->removeFromView( true );
 		
 		pMount->war = false;
 		pMount->attacker = INVALID_SERIAL;
@@ -2943,4 +2942,98 @@ void cChar::clearLastSelections( void )
 {
 	lastselections_.clear();
 }
+
+void cChar::attackTarget( P_CHAR defender )
+{
+	if( this == defender || !defender || dead() || defender->dead() ) 
+		return;
+
+//	if (defender->pos.z > (attacker->pos.z +10)) return;//FRAZAI
+//	if (defender->pos.z < (attacker->pos.z -10)) return;//FRAZAI
+
+	Coord_cl attpos( pos );
+	Coord_cl defpos( defender->pos );
+
+	attpos.z += 13; // eye height of attacker
+
+	if( !lineOfSight( attpos, defpos, WALLS_CHIMNEYS+DOORS+FLOORS_FLAT_ROOFING ) )
+		return;
+
+	playmonstersound( defender, defender->id(), SND_STARTATTACK );
+	int i;
+	unsigned int cdist=0 ;
+
+	P_CHAR target = FindCharBySerial( defender->targ );
+	if( target )
+		cdist = defender->pos.distance( target->pos );
+	else 
+		cdist = 30;
+
+	if( cdist > defender->pos.distance( pos ) )
+	{
+		defender->targ = serial;
+		defender->attacker = serial;
+		defender->setAttackFirst();
+	}
+
+	target = FindCharBySerial( targ );
+	if( target )
+		cdist = pos.distance( target->pos );
+	else 
+		cdist = 30;
+
+	if( ( cdist > defender->pos.distance( pos ) ) &&
+		( !(npcaitype() == 4) || target ) )
+	{
+		targ = defender->serial;
+		attacker = defender->serial;
+		resetAttackFirst();
+	}
+
+	defender->unhide();
+	defender->disturbMed();
+
+	unhide();
+	disturbMed();
+
+	if( defender->isNpc() )
+	{
+		if( !( defender->war ) )
+			defender->toggleCombat();
+		defender->setNextMoveTime();
+	}
+	
+	if( ( isNpc() ) && !( npcaitype() == 4 ) )
+	{
+		if ( !( war ) )
+			toggleCombat();
+
+		setNextMoveTime();
+	}
+	
+	// Send a message to the defender
+	if( defender->socket() )
+	{
+		QString message = tr( "You see %1 attacking you!" ).arg( name.c_str() );
+		defender->socket()->showSpeech( this, message, 0x26, 3, cUOTxUnicodeSpeech::Emote );
+	}
+
+	QString emote = tr( "You see %1 attacking %2" ).arg( name.c_str() ).arg( defender->name.c_str() );
+
+	RegionIterator4Chars cIter( pos );
+	for( cIter.Begin(); !cIter.atEnd(); cIter++ )
+	{
+		P_CHAR pChar = cIter.GetData();
+
+		if( pChar && ( pChar != defender ) && pChar->socket() && pChar->inRange( this, pChar->VisRange ) )
+			pChar->socket()->showSpeech( this, emote, 0x26, 3, cUOTxUnicodeSpeech::Emote );
+	}
+}
+
+void cChar::toggleCombat()
+{
+	war = !war;
+	Movement->CombatWalk( this );
+}
+
 

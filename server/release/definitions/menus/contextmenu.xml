@@ -1,0 +1,19 @@
+<definitions>
+	<contextmenu id="ITEM_MENU">
+		<access acl="admin">
+			<option tag="1" intlocid="6" msgid="121" script="not_implemented" />
+			<option tag="1" intlocid="6" msgid="125" script="not_implemented" />
+			<option tag="1" intlocid="0" msgid="176" script="not_implemented" />
+			<option tag="1" intlocid="0" msgid="484" script="not_implemented" />
+
+		</access>
+		<access acl="player">
+			<option tag="1" intlocid="6" msgid="121" script="not_implemented" />
+		</access>
+		<access acl="counselor">
+			<option tag="1" intlocid="6" msgid="121" script="not_implemented" />
+			<option tag="1" intlocid="6" msgid="125" script="not_implemented" />
+			<option tag="1" intlocid="0" msgid="176" script="not_implemented" />
+		</access>
+	</contextmenu>
+</definitions>

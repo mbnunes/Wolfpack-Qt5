@@ -27,6 +27,8 @@
 		
 		<menu inherit="ADD_deeds" />
 		
+		<menu inherit="ADD_npcs" />
+		
 		<menu>
 			<name>Vegetation</name>
 		</menu>
@@ -398,6 +400,79 @@
 		</action>
 	</menu>
 	
+	<menu id="ADD_npcs">
+		<name>Non Player Characters</name>
+		
+		<menu inherit="ADD_NPCS_animals" />
+		<menu inherit="ADD_NPCS_humans" />
+		<menu inherit="ADD_NPCS_monsters" />
+	</menu>
+	
+	<menu id="ADD_NPCS_animals">
+		<name>NPCs - Animals</name>
+		
+		<menu inherit="ADD_NPCS_ANIMALS_birds" />
+		<menu inherit="ADD_NPCS_ANIMALS_mountables" />
+	</menu>
+	
+	<menu id="ADD_NPCS_humans">
+		<name>NPCs - Humans</name>
+		
+		<menu inherit="ADD_NPCS_HUMANS_civilists" />
+		<menu inherit="ADD_NPCS_HUMANS_vendors" />
+	</menu>
+	
+	<menu id="ADD_NPCS_monsters">
+		<name>NPCs - Monsters</name>
+		
+		<menu inherit="ADD_NPCS_MONSTERS_giantanimals" />
+		<menu inherit="ADD_NPCS_MONSTERS_giants" />
+		<menu inherit="ADD_NPCS_MONSTERS_undeads" />
+	</menu>
+	
+	<menu id="ADD_NPCS_ANIMALS_birds">
+		<name>NPCs - Birds</name>
+	</menu>
+	
+	<menu id="ADD_NPCS_ANIMALS_mountables">
+		<name>NPCs - Mountable animals</name>
+	</menu>
+	
+	<menu id="ADD_NPCS_HUMANS_civilists">
+		<name>NPCs - Civilists</name>
+	</menu>
+
+	<menu id="ADD_NPCS_HUMANS_vendors">
+		<name>NPCs - Vendors</name>
+		
+		<action type="npc">
+			<name>Tanner, male</name>
+			<description>Place a male tanner</description>
+			<bodymodel>0x190</bodymodel>
+			
+			<make><makenpc name="Tanner, male" id="tanner" /></make>
+		</action>
+		<action type="npc">
+			<name>Blacksmith, male</name>
+			<description>Place a male blacksmith</description>
+			<bodymodel>0x190</bodymodel>
+
+			<make><makenpc name="Blacksmith, male" id="blacksmith" /></make>
+		</action>
+	</menu>
+	
+	<menu id="ADD_NPCS_MONSTERS_giantanimals">
+		<name>NPCs - Giant animals</name>
+	</menu>
+
+	<menu id="ADD_NPCS_MONSTERS_giants">
+		<name>NPCs - Giants</name>
+	</menu>
+
+	<menu id="ADD_NPCS_MONSTERS_undeads">
+		<name>NPCs - Undeads</name>
+	</menu>
+
 	<menu id="ADD_skillitems">
 		<name>Skill Items</name>
 		

@@ -1108,7 +1108,7 @@ void cTargets::AttackTarget(int s)
         sysmessage(s,"You cant have pets attack in town!");
         return;
 	}
-	npcattacktarget(target2, target);
+	target2->attackTarget( target );
 }
 
 void cTargets::FollowTarget(int s)
@@ -2228,7 +2228,7 @@ void cTargets::MultiTarget(cUOSocket* socket) // If player clicks on something w
 //		case 45: Fishing->FishTarget(ps); break;
 		case 47: if (Cready) pc->setTitle( xtext[s] ); break;//TitleTarget
 //		case 48: Targ->ShowAccountCommentTarget(s); break;
-		case 53: npcact(s); break;
+//		case 53: npcact(s); break;
 		case 56: Targ->NpcTarget(s); break;
 		case 57: Targ->NpcTarget2(s); break;
 		case 58: Targ->NpcResurrectTarget(currchar[s]); break;
