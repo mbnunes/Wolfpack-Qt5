@@ -39,6 +39,8 @@
 		<category>Monsters\Undead\Zombie</category>
 		<strproperty name="slayer_group" value="undeads" />
 		<inherit id="speed_slow" />
+		
+		<intproperty name="poison_immunity" value="1" />
 	</npc>
 
 </definitions>

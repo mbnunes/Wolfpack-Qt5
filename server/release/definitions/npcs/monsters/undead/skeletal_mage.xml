@@ -42,6 +42,8 @@
 		<desc>A dying mage who has chooses to perform the ceremony to become a lich and fails, will often become a Skeleton Mage. Still armed with a formidable repertoire of the dark arts, skeletal mages should not be underestimated. Burning with the power of the damned, the skeleton mage appears as the color of flame.</desc>
 		<category>Monsters\Undead\Skeletal Mage</category>
 		<ai>Monster_Mage</ai>
+		
+		<intproperty name="poison_immunity" value="1" />
 	</npc>
 
 </definitions>
