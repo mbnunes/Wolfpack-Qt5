@@ -147,20 +147,20 @@ void cTiming::poll() {
 			P_NPC npc = dynamic_cast<P_NPC>(character);
 
 			if (npc) {
+				npc->poll(time, events);
+
 				if ((npc->isTamed() && nextTamedCheck <= time) || (!npc->isTamed() && nextNpcCheck <= time)) {
 					checkRegeneration(npc, time);
 					
 					// Check if we are anywhere near a player
 					// all other npcs are accounted as inactive
 					for (QValueVector<Coord_cl>::const_iterator it = positions.begin(); it != positions.end(); ++it) {
-						if ((*it).distance(npc->pos()) <= 24) {
-							npc->poll(time, events);
+						if ((*it).distance(npc->pos()) <= 24) {							
 							checkNpc(npc, time);
 							break;
 						}
 					}
 				}
-
 				continue;
 			}
 
