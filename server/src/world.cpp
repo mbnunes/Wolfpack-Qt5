@@ -521,6 +521,14 @@ void cWorld::load()
 			}
 			while ( type != 0xFF );
 			reader.close();
+
+			// post process all loaded objects
+			QPtrList<PersistentObject>::const_iterator cit(objects.begin());
+			
+			while (cit != objects.end()) {
+				(*cit)->postload(reader.version());
+				++cit;
+			}
 		}
 	}
 	else
@@ -788,15 +796,17 @@ void cWorld::load()
 		UoTime::instance()->setMinutes( db_time.toInt() );
 
 		PersistentBroker::instance()->disconnect();
+
+		// post process all loaded objects
+		QPtrList<PersistentObject>::const_iterator cit(objects.begin());
+		
+		while (cit != objects.end()) {
+			(*cit)->postload(0);
+			++cit;
+		}
 	}
 	
-	// post process all loaded objects
-	QPtrList<PersistentObject>::const_iterator cit(objects.begin());
-	
-	while (cit != objects.end()) {
-		(*cit)->postload(0);
-		++cit;
-	}
+
 	
 	unsigned int duration = getNormalizedTime() - loadStart;
 
