@@ -256,7 +256,7 @@ void cItem::setContSerial( SERIAL nValue )
 			}
 		}
 
-		contsp.remove( this->contserial, this->serial );
+		contsp.remove( contserial, serial );
 	}
 
 	contserial = nValue;
@@ -285,8 +285,7 @@ void cItem::setContSerial( SERIAL nValue )
 			}
 		}
 
-		contsp.insert( this->contserial, this->serial );
-		mapRegions->Remove( this );
+		contsp.insert( contserial, serial );		
 	}
 
 	// There was an owner change

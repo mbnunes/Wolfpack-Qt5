@@ -478,6 +478,9 @@ int cChar::CountItems( short ID, short col )
 	{
 		P_ITEM pItem = FindItemBySerial( equipment[i] );
 
+		if( !pItem )
+			continue;
+
 		if( ( pItem->id() == ID ) && ( pItem->color() == col ) )
 			number++;
 	}

@@ -90,6 +90,9 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 
 	// Fetch the grab information
 	UI16 amount = packet->amount();
+	if( !amount )
+		amount = 1;
+
 	P_ITEM pItem = FindItemBySerial( packet->serial() );
 
 	// If it's an invalid pointer we can't even bounce
@@ -216,6 +219,7 @@ void cDragItems::grabItem( cUOSocket *socket, cUORxDragItem *packet )
 		}
 	}
 	
+	//mapRegions->Remove( pItem );
 	pItem->setContSerial( pChar->serial );
 	pItem->SetMultiSerial( INVALID_SERIAL ); 
 	pItem->setLayer( 0x1E );
