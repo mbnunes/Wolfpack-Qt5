@@ -167,10 +167,10 @@ public:
 protected:
 	// interface implementation
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
-	virtual void processNode( const QDomElement& Tag );
+	virtual void processNode( const cElement *Tag );
 
 	// other protected methods
-	void applyStartItemDefinition( const QDomElement &Tag );
+	void applyStartItemDefinition( const cElement *Tag );
 
     // The account object including this char.
     // cOldChar::account_

@@ -72,10 +72,10 @@ void cSpawnRegion::add( UI32 serial )
 		this->npcSerials_.push_back( serial );
 }
 
-void cSpawnRegion::processNode( const QDomElement &Tag )
+void cSpawnRegion::processNode( const cElement *Tag )
 {
-	QString TagName = Tag.nodeName();
-	QString Value = this->getNodeValue( Tag );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
 
 	//<npcs>
 	//  <npc mult="2">npcsection</npc> (mult inserts 2 same sections into the list so the probability rises!
@@ -84,27 +84,26 @@ void cSpawnRegion::processNode( const QDomElement &Tag )
 	//</npcs>
 	if( TagName == "npcs" )
 	{
-		QDomNode childNode = Tag.firstChild();
-		while( !childNode.isNull() )
+		for( unsigned int i = 0; i < Tag->childCount(); ++i )
 		{
-			if( !childNode.isElement() )
-				this->npcSections_.push_back( Value );
-			else if( childNode.nodeName() == "npc" )
+			const cElement* childNode = Tag->getChild( i ); 
+
+			if( childNode->name() == "npc" )
 			{
-				UI32 mult = childNode.toElement().attribute( "mult" ).toInt();
+				UI32 mult = childNode->getAttribute( "mult" ).toInt();
 				if( mult < 1 )
 					mult = 1;
 
 				for( UI32 i = 0; i < mult; i++ )
-					this->npcSections_.push_back( this->getNodeValue( childNode.toElement() ) );
+					npcSections_.push_back( childNode->getValue() );
 			}
-			else if( childNode.nodeName() == "getlist" )
+			else if( childNode->name() == "getlist" )
 			{
 				QString listSect;
-				if( childNode.attributes().contains( "id" ) )
-					listSect = childNode.toElement().attribute( "id" );
+				if( childNode->hasAttribute( "id" ) )
+					listSect = childNode->getAttribute( "id" );
 				else
-					listSect = getNodeValue( childNode.toElement() );
+					listSect = childNode->getValue();
 
 				QStringList NpcList = DefManager->getList( listSect );
 				QStringList::iterator it = NpcList.begin();
@@ -114,8 +113,6 @@ void cSpawnRegion::processNode( const QDomElement &Tag )
 					it++;
 				}
 			}
-
-			childNode = childNode.nextSibling();
 		}
 	}
 
@@ -126,27 +123,26 @@ void cSpawnRegion::processNode( const QDomElement &Tag )
 	//</items>
 	else if( TagName == "items" )
 	{
-		QDomNode childNode = Tag.firstChild();
-		while( !childNode.isNull() )
+		for( unsigned int i = 0; i < Tag->childCount(); ++i )
 		{
-			if( !childNode.isElement() )
-				this->itemSections_.push_back( Value );
-			else if( childNode.nodeName() == "item" )
+			const cElement *childNode = Tag->getChild( i );
+
+			if( childNode->name() == "item" )
 			{
-				UI32 mult = childNode.toElement().attribute( "mult" ).toInt();
+				UI32 mult = childNode->getAttribute( "mult" ).toInt();
 				if( mult < 1 )
 					mult = 1;
 
 				for( UI32 i = 0; i < mult; i++ )
-					this->itemSections_.push_back( this->getNodeValue( childNode.toElement() ) );
+					this->itemSections_.push_back( childNode->getValue() );
 			}
-			else if( childNode.nodeName() == "getlist" )
+			else if( childNode->name() == "getlist" )
 			{
 				QString listSect;
-				if( childNode.attributes().contains( "id" ) )
-					listSect = childNode.toElement().attribute( "id" );
+				if( childNode->hasAttribute( "id" ) )
+					listSect = childNode->getAttribute( "id" );
 				else
-					listSect = getNodeValue( childNode.toElement() );
+					listSect = childNode->getValue();
 
 				QStringList itemList = DefManager->getList( listSect );
 				QStringList::iterator it = itemList.begin();
@@ -156,8 +152,6 @@ void cSpawnRegion::processNode( const QDomElement &Tag )
 					it++;
 				}
 			}
-
-			childNode = childNode.nextSibling();
 		}
 	}
 
@@ -187,13 +181,13 @@ void cSpawnRegion::processNode( const QDomElement &Tag )
 
 	// <rectangle x1="0" x2="1000" y1="0" y2="500" z="5" />
 	else if( TagName == "rectangle" && 
-		Tag.attributes().contains( "x1" ) && Tag.attributes().contains( "x2" ) && 
-		Tag.attributes().contains( "y1" ) && Tag.attributes().contains( "y2" ) )
+		Tag->hasAttribute( "x1" ) && Tag->hasAttribute( "x2" ) && 
+		Tag->hasAttribute( "y1" ) && Tag->hasAttribute( "y2" ) )
 	{
 		cBaseRegion::processNode( Tag );
 
-		if( Tag.attributes().contains( "z" ) )
-			this->z_.push_back( Tag.attribute( "z" ).toUShort() );
+		if( Tag->hasAttribute( "z" ) )
+			this->z_.push_back( Tag->getAttribute( "z" ).toUShort() );
 		else
 			this->z_.push_back( 255 );
 	}
@@ -202,7 +196,7 @@ void cSpawnRegion::processNode( const QDomElement &Tag )
 	{
 		cSpawnRegion* toinsert_ = new cSpawnRegion( Tag );
 		this->subregions_.push_back( toinsert_ );
-		pair< QString, cSpawnRegion* > toInsert( Tag.attribute( "id" ), toinsert_ );
+		pair< QString, cSpawnRegion* > toInsert( Tag->getAttribute( "id" ), toinsert_ );
 		SpawnRegions::instance()->insert( toInsert );
 	}
 
@@ -390,9 +384,9 @@ void cAllSpawnRegions::load( void )
 	QStringList::iterator it = DefSections.begin();
 	while( it != DefSections.end() )
 	{
-		const QDomElement* DefSection = DefManager->getSection( WPDT_SPAWNREGION, *it );
+		const cElement* DefSection = DefManager->getDefinition( WPDT_SPAWNREGION, *it );
 
-		cSpawnRegion* toinsert_ = new cSpawnRegion( *DefSection );
+		cSpawnRegion* toinsert_ = new cSpawnRegion( DefSection );
 		this->insert( make_pair(*it, toinsert_) );
 		if ( toinsert_->cBaseRegion::rectangles().empty() )
 		{

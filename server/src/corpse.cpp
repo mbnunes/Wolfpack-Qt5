@@ -130,10 +130,10 @@ bool cCorpse::del()
 }
 
 // abstract cDefinable
-void cCorpse::processNode( const QDomElement &Tag )
+void cCorpse::processNode( const cElement *Tag )
 {
-	QString TagName = Tag.nodeName();
-	QString Value = this->getNodeValue( Tag );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
 
 	if( TagName == "bodyid" )
 		bodyId_ = Value.toUShort();

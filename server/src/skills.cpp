@@ -1148,141 +1148,127 @@ void cSkills::load()
 	
 	for( i = 0; i < ALLSKILLS; ++i )
 	{
-		const QDomElement *skill = DefManager->getSection( WPDT_SKILL, QString::number( i ) );
+		const cElement *skill = DefManager->getDefinition( WPDT_SKILL, QString::number( i ) );
 
-		if( !skill || skill->isNull() )
+		if( !skill )
 			continue;
 
 		stSkill nSkill;
 
-		QDomElement node = skill->firstChild().toElement();
-
-		while( !node.isNull() )
+		for( unsigned int j = 0; j < skill->childCount(); ++j )
 		{
-			if( node.nodeName() == "str" )
+			const cElement *node = skill->getChild( j );
+
+			if( node->name() == "str" )
 			{
-				nSkill.strength = node.text().toInt();
+				nSkill.strength = node->text().toInt();
 			}
-			else if( node.nodeName() == "dex" )
+			else if( node->name() == "dex" )
 			{
-				nSkill.dexterity = node.text().toInt();
+				nSkill.dexterity = node->text().toInt();
 			}
-			else if( node.nodeName() == "int" )
+			else if( node->name() == "int" )
 			{
-				nSkill.intelligence = node.text().toInt();
+				nSkill.intelligence = node->text().toInt();
 			}
-			else if( node.nodeName() == "name" )
+			else if( node->name() == "name" )
 			{
-				nSkill.name = node.text();
+				nSkill.name = node->text();
 			}
-			else if( node.nodeName() == "defname" )
+			else if( node->name() == "defname" )
 			{
-				nSkill.defname = node.text();
+				nSkill.defname = node->text();
 			}
-			else if( node.nodeName() == "title" )
+			else if( node->name() == "title" )
 			{
-				nSkill.title = node.text();
+				nSkill.title = node->text();
 			}
 			// Advancement section
-			else if( node.nodeName() == "advancement" )
+			else if( node->name() == "advancement" )
 			{
 				stAdvancement advancement;
 
-				advancement.base = node.attribute( "base", "0" ).toInt();
-				advancement.failure = node.attribute( "failure", "0" ).toInt();
-				advancement.success = node.attribute( "success", "0" ).toInt();
+				advancement.base = node->getAttribute( "base", "0" ).toInt();
+				advancement.failure = node->getAttribute( "failure", "0" ).toInt();
+				advancement.success = node->getAttribute( "success", "0" ).toInt();
 
 				nSkill.advancement.push_back( advancement );
 			}
-
-			QDomNode subNode = node.nextSibling();
-
-			if( subNode.isNull() || !subNode.isElement() )
-				break;
-			node = subNode.toElement();
 		}
 
 		skills.push_back( nSkill );
 	}
 
 	// Load Strength/Dexterity/Intelligence Advancement tables
-	const QDomElement *stat;
+	const cElement *stat = DefManager->getDefinition( WPDT_SKILL, "strength" );
 	
-	stat = DefManager->getSection( WPDT_SKILL, "strength" );
-	
-	if( !stat || stat->isNull() )
+	if( !stat )
 	{
 		clConsole.log( LOG_ERROR, "Couldn't find strength advancement table." );		
 	}
 	else
 	{
-		QDomNodeList list = stat->childNodes();
-
-		for( INT32 i = 0; i < list.count(); ++i )
+		for( INT32 i = 0; i < stat->childCount(); ++i )
 		{
-			if( list.item( i ).nodeName() == "advancement" && list.item( i ).isElement() )
+			const cElement *elem = stat->getChild( i );
+
+			if( elem->name() == "advancement" )
 			{
-				QDomElement elem = list.item( i ).toElement();
-				
 				stAdvancement advancement;
 
-				advancement.base = elem.attribute( "base", "0" ).toInt();
-				advancement.failure = elem.attribute( "failure", "0" ).toInt();
-				advancement.success = elem.attribute( "success", "0" ).toInt();
+				advancement.base = elem->getAttribute( "base", "0" ).toInt();
+				advancement.failure = elem->getAttribute( "failure", "0" ).toInt();
+				advancement.success = elem->getAttribute( "success", "0" ).toInt();
 
 				advStrength.push_back( advancement );
 			}
 		}
 	}
 
-	stat = DefManager->getSection( WPDT_SKILL, "dexterity" );
+	stat = DefManager->getDefinition( WPDT_SKILL, "dexterity" );
 	
-	if( !stat || stat->isNull() )
+	if( !stat )
 	{
 		clConsole.log( LOG_ERROR, "Couldn't find dexterity advancement table." );
 	}
 	else
 	{
-		QDomNodeList list = stat->childNodes();
-
-		for( INT32 i = 0; i < list.count(); ++i )
+		for( INT32 i = 0; i < stat->childCount(); ++i )
 		{
-			if( list.item( i ).nodeName() == "advancement" && list.item( i ).isElement() )
+			const cElement *elem = stat->getChild( i );
+
+			if( elem->name() == "advancement" )
 			{
-				QDomElement elem = list.item( i ).toElement();
-				
 				stAdvancement advancement;
 
-				advancement.base = elem.attribute( "base", "0" ).toInt();
-				advancement.failure = elem.attribute( "failure", "0" ).toInt();
-				advancement.success = elem.attribute( "success", "0" ).toInt();
+				advancement.base = elem->getAttribute( "base", "0" ).toInt();
+				advancement.failure = elem->getAttribute( "failure", "0" ).toInt();
+				advancement.success = elem->getAttribute( "success", "0" ).toInt();
 
 				advDexterity.push_back( advancement );
 			}
 		}
 	}
 
-	stat = DefManager->getSection( WPDT_SKILL, "intelligence" );
+	stat = DefManager->getDefinition( WPDT_SKILL, "intelligence" );
 	
-	if( !stat || stat->isNull() )
+	if( !stat )
 	{
 		clConsole.log( LOG_ERROR, "Couldn't find intelligence advancement table." );		
 	}
 	else
 	{
-		QDomNodeList list = stat->childNodes();
-
-		for( INT32 i = 0; i < list.count(); ++i )
+		for( INT32 i = 0; i < stat->childCount(); ++i )
 		{
-			if( list.item( i ).nodeName() == "advancement" && list.item( i ).isElement() )
+			const cElement *elem = stat->getChild( i );
+
+			if( elem->name() == "advancement" )
 			{
-				QDomElement elem = list.item( i ).toElement();
-				
 				stAdvancement advancement;
 
-				advancement.base = elem.attribute( "base", "0" ).toInt();
-				advancement.failure = elem.attribute( "failure", "0" ).toInt();
-				advancement.success = elem.attribute( "success", "0" ).toInt();
+				advancement.base = elem->getAttribute( "base", "0" ).toInt();
+				advancement.failure = elem->getAttribute( "failure", "0" ).toInt();
+				advancement.success = elem->getAttribute( "success", "0" ).toInt();
 
 				advIntelligence.push_back( advancement );
 			}

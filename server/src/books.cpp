@@ -347,10 +347,10 @@ bool cBook::del()
 	return cItem::del( s );
 }*/
 
-void cBook::processNode( const QDomElement &Tag )
+void cBook::processNode( const cElement *Tag )
 {
-	QString TagName = Tag.nodeName();
-	QString Value = this->getNodeValue( Tag );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
 
 	//	<title>blabla</title>
 	if( TagName == "title" )
@@ -375,30 +375,26 @@ void cBook::processNode( const QDomElement &Tag )
 	//	</content>
 	else if( TagName == "content" )
 	{
-		QDomNode childNode = Tag.firstChild();
-		while( !childNode.isNull() )
+		for( unsigned int i = 0; i < Tag->childCount(); ++i )
 		{
-			if( childNode.isElement() )
-			{
-				QDomElement childTag = childNode.toElement();
-				QString text = childTag.text();
-				text = text.replace( QRegExp( "\\t" ), "" );
-				while( text.left( 1 ) == "\n" || text.left( 1 ) == "\r" )
-					text = text.right( text.length()-1 );
-				while( text.right( 1 ) == "\n" || text.right( 1 ) == "\r" )
-					text = text.left( text.length()-1 );
+			const cElement *childTag = Tag->getChild( i );
 
-				if( childTag.attributes().contains("no") )
-				{
-					UINT32 n = childTag.attribute( "no" ).toShort();
-					while( content_.size() <= n )
-						content_.push_back( "" );
-					content_[ n - 1 ] = text;
-				}
-				else
-					content_.push_back( text );
+			QString text = childTag->text();
+			text = text.replace( QRegExp( "\\t" ), "" );
+			while( text.left( 1 ) == "\n" || text.left( 1 ) == "\r" )
+				text = text.right( text.length()-1 );
+			while( text.right( 1 ) == "\n" || text.right( 1 ) == "\r" )
+				text = text.left( text.length()-1 );
+
+			if( childTag->hasAttribute( "no" ) )
+			{
+				UINT32 n = childTag->getAttribute( "no" ).toShort();
+				while( content_.size() <= n )
+					content_.push_back( "" );
+				content_[ n - 1 ] = text;
 			}
-			childNode = childNode.nextSibling();
+			else
+				content_.push_back( text );
 		}
 	}
 
@@ -421,74 +417,8 @@ void cBook::processNode( const QDomElement &Tag )
 
 void cBook::refresh( void )
 {
-	const QDomElement* DefSection = DefManager->getSection( WPDT_ITEM, section_ );
-	if( !DefSection->isNull() )
-	{
-		QDomNode childNode = DefSection->firstChild();
-		while( !childNode.isNull() )
-		{
-			if( childNode.isElement() )
-			{
-				QDomElement Tag = childNode.toElement();
-				QString TagName = Tag.nodeName();
-				QString Value = this->getNodeValue( Tag );
-
-				//	<title>blabla</title>
-				if( TagName == "title" )
-				{
-					setTitle( Value );
-				}
-
-				//	<author>blabla</author>
-				else if( TagName == "author" )
-				{
-					setAuthor( Value );
-				}
-
-				//	<content>
-				//		<page no="1">
-				//			sdjkjsdk
-				//			asdjkasdjk
-				//		</page>
-				//		<page>
-				//		...
-				//		</page>
-				//	</content>
-				else if( TagName == "content" )
-				{
-					QStringList content;
-					QDomNode chchildNode = Tag.firstChild();
-					while( !chchildNode.isNull() )
-					{
-						if( chchildNode.isElement() )
-						{
-							QDomElement chchildTag = chchildNode.toElement();
-							QString text = chchildTag.text();
-							text = text.replace( QRegExp( "\\t" ), "" );
-							while( text.left( 1 ) == "\n" || text.left( 1 ) == "\r" )
-								text = text.right( text.length()-1 );
-							while( text.right( 1 ) == "\n" || text.right( 1 ) == "\r" )
-								text = text.left( text.length()-1 );
-
-							if( chchildTag.attributes().contains("no") )
-							{
-								UINT32 n = chchildTag.attribute( "no" ).toShort();
-								while( content.size() <= n )
-									content.push_back( "" );
-
-								content[ n - 1 ] = text;
-							}
-							else
-								content.push_back( text );
-						}
-						chchildNode = chchildNode.nextSibling();
-					}
-					this->content_ = content;
-				}
-			}
-			childNode = childNode.nextSibling();
-		}
-	}
+	const cElement* section = DefManager->getDefinition( WPDT_ITEM, section_ );
+	applyDefinition( section );
 }
 
 void cBook::open( cUOSocket* socket )

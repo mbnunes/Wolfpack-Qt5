@@ -495,10 +495,10 @@ void cNPC::kill()
 	// Create our Corpse
 	cCorpse *corpse = new cCorpse( true );
 
-	const QDomElement *elem = DefManager->getSection( WPDT_ITEM, "2006" );
+	const cElement *elem = DefManager->getDefinition( WPDT_ITEM, "2006" );
 	
-	if( elem && !elem->isNull() )
-		corpse->applyDefinition( (*elem) );
+	if( elem )
+		corpse->applyDefinition( elem );
 
 	corpse->setName( tr( "corpse of %1" ).arg( name() ) );
 	corpse->setColor( orgSkin() );
@@ -659,9 +659,10 @@ void cNPC::callGuards()
 	cBaseChar::callGuards();
 }
 
-void cNPC::applyDefinition( const QDomElement& sectionNode )
+void cNPC::applyDefinition( const cElement *sectionNode )
 {
 	cBaseChar::applyDefinition( sectionNode );
+
 	// Let's try to assume some unspecified values
 	if ( this->strength() && !this->hitpoints() ) // we don't want to instantly die, right?
 	{
@@ -910,11 +911,11 @@ void cNPC::toggleCombat()
 	Movement::instance()->CombatWalk( this );
 }
 
-void cNPC::processNode( const QDomElement &Tag )
+void cNPC::processNode( const cElement *Tag )
 {
 	changed( SAVE );
-	QString TagName = Tag.nodeName();
-	QString Value = this->getNodeValue( Tag );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
 	QDomNodeList ChildTags;
 
 	//<carve>3</carve>
@@ -929,10 +930,10 @@ void cNPC::processNode( const QDomElement &Tag )
 	//<attack>10</attack>
 	else if( TagName == "attack" )
 	{
-		if( Tag.hasAttribute("min") && Tag.hasAttribute("max") )
+		if( Tag->hasAttribute("min") && Tag->hasAttribute("max") )
 		{
-			minDamage_ = hex2dec( Tag.attribute("min") ).toInt();
-			maxDamage_ = hex2dec( Tag.attribute("max") ).toInt();
+			minDamage_ = hex2dec( Tag->getAttribute("min") ).toInt();
+			maxDamage_ = hex2dec( Tag->getAttribute("max") ).toInt();
 		}
 		else
 		{
@@ -972,25 +973,25 @@ void cNPC::processNode( const QDomElement &Tag )
 	//<......... type="none" (or "0") />
 	else if( TagName == "npcwander" )
 	{
-		if( Tag.attributes().contains("type") )
+		if( Tag->hasAttribute("type") )
 		{
-			QString wanderType = Tag.attribute("type");
+			QString wanderType = Tag->getAttribute("type");
 			if( wanderType == "rectangle" || wanderType == "rect" || wanderType == "3" )
-				if( Tag.attributes().contains("x1") &&
-					Tag.attributes().contains("x2") &&
-					Tag.attributes().contains("y1") &&
-					Tag.attributes().contains("y2") )
+				if( Tag->hasAttribute("x1") &&
+					Tag->hasAttribute("x2") &&
+					Tag->hasAttribute("y1") &&
+					Tag->hasAttribute("y2") )
 				{
-					wanderType_ = stWanderType( pos().x + Tag.attribute("x1").toInt(),
-						pos().x + Tag.attribute("x2").toInt(),
-						pos().y + Tag.attribute("y1").toInt(),
-						pos().y + Tag.attribute("y2").toInt() );
+					wanderType_ = stWanderType( pos().x + Tag->getAttribute("x1").toInt(),
+						pos().x + Tag->getAttribute("x2").toInt(),
+						pos().y + Tag->getAttribute("y1").toInt(),
+						pos().y + Tag->getAttribute("y2").toInt() );
 				}
 			else if( wanderType == "circle" || wanderType == "4" )
 			{
 				wanderType_ = stWanderType( pos().x, pos().y, 5 );
-				if( Tag.attributes().contains("radius") )
-					setWanderRadius( Tag.attribute("radius").toInt() );
+				if( Tag->hasAttribute("radius") )
+					setWanderRadius( Tag->getAttribute("radius").toInt() );
 			}
 			else if( wanderType == "free" || wanderType == "2" )
 				wanderType_ = stWanderType( enFreely );
@@ -1012,37 +1013,28 @@ void cNPC::processNode( const QDomElement &Tag )
 	else if( TagName == "shopkeeper" )
 	{
 		makeShop();
-		QDomNode childNode = Tag.firstChild();
-		while( !childNode.isNull() )
-		{
-			QDomElement currNode = childNode.toElement();
-			
-			if( !currNode.hasChildNodes() )
-			{
-				childNode = childNode.nextSibling();
-				continue;
-			}
 
+		for( unsigned int i = 0; i < Tag->childCount(); ++i )
+		{
+			const cElement *currNode = Tag->getChild( i );
+			
+			if( !currNode->childCount() )
+				continue;
+			
 			unsigned char contlayer = 0;
-			if( currNode.nodeName() == "restockable" )
+			if( currNode->name() == "restockable" )
 				contlayer = BuyRestockContainer;
-			else if( currNode.nodeName() == "buyable" )
+			else if( currNode->name() == "buyable" )
 				contlayer = BuyNoRestockContainer;
-			else if( currNode.nodeName() == "sellable" )
+			else if( currNode->name() == "sellable" )
 				contlayer = SellContainer;
 			else 
-			{
-				childNode = childNode.nextSibling();
 				continue;
-			}
 				
 			P_ITEM contItem = this->GetItemOnLayer( contlayer );
 			if( contItem != NULL )
 				contItem->processContainerNode( currNode );
-			childNode = childNode.nextSibling();
-		}
-		
-//		restock();
+		}		
 	}
 		
 /*	//<split>1</split>

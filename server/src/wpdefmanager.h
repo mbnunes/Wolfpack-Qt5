@@ -36,14 +36,16 @@
 #include <qdom.h>
 #include <qmap.h>
 #include <qstring.h>
+#include <qvaluevector.h>
 
 // Foward declarations
 class QStringList;
+class QXmlAttributes;
 
 // Typedefs
 typedef QMap< QString, QDomElement > DefSections;
 
-enum WPDEF_TYPE 
+enum eDefCategory 
 {
 	WPDT_ITEM = 0,
 	WPDT_SCRIPT,
@@ -66,51 +68,80 @@ enum WPDEF_TYPE
 	WPDT_SKILLCHECK,
 	WPDT_DEFINE,
 	WPDT_RESOURCE,
- 	WPDT_CONTEXTMENU
+ 	WPDT_CONTEXTMENU,
+	WPDT_COUNT
+};
+
+class cDefManagerPrivate;
+
+class cElement
+{
+private:
+	struct stAttribute
+	{
+		QString name;
+		QString value;
+	};
+
+	QString name_; // Tag Name spell for <spell i.e.
+	QString text_; // This is not really a well implemented approach. this is subject to change
+
+	cElement *parent_;
+
+	unsigned int childCount_;
+	cElement **children; // Array of Childs
+	
+	unsigned int attrCount_;
+	stAttribute **attributes; // Attributes
+
+	void freeAttributes();
+	void freeChildren();
+
+public:
+	cElement();
+	virtual ~cElement();
+
+	void copyAttributes( const QXmlAttributes &attributes );
+	void addChild( cElement *element );
+
+	void removeChild( cElement *element );
+	const cElement *findChild( const QString &name ) const;
+	const cElement *getChild( unsigned int index ) const;
+	unsigned int childCount() const;
+	bool hasAttribute( const QString &name ) const;
+	const QString &getAttribute( const QString &name, const QString &def = QString::null ) const;
+	
+	void setName( const QString &data );
+	const QString &name() const;
+
+	void setText( const QString &data );
+	const QString &text() const;
+
+	void setParent( cElement *parent );
+	cElement *parent() const;
+
+	QString getValue() const;
 };
 
 class WPDefManager  
 {
-private:
-	// Maps
-	DefSections Items;
-	DefSections Scripts;
-	DefSections NPCs;
-	DefSections StringLists;
-	DefSections Menus;
-	DefSections Spells;
-	DefSections PrivLevels;
-	DefSections SpawnRegions;
-	DefSections Regions;
-	DefSections Multis;
-	DefSections Texts;
-	DefSections StartItems;
-	DefSections Locations;
-	DefSections Skills;
-	DefSections Actions;
-	DefSections MakeSections;
-	DefSections MakeItems;
-	DefSections UseItems;
-	DefSections SkillChecks;
-	DefSections Defines;
-	DefSections Resources;
- 	DefSections ContextMenus;
-
-	bool ImportSections( const QString& FileName );
-
 public:
-	WPDefManager() {};
-	virtual ~WPDefManager() {};
+	WPDefManager();
+	virtual ~WPDefManager();
 
 	void reload( void );
 	void load( void );
 	void unload( void );
-	void unload( WPDEF_TYPE );
 
-	void ProcessNode( const QDomElement& Node );
+	bool ImportSections( const QString& FileName );
 
-	const QDomElement*	getSection( WPDEF_TYPE Type, const QString& Section ) const;
-	QStringList			getSections( WPDEF_TYPE Type ) const;
+	cDefManagerPrivate *impl;
+
+	const cElement*		getDefinition( eDefCategory Type, const QString& id ) const;
+	const QValueVector< cElement* > &getDefinitions( eDefCategory Type ) const;
+
+	//const QDomElement*	getSection( eDefCategory Type, const QString& Section ) const;
+	QStringList			getSections( eDefCategory Type ) const;
 	QString				getRandomListEntry( const QString& ListSection ) const;
 	QStringList			getList( const QString& ListSection ) const;
 	QString				getText( const QString& TextSection ) const;

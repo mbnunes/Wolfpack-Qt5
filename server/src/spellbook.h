@@ -77,7 +77,7 @@ public:
 	bool del();
 
 	// abstract cDefinable
-	virtual void processNode( const QDomElement &Tag );
+	virtual void processNode( const cElement *Tag );
 
 	// Opening a spellbook is done here
 	virtual bool onUse( cUObject *Target );

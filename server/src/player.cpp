@@ -490,10 +490,10 @@ void cPlayer::kill()
 	// Create our Corpse
 	cCorpse *corpse = new cCorpse( true );
 
-	const QDomElement *elem = DefManager->getSection( WPDT_ITEM, "2006" );
+	const cElement *elem = DefManager->getDefinition( WPDT_ITEM, "2006" );
 	
-	if( elem && !elem->isNull() )
-		corpse->applyDefinition( (*elem) );
+	if( elem )
+		corpse->applyDefinition( elem );
 
 	corpse->setName( tr( "corpse of %1" ).arg( name() ) );
 	corpse->setColor( orgSkin() );
@@ -1094,144 +1094,139 @@ bool cPlayer::online() const
 
 void cPlayer::giveNewbieItems( Q_UINT8 skill ) 
 {
-	const QDomElement *startItems = DefManager->getSection( WPDT_STARTITEMS, ( skill == 0xFF ) ? QString("default") : Skills->getSkillDef( skill ).lower() );
+	const cElement *startItems = DefManager->getDefinition( WPDT_STARTITEMS, ( skill == 0xFF ) ? QString("default") : Skills->getSkillDef( skill ).lower() );
 
 	// No Items defined
-	if( !startItems || startItems->isNull() )
+	if( !startItems )
 	{
-		startItems = DefManager->getSection( WPDT_STARTITEMS, "default" );
-		if( !startItems || startItems->isNull() )
+		startItems = DefManager->getDefinition( WPDT_STARTITEMS, "default" );
+		if( !startItems )
 			return;
 	}
 
-	applyStartItemDefinition( *startItems );
+	applyStartItemDefinition( startItems );
 }
 
-void cPlayer::applyStartItemDefinition( const QDomElement &Tag )
+void cPlayer::applyStartItemDefinition( const cElement *Tag )
 {
-	QDomNode childNode = Tag.firstChild();
-
-	while( !childNode.isNull() )
+	for( unsigned int i = 0; i < Tag->childCount(); ++i )
 	{
-		QDomElement node = childNode.toElement();
-		if( !node.isNull() )
+		const cElement *node = Tag->getChild( i );
+
+		if( node->name() == "item" )
 		{
-			if( node.nodeName() == "item" )
+			P_ITEM pItem = NULL;
+			const cElement *DefSection = DefManager->getDefinition( WPDT_ITEM, node->getAttribute( "id" ) );
+			if( DefSection )
 			{
-				P_ITEM pItem = NULL;
-				const QDomElement *DefSection = DefManager->getSection( WPDT_ITEM, node.attribute( "id" ) );
-				if( DefSection && !DefSection->isNull() )
-				{
-					// books wont work without this
-					pItem = Items->createScriptItem( node.attribute("id") );
-				}
+				// books wont work without this
+				pItem = Items->createScriptItem( node->getAttribute("id") );
+			}
+			else
+			{
+				pItem = new cItem;
+				pItem->Init( true );
+			}
+
+			if( pItem )
+			{
+				pItem->applyDefinition( node );
+				pItem->setNewbie( true ); // make it newbie
+
+				if( pItem->id() <= 1 )
+					Items->DeleItem( pItem );
 				else
 				{
-					pItem = new cItem;
-					pItem->Init( true );
-				}
-
-				if( pItem )
-				{
-					pItem->applyDefinition( node );
-					pItem->setNewbie( true ); // make it newbie
-
-					if( pItem->id() <= 1 )
-						Items->DeleItem( pItem );
+					// Put it into the backpack
+					P_ITEM backpack = getBackpack();
+					if( backpack )
+						backpack->addItem( pItem );
 					else
-					{
-						// Put it into the backpack
-						P_ITEM backpack = getBackpack();
-						if( backpack )
-							backpack->addItem( pItem );
-						else
-							Items->DeleItem( pItem );
-					}
-				}
-			}
-			else if( node.nodeName() == "bankitem" )
-			{
-				P_ITEM pItem = NULL;
-				const QDomElement *DefSection = DefManager->getSection( WPDT_ITEM, node.attribute( "id" ) );
-				if( DefSection && !DefSection->isNull() )
-				{
-					// books wont work without this
-					pItem = Items->createScriptItem( node.attribute("id") );
-				}
-				else
-				{
-					pItem = new cItem;
-					pItem->Init( true );
-				}
-
-				if( pItem )
-				{
-					pItem->applyDefinition( node );
-					pItem->setNewbie( true ); // make it newbie
-
-					if( pItem->id() <= 1 )
 						Items->DeleItem( pItem );
-					else
-					{
-						// Put it into the bankbox
-						P_ITEM bankbox = getBankBox();
-						if( bankbox )
-							bankbox->addItem( pItem );
-						else
-							Items->DeleItem( pItem );
-					}
 				}
-			}
-			else if( node.nodeName() == "equipment" )
-			{
-				P_ITEM pItem = NULL;
-				const QDomElement *DefSection = DefManager->getSection( WPDT_ITEM, node.attribute( "id" ) );
-				if( DefSection && !DefSection->isNull() )
-				{
-					// books wont work without this
-					pItem = Items->createScriptItem( node.attribute("id") );
-				}
-				else
-				{
-					pItem = new cItem;
-					pItem->Init( true );
-				}
-
-				if( pItem )
-				{
-					pItem->applyDefinition( node );
-					pItem->setNewbie( true ); // make it newbie
-
-					UINT16 mLayer = pItem->layer();
-					pItem->setLayer( 0 );
-					if( !mLayer )
-					{
-						tile_st tile = TileCache::instance()->getTile( pItem->id() );
-						mLayer = tile.layer;
-					}
-
-					if( pItem->id() <= 1 || !mLayer )
-						Items->DeleItem( pItem );
-					else
-					{
-						// Put it onto the char
-						this->addItem( static_cast<cBaseChar::enLayer>( mLayer ), pItem );
-						giveItemBonus( pItem );
-					}
-				}
-			}
-			else if( node.nodeName() == "gold" )
-			{
-				giveGold( node.text().toUInt() );
-			}
-			else if( node.nodeName() == "inherit" )
-			{
-				const QDomElement* inheritNode = DefManager->getSection( WPDT_STARTITEMS, node.attribute("id") );
-				if( inheritNode && !inheritNode->isNull() )
-					applyStartItemDefinition( *inheritNode );
 			}
 		}
-		childNode = childNode.nextSibling();
+		else if( node->name() == "bankitem" )
+		{
+			P_ITEM pItem = NULL;
+			const cElement *DefSection = DefManager->getDefinition( WPDT_ITEM, node->getAttribute( "id" ) );
+			if( DefSection )
+			{
+				// books wont work without this
+				pItem = Items->createScriptItem( node->getAttribute("id") );
+			}
+			else
+			{
+				pItem = new cItem;
+				pItem->Init( true );
+			}
+
+			if( pItem )
+			{
+				pItem->applyDefinition( node );
+				pItem->setNewbie( true ); // make it newbie
+
+				if( pItem->id() <= 1 )
+					Items->DeleItem( pItem );
+				else
+				{
+					// Put it into the bankbox
+					P_ITEM bankbox = getBankBox();
+					if( bankbox )
+						bankbox->addItem( pItem );
+					else
+						Items->DeleItem( pItem );
+				}
+			}
+		}
+		else if( node->name() == "equipment" )
+		{
+			P_ITEM pItem = NULL;
+			const cElement *DefSection = DefManager->getDefinition( WPDT_ITEM, node->getAttribute( "id" ) );
+			if( DefSection )
+			{
+				// books wont work without this
+				pItem = Items->createScriptItem( node->getAttribute("id") );
+			}
+			else
+			{
+				pItem = new cItem;
+				pItem->Init( true );
+			}
+
+			if( pItem )
+			{
+				pItem->applyDefinition( node );
+				pItem->setNewbie( true ); // make it newbie
+
+				UINT16 mLayer = pItem->layer();
+				pItem->setLayer( 0 );
+				if( !mLayer )
+				{
+					tile_st tile = TileCache::instance()->getTile( pItem->id() );
+					mLayer = tile.layer;
+				}
+
+				if( pItem->id() <= 1 || !mLayer )
+					Items->DeleItem( pItem );
+				else
+				{
+					// Put it onto the char
+					this->addItem( static_cast<cBaseChar::enLayer>( mLayer ), pItem );
+					giveItemBonus( pItem );
+				}
+			}
+		}
+		else if( node->name() == "gold" )
+		{
+			giveGold( node->getValue().toUInt() );
+		}
+		else if( node->name() == "inherit" )
+		{
+			const cElement* inheritNode = DefManager->getDefinition( WPDT_STARTITEMS, node->getAttribute("id") );
+			if( inheritNode )
+				applyStartItemDefinition( inheritNode );
+		}
 	}
 }
 
@@ -1414,7 +1409,7 @@ bool cPlayer::onShowContext( cUObject *object )
 	return false;
 }
 
-void cPlayer::processNode( const QDomElement &Tag )
+void cPlayer::processNode( const cElement *Tag )
 {
 	return;
 }

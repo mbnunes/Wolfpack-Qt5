@@ -132,37 +132,24 @@ void cScriptManager::load()
 	clConsole.PrepareProgress( "Loading Script Manager" );
 
 	// Load the XML Script
-	QStringList SectionList = DefManager->getSections( WPDT_SCRIPT );
-
 	UI32 ScriptsLoaded = 0;
 
 	// Each Section is a Script identifier
-	for( UI32 i = 0; i < SectionList.count(); ++i )
+	const QValueVector< cElement* > &sections = DefManager->getDefinitions( WPDT_SCRIPT );
+
+	for( unsigned int i = 0; i < sections.size(); ++i )
 	{
-		const QDomElement *NodePtr = DefManager->getSection( WPDT_SCRIPT, SectionList[ i ] );
+		const cElement *element = sections[i];
 
-		if( !NodePtr || NodePtr->isNull() || !NodePtr->attributes().contains( QString( "type" ) ) )
-			continue;
+		cPythonScript *script = new cPythonScript;
+		script->load( element );
+		add( script->name(), script );
 
-		QString ScriptType = NodePtr->attributes().namedItem( QString( "type" ) ).nodeValue();
-
-		cPythonScript *Script = 0;
-
-		// Decide upon the Constructor based on the script-type
-		if( ScriptType == "default" )
-			Script = new cPythonScript;
-		else if( ScriptType == "python" )
-			Script = new cPythonScript;
-		else
-			continue;
-	
-		add( SectionList[ i ].latin1(), Script );
-		Script->load( *NodePtr );
 		++ScriptsLoaded;
 	}
 
 	clConsole.ProgressDone();
-	clConsole.send( QString("%1 Script(s) loaded successfully\n").arg(ScriptsLoaded) );
+	clConsole.send( QString("%1 Script(s) loaded\n").arg(ScriptsLoaded) );
 }
 
 void cScriptManager::addCommandHook( const QString &command, cPythonScript *script )

@@ -83,7 +83,7 @@ public:
 	void handlePlankClick( cUOSocket* socket, P_ITEM pplank );
 	void switchPlankState( P_ITEM pplank );
 
-	void build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial );
+	void build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial );
 	bool move( void );
 	void turn( SI08 turn );
 
@@ -101,8 +101,8 @@ public:
 	bool	isboat() { return true; }
 
 protected:
-	virtual void processNode( const QDomElement &Tag );
-	void	processSpecialItemNode( const QDomElement &Tag, UI08 item );
+	virtual void processNode( const cElement *Tag );
+	void	processSpecialItemNode( const cElement *Tag, UI08 item );
 
 	bool leave( cUOSocket* socket, P_ITEM pplank );
 

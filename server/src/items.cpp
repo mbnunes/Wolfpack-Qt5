@@ -1188,40 +1188,39 @@ P_ITEM cAllItems::createScriptItem( const QString& Section )
 	P_ITEM nItem = NULL;
 
 	// Get an Item and assign a serial to it
-	const QDomElement* DefSection = DefManager->getSection( WPDT_ITEM, Section );
+	const cElement* DefSection = DefManager->getDefinition( WPDT_ITEM, Section );
 	
-	if( DefSection->isNull() ) // section not found 
+	if( !DefSection ) // section not found 
 	{
 		clConsole.log( LOG_ERROR, QString( "Unable to create unscripted item: %1\n" ).arg( Section ) );
 		return NULL;
 	}
 
-	//books:
-	if( DefSection->attributes().contains( "type" ) )
+	// books etc.
+	QString type = DefSection->getAttribute( "type" );
+
+	if( type == "book" )
 	{
-		if( DefSection->attribute( "type" ) == "book" )
-		{
-			cBook* nBook = new cBook();
-			nBook->setSerial( World::instance()->findItemSerial() );
+		cBook* nBook = new cBook();
+		nBook->setSerial( World::instance()->findItemSerial() );
 
-			nBook->applyDefinition( *DefSection );
-			nBook->setSection( Section );
+		nBook->applyDefinition( DefSection );
+		nBook->setSection( Section );
 
-			nItem = nBook;
-		}
-		else if( DefSection->attribute( "type" ) == "spellbook" )
-		{
-			cSpellBook *spellBook = new cSpellBook();
-			spellBook->Init( true );
-			spellBook->applyDefinition( *DefSection );
-			nItem = spellBook;
-		}
+		nItem = nBook;
+	}
+	else if( type == "spellbook" )
+	{
+		cSpellBook *spellBook = new cSpellBook();
+		spellBook->Init( true );
+		spellBook->applyDefinition( DefSection );
+		nItem = spellBook;
 	}
 	else
 	{
 		nItem = new cItem;
 		nItem->Init( true );
-		nItem->applyDefinition( *DefSection );
+		nItem->applyDefinition( DefSection );
 	}
 
 	nItem->onCreate( Section );
@@ -1316,20 +1315,21 @@ bool cItem::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
 }
 
 
-void cItem::processNode( const QDomElement& Tag )
+void cItem::processNode( const cElement *Tag )
 {
 	changed( SAVE );
 	// we do this as we're going to modify the element
-	QString TagName = Tag.nodeName();
-	QString Value = this->getNodeValue( Tag );
-	const QDomElement* DefSection = DefManager->getSection( WPDT_DEFINE, TagName );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
+	
+	const cElement *section = DefManager->getDefinition( WPDT_DEFINE, TagName );
 
 	// <bindmenu>contextmenu</bindmenu>
 	// <bindmenu id="contextmenu" />
 	if( TagName == "bindmenu" )
 	{
-		if( !Tag.attribute( "id" ).isNull() ) 
-			this->setBindmenu(Tag.attribute( "id" ));
+		if( Tag->hasAttribute( "id" ) ) 
+			this->setBindmenu( Tag->getAttribute( "id" ));
 		else
 			setBindmenu(Value);
 	}
@@ -1356,11 +1356,11 @@ void cItem::processNode( const QDomElement& Tag )
 	// <attack min="1" max="2"/>
 	else if( TagName == "attack" )
 	{
-		if( Tag.attributes().contains( "min" ) )
-			this->setLodamage( Tag.attribute( "min" ).toInt() );
+		if( Tag->hasAttribute( "min" ) )
+			this->setLodamage( Tag->getAttribute( "min" ).toInt() );
 
-		if( Tag.attributes().contains( "max" ) )
-			this->setHidamage( Tag.attribute( "max" ).toInt() );
+		if( Tag->hasAttribute( "max" ) )
+			this->setHidamage( Tag->getAttribute( "max" ).toInt() );
 
 		// Better...
 		if( this->lodamage() > this->hidamage() )
@@ -1510,10 +1510,10 @@ void cItem::processNode( const QDomElement& Tag )
 	// <requires type="xx">2</requires>
 	else if( TagName == "requires" )
 	{
-		if( !Tag.attributes().contains( "type" ) )
+		if( !Tag->hasAttribute( "type" ) )
 			return;
 
-		QString Type = Tag.attribute( "type" );
+		QString Type = Tag->getAttribute( "type" );
 			
 		if( Type == "str" )
 			this->st_ = Value.toULong();
@@ -1536,10 +1536,10 @@ void cItem::processNode( const QDomElement& Tag )
 	// <modifier type="xx">2</modifier>
 	else if( TagName == "modifier" )
 	{
-		if( !Tag.attributes().contains( "type" ) )
+		if( !Tag->hasAttribute( "type" ) )
 			return;
 
-		QString Type = Tag.attribute( "type" );
+		QString Type = Tag->getAttribute( "type" );
 			
 		if( Type == "str" )
 			this->st2_ = Value.toShort();
@@ -1574,23 +1574,21 @@ void cItem::processNode( const QDomElement& Tag )
 	}
 
 	// <content><item id="a" />...<item id="z" /></contains> (sereg)
-	else if( TagName == "content" && Tag.hasChildNodes() )
+	else if( TagName == "content" && Tag->childCount() > 0 )
 		this->processContainerNode( Tag ); 
 
 	// <inherit>f23</inherit>
-	else if( TagName == "inherit" && Tag.attributes().contains( "id" ) )
-	{
-		const QDomElement* DefSection = DefManager->getSection( WPDT_ITEM, Tag.attribute( "id" ) );
-		if( !DefSection->isNull() )
-			applyDefinition( *DefSection );
-	}
-
 	else if( TagName == "inherit" )
 	{
-		QString nodeValue = getNodeValue( Tag );
-		const QDomElement* DefSection = DefManager->getSection( WPDT_ITEM, nodeValue );
-		if( !DefSection->isNull() )
-			applyDefinition( *DefSection );
+		const cElement *section;
+
+		if( Tag->hasAttribute( "id" ) )
+			section = DefManager->getDefinition( WPDT_ITEM, Tag->getAttribute( "id" ) );
+		else
+			section = DefManager->getDefinition( WPDT_ITEM, Value );
+		
+		if( section )
+			applyDefinition( section );
 	}
 
 	// <accuracy>20</accuracy> value between 0 and 100
@@ -1599,15 +1597,10 @@ void cItem::processNode( const QDomElement& Tag )
 		setAccuracy( Value.toUShort() );
 	}
 
-	else if( !DefSection->isNull() )
+	else if( section )
 	{
-		QDomNode chNode = DefSection->firstChild();
-		while( !chNode.isNull() )
-		{
-			if( chNode.isElement() )
-				processModifierNode( chNode.toElement() );
-			chNode = chNode.nextSibling();
-		}
+		for( unsigned int i = 0; i < section->childCount(); ++i )
+			processModifierNode( section->getChild( i ) );
 	}
 
 	else
@@ -1615,10 +1608,10 @@ void cItem::processNode( const QDomElement& Tag )
 
 }
 
-void cItem::processModifierNode( const QDomElement &Tag )
+void cItem::processModifierNode( const cElement *Tag )
 {
-	QString TagName = Tag.nodeName();
-	QString Value = getNodeValue( Tag );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
 
 	// <name>magic %1</name>
 	if( TagName == "name" )
@@ -1654,18 +1647,18 @@ void cItem::processModifierNode( const QDomElement &Tag )
 	// <attack min="-1" max="+2"/>
 	else if( TagName == "attack" )
 	{
-		if( Tag.attributes().contains( "min" ) )
+		if( Tag->hasAttribute( "min" ) )
 		{
-			Value = Tag.attribute("min");
+			Value = Tag->getAttribute("min");
 			if( Value.contains(".") || Value.contains(",") )
 				setLodamage( (UINT16)ceil((float)lodamage() * Value.toFloat()) );
 			else
 				setLodamage( lodamage() + Value.toInt() );
 		}
 
-		if( Tag.attributes().contains( "max" ) )
+		if( Tag->hasAttribute( "max" ) )
 		{
-			Value = Tag.attribute("max");
+			Value = Tag->getAttribute("max");
 			if( Value.contains(".") || Value.contains(",") )
 				setHidamage( (UINT16)ceil((float)hidamage() * Value.toFloat()) );
 			else
@@ -1735,10 +1728,10 @@ void cItem::processModifierNode( const QDomElement &Tag )
 	// <requires type="xx">2</requires>
 	else if( TagName == "requires" )
 	{
-		if( !Tag.attributes().contains( "type" ) )
+		if( !Tag->hasAttribute( "type" ) )
 			return;
 
-		QString Type = Tag.attribute( "type" );
+		QString Type = Tag->getAttribute( "type" );
 			
 		if( Type == "str" )
 		{
@@ -1766,10 +1759,10 @@ void cItem::processModifierNode( const QDomElement &Tag )
 	// <modifier type="xx">2</modifier>
 	else if( TagName == "modifier" )
 	{
-		if( !Tag.attributes().contains( "type" ) )
+		if( !Tag->hasAttribute( "type" ) )
 			return;
 
-		QString Type = Tag.attribute( "type" );
+		QString Type = Tag->getAttribute( "type" );
 			
 		if( Type == "str" )
 		{
@@ -1809,7 +1802,7 @@ void cItem::processModifierNode( const QDomElement &Tag )
 	}
 }
 
-void cItem::processContainerNode( const QDomElement &Tag )
+void cItem::processContainerNode( const cElement *Tag )
 {
 	//item containers can be scripted like this:
 	/*
@@ -1819,36 +1812,36 @@ void cItem::processContainerNode( const QDomElement &Tag )
 		...
 	</contains>
 	*/
-	QDomNode childNode = Tag.firstChild();
-	vector< QDomElement > equipment;
-		
-	while( !childNode.isNull() )
-	{		
-		if( childNode.nodeName() == "item" )
-			equipment.push_back( childNode.toElement() );
-		else if( childNode.nodeName() == "getlist" && childNode.attributes().contains( "id" ) )
-		{
-			QStringList list = DefManager->getList( childNode.toElement().attribute( "id" ) );
-			for( QStringList::iterator it = list.begin(); it != list.end(); it++ )
-				if( DefManager->getSection( WPDT_ITEM, *it ) )
-					equipment.push_back( *DefManager->getSection( WPDT_ITEM, *it ) );
-		}
+	std::vector< const cElement* > content;
+	unsigned int i;
 
-		childNode = childNode.nextSibling();
+	for( i = 0; i < Tag->childCount(); ++i )
+	{
+		const cElement *childNode = Tag->getChild( i );
+
+		if( childNode->name() == "item" )
+		{
+			content.push_back( childNode );
+		}
+		else if( childNode->name() == "getlist" && childNode->hasAttribute( "id" ) )
+		{
+			QStringList list = DefManager->getList( childNode->getAttribute( "id" ) );
+			
+			for( QStringList::iterator it = list.begin(); it != list.end(); it++ )
+			{
+				const cElement *lItem = DefManager->getDefinition( WPDT_ITEM, *it );
+				content.push_back( lItem );
+			}
+		}		
 	}
 		
-	for( SI32 i = 0; i < equipment.size(); i++ )
+	for( i = 0; i < content.size(); i++ )
 	{
 			P_ITEM nItem = new cItem;
-
-			if( nItem == NULL )
-				continue;
-	
 			nItem->Init( true );
-			nItem->applyDefinition( equipment[ i ] );
-			this->addItem(nItem);
+			nItem->applyDefinition( content[ i ] );
+			addItem( nItem );
 	}
-	childNode = childNode.nextSibling();
 }
 
 void cItem::showName( cUOSocket *socket )

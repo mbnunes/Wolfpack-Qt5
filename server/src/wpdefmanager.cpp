@@ -40,108 +40,179 @@
 
 // Library Includes
 #include <qdom.h>
+#include <qxml.h>
 #include <qfile.h>
+#include <qptrstack.h>
 #include <qregexp.h>
 #include <qstringlist.h>
+#include <qvaluevector.h>
 
-
-// Method for processing one node
-void WPDefManager::ProcessNode( const QDomElement& Node )
+struct stCategory
 {
-	if( Node.isNull() ) 
-		return;
+	const char *name;
+	eDefCategory key;
+};
 
-	QString NodeName = Node.nodeName();
+stCategory categories[] = 
+{
+	{ "item",			WPDT_ITEM },
+	{ "script",			WPDT_SCRIPT },
+	{ "npc",			WPDT_NPC },
+	{ "list",			WPDT_LIST },
+	{ "menu",			WPDT_MENU },
+	{ "spell",			WPDT_SPELL },
+	{ "acl",			WPDT_PRIVLEVEL },
+	{ "spawnregion",	WPDT_SPAWNREGION },
+	{ "region",			WPDT_REGION },
+	{ "multi",			WPDT_MULTI },
+	{ "text",			WPDT_TEXT },
+	{ "startitems",		WPDT_STARTITEMS },
+	{ "location",		WPDT_LOCATION },
+	{ "skill",			WPDT_SKILL },
+	{ "action",			WPDT_ACTION },
+	{ "make",			WPDT_MAKESECTION },
+	{ "makeitem",		WPDT_MAKEITEM },
+	{ "useitem",		WPDT_USEITEM },
+	{ "skillcheck",		WPDT_SKILLCHECK },
+	{ "define",			WPDT_DEFINE },
+	{ "resource",		WPDT_RESOURCE },
+	{ "contextmenu",	WPDT_CONTEXTMENU },
+	{ 0,				WPDT_COUNT },
+};
 
-	if( NodeName == "include" )
+class cDefManagerPrivate
+{
+public:
+	QMap< QString, cElement* > unique[WPDT_COUNT];
+	QMap< unsigned int, QValueVector< cElement* > > nonunique;
+	QStringList imports;
+};
+
+class cXmlHandler : public QXmlDefaultHandler
+{
+private:
+	cDefManagerPrivate *impl;
+	QPtrStack< cElement > stack;
+	QString filename;
+	QXmlLocator *locator;
+
+public:
+	cXmlHandler( cDefManagerPrivate *impl, const QString &filename )
 	{
-		// Try to get the filename
-		// <include file="data\npcs.xml" \>
-		if( !Node.attributes().contains( "file" ) )
-			return;
+		this->impl = impl;
+		this->filename = filename;
+	};
 
-		// Get the filename and import it
-		ImportSections( Node.attribute("file") );
-		return;
+	void setDocumentLocator( QXmlLocator * locator )
+	{
+		this->locator = locator;
 	}
 
-	// Get the Node ID
-	if( !Node.attributes().contains( "id" ) )
-		return;
-
-	QString NodeID = Node.attribute("id");
-
-	DefSections *Sections = 0; // Defaults to Items
-
-	// IF's for all kind of nodes
-	// <item id="xx">
-	// <script id="xx">
-	// <npc id="xx">
-	if( NodeName == "item" )
-		Sections = &Items;
-	else if( NodeName == "script" )
-		Sections = &Scripts;
-	else if( NodeName == "npc" )
-		Sections = &NPCs;
-	else if( NodeName == "menu" )
-		Sections = &Menus;
-	else if( NodeName == "spell" )
-		Sections = &Spells;
-	else if( NodeName == "list" )
-		Sections = &StringLists;
-	else if( NodeName == "acl" )
-		Sections = &PrivLevels;
-	else if( NodeName == "spawnregion" )
-		Sections = &SpawnRegions;
-	else if( NodeName == "region" )
-		Sections = &Regions;
-	else if( NodeName == "multi" )
-		Sections = &Multis;
-	else if( NodeName == "text" )
-		Sections = &Texts;
-	else if( NodeName == "startitems" )
-		Sections = &StartItems;
-	else if( NodeName == "location" )
-		Sections = &Locations;
-	else if( NodeName == "skill" )
-		Sections = &Skills;
-	else if( NodeName == "action" )
-		Sections = &Actions;
-	else if( NodeName == "make" )
-		Sections = &MakeSections;
-	else if( NodeName == "makeitem" )
-		Sections = &MakeItems;
-	else if( NodeName == "useitem" )
-		Sections = &UseItems;
-	else if( NodeName == "skillcheck" )
-		Sections = &SkillChecks;
-	else if( NodeName == "define" )
-		Sections = &Defines;
-	else if( NodeName == "resource" )
-		Sections = &Resources;
- 	else if( NodeName == "contextmenu" )	
- 		Sections = &ContextMenus;
-
-	if( !Sections )
-		return;
-
-#if defined( _DEBUG )
-	if( Sections->find( NodeID ) != Sections->end() )
+	bool endDocument()
 	{
-		clConsole.ChangeColor( WPC_YELLOW );
-		clConsole.send( "Warning: " );
-		clConsole.ChangeColor( WPC_NORMAL );
-		clConsole.send( QString( "Duplicate %1: %2\n" ).arg( NodeName ).arg( NodeID ) );
-	}
-#endif
+		while( stack.count() > 1 )
+			stack.pop(); // The parent node should take care of deleting the children
 
-    Sections->insert( NodeID, Node );
-}
+		if( stack.count() == 1 )
+			delete stack.pop();
+
+		return true;
+	}
+
+	bool startElement( const QString & namespaceURI, const QString & localName, const QString & qName, const QXmlAttributes & atts )
+	{
+		// Some Parent Elements have special meanings
+		if( stack.isEmpty() )
+		{
+			if( qName == "definitions" )
+				return true;
+
+			// Include another file
+			if( qName == "include" )
+			{
+				QString value = atts.value( "file" );
+				impl->imports.push_back( value );
+				return true;
+			}
+		}
+
+		cElement *element = new cElement;
+		element->setName( localName );
+		element->copyAttributes( atts );
+
+		// Child Element ?
+		if( stack.count() > 0 )
+		{			
+			cElement *parent = stack.current(); // Pop the potential parent
+			parent->addChild( element ); // Add the child to it's parent
+			element->setParent( parent );
+		}
+
+		stack.push( element ); // Push our element (there may be children)		
+		return true;
+	}
+
+	bool endElement ( const QString & namespaceURI, const QString & localName, const QString & qName )
+	{
+		if( stack.isEmpty() )
+			return true;
+				
+		cElement *element = stack.pop();
+
+		// Did we complete a parent node?
+		if( stack.isEmpty() )
+		{
+			// Find a category node
+			unsigned int i = 0;
+			
+			while( categories[i].name != 0 )
+			{
+				if( element->name() == categories[i].name )
+				{
+					QString tagId = element->getAttribute( "id" );
+
+					if( tagId != QString::null )
+					{
+						// <script id="XXXX">...</script>
+						impl->unique[ categories[i].key ].insert( tagId, element );
+					}
+					else
+					{
+						impl->nonunique[ categories[i].key ].push_back( element );
+					}
+
+					return true;
+				}
+
+				++i;
+			}
+
+			clConsole.ProgressFail();
+			clConsole.log( LOG_WARNING, QString( "Unknown element: %1 [File: %1, Line: %2]\n" ).arg( element->name() ).arg( filename ).arg( locator->lineNumber() ) );
+			clConsole.PrepareProgress( "Parsing Definitions" );
+			
+			delete element;
+		}
+
+		return true;
+	}
+
+	bool characters ( const QString & ch )
+	{
+		if( !stack.isEmpty() )
+		{
+			cElement *element = stack.pop();
+			element->setText( element->text() + ch );
+			stack.push( element );
+		}
+
+		return true;
+	}
+};
 
 // Recursive Function for Importing Script Sections
 bool WPDefManager::ImportSections( const QString& FileName )
-{    
-	QDomDocument Document( "definitions" );
+{
 	QFile File( FileName );
 
     if ( !File.open( IO_ReadOnly ) )
@@ -154,205 +225,81 @@ bool WPDefManager::ImportSections( const QString& FileName )
 		return false;
 	}
 
-	QString errorMessage;
-	int errorLine, errorColumn;
-	
-	//clConsole.PrepareProgress( QString( "Parsing %1" ).arg( FileName ) );
+	QXmlInputSource input( &File );	
+	QXmlSimpleReader reader;
+	reader.setFeature( "http://trolltech.com/xml/features/report-whitespace-only-CharData", false );
 
-	QByteArray data = File.readAll();
+	cXmlHandler *handler = new cXmlHandler( impl, FileName );
+	reader.setContentHandler( handler );
 
-	if( !Document.setContent( data, false, &errorMessage, &errorLine, &errorColumn ) ) 
-	{
-        File.close();
-        
-		clConsole.ProgressFail();
-		clConsole.send( QString("Unable to parse file %1\nError:%2(%3:%4)\n").arg(FileName).arg(errorMessage).arg(errorLine).arg(errorColumn) );
+	reader.parse( &input, false );
 
-		return false;
-	}
-
-	//clConsole.ProgressDone();
+	delete handler;
 
     File.close();
-
-	// Get the first document node and start to process it
-	QDomElement Definitions = Document.documentElement();
-	QDomNodeList NodeList = Definitions.childNodes();
-
-	// Process all nodes
-	for( UI32 i = 0; i < NodeList.count(); ++i )
-	{
-		if( NodeList.item( i ).isElement() )
-		{
-			ProcessNode( NodeList.item( i ).toElement() );
-		}
-	}
-
 	return true;
-}
-
-// Clears nodes within the specified nodeMap
-void clearNodes( DefSections &nodeMap )
-{
-	nodeMap.clear(); // Delete it's contents
 }
 
 void WPDefManager::unload( void )
 {
-	// Clear all nodes inside our local tree
-	clearNodes( this->Items );
-	clearNodes( this->Scripts );
-	clearNodes( this->NPCs );
-	clearNodes( this->StringLists );
-	clearNodes( this->Menus );
-	clearNodes( this->Spells );
-	clearNodes( this->PrivLevels );
-	clearNodes( this->SpawnRegions );
-	clearNodes( this->Regions );
-	clearNodes( this->Multis );
-	clearNodes( this->Texts );
-	clearNodes( this->StartItems );
-	clearNodes( this->Locations );
-	clearNodes( this->Skills );
-	clearNodes( this->Actions );
-	clearNodes( this->MakeSections );
-	clearNodes( this->MakeItems );
-	clearNodes( this->UseItems );
-	clearNodes( this->SkillChecks );
-	clearNodes( this->Defines );
-	clearNodes( this->Resources );
- 	clearNodes( this->ContextMenus );
-
-}
-
-void WPDefManager::unload( WPDEF_TYPE t )
-{
-	DefSections *ListPointer;
-
-	switch( t )
+	// Clear the nodes
+	unsigned int i;
+	
+	for( i = 0; i < WPDT_COUNT; ++i )
 	{
-	case WPDT_ITEM:			ListPointer = &Items;			break;
-	case WPDT_SCRIPT:		ListPointer = &Scripts;			break;
-	case WPDT_NPC:			ListPointer = &NPCs;			break;
-	case WPDT_LIST:			ListPointer = &StringLists;		break;
-	case WPDT_MENU:			ListPointer = &Menus;			break;
-	case WPDT_SPELL:		ListPointer = &Spells;			break;
-	case WPDT_PRIVLEVEL:	ListPointer = &PrivLevels;		break;
-	case WPDT_SPAWNREGION:	ListPointer = &SpawnRegions;	break;
-	case WPDT_REGION:		ListPointer = &Regions;			break;
-	case WPDT_MULTI:		ListPointer = &Multis;			break;
-	case WPDT_TEXT:			ListPointer = &Texts;			break;
-	case WPDT_STARTITEMS:	ListPointer = &StartItems;		break;
-	case WPDT_LOCATION:		ListPointer = &Locations;		break;
-	case WPDT_SKILL:		ListPointer = &Skills;			break;
-	case WPDT_ACTION:		ListPointer = &Actions;			break;
-	case WPDT_MAKESECTION:	ListPointer = &MakeSections;	break;
-	case WPDT_MAKEITEM:		ListPointer = &MakeItems;		break;
-	case WPDT_USEITEM:		ListPointer = &UseItems;		break;
-	case WPDT_SKILLCHECK:	ListPointer = &SkillChecks;		break;
-	case WPDT_DEFINE:		ListPointer = &Defines;			break;
-	case WPDT_RESOURCE:		ListPointer = &Resources;		break;
-	case WPDT_CONTEXTMENU:	ListPointer = &ContextMenus;	break;
-	default:				return ;
-	};
+		QMap< QString, cElement* >::iterator it2;
+		for( it2 = impl->unique[i].begin(); it2 != impl->unique[i].end(); ++it2 )
+			delete it2.data();
 
-	clearNodes( *ListPointer );
+		QValueVector< cElement* >::iterator it;
+		for( it = impl->nonunique[i].begin(); it != impl->nonunique[i].end(); ++it )
+			delete *it;
+	}
+	
+	impl->imports.clear();
 }
 
 void WPDefManager::reload( void )
 {
-	// First unload then reload
 	unload();
-
-	// Load them once again
 	load();
-
-	// Reload the Encryption Key Manager
 	KeyManager::instance()->load();
 }
 
 // Load the Definitions
 void WPDefManager::load( void )
 {
+	clConsole.PrepareProgress( "Loading Definitions" );
+	
 	ImportSections( "definitions.xml" );
+
+	unsigned int i = 0;
+	while( i < impl->imports.size() )
+	{
+		ImportSections( impl->imports[i] );
+		++i;
+	}
+
+	clConsole.ProgressDone();
+
 	cCommands::instance()->loadACLs();
 }
 
-// Returns one Section
-const QDomElement *WPDefManager::getSection( WPDEF_TYPE Type, const QString& Section ) const
-{
-	const DefSections *ListPointer;
-
-	switch( Type )
-	{
-	case WPDT_ITEM:			ListPointer = &Items;			break;
-	case WPDT_SCRIPT:		ListPointer = &Scripts;			break;
-	case WPDT_NPC:			ListPointer = &NPCs;			break;
-	case WPDT_LIST:			ListPointer = &StringLists;		break;
-	case WPDT_MENU:			ListPointer = &Menus;			break;
-	case WPDT_SPELL:		ListPointer = &Spells;			break;
-	case WPDT_PRIVLEVEL:	ListPointer = &PrivLevels;		break;
-	case WPDT_SPAWNREGION:	ListPointer = &SpawnRegions;	break;
-	case WPDT_REGION:		ListPointer = &Regions;			break;
-	case WPDT_MULTI:		ListPointer = &Multis;			break;
-	case WPDT_TEXT:			ListPointer = &Texts;			break;
-	case WPDT_STARTITEMS:	ListPointer = &StartItems;		break;
-	case WPDT_LOCATION:		ListPointer = &Locations;		break;
-	case WPDT_SKILL:		ListPointer = &Skills;			break;
-	case WPDT_ACTION:		ListPointer = &Actions;			break;
-	case WPDT_MAKESECTION:	ListPointer = &MakeSections;	break;
-	case WPDT_MAKEITEM:		ListPointer = &MakeItems;		break;
-	case WPDT_USEITEM:		ListPointer = &UseItems;		break;
-	case WPDT_SKILLCHECK:	ListPointer = &SkillChecks;		break;
-	case WPDT_DEFINE:		ListPointer = &Defines;			break;
-	case WPDT_RESOURCE:		ListPointer = &Resources;		break;
-	case WPDT_CONTEXTMENU:	ListPointer = &ContextMenus;	break;
-	default:				return 0;
-	};
-
-	return &( ListPointer->find( Section ).data() );
-}
-
 // Returns a list of section-names found
-QStringList WPDefManager::getSections( WPDEF_TYPE Type ) const
+QStringList WPDefManager::getSections( eDefCategory Type ) const
 {
-	const DefSections *ListPointer;
-	switch( Type )
-	{
-	case WPDT_ITEM:			ListPointer = &Items;			break;
-	case WPDT_SCRIPT:		ListPointer = &Scripts;			break;
-	case WPDT_NPC:			ListPointer = &NPCs;			break;
-	case WPDT_MENU:			ListPointer = &Menus;			break;
-	case WPDT_SPELL:		ListPointer = &Spells;			break;
-	case WPDT_LIST:			ListPointer = &StringLists;		break;
-	case WPDT_PRIVLEVEL:	ListPointer = &PrivLevels;		break;
-	case WPDT_SPAWNREGION:	ListPointer = &SpawnRegions;	break;
-	case WPDT_REGION:		ListPointer = &Regions;			break;
-	case WPDT_MULTI:		ListPointer = &Multis;			break;
-	case WPDT_TEXT:			ListPointer = &Texts;			break;
-	case WPDT_STARTITEMS:	ListPointer = &StartItems;		break;
-	case WPDT_LOCATION:		ListPointer = &Locations;		break;
-	case WPDT_SKILL:		ListPointer = &Skills;			break;
-	case WPDT_ACTION:		ListPointer = &Actions;			break;
-	case WPDT_MAKESECTION:	ListPointer = &MakeSections;	break;
-	case WPDT_MAKEITEM:		ListPointer = &MakeItems;		break;
-	case WPDT_USEITEM:		ListPointer = &UseItems;		break;
-	case WPDT_SKILLCHECK:	ListPointer = &SkillChecks;		break;
-	case WPDT_DEFINE:		ListPointer = &Defines;			break;
-	case WPDT_RESOURCE:		ListPointer = &Resources;		break;
-	case WPDT_CONTEXTMENU:	ListPointer = &ContextMenus;	break;
-	default:		// Return an empty list
-		return QStringList();
-	};
+	// This is a VERY VERY slow function!
+	QStringList result;
 
-	DefSections::const_iterator MyIter;
-	QStringList SectionList;
-	for( MyIter = ListPointer->begin(); MyIter != ListPointer->end(); ++MyIter )
+	QMap< QString, cElement* >::iterator it = impl->unique[ Type ].begin();
+
+	while( it != impl->unique[ Type ].end() )
 	{
-		SectionList.push_back( MyIter.key() );
+		result.push_back( it.key() );
+		it++;
 	}
 
-	return SectionList;
+	return result;
 }
 
 QString	WPDefManager::getRandomListEntry( const QString& ListSection ) const
@@ -366,46 +313,43 @@ QString	WPDefManager::getRandomListEntry( const QString& ListSection ) const
 
 QStringList	WPDefManager::getList( const QString& ListSection ) const
 {
-	const QDomElement* DefSection = this->getSection( WPDT_LIST, ListSection );
+	const cElement* DefSection = getDefinition( WPDT_LIST, ListSection );
 	QStringList list;
 	QString data;
 
-	if( !DefSection->isNull() )
-	{
-		QDomNode childNode = DefSection->firstChild();
-		while( !childNode.isNull() )
-		{
-			if( childNode.isElement() )
-			{
-				// Using the nodename is a very very bad habit
-				// if the name of the node is "item" then
-				// use the node value instead
-				QDomElement childTag = childNode.toElement();
-				
-				if( childTag.nodeName() == "item" )
-					data = childTag.text();
-				else
-					data = childTag.nodeName();
+	if( !DefSection )
+		return list;
 
-				int mult = childTag.attribute( "mult" ).toInt();
-				if( mult <= 0 )
-					mult = 1;
-				int i = 0;
-				while( i < mult )
-				{
-					list.push_back( data );
-					++i;
-				}
-			}
-			childNode = childNode.nextSibling();
+	for( unsigned int i = 0; i < DefSection->childCount(); ++i )
+	{
+		const cElement *childTag = DefSection->getChild( i );
+
+		// Using the nodename is a very very bad habit
+		// if the name of the node is "item" then
+		// use the node value instead
+	
+		if( childTag->name() == "item" )
+			data = childTag->text();
+		else
+			data = childTag->name();
+
+		int mult = childTag->getAttribute( "mult" ).toInt();
+		if( mult <= 0 )
+			mult = 1;
+		int i = 0;
+		while( i < mult )
+		{
+			list.push_back( data );
+			++i;
 		}
 	}
+
 	return list;
 }
 
 QString WPDefManager::getText( const QString& TextSection ) const
 {
-	const QDomElement* DefSection = this->getSection( WPDT_TEXT, TextSection );
+	/*const QDomElement* DefSection = this->getSection( WPDT_TEXT, TextSection );
 	if( DefSection->isNull() )
 		return QString();
 	else
@@ -417,6 +361,266 @@ QString WPDefManager::getText( const QString& TextSection ) const
 		if( text.right( 1 ) == "\n" || text.right( 1 ) == "\r" )
 			text = text.left( text.length()-1 );
 		return text;
+	}*/
+	return QString();
+}
+
+WPDefManager::WPDefManager()
+{
+	impl = new cDefManagerPrivate;
+}
+
+WPDefManager::~WPDefManager()
+{
+	unload();
+	delete impl;
+}
+
+
+const cElement* WPDefManager::getDefinition( eDefCategory type, const QString& id ) const
+{
+	QMap< QString, cElement* >::const_iterator it = impl->unique[ type ].find( id );
+
+	if( it == impl->unique[ type ].end() )
+		return 0;
+	else
+		return it.data();
+}
+
+const QValueVector< cElement* > &WPDefManager::getDefinitions( eDefCategory type ) const
+{
+	return impl->nonunique[ type ];
+}
+
+/*
+ *	Implementation of cElement
+ */
+void cElement::freeAttributes()
+{
+	if( attributes != 0 )
+	{
+		for( unsigned int i = 0; i < attrCount_; ++i )
+			delete attributes[i];
+
+		attrCount_ = 0;
+		free( attributes );
+		attributes = 0;
 	}
 }
 
+void cElement::freeChildren()
+{
+	if( children != 0 )
+	{
+		for( unsigned int i = 0; i < childCount_; ++i )
+			delete children[i];
+
+		childCount_ = 0;
+		free( children );
+		children = 0;
+	}
+}
+
+cElement::cElement()
+{
+	childCount_ = 0;
+	attrCount_ = 0;
+	name_ = QString::null;
+	text_ = QString::null;
+	children = 0;
+	attributes = 0;
+	parent_ = 0;
+};
+
+cElement::~cElement()
+{
+	freeAttributes();
+	freeChildren();
+
+	if( parent_ )
+		parent_->removeChild( this );
+}
+
+void cElement::copyAttributes( const QXmlAttributes &attributes )
+{
+	freeAttributes();
+	attrCount_ = attributes.count();
+
+	if( attrCount_> 0 )
+	{
+		this->attributes = (stAttribute**)malloc( sizeof( stAttribute* ) * attrCount_ );
+	
+		for( unsigned int i = 0; i < attrCount_; ++i )
+		{
+			this->attributes[i] = new stAttribute;
+			this->attributes[i]->name = attributes.localName( i );
+			this->attributes[i]->value = attributes.value( i );
+		}
+	}
+}
+
+void cElement::addChild( cElement *element )
+{
+	if( children == 0 )
+	{
+		childCount_ = 1;
+		children = (cElement**)malloc( sizeof( cElement* ) );
+		children[0] = element;
+	}
+	else
+	{
+		children = (cElement**)realloc( children, sizeof( cElement* ) * ( childCount_ + 1 ) );
+		children[childCount_++] = element;
+	}
+}
+
+void cElement::removeChild( cElement *element )
+{
+	for( unsigned int i = 0; i < childCount_; ++i )
+	{
+		if( children[i] == element )
+		{
+			// Found the element we want to delete
+			unsigned int offset = 0;
+			
+			cElement **newChildren = (cElement**)malloc( ( childCount_ - 1 ) * sizeof( cElement* ) );
+
+			for( unsigned int j = 0; j < childCount_; ++j )
+				if( children[j] != element )
+					newChildren[offset++] = children[j];
+
+			childCount_--;
+			free( children );
+			children = newChildren;
+		}
+	}
+}
+
+bool cElement::hasAttribute( const QString &name ) const
+{
+	for( unsigned int i = 0; i < attrCount_; ++i )
+		if( attributes[i]->name == name )
+			return true;
+
+	return false;
+}
+
+const QString &cElement::getAttribute( const QString &name, const QString &def ) const
+{
+	for( unsigned int i = 0; i < attrCount_; ++i )
+		if( attributes[i]->name == name )
+			return attributes[i]->value;
+
+	return def;
+}
+
+void cElement::setName( const QString &data )
+{
+	name_ = data;
+}
+
+const QString &cElement::name() const
+{
+	return name_;
+}
+
+void cElement::setText( const QString &data )
+{
+	text_ = data;
+}
+
+const QString &cElement::text() const
+{
+	return text_;
+}
+
+void cElement::setParent( cElement *parent )
+{
+	parent_ = parent;
+}
+
+cElement *cElement::parent() const
+{
+	return parent_;
+}
+
+const cElement *cElement::findChild( const QString &name ) const
+{
+	for( unsigned int i = 0; i < childCount_; ++i )
+	{
+		if( children[i]->name() == name )
+			return children[i];
+	}
+	
+	return 0;
+}
+
+const cElement *cElement::getChild( unsigned int index ) const
+{
+	if( index >= childCount_ )
+		return 0;
+
+	return children[index];
+}
+
+unsigned int cElement::childCount() const
+{
+	return childCount_;
+}
+
+QString cElement::getValue() const
+{
+	QString Value = text_;
+
+	for( unsigned int i = 0; i < childCount(); ++i )
+	{
+		const cElement *childTag = getChild( i );
+		
+		if( childTag->name() == "random" )
+		{
+			if( childTag->hasAttribute( "min" ) && childTag->hasAttribute( "max" ) )
+			{
+				QString min = childTag->getAttribute( "min" );
+				QString max = childTag->getAttribute( "max" );
+
+				if( min.contains( "." ) || max.contains( "." ) )
+					Value += QString::number( RandomNum( min.toFloat(), max.toFloat() ) );
+				else
+					Value += QString::number( RandomNum( min.toInt(), max.toInt() ) );
+			}
+			else if( childTag->hasAttribute("valuelist") )
+			{
+				QStringList RandValues = QStringList::split( ",", childTag->getAttribute( "valuelist" ) );
+				Value += RandValues[ RandomNum( 0, RandValues.size() - 1 ) ];
+			}
+			else if( childTag->hasAttribute( "list" ) )
+			{
+				Value += DefManager->getRandomListEntry( childTag->getAttribute( "list" ) );
+			}
+			else if( childTag->hasAttribute( "dice" ) )
+			{
+				Value += QString::number( rollDice( childTag->getAttribute( "dice" ) ) );
+			}
+			else if( childTag->hasAttribute( "value" ) )
+			{
+				QStringList parts = QStringList::split( "-", childTag->getAttribute( "value", "0-0" ) );
+				
+				if( parts.count() >= 2 )
+				{
+					QString min = parts[0];
+					QString max = parts[1];
+
+					if( max.contains( "." ) || min.contains( "." ) )
+						Value += QString::number( RandomNum( min.toFloat(), max.toFloat() ) );
+					else
+						Value += QString::number( RandomNum( min.toInt(), max.toInt() ) );
+
+				}
+			}
+			else
+				Value += QString( "0" );
+		}
+	}
+
+	return hex2dec( Value );
+}

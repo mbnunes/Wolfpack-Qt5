@@ -60,23 +60,23 @@ cMakeItem::cMakeItem( const QString &name, const QString &section, UINT16 amount
 	amount_ = amount;
 }
 
-cMakeItem::cMakeItem( const QDomElement &Tag )
+cMakeItem::cMakeItem( const cElement *Tag )
 {
-	name_ = Tag.attribute( "name" );
-	section_ = Tag.attribute( "section" );
-	amount_ = hex2dec( Tag.attribute( "amount" ) ).toUShort();
-	if( Tag.hasAttribute( "inherit" ) )
+	name_ = Tag->getAttribute( "name" );
+	section_ = Tag->getAttribute( "section" );
+	amount_ = hex2dec( Tag->getAttribute( "amount" ) ).toUShort();
+	if( Tag->hasAttribute( "inherit" ) )
 	{
-		const QDomElement* DefSection = DefManager->getSection( WPDT_MAKEITEM, Tag.attribute( "inherit" ) );
-		applyDefinition( *DefSection );
+		const cElement* DefSection = DefManager->getDefinition( WPDT_MAKEITEM, Tag->getAttribute( "inherit" ) );
+		applyDefinition( DefSection );
 	}
 	applyDefinition( Tag );
 }
 
-void cMakeItem::processNode( const QDomElement &Tag )
+void cMakeItem::processNode( const cElement *Tag )
 {
-	QString TagName = Tag.nodeName();
-	QString Value = getNodeValue( Tag );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
 
 	if( TagName == "name" )
 		name_ = Value;
@@ -92,12 +92,12 @@ void cMakeItem::processNode( const QDomElement &Tag )
   cUseItem member functions
  *****************************************************************************/
 
-cUseItem::cUseItem( const QDomElement &Tag )
+cUseItem::cUseItem( const cElement *Tag )
 {
-	name_ = Tag.attribute( "name" );
-	if( !Tag.attribute( "itemid" ).isNull() )
+	name_ = Tag->getAttribute( "name" );
+	if( !Tag->getAttribute( "itemid" ).isNull() )
 	{
-		QString idstr = Tag.attribute( "itemid" );
+		QString idstr = Tag->getAttribute( "itemid" );
 		QStringList ids;
 		ids.push_back( idstr );
 		if( idstr.contains(",") )
@@ -125,11 +125,11 @@ cUseItem::cUseItem( const QDomElement &Tag )
 			++it;
 		}
 	}
-	amount_ = hex2dec( Tag.attribute( "amount" ) ).toUShort();
-	if( Tag.hasAttribute( "inherit" ) )
+	amount_ = hex2dec( Tag->getAttribute( "amount" ) ).toUShort();
+	if( Tag->hasAttribute( "inherit" ) )
 	{
-		const QDomElement* DefSection = DefManager->getSection( WPDT_USEITEM, Tag.attribute( "inherit" ) );
-		applyDefinition( *DefSection );
+		const cElement* DefSection = DefManager->getDefinition( WPDT_USEITEM, Tag->getAttribute( "inherit" ) );
+		applyDefinition( DefSection );
 	}
 	applyDefinition( Tag );
 	if( colors_.size() == 0 )
@@ -141,17 +141,17 @@ amount_(amount), colors_(colors), id_(ids), name_(name)
 {
 }
 
-void cUseItem::processNode( const QDomElement &Tag )
+void cUseItem::processNode( const cElement *Tag )
 {
-	QString TagName = Tag.nodeName();
-	QString Value = getNodeValue( Tag );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
 
 	if( TagName == "name" )
 		name_ = Value;
 
 	else if( TagName == "id" )
 	{
-		QString idstr = Tag.attribute( "itemid" );
+		QString idstr = Tag->getAttribute( "itemid" );
 		QStringList ids;
 		ids.push_back( idstr );
 		if( idstr.contains(",") )
@@ -185,27 +185,24 @@ void cUseItem::processNode( const QDomElement &Tag )
 
 	else if( TagName == "color" )
 	{
-		QString Value = Tag.text();
-		QDomNode chNode = Tag.firstChild();
-		while( !chNode.isNull() )
+		QString Value = Tag->text();
+		
+		for( unsigned int i = 0; i < Tag->childCount(); ++i )
 		{
-			if( chNode.isElement() )
+			const cElement *chTag = Tag->getChild( i );
+			QString chTagName = chTag->name();
+			QString chValue = chTag->getValue();
+
+			if( chTagName == "getlist" && chTag->hasAttribute( "id" ) )
 			{
-				QDomElement chTag = chNode.toElement();
-				QString chTagName = chTag.nodeName();
-				QString chValue = getNodeValue( chTag );
-				if( chTagName == "getlist" && chTag.hasAttribute( "id" ) )
+				QStringList list = DefManager->getList( chTag->getAttribute( "id" ) );
+				QStringList::const_iterator it = list.begin();
+				while( it != list.end() )
 				{
-					QStringList list = DefManager->getList( chTag.attribute( "id" ) );
-					QStringList::const_iterator it = list.begin();
-					while( it != list.end() )
-					{
-						colors_.push_back( hex2dec((*it)).toUShort() );
-						++it;
-					}
+					colors_.push_back( hex2dec((*it)).toUShort() );
+					++it;
 				}
 			}
-			chNode = chNode.nextSibling();
 		}
 
 		QStringList colstr;
@@ -264,23 +261,23 @@ bool cUseItem::hasEnough( const cItem* pBackpack ) const
   cSkillCheck member functions
  *****************************************************************************/
 
-cSkillCheck::cSkillCheck( const QDomElement &Tag )
+cSkillCheck::cSkillCheck( const cElement *Tag )
 {
-	skillid_ = hex2dec( Tag.attribute( "skillid" ) ).toUShort();
-	min_ = hex2dec( Tag.attribute( "min" ) ).toUShort();
-	max_ = hex2dec( Tag.attribute( "max" ) ).toUShort();
-	if( Tag.hasAttribute( "inherit" ) )
+	skillid_ = hex2dec( Tag->getAttribute( "skillid" ) ).toUShort();
+	min_ = hex2dec( Tag->getAttribute( "min" ) ).toUShort();
+	max_ = hex2dec( Tag->getAttribute( "max" ) ).toUShort();
+	if( Tag->hasAttribute( "inherit" ) )
 	{
-		const QDomElement* DefSection = DefManager->getSection( WPDT_SKILLCHECK, Tag.attribute( "inherit" ) );
-		applyDefinition( *DefSection );
+		const cElement* DefSection = DefManager->getDefinition( WPDT_SKILLCHECK, Tag->getAttribute( "inherit" ) );
+		applyDefinition( DefSection );
 	}
 	applyDefinition( Tag );
 }
 
-void cSkillCheck::processNode( const QDomElement &Tag )
+void cSkillCheck::processNode( const cElement *Tag )
 {
-	QString TagName = Tag.nodeName();
-	QString Value = getNodeValue( Tag );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
 
 	if( TagName == "skillid" )
 		skillid_ = Value.toUShort();
@@ -324,22 +321,22 @@ cMakeSection::cMakeSection( const QString &name, cMakeAction* baseaction )
 	name_ = name;
 }
 
-cMakeSection::cMakeSection( const QDomElement &Tag, cMakeAction* baseaction )
+cMakeSection::cMakeSection( const cElement *Tag, cMakeAction* baseaction )
 {
 	baseaction_ = baseaction;
-	name_ = Tag.attribute( "name" );
-	if( Tag.hasAttribute( "inherit" ) )
+	name_ = Tag->getAttribute( "name" );
+	if( Tag->hasAttribute( "inherit" ) )
 	{
-		const QDomElement* DefSection = DefManager->getSection( WPDT_MAKESECTION, Tag.attribute( "inherit" ) );
-		applyDefinition( *DefSection );
+		const cElement* DefSection = DefManager->getDefinition( WPDT_MAKESECTION, Tag->getAttribute( "inherit" ) );
+		applyDefinition( DefSection );
 	}
 	applyDefinition( Tag );
 }
 
-void cMakeSection::processNode( const QDomElement &Tag )
+void cMakeSection::processNode( const cElement *Tag )
 {
-	QString TagName = Tag.nodeName();
-	QString Value = getNodeValue( Tag );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
 	
 	if( TagName == "name" )
 		name_ = Value;
@@ -366,14 +363,14 @@ cMakeCustomSection::cMakeCustomSection( const QString &name, cMakeAction* baseac
 {
 }
 
-cMakeCustomSection::cMakeCustomSection( const QDomElement &Tag, cMakeAction* baseaction ) : cMakeSection( Tag, baseaction )
+cMakeCustomSection::cMakeCustomSection( const cElement *Tag, cMakeAction* baseaction ) : cMakeSection( Tag, baseaction )
 {
 }
 
-void cMakeCustomSection::processNode( const QDomElement &Tag )
+void cMakeCustomSection::processNode( const cElement *Tag )
 {
-	QString TagName = Tag.nodeName();
-	QString Value = getNodeValue( Tag );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
 
 	if( TagName == "makeitem" )
 	{
@@ -643,19 +640,19 @@ cMakeNpcSection::cMakeNpcSection( const QString &name, cMakeAction* baseaction )
 {
 }
 
-cMakeNpcSection::cMakeNpcSection( const QDomElement &Tag, cMakeAction* baseaction ) : cMakeSection( Tag, baseaction )
+cMakeNpcSection::cMakeNpcSection( const cElement *Tag, cMakeAction* baseaction ) : cMakeSection( Tag, baseaction )
 {
 }
 
-void cMakeNpcSection::processNode( const QDomElement &Tag )
+void cMakeNpcSection::processNode( const cElement *Tag )
 {
-	QString TagName = Tag.nodeName();
-	QString Value = getNodeValue( Tag );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
 
 	if( TagName == "makenpc" )
 	{
-		makenpc_.name = Tag.attribute( "name" );
-		makenpc_.section = Tag.attribute( "id" );
+		makenpc_.name = Tag->getAttribute( "name" );
+		makenpc_.section = Tag->getAttribute( "id" );
 	}
 
 	else
@@ -683,11 +680,11 @@ cMakeResourceSection::cMakeResourceSection( const QString &name, cMakeAction* ba
 {
 }
 
-cMakeResourceSection::cMakeResourceSection( const QDomElement &Tag, cMakeAction* baseaction ) : cMakeCustomSection( Tag, baseaction )
+cMakeResourceSection::cMakeResourceSection( const cElement *Tag, cMakeAction* baseaction ) : cMakeCustomSection( Tag, baseaction )
 {
 }
 
-void cMakeResourceSection::processNode( const QDomElement &Tag )
+void cMakeResourceSection::processNode( const cElement *Tag )
 {
 	cMakeCustomSection::processNode( Tag );
 }
@@ -722,11 +719,11 @@ cMakeAmountSection::cMakeAmountSection( const QString &name, cMakeAction* baseac
 {
 }
 
-cMakeAmountSection::cMakeAmountSection( const QDomElement &Tag, cMakeAction* baseaction ) : cMakeCustomSection( Tag, baseaction )
+cMakeAmountSection::cMakeAmountSection( const cElement *Tag, cMakeAction* baseaction ) : cMakeCustomSection( Tag, baseaction )
 {
 }
 
-void cMakeAmountSection::processNode( const QDomElement &Tag )
+void cMakeAmountSection::processNode( const cElement *Tag )
 {
 	cMakeCustomSection::processNode( Tag );
 }
@@ -755,14 +752,14 @@ cDoCodeAction::cDoCodeAction( const QString &name, cMakeAction* baseaction ) : c
 {
 }
 
-cDoCodeAction::cDoCodeAction( const QDomElement &Tag, cMakeAction* baseaction ) : cMakeSection( Tag, baseaction )
+cDoCodeAction::cDoCodeAction( const cElement *Tag, cMakeAction* baseaction ) : cMakeSection( Tag, baseaction )
 {
 }
 
-void cDoCodeAction::processNode( const QDomElement &Tag )
+void cDoCodeAction::processNode( const cElement *Tag )
 {
-	QString TagName = Tag.nodeName();
-	QString Value = getNodeValue( Tag );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
 
 	cMakeSection::processNode( Tag );
 }
@@ -793,16 +790,16 @@ cDoScriptAction::cDoScriptAction( const QString &name, cMakeAction* baseaction )
 {
 }
 
-cDoScriptAction::cDoScriptAction( const QDomElement &Tag, cMakeAction* baseaction ) : cMakeSection( Tag, baseaction )
+cDoScriptAction::cDoScriptAction( const cElement *Tag, cMakeAction* baseaction ) : cMakeSection( Tag, baseaction )
 {
-	if( Tag.hasAttribute( "script" ) )
-		functionName = Tag.attribute( "script" );
+	if( Tag->hasAttribute( "script" ) )
+		functionName = Tag->getAttribute( "script" );
 }
 
-void cDoScriptAction::processNode( const QDomElement &Tag )
+void cDoScriptAction::processNode( const cElement *Tag )
 {
-	QString TagName = Tag.nodeName();
-	QString Value = getNodeValue( Tag );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
 
 	if( TagName == "script" )
 		functionName = Value;
@@ -860,10 +857,10 @@ cMakeAction::cMakeAction( const QString &name, UINT16 model, const QString &desc
 	type_ = type;
 }
 
-cMakeAction::cMakeAction( const QDomElement &Tag, cMakeMenu* basemenu )
+cMakeAction::cMakeAction( const cElement *Tag, cMakeMenu* basemenu )
 {
 	basemenu_ = basemenu;
-	name_ = Tag.attribute( "id" );
+	name_ = Tag->getAttribute( "id" );
 	description_ = (char*)0;
 	failmsg_ = (char*)0;
 	succmsg_ = (char*)0;
@@ -871,9 +868,9 @@ cMakeAction::cMakeAction( const QDomElement &Tag, cMakeMenu* basemenu )
 	succsound_ = 0;
 	failsound_ = 0;
 	type_ = CUSTOM_SECTIONS;
-	if( Tag.hasAttribute( "type" ) )
+	if( Tag->hasAttribute( "type" ) )
 	{
-		QString Value = Tag.attribute( "type" );
+		QString Value = Tag->getAttribute( "type" );
 		if( Value == "resource" || Value.toUShort() == 1 )
 			type_ = RESOURCE_SECTIONS;
 		else if( Value == "amount" || Value.toUShort() == 2 )
@@ -887,19 +884,19 @@ cMakeAction::cMakeAction( const QDomElement &Tag, cMakeMenu* basemenu )
 		else if( Value == "script" || Value.toUShort() == 6 )
 			type_ = SCRIPT_ACTION;
 	}
-	if( Tag.hasAttribute( "inherit" ) )
+	if( Tag->hasAttribute( "inherit" ) )
 	{
-		const QDomElement* DefSection = DefManager->getSection( WPDT_ACTION, Tag.attribute( "inherit" ) );
-		applyDefinition( *DefSection );
+		const cElement* DefSection = DefManager->getDefinition( WPDT_ACTION, Tag->getAttribute( "inherit" ) );
+		applyDefinition( DefSection );
 	}
 	applyDefinition( Tag );
 }
 
-void cMakeAction::processNode( const QDomElement &Tag )
+void cMakeAction::processNode( const cElement *Tag )
 {
 	// CAUTION: the base tag attributes are evaluated in the constructor!!
-	QString TagName = Tag.nodeName();
-	QString Value = getNodeValue( Tag );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
 
 	if( TagName == "do" )
 	{
@@ -930,9 +927,9 @@ void cMakeAction::processNode( const QDomElement &Tag )
 			if( pMakeSection )
 				makesections_.push_back( pMakeSection );
 		}
-		else if( type_ == AMOUNT_SECTIONS && Tag.hasAttribute( "amounts" ) )
+		else if( type_ == AMOUNT_SECTIONS && Tag->hasAttribute( "amounts" ) )
 		{
-			QString amountstr = Tag.attribute("amounts");
+			QString amountstr = Tag->getAttribute("amounts");
 			QStringList amounts = QStringList::split( ",", amountstr );
 			QStringList::const_iterator it = amounts.begin();
 			while( it != amounts.end() )
@@ -950,9 +947,9 @@ void cMakeAction::processNode( const QDomElement &Tag )
 				++it;
 			}
 		}
-		else if( type_ == RESOURCE_SECTIONS && Tag.hasAttribute( "resource" ) )
+		else if( type_ == RESOURCE_SECTIONS && Tag->hasAttribute( "resource" ) )
 		{
-			cAllResources::iterator found = Resources::instance()->find( Tag.attribute( "resource" ) );
+			cAllResources::iterator found = Resources::instance()->find( Tag->getAttribute( "resource" ) );
 			if( found != Resources::instance()->end() )
 			{
 				cResource* pResource = found->second;
@@ -966,50 +963,47 @@ void cMakeAction::processNode( const QDomElement &Tag )
 						QString name;
 						UINT16 amount = 1;
 						QValueVector< UINT16 > id;
-						QDomNode childNode = Tag.firstChild();
-						while( !childNode.isNull() )
+						
+						for( unsigned int i = 0; i < Tag->childCount(); ++i )
 						{
-							if( childNode.isElement() )
+							const cElement *childTag = Tag->getChild( i );
+
+							if( childTag->name() == "useitem" )
 							{
-								QDomElement childTag = childNode.toElement(); 
-								if( childTag.nodeName() == "useitem" )
+								if( childTag->hasAttribute( "amount" ) )
+									amount = hex2dec( childTag->getAttribute( "amount" ) ).toUShort();
+
+								if( childTag->hasAttribute( "itemid" ) )
 								{
-									if( childTag.hasAttribute( "amount" ) )
-										amount = hex2dec( childTag.attribute( "amount" ) ).toUShort();
-
-									if( childTag.hasAttribute( "itemid" ) )
+									QString idstr = childTag->getAttribute( "itemid" );
+									QStringList ids;
+									ids.push_back( idstr );
+									if( idstr.contains(",") )
 									{
-										QString idstr = childTag.attribute( "itemid" );
-										QStringList ids;
-										ids.push_back( idstr );
-										if( idstr.contains(",") )
-										{
-											ids = QStringList::split( ",", idstr );
-										}
-	
-										QStringList::const_iterator it = ids.begin();
-										while( it != ids.end() )
-										{
-											if( (*it).contains("-") )
-											{
-												QStringList idspan = QStringList::split( "-", idstr );
-												UINT16 min = hex2dec(idspan[0]).toUShort();
-												UINT16 max = hex2dec(idspan[1]).toUShort();
-												while( min <= max )
-												{
-													id.push_back( min );
-													++min;
-												}
-											}
-											else
-												id.push_back( hex2dec( (*it) ).toUShort() );
+										ids = QStringList::split( ",", idstr );
+									}
 
-											++it;
+									QStringList::const_iterator it = ids.begin();
+									while( it != ids.end() )
+									{
+										if( (*it).contains("-") )
+										{
+											QStringList idspan = QStringList::split( "-", idstr );
+											UINT16 min = hex2dec(idspan[0]).toUShort();
+											UINT16 max = hex2dec(idspan[1]).toUShort();
+											while( min <= max )
+											{
+												id.push_back( min );
+												++min;
+											}
 										}
+										else
+											id.push_back( hex2dec( (*it) ).toUShort() );
+
+										++it;
 									}
 								}
 							}
-							childNode = childNode.nextSibling();
 						}
 
 						cMakeResourceSection* pMakeSection = new cMakeResourceSection( Tag, this );
@@ -1052,7 +1046,7 @@ void cMakeAction::processNode( const QDomElement &Tag )
 				}
 			}
 		}
-		else if( type_ == SCRIPT_ACTION && Tag.hasAttribute( "script" ) )
+		else if( type_ == SCRIPT_ACTION && Tag->hasAttribute( "script" ) )
 		{
 
 		}
@@ -1119,30 +1113,30 @@ cMakeMenu::cMakeMenu( const QString &name, cMakeMenu* previous )
 // cross linking will lead to an infinite loop and stack overflow
 // we avoid this by adding a special attribute for the menu tags
 // instead of the inherit attributes: link
-cMakeMenu::cMakeMenu( const QDomElement &Tag, cMakeMenu* previous )
+cMakeMenu::cMakeMenu( const cElement *Tag, cMakeMenu* previous )
 {
-	name_ = Tag.attribute( "id" );
+	name_ = Tag->getAttribute( "id" );
 	link_ = (char*)0;
-	if( Tag.hasAttribute( "link" ) )
+	if( Tag->hasAttribute( "link" ) )
 	{
-		link_ = Tag.attribute( "link" );
-		const QDomElement* DefSection = DefManager->getSection( WPDT_MENU, Tag.attribute( "link" ) );
-		applyDefinition( *DefSection );
+		link_ = Tag->getAttribute( "link" );
+		const cElement* DefSection = DefManager->getDefinition( WPDT_MENU, Tag->getAttribute( "link" ) );
+		applyDefinition( DefSection );
 	}
-	if( Tag.hasAttribute( "inherit" ) )
+	if( Tag->hasAttribute( "inherit" ) )
 	{
-		const QDomElement* DefSection = DefManager->getSection( WPDT_MENU, Tag.attribute( "inherit" ) );
-		applyDefinition( *DefSection );
+		const cElement* DefSection = DefManager->getDefinition( WPDT_MENU, Tag->getAttribute( "inherit" ) );
+		applyDefinition( DefSection );
 	}
 	prev_ = previous;
 	applyDefinition( Tag );
 }
 
-void cMakeMenu::processNode( const QDomElement &Tag )
+void cMakeMenu::processNode( const cElement *Tag )
 {
 	// CAUTION: the base tag attributes are evaluated in the constructor!!
-	QString TagName = Tag.nodeName();
-	QString Value = getNodeValue( Tag );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
 
 	bool recurse = link_.isNull();
 
@@ -1710,102 +1704,16 @@ cAllMakeMenus::~cAllMakeMenus()
 	menus_.clear();
 }
 
-QString	cAllMakeMenus::getValue( const QDomElement &Tag ) const
-{
-	QString Value;
-	if( !Tag.hasChildNodes() )
-		return "";
-	else
-	{
-		QDomNode childNode = Tag.firstChild();
-		while( !childNode.isNull() )
-		{
-			if( !childNode.isElement() )
-			{
-				if( childNode.isText() )
-					Value += childNode.toText().data();
-				childNode = childNode.nextSibling();
-				continue;
-			}
-			QDomElement childTag = childNode.toElement();
-			if( childTag.nodeName() == "random" )
-			{
-				if( childTag.attributes().contains("min") && childTag.attributes().contains("max") )
-					if( childTag.attribute( "min", "0" ).contains( "." ) || childTag.attribute( "max", "0" ).contains( "." ) )
-						Value += QString::number( RandomNum( childTag.attributeNode("min").nodeValue().toFloat(), childTag.attributeNode("max").nodeValue().toFloat() ) );
-					else
-						Value += QString::number( RandomNum( childTag.attributeNode("min").nodeValue().toInt(), childTag.attributeNode("max").nodeValue().toInt() ) );
-				else if( childTag.attributes().contains("valuelist") )
-				{
-					QStringList RandValues = QStringList::split(",", childTag.attributeNode("list").nodeValue());
-					Value += RandValues[ RandomNum(0,RandValues.size()-1) ];
-				}
-				else if( childTag.attributes().contains( "list" ) )
-				{
-					Value += DefManager->getRandomListEntry( childTag.attribute( "list" ) );
-				}
-				else if( childTag.attributes().contains("dice") )
-					Value += QString::number(rollDice(childTag.attributeNode("dice").nodeValue()));
-				else if( childTag.attributes().contains( "value" ) )
-				{
-					QStringList parts = QStringList::split( "-", childTag.attribute( "value", "0-0" ) );
-					if( parts.count() >= 2 )
-					{
-						QString min = parts[0];
-						QString max = parts[1];
-
-						if( max.contains( "." ) || min.contains( "." ) )
-							Value += QString::number( RandomNum( min.toFloat(), max.toFloat() ) );
-						else
-							Value += QString::number( RandomNum( min.toInt(), max.toInt() ) );
-
-					}
-				}
-				else
-					Value += QString( "0" );
-			}
-
-			// Process the childnodes
-			QDomNodeList childNodes = childTag.childNodes();
-
-			for( int i = 0; i < childNodes.count(); i++ )
-			{
-				if( !childNodes.item( i ).isElement() )
-					continue;
-
-				Value += this->getValue( childNodes.item( i ).toElement() );
-			}
-			childNode = childNode.nextSibling();
-		}
-	}
-	return hex2dec( Value );
-}
-
-UINT16 cAllMakeMenus::getModel( const QDomElement &Tag )
+UINT16 cAllMakeMenus::getModel( const cElement *Tag )
 {
 	UINT16 model = 0;
-	QDomNode childNode = Tag.firstChild();
-	while( !childNode.isNull() )
-	{
-		if( childNode.isElement() )
-		{
-			QDomElement childTag = childNode.toElement();
-			if( childTag.nodeName() == "id" )
-				model = getValue( childTag ).toUShort();
-/*			else if( childTag.nodeName() == "inherit" )
-			{
-				QString section = (char*)0;
-				if( childTag.hasAttribute( "id" ) )
-					section = childTag.attribute( "id" );
-				else
-					section = childTag.text();
 
-				QDomElement inhSection = *DefManager->getSection( WPDT_ITEM, section );
-				if( !inhSection.isNull() )
-					model = getModel( inhSection );
-			}*/
-		}
-		childNode = childNode.nextSibling();
+	for( unsigned int i = 0; i < Tag->childCount(); ++i )
+	{
+		const cElement *childTag = Tag->getChild( i );
+		
+		if( childTag->name() == "id" )
+			model = childTag->getValue().toUShort();
 	}
 	
 	return model;
@@ -1817,10 +1725,10 @@ void cAllMakeMenus::load()
 	QStringList::const_iterator it = sections.begin();
 	while( it != sections.end() )
 	{
-		const QDomElement* DefSection = DefManager->getSection( WPDT_MENU, (*it) );
-		if( !DefSection->isNull() )
+		const cElement* DefSection = DefManager->getDefinition( WPDT_MENU, (*it) );
+		if( DefSection )
 		{
-			cMakeMenu* pMakeMenu = new cMakeMenu( *DefSection );
+			cMakeMenu* pMakeMenu = new cMakeMenu( DefSection );
 			if( pMakeMenu && !( (*it) == "ADD_MENU" && SrvParams->addMenuByCategoryTag() ) )
 			{
 				menus_.insert( make_pair< QString, cMakeMenu* >( (*it), pMakeMenu ) );
@@ -1850,46 +1758,43 @@ void cAllMakeMenus::load()
 			QStringList::const_iterator it = sections.begin();
 			while( it != sections.end() )
 			{
-				QDomElement defSection = *DefManager->getSection( WPDT_ITEM, (*it) );
-				if( !defSection.isNull() )
+				const cElement *defSection = DefManager->getDefinition( WPDT_ITEM, (*it) );
+				
+				if( defSection )
 				{
 					QStringList category;
 					QString description;
 					UINT16 model = 0;
 
-					QDomNode childNode = defSection.firstChild();
-					while( !childNode.isNull() )
+					for( unsigned int i = 0; i < defSection->childCount(); ++i )
 					{
-						if( childNode.isElement() )
+						const cElement *childTag = defSection->getChild( i );
+						
+						if( childTag->name() == "category" )
 						{
-							QDomElement childTag = childNode.toElement();
-							if( childTag.nodeName() == "category" )
-							{
-								category.push_back( childTag.text() );
-							}
-							else if( childTag.nodeName() == "description" )
-							{
-								description = childTag.text();
-							}
-							else if( childTag.nodeName() == "id" )
-							{
-								model = getValue( childTag ).toUShort();
-							}
-							else if( childTag.nodeName() == "inherit" )
-							{
-								QString section;
-								if( childTag.hasAttribute( "id" ) )
-									section = childTag.attribute( "id" );
-								else
-									section = childTag.text();
-
-								QDomElement inhSection = *DefManager->getSection( WPDT_ITEM, section );
-								if( !inhSection.isNull() )
-									model = getModel( inhSection );
-							}
+							category.push_back( childTag->text() );
 						}
+						else if( childTag->name() == "description" )
+						{
+							description = childTag->text();
+						}
+						else if( childTag->name() == "id" )
+						{
+							model = childTag->getValue().toUShort();
+						}
+						else if( childTag->name() == "inherit" )
+						{
+							QString section;
+							if( childTag->hasAttribute( "id" ) )
+								section = childTag->getAttribute( "id" );
+							else
+								section = childTag->text();
 
-						childNode = childNode.nextSibling();
+							const cElement *inhSection = DefManager->getDefinition( WPDT_ITEM, section );
+							
+							if( inhSection )
+								model = getModel( inhSection );
+						}
 					}
 
 					description += "\nDef.-section: "+(*it);
@@ -1967,46 +1872,43 @@ void cAllMakeMenus::load()
 			QStringList::const_iterator it = sections.begin();
 			while( it != sections.end() )
 			{
-				QDomElement defSection = *DefManager->getSection( WPDT_NPC, (*it) );
-				if( !defSection.isNull() )
+				const cElement *defSection = DefManager->getDefinition( WPDT_NPC, (*it) );
+				
+				if( defSection )
 				{
 					QStringList category;
 					QString description;
 					UINT16 model = 0;
 
-					QDomNode childNode = defSection.firstChild();
-					while( !childNode.isNull() )
-					{
-						if( childNode.isElement() )
+					for( unsigned int i = 0; i < defSection->childCount(); ++i )
+					{					
+						const cElement *childTag = defSection->getChild( i );
+
+						if( childTag->name() == "category" )
 						{
-							QDomElement childTag = childNode.toElement();
-							if( childTag.nodeName() == "category" )
-							{
-								category.push_back( childTag.text() );
-							}
-							else if( childTag.nodeName() == "description" )
-							{
-								description = childTag.text();
-							}
-							else if( childTag.nodeName() == "id" )
-							{
-								model = getValue( childTag ).toUShort();
-							}
-							else if( childTag.nodeName() == "inherit" )
-							{
-								QString section = (char*)0;
-								if( childTag.hasAttribute( "id" ) )
-									section = childTag.attribute( "id" );
-								else
-									section = childTag.text();
-
-								QDomElement inhSection = *DefManager->getSection( WPDT_ITEM, section );
-								if( !inhSection.isNull() )
-									model = getModel( inhSection );
-							}
+							category.push_back( childTag->text() );
 						}
+						else if( childTag->name() == "description" )
+						{
+							description = childTag->text();
+						}
+						else if( childTag->name() == "id" )
+						{
+							model = childTag->getValue().toUShort();
+						}
+						else if( childTag->name() == "inherit" )
+						{
+							QString section = (char*)0;
+							if( childTag->hasAttribute( "id" ) )
+								section = childTag->getAttribute( "id" );
+							else
+								section = childTag->text();
 
-						childNode = childNode.nextSibling();
+							const cElement *inhSection = DefManager->getDefinition( WPDT_ITEM, section );
+							
+							if( inhSection )
+								model = getModel( inhSection );
+						}
 					}
 					
 					description += "\nDef.-section: "+(*it);

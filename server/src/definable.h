@@ -33,18 +33,17 @@
 #define __DEFINABLE_H__
 
 // Library includes
-class QDomElement;
+class cElement;
 class QString;
 
 class cDefinable
 {
 public:
 	virtual ~cDefinable() {}
-	virtual void applyDefinition( const QDomElement &sectionNode );
+	virtual void applyDefinition( const cElement *sectionNode );
 protected:
-	virtual void processNode( const QDomElement &Tag ) = 0;
-	QString getNodeValue( const QDomElement &Tag ) const;
-	void processModifierNode( const QDomElement &Tag ); 
+	virtual void processNode( const cElement *Tag ) = 0;
+	void processModifierNode( const cElement *Tag ); 
 };
 
 #endif

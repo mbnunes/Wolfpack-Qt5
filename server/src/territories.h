@@ -50,10 +50,10 @@ struct good_st
 class cTerritory : public cBaseRegion
 {
 public:
-	cTerritory( const QDomElement &Tag, cBaseRegion *parent )
+	cTerritory( const cElement *Tag, cBaseRegion *parent )
 	{
 		this->init();
-		this->name_ = Tag.attribute( "id" );
+		this->name_ = Tag->getAttribute( "id" );
 		this->applyDefinition( Tag );
 		this->parent_ = parent;
 	}
@@ -95,7 +95,7 @@ private:
 	void		setCave( bool data )				{ if( data ) flags_ |= 0x0200; else flags_ &= ~0x0200; }
 	void		setNoMusic( bool data )				{ if( data ) flags_ |= 0x0400; else flags_ &= ~0x0400; }
 
-	virtual void processNode( const QDomElement &Tag );
+	virtual void processNode( const cElement *Tag );
 
 private:
 	QString					 midilist_;		// midilist to play

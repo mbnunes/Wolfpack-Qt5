@@ -1189,19 +1189,19 @@ bool cBaseChar::onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip )
 	return false;
 }
 
-void cBaseChar::processNode( const QDomElement &Tag )
+void cBaseChar::processNode( const cElement *Tag )
 {
 	changed( SAVE );
-	QString TagName = Tag.nodeName();
-	QString Value = this->getNodeValue( Tag );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
 	QDomNodeList ChildTags;
 
 	// <bindmenu>contextmenu</bindmenu>
 	// <bindmenu id="contextmenu />
 	if( TagName == "bindmenu" )
 	{
-		if( !Tag.attribute( "id" ).isNull() ) 
-			this->setBindmenu(Tag.attribute( "id" ));
+		if( !Tag->getAttribute( "id" ).isNull() ) 
+			this->setBindmenu(Tag->getAttribute( "id" ));
 		else
 			setBindmenu(Value);
 	}
@@ -1232,7 +1232,7 @@ void cBaseChar::processNode( const QDomElement &Tag )
 			pBackpack->setType( 1 );
 			pBackpack->setDye(1);
 
-			if( Tag.hasChildNodes() )
+			if( Tag->childCount() )
 				pBackpack->applyDefinition( Tag );
 		}
 	}
@@ -1263,9 +1263,9 @@ void cBaseChar::processNode( const QDomElement &Tag )
 	//<stat type="str">100</stats>
 	else if( TagName == "stat" )
 	{
-		if( Tag.attributes().contains( "type" ) )
+		if( Tag->hasAttribute( "type" ) )
 		{
-			QString statType = Tag.attribute( "type" );
+			QString statType = Tag->getAttribute( "type" );
 			if( statType == "str" )
 			{
 				strength_ = Value.toLong();
@@ -1406,14 +1406,14 @@ void cBaseChar::processNode( const QDomElement &Tag )
 
 	//<skill type="alchemy">100</skill>
 	//<skill type="1">100</skill>
-	else if( TagName == "skill" && Tag.attributes().contains("type") )
+	else if( TagName == "skill" && Tag->hasAttribute("type") )
 	{
-		if( Tag.attribute("type").toInt() > 0 &&
-			Tag.attribute("type").toInt() <= ALLSKILLS )
-			setSkillValue( ( Tag.attribute( "type" ).toInt() - 1 ), Value.toInt() );
+		if( Tag->getAttribute("type").toInt() > 0 &&
+			Tag->getAttribute("type").toInt() <= ALLSKILLS )
+			setSkillValue( ( Tag->getAttribute( "type" ).toInt() - 1 ), Value.toInt() );
 		else
 		{
-			INT16 skillId = Skills->findSkillByDef( Tag.attribute( "type", "" ) );
+			INT16 skillId = Skills->findSkillByDef( Tag->getAttribute( "type", "" ) );
 			setSkillValue( skillId, Value.toInt() );
 		}
 	}
@@ -1425,25 +1425,31 @@ void cBaseChar::processNode( const QDomElement &Tag )
 	//</epuipped>
 	else if( TagName == "equipped" )
 	{
-		QDomNode childNode = Tag.firstChild();
-		std::vector< QDomElement > equipment;
+		std::vector< const cElement* > equipment;
 		
-		while( !childNode.isNull() )
-		{		
-			if( childNode.nodeName() == "item" )
-				equipment.push_back( childNode.toElement() );
-			else if( childNode.nodeName() == "getlist" && childNode.attributes().contains( "id" ) )
-			{
-				QStringList list = DefManager->getList( childNode.toElement().attribute( "id" ) );
-				for( QStringList::iterator it = list.begin(); it != list.end(); it++ )
-					if( DefManager->getSection( WPDT_ITEM, *it ) )
-						equipment.push_back( *DefManager->getSection( WPDT_ITEM, *it ) );
-			}
+		unsigned int i;
+		for( i = 0; i < Tag->childCount(); ++i )
+		{
+			const cElement *childNode = Tag->getChild( i );
 
-			childNode = childNode.nextSibling();
+			if( childNode->name() == "item" )
+				equipment.push_back( childNode );
+			else if( childNode->name() == "getlist" && childNode->hasAttribute( "id" ) )
+			{
+				QStringList list = DefManager->getList( childNode->getAttribute( "id" ) );
+				
+				for( QStringList::iterator it = list.begin(); it != list.end(); it++ )
+				{
+					const cElement *listNode = DefManager->getDefinition( WPDT_ITEM, *it );
+					
+					if( listNode )
+						equipment.push_back( listNode );
+				}
+			}
 		}
 		
-		std::vector< QDomElement >::iterator iter = equipment.begin();
+		std::vector< const cElement* >::iterator iter = equipment.begin();
+		
 		while( iter != equipment.end() )
 		{
 			P_ITEM nItem = new cItem;
@@ -1453,9 +1459,7 @@ void cBaseChar::processNode( const QDomElement &Tag )
 	
 			nItem->Init( true );
 
-			QDomElement tItem = (*iter);
-
-			nItem->applyDefinition( tItem );
+			nItem->applyDefinition( *iter );
 
 			UINT8 mLayer = nItem->layer();
 			nItem->setLayer( 0 );
@@ -1481,14 +1485,14 @@ void cBaseChar::processNode( const QDomElement &Tag )
 	else if( TagName == "inherit" )
 	{
 		QString inheritID;
-		if( Tag.attributes().contains( "id" ) )
-			inheritID = Tag.attribute( "id" );
+		if( Tag->hasAttribute( "id" ) )
+			inheritID = Tag->getAttribute( "id" );
 		else
 			inheritID = Value;
 
-		const QDomElement* DefSection = DefManager->getSection( WPDT_NPC, inheritID );
-		if( !DefSection->isNull() )
-			this->applyDefinition( *DefSection );
+		const cElement *element = DefManager->getDefinition( WPDT_NPC, inheritID );
+		if( element )
+			applyDefinition( element );
 	}
 
 	else

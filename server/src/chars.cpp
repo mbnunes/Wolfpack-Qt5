@@ -104,9 +104,9 @@ P_NPC cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos )
 	if( section.isNull() || section.isEmpty() )
 		return NULL;
 
-	const QDomElement* DefSection = DefManager->getSection( WPDT_NPC, section );
+	const cElement* DefSection = DefManager->getDefinition( WPDT_NPC, section );
 
-	if( !DefSection || DefSection->isNull() )
+	if( !DefSection )
 	{
 		clConsole.log( LOG_ERROR, QString( "Unable to create unscripted npc: %1\n" ).arg( section ) );
 		return NULL;
@@ -123,7 +123,7 @@ P_NPC cCharStuff::createScriptNpc( const QString &section, const Coord_cl &pos )
 
 	pChar->setRegion( AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map ) );
 
-	pChar->applyDefinition( *DefSection );
+	pChar->applyDefinition( DefSection );
 
 	// Now we call onCreate
 	pChar->onCreate( section );

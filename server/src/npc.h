@@ -99,7 +99,7 @@ public:
 	virtual void giveGold( Q_UINT32 amount, bool inBank = false );
 	virtual UINT32 takeGold( UINT32 amount, bool useBank = false );
 
-	virtual void applyDefinition( const QDomElement& );
+	virtual void applyDefinition( const cElement* );
 
 	// other public methods
 	stError *setProperty( const QString &name, const cVariant &value );
@@ -191,7 +191,7 @@ public:
 protected:
 	// interface implementation
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
-	virtual void processNode( const QDomElement& Tag );
+	virtual void processNode( const cElement *Tag );
 
 	// other protected methods
 

@@ -36,11 +36,11 @@
 #include "platform.h"
 #include "coord.h"
 #include "typedefs.h"
+#include "wpdefmanager.h"
 
 // Library includes
 #include <qstring.h>
 #include <qstringlist.h>
-#include <qdom.h>
 #include <qvaluevector.h>
 #include <qmap.h>
 
@@ -60,11 +60,11 @@ public:
 	
 	cBaseRegion(): parent_( 0 ) {;}
 
-	cBaseRegion( const QDomElement& Tag, cBaseRegion* pParent )
+	cBaseRegion( const cElement *tag, cBaseRegion* pParent )
 	{
 		this->init();
-		this->name_ = Tag.attribute( "id" );
-		this->applyDefinition( Tag );
+		this->name_ = tag->getAttribute( "id" );
+		this->applyDefinition( tag );
 		this->parent_ = pParent;
 	}
 
@@ -155,23 +155,23 @@ public:
 	}
 
 protected:
-	virtual void processNode( const QDomElement &Tag )
+	virtual void processNode( const cElement *Tag )
 	{
-		QString TagName = Tag.nodeName();
-		QString Value = this->getNodeValue( Tag );
+		QString TagName = Tag->name();
+		QString Value = Tag->getValue();
 	
 		// <rectangle x1="0" x2="1000" y1="0" y2="500" />
 		if( TagName == "rectangle"  )
 		{
 			rect_st toinsert_;
-			toinsert_.x1  = Tag.attribute( "x1" ).toUShort();
-			toinsert_.x2  = Tag.attribute( "x2" ).toUShort();
-			toinsert_.y1  = Tag.attribute( "y1" ).toUShort();
-			toinsert_.y2  = Tag.attribute( "y2" ).toUShort();
-			toinsert_.map = Tag.attribute( "map").toUShort();
+			toinsert_.x1  = Tag->getAttribute( "x1" ).toUShort();
+			toinsert_.x2  = Tag->getAttribute( "x2" ).toUShort();
+			toinsert_.y1  = Tag->getAttribute( "y1" ).toUShort();
+			toinsert_.y2  = Tag->getAttribute( "y2" ).toUShort();
+			toinsert_.map = Tag->getAttribute( "map").toUShort();
 			this->rectangles_.push_back( toinsert_ );
 		}
-		else if( TagName == "region" && Tag.attributes().contains( "id" ) )
+		else if( TagName == "region" && Tag->hasAttribute( "id" ) )
 			this->subregions_.push_back( new cBaseRegion( Tag, this ) );
 	}
 

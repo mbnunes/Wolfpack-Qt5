@@ -82,7 +82,7 @@ public:
 	virtual ~cHouse() {}
 
 	bool onValidPlace( void );
-	void build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial );
+	void build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial );
 	void remove( void );
 
 	virtual void toDeed( cUOSocket* socket );
@@ -105,8 +105,8 @@ public:
 	UINT32	revision() { return revision_; }
 
 protected:
-	virtual void processNode( const QDomElement &Tag );
-	void processHouseItemNode( const QDomElement &Tag );
+	virtual void processNode( const cElement *Tag );
+	void processHouseItemNode( const cElement *Tag );
 
 	bool nokey_;
 	

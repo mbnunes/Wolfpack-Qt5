@@ -355,24 +355,16 @@ PyObject* wpChar_directionto( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_checkskill( wpChar* self, PyObject* args )
 {
-	if( !self->pChar || self->pChar->free )
+	if( self->pChar->free )
 		return PyFalse;
 
-	// 3 Args: skill-id, min, max
-	if( PyTuple_Size( args ) < 3 || 
-		!PyInt_Check( PyTuple_GetItem( args, 0 ) ) ||
-		!PyInt_Check( PyTuple_GetItem( args, 1 ) ) ||
-		!PyInt_Check( PyTuple_GetItem( args, 2 ) ) )
-	{
-		PyErr_BadArgument();
-		return NULL;
-	}
+	unsigned short skill;
+	unsigned short min, max;
 
-	UINT16 skillId = PyInt_AsLong( PyTuple_GetItem( args, 0 ) );
-	UINT16 min = PyInt_AsLong( PyTuple_GetItem( args, 1 ) );
-	UINT16 max = PyInt_AsLong( PyTuple_GetItem( args, 2 ) );
-
-	bool success = self->pChar->checkSkill( skillId, min, max );
+	if( !PyArg_ParseTuple( args, "hhh|char.checkskill( skill, min, max )", &skill, &min, &max ) )
+		return 0;
+	
+	bool success = self->pChar->checkSkill( skill, min, max );
 
 	return success ? PyTrue : PyFalse;
 }

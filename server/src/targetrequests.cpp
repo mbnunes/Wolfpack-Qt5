@@ -63,7 +63,7 @@ bool cAddItemTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 		return true;
 
 	//QStringList arguments = QStringList::split( " ", npc_ );
-	const QDomElement *node = DefManager->getSection( WPDT_ITEM, item_ );
+	const cElement *node = DefManager->getDefinition( WPDT_ITEM, item_ );
 
 	// Check first if we even are able to create a char
 	if( !node )
@@ -116,7 +116,7 @@ bool cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 		return true;
 
 	//QStringList arguments = QStringList::split( " ", npc_ );
-	const QDomElement *node = DefManager->getSection( WPDT_NPC, npc_ );
+	const cElement *node = DefManager->getDefinition( WPDT_NPC, npc_ );
 
 	// Check first if we even are able to create a char
 	if( !node )
@@ -143,7 +143,7 @@ bool cAddNpcTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	pChar->setRegion( AllTerritories::instance()->region( pChar->pos().x, pChar->pos().y, pChar->pos().map ) );
 	if( node )
 	{
-		pChar->applyDefinition( (*node ) );
+		pChar->applyDefinition( node );
 	}
 	else
 	{
@@ -164,21 +164,22 @@ bool cBuildMultiTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 	if( target->x() & 0xFFFF || target->y() & 0xFFFF || target->z() & 0xFF )
 		return true;
 	
-	const QDomElement* DefSection = DefManager->getSection( WPDT_MULTI, multisection_ );
-	if( DefSection->isNull() )
+	const cElement* DefSection = DefManager->getDefinition( WPDT_MULTI, multisection_ );
+	
+	if( !DefSection )
 		return true;
 
-	if( DefSection->attribute( "type" ) == "house" )
+	if( DefSection->getAttribute( "type" ) == "house" )
 	{
 		cHouse* pHouse = new cHouse();
 		
-		pHouse->build( *DefSection, target->x(), target->y(), target->z(), senderserial_, deedserial_ );
+		pHouse->build( DefSection, target->x(), target->y(), target->z(), senderserial_, deedserial_ );
 	}
-	else if( DefSection->attribute( "type" ) == "boat" )
+	else if( DefSection->getAttribute( "type" ) == "boat" )
 	{
 		cBoat* pBoat = new cBoat();
 
-		pBoat->build( *DefSection, target->x(), target->y(), target->z(), senderserial_, deedserial_ );
+		pBoat->build( DefSection, target->x(), target->y(), target->z(), senderserial_, deedserial_ );
 	}
 	return true;
 };

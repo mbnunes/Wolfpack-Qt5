@@ -39,118 +39,44 @@
 #include <qdom.h>
 #include <qstringlist.h>
 
-void cDefinable::applyDefinition( const QDomElement& sectionNode )
+void cDefinable::applyDefinition( const cElement* sectionNode )
 {
-	if( sectionNode.hasAttribute( "inherit" ) )
+	if( sectionNode->hasAttribute( "inherit" ) )
 	{
-		WPDEF_TYPE wpType = WPDT_ITEM;
+		eDefCategory wpType = WPDT_ITEM;
 
-		if( sectionNode.nodeName() == "npc" )
+		if( sectionNode->name() == "npc" )
 			wpType = WPDT_NPC;
-		else if( sectionNode.nodeName() == "region" )
+		else if( sectionNode->name() == "region" )
 			wpType = WPDT_REGION;
 
-		const QDomElement *tInherit = DefManager->getSection( wpType, sectionNode.attribute( "inherit", "" ) );
-		if( tInherit && !tInherit->isNull() )
-			applyDefinition( (*tInherit) );
+		const cElement *tInherit = DefManager->getDefinition( wpType, sectionNode->getAttribute( "inherit", "" ) );
+
+		if( tInherit )
+			applyDefinition( tInherit );
 	}
 		
 	// Check for random-inherit
-	if( sectionNode.hasAttribute( "inheritlist" ) )
+	if( sectionNode->hasAttribute( "inheritlist" ) )
 	{
-		WPDEF_TYPE wpType = WPDT_ITEM;
+		eDefCategory wpType = WPDT_ITEM;
 
-		if( sectionNode.nodeName() == "npc" )
+		if( sectionNode->name() == "npc" )
 			wpType = WPDT_NPC;
 
-		QString iSection = DefManager->getRandomListEntry( sectionNode.attribute( "inheritlist", "" ) );
-		const QDomElement *tInherit = DefManager->getSection( wpType, iSection );
-		if( tInherit && !tInherit->isNull() )
-			applyDefinition( (*tInherit) );
+		QString iSection = DefManager->getRandomListEntry( sectionNode->getAttribute( "inheritlist", "" ) );
+		
+		const cElement *tInherit = DefManager->getDefinition( wpType, iSection );
+
+		if( tInherit )
+			applyDefinition( tInherit );
 	}
 
-	QDomNode TagNode = sectionNode.firstChild();
-	while( !TagNode.isNull() )
-	{
-		if( TagNode.isElement() )
-			this->processNode( TagNode.toElement() );
-
-		TagNode = TagNode.nextSibling();
-	}
+	for( unsigned int i = 0; i < sectionNode->childCount(); ++i )
+		processNode( sectionNode->getChild( i ) );
 }
 
-QString cDefinable::getNodeValue( const QDomElement &Tag ) const 
-{
-	QString Value;
-	if( !Tag.hasChildNodes() )
-		return "";
-	else
-	{
-		QDomNode childNode = Tag.firstChild();
-		while( !childNode.isNull() )
-		{
-			if( !childNode.isElement() )
-			{
-				if( childNode.isText() )
-					Value += childNode.toText().data();
-				childNode = childNode.nextSibling();
-				continue;
-			}
-			QDomElement childTag = childNode.toElement();
-			if( childTag.nodeName() == "random" )
-			{
-				if( childTag.attributes().contains("min") && childTag.attributes().contains("max") )
-					if( childTag.attribute( "min", "0" ).contains( "." ) || childTag.attribute( "max", "0" ).contains( "." ) )
-						Value += QString::number( RandomNum( childTag.attributeNode("min").nodeValue().toFloat(), childTag.attributeNode("max").nodeValue().toFloat() ) );
-					else
-						Value += QString::number( RandomNum( childTag.attributeNode("min").nodeValue().toInt(), childTag.attributeNode("max").nodeValue().toInt() ) );
-				else if( childTag.attributes().contains("valuelist") )
-				{
-					QStringList RandValues = QStringList::split(",", childTag.attributeNode("list").nodeValue());
-					Value += RandValues[ RandomNum(0,RandValues.size()-1) ];
-				}
-				else if( childTag.attributes().contains( "list" ) )
-				{
-					Value += DefManager->getRandomListEntry( childTag.attribute( "list" ) );
-				}
-				else if( childTag.attributes().contains("dice") )
-					Value += QString::number(rollDice(childTag.attributeNode("dice").nodeValue()));
-				else if( childTag.attributes().contains( "value" ) )
-				{
-					QStringList parts = QStringList::split( "-", childTag.attribute( "value", "0-0" ) );
-					if( parts.count() >= 2 )
-					{
-						QString min = parts[0];
-						QString max = parts[1];
-
-						if( max.contains( "." ) || min.contains( "." ) )
-							Value += QString::number( RandomNum( min.toFloat(), max.toFloat() ) );
-						else
-							Value += QString::number( RandomNum( min.toInt(), max.toInt() ) );
-
-					}
-				}
-				else
-					Value += QString( "0" );
-			}
-
-			// Process the childnodes
-			QDomNodeList childNodes = childTag.childNodes();
-
-			for( int i = 0; i < childNodes.count(); i++ )
-			{
-				if( !childNodes.item( i ).isElement() )
-					continue;
-
-				Value += this->getNodeValue( childNodes.item( i ).toElement() );
-			}
-			childNode = childNode.nextSibling();
-		}
-	}
-	return hex2dec( Value );
-}
-
-void cDefinable::processModifierNode( const QDomElement &Tag )
+void cDefinable::processModifierNode( const cElement *Tag )
 {
 	Q_UNUSED(Tag);
 };

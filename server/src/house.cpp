@@ -58,7 +58,7 @@ using namespace std;
 #undef  DBGFILE
 #define DBGFILE "house.cpp"
 
-void cHouse::processHouseItemNode( const QDomElement &Tag )
+void cHouse::processHouseItemNode( const cElement *Tag )
 {
 	P_CHAR pOwner = FindCharBySerial( ownSerial() );
 	P_ITEM nItem = new cItem;
@@ -69,6 +69,7 @@ void cHouse::processHouseItemNode( const QDomElement &Tag )
 	nItem->Init( true );
 
 	nItem->applyDefinition( Tag );
+
 	if( nItem->type() == 222 )
 		nItem->setName( name() );
 
@@ -76,43 +77,37 @@ void cHouse::processHouseItemNode( const QDomElement &Tag )
 	addItem( nItem );
 	Coord_cl npos = this->pos();
 
-	QDomNode childNode = Tag.firstChild();
-	while( !childNode.isNull() )
+	for( unsigned int i = 0; i < Tag->childCount(); ++i )
 	{
-		if( childNode.isElement() )
-		{
-			QDomElement childTag = childNode.toElement();
-			QString TagName = childTag.nodeName();
-			QString Value = this->getNodeValue( childTag );
-
-			// <pack />
-			if( TagName == "pack" && pOwner )
-			{
-				P_ITEM pBackpack = pOwner->atLayer( cBaseChar::Backpack );
-				if( pBackpack )
-					pBackpack->addItem( nItem );
-			}
-
-			// <lock />
-			else if( TagName == "lock" )
-			{
-				nItem->setMagic(4);
-			}
-
-			// <secure />
-			else if( TagName == "secure" )
-				nItem->setMagic(3);
-
-			// <position x="1" y="5" z="20" />
-			else if( TagName == "position" )
-			{
-				npos.x = npos.x + childTag.attribute( "x" ).toShort();
-				npos.y = npos.y + childTag.attribute( "y" ).toShort();
-				npos.z = npos.z + childTag.attribute( "z" ).toShort();
-			}
-		}
+		const cElement *childTag = Tag->getChild( i );
 		
-		childNode = childNode.nextSibling();
+		QString TagName = childTag->name();
+		QString Value = childTag->getValue();
+
+		// <pack />
+		if( TagName == "pack" && pOwner )
+		{
+			P_ITEM pBackpack = pOwner->getBackpack();
+			pBackpack->addItem( nItem );
+		}
+
+		// <lock />
+		else if( TagName == "lock" )
+		{
+			nItem->setMagic(4);
+		}
+
+		// <secure />
+		else if( TagName == "secure" )
+			nItem->setMagic(3);
+
+		// <position x="1" y="5" z="20" />
+		else if( TagName == "position" )
+		{
+			npos.x = npos.x + childTag->getAttribute( "x" ).toShort();
+			npos.y = npos.y + childTag->getAttribute( "y" ).toShort();
+			npos.z = npos.z + childTag->getAttribute( "z" ).toShort();
+		}
 	}
 
 	nItem->moveTo( npos );
@@ -171,10 +166,10 @@ bool cHouse::onValidPlace()
 	return true;
 }
 
-void cHouse::processNode( const QDomElement &Tag )
+void cHouse::processNode( const cElement *Tag )
 {
-	QString TagName = Tag.nodeName();
-	QString Value = this->getNodeValue( Tag );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
 
 	// <id>16572</id>
 	if( TagName == "id" )
@@ -183,9 +178,9 @@ void cHouse::processNode( const QDomElement &Tag )
 	// <movechar x="0" y="0" z="8" />
 	else if( TagName == "movechar" )
 	{
-		charpos_.x = Tag.attribute( "x" ).toInt();
-		charpos_.y = Tag.attribute( "y" ).toInt();
-		charpos_.z = Tag.attribute( "z" ).toInt();
+		charpos_.x = Tag->getAttribute( "x" ).toInt();
+		charpos_.y = Tag->getAttribute( "y" ).toInt();
+		charpos_.z = Tag->getAttribute( "z" ).toInt();
 	}
 
 	// <item>
@@ -204,7 +199,7 @@ void cHouse::processNode( const QDomElement &Tag )
 		cMulti::processNode( Tag );
 }
 
-void cHouse::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial )
+void cHouse::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial )
 {
 	P_PLAYER pc_currchar = dynamic_cast<P_PLAYER>(FindCharBySerial( senderserial ));
 	if ( !pc_currchar )
@@ -212,12 +207,12 @@ void cHouse::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SER
 	cUOSocket* socket = pc_currchar->socket();
 
 	this->setSerial( World::instance()->findItemSerial() );
-//	ItemsManager::instance()->registerItem( this );
 	this->SetOwnSerial( senderserial );
 	this->setPriv( 0 );
 	this->MoveTo( posx, posy, posz );
 
 	this->applyDefinition( Tag );
+
 	if( !this->onValidPlace() )
 	{
 		if( socket )
@@ -233,9 +228,7 @@ void cHouse::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SER
 		Items->DeleItem( pDeed );
 
 	if( !nokey_ )
-	{
 		createKeys( pc_currchar, tr("house key") );
-	}
 
 	RegionIterator4Items ri(this->pos());
 	for(ri.Begin(); !ri.atEnd(); ri++)

@@ -58,10 +58,10 @@ void cTerritory::init( void )
 	guardSections_.push_back( "standard_guard" );
 }
 
-void cTerritory::processNode( const QDomElement &Tag )
+void cTerritory::processNode( const cElement *Tag )
 {
-	QString TagName = Tag.nodeName();
-	QString Value = this->getNodeValue( Tag );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
 
 	//<guards>
 	//  <npc mult="2">npcsection</npc> (mult inserts 2 same sections into the list so the probability rises!
@@ -70,23 +70,22 @@ void cTerritory::processNode( const QDomElement &Tag )
 	//</guards>
 	if( TagName == "guards" )
 	{
-		QDomNode childNode = Tag.firstChild();
-		while( !childNode.isNull() )
+		for( unsigned int i = 0; i < Tag->childCount(); ++i )
 		{
-			if( !childNode.isElement() )
-				this->guardSections_.push_back( Value );
-			else if( childNode.nodeName() == "npc" )
+			const cElement *childNode = Tag->getChild( i );
+
+			if( childNode->name() == "npc" )
 			{
-				UI32 mult = childNode.toElement().attribute( "mult" ).toInt();
+				UI32 mult = childNode->getAttribute( "mult" ).toInt();
 				if( mult < 1 )
 					mult = 1;
 
 				for( UI32 i = 0; i < mult; i++ )
-					this->guardSections_.push_back( this->getNodeValue( childNode.toElement() ) );
+					this->guardSections_.push_back( childNode->getValue() );
 			}
-			else if( childNode.nodeName() == "list" && childNode.attributes().contains( "id" ) )
+			else if( childNode->name() == "list" && childNode->hasAttribute( "id" ) )
 			{
-				QStringList NpcList = DefManager->getList( childNode.toElement().attribute( "id" ) );
+				QStringList NpcList = DefManager->getList( childNode->getAttribute( "id" ) );
 				QStringList::iterator it = NpcList.begin();
 				while( it != NpcList.end() )
 				{
@@ -94,8 +93,6 @@ void cTerritory::processNode( const QDomElement &Tag )
 					it++;
 				}
 			}
-
-			childNode = childNode.nextSibling();
 		}
 	}
 
@@ -111,35 +108,32 @@ void cTerritory::processNode( const QDomElement &Tag )
 	{
 		flags_ = 0;
 
-		QDomNode childNode = Tag.firstChild();
-		while( !childNode.isNull() )
+		for( unsigned int i = 0; i < Tag->childCount(); ++i )
 		{
-			if( childNode.isElement() )
-			{
-				if( childNode.nodeName() == "guarded" )
-					setGuarded( true );
-				else if( childNode.nodeName() == "nomark" )
-					setNoMark( true );
-				else if( childNode.nodeName() == "nogate" )
-					setNoGate( true );
-				else if( childNode.nodeName() == "norecallout" )
-					setNoRecallOut( true );
-				else if( childNode.nodeName() == "norecallin" )
-					setNoRecallIn( true );
-				else if( childNode.nodeName() == "recallshield" )
-					setRecallShield( true );
-				else if( childNode.nodeName() == "noagressivemagic" )
-					setNoAgressiveMagic( true );
-				else if( childNode.nodeName() == "antimagic" )
-					setAntiMagic( true );
-				else if( childNode.nodeName() == "escortregion" )
-					setValidEscortRegion( true );
-				else if( childNode.nodeName() == "cave" )
-					setCave( true );
-				else if( childNode.nodeName() == "nomusic" )
-					setNoMusic( true );
-			}
-			childNode = childNode.nextSibling();
+			const cElement *childNode = Tag->getChild( i );
+
+			if( childNode->name() == "guarded" )
+				setGuarded( true );
+			else if( childNode->name() == "nomark" )
+				setNoMark( true );
+			else if( childNode->name() == "nogate" )
+				setNoGate( true );
+			else if( childNode->name() == "norecallout" )
+				setNoRecallOut( true );
+			else if( childNode->name() == "norecallin" )
+				setNoRecallIn( true );
+			else if( childNode->name() == "recallshield" )
+				setRecallShield( true );
+			else if( childNode->name() == "noagressivemagic" )
+				setNoAgressiveMagic( true );
+			else if( childNode->name() == "antimagic" )
+				setAntiMagic( true );
+			else if( childNode->name() == "escortregion" )
+				setValidEscortRegion( true );
+			else if( childNode->name() == "cave" )
+				setCave( true );
+			else if( childNode->name() == "nomusic" )
+				setNoMusic( true );
 		}
 	}
 
@@ -163,77 +157,73 @@ void cTerritory::processNode( const QDomElement &Tag )
 	// </tradesystem>
 	else if( TagName == "tradesystem" )
 	{
-		QDomNode childNode = Tag.firstChild();
-		while( !childNode.isNull() )
+		for( unsigned int i = 0; i < Tag->childCount(); ++i )
 		{
-			if( childNode.isElement() )
-			{
-				good_st goods;
-				goods.buyable = 0;
-				goods.sellable = 0;
-				goods.rndmin = 0;
-				goods.rndmax = 0;
-				UI32 num = 0xFFFFFFFF;
+			const cElement *childNode = Tag->getChild( i );
 
-				if( childNode.nodeName() == "good" )
+			good_st goods;
+			goods.buyable = 0;
+			goods.sellable = 0;
+			goods.rndmin = 0;
+			goods.rndmax = 0;
+			UI32 num = 0xFFFFFFFF;
+
+			if( childNode->name() == "good" )
+			{
+				if( childNode->hasAttribute( "num" ) )
+					num = childNode->getAttribute( "num" ).toInt();
+
+				for( unsigned int j = 0; j < childNode->childCount(); ++j )
 				{
-					if( childNode.attributes().contains( "num" ) )
-						num = childNode.toElement().attribute( "num" ).toInt();
-					QDomNode chchildNode = childNode.firstChild();
-					while( !chchildNode.isNull() )
+					const cElement *chchildNode = childNode->getChild( j );
+
+					QString childValue = chchildNode->getValue();
+					
+					if( chchildNode->name() == "buyable" )
+						goods.buyable = childValue.toInt();
+					else if( chchildNode->name() == "sellable" )
+						goods.sellable = childValue.toInt();
+					else if( chchildNode->name() == "randomvalue" )
 					{
-						if( chchildNode.isElement() )
-						{
-							QString childValue = this->getNodeValue( chchildNode.toElement() );
-							if( chchildNode.nodeName() == "buyable" )
-								goods.buyable = childValue.toInt();
-							else if( chchildNode.nodeName() == "sellable" )
-								goods.sellable = childValue.toInt();
-							else if( chchildNode.nodeName() == "randomvalue" )
-							{
-								goods.rndmin = chchildNode.toElement().attribute( "min" ).toInt();
-								goods.rndmax = chchildNode.toElement().attribute( "max" ).toInt();
-							}
-						}
-						chchildNode = chchildNode.nextSibling();
+						goods.rndmin = chchildNode->getAttribute( "min" ).toInt();
+						goods.rndmax = chchildNode->getAttribute( "max" ).toInt();
 					}
 				}
-
-				if( num != 0xFFFFFFFF )
-					this->tradesystem_[num] = goods;
 			}
-			childNode = childNode.nextSibling();
+
+			if( num != 0xFFFFFFFF )
+				this->tradesystem_[num] = goods;
 		}
 	}
 
 	// <region id="Cove Market Place">
 	//		...region nodes...
 	// </region>
-	else if( TagName == "region" && Tag.attributes().contains( "id" ) )
+	else if( TagName == "region" && Tag->hasAttribute( "id" ) )
 	{
 		cTerritory* toinsert_ = new cTerritory( Tag, this );
 		this->subregions_.push_back( toinsert_ );
 	}
 	else if ( TagName == "teleport" )
 	{
-		if ( !Tag.attributes().contains("source") )
+		if ( !Tag->hasAttribute("source") )
 		{
 			qWarning("ERROR: processing teleport tag, missing source attribute");
 			return;
 		}
 
-		if ( !Tag.attributes().contains("destination") )
+		if ( !Tag->hasAttribute("destination") )
 		{
 			qWarning("ERROR: processing teleport tag, missing destination attribute");
 			return;
 		}
 		Coord_cl source, destination;
-		if ( !parseCoordinates( Tag.attribute( "source" ), source ) )
+		if ( !parseCoordinates( Tag->getAttribute( "source" ), source ) )
 		{
 			qWarning("ERROR: parsing source attribute, not a valid coordinate vector");
 			return;
 		}
-		if ( !parseCoordinates( Tag.attribute( "destination" ), destination ) )
+		if ( !parseCoordinates( Tag->getAttribute( "destination" ), destination ) )
 		{
 			qWarning("ERROR: parsing destination attribute, not a valid coordinate vector");
 			return;
@@ -285,8 +275,9 @@ void cAllTerritories::load( void )
 	QStringList::iterator it( DefSections.begin() );
 	while( it != DefSections.end() )
 	{
-		const QDomElement* DefSection = DefManager->getSection( WPDT_REGION, *it );
-		cTerritory* territory = new cTerritory( *DefSection, 0 );
+		const cElement* DefSection = DefManager->getDefinition( WPDT_REGION, *it );
+		cTerritory* territory = new cTerritory( DefSection, 0 );
+
 		if ( territory->rectangles().empty() )
 		{
 			clConsole.send( tr("Warning: Top level region %1 lacks rectangle tag, ignoring region").arg(territory->name()) );

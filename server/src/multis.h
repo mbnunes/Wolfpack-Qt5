@@ -110,7 +110,7 @@ public:
 
 
 protected:
-	virtual void processNode( const QDomElement &Tag );
+	virtual void processNode( const cElement *Tag );
 
 protected:
 	QString deedsection_;

@@ -142,7 +142,7 @@ public:
 	UI16 calcDefense( enBodyParts bodypart, bool wearout = false );
 	P_ITEM rightHandItem() const;
 	P_ITEM leftHandItem() const;
-	bool checkSkill( UI16 skill, SI32 min, SI32 max, bool advance = true );
+	virtual bool checkSkill( UI16 skill, SI32 min, SI32 max, bool advance = true );
 	cItem* atLayer( enLayer layer ) const;
 	bool Owns( P_ITEM pi ) const;
 	virtual void callGuards();
@@ -341,7 +341,7 @@ protected:
 
 	// other protected methods
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
-	virtual void processNode( const QDomElement &Tag );
+	virtual void processNode( const cElement *Tag );
 
     // The body ID for this character. cOldChar::id_
     UINT16 bodyID_;

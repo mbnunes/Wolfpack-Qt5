@@ -50,7 +50,6 @@
 #include <qmap.h>
 
 // Forward class declarations
-class QDomElement;
 class Coord_cl;
 class cPythonScript;
 class cUOSocket;
@@ -167,14 +166,13 @@ public:
 	virtual bool onCreate( const QString &definition );
 	virtual bool onCollide( cUObject* Obstacle ); // This is called for the walking character first, then for the item walked on
 	
-	bool free;
+	bool free;	
 
 // Methods
 public:
 	cUObject();
 	cUObject( cUObject& ); // Copy constructor
 	virtual ~cUObject() {};
-//	virtual QString objectID() const = 0;
 
 	void changed( UI32 );
 	void moveTo( const Coord_cl&, bool noRemove = false );
@@ -200,15 +198,14 @@ public:
 	bool isItem() { return (serial_ != INVALID_SERIAL && serial_ > 0 && serial_ >= 0x40000000); }
 	bool isChar() { return (serial_ != INVALID_SERIAL && serial_ > 0 && serial_ <  0x40000000); }
 
+	void processNode( const cElement *Tag );
+
 	virtual void talk( const QString &message, UI16 color = 0xFFFF, UINT8 type = 0, bool autospam = false, cUOSocket* socket = NULL ) = 0;
 	virtual stError *setProperty( const QString &name, const cVariant &value );
 	virtual stError *getProperty( const QString &name, cVariant &value ) const;
-/////
 	virtual void flagUnchanged() { changed_ = false; }
 
 protected:
-	virtual void processNode( const QDomElement &Tag ) = 0;
-
 
 	std::vector< cPythonScript* > scriptChain;
 	QString eventList_; // Important for recreating the scriptChain on reloading

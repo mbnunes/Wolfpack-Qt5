@@ -41,44 +41,44 @@
 #undef  DBGFILE
 #define DBGFILE "contextmenu.cpp"
 
-void cConSingleOption::setOption( const QDomElement &Tag )
+void cConSingleOption::setOption( const cElement *Tag )
 {
-	this->tag_ = Tag.attribute( "tag" ).toUShort();
-	this->intlocid_ = Tag.attribute( "intlocid" ).toUShort();
-	this->msgid_ = Tag.attribute( "msgid" ).toUShort();
+	this->tag_ = Tag->getAttribute( "tag" ).toUShort();
+	this->intlocid_ = Tag->getAttribute( "intlocid" ).toUShort();
+	this->msgid_ = Tag->getAttribute( "msgid" ).toUShort();
 }
 
-void cConMenuOptions::addOption( const QDomElement &Tag )
+void cConMenuOptions::addOption( const cElement *Tag )
 {
 	cConSingleOption SingleOption;
 	SingleOption.setOption( Tag );
 	this->options_.push_back( SingleOption );
 }
 
-void cConMenuOptions::processNode( const QDomElement &Tag )
+void cConMenuOptions::processNode( const cElement *Tag )
 {
-	QString TagName = Tag.nodeName();
+	QString TagName = Tag->name();
 	
 	if( TagName == "option" ) 
 		addOption ( Tag );
 }
 
-void cConMenu::processNode( const QDomElement &Tag )
+void cConMenu::processNode( const cElement *Tag )
 {
-	QString TagName = Tag.nodeName();
+	QString TagName = Tag->name();
 	cConMenuOptions tOptions;
 	
 	tOptions.applyDefinition( Tag );
 	
-	if( TagName == "access" && Tag.hasAttribute( "acl" ))
+	if( TagName == "access" && Tag->hasAttribute( "acl" ) )
 	{
 		tOptions.processNode( Tag );
-		options_.insert( Tag.attribute( "acl" ), tOptions );
+		options_.insert( Tag->getAttribute( "acl" ), tOptions );
 		tOptions.deleteAll();
 	}
 	else if( TagName == "events" )
 	{
-		eventList_ = QStringList::split( ",", getNodeValue( Tag ) );
+		eventList_ = QStringList::split( ",", Tag->getValue() );
 		recreateEvents();
 	}
 
@@ -117,7 +117,7 @@ bool cConMenu::onContextEntry( cPlayer *Caller, cUObject *Target, Q_UINT16 Tag )
 	return false;
 }
 
-cConMenu::cConMenu( const QDomElement &Tag )
+cConMenu::cConMenu( const cElement *Tag )
 {
 	applyDefinition( Tag );
 	recreateEvents();
@@ -138,10 +138,11 @@ void cAllConMenus::load( void )
 	QStringList::const_iterator it = sections.begin();
 	while( it != sections.end() )
 	{
-		const QDomElement* DefSection = DefManager->getSection( WPDT_CONTEXTMENU, (*it) );
-		if( !DefSection->isNull() )
+		const cElement* section = DefManager->getDefinition( WPDT_CONTEXTMENU, (*it) );
+
+		if( section )
 		{
-			menus_.insert( (*it), cConMenu( *DefSection ) );
+			menus_.insert( (*it), cConMenu( section ) );
 		}
 		++it;
 	}

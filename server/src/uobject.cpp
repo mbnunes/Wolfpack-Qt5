@@ -484,10 +484,10 @@ void cUObject::recreateEvents( void )
 	}
 }
 
-void cUObject::processNode( const QDomElement &Tag )
+void cUObject::processNode( const cElement *Tag )
 {
-	QString TagName = Tag.nodeName();
-	QString Value = this->getNodeValue( Tag );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
 
 	// <tag type="string"> also type="value"
 	//	    <key>multisection</key>
@@ -496,27 +496,24 @@ void cUObject::processNode( const QDomElement &Tag )
 	if( TagName == "tag" )
 	{
 		QString tkey, tvalue;
-		QDomNode childNode = Tag.firstChild();
-		while( !childNode.isNull() )
-		{
-			if( childNode.isElement() )
-			{
-				QDomElement childTag = childNode.toElement();
-				QString childValue = this->getNodeValue( childTag );
-				QString childName = childNode.nodeName();
-				
-				if( childName == "key" )
-					tkey = childValue;	
 
-				else if( childName == "value" )
-					tvalue = childValue;
-			}
-			childNode = childNode.nextSibling();
+		for( unsigned int i = 0; i < Tag->childCount(); ++i )
+		{
+			const cElement *childTag = Tag->getChild( i );
+
+			QString childValue = childTag->getValue();
+			QString childName = childTag->name();
+				
+			if( childName == "key" )
+				tkey = childValue;	
+
+			else if( childName == "value" )
+				tvalue = childValue;
 		}
 
 		if( !tkey.isNull() && !tvalue.isNull() )
 		{
-			if( Tag.attribute( "type" ) == "value" )
+			if( Tag->getAttribute( "type" ) == "value" )
 				this->tags_.set( tkey, cVariant( tvalue.toInt() ) );
 			else
 				this->tags_.set( tkey, cVariant( tvalue ) );

@@ -93,7 +93,7 @@ cBoat::cBoat() : cMulti()
 }
 
 
-void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial )
+void cBoat::build( const cElement *Tag, UI16 posx, UI16 posy, SI08 posz, SERIAL senderserial, SERIAL deedserial )
 {
 	P_PLAYER pc_currchar = dynamic_cast<P_PLAYER>(FindCharBySerial( senderserial ));
 	if( !pc_currchar )
@@ -242,18 +242,18 @@ void cBoat::build( const QDomElement &Tag, UI16 posx, UI16 posy, SI08 posz, SERI
 	this->SetOwnSerial( pc_currchar->serial() );
 }
 
-void cBoat::processNode( const QDomElement &Tag )
+void cBoat::processNode( const cElement *Tag )
 {
-	QString TagName = Tag.nodeName();
-	QString Value = this->getNodeValue( Tag );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
 
 	// <ids north="0x4021" east=".." south=".." west=".." />
 	if( TagName == "ids" )
 	{
-		this->multiids_.push_back( hex2dec(Tag.attribute( "north" )).toUShort() );
-		this->multiids_.push_back( hex2dec(Tag.attribute( "east" )).toUShort() );
-		this->multiids_.push_back( hex2dec(Tag.attribute( "south" )).toUShort() );
-		this->multiids_.push_back( hex2dec(Tag.attribute( "west" )).toUShort() );
+		this->multiids_.push_back( hex2dec(Tag->getAttribute( "north" )).toUShort() );
+		this->multiids_.push_back( hex2dec(Tag->getAttribute( "east" )).toUShort() );
+		this->multiids_.push_back( hex2dec(Tag->getAttribute( "south" )).toUShort() );
+		this->multiids_.push_back( hex2dec(Tag->getAttribute( "west" )).toUShort() );
 	}
 
 	// <special_items>
@@ -284,66 +284,49 @@ void cBoat::processNode( const QDomElement &Tag )
 	// </special_items>
 	else if( TagName == "special_items" )
 	{
-		QDomNode childNode = Tag.firstChild();
-		while( !childNode.isNull() )
+		unsigned int i;
+
+		for( i = 0; i < Tag->childCount(); ++i )
 		{
-			if( childNode.isElement() )
+			const cElement *childTag = Tag->getChild( i );
+
+			UI08 item = 0xFF;
+
+			if( childTag->name() == "tillerman" )
 			{
-				UI08 item = 0xFF;
-				QDomElement childTag = childNode.toElement();
-				if( childTag.nodeName() == "tillerman" )
+				item = TILLER_ID;
+			}
+			else if( childTag->name() == "hold" )
+			{
+				item = HOLD_ID;
+			}
+			else if( childTag->name() == "planks" )
+			{
+				for( unsigned int j = 0; j < childTag->childCount(); ++j )
 				{
-					item = TILLER_ID;
-				}
-				else if( childTag.nodeName() == "hold" )
-				{
-					item = HOLD_ID;
-				}
-				else if( childTag.nodeName() == "planks" )
-				{
-					QDomNode chchildNode = childTag.firstChild();
-					while( !chchildNode.isNull() )
-					{
-						item = 0xFF;
-						if( chchildNode.isElement() )
-						{
-							QDomElement chchildTag = chchildNode.toElement();
-							if( chchildTag.nodeName() == "port_closed" )
-								item = PORT_P_C;
-							else if( chchildTag.nodeName() == "port_opened" )
-								item = PORT_P_O;
-							else if( chchildTag.nodeName() == "star_closed" )
-								item = STAR_P_C;
-							else if( chchildTag.nodeName() == "star_opened" )
-								item = STAR_P_O;
-						}
-						if( item < 0xFF )
-						{
-							QDomNode chchchildNode = chchildNode.firstChild();
-							while( !chchchildNode.isNull() )
-							{
-								if( chchchildNode.isElement() )
-									this->processSpecialItemNode( chchchildNode.toElement(), item );
-								chchchildNode = chchchildNode.nextSibling();
-							}
-						}
-						chchildNode = chchildNode.nextSibling();
-					}
+					const cElement *plankTag = childTag->getChild( j );
 					item = 0xFF;
+
+					if( plankTag->name() == "port_closed" )
+						item = PORT_P_C;
+					else if( plankTag->name() == "port_opened" )
+						item = PORT_P_O;
+					else if( plankTag->name() == "star_closed" )
+						item = STAR_P_C;
+					else if( plankTag->name() == "star_opened" )
+						item = STAR_P_O;
+
+					if( item < 0xFF )
+						for( unsigned int k = 0; k < plankTag->childCount(); ++k )
+							processSpecialItemNode( plankTag->getChild( k ), item );
 				}
 
-				if( item < 0xFF )
-				{
-					QDomNode chchildNode = childTag.firstChild();
-					while( !chchildNode.isNull() )
-					{
-						if( chchildNode.isElement() )
-							this->processSpecialItemNode( chchildNode.toElement(), item );
-						chchildNode = chchildNode.nextSibling();
-					}
-				}
+				item = 0xFF;
 			}
-			childNode = childNode.nextSibling();
+
+			if( item < 0xFF )
+				for( unsigned int k = 0; k < childTag->childCount(); ++k )
+					processSpecialItemNode( childTag->getChild( k ), item );
 		}
 	}
 
@@ -351,16 +334,16 @@ void cBoat::processNode( const QDomElement &Tag )
 		cMulti::processNode( Tag );
 }
 
-void cBoat::processSpecialItemNode( const QDomElement &Tag, UI08 item )
+void cBoat::processSpecialItemNode( const cElement *Tag, UI08 item )
 {
-	QString TagName = Tag.nodeName();
+	QString TagName = Tag->name();
 
 	if( TagName == "ids" )
 	{
-		this->itemids[0][ item ] = hex2dec(Tag.attribute( "north" )).toUShort();
-		this->itemids[1][ item ] = hex2dec(Tag.attribute( "east" )).toUShort();
-		this->itemids[2][ item ] = hex2dec(Tag.attribute( "south" )).toUShort();
-		this->itemids[3][ item ] = hex2dec(Tag.attribute( "west" )).toUShort();
+		this->itemids[0][ item ] = hex2dec(Tag->getAttribute( "north" )).toUShort();
+		this->itemids[1][ item ] = hex2dec(Tag->getAttribute( "east" )).toUShort();
+		this->itemids[2][ item ] = hex2dec(Tag->getAttribute( "south" )).toUShort();
+		this->itemids[3][ item ] = hex2dec(Tag->getAttribute( "west" )).toUShort();
 	}
 
 	else if( TagName == "offsets" )
@@ -373,32 +356,28 @@ void cBoat::processSpecialItemNode( const QDomElement &Tag, UI08 item )
 			item = HOLD;
 		else if( item == 5 )
 			item = TILLER;
-	
-		QDomNode childNode = Tag.firstChild();
-		while( !childNode.isNull() )
+
+		for( unsigned int j = 0; j < Tag->childCount(); ++j )
 		{
-			if( childNode.isElement() )
+			const cElement *childTag = Tag->getChild( j );
+
+			UI08 coord = 0xFF;
+			if( childTag->name() == "x" )
 			{
-				UI08 coord = 0xFF;
-				QDomElement childTag = childNode.toElement();
-				if( childTag.nodeName() == "x" )
-				{
-					coord = X;
-				}
-				else if( childTag.nodeName() == "y" )
-				{
-					coord = Y;
-				}
-				
-				if( coord < 0xFF )
-				{
-					this->itemoffsets[0][ item ][ coord ] = childTag.attribute( "north" ).toShort();
-					this->itemoffsets[1][ item ][ coord ] = childTag.attribute( "east" ).toShort();
-					this->itemoffsets[2][ item ][ coord ] = childTag.attribute( "south" ).toShort();
-					this->itemoffsets[3][ item ][ coord ] = childTag.attribute( "west" ).toShort();
-				}
+				coord = X;
 			}
-			childNode = childNode.nextSibling();
+			else if( childTag->name() == "y" )
+			{
+				coord = Y;
+			}
+			
+			if( coord < 0xFF )
+			{
+				this->itemoffsets[0][ item ][ coord ] = childTag->getAttribute( "north" ).toShort();
+				this->itemoffsets[1][ item ][ coord ] = childTag->getAttribute( "east" ).toShort();
+				this->itemoffsets[2][ item ][ coord ] = childTag->getAttribute( "south" ).toShort();
+				this->itemoffsets[3][ item ][ coord ] = childTag->getAttribute( "west" ).toShort();
+			}
 		}
 	}
 }

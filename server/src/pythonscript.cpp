@@ -104,16 +104,23 @@ void cPythonScript::unload( void )
 }
 
 // Find our module name
-void cPythonScript::load( const QDomElement &Data )
+bool cPythonScript::load( const cElement *element )
 {
 	// Initialize it
 	codeModule = NULL;
 	catchAllSpeech_ = false;
 
-	QString moduleName = Data.attribute( "module" );
+	QString name = element->getAttribute( "id" );
+
+	if( name == QString::null )
+		return false;
+
+	setName( name );
+
+	QString moduleName = element->text();
 
 	if( moduleName.isNull() || moduleName.isEmpty() )
-		return;
+		return false;
 
 	// Compile the codemodule
 	char moduleNameStr[1024]; // Just to be sure
@@ -130,7 +137,7 @@ void cPythonScript::load( const QDomElement &Data )
 
 		clConsole.send( QString( "\nError while compiling module [" + moduleName + "]\n" ) );
 		clConsole.PrepareProgress( "Continuing loading" );
-		return;
+		return false;
 	}
 
 	// Call the load Function
@@ -139,13 +146,14 @@ void cPythonScript::load( const QDomElement &Data )
 		PyObject* method = PyObject_GetAttr( codeModule, PyString_FromString( "onLoad" ) ); 
 		
 		if( ( method == NULL ) || ( !PyCallable_Check( method ) ) ) 
-			return; 
+			return true; 
 		
 		PyObject_CallObject( method, NULL ); 
 		PyReportError();
 	}
 
 	handleSpeech_ = PyObject_HasAttr( codeModule, PyString_FromString( "onSpeech" ) );
+	return true;
 }
 
 //========================== OVERRIDDEN DEFAULT EVENTS

@@ -43,7 +43,7 @@
 class cUORxTarget;
 class cUOTxTooltipList;
 class cUOSocket;
-class QDomElement;
+class cElement;
 class Coord_cl;
 
 class cPythonScript  
@@ -76,7 +76,7 @@ public:
 	cPythonScript(): catchAllSpeech_( false ), handleSpeech_( false ), codeModule( 0 ) {}
 	virtual ~cPythonScript() {};
 
-	void load( const QDomElement &Data );
+	bool load( const cElement *element );
 	void unload( void );
 
 	// Normal Events

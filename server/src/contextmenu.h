@@ -44,12 +44,13 @@
 // Forward Definitions
 class cUObject;
 class cPythonScript;
+class cElement;
 
 class cConSingleOption
 {
 public:
 	
-	void		setOption( const QDomElement &Tag );
+	void		setOption( const cElement *Tag );
 	Q_UINT16	getTag( void ) { return tag_; }
 	Q_UINT16	getIntlocID(void) { return intlocid_; }
 	Q_UINT16	getMsgID(void) { return msgid_; }
@@ -67,9 +68,9 @@ class cConMenuOptions : public cDefinable
 public:
 	typedef QValueVector< cConSingleOption > vSingleOption;
 	
-	void			processNode( const QDomElement &Tag );
+	void			processNode( const cElement *Tag );
 	vSingleOption	getOptions( void ) const { return options_; }
-	void			addOption( const QDomElement &Tag );
+	void			addOption( const cElement *Tag );
 	void			deleteAll( void ) {	options_.clear();	}
 	
 private: 
@@ -81,8 +82,8 @@ class cConMenu : public cDefinable
 {
 public:
 							cConMenu() {};
-							cConMenu( const QDomElement &Tag );
-	void					processNode( const QDomElement &Tag );
+							cConMenu( const cElement *Tag );
+	void					processNode( const cElement *Tag );
 	const cConMenuOptions*	getOptionsByAcl( const QString& acl ) const;
     void					recreateEvents( void );
 	

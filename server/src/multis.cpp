@@ -151,10 +151,10 @@ bool cMulti::del()
 	return cItem::del();
 }
 
-void cMulti::processNode( const QDomElement &Tag )
+void cMulti::processNode( const cElement *Tag )
 {
-	QString TagName = Tag.nodeName();
-	QString Value = getNodeValue( Tag );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
 
 	// <deedsection>deedsection</deedsection> (any item section)
 	if( TagName == "deedsection" )

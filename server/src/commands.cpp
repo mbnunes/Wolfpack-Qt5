@@ -138,20 +138,12 @@ void cCommands::loadACLs( void )
 	// In each loop we create one acl
 	for( QStringList::iterator it = ScriptSections.begin(); it != ScriptSections.end(); ++it )
 	{
-		const QDomElement *Tag = DefManager->getSection( WPDT_PRIVLEVEL, *it );
+		const cElement *Tag = DefManager->getDefinition( WPDT_PRIVLEVEL, *it );
 
-		if( Tag->isNull() )
+		if( !Tag )
 			continue;
 
-		QString ACLname = Tag->attribute("id");
-
-		if ( ACLname == QString::null )
-		{
-			clConsole.ChangeColor( WPC_RED );
-			clConsole.send( tr("WARNING: Tag %1 lacks \"id\" attribute").arg(Tag->tagName()) );
-			clConsole.ChangeColor( WPC_NORMAL );
-			continue;
-		}
+		QString ACLname = *it;
 		
 		// While we are in this loop we are building an ACL
 		cAcl *acl = new cAcl;
@@ -159,44 +151,37 @@ void cCommands::loadACLs( void )
 		QMap< QString, bool > group;
 		QString groupName;
 
-		QDomNode childNode = Tag->firstChild();
-		while( !childNode.isNull() )
-		{
-			if( childNode.isElement() )
-			{
-				QDomElement childTag = childNode.toElement();
-				if( childTag.nodeName() == "group" )
-				{
-					groupName = childTag.attribute("name", QString::null);
-					QDomNode chchildNode = childTag.firstChild();
-					while( !chchildNode.isNull() )
-					{
-						if( chchildNode.isElement() )
-						{
-							QDomElement chchildTag = chchildNode.toElement();
-							if( chchildTag.nodeName() == "action" )
-							{
-								QString name = chchildTag.attribute( "name", "any" );
-								bool permit = chchildTag.attribute( "permit", "false" ) == "true" ? true : false;
-								group.insert( name, permit );
-							}
-						}
-						chchildNode = chchildNode.nextSibling();
-					}
 
-					if( !group.isEmpty() )
+		for( unsigned int i = 0; i < Tag->childCount(); ++i )
+		{
+			const cElement *childTag = Tag->getChild( i );
+
+			if( childTag->name() == "group" )
+			{
+				groupName = childTag->getAttribute( "name" );
+				
+				for( unsigned int j = 0; j < childTag->childCount(); ++j )
+				{
+					const cElement *groupTag = childTag->getChild( j );
+					
+					if( groupTag->name() == "action" )
 					{
-						acl->groups.insert( groupName, group );
-						group.clear();
+						QString name = groupTag->getAttribute( "name", "any" );
+						bool permit = groupTag->getAttribute( "permit", "false" ) == "true" ? true : false;
+						group.insert( name, permit );
 					}
 				}
+
+				if( !group.isEmpty() )
+				{
+					acl->groups.insert( groupName, group );
+					group.clear();
+				}
 			}
-			childNode = childNode.nextSibling();			
 		}
 
 		_acls.insert( ACLname, acl );	
 	}
-	DefManager->unload( WPDT_PRIVLEVEL );
 }
 
 // COMMAND IMPLEMENTATION
@@ -239,9 +224,9 @@ void commandGo( cUOSocket *socket, const QString &command, QStringList &args ) t
 		}
 
 		// When we reached this point it's clear that we didn't find any valid coordinates in our arguments
-		const QDomElement *node = DefManager->getSection( WPDT_LOCATION, argument );
+		const cElement *node = DefManager->getDefinition( WPDT_LOCATION, argument );
 
-		if( !node->isNull() && parseCoordinates( node->text(), newPos ) )
+		if( node && parseCoordinates( node->text(), newPos ) )
 		{
 			pChar->removeFromView( false );
 			pChar->moveTo( newPos );
@@ -305,27 +290,11 @@ void commandAddItem( cUOSocket *socket, const QString &command, QStringList &arg
 	Q_UNUSED(command);
 	QString param = args.join( " " ).stripWhiteSpace();
 
-	const QDomElement *node = DefManager->getSection( WPDT_ITEM, param );
+	const cElement *node = DefManager->getDefinition( WPDT_ITEM, param );
 
-	if( node && !node->isNull() )
+	if( node )
 	{
 		socket->sysMessage( tr( "Where do you want to add the item '%1'?" ).arg( param ) );
-		socket->attachTarget( new cAddItemTarget( param ) );
-	}
-
-	return;
-}
-
-void commandStatic( cUOSocket *socket, const QString &command, QStringList &args ) throw()
-{
-	Q_UNUSED(command);
-	QString param = args.join( " " ).stripWhiteSpace();
-
-	const QDomElement *node = DefManager->getSection( WPDT_ITEM, param );
-
-	if( node && !node->isNull() )
-	{
-		socket->sysMessage( tr( "Where do you want to add the item '%1'" ).arg( param ) );
 		socket->attachTarget( new cAddItemTarget( param ) );
 	}
 
@@ -337,9 +306,9 @@ void commandAddNpc( cUOSocket *socket, const QString &command, QStringList &args
 	Q_UNUSED(command);
 	QString param = args.join( " " ).stripWhiteSpace();
 
-	const QDomElement *node = DefManager->getSection( WPDT_NPC, param );
+	const cElement *node = DefManager->getDefinition( WPDT_NPC, param );
 
-	if( node && !node->isNull() )
+	if( node )
 	{
 		socket->sysMessage( tr( "Where do you want to add the npc '%1'" ).arg( param ) );
 		socket->attachTarget( new cAddNpcTarget( param ) );
@@ -360,20 +329,16 @@ void commandAdd( cUOSocket *socket, const QString &command, QStringList &args ) 
 
 	QString param = args.join( " " ).stripWhiteSpace();
     
-	const QDomElement *node = DefManager->getSection( WPDT_ITEM, param );
-
 	// An item definition with that name exists
-	if( node && !node->isNull() )
+	if( DefManager->getDefinition( WPDT_ITEM, param ) )
 	{
 		socket->sysMessage( tr( "Where do you want to add the item '%1'" ).arg( param ) );
 		socket->attachTarget( new cAddItemTarget( param ) );
 		return;
 	}
-
-	node = DefManager->getSection( WPDT_NPC, param );
 	
 	// Same for NPCs
-	if( node && !node->isNull() )
+	if( DefManager->getDefinition( WPDT_NPC, param ) )
 	{
 		socket->sysMessage( tr( "Where do you want to add the npc '%1'" ).arg( param ) );
 		socket->attachTarget( new cAddNpcTarget( param ) );
@@ -1150,9 +1115,9 @@ void commandTile( cUOSocket *socket, const QString &command, QStringList &args )
 	// Check if the given ids are valid
 	for( QStringList::iterator iter = ids.begin(); iter != ids.end(); ++iter )
 	{
-		if( !DefManager->getSection( WPDT_ITEM, (*iter) ) )
+		if( !DefManager->getDefinition( WPDT_ITEM, (*iter) ) )
 		{
-			socket->sysMessage( tr( "Item definition '%1' is undefined." ).arg( *iter ) );
+			socket->sysMessage( tr( "Item definition '%1' was not found." ).arg( *iter ) );
 			return;
 		}
 	}
@@ -1377,7 +1342,6 @@ stCommand cCommands::commands[] =
 	{ "SHOWSERIALS",	commandShowSerials },
 	{ "SHUTDOWN",		commandShutDown },
 	{ "SPAWNREGION",	commandSpawnRegion },
-	{ "STATIC",			commandStatic },
 	{ "TAGS",			commandTags },
 	{ "TELE",			commandTele },
 	{ "TILE",			commandTile },	

@@ -39,7 +39,7 @@
 #include "items.h"
 
 // Forward Declarations
-class QDomElement;
+class cElement;
 class QStringList;
 
 class cBook : public cItem
@@ -52,7 +52,7 @@ public:
 	cBook();
 
 	// abstract cDefinable
-	virtual void	processNode( const QDomElement &Tag );
+	virtual void	processNode( const cElement *Tag );
 
 	// PersistentObject
 	static void registerInFactory();

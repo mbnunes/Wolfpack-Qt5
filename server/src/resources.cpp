@@ -58,9 +58,9 @@ using namespace std;
 
 // class cResource
 
-cResource::cResource( const QDomElement &Tag ) : amountmin_( 0 ), amountmax_( 0 ), skillid_( 0 ), refreshtime_( 0 ), veinchance_( 0 )
+cResource::cResource( const cElement *Tag ) : amountmin_( 0 ), amountmax_( 0 ), skillid_( 0 ), refreshtime_( 0 ), veinchance_( 0 )
 {
-	section_ = Tag.attribute( "id" );
+	section_ = Tag->getAttribute( "id" );
 	totalquota_ = 0;
 	totalveinquota_ = 0;
 	name_ = "";
@@ -75,19 +75,19 @@ cResource::cResource( const QDomElement &Tag ) : amountmin_( 0 ), amountmax_( 0 
 	applyDefinition( Tag );
 }
 
-void cResource::processNode( const QDomElement &Tag )
+void cResource::processNode( const cElement *Tag )
 {
-	QString TagName = Tag.nodeName();
-	QString Value = getNodeValue( Tag );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
 
 	// <amount>20</amount>
 	// <amount min="10" max="20" />
 	if( TagName == "amount" )
 	{
-		if( Tag.hasAttribute( "min" ) && Tag.hasAttribute( "max" ) )
+		if( Tag->hasAttribute( "min" ) && Tag->hasAttribute( "max" ) )
 		{
-			amountmin_ = hex2dec( Tag.attribute( "min" ) ).toUInt();
-			amountmax_ = hex2dec( Tag.attribute( "max" ) ).toUInt();
+			amountmin_ = hex2dec( Tag->getAttribute( "min" ) ).toUInt();
+			amountmax_ = hex2dec( Tag->getAttribute( "max" ) ).toUInt();
 		}
 		else
 		{
@@ -126,357 +126,336 @@ void cResource::processNode( const QDomElement &Tag )
 		item.vein_minamount = 0;
 		item.vein_quota = 0;
 
-		QDomNode childNode = Tag.firstChild();
-		while( !childNode.isNull() )
+
+		for( unsigned int i = 0; i < Tag->childCount(); ++i )
 		{
-			if( childNode.isElement() )
-			{
-				QDomElement childTag = childNode.toElement();
-				QString chTagName = childTag.nodeName();
-				QString chValue = getNodeValue( childTag );
+			const cElement *childTag = Tag->getChild( i );
+			QString chTagName = childTag->name();
+			QString chValue = childTag->getValue();
 
-				if( chTagName == "name" )
-					item.name = chValue;
-				
-				else if( chTagName == "definition" )
-					item.definition = chValue;
-
-				else if( chTagName == "amount" )
-				{
-					if( childTag.hasAttribute( "min" ) && childTag.hasAttribute( "max" ) )
-					{
-						item.minamount_per_attempt = hex2dec( childTag.attribute( "min" ) ).toUInt();
-						item.maxamount_per_attempt = hex2dec( childTag.attribute( "max" ) ).toUInt();
-					}
-					else
-					{
-						item.minamount_per_attempt = chValue.toUInt();
-						item.maxamount_per_attempt = item.minamount_per_attempt;
-					}
-				}
-
-				else if( chTagName == "id" )
-				{
-					Value = childTag.text();
-					QDomNode chchNode = childTag.firstChild();
-					while( !chchNode.isNull() )
-					{
-						if( chchNode.isElement() )
-						{
-							QDomElement chchTag = chchNode.toElement();
-							QString chchTagName = chchTag.nodeName();
-							QString chchValue = getNodeValue( chchTag );
-							if( chchTagName == "getlist" && chchTag.hasAttribute( "id" ) )
-							{
-								QStringList list = DefManager->getList( chchTag.attribute( "id" ) );
-								QStringList::const_iterator it = list.begin();
-								while( it != list.end() )
-								{
-									item.ids.push_back( hex2dec((*it)).toUShort() );
-									++it;
-								}
-							}
-						}
-						chchNode = chchNode.nextSibling();
-					}
-
-					QStringList idstr;
-					if( Value.contains( "," ) )
-					{
-						idstr = QStringList::split( ",", Value );
-					}
-					else
-						idstr.push_back( Value );
-
-					QStringList::const_iterator it = idstr.begin();
-					while( it != idstr.end() )
-					{
-						if( (*it).contains( "-" ) )
-						{
-							QStringList ids = QStringList::split( "-", (*it) );
-							UINT16 minid = hex2dec(ids[0]).toUShort();
-							UINT16 maxid = hex2dec(ids[1]).toUShort();
-							while( minid <= maxid )
-							{
-								item.ids.push_back( minid );
-								++minid;
-							}
-						}
-						else
-							item.ids.push_back( hex2dec((*it)).toUShort() );
-						++it;
-					}
-				}
-
-				else if( chTagName == "color" )
-				{
-					Value = childTag.text();
-					QDomNode chchNode = childTag.firstChild();
-					while( !chchNode.isNull() )
-					{
-						if( chchNode.isElement() )
-						{
-							QDomElement chchTag = chchNode.toElement();
-							QString chchTagName = chchTag.nodeName();
-							QString chchValue = getNodeValue( chchTag );
-							if( chchTagName == "getlist" && chchTag.hasAttribute( "id" ) )
-							{
-								QStringList list = DefManager->getList( chchTag.attribute( "id" ) );
-								QStringList::const_iterator it = list.begin();
-								while( it != list.end() )
-								{
-									item.colors.push_back( hex2dec((*it)).toUShort() );
-									++it;
-								}
-							}
-						}
-						chchNode = chchNode.nextSibling();
-					}
-
-					QStringList colstr;
-					if( Value.contains( "," ) )
-					{
-						colstr = QStringList::split( ",", Value );
-					}
-					else
-						colstr.push_back( Value );
-
-					QStringList::const_iterator it = colstr.begin();
-					while( it != colstr.end() )
-					{
-						if( (*it).contains( "-" ) )
-						{
-							QStringList cols = QStringList::split( "-", (*it) );
-							UINT16 mincol = hex2dec(cols[0]).toUShort();
-							UINT16 maxcol = hex2dec(cols[1]).toUShort();
-							while( mincol <= maxcol )
-							{
-								item.colors.push_back( mincol );
-								++mincol;
-							}
-						}
-						else
-							item.colors.push_back( hex2dec((*it)).toUShort() );
-						++it;
-					}
-				}
-
-				else if( chTagName == "artid" )
-				{
-					Value = childTag.text();
-					QDomNode chchNode = childTag.firstChild();
-					while( !chchNode.isNull() )
-					{
-						if( chchNode.isElement() )
-						{
-							QDomElement chchTag = chchNode.toElement();
-							QString chchTagName = chchTag.nodeName();
-							QString chchValue = getNodeValue( chchTag );
-							if( chchTagName == "getlist" && chchTag.hasAttribute( "id" ) )
-							{
-								QStringList list = DefManager->getList( chchTag.attribute( "id" ) );
-								QStringList::const_iterator it = list.begin();
-								while( it != list.end() )
-								{
-									item.artids.push_back( hex2dec((*it)).toUShort() );
-									++it;
-								}
-							}
-						}
-						chchNode = chchNode.nextSibling();
-					}
-
-					QStringList idstr;
-					if( Value.contains( "," ) )
-					{
-						idstr = QStringList::split( ",", Value );
-					}
-					else
-						idstr.push_back( Value );
-
-					QStringList::const_iterator it = idstr.begin();
-					while( it != idstr.end() )
-					{
-						if( (*it).contains( "-" ) )
-						{
-							QStringList ids = QStringList::split( "-", (*it) );
-							UINT16 minid = hex2dec(ids[0]).toUShort();
-							UINT16 maxid = hex2dec(ids[1]).toUShort();
-							while( minid <= maxid )
-							{
-								item.artids.push_back( minid );
-								++minid;
-							}
-						}
-						else
-							item.artids.push_back( hex2dec((*it)).toUShort() );
-						++it;
-					}
-				}
-
-				else if( chTagName == "mapid" )
-				{
-					Value = childTag.text();
-					QDomNode chchNode = childTag.firstChild();
-					while( !chchNode.isNull() )
-					{
-						if( chchNode.isElement() )
-						{
-							QDomElement chchTag = chchNode.toElement();
-							QString chchTagName = chchTag.nodeName();
-							QString chchValue = getNodeValue( chchTag );
-							if( chchTagName == "getlist" && chchTag.hasAttribute( "id" ) )
-							{
-								QStringList list = DefManager->getList( chchTag.attribute( "id" ) );
-								QStringList::const_iterator it = list.begin();
-								while( it != list.end() )
-								{
-									item.mapids.push_back( hex2dec((*it)).toUShort() );
-									++it;
-								}
-							}
-						}
-						chchNode = chchNode.nextSibling();
-					}
-
-					QStringList idstr;
-					if( Value.contains( "," ) )
-					{
-						idstr = QStringList::split( ",", Value );
-					}
-					else
-						idstr.push_back( Value );
-
-					QStringList::const_iterator it = idstr.begin();
-					while( it != idstr.end() )
-					{
-						if( (*it).contains( "-" ) )
-						{
-							QStringList ids = QStringList::split( "-", (*it) );
-							UINT16 minid = hex2dec(ids[0]).toUShort();
-							UINT16 maxid = hex2dec(ids[1]).toUShort();
-							while( minid <= maxid )
-							{
-								item.mapids.push_back( minid );
-								++minid;
-							}
-						}
-						else
-							item.mapids.push_back( hex2dec((*it)).toUShort() );
-						++it;
-					}
-				}
-
-				else if( chTagName == "vein" )
-				{
-					item.vein_minamount = hex2dec( childTag.attribute( "min" ) ).toUInt();
-					item.vein_maxamount = hex2dec( childTag.attribute( "max" ) ).toUInt();
-					item.vein_quota = hex2dec( childTag.attribute( "quota" ) ).toUInt() + totalveinquota_;
-					totalveinquota_ = item.vein_quota;
-				}
-
-				else if( chTagName == "skill" )
-				{
-					item.minskill = hex2dec( childTag.attribute( "min" ) ).toUShort();
-					item.maxskill = hex2dec( childTag.attribute( "max" ) ).toUShort();
-				}
-
-				else if( chTagName == "quota" )
-				{
-					item.quota = chValue.toUInt() + totalquota_;
-					totalquota_ = item.quota;
-				}
-
-				else if( chTagName == "conversion" )
-				{
-					if( childTag.hasAttribute("srccolors") )
-					{
-						Value = childTag.attribute("srccolors");
-	
-						QStringList idstr;
-						if( Value.contains( "," ) )
-						{
-							idstr = QStringList::split( ",", Value );
-						}
-						else
-							idstr.push_back( Value );
-
-						QStringList::const_iterator it = idstr.begin();
-						while( it != idstr.end() )
-						{
-							if( (*it).contains( "-" ) )
-							{
-								QStringList ids = QStringList::split( "-", (*it) );
-								UINT16 minid = hex2dec(ids[0]).toUShort();
-								UINT16 maxid = hex2dec(ids[1]).toUShort();
-								while( minid <= maxid )
-								{
-									item.conversion.sourcecolors.push_back( minid );
-									sourcecolors_.insert( minid );
-									++minid;
-								}
-							}
-							else
-							{
-								item.conversion.sourcecolors.push_back( hex2dec((*it)).toUShort() );
-								sourcecolors_.insert( hex2dec((*it)).toUShort() );
-							}
-							++it;
-						}
-					}
-					
-					if( childTag.hasAttribute("srcids") )
-					{
-						Value = childTag.attribute("srcids");
-	
-						QStringList idstr;
-						if( Value.contains( "," ) )
-						{
-							idstr = QStringList::split( ",", Value );
-						}
-						else
-							idstr.push_back( Value );
-
-						QStringList::const_iterator it = idstr.begin();
-						while( it != idstr.end() )
-						{
-							if( (*it).contains( "-" ) )
-							{
-								QStringList ids = QStringList::split( "-", (*it) );
-								UINT16 minid = hex2dec(ids[0]).toUShort();
-								UINT16 maxid = hex2dec(ids[1]).toUShort();
-								while( minid <= maxid )
-								{
-									item.conversion.sourceids.push_back( minid );
-									sourceids_.insert( minid );
-									++minid;
-								}
-							}
-							else
-							{
-								item.conversion.sourceids.push_back( hex2dec((*it)).toUShort() );
-								sourceids_.insert( hex2dec((*it)).toUShort() );
-							}
-							++it;
-						}
-					}
-
-					if( childTag.hasAttribute( "rate" ) )
-						item.conversion.rate = childTag.attribute( "rate" ).toFloat();
-				}
+			if( chTagName == "name" )
+				item.name = chValue;
 			
-				// <modifier type="useamount">1.3</modifier>
-				// <modifier type="skill">1.4</modifier>
-				else if( chTagName == "modifier" )
+			else if( chTagName == "definition" )
+				item.definition = chValue;
+
+			else if( chTagName == "amount" )
+			{
+				if( childTag->hasAttribute( "min" ) && childTag->hasAttribute( "max" ) )
 				{
-					if( childTag.attribute("type") == "useamount" )
-						item.makeuseamountmod = chValue.toFloat();
-					else if( childTag.attribute("type") == "skill" )
-						item.makeskillmod = chValue.toFloat();
+					item.minamount_per_attempt = hex2dec( childTag->getAttribute( "min" ) ).toUInt();
+					item.maxamount_per_attempt = hex2dec( childTag->getAttribute( "max" ) ).toUInt();
+				}
+				else
+				{
+					item.minamount_per_attempt = chValue.toUInt();
+					item.maxamount_per_attempt = item.minamount_per_attempt;
 				}
 			}
 
-			childNode = childNode.nextSibling();
+			else if( chTagName == "id" )
+			{
+				Value = childTag->text();
+
+				for( unsigned int j = 0; j < childTag->childCount(); ++j )
+				{
+					const cElement *chchTag = childTag->getChild( j );
+					QString chchTagName = chchTag->name();
+					QString chchValue = chchTag->getValue();
+					if( chchTagName == "getlist" && chchTag->hasAttribute( "id" ) )
+					{
+						QStringList list = DefManager->getList( chchTag->getAttribute( "id" ) );
+						QStringList::const_iterator it = list.begin();
+						while( it != list.end() )
+						{
+							item.ids.push_back( hex2dec((*it)).toUShort() );
+							++it;
+						}
+					}
+				}
+
+				QStringList idstr;
+				if( Value.contains( "," ) )
+				{
+					idstr = QStringList::split( ",", Value );
+				}
+				else
+					idstr.push_back( Value );
+
+				QStringList::const_iterator it = idstr.begin();
+				while( it != idstr.end() )
+				{
+					if( (*it).contains( "-" ) )
+					{
+						QStringList ids = QStringList::split( "-", (*it) );
+						UINT16 minid = hex2dec(ids[0]).toUShort();
+						UINT16 maxid = hex2dec(ids[1]).toUShort();
+						while( minid <= maxid )
+						{
+							item.ids.push_back( minid );
+							++minid;
+						}
+					}
+					else
+						item.ids.push_back( hex2dec((*it)).toUShort() );
+					++it;
+				}
+			}
+
+			else if( chTagName == "color" )
+			{
+				Value = childTag->text();
+
+				for( unsigned int j = 0; j < childTag->childCount(); ++j )
+				{
+					const cElement *chchTag = childTag->getChild( j );
+					QString chchTagName = chchTag->name();
+					QString chchValue = chchTag->getValue();
+					if( chchTagName == "getlist" && chchTag->hasAttribute( "id" ) )
+					{
+						QStringList list = DefManager->getList( chchTag->getAttribute( "id" ) );
+						QStringList::const_iterator it = list.begin();
+						while( it != list.end() )
+						{
+							item.colors.push_back( hex2dec((*it)).toUShort() );
+							++it;
+						}
+					}
+				}
+
+				QStringList colstr;
+				if( Value.contains( "," ) )
+				{
+					colstr = QStringList::split( ",", Value );
+				}
+				else
+					colstr.push_back( Value );
+
+				QStringList::const_iterator it = colstr.begin();
+				while( it != colstr.end() )
+				{
+					if( (*it).contains( "-" ) )
+					{
+						QStringList cols = QStringList::split( "-", (*it) );
+						UINT16 mincol = hex2dec(cols[0]).toUShort();
+						UINT16 maxcol = hex2dec(cols[1]).toUShort();
+						while( mincol <= maxcol )
+						{
+							item.colors.push_back( mincol );
+							++mincol;
+						}
+					}
+					else
+						item.colors.push_back( hex2dec((*it)).toUShort() );
+					++it;
+				}
+			}
+
+			else if( chTagName == "artid" )
+			{
+				Value = childTag->text();
+				
+				for( unsigned int j = 0; j < childTag->childCount(); ++j )
+				{
+					const cElement *chchTag = childTag->getChild( j );
+					QString chchTagName = chchTag->name();
+					QString chchValue = chchTag->getValue();
+					if( chchTagName == "getlist" && chchTag->hasAttribute( "id" ) )
+					{
+						QStringList list = DefManager->getList( chchTag->getAttribute( "id" ) );
+						QStringList::const_iterator it = list.begin();
+						while( it != list.end() )
+						{
+							item.artids.push_back( hex2dec((*it)).toUShort() );
+							++it;
+						}
+					}
+				}
+
+				QStringList idstr;
+				if( Value.contains( "," ) )
+				{
+					idstr = QStringList::split( ",", Value );
+				}
+				else
+					idstr.push_back( Value );
+
+				QStringList::const_iterator it = idstr.begin();
+				while( it != idstr.end() )
+				{
+					if( (*it).contains( "-" ) )
+					{
+						QStringList ids = QStringList::split( "-", (*it) );
+						UINT16 minid = hex2dec(ids[0]).toUShort();
+						UINT16 maxid = hex2dec(ids[1]).toUShort();
+						while( minid <= maxid )
+						{
+							item.artids.push_back( minid );
+							++minid;
+						}
+					}
+					else
+						item.artids.push_back( hex2dec((*it)).toUShort() );
+					++it;
+				}
+			}
+
+			else if( chTagName == "mapid" )
+			{
+				Value = childTag->text();
+
+				for( unsigned int j = 0; j < childTag->childCount(); ++j )
+				{
+					const cElement *chchTag = childTag->getChild( j );
+					QString chchTagName = chchTag->name();
+					QString chchValue = chchTag->getValue();
+					if( chchTagName == "getlist" && chchTag->hasAttribute( "id" ) )
+					{
+						QStringList list = DefManager->getList( chchTag->getAttribute( "id" ) );
+						QStringList::const_iterator it = list.begin();
+						while( it != list.end() )
+						{
+							item.mapids.push_back( hex2dec((*it)).toUShort() );
+							++it;
+						}
+					}
+				}
+
+				QStringList idstr;
+				if( Value.contains( "," ) )
+				{
+					idstr = QStringList::split( ",", Value );
+				}
+				else
+					idstr.push_back( Value );
+
+				QStringList::const_iterator it = idstr.begin();
+				while( it != idstr.end() )
+				{
+					if( (*it).contains( "-" ) )
+					{
+						QStringList ids = QStringList::split( "-", (*it) );
+						UINT16 minid = hex2dec(ids[0]).toUShort();
+						UINT16 maxid = hex2dec(ids[1]).toUShort();
+						while( minid <= maxid )
+						{
+							item.mapids.push_back( minid );
+							++minid;
+						}
+					}
+					else
+						item.mapids.push_back( hex2dec((*it)).toUShort() );
+					++it;
+				}
+			}
+
+			else if( chTagName == "vein" )
+			{
+				item.vein_minamount = hex2dec( childTag->getAttribute( "min" ) ).toUInt();
+				item.vein_maxamount = hex2dec( childTag->getAttribute( "max" ) ).toUInt();
+				item.vein_quota = hex2dec( childTag->getAttribute( "quota" ) ).toUInt() + totalveinquota_;
+				totalveinquota_ = item.vein_quota;
+			}
+
+			else if( chTagName == "skill" )
+			{
+				item.minskill = hex2dec( childTag->getAttribute( "min" ) ).toUShort();
+				item.maxskill = hex2dec( childTag->getAttribute( "max" ) ).toUShort();
+			}
+
+			else if( chTagName == "quota" )
+			{
+				item.quota = chValue.toUInt() + totalquota_;
+				totalquota_ = item.quota;
+			}
+
+			else if( chTagName == "conversion" )
+			{
+				if( childTag->hasAttribute("srccolors") )
+				{
+					Value = childTag->getAttribute("srccolors");
+
+					QStringList idstr;
+					if( Value.contains( "," ) )
+					{
+						idstr = QStringList::split( ",", Value );
+					}
+					else
+						idstr.push_back( Value );
+
+					QStringList::const_iterator it = idstr.begin();
+					while( it != idstr.end() )
+					{
+						if( (*it).contains( "-" ) )
+						{
+							QStringList ids = QStringList::split( "-", (*it) );
+							UINT16 minid = hex2dec(ids[0]).toUShort();
+							UINT16 maxid = hex2dec(ids[1]).toUShort();
+							while( minid <= maxid )
+							{
+								item.conversion.sourcecolors.push_back( minid );
+								sourcecolors_.insert( minid );
+								++minid;
+							}
+						}
+						else
+						{
+							item.conversion.sourcecolors.push_back( hex2dec((*it)).toUShort() );
+							sourcecolors_.insert( hex2dec((*it)).toUShort() );
+						}
+						++it;
+					}
+				}
+				
+				if( childTag->hasAttribute("srcids") )
+				{
+					Value = childTag->getAttribute("srcids");
+
+					QStringList idstr;
+					if( Value.contains( "," ) )
+					{
+						idstr = QStringList::split( ",", Value );
+					}
+					else
+						idstr.push_back( Value );
+
+					QStringList::const_iterator it = idstr.begin();
+					while( it != idstr.end() )
+					{
+						if( (*it).contains( "-" ) )
+						{
+							QStringList ids = QStringList::split( "-", (*it) );
+							UINT16 minid = hex2dec(ids[0]).toUShort();
+							UINT16 maxid = hex2dec(ids[1]).toUShort();
+							while( minid <= maxid )
+							{
+								item.conversion.sourceids.push_back( minid );
+								sourceids_.insert( minid );
+								++minid;
+							}
+						}
+						else
+						{
+							item.conversion.sourceids.push_back( hex2dec((*it)).toUShort() );
+							sourceids_.insert( hex2dec((*it)).toUShort() );
+						}
+						++it;
+					}
+				}
+
+				if( childTag->hasAttribute( "rate" ) )
+					item.conversion.rate = childTag->getAttribute( "rate" ).toFloat();
+			}
+		
+			// <modifier type="useamount">1.3</modifier>
+			// <modifier type="skill">1.4</modifier>
+			else if( chTagName == "modifier" )
+			{
+				if( childTag->getAttribute("type") == "useamount" )
+					item.makeuseamountmod = chValue.toFloat();
+				else if( childTag->getAttribute("type") == "skill" )
+					item.makeskillmod = chValue.toFloat();
+			}
 		}
 
 		resourcespecs_.push_back( item );
@@ -485,27 +464,23 @@ void cResource::processNode( const QDomElement &Tag )
 	// <mapid>0xbla</mapid> (for using tools on map tiles)
 	else if( TagName == "mapid" )
 	{
-		Value = Tag.text();
-		QDomNode chNode = Tag.firstChild();
-		while( !chNode.isNull() )
+		Value = Tag->text();
+		
+		for( unsigned int j = 0; j < Tag->childCount(); ++j )
 		{
-			if( chNode.isElement() )
+			const cElement *chTag = Tag->getChild( j );				
+			QString chTagName = chTag->name();
+			QString chValue = chTag->getValue();
+			if( chTagName == "getlist" && chTag->hasAttribute( "id" ) )
 			{
-				QDomElement chTag = chNode.toElement();
-				QString chTagName = chTag.nodeName();
-				QString chValue = getNodeValue( chTag );
-				if( chTagName == "getlist" && chTag.hasAttribute( "id" ) )
+				QStringList list = DefManager->getList( chTag->getAttribute( "id" ) );
+				QStringList::const_iterator it = list.begin();
+				while( it != list.end() )
 				{
-					QStringList list = DefManager->getList( chTag.attribute( "id" ) );
-					QStringList::const_iterator it = list.begin();
-					while( it != list.end() )
-					{
-						mapids_.push_back( hex2dec((*it)).toUShort() );
-						++it;
-					}
+					mapids_.push_back( hex2dec((*it)).toUShort() );
+					++it;
 				}
 			}
-			chNode = chNode.nextSibling();
 		}
 
 		QStringList idstr;
@@ -539,27 +514,23 @@ void cResource::processNode( const QDomElement &Tag )
 	// <artid>0xbla</artid> (for using tools on dynamic & static items)
 	else if( TagName == "artid" )
 	{
-		Value = Tag.text();
-		QDomNode chNode = Tag.firstChild();
-		while( !chNode.isNull() )
+		Value = Tag->text();
+		
+		for( unsigned int j = 0; j < Tag->childCount(); ++j )
 		{
-			if( chNode.isElement() )
+			const cElement *chTag = Tag->getChild( j );
+			QString chTagName = chTag->name();
+			QString chValue = chTag->getValue();
+			if( chTagName == "getlist" && chTag->hasAttribute( "id" ) )
 			{
-				QDomElement chTag = chNode.toElement();
-				QString chTagName = chTag.nodeName();
-				QString chValue = getNodeValue( chTag );
-				if( chTagName == "getlist" && chTag.hasAttribute( "id" ) )
+				QStringList list = DefManager->getList( chTag->getAttribute( "id" ) );
+				QStringList::const_iterator it = list.begin();
+				while( it != list.end() )
 				{
-					QStringList list = DefManager->getList( chTag.attribute( "id" ) );
-					QStringList::const_iterator it = list.begin();
-					while( it != list.end() )
-					{
-						artids_.push_back( hex2dec( (*it) ).toUShort() );
-						++it;
-					}
+					artids_.push_back( hex2dec( (*it) ).toUShort() );
+					++it;
 				}
 			}
-			chNode = chNode.nextSibling();
 		}
 
 		QStringList idstr;
@@ -610,10 +581,10 @@ void cResource::processNode( const QDomElement &Tag )
 	// <stamina min="1" max="2" />
 	else if( TagName == "stamina" )
 	{
-		if( Tag.hasAttribute( "min" ) && Tag.hasAttribute( "max" ) )
+		if( Tag->hasAttribute( "min" ) && Tag->hasAttribute( "max" ) )
 		{
-			staminamin_ = hex2dec( Tag.attribute( "min" ) ).toUInt();
-			staminamax_ = hex2dec( Tag.attribute( "max" ) ).toUInt();
+			staminamin_ = hex2dec( Tag->getAttribute( "min" ) ).toUInt();
+			staminamax_ = hex2dec( Tag->getAttribute( "max" ) ).toUInt();
 		}
 		else
 		{
@@ -1234,7 +1205,7 @@ cAllResources::~cAllResources()
 
 void cAllResources::load()
 {
-	QStringList sections = DefManager->getSections( WPDT_RESOURCE );
+/*	QStringList sections = DefManager->getSections( WPDT_RESOURCE );
 	QStringList::const_iterator it = sections.begin();
 	while( it != sections.end() )
 	{
@@ -1273,7 +1244,7 @@ void cAllResources::load()
 			}
 		}
 		++it;
-	}
+	}*/
 }
 
 void cAllResources::unload()

@@ -40,10 +40,10 @@
 class cSpawnRegion : public cBaseRegion
 {
 public:
-	cSpawnRegion( const QDomElement &Tag )
+	cSpawnRegion( const cElement *Tag )
 	{
 		this->init();
-		this->name_ = Tag.attribute( "id" );
+		this->name_ = Tag->getAttribute( "id" );
 		this->applyDefinition( Tag );
 	}
 
@@ -79,7 +79,7 @@ public:
 		return rectList;
 	}
 private:
-	virtual void processNode( const QDomElement &Tag );
+	virtual void processNode( const cElement *Tag );
 
 private:
 	std::vector< SERIAL >		npcSerials_;	// serials of chars spawned by this area

@@ -85,7 +85,7 @@ public:
 	bool del();
 
 	// abstract cDefinable
-	virtual void processNode( const QDomElement &Tag );
+	virtual void processNode( const cElement *Tag );
 
 	// override update
 	virtual void update( cUOSocket *mSock = 0 );

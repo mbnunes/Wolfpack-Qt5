@@ -745,19 +745,23 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial) throw()
 				case 0x14F0:// deeds
 					if ((pi->type() != 103) &&(pi->type() != 202))
 					{  
-						const QDomElement* DefSection = DefManager->getSection( WPDT_MULTI, pi->tags().get( "multisection" ).toString() );
-						if( !DefSection->isNull() )
+						const cElement *section = DefManager->getDefinition( WPDT_MULTI, pi->tags().get( "multisection" ).toString() );
+						
+						if( section )
 						{
 							UI32 houseid = 0;
-							QDomNode childNode = DefSection->firstChild();
-							while( !childNode.isNull() && houseid == 0 )
+							
+							unsigned int i = 0;
+							while( i < section->childCount() && !houseid )
 							{
-								if( childNode.isElement() && childNode.nodeName() == "id" )
-									houseid = hex2dec(childNode.toElement().text()).toUInt();
-								else if( childNode.isElement() && childNode.nodeName() == "ids" )
-									houseid = hex2dec(childNode.toElement().attribute( "north" )).toUInt();
-								childNode = childNode.nextSibling();
+								const cElement *childNode = section->getChild( i++ );
+
+								if( childNode->name() == "id" )
+									houseid = hex2dec( childNode->text() ).toUInt();
+								else if( childNode->name() == "ids" )
+									houseid = hex2dec( childNode->getAttribute( "north" ) ).toUInt();
 							}
+
 							if( houseid != 0 )
 								socket->attachTarget( new cBuildMultiTarget( pi->tags().get( "multisection" ).toString() , pc_currchar->serial(), pi->serial() ), houseid );
 						}

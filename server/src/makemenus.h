@@ -55,10 +55,10 @@ class cMakeItem : public cDefinable
 {
 public:
 	cMakeItem( const QString &name, const QString &section, UINT16 amount );
-	cMakeItem( const QDomElement &Tag );
+	cMakeItem( const cElement *Tag );
 
 	// implements cDefinable
-	virtual void processNode( const QDomElement &Tag );
+	virtual void processNode( const cElement *Tag );
 
 	// Getters
 	QString			name()		const	{ return name_; }
@@ -78,11 +78,11 @@ private:
 class cUseItem : public cDefinable
 {
 public:
-	cUseItem( const QDomElement &Tag );
+	cUseItem( const cElement *Tag );
 	cUseItem( const QString& name, const QValueVector< UINT16 >& ids, const QValueVector< UINT16 >& colors, UINT16 amount );
 
 	// implements cDefinable
-	virtual void processNode( const QDomElement &Tag );
+	virtual void processNode( const cElement *Tag );
 
 	// Getters
 	QValueVector< UINT16 >	id()		const { return id_; }
@@ -101,10 +101,10 @@ private:
 class cSkillCheck : public cDefinable
 {
 public:
-	cSkillCheck( const QDomElement &Tag );
+	cSkillCheck( const cElement *Tag );
 
 	// implements cDefinable
-	virtual void processNode( const QDomElement &Tag );
+	virtual void processNode( const cElement *Tag );
 
 	// Getters
 	UINT8		skillid()		{ return skillid_; }
@@ -124,11 +124,11 @@ class cMakeSection : public QObject, public cDefinable
 	Q_OBJECT
 public:
 	cMakeSection( const QString &name, cMakeAction* baseaction = NULL );
-	cMakeSection( const QDomElement &Tag, cMakeAction* baseaction = NULL );
+	cMakeSection( const cElement *Tag, cMakeAction* baseaction = NULL );
 	~cMakeSection();
 
 	// implements cDefinable
-	virtual void processNode( const QDomElement &Tag );
+	virtual void processNode( const cElement *Tag );
 
 	// Getters
 	QString						name()			const { return name_; }
@@ -150,11 +150,11 @@ class cMakeCustomSection : public cMakeSection
 	Q_OBJECT
 public:
 	cMakeCustomSection( const QString &name, cMakeAction* baseaction = NULL );
-	cMakeCustomSection( const QDomElement &Tag, cMakeAction* baseaction = NULL );
+	cMakeCustomSection( const cElement *Tag, cMakeAction* baseaction = NULL );
 	~cMakeCustomSection();
 
 	// implements cDefinable
-	virtual void processNode( const QDomElement &Tag );
+	virtual void processNode( const cElement *Tag );
 
 	QPtrList< cMakeItem >		makeitems()		const { return makeitems_; }
 	QPtrList< cUseItem >		useitems()		const { return useitems_; }
@@ -184,11 +184,11 @@ class cMakeNpcSection : public cMakeSection
 	Q_OBJECT
 public:
 	cMakeNpcSection( const QString &name, cMakeAction* baseaction = NULL );
-	cMakeNpcSection( const QDomElement &Tag, cMakeAction* baseaction = NULL );
+	cMakeNpcSection( const cElement *Tag, cMakeAction* baseaction = NULL );
 	~cMakeNpcSection();
 
 	// implements cDefinable
-	virtual void processNode( const QDomElement &Tag );
+	virtual void processNode( const cElement *Tag );
 
 	virtual void	execute( cUOSocket* const socket );
 
@@ -216,10 +216,10 @@ class cMakeResourceSection : public cMakeCustomSection
 	Q_OBJECT
 public:
 	cMakeResourceSection( const QString &name, cMakeAction* baseaction = NULL );
-	cMakeResourceSection( const QDomElement &Tag, cMakeAction* baseaction = NULL );
+	cMakeResourceSection( const cElement *Tag, cMakeAction* baseaction = NULL );
 
 	// implements cDefinable
-	virtual void processNode( const QDomElement &Tag );
+	virtual void processNode( const cElement *Tag );
 
 	virtual void	execute( cUOSocket* const socket );
 
@@ -232,10 +232,10 @@ class cMakeAmountSection : public cMakeCustomSection
 	Q_OBJECT
 public:
 	cMakeAmountSection( const QString &name, cMakeAction* baseaction = NULL );
-	cMakeAmountSection( const QDomElement &Tag, cMakeAction* baseaction = NULL );
+	cMakeAmountSection( const cElement *Tag, cMakeAction* baseaction = NULL );
 
 	// implements cDefinable
-	virtual void processNode( const QDomElement &Tag );
+	virtual void processNode( const cElement *Tag );
 
 	virtual void	execute( cUOSocket* const socket );
 
@@ -248,11 +248,11 @@ class cDoCodeAction : public cMakeSection
 	Q_OBJECT
 public:
 	cDoCodeAction( const QString &name, cMakeAction* baseaction = NULL );
-	cDoCodeAction( const QDomElement &Tag, cMakeAction* baseaction = NULL );
+	cDoCodeAction( const cElement *Tag, cMakeAction* baseaction = NULL );
 	~cDoCodeAction();
 
 	// implements cDefinable
-	virtual void processNode( const QDomElement &Tag );
+	virtual void processNode( const cElement *Tag );
 
 	virtual void	execute( cUOSocket* const socket );
 };
@@ -262,11 +262,11 @@ class cDoScriptAction : public cMakeSection
 	Q_OBJECT
 public:
 	cDoScriptAction( const QString &name, cMakeAction* baseaction = NULL );
-	cDoScriptAction( const QDomElement &Tag, cMakeAction* baseaction = NULL );
+	cDoScriptAction( const cElement *Tag, cMakeAction* baseaction = NULL );
 	~cDoScriptAction();
 
 	// implements cDefinable
-	virtual void processNode( const QDomElement &Tag );
+	virtual void processNode( const cElement *Tag );
 
 	virtual void	execute( cUOSocket* const socket );
 
@@ -290,7 +290,7 @@ public:
 	typedef QValueVector< cMakeSection* > SectionContainer;
 
 	cMakeAction( const QString &name, UINT16 model, const QString &description, WPACTIONTYPE type, cMakeMenu* basemenu = NULL );
-	cMakeAction( const QDomElement &Tag, cMakeMenu* basemenu = NULL );
+	cMakeAction( const cElement *Tag, cMakeMenu* basemenu = NULL );
 	~cMakeAction()
 	{
 		SectionContainer::iterator it = makesections_.begin();
@@ -303,7 +303,7 @@ public:
 	}
 
 	// implements cDefinable
-	virtual void processNode( const QDomElement &Tag );
+	virtual void processNode( const cElement *Tag );
 
 	// Getters
 	QString			name()			const { return name_; }
@@ -349,7 +349,7 @@ public:
 	typedef QValueVector< cMakeAction* > ActionContainer;
 	
 	cMakeMenu( const QString& name, cMakeMenu* previous = NULL );
-	cMakeMenu( const QDomElement &Tag, cMakeMenu* previous = NULL );
+	cMakeMenu( const cElement *Tag, cMakeMenu* previous = NULL );
 	~cMakeMenu()
 	{
 		SubMenuContainer::iterator mit = submenus_.begin();
@@ -368,7 +368,7 @@ public:
 	}
 
 	// implements cDefinable
-	virtual void processNode( const QDomElement &Tag );
+	virtual void processNode( const cElement *Tag );
 
 	// Getters
 	SubMenuContainer	subMenus() const		{ return submenus_; }
@@ -488,8 +488,7 @@ public:
 	void	callMakeMenu( cUOSocket* socket, const QString& section );
 
 	// helper method
-	QString	getValue( const QDomElement &Tag ) const;
-	UINT16 getModel( const QDomElement &Tag );
+	UINT16 getModel( const cElement *Tag );
 
 private:
 	std::map< QString, cMakeMenu* >		menus_;

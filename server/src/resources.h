@@ -50,7 +50,7 @@ class cResource : public QObject, public cDefinable
 {
 	Q_OBJECT
 public:
-	cResource( const QDomElement &Tag );
+	cResource( const cElement *Tag );
 
 	struct convertspec_st
 	{
@@ -81,7 +81,7 @@ public:
 	};
 
 	// implements cDefinable
-	virtual void processNode( const QDomElement &Tag );
+	virtual void processNode( const cElement *Tag );
 
 	// Getters
 	bool	deleteSource()	const { return deletesource_; }

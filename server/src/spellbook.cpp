@@ -74,10 +74,10 @@ bool cSpellBook::hasSpell( UINT8 spell ) const
 }
 
 // abstract cDefinable
-void cSpellBook::processNode( const QDomElement &Tag )
+void cSpellBook::processNode( const cElement *Tag )
 {
-	QString TagName = Tag.nodeName();
-	QString Value = this->getNodeValue( Tag );
+	QString TagName = Tag->name();
+	QString Value = Tag->getValue();
 
 	// Add a spell
 	if( TagName == "addspell" )

@@ -113,7 +113,7 @@ public:
 	bool postload() throw();
 	bool del();
 
-	void	processContainerNode( const QDomElement &Tag );
+	void	processContainerNode( const cElement *Tag );
 	virtual void update( cUOSocket *mSock = NULL );
 	P_ITEM	dupe();
 	void	soundEffect( UINT16 sound );
@@ -400,8 +400,8 @@ public:
 protected:
 	// Methods
 	static void buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions );
-	virtual void	processNode( const QDomElement &Tag );
-	void	processModifierNode( const QDomElement &Tag );
+	virtual void	processNode( const cElement *Tag );
+	void	processModifierNode( const cElement *Tag );
 
 	// Data
 	ushort		id_;
@@ -530,7 +530,6 @@ private:
 
 
 //forward declaration
-class QDomElement;
 
 class cAllItems
 {
