@@ -37,7 +37,7 @@
 
 extern "C" {
 #include "twofish/aes.h"
-}
+};
 
 struct stLoginKey
 {
