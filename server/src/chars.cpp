@@ -2796,7 +2796,15 @@ void cChar::turnTo( cUObject *object )
 		changed_ = true;
 		dir_ = nDir;
 		
-		update();
+		update( true );
+
+		// Send a different packet for ourself
+		if( socket_ )
+		{
+			cUOTxForceWalk forceWalk;
+			forceWalk.setDirection( dir_ );
+			socket_->send( &forceWalk );
+		}
 	}
 }
 

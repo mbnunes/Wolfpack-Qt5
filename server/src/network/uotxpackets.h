@@ -1163,4 +1163,27 @@ public:
 	void setInfo( QString title, QString staticText, QString dynamicText );
 };
 
+// 0x97 Force Walk
+class cUOTxForceWalk : public cUOPacket
+{
+public:
+	cUOTxForceWalk(): cUOPacket( 0x97, 2 ) {}
+	void setDirection( UINT8 data ) { (*this)[1] = data; }
+};
+
+// 0xB4 ItemTarget
+class cUOTxItemTarget : public cUOPacket
+{
+	cUOTxItemTarget(): cUOPacket( 0xb4, 16 ) { setShort( 1, 16 ); }
+
+	void setAllowGround( bool data )		{ (*this)[3] = data ? 1 : 0; }
+	void setTargSerial( UINT32 data )		{ setInt( 4, data ); }
+
+	void setXOffset( INT16 data )			{ setShort( 8, data ); }
+	void setYOffset( INT16 data )			{ setShort( 10, data ); }
+	void setZOffset( INT16 data )			{ setShort( 12, data ); }
+
+	void addItem( UINT16 id, INT16 deltaX, INT16 deltaY, INT16 deltaZ, UINT16 hue );
+};
+
 #endif // __UO_TXPACKETS__

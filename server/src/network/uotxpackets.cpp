@@ -521,3 +521,15 @@ void cUOTxSoundEffect::setCoord( const Coord_cl &coord )
 	setShort( 8, coord.y );
 	setShort( 10, coord.z );
 }
+
+void cUOTxItemTarget::addItem( UINT16 id, INT16 deltaX, INT16 deltaY, INT16 deltaZ, UINT16 hue )
+{
+	// Add 10 Bytes
+	INT32 offset = size();
+	resize( offset + 10 );
+	setShort( offset, id );
+	setShort( offset+2, deltaX );
+	setShort( offset+4, deltaY );
+	setShort( offset+6, deltaZ );
+	setShort( offset+8, hue );
+}
