@@ -62,7 +62,6 @@ public:
 	Coord calcCoordFromDir( Q_UINT8 dir, const Coord& oldCoords );
 private:
 	bool consumeStamina( P_PLAYER pChar, bool running );
-	bool checkObstacles( P_CHAR pChar, const Coord& newPos, bool running );
 	bool verifySequence( cUOSocket* socket, Q_UINT8 sequence ) throw();
 	void checkStealth( P_CHAR );
 	void sendWalkToOther( P_PLAYER pChar, P_CHAR pWalker, const Coord& oldpos );

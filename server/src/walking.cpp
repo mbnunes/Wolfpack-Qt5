@@ -553,6 +553,52 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 			return false;
 		}
 
+		// Check if we're going to collide with characters
+		if( player )
+		{
+			// Player vs characters
+			if( player->socket() && player->pos().map == 0 && !player->account()->isStaff() )
+			{
+				// Currently hard-limiting collisions to Felucca; this should be a server option!
+				MapCharsIterator charCollisions = MapObjects::instance()->listCharsAtCoord( newCoord );
+				for( P_CHAR them = charCollisions.first(); them; them = charCollisions.next() )
+				{
+					if( them == player )
+						continue;
+
+					P_PLAYER otherplayer = dynamic_cast<P_PLAYER>( them );
+					if( otherplayer && otherplayer->account()->isStaff() )
+						continue; // no collisions against the staff
+
+					if( wpAbs<SI08>( newCoord.z - them->pos().z ) < P_M_MAX_Z_CLIMB )
+					{
+						// to push another char we must have maximum stamina
+						if( player->stamina() >= player->maxStamina() )
+						{
+							player->socket()->clilocMessage( them->isHidden() ? 1019043 : 1019042 );
+							player->setStamina( player->stamina() - 10 );
+							break;
+						}
+						else
+						{
+							player->socket()->denyMove( sequence );
+							return false;
+						}
+					}
+				}
+			}
+		}
+		else
+		{
+			// NPC vs characters
+			P_NPC npc = dynamic_cast<P_NPC>( pChar );
+			if( npc && CheckForCharacterAtXYZ( pChar, newCoord ) )
+			{
+				npc->clearPath();
+				return false;
+			}
+		}
+
 		// Check if the char can move to those new coordinates
 		// It is going to automatically calculate the new coords (!)
 		if ( !mayWalk( pChar, newCoord ) )
@@ -565,16 +611,6 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		{
 			if ( player && player->socket() )
 				player->socket()->allowMove( sequence );
-		}
-
-		// Check if we're going to collide with characters
-		if ( !player && CheckForCharacterAtXYZ( pChar, newCoord ) )
-		{
-			P_NPC npc = dynamic_cast<P_NPC>( pChar );
-			if ( npc ) {
-				npc->clearPath();
-			}
-			return false;
 		}
 
 		// We moved so let's update our location
@@ -599,14 +635,14 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		if( observer == pChar )
 			continue;
 
-		unsigned int distance = observer->pos().distance( oldpos );
+		unsigned int oldDistance = observer->pos().distance( oldpos );
 
 		// If we are a player, send us new characters
 		if( player && player->socket() )
 		{
-			if ( distance >= player->visualRange() )
+			// was that observer previously out of range?
+			if( oldDistance >= player->visualRange() )
 			{
-				// an observer was previously out of range.
 				player->socket()->sendChar( observer );
 			}
 		}
@@ -616,18 +652,15 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 
 		if( otherplayer && otherplayer->socket() )
 		{
-			if( distance > otherplayer->visualRange() )
+			if( oldDistance > otherplayer->visualRange() )
 			{
-				otherplayer->socket()->sendChar( pChar ); // Previously we were out of range
+				// previously we were out of range
+				otherplayer->socket()->sendChar( pChar ); 
 			}
 			else
 			{
-				otherplayer->socket()->updateChar( pChar ); // Previously we were already known
-
-				// If we are now out of range, remove from view (just to be sure)
-				if (pChar->dist( otherplayer ) > otherplayer->visualRange()) {
-					otherplayer->socket()->removeObject(pChar);
-				}
+				// previously we were already known
+				otherplayer->socket()->updateChar( pChar );
 			}
 		}
 	}
@@ -651,7 +684,7 @@ bool cMovement::CheckForCharacterAtXYZ( P_CHAR pc, const Coord& pos )
 		if( pChar != pc && !pChar->isHidden() && !pChar->isInvisible() )
 		{
 			// x=x,y=y, and distance btw z's <= MAX STEP
-			if( abs( pChar->pos().z - pos.z ) <= P_M_MAX_Z_CLIMB )
+			if( wpAbs<SI08>( pChar->pos().z - pos.z ) <= P_M_MAX_Z_CLIMB )
 			{
 				return true;
 			}
@@ -825,16 +858,6 @@ bool cMovement::consumeStamina( P_PLAYER pChar, bool running ) {
 		pChar->socket()->updateStamina();
 	}
 
-	return true;
-}
-
-/*!
-	This checks the new tile we're moving to
-	for Character we could eventually bump into.
-*/
-bool cMovement::checkObstacles( P_CHAR /*pChar*/, const Coord& /*newPos*/, bool /*running*/ )
-{
-	// TODO: insert code here
 	return true;
 }
 

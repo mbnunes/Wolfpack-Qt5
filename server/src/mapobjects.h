@@ -227,7 +227,10 @@ public:
 	}
 
 private:
-	friend class MapObjectsIterator;
+	friend class MapObjectsIterator<cUObject>;
+	friend class MapObjectsIterator<cItem>;
+	friend class MapObjectsIterator<cMulti>;
+	friend class MapObjectsIterator<cBaseChar>;
 
 	static cUObject * firstIteration( void *state );
 	static cUObject * nextIteration( void *state );
