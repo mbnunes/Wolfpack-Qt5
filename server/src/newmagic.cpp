@@ -51,13 +51,15 @@ public:
 		// After the target timed out we cancel our spell
 		if( pChar )
 		{
-			if( timeout_ > uiCurrentTime )
-				socket->sysMessage( tr( "You loose your concentration after waiting for too long." ) );
-			else
-				socket->sysMessage( tr( "You cancel the spell." ) );
-
+			socket->sysMessage( tr( "You loose your concentration after waiting for too long." ) );
 			NewMagic->disturb( pChar, false, -1 );
 		}
+	}
+
+	virtual void canceled( cUOSocket *socket )
+	{
+		if( socket->player() )
+			NewMagic->disturb( socket->player(), false, -1 );
 	}
 };
 
@@ -142,11 +144,13 @@ void cNewMagic::unload()
 {
 }
 
-cEndCasting::cEndCasting( P_CHAR _mage, UINT8 _spell, UINT8 _type )
+cEndCasting::cEndCasting( P_CHAR _mage, UINT8 _spell, UINT8 _type, UINT32 _delay )
 {
 	mage = _mage->serial;
 	spell = _spell;
 	type = _type;
+	serializable = false;
+	expiretime = uiCurrentTime + _delay;
 }
 
 void cEndCasting::Expire()
@@ -374,7 +378,7 @@ void cNewMagic::castSpell( P_CHAR pMage, UINT8 spell )
 	pMage->setCasting( true );
 
 	// Only repeat the animation if walking disturbs casting
-	cTempEffects::getInstance()->insert( new cEndCasting( pMage, spell, CT_BOOK ) );
+	cTempEffects::getInstance()->insert( new cEndCasting( pMage, spell, CT_BOOK, sInfo->delay ) );
 }
 
 void cNewMagic::useWand( P_CHAR pMage, P_ITEM pWand )

@@ -102,7 +102,7 @@ private:
 	UINT8 spell;
 	UINT8 type;
 public:	
-	cEndCasting( P_CHAR _mage, UINT8 _spell, UINT8 _type );
+	cEndCasting( P_CHAR _mage, UINT8 _spell, UINT8 _type, UINT32 _delay );
 	virtual void Expire();
 };
 

@@ -1445,6 +1445,7 @@ void cUOSocket::poll()
 		targetRequest->timedout( this );
 		delete targetRequest;
 		targetRequest = 0;
+		cancelTarget();
 	}
 }
 
@@ -2081,4 +2082,11 @@ void cUOSocket::cancelTarget()
 	cUOTxTarget target;
 	target.setTargSerial( 0xFFFFFFFF );
 	send( &target );
+
+	if( targetRequest )
+	{
+		targetRequest->canceled( this );
+		delete targetRequest;
+		targetRequest = 0;
+	}
 }
