@@ -95,10 +95,7 @@ bool cCommands::dispatch( cUOSocket* socket, const QString& command, const QStri
 	{
 		QString argString = arguments.join( " " );
 
-		if ( argString.isNull() )
-			argString = "";
-
-		PyObject* args = Py_BuildValue( "O&uu", PyGetSocketObject, socket, command.ucs2(), argString.ucs2() );
+		PyObject* args = Py_BuildValue( "O&NN", PyGetSocketObject, socket, QString2Python(command), QString2Python(argString) );
 
 		PyObject* result = PyObject_CallObject( function, args );
 		Py_XDECREF( result );

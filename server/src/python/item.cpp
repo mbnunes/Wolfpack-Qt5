@@ -424,13 +424,9 @@ static PyObject* wpItem_settag( wpItem* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "sO:item.settag( name, value )", &key, &object ) )
 		return 0;
 
-	if ( PyString_Check( object ) )
+	if ( PyString_Check( object ) || PyUnicode_Check( object ) )
 	{
-		self->pItem->setTag( key, cVariant( PyString_AsString( object ) ) );
-	}
-	else if ( PyUnicode_Check( object ) )
-	{
-		self->pItem->setTag( key, cVariant( QString::fromUcs2( ( ushort * ) PyUnicode_AsUnicode( object ) ) ) );
+		self->pItem->setTag( key, cVariant( Python2QString( object ) ) );
 	}
 	else if ( PyInt_Check( object ) )
 	{
@@ -866,14 +862,7 @@ static PyObject* wpItem_countitems( wpItem* self, PyObject* args )
 	for ( int i = 0; i < PyList_Size( list ); ++i )
 	{
 		PyObject* item = PyList_GetItem( list, i );
-		if ( PyString_Check( item ) )
-		{
-			baseids.append( PyString_AsString( item ) );
-		}
-		else if ( PyUnicode_Check( item ) )
-		{
-			baseids.append( QString::fromUcs2( ( ushort * ) PyUnicode_AsUnicode( item ) ) );
-		}
+		baseids.append( Python2QString(item) );
 	}
 
 	return PyInt_FromLong( self->pItem->countItems( baseids ) );

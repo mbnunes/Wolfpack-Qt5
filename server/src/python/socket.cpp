@@ -705,13 +705,9 @@ static PyObject* wpSocket_settag( wpSocket* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "sO:char.settag( name, value )", &key, &object ) )
 		return 0;
 
-	if ( PyString_Check( object ) )
+	if ( PyString_Check( object ) || PyUnicode_Check( object ) )
 	{
-		self->pSock->tags().set( key, cVariant( PyString_AsString( object ) ) );
-	}
-	else if ( PyUnicode_Check( object ) )
-	{
-		self->pSock->tags().set( key, cVariant( QString::fromUcs2( ( ushort * ) PyUnicode_AsUnicode( object ) ) ) );
+		self->pSock->tags().set( key, cVariant( Python2QString( object ) ) );
 	}
 	else if ( PyInt_Check( object ) )
 	{

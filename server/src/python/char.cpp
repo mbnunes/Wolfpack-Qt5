@@ -995,13 +995,9 @@ static PyObject* wpChar_settag( wpChar* self, PyObject* args )
 	if ( !PyArg_ParseTuple( args, "sO:char.settag( name, value )", &key, &object ) )
 		return 0;
 
-	if ( PyString_Check( object ) )
+	if ( PyString_Check( object ) || PyUnicode_Check( object ) )
 	{
-		self->pChar->setTag( key, cVariant( PyString_AsString( object ) ) );
-	}
-	else if ( PyUnicode_Check( object ) )
-	{
-		self->pChar->setTag( key, cVariant( QString::fromUcs2( ( ushort * ) PyUnicode_AsUnicode( object ) ) ) );
+		self->pChar->setTag( key, cVariant( Python2QString( object ) ) );
 	}
 	else if ( PyLong_Check( object ) )
 	{
