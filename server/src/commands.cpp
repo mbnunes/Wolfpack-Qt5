@@ -422,12 +422,13 @@ void cCommands::KillSpawn(int s, int r)  //courtesy of Revana
 		}
 	}
 
-
-	for(i=0;i<itemcount;i++)
+	AllItemsIterator iter_item;
+	for(iter_item.Begin(); iter_item.GetData() != NULL; iter_item++)
 	{
-		if(items[i].spawnregion==r && !items[i].free)
+		P_ITEM toCheck = iter_item.GetData();
+		if(toCheck->spawnregion == r && !toCheck->free)
 		{			
-			Items->DeleItem(i);
+			Items->DeleItem(DEREF_P_ITEM(toCheck));
             killed++;
 		}
 	}

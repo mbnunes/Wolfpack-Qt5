@@ -4996,9 +4996,6 @@ void bgsound (int s)
 	if (s>-1 && s<cmem); else return;
 
 	int y=0;
-	unsigned int StartGrid=mapRegions->StartGrid(chars[s].pos.x, chars[s].pos.y);
-	unsigned int getcell=mapRegions->GetCell(chars[s].pos.x, chars[s].pos.y);
-	unsigned int increment=0;
 	cRegion::RegionIterator4Chars ri(chars[s].pos);
 	for (ri.Begin(); ri.GetData() != ri.End(); ri++)
 	{
@@ -5022,7 +5019,7 @@ void bgsound (int s)
 	if (y>0)
 	{
 		sound=((rand()%(y))+1);
-		xx=(chars[inrange[sound]].id1<<8)+chars[inrange[sound]].id2;
+		xx = chars[inrange[sound]].id();
 		if (xx>-1 && xx<2048)
 		{
 			basesound=creatures[xx].basesound;
@@ -5087,19 +5084,21 @@ void bgsound (int s)
 void Karma(int nCharID,int nKilledID, int nKarma)
 {	// nEffect = 1 positive karma effect
 	int nCurKarma=0, nChange=0, nEffect=0;
+	P_CHAR pc_toChange = MAKE_CHAR_REF(nCharID);
+	P_CHAR pc_Killed = MAKE_CHAR_REF(nKilledID);
 
-	nCurKarma = chars[nCharID].karma;
+	nCurKarma = pc_toChange->karma;
 
 	if((nCurKarma>10000)||(nCurKarma<-10000))
 		if(nCurKarma>10000)
-			chars[nCharID].karma=10000;
+			pc_toChange->karma=10000;
 		else
-			chars[nCharID].karma=-10000;
+			pc_toChange->karma=-10000;
 
 	if(nCurKarma<nKarma && nKarma>0)
 	{
 		nChange=((nKarma-nCurKarma)/75);
-		chars[nCharID].karma=(nCurKarma+nChange);
+		pc_toChange->karma=(nCurKarma+nChange);
 		nEffect=1;
 	}
 
@@ -5110,17 +5109,17 @@ void Karma(int nCharID,int nKilledID, int nKarma)
 	if((nCurKarma>nKarma)&&(nKilledID==-1))
 	{
 		nChange=((nCurKarma-nKarma)/50);
-		chars[nCharID].karma=(nCurKarma-nChange);
+		pc_toChange->karma=(nCurKarma-nChange);
 		nEffect=0;
 	}
-	else if((nCurKarma>nKarma)&&(chars[nKilledID].karma>0))
+	else if((nCurKarma>nKarma)&&(pc_Killed->karma>0))
 	{
 		nChange=((nCurKarma-nKarma)/50);
-		chars[nCharID].karma=(nCurKarma-nChange);
+		pc_toChange->karma=(nCurKarma-nChange);
 		nEffect=0;
 	}
 
-	if((nChange==0)||(chars[nCharID].isNpc()))
+	if((nChange==0)||(pc_toChange->isNpc()))
 		return;
 	if(nChange<=25)
 		if(nEffect)
@@ -5180,36 +5179,37 @@ void Karma(int nCharID,int nKilledID, int nKarma)
 void Fame(int nCharID, int nFame)
 {
 	int nCurFame, nChange=0, nEffect=0;
+	P_CHAR pc_toChange = MAKE_CHAR_REF(nCharID);
 
-	if (chars[nCharID].isNpc()) //NPCs don't gain fame.
+	if (pc_toChange->isNpc()) //NPCs don't gain fame.
 		return;
 
-	nCurFame= chars[nCharID].fame;
+	nCurFame= pc_toChange->fame;
 	if(nCurFame>nFame) // if player fame greater abort function
 	{
 		if(nCurFame>10000)
-			chars[nCharID].fame=10000;
+			pc_toChange->fame=10000;
 		return;
 	}
 	if(nCurFame<nFame)
 	{
 		nChange=(nFame-nCurFame)/75;
-		chars[nCharID].fame=(nCurFame+nChange);
+		pc_toChange->fame=(nCurFame+nChange);
 		nEffect=1;
 	}
-	if(chars[nCharID].dead)
+	if(pc_toChange->dead)
 	{
 		if(nCurFame<=0)
-			chars[nCharID].fame=0;
+			pc_toChange->fame=0;
 		else
 		{
 			nChange=(nCurFame-0)/25;
-			chars[nCharID].fame=(nCurFame-nChange);
+			pc_toChange->fame=(nCurFame-nChange);
 		}
-		chars[nCharID].deaths++;
+		pc_toChange->deaths++;
 		nEffect=0;
 	}
-	if((nChange==0)||(chars[nCharID].isNpc()))
+	if((nChange==0)||(pc_toChange->isNpc()))
 		return;
 	if(nChange<=25)
 		if(nEffect)

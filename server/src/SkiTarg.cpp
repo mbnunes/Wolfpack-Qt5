@@ -209,7 +209,7 @@ void cSkills::Carpentry(int s)
 static bool ForgeInRange(int s)
 {
 	CHARACTER cc = currchar[s];
-	P_CHAR pc = MAKE_CHARREF_LRV(cc, false);
+	P_CHAR pc = MAKE_CHARREF_LRV(currchar[s], false);
 	bool rc = false;
 
 	unsigned int StartGrid=mapRegions->StartGrid(pc->pos.x,pc->pos.y);
@@ -235,8 +235,7 @@ static bool ForgeInRange(int s)
 
 static bool AnvilInRange(int s)
 {
-	int cc = currchar[s];
-	P_CHAR pc = MAKE_CHARREF_LRV(cc, false);
+	P_CHAR pc = MAKE_CHARREF_LRV(currchar[s], false);
 	bool rc = false;
 
 	unsigned int StartGrid=mapRegions->StartGrid(pc->pos.x,pc->pos.y);
@@ -461,14 +460,13 @@ static bool TryToMine(	int s,					// current char's socket #
 						unsigned char col1,unsigned char col2,	// color
 						char *orename)			// first letter should be uppercase
 {
-	CHARACTER cc = currchar[s];
-	P_CHAR pc = MAKE_CHARREF_LRV(cc, false);
+	P_CHAR pc = MAKE_CHARREF_LRV(currchar[s], false);
 
 	if(pc->skill[MINING] >= minskill)
 	{
 		char tmp[100];
 		sprintf(tmp,"%s Ore",orename);
-		Items->SpawnItem(s,cc,1,tmp,1,id1,id2,col1,col2,1,1);
+		Items->SpawnItem(s,DEREF_P_CHAR(pc),1,tmp,1,id1,id2,col1,col2,1,1);
 
 		sysmessage(s,"You place some %c%s ore in your pack.",tolower(*orename),orename+1);
 		return true;
@@ -706,8 +704,7 @@ void cSkills::TreeTarget(int s)
 	static int logamount[max_res_x][max_res_y];
 	int a, b, c;
 	long int curtime=uiCurrentTime;
-	CHARACTER cc=currchar[s];
-	P_CHAR pc = MAKE_CHARREF_LR(cc);
+	P_CHAR pc = MAKE_CHARREF_LR(currchar[s]);
 
 	//AntiChrist
 	//Logging stamina
@@ -720,7 +717,7 @@ void cSkills::TreeTarget(int s)
 	pc->stm+=resource.logstamina;
 	if(pc->stm<0) pc->stm=0;
 	if(pc->stm>pc->effDex()) pc->stm=pc->effDex();
-	updatestats(cc,2);
+	updatestats(DEREF_P_CHAR(pc),2);
 
 	if(resource.logarea<10) resource.logarea=10; //New -- Zippy
 	
@@ -782,14 +779,14 @@ void cSkills::TreeTarget(int s)
 		return;
 	}
 	
-	packnum=packitem(cc);
+	packnum=packitem(DEREF_P_CHAR(pc));
 	if (packnum==-1) {sysmessage(s,"No backpack to store logs"); return; } //LB
 	
 	if (pc->onhorse) action(s,0x1C);
 	else action(s,0x0D);
 	soundeffect(s,0x01,0x3E);
 	
-	if (!Skills->CheckSkill(cc,LUMBERJACKING, 0, 1000)) 
+	if (!Skills->CheckSkill(DEREF_P_CHAR(pc),LUMBERJACKING, 0, 1000)) 
 	{
 		sysmessage(s,"You chop for a while, but fail to produce any usable wood.");
 		if(logamount[a][b]>0 && rand()%2==1) logamount[a][b]--;//Randomly deplete resources even when they fail 1/2 chance you'll loose wood.
@@ -819,7 +816,7 @@ void cSkills::TreeTarget(int s)
 		} else
 		{//normal mining skill
 			
-			c=Items->SpawnItem(s,cc,10,"#",1,0x1B,0xE0,0,0,1,1);
+			c=Items->SpawnItem(s,DEREF_P_CHAR(pc),10,"#",1,0x1B,0xE0,0,0,1,1);
 			if(c==-1) return;//AntiChrist to prevent crashes
 			if (items[c].amount>10) sysmessage(s,"You place more logs in your pack.");
 			else sysmessage(s,"You place some logs in your pack.");
@@ -831,20 +828,19 @@ void cSkills::TreeTarget(int s)
 
 void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 {
-	int	nAmount, nFame, nItemID, cc;
+	int	nAmount, nFame, nItemID;
 	char iID=0;
 	
-	cc=currchar[s];
-	P_CHAR pc = MAKE_CHARREF_LR(cc);
+	P_CHAR pc = MAKE_CHARREF_LR(currchar[s]);
 
-	Karma(cc,-1,-2000); // Karma loss no lower than the -2 pier
+	Karma(DEREF_P_CHAR(pc),-1,-2000); // Karma loss no lower than the -2 pier
 	
 	if(pc->onhorse)
 		action(s,0x1A);
 	else
 		action(s,0x0b);
 	soundeffect(s,0x01,0x25);
-	if(!Skills->CheckSkill(cc,MINING, 0, 800)) 
+	if(!Skills->CheckSkill(DEREF_P_CHAR(pc),MINING, 0, 800)) 
 	{
 		sysmessage(s,"You sifted through the dirt and found nothing.");
 		return;
@@ -881,7 +877,7 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 		else
 		{ // Create between 1 and 15 goldpieces and place directly in backpack
 			nAmount=1+(rand()%15);
-			addgold(cc,nAmount);
+			addgold(DEREF_P_CHAR(pc),nAmount);
 			goldsfx(s,nAmount);
 			if (nAmount==1)
 				sprintf((char*)temp,"You unearthed %i gold coin.", nAmount);
@@ -936,7 +932,7 @@ void cSkills::GraveDig(int s) // added by Genesis 11-4-98
 					case 10: iID=0x1B; break;
 					case 11: iID=0x1C; break;
 				}
-				Items->SpawnItem(s,cc,1,NULL,0,0x1b,iID,0x00,0x00,1,1);
+				Items->SpawnItem(s,DEREF_P_CHAR(pc),1,NULL,0,0x1b,iID,0x00,0x00,1,1);
 				sysmessage(s,"You have unearthed some old bones and placed them in your pack.");
 				break;
 			default: // found an empty grave
@@ -959,7 +955,6 @@ static void SmeltOre2(	int s,					// current char's socket #
 						unsigned char col1,unsigned char col2,	// color
 						char *orename)
 {
-	CHARACTER cci = currchar[s];			// current char's index
 	P_CHAR pc_currchar = MAKE_CHARREF_LR(currchar[s]);
 
 	int smi = pc_currchar->smeltitem;		// index of ore item
@@ -971,7 +966,7 @@ static void SmeltOre2(	int s,					// current char's socket #
 		sysmessage(s,"You have no idea what to do with this strange ore");
 		return;					
 	}
-	if(!Skills->CheckSkill(cci,MINING, 0, 1000))
+	if(!Skills->CheckSkill(DEREF_P_CHAR(pc_currchar),MINING, 0, 1000))
 	{
 		if (pi->amount==1)
 		{
@@ -991,7 +986,7 @@ static void SmeltOre2(	int s,					// current char's socket #
 		int numore=pi->amount*2;			// one ore gives two ingots
 		sprintf(tmp,"%s Ingot",orename);
 		
-		Items->SpawnItem(s,cci,numore,tmp,1,	// socket #, char index, amount, name, stackable
+		Items->SpawnItem(s,DEREF_P_CHAR(pc_currchar),numore,tmp,1,	// socket #, char index, amount, name, stackable
 						id1,id2, col1, col2,	// ID, color
 						1,1);					// create in Backpack, no more modifications
 
