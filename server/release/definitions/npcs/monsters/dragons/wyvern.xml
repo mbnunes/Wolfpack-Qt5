@@ -19,17 +19,16 @@
 		<magicresistance><random min="651" max="800" /></magicresistance>
 		<poisoning><random min="601" max="800" /></poisoning>
 		<!-- Damage -->
-		<lodamage>8</lodamage>
-		<hidamage>19</hidamage>
-		<tag name="physicaldamage" value="50" />
-		<tag name="poisondamage" value="50" />
+		<tag name="mindamage" value="8" />
+		<tag name="maxdamage" value="19" />
+		<tag name="dmg_physical" value="50" />
+		<tag name="dmg_poison" value="50" />
 		<!-- Resists -->
-		<defense><random min="35" max="45" /></defense>
-		<tag name="coldresist" value="20,30" />
-		<tag name="energyresist" value="30,40" />
-		<tag name="fireresist" value="30,40" />
-		<tag name="physicalresist" value="35,45" />
-		<tag name="poisonresist" value="90,100" />
+		<tag name="res_cold" value="20,30" />
+		<tag name="res_energy" value="30,40" />
+		<tag name="res_fire" value="30,40" />
+		<tag name="res_physical" value="35,45" />
+		<tag name="res_poison" value="90,100" />
 		<!-- Misc. -->
 		<desc>The dragon scorpion, as it is known to humans, is more than a scorpion, but less than a dragon. Lacking the spells and fearsome fire hurling abilities of the dragon, a wyvern retains the power of flight and adds a scorpion sting. Their poison can kill a hearty person inminutes.</desc>
 		<category>Monsters\Dragons\Wyrvern</category>

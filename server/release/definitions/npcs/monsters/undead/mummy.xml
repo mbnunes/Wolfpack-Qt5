@@ -18,17 +18,16 @@
 		<tactics><random min="351" max="500"/></tactics>
 		<wrestling><random min="351" max="500"/></wrestling>
 		<!-- Damage -->
-		<lodamage>13</lodamage>
-		<hidamage>23</hidamage>
-		<tag name="colddamage" value="60" />
-		<tag name="physicaldamage" value="40" />
+		<tag name="mindamage" value="13" />
+		<tag name="maxdamage" value="23" />
+		<tag name="dmg_physical" value="40" />
+		<tag name="dmg_cold" value="60" />
 		<!-- Resists -->
-		<defense><random min="45" max="55" /></defense>
-		<tag name="coldresist" value="50,60" />
-		<tag name="energyresist" value="20,30" />
-		<tag name="fireresist" value="10,20" />
-		<tag name="physicalresist" value="45,55" />
-		<tag name="poisonresist" value="20,30" />
+		<tag name="res_cold" value="50,60" />
+		<tag name="res_energy" value="20,30" />
+		<tag name="res_fire" value="10,20" />
+		<tag name="res_physical" value="45,55" />
+		<tag name="res_poison" value="20,30" />
 		<!-- Misc. -->
 		<desc>Scholars often disagree concerning how mummification came to bepracticed in our land. Some say it was reserved for royalty so thefilth of the world would no longer touch their mortal form. Thebandages enshrouding the cadavers of the ancient ruler would preventcontamination and decay of their pristine flesh. Others claimmummification was reserved for the worst of criminals. The wrappingswere used to prevent their dark souls from fleeing their wretchedbodies and reaching the outer planes. If the latter is the case, and Ibelieve it to be, I feel the next world would have been a far betterplace for them. As it is now, they walk the land freely killing allthat is living, perhaps on a gruesome quest for a pair of scissors...</desc>
 		<category>Monsters\Undead\Mummy</category>

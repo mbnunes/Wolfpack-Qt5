@@ -19,17 +19,16 @@
 		<tactics><random min="801" max="1000"/></tactics>
 		<wrestling><random min="701" max="1000"/></wrestling>
 		<!-- Damage -->
-		<lodamage>7</lodamage>
-		<hidamage>9</hidamage>
-		<tag name="firedamage" value="75" />
-		<tag name="physicaldamage" value="25" />
+		<tag name="mindamage" value="7" />
+		<tag name="maxdamage" value="9" />
+		<tag name="dmg_physical" value="25" />
+		<tag name="dmg_fire" value="75" />
 		<!-- Resists -->
-		<defense><random min="35" max="45"/></defense>
-		<tag name="coldresist" value="5,10" />
-		<tag name="energyresist" value="30,40" />
-		<tag name="fireresist" value="60,80" />
-		<tag name="physicalresist" value="35,45" />
-		<tag name="poisonresist" value="30,40" />
+		<tag name="res_cold" value="5,10" />
+		<tag name="res_energy" value="30,40" />
+		<tag name="res_fire" value="60,80" />
+		<tag name="res_physical" value="35,45" />
+		<tag name="res_poison" value="30,40" />
 		<!-- Misc. -->
 		<desc>Perhaps the most destructive elemental of them all, for its very touch burns with a consuming flame. Fortunately, fire elementals can not long survive in the cool climes of our world, and are therefore seldom found outside of the burning lava pits of great volcanoes.</desc>
 		<category>Monsters\Elementals\Fire Elemental</category>

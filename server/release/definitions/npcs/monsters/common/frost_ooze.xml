@@ -17,14 +17,15 @@
 		<tactics><random min="193" max="340"/></tactics>
 		<wrestling><random min="253" max="400"/></wrestling>
 		<!-- Damage -->
-		<lodamage>3</lodamage>
-		<hidamage>9</hidamage>
+		<tag name="mindamage" value="3" />
+		<tag name="maxdamage" value="9" />
+		<tag name="dmg_cold" value="60" />
+		<tag name="dmg_physical" value="40" />
 		<!-- Resists -->
-		<defense><random min="15" max="20"/></defense>
-		<tag name="coldresist" value="40,50" />
-		<tag name="energyresist" value="10,20" />
-		<tag name="physicalresist" value="15,20" />
-		<tag name="poisonresist" value="20,30" />
+		<tag name="res_cold" value="40,50" />
+		<tag name="res_energy" value="10,20" />
+		<tag name="res_physical" value="15,20" />
+		<tag name="res_poison" value="20,30" />
 		<!-- Misc. -->
 		<desc>The name of the Frost Ooze is somewhat misleading. The frost ooze has developed in the frozen wastes and is actually a unique form of fungus. Due to the lack of available material needed for the fungus to propagate, the fungus developed the unique ability to move. The frost ooze absorbs moisture from the air. It secretes this moisture in the form of an ooze tendril that freezes itself to the ground. With this attachment, it drags its center forward. Though motivation is slow, the ooze can consume almost anything it touches.</desc>
 		<category>Monsters\Common\Frost Ooze</category>

@@ -5,6 +5,7 @@
 	<npc id="slime">
 		<name>a slime</name>
 		<id>0x33</id>
+		<skin><random list="SKINS_SLIME" /></skin>
 		<inherit id="monster_base"/>
 		<karma>-300</karma>
 		<fame>300</fame>
@@ -18,12 +19,12 @@
 		<tactics><random min="193" max="340"/></tactics>
 		<wrestling><random min="193" max="340"/></wrestling>
 		<!-- Damage -->
-		<lodamage>1</lodamage>
-		<hidamage>5</hidamage>
+		<tag name="mindamage" value="1" />
+		<tag name="maxdamage" value="5" />
+		<tag name="dmg_physical" value="100" />
 		<!-- Resists -->
-		<defense><random min="5" max="10"/></defense>
-		<tag name="physicalresist" value="5,10" />
-		<tag name="poisonresist" value="10,20" />
+		<tag name="res_physical" value="5,10" />
+		<tag name="res_poison" value="10,20" />
 		<!-- Misc. -->
 		<desc>Slimes are creatures of pure instinct, lacking even the intelligence of a fish or tiny vermin. They live by dissolving anything that comes into contact with them, living or dead. Gold is one of the few things their acids cannot touch, and they are often found in its presence. Perhaps over the centuries they have come to dimly recognize that gold will lure their prey to them.</desc>
 		<totame>231</totame>

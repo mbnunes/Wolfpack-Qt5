@@ -6,13 +6,9 @@
 		<name>an ethereal warrior</name>
 		<id>0x7B</id>
 		<category>Monsters\Giants\Ethereal Warrior</category>
-		<skin>0</skin>
-		<inherit id="animal_base" />
+		<inherit id="monster_base" />
 		<karma><random min="5000" max="9999" /></karma>
 		<fame><random min="5000" max="9999" /></fame>
-		<defense><random min="80" max="90" /></defense>
-		<lodamage>47</lodamage>
-		<hidamage>74</hidamage>
 		<gold><random min="550" max="650"/></gold>
 		<!-- Stats -->
 		<str><random min="586" max="785" /></str>
@@ -26,7 +22,12 @@
 		<magery><random min="991" max="1000" /></magery>
 		<evaluatingintel><random min="901" max="1000" /></evaluatingintel>
 		<meditation><random min="901" max="1000" /></meditation>
-		<carve></carve>
+		<!-- Damage -->
+		<tag name="mindamage" value="47" />
+		<tag name="maxdamage" value="74" />
+		<tag name="dmg_physical" value="100" />
+		<!-- Resists -->
+		<tag name="res_physical" value="80,90" />
 	</npc>
 
 </definitions>

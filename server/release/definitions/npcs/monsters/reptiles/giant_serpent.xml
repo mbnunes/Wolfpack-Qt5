@@ -19,17 +19,16 @@
 		<tactics><random min="651" max="700"/></tactics>
 		<wrestling><random min="601" max="800"/></wrestling>
 		<!-- Damage -->
-		<lodamage>7</lodamage>
-		<hidamage>17</hidamage>
-		<tag name="physicaldamage" value="40" />
-		<tag name="poisondamage" value="60" />
+		<tag name="mindamage" value="7" />
+		<tag name="maxdamage" value="17" />
+		<tag name="dmg_physical" value="40" />
+		<tag name="dmg_poison" value="60" />
 		<!-- Resists -->
-		<defense><random min="30" max="35"/></defense>
-		<tag name="coldresist" value="10,20" />
-		<tag name="energyresist" value="10,20" />
-		<tag name="fireresist" value="5,10" />
-		<tag name="physicalresist" value="30,35" />
-		<tag name="poisonresist" value="70,90" />
+		<tag name="res_cold" value="10,20" />
+		<tag name="res_energy" value="10,20" />
+		<tag name="res_fire" value="5,10" />
+		<tag name="res_physical" value="30,35" />
+		<tag name="res_poison" value="70,90" />
 		<!-- Misc. -->
 		<desc>These serpents are unnaturally large, easily able to devour a grownman whole. They are found in the deepest forests and jungles, wherethey wait in hiding for their prey to walk by. They produce a sweetmeat with a flavor not unlike chicken, but they are most earnestlyhunted for their scales, which are sought by mages and alchemists fortheir useful properties in the brewing of thaumaturgical substances.</desc>
 		<carve>carve_serpent_gaint</carve>

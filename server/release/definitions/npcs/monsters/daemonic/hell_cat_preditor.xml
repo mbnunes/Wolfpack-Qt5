@@ -23,6 +23,15 @@
 		<magicresistance><random min="751" max="900" /></magicresistance>
 		<totame>891</totame>
 		<food>1</food>
+		<!-- Damage -->
+		<tag name="mindamage" value="9" />
+		<tag name="maxdamage" value="18" />
+		<tag name="dmg_physical" value="40" />
+		<tag name="dmg_fire" value="60" />
+		<!-- Resists -->
+		<tag name="res_physical" value="30,45" />
+		<tag name="res_fire" value="85,95" />
+		<tag name="res_energy" value="25,40" />
 	</npc>
 
 </definitions>

@@ -19,17 +19,16 @@
 		<tactics><random min="801" max="900"/></tactics>
 		<wrestling><random min="801" max="1000"/></wrestling>
 		<!-- Damage -->
-		<lodamage>8</lodamage>
-		<hidamage>19</hidamage>
-		<tag name="physicaldamage" value="20" />
-		<tag name="colddamage" value="80" />
+		<tag name="mindamage" value="8" />
+		<tag name="maxdamage" value="19" />
+		<tag name="dmg_physical" value="20" />
+		<tag name="dmg_cold" value="80" />
 		<!-- Resists -->
-		<defense><random min="55" max="65" /></defense>
-		<tag name="coldresist" value="60,70" />
-		<tag name="energyresist" value="30,40" />
-		<tag name="fireresist" value="10,20" />
-		<tag name="physicalresist" value="55,65" />
-		<tag name="poisonresist" value="20,30" />
+		<tag name="res_cold" value="60,70" />
+		<tag name="res_energy" value="30,40" />
+		<tag name="res_fire" value="10,20" />
+		<tag name="res_physical" value="55,65" />
+		<tag name="res_poison" value="20,30" />
 		<!-- Misc. -->
 		<desc>Some say hell is a sulfurous inferno, and others hold it is a barrenwasteland of ice under an ever-biting blizzard. The Ice Fiend is a good support for the latter. No hatred, anger, madness, joy, love, oremotion of any kind shows on their faces. The Ice Fiend wields thewhip of frost in battle with only a grim look of lost hope on theirface.</desc>
 		<category>Monsters\Daemonic\Ice Fiend</category>

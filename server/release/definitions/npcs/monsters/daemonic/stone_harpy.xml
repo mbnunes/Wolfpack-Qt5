@@ -17,17 +17,16 @@
 		<tactics><random min="701" max="1000"/></tactics>
 		<wrestling><random min="701" max="1000"/></wrestling>
 		<!-- Damage -->
-		<lodamage>8</lodamage>
-		<hidamage>16</hidamage>
-		<tag name="physicaldamage" value="75" />
-		<tag name="poisondamage" value="25" />
+		<tag name="mindamage" value="8" />
+		<tag name="maxdamage" value="16" />
+		<tag name="dmg_physical" value="75" />
+		<tag name="dmg_poison" value="25" />
 		<!-- Resists -->
-		<defense><random min="45" max="55" /></defense>
-		<tag name="coldresist" value="10,20" />
-		<tag name="energyresist" value="30,40" />
-		<tag name="fireresist" value="20,30" />
-		<tag name="physicalresist" value="45,55" />
-		<tag name="poisonresist" value="30,40" />
+		<tag name="res_cold" value="10,20" />
+		<tag name="res_energy" value="30,40" />
+		<tag name="res_fire" value="20,30" />
+		<tag name="res_physical" value="45,55" />
+		<tag name="res_poison" value="30,40" />
 		<!-- Misc. -->
 		<desc>Stone Harpy is a misnomer. Harpies living in excess of a century willdevelop a very tough outer layer of skin. Almost chitinous, this skinacts as a primary defense of the older harpies. Though movement isdecreased, their armor and hardened talons make them more dangerous. The feathers covering a stone harpy, are hard as steel and areexcellent for fletching.</desc>
 		<category>Monsters\Daemonic\Stone Harpy</category>

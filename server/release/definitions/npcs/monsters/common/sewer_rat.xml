@@ -9,9 +9,6 @@
 		<inherit id="monster_base"/>
 		<karma><random min="0" max="-624" /></karma>
 		<fame><random min="0" max="1249" /></fame>
-		<defense><random min="5" max="10" /></defense>
-		<lodamage>1</lodamage>
-		<hidamage>2</hidamage>
 		<!-- Stats -->
 		<str>9</str>
 		<dex>25</dex>
@@ -23,7 +20,11 @@
 		<totame>0</totame>
 		<food>1</food>
 		<!-- Damage -->
+		<tag name="mindamage" value="1" />
+		<tag name="maxdamage" value="2" />
+		<tag name="dmg_physical" value="100" />
 		<!-- Resists -->
+		<tag name="res_physical" value="5,10" />
 		<!-- Misc. -->
 		<category>Monsters\Common\Sewer Rat</category>
 	</npc>

@@ -18,15 +18,15 @@
 		<tactics><random min="751" max="900"/></tactics>
 		<wrestling><random min="601" max="850"/></wrestling>
 		<!-- Damage -->
-		<lodamage>4</lodamage>
-		<hidamage>13</hidamage>
+		<tag name="mindamage" value="4" />
+		<tag name="maxdamage" value="13" />
+		<tag name="dmg_physical" value="100" />
 		<!-- Resists -->
-		<defense><random min="25" max="35" /></defense>
-		<tag name="coldresist" value="15,25" />
-		<tag name="energyresist" value="25,30" />
-		<tag name="fireresist" value="30,40" />
-		<tag name="physicalresist" value="25,35" />
-		<tag name="poisonresist" value="15,20" />
+		<tag name="res_cold" value="15,25" />
+		<tag name="res_energy" value="25,30" />
+		<tag name="res_fire" value="30,40" />
+		<tag name="res_physical" value="25,35" />
+		<tag name="res_poison" value="15,20" />
 		<!-- Misc. -->
 		<category>Monsters\Orcs\Orc Chopper</category>
 	</npc>

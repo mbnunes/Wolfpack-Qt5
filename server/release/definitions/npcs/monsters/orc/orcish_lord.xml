@@ -18,15 +18,15 @@
 		<tactics><random min="751" max="900"/></tactics>
 		<wrestling><random min="601" max="850"/></wrestling>
 		<!-- Damage -->
-		<lodamage>4</lodamage>
-		<hidamage>14</hidamage>
+		<tag name="mindamage" value="4" />
+		<tag name="maxdamage" value="14" />
+		<tag name="dmg_physical" value="100" />
 		<!-- Resists -->
-		<defense><random min="25" max="35" /></defense>
-		<tag name="coldresist" value="20,30" />
-		<tag name="energyresist" value="30,40" />
-		<tag name="fireresist" value="30,40" />
-		<tag name="physicalresist" value="25,35" />
-		<tag name="poisonresist" value="30,40" />
+		<tag name="res_cold" value="20,30" />
+		<tag name="res_energy" value="30,40" />
+		<tag name="res_fire" value="30,40" />
+		<tag name="res_physical" value="25,35" />
+		<tag name="res_poison" value="30,40" />
 		<!-- Misc. -->
 		<desc>As Marshall to the orc horde, these leaders are vicious killers whocrave only battle. They hurl their armies and their very selves atanything that approaches. Skulls of the orcish lord are prime trophiesfor veteran warriors, probably because they are so hard won.</desc>
 		<category>Monsters\Orcs\Orcish Lord</category>

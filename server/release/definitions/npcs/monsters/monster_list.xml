@@ -160,23 +160,8 @@
 	<include file="definitions/npcs/monsters/sea/sea_serpent.xml" />
 
 	<!-- Summoned -->
-	<include file="definitions/npcs/monsters/summoned/air_elemental_hard.xml" />
-	<include file="definitions/npcs/monsters/summoned/air_elemental_medium.xml"/>
-	<include file="definitions/npcs/monsters/summoned/air_elemental_weak.xml"/>
 	<include file="definitions/npcs/monsters/summoned/blade_spirit.xml"/>
-	<include file="definitions/npcs/monsters/summoned/earth_elemental_hard.xml"/>
-	<include file="definitions/npcs/monsters/summoned/earth_elemental_medium.xml"/>
-	<include file="definitions/npcs/monsters/summoned/earth_elemental_weak.xml"/>
-	<include file="definitions/npcs/monsters/summoned/fire_elemental_hard.xml"/>
-	<include file="definitions/npcs/monsters/summoned/fire_elemental_medium.xml"/>
-	<include file="definitions/npcs/monsters/summoned/fire_elemental_weak.xml"/>
-	<include file="definitions/npcs/monsters/summoned/gazer_hard.xml"/>
-	<include file="definitions/npcs/monsters/summoned/gazer_medium.xml"/>
-	<include file="definitions/npcs/monsters/summoned/gazer_weak.xml"/>
 	<include file="definitions/npcs/monsters/summoned/tinkered_golem.xml"/>
-	<include file="definitions/npcs/monsters/summoned/water_elemental_hard.xml"/>
-	<include file="definitions/npcs/monsters/summoned/water_elemental_medium.xml"/>
-	<include file="definitions/npcs/monsters/summoned/water_elemental_weak.xml"/>
 
 	<!-- Terathen -->
 	<include file="definitions/npcs/monsters/terathen/terathen_avenger.xml"/>

@@ -20,15 +20,15 @@
 		<tactics><random min="976" max="1000"/></tactics>
 		<wrestling><random min="901" max="925"/></wrestling>
 		<!-- Damage -->
-		<lodamage>16</lodamage>
-		<hidamage>22</hidamage>
+		<tag name="mindamage" value="16" />
+		<tag name="maxdamage" value="22" />
+		<tag name="dmg_physical" value="100" />
 		<!-- Resists -->
-		<defense><random min="55" max="65"/></defense>
-		<tag name="coldresist" value="30,40" />
-		<tag name="energyresist" value="35,45" />
-		<tag name="fireresist" value="60,70" />
-		<tag name="physicalresist" value="55,65" />
-		<tag name="poisonresist" value="25,35" />
+		<tag name="res_cold" value="30,40" />
+		<tag name="res_energy" value="35,45" />
+		<tag name="res_fire" value="60,70" />
+		<tag name="res_physical" value="55,65" />
+		<tag name="res_poison" value="25,35" />
 		<!-- Misc. -->
 		<desc>Dragons are a wise and ancient race. They are terrible indeed in their anger, but they are neither cruel nor rapacious in their own nature. Any who says otherwise speaks not the truth. It is true that dragons, like all other sapient peoples, have the power to choose, and that some, succumbing to malice or madness, have descended in wrath onhelpless humans, and been put down in consequence. When a man dies beneath a dragon's claws, however, it is far more often the case that he has succumbed to his own greed, and gone foolishly seeking to rob the dragon of his fabled hoard.</desc>
 		<carve>carve_dragon_gray</carve>

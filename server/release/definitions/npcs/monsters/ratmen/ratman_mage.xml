@@ -19,15 +19,15 @@
 		<tactics><random min="501" max="750"/></tactics>
 		<wrestling><random min="501" max="750"/></wrestling>
 		<!-- Damage -->
-		<lodamage>7</lodamage>
-		<hidamage>14</hidamage>
+		<tag name="mindamage" value="7" />
+		<tag name="maxdamage" value="14" />
+		<tag name="dmg_physical" value="100" />
 		<!-- Resists -->
-		<defense><random min="40" max="45" /></defense>
-		<tag name="coldresist" value="" /><random min="10" max="20"/>
-		<tag name="energyresist" value="" /><random min="10" max="20"/>
-		<tag name="fireresist" value="" /><random min="10" max="20"/>
-		<tag name="physicalresist" value="" /><random min="40" max="45"/>
-		<tag name="poisonresist" value="" /><random min="10" max="20"/>
+		<tag name="res_cold" value="10,20" />
+		<tag name="res_energy" value="10,20" />
+		<tag name="res_fire" value="10,20" />
+		<tag name="res_physical" value="40,45" />
+		<tag name="res_poison" value="10,20" />
 		<!-- Misc. -->
 		<category>Monsters\Ratmen\Ratman Mage</category>
 	</npc>

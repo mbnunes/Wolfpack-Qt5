@@ -16,15 +16,15 @@
 		<tactics><random min="451" max="600"/></tactics>
 		<wrestling><random min="451" max="550"/></wrestling>
 		<!-- Damage -->
-		<lodamage>3</lodamage>
-		<hidamage>7</hidamage>
+		<tag name="mindamage" value="3" />
+		<tag name="maxdamage" value="7" />
+		<tag name="dmg_physical" value="100" />
 		<!-- Resists -->
-		<defense><random min="15" max="20"/></defense>
-		<tag name="coldresist" value="25,40" />
-		<tag name="energyresist" value="5,15" />
-		<tag name="fireresist" value="5,10" />
-		<tag name="physicalresist" value="15,20" />
-		<tag name="poisonresist" value="25,35" />
+		<tag name="res_cold" value="25,40" />
+		<tag name="res_energy" value="5,15" />
+		<tag name="res_fire" value="5,10" />
+		<tag name="res_physical" value="15,20" />
+		<tag name="res_poison" value="25,35" />
 		<!-- Misc. -->
 		<desc>The animated bones of the dead are terrible to behold, but truth totell they are not formidable warriors, being able to overcome awell-trained fighter only in large groups. Like ghouls, they appear toingest meat in some supernatural fashion. The bones of a formerlyanimated skeleton are desired for certain dark magicks.</desc>
 	</npc>

@@ -20,10 +20,11 @@
 		<magery><random min="551" max="700"/></magery>
 		<evaluatingint><random min="551" max="700"/></evaluatingint>
 		<!-- Damage -->
-		<lodamage>11</lodamage>
-		<hidamage>18</hidamage>
+		<tag name="mindamage" value="11" />
+		<tag name="maxdamage" value="18" />
+		<tag name="dmg_physical" value="100" />
 		<!-- Resists -->
-		<defense><random min="25" max="30"/></defense>
+		<tag name="res_physical" value="25,30" />
 		<!-- Misc. -->
 		<category>Monsters\Undead\Shade</category>
 	</npc>

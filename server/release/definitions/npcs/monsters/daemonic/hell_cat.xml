@@ -19,15 +19,14 @@
 		<wrestling><random min="301" max="400"/></wrestling>
 		<totame>711</totame>
 		<!-- Damage -->
-		<lodamage>6</lodamage>
-		<hidamage>12</hidamage>
-		<tag name="physicaldamage" value="40" />
-		<tag name="firedamage" value="60" />
+		<tag name="mindamage" value="6" />
+		<tag name="maxdamage" value="12" />
+		<tag name="dmg_physical" value="40" />
+		<tag name="dmg_fire" value="60" />
 		<!-- Resists -->
-		<defense><random min="25" max="35"/></defense>
-		<tag name="physicalresist" value="25,35" />
-		<tag name="fireresist" value="80,90" />
-		<tag name="energyresist" value="15,20" />
+		<tag name="res_physical" value="25,35" />
+		<tag name="res_fire" value="80,90" />
+		<tag name="res_energy" value="15,20" />
 		<!-- Misc. -->
 		<desc>These cats hail from another plane. Why they were brought to ours is amystery. The hellcat does not make a good pet, as they are likely toimmolate at inopportune times. Balls of yarn are nothing more than awaiting fuse.</desc>
 		<carve>carve_hellcat</carve>

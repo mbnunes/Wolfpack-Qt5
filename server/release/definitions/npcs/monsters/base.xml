@@ -15,5 +15,8 @@
 		<direction>
 			<random min="0" max="7"/>
 		</direction>
+		<!-- lets give base creatures a chance! -->
+		<tag name="mindamage" value="1" />
+		<tag name="maxdamage" value="2" />
 	</npc>
 </definitions>

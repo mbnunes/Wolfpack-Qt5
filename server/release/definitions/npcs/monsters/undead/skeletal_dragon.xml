@@ -6,13 +6,9 @@
 		<name>a skeletal dragon</name>
 		<id>0x68</id>
 		<category>Monsters\Undead\Skeletal Dragon</category>
-		<skin>0</skin>
 		<inherit id="monster_base" />
 		<karma><random min="-10000" max="-15000" /></karma>
 		<fame><random min="10000" max="15000" /></fame>
-		<defense><random min="75" max="80" /></defense>
-		<lodamage>127</lodamage>
-		<hidamage>166</hidamage>
 		<gold><random min="1000" max="1200" /></gold>
 		<!-- Stats -->
 		<str><random min="898" max="1030" /></str>
@@ -26,6 +22,12 @@
 		<magery><random min="894" max="998" /></magery>
 		<evaluatingintel><random min="729" max="768" /></evaluatingintel>
 		<meditation><random min="624" max="673" /></meditation>
+		<!-- Damage -->
+		<tag name="mindamage" value="127" />
+		<tag name="maxdamage" value="166" />
+		<tag name="dmg_physical" value="40" />
+		<!-- Resists -->
+		<tag name="res_physical" value="75,80" />
 	</npc>
 
 </definitions>

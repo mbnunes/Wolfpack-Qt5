@@ -19,15 +19,15 @@
 		<fencing><random min="501" max="700"/></fencing>
 		<healing><random min="601" max="900"/></healing>
 		<!-- Damage -->
-		<lodamage>5</lodamage>
-		<hidamage>7</hidamage>
+		<tag name="mindamage" value="5" />
+		<tag name="maxdamage" value="7" />
+		<tag name="dmg_physical" value="100" />
 		<!-- Resists -->
-		<defense><random min="25" max="35" /></defense>
-		<tag name="coldresist" value="15,25" />
-		<tag name="energyresist" value="25,30" />
-		<tag name="fireresist" value="30,40" />
-		<tag name="physicalresist" value="25,35" />
-		<tag name="poisonresist" value="15,20" />
+		<tag name="res_cold" value="15,25" />
+		<tag name="res_energy" value="25,30" />
+		<tag name="res_fire" value="30,40" />
+		<tag name="res_physical" value="25,35" />
+		<tag name="res_poison" value="15,20" />
 		<!-- Misc. -->
 		<desc>Orc scouts are clever in battle. They can not only hide from theirfoes, when they feel their life is in danger, but they can detecthidden foes as well. The orc scout uses the common scout weapon of anorc bow, and their arrows cause large damage to those they hunt.</desc>
 		<category>Monsters\Orcs\Orc Scout</category>

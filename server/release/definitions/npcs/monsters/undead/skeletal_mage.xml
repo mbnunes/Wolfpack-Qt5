@@ -20,15 +20,15 @@
 		<tactics><random min="451" max="600"/></tactics>
 		<wrestling><random min="451" max="550"/></wrestling>
 		<!-- Damage -->
-		<lodamage>3</lodamage>
-		<hidamage>7</hidamage>
+		<tag name="mindamage" value="3" />
+		<tag name="maxdamage" value="7" />
+		<tag name="dmg_physical" value="100" />
 		<!-- Resists -->
-		<defense><random min="50" max="60" /></defense>
-		<tag name="coldresist" value="50,60" />
-		<tag name="energyresist" value="30,40" />
-		<tag name="fireresist" value="20,30" />
-		<tag name="physicalresist" value="35,40" />
-		<tag name="poisonresist" value="20,30" />
+		<tag name="res_cold" value="50,60" />
+		<tag name="res_energy" value="30,40" />
+		<tag name="res_fire" value="20,30" />
+		<tag name="res_physical" value="35,40" />
+		<tag name="res_poison" value="20,30" />
 		<!-- Misc. -->
 		<desc>A dying mage who has chooses to perform the ceremony to become a lichand fails, will often become a Skeleton Mage. Still armed with aformidable repertoire of the dark arts, skeletal mages should not beunderestimated. Burning with the power of the damned, the skeletonmage appears as the color of flame.</desc>
 		<category>Monsters\Undead\Skeletal Mage</category>

@@ -18,17 +18,16 @@
 		<tactics><random min="651" max="900"/></tactics>
 		<wrestling><random min="651" max="800"/></wrestling>
 		<!-- Damage -->
-		<lodamage>11</lodamage>
-		<hidamage>17</hidamage>
-		<tag name="firedamage" value="20" />
-		<tag name="physicaldamage" value="80" />
+		<tag name="mindamage" value="11" />
+		<tag name="maxdamage" value="17" />
+		<tag name="dmg_physical" value="80" />
+		<tag name="dmg_fire" value="20" />
 		<!-- Resists -->
-		<defense><random min="45" max="50"/></defense>
-		<tag name="coldresist" value="40,50" />
-		<tag name="energyresist" value="30,40" />
-		<tag name="fireresist" value="50,60" />
-		<tag name="physicalresist" value="45,50" />
-		<tag name="poisonresist" value="20,30" />
+		<tag name="res_cold" value="40,50" />
+		<tag name="res_energy" value="30,40" />
+		<tag name="res_fire" value="50,60" />
+		<tag name="res_physical" value="45,50" />
+		<tag name="res_poison" value="20,30" />
 		<!-- Misc. -->
 		<totame>843</totame>
 		<carve>carve_drake_gray</carve>
