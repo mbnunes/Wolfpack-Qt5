@@ -6,12 +6,15 @@
 |  ( (  ;._ \\ ctr | Last Modification: Created
 =================================================================
 -->
+<!--
+	<teleport source="x,y,z,map" destination="x,y,z,map" />
+-->
 <definitions>
-	<!--
-	<include file="definitions/teleports/felucca.xml"/>
-	<include file="definitions/teleports/trammel.xml"/>
-	<include file="definitions/teleports/ilshenar.xml"/>
-	<include file="definitions/teleports/malas.xml"/>
-	<include file="definitions/teleports/tokuno.xml"/>
-	-->
+
+	<region name="tokuno_teleports">
+		<!-- The World -->
+		<!--<rectangle x1="1" y1="1" x2="2560" y2="2048" map="4" />-->
+		<!-- Teleports -->
+	</region>
+
 </definitions>

@@ -10,10 +10,11 @@
 	Spawn Regions Index File
 -->
 <definitions>
-
-	<!--<include file="definitions/spawnregions/felucca/index.xml" />
-	<include file="definitions/spawnregions/trammel/index.xml" />-->
+	<!--
+	<include file="definitions/spawnregions/felucca/index.xml" />
+	<include file="definitions/spawnregions/trammel/index.xml" />
 	<include file="definitions/spawnregions/ilshenar/index.xml" />
 	<include file="definitions/spawnregions/malas/index.xml" />
-
+	<include file="definitions/spawnregions/tokuno/index.xml" />
+	-->
 </definitions>
