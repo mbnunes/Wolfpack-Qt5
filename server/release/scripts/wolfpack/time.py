@@ -33,3 +33,6 @@ def timestamp():
 
 def servertime():
 	return _wolfpack.currenttime()
+
+def currentdatetime():
+	return _wolfpack.currentdatetime()
