@@ -243,6 +243,8 @@ void cCharStuff::DeleteChar (P_CHAR pc_k) // Delete character
 	
 	if (pc_k != NULL) 
 		mapRegions->Remove(pc_k); // taking it out of mapregions BEFORE x,y changed, LB
+
+	delete pc_k->tags;
 	
 	pc_k->free = true;
 	cCharsManager::getInstance()->deleteChar( pc_k );

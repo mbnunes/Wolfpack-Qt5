@@ -37,6 +37,7 @@
 //#include "WPDefaultScript.h"
 #include "uobject.h"
 #include "defines.h"
+#include "customtags.h"
 
 // Forward Class declarations
 class ISerialization;
@@ -234,6 +235,7 @@ public:
 	unsigned int time_unused;     // LB -> used for house decay and possibly for more in future, gets saved
 	unsigned int timeused_last; // helper attribute for time_unused, doesnt get saved
 	
+	cCustomTags* tags;
 	
 	void Init(bool mkser = true);
 	void SetSerial(long ser);

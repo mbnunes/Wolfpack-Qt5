@@ -140,6 +140,10 @@ SOURCE=.\coord.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\customtags.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\cweather.cpp
 # End Source File
 # Begin Source File
@@ -457,6 +461,10 @@ SOURCE=.\cmdtable.h
 # Begin Source File
 
 SOURCE=.\coord.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\customtags.h
 # End Source File
 # Begin Source File
 

@@ -498,6 +498,26 @@ void cItem::Serialize(ISerialization &archive)
 		archive.read("glow_color",	glow_color);
 		archive.read("glowtype",	glow_effect);
 		archive.read("desc",		desc);
+
+		unsigned int tagSize = 0, i = 0;
+		QString tagKey;
+		QString tmpValue;
+		cVariant tagValue;
+		archive.read("tags.size", tagSize);
+		while( i < tagSize )
+		{
+			archive.read("tags.key", tagKey);
+			archive.read("tags.value", tmpValue);
+			
+			if( tagKey.left( 2 ) == "i|" && tmpValue.toUInt() > 0 )
+				tagValue = tmpValue.toInt();
+			else 
+				tagValue = tmpValue;
+
+			tagKey = tagKey.remove(0, 2);
+			this->tags->set( tagKey, tagValue );
+			i++;
+		}
 	}
 	else if ( archive.isWritting())
 	{
@@ -566,6 +586,30 @@ void cItem::Serialize(ISerialization &archive)
 		archive.write("glow_color",	glow_color);
 		archive.write("glowtype",	glow_effect);
 		archive.write("desc",		desc);
+
+		unsigned int tagSize = this->tags->size(), i = 0;
+		QStringList tagKeys = this->tags->getKeys();
+		std::vector< cVariant > tagValues = this->tags->getValues();
+		QString tagKey, tmpKey;
+		cVariant tagValue;
+		archive.write( "tags.size", tagSize );
+		while( i < tagKeys.size() )
+		{
+			tagKey = tagKeys[i];
+			tagValue = tagValues[i];
+			if( !tagValue.isNull() )
+			{	
+				tmpKey = "";
+				if( tagValue.isValue() )
+					tmpKey = QString("i|%1").arg( tagKey );
+				else
+					tmpKey = QString("s|%1").arg( tagKey );
+				
+				archive.write( "tags.key", tmpKey );
+				archive.write( "tags.value", tagValue.asString() );
+			}
+			i++;
+		}
 	}
 	cUObject::Serialize(archive);
 }
@@ -753,6 +797,9 @@ void cItem::Init(bool mkser)
 	this->time_unused=0;
 	this->timeused_last=getNormalizedTime();
 	this->spawnregion_="";
+	if( this->tags != NULL )
+		delete tags;
+	this->tags = new cCustomTags();
 }
 
 // -- delete an item (Actually just mark it is free)
@@ -803,6 +850,9 @@ void cAllItems::DeleItem(P_ITEM pi)
 			if (pContent != NULL)
 				DeleItem(pContent);
 		}
+
+		delete pi->tags; // delete tags!
+
 		// Queue for later delete.
 		cItemsManager::getInstance()->deleteItem(pi);
 	}

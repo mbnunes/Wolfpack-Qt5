@@ -111,6 +111,32 @@ void cUObject::Serialize(ISerialization &archive)
 		archive.read("pos.plane", pos.plane);
 		archive.read("events", events );
 
+		unsigned int tagSize = 0, i = 0;
+		QString tagKey;
+		QString tmpValue;
+		cVariant tagValue;
+		archive.read("tags.size", tagSize);
+		while( i < tagSize )
+		{
+			archive.read("tags.key", tagKey);
+			archive.read("tags.value", tmpValue);
+			
+			if( tmpValue.left( 2 ) == "i|" && tmpValue.remove( 0, 1 ).toInt() > 0 )
+				tagValue = tmpValue.remove( 0, 1 ).toInt();
+			else if( tmpValue.left( 2 ) == "s|" )
+			{
+				if( tmpValue.remove( 0, 1 ).toUInt() < 0x40000000 )
+					tagValue = FindCharBySerial( tmpValue.remove( 0, 1 ) );
+				else
+					tagValue = FindItemBySerial( tmpValue.remove( 0, 1 ) );
+			}
+			else
+				tagValue = tmpValue;
+			
+			this->tags->set( tagKey, tagValue );
+			i++;
+		}
+
 		eventList_ = QStringList::split( ",", events );
 	}
 	else if (archive.isWritting())
@@ -126,6 +152,7 @@ void cUObject::Serialize(ISerialization &archive)
 
 		events = eventList_.join( "," );
 		archive.write( "events", events );
+
 	}
 	cSerializable::Serialize( archive );
 }
