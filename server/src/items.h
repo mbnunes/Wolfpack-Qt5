@@ -44,7 +44,7 @@ class ISerialization;
 class cUOSocket;
 
 /*
-	This class represents an item definition and it's 
+	This class represents an item definition and it's
 	static properties.
 */
 class cItemBaseDef : public cDefinable
@@ -65,7 +65,7 @@ protected:
 	bool loaded;
 	void load();
 	void reset();
-public:	
+public:
 	cItemBaseDef( const QCString& id );
 	~cItemBaseDef();
 
@@ -206,7 +206,7 @@ public:
 	bool twohanded() const
 	{
 		return priv_ & 0x20;
-	} // Is the weapon twohanded ?	
+	} // Is the weapon twohanded ?
 	bool secured() const
 	{
 		return priv_ & 0x08;
@@ -214,7 +214,7 @@ public:
 	bool allowMeditation() const
 	{
 		return priv_ & 0x10;
-	} // Does this armor allow meditation?	
+	} // Does this armor allow meditation?
 	SI16 hp() const
 	{
 		return hp_;
@@ -289,7 +289,7 @@ public:
 		return basedef_ ? basedef_->weight() : 0.0f;
 	}
 
-	inline unsigned char lightsource() 
+	inline unsigned char lightsource()
 	{
 		return basedef_ ? basedef_->lightsource() : 0;
 	}

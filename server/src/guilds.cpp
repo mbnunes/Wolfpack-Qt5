@@ -364,7 +364,7 @@ static int wpGuild_compare( PyObject* a, PyObject* b );
 PyTypeObject wpGuildType =
 {
 	PyObject_HEAD_INIT( NULL )
-	0, "guild", sizeof( wpGuildType ), 0, wpDealloc, 0, ( getattrfunc ) wpGuild_getAttr, ( setattrfunc ) wpGuild_setAttr, wpGuild_compare, 
+	0, "guild", sizeof( wpGuildType ), 0, wpDealloc, 0, ( getattrfunc ) wpGuild_getAttr, ( setattrfunc ) wpGuild_setAttr, wpGuild_compare,
 };
 
 static int wpGuild_compare( PyObject* a, PyObject* b )
@@ -731,7 +731,7 @@ static PyObject* wpGuild_getAttr( wpGuild* self, char* name )
 		return PyInt_FromLong( self->guild->alignment() );
 	}
 	/*
-		\property guild.serial This is the unique integer id for this guild. It can be used to 
+		\property guild.serial This is the unique integer id for this guild. It can be used to
 		retrieve a guild object by using the wolfpack.findguild function.
 	*/
 	else if ( !strcmp( name, "serial" ) )

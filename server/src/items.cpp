@@ -1502,7 +1502,6 @@ void cItem::buildSqlString( QStringList& fields, QStringList& tables, QStringLis
 	conditions.push_back( "uobjectmap.serial = items.serial" );
 }
 
-
 void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRemove )
 {
 	if ( !pItem )
@@ -1991,11 +1990,11 @@ stError* cItem::getProperty( const QString& name, cVariant& value )
 	 This property is inherited from the definition specified in the baseid property.
 	*/
 	else
-		GET_PROPERTY( "lightsource", lightsource() )	
+		GET_PROPERTY( "lightsource", lightsource() )
 
 	/*
 	\rproperty item.decaydelay The decay delay for this item in miliseconds.
-	This is 0 if the item won't decay. 
+	This is 0 if the item won't decay.
 	*/
 	else
 		GET_PROPERTY( "decaydelay", (int)decayDelay() )

@@ -28,7 +28,6 @@
 #if !defined(__DEFINES_H__)
 #define __DEFINES_H__
 
-
 //o---------------------------------------------------------------------------o
 // FIXMEs / TODOs / NOTE macros
 //o---------------------------------------------------------------------------o
@@ -72,7 +71,7 @@
 // List of skill numbers (For later implementation)
 enum eSkills
 {
-	ALCHEMY				= 0,
+	ALCHEMY = 0,
 	ANATOMY,
 	ANIMALLORE,
 	ITEMID,
