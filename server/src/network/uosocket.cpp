@@ -842,9 +842,7 @@ void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
 void cUOSocket::handleDoubleClick( cUORxDoubleClick* packet )
 {
 	if ( isCharSerial(packet->serial() ) )
-	{
-		dbl_click_character(this, packet->serial(), packet->keyboard() );
-	}
+		showPaperdoll( this, FindCharBySerial( packet->serial() ), packet->keyboard() );
 	else
 	{
 		dbl_click_item(this, packet->serial() );
@@ -857,4 +855,13 @@ void cUOSocket::handleGetTip( cUORxGetTip* packet )
 	{
 		tips( this, packet->lastTipe() );
 	}
+}
+
+void cUOSocket::sendPaperdoll( P_CHAR pChar, bool detailed )
+{
+	cUOTxOpenPaperdoll oPaperdoll;
+	oPaperdoll.setSerial( pChar->serial );
+	oPaperdoll.setName( pChar->name.c_str() );
+	oPaperdoll.setFlag( detailed ? 1 : 0 );
+	send( &oPaperdoll );
 }

@@ -289,6 +289,7 @@ public:
 	virtual QString objectID() const;
 
 	void update( void );
+	QString fullName( void );
 
 	// Getters
 	short					guildType() const;    // (0) Standard guild, (1) Chaos Guild, (2) Order guild

@@ -66,7 +66,7 @@ extern void init_creatures(void);
 void TellScroll( char *menu_name, int player, long item_param );
 
 void dbl_click_item(cUOSocket* socket, SERIAL target_serial);
-void dbl_click_character(cUOSocket* socket, SERIAL target_serial, bool keyboard);
+void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey );
 
 //void walking(int s, int dir, int sequence);
 void teleporters(P_CHAR pc_s);
@@ -150,7 +150,6 @@ void mounthorse(UOXSOCKET s, P_CHAR pc_mount);
 char *title1(P_CHAR pc);
 char *title2(P_CHAR pc);
 char *title3(P_CHAR pc);
-char *complete_title(P_CHAR pc);
 void buyaction(int s);
 void restock(int s);
 void dooruse(int s, P_ITEM pi);

@@ -597,4 +597,14 @@ public:
 	void setMessage(QString m);
 };
 
+// 0x88 Open Paperdoll
+class cUOTxOpenPaperdoll: public cUOPacket
+{
+public:
+	cUOTxOpenPaperdoll(): cUOPacket( 0x88, 66 ) {}
+	void setSerial( UINT32 data ) { setInt( 1, data ); }
+	void setName( const QString &name ) { memcpy( &rawPacket.data()[5], name.latin1(), MIN( 60, name.length()+1 ) ); }
+	void setFlag( UINT8 flag ) { rawPacket[65] = flag; }
+};
+
 #endif

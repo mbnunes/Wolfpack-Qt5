@@ -651,65 +651,6 @@ char *title3(P_CHAR pc) // Paperdoll title for character p (3)
 	return fametitle;
 }
 
-
-char *complete_title(P_CHAR pc) // generates the ENTIRE title plus criminal stuff
-{
-	char tempstr[1024];
-	if (pc == NULL) return "error";
-
-	if (pc->account()==0 && pc->isGM()) // Ripper..special titles for admins :)
-	{
-		sprintf(tempstr, "%s %s %s", title[6].other, pc->name.c_str(), pc->title().latin1());
-	}
-	else if (pc->isGM() && pc->account()!=0)
-	{//GM.
-		sprintf(tempstr, "%s %s", pc->name.c_str(), pc->title().latin1());
-	}
-	// ripper ..rep stuff
-	else if ((pc->crimflag()>0) && (!(pc->dead) && (pc->kills<4)))
-	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[0].other, pc->name.c_str(), pc->title().latin1(), title1(pc), title2(pc));
-	}
-	else if ((pc->kills>=5) && (!(pc->dead) && (pc->kills<10)))
-	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[1].other, pc->name.c_str(), pc->title().latin1(), title1(pc), title2(pc));
-	}
-	else if ((pc->kills>=10) && (!(pc->dead) && (pc->kills<20)))
-	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[2].other, pc->name.c_str(), pc->title().latin1(), title1(pc), title2(pc));
-	}
-	else if ((pc->kills>=20) && (!(pc->dead) && (pc->kills<50)))
-	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[3].other, pc->name.c_str(), pc->title().latin1(), title1(pc), title2(pc));
-	}
-	else if ((pc->kills>=50) && (!(pc->dead) && (pc->kills<100)))
-	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[4].other, pc->name.c_str(), pc->title().latin1(), title1(pc), title2(pc));
-	}
-	else if ((pc->kills>=100) && (!(pc->dead)))
-	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[5].other, pc->name.c_str(), pc->title().latin1(), title1(pc), title2(pc));
-	} // end of rep stuff
-	else
-	{//Player.
-		sprintf(tempstr, "%s%s", title3(pc), pc->name.c_str());		//Repuation + Name
-		{//NoTownTitle
-			strcpy((char*)temp,tempstr);
-			if (!pc->title().isEmpty())
-			{//Titled & Skill
-				sprintf(tempstr, "%s %s, %s %s", temp, pc->title().latin1(), title1(pc), title2(pc));
-			}
-			else
-			{//Just skilled
-				sprintf(tempstr, "%s, %s %s", temp, title1(pc), title2(pc));
-			}
-		}
-	}
-
-	strcpy(completetitle, tempstr);
-	return completetitle;
-}
-
 void gcollect () // Remove items which were in deleted containers
 {
 	int removed = 0, rtotal = 0;

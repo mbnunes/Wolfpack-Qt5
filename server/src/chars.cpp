@@ -1784,3 +1784,48 @@ void cChar::update( void )
 		pChar->socket()->sendChar( this );
 	}
 }
+
+QString cChar::fullName( void )
+{
+	QString fName;
+
+	if( ( account_ == 0 ) && isGM() )
+		fName = tr( "The Shard Admin %1 %2" ).arg( name.c_str() ).arg( title_ );
+
+	else if( isGM() )
+		fName = QString( "%1 %2" ).arg( name.c_str() ).arg( title_ );
+
+	// Normal Criminal
+	else if( ( crimflag_ > 0 ) && !dead && ( kills < SrvParams->maxkills() ) )
+		fName = tr( "The Criminal %1, %2%3 %4" ).arg( name.c_str() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+
+	// The Serial Killer
+	else if( ( kills >= SrvParams->maxkills() ) && ( kills < 10 ) && !dead )
+		fName = tr( "The Serial Killer %1, %2%3 %4" ).arg( name.c_str() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+
+	// The Murderer
+	else if( ( kills >= 10 ) && ( kills < 20 ) && !dead )
+		fName = tr( "The Murderer %1, %2%3 %4" ).arg( name.c_str() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+
+	// The Mass Murderer
+	else if( ( kills >= 20 ) && ( kills < 50 ) && !dead )
+		fName = tr( "The Mass Murderer %1, %2%3 %4" ).arg( name.c_str() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+
+	// The Evil Dread Murderer
+	else if( ( kills >= 50 ) && ( kills < 100 ) && !dead )
+		fName = tr( "The Evil Dread Murderer %1, %2%3 %4" ).arg( name.c_str() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+
+	// The Evil Emperor
+	else if( ( kills >= 100 ) && !dead )
+		fName = tr( "The Evil Emperor %1, %2%3 %4" ).arg( name.c_str() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+
+	// Normal Player
+	else if( title_.isEmpty() )
+		fName = tr( "%1%2, %3 %4" ).arg( title3( this ) ).arg( name.c_str() ).arg( title1( this ) ).arg( title2( this ) );
+
+	else
+		fName = tr( "%1%2 %4, %4 %5" ).arg( title3( this ) ).arg( name.c_str() ).arg( title_ ).arg( title1( this ) ).arg( title2( this ) );
+
+	return fName;
+}
+

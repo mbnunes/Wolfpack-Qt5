@@ -206,7 +206,6 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 	unsigned char map2[12] = "\x56\x40\x01\x02\x03\x05\x00\x00\x00\x00\x00";
 	// By Polygon: This one is needed to show the location on treasure maps
 	unsigned char map3[12] = "\x56\x40\x01\x02\x03\x01\x00\x00\x00\x00\x00";
-
 	
 	SERIAL serial = target_serial;
 	P_CHAR pc_currchar = socket->player();
@@ -1501,122 +1500,111 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 }
 
 //Handles Double clicks over PC/NPCs
-void dbl_click_character(cUOSocket* socket, SERIAL target_serial, bool keyboard)
+void showPaperdoll( cUOSocket *socket, P_CHAR pTarget, bool hotkey )
 {
-	unsigned char pdoll[256]="\x88\x00\x05\xA8\x90\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00";
-	P_CHAR pc_currchar = socket->player();
-	
-	P_CHAR target = FindCharBySerial( target_serial );
-
-	UOXSOCKET s = calcSocketFromChar(socket->player()); // for Legacy :(
-
-	if (target == NULL)
+	if( !socket )
 		return;
 
+	P_CHAR pChar = socket->player();
 
-	if ((target->isNpc())&&
-		(target->id() == 0x0034)||
-		(target->id() == 0x004E)||
-		(target->id() == 0x0050)||
-		(target->id() == 0x003A)||
-		(target->id() == 0x0039)||
-		(target->id() == 0x003B)||
-		(target->id() == 0x0074)||
-		(target->id() == 0x0075)||
-		(target->id() == 0x0072)||
-		(target->id() == 0x007A)||
-		(target->id() == 0x0084)||
-		(target->id() == 0x0073)||
-		(target->id() == 0x0076)||
-		(target->id() == 0x0077)||
-		(target->id() == 0x0078)||
-        (target->id() == 0x0079)||
-		(target->id() == 0x00AA)||
-		(target->id() == 0x00AB)||
-		(target->id() == 0x00BB)||
-		(target->id() == 0x0090)||
-		(target->id() == 0x00C8)||
-		(target->id() == 0x00E2)||
-		(target->id() == 0x00E4)||
-		(target->id() == 0x00CC)||
-		(target->id() == 0x00DC)||
-		(target->id() == 0x00D2)||
-		(target->id() == 0x00DA)||
-		(target->id() == 0x00DB)||
-		(target->id() == 0x0317)||
-		(target->id() == 0x0319)||
-		(target->id() == 0x031A)||
-		(target->id() == 0x031F))
-	{//if mount
-		if (chardist( pc_currchar, target )<2 || pc_currchar->isGM())
+	if( !pChar || !pTarget )
+		return;
+
+	UOXSOCKET s = calcSocketFromChar( pChar ); // for legacy :(
+
+	// For players we'll always show the Paperdoll
+	if( pTarget->isHuman() || !pTarget->isNpc() )
+	{
+		// Theres one exception for player vendors, when you double click them
+		// Their packs should open instead of their paperdoll
+		if( pTarget->npcaitype() == 17 )
 		{
-			//AntiChrist - cannot ride animals under polymorph effect
-			if (pc_currchar->polymorph())
+			pTarget->talk( "Take a look at my goods" );
+
+			if( pTarget->packitem != INVALID_SERIAL )
+				backpack( s, pTarget->packitem );
+
+			return;
+		}
+
+        // If we're mounted (item on layer 25) and *not* using a hotkey
+		// We're trying to unmount ourself
+		if( !hotkey && ( pTarget == pChar ) && ( unmounthorse( s ) == 0 )  )
+			return; // We have been unmounted
+
+		socket->sendPaperdoll( pTarget, true );
+	}
+
+	UINT16 body = pTarget->id();
+
+	// Is that faster ??
+
+	switch( body )
+	{
+	case 0x0034:
+	case 0x004E:
+	case 0x0050:
+	case 0x003A:
+	case 0x0039:
+	case 0x003B:
+	case 0x0074:
+	case 0x0075:
+	case 0x0072:
+	case 0x007A:
+	case 0x0084:
+	case 0x0073:
+	case 0x0076:
+	case 0x0077:
+	case 0x0078:
+	case 0x0079:
+	case 0x00AA:
+	case 0x00AB:
+	case 0x00BB:
+	case 0x0090:
+	case 0x00C8:
+	case 0x00E2:
+	case 0x00E4:
+	case 0x00CC:
+	case 0x00DC:
+	case 0x00D2:
+	case 0x00DA:
+	case 0x00DB:
+	case 0x0317:
+	case 0x0319:
+	case 0x031A:
+	case 0x031F:
+		// Try to mount the rideable animal
+		if( chardist( pChar, pTarget ) <  2 || pChar->isGM() )
+		{
+			if( pChar->polymorph() )
 			{
 				socket->sysMessage(tr("You cannot ride anything under polymorph effect."));
 				return;
 			}
-			if (pc_currchar->dead)
+			if( pChar->dead )
 			{
 				socket->sysMessage(tr("You are dead and cannot do that."));
 				return;
 			}
-			if (target->war)
+			if( pTarget->war )
 				socket->sysMessage(tr("Your pet is in battle right now!"));
 			else
-				mounthorse(s, target);
-		}
-		else 
-			socket->sysMessage(tr("You need to get closer."));
-		return; 
-	}//if mount
-	else if ((target->isNpc())&&((target->id1!=0x01)||(target->id2<0x90)||(target->id2>0x93)))
-	{//if monster
-		if (target->id1==0x01&&(target->id2==0x23||target->id2==0x24))
-		{//if packhorse or packlhama added by JustMichael 8/31/99
-			if (pc_currchar->Owns(target))
-			{
-				if (target->packitem != INVALID_SERIAL)
-				{
-					backpack(s, target->packitem);
-				}
-				else
-				{
-					clConsole.send("Pack animal %i has no backpack!\n",target->serial);
-				}
-			}
-			else
-			{
-				socket->sysMessage(tr("That is not your beast of burden!"));
-			}
-			return;
+				mounthorse( s, pTarget );
 		}
 		else
+			socket->sysMessage( tr( "This is too far away" ) );
+
+		break;
+	case 0x123:
+	case 0x124:
+		if( pChar->Owns( pTarget ) )
 		{
-			socket->sysMessage(tr("You cannot open monsters paperdolls."));
+			P_ITEM pBackpack = pTarget->getBackpack();
+
+			if( pBackpack )
+				backpack( s, pBackpack->serial );
+			else
+				clConsole.send( "Pack animal 0x%08x has no backpack!\n", pTarget->serial );
 		}
-		return; 
-	}//if monster
-	else 
-	{//char
-		if (target->npcaitype() == 17)//PlayerVendors
-		{
-			npctalk(s, target,"Take a look at my goods.",0);
-			if (target->packitem != INVALID_SERIAL) backpack(s, target->packitem); // rippers bugfix for vendor bags not opening !!!
-			return;
-		}
-		if (pc_currchar->serial==target->serial)
-		{//dbl-click self
-			if ((!keyboard)&&(unmounthorse(s)==0)) return; //on horse
-			//if not on horse, treat ourselves as any other char
-		}//self
-		LongToCharPtr(target->serial, &pdoll[1]);
-		
-		completetitle = complete_title(target);
-		int l = strlen(completetitle);
-		if (l>=60) completetitle[60]=0;
-		strcpy((char*)&pdoll[5], completetitle);				
-		Xsend(s, pdoll, 66);
-		return;
-	}//char
+	};
 }

@@ -123,6 +123,7 @@ public:
 	void disconnect( void ); // Call this whenever the socket should disconnect
 	void playChar( P_CHAR player ); // Play a character
 	bool isT2A()	{ return true; } // ???
+	void sendPaperdoll( P_CHAR pChar, bool detailed = false );
 
 	void allowMove( Q_UINT8 sequence );
 	void denyMove( Q_UINT8 sequence );
