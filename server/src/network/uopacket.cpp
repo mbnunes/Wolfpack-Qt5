@@ -128,6 +128,9 @@ uint cUOPacket::size() const
 	return rawPacket.size();
 }
 
+/*!
+  Returns the same as \sa size().
+*/
 uint cUOPacket::count() const
 {
 	return rawPacket.count();
@@ -259,7 +262,7 @@ QByteArray cUOPacket::compressed()
 /*!
   Reads a 32 bits integer value from the raw data buffer starting at position \a pos
 */
-int cUOPacket::getInt( uint pos )
+int cUOPacket::getInt( uint pos ) const
 {
 	int value = rawPacket.at(pos+3) & 0x000000FF;
 	value |= rawPacket.at(pos+2) << 8;
@@ -271,7 +274,7 @@ int cUOPacket::getInt( uint pos )
 /*!
   Reads a 16 bits integer value from the raw data buffer starting at position \a pos
 */
-short cUOPacket::getShort( uint pos )
+short cUOPacket::getShort( uint pos ) const
 {
 	short value = (Q_INT16)(rawPacket.at(pos+1)) & 0x00FF;
 	value |= ((Q_INT16)(rawPacket.at(pos)) << 8) & 0xFF00;
@@ -283,7 +286,7 @@ short cUOPacket::getShort( uint pos )
   and with size no longer than \a fieldLength. If the actual string in buffer
   is longer than the supplied \a fieldLength, it will be truncated.
 */
-QString cUOPacket::getUnicodeString( uint pos, uint fieldLength )
+QString cUOPacket::getUnicodeString( uint pos, uint fieldLength ) const
 {
 	QString result;
 	if ( pos + fieldLength > rawPacket.size() )
@@ -305,7 +308,7 @@ QString cUOPacket::getUnicodeString( uint pos, uint fieldLength )
   \a fieldLength can be 0, in which case, no size check is performed the string
   is read until a \0 is found.
 */
-QString cUOPacket::getAsciiString( uint pos, uint fieldLength )
+QString cUOPacket::getAsciiString( uint pos, uint fieldLength ) const
 {
 	if ( rawPacket.size() < fieldLength + pos )
 	{

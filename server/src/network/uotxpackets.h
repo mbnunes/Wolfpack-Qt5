@@ -29,7 +29,7 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#ifndef __UO_TXPACKETS__
+#if !defined(__UO_TXPACKETS__)
 #define __UO_TXPACKETS__
 
 // Library includes
@@ -426,7 +426,7 @@ public:
 	void setUnknown1( Q_UINT8 data )	{ (*this)[ 7 ] = data;	}
 	void setSkin( Q_UINT16 data )		{ setShort( 8, data );	}
 	void setFlag( Q_UINT8 data )		{ (*this)[ 10 ] = data; } // // 10 = 0=normal, 4=poison, 0x40=attack, 0x80=hidden CHARMODE_WAR
-	UINT8 flag()						{ return (*this)[ 10 ]; }
+	UINT8 flag() const					{ return (*this)[ 10 ]; }
 	void setX( Q_UINT16 x )				{ setShort( 11, x );	}
 	void setY( Q_UINT16 y )				{ setShort( 13, y );	}
 	void setUnknown2( Q_UINT16 data )	{ setShort( 15, data ); }
@@ -450,7 +450,7 @@ public:
 	void setDirection( Q_UINT8 data ) { (*this)[12] = data; }
 	void setHue( Q_UINT16 data )	{ setShort( 13, data ); }
 	void setFlag( Q_UINT8 data )	{ (*this)[15] = data; }
-	UINT8 flag()					{ return (*this)[15]; }
+	UINT8 flag() const				{ return (*this)[15]; }
 	void setHighlight( Q_UINT8 data ) { (*this)[16] = data; }
 
 	void fromChar( P_CHAR pChar );
@@ -473,7 +473,7 @@ public:
 	void setDirection( Q_UINT8 data ) { (*this)[14] = data; }
 	void setColor( Q_UINT16 data )	{ setShort( 15, data ); }
     void setFlag( Q_UINT8 data )	{ (*this)[17] = data; }
-	UINT8 flag()					{ return (*this)[17]; }
+	UINT8 flag() const				{ return (*this)[17]; }
 	void setHighlight( Q_UINT8 data ) { (*this)[18] = data; }
 	void fromChar( P_CHAR pChar );
 	
@@ -641,7 +641,7 @@ public:
 	void setSerial( UINT32 data )		{ setInt( 1, data ); }
 	void setName( const QString &name ) { this->setAsciiString(5, name.latin1(), 60 ); }
 	void setFlag( UINT8 flag )			{ (*this)[65] = flag; }
-	UINT8 flag()						{ return (*this)[65]; }
+	UINT8 flag() const					{ return (*this)[65]; }
 	void fromChar( P_CHAR pChar );
 };
 
@@ -711,7 +711,7 @@ public:
 	void setDirection( UINT8 data )			{ (*this)[15] = data; }
 	void setColor( UINT16 data )			{ setShort( 17, data ); }
 	void setFlags( UINT8 data )				{ (*this)[19] = data; }
-	UINT8 flags()							{ return (*this)[19]; }
+	UINT8 flags() const						{ return (*this)[19]; }
 };
 
 // 0x6C Target
@@ -1064,4 +1064,4 @@ public:
 	}
 }; 
 
-#endif
+#endif // __UO_TXPACKETS__

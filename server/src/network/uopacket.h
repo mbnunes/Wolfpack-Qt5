@@ -66,10 +66,10 @@ public:
 
 	virtual QByteArray compressed();
 	virtual QByteArray uncompressed() { return rawPacket; }
-	int		getInt( uint );
-	short	getShort( uint);
-	QString getAsciiString( uint, uint = 0 );
-	QString getUnicodeString( uint, uint );
+	int		getInt( uint ) const;
+	short	getShort( uint) const;
+	QString getAsciiString( uint, uint = 0 ) const;
+	QString getUnicodeString( uint, uint ) const;
 	void	setInt( uint, uint );
 	void	setShort( uint, ushort );
 	void	setUnicodeString( uint, QString&, uint );
@@ -80,12 +80,24 @@ public:
 
 	// Operators
 	char& operator []( uint );
+	char  operator []( uint ) const;
 	cUOPacket& operator=( cUOPacket& p );
 
 
 	// Temporary
 	friend cUORxMultiPurpose;
 };
+
+// Inline members
+
+/*!
+  Overloaded version for const objects.
+*/
+inline char cUOPacket::operator[] ( unsigned int index ) const
+{
+	return rawPacket.at( index );
+}
+
 
 #endif // __UOPACKET_H__
 
