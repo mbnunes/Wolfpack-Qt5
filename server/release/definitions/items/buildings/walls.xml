@@ -3949,6 +3949,12 @@
 		<nodecay/>
 	</item>
 
+	<item id="315">
+		<id>0x315</id>
+		<category>Buildings\Walls\Dungeon Wall\Wall 5</category>
+		<nodecay/>
+	</item>
+
 	<item id="245">
 		<id>0x245</id>
 		<category>Buildings\Walls\Dungeon Wall\Arch 1</category>

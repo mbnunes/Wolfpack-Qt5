@@ -418,6 +418,11 @@
 		<category>Professions\Tailorer\Decoration\Spinning Wheel (W/E) (Animated)</category>
 	</item>
 
+	<item id="101b">
+		<id>0x101b</id>
+		<category>Professions\Tailorer\Decoration\Spinning Wheel (W/E)</category>
+	</item>
+
 	<item id="101c">
 		<id>0x101c</id>
 		<category>Professions\Tailorer\Decoration\Spinning Wheel (S/N)</category>
@@ -436,6 +441,11 @@
 	<item id="10a5">
 		<id>0x10a5</id>
 		<category>Professions\Tailorer\Decoration\Spinning Wheel (E/W) (Animated)</category>
+	</item>
+
+	<item id="10a6">
+		<id>0x10a6</id>
+		<category>Professions\Tailorer\Decoration\Spinning Wheel (E/W)</category>
 	</item>
 
 	<item id="105f">
