@@ -359,14 +359,8 @@ def isreloading():
 def isclosing():
 	return _wolfpack.isclosing()
 
-"""
-	\function wolfpack.spell
-	\param id
-	\return None
-	\description Unknown?
-"""
-def spell( id ):
-	return _wolfpack.spell( id )
+#def spell( id ):
+#	return _wolfpack.spell( id )
 
 """
 	\function wolfpack.multi
