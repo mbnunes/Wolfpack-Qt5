@@ -61,7 +61,7 @@ cItem& cItemWrap::operator[](long inx)
 		{
 			char tmp[222];
 			sprintf(tmp,"bad item index %i in file %s line %i itemcount %i",inx, srcfile, srcline,itemcount);
-			LogError(tmp);
+			//LogError(tmp);
 		}
 		return realitems[0];	// VERY bad for item 0, but it keeps the server alive ;-)
 	}

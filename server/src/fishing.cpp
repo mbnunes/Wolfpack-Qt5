@@ -196,7 +196,7 @@ void cFishing::FishTarget(P_CLIENT ps)
 	if (ok)
 	{
 		action(s,0x0b);
-		if ((buffer[s][1]==1 || buffer[s][1]==0)&&(buffer[s][2]==0)&&(buffer[s][3]==1)&&(buffer[s][4]==0))
+		//if ((buffer[s][1]==1 || buffer[s][1]==0)&&(buffer[s][2]==0)&&(buffer[s][3]==1)&&(buffer[s][4]==0))
 		{
 			if (fishing_data.randomtime!=0)
 				pPlayer->fishingtimer=rand()%fishing_data.randomtime+fishing_data.basetime;
