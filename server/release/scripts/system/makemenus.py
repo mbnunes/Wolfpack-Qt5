@@ -4,6 +4,7 @@ from wolfpack.utilities import tobackpack
 from wolfpack.gumps import cGump
 import math
 from wolfpack import console
+from wolfpack.consts import *
 
 # Known menus
 menus = {}
@@ -165,6 +166,13 @@ class MakeItemAction(MakeAction):
     gump.send(player)
 
 #
+# Internal function for sorting a list of 
+# objects with a title property.
+#
+def comparetitle(a, b):
+  return cmp(a.title, b.title)
+
+#
 # MakeMenu Gump Response Handler
 #
 def MakeMenuResponse(player, arguments, response):
@@ -186,19 +194,20 @@ class MakeMenu:
   #
   # Self registering.
   #
-  def __init__(self, id, parent, title, notices='', submenus = [], subactions = []):
+  def __init__(self, id, parent, title):
     assert(not ';' in id)
     assert(not ':' in id)
     global menus
     menus[id] = self
     self.id = id
     self.parent = parent    
-    self.submenus = submenus
-    self.subactions = subactions
+    self.submenus = []
+    self.subactions = []
     self.title = title
-    self.notices = notices
+    self.notices = ''
     self.gump = None
     self.gumptype = 0
+    self.sort = 0
 
     # Ssee if the parent has the correct type
     if self.parent and not isinstance(parent, MakeMenu):
@@ -435,6 +444,11 @@ class MakeMenu:
       gump.addButton(15, 362, 0xFAE, 0xFB0, 3)
       gump.addHtmlGump(50, 365, 150, 18, whitehtml % "PREVIOUS MENU")
 
+    # Sort them first if neccesary
+    if self.sort:
+      self.submenus.sort(comparetitle)
+      self.subactions.sort(comparetitle)
+
     # Calculate how many pages are required
     menupages = math.ceil(len(self.submenus) / 9.0)
     actionpages = math.ceil(len(self.subactions) / 10.0)
@@ -499,28 +513,78 @@ class MakeMenu:
 #
 # Shows a certain makemenu to the user.
 #
-def testmake(socket, command, arguments):
-  submenus = []
-  subactions = []
-  notices = ''
-  title = 'Blacksmithing'
-  id = 'BLACKSMITHING'
-  parent = None
+def go(socket, command, arguments):
+  global menus
+  menus['GOMENU'].send(socket.player)
 
-  mainmenu = MakeMenu(id, parent, title, notices, submenus, subactions)
-  
-  # Add some clients
-  armors = MakeMenu('ARMORS', mainmenu, 'Armors', '', [], [])
-  shields = MakeMenu('SHIELDS', mainmenu, 'Shields', '', [], [])
-  action = MakeItemAction(armors, 'Valorite Platemail', 0xeed, 'eed', 100)
-  action.description = 'This is a little description of the item i just added.'
-  action.materials = 'A list of materials'
-  action.skills = 'A list of skills required to make this item.'
+#
+# This action moves the character to a given position
+#
+class GoAction(MakeAction):
+  #
+  # Create a new makemenu entry.
+  #
+  def __init__(self, parent, title, pos):
+    MakeAction.__init__(self, parent, title)
+    self.pos = pos
 
-  mainmenu.send(socket.player)
+  #
+  # Teleport the user to the position of this
+  # makemenu action.
+  #
+  def make(self, player, arguments):
+    player.removefromview()
+    player.moveto(self.pos)
+    player.update()
+    player.socket.resendworld()
 
 #
 # Register the makemenu command.
 #
 def onLoad():
-  wolfpack.registercommand('testmake', testmake)
+  # Generate menus for all item definitions
+  locations = wolfpack.getdefinitions(WPDT_LOCATION)
+  
+  gomenu = MakeMenu('GOMENU', None, 'Go Menu')
+  gomenu.sort = 1
+  submenus = {}
+
+  for location in locations:
+    if not location.hasattribute('category'):
+      continue
+    categories = location.getattribute('category').split('\\')
+    description = categories[len(categories)-1] # Name of the action
+    categories = categories[:len(categories)-1]
+
+    # Iterate trough the categories and see if they're all there    
+    category = ''
+    if len(categories) > 0 and not submenus.has_key('\\'.join(categories) + '\\'):
+      for subcategory in categories:
+        if not submenus.has_key(category + subcategory + '\\'):
+          # Category is our parent category 
+          parent = None
+          if len(category) == 0:
+            parent = gomenu
+          elif submenus.has_key(category):
+            parent = submenus[category]
+
+          category += subcategory + '\\'
+          menu = MakeMenu('GOMENU_' + category, parent, subcategory)
+          menu.sort = 1
+          submenus[category] = menu
+        else:
+          category += subcategory + '\\'
+
+    # Parse the position of this makemenu entry
+    if location.text.count(',') != 3:
+      raise RuntimeError, "Wrong position information for location %s." % location.getattribute('id')
+
+    (x, y, z, map) = location.text.split(',')
+    pos = wolfpack.coord(int(x), int(y), int(z), int(map))
+
+    if len(categories) == 0:
+      GoAction(gomenu, description, pos)
+    else:
+      GoAction(submenus['\\'.join(categories) + '\\'], description, pos)
+
+  wolfpack.registercommand('go', go)
