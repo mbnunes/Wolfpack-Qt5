@@ -45,12 +45,10 @@ enum WPDEF_TYPE
 	WPDT_ITEM = 0,
 	WPDT_SCRIPT,
 	WPDT_NPC,
-	WPDT_ITEMLIST,
+	WPDT_LIST,
 	WPDT_MENU,
 	WPDT_SPELL,
-	WPDT_PRIVLEVEL,
-	WPDT_NAMELIST,
-	WPDT_INVALID
+	WPDT_PRIVLEVEL
 };
 
 class WPDefManager  
@@ -60,11 +58,10 @@ private:
 	DefSections Items;
 	DefSections Scripts;
 	DefSections NPCs;
-	DefSections ItemLists;
+	DefSections StringLists;
 	DefSections Menus;
 	DefSections Spells;
 	DefSections PrivLevels;
-	DefSections NameLists;
 
 	bool ImportSections( const QString& FileName );
 	void ProcessNode( QDomElement Node );
@@ -79,6 +76,8 @@ public:
 
 	QDomElement *getSection( WPDEF_TYPE Type, QString Section );
 	QStringList getSections( WPDEF_TYPE Type );
+	QString		getRandomListEntry( QString ListSection );
+	QStringList	getList( QString ListSection );
 };
 
 const QString processNode( QDomElement Node );

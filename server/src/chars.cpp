@@ -1449,25 +1449,39 @@ void cChar::processNode( const QDomElement &Tag )
 	else if( TagName == "equipped" )
 	{
 		QDomNode childNode = Tag.firstChild();
+		vector< QDomElement* > equipment;
+		
 		while( !childNode.isNull() )
-		{
-			if( childNode.nodeName() == "item" && childNode.attributes().contains("id") )
+		{		
+			if( childNode.nodeName() == "item" )
+				equipment.push_back( &childNode.toElement() );
+			else if( childNode.nodeName() == "getlist" && childNode.attributes().contains( "id" ) )
 			{
-				P_ITEM nItem = Items->createScriptItem( childNode.toElement().attributeNode("id").nodeValue() );
-				if( nItem != NULL )
-				{
-					if( nItem->layer() == 0 )
-						Items->DeleItem( nItem );
-					else
-					{
-						nItem->setContSerial( this->serial );
-
-						if( childNode.hasChildNodes() )  // color
-						nItem->applyDefinition( childNode.toElement() );
-					}
-				}
+				QStringList list = DefManager->getList( childNode.toElement().attribute( "id" ) );
+				for( QStringList::iterator it = list.begin(); it != list.end(); it++ )
+					if( DefManager->getSection( WPDT_ITEM, *it ) )
+						equipment.push_back( DefManager->getSection( WPDT_ITEM, *it ) );
 			}
+
 			childNode = childNode.nextSibling();
+		}
+		
+		for( SI32 i = 0; i < equipment.size(); i++ )
+		{
+				P_ITEM nItem = Items->MemItemFree();
+	
+				if( nItem == NULL )
+					continue;
+	
+				nItem->Init( true );
+				cItemsManager::getInstance()->registerItem( nItem );
+
+				nItem->applyDefinition( *equipment[ i ] );
+
+				if( nItem->layer() == 0 )
+					Items->DeleItem( nItem );
+				else
+					nItem->setContSerial( this->serial );
 		}
 	}
 

@@ -2239,22 +2239,37 @@ void cItem::processContainerNode( const QDomElement &Tag )
 	</contains>
 	*/
 	QDomNode childNode = Tag.firstChild();
+	vector< QDomElement* > equipment;
+		
 	while( !childNode.isNull() )
-	{
-		if( childNode.toElement().nodeName() == "item" )
+	{		
+		if( childNode.nodeName() == "item" )
+			equipment.push_back( &childNode.toElement() );
+		else if( childNode.nodeName() == "getlist" && childNode.attributes().contains( "id" ) )
 		{
+			QStringList list = DefManager->getList( childNode.toElement().attribute( "id" ) );
+			for( QStringList::iterator it = list.begin(); it != list.end(); it++ )
+				if( DefManager->getSection( WPDT_ITEM, *it ) )
+					equipment.push_back( DefManager->getSection( WPDT_ITEM, *it ) );
+		}
+
+		childNode = childNode.nextSibling();
+	}
+		
+	for( SI32 i = 0; i < equipment.size(); i++ )
+	{
 			P_ITEM nItem = Items->MemItemFree();
-	
+
 			if( nItem == NULL )
 				continue;
-
+	
 			nItem->Init( true );
 			cItemsManager::getInstance()->registerItem( nItem );
 
-			nItem->applyDefinition( childNode.toElement() );	
+			nItem->applyDefinition( *equipment[ i ] );
+
 			nItem->setContSerial( this->serial );
-		}
-		childNode = childNode.nextSibling();
 	}
+	childNode = childNode.nextSibling();
 }
 

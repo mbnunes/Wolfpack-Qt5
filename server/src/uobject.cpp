@@ -313,51 +313,24 @@ QString cUObject::getNodeValue( const QDomElement &Tag )
 				continue;
 			}
 			QDomElement childTag = childNode.toElement();
-			if( childTag.nodeName() == "namelist" )
-			{
-				QString selectedName;
-				QDomElement* DefSection = DefManager->getSection( WPDT_NAMELIST, childTag.nodeValue() );
-				if( DefSection->isNull() )
-					selectedName = childTag.text();
-				else
-					selectedName = childTag.childNodes().item( RandomNum( 0, childTag.childNodes().count()-1 ) ).nodeName();
-				Value += selectedName;
-			}
-			else if( childTag.nodeName() == "random" )
+			if( childTag.nodeName() == "random" )
 			{
 				if( childTag.attributes().contains("min") && childTag.attributes().contains("max") )
 					Value += QString("%1").arg( RandomNum( childTag.attributeNode("min").nodeValue().toInt(), childTag.attributeNode("max").nodeValue().toInt() ) );
-				else if( childTag.attributes().contains("list") )
+				else if( childTag.attributes().contains("valuelist") )
 				{
 					QStringList RandValues = QStringList::split(",", childTag.attributeNode("list").nodeValue());
 					Value += RandValues[ RandomNum(0,RandValues.size()-1) ];
+				}
+				else if( childTag.attributes().contains( "list" ) )
+				{
+					Value += DefManager->getRandomListEntry( childTag.attribute( "list" ) );
 				}
 				else if( childTag.attributes().contains("dice") )
 					Value += QString("%1").arg(rollDice(childTag.attributeNode("dice").nodeValue()));
 				else
 					Value += QString("0");
 			}
-			else if( childTag.nodeName() == "colorlist" )
-			{
-				if( childTag.hasChildNodes() )
-				{
-					QDomNode chchildNode = childTag.firstChild();
-					while( !chchildNode.isNull() )
-					{
-						if( chchildNode.isText() )
-							Value += chchildNode.toText().data();
-						else if( chchildNode.isElement() )
-							Value += this->getNodeValue( chchildNode.toElement() );
-
-						chchildNode = chchildNode.nextSibling();
-					}
-				}
-				else
-					Value += QString("%1").arg(addrandomcolor( NULL, (char*)childTag.nodeValue().latin1() ));
-			}
-
-			if( !childTag.hasChildNodes() )
-				Value += childTag.text();
 
 			// Process the childnodes
 			QDomNodeList childNodes = childTag.childNodes();

@@ -78,12 +78,10 @@ void WPDefManager::ProcessNode( QDomElement Node )
 		Menus[ NodeID ] = Node;
 	else if( NodeName == "spell" )
 		Spells[ NodeID ] = Node;
-	else if( NodeName == "itemlist" )
-		ItemLists[ NodeID ] = Node;
+	else if( NodeName == "list" )
+		StringLists[ NodeID ] = Node;
 	else if( NodeName == "privlevel" )
 		PrivLevels[ NodeID ] = Node;
-	else if( NodeName == "namelist" )
-		NameLists[ NodeID ] = Node;
 }
 
 // Recursive Function for Importing Script Sections
@@ -152,11 +150,10 @@ void WPDefManager::unload( void )
 	clearNodes( Items );
 	clearNodes( Scripts );
 	clearNodes( NPCs );
-	clearNodes( ItemLists );
+	clearNodes( StringLists );
 	clearNodes( Menus );
 	clearNodes( Spells );
 	clearNodes( PrivLevels );
-	clearNodes( NameLists );
 }
 
 void WPDefManager::reload( void )
@@ -198,8 +195,8 @@ QDomElement *WPDefManager::getSection( WPDEF_TYPE Type, QString Section )
 		ListPointer = &NPCs;
 		break;
 
-	case WPDT_ITEMLIST:
-		ListPointer = &ItemLists;
+	case WPDT_LIST:
+		ListPointer = &StringLists;
 		break;
 
 	case WPDT_MENU:
@@ -214,9 +211,6 @@ QDomElement *WPDefManager::getSection( WPDEF_TYPE Type, QString Section )
 		ListPointer = &PrivLevels;
 		break;
 
-	case WPDT_NAMELIST:
-		ListPointer = &NameLists;
-		break;
 	};
 
 	return &( ListPointer->find( Section ).data() );
@@ -251,16 +245,12 @@ QStringList WPDefManager::getSections( WPDEF_TYPE Type )
 		ListPointer = &Spells;
 		break;
 
-	case WPDT_ITEMLIST:
-		ListPointer = &ItemLists;
+	case WPDT_LIST:
+		ListPointer = &StringLists;
 		break;
 
 	case WPDT_PRIVLEVEL:
 		ListPointer = &PrivLevels;
-		break;
-
-	case WPDT_NAMELIST:
-		ListPointer = &NameLists;
 		break;
 
 	default:
@@ -276,3 +266,25 @@ QStringList WPDefManager::getSections( WPDEF_TYPE Type )
 	return SectionList;
 }
 
+QString	WPDefManager::getRandomListEntry( QString ListSection )
+{
+	QStringList list = this->getList( ListSection );
+	return list[ RandomNum( 0, list.size()-1 ) ];
+}
+
+QStringList	WPDefManager::getList( QString ListSection )
+{
+	QDomElement* DefSection = this->getSection( WPDT_LIST, ListSection );
+	QStringList list = QStringList();
+
+	if( !DefSection->isNull() )
+	{
+		QDomNode childNode = DefSection->firstChild();
+		while( !childNode.isNull() )
+		{
+			list.push_back( childNode.nodeName() );
+			childNode = childNode.nextSibling();
+		}
+	}
+	return list;
+}
