@@ -448,7 +448,7 @@ void cSocketInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_st& ch
 		{
 		case 1:
 			// Check if the privileges are ok
-			if( mChar && !mChar->account()->authorized("command", "go" ))
+			if( mChar && !mChar->account()->authorized( "command", "go" ) )
 			{
 				socket->sysMessage( tr( "Access to command 'go' was denied" ) );
 			}
@@ -463,9 +463,9 @@ void cSocketInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_st& ch
 			break;
 		case 2:
 			// Check if the privileges are ok
-			if( mChar && !mChar->account()->authorized("command", "go" ))
+			if( mChar && !mChar->account()->authorized( "command", "move" ) || pChar->account()->rank() >= mChar->account()->rank() )
 			{
-				socket->sysMessage( tr( "Access to command 'go' was denied" ) );
+				socket->sysMessage( tr( "Access to command 'move' was denied" ) );
 			}
 			else if( mChar )
 			{
@@ -484,7 +484,7 @@ void cSocketInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_st& ch
 			break;
 		case 5:
 			// Check if the privileges are ok
-			if( mChar && !mChar->account()->authorized("command", "info" ))
+			if( mChar && !mChar->account()->authorized( "command", "info" ) )
 			{
 				socket->sysMessage( tr( "Access to command 'info' was denied" ) );
 			}
@@ -504,8 +504,15 @@ void cSocketInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_st& ch
 			}
 			break;
 		case 7:
-			socket_->disconnect();
-			socket->sysMessage( tr("Socket disconnected.") );
+			if( pChar->account()->rank() >= mChar->account()->rank() )
+			{
+				socket->sysMessage( tr( "You're getting megalomaniac!" ) );
+			}
+			else
+			{
+				socket_->disconnect();
+				socket->sysMessage( tr("Socket disconnected.") );
+			}
 			break;
 		}
 	}
@@ -711,7 +718,7 @@ void cPageInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_st& choi
 		{
 		case 1:
 			// Check if the privileges are ok
-			if( mChar && !mChar->account()->authorized("command", "go" ))
+			if( mChar && !mChar->account()->authorized( "command", "go" ) )
 			{
 				socket->sysMessage( tr( "Access to command 'go' was denied" ) );
 			}
@@ -726,9 +733,9 @@ void cPageInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_st& choi
 			break;
 		case 2:
 			// Check if the privileges are ok
-			if( mChar && !mChar->account()->authorized("command", "go" ))
+			if( mChar && !mChar->account()->authorized( "command", "move" ) || pChar->account()->rank() >= mChar->account()->rank() )
 			{
-				socket->sysMessage( tr( "Access to command 'go' was denied" ) );
+				socket->sysMessage( tr( "Access to command 'move' was denied" ) );
 			}
 			else if( mChar )
 			{
@@ -741,7 +748,7 @@ void cPageInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_st& choi
 			break;
 		case 3:
 			// Check if the privileges are ok
-			if( mChar && !mChar->account()->authorized("command", "go" ))
+			if( mChar && !mChar->account()->authorized("command", "go" ) )
 			{
 				socket->sysMessage( tr( "Access to command 'go' was denied" ) );
 			}
@@ -765,7 +772,7 @@ void cPageInfoGump::handleResponse( cUOSocket* socket, const gumpChoice_st& choi
 			break;
 		case 5:
 			// Check if the privileges are ok
-			if( mChar && !mChar->account()->authorized("command", "info" ))
+			if( mChar && !mChar->account()->authorized("command", "info" ) || pChar->account()->rank() >= mChar->account()->rank() )
 			{
 				socket->sysMessage( tr( "Access to command 'info' was denied" ) );
 			}

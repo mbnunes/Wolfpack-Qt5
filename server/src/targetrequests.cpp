@@ -391,6 +391,17 @@ bool cSetTarget::responsed( cUOSocket *socket, cUORxTarget *target )
 		return true;
 	}
 
+	// check for rank
+	if( pChar && pChar->objectType() == enPlayer )
+	{
+		P_PLAYER pp = dynamic_cast<P_PLAYER>( pChar );
+		if( pp->account()->rank() >= socket->player()->account()->rank() && pp != socket->player() )
+		{
+			socket->sysMessage( tr( "Better do not try that!" ) );
+			return true;
+		}
+	}
+
 	cVariant value( this->value );
 	stError *error = pObject->setProperty( key, value );
 

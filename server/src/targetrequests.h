@@ -239,6 +239,17 @@ public:
 
 		P_CHAR pChar = FindCharBySerial( target->serial() );
 
+		// check for rank
+		if( pChar && pChar->objectType() == enPlayer)
+		{
+			P_PLAYER pp = dynamic_cast<P_PLAYER>( pChar );
+			if( pp->account()->rank() >= socket->player()->account()->rank() && pp != socket->player() )
+			{
+				socket->sysMessage( tr( "You want to suicide?" ) );
+				return true;
+			}
+		}
+
 		if( !pChar )
 		{
 			socket->sysMessage( tr( "You need to target a living being" ) );
@@ -322,8 +333,20 @@ public:
 		if( isCharSerial( target->serial() ) )
 		{
 			P_CHAR pChar = FindCharBySerial( target->serial() );
+
 			if( pChar )
 			{
+				// check for rank
+				if( pChar->objectType() == enPlayer)
+				{
+					P_PLAYER pp = dynamic_cast<P_PLAYER>( pChar );
+					if( pp->account()->rank() >= socket->player()->account()->rank() && pp != socket->player() )
+					{
+						socket->sysMessage( tr( "Better do not try that!" ) );
+						return true;
+					}
+				}
+
 				if( type_ )
 					pChar->setTag( key_, cVariant( value_.toInt() ) );
 				else
@@ -400,6 +423,17 @@ public:
 			P_CHAR pChar = FindCharBySerial( target->serial() );
 			if( pChar )
 			{
+				// check for rank
+				if( pChar->objectType() == enPlayer)
+				{
+					P_PLAYER pp = dynamic_cast<P_PLAYER>( pChar );
+					if( pp->account()->rank() >= socket->player()->account()->rank() && pp != socket->player() )
+					{
+						socket->sysMessage( tr( "Better do not try that!" ) );
+						return true;
+					}
+				}
+
 				if( key_.lower() == "all" )
 				{
 					QStringList keys = pChar->getTags();
@@ -558,6 +592,18 @@ public:
 		if( pObject->isChar() )
 		{
 			P_CHAR pChar = dynamic_cast< P_CHAR >( pObject );
+
+			// check for rank
+			if( pChar && pChar->objectType() == enPlayer)
+			{
+				P_PLAYER pp = dynamic_cast<P_PLAYER>( pChar );
+				if( pp->account()->rank() >= socket->player()->account()->rank() && pp != socket->player() )
+				{
+					socket->sysMessage( tr( "Better do not try that!" ) );
+					return true;
+				}
+			}
+
 			if( pChar )
 				pChar->resend();
 		}
