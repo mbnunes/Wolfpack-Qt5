@@ -33,7 +33,7 @@
 			<cloth amount="11" />
 		</tailor>
 		<tailor definition="1715" name="Cap">
-			<tailoring min="-188" max="62" />
+			<tailoring min="62" max="312" />
 			<cloth amount="11" />
 		</tailor>
 		<tailor definition="1714" name="Wide Brim Hat">
