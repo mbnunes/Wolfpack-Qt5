@@ -32,8 +32,6 @@
 
 #include "../items.h"
 #include "../tilecache.h"
-#include "../prototypes.h"
-#include "../wolfpack.h"
 #include "../scriptmanager.h"
 #include "../itemid.h"
 #include "../multis.h"

@@ -34,7 +34,8 @@
 
 #include "../defines.h"
 #include "../globals.h"
-#include "../wolfpack.h"
+#include "../items.h"
+#include "../world.h"
 #include "../basechar.h"
 #include "utilities.h"
 

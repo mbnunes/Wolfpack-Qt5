@@ -33,7 +33,6 @@
 #include "inlines.h"
 
 #include "globals.h"
-#include "prototypes.h"
 #include "wpdefmanager.h"
 #include "network/uosocket.h"
 #include "maps.h"

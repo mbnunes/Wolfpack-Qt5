@@ -33,7 +33,6 @@
 #include "wpdefmanager.h"
 #include "globals.h"
 #include "basics.h"
-#include "prototypes.h"
 
 // Qt Includes
 #include <qdom.h>

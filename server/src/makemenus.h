@@ -35,7 +35,6 @@
 #include "typedefs.h"
 #include "definable.h"
 #include "gumps.h"
-#include "prototypes.h"
 #include "singleton.h"
 
 // Library includes

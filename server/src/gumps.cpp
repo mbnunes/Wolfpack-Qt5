@@ -30,7 +30,6 @@
 
 
 #include "accounts.h"
-#include "prototypes.h"
 #include "globals.h"
 #include "gumps.h"
 #include "srvparams.h"

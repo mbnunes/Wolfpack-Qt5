@@ -147,6 +147,7 @@ public:
 	P_ITEM leftHandItem() const;
 	void bark( enBark );	// Play a body dependant sound
 	void goldSound( unsigned short amount, bool hearall = true ); // Play a sound for dropping goldcoins depending on the amount
+	void showPaperdoll( cUOSocket *source, bool hotkey );
 	virtual bool checkSkill( UI16 skill, SI32 min, SI32 max, bool advance = true );
 	cItem* atLayer( enLayer layer ) const;
 	bool Owns( P_ITEM pi ) const;

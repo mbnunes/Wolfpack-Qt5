@@ -29,30 +29,9 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //==================================================================================
 
-#ifndef __WOLFPACK_H
-#define __WOLFPACK_H
+#if !defined( __WOLFPACK_H__ )
+#define __WOLFPACK_H__
 
-// Platform specifics
-#include "platform.h"
+void reloadScripts();
 
-#if defined (__unix__)
-#include <termios.h>
-#include <stdio.h>
-#include <fcntl.h>
 #endif
-
-#include "typedefs.h"
-#include "defines.h"
-#include "structs.h"
-#include "globals.h"
-#include "prototypes.h"
-#include "inlines.h"
-#include "items.h"
-#include "basics.h"
-#include "network.h"
-#include "console.h"
-#include "world.h"
-
-
-#endif // __WOLFPACK_H
-

@@ -30,7 +30,6 @@
 
 /* House code for deed creation by Tal Strake, revised by Cironian */
 
-//#include "wolfpack.h"
 #include "house.h"
 #include "persistentbroker.h"
 #include "sectors.h"

@@ -59,6 +59,7 @@
 #include "../npc.h"
 #include "../targetrequests.h"
 #include "../basedef.h"
+#include "../wolfpack.h"
 
 #include "pypacket.h"
 #include "regioniterator.h"

@@ -32,14 +32,13 @@
 
 #include "../items.h"
 #include "../tilecache.h"
-#include "../prototypes.h"
-#include "../wolfpack.h"
 #include "../scriptmanager.h"
 #include "../itemid.h"
 #include "../multis.h"
 #include "../player.h"
 #include "../basechar.h"
 #include "../network/uotxpackets.h"
+#include "../network/uosocket.h"
 
 #include "utilities.h"
 #include "content.h"

@@ -32,7 +32,6 @@
 #include "basedef.h"
 #include "globals.h"
 #include "wpdefmanager.h"
-#include "prototypes.h"
 #include "basics.h"
 
 #include <string.h>

@@ -39,8 +39,8 @@
 #include "srvparams.h"
 #include "player.h"
 #include "accounts.h"
-#include "prototypes.h"
 #include "inlines.h"
+#include "wolfpack.h"
 
 // Library Includes
 #include <qstring.h>

@@ -31,7 +31,6 @@
 #include "targetactions.h"
 #include "srvparams.h"
 #include "skills.h"
-#include "prototypes.h"
 #include "TmpEff.h"
 #include "items.h"
 #include "basics.h"

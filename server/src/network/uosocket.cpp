@@ -39,7 +39,8 @@
 #include "../dbl_single_click.h" // Deprecated
 #include "../accounts.h"
 #include "../globals.h"
-#include "../wolfpack.h"
+#include "../basics.h"
+#include "../console.h"
 #include "../territories.h"
 #include "../sectors.h"
 #include "../structs.h"
@@ -1306,8 +1307,12 @@ void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
 */
 void cUOSocket::handleDoubleClick( cUORxDoubleClick* packet )
 {
-	if ( isCharSerial(packet->serial() ) )
-		showPaperdoll( this, FindCharBySerial( packet->serial() ), packet->keyboard() );
+	P_CHAR pChar = World::instance()->findChar( packet->serial() );
+
+	if( pChar )
+	{
+		pChar->showPaperdoll( this, packet->keyboard() );
+	}
 	else
 	{
 		dbl_click_item(this, packet->serial() );

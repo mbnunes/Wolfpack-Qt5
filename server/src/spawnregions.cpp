@@ -49,7 +49,6 @@ II. make sure to hold the map up to date !
 #include "world.h"
 #include "basics.h"
 #include "console.h"
-//#include "wolfpack.h" // needed for objects Npcs and Items
 
 using namespace std;
 

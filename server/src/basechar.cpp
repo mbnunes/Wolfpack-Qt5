@@ -31,6 +31,7 @@
 // wolfpack includes
 #include "basechar.h"
 #include "basedef.h"
+#include "npc.h"
 #include "player.h"
 #include "globals.h"
 #include "world.h"
@@ -38,6 +39,7 @@
 #include "dbdriver.h"
 #include "console.h"
 #include "maps.h"
+#include "inlines.h"
 #include "chars.h"
 #include "sectors.h"
 #include "network/uosocket.h"
@@ -2012,4 +2014,92 @@ void cBaseChar::goldSound( unsigned short amount, bool hearall )
 		sound = 0x37;
 
 	soundEffect( sound, hearall );
+}
+
+void cBaseChar::showPaperdoll( cUOSocket *source, bool hotkey )
+{
+	if( !source )
+		return;
+
+	P_PLAYER pChar = source->player();
+
+	if( !pChar || onShowPaperdoll( pChar ) )
+		return;
+
+	// For players we'll always show the Paperdoll
+	if( isHuman() || objectType() != enNPC )
+	{
+        // If we're mounted (item on layer 25) and *not* using a hotkey
+		// We're trying to unmount ourself
+		if( !hotkey && ( this == pChar ) && pChar->unmount() )
+			return; // We have been unmounted
+
+		source->sendPaperdoll( this );
+	}
+
+	// Is that faster ??
+
+	switch( bodyID_ )
+	{
+	case 0x0034:
+	case 0x004E:
+	case 0x0050:
+	case 0x003A:
+	case 0x0039:
+	case 0x003B:
+	case 0x0074:
+	case 0x0075:
+	case 0x0072:
+	case 0x007A:
+	case 0x0084:
+	case 0x0073:
+	case 0x0076:
+	case 0x0077:
+	case 0x0078:
+	case 0x0079:
+	case 0x00AA:
+	case 0x00AB:
+	case 0x00BB:
+	case 0x0090:
+	case 0x00C8:
+	case 0x00E2:
+	case 0x00E4:
+	case 0x00CC:
+	case 0x00DC:
+	case 0x00D2:
+	case 0x00DA:
+	case 0x00DB:
+	case 0x0317:
+	case 0x0319:
+	case 0x031A:
+	case 0x031F:
+		// Try to mount the rideable animal
+		if( dist( pChar ) <  2 || pChar->isGM() )
+		{
+			if( !pChar->isHuman() )
+			{
+				source->sysMessage( tr( "You are unable to ride an animal." ) );
+				return;
+			}
+
+			if( pChar->isDead() )
+			{
+				source->clilocMessage( 0x7A4D5, "", 0x3b2 ); // You can't do that when you're dead.
+				return;
+			}
+
+			if( isAtWar() )
+				source->sysMessage( tr( "Your pet is in battle right now!" ) );
+			else
+				pChar->mount( dynamic_cast<P_NPC>( this ) );
+		}
+		else
+			source->sysMessage( tr( "This is too far away" ) );
+
+		break;
+	case 0x123:
+	case 0x124:
+		if( objectType() == enNPC && dynamic_cast<P_NPC>(this)->owner() == pChar )
+				source->sendContainer( getBackpack() );
+	};
 }

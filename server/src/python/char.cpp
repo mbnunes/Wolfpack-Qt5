@@ -34,8 +34,6 @@
 #include "tempeffect.h"
 
 #include "../territories.h"
-#include "../prototypes.h"
-#include "../wolfpack.h"
 #include "../skills.h"
 #include "../combat.h"
 #include "../srvparams.h"

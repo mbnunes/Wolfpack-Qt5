@@ -101,7 +101,6 @@ HEADERS         = \
 		  npc.h \
                   pfactory.h \
 		  platform.h \
-		  prototypes.h \
 		  persistentbroker.h \
 		  persistentobject.h \
 		  preferences.h \
@@ -115,7 +114,6 @@ HEADERS         = \
 		  speech.h \
                   srvparams.h \
                   serxmlfile.h \
-                  serbinfile.h \
                   skills.h \
 		  stream.h \
 		  structs.h \
@@ -179,7 +177,6 @@ SOURCES         = \
 		resources.cpp \
 		sectors.cpp \
 		serxmlfile.cpp \
-		serbinfile.cpp \
 		scriptmanager.cpp \
 		skills.cpp \
 		speech.cpp \

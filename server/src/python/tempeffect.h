@@ -32,7 +32,6 @@
 #define __TEMPEFFECT_H__
 
 #include "../TmpEff.h"
-#include "../prototypes.h"
 #include "../world.h"
 
 class cPythonEffect : public cTempEffect
