@@ -153,7 +153,7 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl& pos )
 
 	// TODO: Calculate the REAL average Z Value of that Map Tile here! Otherwise clients will have minor walking problems.
 	map_st mapCell = Maps::instance()->seekMap( pos );
-	//mapBlock.z = mapCell.z;*/
+	//mapBlock.z = mapCell.z;
 	land_st mapTile = TileCache::instance()->getLand( mapCell.id );
 
 	// If it's not impassable it's automatically walkable
@@ -200,45 +200,22 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl& pos )
 		push_heap( blockList.begin(), blockList.end(), compareTiles() );
 	}
 
-	RegionIterator4Items iIter( pos, 0 );
+	
+	// We are only interested in items at pos
+	// todo: we could impliment blocking for items on the adjacent sides 
+	// during a diagonal move here, but this has yet to be decided.
+
+	RegionIterator4Items iIter( pos, 0 );  
+	
+	P_ITEM pItem;
 	for ( iIter.Begin(); !iIter.atEnd(); iIter++ )
 	{
-		P_ITEM pItem = iIter.GetData();
+		pItem = iIter.GetData();
 
 		if ( !pItem )
 			continue;
-
-		if ( pItem->id() >= 0x4000 )
-		{
-			MultiDefinition* def = MultiCache::instance()->getMulti( pItem->id() - 0x4000 );
-			if ( !def )
-				continue;
-			QValueVector<multiItem_st> multi = def->getEntries();
-			unsigned int j;
-			for ( j = 0; j < multi.size(); ++j )
-			{
-				if ( multi[j].visible && ( pItem->pos().x + multi[j].x == pos.x ) && ( pItem->pos().y + multi[j].y == pos.y ) )
-				{
-					tile_st tTile = TileCache::instance()->getTile( multi[j].tile );
-					if ( !( ( tTile.flag2 & 0x02 ) || ( tTile.flag1 & 0x40 ) || ( tTile.flag2 & 0x04 ) ) )
-						continue;
-
-					stBlockItem blockItem;
-					blockItem.height = tTile.height;
-					blockItem.z = pItem->pos().z + multi[j].z;
-
-					if ( ( tTile.flag2 & 0x02 ) && !( tTile.flag1 & 0x40 ) )
-						blockItem.walkable = true;
-					else
-						blockItem.walkable = checkWalkable( pChar, pItem->id() );
-
-					blockList.push_back( blockItem );
-					push_heap( blockList.begin(), blockList.end(), compareTiles() );
-				}
-			}
-			continue;
-		}
-		else if ( pChar && pChar->isDead() )
+		
+		if ( pChar && pChar->isDead() )
 		{
 			// Doors can be passed by ghosts
 			if ( pItem->hasScript( "door" ) )
@@ -247,13 +224,10 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl& pos )
 			}
 		}
 
-		// They need to be at the same x,y,plane coords
-		if ( ( pItem->pos().x != pos.x ) || ( pItem->pos().y != pos.y ) || ( pItem->pos().map != pos.map ) )
-			continue;
 
 		tile_st tTile = TileCache::instance()->getTile( pItem->id() );
 
-		// Se above for what the flags mean
+		// See above for what the flags mean
 		if ( !( ( tTile.flag2 & 0x02 ) || ( tTile.flag1 & 0x40 ) || ( tTile.flag2 & 0x04 ) ) )
 			continue;
 
@@ -270,15 +244,53 @@ vector< stBlockItem > getBlockingItems( P_CHAR pChar, const Coord_cl& pos )
 		blockList.push_back( blockItem );
 		push_heap( blockList.begin(), blockList.end(), compareTiles() );
 	}
+	
+	
+	// deal with the multis now, or not.
+	cItemSectorIterator* iter = SectorMaps::instance()->findMultis( pos, 18 );  // 18 has been tested with castle sides and corners...
+	for ( pItem = iter->first(); pItem; pItem = iter->next() )
+	{
+		MultiDefinition* def = MultiCache::instance()->getMulti( pItem->id() - 0x4000 );
+		if ( !def )
+			continue;
+		QValueVector<multiItem_st> multi = def->getEntries();
+		unsigned int j;
+		for ( j = 0; j < multi.size(); ++j )
+		{
+			if ( multi[j].visible && ( pItem->pos().x + multi[j].x == pos.x ) && ( pItem->pos().y + multi[j].y == pos.y ) )
+			{
+				tile_st tTile = TileCache::instance()->getTile( multi[j].tile );
+				if ( !( ( tTile.flag2 & 0x02 ) || ( tTile.flag1 & 0x40 ) || ( tTile.flag2 & 0x04 ) ) )
+					continue;
 
-	// Now we need to evaluate dynamic items [...] (later)
-	// TODO: Multis here
+				stBlockItem blockItem;
+				blockItem.height = tTile.height;
+				blockItem.z = pItem->pos().z + multi[j].z;
+
+				if ( ( tTile.flag2 & 0x02 ) && !( tTile.flag1 & 0x40 ) )
+					blockItem.walkable = true;
+				else
+					blockItem.walkable = checkWalkable( pChar, pItem->id() );
+
+				blockList.push_back( blockItem );
+				push_heap( blockList.begin(), blockList.end(), compareTiles() );
+			}
+		}
+		continue;
+	}
+
+	delete iter;
+	 
+	
+	// Now we need to evaluate dynamic items [...] (later)  ??
+
 	sort_heap( blockList.begin(), blockList.end(), compareTiles() );
 
 	return blockList;
+
 };
 
-// May a character walk here ?
+// May a character walk here ? 
 // If yes we auto. set the new z value for pos
 bool mayWalk( P_CHAR pChar, Coord_cl& pos )
 {
@@ -447,12 +459,6 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	if ( pChar->onWalk( dir, sequence ) )
 		return false;
 
-	/*	if( !isValidDirection( dir ) )
-		{
-			pChar->setPathNum( pChar->pathnum() + PATHNUM );
-			return;
-		}*/
-
 	P_PLAYER player = dynamic_cast<P_PLAYER>( pChar );
 
 	// Is the sequence in order ?
@@ -491,14 +497,6 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		if ( player && !consumeStamina( player, running ) )
 		{
 			if ( player->socket() )
-				player->socket()->denyMove( sequence );
-			return false;
-		}
-
-		// Check for Characters in our way
-		if ( !checkObstacles( pChar, newCoord, running ) )
-		{
-			if ( player && player->socket() )
 				player->socket()->denyMove( sequence );
 			return false;
 		}
@@ -597,7 +595,12 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 
 bool cMovement::CheckForCharacterAtXYZ( P_CHAR pc, const Coord_cl& pos )
 {
-	RegionIterator4Chars ri( pos );
+	// again this seems to me like we are doing too much work.
+	// why should we get all chars in the region using default (18), 
+	// and then loop through them ignoring all those not at exactly the spot we are going (now) on?
+	// why not just get those on the one spot we care about anyways?
+
+	RegionIterator4Chars ri( pos, 0 );
 	for ( ri.Begin(); !ri.atEnd(); ri++ )
 	{
 		P_CHAR pc_i = ri.GetData();
@@ -606,7 +609,7 @@ bool cMovement::CheckForCharacterAtXYZ( P_CHAR pc, const Coord_cl& pos )
 			if ( pc_i != pc && !pc_i->isHidden() && !pc_i->isInvisible() )
 			{
 				// x=x,y=y, and distance btw z's <= MAX STEP
-				if ( ( pc_i->pos().x == pos.x ) && ( pc_i->pos().y == pos.y ) && ( abs( pc_i->pos().z - pos.z ) <= P_M_MAX_Z_CLIMB ) )
+				if ( abs( pc_i->pos().z - pos.z ) <= P_M_MAX_Z_CLIMB )
 				{
 					return true;
 				}
