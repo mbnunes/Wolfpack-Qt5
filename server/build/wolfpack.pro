@@ -14,7 +14,6 @@ win32:DEFINES  += WIN32
 win32:OBJECTS_DIR = obj
 win32-msvc:DEFINES +=  _CONSOLE _MBCS
 win32:INCLUDEPATH += lib/Python/PC
-win32:SOURCES += srvparams_win.cpp
 win32-g++:TMAKE_CXXFLAGS = -funsigned-char
 win32-g++:LIBS= -Llib/ZThread/lib/ -lwsock32 -lZThread
 win32-msvc:RC_FILE         = res.rc
@@ -25,7 +24,6 @@ win32-borland:LIBS = ws2_32.lib lib/ZThread/lib/ZThread.lib
 
 unix:INCLUDEPATH += lib/Python/Include lib/ZThread/include lib/Python /usr/include/mysql
 unix:LIBS  = -Llib/ZThread/lib -Llib/Python -Lmysql -ldl -lZThread -lpython2.2 -lmysqlclient -lutil
-unix:SOURCES += srvparams_unix.cpp
 unix:TMAKE_CXXFLAGS = -funsigned-char
 
 HEADERS         = \
@@ -220,3 +218,6 @@ TRANSLATIONS    = \
                   languages/wolfpack_it.ts \
                   languages/wolfpack_nl.ts \
                   languages/wolfpack_ge.ts
+
+unix:SOURCES += srvparams_unix.cpp
+win32:SOURCES += srvparams_win.cpp
