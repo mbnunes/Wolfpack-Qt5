@@ -10,7 +10,7 @@
 	<!-- a beetle weak-->
 	<npc id="beetle_weak">
 		<name>a beetle</name>
-		<id>0x317</id>
+		<id>0x0317</id>
 		<category>npcs\animals\mountables\beetle\weak</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -25,7 +25,7 @@
 	<!-- a beetle medium-->
 	<npc id="beetle_medium">
 		<name>a beetle</name>
-		<id>0x317</id>
+		<id>0x0317</id>
 		<category>npcs\animals\mountables\beetle\medium</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -40,7 +40,7 @@
 	<!-- a beetle hard-->
 	<npc id="beetle_hard">
 		<name>a beetle</name>
-		<id>0x317</id>
+		<id>0x0317</id>
 		<category>npcs\animals\mountables\beetle\hard</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -55,7 +55,7 @@
 	<!-- a dragon swamp 1 weak-->
 	<npc id="dragon_swamp_1_weak">
 		<name>a dragon swamp 1</name>
-		<id>0x31A</id>
+		<id>0x031a</id>
 		<category>npcs\animals\mountables\dragon\swamp\1\weak</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -70,7 +70,7 @@
 	<!-- a dragon swamp 1 medium-->
 	<npc id="dragon_swamp_1_medium">
 		<name>a dragon swamp 1</name>
-		<id>0x31A</id>
+		<id>0x031a</id>
 		<category>npcs\animals\mountables\dragon\swamp\1\medium</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -85,7 +85,7 @@
 	<!-- a dragon swamp 1 hard-->
 	<npc id="dragon_swamp_1_hard">
 		<name>a dragon swamp 1</name>
-		<id>0x31A</id>
+		<id>0x031a</id>
 		<category>npcs\animals\mountables\dragon\swamp\1\hard</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -100,7 +100,7 @@
 	<!-- a dragon swamp 2 weak-->
 	<npc id="dragon_swamp_2_weak">
 		<name>a dragon swamp 2</name>
-		<id>0x31F</id>
+		<id>0x031f</id>
 		<category>npcs\animals\mountables\dragon\swamp\2\weak</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -115,7 +115,7 @@
 	<!-- a dragon swamp 2 medium-->
 	<npc id="dragon_swamp_2_medium">
 		<name>a dragon swamp 2</name>
-		<id>0x31F</id>
+		<id>0x031f</id>
 		<category>npcs\animals\mountables\dragon\swamp\2\medium</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -130,7 +130,7 @@
 	<!-- a dragon swamp 2 hard-->
 	<npc id="dragon_swamp_2_hard">
 		<name>a dragon swamp 2</name>
-		<id>0x31F</id>
+		<id>0x031f</id>
 		<category>npcs\animals\mountables\dragon\swamp\2\hard</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -145,7 +145,7 @@
 	<!-- a horse 1 weak-->
 	<npc id="horse_1_weak">
 		<name>a horse 1</name>
-		<id>0xE2</id>
+		<id>0x00e2</id>
 		<category>npcs\animals\mountables\horse\1\weak</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -160,7 +160,7 @@
 	<!-- a horse 1 medium-->
 	<npc id="horse_1_medium">
 		<name>a horse 1</name>
-		<id>0xE2</id>
+		<id>0x00e2</id>
 		<category>npcs\animals\mountables\horse\1\medium</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -175,7 +175,7 @@
 	<!-- a horse 1 hard-->
 	<npc id="horse_1_hard">
 		<name>a horse 1</name>
-		<id>0xE2</id>
+		<id>0x00e2</id>
 		<category>npcs\animals\mountables\horse\1\hard</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -190,7 +190,7 @@
 	<!-- a horse 2 weak-->
 	<npc id="horse_2_weak">
 		<name>a horse 2</name>
-		<id>0xE4</id>
+		<id>0x00e4</id>
 		<category>npcs\animals\mountables\horse\2\weak</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -205,7 +205,7 @@
 	<!-- a horse 2 medium-->
 	<npc id="horse_2_medium">
 		<name>a horse 2</name>
-		<id>0xE4</id>
+		<id>0x00e4</id>
 		<category>npcs\animals\mountables\horse\2\medium</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -220,7 +220,7 @@
 	<!-- a horse 2 hard-->
 	<npc id="horse_2_hard">
 		<name>a horse 2</name>
-		<id>0xE4</id>
+		<id>0x00e4</id>
 		<category>npcs\animals\mountables\horse\2\hard</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -235,7 +235,7 @@
 	<!-- a horse 3 weak-->
 	<npc id="horse_3_weak">
 		<name>a horse 3</name>
-		<id>0xC8</id>
+		<id>0x00c8</id>
 		<category>npcs\animals\mountables\horse\3\weak</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -250,7 +250,7 @@
 	<!-- a horse 3 medium-->
 	<npc id="horse_3_medium">
 		<name>a horse 3</name>
-		<id>0xC8</id>
+		<id>0x00c8</id>
 		<category>npcs\animals\mountables\horse\3\medium</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -265,7 +265,7 @@
 	<!-- a horse 3 hard-->
 	<npc id="horse_3_hard">
 		<name>a horse 3</name>
-		<id>0xC8</id>
+		<id>0x00c8</id>
 		<category>npcs\animals\mountables\horse\3\hard</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -280,7 +280,7 @@
 	<!-- a horse 4 weak-->
 	<npc id="horse_4_weak">
 		<name>a horse 4</name>
-		<id>0xCC</id>
+		<id>0x00cc</id>
 		<category>npcs\animals\mountables\horse\4\weak</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -295,7 +295,7 @@
 	<!-- a horse 4 medium-->
 	<npc id="horse_4_medium">
 		<name>a horse 4</name>
-		<id>0xCC</id>
+		<id>0x00cc</id>
 		<category>npcs\animals\mountables\horse\4\medium</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -310,7 +310,7 @@
 	<!-- a horse 4 hard-->
 	<npc id="horse_4_hard">
 		<name>a horse 4</name>
-		<id>0xCC</id>
+		<id>0x00cc</id>
 		<category>npcs\animals\mountables\horse\4\hard</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -325,7 +325,7 @@
 	<!-- a horse sea weak-->
 	<npc id="horse_sea_weak">
 		<name>a horse sea</name>
-		<id>0x90</id>
+		<id>0x0090</id>
 		<category>npcs\animals\mountables\horse\sea\weak</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -340,7 +340,7 @@
 	<!-- a horse sea medium-->
 	<npc id="horse_sea_medium">
 		<name>a horse sea</name>
-		<id>0x90</id>
+		<id>0x0090</id>
 		<category>npcs\animals\mountables\horse\sea\medium</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -355,7 +355,7 @@
 	<!-- a horse sea hard-->
 	<npc id="horse_sea_hard">
 		<name>a horse sea</name>
-		<id>0x90</id>
+		<id>0x0090</id>
 		<category>npcs\animals\mountables\horse\sea\hard</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -415,7 +415,7 @@
 	<!-- a llama ridable weak-->
 	<npc id="llama_ridable_weak">
 		<name>a llama ridable</name>
-		<id>0xDC</id>
+		<id>0x00dc</id>
 		<category>npcs\animals\mountables\llama\ridable\weak</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -430,7 +430,7 @@
 	<!-- a llama ridable medium-->
 	<npc id="llama_ridable_medium">
 		<name>a llama ridable</name>
-		<id>0xDC</id>
+		<id>0x00dc</id>
 		<category>npcs\animals\mountables\llama\ridable\medium</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -445,7 +445,7 @@
 	<!-- a llama ridable hard-->
 	<npc id="llama_ridable_hard">
 		<name>a llama ridable</name>
-		<id>0xDC</id>
+		<id>0x00dc</id>
 		<category>npcs\animals\mountables\llama\ridable\hard</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -502,11 +502,11 @@
 		<tactics><random min="34" max="34" /></tactics>
 		<magicresistance><random min="28" max="28" /></magicresistance>
 	</npc>
-	<!-- a nightmare weak-->
-	<npc id="nightmare_weak">
-		<name>a nightmare</name>
-		<id>0x74</id>
-		<category>npcs\animals\mountables\nightmare\weak</category>
+	<!-- a nightmare 1 weak-->
+	<npc id="nightmare_1_weak">
+		<name>a nightmare 1</name>
+		<id>0x0074</id>
+		<category>npcs\animals\mountables\nightmare\1\weak</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
 		<str><random min="42" max="25" /></str>
@@ -517,11 +517,11 @@
 		<tactics><random min="25" max="25" /></tactics>
 		<magicresistance><random min="21" max="21" /></magicresistance>
 	</npc>
-	<!-- a nightmare medium-->
-	<npc id="nightmare_medium">
-		<name>a nightmare</name>
-		<id>0x74</id>
-		<category>npcs\animals\mountables\nightmare\medium</category>
+	<!-- a nightmare 1 medium-->
+	<npc id="nightmare_1_medium">
+		<name>a nightmare 1</name>
+		<id>0x0074</id>
+		<category>npcs\animals\mountables\nightmare\1\medium</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
 		<str><random min="50" max="30" /></str>
@@ -532,11 +532,146 @@
 		<tactics><random min="30.0" max="30.0" /></tactics>
 		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
 	</npc>
-	<!-- a nightmare hard-->
-	<npc id="nightmare_hard">
-		<name>a nightmare</name>
-		<id>0x74</id>
-		<category>npcs\animals\mountables\nightmare\hard</category>
+	<!-- a nightmare 1 hard-->
+	<npc id="nightmare_1_hard">
+		<name>a nightmare 1</name>
+		<id>0x0074</id>
+		<category>npcs\animals\mountables\nightmare\1\hard</category>
+		<inherit id="animals_base" />
+		<!-- Stats -->
+		<str><random min="57" max="34" /></str>
+		<dex><random min="57" max="34" /></dex>
+		<int><random min="11" max="11" /></int>
+		<!-- Skills -->
+		<wrestling><random min="40" max="40" /></wrestling>
+		<tactics><random min="34" max="34" /></tactics>
+		<magicresistance><random min="28" max="28" /></magicresistance>
+	</npc>
+	<!-- a nightmare 2 weak-->
+	<npc id="nightmare_2_weak">
+		<name>a nightmare 2</name>
+		<id>0x00b1</id>
+		<category>npcs\animals\mountables\nightmare\2\weak</category>
+		<inherit id="animals_base" />
+		<!-- Stats -->
+		<str><random min="42" max="25" /></str>
+		<dex><random min="42" max="25" /></dex>
+		<int><random min="8" max="8" /></int>
+		<!-- Skills -->
+		<wrestling><random min="29" max="29" /></wrestling>
+		<tactics><random min="25" max="25" /></tactics>
+		<magicresistance><random min="21" max="21" /></magicresistance>
+	</npc>
+	<!-- a nightmare 2 medium-->
+	<npc id="nightmare_2_medium">
+		<name>a nightmare 2</name>
+		<id>0x00b1</id>
+		<category>npcs\animals\mountables\nightmare\2\medium</category>
+		<inherit id="animals_base" />
+		<!-- Stats -->
+		<str><random min="50" max="30" /></str>
+		<dex><random min="50" max="30" /></dex>
+		<int><random min="10" max="10" /></int>
+		<!-- Skills -->
+		<wrestling><random min="35.0" max="35.0" /></wrestling>
+		<tactics><random min="30.0" max="30.0" /></tactics>
+		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
+	</npc>
+	<!-- a nightmare 2 hard-->
+	<npc id="nightmare_2_hard">
+		<name>a nightmare 2</name>
+		<id>0x00b1</id>
+		<category>npcs\animals\mountables\nightmare\2\hard</category>
+		<inherit id="animals_base" />
+		<!-- Stats -->
+		<str><random min="57" max="34" /></str>
+		<dex><random min="57" max="34" /></dex>
+		<int><random min="11" max="11" /></int>
+		<!-- Skills -->
+		<wrestling><random min="40" max="40" /></wrestling>
+		<tactics><random min="34" max="34" /></tactics>
+		<magicresistance><random min="28" max="28" /></magicresistance>
+	</npc>
+	<!-- a nightmare 3 weak-->
+	<npc id="nightmare_3_weak">
+		<name>a nightmare 3</name>
+		<id>0x00b2</id>
+		<category>npcs\animals\mountables\nightmare\3\weak</category>
+		<inherit id="animals_base" />
+		<!-- Stats -->
+		<str><random min="42" max="25" /></str>
+		<dex><random min="42" max="25" /></dex>
+		<int><random min="8" max="8" /></int>
+		<!-- Skills -->
+		<wrestling><random min="29" max="29" /></wrestling>
+		<tactics><random min="25" max="25" /></tactics>
+		<magicresistance><random min="21" max="21" /></magicresistance>
+	</npc>
+	<!-- a nightmare 3 medium-->
+	<npc id="nightmare_3_medium">
+		<name>a nightmare 3</name>
+		<id>0x00b2</id>
+		<category>npcs\animals\mountables\nightmare\3\medium</category>
+		<inherit id="animals_base" />
+		<!-- Stats -->
+		<str><random min="50" max="30" /></str>
+		<dex><random min="50" max="30" /></dex>
+		<int><random min="10" max="10" /></int>
+		<!-- Skills -->
+		<wrestling><random min="35.0" max="35.0" /></wrestling>
+		<tactics><random min="30.0" max="30.0" /></tactics>
+		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
+	</npc>
+	<!-- a nightmare 3 hard-->
+	<npc id="nightmare_3_hard">
+		<name>a nightmare 3</name>
+		<id>0x00b2</id>
+		<category>npcs\animals\mountables\nightmare\3\hard</category>
+		<inherit id="animals_base" />
+		<!-- Stats -->
+		<str><random min="57" max="34" /></str>
+		<dex><random min="57" max="34" /></dex>
+		<int><random min="11" max="11" /></int>
+		<!-- Skills -->
+		<wrestling><random min="40" max="40" /></wrestling>
+		<tactics><random min="34" max="34" /></tactics>
+		<magicresistance><random min="28" max="28" /></magicresistance>
+	</npc>
+	<!-- a nightmare 4 weak-->
+	<npc id="nightmare_4_weak">
+		<name>a nightmare 4</name>
+		<id>0x00b3</id>
+		<category>npcs\animals\mountables\nightmare\4\weak</category>
+		<inherit id="animals_base" />
+		<!-- Stats -->
+		<str><random min="42" max="25" /></str>
+		<dex><random min="42" max="25" /></dex>
+		<int><random min="8" max="8" /></int>
+		<!-- Skills -->
+		<wrestling><random min="29" max="29" /></wrestling>
+		<tactics><random min="25" max="25" /></tactics>
+		<magicresistance><random min="21" max="21" /></magicresistance>
+	</npc>
+	<!-- a nightmare 4 medium-->
+	<npc id="nightmare_4_medium">
+		<name>a nightmare 4</name>
+		<id>0x00b3</id>
+		<category>npcs\animals\mountables\nightmare\4\medium</category>
+		<inherit id="animals_base" />
+		<!-- Stats -->
+		<str><random min="50" max="30" /></str>
+		<dex><random min="50" max="30" /></dex>
+		<int><random min="10" max="10" /></int>
+		<!-- Skills -->
+		<wrestling><random min="35.0" max="35.0" /></wrestling>
+		<tactics><random min="30.0" max="30.0" /></tactics>
+		<magicresistance><random min="25.0" max="25.0" /></magicresistance>
+	</npc>
+	<!-- a nightmare 4 hard-->
+	<npc id="nightmare_4_hard">
+		<name>a nightmare 4</name>
+		<id>0x00b3</id>
+		<category>npcs\animals\mountables\nightmare\4\hard</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
 		<str><random min="57" max="34" /></str>
@@ -550,7 +685,7 @@
 	<!-- a ostard desert weak-->
 	<npc id="ostard_desert_weak">
 		<name>a ostard desert</name>
-		<id>0xD2</id>
+		<id>0x00d2</id>
 		<category>npcs\animals\mountables\ostard\desert\weak</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -565,7 +700,7 @@
 	<!-- a ostard desert medium-->
 	<npc id="ostard_desert_medium">
 		<name>a ostard desert</name>
-		<id>0xD2</id>
+		<id>0x00d2</id>
 		<category>npcs\animals\mountables\ostard\desert\medium</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -580,7 +715,7 @@
 	<!-- a ostard desert hard-->
 	<npc id="ostard_desert_hard">
 		<name>a ostard desert</name>
-		<id>0xD2</id>
+		<id>0x00d2</id>
 		<category>npcs\animals\mountables\ostard\desert\hard</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -595,7 +730,7 @@
 	<!-- a ostard forest weak-->
 	<npc id="ostard_forest_weak">
 		<name>a ostard forest</name>
-		<id>0xDB</id>
+		<id>0x00db</id>
 		<category>npcs\animals\mountables\ostard\forest\weak</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -610,7 +745,7 @@
 	<!-- a ostard forest medium-->
 	<npc id="ostard_forest_medium">
 		<name>a ostard forest</name>
-		<id>0xDB</id>
+		<id>0x00db</id>
 		<category>npcs\animals\mountables\ostard\forest\medium</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -625,7 +760,7 @@
 	<!-- a ostard forest hard-->
 	<npc id="ostard_forest_hard">
 		<name>a ostard forest</name>
-		<id>0xDB</id>
+		<id>0x00db</id>
 		<category>npcs\animals\mountables\ostard\forest\hard</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -640,7 +775,7 @@
 	<!-- a ostard frenzied weak-->
 	<npc id="ostard_frenzied_weak">
 		<name>a ostard frenzied</name>
-		<id>0xDA</id>
+		<id>0x00da</id>
 		<category>npcs\animals\mountables\ostard\frenzied\weak</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -655,7 +790,7 @@
 	<!-- a ostard frenzied medium-->
 	<npc id="ostard_frenzied_medium">
 		<name>a ostard frenzied</name>
-		<id>0xDA</id>
+		<id>0x00da</id>
 		<category>npcs\animals\mountables\ostard\frenzied\medium</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -670,7 +805,7 @@
 	<!-- a ostard frenzied hard-->
 	<npc id="ostard_frenzied_hard">
 		<name>a ostard frenzied</name>
-		<id>0xDA</id>
+		<id>0x00da</id>
 		<category>npcs\animals\mountables\ostard\frenzied\hard</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -772,10 +907,55 @@
 		<tactics><random min="34" max="34" /></tactics>
 		<magicresistance><random min="28" max="28" /></magicresistance>
 	</npc>
+	<!-- a steed dark weak-->
+	<npc id="steed_dark_weak">
+		<name>a steed dark</name>
+		<id>0x0074</id>
+		<category>npcs\animals\mountables\steed\dark\weak</category>
+		<inherit id="animals_base" />
+		<!-- Stats -->
+		<str><random min="0" max="42" /></str>
+		<dex><random min="25" max="42" /></dex>
+		<int><random min="25" max="8" /></int>
+		<!-- Skills -->
+		<wrestling><random min="21" max="21" /></wrestling>
+		<tactics><random min="29" max="29" /></tactics>
+		<magicresistance><random min="0" max="0" /></magicresistance>
+	</npc>
+	<!-- a steed dark medium-->
+	<npc id="steed_dark_medium">
+		<name>a steed dark</name>
+		<id>0x0074</id>
+		<category>npcs\animals\mountables\steed\dark\medium</category>
+		<inherit id="animals_base" />
+		<!-- Stats -->
+		<str><random min="0x0075" max="50" /></str>
+		<dex><random min="30" max="50" /></dex>
+		<int><random min="30" max="10" /></int>
+		<!-- Skills -->
+		<wrestling><random min="25.0" max="25.0" /></wrestling>
+		<tactics><random min="35.0" max="35.0" /></tactics>
+		<magicresistance><random min="" max="" /></magicresistance>
+	</npc>
+	<!-- a steed dark hard-->
+	<npc id="steed_dark_hard">
+		<name>a steed dark</name>
+		<id>0x0074</id>
+		<category>npcs\animals\mountables\steed\dark\hard</category>
+		<inherit id="animals_base" />
+		<!-- Stats -->
+		<str><random min="0" max="57" /></str>
+		<dex><random min="34" max="57" /></dex>
+		<int><random min="34" max="11" /></int>
+		<!-- Skills -->
+		<wrestling><random min="28" max="28" /></wrestling>
+		<tactics><random min="40" max="40" /></tactics>
+		<magicresistance><random min="0" max="0" /></magicresistance>
+	</npc>
 	<!-- a steed fire weak-->
 	<npc id="steed_fire_weak">
 		<name>a steed fire</name>
-		<id>0xBE</id>
+		<id>0x00be</id>
 		<category>npcs\animals\mountables\steed\fire\weak</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -790,7 +970,7 @@
 	<!-- a steed fire medium-->
 	<npc id="steed_fire_medium">
 		<name>a steed fire</name>
-		<id>0xBE</id>
+		<id>0x00be</id>
 		<category>npcs\animals\mountables\steed\fire\medium</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -805,7 +985,7 @@
 	<!-- a steed fire hard-->
 	<npc id="steed_fire_hard">
 		<name>a steed fire</name>
-		<id>0xBE</id>
+		<id>0x00be</id>
 		<category>npcs\animals\mountables\steed\fire\hard</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -820,7 +1000,7 @@
 	<!-- a steed silver weak-->
 	<npc id="steed_silver_weak">
 		<name>a steed silver</name>
-		<id>0x75</id>
+		<id>0x0075</id>
 		<category>npcs\animals\mountables\steed\silver\weak</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -835,7 +1015,7 @@
 	<!-- a steed silver medium-->
 	<npc id="steed_silver_medium">
 		<name>a steed silver</name>
-		<id>0x75</id>
+		<id>0x0075</id>
 		<category>npcs\animals\mountables\steed\silver\medium</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -850,7 +1030,7 @@
 	<!-- a steed silver hard-->
 	<npc id="steed_silver_hard">
 		<name>a steed silver</name>
-		<id>0x75</id>
+		<id>0x0075</id>
 		<category>npcs\animals\mountables\steed\silver\hard</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -865,7 +1045,7 @@
 	<!-- a unicorn weak-->
 	<npc id="unicorn_weak">
 		<name>a unicorn</name>
-		<id>0x7A</id>
+		<id>0x007a</id>
 		<category>npcs\animals\mountables\unicorn\weak</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -880,7 +1060,7 @@
 	<!-- a unicorn medium-->
 	<npc id="unicorn_medium">
 		<name>a unicorn</name>
-		<id>0x7A</id>
+		<id>0x007a</id>
 		<category>npcs\animals\mountables\unicorn\medium</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -895,7 +1075,7 @@
 	<!-- a unicorn hard-->
 	<npc id="unicorn_hard">
 		<name>a unicorn</name>
-		<id>0x7A</id>
+		<id>0x007a</id>
 		<category>npcs\animals\mountables\unicorn\hard</category>
 		<inherit id="animals_base" />
 		<!-- Stats -->
@@ -906,5 +1086,119 @@
 		<wrestling><random min="40" max="40" /></wrestling>
 		<tactics><random min="34" max="34" /></tactics>
 		<magicresistance><random min="28" max="28" /></magicresistance>
+	</npc>
+	<!-- a 
+ weak-->
+	<npc id="
+_weak">
+		<name>a 
+</name>
+		<id></id>
+		<category>npcs\animals\mountables\
+\weak</category>
+		<inherit id="animals_base" />
+		<!-- Stats -->
+		<str><random min="0" max="0" /></str>
+		<dex><random min="0" max="0" /></dex>
+		<int><random min="0" max="0" /></int>
+		<!-- Skills -->
+		<wrestling><random min="0" max="0" /></wrestling>
+		<tactics><random min="0" max="0" /></tactics>
+		<magicresistance><random min="0" max="0" /></magicresistance>
+	</npc>
+	<!-- a 
+ medium-->
+	<npc id="
+_medium">
+		<name>a 
+</name>
+		<id></id>
+		<category>npcs\animals\mountables\
+\medium</category>
+		<inherit id="animals_base" />
+		<!-- Stats -->
+		<str><random min="" max="" /></str>
+		<dex><random min="" max="" /></dex>
+		<int><random min="" max="" /></int>
+		<!-- Skills -->
+		<wrestling><random min="" max="" /></wrestling>
+		<tactics><random min="" max="" /></tactics>
+		<magicresistance><random min="" max="" /></magicresistance>
+	</npc>
+	<!-- a 
+ hard-->
+	<npc id="
+_hard">
+		<name>a 
+</name>
+		<id></id>
+		<category>npcs\animals\mountables\
+\hard</category>
+		<inherit id="animals_base" />
+		<!-- Stats -->
+		<str><random min="0" max="0" /></str>
+		<dex><random min="0" max="0" /></dex>
+		<int><random min="0" max="0" /></int>
+		<!-- Skills -->
+		<wrestling><random min="0" max="0" /></wrestling>
+		<tactics><random min="0" max="0" /></tactics>
+		<magicresistance><random min="0" max="0" /></magicresistance>
+	</npc>
+	<!-- a 
+ weak-->
+	<npc id="
+_weak">
+		<name>a 
+</name>
+		<id></id>
+		<category>npcs\animals\mountables\
+\weak</category>
+		<inherit id="animals_base" />
+		<!-- Stats -->
+		<str><random min="0" max="0" /></str>
+		<dex><random min="0" max="0" /></dex>
+		<int><random min="0" max="0" /></int>
+		<!-- Skills -->
+		<wrestling><random min="0" max="0" /></wrestling>
+		<tactics><random min="0" max="0" /></tactics>
+		<magicresistance><random min="0" max="0" /></magicresistance>
+	</npc>
+	<!-- a 
+ medium-->
+	<npc id="
+_medium">
+		<name>a 
+</name>
+		<id></id>
+		<category>npcs\animals\mountables\
+\medium</category>
+		<inherit id="animals_base" />
+		<!-- Stats -->
+		<str><random min="" max="" /></str>
+		<dex><random min="" max="" /></dex>
+		<int><random min="" max="" /></int>
+		<!-- Skills -->
+		<wrestling><random min="" max="" /></wrestling>
+		<tactics><random min="" max="" /></tactics>
+		<magicresistance><random min="" max="" /></magicresistance>
+	</npc>
+	<!-- a 
+ hard-->
+	<npc id="
+_hard">
+		<name>a 
+</name>
+		<id></id>
+		<category>npcs\animals\mountables\
+\hard</category>
+		<inherit id="animals_base" />
+		<!-- Stats -->
+		<str><random min="0" max="0" /></str>
+		<dex><random min="0" max="0" /></dex>
+		<int><random min="0" max="0" /></int>
+		<!-- Skills -->
+		<wrestling><random min="0" max="0" /></wrestling>
+		<tactics><random min="0" max="0" /></tactics>
+		<magicresistance><random min="0" max="0" /></magicresistance>
 	</npc>
 </definitions>
