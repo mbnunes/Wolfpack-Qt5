@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python
 #################################################################
 #   )      (\_     # Wolfpack 13.0.0 Build Script               #
 #  ((    _/{  "-;  # Created by: Wolfpack Development Team      #
