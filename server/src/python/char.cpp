@@ -150,30 +150,24 @@ wpChar_compare,
 0,
 };
 
-// I N T E R N A L
-PyObject *PyCreateCharObject( P_CHAR pChar )
-{
-	//	wpChar *returnVal = CharCache::instance()->allocObj( &wpCharType );
-	wpChar* returnVal = PyObject_New( wpChar, &wpCharType );
-	returnVal->pChar = pChar;
-
-	returnVal->py_account	= NULL;
-	returnVal->py_region		= NULL;
-	returnVal->py_socket		= NULL;
-	returnVal->py_skill		= NULL;
-	returnVal->py_skillcap	= NULL;
-	returnVal->py_skilllock	= NULL;
-
-	return ( PyObject * ) returnVal;
-}
-
 PyObject* PyGetCharObject( P_CHAR pChar )
 {
 	if ( !pChar )
 	{
 		Py_RETURN_NONE;
 	} else {
-		return pChar->getPyObject();
+		//	wpChar *returnVal = CharCache::instance()->allocObj( &wpCharType );
+		wpChar* returnVal = PyObject_New( wpChar, &wpCharType );
+		returnVal->pChar = pChar;
+	
+		returnVal->py_account	= NULL;
+		returnVal->py_region		= NULL;
+		returnVal->py_socket		= NULL;
+		returnVal->py_skill		= NULL;
+		returnVal->py_skillcap	= NULL;
+		returnVal->py_skilllock	= NULL;
+	
+		return ( PyObject * ) returnVal;
 	}
 }
 
