@@ -39,6 +39,7 @@ Wolfpack 12.9.9 Beta (CVS)
 		- Fixed an issue with walking/running not being sent to other cliens.
 		- Added wolfpack.queuecode to queue a python function for the next mainloop iteration.
 		- Documentation fixes for item.addtimer.
+		- Item Base Definitions are now reloaded correctly.
 	* Definition Changes:
 		- Tag Changes:
 			<events></events> is now <scripts></scripts>
