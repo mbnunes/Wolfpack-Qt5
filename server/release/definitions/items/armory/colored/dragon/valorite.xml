@@ -4,20 +4,20 @@
 	<item id="valorite_armor_red_dragon_breastplate" inherit="2641">
 		<valorite_armor />
 		<baseid>2641</baseid>
-		<tag name="resname2" value="red_scales" />
+		<red_scaled_armor />
 		<category>Armor\Valorite\Dragon\Red\Red Dragon Breastplate 1</category>
 	</item>
 
 	<item id="valorite_armor_red_dragon_breastplate_2" inherit="valorite_armor_red_dragon_breastplate">
 		<id>0x2642</id>
 		<baseid>2642</baseid>
-		<category>Armor\Valorite\Dragon\Red\Red DragonBreastplate 2</category>
+		<category>Armor\Valorite\Dragon\Red\Red Dragon Breastplate 2</category>
 	</item>
 
 	<item id="valorite_armor_red_dragon_gloves" inherit="2643">
 		<valorite_armor />
 		<baseid>2643</baseid>
-		<tag name="resname2" value="red_scales" />
+		<red_scaled_armor />
 		<category>Armor\Valorite\Dragon\Red\Red Dragon Gloves 1</category>
 	</item>
 
@@ -30,7 +30,7 @@
 	<item id="valorite_armor_red_dragon_helm" inherit="2645">
 		<valorite_armor />
 		<baseid>2645</baseid>
-		<tag name="resname2" value="red_scales" />
+		<red_scaled_armor />
 		<category>Armor\Valorite\Dragon\Red\Red Dragon Helm 1</category>
 	</item>
 
@@ -43,7 +43,7 @@
 	<item id="valorite_armor_red_dragon_legs" inherit="2647">
 		<valorite_armor />
 		<baseid>2647</baseid>
-		<tag name="resname2" value="red_scales" />
+		<red_scaled_armor />
 		<category>Armor\Valorite\Dragon\Red\Red Dragon Leggings 1</category>
 	</item>
 
@@ -56,7 +56,7 @@
 	<item id="valorite_armor_red_dragon_sleeves" inherit="2657">
 		<valorite_armor />
 		<baseid>2657</baseid>
-		<tag name="resname2" value="red_scales" />
+		<red_scaled_armor />
 		<category>Armor\Valorite\Dragon\Red\Red Dragon Sleeves 1</category>
 	</item>
 
@@ -70,20 +70,20 @@
 	<item id="valorite_armor_yellow_dragon_breastplate" inherit="2641">
 		<valorite_armor />
 		<baseid>2641</baseid>
-		<tag name="resname2" value="yellow_scales" />
+		<yellow_scaled_armor />
 		<category>Armor\Valorite\Dragon\Yellow\Yellow Dragon Breastplate 1</category>
 	</item>
 
 	<item id="valorite_armor_yellow_dragon_breastplate_2" inherit="valorite_armor_yellow_dragon_breastplate">
 		<id>0x2642</id>
 		<baseid>2642</baseid>
-		<category>Armor\Valorite\Dragon\Yellow\Yellow DragonBreastplate 2</category>
+		<category>Armor\Valorite\Dragon\Yellow\Yellow Dragon Breastplate 2</category>
 	</item>
 
 	<item id="valorite_armor_yellow_dragon_gloves" inherit="2643">
 		<valorite_armor />
 		<baseid>2643</baseid>
-		<tag name="resname2" value="yellow_scales" />
+		<yellow_scaled_armor />
 		<category>Armor\Valorite\Dragon\Yellow\Yellow Dragon Gloves 1</category>
 	</item>
 
@@ -96,7 +96,7 @@
 	<item id="valorite_armor_yellow_dragon_helm" inherit="2645">
 		<valorite_armor />
 		<baseid>2645</baseid>
-		<tag name="resname2" value="yellow_scales" />
+		<yellow_scaled_armor />
 		<category>Armor\Valorite\Dragon\Yellow\Yellow Dragon Helm 1</category>
 	</item>
 
@@ -109,7 +109,7 @@
 	<item id="valorite_armor_yellow_dragon_legs" inherit="2647">
 		<valorite_armor />
 		<baseid>2647</baseid>
-		<tag name="resname2" value="yellow_scales" />
+		<yellow_scaled_armor />
 		<category>Armor\Valorite\Dragon\Yellow\Yellow Dragon Leggings 1</category>
 	</item>
 
@@ -122,7 +122,7 @@
 	<item id="valorite_armor_yellow_dragon_sleeves" inherit="2657">
 		<valorite_armor />
 		<baseid>2657</baseid>
-		<tag name="resname2" value="yellow_scales" />
+		<yellow_scaled_armor />
 		<category>Armor\Valorite\Dragon\Yellow\Yellow Dragon Sleeves 1</category>
 	</item>
 
@@ -136,20 +136,20 @@
 	<item id="valorite_armor_black_dragon_breastplate" inherit="2641">
 		<valorite_armor />
 		<baseid>2641</baseid>
-		<tag name="resname2" value="black_scales" />
+		<black_scaled_armor />
 		<category>Armor\Valorite\Dragon\Black\Black Dragon Breastplate 1</category>
 	</item>
 
 	<item id="valorite_armor_black_dragon_breastplate_2" inherit="valorite_armor_black_dragon_breastplate">
 		<id>0x2642</id>
 		<baseid>2642</baseid>
-		<category>Armor\Valorite\Dragon\Black\Black DragonBreastplate 2</category>
+		<category>Armor\Valorite\Dragon\Black\Black Dragon Breastplate 2</category>
 	</item>
 
 	<item id="valorite_armor_black_dragon_gloves" inherit="2643">
 		<valorite_armor />
 		<baseid>2643</baseid>
-		<tag name="resname2" value="black_scales" />
+		<black_scaled_armor />
 		<category>Armor\Valorite\Dragon\Black\Black Dragon Gloves 1</category>
 	</item>
 
@@ -162,7 +162,7 @@
 	<item id="valorite_armor_black_dragon_helm" inherit="2645">
 		<valorite_armor />
 		<baseid>2645</baseid>
-		<tag name="resname2" value="black_scales" />
+		<black_scaled_armor />
 		<category>Armor\Valorite\Dragon\Black\Black Dragon Helm 1</category>
 	</item>
 
@@ -175,7 +175,7 @@
 	<item id="valorite_armor_black_dragon_legs" inherit="2647">
 		<valorite_armor />
 		<baseid>2647</baseid>
-		<tag name="resname2" value="black_scales" />
+		<black_scaled_armor />
 		<category>Armor\Valorite\Dragon\Black\Black Dragon Leggings 1</category>
 	</item>
 
@@ -188,7 +188,7 @@
 	<item id="valorite_armor_black_dragon_sleeves" inherit="2657">
 		<valorite_armor />
 		<baseid>2657</baseid>
-		<tag name="resname2" value="black_scales" />
+		<black_scaled_armor />
 		<category>Armor\Valorite\Dragon\Black\Black Dragon Sleeves 1</category>
 	</item>
 
@@ -202,20 +202,20 @@
 	<item id="valorite_armor_green_dragon_breastplate" inherit="2641">
 		<valorite_armor />
 		<baseid>2641</baseid>
-		<tag name="resname2" value="green_scales" />
+		<green_scaled_armor />
 		<category>Armor\Valorite\Dragon\Green\Green Dragon Breastplate 1</category>
 	</item>
 
 	<item id="valorite_armor_green_dragon_breastplate_2" inherit="valorite_armor_green_dragon_breastplate">
 		<id>0x2642</id>
 		<baseid>2642</baseid>
-		<category>Armor\Valorite\Dragon\Green\Green DragonBreastplate 2</category>
+		<category>Armor\Valorite\Dragon\Green\Green Dragon Breastplate 2</category>
 	</item>
 
 	<item id="valorite_armor_green_dragon_gloves" inherit="2643">
 		<valorite_armor />
 		<baseid>2643</baseid>
-		<tag name="resname2" value="green_scales" />
+		<green_scaled_armor />
 		<category>Armor\Valorite\Dragon\Green\Green Dragon Gloves 1</category>
 	</item>
 
@@ -228,7 +228,7 @@
 	<item id="valorite_armor_green_dragon_helm" inherit="2645">
 		<valorite_armor />
 		<baseid>2645</baseid>
-		<tag name="resname2" value="green_scales" />
+		<green_scaled_armor />
 		<category>Armor\Valorite\Dragon\Green\Green Dragon Helm 1</category>
 	</item>
 
@@ -241,7 +241,7 @@
 	<item id="valorite_armor_green_dragon_legs" inherit="2647">
 		<valorite_armor />
 		<baseid>2647</baseid>
-		<tag name="resname2" value="green_scales" />
+		<green_scaled_armor />
 		<category>Armor\Valorite\Dragon\Green\Green Dragon Leggings 1</category>
 	</item>
 
@@ -254,7 +254,7 @@
 	<item id="valorite_armor_green_dragon_sleeves" inherit="2657">
 		<valorite_armor />
 		<baseid>2657</baseid>
-		<tag name="resname2" value="green_scales" />
+		<green_scaled_armor />
 		<category>Armor\Valorite\Dragon\Green\Green Dragon Sleeves 1</category>
 	</item>
 
@@ -268,20 +268,20 @@
 	<item id="valorite_armor_white_dragon_breastplate" inherit="2641">
 		<valorite_armor />
 		<baseid>2641</baseid>
-		<tag name="resname2" value="white_scales" />
+		<white_scaled_armor />
 		<category>Armor\Valorite\Dragon\White\White Dragon Breastplate 1</category>
 	</item>
 
 	<item id="valorite_armor_white_dragon_breastplate_2" inherit="valorite_armor_white_dragon_breastplate">
 		<id>0x2642</id>
 		<baseid>2642</baseid>
-		<category>Armor\Valorite\Dragon\White\White DragonBreastplate 2</category>
+		<category>Armor\Valorite\Dragon\White\White Dragon Breastplate 2</category>
 	</item>
 
 	<item id="valorite_armor_white_dragon_gloves" inherit="2643">
 		<valorite_armor />
 		<baseid>2643</baseid>
-		<tag name="resname2" value="white_scales" />
+		<white_scaled_armor />
 		<category>Armor\Valorite\Dragon\White\White Dragon Gloves 1</category>
 	</item>
 
@@ -294,7 +294,7 @@
 	<item id="valorite_armor_white_dragon_helm" inherit="2645">
 		<valorite_armor />
 		<baseid>2645</baseid>
-		<tag name="resname2" value="white_scales" />
+		<white_scaled_armor />
 		<category>Armor\Valorite\Dragon\White\White Dragon Helm 1</category>
 	</item>
 
@@ -307,7 +307,7 @@
 	<item id="valorite_armor_white_dragon_legs" inherit="2647">
 		<valorite_armor />
 		<baseid>2647</baseid>
-		<tag name="resname2" value="white_scales" />
+		<white_scaled_armor />
 		<category>Armor\Valorite\Dragon\White\White Dragon Leggings 1</category>
 	</item>
 
@@ -320,7 +320,7 @@
 	<item id="valorite_armor_white_dragon_sleeves" inherit="2657">
 		<valorite_armor />
 		<baseid>2657</baseid>
-		<tag name="resname2" value="white_scales" />
+		<white_scaled_armor />
 		<category>Armor\Valorite\Dragon\White\White Dragon Sleeves 1</category>
 	</item>
 
@@ -334,20 +334,20 @@
 	<item id="valorite_armor_blue_dragon_breastplate" inherit="2641">
 		<valorite_armor />
 		<baseid>2641</baseid>
-		<tag name="resname2" value="blue_scales" />
+		<blue_scaled_armor />
 		<category>Armor\Valorite\Dragon\Blue\Blue Dragon Breastplate 1</category>
 	</item>
 
 	<item id="valorite_armor_blue_dragon_breastplate_2" inherit="valorite_armor_blue_dragon_breastplate">
 		<id>0x2642</id>
 		<baseid>2642</baseid>
-		<category>Armor\Valorite\Dragon\Blue\Blue DragonBreastplate 2</category>
+		<category>Armor\Valorite\Dragon\Blue\Blue Dragon Breastplate 2</category>
 	</item>
 
 	<item id="valorite_armor_blue_dragon_gloves" inherit="2643">
 		<valorite_armor />
 		<baseid>2643</baseid>
-		<tag name="resname2" value="blue_scales" />
+		<blue_scaled_armor />
 		<category>Armor\Valorite\Dragon\Blue\Blue Dragon Gloves 1</category>
 	</item>
 
@@ -360,7 +360,7 @@
 	<item id="valorite_armor_blue_dragon_helm" inherit="2645">
 		<valorite_armor />
 		<baseid>2645</baseid>
-		<tag name="resname2" value="blue_scales" />
+		<blue_scaled_armor />
 		<category>Armor\Valorite\Dragon\Blue\Blue Dragon Helm 1</category>
 	</item>
 
@@ -373,7 +373,7 @@
 	<item id="valorite_armor_blue_dragon_legs" inherit="2647">
 		<valorite_armor />
 		<baseid>2647</baseid>
-		<tag name="resname2" value="blue_scales" />
+		<blue_scaled_armor />
 		<category>Armor\Valorite\Dragon\Blue\Blue Dragon Leggings 1</category>
 	</item>
 
@@ -386,7 +386,7 @@
 	<item id="valorite_armor_blue_dragon_sleeves" inherit="2657">
 		<valorite_armor />
 		<baseid>2657</baseid>
-		<tag name="resname2" value="blue_scales" />
+		<blue_scaled_armor />
 		<category>Armor\Valorite\Dragon\Blue\Blue Dragon Sleeves 1</category>
 	</item>
 

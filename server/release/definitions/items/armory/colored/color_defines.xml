@@ -196,4 +196,34 @@
 		<tag name="resname" value="barbed_leather" />
 	</define>
 
+	<define id="red_scaled_armor">
+		<color>0x66d</color>
+		<tag name="resname2" value="red_scales" />
+	</define>
+
+	<define id="yellow_scaled_armor">
+		<color>0x8a8</color>
+		<tag name="resname2" value="yellow_scales" />
+	</define>
+
+	<define id="black_scaled_armor">
+		<color>0x455</color>
+		<tag name="resname2" value="black_scales" />
+	</define>
+
+	<define id="green_scaled_armor">
+		<color>0x851</color>
+		<tag name="resname2" value="green_scales" />
+	</define>
+
+	<define id="white_scaled_armor">
+		<color>0x8fd</color>
+		<tag name="resname2" value="white_scales" />
+	</define>
+
+	<define id="blue_scaled_armor">
+		<color>0x8b0</color>
+		<tag name="resname2" value="blue_scales" />
+	</define>
+
 </definitions>
