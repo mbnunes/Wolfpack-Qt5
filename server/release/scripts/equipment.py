@@ -2,53 +2,33 @@
 import wolfpack
 from wolfpack.utilities import *
 from wolfpack.consts import *
-from combat.properties import itemcheck, fromitem
+from combat.properties import itemcheck, fromitem, fromchar
 from combat.utilities import weaponskill
+from combat import armorinfo, weaponinfo
+from math import ceil
 
 #
 # Show certain modifiers stored in tags.
 #
 def modifiers(object, tooltip):
 	modifiers = {
-		"req_str": 1061170,
 		"boni_dex": 1060409,
 		"boni_int": 1060432,
 		"boni_str": 1060485,
 		"remaining_uses": 1060584,
 		"aos_boni_damage": 1060401,
-		"aos_lower_requirements": 1060435,
 		"aos_boni_durability": 1060410,
 		"regenhitpoints": 1060444,
 		"regenstamina": 1060443,
 		"regenmana": 1060440,
 	}
-
+	
 	for (tag, cliloc) in modifiers.items():
 		if object.hastag(tag):
 			tooltip.add(cliloc, str(object.gettag(tag)))
 			
 	if object.hastag('magearmor'):
 		tooltip.add(1060437)
-
-PREFIXES = {
-		'dullcopper': 'Dull Copper',
-		'shadowiron': 'Shadow Iron',
-		'copper': 'Copper',
-		'bronze': 'Bronze',
-		'gold': 'Gold',
-		'agapite': 'Agapite',
-		'verite': 'Verite',
-		'valorite': 'Valorite',
-}
-
-PREFIXES2 = {
-		'red_scales': 'Red Scale',
-		'yellow_scales': 'Yellow Scale',
-		'black_scales': 'Black Scale',
-		'green_scales': 'Green Scale',
-		'white_scales': 'White Scale',
-		'blue_scales': 'Blue Scale',
-}
 
 #
 # Equipment has a lot of additional effects.
@@ -61,32 +41,44 @@ def onShowTooltip(viewer, object, tooltip):
 
 	if (armor or weapon or shield) and object.amount == 1:
 		# Reinsert the name if we need an ore prefix
+		prefix1 = None
 		if object.hastag('resname'):		
 			resname = str(object.gettag('resname'))
-			hasprefix1 = PREFIXES.has_key(resname)
-		else:
-			hasprefix1 = 0
-	
+			if armor and armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
+				resinfo = armorinfo.ARMOR_RESNAME_BONI[resname]
+				if resinfo.has_key(MATERIALPREFIX):
+					prefix1 = resinfo[MATERIALPREFIX]				
+			if weapon and weaponinfo.WEAPON_RESNAME_BONI.has_key(resname):
+				resinfo = weaponinfo.WEAPON_RESNAME_BONI[resname]
+				if resinfo.has_key(MATERIALPREFIX):
+					prefix1 = resinfo[MATERIALPREFIX]
+		
+		prefix2 = None
 		if object.hastag('resname2'):
 			resname2 = str(object.gettag('resname2'))
-			hasprefix2 = PREFIXES2.has_key(resname2)
-		else:
-			hasprefix2 = 0
+			if armor and armorinfo.ARMOR_RESNAME_BONI.has_key(resname2):
+				resinfo = armorinfo.ARMOR_RESNAME_BONI[resname2]
+				if resinfo.has_key(MATERIALPREFIX):
+					prefix2 = resinfo[MATERIALPREFIX]
+			if weapon and weaponinfo.WEAPON_RESNAME_BONI.has_key(resname2):
+				resinfo = weaponinfo.WEAPON_RESNAME_BONI[resname2]
+				if resinfo.has_key(MATERIALPREFIX):
+					prefix2 = resinfo[MATERIALPREFIX]
 
 		if len(object.name) == 0:
 			itemname = '#' + str(1020000 + object.id)
 		else:
 			itemname = object.name
 	
-		if hasprefix1 and hasprefix2:
+		if prefix1 and prefix2:
 			tooltip.reset()
-			tooltip.add(1053099, "%s %s\t%s" % (PREFIXES[resname], PREFIXES2[resname2], itemname))
-		elif hasprefix1 and not hasprefix2:
+			tooltip.add(1053099, "%s %s\t%s" % (prefix1, prefix2, itemname))
+		elif prefix1 and not prefix2:
 			tooltip.reset()
-			tooltip.add(1053099, "%s\t%s" % (PREFIXES[resname], itemname))
-		elif not hasprefix1 and hasprefix2:	
+			tooltip.add(1053099, "%s\t%s" % (prefix1, itemname))
+		elif not prefix1 and prefix2:	
 			tooltip.reset()
-			tooltip.add(1053099, "%s\t%s" % (PREFIXES2[resname2], itemname))
+			tooltip.add(1053099, "%s\t%s" % (prefix2, itemname))
 
 	# Exceptional item?
 	if object.hastag('exceptional'):
@@ -180,26 +172,57 @@ def onShowTooltip(viewer, object, tooltip):
 		tooltip.add(1060446, str(energy))
 
 	modifiers(object, tooltip)
+	
+	lower = fromitem(object, LOWERREQS)
+	if lower:
+		tooltip.add(1060435, str(lower))
+	
+	if object.container == viewer:
+		lower = 0
+	
+	lower += fromchar(viewer, LOWERREQS)
+	lower /= 100.0
+
+	req_str = fromitem(object, REQSTR)
+	if lower:
+		req_str = int(ceil(req_str) * (1.0 - lower))
+	if req_str:
+		tooltip.add(1061170, str(req_str))
 
 #
 # Check for certain equipment requirements
 #
 def onWearItem(player, wearer, item, layer):
-	if item.hastag('req_str') and wearer.strength < int(item.gettag('req_str')):
+	lower = fromchar(player, LOWERREQS) + fromitem(item, LOWERREQS)
+	lower /= 100.0
+
+	req_str = fromitem(item, REQSTR)
+	if lower:
+		req_str = int(ceil(req_str) * (1.0 - lower))
+		
+	req_dex = fromitem(item, REQDEX)
+	if lower:
+		req_dex = int(ceil(req_dex) * (1.0 - lower))
+		
+	req_int = fromitem(item, REQINT)
+	if lower:
+		req_int = int(ceil(req_int) * (1.0 - lower))
+
+	if wearer.strength < req_str:
 		if player != wearer:
 			player.socket.sysmessage('This person can\'t wear that item, seems not strong enough.')
 		else:
 			player.socket.clilocmessage(500213)
 		return 1
 			
-	if item.hastag('req_dex') and wearer.dexterity < int(item.gettag('req_dex')):
+	if wearer.dexterity < req_dex:
 		if player != wearer:
 			player.socket.sysmessage('This person can\'t wear that item, seems not agile enough.')
 		else:
 			player.socket.clilocmessage(502077)
 		return 1
 
-	if item.hastag('req_int') and wearer.intelligence < int(item.gettag('req_int')):
+	if wearer.intelligence < req_int:
 		if player != wearer:
 			player.socket.sysmessage('This person can\'t wear that item, seems not smart enough.')
 		else:
@@ -223,6 +246,13 @@ def onWearItem(player, wearer, item, layer):
 #
 def onEquip(char, item, layer):
 	changed = 0
+
+	# Resend all equipment with requirements
+	if fromitem(item, LOWERREQS):
+		for i in range(LAYER_RIGHTHAND, LAYER_MOUNT):
+			litem = char.itemonlayer(i)
+			if litem:
+				litem.resendtooltip()
 
 	# Bonus Strength
 	if item.hastag('boni_str'):
@@ -266,6 +296,13 @@ def onEquip(char, item, layer):
 #
 def onUnequip(char, item, layer):
 	changed = 0
+
+	# Resend all equipment with requirements
+	if fromitem(item, LOWERREQS):
+		for i in range(LAYER_RIGHTHAND, LAYER_MOUNT):
+			litem = char.itemonlayer(i)
+			if litem:
+				litem.resendtooltip()
 
 	# Bonus Str
 	if item.hastag('boni_str'):

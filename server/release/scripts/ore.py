@@ -28,8 +28,8 @@ def onShowTooltip(player, object, tooltip):
 	
 	if object.hastag('resname'):
 		resname = str(object.gettag('resname'))
-		if mining.oretable.has_key(resname):
-			name = mining.oretable[resname][mining.ORENAME]
+		if mining.ORES.has_key(resname):
+			name = mining.ORES[resname][mining.ORENAME]
 
 	tooltip.reset()
 	tooltip.add(1050039, "%u\t%s" % (object.amount, name))
@@ -259,13 +259,13 @@ def dosmelt(char, args):
 	forge = args[1]
 	resname = args[2]
 	
-	if not mining.oretable.has_key(resname):
+	if not mining.ORES.has_key(resname):
 		char.socket.sysmessage('You cannot smelt that kind of ore.')
 		return 0
 	
 	success = 0
-	reqskill = mining.oretable[resname][mining.REQSKILL]
-	chance = max(0, char.skill[MINING] - mining.oretable[resname][mining.MINSKILL]) / 1000.0
+	reqskill = mining.ORES[resname][mining.REQSKILL]
+	chance = max(0, char.skill[MINING] - mining.ORES[resname][mining.MINSKILL]) / 1000.0
 
 	if not char.skill[MINING] >= reqskill:		
 		char.socket.clilocmessage(501986, '', GRAY) # You have no idea how to smelt this strange ore!
@@ -315,8 +315,9 @@ def dosmelt(char, args):
 def successsmelt(char, resname, amount):
 	item = wolfpack.additem('1bf2')
 	item.amount = amount
+	item.baseid = '%s_ingot' % resname
 	
-	ore = mining.oretable[resname]
+	ore = mining.ORES[resname]
 	
 	item.color = ore[mining.COLORID]
 	item.settag('resname', resname)

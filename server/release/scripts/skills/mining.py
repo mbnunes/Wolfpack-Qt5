@@ -30,7 +30,7 @@ INGOTNAME = 6
 
 # resname, reqSkill, minSkill, sucessmessage, color, find rate (will make a percentage of the total amount), 
 # name of ore, name of ingot
-oretable = {
+ORES = {
 	'iron': 			[0, 	-250, 1007072, 0x0, 	49, '#1042853', '#1042692'],
 	'dullcopper': [650, 325, 	1007073, 0x973, 11, '#1042845', '#1042684'],
 	'shadowiron': [700, 350, 	1007074, 0x966, 10, '#1042846', '#1042685'],
@@ -56,12 +56,12 @@ def createoregem(pos):
 	
 	# This will give it a chance to be a random ore type, this can change later.	
 	totalchance = 0
-	for ore in oretable.values():
+	for ore in ORES.values():
 		totalchance += ore[FINDCHANCE]
 	colorchance = randint(0, totalchance - 1)
 	offset = 0
 
-	for (resname, ore) in oretable.items():
+	for (resname, ore) in ORES.items():
 		if colorchance >= offset and colorchance < offset + ore[FINDCHANCE]:
 			gem.settag('resname2', resname)
 			gem.color = ore[COLORID]
@@ -161,7 +161,7 @@ def domining(time, args):
 		resname = veingem.gettag('resname')
 
 	resourcecount = veingem.gettag('resourcecount')
-	reqskill = oretable[resname][REQSKILL]
+	reqskill = ORES[resname][REQSKILL]
 
 	# Refill the resource gem.
 	if resourcecount == 0:
@@ -178,7 +178,7 @@ def domining(time, args):
 		socket.clilocmessage(501869)
 		return 0
 
-	chance = max(0, char.skill[MINING] - oretable[resname][MINSKILL]) / 1000.0
+	chance = max(0, char.skill[MINING] - ORES[resname][MINSKILL]) / 1000.0
 	success = 0
 
 	if not skills.checkskill(char, MINING, chance):
@@ -223,7 +223,7 @@ def successmining(char, gem, resname, size):
 		raise RuntimeException, "Invalid ore size: %u" % size
 
 	item.settag('resname', resname)
-	item.color = oretable[resname][COLORID]
+	item.color = ORES[resname][COLORID]
 
 	if FELUCIA2XRESGAIN and char.pos.map == 0:
 		item.amount = 2
@@ -242,7 +242,7 @@ def successmining(char, gem, resname, size):
 		wolfpack.addtimer(delay, "skills.mining.respawnvein", [gem], 1)
 		gem.settag('resource_empty', 1)
 
-	message = oretable[resname][SUCCESSMESSAGE]
+	message = ORES[resname][SUCCESSMESSAGE]
 	# You dig some %s and put it in your backpack.
 	if type(message) == int:
 		char.socket.clilocmessage(message, "", GRAY)

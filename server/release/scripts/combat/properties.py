@@ -1,8 +1,8 @@
 
 from wolfpack.consts import *
 from math import floor
-from combat.weaponinfo import WEAPONINFO, WEAPON_RESNAME_BONI
-from combat.armorinfo import ARMORINFO, ARMOR_RESNAME_BONI
+from combat import weaponinfo
+from combat import armorinfo
 
 #
 # Get the delay for the next swing from this attacker and his weapon.
@@ -39,11 +39,17 @@ PROPERTIES = {
 	DAMAGE_ENERGY: ['dmg_energy', 0, 0],
 
 	# % Boni
+	LOWERREQS: ['lower_reqs', 0, 1],
 	DAMAGEBONUS: ['aos_boni_damage', 0, 1],
 	SPEEDBONUS: ['aos_boni_speed', 0, 1],
 	HITBONUS: ['aos_boni_hit_chance', 0, 1],
 	DEFENSEBONUS: ['aos_defense_chance', 0, 1],
 	SPELLDAMAGEBONUS: ['spelldamagebonus', 0, 1],
+
+	# Requirements
+	REQSTR: ['req_str', 0, 0],
+	REQDEX: ['req_dex', 0, 0],
+	REQINT: ['req_int', 0, 0],
 
 	# Regular Combat Properties
 	MINDAMAGE: ['mindamage', 1, 0],
@@ -82,49 +88,49 @@ def fromitem(item, property):
 		# See if our weapon info has anything for the
 		# requested item. Otherwise return the default value.
 		if itemcheck(item, ITEM_WEAPON):
-			if WEAPONINFO.has_key(item.baseid):
-				weaponinfo = WEAPONINFO[item.baseid]
+			if weaponinfo.WEAPONINFO.has_key(item.baseid):
+				weapondata = weaponinfo.WEAPONINFO[item.baseid]
 
-				if weaponinfo.has_key(property):
-					value = weaponinfo[property]
+				if weapondata.has_key(property):
+					value = weapondata[property]
 				else:
 					value = info[1]
 
 				# Resource dependant boni
 				if item.hastag('resname'):
 					resname = str(item.gettag('resname'))
-					if WEAPON_RESNAME_BONI.has_key(resname):
-						if WEAPON_RESNAME_BONI[resname].has_key(property):
-							value += WEAPON_RESNAME_BONI[resname][property]
+					if weaponinfo.WEAPON_RESNAME_BONI.has_key(resname):
+						if weaponinfo.WEAPON_RESNAME_BONI[resname].has_key(property):
+							value += weaponinfo.WEAPON_RESNAME_BONI[resname][property]
 
 				if item.hastag('resname2'):
 					resname = str(item.gettag('resname2'))
-					if WEAPON_RESNAME_BONI.has_key(resname):
-						if WEAPON_RESNAME_BONI[resname].has_key(property):
-							value += WEAPON_RESNAME_BONI[resname][property]
+					if weaponinfo.WEAPON_RESNAME_BONI.has_key(resname):
+						if weaponinfo.WEAPON_RESNAME_BONI[resname].has_key(property):
+							value += weaponinfo.WEAPON_RESNAME_BONI[resname][property]
 
 				return value
 		elif itemcheck(item, ITEM_ARMOR) or itemcheck(item, ITEM_SHIELD):
-			if ARMORINFO.has_key(item.baseid):
-				armorinfo = ARMORINFO[item.baseid]
+			if armorinfo.ARMORINFO.has_key(item.baseid):
+				armordata = armorinfo.ARMORINFO[item.baseid]
 
-				if armorinfo.has_key(property):
-					value = armorinfo[property]
+				if armordata.has_key(property):
+					value = armordata[property]
 				else:
 					value = info[1]
 
 				# Resource dependant boni
 				if item.hastag('resname'):
 					resname = str(item.gettag('resname'))
-					if ARMOR_RESNAME_BONI.has_key(resname):
-						if ARMOR_RESNAME_BONI[resname].has_key(property):
-							value += ARMOR_RESNAME_BONI[resname][property]
+					if armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
+						if armorinfo.ARMOR_RESNAME_BONI[resname].has_key(property):
+							value += armorinfo.ARMOR_RESNAME_BONI[resname][property]
 
 				if item.hastag('resname2'):
 					resname = str(item.gettag('resname2'))
-					if ARMOR_RESNAME_BONI.has_key(resname):
-						if ARMOR_RESNAME_BONI[resname].has_key(property):
-							value += ARMOR_RESNAME_BONI[resname][property]
+					if armorinfo.ARMOR_RESNAME_BONI.has_key(resname):
+						if armorinfo.ARMOR_RESNAME_BONI[resname].has_key(property):
+							value += armorinfo.ARMOR_RESNAME_BONI[resname][property]
 
 				return value
 
