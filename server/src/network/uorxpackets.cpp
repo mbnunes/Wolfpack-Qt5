@@ -67,6 +67,7 @@ cUOPacket *getUOPacket( const QByteArray &data )
 	case 0x75:		return new cUORxRename( data );
 	case 0x72:		return new cUORxChangeWarmode( data );
 	case 0x6C:		return new cUORxTarget( data );
+	case 0x22:		return new cUORxResyncWalk( data );
 	default:		return new cUOPacket( data );
 	};	
 }

@@ -77,6 +77,7 @@
 #include "qtranslator.h"
 #include "qstring.h"
 #include "qregexp.h"
+#include "qlibrary.h"
 #include "qdatetime.h"
 #include "qfile.h"
 
@@ -2080,8 +2081,6 @@ int main( int argc, char *argv[] )
 {
 	QApplication app( argc, argv ); // we need one instance
 
-	keeprun = 1; // First of all, we want to run :)
-
 	// Parse our arguments
 	if (argc > 1)
 	{
@@ -2206,6 +2205,8 @@ int main( int argc, char *argv[] )
 	loadskills();
 	clConsole.ProgressDone();
 
+	// Need to load the ACLs before we load any account
+	cCommands::instance()->loadACLs();
 	Accounts->load();
 
 	keeprun = 1;
@@ -2229,7 +2230,6 @@ int main( int argc, char *argv[] )
 	clConsole.send("\nLoading vital scripts:\n");
 	
 	read_in_teleport();
-	cCommands::instance()->loadACLs();
 	CIAO_IF_ERROR;
 
 	serverstarttime = getNormalizedTime();

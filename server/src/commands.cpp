@@ -118,23 +118,25 @@ void cCommands::loadACLs( void )
 			clConsole.ChangeColor( WPC_NORMAL );
 			continue;
 		}
+		
 		QDomElement n = Tag->firstChild().toElement();
 		QMap<QString, QMap<QString, stACLcommand> > acl;
 		while (!n.isNull())
 		{
-			if ( Tag->tagName() == "group" )
+			if ( n.nodeName() == "group" )
 			{
-				groupName = Tag->attribute("name", QString::null);
+				groupName = n.attribute("name", QString::null);
 				n = n.firstChild().toElement();
 			} 
-			else if ( Tag->tagName() == "action" )
+			else if ( n.nodeName() == "action" )
 			{
 				stACLcommand action;
-				action.name = Tag->attribute( "name", "any" );
-				action.permit = Tag->attribute( "permit", "false" ) == "true" ? true : false;
+				action.name = n.attribute( "name", "any" );
+				action.permit = n.attribute( "permit", "false" ) == "true" ? true : false;
 				group.insert( action.name, action );
+				n = n.nextSibling().toElement(); // Process next action
 			}
-			n = n.nextSibling().toElement();
+
 			if ( n.isNull() && n.parentNode() != *Tag )
 			{
 				n = n.parentNode().nextSibling().toElement();

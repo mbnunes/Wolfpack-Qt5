@@ -182,6 +182,8 @@ void cUOSocket::recieve()
 		handleSpeechRequest( dynamic_cast< cUORxSpeechRequest* >( packet ) ); break;
 	case 0x6c:
 		handleTarget( dynamic_cast< cUORxTarget* >( packet ) ); break;
+	case 0x22:
+		resync(); break;
 	default:
 		//cout << "Recieved packet: " << endl;
 		packet->print( &cout );
@@ -866,6 +868,8 @@ void cUOSocket::denyMove( Q_UINT8 sequence )
 	deny.fromChar( _player );
 	deny.setSequence( sequence );
 	send( &deny );
+
+	_walkSequence = ( sequence < 255 ) ? sequence : 0;
 }
 
 /*!
@@ -1288,4 +1292,10 @@ void cUOSocket::resendWorld( bool clean )
 		drawChar.fromChar( pChar );
 		send( &drawChar );
 	}
+}
+
+void cUOSocket::resync()
+{
+	updatePlayer();
+	sendChar( _player );
 }

@@ -139,6 +139,7 @@ public:
 	void soundEffect( UINT16 soundId, cUObject *source = NULL ); 
 	void attachTarget( cTargetRequest *request );
 	void resendWorld( bool clean = true );
+	void resync();
 
 	void allowMove( Q_UINT8 sequence );
 	void denyMove( Q_UINT8 sequence );

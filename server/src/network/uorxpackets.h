@@ -339,5 +339,13 @@ public:
 	UINT16 model() { return getShort( 17 ); }
 };
 
+// 0x22 ResyncWalk
+class cUORxResyncWalk: public cUOPacket
+{
+public:
+	cUORxResyncWalk( const QByteArray &data ): cUOPacket( data ) {}
+	UINT8 sequence() { return rawPacket[1]; }
+};
+
 #endif
 
