@@ -478,13 +478,13 @@ SEXTANT_MAP_WIDTH = 4096
 	These constants represent a loglevel for the console
 	and the logfile.
 """
-LOG_MESSAGE = 0
-LOG_ERROR	= 1
-LOG_PYTHON  = 2
-LOG_WARNING = 3
-LOG_NOTICE  = 4
-LOG_TRACE   = 5
-LOG_DEBUG   = 6
+LOG_MESSAGE = 0x01
+LOG_ERROR	= 0x02
+LOG_PYTHON  = 0x04
+LOG_WARNING = 0x08
+LOG_NOTICE  = 0x10
+LOG_TRACE   = 0x20
+LOG_DEBUG   = 0x40
 """
 	\end
 """
