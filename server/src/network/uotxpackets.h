@@ -832,4 +832,17 @@ public:
 	void setSerial( UINT32 data ) { setInt( 3, data ); }
 };
 
+// 0xBA QuestArrow
+class cUOTxQuestArrow: public cUOPacket
+{
+public:
+	cUOTxQuestArrow(): cUOPacket( 0xBA, 6 ) {}
+	void setActive( UINT8 status ) { rawPacket[1] = status; }
+	void setPos( const Coord_cl &pos ) 
+	{
+		setShort( 2, pos.x );
+		setShort( 4, pos.y );
+	}
+};
+
 #endif

@@ -62,87 +62,6 @@ void checktimers() // Check shutdown timers
 	lclock = tclock;
 }
 
-void do_lsd(UOXSOCKET s)
-{
-	P_CHAR pc_currchar = currchar[s];
-	if (rand()%15==0)
-	{
-		int c1,c2,color,ctr=0,b,xx,yy,di,icnt=0;
-		signed char zz;
-		int StartGrid=mapRegions->StartGrid(pc_currchar->pos);
-		unsigned int increment=0;
-		for (unsigned int checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
-		{
-			for (int a=0;a<3;a++)
-			{
-				cRegion::raw vecEntries = mapRegions->GetCellEntries(checkgrid + a);
-				cRegion::rawIterator it = vecEntries.begin();
-				for ( ; it != vecEntries.end(); ++it )
-				{
-					P_ITEM pi = FindItemBySerial(*it);
-					P_CHAR mapchar = FindCharBySerial(*it);
-					if (pi != NULL)
-					{
-						 color = pi->color(); // fetch item's color
-						 if (rand()%44==0) color+=pi->pos.x-pi->pos.y; else
-						 color+=pc_currchar->pos.x+pc_currchar->pos.y;
-						 color+=rand()%3; // add random "noise"
-						 ctr++;
-						 // lots of color consistancy checks
-						 color=color%0x03E9;
-							 c1=color>>8;
-						 c2=color%256;
-						 if ((((c1<<8)+c2)<0x0002) || (((c1<<8)+c2)>0x03E9) )
-						 {
-							c1=0x03;
-							c2=0xE9;
-						 }
-						 b=((((c1<<8)+c2)&0x4000)>>14)+((((c1<<8)+c2)&0x8000)>>15);
-						 if (b)
-						 {
-							c1=0x1;
-							c2=rand()%255;
-						 }
-	
-						 if (rand()%10==0) zz=pi->pos.z+rand()%33; else zz=pi->pos.z;
-						 if (rand()%10==0) xx=pi->pos.x+rand()%3; else xx=pi->pos.x;
-						 if (rand()%10==0) yy=pi->pos.y+rand()%3; else yy=pi->pos.y;
-						 di = itemdist(pc_currchar, pi);
-						 if (di<13) if (rand()%7==0)
-						 {
-							icnt++;
-							if (icnt%10==0 || icnt<10) 
-								senditem_lsd(s, pi, c1, c2, xx, yy, zz); // attempt to cut packet-bombing by this thing
-						 }
-	
-					}// end of if item
-					else if (mapchar != NULL)// character
-					{
-						di = chardist(pc_currchar, mapchar);
-						if (di<10) if (rand()%10==0)
-						{
-							icnt++;
-							if (icnt%10==0 || icnt<10) 
-								sendperson_lsd(s, mapchar, c1, c2); // attempt to cut packet-bombing by this thing
-						}
-					}
-				}
-			}
-		}	
-
-		if (rand()%33==0)
-		{
-			if (rand()%10>3) soundeffect5(s, 0x00, 0xF8); // lsd sound :)
-			else
-			{
-				int snd=rand()%19;
-				if (snd>9) soundeffect5(s,0x01,snd-10);
-				else soundeffect5(s,0,246+snd);
-			}	
-		}
-	}
-}
-
 void restockNPC(unsigned int currenttime, P_CHAR pc_i)
 {
 	unsigned int a, b;
@@ -319,12 +238,16 @@ void genericCheck(P_CHAR pc, unsigned int currenttime)// Char mapRegions
 
 void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 {
+	cUOSocket *socket = pc->socket();
+
+	// We are not logged in so dont check anything at all.
+	if( !socket )
+		return;
+
 	int y,x, timer;//, valid=0;
 	char t[120];
 
 	if ( pc == NULL ) return;
-
-	UOXSOCKET s = calcSocketFromChar(pc); //Only calc socket once!
 
 	// Check if the character is in a field which affects him
 	Magic->CheckFieldEffects2( currenttime, pc, 1 ); 
@@ -345,201 +268,181 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 		}
 	} */
 
-	if (pc->smoketimer()>currenttime)
+	if( pc->isPlayer() && pc->squelched() == 2 )
 	{
-		if (pc->smokedisplaytimer()<=currenttime)
-		{
-			pc->setSmokeDisplayTimer(currenttime+5*MY_CLOCKS_PER_SEC);
-			staticeffect(pc, 0x37, 0x35, 0, 30);
-			soundeffect2(pc, 0x002B);
-			switch( RandomNum(0, 6) )
-			{
-			 case 0:	npcemote(s, pc, "*Drags in deep*",1 );				break;
-			 case 1:	npcemote(s, pc, "*Coughs*",1 );						break;
-			 case 2:	npcemote(s, pc, "*Retches*",1 );					break;
-			 case 3:	npcemote(s, pc, "*Hacking cough*",1 );				break;
-			 case 4:	npcemote(s, pc, "*Sighs in contentment*",1 );		break;
-			 case 5:	npcemote(s, pc, "*Puff puff*",1 );					break;
-			 case 6:	npcemote(s, pc, "Wheeeee!!! Xuri's smoking!",1 );	break;
-			 default:	break;
-			}
-		}
-	}
-
-	if (LSD[s]) do_lsd(s); //LB's LSD potion-stuff
-
-	if (pc->isPlayer() && online(pc) && pc->squelched()==2)
-	{
-		if (pc->mutetime()>0)
+		if( pc->mutetime() > 0 )
 		{
 			if (pc->mutetime()<=currenttime||overflow)
 			{
 				pc->setSquelched(0);
 				pc->setMutetime(0);
-				sysmessage(s, tr("You are no longer squelched!") );
+				socket->sysMessage( tr( "You are no longer muted." ) );
 			}
 		}
 	}
 
-	if (pc->isPlayer() && online(pc))
+	if( pc->isPlayer() )
 	{
 		if ( pc->crimflag() > 0 && ( pc->crimflag() <= currenttime || overflow ) &&  pc->isCriminal() )//AntiChrist
 		{
-			sysmessage(s, tr("You are no longer a criminal.") );
+			socket->sysMessage( tr( "You are no longer criminal" ) );
 			pc->setCrimflag(0);
 			pc->setInnocent();
 		}
-		if (pc->murderrate()<currenttime)//AntiChrist
+
+		if( pc->murderrate() < currenttime )
 		{
 			if (pc->kills>0)
 				pc->kills--;
 			if ((pc->kills==SrvParams->maxkills())&&(SrvParams->maxkills()>0))
-				sysmessage(s, tr("You are no longer a murderer.") );
-			pc->setMurderrate((SrvParams->murderdecay()*MY_CLOCKS_PER_SEC)+currenttime);//AntiChrist
+				socket->sysMessage( tr( "You are no longer a murderer." ) );
+			pc->setMurderrate( ( SrvParams->murderdecay() * MY_CLOCKS_PER_SEC ) + currenttime );
 		}
-		setcharflag(pc);//AntiChrist
+
+		setcharflag( pc );
 	}
 
-	if ( pc->isPlayer() && pc->casting() )//PC casting a spell
+	if( pc->isPlayer() && pc->casting() )//PC casting a spell
 	{
 		pc->setNextact( pc->nextact() - 1 );
 		if( pc->spelltime() <= currenttime || overflow )//Spell is complete target it
 		{
-			Magic->AfterSpellDelay( s, pc );
+			// TODO: Reactivate when spellcasting is redone
+			//Magic->AfterSpellDelay( s, pc );
 		}
 		else if( pc->nextact() <= 0 )//redo the spell action
 		{
 			pc->setNextact( 75 );
-			impaction( s, pc->spellaction() );
+			pc->action( pc->spellaction() );
 		}
 	}
 
-	if(SrvParams->bgSound()>=1)
+	if( SrvParams->bgSound() >= 1 )
 	{
 		timer = SrvParams->bgSound() * 100;
-		if ( timer == 0 ) timer = 1;
-		if( online(pc) && pc->isPlayer() && !pc->dead && ( (rand()%(timer) ) == (timer/2))) 
-			bgsound(pc);
-	}
-	if( pc->spiritspeaktimer > 0 && pc->spiritspeaktimer <= uiCurrentTime)
-		pc->spiritspeaktimer = 0;
+		if( timer == 0 )
+			timer = 1;
 
+		if( socket && !pc->dead && ( (rand()%(timer) ) == (timer/2))) 
+			bgsound( pc );
+	}
+
+	// Reset spirit-speak
+	if( pc->spiritspeaktimer > 0 && pc->spiritspeaktimer <= uiCurrentTime )
+		pc->spiritspeaktimer = 0;
 	
-	// Blackwinds Jail stuff.
-	if (pc->cell>0)
+	// Jail stuff
+	if( pc->cell > 0 )
 	{
-		if ((pc->jailtimer>0) && (pc->jailtimer <= uiCurrentTime))
+		if( ( pc->jailtimer > 0 ) && ( pc->jailtimer <= uiCurrentTime ) )
 		{
-			sysmessage(s, tr("Your jail time is over!") );
+			socket->sysMessage( tr( "Your jail time is over!" ) );
 			
-			if (pc != NULL)
+			if( pc )
 			{
-				if(pc->cell==0)
+				if( pc->cell == 0 )
 				{			
-					sysmessage(s, tr("You're not in jail already ? Please report to GM") );
-					pc->jailtimer=0;
-					sprintf((char*)temp,"%i cause bug in jail system.",pc->account());
-					savelog((char*)temp,"server.log");
+					socket->sysMessage( tr( "You're not in jail already ? Please report to a GM. This has been logged." ) );
+					pc->jailtimer = 0;
+					savelog( tr( "%1 [0x%2] caused bug in jail system." ).arg( pc->name.c_str() ).arg( pc->serial, 8, 16 ), "server.log" );
 				}
 				else
 				{
-					jails[pc->cell].occupied = false;
-					pc->moveTo(jails[pc->cell].oldpos);
-					pc->cell=0;
-					pc->jailsecs=0;
-					pc->jailtimer=0;
-					pc->priv2=0;
-					teleport(pc);
+					jails[ pc->cell ].occupied = false;
+
+					pc->removeFromView( false );
+					pc->moveTo( jails[ pc->cell ].oldpos );
+					pc->resend( false );
 					
-					sprintf((char*)temp,"%s is auto-released from jail \n",pc->name.c_str());
-					savelog((char*)temp,"server.log");
+					pc->cell = 0;
+					pc->jailsecs = 0;
+					pc->jailtimer = 0;
+					pc->priv2 = 0;					
 					
-					sysmessage(s, tr("You are released.") );
+					savelog( tr( "%1 [0x%2] is automatically released from jail." ).arg( pc->name.c_str() ).arg( pc->serial, 8, 16 ), "server.log" );
+					socket->sysMessage( tr( "You have been released." ) );
 				}
-			}
-			
+			}		
+		}
+	}	
+
+	// changed to seconds instead of crappy #of checks
+	// This is totally broken
+	/*if( pc->trackingtimer > currenttime )
+	{
+		// TODO: Disable quest-arrow here
+
+		if( pc->trackingdisplaytimer() <= currenttime )
+		{
+			pc->setTrackingdisplaytimer( currenttime + SrvParams->redisplaytime() * MY_CLOCKS_PER_SEC );
+			Skills->Track( pc );
 		}
 	}
-	
-
-		// LB, changed to seconds instead of crappy #of checks, 21/9/99
-	if(pc->trackingtimer > currenttime && online(pc))
+	else
 	{
-		if(pc->trackingdisplaytimer()<=currenttime)
+		// dont send arrow-away packet all the time
+		// NOTE: This should be send every 5 seconds (!)
+		if( pc->trackingtimer > ( currenttime / 10 ) )
 		{
-			pc->setTrackingdisplaytimer(currenttime+SrvParams->redisplaytime()*MY_CLOCKS_PER_SEC);
-			Skills->Track(pc);
-		}
-	} else
-	{
-		if (pc->trackingtimer>(currenttime/10)) // dont send arrow-away packet all the time
-		{
-			pc->trackingtimer=0;
+			pc->trackingtimer = 0;
 			unsigned char arrow[7] = {0xBA, 0,};
-			P_CHAR pc_trackingTarget = FindCharBySerial(pc->trackingtarget);
-			arrow[0]='\xBA';
-			arrow[1]=0;
-			arrow[2]=(pc_trackingTarget->pos.x-1)>>8;
-			arrow[3]=(pc_trackingTarget->pos.x-1)%256;
-			arrow[4]=pc_trackingTarget->pos.y>>8;
-			arrow[5]=pc_trackingTarget->pos.y%256;
-			Xsend(s,arrow,6);
+			P_CHAR pc_trackingTarget = FindCharBySerial( pc->trackingtarget );
 		}
-	}
+	}*/
 
-	if (SrvParams->hungerRate() > 1 && (pc->hungertime()<=currenttime || overflow))
+	if( SrvParams->hungerRate() > 1 && ( pc->hungertime() <= currenttime || overflow ) )
 	{
-		if (!pc->isGMorCounselor() && pc->hunger()) pc->setHunger( pc->hunger()-1 ); //Morrolan GMs and Counselors don't get hungry
+		if( !pc->isGMorCounselor() && pc->hunger() ) 
+			pc->setHunger( pc->hunger() - 1 ); // GMs and Counselors don't get hungry
 
-		switch(pc->hunger())
+		switch( pc->hunger() )
 		{
 		case 6: break; //Morrolan
-		case 5: sysmessage(s, tr("You are still stuffed from your last meal") );	break;
-		case 4:	sysmessage(s, tr("You are not very hungry but could eat more") );	break;
-		case 3:	sysmessage(s, tr("You are feeling fairly hungry") );				break;
-		case 2:	sysmessage(s, tr("You are extremely hungry") );						break;
-		case 1:	sysmessage(s, tr("You are very weak from starvation") );			break;
+		case 5: socket->sysMessage( tr("You are still stuffed from your last meal") );	break;
+		case 4:	socket->sysMessage( tr("You are not very hungry but could eat more") );	break;
+		case 3:	socket->sysMessage( tr("You are feeling fairly hungry") );				break;
+		case 2:	socket->sysMessage( tr("You are extremely hungry") );						break;
+		case 1:	socket->sysMessage( tr("You are very weak from starvation") );			break;
 		case 0:
 			if (!pc->isGMorCounselor())
-				sysmessage(s, tr("You must eat very soon or you will die!") );
+				socket->sysMessage( tr( "You must eat very soon or you will die!" ) );
 			break;
 		}
-		pc->setHungerTime( currenttime+(SrvParams->hungerRate() * MY_CLOCKS_PER_SEC) );
+		pc->setHungerTime( currenttime + ( SrvParams->hungerRate() * MY_CLOCKS_PER_SEC ) );
 	}
+
 	if (((hungerdamagetimer<=currenttime)||(overflow))&&(SrvParams->hungerDamage()>0)) // Damage them if they are very hungry
 	{
 		hungerdamagetimer=currenttime+(SrvParams->hungerDamageRate()*MY_CLOCKS_PER_SEC); /** set new hungertime **/
-		if (pc->hp > 0 && pc->hunger()<2 && !pc->isGMorCounselor() && !pc->dead)
+		if( pc->hp > 0 && pc->hunger()<2 && !pc->isGMorCounselor() && !pc->dead )
 		{
-			sysmessage(s, tr("You are starving !") );
+			socket->sysMessage( tr( "You are starving." ) );
 			pc->hp -= SrvParams->hungerDamage();
-			updatestats(pc, 0);
-			if(pc->hp<=0)
+			
+			if( pc->hp <=0 )
 			{
-				sysmessage(s, tr("You have died of starvation") );
-				deathstuff(pc);
+				socket->sysMessage( tr( "You have died of starvation." ) );
+				deathstuff( pc );
 			}
 		}
 	}
 
 	// new math + poison wear off timer added by lord binary !
-
-	if ( pc->poisoned() && (online(pc) || pc->isNpc()) && !pc->isInvul() )
+	if( pc->poisoned() && !pc->isInvul() )
 	{
-		if (pc->poisontime()<=currenttime || (overflow))
+		if( pc->poisontime() <= currenttime || ( overflow ) )
 		{
-			if (pc->poisonwearofftime()>currenttime) // lb, makes poison wear off pc's
+			if( pc->poisonwearofftime() > currenttime ) // lb, makes poison wear off pc's
 			{
-				switch (pc->poisoned())
+				// We only support 4 levels of poison here.
+				switch( pc->poisoned() )
 				{
 				case 1:
 					pc->setPoisontime(currenttime+(5*MY_CLOCKS_PER_SEC));
 					if ( pc->poisontxt()<=currenttime || (overflow))
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						sprintf(t,"* %s looks a bit nauseous *", pc->name.c_str());
-						pc->emotecolor = 0x0026;//buffer[s][4];
-						npcemoteall(pc,t,1);
+						pc->emote( tr( "*%1 looks a bit nauseous!*" ).arg( pc->name.c_str() ), 0x26 );
 					}
 				 
 					pc->hp -= QMAX(((pc->hp)*RandomNum(5,15))/100, RandomNum(0,1) ); // between 0% and 10% of player's hp 
@@ -551,73 +454,64 @@ void checkPC( P_CHAR pc, unsigned int currenttime ) //Char mapRegions
 					if ((pc->poisontxt()<=currenttime)||(overflow))
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						sprintf(t,"* %s looks disoriented and nauseous! *",pc->name.c_str());
-						pc->emotecolor = 0x0026;//buffer[s][4];
-						npcemoteall(pc,t,1);
+						pc->emote( tr( "*%1 looks disoriented and nauseous!*" ).arg( pc->name.c_str() ), 0x26 );
 					}
 					
 					pc->hp -= QMAX(((pc->hp)*RandomNum(10,20))/100, RandomNum(0,1)); //between 10% and 20% of player's hp
- 
-					updatestats(pc, 0);
+					pc->updateHealth();
 					break;
 				case 3:
 					pc->setPoisontime(currenttime+(3*MY_CLOCKS_PER_SEC));
-					if ( pc->poisontxt() <= currenttime ||(overflow))
+					
+					if( pc->poisontxt() <= currenttime ||(overflow))
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						sprintf(t,"* %s is in severe pain! *", pc->name.c_str());
-						pc->emotecolor = 0x0026;//buffer[s][4];
-						npcemoteall(pc,t,1);
+						pc->emote( tr( "*%1 is in severe pain!*" ).arg( pc->name.c_str() ), 0x26 );
 					}
-					x=RandomNum(1,3);
-					y=RandomNum(5,10);
-					y=10;
 					
-					pc->hp -= QMAX(((pc->hp)*RandomNum(20,30))/100, RandomNum(0,1)); //between 20% and 30% of player's hp 
-
-					updatestats(pc, 0);
-					break; // lb !!!
+					pc->hp -= QMAX( ( pc->hp * RandomNum( 20, 30 ) ) / 100, RandomNum( 0, 1 ) ); // between 20% and 30% of player's hp 
+					pc->updateHealth();
+					break;
 				case 4:
 					pc->setPoisontime( currenttime+(3*MY_CLOCKS_PER_SEC) );
-					if ( pc->poisontxt() <= currenttime || (overflow))
+
+					if( pc->poisontxt() <= currenttime || (overflow) )
 					{
 						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						sprintf(t,"* %s looks extremely weak and is wrecked in pain! *", pc->name.c_str());
-						pc->emotecolor = 0x0026;//buffer[s][4];
-						npcemoteall(pc,t,1);
+						pc->emote( tr( "*%1 looks extremely sick*" ).arg( pc->name.c_str() ), 0x26 );
 					}
-
-					x = RandomNum(3,6);
-					y = 20;
 				
-					pc->hp -= QMAX(((pc->hp)*RandomNum(30,40))/100, 1); //between 30% and 40% of player's hp 
+					pc->hp -= QMAX( ( pc->hp * RandomNum( 30, 40 ) ) / 100, 1 ); //between 30% and 40% of player's hp 
 					updatestats(pc, 0);
 					break;
 
 				default:
-					clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, checkPC()\n"); //Morrolan
-					pc->setPoisoned(0);
+					clConsole.send( tr( "Unknown poison type for Character %1 [0x%2]\n" ).arg( pc->name.c_str() ).arg( pc->serial, 8, 16 ) );
+					pc->setPoisoned( 0 );
 					return;
 				}
-				if (pc->hp<1)
+
+				if( pc->hp < 1 )
 				{
-					deathstuff(pc);
-					sysmessage(s, tr("The poison has killed you.") );
+					socket->sysMessage( tr( "The poison killed you.") );
+					deathstuff(pc);					
 				}
 			} // end switch
 		} // end if poison-wear off-timer
 	} // end if poison-damage timer
 
-	if ( pc->poisoned() && pc->poisonwearofftime()<=currenttime && online(pc) )
+	if( pc->poisoned() && pc->poisonwearofftime() <= currenttime )
 	{
-		pc->setPoisoned(0);
-		impowncreate(s, pc, 1); // updating to blue stats-bar ...
-		sysmessage(s, tr("The poison has worn off.") );
+		pc->setPoisoned( 0 );
+		pc->update(); // a simple status-update should be enough here
+		socket->sysMessage( tr( "The poison has worn off." ) );
 	}
+
+	// Horse checks ( Todo: move to DELEITEM + SETCONTSERIAL + SETLAYER )
 	if( pc->onHorse() )
 	{
-		P_ITEM pHorse = pc->GetItemOnLayer(0x19);
-		if(!pHorse)
+		P_ITEM pHorse = pc->GetItemOnLayer( 0x19 );
+		if( !pHorse )
 		{
 			pc->setOnHorse( false );	// turn it off, we aren't on one because there's no item!
 			return;

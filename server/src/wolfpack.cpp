@@ -2650,22 +2650,6 @@ void telltime( UOXSOCKET s )
 	sysmessage(s, tstring);
 }
 
-void impaction(int s, int act)
-{
-	P_CHAR pc_currchar = currchar[s];
-	if (pc_currchar->onHorse() && (act==0x10 || act==0x11))
-	{
-		action(s, 0x1b);
-		return;
-	}
-	if( (pc_currchar->onHorse() || ( pc_currchar->id() < 0x190 ) )
-		&& (act==0x22))
-	{
-		return;
-	}
-	action(s, act);
-}
-
 int chardir(P_CHAR a, P_CHAR b)	// direction from character a to char b
 {
 	int dir,xdif,ydif;

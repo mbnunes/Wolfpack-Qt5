@@ -4430,10 +4430,10 @@ void cMagic::Gate(UOXSOCKET s)
 	} else sysmessage(s,"Not a valid gate target");//AntiChrist
 }
 
-void cMagic::Action4Spell(UOXSOCKET s, int num)
+void cMagic::Action4Spell( UOXSOCKET s, int num )
 {
-	if (spells[num].action)
-		impaction(s, spells[num].action);
+	/*if (spells[num].action)
+		impaction(s, spells[num].action);*/
 }
 
 void cMagic::AfterSpellDelay(UOXSOCKET s, P_CHAR pc)

@@ -1230,7 +1230,7 @@ cTimedSpellAction::cTimedSpellAction( SERIAL serial, UI08 nAction )
 
 	// Display the animation once
 	P_CHAR pc = FindCharBySerial( serial );
-	impaction( calcSocketFromChar( pc ), nAction );
+	pc->action( nAction );
 
 	// Save our data
 	character = serial;

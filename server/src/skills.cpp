@@ -1664,7 +1664,7 @@ void cSkills::SpiritSpeak(int s) // spirit speak time, on a base of 30 seconds +
 	//	Unsure if spirit speaking should they attempt again?
 	//	Suggestion: If they attempt the skill and the timer is !0 do not have it raise the skill
 	
-	if(!Skills->CheckSkill(currchar[s], SPIRITSPEAK, 0, 1000))
+	/*if(!Skills->CheckSkill(currchar[s], SPIRITSPEAK, 0, 1000))
 	{
 		sysmessage(s,"You fail your attempt at contacting the netherworld.");
 		return;
@@ -1673,7 +1673,7 @@ void cSkills::SpiritSpeak(int s) // spirit speak time, on a base of 30 seconds +
 	impaction(s,0x11);			// I heard there is no action...but I decided to add one
 	soundeffect(s,0x02,0x4A);	// only get the sound if you are successful
 	sysmessage(s,"You establish a connection to the netherworld.");
-	SetTimerSec(&currchar[s]->spiritspeaktimer,SrvParams->spiritspeaktimer()+currchar[s]->in);
+	SetTimerSec(&currchar[s]->spiritspeaktimer,SrvParams->spiritspeaktimer()+currchar[s]->in);*/
 }
 
 int cSkills::GetCombatSkill(P_CHAR pc)

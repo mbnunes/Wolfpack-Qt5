@@ -112,7 +112,6 @@ void npcToggleCombat(P_CHAR pc);
 int chardir(P_CHAR a, P_CHAR b);
 int unmounthorse(UOXSOCKET s);
 void telltime(int s);
-void impaction(int s, int act);
 int fielddir(P_CHAR pc, int x, int y, int z);
 void npcattacktarget(P_CHAR attacker, P_CHAR defender);
 void npcsimpleattacktarget(P_CHAR attacker, P_CHAR defender);

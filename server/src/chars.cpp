@@ -1973,6 +1973,11 @@ void cChar::updateHealth( void )
 
 void cChar::action( UINT8 id )
 {
+	if( onHorse() && ( id == 0x10 || id == 0x11 ) )
+		id = 0x1b;
+	else if( ( onHorse() || this->id() < 0x190 ) && ( id == 0x22 ) )
+		return;
+
 	cUOTxAction action;
 	action.setAction( id );
 	action.setSerial( serial );
