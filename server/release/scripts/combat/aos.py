@@ -123,12 +123,14 @@ def scaledamage(char, damage, checkskills = 1):
 		if char.skill[LUMBERJACKING] >= 1000:
 			bonus += 10
 
-	# Strength bonus
-	bonus += char.strength * 0.3
-
-	# If strength is above 100, grant an extra 5 percent bonus
-	if char.strength >= 100:
-		bonus += 5
+	# Only players get strength boni
+	if not char.npc:
+		# Strength bonus
+		bonus += char.strength * 0.3
+	
+		# If strength is above 100, grant an extra 5 percent bonus
+		if char.strength >= 100:
+			bonus += 5
 
 	# Anatomy bonus
 	bonus += char.skill[ANATOMY] * 0.05

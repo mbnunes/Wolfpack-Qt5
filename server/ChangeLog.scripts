@@ -37,6 +37,8 @@ Wolfpack 12.9.11 Beta (CVS)
 		- Added a say <text> command
 		- Fixed add and craft menus for the 3d client.
 		- Added defense and hit bonus properties for items.
+		- Fixed loot random amount problems.
+		- Fixed NPC damage.
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.
