@@ -15,7 +15,8 @@ from wolfpack.utilities import *
 #mining calling from pickaxe.py and shovel.py
 
 oresound = 0x126
-
+#in seconds
+miningdelay = 1600
 # Name, reqSkill, minSkill, maxSkill, successClilocId, itemId, color, mutateVeinChance%, VeinChanceToFallback%
 
 oretable = \
@@ -63,6 +64,7 @@ def mining( char, pos, tool ):
 
    success = 0
    char.addtimer( 1400, "skills.mining.effecttimer", [oresound] )
+   char.settag( 'is_mining', servertime() + miningdelay )
    char.turnto( pos )
    char.action( 11 )
 
@@ -71,12 +73,13 @@ def mining( char, pos, tool ):
       # Anyway you haven't 100% chance to get something :)
       if char.skill[ MINING ] > reqskill:
          if whrandom.randint( oretable[ resname ][ MINSKILL ], oretable[ resname ][ MAXSKILL ] ) < char.skill[ MINING ]:
-            if whrandom.random() < 0.5:
+            if whrandom.random() < 0.9:
                success = 1
                skills.successharvest( char, veingem, oretable, resname, 1 ) # 1 - amount of ore
+               skills.checkskill( char, MINING, 0 )
 
    if success == 0:
-      socket.clilocmessage( 501869, "", YELLOW, NORMAL ) # You loosen some rocks but fail to find any usable ore.
+      socket.clilocmessage( 501869, "", GRAY, NORMAL ) # You loosen some rocks but fail to find any usable ore.
       
    char.deltag('nowmining')
    return OK
@@ -107,12 +110,7 @@ def response( char, args, target ):
 
    # Player can reach that ?
    if char.pos.map != pos.map or char.pos.distance( pos ) > MINING_MAX_DISTANCE:
-      socket.clilocmessage( 500446, "", YELLOW, NORMAL ) # That is too far away
-      return OK
-
-   # Already mining ?
-   if char.hastag('is_mining'):
-      socket.clilocmessage( 503029, "", YELLOW, NORMAL ) # You are already digging.
+      socket.clilocmessage( 500446, "", RED, NORMAL ) # That is too far away
       return OK
 
    tool = args[0]
@@ -120,7 +118,7 @@ def response( char, args, target ):
    #Player also can't mine when riding, polymorphed and dead.
    #Mine char ?!
    if target.char:
-      socket.clilocmessage( 501863, "", YELLOW, NORMAL ) # You can't mine that.
+      socket.clilocmessage( 501863, "", RED, NORMAL ) # You can't mine that.
       return OK
 
    
@@ -137,7 +135,7 @@ def response( char, args, target ):
       if ismountainorcave( map['id'] ):
          mining( char, target.pos, tool )
       else:
-         socket.clilocmessage( 501862, "", YELLOW, NORMAL ) # You can't mine there.
+         socket.clilocmessage( 501862, "", RED, NORMAL ) # You can't mine there.
       return OK
 
    #Find tile by it's model
@@ -146,7 +144,7 @@ def response( char, args, target ):
          #add new ore gem here and mine
          mining( char, target.pos, tool )
       else:
-         socket.clilocmessage( 501862, "", YELLOW, NORMAL ) # You can't mine there.
+         socket.clilocmessage( 501862, "", RED, NORMAL ) # You can't mine there.
       return OK
    else:
       return OOPS
