@@ -1666,10 +1666,11 @@ void cPlayer::poll( unsigned int time, unsigned int events )
 
 		if ( events & EventTime )
 		{
-			if ( cPythonScript::canChainHandleEvent( EVENT_TIMECHANGE, scriptChain ) )
+			if ( canHandleEvent( EVENT_TIMECHANGE ) )
 			{
 				PyObject* args = Py_BuildValue( "(N)", getPyObject() );
-				cPythonScript::callChainedEventHandler( EVENT_TIMECHANGE, scriptChain, args );
+				callEventHandler( EVENT_TIMECHANGE, args );
+				Py_DECREF(args);
 			}
 		}
 	}
