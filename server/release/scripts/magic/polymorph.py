@@ -14,14 +14,14 @@ class PolymorphAction(MakeAction):
 		castSpell(player, 56, 0, [self.bodyid])
 
 class PolymorphMenu(MakeMenu):
-  def __init__(self, id, parent, title):
-    MakeMenu.__init__(self, id, parent, title)
-    self.gumptype = 0xf4132a42 # This should be unique
-    self.name_makelast = "Select Last"
+	def __init__(self, id, parent, title):
+		MakeMenu.__init__(self, id, parent, title)
+		self.gumptype = 0xf4132a42 # This should be unique
+		self.name_makelast = "Select Last"
 
 def showmenu(player):
-  menu = findmenu("POLYMORPH")
-  menu.send(player)
+	menu = findmenu("POLYMORPH")
+	menu.send(player)
 
 # Populate the Polymorph menu
 menu = PolymorphMenu("POLYMORPH", None, "POLYMORPH")

@@ -107,10 +107,7 @@ class cGump:
 
 	# Set the Gump-Type (this can be used to close it later on)
 	def setType( self, typeid ):
-		if not type( typeid ) is IntType:
-			raise TypeError( "You have to pass an integer to setType" )
-		else:
-			self.typeid = typeid
+		self.typeid = typeid
 
 	# Set the Gump-Serial (this can be used to only open one gump of the same type at the same moment)
 	# This will auto-close the first gump
