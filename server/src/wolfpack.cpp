@@ -1317,7 +1317,7 @@ void checkparm(QString param)
 
 int main( int argc, char *argv[] )
 {
-	QApplication app( argc, argv ); // we need one instance
+	QApplication app( argc, argv, false ); // we need one instance
 
 	// Parse our arguments
 	if (argc > 1)
@@ -1687,7 +1687,7 @@ int main( int argc, char *argv[] )
 
 		tempTime = getNormalizedTime() - loopSecs;
 		loopTime += tempTime;
-		qApp->processOneEvent();
+		qApp->processEvents( 40 );
 	}
 
 	sysbroadcast("The server is shutting down.");
