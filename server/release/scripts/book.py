@@ -102,7 +102,7 @@ def onBookUpdatePage(char, item, page, content):
 	if page > pages or page < 1:
 		return
 
-	if len( content.strip()	) == 0:
+	if not content or len(content.strip()) == 0:
 		item.deltag('page%u' % page)
 		return
 		
