@@ -871,48 +871,56 @@
 	<!-- Bookcases -->
 	<item id="a97">
 		<id>0xa97</id>
+		<type>1</type>
 		<nodecay />
 		<category>Decoration\Bookcases\Bookcase 1 (N/S)</category>
 	</item>
 
 	<item id="a98">
 		<id>0xa98</id>
+		<type>1</type>
 		<nodecay />
 		<category>Decoration\Bookcases\Bookcase 2 (N/S)</category>
 	</item>
 
 	<item id="a99">
 		<id>0xa99</id>
+		<type>1</type>
 		<nodecay />
 		<category>Decoration\Bookcases\Bookcase 1 (W/E)</category>
 	</item>
 
 	<item id="a9a">
 		<id>0xa9a</id>
+		<type>1</type>
 		<nodecay />
 		<category>Decoration\Bookcases\Bookcase 2 (W/E)</category>
 	</item>
 
 	<item id="a9b">
 		<id>0xa9b</id>
+		<type>1</type>
 		<nodecay />
 		<category>Decoration\Bookcases\Bookcase 3 (N/S)</category>
 	</item>
 
 	<item id="a9c">
 		<id>0xa9c</id>
+		<type>1</type>
 		<nodecay />
 		<category>Decoration\Bookcases\Bookcase 3 (W/E)</category>
 	</item>
 
 	<item id="a9d">
 		<id>0xa9d</id>
+		<type>1</type>
 		<nodecay />
 		<category>Decoration\Bookcases\Empty Bookcase (N/S)</category>
 	</item>
 
 	<item id="a9e">
 		<id>0xa9e</id>
+		<type>1</type>
 		<nodecay />
 		<category>Decoration\Bookcases\Empty Bookcase (W/E)</category>
 	</item>
