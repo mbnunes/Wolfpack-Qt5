@@ -9,9 +9,15 @@
 		<inherit id="monster_base" />
 		<karma>-20000</karma>
 		<fame>-20000</fame>
-		<defense><random min="52" max="58" /></defense>
-		<lodamage>34</lodamage>
-		<hidamage>86</hidamage>
+		<!-- Damage -->
+		<tag name="mindamage" value="24" />
+		<tag name="maxdamage" value="36" />
+		<tag name="dmg_physical" value="40" />
+		<tag name="dmg_fire" value="60" />
+		<!-- Defense -->
+		<tag name="res_physical" value="52,58" />
+		<tag name="res_fire" value="100" />
+		<!-- Stats -->
 		<str><random min="376" max="400" /></str>
 		<dex><random min="91" max="120" /></dex>
 		<int><random min="291" max="300" /></int>

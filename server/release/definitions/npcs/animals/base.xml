@@ -15,5 +15,7 @@
 		<wandertype>1</wandertype>
 		<direction><random min="0" max="18" /></direction>
 	</npc>
+	<tag name="mindamage" value="1" />
+	<tag name="maxdamage" value="3" />
 
 </definitions>

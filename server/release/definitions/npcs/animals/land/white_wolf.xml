@@ -28,9 +28,12 @@
 		<inherit id="animal_base" />
 		<karma><random min="0" max="-624" /></karma>
 		<fame><random min="0" max="1249" /></fame>
-		<defense><random min="15" max="20" /></defense>
-		<lodamage>4</lodamage>
-		<hidamage>10</hidamage>
+		<!-- Damage -->
+		<tag name="mindamage" value="4" />
+		<tag name="maxdamage" value="10" />
+		<tag name="dmg_physical" value="100" />
+		<!-- Defense -->
+		<tag name="res_physical" value="15,20" />
 		<!-- Stats -->
 		<str><random min="56" max="80" /></str>
 		<dex><random min="56" max="75" /></dex>

@@ -5,9 +5,20 @@
 		<inherit id="animal_base" />
 		<karma>0</karma>
 		<fame>0</fame>
-		<defense>0</defense>
-		<lodamage>0</lodamage>
-		<hidamage>0</hidamage>
+		<!-- Damage -->
+		<tag name="mindamage" value="1" />
+		<tag name="maxdamage" value="2" />
+		<tag name="dmg_physical" value="20" />
+		<tag name="dmg_cold" value="20" />
+		<tag name="dmg_fire" value="20" />
+		<tag name="dmg_poison" value="20" />
+		<tag name="dmg_energy" value="20" />
+		<!-- Defense -->
+		<tag name="res_physical" value="100" />
+		<tag name="res_cold" value="100" />
+		<tag name="res_fire" value="100" />
+		<tag name="res_poison" value="100" />
+		<tag name="res_energy" value="100" />
 		<str>100</str>
 		<dex>100</dex>
 		<int>100</int>
