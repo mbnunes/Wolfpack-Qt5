@@ -35,12 +35,12 @@ def provocation( char, skill ):
 		return True
 
 	socket.clilocmessage( 0x7A74D, "", 0x3b2, 3 ) # What do you wish to incite?
-	socket.attachtarget( "skills.provocation.response1", [instrument] )
+	socket.attachtarget( "skills.provocation.response1", [instrument.serial] )
 	return True
 
 def response1( char, args, target ):
 	socket = char.socket
-	instrument = args[0]
+	instrument = wolfpack.finditem(args[0])
 
 	if target.item:
 		socket.clilocmessage( 0x7A755, "", 0x3b2, 3 ) # You can't incite that!
@@ -67,7 +67,7 @@ def response1( char, args, target ):
 
 		playinstrument( char, instrument, "success" )
 		socket.clilocmessage( 0xF61D5, "", 0x3b2, 3 ) # You play your music and your target becomes angered.  Whom do you wish them to attack?
-		socket.attachtarget( "skills.provocation.response2", [target.char, tobardtarget1, instrument] )
+		socket.attachtarget( "skills.provocation.response2", [target.char.serial, tobardtarget1, instrument.serial] )
 		return True
 
 def response2( char, args, target ):
@@ -76,9 +76,9 @@ def response2( char, args, target ):
 	if not target.char:
 		return False
 
-	creature1 = args[0]
+	creature1 = wolfpack.findchar(args[0])
 	tobardtarget1 = args[1]
-	instrument = args[2]
+	instrument = wolfpack.finditem(args[2])
 	tobardtarget2 = tobard( target.char, "provoke" )
 	minimum = int( ( ( tobardtarget1 + tobardtarget2 ) / 2.0 ) - 25.0 )
 	maximum = int( ( ( tobardtarget1 + tobardtarget2 ) / 2.0 ) + 25.0 )
@@ -161,7 +161,7 @@ def findinstrument( char, args, target ):
 
 	socket.settag( 'instrument', serial )
 	socket.clilocmessage( 0x7A753, "", 0x3b2, 3, )
-	socket.attachtarget( "skills.provocation.response1", [target.item] )
+	socket.attachtarget( "skills.provocation.response1", [target.item.serial] )
 	return True
 
 def playinstrument( char, item, how ):
@@ -184,7 +184,7 @@ def playinstrument( char, item, how ):
 		char.soundeffect( instruments[ item.id ][ 1 ] )
 		return True
 
-def tobard( char, type ):
+ char, type ):
 	socket = char.socket
 	value = skilltotal( char )
 	value +=  ( char.hitpoints + char.stamina + char.mana )

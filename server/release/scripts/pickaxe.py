@@ -35,7 +35,7 @@ def onUse( char, tool ):
 	if wolfpack.utilities.isminingtool( tool ):
 		# Where do you wish to dig?
 		char.socket.clilocmessage( 503033, "", GRAY)
-		char.socket.attachtarget( "skills.mining.response", [ tool ] )
+		char.socket.attachtarget( "skills.mining.response", [ tool.serial ] )
 	else:
 		char.socket.clilocmessage( 500735, "", GRAY) # Don't play with things you don't know about. :)
 		return True

@@ -43,7 +43,7 @@ def onUse ( char, item ):
 
 	if not item.hastag ( "filled" ):
 		char.socket.clilocmessage( 0xFF9F5, "", 0x3b2, 3 )
-		char.socket.attachtarget( "deeds.commoditydeed.response", [item] )
+		char.socket.attachtarget( "deeds.commoditydeed.response", [item.serial] )
 		return 1
 
 	amount = item.gettag( "amount" )
@@ -64,7 +64,7 @@ def onUse ( char, item ):
 def response ( char, args, target ):
 
 	bank = char.getbankbox()
-	deed = args[0]
+	deed = wolfpack.finditem(args[0])
 
 	# "0x1761", "0x1762", "0x1763", "0x1764" possible?
 	commodities = [ 0x1bf2, 0x1bfb, 0x1bd7, 0x1766, 0x1768, 0x1081, 0x1078, \

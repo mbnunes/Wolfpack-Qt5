@@ -74,12 +74,12 @@ def onUse( char, item ):
 	char.socket.clilocmessage( 1049780, "", 0x3b2 )
 
 	# send target cursor
-	char.socket.attachtarget( "deeds.carpentry_deed.response", [ item ] )
+	char.socket.attachtarget( "deeds.carpentry_deed.response", [ item.serial ] )
 
 	return True
 
 def response( char, args, target ):
-	item = args[0]
+	item = wolfpack.finditem(args[0])
 	if not item or item.getoutmostchar() != char:
 		# msg
 		return

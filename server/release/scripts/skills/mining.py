@@ -102,7 +102,7 @@ def response( char, args, target ):
 		socket.clilocmessage( 500446, "", GRAY )
 		return True
 
-	tool = args[0]
+	tool = wolfpack.finditem(args[0])
 
 	#Player also can't mine when riding, polymorphed and dead.
 	#Mine char ?!

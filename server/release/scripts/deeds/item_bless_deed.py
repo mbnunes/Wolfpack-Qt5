@@ -23,7 +23,7 @@ def onShowToolTip( sender, target, tooltip ):
 def onUse( char, item ):
 
 	char.socket.clilocmessage( 0x7A31A, "", 0x3b2, 3 )
-	char.socket.attachtarget( "deeds.item_bless_deed.response", [item] )
+	char.socket.attachtarget( "deeds.item_bless_deed.response", [item.serial] )
 
 	return 1
 
@@ -46,7 +46,7 @@ def response( char, args, target ):
 		char.socket.clilocmessage( 0x7A31F, "", 0x3b2, 3 )
 		return 0
 
-	item = args[0]
+	item = wolfpack.finditem(args[0])
 	backpack = char.getbackpack()
 
 	target.item.settag( "blessed", 1 )

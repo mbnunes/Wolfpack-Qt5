@@ -39,7 +39,7 @@ def selectpotion(char, args, target):
 
 	# assign target request
 	char.socket.clilocmessage( 502142 )
-	char.socket.attachtarget( "skills.poisoning.selecttarget", [ potion ] )
+	char.socket.attachtarget( "skills.poisoning.selecttarget", [ potion.serial ] )
 	return 1
 
 def selecttarget( char, args, target ):
@@ -48,7 +48,7 @@ def selecttarget( char, args, target ):
 		socket.clilocmessage( 502796 )
 		return
 
-	potion = args[ 0 ]
+	potion = wolfpack.finditem(args[ 0 ])
 	if not potion:
 		return
 
