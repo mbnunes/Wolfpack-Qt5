@@ -409,12 +409,14 @@ void handleItems( P_CHAR pChar, const Coord_cl &oldpos )
 		// If we are a connected player then send new items
 		if( socket )
 		{
-			UINT32 oldDist = oldpos.distance( pItem->pos );
-			UINT32 newDist = pChar->pos.distance( pItem->pos );
+			UI32 oldDist = oldpos.distance( pItem->pos );
+			UI32 newDist = pChar->pos.distance( pItem->pos );
 
 			// Was out of range before and now is in range
-			if( oldDist > pChar->VisRange && newDist <= pChar->VisRange )
+			if( ( oldDist >= pChar->VisRange ) && ( newDist <= pChar->VisRange ) )
+			{
 				pItem->update( socket );
+			}
 		}
 	}
 }
