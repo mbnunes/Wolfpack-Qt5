@@ -1750,8 +1750,7 @@ void cBaseChar::goldSound( unsigned short amount, bool hearall )
 	soundEffect( sound, hearall );
 }
 
-void cBaseChar::showPaperdoll( cUOSocket *source, bool hotkey )
-{
+void cBaseChar::showPaperdoll(cUOSocket *source, bool hotkey) {
 	if( !source )
 		return;
 
@@ -1761,18 +1760,17 @@ void cBaseChar::showPaperdoll( cUOSocket *source, bool hotkey )
 		return;
 
 	// For players we'll always show the Paperdoll
-	if( isHuman() || objectType() != enNPC )
-	{
-        // If we're mounted (item on layer 25) and *not* using a hotkey
-		// We're trying to unmount ourself
-		if( !hotkey && ( this == pChar ) && pChar->unmount() )
+	if (isHuman() || objectType() != enNPC) {
+
+		// If we're mounted (item on layer 25) and *not* using a hotkey
+		// We're trying to unmount
+		if (!hotkey && (this == pChar) && pChar->unmount())
 			return; // We have been unmounted
 
-		source->sendPaperdoll( this );
+		source->sendPaperdoll(this);
 	}
 
 	// Is that faster ??
-
 	switch( bodyID_ )
 	{
 	case 0x0034:
@@ -1959,7 +1957,6 @@ QString cBaseChar::onShowPaperdollName( P_CHAR pOrigin )
 		}
 
 		Py_XDECREF( result );
-
 		Py_DECREF( args );
 	}
 

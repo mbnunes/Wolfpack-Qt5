@@ -32,8 +32,11 @@
 #include "uopacket.h"
 #include "../items.h"
 #include "../coord.h"
+#include "../inlines.h"
 #include "../basechar.h"
 #include "../player.h"
+#include "../globals.h"
+#include "../wpdefmanager.h"
 
 // Library Includes
 #include <qstringlist.h>
@@ -401,12 +404,60 @@ void cUOTxOpenPaperdoll::fromChar( P_CHAR pChar, P_CHAR pOrigin )
 {
 	setSerial( pChar->serial() );
 
-	QString nameByScript = pChar->onShowPaperdollName( pOrigin );
+	QString nameByScript = pChar->onShowPaperdollName(pOrigin);
 
-	if( !nameByScript.isNull() )
+	if( !nameByScript.isNull() ) {
 		setName( nameByScript );
-	else
-		setName( pChar->name() + ( pChar->title().isEmpty() ? QString( "" ) : ", " + pChar->title() ) );
+	} else {
+		QStringList titles = DefManager->getList("REPUTATION_TITLES");
+		
+		// Calculate the position inside the list
+		unsigned int position;
+
+		if (pChar->karma() >= 10000) {
+			position = 0;
+		} else if (pChar->karma() >= 5000) {
+			position = 1;
+		} else if (pChar->karma() >= 2500) {
+			position = 2;
+		} else if (pChar->karma() >= 1250) {
+			position = 3;
+		} else if (pChar->karma() >= 625) {
+			position = 4;
+		} else if (pChar->karma() <= -625) {
+			position = 6;
+		} else if (pChar->karma() <= -1250) {
+			position = 7;
+		} else if (pChar->karma() <= -2500) {
+			position = 8;
+		} else if (pChar->karma() <= -5000) {
+			position = 9;
+		} else if (pChar->karma() <= -10000) {
+			position = 10;
+		} else {
+			position = 5;
+		}
+
+		position = (position * 5) + std::min(4, pChar->fame() / 2500);
+
+		if (position < titles.size()) {
+			QString prefix = titles[position];
+			if (prefix.length() > 0) {
+				prefix.prepend("The ");
+				prefix.append(" ");
+			}
+
+			// Lord/Lady Title
+			if (pChar->fame() == 10000) {    
+				prefix.append(pChar->gender() ? tr("Lady") : tr("Lord"));
+				prefix.append(" ");
+			}
+
+			setName( prefix + pChar->name() + ( pChar->title().isEmpty() ? QString("") : ", " + pChar->title() ) );
+		} else {
+			setName( pChar->name() + ( pChar->title().isEmpty() ? QString("") : ", " + pChar->title() ) );
+		}		
+	}
 
 	if( pChar->isAtWar() )
 		setFlag( 0x40 );
