@@ -130,6 +130,7 @@ private:
 	enum MapType
 	{
 		MT_CHARS,
+		MT_CHARSANDOFFLINE,
 		MT_ITEMS
 	};
 
@@ -156,9 +157,9 @@ public:
 	cItemSectorIterator* findItems( unsigned char map, uint x1, uint y1, uint x2, uint y2 );
 	cItemSectorIterator* findItems( const Coord_cl& center, unsigned char distance );
 
-	cCharSectorIterator* findChars( unsigned char map, uint x, uint y ); // Find items in a specific block
-	cCharSectorIterator* findChars( unsigned char map, uint x1, uint y1, uint x2, uint y2 );
-	cCharSectorIterator* findChars( const Coord_cl& center, unsigned char distance );
+	cCharSectorIterator* findChars( unsigned char map, uint x, uint y, bool includeoffline = false ); // Find items in a specific block
+	cCharSectorIterator* findChars( unsigned char map, uint x1, uint y1, uint x2, uint y2, bool includeoffline = false );
+	cCharSectorIterator* findChars( const Coord_cl& center, unsigned char distance, bool includeoffline = false );
 };
 
 //typedef SingletonHolder< cSectorMaps > SectorMaps;
@@ -171,7 +172,7 @@ class RegionIterator4Chars
 private:
 	cCharSectorIterator* iter;
 public:
-	RegionIterator4Chars( const Coord_cl& pos, unsigned int distance = 18 );
+	RegionIterator4Chars( const Coord_cl& pos, unsigned int distance = 18, bool offline = false );
 	virtual ~RegionIterator4Chars();
 
 	void Begin( void );

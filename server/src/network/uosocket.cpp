@@ -493,14 +493,14 @@ void cUOSocket::disconnect( void )
 
 	if ( _player )
 	{
-		_player->removeFromView( false );
+		_player->removeFromView( true );
 		if ( !_player->isGMorCounselor() && ( !_player->region() || !_player->region()->isGuarded() ) )
 		{
 			_player->setLogoutTime( Server::instance()->time() + Config::instance()->quittime() * 1000 );
 		}
 		else
 		{
-			SectorMaps::instance()->remove( _player );
+			//SectorMaps::instance()->remove( _player );
 		}
 		_player->resend( false );
 	}
@@ -1662,11 +1662,11 @@ void cUOSocket::setPlayer( P_PLAYER pChar )
 	{
 		if ( _player )
 		{
-			_player->removeFromView( false );
+			_player->removeFromView( true );
 			_player->setSocket( 0 );
 			_player->setLogoutTime( 0 );
 			_player->resend( false );
-			SectorMaps::instance()->remove( _player );
+			//SectorMaps::instance()->remove( _player );
 		}
 
 		_player = pChar;
@@ -2229,7 +2229,7 @@ void cUOSocket::resendWorld( bool clean )
 		item->update( this );
 	}
 
-	RegionIterator4Chars chIterator( _player->pos(), _player->visualRange() );
+	RegionIterator4Chars chIterator( _player->pos(), _player->visualRange(), true );
 	for ( chIterator.Begin(); !chIterator.atEnd(); chIterator++ )
 	{
 		P_CHAR pChar = chIterator.GetData();

@@ -436,9 +436,18 @@ static PyObject* wpItem_settag( wpItem* self, PyObject* args )
 	{
 		self->pItem->setTag( key, cVariant( ( int ) PyInt_AsLong( object ) ) );
 	}
+	else if ( PyLong_Check( object ) )
+	{
+		self->pItem->setTag( key, cVariant( ( int ) PyLong_AsLong( object ) ) );
+	}
 	else if ( PyFloat_Check( object ) )
 	{
 		self->pItem->setTag( key, cVariant( ( double ) PyFloat_AsDouble( object ) ) );
+	}
+	else
+	{
+        PyErr_SetString( PyExc_TypeError, "You passed an unknown object type to char.settag." );
+		return 0;
 	}
 
 	Py_RETURN_NONE;
@@ -1378,6 +1387,8 @@ static int wpItem_setAttr( wpItem* self, char* name, PyObject* value )
 			val = cVariant( Python2QString( value ) );
 		else if ( PyInt_Check( value ) )
 			val = cVariant( PyInt_AsLong( value ) );
+		else if ( PyLong_Check( value ) )
+			val = cVariant( PyLong_AsLong( value ) );
 		else if ( checkWpItem( value ) )
 			val = cVariant( getWpItem( value ) );
 		else if ( checkWpChar( value ) )
@@ -1406,7 +1417,7 @@ static int wpItem_setAttr( wpItem* self, char* name, PyObject* value )
 		{
 			PyErr_Format( PyExc_TypeError, "Error while setting attribute '%s': %s", name, error->text.latin1() );
 			delete error;
-			return 0;
+			return -1;
 		}
 	}
 

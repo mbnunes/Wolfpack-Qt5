@@ -390,12 +390,12 @@ void cSectorMaps::add( cUObject* object )
 		}
 
 		// The same check for players
-		P_PLAYER player = dynamic_cast<P_PLAYER>( object );
+		/*P_PLAYER player = dynamic_cast<P_PLAYER>( object );
 
 		if ( player && !player->socket() && !player->logoutTime() )
 		{
 			return;
-		}
+		}*/
 
 		P_CHAR pChar = dynamic_cast<P_CHAR>( object );
 		if ( pChar )
@@ -466,7 +466,6 @@ cSectorIterator* cSectorMaps::findObjects( MapType type, cSectorMap* sector, uin
 		std::swap( y1, y2 );
 	}
 
-
 	for ( xBlock = x1 / SECTOR_SIZE; xBlock <= x2 / SECTOR_SIZE; xBlock++ )
 		for ( yBlock = y1 / SECTOR_SIZE; yBlock <= y2 / SECTOR_SIZE; yBlock++ )
 			count += sector->countItems( ( xBlock * sector->gridHeight() ) + yBlock );
@@ -490,8 +489,19 @@ cSectorIterator* cSectorMaps::findObjects( MapType type, cSectorMap* sector, uin
 				{
 					cUObject* object = sector->grid[block]->data[i];
 
-					if ( object->pos().x >= x1 && object->pos().y >= y1 && object->pos().x <= x2 && object->pos().y <= y2 )
-						items[offset++] = object;
+					if ( object->pos().x >= x1 && object->pos().y >= y1 && object->pos().x <= x2 && object->pos().y <= y2 ) {
+						// This sucks but we don't have much choice
+						if (type == MT_CHARS) {
+							P_PLAYER player = dynamic_cast<P_PLAYER>(object);
+
+							// Exclude logged out players.
+							if (!player || player->socket() || player->logoutTime()) {
+								items[offset++] = object;
+							}
+						} else {
+							items[offset++] = object;
+						}
+					}
 				}
 			}
 		}
@@ -509,6 +519,7 @@ cSectorIterator* cSectorMaps::findObjects( MapType type, cSectorMap* sector, uin
 		return new cItemSectorIterator( offset, items );
 
 	case MT_CHARS:
+	case MT_CHARSANDOFFLINE:
 		return new cCharSectorIterator( offset, items );
 
 	default:
@@ -534,6 +545,7 @@ cSectorIterator* cSectorMaps::findObjects( MapType type, cSectorMap* sector, uin
 		return new cItemSectorIterator( count, items );
 
 	case MT_CHARS:
+	case MT_CHARSANDOFFLINE:
 		return new cCharSectorIterator( count, items );
 
 	default:
@@ -547,9 +559,9 @@ cItemSectorIterator* cSectorMaps::findItems( const Coord_cl& center, unsigned ch
 	return findItems( center.map, QMAX( ( int ) center.x - ( int ) distance, 0 ), QMAX( ( int ) center.y - ( int ) distance, 0 ), ( int ) center.x + distance, ( int ) center.y + distance );
 }
 
-cCharSectorIterator* cSectorMaps::findChars( const Coord_cl& center, unsigned char distance )
+cCharSectorIterator* cSectorMaps::findChars( const Coord_cl& center, unsigned char distance, bool includeoffline )
 {
-	return findChars( center.map, QMAX( ( int ) center.x - distance, 0 ), QMAX( ( int ) center.y - distance, 0 ), center.x + distance, center.y + distance );
+	return findChars( center.map, QMAX( ( int ) center.x - distance, 0 ), QMAX( ( int ) center.y - distance, 0 ), center.x + distance, center.y + distance, includeoffline );
 }
 
 cItemSectorIterator* cSectorMaps::findItems( unsigned char map, uint x, uint y )
@@ -565,7 +577,7 @@ cItemSectorIterator* cSectorMaps::findItems( unsigned char map, uint x, uint y )
 	return static_cast<cItemSectorIterator*>( findObjects( MT_ITEMS, it->second, x, y ) );
 }
 
-cCharSectorIterator* cSectorMaps::findChars( unsigned char map, uint x, uint y )
+cCharSectorIterator* cSectorMaps::findChars( unsigned char map, uint x, uint y, bool includeoffline )
 {
 	std::map<unsigned char, cSectorMap*>::const_iterator it = charmaps.find( map );
 
@@ -575,7 +587,11 @@ cCharSectorIterator* cSectorMaps::findChars( unsigned char map, uint x, uint y )
 		return new cCharSectorIterator( 0, 0 ); // Return an empty iterator
 	}
 
-	return static_cast<cCharSectorIterator*>( findObjects( MT_CHARS, it->second, x, y ) );
+	if (includeoffline) {
+		return static_cast<cCharSectorIterator*>( findObjects( MT_CHARS, it->second, x, y ) );
+	} else {
+		return static_cast<cCharSectorIterator*>( findObjects( MT_CHARSANDOFFLINE, it->second, x, y ) );
+	}
 }
 
 cItemSectorIterator* cSectorMaps::findItems( unsigned char map, uint x1, uint y1, uint x2, uint y2 )
@@ -591,7 +607,7 @@ cItemSectorIterator* cSectorMaps::findItems( unsigned char map, uint x1, uint y1
 	return static_cast<cItemSectorIterator*>( findObjects( MT_ITEMS, it->second, x1, y1, x2, y2 ) );
 }
 
-cCharSectorIterator* cSectorMaps::findChars( unsigned char map, uint x1, uint y1, uint x2, uint y2 )
+cCharSectorIterator* cSectorMaps::findChars( unsigned char map, uint x1, uint y1, uint x2, uint y2, bool includeoffline )
 {
 	std::map<unsigned char, cSectorMap*>::const_iterator it = charmaps.find( map );
 
@@ -601,7 +617,11 @@ cCharSectorIterator* cSectorMaps::findChars( unsigned char map, uint x1, uint y1
 		return new cCharSectorIterator( 0, 0 ); // Return an empty iterator
 	}
 
-	return static_cast<cCharSectorIterator*>( findObjects( MT_CHARS, it->second, x1, y1, x2, y2 ) );
+	if (includeoffline) {
+		return static_cast<cCharSectorIterator*>( findObjects( MT_CHARSANDOFFLINE, it->second, x1, y1, x2, y2 ) );
+	} else {
+		return static_cast<cCharSectorIterator*>( findObjects( MT_CHARS, it->second, x1, y1, x2, y2 ) );
+	}
 }
 
 bool cSectorMaps::validMap( unsigned char map )
@@ -619,9 +639,9 @@ bool cSectorMaps::validMap( unsigned char map )
 /*
  * Old Region Iterators
  */
-RegionIterator4Chars::RegionIterator4Chars( const Coord_cl& pos, unsigned int distance )
+RegionIterator4Chars::RegionIterator4Chars( const Coord_cl& pos, unsigned int distance, bool offline )
 {
-	iter = SectorMaps::instance()->findChars( pos, distance );
+	iter = SectorMaps::instance()->findChars( pos, distance, offline );
 }
 
 RegionIterator4Chars::~RegionIterator4Chars()

@@ -710,6 +710,7 @@ static PyObject* wpItems( PyObject* self, PyObject* args )
 	\param range Defaults to 1.
 	This is the range in which the server should search for characters. Please remember that this is not
 	a circle.
+	\param offline Defaults to False. Indicates whether logged out characters should be included.
 	\return A list of <object id="char">char</object> objects.
 	\description This function searches for characters at the given
 	coordinate and in the given range and returns a list of found objects.
@@ -722,20 +723,19 @@ static PyObject* wpChars( PyObject* self, PyObject* args )
 	y = 0,
 	map = 0,
 	range = 1;
-	if ( !PyArg_ParseTuple( args, "iii|i:wolfpack.chars", &x, &y, &map, &range ) )
+	PyObject *offline = Py_False;
+	if ( !PyArg_ParseTuple( args, "iii|iO:wolfpack.chars", &x, &y, &map, &range, &offline ) )
 		return 0;
 
 	Coord_cl pos( x, y, 0, map );
-	RegionIterator4Chars iter( pos, range );
-
+	cCharSectorIterator *iter = SectorMaps::instance()->findChars(pos, range, PyObject_IsTrue(offline) != 0);
+	
 	PyObject* list = PyList_New( 0 );
-	for ( iter.Begin(); !iter.atEnd(); iter++ )
-	{
-		P_CHAR pChar = iter.GetData();
-
-		if ( pChar )
-			PyList_Append( list, PyGetCharObject( pChar ) );
+	for ( P_CHAR pChar = iter->first(); pChar; pChar = iter->next() ) {
+		PyList_Append( list, pChar->getPyObject() );
 	}
+
+	delete iter;
 
 	return list;
 }
@@ -1220,6 +1220,7 @@ static PyObject* wpIsClosing( PyObject* self, PyObject* args )
 	\param x2 The right edge of the rectangle.
 	\param y2 The bottom edge of the rectangle.
 	\param map The map to search on.
+	\param offline Defaults to false, indicates whether offline characters should be included.
 	\return A <object id="charregioniterator">charregioniterator</object> oject.
 	\description This function returns an object that will allow you to iterate over characters
 	in the given rectangle on the given map.
@@ -1230,11 +1231,12 @@ static PyObject* wpCharRegion( PyObject* self, PyObject* args )
 
 	unsigned int x1, y1, x2, y2;
 	unsigned char map;
+	PyObject *offline = Py_False;
 
-	if ( !PyArg_ParseTuple( args, "iiiib:wolfpack.charregion", &x1, &y1, &x2, &y2, &map ) )
+	if ( !PyArg_ParseTuple( args, "iiiib|O:wolfpack.charregion", &x1, &y1, &x2, &y2, &map, &offline ) )
 		return 0;
 
-	return PyGetCharRegionIterator( x1, y1, x2, y2, map );
+	return PyGetCharRegionIterator( x1, y1, x2, y2, map, PyObject_IsTrue( offline ) != 0 );
 }
 
 /*

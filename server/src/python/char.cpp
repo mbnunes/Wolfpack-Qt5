@@ -992,6 +992,10 @@ static PyObject* wpChar_settag( wpChar* self, PyObject* args )
 	{
 		self->pChar->setTag( key, cVariant( QString::fromUcs2( ( ushort * ) PyUnicode_AsUnicode( object ) ) ) );
 	}
+	else if ( PyLong_Check( object ) )
+	{
+		self->pChar->setTag( key, cVariant( ( int ) PyLong_AsLong( object ) ) );
+	}
 	else if ( PyInt_Check( object ) )
 	{
 		self->pChar->setTag( key, cVariant( ( int ) PyInt_AsLong( object ) ) );
@@ -999,6 +1003,11 @@ static PyObject* wpChar_settag( wpChar* self, PyObject* args )
 	else if ( PyFloat_Check( object ) )
 	{
 		self->pChar->setTag( key, cVariant( ( double ) PyFloat_AsDouble( object ) ) );
+	}
+	else
+	{
+        PyErr_SetString( PyExc_TypeError, "You passed an unknown object type to char.settag." );
+		return 0;
 	}
 
 	Py_RETURN_NONE;
@@ -2799,6 +2808,8 @@ int wpChar_setAttr( wpChar* self, char* name, PyObject* value )
 		val = cVariant( Python2QString( value ) );
 	else if ( PyInt_Check( value ) )
 		val = cVariant( PyInt_AsLong( value ) );
+	else if ( PyLong_Check( value ) )
+		val = cVariant( PyLong_AsLong( value ) );
 	else if ( checkWpItem( value ) )
 		val = cVariant( getWpItem( value ) );
 	else if ( checkWpChar( value ) )
@@ -2817,9 +2828,10 @@ int wpChar_setAttr( wpChar* self, char* name, PyObject* value )
 	if (error) {
 		PyErr_Format( PyExc_TypeError, "Error while setting attribute '%s': %s", name, error->text.latin1() );
 		delete error;
+		return -1;
 	}
 
-	return 0;
+    return 0;	
 }
 
 P_CHAR getWpChar( PyObject* pObj )

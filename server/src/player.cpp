@@ -558,7 +558,6 @@ void cPlayer::mount( P_NPC pMount )
 		pMount->removeFromView( false );
 		pMount->fight( 0 );
 		pMount->setStablemasterSerial( serial_ );
-		MapObjects::instance()->remove( pMount );
 	}
 	else
 		socket->sysMessage( tr( "You dont own that creature." ) );
@@ -1457,9 +1456,7 @@ bool cPlayer::canSeeChar( P_CHAR character )
 			// or if the AI overrides it
 			if ( !character->isAtWar() && skillValue( SPIRITSPEAK ) < 1000 )
 			{
-				// It's not enough to be priviledged. You need allshow = 1 to
-				// 'see dead people'
-				if ( !privileged || ( account_ && account_->isAllShow() ) )
+				if ( !privileged )
 				{
 					return false;
 				}

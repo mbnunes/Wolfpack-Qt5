@@ -270,7 +270,7 @@ void cTiming::poll()
 				player->removeFromView( false );
 				player->setLogoutTime( 0 );
 				player->resend( false );
-				MapObjects::instance()->remove( player );
+				//MapObjects::instance()->remove( player );
 			}
 		}
 

@@ -166,18 +166,18 @@ wpCharIteratorDealloc,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 };
 
-static PyObject* PyGetCharRegionIterator( unsigned short x1, unsigned short y1, unsigned short x2, unsigned short y2, unsigned char map )
+static PyObject* PyGetCharRegionIterator( unsigned short x1, unsigned short y1, unsigned short x2, unsigned short y2, unsigned char map, bool includeoffline = false )
 {
 	wpRegionIteratorChars* returnVal = PyObject_New( wpRegionIteratorChars, &wpRegionIteratorCharsType );
-	returnVal->iter = SectorMaps::instance()->findChars( map, x1, y1, x2, y2 );
+	returnVal->iter = SectorMaps::instance()->findChars( map, x1, y1, x2, y2, includeoffline );
 
 	return ( PyObject * ) returnVal;
 }
 
-static PyObject* PyGetCharRegionIterator( unsigned short xBlock, unsigned short yBlock, unsigned char map )
+static PyObject* PyGetCharRegionIterator( unsigned short xBlock, unsigned short yBlock, unsigned char map, bool includeoffline = false )
 {
 	wpRegionIteratorChars* returnVal = PyObject_New( wpRegionIteratorChars, &wpRegionIteratorCharsType );
-	returnVal->iter = SectorMaps::instance()->findChars( map, xBlock * 8, yBlock * 8 );
+	returnVal->iter = SectorMaps::instance()->findChars( map, xBlock * 8, yBlock * 8, includeoffline );
 	return ( PyObject * ) returnVal;
 }
 

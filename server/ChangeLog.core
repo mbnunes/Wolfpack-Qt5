@@ -25,6 +25,15 @@ Wolfpack 12.9.10 Beta (CVS)
 	  of fame.
 	- Fixed a bug where tooltips were sent before the actual character.
 	- Logged out players are no longer visible to GMs without the allshow flag.
+	- Python objects of the type "long" can now be assigned to integer properties
+	  without explicit casting.
+	- Implemented a fix for the allshow command not showing characters by letting them
+	  stay in the sector map. Please note that this will have a performance impact but
+	  it will be optimized later on.
+	- Corrected the return values of the setattr functions for items and characters.
+	  They now correctly return -1 if an exception has been raised.
+	- Python longs passed to item.settag and char.settag are now interpreted as integers.
+	- Char.settag and item.settag now correctly fail if the type of the value is not supported.
 
 Wolfpack 12.9.9 Beta (4. September 2004)
 	- Allowed viewing and setting account properties via .set and .show.

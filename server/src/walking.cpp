@@ -544,7 +544,7 @@ bool cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	// set the player direction to contain only the cardinal direction bits
 	pChar->setDirection( dir );
 
-	RegionIterator4Chars ri( pChar->pos() );
+	RegionIterator4Chars ri( pChar->pos(), 18, true );
 	for ( ri.Begin(); !ri.atEnd(); ri++ )
 	{
 		P_CHAR observer = ri.GetData();
