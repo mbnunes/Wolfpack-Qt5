@@ -9,7 +9,7 @@
 <definitions>
 
 	<npc id="orc_base" inherit="monster_base">
-		<name>an orc</name>
+		<name><random list="NAMES_ORC" /></name>
 		<karma>-1500</karma>
 		<fame>1500</fame>
 		<gold><random min="25" max="50"/></gold>
