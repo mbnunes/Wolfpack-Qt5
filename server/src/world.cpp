@@ -3,7 +3,6 @@
 //      Wolfpack Emu (WP)
 //	UO Server Emulation Program
 //
-//	Copyright 1997, 98 by Marcus Rating (Cironian)
 //  Copyright 2001-2003 by holders identified in authors.txt
 //	This program is free software; you can redistribute it and/or modify
 //	it under the terms of the GNU General Public License as published by
@@ -53,7 +52,6 @@
 #include "flatstore/flatstore.h"
 
 // Library Includes
-#include <map>
 #include <list>
 
 // UNCOMMENT THIS IF YOU WANT TO USE A HASHMAP 
@@ -70,19 +68,53 @@ typedef std::hash_map< SERIAL, P_ITEM > ItemMap;
 typedef std::hash_map< SERIAL, P_CHAR > CharMap;
 #endif
 
-struct cWorldPrivate
+/*****************************************************************************
+  cWorldPrivate member functions
+ *****************************************************************************/
+
+class cWorldPrivate
 {
+public:
 	// Choose here whether we want to have std::map or std::hash_map
 	ItemMap items;
 	CharMap chars;
     
-	ItemMap::const_iterator itemIterator;
-	CharMap::const_iterator charIterator;
-
 	// Pending for deletion
 	std::list< cUObject* > pendingObjects;
+
+	void purgePendingObjects() 
+	{
+		std::list< cUObject* >::const_iterator it;
+		for( it = pendingObjects.begin(); it != pendingObjects.end(); ++it )
+		{	
+			delete *it;
+		}
+
+		pendingObjects.clear();
+
+	}
 };
 
+/*****************************************************************************
+  cWorld member functions
+ *****************************************************************************/
+
+/*!
+  \class cWorld world.h
+
+  \brief The cWorld class provides a container of all cUObjects, sorted in two
+  major groups: Items and Characters.
+
+  \ingroup mainclass
+
+  cWorld is responsible for maintaining all Ultima Online objects, retrievable
+  by their serial number. It also provides loading and saving services to those
+  objects. cWorld is a Singleton, accessible thru World::instance().
+*/
+
+/*!
+	Constructs the world container.
+*/
 cWorld::cWorld()
 {
 	// Create our private implementation
@@ -95,16 +127,13 @@ cWorld::cWorld()
 	_lastItemSerial = 0x40000000;
 }
 
+/*!
+	Destructs the world container and claims back the memory of it's contained objects
+*/
 cWorld::~cWorld()
 {
 	// Free pending objects
-	std::list< cUObject* >::const_iterator it;
-	for( it = p->pendingObjects.begin(); it != p->pendingObjects.end(); ++it )
-	{
-		delete *it;
-	}
-
-	p->pendingObjects.clear();
+	p->purgePendingObjects();
 
 	// Destroy our private implementation
 	delete p;
@@ -256,7 +285,7 @@ void cWorld::saveSql()
 		for( P_CHAR pChar = iChars.first(); pChar; pChar = iChars.next() )
 			persistentBroker->saveObject( pChar );
 	}
-	catch( QString error )
+	catch( QString& error )
 	{
 		clConsole.ChangeColor( WPC_RED );
 		clConsole.send( "\nERROR" );
@@ -271,14 +300,7 @@ void cWorld::saveSql()
 		clConsole.send( ": Unhandled Exception\n" );
 	}
 
-	std::list< cUObject* >::const_iterator delIt;
-	for( delIt = p->pendingObjects.begin(); delIt != p->pendingObjects.end(); ++delIt )
-	{
-		// Now we can finally delete pending objects
-		delete *delIt;
-	}
-
-	p->pendingObjects.clear();
+	p->purgePendingObjects();
 
 	ISerialization *archive = cPluginFactory::serializationArchiver( "xml" );
 	archive->prepareWritting( "effects" );
@@ -541,7 +563,12 @@ void cWorld::deleteObject( cUObject *object )
 // "Really" delete objects that are pending to be deleted.
 void cWorld::purge()
 {
+	p->purgePendingObjects();
 }
+
+/*****************************************************************************
+  cItemIterator member functions
+ *****************************************************************************/
 
 // Iterators
 struct stItemIteratorPrivate
@@ -572,6 +599,10 @@ P_ITEM cItemIterator::next()
 
 	return (p->it++)->second;
 }
+
+/*****************************************************************************
+  cCharIterator member functions
+ *****************************************************************************/
 
 struct stCharIteratorPrivate
 {

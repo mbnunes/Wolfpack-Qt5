@@ -75,7 +75,7 @@ void cItem::registerInFactory()
 {
 	QStringList fields, tables, conditions;
 	buildSqlString( fields, tables, conditions ); // Build our SQL string
-	QString sqlString = QString( "SELECT /*! STRAIGHT_JOIN SQL_BIG_RESULT */ uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cItem' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
+	QString sqlString = QString( "SELECT /*! STRAIGHT_JOIN SQL_SMALL_RESULT */ uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cItem' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
 //	QString sqlString = QString( "SELECT uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cItem' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
 	UObjectFactory::instance()->registerType("cItem", productCreator);
 	UObjectFactory::instance()->registerSqlQuery( "cItem", sqlString );
@@ -2475,7 +2475,6 @@ void cItem::buildSqlString( QStringList &fields, QStringList &tables, QStringLis
 
 
 void cItem::addItem( cItem* pItem, bool randomPos, bool handleWeight, bool noRemove )
-
 {
 	if( pItem == this || !pItem )
 		return;

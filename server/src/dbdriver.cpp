@@ -79,26 +79,9 @@ bool cDBDriver::open( int id )
 		throw QString("mysql_init(): insufficient memory to allocate a new object");
 	connection->reconnect = 1;
 	
-	if( !mysql_real_connect( connection, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, "wolfpack_db_pipe", CLIENT_COMPRESS ) )
-	{
-		switch ( mysql_errno(connection) )
-		{
-		case CR_NAMEDPIPEOPEN_ERROR:
-		case CR_NAMEDPIPEWAIT_ERROR:
-		case CR_NAMEDPIPESETSTATE_ERROR:
-			if ( mysql_real_connect(connection, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, 0, CLIENT_COMPRESS ) )
-			{
-				qWarning("Named Pipe connection to database failed, falling back to slower TCP/IP connection to database");
-				break; 
-			} 
-			else
-				throw QString( "Connection to DB failed: %1" ).arg( mysql_error( connection ) );
-		default:
-			if ( !mysql_real_connect(connection, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, 0, CLIENT_COMPRESS ) )
-			{ // for *nix users who's mysql does not have the named pipe option
-				throw QString( "Connection to DB failed: %1" ).arg( mysql_error( connection ) );
-			}
-		}
+	if ( !mysql_real_connect(connection, _host.latin1(), _username.latin1(), _password.latin1(), _dbname.latin1(), 0, 0, CLIENT_COMPRESS ) )
+	{ // Named pipes are acctually slower :(
+		throw QString( "Connection to DB failed: %1" ).arg( mysql_error( connection ) );
 	}
 	connections[ id ] = connection;
 

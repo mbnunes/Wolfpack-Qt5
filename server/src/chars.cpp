@@ -84,7 +84,7 @@ void cChar::registerInFactory()
 {
 	QStringList fields, tables, conditions;
 	buildSqlString( fields, tables, conditions ); // Build our SQL string
-	QString sqlString = QString( "SELECT /*! STRAIGHT_JOIN SQL_BIG_RESULT */ uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cChar' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
+	QString sqlString = QString( "SELECT /*! STRAIGHT_JOIN SQL_SMALL_RESULT */ uobjectmap.serial,uobjectmap.type,%1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cChar' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
 	UObjectFactory::instance()->registerType("cChar", productCreator);
 	UObjectFactory::instance()->registerSqlQuery( "cChar", sqlString );
 }
@@ -858,7 +858,7 @@ void cChar::load( char **result, UINT16 &offset )
 
 	// Broken Serial?
 	if( !isCharSerial( serial() ) )
-		throw QString( "Character has invalid item serial: 0x%1" ).arg( serial(), 0, 16 );
+		throw QString( "Character has invalid char serial: 0x%1" ).arg( serial(), 0, 16 );
 
 	orgname_ = result[offset++];
 	title_ = result[offset++];

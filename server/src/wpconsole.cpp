@@ -34,10 +34,11 @@
 #include "wpdefaultscript.h"
 
 // Library Includes
-#include "qstring.h"
+#include <qstring.h>
+#include <qglobal.h>
 
-#ifndef __unix__
-#include <windows.h>
+#if defined(Q_OS_WIN32) 
+# include <windows.h>
 #endif
 
 #include <iostream>
@@ -286,7 +287,7 @@ QString cb = "\e[0m";
 
 void WPConsole_cl::setConsoleTitle( const QString& data )
 {
-#ifndef __unix__
+#if defined(Q_OS_WIN32)
 	SetConsoleTitle( data.latin1() );
 #endif
 }
