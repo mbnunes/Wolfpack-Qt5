@@ -14,6 +14,7 @@
 		<wandertype>1</wandertype>
 		<mintaming>1100</mintaming>
 		<strproperty name="bloodcolor" value="1401,1447" />
+		<strproperty name="slayer_group" value="undeads" />
 	</npc>
 
 </definitions>

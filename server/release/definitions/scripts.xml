@@ -172,6 +172,7 @@
 
 	<!-- System Scripts -->
 	<script>system.dbupdate</script>
+	<script>system.slayer</script>
 	<script>system.hardwareinfo</script>
 	<script>system.status</script>
 	<script>system.hunger</script>
