@@ -249,3 +249,30 @@ QStringList WPDefManager::getSections( WPDEF_TYPE Type )
 
 	return SectionList;
 }
+
+const QString processNode( const QDomElement &Node )
+{
+	if( Node.nodeName() == "namelist" )
+	{
+		// Get the namelist and select a random name!
+		// ...
+		QString selectedName = Node.text();
+		return selectedName;
+	}
+
+	if( !Node.hasChildNodes() )
+		return Node.text();
+
+	// Process the childnodes
+	QDomNodeList childNodes = Node.childNodes();
+
+	for( int i = 0; i < childNodes.count(); i++ )
+	{
+		if( !childNodes.item( i ).isElement() )
+			continue;
+
+		return processNode( Node );
+	}
+
+	return "";
+}

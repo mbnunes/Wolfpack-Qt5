@@ -1920,33 +1920,6 @@ void cAllItems::CheckEquipment(P_CHAR pc_p) // check equipment of character p
 	}		
 }
 
-const QString processNode( const QDomElement &Node )
-{
-	if( Node.nodeName() == "namelist" )
-	{
-		// Get the namelist and select a random name!
-		// ...
-		QString selectedName = Node.text();
-		return selectedName;
-	}
-
-	if( !Node.hasChildNodes() )
-		return Node.text();
-
-	// Process the childnodes
-	QDomNodeList childNodes = Node.childNodes();
-
-	for( int i = 0; i < childNodes.count(); i++ )
-	{
-		if( !childNodes.item( i ).isElement() )
-			continue;
-
-		return processNode( Node );
-	}
-
-	return "";
-}
-
 // Applies a script-section to an item
 void cAllItems::applyItemSection( P_ITEM Item, const QString &Section )
 {
@@ -1962,8 +1935,10 @@ void cAllItems::applyItemSection( P_ITEM Item, const QString &Section )
 	// name + id
 
 	QDomNodeList Tags = ItemSection->childNodes();
+	
+	UI16 i, j;
 
-	for( UI16 i = 0; i < Tags.count(); i++ )
+	for( i = 0; i < Tags.count(); i++ )
 	{
 		// as usual only elements are processed
 		if( !Tags.item( i ).isElement() )
@@ -1975,8 +1950,8 @@ void cAllItems::applyItemSection( P_ITEM Item, const QString &Section )
 		QString Value;
 		
 		// The node value is either the text or it's determined by it's subnodes
-		if( Tag.hasChildNodes() )
-			for( UI16 j = 0; j < Tag.childNodes().count(); j++ )
+		if( Tag.hasChildNodes() && TagName != "contains" )
+			for( j = 0; j < Tag.childNodes().count(); j++ )
 			{
 				if( Tag.childNodes().item( j ).isText() )
 					Value += Tag.childNodes().item( j ).toText().data();
@@ -2208,7 +2183,23 @@ void cAllItems::applyItemSection( P_ITEM Item, const QString &Section )
 		// <id>12f9</id>
 		else if( TagName == "id" )
 			Item->setId( Value.toUShort( NULL, 16 ) );
+
+		// <contains><item id="a" />...<item id="z" /></contains> (sereg)
+		else if( TagName == "contains" && Item->type() == 1 && Tag.hasChildNodes() )
+			processItemContainerNode( Item, Tag ); 
 	}
+}
+
+void cAllItems::processItemContainerNode( P_ITEM contItem, const QDomElement &Node )
+{
+	for( UI16 j = 0; j < Node.childNodes().count(); j++ )
+		if( Node.childNodes().item( j ).toElement().nodeName() == "item" && 
+			Node.childNodes().item( j ).toElement().attributes().contains("id") )
+		{
+			QString ItemID = Node.childNodes().item( j ).toElement().attributeNode("id").nodeValue();
+			P_ITEM nItem = this->createScriptItem( ItemID );
+			nItem->SetContSerial( contItem->serial );
+		}
 }
 
 // Retrieves the Item Information stored in Section

@@ -585,6 +585,8 @@ public:
 	void Split(P_CHAR pc_k);
 	void CheckAI(unsigned int currenttime, P_CHAR pc_i);
 	P_CHAR AddNPC(int s, P_ITEM pi_i, int npcNum, int x1 = 0, int y1 = 0, signed char z1 = 0);
+	void applyNpcSection( P_CHAR Char, const QString &Section );
+	P_CHAR createScriptNpc( QString Section );
 	// Sky's AI Stuff
 	class cDragonAI
 	{

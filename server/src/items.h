@@ -240,6 +240,9 @@ public:
 
 int	ContainerCountItems(const int serial, short id, short color=-1);
 
+//forward declaration
+class QDomElement;
+
 class cAllItems
 {
 private:
@@ -253,6 +256,7 @@ public:
 	// Added by DarkStorm
 	P_ITEM createScriptItem( QString Section ); // Creates an item from an item-section
 	P_ITEM createListItem( QString Section ); // Creates an Item from an item-list
+	void processItemContainerNode( P_ITEM contItem, const QDomElement &Node );
 
 	cAllItems() {}
 	void DeleItem(P_ITEM pi);

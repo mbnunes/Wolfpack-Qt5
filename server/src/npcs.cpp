@@ -41,6 +41,8 @@
 #include "utilsys.h"
 #include "walking2.h"
 #include "regions.h"
+#include "wpdefmanager.h"
+#include "wpdefaultscript.h"
 
 #include <string>
 
@@ -1164,6 +1166,415 @@ void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat
 	else 
 		pc_c->setSplit(0);	
 	updatechar(pc_c);
+}
+
+// Applies a script-section to a char
+void cCharStuff::applyNpcSection( P_CHAR Char, const QString &Section )
+{
+	QDomElement *NpcSection = DefManager->getSection( WPDT_NPC, Section );
+
+	if( NpcSection->isNull() )
+	{
+		clConsole.log( "Unable to create unscripted NPC: %s", Section.latin1() );
+		return;
+	}
+
+	QDomNodeList Tags = NpcSection->childNodes();
+
+	UI16 i, j;
+
+	for( i = 0; i < Tags.count(); i++ )
+	{
+		if( !Tags.item( i ).isElement() )
+			continue;
+
+		QDomElement Tag = Tags.item( i ).toElement();
+		QString TagName = Tag.nodeName();
+		QString Value;
+		QDomNodeList ChildTags;
+
+		if( Tag.hasChildNodes() && TagName != "backpack" && TagName != "equipped" && TagName != "shopkeeper" )
+			for( j = 0; j < Tag.childNodes().count(); j++ )
+			{
+				if( Tag.childNodes().item( j ).isText() )
+					Value += Tag.childNodes().item( j ).toText().data();
+				else if( Tag.childNodes().item( j ).isElement() )
+					Value += processNode( Tag.childNodes().item( j ).toElement() );
+			}
+
+		//<name>my char</name>
+		if( TagName == "name" )
+			Char->name = Value;
+		
+		//<backpack>
+		//	<color>0x132</color>
+		//	<contains>
+		//		<item id="a">
+		//		...
+		//		<item id="z">
+		//	</contains>
+		//</backpack>
+		else if( TagName == "backpack" )
+			if( Char->packitem == INVALID_SERIAL )
+			{
+				P_ITEM pBackpack = Items->SpawnItem(-1,Char,1,"Backpack",0,0x0E,0x75,0,0,0);
+				if( pBackpack == NULL )
+				{
+					Npcs->DeleteChar( Char );
+					return;
+				}
+				Char->packitem = pBackpack->serial;
+				pBackpack->pos.x = 0;
+				pBackpack->pos.y = 0;
+				pBackpack->pos.z = 0;
+				pBackpack->SetContSerial(Char->serial);
+				pBackpack->setLayer( 0x15 );
+				pBackpack->setType( 1 );
+				pBackpack->dye=1;
+
+				if( Tag.hasChildNodes() )
+				{
+					for( j = 0; j < Tag.childNodes().count(); j++ )
+					{
+						QDomElement currNode = Tag.childNodes().item( j ).toElement();
+						if( currNode.nodeName() == "color" )
+							pBackpack->setColor( currNode.nodeValue().toInt() );
+						else if( currNode.nodeName() == "contains" )
+							Items->processItemContainerNode( pBackpack, currNode );
+					}
+				}
+			}
+
+		//<carve>3</carve>
+		else if( TagName == "carve" ) 
+			Char->setCarve( Value.toInt() );
+
+		//<cantrain />
+		else if( TagName == "cantrain" )
+			Char->setCantrain( true );
+
+		//<direction>SE</direction>
+		else if( TagName == "direction" )
+			if( Value == "NE" )
+				Char->dir=1;
+			else if( Value == "E" )
+				Char->dir=2;
+			else if( Value == "SE" )
+				Char->dir=3;
+			else if( Value == "S" )
+				Char->dir=4;
+			else if( Value == "SW" )
+				Char->dir=5;
+			else if( Value == "W" )
+				Char->dir=6;
+			else if( Value == "NW" )
+				Char->dir=7;
+			else if( Value == "N" )
+				Char->dir=0;
+
+		//<stat type="str">100</stats>
+		//or
+		//<stat type="str" min="60" max="80" /> for random value between min and max
+		else if( TagName == "stat" )
+			if( Tag.attributes().contains("type") )
+			{
+				short statValue = 0;
+				if( Tag.attributes().contains("min") && Tag.attributes().contains("max") )
+					statValue = (short)RandomNum(Tag.attributeNode("min").nodeValue().toInt(), Tag.attributeNode("max").nodeValue().toInt());
+				else
+					statValue = Value.toShort();
+
+				QString statType = Tag.attributeNode("type").nodeValue();
+				if( statType == "str" )
+				{
+					Char->st = statValue;
+					Char->st2 = Char->st;
+					Char->hp = Char->st;
+				}
+				else if( statType == "dex" )
+				{
+					Char->setDex( statValue );
+					Char->stm = Char->realDex();
+				}
+				else if( statType == "int" )
+				{
+					Char->in = statValue;
+					Char->in2 = Char->in;
+					Char->mn = Char->in;
+				}
+			}
+
+		//<defense>10</defense>
+		else if( TagName == "defense" )
+			Char->def = Value.toUInt();
+
+		//<attack>10</attack>
+		else if( TagName == "attack" )
+			Char->att = Value.toUInt();
+
+		//<emotecolor>0x482</emotecolor>
+		else if( TagName == "emotecolor" )
+			Char->emotecolor = Value.toUShort();
+
+		//<fleeat>10</fleeat>
+		else if( TagName == "fleeat" )
+			Char->setFleeat( Value.toShort() );
+
+		//<fame>8000</fame>
+		else if( TagName == "fame" )
+			Char->fame = Value.toInt();
+
+		//<gold>100</gold>
+		//or
+		//<gold min="80" max="100" />
+		else if( TagName == "gold" )
+			if( Char->packitem != INVALID_SERIAL )
+			{
+				P_ITEM pGold = Items->SpawnItem(Char,1,"#",1,0x0EED,0,1);
+				if(pGold == NULL)
+				{
+					Npcs->DeleteChar(Char);
+					return;
+				}
+				pGold->priv |= 0x01;
+
+				if( Tag.attributes().contains("min") && Tag.attributes().contains("max") )
+					pGold->setAmount( RandomNum( Tag.attributeNode("min").nodeValue().toInt(), Tag.attributeNode("max").nodeValue().toInt() ) );
+				else
+					pGold->setAmount( Value.toInt() );
+			}
+			else
+				clConsole.send((char*)QString("Warning: Bad NPC Script %1: no backpack for gold.\n").arg( Section ).latin1());
+
+		//<hidamage>10</hidamage>
+		else if( TagName == "hidamage" )
+			Char->hidamage = Value.toInt();
+
+		//<haircolor>2</haircolor> (colorlist)
+		else if( TagName == "haircolor" )
+		{
+			unsigned short haircolor = addrandomhaircolor(Char, (char*)Value.latin1());
+			if( haircolor != -1 )
+				Char->setHairColor( haircolor );
+		}
+
+		//<id>0x11</id>
+		else if( TagName == "id" )
+		{
+			Char->setId( Value.toUShort() );
+			Char->xid = Char->id();
+		}
+
+		//<karma>-500</karma>
+		else if( TagName == "karma" )
+			Char->karma = Value.toInt();
+
+		//<loot>3</loot>
+		else if( TagName == "loot" )
+			if( Char->packitem != INVALID_SERIAL )
+				Npcs->AddRandomLoot( FindItemBySerial(Char->packitem), (char*)Value.latin1() );
+			else
+				clConsole.send((char*)QString("Warning: Bad NPC Script %1: no backpack for loot.\n").arg( Section ).latin1());
+
+		//<lodamage>10</lodamage>
+		else if( TagName == "lodamage" )
+			Char->lodamage = Value.toInt();
+
+		//<notrain />
+		else if( TagName == "notrain" )
+			Char->setCantrain( false );
+
+		//<npcwander type="rectangle" x1="-10" x2="12" y1="5" y2="7" />
+		//<......... type="rect" ... />
+		//<......... type="3" ... />
+		//<......... type="circle" radius="10" />
+		//<......... type="2" ... />
+		//<......... type="free" (or "1") />
+		//<......... type="none" (or "0") />
+		else if( TagName == "npcwander" )
+			if( Tag.attributes().contains("type") )
+			{
+				QString wanderType = Tag.attributeNode("type").nodeValue();
+				if( wanderType == "rectangle" || wanderType == "rect" || wanderType == "3" )
+					if( Tag.attributes().contains("x1") &&
+						Tag.attributes().contains("x2") &&
+						Tag.attributes().contains("y1") &&
+						Tag.attributes().contains("y2") )
+					{
+						Char->npcWander = 3;
+						Char->fx1 = Char->pos.x + Tag.attributeNode("x1").nodeValue().toInt();
+						Char->fx2 = Char->pos.x + Tag.attributeNode("x2").nodeValue().toInt();
+						Char->fy1 = Char->pos.y + Tag.attributeNode("y1").nodeValue().toInt();
+						Char->fy2 = Char->pos.y + Tag.attributeNode("y2").nodeValue().toInt();
+						Char->fz1 = -1;
+					}
+				else if( wanderType == "circle" || wanderType == "2" )
+				{
+					Char->npcWander = 2;
+					Char->fx1 = Char->pos.x;
+					Char->fy1 = Char->pos.y;
+					Char->fz1 = Char->pos.z;
+					if( Tag.attributes().contains("radius") )
+						Char->fx2 = Tag.attributeNode("radius").nodeValue().toInt();
+					else
+						Char->fx2 = 2;
+				}
+				else if( wanderType == "free" || wanderType == "1" )
+					Char->npcWander = 1;
+				else
+					Char->npcWander = 0; //default
+			}
+
+		//<ai>2</ai>
+		else if( TagName == "ai" )
+			Char->setNpcAIType( Value.toInt() );
+
+		//<onhorse />
+		else if( TagName == "onhorse" )
+			Char->setOnHorse( true );
+
+		//<priv1>0</priv1>
+		else if( TagName == "priv1" )
+			Char->setPriv( Value.toUShort() );
+
+		//<priv2>0</priv2>
+		else if( TagName == "priv2" )
+			Char->priv2 = Value.toUShort();
+
+		//<poison>2</poison>
+		else if( TagName == "poison" )
+			Char->setPoison( Value.toInt() );
+
+		//<reattackat>40</reattackat>
+		else if( TagName == "reattackat" )
+			Char->setReattackat( Value.toShort() );
+
+		//<skin>0x342</skin>
+		else if( TagName == "skin" )
+		{
+			Char->setSkin( Value.toUShort() );
+			Char->setXSkin( Value.toUShort() );
+		}
+
+		//<shopkeeper>
+		//	<sellitems>...handled like item-<contains>-section...</sellitems>
+		//	<shopitems>...see above...</shopitems>
+		//	<rshopitems>...see above...</rshopitems>
+		//</shopkeeper>
+		else if( TagName == "shopkeeper" && Tag.hasChildNodes() )
+		{
+			Commands->MakeShop( Char );
+			for( j = 0; j < Tag.childNodes().count(); j++ )
+			{
+				QDomElement currNode = Tag.childNodes().item( j ).toElement();
+				
+				if( !currNode.hasChildNodes() )
+					continue;
+
+				unsigned char contlayer = 0;
+				if( currNode.nodeName() == "rshopitems" )
+					contlayer = 0x1A;
+				else if( currNode.nodeName() == "shopitems" )
+					contlayer = 0x1B;
+				else if( currNode.nodeName() == "sellitems" )
+					contlayer = 0x1C;
+				else 
+					continue;
+				
+				P_ITEM contItem = Char->GetItemOnLayer( contlayer );
+				if( contItem != NULL )
+					Items->processItemContainerNode( contItem, currNode );
+				else
+					clConsole.send((char*)QString("Warning: Bad NPC Script %1: no shoppack for item.\n").arg( Section ).latin1());
+			}
+		}
+		
+		//<spattack>3</spattack>
+		else if( TagName == "spattack" )
+			Char->spattack = Value.toInt();
+
+		//<speech>13</speech>
+		else if( TagName == "speech" )
+			Char->speech = Value.toUShort();
+
+		//<split>1</split>
+		else if( TagName == "split" )
+			Char->setSplit( Value.toUShort() );
+
+		//<splitchance>10</splitchance>
+		else if( TagName == "splitchance" )
+			Char->setSplitchnc( Value.toUShort() );
+
+		//<saycolor>0x110</saycolor>
+		else if( TagName == "saycolor" )
+			Char->saycolor = Value.toUShort();
+
+		//<spadelay>3</spadelay>
+		else if( TagName == "spadelay" )
+			Char->spadelay = Value.toInt();
+
+		//<skinlist>1</skinlist>
+		else if( TagName == "skinlist" )
+		{
+			Char->setXSkin(addrandomcolor(Char,(char*)Value.latin1()));
+			Char->setSkin(Char->xskin());
+		}
+
+		//<stablemaster />
+		else if( TagName == "stablemaster" )
+			Char->setNpc_type(1);
+
+		//<title>the king</title>
+		else if( TagName == "title" )
+			Char->setTitle( Value );
+
+		//<totame>115</totame>
+		else if( TagName == "totame" )
+			Char->taming = Value.toInt();
+
+		//<trigger>3</trigger>
+		else if( TagName = "trigger" )
+			Char->setTrigger( Value.toInt() );
+
+		//<trigword>abc</trigword>
+		else if( TagName = "trigword" )
+			Char->setTrigword( Value );
+
+		//<skill type="alchemy">100</skill>
+		//<skill type="1">100</skill>
+		//<skill type="alchemy" min="100" max="200" />
+		//<skill type="1" min="100" max="200" />
+		else if( TagName = "skill" && Tag.attributes().contains("type") )
+		{
+			int skillValue = 0;
+			if( Tag.attributes().contains("min") && Tag.attributes().contains("max") )
+				skillValue = RandomNum( Tag.attributeNode("min").nodeValue().toInt(), Tag.attributeNode("max").nodeValue().toInt() );
+			else
+				skillValue = Value.toInt();
+
+			if( Tag.attributeNode("type").nodeValue().toInt() > 0 &&
+				Tag.attributeNode("type").nodeValue().toInt() <= ALLSKILLS )
+				Char->baseskill[(Tag.attributeNode("type").nodeValue().toInt() - 1)] = skillValue;
+			else
+				for( j = 0; j < ALLSKILLS; j++ )
+					if( Tag.attributeNode("type").nodeValue() == QString(skillname[j]) )
+						Char->baseskill[j] = skillValue;
+		}
+	}
+}
+
+P_CHAR cCharStuff::createScriptNpc( QString Section )
+{
+	if( Section.length() == 0 )
+		return NULL;
+
+	P_CHAR nChar = MemCharFree();
+	nChar->Init( true );
+	cCharsManager::getInstance()->registerChar( nChar );
+
+	applyNpcSection( nChar, Section );
+
+	return nChar;
 }
 
 ////////////
