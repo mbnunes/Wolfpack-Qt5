@@ -215,7 +215,7 @@ int inrange2 (UOXSOCKET s, P_ITEM pi) // Is item i in visual range for player on
 bool iteminrange (const UOXSOCKET s, const P_ITEM pi, const int distance)
 {
 	P_CHAR pc_currchar = currchar[s];
-	if (pc_currchar->isGM()) return 1;
+	if (pc_currchar->isGM()) return true;
 	return inRange(pc_currchar->pos.x,pc_currchar->pos.y,pi->pos.x,pi->pos.y,distance);
 }
 
@@ -1573,12 +1573,12 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 	char changed=0;
 	if (pi == NULL) return;
 
-	if ((iteminrange(s,pi,2)==0)&& s>-1) {sysmessage(s, "You cannot reach the handle from here");return;}
+	if (s != INVALID_UOXSOCKET && (iteminrange(s,pi,2)==0)) {sysmessage(s, "You cannot reach the handle from here"); return;}
 	for (i=0;i<DOORTYPES;i++)
 	{
 		db=doorbase[i];
 
-		x=pi->id();
+		x = pi->id();
 		if (x==(db+0))
 		{
 			pi->id2++;
@@ -1719,7 +1719,7 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 		}
 	}
 	
-	if (changed)
+	if (changed && s != INVALID_UOXSOCKET)
 	{
 		// house refreshment when a house owner or friend of a houe opens the house door
 		float ds=0;
@@ -1742,7 +1742,8 @@ void dooruse(UOXSOCKET s, P_ITEM pi)
 		pHouse->time_unused = 0;
 		pHouse->last_used = getNormalizedTime();
 	}
-	if (changed==0 && s>-1) sysmessage(s, "This doesnt seem to be a valid door type. Contact a GM.");
+	if (!changed && s != INVALID_UOXSOCKET) 
+		sysmessage(s, "This doesnt seem to be a valid door type. Contact a GM.");
 }
 
 int validhair(int a, int b) // Is selected hair type valid

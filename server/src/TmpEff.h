@@ -40,27 +40,24 @@
 #include "platform.h"
 
 //System includes
+#include <vector>
+#include <functional>
 
-#include <iostream>
-
-using namespace std ;
+using namespace std;
 
 
 //Forward class declarations
-class cTmpEff ;
-class cAllTmpEff ;
+class cTmpEff;
+class cAllTmpEff;
 
 // Wolfpack includes
-#include "wolfpack.h"
-#include "SndPkg.h"
-#include "debug.h"
-
+#include "typedefs.h"
 
 class cTmpEff  
 {
 protected:
-	int sourSer;
-	int destSer;
+	SERIAL sourSer;
+	SERIAL destSer;
 public:
 	unsigned int expiretime;
 	unsigned char num;
@@ -87,21 +84,26 @@ public:
 class cAllTmpEff  
 {
 private:
-	cTmpEff *teffects;
-	unsigned int teffectcount; // No temp effects to start with
+	
+	struct ComparePredicate : public binary_function<cTmpEff*, cTmpEff*, bool>
+	{
+		bool operator()(const cTmpEff *a, const cTmpEff *b)
+		{
+			return a->expiretime < b->expiretime;
+		}
+	};
+	
+	vector<cTmpEff*> teffects;
 
 public:
-	cAllTmpEff()	{teffects=NULL;teffectcount=0;} // No temp effects to start with
+	cAllTmpEff()	{}  // No temp effects to start with
 //	virtual ~cAllTmpEff();
-	bool Alloc(int count);
-	bool ReAlloc(int newcount);
 	void On();
 	void Off();
 	void Check();
 	bool Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur);
 	bool Add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3);
 	void Insert(cTmpEff* pTE);
-	void Remove(cTmpEff* pTE);
 };
 
 #endif

@@ -35,7 +35,14 @@
 
 #include "platform.h"
 
+// Wolfpack Includes
 #include "TmpEff.h"
+#include "chars.h"
+#include "items.h"
+#include "globals.h"
+#include "debug.h"
+#include "wolfpack.h"
+
 
 #undef  DBGFILE
 #define DBGFILE "TmpEff.cpp"
@@ -107,7 +114,6 @@ static void reverseIncognito(P_CHAR pc)
 	}
 }
 
-//##ModelId=3C5D92B3026F
 void cTmpEff::Init()
 {
 	sourSer = INVALID_SERIAL;
@@ -120,37 +126,31 @@ void cTmpEff::Init()
 	dispellable=0;
 }
 
-//##ModelId=3C5D92B30298
 int cTmpEff::getDest()
 {
 	return destSer;
 }
 
-//##ModelId=3C5D92B3028D
 void cTmpEff::setDest(int ser)
 {
 	destSer=ser;
 }
 
-//##ModelId=3C5D92B302C0
 int cTmpEff::getSour()
 {
 	return sourSer;
 }
 
-//##ModelId=3C5D92B302A2
 void cTmpEff::setSour(int ser)
 {
 	sourSer=ser;
 }
 
-//##ModelId=3C5D92B30279
 void cTmpEff::setExpiretime_s(int seconds)
 {
 	expiretime=uiCurrentTime+(seconds*MY_CLOCKS_PER_SEC);
 }
 
-//##ModelId=3C5D92B302CA
 void cTmpEff::On(P_CHAR pc)
 {
 	if (!pc)
@@ -179,7 +179,6 @@ void cTmpEff::On(P_CHAR pc)
 	}
 }
 
-//##ModelId=3C5D92B302DE
 void cTmpEff::Off(P_CHAR pc)
 {
 	if (!pc)
@@ -208,7 +207,6 @@ void cTmpEff::Off(P_CHAR pc)
 	}
 }
 
-//##ModelId=3C5D92B302F2
 void cTmpEff::Reverse()
 {
 	P_CHAR pc_s = FindCharBySerial(getDest());
@@ -261,7 +259,6 @@ void cTmpEff::Reverse()
 	Items->CheckEquipment(pc_s); //AntiChrist - checks equipments for stats requirements
 }
 
-//##ModelId=3C5D92B302FC
 void cTmpEff::Expire()
 {
 	int k;
@@ -288,14 +285,14 @@ void cTmpEff::Expire()
 		if (pc_s->priv2&0x02)
 		{
 			pc_s->priv2 &= 0xFD;
-			int sk=calcSocketFromChar((pc_s));
+			UOXSOCKET sk=calcSocketFromChar((pc_s));
 			if (sk!=-1) sysmessage(sk, "You are no longer frozen.");
 			Magic->afterParticles(38, pc_s); 			
 		}
 		break;
 	case 2:
 		pc_s->fixedlight='\xFF';
-		dolight(calcSocketFromChar((pc_s)), worldbrightlevel);
+		dolight(calcSocketFromChar(pc_s), worldbrightlevel);
 		break;
 	case 3:
 		pc_s->chgDex(more1);
@@ -366,7 +363,7 @@ void cTmpEff::Expire()
 				if (pDoor->dooropen==0)
 					break;
 				pDoor->dooropen=0;
-				dooruse(calcSocketFromChar((pc_s)), pDoor);
+				dooruse(INVALID_UOXSOCKET, pDoor);
 			}
 			break;
 		}
@@ -474,65 +471,53 @@ void cTmpEff::Expire()
 	Items->CheckEquipment(pc_s); //AntiChrist - checks equipments for stats requirements
 }
 
-//##ModelId=3C5D92B40181
 void cAllTmpEff::Off()
 {
-	unsigned int i;
-	for (i=0;i<teffectcount;i++)
+	register unsigned int i;
+	for ( i = 0; i < teffects.size(); ++i)
 	{
-		cTmpEff *pTE = &teffects[i];
+		cTmpEff *pTE = teffects[i];
 		P_CHAR pc = FindCharBySerial(pTE->getDest());
 		if (pc)
 			pTE->Off(pc);
 	}
 }
 
-//##ModelId=3C5D92B40177
 void cAllTmpEff::On()
 {
-	unsigned int i;
-	for (i=0;i<teffectcount;i++)
+	register unsigned int i;
+	for ( i = 0; i < teffects.size(); ++i)
 	{
-		cTmpEff *pTE = &teffects[i];
+		cTmpEff *pTE = teffects[i];
 		P_CHAR pc = FindCharBySerial(pTE->getDest());
 		if (pc)
 			pTE->On(pc);
 	}
 }
 
-//##ModelId=3C5D92B4018B
 void cAllTmpEff::Check()
 {
-	unsigned int i;
-	for(i=0;i<teffectcount;i++)
+	if ( !teffects.empty() && (*teffects.begin())->expiretime <= uiCurrentTime )
 	{
-		cTmpEff *pTE = &teffects[i];
-		if (pTE->expiretime <= uiCurrentTime)
-		{
-			pTE->Expire();
-			AllTmpEff->Remove(pTE);
-			i--;
-		}
+		cTmpEff* pTE = (*teffects.begin());
+		pTE->Expire();
+		teffects.erase( teffects.begin() ); // still sorted.
+		delete pTE;
 	}
 }
 
-//##ModelId=3C5D92B40195
 bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur)
 {
-	unsigned int ic; // antichrist' changes
 	int color, color1, color2, socket; //used for incognito spell
-	int	loopexit=0;
 
 	if ( pc_source == NULL || pc_dest == NULL )
 		return false;
 
-	if (teffectcount>=cmem*5)
-		return false;
-
 	cTmpEff *pTE;
-	for (ic=0;ic<teffectcount;ic++)	// If there is already an effect of the same or similar kind, reverse it first (Duke)
+	register unsigned int i;
+	for ( i = 0; i < teffects.size(); ++i)	// If there is already an effect of the same or similar kind, reverse it first (Duke)
 	{
-		pTE = &teffects[ic];
+		pTE = teffects[i];
 		if (pTE->getDest() == pc_dest->serial)
 		{
 			if ((pTE->num==3 && num==3)||
@@ -550,16 +535,16 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 				(pTE->num==19&& num==18) )  //reverse incognito effect if we have to use poly - AntiChrist (12/99)
 			{
 				pTE->Reverse();
-				AllTmpEff->Remove(pTE);
+				teffects.erase( teffects.begin() + i ); // Should we continue searching?
 			}
 		}
 	}
 
-	pTE=new cTmpEff;
+	pTE = new cTmpEff;
 	pTE->Init();
 	pTE->setSour(pc_source->serial);
 	pTE->setDest(pc_dest->serial);
-	pTE->num=num;
+	pTE->num = num;
 
 	switch (num)
 	{
@@ -1000,15 +985,17 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char mo
 	return 1;
 }
 
-//##ModelId=3C5D92B401DB
 bool cAllTmpEff::Add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char more1, unsigned char more2, unsigned char more3)
 {
-	if (pc_source == NULL)
-		return 0;
+//	if (pc_source == NULL)
+//		return 0;
 
-	cTmpEff *pTE=new cTmpEff;
+	cTmpEff *pTE = new cTmpEff;
 	pTE->Init();
-	pTE->setSour(pc_source->serial);
+	if ( pc_source != NULL )
+		pTE->setSour(pc_source->serial);
+	else
+		pTE->setSour( INVALID_SERIAL );
 	pTE->setDest(piDest->serial);
 	pTE->num=num;
 	switch (num)
@@ -1021,7 +1008,7 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char mor
 	case 13:
 		if (piDest->dooropen)
 		{
-			piDest->dooropen=0;
+			piDest->dooropen = 0;
 			return 0;
 		}
 		pTE->setExpiretime_s(10);
@@ -1038,39 +1025,17 @@ bool cAllTmpEff::Add(P_CHAR pc_source, P_ITEM piDest, int num, unsigned char mor
 		break;
 	default:
 		clConsole.send("ERROR: Fallout of switch statement without default. TmpEff.cpp, tempeffect2()\n"); //Morrolan
-		return 0;
+		delete pTE; // do not leak this resource.
+		return false;
 	}
-	AllTmpEff->Insert(pTE);
-	return 1;
+	this->Insert(pTE);
+	return true;
 }
 
-//##ModelId=3C5D92B4014E
-bool cAllTmpEff::Alloc(int count)
-{
-	teffects = (cTmpEff *)malloc(count*sizeof(cTmpEff));	//MAXEFFECTS = 5*MAXCHARS
-	return teffects==NULL ? false : true;
-}
-
-//##ModelId=3C5D92B40163
-bool cAllTmpEff::ReAlloc(int newcount)
-{
-	teffects = (cTmpEff *)realloc(teffects, (newcount)*sizeof(cTmpEff));
-	return teffects==NULL ? false : true;
-}
-
-//##ModelId=3C5D92B40221
 void cAllTmpEff::Insert(cTmpEff* pTE)
 {
-	memcpy(&teffects[teffectcount],pTE,sizeof(cTmpEff));
-	teffectcount++;
-	delete pTE;
-}
-
-//##ModelId=3C5D92B4022B
-void cAllTmpEff::Remove(cTmpEff* pTE)
-{
-	memcpy(pTE,&teffects[teffectcount-1],sizeof(cTmpEff));
-	teffectcount--;
+	teffects.push_back( pTE );
+	sort( teffects.begin(), teffects.end(), ComparePredicate()); // Make sure it keeps ordered.
 }
 
 unsigned char tempeffect(P_CHAR pc_source, P_CHAR pc_dest, int num, unsigned char more1, unsigned char more2, unsigned char more3, short dur)
