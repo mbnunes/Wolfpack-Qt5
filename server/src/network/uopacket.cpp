@@ -60,7 +60,7 @@
   Constructs a packet that is a deep copy of \a d interpreted as
   raw data.
 */
-cUOPacket::cUOPacket( QByteArray d )
+cUOPacket::cUOPacket( QByteArray d ) : haveCompressed(false)
 {
 	rawPacket = d.copy();
 }
@@ -68,7 +68,7 @@ cUOPacket::cUOPacket( QByteArray d )
 /*!
   Constructs a packet that is a deep copy of \a p.
 */
-cUOPacket::cUOPacket( cUOPacket& p ) // copy constructor
+cUOPacket::cUOPacket( cUOPacket& p ) : haveCompressed(false)
 {
 	assign(p);
 }
@@ -76,7 +76,7 @@ cUOPacket::cUOPacket( cUOPacket& p ) // copy constructor
 /*!
   Constructs a packet of size \a size and filled with 0's.
 */
-cUOPacket::cUOPacket( Q_UINT32 size ) : rawPacket( size )
+cUOPacket::cUOPacket( Q_UINT32 size ) : rawPacket( size ), haveCompressed(false)
 {
 	rawPacket.fill( (char)0 );
 }
@@ -86,7 +86,7 @@ cUOPacket::cUOPacket( Q_UINT32 size ) : rawPacket( size )
   with 0's in all positions except for the first byte which contains
   the packet type.
 */
-cUOPacket::cUOPacket( Q_UINT8 packetId, Q_UINT32 size ) : rawPacket( size )
+cUOPacket::cUOPacket( Q_UINT8 packetId, Q_UINT32 size ) : rawPacket( size ), haveCompressed(false)
 {
 	rawPacket.fill( (char)0 );
 	rawPacket[0] = packetId;
@@ -104,7 +104,8 @@ cUOPacket::cUOPacket( Q_UINT8 packetId, Q_UINT32 size ) : rawPacket( size )
 void cUOPacket::assign( cUOPacket& p)
 {
 	rawPacket = p.rawPacket.copy();
-	if ( p.compressedBuffer.size() )
+	haveCompressed = p.haveCompressed;
+	if ( p.haveCompressed )
 		compressedBuffer = p.compressedBuffer.copy();
 }
 
@@ -209,8 +210,11 @@ void cUOPacket::compress( void )
 */
 QByteArray cUOPacket::compressed()
 {
-	if( compressedBuffer.size() == 0 )
+	if( !haveCompressed )
+	{
 		compress();
+		haveCompressed = true;
+	}
 
 	return compressedBuffer;
 }
@@ -262,6 +266,7 @@ QString cUOPacket::getUnicodeString( uint pos, uint fieldLength )
 */
 void  cUOPacket::setInt( unsigned int pos, unsigned int value )
 {
+	haveCompressed = false; // changed
 	rawPacket.at(pos++) = static_cast<char>((value >> 24) & 0x000000FF);
 	rawPacket.at(pos++) = static_cast<char>((value >> 16) & 0x000000FF);
 	rawPacket.at(pos++) = static_cast<char>((value >> 8 ) & 0x000000FF);
@@ -273,6 +278,7 @@ void  cUOPacket::setInt( unsigned int pos, unsigned int value )
 */
 void  cUOPacket::setShort( unsigned int pos, unsigned short value )
 {
+	haveCompressed = false; // changed
 	rawPacket.at(pos++) = static_cast<char>((value >> 8 ) & 0x000000FF);
 	rawPacket.at(pos)   = static_cast<char>((value)       & 0x000000FF);
 }
@@ -284,6 +290,7 @@ void  cUOPacket::setShort( unsigned int pos, unsigned short value )
 */
 void cUOPacket::setUnicodeString( uint pos, QString& data, uint maxlen )
 {
+	haveCompressed = false; // changed
 	const QChar* unicodeData = data.unicode();
 	const uint length = data.length() * 2 > maxlen ? maxlen/2 : data.length();
 	for ( uint i = 0; i < length; ++i )
@@ -299,6 +306,7 @@ void cUOPacket::setUnicodeString( uint pos, QString& data, uint maxlen )
 */
 void cUOPacket::setAsciiString( uint pos, const char* data, uint maxlen )
 {
+	haveCompressed = false; // changed
 	qstrncpy( rawPacket.data() + pos, data, maxlen );
 }
 
@@ -308,6 +316,7 @@ void cUOPacket::setAsciiString( uint pos, const char* data, uint maxlen )
 */
 char& cUOPacket::operator[] ( unsigned int index )
 {
+	haveCompressed = false; // better safe than sorry
 	return rawPacket.at( index );
 }
 

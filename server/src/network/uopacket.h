@@ -44,6 +44,7 @@ class cUOPacket
 protected:
 	QByteArray compressedBuffer;
 	QByteArray rawPacket;
+	bool haveCompressed;
 	void compress();
 	void assign( cUOPacket& );
 
