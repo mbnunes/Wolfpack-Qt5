@@ -56,7 +56,7 @@
 #define DBGFILE "uobject.cpp"
 
 cUObject::cUObject() :
-	serial_( INVALID_SERIAL ), multis_( INVALID_SERIAL ), free( false ), bindmenu_( QString::null ), changed_(true), tooltip_( 0xFFFFFFFF )
+	serial_( INVALID_SERIAL ), multis_( INVALID_SERIAL ), free( false ), bindmenu_( QString::null ), changed_(true), tooltip_( 0xFFFFFFFF ), havetags_( false )
 {
 }
 
@@ -108,11 +108,13 @@ void cUObject::load( char **result, UINT16 &offset )
 	pos_.map = atoi(result[offset++]);
 	eventList_ = QStringList::split( ",", result[offset++] );
 	bindmenu_ = result[offset++];
+	havetags_ = atoi( result[offset++] );
 
 	// Get our events
 	recreateEvents();
-
-	tags_.load( serial_ );
+	if( havetags_ )
+		tags_.load( serial_ );
+	
 	changed_ = false;
 
 	PersistentObject::load( result, offset );
@@ -153,9 +155,13 @@ void cUObject::save()
 		addStrField( "events", eventList_.join( "," ) );
 		addStrField( "bindmenu", bindmenu_ );
 		addCondition( "serial", serial_ );
+		addField( "havetags", havetags_ );
 		saveFields;
 	}
-	tags_.save( serial_ );
+	if( havetags_ )
+	{
+		tags_.save( serial_ );
+	}
 
 
 	PersistentObject::save();
@@ -173,8 +179,10 @@ bool cUObject::del()
 
 	persistentBroker->addToDeleteQueue( "uobject", QString( "serial = '%1'" ).arg( serial_ ) );
 	persistentBroker->addToDeleteQueue( "uobjectmap", QString( "serial = '%1'" ).arg( serial_ ) );
+	
+	if( havetags_ )
+		tags_.del( serial_ );
 
-	tags_.del( serial_ );
 	changed( SAVE );
 
 	return PersistentObject::del();
@@ -185,7 +193,7 @@ bool cUObject::del()
 */
 void cUObject::buildSqlString( QStringList &fields, QStringList &tables, QStringList &conditions )
 {
-	fields.push_back( "uobject.name,uobject.serial,uobject.multis,uobject.pos_x,uobject.pos_y,uobject.pos_z,uobject.pos_map,uobject.events,uobject.bindmenu" );
+	fields.push_back( "uobject.name,uobject.serial,uobject.multis,uobject.pos_x,uobject.pos_y,uobject.pos_z,uobject.pos_map,uobject.events,uobject.bindmenu,uobject.havetags" );
 	tables.push_back( "uobject" );
 	conditions.push_back( "uobjectmap.serial = uobject.serial" );
 }
@@ -485,6 +493,7 @@ void cUObject::processNode( const QDomElement &Tag )
 				this->tags_.set( tkey, cVariant( tvalue.toInt() ) );
 			else
 				this->tags_.set( tkey, cVariant( tvalue ) );
+			havetags_ = true;
 		}
 	}
 	// <events>a,b,c</events>
