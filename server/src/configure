@@ -80,7 +80,8 @@ check_version ()
 	case "$1" in
 		python-inc)
 			VERSION_REGEXP='^[  ]*#[    ]*define[       ]*PY_VERSION[^"]*"\([^"]*\)".*$';
-			VERSION="$(grep "$VERSION_REGEXP" "${LIB_PATH}/patchlevel.h"|sed -e "s/$VERSION_REGEXP/\1/")";
+			VERSION="$(grep "$VERSION_REGEXP" "${LIB_PATH}/patchlevel.h" 2> /dev/null|sed -e "s/$VERSION_REGEXP/\1/")";
+			[ ! "$VERSION" ] && VERSION="not available";
 			if [ ! "$(echo "$VERSION"|grep '^2\.3')" ];
 			then
 				cat >&2 <<-EOF
@@ -107,6 +108,7 @@ check_version ()
 		qt)
 			VERSION_REGEXP='^.*version:[^(]*([^     ]*[     ]*\([^)]*\)).*$';
 			VERSION="$(eval "${LIB_PATH} -v" 2>&1|grep "$VERSION_REGEXP"|sed -e "s/$VERSION_REGEXP/\1/")";
+			[ ! "$VERSION" ] && VERSION="not available";
 			if [ ! "$(echo "$VERSION"|grep '^3\.')" ];
 			then
 				cat >&2 <<-EOF
@@ -147,7 +149,7 @@ print_usage ()
 	options for developers:
 
 	        --enable-debug             Enable debugging.
-	        --enable-cscriptdebug      Debug into ${0}.
+	        --cscriptdebug      Debug into ${0}.
 
 	EOF
 	exit 1;
