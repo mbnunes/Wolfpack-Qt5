@@ -276,8 +276,8 @@ def bandage_timer( char, args ):
 				char.socket.clilocmessage(500968)
 				return
 
-			# Human target ?
-			if target.id == 0x190 or target.id == 0x191:
+			# Human target ? (players always human)
+			if target.player or target.id == 0x190 or target.id == 0x191:
 				firstskill = HEALING
 				secondskill = ANATOMY
 			else:
@@ -285,8 +285,8 @@ def bandage_timer( char, args ):
 				secondskill = ANIMALLORE
 
 			# Heal a bit
-			healmin = int( char.skill[ firstskill ] / 5 ) + int( char.skill[ secondskill ] / 5 ) + 3
-			healmax = int( char.skill[ firstskill ] / 5 ) + int( char.skill[ secondskill ] / 2 ) + 10
+			healmin = int( char.skill[ firstskill ] / 50.0 ) + int( char.skill[ secondskill ] / 50.0 ) + 3
+			healmax = int( char.skill[ firstskill ] / 50.0 ) + int( char.skill[ secondskill ] / 20.0 ) + 10
 
 			amount = random.randint( healmin, healmax )
 
@@ -299,12 +299,12 @@ def bandage_timer( char, args ):
 
 	# Create bloody bandages
 	# This is target independent
-	if baseid == 0xe21:
-		item = wolfpack.additem( 'e20' )
-		if not wolfpack.utilities.tobackpack( item, char ):
-			item.update()
-
-	elif baseid == 0xee9:
-		item = wolfpack.additem( 'e22' )
-		if not wolfpack.utilities.tobackpack( item, char ):
-			item.update()
+	#if baseid == 0xe21:
+	#	item = wolfpack.additem( 'e20' )
+	#	if not wolfpack.utilities.tobackpack( item, char ):
+	#		item.update()
+	#
+	#elif baseid == 0xee9:
+	#	item = wolfpack.additem( 'e22' )
+	#	if not wolfpack.utilities.tobackpack( item, char ):
+	#		item.update()
