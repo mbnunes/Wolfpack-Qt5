@@ -37,8 +37,12 @@
 	<script>ore</script>
   <script>lockpick</script>
   <script>bulletinboard</script>
+
+  <!-- Combat -->
+  <script>combat</script>
   
   <!-- Guilds -->
+  <script>guilds</script>
   <script>guilds.commands</script>
   <script>guilds.deed</script>
   <script>guilds.member</script>
@@ -64,7 +68,6 @@
 	<script>wolfpack.commands.stat</script>
 	<script>wolfpack.commands.sound</script>
 	<script>wolfpack.commands.travel</script>
-	<script>wolfpack.commands.rippeddecoration</script>
 	<script>wolfpack.commands.serverinfo</script>
 
 	<!-- Magic -->
