@@ -166,7 +166,7 @@ def main():
 	parser.add_option("--python-includes",  dest="py_incpath", help="Python include directory")
 	parser.add_option("--python-libraries", dest="py_libpath", help="Python library path")
 	parser.add_option("--qt-directory", dest="qt_dir", help="Base directory of Qt")
-        parser.add_option("--static", action="store_true" dest="staticlink", help="Build wokfpack using static libraries")
+        parser.add_option("--static", action="store_true", dest="staticlink", help="Build wokfpack using static libraries")
 	(options, args) = parser.parse_args()
 	
 	checkPython(options)
