@@ -398,91 +398,90 @@ void sellaction(int s)
 
 int tradestart(int s, int i)
 {
-	int ps, pi, bps, bpi, s2,c;
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_CHAR pc_i        = MAKE_CHAR_REF(i);
+	ITEM c;
 	unsigned char msg[90];
 
-	bps=packitem(currchar[s]);
-	bpi=packitem(i);
-	s2=calcSocketFromChar(i);
+	P_ITEM pi_bps = Packitem(pc_currchar);
+	P_ITEM pi_bpi = Packitem(pc_i);
+	UOXSOCKET s2 = calcSocketFromChar(DEREF_P_CHAR(pc_i));
 
-	if (bps==-1) //LB
+	if (pi_bps == NULL) //LB
 	{
-		sysmessage(s,"Time to buy a backpack!");
-		sprintf((char*)temp,"%s doesnt have a backpack!",chars[currchar[s]].name);
-		sysmessage(s2,(char*)temp);
+		sysmessage(s, "Time to buy a backpack!");
+		sysmessage(s2, "%s doesnt have a backpack!", pc_currchar->name);
+		return 0;
+	}
+	if (pi_bpi == NULL)
+	{
+		sysmessage(s2, "Time to buy a backpack!");
+		sysmessage(s, "%s doesnt have a backpack!", pc_i->name);
 		return 0;
 	}
 
-	if (bpi==-1)
-	{
-		sysmessage(s2,"Time to buy a backpack!");
-		sprintf((char*)temp,"%s doesnt have a backpack!",chars[currchar[s2]].name);
-		sysmessage(s,(char*)temp);
+	c = Items->SpawnItem(s2, DEREF_P_CHAR(pc_currchar), 1, "#", 0, 0x1E, 0x5E, 0, 0, 0, 0);
+	P_ITEM pi_ps = MAKE_ITEM_REF(c);
+	if(pi_ps == NULL) 
 		return 0;
-	}
+	pi_ps->pos = Coord_cl(26, 0, 0);
+	pi_ps->SetContSerial(pc_currchar->serial);
+	pi_ps->layer=0;
+	pi_ps->type=1;
+	pi_ps->dye=0;
+	sendbpitem(s, DEREF_P_ITEM(pi_ps));
+	if (s2 != INVALID_UOXSOCKET) 
+		sendbpitem(s2, DEREF_P_ITEM(pi_ps));
 
-	c=Items->SpawnItem(s2,currchar[s],1,"#",0,0x1E,0x5E,0,0,0,0);
-	if(c==-1) return 0;//AntiChrist to preview crashes
-	items[c].pos.x=26;
-	items[c].pos.y=0;
-	items[c].pos.z=0;
-	items[c].SetContSerial(chars[currchar[s]].serial);
-	items[c].layer=0;
-	items[c].type=1;
-	items[c].dye=0;
-	ps=c;
-	sendbpitem(s, ps);
-	if (s2!=-1) sendbpitem(s2, ps);
+	c = Items->SpawnItem(s2,i,1,"#",0,0x1E,0x5E,0,0,0,0);
+	P_ITEM pi_pi = MAKE_ITEM_REF(c);
+	if (pi_pi == NULL) 
+		return 0;
+	pi_pi->pos = Coord_cl(26, 0, 0);
+	pi_pi->SetContSerial(pc_i->serial);
+	pi_pi->layer=0;
+	pi_pi->type=1;
+	pi_pi->dye=0;
+	sendbpitem(s, DEREF_P_ITEM(pi_pi));
+	if (s2 != INVALID_UOXSOCKET) 
+		sendbpitem(s2, DEREF_P_ITEM(pi_pi));
 
-	c=Items->SpawnItem(s2,i,1,"#",0,0x1E,0x5E,0,0,0,0);
-	if(c==-1) return 0;//AntiChrist to preview crashes
-	items[c].pos.x=26;
-	items[c].pos.y=0;
-	items[c].pos.z=0;
-	items[c].SetContSerial(chars[i].serial);
-	items[c].layer=0;
-	items[c].type=1;
-	items[c].dye=0;
-	pi=c;
-	sendbpitem(s, pi);
-	if (s2!=-1) sendbpitem(s2, pi);
+	pi_pi->moreb1 = pi_ps->ser1;
+	pi_pi->moreb2 = pi_ps->ser2;
+	pi_pi->moreb3 = pi_ps->ser3;
+	pi_pi->moreb4 = pi_ps->ser4;
+	pi_ps->moreb1 = pi_pi->ser1;
+	pi_ps->moreb2 = pi_pi->ser2;
+	pi_ps->moreb3 = pi_pi->ser3;
+	pi_ps->moreb4 = pi_pi->ser4;
+	pi_ps->morez  = 0;
+	pi_pi->morez  = 0;
 
-	items[pi].moreb1=items[ps].ser1;
-	items[pi].moreb2=items[ps].ser2;
-	items[pi].moreb3=items[ps].ser3;
-	items[pi].moreb4=items[ps].ser4;
-	items[ps].moreb1=items[pi].ser1;
-	items[ps].moreb2=items[pi].ser2;
-	items[ps].moreb3=items[pi].ser3;
-	items[ps].moreb4=items[pi].ser4;
-	items[pi].morez=0;
-	items[ps].morez=0;
-
-	msg[0]=0x6F; // Header Byte
-	msg[1]=0; // Size
-	msg[2]=47; // Size
-	msg[3]=0; // Initiate
-	LongToCharPtr(chars[i].serial,msg+4);
-	LongToCharPtr(items[ps].serial,msg+8);
-	LongToCharPtr(items[pi].serial,msg+12);
+	msg[0] = 0x6F; // Header Byte
+	msg[1] = 0; // Size
+	msg[2] = 47; // Size
+	msg[3] = 0; // Initiate
+	LongToCharPtr(pc_i->serial,msg+4);
+	LongToCharPtr(pi_ps->serial,msg+8);
+	LongToCharPtr(pi_pi->serial,msg+12);
 	msg[16]=1;
-	strcpy((char*)&(msg[17]),chars[i].name);
+	strcpy((char*)&(msg[17]), pc_i->name);
 	Xsend(s, msg, 47);
 
-	if (s2 >= 0)
+	if (s2 != INVALID_UOXSOCKET)
 	{
 		msg[0]=0x6F; // Header Byte
-		msg[1]=0; // Size
-		msg[2]=47; // Size
-		msg[3]=0; // Initiate
-		LongToCharPtr(chars[currchar[s]].serial,msg+4);
-		LongToCharPtr(items[pi].serial,msg+8);
-		LongToCharPtr(items[ps].serial,msg+12);
+		msg[1]=0;    // Size
+		msg[2]=47;   // Size
+		msg[3]=0;    // Initiate
+		LongToCharPtr(pc_currchar->serial,msg+4);
+		LongToCharPtr(pi_pi->serial,msg+8);
+		LongToCharPtr(pi_ps->serial,msg+12);
 		msg[16]=1;
-		strcpy((char*)&(msg[17]),chars[currchar[s]].name);
+		strcpy((char*)&(msg[17]), pc_currchar->name);
 		Xsend(s2, msg, 47);
 	}
-	return ps;
+	return DEREF_P_ITEM(pi_ps);
 }
 
 void clearalltrades()
@@ -596,20 +595,22 @@ void dotrade(int cont1, int cont2)
 	vecContainer = contsp.getData(serial);
 	for (ci=0;ci<vecContainer.size();ci++)
 	{
-		i=calcItemFromSer(vecContainer[ci]);
-		if (i!=-1)
-			if ((items[i].contserial==serial))
+		P_ITEM pi = FindItemBySerial(vecContainer[ci]);
+		if (pi != NULL)
+			if ((pi->contserial==serial))
 			{
-				if (items[i].glow>0) removefromptr(&glowsp[chars[currchar[s2]].serial%HASHMAX],i); // lb, glowing stuff
-				items[i].SetContSerial(items[bp1].serial);
-				if (items[i].glow>0) setptr(&glowsp[chars[currchar[s1]].serial%HASHMAX],i);
-				items[i].pos.x=50+(rand()%80);
-				items[i].pos.y=50+(rand()%80);
-				items[i].pos.z=9;
-				if (s2!=-1)
-					RefreshItem(i);//AntiChrist
-				if (s1!=-1) sendbpitem(s1, i);
-					RefreshItem(i);//AntiChrist
+				if (pi->glow>0) 
+					removefromptr(&glowsp[chars[currchar[s2]].serial%HASHMAX], DEREF_P_ITEM(pi)); // lb, glowing stuff
+				pi->SetContSerial(items[bp1].serial);
+				if (pi->glow>0) 
+					setptr(&glowsp[chars[currchar[s1]].serial%HASHMAX],DEREF_P_ITEM(pi));
+				pi->pos.x=50+(rand()%80);
+				pi->pos.y=50+(rand()%80);
+				pi->pos.z=9;
+				if (s2 != INVALID_UOXSOCKET)
+					RefreshItem(DEREF_P_ITEM(pi));//AntiChrist
+				if (s1 != INVALID_UOXSOCKET) sendbpitem(s1, DEREF_P_ITEM(pi));
+					RefreshItem(DEREF_P_ITEM(pi));//AntiChrist
 			}
 	}
 }

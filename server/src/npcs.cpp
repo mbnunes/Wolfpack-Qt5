@@ -449,35 +449,39 @@ void cCharStuff::DeleteChar (int k) // Delete character
 {
 	int j;//,serial; //Zippy lag
 	//int ptr,ci;
+	P_CHAR pc_k = MAKE_CHAR_REF(k);
 	
-	removeitem[1]=chars[k].ser1;
-	removeitem[2]=chars[k].ser2;
-	removeitem[3]=chars[k].ser3;
-	removeitem[4]=chars[k].ser4;
+	removeitem[1]=pc_k->ser1;
+	removeitem[2]=pc_k->ser2;
+	removeitem[3]=pc_k->ser3;
+	removeitem[4]=pc_k->ser4;
 
-	if (chars[k].spawnregion>0 && chars[k].spawnregion<255)
+	if (pc_k->spawnregion>0 && pc_k->spawnregion<255)
 	{
-		spawnregion[chars[k].spawnregion].current--;
+		spawnregion[pc_k->spawnregion].current--;
 	}
 
 
-	removefromptr(&charsp[chars[k].serial%HASHMAX], k);
+	removefromptr(&charsp[pc_k->serial%HASHMAX], DEREF_P_CHAR(pc_k));
 	
-	if (chars[k].spawnserial!=-1) removefromptr(&cspawnsp[chars[k].spawnserial%HASHMAX], k);
-	if (chars[k].ownserial!=-1) removefromptr(&cownsp[chars[k].ownserial%HASHMAX], k);
+	if (pc_k->spawnserial != INVALID_SERIAL) 
+		removefromptr(&cspawnsp[pc_k->spawnserial%HASHMAX], DEREF_P_CHAR(pc_k));
+	if (pc_k->ownserial != INVALID_SERIAL) 
+		removefromptr(&cownsp[pc_k->ownserial%HASHMAX], DEREF_P_CHAR(pc_k));
 	
 	for (j=0;j<now;j++)
 	{
-		if (perm[j]) Xsend(j, removeitem, 5);		
+		if (perm[j]) 
+			Xsend(j, removeitem, 5);		
 	}
 	
-	if (k>-1) mapRegions->Remove(&chars[k]); // taking it out of mapregions BEFORE x,y changed, LB
+	if (k>-1) mapRegions->Remove(pc_k); // taking it out of mapregions BEFORE x,y changed, LB
 	
-	chars[k].free=true;
-	chars[k].pos.x=20+(xcounter++);
-	chars[k].pos.y=50+(ycounter);
-	chars[k].pos.z=9;
-	chars[k].summontimer=0;
+	pc_k->free = true;
+	pc_k->pos.x=20+(xcounter++);
+	pc_k->pos.y=50+(ycounter);
+	pc_k->pos.z=9;
+	pc_k->summontimer=0;
 	if (xcounter==40)
 	{
 		ycounter++;

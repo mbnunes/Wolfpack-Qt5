@@ -1564,15 +1564,7 @@ void cMagic::FlameStrikeSpellItem(CHARACTER attaker, CHARACTER defender)
 	}
 	doStaticEffect(defender, 51);
 	soundeffect2(defender, 0x02, 0x08);
-	/*if (CheckResist(attaker, defender, 7))
-	{
-		MagicDamage(defender, chars[attaker].skill[MAGERY]/80);
-	}
-	else
-	{
-		MagicDamage(defender, chars[attaker].skill[MAGERY]/(40+RandomNum(1,25)));
-	}*/
-	//AntiChrist - testing
+
 	MagicDamage(defender, chars[attaker].skill[MAGERY]/40+RandomNum(1,25));
 	return;
 }

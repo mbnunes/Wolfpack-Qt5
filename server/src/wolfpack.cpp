@@ -474,10 +474,10 @@ void loadcustomtitle() // for custom titles
 
 }
 
-char *title1(CHARACTER p) // Paperdoll title for character p (1)
+char *title1(P_CHAR pc) // Paperdoll title for character p (1)
 {
 	int titlenum = 0;
-	int x = chars[p].baseskill[bestskill(p)];
+	int x = pc->baseskill[bestskill(DEREF_P_CHAR(pc))];
 
 	//if (x>=1000) titlenum=10;
 	//else if (x>=960) titlenum=9;
@@ -494,11 +494,11 @@ char *title1(CHARACTER p) // Paperdoll title for character p (1)
 	return prowesstitle;
 }
 
-char *title2(CHARACTER p) // Paperdoll title for character p (2)
+char *title2(P_CHAR pc) // Paperdoll title for character p (2)
 {
 
 	int titlenum=0;
-	int x=bestskill(p);
+	int x=bestskill(DEREF_P_CHAR(pc));
 	titlenum=x+1;
 
 	strcpy(skilltitle,title[titlenum].skill);
@@ -506,15 +506,15 @@ char *title2(CHARACTER p) // Paperdoll title for character p (2)
 	return skilltitle;
 }
 
-char *title3(CHARACTER p) // Paperdoll title for character p (3)
+char *title3(P_CHAR pc) // Paperdoll title for character p (3)
 {
 	char thetitle[50];
 	int titlenum=0;
 	int k;
 	unsigned int f;
 
-	k=chars[p].karma;
-	f=chars[p].fame;
+	k=pc->karma;
+	f=pc->fame;
 	thetitle[0] = 0;
 
 	if (k>=10000)
@@ -601,17 +601,17 @@ char *title3(CHARACTER p) // Paperdoll title for character p (3)
 
 	if (f>=10000) // Morollans bugfix for repsys
 	{
-		if (chars[p].kills >= (unsigned)repsys.maxkills)
+		if (pc->kills >= (unsigned)repsys.maxkills)
 		{
-			if (chars[p].id2==0x91) strcpy(fametitle,"The Murderous Lady ");//Morrolan rep
+			if (pc->id2==0x91) strcpy(fametitle,"The Murderous Lady ");//Morrolan rep
 			else strcpy(fametitle,"The Murderer Lord ");
 		}
-		else if (chars[p].id2==0x91) sprintf(fametitle,"The %sLady ",thetitle);
+		else if (pc->id2==0x91) sprintf(fametitle,"The %sLady ",thetitle);
 		else sprintf(fametitle,"The %sLord ",thetitle);
 	}
 	else
 	{
-		if (chars[p].kills >= (unsigned)repsys.maxkills)
+		if (pc->kills >= (unsigned)repsys.maxkills)
 		{
 			strcpy(fametitle,"The Murderer "); //Morrolan rep
 		}
@@ -638,40 +638,40 @@ char *complete_title(CHARACTER p) // generates the ENTIRE title plus criminal st
 	// ripper ..rep stuff
 	else if ((pc->crimflag>0) && (!(pc->dead) && (pc->kills<4)))
 	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[0].other, pc->name, pc->title, title1(p), title2(p));
+		sprintf(tempstr, "%s %s, %s%s %s", title[0].other, pc->name, pc->title, title1(pc), title2(pc));
 	}
 	else if ((pc->kills>=5) && (!(pc->dead) && (pc->kills<10)))
 	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[1].other, pc->name, pc->title, title1(p), title2(p));
+		sprintf(tempstr, "%s %s, %s%s %s", title[1].other, pc->name, pc->title, title1(pc), title2(pc));
 	}
 	else if ((pc->kills>=10) && (!(pc->dead) && (pc->kills<20)))
 	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[2].other, pc->name, pc->title, title1(p), title2(p));
+		sprintf(tempstr, "%s %s, %s%s %s", title[2].other, pc->name, pc->title, title1(pc), title2(pc));
 	}
 	else if ((pc->kills>=20) && (!(pc->dead) && (pc->kills<50)))
 	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[3].other, pc->name, pc->title, title1(p), title2(p));
+		sprintf(tempstr, "%s %s, %s%s %s", title[3].other, pc->name, pc->title, title1(pc), title2(pc));
 	}
 	else if ((pc->kills>=50) && (!(pc->dead) && (pc->kills<100)))
 	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[4].other, pc->name, pc->title, title1(p), title2(p));
+		sprintf(tempstr, "%s %s, %s%s %s", title[4].other, pc->name, pc->title, title1(pc), title2(pc));
 	}
 	else if ((pc->kills>=100) && (!(pc->dead)))
 	{
-		sprintf(tempstr, "%s %s, %s%s %s", title[5].other, pc->name, pc->title, title1(p), title2(p));
+		sprintf(tempstr, "%s %s, %s%s %s", title[5].other, pc->name, pc->title, title1(pc), title2(pc));
 	} // end of rep stuff
 	else
 	{//Player.
-		sprintf(tempstr, "%s%s", title3(p), pc->name);		//Repuation + Name
+		sprintf(tempstr, "%s%s", title3(pc), pc->name);		//Repuation + Name
 		{//NoTownTitle
 			strcpy((char*)temp,tempstr);
 			if (strlen(pc->title)>0)
 			{//Titled & Skill
-				sprintf(tempstr, "%s %s, %s %s", temp, pc->title, title1(p), title2(p));
+				sprintf(tempstr, "%s %s, %s %s", temp, pc->title, title1(pc), title2(pc));
 			}
 			else
 			{//Just skilled
-				sprintf(tempstr, "%s, %s %s", temp, title1(p), title2(p));
+				sprintf(tempstr, "%s, %s %s", temp, title1(pc), title2(pc));
 			}
 		}
 	}
@@ -692,37 +692,40 @@ void gcollect () // Remove items which were in deleted containers
 	do
 	{
 		removed=0;
-		for (i=0;i<itemcount;i++)
+		AllItemsIterator iter_items;
+		for (iter_items.Begin(); iter_items.GetData() != NULL; iter_items++)
 		{
-			const P_ITEM pi=MAKE_ITEMREF_LR(i);	// on error return
-			if (pi->free || pi->isInWorld()) continue;
-			idelete=1;
+			const P_ITEM pi = iter_items.GetData();	// on error return
+			if (pi->free || pi->isInWorld()) 
+				continue;
+			idelete = 1;
 			// find the container if theres one.
-			P_CHAR pc_j=FindCharBySerial(pi->contserial);
-			if (pc_j !=NULL)
+			P_CHAR pc_j = FindCharBySerial(pi->contserial);
+			if (pc_j != NULL)
 			{
-				if (!pc_j->free) idelete=0;
+				if (!pc_j->free) 
+					idelete = 0;
 			}
 			if (idelete)
 			{
 				P_ITEM pi_j=FindItemBySerial(pi->contserial);
 				if (pi_j!=NULL)
 				{
-					if (!pi_j->free) idelete=0;
+					if (!pi_j->free) idelete = 0;
 				}
 			}
 
 			if (idelete)
 			{
-				Items->DeleItem(pi);
+				Items->DeleItem( pi );
 				removed++;
 			}
 		}
-		rtotal+=removed;
-	} while (removed>0 && (++loopexit < MAXLOOPS) );
+		rtotal += removed;
+	} while ( removed > 0 && ( ++loopexit < MAXLOOPS ) );
 
-	sprintf((char*)temp," gc: Removed %i items",rtotal);
-	if (rtotal>0) LogMessage((char*)temp);
+	sprintf((char*)temp, " gc: Removed %i items", rtotal);
+	if (rtotal > 0) LogMessage((char*)temp);
 }
 
 void loadmenuprivs()
@@ -756,10 +759,10 @@ void loadmenuprivs()
 			do
 			{
 				read2();
-				if (script1[0]!='}')
+				if (script1[0] != '}')
 				{
-				 m++;
-				 menupriv[i][m]=str2num(script1);
+					m++;
+					menupriv[i][m] = str2num(script1);
 				}
 			} while ( (script1[0]!='}') && (++loopexit < MAXLOOPS) );
 		}

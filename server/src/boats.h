@@ -41,7 +41,7 @@
 #include <iostream>
 #include <cmath>
 
-using namespace std ;
+using namespace std;
 
 
 // Forward class Declaration
@@ -51,7 +51,6 @@ class cBoat;
 // Wolfpack files
 #include "wolfpack.h"
 #include "SndPkg.h"
-#include "boats.h"
 
 //For iSizeShipOffsets->
 #define PORT_PLANK 0
@@ -82,8 +81,8 @@ class cBoat
 
 	public:
 		cBoat();
-		int GetBoat(int);
 		virtual ~cBoat();
+		P_ITEM GetBoat(P_CHAR);
 		char Speech(int, char *);
 		//void Speech(int, char *);
 		void OpenPlank(int);

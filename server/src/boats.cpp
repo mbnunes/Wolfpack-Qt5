@@ -136,10 +136,6 @@ P_ITEM findmulti(Coord_cl pos) //Sortta like getboat() only more general... use 
 				{
 					if (mapitem->id1>=0x40)
 					{
-						/*dx=abs(pos.x - items[mapitem].pos.x);
-						dy=abs(pos.y - items[mapitem].pos.y);
-						ret=(int)(hypot(dx, dy));
-						*/
 						ret = pos.distance(mapitem->pos);
 						if (ret<=lastdist)
 						{
@@ -199,7 +195,7 @@ void cBoat::PlankStuff(UOXSOCKET s, ITEM p)//If the plank is opened, double clic
 	pc_cs=MAKE_CHARREF_LR(currchar[s]);	
 
 	int a,b,serhash=pc_cs->serial%HASHMAX;
-	P_ITEM boat = MAKE_ITEM_REF(GetBoat(s));
+	P_ITEM boat = GetBoat(pc_cs);
 	if(boat == NULL)//They aren't on a boat, so put then on the plank.
 	{
 		// LB, bugfix for tillerman not reacting if the boat was entered via plank !
@@ -212,7 +208,7 @@ void cBoat::PlankStuff(UOXSOCKET s, ITEM p)//If the plank is opened, double clic
 		pc_cs->multis=-3; // we have to trick getboat to start the search !!!
 		                              // will be corrected automatically by setserial...
 
-		P_ITEM boat2 = MAKE_ITEM_REF(GetBoat(s));
+		P_ITEM boat2 = GetBoat(pc_cs);
 		if (boat2 == NULL)
 			return;
 	
@@ -260,7 +256,7 @@ void cBoat::LeaveBoat(UOXSOCKET s, ITEM p)//Get off a boat (dbl clicked an open 
 	int x,x2=items[p].pos.x;
 	int y,y2=items[p].pos.y;
 	signed char z=items[p].pos.z,mz,sz,typ;
-	P_ITEM pBoat = MAKE_ITEM_REF(GetBoat(s));
+	P_ITEM pBoat = GetBoat(pc_cs);
 	int a,b,serhash=pc_cs->serial%HASHMAX;
 	// char o;
 	
@@ -504,20 +500,19 @@ bool cBoat::Build(UOXSOCKET s, ITEM b, char id2)//Build a boat! (Do stuff NESSIC
 	return true;
 }
 
-int cBoat::GetBoat(UOXSOCKET s)//get the closest boat to the player and check to make sure they are on it
+P_ITEM cBoat::GetBoat(P_CHAR pcc_cs)//get the closest boat to the player and check to make sure they are on it
 {	
 	
-	PC_CHAR pcc_cs=MAKE_CHARREF_LOGGED(currchar[s],err);
-	if (err)
+	if (pcc_cs == NULL)
 	{
-		return -1;
+		return NULL;
 	}
 
-	ITEM boat=-1;
 	P_ITEM pi_boat = NULL;
 
-    if (pcc_cs->multis>0) return calcItemFromSer( pcc_cs->multis );
-    else if (pcc_cs->multis==-1) return -1;
+    if (pcc_cs->multis > 0) 
+		return FindItemBySerial( pcc_cs->multis );
+    else if (pcc_cs->multis == -1) return NULL;
 	else 
 	{
 		pi_boat = findmulti(pcc_cs->pos);
@@ -525,7 +520,7 @@ int cBoat::GetBoat(UOXSOCKET s)//get the closest boat to the player and check to
 			if(!inmulti(pcc_cs->pos, pi_boat)) 
 				pi_boat = NULL;
 
-		return DEREF_P_ITEM(pi_boat);
+		return pi_boat;
 	}
 }
 
@@ -1002,39 +997,38 @@ void cBoat::Turn(ITEM b, int turn)//Turn the boat item, and send all the people/
 
 char cBoat::Speech(UOXSOCKET s, char *msg)//See if they said a command. msg must already be capitalized
 {
-	int boat=GetBoat(s);
-	if(boat==-1) return 0;//if they aren't on a boat, then we don't care what they said
-	int dir=items[boat].dir&0x0F;
-	int serial, tiller;
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
+	P_ITEM boat = GetBoat(pc_currchar);
+	if(boat == NULL) 
+		return 0;
+	int dir = boat->dir&0x0F;
+	int serial;
 	char msg2[512];
-//	char msg[512];
 
-	if (s<0 || s>=MAXCLIENT) return 0;
+	if (s == INVALID_UOXSOCKET) 
+		return 0;
 
 	//get the tiller man's item #
-	serial=calcserial(items[boat].moreb1,items[boat].moreb2,items[boat].moreb3,items[boat].moreb4);
-	if(serial == INVALID_SERIAL) return 0;
-	tiller = calcItemFromSer(serial);
-	if(tiller<0) return 0;
+	serial=calcserial(boat->moreb1, boat->moreb2, boat->moreb3, boat->moreb4);
+	if ( serial == INVALID_SERIAL ) 
+		return 0;
+	P_ITEM tiller = FindItemBySerial(serial);
+	if ( tiller == NULL ) 
+		return 0;
 
-	//if(dist(currchar[s],tiller,1)>4) return;
-
-//	strcpy(msg, talk);//Capitalize the msg
-//	strcpy(msg, strupr(msg));
-	/*forward, backward, right, left, anchor down, raise anchor, one left, one right, one */
 	if(strstr(msg,"FORWARD") || strstr(msg,"UNFURL SAIL"))
 	{
-		items[boat].type2=1;//Moving
-		Move(s,dir,boat);
-		itemtalk(s, tiller, "Aye, sir.");
+		boat->type2=1;//Moving
+		Move(s,dir, DEREF_P_ITEM(boat));
+		itemtalk(s, DEREF_P_ITEM(tiller), "Aye, sir.");
 		return 1;
 	} else if(strstr(msg,"BACKWARD"))
 	{
-		items[boat].type2=2;//Moving backward
-		if(dir>=4) dir-=4; 
+		boat->type2=2;//Moving backward
+		if(dir >= 4) dir-=4; 
 		else dir+=4;
-		Move(s,dir,boat);		
-		itemtalk(s, tiller, "Aye, sir.");
+		Move(s,dir, DEREF_P_ITEM(boat));		
+		itemtalk(s, DEREF_P_ITEM(tiller), "Aye, sir.");
 		return 1;
 	}  else if(strstr(msg,"ONE") || strstr(msg,"DRIFT"))
 	{
@@ -1042,21 +1036,21 @@ char cBoat::Speech(UOXSOCKET s, char *msg)//See if they said a command. msg must
 		{
 			dir-=2;
 			if(dir<0) dir+=8;			
-			Move(s,dir,boat);
-			itemtalk(s, tiller, "Aye, sir.");
+			Move(s, dir, DEREF_P_ITEM(boat));
+			itemtalk(s, DEREF_P_ITEM(tiller), "Aye, sir.");
 			return 1;
 
 		} else if(strstr(msg,"RIGHT"))
 		{
 			dir+=2;
 			if(dir>=8) dir-=8; 			
-			Move(s,dir,boat);
+			Move(s,dir,DEREF_P_ITEM(boat));
 		
-			itemtalk(s, tiller, "Aye, sir.");
+			itemtalk(s, DEREF_P_ITEM(tiller), "Aye, sir.");
 			return 1;
 		}
 	} 
-	else if(strstr(msg,"STOP") || strstr(msg,"FURL SAIL")) { items[boat].type2=0;itemtalk(s, tiller, "Aye, sir."); }//Moving is type2 1 and 2, so stop is 0 :-)
+	else if(strstr(msg,"STOP") || strstr(msg,"FURL SAIL")) { boat->type2=0; itemtalk(s, DEREF_P_ITEM(tiller), "Aye, sir."); }//Moving is type2 1 and 2, so stop is 0 :-)
 	else if((strstr(msg,"TURN") && (strstr(msg,"AROUND") || strstr(msg,"LEFT") || strstr(msg,"RIGHT")))
 		|| strstr(msg,"PORT") || strstr(msg,"STARBOARD") || strstr(msg,"COME ABOUT"))
 	{
@@ -1098,14 +1092,14 @@ char cBoat::Speech(UOXSOCKET s, char *msg)//See if they said a command. msg must
 			}
 
 
-			if (!Block(boat,tx,ty,dir))
+			if (!Block(DEREF_P_ITEM(boat),tx,ty,dir))
 			{
-			  Turn(boat,1);
-			  itemtalk(s, tiller, "Aye, sir.");
+			  Turn(DEREF_P_ITEM(boat),1);
+			  itemtalk(s, DEREF_P_ITEM(tiller), "Aye, sir.");
 			  return 1;
 			} else { 
-				items[boat].type2=0;
-			    itemtalk(s,tiller,"Arr,somethings in the way"); 
+				boat->type2 = 0;
+			    itemtalk(s, DEREF_P_ITEM(tiller), "Arr,somethings in the way"); 
 				return 1;
 			}
 		}
@@ -1147,35 +1141,35 @@ char cBoat::Speech(UOXSOCKET s, char *msg)//See if they said a command. msg must
 			}
 
 
-			if (!Block(boat,tx,ty,dir))
+			if (!Block(DEREF_P_ITEM(boat),tx,ty,dir))
 			{
-			  Turn(boat,0);			
-			  itemtalk(s, tiller, "Aye, sir.");
+			  Turn(DEREF_P_ITEM(boat),0);			
+			  itemtalk(s, DEREF_P_ITEM(tiller), "Aye, sir.");
 			  return 1;
 			} else 
 			{ 
-				items[boat].type2=0;
-				itemtalk(s,tiller,"Arr,somethings in the way"); 
+				boat->type2 = 0;
+				itemtalk(s, DEREF_P_ITEM(tiller), "Arr,somethings in the way"); 
 				return 1;
 			}
 		}
 		else if(strstr(msg,"COME ABOUT") || strstr(msg,"AROUND"))
 		{
-			Turn(boat,1);
-			Turn(boat,1);
-			itemtalk(s, tiller, "Aye, sir.");
+			Turn(DEREF_P_ITEM(boat), 1);
+			Turn(DEREF_P_ITEM(boat), 1);
+			itemtalk(s, DEREF_P_ITEM(tiller), "Aye, sir.");
 			return 1;
 		}
 	}
 	else if(strstr(msg,"SET NAME"))
 	{
-		strcpy(items[tiller].name,"a ship named ");
+		strcpy(tiller->name,"a ship named ");
 		for(unsigned int a=8;a<strlen(msg2);a++)
 		{
-			sprintf(items[tiller].name,"%s%c",items[tiller].name,msg2[a]);
+			sprintf(tiller->name,"%s%c", tiller->name, msg2[a]);
 		}
 		return 1;
 	}
 
-  return 0;
+	return 0;
 }

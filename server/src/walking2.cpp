@@ -1001,62 +1001,51 @@ void cMovement::OutputShoveMessage(P_CHAR pc, UOXSOCKET socket, short int oldx, 
 		const int newx=pc->pos.x;
 		const int newy=pc->pos.y;
 
-		const int StartGrid=mapRegions->StartGrid(pc->pos.x,pc->pos.y);
-		const int getcell=mapRegions->GetCell(pc->pos.x,pc->pos.y);
-		int checkgrid = 0;
-		for (int increment = 0; increment < 3; increment++)
+		cRegion::RegionIterator4Chars ri(pc->pos);
+		for (ri.Begin(); ri.GetData() != ri.End(); ri++)
 		{
-			checkgrid = StartGrid+(increment*mapRegions->GetColSize());
-			for (int a = 0; a < 3; a++)
+			P_CHAR mapchar = ri.GetData();
+			if (mapchar != NULL)
 			{
-				vector<SERIAL> vecEntries = mapRegions->GetCellEntries(checkgrid+a);
-				for ( unsigned int k = 0; k < vecEntries.size(); k++)
-				{
-					ITEM mapchar = calcCharFromSer(vecEntries[k]);
-					if (mapchar != -1)
-					{
-						int i=mapchar;
 #if DEBUG
-						printf("DEBUG: Mapchar %i [%i]\n",mapchar,mapitem);
+				printf("DEBUG: Mapchar %i [%i]\n",mapchar,mapitem);
 #endif
-						//Let GMs see logged out players
-						if ( online(i) || chars[i].npc || pc->isGM())
+				//Let GMs see logged out players
+				if ( online(DEREF_P_CHAR(mapchar)) || mapchar->npc || pc->isGM())
+				{
+					if (
+						(((abs(newx-mapchar->pos.x)== visibleRange )||(abs(newy-mapchar->pos.y)== visibleRange )) &&
+						((abs(oldx-mapchar->pos.x) > visibleRange )||(abs(oldy-mapchar->pos.y)> visibleRange ))) ||
+						((abs(newx-mapchar->pos.x)== visibleRange )&&(abs(newy-mapchar->pos.y)== visibleRange ))
+						)
+					{
+						impowncreate(socket, DEREF_P_CHAR(mapchar), 1);
+					}
+				}
+				if (!(
+					((pc->id1==0x03)&&(pc->id2==0xDB)) ||
+					((pc->id1==0x01)&&(pc->id2==0x92)) ||
+					((pc->id1==0x01)&&(pc->id2==0x93)) ||
+					((pc->isGMorCounselor()			  ))	))
+				{
+					if (mapchar != pc && (online(DEREF_P_CHAR(mapchar)) || mapchar->npc))
+					{
+						if (mapchar->pos.x == pc->pos.x && mapchar->pos.y == pc->pos.y && mapchar->pos.z == pc->pos.z)
 						{
-							if (
-								(((abs(newx-chars[i].pos.x)== visibleRange )||(abs(newy-chars[i].pos.y)== visibleRange )) &&
-								((abs(oldx-chars[i].pos.x) > visibleRange )||(abs(oldy-chars[i].pos.y)> visibleRange ))) ||
-								((abs(newx-chars[i].pos.x)== visibleRange )&&(abs(newy-chars[i].pos.y)== visibleRange ))
-								)
+							if (!mapchar->hidden)
 							{
-								impowncreate(socket, i, 1);
+								sprintf(temp, "Being perfectly rested, you shove %s out of the way.", mapchar->name);
+								if (socket!=INVALID_UOXSOCKET) sysmessage(socket, temp);
+								pc->stm = max(pc->stm-4, 0);
+								// updatestats(currchar[c], 2); // replaced with:
+								updatestats(DEREF_P_CHAR(pc), 2);  // arm code
 							}
-						}
-						if (!(
-							((pc->id1==0x03)&&(pc->id2==0xDB)) ||
-							((pc->id1==0x01)&&(pc->id2==0x92)) ||
-							((pc->id1==0x01)&&(pc->id2==0x93)) ||
-							((pc->isGMorCounselor()			  ))	))
-						{
-							if (i!=DEREF_P_CHAR(pc) && (online(i) || chars[i].npc))
+							else if(!mapchar->isGMorCounselor())//A normal player (No priv1(Not a gm))
 							{
-								if (chars[i].pos.x==pc->pos.x && chars[i].pos.y==pc->pos.y && chars[i].pos.z==pc->pos.z)
-								{
-									if (!chars[i].hidden)
-									{
-										sprintf(temp, "Being perfectly rested, you shove %s out of the way.", chars[i].name);
-										if (socket!=INVALID_UOXSOCKET) sysmessage(socket, temp);
-										pc->stm=max(pc->stm-4, 0);
-										// updatestats(currchar[c], 2); // replaced with:
-										updatestats(DEREF_P_CHAR(pc), 2);  // arm code
-									}
-									else if(!(chars[i].isGMorCounselor()))//A normal player (No priv1(Not a gm))
-									{
-										if (socket!=INVALID_UOXSOCKET) sysmessage(socket, "Being perfectly rested, you shove something invisible out of the way.");
-										pc->stm=max(pc->stm-4, 0);
-										// updatestats(currchar[s], 2); // replaced with:
-										updatestats(DEREF_P_CHAR(pc), 2);  // arm code
-									}
-								}
+								if (socket != INVALID_UOXSOCKET) sysmessage(socket, "Being perfectly rested, you shove something invisible out of the way.");
+								pc->stm=max(pc->stm-4, 0);
+								// updatestats(currchar[s], 2); // replaced with:
+								updatestats(DEREF_P_CHAR(pc), 2);  // arm code
 							}
 						}
 					}
@@ -1252,7 +1241,7 @@ void cMovement::HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket)
 			// dynamics-check
 			int x = Map->DynamicElevation(pc->pos.x, pc->pos.y, pc->pos.z);
 			if (x!=illegal_z)
-				if (Boats->GetBoat(socket) != -1)
+				if (Boats->GetBoat(pc) != NULL)
 					x=illegal_z; // check for dynamic buildings except boats
 			if (x==1)
 				x = illegal_z; // 1 seems to be the multi-borders

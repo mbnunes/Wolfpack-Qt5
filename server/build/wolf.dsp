@@ -42,7 +42,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /G5 /MD /W4 /GX /Zi /O2 /Oy- /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /FR /YX /FD /c
+# ADD CPP /nologo /G6 /MD /W4 /GX /Zi /O2 /Oy- /D "NDEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /FR /YX /FD /c
 # ADD BASE RSC /l 0x409 /d "NDEBUG"
 # ADD RSC /l 0x409 /d "NDEBUG"
 BSC32=bscmake.exe
@@ -67,7 +67,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /G5 /MD /w /W0 /GX /ZI /Od /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /FR /YX /FD /GZ /c
+# ADD CPP /nologo /G6 /MDd /W1 /GR /GX /ZI /Od /D "_DEBUG" /D "WIN32" /D "_CONSOLE" /D "_MBCS" /FR /YX /FD /GZ /c
 # ADD BASE RSC /l 0x409 /d "_DEBUG"
 # ADD RSC /l 0x409 /d "_DEBUG"
 BSC32=bscmake.exe
@@ -947,16 +947,7 @@ SOURCE=.\utilsys.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\walking.cpp
-
-!IF  "$(CFG)" == "wolf - Win32 Release"
-
-!ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
-
-# ADD CPP /W4
-
-!ENDIF 
-
+SOURCE=.\walking2.cpp
 # End Source File
 # Begin Source File
 
@@ -966,7 +957,7 @@ SOURCE=.\weight.cpp
 
 !ELSEIF  "$(CFG)" == "wolf - Win32 Debug"
 
-# ADD CPP /W4
+# ADD CPP /G6 /W4
 
 !ENDIF 
 
@@ -1285,7 +1276,7 @@ SOURCE=.\verinfo.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\walking.h
+SOURCE=.\walking2.h
 # End Source File
 # Begin Source File
 

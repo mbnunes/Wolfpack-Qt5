@@ -54,11 +54,12 @@ void checktimers() // Check shutdown timers
 
 void do_lsd(UOXSOCKET s)
 {
+	P_CHAR pc_currchar = MAKE_CHAR_REF(currchar[s]);
 	if (rand()%15==0)
 	{
 		int c1,c2,color,ctr=0,b,xx,yy,di,icnt=0;
 		signed char zz;
-		int StartGrid=mapRegions->StartGrid(chars[currchar[s]].pos.x,chars[currchar[s]].pos.y);
+		int StartGrid=mapRegions->StartGrid(pc_currchar->pos.x,pc_currchar->pos.y);
 		unsigned int increment=0;
 		int loopexit=0;
 		for (unsigned int checkgrid=StartGrid+(increment*mapRegions->GetColSize());increment<3;increment++, checkgrid=StartGrid+(increment*mapRegions->GetColSize()))
@@ -74,7 +75,7 @@ void do_lsd(UOXSOCKET s)
 					{
 						 color=(pi->color1<<8)+pi->color2; // fetch item's color and covert to 16 bit
 						 if (rand()%44==0) color+=pi->pos.x-pi->pos.y; else
-						 color+=chars[currchar[s]].pos.x+chars[currchar[s]].pos.y;
+						 color+=pc_currchar->pos.x+pc_currchar->pos.y;
 						 color+=rand()%3; // add random "noise"
 						 ctr++;
 						 // lots of color consistancy checks
@@ -96,7 +97,7 @@ void do_lsd(UOXSOCKET s)
 						 if (rand()%10==0) zz=pi->pos.z+rand()%33; else zz=pi->pos.z;
 						 if (rand()%10==0) xx=pi->pos.x+rand()%3; else xx=pi->pos.x;
 						 if (rand()%10==0) yy=pi->pos.y+rand()%3; else yy=pi->pos.y;
-						 di = itemdist(currchar[s],DEREF_P_ITEM(pi));
+						 di = itemdist(DEREF_P_CHAR(pc_currchar),DEREF_P_ITEM(pi));
 						 if (di<13) if (rand()%7==0)
 						 {
 							icnt++;
@@ -107,7 +108,7 @@ void do_lsd(UOXSOCKET s)
 					}// end of if item
 					else if (mapchar != NULL)// character
 					{
-						di = chardist(currchar[s], DEREF_P_CHAR(mapchar));
+						di = chardist(DEREF_P_CHAR(pc_currchar), DEREF_P_CHAR(mapchar));
 						if (di<10) if (rand()%10==0)
 						{
 							icnt++;
@@ -256,7 +257,7 @@ void genericCheck(int i, unsigned int currenttime)// Char mapRegions
 						{
 							if (pc->med)
 							{
-								int s = calcSocketFromChar(i);
+								int s = calcSocketFromChar(DEREF_P_CHAR(pc));
 								sysmessage(s, "You are at peace.");
 								pc->med = 0;
 							}
@@ -272,10 +273,9 @@ void genericCheck(int i, unsigned int currenttime)// Char mapRegions
 					int ratio = ((100 + 50)/SrvParms->manarate);
 					// 100 = Maximum skill (GM)
 					// 50 = int affects mana regen (%50)
-					// int s = calcSocketFromChar(i);
-					int armorhandicap = ((Skills->GetAntiMagicalArmorDefence(i) + 1) / SrvParms->manarate);
+					// int s = calcSocketFromChar(DEREF_P_CHAR(pc));
+					int armorhandicap = ((Skills->GetAntiMagicalArmorDefence(DEREF_P_CHAR(pc)) + 1) / SrvParms->manarate);
 					int charsmeditsecs = (1 + SrvParms->manarate - ((((pc->skill[MEDITATION] + 1)/10) + ((pc->in + 1) / 2)) / ratio));
-					// sysmessage(s,"int %d skill %d , armor : %d chars medit sec %d ",chars[i].in,((chars[i].skill[MEDITATION]+1)/10),armorhandicap,charsmeditsecs);
 					if (pc->med)
 					{
 						pc->regen3 = currenttime + ((armorhandicap + charsmeditsecs/2)* MY_CLOCKS_PER_SEC);
@@ -307,7 +307,7 @@ void checkPC(int i, unsigned int currenttime)//Char mapRegions
 
 	UOXSOCKET s = calcSocketFromChar(pc);//Only calc socket once!
 
-	Magic->CheckFieldEffects2(currenttime, i,1);//Lag fix
+	Magic->CheckFieldEffects2(currenttime, DEREF_P_CHAR(pc), 1);//Lag fix
 	if (!pc->dead && pc->swingtarg==-1 )
 		Combat->DoCombat(DEREF_P_CHAR(pc),currenttime);
 	else if(!pc->dead && (pc->swingtarg>=0 && pc->timeout<=currenttime))
@@ -882,12 +882,10 @@ void checkauto() // Check automatic/timer controlled stuff (Like fighting and re
 			if (pc->npc_type == 1)
 			{
 				serial = pc->serial;
-//				serhash=serial%HASHMAX;
 				vector<SERIAL> pets = stablesp.getData(serial);
 				for (ci = 0; ci < pets.size();ci++)
 				{
 					P_CHAR pc_pet = FindCharBySerial(pets[ci]);
-//					i = stablesp[serhash].pointer[ci];
 					if (pc_pet != NULL)
 					{
 						diff = (getNormalizedTime() - pc_pet->timeused_last) / MY_CLOCKS_PER_SEC;
