@@ -1,0 +1,61 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Raptor                         |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Fruits and Vegetables                                         |
+=================================================================
+-->
+<definitions>
+        <item id="D1B">
+                <id>0xD1B</id>
+                <category>Vegetation\Fruits\Grapevines 1</category>
+        </item>
+
+        <item id="D1C">
+                <id>0xD1C</id>
+                <category>Vegetation\Fruits\Grapevines 2</category>
+        </item>
+
+        <item id="D1D">
+                <id>0xD1D</id>
+                <category>Vegetation\Fruits\Grapevines 3</category>
+        </item>
+
+        <item id="D1E">
+                <id>0xD1E</id>
+                <category>Vegetation\Fruits\Grapevines 4</category>
+        </item>
+
+        <item id="D1F">
+                <id>0xD1F</id>
+                <category>Vegetation\Fruits\Grapevines 5</category>
+        </item>
+
+        <item id="D20">
+                <id>0xD20</id>
+                <category>Vegetation\Fruits\Grapevines 6</category>
+        </item>
+
+        <item id="D21">
+                <id>0xD21</id>
+                <category>Vegetation\Fruits\Grapevines 7</category>
+        </item>
+
+        <item id="D22">
+                <id>0xD22</id>
+                <category>Vegetation\Fruits\Grapevines 8</category>
+        </item>
+
+        <item id="D23">
+                <id>0xD23</id>
+                <category>Vegetation\Fruits\Grapevines 9</category>
+        </item>
+
+        <item id="D24">
+                <id>0xD24</id>
+                <category>Vegetation\Fruits\Grapevines 10</category>
+        </item>
+</definitions>

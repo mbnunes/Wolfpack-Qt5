@@ -47,11 +47,6 @@
                 <category>Misc\Animations\Fire Column</category>
         </item>
 
-        <item id="3709">
-                <id>0x3709</id>
-                <category>Misc\Animations\Fire Column</category>
-        </item>
-
         <item id="3728">
                 <id>0x3728</id>
                 <category>Misc\Animations\Smoke</category>
@@ -79,12 +74,12 @@
 
         <item id="375a">
                 <id>0x375a</id>
-                <category>Misc\Animations\Sparkle (blue & gold) 1</category>
+                <category>Misc\Animations\Sparkle (blue &amp; gold) 1</category>
         </item>
 
         <item id="376a">
                 <id>0x376a</id>
-                <category>Misc\Animations\Sparkle (blue & gold) 2</category>
+                <category>Misc\Animations\Sparkle (blue &amp; gold) 2</category>
         </item>
 
         <item id="3789">

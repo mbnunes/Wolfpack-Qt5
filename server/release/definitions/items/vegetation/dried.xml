@@ -1,0 +1,51 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Raptor                         |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Dried Vegetation                                              |
+=================================================================
+-->
+<definitions>
+        <item id="C3B">
+                <id>0xC3B</id>
+                <category>Vegetation\Dried Vegetation\Dried Flowers 1</category>
+        </item>
+
+        <item id="C3C">
+                <id>0xC3C</id>
+                <category>Vegetation\Dried Vegetation\Dried Flowers 2</category>
+        </item>
+
+        <item id="C3D">
+                <id>0xC3D</id>
+                <category>Vegetation\Dried Vegetation\Dried Flowers 3</category>
+        </item>
+
+        <item id="C3E">
+                <id>0xC3E</id>
+                <category>Vegetation\Dried Vegetation\Dried Flowers 4</category>
+        </item>
+
+        <item id="C3F">
+                <id>0xC3F</id>
+                <category>Vegetation\Dried Vegetation\Dried Onions 1</category>
+        </item>
+
+        <item id="C40">
+                <id>0xC40</id>
+                <category>Vegetation\Dried Vegetation\Dried Onions 2</category>
+        </item>
+
+        <item id="C41">
+                <id>0xC41</id>
+                <category>Vegetation\Dried Vegetation\Dried Herbs 1</category>
+        </item>
+
+        <item id="C42">
+                <id>0xC42</id>
+                <category>Vegetation\Dried Vegetation\Dried Herbs 2</category>
+        </item>
+</definitions>

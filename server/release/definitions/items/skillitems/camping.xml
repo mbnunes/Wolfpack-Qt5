@@ -7,11 +7,4 @@
 =================================================================
 -->
 <definitions>
-	<!-- Bedroll -->
-	<item id="a58">
-		<id>0x0a58</id>
-		<value>20</value>
-		<weight>0.3</weight>
-		<category>Skill Items\Camping\Bedroll</category>
-	</item>
 </definitions>

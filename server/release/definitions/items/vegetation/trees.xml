@@ -1,0 +1,1053 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Raptor                         |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Trees and Palms                                               |
+=================================================================
+-->
+<!-- Aus der base.xml müssen folgende Items (insgesamt 205) gelöscht werden:
+c95, c96
+c99 bis c9e
+ca6, ca8, caa, cab
+cc9 bis cea
+cf3 bis d03
+d37, d38
+d41 bis dad
+e56 bis e59
+1b1f bis 1b26
+1b7e
+12b6 bis 12c7
+-->
+<definitions>
+        <!-- Palms -->
+        <item id="C95">
+                <id>0xC95</id>
+                <category>Vegetation\Palms\Coconut Palm</category>
+        </item>
+
+        <item id="C96">
+                <id>0xC96</id>
+                <category>Vegetation\Palms\Date Palm</category>
+        </item>
+
+        <item id="C99">
+                <id>0xC99</id>
+                <category>Vegetation\Palms\Small Palm 1</category>
+        </item>
+
+        <item id="C9A">
+                <id>0xC9A</id>
+                <category>Vegetation\Palms\Small Palm 2</category>
+        </item>
+
+        <item id="C9B">
+                <id>0xC9B</id>
+                <category>Vegetation\Palms\Small Palm 3</category>
+        </item>
+
+        <item id="C9C">
+                <id>0xC9C</id>
+                <category>Vegetation\Palms\Small Palm 4</category>
+        </item>
+
+        <item id="C9D">
+                <id>0xC9D</id>
+                <category>Vegetation\Palms\Small Palm 5</category>
+        </item>
+
+        <item id="CA6">
+                <id>0xCA6</id>
+                <category>Vegetation\Palms\Ponytail Palm</category>
+        </item>
+
+        <!-- Trees -->
+        <item id="1B1F">
+                <id>0x1B1F</id>
+                <category>Vegetation\Trees\Leaves 1</category>
+        </item>
+
+        <item id="1B20">
+                <id>0x1B20</id>
+                <category>Vegetation\Trees\Leaves 2</category>
+        </item>
+
+        <item id="1B21">
+                <id>0x1B21</id>
+                <category>Vegetation\Trees\Leaves 3</category>
+        </item>
+
+        <item id="1B22">
+                <id>0x1B22</id>
+                <category>Vegetation\Trees\Leaves 4</category>
+        </item>
+
+        <item id="1B23">
+                <id>0x1B23</id>
+                <category>Vegetation\Trees\Leaves 5</category>
+        </item>
+
+        <item id="1B24">
+                <id>0x1B24</id>
+                <category>Vegetation\Trees\Leaves 6</category>
+        </item>
+
+        <item id="1B25">
+                <id>0x1B25</id>
+                <category>Vegetation\Trees\Leaves 7</category>
+        </item>
+
+        <item id="1B26">
+                <id>0x1B26</id>
+                <category>Vegetation\Trees\Leaves 8</category>
+        </item>
+
+        <item id="1B7E">
+                <id>0x1B7E</id>
+                <category>Vegetation\Trees\Tuscany Pine</category>
+        </item>
+
+        <item id="C9E">
+                <id>0xC9E</id>
+                <category>Vegetation\Trees\O'Hii Tree </category>
+        </item>
+
+        <item id="CA8">
+                <id>0xCA8</id>
+                <category>Vegetation\Trees\Banana Tree (small) </category>
+        </item>
+
+        <item id="CAA">
+                <id>0xCAA</id>
+                <category>Vegetation\Trees\Banana Tree 1</category>
+        </item>
+
+        <item id="CAB">
+                <id>0xCAB</id>
+                <category>Vegetation\Trees\Banana Tree 2</category>
+        </item>
+
+        <item id="CC9">
+                <id>0xCC9</id>
+                <category>Vegetation\Trees\Spider Tree</category>
+        </item>
+
+        <item id="CCA">
+                <id>0xCCA</id>
+                <category>Vegetation\Trees\Tree (brown)</category>
+        </item>
+
+        <item id="CCB">
+                <id>0xCCB</id>
+                <category>Vegetation\Trees\Tree (dark brown)</category>
+        </item>
+
+        <item id="CCC">
+                <id>0xCCC</id>
+                <category>Vegetation\Trees\Tree (light brown)</category>
+        </item>
+
+        <item id="CCD">
+                <id>0xCCD</id>
+                <category>Vegetation\Trees\Tree (gray)</category>
+        </item>
+
+        <item id="CCE">
+                <id>0xCCE</id>
+                <category>Vegetation\Trees\Tree (gray) Leaves 1</category>
+        </item>
+
+        <item id="CCF">
+                <id>0xCCF</id>
+                <category>Vegetation\Trees\Tree (gray) Leaves 2</category>
+        </item>
+
+        <item id="CD0">
+                <id>0xCD0</id>
+                <category>Vegetation\Trees\Tree (brown)</category>
+        </item>
+
+        <item id="CD1">
+                <id>0xCD1</id>
+                <category>Vegetation\Trees\Tree (brown) Leaves 1</category>
+        </item>
+
+        <item id="CD2">
+                <id>0xCD2</id>
+                <category>Vegetation\Trees\Tree (brown) Leaves 2</category>
+        </item>
+
+        <item id="CD3">
+                <id>0xCD3</id>
+                <category>Vegetation\Trees\Tree 1</category>
+        </item>
+
+        <item id="CD4">
+                <id>0xCD4</id>
+                <category>Vegetation\Trees\Tree 1 Leaves 1</category>
+        </item>
+
+        <item id="CD5">
+                <id>0xCD5</id>
+                <category>Vegetation\Trees\Tree 1 Leaves 2</category>
+        </item>
+
+        <item id="CD6">
+                <id>0xCD6</id>
+                <category>Vegetation\Trees\Cedar Tree 1</category>
+        </item>
+
+        <item id="CD7">
+                <id>0xCD7</id>
+                <category>Vegetation\Trees\Cedar Needles 1</category>
+        </item>
+
+        <item id="CD8">
+                <id>0xCD8</id>
+                <category>Vegetation\Trees\Cedar Tree 2</category>
+        </item>
+
+        <item id="CD9">
+                <id>0xCD9</id>
+                <category>Vegetation\Trees\Cedar Needles 2</category>
+        </item>
+
+        <item id="CDA">
+                <id>0xCDA</id>
+                <category>Vegetation\Trees\Oak Tree 1</category>
+        </item>
+
+        <item id="CDB">
+                <id>0xCDB</id>
+                <category>Vegetation\Trees\Oak Tree 1 Leaves 1</category>
+        </item>
+
+        <item id="CDC">
+                <id>0xCDC</id>
+                <category>Vegetation\Trees\Oak Tree 1 Leaves 2</category>
+        </item>
+
+        <item id="CDD">
+                <id>0xCDD</id>
+                <category>Vegetation\Trees\Oak Tree 2</category>
+        </item>
+
+        <item id="CDE">
+                <id>0xCDE</id>
+                <category>Vegetation\Trees\Oak Tree 2 Leaves 1</category>
+        </item>
+
+        <item id="CDF">
+                <id>0xCDF</id>
+                <category>Vegetation\Trees\Oak Tree 2 Leaves 2</category>
+        </item>
+
+        <item id="CE0">
+                <id>0xCE0</id>
+                <category>Vegetation\Trees\Walnut Tree 1</category>
+        </item>
+
+        <item id="CE1">
+                <id>0xCE1</id>
+                <category>Vegetation\Trees\Walnut Tree 1 Leaves 1</category>
+        </item>
+
+        <item id="CE2">
+                <id>0xCE2</id>
+                <category>Vegetation\Trees\Walnut Tree 1 Leaves 2</category>
+        </item>
+
+        <item id="CE3">
+                <id>0xCE3</id>
+                <category>Vegetation\Trees\Walnut Tree 2</category>
+        </item>
+
+        <item id="CE4">
+                <id>0xCE4</id>
+                <category>Vegetation\Trees\Walnut Tree 2 Leaves 1</category>
+        </item>
+
+        <item id="CE5">
+                <id>0xCE5</id>
+                <category>Vegetation\Trees\Walnut Tree 2 Leaves 2</category>
+        </item>
+
+        <item id="CE6">
+                <id>0xCE6</id>
+                <category>Vegetation\Trees\Willow Tree </category>
+        </item>
+
+        <item id="CE7">
+                <id>0xCE7</id>
+                <category>Vegetation\Trees\Willow Leaves 1</category>
+        </item>
+
+        <item id="CE8">
+                <id>0xCE8</id>
+                <category>Vegetation\Trees\Willow Leaves 2</category>
+        </item>
+
+        <item id="CE9">
+                <id>0xCE9</id>
+                <category>Vegetation\Trees\Sapling 1</category>
+        </item>
+
+        <item id="CEA">
+                <id>0xCEA</id>
+                <category>Vegetation\Trees\Sapling 2</category>
+        </item>
+
+        <item id="CF3">
+                <id>0xCF3</id>
+                <category>Vegetation\Trees\Fallen Log (N/S) 1</category>
+        </item>
+
+        <item id="CF4">
+                <id>0xCF4</id>
+                <category>Vegetation\Trees\Fallen Log (N/S) 2</category>
+        </item>
+
+        <item id="CF5">
+                <id>0xCF5</id>
+                <category>Vegetation\Trees\Fallen Log (W/E) 1</category>
+        </item>
+
+        <item id="CF6">
+                <id>0xCF6</id>
+                <category>Vegetation\Trees\Fallen Log (W/E) 2</category>
+        </item>
+
+        <item id="CF7">
+                <id>0xCF7</id>
+                <category>Vegetation\Trees\Fallen Log (W/E) 3</category>
+        </item>
+
+        <item id="CF8">
+                <id>0xCF8</id>
+                <category>Vegetation\Trees\Cypress Tree 1</category>
+        </item>
+
+        <item id="CF9">
+                <id>0xCF9</id>
+                <category>Vegetation\Trees\Cypress Tree 1 Leaves 1</category>
+        </item>
+
+        <item id="CFA">
+                <id>0xCFA</id>
+                <category>Vegetation\Trees\Cypress Tree 1 Leaves 2</category>
+        </item>
+
+        <item id="CFB">
+                <id>0xCFB</id>
+                <category>Vegetation\Trees\Cypress Tree 2</category>
+        </item>
+
+        <item id="CFC">
+                <id>0xCFC</id>
+                <category>Vegetation\Trees\Cypress Tree 2 Leaves 1</category>
+        </item>
+
+        <item id="CFD">
+                <id>0xCFD</id>
+                <category>Vegetation\Trees\Cypress Tree 2 Leaves 2</category>
+        </item>
+
+        <item id="CFE">
+                <id>0xCFE</id>
+                <category>Vegetation\Trees\Cypress Tree 3</category>
+        </item>
+
+        <item id="CFF">
+                <id>0xCFF</id>
+                <category>Vegetation\Trees\Cypress Tree 3 Leaves 1</category>
+        </item>
+
+        <item id="D00">
+                <id>0xD00</id>
+                <category>Vegetation\Trees\Cypress Tree 3 Leaves 2</category>
+        </item>
+
+        <item id="D01">
+                <id>0xD01</id>
+                <category>Vegetation\Trees\Cypress Tree 4</category>
+        </item>
+
+        <item id="D02">
+                <id>0xD02</id>
+                <category>Vegetation\Trees\Cypress Tree 4 Leaves 1</category>
+        </item>
+
+        <item id="D03">
+                <id>0xD03</id>
+                <category>Vegetation\Trees\Cypress Tree 4 Leaves 2</category>
+        </item>
+
+        <item id="D37">
+                <id>0xD37</id>
+                <category>Vegetation\Trees\Yucca 1</category>
+        </item>
+
+        <item id="D38">
+                <id>0xD38</id>
+                <category>Vegetation\Trees\Yucca 2</category>
+        </item>
+
+        <item id="D41">
+                <id>0xD41</id>
+                <category>Vegetation\Trees\Tree 1 (1/4)</category>
+        </item>
+
+        <item id="D42">
+                <id>0xD42</id>
+                <category>Vegetation\Trees\Tree 1 (2/4)</category>
+        </item>
+
+        <item id="D43">
+                <id>0xD43</id>
+                <category>Vegetation\Trees\Tree 1 (3/4)</category>
+        </item>
+
+        <item id="D44">
+                <id>0xD44</id>
+                <category>Vegetation\Trees\Tree 1 (4/4)</category>
+        </item>
+
+        <item id="D45">
+                <id>0xD45</id>
+                <category>Vegetation\Trees\Leaves 1 (1/15)</category>
+        </item>
+
+        <item id="D46">
+                <id>0xD46</id>
+                <category>Vegetation\Trees\Leaves 1 (2/15)</category>
+        </item>
+
+        <item id="D47">
+                <id>0xD47</id>
+                <category>Vegetation\Trees\Leaves 1 (3/15)</category>
+        </item>
+
+        <item id="D48">
+                <id>0xD48</id>
+                <category>Vegetation\Trees\Leaves 1 (4/15)</category>
+        </item>
+
+        <item id="D49">
+                <id>0xD49</id>
+                <category>Vegetation\Trees\Leaves 1 (5/15)</category>
+        </item>
+
+        <item id="D4A">
+                <id>0xD4A</id>
+                <category>Vegetation\Trees\Leaves 1 (6/15)</category>
+        </item>
+
+        <item id="D4B">
+                <id>0xD4B</id>
+                <category>Vegetation\Trees\Leaves 1 (7/15)</category>
+        </item>
+
+        <item id="D4C">
+                <id>0xD4C</id>
+                <category>Vegetation\Trees\Leaves 1 (8/15)</category>
+        </item>
+
+        <item id="D4D">
+                <id>0xD4D</id>
+                <category>Vegetation\Trees\Leaves 1 (9/15)</category>
+        </item>
+
+        <item id="D4E">
+                <id>0xD4E</id>
+                <category>Vegetation\Trees\Leaves 1 (10/15)</category>
+        </item>
+
+        <item id="D4F">
+                <id>0xD4F</id>
+                <category>Vegetation\Trees\Leaves 1 (11/15)</category>
+        </item>
+
+        <item id="D50">
+                <id>0xD50</id>
+                <category>Vegetation\Trees\Leaves 1 (12/15)</category>
+        </item>
+
+        <item id="D51">
+                <id>0xD51</id>
+                <category>Vegetation\Trees\Leaves 1 (13/15)</category>
+        </item>
+
+        <item id="D52">
+                <id>0xD52</id>
+                <category>Vegetation\Trees\Leaves 1 (14/15)</category>
+        </item>
+
+        <item id="D53">
+                <id>0xD53</id>
+                <category>Vegetation\Trees\Leaves 1 (15/15)</category>
+        </item>
+
+        <item id="D54">
+                <id>0xD54</id>
+                <category>Vegetation\Trees\Vines 1 (1/3)</category>
+        </item>
+
+        <item id="D55">
+                <id>0xD55</id>
+                <category>Vegetation\Trees\Vines 1 (2/3)</category>
+        </item>
+
+        <item id="D56">
+                <id>0xD56</id>
+                <category>Vegetation\Trees\Vines 1 (3/3)</category>
+        </item>
+
+        <item id="D57">
+                <id>0xD57</id>
+                <category>Vegetation\Trees\Tree Pieces 1 (1/5)</category>
+        </item>
+
+        <item id="D58">
+                <id>0xD58</id>
+                <category>Vegetation\Trees\Tree Pieces 1 (2/5)</category>
+        </item>
+
+        <item id="D59">
+                <id>0xD59</id>
+                <category>Vegetation\Trees\Tree Pieces 1 (3/5)</category>
+        </item>
+
+        <item id="D5A">
+                <id>0xD5A</id>
+                <category>Vegetation\Trees\Tree Pieces 1 (4/5)</category>
+        </item>
+
+        <item id="D5B">
+                <id>0xD5B</id>
+                <category>Vegetation\Trees\Tree Pieces 1 (5/5)</category>
+        </item>
+
+        <item id="D5C">
+                <id>0xD5C</id>
+                <category>Vegetation\Trees\Leaves 2 (1/14)</category>
+        </item>
+
+        <item id="D5D">
+                <id>0xD5D</id>
+                <category>Vegetation\Trees\Leaves 2 (2/14)</category>
+        </item>
+
+        <item id="D5E">
+                <id>0xD5E</id>
+                <category>Vegetation\Trees\Leaves 2 (3/14)</category>
+        </item>
+
+        <item id="D5F">
+                <id>0xD5F</id>
+                <category>Vegetation\Trees\Leaves 2 (4/14)</category>
+        </item>
+
+        <item id="D60">
+                <id>0xD60</id>
+                <category>Vegetation\Trees\Leaves 2 (5/14)</category>
+        </item>
+
+        <item id="D61">
+                <id>0xD61</id>
+                <category>Vegetation\Trees\Leaves 2 (6/14)</category>
+        </item>
+
+        <item id="D62">
+                <id>0xD62</id>
+                <category>Vegetation\Trees\Leaves 2 (7/14)</category>
+        </item>
+
+        <item id="D63">
+                <id>0xD63</id>
+                <category>Vegetation\Trees\Leaves 2 (8/14)</category>
+        </item>
+
+        <item id="D64">
+                <id>0xD64</id>
+                <category>Vegetation\Trees\Leaves 2 (9/14)</category>
+        </item>
+
+        <item id="D65">
+                <id>0xD65</id>
+                <category>Vegetation\Trees\Leaves 2 (10/14)</category>
+        </item>
+
+        <item id="D66">
+                <id>0xD66</id>
+                <category>Vegetation\Trees\Leaves 2 (11/14)</category>
+        </item>
+
+        <item id="D67">
+                <id>0xD67</id>
+                <category>Vegetation\Trees\Leaves 2 (12/14)</category>
+        </item>
+
+        <item id="D68">
+                <id>0xD68</id>
+                <category>Vegetation\Trees\Leaves 2 (13/14)</category>
+        </item>
+
+        <item id="D69">
+                <id>0xD69</id>
+                <category>Vegetation\Trees\Leaves 2 (14/14)</category>
+        </item>
+
+        <item id="D6A">
+                <id>0xD6A</id>
+                <category>Vegetation\Trees\Vines 2 (1/4)</category>
+        </item>
+
+        <item id="D6B">
+                <id>0xD6B</id>
+                <category>Vegetation\Trees\Vines 2 (2/4)</category>
+        </item>
+
+        <item id="D6C">
+                <id>0xD6C</id>
+                <category>Vegetation\Trees\Vines 2 (3/4)</category>
+        </item>
+
+        <item id="D6D">
+                <id>0xD6D</id>
+                <category>Vegetation\Trees\Vines 2 (4/4)</category>
+        </item>
+
+        <item id="D6E">
+                <id>0xD6E</id>
+                <category>Vegetation\Trees\Tree Pieces 2 (1/5)</category>
+        </item>
+
+        <item id="D6F">
+                <id>0xD6F</id>
+                <category>Vegetation\Trees\Tree Pieces 2 (2/5)</category>
+        </item>
+
+        <item id="D70">
+                <id>0xD70</id>
+                <category>Vegetation\Trees\Tree Pieces 2 (3/5)</category>
+        </item>
+
+        <item id="D71">
+                <id>0xD71</id>
+                <category>Vegetation\Trees\Tree Pieces 2 (4/5)</category>
+        </item>
+
+        <item id="D72">
+                <id>0xD72</id>
+                <category>Vegetation\Trees\Tree Pieces 2 (5/5)</category>
+        </item>
+
+        <item id="D73">
+                <id>0xD73</id>
+                <category>Vegetation\Trees\Leaves 3 (1/13)</category>
+        </item>
+
+        <item id="D74">
+                <id>0xD74</id>
+                <category>Vegetation\Trees\Leaves 3 (2/13)</category>
+        </item>
+
+        <item id="D75">
+                <id>0xD75</id>
+                <category>Vegetation\Trees\Leaves 3 (3/13)</category>
+        </item>
+
+        <item id="D76">
+                <id>0xD76</id>
+                <category>Vegetation\Trees\Leaves 3 (4/13)</category>
+        </item>
+
+        <item id="D77">
+                <id>0xD77</id>
+                <category>Vegetation\Trees\Leaves 3 (5/13)</category>
+        </item>
+
+        <item id="D78">
+                <id>0xD78</id>
+                <category>Vegetation\Trees\Leaves 3 (6/13)</category>
+        </item>
+
+        <item id="D79">
+                <id>0xD79</id>
+                <category>Vegetation\Trees\Leaves 3 (7/13)</category>
+        </item>
+
+        <item id="D7A">
+                <id>0xD7A</id>
+                <category>Vegetation\Trees\Leaves 3 (8/13)</category>
+        </item>
+
+        <item id="D7B">
+                <id>0xD7B</id>
+                <category>Vegetation\Trees\Leaves 3 (9/13)</category>
+        </item>
+
+        <item id="D7C">
+                <id>0xD7C</id>
+                <category>Vegetation\Trees\Leaves 3 (10/13)</category>
+        </item>
+
+        <item id="D7D">
+                <id>0xD7D</id>
+                <category>Vegetation\Trees\Leaves 3 (11/13)</category>
+        </item>
+
+        <item id="D7E">
+                <id>0xD7E</id>
+                <category>Vegetation\Trees\Leaves 3 (12/13)</category>
+        </item>
+
+        <item id="D7F">
+                <id>0xD7F</id>
+                <category>Vegetation\Trees\Leaves 3 (13/13)</category>
+        </item>
+
+        <item id="D80">
+                <id>0xD80</id>
+                <category>Vegetation\Trees\Vines 3 (1/4)</category>
+        </item>
+
+        <item id="D81">
+                <id>0xD81</id>
+                <category>Vegetation\Trees\Vines 3 (2/4)</category>
+        </item>
+
+        <item id="D82">
+                <id>0xD82</id>
+                <category>Vegetation\Trees\Vines 3 (3/4)</category>
+        </item>
+
+        <item id="D83">
+                <id>0xD83</id>
+                <category>Vegetation\Trees\Vines 3 (4/4)</category>
+        </item>
+
+        <item id="D84">
+                <id>0xD84</id>
+                <category>Vegetation\Trees\Tree 2 (1/3)</category>
+        </item>
+
+        <item id="D85">
+                <id>0xD85</id>
+                <category>Vegetation\Trees\Tree 2 (2/3)</category>
+        </item>
+
+        <item id="D86">
+                <id>0xD86</id>
+                <category>Vegetation\Trees\Tree 2 (3/3)</category>
+        </item>
+
+        <item id="D87">
+                <id>0xD87</id>
+                <category>Vegetation\Trees\Leaves 4 (1/10)</category>
+        </item>
+
+        <item id="D88">
+                <id>0xD88</id>
+                <category>Vegetation\Trees\Leaves 4 (2/10)</category>
+        </item>
+
+        <item id="D89">
+                <id>0xD89</id>
+                <category>Vegetation\Trees\Leaves 4 (3/10)</category>
+        </item>
+
+        <item id="D8A">
+                <id>0xD8A</id>
+                <category>Vegetation\Trees\Leaves 4 (4/10)</category>
+        </item>
+
+        <item id="D8B">
+                <id>0xD8B</id>
+                <category>Vegetation\Trees\Leaves 4 (5/10)</category>
+        </item>
+
+        <item id="D8C">
+                <id>0xD8C</id>
+                <category>Vegetation\Trees\Leaves 4 (6/10)</category>
+        </item>
+
+        <item id="D8D">
+                <id>0xD8D</id>
+                <category>Vegetation\Trees\Leaves 4 (7/10)</category>
+        </item>
+
+        <item id="D8E">
+                <id>0xD8E</id>
+                <category>Vegetation\Trees\Leaves 4 (8/10)</category>
+        </item>
+
+        <item id="D8F">
+                <id>0xD8F</id>
+                <category>Vegetation\Trees\Leaves 4 (9/10)</category>
+        </item>
+
+        <item id="D90">
+                <id>0xD90</id>
+                <category>Vegetation\Trees\Leaves 4 (10/10)</category>
+        </item>
+
+        <item id="D91">
+                <id>0xD91</id>
+                <category>Vegetation\Trees\Vines 4 (1/3)</category>
+        </item>
+
+        <item id="D92">
+                <id>0xD92</id>
+                <category>Vegetation\Trees\Vines 4 (2/3)</category>
+        </item>
+
+        <item id="D93">
+                <id>0xD93</id>
+                <category>Vegetation\Trees\Vines 4 (3/3)</category>
+        </item>
+
+        <item id="DAC">
+                <id>0xDAC</id>
+                <category>Vegetation\Trees\Tree Stump 1</category>
+        </item>
+
+        <item id="DAD">
+                <id>0xDAD</id>
+                <category>Vegetation\Trees\Tree Stump 2</category>
+        </item>
+
+        <item id="E56">
+                <id>0xE56</id>
+                <category>Vegetation\Trees\Tree Stump 3</category>
+        </item>
+
+        <item id="E57">
+                <id>0xE57</id>
+                <category>Vegetation\Trees\Tree Stump 4</category>
+        </item>
+
+        <item id="E58">
+                <id>0xE58</id>
+                <category>Vegetation\Trees\Tree Stump 5</category>
+        </item>
+
+        <item id="E59">
+                <id>0xE59</id>
+                <category>Vegetation\Trees\Tree Stump 6</category>
+        </item>
+
+        <!-- Fruit Trees -->
+        <item id="D94">
+                <id>0xD94</id>
+                <category>Vegetation\Fruit Trees\Apple Tree 1</category>
+        </item>
+
+        <item id="D95">
+                <id>0xD95</id>
+                <category>Vegetation\Fruit Trees\Apple Tree 1 Foliage 1</category>
+        </item>
+
+        <item id="D96">
+                <id>0xD96</id>
+                <category>Vegetation\Fruit Trees\Apple Tree 1 Foliage 2</category>
+        </item>
+
+        <item id="D97">
+                <id>0xD97</id>
+                <category>Vegetation\Fruit Trees\Apple Tree 1 Foliage 3</category>
+        </item>
+
+        <item id="D98">
+                <id>0xD98</id>
+                <category>Vegetation\Fruit Trees\Apple Tree 2</category>
+        </item>
+
+        <item id="D99">
+                <id>0xD99</id>
+                <category>Vegetation\Fruit Trees\Apple Tree 2 Foliage 1</category>
+        </item>
+
+        <item id="D9A">
+                <id>0xD9A</id>
+                <category>Vegetation\Fruit Trees\Apple Tree 2 Foliage 2</category>
+        </item>
+
+        <item id="D9B">
+                <id>0xD9B</id>
+                <category>Vegetation\Fruit Trees\Apple Tree 2 Foliage 3</category>
+        </item>
+
+        <item id="D9C">
+                <id>0xD9C</id>
+                <category>Vegetation\Fruit Trees\Peach Tree 1</category>
+        </item>
+
+        <item id="D9D">
+                <id>0xD9D</id>
+                <category>Vegetation\Fruit Trees\Peach Tree 1 Foliage 1</category>
+        </item>
+
+        <item id="D9E">
+                <id>0xD9E</id>
+                <category>Vegetation\Fruit Trees\Peach Tree 1 Foliage 2</category>
+        </item>
+
+        <item id="D9F">
+                <id>0xD9F</id>
+                <category>Vegetation\Fruit Trees\Peach Tree 1 Foliage 3</category>
+        </item>
+
+        <item id="DA0">
+                <id>0xDA0</id>
+                <category>Vegetation\Fruit Trees\Peach Tree 2</category>
+        </item>
+
+        <item id="DA1">
+                <id>0xDA1</id>
+                <category>Vegetation\Fruit Trees\Peach Tree 2 Foliage 1</category>
+        </item>
+
+        <item id="DA2">
+                <id>0xDA2</id>
+                <category>Vegetation\Fruit Trees\Peach Tree 2 Foliage 2</category>
+        </item>
+
+        <item id="DA3">
+                <id>0xDA3</id>
+                <category>Vegetation\Fruit Trees\Peach Tree 2 Foliage 3</category>
+        </item>
+
+        <item id="DA4">
+                <id>0xDA4</id>
+                <category>Vegetation\Fruit Trees\Pear Tree 1</category>
+        </item>
+
+        <item id="DA5">
+                <id>0xDA5</id>
+                <category>Vegetation\Fruit Trees\Pear Tree 1 Foliage 1</category>
+        </item>
+
+        <item id="DA6">
+                <id>0xDA6</id>
+                <category>Vegetation\Fruit Trees\Pear Tree 1 Foliage 2</category>
+        </item>
+
+        <item id="DA7">
+                <id>0xDA7</id>
+                <category>Vegetation\Fruit Trees\Pear Tree 1 Foliage 3</category>
+        </item>
+
+        <item id="DA8">
+                <id>0xDA8</id>
+                <category>Vegetation\Fruit Trees\Pear Tree 2</category>
+        </item>
+
+        <item id="DA9">
+                <id>0xDA9</id>
+                <category>Vegetation\Fruit Trees\Pear Tree 2 Foliage 1</category>
+        </item>
+
+        <item id="DAA">
+                <id>0xDAA</id>
+                <category>Vegetation\Fruit Trees\Pear Tree 2 Foliage 2</category>
+        </item>
+
+        <item id="DAB">
+                <id>0xDAB</id>
+                <category>Vegetation\Fruit Trees\Pear Tree 2 Foliage 3</category>
+        </item>
+
+        <!-- Yew Tree -->
+                <item id="12B6">
+                <id>0x12B6</id>
+                <category>Vegetation\Trees\Yew Tree 1</category>
+        </item>
+
+        <item id="12B7">
+                <id>0x12B7</id>
+                <category>Vegetation\Trees\Yew Tree 2</category>
+        </item>
+
+        <item id="12B8">
+                <id>0x12B8</id>
+                <category>Vegetation\Trees\Yew Tree 3</category>
+        </item>
+
+        <item id="12B9">
+                <id>0x12B9</id>
+                <category>Vegetation\Trees\Yew Tree 4</category>
+        </item>
+
+        <item id="12BA">
+                <id>0x12BA</id>
+                <category>Vegetation\Trees\Yew Tree 5</category>
+        </item>
+
+        <item id="12BB">
+                <id>0x12BB</id>
+                <category>Vegetation\Trees\Yew Tree 6</category>
+        </item>
+
+        <item id="12BC">
+                <id>0x12BC</id>
+                <category>Vegetation\Trees\Yew Tree 7</category>
+        </item>
+
+        <item id="12BD">
+                <id>0x12BD</id>
+                <category>Vegetation\Trees\Yew Tree 8</category>
+        </item>
+
+        <item id="12BE">
+                <id>0x12BE</id>
+                <category>Vegetation\Trees\Yew Tree Leaves 1</category>
+        </item>
+
+        <item id="12BF">
+                <id>0x12BF</id>
+                <category>Vegetation\Trees\Yew Tree Leaves 2</category>
+        </item>
+
+        <item id="12C0">
+                <id>0x12C0</id>
+                <category>Vegetation\Trees\Yew Tree Leaves 3</category>
+        </item>
+
+        <item id="12C1">
+                <id>0x12C1</id>
+                <category>Vegetation\Trees\Yew Tree Leaves 4</category>
+        </item>
+
+        <item id="12C2">
+                <id>0x12C2</id>
+                <category>Vegetation\Trees\Yew Tree Leaves 5</category>
+        </item>
+
+        <item id="12C3">
+                <id>0x12C3</id>
+                <category>Vegetation\Trees\Yew Tree Leaves 6</category>
+        </item>
+
+        <item id="12C4">
+                <id>0x12C4</id>
+                <category>Vegetation\Trees\Yew Tree Leaves 7</category>
+        </item>
+
+        <item id="12C5">
+                <id>0x12C5</id>
+                <category>Vegetation\Trees\Yew Tree Leaves 8</category>
+        </item>
+
+        <item id="12C6">
+                <id>0x12C6</id>
+                <category>Vegetation\Trees\Yew Tree Leaves 9</category>
+        </item>
+
+        <item id="12C7">
+                <id>0x12C7</id>
+                <category>Vegetation\Trees\Yew Tree Leaves 10</category>
+        </item>
+</definitions>

@@ -1,0 +1,84 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: Raptor                         |
+|   )).-' {{ ;'`   | Revised by:                                |
+|  ( (  ;._ \\ ctr | Last Modification: Created                 |
+=================================================================
+| Mushrooms                                                     |
+=================================================================
+-->
+<!-- Aus der base.xml müssen folgende Items (insgesamt 15) gelöscht werden:
+d0c bis d19
+-->
+<definitions>
+        <item id="D0C">
+                <id>0xD0C</id>
+                <category>Vegetation\Mushrooms\Mushrooms 1</category>
+        </item>
+
+        <item id="D0D">
+                <id>0xD0D</id>
+                <category>Vegetation\Mushrooms\Mushrooms 2</category>
+        </item>
+
+        <item id="D0E">
+                <id>0xD0E</id>
+                <category>Vegetation\Mushrooms\Mushrooms 3</category>
+        </item>
+
+        <item id="D0F">
+                <id>0xD0F</id>
+                <category>Vegetation\Mushrooms\Mushrooms 4</category>
+        </item>
+
+        <item id="D10">
+                <id>0xD10</id>
+                <category>Vegetation\Mushrooms\Mushrooms 5</category>
+        </item>
+
+        <item id="D11">
+                <id>0xD11</id>
+                <category>Vegetation\Mushrooms\Mushrooms 6</category>
+        </item>
+
+        <item id="D12">
+                <id>0xD12</id>
+                <category>Vegetation\Mushrooms\Mushrooms 7</category>
+        </item>
+
+        <item id="D13">
+                <id>0xD13</id>
+                <category>Vegetation\Mushrooms\Mushrooms 8</category>
+        </item>
+
+        <item id="D14">
+                <id>0xD14</id>
+                <category>Vegetation\Mushrooms\Mushrooms 9</category>
+        </item>
+
+        <item id="D15">
+                <id>0xD15</id>
+                <category>Vegetation\Mushrooms\Mushrooms 10</category>
+        </item>
+
+        <item id="D16">
+                <id>0xD16</id>
+                <category>Vegetation\Mushrooms\Mushrooms 11</category>
+        </item>
+
+        <item id="D17">
+                <id>0xD17</id>
+                <category>Vegetation\Mushrooms\Mushrooms 12</category>
+        </item>
+
+        <item id="D18">
+                <id>0xD18</id>
+                <category>Vegetation\Mushrooms\Mushrooms 13</category>
+        </item>
+
+        <item id="D19">
+                <id>0xD19</id>
+                <category>Vegetation\Mushrooms\Mushrooms 14</category>
+        </item>
+</definitions>
