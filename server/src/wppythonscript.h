@@ -108,6 +108,7 @@ PyObject* PyWPServer_shutdown( PyObject* self, PyObject* args );
 PyObject* PyWPServer_save( PyObject* self, PyObject* args );
 
 PyObject* PyWPItems_findbyserial( PyObject* self, PyObject* args );
+PyObject* PyWPItems_add( PyObject* self, PyObject* args );
 
 PyObject* PyWPChars_findbyserial( PyObject* self, PyObject* args );
 
@@ -115,6 +116,9 @@ PyObject* PyWPMovement_deny( PyObject* self, PyObject* args );
 PyObject* PyWPMovement_accept( PyObject* self, PyObject* args );
 
 PyObject* PyWP_clients( PyObject* self, PyObject* args );
+
+PyObject* PyWPMap_gettile( PyObject* self, PyObject* args );
+PyObject* PyWPMap_getheight( PyObject* self, PyObject* args );
 
 static PyMethodDef WPGlobalMethods[] = 
 {
@@ -124,11 +128,16 @@ static PyMethodDef WPGlobalMethods[] =
 	{ "console_printFail",	PyWPConsole_printFail,	METH_VARARGS, "Prints a [fail] block" },
 	{ "console_printSkip",	PyWPConsole_printSkip,	METH_VARARGS, "Prints a [skip] block" },
 
+	// .map
+	{ "map_gettile",		PyWPMap_gettile,		METH_VARARGS, "Get's a maptile" },
+	{ "map_getheight",		PyWPMap_getheight,		METH_VARARGS, "Get's the height of the map at the specified point" },
+
 	// .server
 	{ "server_shutdown",	PyWPServer_shutdown,	METH_VARARGS, "Shuts the server down" },
 	{ "server_save",		PyWPServer_save,		METH_VARARGS, "Saves the worldstate" },
 	
 	// .items
+	{ "items_add",			PyWPItems_add,			METH_VARARGS, "Adds an item by it's ID specified in the definition files" },
 	{ "items_findbyserial",	PyWPItems_findbyserial,	METH_VARARGS, "Finds an item by it's serial" },
 
 	// .chars	
@@ -196,6 +205,10 @@ int Py_WPCharSetAttr( Py_WPChar *self, char *name, PyObject *value );
 // WPChar
 PyObject* Py_WPChar_update( Py_WPChar* self, PyObject* args );
 PyObject* Py_WPChar_message( Py_WPChar* self, PyObject* args );
+PyObject* Py_WPChar_sysmessage( Py_WPChar* self, PyObject* args );
+PyObject* Py_WPChar_requesttarget( Py_WPChar* self, PyObject* args );
+PyObject* Py_WPChar_lineofsight( Py_WPChar* self, PyObject* args );
+PyObject* Py_WPChar_distance( Py_WPChar* self, PyObject* args );
 
 static PyTypeObject Py_WPCharType = {
     PyObject_HEAD_INIT(NULL)
@@ -203,22 +216,26 @@ static PyTypeObject Py_WPCharType = {
     "WPChar",
     sizeof(Py_WPCharType),
     0,
-    Py_WPDealloc,				/*tp_dealloc*/
-    0,								/*tp_print*/
-    (getattrfunc)Py_WPCharGetAttr,	/*tp_getattr*/
-    (setattrfunc)Py_WPCharSetAttr,	/*tp_setattr*/
-    0,								/*tp_compare*/
-    0,								/*tp_repr*/
-    0,								/*tp_as_number*/
-    0,								/*tp_as_sequence*/
-    0,								/*tp_as_mapping*/
-    0,								/*tp_hash */
+    Py_WPDealloc,
+    0,
+    (getattrfunc)Py_WPCharGetAttr,
+    (setattrfunc)Py_WPCharSetAttr,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
 };
 
 static PyMethodDef Py_WPCharMethods[] = 
 {
-    { "update",  (getattrofunc)Py_WPChar_update, METH_VARARGS, "Sends the char to all clients in range." },
-	{ "message", (getattrofunc)Py_WPChar_message, METH_VARARGS, "Displays a message above the characters head - only visible for the player." },
+	{ "sysmessage",    (getattrofunc)Py_WPChar_sysmessage, METH_VARARGS, "Sends a systemmessage to the characters 'console'." },
+    { "update",		   (getattrofunc)Py_WPChar_update, METH_VARARGS, "Sends the char to all clients in range." },
+	{ "requesttarget", (getattrofunc)Py_WPChar_requesttarget, METH_VARARGS, "Requests a target-cursor from the client." },
+	{ "message",	   (getattrofunc)Py_WPChar_message, METH_VARARGS, "Displays a message above the characters head - only visible for the player." },
+	{ "lineofsight",   (getattrofunc)Py_WPChar_lineofsight, METH_VARARGS, "Checks if a specific object (or location) is in the line of sight of our character" },
+	{ "distance",	   (getattrofunc)Py_WPChar_distance, METH_VARARGS, "Calculates the distance between a character and an item, a char or a location" },
     { NULL, NULL, 0, NULL }
 };
 
@@ -372,6 +389,49 @@ static PyTypeObject Py_WPEquipmentType = {
     &Py_WPEquipmentSequence,
     0,
     0,
+};
+
+//================== TARGETTING
+#include "wptargetrequests.h"
+#include "targeting.h"
+
+typedef struct {
+    PyObject_HEAD;
+	PKGx6C targetInfo;
+} Py_WPTarget;
+
+PyObject *Py_WPTargetGetAttr( Py_WPTarget *self, char *name );
+
+static PyTypeObject Py_WPTargetType = {
+    PyObject_HEAD_INIT(NULL)
+    0,
+    "WPTarget",
+    sizeof(Py_WPTargetType),
+    0,
+    Py_WPDealloc,
+    0,
+    (getattrfunc)Py_WPTargetGetAttr,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+};
+
+class cPythonTarget: public cTargetRequest
+{
+protected:
+	PyObject *callback_;
+	PyObject *arguments_;
+
+public:
+	cPythonTarget( PyObject *callback, PyObject *arguments );
+	virtual ~cPythonTarget() {};
+
+	virtual void responsed( UOXSOCKET socket, PKGx6C targetInfo );
+	virtual void timedout( UOXSOCKET socket );
 };
 
 #endif // __WPPYTHONSCRIPT_H__

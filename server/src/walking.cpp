@@ -1826,7 +1826,7 @@ int validNPCMove(int x, int y, signed char z, int s)
                 
                 if (mapitem->type==12)
                 {
-                    if (pc_s->isNpc() && (strlen(pc_s->title) > 0 || pc_s->npcaitype != 0))
+                    if (pc_s->isNpc() && (strlen(pc_s->title().ascii()) > 0 || pc_s->npcaitype != 0))
                     {                            
                         // clConsole.send("doors!!!\n");
                         dooruse(-1, DEREF_P_ITEM(mapitem));

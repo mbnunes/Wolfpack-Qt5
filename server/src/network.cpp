@@ -156,8 +156,9 @@ void cNetworkStuff::Disconnect (int s) // Force disconnection of player //Instal
 
 	sprintf((char*)temp,"WOLFPACK: Client %i disconnected. [Total:%i]\n",s,now-1);
 	clConsole.send(temp);
-	if (SrvParams->serverLog()) savelog((char*)temp,"server.log");
-
+	
+	if (SrvParams->serverLog()) 
+		savelog((char*)temp,"server.log");
 
 	if (perm[s] && (currchar[s]->account() == acctno[s])&&(SrvParams->partMsg()))
 		if (currchar[s]->isPlayer()) // bugfix lb, removes lamas that leave the realm :)
@@ -941,7 +942,9 @@ void cNetworkStuff::CheckConn() // Check for connection requests
 				sprintf((char*)temp,"WOLFPACK: Client %i [%i.%i.%i.%i] %s [Total:%i].\n",now,client_addr.sin_addr.s_addr&0xFF _ (client_addr.sin_addr.s_addr&0xFF00)>>8 _ (client_addr.sin_addr.s_addr&0xFF0000)>>16 _ (client_addr.sin_addr.s_addr&0xFF000000)>>24, temp2, now+1);
 				clConsole.send(temp);
 
-				if (SrvParams->serverLog()) savelog((char*)temp,"server.log");
+				if (SrvParams->serverLog()) 
+					savelog((char*)temp,"server.log");
+
 				now++;
 			}
 			return;

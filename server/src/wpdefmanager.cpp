@@ -96,18 +96,18 @@ bool WPDefManager::ImportSections( const QString& FileName )
 
 	QString errorMessage;
 	int errorLine, errorColumn;
-    if ( !Document.setContent( &File, &errorMessage, &errorLine, &errorColumn ) ) 
+	
+	if( !Document.setContent( &File, &errorMessage, &errorLine, &errorColumn ) ) 
 	{
         File.close();
         
 		clConsole.ProgressFail();
-
 		clConsole.send( QString("Unable to parse file %1\nError:%2(%3:%4)\n").arg(FileName).arg(errorMessage).arg(errorLine).arg(errorColumn).latin1() );
 
 		return false;
 	}
 
-    File.close();
+    	File.close();
 
 	// Get the first document node and start to process it
 	QDomElement Definitions = Document.documentElement();
@@ -118,7 +118,7 @@ bool WPDefManager::ImportSections( const QString& FileName )
 	{
 		if( NodeList.item( i ).isElement() )
 		{
-			ProcessNode( NodeList.item( i ).cloneNode().toElement() );
+			ProcessNode( NodeList.item( i ).toElement() );
 		}
 	}
 	return true;

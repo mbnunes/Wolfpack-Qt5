@@ -81,6 +81,7 @@ void cChar::Init(bool ser)
 	this->free = false;
 	this->name = "Mr. noname";
 	this->setOrgname("Mr. noname");
+	this->title_ = "";
 
 	this->setAntispamtimer(0);//LB - anti spam
 
@@ -826,12 +827,12 @@ void cChar::Serialize(ISerialization &archive)
 			archive.write("name", name);
 		}
 		
-		archive.write("title",			title());
-		archive.write("account",		account());
+		archive.write("title",			title_);
+		archive.write("account",		account_);
 		archive.write("creationday",	creationday_);
 		archive.write("gmmoveeff",		gmMoveEff);
-		archive.write("guildtype",		guildType());
-		archive.write("guildtraitor",	guildTraitor());
+		archive.write("guildtype",		GuildType);
+		archive.write("guildtraitor",	GuildTraitor);
 		archive.write("dispz",			dispz);
 		archive.write("cell",			cell);
 		archive.write("dir",			dir);

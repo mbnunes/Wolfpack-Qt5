@@ -58,14 +58,18 @@
 #include "combat.h"
 #include "regions.h"
 #include "srvparams.h"
+
+// new-style includes
 #include "wpdefmanager.h"
 #include "wpscriptmanager.h"
 #include "wppythonscript.h"
+#include "wptargetrequests.h"
 
 // Library Includes
 #include "qapplication.h"
 #include "qtranslator.h"
 #include "qstring.h"
+#include "qregexp.h"
 #include "qdatetime.h"
 #include "qfile.h"
 
@@ -704,20 +708,24 @@ char *complete_title(P_CHAR pc) // generates the ENTIRE title plus criminal stuf
 
 void gcollect () // Remove items which were in deleted containers
 {
+	return; // Disabled
+
 	int removed = 0, rtotal = 0;
 	bool bdelete;
-	LogMessage("Performing Garbage Collection...");
+	LogMessage( "Performing Garbage Collection..." );
 	AllItemsIterator iter_items;
-	for (iter_items.Begin(); !iter_items.atEnd(); ++iter_items)
+	
+	for( iter_items.Begin(); !iter_items.atEnd(); iter_items.Next() )
 	{
 		P_ITEM pi = iter_items.GetData();
-		if (pi->free || pi->isInWorld())
+		if( pi->free || pi->isInWorld() )
 			continue;
+
 		bdelete = true;
 		// find the container if theres one.
 		if (isCharSerial(pi->contserial))
 		{
-			P_CHAR pc = FindCharBySerial(pi->contserial);
+			P_CHAR pc = FindCharBySerial( pi->contserial );
 			if (pc != NULL)
 				bdelete = false;
 		}
@@ -729,8 +737,19 @@ void gcollect () // Remove items which were in deleted containers
 		}
 		if (bdelete)
 		{
-			--iter_items; // Go back for a little.
+			bool atBegin = false;
+
+			/*if( !iter_items.atBegin() )
+				--iter_items; // Go back for a little.
+			else
+				atBegin = true;*/
+
 			Items->DeleItem( pi ); // Warning, iterator became invalid!
+											   
+			/*if( atBegin )
+				iter_items.Begin();*/
+			//iter_items.First();
+
 			removed++;
 		}
 	}
@@ -804,14 +823,20 @@ void item_char_test()
 void savelog(const char *msg, char *logfile)
 {
 		FILE *file;
-		file=fopen(logfile,"a");
-		fprintf(file,"[%s] %s",(getRealTimeString()).c_str(),msg);
+		file = fopen( logfile, "a" );
+		
+		QString logMessage = QString( "[%1] %2\n" ).arg( getRealTimeString().c_str() ).arg( msg );
+
+		// Remove newlines
+		logMessage = logMessage.replace( QRegExp( "\n" ), "" );
+
+		fprintf( file, "%s", logMessage.ascii() );
 
 #ifdef DEBUG
 		clConsole.send("DEBUG: Logging to %s\n", logfile);
 #endif
 
-		fclose(file);
+		fclose( file );
 }
 
 void splitline() // For putting single words of cline into comm array
@@ -3108,7 +3133,8 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 	clConsole.send("WOLFPACK: Startup Complete.\n\n");
 
 
-	if (SrvParams->serverLog()) savelog("-=Server Startup=-\n=======================================================================\n","server.log");
+	if( SrvParams->serverLog() )
+		savelog( "Server startup", "server.log" );
 
 	uiCurrentTime=getNormalizedTime();
 	serverstarttime=getNormalizedTime(); // dont remove, its absolutly necassairy that its 3 times in the startup sequence for several timing reasons.
@@ -3270,22 +3296,20 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 		offlinehtml();//HTML	// lb, the if prevents a crash on shutdown if html deactivated ...
 		clConsole.send(" Done.\n");
 	}
-	clConsole.send("Clearing IM Menus...");
+
+	// No need for progress bar
 	im_clearmenus();
-	clConsole.send(" Done.\nClosing sockets...");
-
+	
+	clConsole.PrepareProgress( "Closing sockets" );
 	Network->SockClose();
-
 	gcollect();		// cleanup before saving, especially items of deleted chars (Duke, 10.1.2001)
-
-	clConsole.send(" Done.\n");
-	cwmWorldState->savenewworld(SrvParams->worldSaveModule());
-	clConsole.send("Saving Wolfpack.xml...\n");
+	clConsole.ProgressDone();
+	
+	cwmWorldState->savenewworld( SrvParams->worldSaveModule() );
+	
+	clConsole.PrepareProgress( "Saving Wolfpack.xml" );
 	SrvParams->flush();
-	clConsole.send("\n");
-	clConsole.send("Deleting Classes...");
-	DeleteClasses();
-	clConsole.send("Done!\n");
+	clConsole.ProgressDone();
 
 	if (NewErrorsLogged())
 		clConsole.send("New ERRORS have been logged. Please send the error*.log and critical*.log files to the dev team !\n");
@@ -3295,14 +3319,19 @@ void qsfLoad(char *fn, short depth); // Load a quest script file
 	if (error) {
 		clConsole.send("ERROR: Server terminated by error!\n");
 
-		if (SrvParams->serverLog()) savelog("Server Shutdown by Error!\n=======================================================================\n\n\n","server.log");
+		if( SrvParams->serverLog() ) 
+			savelog("Server terminated by error","server.log");
 	} else {
 		clConsole.send("WOLFPACK: Server shutdown complete!\n");
-		if (SrvParams->serverLog()) savelog("Server Shutdown!\n=======================================================================\n\n\n","server.log");
+		
+		if( SrvParams->serverLog() ) 
+			savelog("Server shutdown","server.log");
 	}
-	//endScrn() ;
 
-	//Py_END_ALLOW_THREADS
+	clConsole.PrepareProgress( "Deleting Classes" );
+	DeleteClasses();
+	clConsole.ProgressDone();
+
 	Py_Finalize();
 
 	return 0;

@@ -41,6 +41,8 @@
 #endif // _MSC_VER >= 1000
 class cDragdrop;
 
+void equipItem( P_CHAR wearer, P_ITEM item );
+
 class cDragdrop
 {
 public:

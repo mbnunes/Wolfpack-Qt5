@@ -67,15 +67,90 @@ typedef struct _PKGx08
 	long Tserial;
 } PKGx08;
 
+// Packs an item to a characters backpack *or* places it before his feets
+void itemToBackpack( P_CHAR owner, P_ITEM item )
+{
+		P_ITEM backpack = Packitem( owner );
+
+		item->setLayer( 0 );
+
+		// Pack it to the ground
+		if( !backpack )
+		{
+			item->SetContSerial( INVALID_SERIAL );
+			item->moveTo( owner->pos );
+			//soundeffect3( item, 0x43 );
+			return;
+		}
+		// Or to the backpack
+		else
+		{
+			item->SetContSerial( backpack->serial );
+
+			// Place it at a random position in our backpack
+			item->pos.x=50+(rand()%80);
+			item->pos.y=50+(rand()%80);
+			item->pos.z=9;
+			//soundeffect3( item, 0x57 );
+		}
+
+		// Recalc the weight( just to be sure )
+		Weight->NewCalc( owner );
+}
+
+// Tries to equip an item
+// if that fails it tries to put the item in the users backpack
+// if *that* fails it puts it at the characters feet
+// That works for NPCs as well
+void equipItem( P_CHAR wearer, P_ITEM item )
+{
+	tile_st tile;
+
+	Map->SeekTile( item->id(), &tile );
+
+	// User cannot wear the item
+	if( tile.layer == 0 )
+	{
+		if( online( wearer ) )
+			sysmessage( calcSocketFromChar( wearer ), "You cannot wear that item." );
+
+		itemToBackpack( wearer, item );
+		return;
+	}
+
+	vector< SERIAL > equipment = contsp.getData( wearer->serial );	
+
+	// If n item on the same layer is already equipped, unequip it
+	for( UI08 i = 0; i < equipment.size(); i++ )
+	{
+		P_ITEM equip = FindItemBySerial( equipment[ i ] ); 
+		
+		// Unequip the item and free the layer that way
+		if( ( equip != NULL ) && ( equip->layer() == tile.layer ) )
+			itemToBackpack( wearer, equip );
+
+		wearer->removeItemBonus( equip );
+	}
+
+	// *finally* equip the item
+	item->SetContSerial( wearer->serial );
+
+	// Add the item bonuses
+	wearer->st = (wearer->st + item->st2);
+	wearer->chgDex( item->dx2 );
+	wearer->in = (wearer->in + item->in2);
+
+	// Play the appropiate sound
+	//soundeffect3( item, 0x57 );
+}
+
 // moved here from cWeight by Duke, 12.5.2001 (not sure what this is good for ...:((
 // if the item is equipped or in primary backpack return true
 static bool CheckWhereItem( P_ITEM pack, P_ITEM pi, int s)
 {
 	if (pi && pack && s!=-1) //LB
 	{
-		if (!( pi->contserial==pack->serial ||
-			currchar[s]->Wears(pi)))
-			
+		if (!( pi->contserial==pack->serial || currchar[s]->Wears(pi)))		
 			return 1;
 		else
 			return 0;
@@ -420,12 +495,23 @@ void cDragdrop::wear_item(P_CLIENT ps) // Item is dropped on paperdoll
 			{
 				sysmessage(s,"You are not strong enough to use that.");
 				Sndbounce5(s);
+
+				// Play a nice sound-effect
+				// Either on-ground or on-char/in-item
+				if( pi->oldcontserial == INVALID_SERIAL )
+					soundeffect( s, 0x00, 0x42 );
+				else					
+					soundeffect( s, 0x00, 0x57 );
+
 				if (ps->IsDragging())
 				{
 					ps->ResetDragging();
 					item_bounce4(s,pi);
 					UpdateStatusWindow(s,pi);
 				}
+
+				RefreshItem( pi );
+
 				return;
 			}
 			

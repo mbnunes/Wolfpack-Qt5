@@ -105,7 +105,8 @@ HEADERS         = Client.h \
 		  wpdefmanager.h \
 		  wppythonscript.h \
 		  wpscriptmanager.h \
-		  menuactions.h
+		  menuactions.h \
+		  wptargetrequests.h
 
 SOURCES         = Client.cpp \
 		  LoS.cpp \
@@ -184,7 +185,8 @@ SOURCES         = Client.cpp \
 		  wpdefmanager.cpp \
 		  wppythonscript.cpp \
 		  wpscriptmanager.cpp \
-		  menuactions.cpp
+		  menuactions.cpp \
+		  wptargetrequests.cpp
 
 INTERFACES	=
 TRANSLATIONS    = \

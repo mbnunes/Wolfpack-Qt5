@@ -108,6 +108,8 @@ public:
 		iterItems++;
 		return iterItems->second;
 	}
+
+	bool atBegin()									{ return (iterItems == cItemsManager::getInstance()->begin()); }
 	bool atEnd()									{ return (iterItems == cItemsManager::getInstance()->end()); }
 	const AllItemsIterator operator++(int);
 	const AllItemsIterator operator--(int);

@@ -41,6 +41,7 @@
 #include "srvparams.h"
 #include "wpdefmanager.h"
 #include "wpscriptmanager.h"
+#include "wptargetrequests.h"
 
 #undef DBGFILE
 #define DBGFILE "targeting.cpp"
@@ -4115,11 +4116,30 @@ void cTargets::MultiTarget(P_CLIENT ps) // If player clicks on something with th
 	pt->TzLoc=buffer[s][16];
 	pt->model=ShortFromCharPtr(buffer[s]+17);
 
+	// targetRequest
+	if( ( buffer[s][2] == 0 ) && ( buffer[s][3] == 0 ) && ( buffer[s][4] == 0 ) && ( buffer[s][5] == 1 ) )
+	{
+		// Unrequested Target info
+		if( targetRequests.find( s ) == targetRequests.end() )
+		{
+			// Should not happen too often
+			sysmessage( s, "Unrequested target info" );
+			return;
+		}
+
+		// If the user cancels call timedout
+		if( pt->TxLoc == -1 && pt->TyLoc == -1 && pt->Tserial == 0 && pt->model == 0 )
+			targetRequests[ s ]->timedout( s );
+		else
+			targetRequests[ s ]->responsed( s, *pt );
+
+		delete targetRequests[ s ];
+		targetRequests.erase( targetRequests.find( s ) );
+	}
+
 	if (pt->TxLoc==-1 && pt->TyLoc==-1) // do nothing if user cancelled
 		if (pt->Tserial==0 && pt->model==0) // this seems to be the complete 'cancel'-criteria (Duke)
 			return;
-
-//	cClient cli(s), *ps = &cli;
 
 	if ((buffer[s][2]==0)&&(buffer[s][3]==1)&&(buffer[s][4]==0))
 	{
