@@ -1,6 +1,13 @@
 Wolfpack 13.0.0 ChangeLog
 
-Wolfpack 12.9.8 Beta (CVS)
+Wolfpack 12.9.9 Beta (CVS)
+	* Core Changes:
+	* Definition Changes:
+	* Python Script Changes:
+	* Misc. Changes:
+	* Known Issues, Bugs, and Missing Features:
+
+Wolfpack 12.9.8 Beta (4. August, 2004)
 	* Core Changes:
 		- Gump Responses are now passed on as Unicode rather than in the
 			local codepage.
@@ -76,10 +83,10 @@ Wolfpack 12.9.8 Beta (CVS)
 		- Magic fixes: Fire, Poison, Energy and Paralyze fields should work better.
 			Mass dispell can now wipe out these fields.
 		- Scrolls are now usable and actually cast the spell.
-		  For scrolls the following rules are in effect:
-		    50% decreased mana usage.
-		   	The effective circle for measuring the skill requirement is lowered by two
-		   	 when casting from a scroll.
+			For scrolls the following rules are in effect:
+			50% decreased mana usage.
+			The effective circle for measuring the skill requirement is lowered by two
+			when casting from a scroll.
 	* Misc. Changes:
 		- New Features:
 			Farm animals will eat spawned crops!
@@ -274,4 +281,3 @@ Wolfpack 12.9.5 Beta (8. May 2004)
 		- SQLite has been updated.
 		- Fixed a drag and drop problem (bouncing).
 		- NPC kills no longer crash the server
-
