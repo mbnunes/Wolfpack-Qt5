@@ -1111,7 +1111,7 @@ def onUse(player, stone):
     player.socket.sysmessage('This guildstone is abandoned.')
   else:
     if not player.cansee(stone) or not player.canreach(stone, 3):
-      player.socket.clilocmessage()
+      player.socket.clilocmessage(501661)
     else:
       mainMenu(player, guild)
   return 1
