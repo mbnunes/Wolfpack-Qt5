@@ -45,6 +45,11 @@ bool invalidTarget( P_NPC npc, P_CHAR victim, int dist )
 	{
 		return true;
 	}
+	
+	if ( victim == npc )
+	{
+		return true;
+	}
 
 	if ( victim->isInvulnerable() || victim->isDead() )
 	{
@@ -155,10 +160,10 @@ P_CHAR findBestTarget( P_NPC npc )
 			else if ( npcVictim && npcVictim->owner() && npcVictim != target )
 			{
 				// See if it's a target we want
-				unsigned int dist = npc->dist( victim );
-				if ( dist < distance && validTarget( npc, victim, dist ) )
+				unsigned int dist = npc->dist( npcVictim );
+				if ( dist < distance && validTarget( npc, npcVictim, dist ) )
 				{
-					target = victim;
+					target = npcVictim;
 					distance = dist;
 				}
 			}
