@@ -98,12 +98,12 @@ Coord_cl& Coord_cl::operator=(const Coord_cl& clCoord)
 	return (*this);
 }
 
-bool Coord_cl::operator== (const Coord_cl& src)
+bool Coord_cl::operator== (const Coord_cl& src) const
 {
 	return (x == src.x && y == src.y && z == src.z && map == src.map);
 }
 
-bool Coord_cl::operator!= (const Coord_cl& src)
+bool Coord_cl::operator!= (const Coord_cl& src) const
 {
 	return !(x == src.x && y == src.y && z == src.z && map == src.map);
 }

@@ -572,8 +572,8 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 		cAllTerritories::getInstance()->check( pChar );
 
 		handleItems( pChar, oldpos );
-		/*HandleTeleporters(pChar, socket, oldpos);
-		HandleWeatherChanges(pChar, socket);
+		HandleTeleporters( pChar, oldpos );
+		/*HandleWeatherChanges(pChar, socket);
 		HandleItemCollision(pChar, socket, amTurning);*/
 	}
 
@@ -1159,8 +1159,21 @@ void cMovement::handleItemCollision( P_CHAR pChar )
 	}*/
 }
 
-void cMovement::HandleTeleporters(P_CHAR pc, UOXSOCKET socket, const Coord_cl& oldpos)
+void cMovement::HandleTeleporters(P_CHAR pc, const Coord_cl& oldpos)
 {	
+	cTerritory* territory = pc->region();
+	if ( pc->pos != oldpos )
+	{
+		if ( territory->haveTeleporters() )
+		{
+			Coord_cl destination = pc->pos;
+			if ( territory->findTeleporterSpot( destination ) )
+			{
+				pc->moveTo( destination );
+				pc->resend();
+			}
+		}
+	}
 }
 
 /********* start of LB's no rain & snow in buildings stuff ***********/

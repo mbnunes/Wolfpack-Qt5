@@ -1211,13 +1211,6 @@ int main( int argc, char *argv[] )
 
 	StartClasses();
 
-	DefManager->load();
-
-	startPython( argc, argv );
-	ScriptManager->load();
-
-	clConsole.send( "\n" );
-
 	QTranslator translator(0); // must be valid thru app life.
 	QString languageFile = SrvParams->getString("General", "Language File", "", true);
 	if ( !languageFile.isEmpty() )
@@ -1225,6 +1218,13 @@ int main( int argc, char *argv[] )
 		translator.load( languageFile, "." );
 		app.installTranslator( &translator );
 	}
+
+	DefManager->load();
+
+	startPython( argc, argv );
+	ScriptManager->load();
+
+	clConsole.send( "\n" );
 
 	//Now lets load the custom scripts, if they have them defined...
 	i=0;

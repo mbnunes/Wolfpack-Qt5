@@ -51,8 +51,8 @@ public:
 	Coord_cl(UI16, UI16, SI08, UI08 uiMap = 0, UI08 uiPlane = 0);
 	// Operators
 	Coord_cl& operator= (const Coord_cl& clCoord);
-	bool operator==(const Coord_cl&);
-	bool operator!=(const Coord_cl&);
+	bool operator==(const Coord_cl&) const;
+	bool operator!=(const Coord_cl&) const;
 	Coord_cl operator+(const Coord_cl& src) const;
 	UI32 distance( const Coord_cl &src) const;
 	static UI32 distance ( const Coord_cl &a, const Coord_cl &b );

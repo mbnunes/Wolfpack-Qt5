@@ -20,7 +20,10 @@
 		
 		<!-- Britain -->
 		<region id="Britain">
-			<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 		    	<guards>
 	        		<getlist>standard_guards</getlist>
 	        	</guards>
@@ -28,6 +31,8 @@
 			<guardowner>the city</guardowner>
 			<rainchance><random min="30" max="40" /></rainchance>
 			<snowchance><random min="45" max="55" /></snowchance>
+			<teleport source="1491,1640,24,0" destination="6032,1499,27,0" />
+			<teleport source="1491,1642,24,0" destination="6032,1501,27,0" />
 			<rectangle x1="1410" y1="1517" x2="1691" y2="1778" map="0" />
 			<rectangle x1="1522" y1="1778" x2="1641" y2="1798" map="0" />
 			<rectangle x1="1436" y1="1494" x2="1670" y2="1517" map="0" />
@@ -37,7 +42,10 @@
 		
 		<!-- Britain's Farmlands -->
 		<region id="Britain's farmlands">
-		    	<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 			<guards>
 	            	<getlist>standard_guards</getlist>
 	        	</guards>
@@ -52,7 +60,10 @@
 
 		<!-- Lord British's castle -->
 		<region id="Lord British's castle">
-			<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 		    	<escortregion />
 		    	<guards>
 				<getlist>standard_guards</getlist>
@@ -65,7 +76,10 @@
 		
 		<!-- Lord Blackthorne's castle -->
 		<region id="Lord Blackthorne's castle">
-		    	<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 			<escortregion />
 			<guards>
 				<getlist>standard_guards</getlist>
@@ -78,7 +92,10 @@
 		
 		<!-- Yew -->
 		<region id="the town of Yew">
-			<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 		    	<guards>
 			<getlist>standard_guards</getlist>
 			</guards>
@@ -92,9 +109,12 @@
 
 		<!-- Skara Brae -->
 		<region id="the town of Skara Brae">
-			<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 			<guards>
-			<getlist>standard_guards</getlist>
+				<getlist>standard_guards</getlist>
 			</guards>
 			<escortregion />
 			<guardowner>the city</guardowner>
@@ -109,7 +129,10 @@
 
 	    	<!-- Trinsic -->
 		<region id="Trinsic"> 
-           		<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 		   	<guards>
 		   	<getlist>standard_guards</getlist>
 			<guardowner>the city</guardowner>
@@ -129,7 +152,10 @@
 
 		<!-- Cove -->
 		<region id="Cove"> 
-           		<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 		   	<guards>
 		   	<getlist>standard_guards</getlist>
 		   	</guards>  
@@ -141,7 +167,10 @@
 		
 		<!-- Vesper -->
 		<region id="Vesper"> 
-           		<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 		   	<guards>
 		   	<getlist>standard_guards</getlist> 
            		<guardowner>the city</guardowner>
@@ -155,7 +184,10 @@
 		
 		<!-- Minoc -->
 		<region id="Minoc"> 
-           		<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 		   	<guards>
 		   	<getlist>standard_guards</getlist>
            		<guardowner>the city</guardowner>
@@ -172,7 +204,10 @@
 		
 		<!-- Moonglow -->
 		<region id="Moonglow"> 
-           		<guarded /> 
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
            		<guards>
 		   	<getlist>standard_guards</getlist>
 		   	<guardowner>the city</guardowner>
@@ -185,7 +220,10 @@
 		
 		<!-- Papua -->
 		<region id="Papua"> 
-           		<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 		   	<guards>
 		   	<getlist>standard_guards</getlist> 
            		<guardowner>the city</guardowner>
@@ -197,7 +235,10 @@
 		
 		<!-- Delucia -->
 		<region id="Delucia"> 
-           		<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 		   	<guards>
 		   		<getlist>standard_guards</getlist>
            			<guardowner>the city</guardowner>
@@ -220,7 +261,10 @@
 		
 		<!-- Britain -->
 		<region id="Britain">
-			<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 		    	<guards>
 	        		<getlist>standard_guards</getlist>
 	        	</guards>
@@ -237,7 +281,10 @@
 		
 		<!-- Britain's Farmlands -->
 		<region id="Britain's farmlands">
-		    	<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 			<guards>
 	            	<getlist>standard_guards</getlist>
 	        	</guards>
@@ -252,7 +299,10 @@
 
 		<!-- Lord British's castle -->
 		<region id="Lord British's castle">
-			<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 		    	<escortregion />
 		    	<guards>
 				<getlist>standard_guards</getlist>
@@ -265,7 +315,10 @@
 		
 		<!-- Lord Blackthorne's castle -->
 		<region id="Lord Blackthorne's castle">
-		    	<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 			<escortregion />
 			<guards>
 				<getlist>standard_guards</getlist>
@@ -278,7 +331,10 @@
 		
 		<!-- Yew -->
 		<region id="the town of Yew">
-			<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 		    	<guards>
 			<getlist>standard_guards</getlist>
 			</guards>
@@ -292,7 +348,10 @@
 
 		<!-- Skara Brae -->
 		<region id="the town of Skara Brae">
-			<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 			<guards>
 			<getlist>standard_guards</getlist>
 			</guards>
@@ -309,7 +368,10 @@
 
 	    	<!-- Trinsic -->
 		<region id="Trinsic"> 
-           		<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 		   	<guards>
 		   	<getlist>standard_guards</getlist>
 			<guardowner>the city</guardowner>
@@ -329,7 +391,10 @@
 
 		<!-- Cove -->
 		<region id="Cove"> 
-           		<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 		   	<guards>
 		   	<getlist>standard_guards</getlist>
 		   	</guards>  
@@ -341,7 +406,10 @@
 		
 		<!-- Vesper -->
 		<region id="Vesper"> 
-           		<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 		   	<guards>
 		   	<getlist>standard_guards</getlist> 
            		<guardowner>the city</guardowner>
@@ -355,7 +423,10 @@
 		
 		<!-- Minoc -->
 		<region id="Minoc"> 
-           		<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 		   	<guards>
 		   	<getlist>standard_guards</getlist>
            		<guardowner>the city</guardowner>
@@ -372,7 +443,10 @@
 		
 		<!-- Moonglow -->
 		<region id="Moonglow"> 
-           		<guarded /> 
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
            		<guards>
 		   	<getlist>standard_guards</getlist>
 		   	<guardowner>the city</guardowner>
@@ -385,7 +459,10 @@
 		
 		<!-- Papua -->
 		<region id="Papua"> 
-           		<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 		   	<guards>
 		   	<getlist>standard_guards</getlist> 
            		<guardowner>the city</guardowner>
@@ -397,7 +474,10 @@
 		
 		<!-- Delucia -->
 		<region id="Delucia"> 
-           		<guarded />
+			<flags>
+				<guarded />
+				<noagressivemagic />
+			</flags>
 		   	<guards>
 		   		<getlist>standard_guards</getlist>
            			<guardowner>the city</guardowner>
@@ -426,11 +506,6 @@
 	
 		<!-- Montor -->
 		<region id="Montor">
-           		<guarded />
-		   	<guards>
-		   		<getlist>standard_guards</getlist>
-           			<guardowner>the city</guardowner>
-		   	</guards>
 			<rectangle x1="1576" y1="272" x2="1720" y2="368" map="2" />
 			<rectangle x1="1616" y1="200" x2="1696" y2="272" map="2" />
 			<rectangle x1="1696" y1="144" x2="1736" y2="272" map="2" />
@@ -451,41 +526,21 @@
 
 		<!-- Twin Oaks -->
 		<region id="Twin Oaks">
-           		<guarded />
-		   	<guards>
-		   		<getlist>standard_guards</getlist>
-           			<guardowner>the city</guardowner>
-		   	</guards>
 			<rectangle x1="1536" y1="1032" x2="1584" y2="1072" map="2" />
 		</region>
 
 		<!-- Reg Volon -->
 		<region id="Reg Volon">
-           		<guarded />
-		   	<guards>
-		   		<getlist>standard_guards</getlist>
-           			<guardowner>the city</guardowner>
-		   	</guards>
 			<rectangle x1="1328" y1="1008" x2="1408" y2="1120" map="2" />
 		</region>
 		
 		<!-- Bet-Lem Reg -->
 		<region id="Bet-Lem Reg">
-           		<guarded />
-		   	<guards>
-		   		<getlist>standard_guards</getlist>
-           			<guardowner>the city</guardowner>
-		   	</guards>
 			<rectangle x1="1232" y1="936" x2="1272" y2="984" map="2" />
 		</region>
 
 		<!-- Mistas -->
 		<region id="Mistas">
-           		<guarded />
-		   	<guards>
-		   		<getlist>standard_guards</getlist>
-           			<guardowner>the city</guardowner>
-		   	</guards>
 			<rectangle x1="744" y1="984" x2="912" y2="1152" map="2" />
 			<rectangle x1="744" y1="1152" x2="792" y2="1176" map="2" />
 		</region>

@@ -135,6 +135,7 @@ void cTerritory::processNode( const QDomElement &Tag )
 				else if( childNode.nodeName() == "nomusic" )
 					setNoMusic( true );
 			}
+			childNode = childNode.nextSibling();
 		}
 	}
 
@@ -197,7 +198,6 @@ void cTerritory::processNode( const QDomElement &Tag )
 				if( num != 0xFFFFFFFF )
 					this->tradesystem_[num] = goods;
 			}
-
 			childNode = childNode.nextSibling();
 		}
 	}
@@ -210,7 +210,35 @@ void cTerritory::processNode( const QDomElement &Tag )
 		cTerritory* toinsert_ = new cTerritory( Tag, this );
 		this->subregions_.push_back( toinsert_ );
 	}
+	else if ( TagName == "teleport" )
+	{
+		if ( !Tag.attributes().contains("source") )
+		{
+			qWarning("ERROR: processing teleport tag, missing source attribute");
+			return;
+		}
 
+		if ( !Tag.attributes().contains("destination") )
+		{
+			qWarning("ERROR: processing teleport tag, missing destination attribute");
+			return;
+		}
+		Coord_cl source, destination;
+		if ( !parseCoordinates( Tag.attribute( "source" ), source ) )
+		{
+			qWarning("ERROR: parsing source attribute, not a valid coordinate vector");
+			return;
+		}
+		if ( !parseCoordinates( Tag.attribute( "destination" ), destination ) )
+		{
+			qWarning("ERROR: parsing destination attribute, not a valid coordinate vector");
+			return;
+		}
+		teleporters_st teleporter;
+		teleporter.source = source;
+		teleporter.destination = destination;
+		teleporters.append( teleporter );
+	}
 	else
 		cBaseRegion::processNode( Tag );
 }
@@ -218,6 +246,26 @@ void cTerritory::processNode( const QDomElement &Tag )
 QString cTerritory::getGuardSect( void )
 {
 	return this->guardSections_[ RandomNum( 0, this->guardSections_.size()-1 ) ];
+}
+
+bool cTerritory::haveTeleporters() const
+{
+	return !teleporters.isEmpty();
+}
+
+bool cTerritory::findTeleporterSpot( Coord_cl& d ) const
+{
+	QValueList< teleporters_st >::const_iterator it(teleporters.begin());
+	QValueList< teleporters_st >::const_iterator end(teleporters.end());
+	for ( ; it != end; ++it )
+	{
+		if ( d == (*it).source )
+		{
+			d = (*it).destination;
+			break;
+		}
+	}
+	return it != end;
 }
 
 // cAllTerritories

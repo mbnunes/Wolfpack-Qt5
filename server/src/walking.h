@@ -96,7 +96,7 @@ private:
 
 	void handleItemCollision( P_CHAR pChar );
 	void outputShoveMessage( P_CHAR pChar, cUOSocket *socket, const Coord_cl& oldpos );
-	void HandleTeleporters(P_CHAR pc, UOXSOCKET socket, const Coord_cl& oldpos);
+	void HandleTeleporters(P_CHAR pc, const Coord_cl& oldpos);
 	void HandleWeatherChanges(P_CHAR pc, UOXSOCKET socket);
 	
 	void FillXYBlockStuff(P_CHAR pc, unitile_st *xyblock, int &xycount, unsigned short oldx, unsigned short oldy );

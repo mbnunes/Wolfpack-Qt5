@@ -14,27 +14,6 @@
 			<npc>base_male</npc>
 		</npcs>
 		<npcspercycle>1</npcspercycle>
-		<rectangle x1="2010" x2="2020" y1="3010" y2="3020" />
-	</spawnregion>
-	<spawnregion id="spawntest2">
-		<maxnpcamount>10</maxnpcamount>
-		<mintime>2</mintime>
-		<maxtime>10</maxtime>
-		<npcs>
-			<npc>base_male</npc>
-		</npcs>
-		<npcspercycle>2</npcspercycle>
-		<rectangle x1="2050" x2="2054" y1="3000" y2="3004" />
-		<rectangle x1="2060" x2="2064" y1="3000" y2="3004" />
-		<rectangle x1="2050" x2="2054" y1="3010" y2="3014" />
-		<rectangle x1="2060" x2="2064" y1="3010" y2="3014" />
-		<rectangle x1="2050" x2="2054" y1="3000" y2="3004" />
-		<rectangle x1="2060" x2="2064" y1="3000" y2="3004" />
-		<rectangle x1="2050" x2="2054" y1="3010" y2="3014" />
-		<rectangle x1="2060" x2="2064" y1="3010" y2="3014" />
-		<rectangle x1="2050" x2="2054" y1="3000" y2="3004" />
-		<rectangle x1="2060" x2="2064" y1="3000" y2="3004" />
-		<rectangle x1="2050" x2="2054" y1="3010" y2="3014" />
-		<rectangle x1="2060" x2="2064" y1="3010" y2="3014" />
+		<rectangle x1="1427" x2="1429" y1="1628" y2="1690" />
 	</spawnregion>
 </definitions>
