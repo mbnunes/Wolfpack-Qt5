@@ -387,21 +387,21 @@ def onWearItem(player, wearer, item, layer):
 			player.socket.sysmessage('This person can\'t wear that item, seems not strong enough.')
 		else:
 			player.socket.clilocmessage(500213)
-		return 1
+		return True
 
 	if wearer.dexterity < req_dex:
 		if player != wearer:
 			player.socket.sysmessage('This person can\'t wear that item, seems not agile enough.')
 		else:
 			player.socket.clilocmessage(502077)
-		return 1
+		return True
 
 	if wearer.intelligence < req_int:
 		if player != wearer:
 			player.socket.sysmessage('This person can\'t wear that item, seems not smart enough.')
 		else:
 			player.socket.sysmessage('You are not ingellgent enough to equip this item.')
-		return 1
+		return True
 
 	# Reject equipping an item with durability 1 or less
 	# if it's an armor, shield or weapon
@@ -411,9 +411,9 @@ def onWearItem(player, wearer, item, layer):
 
 	if (armor or weapon or shield) and item.health < 1:
 		player.socket.sysmessage('You need to repair this before using it again.')
-		return 1
+		return True
 
-	return 0
+	return False
 
 #
 # Grant certain stat or skill boni.
@@ -666,18 +666,22 @@ def onDelete(item):
 
 # Try to equip an item after calling onWearItem for it
 def onUse(player, item):
+	if not char.gm and item.movable == 3:
+		player.objectdelay = 0
+		return True
+		
 	if item.container == player:
-		return 0
+		return False
 
 	tile = wolfpack.tiledata(item.id)
 
 	if not tile.has_key('layer'):
-		return 0
+		return False
 
 	layer = tile['layer']
 
 	if layer == 0 or not (tile['flag3'] & 0x40):
-		return 0
+		return False
 
 	previous = player.itemonlayer(layer)
 	if previous:
@@ -702,14 +706,14 @@ def onUse(player, item):
 
 	# Check if there is another dclick handler
 	# in the eventchain somewhere. if not,
-	# return 1 to handle the equip event.
+	# return True to handle the equip event.
 	scripts = item.scripts
 
 	for script in scripts:
 		if wolfpack.hasevent(script, EVENT_WEARITEM):
 			result = wolfpack.callevent(script, EVENT_WEARITEM, (player, player, item, layer))
 			if result:
-				return 1
+				return True
 
 	player.additem(layer, item)
 	item.update()
@@ -721,6 +725,6 @@ def onUse(player, item):
 
 	for script in scripts[scripts.index("equipment")+1:]:
 		if wolfpack.hasevent(script, EVENT_USE):
-			return 0
+			return False
 
-	return 1
+	return True
