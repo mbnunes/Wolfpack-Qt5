@@ -1819,6 +1819,14 @@
 		<category>Misc\Rope\Rope (N/S)</category>
 	</item>
 
+  <!-- Guildstone -->
+  <item id="guildstone">
+    <name>Guildstone</name>
+    <id>0xedd</id>
+    <category>Misc\Guilds\Guildstone</category>
+    <events>guilds.stone</events>
+  </item>
+
 	<!-- Plant Growing -->
 	<item id="26b7">
 		<id>0x26b7</id>

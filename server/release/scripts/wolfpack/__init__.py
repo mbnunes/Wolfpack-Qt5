@@ -177,5 +177,8 @@ def tickcount():
 
 def packet( id, size ):
 	return _wolfpack.packet( id, size )
-	
+
+guilds = _wolfpack.guilds
+newguild = _wolfpack.newguild	
+findguild = _wolfpack.findguild
 queueaction = _wolfpack.queueaction

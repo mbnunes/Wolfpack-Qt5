@@ -10,6 +10,11 @@
 # Which port should the remote admin run on
 REMOTEADMIN_PORT = 2600
 
+# Date Format
+FORMAT_DATE = '%d.%m.%Y' # European
+FORMAT_TIME = '%H:%M' # European
+FORMAT_DATETIME = FORMAT_DATE + ' ' + FORMAT_TIME
+
 # Age of Shadows Stuff
 # AGEOFSHADOWS, enable Age of Shadows features
 # FELUCIA2XRESGAIN, double gain resources
@@ -309,7 +314,8 @@ EVENT_CASTSPELL = 35
 EVENT_TRADE = 36
 EVENT_TRADESTART = 37
 EVENT_BULLETINBOARD = 38
-EVENT_COUNT = 39
+EVENT_DELETE = 39
+EVENT_COUNT = 40
 
 HOUSE = 0
 BOAT = 1

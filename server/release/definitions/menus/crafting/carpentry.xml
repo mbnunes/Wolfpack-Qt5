@@ -35,7 +35,7 @@
 		<action>
 			<name>Barrel Staves</name>
 			<model>0x1eb1</model>
-			<description>barrel stabes</description>
+			<description>barrel staves</description>
 			<make>
 				<useitem itemid="0x1bd7-0x1bdc" name="boards" amount="5" />
 				<makeitem section="1eb1" amount="1" />

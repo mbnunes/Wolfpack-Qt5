@@ -1,11 +1,11 @@
-<!-- =================================================================
+<!--
+=================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
 |  ((    _/{  "-;  | Created by: Viper                          |
 |   )).-' {{ ;'`   | Revised by:                                |
 |  ( (  ;._ \\ ctr | Last Modification: Created                 |
 =================================================================
 -->
-
 <definitions>
 	<item id="house"> <!-- house deed -->
 		<id>0x14ef</id>
@@ -33,4 +33,12 @@
 		<newbie />
 		<events>clothing_bless_deed</events>
 	</item>
+
+  <item id="guildstone_deed">
+    <id>0x14f0</id>
+    <name>Guildstone Deed</name>
+    <color>0x3c</color>
+    <events>guilds.deed</events>
+    <category>Misc\Guilds\Guildstone Deed</category>
+  </item>
 </definitions>

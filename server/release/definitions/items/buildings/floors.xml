@@ -103,7 +103,8 @@
 
         <!-- Marble Floor 2 -->
         <item id="50d">
-                <id>0x050d</id> <nodecay />
+                <id>0x050d</id>
+                <nodecay />
                 <category>Buildings\Floors\Marble Floor 2\Marble Floor 1</category>
         </item>
 
