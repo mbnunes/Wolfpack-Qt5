@@ -5,13 +5,14 @@
 	<script id="wall_clock" 	type="python" module="wall_clock" />
 	<script id="slotmachine" 	type="python" module="slotmachine" />
 	<script id="kindling" 		type="python" module="kindling" />
-	<script id="check"		type="python" module="check" />
+	<script id="check"			type="python" module="check" />
 	<script id="lightsource"	type="python" module="lightsource" />
 	<script id="weapons_blades"	type="python" module="weapons.blades" />
 	<script id="scissors" 		type="python" module="scissors" />
 	<script id="cooking" 		type="python" module="cooking" />
-	<script id="wool" 		type="python" module="wool" />
-	<script id="yarn" 		type="python" module="yarn" />
+	<script id="wool" 			type="python" module="wool" />
+	<script id="yarn" 			type="python" module="yarn" />
+	<script id="potions" 		type="python" module="potions" />
 
 	<!-- Magic Tools -->
 	<script id="recall_rune" type="python" module="recall_rune" />
