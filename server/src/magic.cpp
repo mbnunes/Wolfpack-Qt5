@@ -381,7 +381,8 @@ P_ITEM cMagic::findSpellBook( P_CHAR mage )
 // TO DO: Check for spells in the book if sourceType == 0
 bool cMagic::prepare( P_CHAR caster, UI08 spellId, UI08 sourceType, P_ITEM sourceItem )
 {
-	// Prepares to cast a spell
+	return true;
+/*	// Prepares to cast a spell
 	if( caster == NULL )
 		return false;
 
@@ -503,7 +504,7 @@ bool cMagic::prepare( P_CHAR caster, UI08 spellId, UI08 sourceType, P_ITEM sourc
 	TempEffects::instance()->insert( new cTimedSpellAction( caster->serial, spell->action() ) );
 	cMagic::preParticles( spellId, caster );
 
-	return spell->prepare( caster, sourceType );
+	return spell->prepare( caster, sourceType );*/
 
 	/*if (!SrvParams->cutScrollReq())
 	{
@@ -1278,7 +1279,7 @@ void cMagic::MagicDamage(P_CHAR pc, int amount)
 
 	cTerritory* Region = pc->region();
 	
-	if ( Region != NULL && !pc->isInvul() && Region->allowsMagicDamage() ) // LB magic-region change
+/*	if ( Region != NULL && !pc->isInvul() && Region->allowsMagicDamage() ) // LB magic-region change
 	{
 		if (pc->isNpc()) amount *= 2;			// double damage against non-players
 //		pc->hp = QMAX(0, pc->hp-amount);
@@ -1288,7 +1289,7 @@ void cMagic::MagicDamage(P_CHAR pc, int amount)
 		{
 			pc->kill();
 		}
-	}
+	}*/
 }
 
 
@@ -1314,7 +1315,7 @@ void cMagic::PoisonDamage(P_CHAR pc, int poison) // new functionality, lb !!!
 
 	cTerritory* Region = pc->region();
 	
-	if ( Region != NULL && !pc->isInvul() && Region->allowsMagicDamage() ) // LB magic-region change
+/*	if ( Region != NULL && !pc->isInvul() && Region->allowsMagicDamage() ) // LB magic-region change
 	{
 		if (poison>5) poison = 5;
 		else if (poison<0) poison = 1;
@@ -1322,7 +1323,7 @@ void cMagic::PoisonDamage(P_CHAR pc, int poison) // new functionality, lb !!!
 		pc->setPoisonwearofftime(uiCurrentTime+(MY_CLOCKS_PER_SEC*SrvParams->poisonTimer()));
 		if (s != -1)
 			impowncreate(s, pc, 1); //Lb, sends the green bar !
-	}
+	}*/
 }
 
 
@@ -3053,11 +3054,11 @@ void cMagic::NewCastSpell( UOXSOCKET s )
 				{
 					cTerritory* Region = cAllTerritories::getInstance()->region( x, y );
 					if( Region != NULL && !Region->isGuarded() ) // Ripper 11-14-99
-						if( !Region->allowsMagic() || !Region->allowsMagicDamage() ) // LB magic region changes !
+/*						if( !Region->allowsMagic() || !Region->allowsMagicDamage() ) // LB magic region changes !
 						{
 							sysmessage(s, tr(" You cant cast in town!"));
 							return;
-						}
+						}*/
 						for( j=0; j<=j2; j++ )
 						{
 							P_ITEM pi=Items->SpawnItem(currchar[s],1,"#",0,(id1<<8)+id2,0,0);

@@ -78,17 +78,17 @@ public:
 	QString		getGuardSect( void );
 private:
 	// Setters to ease up the flag meanings
-	void		setGuarded( bool data )				{ flags_ & 0x0001; }
-	void		setNoMark( bool data )				{ flags_ & 0x0002; }
-	void		setNoGate( bool data )				{ flags_ & 0x0004; }
-	void		setNoRecallOut( bool data )			{ flags_ & 0x0008; }
-	void		setNoRecallIn( bool data )			{ flags_ & 0x0010; }
-	void		setRecallShield( bool data )		{ flags_ & 0x0020; }
-	void		setNoAgressiveMagic( bool data )	{ flags_ & 0x0040; }
-	void		setAntiMagic( bool data )			{ flags_ & 0x0080; }
-	void		setValidEscortRegion( bool data )	{ flags_ & 0x0100; }
-	void		setCave( bool data )				{ flags_ & 0x0200; }
-	void		setNoMusic( bool data )				{ flags_ & 0x0400; }
+	void		setGuarded( bool data )				{ if( data ) flags_ |= 0x0001; else flags_ &= ~0x0001; }
+	void		setNoMark( bool data )				{ if( data ) flags_ |= 0x0002; else flags_ &= ~0x0002; }
+	void		setNoGate( bool data )				{ if( data ) flags_ |= 0x0004; else flags_ &= ~0x0004; }
+	void		setNoRecallOut( bool data )			{ if( data ) flags_ |= 0x0008; else flags_ &= ~0x0008; }
+	void		setNoRecallIn( bool data )			{ if( data ) flags_ |= 0x0010; else flags_ &= ~0x0010; }
+	void		setRecallShield( bool data )		{ if( data ) flags_ |= 0x0020; else flags_ &= ~0x0020; }
+	void		setNoAgressiveMagic( bool data )	{ if( data ) flags_ |= 0x0040; else flags_ &= ~0x0040; }
+	void		setAntiMagic( bool data )			{ if( data ) flags_ |= 0x0080; else flags_ &= ~0x0080; }
+	void		setValidEscortRegion( bool data )	{ if( data ) flags_ |= 0x0100; else flags_ &= ~0x0100; }
+	void		setCave( bool data )				{ if( data ) flags_ |= 0x0200; else flags_ &= ~0x0200; }
+	void		setNoMusic( bool data )				{ if( data ) flags_ |= 0x0400; else flags_ &= ~0x0400; }
 
 	virtual void processNode( const QDomElement &Tag );
 
