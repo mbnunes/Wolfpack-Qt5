@@ -30,6 +30,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Removed redundant skill tag use:
     Replaced with <skill id="skillname">value</skill>
  * Definition Changes:
+  - Tinker buy some items now
   - Bench (0x1049) which was crafted was "unusable"
   - fixed bug #0000381 ("potion_keg" and "potionkeg")
   - Set the minimum restock amount of reagents, arrows and bolts to 50.
@@ -93,6 +94,7 @@ Wolfpack 12.9.14 Beta (SVN)
   - Updated the decoration script.
   - Updated the allskills command to account for the ALLSKILLS constant.
   - Tweaked the plant system a little so pressing the water button searches for water in the backpack.
+  - Tinker can repair items.
  * Misc. Changes:
  * Known Issues, Bugs, and Missing Features:
   - Some skills are still incomplete.
