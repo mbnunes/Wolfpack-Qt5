@@ -22,7 +22,7 @@ if username != '' and password != '':
 		message = "Unable to comply, authentication failed."
 
 	# Wrong Password
-	elif !account.checkpassword(password):
+	elif not account.checkpassword(password):
 		message = "Unable to comply, authentication failed."
 
 	# Authorized for Remote Admin?
