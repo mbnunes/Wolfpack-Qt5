@@ -75,7 +75,7 @@ Wolfpack 12.9.8 Beta (CVS)
 		- Decoration Saving
 		- Magic fixes: Fire, Poison, Energy and Paralyze fields should work better.
 			Mass dispell can now wipe out these fields.
-		- Scrolls are now usable and actually cast the spell. 
+		- Scrolls are now usable and actually cast the spell.
 		  For scrolls the following rules are in effect:
 		    50% decreased mana usage.
 		   	The effective circle for measuring the skill requirement is lowered by two
@@ -101,6 +101,7 @@ Wolfpack 12.9.8 Beta (CVS)
 		- There are still some memory leaks.
 		- Healers do not resurrect.
 		- Large gumps can potentially crash remote clients.
+		- Multis are not currently supported.
 
 Wolfpack 12.9.7 Beta (4. July 2004)
 	* Core Changes:
