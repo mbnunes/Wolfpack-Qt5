@@ -73,8 +73,6 @@ private:
 
 class cAllToolTips
 {
-public:
-	cToolTipsList*		
 private:
 	QMap< QString, cToolTipsList > tooltipslist_;
 };
