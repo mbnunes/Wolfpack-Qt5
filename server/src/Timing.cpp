@@ -205,10 +205,6 @@ void checkRegeneration( P_CHAR pc, unsigned int currenttime )
 */
 	}
 
-	// Check if the character died
-	if( pc->hitpoints() <= 0 && !pc->isDead() )
-		pc->kill();
-
 	if( pc->hitpoints() > pc->maxHitpoints() )
 		pc->setHitpoints( pc->maxHitpoints() );
 
@@ -419,111 +415,14 @@ void checkPC( P_PLAYER pc, unsigned int currenttime )
 	 // Damage them if they are very hungry
 	if( ( hungerdamagetimer <= currenttime ) && SrvParams->hungerDamage() )
 	{
-		hungerdamagetimer=currenttime+(SrvParams->hungerDamageRate()*MY_CLOCKS_PER_SEC); /** set new hungertime **/
+		hungerdamagetimer = currenttime + ( SrvParams->hungerDamageRate() * MY_CLOCKS_PER_SEC );
+
 		if( pc->hitpoints() > 0 && pc->hunger()<2 && !pc->isGMorCounselor() && !pc->isDead() )
 		{
 			socket->sysMessage( tr( "You are starving." ) );
-//			pc->hp -= SrvParams->hungerDamage();
-			pc->setHitpoints( pc->hitpoints() - SrvParams->hungerDamage() );
-			
-			if( pc->hitpoints() <=0 )
-			{
-				socket->sysMessage( tr( "You have died of starvation." ) );
-				pc->kill();
-			}
+			pc->damage( DAMAGE_HUNGER, SrvParams->hungerDamage() );
 		}
 	}
-
-/*	// new math + poison wear off timer added by lord binary !
-	if( pc->poisoned() && !pc->isInvulnerable() )
-	{
-		if( pc->poisonTime() <= currenttime )
-		{
-			if( pc->poisonWearOffTime() > currenttime ) // lb, makes poison wear off pc's
-			{
-				// We only support 4 levels of poison here.
-				switch( pc->poisoned() )
-				{
-				case 1:
-					pc->setPoisonTime(currenttime+(5*MY_CLOCKS_PER_SEC));
-					if( pc->isontxt() <= currenttime )
-					{
-						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						pc->emote( tr( "*%1 looks a bit nauseous!*" ).arg( pc->name() ), 0x26 );
-					}
-				 
-//					pc->hp -= QMAX(((pc->hp)*RandomNum(5,15))/100, RandomNum(0,1) ); // between 0% and 10% of player's hp 
-					tempshort = pc->hitpoints();
-					tempshort -= QMAX(((tempshort)*RandomNum(5,15))/100, RandomNum(0,1) );
-					pc->setHitpoints( tempshort );
-					pc->updateHealth();
-					break;
-				case 2:
-					pc->setPoisonTime(currenttime+(4*MY_CLOCKS_PER_SEC));
-					if( pc->poisontxt() <= currenttime )
-					{
-						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						pc->emote( tr( "*%1 looks disoriented and nauseous!*" ).arg( pc->name() ), 0x26 );
-					}
-					
-//					pc->hp -= QMAX(((pc->hp)*RandomNum(10,20))/100, RandomNum(0,1)); //between 10% and 20% of player's hp
-					tempshort = pc->hitpoints();
-					tempshort -= QMAX(((tempshort)*RandomNum(10,20))/100, RandomNum(0,1));
-					pc->setHitpoints( tempshort );
-					pc->updateHealth();
-					break;
-				case 3:
-					pc->setPoisonTime(currenttime+(3*MY_CLOCKS_PER_SEC));
-					
-					if( pc->poisontxt() <= currenttime )
-					{
-						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						pc->emote( tr( "*%1 is in severe pain!*" ).arg( pc->name() ), 0x26 );
-					}
-					
-//					pc->hp -= QMAX( ( pc->hp * RandomNum( 20, 30 ) ) / 100, RandomNum( 0, 1 ) ); // between 20% and 30% of player's hp 
-					tempshort = pc->hitpoints();
-					tempshort -= QMAX( ( tempshort * RandomNum( 20, 30 ) ) / 100, RandomNum( 0, 1 ) );
-					pc->setHitpoints( tempshort );
-					pc->updateHealth();
-					break;
-				case 4:
-					pc->setPoisonTime( currenttime+(3*MY_CLOCKS_PER_SEC) );
-
-					if( pc->poisontxt() <= currenttime )
-					{
-						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						pc->emote( tr( "*%1 looks extremely sick*" ).arg( pc->name() ), 0x26 );
-					}
-				
-//					pc->hp -= QMAX( ( pc->hp * RandomNum( 30, 40 ) ) / 100, 1 ); //between 30% and 40% of player's hp
-					tempshort = pc->hitpoints();
-					tempshort -= QMAX( ( tempshort * RandomNum( 30, 40 ) ) / 100, 1 );
-					pc->setHitpoints( tempshort );
-					pc->updateHealth();
-					break;
-
-				default:
-					clConsole.send( tr( "Unknown poison type for Character %1 [0x%2]\n" ).arg( pc->name() ).arg( pc->serial(), 8, 16 ) );
-					pc->setPoisoned( 0 );
-					return;
-				}
-
-				if( pc->hitpoints() < 1 )
-				{
-					socket->sysMessage( tr( "The poison killed you.") );
-					pc->kill();
-				}
-			} // end switch
-		} // end if poison-wear off-timer
-	} // end if poison-damage timer
-
-	if( pc->poisoned() && pc->poisonWearOffTime() <= currenttime )
-	{
-		pc->setPoisoned( 0 );
-		pc->update(); // a simple status-update should be enough here
-		socket->sysMessage( tr( "The poison has worn off." ) );
-	}*/
 }
 
 void checkNPC( P_NPC pc, unsigned int currenttime )
@@ -541,8 +440,7 @@ void checkNPC( P_NPC pc, unsigned int currenttime )
 		if( pc->ai() )
 			pc->ai()->check();
 	}
-//	cCharStuff::CheckAI( currenttime, pc );
-//	Movement::instance()->NpcMovement( currenttime, pc );
+
     setcharflag( pc );
 
 	// We are at war and want to prepare a new swing
@@ -553,9 +451,6 @@ void checkNPC( P_NPC pc, unsigned int currenttime )
 	else if( !pc->isDead() && ( pc->swingTarget() >= 0 && pc->nextHitTime() <= currenttime ) )
 		Combat::checkandhit( pc );
 
-/*	if( pc->shop() )
-		restockNPC( currenttime, pc );
-*/
 	if( !pc->free )
 	{
 		if( pc->summonTime() && ( pc->summonTime() <= currenttime ) )
@@ -567,103 +462,6 @@ void checkNPC( P_NPC pc, unsigned int currenttime )
 		}
 	}
 
-/*	// Character is not fleeing but reached the border
-	if( pc->wanderType() != enFlee && pc->hitpoints() < pc->st()*pc->fleeat() / 100 )
-	{
-		pc->setOldNpcWander( pc->npcWander() );
-		pc->setNpcWander(5);
-		pc->setNextMoveTime();
-	}
-
-    // Character is fleeing and has regenerated
-	if( pc->npcWander() == 5 && pc->hitpoints() > pc->st()*pc->reattackat() / 100 )
-	{
-		pc->setNpcWander( pc->oldnpcWander() );
-		pc->setNextMoveTime();
-		pc->setOldNpcWander( 0 );
-	}*/
-
-/*	// new poisoning code
-	if (pc->poisoned() && !(pc->isInvulnerable()) )
-	{
-		if( pc->poisonTime() <= currenttime )
-		{
-			if (pc->poisonWearOffTime()>currenttime) // lb, makes poison wear off pc's
-			{
-				switch (pc->poisoned())
-				{
-				case 1:
-					pc->setPoisonTime(currenttime+(5*MY_CLOCKS_PER_SEC));
-					if( pc->poisontxt() <= currenttime )
-					{
-						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						pc->emote( tr("* %1 looks a bit nauseous *").arg(pc->name()), 0x0026);
-					}
-//					pc->hp -= RandomNum(1,2);
-					pc->setHitpoints( pc->hitpoints() - RandomNum(1,2) );
-					pc->updateHealth();
-					break;
-				case 2:
-					pc->setPoisonTime(currenttime+(4*MY_CLOCKS_PER_SEC));
-					if( pc->poisontxt() <= currenttime )
-					{
-						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						pc->emote( tr("* %1 looks disoriented and nauseous! *").arg(pc->name()), 0x0026);
-					}
-
-					pcalc = ( ( pc->hitpoints() * RandomNum(2,5) ) / 100) + RandomNum(0,2); // damage: 1..2..5% of hp's+ 1..2 constant
-					
-//					pc->hp -= pcalc;
-					pc->setHitpoints( pc->hitpoints() - pcalc);
-					pc->updateHealth();
-					break;
-				case 3:
-					pc->setPoisonTime(currenttime+(3*MY_CLOCKS_PER_SEC));
-					if( pc->poisontxt() <= currenttime )
-					{
-						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						pc->emote( tr("* %1 is in severe pain! *").arg(pc->name()), 0x0026 );
-					}
-					pcalc=( ( pc->hitpoints() * RandomNum(5,10) ) / 100 ) + RandomNum(1,3); // damage: 5..10% of hp's+ 1..2 constant
-//					pc->hp -= pcalc;
-					pc->setHitpoints( pc->hitpoints() - pcalc);
-					pc->updateHealth();
-					break; // lb !!!
-				case 4:
-					pc->setPoisonTime(currenttime+(3*MY_CLOCKS_PER_SEC));
-					if( pc->poisontxt() <= currenttime )
-					{
-						pc->setPoisontxt(currenttime+(10*MY_CLOCKS_PER_SEC));
-						pc->emote( tr("* %s looks extremely weak and is wrecked in pain! *").arg(pc->name()), 0x0026 );
-					}
-
-					pcalc=( (pc->hitpoints() * RandomNum(10,15) ) / 100 ) + RandomNum(3,6); // damage:10 to 15% of hp's+ 3..6 constant, quite deadly <g>
-//					pc->hp -= pcalc;
-					pc->setHitpoints(pc->hitpoints() - pcalc);
-					pc->updateHealth();
-					break;
-				default:
-					clConsole.send("ERROR: Fallout of switch statement without default. wolfpack.cpp, checkNPC()\n"); //Morrolan
-					pc->setPoisoned(0);
-					return;
-				}
-				if( pc->hitpoints() < 1 )
-				{
-					pc->kill();
-				}
-			} // end switch
-		} // end if poison-wear off-timer
-	} // end if poison-damage timer
-
-	if ((pc->poisonWearOffTime()<=currenttime))
-	{
-		if ((pc->poisoned()))
-		{
-			pc->setPoisoned(0);
-			pc->update();
-		}
-	}
-*/
 	//hunger code for npcs
 	if( SrvParams->hungerRate() && (pc->hungerTime() <= currenttime ) )
 	{
@@ -685,9 +483,8 @@ void checkNPC( P_NPC pc, unsigned int currenttime )
 			case 0:
 				//maximum hunger - untame code
 				//pet release code here
-				if(pc->isTamed())
+				if( pc->isTamed() )
 				{
-//					pc->setWanderFollowTarget( INVALID_SERIAL );
 					pc->setWanderType( enFreely );
 					pc->setTamed( false );
 
@@ -697,6 +494,7 @@ void checkNPC( P_NPC pc, unsigned int currenttime )
 					pc->emote( tr("%1 appears to have decided that it is better off without a master").arg(pc->name()), 0x0026 );
 
 					pc->soundEffect( 0x01FE );
+
 					if( SrvParams->tamedDisappear() == 1 )
 						cCharStuff::DeleteChar(pc);
 				}

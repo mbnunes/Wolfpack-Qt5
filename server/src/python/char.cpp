@@ -461,15 +461,16 @@ PyObject* wpChar_resurrect( wpChar* self, PyObject* args )
 }
 
 /*!
-	Resurrects the current character
+	Kills the current character
 */
 PyObject* wpChar_kill( wpChar* self, PyObject* args )
 {
 	Q_UNUSED(args);
+	
 	if( !self->pChar || self->pChar->free )
 		return PyFalse;
 
-	self->pChar->kill();
+	self->pChar->damage( DAMAGE_GODLY, self->pChar->hitpoints() );
 
 	return PyTrue;
 }
@@ -480,29 +481,28 @@ PyObject* wpChar_kill( wpChar* self, PyObject* args )
 */
 PyObject* wpChar_damage( wpChar* self, PyObject* args )
 {
-	if( !self->pChar || self->pChar->free )
+	if( self->pChar->free )
 		return PyFalse;
 
-	if( !checkArgInt( 0 ) )
+	int type, amount;
+	PyObject *source = 0;
+	
+	if( !PyArg_ParseTuple( args, "ii|O:char.damage( type, amount, source )", &type, &amount, &source ) )
+		return 0;
+
+	if( amount < 1 )
 	{
 		PyErr_BadArgument();
-		return NULL;
+		return 0;
 	}
 
-	if( getArgInt( 0 ) == 0 )
-		return PyTrue;
+	cUObject *pSource = 0;
+	if( checkWpItem( source ) )
+		pSource = getWpItem( source );
+	else if( checkWpChar( source ) )
+		pSource = getWpChar( source );
 
-	// Play take-damage animation / soundeffect
-	Combat::playGetHitSoundEffect( self->pChar );	
-	Combat::playGetHitAnimation( self->pChar );
-
-	self->pChar->setHitpoints( self->pChar->hitpoints() - getArgInt( 0 ) );
-	self->pChar->updateHealth();
-
-	if( self->pChar->hitpoints() <= 0 )
-		self->pChar->kill();
-
-	return PyTrue;
+	return PyInt_FromLong( self->pChar->damage( (eDamageType)type, amount, pSource ) );
 }
 
 /*!

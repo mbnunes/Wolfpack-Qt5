@@ -165,9 +165,6 @@ void cPlayer::update( bool excludeself )
 
 	for( cUOSocket *mSock = cNetwork::instance()->first(); mSock; mSock = cNetwork::instance()->next() )
 	{
-		if( socket_ == mSock && excludeself )
-			continue;
-
 		P_PLAYER pChar = mSock->player();
 
 		if( pChar && pChar->socket() && pChar->inRange( this, pChar->visualRange() ) )
@@ -176,7 +173,15 @@ void cPlayer::update( bool excludeself )
 			mSock->send( new cUOTxUpdatePlayer( *updatePlayer ) );
 		}
 	}
+
 	delete updatePlayer;
+
+	if( !excludeself && socket_ )
+	{
+		cUOTxDrawPlayer drawPlayer;
+		drawPlayer.fromChar( this );
+		socket_->send( &drawPlayer );
+	}
 }
 
 // Resend the char to all sockets in range
@@ -649,32 +654,12 @@ void cPlayer::kill()
 
 void cPlayer::turnTo( cUObject *object )
 {
-	cBaseChar::turnTo( object );
-
-	// Send a different packet for ourself
-	if( socket_ )
-	{
-		socket_->resendPlayer( true );
-
-		/*cUOTxForceWalk forceWalk;
-		forceWalk.setDirection( dir_ );
-		socket_->send( &forceWalk );*/
-	}
+	cBaseChar::turnTo( object->pos() );
 }
 
 void cPlayer::turnTo( const Coord_cl &pos )
 {
 	cBaseChar::turnTo( pos );
-
-	// Send a different packet for ourself
-	if( socket_ )
-	{
-		socket_->resendPlayer( true );
-
-		/*cUOTxForceWalk forceWalk;
-		forceWalk.setDirection( dir_ );
-		socket_->send( &forceWalk );*/
-	}
 }
 
 P_NPC cPlayer::unmount()

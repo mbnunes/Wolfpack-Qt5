@@ -756,41 +756,23 @@ namespace Combat
 		//	}
 		}*/
 
-		// Reactive Armor
-		if( pDefender->hasReactiveArmor() )
-		{
-			// lets reflect (MAGERY/2)% of the damage
-			SI32 reflectdamage = damage * pDefender->skillValue( MAGERY ) / 2000;
-			damage -= reflectdamage;
-
-			if( reflectdamage > 0 )
-			{
-				pAttacker->setHitpoints( QMAX( 0, pAttacker->hitpoints() - reflectdamage ) );
-				pAttacker->updateHealth();
-
-				if( pAttacker->hitpoints() <= 0 )
-					pAttacker->kill();
-			}
-
-			pDefender->effect( 0x374A, 10, 15 ); // RA effect (update!)
-		}
-
 		// Finally deal the damage
 		damage = QMAX( 0, damage );
+
 		if( damage > 0 )
 		{
-			pDefender->setHitpoints( pDefender->hitpoints() - damage );
+			damage = pDefender->damage( DAMAGE_PHYSICAL, damage, pAttacker );
 			
+			if( !damage )
+				return;
+
 			if( pAttacker->objectType() == enPlayer )
 			{
 				P_PLAYER pp = dynamic_cast<P_PLAYER>(pAttacker);
+				
 				if( pp->socket() )
 					pp->socket()->showSpeech( pDefender, QString::number( damage ), 0x1F, 6 );
 			}
-
-			// If we die anyway dont update our health
-			if( pDefender->hitpoints() > 0 )
-				pDefender->updateHealth();
 		}
 
 		// Create blood below the defender if severe
@@ -843,8 +825,8 @@ namespace Combat
 			}
 		}
 */
-		// Resend the health bar of our defender to all surrounding characters
-		// ONLY if the hp really changed!
+
+		// We lost Stamina
 		if( pDefender->stamina() != oldStm && pDefender->objectType() == enPlayer )
 		{
 			P_PLAYER pp = dynamic_cast<P_PLAYER>(pDefender);
@@ -1025,7 +1007,7 @@ namespace Combat
 		//}
 
 		// Our target finally died.
-		if( pDefender->hitpoints() < 1 ) // Highlight // Repsys
+		if( pDefender->isDead() ) // Highlight // Repsys
 		{
 #pragma note("reimplement with new npc ai sys")
 /*			if( ( pAttacker->npcaitype() == 4 || pAttacker->npcaitype() == 9 ) && pDefender->isNpc() )
@@ -1036,7 +1018,7 @@ namespace Combat
 			}
 			else
 			{
-				pDefender->kill();
+
 				pAttacker->setSwingTarget( -1 );
 			}
 			*/

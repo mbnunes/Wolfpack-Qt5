@@ -51,7 +51,8 @@ enum eDamageType
 {
 	DAMAGE_PHYSICAL = 0,
 	DAMAGE_MAGICAL = 1,
-	DAMAGE_GODLY
+	DAMAGE_GODLY = 2,
+	DAMAGE_HUNGER = 3
 };
 
 // This class is the base interface for all char objects. 

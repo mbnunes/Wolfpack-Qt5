@@ -610,8 +610,7 @@ void cBaseChar::turnTo( const Coord_cl &pos )
 	{
 		changed( SAVE );
 		direction_ = nDir;
-		
-		update( true );
+		update();
 	}
 }
 
@@ -1943,6 +1942,27 @@ unsigned int cBaseChar::damage( eDamageType type, unsigned int amount, cUObject 
 	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_DAMAGE );
 	for( it = hooks.begin(); it != hooks.end(); ++it )
 		amount = (*it)->onDamage( this, type, amount, source );
+
+	// Invulnerable Targets don't take any damage at all
+	if( isInvulnerable() )
+		amount = 0;
+
+	// The damage has been resisted or scripts have taken care of the damage otherwise
+	if( !amount )
+		return 0;
+
+	// Would we die?
+	if( amount >= hitpoints_ )
+	{
+		this->kill();
+	}
+	else
+	{
+		hitpoints_ -= amount;
+		updateHealth();
+		Combat::playGetHitSoundEffect( this );
+		Combat::playGetHitAnimation( this );		
+	}
 
 	return amount;
 }

@@ -467,7 +467,7 @@ public:
 			return true;
 		}
 
-		pChar->kill();
+		pChar->damage( DAMAGE_GODLY, pChar->hitpoints(), socket->player() );
 		return true;
 	}
 };

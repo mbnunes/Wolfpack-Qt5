@@ -144,8 +144,6 @@ void Monster_Aggressive_L1::selectVictim()
 		if( pChar && !pChar->free && pChar != m_npc && !pChar->isInvulnerable() && !pChar->isHidden() && !pChar->isInvisible() && !pChar->isDead() )
 		{
 			P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pChar);
-			if( pPlayer && pPlayer->isGMorCounselor() )
-				continue;
 
 			int priority = 0 - pChar->dist( m_npc ) - pChar->hitpoints() - pChar->calcDefense( ALLBODYPARTS );
 			if( priority > currentPriority )
