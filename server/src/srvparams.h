@@ -69,7 +69,7 @@ protected:
 	// loaded data
 	unsigned int skillcap_;
 	unsigned int statcap_;
-	unsigned char commandPrefix_;
+	QString commandPrefix_;
 	unsigned int skillAdvanceModifier_;
 	unsigned int statsAdvanceModifier_;
 	unsigned short objectDelay_;
@@ -240,7 +240,7 @@ public:
 	// gets
 	unsigned int skillcap() const;
 	unsigned int statcap() const;
-	unsigned char commandPrefix() const;
+	QString commandPrefix() const;
 	unsigned int skillAdvanceModifier() const;
 	unsigned int statsAdvanceModifier() const;
 	bool stealingEnabled() const;
@@ -428,7 +428,7 @@ inline unsigned int cSrvParams::statcap() const
 	return statcap_;
 }
 
-inline unsigned char cSrvParams::commandPrefix() const
+inline QString cSrvParams::commandPrefix() const
 {
 	return commandPrefix_;
 }

@@ -130,6 +130,8 @@ void cUOSocket::recieve()
 		handleMultiPurpose( dynamic_cast< cUORxMultiPurpose* >( packet ) ); break;
 	case 0xBD:
 		_version = dynamic_cast< cUORxSetVersion* >( packet )->version(); break;
+	case 0xAD:
+		handleSpeechRequest( dynamic_cast< cUORxSpeechRequest* >( packet ) ); break;
 	default:
 		//cout << "Recieved packet: " << endl;
 		packet->print( &cout );
@@ -813,4 +815,26 @@ void cUOSocket::setPlayer( P_CHAR pChar )
 	}
 
 	_state = InGame;
+}
+
+void cUOSocket::handleSpeechRequest( cUORxSpeechRequest* packet )
+{
+	if( !_player )
+		return;
+
+	// Check if it's a command, then dispatch it to the command system
+	// if it's normal speech send it to the normal speech dispatcher
+	QString speech = packet->message();
+	UINT16 color = packet->color();
+	UINT16 font = packet->font();
+	UINT16 type = packet->type() & 0x3f; // Pad out the Tokenized speech flag
+
+	// There is one special case. if the user has the body 0x3db and the first char
+	// of the speech is = then it's always a command
+	if( ( _player->id() == 0x3DB ) && speech.startsWith( SrvParams->commandPrefix() ) )
+		clConsole.send( QString( "Command: %1\n" ).arg( speech ) );
+	else if( speech.startsWith( SrvParams->commandPrefix() ) )
+		clConsole.send( QString( "Command: %1\n" ).arg( speech ) );
+	else
+		clConsole.send( QString( "Speech: %1\n" ).arg( speech ) );
 }

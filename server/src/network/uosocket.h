@@ -109,6 +109,7 @@ public:
 	void handleContextMenuRequest( cUORxContextMenuRequest *packet );
 	void handleWalkRequest( cUORxWalkRequest* packet );
 	void handleSetLanguage( cUORxSetLanguage* packet );
+	void handleSpeechRequest( cUORxSpeechRequest* packet );
 
 	// Utilities
 	void updateChar( P_CHAR pChar );

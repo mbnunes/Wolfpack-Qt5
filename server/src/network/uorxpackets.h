@@ -248,15 +248,7 @@ class cUORxSetLanguage: public cUOPacket
 {
 public:
 	cUORxSetLanguage( const QByteArray &data ): cUOPacket( data ) {}
-	QString language( void )
-	{
-		char temp[4];
-		memset( temp, 0, 4 );
-		memcpy( temp, &rawPacket.data()[5], 3 );
-		QString rVal;
-		rVal.setLatin1( temp );
-		return rVal;
-	}
+	QString language( void ) { return &rawPacket.data()[5]; }
 };
 
 // 0xBD Set Version
@@ -264,10 +256,7 @@ class cUORxSetVersion: public cUOPacket
 {
 public:
 	cUORxSetVersion( const QByteArray &data ): cUOPacket( data ) {}
-	QString version( void )
-	{
-		return &rawPacket.data()[3];
-	}
+	QString version( void ) { return &rawPacket.data()[3]; }
 };
 
 // 0x02 Walk Request.
@@ -278,6 +267,19 @@ public:
 	UINT8 key()			{ return (*this)[2]; }
 	UINT8 direction()	{ return (*this)[1]; }
 	UINT32 fastWalkKey(){ return getInt(3);	 }
+};
+
+// 0xAD Speech Request
+class cUORxSpeechRequest: public cUOPacket
+{
+public:
+	cUORxSpeechRequest( const QByteArray& data ) : cUOPacket( data ) {}
+	UINT8 type()		{ return (*this)[3]; }
+	UINT16 color()		{ return getShort( 4 ); }
+	UINT16 font()		{ return getShort( 6 ); }
+	UINT16 keywordCount() { return getShort( 12 ) >> 4; }
+	QString language()	{ return &rawPacket.data()[12]; }
+	QString message();
 };
 
 #endif

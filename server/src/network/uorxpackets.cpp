@@ -32,6 +32,8 @@
 #include "uorxpackets.h"
 #include "uopacket.h"
 #include <iostream>
+#include <math.h>
+
 cUOPacket *getUOPacket( const QByteArray &data )
 {
 	if( data.isEmpty() )
@@ -77,6 +79,8 @@ cUOPacket *getUOPacket( const QByteArray &data )
 		return new cUORxMultiPurpose( data );
 	case 0xBD:
 		return new cUORxSetVersion( data );
+	case 0xAD:
+		return new cUORxSpeechRequest( data );
 	default:
 		return new cUOPacket( data );
 	};	
@@ -96,4 +100,22 @@ cUOPacket *cUORxMultiPurpose::packet( void )
 	default:
 		return new cUOPacket( (*this) );
 	};
+}
+
+QString cUORxSpeechRequest::message()
+{
+	// 0x0c -> tokenized ascii speech
+	if( type() & 0xc0 )
+	{
+		// Skip the keywords
+		UINT16 skipCount = ( keywordCount() + 1 ) * 12; // We have 12 Bits for the count as well
+		UINT16 skipBytes = (UINT16)floor( skipCount / 8 );
+		if( (float)skipBytes < ( skipCount / 8 ) )
+			skipBytes++;
+
+		return &rawPacket.data()[ 12 + skipBytes ];
+	}
+	else
+		return getUnicodeString( 12, getShort( 1 ) - 12 );
+		//return QString( (QChar*)&rawPacket.data()[ 12 ], getShort( 1 ) - 12 );
 }

@@ -1041,8 +1041,6 @@ int cSpeech::response(UOXSOCKET s, P_CHAR pPlayer, const QString& SpeechUpr)
 	return 0;
 }
 
-
-
 void cSpeech::talking(int s, QString speech) // PC speech
 {
 /*
@@ -1145,11 +1143,11 @@ void cSpeech::talking(int s, QString speech) // PC speech
 	// AntiChrist
 	pc_currchar->unhide();
 		
-	if (speech[0] == (char)SrvParams->commandPrefix() )
+	/*if (speech[0] == (char)SrvParams->commandPrefix() )
 	{
 		Commands->Command(s, speech.latin1());
 		return;
-	}
+	}*/
 
 	if ( speech_type == '\x09' && pc_currchar->canBroadcast() )
 	{

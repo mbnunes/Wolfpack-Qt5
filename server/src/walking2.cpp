@@ -167,9 +167,16 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	// We're turning and NOT moving into a specific direction
 	// Clear the running flag here (!)
 	// If the direction we're moving is already equal to our current direction
-	if( dir&0x7F == pChar->dir )
+	dir = dir & 0x7F; // Remove the running flag
+	bool running = dir & 0x80;
+
+	if( dir == pChar->dir )
 	{
-		checkRunning( pChar, dir ); // Reduces Stamina and does other things related to running
+		if( running )
+			checkRunning( pChar, dir ); // Reduces Stamina and does other things related to running
+		else
+			pChar->setRunning( 0 );
+
 		checkStealth( pChar ); // Reveals the user if neccesary
 
 		Coord_cl newCoord = pChar->pos; // Note: Do NOT use the copy constructor as it'll create a reference
@@ -480,13 +487,6 @@ bool cMovement::verifySequence( cUOSocket *socket, Q_UINT8 sequence ) throw()
 
 void cMovement::checkRunning( P_CHAR pc, Q_UINT8 dir )
 {
-	// if we are running
-	if( !( dir & 0x80 ) )
-	{
-		pc->setRunning( 0 );
-		return;
-	}
-
 	// Running automatically stops stealthing
 	if( pc->stealth() != -1 ) 
 	{
