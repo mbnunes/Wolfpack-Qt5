@@ -431,5 +431,9 @@ public:
 	void GetScriptItemSetting(P_ITEM pi); // by Magius(CHE)
 };
 
+inline QString cItem::objectID() const
+{
+        return "cItem";
+}
 
 #endif

@@ -213,11 +213,6 @@ P_ITEM cItem::getCorpse( void )
 	return Cont;
 }
 
-inline QString cItem::objectID() const
-{
-	return "cItem";
-}
-
 void cItem::startDecay()			
 {
 	if( contserial != INVALID_SERIAL )
