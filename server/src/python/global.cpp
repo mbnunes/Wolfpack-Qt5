@@ -706,25 +706,38 @@ static PyObject *wpTiledata( PyObject* self, PyObject* args )
 	tile_st tile = TileCache::instance()->getTile( tileid );
 
 	PyObject *dict = PyDict_New();
-	PyDict_SetItemString( dict, "name", PyString_FromString( tile.name ) );
-	PyDict_SetItemString( dict, "height", PyInt_FromLong( tile.height ) );
-	PyDict_SetItemString( dict, "weight", PyInt_FromLong( tile.weight ) );
-	PyDict_SetItemString( dict, "layer", PyInt_FromLong( tile.layer ) );
-	PyDict_SetItemString( dict, "animation", PyInt_FromLong( tile.animation ) );
-	PyDict_SetItemString( dict, "quantity", PyInt_FromLong( tile.quantity ) );
-	PyDict_SetItemString( dict, "unknown1", PyInt_FromLong( tile.unknown1 ) );
-	PyDict_SetItemString( dict, "unknown2", PyInt_FromLong( tile.unknown2 ) );
-	PyDict_SetItemString( dict, "unknown3", PyInt_FromLong( tile.unknown3 ) );
-	PyDict_SetItemString( dict, "unknown4", PyInt_FromLong( tile.unknown4 ) );
-	PyDict_SetItemString( dict, "unknown5", PyInt_FromLong( tile.unknown5 ) );
-	PyDict_SetItemString( dict, "flag1", PyInt_FromLong( tile.flag1 ) );
-	PyDict_SetItemString( dict, "flag2", PyInt_FromLong( tile.flag2 ) );
-	PyDict_SetItemString( dict, "flag3", PyInt_FromLong( tile.flag3 ) );
-	PyDict_SetItemString( dict, "flag4", PyInt_FromLong( tile.flag4 ) );
-	PyDict_SetItemString( dict, "wet", PyInt_FromLong( tile.isWet() ) );
-	PyDict_SetItemString( dict, "blocking", PyInt_FromLong( tile.isBlocking() ) );
-	PyDict_SetItemString( dict, "floor", PyInt_FromLong( tile.isRoofOrFloorTile() ) );
-	PyDict_SetItemString( dict, "flagnames", PyString_FromString( getFlagNames( tile ).join(",") ) );
+
+	// test if item is defined
+	if( !strlen( tile.name ) )
+	{
+		PyDict_SetItemString( dict, "name", PyString_FromString( "unknown" ) );
+		PyDict_SetItemString( dict, "flag1", PyInt_FromLong( 0 ) );
+		PyDict_SetItemString( dict, "flag2", PyInt_FromLong( 0 ) );
+		PyDict_SetItemString( dict, "flag3", PyInt_FromLong( 0 ) );
+		PyDict_SetItemString( dict, "flag4", PyInt_FromLong( 0 ) );
+	}
+	else
+	{
+		PyDict_SetItemString( dict, "name", PyString_FromString( tile.name ) );
+		PyDict_SetItemString( dict, "height", PyInt_FromLong( tile.height ) );
+		PyDict_SetItemString( dict, "weight", PyInt_FromLong( tile.weight ) );
+		PyDict_SetItemString( dict, "layer", PyInt_FromLong( tile.layer ) );
+		PyDict_SetItemString( dict, "animation", PyInt_FromLong( tile.animation ) );
+		PyDict_SetItemString( dict, "quantity", PyInt_FromLong( tile.quantity ) );
+		PyDict_SetItemString( dict, "unknown1", PyInt_FromLong( tile.unknown1 ) );
+		PyDict_SetItemString( dict, "unknown2", PyInt_FromLong( tile.unknown2 ) );
+		PyDict_SetItemString( dict, "unknown3", PyInt_FromLong( tile.unknown3 ) );
+		PyDict_SetItemString( dict, "unknown4", PyInt_FromLong( tile.unknown4 ) );
+		PyDict_SetItemString( dict, "unknown5", PyInt_FromLong( tile.unknown5 ) );
+		PyDict_SetItemString( dict, "flag1", PyInt_FromLong( tile.flag1 ) );
+		PyDict_SetItemString( dict, "flag2", PyInt_FromLong( tile.flag2 ) );
+		PyDict_SetItemString( dict, "flag3", PyInt_FromLong( tile.flag3 ) );
+		PyDict_SetItemString( dict, "flag4", PyInt_FromLong( tile.flag4 ) );
+		PyDict_SetItemString( dict, "wet", PyInt_FromLong( tile.isWet() ) );
+		PyDict_SetItemString( dict, "blocking", PyInt_FromLong( tile.isBlocking() ) );
+		PyDict_SetItemString( dict, "floor", PyInt_FromLong( tile.isRoofOrFloorTile() ) );
+		PyDict_SetItemString( dict, "flagnames", PyString_FromString( getFlagNames( tile ).join(",") ) );
+	}
 	
 	return dict;
 }
