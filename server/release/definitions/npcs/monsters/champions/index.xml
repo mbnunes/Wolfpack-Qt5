@@ -10,7 +10,6 @@
 
 	<!-- Champions -->
 	<include file="definitions/npcs/monsters/champions/barracoon_the_piper.xml" />
-	<include file="definitions/npcs/monsters/champions/impaler.xml" />	
 	<include file="definitions/npcs/monsters/champions/lord_oaks.xml" />
 	<include file="definitions/npcs/monsters/champions/mephitis.xml" />
 	<include file="definitions/npcs/monsters/champions/neira_the_necromancer.xml" />
