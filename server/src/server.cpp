@@ -318,7 +318,7 @@ bool cServer::run( int argc, char** argv )
 
 #if !defined( QT_NO_TRANSLATION )
 	// Start the QT translator
-	QString languageFile = Config::instance()->getString( "General", "Language File", QString( "wolfpack_" ) + QTextCodec::locale(), true );
+	QString languageFile = Config::instance()->getString( "General", "Language File", QString( "wolfpack_" ) + QTextCodec::locale() + QString( ".qm" ), true );
 	if ( !languageFile.isEmpty() && QFile::exists( languageFile ) )
 	{
 		QTranslator* translator = new QTranslator( qApp );
@@ -332,6 +332,10 @@ bool cServer::run( int argc, char** argv )
 		{
 			qApp->installTranslator( translator );
 		}
+	}
+	else
+	{
+		Console::instance()->log( LOG_WARNING, "Couldn't find Language File: " + languageFile + "\n" );
 	}
 #endif
 
