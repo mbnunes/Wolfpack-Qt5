@@ -793,9 +793,9 @@ void cUOSocket::handleCreateChar( cUORxCreateChar* packet )
 	QValueVector<P_PLAYER> characters = _account->caracterList();
 
 	// If we have more than 5 characters
-	if ( characters.size() >= 5 )
+	if ( characters.size() >= 6 )
 	{
-		cancelCreate( tr( "You already have more than 5 characters" ) )
+		cancelCreate( tr( "You already have more than 6 characters" ) )
 	}
 
 	// Check the stats
