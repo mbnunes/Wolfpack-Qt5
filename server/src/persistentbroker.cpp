@@ -31,9 +31,11 @@
 #include "persistentbroker.h"
 #include "persistentobject.h"
 
+#include "dbdriver.h"
+
 // Qt Includes
 #include <qstring.h>
-#include <qsqldriver.h>
+
 
 PersistentBroker::PersistentBroker() : connection(0)
 {
@@ -46,7 +48,7 @@ PersistentBroker::~PersistentBroker()
 
 bool PersistentBroker::openDriver( const QString& driver )
 {
-	connection = QSqlDatabase::addDatabase( driver );
+	connection = new cDBDriver();//QSqlDatabase::addDatabase( driver );
 	if ( !connection )
 		return false;
 	return true;
@@ -56,14 +58,10 @@ bool PersistentBroker::connect( const QString& host, const QString& db, const QS
 {
 	if (!connection)
 		return false;
-	connection->setHostName( host );
-	connection->setDatabaseName( db );
-	connection->setUserName( username );
-	connection->setPassword( password );
-	if ( !connection->open() ) 
+	if ( !connection->connect(host, db, username, password) ) 
 	{
-		qWarning("Failed to open database: " + connection->lastError().driverText() );
-		qWarning( connection->lastError().databaseText() );
+		qWarning("Failed to open database: " + connection->error() );
+//		qWarning( connection->lastError().databaseText() );
 		return false;
 	}
 	return true;
@@ -82,37 +80,38 @@ bool PersistentBroker::saveObject( PersistentObject* object )
 
 bool PersistentBroker::deleteObject( PersistentObject* object )
 {
-	static const bool hasTransaction = connection->driver()->hasFeature(QSqlDriver::Transactions);
-	if ( hasTransaction )
-		connection->transaction();
+//	static const bool hasTransaction = connection->driver()->hasFeature(QSqlDriver::Transactions);
+//	if ( hasTransaction )
+//		connection->transaction();
 	if ( object->del() )
 	{
-		if ( hasTransaction )
-			connection->commit();
+//		if ( hasTransaction )
+//			connection->commit();
 		return true;
 	}
 	else
 	{
-		if ( hasTransaction )
-			connection->rollback();
+//		if ( hasTransaction )
+//			connection->rollback();
 		return false;
 	}
 }
 
-void PersistentBroker::executeQuery( const QString& query )
+bool PersistentBroker::executeQuery( const QString& query )
 {
 	qWarning( query );
-
-	if ( !connection->exec( query ).isActive() )
+	bool result = connection->execute(query);
+	if ( !result )
 	{
-		qWarning(QString("Error executing query: \"%1\"").arg(query));
-		QSqlError e = connection->lastError();
-		qWarning(QString("Database text: \"%1\"").arg(e.databaseText()));
-		qWarning(QString("Driver text: \"%1\"").arg(e.driverText()));
+//		qWarning(QString("Error executing query: \"%1\"").arg(query));
+//		QSqlError e = connection->lastError();
+//		qWarning(QString("Database text: \"%1\"").arg(e.databaseText()));
+//		qWarning(QString("Driver text: \"%1\"").arg(e.driverText()));
 	}
+	return result;
 }
 
-QSqlDatabase* PersistentBroker::driver() const
+cDBDriver* PersistentBroker::driver() const
 {
 	return connection;
 }

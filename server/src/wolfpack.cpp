@@ -1433,7 +1433,7 @@ int main( int argc, char *argv[] )
 	//for( iter = cwmWorldState->contmap.begin(); iter != cwmWorldState->contmap.end(); ++iter )
 	{
 		pi = iter.GetData();
-		SERIAL contserial = (SERIAL)pi->container();
+		SERIAL contserial = reinterpret_cast<SERIAL>(pi->container());
 
 		// 1. Handle the Container Value
 		if( isItemSerial( contserial ) )
@@ -1465,8 +1465,7 @@ int main( int argc, char *argv[] )
 				continue; // Skip further processing
 			}
 		}
-		// Add to Map Regions
-		else
+		else // Add to Map Regions
 		{
 			int max_x = Map->mapTileWidth(pi->pos.map) * 8;
 			int max_y = Map->mapTileHeight(pi->pos.map) * 8;

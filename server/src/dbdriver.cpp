@@ -67,7 +67,7 @@ QString cDBDriver::error()
 
 	if( error != 0 )
 	{
-		return error;
+		return QString(error);
 	}
 	else
 	{
@@ -131,5 +131,3 @@ void cDBDriver::disconnect()
 		mysql = 0;
 	}	
 }
-
-

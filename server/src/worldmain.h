@@ -44,8 +44,6 @@
 
 #include <iostream>
 
-using namespace std;
-
 // forward class declaration
 
 class CWorldMain ;
@@ -58,10 +56,6 @@ class CWorldMain ;
 #include <zthread/FastMutex.h>
 #include <zthread/LockedQueue.h>
 #include <qstring.h>
-#include <qmap.h>
-#ifdef WIN32
-#include <winsock.h>
-#endif
 
 class CWorldMain  
 {
@@ -71,18 +65,12 @@ public:
 	virtual void loadnewworld( QString module );
 	virtual void savenewworld( QString module );
 	CWorldMain();
-	virtual ~CWorldMain();
 
 	bool Saving( void );
 	bool RemoveItemsFromCharBody(int charserial, int type1, int type2);
 private:
 	bool isSaving;
 	int DisplayWorldSaves;
-	FILE *iWsc, *cWsc;
-	unsigned long Cur, Max;
-	long PerLoop;
-	void SaveChar( P_CHAR );
-	void SaveItem( P_ITEM pi, P_ITEM pDefault );
 
 	class cItemsSaver : public ZThread::Thread
 	{

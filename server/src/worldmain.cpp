@@ -96,21 +96,8 @@ void CWorldMain::cItemsSaver::wait()
 CWorldMain::CWorldMain()
 {
 	announce(false);
-
-	iWsc = cWsc = NULL;
-	Cur = 0;
-	PerLoop = -1;
 	isSaving = false;
 }
-
-CWorldMain::~CWorldMain()
-{
-	if (iWsc)
-		fclose(iWsc);
-	if (cWsc)
-		fclose(cWsc);
-}
-
 
 void CWorldMain::loadnewworld( QString module ) // Load world
 {
@@ -315,10 +302,6 @@ bool CWorldMain::Saving( void )
 	return isSaving;
 }
 
-void CWorldMain::SaveChar( P_CHAR pc )
-{
-}
-
 static void decay1(P_ITEM pi, P_ITEM pItem)
 {
 	long serial;
@@ -354,10 +337,6 @@ static void decay1(P_ITEM pi, P_ITEM pItem)
 			}
 		}
 	}
-}
-
-void CWorldMain::SaveItem( P_ITEM pi, P_ITEM pDefault)
-{
 }
 
 //o--------------------------------------------------------------------------

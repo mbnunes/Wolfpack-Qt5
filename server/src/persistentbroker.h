@@ -36,21 +36,22 @@
 #include <qregexp.h>
 
 class PersistentObject;
+class cDBDriver;
 
 class PersistentBroker
 {
-	QSqlDatabase* connection;
+	cDBDriver* connection;
 
 public:
 	PersistentBroker();
 	~PersistentBroker();
 	bool openDriver( const QString& driver );
 	bool connect( const QString& host, const QString& db, const QString& username, const QString& password );
-	void executeQuery( const QString& query );
+	bool executeQuery( const QString& query );
 
 	bool saveObject( PersistentObject* );
 	bool deleteObject( PersistentObject* );
-	QSqlDatabase* driver() const;
+	cDBDriver* driver() const;
 };
 
 // Pseudo helper functions.
@@ -121,9 +122,8 @@ inline QString __escapeReservedCharacters( const QString& d )
 		property = cursor.field(fieldName)->value().toUInt()
 #endif
 
-#define initSave QStringList conditions; QStringList fields; QString table; cDBDriver driver;
+#define initSave QStringList conditions; QStringList fields; QString table;
 #define clearFields conditions.clear(); fields.clear();
-
 #define setTable( value ) table = value;
 
 // Check here if we are updating or inserting
@@ -135,13 +135,11 @@ inline QString __escapeReservedCharacters( const QString& d )
 #define saveFields \
 	if( isPersistent ) \
 	{ \
-		if( !driver.execute( QString( "UPDATE `%1` SET %2 WHERE %3" ).arg( table ).arg( fields.join(", ") ).arg( conditions.join(" AND ") ) ) ) \
-			throw driver.error(); \
+		persistentBroker->executeQuery( QString( "UPDATE `%1` SET %2 WHERE %3" ).arg( table ).arg( fields.join(", ") ).arg( conditions.join(" AND ") ) ); \
 	} \
 	else \
 	{ \
-		if( !driver.execute( QString( "INSERT INTO `%1` SET %2" ).arg( table ).arg( fields.join( ", " ) ) ) ) \
-			throw driver.error();  \
+		persistentBroker->executeQuery( QString( "INSERT INTO `%1` SET %2" ).arg( table ).arg( fields.join( ", " ) ) ); \
 	}
 
 #endif // __PERSISTENTBROKER_H__

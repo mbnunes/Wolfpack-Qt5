@@ -2379,12 +2379,19 @@ void cItem::load( char **result, UINT16 &offset )
 	madewith = atoi( result[offset++] );
 	color_ = atoi( result[offset++] );
 	
-	// Deprecated.. (contserial)
-	contserial = atoi( result[offset++] );
+	//  Warning, ugly optimization ahead, if you have a better idea, we want to hear it. 
+	//  For load speed and memory conservation, we will store the SERIAL of the container
+	//  here and then right after load is done we replace that value with it's memory address
+	//  as it should be.
+	SERIAL containerSerial = atoi( result[offset++] );
 
-	if( contserial != INVALID_SERIAL )
+	contserial = containerSerial; // This like will vanish once we remove the remaining dependencies of contserial
+
+	if( containerSerial != INVALID_SERIAL ) // if it's invalid, we won't set.
 		container_ = (cUObject*)contserial;
-		
+	
+	// ugly optimization ends here.
+	
 	layer_ = atoi( result[offset++] );
 	type_ = atoi( result[offset++] );
 	type2_ = atoi( result[offset++] );

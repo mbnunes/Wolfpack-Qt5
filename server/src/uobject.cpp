@@ -184,6 +184,7 @@ void cUObject::save()
 
 bool cUObject::del()
 {
+	persistentBroker->executeQuery(QString("DELETE FROM uobject WHERE 'serial'='%1'").arg(serial));
 /*	QSqlCursor cursor("uobject");
 	cursor.select(QString("serial='%1'").arg(serial));
 	while ( cursor.next() )
