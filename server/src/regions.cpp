@@ -199,7 +199,9 @@ P_CHAR cRegion::RegionIterator4Chars::NextCell(void)
 
 P_CHAR cRegion::RegionIterator4Chars::GetData(void)
 {
-	if (currentCharacter == NULL)
+	if (currentCharacter == NULL && vecEntries.size() == 0)
+		return NULL;
+	else if ( currentCharacter == NULL && vecEntries.size() != 0)
 		currentCharacter =  FindCharBySerial(vecEntries[currentIndex]);
 	else if (currentCharacter->serial != vecEntries[currentIndex])
 		currentCharacter =  FindCharBySerial(vecEntries[currentIndex]);
@@ -264,7 +266,9 @@ P_ITEM cRegion::RegionIterator4Items::NextCell(void)
 
 P_ITEM cRegion::RegionIterator4Items::GetData(void)
 {
-	if (currentItem == NULL)
+	if (currentItem == NULL && vecEntries.size() == 0)
+		return NULL;
+	else if (currentItem == NULL && vecEntries.size() != 0)
 		currentItem =  FindItemBySerial(vecEntries[currentIndex]);
 	else if (currentItem->serial != vecEntries[currentIndex])
 		currentItem =  FindItemBySerial(vecEntries[currentIndex]);
