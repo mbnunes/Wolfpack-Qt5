@@ -7,17 +7,19 @@
 =================================================================
 -->
 <definitions>
-	<!-- Kindling -->
-	<item id="de1">
-		<id>0xde1</id>
-		<value>1</value>
-		<weight>.02</weight>
-		<category>Skill Items\Lumberjacking\Kindling 1</category>
+	<!-- Hatchet -->
+	<item id="f43">
+		<name>hatchet</name>
+		<id>0xf43</id>
+		<itemhand>2</itemhand>
+		<attack min="2" max="17" />
+		<durability>50</durability>
+		<decay />
+		<value>35</value>
+		<requires type="str">15</requires>
+		<speed>15</speed>
+		<weight>4.0</weight>
+		<type>3</type>
+		<category>Weapons\Axes\Hatchet</category>
 	</item>
-	
-	<item id="de2">
-		<inherit id="de1" />
-		<id>0xde2</id>
-		<category>Skill Items\Lumberjacking\Kindling 2</category>
-	</item>	
 </definitions>

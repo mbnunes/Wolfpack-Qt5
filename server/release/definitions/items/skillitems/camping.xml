@@ -1,23 +1,17 @@
 <!--
 =================================================================
 |   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
-|  ((    _/{  "-;  | Created by: sereg	                        |
+|  ((    _/{  "-;  | Created by: DarkStorm                      |
 |   )).-' {{ ;'`   | Revised by:                                |
 |  ( (  ;._ \\ ctr | Last Modification: Created                 |
 =================================================================
 -->
 <definitions>
-	<!-- Kindling -->
-	<item id="de1">
-		<id>0xde1</id>
-		<value>1</value>
-		<weight>.02</weight>
-		<category>Skill Items\Lumberjacking\Kindling 1</category>
+	<!-- Bedroll -->
+	<item id="a58">
+		<id>0x0a58</id>
+		<value>20</value>
+		<weight>0.3</weight>
+		<category>Skill Items\Camping\Bedroll</category>
 	</item>
-	
-	<item id="de2">
-		<inherit id="de1" />
-		<id>0xde2</id>
-		<category>Skill Items\Lumberjacking\Kindling 2</category>
-	</item>	
 </definitions>

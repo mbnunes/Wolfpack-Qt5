@@ -16,7 +16,7 @@
 	<define id="shadow_armor">
 		<name>shadow %1</name>
 		<color>0x0386</color>
-		<defense>1.1</defense> <!-- this means 10 percent additionally -->
+		<defense>1.1</defense> <!-- this means 110 percent of original defense -->
 		<durability>1.1</durability>
 		<requires type='str'>5</requires> <!-- this means (75) +5 str needed (=80) -->
 		<weight>2.0</weight> <!-- 2x weight of base -->
@@ -107,7 +107,6 @@
 	<!-- chainmail coif -->
 	<item id="13bb">
 		<name>chain coif</name>
-		<category>armor\chain\coif</category>
 		<decay />
 		<nodye />
 		<layer>3</layer>
@@ -125,56 +124,65 @@
 	<item id="iron_armor_chain_coif">
 		<inherit id="13bb" />
 		<iron_armor />
+		<category>Armor\Iron\Chainmail\Coif</category>
 	</item>
 
 	<item id="shadow_armor_chain_coif">
 		<inherit id="13bb" />
 		<shadow_armor />
+		<category>Armor\Shadow\Chainmail\Coif</category>
 	</item>
 
 	<item id="merkite_armor_chain_coif">
 		<inherit id="13bb" />
 		<merkite_armor />
+		<category>Armor\Merkite\Chainmail\Coif</category>
 	</item>
 	
 	<item id="copper_armor_chain_coif">
 		<inherit id="13bb" />
 		<copper_armor />
+		<category>Armor\Copper\Chainmail\Coif</category>
 	</item>
 
 	<item id="silver_armor_chain_coif">
 		<inherit id="13bb" />
 		<silver_armor />
+		<category>Armor\Silver\Chainmail\Coif</category>
 	</item>
 
 	<item id="bronze_armor_chain_coif">
 		<inherit id="13bb" />
 		<bronze_armor />
+		<category>Armor\Bronze\Chainmail\Coif</category>
 	</item>
 
 	<item id="golden_armor_chain_coif">
 		<inherit id="13bb" />
 		<golden_armor />
+		<category>Armor\Golden\Chainmail\Coif</category>
 	</item>
 
 	<item id="agapite_armor_chain_coif">
 		<inherit id="13bb" />
 		<agapite_armor />
+		<category>Armor\Agapite\Chainmail\Coif</category>
 	</item>
 
 	<item id="verite_armor_chain_coif">
 		<inherit id="13bb" />
 		<verite_armor />
+		<category>Armor\Verite\Chainmail\Coif</category>
 	</item>
 
 	<item id="mythril_armor_chain_coif">
 		<inherit id="13bb" />
 		<mythril_armor />
+		<category>Armor\Mythril\Chainmail\Coif</category>
 	</item>
 
 	<!-- chainmail leggings -->
 	<item id="13c3">
-		<category>armor\chain\leggings</category>
 		<decay />
 		<defense>20</defense>
 		<durability>100</durability>
@@ -193,56 +201,65 @@
 	<item id="iron_armor_chain_leggings">
 		<inherit id="13c3" />
 		<iron_armor />
+		<category>Armor\Iron\Chainmail\Leggings</category>		
 	</item>
 
 	<item id="shadow_armor_chain_leggings">
 		<inherit id="13c3" />
 		<shadow_armor />
+		<category>Armor\Shadow\Chainmail\Leggings</category>		
 	</item>
 
 	<item id="merkite_armor_chain_leggings">
 		<inherit id="13c3" />
 		<merkite_armor />
+		<category>Armor\Merkite\Chainmail\Leggings</category>
 	</item>
 
 	<item id="copper_armor_chain_leggings">
 		<inherit id="13c3" />
 		<copper_armor />
+		<category>Armor\Copper\Chainmail\Leggings</category>
 	</item>
 
 	<item id="silver_armor_chain_leggings">
 		<inherit id="13c3" />
 		<silver_armor />
+		<category>Armor\Silver\Chainmail\Leggings</category>
 	</item>
 
 	<item id="bronze_armor_chain_leggings">
 		<inherit id="13c3" />
 		<bronze_armor />
+		<category>Armor\Bronze\Chainmail\Leggings</category>
 	</item>
 
 	<item id="golden_armor_chain_leggings">
 		<inherit id="13c3" />
 		<golden_armor />
+		<category>Armor\Golden\Chainmail\Leggings</category>
 	</item>
 
 	<item id="agapite_armor_chain_leggings">
 		<inherit id="13c3" />
 		<agapite_armor />
+		<category>Armor\Agapite\Chainmail\Leggings</category>
 	</item>
 
 	<item id="verite_armor_chain_leggings">
 		<inherit id="13c3" />
 		<verite_armor />
+		<category>Armor\Verite\Chainmail\Leggings</category>
 	</item>
 
 	<item id="mythril_armor_chain_leggings">
 		<inherit id="13c3" />
 		<mythril_armor />
+		<category>Armor\Mythril\Chainmail\Leggings</category>
 	</item>
 
 	<!-- chainmail tunic -->
 	<item id="13c4">
-		<category>armor\chain\tunic</category>
 		<decay />
 		<defense>20</defense>
 		<durability>100</durability>
@@ -261,57 +278,66 @@
 	<item id="iron_armor_chain_tunic">
 		<inherit id="13c4" />
 		<iron_armor />
+		<category>Armor\Iron\Chainmail\Tunic</category>
 	</item>
 
 	<item id="shadow_armor_chain_tunic">
 		<inherit id="13c4" />
 		<shadow_armor />
+		<category>Armor\Shadow\Chainmail\Tunic</category>
 	</item>
 
 	<item id="merkite_armor_chain_tunic">
 		<inherit id="13c4" />
 		<merkite_armor />
+		<category>Armor\Merkite\Chainmail\Tunic</category>
 	</item>
 
 	<item id="copper_armor_chain_tunic">
 		<inherit id="13c4" />
 		<copper_armor />
+		<category>Armor\Copper\Chainmail\Tunic</category>
 	</item>
 
 	<item id="silver_armor_chain_tunic">
 		<inherit id="13c4" />
 		<silver_armor />
+		<category>Armor\Silver\Chainmail\Tunic</category>
 	</item>
 
 	<item id="bronze_armor_chain_tunic">
 		<inherit id="13c4" />
 		<bronze_armor />
+		<category>Armor\Bronze\Chainmail\Tunic</category>
 	</item>
 
 	<item id="golden_armor_chain_tunic">
 		<inherit id="13c4" />
 		<golden_armor />
+		<category>Armor\Golden\Chainmail\Tunic</category>
 	</item>
 
 	<item id="agapite_armor_chain_tunic">
 		<inherit id="13c4" />
 		<agapite_armor />
+		<category>Armor\Agapite\Chainmail\Tunic</category>
 	</item>
 
 	<item id="verite_armor_chain_tunic">
 		<inherit id="13c4" />
 		<verite_armor />
+		<category>Armor\Verite\Chainmail\Tunic</category>
 	</item>
 
 	<item id="mythril_armor_chain_tunic">
 		<inherit id="13c4" />
 		<mythril_armor />
+		<category>Armor\Mythril\Chainmail\Tunic</category>
 	</item>
 
 	<!-- plate armor -->
 	<!-- female plate armor -->
 	<item id="1c04">
-		<category>armor\plate\female</category>
 		<decay />
 		<defense>25</defense>
 		<durability>100</durability>
@@ -330,56 +356,65 @@
 	<item id="iron_armor_plate_female">
 		<inherit id="1c04" />
 		<iron_armor />
+		<category>Armor\Iron\Platemail\Female Breastplate</category>
 	</item>
 	
 	<item id="shadow_armor_plate_female">
 		<inherit id="1c04" />
 		<shadow_armor />
+		<category>Armor\Shadow\Platemail\Female Breastplate</category>
 	</item>
 
 	<item id="merkite_armor_plate_female">
 		<inherit id="1c04" />
 		<merkite_armor />
+		<category>Armor\Merkite\Platemail\Female Breastplate</category>
 	</item>
 
 	<item id="copper_armor_plate_female">
 		<inherit id="1c04" />
 		<copper_armor />
+		<category>Armor\Copper\Platemail\Female Breastplate</category>
 	</item>
 
 	<item id="silver_armor_plate_female">
 		<inherit id="1c04" />
 		<silver_armor />
+		<category>Armor\Silver\Platemail\Female Breastplate</category>
 	</item>
 
 	<item id="bronze_armor_plate_female">
 		<inherit id="1c04" />
 		<bronze_armor />
+		<category>Armor\Bronze\Platemail\Female Breastplate</category>
 	</item>
 
 	<item id="golden_armor_plate_female">
 		<inherit id="1c04" />
 		<golden_armor />
+		<category>Armor\Golden\Platemail\Female Breastplate</category>
 	</item>
 
 	<item id="agapite_armor_plate_female">
 		<inherit id="1c04" />
 		<agapite_armor />
+		<category>Armor\Agapite\Platemail\Female Breastplate</category>
 	</item>
 
 	<item id="verite_armor_plate_female">
 		<inherit id="1c04" />
 		<verite_armor />
+		<category>Armor\Verite\Platemail\Female Breastplate</category>
 	</item>
 
 	<item id="mythril_armor_plate_female">
 		<inherit id="1c04" />
 		<mythril_armor />
+		<category>Armor\Mythril\Platemail\Female Breastplate</category>
 	</item>
 
 	<!-- male plate armor -->
 	<item id="1416">
-		<category>armor\plate\male</category>
 		<decay />
 		<defense>25</defense>
 		<durability>100</durability>
@@ -398,56 +433,65 @@
 	<item id="iron_armor_plate_male">
 		<inherit id="1416" />
 		<iron_armor />
+		<category>Armor\Iron\Platemail\Breastplate</category>
 	</item>
 	
 	<item id="shadow_armor_plate_male">
 		<inherit id="1416" />
 		<shadow_armor />
+		<category>Armor\Shadow\Platemail\Breastplate</category>
 	</item>
 
 	<item id="merkite_armor_plate_male">
 		<inherit id="1416" />
 		<merkite_armor />
+		<category>Armor\Merkite\Platemail\Breastplate</category>
 	</item>
 
 	<item id="copper_armor_plate_male">
 		<inherit id="1416" />
 		<copper_armor />
+		<category>Armor\Copper\Platemail\Breastplate</category>
 	</item>
 
 	<item id="silver_armor_plate_male">
 		<inherit id="1416" />
 		<silver_armor />
+		<category>Armor\Silver\Platemail\Breastplate</category>
 	</item>
 
 	<item id="bronze_armor_plate_male">
 		<inherit id="1416" />
 		<bronze_armor />
+		<category>Armor\Bronze\Platemail\Breastplate</category>
 	</item>
 
 	<item id="golden_armor_plate_male">
 		<inherit id="1416" />
 		<golden_armor />
+		<category>Armor\Golden\Platemail\Breastplate</category>
 	</item>
 
 	<item id="agapite_armor_plate_male">
 		<inherit id="1416" />
 		<agapite_armor />
+		<category>Armor\Agapite\Platemail\Breastplate</category>
 	</item>
 
 	<item id="verite_armor_plate_male">
 		<inherit id="1416" />
 		<verite_armor />
+		<category>Armor\Verite\Platemail\Breastplate</category>
 	</item>
 
 	<item id="mythril_armor_plate_male">
 		<inherit id="1416" />
 		<mythril_armor />
+		<category>Armor\Mythril\Platemail\Breastplate</category>
 	</item>
 
 	<!-- plate arms -->
 	<item id="1410">
-		<category>armor\plate\arms</category>
 		<decay />
 		<defense>15</defense>
 		<durability>100</durability>
@@ -466,56 +510,65 @@
 	<item id="iron_armor_plate_arms">
 		<inherit id="1410" />
 		<iron_armor />
+		<category>Armor\Iron\Platemail\Arms</category>
 	</item>
 	
 	<item id="shadow_armor_plate_arms">
 		<inherit id="1410" />
 		<shadow_armor />
+		<category>Armor\Shadow\Platemail\Arms</category>		
 	</item>
 
 	<item id="merkite_armor_plate_arms">
 		<inherit id="1410" />
 		<merkite_armor />
+		<category>Armor\Merkite\Platemail\Arms</category>		
 	</item>
 
 	<item id="copper_armor_plate_arms">
 		<inherit id="1410" />
 		<copper_armor />
+		<category>Armor\Copper\Platemail\Arms</category>		
 	</item>
 
 	<item id="silver_armor_plate_arms">
 		<inherit id="1410" />
 		<silver_armor />
+		<category>Armor\Silver\Platemail\Arms</category>		
 	</item>
 
 	<item id="bronze_armor_plate_arms">
 		<inherit id="1410" />
 		<bronze_armor />
+		<category>Armor\Bronze\Platemail\Arms</category>		
 	</item>
 
 	<item id="golden_armor_plate_arms">
 		<inherit id="1410" />
 		<golden_armor />
+		<category>Armor\Golden\Platemail\Arms</category>		
 	</item>
 
 	<item id="agapite_armor_plate_arms">
 		<inherit id="1410" />
 		<agapite_armor />
+		<category>Armor\Agapite\Platemail\Arms</category>		
 	</item>
 
 	<item id="verite_armor_plate_arms">
 		<inherit id="1410" />
 		<verite_armor />
+		<category>Armor\Verite\Platemail\Arms</category>		
 	</item>
 
 	<item id="mythril_armor_plate_arms">
 		<inherit id="1410" />
 		<mythril_armor />
+		<category>Armor\Mythril\Platemail\Arms</category>
 	</item>
 
 	<!-- plate gloves -->
 	<item id="1414">
-		<category>armor\plate\gloves</category>
 		<decay />
 		<defense>10</defense>
 		<durability>100</durability>
@@ -534,56 +587,65 @@
 	<item id="iron_armor_plate_gloves">
 		<inherit id="1414" />
 		<iron_armor />
+		<category>Armor\Iron\Platemail\Gloves</category>
 	</item>
 	
 	<item id="shadow_armor_plate_gloves">
 		<inherit id="1414" />
 		<shadow_armor />
+		<category>Armor\Shadow\Platemail\Gloves</category>
 	</item>
 
 	<item id="merkite_armor_plate_gloves">
 		<inherit id="1414" />
 		<merkite_armor />
+		<category>Armor\Merkite\Platemail\Gloves</category>
 	</item>
 
 	<item id="copper_armor_plate_gloves">
 		<inherit id="1414" />
 		<copper_armor />
+		<category>Armor\Copper\Platemail\Gloves</category>
 	</item>
 
 	<item id="silver_armor_plate_gloves">
 		<inherit id="1414" />
 		<silver_armor />
+		<category>Armor\Silver\Platemail\Gloves</category>
 	</item>
 
 	<item id="bronze_armor_plate_gloves">
 		<inherit id="1414" />
 		<bronze_armor />
+		<category>Armor\Bronze\Platemail\Gloves</category>
 	</item>
 
 	<item id="golden_armor_plate_gloves">
 		<inherit id="1414" />
 		<golden_armor />
+		<category>Armor\Golden\Platemail\Gloves</category>
 	</item>
 
 	<item id="agapite_armor_plate_gloves">
 		<inherit id="1414" />
 		<agapite_armor />
+		<category>Armor\Agapite\Platemail\Gloves</category>
 	</item>
 
 	<item id="verite_armor_plate_gloves">
 		<inherit id="1414" />
 		<verite_armor />
+		<category>Armor\Verite\Platemail\Gloves</category>
 	</item>
 
 	<item id="mythril_armor_plate_gloves">
 		<inherit id="1414" />
 		<mythril_armor />
+		<category>Armor\Mythril\Platemail\Gloves</category>
 	</item>
 
 	<!-- plate gorget -->
 	<item id="1413">
-		<category>armor\plate\gorget</category>
 		<decay />
 		<defense>5</defense>
 		<durability>100</durability>
@@ -602,56 +664,65 @@
 	<item id="iron_armor_plate_gorget">
 		<inherit id="1413" />
 		<iron_armor />
+		<category>Armor\Iron\Platemail\Gorget</category>
 	</item>
 	
 	<item id="shadow_armor_plate_gorget">
 		<inherit id="1413" />
 		<shadow_armor />
+		<category>Armor\Shadow\Platemail\Gorget</category>
 	</item>
 
 	<item id="merkite_armor_plate_gorget">
 		<inherit id="1413" />
 		<merkite_armor />
+		<category>Armor\Merkite\Platemail\Gorget</category>
 	</item>
 
 	<item id="copper_armor_plate_gorget">
 		<inherit id="1413" />
 		<copper_armor />
+		<category>Armor\Copper\Platemail\Gorget</category>
 	</item>
 
 	<item id="silver_armor_plate_gorget">
 		<inherit id="1413" />
 		<silver_armor />
+		<category>Armor\Silver\Platemail\Gorget</category>
 	</item>
 
 	<item id="bronze_armor_plate_gorget">
 		<inherit id="1413" />
 		<bronze_armor />
+		<category>Armor\Bronze\Platemail\Gorget</category>
 	</item>
 
 	<item id="golden_armor_plate_gorget">
 		<inherit id="1413" />
 		<golden_armor />
+		<category>Armor\Golden\Platemail\Gorget</category>
 	</item>
 
 	<item id="agapite_armor_plate_gorget">
 		<inherit id="1413" />
 		<agapite_armor />
+		<category>Armor\Agapite\Platemail\Gorget</category>		
 	</item>
 
 	<item id="verite_armor_plate_gorget">
 		<inherit id="1413" />
 		<verite_armor />
+		<category>Armor\Verite\Platemail\Gorget</category>		
 	</item>
 
 	<item id="mythril_armor_plate_gorget">
 		<inherit id="1413" />
 		<mythril_armor />
+		<category>Armor\Mythril\Platemail\Gorget</category>		
 	</item>
 
 	<!-- plate helmet -->
 	<item id="1412">
-		<category>armor\plate\helmet</category>
 		<decay />
 		<defense>15</defense>
 		<durability>100</durability>
@@ -670,56 +741,65 @@
 	<item id="iron_armor_plate_helmet">
 		<inherit id="1412" />
 		<iron_armor />
+		<category>Armor\Iron\Platemail\Helmet</category>
 	</item>
 	
 	<item id="shadow_armor_plate_helmet">
 		<inherit id="1412" />
 		<shadow_armor />
+		<category>Armor\Shadow\Platemail\Helmet</category>
 	</item>
 
 	<item id="merkite_armor_plate_helmet">
 		<inherit id="1412" />
 		<merkite_armor />
+		<category>Armor\Merkite\Platemail\Helmet</category>
 	</item>
 
 	<item id="copper_armor_plate_helmet">
 		<inherit id="1412" />
 		<copper_armor />
+		<category>Armor\Copper\Platemail\Helmet</category>
 	</item>
 
 	<item id="silver_armor_plate_helmet">
 		<inherit id="1412" />
 		<silver_armor />
+		<category>Armor\Silver\Platemail\Helmet</category>
 	</item>
 
 	<item id="bronze_armor_plate_helmet">
 		<inherit id="1412" />
 		<bronze_armor />
+		<category>Armor\Bronze\Platemail\Helmet</category>
 	</item>
 
 	<item id="golden_armor_plate_helmet">
 		<inherit id="1412" />
 		<golden_armor />
+		<category>Armor\Golden\Platemail\Helmet</category>
 	</item>
 
 	<item id="agapite_armor_plate_helmet">
 		<inherit id="1412" />
 		<agapite_armor />
+		<category>Armor\Agapite\Platemail\Helmet</category>
 	</item>
 
 	<item id="verite_armor_plate_helmet">
 		<inherit id="1412" />
 		<verite_armor />
+		<category>Armor\Verite\Platemail\Helmet</category>
 	</item>
 
 	<item id="mythril_armor_plate_helmet">
 		<inherit id="1412" />
 		<mythril_armor />
+		<category>Armor\Mythril\Platemail\Helmet</category>
 	</item>
 
 	<!-- plate leggings -->
 	<item id="141a">
-		<category>armor\plate\leggings</category>
 		<decay />
 		<defense>20</defense>
 		<durability>100</durability>
@@ -738,56 +818,65 @@
 	<item id="iron_armor_plate_leggings">
 		<inherit id="141a" />
 		<iron_armor />
+		<category>Armor\Iron\Platemail\Leggings</category>
 	</item>
 	
 	<item id="shadow_armor_plate_leggings">
 		<inherit id="141a" />
 		<shadow_armor />
+		<category>Armor\Shadow\Platemail\Leggings</category>
 	</item>
 
 	<item id="merkite_armor_plate_leggings">
 		<inherit id="141a" />
 		<merkite_armor />
+		<category>Armor\Merkite\Platemail\Leggings</category>
 	</item>
 
 	<item id="copper_armor_plate_leggings">
 		<inherit id="141a" />
 		<copper_armor />
+		<category>Armor\Copper\Platemail\Leggings</category>
 	</item>
 
 	<item id="silver_armor_plate_leggings">
 		<inherit id="141a" />
 		<silver_armor />
+		<category>Armor\Silver\Platemail\Leggings</category>
 	</item>
 
 	<item id="bronze_armor_plate_leggings">
 		<inherit id="141a" />
 		<bronze_armor />
+		<category>Armor\Bronze\Platemail\Leggings</category>
 	</item>
 
 	<item id="golden_armor_plate_leggings">
 		<inherit id="141a" />
 		<golden_armor />
+		<category>Armor\Golden\Platemail\Leggings</category>
 	</item>
 
 	<item id="agapite_armor_plate_leggings">
 		<inherit id="141a" />
 		<agapite_armor />
+		<category>Armor\Agapite\Platemail\Leggings</category>
 	</item>
 
 	<item id="verite_armor_plate_leggings">
 		<inherit id="141a" />
 		<verite_armor />
+		<category>Armor\Verite\Platemail\Leggings</category>
 	</item>
 
 	<item id="mythril_armor_plate_leggings">
 		<inherit id="141a" />
 		<mythril_armor />
+		<category>Armor\Mythril\Platemail\Leggings</category>
 	</item>
 
 	<!-- ring gloves -->
 	<item id="13f2">
-		<category>armor\ring\gloves</category>
 		<decay />
 		<defense>10</defense>
 		<durability>100</durability>
@@ -806,56 +895,65 @@
 	<item id="iron_armor_ring_gloves">
 		<inherit id="13f2" />
 		<iron_armor />
+		<category>Armor\Iron\Ringmail\Gloves</category>
 	</item>
 	
 	<item id="shadow_armor_ring_gloves">
 		<inherit id="13f2" />
 		<shadow_armor />
+		<category>Armor\Shadow\Ringmail\Gloves</category>
 	</item>
 
 	<item id="merkite_armor_ring_gloves">
 		<inherit id="13f2" />
 		<merkite_armor />
+		<category>Armor\Merkite\Ringmail\Gloves</category>
 	</item>
 
 	<item id="copper_armor_ring_gloves">
 		<inherit id="13f2" />
 		<copper_armor />
+		<category>Armor\Copper\Ringmail\Gloves</category>
 	</item>
 
 	<item id="silver_armor_ring_gloves">
 		<inherit id="13f2" />
 		<silver_armor />
+		<category>Armor\Silver\Ringmail\Gloves</category>
 	</item>
 
 	<item id="bronze_armor_ring_gloves">
 		<inherit id="13f2" />
 		<bronze_armor />
+		<category>Armor\Bronze\Ringmail\Gloves</category>
 	</item>
 
 	<item id="golden_armor_ring_gloves">
 		<inherit id="13f2" />
 		<golden_armor />
+		<category>Armor\Golden\Ringmail\Gloves</category>
 	</item>
 
 	<item id="agapite_armor_ring_gloves">
 		<inherit id="13f2" />
 		<agapite_armor />
+		<category>Armor\Agapite\Ringmail\Gloves</category>
 	</item>
 
 	<item id="verite_armor_ring_gloves">
 		<inherit id="13f2" />
 		<verite_armor />
+		<category>Armor\Verite\Ringmail\Gloves</category>
 	</item>
 
 	<item id="mythril_armor_ring_gloves">
 		<inherit id="13f2" />
 		<mythril_armor />
+		<category>Armor\Mythril\Ringmail\Gloves</category>
 	</item>
 
 	<!-- ring leggings -->
 	<item id="13f1">
-		<category>armor\ring\leggings</category>
 		<decay />
 		<defense>10</defense>
 		<durability>100</durability>
@@ -874,56 +972,65 @@
 	<item id="iron_armor_ring_leggings">
 		<inherit id="13f1" />
 		<iron_armor />
+		<category>Armor\Iron\Ringmail\Leggings</category>
 	</item>
 	
 	<item id="shadow_armor_ring_leggings">
 		<inherit id="13f1" />
 		<shadow_armor />
+		<category>Armor\Shadow\Ringmail\Leggings</category>
 	</item>
 
 	<item id="merkite_armor_ring_leggings">
 		<inherit id="13f1" />
 		<merkite_armor />
+		<category>Armor\Merkite\Ringmail\Leggings</category>
 	</item>
 
 	<item id="copper_armor_ring_leggings">
 		<inherit id="13f1" />
 		<copper_armor />
+		<category>Armor\Copper\Ringmail\Leggings</category>
 	</item>
 
 	<item id="silver_armor_ring_leggings">
 		<inherit id="13f1" />
 		<silver_armor />
+		<category>Armor\Silver\Ringmail\Leggings</category>
 	</item>
 
 	<item id="bronze_armor_ring_leggings">
 		<inherit id="13f1" />
 		<bronze_armor />
+		<category>Armor\Bronze\Ringmail\Leggings</category>
 	</item>
 
 	<item id="golden_armor_ring_leggings">
 		<inherit id="13f1" />
 		<golden_armor />
+		<category>Armor\Golden\Ringmail\Leggings</category>
 	</item>
 
 	<item id="agapite_armor_ring_leggings">
 		<inherit id="13f1" />
 		<agapite_armor />
+		<category>Armor\Agapite\Ringmail\Leggings</category>
 	</item>
 
 	<item id="verite_armor_ring_leggings">
 		<inherit id="13f1" />
 		<verite_armor />
+		<category>Armor\Verite\Ringmail\Leggings</category>
 	</item>
 
 	<item id="mythril_armor_ring_leggings">
 		<inherit id="13f1" />
 		<mythril_armor />
+		<category>Armor\Mythril\Ringmail\Leggings</category>
 	</item>
 
 	<!-- ring sleeves -->
 	<item id="13ef">
-		<category>armor\ring\sleeves</category>
 		<decay />
 		<defense>10</defense>
 		<durability>100</durability>
@@ -942,56 +1049,65 @@
 	<item id="iron_armor_ring_sleeves">
 		<inherit id="13ef" />
 		<iron_armor />
+		<category>Armor\Iron\Ringmail\Sleeves</category>
 	</item>
 	
 	<item id="shadow_armor_ring_sleeves">
 		<inherit id="13ef" />
 		<shadow_armor />
+		<category>Armor\Shadow\Ringmail\Sleeves</category>
 	</item>
 
 	<item id="merkite_armor_ring_sleeves">
 		<inherit id="13ef" />
 		<merkite_armor />
+		<category>Armor\Merkite\Ringmail\Sleeves</category>
 	</item>
 
 	<item id="copper_armor_ring_sleeves">
 		<inherit id="13ef" />
 		<copper_armor />
+		<category>Armor\Copper\Ringmail\Sleeves</category>
 	</item>
 
 	<item id="silver_armor_ring_sleeves">
 		<inherit id="13ef" />
 		<silver_armor />
+		<category>Armor\Silver\Ringmail\Sleeves</category>
 	</item>
 
 	<item id="bronze_armor_ring_sleeves">
 		<inherit id="13ef" />
 		<bronze_armor />
+		<category>Armor\Bronze\Ringmail\Sleeves</category>
 	</item>
 
 	<item id="golden_armor_ring_sleeves">
 		<inherit id="13ef" />
 		<golden_armor />
+		<category>Armor\Golden\Ringmail\Sleeves</category>
 	</item>
 
 	<item id="agapite_armor_ring_sleeves">
 		<inherit id="13ef" />
 		<agapite_armor />
+		<category>Armor\Agapite\Ringmail\Sleeves</category>
 	</item>
 
 	<item id="verite_armor_ring_sleeves">
 		<inherit id="13ef" />
 		<verite_armor />
+		<category>Armor\Verite\Ringmail\Sleeves</category>
 	</item>
 
 	<item id="mythril_armor_ring_sleeves">
 		<inherit id="13ef" />
 		<mythril_armor />
+		<category>Armor\Mythril\Ringmail\Sleeves</category>
 	</item>
 
 	<!-- ring tunic -->
 	<item id="13ed">
-		<category>armor\ring\tunic</category>
 		<decay />
 		<defense>15</defense>
 		<durability>100</durability>
@@ -1010,57 +1126,66 @@
 	<item id="iron_armor_ring_tunic">
 		<inherit id="13ed" />
 		<iron_armor />
+		<category>Armor\Iron\Ringmail\Tunic</category>
 	</item>
 	
 	<item id="shadow_armor_ring_tunic">
 		<inherit id="13ed" />
 		<shadow_armor />
+		<category>Armor\Shadow\Ringmail\Tunic</category>
 	</item>
 
 	<item id="merkite_armor_ring_tunic">
 		<inherit id="13ed" />
 		<merkite_armor />
+		<category>Armor\Merkite\Ringmail\Tunic</category>
 	</item>
 
 	<item id="copper_armor_ring_tunic">
 		<inherit id="13ed" />
 		<copper_armor />
+		<category>Armor\Copper\Ringmail\Tunic</category>
 	</item>
 
 	<item id="silver_armor_ring_tunic">
 		<inherit id="13ed" />
 		<silver_armor />
+		<category>Armor\Silver\Ringmail\Tunic</category>
 	</item>
 
 	<item id="bronze_armor_ring_tunic">
 		<inherit id="13ed" />
 		<bronze_armor />
+		<category>Armor\Bronze\Ringmail\Tunic</category>
 	</item>
 
 	<item id="golden_armor_ring_tunic">
 		<inherit id="13ed" />
 		<golden_armor />
+		<category>Armor\Golden\Ringmail\Tunic</category>
 	</item>
 
 	<item id="agapite_armor_ring_tunic">
 		<inherit id="13ed" />
 		<agapite_armor />
+		<category>Armor\Agapite\Ringmail\Tunic</category>
 	</item>
 
 	<item id="verite_armor_ring_tunic">
 		<inherit id="13ed" />
 		<verite_armor />
+		<category>Armor\Verite\Ringmail\Tunic</category>
 	</item>
 
 	<item id="mythril_armor_ring_tunic">
 		<inherit id="13ed" />
 		<mythril_armor />
+		<category>Armor\Mythril\Ringmail\Tunic</category>
 	</item>
 
 	<!-- helmets -->
 	<!-- bascinet helmet -->
 	<item id="140d">
-		<category>helmets\bascinet</category>
 		<decay />
 		<defense>7</defense>
 		<durability>100</durability>
@@ -1079,56 +1204,65 @@
 	<item id="iron_helmets_bascinet">
 		<inherit id="140d" />
 		<iron_armor />
+		<category>Armor\Iron\Helmets\Bascinet</category>
 	</item>
 	
 	<item id="shadow_helmets_bascinet">
 		<inherit id="140d" />
 		<shadow_armor />
+		<category>Armor\Shadow\Helmets\Bascinet</category>
 	</item>
 
 	<item id="merkite_helmets_bascinet">
 		<inherit id="140d" />
 		<merkite_armor />
+		<category>Armor\Merkite\Helmets\Bascinet</category>
 	</item>
 
 	<item id="copper_helmets_bascinet">
 		<inherit id="140d" />
 		<copper_armor />
+		<category>Armor\Copper\Helmets\Bascinet</category>
 	</item>
 
 	<item id="silver_helmets_bascinet">
 		<inherit id="140d" />
 		<silver_armor />
+		<category>Armor\Silver\Helmets\Bascinet</category>
 	</item>
 
 	<item id="bronze_helmets_bascinet">
 		<inherit id="140d" />
 		<bronze_armor />
+		<category>Armor\Bronze\Helmets\Bascinet</category>
 	</item>
 
 	<item id="golden_helmets_bascinet">
 		<inherit id="140d" />
 		<golden_armor />
+		<category>Armor\Golden\Helmets\Bascinet</category>
 	</item>
 
 	<item id="agapite_helmets_bascinet">
 		<inherit id="140d" />
 		<agapite_armor />
+		<category>Armor\Agapite\Helmets\Bascinet</category>
 	</item>
 
 	<item id="verite_helmets_bascinet">
 		<inherit id="140d" />
 		<verite_armor />
+		<category>Armor\Verite\Helmets\Bascinet</category>
 	</item>
 
 	<item id="mythril_helmets_bascinet">
 		<inherit id="140d" />
 		<mythril_armor />
+		<category>Armor\Mythril\Helmets\Bascinet</category>
 	</item>
 
 	<!-- nose helmet -->
 	<item id="140f">
-		<category>helmets\nose</category>
 		<decay />
 		<defense>11</defense>
 		<durability>100</durability>
@@ -1147,56 +1281,65 @@
 	<item id="iron_helmets_nose">
 		<inherit id="140f" />
 		<iron_armor />
+		<category>Armor\Iron\Helmets\Nose</category>
 	</item>
 	
 	<item id="shadow_helmets_nose">
 		<inherit id="140f" />
 		<shadow_armor />
+		<category>Armor\Shadow\Helmets\Nose</category>
 	</item>
 
 	<item id="merkite_helmets_nose">
 		<inherit id="140f" />
 		<merkite_armor />
+		<category>Armor\Merkite\Helmets\Nose</category>
 	</item>
 
 	<item id="copper_helmets_nose">
 		<inherit id="140f" />
 		<copper_armor />
+		<category>Armor\Copper\Helmets\Nose</category>
 	</item>
 
 	<item id="silver_helmets_nose">
 		<inherit id="140f" />
 		<silver_armor />
+		<category>Armor\Silver\Helmets\Nose</category>
 	</item>
 
 	<item id="bronze_helmets_nose">
 		<inherit id="140f" />
 		<bronze_armor />
+		<category>Armor\Bronze\Helmets\Nose</category>
 	</item>
 
 	<item id="golden_helmets_nose">
 		<inherit id="140f" />
 		<golden_armor />
+		<category>Armor\Golden\Helmets\Nose</category>
 	</item>
 
 	<item id="agapite_helmets_nose">
 		<inherit id="140f" />
 		<agapite_armor />
+		<category>Armor\Agapite\Helmets\Nose</category>
 	</item>
 
 	<item id="verite_helmets_nose">
 		<inherit id="140f" />
 		<verite_armor />
+		<category>Armor\Verite\Helmets\Nose</category>
 	</item>
 
 	<item id="mythril_helmets_nose">
 		<inherit id="140f" />
 		<mythril_armor />
+		<category>Armor\Mythril\Helmets\Nose</category>
 	</item>
 
 	<!-- normal helmet -->
 	<item id="140b">
-		<category>helmets\helmet</category>
 		<decay />
 		<defense>10</defense>
 		<durability>100</durability>
@@ -1215,56 +1358,65 @@
 	<item id="iron_helmets_helmet">
 		<inherit id="140b" />
 		<iron_armor />
+		<category>Armor\Iron\Helmets\Helmet</category>
 	</item>
 	
 	<item id="shadow_helmets_helmet">
 		<inherit id="140b" />
 		<shadow_armor />
+		<category>Armor\Shadow\Helmets\Helmet</category>
 	</item>
 
 	<item id="merkite_helmets_helmet">
 		<inherit id="140b" />
 		<merkite_armor />
+		<category>Armor\Merkite\Helmets\Helmet</category>
 	</item>
 
 	<item id="copper_helmets_helmet">
 		<inherit id="140b" />
 		<copper_armor />
+		<category>Armor\Copper\Helmets\Helmet</category>
 	</item>
 
 	<item id="silver_helmets_helmet">
 		<inherit id="140b" />
 		<silver_armor />
+		<category>Armor\Silver\Helmets\Helmet</category>
 	</item>
 
 	<item id="bronze_helmets_helmet">
 		<inherit id="140b" />
 		<bronze_armor />
+		<category>Armor\Bronze\Helmets\Helmet</category>
 	</item>
 
 	<item id="golden_helmets_helmet">
 		<inherit id="140b" />
 		<golden_armor />
+		<category>Armor\Golden\Helmets\Helmet</category>
 	</item>
 
 	<item id="agapite_helmets_helmet">
 		<inherit id="140b" />
 		<agapite_armor />
+		<category>Armor\Agapite\Helmets\Helmet</category>
 	</item>
 
 	<item id="verite_helmets_helmet">
 		<inherit id="140b" />
 		<verite_armor />
+		<category>Armor\Verite\Helmets\Helmet</category>
 	</item>
 
 	<item id="mythril_helmets_helmet">
 		<inherit id="140b" />
 		<mythril_armor />
+		<category>Armor\Mythril\Helmets\Helmet</category>
 	</item>
 
 	<!-- close helmet -->
 	<item id="1408">
-		<category>helmets\close</category>
 		<decay />
 		<defense>12</defense>
 		<durability>100</durability>
@@ -1283,57 +1435,66 @@
 	<item id="iron_helmets_close">
 		<inherit id="1408" />
 		<iron_armor />
+		<category>Armor\Iron\Helmets\Close</category>
 	</item>
 	
 	<item id="shadow_helmets_close">
 		<inherit id="1408" />
 		<shadow_armor />
+		<category>Armor\Shadow\Helmets\Close</category>
 	</item>
 
 	<item id="merkite_helmets_close">
 		<inherit id="1408" />
 		<merkite_armor />
+		<category>Armor\Merkite\Helmets\Close</category>
 	</item>
 
 	<item id="copper_helmets_close">
 		<inherit id="1408" />
 		<copper_armor />
+		<category>Armor\Copper\Helmets\Close</category>
 	</item>
 
 	<item id="silver_helmets_close">
 		<inherit id="1408" />
 		<silver_armor />
+		<category>Armor\Silver\Helmets\Close</category>
 	</item>
 
 	<item id="bronze_helmets_close">
 		<inherit id="1408" />
 		<bronze_armor />
+		<category>Armor\Bronze\Helmets\Close</category>
 	</item>
 
 	<item id="golden_helmets_close">
 		<inherit id="1408" />
 		<golden_armor />
+		<category>Armor\Golden\Helmets\Close</category>
 	</item>
 
 	<item id="agapite_helmets_close">
 		<inherit id="1408" />
 		<agapite_armor />
+		<category>Armor\Agapite\Helmets\Close</category>
 	</item>
 
 	<item id="verite_helmets_close">
 		<inherit id="1408" />
 		<verite_armor />
+		<category>Armor\Verite\Helmets\Close</category>
 	</item>
 
 	<item id="mythril_helmets_close">
 		<inherit id="1408" />
 		<mythril_armor />
+		<category>Armor\Mythril\Helmets\Close</category>
 	</item>
 
 	<!-- shields -->
 	<!-- buckler -->
 	<item id="1b73">
-		<category>shields\buckler</category>
 		<decay />
 		<defense>5</defense>
 		<durability>100</durability>
@@ -1352,56 +1513,65 @@
 	<item id="iron_shields_buckler">
 		<inherit id="1b73" />
 		<iron_armor />
+		<category>Armor\Iron\Shields\Buckler</category>
 	</item>
 	
 	<item id="shadow_shields_buckler">
 		<inherit id="1b73" />
 		<shadow_armor />
+		<category>Armor\Shadow\Shields\Buckler</category>
 	</item>
 
 	<item id="merkite_shields_buckler">
 		<inherit id="1b73" />
 		<merkite_armor />
+		<category>Armor\Merkite\Shields\Buckler</category>
 	</item>
 
 	<item id="copper_shields_buckler">
 		<inherit id="1b73" />
 		<copper_armor />
+		<category>Armor\Copper\Shields\Buckler</category>
 	</item>
 
 	<item id="silver_shields_buckler">
-		<inherit id="1b73" />
+		<inherit id="1b73" />		
 		<silver_armor />
+		<category>Armor\Silver\Shields\Buckler</category>
 	</item>
 
 	<item id="bronze_shields_buckler">
 		<inherit id="1b73" />
 		<bronze_armor />
+		<category>Armor\Bronze\Shields\Buckler</category>
 	</item>
 
 	<item id="golden_shields_buckler">
 		<inherit id="1b73" />
 		<golden_armor />
+		<category>Armor\Golden\Shields\Buckler</category>
 	</item>
 
 	<item id="agapite_shields_buckler">
 		<inherit id="1b73" />
 		<agapite_armor />
+		<category>Armor\Agapite\Shields\Buckler</category>
 	</item>
 
 	<item id="verite_shields_buckler">
 		<inherit id="1b73" />
 		<verite_armor />
+		<category>Armor\Verite\Shields\Buckler</category>
 	</item>
 
 	<item id="mythril_shields_buckler">
 		<inherit id="1b73" />
 		<mythril_armor />
+		<category>Armor\Mythril\Shields\Buckler</category>
 	</item>
 
 	<!-- heater -->
 	<item id="1b76">
-		<category>shields\heater</category>
 		<decay />
 		<defense>15</defense>
 		<durability>100</durability>
@@ -1420,56 +1590,65 @@
 	<item id="iron_shields_heater">
 		<inherit id="1b76" />
 		<iron_armor />
+		<category>Armor\Iron\Shields\Heater</category>
 	</item>
 	
 	<item id="shadow_shields_heater">
 		<inherit id="1b76" />
 		<shadow_armor />
+		<category>Armor\Shadow\Shields\Heater</category>
 	</item>
 
 	<item id="merkite_shields_heater">
 		<inherit id="1b76" />
 		<merkite_armor />
+		<category>Armor\Merkite\Shields\Heater</category>
 	</item>
 
 	<item id="copper_shields_heater">
 		<inherit id="1b76" />
 		<copper_armor />
+		<category>Armor\Copper\Shields\Heater</category>
 	</item>
 
 	<item id="silver_shields_heater">
 		<inherit id="1b76" />
 		<silver_armor />
+		<category>Armor\Silver\Shields\Heater</category>
 	</item>
 
 	<item id="bronze_shields_heater">
 		<inherit id="1b76" />
 		<bronze_armor />
+		<category>Armor\Bronze\Shields\Heater</category>
 	</item>
 
 	<item id="golden_shields_heater">
 		<inherit id="1b76" />
 		<golden_armor />
-	</item>
+		<category>Armor\Golden\Shields\Heater</category>
+	</item>	
 
 	<item id="agapite_shields_heater">
 		<inherit id="1b76" />
 		<agapite_armor />
+		<category>Armor\Agapite\Shields\Heater</category>
 	</item>
 
 	<item id="verite_shields_heater">
 		<inherit id="1b76" />
 		<verite_armor />
+		<category>Armor\Verite\Shields\Heater</category>
 	</item>
 
 	<item id="mythril_shields_heater">
 		<inherit id="1b76" />
 		<mythril_armor />
+		<category>Armor\Mythril\Shields\Heater</category>
 	</item>
 
 	<!-- normal shield -->
 	<item id="1b7b">
-		<category>shields\shield</category>
 		<decay />
 		<defense>18</defense>
 		<durability>100</durability>
@@ -1488,56 +1667,65 @@
 	<item id="iron_shields_shield">
 		<inherit id="1b7b" />
 		<iron_armor />
+		<category>Armor\Iron\Shields\Shield</category>
 	</item>
 	
 	<item id="shadow_shields_shield">
 		<inherit id="1b7b" />
 		<shadow_armor />
+		<category>Armor\Shadow\Shields\Shield</category>
 	</item>
 
 	<item id="merkite_shields_shield">
 		<inherit id="1b7b" />
 		<merkite_armor />
+		<category>Armor\Merkite\Shields\Shield</category>
 	</item>
 
 	<item id="copper_shields_shield">
 		<inherit id="1b7b" />
 		<copper_armor />
+		<category>Armor\Copper\Shields\Shield</category>
 	</item>
 
 	<item id="silver_shields_shield">
 		<inherit id="1b7b" />
 		<silver_armor />
+		<category>Armor\Silver\Shields\Shield</category>
 	</item>
 
 	<item id="bronze_shields_shield">
 		<inherit id="1b7b" />
 		<bronze_armor />
+		<category>Armor\Bronze\Shields\Shield</category>
 	</item>
 
 	<item id="golden_shields_shield">
 		<inherit id="1b7b" />
 		<golden_armor />
+		<category>Armor\Golden\Shields\Shield</category>
 	</item>
 
 	<item id="agapite_shields_shield">
 		<inherit id="1b7b" />
 		<agapite_armor />
+		<category>Armor\Agapite\Shields\Shield</category>
 	</item>
 
 	<item id="verite_shields_shield">
 		<inherit id="1b7b" />
 		<verite_armor />
+		<category>Armor\Verite\Shields\Shield</category>
 	</item>
 
 	<item id="mythril_shields_shield">
 		<inherit id="1b7b" />
 		<mythril_armor />
+		<category>Armor\Mythril\Shields\Shield</category>
 	</item>
 
 	<!-- kite shield -->
 	<item id="1b74">
-		<category>shields\kite</category>
 		<decay />
 		<defense>25</defense>
 		<durability>100</durability>
@@ -1556,51 +1744,61 @@
 	<item id="iron_shields_kite">
 		<inherit id="1b74" />
 		<iron_armor />
+		<category>Armor\Iron\Shields\Kite</category>
 	</item>
 	
 	<item id="shadow_shields_kite">
 		<inherit id="1b74" />
 		<shadow_armor />
+		<category>Armor\Shadow\Shields\Kite</category>
 	</item>
 
 	<item id="merkite_shields_kite">
 		<inherit id="1b74" />
 		<merkite_armor />
+		<category>Armor\Merkite\Shields\Kite</category>
 	</item>
 
 	<item id="copper_shields_kite">
 		<inherit id="1b74" />
 		<copper_armor />
+		<category>Armor\Copper\Shields\Kite</category>
 	</item>
 
 	<item id="silver_shields_kite">
 		<inherit id="1b74" />
 		<silver_armor />
+		<category>Armor\Silver\Shields\Kite</category>
 	</item>
 
 	<item id="bronze_shields_kite">
 		<inherit id="1b74" />
 		<bronze_armor />
+		<category>Armor\Bronze\Shields\Kite</category>
 	</item>
 
 	<item id="golden_shields_kite">
 		<inherit id="1b74" />
 		<golden_armor />
+		<category>Armor\Golden\Shields\Kite</category>
 	</item>
 
 	<item id="agapite_shields_kite">
 		<inherit id="1b74" />
 		<agapite_armor />
+		<category>Armor\Agapite\Shields\Kite</category>
 	</item>
 
 	<item id="verite_shields_kite">
 		<inherit id="1b74" />
 		<verite_armor />
+		<category>Armor\Verite\Shields\Kite</category>
 	</item>
 
 	<item id="mythril_shields_kite">
 		<inherit id="1b74" />
 		<mythril_armor />
+		<category>Armor\Mythril\Shields\Kite</category>
 	</item>
 
 </definitions>

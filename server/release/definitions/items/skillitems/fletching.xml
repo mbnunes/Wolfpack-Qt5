@@ -1,0 +1,29 @@
+<!--
+=================================================================
+|   )      (\_     | WOLFPACK 13.0.0 Scripts                    |
+|  ((    _/{  "-;  | Created by: sereg	                        |
+|   )).-' {{ ;'`   | Revised by: 	                        |
+|  ( (  ;._ \\ ctr | Last Modification: created	                |
+=================================================================
+-->
+<definitions>
+	<!-- arrows -->
+	<item id="f3f">
+		<id>0xf3f</id>
+		<decay />
+		<value>3</value>
+		<durability>10</durability>
+		<rank>5</rank>
+		<category>Skill Items\Fletching\Arrow</category>
+	</item>
+
+	<!-- crossbow bolts -->
+	<item id="1bfb">
+		<id>0x1bfb</id>
+		<decay />
+		<value>5</value>
+		<durability>15</durability>
+		<rank>5</rank>
+		<category>Skill Items\Fletching\Crossbow Bolt</category>		
+	</item>
+</definitions>

@@ -967,20 +967,6 @@
 		<weight>.02</weight>
 	</item>
 	
-	<!-- Bedroll -->
-	<item id="a58">
-		<id>0x0a58</id>
-		<value>20</value>
-		<weight>.03</weight>
-	</item>
-	
-	<!-- Kindling -->
-	<item id="de1">
-		<id>0x0de1</id>
-		<value>1</value>
-		<weight>.02</weight>
-	</item>
-	
 	<!-- Map -->
 	<item id="14eb">
 		<id>0x14eb</id>
