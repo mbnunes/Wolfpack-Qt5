@@ -312,7 +312,7 @@ bool cUOSocket::authenticate( const QString &username, const QString &password )
 
 	Q_INT32 authRet = Accounts->Authenticate( username, password );
 
-	cUOPacket *denyPacket = NULL;
+	cUOPacket *denyPacket = 0;
 
 	switch( authRet )
 	{
@@ -853,7 +853,7 @@ void cUOSocket::handleGetTip( cUORxGetTip* packet )
 {
 	if ( packet->isTip() )
 	{
-		tips( this, packet->lastTipe() );
+		tips( this, packet->lastTip() );
 	}
 }
 

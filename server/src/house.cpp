@@ -105,8 +105,6 @@ bool cHouse::onValidPlace()
 	}
 
 	SI08 mapz = 0;
-	map_st map;
-	land_st land;
 	tile_st tile;
 	for( j = 0; j < length; j++ )
 	{

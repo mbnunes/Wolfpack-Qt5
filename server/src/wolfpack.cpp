@@ -2536,7 +2536,7 @@ int main( int argc, char *argv[] )
 	clConsole.ProgressDone();
 
     if (SrvParams->EnableRA())
-         racInit();
+		RemoteAdmin::initialize( SrvParams->ra_port() );
 
 	item_char_test(); //LB
 	MsgBoardMaintenance(); // Bad system
@@ -2632,19 +2632,11 @@ int main( int argc, char *argv[] )
 			}
 		}
 
-		if( uiNextCheckConn<=uiCurrentTime || overflow) // Cut lag on CheckConn by not doing it EVERY loop.
-		{
-			//cNetwork::instance()->CheckConn();
-            if (SrvParams->EnableRA())
-               racCheckConn();
-			uiNextCheckConn = (unsigned int)( uiCurrentTime + ( double )( 3 * MY_CLOCKS_PER_SEC ) );
-		}
-
 		//cNetwork::instance()->CheckMessage();
 		cNetwork::instance()->poll(); // Poll the network
 
         if (SrvParams->EnableRA())
-           racCheckInp();
+           RemoteAdmin::instance()->processNextEvent();
 
 		tempTime = getNormalizedTime() - tempSecs ;
 		networkTime += tempTime;
@@ -2686,6 +2678,9 @@ int main( int argc, char *argv[] )
 	}
 
 	sysbroadcast("The server is shutting down.");
+
+	if ( SrvParams->EnableRA() )
+		RemoteAdmin::stop();
 
 	if (SrvParams->html()>0)
 	{

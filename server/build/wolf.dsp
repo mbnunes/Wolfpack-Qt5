@@ -340,10 +340,6 @@ SOURCE=.\territories.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\tilecache.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\Timing.cpp
 # End Source File
 # Begin Source File

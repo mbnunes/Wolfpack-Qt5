@@ -15,6 +15,18 @@ Package=<4>
 
 ###############################################################################
 
+Project: "moc"=.\lib\wrl\src\moc\moc.dsp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
 Project: "pythoncore"=.\lib\Python\PCbuild\pythoncore.dsp - Package Owner=<4>
 
 Package=<5>
@@ -56,6 +68,9 @@ Package=<5>
 
 Package=<4>
 {{{
+    Begin Project Dependency
+    Project_Dep_Name moc
+    End Project Dependency
 }}}
 
 ###############################################################################

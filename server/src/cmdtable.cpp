@@ -2190,9 +2190,7 @@ void command_gmtransfer(UOXSOCKET s)
 					gmpages[i].name = counspages[pc_currchar->callnum()].name;
 					gmpages[i].reason = counspages[pc_currchar->callnum()].reason;
 					gmpages[i].serial = counspages[pc_currchar->callnum()].serial;
-					time_t current_time = time(0);
-					struct tm *local = localtime(&current_time);
-					sprintf(gmpages[i].timeofcall, "%02d:%02d:%02d", local->tm_hour, local->tm_min, local->tm_sec);
+					strcpy(gmpages[i].timeofcall, QTime::currentTime().toString("hh:mm:ss").latin1());
 					x2++;
 					break;
 				}

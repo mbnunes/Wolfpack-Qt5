@@ -1025,22 +1025,10 @@ P_ITEM cAllItems::SpawnItem(P_CHAR pc_ch, int nAmount, char* cName, bool pileabl
 
 void cAllItems::GetScriptItemSetting(P_ITEM pi)
 {// rewritten by sereg
-
-	unsigned char tscript1[512];//AntiChrist - important bug/crash fix!!!
-	unsigned char tscript2[512];//these have to be backed up before using them!!!
-	unsigned long loopexit=0;
-
-	strcpy((char*)tscript1,(char*)script1);//AntiChrist
-	strcpy((char*)tscript2,(char*)script2);
-
 	if(pi == NULL) 
 		return;
 
-	int tmp;
-	bool sectfound=false;
-	char buff[512];
-    openscript("harditems.scp");
-	buff[0] = '\0'; // Fix by Magius(CHE)
+	char buff[512] = {0};
 
 	sprintf(buff,"x%x",pi->id());
 

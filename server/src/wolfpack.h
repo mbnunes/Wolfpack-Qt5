@@ -62,7 +62,7 @@ using namespace std;
 
 
 #include "wpconsole.h"
-#include "netsys.h"
+//#include "netsys.h"
 #include "typedefs.h"
 #include "verinfo.h"
 //#include "worldmain.h"

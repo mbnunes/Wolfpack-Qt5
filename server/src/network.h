@@ -28,38 +28,29 @@
 //
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
-
-
-#ifndef __NETWORK_H__
+#if !defined(__NETWORK_H__)
 #define __NETWORK_H__
+
+
 //Platform specifics
 #include "platform.h"
 
 // System Includes
 
-#include <iostream>
 
-#include "packlen.h"
-
-using namespace std ;
 
 //Forward class Declaration
 class cNetworkStuff;
 class cAsyncNetIO;
 class cUOSocket;
 class cListener;
+class QHostAddress;
 
 //Wolfpack includes
-#include "wolfpack.h"
-#include "verinfo.h"
-#include "debug.h"
-#include "speech.h"
-#include "dragdrop.h"
-#include "rcvpkg.h"
-#include "SndPkg.h"
-
-#include "utilsys.h"
 #include "typedefs.h"
+
+// Library Includes
+#include "qptrlist.h"
 
 struct ip_block_st
 {
@@ -78,7 +69,7 @@ public:
 	void unload( void );
 	void reload( void );
 	
-	bool CheckForBlockedIP( sockaddr_in ip_address );
+	bool CheckForBlockedIP( const QHostAddress& ip_address );
 
 	static void startup( void ) { instance_ = new cNetwork; }
 	static void shutdown( void ) { delete instance_; }
@@ -97,7 +88,7 @@ private:
 
 	static cNetwork *instance_;
 	
-	std::vector<ip_block_st> hosts_deny;
+//	std::vector<ip_block_st> hosts_deny;
 	QPtrList< cUOSocket > uoSockets;
 	QPtrList< cUOSocket > loginSockets;
 	cAsyncNetIO *netIo_;

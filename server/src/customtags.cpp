@@ -1135,7 +1135,6 @@ double& cVariant::asDouble()
     return d->value.d;
 }
 
-#ifndef QT_NO_TEMPLATE_VARIANT
 /*!
   Returns the variant's value as variant list reference.
 
@@ -1177,7 +1176,6 @@ QMap<QString, cVariant>& cVariant::asMap()
 	*this = cVariant( toMap() );
     return *((QMap<QString,cVariant>*)d->value.ptr);
 }
-#endif
 
 /*!
   Returns TRUE if the variant's type can be cast to the requested

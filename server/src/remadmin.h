@@ -29,17 +29,36 @@
 //	Wolfpack Homepage: http://wpdev.sf.net/
 //========================================================================================
 
-#ifndef __REMADMIN_H__
+#if !defined(__REMADMIN_H__)
 #define __REMADMIN_H__
 
-/*******************************************************************************************
- REMOTE ADMINISTRATION
- *******************************************************************************************/
+// Library Includes
+#include "qptrlist.h"
 
-void racInit(void);
-void racCheckInp(void);
-void racCheckConn(void);
-void racProcessInput(char *command);
+// Forward declarations
+class PrivateSocket;
+class QSocketDevice;
+
+class RemoteAdmin
+{
+	static QPtrList<PrivateSocket> sockets;
+	static QSocketDevice* listenningSocket;
+
+public:
+	~RemoteAdmin();
+	static void initialize( Q_UINT16 port, bool verbose = false);
+	static void stop();
+	static RemoteAdmin* instance();
+
+	void processNextEvent();
+
+private:
+	RemoteAdmin() {};
+
+	void tryCompleteCommand( PrivateSocket* );
+	void executeCommand( PrivateSocket* );
+	void sendPrompt( PrivateSocket* socket );
+};
 
 #endif //__REMADMIN_H__
 

@@ -290,7 +290,7 @@ class cUORxGetTip : public cUOPacket
 {
 public:
 	cUORxGetTip( const QByteArray& data ) : cUOPacket( data ) {}
-	UINT16 lastTipe()	{ return getShort(1);		}
+	UINT16 lastTip()	{ return getShort(1);		}
 	bool   isTip()		{ return (*this)[3] == 0;	}
 	bool   isNotice()	{ return (*this)[3] == 1;	}
 };

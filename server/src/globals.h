@@ -44,7 +44,7 @@
 #include <termios.h>
 #endif
 
-#include "netsys.h"			// Needed by fd_set
+//#include "netsys.h"			// Needed by fd_set
 using namespace std;
 
 

@@ -32,7 +32,6 @@
 // Global Variables
 
 #include "wolfpack.h"
-#include "tilecache.h"
 #include "verinfo.h"
 #include "walking2.h"
 #include "wpscriptmanager.h"
@@ -51,7 +50,6 @@ wp_version_info wp_version;
 //	Instantiate our console object
 
 WPConsole_cl clConsole;
-TileCache_cl clTiledata;
 
 UI32 VersionRecordSize = 20L;
 UI32 MultiRecordSize = 12L;

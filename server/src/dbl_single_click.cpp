@@ -214,7 +214,7 @@ void dbl_click_item(cUOSocket* socket, SERIAL target_serial)
 
 	int w = 0;
 	
-	if (pc_currchar->objectdelay != 0 && !pc_currchar->isGM() && pc_currchar->objectdelay > 10 && pc_currchar->objectdelay >= uiCurrentTime || overflow)
+	if (!pc_currchar->isGM() && pc_currchar->objectdelay > 10 && pc_currchar->objectdelay >= uiCurrentTime || overflow)
 	{
 		socket->sysMessage(tr("You must wait to perform another action."));
 		return;

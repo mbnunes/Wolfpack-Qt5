@@ -32,26 +32,20 @@
 // Platform Includes
 #include "platform.h"
 
-#include <string>
-using namespace std ;
-
 
 // New NetworkIO Testing stuff
-#include "network/asyncnetio.h"
-#include "network/uosocket.h"
-#include "network/listener.h"
 
-cAsyncNetIO* netio;
+//cAsyncNetIO* netio;
 
 //Wolfpack Includes
 #include "network.h"
-#include "gumps.h"
-#include "walking2.h"
-#include "books.h"
+//#include "gumps.h"
+//#include "walking2.h"
+//#include "books.h"
 #include "srvparams.h"
-#include "classes.h"
-#include "territories.h"
-#include "scriptc.h"
+#include "network/asyncnetio.h"
+#include "network/uosocket.h"
+#include "network/listener.h"
 
 // Library Includes
 #include "qstringlist.h"
@@ -169,7 +163,7 @@ void cNetwork::reload( void )
 // Unload IP Blocking rules
 void cNetwork::unload( void )
 {
-	hosts_deny.clear();
+//	hosts_deny.clear();
 }
 
 // This is junk code to interface with the old junk code. Don't relay on that.

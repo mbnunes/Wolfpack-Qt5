@@ -938,7 +938,7 @@ bool cBoat::leave( UOXSOCKET s, P_ITEM pplank )
 		return false;
 	}
 
-	UI16 x, y, x0, y0, x1, y1, dx, dy;
+	UI16 x, y, x0, y0, x1, y1;
 	switch( this->boatdir ) 
 	{
 	case 0:
@@ -973,10 +973,7 @@ bool cBoat::leave( UOXSOCKET s, P_ITEM pplank )
 	}
 	signed char sz, mz, z;
 	bool check = false;
-	land_st landt;
 	map_st mapt;
-	tile_st tilet;
-	int loopexit = 0;
 	for( x = x0; x <= x1; x++ ) 
 	{
 		for( y = y0; y <= y1; y++) 
@@ -1087,7 +1084,7 @@ void cBoat::setAutoSail (UOXSOCKET s, P_ITEM pMap, P_ITEM pTiller) {
 
 char cBoat::speechInput( UOXSOCKET s, const QString& msg )//See if they said a command. msg must already be capitalized
 {
-	P_CHAR pc_currchar = currchar[s];
+	//P_CHAR pc_currchar = currchar[s];
 	SERIAL serial;
 
 	if( s == INVALID_UOXSOCKET ) 
