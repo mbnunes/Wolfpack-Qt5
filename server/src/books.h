@@ -82,14 +82,14 @@ class cBooks
 		char authorbuffer[MAXCLIENT][32]; 
 		char titlebuffer[MAXCLIENT][62];
 		char pagebuffer[MAXCLIENT][512]; //i think 256 is enough (8 lines *32 chars per line = 256, but i took 512 to be on the safe side and avoid crashes 
-	    cBooks();
         void openbook_old(UOXSOCKET s, P_ITEM pBook); // opens old-readonly books, takes data from misc.scp
 		void openbook_new(UOXSOCKET s, P_ITEM pBook,char writeable); // opens new books
 		void readbook_readonly_old(UOXSOCKET s, P_ITEM pBook, int p); // reads books from misc.scp, readonly = old books
 		void readbook_readonly(UOXSOCKET s, P_ITEM pBook, int p);     // reads new books readonly ( from *.bok file )
 		void readbook_writeable(UOXSOCKET s, P_ITEM pBook, int p, int l); // writes changes to a new book opened in writable mode 
 		void delete_bokfile(P_ITEM pBook); // deletes bok-file.
-		virtual ~cBooks();
+		virtual ~cBooks() {};
         	
 };
+
 #endif

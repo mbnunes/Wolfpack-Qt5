@@ -43,16 +43,6 @@
 #undef DBGFILE
 #define DBGFILE "books.cpp"
 
-cBooks::cBooks()//Constructor
-{
-	return;
-}
-
-cBooks::~cBooks()//Destructor
-{
-
-}
-
 // opens old (readonly) books == old, bugfixed readbook function
 void cBooks::openbook_old(UOXSOCKET s, P_ITEM pBook)
 {
