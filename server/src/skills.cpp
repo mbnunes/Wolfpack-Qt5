@@ -262,7 +262,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 */
 	if (skill == CARTOGRAPHY)	// Is it carto?
 	{
-		if (!HasEmptyMap(DEREF_P_CHAR(pc_currchar)))	// Did the map disappear?
+		if (!HasEmptyMap(pc_currchar))	// Did the map disappear?
 		{
 			sysmessage(s,"You don't have your blank map anymore!!");
 			return;
@@ -288,7 +288,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 		case BOWCRAFT:
 		case TINKERING:		targ->failure(s);break;
 		//Polygon: Do sounds, message and deletion if carto fails
-		case CARTOGRAPHY:	DelEmptyMap(DEREF_P_CHAR(pc_currchar));soundeffect(s, 0x02, 0x49);sysmessage(s, "You scratch on the map but the result is unusable");break;
+		case CARTOGRAPHY:	DelEmptyMap(pc_currchar);soundeffect(s, 0x02, 0x49);sysmessage(s, "You scratch on the map but the result is unusable");break;
 		default:		targ->failure(s);break;
 		}
 		Zero_Itemmake(s);
@@ -303,7 +303,7 @@ void cSkills::MakeMenuTarget(int s, int x, int skill)
 		case TINKERING:
 		case BOWCRAFT:	targ->delonsuccess(s);break;
 		// Polygon: Delete empty map for carto
-		case CARTOGRAPHY:	if (!DelEmptyMap(DEREF_P_CHAR(pc_currchar))) return;break;
+		case CARTOGRAPHY:	if (!DelEmptyMap(pc_currchar)) return;break;
 		default:
 			delequan(pc_currchar, itemmake[s].Mat1id, itemmake[s].needs);
 		}
@@ -1707,7 +1707,7 @@ void cSkills::CreateTrackingMenu(int s,int m)
 				pc_currchar->trackingtargets[MaxTrackingTargets] = mapchar->serial;
 				MaxTrackingTargets++;
 				if (MaxTrackingTargets>=MAXTRACKINGTARGETS) break; // lb crashfix
-				switch(Skills->TrackingDirection(s,DEREF_P_CHAR(mapchar)))
+				switch(Skills->TrackingDirection(s, mapchar))
 				{
 				case NORTH:
 					strcpy((char*)temp,"to the North");
@@ -1882,10 +1882,10 @@ void cSkills::Track(P_CHAR pc_i)
 	Xsend(s,arrow,6);
 }
 
-int cSkills::TrackingDirection(int s,int i)
+int cSkills::TrackingDirection(UOXSOCKET s,P_CHAR pc_i)
 {
-	int direction=5;
-	P_CHAR pc_i = MAKE_CHARREF_LRV(i,0);
+	int direction = 5;
+	if ( pc_i == NULL ) return 0;
 	P_CHAR pc_currchar = currchar[s];
 	if((pc_currchar->pos.y-direction)>=pc_i->pos.y)  // North
 	{
@@ -1973,7 +1973,7 @@ void TellScroll( char *menu_name, int s, long snum )
 		impaction(s, spells[num].action);
 	npctalkall(pc_currchar, spells[num].mantra,0);
 	
-	if(!Magic->CheckReagents(DEREF_P_CHAR(pc_currchar), spells[num].reagents)
+	if(!Magic->CheckReagents(pc_currchar, spells[num].reagents)
 		|| !Magic->CheckMana(pc_currchar, num))
 	{
 		Magic->SpellFail(s);
@@ -2723,7 +2723,7 @@ void cSkills::Snooping(P_CHAR player, P_ITEM container)
 void cSkills::Cartography(int s)
 {
 //	int cc=currchar[s];	// Get the current char of the client
-	if (HasEmptyMap(DEREF_P_CHAR(currchar[s])))
+	if (HasEmptyMap(currchar[s]))
 	{
 		itemmake[s].has = 1;
 		MakeMenu(s, 1200, CARTOGRAPHY);
@@ -2740,10 +2740,10 @@ void cSkills::Cartography(int s)
 	determine if the correct map type is in pack
 */
 
-bool cSkills::HasEmptyMap(int cc)	// Check if the player carries an empty map
+bool cSkills::HasEmptyMap(P_CHAR pc)	// Check if the player carries an empty map
 {
 	P_ITEM pack;	// Variable that stores the backpack
-	pack = Packitem(&chars[cc]);	// Get the packitem
+	pack = Packitem(pc);	// Get the packitem
 	if (pack == NULL)	// Does he have a backpack?
 		return false;	// No? Then no cartography
 	unsigned int ci;
@@ -2760,10 +2760,10 @@ bool cSkills::HasEmptyMap(int cc)	// Check if the player carries an empty map
 	return false;	// Search lasted too long, abort
 }
 
-bool cSkills::DelEmptyMap(int cc)	// Delete an empty map from the player's backpack, use HasEmptyMap before!
+bool cSkills::DelEmptyMap(P_CHAR pc)	// Delete an empty map from the player's backpack, use HasEmptyMap before!
 {
 	P_ITEM pack;	// Variable that stores the backpack
-	pack = Packitem(&chars[cc]);	// Get the packitem
+	pack = Packitem(pc);	// Get the packitem
 	if (pack == NULL)	// Does he have a backpack?
 	{
 		// No? Very strange... Give out an error message

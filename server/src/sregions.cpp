@@ -81,7 +81,7 @@ bool doregionspawn(int r)//Regionspawns
 	if (spawnregion[r].current >= spawnregion[r].max || spawnregion[r].max == 0) return false;
 
 	int x = 0, y = 0, z = 0;
-	int npc = -1, item = -1;
+	int item = -1;
 	int counter;
 
 	if( spawnregion[r].totalnpclists > 0 )
@@ -91,11 +91,11 @@ bool doregionspawn(int r)//Regionspawns
 		{
 			if (FindSpotForItem(r, x, y, z))
 			{
-				npc = Npcs->AddNPCxyz( -1, spawnregion[r].npclists[counter], 0,x,y,z );
-				if (npc!=-1)
+				P_CHAR npc = Npcs->AddNPCxyz( -1, spawnregion[r].npclists[counter], 0,x,y,z );
+				if (npc != NULL)
 				{
 					spawnregion[r].current++;
-					chars[npc].spawnregion=r;
+					npc->spawnregion=r;
 					return true;
 				}
 			}
@@ -131,24 +131,18 @@ bool doregionspawn(int r)//Regionspawns
 		{
 			if (FindSpotForItem(r, x, y, z))
 			{
-				npc = Npcs->AddNPCxyz( -1, spawnregion[r].npcs[counter], 0,x,y,z );
-				if (npc!=-1)
+				P_CHAR npc = Npcs->AddNPCxyz( -1, spawnregion[r].npcs[counter], 0,x,y,z );
+				if (npc != NULL)
 				{
 					spawnregion[r].current++;
-					chars[npc].spawnregion=r;
+					npc->spawnregion=r;
 					return true;
 				}
 			}
 		}
 	}
 
-	if (npc==-1 && item==-1)
-	{
-		//clConsole.send("Warning: Region spawn %i [%s] couldn't find anything to spawn, check scripts.\n",r-1,spawnregion[r].name);
-		return false;
-	}
-	else
-		return true;
+	return false;
 }
 
 void loadspawnregions()//Regionspawns

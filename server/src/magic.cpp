@@ -344,7 +344,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 	{
 	case 0x0000:	// summon monster
  		soundeffect( s, 0x02, 0x15 );
- 		pc_monster = MAKE_CHAR_REF(Npcs->AddRandomNPC( s, "10000", -1 ));
+ 		pc_monster = Npcs->AddRandomNPC( s, "10000", -1 );
  		if( pc_monster == NULL )
  		{
  			sysmessage( s, "Contact your shard op to setup the summon list!" );
@@ -362,7 +362,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		if (color1==0x00 && color2==0x75)
 		{
 			soundeffect(s, 0x02, 0x12); // EV
-			pc_monster = MAKE_CHAR_REF(Npcs->AddNPCxyz(s,295,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z));
+			pc_monster = Npcs->AddNPCxyz(s,295,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
             pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
 			pc_monster->npcaitype=50;
 			pc_monster->tamed=false;			
@@ -370,7 +370,7 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		else
 		{
 			soundeffect(s, 0x02, 0x17); // AE
-			pc_monster = MAKE_CHAR_REF(Npcs->AddNPCxyz(s,291,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z));
+			pc_monster = Npcs->AddNPCxyz(s,291,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 			pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
 			pc_monster->npcaitype=50;
 			pc_monster->tamed=true;
@@ -378,31 +378,31 @@ void cMagic::SummonMonster(UOXSOCKET s, unsigned char id1, unsigned char id2, ch
 		break;
 	case 0x000A: // Daemon
 		soundeffect(s, 0x02, 0x16);
-		pc_monster = MAKE_CHAR_REF(Npcs->AddNPCxyz(s,290,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z));
+		pc_monster = Npcs->AddNPCxyz(s,290,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
 		pc_monster->tamed=true;
 		break;
 	case 0x000E: //Earth
 		soundeffect(s, 0x02, 0x17);
-		pc_monster = MAKE_CHAR_REF(Npcs->AddNPCxyz(s,292,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z));
+		pc_monster = Npcs->AddNPCxyz(s,292,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
 		pc_monster->tamed=true;
 		break;
 	case 0x000F: //Fire
 		soundeffect(s, 0x02, 0x17);
-		pc_monster = MAKE_CHAR_REF(Npcs->AddNPCxyz(s,293,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z));
+		pc_monster = Npcs->AddNPCxyz(s,293,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
 		pc_monster->tamed=true;
 		break;
 	case 0x0010: //Water
 		soundeffect(s, 0x02, 0x17);
-		pc_monster = MAKE_CHAR_REF(Npcs->AddNPCxyz(s,294,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z));
+		pc_monster = Npcs->AddNPCxyz(s,294,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
 		pc_monster->tamed=true;
 		break;
 	case 0x023E: //Blade Spirits
 		soundeffect(s, 0x02, 0x12); // I don't know if this is the right effect...	
-		pc_monster = MAKE_CHAR_REF(Npcs->AddNPCxyz(s,296,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z));
+		pc_monster = Npcs->AddNPCxyz(s,296,0,pc_currchar->pos.x,pc_currchar->pos.y,pc_currchar->pos.z);
 		pc_monster->summontimer=(uiCurrentTime+((pc_currchar->skill[MAGERY]/10)*(MY_CLOCKS_PER_SEC*2)));
 		pc_monster->npcaitype=50;
 		pc_monster->tamed=false;
@@ -860,10 +860,9 @@ void cMagic::MagicTrap(P_CHAR pc, P_ITEM pTrap)
 // History:	Unknown, Modified by AntiChrist to use reag_st
 // Purpose:	Check for required reagents in player's backpack.
 //
-char cMagic::CheckReagents(CHARACTER s, reag_st reagents)
+char cMagic::CheckReagents(P_CHAR pc, reag_st reagents)
 {
 	reag_st failmsg;
-	P_CHAR pc = MAKE_CHAR_REF(s);
 
 	if (pc->priv2&0x80) return 1;
 
@@ -1003,11 +1002,11 @@ void cMagic::LightningSpell(P_CHAR pc_Attacker, P_CHAR pc_Defender, bool usemana
 	return;
 }
 
-void cMagic::NPCHeal(CHARACTER s)
+void cMagic::NPCHeal(P_CHAR pc)
 {
     int loskill=spells[10].loskill;
     int hiskill=spells[10].hiskill;
-	P_CHAR pc = MAKE_CHARREF_LR(s);
+	if ( pc == NULL ) return;
 
 	if (!Skills->CheckSkill(pc, MAGERY, loskill, hiskill))
 	{
@@ -1028,11 +1027,13 @@ void cMagic::NPCHeal(CHARACTER s)
 	}
 }
 
-void cMagic::NPCCure(CHARACTER s)
+void cMagic::NPCCure(P_CHAR pc)
 {
     int loskill=spells[11].loskill;
     int hiskill=spells[11].hiskill;
-	P_CHAR pc = MAKE_CHARREF_LR(s);
+
+	if ( pc == NULL ) return;
+
 	if (!Skills->CheckSkill(pc, MAGERY, loskill, hiskill))
 	{
 		UOXSOCKET ss=calcSocketFromChar(pc);
@@ -1550,7 +1551,7 @@ bool cMagic::newSelectSpell2Cast( UOXSOCKET s, int num)
 	pc_currchar->disturbMed(s); // Meditation
 
 	//Check for enough reagents
-	if (type==0 && (!CheckReagents(DEREF_P_CHAR(pc_currchar), spells[num].reagents)))
+	if (type==0 && (!CheckReagents(pc_currchar, spells[num].reagents)))
 	{
 		pc_currchar->spell = 0;
 		pc_currchar->casting = 0;

@@ -130,7 +130,7 @@ void RcvAttack(P_CLIENT ps)
 			{
 				npctalkall(pc_i, "Help! Guards! I've been attacked!", 1);
 				criminal( pc_currchar );
-				callguards(DEREF_P_CHAR(pc_i));
+				callguards(pc_i);
 			}
 			else if( pc_i->isNpc() && pc_i->npcaitype==4)
 			{

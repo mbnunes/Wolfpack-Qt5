@@ -907,9 +907,9 @@ P_ITEM cTargets::AddMenuTarget(int s, int x, int addmitem) //Tauriel 11-22-98 up
 }
 
 // public !!!
-int cTargets::NpcMenuTarget(int s)
+P_CHAR cTargets::NpcMenuTarget(int s)
 {
-	if (buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return -1;
+	if (buffer[s][11]==0xFF && buffer[s][12]==0xFF && buffer[s][13]==0xFF && buffer[s][14]==0xFF) return NULL;
 	return Npcs->AddNPC(s, NULL, addmitem[s]);
 }
 

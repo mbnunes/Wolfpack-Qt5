@@ -1225,8 +1225,8 @@ void cCombat::SpawnGuard(P_CHAR pc_offender, P_CHAR pc_caller, int x, int y, sig
 	if (SrvParms->guardsactive && !pc_offender->isInvul())
 	{
         t = region[pc_caller->region].guardnum[(rand()%10)];
-		CHARACTER c = Npcs->AddNPCxyz(calcSocketFromChar(pc_offender), t, 0, x, y, z);
-		P_CHAR pc_guard = MAKE_CHARREF_LR(c);
+		P_CHAR pc_guard = Npcs->AddNPCxyz(calcSocketFromChar(pc_offender), t, 0, x, y, z);
+		if ( pc_guard == NULL ) return;
 		
 		pc_guard->npcaitype = 4; // CITY GUARD, LB, bugfix, was 0x40 -> not existing
 		pc_guard->setAttackFirst();

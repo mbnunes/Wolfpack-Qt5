@@ -416,22 +416,22 @@ public:
 	bool AllocateMemory(int NumberOfChars);
 	int MemCharFree();
 	P_ITEM AddRandomLoot(P_ITEM pBackpack, char * lootlist);
-	int AddRandomNPC(int s, char *npclist, int spawnpoint);
-	int AddNPCxyz(int s, int npcNum, int type, int x1, int y1, signed char z1);
+	P_CHAR AddRandomNPC(int s, char *npclist, int spawnpoint);
+	P_CHAR AddNPCxyz(int s, int npcNum, int type, int x1, int y1, signed char z1);
 	void Split(P_CHAR pc_k);
 	void CheckAI(unsigned int currenttime, P_CHAR pc_i);
-	int AddNPC(int s, P_ITEM pi_i, int npcNum, int x1 = 0, int y1 = 0, signed char z1 = 0);
+	P_CHAR AddNPC(int s, P_ITEM pi_i, int npcNum, int x1 = 0, int y1 = 0, signed char z1 = 0);
 	// Sky's AI Stuff
 	class cDragonAI
 	{
 	public:
-		void DoAI(int i,int currenttime);
-		void HarmMagic(int i,int currenttime,P_CHAR pc);
-		void HealMagic(int i,int currenttime);
+		void DoAI(P_CHAR pc_i,int currenttime);
+		void HarmMagic(P_CHAR pc_i,int currenttime,P_CHAR pc);
+		void HealMagic(P_CHAR pc_i,int currenttime);
 		void Claw(int i,int currenttime);
 		void Bite(int i,int currenttime);
-		void Breath(int i,int currenttime);
-		void DoneAI(int i,int currenttime);
+		void Breath(P_CHAR pc_i,int currenttime);
+		void DoneAI(P_CHAR pc_i,int currenttime);
 	};
 	
 	class cBankerAI

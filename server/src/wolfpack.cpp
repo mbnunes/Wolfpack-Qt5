@@ -2090,42 +2090,42 @@ int unmounthorse(UOXSOCKET s) // Get off a horse (Remove horse item and spawn ne
 			else
 			{ 
 				clConsole.send("Makeing a new horse cause the other somehow got out/lost :(\n"); 
-				CHARACTER c; 
+				P_CHAR pc_pet = NULL;
 				switch (pi->id2) 
 				{ 
 					case 0xA0:  
-						c = Npcs->AddNPCxyz(s, 8, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						pc_pet = Npcs->AddNPCxyz(s, 8, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
 						break; 
 					case 0xA1:  
-						c = Npcs->AddNPCxyz(s, 9, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						pc_pet = Npcs->AddNPCxyz(s, 9, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
 						break; 
 					case 0xA2:  
-						c = Npcs->AddNPCxyz(s, 10, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						pc_pet = Npcs->AddNPCxyz(s, 10, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
 						break; 
 					case 0xA3:  
-						c = Npcs->AddNPCxyz(s, 429, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						pc_pet = Npcs->AddNPCxyz(s, 429, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
 						break; 
 					case 0xA4: 
-						c = Npcs->AddNPCxyz(s, 427, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						pc_pet = Npcs->AddNPCxyz(s, 427, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
 						break; 
 					case 0xA5:  
-						c = Npcs->AddNPCxyz(s, 428, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						pc_pet = Npcs->AddNPCxyz(s, 428, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
 						break; 
 					case 0xA6:  
-						c = Npcs->AddNPCxyz(s, 54, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
+						pc_pet = Npcs->AddNPCxyz(s, 54, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z);
 						break; 
 					case 0x9F: 
 						if (pi->color1 == 0x04 && pi->color2 == 0x55) 
-							c = Npcs->AddNPCxyz(s, 430, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z); 
+							pc_pet = Npcs->AddNPCxyz(s, 430, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z); 
 						else 
-							c = Npcs->AddNPCxyz(s, 7, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z); 
+							pc_pet = Npcs->AddNPCxyz(s, 7, 0, p_petowner->pos.x, p_petowner->pos.y, p_petowner->pos.z); 
 						break; 
 					default: 
 						LogCritical("No horse type in unmounthorse(), avoiding crash"); 
 						return -1; 
 						break; 
 				} 
-				P_CHAR pc_pet = MAKE_CHARREF_LRV(c, -1);
+				if ( pc_pet == NULL ) return -1;
 				strcpy(pc_pet->name, pi->name); 
 				pc_pet->xid1 = pc_pet->id1; 
 				pc_pet->xid2 = pc_pet->id2; 

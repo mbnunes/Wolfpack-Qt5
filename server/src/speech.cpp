@@ -626,7 +626,7 @@ bool PetCommand(cChar* pPet, char* comm, cChar* pPlayer, UOXSOCKET s)
 		}
 		else
 		{
-			addx[s]=pPet->serial;
+			addx[s] = pPet->serial;
 			target(s, 0, 1, 0, 117, "Click on the target to follow.");
 		}
 		return 1;

@@ -155,7 +155,7 @@ public:
 	void RepairTarget(UOXSOCKET s); // Ripper
 	void SmeltItemTarget(UOXSOCKET s); // Ripper
 	void TasteIDTarget(int s);
-	int TrackingDirection(int s, int i);
+	int TrackingDirection(UOXSOCKET s, P_CHAR pc_i);
 	void CreatePotion(P_CHAR pc, char type, char sub, P_ITEM pi_mortar);
 	char AdvanceSkill(P_CHAR pc, int sk, char skillused);
 	void AdvanceStats(P_CHAR pc, int sk);
@@ -216,8 +216,8 @@ public:
 	void AButte(int s1, P_ITEM pButte);
 	void Persecute(UOXSOCKET s);//AntiChrist persecute stuff
 	void Cartography(int s); // By Polygon - opens the cartography skillmenu
-	bool HasEmptyMap(int cc); // By Polygon - checks if player has an empty map
-	bool DelEmptyMap(int cc); // By Polygon - deletes an empty map from the player's pack
+	bool HasEmptyMap(P_CHAR pc); // By Polygon - checks if player has an empty map
+	bool DelEmptyMap(P_CHAR pc); // By Polygon - deletes an empty map from the player's pack
 	void Decipher(P_ITEM tmap, int s); // By Polygon - attempt to decipher a tattered treasure map
 	int GetAntiMagicalArmorDefence(P_CHAR pc); // blackwind meditation armor stuff
 	void Snooping(P_CHAR, P_ITEM);
@@ -280,8 +280,8 @@ public:
 	void PFireballTarget(P_CHAR pc_i, P_CHAR pc, int j);
 	void LightningSpell(P_CHAR pc_Attacker, P_CHAR pc_Defender, bool usemana = true);
 	void EnergyBoltSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana = true);
-	void NPCHeal(int s);
-	void NPCCure(int s);
+	void NPCHeal(P_CHAR pc);
+	void NPCCure(P_CHAR pc);
 	void NPCDispel(P_CHAR pc_s, P_CHAR pc_i);
 	void NPCCannonTarget(int s, int t);
 	char CheckParry(P_CHAR pc_player, int circle);
@@ -297,7 +297,7 @@ public:
 	void ExplosionSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana = true);
 	void FlameStrikeSpell(P_CHAR pc_attacker, P_CHAR pc_defender, bool usemana = true);
 	bool CheckBook(int circle, int spell, P_ITEM pi);
-	char CheckReagents(int s, reag_st reagents);
+	char CheckReagents(P_CHAR pc, reag_st reagents);
 
 
 	char CheckMana(P_CHAR pc, int num);

@@ -1678,8 +1678,8 @@ void cNetworkStuff::GetMsg(int s) // Receive message from client
 							PACKET0xB8[5] = pc->ser2;
 							PACKET0xB8[6] = pc->ser3;
 							PACKET0xB8[7] = pc->ser4;
-							strcpy((char*)&PACKET0xB8[8], complete_title(DEREF_P_CHAR(pc)));
-							tlen += strlen(complete_title(DEREF_P_CHAR(pc)))+1;
+							strcpy((char*)&PACKET0xB8[8], complete_title(pc));
+							tlen += strlen(complete_title(pc))+1;
 							PACKET0xB8[tlen] = 0;
 							tlen++;
 							//strcpy((char*)&PACKET0xB8[tlen], "Can not determine this account's age.");

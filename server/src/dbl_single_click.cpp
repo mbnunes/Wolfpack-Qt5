@@ -802,10 +802,8 @@ void doubleclick(int s) // Completely redone by Morrolan 07.20.99
 				
 					if (los)
 					{
-						m = Npcs->AddNPCxyz(-1, 2117, 0, pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);
+						P_CHAR pc_vendor = Npcs->AddNPCxyz(-1, 2117, 0, pc_currchar->pos.x, pc_currchar->pos.y, pc_currchar->pos.z);
 						
-						P_CHAR pc_vendor = MAKE_CHAR_REF(m);
-
 						if (pc_vendor == NULL) 
 						{
 							clConsole.send("npc-script couldnt find vendor !\n");
@@ -1694,7 +1692,7 @@ void dbl_click_character(UOXSOCKET s, SERIAL target_serial)
 		pdoll[3]=target->ser3;
 		pdoll[4]=target->ser4;
 		
-		completetitle = complete_title(DEREF_P_CHAR(target));
+		completetitle = complete_title(target);
 		int l = strlen(completetitle);
 		if (l>=60) completetitle[60]=0;
 		strcpy((char*)&pdoll[5], completetitle);				

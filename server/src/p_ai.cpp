@@ -144,7 +144,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 						onl = online(pc);
 						d = chardist( pc_i, pc );
 						chance = RandomNum(1, 100);
-						if (DEREF_P_CHAR(pc) == DEREF_P_CHAR(pc_i))
+						if (pc == pc_i)
 							continue;
 						if (d>SrvParms->attack_distance)
 							continue;
@@ -161,12 +161,12 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 							if (pc_i->hp <(pc_i->st/2))
 							{
 								npctalkall(pc_i, "In Vas Mani", 0);
-								Magic->NPCHeal(DEREF_P_CHAR(pc_i));
+								Magic->NPCHeal(pc_i);
 							}
 							if (pc_i->poisoned)
 							{
 								npctalkall(pc_i, "An Nox", 0);
-								Magic->NPCCure(DEREF_P_CHAR(pc_i));
+								Magic->NPCCure(pc_i);
 							}
 							if (pc->priv2&0x20)
 							{
@@ -457,7 +457,7 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 			// Case 60-70 is Skyfires new AI
 		case 96:
 		case 60: // Skyfire - Dragon AI
-			DragonAI->DoAI(DEREF_P_CHAR(pc_i), currenttime);
+			DragonAI->DoAI(pc_i, currenttime);
 			break;
 		case 97:
 		case 61:// Skyfire - Banker AI
@@ -470,11 +470,11 @@ void cCharStuff::CheckAI(unsigned int currenttime, P_CHAR pc_i) // Lag Fix -- Zi
 
 
 
-void cCharStuff::cDragonAI::DoAI(int i, int currenttime)
+void cCharStuff::cDragonAI::DoAI(P_CHAR pc_i, int currenttime)
 {
 	int randvalue;
 	int distance;
-	P_CHAR pc_i = MAKE_CHARREF_LR(i);
+	if ( pc_i == NULL ) return;
 	if (pc_i->war)
 	{
 		npctalkall(pc_i, "Who dares disturbe me?!?!", 1);
@@ -497,39 +497,37 @@ void cCharStuff::cDragonAI::DoAI(int i, int currenttime)
 						switch (randvalue)
 						{
 							case 1:	
-								Breath(i, currenttime);
+								Breath(pc_i, currenttime);
 								break;
 							case 3:	
-								HarmMagic(i, currenttime, pc);
+								HarmMagic(pc_i, currenttime, pc);
 								break;
 							case 4:	
-								HealMagic(i, currenttime);
+								HealMagic(pc_i, currenttime);
 								break;
 						}
 					}
 					else
-						HarmMagic(i, currenttime, pc);
+						HarmMagic(pc_i, currenttime, pc);
 				}
-				HealMagic(i, currenttime);
+				HealMagic(pc_i, currenttime);
 			}
 		}
 	}
 	else
-		HealMagic(i, currenttime);
+		HealMagic(pc_i, currenttime);
 	return;
 }
 
-void cCharStuff::cDragonAI::Breath(int i, int currenttime)
+void cCharStuff::cDragonAI::Breath(P_CHAR pc_i, int currenttime)
 {
-	P_CHAR pc_i = MAKE_CHARREF_LR(i);
 	Magic->PFireballTarget(pc_i, FindCharBySerial(pc_i->targ), 20);
-	DoneAI(i, currenttime);
+	DoneAI(pc_i, currenttime);
 	return; 
 }
 
-void cCharStuff::cDragonAI::HarmMagic(int i, int currenttime, P_CHAR pc)
+void cCharStuff::cDragonAI::HarmMagic(P_CHAR pc_i, int currenttime, P_CHAR pc)
 {
-	P_CHAR pc_i = MAKE_CHARREF_LR(i);
 	if (currenttime >= pc_i->spatimer)
 	{
 		switch (RandomNum(0, 5))
@@ -557,31 +555,29 @@ void cCharStuff::cDragonAI::HarmMagic(int i, int currenttime, P_CHAR pc)
 				break;
 		}
 	}
-	DoneAI(i, currenttime);
+	DoneAI(pc_i, currenttime);
 	return;
 }
 
-void cCharStuff::cDragonAI::HealMagic(int i, int currenttime)
+void cCharStuff::cDragonAI::HealMagic(P_CHAR pc_i, int currenttime)
 {
-	P_CHAR pc_i = MAKE_CHARREF_LR(i);
 	if (currenttime >= pc_i->spatimer)
 	{
 		if (pc_i->poisoned)
 		{
-			Magic->NPCCure(i);
+			Magic->NPCCure(pc_i);
 		}
 		else if (pc_i->hp < (pc_i->st/2))
 		{
-			Magic->NPCHeal(i);
+			Magic->NPCHeal(pc_i);
 		}
 		if (pc_i->targ != INVALID_SERIAL)
 			npcattacktarget(pc_i, FindCharBySerial(pc_i->targ));
 	}
-	DoneAI(i, currenttime);
+	DoneAI(pc_i, currenttime);
 }
-void cCharStuff::cDragonAI::DoneAI(int i, int currenttime)
+void cCharStuff::cDragonAI::DoneAI(P_CHAR pc_i, int currenttime)
 {
-	P_CHAR pc_i = MAKE_CHARREF_LR(i);
 	pc_i->spatimer = currenttime + (pc_i->spadelay*MY_CLOCKS_PER_SEC); 
 	return;
 }

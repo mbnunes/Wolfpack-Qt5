@@ -832,7 +832,7 @@ P_ITEM cCharStuff::AddRandomLoot(P_ITEM pBackpack, char * lootlist)
 }
 
 /*** s: socket ***/
-int cCharStuff::AddRandomNPC(int s, char * npclist, int spawnpoint)
+P_CHAR cCharStuff::AddRandomNPC(int s, char * npclist, int spawnpoint)
 {
 	//This function gets the random npc number from the list and recalls
 	//addrespawnnpc passing the new number
@@ -843,7 +843,7 @@ int cCharStuff::AddRandomNPC(int s, char * npclist, int spawnpoint)
 
 	Script *pScpBase=i_scripts[npc_script];
 	Script *pScp=pScpBase->Select(sect,custom_npc_script);
-	if (!pScp) return -1;
+	if (!pScp) return NULL;
 
 	unsigned long loopexit=0;
 	do
@@ -871,12 +871,8 @@ int cCharStuff::AddRandomNPC(int s, char * npclist, int spawnpoint)
 			return Targ->NpcMenuTarget(s);
 			//return -1;
 		}
-		else
-		{
-			return k; //addrespawnnpc(spawnpoint,k,1);
-		}
 	}
-	return -1;
+	return NULL;
 }
 
 //o---------------------------------------------------------------------------o
@@ -900,16 +896,16 @@ int cCharStuff::AddRespawnNPC(int s, int npcNum, int type)
 	else
 		return AddNPC(s, NULL, npcNum, 0,0,0);	// 's' is a socket
 }*/
-int cCharStuff::AddNPCxyz(int s, int npcNum, int type, int x1, int y1, signed char z1) //Morrolan - replacement for old Npcs->AddNPCxyz(), fixes a LOT of problems.
+P_CHAR cCharStuff::AddNPCxyz(int s, int npcNum, int type, int x1, int y1, signed char z1) //Morrolan - replacement for old Npcs->AddNPCxyz(), fixes a LOT of problems.
 {
 	if (type == 0)
 		return AddNPC(s, NULL, npcNum, x1,y1,z1);	// 's' maybe(!) is a socket
 	if (type == 1)
 		clConsole.send("ERROR: type == 1 not supported!\n");
-	return -1;
+	return NULL;
 }
 
-int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed char z1)
+P_CHAR cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed char z1)
 {
 	int tmp, z,c, lovalue, hivalue;
 	int k=0, xos=0, yos=0, lb;
@@ -928,7 +924,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 	else
 	{
 		clConsole.send("ERROR: bad parms in call to AddNPC\n");
-		return -1;
+		return NULL;
 	}
 
 	P_ITEM pBackpack = NULL;
@@ -942,7 +938,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 	Script *pScpBase=i_scripts[npc_script];
 	sprintf(sect, "NPC %i", npcNum);
 	Script *pScp=pScpBase->Select(sect,custom_npc_script);
-	if (!pScp) return -1;
+	if (!pScp) return NULL;
 	
 	unsigned long loopexit=0;
 	do
@@ -952,30 +948,8 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 		{
 			if (!(strcmp("NPCLIST", (char*)script1)))
 			{
-				scpMark m=pScp->Suspend();
-
-//				if (postype==1 || postype==3)	// we have a pos from item or parms
-//				{
-					npcNum=Npcs->AddRandomNPC(s,(char*)script2,1);
-					sprintf(sect, "NPC %i", npcNum);
-					if (npcNum==-1) 
-					{ 
-						pScp->Close();
-						return -1;
-					}
-/*				}
-				else
-				{
-					npcNum=Npcs->AddRandomNPC(s,script2,-1);	// ask for position
-					if (npcNum==-1) 
-					{
-						closescript(); // AC
-						return -1;
-					}
-				}
-				//AntiChrist */
-				pScp->Resume(m);
-				break;  //got the NPC number to add stop reading
+				pScp->Close();
+				return Npcs->AddRandomNPC(s,(char*)script2,1);
 			}
 		}
 	} while ( (script1[0]!='}') && (++loopexit < MAXLOOPS) );
@@ -986,8 +960,8 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 	// Now lets spawn him/her
 	//
 	c=Npcs->MemCharFree ();
-	if(c==-1) return -1;
-	P_CHAR pc_c = MAKE_CHARREF_LRV(c,-1);
+	if(c==-1) return NULL;
+	P_CHAR pc_c = MAKE_CHARREF_LRV(c,NULL);
 	pc_c->Init();
 	
 
@@ -1001,7 +975,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 	if (!pScp)
 	{
 		Npcs->DeleteChar(pc_c);
-		return -1;
+		return NULL;
 	}
 
 	loopexit=0;
@@ -1032,7 +1006,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 					if(pBackpack == NULL)
 					{
 						Npcs->DeleteChar(pc_c);
-						return -1;
+						return NULL;
 					}
 					pc_c->packitem = pBackpack->serial;
 					pBackpack->pos.x=0;
@@ -1162,7 +1136,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
 					if(!pGold)
 					{
 						Npcs->DeleteChar(pc_c);
-						return -1;
+						return NULL;
 					}
 					pScp->Resume(m);
 
@@ -1686,7 +1660,7 @@ int cCharStuff::AddNPC(int s, P_ITEM pi_i, int npcNum, int x1, int y1, signed ch
    //Char mapRegions
    mapRegions->Remove(pc_c);
    mapRegions->Add(pc_c);
-   return DEREF_P_CHAR(pc_c);
+   return pc_c;
 }
 
 void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat

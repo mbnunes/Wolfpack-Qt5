@@ -180,7 +180,7 @@ public:
 	void IDtarget(int s);
 	void MultiTarget(P_CLIENT ps);
 	void Wiping(int s);
-	int NpcMenuTarget(int s);
+	P_CHAR NpcMenuTarget(int s);
 	bool NpcResurrectTarget(P_CHAR pc);
 	void JailTarget(int s, int c);
 	void ReleaseTarget(int s, int c);
