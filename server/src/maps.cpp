@@ -81,6 +81,8 @@ MapsPrivate::MapsPrivate( const QString& index, const QString& map, const QStrin
 	staticsfile.setName( statics );
 	if ( !staticsfile.open( IO_ReadOnly ) )
 		throw wpFileNotFoundException( QString("Couldn't open file %1").arg( statics ) );
+	staticsCache.setAutoDelete( true );
+	mapCache.setAutoDelete( true );
 }
 
 map_st MapsPrivate::seekMap( ushort x, ushort y )
