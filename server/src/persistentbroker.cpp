@@ -241,7 +241,7 @@ QString PersistentBroker::quoteString( QString s )
 		return "";
 	
 	if( d->sqlite )
-		return s.replace( QRegExp("'"), "''" ).utf8().data();
+		return s.replace( "'", "''" ).utf8().data();
 	else
-		return s.replace( QRegExp("'"), "\\'" ).utf8().data();
+		return s.replace( "'", "\\'" ).utf8().data();
 }
