@@ -105,7 +105,7 @@ public:
 	virtual bool onChat( void ); // The character wants to chat
 	virtual bool onShowContext( cUObject *object ); // Shows a context menu for a specific item
 	bool onPickup( P_ITEM pItem );
-	bool onSkillGain( UI08 Skill, SI32 min, SI32 max, bool success );
+
 
 	// getters
     AccountRecord*			account() const;

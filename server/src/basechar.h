@@ -151,6 +151,8 @@ public:
 	bool onDropOnChar( P_ITEM pItem );
 	QString onShowPaperdollName( P_CHAR pOrigin ); // only change the viewed name
 	virtual bool onShowTooltip( P_PLAYER sender, cUOTxTooltipList* tooltip ); // Shows a tool tip for specific object
+	bool onSkillGain( UI08 Skill, SI32 min, SI32 max, bool success );
+	bool onStatGain( UI08 stat, SI08 amount );
 
 	// getters
     SERIAL			attackerSerial() const;

@@ -88,7 +88,7 @@ cBaseChar::cBaseChar()
 	stealthedSteps_		= -1;
 	runningSteps_		= 0;
 	murdererTime_		= 0;
-	criminalTime_		= -1;
+	criminalTime_		= 0;
 	nextHitTime_		= 0;
 	skillDelay_			= 0;
 	poison_				= 0;
@@ -1842,6 +1842,44 @@ void cBaseChar::callGuards()
 			}
 		}
 	}
+}
+
+bool cBaseChar::onSkillGain( UI08 Skill, SI32 min, SI32 max, bool success )
+{
+	// If we got ANY events process them in order
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onSkillGain( this, Skill, min, max, success ) )
+			return true;
+
+	// Try to process the hooks then
+	QValueVector< WPDefaultScript* > hooks;
+	QValueVector< WPDefaultScript* >::const_iterator it;
+
+	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_SKILLGAIN );
+	for( it = hooks.begin(); it != hooks.end(); ++it )
+		if( (*it)->onSkillGain( this, Skill, min, max, success ) )
+			return true;
+
+	return false;
+}
+
+bool cBaseChar::onStatGain( UI08 stat, SI08 amount )
+{
+	// If we got ANY events process them in order
+	for( UI08 i = 0; i < scriptChain.size(); i++ )
+		if( scriptChain[ i ]->onStatGain( this, stat, amount ) )
+			return true;
+
+	// Try to process the hooks then
+	QValueVector< WPDefaultScript* > hooks;
+	QValueVector< WPDefaultScript* >::const_iterator it;
+
+	hooks = ScriptManager->getGlobalHooks( OBJECT_CHAR, EVENT_STATGAIN );
+	for( it = hooks.begin(); it != hooks.end(); ++it )
+		if( (*it)->onStatGain( this, stat,amount ) )
+			return true;
+
+	return false;
 }
 
 

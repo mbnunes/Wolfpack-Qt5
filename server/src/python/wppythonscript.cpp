@@ -282,6 +282,18 @@ bool WPPythonScript::onSkillGain( P_CHAR Character, UI08 Skill, SI32 min, SI32 m
 	PyEvalMethod( "onSkillGain" )
 }
 
+bool WPPythonScript::onStatGain( P_CHAR Character, UI08 stat, SI08 amount )
+{
+	PyHasMethod( "onStatGain" )
+
+	PyObject *tuple = PyTuple_New( 3 );
+	PyTuple_SetItem( tuple, 0, PyGetCharObject( Character ) );
+	PyTuple_SetItem( tuple, 1, PyInt_FromLong( stat ) );
+	PyTuple_SetItem( tuple, 2, PyInt_FromLong( amount ) );
+
+	PyEvalMethod( "onStatGain" )
+}
+
 bool WPPythonScript::onContextEntry( P_CHAR pChar, cUObject *pObject, UINT16 id )
 {
 	PyHasMethod( "onContextEntry" )

@@ -1499,7 +1499,11 @@ bool cSkills::advanceStats( P_CHAR pChar, UINT16 skill ) const
 		{
 			if( advStrength[i].base <= realStr && ( advStrength[ i ].success >= RandomNum( 0, 10000 ) ) )
 			{
-				pChar->setStrength( pChar->strength() + 1 );
+				if( !pChar->onStatGain(0, 1) ) 
+				{
+					pChar->setStrength( pChar->strength() + 1 );
+					pChar->setMaxHitpoints( pChar->maxHitpoints() + 1 );
+				}
 				gained = true;
 				break;
 			}
@@ -1512,7 +1516,11 @@ bool cSkills::advanceStats( P_CHAR pChar, UINT16 skill ) const
 		{
 			if( advDexterity[i].base <= realDex && ( advDexterity[ i ].success >= RandomNum( 0, 10000 ) ) )
 			{
-				pChar->setDexterity( pChar->dexterity() + 1 );
+				if( !pChar->onStatGain(1, 1) ) 
+				{
+					pChar->setDexterity( pChar->dexterity() + 1 );
+					pChar->setMaxStamina( pChar->maxStamina() + 1 );
+				}
 				gained = true;
 				break;
 			}
@@ -1525,7 +1533,11 @@ bool cSkills::advanceStats( P_CHAR pChar, UINT16 skill ) const
 		{
 			if( advIntelligence[i].base <= realInt && ( advIntelligence[ i ].success >= RandomNum( 0, 10000 ) ) )
 			{
-				pChar->setIntelligence( pChar->intelligence() + 1 );
+				if( !pChar->onStatGain(2, 1) ) 
+				{
+					pChar->setIntelligence( pChar->intelligence() + 1 );
+					pChar->setMaxMana( pChar->maxMana() + 1 );
+				}
 				gained = true;
 				break;
 			}
@@ -1552,7 +1564,7 @@ bool cSkills::advanceSkill( P_CHAR pChar, UINT16 skill, SI32 min, SI32 max, bool
 
 	P_PLAYER pPlayer = dynamic_cast<P_PLAYER>(pChar);
 
-	if (pPlayer->onSkillGain(skill, min, max, success ) ) 
+	if (pChar->onSkillGain(skill, min, max, success ) ) 
 		return true;
 
 	// For GMs there is no LockState
