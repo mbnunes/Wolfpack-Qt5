@@ -100,7 +100,8 @@ void cCharStuff::Split(P_CHAR pc_k) // For NPCs That Split during combat
 
 	if ( pc_k == NULL ) return;
 	
-	P_CHAR pc_c = new cChar(*pc_k);
+	//P_CHAR pc_c = new cChar(*pc_k);
+	P_CHAR pc_c = new cChar( pc_k );
 	if ( pc_c == NULL ) return;
 //	pc_c->Init();
 	pc_c->setSerial(CharsManager::instance()->getUnusedSerial());

@@ -223,6 +223,19 @@ public:
 		return values_;
 	}
 
+	bool getChanged( void )
+	{
+		return changed;
+	}
+
+	void setChanged( bool ch )
+	{
+		changed = ch;
+	}
+
+	cCustomTags& operator=( const cCustomTags& );
+
+
 private:
 	std::map< QString, cVariant > tags_;
 	bool changed;

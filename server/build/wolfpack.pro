@@ -22,8 +22,8 @@ win32-msvc:TMAKE_CXXFLAGS = /J /nologo /ML /W3 /GX /O2 /YX /FD /c
 win32-borland:TMAKE_CXXFLAGS =  -K -6 -q -x -WM -w-8057 -w-8066 -w-8060 -w-8027 -w-8059 -w-8004 -w-8012
 win32-borland:LIBS = ws2_32.lib lib/ZThread/lib/ZThread.lib
 
-unix:INCLUDEPATH += lib/Python/Include lib/ZThread/include lib/Python /usr/include/mysql
-unix:LIBS  = -Llib/ZThread/lib -Llib/Python -Lmysql -ldl -lZThread -lpython2.2 -lmysqlclient -lutil
+unix:INCLUDEPATH += /usr/local/include/stlport lib/Python/Include lib/ZThread/include lib/Python /usr/include/mysql
+unix:LIBS  = -L/usr/local/lib -Llib/ZThread/lib -Llib/Python -L/usr/lib/mysql -ldl -lZThread -lpython2.2 -lmysqlclient -lutil -lstlport_gcc
 unix:TMAKE_CXXFLAGS = -funsigned-char
 
 HEADERS         = \
@@ -186,8 +186,8 @@ SOURCES         = \
 		  walking.cpp \
 		  packlen.cpp \
 		  wpdefmanager.cpp \
-		  wpscriptmanager.cpp \
 		  wpdefaultscript.cpp \
+		  wpscriptmanager.cpp \
 		  wptargetrequests.cpp \
 		  newmagic.cpp \
 		  spellbook.cpp

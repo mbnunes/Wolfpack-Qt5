@@ -241,7 +241,7 @@ void cAllTerritories::load( void )
 	{
 		const QDomElement* DefSection = DefManager->getSection( WPDT_REGION, *it );
 		cTerritory* territory = new cTerritory( *DefSection, 0 );
-		if ( territory->rectangles().isEmpty() )
+		if ( territory->rectangles().empty() )
 		{
 			clConsole.send( tr("Warning: Top level region %1 lacks rectangle tag, ignoring region").arg(territory->name()) );
 			delete territory;

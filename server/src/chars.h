@@ -53,6 +53,7 @@ class QString;
 class cUOSocket;
 class cGuildStone;
 class cTerritory;
+class cAllTerritories;
 class cTempEffect;
 class AccountRecord;
 
@@ -277,6 +278,7 @@ protected:
 	// Public Methods
 public:
 	cChar();
+	cChar( const P_CHAR );
 	virtual QString objectID() const;
 	static void registerInFactory();
 	void load( char **, UINT16& );

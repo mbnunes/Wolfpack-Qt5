@@ -157,7 +157,7 @@ void signal_handler(int signal)
 
 					if( pChar )
 					{
-						cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y );
+						cTerritory *region = cAllTerritories::getInstance()->region( pChar->pos.x, pChar->pos.y, pChar->pos.map );
 						pChar->setRegion( region );
 					}
 				}

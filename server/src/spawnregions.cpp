@@ -395,7 +395,7 @@ void cAllSpawnRegions::load( void )
 
 		cSpawnRegion* toinsert_ = new cSpawnRegion( *DefSection );
 		this->insert( make_pair(*it, toinsert_) );
-		if ( toinsert_->cBaseRegion::rectangles().isEmpty() )
+		if ( toinsert_->cBaseRegion::rectangles().empty() )
 		{
 			clConsole.send( tr("Warning: Top level spawnregion %1 lacks rectangle tag, ignoring region").arg(toinsert_->name()) );
 			delete toinsert_;

@@ -624,6 +624,19 @@ bool cVariant::operator!=( const cVariant &v ) const
     return !( v == *this );
 }
 
+cCustomTags& cCustomTags::operator=( const cCustomTags& tags)
+{
+	cCustomTags& other = (cCustomTags&)tags;
+	QStringList keys = other.getKeys();
+	std::vector< cVariant > values = other.getValues();
+	for( int i=0; i<other.size(); i++)
+	{
+		this->set( keys[ i ], values[ i ] );
+	}
+	this->setChanged( other.getChanged() );
+	return *this;
+}
+
 void cCustomTags::del( SERIAL key )
 {
 	persistentBroker->addToDeleteQueue( "tags", QString( "serial = '%1'" ).arg( key ) );
