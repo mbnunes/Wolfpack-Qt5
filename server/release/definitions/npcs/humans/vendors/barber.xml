@@ -11,7 +11,7 @@
 	<npc id="barber_male">
 		<inherit>base_male</inherit>
 		<title>the Barber</title>
-		<events>speech_barber</events>
+		<events>speech.barber</events>
 		<category>Vendors\Barber (Male)</category>
 		<invulnerable />
 	</npc>
@@ -19,9 +19,8 @@
 	<npc id="barber_female">
 		<inherit>base_female</inherit>
 		<title>the Barber</title>
-		<events>speech_barber</events>
+		<events>speech.barber</events>
 		<category>Vendors\Barber (Female)</category>
 		<invulnerable />
 	</npc>
-	
 </definitions>

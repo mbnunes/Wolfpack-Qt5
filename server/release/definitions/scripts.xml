@@ -37,6 +37,9 @@
 	<script>keyring</script>
 	<script>ore</script>
 
+  <!-- Deeds -->
+  <script>deeds.hairstyle</script>
+
 	<!-- Commands -->
 	<script>wolfpack.commands</script>
 	<script>wolfpack.commands.action</script>
@@ -97,7 +100,6 @@
 	<!-- Speech Scripts -->
 	<script>speech.pets</script>
 	<script>speech.banker</script>
-	<script>speech.barber</script>
 	<script>speech.stablemaster</script>
 
 	<!-- System Scripts -->
