@@ -38,7 +38,7 @@ def sendGump( char, item ):
 	# trammel
 	gateGump.startPage( 1 )
 	gateGump.addBackground( 9200, 300, 255 )
-	gateGump.addText( 40, 40, "Pick your destination: (Trammel)" )
+	gateGump.addText( 40, 40, "Pick your destination:" )
 	gateGump.addButton( 47, 207, 0xFA5, 0xFA7, 0 )
 	gateGump.addText( 80, 210, "CANCEL" )
 	# facets
@@ -68,45 +68,45 @@ def sendGump( char, item ):
 	# felucca
 	gateGump.startPage( 2 )
 	gateGump.addBackground( 9200, 300, 255 )
-	gateGump.addText( 40, 40, "Pick your destination: (Felucca)" )
+	gateGump.addText( 40, 40, "Pick your destination:" )
 	gateGump.addButton( 47, 207, 0xFA5, 0xFA7, 0 )
-	gateGump.addText( 80, 210, "CANCEL " )
+	gateGump.addText( 80, 210, "CANCEL" )
 	# facets
-	gateGump.addText( 70, 70, "Trammel " )
+	gateGump.addText( 70, 70, "Trammel" )
 	gateGump.addPageButton( 48, 72, 0x4B9, 0x4BA, 1 )
-	gateGump.addText( 70, 90, "Felucca ", 12 )
+	gateGump.addText( 70, 90, "Felucca", 12 )
 	gateGump.addPageButton( 48, 95, 0x4B9, 0x4BA, 2 )
-	gateGump.addText( 70, 110, "Ilshenar " )
+	gateGump.addText( 70, 110, "Ilshenar" )
 	gateGump.addPageButton( 48, 115, 0x4B9, 0x4BA, 3 )
 	# gates
-	gateGump.addText( 170, 70, "Britain " )
+	gateGump.addText( 170, 70, "Britain" )
 	gateGump.addButton( 150, 75, 0x837, 0x838, 13 )
-	gateGump.addText( 170, 90, "Magincia " )
+	gateGump.addText( 170, 90, "Magincia" )
 	gateGump.addButton( 150, 95, 0x837, 0x838, 14 )
-	gateGump.addText( 170, 110, "Moonglow " )
+	gateGump.addText( 170, 110, "Moonglow" )
 	gateGump.addButton( 150, 115, 0x837, 0x838, 15 )
-	gateGump.addText( 170, 130, "Skara Brae " )
+	gateGump.addText( 170, 130, "Skara Brae" )
 	gateGump.addButton( 150, 135, 0x837, 0x838, 16 )
-	gateGump.addText( 170, 150, "Trinsic " )
+	gateGump.addText( 170, 150, "Trinsic" )
 	gateGump.addButton( 150, 155, 0x837, 0x838, 17 )
-	gateGump.addText( 170, 170, "Vesper " )
+	gateGump.addText( 170, 170, "Vesper" )
 	gateGump.addButton( 150, 175, 0x837, 0x838, 18 )
-	gateGump.addText( 170, 190, "Yew " )
+	gateGump.addText( 170, 190, "Yew" )
 	gateGump.addButton( 150, 195, 0x837, 0x838, 19 )
 	gateGump.addText( 170, 210, "Jhelom " )
 	gateGump.addButton( 150, 215, 0x837, 0x838, 20 )
 	# ilshenar
 	gateGump.startPage( 3 )
 	gateGump.addBackground( 9200, 300, 255 )
-	gateGump.addText( 40, 40, "Pick your destination: (Ilshenar)" )
+	gateGump.addText( 40, 40, "Pick your destination:" )
 	gateGump.addButton( 47, 207, 0xFA5, 0xFA7, 0 )
-	gateGump.addText( 80, 210, "CANCEL  " )
+	gateGump.addText( 80, 210, "CANCEL" )
 	# facets
-	gateGump.addText( 70, 70, "Trammel  " )
+	gateGump.addText( 70, 70, "Trammel" )
 	gateGump.addPageButton( 48, 72, 0x4B9, 0x4BA, 1 )
-	gateGump.addText( 70, 90, "Felucca  " )
+	gateGump.addText( 70, 90, "Felucca" )
 	gateGump.addPageButton( 48, 95, 0x4B9, 0x4BA, 2 )
-	gateGump.addText( 70, 110, "Ilshenar  ", 12 ) 
+	gateGump.addText( 70, 110, "Ilshenar", 12 ) 
 	gateGump.addPageButton( 48, 115, 0x4B9, 0x4BA, 3 )
 	# #gates
 	gateGump.addText( 170, 70, "Compassion" )
@@ -211,6 +211,7 @@ def gateCallback( char, args, target ):
 		coord = [ 528, 219, -42, 2 ]
 	elif( button == 29 ):
 		coord = [ 1721, 218, 96, 2 ]
+	char.soundeffect( 0x1fc )
 	char.removefromview()
 	char.moveto( coord[0], coord[1], coord[2], coord[3] )
 	char.update()
@@ -223,10 +224,12 @@ def gateCallback( char, args, target ):
 			follower = char.followers[i]
 			# only transport follower which is within 5 tile from the character
 			if( char.distanceto( follower ) < 5 ):
+				follower.removefromview()
 				follower.moveto( coord[0], coord[1], coord[2], coord[3] )
 				follower.update()
 				follower.effect( 0x372a )
 			# else it will not follow him/her
 			else:
 				char.removefollower( follower )
+	char.socket.resendworld()
 	return 1
