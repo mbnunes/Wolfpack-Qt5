@@ -14,6 +14,7 @@ from wolfpack.utilities import *
 
 #mining calling from pickaxe.py and shovel.py
 
+oresound = 0x126
 
 # Name, reqSkill, minSkill, maxSkill, successClilocId, itemId, color, mutateVeinChance%, VeinChanceToFallback%
 
@@ -61,6 +62,10 @@ def mining( char, pos, tool ):
    reqskill = oretable[ resname ][ REQSKILL ]
 
    success = 0
+   char.addtimer( 1400, "skills.mining.effecttimer", [oresound] )
+   char.turnto( pos )
+   char.action( 11 )
+
    # Are you skilled enough ? And here is ore ?
    if resourcecount > 2 and char.skill[ MINING ] > reqskill:
       # Anyway you haven't 100% chance to get something :)
@@ -146,4 +151,9 @@ def response( char, args, target ):
    else:
       return OOPS
 
+   return OK
+
+#Sound effect
+def effecttimer( char, args ):
+   char.soundeffect( args[0] )
    return OK
