@@ -88,7 +88,7 @@ class Teleport(Spell):
 		# of the coord to the nearest top
 		if (not target.validspawnspot() or wolfpack.findmulti(target)) and not char.gm:		
 			if char.socket:
-				char.socketclilocmessage(501942)
+				char.socket.clilocmessage(501942)
 			return
 
 		# Line of Sight (touch!! or else we can teleport trough windows)

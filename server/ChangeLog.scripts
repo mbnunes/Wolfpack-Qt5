@@ -39,6 +39,7 @@ Wolfpack 12.9.12 Beta (CVS)
 		- Allowed decorating only one facet using .decoration <map>.
 		- The character info page now logs every changed property.
 		- The characters weight is now being resent on lumberjacking and other skills.
+		- Fixed bug #0000346. (Unmovable items crafted by carpenters)
 	* Misc. Changes:
 	* Known Issues, Bugs, and Missing Features:
 		- Some skills are still incomplete.

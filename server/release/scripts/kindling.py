@@ -49,7 +49,6 @@ def onUse( char, item ):
 	campfire = wolfpack.additem( "de3" )
 	campfire.moveto( pos )
 	campfire.decay = True
-	#campfire.decaytime = wolfpack.time.servertime() + ( 2 * 60 * 1000 ) # Decays in 2 Minutes
 	campfire.update()
 
 	# Delete the kindlings
