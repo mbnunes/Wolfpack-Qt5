@@ -506,7 +506,7 @@ PyObject* wpItem_addtimer( wpItem* self, PyObject* args )
 	effect->setExpiretime_ms( expiretime );
 	TempEffects::instance()->insert( effect );
 
-	return PyFalse;
+	return PyTrue;
 }
 
 /*!
