@@ -133,9 +133,9 @@ cBaseChar& cBaseChar::operator=( const cBaseChar& right )
 	return *this;
 }
 
-void cBaseChar::buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions )
+void cBaseChar::buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions )
 {
-	cUObject::buildSqlString( fields, tables, conditions );
+	cUObject::buildSqlString( objectid, fields, tables, conditions );
 	fields.push_back( "characters.name,characters.title,characters.creationdate" );
 	fields.push_back( "characters.body,characters.orgbody,characters.skin" );
 	fields.push_back( "characters.orgskin,characters.saycolor" );

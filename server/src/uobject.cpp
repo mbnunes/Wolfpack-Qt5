@@ -98,10 +98,6 @@ cUObject::cUObject( const cUObject& src )
 	changed_ = true;
 }
 
-void cUObject::init()
-{
-}
-
 void cUObject::moveTo( const Coord_cl& newpos, bool noRemove )
 {
 	// See if the map is valid
@@ -267,12 +263,14 @@ bool cUObject::del()
 /*!
 	Builds the SQL string needed to retrieve all objects of this type.
 */
-void cUObject::buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions )
+void cUObject::buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions )
 {
 	// We are requiring fixed order by now, so this *is* possible
 	fields.push_back( "uobject.name,uobject.serial,uobject.multis,uobject.pos_x,uobject.pos_y,uobject.pos_z,uobject.pos_map,uobject.events,uobject.havetags" );
 	tables.push_back( "uobject" );
+	tables.push_back( "uobjectmap" );
 	conditions.push_back( "uobjectmap.serial = uobject.serial" );
+	conditions.push_back( QString("uobjectmap.type = '%1'").arg(objectid) );
 }
 
 /*!
@@ -1062,8 +1060,7 @@ void cUObject::setEventList( const QString& eventlist )
 	}
 }
 
-void cUObject::save( cBufferedWriter& writer )
-{
+void cUObject::save(cBufferedWriter& writer) {
 	writer.setObjectCount( writer.objectCount() + 1 );
 	writer.writeByte( getClassid() );
 

@@ -45,6 +45,10 @@ protected:
 	QPtrList<cUObject> objects;
 
 public:
+	static void setClassid(unsigned char id) {
+		cMulti::classid = id;
+	}
+
 	unsigned char getClassid()
 	{
 		return cMulti::classid;
@@ -58,7 +62,9 @@ public:
 	cMulti();
 	virtual ~cMulti();
 
-	/*static void buildSqlString(QStringList &fields, QStringList &tables, QStringList &conditions);
+
+	static void buildSqlString(const char *objectid, QStringList &fields, QStringList &tables, QStringList &conditions);
+	/*
 	void load( char **, UINT16& );
 	void save();
 	bool del();*/
@@ -66,9 +72,6 @@ public:
 
 	// Find at certain position
 	static cMulti* find( const Coord_cl& pos );
-
-	// Register in load factory
-	static void registerInFactory();
 
 	// Property Interface Methods
 	stError* setProperty( const QString& name, const cVariant& value );

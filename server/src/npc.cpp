@@ -84,25 +84,13 @@ cNPC& cNPC::operator=( const cNPC& right )
 	return *this;
 }
 
-static cUObject* productCreator()
-{
-	return new cNPC;
-}
-
-void cNPC::registerInFactory()
-{
-	QStringList fields, tables, conditions;
-	buildSqlString( fields, tables, conditions ); // Build our SQL string
-	QString sqlString = QString( "SELECT %1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cNPC' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
-	UObjectFactory::instance()->registerType( "cNPC", productCreator );
-	classid = UObjectFactory::instance()->registerSqlQuery( "cNPC", sqlString );
-}
+static FactoryRegistration<cNPC> registration("cNPC");
 
 unsigned char cNPC::classid;
 
-void cNPC::buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions )
+void cNPC::buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions )
 {
-	cBaseChar::buildSqlString( fields, tables, conditions );
+	cBaseChar::buildSqlString( objectid, fields, tables, conditions );
 	fields.push_back( "npcs.summontime,npcs.additionalflags,npcs.owner" );
 	fields.push_back( "npcs.stablemaster" );
 	fields.push_back( "npcs.ai,npcs.wandertype" );

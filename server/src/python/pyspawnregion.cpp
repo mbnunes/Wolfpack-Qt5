@@ -107,6 +107,8 @@ static PyObject* wpSpawnRegion_spawn( wpSpawnRegion* self, PyObject* args )
 	{
 		return 0;
 	}
+	
+	Py_RETURN_NONE;
 }
 
 static PyMethodDef wpSpawnRegionMethods[] =

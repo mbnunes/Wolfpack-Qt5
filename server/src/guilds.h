@@ -39,7 +39,7 @@
 /*!
 	\brief This class represents a guild and all associated information.
 */
-class cGuild : public cPythonScriptable
+class cGuild : public cPythonScriptable, public PersistentObject
 {
 public:
 	enum eAlignment
@@ -129,7 +129,23 @@ private:
 	QPtrList<cPlayer> members_;
 	QPtrList<cPlayer> canidates_;
 	QMap<P_PLAYER, MemberInfo*> memberinfo_;
+
+	static unsigned char classid;
 public:
+	static void registerInFactory();
+
+	static void setClassid(unsigned char id) {
+		cGuild::classid = id;
+	}
+
+	unsigned char getClassid() const {
+		return cGuild::classid;
+	}
+
+	const char* objectID() const {
+		return "cGuild";
+	}
+
 	/*!
 		\brief Creates a new guild.
 	*/
@@ -153,6 +169,11 @@ public:
 		\param result The resultset for this guild.
 	*/
 	void load( const cDBResult& result );
+
+	/*
+		Build a sql string for loading all objects of this type from the database.
+	*/
+	static void buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
 
 	/*!
 		\returns The guildstone for this guild. May be NULL.
@@ -353,6 +374,13 @@ public:
 			return memberinfo_.find( player ).data();
 		}
 	}
+
+	// Wrappers
+	void load( cBufferedReader& reader );
+	void save( cBufferedWriter& reader );
+	void load( cBufferedReader& reader, unsigned int version );
+	void save( cBufferedWriter& reader, unsigned int version );
+	void postload( unsigned int version );
 
 	// Methods inherited from cPythonScriptable
 	const char* className() const;

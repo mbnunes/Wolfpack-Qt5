@@ -42,7 +42,6 @@ class cUOSocket;
 class cCorpse : public cItem
 {
 private:
-	static void buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions );
 	bool changed_;
 	static unsigned char classid;
 
@@ -61,9 +60,15 @@ protected:
 	// The meaning of this is that even if the items are inside of the corpse
 	// they're displayed as equipment
 public:
+	static void buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
+
 	unsigned char getClassid()
 	{
 		return cCorpse::classid;
+	}
+
+	static void setClassid(unsigned char id) {
+		cCorpse::classid = id;
 	}
 
 	cCorpse( bool init = false );
@@ -108,7 +113,6 @@ public:
 	}
 
 	// DB Serialization
-	static void registerInFactory();
 	void load( char**, UINT16& );
 	void save();
 	bool del();

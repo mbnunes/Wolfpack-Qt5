@@ -49,3 +49,9 @@ void PersistentObject::save()
 {
 	isPersistent = true;
 }
+
+void PersistentObject::postload( unsigned int version ) {
+}
+
+static void buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions ) {
+}

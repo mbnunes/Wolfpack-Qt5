@@ -61,6 +61,10 @@ PyObject* cMulti::getPyObject()
 	return cItem::getPyObject();
 }
 
+void cMulti::buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions ) {
+	cItem::buildSqlString(objectid, fields, tables, conditions);
+}
+
 const char* cMulti::className() const
 {
 	return "multi";
@@ -149,19 +153,7 @@ bool cMulti::inMulti( const Coord_cl& pos )
 	return false;
 }
 
-static cUObject* productCreator()
-{
-	return new cMulti;
-}
-
-void cMulti::registerInFactory()
-{
-	QStringList fields, tables, conditions;
-	cItem::buildSqlString( fields, tables, conditions ); // Build our SQL string
-	QString sqlString = QString( "SELECT %1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cMulti' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
-	UObjectFactory::instance()->registerType( "cMulti", productCreator );
-	classid = UObjectFactory::instance()->registerSqlQuery( "cMulti", sqlString );
-}
+static FactoryRegistration<cMulti> registration("cMulti");
 
 unsigned char cMulti::classid;
 

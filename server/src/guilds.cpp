@@ -32,6 +32,8 @@
 #include "world.h"
 #include "items.h"
 
+unsigned char cGuild::classid;
+
 cGuilds::~cGuilds()
 {
 	for ( iterator it = begin(); it != end(); ++it )
@@ -58,12 +60,11 @@ unsigned int cGuilds::findFreeSerial()
 void cGuilds::save()
 {
 	// Clear the tables first: guilds are not saved incremental.
-	PersistentBroker::instance()->executeQuery( "DELETE FROM guilds;" );
-	PersistentBroker::instance()->executeQuery( "DELETE FROM guilds_members;" );
-	PersistentBroker::instance()->executeQuery( "DELETE FROM guilds_canidates;" );
+		PersistentBroker::instance()->executeQuery( "DELETE FROM guilds;" );
+		PersistentBroker::instance()->executeQuery( "DELETE FROM guilds_members;" );
+		PersistentBroker::instance()->executeQuery( "DELETE FROM guilds_canidates;" );
 
-	for ( iterator it = begin(); it != end(); ++it )
-	{
+	for (iterator it = begin(); it != end(); ++it) {
 		it.data()->save();
 	}
 }
@@ -77,7 +78,6 @@ void cGuilds::load()
 	{
 		cGuild* guild = new cGuild( false );
 		guild->load( result );
-		registerGuild( guild );
 	}
 
 	result.free();
@@ -137,6 +137,8 @@ void cGuild::load( const cDBResult& result )
 	{
 		leader_ = 0;
 	}
+
+	Guilds::instance()->registerGuild(this);
 }
 
 void cGuild::save()
@@ -886,3 +888,29 @@ PyObject* cGuild::getPyObject()
 	returnVal->guild = this;
 	return ( PyObject * ) returnVal;
 }
+
+void cGuild::registerInFactory() {
+	classid = BinaryTypemap::instance()->registerType("cGuild");
+}
+
+void cGuild::load( cBufferedReader& reader ) {
+}
+
+void cGuild::save( cBufferedWriter& reader ) {
+}
+
+void cGuild::load( cBufferedReader& reader, unsigned int version ) {
+}
+
+void cGuild::save( cBufferedWriter& reader, unsigned int version ) {
+}
+
+void cGuild::postload( unsigned int version ) {
+}
+
+void cGuild::buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions ) {
+	fields.append("serial,name,abbreviation,charta,website,alignment,leader,founded,guildstone");
+	tables.append("guilds");
+}
+
+static FactoryRegistration< cGuild > registration("cGuild");

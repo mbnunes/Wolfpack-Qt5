@@ -1999,13 +1999,9 @@ void cUOSocket::sendContainer( P_ITEM pCont )
 		++count;
 	}
 
-	if ( pCont->objectID() == QString( "cCorpse" ) )
-	{
-		cCorpse* pCorpse = dynamic_cast<cCorpse*>( pCont );
+	cCorpse* pCorpse = dynamic_cast<cCorpse*>(pCont);
 
-		if ( !pCorpse )
-			return;
-
+	if (pCorpse) {
 		if ( pCorpse->hairStyle() )
 		{
 			itemContent.addItem( 0x4FFFFFFE, pCorpse->hairStyle(), pCorpse->hairColor(), 0, 0, 1, pCorpse->serial() );

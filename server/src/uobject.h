@@ -79,8 +79,7 @@ protected:
 	cSpawnRegion *spawnregion_;
 
 	// Things for building the SQL string
-	static void buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions );
-	void init();
+	static void buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
 
 	enum eChanged
 	{
@@ -128,13 +127,13 @@ public:
 	bool del();
 
 	// Wrapper
-	virtual void load( cBufferedReader& reader ) = 0;
-	virtual void save( cBufferedWriter& reader );
+	void load( cBufferedReader& reader ) = 0;
+	void save( cBufferedWriter& reader );
 
 	// "Real" ones
-	virtual void load( cBufferedReader& reader, unsigned int version );
-	virtual void save( cBufferedWriter& reader, unsigned int version );
-	virtual void postload( unsigned int version ) = 0;
+	void load( cBufferedReader& reader, unsigned int version );
+	void save( cBufferedWriter& reader, unsigned int version );
+	void postload( unsigned int version ) = 0;
 
 	// Utility Methods
 	void effect( UINT16 id, UINT8 speed = 10, UINT8 duration = 5, UINT16 hue = 0, UINT16 renderMode = 0 ); // Moving with this character
@@ -236,56 +235,5 @@ public:
 	PyObject* getProperty( const QString& name );
 };
 #pragma pack()
-
-class cUObjectFactory : public Factory<cUObject, QString>
-{
-public:
-	cUObjectFactory()
-	{
-		lastid = 0;
-	}
-
-	unsigned int registerSqlQuery( const QString& type, const QString& query )
-	{
-		sql_queries.insert( std::make_pair( type, query ) );
-		sql_keys.push_back( type );
-
-		if ( lastid + 1 < lastid )
-		{
-			throw wpException( "Only 256 types can be registered with the UObject factory." );
-		}
-
-		typemap.insert( lastid, type );
-		return lastid++;
-	}
-
-	QString findSqlQuery( const QString& type ) const
-	{
-		std::map<QString, QString>::const_iterator iter = sql_queries.find( type );
-
-		if ( iter == sql_queries.end() )
-			return QString::null;
-		else
-			return iter->second;
-	}
-
-	QStringList objectTypes() const
-	{
-		return sql_keys;
-	}
-
-	const QMap<unsigned char, QString>& getTypemap()
-	{
-		return typemap;
-	}
-
-private:
-	std::map<QString, QString> sql_queries;
-	QMap<unsigned char, QString> typemap;
-	QStringList sql_keys;
-	unsigned char lastid;
-};
-
-typedef SingletonHolder<cUObjectFactory> UObjectFactory;
 
 #endif // __UOBJECT_H__

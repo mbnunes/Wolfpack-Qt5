@@ -84,25 +84,13 @@ cPlayer& cPlayer::operator=( const cPlayer& right )
 	return *this;
 }
 
-static cUObject* productCreator()
-{
-	return new cPlayer;
-}
-
-void cPlayer::registerInFactory()
-{
-	QStringList fields, tables, conditions;
-	buildSqlString( fields, tables, conditions ); // Build our SQL string
-	QString sqlString = QString( "SELECT %1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cPlayer' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
-	UObjectFactory::instance()->registerType( "cPlayer", productCreator );
-	classid = UObjectFactory::instance()->registerSqlQuery( "cPlayer", sqlString );
-}
+static FactoryRegistration<cPlayer> registration("cPlayer");
 
 unsigned char cPlayer::classid;
 
-void cPlayer::buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions )
+void cPlayer::buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions )
 {
-	cBaseChar::buildSqlString( fields, tables, conditions );
+	cBaseChar::buildSqlString( objectid, fields, tables, conditions );
 	fields.push_back( "players.account,players.additionalflags,players.visualrange" );
 	fields.push_back( "players.profile,players.fixedlight" );
 	fields.push_back( "players.strlock,players.dexlock,players.intlock" );

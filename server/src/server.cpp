@@ -441,13 +441,6 @@ void cServer::setupConsole()
 
 void cServer::load()
 {
-	// Registers our Built-in types into factory.
-	cPlayer::registerInFactory();
-	cMulti::registerInFactory();
-	cNPC::registerInFactory();
-	cItem::registerInFactory();
-	cCorpse::registerInFactory();
-
 	// NPC AI types
 	Monster_Aggressive_L0::registerInFactory();
 	Monster_Aggressive_L1::registerInFactory();

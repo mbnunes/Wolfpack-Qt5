@@ -42,25 +42,13 @@
 
 using namespace std;
 
-static cUObject* productCreator()
-{
-	return new cCorpse;
-}
-
-void cCorpse::registerInFactory()
-{
-	QStringList fields, tables, conditions;
-	buildSqlString( fields, tables, conditions ); // Build our SQL string
-	QString sqlString = QString( "SELECT %1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cCorpse' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
-	UObjectFactory::instance()->registerType( "cCorpse", productCreator );
-	classid = UObjectFactory::instance()->registerSqlQuery( "cCorpse", sqlString );
-}
+static FactoryRegistration<cCorpse> registration("cCorpse");
 
 unsigned char cCorpse::classid;
 
-void cCorpse::buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions )
+void cCorpse::buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions )
 {
-	cItem::buildSqlString( fields, tables, conditions );
+	cItem::buildSqlString( objectid, fields, tables, conditions );
 	fields.push_back( "corpses.bodyid,corpses.hairstyle,corpses.haircolor,corpses.beardstyle,corpses.beardcolor" );
 	fields.push_back( "corpses.direction,corpses.charbaseid,corpses.murderer,corpses.murdertime" );
 	tables.push_back( "corpses" );

@@ -182,6 +182,9 @@ public:
 	cItem();
 	cItem( const cItem& src ); // Copy constructor
 
+	static void setClassid(unsigned char id) {
+		cItem::classid = id;
+	}
 
 	unsigned char getClassid()
 	{
@@ -544,15 +547,14 @@ public:
 	static P_ITEM createFromScript( const QString& section );
 	static P_ITEM createFromList( const QString& list );
 	static P_ITEM createFromId( unsigned short id );
-	static void registerInFactory();
+
+	static void buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
 
 protected:
 	// Methods
-	static void buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions );
 	virtual void processNode( const cElement* Tag );
 	void processModifierNode( const cElement* Tag );
 
-protected:
 	unsigned short id_; // Display id of the item
 	unsigned short color_ : 12; // Color of this item (Note: only colors up to 0xBFF available -> 12 bit)
 	unsigned short amount_; // Amount of this item

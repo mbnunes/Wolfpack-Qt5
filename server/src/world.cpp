@@ -426,7 +426,7 @@ void cWorld::load()
 
 			unsigned char type;
 			const QMap<unsigned char, QCString> &typemap = reader.typemap();
-			const QMap<unsigned char, QString> &server_typemap = UObjectFactory::instance()->getTypemap();
+			const QMap<unsigned char, QCString> &server_typemap = BinaryTypemap::instance()->getTypemap();
 			unsigned int loaded = 0;
 			unsigned int count = reader.objectCount();
 			unsigned int lastpercent = 0;
@@ -447,13 +447,16 @@ void cWorld::load()
 					}
 					else
 					{
-						cUObject *object = UObjectFactory::instance()->createObject( typemap[type] );
-						try
-						{
-							object->load( reader );
-						}
-						catch ( wpException e )
-						{
+						PersistentObject *object = PersistentFactory::instance()->createObject( typemap[type] );
+
+						if (object) {
+							try
+							{
+								object->load( reader );
+							}
+							catch ( wpException e )
+							{
+							}
 						}
 					}
 
@@ -522,7 +525,7 @@ void cWorld::load()
 			++i;
 		}
 
-		QStringList types = UObjectFactory::instance()->objectTypes();
+		QStringList types = PersistentFactory::instance()->objectTypes();
 
 		for ( uint j = 0; j < types.count(); ++j )
 		{
@@ -543,14 +546,14 @@ void cWorld::load()
 
 			Console::instance()->send( "\n" + tr( "Loading " ) + QString::number( count ) + tr( " objects of type " ) + type );
 
-			res = PersistentBroker::instance()->query( UObjectFactory::instance()->findSqlQuery( type ) );
+			res = PersistentBroker::instance()->query( PersistentFactory::instance()->findSqlQuery( type ) );
 
 			// Error Checking
 			if ( !res.isValid() )
 				throw PersistentBroker::instance()->lastError();
 
 			//UINT32 sTime = getNormalizedTime();
-			cUObject* object;
+			PersistentObject* object;
 			progress_display progress( count );
 
 			// Fetch row-by-row
@@ -561,7 +564,7 @@ void cWorld::load()
 				char** row = res.data();
 
 				// do something with data
-				object = UObjectFactory::instance()->createObject( type );
+				object = PersistentFactory::instance()->createObject( type );
 				object->load( row, offset );
 
 				++progress;
@@ -795,7 +798,7 @@ void cWorld::save()
 			P_ITEM item;
 			cBufferedWriter writer( "WOLFPACK", DATABASE_VERSION );
 			writer.open( "world.bin" );
-			const QMap<unsigned char, QString> &typemap = UObjectFactory::instance()->getTypemap();
+			const QMap<unsigned char, QCString> &typemap = BinaryTypemap::instance()->getTypemap();
 
 			for ( item = itemIterator.first(); item; item = itemIterator.next() )
 			{

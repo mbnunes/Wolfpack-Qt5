@@ -282,8 +282,8 @@ void cBufferedWriter::open( const QString& filename )
 	d->file.writeBlock( header );
 
 	// Start writing the object type list
-	const QMap<unsigned char, QString> &typemap = UObjectFactory::instance()->getTypemap();
-	QMap<unsigned char, QString>::const_iterator it;
+	const QMap<unsigned char, QCString> &typemap = BinaryTypemap::instance()->getTypemap();
+	QMap<unsigned char, QCString>::const_iterator it;
 
 	d->skipmap.clear();
 	writeByte( typemap.size() );
@@ -291,7 +291,7 @@ void cBufferedWriter::open( const QString& filename )
 	{
 		writeByte( it.key() );
 		writeInt( 0 ); // SkipSize
-		writeAscii( it.data().latin1() ); // Preinsert into the dictionary
+		writeAscii( it.data() ); // Preinsert into the dictionary
 		d->skipmap.insert( it.key(), 0 );
 		d->typemap.insert( it.key(), it.data() );
 	}

@@ -1432,21 +1432,9 @@ QPtrList< cItem > cItem::getContainment() const
 	return itemlist;
 }
 
-static cUObject* productCreator()
-{
-	return new cItem;
-}
-
-void cItem::registerInFactory()
-{
-	QStringList fields, tables, conditions;
-	buildSqlString( fields, tables, conditions ); // Build our SQL string
-	QString sqlString = QString( "SELECT %1 FROM uobjectmap,%2 WHERE uobjectmap.type = 'cItem' AND %3" ).arg( fields.join( "," ) ).arg( tables.join( "," ) ).arg( conditions.join( " AND " ) );
-	UObjectFactory::instance()->registerType( "cItem", productCreator );
-	classid = UObjectFactory::instance()->registerSqlQuery( "cItem", sqlString );
-}
-
 unsigned char cItem::classid;
+
+static FactoryRegistration<cItem> registration("cItem");
 
 void cItem::load( char** result, UINT16& offset )
 {
@@ -1487,9 +1475,9 @@ void cItem::load( char** result, UINT16& offset )
 	World::instance()->registerObject( this );
 }
 
-void cItem::buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions )
+void cItem::buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions )
 {
-	cUObject::buildSqlString( fields, tables, conditions );
+	cUObject::buildSqlString( objectid, fields, tables, conditions );
 	fields.push_back( "items.id,items.color,items.cont,items.layer,items.amount,items.hp,items.maxhp,items.movable,items.owner,items.visible,items.priv,items.baseid" );
 	tables.push_back( "items" );
 	conditions.push_back( "uobjectmap.serial = items.serial" );

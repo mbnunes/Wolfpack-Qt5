@@ -630,7 +630,7 @@ protected:
 	};
 
 	// other protected methods
-	static void buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions );
+	static void buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
 	virtual void processNode( const cElement* Tag );
 
 	// The body ID for this character. cOldChar::id_

@@ -85,7 +85,7 @@
 				FavorSizeOrSpeed="2"
 				OptimizeForProcessor="0"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories="sqlite;&quot;D:\coding\STLport-5.0-0125\stlport&quot;;D:\coding\msvcrt\include;qt;C:\MySQL\include"
+				AdditionalIncludeDirectories="sqlite;qt;C:\MySQL\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;QT_THREAD_SUPPORT;QT_LITE_COMPONENT;QT_DLL;QT_NO_STL;QT_NO_COMPRESS;CRASHHANDLER;MYSQL_DRIVER"
 				StringPooling="TRUE"
 				MinimalRebuild="FALSE"
@@ -164,7 +164,7 @@
 				FavorSizeOrSpeed="2"
 				OptimizeForProcessor="0"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories="sqlite;&quot;D:\coding\STLport-5.0-0125\stlport&quot;;D:\coding\msvcrt\include;qt;C:\MySQL\include"
+				AdditionalIncludeDirectories="sqlite;STLPort\stlport;msvcrt\include;qt;C:\MySQL\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;QT_THREAD_SUPPORT;QT_LITE_COMPONENT;QT_DLL;QT_NO_STL;QT_NO_COMPRESS;CRASHHANDLER;MYSQL_DRIVER"
 				StringPooling="TRUE"
 				MinimalRebuild="FALSE"
@@ -189,7 +189,7 @@
 				OutputFile="../wolfpack.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="D:\coding\msvcrt\lib;C:\MySQL\lib\opt"
+				AdditionalLibraryDirectories="msvcrt\lib;C:\MySQL\lib\opt"
 				IgnoreAllDefaultLibraries="TRUE"
 				GenerateDebugInformation="TRUE"
 				GenerateMapFile="TRUE"
@@ -271,12 +271,6 @@
 			</File>
 			<File
 				RelativePath=".\commands.h">
-			</File>
-			<File
-				RelativePath=".\serverconfig.cpp">
-			</File>
-			<File
-				RelativePath=".\serverconfig.h">
 			</File>
 			<File
 				RelativePath=".\win\config_win.cpp">
@@ -484,6 +478,12 @@
 			</File>
 			<File
 				RelativePath=".\server.h">
+			</File>
+			<File
+				RelativePath=".\serverconfig.cpp">
+			</File>
+			<File
+				RelativePath=".\serverconfig.h">
 			</File>
 			<File
 				RelativePath=".\singleton.h">

@@ -86,7 +86,6 @@ public:
 	};
 
 	// implementation of interfaces
-	static void registerInFactory();
 	void load( char**, UINT16& );
 	void save();
 	bool del();
@@ -196,10 +195,16 @@ public:
 	PyObject* getPyObject();
 	const char* className() const;
 
+	static void setClassid(unsigned char id) {
+		cNPC::classid = id;
+	}
+
 	unsigned char getClassid()
 	{
 		return cNPC::classid;
 	}
+
+	static void buildSqlString( const char *objectid, QStringList& fields, QStringList& tables, QStringList& conditions );
 
 private:
 	bool changed_;
@@ -207,7 +212,6 @@ private:
 
 protected:
 	// interface implementation
-	static void buildSqlString( QStringList& fields, QStringList& tables, QStringList& conditions );
 	virtual void processNode( const cElement* Tag );
 
 	// Time till NPC talks again.
