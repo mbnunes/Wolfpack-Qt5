@@ -134,6 +134,7 @@ CREATE TABLE characters (
   mana smallint(6) default NULL,
   profile longtext NULL,
   guarding int(11) NOT NULL default '-1',
+  destination varchar(32) NOT NULL default '0,0,0,0',
   PRIMARY KEY  (serial),
   UNIQUE KEY serial (serial)
 ) TYPE=MyISAM COMMENT='cChar';
