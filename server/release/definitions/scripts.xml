@@ -117,6 +117,7 @@
 	<script>commands.travel</script>
 	<script>commands.turnitem</script>
 	<script>commands.where</script>
+	<script>commands.who</script>
 	<script>commands.wipe</script>
 
 	<!-- Magic -->
