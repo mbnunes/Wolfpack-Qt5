@@ -29,10 +29,9 @@
 		<tag name="res_physical" value="15,20" type="int" />
 		<tag name="res_fire" value="5,15" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="293" max="440" /></wrestling>
-		<tactics><random min="253" max="400" /></tactics>
-		<magicresistance><random min="251" max="300" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling"><random min="293" max="440" /></skill>
+		<skill id="tactics"><random min="253" max="400" /></skill>
+		<skill id="magicresist"><random min="251" max="300" /></skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>291</mintaming>
@@ -63,10 +62,9 @@
 		<!-- Defense -->
 		<tag name="res_physical" value="15,20" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="293" max="440" /></wrestling>
-		<tactics><random min="293" max="440" /></tactics>
-		<magicresistance><random min="271" max="320" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling"><random min="293" max="440" /></skill>
+		<skill id="tactics"><random min="293" max="440" /></skill>
+		<skill id="magicresist"><random min="271" max="320" /></skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>291</mintaming>
@@ -99,10 +97,9 @@
 		<tag name="res_poison" value="20,25" type="int" />
 		<tag name="res_energy" value="20,25" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="793" max="940" /></wrestling>
-		<tactics><random min="793" max="940" /></tactics>
-		<magicresistance><random min="751" max="800" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling"><random min="793" max="940" /></skill>
+		<skill id="tactics"><random min="793" max="940" /></skill>
+		<skill id="magicresist"><random min="751" max="800" /></skill>
 		<!-- Misc. -->
 		<controlslots>2</controlslots>
 		<mintaming>771</mintaming>

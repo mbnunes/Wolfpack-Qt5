@@ -30,13 +30,12 @@
 		<tag name="res_poison" value="30,40" type="int" />
 		<tag name="res_energy" value="20,30" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="805" max="925" /></wrestling>
-		<tactics><random min="976" max="1000" /></tactics>
-		<magicresistance><random min="853" max="1000" /></magicresistance>
-		<magery><random min="104" max="500" /></magery>
-		<evaluatingintelligence><random min="104" max="500" /></evaluatingintelligence>
-		<anatomy>0</anatomy>
-		<meditation>0</meditation>
+		<skill id="wrestling"><random min="805" max="925" /></skill>
+		<skill id="tactics"><random min="976" max="1000" /></skill>
+		<skill id="magicresist"><random min="853" max="1000" /></skill>
+		<skill id="magery"><random min="104" max="500" /></skill>
+		<skill id="evaluatingintelligence"><random min="104" max="500" /></skill>
+		<skill id="meditation">0</skill>
 		<!-- Misc. -->
 		<!-- Missing: 1-7CS, LNS, Potion, 3 Sulfurous Ash -->
 		<controlslots>2</controlslots>
@@ -45,7 +44,6 @@
 		<food>1</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Nightmare (Random)</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="10" />
 		<strproperty name="carve_hides_type" value="barbed" />
@@ -56,24 +54,28 @@
 	<!-- Nightmares 1 -->
 	<npc id="nightmare_1" inherit="nightmare">
 		<id>116</id>
+		<baseid>nightmare</baseid>
 		<category>Animals\Mounts\Nightmare 1</category>
 	</npc>
 
 	<!-- Nightmares 2 -->
 	<npc id="nightmare_2" inherit="nightmare">
 		<id>177</id>
+		<baseid>nightmare</baseid>
 		<category>Animals\Mounts\Nightmare 2</category>
 	</npc>
 
 	<!-- Nightmares 3 -->
 	<npc id="nightmare_3" inherit="nightmare">
 		<id>178</id>
+		<baseid>nightmare</baseid>
 		<category>Animals\Mounts\Nightmare 3</category>
 	</npc>
 
 	<!-- Nightmares 4 -->
 	<npc id="nightmare_4" inherit="nightmare">
 		<id>179</id>
+		<baseid>nightmare</baseid>
 		<category>Animals\Mounts\Nightmare 4</category>
 	</npc>
 

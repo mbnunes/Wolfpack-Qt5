@@ -28,17 +28,15 @@
 		<!-- Defense -->
 		<tag name="res_physical" value="15,20" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="293" max="440" /></wrestling>
-		<tactics><random min="293" max="440" /></tactics>
-		<magicresistance><random min="251" max="300" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling"><random min="293" max="440" /></skill>
+		<skill id="tactics"><random min="293" max="440" /></skill>
+		<skill id="magicresist"><random min="251" max="300" /></skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>291</mintaming>
 		<food>5</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Horse (Random)</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="10" />
 		<intproperty name="carve_meat" value="3" />

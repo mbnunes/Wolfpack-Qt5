@@ -32,13 +32,12 @@
 		<tag name="res_poison" value="55,65" type="int" />
 		<tag name="res_energy" value="25,40" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="805" max="925" /></wrestling>
-		<tactics><random min="201" max="225" /></tactics>
-		<magicresistance><random min="753" max="900" /></magicresistance>
-		<magery><random min="602" max="800" /></magery>
-		<evaluatingintelligence><random min="801" max="900" /></evaluatingintelligence>
-		<meditation><random min="501" max="600" /></meditation>
-		<anatomy>0</anatomy>
+		<skill id="wrestling"><random min="805" max="925" /></skill>
+		<skill id="tactics"><random min="201" max="225" /></skill>
+		<skill id="magicresist"><random min="753" max="900" /></skill>
+		<skill id="magery"><random min="602" max="800" /></skill>
+		<skill id="evaluatingintelligence"><random min="801" max="900" /></skill>
+		<skill id="meditation"><random min="501" max="600" /></skill>
 		<!-- Misc. -->
 		<!-- Missing: 1-7CS, LNS, Potion -->
 		<controlslots>2</controlslots>
@@ -47,7 +46,6 @@
 		<food>5</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Unicorn</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="10" />
 		<strproperty name="carve_hides_type" value="horned" />

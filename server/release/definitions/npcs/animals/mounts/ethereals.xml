@@ -34,9 +34,9 @@
 		<tag name="res_poison" value="100" type="int" />
 		<tag name="res_energy" value="100" type="int" />
 		<!-- Skills -->
-		<wrestling>1000</wrestling>
-		<tactics>1000</tactics>
-		<magicresistance>1000</magicresistance>
+		<skill id="wrestling">1000</skill>
+		<skill id="tactics">1000</skill>
+		<skill id="magicresist">1000</skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<food>0</food>

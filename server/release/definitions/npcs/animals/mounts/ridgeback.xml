@@ -32,17 +32,15 @@
 		<tag name="res_poison" value="5,10" type="int" />
 		<tag name="res_energy" value="5,10" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="351" max="450" /></wrestling>
-		<tactics><random min="293" max="440" /></tactics>
-		<magicresistance><random min="253" max="400" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling"><random min="351" max="450" /></skill>
+		<skill id="tactics"><random min="293" max="440" /></skill>
+		<skill id="magicresist"><random min="253" max="400" /></skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>831</mintaming>
 		<food>5</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Ridgeback</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="12" />
 		<strproperty name="carve_hides_type" value="spined" />
@@ -73,17 +71,15 @@
 		<tag name="res_poison" value="10,15" type="int" />
 		<tag name="res_energy" value="10,15" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="351" max="450" /></wrestling>
-		<tactics><random min="293" max="440" /></tactics>
-		<magicresistance><random min="253" max="400" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling"><random min="351" max="450" /></skill>
+		<skill id="tactics"><random min="293" max="440" /></skill>
+		<skill id="magicresist"><random min="253" max="400" /></skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>831</mintaming>
 		<food>5</food>
 		<bindmenu>tame_menu,pet_menu</bindmenu>
 		<category>Animals\Mounts\Ridgeback (Savage)</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="12" />
 		<strproperty name="carve_hides_type" value="spined" />

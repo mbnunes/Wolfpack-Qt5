@@ -33,12 +33,12 @@
 		<int><random min="186" max="225" /></int>
 		<maxhitpoints><random min="191" max="210" /></maxhitpoints>
 		<!-- Skills -->
-		<wrestling><random min="805" max="925" /></wrestling>
-		<tactics><random min="201" max="225" /></tactics>
-		<magicresistance><random min="853" max="1000" /></magicresistance>
-		<magery><random min="604" max="1000" /></magery>
-		<evaluatingintelligence><random min="801" max="900" /></evaluatingintelligence>
-		<meditation><random min="901" max="1000" /></meditation>
+		<skill id="wrestling"><random min="805" max="925" /></skill>
+		<skill id="tactics"><random min="201" max="225" /></skill>
+		<skill id="magicresist"><random min="853" max="1000" /></skill>
+		<skill id="magery"><random min="604" max="1000" /></skill>
+		<skill id="evaluatingintelligence"><random min="801" max="900" /></skill>
+		<skill id="meditation"><random min="901" max="1000" /></skill>
 		<!-- Misc. -->
 		<!-- Missing: 1-7CS, LNS, Potion -->
 		<controlslots>2</controlslots>
@@ -46,7 +46,6 @@
 		<mintaming>951</mintaming>
 		<food>5</food>
 		<category>Animals\Mounts\Kirin</category>
-		
 		<!-- Carve -->
 		<intproperty name="carve_hides" value="10" />
 		<strproperty name="carve_hides_type" value="horned" />

@@ -32,10 +32,9 @@
 		<tag name="res_poison" value="10,15" type="int" />
 		<tag name="res_energy" value="10,15" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="337" max="449" /></wrestling>
-		<tactics><random min="310" max="417" /></tactics>
-		<magicresistance><random min="234" max="296" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling"><random min="337" max="449" /></skill>
+		<skill id="tactics"><random min="310" max="417" /></skill>
+		<skill id="magicresist"><random min="234" max="296" /></skill>
 		<!-- Misc. -->
 		<controlslots>2</controlslots>
 		<mintaming>291</mintaming>

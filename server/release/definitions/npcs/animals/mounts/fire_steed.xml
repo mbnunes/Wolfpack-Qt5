@@ -31,10 +31,9 @@
 		<tag name="res_poison" value="30,40" type="int" />
 		<tag name="res_energy" value="30,40" type="int" />
 		<!-- Skills -->
-		<wrestling>1000</wrestling>
-		<tactics>1000</tactics>
-		<magicresistance><random min="1000" max="1200" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling">1000</skill>
+		<skill id="tactics">1000</skill>
+		<skill id="magicresist"><random min="1000" max="1200" /></skill>
 		<!-- Misc. -->
 		<!-- Missing: Sulfurous Ash -->
 		<controlslots>2</controlslots>

@@ -27,10 +27,9 @@
 		<!-- Defense -->
 		<tag name="res_physical" value="40,50" type="int" />
 		<!-- Skills -->
-		<wrestling><random min="393" max="463" /></wrestling>
-		<tactics><random min="259" max="422" /></tactics>
-		<magicresistance><random min="255" max="297" /></magicresistance>
-		<anatomy>0</anatomy>
+		<skill id="wrestling"><random min="393" max="463" /></skill>
+		<skill id="tactics"><random min="259" max="422" /></skill>
+		<skill id="magicresist"><random min="255" max="297" /></skill>
 		<!-- Misc. -->
 		<controlslots>1</controlslots>
 		<mintaming>291</mintaming>
@@ -42,24 +41,28 @@
 	<!-- Britannian Warhorse -->
 	<npc id="britannian_war_horse" inherit="war_horse">
 		<id>118</id>
+		<baseid>war_horse</baseid>
 		<category>Animals\Mounts\War Horses\Britannian Warhorse</category>
 	</npc>
 
 	<!-- Council of Mages Warhorse -->
 	<npc id="magecouncil_war_horse" inherit="war_horse">
 		<id>119</id>
+		<baseid>war_horse</baseid>
 		<category>Animals\Mounts\War Horses\Council of Mages Warhorse</category>
 	</npc>
 
 	<!-- Followers of Minax Warhorse -->
 	<npc id="minax_war_horse" inherit="war_horse">
 		<id>120</id>
+		<baseid>war_horse</baseid>
 		<category>Animals\Mounts\War Horses\Minax Warhorse</category>
 	</npc>
 
 	<!-- Shadowlords Warhorse -->
 	<npc id="shadowlord_war_horse" inherit="war_horse">
 		<id>121</id>
+		<baseid>war_horse</baseid>
 		<category>Animals\Mounts\War Horses\Shadowlord Warhorse</category>
 	</npc>
 
