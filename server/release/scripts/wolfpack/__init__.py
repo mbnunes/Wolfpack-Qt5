@@ -6,6 +6,7 @@
 #===============================================================#
 
 import _wolfpack
+import types
 
 def finditem( serial ):
 	if serial <= 0x40000000:
