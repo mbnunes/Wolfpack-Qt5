@@ -58,6 +58,7 @@ private:
 	eSocketState _state;
 	Q_UINT8 lastPacket, _viewRange;
 	Q_UINT8 _walkSequence;
+	QString _lang;
 
 	bool authenticate( const QString &username, const QString &password );
 	void giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill = 0xFF );
@@ -67,7 +68,7 @@ public:
 	void setWalkSequence( Q_UINT8 data ) { _walkSequence = data; }
 
 	cUOSocket( QSocketDevice *sDevice ): 
-		_walkSequence( 0xFF ), lastPacket( 0xFF ), _state( LoggingIn ), 
+		_walkSequence( 0xFF ), lastPacket( 0xFF ), _state( LoggingIn ), _lang( "ENU" ),
 		_account(-1), _player(0), _rxBytes(0), _txBytes(0), _socket( sDevice ) {}
 	virtual ~cUOSocket( void ) { delete _socket; }
 
@@ -105,6 +106,7 @@ public:
 	void handleMultiPurpose( cUORxMultiPurpose *packet );
 	void handleContextMenuRequest( cUORxContextMenuRequest *packet );
 	void handleWalkRequest( cUORxWalkRequest* packet );
+	void handleSetLanguage( cUORxSetLanguage* packet );
 
 	// Utilities
 	void updateChar( P_CHAR pChar );
@@ -112,9 +114,10 @@ public:
 	void showSpeech( cUObject *object, const QString &message, Q_UINT16 color = 0xFFFF, Q_UINT16 font = 0xFFFF, cUOTxUnicodeSpeech::eSpeechType speechType = cUOTxUnicodeSpeech::Regular );
 	void sysMessage( const QString &message, Q_UINT16 color = 0x0037 );
 	void sendCharList();
+	void setPlayer( P_CHAR pChar = NULL ); // Updates the current player
 	void updateCharList();
 	void disconnect( void ); // Call this whenever the socket should disconnect
-	void playChar( P_CHAR player = NULL ); // Play a character
+	void playChar( P_CHAR player ); // Play a character
 
 	void allowMove( Q_UINT8 sequence );
 	void denyMove( Q_UINT8 sequence );

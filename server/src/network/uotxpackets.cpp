@@ -138,6 +138,7 @@ void cUOTxDrawObject::addEquipment( Q_UINT32 serial, Q_UINT16 model, Q_UINT8 lay
 	// Overwrite the last 4 bytes (terminator) and readd them later
 	Q_INT32 offset = rawPacket.count() - 4;
 	rawPacket.resize( rawPacket.count() + 9 );
+	setShort( 1, rawPacket.count() );
 
 	setInt( offset, serial );
 	setShort( offset+4, (model|0x8000) );
@@ -263,7 +264,7 @@ void cUOTxDrawObject::fromChar( P_CHAR pChar )
 {
 	setSerial( pChar->serial );
 	setModel( pChar->id() );
-	setAmount( 0 );
+	setAmount( 1 );
 	setX( pChar->pos.x );
 	setY( pChar->pos.y );
 	setZ( pChar->pos.z );
@@ -272,6 +273,37 @@ void cUOTxDrawObject::fromChar( P_CHAR pChar )
 	setFlags( 0 ); // NEED TO SET FLAGS
 	setHightlight( 0 ); // NEED TO SET HIGHLIGHT
 
-	// Add our equipment (later)
-	//void addEquipment( Q_UINT32 serial, Q_UINT16 model, Q_UINT8 layer, Q_UINT16 color );
+	// Add our equipment
+	vector< SERIAL > equipment = contsp.getData( pChar->serial );
+	for( Q_UINT32 i = 0; i < equipment.size(); ++i )
+	{
+		P_ITEM pItem = FindItemBySerial( equipment[i] );
+		if( !pItem )
+			continue;
+
+		addEquipment( pItem->serial, pItem->id(), pItem->layer(), pItem->color() );
+	}
+}
+
+void cUOTxCharEquipment::fromItem( P_ITEM pItem )
+{
+	setSerial( pItem->serial );
+	setModel( pItem->id() );
+	setLayer( pItem->layer() );
+	setWearer( pItem->contserial );
+	setColor( pItem->color() );
+}
+
+// Sends an update of ourself
+void cUOTxDrawPlayer::fromChar( P_CHAR pChar )
+{
+	setSerial( pChar->serial );
+	setBody( pChar->id() );
+	setSkin( pChar->skin() );
+	setFlags( 0x00 );
+	setX( pChar->pos.x );
+	setY( pChar->pos.y );
+	setZ( pChar->pos.z );
+	setDirection( pChar->dir );
+	//void setFlags( Q_UINT8 data ) { rawPacket[ 10 ] = data; } // // 10 = 0=normal, 4=poison, 0x40=attack, 0x80=hidden CHARMODE_WAR
 }

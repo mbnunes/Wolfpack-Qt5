@@ -348,10 +348,11 @@ public:
 		
 	void setSerial( Q_UINT32 data ) { setInt( 1, data ); }
 	void setModel( Q_UINT16 model ) { setShort( 5, model ); }
-	void setUnknown1( Q_UINT8 data ) { rawPacket[ 6 ] = data; }
-	void setLayer( Q_UINT8 layer ) { rawPacket[ 7 ] = layer; }
-	void setWearer( Q_UINT32 serial ) { setInt( 8, serial ); }
-	void setColor( Q_UINT16 data ) { setShort( 12, data ); }
+	void setUnknown1( Q_UINT8 data ) { rawPacket[ 7 ] = data; }
+	void setLayer( Q_UINT8 layer ) { rawPacket[ 8 ] = layer; }
+	void setWearer( Q_UINT32 serial ) { setInt( 9, serial ); }
+	void setColor( Q_UINT16 data ) { setShort( 13, data ); }
+	void fromItem( P_ITEM pItem );
 };
 
 // 0x2F ShowBattle
@@ -432,6 +433,8 @@ public:
 	void setUnknown2( Q_UINT16 data ) { setShort( 15, data ); }
 	void setDirection( Q_UINT8 data ) { rawPacket[ 17 ] = data; }
 	void setZ( Q_INT8 data ) { rawPacket[ 18 ] = data; }
+
+	void fromChar( P_CHAR pChar );
 };
 
 // 0x77 UpdatePlayer
@@ -573,6 +576,14 @@ class cUOTxAcceptMove: public cUOPacket
 public:
 	cUOTxAcceptMove(): cUOPacket( 0x22, 3 ) {}
 	void setSequence( Q_UINT8 data ) { (*this)[1] = data; }
+};
+
+// 0x1D Delete object
+class cUOTxDeleteObject: public cUOPacket
+{
+public:
+	cUOTxDeleteObject(): cUOPacket( 0x1D, 5 ) {}
+	void setSerial( Q_UINT32 data ) { setInt( 1, data ); }
 };
 
 #endif

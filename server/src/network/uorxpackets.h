@@ -243,7 +243,7 @@ public:
 	Q_UINT32 serial( void ) { return getInt( 5 ); }
 };
 
-// 0xBF 0x11 Set Client Language
+// 0xBF 0x0B Set Client Language
 class cUORxSetLanguage: public cUOPacket
 {
 public:
@@ -256,6 +256,17 @@ public:
 		QString rVal;
 		rVal.setLatin1( temp );
 		return rVal;
+	}
+};
+
+// 0xBD Set Version
+class cUORxSetVersion: public cUOPacket
+{
+public:
+	cUORxSetVersion( const QByteArray &data ): cUOPacket( data ) {}
+	QString version( void )
+	{
+		return &rawPacket.data()[3];
 	}
 };
 

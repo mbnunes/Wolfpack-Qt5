@@ -201,7 +201,8 @@ void cMovement::Walking( P_CHAR pChar, Q_UINT8 dir, Q_UINT8 sequence )
 	// set the player direction to contain only the cardinal direction bits
 	pChar->dir = ( dir & 0x07 );
 	
-	socket->allowMove( sequence );
+	if( socket )
+		socket->allowMove( sequence );
 
 	cRegion::RegionIterator4Chars ri( pChar->pos );
 

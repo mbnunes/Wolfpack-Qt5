@@ -250,14 +250,13 @@ void cUOSocket::handlePlayCharacter( cUORxPlayCharacter *packet )
 		return;
 	}
 
-	_player = characters[ packet->slot() ];
-	playChar();
+	playChar( characters[ packet->slot() ] );
 }
 
 // Set up the neccesary stuff to play
 void cUOSocket::playChar( P_CHAR pChar )
 {
-	if( pChar == NULL )
+	if( !pChar )
 		pChar = _player;
 
 	// Minimum Requirements for log in
@@ -275,12 +274,9 @@ void cUOSocket::playChar( P_CHAR pChar )
 	// Confirm the Login
 	cUOTxConfirmLogin confirmLogin;
 	confirmLogin.fromChar( pChar );
-	confirmLogin.setBody( 0x3DB );
-		
 	confirmLogin.setUnknown3( 0x007f0000 );
 	confirmLogin.setUnknown4( 0x00000007 );
 	confirmLogin.setUnknown5( "\x60\x00\x00\x00\x00\x00\x00" );
-
 	send( &confirmLogin );
 
 	// Change the map after the client knows about the char
@@ -298,11 +294,8 @@ void cUOSocket::playChar( P_CHAR pChar )
 	send( &gameTime );
 
 	// We're now playing this char:
-	pChar->setSocket( this );
-	_player = pChar;
-	_state  = InGame;
-
-	pChar->update();
+	setPlayer( pChar );
+	pChar->update(); // Send us to others
 }
 
 bool cUOSocket::authenticate( const QString &username, const QString &password )
@@ -354,8 +347,6 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 		clConsole.send( tr( "%1 is trying to create char but has more than 5 characters" ).arg( Accounts->findByNumber( _account ) ) );
 		cancelCreate( tr("You already have more than 5 characters") )
 	}
-
-	clConsole.send( cUOPacket::dump( packet->uncompressed() ) );
 
 	// Check the stats
 	Q_UINT16 statSum = ( packet->strength() + packet->dexterity() + packet->intelligence() );
@@ -518,19 +509,11 @@ void cUOSocket::handleCreateChar( cUORxCreateChar *packet )
 	pItem = pChar->getBackpack();
 	
 	pChar->setAccount( _account );
-	_player = pChar;
 
 	giveNewbieItems( packet );
 	
 	// Start the game with the newly created char -- OR RELAY HIM !!
-    playChar();
-
-	/*cUOTxRelayServer relayServer;
-	QHostAddress hostAddress;
-	hostAddress.setAddress( "127.0.0.1" );
-	relayServer.setServerIp( hostAddress.ip4Addr() );
-	relayServer.setServerPort( 2593 );
-	send( &relayServer );*/
+    playChar( pChar );
 }
 
 void cUOSocket::giveNewbieItems( cUORxCreateChar *packet, Q_UINT8 skill ) 
@@ -599,9 +582,6 @@ void cUOSocket::sysMessage( const QString &message, Q_UINT16 color )
 	speech.setType( cUOTxUnicodeSpeech::System );
 	speech.setName( "System" );
 	speech.setText( message );
-
-	clConsole.send( cUOPacket::dump( speech.uncompressed() ) );
-
 	send( &speech );
 }
 
@@ -666,7 +646,6 @@ void cUOSocket::handleQuery( cUORxQuery *packet )
 
 void cUOSocket::handleUpdateRange( cUORxUpdateRange *packet )
 {
-	clConsole.send( cUOPacket::dump( packet->uncompressed() ) );
 	_viewRange = packet->range();
 }
 
@@ -697,10 +676,14 @@ void cUOSocket::handleRequestUse( cUORxRequestUse *packet )
 
 void cUOSocket::handleMultiPurpose( cUORxMultiPurpose *packet )
 {
+	cUOPacket *mPacket = packet->packet();
+
 	switch( packet->subCommand() )
 	{
+	case 0x0B:
+		handleSetLanguage( dynamic_cast< cUORxSetLanguage* >( mPacket ) ); break;
 	case 0x13:
-		handleContextMenuRequest( dynamic_cast< cUORxContextMenuRequest* >( packet ) ); break;
+		handleContextMenuRequest( dynamic_cast< cUORxContextMenuRequest* >( mPacket ) ); break;
 	default:
 		packet->print( &cout ); // Dump the packet
 	};
@@ -773,9 +756,59 @@ void cUOSocket::updateChar( P_CHAR pChar )
 	send( &updatePlayer );
 }
 
+// Sends a foreign char including equipment
 void cUOSocket::sendChar( P_CHAR pChar )
 {
+	// Delete it from view first
+	cUOTxDeleteObject deleteObject;
+	deleteObject.setSerial( pChar->serial );
+	send( &deleteObject );
+
+	// Then completely resend it
 	cUOTxDrawObject drawObject;
 	drawObject.fromChar( pChar );
 	send( &drawObject );
+}
+
+void cUOSocket::handleSetLanguage( cUORxSetLanguage* packet )
+{
+	_lang = packet->language();
+}
+
+void cUOSocket::setPlayer( P_CHAR pChar )
+{
+	// If we're already playing a char and chaning reset the socket status of that
+	// player
+	if( !pChar && !_player )
+		return;
+
+	// If the player is changing
+	if( pChar && ( pChar != _player ) )
+	{
+		if( _player )
+			_player->setSocket( NULL );
+
+		_player = pChar;
+		_player->setSocket( this );
+	}
+
+	cUOTxDrawPlayer drawPlayer;
+	drawPlayer.fromChar( _player );
+	send( &drawPlayer );
+
+	// Send our equipment
+	vector< SERIAL > equipment = contsp.getData( _player->serial );
+	for( Q_UINT32 i = 0; i < equipment.size(); ++i )
+	{
+		P_ITEM pItem = FindItemBySerial( equipment[i] );
+		
+		if( !pItem )
+			continue;
+
+		cUOTxCharEquipment cEquipment;
+		cEquipment.fromItem( pItem );
+		send( &cEquipment );
+	}
+
+	_state = InGame;
 }

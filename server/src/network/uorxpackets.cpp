@@ -87,6 +87,8 @@ cUOPacket *cUORxMultiPurpose::packet( void )
 	// Switch the Subcommand
 	switch( getShort( 3 ) )
 	{
+	case 0x0b:
+		return new cUORxSetLanguage( rawPacket ); break;
 	case 0x13:
 		return new cUORxContextMenuRequest( rawPacket ); break;
 	default:
