@@ -102,7 +102,7 @@
 			<tailoring min="0" max="250" />
 			<cloth amount="12" />
 		</tailor>
-		<tailor definition="1fa1" name="Surcoat">
+		<tailor definition="1ffd" name="Surcoat">
 			<tailoring min="82" max="332" />
 			<cloth amount="14" />
 		</tailor>
