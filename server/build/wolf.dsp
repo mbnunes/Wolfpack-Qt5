@@ -789,6 +789,10 @@ SOURCE=.\python\socket.cpp
 # End Source File
 # Begin Source File
 
+SOURCE=.\python\target.cpp
+# End Source File
+# Begin Source File
+
 SOURCE=.\python\target.h
 # End Source File
 # Begin Source File
